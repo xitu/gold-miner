@@ -2,63 +2,63 @@
 > * 原文作者：[Katie Macias](https://medium.com/@katiemacias?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-we-learned-migrating-off-cron-to-airflow.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-we-learned-migrating-off-cron-to-airflow.md)
-> * 译者：
+> * 译者：[cf020031308](https://github.com/cf020031308)
 > * 校对者：
 
-# What we learned migrating off Cron to Airflow
+# 从 Cron 到 Airflow 的迁移中我们学到了什么
 
 ![](https://cdn-images-1.medium.com/max/800/1*nK7DJiewFjF4E6F8BdrSMA.png)
 
-The VideoAmp data engineering department was undergoing pivotal change last fall. The team at the time consisted of three data engineers and a system engineer who worked closely with us. We determined as a team how to prioritize our technical debt.
+去年秋天，VideoAmp 数据工程部门正在进行重大变革。当时的团队由三名数据工程师和一名与我们密切合作的系统工程师组成。我们集体确定了如何优化公司的技术债。
 
-At the time, the data team was the sole owner of all the batch jobs that provided the feedback from our real-time bidding warehouse to the Postgres database that populated the UI. Should these jobs fail, the UI would be out of date and both our internal traders and external customers would be making decisions on stale data. As a result, meeting the SLAs of these jobs was critical to the success of the platform. Most of these jobs were built in Scala and utilized Spark. These batch jobs were orchestrated by Cron — a scheduling tool built into Linux.
+当时，数据团队是所有批处理作业的唯一所有者，这些作业从我们的实时竞价仓库获取反馈，提供给 Postgres 数据库，由 Postgres 数据库向 UI 填充。如果这些作业失败，UI 就会过时，我们的内部交易员和外部客户将只有陈旧数据可供依据。因此，满足这些作业的服务等级协议对于平台的成功至关重要。大多数这些作业都是用 Scala 构建的，并且使用了 Spark。这些批处理作业通过 Cron（一种内置于 Linux 的调度工具）被精心地编排。
 
-**Pros of Cron**
+**Cron 的优点**
 
-We identified that Cron was causing a few major pain points that were greater than its benefits. Cron is built into Linux, so it requires no installation out of the box. In addition, Cron is fairly reliable which makes it an appealing option. As a result, Cron is a great option for proof of concept projects. However, scaling with Cron doesn’t work well.
+我们发现 Cron 造成的一些主要的痛点甚至盖过了其带来的好处。 Cron 内置于 Linux 中，无需安装。此外，Cron 相当可靠，这使它成为一个吸引人的选择。因此，Cron 是项目概念证明的绝佳选择。但成规模使用时效果并不好。
 
 ![](https://cdn-images-1.medium.com/max/800/0*eMxK4MoEOhgJTlQJ.)
 
-Crontab file: How applications used to be scheduled
+Crontab 文件：以前如何安排应用程序
 
-**Cons of Cron**
+**Cron 的缺点**
 
-The first problem with Cron was that changes to the crontab file were not easily traceable. The crontab file contains the schedule of jobs to run on that machine. This file contained the scheduling of jobs across projects yet it was never tracked in source control or integrated into the deployment process of a single project. Instead, engineers would edit as needed, leaving no record of edits across time or project dependencies.
+Cron 的第一个问题是对 crontab 文件的更改不容易追踪。 crontab 文件包含了在该计算机上运行的作业的调度计划，这些计划是跨项目的，但不会在源码管理中跟踪，也不会集成到单个项目的部署过程中。相反，工程师会随需要进行编辑，但不记录时间或项目依赖。
 
-The second problem was that job performance was not transparent. Cron keeps a log of job outputs on the server where the jobs were run — not in a centralized place. How would a developer know if the job is successful or failed? Parsing a log for these details is costly both for developers to navigate and expose to downstream engineering teams.
+第二个问题是作业效果不透明。 Cron 的日志是输出到运行作业的服务器上 —— 而不是集中到某处一起。开发人员如何知道作业是成功还是失败？不论开发人员是自己浏览，还是需要暴露给下游工程团队使用，解析日志获取这些细节都是昂贵的。
 
-Lastly, rerunning jobs that failed was ad hoc and difficult. By default Cron has only a few environment variables set. A novice developer is often surprised to find the bash command stored in the crontab file will not result in the same output as their terminal, because their bash profile settings have been stripped from the Cron environment. This requires the developer to build up all dependencies of the environment of the user that executes the command.
+最后，重新运行失败的作业是权宜且困难的。默认情况下，Cron 只设置了一些环境变量。新手开发人员经常会惊讶地发现存储在 crontab 文件中的 bash 命令不会产生与其终端相同的输出，因为他们的 bash 配置文件中的设置并不存在于 Cron 环境中。这要求开发人员构建出执行命令的用户环境的所有依赖关系。
 
-Clearly, many tools need to be built on top of Cron for it to be successful. While we had a few of these issues marginally solved, we knew that there were many open source options available with more robust feature sets. Collectively, our team had worked with orchestration tools such as Luigi, Oozie, and other custom solutions, but ultimately our experience left us wanting more. The promotion of AirBnB’s Airflow into the Apache Incubator meant it held a lot of promise.
+很明显，需要在 Cron 之上构建许多工具才能获得成功。虽然我们略微解决了一些，但我们知道有许多功能更强大的开源选项可用。我们整个团队使用过的编排工具统共有 Luigi、Oozie 和其他定制解决方案等，但最终这些经历仍让我们觉得不满。而 AirBnB 的 Airflow 能入选 Apache 孵化器，这正意味着它众望所归。
 
-**Setup and Migration**
+**设置和迁移**
 
-In typical hacker fashion, we commandeered resources from the existing stack in secret to prove out our concept by setting up an Airflow metadb and host.
+以典型的黑客方式，我们秘密地从现有技术栈中获取资源，通过设置 Airflow metadb 和主机来证明我们的想法。
 
-This metadb holds important information such as Directed Acyclic Graph (DAG) and task inventory, performance and success of jobs, and variables for signaling to other tasks. The Airflow metadb can be built on top of a relational database such as PostgreSQL or SQLite. By having this dependency, airflow can scale beyond a single instance. We appropriated a PostgreSQL RDS box that was used by another team for a development environment (their development sprint was over and they were no longer utilizing this instance).
+此 metadb 包含了重要的信息，如单向无环图（DAG）和任务清单、作业的效果和结果，以及用于向其他任务发送信号的变量。 Airflow metadb 可以构建在诸如 PostgreSQL 或 SQLite 之类的关系数据库之上。通过这种依赖，Airflow 可以扩展到单个实例之外。我们就挪用了另一个团队用于开发环境的 PostgreSQL 虚拟机（他们的开发冲刺结束了，他们不再使用这个实例）。
 
-The Airflow host was installed on our spark development box and was part of our spark cluster. This host was set-up with LocalExecutor and runs the scheduler and UI for airflow. By installing on an instance in our spark cluster, we gave our jobs access to the spark dependencies they needed to execute. This was key to successful migration that had prevented previous attempts.
+Airflow 主机安装在我们的 spark 开发虚拟机上，是我们 spark 集群的一部分。该主机使用 LocalExecutor 进行设置，并运行着调度程序和用于 Airflow 的 UI。安装在我们的 spark 集群中的一个实例上后，我们的作业具有了执行所需要的 spark 依赖项的权限。这是成功迁移的关键，也是之前尝试失败的原因。
 
-Migration from Cron to Airflow came with its own challenges. Because Airflow was now owning the scheduling of tasks, we had to alter our apps to take inputs of a new format. Luckily, Airflow makes available the necessary meta information to the scheduling scripts via variables. We also stripped our applications of much of the tooling we had built into them, such as push alerting and signaling. Lastly, we ended up splitting up many of our applications into smaller tasks to follow the DAG paradigm.
+从 Cron 迁移到 Airflow 带来了特殊的挑战。由于 Airflow 自带任务调度，我们不得不修改我们的应用程序以获取新格式的输入。幸运的是，Airflow 通过变量为调度脚本提供必要的元信息。我们还去除了我们在其中构建的大部分工具的应用程序，例如推送警报和信号。最后，我们最终将许多应用程序拆分为较小的任务，以遵循 DAG 范例。
 
 ![](https://cdn-images-1.medium.com/max/800/0*tktxAKxxE2x4ZGA-.)
 
-Airflow UI: A developer can clearly discern from the UI which Dags are stable and which are not as robust and require hardening.
+Airflow UI：开发人员可以清楚地从UI中辨别出哪些 Dags 是稳定的，哪些不那么健壮，需要强化。
 
-**Lessons learned**
+**得到的教训**
 
-1.  **Applications were bloated** By using Cron, scheduling logic had to be tightly coupled with the application. Each application had to do the entire work of a DAG. This additional logic masked the unit of work that was at the core of the application’s purpose. This made it both difficult to debug and to develop in parallel. Since migrating to Airflow, the idea of a task in a DAG has freed the team to develop robust scripts focused on that unit of work while minimizing our footprint.
-2.  **Performance of batch jobs improved prioritization** By adopting the Airflow UI, the data team’s batch job performance was transparent to both the team and to other engineering departments relying on our data.
-3.  **Data Engineers with different skill sets can build a pipeline together** Our data engineering team utilizes both Scala and Python for executing Spark jobs. Airflow provides a familiar layer for our team to contract between the Python and Scala applications — allowing us to support engineers of both skill sets.
-4.  **The path to scaling scheduling of our batch jobs is clear** With Cron, our scheduling was limited to the one machine. Scaling the application would require us to build out a coordination layer. Airflow offers us that scaling out of the box. With Airflow, the path is clear from LocalExecutor to CeleryExecutor, from CeleryExecutor on a single machine to several Airflow workers.
-5.  **Rerunning jobs has become trivial** With Cron, we would need to grab the Bash command that executed and hope that our user environment was similar enough to the Cron environment to recreate the error for us to debug. Today, with Airflow, it is straightforward for any data engineer to view the log, understand the error, and clear the failed task for a rerun.
-6.  **Alerting levels are appropriate** Prior to Airflow, all alerts for batch jobs would be sent to the same email alias as alerts for our streaming applications. With Airflow, the team built a Slack operator that can uniformly be called for all DAGS to push notifications. This allowed us to separate the urgent failing notifications from our real-time bidding stack from the important — but not as immediate — notifications from our batch jobs.
-7.  **One poorly behaving DAG could bring down the whole machine** Set guidelines for your data team to monitor the external dependencies of their jobs so as not to impact the SLAs of other jobs.
-8.  **Rotate your Airflow logs** This should go without saying, but Airflow is going to store the logs of the applications it calls. Be sure to rotate logs appropriately to prevent bringing down the whole machine from lack of disk space.
+1.  **应用程序臃肿** 使用 Cron 时，调度逻辑必须与应用程序紧密耦合。每个应用程序都必须完成 DAG 的整个工作。这个额外的逻辑掩盖了作为应用程序目的核心的工作单元。这使得它既难以调试又难以并行开发。自从迁移到 Airflow 以来，将任务放在 DAG 中的想法使团队能够开发出专注于该工作单元的强大脚本，同时最大限度地减少了我们的工作量。
+2.  **优化了批处理作业的效果呈现** 通过采用Airflow UI，数据团队的批处理作业效果对团队和依赖我们数据的其他工程部门都是透明的。
+3.  **具有不同技能组合的数据工程师可以共同构建一个管道** 我们的数据工程团队利用 Scala 和 Python 来执行 Spark 作业。 Airflow 为我们的团队提供了一个熟悉的中间层，可以在 Python 和 Scala 应用程序之间建立协议 —— 允许我们支持这两种技能的工程师。
+4.  **我们的批处理作业调度的扩展路径很明显** 使用 Cron 时，我们的调度仅限于一台机器。扩展应用程序需要我们构建一个协调层。 Airflow 正为我们提供了开箱即用的扩展功能。使用 Airflow，从 LocalExecutor 到 CeleryExecutor，从单个机器上的 CeleryExecutor 到多个 Airflow worker，路径清晰可见。
+5.  **重新运行作业变得微不足道** 使用 Cron，我们需要获取执行的 Bash 命令，并希望我们的用户环境与 Cron 环境足够相似，以便能为调试而重现问题。如今，通过 Airflow，任何数据工程师都可以直接查看日志，了解错误并重新运行失败的任务。
+6.  **合适的警报级别** 在 Airflow 之前，批处理作业的所有告警都会发送到我们的流式数据应用程序的告警邮箱中。通过 Airflow，该团队构建了一个 Slack 操作符，可被所有 DAG 统一调用来推送通知。这使我们能够将来自我们的实时竞价堆栈的紧急失败通知与来自我们的批处理作业的重要但不紧急的通知分开。
+7.  **一个表现不佳的 DAG 可能会导致整个机器崩溃** 为您的数据团队设立规范，来监控其作业的外部依赖性，以免影响其他作业的服务等级协议。
+8.  **滚动覆盖您的 Airflow 日志** 这应该不言而喻，但 Airflow 会存储所有它所调用的应用程序的日志。请务必适当地对日志进行滚动覆盖，以防止因磁盘空间不足而导致整个机器停机。
 
-Five months later, the data engineering team at VideoAmp has nearly tripled in size. We manage 36 DAGs and counting! Airflow has scaled to allow all of our engineers to contribute and support our batch flows. The simplicity of the tool has made the on boarding of new engineers relatively pain-free. The team is quickly developing improvements like uniform push alerting to our slack channel, upgrading to Python3 Airflow, moving to CeleryExecutor, and making use of the robust features Airflow provides.
+五个月后，VideoAmp 的数据工程团队规模几乎增加了两倍。我们管理着 36 个 DAG，并且数量还在增加！ Airflow 经过扩展可让我们所有的工程师为我们的批量流程做出贡献和支持。该工具的简单性使得新工程师上手相对无痛。该团队正在快速开发改进，例如对我们的 slack 频道进行统一的推送告警、升级到 Python3 Airflow、转移到 CeleryExecutor，以及利用 Airflow 提供的强大功能。
 
-Have questions or comments? Ask them here, or share your experiences below.
+有任何疑问或意见可在这里直接询问，或在下面分享你的经验。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
