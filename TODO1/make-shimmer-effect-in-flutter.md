@@ -11,13 +11,13 @@
 
 ### 介绍
 
-我是一个狂热的移动开发者，Android 平台和 iOS 平台都有涉及。过去我不相信任何的跨平台开发框架（Ionic，Xamarin，ReactNative），但现在我要讲一下我遇到跨平台开发框架 Flutter 之后的故事。
+我是一个狂热的移动开发者，Android 平台和 iOS 平台开发都有涉及。过去我不相信任何跨平台的开发框架（Ionic，Xamarin，ReactNative），但现在我要讲一下我遇到跨平台开发框架 Flutter 之后的故事。
 
 ### 灵感
 
-作为一名原生应用开发人员，我深深感到 UI 定制开发是多么痛苦，甚至在几乎所有的跨平台框架中这种痛苦可能更甚。Flutter 的出现让我看到改善这种痛苦的希望。
+作为一名原生应用开发人员，我深深感到 UI 定制开发是多么痛苦，即使是使用跨平台开发框架去进行开发，这种痛苦也不能得到缓解，有时甚至会更糟糕。但 Flutter 的出现让我看到改善这种痛苦的希望。
 
-Flutter 从无到有构建所有 UI 元素（称为 Widget）。没有封装原生视图，没有基于 web 的 UI 元素。如同游戏框架在游戏中构建世界的方式（角色、敌人、宫殿…）那样，Flutter 基于 Skia 图形渲染引擎来绘制自己的 UI。这样做真的很有意义，因为你可以完全控制你在屏幕上绘制的东西。这是否让你在脑海中想到点什么？对我来说，这听起来好像告诉我我可以更加容易地进行 UI 定制开发。我尝试用一些 UI 制作挑战来证明这一点。
+Flutter 从无到有构建所有 UI 元素（称为 Widget）。没有去封装原生视图，没有使用基于 web 的 UI 元素。如同游戏框架在游戏中构建游戏世界的方式（角色、敌人、宫殿…）那样，Flutter 基于 Skia 图形渲染引擎来绘制自己的 UI。这样做真的很有意义，因为你可以完全控制你在屏幕上绘制的东西。这是否让你在脑海中想到点什么？对我来说，这听起来似乎是在告诉我我可以更加容易地进行 UI 定制开发了。我尝试挑战一些 UI 效果实现来证明这一点。
 
 我想到的一个挑战是微光闪烁效果。这是一个非常常见的效果，如果你不熟悉这个名字，那么想一下你唤醒手机时所显示的“滑动解锁”动画。
 
@@ -25,21 +25,21 @@ Flutter 从无到有构建所有 UI 元素（称为 Widget）。没有封装原�
 
 ### 怎么做
 
-基本思路很简单。动画由从左到右移动的渐变效果组成。
+基本思路很简单。动画效果由从左到右移动的渐变所组成。
 
-关键是我不想仅仅为文本内容来做这个效果。这种效果在现代的移动应用中作为加载动画也非常流行。
+关键是我不想仅仅为文本内容来做这个效果。这种效果在现代的移动应用中作为加载动画是非常流行的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Q_vOKcscz1lQ7LL_prsARw.gif)
 
-第一个原始想法在布局的顶部绘制一个不透明的渐变区域。这样做可以，但不是一个好做法。我们不希望我们的效果把我们的白色背景变得很脏。效果需要仅适用于给定的内容层上。
+第一个初始想法是在内容布局的顶部绘制一个不透明的渐变区域。虽然这可以实现，但不是一个好方法。我们不希望动画效果弄脏我们的整个白色背景。效果需要仅适用在给定的内容布局上。
 
-现在是时候参考一下 Flutter 文档和示例代码以了解如何实现这种效果。
+现在是时候参考一下 Flutter 文档和示例代码去了解如何实现这种效果了。
 
-经过研究我发现一个名为 **SingleChildRenderObjectWidget** 的基类，该基类公开 **Canvas** 对象。**Canvas** 是一个对象，它负责在屏幕上绘制内容，它有一个有趣的方法称为 **saveLayer**，它用来“在保存堆栈上保存当前转换和剪辑的副本，然后创建一个新的组，后续调用将成为其中的一部分”（摘自官方文档）。这正是我需要的特性，它让我可以在特定内容层上实现微光闪烁效果。
+经过研究我发现一个名为 **SingleChildRenderObjectWidget** 的基类，该基类露出一个 **Canvas** 对象。**Canvas** 是一个对象，它负责在屏幕上绘制内容，它有一个有趣的方法称为 **saveLayer**，它用来“在保存堆栈上保存当前变换和片段的副本，然后创建一个新的组，用于保存后续调用”（摘自官方文档）。这正是我需要的特性，它让我可以在特定内容布局上实现微光闪烁效果。
 
 ### 实现
 
-在 Flutter 中，有一个很好的小练习可以残奥。一个 widget 通常包含一个名为 **child** 或 **children** 的参数，它可以帮助我们将变换应用到后代 widget。我们的 **Shimmer** widget 也有一个 **child**，它可以让我们创建任何我们想要的布局，然后将它作为 **Shimmer** 的 **child** 进行传递，**Shimmer** widget 反过来只会对那个 **child** 起作用。
+在 Flutter 中，有一个很不错的小练习可以参考。一个 widget 通常包含一个名为 **child** 或 **children** 的参数，它可以帮助我们将变换应用到后代 widget。我们的 **Shimmer** widget 也有一个 **child**，它可以让我们创建任何我们想要的布局，然后将它作为 **Shimmer** 的 **child** 进行传递，**Shimmer** widget 反过来只会对那个 **child** 起作用。
 
 ```
 import 'package:flutter/material.dart';
@@ -63,7 +63,7 @@ class _ShimmerState extends State<Shimmer> {
 }
 ```
 
-** _ Shimmer **是我们负责效果绘画的内部类。 它从** SingleChildRenderObjectWidget **扩展并覆盖** paint **方法来执行绘制任务。 我们将使用** saveLayer **和** paintChild **方法** Canvas **对象来捕捉我们的**子**作为一个图层并在其上绘制渐变（来自** BlendMode的一点魔法）**）。
+**_ Shimmer** 是负责效果绘画的内部类。它从 **SingleChildRenderObjectWidget** 扩展而来并重写了 **paint** 方法来执行绘制任务。我们使用 **Canvas** 对象的 **saveLayer** 和 **paintChild** 方法来捕捉我们的 **child** 作为一个图层并在上面绘制渐变效果（带上一点 **BlendMode** 的魔法）。
 
 ```
 import 'package:flutter/rendering.dart';
@@ -108,9 +108,9 @@ class _ShimmerFilter extends RenderProxyBox {
 }
 ```
 
-剩下的就是做一个动画效果，让我们的效果动起来。这里没什么特别的，我们将创建一个动画效果来在绘制渐变之前从左到右翻译我的**画布**，它会使渐变效果移动。
+剩下的就是添加一个动效，让我们的效果动起来。这里没什么特别的，我们将创建一个动效来在绘制渐变之前从左到右移动 **Canvas**，这样就能产生渐变移动的效果。
 
-我们在动画中为** _ ShimmerState **创建一个新的** AnimationController **。 我们的** _ Shimmer **和** _ ShimmerFilter **类还需要一个新变量（称之为**百分比**）来存储来自该动画执行的结果，并在** AnimationController发出新值时调用** markNeedsPaint ** **（它导致我们的小部件重新绘制）。 ** Canvas **的翻译值将以**百分比**值计算。
+我们在 **_ ShimmerState** 中为动效创建一个新的 **AnimationController**。我们的 **_ Shimmer** 类和 **_ ShimmerFilter** 类还需要一个新变量（称之为 **percent**）来存储该动画执行的进度结果，并在每次 **AnimationController** 发出新值时调用 **markNeedsPaint**（这会让 widget 重新绘制）。**Canvas** 的移动位移量可以根据 **percent** 的值计算出来。
 
 ```
 class _ShimmerState extends State<Shimmer> with TickerProviderStateMixin {
@@ -221,7 +221,7 @@ class _ShimmerFilter extends RenderProxyBox {
 
 还不错。我们刚刚只用了大约 100 行代码就实现了微光闪烁效果。这就是 Flutter 的美妙之处。
 
-这只是个开始。接下来我会使用 Flutter 来挑战更复杂的效果。我将在下一篇文章中分享我的成果。感谢你的阅读!
+这只是个开始。接下来我会使用 Flutter 来挑战更多更复杂的 UI 效果。我将在下一篇文章中分享我的成果。感谢你的阅读!
 
 > 备注: 我已经将我的代码发布为一个名为 [shimmer](https://pub.dartlang.org/packages/shimmer) 的包.
 
