@@ -2,176 +2,176 @@
 > * 原文作者：[Steven Sinofsky](https://medium.learningbyshipping.com/@stevesi?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/platforms-and-languages.md](https://github.com/xitu/gold-miner/blob/master/TODO1/platforms-and-languages.md)
-> * 译者：
-> * 校对者：
+> * 译者：[cf020031308](https://github.com/cf020031308)
+> * 校对者：[pmwangyang](https://github.com/pmwangyang)
 
-# Programming Languages and Platforms: an annotated twitter thread
+# 编程语言和平台：对一条推特思路的评论
 
-## Languages and platforms are intertwined, often because platform makers are deliberate about choosing a language. A brief exploration based on recent feedback on Swift.
+## 语言和平台的交织通常源于平台开发商有意选择语言。本文基于近期对 Swift 的反馈进行一次简短的探索。
 
 ![](https://cdn-images-1.medium.com/max/800/1*pF4SnccOwcPW0p_06-8GzA@2x.jpeg)
 
-Covers of the ACM SIGPLAN conference books on “History of Programming Languages” See http://research.ihost.com/hopl/HOPL.html
+关于“编程语言史”的“美国计算机协会操作系统专业学组”大会的相关书籍封面请参阅 http://research.ihost.com/hopl/HOPL.html
 
-> An annotation of this twitter thread.
+> 这条推文串的一个评论。
 
 ![](https://i.loli.net/2018/06/29/5b35a337c2ab5.png)
 
-Thoughtful post and definitely worth a read for specifics but also for the general issue of language design and platforms.
+有见地的帖子，不但细节方面值得一读，也同样适用于语言设计和平台的一般问题。
 
-Apple developing its own language was inevitable and its DNA. Most platforms desire to have their own language for a variety of reasons. Thread thoughts…
+Apple 开发自己的语言是不可避免的，基因如此。出于各种原因，大多数平台都希望拥有自己的语言。TODO线索想法...
 
 ![](https://i.loli.net/2018/06/29/5b35a3873ccc4.png)
 
-> The post by @monkeydom was of course a bit of a “rant” as are most writeups about programming languages. The topic is emotional and if you read through the normal emotions, you can see the very real question, “what problem did Swift solve and with what costs”? Turns out, imho, that this is almost always the reality in programming languages.
+> 像大多关于编程语言的文字一样，@monkeydom 的帖子有些“咋呼”。这个话题是情绪化的，但你若能以平常心读完，就可以看出一个非常实质的问题：“Swift 解决了什么问题？又为之付出了什么？”恕我直言，你会发现这几乎总是编程语言的实质问题。
 
-> I think the most interesting thing to explore is the relationship between programming languages and platforms. First some history.
+> 最有趣的事情莫过于编程语言和平台之间的关系。首先提一些历史。
 
-Long ago, computer science == developing languages. It was like getting a PhD was an exercise in creating a programming language. We all used YACC, Lex constantly.
+很久以前，计算机科学等于开发新语言。攻读博士学位仿佛成了创造编程语言的一道习题，时不时就要用 YACC 和 Lex。
 
-That came from the era of languages dramatically improving programming compared to assembly language.
+这源于一个高级语言替代汇编语言并极大地改善编程的大时代。
 
-> Really hard to overstate the lens of “programming languages” that permeated Computer Science in the 70s and 80s. Basically the field was “languages” and “theory” in most departments and things were either theories expressed in programming languages or programming languages to support/explore theory.
+> 70 年代和 80 年代“编程语言”深入计算机科学的景象简直不要太夸张。几乎每个专业都涉及“语言”和“理论”：理论不是通过编程语言得到表述，就是通过编程语言得到印证与发展。
 
-> For example, the first language I used in college was called PL/CS, a derivative of the proprietary language developed at IBM as a merger of FORTRAN and COBOL (“programming language/1”). The CS stood for the theoretical underpinnings of reducing programming errors by finding mistakes like uninitialized variables and bad loops at compile time — this was an invention and predecessor to tools like lint or even IDEs (in fact we used the first interactive editor/compiler called the [Cornell Program Synthesizer](https://www.researchgate.net/publication/213880306_The_Cornell_program_synthesizer_a_syntax-directed_programming_environment)).
+> 例如，我在大学时使用的第一种语言称为 PL/CS，是 IBM 结合 FORTRAN 和 COBOL 开发的专有语言 PL/1 的衍生物。 这个 CS 表示了语言的原理，即通过在编译时发现未初始化变量和不规范循环等失误来减少代码错误——这可以说是 lint 之流甚至 IDE 的前身（事实上我们使用的是第一个交互式的编辑器/编译器，称为[康奈尔程序合成器](https://www.researchgate.net/publication/213880306_The_Cornell_program_synthesizer_a_syntax-directed_programming_environment）)。
 
-> Every CS class was about learning a different language. Every conversation about CS was about what language were you using. Every resume, job interview, and more was about what languages you coded in. Even my interview at Microsoft in 1989 bounced from language to language and each interviewer asked me about a different language on resume.
+> 每节计算机理论课都是围绕不同语言的学习，每次谈计算机理论都是聊你使用什么语言，每份简历、每次面试什么的全是说你编码用什么语言。甚至 1989 年我在微软面试时也是翻来覆去的语言语言，每个面试官都询问我简历上有关不同语言的问题。
 
-> My summer job at the missile factory (Martin Lockheed) was originally to write COBOL programs. But when they found out I knew C (I actually didn’t but they had a Lattice C compiler I could use), they basically told me to write whatever I wanted and teach the COBOL programmers C. I spent the summer writing a MS-DOS version of a file copy/rename utility I used on CP/M…oh and also a tool to make “backup” copies of Lotus 1–2–3 copy-protected floppies.
+> 我在导弹工厂 Martin Lockheed 的暑期工作最初是编写 COBOL 程序。但当他们发现我会 C 后（其实不会，只是会用他们的 Lattice C 编译器），恨不得让我想写什么写什么，只求教他们 COBOL 程序员 C 语言。这个夏天我写了个 MS-DOS 版本的文件复制/重命名工具，这工具我之前在 CP/M...（啥来着？）上用过，用来制作 Lotus 1-2-3 防拷软盘的“备份”副本。（译者注：意指盗版。Lotus 1-2-3 类似 Excel，是当年 IBM 的杀手级应用。）
 
-> As early as sophomore year it was not uncommon for classes to create languages. The most popular junior level class was to build a compiler. A thorough tour through the “[Dragon book](https://www.amazon.com/Compilers-Principles-Techniques-Alfred-Aho/dp/0201100886/ref=pd_lpo_sbs_14_t_0?_encoding=UTF8&psc=1&refRID=V8RXCGW8XRNMK6KSD1YF)” building all aspects of a multi-pass compiler using all the tools of Unix.
+> 从大二开始，课上创造语言就很常见了。最流行的初级课是构建一个编译器。来一次彻底的“[龙书](https://www.amazon.com/Compilers-Principles-Techniques-Alfred-Aho/dp/0201100886/ref=pd_lpo_sbs_14_t_0?_encoding=UTF8&psc=1&refRID=V8RXCGW8XRNMK6KSD1YF)”之旅，用上 Unix 的所有工具，全方位构建一个多程编译器。
 
-Literally every conversation in the “computer basement” (actual physical place) devolved into a debate over which language was better. 4 years of college and 2 years of grad school (in PLs!) debating imperative, declarative, object, GC, functional, etc.
+“计算机基础”（双关语：地下机房）的每一次对话都会发展为哪种语言更好的辩论。四年本科加两年研究生（编程语言方向!）都在辩论命令式、声明式、对象、垃圾回收、函数式等。
 
-> By the time I got to graduate school the debates were in full force in the field because of the rapid expansion of teaching programming: what language is the best way to learn programming. Pascal was the traditional teaching language. But FORTRAN and COBOL were for jobs. Most of the university world was on Unix and thus C, but that was viewed as an “ugly” language. In fact, even though it was used to implement most research projects the academic view of PLs was to favor Lisp, Scheme, M, Algol (in Europe), Prolog, of course Smalltalk (we built an interpreter in our lab as a research bed) and so on. If you sense a theme across those languages it would be that none of them achieved commercial success.
+> 到我读研究生的时候，因为编程教育的快速推广，这场辩论达到了高潮，话题转为什么语言是学习编程的最佳途径：Pascal 是传统的教学语言；但 FORTRAN 和 COBOL 好找工作；学院派大多建立在 Unix 上，所以用 C，但 C 又被视为一种“丑陋”的语言。即便 C 已在事实上实现了大多数研究项目，语言界的学术观点仍是青睐 Lisp、Scheme、M、Algol（在欧洲）、Prolog，当然还有 Smalltalk（我们在实验室里构建了一个解释器作为试验床），等等。如果你能察觉到什么共性的话，那就是这些语言没一个获得过商业上的成功。
 
-> Because languages were so top of mind, there were a great many “memes” that would be printed out (on wide, green bar paper in dot matrix print) and hung in the computer rooms in the basement.
+> 因为语言如此重要，很多“梗”会被打印出来（在点阵打印的宽条形绿色条形纸上），挂在地下室的机房中。
 
-[Real Programmers Don’t Use Pascal](http://web.mit.edu/humor/Computers/real.programmers)
+[真正的程序员不用 Pascal](http://web.mit.edu/humor/Computers/real.programmers)
 
 ![](https://cdn-images-1.medium.com/max/800/1*x3RKdmnnYBw39Q_m3uR3Jw@2x.jpeg)
 
-Dilbert 1992
+Dilbert 1992 年连环画
 
 ![](https://cdn-images-1.medium.com/max/800/1*p0LRnrv99HEQUlwoF3DXlA@2x.jpeg)
 
-Or this classic “[Shooting yourself in the foot in various programming languages](http://www.toodarkpark.org/computers/humor/shoot-self-in-foot.html)”
+还有这个经典的“[编程语言自虐大全](http://www.toodarkpark.org/computers/humor/shoot-self-in-foot.html)”
 
 ![](https://cdn-images-1.medium.com/max/800/1*L0-bq3gK56kHvxZoXMAMiA@2x.jpeg)
 
-Then along came C, which seemed to break all the rules of advances in programming languages of abstraction, abstract data types, and so on. It was almost like ASM to academics. It was cringe-worthy.
+随后 C 语言出现了，它似乎打破了抽象、抽象数据类型等所有编程语言的高级规则。对学术界来说，这简直像汇编语言一样令人生厌。
 
-Then it won.
+但它就是成了。
 
-> But what really happened was the broad commercialization of programming. Nearly everyone who came back from a summer job (like I did) came back having worked in C or found out they needed to learn C for next summer. Literally no place used Pascal and while you could use PL/1 if you worked at IBM, even IBM wasn’t totally committed. Plus we were doing all of our work on Sun Workstations and so C was clearly the language to use. I bought my first K&R used for $5 and then found it it was a pirated copy printed in India “illegally” (so also my introduction to copyright law). C clearly one. There were even complaints from freshman about using PL/1 and about how they were forced to use Pascal in high school (the AP test was just starting in the mid 80s).
+> C 语言带来的是编程的广泛商业化。几乎每个从暑期工作回来的人（像我一样）不是暑期用 C 工作过，就是发现他们需要为下个暑期学习 C 语言。Pascal 已无用武之地。PL/1 还可以用在 IBM 的工作中，但连 IBM 也已摇摆不定。另外，我们所有工作都在 Sun 工作站上执行，所以显然是用 C 语言。我曾花 5 美元购买了我的第一本 K＆R（译者注：指《C 程序设计语言》一书），然后发现这是一本在印度“非法”印刷的盗版（这成了我的版权法启蒙）。 C 语言如日中天。大一新生甚至抱怨起 PL/1 以及他们如何在高中被迫使用 Pascal（预修课程试点于 80 年代中期刚刚开始）。
 
-Early on both MS-DOS and Mac were dominated by ASM (for real™️ programmers) and Pascal. Even some effort to port COBOL and FORTRAN. Mainframes mired in the world legacy and PL/1. On there was BASIC :-)
+早期的 MS-DOS 和 Mac 完全被汇编语言（真™程序员）和 Pascal 统治，也有尝试移植 COBOL 和 FORTRAN 的。大型机则被 PL/1 和一堆老古董占据，还有 BASIC :-)
 
-But then a race to move to C and most commercial PC s/w was C+ASM.
+但随后业界争相转向 C 语言，大多数商业 PC 都是 C + 汇编。
 
-> The primary reason for the love of C was that more and more programming was moving from mainframes to PCs (the IBM mainframe lacked a C compiler even!). While across campus you could get lots of part time work porting mainframe code to PCs, most people realized that was futile and there was much more excitement about making new solutions on PCs using cheap tools like Lattice C and especially Turbo C. Basic was not as popular then as you could imagine, though many places were now teaching it simply because of the ubiquity of PCs. In 1984 there was even Mac Basic from Microsoft (which was actually used in the Cornell Hotel School freshman classes).
+> 热衷 C 语言的主要原因是越来越多的编程从大型机转向了 PC（IBM 的大型机连 C 编译器都没有！）。尽管校内还有大量将大型机代码移植到 PC 上的兼职工作，大多数人都已意识到这是徒劳的，何况这还远不如在 PC 上用 Lattice C 特别是 Turbo C 之类低成本的工具探索新的解决方案更令人兴奋。Basic 那时的流行不是你能想象的，尽管如今很多地方只是因为无处不在的 PC 而教它。1984 年连微软都出过 Mac Basic (实际上在康奈尔大学酒店管理学院的新生班中使用过)。
 
-> PCs until Windows 3.0/i386 were severely memory constrained and so there was also a lot of assembly (ASM) programming. Compilers were still not so great and a lot of things like floating point math or I/O could be (or had to be) done with ASM. It was common to see the C construct _inline{} and system calls or floating point computation in most commercial code.
+> 个人电脑（PC）直到 Windows 3.0/i386 都内存吃紧，所以还有很多汇编程序存在。编译器还是不够好，浮点运算或 I/O 等很多东西必须用汇编来完成。大多数商业代码中还常能看到用 C 结构体 `_inline{}` 做系统调用或浮点计算。
 
-The Mac in 1984 really wanted to be Pascal (elegant) and all the early tools from Apple were Pascal. C was supported. Eventually C came to dominate Mac development as well.
+1984 年的 Mac 真的想成为 Pascal（优雅），Apple 的所有早期工具都是 Pascal。由于支持了 C，最终 C 也开始主导 Mac 开发。
 
-Obj-C on NeXT and then iOS was inevitable.
+NeXT 上的 Obj-C 能发展到 iOS 上是大势所趋。
 
-> The Mac was always about elegance, control, vertical integration, and to a great extent “education” from the start. It was natural for the Mac to have chosen Pascal, especially given the timing of the start of the project. Like most 1983 Mac Programmers I was using Pascal. The first Toolbox books and Apple tools (MPW wasn’t quite ready) were all Pascal based. In fact if you started early enough, you had to be a lucky owner of a Lisa in order to do any Mac development at all since it was hosted there.
+> Mac 始终关注优雅、控制、垂直整合，最重要的是一直贯彻“教育”理念。因此它选择 Pascal 是很自然的，尤其是考虑到当时的时间点。像大多数 1983 年的 Mac 程序员一样，我使用的是 Pascal。第一批工具书和 Apple 工具（Apple 自己的开发环境 Macintosh Programmer’s Workshop 还没推出）都是基于 Pascal 的。实际上，你要是入行够早的话，一定会为了开发 Mac 程序而搞到 Apple Lisa，因为它预装了 Pascal。
 
-> This didn’t last long as the third party world like Lightspeed and others were hard at work delivering “professional” languages like C. I switched to Lightspeed before there was MPW or C and never looked back.
+> 这种情况没有持续太久，因为第三方世界像 Lightspeed 和其他人努力在提供像 C 这样的“专业”语言。在 Macintosh Programmer's Workshop 或 C 出现之前，我已毅然切换到了 Lightspeed。
 
-> The key to Pascal was that it allowed a very clear API documentation with no ambiguities or craziness around #define or other things that I am sure all seemed rather messy. The documentation for the Toolbox was incredible in that regard.
+> Pascal 的关键在于它有一个非常清晰的 API 文档，里面没有 #define 或其他什么含糊混乱的东西让我抓狂。就这方面，堪称美妙。
 
-> For those reasons, fast-forwarding a few years to NeXT it was inevitable that with the rise of “object-oriented” and C++ that they would choose Objective-C to replace Pascal where they could have OO features like classes along with memory management/garbage collection which would solve a lot of programs with that had dogged the non-virtualized Mac OS.
+> 出于这些原因，几年后的 NeXT 随着“面向对象”和 C++ 的兴起必然会选择用 Objective-C 取代 Pascal，他们因此可以拥有像是带内存管理或垃圾收集的类一样的面向对象功能，这能解决非虚拟的 Mac OS 中的很多很多顽固的问题。
 
-Graphical platforms have always had a strong desire to “own” a language. This comes from a desire to be in control fo expressing the OS in the most consistent way possible.
+图形平台总是渴望能“拥有”一种语言，因为他们希望尽可能以最一致的方式来控制操作系统。
 
-Some would argue, in an old school way, this was about being “proprietary”.
+可能有学究会说这是“平台独占”。
 
-> It is important to keep in mind that the separation we see today between platforms and languages through abstraction layers didn’t really exist back then. The ability to use both C and Pascal to write a Mac program was pretty unique in the world of graphical interfaces. And of course graphical interfaces themselves were proprietary — proprietary was a key thing in terms of how vendors approached everything. It was also a negative for how customers viewed everything, because “proprietary = lock-in” and pretty much what everyone was afraid of was being subject to another round of proprietary “small computers”.
+> 请务必记住，我们今天看到的平台和语言之间因抽象层而得来的分离在当时并不存在。在图形界面的世界中，使用 C 加 Pascal 编写 Mac 程序的能力是非常少有的。当然，图形界面本身也是平台独占的——是否独占对开发商如何实现一切十分关键。但这也对消费者的看法产生了负面影响，因为“独占 = 绑定”，几乎所有人都不想再受制于一轮独占的“小型计算机”。
 
-Developers would always want to port their code from one OS to another. And as talked about a lot here, early in platform evolution the platforms are more common than different and this seems possible.
+开发人员总是希望将代码从一个操作系统移植到另一个操作系统。就如这里谈了这么多的，在平台发展的早期阶段，平台之间共性多、差异少，这似乎是可行的。
 
-So a proprietary language is viewed as “lock in”.
+所以那时平台独占的语言被视为“绑定”。
 
-As a practical matter though once most of your code is calling OS APIs, using a standard/public/official language is perfectly “proprietary”.
+而且实践上，即使使用标准/公共/官方语言，只要你大部分代码都是在调用操作系统 API，也一样算“独占”的。
 
-Think of how much code (or how intertwined) code AND architecture is when writing for a platform. Lots.
+想想专门给一个平台编码时有多少交织的代码和架构？太多了。
 
-That doesn’t stop the big push within a platform to own a language. As platforms evolve the ability to build great tools (especially symbolic debuggers) can be made easier with a focus on one language you control.
+但这并不能减弱一个平台想要拥有一种语言的强大驱动力。随着平台的发展，专注于一种受控制的语言会使其构建优秀工具（特别是符号调试器）变得更加轻松。
 
-> This mindset contributed to a desire for platform vendors to have their own languages. It made things that much more difficult to move from one GUI to another. Of course this all seems (and even at the time seemed) somewhat silly since once you’re writing a bunch of code on a platform that does user interaction, chances are pretty much zero that code will work anywhere else.
+> 这种思维方式促使平台开发商希望拥有自己的语言，也使得从一个图形用户界面转移到另一个更加困难。当然这（甚至早在当时）似乎有点愚蠢，因为只要你的交互代码是在一个平台上编写的，那它们在其他地方工作的可能性就几乎为零。
 
-> Still, in the world where new graphical interfaces were more in common than different (sort of like how mobile was 5 years ago) customers were really pushing for standard languages. This led vendors to “support” C, Pascal, Basic, and even COBOL to program their GUIs. But this was a bit of a head fake — mostly it meant providing header files/imports for those languages but not really documentation, samples, etc, which were left to language/compiler vendors.
+> 尽管如此，在新的图形界面大体相同的世界里（有点像 5 年前的移动端），客户的确在推动标准语言。这导致开发商“支持” C、Pascal、Basic，甚至 COBOL 来编写他们的图形用户界面。但这么说有点弄虚作假——其实不过是为这些语言提供头文件/导入，而不是真正的文档、样例等，这些都留给了语言或编译器开发商。
 
-> In order to drive more certainty around ownership of APIs and languages, platform makers were always extending their compilers. They would add little things to make their libraries/APIs easier to read or generate better code. Sometimes these were done through legit extension mechanisms (like in C, you could make up keywords if they had __ in front of them like __cdecl).
+> 为了加强对 API 和语言的控制，平台开发商一直在扩展其编译器。他们会添加一些小东西来使他们的库或API 更易于阅读或能生成更好的代码。有时这些是通过合法的扩展机制完成的（比如在 C 中，你可以通过前缀 __ 来组成关键字，如 __cdecl）。
 
-> To me this was always weird, because all your GUI code couldn’t port anyway so it didn’t matter either way if the language was “standard” or not. If you were the customer it didn’t matter, and if you were the vendor why use dev resources to make a compiler on your own different which would take away from other improvements that mattered (code gen or link speed for example).
+> 我一直觉得这很奇怪，既然所有的 GUI 代码都无法移植，那么语言是否“标准”根本无关紧要。如果你是客户，这无关紧要；如果你是开发商，为什么要把开发资源用在自己的特殊编译器上，而不是其他真正紧要的改进上（例如代码生成或链接速度）。
 
-Fun story. Some huge internal debates we had building the Microsoft Foundation Classes for Win/C++ was internal mandate to extend C++ unilaterally.
+说个趣事。我们因内部要求有过一些为 Win/C++ 添加 MFC 的大辩论，就是想自行扩充 C++。
 
-I always thought idea of adding to C++ was crazy, given that ANSI couldn’t even stop adding junk! I held out as long as I could.
+我一直觉得扩充 C++ 的想法是疯了，你看 ANSI 扩充的一直都是垃圾就没停过！我始终坚持这个想法。
 
-> It was just crazy though the pressure when building a C++ library for Windows to add compiler extensions. The marketing team wanted it. The OS group wanted. The NT team really wanted extensions (to improve their compile speed!) Even the CEO :-) I spent a lot of time in meetings trying to defend the reality we were dealing with which is that C++ itself had not yet standardized (ANSI XJ316 wasn’t done).
+> 构建一个 C++ 库来为 Windows 的编译器添加扩展，我觉得这是疯了，但压力大啊：营销团队想要，操作系统组想要，NT 团队确实需要扩展（以提高编译速度！）也想要，连 CEO 都想要 :-) 我花了很多时间参加会议，试图解释我们面临的现实，即 C++ 本身尚未标准化（ANSI XJ316 还没完成）。
 
-> A cool moment was when our main competitor, Borland Object Windows Library (OWL) added extensions to make it easier to deal with Windows WM_ message handling. I though that was totally lame and our team (all 3 of us) had spent a lot of time making sure our “Message Maps” used straight C++ and had no overhead. There is a great USENET newsgroup battle between me and my Borland friends over this debate. We won. :-)
+> 巧的是我们的主要竞争对手 Borland Object Windows Library (OWL) 添加了扩展，以便更容易地做 Windows WM_ 消息处理。我觉得这太蹩脚了。我们的团队（共三人）花了很多时间确保我们使用没扩展的 C++ 的“消息映射”没有额外开销。关于要不要扩展，我和我 Borland 公司的朋友们在USENET新闻组中进行了一场伟大的辩论战。我们赢了。 :-)
 
-Hence we see Android, iOS, and .net among others with their own languages. Ugh.
+从此以后，我们看到 Android，iOS 和 .net 以及其他平台都有了自己的语言。哎。
 
-> Still this mindset of control, expression, trying to focus efforts, and more leads to where we are today with each platform having a language. I just think this is part of the evolution of platforms and not an evil plot. Ultimately, it sort of doesn’t matter so long as the platform maker is a good steward of the toolset, not just the language semantics.
+> 这种控制、表现、试图集中精力等等的思维方式导致了我们今天在每个平台上都有自己语言。我只是认为这是平台自然演变的一部分，而不是什么阴谋论。归根结底，只要平台开发商是工具集的好管家，而不仅仅是兜售语言语义，这就没有关系。
 
-> iOS had Objective-C and now Swift; Android had Java and now Kotlin; Even Azure is about .net and C#. Of course *all* of them support C and have tons of examples of many languages.
+>  iOS 有 Objective-C，现在是 Swift；Android 有 Java，现在是 Kotlin；甚至 Azure 也有 .net 和 C#。当然，他们中的所有平台都支持 C 语言，并且有大量的很多语言的例子。
 
-> Of course through all of this the browser and HTML/Script are the leading language by number of programmers, lines of code, and consumption of code. Quite remarkable. Even though I am rooted in compiled “professional languages” I am a huge fan of that runtime because it is so accessible and it is the “right” tool for so many people. My faith has been tested quite a bit with the advent of massive numbers of frameworks that stretch the definition of script though (though many would say what Office did with HTML and CSS is quite similar in terms of usage versus original intent). That’s another post :-)
+> 当然，跨越了所有这些，从程序员数量、代码行数和代码消耗量来看，浏览器中的 HTML/JS 才是主要语言。它非常了不起。尽管我从事需要编译的“专业语言”，但我对该运行时很感兴趣，因为它非常易用，并且对于许多人来说都是“正确的”工具。随着大量框架的出现，脚本的定义得到延伸，我的信念也久经考验（尽管很多人会说在呈现意图的作用上 Office 与 HTML 加 CSS 非常相似）。这个另一篇文章再说 :-)
 
-> But a big thing has changed, and that is the cloud. Not just the location of code, but the types of programs are fundamentally different and there is a need for other languages. Those languages, Python, and more, and evolved quite a bit.
+> 但是有个大的改变，那就是云。不仅仅是代码的位置，程序类型也根本不同，并且需要其他语言。这些语言，如 Python 等等，得到很大发展。
 
-The cloud and APIs have a way of hiding programming languages and led to a resurgence of new languages. Part of this is b/c tooling used by most is a lot like early compute days: VI (or emacs 😩) and lots of logs/diagnostics (+ some A+ platform specific tools for sure!).
+云和 API 隐去了编程语言，导致了新语言的复苏。部分原因是大多数人使用的工具开始复古：VI（或 emacs 😩）和许多日志/诊断工具（当然还有一些 A+ 平台专用工具！）。
 
-> One of the big drivers of having a dedicated platform language is from needing to invest in tools for the platform. Tools are *very* platform centric and require a lot of work. In fact often what brings success to a platform is not the quality of the platform or APIs, but the tools. The winner isn’t the best platform but the platform with the best tools. Curse XCode all you want but boy it was pretty darn good 8 years ago compared to Android. And Visual Studio is a juggernaut for enterprise team development.
+> 拥有平台独占语言的主要驱动力之一是需要投资平台的工具。工具*非常*依赖平台，并且需要大量的工作。事实上，为平台带来成功的往往不是平台或 API 的质量，而是工具。获胜者不是最好的平台，而是拥有最好工具的平台。你可能咒骂 XCode 不如你意，但孩子，它在 8 年前诞生时与 Android 相比是相当不错的。还有 Visual Studio，已经主宰了企业团队的开发。
 
-> The cloud, however, brought new scenarios and importantly no single owner. Services and APIs come from all over. So today there is enormous diversity in cloud “languages” and it is not uncommon to look at something like Stripe or Twilio and see code examples and imports in several/many languages. And this is done on purpose and with a big investment.
+> 然而，云带来了新的场景，并且重要的是不被垄断。服务和 API 来自各地。因此，今天在云“语言”中存在巨大的多样性，Stripe 或 Twilio 之类的服务并不少见，你可以查看示例代码并以多种语言导入。这都是巨额资本有意推动的。
 
-While you can see from StackOverflow there is a diversity of language usage (https://insights.stackoverflow.com/survey/2018/). It is likely that the platforms will begin to drive a convergence there as well — for the same reasons that we saw on the client side.
+虽然您可以从 StackOverflow 中看到语言的用途多种多样 (https://insights.stackoverflow.com/survey/2018/)，但这些平台很可能会开始推动语言精减——这跟我们在客户端看到的原因相同。
 
-Language diversity is great but tooling requires some focus. While we see innovation, by and large we see incremental improvements in expressiveness in exchange for “static” tooling.
+语言多样性很好，但工具要有侧重。虽然语言也有创新，但总的来说，是在以“静态”能力换取表现能力。
 
-> This is where we are today, where there is an appearance that from Python, PHP, Ruby, Typescrpt, to Scalr we see a massive diversity in languages. This seems great. In practice this can be kind of a headache for a developer or an engineering manager. I see a lot of startups with multiple languages in play and think about scaling challenges they will have in terms of hiring, load balancing, managing toolchains, and more. With diversity come benefits and challenges.
+> 这就是我们今天的情况，从 Python、PHP、Ruby、Typescrpt 到 Scalr 的出现，我们看到了语言的多样。这看起来很棒，但实际上对开发人员或工程经理来说可能是头痛的事情。许多使用多种语言的创业公司都在面对招聘、负载平衡、管理工具链等方面规模过大的挑战。多样性是把双刃剑。
 
-The cloud does hide languages but cloud platforms will become closer to languages as well.
+云确实隐藏了语言，但云平台也将越来越接近语言。
 
-> The cloud does hide these differences between vendors though. It seems like a positive. My view is that this is a “point in time”. That as cloud vendors invest more “irrationally” in tools in order to win the platform war, languages will consolidate and there will be a much shorter list of supported languages.
+尽管如此，云计算确实隐藏了这些平台差异。这似乎是积极的。我认为这是一个“时间点”。随着云开发商为求胜而“非理性”地往工具中增加投入，语言将强化并极化，受支持的语言会更少。
 
-> While today this seems evil because most people are riding “above” the platform, as the platforms become richer and more than “infrastructure” the code written to a given cloud provider will be more intertwined and benefits of improved tooling, documentation, even samples will lead to a customer betting more and more on the vendor and language. While this is what the platform vendor wants, it also helps the customer even if it seems evil.
+> 现在看来这很邪恶：因为大多数人都在平台之上开发，平台变得更加丰富而不仅仅是“基础架构”，在某个云提供商处写的代码将更加交织在一起；工具、文档甚至样例的改进将导致客户对开发商和语言的投入越来越多。这是平台开发商想要的，它虽然看起来很邪恶，但确实可以帮到客户。
 
-> Ultimately, the platform with the best tools is likely to win, especially in the enterprise where tools matters even more (larger number of employees with diverse skills and backgrounds compared to a small startup of recent grads).
+> 最终，拥有最佳工具的平台很可能会胜出，特别是在工具更重要的大企业中（与新兵组成的小公司相比，他们拥有更多不同技能和背景的员工）。
 
-// PS: Paul Graham’s very early posts on programming languages are super fun to read (and always shocking as Cornellian that he used Lisp!) paulgraham.com/avg.html
+// PS：Paul Graham 在编程语言方面的非常早期的文章阅读起来非常有趣（令人震惊的是，和 Cornellian 一样，他使用的是 Lisp！）paulgraham.com/avg.html
 
-> This essay is a classic and really captures the zeitgeist of the language debate in the 80s. Blurb!!
+> 这篇文章是一个经典的文章，真正抓住了 80 年代语言辩论的时代精神。总结下！
 
-// PPS: Two universal learnings on languages:
+// PPS：语言的两个普遍教训：
 
-1/ Great programmers don’t program “in” a language but “into” a language —> any language will work and they adapt style.
+1/ 伟大的程序员不是“用”语言编程，而要“深入”语言编程 -> 任何语言都可以用，他们只需要适应风格。
 
-2/ Building a product is not building a language test suite. Don’t use all the features b/c they are cool/new.
+2/ 构建产品不是构建语言测试套件。不要因为酷或新就要用上所有功能。
 
-> 1/ is straight out of the first day of Cornell CS 211 taught by the extremely well known David Gries, a pioneer in the area of programming correctness and one of the leaders of the PL/CS project. To say this statement had an impact on me would be an understatement. This is why I sort of exaggerated by C knowledge that summer of 1984. I figured he had taught be PL/CS and I could easily program “into” C.
+> 1/ 是在 Cornell CS 211 的第一天听著名的 David Gries 教授说的，他是编程正确性领域的先驱，也是 PL/CS 项目的领导者之一。他这话对我影响深刻。这就是为什么我有点夸张地讲述在 1984 年夏天时的 C 语言。我想就是因为他曾教过我 PL/CS，我可以很容易地“深入”C。
 
-> 2/ is straight out of a learning I had from a talk that Martin Carrol (then of AT&T) gave at the 1991 USENIX C++ conference which had a similar impact on me in . There’s a whole long story (which should be a podcast) about the history of building the Microsoft Foundation Classes and how we built the first version using every “object oriented” trick like multiple inheritance, operator overloads, virtual bases and more. We threw the whole thing away and declared ourselves as a team “_recovering oopaholics_”.
+> 2/ 是我从 1991 年 USENIX C++ 会议上的 Martin Carrol（当时的 AT&T）发表的谈话中学到的，它对我有类似的影响。关于构建 MFC 的历史说来话长（都可以开个 podcast 了），包括我们如何用诸如多重继承、运算符重载、虚拟基础等“面向对象”技巧来构建第一个版本。我们后来抛弃了这套，并宣称自己团队为“面向对象编程成瘾康复中心”。
 
-> Part of my support group was going to USENIX and getting a dose of some hacker views of C++. I was the youngest person there and the only Windows (and OS/2) person for sure. But Martin’s talk was basically a rant against all the things proposed for the 2.0 definition of C++ (templates, exceptions, and more) and I \*loved\* it. I came back and the 4 of us met deciding how to move forward and we decided two things:
+> 我所在支撑小组的一部分人去 USENIX 获取了一些极客对 C++ 的看法。我是那里最年轻的人，也是唯一的 Windows（和 OS/2）开发者。Martin 的发言几乎上是打脸所有的 C++ 2.0 定义（模板、异常等）赞同派，我太喜欢了。回来后我们四人碰头，决定了两件事：
 
-> • We are building a class library, not a compiler test suite. So no templates, exceptions, operator overloading, virtual bases, references, and more. We’re about performance, readability, Windows, and so on.
+> • 我们正在构建的是一个类库，不是编译器测试套件。因此没有模板、异常、运算符重载、虚拟基类、引用等。我们只关注性能、可读性、Windows 适配等。
 
-> • We will just use standard C++ and not worry about extending the language. Importantly we would not be dependent on language features still being debated in the ANSI committee (which would take 5 years or more to finalize to the brown book).
+> • 我们只使用标准的 C++ 而不对语言做扩展。坚决不用仍在 ANSI 委员会讨论的语言特征（这至少要 5 年才会写进棕皮书）。
 
-> So this is where MFC’s platform architecture came from. A reaction to “oopaholism”.
+> 这就是 MFC 的平台架构的由来，是“面向对象编程成瘾症”的结果。
 
-> Is is also why I liked @monkeydom’s post so much. It reminded me of the rant I wrote against the polluting of C++ and how everyone got too excited over a language and forgot what we were here to do — make Windows programming easier.
+> 这也是为什么我非常喜欢 @monkeydom 的帖子。它让我想起了我写过的反对污染 C++ 的论战。每个人都对某种语言过于兴奋，并忘记了我们真正要做的事情——让 Windows 编程变得更容易。
 
-— Steven Sinofsky
+—— Steven Sinofsky
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
