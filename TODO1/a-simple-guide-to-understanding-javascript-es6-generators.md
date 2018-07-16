@@ -42,7 +42,7 @@ new Set([1, 2])[Symbol.iterator]() // SetIterator {1, 2}
 
 Generator 函数返回 **Generator 对象。**要把 Generator 对象赋值到一个变量，才能方便地使用它的 **next()** 方法。** 如果没有把 Generator 分配给变量，对它调用 next() 总是只会运行到第一个 yield 表达式。**
 
-Generator 函数中通常含有 **yield 表达式**。Generator 函数内的每个 **yield** 都是下一个执行循环开始之前的停止点。每个执行周期都通过 Generator 的 **next()** 方法触发。
+Generator 函数中通常含有 **yield** 表达式。Generator 函数内的每个 **yield** 都是下一个执行循环开始之前的停止点。每个执行周期都通过 Generator 的 **next()** 方法触发。
 
 每次调用 **next()**，**yield** 表达式都会返回包含以下参数的对象。
 
@@ -97,7 +97,7 @@ Generator 函数的生命周期
 
 ![](https://cdn-images-1.medium.com/max/800/1*aYCKrAkgSyfEeN9cswZzbA.png)
 
-将参数传递给next（）
+将参数传递给 next()
 
 #### 说明：
 
@@ -141,20 +141,20 @@ Yield 作为其他函数的参数
 
 apiCall 将 promise 作为 yield value 返回，在 2 秒后 resolved 并打印出我们需要的值。
 
-### Yield*
+### `Yield*`
 
-Yield 表达式的介绍就告一段落了，接着我们了解一下另一个表达式 yield*。Yield* 在 Generator 函数中使用时，会把迭代委托到下一个 Generator 函数。简单来说，会先同步完成 Yield* 表达式中的 Generator 函数，再继续运行外层函数。
+Yield 表达式的介绍就告一段落了，接着我们了解一下另一个表达式 `yield*`。`Yield*` 在 Generator 函数中使用时，会把迭代委托到下一个 Generator 函数。简单来说，会先同步完成 `Yield*` 表达式中的 Generator 函数，再继续运行外层函数。
 
 让我们看看下面的代码和解释，以便更好地理解。此代码来自 MDN Web 文档。
 
 ![](https://cdn-images-1.medium.com/max/800/1*eMlOmBoi2XGCE3qwUIj3qA.png)
 
-Yield* 基础
+`Yield*` 基础
 
 #### 解释
 
 1.  调用第一个 next()，产生的值为1。
-2.  第二个 next() 调用的是**yield\* 表达式**，这意味着我们要先完成 yield* 表达式指定的 Generator 函数，再继续运行当前 Generator 函数。
+2.  第二个 next() 调用的是 `yield*` 表达式，这意味着我们要先完成 `yield*` 表达式指定的 Generator 函数，再继续运行当前 Generator 函数。
 3.  你可以假设上面的代码被替换为如下代码：
 
 ```
@@ -167,17 +167,17 @@ function* g2() {
 }
 ```
 
-> Generator 会按这个顺序运行结束。不过对于 yield* 和 return 的同时使用，我们需要特别注意，下一节将会提到。
+> Generator 会按这个顺序运行结束。不过对于 `yield*` 和 return 的同时使用，我们需要特别注意，下一节将会提到。
 
-### Yield* 与 Return
+### `Yield*` 与 Return
 
-带 return 的 yield* 与一般 yield* 有点不同。当 yield* 与 return 语句一起使用时，yield* 被赋 return 的值，也就是整个 yield* function() 与其关联 Generator 函数的返回值相等。
+带 return 的 `yield*` 与一般 `yield*` 有点不同。当 `yield*` 与 return 语句一起使用时，`yield*` 被赋 return 的值，也就是整个 `yield*` function() 与其关联 Generator 函数的返回值相等。
 
 让我们看看下面的代码和解释，以便更好理解。
 
 ![](https://cdn-images-1.medium.com/max/800/1*HxJtIuXhBnOMAK0cwVElsQ.png)
 
-Yield* 与 Return
+`Yield*` 与 Return
 
 #### **说明**
 
@@ -186,17 +186,17 @@ Yield* 与 Return
 3. 第三个 next()，运行 **return 'foo'** 后紧接着，yield 返回 'the end'，其中 'foo' 被赋值到 **const result**。
 4. 最后一个 next() 结束运行。
 
-### **对内建 Iterable 对象使用 Yield***
+### **对内建 Iterable 对象使用 `Yield*`**
 
-yield* 还有一个值得一提的用法，它可以遍历 iterable 对象，如 Array，String 和 Map。
+`yield*` 还有一个值得一提的用法，它可以遍历 iterable 对象，如 Array，String 和 Map。
 
 一起看看实际运行结果。
 
 ![](https://cdn-images-1.medium.com/max/800/1*u6RQVCQBCqw5UsF3Kger1w.png)
 
-对内建 Iterable 对象使用 Yield*
+对内建 Iterable 对象使用 `Yield*`
 
-在代码中，yield* 遍历传入的每一个 iterable 对象，我觉得这段代码本身是不言自明的。
+在代码中，`yield*` 遍历传入的每一个 iterable 对象，我觉得这段代码本身是不言自明的。
 
 ### 最佳实践
 
@@ -208,7 +208,7 @@ yield* 还有一个值得一提的用法，它可以遍历 iterable 对象，如
 
 Yield 与 for…of
 
-> 最后 return 的值不会被打印，因为 for…of 循环只迭代到最后一个 yield。因此，作为最佳实践，尽量避免在 Generator 函数中使用 return 语句，原因在于当使用 for...of 语句进行迭代时，return 会影响函数的可重用性。
+> 最后 return 的值不会被打印，因为 for…of 循环只迭代到最后一个 yield。因此，作为最佳实践，尽量避免在 Generator 函数中使用 return 语句，原因在于当使用 for…of 语句进行迭代时，return 会影响函数的可重用性。
 
 ![](https://cdn-images-1.medium.com/max/800/1*4877k4Hq9dPdtmvg9hnGFA.jpeg)
 
