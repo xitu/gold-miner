@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/making-a-todo-app-with-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/making-a-todo-app-with-flutter.md)
 > * 译者：DateBro[https://github.com/DateBro]
-> * 校对者：
+> * 校对者：geniusq1981[https://github.com/geniusq1981]
 
 # 用 Flutter 写一个待办事项应用
 
@@ -19,7 +19,7 @@ Flutter 仍处于技术测试阶段，但它的工具非常稳定，并提供了
 
 > 这些说明是为 MacOS 和 Linux 编写的。Windows需要一些额外的准备，因此请按照[Flutter Windows 指南](https://flutter.io/setup-windows/) 进行操作，然后转到下一步，**创建应用程序**。
 
-首先，下载合适平台的 [Flutter SDK](https://flutter.io/sdk-archive/) 。对于这个应用程序，我们将在主目录中创建一个名为 `dev` 的目录，并在那里解压 Flutter SDK。
+首先，下载下载与你的平台匹配的 [Flutter SDK](https://flutter.io/sdk-archive/) 。对于这个应用程序，我们将在主目录中创建一个名为 `dev` 的目录，并在那里解压 Flutter SDK。
 
 ```
 mkdir ~/dev
@@ -27,7 +27,7 @@ cd ~/dev
 unzip ~/Downloads/flutter_macos_v0.3.2-beta.zip
 ```
 
-现在我们可以通过 `~/dev/flutter/bin/flutter` 命令在命令行上运行 Flutter。输入的命令有点不优雅，所以让我们将这个目录添加到 `$ PATH` 中来缩短命令。在 `〜/ .bashrc` 文件的末尾添加这一行.
+现在我们可以在命令行里使用 ~/dev/flutter/bin/flutter 命令运行 Flutter。输入命令有一些不够优雅，所以让我们把它加到 $PATH 中。在 `〜/ .bashrc` 文件的末尾添加这一行.
 
 ```
 export PATH=~/dev/flutter/bin:$PATH
@@ -39,21 +39,21 @@ export PATH=~/dev/flutter/bin:$PATH
 flutter doctor
 ```
 
-这将告诉你需要安装的具体内容，确保 Flutter 正确运行。按照 flutter doctor 的说明，确保所有设置都正确，然后再继续下一步。
+这将准确地告诉你为了正确运行 Flutter，需要安装什么。按照 flutter doctor 的说明，确保所有都已经正确安装，然后再继续下一步。
 
 ### 创建一个应用程序
 
 我们将创建我们的应用程序并在 Android 上进行测试，因为这在所有操作系统上都可以完成，所以这些步骤对于 iOS 都是一样的。
 
-Flutter 为不少 IDE 提供插件，包括 Android Studio 和 Visual Studio Code。但是，对于我们简单的应用程序来说，我们完全可以使用命令行和一个简单的文本编辑器完成所有操作。首先，让我们创建我们的应用程序，我们将其称为 “flutter_todo” 。
+Flutter 为不少 IDE 提供插件，包括 Android Studio 和 Visual Studio Code。但是，对于我们简单的应用程序来说，我们完全可以使用命令行和一个简单的文本编辑器完成所有操作。首先，让我们创建我们的应用程序，我们将其称为 `flutter_todo` 。
 
 ```
 flutter create flutter_todo
 ```
 
-Flutter 中这个命令可以创建一个简单的 “Hello World” 风格的应用程序。我们可以在 Android 模拟器中立即测试它。打开 Android Studio，Flutter Doctor 会帮助你进行设置。这里我们要创建一个模拟器，但Android Studio 要求我们先创建一个项目。所以，让我们使用新创建的Flutter项目。选择 `导入项目（Gradle，Eclipse ADT等）`，然后选择文件夹 `〜/ dev / flutter_todo / android`。完成导入项目后，检查控制台中是否有错误。如果有，使用 Android Studio 修复它们。
+Flutter 中这个命令可以创建一个简单的 “Hello World” 风格的应用程序。我们可以在 Android 模拟器中立即测试它。打开 Android Studio，Flutter Doctor 会帮助你进行设置。这里我们要创建一个模拟器，但Android  Studio 要求我们先创建一个项目。所以，让我们使用新创建的 Flutter 项目。选择 `导入项目（Gradle，Eclipse ADT 等）`，然后选择文件夹 `〜/ dev / flutter_todo / android`。完成导入项目后，检查控制台中是否有错误。如果有，使用 Android Studio 修复它们。
 
-现在，我们可以通过 `Tools> Android> AVD Manager` 来创建模拟器。单击“创建虚拟设备”，选择 _Pixel_，然后点击所有默认值，直到创建完毕。现在，你可以在列表中看到新设备 —— 双击启动它。模拟器运行后，就可以在上面运行我们的 Flutter 应用程序了。
+现在，我们可以通过 `Tools> Android> AVD Manager` 来创建模拟器。单击“创建虚拟设备”，选择 _Pixel_，然后一路选择默认值，直到创建完毕。现在，你可以在列表中看到新设备 —— 双击启动它。模拟器运行后，就可以在上面运行我们的 Flutter 应用程序了。
 
 ```
 cd flutter_todo
@@ -82,7 +82,7 @@ home: new MyHomePage(title: 'Flutter Demo Home Page'),
 home: new MyHomePage(title: 'Basic Flutter App'),
 ```
 
-保存文件，然后返回运行 `flutter run` 的命令行。你需要做的就是输入`r`，这会启动热重载过程。你会注意到在模拟器中，标题已经更改。不仅如此，如果你之前点击过按钮，你会发现到计数器并没有重置成 0。这个 _stateful hot reload_ 是使开发具有了一个有用功能。你可以随时调整代码并进行测试，但不需要在每次进行更改后强制返回应用程序的初始界面。
+保存文件，然后返回运行 `flutter run` 的命令行。你需要做的就是输入`r`，这会启动热重载过程。你会注意到在模拟器中，标题已经更改。不仅如此，如果你之前点击过按钮，你会发现到计数器并没有重置成 0。就是这个 _stateful hot reload_ 给开发增加了如此有用的功能。你可以随时调整代码并进行测试，但不需要在每次进行更改后强制返回应用程序的初始界面。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Sq-H7nOab6_dlqOtk9fQmg.png)
 
@@ -372,7 +372,7 @@ Widget _buildTodoItem(String todoText, int index) {
 }
 ```
 
-首先，我们需要从列表中删除任务的功能，这可以用 `_removeTodoItem` 函数来处理。最佳是通过 `_todoItems` 数组中的索引来引用我们要删除的项目。如果有多个具有相同名称的任务，按名称引用会出现问题。一旦我们得到了项目的索引，使用Dart的 `removeAt` 函数将其从数组中删除就很简单了。请记住，我们需要将它包装在 `setState` 中，以便在删除项后重新呈现列表。
+首先，我们需要从列表中删除任务的功能，这可以用 `_removeTodoItem` 函数来处理。最佳是通过 `_todoItems` 数组中的索引来引用我们要删除的项目。如果有多个具有相同名称的任务，按名称引用会出现问题。一旦我们得到了项目的索引，使用 Dart 的 `removeAt` 函数将其从数组中删除就很简单了。请记住，我们需要将它包装在 `setState` 中，以便在删除项后重新呈现列表。
 
 当用户点击它时，不应该立即删除项目，而应该首先以更加 user-friendly 的方式提示他们。`_promptRemoveTodoItem` 函数使用 Flutter 的 `AlertDialog` 组件来执行这个操作。这个构造函数和我们之前看到的类似，比如 `Scaffold`。它只接受文本标题和按钮数组。按钮敲击的处理由 `onPressed` 完成，如果按下正确的按钮，就调用 `_removeTodoItem` 函数处理。
 
@@ -402,3 +402,4 @@ Widget _buildTodoItem(String todoText, int index) {
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
