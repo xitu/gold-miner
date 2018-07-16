@@ -190,6 +190,8 @@ Yield* 与 Return
 
 yield* 还有一个值得一提的用法，它可以遍历 iterable 对象，如 Array，String 和 Map。
 
+一起看看实际运行结果。
+
 ![](https://cdn-images-1.medium.com/max/800/1*u6RQVCQBCqw5UsF3Kger1w.png)
 
 对内建 Iterable 对象使用 Yield*
@@ -199,6 +201,8 @@ yield* 还有一个值得一提的用法，它可以遍历 iterable 对象，如
 ### 最佳实践
 
 最重要的是，每个 iterator/Generator 都可以使用 **for…of** 遍历。与显式调用的 next() 类似，for…of 循环依据 **yield 关键字** 进入下一次迭代。这里是重点：它只会迭代到**最后一个 yield**，不会像 next() 那样处理 return 语句。
+
+下面的代码可以验证以上描述。
 
 ![](https://cdn-images-1.medium.com/max/800/1*dDYt_xElLC7wjUDN7HfDJg.png)
 
