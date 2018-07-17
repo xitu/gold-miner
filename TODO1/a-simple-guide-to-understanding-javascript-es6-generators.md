@@ -1,25 +1,23 @@
-> * 原文地址：[A Simple Guide to Understanding Javascript (ES6) Generators](https://medium.com/dailyjs/a-simple-guide-to-understanding-javascript-es6-generators-d1c350551950)
+> * 原文地址：[A Simple Guide to Understanding Javascript (ES6) Generators](https://medium.com/dailyjs/a-simple-guide-to-understanding-javascript-es6-Generators-d1c350551950)
 > * 原文作者：[Rajesh Babu](https://medium.com/@rajeshdavid?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-simple-guide-to-understanding-javascript-es6-generators.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-simple-guide-to-understanding-javascript-es6-generators.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ssshooter](https://github.com/ssshooter)
+> * 校对者：[Zheng7426](https://github.com/Zheng7426) [hopsken](https://hopsken.com/)
 
-# A Simple Guide to Understanding Javascript (ES6) Generators
+# Javascript（ES6）Generator 入门
 
 ![](https://cdn-images-1.medium.com/max/800/1*4877k4Hq9dPdtmvg9hnGFA.jpeg)
 
-If you’ve been a JavaScript developer for the last two to five years you will have definitely come across posts talking about **Generators** and **Iterators**. While **Generators** and **Iterators** are inherently associated, Generators seem a bit more intimidating than the other.
+如果你在过去两到五年中一直在研究 JavaScript，那么肯定看过关于 **Generator** 和 **Iterator** 的文章。虽然 **Generator** 和 **Iterator** 本质上是相关的，但 Generator 似乎比 Iterator 更令人难以理解。
 
 ![](https://cdn-images-1.medium.com/max/800/1*bwQSEHpbaNHte95IW2kTCw.jpeg)
 
-Generator Turbine
+> **Iterator** 由 **Iterable** 对象（如 map，数组和字符串等）实现，我们能够使用 next() 迭代它们。Iterator 在 Generator，Observable 和 Spread 运算符中广泛使用。
 
-> **Iterators** are an implementation of **Iterable** objects such as maps, arrays and strings which enables us to iterate over them using next(). They have a wide variety of use cases across Generators, Observables and Spread operators.
+> 如果你刚接触 Iterator，建议先阅读 [Guide to Iterators](https://codeburst.io/a-simple-guide-to-es6-iterators-in-javascript-with-examples-189d052c3d8e)。
 
-> I recommend the following link for those of you who are new to iterators, [Guide to Iterators](https://codeburst.io/a-simple-guide-to-es6-iterators-in-javascript-with-examples-189d052c3d8e).
-
-To check if your object conforms to the iterable protocol, verify using the built-in Symbol.iterator:
+可以使用内建的 Symbol.iterator 验证对象是否符合可迭代要求：
 
 ```
 new Map([[1, 2]])[Symbol.iterator]() // MapIterator {1 => 2}
@@ -28,136 +26,136 @@ new Map([[1, 2]])[Symbol.iterator]() // MapIterator {1 => 2}
 new Set([1, 2])[Symbol.iterator]() // SetIterator {1, 2}
 ```
 
-**Generators** introduced as part of ES6 have not undergone any changes for the further JavaScript releases and they are here to stay longer. I mean really long! So there is not running away from it. Although ES7 and ES8 have some new updates, they do not have the same magnitude of change that ES6 had from ES5, which took JavaScript to the next level, so to speak.
+第一次亮相于 ES6 的 Generator 在后续 JavaScript 版本的发布中并没有变化，所以 Generator 有可能在将来会继续保持现在的特性及用法，我们是绕不开它的。虽然 ES7 和 ES8 有一些小更新，但是改变幅度无法与 ES5 到 ES6 相提并论，可以说 ES6 使得 JavaScript 踏出了新的一步。
 
-**By the end of this post, I am positive that you will have a solid understanding of how function Generators work**. If you are a pro, please help me improve the content by adding your comments in the responses. Just in case if you have difficulty following the code, I have also added explanation for most of the code to help you understand better.
+**读完本文，我相信你一定能充分理解 Generator 的原理**。如果你是专业人士，欢迎在回复中添加评论，一起改进这篇文章。为帮助大家理解代码，代码中已包含一定注释。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZrJKJqBsksWd-8uKM9OvgA.png)
 
-### Introduction
+### 介绍
 
-Functions in JavaScript, as we all know, **_“run until return/end”. Generator Functions_** on the other hand, **_“run until yield/return/end”._** Unlike the normal functions **Generator Functions** once called, returns the **Generator Object,** which holds the entire **Generator Iterable** that can be iterated using **next()** method or **for…of** loop.
+众所周知，JavaScript 的函数都会一直运行到 **return 或函数结束**。但对于 Generator 函数，会一直运行到 **遇到 yield 或 return 或函数结束**。与一般函数不同，**Generator 函数**一旦被调用，就会返回一个 **Generator 对象**。这个对象拥有 **Generator Iterable**，可以使用 **next()** 方法或 **for…of** 循环迭代它。
 
-> Every next() call on the generator executes every line of code until the next yield it encounters and suspends its execution temporarily.
+> Generator 每次调用 next()，函数会一直运行到下一个 yield，然后暂停执行。
 
-Syntactically they are identified with a *****, either **function* X** or **function *X**,— both mean the same thing.
+语法上他们的标志是一个星号 **\***，**function\* X** 和 **function \*X** 的效果相同。
 
-Once created, calling the generator function returns the **Generator Object.** This generator object needs to be assigned to a **variable** to keep track of the subsequent **next()** methods called on itself. **_If the generator is not assigned to a variable then it will always yield only till first yield expression on every next()._**
+Generator 函数返回 **Generator 对象。**要把 Generator 对象赋值到一个变量，才能方便地使用它的 **next()** 方法。** 如果没有把 Generator 分配给变量，对它调用 next() 总是只会运行到第一个 yield 表达式。**
 
-The generator functions are normally built using **_yield expressions_**. Each **_yield_** inside the generator function is a stopping point before the next execution cycle starts. Each execution cycle is triggered by means of **_next()_** method on the generator.
+Generator 函数中通常含有 **yield** 表达式。Generator 函数内的每个 **yield** 都是下一个执行循环开始之前的停止点。每个执行周期都通过 Generator 的 **next()** 方法触发。
 
-On each **_next()_** call, the **_yield_** expression returns its value in the form of an object containing the following parameters.
+每次调用 **next()**，**yield** 表达式都会返回包含以下参数的对象。
 
-`{ value: 10, done: false } // assuming that 10 is the value of yield`
+`{ value: 10, done: false } // 假设 yield 的值是 10`
 
-*   **Value** — is everything that is written on the right side of the **_yield_** keyword, it can be a function call, object or practically anything. For empty yields this value is **_undefined_**.
-*   **Done** — indicates the status of the generator, whether it can be executed further or not. When done returns true, it means that the function has finished its run.
+*   **Value** —— **yield** 关键字右侧的值，可以是对函数的调用、对象等几乎任何东西。对于空的 yield，返回的是 **undefined**。
+*   **Done** —— 表明 Generator 的状态，是否可以继续执行。完成时返回 true，意味着函数已经运行完毕。
 
-_(If you feel that its a bit over your head, you will get more clarity once you see the example below…)_
+**（如果你无法理解上面说的是什么，那下面的例子可能会让你理解得更清晰……）**
 
 ![](https://cdn-images-1.medium.com/max/800/1*YnOJNuFe-r9T7pO47mVYaw.png)
 
-Basic generator function
+Generator 函数基础
 
-> **Note:** In the above example the **generator function** accessed directly without a wrapper always executes only until the first yield. Hence, by definition you need to assign the Generator to a variable to properly iterate over it.
+> **注意：**在上面的例子中，直接访问 **Generator 函数**总是执行到第一个 yield。因此，你需要将 Generator 分配给变量才能正确迭代它。
 
-### Lifecycle of a Generator Function
+### Generator 函数的生命周期
 
-Before we proceed further, let’s take a quick look at the block diagram of the Generator Function’s life-cycle:
+在深入理解之前，让我们快速浏览一下 Generator 函数的生命周期示意图：
 
 ![](https://cdn-images-1.medium.com/max/800/1*0pLkX6yrbV2r6_pZ10AIvQ.png)
 
-Life-cycle of a Generator Function
+Generator 函数的生命周期
 
-Each time a **_yield_** is encountered the generator function returns an object containing the **_value_** of the encountered yield and the **_done_** status. Similarly, when a **_return_** is encountered, we get the return value and also **_done_** status as **_true_**. Whenever, done status is returned as true, is essentially means that the **_generator function_** has completed its run, and no further yield is possible.
+每次运行到 **_yield_**，Generator 函数都会返回一个对象，该对象包含 yield 产生的值和当前 Generator 函数的状态。类似地，运行到 **_return_**，可以得到 return 的值，并且 **_done_** 的状态为 **_true_**。当 done 的状态为 true 时，意味着 Generator 函数已经运行完毕，后面的 yield 统统无效。
 
-> Everything after the first **return** is ignored, including other **yield** expressions.
+> return 后的一切代码都会被忽略，包括 **yield** 表达式。
 
-_Read further to understand the block diagram better._
+**继续阅读深入理解上图。**
 
-### Assigning Yield to a Variable
+### 把 yield 赋值到一个变量
 
-In the previous code sample we saw an introduction to creating a basic generator with a yield. And got the expected output. Now, let’s assume that we assign the entire yield expression to a variable in the code below.
+在的示例中，我们创建了一个带有 yield 的最基本的 Generator，并获得了预期的输出。在下面代码中，我们将整个 yield 表达式赋值到一个变量。
 
 ![](https://cdn-images-1.medium.com/max/800/1*zdJQlUaqIiD3eV0j0QzrZA.png)
 
-Assigning yield to a variable
+把 yield 赋值到一个变量
 
-> What is the result of the entire yield expression passed to the variable ? **_Nothing or Undefined …_**
+> 把整个 yield 表达式传到变量的结果是什么？**Undefined …**
 
-> Why ? **_Starting from second next(), the previous yield is replaced with arguments passed in the next function. Since, we do not pass anything here in the next method, its assumed that the entire ‘previous-yield expression’ as undefined._**
+> 为什么会是 undefined？**从第二个 next() 开始，前一个 yield 会被替换为 next 函数的参数。因为例子中的 next 没有传入任何值，所以程序判定“前一个 yield 表达式”为 undefined**。
 
-With this in mind, let’s jump to the next section to understand more about passing argument to the next() method.
+这是重点中的重点，下面的章节我们将详细介绍对 next() 传参的用法。
 
-### Passing Arguments to the next() Method
+### 将参数传递给 next() 方法
 
-With reference to the block diagram above, let’s talk about passing arguments into the next function. **_This is one of the most trickiest part of the whole generator implementation_**.
+参考上面的示意图，我们聊聊关于传参到 next 函数的事情。**这是整个 Generator 使用中最棘手的部分之一**。
 
-Let’s consider the following piece of code, where the yield is assigned to a variable, but this time we pass a value in the next() method.
+思考以下代码，其中 yield 被赋给变量，但这次我们向 next() 传参。
 
-Let’s look at the code below in the console. And the explanation right after that.
+看看控制台的输出，先思考一下，后面会有解释。
 
 ![](https://cdn-images-1.medium.com/max/800/1*aYCKrAkgSyfEeN9cswZzbA.png)
 
-Passing arguments to the next()
+将参数传递给 next()
 
-#### Explanation:
+#### 说明：
 
-1.  When we call the **_first next(20)_**, every line of code till the first yield is printed. As we do not have any previous yield expression this value 20 is discarded. In the output we get yield value as i*10, which is 100 here. Also the state of the execution stops with first yield and the **_const j_** is not yet set.
-2.  The second **_next(10)_** call, replaces the entire first yield expression with 10, imagine **_yield (i * 10) = 10,_** which goes on to set the value of **_const j to 50_** before returning the second yield’s value. The yield value here is **_2 * 50 / 4 = 25_**.
-3.  Third **_next(5)_**, replaces the entire second yield with 5, bringing the value of k to 5. And further continues to execute return statement and return **_(x + y + z) => (10 + 50 + 5) = 65_** as the final yield value along with done true.
+1. 在调用 **next(20)** 的时候，第一个 yield 前的代码都被执行。因为前面已经没有 yield，传入的 20 毫无作用。输出 yield 的 value 为 i*10，也就是 100。因为执行到第一个 yield 停止，所以 **const j** 未被赋值。
+2. 调用 **next(10)** 时，第一个 yield 的位置被替换为 10，相当于在返回第二个 yield 的 value 前，设置 **yield (i * 10) = 10**，所以 **j 为 50**。yield 的 value 为 **2 * 50 / 4 = 25**。
+3. **next(5)** 用 5 替换第二个 yield，所以 k 为 5。继续执行 return 语句，返回最后的 yield value **(x + y + z) => (10 + 50 + 5) = 65**，并且 done 为 true。
 
-> **This might be bit overwhelming for the first time readers, but take a good 5 minutes to read it over and over again to understand completely.**
+> **这可能对初次接触 Generator 的读者有点超纲，但是给自己 5 分钟，多读几遍，就能清楚明白。**
 
-### Passing Yield as an Argument of a Function
+### Yield 作为其他函数的参数
 
-There are n-number of use-cases surrounding yield regarding how it can be used inside a function generator. Let’s look at the code below for one such interesting usage of yield, along with the explanation.
+Yield 在 Generator 中还有大把的用法，我们接着看看下面的代码，这是 yield 的其中一个妙用，附带解释。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Y6pwTwJ7stPZzAeCKBfv4Q.png)
 
-Yield as an argument of a function
+Yield 作为其他函数的参数
 
-#### Explanation
+#### 解释
 
-1.  The first next() yields undefined value because yield expression has no value.
-2.  The second next() yields “I am usless”, the value which was passed. And prepares argument for function call.
-3.  The third next(), calls the function with an **_undefined_** argument. As mentioned above, the next() method called without any arguments essentially means that the **_entire previous yield expression is undefined_**. Hence, this prints **_undefined_** and finishes the run.
+1.  第一个 next() yield（生成） 的 value 为 undefined，因为 yield 表达式无值。
+2.  第二个 next() 生成的 value 为被传入的 `'I am usless'`，这一步为函数调用准备了参数。
+3.  第二个 next() 以 **undefined** 为参数调用了后面的函数。next() 没有接收参数，意味着**上一个 yield 表达式的值为 undefined**，所以函数打印出 **undefined** 并终止运行。
 
-### Yield with a Function Call
+### 对函数调用使用 yield
 
-Apart from returning values yield can also call functions and return the value or print the same. Let’s look at the code below and understand better.
+除了返回普通的值，yield 还可以调用函数并返回他的值。看看下面的例子更好理解：
 
 ![](https://cdn-images-1.medium.com/max/800/1*zXpsq-hlqla3z3mZGWyTJw.png)
 
-Yield calling a function
+对函数调用使用 yield
 
-The code above returns the function’s return obj as the yield value. And ends the run by setting **_undefined_** to the **_const user_**.
+上述代码返回了函数返回的对象作为 yield 的 value，然后把 **const user** 赋值为 **undefined**，结束运行。
 
-### Yield with Promises
+### 对 Promise 使用 yield
 
-Yield with promises follows the same approach as the function call above, instead of returning a value from the function, it returns a promise which can be evaluated further for success or failure. Let’s look at the code below to understand how it works.
+对 promise 使用 yield 与对函数调用使用 yield 相似，它会返回一个 promise，我们以此进一步判定操作成功或失败。看看以下代码，了解它的使用方法：
 
 ![](https://cdn-images-1.medium.com/max/800/1*100c_wLxJHmcKtjZAYwJzw.png)
 
-Yield with promises
+对 Promise 使用 yield
 
-The apiCall returns the promises as the yield value, when resolved after 2 seconds prints the value we need.
+apiCall 将 promise 作为 yield value 返回，在 2 秒后 resolved 并打印出我们需要的值。
 
-### Yield*
+### `Yield*`
 
-So far we have been looking at the use cases for yield expression, now we are going to look at another expression called **_yield*_**_._ **_Yield*_** when used inside a generator function  delegates another generator function. Simply put, it synchronously completes the generator function in its expression before moving on to the next line.
+Yield 表达式的介绍就告一段落了，接着我们了解一下另一个表达式 `yield*`。`Yield*` 在 Generator 函数中使用时，会把迭代委托到下一个 Generator 函数。简单来说，会先同步完成 `Yield*` 表达式中的 Generator 函数，再继续运行外层函数。
 
-Let’s look at the code and the explanation below to understand better. This code is from the MDN web docs.
+让我们看看下面的代码和解释，以便更好地理解。此代码来自 MDN Web 文档。
 
 ![](https://cdn-images-1.medium.com/max/800/1*eMlOmBoi2XGCE3qwUIj3qA.png)
 
-Basic yield*
+`Yield*` 基础
 
-#### Explanation
+#### 解释
 
-1.  The first next() call yields a value of 1.
-2.  The second next() call, however, is a **_yield* expression_**, which inherently means that we are going to complete another generator function specified in the **_yield* expression_** before continuing the current generator function.
-3.  In your mind, you can assume that the code above is replaced like the one below
+1.  调用第一个 next()，产生的值为1。
+2.  第二个 next() 调用的是 `yield*` 表达式，这意味着我们要先完成 `yield*` 表达式指定的 Generator 函数，再继续运行当前 Generator 函数。
+3.  你可以假设上面的代码被替换为如下代码：
 
 ```
 function* g2() {
@@ -169,56 +167,56 @@ function* g2() {
 }
 ```
 
-> This will go on to finish the generator run. However, there is one distinct ability of the **_yield*_** which you should keep in mind while using **_return_**, in the next section.
+> Generator 会按这个顺序运行结束。不过对于 `yield*` 和 return 的同时使用，我们需要特别注意，下一节将会提到。
 
-### Yield* with Return
+### `Yield*` 与 Return
 
-Yield* with a return behaves a bit differently than the normal yield*. When yield* is used with a return statement it evaluates to that value, meaning the entire yield* function() becomes equal to the value returned from the associated generator function.
+带 return 的 `yield*` 与一般 `yield*` 有点不同。当 `yield*` 与 return 语句一起使用时，`yield*` 被赋 return 的值，也就是整个 `yield*` function() 与其关联 Generator 函数的返回值相等。
 
-Let’s look at the code and the explanation below to understand it better.
+让我们看看下面的代码和解释，以便更好理解。
 
 ![](https://cdn-images-1.medium.com/max/800/1*HxJtIuXhBnOMAK0cwVElsQ.png)
 
-Yield* with return
+`Yield*` 与 Return
 
-#### **Explanation**
+#### **说明**
 
-1.  In the first next() we go straight to the yield 1 and return its value.
-2.  The second next() yields 2.
-3.  The third next(), **_returns ‘foo’_** and goes on to yield the ‘the end’, assigning ‘foo’ to the **_const result_** on the way.
-4.  The last next() finishes the run.
+1. 第一个 next()，直接进入 yield 1 并返回其值。
+2. 第二个 next() 返回 2。
+3. 第三个 next()，运行 **return 'foo'** 后紧接着，yield 返回 'the end'，其中 'foo' 被赋值到 **const result**。
+4. 最后一个 next() 结束运行。
 
-### **Yield* with a Built-in Iterable Object**
+### **对内建 Iterable 对象使用 `Yield*`**
 
-There is one more interesting yield* property worth-mentioning, similar to the return value, **_yield*_** can also iterate over iterable objects like Array, String and Map.
+`yield*` 还有一个值得一提的用法，它可以遍历 iterable 对象，如 Array，String 和 Map。
 
-Let’s look at how it works in real-time.
+一起看看实际运行结果。
 
 ![](https://cdn-images-1.medium.com/max/800/1*u6RQVCQBCqw5UsF3Kger1w.png)
 
-Yield over built-in iterables
+对内建 Iterable 对象使用 `Yield*`
 
-Here in the code the yield* iterates over every possible iterable object that is passed as its expression. I guess the code itself is self-explanatory.
+在代码中，`yield*` 遍历传入的每一个 iterable 对象，我觉得这段代码本身是不言自明的。
 
-### Best Practices
+### 最佳实践
 
-On top of all this, every iterator/generator can be iterated over a **for…of** loop. Similar to our next() method which is called explicitly, for…of loop internally moves on to the next iteration based on the **_yield keyword_**. And it iterates only till the **_last yield_** and doesn’t process the return statements like the next() method.
+最重要的是，每个 iterator/Generator 都可以使用 **for…of** 遍历。与显式调用的 next() 类似，for…of 循环依据 **yield 关键字** 进入下一次迭代。这里是重点：它只会迭代到**最后一个 yield**，不会像 next() 那样处理 return 语句。
 
-You can verify the same in the code below.
+下面的代码可以验证以上描述。
 
 ![](https://cdn-images-1.medium.com/max/800/1*dDYt_xElLC7wjUDN7HfDJg.png)
 
-Yield with for…of
+Yield 与 for…of
 
-> The final return value is not printed, because for…of loop iterates only till the last yield. So, it comes under best practice to avoid return statements inside a generator function as it would affect the reusability of the function when iterated over a **for…of**.
+> 最后 return 的值不会被打印，因为 for…of 循环只迭代到最后一个 yield。因此，作为最佳实践，尽量避免在 Generator 函数中使用 return 语句，原因在于当使用 for…of 语句进行迭代时，return 会影响函数的可重用性。
 
 ![](https://cdn-images-1.medium.com/max/800/1*4877k4Hq9dPdtmvg9hnGFA.jpeg)
 
-### Conclusion
+### 总结
 
-I hope this covers the basic use-cases of generator functions and I sincerely hope that it gave a better understanding of how generators work in JavaScript ES6 and above. If you like my content please leave **_1, 2, 3 or even 50 claps :)_**.
+我希望这涵盖了 Generator 函数的基本用法，希望这篇文章能让你更好地理解 Generator 在 JavaScript 中的工作方式。如果你喜欢本文，请点个赞吧 :)。
 
-Please follow me on my GitHub account for more JavaScript and Full-Stack projects:
+请关注我的 GitHub 账号获取更多 JavaScript 和全栈项目：
 
 * [**rajeshdavidbabu (Rajesh Babu)**: rajeshdavidbabu has 11 repositories available. Follow their code on GitHub.](https://github.com/rajeshdavidbabu)
 
@@ -228,3 +226,4 @@ Please follow me on my GitHub account for more JavaScript and Full-Stack project
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
