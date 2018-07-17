@@ -1,79 +1,146 @@
-> * 原文地址：[Practical Flutter: 6 Tips for Newcomers](https://hackernoon.com/practical-flutter-my-personal-6-tips-for-newcomers-dfbe44a29246)
-> * 原文作者：[Nick Manning](https://hackernoon.com/@seenickcode?source=post_header_lockup)
+> * 原文地址：[Make 3D flip animation in Flutter](https://medium.com/flutter-community/make-3d-flip-animation-in-flutter-16c006bb3798)
+> * 原文作者：[Hung HD](https://medium.com/@hunghdyb?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/practical-flutter-my-personal-6-tips-for-newcomers.md](https://github.com/xitu/gold-miner/blob/master/TODO1/practical-flutter-my-personal-6-tips-for-newcomers.md)
-> * 译者：
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/make-3d-flip-animation-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/make-3d-flip-animation-in-flutter.md)
+> * 译者：[ALVINYEH](https://github.com/ALVINYEH)
 > * 校对者：
 
-# Practical Flutter: 6 Tips for Newcomers
+# 使用 Flutter 制作 3D 翻转动画
 
-![](https://cdn-images-1.medium.com/max/800/1*49JRIXl5TjmS9GWjlyr7Sw.jpeg)
+从 UI 挑战中学习 Flutter
 
-I've just submitted [Steady Calendar](https://www.steadycalendar.com), a minimalist habit tracker app, on the [Google Play Store](https://play.google.com/store/apps/details?id=com.manninglabs.steady), design by my wife [Irina](https://www.behance.net/irinamanning) and developed in short order by yours truly in the little free time I have being a new father. The app was a port from iOS to Flutter. After speaking about the experience ([slides](https://docs.google.com/presentation/d/1YQP7Qz1-4xRQWmOhwhswDTexmOl456RZPko45lhh-KU/edit#slide=id.gcb9a0b074_1_0)) at last week’s [Flutter Camp](https://flutter.camp), organized by @[flutterfyi](https://twitter.com/flutterfyi), I've decided to boil my talk down to something more meaty for everyone and make it a prelude to what an upcoming Flutter course, [Practical Flutter](https://mailchi.mp/5a27b9f78aee/practical-flutter), will be all about.
+作为我的第一篇[文章](https://github.com/xitu/gold-miner/blob/master/TODO1/make-shimmer-effect-in-flutter.md)的续篇，我将开始新的挑战。这个将比前一个（微光闪烁）复杂一点。我称之为翻转动画：
 
-Well, after writing this app, with little free time yet without cutting really too many corners, I wasted a lot of time with distractions on what I thought I had to learn about Flutter, which in the end wasn't very useful and was sort of time lost.
+![](https://cdn-images-1.medium.com/max/800/1*vDimOOn9HYlJyX3bDqNFjA.gif)
 
-So with that said, here’s some advice for newcomers to Flutter.
+这已经足够值得挑战了，不是吗？是的，我们将播放一个**可能**产生 3D 效果的动画。
 
-### 1. Keep it Simple When Getting Started with Widgets
+### 它是如何运作的
 
-Flutter heavily uses [Material Design](https://material.io/design/) widgets in examples and throughout most of its library. If you want to quickly get a UI together or have no time to write an app for Android and iOS, stick to Material Design.
+乍一看，有个很简单的想法：我们有一堆面板，每个面板被分成两半，每一半可以围绕 X 轴旋转并显示下一个面板。
 
-Yet the problem with Material Design is it may alienate your iOS users unless customized properly. Google has been [recently making efforts](https://www.theverge.com/2018/5/10/17339230/google-material-design-theme-update-new-tools-matias-duarte) to make its library more flexible and show how adaptable it is, encouraging developers to break out of boring, repetitive UIs that all just look like Google Docs.
+如何用代码实现呢？我把它分为了两个小任务：
 
-Flutter does offer “Cupertino” [iOS style widgets](https://flutter.io/widgets/cupertino/) yet this comes at the cost of needing to do some heavy code splitting, since these widgets require other [parent widgets](https://www.crossdart.info/p/flutter/0.0.32-dev/src/cupertino/scaffold.dart.html) to work properly. Plus, Google isn’t heavily focused on offering a full blown comprehensive set of iOS widgets, after speaking with one of it’s employees at a recent event.
+*   将面板分割为两半
+*   围绕 X 轴旋转一半面板
 
-In my next app, I will be customizing Material Design heavily to match design needs yet here are some of the widget you may want to learn for now to stay flexible and get the most out of your time:
+那么 Flutter 如何帮助我们呢？查看 Flutter 文档，我发现有两个组件非常适合完成任务：**ClipRect** 和 **Transform**。
 
-*   [Scaffold](https://docs.flutter.io/flutter/material/Scaffold-class.html) and an AppBar (container for a screen and nav bar, respectively)
-*   [Layouts](https://flutter.io/tutorials/layout/), with Column, Row
-*   [Container](https://docs.flutter.io/flutter/widgets/Container-class.html) (ability to set ‘padding’, ‘decoration’, etc)
-*   [Text](https://flutter.io/widgets/text/)
-*   [AssetImage](https://flutter.io/assets-and-images/) ([NetworkImage](https://flutter.io/cookbook/images/network-image/) as a bonus)
-*   RaisedButton (forgot icons for now)
+### 实现
 
-### 2. Forget Learning Dart From Day One
+*   **将面板分割为两半：**
 
-Flutter uses [Dart](https://www.dartlang.org), a language that is very easy to pickup, even for folks new to software development. Yet getting an app running and rendering some simple UI does not at all require any Dart knowledge.
+**ClipRect** 组件有一个 **clipper** 参数来定义裁剪矩形的大小和位置，但是文档建议另一种使用 **ClipRect** 的方法：将它与 **Align** 一起使用：
 
-After you’re comfortable with learning the basics of layouts, getting some content on the screen, then take an entirely separate day to read up on Dart. After that, you’ll be ready to learn things like handling events (i.e. tapping a button) and maybe even fetching data from an API, depending on your experience level.
+```
+class FlipWidget extends StatelessWidget {
+  Widget child;
 
-### 3. Stick to Stateless Widgets For Now
+  FlipWidget({Key key, this.child}) : super(key: key);
 
-‘StatelessWidget’ is the default class any Widget will extend in Flutter. As the name implies they are for rendering widgets that will not need to hold any state.
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ClipRect(
+            child: Align(
+          alignment: Alignment.topCenter,
+          heightFactor: 0.5,
+          child: child,
+        )),
+        Padding(
+          padding: EdgeInsets.only(top: 2.0),
+        ),
+        ClipRect(
+            child: Align(
+          alignment: Alignment.bottomCenter,
+          heightFactor: 0.5,
+          child: child,
+        )),
+      ],
+    );
+  }
+}
+```
 
-In terms of it’s counterpart, ‘**Statefull**Widget’, Flutter’s documentation presents this by showing how to say, handle an event and change some information that’s on a screen. If you’re a newcomer to programming or even a junior developer, learning this in the beginning is by no means required. I say this because in the beginning of learning anything, motivation is the key to keep going and your primary focus should be getting comfortable with rendering a nice looking screen with some content.
+尝试一下：
 
-### 4. Establish Some “Motivation Milestones”
+![](https://cdn-images-1.medium.com/max/800/1*_yUrbREU8PQsXXXoLib9Zw.png)
 
-Again, when learning anything, hitting some important milestones is key to staying motivated. Here are some of my recommended learning milestones:
+就是这样。此外，**child** 可以让我们随心所欲设计动画的内容（无论如何是文本，还是图像）。
 
-*   Milestone One: Be able to develop a screen with a simple layout, text, a non-working button, and an image.
-*   Milestone Two: Be able to run your app on your actual phone. This is very cool and really motivating.
-*   Milestone Three: Learn how to hook up a button, change some state and render it on the screen by using a StatefulWidget.
-*   Milestone Four: Take a few hours to read up on Dart (this step can even come before the previous milestone if you’d like).
-*   Milestone Five: Be able to fetch some data from a public API ([examples](https://github.com/toddmotto/public-apis)) and render it on the screen. Understand how to work with JSON and deserializing it.
-*   Milestone Six: Release an actual iOS and/or Android build to a friend. This will surprise you but I really believe in doing this early, unless you’re still evaluating to see if Flutter is right for you. Showing an app you wrote, even if it’s not at all useful, to friends and family and sending it out to a test user via iTunesConnect or the Google Play Store (easier) and doing this early on is the really an amazing way to stay motivated and confident that you can crank out an app to the public one day.
+*   **围绕 X 轴旋转一半面板**
 
-### 5. Learn How to Get Help
+**Transform** 组件有一个 **transform** 参数，类型是 **Matrix4**，用于定义所应用的转换类型。**Matrix4** 暴露了一个名为 **rotationX()** 的工厂构造函数，看起来是我们需要用的，让我们尝试一下用在面板的上半部分：
 
-Get used to going to the [Flutter Google Group](https://groups.google.com/forum/#!forum/flutter-dev) if you can’t find an answer to a problem on Stack Overflow. I recommend the former over Stack Overflow when asking questions actually. You can read more advice [here](https://flutter.io/faq/#where-can-i-get-support).
+```
+@override
+Widget build(BuildContext context) {
+   return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Transform(
+          transform: Matrix4.rotationX(pi / 4),
+          alignment: Alignment.bottomCenter,
+          child: ClipRect(
+              child: Align(
+            alignment: Alignment.topCenter,
+            heightFactor: 0.5,
+            child: child,
+          )),
+        ),
+        ...
+      ],
+    );
+  }
+```
 
-Try to find a few mentors that can help you as well. You’ll find the Flutter community is wonderfully engaged and passionate.
+尝试一下：
 
-### 6. Share Your Work
+![](https://cdn-images-1.medium.com/max/800/1*hMlNgRDsy9ozpXsbCqWjCA.png)
 
-I’ve found that Twitter is a great way to share what you’ve done. Even if it’s something simple, simply posting a screenshot of your app and mentioning @[flutterio](http://twitter.com/flutterio) is really motivating.
+什么！！！！它看起来像放缩效果，不是吗？
 
-### Final Thoughts on Learning
+到底怎么回事呢？回答出这个问题是这个任务中最难的一点。我回看 Flutter 的文档、示例代码、文章……最后以[这篇](https://medium.com/flutter-io/perspective-on-flutter-6f832f4d912e)告终。其中指出，改变 **Matrix4** 的第 3 行和第 2 列的值，会改变其视角，并且会给变形带来 3D 效果：
 
-Overall, in terms of learning resources out there, there’s a lot available yet I’ve found that there isn’t enough real, end to end, battle tested tutorials on Flutter out there. Sure there’s your Google-produced YouTube videos and Udacity courses and these are great, yet a lot of the time they cover 1/5th of what you’ll need to learn to get a real app into the app store(s). I say this because after writing a port from iOS to Flutter for a simple app I wrote, Steady Calendar, recently, I found that things like working with JSON, APIs, manging multiple build environments, localization, caching, code organization, state management, tweaking Material Design for really custom UIs, etc took some digging.
+```
+...
+Transform(
+  transform: Matrix4.identity()..setEntry(3, 2, 0.006)..rotateX(pi / 4),
+  alignment: Alignment.bottomCenter,
+  child: ClipRect(
+      child: Align(
+    alignment: Alignment.topCenter,
+    heightFactor: 0.5,
+    child: child,
+  )),
+),
+...
+```
 
-So with that, **I plan to release a beta Flutter course** which will take my experiences learning Flutter and boil it down to practical, more “end to end” type tutorials which will focus on Flutter and all the other know-how it may take to write a real app.
+再试一下：
 
-If you’d like to sign up to get notified when I release the first lesson in July ’18, sign up here: [Practical Flutter](https://mailchi.mp/5a27b9f78aee/practical-flutter).
+![](https://cdn-images-1.medium.com/max/800/1*pazybBHLVUECQLmEJvcrDA.png)
 
-Happy Fluttering.
+不错。但是不如试一下神奇的数字 0.006？说实话，我不知道如何准确计算它，只是尝试选个我感觉很好的一些值。
+
+剩下的就是为我们的组件添加动画。这里有一点点棘手。实际上，每个面板都有两面（正面和背面）的内容，但是在代码中实现它并不明智，因为一个时刻只能看到一面。我假设要创建一个面板向上翻转的动画，所以动画的结果是两个阶段（顺序），第一个是向上翻转下半部分以使动画显示下一个面板的下半部分，然后隐藏当前面板的下半部分，第二个是在同一方向翻转上半部分，以显示下一半的上半部分，同时隐藏当前的上半部分：
+
+![](https://cdn-images-1.medium.com/max/800/1*K3qR8ucwG2x_cjHGGjCQ-A.gif)
+
+这个动画实现的代码很长，在此处插入并不太好。你可以在本文底部的链接中找到它。这是我们的最终效果：
+
+![](https://cdn-images-1.medium.com/max/800/1*f0t6EXlImJyjjos0Lebn6Q.gif)
+
+真棒。我们刚刚用 Flutter 完成了另一个 UI 挑战。**熟能生巧**。我会继续寻找新的挑战，使用 Flutter 解决它，并与你分享结果。感谢阅读。
+
+
+**P/S：透视变换出现了个小问题（会导致变换后的图像偏斜），我在 rotateX() 中使用一个非常小的值而不是零，可以暂时解决这个问题。**
+
+> **完整代码：** [https://gist.github.com/hnvn/f1094fb4f6902078516cba78de9c868e](https://gist.github.com/hnvn/f1094fb4f6902078516cba78de9c868e)
+
+> **我已将我的代码发布，包名为** [**flip_panel**](https://pub.dartlang.org/packages/flip_panel)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
