@@ -27,10 +27,10 @@ Flutter 确实提供了 “Cupertino” [iOS 风格组件](https://flutter.io/wi
 
 *   [Scaffold](https://docs.flutter.io/flutter/material/Scaffold-class.html) 以及 AppBar（分别用于屏幕和导航栏的 Container）
 *   [Layouts](https://flutter.io/tutorials/layout/)，能够使用 Column、Row
-*   [Container](https://docs.flutter.io/flutter/widgets/Container-class.html) (能够设置 ‘padding’，‘decoration’ 等)
+*   [Container](https://docs.flutter.io/flutter/widgets/Container-class.html) (能够设置 ‘padding’、‘decoration’ 等)
 *   [Text](https://flutter.io/widgets/text/)
-*   [AssetImage](https://flutter.io/assets-and-images/) ([NetworkImage](https://flutter.io/cookbook/images/network-image/) 作为 Bonus)
-*   RaisedButton （从现在起忘记 icon）
+*   [AssetImage](https://flutter.io/assets-and-images/)（[NetworkImage](https://flutter.io/cookbook/images/network-image/) 作为 Bonus）
+*   RaisedButton（从现在起忘记 icon）
 
 ### 2. 从第一天开始忘记学习 Dart
 
