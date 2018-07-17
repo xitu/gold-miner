@@ -2,7 +2,7 @@
 > * 原文作者：[Bruce Bigirwenkya](https://medium.com/@bruce.bigirwenkya?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-you-should-give-flutter-some-of-your-attention.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-you-should-give-flutter-some-of-your-attention.md)
-> * 译者：DateBro[https://github.com/DateBro]
+> * 译者：[DateBro](https://github.com/DateBro)
 > * 校对者：
 
 # 为什么你需要关注一下 Flutter
