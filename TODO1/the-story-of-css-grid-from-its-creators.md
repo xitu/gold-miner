@@ -9,7 +9,7 @@
 
 ![](https://alistapart.com/d/_made/d/story-of-css-grid_960_636_81.jpg)
 
-**一个来自编辑者的小提醒：** 我们想要感谢 Microsoft Edge 团队，因为他们分享了与许多对 CSS 网格系统的发展有杰出贡献的专家的采访手稿。在编辑这份关于 CSS 网格系统历史的文章中，这些手稿十分珍贵。同时，你也可以观看他们制作的关于这些采访的短视频 [Creating CSS Grid](https://channel9.msdn.com/Blogs/msedgedev/Creating-CSS-Grid) 在 [Channel 9](https://channel9.msdn.com/)。
+**一个来自编辑者的小提醒：** 我们想要感谢 Microsoft Edge 团队，因为他们分享了与许多对 CSS 网格系统的发展有杰出贡献的专家的采访手稿。在编辑这份关于 CSS 网格系统历史的文章中，这些手稿十分珍贵。同时，你也可以在 [Channel 9](https://channel9.msdn.com/)上观看他们制作的关于这些采访的短视频 [Creating CSS Grid](https://channel9.msdn.com/Blogs/msedgedev/Creating-CSS-Grid)。
 
 在 2017 年 10 月 17 日，微软的 Edge 浏览器发布了 CSS 网格系统。基于许多原因，这是 CSS 历史上的一个里程碑。首先，它意味着所有的主流浏览器现在都支持这个令人惊叹的布局工具。这个很棒的案例体现了主流浏览器在统一标准上的成功以及跨浏览器之间的合作。但是最后，或许是最有趣的一点，这次事件将一个本来超过20年为周期进行循环制定标准的过程，从此改写。
 
@@ -29,13 +29,13 @@
 
 ## 再一次动情
 
-随着网格概念正在有条不紊的被 CSS 工作组讨论，大多数人当时都希望其中的一个提案可以最终被采纳。而最终，真正被采纳的提案是由一群在微软的开发者所提出的，他们一直在寻找一个健壮的布局工具为了更好的开发他们 web 端的产品。
+随着网格概念正在有条不紊的被 CSS 工作组讨论，大多数人当时都希望其中的一个提案可以最终被采纳。而最终，真正被采纳的提案是由一群在微软的开发者所提出的，他们一直在寻找一个健壮的布局工具是为了更好的开发他们 web 端的产品。
 
-Phil Cupp 当时一直是重新设计 Microsoft Intune（一款计算机管理工具）的 UI 团队的负责人。[Silverlight](https://en.wikipedia.org/wiki/Microsoft_Silverlight) 是一个源于 [Windows Presentation Foundation](https://en.wikipedia.org/wiki/Windows_Presentation_Foundation) 的强大布局工具的浏览器插件，而 Cupp 是 Silverlight 的狂热粉丝，并且甚至当时一开始就打算以这种方式去重新构建新的 Microsoft Intune。然而之后，Microsoft 一直在 Windows 8 的计划准备阶段将要使用 web 端的技术打造应用。在得知此之后，Cupp 想要 Intune 这款产品也照着做，但是他很快就意识到 web 现阶段急需一款更出色的布局工具。
+Phil Cupp 当时一直是重新设计 Microsoft Intune（一款计算机管理工具）的 UI 团队的负责人。[Silverlight](https://en.wikipedia.org/wiki/Microsoft_Silverlight) 是一个源于 [Windows Presentation Foundation](https://en.wikipedia.org/wiki/Windows_Presentation_Foundation) 的强大布局工具的浏览器插件，而 Cupp 是 Silverlight 的狂热粉丝，并且甚至当时一开始就打算以这种方式去重新构建新的 Microsoft Intune。然而之后，Microsoft 一直在 Windows 8 的计划准备阶段要使用 web 端的技术打造应用。在得知此之后，Cupp 想要 Intune 这款产品也照着做，但是他很快就意识到 web 现阶段急需一款更出色的布局工具。
 
-于是，他加入了一个新的团队，为了能够专注于将已经存在于 Silverlight —— 一个类似于网格系统的布局方式 —— 引入 web 端。有趣的是，团队中的人已经意识到了这个需求。同时，许多开发者当时正在专注于 iPhones 和 iPads，这两种设备只需要开发者专注于两种不同的并且不变的画面大小（也有可能是 4 种，如果考虑横竖屏）。于是，Windows 不得不支持大量的不同的屏幕大小，分辨率和形状因子。对了，还有可变化大小的屏幕。简而言之，Microsoft 急切需要一个健壮并且灵活的布局工具对于 web 端的设计，尤其假使 web端 将会成为开发 Windows 原生应用的平台。
+于是，他加入了一个新的团队，为了能够专注于将已经存在于 Silverlight —— 一个类似于网格系统的布局方式 —— 引入 web 端。有趣的是，团队中的人已经意识到了这个需求。同时，许多开发者当时正在专注于 iPhones 和 iPads，这两种设备只需要开发者专注于两种不同的并且不变的画面大小（也有可能是 4 种，如果考虑横竖屏）。于是，Windows 不得不支持大量的不同的屏幕大小，分辨率和形状因子。对了，还有可变化大小的屏幕。简而言之，Microsoft 急切需要一个健壮并且灵活的布局工具对于 web 端的设计，尤其假使 web 端 将会成为开发 Windows 原生应用的平台。
 
-在与不同的微软团队之间努力达成第一份草案之后，Cupp 和他的团队发布了一款网格布局工具，在 2011 年 IE10 发布 `-ms-` 前缀之后。他们紧随其后发布了草案 [draft Grid Layout spec](https://www.w3.org/TR/2011/WD-css3-grid-layout-20110407/)，随后此草案也正式在 2012 年进入 W3C。
+在与不同的微软团队之间努力达成第一份草案之后，Cupp 和他的团队发布了一款网格布局工具，即在 2011 年 IE10 发布 `-ms-` 前缀之后。他们紧随其后发布了草案 [draft Grid Layout spec](https://www.w3.org/TR/2011/WD-css3-grid-layout-20110407/)，随后此草案也正式在 2012 年进入 W3C。
 
 当然，这也不是第一次甚至也不是第三次 W3C 收到一份关于网格布局的提案。但这次不同的是，他们还对草案进行了一次可评估的实现。不仅如此，我们，作为开发者，最终也有了可以真正上手的机会。网格布局从此就不仅仅是理论上的可能性了。
 
@@ -43,19 +43,19 @@ Phil Cupp 当时一直是重新设计 Microsoft Intune（一款计算机管理�
 
 “我刚接触到 CSS 网格布局是在法国，一个由 Bert Bos 领导的工作室。并且我不会说法语，但是我看到了演示并且试着去操作” Andrew 回想到。“我看到他在说明……一个布局模板的草案。我认为他真的在就印刷版而讨论并且使用这种工具去创建印刷式的布局，但是当我亲眼看到那个草案时，我感觉，__不，我认为这是 web 所需要的东西。这是我们真正需要并且可用的工具。__ 于是，我开始钻研于此，并且开始逐渐懂得它的意图，并且试着实现了一些简单的例子。”
 
-“之后，当我看到微软对于网格系统的实现，我意识到这是一个真正可以用来开发并且向别人[展示的工具](https://24ways.org/2012/css3-grid-layout/)。我当时想要尝试这个新事物，不仅仅是因为有趣，也是因为我喜欢去在尝试的同时也让更多的人参与进来。事实上，我一直在这样做，因为我知道这种提案总是昙花一现后就没有人真正会继续讨论了，于是就再次消失了。但是，我绝对有信心网格布局这个提案不会消失，这将会是被世人看到并且让人激动的东西。令人欣慰的是，我们最终让它进入了浏览器，使得更多的人可以使用它。”
+“之后，当我看到微软对于网格系统的实现，我意识到这是一个真正可以用来开发并且向别人[展示的工具](https://24ways.org/2012/css3-grid-layout/)。我当时想要尝试这个新事物，不仅仅是因为有趣，也是因为我喜欢去在尝试的同时也让更多的人参与进来。事实上，我一直在这样做，因为我知道这种提案总是昙花一现后就没有人真正会继续讨论了，于是就再次消失了。但是，我绝对有信心网格布局这个提案不会消失，这将会是被世人看到并且让人激动的事物。令人欣慰的是，我们最终让它进入了浏览器，使得更多的人可以使用它。”
 
 ## 草案的进化
 
-由 Cupp 向 W3C 提案的并且已经在 IE10 实现的草案，并不是[我们现在的网格系统](https://www.w3.org/TR/css-grid-1/)。它是通向正确方向的一小步，但远没有达到完美。
+由 Cupp 向 W3C 提案的并且已经在 IE10 上实现的草案，并不是[我们现在的网格系统](https://www.w3.org/TR/css-grid-1/)。它是通向正确方向的一小步，但远没有达到完美。
 
 “Phil Cupp 的提案是一个十分有迹可循的系统，”Elika Etemad 回想到，他是 W3C 的受邀教授，也是 CSS 网格系统布局模型的编辑者。“当时手头只有少数需要处理的系统，并且都没有名称，没有模板，什么都没有。但是有一个布局算法，他们坚信可以有效，因为他们已经进行了实验性的实现。”
 
-“Bert [Bos] 最开始想出的网格模型才是我加入 CSS 工作组的原因，”谷歌的一位 CSS 网格模型的编辑者 Tab Atkins 回想到。“在当时，我一直在学习许多糟糕的布局小技巧并且也看到了使用 CSS 网格模型写页面的可能性。之后，我看到了 Phil Cupp 的关于网格模型的草稿，并且发现它完美的解决了布局的问题基于它之后的算法，我意识到这就是应该存在的事物。”
+“Bert [Bos] 最开始想出的网格模型才是我加入 CSS 工作组的原因，”谷歌的一位 CSS 网格模型的编辑者 Tab Atkins 回想到。“在当时，我一直在学习许多糟糕的布局小技巧并且也看到了使用 CSS 网格模型写页面的可能性。之后，我看到了 Phil Cupp 的关于网格模型的草稿，并且发现，基于它之后的算法，它完美的解决了布局的问题，我意识到这就是应该存在的事物。”
 
 这同样也是一个令人信服的提案，因为不同于之前的过于死板的布局提案，这个提案是为了响应式的网格系统。
 
-“你可以很清楚网格单元的大小，” Etemad 解释到，“但是你也可以说，__网格的大小就是内容所占据的__。”并且这也使我们需要去进一步发展的方向。
+“你可以很清楚网格单元的大小，” Etemad 解释到，“但是你也可以说，__网格的大小就是内容所占据的__。”并且这也是我们需要去进一步发展的方向。
 
 然而，这个草案并不是像许多 CSS 工作室认为的那么的拿来即用。所以网格布局的工作室期待引进一些之前的探索想法。
 
@@ -152,35 +152,35 @@ Andrew 说：“我认为现在我们已经拥有了网格系统，Exclusions �
 “就我而言，这并不止于此；这只是开始。”
 
 ## 开始认识网格系统
-*   CSS Grid Layout Module Level 1  
+*   CSS 网格模型教程阶段 1  
     [https://www.w3.org/TR/css-grid-1/](https://www.w3.org/TR/css-grid-1/)
-*   CSS Grid Layout – Mozilla Developer Network  
+*   CSS 网格布局 – Mozilla Developer Network  
     [https://developer.mozilla.org/en-US/docs/Web/CSS/CSS\_Grid\_Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)
-*   Grid by Example – Rachel Andrew  
+*   网格布局案例 – Rachel Andrew  
     [https://gridbyexample.com/examples/](https://gridbyexample.com/examples/)
-*   Grab & Go Grid Layout Patterns by Rachel Andrew  
+*   走进网格布局 - Rachel Andrew  
     [https://gridbyexample.com/patterns/](https://gridbyexample.com/patterns/)
-*   Layout Demos by Jen Simmons  
+*   布局案例 - Jen Simmons  
     [http://labs.jensimmons.com/2016/](http://labs.jensimmons.com/2016/)
-*   Learn CSS Grid by Jen Simmons  
+*   学习 CSS 网格布局 - Jen Simmons  
     [http://jensimmons.com/post/feb-27-2017/learn-css-grid](http://jensimmons.com/post/feb-27-2017/learn-css-grid)
-*   CSS Grid and Grid Inspector in Firefox  
+*   在火狐浏览器中的 CSS 网格布局和其开发工具  
     [https://www.mozilla.org/en-US/developer/css-grid/](https://www.mozilla.org/en-US/developer/css-grid/)
-*   Practical CSS Grid: Adding Grid to an Existing Design by Eric Meyer  
+*   实用的 CSS 网格布局: 在现存的设计中加入网格 - Eric Meyer  
     [https://alistapart.com/article/practical-grid](https://alistapart.com/article/practical-grid)
-*   Progressively Enhancing CSS Layout: From Floats To Flexbox To Grid by Manuel Matuzović  
+*   渐进式加强 CSS 布局: 从 Floats 到 Flexbox 再到 Grid by Manuel Matuzović  
     [https://www.smashingmagazine.com/2017/07/enhancing-css-layout-floats-flexbox-grid/](https://www.smashingmagazine.com/2017/07/enhancing-css-layout-floats-flexbox-grid/)
-*   Box Alignment Cheatsheet by Rachel Andrew  
+*   盒模型校准小抄 - Rachel Andrew  
     [https://rachelandrew.co.uk/css/cheatsheets/box-alignment](https://rachelandrew.co.uk/css/cheatsheets/box-alignment)
-*   CSS Grid Layout by Rachel Andrew – An Event Apart video  
+*   CSS 网格布局 - Rachel Andrew 在 An Event Apart video  
     [https://aneventapart.com/news/post/css-grid-layout-by-rachel-andrewan-event-apart-video](https://aneventapart.com/news/post/css-grid-layout-by-rachel-andrewan-event-apart-video)
-*   Revolutionize Your Page: Real Art Direction on the Web by Jen Simmons – An Event Apart video  
+*   革新你的页面: web 上的真正艺术方向 - Jen Simmons 在 An Event Apart video  
     [https://aneventapart.com/news/post/real-art-direction-on-the-web-by-jen-simmons-an-event-apart](https://aneventapart.com/news/post/real-art-direction-on-the-web-by-jen-simmons-an-event-apart)
-*   “Learn Grid Layout” video series by Rachel Andrew  
+*   “学习网格布局” 系列视频 - Rachel Andrew  
     [https://gridbyexample.com/video/](https://gridbyexample.com/video/)
-*   Why I love CSS Grid – a short video by Jen Simmons  
+*   为什么喜欢 CSS 网格布局 – 一个短视频由 Jen Simmons 带来 
     [https://www.youtube.com/watch?v=tY-MHUsG6ls](https://www.youtube.com/watch?v=tY-MHUsG6ls)
-*   Modern Layouts: Getting Out of Our Ruts by Jen Simmons – An Event Apart video  
+*   现代布局: 打破常规 - Jen Simmons 在 An Event Apart video  
     [https://vimeo.com/147950924](https://vimeo.com/147950924)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
