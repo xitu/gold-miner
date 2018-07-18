@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-you-should-give-flutter-some-of-your-attention.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-you-should-give-flutter-some-of-your-attention.md)
 > * 译者：[DateBro](https://github.com/DateBro)
-> * 校对者：
+> * 校对者：[Swants](https://github.com/swants)
 
 # 为什么你需要关注一下 Flutter
 
 ![](https://cdn-images-1.medium.com/max/1000/1*ksS2oqmcv5ol9nCaMkraIw.jpeg)
 
-跨平台应用程序开发新方式
+跨平台移动应用开发新方式
 
 ### 什么是 Flutter
 
-Flutter 是一款帮助开发者短时间内在 iOS 和 Android 上制造高质量原生界面的移动应用 SDK。它由 Google 开发，完全开源。
+Flutter 是由 Google 开发，完全开源的一款帮助开发者短时间内在 iOS 和 Android 上开发高质量原生界面的移动应用 SDK。
 
 Flutter 刚刚发布了 [发布预览 1](https://medium.com/flutter-io/flutter-release-preview-1-943a9b6ee65a)
 
@@ -32,13 +32,13 @@ Flutter 刚刚发布了 [发布预览 1](https://medium.com/flutter-io/flutter-r
 
 原生应用程序开发与跨平台开发始终有明显区别，有着各种优点和缺点。
 
-跨平台应用的非常有吸引力。尽管如此，它仍然在不断变化，最终填补了原生应用程序开发空间的空白。一般来说，移动开发也比较年轻（不到十年）。
+跨平台应用的确非常有吸引力。尽管如此，它仍然在不断变化，最终填补了原生应用程序开发空间的空白。一般来说，移动开发也比较年轻（不到十年）。
 
 [这篇文章](https://hackernoon.com/whats-revolutionary-about-flutter-946915b09514) 详细介绍了移动开发中使用的视图技术的历史。
 
 第一个跨平台框架使用了 Web 技术并显示 Web 视图
 
-在 Apple 发布 iOS SDK 之前，他们鼓励第三方开发人员为 iPhone 搭建 web 应用，因此用 Web 技术搭建跨平台应用是一个明显的步骤。
+在 Apple 发布 iOS SDK 之前，他们鼓励第三方开发人员为 iPhone 搭建 web 应用，因此用 Web 技术搭建跨平台应用是一个明显的阶段。
 
 [响应式编程](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754) 是一种强调异步数据流与事件数据流的编程范式。在动画和其他渲染要求方面，它已经越来越多地被用于用户界面开发。
 
@@ -50,9 +50,9 @@ Flutter 刚刚发布了 [发布预览 1](https://medium.com/flutter-io/flutter-r
 
 #### “桥”
 
-传统上，构建跨平台应用会因为在不同领域运行而面临性能损失。应用程序的是用 JavaScript 开发但界面是完全原生的。不同领域的变量不能互相访问。不同领域的变量和数据交互都必须通过“桥”来完成。
+传统上，构建跨平台应用会因为在不同领域运行而面临性能损失。应用程序是用 JavaScript 开发但界面是完全原生的。不同领域的变量不能互相访问。不同领域的变量和数据交互都必须通过“桥”来完成。
 
-例如，在 Chrome 中调试 React Native 应用意味着程序将在两个不同的领域运行（桌面和移动）。这些领域通过 WebSocket 连接起来。
+例如，如果你在 Chrome 中调试 React Native 应用，这就意味着程序将在两个不同的领域运行（桌面和移动）。而这些领域通过 WebSocket 连接起来。
 
 React Native 的优化尝试在运行时通过“桥”将数据交换保持在最低值。最终，每个环境下的运行都很流畅但跨桥的交换的延迟会增大。
 
@@ -74,7 +74,7 @@ Flutter 团队提供了很多他们觉得用起来不错的布局组件。Flutte
 
 Flutter 团队使用 Dart 有以下几个原因：
 
-*   _静态编译_
+*   __静态编译__
     Dart 是静态编译的。Dart VM 可以为你正在开发的平台构建本机 ARM 代码。这意味着与使用即时编译器，在程序执行时编译的应用程序相比，程序要快得多。
 *   _动态编译
     _Dart 也可以即时编译。Flutter 利用这种开发能力来缩短开发周期。像热重载这样的功能是可行的，因为应用程序可以轻松编译更新，从而更容易测试和迭代产品。
@@ -93,7 +93,7 @@ Flutter 应用的结构
 
 #### 在 Fuchsia 上的潜力
 
-能够在 Fuchsia 上使用。[Fuchsia](https://fuchsia.googlesource.com/) 是一个新的 [开源](https://fuchsia.googlesource.com/) 操作系统，现在由谷歌开发，that is also garnering some attention in tech enthusiast spaces. 不像 Android 和其他流行的操作系统，它基于一个叫做“Zircon”的微内核。Flutter 已经和 Armadillo 一起用来测试 [Fuchsia 用户界面](https://9to5google.com/2018/03/02/fuchsia-friday-first-fuchsia-app/) 的开发了。
+能够在 Fuchsia 上使用。[Fuchsia](https://fuchsia.googlesource.com/) 是一个新的 [开源](https://fuchsia.googlesource.com/) 操作系统，现在由谷歌开发，这在科技爱好者圈子引起了不少的关注。不像 Android 和其他流行的操作系统，它基于一个叫做“Zircon”的微内核。Flutter 已经和 Armadillo 一起用来测试 [Fuchsia 用户界面](https://9to5google.com/2018/03/02/fuchsia-friday-first-fuchsia-app/) 的开发了。
 
 #### 目前的不足之处
 
@@ -114,7 +114,7 @@ Flutter 应用的结构
 
 * * *
 
-你可能在 Mac Os 上遇到[依赖缺失问题](https://github.com/flutter/flutter/issues/16428) ，这可以通过运行 **pip install six** 来解决。
+你可能在 Mac OS 上遇到[依赖缺失问题](https://github.com/flutter/flutter/issues/16428) ，这可以通过运行 **pip install six** 来解决。
 
 当你尝试运行 flutter upgrade 时，你可能遇到的另一个问题是合并冲突。如果你已经测试了与 SDK 捆绑在一起的 Flutter 示例，就会出现这种情况。在这种情况下，在运行 Flutter 升级命令之前进入 Flutter SDK 文件夹，存储已更改的文件（git add.| git stash）非常有用。
 
@@ -137,4 +137,3 @@ _我很高兴尝试它。如果你也是，请告诉我！_
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-
