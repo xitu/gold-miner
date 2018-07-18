@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-i-automated-my-job-with-node-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-i-automated-my-job-with-node-js.md)
 > * 译者：[geniusq1981](https://github.com/geniusq1981)
-> * 校对者：
+> * 校对者：[Starriers](https://github.com/Starriers)
 
 # 我如何使用 Node.js 来实现工作自动化
 
@@ -15,11 +15,11 @@
 
 ### 什么是 Reskin?
 
-公司 reskin 的定义是指使用相同的游戏机制，屏幕和元素的定位，但改变视觉美学，如颜色和素材资源。因此，在像“Rock Paper Scissors”这样简单的游戏中，我们创建一个具有如下基本素材资源的模板。
+公司 reskin 的定义是指使用相同的游戏机制，屏幕和元素的定位，但改变诸如色彩和素材资源之类的纯视觉美学的相关内容。因此，在像“Rock Paper Scissors”这样简单的游戏中，我们创建一个具有如下基本素材资源的模板。
 
 ![](https://cdn-images-1.medium.com/max/800/1*hgFoiDduNdXaLJ-0seB-Gw.jpeg)
 
-当我们创建一个这样的 reskin 之后，我们就可以更换不同的素材资源。如果你看看像 Candy Crush 或 Angry Birds 这样的游戏，你会发现它们一个游戏有很多不同的版本。通常有分别对应万圣节，圣诞节或复活节的版本来区分发布。从商业角度来看，这样坐非常有意义。现在...回到我们的实现。我们的每个会共用相同的 JavaScript 文件，但会加载包含不同内容和资源路径的 JSON 文件。结果是？
+当我们创建一个这样的 reskin 之后，我们就可以更换不同的素材资源。如果你看看像 Candy Crush 或 Angry Birds 这样的游戏，你会发现它们一个游戏有很多不同的版本。通常有对应万圣节，圣诞节或复活节的版本来区分发布。从商业角度来看，这样做非常有意义。现在...回到我们的实现。每个游戏都共用相同的 JavaScript 文件，但会加载包含不同内容和资源路径的 JSON 文件。结果是？
 
 ![](https://cdn-images-1.medium.com/max/800/1*SYAsVKSmEmcKQ8dEZiisPg.jpeg)
 
@@ -30,8 +30,8 @@
 3. 制作我需要构建的模板的副本；
 4. 运行 gulp；
 5. 更新 **config.json** 文件中的内容。这里面涉及到资源路径，标题，段落以及数据服务请求等；
-6. 本地编译并检查与任务需求文档要求的内容是否匹配。*是的,我知道*；
-7. 与设计师确认他们对结果是否满意
+6. 本地编译并检查与任务需求文档要求的内容是否匹配；
+7. 与设计师确认他们对结果是否满意；
 8. 合并到主分支并继续下一个分支;
 9. 更新 Jira 任务的状态，并发表评论;
 10. 整理并再重复以上过程。
@@ -40,7 +40,7 @@
 
 对我来说，这感觉更像是一种管理工作而不是实际的开发工作。我曾在以前的角色中接触过 Bash 脚本，并在此基础上创建过一些脚本，以减少所做的工作。其中一个脚本可以更新模板并创建一个新的分支，另一个脚本执行了一个 commit 并将项目合并到开发和生产环境中。
 
-手动创建一个项目需要三到十分钟。部署可能需要五到十分钟。这些会根据游戏的复杂程度而不同，有时可能需要十分钟到半天。脚本会有所帮助,但然需要大量时间用于更新内容或追查丢失的信息。
+手动创建一个项目需要三到十分钟。部署可能需要五到十分钟。这些会根据游戏的复杂程度而不同，有时甚至可能需要十分钟到半天。脚本会有所帮助,但仍然需要大量时间用于更新内容或追查丢失的信息。
 
 ![](https://cdn-images-1.medium.com/max/800/0*jxmPvnNgXhpFMV3v.)
 
@@ -61,7 +61,7 @@ Bash 脚本很好，但如果有人在 Windows 上工作，就无法使用了。
 考虑下面的简化代码示例。它正在引导命令行接口（CLI）应用程序。
 
 #### SRC / mason.js
-
+```
     #! /usr/bin/env node
 
     const mason = require('commander');
@@ -96,23 +96,27 @@ Bash 脚本很好，但如果有人在 Windows 上工作，就无法使用了。
     if (!mason.args.length) {
         mason.help();
     }
+```
 
 使用 npm，您可以运行 **package.json** 中的一个链接，它创建了一个全局的别名。
-
+```
     ...
     "bin": {
       "mason": "src/mason.js"
     },
     ...
+```
 
 当我在项目的根目录中运行 npm link。
-
+```
     npm link
+```
 
 它将为我提供一个我可以调用的 mason 命令。所以每当我在终端调用 mason，它就会运行 mason.js 脚本。所有的任务都在这个 mason 命令中实现了，我每天都用它来构建游戏。我节省的时间真是难以置信。
 
 您可以在下面看到——在我当时所设想的示例中——我将一个 Jira 任务号作为参数传递给命令。这将访问 Jira API，并获取更新游戏我所需要的全部信息。然后，它将继续编译和部署项目。之后我会发一条评论，@负责人和设计师，让他们知道已经完成了。
 
+```
     $ mason create GS-234
     ... calling Jira API 
     ... OK! got values!
@@ -125,6 +129,7 @@ Bash 脚本很好，但如果有人在 Windows 上工作，就无法使用了。
     ... Perfect! Here is the live link 
     http://www.fake-studio.com/game/fire-water-earth
     ... Posted comment 'Hey [~ben.smith], this has been released. Does the design look okay? [~jamie.lane]' on Jira.
+```
 
 所有这一切只用几个键就搞定了!
 
@@ -132,8 +137,11 @@ Bash 脚本很好，但如果有人在 Windows 上工作，就无法使用了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*wOmVnWEaWu-1g-xL874xyg.jpeg)
 
-> ***彩色打印: ***  [*http://amzn.eu/aA0cSnu*](http://amzn.eu/aA0cSnu)***点燃: ***  [*http://amzn.eu/dVSykv1*](http://amzn.eu/dVSykv1)***工房: ***  [*https://www.kobo.com/gb/en/ebook/automating-with-node-js*](https://www.kobo.com/gb/en/ebook/automating-with-node-js)\
-> ***Leanpub: *** [*https://leanpub.com/automatingwithnodejs*](https://leanpub.com/automatingwithnodejs)***Google Play: ***  <https://play.google.com/store/books/details?id=9QFgDwAAQBAJ>
+> * **_彩色打印：_** [http://amzn.eu/aA0cSnu](http://amzn.eu/aA0cSnu)
+> * **_Kindle：_** [http://amzn.eu/dVSykv1](http://amzn.eu/dVSykv1)  
+> * **_Kobo：_** [https://www.kobo.com/gb/en/ebook/automating-with-node-js](https://www.kobo.com/gb/en/ebook/automating-with-node-js)  
+> * **_Leanpub：_** [https://leanpub.com/automatingwithnodejs](https://leanpub.com/automatingwithnodejs) 
+> * **_Google Play：_** [https://play.google.com/store/books/details?id=9QFgDwAAQBAJ](https://play.google.com/store/books/details?id=9QFgDwAAQBAJ)
 
 这本书分为两部分：
 
@@ -142,7 +150,7 @@ Bash 脚本很好，但如果有人在 Windows 上工作，就无法使用了。
 
 ### 第 2 部分
 
-第二部分是一个从头开始创建跨平台编译工具的演练。每个脚本实现特定的某个任务，主伞命令，通常就是项目的名称，将它们全部封装起来。
+第二部分是一个从头开始创建跨平台编译工具的演练。每个脚本实现特定的某个任务，由主命令，通常就是项目的名称，将它们全部封装起来。
 
 书中的项目被称为 **nobot** _(no-bot)_，它基于一个小卡通机器人。我希望你能喜欢并从中可以学到一些东西。
 
@@ -154,7 +162,7 @@ Bash 脚本很好，但如果有人在 Windows 上工作，就无法使用了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*4877k4Hq9dPdtmvg9hnGFA.jpeg)
 
-谢谢阅读！如果你喜欢，请在下面给我们鼓鼓掌。👏
+谢谢阅读！如果你喜欢，请在下面给我们点赞。👏
 
 有关软件/硬件各方面的视频,请查看我的 YouTube 频道：<https://www.youtube.com/channel/UCKr-FjGzNdbbk--gvW5tzaw>
 
