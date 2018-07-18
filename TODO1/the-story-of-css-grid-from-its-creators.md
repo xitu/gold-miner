@@ -6,6 +6,7 @@
 > * 校对者：[Zheng7426](https://github.com/Zheng7426)
 
 # 由 CSS 网格系统的创造者们所讲述的故事
+
 ![](https://alistapart.com/d/_made/d/story-of-css-grid_960_636_81.jpg)
 
 **一个来自编辑者的小提醒：** 我们想要感谢 Microsoft Edge 团队，因为他们分享了与许多对 CSS 网格系统的发展有杰出贡献的专家的采访手稿。在编辑这份关于 CSS 网格系统历史的文章中，这些手稿十分珍贵。同时，你也可以观看他们制作的关于这些采访的短视频 [Creating CSS Grid](https://channel9.msdn.com/Blogs/msedgedev/Creating-CSS-Grid) 在 [Channel 9](https://channel9.msdn.com/)。
