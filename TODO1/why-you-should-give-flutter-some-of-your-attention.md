@@ -21,7 +21,7 @@ Flutter 刚刚发布了 [发布预览 1](https://medium.com/flutter-io/flutter-r
 
 了解为什么选择 Flutter 需要明白其用途和各个平台中的开发历史。
 
-#### Flutter 为谁定制
+#### 谁是 Flutter 的目标用户
 
 *   希望打造高性能用户界面的开发者。
 *   不想学习各种原生平台语言但希望进入移动应用程序开发层的 Web 应用开发者。
