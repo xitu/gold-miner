@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*S7-c7ZO0w0ocUU8tzkB3zA.jpeg)
 
-您知道在工作中有很多必须完成的繁琐任务: 更新配置文件,复制和粘贴文件,更新 Jira 任务。
+您知道在工作中有很多必须完成的繁琐任务：更新配置文件,复制和粘贴文件，更新 Jira 任务。
 
 一段时间之后,这些工作的消耗时间会逐渐累积。2016 年，我在一家网络游戏公司工作时，情况就是如此。为游戏构建可配置的模板对于游戏开发来说是一项非常有意义的工作，但我大约 70% 的时间都花在了复制这些游戏模板和部署这些重新封装的实现上。
 
@@ -32,15 +32,15 @@
 5. 更新 **config.json** 文件中的内容。这里面涉及到资源路径，标题，段落以及数据服务请求等；
 6. 本地编译并检查与任务需求文档要求的内容是否匹配；
 7. 与设计师确认他们对结果是否满意；
-8. 合并到主分支并继续下一个分支;
-9. 更新 Jira 任务的状态，并发表评论;
+8. 合并到主分支并继续下一个分支；
+9. 更新 Jira 任务的状态，并发表评论；
 10. 整理并再重复以上过程。
 
 ![](https://cdn-images-1.medium.com/max/800/1*7Jg9xcM_hj6g8QC22vTiiw.jpeg)
 
 对我来说，这感觉更像是一种管理工作而不是实际的开发工作。我曾在以前的角色中接触过 Bash 脚本，并在此基础上创建过一些脚本，以减少所做的工作。其中一个脚本可以更新模板并创建一个新的分支，另一个脚本执行了一个 commit 并将项目合并到开发和生产环境中。
 
-手动创建一个项目需要三到十分钟。部署可能需要五到十分钟。这些会根据游戏的复杂程度而不同，有时甚至可能需要十分钟到半天。脚本会有所帮助,但仍然需要大量时间用于更新内容或追查丢失的信息。
+手动创建一个项目需要三到十分钟。部署可能需要五到十分钟。这些会根据游戏的复杂程度而不同，有时甚至可能需要十分钟到半天。脚本会有所帮助，但仍然需要大量时间用于更新内容或追查丢失的信息。
 
 ![](https://cdn-images-1.medium.com/max/800/0*jxmPvnNgXhpFMV3v.)
 
@@ -60,56 +60,59 @@ Bash 脚本很好，但如果有人在 Windows 上工作，就无法使用了。
 
 考虑下面的简化代码示例。它正在引导命令行接口（CLI）应用程序。
 
-#### SRC / mason.js
+#### src/mason.js
+
 ```
-    #! /usr/bin/env node
+#! /usr/bin/env node
 
-    const mason = require('commander');
-    const { version } = require('./package.json');
-    const console = require('console');
+const mason = require('commander');
+const { version } = require('./package.json');
+const console = require('console');
 
-    // commands
-    const create = require('./commands/create');
-    const setup = require('./commands/setup');
+// commands
+const create = require('./commands/create');
+const setup = require('./commands/setup');
 
-    mason
-        .version(version);
+mason
+    .version(version);
 
-    mason
-        .command('setup [env]')
-        .description('run setup commands for all envs')
-        .action(setup);
+mason
+    .command('setup [env]')
+    .description('run setup commands for all envs')
+    .action(setup);
 
-    mason
-        .command('create <ticketId>')
-        .description('creates a new game')
-        .action(create);
+mason
+    .command('create <ticketId>')
+    .description('creates a new game')
+    .action(create);
 
-    mason
-        .command('*')
-        .action(() => {
-            mason.help();
-        });
-
-    mason.parse(process.argv);
-
-    if (!mason.args.length) {
+mason
+    .command('*')
+    .action(() => {
         mason.help();
-    }
+    });
+
+mason.parse(process.argv);
+
+if (!mason.args.length) {
+    mason.help();
+}
 ```
 
 使用 npm，您可以运行 **package.json** 中的一个链接，它创建了一个全局的别名。
+
 ```
-    ...
-    "bin": {
-      "mason": "src/mason.js"
-    },
-    ...
+...
+"bin": {
+  "mason": "src/mason.js"
+},
+...
 ```
 
 当我在项目的根目录中运行 npm link。
+
 ```
-    npm link
+npm link
 ```
 
 它将为我提供一个我可以调用的 mason 命令。所以每当我在终端调用 mason，它就会运行 mason.js 脚本。所有的任务都在这个 mason 命令中实现了，我每天都用它来构建游戏。我节省的时间真是难以置信。
@@ -117,31 +120,31 @@ Bash 脚本很好，但如果有人在 Windows 上工作，就无法使用了。
 您可以在下面看到——在我当时所设想的示例中——我将一个 Jira 任务号作为参数传递给命令。这将访问 Jira API，并获取更新游戏我所需要的全部信息。然后，它将继续编译和部署项目。之后我会发一条评论，@负责人和设计师，让他们知道已经完成了。
 
 ```
-    $ mason create GS-234
-    ... calling Jira API 
-    ... OK! got values!
-    ... creating a new branch from master called 'GS-234'
-    ... updating templates repository
-    ... copying from template 'pick-from-three'
-    ... injecting values into config JSON
-    ... building project
-    ... deploying game
-    ... Perfect! Here is the live link 
-    http://www.fake-studio.com/game/fire-water-earth
-    ... Posted comment 'Hey [~ben.smith], this has been released. Does the design look okay? [~jamie.lane]' on Jira.
+$ mason create GS-234
+... calling Jira API 
+... OK! got values!
+... creating a new branch from master called 'GS-234'
+... updating templates repository
+... copying from template 'pick-from-three'
+... injecting values into config JSON
+... building project
+... deploying game
+... Perfect! Here is the live link 
+http://www.fake-studio.com/game/fire-water-earth
+... Posted comment 'Hey [~ben.smith], this has been released. Does the design look okay? [~jamie.lane]' on Jira.
 ```
 
-所有这一切只用几个键就搞定了!
+所有这一切只用几个键就搞定了！
 
 我对整个项目非常满意，于是我决定在我刚刚出版的一本书中重写一个更好的版本，书名为《用 Node.js 实现自动化》。
 
 ![](https://cdn-images-1.medium.com/max/800/1*wOmVnWEaWu-1g-xL874xyg.jpeg)
 
-> * **_彩色打印：_** [http://amzn.eu/aA0cSnu](http://amzn.eu/aA0cSnu)
-> * **_Kindle：_** [http://amzn.eu/dVSykv1](http://amzn.eu/dVSykv1)  
-> * **_Kobo：_** [https://www.kobo.com/gb/en/ebook/automating-with-node-js](https://www.kobo.com/gb/en/ebook/automating-with-node-js)  
-> * **_Leanpub：_** [https://leanpub.com/automatingwithnodejs](https://leanpub.com/automatingwithnodejs) 
-> * **_Google Play：_** [https://play.google.com/store/books/details?id=9QFgDwAAQBAJ](https://play.google.com/store/books/details?id=9QFgDwAAQBAJ)
+> * **彩色打印：** [http://amzn.eu/aA0cSnu](http://amzn.eu/aA0cSnu)
+> * **Kindle：** [http://amzn.eu/dVSykv1](http://amzn.eu/dVSykv1)  
+> * **Kobo：** [https://www.kobo.com/gb/en/ebook/automating-with-node-js](https://www.kobo.com/gb/en/ebook/automating-with-node-js)  
+> * **Leanpub：** [https://leanpub.com/automatingwithnodejs](https://leanpub.com/automatingwithnodejs) 
+> * **Google Play：** [https://play.google.com/store/books/details?id=9QFgDwAAQBAJ](https://play.google.com/store/books/details?id=9QFgDwAAQBAJ)
 
 这本书分为两部分：
 
