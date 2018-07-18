@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-story-of-css-grid-from-its-creators.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-story-of-css-grid-from-its-creators.md)
 > * 译者：[Tivcrmn](https://github.com/Tivcrmn)
-> * 校对者：[Zheng7426](https://github.com/Zheng7426)
+> * 校对者：[Zheng7426](https://github.com/Zheng7426)，[ssshooter](https://github.com/ssshooter)
 
 # 由 CSS 网格系统的创造者们所讲述的故事
 
@@ -152,6 +152,7 @@ Andrew 说：“我认为现在我们已经拥有了网格系统，Exclusions �
 “就我而言，这并不止于此；这只是开始。”
 
 ## 开始认识网格系统
+
 *   CSS 网格模型教程阶段 1  
     [https://www.w3.org/TR/css-grid-1/](https://www.w3.org/TR/css-grid-1/)
 *   CSS 网格布局 – Mozilla Developer Network  
