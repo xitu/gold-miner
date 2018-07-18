@@ -136,7 +136,7 @@
 
 把 Black 层叠加到图片上来调整对比度很容易，它的十六进制色统一地取自基准色 _Black_ （黑色）。
 
-Like I mentioned with the Base Colors, when building out a full-fat, don’t hold the Mayo, Design System you really want to aim for (again just a suggestion) Overlays to match against the following Base Colors…就像我提到的基准色一样，举一反三，在你的设计体系中，实际上只要让叠加层来匹配以下几个基准色……
+就像我提到的基准色一样，举一反三，在你的设计体系中，实际上只要让叠加层来匹配以下几个基准色……
 
 *   _Primary_ 原色
 *   _Secondary_ 二次色
@@ -180,7 +180,7 @@ Like I mentioned with the Base Colors, when building out a full-fat, don’t hol
 
 ![](https://cdn-images-1.medium.com/max/800/1*BYB-1sB80cuCUX2ASs6u-g.jpeg)
 
-Then it was just a case of adding a couple of extra Color Fills to the element, and tweaking the Blending modes until I had something which could pass as ‘Duotone’. Which in the case of the example included in the starter file went a little something like this (cue the music)…然后只需要在元素中添加几个额外的填充颜色，并调整混合模式，直到有一些颜色可以透过来，就像文件中包含的示例那样，这就叫“双色调”（当当当当！~过关）……
+然后只需要在元素中添加几个额外的填充颜色，并调整混合模式，直到有一些颜色可以透过来，就像文件中包含的示例那样，这就叫“双色调”（当当当当！~过关）……
 
 *   _#041674_ & _Lighten_ 光照
 *   _#1EDE81_ & _Multiply_ 正片叠底
