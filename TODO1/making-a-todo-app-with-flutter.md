@@ -17,9 +17,9 @@ Flutter 仍处于技术测试阶段，但它的工具非常稳定，并提供了
 
 ### 安装相关工具
 
-> 这些说明是为 MacOS 和 Linux 编写的。Windows需要一些额外的准备，因此请按照[Flutter Windows 指南](https://flutter.io/setup-windows/) 进行操作，然后转到下一步，**创建应用程序**。
+> 这些说明是为 MacOS 和 Linux 编写的。Windows 需要一些额外的准备，因此请按照 [Flutter Windows 指南](https://flutter.io/setup-windows/)进行操作，然后转到下一步，**创建应用程序**。
 
-首先，下载下载与你的平台匹配的 [Flutter SDK](https://flutter.io/sdk-archive/) 。对于这个应用程序，我们将在主目录中创建一个名为 `dev` 的目录，并在那里解压 Flutter SDK。
+首先，下载下载与你的平台匹配的 [Flutter SDK](https://flutter.io/sdk-archive/)。对于这个应用程序，我们将在主目录中创建一个名为 `dev` 的目录，并在那里解压 Flutter SDK。
 
 ```
 mkdir ~/dev
@@ -27,13 +27,13 @@ cd ~/dev
 unzip ~/Downloads/flutter_macos_v0.3.2-beta.zip
 ```
 
-现在我们可以在命令行里使用 ~/dev/flutter/bin/flutter 命令运行 Flutter。输入命令有一些不够优雅，所以让我们把它加到 $PATH 中。在 `〜/ .bashrc` 文件的末尾添加这一行.
+现在我们可以在命令行里使用 ~dev/flutter/bin/flutter 命令运行 Flutter。输入命令有一些不够优雅，所以让我们把它加到 $PATH 中。在 `~/.bashrc` 文件的末尾添加这一行。
 
 ```
 export PATH=~/dev/flutter/bin:$PATH
 ```
 
-然后运行 `source~ / .bashrc` 以确保此更改生效。现在你可以直接从命令行运行 `flutter` 命令了。设置完成后，我们需要检查以确保我们已经安装了应用程序开发所需的所有其他内容，例如 Android Studio ，Xcode（仅限 MacOS ）和其他依赖。幸运的是，Flutter 附带了一个工具，可以很容易地检查这个。只需要运行：
+然后运行 `source~/.bashrc` 以确保此更改生效。现在你可以直接从命令行运行 `flutter` 命令了。设置完成后，我们需要检查以确保我们已经安装了应用程序开发所需的所有其他内容，例如 Android Studio ，Xcode（仅限 MacOS）和其他依赖。幸运的是，Flutter 附带了一个工具，可以很容易地检查这个。只需要运行：
 
 ```
 flutter doctor
@@ -45,13 +45,13 @@ flutter doctor
 
 我们将创建我们的应用程序并在 Android 上进行测试，因为这在所有操作系统上都可以完成，所以这些步骤对于 iOS 都是一样的。
 
-Flutter 为不少 IDE 提供插件，包括 Android Studio 和 Visual Studio Code。但是，对于我们简单的应用程序来说，我们完全可以使用命令行和一个简单的文本编辑器完成所有操作。首先，让我们创建我们的应用程序，我们将其称为 `flutter_todo` 。
+Flutter 为不少 IDE 提供插件，包括 Android Studio 和 Visual Studio Code。但是，对于我们简单的应用程序来说，我们完全可以使用命令行和一个简单的文本编辑器完成所有操作。首先，让我们创建我们的应用程序，我们将其称为 `flutter_todo`。
 
 ```
 flutter create flutter_todo
 ```
 
-Flutter 中这个命令可以创建一个简单的 “Hello World” 风格的应用程序。我们可以在 Android 模拟器中立即测试它。打开 Android Studio，Flutter Doctor 会帮助你进行设置。这里我们要创建一个模拟器，但Android  Studio 要求我们先创建一个项目。所以，让我们使用新创建的 Flutter 项目。选择 `导入项目（Gradle，Eclipse ADT 等）`，然后选择文件夹 `〜/ dev / flutter_todo / android`。完成导入项目后，检查控制台中是否有错误。如果有，使用 Android Studio 修复它们。
+Flutter 中这个命令可以创建一个简单的 “Hello World” 风格的应用程序。我们可以在 Android 模拟器中立即测试它。打开 Android Studio，Flutter Doctor 会帮助你进行设置。这里我们要创建一个模拟器，但 Android  Studio 要求我们先创建一个项目。所以，让我们使用新创建的 Flutter 项目。选择 `导入项目（Gradle，Eclipse ADT 等）`，然后选择文件夹 `~/dev/flutter_todo/android`。完成导入项目后，检查控制台中是否有错误。如果有，使用 Android Studio 修复它们。
 
 现在，我们可以通过 `Tools> Android> AVD Manager` 来创建模拟器。单击“创建虚拟设备”，选择 _Pixel_，然后一路选择默认值，直到创建完毕。现在，你可以在列表中看到新设备 —— 双击启动它。模拟器运行后，就可以在上面运行我们的 Flutter 应用程序了。
 
@@ -70,7 +70,7 @@ Flutter 的 “Hello World” 应用程序
 
 Flutter 有一个非常有用的热重载功能，就像 React Native 一样。这意味着每次改代码时都不需要重新构建和重新运行应用程序。我们来看看它是如何工作的。
 
-比如我们想要更改 Hello World 应用程序标题栏中的文本。所有代码都位于 `lib / main.dart` 中。在这个文件中，找到下面这行：
+比如我们想要更改 Hello World 应用程序标题栏中的文本。所有代码都位于 `lib/main.dart` 中。在这个文件中，找到下面这行：
 
 ```
 home: new MyHomePage(title: 'Flutter Demo Home Page'),
@@ -90,13 +90,13 @@ home: new MyHomePage(title: 'Basic Flutter App'),
 
 ### Flutter 基础
 
-既然我们知道了如何运行 Flutter 应用程序，那么就该开始编写自己的应用程序了。我们选择经典的待办事项应用程序作为例子。如上所述，我们将使用 Dart 。它肯定不是最著名的语言，但如果你之前使用过 Javascript（特别是ES2015 +），C++ 或 Java，那你将会觉得非常熟悉。
+既然我们知道了如何运行 Flutter 应用程序，那么就该开始编写自己的应用程序了。我们选择经典的待办事项应用程序作为例子。如上所述，我们将使用 Dart 。它肯定不是最著名的语言，但如果你之前使用过 Javascript（特别是 ES2015+），C++ 或 Java，那你将会觉得非常熟悉。
 
 #### Material Design
 
 Flutter 附带一个软件包，可以帮助快速制作 [Material](https://material.io/) 风格的 App。它提供了一种创建带标题栏和正文的屏幕的简单方法。让我们首先设置一下待办事项应用程序，使它有一个我们应用程序名称的标题栏。
 
-删除 `lib / main.dart` 中现有的所有代码，并添加以下内容：
+删除 `lib/main.dart` 中现有的所有代码，并添加以下内容：
 
 ```
 // 导入 MaterialApp 和其他组件，我们可以使用它们来快速创建 Material 应用程序
@@ -135,7 +135,7 @@ Android（Pixel 2）与 iOS（iPhone X）上标题栏样式的区别
 
 ### Stateless Widgets 和 Stateful Widgets
 
-为了使我们的应用看起来更像一个待办事项应用程序，我们应当展示一些任务。你可能已经注意到我们上面的简单应用程序是一个 `StatelessWidget`。 这意味着无法动态修改。对于我们的待办事项应用程序来说，这并不好，因为待办事项会一直添加和删除。但是，`StatelessWidget` 可以生成动态的子项，它们是`StatefulWidget`。 让我们从整个 app 容器开始分析我们的有状态功能（待办事项列表容器）。
+为了使我们的应用看起来更像一个待办事项应用程序，我们应当展示一些任务。你可能已经注意到我们上面的简单应用程序是一个 `StatelessWidget`。这意味着无法动态修改。对于我们的待办事项应用程序来说，这并不好，因为待办事项会一直添加和删除。但是，`StatelessWidget` 可以生成动态的子项，它们是`StatefulWidget`。让我们从整个 app 容器开始分析我们的有状态功能（待办事项列表容器）。
 
 要创建一个 stateful widget，我们需要两个类 —— 一个用于组件本身，另一个用于创建状态。这个设置允使我们可以轻松保存状态，并能够使用热重载等功能。
 
@@ -144,7 +144,7 @@ Android（Pixel 2）与 iOS（iPhone X）上标题栏样式的区别
 
 > 由于我们在每次更改时都会创建一个新窗口组件，所以我们无法在窗口组件中存储任何状态，因为它会在下一次更改时丢失。这就是为什么我们需要一个单独的 State 类。
 
-下面的代码显示了我们新的有状态应用。它在功能上与我们之前的代码相同，但现在可以轻松更改待办事项列表的内容了。用下面的代码替换 `lib / main.dart` 的所有内容，并用 `R` 完全重启。
+下面的代码显示了我们新的有状态应用。它在功能上与我们之前的代码相同，但现在可以轻松更改待办事项列表的内容了。用下面的代码替换 `lib/main.dart` 的所有内容，并用 `R` 完全重启。
 
 ```
 // 导入 MaterialApp 和其他组件，我们可以使用它们来快速创建 Material 应用程序
@@ -241,7 +241,7 @@ class TodoListState extends State<TodoList> {
 *   `addTodoItem` 向 `_todoItems` 数组中添加一个新的字符串
 *   `_addTodoItem` 中的所有内容都会被包含在 `setState` 调用中，这个调用会通知应用程序待办事项列表已更新
 *   `TodoList.createState` 会在待办事项列表更新时被触发
-*   这会调用 `new TodoListState()`，它的构造函数是 `build`，它会构建一个全新的widget  _with the updated list of todo items_
+*   这会调用 `new TodoListState()`，它的构造函数是 `build`，它会构建一个全新的**带有更新了的 TODO 事项的** widget
 *   该应用程序获取此新窗口组件，将其与前一个窗口组件进行比较，并添加新项目而不更改其他项目
 
 ![](https://cdn-images-1.medium.com/max/800/1*bV3Viw7sWVLDhbaKasHpZA.png)
@@ -386,13 +386,13 @@ Widget _buildTodoItem(String todoText, int index) {
 
 应用程序最终形态
 
-如果您希望继续使用它，可以在应用程序中改进一些内容。比如，由于 Flutter 的保存方式，用户的待办事项在应用程序启动间隙保存，但这种保持用户数据的方法并不可靠。不过，用户的待办事项可以[使用  shared_preferences](https://flutter.io/cookbook/persistence/key-value/)安全地保存在设备上。
+如果您希望继续使用它，可以在应用程序中改进一些内容。比如，由于 Flutter 的保存方式，用户的待办事项在应用程序启动间隙保存，但这种保持用户数据的方法并不可靠。不过，用户的待办事项可以[使用 shared_preferences](https://flutter.io/cookbook/persistence/key-value/) 安全地保存在设备上。
 
-想要进一步改进应用程序，你可以 [更改主题](https://flutter.io/cookbook/design/themes/)，甚至为用户的待办事项添加类别。
+想要进一步改进应用程序，你可以[更改主题](https://flutter.io/cookbook/design/themes/)，甚至为用户的待办事项添加类别。
 
 ### 继续了解 Flutter
 
-在这篇博文中，我的目的是向大家简要介绍一下 Flutter 的潜力。如果你有兴趣了解有关 Flutter 的更多信息，[Flutter 开发者文档](https://flutter.io/docs/) 非常全面、有用，最关键的是上面有很多示例。
+在这篇博文中，我的目的是向大家简要介绍一下 Flutter 的潜力。如果你有兴趣了解有关 Flutter 的更多信息，[Flutter 开发者文档](https://flutter.io/docs/)非常全面、有用，最关键的是上面有很多示例。
 
 尽管 Flutter 仍处于测试阶段（写作时为 v0.3.2），但其生态已非常成熟。你不会发现自己找不到一些重要功能或文档。Google Adwords 等主要应用已在生产中使用 Flutter，因此如果你开始开发新应用，Flutter 值得研究一下。
 
