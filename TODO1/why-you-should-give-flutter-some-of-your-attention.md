@@ -74,16 +74,13 @@ Flutter 团队提供了很多他们觉得用起来不错的布局组件。Flutte
 
 Flutter 团队使用 Dart 有以下几个原因：
 
-*   __静态编译__
+*   **静态编译**
     Dart 是静态编译的。Dart VM 可以为你正在开发的平台构建本机 ARM 代码。这意味着与使用即时编译器，在程序执行时编译的应用程序相比，程序要快得多。
-*   _动态编译
-    _Dart 也可以即时编译。Flutter 利用这种开发能力来缩短开发周期。像热重载这样的功能是可行的，因为应用程序可以轻松编译更新，从而更容易测试和迭代产品。
-*   _强类型
-    _Dart 是一种 [强类型](https://en.wikipedia.org/wiki/Strong_and_weak_typing) 语言。如果你用过 Java 或 C#，有几个原因使得过渡到 Dart 非常理想，其中一个就是是， Dart 看起来比较熟悉，以及它的类型安全，所以你不必牺牲程序的完整性
-*   _服务端的潜力
-    _Dart 非常适合很多事情，包括在服务器上运行。服务器端的 Dart 越来越受人们关注。考虑到统一代码库的可能性，在 Flutter 中使用它就是一个很好的例子。
+*   **动态编译：** Dart 也可以即时编译。Flutter 利用这种开发能力来缩短开发周期。像热重载这样的功能是可行的，因为应用程序可以轻松编译更新，从而更容易测试和迭代产品。
+*  **强类型：** Dart 是一种 [强类型](https://en.wikipedia.org/wiki/Strong_and_weak_typing) 语言。如果你用过 Java 或 C#，有几个原因使得过渡到 Dart 非常理想，其中一个就是是，Dart 看起来比较熟悉，以及它的类型安全，所以你不必牺牲程序的完整性。
+*   **服务端的潜力：** Dart 非常适合很多事情，包括在服务器上运行。服务器端的 Dart 越来越受人们关注。考虑到统一代码库的可能性，在 Flutter 中使用它就是一个很好的例子。
 
-你可以从[这里](https://hackernoon.com/why-flutter-uses-dart-dd635a054ebf)了解更多关于 Flutter 上使用的 Dart 语言。
+你可以从 [这里](https://hackernoon.com/why-flutter-uses-dart-dd635a054ebf) 了解更多关于 Flutter 上使用的 Dart 语言。
 
 #### Flutter 的结构
 
@@ -124,12 +121,7 @@ Flutter 应用的结构
 *   [Fluttery](https://medium.com/fluttery) 是一系列为想入门 Flutter 的人准备的教程，挑战和模式集合。
 *   [Flutter studio](https://flutterstudio.app/) 也是为想简化开发过程的人准备的优秀资源。
 
-_我很高兴尝试它。如果你也是，请告诉我！_
-❤️🚀
-
-* * *
-
-想招聘开发者？让[Andela](http://hire.andela.com/need-more-devs)来帮你。
+**我很高兴尝试它。如果你也是，请告诉我！** ❤️🚀
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
