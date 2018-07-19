@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/boost-your-website-performance-with-phpfastcache.md](https://github.com/xitu/gold-miner/blob/master/TODO1/boost-your-website-performance-with-phpfastcache.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[吃土小2叉](https://github.com/xunge0613)
 
 # 使用 PhpFastCache 提升网站性能
 
@@ -24,7 +24,7 @@ PhpFastCache 不是一个纯粹的传统文件系统式缓存。它支持各种�
 
 如果你用的文件适配器不在上面的列表中，也可以简单地开发一个自定义驱动，插入到系统中，同样也能高效地运行。
 
-除了基本功能外，PhpFastCache 还提供了事件机制，可以让你对预定义好的时间进行相应。例如，当某个事物从缓存中被删除时，你可以接收到这个事件，并去刷新或删除相关的数据。
+除了基本功能外，PhpFastCache 还提供了事件机制，可以让你对预定义好的事件进行响应。例如，当某个事物从缓存中被删除时，你可以接收到这个事件，并去刷新或删除相关的数据。
 
 在下面的章节中，我们将通过一些示例来了解如何安装及配置 PhpFastCache。
 
@@ -32,7 +32,7 @@ PhpFastCache 不是一个纯粹的传统文件系统式缓存。它支持各种�
 
 在本节中，我们将了解如何安装及配置 PhpFastCache。下面是几种将它集成进项目的方法。
 
-如果你嫌麻烦，仅准备下载这个库的 **.zip** 或者 **.tar.gz** 文件，可以去[官方网站](https://www.phpfastcache.com/) 直接下载。
+如果你嫌麻烦，仅准备下载这个库的 **.zip** 或者 **.tar.gz** 文件，可以去[官方网站](https://www.phpfastcache.com/)直接下载。
 
 或者你也可以用 Composer 包的方式来安装它。这种方式更好，因为在之后的维护和升级时会更方便。如果你还没有安装 Composer，需要先去安装它。
 
