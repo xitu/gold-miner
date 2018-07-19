@@ -2,7 +2,7 @@
 > * 原文作者：[James Milner](https://www.sitepen.com/blog/author/jmilner/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/web-components-in-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO1/web-components-in-2018.md)
-> * 译者：
+> * 译者：[老教授](https://juejin.im/user/58ff449a61ff4b00667a745c/posts)
 > * 校对者：
 
 # Web Components in 2018
@@ -10,6 +10,7 @@
 ![](https://www.sitepen.com/blog/wp-content/uploads/2018/06/blog-1024x538.png)
 
 For many front-end developers, components have become a central concept in their development workflow. Components provide a robust model for architecting and scaling complex applications, allowing for composition from smaller and simpler encapsulated parts. The concept of the component has existed on the web for some time, with frameworks like the Dojo Toolkit championing them in its Dijit widget system early on in the JavaScript ecosystem.
+对很多人来说，组件化已经成为他们开发工作中的核心概念。组件化提供了一种健壮的模型来构建复杂的应用程序，
 
 Modern frameworks like React, Angular, Vue, and Dojo have further put components at the forefront of development, keeping them as core primitives in their architecture. However, even though component architectures have become more common, arguably the diversity of frameworks and libraries has led to a siloed and fragmented components market. This fragmentation has often kept teams locked into a specific framework, even as times and technologies change.
 
