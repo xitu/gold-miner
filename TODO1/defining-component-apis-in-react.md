@@ -82,7 +82,7 @@ class Items extends React.Component {
 
 – [React 理念](https://facebook.github.io/react/docs/thinking-in-react.html)
 
-我经常看到 React 新手尝试复制我所说的 [Bootstrap](https://getbootstrap.com) 组件，即具有视觉边界，但与任何数据结构都没有直接联系的 UI 组件。React 组件和 基于类 BEM 风格，基于 CSS 的组件有着不同的关注点。不应该创建一个需要定制 props 的通用卡片组件来显示图像、标题和链接，而是为你需要展示的数据创建组件。也许通用的 Card 组件应该是一个接受来自数据库的 product 对象的 ProductCard 组件。
+我经常看到 React 新手尝试复制我所说的 [Bootstrap](https://getbootstrap.com) 组件，即具有视觉边界，但与任何数据结构都没有直接联系的 UI 组件。React 组件和 BEM 风格、基于 CSS 的组件有着不同的关注点。不应该创建一个需要定制 props 的通用卡片组件来显示图像、标题和链接，而是为你需要展示的数据创建组件。也许通用的 Card 组件应该是一个接受来自数据库的 product 对象的 ProductCard 组件。
 
 ```jsx
 // 不要这样写
