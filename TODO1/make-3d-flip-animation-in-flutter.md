@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/make-3d-flip-animation-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/make-3d-flip-animation-in-flutter.md)
 > * 译者：[ALVINYEH](https://github.com/ALVINYEH)
-> * 校对者：
+> * 校对者：[geniusq1981](https://github.com/geniusq1981)
 
 # 使用 Flutter 制作 3D 翻转动画
 
@@ -13,9 +13,9 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*vDimOOn9HYlJyX3bDqNFjA.gif)
 
-这已经足够值得挑战了，不是吗？是的，我们将播放一个**可能**产生 3D 效果的动画。
+这已经足够值得挑战了，不是吗？是的，我们将制作一个看起来有些**类** 3D 效果的动画。
 
-### 它是如何运作的
+### 怎么做呢
 
 乍一看，有个很简单的想法：我们有一堆面板，每个面板被分成两半，每一半可以围绕 X 轴旋转并显示下一个面板。
 
@@ -72,7 +72,7 @@ class FlipWidget extends StatelessWidget {
 
 *   **围绕 X 轴旋转一半面板**
 
-**Transform** 组件有一个 **transform** 参数，类型是 **Matrix4**，用于定义所应用的转换类型。**Matrix4** 暴露了一个名为 **rotationX()** 的工厂构造函数，看起来是我们需要用的，让我们尝试一下用在面板的上半部分：
+**Transform** 组件有一个 **transform** 参数，类型是 **Matrix4**，用于定义所应用的变换类型。**Matrix4** 暴露了一个名为 **rotationX()** 的工厂构造函数，看起来是我们需要用的，让我们尝试一下用在面板的上半部分：
 
 ```
 @override
@@ -102,7 +102,7 @@ Widget build(BuildContext context) {
 
 什么！！！！它看起来像放缩效果，不是吗？
 
-到底怎么回事呢？回答出这个问题是这个任务中最难的一点。我回看 Flutter 的文档、示例代码、文章……最后以[这篇](https://medium.com/flutter-io/perspective-on-flutter-6f832f4d912e)告终。其中指出，改变 **Matrix4** 的第 3 行和第 2 列的值，会改变其视角，并且会给变形带来 3D 效果：
+到底怎么回事呢？回答出这个问题是这个任务中最难的一点。我回看 Flutter 的文档、示例代码、文章……直到找到[这篇文章](https://medium.com/flutter-io/perspective-on-flutter-6f832f4d912e)。其中指出，改变 **Matrix4** 的第 3 行和第 2 列的值，会改变其视角，并且会给变形带来 3D 效果：
 
 ```
 ...
@@ -125,7 +125,7 @@ Transform(
 
 不错。但是不如试一下神奇的数字 0.006？说实话，我不知道如何准确计算它，只是尝试选个我感觉很好的一些值。
 
-剩下的就是为我们的组件添加动画。这里有一点点棘手。实际上，每个面板都有两面（正面和背面）的内容，但是在代码中实现它并不明智，因为一个时刻只能看到一面。我假设要创建一个面板向上翻转的动画，所以动画的结果是两个阶段（顺序），第一个是向上翻转下半部分以使动画显示下一个面板的下半部分，然后隐藏当前面板的下半部分，第二个是在同一方向翻转上半部分，以显示下一半的上半部分，同时隐藏当前的上半部分：
+剩下的就是为我们的组件添加动画。这里有一点点棘手。实际上，每个面板都有两面（正面和背面）的内容，但是在代码中实现它并不明智，因为同一时刻只能看到一面。我假设要创建一个面板向上翻转的动画，那么动画可以分解成连续的两个阶段（顺序），第一个是向上翻转下半部分以使动画显示下一个面板的下半部分，然后隐藏当前面板的下半部分，第二个是在同一方向翻转上半部分，以显示下一半的上半部分，同时隐藏当前的上半部分：
 
 ![](https://cdn-images-1.medium.com/max/800/1*K3qR8ucwG2x_cjHGGjCQ-A.gif)
 
