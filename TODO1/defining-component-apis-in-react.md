@@ -7,7 +7,7 @@
 
 # 设计 React 组件 API
 
-多年来，我注意到自己在处理组件 api 和构建应用程序和库方面有一系列模式。以下是一系列如何设计组件 api 的想法、观点和建议，这会让组件更灵活、更具有组合性、更容易理解。这些规则都不是硬性的，但它们帮助我想明白了如何组织和创建组件。
+多年来，我致力于一系列处理组件 API 和构建应用程序、库的模式。以下是一系列如何设计组件 API 的想法、观点和建议，这会让组件更灵活、更具有组合性、更容易理解。这些规则都不是硬性的，但它们帮助我想明白了如何组织和创建组件。
 
 ## 提供最少的 API
 
@@ -82,7 +82,7 @@ class Items extends React.Component {
 
 – [React 理念](https://facebook.github.io/react/docs/thinking-in-react.html)
 
-我经常看到 React 新手尝试复制我所说的 [Bootstrap](https://getbootstrap.com) 组件，即具有视觉边界，但与任何数据结构都没有直接联系的 UI 组件。React 组件和 BEM 风格、基于 CSS 的组件有着不同的关注点。不应该创建一个需要定制 props 的通用卡片组件来显示图像、标题和链接，而是为你需要展示的数据创建组件。也许通用的 Card 组件应该是一个接受来自数据库的 product 对象的 ProductCard 组件。
+我经常看到 React 新手尝试复制我所说的 "[Bootstrap](https://getbootstrap.com)" 组件，即具有视觉边界，但与任何数据结构都没有直接联系的 UI 组件。React 组件和 BEM 风格、基于 CSS 的组件有着不同的关注点。不应该创建一个需要定制 props 的通用 Card 组件来显示图像、标题和链接，而是为你需要展示的数据创建组件。也许通用的 Card 组件应该是一个接受来自数据库的 product 对象的 ProductCard 组件。
 
 ```jsx
 // 不要这样写
@@ -188,7 +188,7 @@ const PageHeader = ({
 
 ## 保持 props 并行
 
-只要有可能，复用其他组件的 props。例如，如果你正在写一个日期选择器，请使用与原生 `<input type='date' />` 相同的 props。这样将更容易猜测组件是如何运作的，也更容易记住这些 api。
+只要有可能，复用其他组件的 props。例如，如果你正在写一个日期选择器，请使用与原生 `<input type='date' />` 相同的 props。这样将更容易猜测组件是如何运作的，也更容易记住这些 API。
 
 ```jsx
 // 不要这样写
@@ -214,7 +214,7 @@ const PageHeader = ({
 
 ## 和你的队友沟通
 
-这些只是我自己对如何定义组件 api 的一些想法，它们可能无法满足您的需求。我能给出的最好建议是与你的队友沟通，创建 RFC 和 PR，并尝试 [Readme 驱动开发](https://ponyfoo.com/articles/readme-driven-development)。编写 React 组件很容易。为你的团队创建一个运行良好的组件库花费时间和精力是非常值得的。
+这些只是我自己对如何设计组件 API 的一些想法，它们可能无法满足您的需求。我能给出的最好建议是与你的队友沟通，创建 RFC 和 PR，并尝试 [Readme 驱动开发](https://ponyfoo.com/articles/readme-driven-development)。编写 React 组件很容易。为你的团队创建一个运行良好的组件库花费时间和精力是非常值得的。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 ---
