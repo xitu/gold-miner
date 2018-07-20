@@ -3,19 +3,19 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-minimal-guide-to-ecmascript-decorators.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-minimal-guide-to-ecmascript-decorators.md)
 > * 译者：[jonjia](https://github.com/jonjia)
-> * 校对者：
+> * 校对者：[coconilu](https://github.com/coconilu) [ssshooter](https://github.com/ssshooter)
 
 # ECMAScript 修饰器微指南
 
-## JavaScript「修饰器」提议简介，包含一些基本示例和 ECMAScript 的一些示例
+## JavaScript「修饰器」提案简介，包含一些基本示例和 ECMAScript 的一些示例
 
 ![](https://cdn-images-1.medium.com/max/2000/1*CMwgpS7hFNgPqnz62gaBqA.png)
 
-为什么标题是 **ECMAScript 修饰器**，而不是 **JavaScript 修饰器**？因为，[**ECMAScript**](https://en.wikipedia.org/wiki/ECMAScript) 是编写像 **JavaScript** 这种脚本语言的标准，它不强制 JavaScript 支持所有规范内容，JavaScript 引擎（不同浏览器使用不同引擎）可能支持也可能不支持 ECMAScript 引入的功能，或者支持行为不一致。
+为什么标题是 **ECMAScript 修饰器**，而不是 **JavaScript 修饰器**？因为，[**ECMAScript**](https://en.wikipedia.org/wiki/ECMAScript) 是编写像 **JavaScript** 这种脚本语言的标准，它不强制 JavaScript 支持所有规范内容，JavaScript 引擎（不同浏览器使用不同引擎）不一定支持 ECMAScript 引入的功能，或者支持行为不一致。
 
 可以将 ECMAScript 理解为我们说的**语言**，比如**英语**。那 JavaScript 就是一种方言，类似**英国英语**。方言本身就是一种语言，但它是基于语言衍生出来的。所以，ECMAScript 是烹饪/编写 JavaScript 的烹饪书，是否遵循其中所有成分/规则完全取决于厨师/开发者。
 
-一般来说，JavaScript 使用者应该遵循语言规范中所有规则（**开发者或许会疯掉吧**），但实际上新版 JavaScript 引擎很晚才会实现这些规则，直到开发者确保一切正常后。**TC39** 或 ECMA 国际技术委员会  39 负责维护 ECMAScript 语言规范。该团队的成员属于 ECMA 国际，浏览器厂商和对 Web 感兴趣的公司。
+理论上来说，JavaScript 使用者应该遵循语言规范中所有规则（**开发者或许会疯掉吧**），但实际上新版 JavaScript 引擎很晚才会实现这些规则，开发者要确保一切正常后（才会切换）。**TC39** 也就是 ECMA 国际技术委员会第 39 号 负责维护 ECMAScript 语言规范。该团队的成员大多来自于 ECMA 国际、浏览器厂商和对 Web 感兴趣的公司。
 
 由于 ECMAScript 是开放标准，任何人都可以提出新的想法或功能并对其进行处理。因此，新功能的提议将经历 4 个主要阶段，TC39 将参与此过程，直到该功能准备好发布。
 
@@ -53,7 +53,7 @@
 
 现在（2018 年 6 月），**修饰器**提案正处于**第二阶段**，我们可以使用 `babel-plugin-transform-decorators-legacy` 这个 Babel 插件来转换它。在第二阶段，由于功能的语法会发生变化，因此不建议在生产环境中使用它。无论如何，修饰器都很优美，也有助于更快地完成任务。
 
-从现在开始，我们要开始研究实验性 JavaScript 了，因此你的 node.js 版本可能不支持这个新特性。因此我们需要使用 Babel 或 TypeScript 转换器。使用 [**js-plugin-starter**](https://github.com/thatisuday/js-plugin-starter) 插件来设置基本项目，我已经准备好了这篇文章中用到的插件。
+从现在开始，我们要开始研究实验性的 JavaScript 了，因此你的 node.js 版本可能不支持这个新特性。所以我们需要使用 Babel 或 TypeScript 转换器。可以使用我准备的 [**js-plugin-starter**](https://github.com/thatisuday/js-plugin-starter) 插件来设置项目，其中包括了这篇文章中用到的插件。
 
 * * *
 
@@ -90,7 +90,7 @@ console.log( descriptor );
 
 ![](https://cdn-images-1.medium.com/max/800/1*_hI_shyJTWzbDzxAZRG2cw.png)
 
-`Object.getOwnPropertyDescriptor` 方法返回一个对象，该对象包含描述属性权限和当前状态的键。 `value` 是属性的当前值，`writable` 是用户是否可以为属性赋值，`enumerable` 是该属性是否会出现在 `for in` 循环或 `for of` 循环或 `Object.keys` 等遍历方法中。`configurable` 是用户是否有权更改**属性描述符**并更改 `writable` 和 `enumerable`。属性描述符还有 `get` 和 `set` 键，它们是获取值或设置值的中间件函数，但这两个是可选的。
+`Object.getOwnPropertyDescriptor` 方法返回一个对象，该对象包含描述属性权限和当前状态的键。 `value` 表示属性的当前值，`writable` 表示用户是否可以为属性赋值，`enumerable` 表示该属性是否会出现在 `for in` 循环或 `for of` 循环或 `Object.keys` 等遍历方法中。`configurable` 表示用户是否有权更改**属性描述符**并更改 `writable` 和 `enumerable`。属性描述符还有 `get` 和 `set` 键，它们是获取值或设置值的中间件函数，但这两个是可选的。
 
 要在对象上创建新属性或使用自定义描述符修改现有属性，我们使用 `Object.defineProperty` 方法。让我们修改 `myPropOne` 这个现有属性，`writable` 设置为 `false`，这会**禁止**向 `myObj.myPropOne` 写入值。
 
@@ -120,7 +120,7 @@ myObj.myPropOne = 2;
 
 ![](https://cdn-images-1.medium.com/max/800/1*OA4CAoOYemieJ9lB5wmqCg.png)
 
-从上面的报错中可以看出，`myPropOne` 属性时不可写入的。因此如果用户尝试给它赋予新值，就会抛出错误。
+从上面的报错中可以看出，`myPropOne` 属性是不可写入的。因此如果用户尝试给它赋予新值，就会抛出错误。
 
 > 如果使用 `Object.defineProperty` 来修改现有属性的描述符，那**原始描述符**会被新的修改**覆盖**。`Object.defineProperty` 方法会返回修改后的 `myObj` 对象。
 
@@ -151,7 +151,7 @@ console.log(
 
 ![](https://cdn-images-1.medium.com/max/800/1*Aa-unAIvyxiw3kGjIz4Ewg.png)
 
-从上面的结果可以看出，我们在 `Object.keys` 枚举中看不到对象的你 `myPropOne` 属性。
+从上面的结果可以看出，我们在 `Object.keys` 枚举中看不到对象的 `myPropOne` 属性。
 
 使用 `Object.defineProperty` 在对象上定义新属性并传递空 `{}` 描述符时，默认描述符如下所示：
 
@@ -201,9 +201,9 @@ Object.defineProperty( myObj, 'myPropThree', {
 var obj = Object.create( prototype, { property: descriptor, ... } )
 ```
 
-这里 `prototype` 是一个对象，它将成为 `obj` 的原型。如果 `prototype` 是 `null`，那么 `obj` 将没有任何原型。使用 `var obj = {}` 语法定义空或非空对象时，默认情况下，`obj.__ proto__` 指向 `Object.prototype`，因此 `obj` 具有 `Object`类的原型。
+这里 `prototype` 是一个对象，它将成为 `obj` 的原型。如果 `prototype` 是 `null`，那么 `obj` 将没有任何原型。使用 `var obj = {}` 语法定义空或非空对象时，默认情况下，`obj.__proto__` 指向 `Object.prototype`，因此 `obj` 具有 `Object`类的原型。
 
-这类似于使用 `Object.create` 方法 `Object.prototype` 作为第一个参数（**正在创建的对象原型**）。
+这类似于用 `Object.prototype` 作为第一个参数（**正在创建对象的原型**）使用 `Object.create` 方法 。
 
 ```
 'use strict';
@@ -355,7 +355,7 @@ console.log( user.getFullName() );
 
 ![](https://cdn-images-1.medium.com/max/800/1*sUHsV_OSQUSehgfblsYvRg.png)
 
-修饰器不区分静态和非静态方法。下面的代码同样可以工作，唯一不同是你如何访问这些方法。这个结论也使用于我们下面要讨论的**类实例字段修饰器**。
+修饰器不区分静态和非静态方法。下面的代码同样可以工作，唯一不同是你如何访问这些方法。这个结论也适用于我们下面要讨论的**类实例字段修饰器**。
 
 ```
 @log('calling getVersion static method of User class')  
@@ -372,7 +372,7 @@ console.log( User.getVersion() );
 
 目前为止，我们已经看到通过 `@decorator` 或 `@decorator(..args)` 语法来修改类方法的属性描述符，但如何修改 **公有/私有属性（类实例字段）**呢？
 
-和 `typescript` 或 `java` 不同，JavaScript 类**没有**类实例字段或者说没有类属性。这是因为任何在 `class` 里面、`constructor` 外面定义的都属于类的**原型**。但也有一个新的[**提案**](https://github.com/tc39/proposal-class-fields)，它提议使用 `public` 和 `private` 访问修饰符来启用类实例字段，目前处于[第 3 阶段](https://github.com/tc39/proposals)，也可以通过 [**babel transformer plugin**](https://babeljs.io/docs/plugins/transform-class-properties/) 这个插件来使用它。
+与 `typescript` 或 `java` 不同，JavaScript 类**没有**类实例字段或者说没有类属性。这是因为任何在 `class` 里面、`constructor` 外面定义的都属于类的**原型**。但也有一个新的[**提案**](https://github.com/tc39/proposal-class-fields)，它提议使用 `public` 和 `private` 访问修饰符来启用类实例字段，目前处于[第 3 阶段](https://github.com/tc39/proposals)，也可以通过 [**babel transformer plugin**](https://babeljs.io/docs/plugins/transform-class-properties/) 这个插件来使用它。
 
 定义一个简单的 `User` 类，但这一次，不需要在构造函数中设置 `firstName` 和 `lastName` 的默认值。
 
@@ -467,7 +467,7 @@ console.log( new User() );
 
 `descriptor.initializer` 方法由 **Babel** 内部实现对象属性描述符的 `value` 的创建。它会返回分配给类实例字段的初始值。在修饰器函数内部，我们需要返回另一个 `initializer` 方法，它会返回最终值。
 
-> 类实例字段提案具有高度实验性，在到达**第 4 阶段前，它的语法很有可能会改变。因此，将类实例字段与修饰器一起使用还不是一个好习惯。
+> 类实例字段提案具有高度实验性，在到达**第 4 阶段**前，它的语法很有可能会改变。因此，将类实例字段与修饰器一起使用还不是一个好习惯。
 
 * * *
 
@@ -475,7 +475,7 @@ console.log( new User() );
 
 现在我们已经熟悉了修饰器能做什么。它可以改变属性、类方法行为和类实例字段，使我们能灵活地通过简单的语法来实现这些。
 
-**类修饰器** 和我们之前看到的修饰器有些不同。之前，我们使用**属性修饰器**来修改属性或方法的实现，但类修饰器函数中，我们需要返回一个构造函数。
+**类修饰器**和我们之前看到的修饰器有些不同。之前，我们使用**属性修饰器**来修改属性或方法的实现，但类修饰器函数中，我们需要返回一个构造函数。
 
 我们先来理解下什么是构造函数。在下面，一个 JavaScript 类只不过是一个函数，这个函数添加了**原型方法**、定义了一些初始值。
 
@@ -499,7 +499,7 @@ console.log( user.getFullName() );
 
 因此，当我们调用 `new User` 时，就会使用传递的参数调用 `User` 这个函数，返回结果是一个对象。所以，`User` 就是一个构造函数。顺便说一句，JavaScript 中每个函数都是一个构造函数，因为如果你查看 `function.prototype`，你会发现 `constructor` 属性。只要我们使用 `new` 关键字调用函数，都会得到一个对象。
 
->如果从构造函数返回一个有效的 JavaScript 对象，那么这个值而不是使用 `this` 赋值创建新对象。这将打破原型链，因为修改后的对象将不具有构造函数的任何原型方法。
+>如果从构造函数返回一个有效的 JavaScript 对象，那么就会使用这个对象，而不用 `this` 赋值创建新对象了。这将打破原型链，因为修改后的对象将不具有构造函数的任何原型方法。
 
 考虑到这一点，让我们看看类修饰器可以做什么。类修饰器必须位于类的顶部，就像之前我们在方法名或字段名上看到的修饰器一样。这个修饰器也是一个函数，但它应该返回构造函数或类。
 
@@ -537,9 +537,9 @@ console.log( user );
 
 ![](https://cdn-images-1.medium.com/max/800/1*rM3KBl5wFGoMNkq3DDFrgg.png)
 
-类修饰器函数会接收目标类 `UserRef`，在上面的示例中是`User`（**修饰器的作用目标**）并且必须返回构造函数。这打开了使用修饰器无限可能性的大门。因此，类修饰器比方法/属性修饰器更受欢迎。
+类修饰器函数会接收目标类 `UserRef`，在上面的示例中是 `User`（**修饰器的作用目标**）并且必须返回构造函数。这打开了使用修饰器无限可能性的大门。因此，类修饰器比方法/属性修饰器更受欢迎。
 
-但是上面的例子太基础了，当我们的 `User` 类有大量的属性和原型方法时，我们不想创建一个新的构造函数。好的是，我们在修饰器函数中可以引用类，即 `UserRef`。可以从构造函数返回新类，该类将扩展 `User` 类（`UserRef` 指向的类）。因为，类也是构造函数，所以下面的代码是合法的。
+但是上面的例子太基础了，当我们的 `User` 类有大量的属性和原型方法时，我们不想创建一个新的构造函数。好消息是，我们在修饰器函数中可以引用类，即 `UserRef`。可以从构造函数返回新类，该类将扩展 `User` 类（`UserRef` 指向的类）。因为，类也是构造函数，所以下面的代码也是合法的。
 
 ```
 function withLoginStatus( UserRef ) {
@@ -575,7 +575,7 @@ console.log( 'After ===> ', user );
 
 * * *
 
-修饰器是更快地达到目的的奇特方式。一段时间后它们才会被添加到 ECMAScript 规范中。
+修饰器是更快地达到目的的奇特方式。在它们正式加入 ECMAScript 规范之前，我们先期待一下吧。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
