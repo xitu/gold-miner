@@ -2,22 +2,22 @@
 > * 原文作者：[Poojã Bhaumik](https://medium.com/@poojabhaumik?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/parsing-complex-json-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/parsing-complex-json-in-flutter.md)
-> * 译者：
+> * 译者：[DateBro](https://github.com/DateBro)
 > * 校对者：
 
-# Parsing complex JSON in Flutter
+# 在 Flutter 中解析复杂的 JSON
 
 ![](https://cdn-images-1.medium.com/max/600/1*uyZqUA7yQuJYrHtuDv49Rw.jpeg)
 
-I have to admit, I was missing the **_gson_** world of Android after working with JSON in Flutter/Dart. When I started working with APIs in Flutter, JSON parsing really had me struggle a lot. And I’m certain, it confuses a lot of you beginners.
+我必须承认，在 Flutter / Dart 中使用 JSON 后，我一直想念 ** _gson_ ** 的 Android 世界。当我开始使用 Flutter 中的 API 时，JSON 解析真的让我很困扰。而且我敢确定，它也让很多初学者感到困惑。
 
-We will be using the built in `dart:convert` library for this blog. This is the most basic parsing method and it is only recommended if you are starting with Flutter or you’re building a small project. Nevertheless, knowing the basics of JSON parsing in Flutter is pretty important. When you’re good at this, or if you need to work with a larger project, consider code generator libraries like [json_serializable](https://pub.dartlang.org/packages/json_serializable), etc. If possible, I will discover them in the future articles.
+我们将在这篇博客中使用内置的 `dart:convert` 库。这是最基本的解析方法，只有在你刚开始使用 Flutter 或者你正在写一个小项目时才建议使用它。不过，了解一些 Flutter 中 JSON 解析的基础知识非常重要。如果你精通这个，或者你需要写更大的项目时，可以考虑像[json_serializable](https://pub.dartlang.org/packages/json_serializable) 等代码生成器库。如果可能的话，我会在以后的文章中介绍它们。
 
-Fork this [sample project](https://github.com/PoojaB26/ParsingJSON-Flutter). It has all the code for this blog that you can experiment with.
+Fork 这个 [示例项目](https://github.com/PoojaB26/ParsingJSON-Flutter)。它包含这篇博客中的所有代码，你可以对照着实践一下。
 
-### JSON structure #1 : Simple map
+### JSON 结构 #1 : 简单的 map
 
-Let’s start with a simple JSON structure from [student.json](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/assets/student.json)
+让我们从一个简单的 JSON 结构开始—— [student.json](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/assets/student.json)
 
 ```
 {
@@ -27,14 +27,13 @@ Let’s start with a simple JSON structure from [student.json](https://github.co
 }
 ```
 
-**Rule #1 :** **Identify the structure. Json strings will either have a Map (key-value pairs) or a List of Maps.**
+**规则 #1 :** **确定结构。Json 字符串将具有 Map（键值对）或 List of Maps。**
 
-**Rule #2 : Begins with curly braces? It’s a map.  
-Begins with a Square bracket? That’s a List of maps.**
+**规则 #2 : 用花括号开始？ 这是 map。用方括号开始？ 那是 List of maps。**
 
-`student.json` is clearly a map. ( E.g like, `id` is a key, and `487349` is the value for `id`)
+`student.json` 明显是 map。(比如，`id` 是 键，`487349` 是 `id` 的值)
 
-Let’s make a PODO (Plain Old Dart Object?) file for this json structure. You can find this code in [student_model.dart](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/student_model.dart) in the sample project.
+让我们为这个 json 结构做一个 PODO（Plain Old Dart Object？）文件。你可以在示例项目的 [student_model.dart](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/student_model.dart) 文件中找到这段代码。
 
 ```
 class Student{
@@ -50,9 +49,9 @@ class Student{
 }
 ```
 
-Perfect!  
-_Was it? Because there was no mapping between the json maps and this PODO file. Even the entity names don’t match.  
-_I know, I know. We are not done yet. We have to do the work of mapping these class members to the json object. For that, we need to create a `factory` method. According to Dart documentation, we use the `factory` keyword when implementing a constructor that doesn’t always create a new instance of its class and that’s what we need right now.
+Perfect！
+**是这样吗？** 因为 json 映射和这个 PODO 文件之间没有映射。甚至实体名称也不匹配。
+**我知道我知道。** 我们还没有完成。我们必须将这些类成员映射到json对象。 为此，我们需要创建一个 `factory` 方法。 根据 Dart 文档，我们在实现一个构造函数时使用 `factory` 关键字时，这个构造函数不会总是创建其类的新实例，而这正是我们现在所需要的。
 
 ```
 factory Student.fromJson(Map<String, dynamic> parsedJson){
@@ -64,31 +63,31 @@ factory Student.fromJson(Map<String, dynamic> parsedJson){
   }
 ```
 
-Here, we are creating a factory method called `Student.fromJson` whose objective is to simply deserialize your json.
+在这里，我们创建了一个叫做 `Student.fromJson` 的工厂方法，用来简单地反序列化你的 json。
 
-**_I’m a little noob, can you tell me about Deserialization?_**
+**_我是一个小菜鸡，能告诉我反序列化究竟是什么吗？_**
 
-Sure. Let’s tell you about Serialization and Deserialization first. **Serialization** simply means writing the data(which might be in an object) as a string, and **Deserialization** is the opposite of that. It takes the raw data and reconstructs the object model. In this article, we mostly will be dealing with the deserialization part. In this first part, we are deserializing the json string from `student.json`
+当然。 我们首先要向你介绍序列化和反序列化。 **序列化** 简单来讲就是把数据（可能在对象中）写成字符串，**反序列化** 正好相反。它获取原始数据并重建对象模型。在本文中，我们主要讨论反序列化部分。在第一部分中，我们从 `student.json` 反序列化 json 字符串。
 
-So our factory method could be called as our converter method.
+所以我们的工厂方法也可以称为我们的转换器方法。
 
-Also must notice the parameter in the `fromJson` method. It’s a `Map<String, dynamic>` It means it maps a `String` **key** with a `dynamic` **value**. That’s exactly why we need to identify the structure. If this json structure were a List of maps, then this parameter would have been different.
+还必须注意 `fromJson` 方法中的参数。它是一个 `Map <String，dynamic>` 这意味着它将 `String` **键**映射为 `dynamic` **值**。 这正是我们需要识别它结构的原因。 如果这个 json 结构是一个映射列表，那么这个参数会有所不同。
 
-**_But why dynamic?_**Let’s look at another json structure first to answer your question.
+**_但为什么选择动态呢？_** 让我们先看一下另一个 json 结构来回答你的问题。
 
 ![](https://cdn-images-1.medium.com/max/800/1*aYehHPUoXS4S-CVLWg1NCQ.png)
 
-`name` is a Map<String, String> ,`majors` is a Map of String and List<String> and `subjects` is a Map of String and List<Object>
+`name` 是一个 Map<String，String>，`majors` 是 String 和 List<String> 的 Map，`subject` 是 String 和 List<Object>的 Map。
 
-Since the key is always a `string` and the value can be of any type, we keep it as `dynamic` to be on the safe side.
+因为键总是一个 `string` 并且值可以是任何类型，所以我们将它保持为 `dynamic` 以保证安全。
 
-Check the full code for `student_model.dart` [here](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/student_model.dart).
+在 [这里](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/student_model.dart) 检查 `student_model.dart` 的完整代码。
 
-### Accessing the object
+### 访问对象
 
-Let’s write `student_services.dart` which will have the code to call `Student.fromJson` and retrieve the values from the `Student` object.
+让我们写 `student_services.dart` ，它具有调用 `Student.fromJson` 的代码，能够从 `Student` 对象中获取值。
 
-#### Snippet #1 : imports
+#### 片段 #1 : imports
 
 ```
 import 'dart:async' show Future;
@@ -97,9 +96,9 @@ import 'dart:convert';
 import 'package:flutter_json/student_model.dart';
 ```
 
-The last import will be the name of your model file.
+最后导入的是你的模型文件名。
 
-#### **Snippet #2 : load Json Asset (optional)**
+#### **片段 #2 : 加载 Json Asset (可选)**
 
 ```
 Future<String> _loadAStudentAsset() async {
@@ -107,9 +106,9 @@ Future<String> _loadAStudentAsset() async {
 }
 ```
 
-In this particular project, we have our json files in the assets folder, so we have to load the json in this way. But if you have your json file on the cloud, you can do a network call instead. _Network calls are out of the scope of this article._
+在这个特定项目中，我们的 json 文件放在 assets 文件夹下，所以我们必须这样加载 json。但如果你的 json 文件放在云端，你也可以进行网络调用。**网络调用不在我们这篇文章的讨论范围内。**
 
-#### Snippet #3 : load the response
+#### 片段 #3 : 加载响应
 
 ```
 Future loadStudent() async {
@@ -120,20 +119,20 @@ Future loadStudent() async {
 }
 ```
 
-In this `loadStudent()` method,  
-**Line 1** : loading the raw json String from the assets.  
-**Line 2** : Decoding this raw json String we got.  
-**Line 3** : And now we are deserializing the decoded json response by calling the `Student.fromJson` method so that we can now use `Student` object to access our entities.  
-**Line 4** : Like we did here, where we printed `studentScores` from `Student` class.
+在 `loadStudent()` 方法中，
+**第一行**：从 assets 中加载原始 json 字符串。
+**第二行**：解码我们得到的 json 字符串。
+**第三行**：现在我们通过调用 `Student.fromJson` 方法反序列化解码的 json 响应，这样我们现在可以使用 `Student` 对象来访问我们的实体。
+**第四行**：就像我们在这里做的一样，我们在 `Student` 类里打印了 `studentScores`。
 
-_Check your Flutter console to see all your print values. (In Android Studio, its under Run tab)_
+**检查 Flutter 控制台以查看打印的所有值。 （在 Android Studio 中，它在运行选项下）**
 
-And voila! You just did your first JSON parsing (or not).  
-_Note: Remember the 3 snippets here, we will be using it for the next set of json parsing (only changing the filenames and method names), and I won’t be repeating the code again here. But you can find everything in the sample project anyway._
+瞧！你刚刚完成了第一次 JSON 解析（或没有）。
+**注意：请记住这里的 3 个片段，我们将把它用于下一组 json 解析（只更改文件名和方法名），我不会在这里重复代码。但你可以在示例项目中找到所有内容**
 
-### JSON structure #2 : Simple structure with arrays
+### JSON 结构 #2 ：含有数组的简单结构
 
-Now we conquer a json structure that is similar to the one above, but instead of just single values, it might also have an array of values.
+现在我们要征服一个和上面那个类似的 json 结构，但不是单一值的，它可能有一个值数组。
 
 ```
 {
@@ -145,12 +144,12 @@ Now we conquer a json structure that is similar to the one above, but instead of
 }
 ```
 
-So in this [address.json](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/assets/address.json), we have `city` entity that has a simple `String` value, but `streets` is an array of `String`.  
-As far as i know, Dart doesn’t have an array data type, but instead has a List<datatype> so here `streets` will be a `List<String>`.
+所以在这个 [address.json](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/assets/address.json) 中，我们有一个包含简单 `String` 值的 `city` 实体，但 `streets`  是一个 `String` 数组。
+就我所知，Dart 并没有数组这种数据类型，但它有 List<datatype> 所以这里 `streets`  是一个 `List<String>`。
 
-Now we have to check **Rule#1 and Rule#2** . This is definitely a map since this starts with a curly brace. `streets` is still a `List` though, but we will worry about that later.
+现在我们要检查一下 **规则#1 和 规则#2**。这绝对是一个 map，因为这是以花括号开头的。`streets` 仍然是一个 `List`，但我们稍后才会考虑这个。
 
-So the `address_model.dart` initially will look like this
+所以 `address_model.dart` 一开始看起来像是这样的
 
 ```
 class Address {
@@ -164,11 +163,11 @@ class Address {
 }
 ```
 
-Now since this is a map, our `Address.fromJson` method will still have a `Map<String, dynamic>` parameter.
+现在它是一个 map，我们的 `Address.fromJson` 方法 仍然有一个 `Map<String, dynamic>` 参数。
 
 ```
 factory Address.fromJson(Map<String, dynamic> parsedJson) {
-  
+
   return new Address(
       city: parsedJson['city'],
       streets: parsedJson['streets'],
@@ -176,31 +175,31 @@ factory Address.fromJson(Map<String, dynamic> parsedJson) {
 }
 ```
 
-Now construct the `address_services.dart` by adding the 3 snippets we mentioned above. _Must remember to put the proper file names and method names. Sample project already has_ `_address_services.dart_` _constructed for you._
+现在通过添加上面提到的三个代码片段来构造 `address_services.dart`。**必须记住要放入正确的文件名和方法名。示例项目已经为您构建了_ `_address_services.dart_`。**
 
-Now when you run this, you will get a nice little error. :/
+如果你现在运行它，你会发现一个小错误。:/
 
 ```
 type 'List<dynamic>' is not a subtype of type 'List<String>'
 ```
 
-I tell you, these errors have come in almost every step of my development with Dart. And you will have them too. So let me explain what this means. We are requesting a `List<String>` but we are getting a `List<dynamic>` because our application cannot identify the type yet.
+我告诉你，这些错误几乎在我 Dart 开发的每一步中都会出现。你也会遇到它们。那么让我解释一下这是什么意思。我们正在请求 `List <String>` 但我们得到一个 `List <dynamic>` ，因为我们的应用程序还无法识别它的类型。
 
-So we have to explicitly convert this to a `List<String>`
+所以我们必须把这个显式地转换成 `List<String>`。
 
 ```
 var streetsFromJson = parsedJson['streets'];
 List<String> streetsList = new List<String>.from(streetsFromJson);
 ```
 
-Here, first we are mapping our variable `streetsFromJson` to the `streets` entity. `streetsFromJson` is still a `List<dynamic>`. Now we explicitly create a new `List<String> streetsList` that contains all elements **from** `streetsFromJson`.
+在这里，我们首先把变量映射到 `streetsFromJson` `streets` 实体。 `streetsFromJson` 仍然是一个 `List<dynamic>`。现在我们显式地创造了一个 `List<String> streetsList`，它包含了 **来自** `streetsFromJson`的所有元素。
 
-Check the updated method [here](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/address_model.dart). _Notice the return statement now.  
-Now you can run this with_ `_address_services.dart_` _and this will work perfectly._
+在[这里](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/address_model.dart) 检查更新的方法。**注意现在的返回语句。**
+现在你可以用 `_address_services.dart_` 来运行它，**它会完美运行。**
 
-### Json structure #3 : Simple Nested structures
+### Json 结构 #3 ：简单的嵌套结构
 
-Now what if we have a nested structure like this from [shape.json](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/assets/shape.json)
+现在如果我们有一个像来自 [shape.json](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/assets/shape.json) 的嵌套结构的话会怎样呢？
 
 ```
 {
@@ -212,11 +211,11 @@ Now what if we have a nested structure like this from [shape.json](https://githu
 }
 ```
 
-Here, `property` contains an object instead of a basic primitive data-type.  
-_So how will the PODO look like?_
+这里，`property`包含一个对象而不是基本的数据类型。
+**那么 POOD 看起来会是怎样呢？**
 
-Okay, let’s break down a little.  
-In our `shape_model.dart` , let’s make a class for `Property` first.
+好啦，让我们先休息一会。
+在 `shape_model.dart` 中，让我们先为 `Property` 建一个类。
 
 ```
 class Property{
@@ -230,7 +229,7 @@ class Property{
 }
 ```
 
-Now let’s construct the class for `Shape`. _I am keeping both classes in the same Dart file._
+现在让我们为 `Shape` 创建一个类。**我将这两个类保存在同一个 Dart 文件中。**
 
 ```
 class Shape{
@@ -244,11 +243,11 @@ class Shape{
 }
 ```
 
-Notice how the second data member `property` is basically an object of our previous class `Property`.
+注意第二个数据成员 `property` 就是我们前面 `Property` 类的对象。
 
-**Rule #3: For nested structures, make the classes and constructors first, and then add the factory methods from bottom level.**
+**规则 #3：对于嵌套结构，首先创建类和构造函数，然后从底层添加工厂方法。**
 
-_By bottom level, we mean, first we conquer_ `_Property_` _class, and then we go one level above to the_ `_Shape_` _class. This is just my suggestion, not a Flutter rule._
+**在底层上，我的意思是，首先我们征服 `_Property_` 类，然后我们在 `_Shape_` 类上再上一级。当然，这只是我的个人见解，不是 Flutter 规则**
 
 ```
 factory Property.fromJson(Map<String, dynamic> json){
@@ -259,9 +258,9 @@ factory Property.fromJson(Map<String, dynamic> json){
 }
 ```
 
-_This was a simple map._
+**这是一个简单的 map**
 
-But for our factory method at `Shape` class, we cant just do this.
+但是对于在 `Shape` 类中的工厂方法，我们只能这样做。
 
 ```
 factory Shape.fromJson(Map<String, dynamic> parsedJson){
@@ -272,15 +271,15 @@ factory Shape.fromJson(Map<String, dynamic> parsedJson){
 }
 ```
 
-`property : parsedJson['property']` First, this will throw the type mismatch error —
+`property : parsedJson['property']` 首先，它会抛出一个类型不匹配错误 —
 
 ```
 type '_InternalLinkedHashMap<String, dynamic>' is not a subtype of type 'Property'
 ```
 
-And second, _hey we just made this nice little class for Property, I don’t see it’s usage anywhere._
+其次，**嘿，我们刚刚为 Property 做了了这个优雅的类，我没有看到它在任何地方使用。**
 
-Right. We must map our Property class here.
+没错，我们必须在这里映射我们的 Property 类。
 
 ```
 factory Shape.fromJson(Map<String, dynamic> parsedJson){
@@ -291,13 +290,13 @@ factory Shape.fromJson(Map<String, dynamic> parsedJson){
 }
 ```
 
-So basically, we are calling the `Property.fromJson` method from our `Property` class and whatever we get in return, we map it to the `property` entity. Simple! Check out the code [here](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/shape_model.dart).
+所以基本上，我们从 `Property` 类调用`Property.fromJson`方法，无论得到什么，我们都将它映射到 `property` 实体。简单！ 在 [he这里](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/shape_model.dart) 检查你的代码。
 
-Run this with your `shape_services.dart` and you are good to go.
+用你的 `shape_services.dart` 运行它，你会对运行结果感到满意的。
 
-### JSON structure #4 : Nested structures with Lists
+### JSON structure #4：含有 Lists 的嵌套结构
 
-_Let’s check our_ [_product.json_](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/assets/product.json)
+**让我们检查我们的** [_product.json_](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/assets/product.json)
 
 ```
 {
@@ -316,12 +315,12 @@ _Let’s check our_ [_product.json_](https://github.com/PoojaB26/ParsingJSON-Flu
 }
 ```
 
-Okay, now we are getting deeper. _I see a list of objects somewhere inside. Woah._
+好的，现在我们越来越深入了。**哇哦，我在里面看到了一个对象列表。**
 
-Yes, so this structure has a List of objects, but itself is still a map. (Refer **Rule #1**, and **Rule #2**) . Now referring to **Rule #3**, let’s construct our `product_model.dart`.
+是的，所以这个结构有一个对象列表，但它本身仍然是一个地图。（参考**规则 ＃1 **和 **规则 ＃2 **）。现在参考 **规则 ＃3**，让我们构造我们的`product_model.dart`。
 
-So we create two new classes `Product` and `Image`.  
-_Note:_ `_Product_` _will have a data member that is a List of_ `_Image_`
+现在我们来创建 `Product` 和 `Image` 这两个类。
+**注意：** `_Product_` **会有一个数据成员，它是** `_Image_` **的 List**
 
 ```
 class Product {
@@ -340,7 +339,7 @@ class Image {
 }
 ```
 
-The factory method for `Image` will be quite simple and basic.
+`Image` 的工厂方法会非常简单和基础。
 
 ```
 factory Image.fromJson(Map<String, dynamic> parsedJson){
@@ -351,7 +350,7 @@ factory Image.fromJson(Map<String, dynamic> parsedJson){
 }
 ```
 
-Now for the factory method for `Product`
+这里是 `Product` 的工厂方法
 
 ```
 factory Product.fromJson(Map<String, dynamic> parsedJson){
@@ -364,21 +363,21 @@ factory Product.fromJson(Map<String, dynamic> parsedJson){
 }
 ```
 
-This will obviously throw a runtime error
+这里明显会抛出一个 runtime error
 
 ```
 type 'List<dynamic>' is not a subtype of type 'List<Image>'
 ```
 
-And if we do this,
+如果我们这样做，
 
 ```
 images: Image.fromJson(parsedJson['images'])
 ```
 
-This is also definitely wrong, and it will throw you an error right away because you cannot assign an `Image` object to a `List<Image>`
+这也是绝对错误的，它会立即引发错误，因为你无法将 `Image` 对象分配给 `List<Image>`。
 
-So we have to create a `List<Image>` and then assign it to `images`
+所以我们必须创建一个 `List<Image>` 然后将它分配给 `images`
 
 ```
 var list = parsedJson['images'] as List;
@@ -386,11 +385,11 @@ print(list.runtimeType); //returns List<dynamic>
 List<Image> imagesList = list.map((i) => Image.fromJson(i)).toList();
 ```
 
-`list` here is a List<dynamic>. Now we iterate over the list and map each object in `list` to `Image` by calling `Image.fromJson` and then we put each map object into a new list with `toList()` and store it in `List<Image> imagesList`. Find the full code [here](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/product_model.dart).
+`list` 在这里是一个 List<dynamic>。现在我们通过调用 `Image.fromJson` 遍历整个列表，并把 `list` 中的每个对象映射到 `Image` 中，然后我们将每个 map 对象放入一个带有 `toList()` 的新列表中，并将它存储在 `List <Image> imagesList`。可以在这里[这里](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/product_model.dart) 查看完整代码。
 
-### JSON structure #5 : List of maps
+### JSON 结构 #5 ：map 列表
 
-Now let’s head over to [photo.json](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/assets/photo.json)
+现在让我们来看一下 [photo.json](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/assets/photo.json)
 
 ```
 [
@@ -418,7 +417,7 @@ Now let’s head over to [photo.json](https://github.com/PoojaB26/ParsingJSON-Fl
 ]
 ```
 
-Uh, oh. **Rule #1 and Rule #2** tells me this can’t be a map because the json string starts with a square bracket. _So this is a List of objects?_ Yes. The object being here is `Photo` (or whatever you’d like to call it).
+哦，**规则 #1 和 规则 #2** 可以看出这不是一个 map，因为这个 json 字符串以方括号开头。**所以这是一个对象列表？** 是的，这里的对象是 `Photo`（或者你想称之为的任何东西）。
 
 ```
 class Photo{
@@ -442,9 +441,9 @@ class Photo{
 }
 ```
 
-_But its a list of_ `_Photo_` _, so does this mean you have to build a class that contains a_ `_List<Photo>_`_?_
+**但它是一个 `_Photo_` 列表，所以这意味着你必须创建一个包含 `_List<Photo>_` 的类？**
 
-Yes, I would suggest that.
+是的，我建议这样。
 
 ```
 class PhotosList {
@@ -456,7 +455,7 @@ class PhotosList {
 }
 ```
 
-Also notice, this json string is a List of maps. So, in our factory method, we won’t have a `Map<String, dynamic>` parameter, because it’s a List. And that is exactly why it’s important to identify the structure first. So our new parameter would be a `List<dynamic>`.
+同时请注意，这个 json 字符串是一个映射列表。因此，在我们的工厂方法中，不会有一个 `Map <String，dynamic>` 参数，因为它是一个 List。这就是为什么首先要确定结构。所以我们的新参数是 `List <dynamic>`。
 
 ```
 factory PhotosList.fromJson(List<dynamic> parsedJson) {
@@ -469,47 +468,47 @@ factory PhotosList.fromJson(List<dynamic> parsedJson) {
   }
 ```
 
-This would throw an error
+这样会抛出一个错误。
 
 ```
 Invalid value: Valid value range is empty: 0
 ```
 
-Hey, because we never could use the `Photo.fromJson` method.  
-What if we add this line of code after our list initialization?
+嘿，因为我们永远不能使用 `Photo.fromJson` 方法。
+如果我们在列表初始化之后添加这行代码会怎样？
 
 ```
 photos = parsedJson.map((i)=>Photo.fromJson(i)).toList();
 ```
 
-Same concept as earlier, we just don’t have to map this to any key from the json string, because it’s a List, not a map. Code [here](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/photo_model.dart).
+与前面相同的概念，我们不必把它映射到 json 字符串中的任何键，因为它是 List 而不是 map。 代码在 [这里](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/photo_model.dart).
 
-### JSON structure #6 : Complex nested structures
+### JSON 结构 #6 ：复杂的嵌套结构
 
-Here is [page.json](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/assets/page.json).
+这是 [page.json](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/assets/page.json).
 
-I will request you to solve this. It is already included in the sample project. You just have to build the model and services file for this. But I won’t conclude before giving you hints and tips (if case, you need any).
+我会要求你解决这个问题。它已包含在示例项目中。你只需要为此构建模型和服务文件。但是在给你提示之前我不会总结（如果你需要任何提示的话）。
 
-**Rule#1** and **Rule#2** as usual applies. Identify the structure first. Here it is a map. So all the json structures from 1–5 will help.
+**Rule#1** and **Rule#2** 一样使用。首先确定结构。 这是一个 map。所以 1-5 的所有 json 结构都有用。
 
-**Rule #3** asks you to make the classes and constructors first, and then add the factory methods from bottom level. Just another tip. Also add the classes from the deep/bottom level. For e.g, for this json structure, make the class for `Image` first, then `Data` and `Author` and then the main class `Page`. And add the factory methods also in the same sequence.
+**Rule #3** 要求你先创建类和构造函数，然后从底层添加工厂方法。不过还有一个提示，还要记得从深层/底层添加类。例如，对于这个 json 结构，首先为 `Image` 创建类，然后为 `Data` 和 `Author` 创建类，然后创建主类 `Page`。 并以相同的顺序添加工厂方法。
 
-For class `Image` and `Data` refer to **Json structure #4**.  
-For class `Author` refer to **Json structure #3**
+对于 `Image` 和 `Data` 类，参考 **Json 结构 #4**.
+对于 `Author` 类，参考 **Json 结构 #3**
 
-_Beginner’s tip: While experimenting with any new assets, remember to declare it in the pubspec.yaml file._
+**给初学者的建议：在试验任何新 asset 时，请记得在 pubspec.yaml 文件中声明它。**
 
-And that’s it for this Fluttery article. This article may not be the best JSON parsing article out there, (because I’m still learning a lot) but I hope it got you started.
+这就是这篇 Fluttery 文章的内容。这篇文章可能不是最好的 JSON 解析文章（因为我还在学习很多东西），但我希望它能帮助你入门。
 
 * * *
 
-> I got something wrong? Mention it in the comments. I would love to improve.
+> 我弄错了什么吗？在评论中提一下。我洗耳恭听。
 
-> If you learnt even a thing or two, clap your hands 👏 as many times as you can to show your support! This motivates me to write more.
+> 如果你学到了一两件点知识，请尽可能多地拍手 👏 以表示你的支持！这会鼓励我写更多的文章。
 
-> Hello World, I am Pooja Bhaumik. A creative developer and a logical designer. You can find me on [Linkedin](https://www.linkedin.com/in/poojab26/) or stalk me on [GitHub](https://github.com/PoojaB26) or maybe follow me on [Twitter](https://twitter.com/pblead26)? If that’s too social for you, just drop a mail to pbhaumik26@gmail.com if you wish to talk tech with me.
+> Hello World，我是 Pooja Bhaumik。一个有创意的开发人员和理性的设计师。你可以在 [Linkedin](https://www.linkedin.com/in/poojab26/) 或 [GitHub](https://github.com/PoojaB26) 或 [Twitter](https://twitter.com/pblead26) 上关注我？如果这对你来说太 social 了，如果你想和我谈论对科技的想法，请发邮件到 pbhaumik26@gmail.com。
 
-> Have a nice fluttery day!
+> 祝你度过美好的一天!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
