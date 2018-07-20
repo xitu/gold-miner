@@ -5,7 +5,7 @@
 > * 译者：Zheng7426
 > * 校对者：
 
-#  创建一个 Sketch 的设计体系: 第二讲 [教程]
+#  在 Sketch 中使用一个设计体系创作: 第二部分 [教程]
 
 ## 创建和玩转一个 Sketch 的设计体系 
 
@@ -23,15 +23,15 @@
 
 ### 本系列教程目录
 
-*   [第一讲](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-with-a-design-system-in-sketch-part-one-tutorial.md)
+*   [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-with-a-design-system-in-sketch-part-one-tutorial.md)
 *   **第二讲**
-*   [第三讲](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-with-a-design-system-in-sketch-part-three-tutorial.md)
-*   [第四讲](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-with-a-design-system-in-sketch-part-four-tutorial.md)
-*   [第五讲](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-with-a-design-system-in-sketch-part-five-tutorial.md)
-*   [第六讲](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-with-a-design-system-in-sketch-part-six-tutorial.md)
-*   [第七讲](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-with-a-design-system-in-sketch-part-seven-tutorial.md)
-*   [第八讲](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-with-a-design-system-in-sketch-part-eight-tutorial.md)
-*   [第九讲](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-with-a-design-system-in-sketch-part-nine-tutorial.md)
+*   [第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-with-a-design-system-in-sketch-part-three-tutorial.md)
+*   [第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-with-a-design-system-in-sketch-part-four-tutorial.md)
+*   [第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-with-a-design-system-in-sketch-part-five-tutorial.md)
+*   [第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-with-a-design-system-in-sketch-part-six-tutorial.md)
+*   [第七部分](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-with-a-design-system-in-sketch-part-seven-tutorial.md)
+*   [第八部分](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-with-a-design-system-in-sketch-part-eight-tutorial.md)
+*   [第九部分](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-with-a-design-system-in-sketch-part-nine-tutorial.md)
 
 
 * * *
@@ -116,7 +116,7 @@ _当你重复这么做20次的时候会不会非常头疼？_
 * * *
 
 好了，本系列教程的第二讲到此为止。请继续阅读第三讲，在第三讲中我将会提到设计体系中用到的 Symbols 以及更多的内容，以及一些实用且绝妙的诀窍和提示，还有我如何将其融入到我的设计体系中的想法。
-**想前往第三讲就** [**点这里**](https://medium.com/sketch-app-sources/creating-with-a-design-system-in-sketch-part-three-tutorial-105b12a0944a)**…**
+**想前往第三部分就** [**点这里**](https://medium.com/sketch-app-sources/creating-with-a-design-system-in-sketch-part-three-tutorial-105b12a0944a)**…**
 
 ### 🎁 想用我这针对 Sketch 的优质设计体系来飞速提升你的工作流程吗？你可以从[这里](https://kissmyui.com/cabana)拷贝一份 Cabana。
 
