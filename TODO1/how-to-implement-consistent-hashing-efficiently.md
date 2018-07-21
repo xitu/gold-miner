@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-implement-consistent-hashing-efficiently.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-implement-consistent-hashing-efficiently.md)
 > * 译者：[yqian1991](https://github.com/yqian1991)
-> * 校对者：
+> * 校对者：[Starrier](https://github.com/Starrier)
 
 # 我们是如何高效实现一致性哈希的
 
