@@ -21,7 +21,7 @@
 
 ## 避免 renderXXX 方法
 
-如果您在组件中定义了以 render 开头的自定义方法，那么它很可能应该被定义为自有组件。正如 [Chris Biscardi](https://mobile.twitter.com/chrisbiscardi/status/1004559213320814592) 所说，**“高效意味着有有足够的复杂度值得被分解”**。React 能明智地决定是否渲染的时机，因此，将这些组件拆分为自有组件，可以帮助 React 更好地运行。
+如果您在组件中定义了以 render 开头的自定义方法，那么它很可能应该被定义为自有组件。正如 [Chris Biscardi](https://mobile.twitter.com/chrisbiscardi/status/1004559213320814592) 所说，**“高效意味着有有足够的复杂度值得被分解”**。React 能明智地决定是否渲染的时机，因此，将这些组件拆分为自有组件，可以帮助 React 更好地运行。
 
 ```jsx
 // 不要这样写
@@ -80,7 +80,7 @@ class Items extends React.Component {
 
 > 既然你经常向用户展示 JSON 数据模型，你会发现，如果你的模型构建正确，你的 UI（以及你的组件结构）会被很好地映射。
 
-– [React 理念](https://facebook.github.io/react/docs/thinking-in-react.html)
+* [React 理念](https://facebook.github.io/react/docs/thinking-in-react.html)
 
 我经常看到 React 新手尝试复制我所说的 "[Bootstrap](https://getbootstrap.com)" 组件，即具有视觉边界，但与任何数据结构都没有直接联系的 UI 组件。React 组件和 BEM 风格、基于 CSS 的组件有着不同的关注点。不应该创建一个需要定制 props 的通用 Card 组件来显示图像、标题和链接，而是为你需要展示的数据创建组件。也许通用的 Card 组件应该是一个接受来自数据库的 product 对象的 ProductCard 组件。
 
