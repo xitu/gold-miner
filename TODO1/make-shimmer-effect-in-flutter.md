@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/make-shimmer-effect-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/make-shimmer-effect-in-flutter.md)
 > * 译者：[geniusq1981](https://github.com/geniusq1981)
-> * 校对者：
 
 # 在 Flutter 中实现微光闪烁效果
 
@@ -63,7 +62,7 @@ class _ShimmerState extends State<Shimmer> {
 }
 ```
 
-**_ Shimmer** 是负责效果绘画的内部类。它从 **SingleChildRenderObjectWidget** 扩展而来并重写了 **paint** 方法来执行绘制任务。我们使用 **Canvas** 对象的 **saveLayer** 和 **paintChild** 方法来捕捉我们的 **child** 作为一个图层并在上面绘制渐变效果（带上一点 **BlendMode** 的魔法）。
+**`_Shimmer`** 是负责效果绘画的内部类。它从 **SingleChildRenderObjectWidget** 扩展而来并重写了 **paint** 方法来执行绘制任务。我们使用 **Canvas** 对象的 **saveLayer** 和 **paintChild** 方法来捕捉我们的 **child** 作为一个图层并在上面绘制渐变效果（带上一点 **BlendMode** 的魔法）。
 
 ```
 import 'package:flutter/rendering.dart';
@@ -110,7 +109,7 @@ class _ShimmerFilter extends RenderProxyBox {
 
 剩下的就是添加一个动效，让我们的效果动起来。这里没什么特别的，我们将创建一个动效来在绘制渐变之前从左到右移动 **Canvas**，这样就能产生渐变移动的效果。
 
-我们在 **_ ShimmerState** 中为动效创建一个新的 **AnimationController**。我们的 **_ Shimmer** 类和 **_ ShimmerFilter** 类还需要一个新变量（称之为 **percent**）来存储该动画执行的进度结果，并在每次 **AnimationController** 发出新值时调用 **markNeedsPaint**（这会让 widget 重新绘制）。**Canvas** 的移动位移量可以根据 **percent** 的值计算出来。
+我们在 **`_ShimmerState`** 中为动效创建一个新的 **AnimationController**。我们的 **`_Shimmer`** 类和 **`_ShimmerFilter`** 类还需要一个新变量（称之为 **percent**）来存储该动画执行的进度结果，并在每次 **AnimationController** 发出新值时调用 **markNeedsPaint**（这会让 widget 重新绘制）。**Canvas** 的移动位移量可以根据 **percent** 的值计算出来。
 
 ```
 class _ShimmerState extends State<Shimmer> with TickerProviderStateMixin {
@@ -223,7 +222,7 @@ class _ShimmerFilter extends RenderProxyBox {
 
 这只是个开始。接下来我会使用 Flutter 来挑战更多更复杂的 UI 效果。我将在下一篇文章中分享我的成果。感谢你的阅读!
 
-> 备注: 我已经将我的代码发布为一个名为 [shimmer](https://pub.dartlang.org/packages/shimmer) 的包.
+> 备注：我已经将我的代码发布为一个名为 [shimmer](https://pub.dartlang.org/packages/shimmer) 的包.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
