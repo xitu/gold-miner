@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*49JRIXl5TjmS9GWjlyr7Sw.jpeg)
 
-我刚刚在 [Google Play 商店](https://play.google.com/store/apps/details?id=com.manninglabs.steady) 提交了一款名为 [Steady Calendar](https://www.steadycalendar.com) 的应用，这是一款追踪极简主义习惯的应用，由我的妻子 [Irina](https://www.behance.net/irinamanning) 设计，并且在我成为父亲一小段空闲时间内独立开发出来的。此 App 由 iOS 移植到了 Flutter。在上周由 @[flutterfyi](https://twitter.com/flutterfyi) 组织的 [Flutter Camp](https://flutter.camp) 上谈到的经验分享 ([演示文稿](https://docs.google.com/presentation/d/1YQP7Qz1-4xRQWmOhwhswDTexmOl456RZPko45lhh-KU/edit#slide=id.gcb9a0b074_1_0))，我决定将我的谈话归结为对每个人来说更加丰富的东西, 成为即将到来的 Flutter 课程 —— [Flutter 实用指南](https://mailchi.mp/5a27b9f78aee/practical-flutter)的前奏。
+我刚刚在 [Google Play 商店](https://play.google.com/store/apps/details?id=com.manninglabs.steady) 提交了一款名为 [Steady Calendar](https://www.steadycalendar.com) 的应用，这是一款追踪极简主义习惯的应用，由我的妻子 [Irina](https://www.behance.net/irinamanning) 设计，并且在我成为父亲一小段空闲时间内独立开发出来的。此 App 由 iOS 移植到了 Flutter。在上周由 [@flutterfyi](https://twitter.com/flutterfyi) 组织的 [Flutter Camp](https://flutter.camp) 上谈到的经验分享（[演示文稿](https://docs.google.com/presentation/d/1YQP7Qz1-4xRQWmOhwhswDTexmOl456RZPko45lhh-KU/edit#slide=id.gcb9a0b074_1_0)），我决定将我的谈话归结为对每个人来说更加丰富的东西，成为即将到来的 Flutter 课程 —— [Flutter 实用指南](https://mailchi.mp/5a27b9f78aee/practical-flutter)的前奏。
 
 好吧，在开发完这个 App 后，我几乎再没有富余时间去投机取巧走捷径。我浪费了大量时间在认为自己必须掌握好 Flutter 上，最后结果也证明了毫无用处，纯粹是浪费时间。
 
@@ -27,7 +27,7 @@ Flutter 确实提供了 “Cupertino” [iOS 风格组件](https://flutter.io/wi
 
 *   [Scaffold](https://docs.flutter.io/flutter/material/Scaffold-class.html) 以及 AppBar（分别用于屏幕和导航栏的 Container）
 *   [Layouts](https://flutter.io/tutorials/layout/)，能够使用 Column、Row
-*   [Container](https://docs.flutter.io/flutter/widgets/Container-class.html) (能够设置 ‘padding’、‘decoration’ 等)
+*   [Container](https://docs.flutter.io/flutter/widgets/Container-class.html)（能够设置 ‘padding’、‘decoration’ 等）
 *   [Text](https://flutter.io/widgets/text/)
 *   [AssetImage](https://flutter.io/assets-and-images/)（[NetworkImage](https://flutter.io/cookbook/images/network-image/) 作为 Bonus）
 *   RaisedButton（从现在起忘记 icon）
