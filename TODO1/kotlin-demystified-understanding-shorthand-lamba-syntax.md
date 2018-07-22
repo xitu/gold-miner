@@ -2,29 +2,29 @@
 > * 原文作者：[Nicole Borrelli](https://medium.com/@borrelli?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/kotlin-demystified-understanding-shorthand-lamba-syntax.md](https://github.com/xitu/gold-miner/blob/master/TODO1/kotlin-demystified-understanding-shorthand-lamba-syntax.md)
-> * 译者：
-> * 校对者：
+> * 译者：[androidxiao](https://github.com/androidxiao)
 
 # Kotlin 揭秘：理解并速记 Lambda 语法
 
 ![](https://cdn-images-1.medium.com/max/1600/1*bNXslQsg8CYCyD5-1MkK5A.jpeg)
 
-摄影：[Stefan Steinbauer](https://unsplash.com/photos/HK8IoD-5zpg?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) ，来自 [Unsplash](https://unsplash.com/search/photos/secret?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+摄影：[Stefan Steinbauer](https://unsplash.com/photos/HK8IoD-5zpg?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)，来自 [Unsplash](https://unsplash.com/search/photos/secret?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)。
 
 在奥地利旅行期间，我参观了维也纳的奥地利国家图书馆。特别是国会大厅，这个令人惊叹的空间感觉就像印第安纳琼斯电影中的一些东西。房间周围的空间是这些门被装在架子上，很容易想象它们背后隐藏着什么样的秘密。
 
 然而，事实证明，它们只是简单的图书馆。
 
 让我们假设我们有一个应用程序来跟踪库中的书籍。有一天，我们想知道这个系列中最长和最短的书是什么。之后，我们编写代码，允许我们找到这两个：
+
 ```
-    val shortestBook = library.minBy { it.pageCount }val longestBook = library.maxBy { it.pageCount }
+val shortestBook = library.minBy { it.pageCount }val longestBook = library.maxBy { it.pageCount }
 ```
 
 完美！但这让我感到疑惑，这些方法是如何工作的？`it` 是怎么知道的，只是写了 `it.pageCount`，到底该怎么做呢？
 
-我做的第一件事就是定义 `minBy` 和 `maxBy` ,这两者都是在 [_Collections.kt](https://github.com/JetBrains/kotlin/blob/1.2.50/libraries/stdlib/common/src/generated/_Collections.kt)。由于它们几乎完全相同，所以让我们来看看 `maxBy`，它从1559行开始。
+我做的第一件事就是定义 `minBy` 和 `maxBy`，这两者都是在 [Collections.kt](https://github.com/JetBrains/kotlin/blob/1.2.50/libraries/stdlib/common/src/generated/_Collections.kt)。由于它们几乎完全相同，所以让我们来看看 `maxBy`，它从 1559 行开始。
 
-那里的方法是在 `[Iterable](https://developer.android.com/reference/java/lang/Iterable)`接口上构建的，但是如果我们做一个小的重写来使用`[Collection](https://developer.android.com/reference/java/util/Collection)`s，也许将一些变量的重命名变的更冗长，更容易理解：
+那里的方法是在 `[Iterable](https://developer.android.com/reference/java/lang/Iterable)` 接口上构建的，但是如果我们做一个小的重写来使用`[Collection](https://developer.android.com/reference/java/util/Collection)`s，也许将一些变量的重命名变的更冗长，更容易理解：
 
 ```
 public inline fun <T, R : Comparable<R>> Collection<T>.maxBy(selector: (T) -> R): T? {
@@ -67,6 +67,7 @@ val longestBook = library.maxBy(BookSelector())
 接下来的问题是，我们如何从那开始，到我们开始的一个循环？让我们逐步完成整个过程。
 
 首先，代码可以替换为 `lambda`，它已经减少了很多：
+
 ```
 val longestBook = library.maxBy({
     it.pageCount
@@ -74,6 +75,7 @@ val longestBook = library.maxBy({
 ```
 
 下一步是如果方法的最后一个参数是 lambda，我们可以关闭括号，然后将 lambda 添加到行的末尾，如下所示：
+
 ```
 val longestBook = library.maxBy() {
     it.pageCount
@@ -81,8 +83,9 @@ val longestBook = library.maxBy() {
 ```
 
 最后，如果一个方法只接受一个 lambda 参数，我们就可以完全放弃 `()` 方法，这会让我们回到初始代码：
+
 ```
-    val longestBook = library.maxBy { it.pageCount }
+val longestBook = library.maxBy { it.pageCount }
 ```
 
 但是等等！那个 `Function1` 要怎么样！我每次使用它时都会执行分配吗？
