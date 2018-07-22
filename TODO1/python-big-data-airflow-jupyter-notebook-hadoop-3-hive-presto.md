@@ -5,9 +5,9 @@
 > * 译者：[cf020031308](https://github.com/cf020031308)
 > * 校对者：
 
-# Python 与大数据：Airflow & Jupyter Notebook with Hadoop 3, Spark & Presto
+# Python 与大数据：Airflow、 Jupyter Notebook 与 Hadoop 3、Spark、Presto
 
-最近几年里，Python 已成为数据科学、机器学习和深度学习领域的一门流行的编程语言。只需再配上查询语言 SQL 即可完成大多数工作。 SQL 很棒，用英语即可发出指令，且只需指示想要什么，而无需关心具体如何查询。这使得底层的查询引擎可以不改变 SQL 查询就能对其进行优化。 Python 也很棒，它有大量高质量的库，本身也易于使用。
+最近几年里，Python 已成为数据科学、机器学习和深度学习领域的一门流行的编程语言。只需再配上查询语言 SQL 即可完成大多数工作。SQL 很棒，用英语即可发出指令，且只需指示想要什么，而无需关心具体如何查询。这使得底层的查询引擎可以不改变 SQL 查询就能对其进行优化。Python 也很棒，它有大量高质量的库，本身也易于使用。
 
 作业编排是执行日常任务并使其自动化的行为。在过去，这通常是通过 CRON 作业完成的。而在最近几年，越来越多的企业开始使用 [Apache Airflow](https://airflow.apache.org/) 和 [Spotify 的 Luigi](https://luigi.readthedocs.io/en/stable/) 等创建更强大的系统。这些工具可以监控作业、记录结果并在发生故障时重新运行作业。如果您有兴趣，我曾写过一篇博客文章，其中包括 Airflow 的背景故事，题为[《使用 Airflow 构建数据管道》](http://tech.marksblogg.com/airflow-postgres-redis-forex.html)。
 
@@ -42,7 +42,6 @@ $ sudo apt update
 $ sudo apt install esl-erlang
 ```
 
-The following will install RabbitMQ.
 下面安装 RabbitMQ。
 
 ```
@@ -79,7 +78,7 @@ $ mkdir -p ~/.jupyter/
 $ jupyter notebook password
 ```
 
-Jupyter Notebook 支持用户界面主题。以下命令将主题设置为[Chesterish](https://github.com/dunovank/jupyter-themes/blob/master/screens/chesterish_code_headers.png)。
+Jupyter Notebook 支持用户界面主题。以下命令将主题设置为 [Chesterish](https://github.com/dunovank/jupyter-themes/blob/master/screens/chesterish_code_headers.png)。
 
 ```
 $ jt -t chesterish
@@ -128,7 +127,7 @@ $ PYSPARK_DRIVER_PYTHON=ipython \
 $ open http://localhost:8888/
 ```
 
-系统将提示您输入为 Jupyter Notebook 设置的密码。在右上角输入后，您可以从下拉列表中创建新的笔记本。有意思的是，笔记本分为两种类型：Python 和终端。终端笔记本使用您启动 Jupyter Notebook 的 UNIX 帐户为您提供 shell 访问权限。而我将使用的是 Python 笔记本。
+系统将提示您输入为 Jupyter Notebook 设置的密码。在右上角输入后，您可以从下拉列表中创建新的笔记本。我们感兴趣的两种笔记本类型是 Python 和终端。终端笔记本使用您启动 Jupyter Notebook 的 UNIX 帐户为您提供 shell 访问权限。而我将使用的是 Python 笔记本。
 
 启动 Python 笔记本后，将以下代码粘贴到单元格中，它将通过 Spark 查询数据。调整查询以使用您在安装中创建的数据集。
 
@@ -180,7 +179,7 @@ cursor.fetchall()
 
 ## 启动 Airflow
 
-下面将创建一个 ~/airflow 文件夹，设置一个用于通过网页界面存储 Airflow 的状态和配置集的 SQLite 3 数据库，升级配置模式并为 Airflow 将要运行的 Python 作业代码创建一个文件夹。
+下面将创建一个 ~/airflow 文件夹，设置一个用于存储在网页界面上设置的 Airflow 的状态和配置集的 SQLite 3 数据库，升级配置模式并为 Airflow 将要运行的 Python 作业代码创建一个文件夹。
 
 ```
 $ cd ~
@@ -343,7 +342,6 @@ default_args = {
 
 dag = airflow.DAG('weather',
                   default_args=default_args,
-                  description='Copy weather data to HDFS & dump to Excel',
                   description='将天气数据复制到 HDFS 并导出为 Excel',
                   schedule_interval=timedelta(minutes=30))
 
@@ -416,7 +414,7 @@ if __name__ == "__main__":
 
 使用该代码打开 Airflow 的网页界面并将主页底部的 “weather” DAG 旁边的开关切换为 “on”。
 
-调度程序将为 workers 创建一个作业列表。以下内容将启动 Airflow 的调度程序服务和一个将完成所有预定作业的 worker。
+调度程序将创建一个作业列表交给 workers 去执行。以下内容将启动 Airflow 的调度程序服务和一个将完成所有预定作业的 worker。
 
 ```
 $ airflow scheduler &
