@@ -2,35 +2,35 @@
 > * 原文作者：[Hung HD](https://medium.com/@hunghdyb?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/make-3d-flip-animation-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/make-3d-flip-animation-in-flutter.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ALVINYEH](https://github.com/ALVINYEH)
+> * 校对者：[geniusq1981](https://github.com/geniusq1981)
 
-# Make 3D flip animation in Flutter
+# 使用 Flutter 制作 3D 翻转动画
 
-Learn Flutter from UI challenges
+从 UI 挑战中学习 Flutter
 
-As a continuation of my first [article](https://github.com/xitu/gold-miner/blob/master/TODO1/make-shimmer-effect-in-flutter.md), I am going to take a new challenge. This one will be a bit more complex than the previous (the shimmer). I call it a flip animation:
+作为我的第一篇[文章](https://github.com/xitu/gold-miner/blob/master/TODO1/make-shimmer-effect-in-flutter.md)的续篇，我将开始新的挑战。这个将比前一个（微光闪烁）复杂一点。我称之为翻转动画：
 
 ![](https://cdn-images-1.medium.com/max/800/1*vDimOOn9HYlJyX3bDqNFjA.gif)
 
-It’s good enough for a challenge, isn’t it? Yep, we are going to play with an animation running a _likely_ 3-D effect.
+这已经足够值得挑战了，不是吗？是的，我们将制作一个看起来有些**类** 3D 效果的动画。
 
-### How it works
+### 怎么做呢
 
-At a first glance, the idea is simple: we have a stack of panels, each is broken into 2 halves, each half can rotate around X-axis and reveal a next one.
+乍一看，有个很简单的想法：我们有一堆面板，每个面板被分成两半，每一半可以围绕 X 轴旋转并显示下一个面板。
 
-How to do it in code? I am going to divide it into 2 tasks:
+如何用代码实现呢？我把它分为了两个小任务：
 
-*   Cut a panel into 2 halves
-*   Rotate a half of panel around X-axis
+*   将面板分割为两半
+*   围绕 X 轴旋转一半面板
 
-So how does Flutter support us? Looking into Flutter document, I found two Widgets fit for our tasks: **ClipRect** and **Transform**.
+那么 Flutter 如何帮助我们呢？查看 Flutter 文档，我发现有两个组件非常适合完成任务：**ClipRect** 和 **Transform**。
 
-### Implementation
+### 实现
 
-*   _Cut a panel into 2 halves:_
+*   **将面板分割为两半：**
 
-**ClipRect** widget has a **clipper** parameter to define the size and location of the clip rect but its document also suggests another way to use **ClipRect**, by combining it with an **Align**:
+**ClipRect** 组件有一个 **clipper** 参数来定义裁剪矩形的大小和位置，但是文档建议另一种使用 **ClipRect** 的方法：将它与 **Align** 一起使用：
 
 ```
 class FlipWidget extends StatelessWidget {
@@ -64,15 +64,15 @@ class FlipWidget extends StatelessWidget {
 }
 ```
 
-Try it out:
+尝试一下：
 
 ![](https://cdn-images-1.medium.com/max/800/1*_yUrbREU8PQsXXXoLib9Zw.png)
 
-That’s it. Additionally, the **child** lets us freely design the content of our animation (a text, an image, no matter).
+就是这样。此外，**child** 可以让我们随心所欲设计动画的内容（无论如何是文本，还是图像）。
 
-*   _Rotate a half of panel around X-axis:_
+*   **围绕 X 轴旋转一半面板**
 
-**Transform** widget has a **transform** parameter of type **Matrix4** to define the kind of transform applied and **Matrix4** exposes a factory constructor called **rotationX()**, it looks like what we need, let try it for the upper half of panel:
+**Transform** 组件有一个 **transform** 参数，类型是 **Matrix4**，用于定义所应用的变换类型。**Matrix4** 暴露了一个名为 **rotationX()** 的工厂构造函数，看起来是我们需要用的，让我们尝试一下用在面板的上半部分：
 
 ```
 @override
@@ -96,13 +96,13 @@ Widget build(BuildContext context) {
   }
 ```
 
-Try it out:
+尝试一下：
 
 ![](https://cdn-images-1.medium.com/max/800/1*hMlNgRDsy9ozpXsbCqWjCA.png)
 
-What!!!! It looks like a scale effect, doesn’t it?
+什么！！！！它看起来像放缩效果，不是吗？
 
-What’s wrong? Answer this question is the hardest point of this challenge. I turn to Flutter document, example codes, articles… and end up with [this one](https://medium.com/flutter-io/perspective-on-flutter-6f832f4d912e). It points out that changing value at row 3 and column 2 of **Matrix4** will change its perspective and bring up 3-D effect into our transformation:
+到底怎么回事呢？回答出这个问题是这个任务中最难的一点。我回看 Flutter 的文档、示例代码、文章……直到找到[这篇文章](https://medium.com/flutter-io/perspective-on-flutter-6f832f4d912e)。其中指出，改变 **Matrix4** 的第 3 行和第 2 列的值，会改变其视角，并且会给变形带来 3D 效果：
 
 ```
 ...
@@ -119,27 +119,27 @@ Transform(
 ...
 ```
 
-Try it out:
+再试一下：
 
 ![](https://cdn-images-1.medium.com/max/800/1*pazybBHLVUECQLmEJvcrDA.png)
 
-Cool. But what about the magic number of 0.006? To be honest, I don’t know how to calculate it exactly, just try some values and pick one I feel good.
+不错。但是不如试一下神奇的数字 0.006？说实话，我不知道如何准确计算它，只是尝试选个我感觉很好的一些值。
 
-The rest is to add animation for our widget. It needs a bit tricky here. In fact, each panel has content on both sides (front and back) but it’s silly to make it in code because there’s only one side visible at a moment. I assume we are going to create an animation that panels flip upward, so our animation turns out to be two phases (sequentially), the first is to flip the lower half upward to make the animation of revealing the lower half of a next panel while hiding the lower half of current panel, the second is to flip the upper half in the same direction to reveal the upper half of the next while hiding the upper half of the current:
+剩下的就是为我们的组件添加动画。这里有一点点棘手。实际上，每个面板都有两面（正面和背面）的内容，但是在代码中实现它并不明智，因为同一时刻只能看到一面。我假设要创建一个面板向上翻转的动画，那么动画可以分解成连续的两个阶段（顺序），第一个是向上翻转下半部分以使动画显示下一个面板的下半部分，然后隐藏当前面板的下半部分，第二个是在同一方向翻转上半部分，以显示下一半的上半部分，同时隐藏当前的上半部分：
 
 ![](https://cdn-images-1.medium.com/max/800/1*K3qR8ucwG2x_cjHGGjCQ-A.gif)
 
-The implementation code of this animation is quite long, it’s not a good idea to embed it here. You can find it in the link I put at the bottom of this article. Here’s our final result:
+这个动画实现的代码很长，在此处插入并不太好。你可以在本文底部的链接中找到它。这是我们的最终效果：
 
 ![](https://cdn-images-1.medium.com/max/800/1*f0t6EXlImJyjjos0Lebn6Q.gif)
 
-Awesome. We have just finished another UI challenge with Flutter. _The more you practice, the better you become_. I will keep looking new challenges, solve it with Flutter and share the results with you. Thanks for reading.
+真棒。我们刚刚用 Flutter 完成了另一个 UI 挑战。**熟能生巧**。我会继续寻找新的挑战，使用 Flutter 解决它，并与你分享结果。感谢阅读。
 
-_P/S: There’s something wrong in the perspective transform (causes the transformed image skewed), I use a very small value instead of zero for rotateX() to temporarily get around this matter._
+**P/S：透视变换出现了个小问题（会导致变换后的图像偏斜），我在 rotateX() 中使用一个非常小的值而不是零，可以暂时解决这个问题。**
 
-> _Full source code:_ [https://gist.github.com/hnvn/f1094fb4f6902078516cba78de9c868e](https://gist.github.com/hnvn/f1094fb4f6902078516cba78de9c868e)
+> **完整代码：** [https://gist.github.com/hnvn/f1094fb4f6902078516cba78de9c868e](https://gist.github.com/hnvn/f1094fb4f6902078516cba78de9c868e)
 
-> _I’ve published my code as a package called_ [_flip_panel_](https://pub.dartlang.org/packages/flip_panel)
+> **我已将我的代码发布，包名为** [**flip_panel**](https://pub.dartlang.org/packages/flip_panel)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
