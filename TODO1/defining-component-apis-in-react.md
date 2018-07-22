@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/defining-component-apis-in-react.md](https://github.com/xitu/gold-miner/blob/master/TODO1/defining-component-apis-in-react.md)
 > * 译者：[Gavin-Gong](https://github.com/Gavin-Gong)
-> * 校对者：[xunge0613](https://github.com/xunge0613)
+> * 校对者：[xunge0613](https://github.com/xunge0613) [sunui](https://github.com/sunui)
 
 # 设计 React 组件 API
 
@@ -11,7 +11,7 @@
 
 ## 提供最少的 API
 
-正如 React 库本身的目标是 [最少化 API](https://www.youtube.com/watch?v=4anAwXYqLG8) 一样，我建议在设计组件 API 时采用类似的观点。需要学习的新内容越少，其他人就越容易知道如何使用你创建的组件，从而使它们更可容易被重用。如果有人不理解你的组件 API，那么他们重复你的工作的可能性就会增加。这是我如何创建组件的核心理念，我发现在我工作中牢记它很有帮助。
+正如 React 库本身的目标是 [最少化 API](https://www.youtube.com/watch?v=4anAwXYqLG8) 一样，我建议在设计组件 API 时采用类似的观点。需要学习的新内容越少，其他人就越容易知道如何使用你创建的组件，从而使它们更容易被重用。如果有人不理解你的组件 API，那么他们重复你的工作的可能性就会增加。这是我如何创建组件的核心理念，我发现在我工作中牢记它很有帮助。
 
 ## 让你的代码更容易被找到
 
@@ -78,7 +78,7 @@ class Items extends React.Component {
 
 通常，组件应该由数据的形状来定义
 
-> 既然你经常向用户展示 JSON 数据模型，你会发现，如果你的模型构建正确，你的 UI（以及你的组件结构）会被很好地映射
+> 既然你经常向用户展示 JSON 数据模型，你会发现，如果你的模型构建正确，你的 UI（以及你的组件结构）会被很好地映射。
 
 – [React 理念](https://facebook.github.io/react/docs/thinking-in-react.html)
 
