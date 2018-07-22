@@ -2,22 +2,22 @@
 > * 原文作者：[Uday Hiwarale](https://itnext.io/@thatisuday?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-minimal-guide-to-ecmascript-decorators.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-minimal-guide-to-ecmascript-decorators.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jonjia](https://github.com/jonjia)
+> * 校对者：[coconilu](https://github.com/coconilu) [ssshooter](https://github.com/ssshooter)
 
-# A minimal guide to ECMAScript Decorators
+# ECMAScript 修饰器微指南
 
-## A short introduction to “decorators” proposal in JavaScript with basic examples and little bit about ECMAScript
+## JavaScript「修饰器」提案简介，包含一些基本示例和 ECMAScript 的一些示例
 
 ![](https://cdn-images-1.medium.com/max/2000/1*CMwgpS7hFNgPqnz62gaBqA.png)
 
-Why **ECMAScript Decorators** instead of **JavaScript Decorators** in the title? Because, [**ECMAScript**](https://en.wikipedia.org/wiki/ECMAScript) is a standard for writing scripting languages like **JavaScript**, it doesn’t enforce JavaScript to support all the specs but a JavaScript engine (_used by different browsers_) may or may not support a feature introduced in ECMAScript or support with little different behaviour.
+为什么标题是 **ECMAScript 修饰器**，而不是 **JavaScript 修饰器**？因为，[**ECMAScript**](https://en.wikipedia.org/wiki/ECMAScript) 是编写像 **JavaScript** 这种脚本语言的标准，它不强制 JavaScript 支持所有规范内容，JavaScript 引擎（不同浏览器使用不同引擎）不一定支持 ECMAScript 引入的功能，或者支持行为不一致。
 
-Consider ECMAScript as **language** that you speak for example, **_English_**. Then JavaScript would be a **dialect** like **_British English_**. A dialect is a language itself but it is based on principals of the language it was derived from. So, ECMAScript is a cookbook for cooking/writing JavaScript and it’s upto the chef/developer to follow all ingredients/rules or not.
+可以将 ECMAScript 理解为我们说的**语言**，比如**英语**。那 JavaScript 就是一种方言，类似**英国英语**。方言本身就是一种语言，但它是基于语言衍生出来的。所以，ECMAScript 是烹饪/编写 JavaScript 的烹饪书，是否遵循其中所有成分/规则完全取决于厨师/开发者。
 
-Generally, JavaScript adopters follow all the specifications written in language (_or developers will go crazy_) and ship it very late with the new version of JavaScript engine until they make sure that everything is working well. **TC39** or Technical Committee 39 at ECMA International is responsible for maintaining ECMAScript language specifications. Members of this team belongs to ECMA International, browser vendors and companies interested in web in general.
+理论上来说，JavaScript 使用者应该遵循语言规范中所有规则（**开发者或许会疯掉吧**），但实际上新版 JavaScript 引擎很晚才会实现这些规则，开发者要确保一切正常后（才会切换）。**TC39** 也就是 ECMA 国际技术委员会第 39 号 负责维护 ECMAScript 语言规范。该团队的成员大多来自于 ECMA 国际、浏览器厂商和对 Web 感兴趣的公司。
 
-As ECMAScript is open standard, anybody can suggest new ideas or features and work on them. Hence, a proposal for new feature goes through 4 main stages and TC39 gets involved in this process until that feature is ready to be shipped.
+由于 ECMAScript 是开放标准，任何人都可以提出新的想法或功能并对其进行处理。因此，新功能的提议将经历 4 个主要阶段，TC39 将参与此过程，直到该功能准备好发布。
 
 ```
 +-------+-----------+----------------------------------------+  
@@ -51,13 +51,13 @@ As ECMAScript is open standard, anybody can suggest new ideas or features and wo
 +-------+-----------+----------------------------------------+
 ```
 
-Right now (_June 2018_), **Decorators** are in **stage 2** and we have Babel plugin to transpile decorators `babel-plugin-transform-decorators-legacy`. In stage 2, as syntax of the feature is subjected to change, it’s not recommended to use it in production as of now. In any case, decorators are beautiful and very useful to achieve things quicker.
+现在（2018 年 6 月），**修饰器**提案正处于**第二阶段**，我们可以使用 `babel-plugin-transform-decorators-legacy` 这个 Babel 插件来转换它。在第二阶段，由于功能的语法会发生变化，因此不建议在生产环境中使用它。无论如何，修饰器都很优美，也有助于更快地完成任务。
 
-From here on, we are working on experimental JavaScript, hence your node.js version might not support this feature. Hence, we need Babel or TypeScript transpiler to get started. Use [**js-plugin-starter**](https://github.com/thatisuday/js-plugin-starter) plugin to setup very basic project and I have added support for what we are going to cover in this article.
+从现在开始，我们要开始研究实验性的 JavaScript 了，因此你的 node.js 版本可能不支持这个新特性。所以我们需要使用 Babel 或 TypeScript 转换器。可以使用我准备的 [**js-plugin-starter**](https://github.com/thatisuday/js-plugin-starter) 插件来设置项目，其中包括了这篇文章中用到的插件。
 
 * * *
 
-To understand decorators, we need to first understand what is a **property descriptor** of JavaScript object property. A **property descriptor** is a set of rules on an object property, like whether a property is **writable** or **enumerable**. When we create a simple object and add some properties to it, each property has default property descriptor.
+要理解修饰器，首先需要了解 JavaScript 对象属性的**属性描述符**。 **属性描述符**是对象属性的一组规则，例如属性是**可写**还是**可枚举**。当我们创建一个简单的对象并向其添加一些属性时，每个属性都有默认的属性描述符。
 
 ```
 var myObj = {  
@@ -66,18 +66,18 @@ var myObj = {
 };
 ```
 
-`myObj` is a simple JavaScript object which looks like below in the console.
+`myObj`是一个简单的 JavaScript 对象，在控制台中如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*Y8y_yHAuU4e5qQ98328h9A.png)
 
-Now, if we write new value to `myPropOne` property like below, operation will be successful and we will get the changed value.
+现在，如果我们像下面那样将新值写入 `myPropOne` 属性，操作可以成功，我们可以获得更改后的值。
 
 ```
 myObj.myPropOne = 10;  
 console.log( myObj.myPropOne ); //==> 10
 ```
 
-To get property descriptor of property, we need to use `Object.getOwnPropertyDescriptor(obj, propName)` method. **_Own_** here means return property descriptor of `propName` property only if that property belongs to the object `obj` and not on it’s prototype chain.
+为了获取属性的属性描述符，我们需要使用 `Object.getOwnPropertyDescriptor(obj, propName)` 方法。这里 **Own** 的意思是只有 `propName` 属性是 `obj` 对象自有属性而不是在原型链上查找的属性时，才会返回 `propName` 的属性描述符。
 
 ```
 let descriptor = Object.getOwnPropertyDescriptor(  
@@ -90,9 +90,10 @@ console.log( descriptor );
 
 ![](https://cdn-images-1.medium.com/max/800/1*_hI_shyJTWzbDzxAZRG2cw.png)
 
-`Object.getOwnPropertyDescriptor` method returns an object with keys describing the permissions and current state of the property. `value` is the current value of the property, `writable` is whether user can assign new value to the property, `enumerable` is whether this property will show up in enumerations like `for in` loop or `for of` loop or `Object.keys` etc. `configurable` is whether user has permission to change **property descriptor** and make changes to `writable` and `enumerable`. Property descriptor also has `get` and `set` keys which are middleware functions to return value or update value, but these are optional.
+`Object.getOwnPropertyDescriptor` 方法返回一个对象，该对象包含描述属性权限和当前状态的键。 `value` 表示属性的当前值，`writable` 表示用户是否可以为属性赋值，`enumerable` 表示该属性是否会出现在 `for in` 循环或 `for of` 循环或 `Object.keys` 等遍历方法中。`configurable` 表示用户是否有权更改**属性描述符**并更改 `writable` 和 `enumerable`。属性描述符还有 `get` 和 `set` 键，它们是获取值或设置值的中间件函数，但这两个是可选的。
 
-To create new property on an object or update existing property with a custom descriptor, we use `Object.defineProperty`. Let’s modify an existing property `myPropOne` with `writable` set to `false`, which should **disable writes** to `myObj.myPropOne`.
+要在对象上创建新属性或使用自定义描述符修改现有属性，我们使用 `Object.defineProperty` 方法。让我们修改 `myPropOne` 这个现有属性，`writable` 设置为 `false`，这会**禁止**向 `myObj.myPropOne` 写入值。
+
 
 ```
 'use strict';
@@ -102,28 +103,28 @@ var myObj = {
     myPropTwo: 2  
 };
 
-// modify property descriptor  
+// 修改属性描述符  
 Object.defineProperty( myObj, 'myPropOne', {  
     writable: false  
 } );
 
-// print property descriptor  
+// 打印属性描述符  
 let descriptor = Object.getOwnPropertyDescriptor(  
     myObj, 'myPropOne'  
 );  
 console.log( descriptor );
 
-// set new value  
+// 设置新值  
 myObj.myPropOne = 2;
 ```
 
 ![](https://cdn-images-1.medium.com/max/800/1*OA4CAoOYemieJ9lB5wmqCg.png)
 
-As you can see from above error, our property `myPropOne` is not writable, hence if a user is trying to assign new value to it, it will throw error.
+从上面的报错中可以看出，`myPropOne` 属性是不可写入的。因此如果用户尝试给它赋予新值，就会抛出错误。
 
-> If `Object.defineProperty` is updating existing property descriptor, then **original descriptor** will be **overridden** with new modifications. `Object.defineProperty` returns the original object `myObj` after changes.
+> 如果使用 `Object.defineProperty` 来修改现有属性的描述符，那**原始描述符**会被新的修改**覆盖**。`Object.defineProperty` 方法会返回修改后的 `myObj` 对象。
 
-Let’s see what will happen if we set `enumerable` descriptor key to `false`.
+让我们看看如果将 `enumerable` 描述符键设置为 `false` 会发生什么。
 
 ```
 var myObj = {  
@@ -131,18 +132,18 @@ var myObj = {
     myPropTwo: 2  
 };
 
-// modify property descriptor  
+// 修改描述符  
 Object.defineProperty( myObj, 'myPropOne', {  
     enumerable: false  
 } );
 
-// print property descriptor  
+// 打印描述符  
 let descriptor = Object.getOwnPropertyDescriptor(  
     myObj, 'myPropOne'  
 );  
 console.log( descriptor );
 
-// print keys  
+// 打印遍历对象  
 console.log(  
     Object.keys( myObj )  
 );
@@ -150,13 +151,13 @@ console.log(
 
 ![](https://cdn-images-1.medium.com/max/800/1*Aa-unAIvyxiw3kGjIz4Ewg.png)
 
-As you can see from above result, we can’t see `myPropOne` property of the object in `Object.keys` enumeration.
+从上面的结果可以看出，我们在 `Object.keys` 枚举中看不到对象的 `myPropOne` 属性。
 
-When you define a new property on object using `Object.defineProperty` and pass empty `{}` descriptor, the default descriptor looks like below.
+使用 `Object.defineProperty` 在对象上定义新属性并传递空 `{}` 描述符时，默认描述符如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*e3FZCJKiLjbMVJnFbHcKIg.png)
 
-Now, let’s define a new property with custom descriptor where `configurable` descriptor key is set to `false`. We will keep `writable` to `false` and `enumerable` to `true` with `value` set to `3`.
+现在，让我们使用自定义描述符定义一个新属性，其中 `configurable` 键设置为 `false`。我们将 `writable` 保持为`false`、`enumerable` 为 `true`，并将 `value` 设置为 `3`。
 
 ```
 var myObj = {  
@@ -164,7 +165,7 @@ var myObj = {
     myPropTwo: 2  
 };
 
-// modify property descriptor  
+// 设置新属性描述符  
 Object.defineProperty( myObj, 'myPropThree', {  
     value: 3,  
     writable: false,  
@@ -172,13 +173,13 @@ Object.defineProperty( myObj, 'myPropThree', {
     enumerable: true  
 } );
 
-// print property descriptor  
+// 打印属性描述符
 let descriptor = Object.getOwnPropertyDescriptor(  
     myObj, 'myPropThree'  
 );  
 console.log( descriptor );
 
-// change property descriptor  
+// 修改属性描述符 
 Object.defineProperty( myObj, 'myPropThree', {  
     writable: true  
 } );
@@ -186,23 +187,23 @@ Object.defineProperty( myObj, 'myPropThree', {
 
 ![](https://cdn-images-1.medium.com/max/800/1*QulK_GxuflHPaJ6X4UwqAA.png)
 
-By setting `configurable` descriptor key to `false`, we lost ability to change descriptor of our property `myPropThree`. This is very helpful if you don’t want your users to manipulate recommended behaviour of an object.
+通过将 `configurable` 设置为 `false`，我们失去了更改  `myPropThree` 属性描述符的能力。如果不希望用户操作对象的行为，这将非常有用。
 
-**get** (_getter_) and **set** (_setter_) for a property can also be set in property descriptor. But when you define a getter, it comes with some sacrifices. You can not have a **initial value** or `value` key on the descriptor at all because getter will return the value of that property. You can not use `writable` key on descriptor as well, because your writes are done through the setter and you can prevent writes there. Have a look at MDN documentation of [**getter**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) and [**setter**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set), or read [**this article**](https://codeburst.io/javascript-object-property-attributes-ac012be317e2) because they don’t need much explanation here.
+**get**（**getter**）和 **set**（**setter**）也可以在属性描述符中设置。但是当你定义一个 getter 时，也会带来一些牺牲。你根本不能在描述符上有**初始值**或 `value`，因为 getter 将返回该属性的值。你也不能在描述符上使用 `writable`，因为你的写操作是通过 setter 完成的，可以防止写入。看看 MDN 文档关于 [**getter**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) 和 [**setter**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set)，或阅读[**这篇文章**](https://codeburst.io/javascript-object-property-attributes-ac012be317e2)，这里不需要太多解释。
 
-> You can create and/or update multiple properties at once using `Object.defineProperties` which takes two arguments. First argument is **target object** on which properties has to be added/modified and second argument is object with `key` as **property name** and `value` as it’s **property descriptor**. This function returns the **target object.**
+> 可以使用带有两个参数的 `Object.defineProperties` 方法一次创建/更新多个属性描述符。第一个参数是**目标对象**，在其中添加/修改属性，第二个参数是一个对象，其中 `key` 为**属性名**，`value` 是它的**属性描述符**。此函数返回**目标对象。**
 
-Have you tried `Object.create` function to create objects? This is the easiest way to create an Object with no or custom prototype. It is also one of the easier way to create Object from scratch with custom property descriptors.
+你是否尝试过使用 `Object.create` 方法来创建对象？这是创建没有原型或自定义原型对象最简单方法。它也是使用自定义属性描述符从头开始创建对象的更简单方法之一。
 
-`Object.create` function has following syntax.
+`Object.create` 方法具有以下语法：
 
 ```
 var obj = Object.create( prototype, { property: descriptor, ... } )
 ```
 
-Here `prototype` is an object which will be prototype of the `obj`. If `prototype` is `null`, then `obj` won’t have any prototype. When you define an empty or non-empty object with `var obj= {}` syntax, by default, `obj.__proto__` points to `Object.prototype` hence `obj` has prototype of `Object` class.
+这里 `prototype` 是一个对象，它将成为 `obj` 的原型。如果 `prototype` 是 `null`，那么 `obj` 将没有任何原型。使用 `var obj = {}` 语法定义空或非空对象时，默认情况下，`obj.__proto__` 指向 `Object.prototype`，因此 `obj` 具有 `Object`类的原型。
 
-This is similar to using `Object.create` with `Object.prototype` as first argument (_prototype of object being created_).
+这类似于用 `Object.prototype` 作为第一个参数（**正在创建对象的原型**）使用 `Object.create` 方法 。
 
 ```
 'use strict';
@@ -221,7 +222,7 @@ console.log(
 
 ![](https://cdn-images-1.medium.com/max/800/1*Fc2_huyI1qxhEif4E9wHRw.png)
 
-But when we set **prototype** to `null`, we get below error.
+但当我们把 **prototype** 参数设置为 `null` 时，会出现下面的错误：
 
 ```
 'use strict';
@@ -242,13 +243,13 @@ console.log(
 
 * * *
 
-#### ✱ Class Method Decorator
+#### ✱ 类方法修饰器
 
-Now that we understood how we can define and configure new or existing properties of an object, let’s move our attention to decorators and why we discussed property descriptors at all.
+现在我们已经了解了如何定义/配置对象的新属性/现有属性，让我们把注意力转移到修饰器以及为什么讨论属性描述符上。
 
-Decorator is a JavaScript function (_recommended pure function_) which is used to modify class properties/methods or class itself. When you add `@decoratorFunction` syntax on the top of **class property**, **method** or **class** itself, `decoratorFunction` **gets called** with few arguments **which we can use to modify class or class properties**.
+修饰器是一个 JavaScript 函数（**建议是纯函数**），它用于修改类属性/方法或类本身。当你在**类属性**、**方法**或**类本身**顶部添加 `@decoratorFunction` 语法后，`decoratorFunction` 方法会以一些参数**被调用**，然后**就可以使用这些参数来修改类或类属性了**。
 
-Let’s create a simple `readonly` decorator function. But before that, let’s create simple `User` class with `getFullName` method which returns full name of the user by combining `firstName` and `lastName`.
+让我们创建一个简单的 `readonly `修饰器函数。但在此之前，先创建一个包含 `getFullName` 方法简单的 `User` 类，这个方法通过组合 `firstName` 和 `lastName` 返回用户的全名。
 
 ```
 class User {  
@@ -262,12 +263,12 @@ class User {
     }  
 }
 
-// create instance  
+// 创建实例  
 let user = new User( 'John', 'Doe' );  
 console.log( user.getFullName() );
 ```
 
-Above code prints `John Doe` to the console. But there is huge problem, anybody can modify `getFullName` method.
+运行上面的代码，控制台中会打印出 `John Doe`。但这样有一个问题：任何人都可以修改 `getFullName` 方法。
 
 ```
 User.prototype.getFullName = function() {  
@@ -275,13 +276,13 @@ User.prototype.getFullName = function() {
 }
 ```
 
-With this, now we get below result.
+经过上面的修改，就会得到以下输出：
 
 ```
 HACKED!
 ```
 
-To avoid public access to override any of our methods, we need to modify property descriptor of `getFullName` method which lives on `User.prototype` object.
+为了限制修改我们任何方法的权限，需要修改 `getFullName` 方法的属性描述符，这个属性属于 `User.prototype` 对象。
 
 ```
 Object.defineProperty( User.prototype, 'getFullName', {  
@@ -289,11 +290,11 @@ Object.defineProperty( User.prototype, 'getFullName', {
 } );
 ```
 
-Now, if any user is trying to override `getFullName` method, he/she will get below error.
+现在，如果还有用户尝试覆盖 `getFullName` 方法，他/她就会得到下面的错误。
 
 ![](https://cdn-images-1.medium.com/max/800/1*UVOaz8O1FoSa7KVpIBFMxA.png)
 
-But if we have many methods on the `User` class, doing this manually won’t be so great. This is where decorator comes in. We can achieve same thing by putting `@readonly` syntax on top of `getFullName` method like below.
+但如果 `User` 类有很多方法，上面这种手动修改就不太好了。这就是修饰器的用武之地了。通过在 `getFullName` 方法上添加 `@readonly` 也可以实现同样功能，如下：
 
 ```
 function readonly( target, property, descriptor ) {  
@@ -318,21 +319,21 @@ User.prototype.getFullName = function() {
 }
 ```
 
-Have a look at `readonly` method. It accepts three arguments. `property` is name of the property/method which belongs to `target` object (_which is same as_ `_User.prototype_`) and `descriptor` is property descriptor for that property. From within a decorator function, we have to return the `descriptor` at any cost. This `descriptor` will replace existing property descriptor of that property.
+看一下 `readonly` 函数。它接收三个参数。`property` 是属性/方法的名字，`target` 是这些属性/方法属于的对象（**就和 `User.prototype` 一样**），`descriptor` 是这个属性的描述符。在修饰器函数中，我们必须返回 `descriptor` 对象。这个修改后的 `descriptor` 会替换该属性原来的属性描述符。
 
-There is another version of decorator syntax which goes like `@decoratorWrapperFunction( ...customArgs )`. But with this syntax, `decoratorWrapperFunction` should return a `decoratorFunction` which is same as used in previous example.
+修饰器写法还有另一种版本，类似 `@decoratorWrapperFunction( ...customArgs )` 这样。但这样写，`decoratorWrapperFunction` 函数应该返回一个 `decoratorFunction` 修饰器函数，它的使用和上面的例子相同。
 
 ```
 function log( logMessage ) {
-    // return decorator function
+    // 返回修饰器函数
     return function ( target, property, descriptor ) {
-        // save original value, which is method (function)
+        // 保存属性原始值，它是一个方法（函数）
         let originalMethod = descriptor.value;
-        // replace method implementation
+        // 修改方法实现
         descriptor.value = function( ...args ) {
             console.log( '[LOG]', logMessage );
-            // here, call original method
-            // `this` points to the instance
+            // 这里，调用原始方法
+            // `this` 指向调用实例
             return originalMethod.call( this, ...args );
         };
         return descriptor;
@@ -354,7 +355,7 @@ console.log( user.getFullName() );
 
 ![](https://cdn-images-1.medium.com/max/800/1*sUHsV_OSQUSehgfblsYvRg.png)
 
-Decorators do not differentiate between `static` and `non-static` methods. Below code will work just fine, only thing will change is how you access the method. Same applies to **_Instance Field Decorators_** which we will see next.
+修饰器不区分静态和非静态方法。下面的代码同样可以工作，唯一不同是你如何访问这些方法。这个结论也适用于我们下面要讨论的**类实例字段修饰器**。
 
 ```
 @log('calling getVersion static method of User class')  
@@ -367,13 +368,13 @@ console.log( User.getVersion() );
 
 * * *
 
-#### ✱ **Class Instance Field Decorator**
+#### ✱ **类实例字段修饰器**
 
-So far, we have seen changing property descriptor of a method with `@decorator` or `@decorator(..args)` syntax, but what about **public/private properties** (_class instance fields_)?
+目前为止，我们已经看到通过 `@decorator` 或 `@decorator(..args)` 语法来修改类方法的属性描述符，但如何修改 **公有/私有属性（类实例字段）**呢？
 
-Unlike `typescript` or `java`, JavaScript classes **do not have** class instance fields AKA class properties. This is because anything defined in the `class` and outside the `constructor` should belong to class **prototype**. But there is a new [**proposal**](https://github.com/tc39/proposal-class-fields) to enable class instance fields with `public` and `private` access modifiers, which is now in [**stage 3**](https://github.com/tc39/proposals) and we have [**babel transformer plugin**](https://babeljs.io/docs/plugins/transform-class-properties/) for it.
+与 `typescript` 或 `java` 不同，JavaScript 类**没有**类实例字段或者说没有类属性。这是因为任何在 `class` 里面、`constructor` 外面定义的都属于类的**原型**。但也有一个新的[**提案**](https://github.com/tc39/proposal-class-fields)，它提议使用 `public` 和 `private` 访问修饰符来启用类实例字段，目前处于[第 3 阶段](https://github.com/tc39/proposals)，也可以通过 [**babel transformer plugin**](https://babeljs.io/docs/plugins/transform-class-properties/) 这个插件来使用它。
 
-Let’s define a simple `User` class but this time, we don’t need to set default values for `firstName` and `lastName` from within the constructor.
+定义一个简单的 `User` 类，但这一次，不需要在构造函数中设置 `firstName` 和 `lastName` 的默认值。
 
 ```
 class User {
@@ -397,15 +398,15 @@ console.log( '[user.getFullName] ==> ', user.getFullName() );
 
 ![](https://cdn-images-1.medium.com/max/800/1*44yA-f6PZURlQ-FOf4Vrww.png)
 
-Now, if you check `prototype` of `User` class, you won’t be able to see `firstName` and `lastName` properties.
+现在，如果查看 `User` 类的原型，你不会看到 `firstName` 和 `lastName` 这两个属性。
 
 ![](https://cdn-images-1.medium.com/max/800/1*pUvV2kP_Evs0JWbhYK-KFg.png)
 
-**Class instance fields** are very helpful and important part of Object Oriented Programming (**OOP**). It’s good that we have proposal for that but the story is far from over.
+**类实例字段**非常有用，还是面向对象编程（**OOP**）的重要组成部分。我们提出相应的提案很好，但故事远未结束。
 
-Unlike **class methods which lives on class prototype**, **class instance fields live on object/instance**. Since class instance field is neither part of the class nor it’s prototype, it’s little tricky to manipulate it’s descriptor. Babel gives us `initializer` function on property descriptor of class instance field instead of `value` key. Why `initializer` function instead of `value`, this topic is in debate and since `Decorators` are in **stage-2**, no final draft has been published to outline this but you can follow this answer on [**Stack Overflow**](https://stackoverflow.com/questions/31433630/does-the-es7-decorator-spec-require-descriptors-to-have-an-initializer-method) to understand the background story.
+与**类方法处于类的原型上**不同，**类实例字段处于对象/实例上**。由于类实例字段既不是类的一部分也不是它原型的一部分，因此操作它的描述符有点困难。Babel 为类实例字段的属性描述符提供了 `initializer` 方法来替代 `value`。为什么要用 `initializer` 方法来替代 `value` 呢？这个问题有些争议，因为修饰器提案还处于**第二阶段**，还没有发布最终草案来说明这个问题，但你可以通过查看 [**Stack Overflow 上这个答案**](https://stackoverflow.com/questions/31433630/does-the-es7-decorator-spec-require-descriptors-to-have-an-initializer-method) 来了解背景故事。
 
-That being said, let’s modify our early example and create simple `@upperCase` decorator which will change case of class instance field’s default value.
+也就是说，让我们修改之前示例并创建简单的 `@upperCase` 修饰器函数，它会改变类实例字段默认值的大小写。
 
 ```
 function upperCase( target, name, descriptor ) {
@@ -434,7 +435,7 @@ console.log( new User() );
 
 ![](https://cdn-images-1.medium.com/max/800/1*5_SX5itRYtBIojyjY7-wHQ.png)
 
-We can also make use of **decorator function with parameters** to make it more customisable.
+我们也可以使用**带参数的修饰器函数**，让它更有定制性。
 
 ```
 function toCase( CASE = 'lower' ) {
@@ -464,19 +465,19 @@ class User {
 console.log( new User() );
 ```
 
-`descriptor.initializer` function is used internally by **Babel** to create `value` of property descriptor of an object property. This function returns the initial value assigned to class instance field. Inside decorator, we need to return another `initializer` function which returns final value.
+`descriptor.initializer` 方法由 **Babel** 内部实现对象属性描述符的 `value` 的创建。它会返回分配给类实例字段的初始值。在修饰器函数内部，我们需要返回另一个 `initializer` 方法，它会返回最终值。
 
-> Class instance field proposal is highly experimental and there is a strong chance that it’s syntax might change until it goes to **stage-4**. Hence, it’s not a good practice to use class instance fields with decorators yet.
+> 类实例字段提案具有高度实验性，在到达**第 4 阶段**前，它的语法很有可能会改变。因此，将类实例字段与修饰器一起使用还不是一个好习惯。
 
 * * *
 
-#### ✱ Class Decorator
+#### ✱ 类修饰器
 
-Now we are familiar with what decorators can do. They can change properties and behaviour of class methods and class instance fields, giving us flexibility to dynamically achieve those things with simpler syntax.
+现在我们已经熟悉了修饰器能做什么。它可以改变属性、类方法行为和类实例字段，使我们能灵活地通过简单的语法来实现这些。
 
-**Class decorators** are little bit different that decorators we saw earlier. Previously, we used **property descriptor** to modify behaviour of a property or method, but in case of class decorator, we need to return a constructor function.
+**类修饰器**和我们之前看到的修饰器有些不同。之前，我们使用**属性修饰器**来修改属性或方法的实现，但类修饰器函数中，我们需要返回一个构造函数。
 
-Let’s understand what a constructor function is. Underneath, a JavaScript class is nothing but a function which is used to add **prototype methods** and define some initial values for the fields.
+我们先来理解下什么是构造函数。在下面，一个 JavaScript 类只不过是一个函数，这个函数添加了**原型方法**、定义了一些初始值。
 
 ```
 function User( firstName, lastName ) {
@@ -494,15 +495,15 @@ console.log( user.getFullName() );
 
 ![](https://cdn-images-1.medium.com/max/800/1*8upRjd8kwXbOntVmrjvOqg.png)
 
-> [Here is a great article](https://blog.bitsrc.io/what-is-this-in-javascript-3b03480514a7) to understand `_this_` in JavaScript.
+> [这篇文章](https://blog.bitsrc.io/what-is-this-in-javascript-3b03480514a7) 对理解 JavaScript 中的 `this` 很有帮助。
 
-So when we call `new User`, `User` function is invoked with arguments we passed and in return, we got an object. Hence, `User` is a constructor function. BTW, every function in JavaScript is a constructor function, because if you check `function.prototype`, you will get `constructor` property. As long as we are using `new` keyword with a function, we should expect an object in return.
+因此，当我们调用 `new User` 时，就会使用传递的参数调用 `User` 这个函数，返回结果是一个对象。所以，`User` 就是一个构造函数。顺便说一句，JavaScript 中每个函数都是一个构造函数，因为如果你查看 `function.prototype`，你会发现 `constructor` 属性。只要我们使用 `new` 关键字调用函数，都会得到一个对象。
 
-> If you `return` a valid JavaScript Object from constructor function, then that value will be used instead of creating new object using `this` assignments. That will break the prototype chain though because retuned object won’t have any prototype methods of constructor function.
+>如果从构造函数返回一个有效的 JavaScript 对象，那么就会使用这个对象，而不用 `this` 赋值创建新对象了。这将打破原型链，因为修改后的对象将不具有构造函数的任何原型方法。
 
-With that in mind, let’s focus what a class decorator can do. A class decorator has to be on the top of the class, like previously we have seen decorator on method name or field name. This decorator is also a function but it should return a constructor function instead or a class.
+考虑到这一点，让我们看看类修饰器可以做什么。类修饰器必须位于类的顶部，就像之前我们在方法名或字段名上看到的修饰器一样。这个修饰器也是一个函数，但它应该返回构造函数或类。
 
-Let’s say I have a simple `User` class like below.
+假设我有一个简单的 `User` 类如下：
 
 ```
 class User {  
@@ -513,7 +514,7 @@ class User {
 }
 ```
 
-Our `User` class do not have any method at the moment. As discussed, a class decorator must return a constructor function.
+这里的 `User` 类不包含任何方法。正如上面所说，类修饰器应该返回一个构造函数。
 
 ```
 function withLoginStatus( UserRef ) {
@@ -536,9 +537,9 @@ console.log( user );
 
 ![](https://cdn-images-1.medium.com/max/800/1*rM3KBl5wFGoMNkq3DDFrgg.png)
 
-A class decorator function will receive target class `UserRef`, which is `User` in above example (_on which decorator is applied_) and must return a constructor function. This opens the door of infinite possibilities that you can do with the decorator. Hence class decorators are more popular than method/property decorators.
+类修饰器函数会接收目标类 `UserRef`，在上面的示例中是 `User`（**修饰器的作用目标**）并且必须返回构造函数。这打开了使用修饰器无限可能性的大门。因此，类修饰器比方法/属性修饰器更受欢迎。
 
-But above example is too basic and we wouldn’t want to create a new constructor when our `User` class might have tons of properties and prototype methods. Good thing is, we have reference to the class from within the decorator function i.e. `UserRef`. We can return new class from constructor function and that class will extends `User` class (_more accurately_ `_UserRef_` _class_). Since, class is also a constructor function underneath, this is legal.
+但是上面的例子太基础了，当我们的 `User` 类有大量的属性和原型方法时，我们不想创建一个新的构造函数。好消息是，我们在修饰器函数中可以引用类，即 `UserRef`。可以从构造函数返回新类，该类将扩展 `User` 类（`UserRef` 指向的类）。因为，类也是构造函数，所以下面的代码也是合法的。
 
 ```
 function withLoginStatus( UserRef ) {
@@ -561,7 +562,7 @@ class User {
 }
 let user = new User( 'John', 'Doe' );
 console.log( 'Before ===> ', user );
-// set logged in
+// 设置为已登录
 user.setLoggedIn();
 console.log( 'After ===> ', user );
 ```
@@ -570,11 +571,11 @@ console.log( 'After ===> ', user );
 
 * * *
 
-You can chain multiple decorators together by placing on top of each other. The order of execution will be the same as order of their appearance.
+你可以将多个修饰器放在一起，执行顺序和它们外观顺序一致。
 
 * * *
 
-Decorators are fancy way to achieve things faster. Wait for some time until they are added to ECMAScript specifications.
+修饰器是更快地达到目的的奇特方式。在它们正式加入 ECMAScript 规范之前，我们先期待一下吧。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
