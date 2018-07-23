@@ -6,13 +6,13 @@
 > * 校对者：
 
 # Web Components in 2018
+# 2018 来谈谈 Web 组件
 
 ![](https://www.sitepen.com/blog/wp-content/uploads/2018/06/blog-1024x538.png)
 
-For many front-end developers, components have become a central concept in their development workflow. Components provide a robust model for architecting and scaling complex applications, allowing for composition from smaller and simpler encapsulated parts. The concept of the component has existed on the web for some time, with frameworks like the Dojo Toolkit championing them in its Dijit widget system early on in the JavaScript ecosystem.
-对很多人来说，组件化已经成为他们开发工作中的核心概念。组件化提供了一种健壮的模型来构建复杂的应用程序，
+对很多人来说，组件化已经成为他们开发工作中的核心概念。组件化提供了一种健壮的模型，允许我们用一个个更小的更简单的封装好的部件来搭建出复杂的应用程序。组件的概念在 Web 上已经存在一段时间了，比如在 JavaScript 生态的早期，Dojo Toolkit 已经在它的 Dijit 插件系统里面应用了组件这个概念。
 
-Modern frameworks like React, Angular, Vue, and Dojo have further put components at the forefront of development, keeping them as core primitives in their architecture. However, even though component architectures have become more common, arguably the diversity of frameworks and libraries has led to a siloed and fragmented components market. This fragmentation has often kept teams locked into a specific framework, even as times and technologies change.
+现代框架比如说 React、Angular、Vue 和 Dojo 在这条路上走得更远，它们将组件化作为前端开发的前沿概念，并当做核心要素用在它们自己的框架结构上。然而，虽说组件结构变得越来越普遍，各种各样的框架和库也让这个组件市场变得群雄割据、四分五裂。这种分裂常常将一些团队钉死在某个特定的框架上，而不管外面时间飞逝技术更迭。
 
 The desire to tackle this fragmentation, and standardise the web component model has been an ongoing endeavor. Its beginnings sit in the genesis of the ‘Web Components’ specifications [circa 2011](https://github.com/w3c/webcomponents/commits/gh-pages?after=0625cf4c42785aa1202a9d0daed182e12466aa29+1889) and were first presented to the world by Alex Russell at [Fronteers Conference](https://fronteers.nl/congres/2011) the same year. The web components specifications grew out of the desire to provide a canonical way of creating components that browsers can understand. This effort is still very much ongoing but is closer than ever before to having cross-browser implementations. In theory, these specifications and implementations are paving the way for interoperability and composition of components from different vendors. Here we examine the building blocks of Web Components.
 
@@ -238,7 +238,6 @@ Are you looking to leverage web components in your next project or framework? [C
 Get help from [SitePen On-Demand Development](https://www.sitepen.com/support/index.html), our fast and efficient solutions to JavaScript and TypeScript development problems of any size.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
