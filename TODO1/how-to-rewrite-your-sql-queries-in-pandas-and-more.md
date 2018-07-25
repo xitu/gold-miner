@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-rewrite-your-sql-queries-in-pandas-and-more.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-rewrite-your-sql-queries-in-pandas-and-more.md)
 > * 译者：[geniusq1981](https://github.com/geniusq1981)
-> * 校对者：
+> * 校对者：[DAA233](https://github.com/DAA233)
 
 # 如何使用 Pandas 重写你的 SQL 查询以及其他操作
 
@@ -20,13 +20,13 @@
 
 现如今，数据会以各种各样的形式出现，不再仅仅是“关系型数据库”的同义词。您的数据可能会是 CSV 文件、纯文本、Parquet、HDF5，或者其他什么格式。这些正是 **Pandas** 库的亮点所在。
 
-### 什么是 Pandas?
+### 什么是 Pandas？
 
-**panda** 全称，Python 数据分析库，是一个用于数据分析和处理的 Python 库。它是开源的，被 Anaconda 所支持。它特别适合结构化（表格化）数据。有关更多信息,请参考 [http://pandas.pydata.org/pandas-docs/stable/index.html](http://pandas.pydaxta.org/pandas-docs/stable/index.html).
+Pandas，即 Python 数据分析库（Python Data Analysis Library），是一个用于数据分析和处理的 Python 库。它是开源的，被 Anaconda 所支持。它特别适合结构化（表格化）数据。有关更多信息,请参考 [http://pandas.pydata.org/pandas-docs/stable/index.html](http://pandas.pydaxta.org/pandas-docs/stable/index.html).
 
-### 使用它可以做什么?
+### 使用它可以做什么？
 
-之前您在 SQL 里面进行的查询数据以及其他各种操作，都可以由 Pandas 完成!
+之前您在 SQL 里面进行的查询数据以及其他各种操作，都可以由 Pandas 完成！
 
 ### 太好了！我要从哪里开始呢？
 
@@ -36,7 +36,7 @@ SQL 是一种 **声明式编程语言**：[https://en.wikipedia.org/wiki/List_of
 
 使用 SQL，你通过声明语句来声明想要的内容，这些声明读起来几乎就如同普通英文短句一样顺畅。
 
-而 **pandas** 的语法与 SQL 完全不同。在 **pandas** 中，您对数据集进行处理，并将它们链在一起，以便按照您希望的方式进行转换和重构。
+而 **Pandas** 的语法与 SQL 完全不同。在 **pandas** 中，您对数据集进行处理，并将它们链在一起，以便按照您希望的方式进行转换和重构。
 
 我们需要一本 **phrasebook（常用语手册）！**
 
@@ -56,7 +56,7 @@ LIMIT… OFFSET…
 
 首先，我们需要向 Pandas 里面加载一些数据，因为它们还没有在数据库中。如下所示：
 
-```
+```Python
 import pandas as pd
 
 airports = pd.read_csv('data/airports.csv')
@@ -136,7 +136,7 @@ runways = pd.read_csv('data/runways.csv')
 
 ![](https://cdn-images-1.medium.com/max/800/0*7BtzYznnc0Eu5Ghv.)
 
-在第一个示例中，我们通过 **airport_count** 来进行排序，只选择数量最多的 10 个国家。第二个例子比较复杂，我们想要“前 10 名之后的另外 10 名，即 11 到 20 名”:
+在接下来的第一个示例中，我们通过 **airport_count** 来进行排序，只选择数量最多的 10 个国家。第二个例子比较复杂，我们想要“前 10 名之后的另外 10 名，即 11 到 20 名”:
 
 |  SQL  |  Pandas  |
 |:-----:|:--------:|
@@ -215,19 +215,19 @@ Pandas 里面没有形同 **INSERT** 语句的方法。相反，您只能创建�
 
 我需要提及一件重要的事情 — 不可变性。默认情况下，大部分应用于 Pandas dataframe 的操作符都会返回一个新对象。有些操作符可以接收 **inplace=True** 参数，这样您可以继续使用原始的 dataframe。例如，以下是一个就地重置索引的方法：
 
-```
+```Python
 df.reset_index(drop=True, inplace=True)
 ```
 
 然而,上面的 **UPDATE** 示例中的 **.loc** 操作符仅定位需要更新记录的索引，并且这些值会就地更改。此外，如果您更新了一列的所有值：
 
-```
+```Python
 df['url'] = 'http://google.com'
 ```
 
 或者添加一个计算得出的新列:
 
-```
+```Python
 df['total_cost'] = df['price'] * df['quantity']
 ```
 
@@ -239,7 +239,7 @@ Pandas 的好处在于它不仅仅是一个查询引擎。你可以用你的数�
 
 *   以多种格式输出：
 
-```
+```Python
 df.to_csv(...)  # csv file
 df.to_hdf(...)  # HDF5 file
 df.to_pickle(...)  # serialized object
@@ -258,7 +258,7 @@ df.to_clipboard(...) # clipboard that can be pasted into Excel
 
 *   绘制图表：
 
-```
+```Python
 top_10.plot(
     x='iso_country', 
     y='airport_count',
@@ -277,7 +277,7 @@ top_10.plot(
 
 很简单就可以创建一个新的笔记本：
 
-```
+```Python
 $ pip install jupyter
 $ jupyter notebook
 ```
