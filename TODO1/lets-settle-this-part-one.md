@@ -5,7 +5,564 @@
 > * 译者：
 > * 校对者：
 
-# Let’s settle ‘this’ — Part One
+# Let’s settle ‘this’ — Part One> * 原文地址：[Let’s settle ‘this’ — Part One](https://medium.com/@nashvail/lets-settle-this-part-one-ef36471c7d97)
+> * 原文作者：[Nash Vail](https://medium.com/@nashvail?source=post_header_lockup)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lets-settle-this-part-one.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lets-settle-this-part-one.md)
+> * 译者：[geniusq1981](https://github.com/geniusq1981)
+> * 校对者：
+
+# 让我们一起解决‘this’ — 第一部分
+
+![](https://i.loli.net/2018/07/23/5b553df9455fa.png)
+
+难道我们都不能理解吗?在某种程度上，几乎所有的JavaScript开发人员都应该考虑这个问题。对我来说，每当“这个”开始露出它丑陋的头时，我总能设法让事情运转起来，然后就把它忘掉，我希望你在某个时候也这么做。但是，让我们今天就把它做完吧，今天，让我们一劳永逸地解决这个问题。
+Can’t we all relate to this? At some point ‘this’ has been a thing to think about for almost all JavaScript developers. For me, whenever ‘this’ started to rear its ugly head I somehow managed to make things work and then forgot about it, and I’d like think you did the same, at some point. But let’s be done with it, today, once and for all _`*dramatic drumroll*`_ let’s settle ‘this’.
+
+几天前，我在图书馆遇到了一个意想不到的事情。
+
+![](https://i.loli.net/2018/07/23/5b553e2648b71.png)
+
+这本书的第二章是关于“这个”的，我读过了，感觉很自信，有几页纸的内容出现在我需要猜测的地方，我搞砸了。那是我反省自己愚蠢的时刻。我重读了这一章，发现这是每个JS开发人员都应该知道的。The second chapter of the book is all about ‘this’, I read it through, felt confident, couple of pages down a scenario pops up where I need to guess what ‘this’ is, and I mess up. That was one hell of a moment for introspection for my dumb self. I reread the chapter and then some and figured this is something every JS developer should know about.
+
+因此，我试图以一种更彻底的方式和更多的代码示例展示 [这本书] 中描述的规则[凯尔](http://getify.me/) (https://github.com/getify/youdont - know - js)。This therefore is my attempt to present the rules [Kyle](http://getify.me/) describes in [the book](https://github.com/getify/You-Dont-Know-JS) but in a more thorough manner and with a lot more code examples.
+
+现在我不全是关于理论的，我马上就会举一些让我绊倒的例子，我希望他们也会绊倒你。不管你是否被绊倒，我都会给你一个解释，我会一个接一个地向你介绍所有的规则和一些额外的规则。
+
+
+在开始之前，我假设您已经了解了一些JavaScript知识，并且知道我说的global、window、this、prototype e.t.c是什么意思。
+
+
+在下面给出的所有代码示例中，您的任务是猜测将打印到控制台的内容。如果你猜对了，就给你的分数加1。准备好了吗?让我们开始吧。
+
+#### Example #1
+
+```
+function foo() {  
+ console.log(this);   
+ bar();  
+}
+
+function bar() {  
+ console.log(this);   
+ baz();  
+}
+
+function baz() {  
+ console.log(this);   
+}
+
+foo();
+```
+
+你的旅行了吗?对于测试，您当然可以复制代码并使用node在浏览器或终端中启动它。再次,你的旅行了吗?好吧，我就不再问了。但说真的，如果你不去旅行，那就给你的分数加一个。
+
+
+如果运行上面的代码，就会将全局对象记录到控制台，三次。为了解释这一点，让我介绍第一个规则，默认绑定。规则规定，当函数执行独立调用i时。e只是funcName();这些函数的“this”解析为全局对象。
+
+
+要理解的一件事是，在调用函数之前，“this”并没有绑定到一个函数，因此，要找到“this”，您应该密切注意该函数是如何调用或调用的，而不是在哪里。所有三个函数调用foo();酒吧();和巴兹();是独立的调用，因此' this '对于所有三个函数都是全局对象。
+
+#### Example #2
+
+```
+‘use strict’;
+function foo() {
+ console.log(this); 
+ bar();
+}
+function bar() {
+ console.log(this); 
+ baz();
+}
+function baz() {
+ console.log(this); 
+}
+foo();
+```
+
+注意顶部的“使用严格”。在这种情况下，你认为控制台打印的是什么?当然，如果您知道_strict mode_，您就会知道在严格模式下全局对象不适合默认绑定。所以，你得到的不是三次印刷，而是三次印刷。
+
+
+回顾一下，在一个简单地调用i的函数中。e独立调用' this '指的是全局对象，但在严格模式下不允许全局对象默认绑定，因此在严格模式下，这些函数中的' this '没有定义。
+
+
+为了使我们的默认绑定概念更具体，这里有一些示例。
+
+#### Example #3
+
+```
+function foo() {
+ function bar() {
+  console.log(this); 
+ } 
+ bar();
+}
+
+foo();
+```
+
+_foo_依次调用_bar_， _bar_将“this”打印给console_。这里的技巧是看看函数是如何被调用的。_foo_和_bar_都接受独立的调用，因此，这两种方法都在解析为全局对象。但是由于_bar_是惟一执行打印的函数，所以我们看到全局对象登录到控制台一次。
+
+
+我希望你没有回答“”或“”。_是吗?
+
+
+我们已经习惯了默认绑定。我们做一个简单的。在下面的示例中，什么被记录到控制台?
+
+#### Example #4
+
+```
+var a = 1;
+
+function foo() {  
+ console.log(this.a);  
+}
+
+foo();
+```
+
+未定义的吗?这是1吗?它是什么?
+
+
+如果您已经很好地遵循了这个步骤，那么您应该知道它是“1”，它将被记录到控制台。为什么?首先，所有的默认绑定都适用于函数_foo_。因此_foo_中的' this '是全局对象，_a_被声明为全局变量，这必然意味着_a_是全局对象的属性(讨论全局对象污染)，因此_a_是全局对象的属性。a_和_var a_是一样的。
+
+
+随着本文的深入，我们将继续与默认绑定保持联系，但是现在是时候向您介绍下一个规则了。
+
+#### Example #5
+
+```
+var obj = {  
+ a: 1,   
+ foo: function() {  
+  console.log(this);   
+ }  
+};
+
+obj.foo();
+```
+
+这里没有trippy，对象“obj”是登录到控制台的内容。你在这里看到的是**隐绑定。**规则说，当一个函数被调用时，它是一个对象，它应该被用于函数调用的“this”绑定。如果函数调用前面有多个对象(_obj1.obj2. func()_))，那么函数调用(_obj3_)后面的对象就会被绑定。
+
+> One thing to note here is that the function call must be valid which means when you write _obj.func(), func_ should be a property of object _obj._
+
+因此，在上面的调用_object .foo() _obj的示例中是“this”，因此_obj_是打印到控制台的内容。
+
+#### Example #6
+
+```
+function logThis() {  
+ console.log(this);  
+}
+
+var myObject = {  
+ a: 1,   
+ logThis: logThis  
+};
+
+logThis();  
+myObject.logThis();
+```
+
+你的旅行了吗?:)。我希望不是这样。
+
+
+全局跟踪_myObject_是记录到控制台的内容。l_ogThis(); _logs global和_myObject.logThis()
+
+
+有趣的是:
+
+```
+console.log(logThis === myObject.logThis); // true
+```
+
+为什么不呢?它们当然是相同的函数，但是您可以看到** _logThis_是如何被调用的** *更改其中的“this”的值。当_logThis_进行独立调用时，应用默认绑定规则，但是当_logThis_与前面的对象引用隐式绑定一起调用时，应用默认绑定规则。
+
+
+不管谁，让我们看看你是怎么处理的(双关语)。
+
+#### Example #8
+
+```
+function foo() {  
+ var a = 2;  
+ this.bar();  
+}
+
+function bar() {  
+ console.log(this.a);  
+}
+
+foo();
+```
+
+什么被记录到控制台?首先，您可能会问“_this.bar()?”“你能做到吗?”当然可以，它不会导致错误。
+
+
+就像示例#4中的_var a_成为全局对象的属性一样，_bar也是。因为foo被调用了单用(如果那是一个词)' this '在foo里面是全局对象(默认绑定)因此是_this。在_foo_和_bar_中的bar_是完全相同的。但实际的问题是，什么会被记录到控制台?
+
+
+如果你猜对了，“undefined”就会被记录下来。
+
+
+注意_bar_是如何被调用的?根据它看起来的样子，隐式绑定在这里发挥作用。隐式绑定表示_bar_中的“this”是其前面的对象引用。在_bar_前面的对象引用是全局对象，在foo里面是全局对象，不是吗?因此尝试访问_this。_bar_中的a_等同于试图访问_[global object]。令人惊讶的是，意外并不存在，因此未定义的是登录到控制台的内容。
+
+
+太棒了!在移动。
+
+#### Example #7
+
+```
+var obj = {  
+ a: 1,   
+ foo: function(fn) {  
+  console.log(this);  
+  fn();  
+ }  
+};
+
+obj.foo(function() {  
+ console.log(this);  
+});
+```
+
+请不要让我失望。
+
+
+函数_foo_接受回调函数作为参数。这就是我们所做的我们在调用_foo_的时候在parans之间放置一个函数。
+
+```
+obj.foo( function() { console.log(this); } );
+```
+
+但是请注意** * _foo_的调用方式。它是一个独立的调用吗?当然不是，因此第一个登录到控制台的是对象_obj。我们传入的回调函数是什么?在_foo_内部，回调函数变为_fn_，并注意** * _fn_是如何调用的。对，因此_fn_中的' this '是全局对象，因此它是打印到控制台的对象。
+
+
+希望你不会觉得无聊。顺便问一下，你的分数怎么样?好吗?好吧，这次我准备好绊倒你了。
+
+#### Example #8
+
+```
+var arr = [1, 2, 3, 4];
+
+Array.prototype.myCustomFunc = function() {
+ console.log(this);
+};
+
+arr.myCustomFunc();
+```
+
+如果你不知道什么是_。在JavaScript中，prototype_是现在的其他对象，但是如果你是一个JavaScript开发人员，你应该知道它是什么。你知道吗?帮自己一个忙，继续读一些关于原型的内容。我将等待。
+
+
+那么什么记录?是_Array。prototype_对象?错了!
+
+
+这是相同的老技巧，请检查**_how_* _custommyfunc_是否被调用。没错，隐式绑定绑定_ar_ to _myCustomFunc_因此登录到控制台的是_arr [1,2,3,4]._
+
+
+我得到你了吗?
+
+#### Example #9
+
+```
+var arr = [1, 2, 3, 4];
+
+arr.forEach(function() {  
+ console.log(this);  
+});
+```
+
+执行上述代码的结果是，全局对象被记录到控制台的次数为4次。如果你绊倒了也没关系。请看示例#7。仍然没有得到它吗?下一个示例将有所帮助。
+
+#### Example #10
+
+```
+var arr = [1, 2, 3, 4];
+
+Array.prototype.myCustomFunc = function(fn) {  
+ console.log(this);  
+ fn();  
+};
+
+arr.myCustomFunc(function() {  
+ console.log(this);   
+});
+```
+
+就像示例#7一样，我们将回调函数_fn_作为参数传递给函数_myCustomFunc_。结果是传入的函数会进行独立调用。这就是为什么在前面的示例(#9)中全局对象被记录，因为在forEach中传入的回调函数进行独立调用。
+
+
+类似地，在本例中，首先登录到控制台的是_arr_，然后是全局对象。我知道这看起来有点复杂，但我相信如果你多注意一点，你会明白的。
+
+
+让我们继续使用这个数组示例来介绍更多的概念。我想我会在这里用一个缩写词，那么WGL呢?什么。得到。记录?这是下一个例子在我开始变得更老土之前。
+
+#### Example #11
+
+```
+var arr = [1, 2, 3, 4];
+
+Array.prototype.myCustomFunc = function() {  
+ console.log(this);
+
+(function() {  
+ console.log(this);  
+ })();
+
+};
+
+arr.myCustomFunc();
+```
+
+那么,WGL呢?
+
+
+答案和第十条完全一样。由您决定为什么_arr_首先被记录。您在_console.log(这个)下面看到的复杂代码块;_是IIFE(立即调用的函数表达式)。这个名字是不言自明的，对吧?在**(** *…*)()中包装的函数;但是它被调用的方式相当于独立调用，因此它内部是全局的，因此全局是被记录的。
+
+
+即将到来的新概念!让我们看看你对2015年的熟悉程度。
+
+#### Example #12
+
+```
+var arr = [1, 2, 3, 4];
+
+Array.prototype.myCustomFunc = function() {  
+ console.log(this);
+
+ (function() {  
+  console.log(‘Normal this : ‘, this);  
+ })();
+
+ (() =\> {  
+  console.log(‘Arrow function this : ‘, this);  
+ })();
+
+};
+
+arr.myCustomFunc();
+```
+
+除了IIFE后的3行额外代码之外，所有内容都与示例#11相同。这实际上也是一种生活，只是语法稍有不同。先生，就是箭头函数。
+
+
+箭头函数的意思是，这些函数中的“this”是词汇性的。也就是说，当需要将这个函数与这个函数绑定时，函数内部的某些东西会从它周围的函数或范围中获取这个函数。箭头函数周围的函数中的“this”是_arr。因此_ ?
+
+```
+// This is WGL
+arr [1, 2, 3, 4]
+Normal this : global
+Arrow function this : arr [1, 2, 3, 4]
+```
+
+如果我用箭头函数重写示例#9会怎么样?那么什么会被记录到控制台呢?
+
+```
+var arr = [1, 2, 3, 4];
+
+arr.forEach(() => {
+ console.log(this);
+});
+```
+
+上面的例子是一个额外的例子，所以即使你猜对了也不要增加分数。你还在记分吗?这样的书呆子。
+
+
+现在请密切注意以下示例。我不希望你以任何代价把这个弄错;-)
+
+#### Example #13
+
+```
+var yearlyExpense = {
+
+ year: 2016,
+
+ expenses: [
+   {‘month’: ‘January’, amount: 1000}, 
+   {‘month’: ‘February’, amount: 2000}, 
+   {‘month’: ‘March’, amount: 3000}
+  ],
+
+ printExpenses: function() {
+  this.expenses.forEach(function(expense) {
+   console.log(expense.amount + ‘ spent in ‘ + expense.month + ‘, ‘ +    this.year);
+   });
+  }
+
+};
+
+yearlyExpense.printExpenses();
+```
+
+那么,WGL呢?花你的时间。
+
+
+这是答案，但我希望你在阅读解释之前先自己想想。
+
+```
+1000 spent in January, undefined  
+2000 spent in February, undefined  
+3000 spent in March, undefined
+```
+
+这都是关于_printExpenses_函数的。首先注意它是如何调用的。隐式绑定?是的。所以_printExpenses_中的' this '是对象_yearlycost。_这意味着_this。expenses_是_yearlyExpense_对象中的_expenses_数组，所以这里没有问题。现在，当它在传递给forEach的回调函数中出现“this”时，它当然是全局对象，请参考例#9。
+
+
+注意，下面的“固定”版本是如何使用arrow函数进行补救的。
+
+```
+var expense = {
+
+ year: 2016,
+
+ expenses: [
+   {‘month’: ‘January’, amount: 1000}, 
+   {‘month’: ‘February’, amount: 2000}, 
+   {‘month’: ‘March’, amount: 3000}
+  ],
+
+ printExpenses: function() {
+   this.expenses.forEach((expense) => {
+    console.log(expense.amount + ‘ spent in ‘ + expense.month + ‘, ‘ +  this.year);
+   });
+  }
+
+};
+
+expense.printExpenses();
+```
+
+因此我们得到了我们想要的输出:
+
+```
+1000 spent in January, 2016  
+2000 spent in February, 2016  
+3000 spent in March, 2016
+```
+
+到目前为止，我们已经熟悉了隐式绑定和默认绑定。我们现在知道函数调用的方式决定了它里面的“this”。我们还简要地讨论了箭头函数以及它们是如何被定义为“this”的。
+
+
+在我们讨论其他规则之前，您应该知道，有些情况下，我们可以隐式地将“this”定义为“this”。让我们快速看一下这些例子。
+
+#### Example #14
+
+```
+var obj = {  
+ a: 2,  
+ foo: function() {  
+  console.log(this);  
+ }  
+};
+
+obj.foo();
+
+var bar = obj.foo;  
+bar();
+```
+
+无需为这里的所有花哨代码分心，只需注意函数是如何调用的，就可以在函数中找到“this”。你现在一定已经掌握了这个窍门了。首先调用_object .foo()_，因为_foo_前面有一个对象引用，所以首先记录的是对象_obj_。_bar_当然是独立调用，因此全局是下一个登录到控制台的内容。为了提醒您，记住在严格的模式全局对象中不符合默认绑定的条件，因此如果您在未定义的情况下有严格的模式，将会登录到控制台而不是全局的。
+
+
+bar和foo都是对相同函数的引用，唯一的区别是它们被调用的方式不同。
+
+#### Example #15
+
+```
+var obj = {  
+ a: 2,  
+ foo: function() {  
+  console.log(this.a);  
+ }  
+};
+
+function doFoo(fn) {  
+ fn();  
+}
+
+doFoo(obj.foo);
+```
+
+这里也没什么特别的。我们是通过_obj。作为_doFoo_函数的参数(doFoo听起来很有趣，LOL)。同样，_fn_和_foo_是对同一个函数的引用。现在我要重复同样的旧东西，_fn_undergo独立调用，因此“this”在_fn_中是全局对象。全局对象没有属性_a，因此我们将未定义日志记录到控制台。
+
+
+这部分就讲完了。在这一部分中，我们讨论了将“this”绑定到函数的两个规则。默认和隐式。我们研究了如何使用“use strict”影响全局对象的绑定，以及如何丢失隐式有界的“this”。我希望在接下来的部分中，您会发现本文对您有所帮助，我们将介绍一些新规则，包括_new_和显式绑定。看到你在那里。
+
+
+* * *
+
+
+在我们开始之前，我想用一个“简单”的例子来结束这部分，当我开始使用JS时，这个例子让我感到非常震惊。并不是所有的东西都是彩虹。让我们看看其中的一个。
+
+```
+var obj = {  
+ a: 2,  
+ b: this.a * 2  
+};
+
+console.log( obj.b ); // NaN
+```
+
+它读起来很好，在_obj_ ' this应该是_obj_，因此是_this。现代应该是2。嗯,没有。因为在这个对象文字里面的' this '是全局对象，所以如果你做这样的事情…
+
+```
+var myObj = {  
+ a: 2,  
+ b: this  
+};
+
+console.log(myObj.b); // global
+```
+
+全局对象被记录到控制台。您可能会说“那么，myObj是全局对象的属性(例如#4和#8)，不是吗?”“绝对。
+
+```
+console.log( this === myObj.b ); // true   
+console.log( this.hasOwnProperty(‘myObj’) ); //true
+```
+
+“也就是说，如果我做了这样的事情，它就会成功!”
+
+```
+var myObj = {  
+ a: 2,  
+ b: this.myObj.a * 2  
+};
+```
+
+遗憾的是，这是所有逻辑失败的地方。上面的代码是一个错误的，编译器抱怨它找不到未定义的属性_a_。(http://stackoverflow.com/questions/4616202/self-reference -in object- literations/10766107 #10766107 #10766107)我就是不知道。
+
+
+幸运的是，getters(隐式绑定)正在为我们提供帮助。
+
+```
+var myObj = {  
+ a: 2,  
+ get b() {  
+  return this.a * 2  
+ }  
+};
+
+console.log( myObj.b ); // 4
+```
+
+你坚持到底了!做得很好。[第二部分](https://github.com/xitu/gold- miner/blob/master/todo1/lets-setts-this-part -two.md)等着你，再见。
+
+
+如果你发现这篇文章很有用，你可以推荐并分享给其他开发者。我经常发表文章，在[Twitter](http://twitter.com/NashVail)和[Medium](http://medium.com/@nashvail)上关注我，以便在这种情况发生时得到通知。
+
+
+谢谢你的阅读，祝你愉快!
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
 
 ![](https://i.loli.net/2018/07/23/5b553df9455fa.png)
 
