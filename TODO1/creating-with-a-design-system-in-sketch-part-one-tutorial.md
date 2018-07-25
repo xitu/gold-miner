@@ -2,10 +2,10 @@
 > * 原文作者：[Marc Andrew](https://medium.com/@marcandrew?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/creating-with-a-design-system-in-sketch-part-one-tutorial.md](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-with-a-design-system-in-sketch-part-one-tutorial.md)
-> * 译者：[pmwangyang]https://github.com/pmwangyang
-> * 校对者：
+> * 译者：[pmwangyang](https://github.com/pmwangyang)
+> * 校对者：[Zheng7426](https://github.com/Zheng7426)
 
-# 在 Sketch 中使用一个设计体系创作：第一部分[教程]（译者注：本文根据 Sketch 实际功能、中文语言风格进行意译，并非逐字逐句，请校对者和读者理解，谢谢~）
+# 在 Sketch 中使用一个设计体系创作：第一部分[教程]
 
 ## 在 Sketch 中建立一个设计体系并使用它工作
 
@@ -13,13 +13,13 @@
 
 ### 🎁 想用我的优质 Sketch 设计体系大幅优化你的工作流程吗？你可以点击[这里](https://kissmyui.com/cabana)获取 Cabana。
 
-使用推广码 **MEDIUM25** 购买可享 **75折** 优惠。
+使用推广码 **MEDIUM25** 购买可享 **75 折**优惠。
 
 ![](https://cdn-images-1.medium.com/max/800/1*aEcIFESUCKiFVRpssVQTOA.jpeg)
 
 * * *
 
-**我看到过许多介绍建立 Sketch 设计体系元素的教程，但是很少有教程会实际上教你在练习中创建新的、特别好的设计体系**
+**我看到过许多介绍建立 Sketch 设计体系元素的教程，但是很少有教程会实际上教你在练习中创建新的、特别好的设计体系。**
 
 这就是我这一系列教程想要做的 —— 不仅仅是教你创建设计体系的元素，还有如何用你创建的体系设计一个适配多个设备的 iOS App，并且告诉你我如何构建自己的体系以及背后的思考过程和决策。
 
@@ -51,7 +51,7 @@
 
 让我们按顺序说……
 
-#### Design System (Setup) 设计体系（设置）
+#### 设计体系（设置）
 
 ![](https://cdn-images-1.medium.com/max/800/1*5K_jofmNF-5emgDSd7PejA.jpeg)
 
@@ -59,7 +59,7 @@
 
 设置这些元素为基准颜色或文字样例，这样你调整它们的时候，你的所有设计都会自动适应变化。
 
-你在这里的所有改动会映射到组件页面（一会我们会涉及）,当然，也会自动适应到你当前的画板上。
+你在这里的所有改动会映射到组件页面（一会我们会涉及），当然，也会自动适应到你当前的画板上。
 
 在这个页面上有 2 个画板……
 
@@ -74,7 +74,7 @@
 
 其实在我个人的 Cabana 设计体系里我做了一点分割，将基准色、叠加色添加到了 Colors 画板，像双色调图之类的添加到另一个名为 Various 的画板，这个画板还包含渐变、边框阴影等。但我想让你感觉这个教程更紧凑些，所以采取这样的布局方式，还可以吧？
 
-#### Base Colors （基准颜色）
+#### Base Colors（基准颜色）
 
 ![](https://cdn-images-1.medium.com/max/800/1*EEaKR_Kq0sLD54eRgFbLJQ.jpeg)
 
@@ -92,9 +92,9 @@
 
 你可以把上面的列表替换成自己想要的内容，比如移除第三色、添加另一种深度的灰色，以获得一些自定义元素，来完成适合自己设计体系的一些项目。
 
-好，让我们回头看看这些基准色，我给你一些在我自己的设计体系中设置基础颜色的秘诀 —— 使用 **图层样式**
+好，让我们回头看看这些基准色，我给你一些在我自己的设计体系中设置基础颜色的秘诀 —— 使用 **图层样式**。
 
-我们首先设置一下原色描边，创建一个 **200 x 200** 的矩形（快捷键“R”），移除填充色，用我选定的十六进制颜色设置 **1 px** 的描边，并设置圆角半径为 **4**。
+我们首先设置一下原色描边，创建一个 **200x200** 的矩形（快捷键“R”），移除填充色，用我选定的十六进制颜色设置 **1px** 的描边，并设置圆角半径为 **4**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Vn_ITS4EHqh7sxlvtjujRA.jpeg)
 
@@ -106,7 +106,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*rz6lSqepDeLmbYjPreTwEQ.jpeg)
 
-再设置一个原色填充矩形，创建一个**200 x 200** 的矩形（快捷键“R”），选择我选定的十六进制颜色，并设置圆角半径为 **4**。
+再设置一个原色填充矩形，创建一个**200x200** 的矩形（快捷键“R”），选择我选定的十六进制颜色，并设置圆角半径为 **4**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Q0JRENrjTqBCSwpQHOrvqQ.jpeg)
 
@@ -118,7 +118,7 @@
 
 这允许我们使用这样的设计体系时，仅仅选择一次就能很容易的修改图层样式，从而改变描边和填充色。
 
-这样占据的屏幕更小，并且最重要的是，比这儿放一个 **A 元素** 那儿放一个 **B 元素** 改动起来快多了。
+这样占据的屏幕更小，并且最重要的是，比这儿放一个 **A 元素**那儿放一个 **B 元素**改动起来快多了。
 
 接下来，我在合适的位置设置好所有的基准色和对应的图层样式后，给它们设置好名称（比如 Primary、Black、Grey 等等）。
 
@@ -140,13 +140,13 @@
 
 *   _Primary_ **原色**
 *   _Secondary_ **二次色**
-*   _Black_ **(刚刚这个例子中使用的)**
+*   _Black_**（刚刚这个例子中使用的）**
 
 我来给你一些指引，告诉你如何创建颜色叠加层，当然，在我的设计体系里，还是使用图层样式。
 
 现在我主要讲解下面教程里将要用到的黑色叠加层。
 
-创建一个 **432 x 248** （这个尺寸是我随便选的，你可以设置其他尺寸）的矩形（快捷键“R”）并设置圆角半径为 **4**（个人喜好，这样看起来更漂亮一些），粘贴之前创建的 Black 基准色的十六进制色值，然后设置不透明度为 60%。
+创建一个 **432x248** （这个尺寸是我随便选的，你可以设置其他尺寸）的矩形（快捷键“R”）并设置圆角半径为 **4**（个人喜好，这样看起来更漂亮一些），粘贴之前创建的 Black 基准色的十六进制色值，然后设置不透明度为 60%。
 
 ![](https://cdn-images-1.medium.com/max/800/1*OCNWm39eED210ruevgB85w.jpeg)
 
@@ -199,11 +199,11 @@
 
 好了，这一系列教程的第一部分就圆满结束了，记得回来和我一起学习第二部分哦。第二部分会涉及设计体系中的文字排版，还有我如何整合这一部分到设计体系中的重要的提示和建议。
 
-**跳转到第二部分点击** [**这里**](https://medium.com/sketch-app-sources/creating-with-a-design-system-in-sketch-part-two-tutorial-445e0264556a)**…**
+**跳转到第二部分点击[这里](https://medium.com/sketch-app-sources/creating-with-a-design-system-in-sketch-part-two-tutorial-445e0264556a)…**
 
 ### 🎁 想用我的优质 Sketch 设计体系大幅优化你的工作流程吗？你可以点击[这里](https://kissmyui.com/cabana)获取 Cabana。
 
-使用推广码 **MEDIUM25** 购买可享 **75折** 优惠。
+使用推广码 **MEDIUM25** 购买可享 **75 折**优惠。
 
 **感谢阅读**
 
