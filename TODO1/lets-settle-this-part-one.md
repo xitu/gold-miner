@@ -16,28 +16,26 @@
 
 ![](https://i.loli.net/2018/07/23/5b553df9455fa.png)
 
-难道我们都不能理解吗?在某种程度上，几乎所有的JavaScript开发人员都应该考虑这个问题。对我来说，每当“这个”开始露出它丑陋的头时，我总能设法让事情运转起来，然后就把它忘掉，我希望你在某个时候也这么做。但是，让我们今天就把它做完吧，今天，让我们一劳永逸地解决这个问题。
+难道我们都不能理解吗?在某种程度上，几乎所有的JavaScript开发人员都曾经思考过“this”这个事情。对我来说，每当“this”出来捣乱的时候，我就想方设法地去解决掉它，然后就把它忘了，我想您应该也曾遇到过这样的场景。但是今天，让我们彻底解决这个问题吧，让我们一次性一劳永逸地解决“this”的问题。
 Can’t we all relate to this? At some point ‘this’ has been a thing to think about for almost all JavaScript developers. For me, whenever ‘this’ started to rear its ugly head I somehow managed to make things work and then forgot about it, and I’d like think you did the same, at some point. But let’s be done with it, today, once and for all _`*dramatic drumroll*`_ let’s settle ‘this’.
 
 几天前，我在图书馆遇到了一个意想不到的事情。
 
 ![](https://i.loli.net/2018/07/23/5b553e2648b71.png)
 
-这本书的第二章是关于“这个”的，我读过了，感觉很自信，有几页纸的内容出现在我需要猜测的地方，我搞砸了。那是我反省自己愚蠢的时刻。我重读了这一章，发现这是每个JS开发人员都应该知道的。The second chapter of the book is all about ‘this’, I read it through, felt confident, couple of pages down a scenario pops up where I need to guess what ‘this’ is, and I mess up. That was one hell of a moment for introspection for my dumb self. I reread the chapter and then some and figured this is something every JS developer should know about.
+这本书的整个第二章都是关于“this”的，我很有自信地通读了一遍，但是发现其中有些页的内容里面讲到的“this”，我居然搞不懂它们是什么，需要猜测。是时候反省一下我多度自信的愚蠢行为了。我又重读了这一章好几遍，发觉这些内容是每个 Javascript 开发人员都应该了解的。
 
-因此，我试图以一种更彻底的方式和更多的代码示例展示 [这本书] 中描述的规则[凯尔](http://getify.me/) (https://github.com/getify/youdont - know - js)。This therefore is my attempt to present the rules [Kyle](http://getify.me/) describes in [the book](https://github.com/getify/You-Dont-Know-JS) but in a more thorough manner and with a lot more code examples.
+因此，我试图以一种更彻底的方式和更多的示例代码展示 [凯尔·辛普森](http://getify.me/) 在他的 [这本书](https://github.com/getify/You-Dont-Know-JS) 中描述的规范。
 
-现在我不全是关于理论的，我马上就会举一些让我绊倒的例子，我希望他们也会绊倒你。不管你是否被绊倒，我都会给你一个解释，我会一个接一个地向你介绍所有的规则和一些额外的规则。
+现在我不是全部只讲理论，我会直接从我遇到过的困难问题的示例开始讲起，我希望它们也是你感到困难的问题。不管这些问题是否会困挠你，我都会给你一个解释说明，我会一个接一个地向你介绍所有的规则，当然还有一些额外的小惊喜。
 
+在开始之前，我假设您已经了解了一些 JavaScript 的背景知识，当我讲到 global、window、this、prototype 等等的时候，你知道他们是什么意思。这篇文章中，我会同时使用 global 和 window，在这里它们就是一回事，是可以互换的。
 
-在开始之前，我假设您已经了解了一些JavaScript知识，并且知道我说的global、window、this、prototype e.t.c是什么意思。
-
-
-在下面给出的所有代码示例中，您的任务是猜测将打印到控制台的内容。如果你猜对了，就给你的分数加1。准备好了吗?让我们开始吧。
+在下面给出的所有代码示例中，您的任务就是猜测控制台输出的结果是什么。如果你猜对了，就给你自己加一分。准备好了吗？让我们开始吧。
 
 #### Example #1
 
-```
+```Javascript
 function foo() {  
  console.log(this);   
  bar();  
@@ -55,17 +53,15 @@ function baz() {
 foo();
 ```
 
-你的旅行了吗?对于测试，您当然可以复制代码并使用node在浏览器或终端中启动它。再次,你的旅行了吗?好吧，我就不再问了。但说真的，如果你不去旅行，那就给你的分数加一个。
+你被难住了吗？对于测试，您当然可以把这段代码复制下来，然后在浏览器或者 Node 的运行环境中去运行看看结果。再来一次,你被难住了吗？好吧，我就不再问了。但说真的，如果你没被难住，那就给你自己加一分。
 
+如果您运行上面的代码，就会在控制台中看到 global 对象被打印出三次。为了解释这一点，让我来介绍 **第一个规则，默认绑定**。规则规定，当一个函数执行独立调用时，例如只是 _funcName();_ ，这时函数的 “this” 被指向 global 对象。
 
-如果运行上面的代码，就会将全局对象记录到控制台，三次。为了解释这一点，让我介绍第一个规则，默认绑定。规则规定，当函数执行独立调用i时。e只是funcName();这些函数的“this”解析为全局对象。
-
-
-要理解的一件事是，在调用函数之前，“this”并没有绑定到一个函数，因此，要找到“this”，您应该密切注意该函数是如何调用或调用的，而不是在哪里。所有三个函数调用foo();酒吧();和巴兹();是独立的调用，因此' this '对于所有三个函数都是全局对象。
+要理解的一件事是，在调用函数之前，“this”并没有绑定到一个函数，因此，要找到“this”，您应该密切注意该函数是如何调用或调用的，而不是在哪里。所有三个函数调用 _foo();bar();和 baz();_ 都是是独立的调用，因此这三个函数的 “this” 都是全局对象。
 
 #### Example #2
 
-```
+```Javascript
 ‘use strict’;
 function foo() {
  console.log(this); 
@@ -81,17 +77,15 @@ function baz() {
 foo();
 ```
 
-注意顶部的“使用严格”。在这种情况下，你认为控制台打印的是什么?当然，如果您知道_strict mode_，您就会知道在严格模式下全局对象不适合默认绑定。所以，你得到的不是三次印刷，而是三次印刷。
+注意最开始的“use strict”。在这种情况下，你觉得控制台打印的是什么？当然，如果您了解 _strict mode_ ，您就会知道在严格模式下全局对象不会被默认绑定。所以，你得到的打印信息是三次 _undefined_ 的输出，而不再是 _global_。
 
+回顾一下，在一个简单调用函数中,比如独立调用，“this”在非严格模式下指向全局对象，但在严格模式下不允许全局对象默认绑定，因这些函数中的 “this” 是 undefined。
 
-回顾一下，在一个简单地调用i的函数中。e独立调用' this '指的是全局对象，但在严格模式下不允许全局对象默认绑定，因此在严格模式下，这些函数中的' this '没有定义。
-
-
-为了使我们的默认绑定概念更具体，这里有一些示例。
+为了使我们的默认绑定概念更加具体，这里有一些示例。
 
 #### Example #3
 
-```
+```Javascript
 function foo() {
  function bar() {
   console.log(this); 
@@ -102,17 +96,15 @@ function foo() {
 foo();
 ```
 
-_foo_依次调用_bar_， _bar_将“this”打印给console_。这里的技巧是看看函数是如何被调用的。_foo_和_bar_都接受独立的调用，因此，这两种方法都在解析为全局对象。但是由于_bar_是惟一执行打印的函数，所以我们看到全局对象登录到控制台一次。
+_foo_先被调用，然后再调用 _bar_，_bar_ 将“this”打印到控制台中。这里的技巧是看看函数是如何被调用的。_foo_ 和 _bar_ 都被单独调用，因此，他们内部的“this”都是指向全局对象。但是由于 _bar_ 是唯一执行打印的函数，所以我们看到全局对象在控制台中输出了一次。
 
+我希望你没有回答 _foo_ 或 _bar_ 。有没有？
 
-我希望你没有回答“”或“”。_是吗?
-
-
-我们已经习惯了默认绑定。我们做一个简单的。在下面的示例中，什么被记录到控制台?
+我们已经了解了默认绑定。让我们再做一个简单的。在下面的示例中，控制台输出什么？
 
 #### Example #4
 
-```
+```Javascript
 var a = 1;
 
 function foo() {  
@@ -122,11 +114,9 @@ function foo() {
 foo();
 ```
 
-未定义的吗?这是1吗?它是什么?
+输出结果是 undefined？是 1？还是什么？
 
-
-如果您已经很好地遵循了这个步骤，那么您应该知道它是“1”，它将被记录到控制台。为什么?首先，所有的默认绑定都适用于函数_foo_。因此_foo_中的' this '是全局对象，_a_被声明为全局变量，这必然意味着_a_是全局对象的属性(讨论全局对象污染)，因此_a_是全局对象的属性。a_和_var a_是一样的。
-
+如果您已经很好地遵循了这个的步骤，那么您应该知道控制台输出的是“1”。为什么?首先，默认绑定作用于函数 _foo_ 。因此 _foo_ 中的“this”指向全局对象，并且 _a_ 被声明为全局变量，这就意味着 _a_ 是全局对象的属性(讨论全局对象污染)，因此 _this.a_ 和 _var a_ 就是同一个东西。
 
 随着本文的深入，我们将继续与默认绑定保持联系，但是现在是时候向您介绍下一个规则了。
 
