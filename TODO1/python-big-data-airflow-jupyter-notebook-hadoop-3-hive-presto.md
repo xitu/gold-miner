@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/python-big-data-airflow-jupyter-notebook-hadoop-3-hive-presto.md](https://github.com/xitu/gold-miner/blob/master/TODO1/python-big-data-airflow-jupyter-notebook-hadoop-3-hive-presto.md)
 > * 译者：[cf020031308](https://github.com/cf020031308)
-> * 校对者：
+> * 校对者：[yqian1991](https://github.com/yqian1991)
 
 # Python 与大数据：Airflow、 Jupyter Notebook 与 Hadoop 3、Spark、Presto
 
