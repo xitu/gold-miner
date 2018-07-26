@@ -15,13 +15,15 @@
 现代框架比如说 React、Angular、Vue 和 Dojo 在这条路上走得更远，它们将组件化作为前端开发的前沿概念，并当做核心要素用在它们自己的框架结构上。然而，虽说组件结构变得越来越普遍，各种各样的框架和库也让这个组件市场变得群雄割据、四分五裂。这种分裂常常将一些团队钉死在某个特定的框架上，而不管外面时间飞逝技术更迭。
 
 The desire to tackle this fragmentation, and standardise the web component model has been an ongoing endeavor. Its beginnings sit in the genesis of the ‘Web Components’ specifications [circa 2011](https://github.com/w3c/webcomponents/commits/gh-pages?after=0625cf4c42785aa1202a9d0daed182e12466aa29+1889) and were first presented to the world by Alex Russell at [Fronteers Conference](https://fronteers.nl/congres/2011) the same year. The web components specifications grew out of the desire to provide a canonical way of creating components that browsers can understand. This effort is still very much ongoing but is closer than ever before to having cross-browser implementations. In theory, these specifications and implementations are paving the way for interoperability and composition of components from different vendors. Here we examine the building blocks of Web Components.
+解决这种割裂的形势，让 Web 组件模型统一化，这项工作已经在努力推进中。最早的努力当数 “Web 组件” 规范说明 [circa 2011](https://github.com/w3c/webcomponents/commits/gh-pages?after=0625cf4c42785aa1202a9d0daed182e12466aa29+1889) 的出现，并在同年的 [Fronteers Conference](https://fronteers.nl/congres/2011) 大会上由 Alex Russell 将之宣之于众。大家不断期待着找到一种权威的浏览器能读懂的组件创建方式，该 Web 组件规范说明也伴随着不断地完善。在做出跨浏览器支持的组件方案这件事上我们还有很多事情要做，但已经比以往任何时候更接近目标了。理论上讲，这些规范说明和应用实践铺平了组件间相互作用相互结合的道路，即使这些组件出自不同的供应方(比如 React，比如 Vue)。……
 
 ## The Building Blocks
 
-Web Components are not a single technology. Instead, they are series of browser standards defined by the [W3C](https://www.w3.org/) allowing developers to build components in a way the browser can natively understand. These standards include:
+Web 组件并非单一的技术，而是由一系列 [W3C](https://www.w3.org/) 定义的浏览器标准组成，使得开发者可以构建出浏览器原生支持的组件。这些标准包括：
 
-*   **HTML Templates and Slots** – Reusable HTML markup with entry points for user-specific markup
-*   **Shadow DOM** – DOM encapsulation for markup and styles
+*   **template 标签和 slot 标签** – 可复用的 HTML 标签，提供了和用户自定义标签相结合的接口
+*   **Shadow DOM（也可译作影子 DOM）** – 对标签和样式的一层 DOM 包装
+*   **Custom Elements** – Defining named custom HTML elements with specific behaviour
 *   **Custom Elements** – Defining named custom HTML elements with specific behaviour
 
 There is another Web Components specification, **HTML Imports**, for importing HTML and intentionally Web Components into a web page; however, the [Firefox team did not believe this was the best approach](https://hacks.mozilla.org/2015/06/the-state-of-web-components/), citing crossover with the [ES Module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) specification, and it has since lost most of its traction.
