@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/parsing-complex-json-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/parsing-complex-json-in-flutter.md)
 > * 译者：[DateBro](https://github.com/DateBro)
-> * 校对者：
+> * 校对者：[LeviDing](https://github.com/leviding)
 
 # 在 Flutter 中解析复杂的 JSON
 
@@ -11,13 +11,13 @@
 
 我必须承认，在 Flutter / Dart 中使用 JSON 后，我一直想念 ** _gson_ ** 的 Android 世界。当我开始使用 Flutter 中的 API 时，JSON 解析真的让我很困扰。而且我敢确定，它也让很多初学者感到困惑。
 
-我们将在这篇博客中使用内置的 `dart:convert` 库。这是最基本的解析方法，只有在你刚开始使用 Flutter 或者你正在写一个小项目时才建议使用它。不过，了解一些 Flutter 中 JSON 解析的基础知识非常重要。如果你精通这个，或者你需要写更大的项目时，可以考虑像 [json_serializable](https://pub.dartlang.org/packages/json_serializable) 等代码生成器库。如果可能的话，我会在以后的文章中介绍它们。
+我们将在这篇博客中使用内置的 `dart:convert` 库。这是最基本的解析方法，只有在你刚开始使用 Flutter 或者你正在写一个小项目时才建议使用它。不过，了解一些 Flutter 中 JSON 解析的基础知识非常重要。如果你精通这个，或者你需要写更大的项目时，可以考虑像[json_serializable](https://pub.dartlang.org/packages/json_serializable) 等代码生成器库。如果可能的话，我会在以后的文章中介绍它们。
 
 Fork 这个 [示例项目](https://github.com/PoojaB26/ParsingJSON-Flutter)。它包含这篇博客中的所有代码，你可以对照着实践一下。
 
-### JSON 结构 #1：简单的 map
+### JSON 结构 #1: 简单的 map
 
-让我们从一个简单的 JSON 结构开始 —— [student.json](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/assets/student.json)
+让我们从一个简单的 JSON 结构开始—— [student.json](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/assets/student.json)
 
 ```
 {
@@ -27,9 +27,9 @@ Fork 这个 [示例项目](https://github.com/PoojaB26/ParsingJSON-Flutter)。�
 }
 ```
 
-**规则 #1：确定结构。Json 字符串将具有 Map（键值对）或 List of Maps。**
+**规则 #1:** **确定结构。Json 字符串将具有 Map（键值对）或 List of Maps。**
 
-**规则 #2：用花括号开始？这是 map。用方括号开始？那是 List of maps。**
+**规则 #2: 用花括号开始？这是 map。用方括号开始？ 那是 List of maps。**
 
 `student.json` 明显是 map。(比如，`id` 是键，`487349` 是 `id` 的值)
 
@@ -51,7 +51,7 @@ class Student{
 
 Perfect！
 **是这样吗？** 因为 json 映射和这个 PODO 文件之间没有映射。甚至实体名称也不匹配。
-**我知道我知道。** 我们还没有完成。我们必须将这些类成员映射到json对象。 为此，我们需要创建一个 `factory` 方法。 根据 Dart 文档，我们在实现一个构造函数时使用 `factory` 关键字时，这个构造函数不会总是创建其类的新实例，而这正是我们现在所需要的。
+**我知道我知道。** 我们还没有完成。我们必须将这些类成员映射到 json 对象。 为此，我们需要创建一个 `factory` 方法。 根据 Dart 文档，我们在实现一个构造函数时使用 `factory` 关键字时，这个构造函数不会总是创建其类的新实例，而这正是我们现在所需要的。
 
 ```
 factory Student.fromJson(Map<String, dynamic> parsedJson){
@@ -77,7 +77,7 @@ factory Student.fromJson(Map<String, dynamic> parsedJson){
 
 ![](https://cdn-images-1.medium.com/max/800/1*aYehHPUoXS4S-CVLWg1NCQ.png)
 
-`name` 是一个 Map<String，String>，`majors` 是 String 和 List<String> 的 Map，`subject` 是 String 和 List<Object>的 Map。
+`name` 是一个 Map<String，String>，`majors` 是 String 和 List<String> 的 Map，`subject` 是 String 和 List<Object> 的 Map。
 
 因为键总是一个 `string` 并且值可以是任何类型，所以我们将它保持为 `dynamic` 以保证安全。
 
@@ -87,7 +87,7 @@ factory Student.fromJson(Map<String, dynamic> parsedJson){
 
 让我们写 `student_services.dart` ，它具有调用 `Student.fromJson` 的代码，能够从 `Student` 对象中获取值。
 
-#### 片段 #1 : imports
+#### 片段 #1: imports
 
 ```
 import 'dart:async' show Future;
@@ -98,7 +98,7 @@ import 'package:flutter_json/student_model.dart';
 
 最后导入的是你的模型文件名。
 
-#### **片段 #2 : 加载 Json Asset (可选)**
+#### **片段 #2: 加载 Json Asset (可选)**
 
 ```
 Future<String> _loadAStudentAsset() async {
@@ -108,7 +108,7 @@ Future<String> _loadAStudentAsset() async {
 
 在这个特定项目中，我们的 json 文件放在 assets 文件夹下，所以我们必须这样加载 json。但如果你的 json 文件放在云端，你也可以进行网络调用。**网络调用不在我们这篇文章的讨论范围内。**
 
-#### 片段 #3 : 加载响应
+#### 片段 #3: 加载响应
 
 ```
 Future loadStudent() async {
@@ -130,7 +130,7 @@ Future loadStudent() async {
 瞧！你刚刚完成了第一次 JSON 解析（或没有）。
 **注意：请记住这里的 3 个片段，我们将把它用于下一组 json 解析（只更改文件名和方法名），我不会在这里重复代码。但你可以在示例项目中找到所有内容**
 
-### JSON 结构 #2 ：含有数组的简单结构
+### JSON 结构 #2：含有数组的简单结构
 
 现在我们要征服一个和上面那个类似的 json 结构，但不是单一值的，它可能有一个值数组。
 
@@ -197,7 +197,7 @@ List<String> streetsList = new List<String>.from(streetsFromJson);
 在[这里](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/address_model.dart) 检查更新的方法。**注意现在的返回语句。**
 现在你可以用 `_address_services.dart_` 来运行它，**它会完美运行。**
 
-### Json 结构 #3 ：简单的嵌套结构
+### Json 结构 #3：简单的嵌套结构
 
 现在如果我们有一个像来自 [shape.json](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/assets/shape.json) 的嵌套结构的话会怎样呢？
 
@@ -290,7 +290,7 @@ factory Shape.fromJson(Map<String, dynamic> parsedJson){
 }
 ```
 
-所以基本上，我们从 `Property` 类调用`Property.fromJson`方法，无论得到什么，我们都将它映射到 `property` 实体。简单！ 在 [he这里](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/shape_model.dart) 检查你的代码。
+所以基本上，我们从 `Property` 类调用`Property.fromJson`方法，无论得到什么，我们都将它映射到 `property` 实体。简单！ 在 [这里](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/shape_model.dart) 检查你的代码。
 
 用你的 `shape_services.dart` 运行它，你会对运行结果感到满意的。
 
@@ -317,7 +317,7 @@ factory Shape.fromJson(Map<String, dynamic> parsedJson){
 
 好的，现在我们越来越深入了。**哇哦，我在里面看到了一个对象列表。**
 
-是的，所以这个结构有一个对象列表，但它本身仍然是一个地图。（参考**规则 ＃1 **和 **规则 ＃2 **）。现在参考 **规则 ＃3**，让我们构造我们的`product_model.dart`。
+是的，所以这个结构有一个对象列表，但它本身仍然是一个地图。（参考**规则 ＃1**和 **规则 ＃2**）。现在参考 **规则 ＃3**，让我们构造我们的`product_model.dart`。
 
 现在我们来创建 `Product` 和 `Image` 这两个类。
 **注意：** `_Product_` **会有一个数据成员，它是** `_Image_` **的 List**
@@ -387,7 +387,7 @@ List<Image> imagesList = list.map((i) => Image.fromJson(i)).toList();
 
 `list` 在这里是一个 List<dynamic>。现在我们通过调用 `Image.fromJson` 遍历整个列表，并把 `list` 中的每个对象映射到 `Image` 中，然后我们将每个 map 对象放入一个带有 `toList()` 的新列表中，并将它存储在 `List <Image> imagesList`。可以在这里[这里](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/product_model.dart) 查看完整代码。
 
-### JSON 结构 #5 ：map 列表
+### JSON 结构 #5：map 列表
 
 现在让我们来看一下 [photo.json](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/assets/photo.json)
 
@@ -483,13 +483,13 @@ photos = parsedJson.map((i)=>Photo.fromJson(i)).toList();
 
 与前面相同的概念，我们不必把它映射到 json 字符串中的任何键，因为它是 List 而不是 map。 代码在 [这里](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/photo_model.dart).
 
-### JSON 结构 #6 ：复杂的嵌套结构
+### JSON 结构 #6：复杂的嵌套结构
 
 这是 [page.json](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/assets/page.json).
 
 我会要求你解决这个问题。它已包含在示例项目中。你只需要为此构建模型和服务文件。但是在给你提示之前我不会总结（如果你需要任何提示的话）。
 
-**Rule#1** and **Rule#2** 一样使用。首先确定结构。 这是一个 map。所以 1-5 的所有 json 结构都有用。
+**Rule #1** and **Rule #2** 一样使用。首先确定结构。这是一个 map。所以 1-5 的所有 json 结构都有用。
 
 **Rule #3** 要求你先创建类和构造函数，然后从底层添加工厂方法。不过还有一个提示，还要记得从深层/底层添加类。例如，对于这个 json 结构，首先为 `Image` 创建类，然后为 `Data` 和 `Author` 创建类，然后创建主类 `Page`。 并以相同的顺序添加工厂方法。
 
@@ -516,3 +516,4 @@ photos = parsedJson.map((i)=>Photo.fromJson(i)).toList();
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
