@@ -17,9 +17,8 @@
 ![](https://i.loli.net/2018/07/23/5b553df9455fa.png)
 
 难道我们都不能理解吗?在某种程度上，几乎所有的 JavaScript 开发人员都曾经思考过“this”这个事情。对我来说，每当“this”出来捣乱的时候，我就想方设法地去解决掉它，然后就把它忘了，我想您应该也曾遇到过这样的场景。但是今天，让我们彻底解决这个问题吧，让我们一次性一劳永逸地解决“this”的问题。
-Can’t we all relate to this? At some point ‘this’ has been a thing to think about for almost all JavaScript developers. For me, whenever ‘this’ started to rear its ugly head I somehow managed to make things work and then forgot about it, and I’d like think you did the same, at some point. But let’s be done with it, today, once and for all _`*dramatic drumroll*`_ let’s settle ‘this’.
 
-几天前，我在图书馆遇到了一个意想不到的事情。
+前几天，我在图书馆遇到了一个意想不到的事情。
 
 ![](https://i.loli.net/2018/07/23/5b553e2648b71.png)
 
@@ -269,13 +268,11 @@ arr.myCustomFunc(function() {
 });
 ```
 
-就像示例#7一样，我们将回调函数_fn_作为参数传递给函数_myCustomFunc_。结果是传入的函数会进行独立调用。这就是为什么在前面的示例(#9)中全局对象被记录，因为在forEach中传入的回调函数进行独立调用。
+就像示例#7一样，我们将回调函数 _fn_ 作为参数传递给函数 _myCustomFunc_ 。结果是传入的函数会被独立调用。这就是为什么在前面的示例（#9）中输出全局对象，因为在 forEach 中传入的回调函数被独立调用。
 
+类似地，在本例中，首先输出到控制台的是 _arr_ ，然后是输出的是全局对象。我知道这看上去有点复杂，但我相信如果你能再多用点心，你会弄明白的。
 
-类似地，在本例中，首先登录到控制台的是_arr_，然后是全局对象。我知道这看起来有点复杂，但我相信如果你多注意一点，你会明白的。
-
-
-让我们继续使用这个数组示例来介绍更多的概念。我想我会在这里用一个缩写词，那么WGL呢?什么。得到。记录?这是下一个例子在我开始变得更老土之前。
+让我们继续使用这个数组的示例来介绍更多的概念。我想我会在这里使用一个简称，WGL 怎么样？作为 WHAT.GETS.LOGGED 的简称？好吧，在我开始老生常谈之前，下面是另外一个例子。
 
 #### Example #11
 
@@ -294,13 +291,11 @@ Array.prototype.myCustomFunc = function() {
 arr.myCustomFunc();
 ```
 
-那么,WGL呢?
+那么，输出是？
 
+答案和示例 #10 完全一样。轮到您了，说一说为什么首先输出的是 _arr_ ？您看到第一个 _console.log(this)_ 的下面有一段复杂的代码，它被称为 IIFE（立即调用的函数表达式）。这个名字不用再过多解释了，对吧？被 **(**…**)();** 这样形式封装的函数会立即被调用，也就是说等同于被独立调用，因此它内部的“this”是全局变量，所以输出的是全局变量。
 
-答案和第十条完全一样。由您决定为什么_arr_首先被记录。您在_console.log(这个)下面看到的复杂代码块;_是IIFE(立即调用的函数表达式)。这个名字是不言自明的，对吧?在**(** *…*)()中包装的函数;但是它被调用的方式相当于独立调用，因此它内部是全局的，因此全局是被记录的。
-
-
-即将到来的新概念!让我们看看你对2015年的熟悉程度。
+要来新概念了！让我们看看您对 ES2015 的熟悉程度。
 
 #### Example #12
 
@@ -323,10 +318,9 @@ Array.prototype.myCustomFunc = function() {
 arr.myCustomFunc();
 ```
 
-除了IIFE后的3行额外代码之外，所有内容都与示例#11相同。这实际上也是一种生活，只是语法稍有不同。先生，就是箭头函数。
+除了 IIFE 后面的增加了 3 行代码之外，其他代码与示例 #11 完全相同。它实际上也是一种 IIFE，只是语法稍有不同。嗨，这是箭头函数。
 
-
-箭头函数的意思是，这些函数中的“this”是词汇性的。也就是说，当需要将这个函数与这个函数绑定时，函数内部的某些东西会从它周围的函数或范围中获取这个函数。箭头函数周围的函数中的“this”是_arr。因此_ ?
+箭头函数的意思是，这些函数中的“this”是一个词法变量。也就是说，当将“this”与这种箭头函数绑定时，函数会从包裹它的函数或作用域中获取“this”的值。包裹我们这个箭头函数的函数里面的“this”是 _arr_ 。因此？
 
 ```Javascript
 // This is WGL
@@ -335,7 +329,7 @@ Normal this : global
 Arrow function this : arr [1, 2, 3, 4]
 ```
 
-如果我用箭头函数重写示例#9会怎么样?那么什么会被记录到控制台呢?
+如果我用箭头函数重写示例 #9 会怎么样？控制台输出什么呢？
 
 ```Javascript
 var arr = [1, 2, 3, 4];
@@ -345,10 +339,9 @@ arr.forEach(() => {
 });
 ```
 
-上面的例子是一个额外的例子，所以即使你猜对了也不要增加分数。你还在记分吗?这样的书呆子。
+上面的这个例子是额外追加的，所以即使你猜对了也不用增加分数。你还在算分吗?书呆子。
 
-
-现在请密切注意以下示例。我不希望你以任何代价把这个弄错;-)
+现在请仔细关注以下示例。我会不惜一切代价让你弄懂他们;-)
 
 #### Example #13
 
@@ -374,8 +367,7 @@ var yearlyExpense = {
 yearlyExpense.printExpenses();
 ```
 
-那么,WGL呢?花你的时间。
-
+那么,输出是？多点时间想一想。
 
 这是答案，但我希望你在阅读解释之前先自己想想。
 
@@ -385,10 +377,9 @@ yearlyExpense.printExpenses();
 3000 spent in March, undefined
 ```
 
-这都是关于_printExpenses_函数的。首先注意它是如何调用的。隐式绑定?是的。所以_printExpenses_中的' this '是对象_yearlycost。_这意味着_this。expenses_是_yearlyExpense_对象中的_expenses_数组，所以这里没有问题。现在，当它在传递给forEach的回调函数中出现“this”时，它当然是全局对象，请参考例#9。
+这都是关于 _printExpenses_ 函数的。首先注意下它是如何被调用的。隐式绑定？是的。所以 _printExpenses_ 中的“this”是对象 _yearlycost_ 。这意味着 _this.expenses_ 是 _yearlyExpense_ 对象中的 _expenses_ 数组，所以这里没有问题。现在，当它在传递给 forEach 的回调函数中出现“this”时，它当然是全局对象，请参考例 #9。
 
-
-注意，下面的“固定”版本是如何使用arrow函数进行补救的。
+注意，下面的“修正”版本是如何使用箭头函数进行改进的。
 
 ```Javascript
 var expense = {
@@ -412,7 +403,7 @@ var expense = {
 expense.printExpenses();
 ```
 
-因此我们得到了我们想要的输出:
+这样我们就得到了想要的输出结果:
 
 ```Javascript
 1000 spent in January, 2016  
@@ -420,10 +411,9 @@ expense.printExpenses();
 3000 spent in March, 2016
 ```
 
-到目前为止，我们已经熟悉了隐式绑定和默认绑定。我们现在知道函数调用的方式决定了它里面的“this”。我们还简要地讨论了箭头函数以及它们是如何被定义为“this”的。
+到目前为止，我们已经熟悉了隐式绑定和默认绑定。我们现在知道函数被调用的方式决定了它里面的“this”。我们还简要地讲了箭头函数以及它们内部的“this”是怎样定义的。
 
-
-在我们讨论其他规则之前，您应该知道，有些情况下，我们可以隐式地将“this”定义为“this”。让我们快速看一下这些例子。
+在我们讨论其他规则之前，您应该知道，有些情况下，我们的“this”可能会丢失隐式绑定。让我们快速地看一下这些例子。
 
 #### Example #14
 
@@ -441,10 +431,9 @@ var bar = obj.foo;
 bar();
 ```
 
-无需为这里的所有花哨代码分心，只需注意函数是如何调用的，就可以在函数中找到“this”。你现在一定已经掌握了这个窍门了。首先调用_object .foo()_，因为_foo_前面有一个对象引用，所以首先记录的是对象_obj_。_bar_当然是独立调用，因此全局是下一个登录到控制台的内容。为了提醒您，记住在严格的模式全局对象中不符合默认绑定的条件，因此如果您在未定义的情况下有严格的模式，将会登录到控制台而不是全局的。
+不要被这里面的花哨代码所分心，只需注意函数是如何被调用的，就可以弄明白“this”的含义。你现在一定已经掌握这个技巧了吧。首先 _object .foo()_ 被调用，因为 _foo_ 前面有一个对象引用，所以首先输出的是对象 _obj_ 。 _bar_ 当然是被独立调用的，因此下一个输出是全局变量。提醒您一下，记住在严格模式下，全局对象是不会默认绑定的，因此如果您在开启了严格模式，那么控制台输出的就是 undefined，而不再是全局变量。
 
-
-bar和foo都是对相同函数的引用，唯一的区别是它们被调用的方式不同。
+bar 和 foo 是对同一个函数的引用，唯一区别是它们被调用的方式不同。
 
 #### Example #15
 
@@ -463,16 +452,15 @@ function doFoo(fn) {
 doFoo(obj.foo);
 ```
 
-这里也没什么特别的。我们是通过_obj。作为_doFoo_函数的参数(doFoo听起来很有趣，LOL)。同样，_fn_和_foo_是对同一个函数的引用。现在我要重复同样的旧东西，_fn_undergo独立调用，因此“this”在_fn_中是全局对象。全局对象没有属性_a，因此我们将未定义日志记录到控制台。
+这里也没什么特别的。我们是通过把 _obj.foo_ 作为 _doFoo_ 函数的参数（doFoo 这个名字听起来很有趣）。同样，_fn_ 和 _foo_ 是对同一个函数的引用。现在我要重复同样的分析过程，_fn_ 被独立调用，因此 _fn_ 中的“this”是全局对象。而全局对象没有属性 _a_ ，因此我们在控制台中得到了 undifined 的输出结果。
 
-
-这部分就讲完了。在这一部分中，我们讨论了将“this”绑定到函数的两个规则。默认和隐式。我们研究了如何使用“use strict”影响全局对象的绑定，以及如何丢失隐式有界的“this”。我希望在接下来的部分中，您会发现本文对您有所帮助，我们将介绍一些新规则，包括_new_和显式绑定。看到你在那里。
+到这里，我们这部分就讲完了。在这一部分中，我们讨论了将“this”绑定到函数的两个规则。默认绑定和隐式绑定。我们研究了如何使用“use strict”来影响全局对象的绑定，以及如何会让隐式绑定的“this”失效。我希望在接下来的第二部分中，您会发现本文对您有所帮助，在那里我们将介绍一些新规则，包括 _new_ 和显式绑定。那里再见吧！
 
 
 * * *
 
 
-在我们开始之前，我想用一个“简单”的例子来结束这部分，当我开始使用JS时，这个例子让我感到非常震惊。并不是所有的东西都是彩虹。让我们看看其中的一个。
+在我们结束之前，我想用一个“简单”的例子来作为这一部分的收尾，当我开始使用 Javascript 时，这个例子曾经让我感到非常震惊。Javascript 里面也并不是所有的东西都是美的，也有看起来很糟糕的东西。让我们看看其中的一个。
 
 ```Javascript
 var obj = {  
@@ -483,7 +471,7 @@ var obj = {
 console.log( obj.b ); // NaN
 ```
 
-它读起来很好，在_obj_ ' this应该是_obj_，因此是_this。现代应该是2。嗯,没有。因为在这个对象文字里面的' this '是全局对象，所以如果你做这样的事情…
+它读起来感觉很好，在 _obj_ 里面，“this”应该是 _obj_ ，因此是 _this.a_ 应该是 2。嗯,错了。因为在这个对象里面的“this”是全局对象，所以如果你像这么写…
 
 ```Javascript
 var myObj = {  
@@ -494,14 +482,14 @@ var myObj = {
 console.log(myObj.b); // global
 ```
 
-全局对象被记录到控制台。您可能会说“那么，myObj是全局对象的属性(例如#4和#8)，不是吗?”“绝对。
+控制台输出的就是全局对象。您可能会说“但是，myObj 是全局对象的属性（示例#4 和示例 #8 ），不对吗？”是的，绝对正确。
 
 ```Javascript
 console.log( this === myObj.b ); // true   
 console.log( this.hasOwnProperty(‘myObj’) ); //true
 ```
 
-“也就是说，如果我做了这样的事情，它就会成功!”
+“也就是说，如果我像这样写的话，它就可以!”
 
 ```Javascript
 var myObj = {  
@@ -510,10 +498,9 @@ var myObj = {
 };
 ```
 
-遗憾的是，这是所有逻辑失败的地方。上面的代码是一个错误的，编译器抱怨它找不到未定义的属性_a_。(http://stackoverflow.com/questions/4616202/self-reference -in object- literations/10766107 #10766107 #10766107)我就是不知道。
+遗憾的是，不是这样的，这会导致逻辑错误。上面的代码是不正确的，编译器会抱怨它找不到未定义的属性 _a_ 。 [为什么会这样？](http://stackoverflow.com/questions/4616202/self-reference-in-object-literations/10766107#10766107)我也不太清楚。
 
-
-幸运的是，getters(隐式绑定)正在为我们提供帮助。
+幸运的是，getters（隐式绑定）可以给我们提供帮助。
 
 ```Javascript
 var myObj = {  
@@ -526,16 +513,13 @@ var myObj = {
 console.log( myObj.b ); // 4
 ```
 
-你坚持到底了!做得很好。[第二部分](https://github.com/xitu/gold- miner/blob/master/todo1/lets-setts-this-part -two.md)等着你，再见。
+你坚持到最后了！做得好。[第二部分](https://github.com/xitu/gold- miner/blob/master/todo1/lets-setts-this-part -two.md)，我们再见。
 
-
-如果你发现这篇文章很有用，你可以推荐并分享给其他开发者。我经常发表文章，在[Twitter](http://twitter.com/NashVail)和[Medium](http://medium.com/@nashvail)上关注我，以便在这种情况发生时得到通知。
-
+如果你发现这篇文章很有用，你可以推荐并分享给其他开发者。我经常发表文章，在 [Twitter](http://twitter.com/NashVail) 和 [Medium](http://medium.com/@nashvail) 上关注我，以便在这种情况发生时得到通知。
 
 谢谢你的阅读，祝你愉快!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
