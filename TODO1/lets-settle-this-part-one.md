@@ -513,7 +513,7 @@ var myObj = {
 console.log( myObj.b ); // 4
 ```
 
-你坚持到最后了！做得好。[第二部分](https://github.com/xitu/gold- miner/blob/master/todo1/lets-setts-this-part -two.md)，我们再见。
+你坚持到最后了！做得好。[第二部分](https://github.com/xitu/gold-miner/blob/master/todo1/lets-setts-this-part -two.md)，我们再见。
 
 如果你发现这篇文章很有用，你可以推荐并分享给其他开发者。我经常发表文章，在 [Twitter](http://twitter.com/NashVail) 和 [Medium](http://medium.com/@nashvail) 上关注我，以便在这种情况发生时得到通知。
 
