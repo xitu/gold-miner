@@ -2,7 +2,7 @@
 > * 原文作者：[Nash Vail](https://medium.com/@nashvail?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lets-settle-this-part-one.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lets-settle-this-part-one.md)
-> * 译者：
+> * 译者：[geniusq1981](https://github.com/geniusq1981)
 > * 校对者：
 
 # Let’s settle ‘this’ — Part One> * 原文地址：[Let’s settle ‘this’ — Part One](https://medium.com/@nashvail/lets-settle-this-part-one-ef36471c7d97)
@@ -12,25 +12,25 @@
 > * 译者：[geniusq1981](https://github.com/geniusq1981)
 > * 校对者：
 
-# 让我们一起解决‘this’难题 — 第一部分
+# 让我们一起解决“this”难题 — 第一部分
 
 ![](https://i.loli.net/2018/07/23/5b553df9455fa.png)
 
-难道我们都不能理解吗?在某种程度上，几乎所有的 JavaScript 开发人员都曾经思考过“this”这个事情。对我来说，每当“this”出来捣乱的时候，我就想方设法地去解决掉它，然后就把它忘了，我想您应该也曾遇到过这样的场景。但是今天，让我们彻底解决这个问题吧，让我们一次性一劳永逸地解决“this”的问题。
+难道我们就不能彻底搞清楚“this”吗?在某种程度上，几乎所有的 JavaScript 开发人员都曾经思考过“this”这个事情。对我来说，每当“this”出来捣乱的时候，我就会想方设法地去解决掉它，但过后就把它忘了，我想您应该也曾遇到过类似的场景。但是今天，让我们弄明白它，让我们一次性地彻底解决“this”的问题，一劳永逸。
 
 前几天，我在图书馆遇到了一个意想不到的事情。
 
 ![](https://i.loli.net/2018/07/23/5b553e2648b71.png)
 
-这本书的整个第二章都是关于“this”的，我很有自信地通读了一遍，但是发现其中有些地方讲到的“this”，我居然搞不懂它们是什么，需要去猜测。是时候反省一下我多度自信的愚蠢行为了。我又把这一章重读了好几遍，发觉这些内容是每个 Javascript 开发人员都应该了解的。
+这本书的整个第二章都是关于“this”的，我很有自信地通读了一遍，但是发现其中有些地方讲到的“this”，我居然搞不懂它们是什么，需要去猜测。真的是时候反省一下我多度自信的愚蠢行为了。我再次把这一章重读了好几遍，发觉这里面的内容是每个 Javascript 开发人员都应该了解的。
 
-因此，我试图用一种更彻底的方式和更多的示例代码来展示 [凯尔·辛普森](http://getify.me/) 在他的这本书 [你不知道的 Javascript](https://github.com/getify/You-Dont-Know-JS) 中描述的那些规范。
+因此，我尝试着用一种更彻底的方式和更多的示例代码来展示 [凯尔·辛普森](http://getify.me/) 在他的这本书 [你不知道的 Javascript](https://github.com/getify/You-Dont-Know-JS) 中描述的那些规范。
 
-现在我不会通篇只讲理论，我会直接以曾经困扰过我的困难问题为例开始讲起，我希望它们也是你会感到困难的问题。不管这些问题是否会困挠你，我都会给出解释说明，我会一个接一个地向你介绍所有规则，当然还会有一些额外的小惊喜。
+在这里我不会通篇只讲理论，我会直接以曾经困扰过我的困难问题为例开始讲起，我希望它们也是你感到困难的问题。但不管这些问题是否会困挠你，我都会给出解释说明，我会一个接一个地向你介绍所有的规则，当然还会有一些额外追加的内容。
 
 在开始之前，我假设您已经了解了一些 JavaScript 的背景知识，当我讲到 global、window、this、prototype 等等的时候，你知道它们是什么意思。这篇文章中，我会同时使用 global 和 window，在这里它们就是一回事，是可以互换的。
 
-在下面给出的所有代码示例中，您的任务就是猜测控制台输出的结果是什么。如果你猜对了，就给你自己加一分。准备好了吗？让我们开始吧。
+在下面给出的所有代码示例中，您的任务就是猜一下控制台输出的结果是什么。如果你猜对了，就给你自己加一分。准备好了吗？让我们开始吧。
 
 #### Example #1
 
