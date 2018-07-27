@@ -2,187 +2,187 @@
 > * 原文作者：[André Staltz](https://staltz.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/unidirectional-user-interface-architectures.md](https://github.com/xitu/gold-miner/blob/master/TODO1/unidirectional-user-interface-architectures.md)
-> * 译者：
-> * 校对者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
+> * 校对者：[Hopsken](https://github.com/Hopsken)，[dandyxu](https://github.com/dandyxu)
 
-# UNIDIRECTIONAL USER INTERFACE ARCHITECTURES
+# 单向用户界面架构
 
-This post is a non-exhaustive quick overview of the so-called “unidirectional data flow” architectures. Not meant to be taken as a beginner tutorial, but rather as an overview of their differences and peculiarities. At the end, I’ll introduce a new architecture which deviates significantly from the others. This post assumes client-side Web UI frameworks only.
+本文对所谓的“单向数据流”架构进行了非详尽的概述。这并不意味着本文应被视为一个初学者教程，它更应该是一个架构之间的差异和特性的概述。最后，我将会介绍一个和其他框架显著不同的新框架。本文仅假设客户端是 Web UI 框架。
 
-## TERMINOLOGY
+## 术语
 
-It would be confusing to talk about these architectures without a common terminology, so let’s assume the following.
+如果没有术语的共识，讨论这些框架可能会造成困惑，所以我们作出如下的假设：
 
-> **User events** are events coming from input devices directly manipulated by the user. Examples: mouse clicks, scrolls, keyboard presses, touches on a touchscreen, etc.
+> **用户事件（User events）** 是来自用户直接操作的输入设备的事件。比如：鼠标点击，鼠标滚动，键盘按键，屏幕触摸等等。
 
-Architectures might use the term “View” with drastically different connotations. Instead, we use “rendering” to refer to the common understanding of “View”:
+当不同的框架使用 “View” 这个术语时，含义可能大不相同。作为替代，我们使用 “rendering” 来代表共识中的 “View”。
 
-> **User interface rendering** is the graphical output on the screen, commonly expressed as HTML or some comparable high-level declarative code such as JSX.
+> **用户接口渲染（User interface rendering）**指代屏幕上的图形输出，一般情况下用 HTML 或者其他类似的高级声明代码比如 JSX 来描述。
 
-> A **User interface (UI) program** is any program which takes user events as input and outputs rendering, as an ongoing process rather than a one-time transformation.
+> 一个**用户界面（UI）程序（User interface (UI) program）**是任何一个将用户事件作为输入输出视图的程序，这是一个持续的过程而不是一次性的转换。
 
-The DOM and other layers such as frameworks and libraries are assumed to exist between the user and the architecture.
+假定 DOM 以及其他层比如一些框架和库存在于用户和架构之间。
 
-**Ownership of inter-module arrow matters.** `A--> B` is different than `A -->B`. The former is Passive programming, while the latter is Reactive programming. Read more [here](http://cycle.js.org/observables.html#reactive-programming).
+**模块间箭头的所属很重要。**`A--> B` 和 `A -->B` 是不一样的。前者是被动编程，而后者是反应式编程。[这里](http://cycle.js.org/observables.html#reactive-programming)可以阅读更多。
 
-> A unidirectional architecture is said to be **fractal** if subcomponents are structured in the same way as the whole is.
+> 如果子组件和整体的结构一致，这个单向架构就被称为**分形（fractal）**。
 
-In fractal architectures, the whole can be naively packaged as a component to be used in some larger application.
+在分形架构中，整体可以像组件一样简单地打包然后用于更大的应用。
 
-In non-fractal architectures, the non-repeatable parts are said to be **orchestrators** over the parts that have hierarchical composition.
+在非分形架构中，那些不重复的部分被称为**协调器（orchestrators）**，它们不属于具有分级结构的部分。
 
 ## FLUX
 
-First compulsory mention goes to [Flux](https://github.com/facebook/flux/). It cannot be said to be the absolute pioneer, but at least in terms of popularity, it is the first unidirectional architecture for many people.
+第一个必须提到的是 [Flux](https://github.com/facebook/flux/)。它虽然不是绝对的先驱，但是至少在流行度上，对于很多人它都是第一个单向架构。
 
-**Parts:**
+**组成部分：**
 
-*   **Stores**: manage business data and state
-*   **View**: a hierarchical composition of React components
-*   **Actions**: events created from user events that triggered on the View
-*   **Dispatcher**: an event bus for all actions
+*   **Stores**：管理事务信息和状态
+*   **View**：一个 React 组件的分级结构
+*   **Actions**：由 View 当中触发的用户事件而产生的事件
+*   **Dispatcher**：搭载所有 actions 的事件
 
 [![Flux diagram](https://staltz.com/img/flux-unidir-ui-arch.jpg)](https://staltz.com/img/flux-unidir-ui-arch.jpg)
 
-**Peculiarities:**
+**特点：**
 
-**Dispatcher.** Because this is an event bus, it’s a singleton. Many Flux variants remove the need for a dispatcher, and other unidirectional architectures don’t have an equivalent to the dispatcher.
+**Dispatcher。** 因为它是事件的载体，它是唯一的。很多 Flux 的变体去掉了对 dispatcher 的需求，其他的一些单向框架也没有 dispatcher 等同物。
 
-**Only View has composable components.** Hierarchical composition happens only among React components, not with Stores neither with Actions. A React component is a UI program, and is usually not written as a Flux architecture internally. Hence Flux is not fractal, where the orchestrators are the Dispatcher and the Stores.
+**只有 View 有可组合组件。** 分级结构仅存在于 React 组件中，Stores 和 Actions 都没有。一个 React 组件就是一个 UI 程序，并且其内部通常不会编写成一个 Flux 架构的形式。所以 Flux 不是分形的，Dispatcher 和 Stores 作为它的协调器。
 
-**User event handlers are declared in the rendering.** In other words, the `render()` function of React components handles both directions of interaction with the user: rendering and user event handlers (e.g. `onClick={this.clickHandler}`).
+**用户事件处理器在 rendering 中声明。** 换句话说，React 组件的 `render()` 函数处理和用户交互的两个方向：渲染和用户事件处理（例如 `onClick={this.clickHandler}`）
 
 ## REDUX
 
-[Redux](http://rackt.github.io/redux/) is a variation of Flux where the singleton Dispatcher was adapted to become a singleton Store. The Store is not implemented from scratch, instead, it is created by giving a reducer function to a store factory.
+[Redux](http://rackt.github.io/redux/) 是一个 Flux 的变体，单例 Dispatcher 被改编成了一个独一的 Store。Store 不是从零开始实现的，相反，创建它的方式是给 store 工厂一个 reducer 函数。
 
-**Parts:**
+**组成部分：**
 
-*   **Singleton Store**: manages state and has a `dispatch(action)` function
-*   **Provider**: a subscriber to the Store which interfaces with some “View” framework like React or Angular
-*   **Actions**: events created from user events that are created under the Provider
-*   **Reducers**: pure functions from previous state and an action to new state
+*   **Singleton Store**：管理状态，并拥有一个 `dispatch(action)` 函数
+*   **Provider**：Store 的订阅者，和像 React 或者 Angular 这样的 “View” 框架交互
+*   **Actions**：由用户事件创建的事件，并且是根据 Provider 而创建
+*   **Reducers**：纯函数，根据前一状态和一个 action 得出新的状态
 
 [![Redux diagram](https://staltz.com/img/redux-unidir-ui-arch.jpg)](https://staltz.com/img/redux-unidir-ui-arch.jpg)
 
-**Peculiarities:**
+**特点：**
 
-**Factories for stores.** A Store is created using the `createStore()` factory function, taking a composition of reducer functions as argument. There is also a meta-factory `applyMiddleware()` function which takes middleware functions as arguments. Middlewares are mechanisms of overriding the `dispatch()` function of a store with additional chained functionality.
+**store 工厂。** 使用工厂函数 `createStore()` 可以创建 Store，由 reducer 函数作为组成参数。还有一个元工厂函数 `applyMiddleware()`，接受中间件函数作为参数。中间件是用附加的链式功能重写 store 的 `dispatch()` 函数的机制。
 
-**Providers.** Redux is unopinionated with regards to the “View” framework used to make the UI program. It can be used with React or Angular or others. In the context of this architecture, “View” is a UI program. Like Flux, Redux is not (by design) fractal and the Store is an orchestrator.
+**Providers。** 对于用来作为 UI 程序的 “View” 框架，Redux 并不武断控制。它可以和 React 或者 Angular 或者其他框架配合使用。在这个框架中，“View” 是 UI 程序。和 Flux 一样，Redux 被设计为非分形的，并且以 Store 作为协调器。
 
-**User event handlers may or may not be declared in the rendering.** It depends on the Provider at hand.
+**用户事件处理函数的声明可能在也可能不在 rendering。** 取决于当下的 Provider。
 
 ## BEST
 
-The [Famous Framework](https://blog.famous.org/introducing-the-famous-framework/) introduced Behavior-Event-State-Tree (BEST) as a variant of MVC, where the Controller is split into two unidirectional elements: Behavior and Event.
+[Famous Framework](https://blog.famous.org/introducing-the-famous-framework/) 引入了 Behavior-Event-State-Tree (BEST)，它是一个 MVC 的变体，BEST 中 Controller 分成了两个单向元素：Behavior 和 Event。
 
-**Parts:**
+**组成部分：**
 
-*   **State**: JSON-like declaration of initial state
-*   **Tree**: a declarative hierarchical composition of components
-*   **Event**: event listeners (on tree) that mutate state
-*   **Behavior**: dynamic properties (of tree) dependent on the state
+*   **State**: 用类 JSON 结构的声明来初始化 state
+*   **Tree**: 一个组件的声明性分级结构
+*   **Event**: 在 Tree 上的事件监听，它能改变 state
+*   **Behavior**: 依赖 state 的 tree 的动态属性
 
 [![BEST diagram](https://staltz.com/img/best-unidir-ui-arch.jpg)](https://staltz.com/img/best-unidir-ui-arch.jpg)
 
-**Peculiarities:**
+**特点：**
 
-**Multi-paradigm.** State and Tree are fully declarative. Event is imperative. Behavior is functional. Some parts are reactive, other parts are passive (e.g. Behavior reacts to State, and Tree is passive to the Behavior).
+**多范例。** State 和 Tree 是完全声明式的。Event 是急迫性的，Behavior 是功能性的。一些部分是响应式的，而其他部分则是被动式的。（例如，Behavior 会对 State 作出反应，Tree 则对 Behavior 比较消极）
 
-**Behavior.** Not seen in any other architecture in this post, the Behavior separates UI rendering (Tree) from its dynamic properties. These are allegedly different concerns: Tree is comparable to HTML, Behavior is comparable to CSS.
+**Behavior。** Behavior 将 UI 视图（Tree）和它的动态属性分离了，这在本文中的其他几个框架中都不会出现。据称，这出于不同的考虑：Tree 就好比 HTML，Behavior 就好比 CSS。
 
-**User event handlers are declared separately from rendering.** BEST is one of the few unidirectional architectures that do not attach user event handlers in the rendering. User event handlers belong to Event, not to Tree.
+**用户事件处理的声明从视图分离。** BEST 是极少的不将用户事件处理和视图关联的单向框架之一。用户事件处理属于 Event，而不是 Tree。
 
-In the context of this architecture, “View” is a Tree, and a “Component” is a Behavior-Event-Tree-State tuple. Components are UI programs. BEST is a fractal architecture.
+在这个框架中，“View” 是一个树结构，一个 “Component” 是一个 Behavior-Event-Tree-State 元组。组件是 UI 程序。BEST 是分形框架。
 
 ## MODEL-VIEW-UPDATE
 
-Also known as “[The Elm Architecture](https://github.com/evancz/elm-architecture-tutorial/)”, Model-View-Update shares similarities to Redux, mainly because the latter is inspired by this architecture. This is a purely functional architecture because its host language is [Elm](http://elm-lang.org/), a functional programming language for the Web.
+也被称为 “[The Elm Architecture](https://github.com/evancz/elm-architecture-tutorial/)”，Model-View-Update 和 Redux 很相似，主要因为后者是受这个框架启发的。这是一个纯函数的框架，因为它的主语言是 [Elm](http://elm-lang.org/)，一个 Web 的函数式编程语言。
 
-**Parts:**
+**组成部分：**
 
-*   **Model**: a type defining the structure of state data
-*   **View**: a pure function transforming state into rendering
-*   **Actions**: a type defining user events sent through mailboxes
-*   **Update**: a pure function from previous state and an action to new state
+*   **Model**：一个定义状态数据结构的类型
+*   **View**：将状态转化为视图的纯函数
+*   **Actions**：定义通过邮件发送的用户事件的类型
+*   **Update**：一个纯函数，将前一状态和 action 转变为新的状态
 
 [![Model-View-Update diagram](https://staltz.com/img/mvu-unidir-ui-arch.jpg)](https://staltz.com/img/mvu-unidir-ui-arch.jpg)
 
-**Peculiarities:**
+**特点：**
 
-**Hierarchical composition everywhere.** The previous architectures had hierarchical composition only in their “View”, however in the MVU architecture such composition is also found in Model and Update. Even Actions may contain nested Actions.
+**到处都是分级结构。** 之前的几个框架只在 “View” 中有分级结构，但是在 MVU 架构中这样的结构在 Model 和 Update 中也能找到。甚至是 Actions 可能也嵌套了 Actions。
 
-**Components are exported as pieces.** Because of the hierarchical composition everywhere, a “component” in the Elm Architecture is a tuple of: a Model type, an initial Model instance, a View function, an Action type, and an Update function. There cannot be components which deviate from this structure throughout the whole architecture. Each component is a UI program, and this architecture is fractal.
+**组件分块导出。** 因为哪里都是分级结构，在 Elm 架构中的 “component” 是一个元组，包括了：模块类型，一个初始模块实例，一个 View 函数，一个 Action 类型，一个 Update 函数。纵览整个架构，不可能有组件从这个结构中偏离。每个组件都是 UI 程序，并且这个架构是分形的。
 
 ## MODEL-VIEW-INTENT
 
-Introduced as a fully reactive unidirectional architecture based on [RxJS](https://github.com/Reactive-Extensions/RxJS) Observables, Model-View-Intent is the primary architectural pattern in the framework [Cycle.js](http://cycle.js.org). The _Observable_ event stream is a primitive used everywhere, and functions over Observables are pieces of the architecture.
+Model-View-Intent 是基于框架 [Cycle.js](http://cycle.js.org) 的主要架构模式，它同时也是基于观察者 [RxJS](https://github.com/Reactive-Extensions/RxJS) 的完全反应单向架构。**可观察（Observable）** 事件流是一个所有地方都用到的原函数，Observables 上的函数是架构的一部分。
 
-**Parts:**
+**组成部分：**
 
-*   **Intent**: function from Observable of user events to Observable of “actions”
-*   **Model**: function from Observable of actions to Observable of state
-*   **View**: function from Observable of state to Observable of rendering
-*   **Custom element**: subsection of the rendering which is in itself a UI program. May be implemented as MVI, or as a Web Component. Is optional to use in a View.
+*   **Intent**：来自 Observable 用户事件的函数，用来观察 “actions”
+*   **Model**：来自 Observable 的 actions 的函数，观察 state
+*   **View**：来自 Observable 的 state 的函数，观察 rendering 视图
+*   **Custom element**：rendering 视图的子部件，其自身也是一个 UI 程序。可能会作为 MVI 或者一个 Web 组件被应用。是否应用于 View 是可选的。
 
 [![Model-View-Intent diagram](https://staltz.com/img/mvi-unidir-ui-arch.jpg)](https://staltz.com/img/mvi-unidir-ui-arch.jpg)
 
-**Peculiarities:**
+**特点：**
 
-**Heavily based on Observables.** The outcome of each part of the architecture is expressed as an Observable event stream. Because of this, it is hard or impossible to express any “data flow” or “change” without using Observables.
+**极大的依赖于 Observables。** 该框架每一部分的输出都被描述为 Observable 事件流。因此，如果不用 Observables，就很难或者说不可能描述任何 “data flow” 或 “change”。
 
-**Intent.** Roughly comparable to _Event_ in BEST, user event handlers are declared in the Intent, separately from rendering. Unlike BEST, Intent produces Observable streams of actions, which are like those in Flux, Redux, and Elm. Unlike Flux and others, though, actions in MVI are not directly sent to a Dispatcher or a Store. They are simply available for the Model to listen.
+**Intent。** 和 BEST 中的 **Event** 大致相似，用户事件处理在 Intent 中声明，从视图中分离出来。和 BEST 不同，Intent 创建了 actions 的 Observable 流，这里的 actions 就和 Flux，Redux，和 Elm 中的类似。但是，和 Flux 等中的不同的是， MVI 中的 actions 不直接被发送到 Dispatcher 或 Store。它们就是简单的可以直接被模块监听。
 
-**Fully reactive.** The user’s rendering reacts to the View’s output, which reacts to the Model’s output, which reacts to the Intent’s output (actions), which reacts to user events.
+**完全反应。** 用户视图反应到视图输入，视图输出反应到模块输出，模块输出反应到 Intent 输出，Intent 输出反应到用户事件。
 
-A MVI tuple is a UI program. This architecture is fractal if and only if all custom elements are implemented with MVI.
+MVI 元组是一个 UI 程序。当且仅当所有用户定义元素与 MVI 一起应用时，这个框架是分形的。
 
 ## NESTED DIALOGUES
 
-This blog post introduces _Nested Dialogues_ as a new unidirectional architecture meant for Cycle.js and any other approach based solely on Observables. It is an evolution of the Model-View-Intent architecture.
+这篇博文将 **Nested Dialogues** 作为一个新的单向架构来介绍，适用于 Cycle.js 和其他完全依赖于 Observables 的方法。这是 Model-View-Intent 架构的一次进化。
 
-Start from the fact that a Model-View-Intent sequence can be functionally composed as a single function, a “Dialogue”:
+从 Model-View-Intent 序列可以函数化组合为一个函数这个特性说起，一个 “Dialogue”：
 
 [![A Dialogue function equivalent to Model-View-Intent](https://staltz.com/img/dialogue-mvi-unidir-ui-arch.jpg)](https://staltz.com/img/dialogue-mvi-unidir-ui-arch.jpg)
 
-As the diagram suggests, a **Dialogue** is a function taking an Observable of user events as input (the input of Intent) and outputting an Observable of renderings (the output of View). Therefore a Dialogue is a UI program.
+如图所示，一个 **Dialogue** 是一个将用户事件的 Observable 作为输入（Intent 的输入），然后输出一个视图的 Observable（View 的输出）的方法。因此，Dialogue 就是一个 UI 程序。
 
-We generalize the definition of a Dialogue to allow other targets beyond the user, with an input Observable and an output Observable for each target. For example, if a Dialogue interfaces with a user and a server over HTTP, the Dialogue would take two Observables as input: Observable of user events and Observable of HTTP responses. Then, it would output two Observables as output: Observable of renderings and Observable of HTTP requests. This is the concept of [Drivers](http://cycle.js.org/drivers.html) in Cycle.js.
+我们推广了 Dialogue 的定义来容许用户之外的其他目标，每一个目标都有一个 Observable 输入和一个 Observable 输出。例如，如果 Dialogue 通过 HTTP 连接了用户和服务端，这个 Dialogue 就应该接受两个 Observables 作为输入：用户事件的 Observables 和 HTTP 响应的 Observables。然后，它将会输出两个 Observables：视图的 Observables 和 HTTP 请求的 Observables。这个是 Cycle.js 里面 [Drivers](http://cycle.js.org/drivers.html) 的概念。
 
-This is how Model-View-Intent restructured as a Dialogue looks like:
+这就是 Model-View-Intent 作为 Dialogue 重组后的样子：
 
 [![A Dialogue function as a UI program](https://staltz.com/img/single-dialogue-unidir-ui-arch.jpg)](https://staltz.com/img/single-dialogue-unidir-ui-arch.jpg)
 
-To reuse a Dialogue function as a subcomponent UI program in a larger program is a matter of nesting a Dialogue inside another one:
+要想将 Dialogue 方法作为一个更大程序的 UI 程序子组件重复使用，这就涉及到 Dialogue 之间的嵌套问题：
 
 [![Nested Dialogues](https://staltz.com/img/nested-dialogues-unidir-ui-arch.jpg)](https://staltz.com/img/nested-dialogues-unidir-ui-arch.jpg)
 
-The wiring of Observables between layers of Dialogues is a data flow graph. It is not necessarily an acyclic graph. There are cases such as dynamic lists of subcomponents where a cycle is needed in the data flow graph. Examples of such are beyond the scope of this blog post.
+Observables 在 Dialogues 不同层之间的连接是一个数据流图。它并不必须是一个非周期图。在例如子组件动态列表这样的实例中，数据流图就必须是周期的。这样的例子超出了本文的讨论范围。
 
-Nested Dialogues is in fact a meta-architecture: it has no convention for the internal structure of a component, allowing us to embed any of the aforementioned architectures into a Nested Dialogue component. The only convention regards the interface of a Dialogue’s extremes: input must be a (collection of) Observable(s), output also must be a (collection of) Observable(s). If a UI program structured as Flux or Model-View-Update or others can have its output and inputs expressed as Observables, then that UI program can be embedded into a Nested Dialogues program as a Dialogue function.
+嵌套的 Dialogues 实际上是一个元架构：它对组件的内部结构没有约束，这就允许我们将前文所述的所有架构嵌入一个嵌套的 Dialogue 组件中。唯一的约束涉及 Dialogue 的一端的接口：输入和输出都必须是一个或一组 Observable。如果一个结构如同 Flux 或者 Model-View-Update 的 UI 程序能够让它的输入和输出都以 Observables 呈现，那么这个 UI 程序就能够作为一个 Dialogues 函数嵌入一个嵌套的 Dialogues。
 
-This architecture is therefore fractal (with regards to the Dialogue interface only) and general.
+因此，这个架构是分形的（仅涉及 Dialogue 接口时）、一般性的。
 
-See this [TodoMVC implementation](https://github.com/cyclejs/todomvc-cycle) and [this small app](https://github.com/cyclejs/cycle-examples/tree/master/bmi-nested) as examples of Nested Dialogues with Cycle.js.
+可以查看 [TodoMVC implementation](https://github.com/cyclejs/todomvc-cycle) 和 [this small app](https://github.com/cyclejs/cyclejs/tree/master/examples/advanced/bmi-nested) 作为使用了 Cycle.js 的嵌套 Dialogues 的例子。
 
-## MY BIASED CONCLUSION
+## 重点总结
 
-While the generality and elegance of Nested Dialogues can be theoretically used to embed other architectures as subcomponents, I am mainly interested in this architecture for structuring Cycle.js applications. I have been searching for a UI architecture which feels **natural** and **flexible**, while at the same providing **structure**.
+尽管嵌套 Dialogues 的一般性和优雅性在理论上可以用来作为子组件嵌入到其他架构中，但我对这个框架最主要的兴趣在于构建 Cycle.js 应用。我一直在寻找一个**自然**且**灵活**的 UI 架构，并且同时能够提供 **结构**。
 
-I believe Nested Dialogues is _natural_ because it directly represents what any typical UI program does: an ongoing process (Observables are ongoing processes) that takes user events as input (the input Observable), and produces rendering as output (the output Observable).
+我认为嵌套的 Dialogues 是**自然**的，因为它直接表现了其他典型 UI 程序完成的：一个将用户事件作为输入（输入 Observable）持续运行的进程（Observable 就是持续的进程），并且产生视图作为输出（输出 Observable）。
 
-It should be a _flexible_ architecture as well, because as we saw, the internal structure of a Dialogue can be freely implemented with any pattern. This is in contrast to Model-View-Update which has a rigid structure as convention. Fractal architectures seem more reusable than non-fractals, so I’m glad Nested Dialogues has this property too.
+它也是**灵活的**，因为正如我们所见，Dialogue 的内部结构可以自由的应用于任何模式。这和有着死板结构作为条框的 Model-View-Update 截然相反。分形架构比非分形的更加易重用，我很高兴嵌套的 Dialogues 也有这个属性。
 
-However, some common _structure_ can be helpful to guide development. While I believe the internal structure of a Dialogue could be Flux, I think Model-View-Intent fits the Observable input/output interface naturally. So while I want to be free to not implement a Dialogue as MVI, I acknowledge most of the times I will structure it as MVI.
+但是，一些常规的**结构**也可以对引导开发有所帮助。虽然我认为 Dialogue 的内部结构应当是 Flux，但我想 Model-View-Intent 很自然的适配了 Observable 的输入输出接口。所以当我想自由一些，不把 Dialogue 作为 MVI 时，我承认大部分时间我都会把它构造成 MVI。
 
-I don’t want to be pretentious to say this is the best user interface architecture, because I have just discovered it and still need to use it in the wild to see its pros and cons. Nested Dialogues is just my strongest bet at the moment.
+我不想自大的说这是最好的用户界面架构，因为我也是刚刚发现了它并且依旧需要实际应用来发现它的优缺点。嵌套 Dialogues 仅仅是我现在的最强烈推荐。
 
 * * *
 
 [Comments in Hacker News](https://news.ycombinator.com/item?id=10115314).
 
-If you liked this article, consider sharing [(tweeting)](https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fstaltz.com%2Funidirectional-user-interface-architectures.html&text=Unidirectional%20User%20Interface%20Architectures&tw_p=tweetbutton&url=https%3A%2F%2Fstaltz.com%2Funidirectional-user-interface-architectures.html&via=andrestaltz "tweeting") it to your followers.
+如果你喜欢这篇文章，分享给你的 followers：[(tweeting)](https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fstaltz.com%2Funidirectional-user-interface-architectures.html&text=Unidirectional%20User%20Interface%20Architectures&tw_p=tweetbutton&url=https%3A%2F%2Fstaltz.com%2Funidirectional-user-interface-architectures.html&via=andrestaltz "tweeting")。
 
 
 ---

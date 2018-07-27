@@ -2,58 +2,57 @@
 > * 原文作者：[Fuyukai](https://veriny.tf/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/classes-without-classes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/classes-without-classes.md)
-> * 译者：
-> * 校对者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
+> * 校对者：[allenlongbaobao](https://github.com/allenlongbaobao)，[sunhaokk](https://github.com/sunhaokk)
 
-# Classes Without Classes
+# 不用 Class，如何写一个类
 
-## Preface
+## 前言
 
-Python's object model is incredibly powerful; you can override virtually everything, or hand out weird objects to anyone and have them accept it as if it is a normal object.
+Python 的对象模型令人难以置信的强大；实际上，你可以重写所有（对象），或者向任何人分发奇怪的对象，并让他们像对待正常的对象的那样接受它。
 
-Python's OO is a descendant of smalltalk OO, where everything is an object, even objects and object types; especially functions. This made me wonder: is it possible to write classes without using classes?
+Python 的面向对象是 smalltalk 面向对象的一个后裔。在 Python 中，一切都是对象，甚至对象集和对象类型都是如此；特别的，函数也是对象。这让我很好奇：不使用类创建一个类是否可能？
 
-## The code
+## 代码
 
-The hefty code for this is down below. It's a very basic implementation, but it supports such edge cases as `__call__` (but not other magic methods, due to Magic Method loading alas). The explanation is then below that.
+这个想法的关键性代码如下所示。这是一个很基础的实现，但它支持 `__call__` 这样的边缘情况（但不支持其他魔术方法，因为他们需要加载依赖）。后文将会解说。
 
-## What the heck?
+## 有没有搞错？
 
-This is some pretty advanced Python hackery that involves using some objects in a way they definitely weren't meant to be. We'll go through this in chunks.
+这是一些很先进的 Python 轮子，它用一种和对象的设计初衷绝不相同的方法使用了一些对象。我们将分段解说代码。
 
-#### The first helper
+#### 第一个 helper
 
 ```
 def _suspend_self(namespace, suspended):  
 ```
 
-This is a scary signature. Suspension? That's never good. But we can work through this. The `_suspend_self` function is a simple implementation of `functools.partial` that works by capturing `namespace` in the outer function scope, "suspending" it in an inner function.
+这是个让人有点害怕的函数名。暂停？这可不好，但我们是可以解决问题的。`_suspend_self` 函数是 `functools.partial` 的一个简单应用，它的工作原理是：通过从外部函数作用域中捕获 `namespace`，并把它悬停在内部函数中。
 
 ```
     def suspender(*args, **kwargs):
         return suspended(namespace, *args, **kwargs)
 ```
 
-This inner function then calls the function being passed with the namespace as the first argument, essentially making a method wrapper as it would be implemented on a regular Python class. The rest of `_suspend_self` is just setting some attributes that reflection might use at some point (I probably missed some).
+接下来，这个内部的函数调用了和第一个参数 namespace 一起传递进来的函数 suspended，实际上这是将方法又包了一层，这样它就可以应用在一个普通的 Python 类上。`_suspend_self` 余下的部分就只是设置一些属性，这些属性在某些时候可能会被映射（reflection）用到（我可能漏掉一些内容）。
 
-#### The beast
+#### 猛兽（beast）
 
-The next function along is `make_class`. What can we learn from its signature?
+下一个函数是 `make_class`。从它的签名中我们能知道什么？
 
 ```
 def make_class(locals: dict):  
     """
-    Makes a class, from the locals of the callee.
-
-    :param locals: The locals to build the class from.
+    在被调用者的本地创建一个类。
+    参数 locals：建立类的本地。
     """
 ```
 
-When something either asks for or just takes your local variables, it's never good. Usually, it's for scanning for something in a previous stack frame, or just hacking with your locals. In our case, it's the former; scanning your locals for functions to add to your class.
+如果其他方法请求或者直接取得了你的本地变量，可不是什么好事。通常情况下，这是为了在之前的栈中搜索什么东西，或者就是在黑你的本机。我们当前的实例属于前面一种，搜索本地函数并加入到类中。
 
 ```
-    # try and find a `__call__` to implement the call function
-    # this is made as a function so that namespace and called can refer to eachother
+    # 试着找到一个 `__call__` 来执行 call 函数
+    # 它将作为一个函数，这样命名空间和被调用者可以引用彼此
     def call_maker():
         if '__call__' in locals and callable(locals['__call__']):
             return _suspend_self(namespace, locals['__call__'])
@@ -64,46 +63,46 @@ When something either asks for or just takes your local variables, it's never go
         return _not_callable
 ```
 
-This function is quite simple; it's a function that returns a function!
-What this actually does is the following:
+这个函数相当简单，它是一个将函数作为返回值的函数！
+它实际上做了如下这些事：
 
-*   Check if you've defined a `__call__` in your function-class
-*   If so, it makes it a method by suspending the namespace using `_suspend_self`, as described above.
-*   If not, it returns a stub function that raises an error, the same as the default `__call__`.
+*   在函数类中检查你是否已经定义过 `__call__`
+*   如果有，就像上文介绍过的那样，用 `_suspend_self` 函数“挂载” namespace 来用 `__call__` 生成一个方法。
+*   如果没有，就和默认的 `__call__` 一样，返回一个会发起错误的桩函数（stub function）。
 
-#### The namespace
+#### 命名空间 namespace
 
-The namespace is a key part that I haven't explained yet. Every (for the most part) method on a class takes a `self` parameter as the first parameter, and that is the instance of the class that the function works on.
+namespace 是关键的部分，然而我还没有解说。类中的每一个（或者绝大部分）方法都会将 `self` 作为第一个参数，这个 `self` 就是函数运行的时候类的实例。
 
-The instance of a class is really just a dictionary that you can do dot-access on, instead of index-access. So we need an object to mimic that which we can pass into every function we want. So we just say that our instance is a `namespace` on which we set stuff on. Where I use `namespace` later, think of it as our instance. You get the instance of a class by calling the class object itself, ala `obb = SomeClass()`.
+一个类的实例实际上就是一个你可以用 `.` 符号而不是数字索引访问其内容的字典。所以需要一个可以传入我们期望的函数的对象来模仿这个字典。于是我们就说，这个实例是一个 `namespace`，我们在 `namespace` 上设置变量等等。后文提到 `namespace` 的地方，就把它当作我们的实例。通过调用类的对象自身，你可以获取这个类的实例：`obb = SomeClass()`。
 
-The standard way of creating a dot-access dictionary is an attrdict:
+标准的创建点式访问的字典的方法是 attrdict：
 
 ```
 attrdict = type("attrdict", (dict,), {"__getattr__": dict.__getitem__, "__setattr__": dict.__setitem__})  
 ```
 
-However, that would be cheating, since it's making a class. The other ways are `typing.SimpleNamespace`, or making a sentinel empty class but both are making classes which is cheating, so we can't use both.
+但是既然它创建了一个类，这就有点欺骗性了。其他的方法包括 `typing.SimpleNamespace`，或者创建一个无哨兵（sentinel）的类。但是这两种方法都还是欺骗性的创建了类，我们都不能用。
 
-##### The solution
+##### 解决方案
 
-The solution to our namespace is another function. Functions can act as callable dot-access dictionaries, so we simply make a `namespace` function and pretend it's our self.
+namespace 的解决方案是另一个函数。函数的行为可以像可调用的点式访问字典，所以我们就简单的创建一个  `namespace` 函数，假设它就是 self。
 
 ```
-    # this acts as the "self" object
-    # all attributes are set on this
+    # 这个就充当了 self 对象
+    # 所有的属性都建立在此之上
     def namespace():
         return called()
 ```
 
-Note the usage of calling `called()` - this is to emulate the behaviour of `__call__` on an instance normally.
+需要注意调用 `called()` 的用法 - 这是为了正常模拟实例上 `__call__` 的行为。
 
-#### Making an `__init__`
+#### 创建 `__init__`
 
-Every class in Python has an `__init__` (not including one defaults to the stock empty init), so we need to mock that and ensure user-defined inits are called.
+Python 中的所有类都有 `__init__`（不包括默认提供空 init 的类），所以我们需要去模仿这一点并确保用户定义的 init 被调用。
 
 ```
-    # make an init substitute function
+    # 创建一个 init 的替代方法
     def new_class(*args, **kwargs):
         init = locals.get("__init__")
         if init is not None:
@@ -112,32 +111,32 @@ Every class in Python has an `__init__` (not including one defaults to the stock
         return namespace
 ```
 
-This simply gets the user-defined `__init__` from locals, and if it's found calls it. Then, it returns the namespace (which is our fake instance), effectively simulating the `(metaclass.)__call__` -> `__new__` -> `__init__` cycle.
+这段代码就是简单的从本地获取用户定义的 `__init__`，如果找到了，就调用它。然后，它返回 namespace（就是假的实例），有效地模拟了循环：`(metaclass.)__call__` -> `__new__` -> `__init__`。
 
-#### Cleaning up
+#### 清理
 
-The next thing to do is to make our methods on the class, which can be done with an incredibly simple scanning loop.
+接下来要做的就是在类的基础上创建方法，这可以用超级简单的循环扫描来完成：
 
 ```
-    # update namespace
+    # 更新 namespace
     for name, item in locals.items():
         if callable(item):
             fn = _suspend_self(namespace, item)
             setattr(namespace, name, fn)
 ```
 
-Similar to above, each callable function is wrapped in a `_suspend_self` to make the function a method, and set on the namespace.
+和上文提到的相似，所有可调用的函数都被 `_suspend_self` 包裹来将函数变成类的方法，在 namespace 完成设置。
 
-#### Getting our class
+#### 获取到类
 
-The final thing to do is to simply `return new_class`. The final cycle of getting an instance of our class is:
+最后要做的就是简单的 `return new_class`。获取到类的实例的最后一轮循环是：
 
-*   The user code defines a class function
-*   When the class function is called, it calls `make_class` to set up the namespace (this is done automatically by the `@make` decorator)
-*   The `make_class` function sets up the instance ready to be initialised later
-*   The `make_class` function returns another function which can be called to get the instance and initialise it.
+*   用户的代码定义了一个类函数
+*   当类函数被调用，该函数调用 `make_class` 来设置 namespace（添加 `@make` 修饰符，这一步就能自动完成）
+*   `make_class` 函数设置实例，使其为后续的初始化做好准备
+*   `make_class` 函数返回另一个函数，调用这个函数就能获取到实例并完成它的初始化。
 
-And there we have it, classes done without writing a single class. Use this in production, I dare you.
+现在我们就得到它了，一个完全没用类的类。打赌你会实际应用它。
 
 
 ---

@@ -2,256 +2,255 @@
 > * 原文作者：[Anthony Back](https://www.sitepoint.com/author/aback/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-blockchain-can-help-re-invent-healthcare.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-blockchain-can-help-re-invent-healthcare.md)
-> * 译者：
-> * 校对者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
+> * 校对者：[luochen1992](https://github.com/luochen1992)，[SergeyChang](https://github.com/SergeyChang)
 
-# How Blockchain Can Help Re-invent Healthcare
+# 区块链如何帮助重塑医疗保健行业
 
-**Ever wondered about blockchain applications in healthcare? This post will give you a well-rounded introduction to the transformative potential of blockchain and set out the complex interrelated issues that stand in the way of change.**
+**曾经想过区块链在医疗保健行业中的应用吗？这篇博客将会全面的介绍区块链的变革潜力，并阐述阻碍变革的复杂的相关问题。**
 
-As an important step in becoming a doctor, graduating medical school students swear to some form of the Hippocratic Oath.
+毕业于医学院的学生要以某种形式宣誓希波克拉底誓言，这是成为一名医生的重要一步。
 
-One of the vows within that oath is **“first, do no harm”** or **“primum nonnocere.”**
+誓言中的一句誓词是**“首先，绝不伤害（first, do no harm）”**或者**“primum nonnocere.”**（拉丁文的“first, do no harm”，译者注）
 
-While most medical professionals live up to this promise on a daily basis, the same cannot be said for the healthcare systems within which they operate.
+虽然大部分的医学业内人士都能日复一日地践行诺言，但是对于他们所在的医疗保健系统，这就不好说了。
 
-Despite significant leaps in the medical field, from devices and wearables to genome sequencing and regenerative medicine, individual improvements have not created the fundamental transformation that national healthcare systems require. [[1](https://www.youtube.com/watch?v=GO9Q7i-IcA8)]
+从医疗器械、可穿戴设备到基因组测序和再生医学，医学领域有了巨大的飞跃，尽管如此，个人医疗的改进并没有带来国家医疗保健系统所需的根本转变。[[1](https://www.youtube.com/watch?v=GO9Q7i-IcA8)]
 
-Health management and administrative systems remain relatively untouched by technology and regulatory reform and stand ill-equipped to serve the current and future needs of their target populations.
+健康管理和行政系统还保留着相对未被技术和监管改革触及的状态，并且没有足够的设备来满足其目标人群当前和未来的需求。
 
-## Demographic Stresses
+## 人口压力
 
-The world is getting older, especially in developed countries, which is placing a significant strain on healthcare systems. According to a 2015 report by the United Nations Department of Economic & Social Affairs [[2](http://www.un.org/en/development/desa/population/publications/pdf/ageing/WPA2015_Highlights.pdf)]:
+世界人口正在老龄化，尤其是在发达国家，这些地方的医疗保健系统正承载巨大压力。根据 2015 年联合国经济和社会事务部的报告 [[2](http://www.un.org/en/development/desa/population/publications/pdf/ageing/WPA2015_Highlights.pdf)]：
 
-*   Between 2015 and 2030, the group of over-60s will grow by 56%
-*   In 2015, one in eight people worldwide were aged 60 or over. By 2030, seniors are projected to account for one in six people globally.
-*   The aging process is most advanced in Europe and Northern America, where more than one in five people are aged 60 or over as of 2015.
-*   By 2030, the elderly are expected to account for more than 25% of the populations in Europe and Northern America, 20% in Oceania, 17% in Asia and Latin America and the Caribbean, and 6% in Africa.
+*   从 2015 到 2030 年，超过 60 岁的人口数量将会增长 56%
+*   在 2015 年，世界上八分之一的人将达到或者超过 60 岁。到 2030 年，预计老年人将占全球六分之一的人口。
+*   老龄化进程在欧洲和北美最为显著，2015 年这些地区达到或者超过 60 岁的人已经突破了五分之一。
+*   到 2030 年，欧洲和北美的老年人的比例有望会超过 25%，大洋洲则是 20%，亚洲、拉丁美洲和加勒比 17%，非洲 6%。
 
-In the developing world, particularly Sub-Saharan Africa and Asia, future challenges in healthcare will stem from population increases and economic factors rather than aging.
+在发展中国家，尤其是撒哈拉以南的非洲欧和亚洲，医疗保健未来的挑战将主要是人口激增和经济因素，而非老龄化。
 
-High population growth coupled with a trickle down of innovations is driving a growing middle-class.
+人口高速增长再加上创新的涓滴，导致中产阶级人口上升。
 
 ![](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2018/02/15184953031.jpeg)
 
-With growth coming almost exclusively from emerging nations, the world's middle class is expected to expand by another three billion over the next two decades. [[3](http://www.ey.com/gl/en/issues/driving-growth/middle-class-growth-in-emerging-markets---entering-the-global-middle-class)]
+伴随着几乎全部来自新兴国家的增长，在未来二十年后，世界的中产阶级人口有望增加三十亿。[[3](http://www.ey.com/gl/en/issues/driving-growth/middle-class-growth-in-emerging-markets---entering-the-global-middle-class)]
 
-Delivering efficient, sustainable and affordable healthcare to the world's aging population and emerging middle class will become more difficult without profound and substantive changes to national healthcare systems.
+如果没有国家医疗体系深刻的、实质性的改革，那么为世界的老龄人口和激增的中产阶级提供高效、可持续并且可负担的医疗保健将会变得更难，
 
-While problems are complex, systemic and by no means easily fixed, the vast majority of constraints experienced by healthcare systems can be traced to a single, yet highly corrosive root cause.
+虽然问题很复杂、系统性很强且不易修复，但是大部分医疗保健系统所承受的限制都可以追溯到一个单一却有高度腐蚀性的根本原因上。
 
-## Myopic, Outdated & Restrictive Compliance Regulations
+## 缺乏远见，过时和限制性的合规条例
 
-The costs, risks and societal sensitivities surrounding healthcare are profound. Due to the sensitive and central role healthcare plays in society, fearful government officials have been scared to make the deep regulatory changes required to reform healthcare.
+伴随着医疗保健的花费、风险和社会敏感性等问题都很深刻。由于医疗保健在社会中扮演着敏感且重要的角色，谨小慎微的政府官员很惧怕做重大的监管调整，但这正是改革医疗保健体系所需要的。
 
-> Officials know they will be punished by the public and politicians more for underregulating — approving a harmful drug, say — than for tightening the approval process, even if doing so delays a useful innovation. – _[Regina E. Herzlinger](https://hbr.org/2006/05/why-innovation-in-health-care-is-so-hard)_
+> 官员们知道他们会因为监管不利 - 比如说，批准一种有害的药物 - 而不是收紧审批流程而更容易的受到大众和政治家的惩罚，尽管这么做可能会延迟有用的改革。 - **[Regina E. Herzlinger](https://hbr.org/2006/05/why-innovation-in-health-care-is-so-hard)**
 
-## Remember the Obamacare Saga?
+## 还记得奥巴马医改事件（Obamacare Saga）吗？
 
-Sure you do. It's still going on today, many years later.
+你当然记得。很多年以后的现在，它依旧在运行。
 
-The divisive public and congressional debates. The multitude of vested interests and the tangle of regulations. It's not hard to understand why the implementation of far-reaching regulatory reforms have been unattainable and generally avoided by politicians.
+公众意见分裂，国会发起辩论。同时也伴随巨大的利益和法规纠纷。这就不难懂得为什么触及监管深层的改革实施起来非常困难，并且通常会被政客们避免。
 
 ![](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2018/02/15184953232.jpeg)
 
-Data sharing and privacy laws have resulted in gross inefficiencies, industry-wide fragmentation, and the prevention of real innovation in healthcare. HIPAA, for example, the US Health Insurance Portability and Accountability Act, designed to protect health information, imposes strict rules on healthcare providers.
+数据共享和隐私法导致了医疗保健总体效率低下，行业碎片化，并阻止了实质性的革新。例如 HIPAA，美国健康保险便携和责任法案，为了保护健康信息而设计，对医疗服务的提供者提出了严格的规定。
 
-Despite the Act's noble intention to keep patient data secure and private, it remains a large impediment to efficient patient care mainly because of the difficulties in accessing patient information and restrictions on electronic communications.
+尽管法案有高尚意图来保护病人的数据和隐私，高效的病人护理依旧存在很大障碍，主要原因是访问患者信息的困难和电子通信的限制。
 
-> Many physicians may be reluctant to embrace EHRs because of malpractice concerns. They may believe that they are better protected against malpractice lawsuits by the handwritten chart system. Furthermore, HIPAA has raised many new issues about data handling. There are also international legal issues about sharing health information. Many unresolved legal concerns surround legal liability in the event of medical errors that are byproducts of health analysis software or EHR data encoding. – _[A Robust Health Data Infrastructure](https://www.healthit.gov/sites/default/files/ptp13-700hhs_white.pdf)_
+> 出于（信息泄漏）医疗事故的考虑，很多医生可能不愿意接受 EHR。他们也许相信，使用手写的图表系统能更好的保护他们免于医疗事故的诉讼。而且，HIPAA 引发了很多有关数据处理的新的问题。关于共享健康信息，同样有很多国际法律问题。很多悬而未决的法律问题都涉及医学事故的法律责任，而这些医学事故是健康分析软件或者 EHR 数据编码的副产品。 - **[A Robust Health Data Infrastructure](https://www.healthit.gov/sites/default/files/ptp13-700hhs_white.pdf)**
 
-Government regulations like HIPAA have caused a host of flow-on problems.
+像 HIPAA 这样的政府法规会导致很多流通问题。
 
-Healthcare management systems designed to adhere to such restrictive regulations are antiquated and fragmented. Bloated systems that run on paper and siloed record-keeping practices have created healthcare management systems that are inefficient, fragmented, isolated and opaque.
+旨在遵守这些限制性规定的医疗保健管理系统却过时而且分散。运行在纸张和孤立保存记录操作上的已经很膨胀的系统所创建的医疗健康管理系统也是低效的、碎片化的、分散的、不透明的。
 
-The shift towards electronic health records (EHR) has done little to improve the splintered nature of healthcare. A severe lack of interoperability within organizations and at the inter-organizational level means that coordination remains minimal. EHR's are fragmented across hospitals, private practices, labs, pharmacies and many other industry players. [[6](http://mcdonnell.mit.edu/blockchain_ehr.pdf)]
+向电子健康记录（EHR）的转变微微改善了医疗健康系统碎片化的性质。组织之间和组织内部互通性的匮乏意味着合作只能在最小程度。EHR 在不同的医院、私人诊所、实验室、药店以及其他医疗行业运作机构中成碎片式的分布。 [[6](http://mcdonnell.mit.edu/blockchain_ehr.pdf)]
 
-> On average, Americans visit 16 different doctors in their lifetime. While both the HITECH and the Affordable Care Act's now enable and in some cases mandate that data from your doctor's visits be stored digitally, medical records and results from different facilities and physicians are often stored in incompatible databases. – _[Brian Forde](https://medium.com/mit-media-lab-digital-currency-initiative/medrec-electronic-medical-records-on-the-blockchain-c2d7e1bc7d09)_
+> 平均来说，美国人一生要见 16 个不同的医生。虽然现在 HITECH 和 Affordable Care Act 两者在某些情况下都允许并且要求医生的访问信息以数字形式存储下来，但是不同机构的医疗的记录和结果却经常被记录在不兼容的数据库中。 - **[Brian Forde](https://medium.com/mit-media-lab-digital-currency-initiative/medrec-electronic-medical-records-on-the-blockchain-c2d7e1bc7d09)**
 
-## Real-world Implications for Patient Health
+## 真实世界对患者健康的影响
 
-The inability to exchange and make use of electronic health records serves as a major impediment to the development of a robust data infrastructure. [[8](https://www.healthit.gov/sites/default/files/ptp13-700hhs_white.pdf)] As you can imagine, when hospitals, clinics, insurers, governments and doctor's offices are unable to share information, this has negative outcomes for patient health.
+无法交换和利用电子健康记录成为了发展健全的数据基础设施的主要障碍。[[8](https://www.healthit.gov/sites/default/files/ptp13-700hhs_white.pdf)] 你可以想象，当医院、诊所、保险公司、政府和医生办公室没办法共享信息的时候，对患者健康的影响是不利的。
 
-Einer Elhauge, Founding Director of the Petrie-Flom Center for Health Law Policy, Biotechnology & Bioethics at Harvard writes:
+Einer Elhauge，哈佛大学卫生法律政策、生物技术和生物伦理皮特里-弗洛姆（Petrie-Flom）中心的创始主任这样写道：
 
-> Just as too many cooks can spoil the broth, too many decision makers can spoil health care. Individual decision makers responsible for only one fragment of a relevant set of health care decisions may fail to understand the full picture, may lack the power to take all the appropriate actions given what they know, or may even have affirmative incentives to shift costs onto others. All these forms of fragmentation can lead to bad health care decisions. _[[9](http://www.law.harvard.edu/faculty/elhauge/pdf/Elhauge%20The%20Fragmentation%20of%20US%20Health%20Care%20--%20Introductory%20Chpt.pdf)]_
+> 就像过分烹饪反而会破坏好汤，决策者太多也会破坏医疗保健。仅负责相关医疗保健决策的一部分的决策者也许无法了解整体的情况，仅根据他们所知也许缺乏采取合适的行动的能力，或者甚至可能会有正面激励让他们将花费转嫁到他人身上。所有上述这些碎片化的形式都可能导致错误的医疗健康决策。**[[9](http://www.law.harvard.edu/faculty/elhauge/pdf/Elhauge%20The%20Fragmentation%20of%20US%20Health%20Care%20--%20Introductory%20Chpt.pdf)]**
 
 ![](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2018/02/15184953553.jpeg)
 
-Take a look at this example scenario.
+看如下这个示例场景。
 
-A patient seeks medical advice to find a remedy for his constant fatigue and muscle aches.
+一位病人在寻求医疗建议，为他持续的疲劳和肌肉酸痛寻找药物。
 
-He/she visits a number of doctors, each a specialist in their respective areas and even visits the hospital on one occasion.
+他/她拜访了很多医生，每个都是不同领域的专家，甚至有一次还去了医院。
 
-He/she receives a battery of tests from each doctor as well as the hospital and is prescribed a range of drugs.
+他/她在每位医生以及医院那里都接受一系列检测，并被开具一系列药物。
 
-The patient's condition proceeds to deteriorate, so he/she decides to visit a new doctor who continues a new testing and treatment regime. Throughout the process, the medical professionals treating the patient have little communication and share minimal information on the patient's medical history.
+病人的情况持续恶化，所以他/她决定去拜访一个新的医生，这个医生也会继续给出新的检查和治疗方案。在这个过程中，治疗病人的医学专家之间的交流很少，对病人的医疗史也几乎没有共享信息。
 
-Even though the doctors who treated the patient in this fictitious, albeit credible real-world example may have followed the right medical procedures to treat the problems they were trained to handle, the fragmented nature of the healthcare system resulted in no co-ordination and ultimately substandard patient care.
+尽管治疗这个病人的医生是在虚拟的案例中，尽管现实生活中的案例可能可以遵循正确的医疗程序，来处理这些医生们接受过培训去处理的问题，医疗健康系统的碎片化的现实导致了无协调和最终不合格的病人护理。
 
-The incapacity to share vital information led doctors to be unable to see the patient's bigger picture which could have shed further light on the health condition. Information sharing between doctors would likely have resulted in better treatment and a reduction in patient, doctor and insurer costs that accompanied needless treatments.
+没办法交换重要信息导致医生没办法了解病人更整体的情况，而这可能已经进一步说明了病人的健康状况。医生之间的信息交换很可能可以为病人带来更好的治疗，并且减少病人、医生和保险公司为不必要的治疗所花费的费用。
 
-Information sharing between doctors would likely have resulted in better treatment and a reduction in patient, doctor and insurer costs that accompanied needless treatments.
+医生之间的信息交换很可能可以为病人带来更好的治疗，并且减少病人、医生和保险公司为不必要的治疗所花费的费用。
 
-**The corrosive impact of government regulations doesn't end here.**
+**政府法规的腐蚀性的影响并未在此结束.**
 
-Fragmented, siloed record-keeping practices and systems that lack basic levels of interoperability are responsible for other major problems in healthcare.
+缺乏基本的交互水平的，碎片化的，孤立的保存医学记录的操作和系统应该对医疗保健中的其他主要问题负责。
 
-There is now a severe lack of advanced data available for clinical and scientific research and economic, behavioral and infrastructure purposes. With little meaningful data, it's difficult for governments and the healthcare industry to see the bigger picture and make informed decisions to improve the quality of patient care.
+现在严重缺乏用于临床、科研以及经济、行为和以基础设施为目的的优质数据。缺乏有意义的数据，政府和医疗保健行业就会很难看到整体概况，很难针对提高病人护理质量作出明智的决定。
 
-There is also insufficient insurable data for the most at-risk and underserved citizens and the tracking of population health trends. [[10](https://www.healthit.gov/sites/default/files/ptp13-700hhs_white.pdf)]
+对于风险最高和服务不足的公民以及人口健康趋势的跟踪，可保证质量的资料也是不足的。[[10](https://www.healthit.gov/sites/default/files/ptp13-700hhs_white.pdf)]
 
-Perhaps the most destructive impact of fragmentation and the inability to share information is that it has caused deep inefficiencies. Healthcare costs, in the United States, for example, have spiraled out of control.
+也许碎片化和无法共享信息最有害的影响就是会导致严重的效率低下。比如说在美国，医疗的花费已经无法控制的上涨。
 
-According to the CDC, health expenditures as a percentage of GDP have risen some 4.5% since the year 2000. [[11](https://www.cdc.gov/nchs/data/hus/hus16.pdf#093)]
+根据 CDC，从 2000 年以来，医疗健康支出占国内生产总值的比例已经上升 4.5%。
 
-**Health expenditures % of GDP:**
+**医疗健康支出占 GDP 的百分比：**
 
 *   2000: 13.3%
 *   2009: 17.3%
 *   2014: 17.4%
 *   2015: 17.8%
 
-High costs have contributed to insurance companies' reluctance to insure the population and provide an adequate range of services.
+高花费导致保险公司不愿意为民众提供保险和足够的服务。
 
-Many national healthcare systems are so inefficient they have become unable to deliver any form of care to the most vulnerable and at-risk members of society. Many are even failing to deliver adequate care to those that can afford it.
+很多国家的医疗保健系统效率非常低下，它们无法为社会中最脆弱、风险最高的成员提供任何形式的照顾。有的甚至已经无法为那些有钱支付保险的人提供足够的照顾。
 
-As demographic shifts take place, these inefficiencies will worsen. The reinvention of the national healthcare systems is now required.
+随着人口结构的转变，这些低效的情况将会恶化。现在需要国家对医疗健康系统进行重塑
 
-**Blockchain technology is a key tool to achieve healthcare objectives for developing and "re-developing" nations.**
+**区块链技术是发展中国家和“重新发展”国家实现医疗保健目标的关键性工具。**
 
 ![](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2018/02/15184953694.jpeg)
 
-One of the fundamental goals that governments and industry seek to achieve is to provide improved quality of healthcare at lower healthcare costs. [[12](https://www.healthit.gov/sites/default/files/ptp13-700hhs_white.pdf)] Making this goal a reality will require governments and industry to play different, but equally important roles.
+政府和医疗产业希望实现的基础目标之一是以更低的医疗保健花费来供应更高质量的健康保健。[[12](https://www.healthit.gov/sites/default/files/ptp13-700hhs_white.pdf)] 将这个目标转化为现实，需要政府和医疗产业扮演一个不同的、但是同等重要的角色。
 
-**Governments**: must lead change through regulatory reforms that incorporate technological advances and foster an environment designed around competitive collaboration and innovation amongst insurers, healthcare providers, and regulators. It's equally imperative for governments to participate in technological innovation programs and R&D to support the development of a robust health data infrastructure.
+**政府**：必须通过监管改革来引导变革，这种变革将会整合科技进步，并在保险公司、医疗供应者和监管机构之中培养围绕竞争性协作和创新的环境。同样迫切需要的还有，政府参加科技革新规划和 R&D 来支持一个健全的健康数据基础建设发展。
 
-It's equally imperative for governments to participate in technological innovation programs and R&D to support the development of a robust health data infrastructure.
+同样迫切需要的还有，政府参加科技革新规划和 R&D 来支持一个健全的健康数据基础建设发展。
 
-**Industry**: Transforming the mindset of healthcare from a system centered around the care of individuals to a system focused on the overall health of individuals will be foremost. [[13](https://www.healthit.gov/sites/default/files/2014-JASON-data-for-individual-health.pdf)]
+**医疗产业**：最重要的是，把对医疗健康的心理定位从一个以个人护理为中心的系统转变为一个注重所有个体的总体健康的系统。[[13](https://www.healthit.gov/sites/default/files/2014-JASON-data-for-individual-health.pdf)]
 
-Industry will need to incorporate new technologies that redefine the value proposition and collaborate with other industry players that provide valuable yet asymmetric information. Industry must also seek new ways to reach beyond current customers by developing innovative business models that reach underserved and high-risk population groups.
+医疗行业需要吸收新的重定义了价值主张的技术，并与提供有价值但非对称信息的其他行业参与者合作。医疗行业也必须通过开发那些可以触及缺医少药和高风险人口群体的创新的商业模式，来寻找新的方法在当前客户之外获取新的顾客。
 
-**Together**: Governments and industry must become more efficient with population growth and globalization. Lowering administrative costs through innovative technologies, while scaling services, and enhancing outcomes is imperative for the sustainability and competitiveness of both nations and industry. Growth will reward those who can embrace the technological arms race and create greater internal capabilities and efficiency.
+**总的来说**：政府和医疗行业必须随着人口增长和全球化而变得更有效率。通过创新技术降低行政花费，同时扩展服务范围，并增强对国家和医疗行业的可持续性和竞争力都至关重要的成果。那些能够接受技术设备竞争，创造更大的内部能力和效率的人将获得增长的奖励。
 
-## Healthcare is a High Stakes Game
+## 医疗行业是一个高额赌注游戏
 
-Inefficiencies in healthcare systems bleed into all other parts of a society and the economy. Achieving improved quality healthcare at lower costs will prove key to the future success of developed and developing nations.
+医疗保健系统的低效率会渗透到社会和经济的所有其他部分。以更低的成本实现医疗保健质量的改善将成为发达国家和发展中国家未来取得成功的关键。
 
-Overcoming the myriad of challenges will demand a new approach that focuses on the convergence of technology and networked alliances.
+克服这些数量众多的困难将需要一个新的方法，这个方法着重于技术和网络联盟的融合。
 
-Blockchain technology is an important tool that can enable both government and industry to make the fundamental changes needed to overhaul national healthcare systems and meet their objectives.
+区块链技术是可以让政府和产业两者都作出根本改变，从而修缮国家医疗保健系统并达成目标的关键技术。
 
-**Blockchain technology is a resilient digital infrastructure to enable governments to become more efficient**.
+**区块链技术是一个弹性数字基础架构，能够让政府变得更加高效。**
 
-![](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2018/02/15184953805.jpeg)
+![。](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2018/02/15184953805.jpeg)
 
-Technology is driving rapid change in the global economy. National governments are awakening to the realization that innovation and broad regulatory reforms will be the foundation for national success in the new digital economy.
+科技正在带动全球经济飞速变化。国家政府清醒的意识到，在新数字经济时代，创新和广泛的监管改革是国家成功的基础。
 
-As the world becomes more urbanized, vast megacities are serving as innovation centers and primary drivers of economic growth. [[13](https://www2.deloitte.com/content/dam/Deloitte/tr/Documents/public-sector/deloitte-nl-ps-smart-cities-report.pdf)] Challenges that accompany urbanization and population increases mean that cities must become smarter in all areas, including healthcare, or risk losing out on key economic benefits.
+随着世界更加城市化，超级城市作为创新的中心，是带动经济的发展的主要力量。[[13](https://www2.deloitte.com/content/dam/Deloitte/tr/Documents/public-sector/deloitte-nl-ps-smart-cities-report.pdf)] 城市化和人口增长带来的挑战意味着这些城市必须在方方面面更加智能，包括医疗健康，否则就可能会失去核心的经济利益。
 
-A [Blockchain](http://blockchain.us-east-2.elasticbeanstalk.com/2017/08/25/how-does-the-blockchain-work-part-1/) is a networked database that can fuel and support smart city initiatives and drive economic growth. It enables the creation of a digital infrastructure that is necessary to enable mass transformation to occur and vital national industries to grow.
+[区块链（Blockchain）](http://blockchain.us-east-2.elasticbeanstalk.com/2017/08/25/how-does-the-blockchain-work-part-1/)是一个联网数据库，它能助力支持智能城市革新，并带动经济增长。它让创建电子基础设施成为可能，而这是发生大转型和国家重要产业增长所必需的。
 
-Cities, municipalities, and governments are turning to blockchain technology to prepare for current and future challenges. From the US state of Delaware to Singapore, Estonia, Russia, Sweden, UK, South Korea and many others, blockchain based solutions are being sought to provide a better digital infrastructure now and into the future for governments. [[14](https://extranewsfeed.com/the-blockchain-is-perfect-for-government-services-heres-a-blueprint-628d4c73edb7#.q677wz3yv)]
+城市、直辖市和政府正转向区块链技术来为将来的挑战做好准备。从美国特拉华到新加坡，爱沙尼亚，俄罗斯，瑞典，英国，韩国等很多地区，都正在寻求基于区块链的解决方案来为现在和将来的政府提供一个更好的电子基础设施。[[14](https://extranewsfeed.com/the-blockchain-is-perfect-for-government-services-heres-a-blueprint-628d4c73edb7#.q677wz3yv)]
 
-William Mougayar sets out four main areas where governments can utilize blockchain technology. They include [[15](https://extranewsfeed.com/the-blockchain-is-perfect-for-government-services-heres-a-blueprint-628d4c73edb7#.5l3jgzr48)]:
+William Mougayar 罗列出了四个主要的、政府可以应用区块链技术的领域，它们包括 [[15](https://extranewsfeed.com/the-blockchain-is-perfect-for-government-services-heres-a-blueprint-628d4c73edb7#.5l3jgzr48)]：
 
-*   Verifications
-*   Movement of assets
-*   Ownership
-*   Identity
+*   证明
+*   财产变动
+*   所有权
+*   身份
 
-The accurate and efficient verification of information such as licenses, permits, transactions, and identities can solve a number of problems for government operations. Data lineage and integrity when handling sensitive information is in the public interest.
+对牌照、许可证、交易和身份精确高效的信息认证能解决很多政府运作的问题。当处理敏感信息时，数据的沿袭和完整性是大众关注的问题。
 
-The ability to verify data has not been tampered with, identify the source of information and track a chain of custody from creation holds benefits that are self-evident. [[16](http://mcdonnell.mit.edu/blockchain_ehr.pdf)] Imagine the benefits to healthcare data and information sharing.
+验证没有被篡改的数据的能力，确定信息来源并从源头开始追踪监管链带来的益处是不言而喻的。[[16](http://mcdonnell.mit.edu/blockchain_ehr.pdf)] 可以想象这对于医疗保健数据和信息共享的益处。
 
-Governments and smart cities could issue e-identities to the population, enabling the frictionless use of a variety of national and municipal services. [[17](https://extranewsfeed.com/the-blockchain-is-perfect-for-government-services-heres-a-blueprint-628d4c73edb7#.q677wz3yv)] Digital ID's that act like a digital watermark to every transaction, will help governments check identities in real-time, dramatically reducing the rate of fraud other criminal activities. Increased levels of data integrity could also redefine the relationship between citizens and their governments in terms of transparency and trust.
+政府和智能城市能够给居民发行电子身份，从而允许居民无障碍的使用各种各样的国家服务和市政服务。[[17](https://extranewsfeed.com/the-blockchain-is-perfect-for-government-services-heres-a-blueprint-628d4c73edb7#.q677wz3yv)] 电子 ID 就像是扮演了所有交易的电子水印，它将帮助政府实时验证身份，大量减少了欺诈等其他犯罪活动的比率。数据完整性等级的提升也将会在透明度和信任方面重新定义居民和政府的关系。
 
-Another area where blockchain technology can be of great benefit is in the movement of assets. Blockchain can enable the direct and automatic transfer of payments or assets between governments and citizens for services rendered.
+另一个区块链可以带来巨大利益的领域是财产转移。区块链可以通过提供服务实现政府和居民之间的交易或财产直接、自动的转移。
 
-This will cut out excessive intermediary costs, redundancies and greatly improve the efficiency of government operations in healthcare and many other areas.
+这将削减过多的中介成本，极大的提高政府在医疗保健和众多其他领域的效率。
 
-Entire government departments could be replaced by blockchain based registries saving billions of dollars of taxpayer funds. Government offices could become far more efficient as new registries powered by blockchain securely record data, transactions and track provenance.
+全体政府部门将会被基于区块链的注册管理机构所取代，这将节省数以万计的纳税人资金。因为由区块链支持的新注册管理机构可安全记录数据，交易和追踪出处，政府办公将会变得更加高效。
 
-> The truth about 'Smart Cities' is that there is only going to be one way that they can become truly 'smart': through data and analytics. – _[David Barton](https://channels.theinnovationenterprise.com/articles/158-7-uses-for-analytics-in-smart-cities)_
+> 事实上，关于“智能城市”，仅有一种方式能够让城市变得真正“智能”：通过数据和分析。 - **[David Barton](https://channels.theinnovationenterprise.com/articles/158-7-uses-for-analytics-in-smart-cities)**
 
-One of the most profound benefits of blockchain technology, however, is the ability for governments to securely utilize vital sovereign data. For governments, this presents unique opportunities to streamline operations. Real-time analysis of pseudonymous data can be conducted to find trends in health, transport, security, city planning, crime, future proofing and a host of other important issues.
+区块链科技带来的最深刻的益处，其实是政府能够安全地利用重要的主权数据。对于政府而言，这为精简业务提供了重要的机会。进行匿名数据的实时分析可以发现健康、交易、安全、城市规划、犯罪、未来规划和许多其他重要问题的趋势。
 
-Armed with valuable data insights, governments can utilize resources in areas that will have the greatest impact on society. This newfound capacity will be a game changer for governments and their citizenry.
+掌握了有价值的数据洞察力，政府就能够有效利用区域内资源对社会作出最大的有利影响。这个新的能力将会是政府和他们的公民的“游戏”规则改变者。
 
-**Blockchain technologies are an effective foundation to help industry redesign organizations, products, and services.**
+**区块链技术是帮助产业重新定义机构，产品和服务的最有力基础。**
 
-It's important to recognize early on that the drivers of business success are changing as we enter a new globalized digital economy. Consortiums and networked alliances are the new competitive advantage.
+因为我们现在进入了一个全新的全球数字化经济时代，尽早认识到事业成功的驱动力是作出改变很重要。联盟和网络联盟是新的竞争优势。
 
-Companies and industries must connect, collaborate and build networks to help become more efficient and agile. Those that choose to insulate themselves will find an already volatile and competitive global economy even more inhospitable.
+公司和产业必须连接，合作，建立网络连接来帮助他们变得更加高效和敏捷。那些选择孤立自我的（公司和产业）则会发现原本就已经很多变、竞争激烈的全球经济变得更加的不友好。
 
-> The emerging business models are founded on the notion of community: success will be achieved by those who involve their suppliers, their infrastructure providers, and-perhaps most important-their customers in a network where they can build value together. Networks that enable trading, sharing, and enhancing knowledge to build value for mutual benefit are essential." – _[Governance in the Digital Economy](http://www.imf.org/external/pubs/ft/fandd/1999/12/pdf/tapscott.pdf)_
+> 新兴的商业模式建立在社区的概念之上：那些将供应商，基础设施提供者，以及 - 也许是最重要的 - 他们的客户都包容在一个他们可以共同创造价值的网络里的人，将会取得成功。允许交易，共享和强化知识并创造共赢价值的网络是必需的。 – **[Governance in the Digital Economy](http://www.imf.org/external/pubs/ft/fandd/1999/12/pdf/tapscott.pdf)**
 
-There are three categories of blockchain database applications. A public blockchain is a fully decentralized platform where anyone in the world can view and add information to the platform as well as contribute to the consensus process. [[20](https://blog.ethereum.org/2015/08/07/on-public-and-private-blockchains/)] A private blockchain, on the other hand, is centralized within one organization, allowing only the owner of the database to view and write information onto the blockchain. [[21](https://letstalkpayments.com/public-and-private-blockchain-concepts-and-examples/)]
+区块链数据库应用包括三个类别。公共区块链是一个全世界任何人都可以看到、增加信息或者达成共识的去中心化的平台。[[20](https://blog.ethereum.org/2015/08/07/on-public-and-private-blockchains/)] 另一方面，一个私有区块链，则集中在一个机构内部，仅允许数据库的所有者查看并改写区块链上的信息。[[21](https://letstalkpayments.com/public-and-private-blockchain-concepts-and-examples/)]
 
-Arguably of most consequence to the healthcare industry are consortium blockchains which differ to private and public blockchains in that they are partially decentralized. As Vitalik Buterin explains:
+对于医疗保健行业来说，最大的结果可能是联盟区块链，它与私人和公共区块链有所不同，它们是部分去中心化的。就如同 Vitalik Buterin 所解释的：
 
-> A consortium blockchain is a blockchain where the consensus process is controlled by a pre-selected set of nodes; for example, one might imagine a consortium of 15 financial institutions, each of which operates a node and of which 10 must sign every block in order for the block to be valid. – _[Vitalik Buterin](https://blog.ethereum.org/2015/08/07/on-public-and-private-blockchains/)_
+> 一个联盟区块链达成共识的过程是由预先选择的一组节点控制的；例如，想象一个由 15 家金融机构组成的财团，每个机构都作为一个节点，那么其中的 10 个必须签署每个区块来保证该区块的有效性。 – **[Vitalik Buterin](https://blog.ethereum.org/2015/08/07/on-public-and-private-blockchains/)**
 
-He continues:
+他继续说道：
 
-> In general, so far there has been little emphasis on the distinction between consortium blockchains and fully private blockchains, although it is important: the former provides a hybrid between the "low-trust" provided by public blockchains and the "single highly-trusted entity" model of private blockchains, whereas the latter can be more accurately described as a traditional centralized system with a degree of cryptographic auditability attached.
+> 一般来说，目前在区分联盟区块链和私有区块链上的关注很少，尽管这其实很重要：前一个提供了公共区块链的“信任度低”和私有区块链的“单一高度信任度实体”模型的混合体，而后一个则应该被更准确的描述为一个传统的中心化系统，附加一定程度的密码可审计性。
 
-Blockchain-based consortiums are key to the survival and success of the healthcare industry for several reasons. Market pressures are now more intense than ever before.
+因为多个原因，基于区块链的联盟对医疗保健产业的存活和成功至关重要。现在市场压力比以往更加激烈。
 
-International competition, the need to develop new products and services at speed, concerns about meeting new regulatory requirements, reductions in corporate R&D budgets and other industry-wide problems, mean that companies are under constant pressure.
+全球竞争，对高速研发新的产品和服务的需求，对满足新的监管需求的关注，减少企业研发预算和其他全行业问题，意味着公司承受着持续的压力。
 
-Consortium blockchains are an efficient way for industry players with shared goals to collaborate and create unique products and services.
+联盟区块链是有着共同目标的业内人士合作并创造独特的产品和服务最高效的方式。
 
-Blockchain consortiums deliver everything that older style consortiums do but in a more efficient and secure way. Intellectual property and other sensitive data sets have high-level integrity and information sharing is efficient and safe.
+区块链联盟能以更高效和安全的方式提供所有旧联盟所做的一切。知识产权和其他敏感数据集能够得到高级别的完整性，信息共享也高效且安全。
 
-The construction of a shared industry data infrastructure where companies can gain and share knowledge and develop new technologies without compromising privacy and security is now possible. Blockchain consortiums can serve as the backbone for innovation in healthcare products, services, and delivery.
+共享产业信息的基础设施建设现在已经成为可能，在这里，公司可以在不会危害到隐私和安全的前提下，获取并分享知识，发展新技术。区块链联盟能够作为医疗保健产品、服务和交付的中坚力量。
 
-## Alliances Are Already Forming
+## 联盟已经在形成
 
-The healthcare industry is already witnessing the makings of some great alliances. In early 2016, Gem launched the Gem Healthcare Network with Phillips Blockchain Lab. The Gem network, powered by Ethereum blockchain, aims to develop applications and shared infrastructure for healthcare. [[24](https://bitcoinmagazine.com/articles/the-blockchain-for-heathcare-gem-launches-gem-health-network-with-philips-blockchain-lab-1461674938)]
+医疗行业已经见证了一些伟大联盟的成就。在 2016 年初，Gem 和 Phillips 区块链实验室发起了 Gem 医疗保健网络。由以太坊区块链驱动的 Gem 网络致力于为医疗保健行业开发应用并共享基础设施。[[24](https://bitcoinmagazine.com/articles/the-blockchain-for-heathcare-gem-launches-gem-health-network-with-philips-blockchain-lab-1461674938)]
 
-Phillips Blockchain Lab, the R&D wing of Phillips is the first healthcare operator to join the network. The network plans to build an inclusive ecosystem of industry players to identify and solve healthcare problems.
+Phillips 区块链实验室，Phillips 的研发部门是首个加入网络的医疗健康运作团队。网络计划建立一个行业内的包容性生态系统，来鉴别并解决医疗保健的问题。
 
-**This is a step in the right direction.**
+**这是迈向正确方向的一步。**
 
-Alliances will need to work outside the walls of the organization and across industry to find collaborative ways that provide mutual benefits to each party. The future of the healthcare industry cannot be secured with isolationism and insularity, rather success will belong to those that are networked, open and nimble.
+联合需要在组织的壁垒之外工作，并贯穿整个行业来找到能够为每个参与者提供最大交互利益的合作方式。未来的医疗保健行业不能被孤立和狭隘所担保，相反，成功将会属于那些互联的，开放的以及灵活的。
 
-**Efficient government, re-aligned industry, new products and service paradigms create sustainability in a changing and dynamic world.**
+**高效的政府，重新联合的产业，新的产品和服务范例在一个不停变化的动态世界中创造了可持续性。**
 
-It all starts at the top. Governments must lift their game. Innovation and deep regulatory reforms in the digital economy will be the foundation for success.
+这一切都是高起点的。政府必须提高水准。数字经济的创新和深度监管改革将会是成功的基础。
 
-Restrictive and outdated government regulations currently stand as the single biggest inhibitor of healthcare transformation. Governments must release national healthcare systems from the regulatory prisons they have constructed to unlock true innovation.
+目前制约性的和过时的政府规则是医疗保健改革的唯一的最大的阻碍。政府必须将国家医疗保健系统从他们建造的监管的监牢里释放出来，才能释放出真正的创新。
 
-**Of course, industry will also need to come to the party.**
+**当然，产业也必须参加这场盛宴。**
 
-Health management and administrative systems are rife with inefficiencies, misaligned incentives and remain relatively untouched by innovation.
+健康管理和行政管理系统现在充斥着效率低下，奖励不对称等现象，并且未被创新所触及。
 
-Industry must follow government regulatory changes with the implementation of new technologies that enable collaboration and interoperability. They must reinvent their product and service offerings and adapt to new customer expectations. [[25](https://hbr.org/2016/03/the-4-things-it-takes-to-succeed-in-the-digital-economy)]
+产业必须跟随政府监管的变化，应用允许合作和交互新技术。他们必须重塑所供应的产品和服务，以满足新的客户期望。[[25](https://hbr.org/2016/03/the-4-things-it-takes-to-succeed-in-the-digital-economy)]
 
-It's also imperative for industry to seek new ways to reach beyond current customers by developing innovative business models that extend to underserved and high-risk population groups. Governments and industry must cooperate, lead and utilise technologies that enable an unprecedented level of data access, interoperability, integration, and scalability. [[26](https://www.healthit.gov/sites/default/files/2014-JASON-data-for-individual-health.pdf)]
+对于产业来说，通过发展创新商业模式来寻找新的方法以扩充客户群同样重要，客户将被扩充到缺乏服务和高风险的人群。政府和产业必须合作，引导和利用使数据访问、互操作性、集成性和可伸缩性达到空前水平的技术。[[26](https://www.healthit.gov/sites/default/files/2014-JASON-data-for-individual-health.pdf)]
 
-**There are no grand delusions here.**
+**这里没有宏大妄想。**
 
-The transformation of healthcare will be challenging and painful. Mistakes will get made and temptations to revert to old systems and processes will be overwhelming.
+医疗保健的改革将会充满挑战和挫折。肯定会有错误，转回到旧系统和流程的诱惑将很难克服。
 
-But the current trajectory is simply unsustainable.
+但目前的轨道是根本不可持续的。
 
-Something must be done. Technology and globalization, along with current global demographic shifts are demanding innovation and deep changes.
+必须要做些什么。科技和全球化，以及当前全球人口变化需要创新和深度变化。
 
-Blockchain technology is a key tool to achieve the central healthcare objectives of nations who must find ways to become more efficient with population growth, globalization, and increased demands on healthcare systems.
+面对人口增长、全球化以及医疗保健系统增加的需求，国家必须找到能更高效的方法，区块链技术是达成国家医疗保健核心目标的关键工具。
 
-The technology is an effective foundation to help industry redesign organizations, products, and services at a time when collaboration, consortiums, and networked alliances are the new competitive advantage.
+当合作、联盟和联网联合成为新的竞争优势时，这项技术是一个能够高效的帮助产业一次性重塑机构、产品和服务的基础。
 
-Countries and industry must begin utilizing blockchain technology as a foundation to explore the convergence of a variety technological tools to address customer centric needs and social problems that provide excellent business opportunities.
+国家和产业必须开始将区块链技术为基础加以运用，来探索不同技术工具的融合，并定位可以带来巨大商业机遇的消费者的核心需求和社会问题。
 
-Nations and industries that embrace blockchain will be rewarded with a resilient and antifragile digital infrastructure that enables the cultivation of efficient ecosystems, better products, and services, lower costs at scale, and improved sustainable outcomes for all.
+接受区块链的国家和产业都将获得有弹性的、不脆弱的数字基础设施作为回报，它将为所有人培育高效的业内生态系统、更好的产品和服务、更低的规模成本，以及改善的可持续的成果。
 
-While the path forward may be complicated, we can no longer use that as an excuse for inaction. The only thing stopping us moving forward and accessing a future of untapped potential is fear, uncertainty, and doubt.
+尽管过程可能会很复杂，我们不能把它当成无作为的借口。唯一的阻止我们走向并触及那些未开发潜力的未来的只有恐惧，困惑和怀疑。
 
-In blockchain technology, we now have a tool that can help solve many of our greatest challenges.
-
+在区块链技术中，我们现在有了能够帮助我们解决很多重大挑战的工具。
 
 ---
 
