@@ -9,12 +9,12 @@
 
 [Flutter](https://flutter.io/) 是一种新的框架，可以在短时间内为 iOS 和 Android 构建高质量原生 App。根据我使用 Flutter（作为 Flutter 团队成员）的经验，开发速度主要通过以下方式体现：
 
-*   **有状态的热重载**。Flutter 开发由 Dart 编译器/ VM 技术提供支持，它允许你在保留应用程序状态（包括你导航到的位置）的同时将代码更改加载到正在运行的应用程序中。点击保存，你将在不到一秒的时间内看到设备更改的效果。
+*   **有状态的热重载**。Flutter 开发由 Dart 编译器/VM 技术提供支持，它允许你在保留应用程序状态（包括你导航到的位置）的同时将代码更改加载到正在运行的应用程序中。点击保存，你将在不到一秒的时间内看到设备更改的效果。
 *   **响应式编程**。Flutter 在其定义和更新用户界面的方法中遵循其他现代框架：两者都基于接口如何依赖于当前状态的单个描述。
 *   **组成**。在 Flutter 中，万物皆组件，而且通过自由组合漂亮的组件和乐高积木风格，你可以实现任何想要的结果。
 *   **代码编写 UI**。Flutter 没有单独的布局标记语言。每个组件只在 Dart 中的一个地方编写，缩减了语法切换和文件切换的开销。
 
-有意思的是，上面的最后三个特点形成了对开发速度的挑战：**在你的方式和你的视图逻辑中深入嵌套的 widget 树**
+有意思的是，上面的最后三个特点形成了对开发速度的挑战：**在你的方式和你的视图逻辑中深入嵌套的 widget 树**。
 
 接下来我会讨论为什么会出现这个问题和我们能做什么。同时，我会尝试说明 Flutter 的工作原理。
 
@@ -532,7 +532,7 @@ abstract class Lake {
 
 然后，我们可以从 `Lake` 实例动态地构造我们的组件树，并且同时还可以设置事件处理程序以调用其方法。响应式编程模型的优点在于我们只需在代码库中执行一次。只要 `Lake` 实例发生变化，Flutter 框架就会重建我们的组件树——前提是我们告诉框架。这需要使 `MyApp` 成为一个 `StatefulWidget`，这反过来又涉及将组件构建委托给一个相关的 `State` 对象，然后每当我们在 `Lake` 上加星标时调用 `State.setState` 方法。
 
-* [main.dart](https://gist.github.com/mravn-google/5962e261ee61c82d8f298fd2fe03fd29#file-main-dart):
+* [main.dart](https://gist.github.com/mravn-google/5962e261ee61c82d8f298fd2fe03fd29#file-main-dart)：
 
 ```
 import 'package:flutter/material.dart';
@@ -686,7 +686,7 @@ class Action extends StatelessWidget {
 
 我们对代码的最终尝试提取了一个有状态的 `LakeStars` 组件，将重建限制在一个非常小的子树中。而 `MyApp`又变回无状态。
 
-* [main.dart](https://gist.github.com/mravn-google/5962e261ee61c82d8f298fd2fe03fd29#file-main-dart):
+* [main.dart](https://gist.github.com/mravn-google/5962e261ee61c82d8f298fd2fe03fd29#file-main-dart)：
 
 ```
 import 'package:flutter/material.dart';
