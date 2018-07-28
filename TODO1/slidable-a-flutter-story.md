@@ -2,16 +2,16 @@
 > * 原文作者：[Romain Rastel](https://medium.com/@lets4r?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/slidable-a-flutter-story.md](https://github.com/xitu/gold-miner/blob/master/TODO1/slidable-a-flutter-story.md)
-> * 译者： [YueYong](https://github.com/YueYongDev)
+> * 译者：[YueYong](https://github.com/YueYongDev)
 > * 校对者：
 
-# Slidable: 一个Flutter的故事
+# Slidable: 一个 Flutter 的故事
 
 ![](https://cdn-images-1.medium.com/max/800/1*BBp8dGLaZ8v8IHvXUYoZng.png)
 
 ### 概要
 
-这是创建 **Slidable** 小部件背后的故事 (点击[这里](https://pub.dartlang.org/packages/flutter_slidable))。 他是一个当您向左侧或右侧滑动时，可以在列表项上添加上下文操作的小部件。
+这是创建 **Slidable** 小部件背后的故事 (点击[这里](https://pub.dartlang.org/packages/flutter_slidable))。他是一个当您向左侧或右侧滑动时，可以在列表项上添加上下文操作的小部件。
 
 ### 这一切是如何开始的呢
 
@@ -35,7 +35,7 @@
 
 ### 从原型到第一次发布
 
-在我开发了使用一个动画的原型后，我立刻想到让开发人员创建自己的动画。我想起一个让开发人员在网格中控制布局的工具 [SliverDelegate](https://docs.flutter.io/flutter/rendering/SliverGridDelegate-class.html) ， 并决定创建类似的东西。
+在我开发了使用一个动画的原型后，我立刻想到让开发人员创建自己的动画。我想起一个让开发人员在网格中控制布局的工具 [SliverDelegate](https://docs.flutter.io/flutter/rendering/SliverGridDelegate-class.html)，并决定创建类似的东西。
 
 让开发人员自定义动画很棒，但我必须提供一些内置动画，以便任何开发人员都可以使用它们，或调整我的动画来创建他们的动画。
 
@@ -47,7 +47,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*-lxI0VkO5MCC3PW74VaLWA.gif)
 
-SlidableBehindDelegate的例子
+SlidableBehindDelegate 的例子
 
 #### SlidableScrollDelegate
 
@@ -55,7 +55,7 @@ SlidableBehindDelegate的例子
 
 ![](https://cdn-images-1.medium.com/max/800/1*KW9wXmgPGHbCV24gGIl8ZA.gif)
 
- SlidableScrollDelegate的例子
+ SlidableScrollDelegate 的例子
 
 #### SlidableStrechDelegate
 
@@ -63,7 +63,7 @@ SlidableBehindDelegate的例子
 
 ![](https://cdn-images-1.medium.com/max/800/1*lwGjFSE0--Ij7U5YbvOiSQ.gif)
 
-SlidableStrechDelegate的例子
+SlidableStrechDelegate 的例子
 
 #### SlidableDrawerDelegate
 
@@ -71,9 +71,9 @@ SlidableStrechDelegate的例子
 
 ![](https://cdn-images-1.medium.com/max/800/1*OlubJ7rmOK5QgvsC3aVY8Q.gif)
 
-SlidableDrawerDelegate的例子
+SlidableDrawerDelegate 的例子
 
-对于这个故事，当我向我的同事 [Clovis Nicolas](https://github.com/clovisnicolas) 展示前 3 位代表时，他告诉我，在 iOS 中拥有这样效果的应用会很棒。由于我不是 iOS 用户，我认为它更像是SlidableStrechDelegate，但没有。
+对于这个故事，当我向我的同事 [Clovis Nicolas](https://github.com/clovisnicolas) 展示前 3 位代表时，他告诉我，在 iOS 中拥有这样效果的应用会很棒。由于我不是 iOS 用户，我认为它更像是 SlidableStrechDelegate，但没有。
 这就是 SlidableDrawerDelegate 如何诞生的过程。
 
 ###  Flutter 中的动画
@@ -92,13 +92,13 @@ SlidableDrawerDelegate的例子
 
 Slidable 部件预览
 
-这就是 **Slidable** 部件如何诞生的过程。 现在它需要一些发展。 如果您想要一些新功能，欢迎您在GitHub上创建一个 [issue](https://github.com/letsar/flutter_slidable/issues)  并解释您想要的内容。如果它与我对这个包的看法一致，我将很乐意实现它！
+这就是 **Slidable** 部件如何诞生的过程。现在它需要一些发展。如果您想要一些新功能，欢迎您在GitHub上创建一个 [issue](https://github.com/letsar/flutter_slidable/issues)并解释您想要的内容。如果它与我对这个包的看法一致，我将很乐意实现它！
 
-您可以在 [代码库](https://github.com/letsar/flutter_slidable)中找到一些文档，以及上面的[示例](https://github.com/letsar/flutter_slidable/blob/master/example/lib/main.dart)。
+您可以在[代码库](https://github.com/letsar/flutter_slidable)中找到一些文档，以及上面的[示例](https://github.com/letsar/flutter_slidable/blob/master/example/lib/main.dart)。
 
-如果这个软件包对你有所帮助，你可以通过⭐️这个 [repo](https://github.com/letsar/flutter_slidable)，或者👏这个故事。你也可以在 [Twitter](https://twitter.com/lets4r)上关注我。
+如果这个软件包对你有所帮助，你可以通过⭐️这个[repo](https://github.com/letsar/flutter_slidable)，或者👏这个故事。你也可以在 [Twitter](https://twitter.com/lets4r)上关注我。
 
-如果您使用此软件包构建应用程序，请告诉我 😃。
+如果您使用此软件包构建应用程序，请告诉我😃。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
