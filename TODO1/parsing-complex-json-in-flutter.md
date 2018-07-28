@@ -51,7 +51,7 @@ class Student{
 
 Perfect！
 **是这样吗？** 因为 json 映射和这个 PODO 文件之间没有映射。甚至实体名称也不匹配。
-**我知道我知道。** 我们还没有完成。我们必须将这些类成员映射到 json 对象。为此，我们需要创建一个 `factory` 方法。 根据 Dart 文档，我们在实现一个构造函数时使用 `factory` 关键字时，这个构造函数不会总是创建其类的新实例，而这正是我们现在所需要的。
+**我知道我知道。** 我们还没有完成。我们必须将这些类成员映射到 json 对象。为此，我们需要创建一个 `factory` 方法。根据 Dart 文档，我们在实现一个构造函数时使用 `factory` 关键字时，这个构造函数不会总是创建其类的新实例，而这正是我们现在所需要的。
 
 ```
 factory Student.fromJson(Map<String, dynamic> parsedJson){
@@ -65,15 +65,15 @@ factory Student.fromJson(Map<String, dynamic> parsedJson){
 
 在这里，我们创建了一个叫做 `Student.fromJson` 的工厂方法，用来简单地反序列化你的 json。
 
-**_我是一个小菜鸡，能告诉我反序列化究竟是什么吗？_**
+**我是一个小菜鸡，能告诉我反序列化究竟是什么吗？**
 
 当然。我们首先要向你介绍序列化和反序列化。**序列化** 简单来讲就是把数据（可能在对象中）写成字符串，**反序列化** 正好相反。它获取原始数据并重建对象模型。在本文中，我们主要讨论反序列化部分。在第一部分中，我们从 `student.json` 反序列化 json 字符串。
 
 所以我们的工厂方法也可以称为我们的转换器方法。
 
-还必须注意 `fromJson` 方法中的参数。它是一个 `Map <String，dynamic>` 这意味着它将 `String` **键**映射为 `dynamic` **值**。这正是我们需要识别它结构的原因。如果这个 json 结构是一个映射列表，那么这个参数会有所不同。
+还必须注意 `fromJson` 方法中的参数。它是一个 `Map<String, dynamic>` 这意味着它将 `String` **键**映射为 `dynamic` **值**。这正是我们需要识别它结构的原因。如果这个 json 结构是一个映射列表，那么这个参数会有所不同。
 
-**_但为什么选择动态呢？_** 让我们先看一下另一个 json 结构来回答你的问题。
+**但为什么选择动态呢？** 让我们先看一下另一个 json 结构来回答你的问题。
 
 ![](https://cdn-images-1.medium.com/max/800/1*aYehHPUoXS4S-CVLWg1NCQ.png)
 
@@ -85,7 +85,7 @@ factory Student.fromJson(Map<String, dynamic> parsedJson){
 
 ### 访问对象
 
-让我们写 `student_services.dart` ，它具有调用 `Student.fromJson` 的代码，能够从 `Student` 对象中获取值。
+让我们写 `student_services.dart`，它具有调用 `Student.fromJson` 的代码，能够从 `Student` 对象中获取值。
 
 #### 片段 #1：imports
 
@@ -147,7 +147,7 @@ Future loadStudent() async {
 所以在这个 [address.json](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/assets/address.json) 中，我们有一个包含简单 `String` 值的 `city` 实体，但 `streets`  是一个 `String` 数组。
 就我所知，Dart 并没有数组这种数据类型，但它有 List<datatype>，所以这里 `streets`  是一个 `List<String>`。
 
-现在我们要检查一下 **规则#1 和 规则#2**。这绝对是一个 map，因为这是以花括号开头的。`streets` 仍然是一个 `List`，但我们稍后才会考虑这个。
+现在我们要检查一下 **规则 #1 和 规则 #2**。这绝对是一个 map，因为这是以花括号开头的。`streets` 仍然是一个 `List`，但我们稍后才会考虑这个。
 
 所以 `address_model.dart` 一开始看起来像是这样的
 
@@ -175,15 +175,15 @@ factory Address.fromJson(Map<String, dynamic> parsedJson) {
 }
 ```
 
-现在通过添加上面提到的三个代码片段来构造 `address_services.dart`。**必须记住要放入正确的文件名和方法名。示例项目已经为您构建了_ `_address_services.dart_` _。**
+现在通过添加上面提到的三个代码片段来构造 `address_services.dart`。**必须记住要放入正确的文件名和方法名。示例项目已经为您构建了 `_address_services.dart_`。**
 
-如果你现在运行它，你会发现一个小错误。:/
+如果你现在运行它，你会发现一个小错误。
 
 ```
 type 'List<dynamic>' is not a subtype of type 'List<String>'
 ```
 
-我告诉你，这些错误几乎在我 Dart 开发的每一步中都会出现。你也会遇到它们。那么让我解释一下这是什么意思。我们正在请求 `List <String>` 但我们得到一个 `List <dynamic>` ，因为我们的应用程序还无法识别它的类型。
+我告诉你，这些错误几乎在我 Dart 开发的每一步中都会出现。你也会遇到它们。那么让我解释一下这是什么意思。我们正在请求 `List<String>` 但我们得到一个 `List<dynamic>` ，因为我们的应用程序还无法识别它的类型。
 
 所以我们必须把这个显式地转换成 `List<String>`。
 
@@ -194,7 +194,7 @@ List<String> streetsList = new List<String>.from(streetsFromJson);
 
 在这里，我们首先把变量映射到 `streetsFromJson` `streets` 实体。`streetsFromJson` 仍然是一个 `List<dynamic>`。现在我们显式地创造了一个 `List<String> streetsList`，它包含了 **来自** `streetsFromJson`的所有元素。
 
-在[这里](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/address_model.dart) 检查更新的方法。**注意现在的返回语句。**
+在 [这里](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/address_model.dart) 检查更新的方法。**注意现在的返回语句。**
 现在你可以用 `_address_services.dart_` 来运行它，**它会完美运行。**
 
 ### Json 结构 #3：简单的嵌套结构
@@ -290,7 +290,7 @@ factory Shape.fromJson(Map<String, dynamic> parsedJson){
 }
 ```
 
-所以基本上，我们从 `Property` 类调用 `Property.fromJson` 方法，无论得到什么，我们都将它映射到 `property` 实体。简单！在[这里](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/shape_model.dart) 检查你的代码。
+所以基本上，我们从 `Property` 类调用 `Property.fromJson` 方法，无论得到什么，我们都将它映射到 `property` 实体。简单！在 [这里](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/shape_model.dart) 检查你的代码。
 
 用你的 `shape_services.dart` 运行它，你会对运行结果感到满意的。
 
@@ -317,10 +317,10 @@ factory Shape.fromJson(Map<String, dynamic> parsedJson){
 
 好的，现在我们越来越深入了。**哇哦，我在里面看到了一个对象列表。**
 
-是的，所以这个结构有一个对象列表，但它本身仍然是一个 map。（参考**规则 ＃1** 和 **规则 ＃2**）。现在参考 **规则 ＃3**，让我们构造我们的 `product_model.dart`。
+是的，所以这个结构有一个对象列表，但它本身仍然是一个 map。（参考**规则 #1** 和 **规则 #2**）。现在参考 **规则 #3**，让我们构造我们的 `product_model.dart`。
 
 现在我们来创建 `Product` 和 `Image` 这两个类。
-**注意：** `_Product_` **会有一个数据成员，它是** `_Image_` **的 List**
+**注意：`_Product_` 会有一个数据成员，它是 `_Image_` 的 List**
 
 ```
 class Product {
@@ -385,7 +385,7 @@ print(list.runtimeType); //returns List<dynamic>
 List<Image> imagesList = list.map((i) => Image.fromJson(i)).toList();
 ```
 
-`list` 在这里是一个 List<dynamic>。现在我们通过调用 `Image.fromJson` 遍历整个列表，并把 `list` 中的每个对象映射到 `Image` 中，然后我们将每个 map 对象放入一个带有 `toList()` 的新列表中，并将它存储在 `List <Image> imagesList`。可以在[这里](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/product_model.dart) 查看完整代码。
+`list` 在这里是一个 List<dynamic>。现在我们通过调用 `Image.fromJson` 遍历整个列表，并把 `list` 中的每个对象映射到 `Image` 中，然后我们将每个 map 对象放入一个带有 `toList()` 的新列表中，并将它存储在 `List<Image> imagesList`。可以在[这里](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/product_model.dart) 查看完整代码。
 
 ### JSON 结构 #5：map 列表
 
@@ -455,7 +455,7 @@ class PhotosList {
 }
 ```
 
-同时请注意，这个 json 字符串是一个映射列表。因此，在我们的工厂方法中，不会有一个 `Map <String，dynamic>` 参数，因为它是一个 List。这就是为什么首先要确定结构。所以我们的新参数是 `List <dynamic>`。
+同时请注意，这个 json 字符串是一个映射列表。因此，在我们的工厂方法中，不会有一个 `Map<String, dynamic>` 参数，因为它是一个 List。这就是为什么首先要确定结构。所以我们的新参数是 `List<dynamic>`。
 
 ```
 factory PhotosList.fromJson(List<dynamic> parsedJson) {
@@ -508,7 +508,7 @@ photos = parsedJson.map((i)=>Photo.fromJson(i)).toList();
 
 > Hello World，我是 Pooja Bhaumik。一个有创意的开发人员和理性的设计师。你可以在 [Linkedin](https://www.linkedin.com/in/poojab26/) 或 [GitHub](https://github.com/PoojaB26) 或 [Twitter](https://twitter.com/pblead26) 上关注我？如果这对你来说太 social 了，如果你想和我谈论对科技的想法，请发邮件到 pbhaumik26@gmail.com。
 
-> 祝你度过美好的一天!
+> 祝你度过美好的一天！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
