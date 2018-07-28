@@ -2,22 +2,22 @@
 > * 原文作者：[Jonathan Fulton](https://engineering.videoblocks.com/@jonathan_fulton?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/web-architecture-101.md](https://github.com/xitu/gold-miner/blob/master/TODO1/web-architecture-101.md)
-> * 译者：
+> * 译者：[horizon13th](https://github.com/horizon13th)
 > * 校对者：
 
-# Web Architecture 101
+# Web Architecture 101 网络应用架构必修课
 
-## The basic architecture concepts I wish I knew when I was getting started as a web developer
+## The basic architecture concepts I wish I knew when I was getting started as a web developer 初级后端开发者必学的基础网络架构
 
 ![](https://cdn-images-1.medium.com/max/800/1*K6M-x-6e39jMq_c-2xqZIQ.png)
 
-Modern web application architecture overview
+Modern web application architecture overview 网络应用主流架构概览
 
-The above diagram is a fairly good representation of our architecture at Storyblocks. If you’re not an experienced web developer, you’ll likely find it complicated. The walk through below should make it more approachable before we dive into the details of each component.
+The above diagram is a fairly good representation of our architecture at Storyblocks. If you’re not an experienced web developer, you’ll likely find it complicated. The walk through below should make it more approachable before we dive into the details of each component. 上图便是我司（Storyblocks）网络架构的很好展现。如果你还没成为经验老道的 web 工程师，可能觉得上图巨复杂。在详解各个模块前，我们先简单过一下流程。
 
-> A user searches on Google for “Strong Beautiful Fog And Sunbeams In The Forest”. The [first result](https://www.graphicstock.com/stock-image/strong-beautiful-fog-and-sunbeams-in-the-forest-246703) happens to be from Storyblocks, our leading stock photo and vectors site. The user clicks the result which redirects their browser to the image details page. Underneath the hood the user’s browser sends a request to a DNS server to lookup how to contact Storyblocks, and then sends the request.
+> A user searches on Google for “Strong Beautiful Fog And Sunbeams In The Forest”. The [first result](https://www.graphicstock.com/stock-image/strong-beautiful-fog-and-sunbeams-in-the-forest-246703) happens to be from Storyblocks, our leading stock photo and vectors site. The user clicks the result which redirects their browser to the image details page. Underneath the hood the user’s browser sends a request to a DNS server to lookup how to contact Storyblocks, and then sends the request.用户在 Google 搜索关键字 “大雾 阳光 森林” 首条结果便是来自我们网站，用户点击搜索结果进入图片详情页。在用户操作的背后，客户端浏览器向 DNS 服务器查询图片所在服务器，并发送访问请求。
 
-> The request hits our load balancer, which randomly chooses one of the 10 or so web servers we have running the site at the time to process the request. The web server looks up some information about the image from our caching service and fetches the remaining data about it from the database. We notice that the color profile for the image has not been computed yet, so we send a “color profile” job to our job queue, which our job servers will process asynchronously, updating the database appropriately with the results.
+> The request hits our load balancer, which randomly chooses one of the 10 or so web servers we have running the site at the time to process the request. The web server looks up some information about the image from our caching service and fetches the remaining data about it from the database. We notice that the color profile for the image has not been computed yet, so we send a “color profile” job to our job queue, which our job servers will process asynchronously, updating the database appropriately with the results.用户请求通过负载均衡（随机选择多个服务器中的一个）访问站点处理请求。服务器从缓存服务中查找图片信息，并从数据库中调取其它信息。我们注意到此时，图片尚未进行色彩渲染计算，便发送“色彩渲染”任务到任务队列。此时该服务所在服务器异步处理任务，适时将结果更新到数据库。
 
 > Next, we attempt to find similar photos by sending a request to our full text search service using the title of the photo as input. The user happens to be a logged into Storyblocks as a member so we look up his account information from our account service. Finally, we fire off a page view event to our data firehose to be recorded on our cloud storage system and eventually loaded into our data warehouse, which analysts use to help answer questions about the business.
 
