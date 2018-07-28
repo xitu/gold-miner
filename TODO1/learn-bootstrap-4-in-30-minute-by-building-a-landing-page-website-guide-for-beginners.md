@@ -53,7 +53,7 @@ Bootstrap 有不少版本，其中最新的是第四版。在这篇文章里我�
 
 想要在你的项目中添上 Bootstrap 4 一共有三种办法： 
 
-1.  通过 npm （ Node 包裹管理器 ）
+1.  通过 npm （ Node 包管理器 ）
 
 你可以使用这行命令来安装 Bootstrap 4 —— `npm install bootstrap`。
 
@@ -200,7 +200,7 @@ background-color:#007bff!important
 </header>
 ```
 
-咱们来试试创建一个标题的布局。Let’s try and create a layout for the header.
+咱们来试试创建一个标题的布局。
 
 为了让标题能够占据 window 对象的高度，我们得用上一点点 JQuery 代码。
 首先创建一个 `main.js` 文件，然而将其链接放在 `index.html` 文件中 `body` 的前面：
