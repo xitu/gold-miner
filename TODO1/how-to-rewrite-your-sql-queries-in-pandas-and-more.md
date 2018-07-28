@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*gKYCyrcudAeE5e5KAbRhBQ.jpeg)
 
-15 年前，软件开发人员只需掌握很少的一些技能，他或她就有机会获得 95% 的工作机会。这些技能包括:
+15 年前，软件开发人员只需掌握很少的一些技能，他或她就有机会获得 95% 的工作机会。这些技能包括：
 
 *   面向对象编程
 *   脚本语言
@@ -22,7 +22,7 @@
 
 ### 什么是 Pandas？
 
-Pandas，即 Python 数据分析库（Python Data Analysis Library），是一个用于数据分析和处理的 Python 库。它是开源的，被 Anaconda 所支持。它特别适合结构化（表格化）数据。有关更多信息,请参考 [http://pandas.pydata.org/pandas-docs/stable/index.html](http://pandas.pydaxta.org/pandas-docs/stable/index.html).
+Pandas，即 Python 数据分析库（Python Data Analysis Library），是一个用于数据分析和处理的 Python 库。它是开源的，被 Anaconda 所支持。它特别适合结构化（表格化）数据。有关更多信息,请参考 [http://pandas.pydata.org/pandas-docs/stable/index.html](http://pandas.pydaxta.org/pandas-docs/stable/index.html)。
 
 ### 使用它可以做什么？
 
@@ -32,7 +32,7 @@ Pandas，即 Python 数据分析库（Python Data Analysis Library），是一�
 
 对于已经习惯于用 SQL 语句来处理数据问题的人来说，这是一个令人生畏的部分。
 
-SQL 是一种 **声明式编程语言**：[https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Declarative_languages.](https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Declarative_languages).
+SQL 是一种 **声明式编程语言**：[https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Declarative_languages.](https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Declarative_languages)。
 
 使用 SQL，你通过声明语句来声明想要的内容，这些声明读起来几乎就如同普通英文短句一样顺畅。
 
@@ -42,7 +42,7 @@ SQL 是一种 **声明式编程语言**：[https://en.wikipedia.org/wiki/List_of
 
 ### 剖析 SQL 查询
 
-SQL 查询由几个重要的关键字组成。在这些关键字之间，添加您想要看到的具体数据。下面是一些没有具体数据的查询语句的框架:
+SQL 查询由几个重要的关键字组成。在这些关键字之间，添加您想要看到的具体数据。下面是一些没有具体数据的查询语句的框架：
 
 SELECT… FROM… WHERE…
 
@@ -64,7 +64,7 @@ airport_freq = pd.read_csv('data/airport-frequencies.csv')
 runways = pd.read_csv('data/runways.csv')
 ```
 
-我的数据来自 [http://ourairports.com/data/](http://ourairports.com/data/).
+我的数据来自 [http://ourairports.com/data/](http://ourairports.com/data/)。
 
 ### SELECT, WHERE, DISTINCT, LIMIT
 
@@ -113,18 +113,18 @@ runways = pd.read_csv('data/runways.csv')
 | select iso_country, type, count(&ast;) from airports group by iso_country, type order by iso_country, type | airports.groupby(['iso_country', 'type']).size() |
 | select iso_country, type, count(&ast;) from airports group by iso_country, type order by iso_country, count(&ast;) desc | airports.groupby(['iso_country', 'type']).size().to_frame('size').reset_index().sort_values(['iso_country', 'size'], ascending=[True, False]) |
 
-下面，我们对多个字段进行分组。Pandas 默认情况下将对列表中相同字段上的内容进行排序，因此在第一个示例中不需要 **.sort_values()** 。如果我们想使用不同的字段进行排序，或者想使用 **DESC** 而不是 **ASC**，就像第二个例子那样，那我们就必须明确使用 **.sort_values()**:
+下面，我们对多个字段进行分组。Pandas 默认情况下将对列表中相同字段上的内容进行排序，因此在第一个示例中不需要 `.sort_values()`。如果我们想使用不同的字段进行排序，或者想使用 **DESC** 而不是 **ASC**，就像第二个例子那样，那我们就必须明确使用 **.sort_values()**：
 
 |  SQL  |  Pandas  |
 |:-----:|:--------:|
 | select iso_country, type, count(&ast;) from airports group by iso_country, type order by iso_country, type | airports.groupby(['iso_country', 'type']).size() |
 | select iso_country, type, count(&ast;) from airports group by iso_country, type order by iso_country, count(&ast;) desc | airports.groupby(['iso_country', 'type']).size().to_frame('size').reset_index().sort_values(['iso_country', 'size'], ascending=[True, False]) |
 
-其中使用 **.to_frame()** 和 **reset_index()** 是为什么呢？因为我们希望通过计算出的字段（**size**）进行排序，所以这个字段需要成为 **DataFrame** 的一部分。在 Pandas 中进行分组之后，我们得到了一个名为 **GroupByObject** 的新类型。所以我们需要使用 **.to_frame()** 把它转换回 **DataFrame** 类型。再使用 **.reset_index()** ，我们重新进行数据帧的行编号。
+其中使用 **.to_frame()** 和 **reset_index()** 是为什么呢？因为我们希望通过计算出的字段（**size**）进行排序，所以这个字段需要成为 **DataFrame** 的一部分。在 Pandas 中进行分组之后，我们得到了一个名为 **GroupByObject** 的新类型。所以我们需要使用 **.to_frame()** 把它转换回 **DataFrame** 类型。再使用 `.reset_index()`，我们重新进行数据帧的行编号。
 
 ### HAVING（包含）
 
-在 SQL 中，您可以使用 HAVING 条件语句对分组数据进行追加过滤。在 Pandas 中，您可以使用 **.filter()** ，并给它提供一个 Python 函数(或 lambda 函数)，如果结果中包含这个组，该函数将返回 **True**。
+在 SQL 中，您可以使用 HAVING 条件语句对分组数据进行追加过滤。在 Pandas 中，您可以使用 **.filter()** ，并给它提供一个 Python 函数（或 lambda 函数），如果结果中包含这个组，该函数将返回 **True**。
 
 |  SQL  |  Pandas  |
 |:-----:|:--------:|
@@ -136,14 +136,14 @@ runways = pd.read_csv('data/runways.csv')
 
 ![](https://cdn-images-1.medium.com/max/800/0*7BtzYznnc0Eu5Ghv.)
 
-在接下来的第一个示例中，我们通过 **airport_count** 来进行排序，只选择数量最多的 10 个国家。第二个例子比较复杂，我们想要“前 10 名之后的另外 10 名，即 11 到 20 名”:
+在接下来的第一个示例中，我们通过 **airport_count** 来进行排序，只选择数量最多的 10 个国家。第二个例子比较复杂，我们想要“前 10 名之后的另外 10 名，即 11 到 20 名”：
 
 |  SQL  |  Pandas  |
 |:-----:|:--------:|
 | select iso_country from by_country order by size desc limit 10 | by_country.nlargest(10, columns='airport_count') |
 | select iso_country from by_country order by size desc limit 10 offset 10 | by_country.nlargest(20, columns='airport_count').tail(10) |
 
-### 聚合函数 (MIN, MAX, MEAN)
+### 聚合函数（MIN，MAX，MEAN）
 
 现在给定一组 dataframe，或者一组跑道数据：
 
@@ -155,7 +155,7 @@ runways = pd.read_csv('data/runways.csv')
 |:-----:|:--------:|
 | select max(length_ft), min(length_ft), mean(length_ft), median(length_ft) from runways | runways.agg({'length_ft': ['min', 'max', 'mean', 'median']}) |
 
-您会注意到，使用 SQL 查询，每个统计结果都是一列数据。但是使用 Pandas 的聚集方法，每个统计结果都是一行数据:
+您会注意到，使用 SQL 查询，每个统计结果都是一列数据。但是使用 Pandas 的聚集方法，每个统计结果都是一行数据：
 
 ![](https://cdn-images-1.medium.com/max/800/0*5uJqmyB2KdwpsoY5.)
 
@@ -225,7 +225,7 @@ df.reset_index(drop=True, inplace=True)
 df['url'] = 'http://google.com'
 ```
 
-或者添加一个计算得出的新列:
+或者添加一个计算得出的新列：
 
 ```Python
 df['total_cost'] = df['price'] * df['quantity']
@@ -235,7 +235,7 @@ df['total_cost'] = df['price'] * df['quantity']
 
 ### 更多！
 
-Pandas 的好处在于它不仅仅是一个查询引擎。你可以用你的数据做更多事情，例如:
+Pandas 的好处在于它不仅仅是一个查询引擎。你可以用你的数据做更多事情，例如：
 
 *   以多种格式输出：
 
@@ -273,13 +273,13 @@ top_10.plot(
 
 *   共享：
 
-共享 Pandas 查询结果、绘图和相关内容的最佳媒介是 Jupyter notebooks([http://jupyter.org/](http://jupyter.org/))。事实上，有些人（比如杰克·范德普拉斯（Jake Vanderplas），他太棒了）会把整本书都发布在 Jupyter notebooks 上: [https://github.com/jakevdp/PythonDataScienceHandbook](https://github.com/jakevdp/PythonDataScienceHandbook).
+共享 Pandas 查询结果、绘图和相关内容的最佳媒介是 Jupyter notebooks（[http://jupyter.org/](http://jupyter.org/)）。事实上，有些人（比如杰克·范德普拉斯（Jake Vanderplas），他太棒了）会把整本书都发布在 Jupyter notebooks 上：[https://github.com/jakevdp/PythonDataScienceHandbook](https://github.com/jakevdp/PythonDataScienceHandbook)。
 
 很简单就可以创建一个新的笔记本：
 
 ```Python
-$ pip install jupyter
-$ jupyter notebook
+pip install jupyter
+jupyter notebook
 ```
 
 之后：
