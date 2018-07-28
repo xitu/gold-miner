@@ -50,19 +50,19 @@
 *   **定向电子邮件：** 对目标使用规则并且通过群发邮件来吸引用户
 *   **会话（Sessionization）：** 计算点击流和停留时间的数据集
 *   **搜索：** 计算搜索排名相关的指标
-*   **数据基础架构维护：** 数据库抓取、文件夹清理以及应用数据留存策略，......
+*   **数据基础架构维护：** 数据库抓取、文件夹清理以及应用数据留存策略...
 
 ### 架构
 
 就像英语是商务活动经常使用的语言一样，Python 已经稳固地将自己树立为数据工作的语言。Airflow 从创建之初就是用 Python 编写的。代码库可扩展、文档齐全、风格一致、语法过检并且有很高的单元测试覆盖率。
 
-管道的编写也是用 Python 完成的，这意味着通过配置文件或者其他元数据进行动态管道生成是与生俱来的。“**配置即代码**” 是我们为了达到这个目的而坚守的准则。虽然基于 yaml 或者 json 的作业配置方式可以让我们用任何语言来生成 Airflow 数据管道，但是我们感觉到转化过程中的一些流动性丧失了。能够内省代码（ipython!和集成开发工具）子类和元程序并且使用导入的库来帮助编写数据管道为 Airflow 增加了巨大的价值。注意，只要你能写 Python 代码来解释配置，你还是可以用任何编程语言或者标记语言来编辑作业。
+管道的编写也是用 Python 完成的，这意味着通过配置文件或者其他元数据进行动态管道生成是与生俱来的。“**配置即代码**” 是我们为了达到这个目的而坚守的准则。虽然基于 yaml 或者 json 的作业配置方式可以让我们用任何语言来生成 Airflow 数据管道，但是我们感觉到转化过程中的一些流动性丧失了。能够内省代码（ipython！和集成开发工具）子类和元程序并且使用导入的库来帮助编写数据管道为 Airflow 增加了巨大的价值。注意，只要你能写 Python 代码来解释配置，你还是可以用任何编程语言或者标记语言来编辑作业。
 
 你仅需几行命令就可以让 Airflow 运行起来，但是它的完整架构包含有下面这么多组件：
 
-*   **作业定义**, 包含在源代码控制中。
+*   **作业定义**，包含在源代码控制中。
 *   一个丰富的 **命令行工具** (命令行接口) 用来测试、运行、回填、描述和清理你的有向无环图的组成部件。
-*   一个 **web 应用程序**, 用来浏览有向无环图的定义、依赖项、进度、元数据和日志。web 服务器打包在 Airflow 里面并且是基于 Python web 框架 Flask 构建的。
+*   一个 **web 应用程序**，用来浏览有向无环图的定义、依赖项、进度、元数据和日志。web 服务器打包在 Airflow 里面并且是基于 Python web 框架 Flask 构建的。
 *   一个 **元数据仓库**，通常是一个 MySQL 或者 Postgres 数据库，Airflow 可以用它来记录任务作业状态和其它持久化的信息。
 *   一组 **工作节点**，以分布式的方式运行作业的任务实例。
 *   **调度** 程序，触发准备运行的任务实例。
@@ -79,7 +79,7 @@ Airflow 自带各种与 Hive、Presto、MySQL、HDFS、Postgres 和 S3 这些常
 *   **转移** 操作符将数据从一个系统移动到另一个系统
 *   **传感器** 是一类特定的操作符，它们会一直运行直到满足了特定的条件
 
-**执行器（Executors）** 实现了一个接口，它可以让 Airflow 组件（命令行接口、调度器和 web 服务器）可以远程执行作业。目前，Airflow 自带一个 SequentialExecutor（用来做测试）、一个多线程的 LocalExecutor、一个使用了  [Celery](http://www.celeryproject.org/) 的 CeleryExecutor 和一个超棒的基于分布式消息传递的异步任务队列。我们也计划在不久后开源 YarnExecutor。
+**执行器（Executors）** 实现了一个接口，它可以让 Airflow 组件（命令行接口、调度器和 web 服务器）可以远程执行作业。目前，Airflow 自带一个 SequentialExecutor（用来做测试）、一个多线程的 LocalExecutor、一个使用了 [Celery](http://www.celeryproject.org/) 的 CeleryExecutor 和一个超棒的基于分布式消息传递的异步任务队列。我们也计划在不久后开源 YarnExecutor。
 
 ### 一个绚丽的用户界面
 
@@ -117,7 +117,7 @@ Airflow 自带各种与 Hive、Presto、MySQL、HDFS、Postgres 和 S3 这些常
 
 ![](https://cdn-images-1.medium.com/max/800/1*YsUOrWx3mRxZZljtc9xZyw.png)
 
-#### 在 [airbnb.io](http://airbnb.io) 上查看我们所有的开源项目并 在 Twitter 上关注我们: [@AirbnbEng](https://twitter.com/AirbnbEng) + [@AirbnbData](https://twitter.com/AirbnbData)
+#### 在 [airbnb.io](http://airbnb.io) 上查看我们所有的开源项目并 在 Twitter 上关注我们：[@AirbnbEng](https://twitter.com/AirbnbEng) + [@AirbnbData](https://twitter.com/AirbnbData)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
