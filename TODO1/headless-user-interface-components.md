@@ -5,24 +5,24 @@
 > * 译者：
 > * 校对者：
 
-# Headless User Interface Components
+# 无头用户界面组件
 
-[Original Article](https://www.merrickchristensen.com/articles/headless-user-interface-components/)
+[原文](https://www.merrickchristensen.com/articles/headless-user-interface-components/)
 
-A headless user interface component is a component that offers maximum visual flexibility by providing no interface. “Wait for a second, are you advocating a user interface pattern that doesn’t have a user interface?”
+无头用户界面组件是一种不提供任何接口而提供最大视觉灵活性的组件。“等等，你是在提倡没有用户界面的用户界面模式么？”
 
-Yes. That is exactly what I’m advocating.
+是的，这正是我所提倡的。
 
-### Coin Flip Component
+### Coin Flip 组件
 
-Suppose you had a requirement to implement a coin flip feature that performed some logic when it is rendered to emulate a coin flip! 50% of the time the component should render “Heads” and 50% of the time it should render “Tails”. You say to your product manager, “Oof that will take years of research!”, and you get to work.
+假设你现在需要实现一个硬币翻转功能，该功能在呈现模拟硬币翻转时执行一些逻辑！50% 的时间组件应该渲染 “Heads”，50% 的时间应该渲染 “Tails”。你对你的产品经理说“这需要多年的研究！”然后你继续工作。
 
 ```
 const CoinFlip = () =>
  Math.random() < 0.5 ? <div>Heads</div> : <div>Tails</div>;
 ```
 
-Turns out emulating coin flips is way easier than you thought so you proudly share the results. You get a response, “This is great! Could you please update it to show these cool coin images?”. No problem!
+事实证明，模仿硬币翻转比你想象的要容易得多，所以你可以自豪地分享成果。你得到了回复，“这真的是太棒了！请更新那些显示很酷的硬币的图片好么？”没问题！
 
 ```
 const CoinFlip = () =>
@@ -37,7 +37,7 @@ const CoinFlip = () =>
  );
 ```
 
-Soon, they’d like to use your `<CoinFlip />` component in the marketing material to show people how cool your new feature is. “We’d like to put in the blog post, but we need the labels “Heads” & “Tails” back, for SEO and stuff.” Oh man, I guess we’ll add a flag for the marketing site?
+很快，他们会在营销材料中使用你的 `<CoinFlip />` 组件，来向人们演示你的新特性有多么炫酷。“我们想在博客上发表文章，但是我们需要标签 'Heads' 和 'Tails'，用于 SEO 和其他事情。”哦，天啊，或许我们需要在商城网站中添加一个标志？
 
 ```
 const CoinFlip = (
@@ -62,7 +62,7 @@ const CoinFlip = (
  );
 ```
 
-Later, a requirement emerges. “We were wondering if you could add a button to `<CoinFlip />`, but only in the application, to rerun the odds?”. Things are starting to get ugly, I can’t even look Kent C. Dodds in the eyes anymore:
+后来，出现了一个需求。“我们像知道你能否在应用程序中的 `<CoinFlip />` 只添加一个用来 odds 的按钮？”事情开始变得糟糕，以致于我不敢在直视 Kent C. Dodds 的眼睛。
 
 ```
 const flip = () => ({
@@ -106,18 +106,18 @@ class CoinFlip extends React.Component {
 }
 ```
 
-Soon a co-worker reaches out to you. “Hey, your `<CoinFlip />` feature is rad! We just got assigned the new `<DiceRoll />` feature and we’d like to reuse your code!”. The new dice feature:
+很快就有同事找到你。“嗨，你的 `<CoinFlip />` 性能太棒了！我们刚使用了新的 `<DiceRoll />` 特性，我们希望可以重用你的代码！”新骰子的功能：
 
-1. Wants to “re-run” the odds `onClick`.  
-2. Wants to be displayed in the application and marketing site as well.  
-3. Has a totally different interface.  
-4. Has different odds.
+1. 想要“重新运行”赔率的 `onClick`。  
+2. 也希望在应用程序和商城网站中显示。
+3. 有完全不同的界面。  
+4. 有不同的赔率。
 
-You now have two options, replying “Sorry, not much to share here.” or adding `DiceRoll` complexity into `CoinFlip` as you watch the bones of your component break under the weight of its responsibility. (Is there a market for brooding programmer poets? I’d love to pursue that craft.)
+您现在有两个选项，回复“对不起，这里没有可以分享的。”或在你看到组件的骨架超出其职责范围时，向 `CoinFlip` 中添加 `DiceRoll` 的复杂性。（是否有一个给沉思的程序员诗人的市场？我喜欢追求这种技术。）
 
-### Enter Headless Components
+### 输入无头组件
 
-Headless user interface components separate the logic & behavior of a component from its visual representation. This pattern works great when the logic of a component is sufficiently complex and decoupled from its visual representation. A headless implementation of `<CoinFlip/>` as [function as child component](https://www.merrickchristensen.com/articles/function-as-child-components/) or render prop would look like so:
+无头用户界面组件将组件的逻辑和行为与其视觉表现分离。当组件的逻辑足够复杂并与它的视觉表现解耦时，这种模式非常有效。实现 `<CoinFlip/>` 的无头将作为[函数子组件](https://www.merrickchristensen.com/articles/function-as-child-components/)或渲染属性，就像这样：
 
 ```
 const flip = () => ({
@@ -137,7 +137,7 @@ class CoinFlip extends React.Component {
 }
 ```
 
-This component is headless because it doesn’t render anything, it expects the various consumers to do the presentation work while it tackles the logic lifting. So the application code would look like so:
+这个组件事无头的，因为它没有渲染任何东西，它期望不同消费者在处理逻辑提升时，同时进行演示。因此应用程序代码看起来应该是这样的：
 
 ```
 <CoinFlip>
@@ -158,7 +158,7 @@ This component is headless because it doesn’t render anything, it expects the 
 </CoinFlip>
 ```
 
-The marketing website code:
+商场站点代码：
 
 ```
 <CoinFlip>
@@ -180,15 +180,15 @@ The marketing website code:
 </CoinFlip>
 ```
 
-Isn’t this great! We’ve completely untangled the logic from the presentation! This gives us so much visual flexibility! I know what you’re thinking…
+这很好不是么！我们完全解开了演示中的逻辑！这给我们视觉上带来了很大的灵活性！我知道你正在思考什么......
 
-> You mindless sack of idiot! Isn’t that just a render prop?!
+> 你这小笨蛋，这不是一个渲染属性么？
 
-This headless component happens to be implemented as a render prop, yes! It could just as well be implemented as a higher order component. _Looks over my shoulder, in a hushed low tone._ It could have even been implemented as a `View` and a `Controller`. Or a `ViewModel` and a `View`. The point here is about separating the “mechanism” of flipping coins and the “interface” to that mechanism.
+这个无头组件恰好是作为渲染工具实现的，是的！它也可以作为一个高阶组件来实现。**即使是简单的实现，也可以到达我们的要求。**它甚至可以作为 `View` 和 `Controller` 来实现。或者是 `ViewModel` 和 `View`。这里的重点是将翻转硬币的机制和该机制的“界面”分离。
 
-#### What about `<DiceRoll />`?
+#### 那 `<DiceRoll />` 呢？
 
-The neat thing about this separation is how easy it is to generalize our headless component to support our co-workers new `<DiceRoll />` feature. Hold my Diet Coke™:
+这种分离的巧妙之处在于，推广我们的无头组件以及支持我们同事的新的 `<DiceRoll />` 的特性会很容易。拿着我的 Diet Coke™：
 
 ```
 const run = () => ({
@@ -214,7 +214,7 @@ class Probability extends React.Component {
 }
 ```
 
-With this headless component we can swap out the implementation of `<CoinFlip />` without any changes to its consumers:
+利用这个无头组件，我们在没有对消费者进行任何更改对情况下，交换 `<CoinFlip />` 的实现：
 
 ```
 const CoinFlip = ({ children }) => (
@@ -228,7 +228,7 @@ const CoinFlip = ({ children }) => (
 );
 ```
 
-Now our co-worker can share the mechanism of our `<Probability />` emulator!
+现在我们的同事可以分享我们的 `<Probability />` 模拟程序机制了！
 
 ```
 const RollDice = ({ children }) => (
@@ -250,38 +250,38 @@ const RollDice = ({ children }) => (
 );
 ```
 
-Pretty neat, eh?
+非常干净，不是么？
 
-### Rule of Separation — Unix Philosophy
+### 分离规则 —— Unix 哲学
 
-This is one expression of a general underlying principle, one that has been around for a very long time! Rule 4 of the “Basics of Unix Philosophy” is:
+这表达了一个存在很长时间对普遍基本原则，“Unix 基础哲学对第四条”：
 
-> Rule of Separation: Separate policy from mechanism; separate interfaces from engines. — Eric S. Raymond
+> 分离原则：将策略与机制分离，将接口和引擎分离 —— Eric S. Raymond
 
-I’d like to extract a portion of that book and replace the word “policy” with “interface”.
+我想提取书中的部分，并将永“接口”来替换“策略”一词。
 
-> _Interface_ and mechanism tend to mutate on different timescales, with _interfaces_ changing much faster than mechanism. Fashions in the look and feel of GUI toolkits may come and go, but raster operations and compositing are forever.
+> **接口**和机制都倾向于在不同时间范围内变化，但**接口**的变化比机制要快得多。GUI 工具包多外观的时尚和使用感可能会变化，但是操作和组合却不会。
 
-> Thus, hardwiring _interfaces_ and mechanisms together has two bad effects: It makes _interfaces_ rigid and harder to change in response to user requirements, and it means that trying to change _interfaces_ has a strong tendency to destabilize the mechanism.
+> 因此，硬件**接口**和机制结合在一起有两个不好的影响：它使得接口变的生硬，更难响应用户的需求，这意味着试图更改**接口**具有很强的不稳定性。
 
-> On the other hand, by separating the two we make it possible to experiment with new _interfaces_ without breaking mechanism. We also make it much easier to write good tests for the mechanism (_interfaces_, because _they_ age so quickly, often do not justify the investment).
+> 另一方面，通过将这两者分开，我们可以在没有中断机制的情况下试验新的**接口**。我们还可以更容易地为该机制编写好的测试（**接口**，因为**它们**太新了，难以证明这样的投资是合理的）。
 
-I love the great insights here! This also gives us some insight as to when it is useful to use the headless component pattern.
+我喜欢这里的真知灼见！这也让我们对何时使用无头组件模式有了一些了解。
 
-1.  How long will this component live for? Is it worth deliberately preserving the mechanism aside from the interface? Perhaps to use this mechanism in another project with a different look and feel?
-2.  How frequently is our interface bound to change? Will the same mechanism have multiple interfaces?
+1.  这个组件会持续多长时间？除了界面外，是否值得刻意保留这个机制？也许在另一个外观和感觉不同的项目中可以使用这种机制？
+2.  我们的界面改变的频率多快？同一机制会有多个接口么？
 
-There is an indirection cost paid when you separate “mechanism” and “policy”. You need to be sure that the benefits of separation merit the expense of indirection. I think this is largely where a lot of the MV* patterns of the past went wrong, they started with the axiom that _everything_ should be separated this way; when in reality, mechanism and policy are often deeply coupled or the cost of separation doesn’t outweigh the benefits of this sort of separation.
+当你将“机制”和“策略”分离时，就会产生间接的成本。你需要确保分离的好处应该是间接的代价。我认为这在很大程度上是过去许多 MV* 模式出问题的地方，它们从这样一个公理开始，即所有的东西都应该以这种方式分开；而在现实中，机制和策略往往是紧密耦合的，或分离的成本并没有超过分离的好处。
 
-### Open Source Headless Components & Non-Trivial References
+### 开源无头组件和非平凡引用
 
-For a truly exemplar non-trivial headless component, check out a project by my friend [Kent C. Dodds](https://kentcdodds.com/) over at Paypal called [downshift](https://github.com/paypal/downshift). In fact, it is downshift that ultimately inspired this post. Without providing any user interface, downshift offers sophisticated autocomplete/dropdown/select experiences that are accessible. Take a look at all the ways it can be used [here](http://downshift.netlify.com/?selectedKind=Examples&selectedStory=basic&full=0&addons=1&stories=1&panelRight=0).
+要获取一个真正的示例性非平凡无头组件，可以查看我朋友 [Kent C. Dodds](https://kentcdodds.com/) 在 Paypal 上一篇叫做 [downshift](https://github.com/paypal/downshift) 的文章。事实上，正是 downshift 给了这篇文章一些灵感。在不提供任何用户界面的情况下，downshift 提供了复杂的自动完成、下拉、选择体验，这些体验都是可以访问的。[在这里](http://downshift.netlify.com/?selectedKind=Examples&selectedStory=basic&full=0&addons=1&stories=1&panelRight=0)看看它可以使用的所以方法。
 
-I sincerely hope that more projects like downshift emerge over time. I can’t count how many times I’ve wanted to use a particular open source UI component but couldn’t because it wasn’t “themeable” or “skinnable” in the way that met design requirements. Headless components circumvent this problem entirely with a “bring your own interface” requirement.
+我希望随着时间的推移，会出现更多类似的项目。我无法计算有多少次我想使用一个特定的开源 UI 组件，但却无法这样做，因为在满足设计要求的方式上，它并不是“主题化的”或“可剥离的”。无头组件完全通过“自带接口”的要求来解决这个问题。
 
-In a world where design systems and user interface libraries are headless, your interfaces can have a high-end custom feel _and_ the durability & accessibility of a great open source library. You spend your time implementing the only part that you needed to, the part that is truly unique, the look and feel specific to your application.
+在一个设计系统和用户界面库都是无头的世界里，你的界面可以有一个高级定制感觉，**以及**优秀开源库的持久性和可访问性。你需要花费时间来实现你需要的唯一部分，真正独特的部分，以及特定于应用程序的外观和感觉。
 
-I could go on about the benefits from internationalization to E2E test integration but I’d recommend you try it out for yourself.
+我可以继续讨论从国际化到 E2E 测试集成的好处，但我建议你最好自己去体验。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
