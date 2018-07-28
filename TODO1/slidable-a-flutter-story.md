@@ -2,7 +2,7 @@
 > * 原文作者：[Romain Rastel](https://medium.com/@lets4r?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/slidable-a-flutter-story.md](https://github.com/xitu/gold-miner/blob/master/TODO1/slidable-a-flutter-story.md)
-> * 译者：[YueYong](https://github.com/YueYongDev)
+> * 译者： [YueYong](https://github.com/YueYongDev)
 > * 校对者：
 
 # Slidable: 一个Flutter的故事
