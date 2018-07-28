@@ -9,15 +9,15 @@
 
 ![](https://cdn-images-1.medium.com/max/600/1*uyZqUA7yQuJYrHtuDv49Rw.jpeg)
 
-我必须承认，在 Flutter / Dart 中使用 JSON 后，我一直想念 ** _gson_ ** 的 Android 世界。当我开始使用 Flutter 中的 API 时，JSON 解析真的让我很困扰。而且我敢确定，它也让很多初学者感到困惑。
+我必须承认，在 Flutter/Dart 中使用 JSON 后，我一直想念 **_gson_** 的 Android 世界。当我开始使用 Flutter 中的 API 时，JSON 解析真的让我很困扰。而且我敢确定，它也让很多初学者感到困惑。
 
-我们将在这篇博客中使用内置的 `dart:convert` 库。这是最基本的解析方法，只有在你刚开始使用 Flutter 或者你正在写一个小项目时才建议使用它。不过，了解一些 Flutter 中 JSON 解析的基础知识非常重要。如果你精通这个，或者你需要写更大的项目时，可以考虑像[json_serializable](https://pub.dartlang.org/packages/json_serializable) 等代码生成器库。如果可能的话，我会在以后的文章中介绍它们。
+我们将在这篇博客中使用内置的 `dart:convert` 库。这是最基本的解析方法，只有在你刚开始使用 Flutter 或者你正在写一个小项目时才建议使用它。不过，了解一些 Flutter 中 JSON 解析的基础知识非常重要。如果你精通这个，或者你需要写更大的项目时，可以考虑像 [json_serializable](https://pub.dartlang.org/packages/json_serializable) 等代码生成器库。如果可能的话，我会在以后的文章中介绍它们。
 
-Fork 这个 [示例项目](https://github.com/PoojaB26/ParsingJSON-Flutter)。它包含这篇博客中的所有代码，你可以对照着实践一下。
+Fork 这个[示例项目](https://github.com/PoojaB26/ParsingJSON-Flutter)。它包含这篇博客中的所有代码，你可以对照着实践一下。
 
-### JSON 结构 #1: 简单的 map
+### JSON 结构 #1：简单的 map
 
-让我们从一个简单的 JSON 结构开始—— [student.json](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/assets/student.json)
+让我们从一个简单的 JSON 结构开始 —— [student.json](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/assets/student.json)
 
 ```
 {
@@ -27,11 +27,11 @@ Fork 这个 [示例项目](https://github.com/PoojaB26/ParsingJSON-Flutter)。�
 }
 ```
 
-**规则 #1:** **确定结构。Json 字符串将具有 Map（键值对）或 List of Maps。**
+**规则 #1：确定结构。Json 字符串将具有 Map（键值对）或 List of Maps。**
 
-**规则 #2: 用花括号开始？这是 map。用方括号开始？ 那是 List of maps。**
+**规则 #2：用花括号开始？这是 map。用方括号开始？那是 List of maps。**
 
-`student.json` 明显是 map。(比如，`id` 是键，`487349` 是 `id` 的值)
+`student.json` 明显是 map（比如，`id` 是键，`487349` 是 `id` 的值）。
 
 让我们为这个 json 结构做一个 PODO（Plain Old Dart Object？）文件。你可以在示例项目的 [student_model.dart](https://github.com/PoojaB26/ParsingJSON-Flutter/blob/master/lib/model/student_model.dart) 文件中找到这段代码。
 
