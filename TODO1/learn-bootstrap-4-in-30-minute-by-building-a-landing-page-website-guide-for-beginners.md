@@ -2,111 +2,109 @@
 > * 原文作者：[SaidHayani@](https://medium.freecodecamp.org/@saidhayani?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/learn-bootstrap-4-in-30-minute-by-building-a-landing-page-website-guide-for-beginners.md](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-bootstrap-4-in-30-minute-by-building-a-landing-page-website-guide-for-beginners.md)
-> * 译者：
+> * 译者：Zheng7426
 > * 校对者：
 
-# Learn Bootstrap 4 in 30 minutes by building a landing page website
+# 用30分钟建立一个网站的方式来学习Bootstrap 4
 
 ![](https://cdn-images-1.medium.com/max/800/1*1_a4TocueD3AqEpsDDv4bA.jpeg)
 
-from [templatetoaster](https://blog.templatetoaster.com/bootstrap-4/)
+来自 [templatetoaster](https://blog.templatetoaster.com/bootstrap-4/)
 
 ![](https://cdn-images-1.medium.com/max/800/1*a9OoxPsn-hrbjYpbNV6DzA.gif)
 
-### A guide for beginners
+### 新人指南
 
-> “Bootstrap is a free, open-source front-end library for designing websites and web applications. It contains HTML- and CSS-based design templates for everything from typography, forms, buttons, navigation and other interface components as well as JavaScript extensions. Unlike many other web frameworks, Bootstrap concerns itself with front-end development only.” — [Wikipedia](https://en.wikipedia.org/wiki/Bootstrap_%28front-end_framework)
+> “Bootstrap 是一个为网站及网页应用设计而生的开源前端代码库。它基于 HTML 和 CSS 的设计模板涵盖了文字设计、表单、按钮、导航、其他界面组件以及一些 JavaScript 扩展包。与很多其他网页框架不一样的是， Bootstrap 对自身的定位是仅仅适用于前端开发而已。” — [维基百科](https://en.wikipedia.org/wiki/Bootstrap_(front-end_framework))
 
-> [Hi, before we start check out my full class to learn Bootstrap 4 ,where you will learn new features of bootstrap and how to use them to build better user experiences](https://skl.sh/2NbSAYj) .
+> [嘿嘿，在我们开始之前，你可以看看我开设的学习 Bootstrap 4 的完整课程，你不仅可以学到 bootstrap 的新特性，还能学到如何借助这些特性来实现更棒的用户体验。](https://skl.sh/2NbSAYj) .
 
-There are many versions of Bootstrap with version 4 being the latest. In this article we are going to build a website using Bootstrap 4.
+Bootstrap 有不少版本，其中最新的是第四版。在这篇文章里我们就是要来用 Bootstrap 4 来构建一个网站。
 
-### Prerequisites
+### 必备知识
 
-Before starting, there are some skills you’ll have to know in order to learn and use the Bootstrap framework:
+在开始学习和使用 Bootstrap 框架之前，有一些知识你得先掌握：
 
-*   HTML fundamentals
-*   basic knowledge of CSS
-*   and some basic JQuery
+*   HTML 基本知识
+*   CSS  基本知识
+*   以及对 JQuery 略懂一二
 
-### Table of Contents
+### 目录
 
-We will cover the topics below while building the website:
+在构建网站的过程中我们会谈到的话题：
 
-*   [Downloading and installing Bootstrap 4](https://medium.com/p/f64e03833f33/#57f4)
-*   [The new features of Bootstrap 4](https://medium.com/p/f64e03833f33/#8a73)
-*   [Bootstrap Grid system](https://medium.com/p/f64e03833f33/#06ac)
-*   [Navbar](https://medium.com/p/f64e03833f33/#e7c2)
-*   [Header](https://medium.com/p/f64e03833f33/#a500)
-*   [Buttons](https://medium.com/p/f64e03833f33/#74b8)
-*   [About Section](https://medium.com/p/f64e03833f33/#89ac)
-*   [Portfolio Section](https://medium.com/p/f64e03833f33/#7504)
-*   [Blog Section](https://medium.com/p/f64e03833f33/#9bb6)
-*   [Cards](https://medium.com/p/f64e03833f33/#6767)
-*   [Team Section](https://medium.com/p/f64e03833f33/#6db4)
-*   [Contact Form](https://medium.com/p/f64e03833f33/#971e)
-*   [Fonts](https://medium.com/p/f64e03833f33/#f161)
-*   [Scroll Effect](https://medium.com/p/f64e03833f33/#6c7e)
-*   [Wrap-up and Conclusion](https://medium.com/p/f64e03833f33/#a0a8)
+*   [Bootstrap 4 的下载及安装](https://medium.com/p/f64e03833f33/#57f4)
+*   [Bootstrap 4 的新特性](https://medium.com/p/f64e03833f33/#8a73)
+*   [Bootstrap 网格系统](https://medium.com/p/f64e03833f33/#06ac)
+*   [导航栏](https://medium.com/p/f64e03833f33/#e7c2)
+*   [标题](https://medium.com/p/f64e03833f33/#a500)
+*   [按钮](https://medium.com/p/f64e03833f33/#74b8)
+*   [“关于我”版块](https://medium.com/p/f64e03833f33/#89ac)
+*   [作品集版块](https://medium.com/p/f64e03833f33/#7504)
+*   [博客版块](https://medium.com/p/f64e03833f33/#9bb6)
+*   [卡片](https://medium.com/p/f64e03833f33/#6767)
+*   [团队版块](https://medium.com/p/f64e03833f33/#6db4)
+*   [联系表单](https://medium.com/p/f64e03833f33/#971e)
+*   [字体](https://medium.com/p/f64e03833f33/#f161)
+*   [划动效果](https://medium.com/p/f64e03833f33/#6c7e)
+*   [总结](https://medium.com/p/f64e03833f33/#a0a8)
 
-### Downloading and installing Bootstrap 4
+### 下载及安装 Bootstrap 4
 
-There are three ways to install and include Bootstrap 4 for your project:
+想要在你的项目中添上 Bootstrap 4 一共有三种办法： 
 
-1.  Use npm
+1.  通过 npm （ Node 包裹管理器 ）
 
-You can install Bootstrap 4 by running this command `npm install bootstrap`
+你可以使用这行命令来安装 Bootstrap 4 —— `npm install bootstrap`。
 
-2. Use a Content Delivery Network (CDN)
+2. 通过 CDN ( 内容分发网络 )
 
-By including this link in your project between head tags:
+你可以在你项目的 head 标签之间添上这个链接:
 
 ```
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 ```
 
-3. Download the [Bootstrap 4](http://getbootstrap.com/) library and use it locally.
+3. 通过下载这个 [Bootstrap 4](http://getbootstrap.com/) 代码库并在本地使用。
 
-The structure of our project should look like this:
-
+整个项目的结构应该看起来像这样： 
 ![](https://cdn-images-1.medium.com/max/800/1*cyhB-vVWlIwbNpDH_JNZYg.png)
 
-### The new features of Bootstrap 4
+### Bootstrap 4 的新特性
 
-What’s new in Bootstrap 4? And what’s different between Bootstrap 3 and 4?
+Bootstrap 4 有什么新花样呢？ 它和 Bootstrap 3 又有何不同？ 
 
-Bootstrap 4 now comes with some awesome features that didn’t exist in the last version:
+比起上一个版本，Bootstrap 4 加入了以下一些很棒的新特性：  
 
-*   Bootstrap 4 is written using Flexbox Grid, whereas Bootstrap 3 was written using the float method.  
-    If you’re new to Flexbox then check out [this tutorial](https://scrimba.com/p/pL65cJ/canLGCw).
-*   Bootstrap 4 uses `rem` CSS units whereas Bootstrap 3 uses `px`.  
-    [See how these two units differ.](https://zellwk.com/blog/media-query-units/)
-*   Panels, thumbnails and wells have been dropped entirely.  
-    You can read in detail more about the global changes and removed features of Bootstrap 4 [here](http://getbootstrap.com/docs/4.0/migration/#global-changes).
+*   Bootstrap 4 是由 Flexbox Grid写成的，而 Bootstrap 3 是由 float 方法写就。
+    如果你没听过 Flexbox 的话可以查看 [这个教程](https://scrimba.com/p/pL65cJ/canLGCw).
+*   Bootstrap 4 使用了 `rem` CSS 单位，而 Bootstrap 3 使用的是 `px`。 
+    [了解这两种单位的区别](https://zellwk.com/blog/media-query-units/)
+*   Panels, thumbnails 和 wells 在这个新版本中全被舍弃了。 
+    想要更详细地了解在 Bootstrap 4 中被移除的特性和新增的改动吗？[点这里](http://getbootstrap.com/docs/4.0/migration/#global-changes).
 
-Without jumping too deep into detail here, let’s move on to some other important things.
+先不要在意这些这些细节，我们来接着谈其他重要的话题吧。
 
-### The Bootstrap Grid system
+### Bootstrap 网格系统 (Grid system)
 
-The Bootstrap Grid system helps you to create your layout and easily build a responsive website. There have not been any changes in the class names, except the `.xs` class, which no longer exists in Bootstrap 4.
+Bootstrap 网格系统有助于创建你的布局以及轻松地构建一个响应式网站。 在 Bootstrap 4 里唯一对 class 名称的改动就是去除了 `.xs` class。
 
-The grid is divided into 12 columns, so your layout will be based on this.
-
-To use the grid system you’ll have to add a `.row` class to the main _div_.
+网格一共被分成了 12 列 （columns），所以你的布局将会基于这 12 列来实现。 
+使用这个网格系统的前提在于，你得在主要的 _div_ 里加上一个名为 `.row` 的 class。 
 
 ```
-col-lg-2 // class used for large devices like laptops
-col-md-2 // class used for medium devices like tablets
-col-sm-2// class used for small devices like mobile phones
+col-lg-2 // 这个 class 适用于大型设备（如笔记本电脑）
+col-md-2 // 这个 class 适用于中型设备（如平板电脑）
+col-sm-2// 这个 class 适用于小型设备 （如手机）
 ```
 
-### Navbar
+### 导航栏（Navbar）
 
 ![](https://cdn-images-1.medium.com/max/800/1*VbIQyNsPrZ143nV8LaHLAg.png)
 
-The navbar wrapper is pretty cool in Bootstrap 4. It’s so helpful when it comes to building a responsive navbar.
+Bootstrap 4 中导航栏的封装可以说非常酷炫，它在构建一个响应式导航栏的时候可以帮上大忙。
 
-To get it, we are going to add the `navbar` class to our `index.html` file:
+要想运用导航栏，咱们得在文件 `index.html` 中加入 `navbar` 这个class：
 
 ```
 <nav class="navbar navbar-expand-lg fixed-top ">
@@ -139,15 +137,15 @@ To get it, we are going to add the `navbar` class to our `index.html` file:
 </nav>
 ```
 
-Create and include a `main.css` file so that you can customize the CSS style.
+创建并加入一个 `main.css` 文件来定义你自己的 CSS 风格。
 
-Put this within the `head` tag in your `index.html` file:
+在你的`index.html`文件中，把以下这行代码塞入两个`head`标签之中： 
 
 ```
 <link rel="stylesheet" type="text/css" href="css/main.css">
 ```
 
-Let’s add some colors to our navbar:
+咱们给导航栏添一些色彩：
 
 ```
 .navbar{
@@ -172,7 +170,7 @@ Let’s add some colors to our navbar:
 }
 ```
 
-The new Bootstrap Grid is built with the Flexbox system, so for alignment you have to use a Flexbox property. For example, to place the navbar menu on the right we need to add a `justify-content` property and set it to `flex-end`.
+新的 Bootstrap 网格是基于 Flexbox 构建的，所以你得使用 Flexbox 的性质来进行网站元素的排列。打个比方，若想要把导航栏菜单放在右边，咱得加入一个`justify-content`性质，并且赋值`flex-end`。
 
 ```
 .navbar-collapse{  
@@ -180,12 +178,10 @@ The new Bootstrap Grid is built with the Flexbox system, so for alignment you ha
 }
 ```
 
-Add the `.fixed-top` class to the navbar to give it a fixed position.
+之后，给导航栏加上`.fixed-top` class并且给予其一个固定位置。
+若想让导航栏的背景变成淡色，加上`.bg-light`；若想要一个深色的背景，则加上`.bg-dark`。至于淡蓝色的背景，可以加上`.bg-primary`。
 
-To make the navbar background color light, add `.bg-light`. For a dark background, add `.bg-dark`, and for a light blue background, add  
-`.bg-primary`.
-
-Here’s how that should look:
+代码应该看起来如下图： 
 
 ```
 .bg-dark{  
@@ -196,7 +192,7 @@ background-color:#007bff!important
 }
 ```
 
-### Header
+### 标题（Header）
 
 ```
 <header class="header">  
@@ -204,17 +200,16 @@ background-color:#007bff!important
 </header>
 ```
 
-Let’s try and create a layout for the header.
+咱们来试试创建一个标题的布局。Let’s try and create a layout for the header.
 
-Here, we want to make sure the header takes up the window’s height so we are going to use a little JQuery code.
-
-First create a file named `main.js` and include it in the `index.html`  file  before the closing `body` tag:
+为了让标题能够占据 window 对象的高度，我们得用上一点点 JQuery 代码。
+首先创建一个 `main.js` 文件，然而将其链接放在 `index.html` 文件中 `body` 的前面：
 
 ```
 <script type="text/javascript" src='js/main.js'></script>
 ```
 
-In the `main.js`  file insert this a little code of JQuery_:_
+往 `main.js` 文件中插入这么一小点 JQuery 代码： 
 
 ```
 $(document).ready(function(){  
@@ -223,7 +218,7 @@ $(document).ready(function(){
 })
 ```
 
-It’d be pretty cool if we set a nice background image to the header:
+如果我们往标题页配上一张不错的背景图，看起来会很酷：
 
 ```
 /*header style*/
@@ -237,9 +232,9 @@ It’d be pretty cool if we set a nice background image to the header:
 
 ![](https://cdn-images-1.medium.com/max/800/1*LmLTI-enV2RSKjsO9hzPxQ.png)
 
-Let’s add an overlay to make the header look a bit more professional:
+为了让标题页看起来更专业，可以加上一个覆盖层： 
 
-Add this to your `index.html` file:
+把以下代码添进你的 `index.html` 文件：
 
 ```
 <header class="header">  
@@ -247,7 +242,7 @@ Add this to your `index.html` file:
 </header>
 ```
 
-Then, add this to your `main.css` file:
+然后在你的 `main.css` 文件中加入这些代码：
 
 ```
 .overlay{  
@@ -260,11 +255,11 @@ Then, add this to your `main.css` file:
 }
 ```
 
-Now we have to add a description inside the header.
+现在咱们需要在标题里加上描述的部分。
 
-To wrap our description we’re first going to create a `div` and give it a class `.container`.
+为了加上描述，首先需要写一个`div`并给它添上叫`.container`的class。
 
-`.container` is a Bootstrap class that will help you to wrap your content and make your layout more responsive:
+`.container` 是一个可以封装你的内容并且增加你布局响应性的Bootstrap class：
 
 ```
 <header class="header">  
@@ -276,7 +271,7 @@ To wrap our description we’re first going to create a `div` and give it a clas
 </header>
 ```
 
-Then, add another `div` which will contain the description.
+在那之后，另写一个带有描述的`div`。
 
 ```
 <div class="description text-center">  
@@ -290,17 +285,17 @@ Then, add another `div` which will contain the description.
   </div>
 ```
 
-We’ll give it a class of `.description` and add the `.text-center` class to make sure the content is placed in the center of the page.
+咱们在这个 div 的 class 里写`.description`，并且加上`.text-center`来确保这个描述版块里的内容会出现在整个页面的中央。
 
-#### Buttons
+#### 按钮（Buttons）
 
-Add the class `.btn btn-outline-secondary` to the `button` element. there are many other Bootstrap classes for buttons.
+现在往`button`元素加一个名为`.btn btn-outline-secondary`的class。Bootstrap 还有不少其他为按钮而生的 class。
 
-Check some examples:
+来看看一些例子：
 
-* [**CodePen Embed — buttons in bootstrap 4**: Buttons Button primary Button default Button danger Button info Button warning Button dark Button success Buttons…_codepen.io](https://codepen.io/Saidalmaghribi/embed/oEWgbw)
+* [**CodePen Embed — bootstrap 4 中的按钮**: Buttons Button primary Button default Button danger Button info Button warning Button dark Button success Buttons…_codepen.io](https://codepen.io/Saidalmaghribi/embed/oEWgbw)
 
-Here’s how the styling for the `.description` looks in the `main.css` file:
+以下是`main.css` 文件中`.description` 的CSS代码：
 
 ```
 .description{  
@@ -326,33 +321,32 @@ Here’s how the styling for the `.description` looks in the `main.css` file:
 }
 ```
 
-After all of that, our header will look like this:
+至此，咱们的标题看起来会是这样的： 
 
 ![](https://cdn-images-1.medium.com/max/800/1*kV7umhOF5QPveMmADXUCSw.png)
 
-Cool isn’t :).
+有没有很炫？ :)
 
-### About Section
+### “关于我”版块
 
 ![](https://cdn-images-1.medium.com/max/800/1*VWnyo3Jg4brsW5YRZToCiQ.png)
 
-In this section we will use some Bootstrap Grid to divide the section into two parts .
-
-To start our grid, we have to assign the  `.row`  class to the parent `div`.
+咱们会用一些 Bootstrap 网格来将这个板块一分为二。
+开始使用网格的前提在于，咱们必须让`.row` 这个class成为 parent `div`。（译者注：把这个div放在最外面）
 
 ```
 <div class="row></div>
 ```
 
-The first section will be on the left and will contain a picture, the second section will be on the right and contain a description.
+第一个部分会在左边，包含一张图片。第二个部分会在右边，包含一段描述。
 
-Each `div` will take up 6 columns — that means half of the section. Remember that a grid is divided into 12 columns.
+每一个`div`会占据6列 —— 也就是说整个版块一半的空间。要记住一个网格被分成了12列。
 
-In the first `div` on the left side:
+在左边第一个`div` 里面：
 
 ```
 <div class="row"> 
- // left side
+ // 左边
 <div class="col-lg-4 col-md-4 col-sm-12">
     <img src="images/team-3.jpg" class="img-fluid">
     <span class="text-justify">S.Web Developer</span>
@@ -360,7 +354,7 @@ In the first `div` on the left side:
 </div>
 ```
 
-After adding the the HTML elements on the right-side, the structure of the code will look like this:
+在给右边的版块加入 HTML 元素之后，整个代码的结构看起来会是这样子：
 
 ```
 <div class="row">
@@ -383,7 +377,7 @@ After adding the the HTML elements on the right-side, the structure of the code 
   </div>
 ```
 
-Here’s how I’ve made it look:
+这里是我对其外观的改动：
 
 ```
 .about{
@@ -419,14 +413,12 @@ Here’s how I’ve made it look:
 }
 ```
 
-### Portfolio Section
+### 作品集版块（portfolio section）
 
-Now, let’s move onto the next bit and make a portfolio section that will contain a gallery.
-
+现在咱们再接再厉，来创建一个包含一个图库的作品集版块。
 ![](https://cdn-images-1.medium.com/max/800/1*fNaqxcagCvh8Ue3lZvK6Vw.png)
 
-The structure of our HTML code for the Portfolio section looks like this:
-
+作品集版块的HTML 代码的结构看起来是这样子的：
 ```
 <!-- portfolio -->
 <div class="portfolio">
@@ -465,14 +457,13 @@ The structure of our HTML code for the Portfolio section looks like this:
 </div>
 ```
 
-Adding `.img-fluid` to each image to makes it responsive.
+给每一张图片加入 `.img-fluid`使其具备响应性。 
 
-Each item in our gallery will take up 4 columns (remember, `col-md-4` for medium devices, `col-lg-4` for large devices). That’s equal to 33.33333%  on large devices such desktops and large tablets, and 12 columns on a small device (like iPhone, mobile devices) will take up 100% of the container.
-
-Let’s add some styling to our Gallery:
+咱们图库中每一张图片会占据 4 列（记住，`col-md-4`适用于中型设备，`col-lg-4`适用于大型设备），也就是说相当于大型设备（如台式机和大型平板电脑）宽度的 33.3333%。同样的，小型设备上（如手机）的 12 列将占据整个容器宽度的 100% 。
+给咱们的图库加上些风格样式：
 
 ```
-/*Portfolio*/
+/*作品集*/
 .portfolio{
  margin: 4em 0;
     position: relative; 
@@ -488,26 +479,25 @@ Let’s add some styling to our Gallery:
 }
 ```
 
-### Blog Section
+### 博客版块
 
 ![](https://cdn-images-1.medium.com/max/800/1*3y9bIjRwf2RtGRzMIXwZIQ.png)
 
-#### Cards
+#### 卡片
 
-Cards in Bootstrap 4 make blog design so much easier. The cards are appropriate for articles and posts.
+Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用于文章和帖子。 
 
-To create a card, we use the class `.card`  and assign it to a _div_ element,
+为了创建卡片，咱们使用名为`.card`的class，并且写在一个 _div_ 元素里。
 
-The card class contains many features:
+这个卡片 class 包含不少特性：
 
-*   `.card-header`: define card header
-*   `.card-body`:  for the card body
-*   `.card-title`: the title of the card
-*   `card-footer`:  define the footer of the card.
-*   `.card-image`: for the card’s image
+*   `.card-header`: 定义卡片的标题
+*   `.card-body`:  用于卡片的主体
+*   `.card-title`: 卡片的题目
+*   `card-footer`:  定义卡片的脚注
+*   `.card-image`: 用于卡片的图像
 
-So, our website’s HTML should now look something like this:
-
+所以呢，咱们网站的 HTML 看起来会是这样的： 
 ```
 <!-- Posts section -->
 <div class="blog">
@@ -573,7 +563,7 @@ So, our website’s HTML should now look something like this:
 </div>
 ```
 
-We need to add some CSS style to the cards:
+我们需要往卡片里加一些 CSS:
 
 ```
 .blog{  
@@ -600,22 +590,21 @@ We need to add some CSS style to the cards:
 }
 ```
 
-After adding the Blog section to our website, the design should now look something like this:
+添加了博客版块之后，网站的设计看起来会是这样的： 
 
 ![](https://cdn-images-1.medium.com/max/800/1*mHMPSea2jWdZ2dc_b658eA.png)
 
-Cool isn’t it? 😄
+有没有非常炫？ 😄
 
-### Team Section
+### 团队板块
 
 ![](https://cdn-images-1.medium.com/max/800/1*1PaKtdHChKl534aExUfjCQ.png)
 
-In this section we will use the grid system to distribute even space between images. Each image takes up 3 columns (`.col-md-3`) of the container — that equals 25% of the total space.
-
-Our HTML structure:
+在这个版块里我们会使用网格系统来平均地分配图片与图片之间的空间。每一张图片占据容器的 3 列 (`.col-md-3`) —— 等于是整个空间的25%。
+咱们的 HTML 结构：
 
 ```
-<!-- Team section -->
+<!-- Team section（团队版块） -->
 <div class="team">
  <div class="container">
     <h1 class="text-center">Our Team</h1>
@@ -653,7 +642,7 @@ Our HTML structure:
 </div>
 ```
 
-And let’s add some style:
+现在加上一些风格样式：
 
 ```
 .team{
@@ -677,11 +666,11 @@ And let’s add some style:
 
 ```
 
-Adding an overlay to the image on-hover using animation would be nice 😄.
+在图片的悬浮效果上用动画加上一个覆盖层会很不错😄。
 
 ![](https://cdn-images-1.medium.com/max/800/1*SxGguj9S8JMncs-D3uNcsA.gif)
 
-To make this effect , add the styles below to `main.css` file:
+为了达到这个效果，在`main.css`中加入以下风格样式： 
 
 ```
 .team .item:hover .des{  
@@ -695,24 +684,23 @@ To make this effect , add the styles below to `main.css` file:
 }
 ```
 
-Super cool! 😙
+超级酷炫有木有! 😙
 
-### Contact Form
+### 联络表单
 
 ![](https://cdn-images-1.medium.com/max/800/1*vaI3jh3TFwSKBn6BcsBedw.png)
 
-The Contact Form is the last section to add, then we are done 😃.
+在咱们完事之前，联络表单是需要添加的最后一个版块😃。
 
-The Contact Form section will contain a form through which visitors can send an email or give feedback. We will use some Bootstrap classes to make the design beautiful and responsive.
+这个版块会包含一个访问者可以发送电子邮件或提出回馈的表单。咱们将使用一些 Bootstrap classes 来使设计看起来又漂亮又具有响应性。
 
-Like Bootstrap 3, Bootstrap 4 also uses the `.form-control` class for input fields, but there are some new features added — like switching from `.input-group-addon`  (deprecated) to `**.input-group-prepend**`  (to use icons as labels ).
+就像 Bootstrap 3 那样，对于对输入栏，Bootstrap 4 也运用了名为`.form-control`的class，但是还有些新的特性可以使用 —— 比如说从使用`.input-group-addon`（已经停用）转换到`**.input-group-prepend**` （像使用 label 那样来使用 icon）
 
-See [Bootstrap 4 document](https://getbootstrap.com/docs/4.0/migration/#input-groups) for more information. In our Contact form we will wrap each input between a `div` that has the class  `.form-group`.
-
-The `index.html` file now looks something like this:
+想要了解更多这方面的资料的话可以查看 [Bootstrap 4 文档](https://getbootstrap.com/docs/4.0/migration/#input-groups)。在咱们的联络表单中我们将封装每一个拥有class`.form-group`的`div`之间的输入栏。
+现在`index.html`文件的代码看起来会是这样的：
 
 ```
-<!-- Contact form -->
+<!-- Contact form（联络表单） -->
 <div class="contact-form">
  <div class="container">
   <form>
@@ -740,7 +728,7 @@ The `index.html` file now looks something like this:
 </div>
 ```
 
-Contact section’styles :
+联络版块的风格样式：
 
 **main.css**
 
@@ -767,17 +755,17 @@ Contact section’styles :
 }
 ```
 
-#### Fonts
+#### 字体
 
-I think default fonts are ugly so we are going to use the Google Font API, and we’ll choose **Raleway** which is a nice font and appropriate to our template.
+我觉着系统自带的字体比较丑陋，所以使用了Google Font接口，然后选择Google字体里的**Raleway**。这是个不错的字体而且很适合咱们的样板。
 
-Add this link into your `main.css` file:
+在你的`main.css` 文件中添上这个链接： 
 
 ```
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 ```
 
-and set the global style to HTML and heading tags:
+然后设置HTML和标题标签的全局风格样式：
 
 ```
 html,h1,h2,h3,h4,h5,h6,a{
@@ -785,11 +773,11 @@ html,h1,h2,h3,h4,h5,h6,a{
 }
 ```
 
-#### Scroll Effect
+#### 划动效果
 
 ![](https://cdn-images-1.medium.com/max/800/1*a9OoxPsn-hrbjYpbNV6DzA.gif)
 
-The last thing missing is scroll effect. Here, we’ll have to use some JQuery. Don’t worry️ if you are not familiar with it, just add this code into your  `main.js`  file:
+最后缺席的就是划动效果了。现在我们将要用到一些 JQuery。如果你对 JQuery 不是很熟悉，不要担心，直接复制粘贴以下的代码到你的 `main.js` 文件：
 
 ```
 $(".navbar a").click(function(){  
@@ -800,7 +788,7 @@ $(".navbar a").click(function(){
  })
 ```
 
-and add a `data-value` attribute to each navbar link:
+然后给每一个导航栏链接加上`data-value`特性：
 
 ```
 <li class="nav-item">  
@@ -821,23 +809,23 @@ and add a `data-value` attribute to each navbar link:
        </li>
 ```
 
-Set an `id` attribute to each section.
+再给每一个版块加上 `id`属性。
 
-**Note**: The `id` must be identical to the `data-value` attribute in the navbar link for the scroll to work:
+**记住**: 为了使拉动效果正常工作，`id`必须要和导航栏链接中的`data-value`属性一模一样：
 
 ```
 <div class="about" id="about"></div>
 ```
 
-### Wrap-up and Conclusion
+### 总结
 
-Bootstrap 4 is a great option for building your web application. It delivers high quality of UI elements and it’s easy to customize, integrate and use. It will also help you to include responsiveness in your website, therefore delivering a premium user experience to your users.
+Bootstrap 4 是一个构建你网页应用很棒的选择。它提供高质量的 UI 元素而且易于自定义调整、与其他框架组合以及使用。不但如此，它也帮助你在网页中加入响应性，所以能够给你的用户带来非常棒的体验。
 
-You will find the project’s files on [GitHub](https://github.com/hayanisaid/bootstrap4-website).
+关于这个项目的文件都可以在[这里找到](https://github.com/hayanisaid/bootstrap4-website).
 
-Check out my Bootstrap Class to learn Bootstrap 4:
+要想学习 Bootstrap 4，也可以查看我的 Bootstrap 课程： 
 
-* [**Bootstrap 4 crash course: basic to advance | Said Hayani | Skillshare**: In this class the you are going to learn bootstrap version 4, the CSS framework to build flexible templates and…](https://skl.sh/2LaD1ym)
+* [**Bootstrap 4 crash course: 从基础到进阶 | Said Hayani | Skillshare**: 在这个课程里你将学习 Bootstrap的第四版，是一个 CSS 框架用以构建灵活的页面以及……](https://skl.sh/2LaD1ym)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
