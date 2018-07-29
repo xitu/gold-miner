@@ -15,23 +15,23 @@
 
 ### 这一切是如何开始的呢
 
-我是一个充满激情的开发者。编码是我为生活所做的，但他更多的是我的主要爱好 ❤️。有些人通过文字，图画，音乐表达自己，我通过代码表达自己。 变量和函数比打球更能让我感到舒服。这就是我。
+我是一个充满激情的开发者。编码是我维持生活的来源，但它同时也是我的主要爱好 ❤️。有些人通过文字，图画，音乐表达自己，我通过代码表达自己。 变量和函数比打球更能让我感到舒服。这就是我。
 
-我们 2018 年 7 月在法国的布列塔尼，这里阳光充足☀️，有点热，但我不想享受阳光或者去海滩，我渴望学习新东西和编码。
+2018 年 7 月我们在法国的布列塔尼，这里阳光充足☀️，有点热，但我不想享受阳光或者去海滩，我渴望学习新东西和编码。
 
-我是 Flutter 的忠实粉丝，我已经发布了一些软件包([flutter_staggered_grid_view](https://github.com/letsar/flutter_staggered_grid_view), [flutter_parallax](https://github.com/letsar/flutter_parallax), [flutter_sticky_header](https://github.com/letsar/flutter_sticky_header))。所有这些都有一些共同之处： **Slivers**.  
+我是 Flutter 的忠实粉丝，我已经发布了一些软件包([flutter_staggered_grid_view](https://github.com/letsar/flutter_staggered_grid_view), [flutter_parallax](https://github.com/letsar/flutter_parallax), [flutter_sticky_header](https://github.com/letsar/flutter_sticky_header))。所有这些都有一些共同之处： **Slivers**。
 还记得吗？我想学习新的东西。所以我选了一个新主题：动画！
 
-现在我有一些东西需要学习，我需要一个想法，用这些知识创造一些东西。我记得当我发现 Flutter 的时候，我考虑了 3 个当时不存在的小部件：交错的网格视图，粘性标题和一个允许用户在左右滑动时显示在列表项两侧的上下文菜单。我没有尝试过最后一个，所以就诞生了这个想法💡。
+既然我有东西要学，我就需要一个想法，那就是用这些知识创造一些东西。我记得当我发现 Flutter 的时候，我考虑了 3 个当时不存在的小部件：交错的网格视图，粘性标题和一个允许用户在左右滑动时显示在列表项两侧的上下文菜单。我没有尝试过最后一个，所以就诞生了这个想法💡。
 
 ### 从哪里开始呢
 
-在一个已有的例子上创造总是更容易。这就是为什么每次我想要创造一些东西时，我首先要研究是否有类似的我可以调整的东西。
+在一个已有的例子上创造总是更容易。这就是为什么每次我想要创造一些东西时，我首先要研究是否有类似的我可以改进的东西。
 
 我开始在 Pub Dart 上搜索，看看是否有人还没有发布过那个，如果是这样的话，我会停下来去寻找一个新的想法。
 
 在那里我找不到我想要的东西，所以我搜索了 StackOverflow 并找到了这个[问题](https://stackoverflow.com/questions/46651974/swipe-list-item-for-more-options-flutter/46662914)。用户 Remi Rousselet 给出了一个非常好的[答案](https://stackoverflow.com/a/46662914/3241871)。
-我阅读并理解了他的代码，并对我构建了第一个原型有很大的帮助。所以 Remi ，如果你正在读我，非常感谢 👏。
+我阅读并理解了他的代码，这对我构建第一个原型有很大的帮助。所以 Remi 先生，如果您正在读着我的这篇文章，那么我在此非常感谢您当初的帮助 👏。
 
 ### 从原型到第一次发布
 
