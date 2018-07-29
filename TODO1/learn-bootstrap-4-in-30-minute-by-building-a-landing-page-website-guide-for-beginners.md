@@ -104,7 +104,7 @@ col-sm-2// 这个 class 适用于小型设备 （如手机）
 
 Bootstrap 4 中导航栏的封装可以说非常酷炫，它在构建一个响应式导航栏的时候可以帮上大忙。
 
-要想运用导航栏，咱们得在文件 `index.html` 中加入 `navbar` 这个class：
+要想运用导航栏，咱们得在文件 `index.html` 中加入 `navbar` 这个 class：
 
 ```
 <nav class="navbar navbar-expand-lg fixed-top ">
@@ -139,7 +139,7 @@ Bootstrap 4 中导航栏的封装可以说非常酷炫，它在构建一个响�
 
 创建并加入一个 `main.css` 文件来定义你自己的 CSS 风格。
 
-在你的`index.html`文件中，把以下这行代码塞入两个`head`标签之中： 
+在你的 `index.html` 文件中，把以下这行代码塞入两个 `head` 标签之中： 
 
 ```
 <link rel="stylesheet" type="text/css" href="css/main.css">
@@ -170,7 +170,7 @@ Bootstrap 4 中导航栏的封装可以说非常酷炫，它在构建一个响�
 }
 ```
 
-新的 Bootstrap 网格是基于 Flexbox 构建的，所以你得使用 Flexbox 的性质来进行网站元素的排列。打个比方，若想要把导航栏菜单放在右边，咱得加入一个`justify-content`性质，并且赋值`flex-end`。
+新的 Bootstrap 网格是基于 Flexbox 构建的，所以你得使用 Flexbox 的性质来进行网站元素的排列。打个比方，若想要把导航栏菜单放在右边，咱得加入一个 `justify-content` 性质，并且赋值 `flex-end` 。
 
 ```
 .navbar-collapse{  
@@ -178,8 +178,8 @@ Bootstrap 4 中导航栏的封装可以说非常酷炫，它在构建一个响�
 }
 ```
 
-之后，给导航栏加上`.fixed-top` class并且给予其一个固定位置。
-若想让导航栏的背景变成淡色，加上`.bg-light`；若想要一个深色的背景，则加上`.bg-dark`。至于淡蓝色的背景，可以加上`.bg-primary`。
+之后，给导航栏加上 `.fixed-top` class并且给予其一个固定位置。
+若想让导航栏的背景变成淡色，加上`.bg-light`；若想要一个深色的背景，则加上 `.bg-dark`。至于淡蓝色的背景，可以加上 `.bg-primary`。
 
 代码应该看起来如下图： 
 
@@ -203,7 +203,7 @@ background-color:#007bff!important
 咱们来试试创建一个标题的布局。
 
 为了让标题能够占据 window 对象的高度，我们得用上一点点 JQuery 代码。
-首先创建一个 `main.js` 文件，然而将其链接放在 `index.html` 文件中 `body` 的前面：
+首先创建一个 `main.js` 文件，然后将其链接放在 `index.html` 文件中 `body` 的前面：
 
 ```
 <script type="text/javascript" src='js/main.js'></script>
@@ -257,9 +257,9 @@ $(document).ready(function(){
 
 现在咱们需要在标题里加上描述的部分。
 
-为了加上描述，首先需要写一个`div`并给它添上叫`.container`的class。
+为了加上描述，首先需要写一个 `div` 并给它添上叫 `.container` 的class。
 
-`.container` 是一个可以封装你的内容并且增加你布局响应性的Bootstrap class：
+`.container` 是一个可以封装你的内容并且使你的布局具有响应性的Bootstrap class：
 
 ```
 <header class="header">  
@@ -271,7 +271,7 @@ $(document).ready(function(){
 </header>
 ```
 
-在那之后，另写一个带有描述的`div`。
+在那之后，另写一个包含描述版块的 `div`。
 
 ```
 <div class="description text-center">  
@@ -285,17 +285,17 @@ $(document).ready(function(){
   </div>
 ```
 
-咱们在这个 div 的 class 里写`.description`，并且加上`.text-center`来确保这个描述版块里的内容会出现在整个页面的中央。
+咱们在这个 `div` 的 class 里写 `.description`，并且加上 `.text-center` 来确保这个描述版块里的内容会出现在整个页面的中央。
 
 #### 按钮（Buttons）
 
-现在往`button`元素加一个名为`.btn btn-outline-secondary`的class。Bootstrap 还有不少其他为按钮而生的 class。
+现在往 `button` 元素加一个名为 `.btn btn-outline-secondary` 的 class。Bootstrap 还有不少其他为按钮而生的 class。
 
 来看看一些例子：
 
-* [**CodePen Embed — bootstrap 4 中的按钮**: Buttons Button primary Button default Button danger Button info Button warning Button dark Button success Buttons…_codepen.io](https://codepen.io/Saidalmaghribi/embed/oEWgbw)
+* [**CodePen Embed — bootstrap 4 中的按钮**： 各种按钮样式](https://codepen.io/Saidalmaghribi/embed/oEWgbw)
 
-以下是`main.css` 文件中`.description` 的CSS代码：
+以下是 `main.css` 文件中 `.description` 的CSS代码：
 
 ```
 .description{  
@@ -327,12 +327,12 @@ $(document).ready(function(){
 
 有没有很炫？ :)
 
-### “关于我”版块
+### “关于我”版块（ About )
 
 ![](https://cdn-images-1.medium.com/max/800/1*VWnyo3Jg4brsW5YRZToCiQ.png)
 
 咱们会用一些 Bootstrap 网格来将这个板块一分为二。
-开始使用网格的前提在于，咱们必须让`.row` 这个class成为 parent `div`。（译者注：把这个div放在最外面）
+开始使用网格的前提在于，咱们必须让 `.row` 这个 class 成为 parent `div`。（译者注：把这个div放在最外面）
 
 ```
 <div class="row></div>
@@ -340,9 +340,9 @@ $(document).ready(function(){
 
 第一个部分会在左边，包含一张图片。第二个部分会在右边，包含一段描述。
 
-每一个`div`会占据6列 —— 也就是说整个版块一半的空间。要记住一个网格被分成了12列。
+每一个 `div` 会占据 6 列 —— 也就是说整个版块一半的空间。要记住一个网格被分成了 12 列。
 
-在左边第一个`div` 里面：
+在左边第一个 `div` 里面：
 
 ```
 <div class="row"> 
@@ -374,7 +374,7 @@ $(document).ready(function(){
      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
    </div>
-  </div>
+</div>
 ```
 
 这里是我对其外观的改动：
@@ -418,7 +418,7 @@ $(document).ready(function(){
 现在咱们再接再厉，来创建一个包含一个图库的作品集版块。
 ![](https://cdn-images-1.medium.com/max/800/1*fNaqxcagCvh8Ue3lZvK6Vw.png)
 
-作品集版块的HTML 代码的结构看起来是这样子的：
+作品集版块的 HTML 代码的结构看起来是这样子的：
 ```
 <!-- portfolio -->
 <div class="portfolio">
@@ -457,9 +457,9 @@ $(document).ready(function(){
 </div>
 ```
 
-给每一张图片加入 `.img-fluid`使其具备响应性。 
+给每一张图片加入 `.img-fluid` 使其具备响应性。 
 
-咱们图库中每一张图片会占据 4 列（记住，`col-md-4`适用于中型设备，`col-lg-4`适用于大型设备），也就是说相当于大型设备（如台式机和大型平板电脑）宽度的 33.3333%。同样的，小型设备上（如手机）的 12 列将占据整个容器宽度的 100% 。
+咱们图库中每一张图片会占据 4 列（记住，`col-md-4`适用于中型设备，`col-lg-4` 适用于大型设备），也就是说相当于大型设备（如台式机和大型平板电脑）宽度的  33.3333% 。同样的，小型设备上（如手机）的 12 列将占据整个容器宽度的 100% 。
 给咱们的图库加上些风格样式：
 
 ```
@@ -487,7 +487,7 @@ $(document).ready(function(){
 
 Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用于文章和帖子。 
 
-为了创建卡片，咱们使用名为`.card`的class，并且写在一个 _div_ 元素里。
+为了创建卡片，咱们使用名为 `.card` 的 class ，并且写在一个 _div_ 元素里。
 
 这个卡片 class 包含不少特性：
 
@@ -563,7 +563,7 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 </div>
 ```
 
-我们需要往卡片里加一些 CSS:
+我们需要往卡片里加一些 CSS ： 
 
 ```
 .blog{  
@@ -600,11 +600,11 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 
 ![](https://cdn-images-1.medium.com/max/800/1*1PaKtdHChKl534aExUfjCQ.png)
 
-在这个版块里我们会使用网格系统来平均地分配图片与图片之间的空间。每一张图片占据容器的 3 列 (`.col-md-3`) —— 等于是整个空间的25%。
+在这个版块里我们会使用网格系统来平均地分配图片与图片之间的空间。每一张图片占据容器的 3 列 (`.col-md-3`) —— 等于是整个空间的 25% 。
 咱们的 HTML 结构：
 
 ```
-<!-- Team section（团队版块） -->
+<!-- 团队版块 -->
 <div class="team">
  <div class="container">
     <h1 class="text-center">Our Team</h1>
@@ -666,11 +666,11 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 
 ```
 
-在图片的悬浮效果上用动画加上一个覆盖层会很不错😄。
+在图片的悬浮效果上用动画加上一个覆盖层会很不错 😄。
 
 ![](https://cdn-images-1.medium.com/max/800/1*SxGguj9S8JMncs-D3uNcsA.gif)
 
-为了达到这个效果，在`main.css`中加入以下风格样式： 
+为了达到这个效果，在 `main.css` 中加入以下风格样式： 
 
 ```
 .team .item:hover .des{  
@@ -684,7 +684,7 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 }
 ```
 
-超级酷炫有木有! 😙
+超级酷炫有木有！ 😙
 
 ### 联络表单
 
@@ -692,15 +692,15 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 
 在咱们完事之前，联络表单是需要添加的最后一个版块😃。
 
-这个版块会包含一个访问者可以发送电子邮件或提出回馈的表单。咱们将使用一些 Bootstrap classes 来使设计看起来又漂亮又具有响应性。
+这个版块会包含一个访问者可以发送电子邮件或提出反馈的表单。咱们将使用一些 Bootstrap classes 来使设计看起来又漂亮又具有响应性。
 
-就像 Bootstrap 3 那样，对于对输入栏，Bootstrap 4 也运用了名为`.form-control`的class，但是还有些新的特性可以使用 —— 比如说从使用`.input-group-addon`（已经停用）转换到`**.input-group-prepend**` （像使用 label 那样来使用 icon）
+就像 Bootstrap 3 那样，对于对输入栏，Bootstrap 4 也运用了名为 `.form-control` 的 class ，但是还有些新的特性可以使用 —— 比如说从使用 `.input-group-addon`（已经停用）转换到 `**.input-group-prepend**` （像使用 label 那样来使用 icon）
 
-想要了解更多这方面的资料的话可以查看 [Bootstrap 4 文档](https://getbootstrap.com/docs/4.0/migration/#input-groups)。在咱们的联络表单中我们将封装每一个拥有class`.form-group`的`div`之间的输入栏。
-现在`index.html`文件的代码看起来会是这样的：
+想要了解更多这方面的资料的话可以查看 [Bootstrap 4 文档] (https://getbootstrap.com/docs/4.0/migration/#input-groups)。在咱们的联络表单中我们将封装每一个拥有 class `.form-group` 的 `div` 之间的输入栏。
+现在 `index.html` 文件的代码看起来会是这样的：
 
 ```
-<!-- Contact form（联络表单） -->
+<!-- 联络表单 -->
 <div class="contact-form">
  <div class="container">
   <form>
@@ -757,15 +757,15 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 
 #### 字体
 
-我觉着系统自带的字体比较丑陋，所以使用了Google Font接口，然后选择Google字体里的**Raleway**。这是个不错的字体而且很适合咱们的样板。
+我觉着系统自带的字体比较丑陋，所以使用了 Google Font 接口，然后选择 Google 字体里的 **Raleway** 。这是个不错的字体而且很适合咱们的样板。
 
-在你的`main.css` 文件中添上这个链接： 
+在你的 `main.css` 文件中添上这个链接： 
 
 ```
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 ```
 
-然后设置HTML和标题标签的全局风格样式：
+然后设置 HTML 和标题标签的全局风格样式：
 
 ```
 html,h1,h2,h3,h4,h5,h6,a{
@@ -788,7 +788,7 @@ $(".navbar a").click(function(){
  })
 ```
 
-然后给每一个导航栏链接加上`data-value`特性：
+然后给每一个导航栏链接加上 `data-value` 特性：
 
 ```
 <li class="nav-item">  
@@ -809,9 +809,9 @@ $(".navbar a").click(function(){
        </li>
 ```
 
-再给每一个版块加上 `id`属性。
+再给每一个版块加上 `id` 属性。
 
-**记住**: 为了使拉动效果正常工作，`id`必须要和导航栏链接中的`data-value`属性一模一样：
+**记住**: 为了使拉动效果正常工作，`id` 必须要和导航栏链接中的 `data-value` 属性一模一样：
 
 ```
 <div class="about" id="about"></div>
@@ -821,11 +821,11 @@ $(".navbar a").click(function(){
 
 Bootstrap 4 是一个构建你网页应用很棒的选择。它提供高质量的 UI 元素而且易于自定义调整、与其他框架组合以及使用。不但如此，它也帮助你在网页中加入响应性，所以能够给你的用户带来非常棒的体验。
 
-关于这个项目的文件都可以在[这里找到](https://github.com/hayanisaid/bootstrap4-website).
+关于这个项目的文件都可以在[这里找到] (https://github.com/hayanisaid/bootstrap4-website)。
 
 要想学习 Bootstrap 4，也可以查看我的 Bootstrap 课程： 
 
-* [**Bootstrap 4 crash course: 从基础到进阶 | Said Hayani | Skillshare**: 在这个课程里你将学习 Bootstrap的第四版，是一个 CSS 框架用以构建灵活的页面以及……](https://skl.sh/2LaD1ym)
+* [**Bootstrap 4 crash course: 从基础到进阶 | Said Hayani | Skillshare**: 在这个课程里你将学习 Bootstrap 的第四版，是一个 CSS 框架用以构建灵活的页面以及……](https://skl.sh/2LaD1ym)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
