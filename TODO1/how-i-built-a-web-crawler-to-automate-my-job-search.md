@@ -147,7 +147,7 @@ BeautifulSoup 允许你在网页上搜索特定的 HTML tag 或者 marker。而�
 
 从某种意义上说，这就像现在的技术是如何工作的。你发现了一个你需要解决的巨大而复杂的问题。而你看不到任何直接的、明显的解决方案。你把这个大而复杂的问题分解成多个不同的可管理的块，然后依次解决每一个块。
 
-回顾过去，我的问题是：**我如何才能利用互联网上这个优秀的目录，迅速接触到有特定兴趣的人？**当时没有已知的产品或解决方案，所以我把它分解成多个部分：
+回顾过去，我的问题是：**我如何才能利用互联网上这个优秀的目录，迅速接触到有特定兴趣的人？** 当时没有已知的产品或解决方案，所以我把它分解成多个部分：
 
 1.  查找平台上的所有列表
 2.  收集有关每个列表的联系信息
@@ -189,7 +189,7 @@ BeautifulSoup 允许你在网页上搜索特定的 HTML tag 或者 marker。而�
 
 **Zhia Chong 是 Twitter 的软件工程师。他在西雅图的广告测量团队工作，评估广告客户的影响和投资回报率。该团队是** [**hiring**](https://careers.twitter.com/en/work-for-twitter/201803/software-engineer-backend-advertising-measurement.html)！
 
-**你可以在 **[**Twitter**](https://twitter.com/zhiachong) **和** [**LinkedIn**](https://www.linkedin.com/in/zhiachong/) **上找到他。**
+**你可以在** [**Twitter**](https://twitter.com/zhiachong) **和** [**LinkedIn**](https://www.linkedin.com/in/zhiachong/) **上找到他。**
 
 感谢[开源 portfolio](https://medium.com/@osportfolio?source=post_page)。
 

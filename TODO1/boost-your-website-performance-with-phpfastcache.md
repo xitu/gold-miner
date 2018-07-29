@@ -2,51 +2,51 @@
 > * 原文作者：[Sajal Soni](https://tutsplus.com/authors/sajal-soni?_ga=2.222559131.1693151914.1529137386-2093006918.1525313549)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/boost-your-website-performance-with-phpfastcache.md](https://github.com/xitu/gold-miner/blob/master/TODO1/boost-your-website-performance-with-phpfastcache.md)
-> * 译者：
-> * 校对者：
+> * 译者：[lsvih](https://github.com/lsvih)
+> * 校对者：[吃土小2叉](https://github.com/xunge0613)
 
-# Boost Your Website Performance With PhpFastCache
+# 使用 PhpFastCache 提升网站性能
 
-In this article, we're going to explore the PhpFastCache library, which allows you to implement caching in your PHP applications. Thus, it helps to improve overall website performance and page load times.
+本文将与你一同探索 PhpFastCache 库，来为你的 PHP 应用实现缓存功能。通过缓存功能，能够提升网站的整体性能与页面加载速度。
 
-## What Is PhpFastCache?  
+## 什么是 PhpFastCache？
 
-PhpFastCache is a library that makes it a breeze to implement caching in your PHP applications. It's an easy-to-use and yet powerful library that provides several APIs to help you implement a caching strategy of your choice without much hassle.
+PhpFastCache 是一个能让你轻松在 PHP 应用中实现缓存功能的库。它的功能强大，且简单易用，提供了一些 API 以无痛实现缓存策略。
 
-Don't make the mistake of assuming that it's merely a traditional file system caching scheme. In fact, PhpFastCache supports a plethora of adapters that let you choose from high-performance back-ends like Memcache, Redis, MongoDB, CouchDB, and others.
+PhpFastCache 不是一个纯粹的传统文件系统式缓存。它支持各种各样的文件适配器（Files Adapter），可以让你选择 Memcache、Redis、MongoDB、CouchDB 等高性能的后端服务。
 
-Let's have a quick look at a couple of the most popular adapters:
+让我们先总览一遍最流行的适配器：
 
-*   file system
-*   Memcache, Redis, and APC
-*   CouchDB and MongoDB
-*   Zend Disk Cache and Zend Memory Cache
+*   文件系统
+*   Memcache、Redis 和 APC
+*   CouchDB 和 MongoDB
+*   Zend Disk Cache 和 Zend Memory Cache
 
-If you don't find your choice of adapter in the above list, you could easily develop a custom driver that plugs into the system and works effortlessly.
+如果你用的文件适配器不在上面的列表中，也可以简单地开发一个自定义驱动，插入到系统中，同样也能高效地运行。
 
-In addition to the basic functionality, the PhpFastCache library also provides an event mechanism that allows you to respond to certain predefined events. For example, when something is deleted from the cache, you could catch this event and refresh or delete related data as well.
+除了基本功能外，PhpFastCache 还提供了事件机制，可以让你对预定义好的事件进行响应。例如，当某个事物从缓存中被删除时，你可以接收到这个事件，并去刷新或删除相关的数据。
 
-In the upcoming sections, we'll go through the installation and configuration of PhpFastCache, along with the demonstration of a few examples.
+在下面的章节中，我们将通过一些示例来了解如何安装及配置 PhpFastCache。
 
-## Installation and Configuration
+## 安装与配置
 
-In this section, we'll go through the installation and configuration of the PhpFastCache library. There are different ways you could approach this in your project.
+在本节中，我们将了解如何安装及配置 PhpFastCache。下面是几种将它集成进项目的方法。
 
-If you just want to download the **.zip** or **.tar.gz** version of the library without much hassle, you could go ahead and grab it from the [official site](https://www.phpfastcache.com/).
+如果你嫌麻烦，仅准备下载这个库的 **.zip** 或者 **.tar.gz** 文件，可以去[官方网站](https://www.phpfastcache.com/)直接下载。
 
-On the other hand, you could install it as a Composer package as well. That should be the preferred way as it makes maintenance and upgrading easier in the future. If you haven't installed Composer yet, you'll have to do that first.
+或者你也可以用 Composer 包的方式来安装它。这种方式更好，因为在之后的维护和升级时会更方便。如果你还没有安装 Composer，需要先去安装它。
 
-Once you've installed Composer, let's go ahead and grab the PhpFastCache library using the following command.
+当你安装好 Composer 之后，可以用以下命令下载 PhpFastCache：
 
-```
+```bash
 $composer require phpfastcache/phpfastcache
 ```
 
-Upon the successful completion of that command, you should have the vendor directory in place, which contains everything you need to run the PhpFastCache library. On the other hand, if you're missing any libraries or extensions required by the PhpFastCache library, Composer will ask you to install them first.
+命令完成后，你会得到一个 vendor 目录，在此目录中包括了全部 PhpFastCache 所需的文件。另外，如果你缺失了 PhpFastCache 依赖的库或插件，Composer 会提醒你先去安装依赖。
 
-You should also find the `composer.json` file that looks like this:
+你需要找到 `composer.json` 文件，它类似于下面这样：
 
-```
+```json
 {
     "require": {
         "phpfastcache/phpfastcache": "^6.1"
@@ -54,33 +54,33 @@ You should also find the `composer.json` file that looks like this:
 }
 ```
 
-No matter the way you've chosen to install the PhpFastCache library, the only thing that's necessary is to include the **autoload.php** file in your application to kick things off.
+无论你通过什么方式来安装的 PhpFastCache，都要在应用中 include **autoload.php** 文件。
 
-If you're using the Composer-based workflow, **autoload.php** is located under the **vendor** directory.
+如果你用的是基于 Composer 的工作流，**autoload.php** 文件会在 **vendor** 目录中。
 
-```
+```php
 // Include composer autoloader
 require '{YOUR_APP_PATH}/vendor/autoload.php';
 ```
 
-On the other hand, if you've downloaded the **.zip** or **.tar.gz** package, **autoload.php** should be available at **src/autoload.php**.
+另外，如果你是直接下载的 **.zip** 和 **.tar.gz**，**autoload.php** 的路径会在 **src/autoload.php**。
 
-```
+```php
 // Include autoloader
 require '{YOUR_APP_PATH}/src/autoload.php';
 ```
 
-And with that, you're all set to start caching and gaining the benefits of the amazing PhpFastCache library. In the next section, we'll go through a couple of practical examples that demonstrate how to use PhpFastCache in your application.
+只要完成上面的操作，就能开始进行缓存，享受 PhpFastCache 带来的好处了。在下一章节中，我们将以一个简单的示例来介绍如何在你的应用中使用 PhpFastCache。
 
-## Demonstration
+## 示例
 
-I've already mentioned that the PhpFastCache library supports various adapters when it comes to caching. In this section, I'll demonstrate using the file system and Redis adapters.
+前面我提到过，PhpFastCache 支持多种文件适配器进行缓存。在本节中，我会以文件系统和 Redis 这两种文件适配器为例进行介绍。
 
-### Caching Using the Files Adapter
+### 使用文件适配器进行缓存
 
-Go ahead and create the **file_cache_example.php** file with the following contents. I assume that you're using the Composer workflow and thus the **vendor** directory is at the same level as that of **file_cache_example.php**. If you've installed PhpFastCache manually, you can change the file structure accordingly.
+创建 **file_cache_example.php** 文件并写入下面的代码。在此我假设你使用的是 Composer workflow，因此 **vendor** 目录会与 **file_cache_example.php** 文件同级。如果你是手动安装的 PhpFastCache，需要根据实际情况修改文件结构。
 
-```
+```php
 <?php
 /**
  * file_cache_example.php
@@ -124,29 +124,29 @@ else
 }
 ```
 
-Let's go through this to understand what each piece of code stands for. The first obvious thing is to include the **autoload.php** file and import the namespace that we intend to use.
+现在，我们一块一块地来理解代码。首先看到的是将 **autoload.php** 文件引入，然后导入要用到的 namespace：
 
-```
+```php
 // Include composer autoloader
 require __DIR__ . '/vendor/autoload.php';
  
 use phpFastCache\CacheManager;
 ```
 
-When you're using the files cache, you're supposed to provide the directory path that holds files generated by the caching system. And that's what exactly we've configured in the following snippet.
+当你使用文件缓存的时候，最好提供一个目录路径来存放缓存系统生成的文件。下面的代码就是做的这件事：
 
-```
+```php
 // Init default configuration for "files" adapter
 CacheManager::setDefaultConfig([
   "path" => __DIR__ . "/cache"
 ]);
 ```
 
-Of course, we need to make sure the **cache** directory exists and it's writable by the web server.
+当然，你需要确保 **cache** 目录存在且 web server 有写入权限。
 
-Next, we instantiate the cache object and try to load the cached item with the **welcome_message** key.
+接下来，我们将缓存对象实例化，用 **welcome_message** 加载对应的缓存对象。
 
-```
+```php
 // Get instance of files cache
 $objFilesCache = CacheManager::getInstance('files');
  
@@ -156,9 +156,9 @@ $key = "welcome_message";
 $CachedString = $objFilesCache->getItem($key);
 ```
 
-If the item doesn't exist in the cache, we'll add it to the cache for 60 seconds and display it from the cache. On the other hand, if it exists in the cache, we'll just fetch it!
+如果缓存中不存在此对象，就将它以 60s 过期时间加入缓存，并从缓存中读取与展示它。如果它存在于缓存中，则直接获取：
 
-```
+```php
 if (is_null($CachedString->get()))
 {
     // The cached entry doesn't exist
@@ -177,31 +177,31 @@ else
 }
 ```
 
-That was a fairly easy setup, wasn't it? In fact, you can go ahead and run the file to check the results!
+非常容易上手对吧！你可以试着自己去运行一下这个程序来查看结果。
 
-When you run it for the first time, you should see the following output:
+当你第一次运行这个程序时，应该会看到以下输出：
 
 ```
 Not in cache yet, we set it in cache and try to get it from cache!
 The value of welcome_message: This website uses PhpFastCache!
 ```
 
-In the next run, the output looks something like this:
+之后再运行的时候，输出会是这样：
 
 ```
 Already in cache!
 The value of welcome_message: This website uses PhpFastCache!
 ```
 
-So that was file system caching at your disposal. In the next section, we'll mimic the same example using the Redis cache adapter.
+现在就能随手实现文件系统缓存了。在下一章节中，我们将模仿这个例子来使用 Redis Adapter 实现缓存。
 
-### Caching Using the Redis Adapter
+### 使用 Redis Adapter 进行缓存
 
-Before we move ahead, I assume that you've already installed the Redis server and it's running on port 6379, which is the default port for Redis.
+假定你在阅读本节前已经安装好了 Redis 服务，并让它运行在 6379 默认端口上。
 
-With that set up, let's go ahead and create the **redis_cache_example.php** file with the following contents.
+下面进行配置。创建 **redis_cache_example.php** 文件并写入以下代码：
 
-```
+```php
 <?php
 /**
  * redis_cache_example.php
@@ -248,9 +248,9 @@ else
 }
 ```
 
-As you can see, the file is pretty much the same, except the section that initializes the configuration specific to the Redis adapter.
+如你所见，除了初始化 Redis 适配器的配置一段之外，这个文件与之前基本一样。
 
-```
+```php
 // Init default configuration for "redis" adapter
 CacheManager::setDefaultConfig([
   "host" => '127.0.0.1',
@@ -258,22 +258,22 @@ CacheManager::setDefaultConfig([
 ]);
 ```
 
-Of course, you should change the host and port settings to match your requirements if you're running a Redis server other than localhost.
+当然如果你要在非本机运行 Redis 服务，需要根据需求修改 host 与 port 的设置。
 
-Go ahead and run the **redis_cache_example.php** file to see how it works. You could also confirm it by checking the output in the Redis CLI.
+运行 **redis_cache_example.php** 文件来查看它的工作原理。你也可以在 Redis CLI 中查看输出。
 
 ```
 127.0.0.1:6379> KEYS *
 1) "welcome_message"
 ```
 
-So that's all you need to use the Redis adapter. I would encourage you to try different adapters and their options!
+以上就是使用 Redis 适配器的全部内容。你可以去多试试其它不同的适配器和配置！
 
-## Conclusion
+## 总结
 
-Today, we went through one of the most popular caching libraries for PHP—PhpFastCache. In the first half of the article, we discussed the basics along with installation and configuration. Later in the article, we went through a couple of examples to demonstrate the concepts that we discussed.
+本文简单介绍了 PhpFastCache 这个 PHP 中非常热门的库。在文章前半部分，我们讨论了它的基本知识以及安装和配置。在文章后半部分，我们通过几个例子来详细演示了前面提到的概念。
 
-I hope you've enjoyed the article and that you will be motivated to integrate the PhpFastCache library in your upcoming projects. Feel free to post any questions and comments below!
+希望你喜欢这篇文章，并将 PhpFastCache 集成到你即将开发的项目中。随时欢迎提问和讨论！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
