@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/learn-bootstrap-4-in-30-minute-by-building-a-landing-page-website-guide-for-beginners.md](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-bootstrap-4-in-30-minute-by-building-a-landing-page-website-guide-for-beginners.md)
 > * 译者：Zheng7426
-> * 校对者：
+> * 校对者：Park-ma, Moonliujk
 
-# 用30分钟建立一个网站的方式来学习 Bootstrap 4
+# 用 30 分钟建立一个网站的方式来学习 Bootstrap 4
 
 ![](https://cdn-images-1.medium.com/max/800/1*1_a4TocueD3AqEpsDDv4bA.jpeg)
 
@@ -327,7 +327,7 @@ $(document).ready(function(){
 
 有没有很炫？ :)
 
-### “关于我”版块（ About )
+### “关于我”版块（About)
 
 ![](https://cdn-images-1.medium.com/max/800/1*VWnyo3Jg4brsW5YRZToCiQ.png)
 
@@ -413,7 +413,7 @@ $(document).ready(function(){
 }
 ```
 
-### 作品集版块（portfolio section）
+### 作品集版块（Portfolio）
 
 现在咱们再接再厉，来创建一个包含一个图库的作品集版块。
 ![](https://cdn-images-1.medium.com/max/800/1*fNaqxcagCvh8Ue3lZvK6Vw.png)
@@ -479,11 +479,11 @@ $(document).ready(function(){
 }
 ```
 
-### 博客版块
+### 博客版块(Blog)
 
 ![](https://cdn-images-1.medium.com/max/800/1*3y9bIjRwf2RtGRzMIXwZIQ.png)
 
-#### 卡片
+#### 卡片(Card)
 
 Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用于文章和帖子。 
 
@@ -596,7 +596,7 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 
 有没有非常炫？ 😄
 
-### 团队板块
+### 团队版块(Team)
 
 ![](https://cdn-images-1.medium.com/max/800/1*1PaKtdHChKl534aExUfjCQ.png)
 
@@ -686,7 +686,7 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 
 超级酷炫有木有！ 😙
 
-### 联络表单
+### 联络表单（Contact Form)
 
 ![](https://cdn-images-1.medium.com/max/800/1*vaI3jh3TFwSKBn6BcsBedw.png)
 
@@ -755,7 +755,7 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 }
 ```
 
-#### 字体
+#### 字体(Font)
 
 我觉着系统自带的字体比较丑陋，所以使用了 Google Font 接口，然后选择 Google 字体里的 **Raleway** 。这是个不错的字体而且很适合咱们的样板。
 
@@ -773,7 +773,7 @@ html,h1,h2,h3,h4,h5,h6,a{
 }
 ```
 
-#### 划动效果
+#### 划动效果(Scroll Effect)
 
 ![](https://cdn-images-1.medium.com/max/800/1*a9OoxPsn-hrbjYpbNV6DzA.gif)
 
