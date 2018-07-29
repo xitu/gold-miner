@@ -5,7 +5,7 @@
 > * 译者：Zheng7426
 > * 校对者：
 
-# 用30分钟建立一个网站的方式来学习Bootstrap 4
+# 用30分钟建立一个网站的方式来学习 Bootstrap 4
 
 ![](https://cdn-images-1.medium.com/max/800/1*1_a4TocueD3AqEpsDDv4bA.jpeg)
 
@@ -59,7 +59,7 @@ Bootstrap 有不少版本，其中最新的是第四版。在这篇文章里我�
 
 2. 通过 CDN ( 内容分发网络 )
 
-你可以在你项目的 head 标签之间添上这个链接:
+你可以在你项目的 head 标签之间添上这个链接：
 
 ```
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
