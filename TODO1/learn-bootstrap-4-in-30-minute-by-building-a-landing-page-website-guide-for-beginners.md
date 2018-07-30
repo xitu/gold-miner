@@ -104,7 +104,7 @@ col-sm-2// 这个 class 适用于小型设备 （如手机）
 
 Bootstrap 4 中导航栏的封装可以说非常酷炫，它在构建一个响应式导航栏的时候可以帮上大忙。
 
-要想运用导航栏，咱们得在文件 `index.html` 中加入 `navbar` 这个 class：
+要想运用导航栏，咱们得在文件 `index.html` 中加入 `navbar` 这个 class ：
 
 ```
 <nav class="navbar navbar-expand-lg fixed-top ">
@@ -178,8 +178,8 @@ Bootstrap 4 中导航栏的封装可以说非常酷炫，它在构建一个响�
 }
 ```
 
-之后，给导航栏加上 `.fixed-top` class并且给予其一个固定位置。
-若想让导航栏的背景变成淡色，加上`.bg-light`；若想要一个深色的背景，则加上 `.bg-dark`。至于淡蓝色的背景，可以加上 `.bg-primary`。
+之后，给导航栏加上 `.fixed-top` class 并且给予其一个固定位置。
+若想让导航栏的背景变成淡色，加上 `.bg-light` ；若想要一个深色的背景，则加上 `.bg-dark`。至于淡蓝色的背景，可以加上 `.bg-primary` 。
 
 代码应该看起来如下图： 
 
@@ -257,9 +257,9 @@ $(document).ready(function(){
 
 现在咱们需要在标题里加上描述的部分。
 
-为了加上描述，首先需要写一个 `div` 并给它添上叫 `.container` 的class。
+为了加上描述，首先需要写一个 `div` 并给它添上叫 `.container` 的 class 。
 
-`.container` 是一个可以封装你的内容并且使你的布局具有响应性的Bootstrap class：
+`.container` 是一个可以封装你的内容并且使你的布局具有响应性的 Bootstrap class ：
 
 ```
 <header class="header">  
@@ -271,7 +271,7 @@ $(document).ready(function(){
 </header>
 ```
 
-在那之后，另写一个包含描述版块的 `div`。
+在那之后，另写一个包含描述版块的 `div` 。
 
 ```
 <div class="description text-center">  
@@ -285,17 +285,17 @@ $(document).ready(function(){
   </div>
 ```
 
-咱们在这个 `div` 的 class 里写 `.description`，并且加上 `.text-center` 来确保这个描述版块里的内容会出现在整个页面的中央。
+咱们在这个 `div` 的 class 里写 `.description` ，并且加上 `.text-center` 来确保这个描述版块里的内容会出现在整个页面的中央。
 
 #### 按钮（Buttons）
 
-现在往 `button` 元素加一个名为 `.btn btn-outline-secondary` 的 class。Bootstrap 还有不少其他为按钮而生的 class。
+现在往 `button` 元素加一个名为 `.btn btn-outline-secondary` 的 class。Bootstrap 还有不少其他为按钮而生的 class 。
 
 来看看一些例子：
 
 * [**CodePen Embed — bootstrap 4 中的按钮**： 各种按钮样式](https://codepen.io/Saidalmaghribi/embed/oEWgbw)
 
-以下是 `main.css` 文件中 `.description` 的CSS代码：
+以下是 `main.css` 文件中 `.description` 的 CSS 代码：
 
 ```
 .description{  
@@ -596,7 +596,7 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 
 有没有非常炫？ 😄
 
-### 团队版块(Team)
+### 团队版块 (Team)
 
 ![](https://cdn-images-1.medium.com/max/800/1*1PaKtdHChKl534aExUfjCQ.png)
 
@@ -694,7 +694,7 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 
 这个版块会包含一个访问者可以发送电子邮件或提出反馈的表单。咱们将使用一些 Bootstrap classes 来使设计看起来又漂亮又具有响应性。
 
-就像 Bootstrap 3 那样，对于对输入栏，Bootstrap 4 也运用了名为 `.form-control` 的 class ，但是还有些新的特性可以使用 —— 比如说从使用 `.input-group-addon`（已经停用）转换到 `**.input-group-prepend**` （像使用 label 那样来使用 icon）
+就像 Bootstrap 3 那样，对于对输入栏，Bootstrap 4 也运用了名为 `.form-control` 的 class ，但是还有些新的特性可以使用 —— 比如说从使用 `.input-group-addon`（已经停用）转换到 `**.input-group-prepend**` （像使用 label 那样来使用 icon）。
 
 想要了解更多这方面的资料的话可以查看 [Bootstrap 4 文档] (https://getbootstrap.com/docs/4.0/migration/#input-groups)。在咱们的联络表单中我们将封装每一个拥有 class `.form-group` 的 `div` 之间的输入栏。
 现在 `index.html` 文件的代码看起来会是这样的：
@@ -755,7 +755,7 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 }
 ```
 
-#### 字体(Font)
+#### 字体 (Font)
 
 我觉着系统自带的字体比较丑陋，所以使用了 Google Font 接口，然后选择 Google 字体里的 **Raleway** 。这是个不错的字体而且很适合咱们的样板。
 
@@ -773,11 +773,11 @@ html,h1,h2,h3,h4,h5,h6,a{
 }
 ```
 
-#### 划动效果(Scroll Effect)
+#### 划动效果 (Scroll Effect)
 
 ![](https://cdn-images-1.medium.com/max/800/1*a9OoxPsn-hrbjYpbNV6DzA.gif)
 
-最后缺席的就是划动效果了。现在我们将要用到一些 JQuery。如果你对 JQuery 不是很熟悉，不要担心，直接复制粘贴以下的代码到你的 `main.js` 文件：
+最后缺席的就是划动效果了。现在我们将要用到一些 JQuery 。如果你对 JQuery 不是很熟悉，不要担心，直接复制粘贴以下的代码到你的 `main.js` 文件：
 
 ```
 $(".navbar a").click(function(){  
