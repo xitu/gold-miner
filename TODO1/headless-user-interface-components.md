@@ -5,7 +5,7 @@
 > * 译者：[Starrier](https://github.com/Starriers)
 > * 校对者：[xunge0613](https://github.com/xunge0613)、[Moonliujk](https://github.com/Moonliujk)
 
-# 无头用户界面组件
+# 无渲染组件
 
 [原文](https://www.merrickchristensen.com/articles/headless-user-interface-components/)
 
