@@ -72,7 +72,7 @@ Bootstrap 有不少版本，其中最新的是第四版。在这篇文章里我�
 
 ### Bootstrap 4 的新特性
 
-Bootstrap 4 有什么新花样呢？ 它和 Bootstrap 3 又有何不同？ 
+Bootstrap 4 有什么新花样呢？它和 Bootstrap 3 又有何不同？ 
 
 比起上一个版本，Bootstrap 4 加入了以下一些很棒的新特性：  
 
@@ -87,7 +87,7 @@ Bootstrap 4 有什么新花样呢？ 它和 Bootstrap 3 又有何不同？
 
 ### Bootstrap 网格系统 (Grid system)
 
-Bootstrap 网格系统有助于创建你的布局以及轻松地构建一个响应式网站。 在 Bootstrap 4 里唯一对 class 名称的改动就是去除了 `.xs` class。
+Bootstrap 网格系统有助于创建你的布局以及轻松地构建一个响应式网站。在 Bootstrap 4 里唯一对 class 名称的改动就是去除了 `.xs` class。
 
 网格一共被分成了 12 列（columns），所以你的布局将会基于这 12 列来实现。 
 使用这个网格系统的前提在于，你得在主要的 _div_ 里加上一个名为 `.row` 的 class。 
@@ -690,7 +690,7 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 
 ![](https://cdn-images-1.medium.com/max/800/1*vaI3jh3TFwSKBn6BcsBedw.png)
 
-在咱们完事之前，联络表单是需要添加的最后一个版块😃。
+在咱们完事之前，联络表单是需要添加的最后一个版块 😃。
 
 这个版块会包含一个访问者可以发送电子邮件或提出反馈的表单。咱们将使用一些 Bootstrap classes 来使设计看起来又漂亮又具有响应性。
 
