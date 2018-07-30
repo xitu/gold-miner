@@ -3,23 +3,23 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/slidable-a-flutter-story.md](https://github.com/xitu/gold-miner/blob/master/TODO1/slidable-a-flutter-story.md)
 > * 译者：[YueYong](https://github.com/YueYongDev)
-> * 校对者：
+> * 校对者：[dayixinsheng](https://github.com/dayixinsheng)
 
-# Slidable: 一个 Flutter 的故事
+# Slidable：一个 Flutter 的故事
 
 ![](https://cdn-images-1.medium.com/max/800/1*BBp8dGLaZ8v8IHvXUYoZng.png)
 
 ### 概要
 
-这是创建 **Slidable** 小部件背后的故事 (点击[这里](https://pub.dartlang.org/packages/flutter_slidable))。他是一个当您向左侧或右侧滑动时，可以在列表项上添加上下文操作的小部件。
+这是创建 **Slidable** 小部件背后的故事（点击[这里](https://pub.dartlang.org/packages/flutter_slidable)）。他是一个当您向左侧或右侧滑动时，可以在列表项上添加上下文操作的小部件。
 
 ### 这一切是如何开始的呢
 
-我是一个充满激情的开发者。编码是我维持生活的来源，但它同时也是我的主要爱好 ❤️。有些人通过文字，图画，音乐表达自己，我通过代码表达自己。 变量和函数比打球更能让我感到舒服。这就是我。
+我是一个充满激情的开发者。编码是我维持生活的来源，但它同时也是我的主要爱好 ❤️。有些人通过文字，图画，音乐表达自己，我通过代码表达自己。变量和函数比打球更能让我感到舒服。这就是我。
 
 2018 年 7 月我们在法国的布列塔尼，这里阳光充足☀️，有点热，但我不想享受阳光或者去海滩，我渴望学习新东西和编码。
 
-我是 Flutter 的忠实粉丝，我已经发布了一些软件包([flutter_staggered_grid_view](https://github.com/letsar/flutter_staggered_grid_view), [flutter_parallax](https://github.com/letsar/flutter_parallax), [flutter_sticky_header](https://github.com/letsar/flutter_sticky_header))。所有这些都有一些共同之处： **Slivers**。
+我是 Flutter 的忠实粉丝，我已经发布了一些软件包（[flutter_staggered_grid_view](https://github.com/letsar/flutter_staggered_grid_view), [flutter_parallax](https://github.com/letsar/flutter_parallax), [flutter_sticky_header](https://github.com/letsar/flutter_sticky_header)）。所有这些都有一些共同之处：**Slivers**。
 还记得吗？我想学习新的东西。所以我选了一个新主题：动画！
 
 既然我有东西要学，我就需要一个想法，那就是用这些知识创造一些东西。我记得当我发现 Flutter 的时候，我考虑了 3 个当时不存在的小部件：交错的网格视图，粘性标题和一个允许用户在左右滑动时显示在列表项两侧的上下文菜单。我没有尝试过最后一个，所以就诞生了这个想法💡。
@@ -80,7 +80,7 @@ SlidableDrawerDelegate 的例子
 
 我没有写过我在 Flutter 中学到的关于动画的内容，因为还有其他内容可以很好的解释它，就像[这个](https://proandroiddev.com/animations-in-flutter-6e02ee91a0b2)。
 
-但我可以分享我对 Flutter 中动画的感受：它们非常棒且易于处理 😍!
+但我可以分享我对 Flutter 中动画的感受：它们非常棒且易于处理 😍！
 
 我很后悔之前没有使用过他们😃。
 
