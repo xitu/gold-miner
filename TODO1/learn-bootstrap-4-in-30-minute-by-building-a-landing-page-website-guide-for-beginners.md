@@ -33,21 +33,21 @@ Bootstrap 有不少版本，其中最新的是第四版。在这篇文章里我�
 
 在构建网站的过程中我们会谈到的话题：
 
-*   [Bootstrap 4 的下载及安装](https://medium.com/p/f64e03833f33/#57f4)
-*   [Bootstrap 4 的新特性](https://medium.com/p/f64e03833f33/#8a73)
-*   [Bootstrap 网格系统](https://medium.com/p/f64e03833f33/#06ac)
-*   [导航栏](https://medium.com/p/f64e03833f33/#e7c2)
-*   [标题](https://medium.com/p/f64e03833f33/#a500)
-*   [按钮](https://medium.com/p/f64e03833f33/#74b8)
-*   [“关于我”版块](https://medium.com/p/f64e03833f33/#89ac)
-*   [作品集版块](https://medium.com/p/f64e03833f33/#7504)
-*   [博客版块](https://medium.com/p/f64e03833f33/#9bb6)
-*   [卡片](https://medium.com/p/f64e03833f33/#6767)
-*   [团队版块](https://medium.com/p/f64e03833f33/#6db4)
-*   [联系表单](https://medium.com/p/f64e03833f33/#971e)
-*   [字体](https://medium.com/p/f64e03833f33/#f161)
-*   [划动效果](https://medium.com/p/f64e03833f33/#6c7e)
-*   [总结](https://medium.com/p/f64e03833f33/#a0a8)
+*   [Bootstrap 4 的下载及安装](#下载及安装-bootstrap-4)
+*   [Bootstrap 4 的新特性](#bootstrap-4-的新特性)
+*   [Bootstrap 网格系统](#bootstrap-网格系统-grid-system)
+*   [导航栏](#导航栏navbar)
+*   [标题](#标题header)
+*   [按钮](#按钮buttons)
+*   [“关于我”版块](#关于我版块about)
+*   [作品集版块](#作品集版块portfolio)
+*   [博客版块](#博客版块blog)
+*   [卡片](#卡片card)
+*   [团队版块](#团队版块team)
+*   [联系表单](#联络表单contact-form)
+*   [字体](#字体-font)
+*   [划动效果](#划动效果scroll-effect)
+*   [总结](#总结)
 
 ### 下载及安装 Bootstrap 4
 
