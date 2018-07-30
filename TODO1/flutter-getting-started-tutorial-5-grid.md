@@ -2,36 +2,36 @@
 > * 原文作者：[Alok Gupta](https://medium.com/@thatsalok?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-getting-started-tutorial-5-grid.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-getting-started-tutorial-5-grid.md)
-> * 译者：
+> * 译者：[YueYong](https://github.com/YueYongDev)
 > * 校对者：
 
-# Flutter Getting Started: Tutorial 5 Grid
+# Flutter 入门：教程5 网格
 
-### Introduction
+### 介绍
 
-**Flutter** `GridView` almost same as `ListView` except it provide 2D view comparison to `ListView` single direction view. It also quite popular widget across mobile app development, if you don't believe me open any ecommerce app in your mobile it definitely dependent either on `ListView` or `GridView` to display data, for e.g.
+**Flutter** `GridView` 几乎与 `ListView` 相同，只是它提供了与 `ListView` 单向视图的 2D 视图比较。同时它也是移动应用开发中非常受欢迎的小部件。如果你不相信我，那就举个例子，打开你手机中的任何一个电子商务应用，它肯定是依赖于 `ListView` 或 `GridView` 来显示数据的。
 
-Here **Amazon** mobile app display data in grid
+**Amazon** 移动应用程序利用网格显示数据
 
 ![](https://cdn-images-1.medium.com/max/800/1*mZMDK4IHEUf8sV6ClVEb9g.png)
 
-Another one, **PayTM**, one of popular online wallet service app in India, widely use grid layout to display different products
+另一个是 **PayTM**，它是印度流行的在线钱包服务应用之一，它广泛使用网格布局来显示不同的产品
 
 ![](https://cdn-images-1.medium.com/max/800/1*DIxbiVggbE4T2vz8JTT73g.png)
 
-### Background
+### 背景
 
-The ultimate aim of this article to achieve view similar to this :-
+本文的最终目的是实现类似的界面： -
 
 ![](https://cdn-images-1.medium.com/max/800/1*n30ql6oDnzcT7o2ne3Wykg.png)
 
-However if you have notice the above image, that is in landscape mode. So here, I am going to do in this article. When the application is in portrait mode, MobileApp would display item in `ListView` and when it’s in landscape mode, show items in 3 items per row grid. I also explore creating custom widget, by moving gridview implementation in separate class.
+但是，如果你注意到上面的图像，那是横屏模式下的。所以我将在本文中做以下的事情，当应用程序处于竖屏模式时，移动 APP 将在 `ListView` 中显示项目，当它处于横屏模式时，将会在网格中每行显示3个条目。我还通过在单独的类中移动 gridview 来实现创建自定义窗口小部件。
 
-### Using the code
+### 使用代码
 
-I am going to build on my previous article [Flutter Getting Started: Tutorial 4 ListView](https://medium.com/@thatsalok/flutter-getting-started-tutorial-4-listview-8326c9ed5524), there I have already created ListView based application, here the initial project structure and initial UI.
+我将以我之前的文章为基础 [Flutter Getting Started: Tutorial 4 ListView](https://medium.com/@thatsalok/flutter-getting-started-tutorial-4-listview-8326c9ed5524), 我已经创建了基于 ListView 的应用程序，这里是初始项目结构和初始UI。
 
-Here is the initial code from which we start building on
+这是我们开始构建的初始代码
 
 ```
 class HomePage extends StatelessWidget {
@@ -112,15 +112,15 @@ class HomePage extends StatelessWidget {
 }
 ```
 
-Before I start on actual quest , let me give you brief what I have done above
+在开始实际任务之前，让我简要介绍一下我上面做过的事情
 
-*   I have created simple `ListView` using `ListView.builder`, which give flexibility of creating infinite listitem view, as it call callback function only for those item, which could be displayed in the screen.
-*   I am displaying City information like City Landmark image, followed by CityName, Country the city belongs and her population.
-*   Lastly on clicking, its show small self disappearing message at bottom of screen, known as `SnackBar`
+*   我已经使用 `ListView.builder` 创建了简单的 `ListView`，它可以灵活地创建无限的 listitem 视图，因为它只调用那些可以在屏幕上显示的项目的回调函数。
+*   我正在显示城市信息，如城市地标图像，其次是城市名称，城市所属的国家和她的人口。
+*   最后点击，它在屏幕底部显示小的会自动消失的消息，称为 `SnackBar`。
 
-Now from here our work starts, as I mentioned earlier we would be refactoring new widget into different class, to keep our code modular and increase clarity of code. So create a new folder `widget` under `lib` folder and add new DART file `mygridview.dart`
+现在开始我们的工作，正如我之前提到的，我们将把新的 widget 重构为不同的类，以保持我们的代码模块化并提高代码的可读性。 因此，在 `lib` 文件夹下创建一个新的文件夹，并添加新的 DART 文件 `mygridview.dart`。
 
-Once you add the file, first import material widget, by importing `'package:flutter/material.dart'` and then add `MyGridView` class which extends our favourite `StatelessWidget` and override `Build` function, so bare bone code looks like this
+添加文件后，首先通过 `'package:flutter/material.dart'` 导入 material 组件，然后添加 `MyGridView` 类来继承我们最喜欢的 `StatelessWidget` 并复写 `Build` 函数，代码如下所示
 
 ```
 import 'package:flutter/material.dart';
@@ -137,7 +137,7 @@ class MyGridView extends StatelessWidget {
 }
 ```
 
-I would now add basic GridView just displaying the City name, so I will add following code in overridden Build function
+我现在添加基本的 GridView 只显示城市名称，所以我将在重写的 Build 函数中添加以下代码
 
 ```
 @override
@@ -159,18 +159,18 @@ _getGridViewItems(BuildContext context){
 }
 ```
 
-Explanation of above code
+对上述代码的解释
 
-*   `GridView.count` method would provide GridView widget for application
-*   `crossAxisCount` property is used to let mobile application know how much item we want to show each row
-*   `children` property will contain all the widget you wish to show when page is loaded
-*   `childAspectRatio`, which is the ratio of the cross-axis to the main-axis extent of each child, since I am displaying the name, I will keep same at 8.0 so that margin between two tile is reduced
+*   `GridView.count` 方法将为应用程序提供 GridView 小部件
+*   `crossAxisCount` 属性用于让移动应用程序知道我们想要显示每行的项目数
+*   `children` 属性将包含您希望在加载页面时显示的所有小部件
+*   `childAspectRatio`，它是每个子节点的横轴与主轴范围的比率，因为我显示的是名称，所以我统一设置为8.0，以便减少两个图块之间的边距 
 
-Here is what UI looks like
+这是UI的样子
 
 ![](https://cdn-images-1.medium.com/max/800/1*E9Q1cPyQ0hWJEC1uNvqGtQ.png)
 
-Now let make UI similar to what we seeing the ListView. here I created new function which will send City class in form of Card
+现在我们来改变 UI 让其类似于我们看到的 ListView。在这里我创建了一个新的函数，它将以 Card 的形式发送 City 类
 
 ```
 // Create individual item
@@ -212,13 +212,13 @@ _getGridItemUI(BuildContext context, City item) {
 }
 ```
 
-**Explanation of above code**
+**上述代码的解释**
 
-*   I am using `Inkwell` class, since Card class doesn't support gesture directly, So I wrapped it inside InkWell class, to utilize its `onTap` event for displaing SnackBar
-*   Rest of code is similar to `ListView` card except no width is specified
-*   Also, since we are displaying complete card, don’t forget to change `childAspectRatio` from 8.0 to 8.0/9.0, as we require more height .
+*   我正在使用 `Inkwell` 类，因为 Card 类不直接支持手势，所以我把它包装在 InkWell 类中，利用它的 `onTap` 事件替换 SnackBar
+*   其余代码类似于 `ListView` 的卡片，但未指定宽度
+*   此外，由于我们正在显示完整的卡片，因此我们不要忘记将 `childAspectRatio` 从 8.0 更改为 8.0 / 9.0，因为我们需要更多的高度。
 
-Before I forget, I told at start of application, I will show `ListView` in _portrait_ orientation and `GridView` in _landscape_ orientation, so for achieve it `MediaQuery` class to identify the orientation. Whenever the orientation is changed, i.e. you tilt you mobile the widget are redrawn, so `Build` function is called, there you could take decision what code should be called. So in `homepage.dart` class we will use following function to handle Orientation changes
+如果没有忘记的话，在开始做程序时我就说过，我将在纵向方向上显示 `ListView`，在横向方向上显示 `GridView`，为了实现它我们需要 `MediaQuery` 类来识别方向。无论何时更改方向，你都可以决定哪些代码应该被调用，也就是说，即使你倾斜移动窗口都会调用 `Build` 函数，小部件也都会重新绘制。所以在 `homepage.dart` 类中我们将使用以下函数来处理 Orientation 更改的问题
 
 ```
 getHomePageBody(BuildContext context) {
@@ -233,33 +233,33 @@ getHomePageBody(BuildContext context) {
 }
 ```
 
-So out final UI would be like this
+因此，最终的UI将是这样的
 
 ![](https://cdn-images-1.medium.com/max/800/1*IDL_nruBR9S9JW0UlX_zjw.gif)
 
-End of tutorial
+本教程结束
 
-### Points of Interest
+### 兴趣点
 
-Please go through these articles. It might give you a headway, where the wind is actually flowing:
+请仔细阅读这些文章。它可能会给你一个你真正需要的指引：
 
 1.  [https://material.io/design/components/cards.html](https://material.io/design/components/cards.html#)
 2.  Github : [https://github.com/thatsalok/FlutterExample/tree/master/flutter5_gridlist](https://github.com/thatsalok/FlutterExample/tree/master/flutter5_gridlist)
 
-### Flutter Tutorial
+### Flutter 教程
 
 1.  [Flutter Getting Started: Tutorial 1 Basics](https://medium.com/@thatsalok/flutter-getting-started-tutorial-1-basics-8714e751408f)
 2.  [Flutter Getting Started: Tutorial 4 ListView](https://medium.com/@thatsalok/flutter-getting-started-tutorial-4-listview-8326c9ed5524)
 
-### Dart Tutorial
+### Dart 教程
 
 1.  [DART2 Prima Plus — Tutorial 1](https://www.codeproject.com/Articles/1251136/DART-Prima-Plus-Tutorial)
 2.  [DART2 Prima Plus — Tutorial 2 — LIST](https://www.codeproject.com/Articles/1251343/DART2-Prima-Plus-Tutorial-2-LIST)
 3.  [DART2 Prima Plus — Tutorial 3 — MAP](https://www.codeproject.com/Articles/1252345/DART2-Prima-Plus-Tutorial-3-MAP)
 
-### History
+### 历史
 
-*   22-July-2018: First version
+*   22-July-2018: 第一个版本
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
