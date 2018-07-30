@@ -89,13 +89,13 @@ Bootstrap 4 有什么新花样呢？ 它和 Bootstrap 3 又有何不同？
 
 Bootstrap 网格系统有助于创建你的布局以及轻松地构建一个响应式网站。 在 Bootstrap 4 里唯一对 class 名称的改动就是去除了 `.xs` class。
 
-网格一共被分成了 12 列 （columns），所以你的布局将会基于这 12 列来实现。 
+网格一共被分成了 12 列（columns），所以你的布局将会基于这 12 列来实现。 
 使用这个网格系统的前提在于，你得在主要的 _div_ 里加上一个名为 `.row` 的 class。 
 
 ```
 col-lg-2 // 这个 class 适用于大型设备（如笔记本电脑）
 col-md-2 // 这个 class 适用于中型设备（如平板电脑）
-col-sm-2// 这个 class 适用于小型设备 （如手机）
+col-sm-2// 这个 class 适用于小型设备（如手机）
 ```
 
 ### 导航栏（Navbar）
@@ -293,7 +293,7 @@ $(document).ready(function(){
 
 来看看一些例子：
 
-* [**CodePen Embed — bootstrap 4 中的按钮**： 各种按钮样式](https://codepen.io/Saidalmaghribi/embed/oEWgbw)
+* [**CodePen Embed — bootstrap 4 中的按钮**：各种按钮样式](https://codepen.io/Saidalmaghribi/embed/oEWgbw)
 
 以下是 `main.css` 文件中 `.description` 的 CSS 代码：
 
@@ -459,7 +459,7 @@ $(document).ready(function(){
 
 给每一张图片加入 `.img-fluid` 使其具备响应性。
 
-咱们图库中每一张图片会占据 4 列（记住，`col-md-4`适用于中型设备，`col-lg-4` 适用于大型设备），也就是说相当于大型设备（如台式机和大型平板电脑）宽度的  33.3333% 。同样的，小型设备上（如手机）的 12 列将占据整个容器宽度的 100% 。
+咱们图库中每一张图片会占据 4 列（记住，`col-md-4`适用于中型设备，`col-lg-4` 适用于大型设备），也就是说相当于大型设备（如台式机和大型平板电脑）宽度的  33.3333%。同样的，小型设备上（如手机）的 12 列将占据整个容器宽度的 100%。
 给咱们的图库加上些风格样式：
 
 ```
@@ -479,23 +479,23 @@ $(document).ready(function(){
 }
 ```
 
-### 博客版块(Blog)
+### 博客版块（Blog）
 
 ![](https://cdn-images-1.medium.com/max/800/1*3y9bIjRwf2RtGRzMIXwZIQ.png)
 
-#### 卡片(Card)
+#### 卡片（Card）
 
 Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用于文章和帖子。
 
-为了创建卡片，咱们使用名为 `.card` 的 class ，并且写在一个 _div_ 元素里。
+为了创建卡片，咱们使用名为 `.card` 的 class，并且写在一个 _div_ 元素里。
 
 这个卡片 class 包含不少特性：
 
-*   `.card-header`: 定义卡片的标题
-*   `.card-body`:  用于卡片的主体
-*   `.card-title`: 卡片的题目
-*   `card-footer`:  定义卡片的脚注
-*   `.card-image`: 用于卡片的图像
+*   `.card-header`：定义卡片的标题
+*   `.card-body`：用于卡片的主体
+*   `.card-title`：卡片的题目
+*   `card-footer`：定义卡片的脚注
+*   `.card-image`：用于卡片的图像
 
 所以呢，咱们网站的 HTML 看起来会是这样的：
 ```
@@ -596,11 +596,11 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 
 有没有非常炫？ 😄
 
-### 团队版块 (Team)
+### 团队版块（Team）
 
 ![](https://cdn-images-1.medium.com/max/800/1*1PaKtdHChKl534aExUfjCQ.png)
 
-在这个版块里我们会使用网格系统来平均地分配图片与图片之间的空间。每一张图片占据容器的 3 列 (`.col-md-3`) —— 等于是整个空间的 25% 。
+在这个版块里我们会使用网格系统来平均地分配图片与图片之间的空间。每一张图片占据容器的 3 列（`.col-md-3`）—— 等于是整个空间的 25%。
 咱们的 HTML 结构：
 
 ```
@@ -694,9 +694,9 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 
 这个版块会包含一个访问者可以发送电子邮件或提出反馈的表单。咱们将使用一些 Bootstrap classes 来使设计看起来又漂亮又具有响应性。
 
-就像 Bootstrap 3 那样，对于对输入栏，Bootstrap 4 也运用了名为 `.form-control` 的 class ，但是还有些新的特性可以使用 —— 比如说从使用 `.input-group-addon`（已经停用）转换到 `**.input-group-prepend**` （像使用 label 那样来使用 icon）。
+就像 Bootstrap 3 那样，对于对输入栏，Bootstrap 4 也运用了名为 `.form-control` 的 class，但是还有些新的特性可以使用 —— 比如说从使用 `.input-group-addon`（已经停用）转换到 `**.input-group-prepend**`（像使用 label 那样来使用 icon）。
 
-想要了解更多这方面的资料的话可以查看 [Bootstrap 4 文档] (https://getbootstrap.com/docs/4.0/migration/#input-groups)。在咱们的联络表单中我们将封装每一个拥有 class `.form-group` 的 `div` 之间的输入栏。
+想要了解更多这方面的资料的话可以查看 [Bootstrap 4 文档](https://getbootstrap.com/docs/4.0/migration/#input-groups)。在咱们的联络表单中我们将封装每一个拥有 class `.form-group` 的 `div` 之间的输入栏。
 现在 `index.html` 文件的代码看起来会是这样的：
 
 ```
@@ -757,7 +757,7 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 
 #### 字体 (Font)
 
-我觉着系统自带的字体比较丑陋，所以使用了 Google Font 接口，然后选择 Google 字体里的 **Raleway** 。这是个不错的字体而且很适合咱们的样板。
+我觉着系统自带的字体比较丑陋，所以使用了 Google Font 接口，然后选择 Google 字体里的 **Raleway**。这是个不错的字体而且很适合咱们的样板。
 
 在你的 `main.css` 文件中添上这个链接：
 
@@ -773,11 +773,11 @@ html,h1,h2,h3,h4,h5,h6,a{
 }
 ```
 
-#### 划动效果 (Scroll Effect)
+#### 划动效果（Scroll Effect）
 
 ![](https://cdn-images-1.medium.com/max/800/1*a9OoxPsn-hrbjYpbNV6DzA.gif)
 
-最后缺席的就是划动效果了。现在我们将要用到一些 JQuery 。如果你对 JQuery 不是很熟悉，不要担心，直接复制粘贴以下的代码到你的 `main.js` 文件：
+最后缺席的就是划动效果了。现在我们将要用到一些 JQuery。如果你对 JQuery 不是很熟悉，不要担心，直接复制粘贴以下的代码到你的 `main.js` 文件：
 
 ```
 $(".navbar a").click(function(){  
@@ -821,7 +821,7 @@ $(".navbar a").click(function(){
 
 Bootstrap 4 是一个构建你网页应用很棒的选择。它提供高质量的 UI 元素而且易于自定义调整、与其他框架组合以及使用。不但如此，它也帮助你在网页中加入响应性，所以能够给你的用户带来非常棒的体验。
 
-关于这个项目的文件都可以在[这里找到] (https://github.com/hayanisaid/bootstrap4-website)。
+关于这个项目的文件都可以在[这里找到](https://github.com/hayanisaid/bootstrap4-website)。
 
 要想学习 Bootstrap 4，也可以查看我的 Bootstrap 课程：
 
