@@ -2,104 +2,103 @@
 > * 原文作者：[Romain Rastel](https://medium.com/@lets4r?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/slidable-a-flutter-story.md](https://github.com/xitu/gold-miner/blob/master/TODO1/slidable-a-flutter-story.md)
-> * 译者：
-> * 校对者：
+> * 译者：[YueYong](https://github.com/YueYongDev)
+> * 校对者：[dayixinsheng](https://github.com/dayixinsheng)
 
-# Slidable: A Flutter story
+# Slidable：一个 Flutter 的故事
 
 ![](https://cdn-images-1.medium.com/max/800/1*BBp8dGLaZ8v8IHvXUYoZng.png)
 
-### Synopsis
+### 概要
 
-This is the story behind the creation of the **Slidable** widget (available [here](https://pub.dartlang.org/packages/flutter_slidable)). A widget that let you add contextual actions on your list items when you are sliding it to the left or to the right.
+这是创建 **Slidable** 小部件背后的故事（点击[这里](https://pub.dartlang.org/packages/flutter_slidable)）。他是一个当您向左侧或右侧滑动时，可以在列表项上添加上下文操作的小部件。
 
-### How everything started
+### 这一切是如何开始的呢
 
-I’m a passionate developer. This is what I do for living, but it’s mostly my main hobby ❤️. Some express themselves through words, drawings, music, I express myself through code. I’m more comfortable with variables and functions than with a ball or a racket. This is who I am.
+我是一个充满激情的开发者。编码是我维持生活的来源，但它同时也是我的主要爱好 ❤️。有些人通过文字，图画，音乐表达自己，我通过代码表达自己。变量和函数比打球更能让我感到舒服。这就是我。
 
-We are in July 2018. It’s sunny ☀️ and kinda hot here in Brittany, France, but instead of enjoying the sun and going to the beach, I’m craving to learn something new and to code.
+2018 年 7 月我们在法国的布列塔尼，这里阳光充足☀️，有点热，但我不想享受阳光或者去海滩，我渴望学习新东西和编码。
 
-I’m a huge fan of Flutter and I already published some packages ([flutter_staggered_grid_view](https://github.com/letsar/flutter_staggered_grid_view), [flutter_parallax](https://github.com/letsar/flutter_parallax), [flutter_sticky_header](https://github.com/letsar/flutter_sticky_header)). All of them have something in common: **Slivers**.  
-I want to learn something new, remember? So I picked a new subject: animations!
+我是 Flutter 的忠实粉丝，我已经发布了一些软件包（[flutter_staggered_grid_view](https://github.com/letsar/flutter_staggered_grid_view), [flutter_parallax](https://github.com/letsar/flutter_parallax), [flutter_sticky_header](https://github.com/letsar/flutter_sticky_header)）。所有这些都有一些共同之处：**Slivers**。
+还记得吗？我想学习新的东西。所以我选了一个新主题：动画！
 
-Now that I have something to learn, I need an idea to create something with this knowledge. I remember then, when I discovered Flutter, I thought about 3 widgets that didn’t exist at the moment: A staggered grid view, sticky headers, and a widget allowing the user to reveal contextual menus on the sides of a list item while sliding it to the left or to the right. I didn’t work on the last one, so the idea was found 💡.
+既然我有东西要学，我就需要一个想法，那就是用这些知识创造一些东西。我记得当我发现 Flutter 的时候，我考虑了 3 个当时不存在的小部件：交错的网格视图，粘性标题和一个允许用户在左右滑动时显示在列表项两侧的上下文菜单。我没有尝试过最后一个，所以就诞生了这个想法💡。
 
-### Where to start
+### 从哪里开始呢
 
-It’s always easier to have an example to build on. That’s why every time I want to create something, I start by researching if there is something similar I can tweak.
+在一个已有的例子上创造总是更容易。这就是为什么每次我想要创造一些东西时，我首先要研究是否有类似的我可以改进的东西。
 
-I started by searching on Pub Dart to see if someone had not already published exactly that, if it had been the case I would have stopped here and I would have looked for a new idea.
+我开始在 Pub Dart 上搜索，看看是否有人还没有发布过那个，如果是这样的话，我会停下来去寻找一个新的想法。
 
-I didn’t find what I looked for, so I searched on StackOverflow and find this [question](https://stackoverflow.com/questions/46651974/swipe-list-item-for-more-options-flutter/46662914). Remi Rousselet, a top user, gave this really good [answer](https://stackoverflow.com/a/46662914/3241871).  
-I read his code, understand it, and it helped me to build a first prototype. So Remi, if you are reading me, thanks a lot 👏.
+在那里我找不到我想要的东西，所以我搜索了 StackOverflow 并找到了这个[问题](https://stackoverflow.com/questions/46651974/swipe-list-item-for-more-options-flutter/46662914)。用户 Remi Rousselet 给出了一个非常好的[答案](https://stackoverflow.com/a/46662914/3241871)。
+我阅读并理解了他的代码，这对我构建第一个原型有很大的帮助。所以 Remi 先生，如果您正在读着我的这篇文章，那么我在此非常感谢您当初的帮助 👏。
 
-### From prototype to first release
+### 从原型到第一次发布
 
-After I developed a prototype working with one animation, I immediately thought of letting the developer create it’s own. I remembered of [SliverDelegate,](https://docs.flutter.io/flutter/rendering/SliverGridDelegate-class.html) which let the developer controls the layout of tiles in a grid, and decided to create something similar.
+在我开发了使用一个动画的原型后，我立刻想到让开发人员创建自己的动画。我想起一个让开发人员在网格中控制布局的工具 [SliverDelegate](https://docs.flutter.io/flutter/rendering/SliverGridDelegate-class.html)，并决定创建类似的东西。
 
-Let the developer customize the animation it’s great, but I have to provide some built-in animations so that any developer could use them, or tweak my animations to create theirs.
+让开发人员自定义动画很棒，但我必须提供一些内置动画，以便任何开发人员都可以使用它们，或调整我的动画来创建他们的动画。
 
-That’s why I firstly created 3 delegates:
+这就是为什么我首先创建了 3 个代表：
 
 #### SlidableBehindDelegate
 
-With this delegate, the slide actions stay behind the list item.
+使用这个对象，滑动操作在列表项后。
 
 ![](https://cdn-images-1.medium.com/max/800/1*-lxI0VkO5MCC3PW74VaLWA.gif)
 
-Example of SlidableBehindDelegate
+SlidableBehindDelegate 的例子
 
 #### SlidableScrollDelegate
 
-With this one, the slide actions scroll in the same direction as the list item.
+使用此对象，幻灯片操作将以与列表项相同的方向滚动。
 
 ![](https://cdn-images-1.medium.com/max/800/1*KW9wXmgPGHbCV24gGIl8ZA.gif)
 
-Example of SlidableScrollDelegate
+ SlidableScrollDelegate 的例子
 
 #### SlidableStrechDelegate
 
-With this delegate, the slide actions are growing while the list item is sliding.
+使用此对象，当列表项滑动时，幻灯片操作正在增长。
 
 ![](https://cdn-images-1.medium.com/max/800/1*lwGjFSE0--Ij7U5YbvOiSQ.gif)
 
-Example of SlidableStrechDelegate
+SlidableStrechDelegate 的例子
 
 #### SlidableDrawerDelegate
 
-And with this one, the slide actions are showing with a sort of parallax effect, like in iOS.
+有了这个，滑动动作显示出一种视差效果，就像在 iOS 中一样。
 
 ![](https://cdn-images-1.medium.com/max/800/1*OlubJ7rmOK5QgvsC3aVY8Q.gif)
 
-Example of SlidableDrawerDelegate
+SlidableDrawerDelegate 的例子
 
-For the story, when I showed the first 3 delegates to my colleague, [Clovis Nicolas](https://github.com/clovisnicolas), he told me that it would be great to have one like in iOS. As I am not an iOS user, I thought it was more like SlidableStrechDelegate, but no.  
-This is how the SlidableDrawerDelegate was born.
+对于这个故事，当我向我的同事 [Clovis Nicolas](https://github.com/clovisnicolas) 展示前 3 位代表时，他告诉我，在 iOS 中拥有这样效果的应用会很棒。由于我不是 iOS 用户，我认为它更像是 SlidableStrechDelegate，但没有。
+这就是 SlidableDrawerDelegate 如何诞生的过程。
 
-### Animations in Flutter
+###  Flutter 中的动画
 
-I didn’t wrote about what I learned about animations in Flutter, because there are other contents which explain it well, like [this one](https://proandroiddev.com/animations-in-flutter-6e02ee91a0b2).
+我没有写过我在 Flutter 中学到的关于动画的内容，因为还有其他内容可以很好的解释它，就像[这个](https://proandroiddev.com/animations-in-flutter-6e02ee91a0b2)。
 
-But I can share my feeling about animations in Flutter: they are so great and easy to deal with 😍!
+但我可以分享我对 Flutter 中动画的感受：它们非常棒且易于处理 😍！
 
-I just regret not having played with them before 😃.
+我很后悔之前没有使用过他们😃。
 
-### The end
+### 写在最后
 
-After finishing these built-in delegates, I thought it would be a good initial release. So I made my [GitHub repository](https://github.com/letsar/flutter_slidable) public, and I published it on [Dart Pub](https://pub.dartlang.org/packages/flutter_slidable).
+完成这些内置对象后，我认为这将是一个很好的初始版本。所以我公开了我的 [GitHub 代码库](https://github.com/letsar/flutter_slidable)，并在 [Dart Pub](https://pub.dartlang.org/packages/flutter_slidable) 上发布了它。
 
 ![](https://cdn-images-1.medium.com/max/800/1*FXzo-qRHkPFTZ-hiQwb_gQ.gif)
 
-Slidable widget overview
+Slidable 部件预览
 
-This is how the **Slidable** widget was born. Now it has to grow. If you want some new feature, you are welcome to create an [issue on GitHub](https://github.com/letsar/flutter_slidable/issues) and explain what you want. If it’s align with my vision of this package, I will be happy to implement it!
+这就是 **Slidable** 部件如何诞生的过程。现在它需要一些发展。如果您想要一些新功能，欢迎您在 GitHub 上创建一个 [issue](https://github.com/letsar/flutter_slidable/issues)并解释您想要的内容。如果它与我对这个包的看法一致，我将很乐意实现它！
 
-You can find some documentation in the [repository](https://github.com/letsar/flutter_slidable), and the above example [here](https://github.com/letsar/flutter_slidable/blob/master/example/lib/main.dart).
+您可以在[代码库](https://github.com/letsar/flutter_slidable)中找到一些文档，以及上面的[示例](https://github.com/letsar/flutter_slidable/blob/master/example/lib/main.dart)。
 
-If this package is helping you, you can support me by ⭐️the [repo](https://github.com/letsar/flutter_slidable), or 👏 this story.  
-You can also follow me on [Twitter](https://twitter.com/lets4r).
+如果这个软件包对你有所帮助，你可以通过⭐️这个 [repo](https://github.com/letsar/flutter_slidable)，或者👏这个故事。你也可以在 [Twitter](https://twitter.com/lets4r) 上关注我。
 
-Let me know if you build an app with this package 😃.
+如果您使用此软件包构建应用程序，请告诉我😃。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
