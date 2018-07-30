@@ -2,18 +2,18 @@
 > * 原文作者：[Nash Vail](https://medium.com/@nashvail?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lets-settle-this-part-two.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lets-settle-this-part-two.md)
-> * 译者：
+> * 译者：[geniusq1981](https://github.com/geniusq1981)
 > * 校对者：
 
-# Let’s settle ‘this’ — Part Two
+# 让我们一起解决“this”难题 — 第二部分
 
-Hey! Welcome to part two of Let’s settle ‘this’ where we are trying to demystify one of JavaScript’s least understood aspect — the ‘this’ keyword. If you haven’t checked out [part one](https://github.com/xitu/gold-miner/blob/master/TODO1/lets-settle-this-part-one.md) yet you might want to do so. In Part One we went over Default and Implicit binding rules through 15 different examples. We saw how the value of ‘this’ for a function changes depending on how the function is invoked. Towards the end we also familiarized ourselves with arrow functions and how they undergo lexical binding. I hope you remember everything.
+嘿!欢迎来到让我们解决“这个”的第二部分，我们试图揭开JavaScript中最不了解的一个方面 - “this”关键字。如果您还没有签出[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/lets-settle-this-part-one.md)，您可能还想做所以。在第一部分中，我们通过15个不同的例子讨论了默认和隐式绑定规则。我们看到函数的'this'值如何根据函数的调用方式而改变。最后，我们也熟悉了箭头功能以及它们如何进行词法绑定。我希望你能记住一切。
 
-In this part we will be discussing two new rules, beginning with _new_ binding, we will get into innards and see how everything works. Next we will go over explicit binding and how we can bind any object as ‘this’ to any function through the _call(…), apply(…)_ and _bind(…)_ methods.
+在这部分我们将讨论两个新规则，从_new_绑定开始，我们将进入内部并看看一切是如何工作的。接下来，我们将介绍显式绑定以及如何通过_call(...)，apply(...)_和_bind(...)_方法将任何对象作为'this'绑定到任何函数。
 
-Let us continue where we left off. Your task is the same, to guess what gets logged to the console. Remember WGL?
+让我们继续我们离开的地方。您的任务是相同的，猜测记录到控制台的内容。还记得WGL吗？
 
-But before we dive in, let’s warm up a little.
+But在我们潜入之前，让我们热身一点。
 
 #### Example #16
 
@@ -31,11 +31,11 @@ foo.bar = {
 foo.bar.c();
 ```
 
-I know right now you’re like “What’s going on? Why are properties being assigned to a function here? Won’t this result in an error?”. Well, no first of all this will not result in an error. Every function in JavaScript is also an object. So like any other regular objects you can assign properties to a function too!
+我知道你现在就像“发生了什么事？为什么在这里将属性分配给函数？这不会导致错误吗？“好吧，首先，这不会导致错误。JavaScript中的每个函数也都是一个对象。就像任何其他常规对象一样，您也可以为函数指定属性!
 
-With that out of the way let’s now figure out what gets logged to the console. If you notice, Implicit binding is at work here. The object reference directly preceding _c’_s invocation is _bar_ isn’t it? Therefore ‘this’ inside _c_ is _bar_ and hence _bar_ is  what gets logged to the console.
+With那个让我们现在弄清楚什么被记录到控制台。如果您注意到，隐式绑定在此处起作用。直接在_c'_s调用之前的对象引用是_bar_不是吗？因此_c_中的'this'是_bar_，因此_bar_是记录到控制台的内容。
 
-The one thing you should carry away from this example is that functions in JavaScript are also objects and like any other objects they can be assigned properties.
+你应该从这个例子中得到的一件事是，JavaScript中的函数也是对象，就像任何其他对象一样，它们可以被赋予属性。
 
 #### Example #17
 
@@ -47,16 +47,16 @@ function foo() {
 new foo();
 ```
 
-So, what gets logged? Or does anything gets logged at all?
+So，会记录什么？或者根本没有记录任何东西？
 
-The answer is an empty object. Yes, not _a_ not _foo_ just an empty object. Let us see how that works.
+答案是一个空对象。是的，不是_a_不是_foo_只是一个空对象。让我们看看它是如何工作的。
 
-First of all notice **_how_** the function is invoked. It’s not a standalone invocation nor it has an object reference preceding it. What it has though is _new_ in front of the call. Any function in JavaScript can be invoked with a _new_ keyword in front of it. And when that happens, when a function is invoked with _new_ roughly four events occur, two of which are,
+First of notice notice ** _如何_ **函数被调用。它不是一个独立的调用，也没有它前面的对象引用。它有什么在呼叫前_new_。可以使用前面的_new_关键字调用JavaScript中的任何函数。当发生这种情况时，当用_new_调用一个函数时，大约会发生四个事件，其中两个是，
 
-1.  An empty object is created.
-2.  The newly created object is bound as ‘this’ to the function call.
+ 1。创建一个空对象。
+ 2。新创建的对象被绑定为函数调用的“this”。
 
-And that (2.) is the reason why when you execute the piece of code shown above you get an empty object logged to the console. You might ask “How is this even useful?”. We’ll get to that it’s all a little controversial.
+And(2.)是你执行上面显示的代码时得到一个空对象登录到控制台的原因。你可能会问“这怎么会有用？”。我们会发现它有点争议。
 
 #### Example #18
 
@@ -77,18 +77,18 @@ a.print();
 b.print();
 ```
 
-Intuitively it’s very easy to guess what gets logged to the console in this example, but are you right technically? Let’s see.
+直观地说，在这个例子中很容易猜到登录到控制台的内容，但是你在技术上是否合适？让我们来看看。
 
-To recap, when a function is invoked with the _new_ keyword four events occur.
+To回顾一下，当使用_new_关键字调用函数时，会发生四个事件。
 
-1.  An empty object is created.
-2.  The newly created object is bound as ‘this’ to the function call.
-3.  **The newly created object is prototypically linked to function’s prototype object.**
-4.  **The function is executed normally and at the end the newly created object is returned*.**
+ 1。创建一个空对象。
+ 2。新创建的对象被绑定为函数调用的“this”。
+ 3。**新创建的对象原型链接到函数的原型对象。**
+ 4。**函数正常执行，最后返回新创建的对象*。**
 
-We have verified in the previous example that the first 2 events in fact happen, that is why we got an empty object logged to the console. Forget about 3 for now let’s focus on the 4th event. There is nothing stopping the function’s execution, the function is executed with its parameters as any other normal JavaScript function except for the fact that ‘this’ inside the function is a newly created empty object. So when inside the function, _foo_ in our case, we do something like _this.id = id_ **we are actually assigning properties to the newly created empty object that was bound as ‘this’ to the function on call**. Read that again. And once the function has finished executing **the same newly created object is returned**. Since in the example above we assigned an _id_ and a _name_ property to the object the returned object has those as well. The returned object then can be assigned to whatever we want like we did to _a_ and _b_ in the example above.
+We在前面的例子中已经验证了前两个事件实际上发生了，这就是我们将一个空对象记录到控制台的原因。现在忘了大约3，让我们专注于第四场比赛。没有什么能阻止函数的执行，除了函数内部的“this”是新创建的空对象之外，函数的执行参数与任何其他正常的JavaScript函数一样。因此，当在函数内部_foo_在我们的情况下，我们执行类似_this.id = id_ **的操作时，我们实际上将属性分配给新创建的空对象，该对象在调用函数**中被绑定为“this”。再读一遍。一旦函数完成执行**，就会返回相同的新创建的对象**。由于在上面的示例中，我们为返回的对象具有的对象分配了_id_和_name_属性。然后可以将返回的对象分配给我们想要的任何内容，就像我们在上面的示例中对_a_和_b_所做的那样。
 
-Every function call with _new_ results in creation of a brand new empty object, its optional augmentation (_this.propName = …)_ inside the function and its return at the end of function execution. Therefore in the end our variables _a_ and _b_ look something like this.
+Every函数调用_new_导致创建一个全新的空对象，它在函数内部可选扩充(_this.propName = ...)_并在函数执行结束时返回它。因此，最后我们的变量_a_和_b_看起来像这样。
 
 ```
 var a = {
@@ -102,7 +102,7 @@ var b = {
 };
 ```
 
-Great! we have just learnt a new way for creating objects. But _a_ and _b_ have something in common, they are both **prototypically linked to _foo_’s prototype** (event 4) and therefore have access to its properties ( variables, functions e.t.c ). And just because of that we can call _a.print()_ and _b.print()_ since _print_ is a function we created in _foo_’s prototype. Quick question, what binding occurs when I call _a.print()_? You’re absolutely right if you said Implicit. Therefore, on calling _a.print()_ ‘this’ inside _print_ is _a_ and the first thing to get logged to the console is _1, A_ and similarly when we call _b.print() 2, B_ gets logged.
+大!我们刚刚学会了创建对象的新方法。但是_a_和_b_有一些共同之处，它们都是**原型链接到_foo_的原型**(事件4)，因此可以访问它的属性(变量，函数e.t.c)。正因为如此，我们可以调用_a.print()_和_b.print()_，因为_print_是我们在_foo_原型中创建的函数。快速问题，当我调用_a.print()_时会发生什么绑定？如果你说Implicit，那你就绝对正确。因此，在调用_a.print()_'时，_print_里面的这个'是_a_，并且首先登录到控制台的是_1，A_，同样当我们调用_b.print()2时，B_会被记录。
 
 #### Example #19
 
@@ -127,11 +127,11 @@ console.log( a );
 console.log( b );
 ```
 
-Almost everything is same as the code in the previous example except notice that _foo_ now returns an object. Alright, do one thing go back to the previous example and re read the 4th event would you? Notice the *****? When a function is called with the _new_ keyword the newly created object is returned at the end of execution **unless** you return your own custom object like we are doing in this example.
+几乎所有内容都与上一个示例中的代码相同，只是注意_foo_ now现在返回一个对象。好吧，做一件事回到上一个例子并重读第四个事件你呢？注意*****？当使用_new_关键字调用函数时，在执行结束时返回新创建的对象**，除非**您返回自己的自定义对象，就像我们在此示例中所做的那样。
 
-So? What gets logged? It’s very obvious to see that it’s the returned object the one with the _message_ property that gets logged to the console, twice. It’s so easy to break the whole construct isn’t it? Just return a meaningless object and everything fails. Moreover you now cannot call _a.print()_ or _b.print()_ since _a_ and _b_ are assigned what is returned and our returned object is not prototypically linked to _foo_’s prototype.
+所以？记录了什么？很明显，它是返回的对象，具有_message_属性的对象会被记录到控制台，两次。打破整个构造是如此容易，不是吗？只返回一个没有意义的对象，一切都失败了。此外，您现在无法调用_a.print()_或_b.print()_，因为_a_和_b_被分配了返回的内容，并且我们返回的对象未与_foo_的原型进行原型链接。
 
-But wait what if instead of returning an object we returned a string like _‘abc’_ or a number or a boolean value or a function or null or undefined or an array? As it turns out whether the construct breaks or not depends on what you return. See a pattern here?
+但是等一下，如果不是返回一个对象，我们返回一个像_'abc'_或数字或布尔值或函数或null或undefined或数组的字符串？事实证明，构造是否破坏取决于你返回的内容。看到这里的模式？
 
 ```
 return {}; // Breaks
@@ -145,15 +145,15 @@ return 3; // Doesn’t break
 ...
 ```
 
-Why this happens is a topic for another article. I mean we are already a little off course here, this example has not much to with ‘this’ binding right?
+为什么会发生这是另一篇文章的主题。我的意思是我们已经离这里有点偏僻了，这个例子与'this'绑定没什么关系吗？
 
-The whole creating objects through _new_ binding has been and being used (misused?) to fake traditional classes in JavaScript since long. In reality there are no classes in JavaScript the new _class_ syntax in ES2015 is just that, syntax. Behind the scenes _new_ binding is what happens there is no change there. I for one don’t care if you use _new_ binding to fake classes until your program works and the code is extensible, readable and maintainable. But then again how can you have extensible, readable and maintainable code with all the package and fragility _new_ binding brings?
+通过_new_绑定整个创建对象已经被使用(误用？)，以便在JavaScript中伪造传统类。实际上，在JavaScript中没有类，ES2015中的新_class_语法只是语法。在幕后_new_绑定是发生的事情，那里没有变化。我一个人不关心你是否使用_new_绑定到假类，直到你的程序工作，代码是可扩展，可读和可维护的。但是，你又如何拥有可扩展，可读和可维护的代码，所有的包和脆弱性_new_绑定带来了？
 
-That might have been a lot to take in. You should re read it if you’re still a little lost. It’s important that you understand how _new_ binding works probably to never use it again :).
+That可能有很多内容。如果你还有点失落，你应该重新阅读。重要的是你要了解_new_绑定的工作原理可能永远不会再使用它:)。
 
-Enough serious talk, let’s move on.
+Enough严肃的谈话，让我们继续前进。
 
-Consider the code below. Refrain yourself from guessing what gets logged in this example, we’ll continue “the guessing game” from the next example onwards :).
+Consider下面的代码。不要猜测在这个例子中记录了什么，我们将从下一个例子开始继续“猜谜游戏”:)。
 
 ```
 var expenses = {
@@ -168,11 +168,11 @@ var rents = {
 };
 ```
 
-The _expenses_ object has _data_ and _total_ properties_. data_ holds some numbers whereas _total_ is a function that takes in _earnings_ as a parameter and returns the sum of all numbers in _data_ minus the _earnings._ Very straightforward.
+_expenses_对象具有_data_和_total_ properties_。data_包含一些数字而_total_是一个函数，它将_earnings_作为参数并返回_data_中所有数字的总和减去_earnings._非常简单。
 
-Now look at _rents,_ just like expenses it has a _data_ property too. Now say, for some reason, just being hypothetical here, you’d like to run the _total_ function over _rent_’s _data_ array and since we’re good programmers we don’t like repeating ourselves. We definitely can’t do _rents.total()_ and have _rents_ implicitly bound as ‘this’ to the _total_ function since _rents.total()_ is an invalid call owing to the fact that _rents_ has no property called _total._ Now only if there was a way to bind _rents_ as ‘this’ to the _total_ function. Well guess what? There is, allow me to introduce you to _call()_ and _apply()._
+Now看看_rents，_就像费用一样，它也有_data_属性。现在说，出于某种原因，只是假设在这里，你想在_rent_的_data_数组上运行_total_函数，因为我们是优秀的程序员，我们不喜欢重复自己。我们绝对不能做_rents.total()_并且_rents_被隐式地绑定为_total_函数的'this'，因为_rents.total()_是一个无效的调用，因为_rents_没有名为_total._的属性。只有当有一种方法将_rents_绑定为'this'到_total_函数时。好吧猜怎么着？有，请允许我向您介绍_call()_和_apply()._
 
-You see _call_ and _apply_ do the exact same thing, they allow you to bind the object you want to the function you want. Which means I can do this…
+你看_call_和_apply_做同样的事情，它们允许你将你想要的对象绑定到你想要的功能。这意味着我可以做到这一点......
 
 ```
 console.log( expenses.total.call(rents) ); // 10
@@ -184,30 +184,30 @@ console.log( expenses.total.call(rents) ); // 10
 console.log( expenses.total.apply(rents) ); // 10
 ```
 
-Which is great! Both of the above lines of code result in _total_ being called with ‘this’ as the _rents_ object. _call_ and _apply_ as far as ‘this’ binding is concerned only differ in the way you pass in arguments.
+Which很棒!上面的两行代码都会导致_total_被调用为'this'作为_rents_对象。_call_和_apply_就'this'绑定而言，只涉及传递参数的方式不同。
 
-Notice that the function _total_ takes in an argument _earnings,_ let’s pass it.
+Notice函数_total_接受参数_earnings，_让我们传递它。
 
 ```
 console.log( expenses.total.call(rents, 10) ); // 0 Works!
 console.log( expenses.total.apply(rents, 10) ); // Error
 ```
 
-Passing arguments to the target function (_total_ in our case) via _call_ is simple you just pass in a comma separated list of arguments like to any other JavaScript function _.call(customThis, arg1, arg2, arg3…)._ In the code above we passed in 10 for the _earnings_ parameter and everything worked as expected.
+Passing目标函数的参数(在我们的例子中是_total_)通过_call_很简单，你只需传入一个逗号分隔的参数列表，比如任何其他JavaScript函数_.call(customThis，arg1，arg2，arg3 ......)._在上面的代码我们传入了10个_earnings_参数，一切都按预期工作。
 
-_apply_ though requires you to pass in arguments to the target function (_total_ in our case) wrapped in an array _.apply(customThis, [arg1,arg2, arg3…]) W_hich notice we didn’t do in the snippet above resulting in an error. The error can definitely be fixed by wrapping arguments for the target function in an array, like so.
+_apply_虽然要求你将参数传递给目标函数(在我们的例子中是_total_)包装在一个数组_.apply(customThis，[arg1，arg2，arg3 ...])W_hich通知我们没有在上面的代码片段中执行一个错误。错误肯定可以通过在数组中包装目标函数的参数来修复，就像这样。
 
 ```
 console.log( expenses.total.apply(rents, [10]) ); // 0 Works!
 ```
 
-The mnemonic I use to remember the difference between _call_ and _apply_ goes something like this. A is for **_a_**_pply_  and A is for **a**rray as well! So arguments to the target function via **_a_**_pply_ are passed in wrapped in an **a**rray. Just a stupid little mnemonic, but it works 😬.
+Enemonic我用来记住_call_和_apply_之间的区别就是这样的。A代表** _ a _ ** _ pply_，A代表** a ** rray!所以通过** _ a _ ** _ pply_对目标函数的参数传递包含在** a ** rray中。只是一个愚蠢的小助记符，但它的作用😬。
 
-Now what if we pass in a number or a string or a boolean value or null/undefined instead of an object literal for ‘this’ to **_call_**_,_ **_apply_**  and  **_bind_**  (discussed next)_._ What happens then? Nothing much, say if you pass in a number 2 for ‘this’ it gets wrapped in its object form _new Number(2)_ similarly if you pass in a string it becomes _new String(…)_ boolean values become _new Boolean(…)_ so on and so forth and this new object whether String or Number or Boolean gets bound as ‘this’ to the called function. Passing in _null_ and _undefined_ though results in something different. If you pass in _null_ or _undefined_ for ‘this’ the function is called as if it underwent Default binding which means the global object is bound as ‘this’ to the called function.
+Now如果我们传入一个数字或一个字符串或一个布尔值或null / undefined而不是'this'的对象文字传递给** _ call _ ** _，_ ** _ apply _ **和** _ bind _ **(接下来讨论)_._然后会发生什么？没有什么，比如你传入2号'this'它被包裹在它的对象形式_new Number(2)_同样如果你传入一个字符串它变成_new String(...)_ boolean values变为_new Boolean(...)_ so so等等这个新对象是String还是Number或Boolean被绑定为被调用函数的'this'。传入_null_和_undefined_虽然会产生不同的结果。如果为'this'传入_null_或_undefined_，则调用该函数，就好像它接受默认绑定一样，这意味着全局对象被绑定为被调用函数的“this”。
 
-There’s yet another way to bind ‘this’ to a function, this time through a method called, wait for it, _bind_!
+还有另一种方法将'this'绑定到一个函数，这次通过一个名为的方法，等待它，_bind_!
 
-Let’s see if you can figure this out. What gets logged in the example below?
+让我们看看你是否可以解决这个问题。在下面的示例中记录了什么？
 
 #### Example #20
 
@@ -229,20 +229,20 @@ console.log(rentsTotal());
 console.log(rentsTotal(10));
 ```
 
-The answer to this example is 10 followed by 0. Notice what’s happening right below the declaration of _rents_ object. We are creating a new function _rentsTotal_ from the function _expenses.total._ That’s what _bind_ does it creates a new function which when called has its ‘this’ keyword set to the provided value (_rents_ in our case). Therefore when we call _rentsTotal()_ which though is a standalone invocation has its ‘this’ already set to _rents_ and Default Binding cannot override that. This call results in 10 getting printed to the console.
+这个例子的答案是10后跟0.注意_rents_对象声明下面发生了什么。我们正在从函数_expenses.total._创建一个新函数_rentsTotal_这就是_bind_创建一个新函数，当被调用时，它的'this'关键字设置为提供的值(在我们的例子中是_rents_)。因此，当我们调用_rentsTotal()_时，虽然它是一个独立的调用，但它的'this'已设置为_rents_，而Default Binding不能覆盖它。此调用导致10打印到控制台。
 
-In the next line calling _rentsTotal_ with a parameter (10) is exactly like calling _expenses.total_ with the same paramter (10) it is only in the value of ‘this’ where they differ. The result of this call is 0.
+在下一行中，使用参数(10)调用_rentsTotal_与使用相同的参数(10)调用_expenses.total_完全相同，它只是在'this'的值中，它们不同。此调用的结果为0。
 
-Moreover you can also bind parameters for the target function (_expenses.total_ in our case) using _bind._ Consider this.
+Moreover你也可以使用_bind绑定目标函数的参数(在我们的例子中是_expenses.total_)。考虑这个。
 
 ```
 var rentsTotal = expenses.total.bind(rents, 10);
 console.log(rentsTotal());
 ```
 
-What do you think gets logged to the console? 0 of course as 10 has been bound to the target function (_expenses.total)_ as _earnings_ by _bind._
+您认为如何登录控制台？0当然因为10已被绑定到目标函数(_expenses.total)_作为_earnings_由_bind._
 
-Let us take a look at an example that illustrates a real life usage of _bind._
+让我们看一个说明_bind._的真实生活用法的例子。
 
 #### Example #21
 
@@ -267,11 +267,11 @@ var myButton = {
 myButton.init();
 ```
 
-We have created a button in HTML and then we’re targeting that same button in our JavaScript code as _myButton._ Notice inside _init_ we are also attaching a click event listener to the button.Your question now is what gets logged to the console when the button is clicked?
+We已经在HTML中创建了一个按钮，然后我们将JavaScript代码中的相同按钮定位为_myButton._注意_init_中的内容我们还在按钮上附加了一个click事件监听器。您现在的问题是记录到控制台的内容单击按钮时？
 
-If you guessed it right _undefined_ is what gets logged. The reason for this “sorcery” is that functions passed as callback (_this.onClick_ in our case) to event listeners has the target element bound as ‘this’ to them. Which means when _onClick_ is called ‘this’ inside it is the DOM object button (_elem_)  and not our _myButton_ object and because the DOM object button has no property with the name _buttonName_ it results in _undefined_ being logged to the console.
+如果您猜对了_undefined_就是记录的内容。这种“巫术”的原因是作为回调(在我们的例子中是_this.onClick_)传递给事件侦听器的函数将目标元素绑定为“this”。这意味着当_onClick_被称为'this'时，它是DOM对象按钮(_elem_)而不是我们的_myButton_对象，因为DOM对象按钮没有名称为_buttonName_的属性，导致_undefined_被记录到控制台。
 
-But there is a way to fix this (pun intended). All we need to do is add one, just one extra line of code.
+但是有办法解决这个问题(双关语)。我们需要做的就是添加一个，只需添加一行代码。
 
 #### Fix #1
 
@@ -289,9 +289,9 @@ var myButton = {
 };
 ```
 
-Notice in the previous snippet (#21) the way function _init_ is invoked. Exactly, Implicit binding binds _myButton_ as ‘this’ to the _init_ function. Now notice how in the new line we are binding _myButton_ to the the _onClick_ function. Doing so creates a new function which is exactly _onClick_ except for the fact that it has its ‘this’ as _myButton_ object_._ The newly created function then is reassigned to _myButton.onClick._ That’s all, when you click the button now you’ll have “My Precious Button” logged to the console.
+Notice在上一个片段(#21)中调用函数_init_的方式。确切地说，Implicit绑定将_myButton_绑定为'this'到_init_函数。现在注意我们在新行中如何将_myButton_绑定到_onClick_函数。这样做会创建一个新的函数，它完全是_onClick_，除了它的'this'为_myButton_ object _._然后新创建的函数被重新分配给_myButton.onClick._这就是全部，当你点击按钮时，你现在'将“My Precious Button”记录到控制台。
 
-You could have fixed the code with arrow functions too. Here’s how. I will leave it up to you to figure why these work.
+你也可以使用箭头功能修复代码。就是这样。我会告诉你为什么这些工作。
 
 #### Fix #2
 
@@ -324,15 +324,15 @@ var myButton = {
 };
 ```
 
-That’s it. We’re done… almost. There are still questions like is there an order of precedence? What if there is a clash between two rules trying to bind a ‘this’ to the same function? This is a topic for another article. Part 3? Probably and to be honest it’s rare you’ll run into such clashes. So for now we’re done and let’s summarize what we have learnt in the two parts.
+而已。我们差不多完成了。还有一些问题，比如是否有优先顺序？如果试图将“this”绑定到同一个函数的两个规则之间存在冲突怎么办？这是另一篇文章的主题。第3部分？可能并且说实话，你很少遇到这样的冲突。所以现在我们已经完成了，让我们总结一下我们在这两部分学到的东西。
 
-#### Summary
+#### 总结
 
-In the first part we saw how ‘this’ for a function is not fixed and can change depending on how the function is invoked. We went over Default binding which applies when a function undergoes standalone invocation, Implicit binding which applies when a function is invoked with an object reference preceding it and arrow functions and how ‘this’ to them are bound lexically. Towards the end of the first part we also went over a self referencing quirk in JavaScript objects.
+在第一部分中，我们看到函数的“this”如何不固定，并且可以根据函数的调用方式而改变。我们讨论了默认绑定，它适用于函数经历独立调用时，隐式绑定适用于调用函数时，前面有一个对象引用和箭头函数，以及它们如何以词法方式绑定它们。接近第一部分的结尾，我们还在JavaScript对象中进行了自引用的怪癖。
 
-In this part we started out with _new_ binding and how it works and how the whole construct can easily be broken. Latter half of this part was dedicated to explicitly binding ‘this’ to functions using _call, apply_ and _bind._ I also embarrassingly shared my mnemonic with you about how to remember the difference between _call_ and _apply._ Hope you remember it.
+在这一部分，我们开始使用_new_绑定以及它如何工作以及如何轻松地破坏整个结构。这一部分的后半部分致力于使用_call，apply_和_bind._明确地将'this'绑定到函数。我还尴尬地与你分享了关于如何记住_call_和_apply之间差异的助记符。希望你能记住它。
 
-#### This ended up being quite long. If you’re still reading, thank you! I hope you learned something. If you did please do recommend the article for others to discover. Have a good one!
+#### 这篇文章很长。非常感谢你能一直读完。我希望这篇文章能让你学到些东西。如果觉得还不错，也请把这篇文章推荐给其他人吧。祝你一天都有好心情！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
