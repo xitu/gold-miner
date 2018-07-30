@@ -104,7 +104,7 @@ col-sm-2// 这个 class 适用于小型设备 （如手机）
 
 Bootstrap 4 中导航栏的封装可以说非常酷炫，它在构建一个响应式导航栏的时候可以帮上大忙。
 
-要想运用导航栏，咱们得在文件 `index.html` 中加入 `navbar` 这个 class ：
+要想运用导航栏，咱们得在文件 `index.html` 中加入 `navbar` 这个 class：
 
 ```
 <nav class="navbar navbar-expand-lg fixed-top ">
@@ -139,7 +139,7 @@ Bootstrap 4 中导航栏的封装可以说非常酷炫，它在构建一个响�
 
 创建并加入一个 `main.css` 文件来定义你自己的 CSS 风格。
 
-在你的 `index.html` 文件中，把以下这行代码塞入两个 `head` 标签之中： 
+在你的 `index.html` 文件中，把以下这行代码塞入两个 `head` 标签之中：
 
 ```
 <link rel="stylesheet" type="text/css" href="css/main.css">
@@ -170,7 +170,7 @@ Bootstrap 4 中导航栏的封装可以说非常酷炫，它在构建一个响�
 }
 ```
 
-新的 Bootstrap 网格是基于 Flexbox 构建的，所以你得使用 Flexbox 的性质来进行网站元素的排列。打个比方，若想要把导航栏菜单放在右边，咱得加入一个 `justify-content` 性质，并且赋值 `flex-end` 。
+新的 Bootstrap 网格是基于 Flexbox 构建的，所以你得使用 Flexbox 的性质来进行网站元素的排列。打个比方，若想要把导航栏菜单放在右边，咱得加入一个 `justify-content` 性质，并且赋值 `flex-end`。
 
 ```
 .navbar-collapse{  
@@ -179,9 +179,9 @@ Bootstrap 4 中导航栏的封装可以说非常酷炫，它在构建一个响�
 ```
 
 之后，给导航栏加上 `.fixed-top` class 并且给予其一个固定位置。
-若想让导航栏的背景变成淡色，加上 `.bg-light` ；若想要一个深色的背景，则加上 `.bg-dark`。至于淡蓝色的背景，可以加上 `.bg-primary` 。
+若想让导航栏的背景变成淡色，加上 `.bg-light`；若想要一个深色的背景，则加上 `.bg-dark`。至于淡蓝色的背景，可以加上 `.bg-primary`。
 
-代码应该看起来如下图： 
+代码应该看起来如下图：
 
 ```
 .bg-dark{  
@@ -209,7 +209,7 @@ background-color:#007bff!important
 <script type="text/javascript" src='js/main.js'></script>
 ```
 
-往 `main.js` 文件中插入这么一小点 JQuery 代码： 
+往 `main.js` 文件中插入这么一小点 JQuery 代码：
 
 ```
 $(document).ready(function(){  
@@ -232,7 +232,7 @@ $(document).ready(function(){
 
 ![](https://cdn-images-1.medium.com/max/800/1*LmLTI-enV2RSKjsO9hzPxQ.png)
 
-为了让标题页看起来更专业，可以加上一个覆盖层： 
+为了让标题页看起来更专业，可以加上一个覆盖层：
 
 把以下代码添进你的 `index.html` 文件：
 
@@ -257,9 +257,9 @@ $(document).ready(function(){
 
 现在咱们需要在标题里加上描述的部分。
 
-为了加上描述，首先需要写一个 `div` 并给它添上叫 `.container` 的 class 。
+为了加上描述，首先需要写一个 `div` 并给它添上叫 `.container` 的 class。
 
-`.container` 是一个可以封装你的内容并且使你的布局具有响应性的 Bootstrap class ：
+`.container` 是一个可以封装你的内容并且使你的布局具有响应性的 Bootstrap class：
 
 ```
 <header class="header">  
@@ -271,7 +271,7 @@ $(document).ready(function(){
 </header>
 ```
 
-在那之后，另写一个包含描述版块的 `div` 。
+在那之后，另写一个包含描述版块的 `div`。
 
 ```
 <div class="description text-center">  
@@ -285,11 +285,11 @@ $(document).ready(function(){
   </div>
 ```
 
-咱们在这个 `div` 的 class 里写 `.description` ，并且加上 `.text-center` 来确保这个描述版块里的内容会出现在整个页面的中央。
+咱们在这个 `div` 的 class 里写 `.description`，并且加上 `.text-center` 来确保这个描述版块里的内容会出现在整个页面的中央。
 
 #### 按钮（Buttons）
 
-现在往 `button` 元素加一个名为 `.btn btn-outline-secondary` 的 class。Bootstrap 还有不少其他为按钮而生的 class 。
+现在往 `button` 元素加一个名为 `.btn btn-outline-secondary` 的 class。Bootstrap 还有不少其他为按钮而生的 class。
 
 来看看一些例子：
 
@@ -321,7 +321,7 @@ $(document).ready(function(){
 }
 ```
 
-至此，咱们的标题看起来会是这样的： 
+至此，咱们的标题看起来会是这样的：
 
 ![](https://cdn-images-1.medium.com/max/800/1*kV7umhOF5QPveMmADXUCSw.png)
 
@@ -457,7 +457,7 @@ $(document).ready(function(){
 </div>
 ```
 
-给每一张图片加入 `.img-fluid` 使其具备响应性。 
+给每一张图片加入 `.img-fluid` 使其具备响应性。
 
 咱们图库中每一张图片会占据 4 列（记住，`col-md-4`适用于中型设备，`col-lg-4` 适用于大型设备），也就是说相当于大型设备（如台式机和大型平板电脑）宽度的  33.3333% 。同样的，小型设备上（如手机）的 12 列将占据整个容器宽度的 100% 。
 给咱们的图库加上些风格样式：
@@ -485,7 +485,7 @@ $(document).ready(function(){
 
 #### 卡片(Card)
 
-Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用于文章和帖子。 
+Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用于文章和帖子。
 
 为了创建卡片，咱们使用名为 `.card` 的 class ，并且写在一个 _div_ 元素里。
 
@@ -497,7 +497,7 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 *   `card-footer`:  定义卡片的脚注
 *   `.card-image`: 用于卡片的图像
 
-所以呢，咱们网站的 HTML 看起来会是这样的： 
+所以呢，咱们网站的 HTML 看起来会是这样的：
 ```
 <!-- Posts section -->
 <div class="blog">
@@ -563,7 +563,7 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 </div>
 ```
 
-我们需要往卡片里加一些 CSS ： 
+我们需要往卡片里加一些 CSS：
 
 ```
 .blog{  
@@ -590,7 +590,7 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 }
 ```
 
-添加了博客版块之后，网站的设计看起来会是这样的： 
+添加了博客版块之后，网站的设计看起来会是这样的：
 
 ![](https://cdn-images-1.medium.com/max/800/1*mHMPSea2jWdZ2dc_b658eA.png)
 
@@ -670,7 +670,7 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 
 ![](https://cdn-images-1.medium.com/max/800/1*SxGguj9S8JMncs-D3uNcsA.gif)
 
-为了达到这个效果，在 `main.css` 中加入以下风格样式： 
+为了达到这个效果，在 `main.css` 中加入以下风格样式：
 
 ```
 .team .item:hover .des{  
@@ -759,7 +759,7 @@ Bootstrap 4 中的卡片使得设计博客简单了好多。这些卡片适用�
 
 我觉着系统自带的字体比较丑陋，所以使用了 Google Font 接口，然后选择 Google 字体里的 **Raleway** 。这是个不错的字体而且很适合咱们的样板。
 
-在你的 `main.css` 文件中添上这个链接： 
+在你的 `main.css` 文件中添上这个链接：
 
 ```
 @import url('https://fonts.googleapis.com/css?family=Raleway');
@@ -823,7 +823,7 @@ Bootstrap 4 是一个构建你网页应用很棒的选择。它提供高质量�
 
 关于这个项目的文件都可以在[这里找到] (https://github.com/hayanisaid/bootstrap4-website)。
 
-要想学习 Bootstrap 4，也可以查看我的 Bootstrap 课程： 
+要想学习 Bootstrap 4，也可以查看我的 Bootstrap 课程：
 
 * [**Bootstrap 4 crash course: 从基础到进阶 | Said Hayani | Skillshare**: 在这个课程里你将学习 Bootstrap 的第四版，是一个 CSS 框架用以构建灵活的页面以及……](https://skl.sh/2LaD1ym)
 
