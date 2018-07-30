@@ -1,3 +1,5 @@
+* [给人类的机器学习指南🤖👶](https://juejin.im/post/5b136f12f265da6e5415114b) ([sisibeloved](https://github.com/sisibeloved) 翻译)
+* [深度学习中所需的线性代数知识](https://juejin.im/post/5b19d99ae51d4506d81a7a2f) ([maoqyhz](https://github.com/maoqyhz) 翻译)
 * [可微可塑性：一种学会学习的新方法](https://juejin.im/post/5b055308f265da0ba063879d) ([luochen1992](https://github.com/luochen1992) 翻译)
 * [给初学者的 Jupyter Notebook 教程](https://juejin.im/post/5af8d3776fb9a07ab7744dd0) ([SergeyChang](https://github.com/SergeyChang) 翻译)
 * [如何在安卓应用中使用 TensorFlow Mobile](https://juejin.im/post/5afb8dc5518825426c690236) ([luochen1992](https://github.com/luochen1992) 翻译)
