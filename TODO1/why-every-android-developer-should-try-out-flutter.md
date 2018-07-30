@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-every-android-developer-should-try-out-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-every-android-developer-should-try-out-flutter.md)
 > * 译者：[ALVINYEH](https://github.com/ALVINYEH)
-> * 校对者：
+> * 校对者：[DateBro](https://github.com/DateBro)
 
 # 为什么每个 Android 开发者都应该尝试 Flutter
 
