@@ -2,8 +2,8 @@
 > * 原文作者：[SaidHayani@](https://medium.freecodecamp.org/@saidhayani?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/learn-bootstrap-4-in-30-minute-by-building-a-landing-page-website-guide-for-beginners.md](https://github.com/xitu/gold-miner/blob/master/TODO1/learn-bootstrap-4-in-30-minute-by-building-a-landing-page-website-guide-for-beginners.md)
-> * 译者：Zheng7426
-> * 校对者：Park-ma, Moonliujk
+> * 译者：[Zheng7426](https://github.com/Zheng7426)
+> * 校对者：[Park-ma](https://github.com/Park-ma), [Moonliujk](https://github.com/Moonliujk)
 
 # 用 30 分钟建立一个网站的方式来学习 Bootstrap 4
 
@@ -15,9 +15,9 @@
 
 ### 新人指南
 
-> “Bootstrap 是一个为网站及网页应用设计而生的开源前端代码库。它基于 HTML 和 CSS 的设计模板涵盖了文字设计、表单、按钮、导航、其他界面组件以及一些 JavaScript 扩展包。与很多其他网页框架不一样的是， Bootstrap 对自身的定位是仅仅适用于前端开发而已。” — [维基百科](https://en.wikipedia.org/wiki/Bootstrap_(front-end_framework))
+> “Bootstrap 是一个为网站及网页应用设计而生的开源前端代码库。它基于 HTML 和 CSS 的设计模板涵盖了文字设计、表单、按钮、导航、其他界面组件以及一些 JavaScript 扩展包。与很多其他网页框架不一样的是，Bootstrap 对自身的定位是仅仅适用于前端开发而已。” — [维基百科](https://en.wikipedia.org/wiki/Bootstrap_%28front-end_framework)
 
-> [嘿嘿，在我们开始之前，你可以看看我开设的学习 Bootstrap 4 的完整课程，你不仅可以学到 bootstrap 的新特性，还能学到如何借助这些特性来实现更棒的用户体验。](https://skl.sh/2NbSAYj) .
+> [嘿嘿，在我们开始之前，你可以看看我开设的学习 Bootstrap 4 的完整课程，你不仅可以学到 bootstrap 的新特性，还能学到如何借助这些特性来实现更棒的用户体验。](https://skl.sh/2NbSAYj)。
 
 Bootstrap 有不少版本，其中最新的是第四版。在这篇文章里我们就是要来用 Bootstrap 4 来构建一个网站。
 
@@ -53,11 +53,11 @@ Bootstrap 有不少版本，其中最新的是第四版。在这篇文章里我�
 
 想要在你的项目中添上 Bootstrap 4 一共有三种办法： 
 
-1.  通过 npm （ Node 包管理器 ）
+1. 通过 npm（Node 包管理器）
 
 你可以使用这行命令来安装 Bootstrap 4 —— `npm install bootstrap`。
 
-2. 通过 CDN ( 内容分发网络 )
+2. 通过 CDN（内容分发网络）
 
 你可以在你项目的 head 标签之间添上这个链接：
 
@@ -76,8 +76,8 @@ Bootstrap 4 有什么新花样呢？ 它和 Bootstrap 3 又有何不同？
 
 比起上一个版本，Bootstrap 4 加入了以下一些很棒的新特性：  
 
-*   Bootstrap 4 是由 Flexbox Grid写成的，而 Bootstrap 3 是由 float 方法写就。
-    如果你没听过 Flexbox 的话可以查看 [这个教程](https://scrimba.com/p/pL65cJ/canLGCw).
+*   Bootstrap 4 是由 Flexbox Grid 写成的，而 Bootstrap 3 是由 float 方法写就。
+    如果你没听过 Flexbox 的话可以查看[这个教程](https://scrimba.com/p/pL65cJ/canLGCw)。
 *   Bootstrap 4 使用了 `rem` CSS 单位，而 Bootstrap 3 使用的是 `px`。 
     [了解这两种单位的区别](https://zellwk.com/blog/media-query-units/)
 *   Panels, thumbnails 和 wells 在这个新版本中全被舍弃了。 
