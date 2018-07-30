@@ -2,32 +2,32 @@
 > * 原文作者：[Jiří Otáhal](https://medium.com/@xotahal?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/animated-transition-in-react-native.md](https://github.com/xitu/gold-miner/blob/master/TODO1/animated-transition-in-react-native.md)
-> * 译者：
+> * 译者：[talisk](https://github.com/talisk)
 > * 校对者：
 
-# Animated Transition in React Native!
+# React Native 中使用转场动画！
 
-> This article has got almost 15k views. For someone it could be nothing, but for me it is a big motivation. That’s why I decided to build [Pineapple — Financial Manager](https://pineapplee.io/). During only 22 days, I have done [iOS version](https://itunes.apple.com/us/app/pineapple-financial-manager/id1369607032?ls=1&mt=8), [Android version](https://play.google.com/store/apps/details?id=com.pineapple.android) and [website presentation](https://pineapplee.io/), spent $300 and wrote a [couple of articles](https://medium.com/how-i-built-profitable-application-faster-than) about that. Can’t say how much I enjoyed this time. You should try it as well!
+> 这篇文章有近 15k 的浏览量。对某些人来说，这可能没什么的，但对我来说是一个很大的动力。这正是我决定构建 [Pineapple — Financial Manager](https://pineapplee.io/) 的原因。仅仅 20 天，我已经完成了 [iOS 版](https://itunes.apple.com/us/app/pineapple-financial-manager/id1369607032?ls=1&mt=8)，[Android 版](https://play.google.com/store/apps/details?id=com.pineapple.android)以及[网页版](https://pineapplee.io/)，花费 300 美金，并写了[几篇关于它的文章](https://medium.com/how-i-built-profitable-application-faster-than)。我无法用言语表达我多么享受这段时间。你也应该试试！
 
-Recently I’ve tried to get an inspiration for a next animation challenge. And here we go — [created by Ivan Parfenov](https://medium.muz.li/ui-interactions-of-the-week-116-40eba84eb736). I was curious if I am able to do this transition effect with React Native. [**You can check out a result on my expo account**](https://expo.io/@xotahal/react-native-motion-example)**!** Why we even need the animations like these? Read [Good to great UI animation tips](https://uxdesign.cc/good-to-great-ui-animation-tips-7850805c12e5) by Pablo Stanley.
+最近我试图为下一个动画挑战获得灵感。我们开始吧 —— [由 Ivan Parfenov 创建](https://medium.muz.li/ui-interactions-of-the-week-116-40eba84eb736)。如果我能用React Native做这个过渡效果，我很好奇。[**您可以在我的 expo 帐户中查看结果**](https://expo.io/@xotahal/react-native-motion-example)！为什么我们还需要这样的动画？来读读 Pablo Stanley 写的[绝佳的 UI 动画技巧](https://uxdesign.cc/good-to-great-ui-animation-tips-7850805c12e5)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*D35P0J6_34Yrs_n3i1hvjA.gif)
 
-For [PLΛTES](https://dribbble.com/plates) by [Ivan Parfenov](https://dribbble.com/parfenoff).
+[Ivan Parfenov](https://dribbble.com/parfenoff) 设计的 [PLΛTES](https://dribbble.com/plates)。
 
-We can see there is a couple of animations. Toolbar tile (show/hide), bottom bar (show/hide), move a selected item, hide all others, show detail items and maybe even more.
+我们可以看到有几个动画。工具栏（显示/隐藏），底栏（显示/隐藏），移动所选项目，隐藏所有其他项目，显示详细信息项目甚至更多。
 
 ![](https://cdn-images-1.medium.com/max/800/1*HdpUrmxtI0cptj8BpxsaPw.png)
 
-Timeline of animations.
+动画时间线
 
-The hard thing about the transition is to synchronize all of those animations. We can’t really unmount the List Page and show the Detail Page because we need to wait till all animations are done. Also, I am a fan of having a clean code. Easy to maintenance. If you have ever tried to implement an animation to your project, the code usually gets messy. Full of helper variables, crazy calculations, etc. That’s why I would like to introduce [react-native-motion](https://github.com/xotahal/react-native-motion).
+过渡动画的难点在于同步所有这些动画。因为我们需要等到所有动画都完成，我们无法真正移除列表页面并显示详细信息页面。此外，我对整洁的代码有所追求。代码要易于维护，如果您曾尝试为项目实现动画，则代码通常会变得混乱。到处都是辅助变量，各种计算等。这正是我想介绍 [react-native-motion](https://github.com/xotahal/react-native-motion) 的原因。
 
 ![](https://cdn-images-1.medium.com/max/800/1*nfm2A4bKidwuPQ-Oy4vTxQ.gif)
 
-### An idea of react-native-motion
+### 对 react-native-motion 的一个小想法
 
-Can you see the animation of toolbar’s title? You just need to move the title a bit and animate an opacity to zero/one. No big deal! But because of that, you need to write a code like this. Even before you actually start to write UI for that component.
+你能看到工具栏标题的动画吗？你只需稍微移动标题并将不透明度设置为 0 或 1。这很简单！但正因为如此，你需要编写这样的代码，甚至在你真正开始为该组件编写 UI 之前。
 
 ```
 class TranslateYAndOpacity extends PureComponent {
@@ -81,7 +81,7 @@ class TranslateYAndOpacity extends PureComponent {
 }
 ```
 
-Now let’s take a look how we can use [react-native-motion](https://github.com/xotahal/react-native-motion) for this. I know the animations are quite often very specific. And I know React Native provides very powerful Animated API. Anyway, it would be great to have a library with basic animations.
+现在让我们来看看如果用 [react-native-motion](https://github.com/xotahal/react-native-motion) 实现这个动画，要怎么做。我知道动画经常是非常具体的。我知道 React Native 提供了非常强大的动画 API。无论如何，拥有一个带有基本动画的库会很棒。
 
 ```
 import { TranslateYAndOpacity } from 'react-native-motion';
@@ -99,9 +99,9 @@ class ToolbarTitle extends PureComponent {
 }
 ```
 
-### Shared element
+### 共享的元素
 
-The biggest problem of this challenge was moving of selected list item. The item that is shared between List Page and Detail Page. How to move the item from FlatList to the top of Detail’s Page when the element is actually not absolutely positioned? It is quite easy with react-native-motion.
+这一挑战的最大问题是移动选定的列表项。列表页面和详细信息页面之间共享的项目。当元素实际上没有绝对定位时，如何将项目从 FlatList 移动到 Detail 的页面顶部？使用 react-native-motion 非常容易。
 
 ```
 // List items page with source of SharedElement
@@ -118,7 +118,7 @@ class ListPage extends Component {
 }
 ```
 
-We specified source element of the SharedElement on List Page. Now we need to do almost the same for destination element on the Detail Page. To know the position where we want to move the shared element.
+我们在 ListPage 上指定了 SharedElement 的 source 元素。现在我们需要对 DetailPage 上的目标元素执行几乎相同的操作，来知道我们想要移动共享元素的位置。
 
 ```
 // Detail page with a destination shared element
@@ -135,33 +135,33 @@ class DetailPage extends Component {
 }
 ```
 
-### Where is the magic?
+### 黑科技在哪里？
 
-How can we move a relatively positioned element from one page to the another one? Actually, we can’t. The SharedElement works like this:
+我们如何将相对定位的元素从一个页面移动到另一个页面？实际上我们做不到。SharedElement 的工作方式如下：
 
-*   get a position of the source element
-*   get position of the destination element (obviously, without this step the animation can’t be initiated)
-*   create a clone of the shared element (The magic!)
-*   render a new layer above the screen
-*   render the cloned element that will cover the source element (in his position)
-*   initiate move to the destination position
-*   once the destination position was reached, remove the cloned element
+*   获取源 element 的位置
+*   获取目标 element 的位置（显然，没有这一步，动画不能被初始化）
+*   创建共享的 element（黑科技！）
+*   在屏幕上方渲染一个新图层
+*   渲染 element 元素，将覆盖源 element（在源 element 的位置上）
+*   开始移动到目标 element 位置
+*   一旦移动到目标 element 位置后，删除克隆 element
 
 ![](https://cdn-images-1.medium.com/max/800/1*MKDiUHnLdB7WiEPR26IHdw.png)
 
-You can probably imagine there are 3 elements of the same React Node at the same moment. That’s because List Page is covered up by Detail Page during that moving animation. That’s why we can see all 3 elements. But we want to create an illusion that we actually moving the original source item.
+你可以想象在同一时刻同一个 React Node 有 3 个 element。这是因为在移动动画期间，DetailPage 会覆盖列表页面。这就是为什么我们可以看到所有3个元素。但是我们想要创造一种我们实际移动了原始 element 的幻觉。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*m11vVsxY3Pa_e5lDMkOT_w.png)
 
-SharedElement timeline.
+SharedElement 的时间线。
 
-You can see point A and point B. That’s a time period when the moving is performing. You can also see the SharedElement fires some useful events. In this case, we use WillStart and DidFinish events. It is up to you to set an opacity for source and destination element to 0 when a moving to destination was initiated, and back to 1 for destination element once the animation was finished.
+您可以看到 A 点和 B 点。这是移动正在执行的时间段。您还可以看到 SharedElement 触发一些有用的事件。在这种情况下，我们使用 WillStart 和 DidFinish 事件。在启动移动目标 element 时，将源 element 和目标 element 的不透明度设置为 0，并在动画完成后将目标 element 的不透明度设置为 1。
 
-### What do you think?
+### 你觉得怎么样？
 
-There is still work on [react-native-motion](https://github.com/xotahal/react-native-motion). It is definitely not a final and stable version of this library. But it is a good start I hope :) I would love to hear what do you think about that!
+社区这里一直不断在维护和更新：[react-native-motion](https://github.com/xotahal/react-native-motion)。这绝不是这个库的最终和稳定版本。但是一个好的开始 :) 我很想听听你怎么想！
 
-> I am constantly looking for new challenges and opportunities. If you need a help with something, let me know, please ;) I will be happy to discuss it.
+> 我一直在寻找新的挑战和机会。如果您需要帮助，请告诉我，我很乐意讨论它。
 
 > [LinkedIn](https://www.linkedin.com/in/xotahal/) || [Github](https://github.com/xotahal) || [Twitter](https://twitter.com/xotahal) || [Facebook](https://www.facebook.com/jiri.otahal.96) || [500px](https://500px.com/xotahal)
 
