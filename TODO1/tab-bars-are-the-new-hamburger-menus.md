@@ -5,7 +5,7 @@
 > * 译者：[Rydensun](https://github.com/rydensun)
 > * 校对者：
 
-# Tab Bar 就是新的汉堡菜单
+# Tab Bar 就是新的汉堡式菜单
 
 这篇文章，我们将会讨论一种失去控制的导航模式。
 
