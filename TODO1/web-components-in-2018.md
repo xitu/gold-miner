@@ -14,10 +14,9 @@
 
 现代框架比如说 React、Angular、Vue 和 Dojo 在这条路上走得更远，它们将组件化作为前端开发的前沿概念，并当做核心要素用在它们自己的框架结构上。然而，虽说组件结构变得越来越普遍，各种各样的框架和库也让这个组件市场变得群雄割据、四分五裂。这种分裂常常将一些团队钉死在某个特定的框架上，而不管外面时间飞逝技术更迭。
 
-The desire to tackle this fragmentation, and standardise the web component model has been an ongoing endeavor. Its beginnings sit in the genesis of the ‘Web Components’ specifications [circa 2011](https://github.com/w3c/webcomponents/commits/gh-pages?after=0625cf4c42785aa1202a9d0daed182e12466aa29+1889) and were first presented to the world by Alex Russell at [Fronteers Conference](https://fronteers.nl/congres/2011) the same year. The web components specifications grew out of the desire to provide a canonical way of creating components that browsers can understand. This effort is still very much ongoing but is closer than ever before to having cross-browser implementations. In theory, these specifications and implementations are paving the way for interoperability and composition of components from different vendors. Here we examine the building blocks of Web Components.
-解决这种割裂的形势，让 Web 组件模型统一化，这项工作已经在努力推进中。最早的努力当数 “Web 组件” 规范说明 [circa 2011](https://github.com/w3c/webcomponents/commits/gh-pages?after=0625cf4c42785aa1202a9d0daed182e12466aa29+1889) 的出现，并在同年的 [Fronteers Conference](https://fronteers.nl/congres/2011) 大会上由 Alex Russell 将之宣之于众。大家不断期待着找到一种权威的浏览器能读懂的组件创建方式，该 Web 组件规范说明也伴随着不断地完善。在做出跨浏览器支持的组件方案这件事上我们还有很多事情要做，但已经比以往任何时候更接近目标了。理论上讲，这些规范说明和应用实践铺平了组件间相互作用相互结合的道路，即使这些组件出自不同的供应方(比如 React，比如 Vue)。……
+解决这种割裂的形势，让 Web 组件模型统一化，这项工作已经在努力推进中。最早的努力当数 “Web 组件” 规范说明 [circa 2011](https://github.com/w3c/webcomponents/commits/gh-pages?after=0625cf4c42785aa1202a9d0daed182e12466aa29+1889) 的出现，并在同年的 [Fronteers Conference](https://fronteers.nl/congres/2011) 大会上由 Alex Russell 将之宣之于众。大家不断期待着找到一种权威的浏览器能读懂的组件创建方式，该 Web 组件规范说明也伴随着不断地完善。在做出跨浏览器支持的组件方案这件事上我们还有很多事情要做，但已经比以往任何时候更接近目标了。理论上讲，这些规范说明和应用实践铺平了组件间相互作用相互结合的道路，即使这些组件出自不同的供应方(比如 React，比如 Vue)。下面我们开始探索 Web 组件规范的组成。
 
-## The Building Blocks
+## 组成部分
 
 Web 组件并非单一的技术，而是由一系列 [W3C](https://www.w3.org/) 定义的浏览器标准组成，使得开发者可以构建出浏览器原生支持的组件。这些标准包括：
 
@@ -27,11 +26,11 @@ Web 组件并非单一的技术，而是由一系列 [W3C](https://www.w3.org/) 
 
 这里还有另一个 Web 组件的规范，**HTML Imports**，用于将 HTML 代码及 Web 组件导入到一个 Web 页面上。然而，在交叉参考 [ES Module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) 规范后，[Firefox 团队认为这不是一种最佳实践](https://hacks.mozilla.org/2015/06/the-state-of-web-components/)，该规范也就没多少人在推动了。
 
-There has been some iteration on the Shadow DOM and Custom Elements specifications, and both are now in their second version (v1). In February 2016, there was a push to make the standalone Custom Elements and Shadow DOM specifications obsolete and respectively, [pushing them upstream into the DOM Standard](https://github.com/w3c/webcomponents/).
+Shadow DOM 和 Custom Element 规范经历了一些迭代，现在都已经是第二个版本。在 2016 年 2 月，有人推动将 Shadow DOM 和 Custom Element [并入 DOM 标准规范里面](https://github.com/w3c/webcomponents/)，而不再作为独立的规范存在。
 
-## HTML Template and Slot Elements
+## template 标签和 slot 标签
 
-The most widely supported and arguably straightforward portion of the Web Component specifications is HTML Templates which allow developers to declare a section of inert markup without directly having it render until it gets duplicated for use. As a simple example you could describe a template like this in HTML:
+HTML 模板是支持度最高的特性，它可以说是 Web 组件规范的正统继承者。它允许开发者定义一节不会直接渲染的 HTML 标签，而这节标签只在被复制使用时才会进行渲染。你可以参考下面的简单示例来定义一个模板：
 
 ```
 <template id="custom-template>
@@ -39,7 +38,7 @@ The most widely supported and arguably straightforward portion of the Web Compon
 </template>
 ```
 
-Once this template gets declared in the DOM, it is then possible to reference this template in JavaScript:
+一旦 DOM 里面定义了这样的一个模板，就可以在 JavaScript 里面引用了：
 
 ```
 const template = document.getElementById("custom-template");
@@ -50,6 +49,7 @@ container.appendChild(templateInstance);
 ```
 
 Using this method, it is possible to reuse the template using the `cloneNode` function. Alongside the `<template>` tag is the `<slot>` tag. Slots allow developers to dynamically place custom HTML content within the template at specified points. The `name` attribute is used to create a unique identifier to slot into:
+像上面那样写，就可以借助 `cloneNode` 函数来复用这个模板。除了 `<template>` 标签还有一个 `<slot>` 标签。
 
 ```
 <template id="custom-template">
