@@ -52,41 +52,42 @@ You should know that app server implementations require choosing a specific lang
 
 ### 4. Database Servers 数据库服务器
 
-Every modern web application leverages one or more databases to store information. Databases provide ways of defining your data structures, inserting new data, finding existing data, updating or deleting existing data, performing computations across the data, and more. In most cases the web app servers talk directly to one, as will the job servers. Additionally, each backend service may have it’s own database that’s isolated from the rest of the application. 任意现代 Web 应用都使用一个甚至多个数据库来存储信息。数据库用来定义数据结构，对数据进行增删改查，高级运算操作等等。多数情况下，web 应用服务器与一个数据库进行直接通信，另外，每个后台服务都有一个自己的数据库，并与其它的应用隔离。
+Every modern web application leverages one or more databases to store information. Databases provide ways of defining your data structures, inserting new data, finding existing data, updating or deleting existing data, performing computations across the data, and more. In most cases the web app servers talk directly to one, as will the job servers. Additionally, each backend service may have it’s own database that’s isolated from the rest of the application. 任意现代 Web 应用都使用一个甚至多个数据库来存储信息。数据库用来定义数据结构，对数据进行增删改查，高级运算操作等等。多数情况下，web 应用服务器与一个数据库进行直接通信，任务服务器同理。另外，每个后台服务都有一个自己的数据库，并与其它的应用隔离。
 
-While I’m avoiding a deep dive on particular technologies for each architecture component, I’d be doing you a disservice not to mention the next level of detail for databases: SQL and NoSQL.
+While I’m avoiding a deep dive on particular technologies for each architecture component, I’d be doing you a disservice not to mention the next level of detail for databases: SQL and NoSQL.尽管在本文中，我们尽量避免深入讨论架构中的某个特定技术，这里我还是想特殊地提一下数据库中的 SQL 和 NoSQL。
 
-SQL stands for “Structured Query Language” and was invented in the 1970s to provide a standard way of querying relational data sets that was accessible to a wide audience. SQL databases store data in tables that are linked together via common IDs, typically integers. Let’s walk through a simple example of storing historical address information for users. You might have two tables, users and user_addresses, linked together by the user’s id. See the image below for a simplistic version. The tables are linked because the user_id column in user_addresses is a “foreign key” to the id column in the users table.
+SQL stands for “Structured Query Language” and was invented in the 1970s to provide a standard way of querying relational data sets that was accessible to a wide audience. SQL databases store data in tables that are linked together via common IDs, typically integers. Let’s walk through a simple example of storing historical address information for users. You might have two tables, users and user_addresses, linked together by the user’s id. See the image below for a simplistic version. The tables are linked because the user_id column in user_addresses is a “foreign key” to the id column in the users table. SQL（Structured Query Language）全称结构化查询语言，1970 年代发布，提供了查询关系型数据库的一种标准形式，并广为大众接受。SQL 数据库将数据以表的形式存储，通过 ID （通常为 int 整型）这种方式使表之间相互关联。举个简单的例子，我们想要存储用户的历史地址信息。需要准备两张表，用户表 users 和用户地址表 user_addresses，并通过 user_id 进行关联，如下图。表间相关联是通过在 user_addresses 表中使用 user_id 作为外键实现的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Ln39QPggpJVMAScUBsrcCQ.png)
 
-If you don’t know much about SQL, I highly recommend walking through a tutorial like you can find on Khan Academy [here](https://www.khanacademy.org/computing/computer-programming/sql). It’s ubiquitous in web development so you’ll at least want to know the basics in order to properly architect an application.
+If you don’t know much about SQL, I highly recommend walking through a tutorial like you can find on Khan Academy [here](https://www.khanacademy.org/computing/computer-programming/sql). It’s ubiquitous in web development so you’ll at least want to know the basics in order to properly architect an application.如果你不了解 SQL，这里推荐[可汗学院的课程](https://www.khanacademy.org/computing/computer-programming/sql)学习。在 web 开发中 SQL 非常普遍，了解其基础作为应用架构还是很有必要的。
 
 NoSQL, which stands for “Non-SQL”, is a newer set of database technologies that has emerged to handle the massive amounts of data that can be produced by large scale web applications (most variants of SQL don’t scale horizontally very well and can only scale vertically to a certain point). If you don’t know anything about NoSQL, I recommend starting with some high level introductions like these:
+NoSQL，如其字面意思，“非-SQL”，是一种新型数据库，用来应对大规模 web 应用中的海量数据（大部分 SQL 不能很好支持横向扩展，只能从某些方面支持纵向扩展）。如果你完全不了解 NoSQL，推荐下列文章：
 
 *   [https://www.w3resource.com/mongodb/nosql.php](https://www.w3resource.com/mongodb/nosql.php)
 *   [http://www.kdnuggets.com/2016/07/seven-steps-understanding-nosql-databases.html](http://www.kdnuggets.com/2016/07/seven-steps-understanding-nosql-databases.html)
 *   [https://resources.mongodb.com/getting-started-with-mongodb/back-to-basics-1-introduction-to-nosql](https://resources.mongodb.com/getting-started-with-mongodb/back-to-basics-1-introduction-to-nosql)
 
-I would also keep in mind that, by and large, [the industry is aligning on SQL as an interface even for NoSQL databases](https://blog.timescale.com/why-sql-beating-nosql-what-this-means-for-future-of-data-time-series-database-348b777b847a) so you really should learn SQL if you don’t know it. There’s almost no way to avoid it these days.
+我还想顺便提一点，总的来说[业界仍然以 SQL 作为主流而非 NoSQL](https://blog.timescale.com/why-sql-beating-nosql-what-this-means-for-future-of-data-time-series-database-348b777b847a) ，不懂 SQL 的话还是很有必要去学习的，如今的业务场景很难避开它。
 
-### 5. Caching Service
+### 5. Caching Service 缓存服务
 
-A caching service provides a simple key/value data store that makes it possible to save and lookup information in close to O(1) time. Applications typically leverage caching services to save the results of expensive computations so that it’s possible to retrieve the results from the cache instead of recomputing them the next time they’re needed. An application might cache results from a database query, calls to external services, HTML for a given URL, and many more. Here are some examples from real world applications:
+A caching service provides a simple key/value data store that makes it possible to save and lookup information in close to O(1) time. Applications typically leverage caching services to save the results of expensive computations so that it’s possible to retrieve the results from the cache instead of recomputing them the next time they’re needed. An application might cache results from a database query, calls to external services, HTML for a given URL, and many more. Here are some examples from real world applications:缓存服务提供一种简单的键值对数据存储，使存取信息时间复杂度接近 O(1) 。应用内通常使用缓存服务存储花费高昂运算的结果，再次请求时从缓存中检索结果，而非在每次请求时都重新计算。缓存内容可以是数据库查询，外部服务调用结果，链接返回的 HTML，等等。下面我们从真实场景中举例：
 
-*   Google caches search results for common search queries like “dog” or “Taylor Swift” rather than re-computing them each time
-*   Facebook caches much of the data you see when you log in, such as post data, friends, etc. Read a detailed article on Facebook’s caching tech [here](https://medium.com/@shagun/scaling-memcache-at-facebook-1ba77d71c082).
-*   Storyblocks caches the HTML output from server-side React rendering, search results, typeahead results, and more.
+*   Google caches search results for common search queries like “dog” or “Taylor Swift” rather than re-computing them each time搜索引擎服务（比如百度）会缓存一些常见的查询结果，比如“狗”，“周杰伦”，而不是在每次查询时都实时计算。
+*   Facebook caches much of the data you see when you log in, such as post data, friends, etc. Read a detailed article on Facebook’s caching tech [here](https://medium.com/@shagun/scaling-memcache-at-facebook-1ba77d71c082).社交网站服务（比如微博）会缓存每次登陆时用户看到的数据，比如最近博文，好友，等等。这里有一篇 [Facebook 如何做缓存](https://medium.com/@shagun/scaling-memcache-at-facebook-1ba77d71c082)的文章。
+*   Storyblocks caches the HTML output from server-side React rendering, search results, typeahead results, and more.我司会缓存服务器端 React 渲染的 HTML 页面，搜索结果，预输入结果，等等。
 
-The two most widespread caching server technologies are Redis and Memcache. I’ll go into more detail here in another post.
+The two most widespread caching server technologies are Redis and Memcache. I’ll go into more detail here in another post.最常用到的服务器缓存技术是 Redis 和 Memcache。想了解的话可以深入研究下。
 
-### 6. Job Queue & Servers
+### 6. Job Queue & Servers 任务队列
 
-Most web applications need to do some work asynchronously behind the scenes that’s not directly associated with responding to a user’s request. For instance, Google needs to crawl and index the entire internet in order to return search results. It does not do this every time you search. Instead, it crawls the web asynchronously, updating the search indexes along the way.
+Most web applications need to do some work asynchronously behind the scenes that’s not directly associated with responding to a user’s request. For instance, Google needs to crawl and index the entire internet in order to return search results. It does not do this every time you search. Instead, it crawls the web asynchronously, updating the search indexes along the way. 大部分 web 应用背后都有异步任务在处理，这些任务不必直接相应用户请求。比如说，谷歌需要爬取整个互联网并建立索引以返回搜索结果，但这实际上并不是在你每次搜索时都实时进行，而是通过异步方式爬取网络结果并更新索引。
 
-While there are different architectures that enable asynchronous work to be done, the most ubiquitous is what I’ll call the “job queue” architecture. It consists of two components: a queue of “jobs” that need to be run and one or more job servers (often called “workers”) that run the jobs in the queue.
+While there are different architectures that enable asynchronous work to be done, the most ubiquitous is what I’ll call the “job queue” architecture. It consists of two components: a queue of “jobs” that need to be run and one or more job servers (often called “workers”) that run the jobs in the queue.异步任务有很多不同的方式来完成，最常用的是任务队列。它包含两部分：正在运行的任务队列，和一或多个处理任务的服务器（通常称为 workers）
 
-Job queues store a list of jobs that need to be run asynchronously. The simplest are first-in-first-out (FIFO) queues though most applications end up needing some sort of priority queuing system. Whenever the app needs a job to be run, either on some sort of regular schedule or as determined by user actions, it simply adds the appropriate job to the queue.
+Job queues store a list of jobs that need to be run asynchronously. The simplest are first-in-first-out (FIFO) queues though most applications end up needing some sort of priority queuing system. Whenever the app needs a job to be run, either on some sort of regular schedule or as determined by user actions, it simply adds the appropriate job to the queue.任务队列存储了一系列需要异步运行的任务。最简单的任务调度是 FIFO （先进先出）的方式，不过大部分应用使用按优先级排序的调度方式处理任务。每当一个任务需要被执行，要么使用统一的调度算法，要么是按用户行为按需调度，该任务便被加入队列中等待被执行。
 
 Storyblocks, for instance, leverages a job queue to power a lot of the behind-the-scenes work required to support our marketplaces. We run jobs to encode videos and photos, process CSVs for metadata tagging, aggregate user statistics, send password reset emails, and more. We started with a simple FIFO queue though we upgraded to a priority queue to ensure that time-sensitive operations like sending password reset emails were completed ASAP.
 
