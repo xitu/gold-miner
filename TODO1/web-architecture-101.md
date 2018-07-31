@@ -43,15 +43,16 @@ Ok, back to load balancers. They’re the magic sauce that makes scaling horizon
 That’s it. Conceptually load balancers are fairly straight forward. Under the hood there are certainly complications but no need to dive in for our 101 version.
 理论上负载均衡就这些要点，很简单直接。当然了，简单的理论背后有更多细节，这篇入门文章里我们不再赘述。
 
-### 3. Web Application Servers
+### 3. Web Application Servers Web 应用服务器
 
-At a high level web application servers are relatively simple to describe. They execute the core business logic that handles a user’s request and sends back HTML to the user’s browser. To do their job, they typically communicate with a variety of backend infrastructure such as databases, caching layers, job queues, search services, other microservices, data/logging queues, and more. As mentioned above, you typically have at least two and often times many more, plugged into a load balancer in order to process user requests.
+At a high level web application servers are relatively simple to describe. They execute the core business logic that handles a user’s request and sends back HTML to the user’s browser. To do their job, they typically communicate with a variety of backend infrastructure such as databases, caching layers, job queues, search services, other microservices, data/logging queues, and more. As mentioned above, you typically have at least two and often times many more, plugged into a load balancer in order to process user requests.从上层角度来看，web 应用服务器相对好理解，它们用来处理核心业务逻辑，处理用户请求，给客户端浏览器返回 HTML。处理这些任务便是与后台基础设施间通信，比如数据库，缓存服务，任务队列，搜索服务，其它微服务，消息/日志队列，等等。
 
 You should know that app server implementations require choosing a specific language (Node.js, Ruby, PHP, Scala, Java, C# .NET, etc.) and a web MVC framework for that language (Express for Node.js, Ruby on Rails, Play for Scala, Laravel for PHP, etc.). However, diving into the details of these languages and frameworks is beyond the scope of this article.
+应用服务器的实现通常需要某种特定语言（Node.js, Ruby, PHP, Scala, Java, C# .NET 等）跑在相对应的 MVC 框架上（Node.js 的 Express, Ruby on Rails, Scala 的 Play, PHP 的 Laravel，Java 的 Spring 等等)。语言和框架的细节我们这里不做赘述，有兴趣的读者可以自行深入研究。
 
-### 4. Database Servers
+### 4. Database Servers 数据库服务器
 
-Every modern web application leverages one or more databases to store information. Databases provide ways of defining your data structures, inserting new data, finding existing data, updating or deleting existing data, performing computations across the data, and more. In most cases the web app servers talk directly to one, as will the job servers. Additionally, each backend service may have it’s own database that’s isolated from the rest of the application.
+Every modern web application leverages one or more databases to store information. Databases provide ways of defining your data structures, inserting new data, finding existing data, updating or deleting existing data, performing computations across the data, and more. In most cases the web app servers talk directly to one, as will the job servers. Additionally, each backend service may have it’s own database that’s isolated from the rest of the application. 任意现代 Web 应用都使用一个甚至多个数据库来存储信息。数据库用来定义数据结构，对数据进行增删改查，高级运算操作等等。多数情况下，web 应用服务器与一个数据库进行直接通信，另外，每个后台服务都有一个自己的数据库，并与其它的应用隔离。
 
 While I’m avoiding a deep dive on particular technologies for each architecture component, I’d be doing you a disservice not to mention the next level of detail for databases: SQL and NoSQL.
 
