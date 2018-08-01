@@ -1,3164 +1,4202 @@
 > * 原视频地址：[Andrew Godwin - Taking Django Async - PyCon 2018](https://www.youtube.com/watch?v=-7taKQnndfo)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/talking-django-async-pycon-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO1/talking-django-async-pycon-2018.md)
-> * 译者：
-> * 校对者：
+> * 译者：[geniusq1981](https://github.com/geniusq1981/)
+> * 校对者：[mingxing47](https://github.com/mingxing47)
 
-# Andrew Godwin - Taking Django Async - PyCon 2018
+# Andrew Godwin — Django 异步 — PyCon 2018
 
 > 本文为 PyCon 2018 视频之 Andrew Godwin - Taking Django Async 的中文字幕，您可以搭配原视频食用。
 
-00:00:00,560 --> 00:00:05,700
-hello let's give a warm
+00:00:00,560 --> 00:00:15,660
 
-00:00:05,700 --> 00:00:15,660
-PyCon welcome to Andrew Godwin hello
+大家好，让我们热烈欢迎 Andrew Godwin！
 
 00:00:15,660 --> 00:00:19,109
-good afternoon everyone I am here to
+
+大家下午好，今天我在这里和大家
 
 00:00:19,109 --> 00:00:22,619
-talk about taking Django async louder
+
+一起分享如何更好地使用 Django 异步特性。
 
 00:00:22,619 --> 00:00:25,289
-okay I think there we go
+
+好吧，我们现在开始。
 
 00:00:25,289 --> 00:00:28,410
-so a brief introduction for those who
+
+先给还不认识我的人做一个简单的自我介绍。
 
 00:00:28,410 --> 00:00:31,769
-don't know me I am a person whose
+
+我是...
 
 00:00:31,769 --> 00:00:33,210
-clicker is not working correctly that's
+
+点击器有些不太好用。很有趣，是不是？
 
 00:00:33,210 --> 00:00:45,210
-fun isn't it I am Andrew Godwin I am a
+
+我是 Andrew Godwin，
 
 00:00:45,210 --> 00:00:47,489
-member of the Django core team most
+
+近段时间比较出名的 Django 核心团队队的一员。
 
 00:00:47,489 --> 00:00:50,010
-probably known these days my work on
+
+我过去主要在做
 
 00:00:50,010 --> 00:00:53,010
-Django migrations in the past and these
+
+Django migrations 的工作,，而最近
 
 00:00:53,010 --> 00:00:54,840
-days working on channels which is what
+
+我的工作重心集中在 channels。
 
 00:00:54,840 --> 00:00:57,600
-this talk is mainly about my day job I
+
+这也是这次演讲的主要内容。
 
 00:00:57,600 --> 00:00:59,609
-work as a senior software engineer at
+
+我是一名在 Eventbrite 工作的高级软件工程师。
 
 00:00:59,609 --> 00:01:01,859
-Eventbrite if you're not familiar we are
+
+可能你不太了解，
 
 00:01:01,859 --> 00:01:03,899
-a ticketing company to get events and
+
+我们是一家运营演出，比赛以及
 
 00:01:03,899 --> 00:01:05,760
-races and all manner of things like that
+
+类似的活动的票务公司。
 
 00:01:05,760 --> 00:01:08,729
-and I have a fun side project of doing
+
+另外出于兴趣我还做了一个网络编程方面的
 
 00:01:08,729 --> 00:01:11,460
-network programming for fun as you will
+
+有趣的个人项目，
 
 00:01:11,460 --> 00:01:13,680
-see here no sane person would probably
+
+正如你看到的，大概只有失去理智的人
 
 00:01:13,680 --> 00:01:18,840
-do this willingly maybe so let's start a
+
+才愿意这么做吧，让我们开始吧。
 
 00:01:18,840 --> 00:01:21,479
-bit of history 2015 is when I first
+
+先来讲一点历史。
 
 00:01:21,479 --> 00:01:24,030
-started working on channels back then it
+
+我于 2015 年开始了 channels（库）后端的工作，
 
 00:01:24,030 --> 00:01:27,110
-was sort of nascent project of like
+
+它有点像是一类新兴项目。
 
 00:01:27,110 --> 00:01:29,220
-migrations had mostly been done it was
+
+当时 migrations 已经基本上完成了，
 
 00:01:29,220 --> 00:01:31,140
-merged into Chango some of my fellow
+
+已经被合并到 Django 中，
 
 00:01:31,140 --> 00:01:32,939
-django team members had taken over some
+
+Django 团队的其他成员接管了维护的工作，
 
 00:01:32,939 --> 00:01:35,280
-of the maintenance thanks Marcos and so
+
+这里要感谢马科斯。
 
 00:01:35,280 --> 00:01:37,290
-I wanted to work on a new problem and
+
+所以那时我开始希望解决新的问题
 
 00:01:37,290 --> 00:01:39,920
-that new problem in my mind was
+
+我脑海中的新问题是
 
 00:01:39,920 --> 00:01:42,420
-WebSockets and other sort of new forms
+
+WebSockets 或者其他新的网络协议。
 
 00:01:42,420 --> 00:01:44,750
-of protocols on the web in particular
+
+所以特别之处就是
 
 00:01:44,750 --> 00:01:49,290
-channels 0.1 and through up to 1.0 had
+
+channels 从 0.1 到 1.0
 
 00:01:49,290 --> 00:01:51,930
-sort of some basic headline goals the
+
+都有一些基本的总体目标。
 
 00:01:51,930 --> 00:01:53,850
-key thing was to add a sync protocol
+
+核心是要增加一个支持 Django 的
 
 00:01:53,850 --> 00:01:56,040
-support to Django that is for protocols
+
+异步通信协议，
 
 00:01:56,040 --> 00:01:57,869
-that are not just a request response
+
+而不仅仅是像 HTTP 那样只有 request 和 response 的协议，
 
 00:01:57,869 --> 00:02:00,390
-like like HTTP but have an ongoing
+
+而是需要一个持续的 socket。
 
 00:02:00,390 --> 00:02:02,880
-socket where you open a socket you send
+
+当你打开一个 socket，
 
 00:02:02,880 --> 00:02:04,829
-some stuff down you send some stuff back
+
+然后发送一些信息，接受一些信息，
 
 00:02:04,829 --> 00:02:06,960
-it stays open for a bit longer and you
+
+它会持续更长的时间。
 
 00:02:06,960 --> 00:02:08,819
-sort of have much more of a conversation
+
+相比 HTTP 协议的
 
 00:02:08,819 --> 00:02:10,739
-than the single question and answer you
+
+单个的请求、响应来说，
 
 00:02:10,739 --> 00:02:13,569
-get over HTTP obviously
+
+socket 可以让你连接更多的会话。
 
 00:02:13,569 --> 00:02:15,939
-for that the headline protocol is
+
+所以很明显，主要协议是 Websockets。
 
 00:02:15,939 --> 00:02:18,790
-WebSockets it has a lot of support at
+
+它能同时支持很多（连接），
 
 00:02:18,790 --> 00:02:20,590
-the time and still now it's quite
+
+现在也相当受欢迎，
 
 00:02:20,590 --> 00:02:22,090
-popular and being used for love
+
+并且已经被用于很多
 
 00:02:22,090 --> 00:02:24,549
-interesting applications on the web real
+
+网络上非常有趣的应用，
 
 00:02:24,549 --> 00:02:26,499
-time things and games stuff like that
+
+比如一些实时应用以及游戏相关应用。
 
 00:02:26,499 --> 00:02:28,659
-but I also wanted to have things beyond
+
+但是除了 WebSockets，
 
 00:02:28,659 --> 00:02:30,040
-just WebSockets I went to background
+
+我还希望能包含更多的协议。
 
 00:02:30,040 --> 00:02:31,840
-jobs I've heard other support protocols
+
+我开始对其他我所听过的协议进行准备。
 
 00:02:31,840 --> 00:02:35,200
-as well and all this resulted in around
+
+所有以上这些的结果就是，
 
 00:02:35,200 --> 00:02:36,310
-2017
+
+在 2017 推出了 channels 1.0。
 
 00:02:36,310 --> 00:02:39,579
-channels 1.0 it was a good two years of
+
+它是经过两年辛苦努力的一个工作成果，
 
 00:02:39,579 --> 00:02:43,150
-work and I went through it least it was
+
+至少我觉得它已经稳定，
 
 00:02:43,150 --> 00:02:44,680
-stable it was being used in production
+
+已经可以在生产环境下使用，
 
 00:02:44,680 --> 00:02:46,780
-and it was generally pretty good it
+
+总体来说它非常棒。
 
 00:02:46,780 --> 00:02:48,819
-achieved a lot of those top goals I just
+
+之前我提到的很多目标也已经实现，
 
 00:02:48,819 --> 00:02:50,560
-showed you but there were some problems
+
+但是还是存在一些问题。
 
 00:02:50,560 --> 00:02:54,069
-I had made some choices in the design of
+
+在设计之初我做出过一些抉择，
 
 00:02:54,069 --> 00:02:56,530
-that remember this started in 2015 it's
+
+我记得是 2015 年刚开始的时候，
 
 00:02:56,530 --> 00:02:59,919
-now three years ago the thing I thought
+
+现在都已经三年过去了，
 
 00:02:59,919 --> 00:03:01,959
-I had to the time was to be Python 2
+
+那时我认为需要兼容 Python 2，
 
 00:03:01,959 --> 00:03:04,510
-compatible Django still was the Django
+
+那时的 Django 还是 Django LTS，
 
 00:03:04,510 --> 00:03:06,879
-LTS at that point was was Django 2
+
+没有考虑到 Django 2 的兼容，
 
 00:03:06,879 --> 00:03:10,180
-compatible and so I picked Python 2.7 as
+
+所以我选择了 Python 2.7
 
 00:03:10,180 --> 00:03:12,459
-my base support language and that's
+
+作为基础支持的语言，
 
 00:03:12,459 --> 00:03:15,099
-throughout any idea of async IO support
+
+而且这贯穿在所有的异步输入输出的支持中。
 
 00:03:15,099 --> 00:03:17,620
-I also then picked twisted web server
+
+然后，我又选择了 Twisted Web 服务器，
 
 00:03:17,620 --> 00:03:19,629
-because twisted is very reliable has a
+
+因为它的可靠性非常高，
 
 00:03:19,629 --> 00:03:20,919
-lot of things you can haz plug-in use
+
+可以通过插件的方式实现很多功能，
 
 00:03:20,919 --> 00:03:25,329
-Autobahn as well WebSockets and I stuck
+
+比如 Autobahn 和 WebSockets。
 
 00:03:25,329 --> 00:03:27,669
-with synchronous Django I wanted to keep
+
+我没有改动 Django 的同步代码，
 
 00:03:27,669 --> 00:03:29,229
-that familiarity
+
+我想保持这些熟悉的代码。
 
 00:03:29,229 --> 00:03:31,359
-I also not rewrite a lot of Django in
+
+在这个过程中，我没有重写太多的 Django 代码
 
 00:03:31,359 --> 00:03:33,639
-the process and so you ended up with a
+
+所以到最后，
 
 00:03:33,639 --> 00:03:36,370
-bit of a weird design about how things
+
+您可能会有这样的想法，
 
 00:03:36,370 --> 00:03:38,799
-looked you had this idea of like well
+
+您感觉看到一个看起来有点怪怪的设计。
 
 00:03:38,799 --> 00:03:41,290
-you have a twisted web server which is
+
+您有一个 twisted web 服务器，
 
 00:03:41,290 --> 00:03:43,030
-capable of being highly concurrent it
+
+它能够支持高并发请求，
 
 00:03:43,030 --> 00:03:44,680
-can handle hundreds of sockets at once
+
+一次能很容易地处理数百个 sockets，
 
 00:03:44,680 --> 00:03:47,109
-easily and you have a synchronous Django
+
+但同时你有一个同步的 Django 进程，
 
 00:03:47,109 --> 00:03:49,569
-process that handles things just in a
+
+它在一个大的 for 循环中处理各种事务，
 
 00:03:49,569 --> 00:03:51,069
-big for loop and has one thing at a time
+
+一次只能处理一个事务，
 
 00:03:51,069 --> 00:03:54,579
-and these of course can't coexist in
+
+而这些在 Python 2 中当然不能共存。
 
 00:03:54,579 --> 00:03:57,430
-Python 2 you can't do that and so I also
+
+你无法这样做，
 
 00:03:57,430 --> 00:03:59,799
-had a channel layer this was a piece
+
+所以我又增加了一个 channel 层，
 
 00:03:59,799 --> 00:04:02,409
-that allowed you to take the async
+
+这是一个允许你脱离 Python 而使用的异步调度机制，
 
 00:04:02,409 --> 00:04:04,479
-scheduling part out of Python and run it
+
+在这里，你可以像运行一段独立代码段一样
 
 00:04:04,479 --> 00:04:07,269
-sort of as a separate piece of code in
+
+地运行它。
 
 00:04:07,269 --> 00:04:09,939
-this case Redis was what I use to power
+
+在这种情况下，我使用了 Redis 来驱动
 
 00:04:09,939 --> 00:04:11,909
-the async part of that kind of stuff
+
+这里面的的异步行为。
 
 00:04:11,909 --> 00:04:14,949
-now this of course is a bit over
+
+当然，这样做有点复杂，
 
 00:04:14,949 --> 00:04:17,769
-complicated it gets a bit more so but
+
+但同时也能带来更多好处。
 
 00:04:17,769 --> 00:04:19,810
-also better when you consider you have
+
+当你考虑需要多台服务器和需要多个 Django 进程，
 
 00:04:19,810 --> 00:04:21,430
-more than one server and more than one
 
+它会表现得更好。
 
 00:04:21,430 --> 00:04:23,560
-Django process because most sites aren't
 
+因为大多数网站不会只使用一个服务器，
 
 00:04:23,560 --> 00:04:25,870
-just one box and so what you would do is
 
+所以你要做的是，
 
 00:04:25,870 --> 00:04:26,790
-you have
 
+如之前讲过的一样，
 
 00:04:26,790 --> 00:04:29,550
-twisted servers in a sort of array that
+
+你使用一组 twisted
 
 00:04:29,550 --> 00:04:30,840
-things had talked to and then low
+
+服务器组，
 
 00:04:30,840 --> 00:04:32,520
-bounced across and they'd all go through
+
+它们都通过一个中间层，
 
 00:04:32,520 --> 00:04:34,350
-a central layer and they'd all go to a
+
+进入一个大的
 
 00:04:34,350 --> 00:04:36,900
-big pool of worker servers and whenever
+
+进程服务器池。
 
 00:04:36,900 --> 00:04:39,150
-you had an event on a WebSocket would go
+
+一旦收到一个 WebSocket 的事件，
 
 00:04:39,150 --> 00:04:41,850
-into the thing through the network find
+
+就会通过这个网络找到
 
 00:04:41,850 --> 00:04:43,710
-a Django worker run some code
+
+一个 Django 进程，运行其中的代码，
 
 00:04:43,710 --> 00:04:45,390
-synchronously finish and then come back
+
+等待完成后把结果返回给 twisted 服务器。
 
 00:04:45,390 --> 00:04:49,530
-to the twisted server so Python 2.7
+
+所以，在 Python 2.7 中，
 
 00:04:49,530 --> 00:04:52,020
-this was back all you could do I was
+
+这些就是所有你能做到的。
 
 00:04:52,020 --> 00:04:54,210
-designed limited by my own choices but
+
+我被自己最开始的选择给限制了！
 
 00:04:54,210 --> 00:04:56,160
-as you can imagine it has too many
+
+你可以想象一下，
 
 00:04:56,160 --> 00:04:58,260
-moving pieces there's a reason we don't
+
+它有太多的移动片段，
 
 00:04:58,260 --> 00:05:00,360
-generally have big Network layers in the
+
+这个导致我们不能在应用栈中间
 
 00:05:00,360 --> 00:05:02,400
-middle of our application stacks you do
+
+不能有大的网络层，
 
 00:05:02,400 --> 00:05:04,260
-need them eventually one of the things
+
+你最终会需要他们
 
 00:05:04,260 --> 00:05:05,520
-we're learning in Eventbrite is that
+
+我们在 Eventbrite 学到的一件事情是
 
 00:05:05,520 --> 00:05:07,350
-like designing a service-oriented
+
+就像这样设计一个面向服务的架构
 
 00:05:07,350 --> 00:05:09,240
-architecture involves solving a lot of
+
+同时会涉及要解决很多这样那样的问题
 
 00:05:09,240 --> 00:05:11,460
-those problems but most people don't
+
+但是大部分人并不需要那些。
 
 00:05:11,460 --> 00:05:13,320
-need those and Django as a framework
+
+Django 作为一个框架，
 
 00:05:13,320 --> 00:05:15,270
-does not need to help you do that stuff
+
+不需要帮助你去做那些事情，
 
 00:05:15,270 --> 00:05:18,150
-on top of that it doesn't have any async
+
+在这样的基础上，它没有提供任何异步 IO 的 支持
 
 00:05:18,150 --> 00:05:21,210
-IO support these days Python 3 is very
+
+这段时间，Python 3 非常常见了
 
 00:05:21,210 --> 00:05:24,270
-commonplace most things start in Python
+
+大部分工作已经在 Python 3 下开始
 
 00:05:24,270 --> 00:05:26,610
-3 we're now at the amazing point where
+
+我们正处于一个令人惊叹的时间点
 
 00:05:26,610 --> 00:05:29,250
-we have libraries on pipe either only
+
+我们在 pipe 上有各种库
 
 00:05:29,250 --> 00:05:31,320
-Welcome 3 and don't work on 2 which is
+
+拥抱 Python 3 吧，不要在 Python 2 上工作了，
 
 00:05:31,320 --> 00:05:33,450
-an amazing place to be and so it felt
+
+虽然 Python 2 如此的了不起，
 
 00:05:33,450 --> 00:05:35,280
-like it's about an artifact of the past
+
+感觉它就像一件来自过去的神器，
 
 00:05:35,280 --> 00:05:37,830
-it was this sort of remnant of the last
+
+这是对 Python 2.7 的最后一次欢呼声了。
 
 00:05:37,830 --> 00:05:42,090
-hurrah of 2.7 and finally the design
+
+最后，这个设计
 
 00:05:42,090 --> 00:05:43,680
-made it very easy to shoot yourself in
+
+使得我们有一种作茧自缚的感觉。
 
 00:05:43,680 --> 00:05:45,360
-the foot because it was full of these
+
+因为充斥着
 
 00:05:45,360 --> 00:05:47,250
-weird synchronous processes and didn't
+
+奇怪的同步进程，
 
 00:05:47,250 --> 00:05:49,140
-work to key well and a lot of the
+
+核心部分工作得不是很好，
 
 00:05:49,140 --> 00:05:51,870
-components were invented from scratch it
+
+很多部件都是从零开始写的，
 
 00:05:51,870 --> 00:05:53,850
-was a little bit too easy to like not
+
+有点太容易，所有很多无法实现
 
 00:05:53,850 --> 00:05:55,440
-deadlock but to lock up a whole worker
+
+比如不是死锁，就能锁定一个 worker 进程，
 
 00:05:55,440 --> 00:05:58,020
-process or leave something running too
+
+或者让某些运行过长时间
 
 00:05:58,020 --> 00:05:59,640
-long and just generally you couldn't do
+
+总体来说，
 
 00:05:59,640 --> 00:06:01,890
-as much you could do with full icing
+
+你不能像完全异步支持那样做同样多的事情
 
 00:06:01,890 --> 00:06:04,830
-support and so one of the things it took
+
+所以这是一件
 
 00:06:04,830 --> 00:06:06,180
-me a while to do this and I had to sort
+
+需要我花些时间去做的事情。
 
 00:06:06,180 --> 00:06:08,070
-of sit down and go through it but I had
+
+我必须静下来整理下然后从头开始。
 
 00:06:08,070 --> 00:06:10,170
-to admit I was wrong and I think very
+
+即使需要这样做，那我也必须承认我过去得做法是错误的。
 
 00:06:10,170 --> 00:06:11,940
-important to say this it's very hard for
+
+我认为很重要的是说，对于大型的项目，
 
 00:06:11,940 --> 00:06:14,190
-big projects to take a big turn like I
+
+像我这样的情况，不得不做这么大的一个转弯，
 
 00:06:14,190 --> 00:06:17,160
-had to do in this case and change your
+
+这个是非常困难的。
 
 00:06:17,160 --> 00:06:19,800
-analysis of the problem entirely but at
+
+这完全改变了你对这个问题的分析，
 
 00:06:19,800 --> 00:06:21,750
-the end of the day channels one was a
+
+但是这个时候，我仍然要说 channels 1.0 是一个
 
 00:06:21,750 --> 00:06:23,970
-nice research project it achieved the
+
+非常好的研究项目
 
 00:06:23,970 --> 00:06:25,890
-goals I set out to do it was not a
+
+它完成了我之前设想的大部分目标
 
 00:06:25,890 --> 00:06:29,220
-long-term solution and so what does a
+
+尽管它不是一个长期的解决方案。
 
 00:06:29,220 --> 00:06:32,070
-long-term solution for Django and for
+
+那么 Djongo 的长期解决方案是什么？
 
 00:06:32,070 --> 00:06:35,400
-Python look like well that's kind of all
+
+Python 看起来很好，就是这样
 
 00:06:35,400 --> 00:06:36,630
-I've been trying to do with channels 2
+
+我已经尝试在 channels 2 中去完成这些
 
 00:06:36,630 --> 00:06:39,240
-channels 2.0 was released earlier this
+
+channels 2.0 已经在今年的
 
 00:06:39,240 --> 00:06:40,080
-year
+
+稍早前发布了，
 
 00:06:40,080 --> 00:06:43,710
-it is a pretty significant change from
+
+对比 channels 前几次的迭代，
 
 00:06:43,710 --> 00:06:45,840
-the previous iterations in the Channel
+
+这次是一个变化相当显著的版本。
 
 00:06:45,840 --> 00:06:47,880
-series and I'm going to go through in
+
+接下来，我要进入剩下的介绍，
 
 00:06:47,880 --> 00:06:49,770
-the rest of the presentation some of
+
+其中的变更内容介绍
 
 00:06:49,770 --> 00:06:52,620
-those changes and how taking up a sink
+
+和如何通过它的表面价值
 
 00:06:52,620 --> 00:06:55,009
-much more at its face value has
+
+去获取更多价值。
 
 00:06:55,009 --> 00:06:57,720
-rethought how I think of Django and web
+
+从整体上重新思考我对 Django 和 web 流的看法
 
 00:06:57,720 --> 00:07:00,060
-flows in general the key things about
+
+关于 channels 2，对我来说重要的事情
 
 00:07:00,060 --> 00:07:03,270
-channels to our first and foremost is a
+
+第一个也是最重要的是
 
 00:07:03,270 --> 00:07:05,819
-Cinco native this was the biggest cause
+
+原生的异步支持。
 
 00:07:05,819 --> 00:07:07,650
-of the rewrite of course doing this
+
+这是我们重写的最重要的原因
 
 00:07:07,650 --> 00:07:09,690
-means you have to be Python 3.5 that's
+
+当然这么做也就意味着要使用 Python 3.5
 
 00:07:09,690 --> 00:07:11,310
-where async EO comes into the standard
+
+在这里异步 IO 已成为标准库
 
 00:07:11,310 --> 00:07:13,770
-library and more importantly I wanted to
+
+更重要的是我想
 
 00:07:13,770 --> 00:07:15,810
-use the async DEF keyword which is what
+
+使用 Python 3.5 提供的异步 DEF 关键字
 
 00:07:15,810 --> 00:07:19,110
-3.5 gives you and I wanted to not only
+
+而且我想不光支持异步代码，
 
 00:07:19,110 --> 00:07:21,870
-have support for async code but also for
+
+也希望支持同步代码
 
 00:07:21,870 --> 00:07:24,060
-synchronous code our discusses a bit
+
+这个我们稍后会讨论到
 
 00:07:24,060 --> 00:07:26,160
-later but it's in my opinion very
+
+但是在我看来
 
 00:07:26,160 --> 00:07:28,139
-important to have the ability to support
+
+重要的是要有能力去同时支持
 
 00:07:28,139 --> 00:07:30,599
-both of those different things and so
+
+那些不同的东西
 
 00:07:30,599 --> 00:07:33,000
-taking this into consideration and also
+
+所以把这个也考虑进去。
 
 00:07:33,000 --> 00:07:34,560
-the history of Python web programming
+
+在 Python web 编程的历史上，
 
 00:07:34,560 --> 00:07:38,009
-had a much more familiar model channels
+
+有一个更被人熟知的模型 channels 像这样运行
 
 00:07:38,009 --> 00:07:40,770
-to runs like this it runs like normal
+
+它像普通的 Python web 允许的那样运行
 
 00:07:40,770 --> 00:07:43,020
-Python web permits do you have a web
+
+你有一个 web 服务器
 
 00:07:43,020 --> 00:07:45,419
-server and inside that web server you
+
+在这个 web 服务器上你运行你的应用程序
 
 00:07:45,419 --> 00:07:47,430
-run your application in this case you
+
+在这种情况下
 
 00:07:47,430 --> 00:07:51,509
-run Django it's simplistic there's one
+
+你运行 Django，它非常简单，
 
 00:07:51,509 --> 00:07:53,400
-moving piece there's no network layer
+
+有一个移动的片段，没有网络层
 
 00:07:53,400 --> 00:07:55,139
-hidden in there mysteriously causing
+
+隐藏在那里会导致错误
 
 00:07:55,139 --> 00:07:58,440
-errors there is still a need for cross
+
+还有一个需求是跨进程间的通信
 
 00:07:58,440 --> 00:08:00,750
-process communication one of the
+
+其中一个是
 
 00:08:00,750 --> 00:08:03,090
-problems that you find with WebSockets
+
+你会发现使用 WebSockets 的问题
 
 00:08:03,090 --> 00:08:05,009
-in particular is the applications you
+
+尤其是你的应用程序
 
 00:08:05,009 --> 00:08:07,020
-build require a lot more coordination
+
+需要服务之间更多的协调
 
 00:08:07,020 --> 00:08:09,659
-and crosstalk between services and so
+
+和交叉串扰等等
 
 00:08:09,659 --> 00:08:10,889
-one of the things channels does provide
+
+channels 提供的一项内容
 
 00:08:10,889 --> 00:08:13,199
-still is that crosstalk layer the
+
+还是那个 crosstalk 层
 
 00:08:13,199 --> 00:08:14,820
-channel layer is still there but it is
+
+channel 层还是在那里，但是它
 
 00:08:14,820 --> 00:08:17,130
-now an optional component and most of
+
+现在是一个可选的部件
 
 00:08:17,130 --> 00:08:18,750
-the traffic does not go through it it's
+
+而且大部分的流量不会通过它
 
 00:08:18,750 --> 00:08:21,570
-only for broadcast and process to
+
+它仅用于广播和进程到进程的消息
 
 00:08:21,570 --> 00:08:23,699
-process messaging if you're writing a
+
+如果你正在写一个聊天室的应用
 
 00:08:23,699 --> 00:08:25,979
-chat application it's there for you you
+
+它就是你需要的
 
 00:08:25,979 --> 00:08:28,229
-can say oh send this message to all the
+
+你可以说，发送这条信息给
 
 00:08:28,229 --> 00:08:29,580
-other people listening on these sockets
+
+所有其他正在这些 sockets 收听的人
 
 00:08:29,580 --> 00:08:32,940
-it'll do that it's also deliberately a
+
+它将那么做。
 
 00:08:32,940 --> 00:08:35,849
-lot more simplistic aid he'd be easier
+
+而且它也更加简单，另外也更加容易保持
 
 00:08:35,849 --> 00:08:37,890
-to maintain and be because it does not
+
+因为他不需要
 
 00:08:37,890 --> 00:08:39,630
-have to fulfill that middle role it did
+
+再去完成中间的作用
 
 00:08:39,630 --> 00:08:41,270
-before
+
+像过去做的那样
 
 00:08:41,270 --> 00:08:44,070
-the end result this is not a complete
+
+最后的结果是不需要完全重写 channels
 
 00:08:44,070 --> 00:08:46,110
-rewrite of channels it was about a 75%
+
+大约 75% 被重写
 
 00:08:46,110 --> 00:08:48,690
-rewrite obviously all the code that used
+
+所有的过去明显
 
 00:08:48,690 --> 00:08:51,720
-to be weird synchronous staff happy
+
+奇怪的同步代码都要
 
 00:08:51,720 --> 00:08:53,070
-rewritten
+
+被重写
 
 00:08:53,070 --> 00:08:55,650
-the twisted code did not twist it has
+
+twisted 的 code 没有被重写
 
 00:08:55,650 --> 00:08:57,960
-very good async support these days and
+
+twist 它有非常好的异步支持
 
 00:08:57,960 --> 00:08:59,580
-so I just plugged in an async reactor
+
+所以我只是插入一个异步反应器
 
 00:08:59,580 --> 00:09:00,870
-and change a few things and that kept
+
+并改变了很少的一点东西，让它继续工作
 
 00:09:00,870 --> 00:09:03,060
-working but a lot of the rest of it had
+
+但是余下的大部分需要修改
 
 00:09:03,060 --> 00:09:04,590
-to change especially in the Jango layer
+
+特别是 Django 层
 
 00:09:04,590 --> 00:09:08,070
-as well and one of the big problems you
+
+而且当你来到这儿的时候
 
 00:09:08,070 --> 00:09:10,830
-get when you get to this point is about
+
+你会发现一个严重问题
 
 00:09:10,830 --> 00:09:13,980
-how you write a synchros code in Python
+
+就是你如何在 Python 中编写同步代码
 
 00:09:13,980 --> 00:09:15,690
-and the way we do asynchronous code in
+
+以及在 Python 中编写异步代码的方式。
 
 00:09:15,690 --> 00:09:18,900
-Python an asynchronous function and a
+
+一个异步函数和一个同步函数
 
 00:09:18,900 --> 00:09:21,150
-synchronous function a very distinct you
+
+有非常大的不同
 
 00:09:21,150 --> 00:09:22,710
-can't write one thing that satisfies
+
+你不可能写出一个东西来
 
 00:09:22,710 --> 00:09:26,160
-both interfaces what this means is it's
+
+满足所有的接口，也就是说
 
 00:09:26,160 --> 00:09:28,230
-near impossible to write an API that
+
+基本不可能写出一个 API 来
 
 00:09:28,230 --> 00:09:29,850
-provides both synchronous and
+
+同时提供同步版本和异步版本，
 
 00:09:29,850 --> 00:09:32,190
-asynchronous version without sitting
+
+你也不得不坐在那里
 
 00:09:32,190 --> 00:09:34,350
-there and writing everything twice this
+
+把所有的东西编写两遍。
 
 00:09:34,350 --> 00:09:35,880
-is one of the reasons you see separate
+
+这就是其中一个原因
 
 00:09:35,880 --> 00:09:38,040
-libraries for like talking to various
+
+你看到单独的库，这就比如
 
 00:09:38,040 --> 00:09:39,840
-asynchronously you're doing HTTP at
+
+当你同步使用 HTTP 时，要讨论各种异步
 
 00:09:39,840 --> 00:09:42,110
-synchronously they're just different
+
+它们就是不一样的接口，
 
 00:09:42,110 --> 00:09:44,520
-api's you can't handle the same thing in
+
+你不能在同样的地方操作同样的事情。
 
 00:09:44,520 --> 00:09:47,700
-the same place and so I really had to
+
+所以我不得不静下来，
 
 00:09:47,700 --> 00:09:49,860
-sit down and work out how to overcome
+
+去找到解决这个问题的方法。
 
 00:09:49,860 --> 00:09:51,840
-this problem I don't want to rewrite all
+
+我不想重写
 
 00:09:51,840 --> 00:09:54,840
-of Jango to be asynchronous like I'd
+
+把全部的 Django 的代码变成异步方式，
 
 00:09:54,840 --> 00:09:57,210
-love to but I am but one man and I only
+
+即便我希望这么做，但是我只有一个人
 
 00:09:57,210 --> 00:09:58,560
-have about you know a day a week to do
+
+你知道我一周大概只有一天去做这个事情
 
 00:09:58,560 --> 00:10:00,060
-this in and then we have got until like
+
+然后如果这么做，我们一直要到一千年以后
 
 00:10:00,060 --> 00:10:03,600
-in next millennium and so that it's not
+
+才能完成，所以这个不是我
 
 00:10:03,600 --> 00:10:05,000
-kind of the biggest problem I faced
+
+面临的最大问题
 
 00:10:05,000 --> 00:10:07,590
-before we dive deeper if you're curious
+
+在我们深入下一步之前，如果你对于
 
 00:10:07,590 --> 00:10:09,360
-about this topic at all I have a blog
+
+这个话题还有兴趣的话，
 
 00:10:09,360 --> 00:10:11,790
-post you can look at that covers the
+
+你可以看看我的一个博客文章，
 
 00:10:11,790 --> 00:10:14,790
-background of how asynchronous and
+
+那个里面介绍了一些背景知识去说明
 
 00:10:14,790 --> 00:10:16,350
-synchronous functions are different in
+
+在 Python 里面异步和同步的差异在哪里
 
 00:10:16,350 --> 00:10:18,210
-Python it has a good coverage of like
+
+它很好的覆盖了一些内容
 
 00:10:18,210 --> 00:10:19,800
-how thread loots work and how the
+
+比如线程如何工作以及
 
 00:10:19,800 --> 00:10:21,930
-implication behind its it's not going to
+
+背后的含义是什么，
 
 00:10:21,930 --> 00:10:23,610
-weather here but as some background
+
+我不打算在这里讲，而是作为背景知识阅读参考。
 
 00:10:23,610 --> 00:10:26,250
-reading it's quite a nice high-level
+
+对于他们为什么会不同
 
 00:10:26,250 --> 00:10:28,440
-idea of why they're different but the
+
+这篇文章有相当高层次的看法。
 
 00:10:28,440 --> 00:10:30,780
-key thing is and assumption in this talk
+
+但是我们现在聊的核心是
 
 00:10:30,780 --> 00:10:32,370
-is they are different you can't find the
+
+它们不相同，而且你找不到
 
 00:10:32,370 --> 00:10:35,760
-same way and this meant that I had to
+
+相同的方法，
 
 00:10:35,760 --> 00:10:37,890
-make Jango at least partially async if
+
+如果你想操作 WebSockets，
 
 00:10:37,890 --> 00:10:39,420
-you're gonna handle WebSockets in
+
+你就不得不让 Django 部分支持异步。
 
 00:10:39,420 --> 00:10:41,910
-particular you have to be async up to a
+
+尤其是你在某些特定的地方必须使用异步，
 
 00:10:41,910 --> 00:10:43,740
-certain point like the thing that
+
+比如处理 sockets 的数据，
 
 00:10:43,740 --> 00:10:44,910
-handles the sockets the thing that
+
+处理基本业务逻辑，
 
 00:10:44,910 --> 00:10:47,160
-handles the basic business logic has to
+
+必须能够有
 
 00:10:47,160 --> 00:10:49,470
-be capable of keeping that socket open
+
+在做其他事情的同时，
 
 00:10:49,470 --> 00:10:51,870
-for a long time in parallel with other
+
+长时间保持 socket 打开的能力。
 
 00:10:51,870 --> 00:10:54,900
-things so let's talk about how Jango is
+
+那么让我们聊一下 Django 是如何做的，
 
 00:10:54,900 --> 00:10:58,950
-structured Jango is sort of a sort of
+
+Django 是一组基本层模型的序列
 
 00:10:58,950 --> 00:11:01,530
-basic layer model this is a simplistic
+
+这是一个简单的版本
 
 00:11:01,530 --> 00:11:03,780
-version but one of my favorite ways
+
+但是是我最喜欢的方式。
 
 00:11:03,780 --> 00:11:05,730
-thinking about Django is a series of
+
+认为 Django 是一系列
 
 00:11:05,730 --> 00:11:06,840
-layers stacked on top
+
+互相层叠的层
 
 00:11:06,840 --> 00:11:08,670
-of each other at the very bottom you
+
+在最下面
 
 00:11:08,670 --> 00:11:10,770
-have a WSGI handler that takes your
+
+有一个 WSGI 处理程序
 
 00:11:10,770 --> 00:11:14,220
-incoming basic raw WSGI request and
+
+获取输入的基本的原始 WSGI 请求
 
 00:11:14,220 --> 00:11:17,190
-turns into a Django request object above
+
+转化成一个 Django 请求对象
 
 00:11:17,190 --> 00:11:19,320
-that you have a URL routing that reads
+
+在那之上，你有一个 URL 路由来读取
 
 00:11:19,320 --> 00:11:21,510
-the request object finds of you and then
+
+发现的请求对象，
 
 00:11:21,510 --> 00:11:25,080
-gives it to the view above that you have
+
+然后送到上层的视图，那里有
 
 00:11:25,080 --> 00:11:27,150
-middleware so before you get to review
+
+中间件，所有在你检查之前
 
 00:11:27,150 --> 00:11:28,830
-you run through some middleware it adds
+
+你会运行一些中间件来增加一些
 
 00:11:28,830 --> 00:11:30,930
-things like authentication and sessions
+
+信息，比如鉴权、时域等
 
 00:11:30,930 --> 00:11:31,800
-and all that stuff
+
+所有的信息。
 
 00:11:31,800 --> 00:11:33,930
-then you come to a view that's business
+
+然后你来到了视图，
 
 00:11:33,930 --> 00:11:35,670
-logic in presentation and then finally
+
+这里是业务逻辑和展现层
 
 00:11:35,670 --> 00:11:37,560
-from a view you're usually talking to
+
+最后一层通常观点来看，我们讲 ORM
 
 00:11:37,560 --> 00:11:40,050
-the ORM obviously middleware talks to
+
+关系对象映射。中间件我们也叫 RM
 
 00:11:40,050 --> 00:11:41,580
-the RM as well but this is a simplistic
+
+但是这是一个简单的版本
 
 00:11:41,580 --> 00:11:44,520
-version now that works fine for
+
+这个对于同步事务来说工作的很好
 
 00:11:44,520 --> 00:11:47,250
-synchronous stuff but we need to think
+
+但是我们需要想一下
 
 00:11:47,250 --> 00:11:51,800
-about when it's asynchronous so if
+
+当异步的时候，如果反过来
 
 00:11:51,800 --> 00:11:55,530
-instead we do this we had entered a
+
+我们这样做，我们进入一个独立的层
 
 00:11:55,530 --> 00:11:57,090
-separate layer of stuff that is
+
+这里的事务在 Django 内部是
 
 00:11:57,090 --> 00:11:59,490
-asynchronous capable inside Django and
+
+异步的，并且
 
 00:11:59,490 --> 00:12:00,600
-that replicates a lot of that behavior
+
+通过堆栈复制了很多
 
 00:12:00,600 --> 00:12:03,630
-up through the stack so in particular
+
+那样的行为，因此特别之处是
 
 00:12:03,630 --> 00:12:06,690
-rather than normal Django URL routing we
+
+不能使用普通的 Django URL 路由，
 
 00:12:06,690 --> 00:12:07,950
-have to have a different kind of routing
+
+我们必须有一个不同类型的路由
 
 00:12:07,950 --> 00:12:10,440
-that's async capable that can coexist
+
+具有并发的异步处理能力。
 
 00:12:10,440 --> 00:12:14,730
-like you can be the other stuff we have
+
+就像其他东西一样，
 
 00:12:14,730 --> 00:12:15,930
-to have asynchronous middleware
+
+我们必须要有异步的中间件和
 
 00:12:15,930 --> 00:12:17,670
-asynchronous views which we call
+
+异步视图，我们在 channels 调用，
 
 00:12:17,670 --> 00:12:19,650
-consumers in channels so these all
+
+所以这些都
 
 00:12:19,650 --> 00:12:20,790
-mirror their components in the
+
+与它们的同步组件相对应。
 
 00:12:20,790 --> 00:12:23,340
-synchronous sphere but the one thing I
+
+但是有一件事情
 
 00:12:23,340 --> 00:12:26,820
-couldn't tackle easily is the RM and so
+
+我不能轻易解决，那就是 RM。
 
 00:12:26,820 --> 00:12:28,980
-you can see here the synchronous part is
+
+这里你可以见到，
 
 00:12:28,980 --> 00:12:30,420
-highlighted in this blue square on the
+
+在左侧图中蓝色矩形标注出来的同步部分
 
 00:12:30,420 --> 00:12:33,750
-left there is still need to call into
+
+还是仍然需要调用同步 Django，
 
 00:12:33,750 --> 00:12:36,690
-synchronous Chango not only for the RM
+
+不是只为了顶部的 RM
 
 00:12:36,690 --> 00:12:40,590
-at the top there but also excuse me but
+
+也为了，不好意思，也为了
 
 00:12:40,590 --> 00:12:42,870
-also if you are trying to call a normal
+
+如果你尝试调用一个正常的 Django 视图
 
 00:12:42,870 --> 00:12:44,670
-django view if you have a site that's
+
+如果你有一个
 
 00:12:44,670 --> 00:12:46,380
-mixed between WebSockets and normal
+
+由 WebSockets 和普通 Django 混合的网站，
 
 00:12:46,380 --> 00:12:48,360
-django you want to call the normal stuff
+
+当你想要使用普通的调用
 
 00:12:48,360 --> 00:12:50,100
-you have to drop down as normal django
+
+你必须使用正常的 Django，
 
 00:12:50,100 --> 00:12:54,300
-for that and so I can replace the WSGI
+
+所以我把 WSGI 操作
 
 00:12:54,300 --> 00:12:55,560
-handler with an asynchronous version
+
+换成了异步的版本
 
 00:12:55,560 --> 00:12:57,690
-that makes a request object but at some
+
+来创建请求对象，但是在
 
 00:12:57,690 --> 00:12:58,860
-point you have to drop down into
+
+某些时候你又不得不改为
 
 00:12:58,860 --> 00:13:02,840
-synchronous land and how I do that well
+
+同步状态，我是如何这么做的呢
 
 00:13:02,840 --> 00:13:05,510
-you can see there like I've made Django
+
+你可以看那里，比如我已经让 Django
 
 00:13:05,510 --> 00:13:08,100
-async native most of the way in a
+
+变成原生异步，大部分是并行的方式。
 
 00:13:08,100 --> 00:13:11,130
-parallel fashion but I had to bridge
+
+但是在某些位置我必须弥补
 
 00:13:11,130 --> 00:13:14,490
-those gaps at some point and that really
+
+差距，那确实
 
 00:13:14,490 --> 00:13:17,850
-comes down to a a lot of frustration and
+
+导致了很多麻烦。
 
 00:13:17,850 --> 00:13:20,040
-weekends tearing my hair out
+
+数个周末的时间我都为此抓狂，
 
 00:13:20,040 --> 00:13:21,930
-and be to functions that were the result
+
+抓狂的结果是
 
 00:13:21,930 --> 00:13:25,980
-of said hair tearing firstly a function
+
+产生了两个新的方法。
 
 00:13:25,980 --> 00:13:29,029
-called sink to a sink my voice is going
+
+第一个方法是 sync_to_async,（我的嗓子..,
 
 00:13:29,029 --> 00:13:32,220
-perfect timing for this and secondly a
+
+喝口水，好多了），第二个是
 
 00:13:32,220 --> 00:13:34,380
-sink to sink the idea is these two
+
+async_to_sync. 我的看法是
 
 00:13:34,380 --> 00:13:37,800
-functions bridge those two worlds sink
+
+这两个方法联通了两个世界。
 
 00:13:37,800 --> 00:13:39,540
-to a sink can take asynchronous Python
+
+sync_to_async 可以处理 Python 同步方法
 
 00:13:39,540 --> 00:13:41,550
-function and make it away table and it
+
+使方法与主线程分离，让它
 
 00:13:41,550 --> 00:13:44,160
-runs it in a background thread a sink to
+
+在一个后台线程中运行。
 
 00:13:44,160 --> 00:13:46,380
-sink can take a a weighted ball
+
+async_to_sync 可以在异步过程中
 
 00:13:46,380 --> 00:13:49,170
-co-routine in - that's asynchronous and
+
+使用一个加权的球协程，
 
 00:13:49,170 --> 00:13:50,880
-turn it into a blocking synchronous
+
+会把它转成一个阻塞的同步方法
 
 00:13:50,880 --> 00:13:53,610
-function that pauses the thread you call
+
+这个方法把调用线程暂停，
 
 00:13:53,610 --> 00:13:56,220
-it from jumps to the thread the main the
+
+然后跳到主线程，那里有事件循环，
 
 00:13:56,220 --> 00:13:57,810
-main thread with the event loop runs it
+
+在那里运行，
 
 00:13:57,810 --> 00:13:59,149
-there and then jumps back again and
+
+然后再跳转回来
 
 00:13:59,149 --> 00:14:03,269
-these are the key components of how we
+
+这些就是关键部件，
 
 00:14:03,269 --> 00:14:06,060
-managed to get that support for crossing
+
+让我们找到方法使这两个世界交融
 
 00:14:06,060 --> 00:14:10,350
-those two worlds into Jango itself so
+
+并入 Django 中。
 
 00:14:10,350 --> 00:14:12,089
-let's go into a bit more technical
+
+关于这些特别的事情，
 
 00:14:12,089 --> 00:14:13,579
-detail about those particular things
+
+让我再多讲一点技术细节。
 
 00:14:13,579 --> 00:14:16,889
-first of all sink to a sink this is in
+
+首先是 sync_to_async，
 
 00:14:16,889 --> 00:14:20,790
-many ways the easier of the two it's not
+
+这个有很多实现方式，也是两个里面比较简单的一种
 
 00:14:20,790 --> 00:14:23,130
-super easy but a lot of the things that
+
+当然不是超级简单，
 
 00:14:23,130 --> 00:14:24,360
-you need for this are provided by the
+
+只是你需要的大部分内容都可以由
 
 00:14:24,360 --> 00:14:27,750
-standard library in Python so the first
+
+Python 的标准库提供，
 
 00:14:27,750 --> 00:14:29,519
-obvious thing not obvious the first
+
+所有第一个明显的，不是明显的，第一个
 
 00:14:29,519 --> 00:14:31,529
-thing to note synchronous code has to
+
+需要注意的，同步代码必须
 
 00:14:31,529 --> 00:14:33,149
-run in threads so we are going to run
+
+在线程中运行，所以我们会
 
 00:14:33,149 --> 00:14:34,680
-more than one synchronous function we
+
+运行多个同步方法
 
 00:14:34,680 --> 00:14:36,750
-can't just block the entire main thread
+
+我们不能只是阻塞整个主线程
 
 00:14:36,750 --> 00:14:38,790
-where the async layer event loop is
+
+那里异步事件循环在运行
 
 00:14:38,790 --> 00:14:40,889
-running and so we have to have these
+
+所以我们必须要有
 
 00:14:40,889 --> 00:14:43,199
-running sub threads threads in Python
+
+这些运行的子线程。
 
 00:14:43,199 --> 00:14:45,420
-are not great the context switching is a
+
+Python 中的线程并不是很好
 
 00:14:45,420 --> 00:14:47,279
-little bit inefficient as many Python
+
+上下文切换的效率有些低
 
 00:14:47,279 --> 00:14:49,800
-talks have previously said but they are
+
+就像很多之前 Python 介绍说的那样
 
 00:14:49,800 --> 00:14:51,300
-still useful things like this when you
+
+但是它们也还是有用的，比如当你
 
 00:14:51,300 --> 00:14:52,920
-want to get down briefly run a function
+
+想简单运行一个方法
 
 00:14:52,920 --> 00:14:55,139
-and pop out again and the standard
+
+并且再次弹出，
 
 00:14:55,139 --> 00:14:57,329
-library has a thing called the thread
+
+标准库里有一个叫做
 
 00:14:57,329 --> 00:14:59,550
-pool executor which does this you can
+
+线程池执行器的东西来做这个
 
 00:14:59,550 --> 00:15:02,430
-say hey I have a task you can make a
+
+你可以说，我有一个任务，你可以生成一个
 
 00:15:02,430 --> 00:15:04,470
-thread pool and you say run this in that
+
+线程池，然后你说在这个任务中运行这些代码，
 
 00:15:04,470 --> 00:15:06,630
-task run this task in that pool and give
+
+而这个任务运行在这个线程池中，
 
 00:15:06,630 --> 00:15:09,209
-me the result back the simplified code
+
+然后给我返回结果。
 
 00:15:09,209 --> 00:15:11,430
-looks a bit like this there's a few more
+
+简单的代码实现像是这样
 
 00:15:11,430 --> 00:15:13,949
-exception handling pieces around this in
+
+这个代码之外，
 
 00:15:13,949 --> 00:15:16,350
-the code we have in channels but the
+
+还应该添加更多的异常处理，但是
 
 00:15:16,350 --> 00:15:18,660
-basic flow is similar you find your
+
+基本流程是类似的。
 
 00:15:18,660 --> 00:15:20,670
-event loop you make a future that
+
+你找到你的事件循环，你创造一个 future 变量
 
 00:15:20,670 --> 00:15:22,800
-represents running your task in a thread
+
+用来表明在一个线程池运行你的任务
 
 00:15:22,800 --> 00:15:25,290
-pool and then use a weight on the future
+
+然后当线程池运行起来，你
 
 00:15:25,290 --> 00:15:27,899
-when you call a weight here behind the
+
+开始运行你的任务，
 
 00:15:27,899 --> 00:15:30,089
-scenes the thread pool spins up and runs
+
+你开始调用权重，
 
 00:15:30,089 --> 00:15:32,279
-your task and then your Co routine
+
+使用 future 上的权重。
 
 00:15:32,279 --> 00:15:33,700
-you're writing this in will just
+
+然后合作的例行程序将
 
 00:15:33,700 --> 00:15:35,740
-and wait for the future to return once
+
+等待 future 返回一次
 
 00:15:35,740 --> 00:15:41,380
-that's read is complete now this is
+
+这样就完成了
 
 00:15:41,380 --> 00:15:44,260
-mostly used for things like calling the
+
+现在这个主要用于比如
 
 00:15:44,260 --> 00:15:47,140
-ORM rendering templates other parts of
+
+调用 ORM，渲染模板，
 
 00:15:47,140 --> 00:15:48,580
-Django that you saw crossing that
+
+Django 的其他部分，你看到的
 
 00:15:48,580 --> 00:15:50,680
-boundary just now we're like okay I need
+
+比如跨越边界。好吧，我需要
 
 00:15:50,680 --> 00:15:52,990
-to talk to a bit of Django that existed
+
+聊一下过去的 Django 的关联内容，
 
 00:15:52,990 --> 00:15:55,330
-before that is synchronous and that has
+
+那就是同步。
 
 00:15:55,330 --> 00:15:57,610
-to run in a thread the ORM is
+
+同步 Django 需要在一个线程中运行。
 
 00:15:57,610 --> 00:15:59,880
-particularly tricky Django has
+
+ORM 是特别棘手的问题
 
 00:15:59,880 --> 00:16:02,260
-connection handling that pulls
+
+Django 有连接操作来拉取连接
 
 00:16:02,260 --> 00:16:03,850
-connections and threads and make sure
+
+和线程，并且确保他们
 
 00:16:03,850 --> 00:16:05,230
-they're shared between threads properly
+
+这些线程之间正确的共享。
 
 00:16:05,230 --> 00:16:07,660
-that relies heavily on a request
+
+这在很大程度上依赖于请求和
 
 00:16:07,660 --> 00:16:10,420
-response sequence and so one of the
+
+响应的顺序，
 
 00:16:10,420 --> 00:16:12,580
-things we had to do was when you call
+
+所以我们必须要做一个事情是
 
 00:16:12,580 --> 00:16:14,770
-the arm in a thread when the thread
+
+当你在一个线程中调用 arm，当
 
 00:16:14,770 --> 00:16:16,150
-finishes sit there and clean up
+
+线程结束时不要动，
 
 00:16:16,150 --> 00:16:17,650
-everything at the end go placate we have
+
+先把所有东西清理干净。
 
 00:16:17,650 --> 00:16:19,300
-to like close connections to like that
+
+我们需要关闭连接。
 
 00:16:19,300 --> 00:16:22,030
-and so it's a little bit strange and one
+
+这看起来有些奇怪
 
 00:16:22,030 --> 00:16:24,130
-of the unfortunate side effects is you
+
+如果很不幸的话，你可能遇到这样的情况，
 
 00:16:24,130 --> 00:16:25,390
-just end up with a lot of outbound
+
+你在结束的时候有大量的出站连接。
 
 00:16:25,390 --> 00:16:28,480
-connections the thread pool defaults to
+
+线程池默认上限是
 
 00:16:28,480 --> 00:16:30,970
-five times the number of CPUs you have
+
+你机器 CPU 数量的 5 倍，
 
 00:16:30,970 --> 00:16:33,070
-in your machine so you have a 16 core
+
+所以如果你是一个 16 核的机器，
 
 00:16:33,070 --> 00:16:34,510
-machine you're gonna get over a hundred
+
+你将有超过一百个线程
 
 00:16:34,510 --> 00:16:36,940
-threads all trying to connect at once to
+
+都试图去连接接数据库。
 
 00:16:36,940 --> 00:16:39,550
-the database that surprised a few people
+
+这很让人惊讶，
 
 00:16:39,550 --> 00:16:42,160
-but you can tweak that stuff but in
+
+但是你可以调整这些东西。
 
 00:16:42,160 --> 00:16:43,330
-general for the smaller stuff it works
+
+而一般来说，越小的东西它会工作的确实越好
 
 00:16:43,330 --> 00:16:46,330
-really well the more difficult problem
+
+不过接下来
 
 00:16:46,330 --> 00:16:48,300
-however is going the other way
+
+会是更加困难的问题。
 
 00:16:48,300 --> 00:16:51,430
-synched a sink is pretty built into the
+
+sync_to_async 已经很好的内置在
 
 00:16:51,430 --> 00:16:54,670
-chat Python core I think three point
+
+Python 的 chat 内核中。我认为 3.7
 
 00:16:54,670 --> 00:16:56,080
-seven has even better support for that
+
+对这个会有更好的支持
 
 00:16:56,080 --> 00:16:58,660
-stuff going the other way is much less
+
+第二个方面的东西不太常见，
 
 00:16:58,660 --> 00:17:03,490
-common and this is because async code
+
+这是因为异步代码
 
 00:17:03,490 --> 00:17:06,460
-has to run on an event loop it has to
+
+需要在一个事件循环中运行，它需要
 
 00:17:06,460 --> 00:17:07,780
-have the thing that provides it a waiter
+
+能给它提供一个等待，
 
 00:17:07,780 --> 00:17:09,280
-balls and provides it the way to do
+
+并且提供一种方法来产生中断，
 
 00:17:09,280 --> 00:17:13,210
-interrupts and if you're running in a
+
+如果你在一个
 
 00:17:13,210 --> 00:17:14,980
-process that we have here there's
+
+进程中运行，
 
 00:17:14,980 --> 00:17:16,750
-already an event loop in the main thread
+
+在主线程中已经有一个事件循环。
 
 00:17:16,750 --> 00:17:18,850
-and the particular problem comes when
+
+当你把两者嵌套的时候，
 
 00:17:18,850 --> 00:17:21,400
-your nesting these two things so say
+
+特别的问题就出现了
 
 00:17:21,400 --> 00:17:23,590
-what I've done is I have called
+
+这么说把，我所做的是
 
 00:17:23,590 --> 00:17:25,270
-asynchronous function from my a
+
+在同步的主线程中
 
 00:17:25,270 --> 00:17:27,310
-synchro's main thread okay we're now in
+
+调用异步的方法。好吧我们现在
 
 00:17:27,310 --> 00:17:29,710
-a sub thread the synchronous I then want
+
+在一个同步的子线程中，
 
 00:17:29,710 --> 00:17:31,240
-to call them asynchronous API in
+
+我想在 channels 中去调用
 
 00:17:31,240 --> 00:17:33,490
-channels from that sub thread so we've
+
+它们的异步 API，所以
 
 00:17:33,490 --> 00:17:36,610
-then go out of the thread back up to the
+
+我们退出线程，回到主线程，
 
 00:17:36,610 --> 00:17:38,710
-main thread find the event loop then
+
+找到事件循环，然后
 
 00:17:38,710 --> 00:17:41,290
-come back down again and keep going No
+
+再次回来继续向下进行
 
 00:17:41,290 --> 00:17:44,200
-thank you very much and so it's a little
+
+不，非常感谢。
 
 00:17:44,200 --> 00:17:46,060
-bit tricky the code is not quite as
+
+这个有点棘手。
 
 00:17:46,060 --> 00:17:47,710
-readable on the screen it's deliberate
+
+代码并不像屏幕上显示的这么具有可读性，这个是故意的。
 
 00:17:47,710 --> 00:17:50,500
-don't worry it's more than this too but
+
+不必担心。虽然它比这复杂的多，
 
 00:17:50,500 --> 00:17:52,120
-the basic flow of it is that it tries to
+
+但它的基本流程是这样的，它试图
 
 00:17:52,120 --> 00:17:54,659
-go up and find that thread you can
+
+向上找到那个线程，
 
 00:17:54,659 --> 00:17:57,760
-instead try and open a new event loop in
+
+你也可以在子线程中，
 
 00:17:57,760 --> 00:17:59,140
-the sub thread that's the thing that
+
+尝试并打开一个新的事件循环。
 
 00:17:59,140 --> 00:18:00,880
-Python lets you do you can run as many
+
+因为 Python 可以让你运行足够多的事件循环
 
 00:18:00,880 --> 00:18:02,770
-event loops as you like but that is
+
+像你想要的那样，但是
 
 00:18:02,770 --> 00:18:04,059
-gonna be less efficient because you are
+
+那样会降低效率，因为你
 
 00:18:04,059 --> 00:18:05,409
-running more loops they all this me or
+
+运行的循环越多，就会有越多的 sockets。
 
 00:18:05,409 --> 00:18:07,720
-more sockets and so one of the things
+
+所以
 
 00:18:07,720 --> 00:18:09,309
-that channel's tries to do is if you ask
+
+channel 试图去做的事情是，
 
 00:18:09,309 --> 00:18:10,750
-for an async function it's going to pop
+
+如果你需要异步方法，它会返回并
 
 00:18:10,750 --> 00:18:12,070
-back up and try and run it on the main
+
+尝试在主循环中运行它。
 
 00:18:12,070 --> 00:18:16,299
-loop and why do we need this
+
+为什么我需要这样做？
 
 00:18:16,299 --> 00:18:20,230
-well the key reason is again I wanted to
+
+好，主要原因还是我
 
 00:18:20,230 --> 00:18:24,340
-only write things once in particular I
+
+只想针对一种东西编写一次代码。
 
 00:18:24,340 --> 00:18:26,770
-had to rewrite say authentication for
+
+特别是我不想重写 channels 的认证
 
 00:18:26,770 --> 00:18:29,620
-channels and if you want to have a North
+
+而如果你想要一个可以在两者
 
 00:18:29,620 --> 00:18:31,990
-API that runs in both I want to write it
+
+都可以运行的统一的 API
 
 00:18:31,990 --> 00:18:33,940
-once and then have a compatibility layer
+
+我想编写一次，然后存在一个兼容层
 
 00:18:33,940 --> 00:18:36,490
-like these two functions make it usable
+
+类似这两个方法一样，可以
 
 00:18:36,490 --> 00:18:39,370
-from the other side and so rather than
+
+让它从另一个方面来说变的可用。
 
 00:18:39,370 --> 00:18:40,870
-write things synchronously and have them
+
+所以不是使用同步的方式编写
 
 00:18:40,870 --> 00:18:41,710
-call them threads
+
+并且调用他们的线程
 
 00:18:41,710 --> 00:18:43,149
-I want to write them in the future way
+
+我想使用未来的方式编写它们
 
 00:18:43,149 --> 00:18:45,549
-which is running asynchronously and if
+
+也就是使用异步运行的方式
 
 00:18:45,549 --> 00:18:47,529
-you wanted to let you call them from old
+
+而且如果你想要使用旧的代码调用，
 
 00:18:47,529 --> 00:18:50,649
-code by using the async to sync function
+
+你可以使用 async_to_sync 方法
 
 00:18:50,649 --> 00:18:55,539
-instead and that really helps reduce the
+
+这样做确实减少了维护的工作量
 
 00:18:55,539 --> 00:18:57,130
-maintenance workload and stuff like this
+
+以及类似的事情
 
 00:18:57,130 --> 00:18:59,169
-because I can just write one set of
+
+因为我只需要写一套
 
 00:18:59,169 --> 00:19:01,480
-async api's and then just say everywhere
+
+异步的 API，然后就可以在
 
 00:19:01,480 --> 00:19:03,520
-in the documentation hey if you want to
+
+文档的任何地方说，嘿，如果你想要
 
 00:19:03,520 --> 00:19:04,840
-call this from a synchronous place just
+
+在一个同步循环中调用这些，只要
 
 00:19:04,840 --> 00:19:07,299
-wrap it in a sink to sync that really
+
+使用 async_to_sync 转换一下。
 
 00:19:07,299 --> 00:19:09,460
-helps just have like one or system one
+
+这确实有助于看起来像一个会话系统。
 
 00:19:09,460 --> 00:19:11,740
-session system and all the things that
+
+所有 channel 明显提供的东西
 
 00:19:11,740 --> 00:19:13,779
-channels provides obviously those things
+
+那些东西都在 Django 和 channel 中。
 
 00:19:13,779 --> 00:19:15,580
-are in Django and channels but there are
+
+但是
 
 00:19:15,580 --> 00:19:16,899
-other things too like the channel layers
+
+还有其他东西，比如 channel 层。
 
 00:19:16,899 --> 00:19:19,390
-if you want to send a message through
+
+如果你想通过 Redis 给别人发送消息，
 
 00:19:19,390 --> 00:19:21,399
-Redis to another to a broadcast set of
+
+给一群人发送广播，
 
 00:19:21,399 --> 00:19:24,039
-people that's all a sync native it uses
+
+这些全都是原生异步的，
 
 00:19:24,039 --> 00:19:26,860
-a i/o Redis underneath it uses a weight
+
+使用 I/O Redis, 使用一个权重
 
 00:19:26,860 --> 00:19:28,960
-and they sync everywhere and if you're
+
+然后在所有地方异步，如果你
 
 00:19:28,960 --> 00:19:30,669
-in synchronous code before you just
+
+像过去那样使用同步代码，那你
 
 00:19:30,669 --> 00:19:32,559
-couldn't call that which is why lacy
+
+就不能调用，这就是为什么 lacy 使用同步编写
 
 00:19:32,559 --> 00:19:34,510
-written synchronously but now we can
+
+但是现在我们只需要
 
 00:19:34,510 --> 00:19:37,000
-just say hey they seem to sync this and
+
+说，嘿，它们看上去和这个同步，
 
 00:19:37,000 --> 00:19:39,279
-then run it wherever you like you can
+
+然后在你想要使用的地方运行它。
 
 00:19:39,279 --> 00:19:41,260
-even use it outside of channels if
+
+你甚至可以在 channels 之外使用它。
 
 00:19:41,260 --> 00:19:42,820
-you're just in a normal synchronous
+
+如果你只是在一个普通的同步应用中
 
 00:19:42,820 --> 00:19:44,710
-application and call async to sync it
+
+调用 async_to_sync,
 
 00:19:44,710 --> 00:19:49,419
-will then make its own event loop and
+
+它会创造一个它自己的事件循环
 
 00:19:49,419 --> 00:19:50,649
-just run it inside the thread so it
+
+并且只在线程中运行，所以它
 
 00:19:50,649 --> 00:19:53,140
-really is usable and flexible through
+
+真的非常实用，也很灵活
 
 00:19:53,140 --> 00:19:54,970
-pretty much every place you would try
+
+在几乎每个你可能尝试
 
 00:19:54,970 --> 00:19:56,470
-and run asynchronous code from a
+
+并在一个同步的上下文中运行异步代码的地方
 
 00:19:56,470 --> 00:19:59,830
-synchronous context and the key thing
+
+这里的关键
 
 00:19:59,830 --> 00:20:01,570
-here is that like I don't think
+
+是我并不认为
 
 00:20:01,570 --> 00:20:03,429
-we'll ever be in a place we only write
+
+我们在一个地方只会写
 
 00:20:03,429 --> 00:20:05,470
-one kind of code at least as it
+
+写一种代码，
 
 00:20:05,470 --> 00:20:06,629
-currently stands
+
+至少像目前表明的
 
 00:20:06,629 --> 00:20:10,989
-pythons async report is not perfect and
+
+pythons 的异步机制不健全
 
 00:20:10,989 --> 00:20:13,539
-certainly not superior in every way to a
+
+并且在某种程度上并不优于同步的支持
 
 00:20:13,539 --> 00:20:16,029
-synchronous support it is much harder to
+
+它的编写更困难
 
 00:20:16,029 --> 00:20:18,190
-write and it's much more dangerous in
+
+而且在某些特定的方面它更加危险
 
 00:20:18,190 --> 00:20:20,529
-certain ways for example if you're not
+
+比如如果你不是很熟悉 Python 3
 
 00:20:20,529 --> 00:20:23,139
-familiar you can easily just write a
+
+你就很可能会写出一个方法
 
 00:20:23,139 --> 00:20:25,210
-function that blocks the entire event
+
+导致阻塞整个事件循环
 
 00:20:25,210 --> 00:20:27,789
-loop in Python 3 and if you haven't got
+
+如果你还不知道
 
 00:20:27,789 --> 00:20:29,919
-the nice debug mode of the event loop
+
+对于事件循环有哪些好的调试模式
 
 00:20:29,919 --> 00:20:31,629
-turned on your whole thing will just
+
+可能整个事情都会被卡住一段时间
 
 00:20:31,629 --> 00:20:33,309
-hang for a bit while the function blocks
+
+一旦方法被阻塞住
 
 00:20:33,309 --> 00:20:36,249
-and then just keep going and I really
+
+然后只能继续向前
 
 00:20:36,249 --> 00:20:38,169
-don't trust myself to write good
+
+我真的不相信我自己能够
 
 00:20:38,169 --> 00:20:40,629
-asynchronous code I'm not sure I trust
+
+写出好的异步代码。我不确定。
 
 00:20:40,629 --> 00:20:43,149
-the general developer population to
+
+我能相信一般的开发人员
 
 00:20:43,149 --> 00:20:45,129
-write it all the time either and I don't
+
+可以一直写下去，而且我也不认为
 
 00:20:45,129 --> 00:20:48,309
-think they should I think the case here
+
+他们应该这么做。我认为情况是
 
 00:20:48,309 --> 00:20:50,729
-is when you need that high parallelism
+
+当你需要高并发
 
 00:20:50,729 --> 00:20:53,769
-long-lived support then you can go async
+
+长保持支持的时候，那你可以使用异步
 
 00:20:53,769 --> 00:20:56,080
-if you want safety and simplicity then
+
+如果你希望安全和简单，
 
 00:20:56,080 --> 00:20:58,299
-you can go sync and that's really one of
+
+你可以使用同步。
 
 00:20:58,299 --> 00:20:59,440
-the ways channels that you do things are
+
+这确实就是 channels 所做的
 
 00:20:59,440 --> 00:21:02,289
-both and that's why I try to keep both
+
+这也是为什么我要在这里保持
 
 00:21:02,289 --> 00:21:04,179
-systems here you can just write
+
+两个系统，你可以只写
 
 00:21:04,179 --> 00:21:06,279
-synchronous Django code and keep things
+
+同步的 Django 代码而让所有事情
 
 00:21:06,279 --> 00:21:07,840
-working and have backwards compatibility
+
+正常工作，而且向后是兼容。
 
 00:21:07,840 --> 00:21:10,989
-you can also go into the brand-new shiny
+
+你也可以进入全新的闪亮的异步世界
 
 00:21:10,989 --> 00:21:13,960
-async world and keep things there you
+
+在那里处理所有事情
 
 00:21:13,960 --> 00:21:15,369
-can even have a version of consumers
+
+你甚至可以有一个用户版本
 
 00:21:15,369 --> 00:21:17,049
-where it goes synchronous in the
+
+在用户层使用同步
 
 00:21:17,049 --> 00:21:19,450
-consumer layer before but before the ORM
+
+但是在 ORM 之前，
 
 00:21:19,450 --> 00:21:20,919
-layer if you want to write your code
+
+如果你想要使用那样的方式写你的代码
 
 00:21:20,919 --> 00:21:23,919
-that way too but there is one part of
+
+但是这个图表中的一部分
 
 00:21:23,919 --> 00:21:25,950
-this diagram that's still interesting
+
+还是非常有意思
 
 00:21:25,950 --> 00:21:29,409
-and that's this section here there is a
+
+就是这个部分
 
 00:21:29,409 --> 00:21:31,450
-line from the outside mysterious world
+
+有一条来自图外的线
 
 00:21:31,450 --> 00:21:35,499
-into my chart now in the first chart
+
+指向我的图。现在在第一个图
 
 00:21:35,499 --> 00:21:38,369
-with the normal Django one that is WSGI
+
+通常的 Django 1 是 WSGI
 
 00:21:38,369 --> 00:21:41,049
-we all know and love Everest GI it's
+
+我们都知道也喜欢 Everest GI
 
 00:21:41,049 --> 00:21:41,979
-been around for ages
+
+它已经存在很久了
 
 00:21:41,979 --> 00:21:45,940
-it is a incredibly successful interface
+
+它是一个非常成功的界面
 
 00:21:45,940 --> 00:21:49,419
-that has let us swap frameworks and
+
+它让我们很自由的切换框架和服务器
 
 00:21:49,419 --> 00:21:51,729
-servers freely it so that let a lot of
+
+所以这让大量的
 
 00:21:51,729 --> 00:21:53,289
-new servers spring up in the Python
+
+新的服务器在 Python 中出现
 
 00:21:53,289 --> 00:21:54,599
-world like when I started doing Python
+
+比如在我开始使用 Python 的时候
 
 00:21:54,599 --> 00:21:57,190
-you were locked to certain servers by
+
+你被限定在使用特定的服务器，
 
 00:21:57,190 --> 00:21:58,869
-certain frameworks like you couldn't use
+
+和特定的框架，而不能使用
 
 00:21:58,869 --> 00:22:00,940
-a different one and so like I remember
+
+其他的。所以我记得
 
 00:22:00,940 --> 00:22:03,190
-seeing this come through and really
+
+看到整个这一切，真的体会到
 
 00:22:03,190 --> 00:22:04,899
-relishing the freedom it gave to like
+
+它带来的自由，就比如
 
 00:22:04,899 --> 00:22:06,359
-swap between different things
+
+在不同的事情之间切换
 
 00:22:06,359 --> 00:22:10,720
-the problem with WSGI is that it is very
+
+使用 WSGI 的问题是非常
 
 00:22:10,720 --> 00:22:12,279
-much synchronous and it's very much
+
+同步性的，而且它非常依赖于
 
 00:22:12,279 --> 00:22:14,259
-based on that request response model of
+
+HTTP 的请求/响应
 
 00:22:14,259 --> 00:22:15,400
-HTTP
+
+模型
 
 00:22:15,400 --> 00:22:20,200
-it's built as this way where you have a
+
+它是按照这种方式建立的，
 
 00:22:20,200 --> 00:22:22,150
-function you call the function with the
+
+你有一个方法，你使用请求调用这个方法
 
 00:22:22,150 --> 00:22:23,730
-request the function returns a response
+
+返回一个响应
 
 00:22:23,730 --> 00:22:27,610
-there is no real affordance there where
+
+没有真正可供选择的地方
 
 00:22:27,610 --> 00:22:29,440
-you can make the function live for a
+
+让你可以把这个方法保持一段时间
 
 00:22:29,440 --> 00:22:30,850
-long time it's not an asynchronous
+
+它不是异步的方法
 
 00:22:30,850 --> 00:22:32,710
-function it's from the early Python two
+
+它来自于 Python 2 的年代
 
 00:22:32,710 --> 00:22:35,320
-days and so you have to really think
+
+所以你必须考虑
 
 00:22:35,320 --> 00:22:37,540
-like how do we take that and make it
+
+如何对待这样情况，使它可以
 
 00:22:37,540 --> 00:22:40,809
-work for async my first attempt as you
+
+为异步工作。我的第一次尝试，如同你看到的，
 
 00:22:40,809 --> 00:22:42,610
-saw was not great full of weird
+
+不是很大，就是一个奇怪的
 
 00:22:42,610 --> 00:22:45,790
-networking layers but the version that
+
+网络层，但是 channels 使用
 
 00:22:45,790 --> 00:22:48,429
-channels uses I am quite proud of and I
+
+的这个版本我还是相当自豪
 
 00:22:48,429 --> 00:22:50,559
-think it is a good replacement for that
+
+我认为它对于那类东西是个很好的替代
 
 00:22:50,559 --> 00:22:54,040
-that kind of thing it is called a SGI
+
+它被称为 ASGI
 
 00:22:54,040 --> 00:22:56,140
-because it's like whiskey with an A in
+
+因为它就像 WSGI 一样，
 
 00:22:56,140 --> 00:22:56,530
-it
+
+在里面换成一个 A
 
 00:22:56,530 --> 00:22:59,200
-it's very inventive naming I'm on my
+
+这是一个非常有创意的命名
 
 00:22:59,200 --> 00:23:01,210
-part and it is basically an asynchronous
+
+它基本上是 WSGI 的一个异步版本
 
 00:23:01,210 --> 00:23:03,700
-version of whiskey I'll give you a brief
+
+我在这里一个简要的介绍
 
 00:23:03,700 --> 00:23:07,300
-tour of it here so your standard wsgi
+
+那么你的标准的 WSGI 应用
 
 00:23:07,300 --> 00:23:09,460
-application of like this you have an
+
+像这样的，
 
 00:23:09,460 --> 00:23:12,070
-application it takes two things and
+
+你有一个应用，它处理两件事情和
 
 00:23:12,070 --> 00:23:15,250
-Enver on the Enver on is the dictionary
+
+是一个来自外部的
 
 00:23:15,250 --> 00:23:16,570
-of data from outside the environment
+
+字典数据 environ，
 
 00:23:16,570 --> 00:23:18,760
-things like here are the headers here's
+
+包含的东西比如这是标题，
 
 00:23:18,760 --> 00:23:20,830
-the request here's the par from HTTP all
+
+这是请求，这是 HTTP 的参数，
 
 00:23:20,830 --> 00:23:22,540
-that stuff's in there and start
+
+所有东西就在那里，然后启动相应，
 
 00:23:22,540 --> 00:23:24,309
-responses the callable you use to send
+
+你可以使用回调来发送头文件
 
 00:23:24,309 --> 00:23:27,190
-headers back so you get your Enron you
+
+你就得到你的 environ，
 
 00:23:27,190 --> 00:23:29,110
-work on it so like Django requests
+
+你通过它来运转就像 Django 的 requests 一样
 
 00:23:29,110 --> 00:23:31,059
-basically read the Enver on break the
+
+读取 environ，
 
 00:23:31,059 --> 00:23:32,890
-Enver on a part into a full of a quest
+
+把它的各个部分组成一个完整的 request 对象
 
 00:23:32,890 --> 00:23:34,929
-object for you and do path analysis and
+
+然后做路径分析
 
 00:23:34,929 --> 00:23:36,940
-stuff and then once you finish your
+
+然后一旦你完成了你的
 
 00:23:36,940 --> 00:23:38,860
-business logic you call start response
+
+业务逻辑，你就调用 start_response
 
 00:23:38,860 --> 00:23:40,840
-you send your headers in response code
+
+在你的响应代码中发送头文件
 
 00:23:40,840 --> 00:23:42,880
-and then you just basically yield or
+
+然后你只需要使用 yield 或者
 
 00:23:42,880 --> 00:23:46,120
-return data out sent over the socket you
+
+返回通过 socket 发送的数据
 
 00:23:46,120 --> 00:23:50,050
-can see here how it's not quite capable
+
+你可以看出，它擅长于
 
 00:23:50,050 --> 00:23:50,590
-of doing
+
+做长保持的连接
 
 00:23:50,590 --> 00:23:52,059
-long live connections but it could be
+
+但是它已经很接近了
 
 00:23:52,059 --> 00:23:55,059
-closer so a SGI looks a bit different
+
+ASGI 看起来有点不同
 
 00:23:55,059 --> 00:23:57,550
-looks like this the first big difference
+
+看这里，第一个大的不同是
 
 00:23:57,550 --> 00:24:00,970
-is that it is a class the actual
+
+它是一个真正的类，
 
 00:24:00,970 --> 00:24:02,590
-interface is is it's a callable it
+
+一个可以调用的真正的接口
 
 00:24:02,590 --> 00:24:04,420
-returns a callable as you can see here
+
+返回一个回调，如你这里看到的这样。
 
 00:24:04,420 --> 00:24:06,490
-the class has a core method but this is
+
+这个类有一个核心方法，但这是
 
 00:24:06,490 --> 00:24:08,950
-the easiest way to explain it the first
+
+解释它的最简单的方法。
 
 00:24:08,950 --> 00:24:10,660
-time you call it you give it your scope
+
+你第一次调用它的时候，你给他范围
 
 00:24:10,660 --> 00:24:13,990
-the scope is likely Enver on was it is a
+
+范围就像 environ
 
 00:24:13,990 --> 00:24:15,940
-place where all the data about the
+
+它是一个这样一个地方，
 
 00:24:15,940 --> 00:24:18,010
-connection that is there when the
+
+所有和连接相关的数据都在那里
 
 00:24:18,010 --> 00:24:20,410
-connection happens comes to you so for
+
+当连接发生的时候
 
 00:24:20,410 --> 00:24:22,809
-HTTP this is things like the path and
+
+所以对于 HTTP 来说，这些东西比如路径，
 
 00:24:22,809 --> 00:24:24,700
-the method and the headers web
+
+方法，头信息等。
 
 00:24:24,700 --> 00:24:26,290
-WebSockets is very similar it's like oh
+
+Web Sockets 很类似，啊
 
 00:24:26,290 --> 00:24:28,150
-here is the WebSocket path here is the
+
+这是 WebSocket 的路径，这是
 
 00:24:28,150 --> 00:24:29,100
-WebSocket headers
+
+WebSocket 的头信息
 
 00:24:29,100 --> 00:24:31,019
-here's the sub protocol they asked for
+
+这是它们需要的子协议
 
 00:24:31,019 --> 00:24:33,269
-but for other protocols can be different
+
+但是对于其他协议，可以不同，
 
 00:24:33,269 --> 00:24:35,519
-so for example if you are a chat bot
+
+比如，你是一个聊天机器人
 
 00:24:35,519 --> 00:24:37,710
-this could be the room of your chap your
+
+这个可以是你的聊天机器人呆的一个房间
 
 00:24:37,710 --> 00:24:39,570
-chat bot is in for example or TCP
+
+举个例子，或者 TCP 端点以及类似的东西
 
 00:24:39,570 --> 00:24:42,750
-endpoint and things like that and so you
+
+所以你
 
 00:24:42,750 --> 00:24:45,480
-get this information and then the second
+
+获取这些信息，然后第二个
 
 00:24:45,480 --> 00:24:48,240
-callable is a KO routine and you get
+
+回调是一个 call 例程，
 
 00:24:48,240 --> 00:24:50,330
-given two things receive an assent
+
+你得到两个事情获取一个同意
 
 00:24:50,330 --> 00:24:54,389
-because we have taken away the idea of
+
+因为我们已经抛弃了那种想法
 
 00:24:54,389 --> 00:24:56,820
-when the connection opens from the
+
+就是请求发生的时候连接打开
 
 00:24:56,820 --> 00:24:58,980
-request happening because in a WebSocket
+
+因为在 WebSocket 中
 
 00:24:58,980 --> 00:25:00,450
-you can open it then send things all the
+
+你可以打开它，然后在任意时间发送
 
 00:25:00,450 --> 00:25:03,570
-time we've taken away that sort of start
+
+我们已经取消了这样的开始请求
 
 00:25:03,570 --> 00:25:06,059
-of request from the scope yet we do much
+
+从范围开始，我们在 init 里面
 
 00:25:06,059 --> 00:25:08,460
-in the init here down into the call
+
+做更多事情，下来进入 _call_ 方法
 
 00:25:08,460 --> 00:25:10,950
-method and so what happens is you cut
+
+所以发生的就是
 
 00:25:10,950 --> 00:25:13,049
-the call method that's called you get
+
+你调用 _call_ 方法，你获得
 
 00:25:13,049 --> 00:25:15,240
-given these two away tables and it's
+
+这两个表。这是你的
 
 00:25:15,240 --> 00:25:18,419
-your job application to sit there await
+
+应用做的就是等在那里
 
 00:25:18,419 --> 00:25:19,740
-events from the outside world and
+
+await 外部来的事件
 
 00:25:19,740 --> 00:25:22,620
-receive you'll get things like oh you've
+
+然后获取你要得到的所有东西。
 
 00:25:22,620 --> 00:25:24,389
-got you've got a WebSocket frame you've
+
+啊，你获得了一个 WebSocket 帧，
 
 00:25:24,389 --> 00:25:26,429
-got a HTTP request stuff like that and
+
+你获取了一个 HTTP 请求，诸如此类
 
 00:25:26,429 --> 00:25:29,610
-when you get one to send stuff back the
+
+但你获得一个返回的东西的时候。
 
 00:25:29,610 --> 00:25:32,009
-crucial thing is these are not raw much
+
+关键的是这些都不像 WSGI
 
 00:25:32,009 --> 00:25:34,620
-like WSGI there is a specification for
+
+它有一个规范让事情看起来是什么样的，
 
 00:25:34,620 --> 00:25:36,509
-how things look it's pretty close that
+
+它非常接近 WSGI 的目的
 
 00:25:36,509 --> 00:25:39,990
-WSGI on purpose but things like HTTP
+
+但是像 HTTP
 
 00:25:39,990 --> 00:25:41,669
-like the path is decoded for you
+
+像被解码的路径
 
 00:25:41,669 --> 00:25:43,620
-properly things are split out for
+
+为了 WebSockets 正确的东西被分离
 
 00:25:43,620 --> 00:25:45,000
-WebSockets you have a nice diction is
+
+你有一个好的 diction 就像是
 
 00:25:45,000 --> 00:25:46,679
-like oh here's the text ID from the
+
+啊，这是来自帧的文本 ID,
 
 00:25:46,679 --> 00:25:48,629
-frame here's the but the binary data
+
+这使来自帧的二进制数据，
 
 00:25:48,629 --> 00:25:51,330
-from the frame the decoding is done for
+
+解码也在那里为你完成了
 
 00:25:51,330 --> 00:25:53,159
-you there as well and so it is still
+
+所以它还是一个
 
 00:25:53,159 --> 00:25:56,100
-high level like WSGI is in that respect
+
+像 WSGI 那样的在那个方面是高层级的，
 
 00:25:56,100 --> 00:25:58,049
-but it also gives you the ability to do
+
+但是它也让你可以做你想要做的事情
 
 00:25:58,049 --> 00:26:00,059
-what you like because this is just a KO
+
+因为这只是一个 call 例程，
 
 00:26:00,059 --> 00:26:02,490
-routine you don't have to just receive
+
+你不需要只是接收和发送
 
 00:26:02,490 --> 00:26:04,379
-and send you can launch your own
+
+你可以启动你自己的
 
 00:26:04,379 --> 00:26:06,840
-background KO routine so for example in
+
+后台 call 例程。例如，
 
 00:26:06,840 --> 00:26:09,480
-channels we have a base class of these
+
+在 channels 我们有一个包括这些的基本类
 
 00:26:09,480 --> 00:26:12,299
-that in its cool method before you even
+
+有一些很酷的方法，甚至在你
 
 00:26:12,299 --> 00:26:14,100
-starts receiving launches a second
+
+开始接收之前启动第二个
 
 00:26:14,100 --> 00:26:15,659
-receiving thread that listens to the
+
+接收线程，监听 channel 层
 
 00:26:15,659 --> 00:26:17,549
-channel layer and so all it's actually
+
+所以它实际上做的就是
 
 00:26:17,549 --> 00:26:19,710
-doing is listening on both the channel
+
+监听所有 channel 层的异步事件和
 
 00:26:19,710 --> 00:26:22,169
-layers async thing and on the sockets
+
+sockets 上的异步事件
 
 00:26:22,169 --> 00:26:24,330
-async thing but because we can extract
+
+但是因为我们可以提取它
 
 00:26:24,330 --> 00:26:26,070
-it like that we can just say yeah you
+
+就是那样，我们可以说，嘿，
 
 00:26:26,070 --> 00:26:27,210
-have a KO routine you can do what you
+
+你有一个 call 例程，你可以做你想要的，
 
 00:26:27,210 --> 00:26:29,610
-like as long as you clean up you get a
+
+只要你清理下，你获得了很大的自由。
 
 00:26:29,610 --> 00:26:32,070
-lot of freedom and that means we can do
+
+这意味着我们可以做一些事情，
 
 00:26:32,070 --> 00:26:34,799
-things like do computations after you've
+
+比如在你发送完响应之后
 
 00:26:34,799 --> 00:26:36,840
-sent the response as long as you exit at
+
+做一些计算，只要在某个点退出。
 
 00:26:36,840 --> 00:26:38,820
-some point and the server's have a
+
+而且服务器有一个
 
 00:26:38,820 --> 00:26:40,830
-built-in ten-second timeout after the
+
+内置的 10 秒的超时在 socket
 
 00:26:40,830 --> 00:26:42,480
-socket closes you can do a lot of
+
+关闭之后，你可以在后台做
 
 00:26:42,480 --> 00:26:43,080
-background
+
+很多事情
 
 00:26:43,080 --> 00:26:44,399
-are seeing or listening on different
+
+在不同的 sockets 上发送或者监听
 
 00:26:44,399 --> 00:26:46,980
-sockets all that kind of stuff but also
+
+所有这类东西，但是还有
 
 00:26:46,980 --> 00:26:49,169
-crucially it is still pretty simple and
+
+关键它依然非常简单，
 
 00:26:49,169 --> 00:26:51,029
-it's still an object you pass into your
+
+而且它依然是一个对象你把它送到你的
 
 00:26:51,029 --> 00:26:53,549
-server you still have an application you
+
+服务器，你依然有一个应用
 
 00:26:53,549 --> 00:26:56,070
-pass on the command line to your ASCII
+
+使用命令行发送到你的服务器，
 
 00:26:56,070 --> 00:26:57,749
-server and it handles that kind of stuff
+
+而它为你处理所有这类事务。
 
 00:26:57,749 --> 00:27:00,659
-for you and one of the things that we
+
+这里我们通过它
 
 00:27:00,659 --> 00:27:02,129
-wanted to reach here with this was a
+
+希望达到的一件事情是一个短语
 
 00:27:02,129 --> 00:27:05,369
-phrase I first heard I Django con EU in
+
+我第一次听说是在 2009 的 Django con EU
 
 00:27:05,369 --> 00:27:09,119
-2009 called Turtles all the way down one
+
+被一直成为 Turtles。
 
 00:27:09,119 --> 00:27:10,799
-of the goals with Django we never really
+
+Django 的其中一个从未实现的目标
 
 00:27:10,799 --> 00:27:13,230
-got to was to have all those layers you
+
+是所有这些你看到的层
 
 00:27:13,230 --> 00:27:14,399
-saw be very similar
+
+都非常相似
 
 00:27:14,399 --> 00:27:17,609
-like why is routing and middleware and
+
+比如，为什么路由，中间件和视图
 
 00:27:17,609 --> 00:27:20,039
-views all different like they all have
+
+都不一样，它们各自都有
 
 00:27:20,039 --> 00:27:21,330
-different interfaces you can't write
+
+不同的接口，你不能按照
 
 00:27:21,330 --> 00:27:22,619
-them quite the same and there are
+
+完全相同的方式编写它们，而且
 
 00:27:22,619 --> 00:27:25,169
-reasons for that in the way WSGI and
+
+WSGI 和 Django 按照这样的方式设计
 
 00:27:25,169 --> 00:27:28,379
-Django is designed there was a push for
+
+那是有原因的。有段时间推动
 
 00:27:28,379 --> 00:27:30,809
-a while to have WSGI middleware and we
+
+WSGI 中间件，现在在
 
 00:27:30,809 --> 00:27:32,249
-still have this around it exists in
+
+Python 中依然存在这一点。
 
 00:27:32,249 --> 00:27:34,590
-Python Django is very bad at not using
+
+Django 在不适用它的时候会非常糟糕，
 
 00:27:34,590 --> 00:27:36,330
-it and for a variety of reasons that are
+
+而且因为各种各样的原因，
 
 00:27:36,330 --> 00:27:38,759
-partially our fault but the idea is I'm
+
+部分是我们自己的过错，但是想法是
 
 00:27:38,759 --> 00:27:40,379
-gonna try and fix that like how can we
+
+我会尝试并且修复它，像是我们如何
 
 00:27:40,379 --> 00:27:42,749
-come back to the approach and make it
+
+回到方法并且把它变
 
 00:27:42,749 --> 00:27:45,389
-all the same again all the way down and
+
+一路下来一模一样。
 
 00:27:45,389 --> 00:27:47,039
-it's part of making it all async as well
+
+这也是把它做成全部异步的一部分，
 
 00:27:47,039 --> 00:27:49,320
-you know that routing I showed you in
+
+你知道我在那个层给你显示的
 
 00:27:49,320 --> 00:27:51,299
-that layer is just a normal a SGI
+
+只是一个普通的 ASGI 应用
 
 00:27:51,299 --> 00:27:54,029
-application it's an application that you
+
+它是一个这样的应用，
 
 00:27:54,029 --> 00:27:56,399
-give it a dictionary that says this
+
+你给它一个字典,告诉它
 
 00:27:56,399 --> 00:27:57,450
-pattern goes to this other application
+
+按照这个模式去其他的应用程序
 
 00:27:57,450 --> 00:28:00,359
-and it makes a brand new application the
+
+并且他生成一个全新的应用程序，
 
 00:28:00,359 --> 00:28:02,129
-middleware is applications to wrap other
+
+中间件就是应用程序包裹其他应用程序
 
 00:28:02,129 --> 00:28:05,070
-applications the whole point is all the
+
+重点是在 Django channels 中的
 
 00:28:05,070 --> 00:28:08,549
-stuff in Django channels is generic and
+
+所有东西是通用的，而且
 
 00:28:08,549 --> 00:28:10,440
-not particularly tied to Django at all
+
+并不特别和 Django 绑定。
 
 00:28:10,440 --> 00:28:13,230
-and the idea here is to try and free up
+
+这里的想法是尝试并且清除
 
 00:28:13,230 --> 00:28:15,840
-some of that potential for mixing and
+
+一些潜在的混合和
 
 00:28:15,840 --> 00:28:17,100
-matching Django stuff that we never
+
+匹配 Django 的东西
 
 00:28:17,100 --> 00:28:20,609
-really got to in the existing place but
+
+在现在我们从来没有真正做到的
 
 00:28:20,609 --> 00:28:22,139
-then there comes a very interesting
+
+但是产生了一个非常有趣的问题
 
 00:28:22,139 --> 00:28:25,679
-question I've just stood up here about
+
+我已经站在这里大概半个小时了
 
 00:28:25,679 --> 00:28:27,330
-half an hour and told you how I've taken
+
+而且告诉那你我是如何采用 Dajango
 
 00:28:27,330 --> 00:28:29,460
-Django made a parallel version of it and
+
+制作了它的并行版本，
 
 00:28:29,460 --> 00:28:32,249
-it has different asynchronous things but
+
+而且它有不同的异步的东西，但是
 
 00:28:32,249 --> 00:28:34,039
-I haven't really touched core Django and
+
+我没有真正触及核心 Django
 
 00:28:34,039 --> 00:28:36,210
-what does this mean for core Django
+
+这对于核心 Django 意味着什么
 
 00:28:36,210 --> 00:28:37,799
-itself like channels is a Django project
+
+比如 channels 就是一个 Django 项目
 
 00:28:37,799 --> 00:28:40,049
-is under the Django organization on
+
+在 github 上的 Django 组织下，
 
 00:28:40,049 --> 00:28:41,879
-github but it is still a separate
+
+但是它也是一个独立的项目，
 
 00:28:41,879 --> 00:28:43,289
-project is not part of the core code
+
+不是基础核心代码的一部分，
 
 00:28:43,289 --> 00:28:45,539
-base and it's at this point we have to
+
+而且在这一点上，我们必须
 
 00:28:45,539 --> 00:28:48,019
-start thinking a bit more in the future
+
+在未来开始考虑更多
 
 00:28:48,019 --> 00:28:50,730
-the real question we have is how much
+
+真正的问题是
 
 00:28:50,730 --> 00:28:52,740
-can we make a synchronous asynchronous
+
+我们做一个同步或者异步需要花费多少
 
 00:28:52,740 --> 00:28:54,960
-code does not come for free for two
+
+代码不会免费获得。
 
 00:28:54,960 --> 00:28:55,679
-reasons
+
+有两个原因
 
 00:28:55,679 --> 00:28:56,730
-first of all it takes
+
+首先，需要花费精力
 
 00:28:56,730 --> 00:28:58,679
-effort to rewrite code to be
+
+重写异步代码
 
 00:28:58,679 --> 00:29:00,870
-asynchronous and maintenance is not free
+
+而且维护也不是免费的或者很便宜的。
 
 00:29:00,870 --> 00:29:04,200
-or cheap I'll pretty much everyone apart
+
+我很感谢每一个贡献者
 
 00:29:04,200 --> 00:29:05,940
-from a couple of our Django fellows a
+
+从我们 Django 追随者里产生的
 
 00:29:05,940 --> 00:29:07,470
-welcome Django works on a volunteer
+
+欢迎参加志愿者活动
 
 00:29:07,470 --> 00:29:09,360
-basis and our fellows are very busy
+
+我们的同事非常忙碌，
 
 00:29:09,360 --> 00:29:11,970
-triaging bugs and doing security work we
+
+分流错误并且做一些安全工作。
 
 00:29:11,970 --> 00:29:15,270
-do not have a huge amount of people
+
+我们没有足够的人力
 
 00:29:15,270 --> 00:29:16,919
-power that we can put behind a big
+
+可以把一个大的项目
 
 00:29:16,919 --> 00:29:18,090
-project to rewrite everything to be
+
+完全重写成异步的形式
 
 00:29:18,090 --> 00:29:20,580
-async one of the big blockers for this
+
+其中一个大的阻碍开始是
 
 00:29:20,580 --> 00:29:22,440
-initially was the idea that if we moved
+
+这样的想法，如果我们变化，
 
 00:29:22,440 --> 00:29:24,090
-it would have to be a breaking change
+
+必须是一个突破性的变化
 
 00:29:24,090 --> 00:29:27,390
-well I try to do with channels to is to
+
+我通过 channels 试图想做的就是
 
 00:29:27,390 --> 00:29:29,970
-show that we can move things to be async
+
+表明我们可以转变成异步
 
 00:29:29,970 --> 00:29:31,380
-and then you keep a synchronous
+
+然后通过我们的 wrapper 方法
 
 00:29:31,380 --> 00:29:33,000
-interface with us wrapper function to
+
+你依然保持同步接口，像之前看到的。
 
 00:29:33,000 --> 00:29:35,429
-saw earlier but there's still a second
+
+但是还有第二个问题
 
 00:29:35,429 --> 00:29:37,620
-problem which is speed whenever you
+
+就是速度。无论何时你
 
 00:29:37,620 --> 00:29:39,600
-emulate across the layers like that from
+
+在像这样的图层上模拟
 
 00:29:39,600 --> 00:29:41,640
-acing to sink or swim to a sink you'll
+
+async_to_sync 或者 sync_to_async ,
 
 00:29:41,640 --> 00:29:43,440
-be dropping performance if you're
+
+你都要舍弃性能。如果你
 
 00:29:43,440 --> 00:29:45,210
-running your threads Python threads or a
+
+使用使用 Python 线程运行，那么
 
 00:29:45,210 --> 00:29:47,160
-natural performance hit if you're trying
+
+很自然性能会受损，如果你试图调用
 
 00:29:47,160 --> 00:29:48,600
-to call async code and synchronous code
+
+异步代码或者同步代码，
 
 00:29:48,600 --> 00:29:50,490
-having to go up to that main thread and
+
+必须去那个主线程，然后
 
 00:29:50,490 --> 00:29:52,650
-back again it's gonna be a performance
+
+再回来，这将是一个性能损失。
 
 00:29:52,650 --> 00:29:54,150
-hit before we even consider the fact
+
+甚至我们考虑这样的事实
 
 00:29:54,150 --> 00:29:55,650
-that you're probably gonna keep popping
+
+你大概应该会不停的进入退出
 
 00:29:55,650 --> 00:29:57,140
-in and out of it as you keep doing it
+
+当你一直保持这样做的时候
 
 00:29:57,140 --> 00:29:59,309
-and so there's a real problem there but
+
+所以这确实是个问题
 
 00:29:59,309 --> 00:30:01,410
-like looking at Django and like all of
+
+就像我们看一下 Django 和 所有的
 
 00:30:01,410 --> 00:30:03,919
-jangers components and thinking well
+
+Django 部件以及想法
 
 00:30:03,919 --> 00:30:05,880
-could we make this async
+
+好吧，我们可以做这样的异步
 
 00:30:05,880 --> 00:30:08,010
-but would it be much slower like Django
+
+但是会更加慢一些，
 
 00:30:08,010 --> 00:30:09,900
-has had performance problems in the past
+
+就像以前 Django 有过性能问题，
 
 00:30:09,900 --> 00:30:11,910
-we've tried to speed them up and they
+
+我们试图加速它们，它们曾经是
 
 00:30:11,910 --> 00:30:13,559
-used to be a graph of Django performance
+
+Django 的性能图标
 
 00:30:13,559 --> 00:30:15,150
-released by release that got slower and
+
+由于不停的发布，导致越来越慢
 
 00:30:15,150 --> 00:30:17,840
-slower that finally managed to fix and
+
+最后不得不想办法解决。
 
 00:30:17,840 --> 00:30:22,350
-then the real big question is the Django
+
+真正大问题是
 
 00:30:22,350 --> 00:30:26,460
-for better or for worse is by complexity
+
+Django 的好坏是大部分有复杂性导致的吗？
 
 00:30:26,460 --> 00:30:29,130
-mostly erm him it's a lot of where our
+
+道理是哪里有大量的复杂性
 
 00:30:29,130 --> 00:30:30,419
-complexity is a lot of the maintenance
+
+哪里就有大量的需要维护的工作
 
 00:30:30,419 --> 00:30:33,059
-goes there and the real question is what
+
+真正的问题是
 
 00:30:33,059 --> 00:30:34,020
-would that look like
+
+那会看起来怎么样
 
 00:30:34,020 --> 00:30:37,940
-chango's ORM is very particularly
+
+Django 的 ORM 是非常特别的
 
 00:30:37,940 --> 00:30:40,440
-opinionated it's designed from a time in
+
+它从一开始就从一个我确实非常欣赏
 
 00:30:40,440 --> 00:30:41,970
-from a place I really appreciate which
+
+的地方开始设计
 
 00:30:41,970 --> 00:30:45,390
-is like it's not a relational I
+
+就像它不是一个关系型的
 
 00:30:45,390 --> 00:30:47,340
-particularly SQL based Roman is much
+
+特别是基于 Roman 的 SQL 更多的
 
 00:30:47,340 --> 00:30:49,140
-more based on object and fetching and
+
+基于对象和抓取，而且
 
 00:30:49,140 --> 00:30:50,790
-it's got better over the years and there
+
+它在过去几年变得更好
 
 00:30:50,790 --> 00:30:52,799
-are more relational parts but it's all
+
+而且有了更多的关系型部分，但是
 
 00:30:52,799 --> 00:30:55,049
-very declarative and quite simplistic in
+
+它非常清晰也非常简单
 
 00:30:55,049 --> 00:30:57,510
-in the way you handle it and like how
+
+通过这种方式你操作它。
 
 00:30:57,510 --> 00:31:00,750
-could we even do that same stuff in an
+
+我们如何在一个异步里面做这些同样的事情？
 
 00:31:00,750 --> 00:31:03,390
-async term could we even do that for
+
+我们可以做了
 
 00:31:03,390 --> 00:31:04,950
-example one of the big problems I've run
+
+例如我使用 Python 3 运行遇到的
 
 00:31:04,950 --> 00:31:08,010
-into with Python 3 async is that even if
+
+一个大的问题是
 
 00:31:08,010 --> 00:31:10,600
-you're in an async context in a code
+
+即使你在一个异步上下文中，
 
 00:31:10,600 --> 00:31:12,940
-attribute access is still synchronous
+
+属性访问依然是同步的
 
 00:31:12,940 --> 00:31:15,010
-there's no asynchronous actuate access
+
+没有异步的驱动访问，
 
 00:31:15,010 --> 00:31:17,560
-and so if you override things like
+
+所以如果你要重写比如
 
 00:31:17,560 --> 00:31:19,900
-properties or accessors and/or get
+
+属性或者驱动和/或获取方法，
 
 00:31:19,900 --> 00:31:22,840
-methods you can't have async versions of
+
+你不能有这些的异步版本
 
 00:31:22,840 --> 00:31:25,150
-those a lot of what Jango does relies on
+
+很多 Django 做的事情依赖于
 
 00:31:25,150 --> 00:31:28,420
-overriding like operators or actually
+
+比如运营商的重写或是实际
 
 00:31:28,420 --> 00:31:30,550
-access and you just can't have those
+
+驱动的重写。而你无法很顺畅的
 
 00:31:30,550 --> 00:31:32,950
-transparently be asynchronous one of the
+
+把它们改成异步。
 
 00:31:32,950 --> 00:31:34,720
-big problems we had of channels was that
+
+我们的 channels 的一个大问题是
 
 00:31:34,720 --> 00:31:37,750
-I made a middleware which put users onto
+
+我做了一个中间件，
 
 00:31:37,750 --> 00:31:39,580
-the scope to stand at Wharf middleware
+
+把用户放进范围中，这很好
 
 00:31:39,580 --> 00:31:43,000
-it's great the problem is that when you
+
+问题是当你试图
 
 00:31:43,000 --> 00:31:45,340
-are trying to make that take a take a
+
+让它从范围内采用一个 cookie
 
 00:31:45,340 --> 00:31:47,080
-cookie from the scope and turn it into a
+
+把它转换成一个用户对象
 
 00:31:47,080 --> 00:31:49,090
-user object that involves accessing the
+
+并且涉及到访问 ORM，
 
 00:31:49,090 --> 00:31:51,460
-ORM and this means you have to do it in
+
+这就意味着你不得不使用
 
 00:31:51,460 --> 00:31:53,110
-a synchronous context because it's
+
+同步的上下文来实现，因为这是 Django
 
 00:31:53,110 --> 00:31:55,750
-Django and it's a synchronous RM but the
+
+它是同步的 RM。
 
 00:31:55,750 --> 00:31:57,580
-problem is that on the request object
+
+但是问题是在于请求对象
 
 00:31:57,580 --> 00:32:00,820
-user is lazy until you look at user the
+
+用户是懒加载的，知道你第一次看到用户
 
 00:32:00,820 --> 00:32:02,620
-first time there's nothing there it's
+
+那里没有任何东西
 
 00:32:02,620 --> 00:32:05,620
-sort of a basically a promise as soon as
+
+只是一组基本的 promise，只要你
 
 00:32:05,620 --> 00:32:08,200
-you look at it the descriptor triggers
+
+一看到它描述符触发器被触发
 
 00:32:08,200 --> 00:32:10,600
-fires the ORM query comes back and then
+
+ORM 查询并返回，然后给你对象。
 
 00:32:10,600 --> 00:32:12,670
-gives you the object the problem we were
+
+我们遇到的问题是
 
 00:32:12,670 --> 00:32:14,110
-having was that this is happening in the
+
+这是发生在
 
 00:32:14,110 --> 00:32:16,840
-middle of an asynchronous piece of code
+
+异步代码段的中间
 
 00:32:16,840 --> 00:32:19,330
-like well put in an async function we
+
+就像我们引入一个异步方法
 
 00:32:19,330 --> 00:32:21,910
-try and get this thing got user it goes
+
+我们试图获取用户
 
 00:32:21,910 --> 00:32:23,110
-away it starts running in database
+
+它开始在数据库中运行查询
 
 00:32:23,110 --> 00:32:24,610
-queries and that's gonna make you a
+
+这绝对会给你造成一个阻塞
 
 00:32:24,610 --> 00:32:28,270
-resolute block there was protection what
+
+有一个对于发生了什么的保护
 
 00:32:28,270 --> 00:32:30,400
-happened in fact was that channels
+
+机制就是 channels
 
 00:32:30,400 --> 00:32:31,930
-worked out what was happening I said no
+
+搞清楚发生了什么，我说过了不可能。
 
 00:32:31,930 --> 00:32:35,020
-you can't run synchronous code and async
+
+你不能运行同步代码和异步回调，
 
 00:32:35,020 --> 00:32:38,080
-lupine and quit out bit cause the bug
+
+这导致了问题。
 
 00:32:38,080 --> 00:32:39,880
-had to fix it in a nasty way and it
+
+必须用一种讨厌的方式解决它，
 
 00:32:39,880 --> 00:32:42,430
-still remains and like that becomes much
+
+而它依然存在，就像变的更严重了
 
 00:32:42,430 --> 00:32:43,840
-more magnified when you think about it
+
+当你在一个更大的范围内去考虑它
 
 00:32:43,840 --> 00:32:45,520
-on the grander scale of like could we
+
+我们甚至可以部分
 
 00:32:45,520 --> 00:32:47,590
-even partially rewrite this stuff like
+
+重写这些东西比如
 
 00:32:47,590 --> 00:32:50,800
-how would that work is there an
+
+那是怎么工作的？
 
 00:32:50,800 --> 00:32:51,970
-alternate way of doing this can we make
+
+有没有另外的方式来做呢？
 
 00:32:51,970 --> 00:32:53,920
-jung-in more pluggable I said earlier
+
+我们可以加入更多插件。我之前说过
 
 00:32:53,920 --> 00:32:55,810
-like you know shareable middleware and
+
+就像你了解的共享中间件和 WSGI
 
 00:32:55,810 --> 00:32:58,060
-whiskey middleware is this goal Jango
+
+中间件就是这个目标
 
 00:32:58,060 --> 00:33:00,070
-never quite got to could we get back
+
+Django 从来没有完全得到。
 
 00:33:00,070 --> 00:33:03,190
-there is one of these routes to it based
+
+我们可以回来，这些线路中的一条是
 
 00:33:03,190 --> 00:33:05,620
-around that kind of stuff I would really
+
+基于这类东西的。我真的
 
 00:33:05,620 --> 00:33:08,340
-love to see jagger be more pluggable I
+
+希望看到 Django 更多的插件化。
 
 00:33:08,340 --> 00:33:11,380
-nearly always every year here requests
+
+我几乎每年都被邀请来到这里
 
 00:33:11,380 --> 00:33:14,680
-for well I'd love to use Django part X
+
+做比如我喜欢使用 Django X 部分在
 
 00:33:14,680 --> 00:33:16,480
-outside of Django but of course the
+
+Django 之外，但是当然
 
 00:33:16,480 --> 00:33:18,340
-Settings often is the problem pops up
+
+设定经常是问题
 
 00:33:18,340 --> 00:33:20,680
-and comes in there so like part of this
+
+来来回回的，就像这个的一部分
 
 00:33:20,680 --> 00:33:22,960
-is if we are rethinking Django at all
+
+我们是否正在重新思考 Django，
 
 00:33:22,960 --> 00:33:26,200
-is there a way around that part of it do
+
+有没有方法解决这个问题？
 
 00:33:26,200 --> 00:33:28,360
-we finally like start separating out the
+
+我们最终把 RM 从 模板中
 
 00:33:28,360 --> 00:33:31,809
-RM from the templates from the views
+
+从视图中，从抓取中，
 
 00:33:31,809 --> 00:33:34,029
-from the caching from the URL routing
+
+从 URL 的路由中分离出来
 
 00:33:34,029 --> 00:33:37,390
-for example and all these are pretty
+
+比如，而且所有这些都确实是
 
 00:33:37,390 --> 00:33:38,610
-difficult questions
+
+困难的问题
 
 00:33:38,610 --> 00:33:40,600
-and then there's an even bigger question
+
+然后还有一个更大的问题
 
 00:33:40,600 --> 00:33:44,289
-that's beyond Django itself I have just
+
+那已经超出了 Django 本身，
 
 00:33:44,289 --> 00:33:46,510
-stood up here and showed you what I call
+
+我只是在这里给你指明下
 
 00:33:46,510 --> 00:33:49,659
-a replacement for WSGI that is a bold
+
+我所称作 WSGI 的一个替代。
 
 00:33:49,659 --> 00:33:51,760
-claim to make it is not an easy thing to
+
+这是一个大胆的声明
 
 00:33:51,760 --> 00:33:55,630
-replace and it is arguably something
+
+替代不是一件容易的事情，而且可以说
 
 00:33:55,630 --> 00:33:57,880
-does not need to be replaced it works
+
+它不需要被替代，
 
 00:33:57,880 --> 00:33:58,899
-very well
+
+它运转的很好
 
 00:33:58,899 --> 00:34:02,440
-some Unicode problems aside form the
+
+除了一些 Unicode 的问题，
 
 00:34:02,440 --> 00:34:05,590
-majority of Python web handling and in
+
+大部分 Python web 处理了，
 
 00:34:05,590 --> 00:34:07,240
-particular WebSockets are not a big
+
+尤其是 WebSockets 不是一个大需求
 
 00:34:07,240 --> 00:34:09,190
-demand thing one of the differences
+
+migrations 和 channels 之间的
 
 00:34:09,190 --> 00:34:11,220
-between migrations and channels
+
+不同中的一个
 
 00:34:11,220 --> 00:34:14,050
-everyone needs migrations but doesn't
+
+所有人都需要 migrations，
 
 00:34:14,050 --> 00:34:16,690
-know they need it yet most people don't
+
+但不是所有人都知道需要它，而大部分人不需要
 
 00:34:16,690 --> 00:34:17,859
-need WebSockets they think they do need
+
+WebSockets，但他们认为他们需要它们
 
 00:34:17,859 --> 00:34:19,179
-them they're shiny they're new they're
+
+它们是很闪亮，很新，也很令人兴奋，
 
 00:34:19,179 --> 00:34:21,339
-exciting the problem is socket
+
+但是问题是 socket
 
 00:34:21,339 --> 00:34:23,950
-programming is really hard if you're a
+
+编程确实很难，如果你是一个
 
 00:34:23,950 --> 00:34:25,540
-web developer you are spoiled because
+
+网页开发者，你已经被宠坏了因为
 
 00:34:25,540 --> 00:34:26,740
-you had this wonderful stateless
+
+你有了这种完美的无状态协议
 
 00:34:26,740 --> 00:34:28,899
-protocol where like everything is reset
+
+在每次请求中所有东西
 
 00:34:28,899 --> 00:34:29,679
-every request
+
+都会被重设
 
 00:34:29,679 --> 00:34:31,149
-there's no persisting state and popping
+
+没有持久的状态也没有存储的 cookies
 
 00:34:31,149 --> 00:34:32,619
-cookies it's actually really well
+
+它确实是一个很好的设计
 
 00:34:32,619 --> 00:34:34,570
-designed as a protocol to write against
+
+作为一个协议来编写的话。
 
 00:34:34,570 --> 00:34:36,879
-if you try and go from that world on
+
+如果你试图从那个世界的
 
 00:34:36,879 --> 00:34:39,159
-both the front end and the back end side
+
+前端和后端都进入
 
 00:34:39,159 --> 00:34:42,220
-into the web world of WebSockets it
+
+WebSockets 的世界
 
 00:34:42,220 --> 00:34:43,750
-takes a lot of extra effort there's new
+
+它需要很多额外的努力，
 
 00:34:43,750 --> 00:34:45,669
-skills to learn this new debugging
+
+需要学习新的调试技巧，
 
 00:34:45,669 --> 00:34:48,159
-problems learn load testing is even
+
+学习负载测试的问题甚至是
 
 00:34:48,159 --> 00:34:52,030
-worse like the numb load testing
+
+最糟的比如 numb 负载测试
 
 00:34:52,030 --> 00:34:53,080
-WebSockets is a thing that's not even a
+
+WebSockets 对你来说，
 
 00:34:53,080 --> 00:34:55,000
-good tool for you there's some tools
+
+甚至都不是一个好工具，
 
 00:34:55,000 --> 00:34:56,500
-there half written but it's not a thing
+
+那里有一些写了一半的工具，但这不是一回事
 
 00:34:56,500 --> 00:34:58,560
-we have a good lot of good practice at
+
+我们有很多很好的练习
 
 00:34:58,560 --> 00:35:01,660
-even finding load balancers that
+
+甚至找到负载均衡器，
 
 00:35:01,660 --> 00:35:03,490
-understand had a load balance long Oh
+
+明白了长负载均衡。
 
 00:35:03,490 --> 00:35:05,920
-like long-standing connections properly
+
+如同长连接一样，
 
 00:35:05,920 --> 00:35:08,230
-is difficult too and so the real
+
+也是非常困难的，所以
 
 00:35:08,230 --> 00:35:12,900
-question here is is that demand for
+
+这里真正的问题是的
 
 00:35:12,900 --> 00:35:16,540
-asynchronous long live protocols
+
+那个对于异步长保持协议的需求
 
 00:35:16,540 --> 00:35:18,070
-sufficient to think about replacement
+
+确实足够让我们替换
 
 00:35:18,070 --> 00:35:20,800
-wci let me replace I mean sit alongside
+
+WSGI 吗？我的意思是作为一种必然的选择
 
 00:35:20,800 --> 00:35:23,740
-as an alternative of course but like do
+
+当然如果喜欢，
 
 00:35:23,740 --> 00:35:26,710
-we even need that stuff and I've been
+
+我们甚至需要那些东西，
 
 00:35:26,710 --> 00:35:29,080
-pondering us for a while WSGI is a
+
+而我已经思考了一段时间，WSGI 是一个
 
 00:35:29,080 --> 00:35:32,020
-stable state it is written in a pet like
+
+稳定态，它就像一个时尚的宠物一样被编写出来，
 
 00:35:32,020 --> 00:35:34,119
-fashion but is it not a pet at least not
+
+但它至少不是一个宠物，
 
 00:35:34,119 --> 00:35:35,140
-yet
+
+至少现在还不是
 
 00:35:35,140 --> 00:35:36,950
-one of the things I personally think
+
+我个人认为的一个
 
 00:35:36,950 --> 00:35:39,800
-important for any kind of shall we say
+
+很重要的事情，可以说
 
 00:35:39,800 --> 00:35:42,260
-wanting to be specification is to have
+
+我们想成为规范的是
 
 00:35:42,260 --> 00:35:45,619
-multiple implementations thanks to the
+
+有多个实现。感谢团队在
 
 00:35:45,619 --> 00:35:47,359
-work of the team over at Django rest
+
+Django 上的工作，
 
 00:35:47,359 --> 00:35:49,430
-framework Django rest framework among
+
+Django 其他的框架
 
 00:35:49,430 --> 00:35:51,950
-others there are now multiple a SGI
+
+现在有多 ASGI 服务器，
 
 00:35:51,950 --> 00:35:55,040
-servers Oh Daphne and Yuva corn both
+
+哦，daphne 和 uvicorn 都
 
 00:35:55,040 --> 00:35:58,280
-just plug in and run stuff um the thing
+
+加入了进来并运行起来
 
 00:35:58,280 --> 00:35:59,540
-I'm really missing here is multiple
+
+我遗漏的事情是 Multiple frameworks，
 
 00:35:59,540 --> 00:36:02,030
-frame looks like what I've written works
+
+看起来像我编写的东西在 Django 中运行
 
 00:36:02,030 --> 00:36:05,060
-well for Django I am not gonna be happy
+
+良好，我不会太高兴，
 
 00:36:05,060 --> 00:36:06,829
-until I know it would fit well into
+
+直到我知道它
 
 00:36:06,829 --> 00:36:09,320
-other frameworks as well and for this
+
+在其他框架也运行的很好。
 
 00:36:09,320 --> 00:36:12,500
-reason like my reticence in many ways is
+
+因为这个原因就像我在很多方面沉默一样，
 
 00:36:12,500 --> 00:36:13,820
-like I want to sit down but maybe flask
+
+我想要静下来，但是可能是 flask，
 
 00:36:13,820 --> 00:36:15,710
-or pyramid or something one of the other
+
+或者金字塔，或者其他的
 
 00:36:15,710 --> 00:36:17,180
-big Python web frameworks are like hey
+
+另外一个大的 Python web 框架就像，嘿，
 
 00:36:17,180 --> 00:36:19,520
-cam would this fit into their paradigm
+
+这个可以适合他们的范例，
 
 00:36:19,520 --> 00:36:21,440
-as well could we do similar things with
+
+我们可以用这种方法来做
 
 00:36:21,440 --> 00:36:24,320
-this kind of stuff there is a whiskey
+
+类似的事情。在 ASGI 里面
 
 00:36:24,320 --> 00:36:26,270
-adapter inside a SGI you can run a
+
+有 WSGI 的适配器，你在里面可以运行一个
 
 00:36:26,270 --> 00:36:28,190
-whiskey app inside it's a superset
+
+WSGI 应用。它是一个超集，
 
 00:36:28,190 --> 00:36:30,079
-that's not really giving many benefits
+
+这并没有带来很多好处，
 
 00:36:30,079 --> 00:36:32,750
-why would you do that there's an issue
+
+你为什么要这么做？这里有一个开放的问题，
 
 00:36:32,750 --> 00:36:36,079
-open I think it was on the AI Oh HTTP
+
+我想是 AI，啊 就像 HTTP
 
 00:36:36,079 --> 00:36:37,940
-track of like oh we should add support
+
+追踪，啊，我们应该加入支持
 
 00:36:37,940 --> 00:36:39,609
-for this thing and reinvention and like
+
+对于这件事情和改造，有一些
 
 00:36:39,609 --> 00:36:42,680
-some wonderful person who is very very
+
+很棒的人非常非常热情地
 
 00:36:42,680 --> 00:36:44,060
-enthusiastic opened it and I had a
+
+打开了它，我有一个搜索
 
 00:36:44,060 --> 00:36:46,609
-search ones they're like you can't just
+
+它们喜欢的东西，你不能只是
 
 00:36:46,609 --> 00:36:48,560
-go and ask maintainer x' for things that
+
+去问维护者 X 事情，
 
 00:36:48,560 --> 00:36:50,300
-give them no benefit right like if we're
+
+就像我们一样，而不给他们好处。
 
 00:36:50,300 --> 00:36:51,829
-gonna do this happy everyone has to
+
+如果我们想要很愉快的做这件事情，
 
 00:36:51,829 --> 00:36:54,260
-benefit we have to agree that having
+
+每个人都必须都得受益，我们不得不承认
 
 00:36:54,260 --> 00:36:55,730
-that standard having that's probably
+
+有这样一个标准，
 
 00:36:55,730 --> 00:36:57,560
-that ability that whiskey gave us is
+
+有 WSGI 可以给我们的这样一种能力是
 
 00:36:57,560 --> 00:37:01,190
-important that's really the the crux of
+
+重要的，这才是
 
 00:37:01,190 --> 00:37:02,510
-the problem I ended up having here and
+
+我最终遇到的问题的关键。
 
 00:37:02,510 --> 00:37:04,220
-so my goal is to probably try and bring
+
+我的目标大概是努力尝试
 
 00:37:04,220 --> 00:37:06,680
-it to some kind of pep form soon and
+
+并很快带来某种形式，
 
 00:37:06,680 --> 00:37:08,240
-work with other frameworks and other
+
+与其它框架和其他服务器一起协同工作，
 
 00:37:08,240 --> 00:37:09,740
-servers to try and add support for it
+
+并为其添加支持
 
 00:37:09,740 --> 00:37:12,170
-but that is not the direct goal the
+
+但这不是直接的目标
 
 00:37:12,170 --> 00:37:13,880
-direct girls that get Django working
+
+直接目标是让 Django 先工作起来
 
 00:37:13,880 --> 00:37:15,680
-first and have that stuff proven and in
+
+然后在生产环境中，在系统中
 
 00:37:15,680 --> 00:37:17,960
-production and on systems and make sure
+
+证明这些东西，来确保
 
 00:37:17,960 --> 00:37:20,720
-this time the design decisions that
+
+这一次的这个设计决定
 
 00:37:20,720 --> 00:37:22,040
-we've made and they've proven through
+
+它们已经被大规模的
 
 00:37:22,040 --> 00:37:24,380
-actually do work at large scale that are
+
+实际工作所验证，那些我们想要
 
 00:37:24,380 --> 00:37:25,940
-things we want to support into the
+
+在未来支持的东西。
 
 00:37:25,940 --> 00:37:30,619
-future and then of course I set the
+
+然后当然我设定了开始，
 
 00:37:30,619 --> 00:37:32,329
-beginning and we want everyone writing
+
+我们想要每个人都编写异步，
 
 00:37:32,329 --> 00:37:34,970
-async async is lovely it opens a lot of
+
+异步是可爱的，它开启了很多
 
 00:37:34,970 --> 00:37:36,890
-wonderful new avenues for us to do
+
+非常棒的新途径让我们去并行的
 
 00:37:36,890 --> 00:37:38,930
-things in parallel it's also very
+
+处理事务。它也非常
 
 00:37:38,930 --> 00:37:41,750
-difficult and channels very much has
+
+难并且 channels 非常多。
 
 00:37:41,750 --> 00:37:43,849
-this philosophy of you can write sync
+
+记得这种哲学，你可以写同步代码，
 
 00:37:43,849 --> 00:37:46,760
-you can write async they can coexist but
+
+你也可以写异步代码，它们可以共存。
 
 00:37:46,760 --> 00:37:48,290
-as you move more down the async path
+
+但是随之你向下移动一步路径，
 
 00:37:48,290 --> 00:37:49,790
-it's easy to forget about synchronous
+
+很容易会忘记同步
 
 00:37:49,790 --> 00:37:50,000
-code
+
+代码
 
 00:37:50,000 --> 00:37:52,280
-as well and one of the things Charles
+
+以及 Charles 做的其中一件事情，
 
 00:37:52,280 --> 00:37:55,100
-does do is like writing synchronous cows
+
+就像编写同步代码
 
 00:37:55,100 --> 00:37:56,810
-getting harder and harder because a lot
+
+会变得越来越困难因为很多
 
 00:37:56,810 --> 00:37:58,880
-of the api's are synchronous what a sync
+
+API 是同步的，而使用异步的在
 
 00:37:58,880 --> 00:38:01,600
-one here to wrap them a little bit and I
+
+这里转换一下。
 
 00:38:01,600 --> 00:38:04,010
-am honestly not sure if I want to say
+
+我很诚实的但是不确定我是否希望说
 
 00:38:04,010 --> 00:38:06,770
-that Python web should all be async I'm
+
+Python web 应该都是异步的。
 
 00:38:06,770 --> 00:38:08,270
-not sure that's going to be a safe thing
+
+我不确定那将是一件安全的事情
 
 00:38:08,270 --> 00:38:09,860
-to do with the current ways and kayo
+
+使用当前的方式
 
 00:38:09,860 --> 00:38:12,430
-works maybe there's there probably is
+
+可能，那有较大的可能，
 
 00:38:12,430 --> 00:38:14,540
-improvements in language improves in
+
+在语言上做改善，
 
 00:38:14,540 --> 00:38:16,190
-Mexico itself improvements in the
+
+在代码上做改善，
 
 00:38:16,190 --> 00:38:17,990
-frameworks and the way we make things
+
+在框架上做改善，和我们让事情更安全的方式，
 
 00:38:17,990 --> 00:38:20,450
-safer like HTTP is not safe
+
+比方说 HTTP 不是安全的
 
 00:38:20,450 --> 00:38:22,370
-Jango and flask and everyone has work to
+
+Django 和 Flask 以及所有人都必须
 
 00:38:22,370 --> 00:38:24,890
-make it safe I think that same kind of
+
+工作起来让它变得安全
 
 00:38:24,890 --> 00:38:27,230
-learning and thinking a process has to
+
+我认为同样的学习和思考过程必须要
 
 00:38:27,230 --> 00:38:29,960
-be done to async stuff as well and
+
+经过来处理异步事务，
 
 00:38:29,960 --> 00:38:30,980
-especially WebSockets cause that
+
+尤其是 WebSockets 造成这样的情况
 
 00:38:30,980 --> 00:38:33,200
-particularly nasty to try and make these
+
+特别讨厌尝试和让这些事情
 
 00:38:33,200 --> 00:38:35,990
-things happen correctly and then this
+
+正确的发生。
 
 00:38:35,990 --> 00:38:38,570
-ultimate becomes very existential right
+
+然后这个终极问题来了，非常兴奋，是吧
 
 00:38:38,570 --> 00:38:42,230
-like what is Jango I've given this whole
+
+就像我给出的，Django 是什么？
 
 00:38:42,230 --> 00:38:44,300
-talk up here I am but one member of the
+
+我在这个演讲中给出的，我是 Django 团队的
 
 00:38:44,300 --> 00:38:46,520
-Jango team I have a particularly far
+
+一员，我对 Django 有一个
 
 00:38:46,520 --> 00:38:48,740
-ranging vision for Jango that I know
+
+特别远大的愿景，我知道
 
 00:38:48,740 --> 00:38:51,140
-some of my colleagues don't share and
+
+我的一些同事不会分享
 
 00:38:51,140 --> 00:38:53,240
-ultimately like you know Jango at the
+
+最终像你知道的现在 Django
 
 00:38:53,240 --> 00:38:55,400
-moment is defined by by what it where it
+
+如何定义的，从哪里来的，
 
 00:38:55,400 --> 00:38:56,870
-came from it is this amazing MOU
+
+它是一个令人惊奇的框架
 
 00:38:56,870 --> 00:38:59,510
-framework that came from a place of you
+
+来自于你所知道的地方
 
 00:38:59,510 --> 00:39:00,860
-know perfectionist with deadlines with
+
+有完美主义者与截止日程以及从它而来的需求
 
 00:39:00,860 --> 00:39:03,890
-this need from it from time when the
+
+从这开始，但
 
 00:39:03,890 --> 00:39:05,420
-backend where was very much the only
+
+后端是现在唯一的地方
 
 00:39:05,420 --> 00:39:07,790
-place these days we live in the world of
+
+这些日子里，我们居住在一个世界包含
 
 00:39:07,790 --> 00:39:10,700
-the real-time web with rich JavaScript
+
+实时网页和富 JavaScript 前端
 
 00:39:10,700 --> 00:39:12,500
-front ends and native apps all this kind
+
+还有原生应用等这样类型的东西。
 
 00:39:12,500 --> 00:39:15,740
-of stuff Django and Python general was
+
+Django 和 Python 还是非常非常
 
 00:39:15,740 --> 00:39:17,630
-still very very relevant but much more
+
+相关性的，但是更多的还是
 
 00:39:17,630 --> 00:39:19,820
-as a back-end system you know like the
+
+作为一个后端系统，比如很多
 
 00:39:19,820 --> 00:39:21,170
-number of companies who use Django a
+
+使用公司使用 Django 来
 
 00:39:21,170 --> 00:39:23,360
-templating is reduced but the number of
+
+减少模板，但是那些
 
 00:39:23,360 --> 00:39:25,340
-people who huge anger for like business
+
+抱怨业务逻辑以及模型的人
 
 00:39:25,340 --> 00:39:27,980
-logic and models is still there it's the
+
+还在那里。这是真正的问题
 
 00:39:27,980 --> 00:39:30,530
-real question is at some point we should
+
+在某些时候我们应该
 
 00:39:30,530 --> 00:39:32,420
-work out where what is our place in this
+
+清楚我们在未来的位置，
 
 00:39:32,420 --> 00:39:34,610
-future like before we start making
+
+就像我们开始做决定，
 
 00:39:34,610 --> 00:39:35,750
-decisions before we start going awry
+
+开始抛弃旧的时候一样。
 
 00:39:35,750 --> 00:39:38,210
-let's rewrite everything to be async is
+
+让我们把所有东西都重写成异步的
 
 00:39:38,210 --> 00:39:39,710
-that what we need is that what people
+
+那是我们需要的吗？
 
 00:39:39,710 --> 00:39:42,470
-want and one of these things the best
+
+那时人们想要的吗？
 
 00:39:42,470 --> 00:39:44,900
-way I found doing this is to just give
+
+我发现的一个最好的方式就是只给
 
 00:39:44,900 --> 00:39:46,370
-people options and work out what comes
+
+人们选择题然后搞清楚哪个会更加
 
 00:39:46,370 --> 00:39:47,900
-more popular and that's kind of one of
+
+流行，这个就是其中原因之一，
 
 00:39:47,900 --> 00:39:49,790
-reasons channels exists it's like here
+
+channels 在这里存在。
 
 00:39:49,790 --> 00:39:52,490
-is this thing it is a moderately
+
+这是一个适度的东西，
 
 00:39:52,490 --> 00:39:55,430
-competent righted rewrite of Django to
+
+对 Django 进行有效的重写成异步
 
 00:39:55,430 --> 00:39:56,840
-be async it has a lot of the same
+
+这个会有很多相同的支持
 
 00:39:56,840 --> 00:39:58,880
-support and then let's see what develops
+
+然后让我们看看能开发什么
 
 00:39:58,880 --> 00:40:01,820
-what comes out of it and how we can use
+
+从它能出来什么，以及我们如何能
 
 00:40:01,820 --> 00:40:03,260
-that stuff to improve both
+
+利用这些东西来改善
 
 00:40:03,260 --> 00:40:06,230
-Django and Python in the future that
+
+Django 和 Python 的未来
 
 00:40:06,230 --> 00:40:08,200
-thank you very much
+
+谢谢
 
 00:40:08,200 --> 00:40:18,350
-[Applause]
 
+鼓掌
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
