@@ -121,25 +121,25 @@ Today, companies live and die based on how well they harness data. Almost every 
 2.  The raw data as well as the final transformed/augmented data are saved to cloud storage. AWS Kinesis provides a setting called “firehose” that makes saving the raw data to it’s cloud storage (S3) extremely easy to configure. 原始数据和转换加工后的数据在云端存储。例如 AWS Kinesis 提供叫做 “firehose” （消防水管带）的设置，将原始数据存储在其云平台 Amazon S3 上，配置起来极其方便。
 3.  The transformed/augmented data is often loaded into a data warehouse for analysis. We use AWS Redshift, as does a large and growing portion of the startup world, though larger companies will often use Oracle or other proprietary warehouse technologies. If the data sets are large enough, a Hadoop-like NoSQL MapReduce technology may be required for analysis. 转换加工后的数据会加载入数据仓库来做后续分析。我司使用 AWS Redshift 作为数据仓库，很多创业公司也都在用，大型公司一般选择 Oracle 或者其它的数据仓库服务。当数据量十分庞大时，可能需要用类 Hadoop 的 NoSQL MapReduce 技术来做后续分析。
 
-Another step that’s not pictured in the architecture diagram: loading data from the app and services’ operational databases into the data warehouse. For example at Storyblocks we load our VideoBlocks, AudioBlocks, Storyblocks, account service, and contributor portal databases into Redshift every night. This provides our analysts a holistic dataset by co-locating the core business data alongside our user interaction event data.
+Another step that’s not pictured in the architecture diagram: loading data from the app and services’ operational databases into the data warehouse. For example at Storyblocks we load our VideoBlocks, AudioBlocks, Storyblocks, account service, and contributor portal databases into Redshift every night. This provides our analysts a holistic dataset by co-locating the core business data alongside our user interaction event data.还有一个步骤没有在架构图中绘出：从应用和服务运维数据库中把数据导入数据仓库。例如在我司，我们每晚都会把各个服务的数据存到 AWS Redshift，提供给我们产品运营分析的同事更全面的数据集，不仅有核心的业务数据，还有用户交互行为的数据。
 
-### 10. Cloud storage
+### 10. Cloud storage 云存储
 
-“Cloud storage is a simple and scalable way to store, access, and share data over the Internet” [according to AWS](https://aws.amazon.com/what-is-cloud-storage/). You can use it to store and access more or less anything you’d store on a local file system with the benefits of being able to interact with it via a RESTful API over HTTP. Amazon’s S3 offering is by far the most popular cloud storage available today and the one we rely on extensively here at Storyblocks to store our video, photo, and audio assets, our CSS and Javascript, our user event data and much more.
+“Cloud storage is a simple and scalable way to store, access, and share data over the Internet” [according to AWS](https://aws.amazon.com/what-is-cloud-storage/). You can use it to store and access more or less anything you’d store on a local file system with the benefits of being able to interact with it via a RESTful API over HTTP. Amazon’s S3 offering is by far the most popular cloud storage available today and the one we rely on extensively here at Storyblocks to store our video, photo, and audio assets, our CSS and Javascript, our user event data and much more. “云存储既简单，扩展性又好，方便用户在全网获取，存储，分享数据” [—— AWS 云存储服务](https://aws.amazon.com/what-is-cloud-storage/)。任意在本地文件系统存储的文件，你都可以通过云存储存取，并用 HTTP 协议通过 RESTful API 访问并交互。Amazon S3 提供了目前最流行的云存储，我司在其上广泛存储各种东西，从多媒体素材，视频，图片，音频，到 CSS，Javascript，乃至用户行为数据等等。
 
 ### 11. CDN
 
-CDN stands for “Content Delivery Network” and the technology provides a way of serving assets such as static HTML, CSS, Javascript, and images over the web much faster than serving them from a single origin server. It works by distributing the content across many “edge” servers around the world so that users end up downloading assets from the “edge” servers instead of the origin server. For instance in the image below, a user in Spain requests a web page from a site with origin servers in NYC, but the static assets for the page are loaded from a CDN “edge” server in England, preventing many slow cross-Atlantic HTTP requests.
+CDN stands for “Content Delivery Network” and the technology provides a way of serving assets such as static HTML, CSS, Javascript, and images over the web much faster than serving them from a single origin server. It works by distributing the content across many “edge” servers around the world so that users end up downloading assets from the “edge” servers instead of the origin server. For instance in the image below, a user in Spain requests a web page from a site with origin servers in NYC, but the static assets for the page are loaded from a CDN “edge” server in England, preventing many slow cross-Atlantic HTTP requests. CDN 指的是内容分发网络，该技术提供一种素材服务，比如存储静态 HTML，CSS，Javascript，图片。从全网获取这些静态素材比从单个源服务器获取要快的多。它的工作原理是将内容分布在世界各地的边缘服务器上，而不是仅仅放在一个源节点上。比如说，下图中一个西班牙的用户访问某个源节点位于纽约的网站，但是页面的静态素材通过英国的 CDN 边缘服务器载入，这样就避免了冗余的跨大西洋的 HTTP 请求，提快了访问速度。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZkC_5865Hx-Cgph3iPJghw.png)
 
-[Source](https://www.creative-artworks.eu/why-use-a-content-delivery-network-cdn/)
+[图片源](https://www.creative-artworks.eu/why-use-a-content-delivery-network-cdn/)
 
-[Check out this article](https://www.creative-artworks.eu/why-use-a-content-delivery-network-cdn/) for a more thorough introduction. In general a web app should always use a CDN to serve CSS, Javascript, images, videos and any other assets. Some apps might also be able to leverage a CDN to serve static HTML pages.
+[这篇文章](https://www.creative-artworks.eu/why-use-a-content-delivery-network-cdn/) 更详细解释了为什么使用 CDN。总的来说，网络应用可以使用 CDN 来存储诸如 CSS, Javascript, 图片视频等素材，甚至静态 HTML 网页。
 
-### Parting thoughts
+### Parting thoughts 一些想法
 
-And that’s a wrap on Web Architecture 101. I hope you found this useful. I’ll hopefully post a series of 201 articles that provide deep dives into some of these components over the course of the next year or two.
+And that’s a wrap on Web Architecture 101. I hope you found this useful. I’ll hopefully post a series of 201 articles that provide deep dives into some of these components over the course of the next year or two. 以上便是网络应用架构基础课的全部内容，希望这篇文章对你有帮助。接下来我还会发布进阶课的文章，详细研究上述的某些组件。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
