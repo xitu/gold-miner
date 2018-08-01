@@ -89,30 +89,31 @@ While there are different architectures that enable asynchronous work to be done
 
 Job queues store a list of jobs that need to be run asynchronously. The simplest are first-in-first-out (FIFO) queues though most applications end up needing some sort of priority queuing system. Whenever the app needs a job to be run, either on some sort of regular schedule or as determined by user actions, it simply adds the appropriate job to the queue.任务队列存储了一系列需要异步运行的任务。最简单的任务调度是 FIFO （先进先出）的方式，不过大部分应用使用按优先级排序的调度方式处理任务。每当一个任务需要被执行，要么使用统一的调度算法，要么是按用户行为按需调度，该任务便被加入队列中等待被执行。
 
-Storyblocks, for instance, leverages a job queue to power a lot of the behind-the-scenes work required to support our marketplaces. We run jobs to encode videos and photos, process CSVs for metadata tagging, aggregate user statistics, send password reset emails, and more. We started with a simple FIFO queue though we upgraded to a priority queue to ensure that time-sensitive operations like sending password reset emails were completed ASAP.
+Storyblocks, for instance, leverages a job queue to power a lot of the behind-the-scenes work required to support our marketplaces. We run jobs to encode videos and photos, process CSVs for metadata tagging, aggregate user statistics, send password reset emails, and more. We started with a simple FIFO queue though we upgraded to a priority queue to ensure that time-sensitive operations like sending password reset emails were completed ASAP.举个例子，我司利用任务队列，赋能后台任务以支持营销活动。我们用后台任务编码多媒体文件如视频图片，处理数据如在 CSV 做元数据标记，聚合用户行为分析，运行邮件服务比如给用户发送重置密码的邮件，等等。我们最初使用 FIFO 调度任务，后来优化为优先队列，以保证时间敏感的操作完成的实时性，比如立马发送重置密码邮件。
 
-Job servers process jobs. They poll the job queue to determine if there’s work to do and if there is, they pop a job off the queue and execute it. The underlying languages and frameworks choices are as numerous as for web servers so I won’t dive into detail in this article.
+Job servers process jobs. They poll the job queue to determine if there’s work to do and if there is, they pop a job off the queue and execute it. The underlying languages and frameworks choices are as numerous as for web servers so I won’t dive into detail in this article.任务服务器执行任务时，先查看任务队列中是否有任务需要执行，若有任务便弹出该任务并执行。有很多语言和框架可以在服务器上使用作为任务队列，这里不多讲。
 
-### 7. Full-text Search Service
+### 7. Full-text Search Service 全文搜索服务
 
-Many if not most web apps support some sort of search feature where a user provides a text input (often called a “query”) and the app returns the most “relevant” results. The technology powering this functionality is typically referred to as “[full-text search](https://en.wikipedia.org/wiki/Full-text_search)”, which leverages an [inverted index](https://en.wikipedia.org/wiki/Inverted_index) to quickly look up documents that contain the query keywords.
+Many if not most web apps support some sort of search feature where a user provides a text input (often called a “query”) and the app returns the most “relevant” results. The technology powering this functionality is typically referred to as “[full-text search](https://en.wikipedia.org/wiki/Full-text_search)”, which leverages an [inverted index](https://en.wikipedia.org/wiki/Inverted_index) to quickly look up documents that contain the query keywords. 在一些应用中，为用户提供搜索功能，用户输入文字时（查询语句）应用返回相近结果。这种技术通常指的是“[全文搜索](https://en.wikipedia.org/wiki/Full-text_search)”，运用[倒排索引](https://en.wikipedia.org/wiki/Inverted_index)快速查找包含查询关键字的文档。
 
 ![](https://cdn-images-1.medium.com/max/800/1*gun_BpdDH9KrNna1NnaocA.png)
 
-Example showing how three document titles are converted into an inverted index to facilitate fast lookup from a specific keyword to the documents with that keyword in the title. Note, common words such as “in”, “the”, “with”, etc. (called stop words), are typically not included in an inverted index.
+Example showing how three document titles are converted into an inverted index to facilitate fast lookup from a specific keyword to the documents with that keyword in the title. Note, common words such as “in”, “the”, “with”, etc. (called stop words), are typically not included in an inverted index.上图中例子显示了三个文档标题被转换成倒排索引，通过某些标题关键字能够快速检索文档。通常停用词（英文中的：in, the, with 等，中文中：我，这，和，啊，等）不会被加入到索引中。
 
-While it’s possible to do full-text search directly from some databases (e.g., [MySQL supports full-text search](https://dev.mysql.com/doc/refman/5.7/en/fulltext-search.html)), it’s typical to run a separate “search service” that computes and stores the inverted index and provides a query interface. The most popular full-text search platform today is [Elasticsearch](https://www.elastic.co/products/elasticsearch) though there are other options such as [Sphinx](http://sphinxsearch.com/) or [Apache Solr](http://lucene.apache.org/solr/features.html).
+While it’s possible to do full-text search directly from some databases (e.g., [MySQL supports full-text search](https://dev.mysql.com/doc/refman/5.7/en/fulltext-search.html)), it’s typical to run a separate “search service” that computes and stores the inverted index and provides a query interface. The most popular full-text search platform today is [Elasticsearch](https://www.elastic.co/products/elasticsearch) though there are other options such as [Sphinx](http://sphinxsearch.com/) or [Apache Solr](http://lucene.apache.org/solr/features.html).尽管我们可以直接通过数据库全文搜索，比如 [MySQL 支持全文搜索](https://dev.mysql.com/doc/refman/5.7/en/fulltext-search.html)，通常我们会跑一个单独的“搜索服务”计算并存储倒排索引，并提供查询接口。目前主流的全文搜索是 [Elasticsearch](https://www.elastic.co/products/elasticsearch)，还有 [Sphinx](http://sphinxsearch.com/)，[Apache Solr](http://lucene.apache.org/solr/features.html) 等选择。
 
-### 8. Services
+### 8. Services 服务
 
 Once an app reaches a certain scale, there will likely be certain “services” that are carved out to run as separate applications. They’re not exposed to the external world but the app and other services interact with them. Storyblocks, for example, has several operational and planned services:
+当应用到达一定的规模，通常倾向于拆分其为单个应用，作为“微服务”。这样的架构对外界是不可感知的，但应用内服务间相互通信。比如我司有运维服务和调度服务：
 
-*   **Account service** stores user data across all our sites, which allows us to easily offer cross-sell opportunities and create a more unified user experience
-*   **Content service** stores metadata for all of our video, audio, and image content. It also provides interfaces for downloading the content and viewing download history.
-*   **Payment service** provides an interface for billing customer credit cards.
-*   **HTML → PDF service** provides a simple interface that accepts HTML and returns a corresponding PDF document.
+*   **用户服务** 存储所有平台用户数据，便捷地提供交叉销售商机，以及标准化的用户体验。
+*   **内容服务** 存储多媒体文件的元数据，并提供文件下载接口和下载历史信息等。
+*   **支付服务** 提供客户付款信息接口。
+*   **HTML → PDF service导出 PDF 服务** 提供统一接口，将 HTML 转换成相对应的 PDF 文件并下载。
 
-### 9. Data
+### 9. Data 数据
 
 Today, companies live and die based on how well they harness data. Almost every app these days, once it reaches a certain scale, leverages a data pipeline to ensure that data can be collected, stored, and analyzed. A typical pipeline has three main stages:
 
