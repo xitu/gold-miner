@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/examining-performance-differences-between-native-flutter-and-react-native-mobile-development.md](https://github.com/xitu/gold-miner/blob/master/TODO1/examining-performance-differences-between-native-flutter-and-react-native-mobile-development.md)
 > * 译者：[LeeSniper](https://github.com/LeeSniper)
-> * 校对者：
+> * 校对者：[LeviDing](https://github.com/leviding)
 
 # 测试原生，Flutter 和 React Native 移动开发之间的性能差异。
 
