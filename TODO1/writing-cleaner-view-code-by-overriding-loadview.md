@@ -11,7 +11,6 @@
 
 在最开始练习纯代码写 view 的时候，人们普遍遇到的一个问题是最开始不知道将代码放在**哪里**。如果你采用普通 storyboard 的方式，将所有相关代码都放进你的 ViewController 之中，这样很容易会最终产生一个巨大的上帝对象：
 
-
 ```
 final class MyViewController: UIViewController {
     private let myButton: UIButton = {
@@ -184,6 +183,7 @@ final class MyViewController: CustomViewController<MyView> {
 [苹果官方文档: loadView()](https://developer.apple.com/documentation/uikit/uiviewcontroller/1621454-loadview)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
 
 ---
 
