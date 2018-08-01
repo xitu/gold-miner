@@ -215,7 +215,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 这些结果首先表明的是，当涉及到性能时，原生 Android 应用程序胜过 React Native 和 Flutter 应用程序可不是一点半点。原生应用程序上的 CPU 使用率不到 Flutter 应用程序的一半，与 React Native 应用程序相比，Flutter 占用的 CPU 更少一些，但是差别不大。原生应用程序的内存使用率同样很低，并且在 React Native 和 Flutter 应用程序上内存使用率都有所增加，不过这次 React Native 应用表现得比 Flutter 应用更好。
 
-下一个有趣的内容是 React Native 和 Flutter 应用程序在性能上是如此__相近__。虽然这个应用程序无疑是微不足道的，但我原本以为 JavaScript 桥接器会受到更多的影响，因为应用程序如此快速地通过该桥接器发送了如此多的消息。
+下一个有趣的内容是 React Native 和 Flutter 应用程序在性能上是如此**相近**。虽然这个应用程序无疑是微不足道的，但我原本以为 JavaScript 桥接器会受到更多的影响，因为应用程序如此快速地通过该桥接器发送了如此多的消息。
 
 现在让我们看看在 Pixel 上测试时的结果。
 
@@ -235,15 +235,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
 第二个有趣的收获是，Flutter 和 React Native 与原生应用相比在他们的优势和劣势方面有了_更明显_的差别。React Native 只比原生应用程序占用的内存略微高一点，而 Flutter 的内存使用率比原生应用程序高出近 50％。另一方面，Flutter 应用程序更接近于原生应用程序的 CPU 使用率，而 React Native 应用程序则难以保持低于 30％ 的 CPU 使用率。
 
-最重要的是，我对 5X 和 Pixel 之间结果的__差异之大__感到惊讶。
+最重要的是，我对 5X 和 Pixel 之间结果的**差异之大**感到惊讶。
 
 ## 结论
 
-我可以很有信心地说原生 Android 应用的性能优于 React Native 应用或 Flutter 应用。不过，我_没有_信心说 React Native 应用将表现得比 Flutter 应用更好，反之亦然。还需要做__更多__的测试才能弄清楚 Flutter 是否能真正提供比 React Native 更高的真实性能。
+我可以很有信心地说原生 Android 应用的性能优于 React Native 应用或 Flutter 应用。不过，我_没有_信心说 React Native 应用将表现得比 Flutter 应用更好，反之亦然。还需要做**更多**的测试才能弄清楚 Flutter 是否能真正提供比 React Native 更高的真实性能。
 
 ## 注意事项
 
-上面所做的分析是__并不是__最终结果。我运行的一小部分测试不能用来表示 React Native 比 Flutter 更快或者相反。它们只应被解释为分析跨平台应用程序这个大问题的一部分。还有很多这个小应用程序没有触及的东西会影响现实世界的性能和用户体验。值得指出的是，在 debug 模式和 release 模式下，所有三个应用程序都运行顺畅。
+上面所做的分析是**并不是**最终结果。我运行的一小部分测试不能用来表示 React Native 比 Flutter 更快或者相反。它们只应被解释为分析跨平台应用程序这个大问题的一部分。还有很多这个小应用程序没有触及的东西会影响现实世界的性能和用户体验。值得指出的是，在 debug 模式和 release 模式下，所有三个应用程序都运行顺畅。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
