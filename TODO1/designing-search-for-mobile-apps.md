@@ -5,27 +5,21 @@
 > * 译者：吃土小2叉（https://github.com/xunge0613）
 > * 校对者：
 
-# Designing search for mobile apps
 # 如何设计移动应用的搜索功能？
 
-## Explore the various ways to implement search and the purpose behind each
 ## 探索实现搜索功能的各种方式及其背后的理念
-
 
 ![](https://cdn-images-1.medium.com/max/2000/1*KMCNd82pJP-lUQIoZaxpGQ.png)
 
-Feature Breakdown #4: Search for mobile apps
-第四期 功能探索： 移动 APP 的搜索功能
+第四期功能探索：移动应用的搜索功能
 
 After 3 feature breakdowns, I have another interesting feature for you — **Search for mobile apps**. Search is a fairly complex feature and this article does not cover everything there is to know about it. In this story, I will be discussing how to pick between the two most popular ways of using search on your application, search bar on the landing screen or search tab on the navigation bar.
-经过了前三期的功能探索后，这次我又为你们准备了一个有趣的主题 —— **移动应用的搜索功能**。当然搜索功能相当复杂，因此本文并未涵盖所有相关的内容。而我将讨论如何在 APP 上的两种最常见的搜索模式之间进行选择：着陆页搜索栏或导航栏上的搜索选项卡。
+经过了前三期的功能探索后，这次我又为你们准备了一个有趣的主题 —— **移动应用的搜索功能**。当然搜索功能相当复杂，因此本文并未涵盖所有相关的内容。而我将讨论如何在应用上的两种最常见的搜索模式之间进行选择：着陆页搜索栏或导航栏上的搜索选项卡。
 
-
-### Search for mobile apps
-###  移动应用的搜索功能
+### 移动应用的搜索功能
 
 So many applications that we use on a daily basis have the Search feature. The way these applications implement search can be very different. But why is there a need for different implementations of the same feature? Is one better than the other? Let’s find out.
-许多常用的应用都具备搜索功能。而这些应用实现搜索的方式却可能大相径庭。可是为什么对同一个功能需要不同的实现方式呢？是因为这个比那个酷炫吗？让我们来看看。
+许多常用的应用都具备搜索功能。而这些应用实现搜索的方式却可能大相径庭。可是为什么对同一个功能需要不同的实现方式呢？是因为这个比那个酷炫吗？让我们一起分析下。
 
 ### 1. Search bar on landing screen
 ### 1. 着陆页的搜索栏
@@ -79,27 +73,22 @@ Both the searches aid different intentions of the user. And that’s not all, bo
 1.  You want to **enhance user engagement** by allowing the user to explore and discover new content on the platform. For reference, have a look at Instagram and Twitter. These platforms want the users to stay longer on the app, which is why they offer personalized content which is outside your network to help you discover new users or content that you might be interested in.
 1. 希望通过允许用户在平台上探索和发现新内容来**增强用户参与度**。举个例子，比如 Instagram 和 Twitter。这些平台希望吸引用户在应用上停留的时间更长，因此他们提供来自用户的社交圈以外的个性化内容，以帮助用户发现可能感兴趣的新用户或新内容。
 2.  The **user isn’t sure of what they’re looking for** and the app can guide the user in finding what they want. For reference, look at Netflix and Uber Eats. They allow the users to explore the app via the means of genres and cuisines. This caters to the user who knows he wants to watch a comedy show but isn’t really sure of which one he should watch.
-2. **用户不确定他们正在寻找什么**，该应用可以引导用户找到他们想要的东西。举个例子，比如 Netflix 和 Uber Eats。它们允许用户浏览各种流派和美食的方式来探索应用。这迎合了想要观看喜剧节目，但不确定应该观看哪一个的用户。
+2. **用户不确定他们正在寻找什么**，该应用可以引导用户找到他们想要的东西。举个例子，比如 Netflix 和 Uber Eats。它们允许用户通过浏览各种流派和美食的方式来探索应用。这迎合了想要观看喜剧节目，但不确定应该看哪个的用户。
 
-### Now, let’s look at Airbnb?
 ### 现在，一起来看看 Airbnb ？
 
 ![](https://cdn-images-1.medium.com/max/2000/1*yhxaOzAg5yPGXeIdHPVRPw.png)
 
-Airbnb
 Airbnb（爱彼迎）
 
-Airbnb uses a mix of both the variations. They’ve got a search bar on the landing screen and the landing screen is the search/explore tab.
-Airbnb 结合使用了这两种搜索模式：着陆屏上有一个搜索栏，同时着陆屏本身又是搜索/浏览选项卡所在屏。
+Airbnb 结合了这两种搜索模式：着陆屏上有一个搜索栏，同时着陆屏本身又是搜索/浏览选项卡所在屏。
 
-Given the context of Airbnb I believe that it makes a lot of sense. By doing this they cater to two types of users — users with a specific destination in mind who would use the search bar (users with **clear intention**), and users who might not have a specific destination in mind, and are in the process of figuring out the destination (users who need kind of an **exploratory search**).
-鉴于 Airbnb 的背景，我认为这很有意义：同时迎合了两种类型的用户 —— 确定了目的地的用户将使用搜索栏（具有**明确意图的用户**），而可能还没想好去哪儿的用户，正在考虑旅行目的地（他们需要**探索性的搜索**）。
+鉴于 Airbnb 的业务场景，我认为这很有意义：同时迎合了两类用户 —— 一类是确定了目的地的用户将使用搜索栏（具有**明确意图的用户**），而另一类可能还没想好去哪儿的用户，正在考虑旅行目的地（他们需要**探索性的搜索**）。
 
-### Conclusion
 ### 结论
 
 Both the variations have pros and cons. Both of them are suited for specific use cases. Going through all the examples above, we can conclude that there are two factors that determine which search to use — intentions of users coming to the app and the possible offerings of the app.
-这两种不同模式各有利弊。它们都适用于特定场景。通过上面所有的示例，我们可以得出结论：有两个因素可以决定使用哪种搜索 - 用户访问应用程序的意图以及应用程序的可能产品。
+这两种不同模式各有利弊。它们都适用于特定场景。通过上述案例，我们可以得出结论：有两个因素决定了应该使用哪种搜索模式 —— 用户访问应用的意图以及应用本身能提供的内容。
 
 
 * * *
