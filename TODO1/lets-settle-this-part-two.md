@@ -7,7 +7,7 @@
 
 # 让我们一起解决“this”难题 — 第二部分
 
-嗨！欢迎来到让我们一起解决“this”难题的第二部分，我们试图揭开 JavaScript 中最难让人理解的一部分内容 - “this”关键字的神秘面纱。如果您还没有读过 [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/lets-settle-this-part-one.md)，你需要先把它读一下。在第一部分中，我们通过15个示例介绍了默认绑定规则和隐式绑定规则。我们了解了函数内部的'this'如何随着函数调用方式的不同而发生改变。最后，我们也介绍了箭头函数以及它是如何进行词法绑定。我希望你能记住这一切。
+嗨！欢迎来到让我们一起解决“this”难题的第二部分，我们试图揭开 JavaScript 中最难让人理解的一部分内容 - “this”关键字的神秘面纱。如果您还没有读过 [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/lets-settle-this-part-one.md)，你需要先把它读一下。在第一部分中，我们通过 15 个示例介绍了默认绑定规则和隐式绑定规则。我们了解了函数内部的“this”如何随着函数调用方式的不同而发生改变。最后，我们也介绍了箭头函数以及它是如何进行词法绑定。我希望你能记住这一切。
 
 在这一部分我们将讨论两个新规则，从 _new_ 绑定开始，我们将深入地分析这一切是如何工作的。接下来，我们将介绍显式绑定以及如何通过 _call(...)_ ，_apply(...)_ 和 _bind(...)_ 方法将任意对象绑定到函数内部的“this”上。
 
@@ -189,8 +189,8 @@ console.log( expenses.total.apply(rents) ); // 10
 注意，_total_ 函数有一个参数 _earnings_ ,让我们传一下参数试试。
 
 ```Javascript
-console.log( expenses.total.call(rents, 10) ); // 0 Works!
-console.log( expenses.total.apply(rents, 10) ); // Error
+console.log( expenses.total.call(rents, 10) ); // 0 正常！
+console.log( expenses.total.apply(rents, 10) ); // 报错
 ```
 
 使用 _call_ 给目标函数（在我们的例子中是 _total_ ）传递参数很简单，像给其他普通函数传递参数一样，你只需传入一个由逗号隔开的参数列表 _.call(customThis，arg1，arg2，arg3 ......)_ 。在上面的代码我们传入了 10 作为 _earnings_ 参数，一切正常。
@@ -198,7 +198,7 @@ console.log( expenses.total.apply(rents, 10) ); // Error
 而 _apply_ 要求你将参数传递给目标函数（在我们的例子中是 _total_ ）时，将参数包装在一个数组里 _.apply(customThis，[arg1，arg2，arg3 ...])_ 你应该注意到了，上面的代码中我们没有这样传入参数，所以会发生错误。把参数封装成一个数组，然后再传入，就不会报错了。就像下面这样。
 
 ```Javascript
-console.log( expenses.total.apply(rents, [10]) ); // 0 Works!
+console.log( expenses.total.apply(rents, [10]) ); // 0 正常！
 ```
 
 我过去曾经总结了一个助记符就是通过上面说的这点差别来记住 _call_ 和 _apply_ 之间的区别的。A 代表 _**a**pply_ ，A 也代表 _**a**rray_ ！所以通过 _**a**pply_ 把参数传给目标函数时，需要把参数封装成 _**a**rray_ 。这只是一个简单的小助记符，但它确实很有用。
