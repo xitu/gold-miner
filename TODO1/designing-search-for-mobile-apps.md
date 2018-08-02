@@ -50,7 +50,6 @@
 1. **用户打开应用的主要目的可能就是搜索**。举个例子，比如 Google Maps，Uber 或 Zomato。大多数情况下，人们打开这些应用恰恰是要搜索位置，餐馆或菜肴。
 2. **用户在搜索时有明确的意图**，例如 Facebook 的用户通常会寻找其他用户或主页。大多数情况下，他们即使不完全确定用户或者主页的名称是如何拼写的，也知道它的名称可能是什么。对于这类平台，用户很少对寻找的内容只有模糊的信息。而且即使真的有这种可能性，平台也无法帮助到用户。
 
-#### Use search as a tab on the navigation bar when
 #### 使用搜索作为导航栏上的选项卡的场景
 
 1. 希望帮助用户在平台上探索和发现新内容来**增强用户参与度**。举个例子，比如 Instagram 和 Twitter。这些平台希望吸引用户在应用上停留的时间更长，因此他们提供来自用户的社交圈以外的个性化内容，以帮助用户发现可能感兴趣的新用户或新内容。
@@ -73,7 +72,6 @@ Airbnb 结合了这两种搜索模式：着陆屏上有一个搜索栏，同时�
 
 * * *
 
-#### Special Thanks To
 #### 特别鸣谢
 
 感谢 [Tanvi Kumthekar](https://medium.com/@tanvikumthekar) 和 [Shailly Kishtawal](https://medium.com/@shailly.kishtawal) 的头脑风暴。  
