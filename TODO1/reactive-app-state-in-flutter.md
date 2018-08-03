@@ -2,8 +2,7 @@
 > * 原文作者：[Maksim Ryzhikov](https://medium.com/@maksimrv?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/reactive-app-state-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/reactive-app-state-in-flutter.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starriers](https://github.com/Starriers)
 
 # Flutter 中的原生应用程序状态
 
@@ -119,7 +118,7 @@ import 'package:myapp/Provider.dart';
 
 这正是我们所需要的。我们创建“继承”小部件。
 
-打开 “Provider.dart”，然后创建私有 “_InheritedProvider” 小部件：
+打开 “Provider.dart”，然后创建私有 “`_InheritedProvider`” 小部件：
 
 ```
 class _InheritedProvider extends InheritedWidget {
@@ -192,7 +191,7 @@ class MyHomePage extends StatelessWidget {
 }
 ```
 
-我们删除了全局变量 “_counter” 并使用 “Provider.of” 在 “MyHomePage” 小部件中取得了 “counter”。如你所见，我们没有将它作为参数传递给 “MyHomePage”，而是使用 “Provider.of” 来获取应用程序的状态，他可以应用于树下的任何小部件。 此外，“Provider.of” 还包括当前小部件的上下文和[重建](https://docs.flutter.io/flutter/widgets/BuildContext/inheritFromWidgetOfExactType.html)，并在更改 “_InheritedProvider” 小部件时对其进行[注册](https://docs.flutter.io/flutter/widgets/BuildContext/inheritFromWidgetOfExactType.html)。
+我们删除了全局变量 “_counter” 并使用 “Provider.of” 在 “MyHomePage” 小部件中取得了 “counter”。如你所见，我们没有将它作为参数传递给 “MyHomePage”，而是使用 “Provider.of” 来获取应用程序的状态，他可以应用于树下的任何小部件。 此外，“Provider.of” 还包括当前小部件的上下文和[重建](https://docs.flutter.io/flutter/widgets/BuildContext/inheritFromWidgetOfExactType.html)，并在更改 “`_InheritedProvider`” 小部件时对其进行[注册](https://docs.flutter.io/flutter/widgets/BuildContext/inheritFromWidgetOfExactType.html)。
 
 现在是时候检测我们的应用程序是否起作用了：我们重新加载它。为了确保我们的“提供者”正常工作，我们可以将“数据”从“0”更改为 “MyApp” 小部件中的 “1”，然后我们必须重新加载应用程序。然而，我们的 “+” 按钮仍然无法工作。
 
@@ -234,7 +233,7 @@ Widget build(BuildContext context) {
 
 重建我们的应用程序，并确保没有错误。
 
-我们现在已经实现了 “_incrementCounter”：
+我们现在已经实现了 “`_incrementCounter`”：
 
 ```
   floatingActionButton: new FloatingActionButton(
@@ -268,7 +267,7 @@ Widget build(BuildContext context) {
   }
 ```
 
-现在“数据”等于 “AppState” 的实例，这意味着我们在 “_incrementCounter” 方法中更改此实例的“值”时，它实际上并不会改变实例本身。因此，这个比较总是返回 “false”。我们通过比较  “value”-s 来解决这个问题。但为此，我们应该将“值”曝出在小部件中，这允许我们可以不丢失重构之间的“值”：
+现在“数据”等于 “AppState” 的实例，这意味着我们在 “`_incrementCounter`” 方法中更改此实例的“值”时，它实际上并不会改变实例本身。因此，这个比较总是返回 “false”。我们通过比较  “value”-s 来解决这个问题。但为此，我们应该将“值”曝出在小部件中，这允许我们可以不丢失重构之间的“值”：
 
 ```
 class _InheritedProvider extends InheritedWidget {
@@ -322,7 +321,7 @@ class _InheritedProvider extends InheritedWidget {
   _InheritedProvider({this.data, this.child})
 ```
 
-我们现在可以 “subscribe” 应用程序的状态改变，并在它被更改后调用 “ `setState`”：
+我们现在可以 “subscribe” 应用程序的状态改变，并在它被更改后调用 “`setState`”：
 
 ```
 class _ProviderState extends State<Provider> {
