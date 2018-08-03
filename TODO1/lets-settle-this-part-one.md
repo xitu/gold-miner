@@ -2,32 +2,32 @@
 > * 原文作者：[Nash Vail](https://medium.com/@nashvail?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lets-settle-this-part-one.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lets-settle-this-part-one.md)
-> * 译者：
-> * 校对者：
+> * 译者：[geniusq1981](https://github.com/geniusq1981)
+> * 校对者：[Moonliujk](https://github.com/Moonliujk)、[lance10030](https://github.com/lance10030)
 
-# Let’s settle ‘this’ — Part One
+# 让我们一起解决“this”难题 — 第一部分
 
 ![](https://i.loli.net/2018/07/23/5b553df9455fa.png)
 
-Can’t we all relate to this? At some point ‘this’ has been a thing to think about for almost all JavaScript developers. For me, whenever ‘this’ started to rear its ugly head I somehow managed to make things work and then forgot about it, and I’d like think you did the same, at some point. But let’s be done with it, today, once and for all _`*dramatic drumroll*`_ let’s settle ‘this’.
+难道我们就不能彻底搞清楚“this”吗？在某种程度上，几乎所有的 JavaScript 开发人员都曾经思考过“this”这个事情。对我来说，每当“this”出来捣乱的时候，我就会想方设法地去解决掉它，但过后就把它忘了，我想你应该也曾遇到过类似的场景。但是今天，让我们弄明白它，让我们一次性地彻底解决“this”的问题，一劳永逸。
 
-A couple of days ago while in a library I had an unexpected encounter.
+前几天，我在图书馆遇到了一个意想不到的事情。
 
 ![](https://i.loli.net/2018/07/23/5b553e2648b71.png)
 
-The second chapter of the book is all about ‘this’, I read it through, felt confident, couple of pages down a scenario pops up where I need to guess what ‘this’ is, and I mess up. That was one hell of a moment for introspection for my dumb self. I reread the chapter and then some and figured this is something every JS developer should know about.
+这本书的整个第二章都是关于“this”的，我很有自信地通读了一遍，但是发现其中有些地方讲到的“this”，我居然搞不懂它们是什么，需要去猜测。真的是时候反省一下我过度自信的愚蠢行为了。我再次把这一章重读了好几遍，发觉这里面的内容是每个 Javascript 开发人员都应该了解的。
 
-This therefore is my attempt to present the rules [Kyle](http://getify.me/) describes in [the book](https://github.com/getify/You-Dont-Know-JS) but in a more thorough manner and with a lot more code examples.
+因此，我尝试着用一种更彻底的方式和更多的示例代码来展示 [凯尔·辛普森](http://getify.me/) 在他的这本书 [你不知道的 Javascript](https://github.com/getify/You-Dont-Know-JS) 中描述的那些规范。
 
-Now I am not all about theory, I will right away start with examples that tripped me and I hope they trip you too. Whether you get tripped or not I will provide an explanation and that way, one by one I will introduce you to all the rules and some bonus ones as well.
+在这里我不会通篇只讲理论，我会直接以曾经困扰过我的困难问题为例开始讲起，我希望它们也是你感到困难的问题。但不管这些问题是否会困挠你，我都会给出解释说明，我会一个接一个地向你介绍所有的规则，当然还会有一些追加内容。
 
-Before we start, I assume you already have some knowledge of JavaScript and know what I mean when I say global, window, ‘this’, prototype e.t.c. In this article I will be using global and window interchangeably, they necessarily are the same thing for our intents and purposes.
+在开始之前，我假设你已经了解了一些 JavaScript 的背景知识，当我讲到 global、window、this、prototype 等等的时候，你知道它们是什么意思。这篇文章中，我会同时使用 global 和 window，在这里它们就是一回事，是可以互换的。
 
-In all of the code examples presented below your task is to guess what will be printed to the console. If you guess right add 1 to your score. Ready? Let’s begin.
+在下面给出的所有代码示例中，你的任务就是猜一下控制台输出的结果是什么。如果你猜对了，就给你自己加一分。准备好了吗？让我们开始吧。
 
 #### Example #1
 
-```
+```Javascript
 function foo() {  
  console.log(this);   
  bar();  
@@ -45,15 +45,15 @@ function baz() {
 foo();
 ```
 
-Did you trip? For testing, you can of course copy the code and fire it in a browser or in your terminal using node. Again, did you trip? Okay I will stop asking that. But seriously, if you didn’t trip add one to your score.
+你被难住了吗？为了测试，你当然可以把这段代码复制下来，然后在浏览器或者 Node 的运行环境中去运行看看结果。再来一次,你被难住了吗？好吧，我就不再问了。但说真的，如果你没被难住，那就给你自己加一分。
 
-If you run the code above you get the global object logged to the console, thrice. To explain this let me introduce **the very first rule,** **Default Binding.** The rule says that when a function undergoes standalone invocation i.e just _funcName();_ ‘this’ for such functions resolves to the global object.
+如果你运行上面的代码，就会在控制台中看到 global 对象被打印出三次。为了解释这一点，让我来介绍 **第一个规则，默认绑定**。规则规定，当一个函数执行独立调用时，例如只是 _funcName();_，这时函数的“this”被指向 global 对象。
 
-One thing to understand is that ‘this’ is not bound to a function until the function is invoked, therefore, to find ‘this’ you should pay a close attention to **_how the function is called or invoked and not where_**. All the three function invocations _foo(); bar();_ and _baz();_ are standalone invocations hence ‘this’ for all the three functions is the global object.
+需要理解的是，在调用函数之前，“this”并没有绑定到这个函数，因此，要找到“this”，你应该密切注意该函数是如何调用，而不是在哪里调用。所有三个函数 _foo();bar();_ 和 baz();_ 都是独立的调用，因此这三个函数的“this”都指向全局对象。
 
 #### Example #2
 
-```
+```Javascript
 ‘use strict’;
 function foo() {
  console.log(this); 
@@ -69,15 +69,15 @@ function baz() {
 foo();
 ```
 
-Notice the ‘use strict’ at the very top. What do you think gets printed to the console in this case? Well of course if you are aware of _strict mode_ you’d know that in strict mode the global object is not eligible for default binding. So instead of _global_ getting printed thrice, you get _undefined_ printed thrice.
+注意下最开始的“use strict”。在这种情况下，你觉得控制台会打印什么？当然，如果你了解 _strict mode_，你就会知道在严格模式下 global 对象不会被默认绑定。所以，你得到的打印是三次 _undefined_ 的输出，而不再是 _global_。
 
-To recap, inside a function that is invoked plainly i.e standalone invocation ‘this’ refers to the global object except in strict mode where global object default binding is not allowed hence ‘this’ in strict mode inside such functions is undefined.
+回顾一下，在一个简单调用函数中，比如独立调用中，“this”在非严格模式下指向 global 对象，但在严格模式下不允许 global 对象默认绑定，因此这些函数中的“this”是 undefined。
 
-To make our concept of Default binding more concrete, here are a few more examples.
+为了使我们对默认绑定概念理解得更加具体，这里有一些示例。
 
 #### Example #3
 
-```
+```Javascript
 function foo() {
  function bar() {
   console.log(this); 
@@ -88,15 +88,15 @@ function foo() {
 foo();
 ```
 
-_foo_ is called which in turn calls _bar_, and _bar_ prints ‘this’ to the console_._ Again, the trick is to see how the function is invoked. Both _foo_ and _bar_ undergo standalone invocation therefore ‘this’ inside both resolves to the global object. But since _bar_ is the only function that does the printing we see the global object logged to the console, once.
+_foo_ 先被调用，然后又调用 _bar_，_bar_ 将“this”打印到控制台中。这里的技巧是看看函数是如何被调用的。_foo_ 和 _bar_ 都被单独调用，因此，他们内部的“this”都是指向 global 对象。但是由于 _bar_ 是唯一执行打印的函数，所以我们看到 global 对象在控制台中输出了一次。
 
-I hope you didn’t answer _foo_ or _bar._ Did you?
+我希望你没有回答 _foo_ 或 _bar_。有没有？
 
-We’re getting comfortable with Default Binding here. Let’s do a simple one. What gets logged to the console in the example below?
+我们已经了解了默认绑定。让我们再做一个简单的测试。在下面的示例中，控制台输出什么？
 
 #### Example #4
 
-```
+```Javascript
 var a = 1;
 
 function foo() {  
@@ -106,15 +106,15 @@ function foo() {
 foo();
 ```
 
-Is it undefined? Is it 1? What is it?
+输出结果是 undefined？是 1？还是什么？
 
-If you have followed this far properly you should know that it is ‘1’ that gets logged to the console. Why? Well, first of all Default Binding applies to our function _foo_ here. Therefore ‘this’ inside _foo_ is the global object and _a_ is declared as a global variable which necessarily means _a_ is a property of the global object (talk about global object pollution) and therefore _this.a_ and _var a_ are the same exact thing.
+如果你已经很好地理解了之前讲解的内容，那么你应该知道控制台输出的是“1”。为什么？首先，默认绑定作用于函数 _foo_。因此 _foo_ 中的“this”指向 global 对象，并且 _a_ 被声明为 global 变量，这就意味着 _a_ 是 global 对象的属性（也称之为全局对象污染），因此 _this.a_ 和 _var a_ 就是同一个东西。
 
-We’ll keep in touch with Default Binding as we progress further in the article but now it’s time to introduce you to the next rule.
+随着本文的深入，我们将会继续研究默认绑定，但是现在是时候向你介绍下一个规则了。
 
 #### Example #5
 
-```
+```Javascript
 var obj = {  
  a: 1,   
  foo: function() {  
@@ -125,15 +125,15 @@ var obj = {
 obj.foo();
 ```
 
-Nothing trippy here really, the object ‘obj’ is what gets logged to the console. What you’re witnessing here is **Implicit Binding.** The rule says that when a function is invoked with an object reference preceding it it’s that object that should be used for the function call’s ‘this’ binding. To mention the obvious in case of the function call being preceded by more than one objects (_obj1.obj2.obj3.func()_), the object right behind the function call (_obj3_) is bound.
+这里应该没有什么疑问，对象“obj”会被输出在控制台中。你在这里看到的是 **隐式绑定**。规则规定，当一个函数被作为一个对象方法被调用时，那么它内部的“this”应该指向这个对象。如果函数调用前面有多个对象（ _obj1.obj2.func()_ ），那么函数之前的最后一个对象（_obj3_）会被绑定。
 
-> One thing to note here is that the function call must be valid which means when you write _obj.func(), func_ should be a property of object _obj._
+> 需要注意的一点是函数调用必须有效，那也就是说当你调用 _obj.func()_ 时，必须确保 _func_ 是对象 _obj_ 的属性。
 
-Therefore in the example above for the call _obj.foo()_ obj is the ‘this’ and hence _obj_ is what gets printed to the console.
+因此，在上面的例子中调用 _obj.foo()_ 时，“this”就指向 obj，因此 _obj_ 被打印输出在控制台中。
 
 #### Example #6
 
-```
+```Javascript
 function logThis() {  
  console.log(this);  
 }
@@ -147,23 +147,23 @@ logThis();
 myObject.logThis();
 ```
 
-Did you trip? :). I hope not.
+你被难住了？我希望没有。
 
-global followed by _myObject_ is what gets logged to the console. l_ogThis();_ logs global  and _myObject.logThis();_ logs _myObject._
+跟在 _myObject_ 后面的这个全局调用 _logThis()_ 通过 _console.log(this)_ 打印的是 global 对象；而 _myObject.logThis()_ 打印的是 _myObject_ 对象。
 
-An interesting thing to note here is that:
+这里需要注意一件有趣的事情：
 
-```
+```Javascript
 console.log(logThis === myObject.logThis); // true
 ```
 
-Why not? They are of course the same function, but you see **how _logThis_ is invoked** changes the value of ‘this’ inside it. When _logThis_ undergoes standalone invocation, Default binding rule applies but when _logThis_ is invoked with a preceding object reference Implicit binding is applied.
+为什么不呢？它们当然是相同的函数，但是你可以看到 **如何调用_logThis_** 会让其中的“this”发生改变。当 _logThis_ 被单独调用时，使用默认绑定规则，但是当 _logThis_ 作为前面的对象属性被调用时，使用隐式绑定规则。
 
-Anywho, let’s see how you handle this (pun intended).
+不管采用哪条规则，让我们看看是怎么处理的（双关语）。
 
 #### Example #8
 
-```
+```Javascript
 function foo() {  
  var a = 2;  
  this.bar();  
@@ -176,19 +176,19 @@ function bar() {
 foo();
 ```
 
-What gets logged to the console? First of all you might ask “_this.bar()?”_ Can you even do that? Of course we can, it will not result in an error.
+控制台输出什么？首先，你可能会问我们可以调用“_this.bar()”吗？当然可以，它不会导致错误。
 
-Just like _var a_ in Example #4 became a property of the global object so does _bar._ And since foo is invoked stand-a-lonely(if that’s a word) ‘this’ inside foo is the global object (Default Binding) hence _this.bar_ inside _foo_ and _bar_ are the same exact thing. But the actual question is what gets logged to the console?
+就像示例 #4 中的 _var a_ 一样，_bar_ 也是全局对象的属性。因为 foo 被单独调用了，它内部的“this”就是全局对象(默认绑定规则)。因此 _foo_ 内部的 _this.bar_ 就是 _bar_。但实际的问题是，控制台中输出什么？
 
-If you guessed it right ‘undefined’ is what gets logged.
+如果你猜的没错，“undefined”会被打印出来。
 
-Notice how _bar_ has been invoked? Going by what it looks like, Implicit binding is in play here. Implicit binding says ‘this’ inside _bar_ is the object reference preceding it. The object reference preceding _bar_ is the global object as ‘this’ inside foo is the global object isn’t it? Therefore trying to access _this.a_ inside _bar_ is equivalent to trying to access _[global object].a_ which surprise, surprise doesn’t exist hence undefined is what gets logged to the console.
+注意 _bar_ 是如何被调用的？看起来，隐式绑定在这里发挥作用。隐式绑定意味着 _bar_ 中的“this”是其前面的对象引用。_bar_ 前面的对象引用是全局对象，在 foo 里面是全局对象，对不对？因此在 _bar_ 中尝试访问 _this.a_ 等同于访问 _[global object].a_。没有什么意外，因此控制台会输出 undefined。
 
-Awesome! Moving on.
+太棒了！继续向下讲解。
 
 #### Example #7
 
-```
+```Javascript
 var obj = {  
  a: 1,   
  foo: function(fn) {  
@@ -202,21 +202,21 @@ obj.foo(function() {
 });
 ```
 
-Please don’t let me down.
+请不要让我失望。
 
-The function _foo_ accepts a callback function as parameter. And that’s what we did we put a function between the parans of _foo_ while invoking it.
+函数 _foo_ 接受一个回调函数作为参数。我们所做的就是在调用 _foo_ 的时候在参数里面放了一个函数。
 
-```
+```Javascript
 obj.foo( function() { console.log(this); } );
 ```
 
-But notice **how** _foo_ is invoked. Is it a standalone invocation? Of course not, therefore the first thing that gets logged to the console is the object _obj._ What about the callback function we passed in? Inside _foo_ the callback function becomes _fn_ and notice **how** _fn_ is invoked. That’s right, therefore ‘this’ inside _fn_ is the global object hence that is what is printed to the console.
+但是请注意 _foo_ 是 **如何** 被调用的。它是一个单独调用吗？当然不是，因此第一个输出到控制台的是对象 _obj_ 。我们传入的回调函数是什么？在 _foo_ 内部，回调函数变为 _fn_ ，注意 _fn_ 是 **如何** 被调用的。对，因此 _fn_ 中的“this”是全局对象，因此第二个被输出到控制台的是全局对象。
 
-Hope you’re not getting bored. How’s your score doing by the way? Good? Okay, I am all ready to trip you this time.
+希望你不会觉得无聊。顺便问一下，你的分数怎么样？还可以吗？好吧，这次我准备难倒你了。
 
 #### Example #8
 
-```
+```Javascript
 var arr = [1, 2, 3, 4];
 
 Array.prototype.myCustomFunc = function() {
@@ -226,17 +226,17 @@ Array.prototype.myCustomFunc = function() {
 arr.myCustomFunc();
 ```
 
-If you have no idea what a _.prototype_ is in JavaScript just see it as any other object for now but if you are a JavaScript developer you _should_ know what it is. You know what? Do yourself a favor and go ahead and read a little about what prototypes are. I’ll wait.
+如果你还不知道 Javascript 里面的 _.prototype_ 是什么，那你就权且把它和其他对象等同看待，但如果你是 JavaScript 开发者，你应该知道。你知道吗？努努力，再去多读一些关于原型链相关的书籍吧。我在这里等着你。
 
-So what gets logged? Is it the _Array.prototype_ object? Wrong!
+那么打印输出的是什么？是 _Array.prototype_ 对象？错了！
 
-It’s the same old trick, check out **_how_** _myCustomFunc_ is invoked. That’s right, Implicit binding binds _arr_ to _myCustomFunc_ hence what gets logged to the console is _arr [1, 2, 3, 4]._
+这是和之前相同的技巧，请检查 _custommyfunc_ 是 **如何** 被调用的。没错，隐式绑定把 _arr_ 绑定到 _myCustomFunc_，因此输出到控制台的是 _arr[1,2,3,4]_。
 
-Did I get you?
+我说的，你理解了吗？
 
 #### Example #9
 
-```
+```Javascript
 var arr = [1, 2, 3, 4];
 
 arr.forEach(function() {  
@@ -244,11 +244,11 @@ arr.forEach(function() {
 });
 ```
 
-The result of executing above code is the global object being logged four times to the console. It’s ok if you tripped. Take a look at Example #7. Still not getting it? The next example will help.
+执行上述代码的结果是，在控制台中输出了 4 次全局对象。如果你错了，也没关系。请再看示例#7。还没理解？下一个示例会有所帮助。
 
 #### Example #10
 
-```
+```Javascript
 var arr = [1, 2, 3, 4];
 
 Array.prototype.myCustomFunc = function(fn) {  
@@ -261,15 +261,15 @@ arr.myCustomFunc(function() {
 });
 ```
 
-Just like in example #7 we are passing a callback function _fn_ as a parameter to the function _myCustomFunc_. And as it turns out the passed in function undergoes standalone invocation. That is why in the previous example (#9) the global object gets logged, because inside forEach the passed in callback function undergoes standalone invocation.
+就像示例 #7 一样，我们将回调函数 _fn_ 作为参数传递给函数 _myCustomFunc_。结果是传入的函数会被独立调用。这就是为什么在前面的示例（#9）中输出全局对象，因为在 forEach 中传入的回调函数被独立调用。
 
-Similarly, in this example the first thing that gets logged to the console is _arr_ and next, the global object. I understand if this looks a little complicated but I am sure you will get it if you pay a little more attention.
+类似地，在本例中，首先输出到控制台的是 _arr_，然后是输出的是全局对象。我知道这看上去有点复杂，但我相信如果你能再多用点心，你会弄明白的。
 
-Let’s keep using this array example to introduce a few more concepts. I think I will start using an acronym here, how about WGL? WHAT. GETS. LOGGED? Here’s the next example before I start getting any more corny.
+让我们继续使用这个数组的示例来介绍更多的概念。我想我会在这里使用一个简称，WGL 怎么样？作为 WHAT.GETS.LOGGED 的简称？好吧，在我开始老生常谈之前，下面是另外一个例子。
 
 #### Example #11
 
-```
+```Javascript
 var arr = [1, 2, 3, 4];
 
 Array.prototype.myCustomFunc = function() {  
@@ -284,15 +284,15 @@ Array.prototype.myCustomFunc = function() {
 arr.myCustomFunc();
 ```
 
-So, WGL?
+那么，输出是？
 
-The answer is exactly the same as that of #10. It’s up to you to figure why _arr_ gets logged first. The complex looking block of code you see below _console.log(this);_ is what is known as an IIFE (Immediately Invoked Function Expression). The name is self explanatory right? The function wrapped inside **(** … **)();** gets invoked on the spot. But the way it’s invoked is equivalent to standalone invocation therefore ‘this’ inside it is global and hence global is what gets logged.
+答案和示例 #10 完全一样。轮到你了，说一说为什么首先输出的是 _arr_？你看到第一个 _console.log(this)_ 的下面有一段复杂的代码，它被称为 IIFE（立即调用的函数表达式）。这个名字不用再过多解释了，对吧？被 **(…)();** 这样形式封装的函数会立即被调用，也就是说等同于被独立调用，因此它内部的“this”是全局变量，所以输出的是全局变量。
 
-New concept coming up! Let’s see how familiar you are with ES2015.
+要来新概念了！让我们看看你对 ES2015 的熟悉程度。
 
 #### Example #12
 
-```
+```Javascript
 var arr = [1, 2, 3, 4];
 
 Array.prototype.myCustomFunc = function() {  
@@ -311,20 +311,20 @@ Array.prototype.myCustomFunc = function() {
 arr.myCustomFunc();
 ```
 
-Everything is the same as example #11 except 3 extras line of code after the IIFE. Which actually is also an IIFE but with a slightly different syntax. That sir, is what is called an Arrow function.
+除了 IIFE 后面的增加了 3 行代码之外，其他代码与示例 #11 完全相同。它实际上也是一种 IIFE，只是语法稍有不同。嗨，这是箭头函数。
 
-The thing with Arrow functions is that ‘this’ inside such functions is lexical. Which means when time comes to bind ‘this’ to such functions something from inside the function reaches out and grabs ‘this’ from the function or scope surrounding it. The ‘this’ inside the function surrounding our arrow function is _arr._ Therefore?
+箭头函数的意思是，这些函数中的“this”是一个词法变量。也就是说，当将“this”与这种箭头函数绑定时，函数会从包裹它的函数或作用域中获取“this”的值。包裹我们这个箭头函数的函数里面的“this”是 _arr_。因此？
 
-```
+```Javascript
 // This is WGL
 arr [1, 2, 3, 4]
 Normal this : global
 Arrow function this : arr [1, 2, 3, 4]
 ```
 
-What if I rewrote example #9 with arrow function. What would be logged to the console then?
+如果我用箭头函数重写示例 #9 会怎么样？控制台输出什么呢？
 
-```
+```Javascript
 var arr = [1, 2, 3, 4];
 
 arr.forEach(() => {
@@ -332,13 +332,13 @@ arr.forEach(() => {
 });
 ```
 
-The example above is a bonus one so don’t increment your score even if you guessed it right. Are you even keeping a score? Such a nerd.
+上面的这个例子是额外追加的，所以即使你猜对了也不用增加分数。你还在算分吗？书呆子。
 
-Now pay close attention to the following example. I don’t want you to get this one wrong at any expense ;-).
+现在请仔细关注以下示例。我会不惜一切代价让你弄懂他们 :-)。
 
 #### Example #13
 
-```
+```Javascript
 var yearlyExpense = {
 
  year: 2016,
@@ -360,21 +360,21 @@ var yearlyExpense = {
 yearlyExpense.printExpenses();
 ```
 
-So, WGL? Take your time.
+那么,输出是？多点时间想一想。
 
-Here is the answer but I’d like you to try thinking it through yourself before reading the explanation.
+这是答案，但我希望你在阅读解释之前先自己想想。
 
-```
+```Javascript
 1000 spent in January, undefined  
 2000 spent in February, undefined  
 3000 spent in March, undefined
 ```
 
-It’s all about the _printExpenses_ function here. First of all notice how it’s invoked. Implicit binding right? yes. So ‘this’ inside _printExpenses_ is the object _yearlyExpense._ Which means _this.expenses_ is the _expenses_ array inside the _yearlyExpense_ object, so no problem here. Now when it comes to ‘this’ inside the callback function passed to forEach it’s of course the global object, refer example #9.
+这都是关于 _printExpenses_ 函数的。首先注意下它是如何被调用的。隐式绑定？是的。所以 _printExpenses_ 中的“this”指向的是对象 _yearlycost_。这意味着 _this.expenses_ 是 _yearlyExpense_ 对象中的 _expenses_ 数组，所以这里没有问题。现在，当它在传递给 forEach 的回调函数中出现“this”时，它当然是全局对象，请参考例 #9。
 
-Notice how arrow function comes to rescue with the “fixed” version below.
+注意，下面的“修正”版本是如何使用箭头函数进行改进的。
 
-```
+```Javascript
 var expense = {
 
  year: 2016,
@@ -396,21 +396,21 @@ var expense = {
 expense.printExpenses();
 ```
 
-And hence we get our desired output :
+这样我们就得到了想要的输出结果：
 
-```
+```Javascript
 1000 spent in January, 2016  
 2000 spent in February, 2016  
 3000 spent in March, 2016
 ```
 
-So far we have made ourselves familiar with Implicit and Default binding. We now know that the way a function is invoked decides ‘this’ inside it. We also briefly went over arrow functions and how they’re bounded lexically to ‘this’.
+到目前为止，我们已经熟悉了隐式绑定和默认绑定。我们现在知道函数被调用的方式决定了它里面的“this”。我们还简要地讲了箭头函数以及它们内部的“this”是怎样定义的。
 
-Before we move to the other rules, you should know that there are instances where we can lose Implicitly bounded ‘this’. Let’s quickly take a look at those examples.
+在我们讨论其他规则之前，你应该知道，有些情况下，我们的“this”可能会丢失隐式绑定。让我们快速地看一下这些例子。
 
 #### Example #14
 
-```
+```Javascript
 var obj = {  
  a: 2,  
  foo: function() {  
@@ -424,13 +424,13 @@ var bar = obj.foo;
 bar();
 ```
 
-No need to get distracted by all the fancy code here, to find ‘this’ inside a function simply notice how the function has been invoked. You must have had gotten the hang of this trick by now. First _obj.foo()_ is invoked, since _foo_ is preceded by an object reference, the first thing that gets logged is the object _obj_. _bar_ of course undergoes standalone invocation and therefore global is what gets logged to the console next. Just to remind you, remember in strict mode global object is not eligible for default binding, therefore if you have strict mode on undefined will be logged to the console instead of global.
+不要被这里面的花哨代码所分心，只需注意函数是如何被调用的，就可以弄明白“this”的含义。你现在一定已经掌握这个技巧了吧。首先 _obj.foo()_ 被调用，因为 _foo_ 前面有一个对象引用，所以首先输出的是对象 _obj_。_bar_ 当然是被独立调用的，因此下一个输出是全局变量。提醒你一下，记住在严格模式下，全局对象是不会默认绑定的，因此如果你在开启了严格模式，那么控制台输出的就是 undefined，而不再是全局变量。
 
-Both bar and foo are references to the same exact function the only difference is in the way they are invoked.
+bar 和 foo 是对同一个函数的引用，唯一区别是它们被调用的方式不同。
 
 #### Example #15
 
-```
+```Javascript
 var obj = {  
  a: 2,  
  foo: function() {  
@@ -445,15 +445,17 @@ function doFoo(fn) {
 doFoo(obj.foo);
 ```
 
-Nothing very special here as well. We are passing _obj.foo_ as a parameter to the _doFoo_ function (doFoo sounds funny LOL). Again, _fn_ and _foo_ are references to the same function. Now I am going to repeat the same old thing, _fn_ undergoes standalone invocation therefore ‘this’ inside _fn_ is the global object. And the global object doesn’t have a property _a,_ hence we get undefined logged to the console.
+这里也没什么特别的。我们是通过把 _obj.foo_ 作为 _doFoo_ 函数的参数（doFoo 这个名字听起来很有趣）。同样， _fn_ 和 _foo_ 是对同一个函数的引用。现在我要重复同样的分析过程， _fn_ 被独立调用，因此 _fn_ 中的“this”是全局对象。而全局对象没有属性 _a_，因此我们在控制台中得到了 undifined 的输出结果。
 
-And with that we’re done with this part. In this part we went over two rules of binding ‘this’ to functions. Default and Implicit. We took a look at how using ‘use strict’ affects the binding of global object also how implicitly bounded ‘this’ can be lost. I hope you found this article helpful in the next part we will take a look at a few new rules including _new_ and Explicit binding. See you there.
+到这里，我们这部分就讲完了。在这一部分中，我们讨论了将“this”绑定到函数的两个规则。默认绑定和隐式绑定。我们研究了如何使用“use strict”来影响全局对象的绑定，以及如何会让隐式绑定的“this”失效。我希望在接下来的第二部分中，你会发现本文对你有所帮助，在那里我们将介绍一些新规则，包括 _new_ 和显式绑定。那里再见吧！
+
 
 * * *
 
-Before we part I’d like to end this part with a “simple” example that had me trippin a lot when I was taking my first steps in JS. Not everything is rainbows in JS there are some ugly parts as well. Let’s take a look at one of them.
 
-```
+在我们结束之前，我想用一个“简单”的例子来作为这一部分的收尾，当我开始使用 Javascript 时，这个例子曾经让我感到非常震惊。Javascript 里面也并不是所有的东西都是美的，也有看起来很糟糕的东西。让我们看看其中的一个。
+
+```Javascript
 var obj = {  
  a: 2,  
  b: this.a * 2  
@@ -462,9 +464,9 @@ var obj = {
 console.log( obj.b ); // NaN
 ```
 
-It reads so well right, inside _obj_ ‘this’ should be _obj_ and hence _this.a_ should be 2. Well, no. As it turns out ‘this’ inside this object literal is the global object, so if you do something like this…
+它读起来感觉很好，在 _obj_ 里面，“this”应该是 _obj_，因此是 _this.a_ 应该是 2。嗯,错了。因为在这个对象里面的“this”是全局对象，所以如果你像这么写…
 
-```
+```Javascript
 var myObj = {  
  a: 2,  
  b: this  
@@ -473,27 +475,27 @@ var myObj = {
 console.log(myObj.b); // global
 ```
 
-… the global object gets logged to the console. You might say “well then, myObj is the property of global object (Example #4 & #8) isn’t it?” Absolutely it is.
+控制台输出的就是全局对象。你可能会说“但是，myObj 是全局对象的属性（示例 #4 和示例 #8），不对吗？”是的，绝对正确。
 
-```
+```Javascript
 console.log( this === myObj.b ); // true   
 console.log( this.hasOwnProperty(‘myObj’) ); //true
 ```
 
-“Which means if I do something like this it should work!”
+“也就是说，如果我像这样写的话，它就可以！”
 
-```
+```Javascript
 var myObj = {  
  a: 2,  
  b: this.myObj.a * 2  
 };
 ```
 
-Sadly no, this is where all the logic fails. The above code is a faulty one with the compiler complaining it couldn’t find property _a_ of undefined. [Why is that?](http://stackoverflow.com/questions/4616202/self-references-in-object-literal-declarations/10766107#10766107) I simply don’t know.
+遗憾的是，不是这样的，这会导致逻辑错误。上面的代码是不正确的，编译器会抱怨它找不到未定义的属性 _a_。[为什么会这样？](http://stackoverflow.com/questions/4616202/self-reference-in-object-literations/10766107#10766107)我也不太清楚。
 
-Fortunately, getters (Implicit binding) are here to the rescue.
+幸运的是，getters（隐式绑定）可以给我们提供帮助。
 
-```
+```Javascript
 var myObj = {  
  a: 2,  
  get b() {  
@@ -504,15 +506,15 @@ var myObj = {
 console.log( myObj.b ); // 4
 ```
 
-You made it to the end! Well done. [Part two](https://github.com/xitu/gold-miner/blob/master/TODO1/lets-settle-this-part-two.md) awaits, see you there.
+你坚持到最后了！做得好。[第二部分](https://github.com/xitu/gold-miner/blob/master/todo1/lets-setts-this-part-two.md)，我们再见。
 
-#### If you found this article helpful do recommend and share it for other developers to discover. I publish articles often, follow me on [Twitter](http://twitter.com/NashVail) and on [Medium](http://medium.com/@nashvail) to be notified when that happens.
+如果你发现这篇文章很有用，你可以推荐并分享给其他开发者。我经常发表文章，在 [Twitter](http://twitter.com/NashVail) 和 [Medium](http://medium.com/@nashvail) 上关注我，以便在这种情况发生时得到通知。
 
-#### Thanks for reading, have a good one!
+谢谢你的阅读，祝你愉快！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
