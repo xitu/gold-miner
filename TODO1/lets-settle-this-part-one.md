@@ -3,14 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lets-settle-this-part-one.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lets-settle-this-part-one.md)
 > * 译者：[geniusq1981](https://github.com/geniusq1981)
-> * 校对者：[Moonliujk](https://github.com/Moonliujk)
-
-# Let’s settle ‘this’ — Part One> * 原文地址：[Let’s settle ‘this’ — Part One](https://medium.com/@nashvail/lets-settle-this-part-one-ef36471c7d97)
-> * 原文作者：[Nash Vail](https://medium.com/@nashvail?source=post_header_lockup)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lets-settle-this-part-one.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lets-settle-this-part-one.md)
-> * 译者：[geniusq1981](https://github.com/geniusq1981)
-> * 校对者：
+> * 校对者：[Moonliujk](https://github.com/Moonliujk)、[lance10030](https://github.com/lance10030)
 
 # 让我们一起解决“this”难题 — 第一部分
 
@@ -54,9 +47,9 @@ foo();
 
 你被难住了吗？为了测试，你当然可以把这段代码复制下来，然后在浏览器或者 Node 的运行环境中去运行看看结果。再来一次,你被难住了吗？好吧，我就不再问了。但说真的，如果你没被难住，那就给你自己加一分。
 
-如果你运行上面的代码，就会在控制台中看到 global 对象被打印出三次。为了解释这一点，让我来介绍 **第一个规则，默认绑定**。规则规定，当一个函数执行独立调用时，例如只是 _funcName();_ ，这时函数的 “this” 被指向 global 对象。
+如果你运行上面的代码，就会在控制台中看到 global 对象被打印出三次。为了解释这一点，让我来介绍 **第一个规则，默认绑定**。规则规定，当一个函数执行独立调用时，例如只是 _funcName();_ ，这时函数的“this”被指向 global 对象。
 
-需要理解的是，在调用函数之前，“this”并没有绑定到这个函数，因此，要找到“this”，你应该密切注意该函数是如何调用，而不是在哪里调用。所有三个函数 _foo();bar();和 baz();_ 都是独立的调用，因此这三个函数的 “this” 都指向全局对象。
+需要理解的是，在调用函数之前，“this”并没有绑定到这个函数，因此，要找到“this”，你应该密切注意该函数是如何调用，而不是在哪里调用。所有三个函数 _foo();bar();和 baz();_ 都是独立的调用，因此这三个函数的“this”都指向全局对象。
 
 #### Example #2
 
@@ -78,7 +71,7 @@ foo();
 
 注意下最开始的“use strict”。在这种情况下，你觉得控制台会打印什么？当然，如果你了解 _strict mode_ ，你就会知道在严格模式下 global 对象不会被默认绑定。所以，你得到的打印是三次 _undefined_ 的输出，而不再是 _global_。
 
-回顾一下，在一个简单调用函数中，比如独立调用中，“this”在非严格模式下指向 global 对象，但在严格模式下不允许 global 对象默认绑定，因此这些函数中的 “this” 是 undefined。
+回顾一下，在一个简单调用函数中，比如独立调用中，“this”在非严格模式下指向 global 对象，但在严格模式下不允许 global 对象默认绑定，因此这些函数中的“this”是 undefined。
 
 为了使我们对默认绑定概念理解得更加具体，这里有一些示例。
 
@@ -132,7 +125,7 @@ var obj = {
 obj.foo();
 ```
 
-这里应该没有什么疑问，对象“obj”会被输出在控制台中。你在这里看到的是 **隐式绑定** 。规则规定，当一个函数被作为一个对象方法被调用时，那么它内部的“this”应该指向这个对象。如果函数调用前面有多个对象（ _obj1.obj2. func()_ ），那么函数之前的最后一个对象（ _obj3_ ）会被绑定。
+这里应该没有什么疑问，对象“obj”会被输出在控制台中。你在这里看到的是 **隐式绑定**。规则规定，当一个函数被作为一个对象方法被调用时，那么它内部的“this”应该指向这个对象。如果函数调用前面有多个对象（ _obj1.obj2. func()_ ），那么函数之前的最后一个对象（ _obj3_ ）会被绑定。
 
 > 需要注意的一点是函数调用必须有效，那也就是说当你调用 _obj.func()_ 时,必须确保 _func_ 是对象 _obj_ 的属性。
 
@@ -185,7 +178,7 @@ foo();
 
 控制台输出什么？首先，你可能会问我们可以调用“_this.bar()”吗？当然可以，它不会导致错误。
 
-就像示例 #4 中的 _var a_ 一样， _bar_ 也是全局对象的属性。因为 foo 被单独调用了，它内部的“this”就是全局对象(默认绑定规则)。因此 _foo_ 内部的 _this.bar_ 就是 _bar_ 。但实际的问题是，控制台中输出什么？
+就像示例 #4 中的 _var a_ 一样，_bar_ 也是全局对象的属性。因为 foo 被单独调用了，它内部的“this”就是全局对象(默认绑定规则)。因此 _foo_ 内部的 _this.bar_ 就是 _bar_ 。但实际的问题是，控制台中输出什么？
 
 如果你猜的没错，“undefined”会被打印出来。
 
@@ -233,9 +226,9 @@ Array.prototype.myCustomFunc = function() {
 arr.myCustomFunc();
 ```
 
-如果你不知道 Javascript 里面的 _.prototype_ 是什么的话，那你就权且把它和其他对象等同看待，但是如果你是一个 JavaScript 开发人员，你应该知道它是什么。你知道吗？帮自己一个忙，去读一些关于原型链相关的书。我在这里等你。
+如果你还不知道 Javascript 里面的 _.prototype_ 是什么，那你就权且把它和其他对象等同看待，但如果你是 JavaScript 开发者，你应该知道。你知道吗？努努力，再去多读一些关于原型链相关的书籍吧。我在这里等着你。
 
-那么打印输出什么？是 _Array.prototype_ 对象？错了！
+那么打印输出的是什么？是 _Array.prototype_ 对象？错了！
 
 这是和之前相同的技巧，请检查 _custommyfunc_ 是 **如何** 被调用的。没错，隐式绑定把 _arr_ 绑定到 _myCustomFunc_ ，因此输出到控制台的是 _arr[1,2,3,4]_ 。
 
@@ -268,7 +261,7 @@ arr.myCustomFunc(function() {
 });
 ```
 
-就像示例#7一样，我们将回调函数 _fn_ 作为参数传递给函数 _myCustomFunc_ 。结果是传入的函数会被独立调用。这就是为什么在前面的示例（#9）中输出全局对象，因为在 forEach 中传入的回调函数被独立调用。
+就像示例 #7 一样，我们将回调函数 _fn_ 作为参数传递给函数 _myCustomFunc_ 。结果是传入的函数会被独立调用。这就是为什么在前面的示例（#9）中输出全局对象，因为在 forEach 中传入的回调函数被独立调用。
 
 类似地，在本例中，首先输出到控制台的是 _arr_ ，然后是输出的是全局对象。我知道这看上去有点复杂，但我相信如果你能再多用点心，你会弄明白的。
 
@@ -431,7 +424,7 @@ var bar = obj.foo;
 bar();
 ```
 
-不要被这里面的花哨代码所分心，只需注意函数是如何被调用的，就可以弄明白“this”的含义。你现在一定已经掌握这个技巧了吧。首先 _object .foo()_ 被调用，因为 _foo_ 前面有一个对象引用，所以首先输出的是对象 _obj_ 。 _bar_ 当然是被独立调用的，因此下一个输出是全局变量。提醒你一下，记住在严格模式下，全局对象是不会默认绑定的，因此如果你在开启了严格模式，那么控制台输出的就是 undefined，而不再是全局变量。
+不要被这里面的花哨代码所分心，只需注意函数是如何被调用的，就可以弄明白“this”的含义。你现在一定已经掌握这个技巧了吧。首先 _obj.foo()_ 被调用，因为 _foo_ 前面有一个对象引用，所以首先输出的是对象 _obj_ 。_bar_ 当然是被独立调用的，因此下一个输出是全局变量。提醒你一下，记住在严格模式下，全局对象是不会默认绑定的，因此如果你在开启了严格模式，那么控制台输出的就是 undefined，而不再是全局变量。
 
 bar 和 foo 是对同一个函数的引用，唯一区别是它们被调用的方式不同。
 
@@ -482,7 +475,7 @@ var myObj = {
 console.log(myObj.b); // global
 ```
 
-控制台输出的就是全局对象。你可能会说“但是，myObj 是全局对象的属性（示例#4 和示例 #8 ），不对吗？”是的，绝对正确。
+控制台输出的就是全局对象。你可能会说“但是，myObj 是全局对象的属性（示例#4 和示例 #8），不对吗？”是的，绝对正确。
 
 ```Javascript
 console.log( this === myObj.b ); // true   
@@ -498,7 +491,7 @@ var myObj = {
 };
 ```
 
-遗憾的是，不是这样的，这会导致逻辑错误。上面的代码是不正确的，编译器会抱怨它找不到未定义的属性 _a_ 。 [为什么会这样？](http://stackoverflow.com/questions/4616202/self-reference-in-object-literations/10766107#10766107)我也不太清楚。
+遗憾的是，不是这样的，这会导致逻辑错误。上面的代码是不正确的，编译器会抱怨它找不到未定义的属性 _a_ 。[为什么会这样？](http://stackoverflow.com/questions/4616202/self-reference-in-object-literations/10766107#10766107)我也不太清楚。
 
 幸运的是，getters（隐式绑定）可以给我们提供帮助。
 
