@@ -21,7 +21,7 @@
 Web 组件并非单一的技术，而是由一系列 [W3C](https://www.w3.org/) 定义的浏览器标准组成，使得开发者可以构建出浏览器原生支持的组件。这些标准包括：
 
 *   **template 标签和 slot 标签** – 可复用的 HTML 标签，提供了和用户自定义标签相结合的接口
-*   **Shadow DOM（译者注：影子 DOM）** – 对标签和样式的一层 DOM 包装
+*   **Shadow DOM（译者注：影子节点）** – 对标签和样式的一层 DOM 包装
 *   **Custom Elements（译者注：自定义元素）** – 带有特定行为且用户自命名的 HTML 元素
 
 这里还有另一个 Web 组件的规范，**HTML Imports**，用于将 HTML 代码及 Web 组件导入到一个 Web 页面上。然而，在交叉参考 [ES Module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) 规范后，[Firefox 团队认为这不是一种最佳实践](https://hacks.mozilla.org/2015/06/the-state-of-web-components/)，该规范也就没多少人在推动了。
@@ -49,7 +49,7 @@ container.appendChild(templateInstance);
 ```
 
 Using this method, it is possible to reuse the template using the `cloneNode` function. Alongside the `<template>` tag is the `<slot>` tag. Slots allow developers to dynamically place custom HTML content within the template at specified points. The `name` attribute is used to create a unique identifier to slot into:
-像上面那样写，就可以借助 `cloneNode` 函数来复用这个模板。除了 `<template>` 标签还有一个 `<slot>` 标签。
+像上面那样写，就可以借助 `cloneNode` 函数来复用这个模板。提到 `<template>` 标签就不得不提 `<slot>` 标签。slot 标签允许开发者通过特定接入点来动态替换模板中的 HTML 内容。它用 `name` 属性来作为唯一识别标志（译者注，就类似普通 DOM 节点的 id 属性）：
 
 ```
 <template id="custom-template">
@@ -57,11 +57,11 @@ Using this method, it is possible to reuse the template using the `cloneNode` fu
 </template>
 ```
 
-Slots are most useful in conjunction with [Custom Elements](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements). They allow developers to write markup inside a declared Custom Element. When used with the `slot` attribute, the markup from the corresponding Custom Element gets placed inside the corresponding `<slot>` tag in the template.
+slot 特性在 [Custom Element](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) 的注入中非常有用。它允许开发者在写好的 Custom Element 里面设置标记。当 Custom Element 里面的节点用到了 `slot` 属性作为标记，那这个节点就会替换掉模板里面对应的 slot 标签。
 
 ## Shadow DOM
 
-Accessing elements in a page is an essential part of web development. CSS Selectors are useful not just for styling elements, but also querying a collection of DOM nodes. Generally, this occurs via selecting known identifiers, for example using `document.querySelectorAll` returns an array of elements matching a given selector in the entire DOM tree. However, what if the application in question is very large, with many elements with matching class names? At this point, it may get confusing to determine which elements get targeted and bugs could get introduced. Wouldn’t it be nice if it was possible to abstract and isolate parts of the DOM, hiding them away from being selected by DOM selectors? Shadow DOM allows developers to do this, closing off DOM away in a separate subtree. Ultimately this provides robust encapsulation and isolation from other elements in the page, a core benefit of Web Components.
+在页面上定位具体的节点这是 web 开发的一个基本能力。CSS 选择器不仅可以用来给节点加样式，还可以用来查询特定的 DOM 集合。这通常发生在根据一个标识符选择特定节点，比方说使用 `document.querySelectorAll` 就可以找到整个 DOM 树中匹配指定选择器的节点数组。然而，如果应用程序非常庞大，有很多节点有冲突的 class 属性，那又该怎么办？此时，程序就不知道哪个节点是想被选中的，bug 也就随之产生。如果可能的话，将部分 DOM 节点抽象出来，隔离开来，让它们不会被 DOM 选择器选择到，那岂不是很好？Shadow DOM 就能做到，它允许开发者将一些节点复制出来放到一个隔离开来的子树上。根本上说 Shadow DOM 提供了一种健壮的封装方式来做到页面节点的隔离，这也是 Web 组件的核心优势。
 
 In a similar vein, we have a comparable issue with CSS classes and IDs for styling as they are global. Clashing identifiers overwrite each other’s styling rules. Similar to selecting nodes within the DOM tree, what if it was possible to scope CSS to a specific subtree of DOM, avoiding global styling clashes? Popular styling technologies like [CSS Modules](https://github.com/css-modules/css-modules), or [Styled Components](https://www.styled-components.com/), attempt to solve this problem as part of their core concerns. For example, CSS Modules provide unique identifiers to each CSS class to prevent clashes by hashing the class and module names. The difference with Shadow DOM is that it allows this as a **native feature** without any class name mangling. The Shadow DOM fences off parts of the DOM to prevent unwanted behaviours in our sites and applications.
 
