@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/in-unix-everything-is-a-file.md](https://github.com/xitu/gold-miner/blob/master/TODO1/in-unix-everything-is-a-file.md)
 > * 译者：[pmwangyang](https://github.com/pmwangyang)
-> * 校对者：
 
 # 在 UNIX 中，一切皆文件
 
