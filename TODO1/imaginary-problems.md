@@ -2,8 +2,7 @@
 > * 原文作者：[George](https://medium.com/@george3d6?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/imaginary-problems.md](https://github.com/xitu/gold-miner/blob/master/TODO1/imaginary-problems.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ssshooter](https://github.com/ssshooter)
 
 # 虚构问题，低质量软件的根源
 
