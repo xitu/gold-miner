@@ -2,40 +2,50 @@
 > * 原文作者：[Alexander Zlatkov](https://blog.sessionstack.com/@zlatkov?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-tracking-changes-in-the-dom-using-mutationobserver.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-tracking-changes-in-the-dom-using-mutationobserver.md)
-> * 译者：
-> * 校对者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
+> * 校对者：[jasonxia23](https://github.com/jasonxia23)
 
-# How JavaScript works: tracking changes in the DOM using MutationObserver
+# JavaScript 是如何工作的：用 MutationObserver 追踪 DOM 的变化
 
-This is post # 10 of the series dedicated to exploring JavaScript and its building components. In the process of identifying and describing the core elements, we also share some rules of thumb we use when building [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=javascript-series-push-notifications-intro), a JavaScript application that needs to be robust and highly-performant to help users see and reproduce their web app defects real-time.
+本系列专门研究 JavaScript 及其构建组件，这是第 10 期。在识别和描述核心元素的过程中，我们也分享了一些构建 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=javascript-series-push-notifications-intro) 的重要法则，SessionStack 是一个 JavaScript 应用，为了帮助用户实时查看和再现他们的 web 应用程序缺陷，它需要健壮并且高性能。
 
 ![](https://cdn-images-1.medium.com/max/800/0*mPXf5zRCdEQ42Hn0.)
 
-Web apps are getting increasingly heavy on the client-side, due to many reasons such as the need of a richer UI to accommodate what more complex apps have to offer, real-time calculations, and so on.
+1. [[译] JavaScript 是如何工作的：对引擎、运行时、调用堆栈的概述](https://juejin.im/post/5a05b4576fb9a04519690d42)
+2. [[译] JavaScript 是如何工作的：在 V8 引擎里 5 个优化代码的技巧](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code.md)
+3. [[译] JavaScript 是如何工作的：内存管理 + 处理常见的4种内存泄漏](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-memory-management-how-to-handle-4-common-memory-leaks.md)
+4. [[译] JavaScript 是如何工作的: 事件循环和异步编程的崛起 + 5个如何更好的使用 async/await 编码的技巧](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-event-loop-and-the-rise-of-async-programming-5-ways-to-better-coding-with.md)
+5. [[译] JavaScript 是如何工作的：深入剖析 WebSockets 和拥有 SSE 技术 的 HTTP/2，以及如何在二者中做出正确的选择](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-deep-dive-into-websockets-and-http-2-with-sse-how-to-pick-the-right-path.md)
+6. [[译] JavaScript 是如何工作的：与 WebAssembly 一较高下 + 为何 WebAssembly 在某些情况下比 JavaScript 更为适用](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-a-comparison-with-webassembly-why-in-certain-cases-its-better-to-use-it.md)
+7. [[译] JavaScript 是如何工作的：Web Worker 的内部构造以及 5 种你应当使用它的场景](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-the-building-blocks-of-web-workers-5-cases-when-you-should-use-them.md)
+8. [[译] JavaScript 是如何工作的：Web Worker 生命周期及用例](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-service-workers-their-life-cycle-and-use-cases.md)
+9. [[译] JavaScript 是如何工作的：Web 推送通知的机制](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-the-mechanics-of-web-push-notifications.md)
 
-The increased complexity makes it harder to know the exact state of the UI at every given moment during the lifecycle of your web app.
+web 应用正在持续的越来越侧重客户端，这是由很多原因造成的，例如需要更丰富的 UI 来承载复杂应用的需求，实时运算，等等。
 
-This gets even harder if you’re building some kind of a framework or just a library, for example, that has to react and perform certain actions that are dependent on the DOM.
+持续增加的复杂度使得在 web 应用的生命周期的任意时刻中获取 UI 的确切状态越来越困难。
 
-### Overview
+而当你在搭建某些框架或者库的时候，甚至会更加困难，例如，前者需要根据 DOM 来作出反应并执行特定的动作。
 
-[MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) is a Web API provided by modern browsers for detecting changes in the DOM. With this API one can listen to newly added or removed nodes, attribute changes or changes in the text content of text nodes.
+### 概览
 
-Why would you want to do that?
+[MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) 是一个现代浏览器提供的 Web API，用于检测 DOM 的变化。借助这个 API，可以监听到节点的新增或移除，节点的属性变化或者字符节点的字符内容变化。
 
-There are quite a few cases in which the MutationObserver API can come really handy. For instance:
+为什么你会想要监听 DOM？
 
-*   You want to notify your web app visitor that some change has occurred on the page he’s currently on.
-*   You’re working on a new fancy JavaScript framework that loads dynamically JavaScript modules based on how the DOM changes.
-*   You might be working on a WYSIWYG editor, trying to implement undo/redo functionality. By leveraging the MutationObserver API, you know at any given point what changes have been made, so you can easily undo them.
+这里有很多 MutationObserver API 带来极大便捷的例子，比如：
+
+*   你想要提醒 web 应用的用户，他现在所浏览的页面有内容发生了变化。
+*   你正在使用一个新的花哨的 JavaScript 框架，它根据 DOM 的变化动态加载 JavaScript 模块。
+*   也许你正在开发一个 WYSIWYG 编辑器，并试着实现撤销/重做功能。借助 MutationObserver API，你在任何时间都能知道发生了什么变化，所以撤销也就非常容易。
 
 ![](https://cdn-images-1.medium.com/max/800/1*48tGIboHxgLeKEjMTGkUGg.png)
 
-These are just a few examples of how the MutationObserver can be of help.
+这里有几个关于 MutationObserver 是如何带来便捷的例子。
 
-#### How to use MutationObserver
+#### 如何使用 MutationObserver
 
-Implementing `MutationObserver` into your app is rather easy. You need to create a `MutationObserver` instance by passing it a function that would be called every time a mutation has occurred. The first argument of the function is a collection of all mutations which have occurred in a single batch. Each mutation provides information about its type and the changes which have occurred.
+将 `MutationObserver` 应用于你的应用相当简单。你需要通过传入一个函数来创建一个 `MutationObserver` 实例，每当有变化发生，这个函数将会被调用。函数的第一个参数是一个批次内所有的变化（mutation）的集合。每个变化都会提供它的类型和已经发生的变化的信息。
 
 ```
 var mutationObserver = new MutationObserver(function(mutations) {
@@ -45,16 +55,16 @@ var mutationObserver = new MutationObserver(function(mutations) {
 });
 ```
 
-The created object has three methods:
+这个被创建的对象有三个方法：
 
-*   `observe` — starts listening for changes. Takes two arguments — the DOM node you want to observe and a settings object
-*   `disconnect` — stops listening for changes
-*   `takeRecords` — returns the last batch of changes before the callback has been fired.
+*   `observe` — 开始监听变化。需要两个参数 - 你需要观察的 DOM 和一个设置对象
+*   `disconnect` — 停止监听变化
+*   `takeRecords` — 在回调函数调用之前，返回最后一个批次的变化。
 
-The following snippet shows how to start observing:
+下面这个代码片段展示了如何开始观察：
 
 ```
-// Starts listening for changes in the root HTML element of the page.
+// 开始监听页面中根 HTML 元素中的变化。
 mutationObserver.observe(document.documentElement, {
   attributes: true,
   characterData: true,
@@ -65,40 +75,40 @@ mutationObserver.observe(document.documentElement, {
 });
 ```
 
-Now, let’s say that you have some very simple `div` in the DOM:
+现在，假设在 DOM 中你有一些非常简单的 `div` ：
 
 ```
 <div id="sample-div" class="test"> Simple div </div>
 ```
 
-Using jQuery, you canremove the `class` attribute from that div:
+使用 jQuery，你可以移除这个 div 的 `class` 属性：
 
 ```
 $("#sample-div").removeAttr("class");
 ```
 
-As we have started observing, after calling `mutationObserver.observe(...)` we’re going to see a log in the console of the respective [MutationRecord](https://developer.mozilla.org/en-US/docs/Web/API/MutationRecord):
+当我们开始观察，在调用 `mutationObserver.observe(...)` 之后我们将会在控制台看到每个 [MutationRecord](https://developer.mozilla.org/en-US/docs/Web/API/MutationRecord) 的日志：
 
 ![](https://cdn-images-1.medium.com/max/800/1*UxkSstuyCvmKkBTnjbezNw.png)
 
-This is the mutation caused by removing the `class` attribute.
+这个是由移除 `class` 属性导致的变化。
 
-And finally, in order to stop observing the DOM after the job is done, you can do the following:
+最后，为了在任务结束后停止对 DOM 的观察，你可以这样做：
 
 ```
-// Stops the MutationObserver from listening for changes.
+// 停止 MutationObserver 对变化的监听。
 mutationObserver.disconnect();
 ```
 
-Nowadays, the `MutationObserver` is widely supported:
+现在，`MutationObserver` 已经被广泛支持：
 
 ![](https://cdn-images-1.medium.com/max/800/0*nlOmrsfy-Y1XoR8B.)
 
-#### Alternatives
+#### 备择方案
 
-The `MutationObserver`, however, has not always been around. So what did developers resort to before the `MutationObserver` came along?
+不管怎么说，`MutationObserver` 并不是一直就有的。那么当 `MutationObserver` 出现之前，开发者用的是什么？
 
-There are a few other options available:
+这是几个可用的其他选项：
 
 *   **Polling**
 *   **MutationEvents**
@@ -106,27 +116,27 @@ There are a few other options available:
 
 #### Polling
 
-The simplest and most unsophisticated way was by polling. Using the browser setInterval WebAPI you can set up a task that would periodically check if any changes have occurred. Naturally, this method significantly degrades web app/website performance.
+最简单的最接近原生的方法是 polling。使用浏览器的 setInterval web 接口你可以设置一个在一段时间后检查是否有变化发生的的任务。自然，这个方法将会严重的降低应用或者网站的性能。
 
 #### MutationEvents
 
-In the year 2000, the [MutationEvents API](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Mutation_events) was introduced. Albeit useful, mutation events are fired on every single change in the DOM which again causes performance issues. Nowadays the `MutationEvents` API has been deprecated, and soon modern browsers will stop supporting it altogether.
+在 2000 年，[MutationEvents API](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Mutation_events) 被引入。尽管很有用，但是每次 DOM 发生变化 mutation events 都会被触发，这将再次导致性能问题。现在 `MutationEvents` 接口已经被废弃，很快，现代浏览器将会完全停止对它的支持。
 
-This is the browser support for `MutationEvents`:
+这是浏览器对 `MutationEvents` 的支持：
 
 ![](https://cdn-images-1.medium.com/max/800/0*l-QdpBfjwNfPDTyh.)
 
 #### CSS animations
 
-A somewhat strange alternative is one that relies on [CSS animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations). It might sound a bit confusing. Basically, the idea is to create an animation which would be triggered once an element has been added to the DOM. The moment the animation starts, the `animationstart` event will be fired: if you have attached an event handler to that event, you’d know exactly when the element has been added to the DOM. The animation’s execution time period should be so small that it’s practically invisible to the user.
+一个有点奇怪的备选方案依赖于 [CSS animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations)。这可能听起来有些让人困惑。基本上，这个方案是创建一个动画，一旦一个元素被添加到了 DOM，这个动画就将会被触发。动画开始的时候，`animationstart` 事件会被触发：如果你对这个事件绑定了一个处理器，你将会确切的知道元素是什么时候被添加到 DOM 的。动画执行的时间段很短，所以实际应用的时候它对用户是不可见的。
 
-First, we need a parent element, inside which, we’d like to listen to node insertions:
+首先，我们需要一个父级元素，我们在它的内部监听节点的插入：
 
 ```
 <div id=”container-element”></div>
 ```
 
-In order to get a handle on node insertion, we need to set up a series of [keyframe](https://www.w3schools.com/cssref/css3_pr_animation-keyframes.asp) animations which will start when the node is inserted:
+为了得到节点插入的处理器，我们需要设置一系列的 [keyframe](https://www.w3schools.com/cssref/css3_pr_animation-keyframes.asp) 动画，当节点插入的时候，动画将会开始。
 
 ```
 @keyframes nodeInserted { 
@@ -135,7 +145,7 @@ In order to get a handle on node insertion, we need to set up a series of [keyfr
 }
 ```
 
-With the keyframes created, the animation needs to be applied on the elements you’d like to listen for. Note the small durations — they are relaxing the animation footprint in the browser:
+keyframes 已经创建，动画还需要被应用于你想要监听的元素。注意应设置很小的 duration 值 —— 它们将会减弱动画在浏览器上留下的痕迹：
 
 ```
 #container-element * {
@@ -144,20 +154,20 @@ With the keyframes created, the animation needs to be applied on the elements yo
 }
 ```
 
-This adds the animation to all child nodes of the `container-element`. When the animation ends, the insertion event will fire.
+这为 `container-element` 的所有子节点都添加了动画。当动画结束后，插入的事件将会被触发。
 
-We need a JavaScript function which will act as the event listener. Within the function, the initial `event.animationName` check must be made to ensure it’s the animation we want.
+我们需要一个作为事件监听者的 JavaScript 方法。在方法内部，必须确保初始的 `event.animationName` 检测是我们想要的那个动画。
 
 ```
 var insertionListener = function(event) {
-  // Making sure that this is the animation we want.
+  // 确保这是我们想要的那个动画。
   if (event.animationName === "nodeInserted") {
     console.log("Node has been inserted: " + event.target);
   }
 }
 ```
 
-Now it’s time to add the event listener to the parent:
+现在是时候为父级元素添加事件监听了：
 
 ```
 document.addEventListener(“animationstart”, insertionListener, false); // standard + firefox
@@ -166,17 +176,17 @@ document.addEventListener(“webkitAnimationStart”, insertionListener, false);
 
 ```
 
-This is the browser support for CSS animations:
+这是浏览器对于 CSS 动画的支持：
 
 ![](https://cdn-images-1.medium.com/max/800/0*W4wHvVAeUmc45vA2.)
 
-`MutationObserver` offers a number of advantages over the above-mentioned solutions. In essence, it covers every single change that can possibly occur in the DOM and it’s way more optimized as it fires the changes in batches. On top of it, `MutationObserver` is supported by all major modern browsers, along with a couple of polyfills which use `MutationEvents` under the hood.
+`MutationObserver` 能提供上述提到的解决方案没有的很多优点。本质上，它能覆盖到每一个可能发生的 DOM 的变化，并且它会在一个批次的变化发生后被触发，这种方法使得它得到大大的优化。最重要的，`MutationObserver` 被所有的主流现代浏览器所支持，还有一些使用引擎下 MutationEvents 的 polyfill。
 
-`MutationObserver` occupies a central position in [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=mutation-observer-post)’s library.
+`MutationObserver` 在 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=mutation-observer-post) 库中占据了核心位置。
 
-Once you integrate the SessionStack’s library in your web app, it starts collecting data such as DOM changes, network requests, exceptions, debug messages, etc. and sends it to our servers., SessionStack uses this data to recreate everything that happened to your users and show your product issues the same way they happened to your users. Quite a few users think that SessionStack records an actual video — it doesn’t. Recording an actual video is very heavy, while the small amount of data we gather is very lightweight and doesn’t impact the UX and performance of your web app.
+你一旦将 SessionStack 库整合进 web 应用，它就开始收集 DOM 变化、网络请求、错误信息、debug 信息等等，并发送到我们的服务器。SessionStack 使用这些信息重新创建了你的用户端发生的一切，并以发生在用户端的同样的方式将产品的问题展现给你。很多用户认为 SessionStack 记录的实际是视频 -- 然而它并没有。记录真实情况的视频是很耗费资源的，然而我们收集的少量数据却很轻量，并不会影响 UX 和你的 web 应用的性能。
 
-There is a free plan if you’d like to [give SessionStack a try](https://www.sessionstack.com/?utm_source=medium&utm_medium=source&utm_content=javascript-series-web-workers-try-now).
+如果你想要[尝试一下 SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=source&utm_content=javascript-series-web-workers-try-now)，这是一个免费的设计案例。
 
 ![](https://cdn-images-1.medium.com/max/800/0*h2Z_BnDiWfVhgcEZ.)
 
