@@ -21,45 +21,45 @@
 
 我刚刚完成第一个 Flutter app，并感到我可以长期安全地向这个框架投入更多的时间。写一个 app 是对一个框架最后的检验，而 Flutter 通过了这个检验。能够熟练地开发 iOS 和 Android app 令我感到惊喜。我也很喜欢服务端的开发与扩容，而 [我的妻子 Irina](https://www.behance.net/irinamanning) 是一名用户体验设计师，所以这是一个强大的组合。
 
-**This is going to be long blog post because there is a lot to cover:**
+**这篇博文将会很长，因为它包括很多内容：**
 
-1.  **My Experience Porting an iOS app to Flutter**
-2.  **Thoughts on Flutter Thus Far**
-3.  **Recommendations to the Google team**
+1.  **我关于把 iOS app 迁移到 Flutter 的经验**
+2.  **目前为止关于 Flutter 的想法**
+3.  **对 Google 团队的建议**
 
-I decided to get my thoughts out quickly so I can get back to work on writing tutorials (and more apps!).
+我决定尽快写下我的想法，以便尽快继续写教程（以及更多的 app！）。
 
-### 1. Porting an iOS App to Flutter
+### 1. 把 iOS 应用迁移到 Flutter
 
-Since my last [post about Flutter](https://codeburst.io/why-flutter-will-take-off-in-2018-bbd75f8741b0) months ago, I felt that the logical next step was to really really get in depth with Flutter. I’m huge fan of tutorials with battle tested, end to end examples (think Digital Ocean or even Auth0 tutorials). End to end, detailed, high quality examples are what made me get hooked on new technologies in the past because I was able to really see near-production ready code and feel secure that I was implementing things the right way. So I wanted to do the same writing Flutter tutorials.
+自从我的上一个 [关于 Flutter 的帖子](https://codeburst.io/why-flutter-will-take-off-in-2018-bbd75f8741b0) 以来，我感觉合乎逻辑的下一步是真正深入地学习 Flutter。我非常喜欢久经考验、有端到端的实例的教程 (think Digital Ocean 或者甚至 Auth0 教程)。端到端，细致的，高质量的例子一直是新技术吸引我的方式，因为我可以看到基本能够正式上线的代码，并且确信我在使用正确的方式实现功能。我也想做同样的事，所以我决定写 Flutter 的教程。
 
-So with those goals, I decided that the perfect app to cut my teeth on was to simply re-write an existing iOS app that I already had in the App Store. Steady Calendar ([homepage](https://www.steadycalendar.com), [Product Hunt](https://www.producthunt.com/posts/steady-calendar)), is a habit tracker that [my wife Irina](https://www.behance.net/irinamanning) and I designed and developed while we were living Berlin a few years ago. Since then, it has been a product that made us hooked on how satisfying it was to design, implement and release a product that helps others improve their lives by adopting healthy habits.
+有了这些目标之后，我决定最适合我的 app 是重写一个我已经发布到 App store 上的 iOS app。 Steady Calendar ([homepage](https://www.steadycalendar.com), [Product Hunt](https://www.producthunt.com/posts/steady-calendar)), 是一款 [我的妻子 Irina](https://www.behance.net/irinamanning) 和我设计和开发的习惯养成器。我们是在几年前生活在柏林时开发的。从那时候以来，这个产品使我们为设计、实现和发布帮助他人养成健康习惯的产品而着迷。
 
-I basically took a month or two, part time, to port this iOS app to Flutter so I’d be able to write awesome Flutter tutorials — no pressure!
+把这个 iOS app 迁移到 Flutter 花了我一到两个月的空闲时间。这使我可以毫无压力地写出优秀的 Flutter 教程。
 
-What’s cool is now I can cover the following in future tutorials because I’ve implemented them in the app:
+很酷的是我可以把以下内容包括在我的教程中，因为我在 app 中实现了它们：
+      
+*   登录之前的介绍。
+*   Facebook / email 注册与登录。
+*   展示日历的网格 view ，用户可以在完成一个目标之后高亮某一天。
+*   iOS 与 Android 用户都熟悉的跨平台表单。
+*   使用 [Scoped Model](https://pub.dartlang.org/packages/scoped_model) 的 Redux 风格的状态管理。
+*   具有栈、定位元素、图像和按钮的自定义 UI。
+*   列表 view。
+*   简单、多语言、国际化的 UI。
+*   跨平台导航栏，同样是 iOS 和 Android 用户都很熟悉的。
+*   具有全局样式的控件。
+*   集成测试。
+*   把 app 提交到 Apple 应用商店。
+*   把 app 提交到 Google Play 商店。
 
-*   A “pre-login” intro teaser.
-*   Facebook / email sign up and login .
-*   A grid view showing a calendar, where users can tap to highlight the day they’ve completed a goal.
-*   Cross-platform forms, where neither iOS nor Android users are alienated.
-*   Redux-style state management using [Scoped Model](https://pub.dartlang.org/packages/scoped_model)
-*   Custom UIs with Stacks, Positioned elements, images and buttons.
-*   List views.
-*   Simple, multi-language internationalized UIs.
-*   Navigation bars that are cross-platform, again, not alientating iOS nor Android users.
-*   Globally styling widgets.
-*   Integration testing.
-*   Submitting the app to the Apple App Store.
-*   Submitting the app to the Google Play Store.
+### 2. 目前为止关于 Flutter 的想法
 
-### 2. Thoughts on Flutter Thus Far
+我已经在后端和 webapp 开发方面有了 17 年以上的经验，其中的 4 年我重度参与了 iOS 开发，并且在上一年，我需要花很多的工作时间在React Native 上 (去年也发布了一些 React 项目）。
 
-Although I’ve been writing backends and webapps for more than 17 years now, 4 of those years were heavily involved with iOS development and as of the past year at work I’ve needed to ramp up with React Native heavily (throw in a few React projects last year too).
+**以下是在学习 Flutter 时出现的想法：**
 
-**So here’s what stood out when learning Flutter:**
-
-1.  **The developer experience**, support and community spirit is amazing. Everything from Stack Overflow, Google Groups to blog posts are high quality naturally because of the enthusiasm for Flutter. Google Engineers go out of their way to stay heavily involved in answering question on Google Groups and this makes for a great community. They’re super polite and professional when working with engineers from all backgrounds, something that’s hard to say for a lot of other companies out there. There’s also a lively community where members are super active and provide really thoughtful answers. Documentation is fantastic. The libraries are very stable and with Flutter being based on Dart, a language that’s been around for years, learning is very easy as it is more established and battle tested. All around, great developer experience.
+1.  **开发者体验**, 开发者的团体精神和给我的支持十分惊人。从 Stack Overflow， Google Groups 到博文的所有东西质量都很高，因为人们对 Flutter 非常有热情。 Google 工程师在日常工作之外，还愿意花很多时间在 Google Groups 上回答问题，这就形成了一个了不起的社区。他们在和 各种背景的工程师合作时表现得非常礼貌、非常专业，而其他很多公司就不见得是这样。开发者社区非常热闹，成员们非常积极，并提供深思熟虑的答案。文档也非常出色  There’s also a lively community where members are super active and provide really thoughtful answers. Documentation is fantastic. The libraries are very stable and with Flutter being based on Dart, a language that’s been around for years, learning is very easy as it is more established and battle tested. All around, great developer experience.
 2.  As expected, there there is less **availability of third party libraries written in Dart**. Yet these are not deal breakers, at least in my experience. **95% of the features I’ve needed to use were there and available**, just one exception was say, some third party integration with a popular analytics tool but nothing that a simple HTTP wrapper could take care of.
 3.  **Material Design widgets**, something that the Flutter framework is heavily comprised of, is great for cranking out simple apps yet for professional, cross-platform apps, it will alienate iOS users. I cannot present Material Design widgets to my iOS users because it would make my app look alien to them. Flutter does indeed provide its own set of iOS widgets, but these still have a way to go in terms of comprehensiveness. Luckily, with the Steady app I wrote, most of the UI was already custom. But for things like forms, that was more of a challenge. So at the end of the day, the documentation, examples and overallFlutter SDK is heavily oriented around Material Design which is great but there needs to be more of a balance for folks like me.
 4.  **Developing custom UIs in Flutter was a breeze**. I have high standards too after being spoiled by leaning CocoaTouch / iOS back in the day. After diving through lots of Flutter code and judging by the experience of writing customer UIs, the **Google team really has their act together**. Sure, there are some widgets I really think are super overkill and can make the learning curve a bit more convoluted (i.e. the Center widget), but it’s not a huge deal. After writing a real app one quickly starts to see a pattern of what the most critical widgets they’d probably be using on a regular basis (and hey, I’ll be covering that in my future tutorials).
