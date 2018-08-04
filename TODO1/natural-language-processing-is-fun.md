@@ -2,7 +2,7 @@
 > * 原文作者：[Adam Geitgey](https://medium.com/@ageitgey?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/natural-language-processing-is-fun.md](https://github.com/xitu/gold-miner/blob/master/TODO1/natural-language-processing-is-fun.md)
-> * 译者：lihanxiang
+> * 译者：[lihanxiang](https://github.com/lihanxiang)
 > * 校对者：
 
 # 自然语言处理真是有趣！
@@ -13,15 +13,15 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*r54-L9t14gqTbI6IlrW2wA.png)
 
-遗憾的是，我们并不是生活在处处都是_结构化_数据的时代。
+遗憾的是，我们并不是生活在处处都是**结构化**数据的时代。
 
 这世界上的许多信息都是非结构化的 —— 不仅仅是英语或者其他语言的原始文本。我们该如何让一台计算机去理解这些非结构化的语言并且从中提取信息呢？
 
 ![](https://cdn-images-1.medium.com/max/1000/1*CtR2lIHDkhB9M8Jt4irSyg.gif)
 
-_自然语言处理_，简称 _NLP_，是人工智能领域的一个子集，目的是为了让计算机理解并处理人类语言。让我们来看看 NLP 是如何工作的，并且学习一下如何用 Python 写出能够从原始文本中提取信息的程序。
+**自然语言处理**，简称 **NLP**，是人工智能领域的一个子集，目的是为了让计算机理解并处理人类语言。让我们来看看 NLP 是如何工作的，并且学习一下如何用 Python 写出能够从原始文本中提取信息的程序。
 
-_注意：如果你不关心 NLP 是如何工作的，只想复制粘贴一些代码，直接跳跃至 “用 Python 处理 NLP 管道”部分。_
+**注意：如果你不关心 NLP 是如何工作的，只想复制粘贴一些代码，直接跳跃至“用 Python 处理 NLP 管道”部分。**
 
 ### 计算机能理解语言吗？
 
@@ -29,17 +29,17 @@ _注意：如果你不关心 NLP 是如何工作的，只想复制粘贴一些�
 
 目前，计算机还不能像人类一样完全了解英语 —— 但它们已经能做许多事了！在某些特定领域，你能用 NLP 做到的事看上去就像魔法一样。将 NLP 技术应用到你的项目上能够为你节约许多时间。
 
-更棒的是，在 NLP 方面取得的最新进展就是可以轻松地通过开源的 Python 库比如 [spaCy](https://spacy.io/), [textacy](http://textacy.readthedocs.io/en/latest/) 和 [neuralcoref](https://github.com/huggingface/neuralcoref) 来进行使用。你需要做的只是写几行代码。
+更棒的是，在 NLP 方面取得的最新进展就是可以轻松地通过开源的 Python 库比如 [spaCy](https://spacy.io/)、[textacy](http://textacy.readthedocs.io/en/latest/) 和 [neuralcoref](https://github.com/huggingface/neuralcoref) 来进行使用。你需要做的只是写几行代码。
 
 ### 从文本中提取含义是很难的
 
 读取和理解英语的操作是很复杂的 —— 即使在不考虑英语中的逻辑性和一致性的情况下。比如，这个新闻的标题是什么意思呢？
 
-> 环境监管机构通过非法煤炭烤了业主 (“Environmental regulators grill business owner over illegal coal fires.”)
+> 环境监管机构通过非法煤炭烤了业主。(“Environmental regulators grill business owner over illegal coal fires.”)
 
 环境监管机构就非法燃烧煤炭问题与业主对峙？或者按照字面意思，监管机构把业主烤了？正如你所见，用计算机来解释英语是非常复杂的一件事。
 
-在机器学习中做一件复杂的事通常意味着_建一条管道_。这个办法就是将你的问题分成细小的部分，然后用机器学习来单独解决每一个细小的部分。再将多个相互补充的机器学习模型进行链接，这样你就能搞定非常复杂的事。
+在机器学习中做一件复杂的事通常意味着**建一条管道**。这个办法就是将你的问题分成细小的部分，然后用机器学习来单独解决每一个细小的部分。再将多个相互补充的机器学习模型进行链接，这样你就能搞定非常复杂的事。
 
 而且这正是我们将要对 NLP 所使用的策略。我们将理解英语的过程分解为多个小块，并观察每个小块是如何工作的。
 
@@ -47,7 +47,7 @@ _注意：如果你不关心 NLP 是如何工作的，只想复制粘贴一些�
 
 让我们看一段来自维基百科的文字：
 
-> 伦敦是英国的首都，也是英国和欧洲最大的城市。位于泰晤士河流域的伦敦，于公元50年由罗马人建立，取名为伦蒂尼恩，在此后两个世纪内为这一地区最重要的定居点之一。(London is the capital and most populous city of England and the United Kingdom. Standing on the River Thames in the south east of the island of Great Britain, London has been a major settlement for two millennia. It was founded by the Romans, who named it Londinium.)
+> 伦敦是英国的首都，也是英国和欧洲最大的城市。位于泰晤士河流域的伦敦，于公元 50 年由罗马人建立，取名为伦蒂尼恩，在此后两个世纪内为这一地区最重要的定居点之一。(London is the capital and most populous city of England and the United Kingdom. Standing on the River Thames in the south east of the island of Great Britain, London has been a major settlement for two millennia. It was founded by the Romans, who named it Londinium.)
 
 > (来源： [维基百科“伦敦”](https://zh.wikipedia.org/zh-cn/%E4%BC%A6%E6%95%A6))
 
@@ -58,8 +58,8 @@ _注意：如果你不关心 NLP 是如何工作的，只想复制粘贴一些�
 在管道中所要做的第一件事就是将这段文字分割成独立的句子，由此我们可以得到：
 
 1. “伦敦是英国的首都，也是英格兰和整个联合王国人口最稠密的城市。(London is the capital and most populous city of England and the United Kingdom.)”
-2.  “位于泰晤士河流域的伦敦，在此后两个世纪内为这一地区最重要的定居点之一。(Standing on the River Thames in the south east of the island of Great Britain, London has been a major settlement for two millennia.)”
-3.  “于公元50年由罗马人建立，取名为伦蒂尼恩。(It was founded by the Romans, who named it Londinium.)”
+2. “位于泰晤士河流域的伦敦，在此后两个世纪内为这一地区最重要的定居点之一。(Standing on the River Thames in the south east of the island of Great Britain, London has been a major settlement for two millennia.)”
+3. “于公元 50 年由罗马人建立，取名为伦蒂尼恩。(It was founded by the Romans, who named it Londinium.)”
 
 我们假设每一个句子都代表一个独立的想法。那么相较于能理解整篇文章的程序而言，我们可以更加容易地写出能够理解独立语句的程序。
 
@@ -71,11 +71,11 @@ _注意：如果你不关心 NLP 是如何工作的，只想复制粘贴一些�
 
 > “London is the capital and most populous city of England and the United Kingdom.”
 
-下一步就是在管道中将这个句子分割成独立的词语或_符号_。这就称作_分词_。接下来看看对这个句子分词的结果：
+下一步就是在管道中将这个句子分割成独立的词语或**符号**。这就称作**分词**。接下来看看对这个句子分词的结果：
 
 > “London”, “is”, “ the”, “capital”, “and”, “most”, “populous”, “city”, “of”, “England”, “and”, “the”, “United”, “Kingdom”, “.”
 
-_分词_在英语中是容易完成的。我们只要分割那些空格分隔的词语。我们也将标点符号作为单词，因为它们也具有含义。
+**分词**在英语中是容易完成的。我们只要分割那些空格分隔的词语。我们也将标点符号作为单词，因为它们也具有含义。
 
 #### 第三步：猜测每个词的属性
 
@@ -95,7 +95,7 @@ _分词_在英语中是容易完成的。我们只要分割那些空格分隔的
 
 根据这些信息，我们已经能够开始搜集一些非常基础的含义。比如，这个句子中的名词包括“伦敦”和“首都”，所以这个句子极有可能是与伦敦有关的。
 
-#### 第四步：文本词形还原  Step 4: Text Lemmatization
+#### 第四步：文本词形还原
 
 在英语（以及其它大多数语言）中，词语以不同的形式出现。来看看下面这两个句子：
 
@@ -105,11 +105,11 @@ I had two **ponies**.
 
 两句话都讲到了名词**小马 (pony)**，但是它们有着不同的词形变化。知道词语的基本形式对计算机处理文本是有帮助的，这样你就能知道两句话在讨论同一个概念。否则，“pony” 和 “ponies” 对于电脑来说就像两个完全不相关的词语。
 
-在 NLP 中，我们称这个过程为_词形还原_ —— 找出句子中每一个词的最基本的形式或_词元_。
+在 NLP 中，我们称这个过程为**词形还原** —— 找出句子中每一个词的最基本的形式或**词元**。
 
-对于动词也一样。我们也能够通过寻找动词最初的非结合形式来进行词形还原。所以 “**I had two ponies**” 变为 “**I [have] two [pony].**”。
+对于动词也一样。我们也能够通过寻找动词最初的非结合形式来进行词形还原。所以 “**I had two ponies**” 变为 “**I [have] two [pony]**”。
 
-词形还原一般是通过具有基于其词性的词汇形式的查找表来完成工作的，并且可能具有一些自定义的规则来处理之前从未见过的词语。 
+词形还原一般是通过具有基于其词性的词汇形式的查找表来完成工作的，并且可能具有一些自定义的规则来处理之前从未见过的词语。
 
 这就是经过词形还原添加动词最初形式的句子：
 
@@ -117,7 +117,7 @@ I had two **ponies**.
 
 唯一变化的地方就是将 “is” 变为 “be”。
 
-#### 第五步：识别终止词Step 5: Identifying Stop Words
+#### 第五步：识别终止词
 
 接下来，我们需要考虑句子中的每个单词的重要性。英语有很多频繁出现的填充词比如 “and”、“the” 和 “a”。 在对文本进行统计的时候，随着这些词出现频率的升高，将会出现很多歧义。一些 NLP 管道 将这些词语标记为“终止词” —— 在进行任何分析之前需要过滤掉的词语。
 
@@ -127,11 +127,11 @@ I had two **ponies**.
 
 终止词的识别通常是由查询一个硬编码的已知终止词列表来完成。但是不存在对于所有应用来说通用的标准终止词列表。这个列表极大程度上是由你的应用所决定的。
 
-举个例子，如果你正在建立一个与摇滚乐队有关的搜索引擎，需要确保你没有忽略单词 “The”。不仅是因为这个单词出现在很多乐队名中，而且还有一个 80 年代的著名摇滚乐队叫做 _The The_！
+举个例子，如果你正在建立一个与摇滚乐队有关的搜索引擎，需要确保你没有忽略单词 “The”。不仅是因为这个单词出现在很多乐队名中，而且还有一个 80 年代的著名摇滚乐队叫做 **The The**！
 
-#### 第六步： Step 6：依存语法解析
+#### 第六步：依存语法解析
 
-下一步就是找出句子中的每一个词之间的依存关系，这就做_依存语法解析_。
+下一步就是找出句子中的每一个词之间的依存关系，这就做**依存语法解析**。
 
 目标就是构建一棵树，为句子中的每一个词赋予一个**父类**词语。树的根是句子中的主要动词。根据这个句子构造的解析树的开头就是这个样子：
 
@@ -141,17 +141,17 @@ I had two **ponies**.
 
 ![](https://cdn-images-1.medium.com/max/800/1*onc_4Mnq2L7cetMAowYAbA.png)
 
-这颗解析树为我们展示了这个句子的主体是名词_伦敦_，而且它和_首都_之间有着 _be_ 关系。我们最终发现了一些有用的信息 —— _伦敦_是一个_首都_!如果我们遵循着这个句子的整颗解析树（不仅是图示信息），甚至能够发现伦敦是_英国_的首都。
+这颗解析树为我们展示了这个句子的主体是名词**伦敦**，而且它和**首都**之间有着 **be** 关系。我们最终发现了一些有用的信息 —— **伦敦**是一个**首都**!如果我们遵循着这个句子的整颗解析树（不仅是图示信息），甚至能够发现伦敦是**英国**的首都。
 
-就像我们早前使用机器学习模型来预测词性那样，以将词语输入机器学习模型并输出结果的方式来完成依存语法分析。 但是分析依存语法是一项十分复杂的任务，它需要用一整篇文章来作为分析某些细节的上下文。 如果你很好奇它是如何工作的，有一篇作者为 Matthew Honnibal 的优秀文章值得一读 _“_[_用 500 行 Python 代码来解析英语_ (_Parsing English in 500 Lines of Python_)](https://explosion.ai/blog/parsing-english-in-python)_”_。
+就像我们早前使用机器学习模型来预测词性那样，以将词语输入机器学习模型并输出结果的方式来完成依存语法分析。 但是分析依存语法是一项十分复杂的任务，它需要用一整篇文章来作为分析某些细节的上下文。 如果你很好奇它是如何工作的，有一篇作者为 Matthew Honnibal 的优秀文章值得一读 **“**[**用 500 行 Python 代码来解析英语** (**Parsing English in 500 Lines of Python**)](https://explosion.ai/blog/parsing-english-in-python)**”**。
 
-但是尽管这位作者在 2015 年发表了一条说明称这种方法现在已成为标准，但它已经过时甚至不再被作者使用过。在 2016 年，谷歌推出了一种新的依存语法分析方法，称为 _Parsey McParseface_，它采用了一种新的深度学习方法，超越了之前的表现，并在业界内快速流传。 一年之后，他们又发布了新的模型，称为 ParseySaurus，对某些方面做了进一步改善。换句话说，解析技术依旧是搜索领域的一项热门技术，并且在不断地变化和改进。
+但是尽管这位作者在 2015 年发表了一条说明称这种方法现在已成为标准，但它已经过时甚至不再被作者使用过。在 2016 年，谷歌推出了一种新的依存语法分析方法，称为 **Parsey McParseface**，它采用了一种新的深度学习方法，超越了之前的表现，并在业界内快速流传。 一年之后，他们又发布了新的模型，称为 ParseySaurus，对某些方面做了进一步改善。换句话说，解析技术依旧是搜索领域的一项热门技术，并且在不断地变化和改进。
 
 很多英语语句是十分模糊且难以解析的独立的，这一点需要牢记在心。在那些例子中，模型会根据之前解析过的最相似的句子来进行猜测，但这并不完美，有时这个模型会产生令人尴尬的错误。但随着时间的推移，我们的 NLP 模型将会以合理的方式更好地解析文本。
 
 想要在你自己的句子上试一试依存语法解析吗？[这是来自 spaCy 团队的一个很棒的互动演示](https://explosion.ai/demos/displacy).
 
-#### 第六步（下）：Step 6b: 查找名词短语
+#### 第六步（下）：查找名词短语
 
 到现在为止，我们将句子中的每一个词语都作为一个独立的实体。但有时将一些词语连接起来能够更加合理地表达一个想法或事件。我们能够用依存关系解析树中的信息来自动地将所有阐述相同事物的词语组合在一起。
 
@@ -173,13 +173,13 @@ I had two **ponies**.
 
 ![](https://cdn-images-1.medium.com/max/1000/1*JMXGOrdx4oQsfZC5t-Ksgw.png)
 
-这些名词中，有一部分与实际意义相同。比如说“_伦敦_”、“_英格兰_”和“_英国_”代表了地图上的物理位置。如果能检测到这些那真是太棒了！有了这些信息，我们就能够使用 NLP 在自动地提取一个在文档中提及的真实世界地理位置列表。
+这些名词中，有一部分与实际意义相同。比如说“**伦敦**”、“**英格兰**”和“**英国**”代表了地图上的物理位置。如果能检测到这些那真是太棒了！有了这些信息，我们就能够使用 NLP 在自动地提取一个在文档中提及的真实世界地理位置列表。
 
-_命名实体识别_（_NER_）的目标就是为了检测和标记这些代表真实世界中某些事物的名词。在使用我们的 NER 标记模型对句子中的每个词语进行处理之后，句子就变成这样：
+**命名实体识别**（**NER**）的目标就是为了检测和标记这些代表真实世界中某些事物的名词。在使用我们的 NER 标记模型对句子中的每个词语进行处理之后，句子就变成这样：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*x1kwwACli8Fcvjos_6oS-A.png)
 
-但 NER 系统并不只是做这些简单的查找字典的工作。而是使用某个词语在句子中的上下文以及统计模型来猜测某个词语代表哪种类型的名词。一个优秀的 NER 系统能够根据上下文线索辨别出人名 “_Brooklyn Decker_” 和 地名 “_Brooklyn_”。
+但 NER 系统并不只是做这些简单的查找字典的工作。而是使用某个词语在句子中的上下文以及统计模型来猜测某个词语代表哪种类型的名词。一个优秀的 NER 系统能够根据上下文线索辨别出人名 “**Brooklyn Decker**” 和 地名 “**Brooklyn**”。
 
 这些是经典的 NER 系统能够标记的事物：
 
@@ -199,7 +199,7 @@ _命名实体识别_（_NER_）的目标就是为了检测和标记这些代表�
 
 在此刻，我们已经对句子有了充分的了解。我们了解了每个词语的词性、词语之间的依存关系以及哪些词语是代表命名实体的。
 
-可是，我们还需要解决一个大问题。英语中存在着大量的代词 —— 比如_他_、_她_和_它_。 这些是我们对在句子中反复出现的名称的简化。人们能够根据上下文来得到这些词代表的内容。但是我们的 NLP 模型并不知道这些代词的含义，因为它每次只检查一个句子。
+可是，我们还需要解决一个大问题。英语中存在着大量的代词 —— 比如**他**、**她**和**它**。 这些是我们对在句子中反复出现的名称的简化。人们能够根据上下文来得到这些词代表的内容。但是我们的 NLP 模型并不知道这些代词的含义，因为它每次只检查一个句子。
 
 来看看我们的文档中的第三个句子：
 
@@ -229,7 +229,7 @@ _命名实体识别_（_NER_）的目标就是为了检测和标记这些代表�
 
 哎呀，有好多步骤啊！
 
-_注意：在我们往下看之前，值得一提的是，这些都是构建传统 NLP 管道的步骤，你可以根据你的目的以及如何实现你的 NLP 库来决定是跳过还是重复某些步骤。举个例子，一些像 spaCy 这样的库，是先使用依存语法解析，得出结果后再进行语句分割。_
+**注意：在我们往下看之前，值得一提的是，这些都是构建传统 NLP 管道的步骤，你可以根据你的目的以及如何实现你的 NLP 库来决定是跳过还是重复某些步骤。举个例子，一些像 spaCy 这样的库，是先使用依存语法解析，得出结果后再进行语句分割。**
 
 那么，我们该如何构建这个管道？多谢像 spaCy 这样神奇的 python 库，管道的构建工作已经完成！所有的步骤都已完成，时刻准备为你所用。
 
@@ -284,7 +284,7 @@ Romans (NORP)
 Londinium (PERSON)
 ```
 
-你可以查看每一个 [实体代码的含义](https://spacy.io/usage/linguistic-features#entity-types).
+你可以查看每一个[实体代码的含义](https://spacy.io/usage/linguistic-features#entity-types).
 
 需要注意的是，它误将 “Londinium” 作为人名而不是地名。这可能是因为在训练数据中没有与之相似的内容，不过它做出了最好的猜测。如果你要解析具有专业术语的文本，命名实体的检测通常需要[做一些微调](https://spacy.io/usage/training#section-ner)。
 
@@ -333,7 +333,7 @@ Syntactic Structures revolutionized Linguistics with 'universal grammar', a rule
 
 开箱即用的 spaCy 能做的事实在是太棒了。但你也可以用 spaCy 解析的输出来作为更复杂的数据提取算法的输入。这里有一个叫做 [textacy](http://textacy.readthedocs.io/en/stable/) 的 python 库，它实现了多种基于 spaCy 的通用数据提取算法。这是一个良好的开端。
 
-它实现的算法之一叫做[半结构化语句提取](https://textacy.readthedocs.io/en/stable/api_reference.html#textacy.extract.semistructured_statements)。我们用它来搜索解析树，查找主体为“伦敦”且动词是“be”形式的简单语句。这将会帮助我们找到有关伦敦的信息。
+它实现的算法之一叫做[半结构化语句提取](https://textacy.readthedocs.io/en/stable/api_reference.html#textacy.extract.semistructured_statements)。我们用它来搜索解析树，查找主体为“伦敦”且动词是 “be” 形式的简单语句。这将会帮助我们找到有关伦敦的信息。
 
 来看看代码是怎样的：
 
@@ -455,7 +455,7 @@ for statement in statements:
     print(f" - {fact}")
 ```
 
-如果你在维基百科的关于伦敦的文章上运行这段代码，就会得到如下结果： 
+如果你用这段代码来处理维基百科上关于伦敦的文章，就会得到如下结果： 
 
 ```
 westminster abbey  
