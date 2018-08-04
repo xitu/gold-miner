@@ -2,7 +2,7 @@
 > * 原文作者：[Maksim Ryzhikov](https://medium.com/@maksimrv?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/reactive-app-state-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/reactive-app-state-in-flutter.md)
-> * 译者：[Starriers](https://github.com/Starriers)
+> * 译者：[Starrier](https://github.com/Starriers)
 
 # Flutter 中的原生应用程序状态
 
