@@ -5,21 +5,21 @@
 > * 译者：
 > * 校对者：
 
-# What It Was Like to Write a Full Blown Flutter App
+# 写一个完整的 Flutter App 是什么感觉
 
 ![](https://cdn-images-1.medium.com/max/800/1*SZK7j8dPQuaecmaeJoWxwA.jpeg)
 
-**UPDATE**: I’ll be releasing a new Flutter course called Practical Flutter. If you want to get notified when it launches in late July ’18, [click here](https://mailchi.mp/5a27b9f78aee/practical-flutter). 🚀
+**更新**: 我将会放出一个新的 Flutter 课程，名为 Practical Flutter。它将在 18 年 七月底开始。如果你想收到通知， [点击这里](https://mailchi.mp/5a27b9f78aee/practical-flutter)。 🚀
 
-This morning I ate TWO breakfasts. I needed all “blog-writing brainpower” I could muster. There’s a lot to cover since [my last post](https://codeburst.io/why-flutter-will-take-off-in-2018-bbd75f8741b0) so here we go.
+今天早上我吃了两顿早饭，因为我需要发动所有的写博客用的脑力。从[我的上一个帖子](https://codeburst.io/why-flutter-will-take-off-in-2018-bbd75f8741b0) 以后，我有了很多想说的话，所以我们开始吧。
 
-I’m super excited because I can now officially resume writing blog posts about Flutter because I’m nearly ready to release my first full blown Flutter app to the iOS and Android store — one or two more weeks to go! I refused to get distracted in the past few months and since I was writing this app in my free time.
+我非常激动，因为我可以正式继续写关于 Flutter 的文章了，因为我即将把我的第一个 Flutter app 放出到 iOS 和 Android 商店——只有一两周了！因为我在空闲时间里一直在写这个 app，所以在过去几个月我一直拒绝被打扰。
 
-**I haven’t been this excited about a technology since Ruby on Rails or Go.** After dedicating years to learning iOS app dev in-depth, it killed me that I was alienating so many Android friends out there. Also, learning other cross platform frameworks at the time was super unattractive to me because of what was available.
+**自从 Ruby on Rails 或 Go 以来，我从没有因为一个技术而这么激动过。** 在花了好几年深入学习 iOS app 开发之后，我因为对 Android 非常不熟悉而感到不爽。而且，以前的那些跨平台开发框架都很难吸引我。
 
-Even two years ago, going to for example, meetups showing off apps written with other cross platform mobile frameworks, I felt like they were either too hacky, unstable, had a poor developer experience, was hard to use, was overly complex or wouldn’t be around in other year or two to even use.
+比如在两年前，前往跨平台 app 开发的聚会，我会觉得那些东西都很不正规、不稳定、开发者体验糟糕、难以使用，或者最近一两年都没法用。
 
-So I just finished my first Flutter app and I feel I can safely invest much more of my time long term to the framework. Writing a Flutter app has been a litmus test and Flutter passed the test. It’s amazing to now be able to competently write apps for iOS and Android. I also love writing and scaling backends and [my wife Irina](https://www.behance.net/irinamanning) is a UX so it’s a powerful combination.
+我刚刚完成第一个 Flutter app，并感到我可以长期安全地向这个框架投入更多的时间。写一个 app 是对一个框架最后的检验，而 Flutter 通过了这个检验。能够熟练地开发 iOS 和 Android app 令我感到惊喜。我也很喜欢服务端的开发与扩容，而 [我的妻子 Irina](https://www.behance.net/irinamanning) 是一名用户体验设计师，所以这是一个强大的组合。
 
 **This is going to be long blog post because there is a lot to cover:**
 
