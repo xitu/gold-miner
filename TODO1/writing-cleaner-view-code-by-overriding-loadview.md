@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/writing-cleaner-view-code-by-overriding-loadview.md](https://github.com/xitu/gold-miner/blob/master/TODO1/writing-cleaner-view-code-by-overriding-loadview.md)
 > * 译者：[RickeyBoy](https://github.com/RickeyBoy)
-> * 校对者：
+> * 校对者：[徐键](https://github.com/foxxnuaa)
 
 # 重写 loadView() 方法使 Swift 视图代码更加简洁
 
