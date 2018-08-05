@@ -71,13 +71,13 @@
 ### Google 应该做什么
 
 1.   Google 的团队成员和朋友们应该在 Google Groups 中**继续提供有内涵、友好和即时的支持**。这是一个很大的加分项，也是使得该框架在易用性和支持方面如此出色的原因。支持和培育开发者社区的团队 **心态良好、令人喜爱，而且这是很重要的**。
-2.  Get a poll from community members to see which Widgets may simply not be useful. **For the not so useful Widgets, just remove them from documentation tutorials** or deprecate them altogether. For example, the ‘Center’ widget is nice for a Hello, World container but I never understood it. Why can’t ‘Container’, something that’s way more prevalent have a property to do the same thing? This is a super trivial example but I think that’s part of the reason why Go was so successful, because it’s core library was simple and lean (and stayed lean).
-3.  **Devote more focus on iOS users.** Material Design is great to get going quickly or if you’re only building something for Android users. I’d never use Material Design in an iOS app. With that said, I’ve found Flutter to be a nicer, less complex developer experience than learning Swift and all the one million library features one has to know to write iOS apps nowdays. I think a lot of iOS users would love to learn Flutter if Flutter had just even a bit more iOS style widgets.
-4.  **More tutorials** on building realistic features and screens. I’d love to see more tutorials like this one: [https://flutter.io/get-started/codelab/](https://flutter.io/get-started/codelab/) but also “end to end” ones, where an example of integration with a backend is shown.
-5.  **Theming apps** should be **less focused on Material Design**. Again, I don’t want to use the ‘MaterialApp’ widget if I’m writing an iOS app. Theming seems tightly coupled to this and it should be more generic.
-6.  **Less prevalence of Firebase in the documentation** or pushing it so often. I realize Firebase really useful to get going fast and it helps bolster the approachability for new developers, but a significant amount of folks out there already have a backend ready or would not ever consider using Firebase. So I think more emphasis on how to work with simple web services and JSON would help. I had to read a lot of third party tutorials on this because I felt the documentation wasn’t realistic enough. I can elaborate when I write a future blog post about this.
+2. 调查开发者社区的成员，以确定哪些控件可能不太有用。 **对于那些不太有用的控件，只要把它们从文档和教程中移除** 或反对使用它们即可。比如，‘Center’ 控件很适合 Hello, World 容器，但我从没有理解过它。为什么更常用的 “Container” 并没有一个实现同样功能的属性？这是一个非常低级的例子，但我认为这是 Go 之所以这么成功的原因之一，因为它的核心库长期保持简明。
+3.  **更专注于 iOS 用户。** Material Design 很适合快速开发针对安卓用户的东西。但我从不把它用于 iOS app。我觉得相比于 Swift，Flutter 更加简便，不需要学习大量的库。我觉得很多 iOS 用户会很喜欢学习 Flutter，如果它有更多 iOS 风格控件的话。
+4.  实现更加真实的特性和屏幕的**更多教程**。我希望看见更多像这样的教程：[https://flutter.io/get-started/codelab/](https://flutter.io/get-started/codelab/) 以及更多“端到端”的教程，其中包括后端的集成。
+5.  **App 主题** 应当 **更少专注于 Material Design**。再说一次，我在开发iOS时不希望使用 “MaterialApp” 控件。主题看起来和它很紧地耦合，但主题应该是更加普适的。
+6.  **文档中更少使用 Firebase** 或不要这样经常地推动用户使用。我发现 Firebase 很适合快速开发，并且它对于新用户来说非常易用。但是很大数量的人已经有一个后端，或者永远不会考虑使用 Firebase。所以我觉得更侧重终于如何使用 JSON 和简单的 web 服务将很有帮助。我必须阅读很多第三方教程，因为我觉得文档不够现实。我将在将来的博文中深入说明这一点。
 
-So far, I’m super happy with Flutter overall.
+目前为止，Flutter 使我感到非常愉快。
 
 Next, I’m going to consider re-writing another iOS I have in the app store, [www.brewswap.co](http://www.brewswap.co) that’s more complex (Tinder-style photo swiping, real time chat, etc).
 
