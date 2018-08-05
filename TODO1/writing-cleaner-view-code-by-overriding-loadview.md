@@ -9,7 +9,7 @@
 
 究竟选择使用 Storyboards 还是纯代码书写 view 是非常主观的事情。在对两种方式都进行了尝试之后，我个人支持使用纯代码书写 view 来完成项目，这样能够允许多人编辑相同的类而不产生讨厌的冲突，也更方便进行代码审查。
 
-在最开始练习纯代码写 view 的时候，人们普遍遇到的一个问题是最开始不知道将代码放在**哪里**。如果你采用普通 storyboard 的方式，将所有相关代码都放进你的 ViewController 之中，这样很容易会最终产生一个巨大的上帝对象：
+在最开始练习纯代码写 view 的时候，人们普遍遇到的一个问题是最开始不知道将代码放在**哪里**。如果你采用普通 storyboard 的方式，将所有相关代码都放进你的 ViewController 之中，这样很容易会最终产生一个巨大的上帝类：
 
 ```
 final class MyViewController: UIViewController {
@@ -73,7 +73,7 @@ final class MyViewController: UIViewController {
 }
 ```
 
-臃肿的 ViewController 以及权限**过多**的 ViewController 都非常难以管理和维护。在像 MVVM 这样的架构下，ViewController 应该主要作为自身的 View 以及 ViewModel 之间的路由器 -- 设置并且约束 View 并不是它们的职责，ViewController 只应该起到前后传递信息的**路由作用**。
+臃肿的 ViewController 以及逻辑**过多**的 ViewController 都非常难以管理和维护。在像 MVVM 这样的架构下，ViewController 应该主要作为自身的 View 以及 ViewModel 之间的路由器 -- 设置并且约束 View 并不是它们的职责，ViewController 只应该起到前后传递信息的**路由作用**。
 
 在一个大部分代码都是关于自身 View 的视图代码项目中，能够清晰地拆分你的架构中各部分的职责，对于一个便于维护的项目来说非常重要。你要让你真正构建视图部分的代码完全和你的 ViewController 分离 -- 幸运的是有一个简单的方法，就是重写 `UIViewController` 中原生的 `View` 属性。这样做允许你在分离的文件中管理你的多个 View，同时也仍能保证你的 ViewController 不用去设置任何 View。
 
@@ -170,11 +170,11 @@ final class MyViewController: CustomViewController<MyView> {
 }
 ```
 
-我个人不太喜欢泛型的方式，因为编译器并不允许泛型类拥有拓展的 `@objc` 方法，这会禁止你在拓展中拥有像 `UITableViewDataSource` 这样的协议。然而，除非你需要做一些特殊的事情（比如设置代理），这会允许你跳过重写 `loadView()` 这一步，从而能保持你的 ViewController 的整洁。
+我个人不太喜欢泛型的方式，因为编译器并不允许泛型类具有的 `@objc` 方法的扩展，这会禁止你在扩展中拥有 `UITableViewDataSource` 之类的协议。但是，除非你需要做一些特殊的事情（比如设置委托），它会允许你跳过重写 `loadView()` 这一步，从而能保持 ViewController 的整洁。
 
 ## 结论
 
-重写 `loadView()` 是一个让你的视图代码项目更加易于理解、易于维护的好方法，并且我已经使用 `HasCustomView` 方法获得了非常良好的效果，特别是在最近几个项目中。编写视图部分的代码也许不是你的选择，但是他带来了很多显而易见的好处。尝试一下吧，看看它是不是更适合你。
+重写 `loadView()` 是一个让你的视图代码项目更加易于理解、易于维护的好方法，并且我已经使用 `HasCustomView` 方法获得了非常良好的效果，特别是在最近几个项目中。编写视图部分的代码也许不是你的选择，但是它带来了很多显而易见的好处。尝试一下吧，看看它是不是更适合你。
 
 如果你有更好的定义 view 并且不需要 storyboard 的方法，或者你可能有一些疑问、意见或者反馈，请让我知道。
 
@@ -183,7 +183,6 @@ final class MyViewController: CustomViewController<MyView> {
 [苹果官方文档: loadView()](https://developer.apple.com/documentation/uikit/uiviewcontroller/1621454-loadview)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
