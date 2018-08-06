@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-getting-started-tutorial-5-grid.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-getting-started-tutorial-5-grid.md)
 > * 译者：[YueYong](https://github.com/YueYongDev)
-> * 校对者：
 
 # Flutter 系列入门教程五：网格
 
@@ -21,7 +20,7 @@
 
 ### 背景
 
-本文的最终目的是实现类似的界面： -
+本文的最终目的是实现类似的界面：
 
 ![](https://cdn-images-1.medium.com/max/800/1*n30ql6oDnzcT7o2ne3Wykg.png)
 
@@ -29,7 +28,7 @@
 
 ### 使用代码
 
-我将以我之前的文章为基础 [Flutter Getting Started: Tutorial 4 ListView](https://medium.com/@thatsalok/flutter-getting-started-tutorial-4-listview-8326c9ed5524), 我已经创建了基于 ListView 的应用程序，这里是初始项目结构和初始UI。
+我将以我之前的文章为基础 [Flutter Getting Started: Tutorial 4 ListView](https://medium.com/@thatsalok/flutter-getting-started-tutorial-4-listview-8326c9ed5524)，我已经创建了基于 ListView 的应用程序，这里是初始项目结构和初始UI。
 
 这是我们开始构建的初始代码
 
@@ -118,7 +117,7 @@ class HomePage extends StatelessWidget {
 *   我正在显示城市信息，如城市地标图像，其次是城市名称，城市所属的国家和她的人口。
 *   最后点击，它在屏幕底部显示小的会自动消失的消息，称为 `SnackBar`。
 
-现在开始我们的工作，正如我之前提到的，我们将把新的 widget 重构为不同的类，以保持我们的代码模块化并提高代码的可读性。 因此，在 `lib` 文件夹下创建一个新的文件夹，并添加新的 DART 文件 `mygridview.dart`。
+现在开始我们的工作，正如我之前提到的，我们将把新的 widget 重构为不同的类，以保持我们的代码模块化并提高代码的可读性。因此，在 `lib` 文件夹下创建一个新的文件夹，并添加新的 DART 文件 `mygridview.dart`。
 
 添加文件后，首先通过 `'package:flutter/material.dart'` 导入 material 组件，然后添加 `MyGridView` 类来继承我们最喜欢的 `StatelessWidget` 并复写 `Build` 函数，代码如下所示
 
@@ -164,7 +163,7 @@ _getGridViewItems(BuildContext context){
 *   `GridView.count` 方法将为应用程序提供 GridView 小部件
 *   `crossAxisCount` 属性用于让移动应用程序知道我们想要显示每行的项目数
 *   `children` 属性将包含您希望在加载页面时显示的所有小部件
-*   `childAspectRatio`，它是每个子节点的横轴与主轴范围的比率，因为我显示的是名称，所以我统一设置为8.0，以便减少两个图块之间的边距 
+*   `childAspectRatio`，它是每个子节点的横轴与主轴范围的比率，因为我显示的是名称，所以我统一设置为 8.0，以便减少两个图块之间的边距 
 
 这是UI的样子
 
@@ -216,7 +215,7 @@ _getGridItemUI(BuildContext context, City item) {
 
 *   我正在使用 `Inkwell` 类，因为 Card 类不直接支持手势，所以我把它包装在 InkWell 类中，利用它的 `onTap` 事件替换 SnackBar
 *   其余代码类似于 `ListView` 的卡片，但未指定宽度
-*   此外，由于我们正在显示完整的卡片，因此我们不要忘记将 `childAspectRatio` 从 8.0 更改为 8.0 / 9.0，因为我们需要更多的高度。
+*   此外，由于我们正在显示完整的卡片，因此我们不要忘记将 `childAspectRatio` 从 8.0 更改为 8.0/9.0，因为我们需要更多的高度。
 
 如果没有忘记的话，在开始做程序时我就说过，我将在纵向方向上显示 `ListView`，在横向方向上显示 `GridView`，为了实现它我们需要 `MediaQuery` 类来识别方向。无论何时更改方向，你都可以决定哪些代码应该被调用，也就是说，即使你倾斜移动窗口都会调用 `Build` 函数，小部件也都会重新绘制。所以在 `homepage.dart` 类中我们将使用以下函数来处理 Orientation 更改的问题
 
@@ -233,7 +232,7 @@ getHomePageBody(BuildContext context) {
 }
 ```
 
-因此，最终的UI将是这样的
+因此，最终的 UI 将是这样的
 
 ![](https://cdn-images-1.medium.com/max/800/1*IDL_nruBR9S9JW0UlX_zjw.gif)
 
@@ -259,7 +258,7 @@ getHomePageBody(BuildContext context) {
 
 ### 历史
 
-*   22-July-2018: 第一个版本
+*   22-July-2018：第一个版本
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
