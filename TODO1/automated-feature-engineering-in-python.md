@@ -11,42 +11,42 @@
 
 ![](https://cdn-images-1.medium.com/max/1000/1*lg3OxWVYDsJFN-snBY7M5w.jpeg)
 
-Machine learning is increasingly moving from hand-designed models to automatically optimized pipelines using tools such as [H20](http://docs.h2o.ai/h2o/latest-stable/h2o-docs/automl.html), [TPOT](https://epistasislab.github.io/tpot/), and [auto-sklearn](https://automl.github.io/auto-sklearn/stable/). These libraries, along with methods such as [random search](http://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf), aim to simplify the model selection and tuning parts of machine learning by finding the best model for a dataset with little to no manual intervention. However, feature engineering, an [arguably more valuable aspect](https://www.featurelabs.com/blog/secret-to-data-science-success/) of the machine learning pipeline, remains almost entirely a human labor.机器学习正在利用诸如 [H20](http://docs.h2o.ai/h2o/latest-stable/h2o-docs/automl.html), [TPOT](https://epistasislab.github.io/tpot/) 和 [auto-sklearn](https://automl.github.io/auto-sklearn/stable/) 等工具越来越多地从手工设计模型向自动化优化管道迁移。以上这些类库，以及如 [random search](http://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf) 一样的方法，
+机器学习正在利用诸如 [H20](http://docs.h2o.ai/h2o/latest-stable/h2o-docs/automl.html), [TPOT](https://epistasislab.github.io/tpot/) 和 [auto-sklearn](https://automl.github.io/auto-sklearn/stable/) 等工具越来越多地从手工设计模型向自动化优化管道迁移。以上这些类库，连同如 [random search](http://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf) 等方法一起，目的都是在通过找到适合于几乎不需要人工干预的数据集的最佳模型来简化机器学习的模型选择和调优部分。然而，特征工程，作为机器学习管道中一个[可以说是更有价值的方面](https://www.featurelabs.com/blog/secret-to-data-science-success/)，几乎全部是人工劳动的成果。
 
-[Feature engineering](https://en.wikipedia.org/wiki/Feature_engineering), also known as feature creation, is the process of constructing new features from existing data to train a machine learning model. This step can be more important than the actual model used because a machine learning algorithm only learns from the data we give it, and creating features that are relevant to a task is absolutely crucial (see the excellent paper [“A Few Useful Things to Know about Machine Learning”](https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf)).
+[特征工程](https://en.wikipedia.org/wiki/Feature_engineering)，也成为特征创建，是从已有数据中创建出新特征并且用于训练机器学习模型的过程。这个步骤可能要比实际使用的模型更加重要，因为机器学习算法仅仅从我们提供给他的数据中进行学习，创建出与任务相关的特征是非常关键的（可以参照这篇文章 ["A Few Useful Things to Know about Machine Learning"](https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf) —— 《了解机器学习的一些有用的事》，译者注）。
 
-Typically, feature engineering is a drawn-out manual process, relying on domain knowledge, intuition, and data manipulation. This process can be extremely tedious and the final features will be limited both by human subjectivity and time. Automated feature engineering aims to help the data scientist by automatically creating many candidate features out of a dataset from which the best can be selected and used for training.
+通常来说，特征工程是一个漫长的手工过程，依赖于某个特定领域的知识、直觉、以及对数据的操作。这个过程可能会非常乏味并且最终获得的特性会被人类的主观性和花在上面的时间所限制。自动特征工程的目标是通过从数据集中创建许多候选特征来帮助数据科学家，从这些创建了候选特征的数据集中，数据科学家可以选择最佳的特征并且用来训练。
 
-In this article, we will walk through an example of using automated feature engineering with the [featuretools Python library](https://docs.featuretools.com/#). We will use an example dataset to show the basics (stay tuned for future posts using real-world data). The complete code for this article is [available on GitHub](https://github.com/WillKoehrsen/automated-feature-engineering/blob/master/walk_through/Automated_Feature_Engineering.ipynb).
+在这篇文章中，我们将剖析一个基于 [featuretools Python library](https://docs.featuretools.com/#) 库进行自动特征工程处理的案例。我们将使用一个样例数据集来展示基本信息（请继续关注未来的使用真实数据的文章）。这篇文章最终的代码可以在 [GitHub](https://github.com/WillKoehrsen/automated-feature-engineering/blob/master/walk_through/Automated_Feature_Engineering.ipynb) 获取。
 
 * * *
 
 ### 特征工程基础
 
-[Feature engineering](https://www.datacamp.com/community/tutorials/feature-engineering-kaggle) means building additional features out of existing data which is often spread across multiple related tables. Feature engineering requires extracting the relevant information from the data and getting it into a single table which can then be used to train a machine learning model.
+[特征工程](https://www.datacamp.com/community/tutorials/feature-engineering-kaggle)意味着从分布在多个相关表格中的现有数据集中构建出额外的特性。特征工程需要从数据中提取相关信息，并且将其放入一个单独的表中，然后可以用来训练机器学习模型。
 
-The process of constructing features is very time-consuming because each new feature usually requires several steps to build, especially when using information from more than one table. We can group the operations of feature creation into two categories: **transformations** and **aggregations**. Let’s look at a few examples to see these concepts in action.
+构建特征的过程非常耗时，因为每获取一项新的特征都需要很多步骤才能构建出来，尤其是当需要从多于一张表格中获取信息时。我们可以把特征创建的操作分成两类：**转换** 和 **聚集**。让我们通过几个例子的实战来看看这些概念。
 
-A **transformation** acts on a single table (thinking in terms of Python, a table is just a Pandas `DataFrame` ) by creating new features out of one or more of the existing columns. As an example, if we have the table of clients below
+一次**转换**操作仅作用于一张表，该操作能从一个或多个现有列中创建新特征（比如说 Python 中，一张表就如同 Pandas 库中的一个 `DataFrame`）。如下面的例子所示，假如我们有如下的一张客户（clients）信息表：
 
 ![](https://cdn-images-1.medium.com/max/800/1*FHR7tlD4FuGKt8n5UHUpqw.png)
 
-we can create features by finding the month of the `joined` column or taking the natural log of the `income` column. These are both transformations because they use information from only one table.
+我们可以通过从 `joined` 列中寻找出月份或者对 `income` 列取自然对数来创建特征。这些都是转换的范畴，因为他们都是使用了单张表中的信息。
 
 ![](https://cdn-images-1.medium.com/max/800/1*QQGYN1PD06rNT-bJphNcBA.png)
 
-On the other hand, **aggregations** are performed across tables, and use a one-to-many relationship to group observations and then calculate statistics. For example, if we have another table with information on the loans of clients, where each client may have multiple loans, we can calculate statistics such as the average, maximum, and minimum of loans for each client.
+另一方面，**聚集** 则是跨表执行的，其使用了一对多关系进行分组观察，然后再计算统计数据。比如说，如果我们还有另外一张含有客户贷款信息的表格，这张表里可能每个客户都有多种贷款，我们就可以计算出每位客户端诸如贷款平均值、最大值、最小值等统计数据。
 
-This process involves grouping the loans table by the client, calculating the aggregations, and then merging the resulting data into the client data. Here’s how we would do that in Python using the [language of Pandas](https://pandas.pydata.org/pandas-docs/stable/index.html).
+这个过程包括了根据客户进行贷款表格分组、计算聚合、然后把计算结果数据合并到客户数据中。如下代码展示了我们如果使用 Python 中的 [language of Pandas](https://pandas.pydata.org/pandas-docs/stable/index.html)库进行计算的过程：
 
 ```
 import pandas as pd
 
-# Group loans by client id and calculate mean, max, min of loans
+# 根据客户 id （client id）进行贷款分组，并计算贷款平均值、最大值、最小值
 stats = loans.groupby('client_id')['loan_amount'].agg(['mean', 'max', 'min'])
 stats.columns = ['mean_loan_amount', 'max_loan_amount', 'min_loan_amount']
 
-# Merge with the clients dataframe
+# 把客户的 dataframe 进行合并
 stats = clients.merge(stats, left_on = 'client_id', right_index=True, how = 'left')
 
 stats.head(10)
@@ -54,15 +54,15 @@ stats.head(10)
 
 ![](https://cdn-images-1.medium.com/max/800/1*jHHOuEft93KDenbRpaFcnA.png)
 
-These operations are not difficult by themselves, but if we have hundreds of variables spread across dozens of tables, this process is not feasible to do by hand. Ideally, we want a solution that can automatically perform transformations and aggregations across multiple tables and combine the resulting data into a single table. Although Pandas is a great resource, there’s only so much data manipulation we want to do by hand! (For more on manual feature engineering check out the excellent [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/05.04-feature-engineering.html)).
+这些操作本身并不困难，但是如果我们有数百个变量分布在数十张表中，手工进行操作则是不可行的。理想情况下，我们希望有一种解决方案，可以在多个表格当中进行自动转换和聚合操作，最后将结果数据合并到一张表格中。尽管 Pandas 是一个很优秀的资源库，但利用 Pandas 时我们仍然需要手工操作很多的数据！（更多关于手工特征工程的消息可以查看如下这个杰出的著作 [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/05.04-feature-engineering.html)）。
 
 ### Featuretools 框架
 
-Fortunately, featuretools is exactly the solution we are looking for. This open-source Python library will automatically create many features from a set of related tables. Featuretools is based on a method known as “[Deep Feature Synthesis](http://featurelabs1.wpengine.com/wp-content/uploads/2017/12/DSAA_DSM_2015-1.pdf)”, which sounds a lot more imposing than it actually is (the name comes from stacking multiple features not because it uses deep learning!).
+幸运的是， featuretools 正是我们所寻找的解决方案。这个开源的 Python 库可以自动地从一系列有关联的表格中创建出很多的特征。 Featuretools 的是基于一个被称为 "[Deep feature synthesis](http://featurelabs1.wpengine.com/wp-content/uploads/2017/12/DSAA_DSM_2015-1.pdf)" （深度特征合成）的方法所创建出来的，这个方法听起来要比实际跑起来更加令人印象深刻。（这个名字是来自于多特征的叠加，并不是因为这个方法使用了深度学习！）
 
-Deep feature synthesis stacks multiple transformation and aggregation operations (which are called [feature primitives](https://docs.featuretools.com/automated_feature_engineering/primitives.html) in the vocab of featuretools) to create features from data spread across many tables. Like most ideas in machine learning, it’s a complex method built on a foundation of simple concepts. By learning one building block at a time, we can form a good understanding of this powerful method.
+Deep feature synthesis stacks multiple transformation and aggregation operations (which are called [feature primitives](https://docs.featuretools.com/automated_feature_engineering/primitives.html) in the vocab of featuretools) to create features from data spread across many tables. Like most ideas in machine learning, it’s a complex method built on a foundation of simple concepts. By learning one building block at a time, we can form a good understanding of this powerful method.深度特征合成叠加了多个转换和聚合操作（在 feautretools 中也被称为 [feature primitives (特征元)](https://docs.featuretools.com/automated_feature_engineering/primitives.html)来便于）。
 
-First, let’s take a look at our example data. We already saw some of the dataset above, and the complete collection of tables is as follows:
+First, let’s take a look at our example data. We already saw some of the dataset above, and the complete collection of tables is as follows:首先，让我们看看我们的数据。
 
 *   `clients` : basic information about clients at a credit union. Each client has only one row in this dataframe
 
@@ -72,7 +72,7 @@ First, let’s take a look at our example data. We already saw some of the datas
 
 ![](https://cdn-images-1.medium.com/max/1000/1*95c7QchQVM-9xUUA4ZB4XQ.png)
 
-*   `payments`: payments made on the loans. Each payment has only one row but each loan will have multiple payments.
+*   `payments`: payments made on the loans. Each payment has only one row but each loan will have multiple payments.*   
 
 ![](https://cdn-images-1.medium.com/max/1000/1*RbgNzspaiwq74aWU6W5LWQ.png)
 
