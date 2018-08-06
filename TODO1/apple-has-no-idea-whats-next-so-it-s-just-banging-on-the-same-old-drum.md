@@ -2,142 +2,142 @@
 > * 原文作者：[Owen Williams](Owen Williams)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/apple-has-no-idea-whats-next-so-it-s-just-banging-on-the-same-old-drum.md](https://github.com/xitu/gold-miner/blob/master/TODO1/apple-has-no-idea-whats-next-so-it-s-just-banging-on-the-same-old-drum.md)
-> * 译者：
+> * 译者：[Dandy Xu](https://github.com/dandyxu)
 > * 校对者：
 
-# Apple has no idea what’s next, so it’s just banging on the same old drum
+# 苹果公司对下一步的计划毫无头绪，它们仅在原地踏步
 
-If you want to witness a company that’s simultaneously in its prime and losing control over its own narrative, look no further than WWDC, Apple’s second-most splashy event of the year, designed to offer a glimpse of the future.
+如果你想要见证一个公司在处于全盛时期的同时在逐步失去对节奏的把控，仅仅看WWDC就可以了。WWDC是苹果公司每年第二大引人注目的活动，目的是为了提供未来的展望。
 
-The annual developer event is a spectacle that I’ve watched live for almost a decade, but this year was different: it showcased a company that’s lost in the woods, playing the same old hits on repeat, in the same old format.
+这个年度开发者的盛会我已经实时收看了将近12年的时间，但今年有所不同：它显示了这个公司正在迷失在丛林中，以相同的旧方式，不断重复着老把戏。
 
-Not only was it painful to watch, it demonstrated that Apple doesn’t really have a coherent plan, or understanding, of where it should take its core platform, let alone the ones it’s tried to build around it.
+不仅仅是手表的难产，种种迹象都表明苹果公司实际上没有一个前后一致的计划，或者对它核心平台的理解，放任核心平台让其自行发展。
 
-It’s fine to have an off year, but what struck me was how… random it felt, and how little insight or forward thinking there was. Apple’s own platform advantages, company culture, and whatever else, seem to be pigeonholing its trajectory, driving it down a path that looks increasingly dated, and leaving me to wonder if the company is self-aware enough to see the shifting tide before it’s lost at sea.
+有一年不更新其实也很正常，但真正打击我的是。。。极其随意的感觉以及非常短视和缺乏前瞻性的思考。苹果自身平台的优势，公司文化，以及其他的一切，似乎都显得那么的生硬，持续地走向过时，让我不禁怀疑这家公司是否自我认识到这些问题，还是已经迷失在海洋中。
 
-#### Big, slow, yearly
+#### 大，慢，年复一年
 
 ![](https://cdn-images-1.medium.com/max/1000/1*tIUbwrpHZPbdNPXB569wPQ.png)
 
-Apple struggled throughout 2017 to ship flagship features it promised at WWDC 2017, including Airplay 2 and iCloud Messages, delivering them quietly just days before this year’s event.
+苹果公司在2017年一直挣扎着想兑现在 WWDC 2017中所承诺过的旗舰功能，包括 Airplay 2 和 iCloud 信息。这些功能在今年的 WWDC 前几天被悄悄地发布。
 
-Alongside a scandal about performance throttling, a series of major security slip-ups, and hardware that shipped without long-touted features, many have loudly asked what’s causing these issues — and why a company with so many engineers is fundamentally failing to ship.
+除了关于性能限制的丑闻之外，一系列重要的安全隐患，以及那些没有长期称道功能的硬件，种种迹象都让我们不禁疑问，是什么导致了这些问题 - 以及为什么这家拥有众多工程师的公司正逐步走向失败。
 
-Performance improvements are arguably the biggest focus of iOS 12. They’ll be welcome for many users, along with several additional improvements: streamlined notifications, a new ‘shortcuts’ feature for custom buttons, usage reporting, group FaceTime, AR updates and a number of other minor improvements to create a major release, iOS 12.
+性能提升是 iOS 12 最具争议的焦点。许多用户对性能以及其他一些附加的改进都持欢迎态度：更流畅的通知体验，为自定义的按钮提供的新的 “快捷方式 (shortcuts)” 功能，使用量报告，FaceTime 群聊，AR 更新以及一系列其他的小改进，这些组成了一个重大的更新，iOS 12。
 
-The company’s other platforms received similar treatment, including macOS. Apple finished dark mode, a feature it [half-introduced](https://9to5mac.com/2014/11/08/yosemite-dark-mode/) all the way back in Yosemite, added basic functionality to Finder, threw in a new way to organize your desktop, and _boom — _there’s your major release, 10.14.
+苹果公司其他的平台也收到了类似的待遇，包括 macOS 。 苹果实现了暗黑模式，一个在 Yosemite 中 [半发布](https://9to5mac.com/2014/11/08/yosemite-dark-mode/) 的功能，同时加入了针对 Finder 的基础功能，提供了一种整理桌面的新方式，以及 _哇 - _这就是你们的重大更新，10.14。
 
-None of these things are inherently bad — in fact, people have been complaining about the lack of improvements to things like FaceTime for years — but what’s interesting is Apple’s choice to bundle them together as a way to make them look truly meaningful, rather than just fixing many of these issues sooner, in a point release. I’m aware there’s a slew of tiny other fixes and features I haven’t listed here, but that’s my point: it’s a hodgepodge of things that have been neglected over the years after being debuted once and forgotten about.
+这些东西并不是什么坏事 - 事实上，人们多年来一直都在抱怨像 FaceTime 缺乏必要的改进 - 但是有趣的是，苹果的选择是将它们打包一起成一种有意义的新方式，而不是仅仅更快地修复这些问题，在一个特定的版本中。我也发觉到有一些很小的修复和功能我并没有列举在这里，但我的观点是：这是一锅大杂烩，专门针对这么多年来被遗忘的方方面面。
 
-**Here’s the rub:** Apple could arguably ship notification improvements to iOS users tomorrow in a point release, iOS 11.5, but it won’t. Combining them provides the illusion of progress. Instead of servicing users and giving them features sooner, on a regular basis, Apple chooses to hold back simple functionality longer, for its bottom line.
+**这是难题：** 有证据证明，苹果公司可能会在明天某个版本中发布针对通知的改进，iOS 11.5，但它不会发生。结合它们来看，这给了人们一种进步的错觉。除了更快的服务用户以及给他们提供更及时的更新，在一个常规的频率，苹果选择最低限度的保持简单的功能。
 
-As Martin Bryant points out, [Apple may have a timing problem](https://www.getrevue.co/profile/bigrevolution/issues/big-revolution-apple-has-a-timing-problem-117182):
+就像 Martin Bryant 指出的那样，[苹果也许存在时间问题](https://www.getrevue.co/profile/bigrevolution/issues/big-revolution-apple-has-a-timing-problem-117182)：
 
-> Yes, Apple needs to take the time to do ‘boring’ optimisation work on iOS, but why build iOS around these big, annual feature bumps and then disappoint people when the bumps aren’t very big?
+> 是的，苹果需要一些时间去做 “枯燥的” 优化工作，针对 iOS，但为什么选择将 iOS 建造的如此跳跃，然后如果这些功能不够大，又会使用户失望？
 
 ![](https://cdn-images-1.medium.com/max/1000/1*xyYGoFI-pve4NohGovx0Eg.png)
 
-Interestingly, the narrative here actually doesn’t make sense anymore, either. Every year, Apple takes the time to point out how _dire_ the state of the competition is: Nobody’s Android phones get updates! Android people don’t get any the latest features! Your phones all suck! The reality is different: Android users, regardless of manufacturer, frequently get them sooner than iOS users do, because Google divorced the operating system and core application suite from one another.
+有趣的是，这里的叙述同样已经不再有意义。每年，苹果都会花时间去指出 _竞争的恐怖_ ：没有人的 Android 手机得到更新！Android 用户没有得到任何最新的更新！你们的手机都烂爆了！但事实是不太一样的：Android 用户，无论哪个制造商，通常都能得到比 iOS 用户更及时的更新，因为谷歌把操作系统和核心程序套件分离开来。
 
-Google’s approach to unbundling Android has, for the most part, been quietly successful — in an unexpected way. Instead of shipping monolithic feature updates, Google’s applications are now updated via the Play Store, from the clock app to the calculator and even the camera (unless you’re Samsung).
+谷歌的做法将 Android 分解开来，对于绝大部分来说，都是相当成功的 - 以某种并未预料到的方式。不同于只单一发布功能更新，谷歌的应用如今都能通过谷歌应用商店得到更新，范围从时钟应用到甚至相机 （除非你是三星用户）。
 
-Apple has made a yearly ritual out of jabbing competitors for poor update histories, but conveniently omits the reality that improvements to Google Assistant, the built-in web browser, or even just the OS keyboard will reach billions of users in a matter of hours without needing to update the entire phone. [Android’s support libraries](https://developer.android.com/topic/libraries/support-library/) mean developers can target older devices, with new features, regardless of whether or not they received the OS update.
+苹果公司每年都会习惯性地抨击竞争对手糟糕的更新历史，但选择性地遗忘真实情况，Android 中针对谷歌助手的改进，内置的网页浏览器，或者甚至系统的键盘都将在数小时内，无需更新整个手机，就可以推送至数十亿个用户。[安卓的支持库](https://developer.android.com/topic/libraries/support-library/) 代表着开发者能够针对更老的设备，开发新的功能，不论它们能否收到操作系统的更新。
 
-Meanwhile, if you find a bug in the iOS keyboard, or some weird security flaw in Safari’s web view, you hope it gets fixed in the next version of the operating system. Maybe next year, or the year after that. It depends how bad it is, or if Apple is actively maintaining the feature, as to when it’ll get serviced.
+与此同时，如果你在 iOS 的键盘中发现一个 bug ，或者在 Safari 的网页视图发现某些奇怪的安全缺陷，你期望它们将会在下一个版本的操作系统中得到修复。也许明年，也许是后年。这取决于严重程度，或者取决于苹果对这项功能的重视程度。
 
-Don’t get me wrong, Android has a terrible history of updates that is only now beginning to change, ten years after the fact. Google has made strides with Project Treble, which makes an end-run around the device maker itself, but it’s only in its infancy with new devices picking it up today. That’s not good enough either; but it’s gaining traction _and_ getting things into people’s hands.
+请不要误解我，Android 有着非常糟糕的更新历史，而且刚刚才开始改变，事实上是10年之后。谷歌在 Treble 项目上取得了很大的进步，这个项目使设备制造商能够自行升级维护，但目前还处于早期的状态。这种做法也不够完善；但至少这样可以赢得关注度 _和_ 使用户拥有掌控权。
 
 ![](https://i.loli.net/2018/07/23/5b556d7e1426b.png)
 
-For each platform update, Apple dangles a carrot. That’s the flagship feature to convince you it’s a Big Update™ worth having immediately. On macOS this year, that’s dark mode, and on iOS, the promise of performance improvements and, _god forbid_, actually decent notification management.
+对于每一个平台的更新，苹果通常都会给大肆宣传。这些旗舰功能促使你相信，这是一次巨大的更新，而且值得立即升级。在今年的 macOS 中的体现则是黑暗模式，在 iOS 平台上，则是关于性能提升的承诺，以及 _上帝禁止_，或者称作更优雅的通知管理。
 
-Arguably the most interesting segment out of WWDC happens at the very end of the two-hour keynote: [a peek at Project Marzipan](https://www.imore.com/marzipan), a long-term effort to unify the interface framework developers use to build apps for iOS and macOS, which is expected to ship to everyone in 2019.
+有争议的是，这届 WWDC 中最有趣的一个部分发生在这两个小时展示的最后阶段：[Marzipan 项目预览](https://www.imore.com/marzipan)，这是一个需要长期的努力，旨在联合 iOS 和 macOS 平台框架开发者去构建程序应用的项目，大致会在 2019 年完成。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Ukm9QN-FSM6m8gjZb-bL7g.png)
 
-From where I sit, this is an impressive, massive project that doesn’t do much more than play defense against Electron’s continued march on Apple’s territory, threatening to kill native application development altogether. Why build anything native at all, when you can write once, and run everywhere? Anti-Electron fans will run rabid at the idea, but as the technology has become more efficient and introduced lower-level API access, it only makes even more business sense.
+从我的角度来看，这是一次非常好的，大型的项目，这个项目可以抵御来自 Electron 持续不断的蚕食，以及对于原生应用开发的威胁。为什么所有的应用都需要原生开发？尤其当你可以一次编写，多处运行。反 Electron 的粉丝会从源头想法开始就反对，但当科技变得更加有效而且能够引入更底层的 API 访问时，这样只会让混合开发变得更具实际意义。
 
-Marzipan is an audacious plan to defend against that by making it easier to build cross-platform apps. It’s a genuinely fascinating play with fewer apparent benefits in the short term over just building an Electron app, which addresses an additional billion users, allows developers to use familiar web technology _and_ is truly write-once-run-everywhere.
+Marzipan 是一个旨在防范更容易构建跨平台应用的大胆计划。它真正迷人的地方在于在短期内能够以一些明显的优势，而不是仅仅去构建一个 Electron 应用，后者拥有者数十亿的用户，允许开发者能够使用熟悉的网页技术 _而且_ 是真正的 “一次编写多处运行”。
 
-Over time, Marzipan may win favor with developers, but I’m not convinced it’ll stop web-based technologies swallowing native app development whole, particularly given that both Microsoft _and_ Google have now bet their entire strategies on Progressive Web Applications, and how low the barrier of entry has come as a result of Electron’s success.
+随着时间的发展，Marzipan 也许能够赢得开发者的青睐，但我不认为它会停止基于网页技术对于原生应用整体的吞食，尤其考虑到微软 _和_ 谷歌如今都已经将他们的全部战略都堵在了 Progressive Web Applications，同时，入门的低门槛也证明了 Electron 的成功。
 
-Marzipan indicates something bigger, of course, such as an impending shift away from Intel chipsets entirely to some sort of custom Apple ARM-based silicon in — _shock horror — _a productivity form factor. If anything, what will win as a result will be that control, and what it could ship in a end-to-end device: true all-day battery? Always-on LTE with desktop class apps?
+Marzipan 预示了一些更大的方向，当然，类似快速从 Intel 芯片组整体换成某种苹果基于 ARM 自研的硅片，以某种 _耸人听闻_ 的产品表格因素。如果有任何的传言，最终以事实赢得结果的，才有可能部署到终端设备中：真正的全天电池？还是某种能够持续连接 LTE 的桌面级别软件？
 
-If so, the message is this: lock in with us, develop for our platforms, and we’ll reward you. Don’t, and you’ll be shut out and stuck on the outside.
+如果是这样的话，那苹果想传达的信息就是：跟我们绑定，为我们的平台进行开发，然后我们将奖励你。如果不这样的话，你将被拒之门外。
 
-#### Hey Siri, where’s the vision?
+#### Hey Siri，你的未来在哪里？
 
 ![](https://cdn-images-1.medium.com/max/1000/1*CRkO0VCT6Mh2CFRtbhhfmA.png)
 
-What’s clearly missing in all of this is a willingness to take risks, or go for the long view on what’s better than the status quo for Apple’s users. Instead of looking at how phone usage is changing and redesigning the nature of iOS, it’s another year of shoehorning new features into a decade-old shell.
+所有的一切中真正缺失的是敢于冒险的意愿，或者是能够追求长期看来有利于苹果用户的目标。如果不是追求如果改变手机的使用和重新构建 iOS，这又是另一年硬塞进旧壳子的功能。
 
-The new shortcuts feature promises to let users wire up workflows of their dreams, chaining together tasks behind a single button. Yes, this is a great improvement to iOS that addresses a problem without actually improving on the reason anyone needs this in the first place — it’s just glued onto the homescreen that’s responsible for causing the need for it in the first place.
+新的快捷功能承诺让用户们可以根据自己的想法定制工作流程，在一个简单的按钮后连接多个任务。是的，这对于 iOS 来说是一个非常大的改进，因为它强调了一个问题，事实上这个功能在一开始并没有很多需求 - 它仅仅是将所有的一切粘在了主屏上，而主屏上的一切在一开始都是需要使用的。
 
-Apple could have offered up a way to surface the weather right there, deeply integrated with the lock screen, or calendar events at the top of your home screen along with the icons, but it didn’t. Instead, it slathered what appears to be a UX hack in the shape of a notification, and tries to guess when you want to see it.
+苹果本可以提供一种方式，这种方式能够将天气应用很好的融合，更深度地整合进锁屏界面，或者在你的主屏界面中整合进日程表，但它没有这么做。相反，它大量使用了看起来像通知的用户体验设计，而且尝试去猜测你想看到什么内容。
 
-Google’s own developer conference, just down the street in Mountain View, was held in May and offered a clearer, if poorly highlighted, view of the future: AI is a core part of mobile devices going forward, so we’re beginning to add it everywhere.
+谷歌自己的开发者大会，在山景城中，刚刚发生在5月份举行，它们提供了一种更加清晰，但并没有那么强调的未来愿景：人工智能是移动设备未来发展的核心，所以我们开始将它添加至所有的地方。
 
 ![](https://cdn-images-1.medium.com/max/600/1*lTYCJE8xA9-M8G61QkAKsA.gif)
 
-The Android alternative to Shortcuts, Slices and App Actions, surfaces the device’s best guess at your next action as a deeply integrated interface component, where you can actually see information before actually going further in, or taking an action.
+Android 中等同于 Shortcuts的功能，Slices 和 App Actions，它们能够以一种界面元素深度整合入设备，并且猜测你的下一个动作是什么，它能够在你实际点进去，或者开始一个动作之前让你看到实实在在的信息。
 
-Want a button to order a Lyft? Great, here’s a button embedded within the system’s app tray, with the current estimated price of your ride, which orders it right now with a single tap. Much of this data is crunched on device, just like Apple’s audacious claims to privacy brag about as well, but instead of being a UX hack to add buttons that summon help, the information is already right there, on hand, without opening anything, even Assistant.
+想要一个按钮，从而可以预定一个 Lyft (美国打车软件)？在系统的应用托盘中，有一个内嵌的按钮，这个按钮还可以显示行程的大致费用，你可以通过简单的一个点击，立即预定一辆出租车。很多的数据都是存储在设备中，就像苹果一直大量宣传的隐私保护一样，但相反地，只是在用户体验上能够提供一个整体的帮助，即使是一个辅助，但你在不打开任何应用的情况下，很方便地看到所有的信息。
 
-Google and Apple both anticipate a future in which we use our phones less — time well spent is a core part of this driver — and as a result, it appears Google has spent a lot of time thinking about how AI can help get the right information to the user. The result is the exact button they need at the right time, with relevant information, sans the need to actually go away and do something.
+谷歌和苹果都参与了一个未来，即我们将更少的使用我们的手机 - 但时间花费将是这个问题的核心 - 结果是，很明显，谷歌花费了很多时间去思考人工智能如何用正确的信息帮助用户。谷歌的结论是，具体的按钮在正确的时间，有着相关的信息，满足用户的需求，从而帮助到用户。
 
-To facilitate this, Google is willing to rejig the UX of its devices, mess with the sea of icons, and has invested heavily in serendipitous computing with Google Home alongside this, so it can get you there faster regardless of if the phone is in your hand.
+为了实现这些，谷歌愿意去重新设计设备的用户体验，将海量的图标打散，同时对偶然发现的 Google Home 投入大量的精力，所以这种做法能够让你更快的实现需求，无论你手上是否有手机。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*eCsl8DddzfF1WJRNk4QfZA.png)
 
-Google’s vision of the future of smartphones, mobile operating systems, and the way we’ll interact with devices over the long haul is a coherent, well-told story: get more out of your day, get the devices out of the way. It even has a [fantastic page](https://store.google.com/us/magazine/google_cross_product_experience?hl=en-US) that showcases how its own ecosystem works better, together, than I’ve ever seen explained about Apple’s ecosystem on its own site.
+谷歌对于智能手机的未来，移动操作系统，以及我们如何和设备进行交互，这是一个条理清晰，前后一致的故事：尽可能的从你的一天中拿出时间，尽可能的淡化设备。它甚至有一个 [精彩的页面](https://store.google.com/us/magazine/google_cross_product_experience?hl=en-US)，显示了它自己的生态系统如何更好的工作，起码比我在苹果自身的生态系统中看到的解释要好得多。
 
-As for _why_ all of this happens, I suspect it’s a difference in strategy and approach. Apple’s strategy has long been to monetize its existing cash cows as long as it can by throwing out new stuff to see what sticks and doubling down on that, rather than creating any sort of coherent narrative of what the future actually looks like, operating in secrecy until it somehow lands upon it.
+至于 _为什么_ 这一切会发生，我推测这关于企业策略和方式的不同。苹果的策略是尽可能的从目前已有的现金牛中套现，它通过不断抛出新的东西来试探是否有效，而不是创建一个全新的未来，它会很隐蔽地进行，直到最终落实的那一天。
 
-Incremental improvement is fine, but there’s a distinct lack of forward-looking, and a whole lot of looking over the fence at what everyone else is doing to bash it instead.
+迭代改进是没有问题，但对于前瞻性和睁眼看世界，这有着非常大的区别。
 
-#### Apples, oranges and comparing the two
+#### 苹果，橘子，以及两者的比较
 
 ![](https://cdn-images-1.medium.com/max/1000/1*GXShGcoP70vKsNXCqfWByQ.png)
 
-It’s easy to compare and contrast Google and Apple because they are very different companies, but what they’re both claiming to do is the same: invent the future, whatever that actually might be.
+比较和对比谷歌和苹果是非常容易的，因为他们是完全不同的公司，但他们都宣称同样的事情：创造未来，无论未来实际上是什么样的。
 
-Their approaches, however, are increasingly diverging: Apple’s squeezing more out of less, shipping flashy features, and focusing on privacy, while Google and others have pushed further into understanding the user and getting out of their way.
+他们的方式，总体而言，正在不断地分化：苹果在不断的压榨自己的剩余价值，发布崭新的功能，聚焦于隐私保护，而谷歌和其他公司都致力于理解自己的用户从而更好的帮助他们。
 
-Most of this comes down to business model.
+大多数的原因取决于经营模式。
 
-Apple’s focus on features by piling them together drives more sales of iPhone, which drives reliable revenue on a yearly basis. Google’s is on advertising and relevance to the user, which doesn’t depend on a particular feature or thing to tout, it just needs you to love using its tools (and not mind advertising).
+苹果的精力都集中在那些能够使 iPhone 销售量更好的功能上，这样可以带来可靠的年收益。谷歌的重点则是在广告和用户的相关性，这样使得他们不用依赖某个特别的功能或者吸引人的地方，它只需要你去使用它的工具 （并且不在意广告）。
 
-Apple’s entire strategy over the last two decades has pivoted around the exploitation of a product line until something new comes along, then rinse and repeat. This is framed around improving your life and often actually does, even if that is by proxy. I’d argue that the company’s vision of the future isn’t to enrich, or drive progress, but to squeeze as much revenue as possible out of slick, well-designed and marketed ideas. The products it builds, the cycles they’re released in and the way that Apple’s entire software cycle works reflects this.
+苹果在过去数十年的整体策略是在某个产品线上不断的进行压榨，直到某种新的产品问世，然后漂洗和重复。这种做法看似提升了你的生活质量，很多时候也确实如此，即使是间接的。我的看法是这家公司未来的发展不是去增强，或者促进发展，而是尽可能地从已知的，充分设计的和市场已经准备好的想法中压榨出利润。这种情况下构建出的产品，已经在苹果公司的整个软件发展周期中得到了体现。
 
-An example of the manifestation of this is perhaps HomePod’s requirement to have a locally available iPhone to do anything interesting, leaving it crippled without one, and Animoji’s debut only to be locked away in Messages instead of somewhere like the camera.
+一个典型的例子就是恐怕 HomePod 的需求是需要手上有一部 iPhone，才能去做任何有趣的事情，如果没有的话，则完全没有用处。另外，动态表情的争议在于仅仅只能在短信中使用而不是在相机中。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*qf_K81yBsB-b2yJ9explpw.png)
 
-Google, a latecomer in the game, has the luxury — and peril — of not depending on phone revenue, so it can risk it all and get weird, since it’s not fundamentally critical to the company’s continued trajectory. Microsoft has done the same, now finding itself the underdog, risked it all and [moved to an ‘OS-as-a-service’ model](https://docs.microsoft.com/en-us/windows/deployment/update/waas-overview) in which it ships features when they’re ready instead of waiting for flashy releases.
+谷歌，一个游戏中的后来者，有着一种奢侈，它不用依赖于手机带来的利润。这使得它可以大胆冒险，并且有的时候显得有些奇怪，因为这些都不会严重影响到公司的日常轨迹。微软也曾做过同样的事情，现在发现自己正在走下坡路，堵上所有，并 [转型到一种“操作系统即服务”的模式](https://docs.microsoft.com/en-us/windows/deployment/update/waas-overview)，这样的做法可以让它们从容地部署准备好了的功能，而不是仅仅在等待某些不稳定的版本。
 
-Apple, on the other hand, begins and ends with the iPhone today, the rest flows from there. It can’t just rip up the foundation on which its revenue exists, and Tim Cook hasn’t shown a flair for doing so. iOS is too valuable to go away and tear down to just reimagine it for fun, so it’s the status quo, with experiments like HomePod and AirPods on the side, where it _can_ get weird and sometimes wonderful. That’s fine, because Apple has plenty of cash lying around, but it’s interesting how limiting the approach can become.
+苹果，从另一方面说，是成也 iPhone，败也 iPhone，其他的也都基于此扩展。它不可能放弃本身存在的利润，而且蒂姆库克至今为止也没有展示出这种天资。iOS 实在是太有价值，仅仅是想想都舍不得放弃。所以，苹果一定会坚持这种状态，外加诸如 HomePod 和 AirPods 这种边缘产品进行试验，这部分 _可能_ 会觉得奇怪但有时候会让人觉得很惊奇。这都没有问题，因为苹果有着大量的现金流可以依靠，但十分有趣的是，这也限制了苹果的发展路线。
 
-As we hurtle toward peak smartphone, the cracks here are beginning to show because Apple don’t _have_ the next big thing yet — that we know of, naturally — and it’s taking a long time to get here. We’re essentially watching the bottom of the metaphorical tube of toothpaste being squeezed, while others are trying to figure out if maybe the tube should work completely differently.
+因为我们不断地去追求顶尖手机，所以这里的分歧正在发生，因为苹果 _还没有_ 下一个大的事件 - 至少我们所知道的，自然的 - 而且这会花费很长时间去达到。像挤牙膏一样，我们最终都会看到隐喻故事的结尾，但别人都在试图以完全不同的方式去解决。
 
-AR is potentially the next platform, yes, [and it’s clear that Apple is pushing forward on that](https://www.wired.com/story/apple-wwdc-augmented-reality-wearables/%5C) in a big way, so it’s easy to imagine a scenario in which it makes sense to shift precious resources there instead of focusing on iOS which may wind up unimportant in a year or two. I’m not convinced that in the short term, such as the oft-claimed 2020 launch date of an Apple VR/AR headset, that we’ll be headed there in any meaningful capacity. I mean, Magic Leap, a bajillion dollar company building the future of AR showed off its hardware yesterday on Twitch, quipping that “you better not put it in your pocket or it’ll overheat.”
+增强现实是一个潜在的下一平台，是的，[而且毫无疑问地，苹果正在大力地引领这股潮流](https://www.wired.com/story/apple-wwdc-augmented-reality-wearables/%5C)，所以很容易去想象一个应用场景，对于苹果来说，将宝贵的资源偏向那里而不是集中在 iOS 中，可能在1年或者2年中不再重要。我不确定在短期内，像苹果的一个 VR/AR 头戴设备 oft-claimed 2020 发布时间是否真正可行。我的意思是，Magic Leap，一个独角兽公司正在构建 AR 的未来，昨天刚在 Twitch 上展示了它们的硬件，并且调侃到 “你最好不用将它放在口袋里，要不然它会过热”。
 
-I’m happy to be wrong, and I write this knowing I’ll probably be that guy who [very publically crapped on the iPhone at launch later](http://bgr.com/2015/04/07/original-iphone-reaction-comments/). Apple’s worth a very large amount of money, which is more than enough proof that it’s good at many things, including convincing people to buy a phone every year.
+我非常乐意看到自己是错的，而且我也许是那种 [公开在 iPhone 发布后马后炮](http://bgr.com/2015/04/07/original-iphone-reaction-comments/)的人。苹果价值非常得大，这也更加证明了它们擅长很多东西，包括说服用户每年都购买一个新的手机。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*_fmWBe3iuLHDiDezd6PR9g.png)
 
-So, what if the next platform just doesn’t arrive any time soon? We’re reaching a plateau as computing performance and power improvements level out, and the pace of innovation the iPhone — and all smartphones — relied on to exist is drying up. The software platforms have shifted entirely, like Microsoft’s focus to almost entirely be on enterprise productivity, and Google’s on being available wherever the user is in the ecosystem. They stand poised to benefit, as they offer a growing array of capabilities across the spectrum, from the smart home to a reinvention of human-computer interaction via voice assistants, and the competition further locks down the moats.
+因此，什么是下一个潮流呢？我们正在处于一个平稳期，因为计算能力和能源提升，导致 iPhone 创新的脚步 - 和所有的智能手机 - 完全依赖于现有的结构之上，不断在榨干。软件平台已经完全转型，像微软的重点已经几乎全部集中在企业市场的工作效率上，谷歌的重点则在尽可能地将用户保留在生态系统中。他们小心地发展着，因为他们提供了一个可预见范围内的增长矩阵，从智能家居到一个重新创造的，通过语音控制的人机交互方式，而且竞争还带来了鸿沟。
 
-In a new world that’s defined by ambient, intelligent computing, that just does stuff on our behalf and our tools having the context they need about us to be useful, Apple may be out of its depth or simply unwilling to risk making a bold enough bet to go beyond the iPhone.
+在一个新的世界中，这也许被智能计算所定义，它们能够代表我们处理事情，我们的工具都能够很好的理解我们的命令，从而变得十分有用，苹果也许在失去它的优势，或者简单地不想去赌上所有去创造一个超越 iPhone 的产品。
 
-I think it’s a bit of both, and it’s on full display as unlikely new underdogs emerge. None of this is to say Google, Microsoft or anyone else is any better: they all have their own disadvantages, absurd inconsistencies or weird narratives at times, but a shift certainly _feels_ like it’s happening below the surface, and there’s a window of opportunity in which Google seems to be executing extremely well so far.
+我想也许两点都有，而且目前仍然有待观望因为不太可能出现新的弱者。这些都不意味着谷歌，微软或其他公司有任何更好的地方：它们都有自己的劣势，可笑的不连续性或者有时奇怪的措辞。但改变的确让人 _觉得_ 一切都在暗地里悄然发生，目前为止，有一个机会似乎能够让谷歌执行得非常之好。
 
-Yeah, in the end these are all just tools; a way to get things done. Some people like one thing, others like the other.
+是的，说到底这些都仅仅是工具；一种完成方式的途径。一些人喜欢一件事，另一些人则喜欢另一件事。
 
-People will always choose whatever helps them get more out of their lives, and what best fits their lifestyle. For years, that default for many has been the iPhone, but nothing is forever. I think people are starting to notice.
+人们将一直选择对他们帮助最大的，对他们生活方式最有利的。多年以来，人们默认是 iPhone，但没有什么是一成不变的。我觉得人们已经开始去注意。
 
 * * *
 
-_If you enjoyed this and want more insights into the technology industry, my weekday morning briefing helps you understand what’s worth knowing and why. Use the code_ **_medium-friend_** _at checkout for 40% off the first month. ♥️_
+_如果你喜欢这篇文章，并且想要更多地了解科技行业，我每个工作日的早报能够帮助你理解什么值得知道及其原因。使用代码_ **_medium-friend_** _能够在第一个月享受到6折的优惠。♥️_
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
