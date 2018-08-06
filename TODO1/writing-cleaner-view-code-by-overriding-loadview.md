@@ -180,7 +180,7 @@ final class MyViewController: CustomViewController<MyView> {
 
 ## 参考文献和推荐阅读
 
-[苹果官方文档: loadView()](https://developer.apple.com/documentation/uikit/uiviewcontroller/1621454-loadview)
+[苹果官方文档：loadView()](https://developer.apple.com/documentation/uikit/uiviewcontroller/1621454-loadview)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
