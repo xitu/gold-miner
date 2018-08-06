@@ -4,6 +4,7 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/web-architecture-101.md](https://github.com/xitu/gold-miner/blob/master/TODO1/web-architecture-101.md)
 > * 译者：[horizon13th](https://github.com/horizon13th)
 > * 校对者：[yqian1991](https://github.com/yqian1991)
+[sisibeloved](https://github.com/sisibeloved)
 
 # Web 应用架构基础课
 
@@ -11,11 +12,11 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*K6M-x-6e39jMq_c-2xqZIQ.png)
 
-网络应用主流架构概览
+web 应用主流架构概览
 
 上图便是我司（Storyblocks）网络架构的很好展现。如果你还没成为经验老道的 web 工程师，可能觉得上图巨复杂。在详解各个模块前，我们先简单过一下流程。
 
-> 用户在 Google 搜索关键字 “Strong Beautiful Fog And Sunbeams In The Forest”，[首条结果](https://www.graphicstock.com/stock-image/strong-beautiful-fog-and-sunbeams-in-the-forest-246703)便是来自我们网站，用户点击搜索结果进入图片详情页。在用户操作的背后，客户端浏览器向 DNS 服务器查询图片所在服务器，并发送访问请求。
+> 用户在 Google 搜索关键字 “Strong Beautiful Fog And Sunbeams In The Forest”，[首条结果](https://www.graphicstock.com/stock-image/strong-beautiful-fog-and-sunbeams-in-the-forest-246703)便是来自我司的拳头产品：Storyblocks —— 图片矢量图素材站，用户点击搜索结果进入图片详情页。在用户操作的背后，客户端浏览器向 DNS 服务器查询图片所在服务器，并发送访问请求。
 
 > 用户请求通过负载均衡（随机选择多个服务器中的一个）访问站点处理请求。服务器从缓存服务中查找图片信息，并从数据库中调取其它信息。我们注意到此时，图片尚未进行色彩渲染计算，便发送“色彩渲染”任务到任务队列。此时该服务所在服务器异步处理任务，适时将结果更新到数据库。
 
@@ -29,7 +30,7 @@
 
 DNS（Domain Name Server）是域名服务器的简称，它是互联网依存的基础设施。简单来说，DNS 提供域名与 IP 地址的键值对查找，例如（google.com 域名对应 85.129.83.120 IP 地址），这非常有必要，它让你的电脑通过请求寻路到特定服务器。就好比打电话，域名与 IP 地址的关系类似于联系人和电话号码的关系。以前你需要电话号码簿记录他人的电话号码，现在你需要 DNS 服务器寻找域名对应的 IP 地址。所以你可以把 DNS 想象成互联网世界的电话簿。
 
-这里我们还有很多细节可以深入，暂时先跳过，因为这里还不是重点。
+这里我们还有很多细节可以深入，暂时先跳过，因为这不是我们基础课的重点。
 
 ### 2. 负载均衡
 
@@ -45,7 +46,7 @@ DNS（Domain Name Server）是域名服务器的简称，它是互联网依存�
 
 从上层角度来看，web 应用服务器相对好理解，它们用来处理核心业务逻辑，处理用户请求，给客户端浏览器返回 HTML。处理这些任务便是与后台基础设施间通信，比如数据库，缓存服务，任务队列，搜索服务，其它微服务，消息/日志队列，等等。一般情况下至少两个应用服务器，或者更多，这些应用服务接入负载均衡，处理用户请求。
 
-应用服务器的实现通常需要某种特定语言（Node.js, Ruby, PHP, Scala, Java, C# .NET 等）跑在相对应的 MVC 框架上（Node.js 的 Express, Ruby on Rails, Scala 的 Play, PHP 的 Laravel，Java 的 Spring 等等)。语言和框架的细节我们这里不做赘述，有兴趣的读者可以自行深入研究。
+应用服务器的实现通常需要某种特定语言（Node.js, Ruby, PHP, Scala, Java, C# .NET 等）和对应的 MVC 框架上（Node.js 的 Express, Ruby on Rails, Scala 的 Play, PHP 的 Laravel，Java 的 Spring 等等)。语言和框架的细节我们这里不做赘述，有兴趣的读者可以自行深入研究。
 
 ### 4. 数据库服务器
 
@@ -65,11 +66,11 @@ NoSQL，如其字面意思，“非-SQL”，是一种新型数据库，用来�
 *   [http://www.kdnuggets.com/2016/07/seven-steps-understanding-nosql-databases.html](http://www.kdnuggets.com/2016/07/seven-steps-understanding-nosql-databases.html)
 *   [https://resources.mongodb.com/getting-started-with-mongodb/back-to-basics-1-introduction-to-nosql](https://resources.mongodb.com/getting-started-with-mongodb/back-to-basics-1-introduction-to-nosql)
 
-我还想顺便提一点，总的来说[业界仍然以 SQL 作为主流而非 NoSQL](https://blog.timescale.com/why-sql-beating-nosql-what-this-means-for-future-of-data-time-series-database-348b777b847a) ，不懂 SQL 的话还是很有必要去学习的，如今的业务场景很难避开它。
+我还想顺便提一点，[业界通常使用 SQL 作为 NoSQL 数据库的表层调用](https://blog.timescale.com/why-sql-beating-nosql-what-this-means-for-future-of-data-time-series-database-348b777b847a) ，不懂 SQL 的话还是很有必要去学习的，如今的业务场景很难避开它。
 
 ### 5. 缓存服务
 
-缓存服务提供一种简单的键值对数据存储，使存取信息时间复杂度接近 O(1) 。应用内通常使用缓存服务存储花费高昂的运算结果，再次请求时从缓存中检索结果，而非在每次请求时都重新计算。缓存内容可以是数据库查询，外部服务调用结果，链接返回的 HTML，等等。下面我们从真实场景中举例：
+缓存服务提供一种简单的键值对数据存储，使存取信息时间复杂度接近 O(1) 。应用内通常使用缓存服务存储运算成本高昂的运算结果，再次请求时从缓存中检索结果，而非在每次请求时都重新计算。缓存内容可以是数据库查询，外部服务调用结果，链接返回的 HTML，等等。下面我们从真实场景中举例：
 
 *   搜索引擎服务（比如百度）会缓存一些常见的查询结果，比如“狗”，“周杰伦”，而不是在每次查询时都实时计算。
 *   社交网站服务（比如 Facebook）会缓存每次登陆时用户看到的数据，比如最近博文，好友，等等。这里有一篇 [Facebook 如何做缓存](https://medium.com/@shagun/scaling-memcache-at-facebook-1ba77d71c082)的文章。
@@ -103,7 +104,7 @@ NoSQL，如其字面意思，“非-SQL”，是一种新型数据库，用来�
 
 当应用到达一定的规模，通常倾向于拆分其为单个应用，作为“微服务”。外界对这些微服务是不可感知的，但应用内服务间相互通信。比如我司有各种运维服务和计划执行服务：
 
-*   **用户服务** 存储所有平台用户数据，便捷地提供交叉销售商机，以及标准化的用户体验。
+*   **用户服务** 存储所有平台网站用户数据，便捷地提供交叉销售商机，以及统一的用户体验。
 *   **内容服务** 存储多媒体文件的元数据，并提供文件下载接口和下载历史信息等。
 *   **支付服务** 提供客户付款信息接口。
 *   **PDF 导出服务** 提供统一接口，将 HTML 转换成相对应的 PDF 文件并下载。
@@ -116,12 +117,11 @@ NoSQL，如其字面意思，“非-SQL”，是一种新型数据库，用来�
 2.  **数据存储** 原始数据和转换加工后的数据在云端存储。例如 AWS Kinesis 提供叫做 “firehose” 的配置，将原始数据存储在其云平台 Amazon S3 上，使用起来极其方便。
 3.  **数据分析** 转换加工后的数据会加载入数据仓库来做后续分析。我司使用 AWS Redshift 作为数据仓库，很多创业公司也都在用，大型公司一般选择 Oracle 或者其它的数据仓库服务。当数据量十分庞大时，可能需要用类 Hadoop 的 NoSQL MapReduce 技术来做后续分析。
 
-还有一个步骤没有在架构图中绘出：从应用和服务运维数据库中把数据导入数据仓库。例如在我司，我们每晚都会把各个服务的数据存到 AWS Redshift，提供给我们产品运营分析的同事更全面的数据集，不仅有核心的业务数据，还有用户交互行为的数据。
+还有一个步骤没有在架构图中绘出：从应用和服务运维数据库中把数据导入数据仓库。例如在我司，我们每晚都会把各个服务的数据存到 AWS Redshift，把核心业务的数据和用户交互行为的数据放在一起，提供给我们的数据分析师一个整体化的数据集。
 
 ### 10. 云存储
 
- “云存储既简单，扩展性又好，方便用户在全网获取、存储、分享数据” —— [AWS 云存储服务](https://aws.amazon.com/what-is-cloud-storage/)。任意在本地文件系统存储的文件，你都可以通过云存储存取，并用 HTTP 协议通过 RESTful API 访问并交互。Amazon S3 提供了目前最流行的云存储，我司在其上广泛存储各种东西，从多媒体素材、视频、
- 图片、音频，到 CSS、Javascript 乃至用户行为数据等等。
+ “云存储既简单，扩展性又好，方便用户在全网获取、存储、分享数据” —— [AWS 云存储服务](https://aws.amazon.com/what-is-cloud-storage/)。任意在本地文件系统存储的文件，你都可以通过云存储存取，并用 HTTP 协议通过 RESTful API 访问并交互。Amazon S3 提供了目前最流行的云存储，我司在其上广泛存储各种东西，从多媒体素材、视频、图片、音频，到 CSS、Javascript 乃至用户行为数据等等。
 
 ### 11. CDN
 
