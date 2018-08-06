@@ -3,8 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/web-architecture-101.md](https://github.com/xitu/gold-miner/blob/master/TODO1/web-architecture-101.md)
 > * 译者：[horizon13th](https://github.com/horizon13th)
-> * 校对者：[yqian1991](https://github.com/yqian1991)
-[sisibeloved](https://github.com/sisibeloved)
+> * 校对者：[yqian1991](https://github.com/yqian1991) [sisibeloved](https://github.com/sisibeloved)
 
 # Web 应用架构基础课
 
@@ -44,9 +43,9 @@ DNS（Domain Name Server）是域名服务器的简称，它是互联网依存�
 
 ### 3. Web 应用服务器
 
-从上层角度来看，web 应用服务器相对好理解，它们用来处理核心业务逻辑，处理用户请求，给客户端浏览器返回 HTML。处理这些任务便是与后台基础设施间通信，比如数据库，缓存服务，任务队列，搜索服务，其它微服务，消息/日志队列，等等。一般情况下至少两个应用服务器，或者更多，这些应用服务接入负载均衡，处理用户请求。
+从上层角度来看，web 应用服务器相对好理解，它们用来处理核心业务逻辑，处理用户请求，给客户端浏览器返回 HTML。处理这些任务便是与后台基础设施间通信，比如数据库、缓存服务、任务队列、搜索服务、其它微服务和消息/日志队列等等。一般情况下至少两个应用服务器，或者更多，这些应用服务接入负载均衡，处理用户请求。
 
-应用服务器的实现通常需要某种特定语言（Node.js, Ruby, PHP, Scala, Java, C# .NET 等）和对应的 MVC 框架上（Node.js 的 Express, Ruby on Rails, Scala 的 Play, PHP 的 Laravel，Java 的 Spring 等等)。语言和框架的细节我们这里不做赘述，有兴趣的读者可以自行深入研究。
+应用服务器的实现通常需要某种特定语言（Node.js, Ruby, PHP, Scala, Java, C# .NET 等）和对应的 MVC 框架上（Node.js 的 Express、Ruby on Rails、Scala 的 Play、PHP 的 Larave 和 Java 的 Spring 等等)。语言和框架的细节我们这里不做赘述，有兴趣的读者可以自行深入研究。
 
 ### 4. 数据库服务器
 
@@ -66,7 +65,7 @@ NoSQL，如其字面意思，“非-SQL”，是一种新型数据库，用来�
 *   [http://www.kdnuggets.com/2016/07/seven-steps-understanding-nosql-databases.html](http://www.kdnuggets.com/2016/07/seven-steps-understanding-nosql-databases.html)
 *   [https://resources.mongodb.com/getting-started-with-mongodb/back-to-basics-1-introduction-to-nosql](https://resources.mongodb.com/getting-started-with-mongodb/back-to-basics-1-introduction-to-nosql)
 
-我还想顺便提一点，[业界通常使用 SQL 作为 NoSQL 数据库的表层调用](https://blog.timescale.com/why-sql-beating-nosql-what-this-means-for-future-of-data-time-series-database-348b777b847a) ，不懂 SQL 的话还是很有必要去学习的，如今的业务场景很难避开它。
+我还想顺便提一点，[业界通常使用 SQL 作为 NoSQL 数据库的表层调用](https://blog.timescale.com/why-sql-beating-nosql-what-this-means-for-future-of-data-time-series-database-348b777b847a)，不懂 SQL 的话还是很有必要去学习的，如今的业务场景很难避开它。
 
 ### 5. 缓存服务
 
@@ -82,9 +81,9 @@ NoSQL，如其字面意思，“非-SQL”，是一种新型数据库，用来�
 
 大部分 web 应用背后都有异步任务在处理，这些任务不必直接响应用户请求。比如说，谷歌需要爬取整个互联网并建立索引以返回搜索结果，但这实际上并不是在你每次搜索时都实时进行，而是通过异步方式爬取网络结果并更新索引。
 
-异步任务有很多不同的方式来完成，最常用的是任务队列。它包含两部分：正在运行的任务队列，和一或多个处理任务的服务器（通常称为 workers）
+异步任务有很多不同的方式来完成，最常用的是任务队列。它包含两部分：正在运行的任务队列，和一或多个处理任务的服务器（通常称为 workers）。
 
-任务队列存储了一系列需要异步运行的任务。最简单的任务调度是 FIFO （先进先出）的方式，不过大部分应用使用按优先级排序的调度方式处理任务。每当一个任务需要被执行，要么使用统一的调度算法，要么是按用户行为按需调度，该任务便被加入队列中等待被执行。
+任务队列存储了一系列需要异步运行的任务。最简单的任务调度是 FIFO（先进先出）的方式，不过大部分应用使用按优先级排序的调度方式处理任务。每当一个任务需要被执行，要么使用统一的调度算法，要么是按用户行为按需调度，该任务便被加入队列中等待被执行。
 
 举个例子，我司利用任务队列，赋能后台任务以支持营销活动。我们用后台任务编码多媒体文件如视频图片，处理数据如在 CSV 做元数据标记，聚合用户行为分析，运行邮件服务比如给用户发送重置密码的邮件，等等。我们最初使用 FIFO 调度任务，后来优化为优先队列，以保证时间敏感的操作完成的实时性，比如立马发送重置密码邮件。
 
@@ -96,7 +95,7 @@ NoSQL，如其字面意思，“非-SQL”，是一种新型数据库，用来�
 
 ![](https://cdn-images-1.medium.com/max/800/1*gun_BpdDH9KrNna1NnaocA.png)
 
-上图中例子显示了三个文档标题被转换成倒排索引，通过某些标题关键字能够快速检索文档。通常停用词（英文中的：in, the, with 等，中文中：我、这、和、啊等）不会被加入到索引中。
+上图中例子显示了三个文档标题被转换成倒排索引，通过某些标题关键字能够快速检索文档。通常停用词（英文中的：in、the、with 等，中文中：我、这、和、啊等）不会被加入到索引中。
 
 尽管我们可以直接通过数据库做全文检索，比如 [MySQL 支持全文检索](https://dev.mysql.com/doc/refman/5.7/en/fulltext-search.html)，但通常我们会跑一个单独的“搜索服务”计算并存储倒排索引，并提供查询接口。目前主流的全文检索服务是 [Elasticsearch](https://www.elastic.co/products/elasticsearch)，还有 [Sphinx](http://sphinxsearch.com/)，[Apache Solr](http://lucene.apache.org/solr/features.html) 等选择。
 
@@ -111,7 +110,7 @@ NoSQL，如其字面意思，“非-SQL”，是一种新型数据库，用来�
 
 ### 9. 数据
 
-如今各大公司成败在于 “如何很好地管理数据”，在应用到达一定规模时规范数据流程。一般来说有：加工数据，存储数据，分析数据，这三个步骤：
+如今各大公司成败在于 “如何很好地管理数据”，在应用到达一定规模时规范数据流程。一般来说有：加工数据、存储数据和分析数据，这三个步骤：
 
 1.  **数据加工** 应用响应用户交互事件，将数据发送到数据流处理平台（提供流数据处理接口）进行处理。通常原始数据被转换或加工并传入另一个数据流处理平台。AWS Kinesis 和 Kafka 是此类数据流处理最常用的工具。
 2.  **数据存储** 原始数据和转换加工后的数据在云端存储。例如 AWS Kinesis 提供叫做 “firehose” 的配置，将原始数据存储在其云平台 Amazon S3 上，使用起来极其方便。
@@ -131,7 +130,7 @@ CDN 指的是内容分发网络，该技术提供一种素材服务，比如存�
 
 [图片源](https://www.creative-artworks.eu/why-use-a-content-delivery-network-cdn/)
 
-[这篇文章](https://www.creative-artworks.eu/why-use-a-content-delivery-network-cdn/) 更详细解释了为什么使用 CDN。总的来说，网络应用可以使用 CDN 来存储诸如 CSS, Javascript 和图片视频等素材，甚至静态 HTML 网页。
+[这篇文章](https://www.creative-artworks.eu/why-use-a-content-delivery-network-cdn/) 更详细解释了为什么使用 CDN。总的来说，网络应用可以使用 CDN 来存储诸如 CSS、Javascript 和图片视频等素材，甚至静态 HTML 网页。
 
 ### 一些想法
 
