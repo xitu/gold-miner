@@ -2,42 +2,42 @@
 > * 原文作者：[Justin Yek](https://medium.freecodecamp.org/@jyek?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-scrape-websites-with-python-and-beautifulsoup.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-scrape-websites-with-python-and-beautifulsoup.md)
-> * 译者：
+> * 译者：[geniusq1981](https://github.com/geniusq1981)
 > * 校对者：
 
-# How to scrape websites with Python and BeautifulSoup
+# 如何使用 Python 和 BeautifulSoup 抓取网站
 
 ![](https://cdn-images-1.medium.com/max/1600/1*BrUAg3-OqIHkoTz_CRIzTA.png)
 
-There is more information on the Internet than any human can absorb in a lifetime. What you need is not access to that information, but a scalable way to collect, organize, and analyze it.
+互联网上的信息比任何人在一生中都能吸收的信息更多。您需要的不是访问该信息，而是一种收集，组织和分析信息的可扩展方式。
 
-You need web scraping.
+你需要网络抓取。
 
-Web scraping automatically extracts data and presents it in a format you can easily make sense of. In this tutorial, we’ll focus on its applications in the financial market, but web scraping can be used in a wide variety of situations.
+Web抓取自动提取数据并以您可以轻松理解的格式呈现。在本教程中，我们将重点关注其在金融市场中的应用，但网络抓取可用于各种情况。
 
-If you’re an avid investor, getting closing prices every day can be a pain, especially when the information you need is found across several webpages. We’ll make data extraction easier by building a web scraper to retrieve stock indices automatically from the Internet.
+如果你是一个狂热的投资者，每天获得收盘价可能会很痛苦，特别是当你需要的信息在几个网页上找到时。我们将通过构建Web scraper来自动从Internet检索股票指数，从而简化数据提取。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*gsn6N_tUoMb8XOWBpqQrNw.jpeg)
 
-### Getting Started
+### 入门
 
-We are going to use Python as our scraping language, together with a simple and powerful library, BeautifulSoup.
+We将使用Python作为我们的拼写语言，以及一个简单而强大的库BeautifulSoup。
 
-*   For Mac users, Python is pre-installed in OS X. Open up Terminal and type `python --version`. You should see your python version is 2.7.x.
-*   For Windows users, please install Python through the [official website](https://www.python.org/downloads/).
+ *对于Mac用户，Python预安装在OS X中。打开终端并输入`python --version`。你应该看到你的python版本是2.7.x.
+ *对于Windows用户，请通过[官方网站](https://www.python.org/downloads/)安装Python。
 
-Next we need to get the BeautifulSoup library using `pip`, a package management tool for Python.
+Next我们需要使用`pip`来获取BeautifulSoup库，这是一个Python的包管理工具。
 
-In the terminal, type:
+在终端中输入：
 
 ```
 easy_install pip  
 pip install BeautifulSoup4
 ```
 
-**Note**: If you fail to execute the above command line, try adding `sudo` in front of each line.
+**注意**：如果您未能执行上述命令行，请尝试在每行前面添加`sudo`。
 
-### The Basics
+### 基础知识
 
 Before we start jumping into the code, let’s understand the basics of HTML and some rules of scraping.
 
