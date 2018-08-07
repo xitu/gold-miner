@@ -5,46 +5,46 @@
 > * 译者：[geniusq1981](https://github.com/geniusq1981)
 > * 校对者：
 
-# 如何使用 Python 和 BeautifulSoup 抓取网站
+# 如何使用 Python 和 BeautifulSoup 抓取网站内容 
 
 ![](https://cdn-images-1.medium.com/max/1600/1*BrUAg3-OqIHkoTz_CRIzTA.png)
 
-互联网上的信息比任何人在一生中都能吸收的信息更多。您需要的不是访问该信息，而是一种收集，组织和分析信息的可扩展方式。
+互联网上的信息量比任何人究其一生掌握的信息量大的多。所以你需要做的不是逐个访问这些信息，而是需要有一种灵活的方式可以收集，组织和分析这些信息。
 
-你需要网络抓取。
+你需要进行网页内容爬取。
 
-Web抓取自动提取数据并以您可以轻松理解的格式呈现。在本教程中，我们将重点关注其在金融市场中的应用，但网络抓取可用于各种情况。
+网页爬取可以自动提取出数据并可以转换成您容易理解的格式而呈现。在本教程中，我们将重点关注其在金融市场中的应用，但实际上网络抓取可用于多种情况下。
 
-如果你是一个狂热的投资者，每天获得收盘价可能会很痛苦，特别是当你需要的信息在几个网页上找到时。我们将通过构建Web scraper来自动从Internet检索股票指数，从而简化数据提取。
+如果你是一个狂热的投资者，每天获知收盘价可能会是很痛苦的一件事，特别是当你需要的信息分散在多个网页上的时候。我们将通过构建一个网络爬虫来自动从网上检索股票指数，从而简化数据的提取。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*gsn6N_tUoMb8XOWBpqQrNw.jpeg)
 
 ### 入门
 
-We将使用Python作为我们的拼写语言，以及一个简单而强大的库BeautifulSoup。
+我们将使用 Python 作为我们的脚本语言，还会用到一个简单但很强大的库，BeautifulSoup。
 
- *对于Mac用户，Python预安装在OS X中。打开终端并输入`python --version`。你应该看到你的python版本是2.7.x.
- *对于Windows用户，请通过[官方网站](https://www.python.org/downloads/)安装Python。
+* 对于 Mac 用户，OS X 已经预装了 Python。打开终端并输入 `python --version`。你应该看到你的 Python 的版本是2.7.x。
+* 对于 Windows 用户，请通过 [官方网站](https://www.python.org/downloads/) 安装 Python。
 
-Next我们需要使用`pip`来获取BeautifulSoup库，这是一个Python的包管理工具。
+接下来，我们需要使用 Python 的包管理工具 `pip` 来安装 BeautifulSoup 库。
 
 在终端中输入：
 
-```
+```Python
 easy_install pip  
 pip install BeautifulSoup4
 ```
 
-**注意**：如果您未能执行上述命令行，请尝试在每行前面添加`sudo`。
+**注意**：如果你执行上面的命令发生了错误，请尝试在每个命令前面添加 `sudo`。
 
 ### 基础知识
 
-Before we start jumping into the code, let’s understand the basics of HTML and some rules of scraping.
+在我们开始真正的代码之前，让我们先了解下 HTML 的基础知识和一些网页抓取的规则。
 
 **HTML tags**  
-If you already understand HTML tags, feel free to skip this part.
+如果你已经理解了 HTML 的标签，请跳过这部分。
 
-```
+```Python
 <!DOCTYPE html>  
 <html>  
     <head>
@@ -56,11 +56,11 @@ If you already understand HTML tags, feel free to skip this part.
 </html>
 ```
 
-This is the basic syntax of an HTML webpage. Every `<tag>` serves a block inside the webpage:  
-1. `<!DOCTYPE html>`: HTML documents must start with a type declaration.  
-2. The HTML document is contained between `<html>` and `</html>`.  
-3. The meta and script declaration of the HTML document is between `<head>` and `</head>`.  
-4. The visible part of the HTML document is between `<body>` and `</body>` tags.  
+下面是一个 HTML 网页的基本语法。每个This is the basic syntax of an HTML webpage. Every `<tag>` serves a block inside the webpage:  
+1. `<!DOCTYPE html>`: HTML 文档的开头必须有类型声明。  
+2. HTML 的文档包含在标签`<html>` 和 `</html>`内。  
+3. `<head>` 和 `</head>`之间是元数据和脚本声明。
+4. HTML 文档的可视部分被包裹在<body> 和 </body> 之间。 
 5. Title headings are defined with the `<h1>` through `<h6>` tags.  
 6. Paragraphs are defined with the `<p>` tag.
 
