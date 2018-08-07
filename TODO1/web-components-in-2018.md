@@ -63,24 +63,25 @@ slot 特性在 [Custom Element](https://developer.mozilla.org/en-US/docs/Web/Web
 
 在页面上定位具体的节点这是 web 开发的一个基本能力。CSS 选择器不仅可以用来给节点加样式，还可以用来查询特定的 DOM 集合。这通常发生在根据一个标识符选择特定节点，比方说使用 `document.querySelectorAll` 就可以找到整个 DOM 树中匹配指定选择器的节点数组。然而，如果应用程序非常庞大，有很多节点有冲突的 class 属性，那又该怎么办？此时，程序就不知道哪个节点是想被选中的，bug 也就随之产生。如果可能的话，将部分 DOM 节点抽象出来，隔离开来，让它们不会被 DOM 选择器选择到，那岂不是很好？Shadow DOM 就能做到，它允许开发者将一些节点复制出来放到一个隔离开来的子树上。根本上说 Shadow DOM 提供了一种健壮的封装方式来做到页面节点的隔离，这也是 Web 组件的核心优势。
 
-In a similar vein, we have a comparable issue with CSS classes and IDs for styling as they are global. Clashing identifiers overwrite each other’s styling rules. Similar to selecting nodes within the DOM tree, what if it was possible to scope CSS to a specific subtree of DOM, avoiding global styling clashes? Popular styling technologies like [CSS Modules](https://github.com/css-modules/css-modules), or [Styled Components](https://www.styled-components.com/), attempt to solve this problem as part of their core concerns. For example, CSS Modules provide unique identifiers to each CSS class to prevent clashes by hashing the class and module names. The difference with Shadow DOM is that it allows this as a **native feature** without any class name mangling. The Shadow DOM fences off parts of the DOM to prevent unwanted behaviours in our sites and applications.
+与此相类似，由于 CSS 的类和 ID 是全局的于是应用样式时也会出现类似的问题。相互冲突的识别符会导致样式相互覆盖。那参考上面 DOM 树选择节点的思路，如果能将 CSS 样式限制在某个 DOM 的子树上，不就可以避免全局样式冲突，解决问题？比较有名的样式设置技术比如 [CSS 模块](https://github.com/css-modules/css-modules) 或者 [样式组件](https://www.styled-components.com/)，它们的核心出发点之一就是为了解决这个问题。举个例子，CSS 模块技术通过对类名和模块名进行哈希处理，赋予每个 CSS 样式唯一的标识符从而避免冲突。Shadow DOM 跟它们不同之处在于它并不对类名做处理，而是直接就把这个作为**原生特性**来支持。它将部分 DOM 节点隔离开来使得我们的网站和程序少了不可预知的变化，更加稳定。
 
-So how does it work at the code level? It is possible to attach a Shadow DOM onto an element:
+那在代码层面上该怎么操作？可以这样将 Shadow DOM 附加到一个节点上：
 
 ```
 element.attachShadow({mode: 'open'});
 ```
 
-Here the `attachShadow` takes an object argument with a property of `mode`. Shadow DOMs can either be `open` or `closed`. `open` allows access the subtree DOM using `element.shadowRoot` whereas `closed` makes this property return `null`. Creating a Shadow DOM, in turn, creates a shadow boundary, which alongside encapsulating elements, also encapsulates styles. All styling inside an element is scoped to that shadow tree by default, which can make styling selectors much shorter. The Shadow DOM can get used in conjunction with HTML templates:
+这里 `attachShadow` 函数接受一个含 `mode` 属性的对象作为参数。Shadow DOM 可以`打开`或`关闭`。`打开`时使用 `element.shadowRoot` 就可以拿到 DOM 子树，反之如果`关闭`了则会拿到 `null`。接着创建一个 Shadow DOM 就会创建一个阴影的边界，在封装节点的同时封装样式。默认情况下该节点内部的所有样式会被限制仅在这个影子树里生效，于是样式选择器写起来就短得多了。Shadow DOM 通常可以这样注入 HTML 模板：
 
 ```
 const shadowRoot = element.attachShadow({mode: 'open'});
 shadowRoot.appendChild(templateContent.cloneNode(true));
 ```
 
-Now the `element` has a shadow tree who’s content is a copy of the template. Here the Shadow DOM, `<template>` and `<slot>` are used in unison to create the reusability and encapsulation needed for a component.
+现在这个 `element` 就有一个影子树，影子树的内容是模板的一个复制。Shadow DOM、 `<template>` 标签、`<slot>` 标签在这里和谐地应用在一起，为组件增添了复用性和封装性。
 
 ## Bringing it Together with Custom Elements
+## 使用 Custom Element ？
 
 HTML Templates and Slots provide reusability and flexibility, and the Shadow DOM provides encapsulation. Custom Elements allow this to be taken a step further, wrapping together these features into its own named reusable element, which can get used as a regular HTML element.
 
