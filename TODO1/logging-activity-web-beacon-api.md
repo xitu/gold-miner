@@ -2,80 +2,80 @@
 > * 原文作者：[Drew](https://www.smashingmagazine.com/author/drew-mclellan)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/logging-activity-web-beacon-api.md](https://github.com/xitu/gold-miner/blob/master/TODO1/logging-activity-web-beacon-api.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Elliott Zhao](https://github.com/elliott-zhao)
+> * 校对者：[Eternaldeath](https://github.com/Eternaldeath), [StellaBauhinia](https://github.com/StellaBauhinia)
 
-# Logging Activity With The Web Beacon API
+# 使用 Web Beacon API 记录活动
 
-The Beacon API is a lightweight and efficient way to log information from a web page back to a server. Find out how that can be used and what makes it so different from traditional Ajax techniques.
+Beacon API是一种从网页把信息传递给服务器的轻量并且高效的方法。我们来了解一下如何使用它，以及它与传统的 Ajax 技术有何不同。
 
 ![](https://d33wubrfki0l68.cloudfront.net/a2b586e0ae8a08879457882013f0015fa9c31f7c/9e355/images/drop-caps/t.svg)
 
-The Beacon API is a JavaScript-based Web API for sending small amounts of data from the browser to the web server without waiting for a response. In this article, we’ll look at what that can be useful for, what makes it different from familiar techniques like `XMLHTTPRequest` (‘Ajax’), and how you can get started using it.
+Beacon API 是一个基于 JavaScript 的 Web API，用于将少量数据从浏览器发送到 Web 服务器，而无需等待响应。在本文中，我们将介绍它可以用在哪些场景，它和其他类似的技术，如 `XMLHTTPRequest`(‘Ajax’) 有何不同，以及如何开始使用它。
 
-If you know why you want to use Beacon already, feel free to jump directly to the [Getting Started](#getting-started) section.
+如果您知道为什么要使用 Beacon，你可以随时直接跳到[入门](＃入门)部分。
 
-### What Is The Beacon API For?
+### Beacon API 是做什么用的？
 
-The Beacon API is used for sending small amounts of data to a server _without waiting for a response_. That last part is critical and is the key to why Beacon is so useful — our code never even gets to see a response, even if the server sends one. Beacons are specifically for sending data and then forgetting about it. We don’t expect a response and we don’t get a response.
+Beacon API用于将少量数据发送到服务器，而**无需等待响应**。后一部分是关键，指出了为何 Beacon 如此有用 —— 我们的代码绝不需要处理响应，即使服务器发送了一个。Beacon 专门用于发送数据然后忘记它。我本并不期待一个响应，而且我们也不会得到响应。
 
-Think of it like a postcard sent home when on vacation. You put a small amount of data on it (a bit of “Wish you were here” and “The weather’s been lovely”), put it in the mailbox, and you don’t expect a response. No one sends a return postcard saying “Yes, I do wish I was there actually, thank you very much!”
+可以把它想象成度假时发回家的明信片。你把少量数据放在上面（有点类似于“真希望你也在这”和“天气真好”），把它放进信箱，你不会期待回应。没有人会给明信片回信说“是呀，我希望我真的在那儿，非常感谢！”
 
-For modern websites and applications, there’s a number of use cases that fall very neatly into this pattern of send-and-forget.
+对于现代网站和应用，有很多用例正巧可以被归类进这种发送即忘记的处理模式。
 
-Getting the process _just_ right ain't an easy task. That's why we've set up **'this-is-how-I-work'-sessions** — with smart cookies sharing what works really well for them. A part of the [Smashing Membership](http://smashed.by/casestudypanelmembership), of course.
+让这个过程表现得**刚刚**好并不是个简单的任务。这就是为什么我们设置**“我这样工作”的会话** —— 智能 cookie 共享取得了很好的效果。当然，这是 [Smashing 会员服务](http://smashed.by/casestudypanelmembership)的一部分。
 
-#### Tracking Stats And Analytics Data
+#### 跟踪统计数据和数据分析
 
-The first use case that comes to mind for most people is analytics. Big solutions like Google Analytics might give a good overview of things like page visits, but what if we wanted something more customized? We could write some JavaScript to track what’s happening in a page (maybe how a user interacts with a component, how far they’ve scrolled to, or which articles have been displayed before they follow a CTA) but we then need to send that data to the server when the user leaves the page. Beacon is perfect for this, as we’re just logging the data and don’t need a response.
+大多数人想到的第一个用例是分析。像 Google Analytics 这样的大型解决方案可能会对页面访问等内容进行很好的概述，但如果我们想要更加个性化的内容呢？我们可以编写一些 JavaScript 来跟踪页面中发生的事情（可能是用户如何与组建交互，或者在听从 CTA 建议之前阅读过哪篇文章），然而我们还需要在用户离开页面的时候发送这些数据到服务器。Beacon 可以完美做到这一点，因为我们只是记录数据而不需要响应。
 
-There’s no reason we couldn’t also cover the sort of mundane tasks often handled by Google Analytics, reporting on the user themselves and the capability of their device and browser. If the user has a logged in session, you could even tie those stats back to a known individual. Whatever data you gather, you can send it back to the server with Beacon.
+我们没有理由不能涵盖通常交给 Google Analytics 处理的那些普通任务，基于用户本身和他们的设备与浏览器的功能上报数据。如果用户登录了会话，你甚至可以把这些统计信息绑定到已知的个人。无论您收集什么数据，都可以使用 Beacon 将其发送回服务器。
 
-#### Debugging And Logging
+#### 调试和日志
 
-Another useful application for this behavior is logging information from your JavaScript code. Imagine you have a complex interactive component on your page that works perfectly for all your tests, but occasionally fails in production. You know it’s failing, but you can’t see the error in order to begin debugging it. If you can detect a failure in the code itself, you could then gather up diagnostics and use Beacon to send it all back for logging.
+此行为的另一种有用的应用是从 JavaScript 代码中记录信息。假设你的页面上有一个复杂的交互组件，可以完美的通过所有的测试，但是在生产环境上偶尔失败。你知道出现了失败，但是你没有办法看到错误信息，从而开始调试。如果您可以从代码中嗅探到失败本身，则可以收集诊断信息并使用 Beacon 将其全部发回以进行记录。
 
-In fact, any logging task can usefully be performed using Beacon, be that creating save-points in a game, collecting information on feature use, or recording results from a multivariate test. If it’s something that happens in the browser that you want the server to know about, then Beacon is likely a contender.
+实际上，任何日志任务都可以使用 Beacon 执行，例如在游戏中创建存档点，收集有关功能使用的信息，或记录多变量测试的结果。如果您希望服务器知道在浏览器中发生的某件事，那么 Beacon 可能是（完成此需求）的一个有力备选。
 
-### Can’t We Already Do This?
+### 我们不是早就能做到了么？
 
-I know what you’re thinking. None of this is new, is it? We’ve been able to communicate from the browser to the server using `XMLHTTPRequest` for more than a decade. More recently we also have the Fetch API which does much the same thing with a more modern promise-based interface. Given that, why do we need the Beacon API at all?
+我知道你在想什么。没有任何新东西，不是么？十多年来，我们已经能够使用 `XMLHTTPRequest` 从浏览器与服务器进行通信。近期我们又有了 Fetch API， 使用了更现代的，基于 Promise 的接口做到近乎一样的事。既然如此，拿我们为什么需要 Beacon API 呢？
 
-The key here is that because we don’t get a response, the browser can queue up the request and send it _without blocking execution_ of any other code. As far as the browser is concerned, it doesn’t matter if our code is still running or not, or where the script execution has got to, as there’s nothing to return it can just background the sending of the HTTP request until it’s convenient to send it.
+这里的关键是因为我们没有得到响应，浏览器可以排队请求并发送它，**非阻塞执行**任何其他代码。就浏览器而言，无论我们的代码是否仍在运行，或者代码执行到哪都不重要，因为没有什么可以返回的，它可以直接把 HTTP 请求转到后台，直到方便发送的时候。
 
-That might mean waiting until CPU load is lower, or until the network is free, or even just sending it right away if it can. The important thing is that the browser queues the beacon and returns control immediately. It does not hold things up while the beacon sends.
+这可能意味着要等待 CPU 负载较低，或网络空闲，或者在可能的情况下直接发送。重要的是浏览器将 Beacon 排队并立即返回控制。它在发送 Beacon 的时候不会误事。
 
-To understand why this is a big deal, we need to look at how and when these sorts of requests are issued from our code. Take our example of an analytics logging script. Our code may be timing how long the users spend on a page, so it becomes critical that the data is sent back to the server at the last possible moment. When the user goes to leave a page, we want to stop timing and send the data back home.
+要理解为什么这是一个了不得的事，我们需要看看如何和怎样从我们的代码发出这种请求。以我们的分析日志脚本为例。我们的代码可能会计算用户在页面上花费的时间，因此在最后一刻将数据发送回服务器变得至关重要。当用户要离开页面的时候，我们希望停止计时器并且把数据送回家。
 
-Typically, you’d use either the `unload` or `beforeunload` event to execute the logging. These are fired when the user does something like following a link on the page to navigate away. The trouble here is that code running on one of the `unload` events can block execution and delay the unloading of the page. If unloading of the page is delayed, then the loading next page is also delayed, and so the experience feels really sluggish.
+一般来讲，你应该使用 `unload` 或者 `beforeunload` 事件来执行日志。这些事件会在用户做出类似点击连接导航到其他页面这种操作的时候触发。这里有个问题，在某个 `unload` 事件上运行的代码会阻塞执行并且延迟页面的卸载。如果页面卸载被延迟，那么加载下一个页面也会被延迟，因此体验上会感觉很迟钝。
 
-Keep in mind how slow HTTP requests can be. If you’re thinking about performance, typically one of the main factors you try to cut down on is extra HTTP requests because going out to the network and getting a response can be super slow. The very last thing you want to do is put that slowness between the activation of a link and the start of the request for the next page.
+你要记得 HTTP 请求到底有多慢。如果您正在考虑性能，通常您尝试减少的主要因素之一是额外的 HTTP 请求，因为向网络发送请求并获得响应可能会超级慢。你最不想做的事就是把这个耗时操作放在激活链接和开始请求下一个页面之间。
 
-Beacon gets around this by queuing the request without blocking, returning control immediately back to your script. The browser then takes care of sending that request in the background without blocking. This makes everything much faster, which makes users happier and lets us all keep our jobs.
+Beacon 通过不阻塞的把请求排队，即刻把控制权交还给你的代码的方式处理这一点。然后浏览器负责在后台不阻塞地发送该请求。这使得一切都快得多，这让用户更高兴，也让我们都保住了工作。
 
-### Getting Started
+### 入门
 
-So we understand what Beacon is, and why we might use it, so let’s get started with some code. The basics couldn’t be simpler:
+因此，我们了解 Beacon 是什么，以及为什么我们要用到它，所以让我们从一些代码开始。基础简单到不能再简单：
 
 ```
 let result = navigator.sendBeacon(url, data);
 ```
 
-The result is boolean, `true` if the browser accepted and queued the request, and `false` if there was a problem in doing so.
+结果是 boolean，如果浏览器接受并且把请求排队了则返回 `true`，如果在这个过程中出现了问题就返回 `false`。
 
-#### Using `navigator.sendBeacon()`
+#### 使用 `navigator.sendBeacon()`
 
-`navigator.sendBeacon` takes two parameters. The first is the URL to make the request to. The request is performed as an HTTP POST, sending any data provided in the second parameter.
+`navigator.sendBeacon` 接受两个参数。第一个参数是请求的 URL。请求作为 HTTP POST 执行，发送在第二个参数中提供的任何数据。
 
-The data parameter can be in one of several formats, all if which are taken directly from the Fetch API. This can be a `Blob`, a `BufferSource`, `FormData` or `URLSearchParams` — basically any of the body types used when making a request with Fetch.
+数据参数可以是多种格式中的任何一种，这些是直接从 Fetch API 中拿过来的。可以是一个 `Blob`，一个 `BufferSource`，`FormData` 或者 `URLSearchParams`—— 基本上是使用 Fetch 创建请求时使用的任何请求体类型。
 
-I like using `FormData` for basic key-value data as it’s uncomplicated and easy to read back.
+对于基础的键值数据，我喜欢使用 `FormData`，因为它不复杂也很容易读回。
 
 ```
-// URL to send the data to
+// 将数据发送目标 URL
 let url = '/api/my-endpoint';
     
-// Create a new FormData and add a key/value pair
+// 创建一个新的 FormData 并添加一个键值对
 let data = new FormData();
 data.append('hello', 'world');
     
@@ -88,103 +88,102 @@ if (result) {
 }
 ```
 
-#### Browser Support
+#### 浏览器支持
 
-Support in browsers for Beacon is very good, with the only notable exceptions being Internet Explorer (works in Edge) and Opera Mini. For most uses, that should be fine, but it’s worth testing for support before trying to use `navigator.sendBeacon`.
+浏览器对 Beacon 的支持很好，唯一值得注意的例外是 Internet Explorer（在 Edge 中能用）和 Opera Mini。对于大部分的用法，应该都可以运行，但在使用 `navigator.sendBeacon` 之前对（浏览器）的支持性进行测试也是值得的。
 
 ```
-That’s easy to do:
+很简单就能做到：
 
     if (navigator.sendBeacon) {
-      // Beacon code
+      // Beacon 代码
     } else {
-      // No Beacon. Maybe fall back to XHR?
+      // 没有 Beacon或许可以回退到 XHR？
     }
 ```
 
-If Beacon isn’t available and your request is important, you could fall back to a blocking method such as XHR. Depending on your audience and purpose, you might equally choose to not bother.
+如果 Beacon 不可用，而且这个请求很重要，你可以回退到 XHR 等阻塞方法。取决于你的受众和目标，你同样可以选择不理会。
 
-### An Example: Logging Time On A Page
+### 一个例子：记录在页面上停留的时间
 
-To see this in practice, let’s create a basic system to time how long a user stays on a page. When the page loads we’ll note the time, and when the user leaves the page we’ll send the start time and current time to the server.
+为了在实践中理解，让我们创建一个基本的系统来记录用户停留在页面上的时间。当页面加载时，我们会记录下时间，当用户离开页面时，我们将发送开始时间和当前时间到服务器。
 
-As we only care about time spent (not the actual time of day) we can use `performance.now()` to get a basic timestamp as the page loads:
+由于我们只关心所花费的时间（而不是实际的时间），所以我们可以使用 `performance.now()` 来获得页面加载时的基本时间戳。
 
 ```
 let startTime = performance.now();
 ```
 
-If we wrap up our logging into a function, we can call it when the page unloads.
+如果我们把日志放到一个函数中，我们可以在页面卸载时调用它。
 
 ```
 let logVisit = function() {
-  // Test that we have support
+  // 测试我们拥有 Beacon 支持
   if (!navigator.sendBeacon) return true;
       
-  // URL to send the data to, e.g.
+  // 数据发送的URL的例子
   let url = '/api/log-visit';
       
-  // Data to send
+  // 要发送的数据
   let data = new FormData();
   data.append('start', startTime);
   data.append('end', performance.now());
   data.append('url', document.URL);
       
-  // Let's go!
+  // 出发！
   navigator.sendBeacon(url, data);
 };
 ```
 
-Finally, we need to call this function when the user leaves the page. My first instinct was to use the `unload` event, but Safari on a Mac seems to block the request with a security warning, so `beforeunload` works just fine for us here.
+最后，当用户离开页面时，我们需要调用这个函数。我本能地想使用 `unload` 事件，但是 Mac 上的 Safari 似乎用安全警告阻止了请求，所以我们在这边使用 `beforeunload` 会更好一些。
 
 ```
 window.addEventListener('beforeunload', logVisit);
 ```
 
-When the page unloads (or, just before it does) our `logVisit()` function will be called and provided the browser supports the Beacon API our beacon will be sent.
+当页面卸载（或者马上要卸载）的时候，我们的 `logVisit()` 函数会被调用，如果浏览器支持 Beacon API 的话，我们的 Beacon 就会被发送。
 
-(Note that if there is no Beacon support, we return `true` and pretend it all worked great. Returning `false` would cancel the event and stop the page unloading. That would be unfortunate.)
+（注意，如果没有 Beacon 支持，我们返回 `true` ，假装一切正常。返回 `false` 会取消事件并且终止页面卸载。那就倒霉了。）
 
-### Considerations When Tracking
+### 跟踪时的注意事项
 
-As so many of the potential uses for Beacon revolve around tracking of activity, I think it would be remiss not to mention the social and legal responsibilities we have as developers when logging and tracking activity that could be tied back to users.
+由于 Beacon 的许多潜在用途都围绕着活动跟踪，我认为，当我们的日志和跟踪可能被绑定到用户时，如果不提开发人员的社会责任和法律责任，那就太轻率了。
 
 #### GDPR
 
-We may think of the recent European GDPR laws as they related to email, but of course, the legislation relates to storing any type of personal data. If you know who your users are and can identify their sessions, then you should check what activity you are logging and how it relates to your stated policies.
+我们可以考虑最近欧洲的 GDPR 法案，它们和电子邮件有关，不过当然，这些法律也涉及任何形式的个人数据的存储。如果你知道你的用户是谁，并且可以识别他们的会话，那么你应该检查你正在记录的活动，以及它与你所声明的用户条款有何关系。
 
-Often we don’t need to track as much data as our instincts as developers tell us we should. It can be better to deliberately _not_ store information that would identify a user, and then you reduce your likelihood of getting things wrong.
+通常，我们不需要像开发人员告诉我们的那样，跟踪尽可能多的数据。最好是故意**不**存储能用来识别用户的信息，然后减少把事情搞砸的可能性。
 
 #### DNT: Do Not Track
 
-In addition to legal requirements, most browsers have a setting to enable the user to express a desire not to be tracked. Do Not Track sends an HTTP header with the request that looks like this:
+除了法律要求之外，大多数浏览器都有一个设置来允许用户表达不想被跟踪的意愿。Do Not Track 会随请求发送这样一个 HTTP 报头：
 
 ```
 DNT: 1
 ```
 
-If you’re logging data that can track a specific user and the user sends a positive `DNT` header, then it would be best to follow the user’s wishes and anonymize that data or not track it at all.
+如果您正在记录可以跟踪特定用户的数据，并且用户发送了一个正数的 `DNT` 报头，那么最好遵循用户的意愿并且匿名化该数据，或者根本不跟踪它。
 
-In PHP, for example, you can very easily test for this header like so:
+例如，在PHP中，您可以很容易地检测这个报头如下：
 
 ```
 if (!empty($_SERVER['HTTP_DNT'])) { 
-  // User does not wish to be tracked ... 
+  // 用户不想被跟踪…… 
 }
 ```
 
-### In Conclusion
+### 总结
 
-The Beacon API is a really useful way to send data from a page back to the server, particularly in a logging context. Browser support is very broad, and it enables you to seamlessly log data without negatively impacting the user’s browsing experience and the performance of your site. The non-blocking nature of the requests means that the performance is much faster than alternatives such as XHR and Fetch.
+Beacon API 是从页面返回数据到服务器的一种非常有用的方式，尤其是对于日志这种内容。浏览器支持非常广泛，它可以使您无缝地记录数据，而不会对用户的浏览体验和网站性能造成负面影响。请求的非阻塞性意味着性能比 XHR 和 Fetch 等替代方案好很多。
 
-If you’d like to read more about the Beacon API, the following sites are worth a look.
+如果你想阅读更多关于 Beacon API 的文章，下面的网站值得一看。
 
-*   “[W3C Beacon specification](https://www.w3.org/TR/beacon/),” W3C Candidate Recommendation
-*   “[MDN Beacon documentation](https://developer.mozilla.org/en-US/docs/Web/API/Beacon_API),” MDN web docs, Mozilla
-*   “[Browser support information](https://caniuse.com/#feat=beacon),” caniuse.com
+*   “[W3C Beacon 规范](https://www.w3.org/TR/beacon/)”，W3C 备选推荐
+*   “[MDN Beacon 文档](https://developer.mozilla.org/en-US/docs/Web/API/Beacon_API)”，MDN 网络文档，Mozilla
+*   “[浏览器支持信息](https://caniuse.com/#feat=beacon)”，caniuse.com
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
