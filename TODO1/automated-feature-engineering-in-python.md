@@ -11,11 +11,11 @@
 
 ![](https://cdn-images-1.medium.com/max/1000/1*lg3OxWVYDsJFN-snBY7M5w.jpeg)
 
-机器学习正在利用诸如 [H20](http://docs.h2o.ai/h2o/latest-stable/h2o-docs/automl.html), [TPOT](https://epistasislab.github.io/tpot/) 和 [auto-sklearn](https://automl.github.io/auto-sklearn/stable/) 等工具越来越多地从手工设计模型向自动化优化管道迁移。以上这些类库，连同如 [random search](http://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf) 等方法一起，目的都是在通过找到适合于几乎不需要人工干预的数据集的最佳模型来简化机器学习的模型选择和调优部分。然而，特征工程，作为机器学习管道中一个[可以说是更有价值的方面](https://www.featurelabs.com/blog/secret-to-data-science-success/)，几乎全部是人工劳动的成果。
+机器学习正在利用诸如 [H20](http://docs.h2o.ai/h2o/latest-stable/h2o-docs/automl.html)、[TPOT](https://epistasislab.github.io/tpot/) 和 [auto-sklearn](https://automl.github.io/auto-sklearn/stable/) 等工具越来越多地从手工设计模型向自动化优化管道迁移。以上这些类库，连同如 [random search](http://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf) 等方法一起，目的都是在通过找到适合于几乎不需要人工干预的数据集的最佳模型来简化机器学习的模型选择和调优部分。然而，特征工程，作为机器学习管道中一个[可以说是更有价值的方面](https://www.featurelabs.com/blog/secret-to-data-science-success/)，几乎全部是手工活。
 
 [特征工程](https://en.wikipedia.org/wiki/Feature_engineering)，也成为特征创建，是从已有数据中创建出新特征并且用于训练机器学习模型的过程。这个步骤可能要比实际使用的模型更加重要，因为机器学习算法仅仅从我们提供给他的数据中进行学习，创建出与任务相关的特征是非常关键的（可以参照这篇文章 ["A Few Useful Things to Know about Machine Learning"](https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf) —— 《了解机器学习的一些有用的事》，译者注）。
 
-通常来说，特征工程是一个漫长的手工过程，依赖于某个特定领域的知识、直觉、以及对数据的操作。这个过程可能会非常乏味并且最终获得的特性会被人类的主观性和花在上面的时间所限制。自动特征工程的目标是通过从数据集中创建许多候选特征来帮助数据科学家，从这些创建了候选特征的数据集中，数据科学家可以选择最佳的特征并且用来训练。
+通常来说，特征工程是一个漫长的手工过程，依赖于某个特定领域的知识、直觉、以及对数据的操作。这个过程可能会非常乏味并且最终获得的特性会被人类的主观性和花在上面的时间所限制。自动特征工程的目标是通过从数据集中创建许多候选特征来帮助数据科学家减轻工作负担，从这些创建了候选特征的数据集中，数据科学家可以选择最佳的特征并且用来训练。
 
 在这篇文章中，我们将剖析一个基于 [featuretools Python library](https://docs.featuretools.com/#) 库进行自动特征工程处理的案例。我们将使用一个样例数据集来展示基本信息（请继续关注未来的使用真实数据的文章）。这篇文章最终的代码可以在 [GitHub](https://github.com/WillKoehrsen/automated-feature-engineering/blob/master/walk_through/Automated_Feature_Engineering.ipynb) 获取。
 
@@ -25,7 +25,7 @@
 
 [特征工程](https://www.datacamp.com/community/tutorials/feature-engineering-kaggle)意味着从分布在多个相关表格中的现有数据集中构建出额外的特性。特征工程需要从数据中提取相关信息，并且将其放入一个单独的表中，然后可以用来训练机器学习模型。
 
-构建特征的过程非常耗时，因为每获取一项新的特征都需要很多步骤才能构建出来，尤其是当需要从多于一张表格中获取信息时。我们可以把特征创建的操作分成两类：**转换** 和 **聚集**。让我们通过几个例子的实战来看看这些概念。
+构建特征的过程非常耗时，因为每获取一项新的特征都需要很多步骤才能构建出来，尤其是当需要从多于一张表格中获取信息时。我们可以把特征创建的操作分成两类：**转换**和**聚集**。让我们通过几个例子的实战来看看这些概念。
 
 一次**转换**操作仅作用于一张表，该操作能从一个或多个现有列中创建新特征（比如说 Python 中，一张表就如同 Pandas 库中的一个 `DataFrame`）。如下面的例子所示，假如我们有如下的一张客户（clients）信息表：
 
@@ -179,7 +179,7 @@ features, feature_names = ft.dfs(entityset = es, target_entity = 'clients',
 
 ![](https://cdn-images-1.medium.com/max/800/1*7aOkE5N-WCNQHJi1qBcqjQ.png)
 
-Even though we specified only a few feature primitives, featuretools created many new features by combining and stacking these primitives.尽管我们只指定了一些特性原语，但是功能工具通过组合和叠加这些原语创建了许多新特性。
+尽管我们只指定了很少一部分的特征基元，但是 featuretools 通过组合和叠加这些基元创建了许多新特征。
 
 ![](https://cdn-images-1.medium.com/max/800/1*q24CTYC4x7fHj0YFwdusoQ.png)
 
@@ -187,20 +187,20 @@ Even though we specified only a few feature primitives, featuretools created man
 
 #### 深度特征合成
 
-We now have all the pieces in place to understand deep feature synthesis (dfs). In fact, we already performed dfs in the previous function call! A deep feature is simply a feature made of stacking multiple primitives and dfs is the name of process that makes these features. The depth of a deep feature is the number of primitives required to make the feature.现在，我们已经准备好了理解深度特征合成(deep feature synthesis, dfs)的所有部分。事实上，我们已经在前面的函数调用中执行了dfs !深度特性只是将多个原语叠加的特性，而dfs是生成这些特性的过程的名称。深度特性的深度是创建该特性所需的原语数量。
+现在，我们已经准备好了理解深度特征合成(deep feature synthesis, dfs)的所有部分。事实上，我们已经在前面的函数调用中执行了 dfs 函数！深度特性只是将多个特征基元叠加的特性，而 dfs 是生成这些特性的过程的名称。深度特征的深度是创建该特性所需的特征数量。
 
-For example, the `MEAN(payments.payment_amount)` column is a deep feature with a depth of 1 because it was created using a single aggregation. A feature with a depth of two is `LAST(loans(MEAN(payments.payment_amount))` This is made by stacking two aggregations: LAST (most recent) on top of MEAN. This represents the average payment size of the most recent loan for each client.例如，“average (payments.payment_amount)”列是一个深度为1的特性，因为它是使用单个聚合创建的。深度为2的特性是“LAST(loan, MEAN, pay .payment_amount)”，这是通过叠加两个聚合而成的:LAST(most recent)在均值之上。这表示每个客户最近一次贷款的平均支付金额。
+例如，`MEAN(payments.payment_amount)` 列是一个深度为 1 的特征，因为它是使用单个聚合创建的。深度为 2 的特征是 `LAST(loans(MEAN(payments.payment_amount))` ，这是通过叠加两个聚合而成的： LAST(most recent) 在均值之上。这表示每个客户最近一次贷款的平均支付金额。
 
 ![](https://cdn-images-1.medium.com/max/800/1*y28-ibs-ZCpCvavVPmmZAw.png)
 
-We can stack features to any depth we want, but in practice, I have never gone beyond a depth of 2. After this point, the features are difficult to interpret, but I encourage anyone interested to try [“going deeper”](http://knowyourmeme.com/memes/we-need-to-go-deeper).我们可以将特性叠加到任何我们想要的深度，但是在实践中，我从来没有超过2的深度。在这之后，这些特性就很难解释了，但我鼓励有兴趣的人尝试[“深入研究”](http://knowyourmeme.com/memes/we-needgo -deep)。
+我们可以将特征叠加到任何我们想要的深度，但是在实践中，我从来没有超过 2 的深度。在这之后，这些特征就很难解释了，但我鼓励有兴趣的人尝试[“深入研究”](http://knowyourmeme.com/memes/we-needgo-deep)。
 
 * * *
 
-We do not have to manually specify the feature primitives, but instead can let featuretools automatically choose features for us. To do this, we use the same `ft.dfs` function call but do not pass in any feature primitives:我们不必手工指定特性原语，而是可以让特性工具自动为我们选择特性。为此，我们使用相同的ft。dfs的函数调用，但不传递任何特性原语:
+我们不必手工指定特征基元，而是可以让 featuretools 自动为我们选择特性。为此，我们使用相同的 `ft.dfs` 函数调用，但不传递任何特征基元:
 
 ```
-# Perform deep feature synthesis without specifying primitives执行深度特征合成而不指定原语。
+# 执行深度特征合成而不指定特征基元。
 features, feature_names = ft.dfs(entityset=es, target_entity='clients', 
                                  max_depth = 2)
 
@@ -209,7 +209,7 @@ features.head()
 
 ![](https://cdn-images-1.medium.com/max/800/1*tewxbRVcXb_weoy_g6EfkA.png)
 
-Featuretools has built many new features for us to use. While this process does automatically create new features, it will not replace the data scientist because we still have to figure out what to do with all these features. For example, if our goal is to predict whether or not a client will repay a loan, we could look for the features most correlated with a specified outcome. Moreover, if we have domain knowledge, we can use that to choose specific feature primitives or [seed deep feature synthesis](https://docs.featuretools.com/guides/tuning_dfs.html) with candidate features.特性工具已经为我们构建了许多新的特性供我们使用。虽然这个过程会自动创建新特性，但它不会取代数据科学家，因为我们仍然需要弄清楚如何处理所有这些特性。例如，如果我们的目标是预测客户是否会偿还贷款，我们可以查找与特定结果最相关的特性。此外，如果我们有域知识，我们可以使用它来选择具有候选特性的特定特性原语或[种子深度特性合成](https://docs.featuretools.com/guides/tuning_dfs.html)。
+Featuretools 已经为我们构建了许多新的特征供我们使用。虽然这个过程会自动创建新特征，但它不会取代数据科学家，因为我们仍然需要弄清楚如何处理所有这些特征。例如，如果我们的目标是预测客户是否会偿还贷款，我们可以查找与特定结果最相关的特征。此外，如果我们有特殊领域知识，我们可以使用它来选择具有候选特征的特定特征基元或[种子深度特征合成](https://docs.featuretools.com/guides/tuning_dfs.html)。
 
 #### 接下来的步骤
 
