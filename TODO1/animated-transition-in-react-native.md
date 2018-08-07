@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/animated-transition-in-react-native.md](https://github.com/xitu/gold-miner/blob/master/TODO1/animated-transition-in-react-native.md)
 > * 译者：[talisk](https://github.com/talisk)
-> * 校对者：
+> * 校对者：[foxxnuaa](https://github.com/foxxnuaa)
 
 # React Native 中使用转场动画！
 
-> 这篇文章有近 15k 的浏览量。对某些人来说，这可能没什么的，但对我来说是一个很大的动力。这正是我决定构建 [Pineapple — Financial Manager](https://pineapplee.io/) 的原因。仅仅 20 天，我已经完成了 [iOS 版](https://itunes.apple.com/us/app/pineapple-financial-manager/id1369607032?ls=1&mt=8)，[Android 版](https://play.google.com/store/apps/details?id=com.pineapple.android)以及[网页版](https://pineapplee.io/)，花费 300 美金，并写了[几篇关于它的文章](https://medium.com/how-i-built-profitable-application-faster-than)。我无法用言语表达我多么享受这段时间。你也应该试试！
+> 这篇文章有近 15k 的浏览量。对某些人来说，这可能没什么，但对我来说是一个很大的动力。这正是我决定构建 [Pineapple — Financial Manager](https://pineapplee.io/) 的原因。仅仅 20 天，我已经完成了 [iOS 版](https://itunes.apple.com/us/app/pineapple-financial-manager/id1369607032?ls=1&mt=8)，[Android 版](https://play.google.com/store/apps/details?id=com.pineapple.android)以及[网页版](https://pineapplee.io/)，花费 300 美金，并写了[几篇关于它的文章](https://medium.com/how-i-built-profitable-application-faster-than)。我无法用言语表达我多么享受这段时间。你也应该试试！
 
-最近我试图为下一个动画挑战获得灵感。我们开始吧 —— [由 Ivan Parfenov 创建](https://medium.muz.li/ui-interactions-of-the-week-116-40eba84eb736)。如果我能用React Native做这个过渡效果，我很好奇。[**您可以在我的 expo 帐户中查看结果**](https://expo.io/@xotahal/react-native-motion-example)！为什么我们还需要这样的动画？来读读 Pablo Stanley 写的[绝佳的 UI 动画技巧](https://uxdesign.cc/good-to-great-ui-animation-tips-7850805c12e5)。
+最近我试图为下一个动画挑战寻找灵感。我们开始吧 —— [由 Ivan Parfenov 创建](https://medium.muz.li/ui-interactions-of-the-week-116-40eba84eb736)。我很好奇我是否能够用 React Native 来做这个过渡效果。[**你可以在我的 expo 帐户中查看结果**](https://expo.io/@xotahal/react-native-motion-example)！为什么我们还需要这样的动画？来读读 Pablo Stanley 写的[绝佳的 UI 动画技巧](https://uxdesign.cc/good-to-great-ui-animation-tips-7850805c12e5)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*D35P0J6_34Yrs_n3i1hvjA.gif)
 
@@ -19,7 +19,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*HdpUrmxtI0cptj8BpxsaPw.png)
 
-动画时间线
+动画时间线。
 
 过渡动画的难点在于同步所有这些动画。因为我们需要等到所有动画都完成，我们无法真正移除列表页面并显示详细信息页面。此外，我对整洁的代码有所追求。代码要易于维护，如果您曾尝试为项目实现动画，则代码通常会变得混乱。到处都是辅助变量，各种计算等。这正是我想介绍 [react-native-motion](https://github.com/xotahal/react-native-motion) 的原因。
 
@@ -149,7 +149,7 @@ class DetailPage extends Component {
 
 ![](https://cdn-images-1.medium.com/max/800/1*MKDiUHnLdB7WiEPR26IHdw.png)
 
-你可以想象在同一时刻同一个 React Node 有 3 个 element。这是因为在移动动画期间，DetailPage 会覆盖列表页面。这就是为什么我们可以看到所有3个元素。但是我们想要创造一种我们实际移动了原始 element 的幻觉。
+你可以想象在同一时刻同一个 React Node 有 3 个 element。这是因为在移动动画期间，DetailPage 会覆盖列表页面。这就是为什么我们可以看到所有 3 个元素。但是我们想要创造一种我们实际移动了原始 element 的幻觉。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*m11vVsxY3Pa_e5lDMkOT_w.png)
 
