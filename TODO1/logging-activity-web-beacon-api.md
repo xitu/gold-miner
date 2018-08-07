@@ -2,8 +2,8 @@
 > * 原文作者：[Drew](https://www.smashingmagazine.com/author/drew-mclellan)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/logging-activity-web-beacon-api.md](https://github.com/xitu/gold-miner/blob/master/TODO1/logging-activity-web-beacon-api.md)
-> * 译者： [Elliott Zhao](https://github.com/elliott-zhao)
-> * 校对者：
+> * 译者：[Elliott Zhao](https://github.com/elliott-zhao)
+> * 校对者：[Eternaldeath](https://github.com/Eternaldeath), [StellaBauhinia](https://github.com/StellaBauhinia)
 
 # 使用 Web Beacon API 记录活动
 
@@ -11,9 +11,9 @@ Beacon API是一种从网页把信息传递给服务器的轻量并且高效的�
 
 ![](https://d33wubrfki0l68.cloudfront.net/a2b586e0ae8a08879457882013f0015fa9c31f7c/9e355/images/drop-caps/t.svg)
 
-Beacon API 是一个基于 JavaScript 的 Web API，用于将少量数据从浏览器发送到 Web 服务器，而无需等待响应。在本文中，我们将介绍它可以用在哪些场景，它和其他类似的技术，如 `XMLHTTPRequest`(‘Ajax’)有何不同，以及如何开始使用它。
+Beacon API 是一个基于 JavaScript 的 Web API，用于将少量数据从浏览器发送到 Web 服务器，而无需等待响应。在本文中，我们将介绍它可以用在哪些场景，它和其他类似的技术，如 `XMLHTTPRequest`(‘Ajax’) 有何不同，以及如何开始使用它。
 
-如果您知道为什么要使用 Beacon，你可以随时直接跳到[入门](＃getting-started)部分。
+如果您知道为什么要使用 Beacon，你可以随时直接跳到[入门](＃入门)部分。
 
 ### Beacon API 是做什么用的？
 
