@@ -302,7 +302,7 @@ Array.prototype.myCustomFunc = function() {
   console.log(‘Normal this : ‘, this);  
  })();
 
- (() =\> {  
+ (() => {  
   console.log(‘Arrow function this : ‘, this);  
  })();
 
