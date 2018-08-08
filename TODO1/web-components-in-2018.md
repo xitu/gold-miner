@@ -80,28 +80,27 @@ shadowRoot.appendChild(templateContent.cloneNode(true));
 
 现在这个 `element` 就有一个影子树，影子树的内容是模板的一个复制。Shadow DOM、 `<template>` 标签、`<slot>` 标签在这里和谐地应用在一起，为组件增添了复用性和封装性。
 
-## Bringing it Together with Custom Elements
-## 使用 Custom Element ？
+## 用 Custom Element 打包在一起
 
-HTML Templates and Slots provide reusability and flexibility, and the Shadow DOM provides encapsulation. Custom Elements allow this to be taken a step further, wrapping together these features into its own named reusable element, which can get used as a regular HTML element.
+HTML 的 template 和 slot 标签提供了复用性和弹性，Shadow DOM 提供了打包封装。而 Custom Element 再进一步，将所有这些特性打包在一起成为有自己名字的可反复使用的节点，让它可以像常规 HTML 节点一样用起来。
 
-#### Defining a Custom Element
+#### 定义一个 Custom Element
 
-Defining Custom Elements is done using JavaScript. Custom Elements rely on ES2015+ Classes as their mode of declaration and always extend an `HTMLElement` or subclass. Here’s an example of creating a counter Custom Element using ES2015+ syntax:
+定义 Custom Element 要用到 JavaScript。Custom Element 依赖 ES2015+ 的 Class 特性，用 Class 作为其声明模式，通常是从 `HTMLElement` 或它的子类拓展而来。这里有一个 Custom Element 的例子，使用 ES2015+ 语法创建，用于计数：
 
 ```
-// We define an ES6 class that extends HTMLElement
+// 我们定义一个 ES6 的类，拓展于 HTMLElement
 class CounterElement extends HTMLElement {
     constructor() {
         super();
  
-        // Initialise the counter value
+        // 初始化计数器的值
         this.counter = 0;
  
-        // We attach an open shadow root to the custom element
+        // 我们在当前 custom element 上附加上一个打开的影子根节点
         const shadowRoot= this.attachShadow({mode: 'open'});
  
-        // We define some inline styles using a template string
+        // 我们使用模板字符串来定义一些内嵌样式
         const styles=`
             :host {
                 position: relative;
@@ -121,7 +120,7 @@ class CounterElement extends HTMLElement {
             }
         `;
  
-        // We provide the shadow root with some HTML
+        // 我们给影子根节点提供一些 HTML
         shadowRoot.innerHTML = `
             <style>${styles}</style>
             <h3>Counter</h3>
@@ -131,13 +130,13 @@ class CounterElement extends HTMLElement {
             <button id='counter-decrement'> + </button>
         `;
  
-        // We can query the shadow root for internal elements
-        // in this case the button
+        // 我们可以通过影子根节点查询内部节点
+        // 就比如这里的按钮
         this.incrementButton = this.shadowRoot.querySelector('#counter-increment');
         this.decrementButton = this.shadowRoot.querySelector('#counter-decrement');
         this.counterValue = this.shadowRoot.querySelector('#counter-value');
  
-        // We can bind an event which references one of the class methods
+        // 我们可以绑定事件，用类方法来响应
         this.incrementButton.addEventListener("click", this.decrement.bind(this));
         this.decrementButton.addEventListener("click", this.increment.bind(this));
  
@@ -153,35 +152,35 @@ class CounterElement extends HTMLElement {
         this.invalidate();
     }
  
-    // Call when the counter changes value
+    // 当计数器的值发生变化时调用
     invalidate() {
         this.counterValue.innerHTML = this.counter;
     }
 }
  
-// This is where the actual element is defined for use in the DOM
+// 这里定义了可以在 DOM 树上直接使用的真实节点
 customElements.define('counter-element', CounterElement);
 ```
 
-Notice the critical last line, which registers the Custom Element for use in the DOM.
+特别注意最后一行，那里注册了可以用在 DOM 里面的 Custom Element。
 
-#### Types of Custom Element
+#### Custom Element 的种类
 
-The code above shows the extension of the `HTMLElement` interface, but it is also possible to extend from more specific elements, for example, `HTMLButtonElement`. The web component specification provides a [complete list of interfaces that can get extended](https://html.spec.whatwg.org/multipage/indices.html#element-interfaces).
+上面代码展示了如何从 `HTMLElement` 接口做拓展，然而我们还可以从更具体的节点上拓展，比如 `HTMLButtonElement`。Web 组件规范提供了一个[完整的接口列表供我们拓展用](https://html.spec.whatwg.org/multipage/indices.html#element-interfaces)。
 
-Custom Elements come in two major flavours: **Autonomous custom elements** and **Customized built-in elements**. Autonomous custom elements are like those already described and don’t extend a specific interface. Once registered in the page, an autonomous custom element can get used like regular HTML elements. For example, with the counter element defined above, it is possible to declare it via `<counter-element></counter-element>` in HTML, or `document.createElement('counter-element')` in JavaScript.
+Custom Element 可分为两种主要类型：**独立 custom element（Autonomous custom elements）** 和 **自定义内置元素**。独立 custom element 和那些已经定义且不从特定接口拓展的节点类似（译者注：我们平常使用的 DOM 节点）。一个独立 custom element 只要在页面一定义上，就可以像常规 HTML 节点那样使用。举个例子，上面定义的计数节点，既可以在 HTML 中通过 `<counter-element></counter-element>` 定义，也可以在 JavaScript 中 `document.createElement('counter-element')` 这样来用。
 
-Customized built-in elements have a slightly different usage, where the `is` attribute is passed when declaring the element in HTML (e.g. `<button is='special-button'>`) used on the standard element, or passing the `is` property to the `document.createElement` function options (e.g. `document.createElement("button", { is: "special-button" }`).
+自定义内置元素在使用上略有不同，当 HTML 定义节点时可以传一个 `is` 属性到标准节点上（比如 `<button is='special-button'>`），又或者使用 `document.createElement` 时传一个 `is` 属性作为参数（比如 `document.createElement("button", { is: "special-button" }`）。
 
-#### Custom Element Lifecycle
+#### Custom Element 的生命周期
 
-Custom Elements also have a series of lifecycle events for managing the attachment of the component to and from the DOM:
+Custom Element 也有一系列的生命周期事件，用于管理组件挂接和脱离 DOM ：
 
-*   `connectedCallback`: connection to the DOM
-*   `disconnectedCallback`: disconnection from the DOM
-*   `adoptedCallback`: movements across documents
+*   `connectedCallback`：连接到 DOM
+*   `disconnectedCallback`： 从 DOM 上脱离
+*   `adoptedCallback`： 跨文档移动
 
-A common mistake is to use `connectedCallback` as a one-off initialisation event, but this gets called every time you connect this element to the DOM. Instead, for one time initialisation, `constructor` is the more appropriate API call.
+一种常见错误是将 `connectedCallback` 用做一次性的初始化事件，然而实际上你每次将节点连接到 DOM 时都会被调用。取而代之的，在 `constructor` 这个 API 接口调用时做一次性初始化工作会更加合适。
 
 There is also `attributeChangedCallback` which can be used to monitor changes to element attributes and have them update internal state. However, for this to get used, it is necessary to first define an `observedAttributes` getter in the element Class:
 
