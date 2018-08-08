@@ -56,148 +56,147 @@ pip install BeautifulSoup4
 </html>
 ```
 
-下面是一个 HTML 网页的基本语法。每个This is the basic syntax of an HTML webpage. Every `<tag>` serves a block inside the webpage:  
-1. `<!DOCTYPE html>`: HTML 文档的开头必须有类型声明。  
-2. HTML 的文档包含在标签`<html>` 和 `</html>`内。  
-3. `<head>` 和 `</head>`之间是元数据和脚本声明。
-4. HTML 文档的可视部分被包裹在<body> 和 </body> 之间。 
-5. Title headings are defined with the `<h1>` through `<h6>` tags.  
-6. Paragraphs are defined with the `<p>` tag.
+下面是一个 HTML 网页的基本语法。网页上的每个标签都定义了一个内容块:
+1. `<!DOCTYPE html>`: HTML 文档的开头必须有的类型声明。  
+2. HTML 的文档包含在标签`<html>` 内。  
+3. `<head>` 标签里面是元数据和脚本声明。
+4. `<body` 标签里面是 HTML 文档的可视部分。 
+5. 标题通过 `h1` 到 `h6` 的标签定义。  
+6. 段落内容被定义在 `<p>` 标签里。
 
-Other useful tags include `<a>` for hyperlinks, `<table>` for tables, `<tr>` for table rows, and `<td>` for table columns.
+其他常用的标签还有，用于超链接的 `a` 标签，用于显示表格的 `<table>` 标签，以及用于显示表格行的 `tr` 标签，用于显示表格列的 `<td>` 标签。
 
-Also, HTML tags sometimes come with `id` or `class` attributes. The `id` attribute specifies a unique id for an HTML tag and the value must be unique within the HTML document. The `class` attribute is used to define equal styles for HTML tags with the same class. We can make use of these ids and classes to help us locate the data we want.
+另外，HTML 标签时常会有 `id` 或者 `class` 属性。`id` 属性定义了标签的唯一标识，并且这个值在当前文档中必须是唯一的。`class` 属性attribute is used to define equal styles for HTML tags with the same class. We can make use of these ids and classes to help us locate the data we want.
 
 For more information on HTML [tags](http://www.w3schools.com/html/), [id](http://www.w3schools.com/tags/att_global_id.asp) and [class](http://www.w3schools.com/html/html_classes.asp), please refer to W3Schools [Tutorials](http://www.w3schools.com/).
 
-**Scraping Rules**
+**抓取规则**
 
-1.  You should check a website’s Terms and Conditions before you scrape it. Be careful to read the statements about legal use of data. Usually, the data you scrape should not be used for commercial purposes.
-2.  Do not request data from the website too aggressively with your program (also known as spamming), as this may break the website. Make sure your program behaves in a reasonable manner (i.e. acts like a human). One request for one webpage per second is good practice.
-3.  The layout of a website may change from time to time, so make sure to revisit the site and rewrite your code as needed
+1.  你应该在抓取之前先检查一下网站使用条款。仔细的阅读其中关于合法使用数据的表述内容。一般来说，你抓取的数据不能用于商业用途。
+2.  你的抓取程序不要太有攻击性地从网站抓取数据（就像众所周知的垃圾邮件攻击一样），那会引起网站异常而被注意。让你的抓取程序看起来像是合理的行为（如同一个人在操作网站那样）。一秒钟访问网站一次是一个不错的方式。
+3.  网站的布局时不时的会有变化，所以要确保经常访问网站并且必要时及时重写你的代码。
 
-### Inspecting the Page
+### 检查网页
 
-Let’s take one page from the [Bloomberg Quote](http://www.bloomberg.com/quote/SPX:IND) website as an example.
+让我们以 [Bloomberg Quote](http://www.bloomberg.com/quote/SPX:IND) 网站的一个页面为例。
 
-As someone following the stock market, we would like to get the index name (S&P 500) and its price from this page. First, right-click and open your browser’s inspector to inspect the webpage.
+因为有些人会关注股市，我们就从这个页面上获取指数名称（标准普尔 500 指数）和它的价格。首先，从鼠标右键菜单中点击 iispect 打开检查器来查看页面。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*KOJCuAYQyMIC8QdQyXERyw.png)
 
-Try hovering your cursor on the price and you should be able to see a blue box surrounding it. If you click it, the related HTML will be selected in the browser console.
+把鼠标指针悬放在价格上，你应该可以看到出现了一个蓝色方形区域包裹住了价格。如果你点击，在浏览器的控制台上，这段 HTML 内容就被选定了。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*T0t6G2tawfTtKHR4yY_iVQ.png)
 
-From the result, we can see that the price is inside a few levels of HTML tags, which is `<div class="basic-quote">` → `<div class="price-container up">` → `<div class="price">`.
+通过结果，你可以看到价格被包裹在一组的 HTML 标签里面，`<div class="basic-quote">` → `<div class="price-container up">` → `<div class="price">`。
 
-Similarly, if you hover and click the name “S&P 500 Index”, it is inside `<div class="basic-quote">` and `<h1 class="name">`.
+类似的，如果你点击“标准普尔 500 指数”，它被包裹在 `<div class="basic-quote">` 和 `<h1 class="name">` 里面.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*ga5bmPtLDdWUTvL-pNxBgg.png)
 
-Now we know the unique location of our data with the help of `class` tags.
+现在我们通过 `class` 标签的帮助，知道了所需数据的确切位置。
 
 ### Jump into the Code
 
-Now that we know where our data is, we can start coding our web scraper. Open your text editor now!
+现在我们知道数据在哪儿，我们可以编写我们的网页爬虫。现在打开你的文本编辑器。
 
-First, we need to import all the libraries that we are going to use.
+首先，我们需要导入所有我们将要用到的库。
 
-```
+```Python
 # import libraries
 import urllib2
 from bs4 import BeautifulSoup
 ```
 
-Next, declare a variable for the url of the page.
+接下来，定义网页的网址变量。
 
-```
+```Python
 # specify the url
 quote_page = ‘http://www.bloomberg.com/quote/SPX:IND'
 ```
 
-Then, make use of the Python urllib2 to get the HTML page of the url declared.
-
+然后，使用 Python 的 urllib2 来请求定义的 url 指向的 HTML 网页。
 ```
 # query the website and return the html to the variable ‘page’
 page = urllib2.urlopen(quote_page)
 ```
 
-Finally, parse the page into BeautifulSoup format so we can use BeautifulSoup to work on it.
+最后，把页面内容解析成 BeatifulSoup 的格式,那么我们就可以使用 BeatifulSoup 来处理它了。
 
-```
+```Python
 # parse the html using beautiful soup and store in variable `soup`
 soup = BeautifulSoup(page, ‘html.parser’)
 ```
 
-Now we have a variable, `soup`, containing the HTML of the page. Here’s where we can start coding the part that extracts the data.
+现在我们有一个变量 `soup`，它包含了页面的 HTML 内容。这里我们就可以编写抽取数据的代码了。
 
-Remember the unique layers of our data? BeautifulSoup can help us get into these layers and extract the content with `find()`. In this case, since the HTML class `name` is unique on this page, we can simply query `<div class="name">`.
+还记得你需要的数据所在的位置吗？通过 BeautifulSoup 的 `find()` 方法，可以帮助我们找到位置并提取其中内容。在这个例子中，因为这段 HTML 的 class 名称是唯一的，所有我们很简单的查找  `<div class="name">`。
 
-```
+```Python
 # Take out the <div> of name and get its value
 name_box = soup.find(‘h1’, attrs={‘class’: ‘name’})
 ```
 
-After we have the tag, we can get the data by getting its `text`.
+获取这个标签之后，我们可以通过 `text` 来获取数据。
 
-```
+```Python
 name = name_box.text.strip() # strip() is used to remove starting and trailing
 print name
 ```
 
-Similarly, we can get the price too.
+类似地，我们也可以获取价格。
 
-```
+```Python
 # get the index price
 price_box = soup.find(‘div’, attrs={‘class’:’price’})
 price = price_box.text
 print price
 ```
 
-When you run the program, you should be able to see that it prints out the current price of the S&P 500 Index.
+当你运行这个程序，你可以看到标准普尔 500 指数的当前价格被打印了出来。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*8sCE0XTu0Q0iHi2-QLpgXg.png)
 
-### Export to Excel CSV
+### 输出到 Excel CSV
 
-Now that we have the data, it is time to save it. The Excel Comma Separated Format is a nice choice. It can be opened in Excel so you can see the data and process it easily.
+现在我们有了数据，是时候去保存它了。The Excel Comma Separated Format 是一个好的选择。它可以通过 Excel 打开，所以你可以很轻松的打开并处理。
 
-But first, we have to import the Python csv module and the datetime module to get the record date. Insert these lines to your code in the import section.
+但是，首先，我们必须把 Python csv 模块导入进来，还要导入 datetime 模块来获取记录的日期。在 import 部分，加入下面这几行代码。
 
-```
+```Python
 import csv
 from datetime import datetime
 ```
 
-At the bottom of your code, add the code for writing data to a csv file.
+在这些代码下面，增加向 csv 文件中写数据的代码。
 
-```
+```Python
 # open a csv file with append, so old data will not be erased
 with open(‘index.csv’, ‘a’) as csv_file:
  writer = csv.writer(csv_file)
  writer.writerow([name, price, datetime.now()])
 ```
 
-Now if you run your program, you should able to export an `index.csv` file, which you can then open with Excel, where you should see a line of data.
+现在如果运行你的程序，你应该可以输出一个 `index.csv` 文件，你可以使用 Excel 打开它，在里面可以看到一行数据。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*d-27jLzy2GrxmvlLRJ4yVw.png)
 
-So if you run this program everyday, you will be able to easily get the S&P 500 Index price without rummaging through the website!
+如果你每天运行这个程序，你就可以很简单地获取标准普尔 500 指数，而不用重复地通过网页查找。
 
-### Going Further (Advanced uses)
+### 进阶使用 (高级应用)
 
-**Multiple Indices**  
-So scraping one index is not enough for you, right? We can try to extract multiple indices at the same time.
+**多个指数**  
+对你来说，只获取一个指数远远不够，对不对？我们可以同时提取多个指数。
 
-First, modify the `quote_page` into an array of URLs.
+首先，修改 `quote_page` 变量为一组 URLs.
 
-```
+```Python
 quote_page = [‘http://www.bloomberg.com/quote/SPX:IND', ‘http://www.bloomberg.com/quote/CCMP:IND']
 ```
 
-Then we change the data extraction code into a `for` loop, which will process the URLs one by one and store all the data into a variable `data` in tuples.
+然后我们把数据提取代码变成 `for` 循环，这样可以一个接一个地处理 URLs，然后把所有的数据都存到云数组 `data` 中。
 
-```
+```Python
 # for loop
 data = []
 for pg in quote_page:
@@ -219,9 +218,9 @@ for pg in quote_page:
  data.append((name, price))
 ```
 
-Also, modify the saving section to save data row by row.
+然后，修改保存部分代码，把数据一行一行地写到文件中。
 
-```
+```Python
 # open a csv file with append, so old data will not be erased
 with open(‘index.csv’, ‘a’) as csv_file:
  writer = csv.writer(csv_file)
@@ -230,13 +229,13 @@ with open(‘index.csv’, ‘a’) as csv_file:
  writer.writerow([name, price, datetime.now()])
 ```
 
-Rerun the program and you should be able to extract two indices at the same time!
+返回程序，这样你应该可以同时提取两个指数了！
 
-### Advanced Scraping Techniques
+### 高级的爬虫技术
 
-BeautifulSoup is simple and great for small-scale web scraping. But if you are interested in scraping data at a larger scale, you should consider using these other alternatives:
+BeautifulSoup 是一个很棒的简单小型化的网页爬虫工具。但是如果你对更大规模的网络数据爬取感兴趣，那么你应该考虑使用其他一些工具。
 
-1.  [Scrapy](http://scrapy.org/), a powerful python scraping framework
+1.  [Scrapy](http://scrapy.org/), 一个强大的 Python 爬虫框架
 2.  Try to integrate your code with some public APIs. The efficiency of data retrieval is much higher than scraping webpages. For example, take a look at [Facebook Graph API](https://developers.facebook.com/docs/graph-api), which can help you get hidden data which is not shown on Facebook webpages.
 3.  Consider using a database backend like [MySQL](https://www.mysql.com/) to store your data when it gets too large.
 
@@ -244,7 +243,7 @@ BeautifulSoup is simple and great for small-scale web scraping. But if you are i
 
 ![](https://cdn-images-1.medium.com/max/1600/1*gD4GwO1zV33IIgoeYLVrzA.jpeg)
 
-DRY stands for “Don’t Repeat Yourself”, try to automate your everyday tasks like [this person](http://www.businessinsider.com/programmer-automates-his-job-2015-11). Some other fun projects to consider might be keeping track of your Facebook friends’ active time (with their consent of course), or grabbing a list of topics in a forum and trying out natural language processing (which is a hot topic for Artificial Intelligence right now)!
+DRY 代表“不要重复自己的工作”, 尝试把你每日工作都自动化，像 [这个人](http://www.businessinsider.com/programmer-automates-his-job-2015-11) 做的那样。Some other fun projects to consider might be keeping track of your Facebook friends’ active time (with their consent of course), or grabbing a list of topics in a forum and trying out natural language processing (which is a hot topic for Artificial Intelligence right now)!
 
 If you have any questions, please feel free to leave a comment below.
 
