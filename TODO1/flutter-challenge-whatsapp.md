@@ -2,32 +2,32 @@
 > * 原文作者：[Deven Joshi](https://medium.com/@dev.n?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-challenge-whatsapp.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-challenge-whatsapp.md)
-> * 译者：
+> * 译者： [YueYong](https://github.com/YueYongDev)
 > * 校对者：
 
-# Flutter Challenge: WhatsApp
+# Flutter 挑战之 WhatsApp
 
 ![](https://cdn-images-1.medium.com/max/1600/1*5n_vLiGTQ-RTWW-hdIT6XQ.jpeg)
 
-Flutter Challenges will attempt to recreate a particular app UI or design in Flutter.
+Flutter Challenges 是一项尝试利用 Flutter 重新创建特定的应用程序UI或设计的挑战。
 
-This challenge will attempt the home screen of the Whatsapp Android app. Note that the focus will be on the UI rather than actually fetching messages.
+此次挑战将尝试 Whatsapp Android 应用程序的主界面。请注意将重点放在 UI 上而不是实际获取消息。
 
-#### Getting Started
+#### 开始
 
-The WhatsApp home screen consists of
+WhatsApp 的主界面包括：
 
-1.  An AppBar with with a search action and an menu
-2.  Four tabs in the bottom of the AppBar
-3.  A camera tab to take a photo
-4.  A FloatingActionButton for multiple purposes
-5.  A “Chats” tab to view all conversations
-6.  A “Status” tab to view all statuses
-7.  A “Calls” tab to view all past calls
+1.  一个带有搜索操作和菜单的 AppBar
+2.  在 AppBar 的底部有四个标签
+3.  一个用于拍照的相机标签
+4.  一个用于多种用途的 FloatingActionButton
+5.  一个“聊天”标签可查看所有对话
+6.  一个“状态”选项卡可查看所有状态
+7.  一个“打电话”选项卡可查看所有的通话记录
 
-#### Setting up the Project
+#### 项目设置
 
-Let’s make a Flutter project named whatsapp_ui and remove all the default code leaving just a blank screen with the default app bar.
+让我们创建一个名为 whatsapp_ui 的 Flutter 项目并删除所有默认代码，只留下一个带有默认应用栏的空白屏幕。
 
 ```
 import 'package:flutter/material.dart';
@@ -76,9 +76,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
 #### The AppBar
 
-The AppBar has the title of the app, and the two actions: Search and a menu.
+AppBar 具有应用程序的标题，以及两个操作：搜索和菜单。
 
-Adding that to the AppBar,
+将其添加到 AppBar 中，
 
 ```
 appBar: new AppBar(
@@ -97,17 +97,17 @@ appBar: new AppBar(
 ),
 ```
 
-This is the result of the code:
+代码结果如下：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*4fwyAwhd3o7shdeZ1GAIaQ.png)
 
-Now moving on to
+现在继续
 
 #### The Tabs
 
-The tabs are a simple extension to the AppBar and Flutter makes it extremely easy to implement them.
+tabs（选项卡） 是 AppBar 的简单扩展，Flutter 使它们非常容易实现。
 
-The AppBar has a “bottom” field which holds our tabs:
+AppBar 有一个“底部”字段，用于保存我们的标签：
 
 ```
 bottom: TabBar(
@@ -120,9 +120,9 @@ bottom: TabBar(
 ),
 ```
 
-Also, we need a TabController for this to work.
+此外，我们需要一个 TabController 来实现这一点。
 
-Create a new TabController.
+创建一个新的 TabController。
 
 ```
 TabController tabController;
@@ -137,7 +137,7 @@ void initState() {
 }
 ```
 
-Now add that controller to the “controller” field of both the TabBar.
+现在将该控制器添加到 TabBar 的 “controller” 字段中。
 
 ```
 bottom: TabBar(
@@ -151,7 +151,7 @@ bottom: TabBar(
 ),
 ```
 
-And for the TabBarView
+而对于 TabBarView
 
 ```
 body: TabBarView(
@@ -167,7 +167,7 @@ body: TabBarView(
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Cr01YXR6o8fN2XXKPpHaHQ.png)
 
-Now before going to the individual pages, we’ll add the pages that the tabs represent. Switch the existing “body” code of the Scaffold with this:
+现在，在转到各个页面之前，我们将添加选项卡所代表的页面。用以下方法切换脚手架的现有“正文”代码：
 
 ```
 body: TabBarView(
@@ -180,13 +180,13 @@ body: TabBarView(
 ),
 ```
 
-The children represent the pages that the tabs are for. For now an entire page is a Text widget.
+子项代表选项卡所用的页面。现在整个页面都是一个 Text 小部件。
 
-#### Floating Action Button
+#### 悬浮按钮
 
-The Floating Action Button changes depending on which page is on screen.
+Floating Action Button 根据屏幕上的页面而变化。
 
-First add a FloatingActionButton in the Scaffold.
+首先在脚手架中添加一个 FloatingActionButton。
 
 ```
 floatingActionButton: FloatingActionButton(
@@ -197,9 +197,9 @@ floatingActionButton: FloatingActionButton(
 ),
 ```
 
-The “fabIcon” field simply stores which icon to display because we need to change which icon is displayed according to the screen displayed.
+“fabIcon” 字段只存储要显示的图标，因为我们需要根据显示的屏幕更改显示的图标。
 
-To listen to tab selected changes, attach a listener to the TabController.
+要监听选项卡选定的更改，需要给 TabController 添加一个监听器。
 
 ```
 tabController = TabController(vsync: this, length: 4)
@@ -208,7 +208,7 @@ tabController = TabController(vsync: this, length: 4)
   });
 ```
 
-Now when tab controller realises the page has changed, change the FAB icon.
+现在，当标签控制器实现页面已更改时，请更改 FAB 图标。
 
 ```
 tabController = TabController(vsync: this, length: 4)
@@ -233,23 +233,23 @@ tabController = TabController(vsync: this, length: 4)
 
 ![](https://cdn-images-1.medium.com/max/1600/1*OI_nzQqPKrnsboh_IP9W6g.png)
 
-Moving on,
+继续，
 
-#### The Chat Screen
+#### 聊天界面
 
-The Chat Screen has a list of messages we need to display. To make a list of messages, we use a ListView.builder() and construct our items.
+聊天屏幕有一个我们需要显示的消息列表。要创建消息列表，我们使用 ListView.builder() 并构造我们的项目。
 
-Let’s take a look at the list item for the chat screen.
+让我们来看看聊天界面的列表项。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Qgf5MHYD-NOXpNx8I0oxIw.png)
 
-The outer most widget is a row of one icon and another row
+最外面的小部件是一行图标和另一行
 
-Inside the second row is a column consisting of one row and one text widget.
+第二行内部是一列，包含一行和一个文本小部件。
 
-The row has the title and message date.
+该行具有标题和消息日期。
 
-Let’s construct a Chat Item Model as a class for storing the details of the list item.
+让我们构建一个聊天项模型作为用于存储列表项详细信息的类。
 
 ```
 class ChatItemModel {
@@ -263,7 +263,7 @@ class ChatItemModel {
 }
 ```
 
-Right now, I’ve omitted adding a profile picture for brevity.
+现在，为简洁起见，我省略了添加个人资料图片。
 
 ```
 itemBuilder: (context, position) {
@@ -322,17 +322,17 @@ itemBuilder: (context, position) {
 },
 ```
 
-After creating the first list this is the result:
+创建第一个列表后，结果如下：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*WZq07uhmt7L-NYemQaRSRA.png)
 
-We can similarly create the other tabs on the screens on the other screens. The complete example is hosted on GitHub.
+我们可以类似地在其他屏幕上的屏幕上创建其他选项卡。完整的示例托管在GitHub上。
 
-GitHub link : [https://github.com/deven98/WhatsappFlutter](https://github.com/deven98/WhatsappFlutter)
+GitHub 链接 : [https://github.com/deven98/WhatsappFlutter](https://github.com/deven98/WhatsappFlutter)
 
-Thank you for reading this Flutter challenge. Feel free to mention any app you might want recreated in Flutter. Be sure to leave a few claps if you enjoyed it, and see you in the next one.
+感谢您阅读此 Flutter 挑战。随意提及您可能想要在 lutter 中重新创建的任何应用程序。如果你喜欢它，一定要留下掌声，再见。
 
-Don’t miss: [The Medium App in Flutter](https://blog.usejournal.com/flutter-challenge-the-medium-app-5f64a0f3c764)
+不要忘了： [The Medium App in Flutter](https://blog.usejournal.com/flutter-challenge-the-medium-app-5f64a0f3c764)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
