@@ -2,148 +2,148 @@
 > * 原文作者：[Vikash Singh](https://medium.freecodecamp.org/@vi3k6i5?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/regex-was-taking-5-days-flashtext-does-it-in-15-minutes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/regex-was-taking-5-days-flashtext-does-it-in-15-minutes.md)
-> * 译者：
+> * 译者：[cf020031308](https://github.com/cf020031308)
 > * 校对者：
 
-# Regex was taking 5 days to run. So I built a tool that did it in 15 minutes.
+# 正则表达式要跑 5 天，所以我做了个工具，只跑 15 分钟。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*QvHXLlSAuPZsQTycvcv9bQ.jpeg)
 
 [dia057](https://unsplash.com/@dia057) | [Unsplash](http://unsplash.com/)
 
-When developers work with text, they often need to clean it up first. Sometimes it’s by replacing keywords. Like replacing “Javascript” with “JavaScript”. Other times, we just want to find out whether “JavaScript” was mentioned in a document.
+当开发人员使用文本时，他们通常需要先清理它。有时是替换关键词，就像用“JavaScript”替换“Javascript”一样。其他时候，我们只想知道文档中是否提到了“JavaScript”。
 
-Data cleaning tasks like these are standard for most Data Science projects dealing with text.
+像这样的数据清理是大多数处理文本的数据科学项目的标准任务。
 
-### **Data Science starts with data cleaning.**
+### **数据科学始于数据清理。**
 
-I had a very similar task to work on recently. I work as a Data Scientist at [Belong.co](https://belong.co/) and Natural Language Processing is half of my work.
+最近我有一项非常类似的工作。我在 [Belong.co](https://belong.co/) 担任数据科学家，其中有一半工作是在做自然语言处理。
 
-When I trained a [Word2Vec](https://en.wikipedia.org/wiki/Word2vec) model on our document corpus, it started giving synonyms as similar terms. “Javascripting” was coming as a similar term to “JavaScript”.
+当我在我们的文档语料库中训练 [Word2Vec](https://en.wikipedia.org/wiki/Word2vec) 模型时，它最初会给出近似术语的同义词。 比如“Javascripting”是“JavaScript”的近似术语。
 
-To resolve this, I wrote a regular expression (Regex) to replace all known synonyms with standardized names. The Regex replaced “Javascripting”  with “JavaScript”, which solved 1 problem but created another.
+为了解决这事，我编写了一个正则表达式（Regex）来用标准化名称替换所有已知的同义词。比如将“JavaScripting”替换成“Javascript”。正则表达式解决了这一个问题，但创造了另一个问题。
 
-> Some people, when confronted with a problem, think  
-> “I know, I’ll use regular expressions.” Now they have two problems.
+> 有些人在面对一个问题时会想  
+> “知道了，我该使用正则表达式。”现在他们有两个问题了。
 
-The above quote is from this [stack-exchange question](https://softwareengineering.stackexchange.com/questions/223634/what-is-meant-by-now-you-have-two-problems) and it came true for me.
+以上引用来自 [stack-exchange 的问题](https://softwareengineering.stackexchange.com/questions/223634/what-is-meant-by-now-you-have-two-problems)，说的就是我这种。
 
-It turns out that Regex is fast if the number of keywords to be searched and replaced is in the 100s. But my corpus had over 20K keywords and 3 Million documents.
+事实证明，如果要搜索和替换的关键词数量在 100 个以内，正则表达式会很快。但我的语料库有超过 2 万个关键词和 300 万个文件。
 
-When I benchmarked my Regex code, I found it was going to take **5** **days** to complete one run.
+当我对我的正则表达式代码进行基准测试时，我发现它跑一次要花 **5** **天**。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*GpNMd7fBtrH4TvVZRglfNg.jpeg)
 
-oh the horror
+哦，恐怖
 
-The natural solution was to run it in parallel. But that won’t help when we reach 10s of millions of documents and 100s of thousands of keywords. **There had to be a better way!** And I started looking for it…
+自然的解决方案是并行运行。但是，当我们达到数百万的文档和数以千计的关键词时，这将无济于事。 **必须有更好的方法！**我开始寻找......
 
-I asked around in my office and on Stack Overflow — a couple of suggestions came up. [Vinay Pandey](https://www.linkedin.com/in/vinay-pande-54810813/), [Suresh Lakshmanan](https://www.linkedin.com/in/suresh-lakshmanan/) and [Stack Overflow](https://stackoverflow.com/questions/44178449/regex-replace-is-taking-time-for-millions-of-documents-how-to-make-it-faster) pointed towards the beautiful algorithm called [Aho-Corasick algorithm](https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm) and the [Trie Data Structure](https://en.wikipedia.org/wiki/Trie) approach. I looked for existing solutions but couldn’t find much.
+我在办公室和 Stack Overflow 上问了问 —— 收获了一些建议。 [Vinay Pandey](https://www.linkedin.com/in/vinay-pande-54810813/)，[Suresh Lakshmanan](https://www.linkedin.com/in/suresh-lakshmanan/) 和 [Stack Overflow](https://stackoverflow.com/questions/44178449/regex-replace-is-taking-time-for-millions-of-documents-how-to-make-it-faster) 指出了称为 [Aho-Corasick 算法](https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm)的美妙算法，以及 [Trie 数据结构](https://en.wikipedia.org/wiki/Trie)方法。我寻找已有的解决方案，但找不到多少。
 
-So I wrote my own implementation and [FlashText](https://github.com/vi3k6i5/flashtext) was born.
+所以我编写了自己的实现，[FlashText](https://github.com/vi3k6i5/flashtext) 诞生了。
 
-Before we get into what is FlashText and how it works, let’s have a look at how it performs for search:
+在我们了解什么是 FlashText 以及它是如何工作的之前，让我们看看它的搜索性能：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*WMgrVJmoke7ZIyYSuReEjw.png)
 
-Red Line at the bottom is time taken by FlashText for Search
+底部的红线是 FlashText 搜索所花费的时间
 
-The chart shown above is a comparison of Complied Regex against FlashText for 1 document. As the number of keywords increase, the time taken by Regex grows almost linearly. Yet with FlashText it doesn’t matter.
+上面显示的图表是 1 个文档时编译过的正则表达式与 FlashText 的比较。随着关键词数量的增加，正则表达式所用的时间几乎呈线性增长，但 FlashText 并不敏感。
 
-#### **FlashText reduced our run time from 5 days to 15 minutes!!**
+#### **FlashText 将运行时间从 5 天减少到 15 分钟!! **
 
 ![](https://cdn-images-1.medium.com/max/1600/1*ZfRhHGtxhbEB0dS-3BHOAw.png)
 
-we are good now :)
+这个好:)
 
-This is FlashText timing for replace:
+这是 FlashText 做替换时的计时：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*doXUZk_bYVVvNf7O3JIQSw.png)
 
-Red Line at the bottom is time taken by FlashText for Replace
+底部的红线是 FlashText 用于替换的时间
 
-Code used for the benchmark shown above is linked [here](https://gist.github.com/vi3k6i5/dc3335ee46ab9f650b19885e8ade6c7a), and results are linked [here](https://goo.gl/wWCyyw).
+用于上述基准测试的代码链接[在此](https://gist.github.com/vi3k6i5/dc3335ee46ab9f650b19885e8ade6c7a)，结果链接[在此](https://goo.gl/wWCyyw)。
 
-### **So what is FlashText?**
+### **那么什么是 FlashText？**
 
-FlashText is a Python library that I open sourced on [GitHub](https://github.com/vi3k6i5). It is efficient at both extracting keywords and replacing them.
+FlashText 是我在 [GitHub](https://github.com/vi3k6i5) 上开源的一个 Python 库。它在提取关键词和替换上都很高效。
 
-To use FlashText first you have to pass it a list of keywords. This list will be used internally to build a Trie dictionary. Then you pass a string to it and tell if you want to perform replace or search.
+要使用 FlashText，首先必须传入一个关键词列表。此列表将在内部用于构建 Trie 字典。然后传入一个字符串，并说明是要替换还是搜索。
 
-For `**replace**` it will create a new string with replaced keywords. For `**search**` it will return a list of keywords found in the string. This will all happen in one pass over the input string.
+`**替换**`会创建一个替换了关键词的新字符串。`**搜索**`会返回字符串中找到的关键词列表。这些只需要扫描一遍输入的字符串。
 
-Here is what one happy user had to say about the library:
+以下是一位满意的用户对这库的看法：
 
 ![](https://i.loli.net/2018/08/06/5b6864fa9cda0.png)
 
-[@RadimRehurek](https://twitter.com/RadimRehurek) is the creator of [@gensim_py](http://twitter.com/gensim_py "Twitter profile for @gensim_py").
+[@RadimRehurek](https://twitter.com/RadimRehurek) 是 [@gensim_py](http://twitter.com/gensim_py "@gensim_py 的 Twitter 资料") 的创建者。
 
-### Why is FlashText so fast ?
+### 为什么 FlashText 这么快？
 
-Let’s try and understand this part with an example. Say we have a sentence which has 3 words `I like Python`, and a corpus which has 4 words `{Python, Java, J2ee, Ruby}`.
+我们试着用一个例子来理解这部分。假设我们有一个句子，其中包含 3 个单词 `I like Python`，以及一个包含 4 个单词 `{Python，Java，J2ee，Ruby}` 的语料库。
 
-If we take each word from the corpus, and check if it is present in sentence, it will take 4 tries.
+如果我们从语料库中取出每个单词，并检查它是否存在于句子中，则需要 4 次尝试。
 
 ```
-is 'Python' in sentence? 
-is 'Java' in sentence?
+'Python' 在句子中吗？
+'Java' 在句子中吗？
 ...
 ```
 
-If the corpus had `n` words it would have taken `n` loops. Also each search step `is <word> in sentence?` will take its own time. This is kind of what happens in Regex match.
+如果语料库有 `n` 个词，它就会重复 `n` 次。每个搜索步骤 `<word> 在句子中吗？`都要独自花费时间。这就是正则表达式匹配中发生的事情。
 
-There is another approach which is reverse of the first one. For each word in the sentence, check if it is present in corpus.
+还有另一种方法与第一种方法相反：对于句子中的每个单词，检查它是否存在于语料库中。
 
 ```
-is 'I' in corpus?
-is 'like' in corpus?
-is 'python' in corpus?
+'I' 在语料库中吗？
+'like' 在语料库中吗？
+'Python' 在语料库中吗？
 ```
 
-If the sentence had `m` words it would have taken `m` loops. In this case the time it takes is only dependent on the number of words in sentence. And this step, `is <word> in corpus?` can be made fast using a dictionary lookup.
+如果句子中有 `m` 个词，它就会重复 `m` 次。在这种情况下，它所花费的时间仅取决于句子中的单词数量。而 `<word> 在语料库中吗？`这一步可以使用字典查找快速完成。
 
-FlashText algorithm is based on the second approach. It is inspired by the Aho-Corasick algorithm and Trie data structure.
+FlashText 算法基于第二种方法。其灵感来自 Aho-Corasick 算法和 Trie 数据结构。
 
-The way it works is:  
-First a Trie dictionary is created with the corpus. It will look somewhat like this:
+它的工作方式是：  
+首先，使用语料库创建 Trie 词典。看起来有点像这样：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*N09Y_XEQFhFMxVpgEeqExQ.png)
 
-Trie dictionary of the corpus.
+Trie 词典的语料库。
 
-Start and EOT (End Of Term) represent word boundaries like `space`, `period` and `new_line`. A keyword will only match if it has word boundaries on both sides of it. This will prevent matching apple in pineapple.
+开始和 EOT（End of Term）表示像 `space`，`period` 和 `new_line` 这样的单词边界。关键词只有在其两侧都有单词边界时才匹配。这样可以防止 pineapple 匹配到 apple。
 
-Next we will take an input string `I like Python` and search it character by character.
+接下来我们将输入一个输入字符串 `I like Python` 并逐个字符地搜索它。
 
 ```
-Step 1: is <start>I<EOT> in dictionary? No
-Step 2: is <start>like<EOT> in dictionary? No
-Step 3: is <start>Python<EOT> in dictionary? Yes
+第 1 步：<start>I<EOT> 在字典中吗？不在。
+第 2 步：<start>like<EOT> 在字典中吗？不在。
+第 3 步：<start>Python<EOT> 在字典中吗？在。
 ```
 
 ![](https://cdn-images-1.medium.com/max/1600/1*noWWci3fCrbcbrj40B4UaA.png)
 
-<Start> Python <EOT> is present in dictionary.
+`<Start>Python<EOT>` 在字典中。
 
-Since this is a character by character match, we could easily skip `<start>like<EOT>` at `<start>l` because `l` is not connected to `start`. This makes skipping missing words really fast.
+因为这是逐个字符的匹配，所以我们可以很容易地在 `<start>l` 处就跳过 `<start>like<EOT>`，因为词典的 `<start>` 后面没有 `l`。这样可以快速跳过不在语料库中的单词。
 
-The FlashText algorithm only went over each character of the input string ‘I like Python’. The dictionary could have very well had a million keywords, with no impact on the runtime. This is the true power of FlashText algorithm.
+FlashText 算法只遍历输入字符串 'I like Python' 的每个字符。字典哪怕有高达百万个关键词，对运行时也没有影响。这就是 FlashText 算法的真正力量。
 
-### So when should you use FlashText?
+### 那么什么时候应该使用 FlashText？
 
-Simple Answer: When Number of keywords > 500
+简单的答案：当关键词数 > 500 时
 
 ![](https://cdn-images-1.medium.com/max/1600/1*_wjTfRdsnLKGnbr4VJ4Xqw.png)
 
-For search FlashText starts outperforming Regex after ~ 500 keywords.
+对于搜索，FlashText 在大约超过 500 个关键词后性能优于正则表达式。
 
-Complicated Answer:  Regex can search for keywords based special characters like `^,$,*,\d,.` which are not supported in FlashText.
+复杂的答案：正则表达式可以基于特殊字符搜索关键词，如 `^,$,*,\d,.`，FlashText 不支持这个。
 
-So it’s no good if you want to match partial words like `` `word\dvec` ``. But it is excellent for extracting complete words like `` `word2vec` ``.
+因此，最好不要想像 `word\dvec` 这样匹配部分词。但提取像 `word2vec` 这样完整的单词非常适合。
 
-### FlashText for finding keywords
+### 用 FlashText 查找关键词
 
-```
+```python
 # pip install flashtext
 from flashtext.keyword import KeywordProcessor
 keyword_processor = KeywordProcessor()
@@ -154,13 +154,13 @@ keywords_found
 # ['New York', 'Bay Area']
 ```
 
-Simple extract example with FlashText
+使用 FlashText 的简单提取示例
 
-### **FlashText for replacing keywords**
+### **用 FlashText 替换关键词**
 
-Instead of extracting keywords you can also replace keywords in sentences. We use this as a data cleaning step in our data processing pipeline.
+您也可以替换句子中的关键词，而不是提取它。我们用这作为数据处理流程中的数据清理步骤。
 
-```
+```python
 from flashtext.keyword import KeywordProcessor
 keyword_processor = KeywordProcessor()
 keyword_processor.add_keyword('Big Apple', 'New York')
@@ -170,13 +170,13 @@ new_sentence
 # 'I love New York and NCR region.'
 ```
 
-Simple replace example with FlashText
+使用 FlashText 的简单替换示例
 
-If you know someone who works with text data, Entity recognition, natural language processing, or Word2vec, please consider sharing this blog with them.
+如果您认识谁在用文本数据、实体识别、自然语言处理或 Word2vec，请考虑与他们共享此博文。
 
-This library has been really useful for us, and I am sure it would be useful for others too.
+这个库对我们非常有用，我相信它对其他人也很有用。
 
-So long, and thanks for all the claps 😊
+终于讲完了，感谢捧场😊
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
