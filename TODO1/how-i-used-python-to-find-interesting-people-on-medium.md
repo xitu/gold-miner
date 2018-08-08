@@ -139,7 +139,7 @@ def get_list_of_followings(user_id):
             followings.append(user['username'])
 
         try:
-            # 如果找不到 "to" 键，我们就到达了列表末尾，
+            # 如果找不到 "to" 键，我们就到达了列表末尾,
             # 并且异常将会抛出。
             next_id = payload['paging']['next']['to']
         except:
