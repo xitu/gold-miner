@@ -5,19 +5,19 @@
 > * 译者：
 > * 校对者：
 
-# Practical ProGuard rules examples
+# 实用 ProGuard 规则示例
 
-In my previous article I explained [why everyone should use ProGuard for their Android apps](https://medium.com/google-developers/troubleshooting-proguard-issues-on-android-bce9de4f8a74), how to enable it and what kind of errors you might encounter when doing so. There was a lot of theory involved, as I think it’s important to understand the underlying principles in order to be prepared to deal with any potential problems.
+我在之前的文章中解释了 [为什么每个人都应该将 ProGuard 用于他们的 Android 应用](https://medium.com/google-developers/troubleshooting-proguard-issues-on-android-bce9de4f8a74)、怎么启用它以及在使用中可能面临的错误种类。这其中涉及很多理论，因为我认为理解基本原理以准备好处理任何潜在问题非常重要。
 
-I also talked in a separate article about the very specific problem of [configuring ProGuard for an Instant App](https://medium.com/google-developers/enabling-proguard-in-an-android-instant-app-fbd4fc014518) build.
+我还在一篇单独的文章中谈到了 [为 Instant App 构建配置 ProGuard](https://medium.com/google-developers/enabling-proguard-in-an-android-instant-app-fbd4fc014518) 的非常具体的问题。
 
-In this part, I’d like to talk about the practical examples of ProGuard rules on a medium sized sample app: [Plaid](https://github.com/nickbutcher/plaid) by [Nick Butcher](https://medium.com/@crafty).
+在这里，我想谈 ProGuard 规则在中型样例应用上的实用示例：出自 [Nick Butcher](https://medium.com/@crafty) 的 [Plaid](https://github.com/nickbutcher/plaid).
 
-### Lessons learned from Plaid
+### 从 Plaid 中吸取的教训
 
-Plaid actually turned out to be a great subject for researching ProGuard problems, as it contains a mix of 3rd party libraries that use things like annotation processing and code generation, reflection, java resource loading and native code (JNI). I extracted and jotted down some practical advice that should apply to other apps in general:
+Plaid 实际上是研究 ProGuard 问题的一个很好的主题，因为它包含使用注解处理与代码生成、反射、Java资源加载和原生代码（JNI）的第三方库的混合体。我提取并记录下了一些适用于其他应用的实用建议：
 
-### Data classes
+### 数据类
 
 ```
 public class User {  
@@ -27,11 +27,11 @@ public class User {
 }
 ```
 
-Probably every app has some kind of data class (also known as DMOs, models, etc. depending on context and where they sit in your app’s architecture). The thing about data objects is that usually at some point they will be loaded or saved (serialized) into some other medium, such as network (an HTTP request), a database (through an ORM), a JSON file on disk or in a Firebase data store.
+每个应用可能都有某种数据类（也被称为 DMOs，模型等，取决于上下文以及它们处在应用架构中的位置）。关于数据对象的事实是，通常在某些时候他们将被加载或保存（序列化）到某些其他介质中，例如网络（HTTP 请求）、数据库（通过 ORM）、磁盘上的 JSON 文件或 Firebase数据存储。
 
-Many of the tools that simplify serializing and deserializing these fields rely on reflection. GSON, Retrofit, Firebase — they all inspect field names in data classes and turn them into another representation (for example: `{“name”: “Sue”, “age”: 28}`), either for transport or storage. The same thing happens when they read data into a Java object — they see a key-value pair `“name”:”John”` and try to apply it to a Java object by looking up a `String name` field.
+许多简化序列化与反序列化这些字段的工具依赖于反射。GSON、Retrofit、Firebase —— 他们都检查数据类的字段名并把它们转换成另一种表现形式（例如：`{“name”: “Sue”, “age”: 28}`），用于传输或存储。它们将数据读入 Java 对象时也是同理 —— 它们看到键值对 `“name”:”John”` 并尝试通过查找 `String name` 字段将其应用到 Java 对象上。
 
-**Conclusion**: We cannot let ProGuard rename or remove any fields on these data classes, as they have to match the serialized format. It’s a safe bet to add a `@Keep` annotation on the whole class or a wildcard rule on all your models:
+**结论**：我们不能让 ProGuard 重命名或删除这些数据类的任何字段，因为它们必须与序列化的格式匹配。最好给整个类添加一个 `@Keep` 注解或者给所有模型添加通配符规则：
 
 ```
 -keep class io.plaidapp.data.api.dribbble.model.** { *; }
@@ -75,7 +75,7 @@ In Plaid, there are actually two — one in the _OkHttp_ library and one in 
 -keepnames class org.jsoup.nodes.Entities
 ```
 
-### How to come up with rules for third party libraries
+### 如何为第三方库制定规则
 
 In an ideal world, every dependency you use would supply their required ProGuard rules in the AAR. Sometimes they forget to do this or only publish JARs, which don’t have a standardized way to supply ProGuard rules.
 
@@ -94,7 +94,7 @@ I can only give you some pointers:
 
 > That’s where you need to consider some of the scenarios I described in this article and get your hands dirty, even diving into the third party code and understanding why it might fail, such as when it uses reflection, introspection or JNI.
 
-### Debugging and stack traces
+### 调试与堆栈跟踪
 
 ProGuard will by default remove many code attributes and hidden metadata that are not required for program execution . Some of those are actually useful to the developer — for example, you might want to retain source file names and line numbers for stack traces to make debugging easier:
 
@@ -147,7 +147,7 @@ There is another class of tools that actually inspect annotations or look at typ
 
 > If you’re using the default Android ProGuard configuration file (`_getDefaultProguardFile('proguard-android.txt')_`), the first two options — Annotations and Signature — are specified for you. If you’re not using the default you have to make sure to add them yourself (it also doesn’t hurt to just duplicate them if you know they’re a requirement for your app).
 
-### Moving everything to the default package
+### 将所有内容移至默认包
 
 The `[-repackageclasses](https://www.guardsquare.com/en/proguard/manual/usage#repackageclasses)` option is not added by default in the ProGuard config. If you are already obfuscating your code and have fixed any problems with proper keep rules, you can add this option to further reduce DEX size. It works by moving all classes to the default (root) package, essentially freeing up the space taken up by strings like “_com.example.myapp.somepackage_”.
 
@@ -155,7 +155,7 @@ The `[-repackageclasses](https://www.guardsquare.com/en/proguard/manual/usage#re
 -repackageclasses
 ```
 
-### ProGuard optimizations
+### ProGuard 优化
 
 As I mentioned before, ProGuard can do 3 things for you:
 
@@ -194,14 +194,13 @@ Whenever a simple “keep this class” or “keep this method” rule is needed
 
 If some other developer coming after me wants to refactor the code, they will know immediately that a class/member marked with `@Keep` requires special handling, without having to remember to consult the ProGuard configuration and risking breaking something. Also most code refactorings in the IDE should retain the `@Keep` annotation with the class automatically.
 
-### Plaid stats
+### Plaid 统计
 
 Here are some stats from Plaid, which show how much code I managed to remove using ProGuard. On a more complex app with more dependencies and a larger DEX the savings can be even more substantial.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*SMf2Q7j5sL_iu3bcsiLBYw.png)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
