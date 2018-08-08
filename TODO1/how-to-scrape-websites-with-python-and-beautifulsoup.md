@@ -9,13 +9,13 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/1*BrUAg3-OqIHkoTz_CRIzTA.png)
 
-互联网上的信息量比任何人究其一生掌握的信息量大的多。所以你需要做的不是逐个访问这些信息，而是需要有一种灵活的方式可以收集，组织和分析这些信息。
+互联网上的信息量比任何一个人究其一生能掌握的信息量要大的多得多。所以你要做的不是在互联网上逐个访问这些信息，而是需要有一种灵活的方式可以收集，组织和分析这些信息。
 
-你需要进行网页内容爬取。
+你需要进行网页内容抓取。
 
-网页爬取可以自动提取出数据并可以转换成您容易理解的格式而呈现。在本教程中，我们将重点关注其在金融市场中的应用，但实际上网络抓取可用于多种情况下。
+网页抓取可以自动提取出数据并可以转换成您容易理解的格式而呈现出来。在本教程中，我们将重点关注抓取技术在金融市场中的应用，但实际上网络内容抓取可用于多多个领域。
 
-如果你是一个狂热的投资者，每天获知收盘价可能会是很痛苦的一件事，特别是当你需要的信息分散在多个网页上的时候。我们将通过构建一个网络爬虫来自动从网上检索股票指数，从而简化数据的提取。
+如果你是一个狂热的投资者，每天获知收盘价可能会是一件很痛苦的事，特别是当你需要的信息分散在多个网页上的时候。我们将通过构建一个网络爬虫来自动从网上检索股票指数，从而简化数据的提取。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*gsn6N_tUoMb8XOWBpqQrNw.jpeg)
 
@@ -23,7 +23,7 @@
 
 我们将使用 Python 作为我们的脚本语言，还会用到一个简单但很强大的库，BeautifulSoup。
 
-* 对于 Mac 用户，OS X 已经预装了 Python。打开终端并输入 `python --version`。你应该看到你的 Python 的版本是2.7.x。
+* 对于 Mac 用户，OS X 已经预装了 Python。打开终端并输入 `python --version`。你的 Python 的版本应该是 2.7.x。
 * 对于 Windows 用户，请通过 [官方网站](https://www.python.org/downloads/) 安装 Python。
 
 接下来，我们需要使用 Python 的包管理工具 `pip` 来安装 BeautifulSoup 库。
@@ -41,7 +41,7 @@ pip install BeautifulSoup4
 
 在我们开始真正的代码之前，让我们先了解下 HTML 的基础知识和一些网页抓取的规则。
 
-**HTML tags**  
+**HTML 标签**  
 如果你已经理解了 HTML 的标签，请跳过这部分。
 
 ```Python
@@ -66,9 +66,9 @@ pip install BeautifulSoup4
 
 其他常用的标签还有，用于超链接的 `a` 标签，用于显示表格的 `<table>` 标签，以及用于显示表格行的 `tr` 标签，用于显示表格列的 `<td>` 标签。
 
-另外，HTML 标签时常会有 `id` 或者 `class` 属性。`id` 属性定义了标签的唯一标识，并且这个值在当前文档中必须是唯一的。`class` 属性attribute is used to define equal styles for HTML tags with the same class. We can make use of these ids and classes to help us locate the data we want.
+另外，HTML 标签时常会有 `id` 或者 `class` 属性。`id` 属性定义了标签的唯一标识，并且这个值在当前文档中必须是唯一的。`class` 属性用来给 HTML 标签定义相同的样式属性。我们可以使用这些 id 和 class 来帮助我们定位我们要抓取的数据。
 
-For more information on HTML [tags](http://www.w3schools.com/html/), [id](http://www.w3schools.com/tags/att_global_id.asp) and [class](http://www.w3schools.com/html/html_classes.asp), please refer to W3Schools [Tutorials](http://www.w3schools.com/).
+需要更多关于 HTML [标签](http://www.w3schools.com/html/)、 [id](http://www.w3schools.com/tags/att_global_id.asp) 和 [class](http://www.w3schools.com/html/html_classes.asp) 的相关内容，请参考 W3Schools 网站的 [教程](http://www.w3schools.com/)。
 
 **抓取规则**
 
@@ -168,7 +168,7 @@ import csv
 from datetime import datetime
 ```
 
-在这些代码下面，增加向 csv 文件中写数据的代码。
+在这些代码下面，增加写数据到 csv 文件的代码。
 
 ```Python
 # open a csv file with append, so old data will not be erased
@@ -194,7 +194,7 @@ with open(‘index.csv’, ‘a’) as csv_file:
 quote_page = [‘http://www.bloomberg.com/quote/SPX:IND', ‘http://www.bloomberg.com/quote/CCMP:IND']
 ```
 
-然后我们把数据提取代码变成 `for` 循环，这样可以一个接一个地处理 URLs，然后把所有的数据都存到云数组 `data` 中。
+然后我们把数据提取代码变成 `for` 循环，这样可以一个接一个地处理 URLs，然后把所有的数据都存到元数组 `data` 中。
 
 ```Python
 # for loop
@@ -233,26 +233,26 @@ with open(‘index.csv’, ‘a’) as csv_file:
 
 ### 高级的爬虫技术
 
-BeautifulSoup 是一个很棒的简单小型化的网页爬虫工具。但是如果你对更大规模的网络数据爬取感兴趣，那么你应该考虑使用其他一些工具。
+BeautifulSoup 是一个简单的小型的网页爬虫工具。但是如果你对更大规模的网络数据爬取感兴趣，那么你应该考虑使用其他一些工具。
 
-1.  [Scrapy](http://scrapy.org/), 一个强大的 Python 爬虫框架
-2.  Try to integrate your code with some public APIs. The efficiency of data retrieval is much higher than scraping webpages. For example, take a look at [Facebook Graph API](https://developers.facebook.com/docs/graph-api), which can help you get hidden data which is not shown on Facebook webpages.
-3.  Consider using a database backend like [MySQL](https://www.mysql.com/) to store your data when it gets too large.
+1.  [Scrapy](http://scrapy.org/)，一个强大的 Python 爬虫框架
+2.  尝试将你的代码与一些公共 API 集成。数据检索的效率要远远高于网页抓取的效率。比如，看一下 [Facebook Graph API](https://developers.facebook.com/docs/graph-api)，它可以帮助你获取未在 Facebook 网页上显示的隐藏数据。
+3.  如果抓取数据过大，请考虑使用一个后台数据库来存储你的数据，比如 [MySQL](https://www.mysql.com/)。
 
-### Adopt the DRY Method
+### 适用 DRY 方法
 
 ![](https://cdn-images-1.medium.com/max/1600/1*gD4GwO1zV33IIgoeYLVrzA.jpeg)
 
-DRY 代表“不要重复自己的工作”, 尝试把你每日工作都自动化，像 [这个人](http://www.businessinsider.com/programmer-automates-his-job-2015-11) 做的那样。Some other fun projects to consider might be keeping track of your Facebook friends’ active time (with their consent of course), or grabbing a list of topics in a forum and trying out natural language processing (which is a hot topic for Artificial Intelligence right now)!
+DRY 代表“不要重复自己的工作”，尝试把你每日工作都自动化，像 [这个人](http://www.businessinsider.com/programmer-automates-his-job-2015-11) 做的那样。可以考虑一些有趣的项目，可能是跟踪你的 Facebook 好友的活跃时间（获得他们的同意），或者是获取论坛的演讲列表并尝试进行自然语言处理（这是当前人工智能的一个热门话题）！
 
-If you have any questions, please feel free to leave a comment below.
+如果你有任何问题，可以随时在下面留言。
 
-**References:**
+**参考:**
 
 * [http://www.gregreda.com/2013/03/03/web-scraping-101-with-python/](http://www.gregreda.com/2013/03/03/web-scraping-101-with-python/)  
 * [http://www.analyticsvidhya.com/blog/2015/10/beginner-guide-web-scraping-beautiful-soup-python/](http://www.analyticsvidhya.com/blog/2015/10/beginner-guide-web-scraping-beautiful-soup-python/)
 
-_This article was originally published on Altitude Labs’_ [_blog_](http://altitudelabs.com/blog/) _and was written by our software engineer,_ [_Leonard Mok_](https://medium.com/@leonardmok)_._ [_Altitude Labs_](http://altitudelabs.com) _is a software agency that specializes in personalized, mobile-first React apps._
+_这篇文章最初发表在 Altitude Labs 的_ [_博客_](http://altitudelabs.com/blog/)上， _作者是我们的软件工程师_ [_Leonard Mok_](https://medium.com/@leonardmok)_。_ [_Altitude Labs_](http://altitudelabs.com) _是一家专门从事移动定制 React 应用开发的软件代理商。_
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
