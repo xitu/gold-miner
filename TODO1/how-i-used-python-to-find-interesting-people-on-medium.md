@@ -2,83 +2,83 @@
 > * 原文作者：[Radu Raicea](https://medium.freecodecamp.org/@Radu_Raicea?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-i-used-python-to-find-interesting-people-on-medium.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-i-used-python-to-find-interesting-people-on-medium.md)
-> * 译者：
+> * 译者：[Park-ma](https://github.com/Park-ma)
 > * 校对者：
 
-# How I used Python to find interesting people to follow on Medium
+# 我是如何使用 Python 在 Medium 上找到有趣的人来关注
 
 ![](https://cdn-images-1.medium.com/max/1600/1*9rLeOFD7rvImTlcXQUe-mw.png)
 
-Image credit: [Old Medium logo](https://icons8.com/icon/21634/medium)
+图片来源： [Old Medium logo](https://icons8.com/icon/21634/medium)
 
-Medium has a large amount of content, a large number of users, and an almost overwhelming number of posts. When you try to find interesting users to interact with, you’re flooded with visual noise.
+Medium 上有大量的内容，用户和不计其数的帖子。当你试图寻找有趣的用户来关注时，你会发现自己不知所措。
 
-I define an interesting user as someone who is from your network, who is active, and who writes responses that are generally appreciated by the Medium community.
+我对于有趣的用户的定义是来他自你的社交网络，保持活跃状态并经常在 Medium 社区发表高质量评论的用户。
 
-I was looking through the latest posts from users I follow to see who had responded to those users. I figured that if they responded to someone I’m following, they must have similar interests to mine.
+我查看我关注的用户的最新的帖子来看看是谁在回复他们。我认为如果他们回复了我关注的用户，这就说明他们可能和我志趣相投。
 
-The process was tedious. And that’s when I remembered the most valuable lesson I learned during my last internship:
+这个过程很繁琐，这就让我想起了我上次实习期间学到的最有价值的一课：
 
-**Any tedious task can and should be automated.**
+**任何繁琐的任务都能够并且应该是自动化完成的。**
 
-I wanted my automation to do the following things:
+我想要我的自动化程序能够做下面的事情：
 
-1.  Get all the **users** from my “Followings” list
-2.  Get the latest **posts** of each user
-3.  Get all the **responses** to each post
-4.  Filter out responses that are older than 30 days
-5.  Filter out responses that have less than a minimum number of recommendations
-6.  Get the **username** of the author of each response
+1.  从我的关注中获取所有的**用户**
+2.  从每一个用户中获取最新的**帖子**
+3.  获取每一个帖子的所有**评论**
+4.  筛选出30天以前的回复
+5.  筛选出少于最小推荐数的回复
+6.  获取每个回复的作者的**用户名**
 
-### Let’s start pokin’
+### 让我们开始吧
 
-I initially looked at [Medium’s API](https://github.com/Medium/medium-api-docs), but found it limiting. It didn’t give me much to work with. I could only get information about my account, not on other users.
+我最初看了看 [Medium's API](https://github.com/Medium/medium-api-docs)，却发现它很有限。它给我提供的功能太少了。通过它，我只能获取关于我自己的账号信息，而不能获取其他用户的信息。
 
-On top of that, the last change to Medium’s API was over a year ago. There was no sign of recent development.
+最重要的是，Medium's API 的最后一次更新是一年多前，而且也没有最近发展的迹象。
 
-I realized that I would have to rely on HTTP requests to get my data, so I started to poke around using my [**Chrome DevTools**](https://developer.chrome.com/devtools).
+我意识到我只能依靠 HTTP 请求来获取我的数据，所以我开始使用我的 [**Chrome 开发者工具 **](https://developer.chrome.com/devtools)。
 
-The first goal was to get my list of Followings.
+第一个目标是获取我的关注列表。
 
-I opened up my DevTools and went on the Network tab. I filtered out everything but [XHR](https://en.wikipedia.org/wiki/XMLHttpRequest) to see where Medium gets my list of Followings from. I hit the reload button on my profile page and got nothing interesting.
+我打开我的开发者工具并进入 Network 选项卡。我过滤了除了 [XHR](https://en.wikipedia.org/wiki/XMLHttpRequest) 之外的所有内容以查看 Medium 获取我的关注的位置。我刷新了我的个人资料页面，但是什么有趣的事情都没发生。
 
-What if I clicked the Followings button on my profile? Bingo.
+我点击我的个人资料上的关注按钮怎么样？成功啦！
 
 ![](https://cdn-images-1.medium.com/max/2000/1*JupqRL6NMgJRVu0vrQr3_Q.png)
 
-Finding the link that lists a user’s followings
+我找到用户关注列表的链接。
 
-Inside the link, I found a very big [JSON](https://en.wikipedia.org/wiki/JSON) response. It was a well-formatted JSON, except for a string of characters at the beginning of the response: `])}while(1);</x>`
+在这个链接中，我发现了一个非常大的 [JSON](https://en.wikipedia.org/wiki/JSON)响应。它是一个格式很好的 JSON ,除了在响应开头的一串字符：`])}while(1);</x>`
 
-I wrote a function to clean that up and turn the JSON into a Python dictionary.
+我写了一个函数整理了格式并把 JSON 转换成一个 Python 字典。
 
-```
+```python
 import json
 
 def clean_json_response(response):
     return json.loads(response.text.split('])}while(1);</x>')[1])
 ```
 
-I had found an entry point. Let the coding begin.
+我已经找到了一个入口点，让我们开始编写代码吧。
 
-### Getting all the users from my Followings list
+### 从我的关注列表中获取所有用户 
 
-To query that endpoint, I needed my User ID (I know that I already had it, but this is for educational purposes).
+为了查询端点，我需要我的用户 ID（尽管我早就知道啦，这样做是出于教育目的）。
 
-While looking for a way to get a user’s ID, I [found out](https://medium.com/statuscode/building-a-basic-web-service-to-display-your-medium-blog-posts-on-your-website-using-aws-api-48597b1771c5) that you can add `?format=json` to most Medium URLs to get a JSON response from that page. I tried that out on my profile page.
+我在寻找获取用户 ID 的方法时[发现](https://medium.com/statuscode/building-a-basic-web-service-to-display-your-medium-blog-posts-on-your-website-using-aws-api-48597b1771c5)可以通过添加`?format=json`给 Medium 的 URL 地址来获取这个网页的 JSON 响应。我在我的个人主页上试了试。 
 
-Oh look, there’s the user ID.
+看看，这就是我的用户 ID。
 
-```
+```json
 ])}while(1);</x>{"success":true,"payload":{"user":{"userId":"d540942266d0","name":"Radu Raicea","username":"Radu_Raicea",
 ...
 ```
 
-I wrote a function to pull the user ID from a given username. Again, I had to use `clean_json_response` to remove the unwanted characters at the beginning of the response.
+我写了一函数从给出的用户名中提取用户 ID 。同样，我使用了 `clean_json_response ` 函数来去除响应开头的不想要的字符串。
 
-I also made a constant called `MEDIUM` that contains the base for all the Medium URLs.
+我还定义了一个叫 `MEDIUM` 的常量，它用来存储所有 Medium 的 URL 地址都包含的字符串。
 
-```
+```python
 import requests
 
 MEDIUM = 'https://medium.com'
@@ -93,28 +93,28 @@ def get_user_id(username):
     return response_dict['payload']['user']['userId']
 ```
 
-With the User ID, I queried the `/_/api/users/<user_id>/following` endpoint and got the list of usernames from my Followings list.
+通过用户 ID ，我查询了`/_/api/users/<user_id>/following`端点，从我的关注列表里获取了用户名列表。
 
-When I did it in DevTools, I noticed that the JSON response only had eight usernames. Weird.
+当我在开发者工具中做这时，我注意到 JSON 响应只有八个用户名。很奇怪！
 
-After I clicked on “Show more people,” I saw what was missing. Medium uses [**pagination**](https://developer.twitter.com/en/docs/ads/general/guides/pagination) for the list of Followings.
+当我点击 “Show more people” ，我找到了缺少的用户名。原来 Medium 使用[**分页**](https://developer.twitter.com/en/docs/ads/general/guides/pagination)的方式来展示关注列表。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*WgYlp-dmUC9kdQ0iSNUtdg.png)
 
-Medium uses pagination for Followings list
+Medium 使用 分页的方式来展示关注列表。
 
-Pagination works by specifying a `limit` (elements per page) and `to` (first element of the next page). I had to find a way to get the ID of that next element.
+分页通过指定 ` limit `(每页元素)和 `to` (下一页的第一个元素)来工作 ，我必须找到一种方式来获取下一页的 ID 。
 
-At the end of the JSON response from `/_/api/users/<user_id>/following`, I saw an interesting key.
+在从`/_/api/users/<user_id>/following`获取的 JSON 响应的尾部，我看到了一个有趣的 JSON 键值对。
 
-```
+```json
 ...
 "paging":{"path":"/_/api/users/d540942266d0/followers","next":{"limit":8,"to":"49260b62a26c"}}},"v":3,"b":"31039-15ed0e5"}
 ```
 
-From here, writing a loop to get all the usernames from my Followings list was easy.
+到了这一步，很容易就能写出一个循环从我的关注列表里面获取所有的用户名。
 
-```
+```python 
 def get_list_of_followings(user_id):
 
     print('Retrieving users from Followings...')
@@ -124,11 +124,11 @@ def get_list_of_followings(user_id):
     while True:
 
         if next_id:
-            # If this is not the first page of the followings list
+            # 如果这不是关注列表的第一页
             url = MEDIUM + '/_/api/users/' + user_id
                   + '/following?limit=8&to=' + next_id
         else:
-            # If this is the first page of the followings list
+            # 如果这是关注列表的第一页
             url = MEDIUM + '/_/api/users/' + user_id + '/following'
 
         response = requests.get(url)
@@ -139,8 +139,8 @@ def get_list_of_followings(user_id):
             followings.append(user['username'])
 
         try:
-            # If the "to" key is missing, we've reached the end
-            # of the list and an exception is thrown
+            # 如果找不到 "to" 键，我们就到达了列表末尾，
+            # 并且异常将会抛出。
             next_id = payload['paging']['next']['to']
         except:
             break
@@ -148,13 +148,13 @@ def get_list_of_followings(user_id):
     return followings
 ```
 
-### Getting the latest posts from each user
+### 获取每个用户最新的帖子
 
-Once I had the list of users I follow, I wanted to get their latest posts. I could do that with a request to `[https://medium.com/@<username>/latest?format=json](https://medium.com/@username/latest?format=json)`
+我得到了我关注的用户列表之后，我就想获取他们最新的帖子。我可以通过发送这个请求  [https://medium.com/@<username>/latest?format=json](https://medium.com/@username/latest?format=json) 来实现这个功能。
 
-I wrote a function that takes a list of usernames and returns a list of post IDs for the latest posts from all the usernames on the input list.
+于是我写了一个函数，这个函数的参数是用户名列表，然后返回一个包含输入进来的所有用户最新发表的帖子 ID 的 Python 列表
 
-```
+```python
 def get_list_of_latest_posts_ids(usernames):
 
     print('Retrieving the latest posts...')
@@ -177,13 +177,13 @@ def get_list_of_latest_posts_ids(usernames):
     return post_ids
 ```
 
-### Getting all the responses from each post
+### 获取每个帖子的所有评论
 
-With the list of posts, I extracted all the responses using `https://medium.com/_/api/posts/<post_id>/responses`
+有了帖子的列表，我通过 `https://medium.com/_/api/posts/<post_id>/responses` 提取了所有的评论。
 
-This function takes a list of post IDs and returns a list of responses.
+这个函数参数是帖子 ID Python 列表然后返回评论的Python列表。
 
-```
+```python
 def get_post_responses(posts):
 
     print('Retrieving the post responses...')
@@ -199,25 +199,25 @@ def get_post_responses(posts):
     return responses
 ```
 
-#### Filtering the responses
+###  筛选这些评论
 
-At first, I wanted responses that had gotten a minimum number of claps. But I realized that this might not be a good representation of the community’s appreciation of the response: a user can give more than one clap for the same article.
+一开始，我希望评论达到点赞的最小值。但是我意识到这可能并不能很好的表达出社区对于评论的赞赏程度，因为一个用户可以对同一条评论进行多次点赞。
 
-Instead, I filtered by the number of recommendations. It measures the same thing as claps, but it doesn’t take duplicates into account.
+相反，我使用推荐数来进行筛选。推荐数和点赞数差不多，但它不能多次推荐。
 
-I wanted the minimum to be dynamic, so I passed a variable named `recommend_min` around.
+我希望这个最小值是可以动态调整的。所以我传递了名为 `recommend_min`的变量。
 
-The following function takes a response and the `recommend_min` variable. It checks if the response meets that minimum.
+下面的函数的参数是每一条评论和`recommend_min`变量。它用来检查评论的推荐数是否到达最小值。
 
-```
+```python
 def check_if_high_recommends(response, recommend_min):
     if response['virtuals']['recommends'] >= recommend_min:
         return True
 ```
 
-I also wanted recent responses. I filtered out responses that were older than 30 days using this function.
+我还希望得到最近的评论。因此我通过这个函数过滤掉超过 30 天的评论。
 
-```
+```python
 from datetime import datetime, timedelta
 
 def check_if_recent(response):
@@ -229,11 +229,11 @@ def check_if_recent(response):
         return True
 ```
 
-### Getting the username of the author of each response
+### 获取评论作者的用户名
 
-Once I had all the filtered responses, I grabbed all the authors’ user IDs using the following function.
+在完成评论的筛选工作之后，我使用下面的函数来抓取所有作者的用户 ID 。
 
-```
+```python
 def get_user_ids_from_responses(responses, recommend_min):
 
     print('Retrieving user IDs from the responses...')
@@ -250,9 +250,9 @@ def get_user_ids_from_responses(responses, recommend_min):
     return user_ids
 ```
 
-User IDs are useless when you’re trying to access someone’s profile. I made this next function query the `/_/api/users/<user_id>` endpoint to get the usernames.
+当你试图访问某个用户的个人资料时，你会发现用户 ID 是没用的。这时我写了一个函数通过查询  `/_/api/users/<user_id>` 端点来获取用户名。 
 
-```
+```python
 def get_usernames(user_ids):
 
     print('Retrieving usernames of interesting users...')
@@ -270,11 +270,11 @@ def get_usernames(user_ids):
     return usernames
 ```
 
-### Putting it all together
+### 把所以函数组合起来
 
-After I finished all the functions, I created a [pipeline](https://en.wikipedia.org/wiki/Pipeline_%28software%29) to get my list of recommended users.
+在完成所有函数之后，我创建了一个[管道](https://en.wikipedia.org/wiki/Pipeline_%28software%29)来获取我的推荐用户列表。
 
-```
+```python
 def get_interesting_users(username, recommend_min):
 
     print('Looking for interesting users for %s...' % username)
@@ -292,20 +292,20 @@ def get_interesting_users(username, recommend_min):
     return get_usernames(users)
 ```
 
-The script was finally ready! To run it, you have to call the pipeline.
+这个脚本程序终于完成啦！为了测试这个程序，你必须调用这个管道。
 
-```
+```python
 interesting_users = get_interesting_users('Radu_Raicea', 10)
 print(interesting_users)
 ```
 
 ![](https://cdn-images-1.medium.com/max/1600/1*e19LB9EslgNyp73O6YFV-Q.png)
 
-Image credit: [Know Your Meme](http://knowyourmeme.com/photos/185885-success-kid-i-hate-sandcastles)
+图片来源： [Know Your Meme](http://knowyourmeme.com/photos/185885-success-kid-i-hate-sandcastles)
 
-Finally, I added an option to append the results to a CSV with a timestamp.
+最后，我添加了一个选项，可以把结果和时间戳存储在一个 CSV 文件里面。
 
-```
+```python
 import csv
 
 def list_to_csv(interesting_users_list):
@@ -322,25 +322,24 @@ list_to_csv(interesting_users)
 
 ```
 
-The project’s source code is on [GitHub](https://github.com/Radu-Raicea/Interesting-People-On-Medium).
+关于这个项目的源文件可以在[这里找到](https://github.com/Radu-Raicea/Interesting-People-On-Medium)。
 
-If you don’t know Python, go read [TK](https://medium.com/@leandrotk_)’s [Learning Python: From Zero to Hero](https://medium.freecodecamp.org/learning-python-from-zero-to-hero-120ea540b567).
+如果你还不会 Python ，阅读[TK](https://medium.com/@leandrotk_)的 Python 教程：[Learning Python: From Zero to Hero](https://medium.freecodecamp.org/learning-python-from-zero-to-hero-120ea540b567)。
 
-If you have suggestions on other criteria that make users interesting, please **write them below!**
+如果你对其他让用户感兴趣的标准有建议，请**在下面留言！**
 
-### In summary…
+### 总结···
 
-*   I made a [**Python script for Medium**](https://github.com/Radu-Raicea/Interesting-People-On-Medium).
-*   The script returns a list of interesting users that are **active** and **post interesting responses** on the latest posts of people you are following.
-*   You can take users from the list and run the script with their username instead of yours.
+*   我编写一个适用于 Medium 的 [**Python 脚本**](https://github.com/Radu-Raicea/Interesting-People-On-Medium)。
+*   这个脚本返回一个用户列表，里面的用户都是**活跃的**且在你的关注的用户的最新帖子下面发表过**有趣的评论**。
+*   你可以从列表里取出用户，用他的用户名而不是你的来运行这个脚本。
 
-**Check out my** [**primer**](https://medium.freecodecamp.org/how-open-source-licenses-work-and-how-to-add-them-to-your-projects-34310c3cf94) **on open source licenses and how to add them to your projects!**
+**点击我的关于开源许可的**[**初级教程**](https://medium.freecodecamp.org/how-open-source-licenses-work-and-how-to-add-them-to-your-projects-34310c3cf94)**以及如何把它们添加到你的项目中！**
 
-For more updates, follow me on [Twitter](https://twitter.com/radu_raicea).
+更多更新，请关注我的 [Twitter](https://twitter.com/radu_raicea)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
-
 ---
 
-> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+> 掘金翻译计划 是一个翻译优质互联网技术文章的社区，文章来源为 掘金 上的英文分享文章。内容覆盖 Android、iOS、前端、后端、区块链、产品、设计、人工智能等领域，想要查看更多优质译文请持续关注 掘金翻译计划、官方微博、知乎专栏。
