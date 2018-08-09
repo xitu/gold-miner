@@ -11,7 +11,7 @@
 
 [dia057](https://unsplash.com/@dia057) | [Unsplash](http://unsplash.com/)
 
-当开发人员使用文本时，他们通常需要先清理它。有时是替换关键词，就像用“JavaScript”替换“Javascript”一样。其他时候，我们只想知道文档中是否提到了“JavaScript”。
+当开发人员使用文本时，他们通常需要先清理它。有时是替换关键词，就像用“JavaScript”替换“Javascript”一样。其它时候，我们只想知道文档中是否提到了“JavaScript”。
 
 像这样的数据清理是大多数处理文本的数据科学项目的标准任务。
 
@@ -19,7 +19,7 @@
 
 最近我有一项非常类似的工作。我在 [Belong.co](https://belong.co/) 担任数据科学家，其中有一半工作是在做自然语言处理。
 
-当我在我们的文档语料库中训练 [Word2Vec](https://en.wikipedia.org/wiki/Word2vec) 模型时，它最初会给出近似术语的同义词。 比如“Javascripting”是“JavaScript”的近似术语。
+当我在我们的文档语料库中训练 [Word2Vec](https://en.wikipedia.org/wiki/Word2vec) 模型时，它最初会把同义词当成近似术语给出。 比如“Javascripting”变成了“JavaScript”的近似术语。
 
 为了解决这事，我编写了一个正则表达式（Regex）来用标准化名称替换所有已知的同义词。比如将“JavaScripting”替换成“Javascript”。正则表达式解决了这一个问题，但创造了另一个问题。
 
@@ -36,7 +36,7 @@
 
 哦，恐怖
 
-自然的解决方案是并行运行。但是，当我们达到数百万的文档和数以千计的关键词时，这将无济于事。 **必须有更好的方法！**我开始寻找......
+自然的解决方案是并行运行。但是，当我们的数量级达到文档千万、关键词十万时，这将无济于事。 **必须有更好的方法！**我开始寻找......
 
 我在办公室和 Stack Overflow 上问了问 —— 收获了一些建议。 [Vinay Pandey](https://www.linkedin.com/in/vinay-pande-54810813/)，[Suresh Lakshmanan](https://www.linkedin.com/in/suresh-lakshmanan/) 和 [Stack Overflow](https://stackoverflow.com/questions/44178449/regex-replace-is-taking-time-for-millions-of-documents-how-to-make-it-faster) 指出了称为 [Aho-Corasick 算法](https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm)的美妙算法，以及 [Trie 数据结构](https://en.wikipedia.org/wiki/Trie)方法。我寻找已有的解决方案，但找不到多少。
 
@@ -48,7 +48,7 @@
 
 底部的红线是 FlashText 搜索所花费的时间
 
-上面显示的图表是 1 个文档时编译过的正则表达式与 FlashText 的比较。随着关键词数量的增加，正则表达式所用的时间几乎呈线性增长，但 FlashText 并不敏感。
+上面显示的图表是 1 个文档时编译过的正则表达式与 FlashText 的比较。随着关键词数量的增加，正则表达式所用的时间几乎呈线性增长，但 FlashText 对此并不敏感。
 
 #### **FlashText 将运行时间从 5 天减少到 15 分钟!! **
 
@@ -70,7 +70,7 @@ FlashText 是我在 [GitHub](https://github.com/vi3k6i5) 上开源的一个 Pyth
 
 要使用 FlashText，首先必须传入一个关键词列表。此列表将在内部用于构建 Trie 字典。然后传入一个字符串，并说明是要替换还是搜索。
 
-`**替换**`会创建一个替换了关键词的新字符串。`**搜索**`会返回字符串中找到的关键词列表。这些只需要扫描一遍输入的字符串。
+`**替换**`会创建一个替换了关键词的新字符串。`**搜索**`会返回字符串中找到的关键词列表。在运行过程中，输入的字符串只会被扫描一遍。
 
 以下是一位满意的用户对这库的看法：
 
@@ -111,7 +111,7 @@ FlashText 算法基于第二种方法。其灵感来自 Aho-Corasick 算法和 T
 
 Trie 词典的语料库。
 
-开始和 EOT（End of Term）表示像 `space`，`period` 和 `new_line` 这样的单词边界。关键词只有在其两侧都有单词边界时才匹配。这样可以防止 pineapple 匹配到 apple。
+用 start 和 EOT（End of Term）表示像 `空格`，`标点` 和 `换行` 这样的单词边界。关键词只有在其两侧都有单词边界时才匹配。这样可以防止 pineapple 匹配到 apple。
 
 接下来我们将输入一个输入字符串 `I like Python` 并逐个字符地搜索它。
 
@@ -139,7 +139,7 @@ FlashText 算法只遍历输入字符串 'I like Python' 的每个字符。字�
 
 复杂的答案：正则表达式可以基于特殊字符搜索关键词，如 `^,$,*,\d,.`，FlashText 不支持这个。
 
-因此，最好不要想像 `word\dvec` 这样匹配部分词。但提取像 `word2vec` 这样完整的单词非常适合。
+因此，如果您想像 `word\dvec` 这样匹配部分词，最好不要用 FlashText。但像 `word2vec` 这样提取完整的单词，就非常适合了。
 
 ### 用 FlashText 查找关键词
 
