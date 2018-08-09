@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/natural-language-processing-is-fun.md](https://github.com/xitu/gold-miner/blob/master/TODO1/natural-language-processing-is-fun.md)
 > * 译者：[lihanxiang](https://github.com/lihanxiang)
-> * 校对者：
+> * 校对者：[FesonX](https://github.com/FesonX)、[leviding](https://github.com/leviding)、[sakila1012](https://github.com/sakila1012)
 
 # 自然语言处理真是有趣！
 
@@ -49,7 +49,7 @@
 
 > 伦敦是英格兰首都，也是英国的人口最稠密的城市。伦敦位于英国大不列颠岛东南部泰晤士河畔，两千年来一直是一个主要定居点。它是由罗马人建立的，把它命名为伦蒂尼恩。(London is the capital and most populous city of England and the United Kingdom. Standing on the River Thames in the south east of the island of Great Britain, London has been a major settlement for two millennia. It was founded by the Romans, who named it Londinium.)
 
-> (来源： [维基百科“伦敦”](https://zh.wikipedia.org/zh-cn/%E4%BC%A6%E6%95%A6))
+> （来源：[维基百科“伦敦”](https://zh.wikipedia.org/zh-cn/%E4%BC%A6%E6%95%A6)）
 
 这段文字包含了几个有用的信息。如果电脑能够阅读这段文字并且理解伦敦是一个由罗马人建立的，位于英国的城市等等，那就最好不过了。但是要达到这个要求，我们需要先将有关书面知识的最基本的概念传授给电脑，然后不断深入。
 
@@ -119,7 +119,7 @@ I had two **ponies**.
 
 #### 第五步：识别终止词
 
-接下来，我们需要考虑句子中的每个单词的重要性。英语有很多频繁出现的填充词比如 “and”、“the” 和 “a”。 在对文本进行统计的时候，随着这些词出现频率的升高，将会出现很多歧义。一些 NLP 管道 将这些词语标记为“终止词” —— 在进行任何分析之前需要过滤掉的词语。
+接下来，我们需要考虑句子中的每个单词的重要性。英语有很多频繁出现的填充词比如 “and”、“the” 和 “a”。 在对文本进行统计的时候，随着这些词出现频率的升高，将会出现很多歧义。一些 NLP 管道将这些词语标记为“终止词” —— 在进行任何分析之前需要过滤掉的词语。
 
 这就是将终止词过滤掉之后的句子：
 
@@ -145,11 +145,11 @@ I had two **ponies**.
 
 就像我们早前使用机器学习模型来预测词性那样，以将词语输入机器学习模型并输出结果的方式来完成依存语法分析。 但是分析依存语法是一项十分复杂的任务，它需要用一整篇文章来作为分析某些细节的上下文。 如果你很好奇它是如何工作的，有一篇作者为 Matthew Honnibal 的优秀文章值得一读 **“**[**用 500 行 Python 代码来解析英语** (**Parsing English in 500 Lines of Python**)](https://explosion.ai/blog/parsing-english-in-python)**”**。
 
-但是尽管这位作者在 2015 年发表了一条说明称这种方法现在已成为标准，但它已经过时甚至不再被作者使用过。在 2016 年，谷歌推出了一种新的依存语法分析方法，称为 **Parsey McParseface**，它采用了一种新的深度学习方法，超越了之前的表现，并在业界内快速流传。 一年之后，他们又发布了新的模型，称为 ParseySaurus，对某些方面做了进一步改善。换句话说，解析技术依旧是搜索领域的一项热门技术，并且在不断地变化和改进。
+但是尽管这位作者在 2015 年发表了一条说明称这种方法现在已成为标准，但它已经过时甚至不再被作者使用过。在 2016 年，谷歌推出了一种新的依存语法分析方法，称为 **Parsey McParseface**，它采用了一种新的深度学习方法，超越了之前的表现，并在业界内快速流传。一年之后，他们又发布了新的模型，称为 ParseySaurus，对某些方面做了进一步改善。换句话说，解析技术依旧是搜索领域的一项热门技术，并且在不断地变化和改进。
 
-很多英语语句是十分模糊且难以解析的独立的，这一点需要牢记在心。在那些例子中，模型会根据之前解析过的最相似的句子来进行猜测，但这并不完美，有时这个模型会产生令人尴尬的错误。但随着时间的推移，我们的 NLP 模型将会以合理的方式更好地解析文本。
+很多英语语句是十分模糊且难以解析的，这一点需要牢记在心。在那些例子中，模型会根据之前解析过的最相似的句子来进行猜测，但这并不完美，有时这个模型会产生令人尴尬的错误。但随着时间的推移，我们的 NLP 模型将会继续以合理的方式更好地解析文本。
 
-想要在你自己的句子上试一试依存语法解析吗？[这是来自 spaCy 团队的一个很棒的互动演示](https://explosion.ai/demos/displacy).
+想要在你自己的句子上试一试依存语法解析吗？[这是来自 spaCy 团队的一个很棒的互动演示](https://explosion.ai/demos/displacy)。
 
 #### 第六步（下）：查找名词短语
 
@@ -193,13 +193,13 @@ I had two **ponies**.
 
 自从 NER 能够帮助轻易地从文本中获取结构化数据，便被广泛使用。它是从 NLP 管道中获得结果的最便捷途径之一。
 
-想自己试一试专名识别技术吗？[这是来自 spaCy 团队的另一个很棒的互动演示](https://explosion.ai/demos/displacy-ent).
+想自己试一试专名识别技术吗？[这是来自 spaCy 团队的另一个很棒的互动演示](https://explosion.ai/demos/displacy-ent)。
 
 #### 第八步：共指解析
 
 在此刻，我们已经对句子有了充分的了解。我们了解了每个词语的词性、词语之间的依存关系以及哪些词语是代表命名实体的。
 
-可是，我们还需要解决一个大问题。英语中存在着大量的代词 —— 比如**他**、**她**和**它**。 这些是我们对在句子中反复出现的名称的简化。人们能够根据上下文来得到这些词代表的内容。但是我们的 NLP 模型并不知道这些代词的含义，因为它每次只检查一个句子。
+可是，我们还需要解决一个大问题。英语中存在着大量的代词 —— 比如**他**、**她**和**它**。这些是我们对在句子中反复出现的名称的简化。人们能够根据上下文来得到这些词代表的内容。但是我们的 NLP 模型并不知道这些代词的含义，因为它每次只检查一个句子。
 
 来看看我们的文档中的第三个句子：
 
@@ -217,7 +217,7 @@ I had two **ponies**.
 
 共指解析是我们正在进行工作的管道中的最艰难步骤之一。它甚至比语句解析还要困难。深度学习的最新进展带来更精确的方法，但它还不够完美。如果你想多了解一下它是如何工作的，[从这里开始](https://medium.com/huggingface/state-of-the-art-neural-coreference-resolution-for-chatbots-3302365dcf30)。
 
-想要参与协作共指解析？[看看这个来自 Hugging Face 的协作共指解析演示](https://huggingface.co/coref/).
+想要参与协作共指解析？[看看这个来自 Hugging Face 的协作共指解析演示](https://huggingface.co/coref/)。
 
 ### 用 Python 来构建 NLP 管道
 
@@ -239,7 +239,7 @@ I had two **ponies**.
 # 安装 spaCy 
 pip3 install -U spacy
 
-# 为 spaCy 下载大型英语模型
+# 下载针对 spaCy 的大型英语模型
 python3 -m spacy download en_core_web_lg
 
 # 安装同样大有用处的 textacy
@@ -270,7 +270,7 @@ for entity in doc.ents:
     print(f"{entity.text} ({entity.label_})")
 ```
 
-如果你运行了这个，你就会得到一个关于文档中被检测出的命名实体和实体类型的表：
+如果你运行了这条语句，你就会得到一个关于文档中被检测出的命名实体和实体类型的表：
 
 ```
 London (GPE)  
@@ -284,7 +284,7 @@ Romans (NORP)
 Londinium (PERSON)
 ```
 
-你可以查看每一个[实体代码的含义](https://spacy.io/usage/linguistic-features#entity-types).
+你可以查看每一个[实体代码的含义](https://spacy.io/usage/linguistic-features#entity-types)。
 
 需要注意的是，它误将 “Londinium” 作为人名而不是地名。这可能是因为在训练数据中没有与之相似的内容，不过它做出了最好的猜测。如果你要解析具有专业术语的文本，命名实体的检测通常需要[做一些微调](https://spacy.io/usage/training#section-ner)。
 
@@ -455,7 +455,7 @@ for statement in statements:
     print(f" - {fact}")
 ```
 
-如果你用这段代码来处理维基百科上关于伦敦的文章，就会得到如下结果： 
+如果你用这段代码来处理维基百科上关于伦敦的文章，就会得到如下结果：
 
 ```
 westminster abbey  
