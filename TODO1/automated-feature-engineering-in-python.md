@@ -84,7 +84,7 @@ stats.head(10)
 
 我们可以在 featuretools 中利用下面的代码创建出一个空的实体集：
 
-```
+```python
 import featuretools as ft
 
 # 创建新实体集  
@@ -93,7 +93,7 @@ es = ft.EntitySet(id = 'clients')
 
 现在我们必须添加一些实体。每个实体必须有一个索引，它是一个包含所有唯一元素的列。也就是说，索引中的每个值必须只出现在表中一次。`clients` dataframe 中的索引是 `client_id` ，因为每个客户在这个 dataframe 中只有一行。我们使用以下语法向实体集添加一个已经有索引的实体：
 
-```
+```python
 # 从客户 dataframe 中创建出一个实体
 # 这个 dataframe 已经有一个索引和一个时间索引
 es = es.entity_from_dataframe(entity_id = 'clients', dataframe = clients, 
@@ -102,7 +102,7 @@ es = es.entity_from_dataframe(entity_id = 'clients', dataframe = clients,
 
 `loans` datafram 同样有一个唯一的索引,`loan_id` 以及向实体集添加 `loan_id` 的语法和 `clients` 一样。然而，对于 `payments` dataframe 来说，并不存在唯一的索引。当我们向实体集添加实体时，我们需要把参数 `make_index` 设置为 `True`( `make_index = True` )，同时为索引指定好名称。此外，虽然 featuretools 会自动推断实体中的每个列的数据类型,我们也可以将一个列类型的字典传递给参数 `variable_types` 来进行数据类型重写。
 
-```
+```python
 # 从付款 dataframe 中创建一个实体
 # 该实体还没有一个唯一的索引
 es = es.entity_from_dataframe(entity_id = 'payments', 
@@ -127,7 +127,7 @@ es = es.entity_from_dataframe(entity_id = 'payments',
 
 要[在 featuretools 中格式化关系](https://docs.featuretools.com/loading_data/using_entitysets.html#add-a-relationship)，我们只需指定将两个表链接在一起的变量。 `clients` 和 `loans` 表通过 `loan_id` 变量链接， `loans` 和 `payments` 通过 `loan_id` 联系在一起。创建关系并将其添加到实体集的语法如下所示:
 
-```
+```python
 # 客户与先前贷款的关系
 r_client_previous = ft.Relationship(es['clients']['client_id'],
                                     es['loans']['client_id'])
@@ -164,7 +164,7 @@ es
 
 这些基元可以自己使用或组合来创建特征。要使用指定的基元，我们使用 `ft.dfs` 函数（代表深度特征合成）。我们传入 `实体集`、`目标实体`（这两个参数是我们想要加入特征的表）以及 `trans_primitives` 参数（用于转换）和 `agg_primitives` 参数（用于聚合）：
 
-```
+```python
 # 使用指定的基元创建新特征
 features, feature_names = ft.dfs(entityset = es, target_entity = 'clients', 
                                  agg_primitives = ['mean', 'max', 'percent_true', 'last'],
@@ -199,7 +199,7 @@ features, feature_names = ft.dfs(entityset = es, target_entity = 'clients',
 
 我们不必手工指定特征基元，而是可以让 featuretools 自动为我们选择特性。为此，我们使用相同的 `ft.dfs` 函数调用，但不传递任何特征基元:
 
-```
+```python
 # 执行深度特征合成而不指定特征基元。
 features, feature_names = ft.dfs(entityset=es, target_entity='clients', 
                                  max_depth = 2)
