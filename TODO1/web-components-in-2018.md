@@ -48,7 +48,6 @@ const templateInstance = templateContent.cloneNode(true);
 container.appendChild(templateInstance);
 ```
 
-Using this method, it is possible to reuse the template using the `cloneNode` function. Alongside the `<template>` tag is the `<slot>` tag. Slots allow developers to dynamically place custom HTML content within the template at specified points. The `name` attribute is used to create a unique identifier to slot into:
 像上面那样写，就可以借助 `cloneNode` 函数来复用这个模板。提到 `<template>` 标签就不得不提 `<slot>` 标签。slot 标签允许开发者通过特定接入点来动态替换模板中的 HTML 内容。它用 `name` 属性来作为唯一识别标志（译者注，就类似普通 DOM 节点的 id 属性）：
 
 ```
@@ -174,7 +173,7 @@ Custom Element 可分为两种主要类型：**独立 custom element（Autonomou
 
 #### Custom Element 的生命周期
 
-Custom Element 也有一系列的生命周期事件，用于管理组件挂接和脱离 DOM ：
+Custom Element 也有一系列的生命周期事件，用于管理组件连接和脱离 DOM ：
 
 *   `connectedCallback`：连接到 DOM
 *   `disconnectedCallback`： 从 DOM 上脱离
@@ -182,7 +181,7 @@ Custom Element 也有一系列的生命周期事件，用于管理组件挂接�
 
 一种常见错误是将 `connectedCallback` 用做一次性的初始化事件，然而实际上你每次将节点连接到 DOM 时都会被调用。取而代之的，在 `constructor` 这个 API 接口调用时做一次性初始化工作会更加合适。
 
-There is also `attributeChangedCallback` which can be used to monitor changes to element attributes and have them update internal state. However, for this to get used, it is necessary to first define an `observedAttributes` getter in the element Class:
+此处还有一个 `attributeChangedCallback` 事件可以用来监听节点（译者注：使用 Custom Element 定义的节点）属性的变化，然后通过这个变化来更新内部状态。不过，要想用上这个能力，必须先在节点类里面定义一个名为 `observedAttributes` 的 getter：
 
 ```
 constructor() {
@@ -192,51 +191,51 @@ constructor() {
 }
  
 get observedAttributes() {return ['someAttribute']; } 
-// Other methods
+// 其他方法
 ```
 
-From here it is possible to handle changes to the element’s attributes via `attributeChangedCallback` :
+从这里起就可以通过 `attributeChangedCallback` 来处理节点属性的变化：
 
 ```
 attributeChangedCallback(attributeName, oldValue, newValue) {
     if (attributeName==="someAttribute") {
         console.log(oldValue, newValue)
-        // do something based on attribute changes
+        // 根据属性变化做一些事情
     }
 }
 ```
 
-## What About Support?
+## 支持度如何？
 
-As of June 2018, Shadow DOM v1 and Custom Elements v1 support exist in Chrome, Safari, Samsung Internet and also [under a feature flag on Firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=889230) which is promising. Both are still [under consideration in Edge](https://developer.microsoft.com/en-us/microsoft-edge/platform/status/customelements/). Until that point, there is a set of polyfills from the [webcomponents GitHub repo](https://github.com/webcomponents/webcomponentsjs). These polyfills allow you to run Web Components in all evergreen browser and also IE11. The webcomponentsjs library contains multiple flavours, including a script with all necessary polyfills (_webcomponents-bundle.js_) and also a version that does feature detection to load in only the necessary polyfills (_webcomponents-loader.js_). If you use the loader, you must host the various polyfill bundles also so that the loader can fetch them.
+截至 2018 年 6 月，Shadow DOM 第一版和 Custom Element 第一版在 Chrome、Safari、三星浏览器上已经支持，还[被 Firefox 列为要支持的特性](https://bugzilla.mozilla.org/show_bug.cgi?id=889230)，希望很大。而 [Edge 依然在考虑是否支持](https://developer.microsoft.com/en-us/microsoft-edge/platform/status/customelements/)。在这个时间点，Github 上的 webcomponents 仓库已经有了一系列的 polyfill。这些 polyfill 让你可以在所有当下活跃的浏览器上运转 Web 组件，连 IE11 都行。该 webcomponents 库包含多种形态，既提供了一个包含所有必要 polyfill 的脚本（_webcomponents-loader.js_），也提供了一个通过特性检测来只加载必要 polyfill 的版本（_webcomponents-loader.js_）。如果使用第二种，你还是必须将各个 polyfill 文件都放到服务器上来保证加载器可以加载到。
 
-For those shipping ES5 bundles in code, it is necessary to also the ship the _custom-elements-es5-adapter.js_ file, which must load first and not be bundled in with component code. This adapter is needed as Custom Elements **must** extend HTMLElement’s which requires an ES2015 call to `super()` in the constructor (this can be confusing as the file has `es5` in it!). On IE11 this will throw an error due to lack of ES2015 class support, [but this can be ignored](https://github.com/webcomponents/webcomponentsjs/issues/900).
+对于那些代码中只能用 ES5 的情况，还必须加载一个 _custom-elements-es5-adapter.js_ 文件，而且它必须首先加载，不能跟组件代码打包在一起。之所以需要这个适配文件是因为 Custom Element **必须**拓展自 HTMLElement 类，在它的构造函数中要用到 ES2015 的调用方式 `super()`（这在 ES5 代码里看起来会很困惑）。在 IE11 中还是会由于不支持 ES2015 的类特性而抛出错误，[不过可以忽略之](https://github.com/webcomponents/webcomponentsjs/issues/900)。
 
-## Web Components and Frameworks
+## Web 组件和框架
 
-Historically one of the biggest champions of Web Components is the Polymer library. Polymer adds syntactic sugar around the Web Component APIs to make it easier to author and ship components. In the latest version, [Polymer](https://www.polymer-project.org/) 3, it has moved towards using ES2015 Modules and using npm as the standard package manager, keeping it inline with other modern frameworks. Another recent flavour of Web Component authoring tools are those that act more like compilers than a framework. Two such frameworks are [Stencil](https://stenciljs.com/docs/introduction/) and [Svelte](https://svelte.technology/guide). Here components are written using the respective tools API and then compile down to native Web Components. Frameworks such as [Dojo 2,](https://dojo.io/) take the approach of allowing developers to write framework specific components, but also allow compilation down to native Web Components. In Dojo 2’s case this is achieved using [@dojo/cli tools](https://github.com/dojo/cli-build-widget).
+Web 组件的捍卫者中不得不提 Polymer 库。Polymer 针对 Web 组件 API 添加了一些语法糖使得它们更加好用更容易用来构建组件。在最新版本 [Polymer](https://www.polymer-project.org/)3 中，它与时俱进用上了 ES2015 的模块特性并且使用 npm 作为标准的包管理工具，跟上了其他的现代框架。Web 组件编码工具的另一种形态则更像是编译器而非框架。[Stencil](https://stenciljs.com/docs/introduction/) 和 [Svelte](https://svelte.technology/guide) 这两个框架就是这样。它们使用各自的工具 API 来书写组件，然后编译成原生的 Web 组件。一些框架比如 [Dojo 2,](https://dojo.io/) 则选择允许开发者编写特定框架的组件，不过也允许编译成原生 Web 组件就是了。在 Dojo2 中这是用 [@dojo/cli tools](https://github.com/dojo/cli-build-widget) 来实现的。
 
-One of the ideals of having native Web Components is the ability to use them across projects and teams, even if they potentially use different frameworks. Different frameworks currently have differing relations with Web Components, with some being more on board than others. There are explanations of how to use native Web Components in frameworks such as [React](https://www.sitepen.com/blog/2017/08/08/wrapping-web-components-with-react/) and [Angular](https://www.sitepen.com/blog/2017/09/14/using-web-components-with-angular/), but both have caveats around their idiosyncrasies. One of the best resources for understanding this relationship is Rob Dodson’s [Custom Elements Everywhere](https://custom-elements-everywhere.com), which has tests to see how well different frameworks integrate with Custom Elements (the core element of Web Components).
+努力实现原生的 Web 组件的一个愿景，是希望跨越不同团队不同项目来共用组件，即使它们用的是不同的框架。当下不同的框架和 Web 组件规范有不同的关系，有些框架实现得更贴近规范。已经有一些指引告诉我们怎么在诸如 [React](https://www.sitepen.com/blog/2017/08/08/wrapping-web-components-with-react/) 和 [Angular](https://www.sitepen.com/blog/2017/09/14/using-web-components-with-angular/) 这样的框架中用上原生的 Web 组件，但它们的实现上还是带着浓浓的框架特色。有一个很好的资源可以帮你理解这些关系，那就是 Rod Dodson 的 [Custom Elements Everywhere](https://custom-elements-everywhere.com)，它有一些测试用例可以测出不同框架想和 Custom Element（Web组件规范的核心） 结合的难易程度。
 
-## Final Thoughts
+## 最后的想法
 
-Adoption and hype around Web Components have been extended and undulating. That said, as the Web Component specifications gain better adoption, the need for polyfills should gradually dissolve, keeping them leaner and faster for users. The Shadow DOM allows developers to write simple, scoped CSS which is arguably easier to manage and generally better for performance. Custom Elements give a unified methodology for defining components that can (in theory) get used across codebases and teams. At the moment there are additional specification proposals that developers may be able to leverage along the base specifications:
+围绕 Web 组件的使用和炒作不断持续此起彼伏。这意味着，随着 Web 组件得到越来越好的支持，polyfill 将逐渐淡出我们的视野，组件书写将更加简洁和快速。Shadow DOM 允许开发者写一些简单的限定区域有效的 CSS，这无疑更加容易管理，通常性能也会更好。Custom Element 提供了一种统一的方法来定义组件，这些组件可以（理论上）跨代码库和团队来使用。目前有一些额外的规范建议，开发者可以根据基本规范加以利用：
 
-*   [**Custom Element Registries**](https://github.com/w3c/webcomponents/issues/716) – Scoped element registration, preventing element name clashing
-*   [**Shadow CSS Parts**](https://tabatkins.github.io/specs/css-shadow-parts/) – Native theming of components
-*   [**Template Instantiation**](https://github.com/w3c/webcomponents/blob/gh-pages/proposals/Template-Instantiation.md) – Fast dynamic templating using JavaScript variables
+*   [**Custom Element 登记处**](https://github.com/w3c/webcomponents/issues/716) – 限制节点注册，避免节点命名冲突；
+*   [**Shadow CSS Parts**](https://tabatkins.github.io/specs/css-shadow-parts/) – 组件的原生主题；
+*   [**模块实例化**](https://github.com/w3c/webcomponents/blob/gh-pages/proposals/Template-Instantiation.md) – 使用 JavaScript 变量来快速动态应用模板；
 
-Additions such as these could add even more power to the native web platform, increasing the potential for developers with less need for abstractions.
+这些补充规范可以为原生 web 平台增加更多功能，让开发者不用再去理解那么多抽象概念，释放更多的潜力。
 
-The base specifications are an undeniably powerful set of tools, but ultimately it is up to frameworks, developers, and teams to adopt them to reach their full potential. With frameworks like React, Vue, and Angular holding large chunks of developer mindshare, will that start to be eroded by native aligned technologies and tools? Only time will tell.
+该基本规范毫无疑问是一套强大的工具，但最终它是否能发挥最大的效用还是要取决于用到它的框架、开发者和团队。目前如 React、Vue、Angular 这样的框架已经大大占据了开发者的大脑，它们会因为这些原生态的技术和工具而逐渐败下阵来吗？只能让时间来见证了。
 
 * * *
 
-## Next steps
+## 下一步
 
-Are you looking to leverage web components in your next project or framework? [Contact us](https://www.sitepen.com/site/contact.html) to discuss how we can help!
+你是否希望在你的下一个项目或框架中用上 web 组件？[联系我们](https://www.sitepen.com/site/contact.html)，探讨下我们可以怎么帮到你！
 
-Get help from [SitePen On-Demand Development](https://www.sitepen.com/support/index.html), our fast and efficient solutions to JavaScript and TypeScript development problems of any size.
+在 [SitePen On-Demand Development](https://www.sitepen.com/support/index.html) 可以获取帮助，它有我们对 JavaScript 和 TypeScript 大大小小问题的快速有效解决方案。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
