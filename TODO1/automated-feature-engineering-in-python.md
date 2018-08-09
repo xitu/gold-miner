@@ -39,7 +39,7 @@
 
 这个过程包括了根据客户进行贷款表格分组、计算聚合、然后把计算结果数据合并到客户数据中。如下代码展示了我们如何使用 Python 中的 [language of Pandas](https://pandas.pydata.org/pandas-docs/stable/index.html) 库进行计算的过程：
 
-```
+```python
 import pandas as pd
 
 # 根据客户 id （client id）进行贷款分组，并计算贷款平均值、最大值、最小值
@@ -151,7 +151,7 @@ es
 
 #### 特征基元
 
-在深入了解特性合成之前，我们需要了解[特征基元](https://docs.featuretools.com/automated_feature_engineering/primartives.html)。我们已经知道它们是什么了，但是我们只是用不同的名字称呼它们！这些是我们用来形成新特征的基本操作:
+在深入了解特性合成之前，我们需要了解[特征基元](https://docs.featuretools.com/automated_feature_engineering/primartives.html)。我们已经知道它们是什么了，但是我们只是用不同的名字称呼它们！这些是我们用来形成新特征的基本操作：
 
 *   聚合：通过父节点对子节点（一对多）关系完成的操作，并计算子节点的统计信息。一个例子是通过 `client_id` 将 `loan` 表分组，并为每个客户机找到最大的贷款金额。
 *   转换：在单个表上对一个或多个列执行的操作。举个例子，取一个表中两个列之间的差值，或者取列的绝对值。
