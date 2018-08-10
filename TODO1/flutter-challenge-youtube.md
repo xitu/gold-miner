@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-challenge-youtube.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-challenge-youtube.md)
 > * 译者：[MeFelixWang](https://github.com/MeFelixWang)
-> * 校对者：
 
 # 挑战Flutter之YouTube（画中画）
 
@@ -78,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 ```
 
-#### 制作 AppBar 
+#### 制作 AppBar
 
  AppBar 左侧有 YouTube 的 logo 和名称，右侧有三个 action ，即记录、搜索和打开配置文件。
 
@@ -118,7 +117,7 @@ appBar: new AppBar(
 
 ![](https://cdn-images-1.medium.com/max/1600/1*xYqSCYNVC9zPB54z51NRxA.png)
 
-注意：对于 YouTube 的 logo ，我使用了 [Dart pub](https://pub.dartlang.org/packages/font_awesome_flutter#-readme-tab-) FontFlutterAwesome 图标。
+注意：对于 YouTube 的 logo，我使用了 [Dart pub](https://pub.dartlang.org/packages/font_awesome_flutter#-readme-tab-) FontFlutterAwesome 图标。
 
 接着制作底部导航栏，
 
@@ -136,7 +135,7 @@ bottomNavigationBar: BottomNavigationBar(items: [
 ], type: BottomNavigationBarType.fixed,),
 ```
 
-注意：对于4个以上的项目我们需要指定一个固定的 BottomNavigationBarType ，因为为了避免拥挤默认类型是 shifting 。
+注意：对于4个以上的项目我们需要指定一个固定的 BottomNavigationBarType，因为为了避免拥挤默认类型是 shifting 。
 
 结果是：
 
@@ -152,7 +151,7 @@ bottomNavigationBar: BottomNavigationBar(items: [
 
 列表项由一个带有一张图片的 Column 和一个有关视频信息的 Raw 组成。该 Row 由一张图片，一个包含标题、发布者和菜单按钮的 Column 组成。
 
-要在 Flutter 中创建列表，我们可以使用 ListView.builder() 。重新创建列表项，如下：
+要在 Flutter 中创建列表，我们可以使用 ListView.builder()。重新创建列表项，如下：
 
 ```
 ListView.builder(
@@ -339,7 +338,7 @@ LayoutBuilder(
 1.  将视频从右上角移动到右下角。
 2.  更改视频的大小并使其变小。
 
-对于这些东西，我们使用两个 Tweens ，一个 AlignmentTween 和一个 Tween<double> ，并构造两个同时运行的独立动画。
+对于这些东西，我们使用两个 Tweens，一个 AlignmentTween 和一个 Tween<double>，并构造两个同时运行的独立动画。
 
 ```
 AnimationController alignmentAnimationController;
@@ -411,7 +410,7 @@ onVerticalDragEnd: (details) {
 
 这是该项目的 GitHub 链接：[https://github.com/deven98/YouTubeFlutter](https://github.com/deven98/YouTubeFlutter)
 
-感谢阅读此 Flutter 挑战。可以留言告诉我任何你想要在 Flutter 中重新创建的应用。喜欢请给个 star ，下次见。
+感谢阅读此 Flutter 挑战。可以留言告诉我任何你想要在 Flutter 中重新创建的应用。喜欢请给个 star，下次见。
 
 不要错过：
 
