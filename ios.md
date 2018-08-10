@@ -1,3 +1,7 @@
+* [重写 loadView() 方法使 Swift 视图代码更加简洁](https://juejin.im/post/5b68fe5b6fb9a04fd16039c0) ([RickeyBoy](https://github.com/RickeyBoy) 翻译)
+* [React Native 中使用转场动画！](https://juejin.im/post/5b69467e5188251b3c3b4e4e) ([talisk](https://github.com/talisk) 翻译)
+* [一份在你的 iPhone 上平衡实用和美观的指南](https://juejin.im/post/5b4c0d0ce51d4519503b1e67) ([94haox](https://github.com/94haox) 翻译)
+* [Tab Bar 就是新的汉堡菜单](https://juejin.im/post/5b61684fe51d451986517e31) ([rydensun](https://github.com/rydensun) 翻译)
 * [Airbnb 中的 React Native（五 — 完）：Airbnb 移动端路在何方？](https://juejin.im/post/5b46f92de51d45198e721cd7) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
 * [Airbnb 中的 React Native（四）：React Native 退役](https://juejin.im/post/5b447b1e6fb9a04fd3437dad) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
 * [Airbnb 中的 React Native （三）：建立一个跨平台的移动端团队](https://juejin.im/post/5b446177f265da0f7c4faec8) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
