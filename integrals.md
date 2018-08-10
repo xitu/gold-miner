@@ -3477,10 +3477,11 @@
 |------|-------|-------|
 |[如何在无损的情况下让图片变的更小](https://juejin.im/post/5959fbe0f265da6c2518d740)|校对|2|
 
-## 译者：[swants](https://github.com/swants) 历史贡献积分：59 当前积分：29 年度积分：20
+## 译者：[swants](https://github.com/swants) 历史贡献积分：59 当前积分：19 年度积分：20
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 8 月兑掘金桌垫 1 个|减去积分|10|
 |2018 年 6 月兑掘金桌垫 1 个|减去积分|10|
 |[Swift 中的内存泄漏](https://juejin.im/post/5b07a1c251882538914a5d3e)|校对|1.5|
 |[Swift 中的 Playground 驱动开发](https://juejin.im/post/5b07665c6fb9a07ac5608d8a)|校对|3|
@@ -5945,10 +5946,11 @@
 |[怎样更好地使用 Vue：我在新工作中遇到的一些问题清单](https://juejin.im/post/5b0a36366fb9a07a9c04aca2)|校对1|
 |[可微可塑性：一种学会学习的新方法](https://juejin.im/post/5b055308f265da0ba063879d)|校对|1.5|
 
-## 译者：[zhongdeming428](https://github.com/zhongdeming428) 历史贡献积分：22 当前积分：22 年度积分：22
+## 译者：[zhongdeming428](https://github.com/zhongdeming428) 历史贡献积分：22 当前积分：7 年度积分：22
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 8 月兑掘金桌垫和集智马克杯各一个|减去积分|15|
 |[将项目迁移到 Yarn 然后又迁回到 npm](https://juejin.im/post/5b3b5735f265da0f894b443d)|翻译|3|
 |[怎样使用简单的三角函数来创建更好的加载动画](https://juejin.im/post/5b33055f518825748871c590)|翻译|6|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|6|
