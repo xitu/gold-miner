@@ -36,9 +36,9 @@
 
 哦，恐怖
 
-自然的解决方案是并行运行。但是，当我们的数量级达到文档千万、关键词十万时，这将无济于事。 **必须有更好的方法！**我开始寻找......
+自然的解决方案是并行运行。但是，当我们的数量级达到文档千万、关键词十万时，这将无济于事。**必须有更好的方法！**我开始寻找......
 
-我在办公室和 Stack Overflow 上问了问 —— 收获了一些建议。 [Vinay Pandey](https://www.linkedin.com/in/vinay-pande-54810813/)，[Suresh Lakshmanan](https://www.linkedin.com/in/suresh-lakshmanan/) 和 [Stack Overflow](https://stackoverflow.com/questions/44178449/regex-replace-is-taking-time-for-millions-of-documents-how-to-make-it-faster) 指出了称为 [Aho-Corasick 算法](https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm)的美妙算法，以及 [Trie 数据结构](https://en.wikipedia.org/wiki/Trie)方法。我寻找已有的解决方案，但找不到多少。
+我在办公室和 Stack Overflow 上问了问 —— 收获了一些建议。[Vinay Pandey](https://www.linkedin.com/in/vinay-pande-54810813/)，[Suresh Lakshmanan](https://www.linkedin.com/in/suresh-lakshmanan/) 和 [Stack Overflow](https://stackoverflow.com/questions/44178449/regex-replace-is-taking-time-for-millions-of-documents-how-to-make-it-faster) 指出了称为 [Aho-Corasick 算法](https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm)的美妙算法，以及 [Trie 数据结构](https://en.wikipedia.org/wiki/Trie)方法。我寻找已有的解决方案，但找不到多少。
 
 所以我编写了自己的实现，[FlashText](https://github.com/vi3k6i5/flashtext) 诞生了。
 
@@ -54,7 +54,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/1*ZfRhHGtxhbEB0dS-3BHOAw.png)
 
-这个好:)
+这个好 :)
 
 这是 FlashText 做替换时的计时：
 
@@ -90,7 +90,7 @@ FlashText 是我在 [GitHub](https://github.com/vi3k6i5) 上开源的一个 Pyth
 ...
 ```
 
-如果语料库有 `n` 个词，它就会重复 `n` 次。每个搜索步骤 `<word> 在句子中吗？`都要独自花费时间。这就是正则表达式匹配中发生的事情。
+如果语料库有 `n` 个词，它就会重复 `n` 次。每个搜索步骤 `<word> 在句子中吗？` 都要独自花费时间。这就是正则表达式匹配中发生的事情。
 
 还有另一种方法与第一种方法相反：对于句子中的每个单词，检查它是否存在于语料库中。
 
@@ -100,7 +100,7 @@ FlashText 是我在 [GitHub](https://github.com/vi3k6i5) 上开源的一个 Pyth
 'Python' 在语料库中吗？
 ```
 
-如果句子中有 `m` 个词，它就会重复 `m` 次。在这种情况下，它所花费的时间仅取决于句子中的单词数量。而 `<word> 在语料库中吗？`这一步可以使用字典查找快速完成。
+如果句子中有 `m` 个词，它就会重复 `m` 次。在这种情况下，它所花费的时间仅取决于句子中的单词数量。而 `<word> 在语料库中吗？` 这一步可以使用字典查找快速完成。
 
 FlashText 算法基于第二种方法。其灵感来自 Aho-Corasick 算法和 Trie 数据结构。
 
@@ -111,7 +111,7 @@ FlashText 算法基于第二种方法。其灵感来自 Aho-Corasick 算法和 T
 
 Trie 词典的语料库。
 
-用 start 和 EOT（End of Term）表示像 `空格`，`标点` 和 `换行` 这样的单词边界。关键词只有在其两侧都有单词边界时才匹配。这样可以防止 pineapple 匹配到 apple。
+用 start 和 EOT（End Of Term）表示像 `空格`，`标点` 和 `换行` 这样的单词边界。关键词只有在其两侧都有单词边界时才匹配。这样可以防止 pineapple 匹配到 apple。
 
 接下来我们将输入一个输入字符串 `I like Python` 并逐个字符地搜索它。
 
@@ -176,7 +176,7 @@ new_sentence
 
 这个库对我们非常有用，我相信它对其他人也很有用。
 
-终于讲完了，感谢捧场😊
+终于讲完了，感谢捧场 😊
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
