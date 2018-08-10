@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-scrape-websites-with-python-and-beautifulsoup.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-scrape-websites-with-python-and-beautifulsoup.md)
 > * 译者：[geniusq1981](https://github.com/geniusq1981)
-> * 校对者：
+> * 校对者：[Park-ma](https://github.com/Park-ma)
 
-# 如何使用 Python 和 BeautifulSoup 抓取网站内容 
+# 如何使用 Python 和 BeautifulSoup 抓取网站内容
 
 ![](https://cdn-images-1.medium.com/max/1600/1*BrUAg3-OqIHkoTz_CRIzTA.png)
 
@@ -39,12 +39,12 @@ pip install BeautifulSoup4
 
 ### 基础知识
 
-在我们开始真正的代码之前，让我们先了解下 HTML 的基础知识和一些网页抓取的规则。
+在我们真正开始编写代码之前，让我们先了解下 HTML 的基础知识和一些网页抓取的规则。
 
 **HTML 标签**  
 如果你已经理解了 HTML 的标签，请跳过这部分。
 
-```Python
+```Html
 <!DOCTYPE html>  
 <html>  
     <head>
@@ -64,7 +64,7 @@ pip install BeautifulSoup4
 5. 标题通过 `h1` 到 `h6` 的标签定义。  
 6. 段落内容被定义在 `<p>` 标签里。
 
-其他常用的标签还有，用于超链接的 `a` 标签，用于显示表格的 `<table>` 标签，以及用于显示表格行的 `tr` 标签，用于显示表格列的 `<td>` 标签。
+其他常用的标签还有，用于超链接的 `a` 标签，用于显示表格的 `<table>` 标签，以及用于显示表格行的 `<tr>` 标签，用于显示表格列的 `<td>` 标签。
 
 另外，HTML 标签时常会有 `id` 或者 `class` 属性。`id` 属性定义了标签的唯一标识，并且这个值在当前文档中必须是唯一的。`class` 属性用来给 HTML 标签定义相同的样式属性。我们可以使用这些 id 和 class 来帮助我们定位我们要抓取的数据。
 
@@ -80,7 +80,7 @@ pip install BeautifulSoup4
 
 让我们以 [Bloomberg Quote](http://www.bloomberg.com/quote/SPX:IND) 网站的一个页面为例。
 
-因为有些人会关注股市，我们就从这个页面上获取指数名称（标准普尔 500 指数）和它的价格。首先，从鼠标右键菜单中点击 iispect 打开检查器来查看页面。
+因为有些人会关注股市，我们就从这个页面上获取指数名称（标准普尔 500 指数）和它的价格。首先，从鼠标右键菜单中点击检查选项来查看页面。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*KOJCuAYQyMIC8QdQyXERyw.png)
 
@@ -90,17 +90,17 @@ pip install BeautifulSoup4
 
 通过结果，你可以看到价格被包裹在一组的 HTML 标签里面，`<div class="basic-quote">` → `<div class="price-container up">` → `<div class="price">`。
 
-类似的，如果你点击“标准普尔 500 指数”，它被包裹在 `<div class="basic-quote">` 和 `<h1 class="name">` 里面.
+类似的，如果你点击“标准普尔 500 指数”，它被包裹在 `<div class="basic-quote">` 和 `<h1 class="name">` 里面。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*ga5bmPtLDdWUTvL-pNxBgg.png)
 
 现在我们通过 `class` 标签的帮助，知道了所需数据的确切位置。
 
-### Jump into the Code
+### 编写代码
 
-现在我们知道数据在哪儿，我们可以编写我们的网页爬虫。现在打开你的文本编辑器。
+现在我们知道数据在哪儿了，我们就可以编写网页爬虫了。现在打开你的文本编辑器。
 
-首先，我们需要导入所有我们将要用到的库。
+首先，需要导入所有我们需要用到的库。
 
 ```Python
 # import libraries
@@ -168,7 +168,7 @@ import csv
 from datetime import datetime
 ```
 
-在这些代码下面，增加写数据到 csv 文件的代码。
+在你的这些代码下面，添加保存数据到 csv 文件的代码。
 
 ```Python
 # open a csv file with append, so old data will not be erased
@@ -177,7 +177,7 @@ with open(‘index.csv’, ‘a’) as csv_file:
  writer.writerow([name, price, datetime.now()])
 ```
 
-现在如果运行你的程序，你应该可以输出一个 `index.csv` 文件，你可以使用 Excel 打开它，在里面可以看到一行数据。
+如果你现在运行你的程序，你应该会得到 `index.csv` 文件，用 Excel 打开它，在里面可以看到一行数据。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*d-27jLzy2GrxmvlLRJ4yVw.png)
 
@@ -188,13 +188,13 @@ with open(‘index.csv’, ‘a’) as csv_file:
 **多个指数**  
 对你来说，只获取一个指数远远不够，对不对？我们可以同时提取多个指数。
 
-首先，修改 `quote_page` 变量为一组 URLs.
+首先，修改 `quote_page` 变量为一组 URLs。
 
 ```Python
 quote_page = [‘http://www.bloomberg.com/quote/SPX:IND', ‘http://www.bloomberg.com/quote/CCMP:IND']
 ```
 
-然后我们把数据提取代码变成 `for` 循环，这样可以一个接一个地处理 URLs，然后把所有的数据都存到元数组 `data` 中。
+然后我们把数据提取代码变成 `for` 循环，这样可以一个接一个地处理 URL，然后把所有的数据都存到元数组 `data` 中。
 
 ```Python
 # for loop
@@ -218,7 +218,7 @@ for pg in quote_page:
  data.append((name, price))
 ```
 
-然后，修改保存部分代码，把数据一行一行地写到文件中。
+然后，修改“保存部分”的代码，把数据一行一行地写到文件中。
 
 ```Python
 # open a csv file with append, so old data will not be erased
