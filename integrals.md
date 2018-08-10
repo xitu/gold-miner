@@ -3052,7 +3052,7 @@
 |[Functor 与 Category （软件编写）（第六部分）](https://juejin.im/post/58f58d5da0bb9f006aac3e8d)|翻译|4|
 |[Reduce（软件编写）（第五部分）](https://juejin.im/post/58f44082da2f60005d3a3710)|翻译|4|
 
-## 译者：[xunge0613](https://github.com/xunge0613) 历史贡献积分：52 当前积分：52 年度积分：12
+## 译者：[xunge0613](https://github.com/xunge0613) 历史贡献积分：55 当前积分：55 年度积分：15
 
 |文章|类型|积分|
 |------|-------|-------|
