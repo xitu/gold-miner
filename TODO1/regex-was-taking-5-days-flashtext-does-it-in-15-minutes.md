@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/regex-was-taking-5-days-flashtext-does-it-in-15-minutes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/regex-was-taking-5-days-flashtext-does-it-in-15-minutes.md)
 > * 译者：[cf020031308](https://github.com/cf020031308)
-> * 校对者：
+> * 校对者：[StellaBauhinia](https://github.com/StellaBauhinia), [Park](https://github.com/Park-ma)
 
 # 正则表达式要跑 5 天，所以我做了个工具，只跑 15 分钟。
 
