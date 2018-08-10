@@ -4050,10 +4050,11 @@
 |[cnJason 翻译开源库 Java 215 个](#)|翻译|21.5|
 |[cnJason 翻译开源库 Java 100 个](#)|翻译|10|
 
-## 译者：[RickeyBoy](https://github.com/RickeyBoy) 历史贡献积分：21.5 当前积分：21.5 年度积分：11
+## 译者：[RickeyBoy](https://github.com/RickeyBoy) 历史贡献积分：24.5 当前积分：24.5 年度积分：14
 
 |文章|类型|积分|
 |------|-------|-------|
+|[重写 loadView() 方法使 Swift 视图代码更加简洁](https://juejin.im/post/5b68fe5b6fb9a04fd16039c0)|翻译|3|
 |[Swift 中的内存泄漏](https://juejin.im/post/5b07a1c251882538914a5d3e)|翻译|7|
 |[避免 Swift 单元测试中的强制解析](https://juejin.im/post/5a9ce4ac6fb9a028b547602e)|翻译|4|
 |[Swift 上的高性能数组](https://juejin.im/post/59e84129f265da43128005ed)|校对|0.5|
@@ -5042,10 +5043,13 @@
 |[我未曾见过的 JS 特性](https://juejin.im/post/5a723216f265da3e2e62d0a5)|校对|1|
 |[通过后台数据预获取技术实现性能提升](https://juejin.im/post/5a71a9c3f265da3e2f01459b)|校对|2|
 
-## 译者：[foxxnuaa](https://github.com/foxxnuaa) 历史贡献积分：25.5 当前积分：25.5 年度积分：25.5
+## 译者：[foxxnuaa](https://github.com/foxxnuaa) 历史贡献积分：28.5 当前积分：28.5 年度积分：28.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Tab Bar 就是新的汉堡菜单](https://juejin.im/post/5b61684fe51d451986517e31)|校对|1.5|
+|[React Native 中使用转场动画！](https://juejin.im/post/5b69467e5188251b3c3b4e4e)|校对|0.5|
+|[重写 loadView() 方法使 Swift 视图代码更加简洁](https://juejin.im/post/5b68fe5b6fb9a04fd16039c0)|校对|1|
 |[这可能是 2018 年最好的一篇 PHP 性能测评（包含 5.6 到 7.2，以及HHVM）](https://juejin.im/post/5ab4bac9518825557b4caec6)|校对|3|
 |[带你了解以太坊第 2 层扩容方案：State Channels、Plasma 和 Truebit](https://juejin.im/post/5aa1f63c518825558804f85b)|校对|4|
 |[使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第一部分）](https://juejin.im/post/5aa7a8d2518825558805128d)|翻译|3.5|
@@ -5223,10 +5227,11 @@
 |[前端开发者指南 2018](https://github.com/xitu/front-end-handbook-2018)|翻译校对|7|
 |[用 Java 创造你的第一个区块链 — 第一部分](https://juejin.im/post/5a8ed1d75188257a836c4218)|校对|1.5|
 
-## 译者：[94haox](https://github.com/94haox) 历史贡献积分：6.5 当前积分：6.5 年度积分：6.5
+## 译者：[94haox](https://github.com/94haox) 历史贡献积分：9.5 当前积分：9.5 年度积分：9.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[一份在你的 iPhone 上平衡实用和美观的指南](https://juejin.im/post/5b4c0d0ce51d4519503b1e67)|翻译|3|
 |[iOS App 上一种灵活的路由方式](https://juejin.im/post/5aafc278f265da23805973e3)|校对|1|
 |[为你的 React 应用制作 SVG 图标库](https://juejin.im/post/5a9e40fe518825558a061cfd)|校对|0.5|
 |[通过 Quick 和 Nimble 在 Swift 中进行测试驱动开发](https://juejin.im/post/5a93635d5188257a7924c5d5)|翻译|3.5|
@@ -5346,10 +5351,11 @@
 |[在 V8 引擎中设置原型（prototypes）](https://juejin.im/post/5a9921e76fb9a028bd4bc3c4)|校对|1|
 |[json — JavaScript 对象表示法](https://juejin.im/post/5a9432ae5188257a5c6092b0)|校对|1|
 
-## 译者：[rydensun](https://github.com/rydensun) 历史贡献积分：27 当前积分：17 年度积分：27
+## 译者：[rydensun](https://github.com/rydensun) 历史贡献积分：30 当前积分：20 年度积分：30
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Tab Bar 就是新的汉堡菜单](https://juejin.im/post/5b61684fe51d451986517e31)|翻译|3|
 |[如何设计移动应用的搜索功能？](https://juejin.im/post/5b692ca251882562b924a6c7)|校对|1|
 |2018 年 6 月兑掘金桌垫 1 个|减去积分|10|
 |[Swift 写网络层：用面向协议的方式](https://juejin.im/post/5af432385188256737066c04)|校对|2|
@@ -5438,10 +5444,11 @@
 |[如何修改域名来提高国际增长率](https://juejin.im/post/5aaf0542f265da239530c653)|校对|1|
 |[开始设计动画的九个步骤](https://juejin.im/post/5aa1f965f265da23994e1e1f)|校对|1|
 
-## 译者：[talisk](https://github.com/talisk) 历史贡献积分：39 当前积分：39 年度积分：39
+## 译者：[talisk](https://github.com/talisk) 历史贡献积分：42 当前积分：42 年度积分：42
 
 |文章|类型|积分|
 |------|-------|-------|
+|[React Native 中使用转场动画！](https://juejin.im/post/5b69467e5188251b3c3b4e4e)|翻译|3|
 |[watchOS 5 愿望清单：Apple Watch Podcasts、open Siri face 和更新 Control Center 等](https://juejin.im/post/5b15045bf265da6e6039372b)|翻译|4|
 |[JavaScript 是如何工作的：Service Worker 的生命周期与使用场景](https://juejin.im/post/5b14c1d86fb9a01e700ff2f2)|翻译|5|
 |[Swift 中的内存泄漏](https://juejin.im/post/5b07a1c251882538914a5d3e)|校对|1.5|
@@ -6191,10 +6198,11 @@
 |------|-------|-------|
 |[修订 The JavaScript Tutorial](https://github.com/xitu/javascript-tutorial-zh/pull/151)|修订|1|
 
-## 译者：[ssshooter](https://github.com/ssshooter) 历史贡献积分：14 当前积分：14 年度积分：14
+## 译者：[ssshooter](https://github.com/ssshooter) 历史贡献积分：15.5 当前积分：15.5 年度积分：15.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[一份在你的 iPhone 上平衡实用和美观的指南](https://juejin.im/post/5b4c0d0ce51d4519503b1e67)|校对|1.5|
 |[虚构问题，低质量软件的根源](https://juejin.im/post/5b65122be51d4517c564d54f)|翻译|5.5|
 |[2018 年，如何选择最好的静态站点生成器](https://juejin.im/post/5b47079bf265da0faa3655be)|翻译|7|
 |[Airbnb 在 React Native 上下的赌注（二）：技术细节](https://juejin.im/post/5b3b40a26fb9a04fab44e797)|校对|1.5|
@@ -6272,3 +6280,9 @@
 |------|-------|-------|
 |[在 Sketch 中使用一个设计体系创作: 第二部分 [教程]](https://juejin.im/post/5b5d2a456fb9a04fc80b8f4b)|翻译|2.5|
 |[在 Sketch 中使用一个设计体系创作：第一部分 [教程]](https://juejin.im/post/5b591a655188257bca290b24)|校对|0.5|
+
+## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Tab Bar 就是新的汉堡菜单](https://juejin.im/post/5b61684fe51d451986517e31)|校对|1.5|
