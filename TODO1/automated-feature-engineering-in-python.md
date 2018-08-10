@@ -2,51 +2,51 @@
 > * 原文作者：[William Koehrsen](https://towardsdatascience.com/@williamkoehrsen?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/automated-feature-engineering-in-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/automated-feature-engineering-in-python.md)
-> * 译者：
-> * 校对者：
+> * 译者：[mingxing47](https://github.com/mingxing47)
+> * 校对者：[yqian1991](https://github.com/yqian1991) [Park-ma](https://github.com/Park-ma)
 
-# Automated Feature Engineering in Python
+# Python 中的特征工程自动化
 
-## How to automatically create machine learning features
+## 如何自动化地创建机器学习特征
 
 ![](https://cdn-images-1.medium.com/max/1000/1*lg3OxWVYDsJFN-snBY7M5w.jpeg)
 
-Machine learning is increasingly moving from hand-designed models to automatically optimized pipelines using tools such as [H20](http://docs.h2o.ai/h2o/latest-stable/h2o-docs/automl.html), [TPOT](https://epistasislab.github.io/tpot/), and [auto-sklearn](https://automl.github.io/auto-sklearn/stable/). These libraries, along with methods such as [random search](http://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf), aim to simplify the model selection and tuning parts of machine learning by finding the best model for a dataset with little to no manual intervention. However, feature engineering, an [arguably more valuable aspect](https://www.featurelabs.com/blog/secret-to-data-science-success/) of the machine learning pipeline, remains almost entirely a human labor.
+机器学习正在利用诸如 [H20](http://docs.h2o.ai/h2o/latest-stable/h2o-docs/automl.html)、[TPOT](https://epistasislab.github.io/tpot/) 和 [auto-sklearn](https://automl.github.io/auto-sklearn/stable/) 等工具越来越多地从手工设计模型向自动化优化管道迁移。以上这些类库，连同如 [random search](http://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf) 等方法一起，目的是在不需要人工干预的情况下找到适合于数据集的最佳模型，以此来简化器学习的模型选择和调优部分。然而，特征工程，作为机器学习管道中一个[可以说是更有价值的方面](https://www.featurelabs.com/blog/secret-to-data-science-success/)，几乎全部是手工活。
 
-[Feature engineering](https://en.wikipedia.org/wiki/Feature_engineering), also known as feature creation, is the process of constructing new features from existing data to train a machine learning model. This step can be more important than the actual model used because a machine learning algorithm only learns from the data we give it, and creating features that are relevant to a task is absolutely crucial (see the excellent paper [“A Few Useful Things to Know about Machine Learning”](https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf)).
+[特征工程](https://en.wikipedia.org/wiki/Feature_engineering)，也称为特征创建，是从已有数据中创建出新特征并且用于训练机器学习模型的过程。这个步骤可能要比实际使用的模型更加重要，因为机器学习算法仅仅从我们提供给他的数据中进行学习，创建出与任务相关的特征是非常关键的（可以参照这篇文章 ["A Few Useful Things to Know about Machine Learning"](https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf) —— 《了解机器学习的一些有用的事》，译者注）。
 
-Typically, feature engineering is a drawn-out manual process, relying on domain knowledge, intuition, and data manipulation. This process can be extremely tedious and the final features will be limited both by human subjectivity and time. Automated feature engineering aims to help the data scientist by automatically creating many candidate features out of a dataset from which the best can be selected and used for training.
+通常来说，特征工程是一个漫长的手工过程，依赖于某个特定领域的知识、直觉、以及对数据的操作。这个过程可能会非常乏味并且最终获得的特性会被人类的主观性和花在上面的时间所限制。自动特征工程的目标是通过从数据集中创建许多候选特征来帮助数据科学家减轻工作负担，从这些创建了候选特征的数据集中，数据科学家可以选择最佳的特征并且用来训练。
 
-In this article, we will walk through an example of using automated feature engineering with the [featuretools Python library](https://docs.featuretools.com/#). We will use an example dataset to show the basics (stay tuned for future posts using real-world data). The complete code for this article is [available on GitHub](https://github.com/WillKoehrsen/automated-feature-engineering/blob/master/walk_through/Automated_Feature_Engineering.ipynb).
+在这篇文章中，我们将剖析一个基于 [featuretools Python library](https://docs.featuretools.com/#) 库进行自动特征工程处理的案例。我们将使用一个样例数据集来展示基本信息（请继续关注未来的使用真实数据的文章）。这篇文章最终的代码可以在 [GitHub](https://github.com/WillKoehrsen/automated-feature-engineering/blob/master/walk_through/Automated_Feature_Engineering.ipynb) 获取。
 
 * * *
 
-### Feature Engineering Basics
+### 特征工程基础
 
-[Feature engineering](https://www.datacamp.com/community/tutorials/feature-engineering-kaggle) means building additional features out of existing data which is often spread across multiple related tables. Feature engineering requires extracting the relevant information from the data and getting it into a single table which can then be used to train a machine learning model.
+[特征工程](https://www.datacamp.com/community/tutorials/feature-engineering-kaggle)意味着从分布在多个相关表格中的现有数据集中构建出额外的特征。特征工程需要从数据中提取相关信息，并且将其放入一个单独的表中，然后可以用来训练机器学习模型。
 
-The process of constructing features is very time-consuming because each new feature usually requires several steps to build, especially when using information from more than one table. We can group the operations of feature creation into two categories: **transformations** and **aggregations**. Let’s look at a few examples to see these concepts in action.
+构建特征的过程非常耗时，因为每获取一项新的特征都需要很多步骤才能构建出来，尤其是当需要从多于一张表格中获取信息时。我们可以把特征创建的操作分成两类：**转换**和**聚合**。让我们通过几个例子的实战来看看这些概念。
 
-A **transformation** acts on a single table (thinking in terms of Python, a table is just a Pandas `DataFrame` ) by creating new features out of one or more of the existing columns. As an example, if we have the table of clients below
+一次**转换**操作仅作用于一张表，该操作能从一个或多个现有列中创建新特征（比如说 Python 中，一张表就如同 Pandas 库中的一个 `DataFrame`）。如下面的例子所示，假如我们有如下的一张客户（clients）信息表：
 
 ![](https://cdn-images-1.medium.com/max/800/1*FHR7tlD4FuGKt8n5UHUpqw.png)
 
-we can create features by finding the month of the `joined` column or taking the natural log of the `income` column. These are both transformations because they use information from only one table.
+我们可以通过从 `joined` 列中寻找出月份或者对 `income` 列取自然对数来创建特征。这些都是转换的范畴，因为他们都是使用了单张表中的信息。
 
 ![](https://cdn-images-1.medium.com/max/800/1*QQGYN1PD06rNT-bJphNcBA.png)
 
-On the other hand, **aggregations** are performed across tables, and use a one-to-many relationship to group observations and then calculate statistics. For example, if we have another table with information on the loans of clients, where each client may have multiple loans, we can calculate statistics such as the average, maximum, and minimum of loans for each client.
+另一方面，**聚合** 则是跨表执行的，其使用了一对多关系进行分组观察，然后再计算统计数据。比如说，如果我们还有另外一张含有客户贷款信息的表格，这张表里可能每个客户都有多种贷款，我们就可以计算出每位客户端诸如贷款平均值、最大值、最小值等统计数据。
 
-This process involves grouping the loans table by the client, calculating the aggregations, and then merging the resulting data into the client data. Here’s how we would do that in Python using the [language of Pandas](https://pandas.pydata.org/pandas-docs/stable/index.html).
+这个过程包括了根据客户进行贷款表格分组、计算聚合、然后把计算结果数据合并到客户数据中。如下代码展示了我们如何使用 Python 中的 [language of Pandas](https://pandas.pydata.org/pandas-docs/stable/index.html) 库进行计算的过程：
 
-```
+```python
 import pandas as pd
 
-# Group loans by client id and calculate mean, max, min of loans
+# 根据客户 id （client id）进行贷款分组，并计算贷款平均值、最大值、最小值
 stats = loans.groupby('client_id')['loan_amount'].agg(['mean', 'max', 'min'])
 stats.columns = ['mean_loan_amount', 'max_loan_amount', 'min_loan_amount']
 
-# Merge with the clients dataframe
+# 和客户的 dataframe 进行合并
 stats = clients.merge(stats, left_on = 'client_id', right_index=True, how = 'left')
 
 stats.head(10)
@@ -54,57 +54,57 @@ stats.head(10)
 
 ![](https://cdn-images-1.medium.com/max/800/1*jHHOuEft93KDenbRpaFcnA.png)
 
-These operations are not difficult by themselves, but if we have hundreds of variables spread across dozens of tables, this process is not feasible to do by hand. Ideally, we want a solution that can automatically perform transformations and aggregations across multiple tables and combine the resulting data into a single table. Although Pandas is a great resource, there’s only so much data manipulation we want to do by hand! (For more on manual feature engineering check out the excellent [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/05.04-feature-engineering.html)).
+这些操作本身并不困难，但是如果我们有数百个变量分布在数十张表中，手工进行操作则是不可行的。理想情况下，我们希望有一种解决方案，可以在多个表格当中进行自动转换和聚合操作，最后将结果数据合并到一张表格中。尽管 Pandas 是一个很优秀的资源库，但利用 Pandas 时我们仍然需要手工操作很多的数据！（更多关于手工特征工程的信息可以查看如下这个杰出的著作 [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/05.04-feature-engineering.html)）。
 
-### Featuretools
+### Featuretools 框架
 
-Fortunately, featuretools is exactly the solution we are looking for. This open-source Python library will automatically create many features from a set of related tables. Featuretools is based on a method known as “[Deep Feature Synthesis](http://featurelabs1.wpengine.com/wp-content/uploads/2017/12/DSAA_DSM_2015-1.pdf)”, which sounds a lot more imposing than it actually is (the name comes from stacking multiple features not because it uses deep learning!).
+幸运的是， featuretools 正是我们所寻找的解决方案。这个开源的 Python 库可以自动地从一系列有关联的表格中创建出很多的特征。 Featuretools 是基于一个被称为 "[Deep feature synthesis](http://featurelabs1.wpengine.com/wp-content/uploads/2017/12/DSAA_DSM_2015-1.pdf)" （深度特征合成）的方法所创建出来的，这个方法听起来要比实际跑起来更加令人印象深刻。（这个名字是来自于多特征的叠加，并不是因为这个方法使用了深度学习！）
 
-Deep feature synthesis stacks multiple transformation and aggregation operations (which are called [feature primitives](https://docs.featuretools.com/automated_feature_engineering/primitives.html) in the vocab of featuretools) to create features from data spread across many tables. Like most ideas in machine learning, it’s a complex method built on a foundation of simple concepts. By learning one building block at a time, we can form a good understanding of this powerful method.
+深度特征合成叠加了多个转换和聚合操作（在 feautretools 中也被称为 [feature primitives (特征基元)](https://docs.featuretools.com/automated_feature_engineering/primitives.html)）来从遍布很多表格中的数据中创建出特征。如同绝大多数机器学习中的想法一样，这是一种建立在简单概念基础上的复杂方法。通过一次学习一个构建模块，我们可以很好地理解这个强大的方法。
 
-First, let’s take a look at our example data. We already saw some of the dataset above, and the complete collection of tables is as follows:
+首先，让我们看看我们的数据。之前我们已经看到了一些数据集，完整的表集合如下所示：
 
-*   `clients` : basic information about clients at a credit union. Each client has only one row in this dataframe
+*   `clients` : 客户在信用社的的基本信息。每个客户在这个 dataframe 中仅占一行
 
 ![](https://cdn-images-1.medium.com/max/800/1*FHR7tlD4FuGKt8n5UHUpqw.png)
 
-*   `loans`: loans made to the clients. Each loan has only own row in this dataframe but clients may have multiple loans.
+*   `loans`: 给客户的贷款。每个贷款在这个 dataframe 中仅占一行，但是客户可能会有多个贷款
 
 ![](https://cdn-images-1.medium.com/max/1000/1*95c7QchQVM-9xUUA4ZB4XQ.png)
 
-*   `payments`: payments made on the loans. Each payment has only one row but each loan will have multiple payments.
+*   `payments`: 贷款偿还。每个付款只有一行，但是每笔贷款可以有多笔付款。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*RbgNzspaiwq74aWU6W5LWQ.png)
 
-If we have a machine learning task, such as predicting whether a client will repay a future loan, we will want to combine all the information about clients into a single table. The tables are related (through the `client_id` and the `loan_id` variables) and we could use a series of transformations and aggregations to do this process by hand. However, we will shortly see that we can instead use featuretools to automate the process.
+如果我们有一件机器学习任务，例如预测一个客户是否会偿还一个未来的贷款，我们将把所有关于客户的信息合并到一个表格中。这些表格是相互关联的（通过 `client_id` 和 `loan_id` 变量），我们可以使用一系列的转换和聚合操作来手工完成这一过程。然而，我们很快就将看到，我们可以使用 featuretools 来自动化这个过程。
 
-#### Entities and EntitySets
+### 实体和实体集
 
-The first two concepts of featuretools are **entities** and **entitysets**. An entity is simply a table (or a `DataFrame` if you think in Pandas). An [EntitySet](https://docs.featuretools.com/loading_data/using_entitysets.html) is a collection of tables and the relationships between them. Think of an entityset as just another Python data structure, with its own methods and attributes.
+对于 featuretools 来说，最重要的两个概念是**实体**和**实体集**。一个实体就只是一张表（或者说一个 Pandas 中的 `DataFrame`） 。一个[实体集](https://docs.featuretools.com/loading_data/using_entitysets.html)是一系列表的集合以及这些表格之间的关系。你可以把实体集认为是 Python 中的另外一个数据结构，这个数据结构有自己的方法和参数。
 
-We can create an empty entityset in featuretools using the following:
+我们可以在 featuretools 中利用下面的代码创建出一个空的实体集：
 
-```
+```python
 import featuretools as ft
 
-# Create new entityset  
+# 创建新实体集  
 es = ft.EntitySet(id = 'clients')
 ```
 
-Now we have to add entities. Each entity must have an index, which is a column with all unique elements. That is, each value in the index must appear in the table only once. The index in the `clients` dataframe is the `client_id`because each client has only one row in this dataframe. We add an entity with an existing index to an entityset using the following syntax:
+现在我们必须添加一些实体。每个实体必须有一个索引，它是一个包含所有唯一元素的列。也就是说，索引中的每个值必须只出现在表中一次。`clients` dataframe 中的索引是 `client_id` ，因为每个客户在这个 dataframe 中只有一行。我们使用以下语法向实体集添加一个已经有索引的实体：
 
-```
-# Create an entity from the client dataframe
-# This dataframe already has an index and a time index
+```python
+# 从客户 dataframe 中创建出一个实体
+# 这个 dataframe 已经有一个索引和一个时间索引
 es = es.entity_from_dataframe(entity_id = 'clients', dataframe = clients, 
                               index = 'client_id', time_index = 'joined')
 ```
 
-The `loans` dataframe also has a unique index, `loan_id` and the syntax to add this to the entityset is the same as for `clients`. However, for the `payments` dataframe, there is no unique index. When we add this entity to the entityset, we need to pass in the parameter `make_index = True` and specify the name of the index. Also, although featuretools will automatically infer the data type of each column in an entity, we can override this by passing in a dictionary of column types to the parameter `variable_types` .
+`loans` datafram 同样有一个唯一的索引,`loan_id` 以及向实体集添加 `loan_id` 的语法和 `clients` 一样。然而，对于 `payments` dataframe 来说，并不存在唯一的索引。当我们向实体集添加实体时，我们需要把参数 `make_index` 设置为 `True`( `make_index = True` )，同时为索引指定好名称。此外，虽然 featuretools 会自动推断实体中的每个列的数据类型,我们也可以将一个列类型的字典传递给参数 `variable_types` 来进行数据类型重写。
 
-```
-# Create an entity from the payments dataframe
-# This does not yet have a unique index
+```python
+# 从付款 dataframe 中创建一个实体
+# 该实体还没有一个唯一的索引
 es = es.entity_from_dataframe(entity_id = 'payments', 
                               dataframe = payments,
                               variable_types = {'missed': ft.variable_types.Categorical},
@@ -113,33 +113,33 @@ es = es.entity_from_dataframe(entity_id = 'payments',
                               time_index = 'payment_date')
 ```
 
-For this dataframe, even though `missed` is an integer, this is not a [numeric variable](https://socratic.org/questions/what-is-a-numerical-variable-and-what-is-a-categorical-variable) since it can only take on 2 discrete values, so we tell featuretools to treat is as a categorical variable. After adding the dataframes to the entityset, we inspect any of them:
+对于这个 dataframe 来说，即使 `missed` 是一个整型数据，这不是一个[数值变量](https://socratic.org/questions/what-is-a-numerical-variable-and-what-is-a-categorical-variable)，因为它只能接受两个离散值，所以我们告诉 featuretools 将它是为一个分类变量。在向实体集添加了 dataframs 之后，我们将检查其中的任何一个：
 
 ![](https://cdn-images-1.medium.com/max/800/1*DZ44KuggN_4jWKwuhrpCaw.png)
 
-The column types have been correctly inferred with the modification we specified. Next, we need to specify how the tables in the entityset are related.
+我们指定的修改可以正确地推断列类型。接下来，我们需要指定实体集中的表是如何进行关联的。
 
-#### Table Relationships
+#### 表关系
 
-The best way to think of a **relationship** between two tables is the [analogy of parent to child](https://stackoverflow.com/questions/7880921/what-is-a-parent-table-and-a-child-table-in-database). This is a one-to-many relationship: each parent can have multiple children. In the realm of tables, a parent table has one row for every parent, but the child table may have multiple rows corresponding to multiple children of the same parent.
+考虑两个表之间的**关系**的最佳方式是[父亲与孩子的类比](https://stackoverflow.com/questions/7880921/what-is-par-table-and-child-table-in-database)。这是一对多的关系:每个父亲可以有多个孩子。在表领域中，父亲在每个父表中都有一行，但是子表中可能有多个行对应于同一个父亲的多个孩子。
 
-For example, in our dataset, the `clients` dataframe is a parent of the `loans` dataframe. Each client has only one row in `clients` but may have multiple rows in `loans`. Likewise, `loans` is the parent of `payments` because each loan will have multiple payments. The parents are linked to their children by a shared variable. When we perform aggregations, we group the child table by the parent variable and calculate statistics across the children of each parent.
+例如，在我们的数据集中，`clients` dataframe 是 `loans` dataframe 的父亲。每个客户在 `clients` 中只有一行，但在 `loans` 中可能有多行。同样， `loans` 是 `payments` 的父亲，因为每笔贷款都有多个支付。父亲通过共享变量与孩子相连。当我们执行聚合时，我们将子表按父变量分组，并计算每个父表的子表的统计信息。
 
-To [formalize a relationship in featuretools](https://docs.featuretools.com/loading_data/using_entitysets.html#adding-a-relationship), we only need to specify the variable that links two tables together. The `clients` and the `loans` table are linked via the `client_id` variable and `loans` and `payments` are linked with the `loan_id`. The syntax for creating a relationship and adding it to the entityset are shown below:
+要[在 featuretools 中格式化关系](https://docs.featuretools.com/loading_data/using_entitysets.html#add-a-relationship)，我们只需指定将两个表链接在一起的变量。 `clients` 和 `loans` 表通过 `loan_id` 变量链接， `loans` 和 `payments` 通过 `loan_id` 联系在一起。创建关系并将其添加到实体集的语法如下所示:
 
-```
-# Relationship between clients and previous loans
+```python
+# 客户与先前贷款的关系
 r_client_previous = ft.Relationship(es['clients']['client_id'],
                                     es['loans']['client_id'])
 
-# Add the relationship to the entity set
+# 将关系添加到实体集
 es = es.add_relationship(r_client_previous)
 
-# Relationship between previous loans and previous payments
+# 以前的贷款和以前的付款之间的关系
 r_payments = ft.Relationship(es['loans']['loan_id'],
                                       es['payments']['loan_id'])
 
-# Add the relationship to the entity set
+# 将关系添加到实体集
 es = es.add_relationship(r_payments)
 
 es
@@ -147,60 +147,60 @@ es
 
 ![](https://cdn-images-1.medium.com/max/800/1*W_jS8Z4Ym5zAFTdjHki1ig.png)
 
-The entityset now contains the three entities (tables) and the relationships that link these entities together. After adding entities and formalizing relationships, our entityset is complete and we are ready to make features.
+实体集现在包含三个实体（或者说是表）和连接这些实体的关系。在添加实体和对关系形式化之后，我们的实体集就准备完成了，我们接下来可以准备创建特征。
 
-#### Feature Primitives
+#### 特征基元
 
-Before we can quite get to deep feature synthesis, we need to understand [feature primitives](https://docs.featuretools.com/automated_feature_engineering/primitives.html). We already know what these are, but we have just been calling them by different names! These are simply the basic operations that we use to form new features:
+在深入了解特性合成之前，我们需要了解[特征基元](https://docs.featuretools.com/automated_feature_engineering/primartives.html)。我们已经知道它们是什么了，但是我们只是用不同的名字称呼它们！这些是我们用来形成新特征的基本操作：
 
-*   Aggregations: operations completed across a parent-to-child (one-to-many) relationship that group by the parent and calculate stats for the children. An example is grouping the `loan` table by the `client_id` and finding the maximum loan amount for each client.
-*   Transformations: operations done on a single table to one or more columns. An example is taking the difference between two columns in one table or taking the absolute value of a column.
+*   聚合：通过父节点对子节点（一对多）关系完成的操作，并计算子节点的统计信息。一个例子是通过 `client_id` 将 `loan` 表分组，并为每个客户机找到最大的贷款金额。
+*   转换：在单个表上对一个或多个列执行的操作。举个例子，取一个表中两个列之间的差值，或者取列的绝对值。
 
-New features are created in featuretools using these primitives either by themselves or stacking multiple primitives. Below is a list of some of the feature primitives in featuretools (we can also [define custom primitives](https://docs.featuretools.com/guides/advanced_custom_primitives.html)):
+新特性是在 featruetools 中创建的，使用这些特征基元本身或叠加多个特征基元。下面是 featuretools 中的一些特征基元列表(我们还可以[定义自定义特征基元](https://docs.featuretools.com/guides/advanced_custom_basics.html)：
 
 ![](https://cdn-images-1.medium.com/max/800/1*_p-HwN54IjLvmSSlkkazUQ.png)
 
-Feature Primitives
+特征基元
 
-These primitives can be used by themselves or combined to create features. To make features with specified primitives we use the `ft.dfs` function (standing for deep feature synthesis). We pass in the `entityset`, the `target_entity` , which is the table where we want to add the features, the selected `trans_primitives` (transformations), and `agg_primitives` (aggregations):
+这些基元可以自己使用或组合来创建特征。要使用指定的基元，我们使用 `ft.dfs` 函数（代表深度特征合成）。我们传入 `实体集`、`目标实体`（这两个参数是我们想要加入特征的表）以及 `trans_primitives` 参数（用于转换）和 `agg_primitives` 参数（用于聚合）：
 
-```
-# Create new features using specified primitives
+```python
+# 使用指定的基元创建新特征
 features, feature_names = ft.dfs(entityset = es, target_entity = 'clients', 
                                  agg_primitives = ['mean', 'max', 'percent_true', 'last'],
                                  trans_primitives = ['years', 'month', 'subtract', 'divide'])
 ```
 
-The result is a dataframe of new features for each client (because we made clients the `target_entity`). For example, we have the month each client joined which is a transformation feature primitive:
+以上函数返回结果是每个客户的新特征 dataframe (因为我们把客户定义为`目标实体`)。例如，我们有每个客户加入的月份，这个月份是一个转换特性基元：
 
 ![](https://cdn-images-1.medium.com/max/800/1*gEQkpyTDxXz21_gUPeNlMQ.png)
 
-We also have a number of aggregation primitives such as the average payment amounts for each client:
+我们还有一些聚合基元，比如每个客户的平均支付金额：
 
 ![](https://cdn-images-1.medium.com/max/800/1*7aOkE5N-WCNQHJi1qBcqjQ.png)
 
-Even though we specified only a few feature primitives, featuretools created many new features by combining and stacking these primitives.
+尽管我们只指定了很少一部分的特征基元，但是 featuretools 通过组合和叠加这些基元创建了许多新特征。
 
 ![](https://cdn-images-1.medium.com/max/800/1*q24CTYC4x7fHj0YFwdusoQ.png)
 
-The complete dataframe has 793 columns of new features!
+完整的 dataframe 有793列新特性！
 
-#### Deep Feature Synthesis
+#### 深度特征合成
 
-We now have all the pieces in place to understand deep feature synthesis (dfs). In fact, we already performed dfs in the previous function call! A deep feature is simply a feature made of stacking multiple primitives and dfs is the name of process that makes these features. The depth of a deep feature is the number of primitives required to make the feature.
+现在，我们已经准备好了理解深度特征合成(deep feature synthesis, dfs)的所有部分。事实上，我们已经在前面的函数调用中执行了 dfs 函数！深度特性只是将多个特征基元叠加的特性，而 dfs 是生成这些特性的过程的名称。深度特征的深度是创建该特性所需的特征数量。
 
-For example, the `MEAN(payments.payment_amount)` column is a deep feature with a depth of 1 because it was created using a single aggregation. A feature with a depth of two is `LAST(loans(MEAN(payments.payment_amount))` This is made by stacking two aggregations: LAST (most recent) on top of MEAN. This represents the average payment size of the most recent loan for each client.
+例如，`MEAN(payments.payment_amount)` 列是一个深度为 1 的特征，因为它是使用单个聚合创建的。深度为 2 的特征是 `LAST(loans(MEAN(payments.payment_amount))` ，这是通过叠加两个聚合而成的： LAST(most recent) 在均值之上。这表示每个客户最近一次贷款的平均支付金额。
 
 ![](https://cdn-images-1.medium.com/max/800/1*y28-ibs-ZCpCvavVPmmZAw.png)
 
-We can stack features to any depth we want, but in practice, I have never gone beyond a depth of 2. After this point, the features are difficult to interpret, but I encourage anyone interested to try [“going deeper”](http://knowyourmeme.com/memes/we-need-to-go-deeper).
+我们可以将特征叠加到任何我们想要的深度，但是在实践中，我从来没有超过 2 的深度。在这之后，这些特征就很难解释了，但我鼓励有兴趣的人尝试[“深入研究”](http://knowyourmeme.com/memes/we-needgo-deep)。
 
 * * *
 
-We do not have to manually specify the feature primitives, but instead can let featuretools automatically choose features for us. To do this, we use the same `ft.dfs` function call but do not pass in any feature primitives:
+我们不必手工指定特征基元，而是可以让 featuretools 自动为我们选择特性。为此，我们使用相同的 `ft.dfs` 函数调用，但不传递任何特征基元:
 
-```
-# Perform deep feature synthesis without specifying primitives
+```python
+# 执行深度特征合成而不指定特征基元。
 features, feature_names = ft.dfs(entityset=es, target_entity='clients', 
                                  max_depth = 2)
 
@@ -209,25 +209,25 @@ features.head()
 
 ![](https://cdn-images-1.medium.com/max/800/1*tewxbRVcXb_weoy_g6EfkA.png)
 
-Featuretools has built many new features for us to use. While this process does automatically create new features, it will not replace the data scientist because we still have to figure out what to do with all these features. For example, if our goal is to predict whether or not a client will repay a loan, we could look for the features most correlated with a specified outcome. Moreover, if we have domain knowledge, we can use that to choose specific feature primitives or [seed deep feature synthesis](https://docs.featuretools.com/guides/tuning_dfs.html) with candidate features.
+Featuretools 已经为我们构建了许多新的特征供我们使用。虽然这个过程会自动创建新特征，但它不会取代数据科学家，因为我们仍然需要弄清楚如何处理所有这些特征。例如，如果我们的目标是预测客户是否会偿还贷款，我们可以查找与特定结果最相关的特征。此外，如果我们有特殊领域知识，我们可以使用它来选择具有候选特征的特定特征基元或[种子深度特征合成](https://docs.featuretools.com/guides/tuning_dfs.html)。
 
-#### Next Steps
+#### 接下来的步骤
 
-Automated feature engineering has solved one problem, but created another: too many features. Although it’s difficult to say before fitting a model which of these features will be important, it’s likely not all of them will be relevant to a task we want to train our model on. Moreover, [having too many features](https://pdfs.semanticscholar.org/a83b/ddb34618cc68f1014ca12eef7f537825d104.pdf) can lead to poor model performance because the less useful features drown out those that are more important.
+自动化的特征工程解决了一个问题，但却创造了另一个问题：创造出太多的特征。虽然说在确定好一个模型之前很难说这些特征中哪些是重要的，但很可能并不是所有的特征都与我们想要训练的任务相关。而且，[拥有太多特征](https://pdfs.semanticscholar.org/a83b/ddb34618cc68f1014ca12eef7f537825d104.pdf)可能会让模型的表现下降，因为在训练的过程中一些不太有用的特征会淹没那些更为重要的特征。
 
-The problem of too many features is known as the [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality#Machine_learning). As the number of features increases (the dimension of the data grows) it becomes more and more difficult for a model to learn the mapping between features and targets. In fact, the amount of data needed for the model to perform well [scales exponentially with the number of features](https://stats.stackexchange.com/a/65380/157316).
+太多特征的问题被称为[维数的诅咒](https://en.wikipedia.org/wiki/Curse_of_dimensionality#Machine_learning)。随着特征数量的增加（数据的维数增加），模型越来越难以了解特征和目标之间的映射。事实上，模型执行良好所需的数据量（与特性的数量成指数比例）(https://stats.stackexchange.com/a/65380/157316)。
 
-The curse of dimensionality is combated with [feature reduction (also known as feature selection)](https://machinelearningmastery.com/an-introduction-to-feature-selection/): the process of removing irrelevant features. This can take on many forms: Principal Component Analysis (PCA), SelectKBest, using feature importances from a model, or auto-encoding using deep neural networks. However, [feature reduction](https://en.wikipedia.org/wiki/Feature_selection) is a different topic for another article. For now, we know that we can use featuretools to create numerous features from many tables with minimal effort!
+可以化解维数诅咒的是[特征削减（也称为特征选择）](https://machinelearningmastery.com/an-introduction-to-feature-selection/)：移除不相关特性的过程。这可以采取多种形式：主成分分析(PCA)，使用 SelectKBest 类，使用从模型引入的特征，或者使用深度神经网络进行自动编码。当然，[特征削减](https://en.wikipedia.org/wiki/Feature_selection)则是另一篇文章的另一个主题了。现在，我们知道，我们可以使用 featuretools ，以最少的工作量从许多表中创建大量的特性！
 
-### Conclusions
+### 结论
 
-Like many topics in machine learning, automated feature engineering with featuretools is a complicated concept built on simple ideas. Using concepts of entitysets, entities, and relationships, featuretools can perform deep feature synthesis to create new features. Deep feature synthesis in turn stacks feature primitives — **aggregations,** which act across a one-to-many relationship between tables, and **transformations,** functions applied to one or more columns in a single table — to build new features from multiple tables.
+像机器学习领域很多的话题一样，使用 feautretools 的自动特征工程是一个建立在简单想法之上的复杂概念。使用实体集、实体和关系的概念，feautretools 可以执行深度特性合成来创建新特征。深度特征合成反过来又将特征基元堆叠起来 —— 也就是**聚合**，在表格之间建立起一对多的关系，同时进行**转换**，在单表中对一列或者多列应用，通过这些方法从很多的表格中构建出新的特征出来。
 
-In future articles, I’ll show how to use this technique on a real world problem, the [Home Credit Default Risk competition](https://www.kaggle.com/c/home-credit-default-risk) currently being hosted on Kaggle. Stay tuned for that post, and in the meantime, read [this introduction to get started](https://towardsdatascience.com/machine-learning-kaggle-competition-part-one-getting-started-32fb9ff47426) in the competition! I hope that you can now use automated feature engineering as an aid in a data science pipeline. Our models are only as good as the data we give them, and automated feature engineering can help to make the feature creation process more efficient.
+请持续关注这篇文章，与此同时，阅读关于这个竞赛的介绍 [this introduction to get started](https://towardsdatascience.com/machine-learning-kaggle-competition-part-one-getting-started-32fb9ff47426)。我希望您现在可以使用自动化特征工程作为数据科学管道中的辅助工具。我们的模型将和我们提供的数据一样好，自动化的特征工程可以帮助使特征创建过程更有效。
 
-For more information on featuretools, including advanced usage, check out the [online documentation](https://docs.featuretools.com/). To see how featuretools is used in practice, read about the [work of Feature Labs](https://www.featurelabs.com/), the company behind the open-source library.
+要获取更多关于特征工具的信息，包括这些工具的高级用法，可以查阅[在线文档](https://docs.featuretools.com/)。要查看特征工具如何在实践中应用，可以参见 [Feature Labs 的工作成果](https://www.featurelabs.com/)，这就是开发 featuretools 这个开源库的公司。
 
-As always, I welcome feedback and constructive criticism and can be reached on Twitter [@koehrsen_will](http://twitter.com/koehrsen_will).
+我一如既往地欢迎各位的反馈和建设性的批评，你们可以在 Twitter [@koehrsen_will](http://twitter.com/koehrsen_will) 上与我进行交流。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
