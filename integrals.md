@@ -1704,10 +1704,11 @@
 |[用 Swift 开发我的第一个 iOS 应用前，我想要知道这些内容](http://gold.xitu.io/entry/57c66667c4c9710061a57b3f/)|校对|2|
 |[你的设计应该「所见即所得」](http://gold.xitu.io/entry/57c5978f128fe1005fdf4858/)|校对|1|
 
-## 译者：[steinliber](https://github.com/steinliber) 历史贡献积分：69 当前积分：9 年度积分：17
+## 译者：[steinliber](https://github.com/steinliber) 历史贡献积分：72 当前积分：12 年度积分：20
 
 |文章|类型|积分|
 |------|-------|-------|
+|[自然语言处理真是有趣](https://juejin.im/post/5b6d08e2f265da0f9c67cf0b)|校对|3|
 |2018 年 7 月兑掘金桌垫和 GitHub 贴纸各 1 个|减去积分|15|
 |[Erlang 之禅第一部分](https://juejin.im/post/5b2a16cce51d4558d726e8c9)|翻译|6|
 |[使用 Go 语言的流模式来解析 DrugBank 的 XML（或者任何大的 XML 文件）](https://juejin.im/entry/5b06322a6fb9a07aab2a3d44)|翻译|3|
@@ -4393,10 +4394,11 @@
 |[如何禁用链接](https://juejin.im/post/5a240aa66fb9a0452577f06a)|校对|1|
 |[JavaScript 如何工作的: 事件循环和异步编程的崛起 + 5 个关于如何使用 async/await 编写更好的技巧](https://juejin.im/post/5a221d35f265da43356291cc)|校对|4|
 
-## 译者：[sakila1012](https://github.com/sakila1012) 历史贡献积分：33 当前积分：17 年度积分：31
+## 译者：[sakila1012](https://github.com/sakila1012) 历史贡献积分：35 当前积分：19 年度积分：33
 
 |文章|类型|积分|
 |------|-------|-------|
+|[自然语言处理真是有趣](https://juejin.im/post/5b6d08e2f265da0f9c67cf0b)|校对|2|
 |2018 年 6 月兑掘金笔记本 2 个|减去积分|16|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3.5|
 |[使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第三部分）](https://juejin.im/post/5ac36e1f518825556a729c3f)|翻译|4|
@@ -5915,6 +5917,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
+|[自然语言处理真是有趣](https://juejin.im/post/5b6d08e2f265da0f9c67cf0b)|翻译|9|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1|
 |[2018 年，如何选择最好的静态站点生成器](https://juejin.im/post/5b47079bf265da0faa3655be)|校对|0.5|
 |2018 年 7 月兑纪念币 4 个|减去积分|8|
@@ -6085,10 +6088,11 @@
 |[Erlang 之禅第二部分](https://juejin.im/post/5b3ea3ed6fb9a04fb8772a2c)|校对|0.5|
 |[一种更简单的途径在 Java 中进行函数式编程](https://juejin.im/post/5b24aa5f6fb9a00e4d53e0c9)|校对|1|
 
-## 译者：[FesonX](https://github.com/FesonX) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
+## 译者：[FesonX](https://github.com/FesonX) 历史贡献积分：4.5 当前积分：4.5 年度积分：4.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[自然语言处理真是有趣](https://juejin.im/post/5b6d08e2f265da0f9c67cf0b)|校对|3|
 |[支撑现代存储系统的算法](https://juejin.im/post/5b10f80b5188257d92206851)|校对|1.5|
 
 ## 译者：[7Ethan](https://github.com/7Ethan) 历史贡献积分：7 当前积分：7 年度积分：7
@@ -6167,10 +6171,11 @@
 |------|-------|-------|
 |[从 Java EE 8 Security API 开始 — 第一部分](https://juejin.im/post/5b35a8d4f265da599423598b)|校对|3|
 
-## 译者：[cf020031308](https://github.com/cf020031308) 历史贡献积分：3 当前积分：3 年度积分：3
+## 译者：[cf020031308](https://github.com/cf020031308) 历史贡献积分：8 当前积分：8 年度积分：8
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Python 与大数据：Airflow & Jupyter Notebook with Hadoop 3, Spark & Presto](https://juejin.im/post/5b5a7fdfe51d453526175687)|翻译|5|
 |[Kubernetes 分布式应用部署和人脸识别 app 实例](https://juejin.im/post/5b2db0576fb9a00e50313904)|校对|3|
 
 ## 译者：[zhangshiqin](https://github.com/zhangshiqin) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
@@ -6185,10 +6190,11 @@
 |------|-------|-------|
 |[修订 The JavaScript Tutorial](https://github.com/xitu/javascript-tutorial-zh/pull/151)|修订|1|
 
-## 译者：[ssshooter](https://github.com/ssshooter) 历史贡献积分：8.5 当前积分：8.5 年度积分：8.5
+## 译者：[ssshooter](https://github.com/ssshooter) 历史贡献积分：14 当前积分：14 年度积分：14
 
 |文章|类型|积分|
 |------|-------|-------|
+|[虚构问题，低质量软件的根源](https://juejin.im/post/5b65122be51d4517c564d54f)|翻译|5.5|
 |[2018 年，如何选择最好的静态站点生成器](https://juejin.im/post/5b47079bf265da0faa3655be)|翻译|7|
 |[Airbnb 在 React Native 上下的赌注（二）：技术细节](https://juejin.im/post/5b3b40a26fb9a04fab44e797)|校对|1.5|
 
@@ -6210,10 +6216,11 @@
 |------|-------|-------|
 |[通过 SSH 远程使用 Python 解释器来运行 Flask](https://juejin.im/post/5b3e25a8e51d45191716d187)|校对|1.5|
 
-## 译者：[yqian1991](https://github.com/yqian1991) 历史贡献积分：6 当前积分：6 年度积分：6
+## 译者：[yqian1991](https://github.com/yqian1991) 历史贡献积分：8 当前积分：8 年度积分：8
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Python 与大数据：Airflow & Jupyter Notebook with Hadoop 3, Spark & Presto](https://juejin.im/post/5b5a7fdfe51d453526175687)|校对|2|
 |推荐多篇优秀英文文章|奖励|3|
 |[使用 Python 实现接缝裁剪算法](https://juejin.im/post/5b46ee8e6fb9a04fc436ad60)|校对|0.5|
 |[基于 Node.js 的 Alexa Skills Kit 发布了！](https://juejin.im/post/5b4790b6f265da0f5d4cbec5)|校对|2.5|
