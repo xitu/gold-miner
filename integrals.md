@@ -6196,10 +6196,11 @@
 |------|-------|-------|
 |[通过 SSH 远程使用 Python 解释器来运行 Flask](https://juejin.im/post/5b3e25a8e51d45191716d187)|校对|1.5|
 
-## 译者：[yqian1991](https://github.com/yqian1991) 历史贡献积分：3 当前积分：3 年度积分：3
+## 译者：[yqian1991](https://github.com/yqian1991) 历史贡献积分：6 当前积分：6 年度积分：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐多篇优秀英文文章|奖励|3|
 |[使用 Python 实现接缝裁剪算法](https://juejin.im/post/5b46ee8e6fb9a04fc436ad60)|校对|0.5|
 |[基于 Node.js 的 Alexa Skills Kit 发布了！](https://juejin.im/post/5b4790b6f265da0f5d4cbec5)|校对|2.5|
 
