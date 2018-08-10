@@ -5913,7 +5913,7 @@
 |[Awesome Flutter 校对](https://github.com/xitu/awesome-flutter)|校对|1|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1|
 
-## 译者：[lihanxiang](https://github.com/lihanxiang) 历史贡献积分：10 当前积分：2 年度积分：10
+## 译者：[lihanxiang](https://github.com/lihanxiang) 历史贡献积分：19 当前积分：11 年度积分：19
 
 |文章|类型|积分|
 |------|-------|-------|
