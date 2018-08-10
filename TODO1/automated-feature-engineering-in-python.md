@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/automated-feature-engineering-in-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/automated-feature-engineering-in-python.md)
 > * 译者：[mingxing47](https://github.com/mingxing47)
-> * 校对者：
+> * 校对者：[yqian1991](https://github.com/yqian1991)、[Park-ma](https://github.com/Park-ma)
 
 # Python 中的特征工程自动化
 
