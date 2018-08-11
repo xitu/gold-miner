@@ -6188,14 +6188,14 @@
 |------|-------|-------|
 |[从 Java EE 8 Security API 开始 — 第一部分](https://juejin.im/post/5b35a8d4f265da599423598b)|校对|3|
 
-## 译者：[cf020031308](https://github.com/cf020031308) 历史贡献积分：25.5 当前积分：25.5 年度积分：25.5
+## 译者：[cf020031308](https://github.com/cf020031308) 历史贡献积分：30.5 当前积分：30.5 年度积分：30.5
 
 |文章|类型|积分|
 |------|-------|-------|
 |[从 Cron 到 Airflow 的迁移中我们学到了什么](https://juejin.im/post/5b4c3575f265da0f7334bbc9)|翻译|4.5|
 |[Robinhood 为什么使用 Airflow](https://juejin.im/post/5b4808f751882519ec07eaba)|翻译|5|
 |[正则表达式要跑 5 天，所以我做了个工具将其缩短至 15 分钟。](https://juejin.im/post/5b6d426f6fb9a04fd1604341)|翻译|5|
-|[编程语言和平台：一条被评论的推文串](https://juejin.im/post/5b4c2b75e51d45195b336d57)|翻译|3|
+|[编程语言和平台：一条被评论的推文串](https://juejin.im/post/5b4c2b75e51d45195b336d57)|翻译|8|
 |[Python 与大数据：Airflow & Jupyter Notebook with Hadoop 3, Spark & Presto](https://juejin.im/post/5b5a7fdfe51d453526175687)|翻译|5|
 |[Kubernetes 分布式应用部署和人脸识别 app 实例](https://juejin.im/post/5b2db0576fb9a00e50313904)|校对|3|
 
