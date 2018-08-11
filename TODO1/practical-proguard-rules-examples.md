@@ -92,29 +92,29 @@ Android 有其自己的资源系统，通常不会有 ProGuard 的问题。然�
 
 > 最糟糕的一类调试问题是你的应用工作了，但是例如屏幕没有显示或没有从网络加载数据。
 
-> 在这里你需要去考虑我在本文中描述的一些场景并动手实践，甚至扎入第三方库的代码中并理解它可能失败的原因，例如当它使用反射、拦截或 JNI时。
+> 在这里你需要去考虑我在本文中描述的一些场景并动手实践，甚至扎入第三方库的代码中并理解它可能失败的原因，例如当它使用反射、拦截或 JNI 时。
 
 ### 调试与堆栈跟踪
 
-ProGuard will by default remove many code attributes and hidden metadata that are not required for program execution . Some of those are actually useful to the developer — for example, you might want to retain source file names and line numbers for stack traces to make debugging easier:
+ProGuard 默认会删除程序执行不需要的许多代码属性和隐藏元数据。其中一些对开发者实际上很有用 —— 例如，你可能希望保留堆栈跟踪的源文件名和行号，以使调试更容易：
 
 ```
 -keepattributes SourceFile, LineNumberTable
 ```
 
-> You should also remember to [save the ProGuard mappings files produced when you build a release version and upload them to Play](https://developer.android.com/studio/build/shrink-code.html#decode-stack-trace) to get de-obfuscated stack traces from any crashes experienced by your users.
+> 你也应当记得[保存构建发行版本时生成的 ProGuard 映射文件并将其上传到 Play](https://developer.android.com/studio/build/shrink-code.html#decode-stack-trace) 以便从用户遇到的任何崩溃中得到反混淆的堆栈跟踪。
 
-If you are going to attach a debugger to step through method code in a ProGuarded build of your app, you should also keep the following attributes to retain some debug information about local variables (you only need this line in your `debug` build type):
+如果要在使用 ProGuard 构建的应用中附加调试器来逐步执行方法代码，那么你还应该保留以下属性，以保留关于局部变量的一些调试信息（在 `debug` 构建类型中只需要这一行）：
 
 ```
 -keepattributes LocalVariableTable, LocalVariableTypeTable
 ```
 
-### Minified debug build type
+### 缩小的调试构建类型
 
-The default build types are configured such that _debug_ doesn’t run ProGuard. That makes sense, because we want to iterate and compile fast when developing, but still want the release build to use ProGuard to be as small and optimized as possible.
+构建类型的默认配置为 _debug_ 不使用 ProGuard。这很有道理，因为我们希望在开发时快速迭代和编译，但仍然希望使用 ProGuard 来构建发布版本以使其尽可能小和优化。
 
-But in order to fully test and debug any ProGuard problems, it’s good to set up a separate, minified debug build like this:
+但是为了全面测试和调试任何 ProGuard 问题，最好像这样设置一个单独的、缩小的调试构建：
 
 ```
 buildTypes {
@@ -129,27 +129,27 @@ buildTypes {
 }
 ```
 
-With this build type, you’ll be able to [connect the debugger](https://developer.android.com/studio/debug/index.html), [run UI tests](https://developer.android.com/training/testing/ui-testing/espresso-testing.html) (also on a CI server) or [monkey test](https://developer.android.com/studio/test/monkey.html) your app for possible problems on a build that’s as close to your release build as possible.
+使用这种构建类型，你将能够[连接调试器](https://developer.android.com/studio/debug/index.html), [运行 UI 测试](https://developer.android.com/training/testing/ui-testing/espresso-testing.html) (也在持续集成服务器上)或[monkey 测试](https://developer.android.com/studio/test/monkey.html)你的应用，以便在尽可能接近发布版本的构建上发现可能的问题。
 
-**结论**：When you use ProGuard you should always QA your release builds thoroughly, either by having end-to-end tests or manually going through all screens in your app to see if anything is missing or crashing.
+**结论**：当你使用 ProGuard 时，你应当总是通过端到端测试，或者手动浏览应用的所有页面来看是否有任何缺失或崩溃，以对你的构建版本进行彻底的 QA。
 
-### Runtime annotations, type introspection
+### 运行时注解，类型拦截
 
-ProGuard will by default remove all annotations and even some surplus type information from your code. For some libraries that’s not a problem — those that process annotations and generate code at compile time (such as _Dagger 2_ or _Glide_ and many more) might not need these annotations later on when the program runs.
+ProGuard 默认会删除代码中的所有注解甚至一些剩余的类型信息。对于一些库来说，这不是个问题 —— 那些在编译时处理注解与生成代码的库（例如 **Dagger2** 或 **Glide** 等等）可能以后程序运行时不需要这些注解。
 
-There is another class of tools that actually inspect annotations or look at type information of parameters and exceptions at runtime. Retrofit for example does this by intercepting your method calls by using a `Proxy` object, then looking at annotations and type information to decide what to put or read from the HTTP request.
+还有另外一类实际上在运行时检查注解或查看参数与异常的类型信息的工具。例如 Retrofit 就这样做，通过使用 `Proxy` 对象来拦截方法调用，然后查看注解和类型信息来决定什么内容该放入 HTTP 请求或从 HTTP 请求中读取。
 
-**结论**：Sometimes it’s required to retain type information and annotations that are read at runtime, as opposed to compile time. You can check out the [attributes list in the ProGuard manual](https://www.guardsquare.com/en/proguard/manual/attributes).
+**结论**：有时需要并保留在运行时而不是编译时被取的类型信息与注解。你可以查看[ProGuard 手册中的属性列表](https://www.guardsquare.com/en/proguard/manual/attributes)。
 
 ```
 -keepattributes *Annotation*, Signature, Exception
 ```
 
-> If you’re using the default Android ProGuard configuration file (`_getDefaultProguardFile('proguard-android.txt')_`), the first two options — Annotations and Signature — are specified for you. If you’re not using the default you have to make sure to add them yourself (it also doesn’t hurt to just duplicate them if you know they’re a requirement for your app).
+> 如果你使用默认的Android ProGuard 配置文件（`_getDefaultProguardFile('proguard-android.txt')_`），那么前两个选项被指定给你 —— 注解和签名。如果你没有使用默认的配置文件，那么你必须保证你自己添加它们（如果你知道你的应用需要他们，那么重复它们也没有什么坏处）。
 
 ### 将所有内容移至默认包
 
-默认情况下，ProGuard 配置中不会添加 [`-repackageclasses`](https://www.guardsquare.com/en/proguard/manual/usage#repackageclasses) 选项。 If you are already obfuscating your code and have fixed any problems with proper keep rules, you can add this option to further reduce DEX size. It works by moving all classes to the default (root) package, essentially freeing up the space taken up by strings like “_com.example.myapp.somepackage_”.
+默认情况下，ProGuard 配置中不会添加 [`-repackageclasses`](https://www.guardsquare.com/en/proguard/manual/usage#repackageclasses) 选项。如果你已经在混淆你的代码并且使用适当的 keep 规则解决了任何问题，那么你可以添加这个选项以进一步减小 DEX 的大小。它的工作原理是将所有类移至默认（根）包，从而实质上释放了被像 「**com.example.myapp.somepackage**」这样的字符串所占用的空间。
 
 ```
 -repackageclasses
@@ -157,7 +157,7 @@ There is another class of tools that actually inspect annotations or look at typ
 
 ### ProGuard 优化
 
-正如我之前提到的，ProGuard 可以为你做三件事：As I mentioned before, ProGuard can do 3 things for you:
+正如我之前提到的，ProGuard 可以为你做三件事：
 
 1.  它摆脱了未使用的代码，
 2.  重命名标识符从而使代码更小，
@@ -176,23 +176,23 @@ release {
 }
 ```
 
-This will make your release build slower, but will potentially make your app run faster and reduce code size even further, thanks to optimizations such as method inlining, class merging and more aggressive code removal. Be prepared however, that it might introduce new and difficult to diagnose bugs, so use it with caution and if anything isn’t working, be sure to disable certain optimizations or disable the use of the optimizing config altogether.
+这会是你的发布构建更慢，但可能会让你的应用运行地更快和进一步缩小代码体积，这要归功于方法内联、类合并与更侵略性的代码删除等优化。但要做好准备，它可能会引入新的、更难诊断的错误，因此谨慎使用，如果有任何不起作用，务必禁用某些特定的优化或完全禁用优化配置。
 
-In the case of Plaid, ProGuard optimizations interfered with how Retrofit uses Proxy objects without concrete implementations, and stripped away some method parameters that were actually required. I had to add this line to my config:
+就 Plaid 来说，ProGuard 优化干扰了 Retrofit 如何使用没有具体实现的代理对象，并剥离了一些实际需要的方法参数。我必须在我的配置中添加这一行：
 
 ```
 -optimizations !method/removal/parameter
 ```
 
-You can find a [list of possible optimizations and how to disable them in the ProGuard manual](https://www.guardsquare.com/en/proguard/manual/optimizations).
+你可以在 ProGuard 中找到[可能的优化列表以及如何禁用它们](https://www.guardsquare.com/en/proguard/manual/optimizations)。
 
 ### 何时使用 `@Keep` 和 `-keep`
 
-`@Keep` support is actually implemented as a bunch of `-keep` rules in the default Android ProGuard rules file, so they’re essentially equivalent. Specifying `-keep` rules is more flexible as it offers wildcards, you can also use different variants which do slightly different things (`-keepnames`, `-keepclasseswithmembers` [and more](https://www.guardsquare.com/en/proguard/manual/usage#keepoverview)).
+`@Keep` 的支持在默认的 Android ProGuard 规则文件中实际上是通过一系列 `-keep` 规则实现的，因此它们基本上是等效的。指定 `-keep` 规则更灵活，因为它提供通配符，你也可以使用不同的变体，这些变体稍有不同（`-keepnames`、`-keepclasseswithmembers` [以及更多](https://www.guardsquare.com/en/proguard/manual/usage#keepoverview)）。
 
-Whenever a simple “keep this class” or “keep this method” rule is needed though, I actually prefer the simplicity of adding a`@Keep` annotation on the class or member, as it stays close to the code, almost like documentation.
+每当需要一个简单的「保留这个类」或「保留这个方法」规则时，我实际上更喜欢在类或成员上添加 `@Keep` 注解的简单性，因为它和代码保持很近，几乎就像文档一样。
 
-If some other developer coming after me wants to refactor the code, they will know immediately that a class/member marked with `@Keep` requires special handling, without having to remember to consult the ProGuard configuration and risking breaking something. Also most code refactorings in the IDE should retain the `@Keep` annotation with the class automatically.
+如果其他开发者想要在我之后重构代码，他们会立即知道被 `@Keep` 标记的类 / 成员需要特殊处理，而不必记住和参考 ProGuard 配置并且冒着破坏某些东西的风险。IDE 中大部分的代码重构也应当自动保留类的 `@Keep` 注解。
 
 ### Plaid 统计信息
 
