@@ -162,7 +162,7 @@ var pages = [
 ];
 ```
 
-在Scaffold中，写入
+在 Scaffold 中，写入
 
 ```
 body: pages[selectedPageIndex],
