@@ -2,14 +2,14 @@
 > * 原文作者：[Nick Manning](https://hackernoon.com/@seenickcode?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-it-was-like-to-write-a-full-blown-flutter-app.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-it-was-like-to-write-a-full-blown-flutter-app.md)
-> * 译者：
+> * 译者：[tanglie1993](https://github.com/tanglie1993)
 > * 校对者：
 
 # 写一个完整的 Flutter App 是什么感觉
 
 ![](https://cdn-images-1.medium.com/max/800/1*SZK7j8dPQuaecmaeJoWxwA.jpeg)
 
-**更新**: 我将会放出一个新的 Flutter 课程，名为 Practical Flutter。它将在 18 年 七月底开始。如果你想收到通知， [点击这里](https://mailchi.mp/5a27b9f78aee/practical-flutter)。 🚀
+**更新**: 我将会放出一个新的 Flutter 课程，名为 Practical Flutter。它将在 18 年 七月底开始。如果你想收到通知， [点击这里](https://mailchi.mp/5a27b9f78aee/practical-flutter)。 ??
 
 今天早上我吃了两顿早饭，因为我需要发动所有的写博客用的脑力。从[我的上一个帖子](https://codeburst.io/why-flutter-will-take-off-in-2018-bbd75f8741b0) 以后，我有了很多想说的话，所以我们开始吧。
 
@@ -79,17 +79,17 @@
 
 目前为止，Flutter 使我感到非常愉快。
 
-Next, I’m going to consider re-writing another iOS I have in the app store, [www.brewswap.co](http://www.brewswap.co) that’s more complex (Tinder-style photo swiping, real time chat, etc).
+接下来，我将会考虑重写另一个我在 iOS 应用商店中的 app [www.brewswap.co](http://www.brewswap.co) ，它更复杂 （Tinder 风格的照片滑动，实时聊天，等等）。
 
-So far, those are the main takeaways I can think of for now. Like any framework, there are a lot of quirks and learning curve issues but really overall, **Flutter is something I feel like I can really invest in and most importantly, really enjoy using**.
+目前为止，这些是我能想到的主要缺点。像所有其它框架一样，它有很多奇怪的问题，学习曲线也不完全合理，但总的来说， **Flutter 使我感到可以投入大量时间，而且更重要的是，享受使用它**。
 
-Stay tuned for some initial Flutter tutorials and I hope I was able to give some insight for anyone considering making the investment in Flutter — I’d say, go for it!
+做好收到最初几期 Flutter 教程的准备，并且我希望我可以为准备投入 Flutter 的人提供一些有用的见解——我说，赶快开始吧！
 
-For anyone with questions on insight, etc, it’s better to just [**ping me on Twitter**](https://twitter.com/seenickcode) **@seenickcode.**
+如果任何人有任何问题，最好 [**在 Twitter 上 ping 我**](https://twitter.com/seenickcode) **@seenickcode.**。
 
-**UPDATE**: [Sign up](https://mailchi.mp/5a27b9f78aee/practical-flutter) and get notified about my upcoming Flutter course, Practical Flutter. 🚀
+**更新**: [注册](https://mailchi.mp/5a27b9f78aee/practical-flutter) 后可以在 Practical Flutter 课程上线时收到通知。??
 
-Happy Fluttering.
+使用 Flutter 愉快。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
