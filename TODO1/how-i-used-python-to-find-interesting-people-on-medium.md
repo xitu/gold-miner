@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-i-used-python-to-find-interesting-people-on-medium.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-i-used-python-to-find-interesting-people-on-medium.md)
 > * 译者：[Park-ma](https://github.com/Park-ma)
-> * 校对者：
+> * 校对者：[mingxing47](https://github.com/mingxing47)
 
 # 我是如何使用 Python 在 Medium 上找到并关注有趣的人
 
@@ -69,7 +69,7 @@ def clean_json_response(response):
 
 看看，这就是我的用户 ID。
 
-```json
+```
 ])}while(1);</x>{"success":true,"payload":{"user":{"userId":"d540942266d0","name":"Radu Raicea","username":"Radu_Raicea",
 ...
 ```
