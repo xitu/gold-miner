@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-challenge-twitter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-challenge-twitter.md)
 > * 译者：[MeFelixWang](https://github.com/MeFelixWang)
-> * 校对者：
 
 # 挑战 Flutter 之 Twitter
 
@@ -32,7 +31,7 @@
 
 #### 建立项目
 
-创建好 Flutter 项目（我将其命名为 twitter\_ui\_demo ）后，清除项目中的默认代码，只留下这些：
+创建好 Flutter 项目（我将其命名为 twitter_ui_demo ）后，清除项目中的默认代码，只留下这些：
 
 ```
 import 'package:flutter/material.dart';
@@ -87,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 ```
 
-到文件中
+到文件中。
 
  BottomNavigationBar 的代码如下：
 
@@ -116,11 +115,11 @@ bottomNavigationBar: BottomNavigationBar(items: [
 }, currentIndex: selectedPageIndex)
 ```
 
-将其添加到 HomePage 。
+将其添加到 HomePage。
 
-请注意，当设置图标的颜色时，我们会检查是否选中了图标，然后指定颜色。在 Twitter 中，选中的图标为蓝色，让我们将未选择的图标设置为 blueGrey 。
+请注意，当设置图标的颜色时，我们会检查是否选中了图标，然后指定颜色。在 Twitter 中，选中的图标为蓝色，让我们将未选择的图标设置为 blueGrey。
 
-定义一个名为 selectedPageIndex 的整型变量，用于存储所选页面的索引。在 onTap 函数中，我们将变量设置为新索引。用 setState（）包裹起来，因为我们需要刷新页面来重新渲染 AppBar 。
+定义一个名为 selectedPageIndex 的整型变量，用于存储所选页面的索引。在 onTap 函数中，我们将变量设置为新索引。用 setState() 包裹起来，因为我们需要刷新页面来重新渲染 AppBar。
 
 实现的底部导航栏：
 
@@ -171,7 +170,7 @@ body: pages[selectedPageIndex],
 
 它将设置 body 来展示这些页面。
 
-到目前为止， MyHomePage 基础组件的代码如下：
+到目前为止，MyHomePage 基础组件的代码如下：
 
 ```
 class _MyHomePageState extends State<MyHomePage> {
@@ -224,7 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 页面中有两个元素： AppBar 和推文列表。
 
-首先制作 AppBar 。它有一张用户个人资料图片和一个白底黑字的标题。
+首先制作 AppBar。它有一张用户个人资料图片和一个白底黑字的标题。
 
 ```
 appBar: AppBar(
@@ -238,21 +237,21 @@ appBar: AppBar(
 
 ![](https://cdn-images-1.medium.com/max/1600/1*mbPj5DfJmNBdTRoFz_2qZw.png)
 
-重新创建的 AppBar 
+重新创建的 AppBar
 
-现在，我们需要创建推文列表。为此，我们使用 ListView.builder（）。
+现在，我们需要创建推文列表。为此，我们使用 ListView.builder()。
 
 来看看列表项。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Dg5b1_8TBgd71HHUGbaAqA.jpeg)
 
-首先，我们需要一个由 row 和 divider 组成的 column 。
+首先，我们需要一个由 row 和 divider 组成的 column。
 
-在 row 中，有一个 icon 和另一个 column 。
+在 row 中，有一个 icon 和另一个 column。
 
-该 column 中有一个用于展示推文信息的 row ，一个用于展示推文本身的 text ，一个 image 和另一个用于对推文应用操作（如评论等）的 row 。
+该 column 中有一个用于展示推文信息的 row，一个用于展示推文本身的 text，一个 image 和另一个用于对推文应用操作（如评论等）的 row。
 
-为简洁起见，我们暂时抛开 image ，实际上和在 row 中添加 image 一样简单。
+为简洁起见，我们暂时抛开 image，实际上和在 row 中添加 image 一样简单。
 
 ```
 return Column(
@@ -328,13 +327,13 @@ return Column(
 
 重新创建的 Twitter 应用
 
-这是重新构建的 Twitter 用户订阅页。在 Flutter 中可以快速轻松地重新创建任何 UI ，这说明了它的开发速度和可定制性非常不错。两者是很难兼顾的。
+这是重新构建的 Twitter 用户订阅页。在 Flutter 中可以快速轻松地重新创建任何 UI，这说明了它的开发速度和可定制性非常不错。两者是很难兼顾的。
 
 完整的示例托管在 Github 上。
 
- Github 链接：[https://github.com/deven98/TwitterFlutter](https://github.com/deven98/TwitterFlutter)
+Github 链接：[https://github.com/deven98/TwitterFlutter](https://github.com/deven98/TwitterFlutter)
 
-感谢阅读此 Flutter 挑战。可以留言告诉我任何你想要在 Flutter 中重新创建的应用。喜欢请给个 star ，下次见。
+感谢阅读此 Flutter 挑战。可以留言告诉我任何你想要在 Flutter 中重新创建的应用。喜欢请给个 star，下次见。
 
 不要错过：
 
