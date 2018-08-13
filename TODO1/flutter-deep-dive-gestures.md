@@ -212,7 +212,7 @@ class AllowMultipleGestureRecognizer extends TapGestureRecognizer {
 
 最后，我们从应用程序的角度介绍了 Flutter 中的大部分手势系统。有了这些知识，你现在应该对如何获取屏幕上的触摸并在幕后进行处理有了更好地理解。如果你有任何问题或疑虑，请随时发表评论或通过 [Twitterverse](https://twitter.com/Nash0x7E2?lang=en) 与我联系。
 
-同样 **_非常_** 感谢[Simon Lightfoot](https://twitter.com/devangelslondon)（又名“Flutter Whisperer”）对本文的贡献❤
+同样 **非常** 感谢[Simon Lightfoot](https://twitter.com/devangelslondon)（又名“Flutter Whisperer”）对本文的贡献❤
 
 * [Nash](http://nash0x7E2.github.io)
 
