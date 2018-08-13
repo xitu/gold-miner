@@ -60,7 +60,7 @@ Android 的 [默认 ProGuard 文件](https://developer.android.com/studio/build/
 
 ### 从 JAR/APK 打开资源
 
-Android 有其自己的资源系统，通常不会有 ProGuard 的问题。然而，在普通的 Java 中有另一种 [直接从 JAR 文件加载资源的机制](https://docs.oracle.com/javase/8/docs/technotes/guides/lang/resources.html) 并且即使被编译到 Android 应用中，某些第三方库可能也会使用这种机制（在这种情况下，它们将尝试从 APK 加载）。
+Android 有其自己的资源系统，通常不会有 ProGuard 的问题。然而，在普通的 Java 中有另一种 [直接从 JAR 文件加载资源的机制](https://docs.oracle.com/javase/8/docs/technotes/guides/lang/resources.html)。并且某些第三方库即使被编译到 Android 应用中也可能会使用这种机制（在这种情况下，它们将尝试从 APK 加载）。
 
 问题是通常这些类会在自己的包名下寻找资源（这将转换为 JAR 或 APK 中的文件路径）。ProGuard 可能在混淆时重命名包名，因此在编译之后可能会发生类及其资源文件不再位于最终 APK 中的同一包内。
 
