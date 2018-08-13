@@ -2,23 +2,22 @@
 > * 原文作者：[Maksim Ryzhikov](https://medium.com/@maksimrv?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/reactive-app-state-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/reactive-app-state-in-flutter.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
 
-# Reactive app state in Flutter
+# Flutter 中的原生应用程序状态
 
 ![](https://cdn-images-1.medium.com/max/800/1*TFZQzyVAHLVXI_wNreokGA.png)
 
 flutter.io
 
-I have been playing with [Flutter](https://flutter.io/) for several weeks and I can say it’s really great, thanks to Flutter and Dart team. But when I started to hack demo app in Flutter I met several problems:
+我使用 [Flutter](https://flutter.io/) 已经有几个星期了，所以我能感受到它为开发所带来的便利，感谢 Flutter 和 Dart 团队。但起初我尝试攻击 Flutter 中演示案例时，遇到了一些问题：
 
-1.  How to pass an app’s state down to the widgets tree
-2.  How to rebuild widgets after updating the app’s state
+1.  如何将应用程序的状态传递给小部件树
+2.  如何在更新应用程序状态之后重建小部件
 
-So let’s start from the first problem “How to pass an app’s state”. I’ll be showing my solutions with a help of the Flutter’s standard “Counter” demo app. It’s easy to create such an app: we just need to type [“flutter create myapp”](https://flutter.io/getting-started/#creating-your-first-flutter-app) in a terminal (“myapp” — is the name of our demo app).
+那么我们从第一个问题“如何传递应用程序状态”开始。我用 Flutter 的标准 “Counter” 示例应用程序来演示我的解决方案。创建一个这样的应用程序非常简单：我们只需要在终端输入 [“flutter create myapp”](https://flutter.io/getting-started/#creating-your-first-flutter-app)（“myapp” —— 是我的示例应用程序的名字）。
 
-After that we should open “main.dart” file and make “MyHomePage” widget “stateless”:
+然后我们打开 “main.dart” 文件，并使 “MyHomePage” 小部件为 “stateless”：
 
 ```
 import 'package:flutter/material.dart';
@@ -63,9 +62,9 @@ class MyHomePage extends StatelessWidget {
 }
 ```
 
-We just move “build” method from “MyHomePageState” to “MyHomePage” widget, then create the empty method `_incrementCounter` there and create var `_counter` on top of the file . Now we can reload our app and see that nothing has changed on the screen, except for the “+” button - now it doesn’t function. It’s ok because now our widget is stateless.
+我们只需将 “build” 方法 “MyHomePageState” 移至 “MyHomePage” 小部件，然后在文件的顶部新建空方法 `_incrementCounter` 和变量 `_counter`。现在我们可以重新加载我们的应用程序，然后发现屏幕上没有任何变化，除了 “+” 按钮 —— 现在它还没有任何功能。这没关系，因为我们的小部件是无状态的。
 
-Let’s think about how our widget which provides the app’s state should look:
+我们考虑一下提供应用程序状态的小部件应该是什么样子的：
 
 ```
 class MyApp extends StatelessWidget {
@@ -85,11 +84,11 @@ class MyApp extends StatelessWidget {
 }
 ```
 
-Here we can see the new widget “Provider” which wraps our whole app. It has two properties: “data” — which contains our app’s state and “child” — the descendant widget. Also we should have the possibility to get this data from any widget down the tree, but we will think about it later. Now let’s write down the straightforward implementation for our new widget.
+这里我们可以看到包装了我们整个应用程序的新的小部件 “Provider”。它有两个属性：包含应用程序状态的 “data” 和子代小部件的 “child”。此外，我们应该有可能从树下的任何小部件中获取这些数据，但稍后我们会考虑的。现在，我们为我们的新小部件写下简单的实现。
 
-First of all let’s create the new dart file “Provider.dart” by the “main.dart” where we will put our implementation for the “Provider” widget.
+首先，我们通过 “main.dart” 来新建一个 “Provider.dart” dart 文件，然后用来实现我们的 “Provider” 小部件。
 
-Now we create “Provider” as a “Stateless” widget:
+现在我们创建 “Provider” 作为 “Stateless” 小部件：
 
 ```
 import 'package:flutter/widgets.dart';
@@ -105,7 +104,7 @@ class Provider extends StatelessWidget {
 }
 ```
 
-Yup, pretty straightforward. Now let’s import “Provider” into “main.dart”
+是的，直截了当。现在我们将 "Provider" 导入 “main.dart”
 
 ```
 import 'package:flutter/material.dart';
@@ -113,13 +112,13 @@ import 'package:flutter/material.dart';
 import 'package:myapp/Provider.dart';
 ```
 
-and rebuild our app to check that all is working without any errors. If all “works”, let’s move further. Now we have a container for our app’s state and we can return to the question about how to retrieve the data from this container. Fortunately Flutter already has a solution and it’s “[InheritedWidget](https://docs.flutter.io/flutter/widgets/InheritedWidget-class.html)”. The documentation describes it very well:
+重建我们应用程序，以检查所有的工作是否有错。如果全部“运行”，那我们就可以进行下一步了。我们现在有了一个用于应用程序状态的容器，我们可以返回如何从这个容器中检索数据的问题。幸运的是，Flutter 已经有了解决方案，而且它是 “[InheritedWidget](https://docs.flutter.io/flutter/widgets/InheritedWidget-class.html)”。这些文档已经说得很清楚了：
 
-> Base class for widgets that efficiently propagate information down the tree.
+> 用于在树中有效传播信息的小部件的基类。
 
-This is exactly what we need. Let’s create our “inherited” widget.
+这正是我们所需要的。我们创建“继承”小部件。
 
-Open “Provider.dart” and create the private “_InheritedProvider” widget:
+打开 “Provider.dart”，然后创建私有 “`_InheritedProvider`” 小部件：
 
 ```
 class _InheritedProvider extends InheritedWidget {
@@ -136,9 +135,9 @@ class _InheritedProvider extends InheritedWidget {
 }
 ```
 
-All subclasses of “InheritedWidget” should implement “updateShouldNotify” method. At this point we just check that the passed “data” has changed. For example, when we change the counter from “0” to “1” this method should return “true”.
+“InheritedWidget” 的所有子类都应该实现 “updateShouldNotify” 方法。此时，我们只需检查传递的 “data” 是否已更改。例如，当我们将计数器从 “0” 改为 “1” 时，该方法应该返回 “true”。
 
-Now let’s add our “Inherited” widget to the widget tree:
+我们现在讲“继承”小部件，然后添加到小部件树中：
 
 ```
 class Provider extends StatelessWidget {
@@ -152,7 +151,7 @@ class Provider extends StatelessWidget {
 }
 ```
 
-Ok, now we’ve got widget which propagates data in our widget tree, but we should create a public method which allows to [get](https://docs.flutter.io/flutter/widgets/BuildContext/inheritFromWidgetOfExactType.html) this data:
+好的，我们现在有了小部件，它在小部件树中传播数据，但我们应该创建一个公有方法，它允许 [get](https://docs.flutter.io/flutter/widgets/BuildContext/inheritFromWidgetOfExactType.html) 这个数据：
 
 ```
 class Provider extends StatelessWidget {
@@ -167,9 +166,9 @@ class Provider extends StatelessWidget {
 }
 ```
 
-“[inheritFromWidgetOfExactType](https://docs.flutter.io/flutter/widgets/BuildContext/inheritFromWidgetOfExactType.html)” method obtains the nearest parent widget of the “_InheritedProvider” type instance.
+“[inheritFromWidgetOfExactType](https://docs.flutter.io/flutter/widgets/BuildContext/inheritFromWidgetOfExactType.html)” 方法获取 “_InheritedProvider” 类型实例的最近父部件。
 
-Now we have everything to solve the first problem:
+我们现在有了解决第一个问题的能力：
 
 ```
 class MyApp extends StatelessWidget {
@@ -192,19 +191,19 @@ class MyHomePage extends StatelessWidget {
 }
 ```
 
-We have removed the global variable “_counter” and got “counter” inside “MyHomePage” widget using “Provider.of”. As you can see we didn’t pass it to “MyHomePage” as a parameter instead we used “Provider.of” for getting the app’s state, which can be applied to any widget down the tree. In addition to it “Provider.of” [registeres](https://docs.flutter.io/flutter/widgets/BuildContext/inheritFromWidgetOfExactType.html) the current widget’s context and [rebuild](https://docs.flutter.io/flutter/widgets/BuildContext/inheritFromWidgetOfExactType.html)s it when our “_InheritedProvider” widget is changed.
+我们删除了全局变量 “_counter” 并使用 “Provider.of” 在 “MyHomePage” 小部件中取得了 “counter”。如你所见，我们没有将它作为参数传递给 “MyHomePage”，而是使用 “Provider.of” 来获取应用程序的状态，他可以应用于树下的任何小部件。 此外，“Provider.of” 还包括当前小部件的上下文和[重建](https://docs.flutter.io/flutter/widgets/BuildContext/inheritFromWidgetOfExactType.html)，并在更改 “`_InheritedProvider`” 小部件时对其进行[注册](https://docs.flutter.io/flutter/widgets/BuildContext/inheritFromWidgetOfExactType.html)。
 
-Now it’s time to check that our app still works: let’s reload it. To make sure that our “Provider” works correctly we can change the “data” from “0” to “1” in “MyApp” widget and after that we have to reload the app again. However our “+” button still doesn’t work.
+现在是时候检测我们的应用程序是否起作用了：我们重新加载它。为了确保我们的 "Provider" 正常工作，我们可以将 “data” 从 “0” 更改为 “MyApp” 小部件中的 “1”，然后我们必须重新加载应用程序。然而，我们的 “+” 按钮仍然无法工作。
 
-Here we face our second problem “How to rebuild widgets after the app’s state has been changed” and now we should put on our thinking caps again.
+在这里，我们面临的第二个问题是“如何在改变应用程序的状态后重建小部件”，现在我们应该重新开始思考。
 
-Our app’s state is just a number but it’s not that easy to detect when this number has been changed. What if we wrap our “counter" number into an “observable” object which will track changes and notify “listeners” about these changes.
+我们的应用程序状态只是一个数字，但当这个数字被更改时，检测起来就没有那么容易了。如果我们将“计数器”编号包装成一个“可观察的”对象，该对象将跟踪更改并通知“监听器”这些更改。
 
-Fortunately Flutter already has a solution and this is “[ValueNotifier](https://docs.flutter.io/flutter/foundation/ValueNotifier-class.html)”. Here’s a very good explanation from the documentation, as usual:
+庆幸的是，Flutter 已经有了解决方案，这就是 “[ValueNotifier](https://docs.flutter.io/flutter/foundation/ValueNotifier-class.html)”。像通常一样，这里有一个很好的文档解释：
 
-> When [value](https://docs.flutter.io/flutter/foundation/ValueNotifier/value.html) is replaced, this class notifies its listeners.
+> 当 [value](https://docs.flutter.io/flutter/foundation/ValueNotifier/value.html) 被替代时，这个类会通知它的监听器。
 
-Ok, let’s create our app’s state class in “mian.dart”:
+好的，让我们在 “mian.dart” 中创建应用程序的状态类：
 
 ```
 import 'package:flutter/material.dart';
@@ -217,7 +216,7 @@ class AppState extends ValueNotifier {
 var appState = new AppState(0);
 ```
 
-and pass it to the “Provider”
+然后将其传递给 "Provider"
 
 ```
 Widget build(BuildContext context) {
@@ -225,16 +224,16 @@ Widget build(BuildContext context) {
       data: appState,
 ```
 
-since “data” contains an object we should change our “Provider.of(context)” usage, so let’s do it:
+由于 “data” 包含一个对象，所以我们更改 “Provider.of(context)” 用法，那就这样做：
 
 ```
 Widget build(BuildContext context) {
     var _counter = Provider.of(context).value;
 ```
 
-Rebuild our app and make sure that there are no errors.
+重建我们的应用程序，并确保没有错误。
 
-Now we are ready to implement “_incrementCounter”:
+我们现在已经实现了 “`_incrementCounter`”：
 
 ```
   floatingActionButton: new FloatingActionButton(
@@ -251,15 +250,15 @@ Now we are ready to implement “_incrementCounter”:
   }
 ```
 
-Let’s reload the app and try to press the “+” button. Nothing has changed, but if we run “Hot reload” we will see that the text has changed. It happens because we have changed our app’s state after we pressed the button. However we see the old state on the screen because we haven’t rebuilt the widgets. The moment we run “Hot reload” widgets get rebuilt and we can see the actual state on the screen.
+我们重新加载了应用程序，并尝试按下 “+” 按钮。没有改变什么。但如果我们允许“热加载”，我们将看到文本已经改变。这是因为我们按下按钮后改变了应用程序的状态。但我们在屏幕上看到了旧的状态，因为我们还没有重新构建小部件。当我们允许小部件进行“热加载”时，我们就可以看到屏幕上的实际状态。
 
-The last challenge is to rebuild widgets after we changed the app’s state. But before that let’s take a look at the things we already have:
+最后的挑战是在我们更改应用程序的状态后重建小部件。但在此之前，我们看看已有的东西：
 
-1.  “Provider” — the container for our app’s state
-2.  “AppState” — the class which tracks app’s state changes and notifies “listeners”
-3.  “_InheritedProvider” — the widget that efficiently propagates the app’s state down the tree and rebuilds consumers after having changed its own state.
+1.  “Provider” —— 我们应用程序状态的容器
+2.  “AppState” —— 跟踪应用程序状态改变并通知“监听者”的类
+3.  “_InheritedProvider” —— 小部件将有效地将应用程序状态传播到网上，并在改变了自己的状态之后重建用户。
 
-At first let’s review the method “updateShouldNotify” of “_InheritedProvider”:
+首先，我们回顾一下 “_InheritedProvider” 的 “updateShouldNotify” 方法：
 
 ```
   @override
@@ -268,7 +267,7 @@ At first let’s review the method “updateShouldNotify” of “_InheritedProv
   }
 ```
 
-Now “data” is equal to the instance of “AppState”, which means when we change the “value” of this instance in the “_incrementCounter” method, it actualy doesn’t change the instance itself. So this comparison always returns “false”. Let’s fix this problem by comparing “value”-s. But for this we should save the “value” in the widget which allows us not to lose the “value” between rebuilds:
+现在 “data” 等于 “AppState” 的实例，这意味着我们在 “`_incrementCounter`” 方法中更改此实例的 “value” 时，它实际上并不会改变实例本身。因此，这个比较总是返回 “false”。我们通过比较  “value”-s 来解决这个问题。但为此，我们应该将“值”曝出在小部件中，这允许我们可以不丢失重构之间的 “value”：
 
 ```
 class _InheritedProvider extends InheritedWidget {
@@ -287,9 +286,9 @@ class _InheritedProvider extends InheritedWidget {
 }
 ```
 
-Now it works correctly: when we change the value of the state the widget rebuilds consumers. But before rebuilding consumers we should rebuild the widget itself after the app’s state is changed.
+现在它可以正确地工作了：当我们改变状态值时，小部件会重新构建消费者。但在重新构建消费者之前，我们应该在改变应用程序的状态后重建小部件本身。
 
-There’s only one place in our code which knows about “_InheritedProvider” widget and this is the “Provider” widget. In case we want to track some state in widgets we should create the “statefull” widget. Ok, let’s convert our “Provider” widget from “stateless” to “statefull”:
+我们的代码中只有一个可以了解 “_InheritedProvider” 的小部件，就是 “Provider” 小部件。如果我们想要跟踪小部件中的某种状态，我们应该创建 “statefull” 小部件。好的，让我们将 “Provider” 小部件从 “stateless” 转换为 “statefull”：
 
 ```
 class Provider extends StatefulWidget {
@@ -322,7 +321,7 @@ class _InheritedProvider extends InheritedWidget {
   _InheritedProvider({this.data, this.child})
 ```
 
-Now let’s “subscribe” to the app’s state change and call “ `setState`” after it has been changed:
+我们现在可以 “subscribe” 应用程序的状态改变，并在它被更改后调用 “`setState`”：
 
 ```
 class _ProviderState extends State<Provider> {
@@ -335,7 +334,7 @@ class _ProviderState extends State<Provider> {
   didValueChange() => setState(() {});
 ```
 
-and don’t forget to remove garbage after the widget is destroyed:
+不要忘记在小部件被销毁后删除垃圾：
 
 ```
 class _ProviderState extends State<Provider> {
@@ -350,24 +349,24 @@ class _ProviderState extends State<Provider> {
 }
 ```
 
-Let’s rebuild the app and check how it works. Hurray, now when we press the “+” button our app’s state gets changed and widgets are rebuilt.
+我们重建这个应用程序，并检查它是如何工作的。现在，当我们按下 “+” 按钮时，我们的应用程序状态就会发生改变，小部件也会被重建。
 
-Let’s check our problems:
+我们检查一下我们的问题：
 
-1.  How to pass the app’s state down to the widgets tree — **Solved**
-2.  How to rebuild widgets after the app’s state has been changed — **Solved**
+1.  我们如何将应用程序状态传递到小部件树 —— **已解决**
+2.  如何在更改应用程序状态后重建小部件 —— **已解决**
 
-The source code you can find here -[https://gist.github.com/c88f116d7d65d7222ca673b5f9c5bcc3](https://gist.github.com/c88f116d7d65d7222ca673b5f9c5bcc3)
+源代码在这里 —— [https://gist.github.com/c88f116d7d65d7222ca673b5f9c5bcc3](https://gist.github.com/c88f116d7d65d7222ca673b5f9c5bcc3)
 
-Conclusion.
+结论。
 
-The general idea of this article is to show how to implement the “redux” pattern in Flutter without external packages. Flutter already has packages which implement the “redux” pattern but sometimes they don’t fit your architecture and it’s good to know how you can implement something from scratch with your own hands ✋.
+本文的总体思想是演示如何在没有额外包的情况下，在 Flutter 中实现 “redux” 模式。Flutter 已经有了可以实现 “redux” 模式的包，但有时它们不适合你的体系结构，知道如何用你自己的手从头开始实现是好事 ✋。
 
-Thanks,
+感谢，
 
-Happy coding and develop with pleasure!
+快乐的编码，快乐的发展！
 
-Thanks to [Elizaveta Kulikova](https://medium.com/@lizzy.kulikova?source=post_page).
+感谢 [Elizaveta Kulikova](https://medium.com/@lizzy.kulikova?source=post_page)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

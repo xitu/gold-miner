@@ -2,43 +2,43 @@
 > * 原文作者：[Alex Sullivan](https://robots.thoughtbot.com/authors/alex-sullivan)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/examining-performance-differences-between-native-flutter-and-react-native-mobile-development.md](https://github.com/xitu/gold-miner/blob/master/TODO1/examining-performance-differences-between-native-flutter-and-react-native-mobile-development.md)
-> * 译者：
-> * 校对者：
+> * 译者：[LeeSniper](https://github.com/LeeSniper)
+> * 校对者：[LeviDing](https://github.com/leviding)
 
-# Examining performance differences between Native, Flutter, and React Native mobile development.
+# 测试原生，Flutter 和 React Native 移动开发之间的性能差异。
 
-It’s a difficult decision deciding whether your company’s mobile app should be a true native application or employ a cross platform approach like [React Native](https://facebook.github.io/react-native/) or [Flutter](https://flutter.io/?gclid=CjwKCAjw_tTXBRBsEiwArqXyMpTQzgV_nMlPcId9f80SVLkTOOeDSBufRKeadabVPzTD5D262LhFPRoCkKEQAvD_BwE). One factor that often comes into play is the question of speed - we all have a general sense that most cross platform approaches are slower then native, but the concrete numbers can be difficult to come across. As a result, we’re often going with a gut feeling rather than specific numbers when we consider performance.
+确定你们公司的移动应用程序是真正的原生应用还是采用跨平台方法实现（如 [React Native](https://facebook.github.io/react-native/) 或 [Flutter](https：//flutter.io/?gclid=CjwKCAjw_tTXBRBsEiwArqXyMpTQzgV_nMlPcId9f80SVLkTOOeDSBufRKeadabVPzTD5D262LhFPRoCkKEQAvD_BwE)）是一个很艰难的决定。经常会考虑的一个因素是速度问题 —— 我们都普遍认为大多数跨平台方法比原生方法慢，但是很难说出具体的数字。因此，当我们考虑性能时，我们常常会靠直觉，而不是具体的数据。
 
-In the hopes of adding some structure to the above performance analysis, as well as a general interest in how well Flutter lives up to its performance promises, I decided to build a very simple app as a native app, a react native app, and a flutter app to compare their performances.
+因为希望在上述性能分析中添加一些结构，以及对 Flutter 如何实现其性能承诺的兴趣，我决定构建一个非常简单的应用程序分别对应原生版本，React Native 版本以及 Flutter 版本，进而比较他们的性能。
 
-## [The app](#the-app)
+## 测试应用
 
-The app that I built is about as simple as it can get while still being at least somewhat informative. It’s a timer app - specifically, the app displays a blob of text that counts up as time goes on. It displays the number of minutes, seconds, and milliseconds that have passed since the app was started. Pretty simple.
+我构建的应用程序尽可能简单，同时确保至少仍能提供一些信息。它是一个计时器应用 —— 具体来说，该应用程序显示随着时间的推移计数的一团文本。它显示自应用程序启动以来经过的分钟数、秒数和毫秒数。相当简单。
 
-Here’s an example of its starting state:
+下面是它初始状态的样子：
 
 ![](https://images.thoughtbot.com/blog-vellum-image-uploads/0VCxRzRRfmVuQOZ89uQY_zero_time.png)
 
-And here’s an example after one minute, 14 seconds and 890 milliseconds has passed:
+这是 1 分钟 14 秒 890 毫秒后的样子：
 
 ![](https://images.thoughtbot.com/blog-vellum-image-uploads/rhpib7pYRP60PJ403OSI_non_zero_timer.png)
 
-Riveting.
+铆。
 
-## [But why a timer?](#but-why-a-timer)
+## 但是为什么选计时器？
 
-I chose a timer app for two reasons:
+我选择计时器应用有两个原因：
 
-1.  It was easy to develop on each platform. At its core this app is a text view of some type and a repeating timer. Pretty easy to translate across three different languages and stacks.
-2.  It gives an indication of how efficient the underlying system is at drawing something to the screen.
+1.  它在每个平台上都很容易开发。这个应用程序的核心是某种类型的文本视图和重复计时器，很容易翻译成三种不同的语言和堆栈。
+2.  它表明了底层系统在屏幕上绘制内容的效率。
 
-## [Let’s take a look at the code](#let39s-take-a-look-at-the-code)
+## 让我们看一看代码
 
-Luckily, the app(s) are small enough that I can add the relevant sections right here.
+幸运的是，这个应用足够小，我可以直接在这里添加相关代码。
 
-### [Native Android](#native-android)
+### 原生 Android 应用
 
-Here’s the main activity of the native Android app:
+以下是原生 Android 应用的 MainActivity：
 
 ```
 class MainActivity : AppCompatActivity() {
@@ -73,9 +73,9 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-### [React Native](#react-native)
+### React Native
 
-Here’s our `App.js` file for the React Native app:
+这是 React Native 应用程序的 `App.js` 文件：
 
 ```
 export default class App extends Component {
@@ -132,9 +132,9 @@ const styles = StyleSheet.create({
 });
 ```
 
-### [Flutter](#flutter)
+### Flutter
 
-And finally here’s our Flutter `main.dart` file:
+最后这是我们的 Flutter `main.dart` 文件：
 
 ```
 void main() => runApp(new MyApp());
@@ -191,59 +191,59 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 ```
 
-Each app follows the same basic structure - they all have a timer that repeats every ten milliseconds and recalculates the amount of minutes/seconds/milliseconds that have elapsed since the timer was started.
+每个应用程序都遵循相同的基本结构 —— 它们都有一个计时器，每 10 毫秒重复一次，并重新计算自计时器启动以来经过的分钟数、秒和毫秒数。
 
-## [How are we measuring the performance?](#how-are-we-measuring-the-performance)
+## 我们如何测量性能？
 
-For those unfamiliar with Android development, Android Studio is the editor/environment of choice for building Android apps. It also comes with a helpful series of profilers to analyze your application - specifically, there’s a CPU profiler, a memory profiler, and a network profiler. So we’ll use those profilers to judge performance. All of the tests are run on thoughtbots Nexus 5X and my own personal first generation Google Pixel. The React Native app will be run with the `--dev` flag set to `false`, and the Flutter app will be run in the `profile` configuration to simulate a release app rather than a JIT compiled debug app.
+对于那些不熟悉 Android 开发的人来说，Android Studio 是构建 Android 应用程序的首选编辑器/环境。它还附带了一系列有用的分析器来分析你的应用程序 —— 具体来说，它有一个 CPU 分析器，一个内存分析器和一个网络分析器。所以我们将使用这些分析器来判断性能。所有测试都在 Thoughtbot 的 Nexus 5X 和我自己的第一代 Google Pixel 上运行。React Native 应用程序将在 `--dev` 标志设置为 `false` 的情况下运行，Flutter 应用程序将在 `profile` 配置中运行，以模拟发布应用程序而不是 JIT 编译的调试应用程序。
 
-## [Show me some numbers!](#show-me-some-numbers)
+## 给我看数据！
 
-Time for the interesting part of the blog post. Let’s take a look at the results when run on the Thoughtbot office Nexus 5X.
+到了这篇文章最有趣的部分了。让我们看一下在 Thoughtbot 办公室的 Nexus 5X 上运行时的结果。
 
-#### [Native results on the Nexus 5X](#native-results-on-the-nexus-5x)
+#### Nexus 5X 上面原生应用的结果
 
 ![](https://images.thoughtbot.com/blog-vellum-image-uploads/lFFEgOsfTSoj0vK5Se3T_5X-native.png)
 
-#### [React Native results on the Nexus 5X](#react-native-results-on-the-nexus-5x)
+#### Nexus 5X 上面 React Native 应用的结果
 
 ![](https://images.thoughtbot.com/blog-vellum-image-uploads/AZGU7tjrQafOmrSmInOA_5X-react-native.png)
 
-#### [Flutter results on the Nexus 5X](#flutter-results-on-the-nexus-5x)
+#### Nexus 5X 上面 Flutter 应用的结果
 
 ![](https://images.thoughtbot.com/blog-vellum-image-uploads/AJNqUln8TOiJE1vZ0tnj_5X-flutter-profile.png)
 
-The first thing these results make clear is that a native Android app trumps both the React Native and Flutter apps by a non trivial margin when it comes to performance. CPU usage on the native app is less than half that of the Flutter app, which is still less CPU hungry than the React Native app, though by a fairly small margin. Memory usage is similarly low on the native app and inflated on both the React Native and Flutter applications, though this time the React Native app eked out a win over the Flutter app.
+这些结果首先表明的是，当涉及到性能时，原生 Android 应用程序胜过 React Native 和 Flutter 应用程序可不是一点半点。原生应用程序上的 CPU 使用率不到 Flutter 应用程序的一半，与 React Native 应用程序相比，Flutter 占用的 CPU 更少一些，但是差别不大。原生应用程序的内存使用率同样很低，并且在 React Native 和 Flutter 应用程序上内存使用率都有所增加，不过这次 React Native 应用表现得比 Flutter 应用更好。
 
-The next interesting takeaway is how _close_ in performance the React Native and Flutter applications are. While the app is admittedly trivial, I was expecting the JavaScript bridge to impose a higher penalty since the application is sending so many messages over that bridge so quickly.
+下一个有趣的内容是 React Native 和 Flutter 应用程序在性能上是如此**相近**。虽然这个应用程序无疑是微不足道的，但我原本以为 JavaScript 桥接器会受到更多的影响，因为应用程序如此快速地通过该桥接器发送了如此多的消息。
 
-Now let’s take a look at the results when tested on a Pixel.
+现在让我们看看在 Pixel 上测试时的结果。
 
-#### [Native results on the Pixel](#native-results-on-the-pixel)
+#### Pixel 上面原生应用的结果
 
 ![](https://images.thoughtbot.com/blog-vellum-image-uploads/ZL2Ji5UAQF2rBSPVpuTA_pixel-native.png)
 
-#### [React Native results on the Pixel](#react-native-results-on-the-pixel)
+#### Pixel 上面 React Native 应用的结果
 
 ![](https://images.thoughtbot.com/blog-vellum-image-uploads/wcCikaphRPy2lv8frxuS_pixel-react-native.png)
 
-#### [Flutter results on the Pixel](#flutter-results-on-the-pixel)
+#### Pixel 上面 Flutter 应用的结果
 
 ![](https://images.thoughtbot.com/blog-vellum-image-uploads/lQ2x4GucSWODuouxK270_pixel-flutter-profile.png)
 
-So, right off the bat I’m surprised about the significantly higher CPU utilization on the Pixel. It’s certainly a more powerful (and in my opinion, much smoother) phone than the Nexus 5X, so my natural assumption would be that CPU utilization for the same application would be _lower_, not higher. I can see why the memory usage would be higher, since there’s more memory on the Pixel and Android follows a general “use it or lose it” strategy for holding onto memory. I’m interested in hearing why the CPU usage would be higher if anyone in the audience knows!
+所以，我立马就对 Pixel 上显然更高的 CPU 占用感到惊讶。它肯定是比 Nexus 5X 更强大（在我看来就是更流畅）的手机，所以我自然而然假设同一应用程序的 CPU 利用率将_更低_，而不是更高。我可以理解为什么内存使用会更高，因为 Pixel 上有更大的内存空间而且 Android 上遵循一条“使用它或者浪费它”的策略来保持内存。如果读者中有任何人知道的话，我很想了解一下为什么 CPU 使用率会更高！
 
-The second interesting take away here is that Flutter and React Native have diverged _heavily_ in their strengths and weaknesses vs their native counterpart. React Native is only marginally more memory-hungry than the native app, while Flutters memory usage is almost 50% higher than the native app. On the other hand, the Flutter app came much closer to matching the native apps CPU usage, whereas the React Native app struggled to stay under 30% CPU utilization.
+第二个有趣的收获是，Flutter 和 React Native 与原生应用相比在他们的优势和劣势方面有了_更明显_的差别。React Native 只比原生应用程序占用的内存略微高一点，而 Flutter 的内存使用率比原生应用程序高出近 50％。另一方面，Flutter 应用程序更接近于原生应用程序的 CPU 使用率，而 React Native 应用程序则难以保持低于 30％ 的 CPU 使用率。
 
-More than anything else, I’m surprised by how _different_ the results are between the 5X and the Pixel.
+最重要的是，我对 5X 和 Pixel 之间结果的**差异之大**感到惊讶。
 
-## [Conclusion](#conclusion)
+## 结论
 
-I feel confident in saying that a native Android app will perform better than either a React Native app or a Flutter app. Unfortunately, I _do not_ feel confident in saying that a React Native app will out perform a Flutter app or vice versa. _Much_ more testing will need to be done to figure out if Flutter can actually offer a real world performance improvement over React Native.
+我可以很有信心地说原生 Android 应用的性能优于 React Native 应用或 Flutter 应用。不过，我_没有_信心说 React Native 应用将表现得比 Flutter 应用更好，反之亦然。还需要做**更多**的测试才能弄清楚 Flutter 是否能真正提供比 React Native 更高的真实性能。
 
-## [Caveats](#caveats)
+## 注意事项
 
-The profiling done above is _by no means_ conclusive. The small series of tests that I ran cannot be used to state that React Native is faster than Flutter or vice versa. They should only be interpreted as part of a larger question of profiling cross platform applications. There are many, many things that this small application does not touch that affect real world performance and user experience. It’s also worth pointing out that all three applications, in debug mode and release mode, ran smoothly.
+上面所做的分析是**并不是**最终结果。我运行的一小部分测试不能用来表示 React Native 比 Flutter 更快或者相反。它们只应被解释为分析跨平台应用程序这个大问题的一部分。还有很多这个小应用程序没有触及的东西会影响现实世界的性能和用户体验。值得指出的是，在 debug 模式和 release 模式下，所有三个应用程序都运行顺畅。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
