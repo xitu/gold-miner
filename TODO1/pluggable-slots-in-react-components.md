@@ -9,13 +9,13 @@
 
 ![](https://daveceddia.com/images/slots@2x.png)
 
-假如你需要写一个可以重复使用的组件。可是呢，名为 `children` 的 prop 不能解决这个需求。这个组件得有能力接收**不止一个** children ，而且这些 children 的放置还不是相邻的，而是按照需求而定。
+假如你需要写一个可以重复使用的组件。可是呢，名为 `children` 的 prop 不能解决这个需求。这个组件得有能力接收**不止一个** children，而且这些 children 的放置还不是相邻的，而是按照需求而定。
 
 可能你在写的是带有一个标题、一个边栏和一个内容区块的名为 `Layout` 的组件。又或者你正巧在写一个带有左右两侧且可以活动的 `NavBar` 组件。
 
-以上这些任务都可以轻松地被完成 ———— 借助 “插槽” 的模式，换言之就是传递 JSX 到一个 prop 中去。
+以上这些任务都可以轻松地被完成 —— 借助 “插槽” 的模式，换言之就是传递 JSX 到一个 prop 中去。
 
-**小结**：你可以把 JSX 传向**任何** prop，不只是叫 `children` 的prop，也不并局限于通过在一个组件的标签里嵌入 JSX ———— 从而在简化数据传递的同时呢，也让组件有更多被重复使用的价值。 
+**小结**：你可以把 JSX 传向**任何** prop，不只是叫 `children` 的prop，也不并局限于通过在一个组件的标签里嵌入 JSX —— 从而在简化数据传递的同时呢，也让组件有更多被重复使用的价值。 
 
 ## 快速回顾 React 里的 Children
 
@@ -55,10 +55,10 @@ function Button(props) {
 
 ### Children 也是一个普通的 Prop
 
-React 针对 children 的这个用法挺炫的：被嵌套的元素可以指认给名为 `children` 的 prop，然而这并不是一个神奇而特殊的 prop 。你可以给一个 prop 指认任何其他的元素。且看：
+React 针对 children 的这个用法挺炫的：被嵌套的元素可以指定成名为 `children` 的 prop，然而这并不是一个神奇而特殊的 prop 。你可以给一个 prop 指定任何其他的元素。且看：
 
 ```
-// 这行代码其实 ————
+// 这行代码其实 ——
 <Button children={<span>Click Me</span>} />
 
 // 相当于以下的代码。
@@ -67,14 +67,14 @@ React 针对 children 的这个用法挺炫的：被嵌套的元素可以指认�
 </Button>
 ```
 
-所以你不仅能够像传递一个普通的 prop 那样去传递 `children`，还可以往 prop 里传递 JSX 代码。意不意外？没错，这个功能并不专属于名为 “children” 的 prop！
+所以你不仅能够像传递一个普通的 prop 那样去传递 `children`，还可以往 prop 里传递 JSX 代码。意不意外？没错，这个功能并不专属于名为“children”的 prop！
 
 ## 以命名的卡槽来使用 Props 
 
 如果我告诉你，你可以向任何 prop 传递 JSX 代码，你会咋想？
 
 （你已经知道这个秘密了，不是吗？）
-这里有一个使用这些 “卡槽” 的 props 的例子 ———— 以 3 个 props 调用一个名为 `Layout` 的组件：
+这里有一个使用这些 “卡槽” 的 props 的例子 —— 以 3 个 props 调用一个名为 `Layout` 的组件：
 
 ```
 <Layout
@@ -149,7 +149,7 @@ const Content = () => (
 );
 ```
 
-现在和下面这个写法比较一下，Nav 和 Body 都接受名为 `user` 的 prop，然后它们负责手动将 prop 传递给 children。在那之后，它们的 children 必须给更细一层的 children 继续传递下去……
+现在和下面这个写法比较一下，Nav 和 Body 都接受名为 `user` 的 prop，然后它们负责手动将 prop 传递给 children。在那之后，它们的 children 必须给更细一层的 children 传递下去……
 
 ```
 function App({ user }) {
@@ -183,7 +183,7 @@ const Nav = ({ user }) => (
 );
 ```
 
-没有之前那个写法方便，不是吗？用这种方法向下传递 prop （又称 “prop 钻井”）会让组件之间有太多你可能不想要的麻烦的羁绊 ———— 并不一定总是坏事，但你最好搞清楚它们之间都是怎么连接的。上面第一种使用 children 的写法可以避免对更复杂解决办法的需求，比如说可能要用到 context， Redux 或 MobX (还有好多别的）。
+没有之前那个写法方便，不是吗？用这种方法向下传递 prop （又称 “prop 钻井”）会让组件之间被太多你可能不想要的麻烦所羁绊 —— 并不一定总是坏事，但你最好搞清楚它们之间都是怎么连接的。上面第一种使用 children 的写法可以避免对更复杂解决办法的需求，比如说可能要用到 context， Redux 或 MobX (还有好多别的）。
 
 ### 要当心 PureComponent 或 shouldComponentUpdate
 
@@ -191,9 +191,9 @@ const Nav = ({ user }) => (
 
 不过如果你遇到了**确实**需要调整 “插槽” 组件的性能的情况，那么可以考虑把表现性能过慢的部分代码提取出来，单独放进一个组件，然后进行调整。
 
-学习 React 有时会很痛苦 ———— 因为有这么多的代码库和工具！
+学习 React 有时会很痛苦 —— 代码库和工具实在太多啦！
 想听我的意见吗？那就是将那些代码库和工具通通忽略掉 ：）  
-若阁下想要步步为营的引导，就请阅读我写的书吧 ———— [Pure React](https://daveceddia.com/pure-react/?utm_campaign=after-post)。
+若阁下想要步步为营的引导，就请阅读我写的书吧 —— [Pure React](https://daveceddia.com/pure-react/?utm_campaign=after-post)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
