@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-challenge-whatsapp.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-challenge-whatsapp.md)
 > * 译者： [YueYong](https://github.com/YueYongDev)
-> * 校对者：
+> * 校对者：[HCMY](https://github.com/HCMY)
 
-# Flutter 挑战之 WhatsApp
+# 挑战 Flutter 之 WhatsApp
 
 ![](https://cdn-images-1.medium.com/max/1600/1*5n_vLiGTQ-RTWW-hdIT6XQ.jpeg)
 
@@ -105,7 +105,7 @@ appBar: new AppBar(
 
 #### The Tabs
 
-tabs（选项卡） 是 AppBar 的简单扩展，Flutter 使它们非常容易实现。
+tabs（选项卡）是 AppBar 的简单扩展，Flutter 使它们非常容易实现。
 
 AppBar 有一个“底部”字段，用于保存我们的标签：
 
@@ -330,9 +330,9 @@ itemBuilder: (context, position) {
 
 GitHub 链接 : [https://github.com/deven98/WhatsappFlutter](https://github.com/deven98/WhatsappFlutter)
 
-感谢您阅读此 Flutter 挑战。随意提及您可能想要在 lutter 中重新创建的任何应用程序。如果你喜欢它，一定要留下掌声，再见。
+感谢您阅读此 Flutter 挑战。随意提及您可能想要在 Flutter 中重新创建的任何应用程序。如果你喜欢它，一定要留下掌声，再见。
 
-不要忘了： [The Medium App in Flutter](https://blog.usejournal.com/flutter-challenge-the-medium-app-5f64a0f3c764)
+不要忘了：[The Medium App in Flutter](https://blog.usejournal.com/flutter-challenge-the-medium-app-5f64a0f3c764)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
