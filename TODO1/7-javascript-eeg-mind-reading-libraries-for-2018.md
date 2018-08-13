@@ -11,25 +11,25 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/1*TOFxZJnsy9DPK3a3ZES05w.jpeg)
 
-“耳机是不是很酷?”
+“这个头戴装置是不是很酷?”
 
-脑电图是记录人脑中生物电活动的一种方法。它可以用来检测人体状态，比如癫痫或者脑瘤，来研究脑活动与认知方面的联系，或者用来学习人脑是如何对外部刺激产生反应，比如音乐或影像。
+脑电图是记录人脑中生物电活动的一种方法。它可以用来检测人体状态，比如癫痫或者脑瘤，以此来研究脑活动与认知方面的联系，或者用来学习人脑是如何对外部刺激产生反应，比如音乐或影像。
 
-尽管相比其他方法，此方法还不够成熟，但是在一些方面它还是很有用的-通过将大脑活动转化成动作来使用外部设备（比如装备激光武器的机器人军队）。
+尽管相比其他方法，此方法还不够成熟，但是在一些方面它的用途还是很大的 - 可以将大脑活动转化成动作来控制外部设备（比如装备激光武器的机器人军队）。
 
 在脑电图信号的开发领域（由类似 [openBCI](http://openbci.com/) 这样的项目所引领），MathLab、python 和 R 都是十分 [流行的语言](https://www.researchgate.net/post/What_is_the_best_open_source_software_to_analyse_EEG_signals2)。但是就像其他领域，比如 [IOT](https://blog.bitsrc.io/10-javascript-iot-libraries-to-use-in-your-next-projects-bef5f9136f83)、[ML](https://blog.bitsrc.io/11-javascript-machine-learning-libraries-to-use-in-your-app-c49772cca46c) 和其他一些研究领域那样，Javascript [也会参与其中](http://www.castillo.io/blog/2016/4/25/neurojavascript/getting-your-brainwaves-to-the-browser-with-javascript)。
 
-作为在 [**Bit**](https://bitsrc.io) 工作的一部分,我们总在寻找前端的 Javascript 应用。所以，这里是我们找到的一些非常炫酷的处理脑电图的 Javascript 库和示例。欢迎你能够建议其他更多有用的项目！
+作为在 [**Bit**](https://bitsrc.io) 工作的一部分,我们一直在寻找前端的 Javascript 应用。所以，在这里是我们找到的一些非常炫酷的处理脑电图的 Javascript 库和示例。欢迎你能够建议其他更多有用的项目！
 
 ### 1. Muse-js
 
 ![](https://cdn-images-1.medium.com/max/1600/1*gN7_qSoxnCv7y2rW8WpO2g.gif)
 
-从这篇文章可以找到到一个例子: [https://medium.com/@urish/reactive-brain-waves-af07864bb7d4](https://medium.com/@urish/reactive-brain-waves-af07864bb7d4)
+从这篇文章可以找到一个示例: [https://medium.com/@urish/reactive-brain-waves-af07864bb7d4](https://medium.com/@urish/reactive-brain-waves-af07864bb7d4)
 
-Muse-js 是一个与 2016 Muse 脑电耳机相匹配的 Javasript 库（使用 web bluetooth）。灵感来自于 [muse-lsl](https://github.com/alexandrebarachant/muse-lsl/blob/d2b74412585f3baa852516542a0d0853faec1b4e/muse/muse.py) python 库, muse-js 由 [@UriShaked](https://twitter.com/UriShaked) 编译，它的愿景是：通过人脑直接控制网页。为什么不可以呢？
+Muse-js 是一个与 2016 Muse 脑电头盔相匹配的 Javasript 库（使用 web bluetooth）。灵感来自于 [muse-lsl](https://github.com/alexandrebarachant/muse-lsl/blob/d2b74412585f3baa852516542a0d0853faec1b4e/muse/muse.py) python 库, muse-js 由 [@UriShaked](https://twitter.com/UriShaked) 编译，它的目标是：通过人脑直接控制网页。为什么不可以呢？
 
-Muse-js 让 web 开发者可以通过浏览器去进行连接、分析并把脑电图数据可视化。除了处理“”脑电信号Apart from working with “ordinary” brain signals and communicating them to the web, muse-js also handles EEG signals related to eye-movement, which is not only super-cool but also very useful in cutting edge cognitive studies. Give it a go.
+Muse-js 让 web 开发者可以通过浏览器去进行连接、分析并把脑电图数据进行可视化。除了处理“普通”的脑电信号并把它们传送到网页上，muse-js还可以根据眼睛移动来操作脑电信号, 这不仅仅超级炫酷，而且对于人类认知的前沿研究也非常有帮助。尝试一下。
 
 * [**urish/muse-js**: muse-js — Muse 2016 EEG Headset JavaScript Library (using Web Bluetooth)](https://github.com/urish/muse-js)
 
@@ -39,10 +39,9 @@ Muse-js 让 web 开发者可以通过浏览器去进行连接、分析并把脑�
 
 ![](https://cdn-images-1.medium.com/max/1600/1*AlCW5rzbus1jqJBDSiIkRw.gif)
 
-作为 Brain-Bits 项目的一部分, wits 是一个 Node.js 库，它被用来 is a Node.js library that reads EEG signals with [Emotiv](https://www.emotiv.com/) EPOC EEG headset. It’s implemented as a native C module for raw performance (based on [openyou/emokit-c](https://github.com/openyou/emokit-c.git)), handles a raw EEG data stream of 14 electrodes with 128Hz sample rate and provides a thoughtful API for end users. Here’s an example, and you’re welcome to give it a try.
-作为Brain-Bits的一部分出生，智慧是一个Node.js库，可以使用[Emotiv]（https://www.emotiv.com/)EPOC EEG耳机读取EEG信号。 它被实现为原始性能的原生C模块（基于[openyou / emokit-c]（https://github.com/openyou/emokit-c.git）），处理14个电极的原始EEG数据流，128Hz 采样率并为最终用户提供周到的API。 这是一个例子，欢迎您试一试。
+作为 Brain-Bits 项目的一部分, wits 是一个 Node.js 库，它读取来自 [Emotiv](https://www.emotiv.com/) EPOC 脑电头戴装置的脑电图信号。它是由原生 C 模块实现（基于 [openyou/emokit-c](https://github.com/openyou/emokit-c.git)），以 128Hz 采样率的速度处理 14 路电极原始的脑电图数据流，并且给终端用户提供了丰富的接口。这里是一个例子，欢迎你来试用一下。
 
-```
+```Javascript
 const mind = require('wits')
 mind.open()
 mind.read(console.log)
