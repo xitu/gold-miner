@@ -49,7 +49,7 @@ Android 的 [默认 ProGuard 文件](https://developer.android.com/studio/build/
 
 利用 JNI，完全有可能从 C / C++ 代码中构造 JVM 对象或者找到并调用 JVM 句柄的方法，而且事实上，[Plaid 的一个库就是这样](https://github.com/Uncodin/bypass/blob/master/platform/android/library/jni/bypass.cpp#L61)。
 
-**结论**：因为 ProGuard 只能审查 Java 类，所以它不会知道任何在原生代码中发生的使用。我们必须通过 `@Keep` 注解或 `-keep` 规则来显示地保留这些类和成员的使用。
+**结论**：因为 ProGuard 只能审查 Java 类，所以它不会知道任何在原生代码中发生的使用。我们必须通过 `@Keep` 注解或 `-keep` 规则来显式地保留这些类和成员的使用。
 
 ```
 -keep, includedescriptorclasses
