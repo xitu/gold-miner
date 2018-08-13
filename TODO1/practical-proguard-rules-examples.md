@@ -145,7 +145,7 @@ ProGuard 默认会删除代码中的所有注解甚至一些剩余的类型信�
 -keepattributes *Annotation*, Signature, Exception
 ```
 
-> 如果你使用默认的Android ProGuard 配置文件（`_getDefaultProguardFile('proguard-android.txt')_`），那么前两个选项被指定给你 —— 注解和签名。如果你没有使用默认的配置文件，那么你必须保证你自己添加它们（如果你知道你的应用需要他们，那么重复它们也没有什么坏处）。
+> 如果你使用默认的Android ProGuard 配置文件（`_getDefaultProguardFile('proguard-android.txt')_`），那么前两个选项 —— 注解和签名 —— 是专门为你准备的。如果你没有使用默认的配置文件，那么你必须保证你自己添加它们（如果你知道你的应用需要他们，那么重复它们也没有什么坏处）。
 
 ### 将所有内容移至默认包
 
@@ -190,7 +190,7 @@ release {
 
 `@Keep` 的支持在默认的 Android ProGuard 规则文件中实际上是通过一系列 `-keep` 规则实现的，因此它们基本上是等效的。指定 `-keep` 规则更灵活，因为它提供通配符，你也可以使用不同的变体，这些变体稍有不同（`-keepnames`、`-keepclasseswithmembers` [以及更多](https://www.guardsquare.com/en/proguard/manual/usage#keepoverview)）。
 
-每当需要一个简单的「保留这个类」或「保留这个方法」规则时，我实际上更喜欢在类或成员上添加 `@Keep` 注解的简单性，因为它和代码保持很近，几乎就像文档一样。
+每当需要一个简单的「保留这个类」或「保留这个方法」规则时，我实际上更喜欢在类或成员上添加 `@Keep` 注解的简单性，因为它离代码很近，几乎就像文档一样。
 
 如果其他开发者想要在我之后重构代码，他们会立即知道被 `@Keep` 标记的类 / 成员需要特殊处理，而不必记住和参考 ProGuard 配置并且冒着破坏某些东西的风险。IDE 中大部分的代码重构也应当自动保留类的 `@Keep` 注解。
 
