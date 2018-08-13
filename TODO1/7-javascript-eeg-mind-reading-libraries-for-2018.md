@@ -31,15 +31,15 @@ Muse-js 是一个与 2016 Muse 脑电头盔相匹配的 Javasript 库（使用 w
 
 Muse-js 让 web 开发者可以通过浏览器去进行连接、分析并把脑电图数据进行可视化。除了处理“普通”的脑电信号并把它们传送到网页上，muse-js还可以根据眼睛移动来操作脑电信号, 这不仅仅超级炫酷，而且对于人类认知的前沿研究也非常有帮助。尝试一下。
 
-* [**urish/muse-js**: muse-js — Muse 2016 EEG Headset JavaScript Library (using Web Bluetooth)](https://github.com/urish/muse-js)
+* [**urish/muse-js**: muse-js — Muse 2016 脑电头盔 Javascript 库（使用 Web Bluetooth）](https://github.com/urish/muse-js)
 
-* [**Reactive Brain Waves**: How to use RxJS, Angular, and Web Bluetooth, along with an EEG Headset, to Do More With Your Brain](https://medium.com/@urish/reactive-brain-waves-af07864bb7d4)
+* [**Reactive Brain Waves**: 如何使用 RxJS、Angular 和 Web Bluetooth，配合脑电头盔，发掘你的大脑](https://medium.com/@urish/reactive-brain-waves-af07864bb7d4)
 
 ### 2. Wits
 
 ![](https://cdn-images-1.medium.com/max/1600/1*AlCW5rzbus1jqJBDSiIkRw.gif)
 
-作为 Brain-Bits 项目的一部分, wits 是一个 Node.js 库，它读取来自 [Emotiv](https://www.emotiv.com/) EPOC 脑电头戴装置的脑电图信号。它是由原生 C 模块实现（基于 [openyou/emokit-c](https://github.com/openyou/emokit-c.git)），以 128Hz 采样率的速度处理 14 路电极原始的脑电图数据流，并且给终端用户提供了丰富的接口。这里是一个例子，欢迎你来试用一下。
+wits 是 Brain-Bits 项目的一部分, 它是一个 Node.js 库，可以读取来自 [Emotiv](https://www.emotiv.com/) EPOC 脑电头盔的脑电图信号。它由原生 C 模块实现（基于 [openyou/emokit-c](https://github.com/openyou/emokit-c.git)），以 128Hz 采样率的速度处理 14 路电极原始的脑电图数据流，并且给终端用户提供了丰富的接口。这里是一个例子，欢迎试用一下。
 
 ```Javascript
 const mind = require('wits')
@@ -47,44 +47,45 @@ mind.open()
 mind.read(console.log)
 ```
 
-* [**dashersw/wits**: _wits — A Node.js library that reads your mind with Emotiv EPOC EEG headset](https://github.com/dashersw/wits)
+* [**dashersw/wits**：wits — 一个使用 Emotiv EPOC 脑电头盔来读心的 Node.js 库](https://github.com/dashersw/wits)
 
 ### 3. Brain-monitor
 
 ![](https://cdn-images-1.medium.com/max/1600/1*hDVSjp4vSjrmqt0wwvKU1Q.gif)
 
-Brain-monitor is in fact a terminal app written in Javascript that displays human-brain EEG signals in real time. It works with Emotiv EPOC EEG headset, analyzing a Raw EEG data stream of 14 electrodes with 128Hz sample rate and processes additional information such as head-orientation and even battery level for your headset. A cool choice for CLI lovers.
+Brain-monitor 实际上是一个用 Javascript 编写的可以实时显示脑电图信号的终端应用。它配合 Emotiv EPOC 脑电头盔一起工作，以 128Hz 的采样频率对 14 个电极的原生脑电信号进行分析，并能处理额外一些信息，比如头的方向，甚至是头盔的电量。对于喜欢使用命令行的开发者，这是个不错的选择。
 
-* [**dashersw/brain-monitor**: _brain-monitor — A terminal app written in Node.js to monitor brain signals in real-time](https://github.com/dashersw/brain-monitor)
+* [**dashersw/brain-monitor**: _brain-monitor — 一个用 Node.js 编写的实时显示脑电信号的终端应用](https://github.com/dashersw/brain-monitor)
 
 ### 4. Brain-bits
 
 ![](https://cdn-images-1.medium.com/max/1600/1*6pYMJ2_4fV8iMP2_sPwTAg.gif)
 
-Created by the author of wits and brain-monitor, brain-bits is an P300 online spelling mechanism for Emotiv headsets. The project is basically an [Electron](https://electronjs.org)app which runs Node on the backend and Vue.js on the front-end, making use of native modules for Node.js and [brain.js](https://github.com/BrainJS/brain.js) for the neural network and [d3](https://d3js.org) for drawing the EEG electrode monitor. You can see a live demo and learn more from the author [in this talk](https://www.youtube.com/watch?v=_4nrh6mTt4E) given at the 2018 Amsterdam JS conference.
+由 wits 和 brain-monitor 的开发者创建，它是为 Emotiv 脑电头盔所做的一套 P300 在线拼写系统。这个项目基于 [Electron](https://electronjs.org)应用，后端运行 Node，而前端使用 Vue.js，利用 Node.js 的原生模块以及 [brain.js](https://github.com/BrainJS/brain.js) 来处理神经网络，并使用 [d3](https://d3js.org) 来绘制脑电图。你可以在开发者在 2018 Amsterdam JS 论坛上的 [这次演讲] 里面看到一个现场演示，并能了解更多内容。
 
-* [**dashersw/brain-bits**: _brain-bits — A P300 online spelling mechanism for Emotiv headsets. It’s completely written in Node.js, and the GUI is…](https://github.com/dashersw/brain-bits)
+* [**dashersw/brain-bits**: _brain-bits — 一套为 Emotiv 脑电头盔使用的 P300 在线拼写系统。使用 Node.js 编写，GUI 是……](https://github.com/dashersw/brain-bits)
 
 ### 5. EEG-101
 
 ![](https://cdn-images-1.medium.com/max/1600/1*iPMqXQS3FK1lOa3sD6oolw.png)
 
-EEG-101 is an interactive neuroscience [tutorial app](https://play.google.com/store/apps/details?id=com.eeg_project&hl=en) using Muse and React Native to teach EEG and BCI basics. It teaches the basics of EEG, including where signals come from, how devices work, and how to process data. Built with React Native for Android, the project contains a general purpose binary classifier for EEG data, it streams data from the Muse headset with the LibMuse Java API. A nice way to pick-up and play EEG works.
+EEG-101 是一个使用 Muse 和 React Native 来教授脑电图和 BCI 基础知识的交互式神经学的 [教程应用](https://play.google.com/store/apps/details?id=com.eeg_project&hl=en)。教授内容包括信号从哪里来，设备如何工作以及如何处理数据。使用 React Native 开发了 Android 应用，项目包含了一个用于脑电图数据的通用二进制分类器，它使用 LibMuse Java API 获取来自 Muse 头盔的数据流。一种采集和播放脑电信号很好的方式。
 
-* [**NeuroTechX/eeg-101**: _eeg-101 — Interactive neuroscience tutorial app using Muse and React Native to teach EEG and BCI basics.](https://github.com/NeuroTechX/eeg-101)
+* [**NeuroTechX/eeg-101**: _eeg-101 — 使用 Muse 和 Reac Native 来教授脑电图和 BCI 基础知识的交互式神经学教程应用。](https://github.com/NeuroTechX/eeg-101)
 
 ### 6. EEG pipes
 
 ![](https://cdn-images-1.medium.com/max/1600/1*1SPDOMNKy-3ntUgiDnpeDA.png)
 
-This project provides pipeable RxJS operators for working with EEG data in Node and the Browser, with features such as FFT, PSD and Power Bands, Buffering and Epoching, IIR Filters and more. Note that an Observable of EEG data is required, which can be done using `fromEvent` from RxJS in order to push callback events into an Observable stream. Enjoy.
+这个项目提供在 Node 和 浏览器环境中处理脑电图数据的可管道化的 RxJS 操作符，包括的功能比如 FFT、功率谱密度（PSD） 和 功率带宽、缓冲和 Epoching、IIR 滤波器等。注意需要一个脑电图数据的观察者模式，可以使用 RxJS 的 `fromEvent` 将回调事件压入观察者流中。试用一下。
 
-* [**neurosity/eeg-pipes**: _eeg-pipes — Pipeable RxJS operators for working with EEG data in Node and the Browser](https://github.com/neurosity/eeg-pipes)
+* [**neurosity/eeg-pipes**: _eeg-pipes — 在 Node 和浏览器中处理脑电图数据的可管道化 RxJS 操作符](https://github.com/neurosity/eeg-pipes)
 
 ### 7. Open BCI & JS
 
-Open BCI is a project built to provide open-source brain-computer interfaces and low-cost hardware. Created by a group of engineers, researches and makers who “share an unfaltering passion for harnessing the electrical signals of the human brain and body to further understand and expand who we are”.
+Open BCI 是一个提供脑机接口和低成本硬件的开源项目。由一群工程师、研究人员和制造商创建，他们希望“分享坚定的热情利用脑电信号来更深入地理解并扩展我们是谁”。
 
+基于此，它创建了
 As such, it’s creating a base for a wide verity of implementations for working with all kinds of EEG-related hardware and software. Some of which, are awesome Javascript implementations for EEG proccessing, visualizing and more working with anything from Node.js to Angular 4. Here are some.
 
 * [**pwstegman/WebBCI**: _WebBCI — :bar_chart: JavaScript based EEG signal processing]((https://github.com/pwstegman/WebBCI)
