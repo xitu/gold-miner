@@ -5,21 +5,21 @@
 > * 译者：[geniusq1981](https://github.com/geniusq1981)
 > * 校对者：
 
-# 2018 年七个 JavaScript 脑电图读心术库
+# 2018 年七个通过脑电图分析实现“读心术”的 Javascript 库
 
-## 用于探索人脑信号并且读心的 JavaScript 库。
+## 用于探索人脑信号以实现读心的 JavaScript 库。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*TOFxZJnsy9DPK3a3ZES05w.jpeg)
 
-“是不是很酷的耳机?”
+“耳机是不是很酷?”
 
-脑电图是一种记录人脑中生物电活动的一种方法。它可以被用来检测人体状态，比如癫痫或者脑瘤，来研究脑活动与认知方面方面的联系，或者去学习人脑是如何对外部刺激，比如音乐或者图像产生反应。
+脑电图是记录人脑中生物电活动的一种方法。它可以用来检测人体状态，比如癫痫或者脑瘤，来研究脑活动与认知方面的联系，或者用来学习人脑是如何对外部刺激产生反应，比如音乐或影像。
 
-Although somewhat crude compared to other methods, 但是在一些方面它还是很有用的-通过将大脑活动转化成动作来使用外部设备（比如一只装备激光武器的机器人军队）。
+尽管相比其他方法，此方法还不够成熟，但是在一些方面它还是很有用的-通过将大脑活动转化成动作来使用外部设备（比如装备激光武器的机器人军队）。
 
-在脑电图信号的开发领域（由类似 [openBCI](http://openbci.com/)的项目所引领），MathLab、python 和 R 都是十分 [流行的语言](https://www.researchgate.net/post/What_is_the_best_open_source_software_to_analyse_EEG_signals2)。但是就像其他领域，比如 [IOT](https://blog.bitsrc.io/10-javascript-iot-libraries-to-use-in-your-next-projects-bef5f9136f83)、[ML](https://blog.bitsrc.io/11-javascript-machine-learning-libraries-to-use-in-your-app-c49772cca46c) 和其他一些研究领域那样，Javascript [也会参与其中](http://www.castillo.io/blog/2016/4/25/neurojavascript/getting-your-brainwaves-to-the-browser-with-javascript)。
+在脑电图信号的开发领域（由类似 [openBCI](http://openbci.com/) 这样的项目所引领），MathLab、python 和 R 都是十分 [流行的语言](https://www.researchgate.net/post/What_is_the_best_open_source_software_to_analyse_EEG_signals2)。但是就像其他领域，比如 [IOT](https://blog.bitsrc.io/10-javascript-iot-libraries-to-use-in-your-next-projects-bef5f9136f83)、[ML](https://blog.bitsrc.io/11-javascript-machine-learning-libraries-to-use-in-your-app-c49772cca46c) 和其他一些研究领域那样，Javascript [也会参与其中](http://www.castillo.io/blog/2016/4/25/neurojavascript/getting-your-brainwaves-to-the-browser-with-javascript)。
 
-作为在 [**Bit**](https://bitsrc.io) 工作的一部分,我们总是找寻前端的 Javascript 应用。所以，这里是一些我们找到的处理脑电图非常炫酷的 Javascript 库和示例。欢迎你能够建议其他更多有用的项目！
+作为在 [**Bit**](https://bitsrc.io) 工作的一部分,我们总在寻找前端的 Javascript 应用。所以，这里是我们找到的一些非常炫酷的处理脑电图的 Javascript 库和示例。欢迎你能够建议其他更多有用的项目！
 
 ### 1. Muse-js
 
@@ -27,9 +27,9 @@ Although somewhat crude compared to other methods, 但是在一些方面它还�
 
 从这篇文章可以找到到一个例子: [https://medium.com/@urish/reactive-brain-waves-af07864bb7d4](https://medium.com/@urish/reactive-brain-waves-af07864bb7d4)
 
-Muse-js 是一个与 2016 Muse 脑电图耳机相匹配的 Javasript 库（使用 web 蓝牙）。灵感来自于 [muse-lsl](https://github.com/alexandrebarachant/muse-lsl/blob/d2b74412585f3baa852516542a0d0853faec1b4e/muse/muse.py) python 库, muse-js 由 [@UriShaked](https://twitter.com/UriShaked) 编译，有一个愿景：通过人脑直接控制网页。为什么不呢？
+Muse-js 是一个与 2016 Muse 脑电耳机相匹配的 Javasript 库（使用 web bluetooth）。灵感来自于 [muse-lsl](https://github.com/alexandrebarachant/muse-lsl/blob/d2b74412585f3baa852516542a0d0853faec1b4e/muse/muse.py) python 库, muse-js 由 [@UriShaked](https://twitter.com/UriShaked) 编译，它的愿景是：通过人脑直接控制网页。为什么不可以呢？
 
-Muse-js 让 web 开发者可以通过相浏览器这样的工具去进行连接、分析并把脑电数据可视化。Apart from working with “ordinary” brain signals and communicating them to the web, muse-js also handles EEG signals related to eye-movement, which is not only super-cool but also very useful in cutting edge cognitive studies. Give it a go.
+Muse-js 让 web 开发者可以通过浏览器去进行连接、分析并把脑电图数据可视化。除了处理“”脑电信号Apart from working with “ordinary” brain signals and communicating them to the web, muse-js also handles EEG signals related to eye-movement, which is not only super-cool but also very useful in cutting edge cognitive studies. Give it a go.
 
 * [**urish/muse-js**: muse-js — Muse 2016 EEG Headset JavaScript Library (using Web Bluetooth)](https://github.com/urish/muse-js)
 
