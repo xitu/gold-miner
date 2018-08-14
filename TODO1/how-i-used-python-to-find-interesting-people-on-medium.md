@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/1*9rLeOFD7rvImTlcXQUe-mw.png)
 
-图片来源： [Old Medium logo](https://icons8.com/icon/21634/medium)
+图片来源：[Old Medium logo](https://icons8.com/icon/21634/medium)
 
 Medium 上有大量的内容、用户和不计其数的帖子。当你试图寻找有趣的用户来关注时，你会发现自己不知所措。
 
@@ -36,7 +36,7 @@ Medium 上有大量的内容、用户和不计其数的帖子。当你试图寻�
 
 最重要的是，Medium's API 的最后一次更新是一年多前，最近也没有要开发的迹象。
 
-我意识到我只能依靠 HTTP 请求来获取我的数据，所以我开始使用我的 [**Chrome 开发者工具 **](https://developer.chrome.com/devtools)。
+我意识到我只能依靠 HTTP 请求来获取我的数据，所以我开始使用我的 [**Chrome 开发者工具**](https://developer.chrome.com/devtools)。
 
 第一个目标是获取我的关注列表。
 
@@ -48,7 +48,7 @@ Medium 上有大量的内容、用户和不计其数的帖子。当你试图寻�
 
 我找到用户关注列表的链接。
 
-在这个链接中，我发现了一个非常大的 [JSON](https://en.wikipedia.org/wiki/JSON)响应。它是一个格式很好的 JSON ,除了在响应开头的一串字符：`])}while(1);</x>`
+在这个链接中，我发现了一个非常大的 [JSON](https://en.wikipedia.org/wiki/JSON) 响应。它是一个格式很好的 JSON，除了在响应开头的一串字符：`])}while(1);</x>`
 
 我写了一个函数整理了格式并把 JSON 转换成一个 Python 字典。
 
@@ -65,7 +65,7 @@ def clean_json_response(response):
 
 为了查询端点，我需要我的用户 ID（尽管我早就知道啦，这样做是出于教育目的）。
 
-我在寻找获取用户 ID 的方法时[发现](https://medium.com/statuscode/building-a-basic-web-service-to-display-your-medium-blog-posts-on-your-website-using-aws-api-48597b1771c5)可以通过添加`?format=json`给 Medium 的 URL 地址来获取这个网页的 JSON 响应。我在我的个人主页上试了试。 
+我在寻找获取用户 ID 的方法时[发现](https://medium.com/statuscode/building-a-basic-web-service-to-display-your-medium-blog-posts-on-your-website-using-aws-api-48597b1771c5)可以通过添加 `?format=json` 给 Medium 的 URL 地址来获取这个网页的 JSON 响应。我在我的个人主页上试了试。 
 
 看看，这就是我的用户 ID。
 
@@ -74,7 +74,7 @@ def clean_json_response(response):
 ...
 ```
 
-我写了一函数从给出的用户名中提取用户 ID 。同样，我使用了 `clean_json_response ` 函数来去除响应开头的不想要的字符串。
+我写了一函数从给出的用户名中提取用户 ID 。同样，我使用了 `clean_json_response` 函数来去除响应开头的不想要的字符串。
 
 我还定义了一个叫 `MEDIUM` 的常量，它用来存储所有 Medium 的 URL 地址都包含的字符串。
 
@@ -97,15 +97,15 @@ def get_user_id(username):
 
 当我在开发者工具中做这时，我注意到 JSON 响应只有八个用户名。很奇怪！
 
-当我点击 “Show more people” ，我找到了缺少的用户名。原来 Medium 使用[**分页**](https://developer.twitter.com/en/docs/ads/general/guides/pagination)的方式来展示关注列表。
+当我点击 “Show more people”，我找到了缺少的用户名。原来 Medium 使用[**分页**](https://developer.twitter.com/en/docs/ads/general/guides/pagination)的方式来展示关注列表。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*WgYlp-dmUC9kdQ0iSNUtdg.png)
 
 Medium 使用分页的方式来展示关注列表。
 
-分页通过指定 `limit` (每页元素)和 `to` (下一页的第一个元素)来工作 ，我必须找到一种方式来获取下一页的 ID 。
+分页通过指定 `limit`（每页元素）和 `to`（下一页的第一个元素）来工作，我必须找到一种方式来获取下一页的 ID。
 
-在从`/_/api/users/<user_id>/following`获取的 JSON 响应的尾部，我看到了一个有趣的 JSON 键值对。
+在从 `/_/api/users/<user_id>/following` 获取的 JSON 响应的尾部，我看到了一个有趣的 JSON 键值对。
 
 ```json
 ...
@@ -150,9 +150,9 @@ def get_list_of_followings(user_id):
 
 ### 获取每个用户最新的帖子
 
-我得到了我关注的用户列表之后，我就想获取他们最新的帖子。我可以通过发送这个请求 [https://medium.com/@<username>/latest?format=json](https://medium.com/@username/latest?format=json) 来实现这个功能。
+我得到了我关注的用户列表之后，我就想获取他们最新的帖子。我可以通过发送这个请求 `[https://medium.com/@<username>/latest?format=json](https://medium.com/@username/latest?format=json)` 来实现这个功能。
 
-于是我写了一个函数，这个函数的参数是用户名列表，然后返回一个包含输入进来的所有用户最新发表的帖子 ID 的 Python 列表
+于是我写了一个函数，这个函数的参数是用户名列表，然后返回一个包含输入进来的所有用户最新发表的帖子 ID 的 Python 列表。
 
 ```python
 def get_list_of_latest_posts_ids(usernames):
@@ -207,7 +207,7 @@ def get_post_responses(posts):
 
 我希望这个最小值是可以动态调整的。所以我传递了名为 `recommend_min` 的变量。
 
-下面的函数的参数是每一条评论和`recommend_min`变量。它用来检查评论的推荐数是否到达最小值。
+下面的函数的参数是每一条评论和 `recommend_min` 变量。它用来检查评论的推荐数是否到达最小值。
 
 ```python
 def check_if_high_recommends(response, recommend_min):
@@ -231,7 +231,7 @@ def check_if_recent(response):
 
 ### 获取评论作者的用户名
 
-在完成评论的筛选工作之后，我使用下面的函数来抓取所有作者的用户 ID 。
+在完成评论的筛选工作之后，我使用下面的函数来抓取所有作者的用户 ID。
 
 ```python
 def get_user_ids_from_responses(responses, recommend_min):
@@ -324,7 +324,7 @@ list_to_csv(interesting_users)
 
 关于这个项目的源文件可以在[这里找到](https://github.com/Radu-Raicea/Interesting-People-On-Medium)。
 
-如果你还不会 Python ，阅读[TK](https://medium.com/@leandrotk_)的 Python 教程：[Learning Python: From Zero to Hero](https://medium.freecodecamp.org/learning-python-from-zero-to-hero-120ea540b567)。
+如果你还不会 Python，阅读 [TK](https://medium.com/@leandrotk_) 的 Python 教程：[Learning Python: From Zero to Hero](https://medium.freecodecamp.org/learning-python-from-zero-to-hero-120ea540b567)。
 
 如果你对其他让用户感兴趣的标准有建议，请**在下面留言！**
 
@@ -338,7 +338,8 @@ list_to_csv(interesting_users)
 
 更多更新，请关注我的 [Twitter](https://twitter.com/radu_raicea)。
 
-> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
 
 ---
 
