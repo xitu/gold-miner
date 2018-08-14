@@ -252,7 +252,7 @@ DRY（Don't Repeat Yourself）代表“不要重复自己的工作”，尝试�
 * [http://www.gregreda.com/2013/03/03/web-scraping-101-with-python/](http://www.gregreda.com/2013/03/03/web-scraping-101-with-python/)  
 * [http://www.analyticsvidhya.com/blog/2015/10/beginner-guide-web-scraping-beautiful-soup-python/](http://www.analyticsvidhya.com/blog/2015/10/beginner-guide-web-scraping-beautiful-soup-python/)
 
-**这篇文章最初发表在 _Altitude Labs_ 的 [博客](http://altitudelabs.com/blog/)上，作者是我们的软件工程师 [_Leonard Mok_](https://medium.com/@leonardmok)。[_Altitude Labs_](http://altitudelabs.com) 是一家专门从事 _React_ 移动应用定制开发的软件代理商。
+**这篇文章最初发表在 _Altitude Labs_ 的 [博客](http://altitudelabs.com/blog/)上，作者是我们的软件工程师 [_Leonard Mok_](https://medium.com/@leonardmok)。[_Altitude Labs_](http://altitudelabs.com) 是一家专门从事 _React_ 移动应用定制开发的软件代理商。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
