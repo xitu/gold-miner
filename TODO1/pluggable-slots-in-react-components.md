@@ -2,8 +2,8 @@
 > * 原文作者：[Dave Ceddia](https://daveceddia.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/pluggable-slots-in-react-components.md](https://github.com/xitu/gold-miner/blob/master/TODO1/pluggable-slots-in-react-components.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Zheng7426](https://github.com/Zheng7426)
+> * 校对者：[noahziheng](https://github.com/noahziheng), [BillShiyaoZhang](https://github.com/BillShiyaoZhang)
 
 # 如何向带有插槽的 React 组件传递多个 Children 
 
@@ -104,7 +104,7 @@ function Layout(props) {
 
 关于传递 children还有一个很不错的特性（无论使用的 prop 是否为 `children` ）：当你打算传递 child prop 的时候，正好在 **parent** 的作用域内，这时你可以向下传递任何你所需要的信息。
 
-这就好比 **跃过了一个层级**。举个例子：与其去传递一个 “user” 给 Layout 组件，然后让 Layout 再将 “user” 传向 NavBar 组件，还不如直接创建一个 NavBar（已经设好 user ）然后把整个 NavBar 传向 Layout。
+这就好比 **跃过了一个层级**。举个例子：与其去传递一个 "user" 给 Layout 组件，然后让 Layout 再将 "user" 传向 NavBar 组件，还不如直接创建一个 NavBar（已经设好 user）然后把整个 NavBar 传向 Layout。
 这可以帮助避免 “prop 钻井” 的问题，你不必再费心地将一个 prop 放进好多个组件的层级。
 
 ```
@@ -192,7 +192,7 @@ const Nav = ({ user }) => (
 不过如果你遇到了**确实**需要调整 “插槽” 组件的性能的情况，那么可以考虑把表现性能过慢的部分代码提取出来，单独放进一个组件，然后进行调整。
 
 学习 React 有时会很痛苦 —— 代码库和工具实在太多啦！
-想听我的意见吗？那就是将那些代码库和工具通通忽略掉 ：）  
+想听我的意见吗？那就是将那些代码库和工具通通忽略掉 ：） 
 若阁下想要步步为营的引导，就请阅读我写的书吧 —— [Pure React](https://daveceddia.com/pure-react/?utm_campaign=after-post)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
