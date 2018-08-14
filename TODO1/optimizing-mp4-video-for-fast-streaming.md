@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/optimizing-mp4-video-for-fast-streaming.md](https://github.com/xitu/gold-miner/blob/master/TODO1/optimizing-mp4-video-for-fast-streaming.md)
 > * 译者：[HaoChuan9421](https://github.com/HaoChuan9421)
-> * 校对者：[coolseaman](https://github.com/coolseaman)
+> * 校对者：[coolseaman](https://github.com/coolseaman)、[hrt96](https://github.com/hrt96)
 
 # 优化 MP4 视频以获得更快的流传输速度
 
@@ -17,7 +17,7 @@
 
 MP4 文件由叫做 [原子](http://www.adobe.com/devnet/video/articles/mp4_movie_atom.html) 的数据块组成。这些原子用以存储字幕和章节等内容， 当然也包括视频和音频等显而易见的数据。而视频和音频原子的元数据，以及有关如何播放视频的信息，如尺寸和每秒的帧数，则存储在叫做 `moov` 的特殊原子中。你可以认为 `moov` 原子是某种意义上的 MP4 文件 _目录_ 。
 
-当你播放视频时，程序会查找 MP4 文件，定位 `moov` 原子的位置，然后借此去查找视频和音频的起始位置来开始播放。遗憾的是，原子可以以任意顺序排列，所以程序一开始并不知道 `moov` 原子在哪里。如果你已经拥有整个视频文件，查找 `moov` 原子是完全没问题的。但是当你暂时没有整个文件的时候，比如当你在 _流传输_ HTML5 视频时，就需要另辟蹊径了。这才是流媒体的重点！你无需先下载整个视频即可开始观看。
+当你播放视频时，程序会查找 MP4 文件，定位 `moov` 原子的位置，然后借此去查找视频和音频的起始位置来开始播放。遗憾的是，原子可能以任意顺序排列，所以程序一开始并不知道 `moov` 原子在哪里。如果你已经拥有整个视频文件，查找 `moov` 原子是完全没问题的。但如果暂时没有整个文件，比如 _流传输_ HTML5 视频时，就需要另辟蹊径了。这才是流媒体的重点！你无需先下载整个视频即可开始观看。
 
 当流传输时，你的浏览器请求视频资源并开始接收文件的开始部分。程序查找 `moov` 原子是否在开始的部分。如果 `moov` 原子不在开始位置，它必须下载整个文件才能尝试找到 `moov`，或者浏览器可以从最末端的数据开始下载视频文件的不同小片段，以试图找到 `moov`原子。
 
@@ -49,7 +49,7 @@ MP4 文件由叫做 [原子](http://www.adobe.com/devnet/video/articles/mp4_movi
 ffmpeg -i input.mp4 -movflags faststart -acodec copy -vcodec copy output.mp4
 ```
 
-`-movflags faststart` 参数告诉 ffmpeg 把 MP4 视频的原子们重新排序以使得 `moov` 位于开始位置。我们同样指示 ffmpeg 拷贝视频和音频数据而不是把他们重新编码，所以没有任何改变。
+`-movflags faststart` 参数告诉 ffmpeg 把 MP4 视频的原子们重新排序以使得 `moov` 位于开始位置。我们同样指示 ffmpeg 拷贝视频和音频数据而不是重新编码，所以没有任何改变。
 
 为了 Rigor 网站的顾客，我们向 Rigor 优化添加了新的检测工具。[我们的性能分析和优化产品](https://zoompf.com/features)，可以检测还没有针对 HTM5 视频流传输进行优化的 MP4 文件。如果你只是想快速检测自己网站，你可以用 [我们免费的性能报告](http://rigor.com/free-performance-report)。
 
