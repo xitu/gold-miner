@@ -1,3 +1,6 @@
+* [如何设计移动应用的搜索功能？](https://juejin.im/post/5b692ca251882562b924a6c7) ([xunge0613](https://github.com/xunge0613) 翻译)
+* [在 Sketch 中使用一个设计体系创作：第一部分 [教程]](https://juejin.im/post/5b591a655188257bca290b24) ([pmwangyang](https://github.com/pmwangyang) 翻译)
+* [在 Sketch 中使用一个设计体系创作: 第二部分 [教程]](https://juejin.im/post/5b5d2a456fb9a04fc80b8f4b) ([Zheng7426](https://github.com/Zheng7426) 翻译)
 * [绘图技巧的快速入门之：6 个绘图练习，让你立即上手！](https://juejin.im/post/5b39823fe51d4558ca674cff) ([wzasd](https://github.com/wzasd) 翻译)
 * [为什么 UX，UI，CX，IA，IxD 和其他类型的设计都是愚蠢的](https://juejin.im/post/5b3588f2e51d4558dd69a44c) ([zhmhhu](https://github.com/zhmhhu) 翻译)
 * [创造华丽 UI 的 7 个规则（Part 2）](https://juejin.im/post/5b2a1554e51d4558cc35b3be) ([xujunjiejack](https://github.com/xujunjiejack) 翻译)
