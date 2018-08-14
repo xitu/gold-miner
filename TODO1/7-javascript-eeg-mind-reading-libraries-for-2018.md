@@ -69,7 +69,7 @@ Brain-monitor 实际上是一个用 Javascript 编写的可以实时显示脑电
 
 ![](https://cdn-images-1.medium.com/max/1600/1*iPMqXQS3FK1lOa3sD6oolw.png)
 
-EEG-101 是一个使用 Muse 和 React Native 来教授脑电图和 BCI 基础知识的交互式神经学的 [教程应用](https://play.google.com/store/apps/details?id=com.eeg_project&hl=en)。教授内容包括信号从哪里来，设备如何工作以及如何处理数据。使用 React Native 开发了 Android 应用，项目包含了一个用于脑电图数据的通用二进制分类器，它使用 LibMuse Java API 获取来自 Muse 头盔的数据流。一种采集和播放脑电信号很好的方式。
+EEG-101 是一个使用 Muse 和 React Native 来教授脑电图和 BCI 基础知识的交互式神经学的 [教程应用](https://play.google.com/store/apps/details?id=com.eeg_project&hl=en)。内容包括信号从哪里来，设备如何工作以及如何处理数据。使用 React Native 开发了 Android 应用，项目包含了一个用于脑电图数据的通用二进制分类器，它使用 LibMuse Java API 获取来自 Muse 头盔的数据流。这是采集和播放脑电信号很好的一种方式。
 
 * [**NeuroTechX/eeg-101**: _eeg-101 — 使用 Muse 和 Reac Native 来教授脑电图和 BCI 基础知识的交互式神经学教程应用。](https://github.com/NeuroTechX/eeg-101)
 
@@ -83,32 +83,31 @@ EEG-101 是一个使用 Muse 和 React Native 来教授脑电图和 BCI 基础�
 
 ### 7. Open BCI & JS
 
-Open BCI 是一个提供脑机接口和低成本硬件的开源项目。由一群工程师、研究人员和制造商创建，他们希望“分享坚定的热情利用脑电信号来更深入地理解并扩展我们是谁”。
+Open BCI 是一个提供脑机接口和低成本硬件的开源项目。由工程师、研究人员和制造商组成的开发小组创建，他们希望“分享坚定的热情利用脑电信号来更深入地理解并扩展我们是谁”。
 
-基于此，它创建了
-As such, it’s creating a base for a wide verity of implementations for working with all kinds of EEG-related hardware and software. Some of which, are awesome Javascript implementations for EEG proccessing, visualizing and more working with anything from Node.js to Angular 4. Here are some.
+基于此，它为各种各样脑电相关软硬件实现构筑了一个基础。其中有一些非常棒的 Javascript 实现，使用从 Node.js 到 Angular 进行脑电图处理、可视化和一系列工作。这是一些例子。
 
-* [**pwstegman/WebBCI**: _WebBCI — :bar_chart: JavaScript based EEG signal processing]((https://github.com/pwstegman/WebBCI)
+* [**pwstegman/WebBCI**: _WebBCI — :bar_chart: 基于 JavaScript 的脑电信号处理]((https://github.com/pwstegman/WebBCI)
 
-* [**NeuroJS/openbci-dashboard**: _openbci-dashboard — A fullstack javascript app for capturing and visualizing OpenBCI EEG data](https://github.com/NeuroJS/openbci-dashboard)
+* [**NeuroJS/openbci-dashboard**: _openbci-dashboard — 一个获取并可视化 OpenBCI 脑电数据的全栈 Javascript 应用](https://github.com/NeuroJS/openbci-dashboard)
 
 * [**neurosity/openbci-observable**: _openbci-observable — Making OpenBCI for Node Reactive_github.com](https://github.com/neurosity/openbci-observable)
 
-* [**alexcastillo/angular-openbci-rx**: _angular-openbci-rx — EEG Time Series Data Visualization in Angular 4](https://github.com/alexcastillo/angular-openbci-rx)
+* [**alexcastillo/angular-openbci-rx**: _angular-openbci-rx — 使用 Angular 4 实现脑电时序数据可视化](https://github.com/alexcastillo/angular-openbci-rx)
 
 * * *
 
-### Also check out:
+### 还可以看看:
 
-* [**karan/brain2music**: _brain2music — :musical_note: EEG brainwave data to music (more like noise) in realtime.](https://github.com/karan/brain2music)
+* [**karan/brain2music**: _brain2music — :音符: 脑电波数据实时音乐转换（更像是噪音）](https://github.com/karan/brain2music)
 
 * [**NeuroJS/topogrid**: _topogrid — javascript library for interpolation of topographic EEG plots](https://github.com/NeuroJS/topogrid)
 
 * * *
 
-### Meet Bit
+### 遇见 Bit
 
-[**Bit**](https://bitsrc.io) helps your team build applications faster by turning components and modules into building blocks which can be easily shared, developed and used anywhere to build new projects. Try Bit with Javascript, React and more.
+[**Bit**](https://bitsrc.io) 可以帮助你的团队通过导入组件和模块到编译模块中来快速搭建应用，这些非常容易分享、开发并在任意地方去构建新的工程项目。用 Javascript、React 或者其他方式试用下 Bit。
 
 * [**Bit — Share and build with code components**: _Bit helps you share, discover and use code components between projects and applications to build new features and…]https://bitsrc.io/)
 
@@ -116,11 +115,11 @@ As such, it’s creating a base for a wide verity of implementations for working
 
 ### 更多了解
 
-* [**Monorepos Made Easier with Bit and NPM**: _How to leverage Bit + NPM to go monorepo without the overhead.](https://blog.bitsrc.io/monorepo-architecture-simplified-with-bit-and-npm-b1354be62870)
+* [**Monorepos Made Easier with Bit and NPM**: 如何利用 Bit 和 NPM 更简单地创建 Monorepos.](https://blog.bitsrc.io/monorepo-architecture-simplified-with-bit-and-npm-b1354be62870)
 
-* [**Write GraphQL APIs on Node with MongoDB**: _How to write GraphQL APIs on Node.js with MongoDB.](https://blog.bitsrc.io/write-graphql-apis-on-node-with-mongodb-f3d0084cbbb8)
+* [**Write GraphQL APIs on Node with MongoDB**: _如何使用 Node.js 和 MongoDB 来编写 GraphQL APIs.](https://blog.bitsrc.io/write-graphql-apis-on-node-with-mongodb-f3d0084cbbb8)
 
-* [**11 Javascript Utility Libraries You Should Know In 2018**: _11 Useful Javascript utility libraries to speed your development.](https://blog.bitsrc.io/11-javascript-utility-libraries-you-should-know-in-2018-3646fb31ade)
+* [**11 Javascript Utility Libraries You Should Know In 2018**: _能够加快开发的 11 个有用的 Javascript 工具包.](https://blog.bitsrc.io/11-javascript-utility-libraries-you-should-know-in-2018-3646fb31ade)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
