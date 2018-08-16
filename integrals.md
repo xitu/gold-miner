@@ -5776,10 +5776,11 @@
 |[用 Java 代码实现区块链](https://juejin.im/post/5ae57d9e6fb9a07ab83dcc03)|校对|4|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
 
-## 译者：[mingxing47](https://github.com/mingxing47) 历史贡献积分：21 当前积分：21 年度积分：21
+## 译者：[mingxing47](https://github.com/mingxing47) 历史贡献积分：22.5 当前积分：22.5 年度积分：22.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[我是如何使用 Python 在 Medium 上找到并关注有趣的人](https://juejin.im/post/5b72c61851882561311fccce)|校对|1.5|
 |[使用 Python 进行自动化特征工程](https://juejin.im/post/5b6ea0e4e51d4519044adff0)|翻译|7|
 |[[字幕翻译] Andrew Godwin — Django 异步 — PyCon 2018](https://www.bilibili.com/video/av24571596/)|校对|3.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|5|
@@ -6074,10 +6075,11 @@
 |------|-------|-------|
 |[Vue.js 还是 React？你会选择哪一个？为什么?](https://juejin.im/post/5b25b3a16fb9a00e70686180)|校对|0.5|
 
-## 译者：[geniusq1981](https://github.com/geniusq1981) 历史贡献积分：43 当前积分：43 年度积分：43
+## 译者：[geniusq1981](https://github.com/geniusq1981) 历史贡献积分：46.5 当前积分：46.5 年度积分：46.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何使用 Python 和 BeautifulSoup 抓取网站内容](https://juejin.im/post/5b74fcec51882561446fb97f)|翻译|3.5|
 |[如何使用 Pandas 重写你的 SQL 查询以及其他操作](https://juejin.im/post/5b5e5b2ee51d4517df1510c7)|翻译|6|
 |[我如何使用 Node.js 来实现工作自动化](https://juejin.im/post/5b4fe75ef265da0f54052138)|翻译|3|
 |[[字幕翻译] Andrew Godwin — Django 异步 — PyCon 2018](https://www.bilibili.com/video/av24571596/)|翻译|12|
@@ -6310,10 +6312,12 @@
 |[在 Sketch 中使用一个设计体系创作: 第二部分 [教程]](https://juejin.im/post/5b5d2a456fb9a04fc80b8f4b)|翻译|2.5|
 |[在 Sketch 中使用一个设计体系创作：第一部分 [教程]](https://juejin.im/post/5b591a655188257bca290b24)|校对|0.5|
 
-## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：4 当前积分：4 年度积分：4
+## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：9 当前积分：9 年度积分：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何使用 Python 和 BeautifulSoup 抓取网站内容](https://juejin.im/post/5b74fcec51882561446fb97f)|翻译|1|
+|[我是如何使用 Python 在 Medium 上找到并关注有趣的人](https://juejin.im/post/5b72c61851882561311fccce)|翻译|4|
 |[使用 Python 进行自动化特征工程](https://juejin.im/post/5b6ea0e4e51d4519044adff0)|校对|1|
 |[Airflow: 一个工作流程管理平台](https://juejin.im/post/5b5bd2b6f265da0f60131d0c)|校对|1|
 |[正则表达式要跑 5 天，所以我做了个工具将其缩短至 15 分钟。](https://juejin.im/post/5b6d426f6fb9a04fd1604341)|校对|0.5|
@@ -6330,3 +6334,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[Airflow: 一个工作流程管理平台](https://juejin.im/post/5b5bd2b6f265da0f60131d0c)|校对|1|
+
+## 译者：[coolseaman](https://github.com/coolseaman) 历史贡献积分：3 当前积分：3 年度积分：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|[如何使用 Python 和 BeautifulSoup 抓取网站内容](https://juejin.im/post/5b74fcec51882561446fb97f)|校对|3|
