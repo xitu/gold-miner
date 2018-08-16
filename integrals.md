@@ -5776,10 +5776,11 @@
 |[用 Java 代码实现区块链](https://juejin.im/post/5ae57d9e6fb9a07ab83dcc03)|校对|4|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
 
-## 译者：[mingxing47](https://github.com/mingxing47) 历史贡献积分：14 当前积分：14 年度积分：14
+## 译者：[mingxing47](https://github.com/mingxing47) 历史贡献积分：21 当前积分：21 年度积分：21
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Python 进行自动化特征工程](https://juejin.im/post/5b6ea0e4e51d4519044adff0)|翻译|7|
 |[[字幕翻译] Andrew Godwin — Django 异步 — PyCon 2018](https://www.bilibili.com/video/av24571596/)|校对|3.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|5|
 |[预测你的游戏的货币化未来](https://juejin.im/post/5ad1d3b6f265da238f12fafa)|校对|1|
@@ -6245,10 +6246,11 @@
 |------|-------|-------|
 |[通过 SSH 远程使用 Python 解释器来运行 Flask](https://juejin.im/post/5b3e25a8e51d45191716d187)|校对|1.5|
 
-## 译者：[yqian1991](https://github.com/yqian1991) 历史贡献积分：28 当前积分：28 年度积分：28
+## 译者：[yqian1991](https://github.com/yqian1991) 历史贡献积分：30.5 当前积分：30.5 年度积分：30.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Python 进行自动化特征工程](https://juejin.im/post/5b6ea0e4e51d4519044adff0)|校对|2.5|
 |[从 Cron 到 Airflow 的迁移中我们学到了什么](https://juejin.im/post/5b4c3575f265da0f7334bbc9)|校对|2|
 |[Airflow: 一个工作流程管理平台](https://juejin.im/post/5b5bd2b6f265da0f60131d0c)|翻译|4|
 |[Web 应用架构基础课](https://juejin.im/post/5b69a8eef265da0f926baa56)|校对||2.5|
@@ -6308,10 +6310,11 @@
 |[在 Sketch 中使用一个设计体系创作: 第二部分 [教程]](https://juejin.im/post/5b5d2a456fb9a04fc80b8f4b)|翻译|2.5|
 |[在 Sketch 中使用一个设计体系创作：第一部分 [教程]](https://juejin.im/post/5b591a655188257bca290b24)|校对|0.5|
 
-## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：3 当前积分：3 年度积分：3
+## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：4 当前积分：4 年度积分：4
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Python 进行自动化特征工程](https://juejin.im/post/5b6ea0e4e51d4519044adff0)|校对|1|
 |[Airflow: 一个工作流程管理平台](https://juejin.im/post/5b5bd2b6f265da0f60131d0c)|校对|1|
 |[正则表达式要跑 5 天，所以我做了个工具将其缩短至 15 分钟。](https://juejin.im/post/5b6d426f6fb9a04fd1604341)|校对|0.5|
 |[Tab Bar 就是新的汉堡菜单](https://juejin.im/post/5b61684fe51d451986517e31)|校对|1.5|
