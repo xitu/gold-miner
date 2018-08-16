@@ -5269,7 +5269,7 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：292 当前积分：262 年度积分：292
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：293 当前积分：263 年度积分：293
 
 |文章|类型|积分|
 |------|-------|-------|
