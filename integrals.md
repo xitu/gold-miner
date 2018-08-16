@@ -3489,10 +3489,12 @@
 |------|-------|-------|
 |[如何在无损的情况下让图片变的更小](https://juejin.im/post/5959fbe0f265da6c2518d740)|校对|2|
 
-## 译者：[swants](https://github.com/swants) 历史贡献积分：59 当前积分：19 年度积分：20
+## 译者：[swants](https://github.com/swants) 历史贡献积分：62 当前积分：22 年度积分：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|[为什么你需要关注一下 Flutter](https://juejin.im/post/5b508c7cf265da0f955ccb09)|校对|1.5|
+|[Flutter 实用指南：给初学者的 6 个小帖士](https://juejin.im/post/5b5534126fb9a04fcc449f4c)|校对|1.5|
 |2018 年 8 月兑掘金桌垫 1 个|减去积分|10|
 |2018 年 6 月兑掘金桌垫 1 个|减去积分|10|
 |[Swift 中的内存泄漏](https://juejin.im/post/5b07a1c251882538914a5d3e)|校对|1.5|
@@ -5131,10 +5133,11 @@
 |[为 Django Framework 贡献你的力量并没有想象中的那么难](https://juejin.im/post/5a77cd6e5188257a79247fe1)|翻译|3|
 |[大话（Summer vs winter Observable）之我与 Rx Observable[Android RxJava2]（这是什么鬼）第六话](https://juejin.im/post/5a7cfdaaf265da4e7f35901a)|校对|3|
 
-## 译者：[LeeSniper](https://github.com/LeeSniper) 历史贡献积分：38 当前积分：38 年度积分：38
+## 译者：[LeeSniper](https://github.com/LeeSniper) 历史贡献积分：41 当前积分：41 年度积分：41
 
 |文章|类型|积分|
 |------|-------|-------|
+|[测试原生，Flutter 和 React Native 移动开发之间的性能差异。](https://juejin.im/post/5b62ccef6fb9a04fc564c11b)|翻译|3|
 |[Airbnb 在 React Native 上下的赌注（二）：技术细节](https://juejin.im/post/5b3b40a26fb9a04fab44e797)|校对|1.5|
 |[绘图技巧的快速入门之：6 个绘图练习，让你立即上手！](https://juejin.im/post/5b39823fe51d4558ca674cff)|校对|2.5|
 |[在 SnackBar，Navigation 和其他事件中使用 LiveData（SingleLiveEvent 案例）](https://juejin.im/post/5b2b1b2cf265da5952314b63)|校对|2|
@@ -5269,10 +5272,11 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：293 当前积分：263 年度积分：293
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：296 当前积分：266 年度积分：296
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Flutter 中的原生应用程序状态](https://juejin.im/post/5b651edc6fb9a04fbc221435)|翻译|3|
 |[无头渲染组件](https://juejin.im/post/5b5e919f51882519d3467f41)|翻译|4.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|11.5|
 |[我们是如何高效实现一致性哈希的](https://juejin.im/post/5b5488a96fb9a04fad3a181a)|校对|2|
@@ -5818,10 +5822,13 @@
 |------|-------|-------|
 |[用 Skater 解读预测模型：打开模型的黑箱](https://juejin.im/post/5ae1494bf265da0b7c06f835)|翻译|6|
 
-## 译者：[ALVINYEH](https://github.com/ALVINYEH) 历史贡献积分：83.5 当前积分：83.5 年度积分：83.5
+## 译者：[ALVINYEH](https://github.com/ALVINYEH) 历史贡献积分：94 当前积分：94 年度积分：94
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Flutter 实用指南：给初学者的 6 个小帖士](https://juejin.im/post/5b5534126fb9a04fcc449f4c)|翻译|4|
+|[使用 Flutter 制作 3D 翻转动画](https://juejin.im/post/5b5534c951882562b9248294)|翻译|3|
+|[为什么每个 Android 开发者都应该尝试 Flutter](https://juejin.im/post/5b5e70ffe51d4518e311b63d)|翻译|3.5|
 |[Flutter 组件到底是什么？](https://juejin.im/post/5b46f836f265da0f8f2025f7)|翻译|4|
 |[使用 Flutter 的 GestureDetector 构建自定义滑块](https://juejin.im/post/5b431bff5188251b166ee0c1)|翻译|2|
 |[Airbnb 中的 React Native（五 — 完）：Airbnb 移动端路在何方？](https://juejin.im/post/5b46f92de51d45198e721cd7)|翻译|4|
@@ -6007,10 +6014,11 @@
 |[什么是 JavaScript 生成器？如何使用生成器？](https://juejin.im/post/5b14faf2f265da6e4d5af3b9)|校对|0.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1.5|
 
-## 译者：[androidxiao](https://github.com/androidxiao) 历史贡献积分：16.5 当前积分：6.5 年度积分：16.5
+## 译者：[androidxiao](https://github.com/androidxiao) 历史贡献积分：20 当前积分：10 年度积分：20
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Kotlin 揭秘：理解速记 Lambda 语法](https://juejin.im/post/5b59c1945188251b3950ea6f)|翻译|3.5|
 |[如何在 Flutter 中设计 LinearLayout？](https://juejin.im/post/5b3edeb16fb9a04fe820ccbc)|翻译|5|
 |[绘图技巧的快速入门之：6 个绘图练习，让你立即上手！](https://juejin.im/post/5b39823fe51d4558ca674cff)|校对|0.5|
 |2018 年 6 月兑集智纪念水杯 2 个|减去积分|10|
@@ -6085,10 +6093,14 @@
 |------|-------|-------|
 |[Vue.js 还是 React？你会选择哪一个？为什么?](https://juejin.im/post/5b25b3a16fb9a00e70686180)|校对|0.5|
 
-## 译者：[geniusq1981](https://github.com/geniusq1981) 历史贡献积分：52.5 当前积分：52.5 年度积分：52.5
+## 译者：[geniusq1981](https://github.com/geniusq1981) 历史贡献积分：64 当前积分：64 年度积分：64
 
 |文章|类型|积分|
 |------|-------|-------|
+|[用 Flutter 写一个待办事项应用](https://juejin.im/post/5b4f52275188251b11096a28)|校对|2|
+|[使用 Flutter 制作 3D 翻转动画](https://juejin.im/post/5b5534c951882562b9248294)|校对|1|
+|[在 Flutter 中实现微光闪烁效果](https://juejin.im/post/5b552d516fb9a04fc9374978)|翻译|3.5|
+|[如何用 Flutter 来创建一个带有底部导航栏的应用程序](https://juejin.im/post/5b4862f56fb9a04f9c43b218)|翻译|5|
 |[让我们一起解决“this”难题  —  第二部分](https://juejin.im/post/5b6915cce51d4519962f0ca7)|翻译|6|
 |[如何使用 Python 和 BeautifulSoup 抓取网站内容](https://juejin.im/post/5b74fcec51882561446fb97f)|翻译|3.5|
 |[如何使用 Pandas 重写你的 SQL 查询以及其他操作](https://juejin.im/post/5b5e5b2ee51d4517df1510c7)|翻译|6|
@@ -6103,10 +6115,11 @@
 |[为何前端开发如此不稳定](https://juejin.im/post/5b1f2f1ae51d4506894983ae)|校对|2.5|
 |[或许你并不需要 Rust 和 WASM 来提升 JS 的执行效率 — 第一部分](https://juejin.im/post/5b24cf7e51882574c2652f61)|校对|1|
 
-## 译者：[HCMY](https://github.com/HCMY) 历史贡献积分：1 当前积分：1 年度积分：1
+## 译者：[HCMY](https://github.com/HCMY) 历史贡献积分：2 当前积分：2 年度积分：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Flutter 挑战之 WhatsApp](https://juejin.im/post/5b70f42851882560ec4b190d)|校对|1|
 |[Kubernetes 分布式应用部署和人脸识别 app 实例](https://juejin.im/post/5b2db0576fb9a00e50313904)|校对|0.5|
 |[[字幕翻译] James Bennett — 理解 Python 字节码 — PyCon 2018](https://github.com/xitu/gold-miner/issues/3990)|校对|0.5|
 
@@ -6151,10 +6164,13 @@
 |------|-------|-------|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|0.5|
 
-## 译者：[MeFelixWang](https://github.com/MeFelixWang) 历史贡献积分：2.5 当前积分：2.5 年度积分：2.5
+## 译者：[MeFelixWang](https://github.com/MeFelixWang) 历史贡献积分：13 当前积分：13 年度积分：13
 
 |文章|类型|积分|
 |------|-------|-------|
+|[挑战 Flutter 之 Twitter](https://juejin.im/post/5b6f9220f265da2816595999)|翻译|2|
+|[挑战 Flutter 之 YouTube](https://juejin.im/post/5b6e4108e51d451963502877)|翻译|3|
+|[深入 Flutter 之手势](https://juejin.im/post/5b70eee8e51d456682516d36)|翻译|5.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|2.5|
 
 ## 译者：[STLighter](https://github.com/STLighter) 历史贡献积分：3 当前积分：3 年度积分：3
@@ -6172,10 +6188,17 @@
 |[PWA 再进化，可以生成一个安卓原生的 WebAPK 了](https://juejin.im/post/5b2fb7f2e51d4558b46667be)|翻译|3|
 |[如何避免拍脑袋想出的产品优先策略](https://juejin.im/post/5b37a0156fb9a00e78666072)|校对|2|
 
-## 译者：[DateBro](https://github.com/DateBro) 历史贡献积分：10.5 当前积分：10.5 年度积分：10.5
+## 译者：[DateBro](https://github.com/DateBro) 历史贡献积分：36 当前积分：36 年度积分：36
 
 |文章|类型|积分|
 |------|-------|-------|
+|[为什么你需要关注一下 Flutter](https://juejin.im/post/5b508c7cf265da0f955ccb09)|翻译|4|
+|[用 Flutter 写一个待办事项应用](https://juejin.im/post/5b4f52275188251b11096a28)|翻译|6|
+|[深入了解 Flutter](https://juejin.im/post/5b5c3736e51d4519634fe799)|翻译|4|
+|[在 Flutter 中解析复杂的 JSON](https://juejin.im/post/5b5d782ae51d45191c7e7fb3)|翻译|5|
+|[移动技术在改善财务健康方面的作用](https://juejin.im/post/5b5485c0e51d45355d51ca1b)|翻译|4|
+|[为什么每个 Android 开发者都应该尝试 Flutter](https://juejin.im/post/5b5e70ffe51d4518e311b63d)|翻译|1.5|
+|[如何用 Flutter 来创建一个带有底部导航栏的应用程序](https://juejin.im/post/5b4862f56fb9a04f9c43b218)|校对|1|
 |[基于 Node.js 的 Alexa Skills Kit 发布了！](https://juejin.im/post/5b4790b6f265da0f5d4cbec5)|校对|0.5|
 |[React Native：回顾 Udacity 移动工程团队的使用历程](https://juejin.im/post/5b421b606fb9a04fd15ff802)|校对|1.5|
 |[海量视频时代下的内容发现之旅](https://juejin.im/post/5b441c895188251aad20f644)|校对|1.5|
@@ -6356,10 +6379,11 @@
 |[使用 Web Beacon API 记录活动](https://juejin.im/post/5b694b5de51d4519700fa56a)|校对|2.5|
 |[正则表达式要跑 5 天，所以我做了个工具将其缩短至 15 分钟。](https://juejin.im/post/5b6d426f6fb9a04fd1604341)|校对|1.5|
 
-## 译者：[DerekDick](https://github.com/DerekDick) 历史贡献积分：1 当前积分：1 年度积分：1
+## 译者：[DerekDick](https://github.com/DerekDick) 历史贡献积分：7 当前积分：7 年度积分：7
 
 |文章|类型|积分|
 |------|-------|-------|
+|[实用 ProGuard 规则示例](https://juejin.im/post/5b72b49a5188256137188578)|翻译|6|
 |[Airflow: 一个工作流程管理平台](https://juejin.im/post/5b5bd2b6f265da0f60131d0c)|校对|1|
 
 ## 译者：[coolseaman](https://github.com/coolseaman) 历史贡献积分：4.5 当前积分：4.5 年度积分：4.5
@@ -6369,10 +6393,11 @@
 |[优化 MP4 视频以获得更快的流传输速度](https://juejin.im/post/5b72bed8e51d45661e00f693)|校对|1.5|
 |[如何使用 Python 和 BeautifulSoup 抓取网站内容](https://juejin.im/post/5b74fcec51882561446fb97f)|校对|3|
 
-## 译者：[HaoChuan9421](https://github.com/HaoChuan9421) 历史贡献积分：4 当前积分：4 年度积分：4
+## 译者：[HaoChuan9421](https://github.com/HaoChuan9421) 历史贡献积分：5.5 当前积分：5.5 年度积分：5.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[深入 Flutter 之手势](https://juejin.im/post/5b70eee8e51d456682516d36)|翻译|1.5|
 |[优化 MP4 视频以获得更快的流传输速度](https://juejin.im/post/5b72bed8e51d45661e00f693)|翻译|4|
 
 ## 译者：[hrt96](https://github.com/hrt96) 历史贡献积分：0.5 当前积分：0.5 年度积分：0.5
@@ -6381,10 +6406,11 @@
 |------|-------|-------|
 |[优化 MP4 视频以获得更快的流传输速度](https://juejin.im/post/5b72bed8e51d45661e00f693)|校对|0.5|
 
-## 译者：[BillShiyaoZhang](https://github.com/BillShiyaoZhang) 历史贡献积分：0.5 当前积分：0.5 年度积分：0.5
+## 译者：[BillShiyaoZhang](https://github.com/BillShiyaoZhang) 历史贡献积分：2.5 当前积分：2.5 年度积分：2.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[实用 ProGuard 规则示例](https://juejin.im/post/5b72b49a5188256137188578)|校对|2|
 |[如何向带有插槽的 React 组件传递多个 Children](https://juejin.im/post/5b72935a6fb9a009724b3e4e)|校对|0.5|
 
 ## 译者：[huangyuanzhen](https://github.com/huangyuanzhen) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
@@ -6412,3 +6438,17 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[使用 Web Beacon API 记录活动](https://juejin.im/post/5b694b5de51d4519700fa56a)|校对|1|
+
+## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：9 当前积分：9 年度积分：9
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Flutter 挑战之 WhatsApp](https://juejin.im/post/5b70f42851882560ec4b190d)|翻译|2.5|
+|[Flutter 系列入门教程五：网格](https://juejin.im/post/5b6915636fb9a04fd73a6ecf)|翻译|3.5|
+|[Slidable：一个 Flutter 的故事](https://juejin.im/post/5b5e84b86fb9a04fa91bfeb6)|翻译|3|
+
+## 译者：[dayixinsheng](https://github.com/dayixinsheng) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Slidable：一个 Flutter 的故事](https://juejin.im/post/5b5e84b86fb9a04fa91bfeb6)|校对|1.5|
