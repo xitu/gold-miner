@@ -2,30 +2,30 @@
 > * 原文作者：[Arjun](https://medium.com/@adgad?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ft-product-technology/this-one-line-of-javascript-made-ft-com-10-times-slower.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ft-product-technology/this-one-line-of-javascript-made-ft-com-10-times-slower.md)
-> * 译者：
+> * 译者：[IridescentMia](https://github.com/IridescentMia)
 > * 校对者：
 
-# This one line of Javascript made FT.com 10 times slower
+# 一行 JavaScript 代码竟然让 FT.com 网站慢了十倍
 
-## A journey into a performance degradation…
+## 性能退化的探索之旅
 
-### The Discovery
+### 发现问题
 
-It started off with an alert, telling us that the error rate for the Front Page application is above the 4% threshold.
+这一切开始于一个警报，首页应用的错误率高于 4％ 的阈值。
 
-This had a real impact on our users, with thousands of error pages being shown (somewhat offset by caching in our CDN).
+显示数千个错误页面对我们的用户产生了切实的影响（还好 CDN 缓存抵消一部分影响）。
 
 ![](https://cdn-images-1.medium.com/max/800/0*NulY2pOWG5_EEmKq)
 
-Error pages seen by users
+被用户看到的错误页面
 
-Looking at the error logs for the app showed that the application didn’t have any data for the top stories.
+应用程序的错误日志显示，该应用程序没有任何有关 top stories 的数据。
 
 ![](https://cdn-images-1.medium.com/max/800/0*sctKUx9eZMjK3ecQ)
 
-### The Diagnosis
+### 诊断问题
 
-The front page works by polling a GraphQL api on an interval to get the data, storing that data in memory and rendering it on request. In theory, it is supposed to keep the stale data if a request fails. Digging further into the logs, we saw that the requests to the GraphQL api were failing, but with an error rather than a timeout — or at least a different type of timeout.
+首页的工作原理是在一个时间间隔内轮询 GraphQL api 以获取数据，将该数据存储在内存中并根据请求渲染它。从理论上讲，如果请求失败，应该保留之前稳定的数据。进一步深入日志，我们看到对 GraphQL api 的请求失败了，但是是有错误而不是超时 - 或者至少是不同类型的超时。
 
 ```
 FetchError: response timeout at https://….&source=next-front-page over limit: 5000
@@ -33,81 +33,81 @@ FetchError: response timeout at https://….&source=next-front-page over limit: 
 
 ![](https://cdn-images-1.medium.com/max/800/0*QGxZjzHsATzwm8WF)
 
-Curiously, the response times for the API seemed well below the 5 second timeout that the front page was setting. This led us to believe that the issue was somewhere in the connection between the front page and the app. We tried a few things — using a keepAlive connection between the two, scattering the requests so they won’t all happen at the same time. None of these seemed to make any impact.
+奇怪的是，API 的响应时间似乎远低于首页设置的 5 秒超时。这让我们相信问题出现在首页和应用程序之间。我们做了些尝试 - 在两者之间使用 keepAlive 连接，分散请求，这样它们就不会同时发起。这些似乎都没有产生任何影响。
 
 ![](https://cdn-images-1.medium.com/max/800/0*dFdztWjeKbMtWdLx)
 
-What added to the mystery was the response times shown on Heroku. The 95th percentile was around 2–3 seconds, with a max sometimes reaching 10–15 seconds. Since the front page is heavily cached by Fastly, including [stale-while-revalidate](https://docs.fastly.com/guides/performance-tuning/serving-stale-content.html) headers, this likely wouldn’t have been noticed by many users. But it was strange because the front page _really_ shouldn’t have been doing a lot of work to render a page. All the data was in kept in memory.
+更神秘的是 Heroku 上显示的响应时间。95th percentile 约为 2 - 3 秒，而 max 有时达到 10 - 15 秒。由于首页被 Fastly 高度缓存，包括 [stale-while-revalidate](https://docs.fastly.com/guides/performance-tuning/serving-stale-content.html) 头，许多用户可能不会注意到。但这很奇怪，因为首页_真的_不应该做很多工作来渲染页面。所有数据都保存在内存中。
 
 ![](https://cdn-images-1.medium.com/max/800/0*0KSUFEF86Vmgjq8S)
 
-Heroku response times for the front page
+首页的 Heroku 响应时间
 
-So we then decided to do some profiling against a locally running copy of the app. We would replicate some load by using Apache Bench to make 1000 requests, with 10 requests a second.
+因此我们决定对本地运行的应用程序副本进行一些分析。我们将通过使用 Apache Bench 每秒发出10个请求，共发出 1000 个请求来复制一些负载。
 
 ```
 ab -n 1000 -c 10 http://local.ft.com:3002/
 ```
 
-Using [node-clinic](https://www.nearform.com/blog/introducing-node-clinic-a-performance-toolkit-for-node-js-developers/) and [nsolid](https://nodesource.com/products/nsolid), we could gain some insights into what’s going on with the memory, CPU and application code. Running this confirmed that we could reproduce the issue locally. The front page took between 200–300s to complete the test, with over 800 requests unsuccessful. In comparison, running the same test on the article page took around 50s.
+使用 [node-clinic](https://www.nearform.com/blog/introducing-node-clinic-a-performance-toolkit-for-node-js-developers/) 和 [nsolid](https://nodesource.com/products/nsolid)，我们可以对内存、CPU 和应用程序代码有更深的理解。运行它们，确认我们可以在本地复现该问题。首页需要 200 - 300s 才能完成测试，超过 800 个请求不成功。相比之下，在文章页面上运行相同的测试需要大约 50 秒。
 
 ```
-Time taken for tests: 305.629 seconds
-Complete requests: 1000
-Failed requests: 876
+测试用时: 305.629 秒
+完成的请求: 1000
+失败的请求: 876
 ```
 
-And lo and behold, the graphs from n-solid showed us that the event loop had a lag of over 100ms.
+而且你看，n-solid 的图表显示事件循环的滞后超过 100 毫秒。
 
 ![](https://cdn-images-1.medium.com/max/800/0*VJC8ZG_P-WR28cvR)
 
-Event Loop lag whilst running load test
+在做加载测试时事件循环滞后
 
-Using n-solid’s CPU profiler allowed us to pinpoint the exact line of code blocking the event loop.
+使用 n-solid 的 CPU 分析器，我们可以精确定位阻塞事件循环的确切代码行。
 
 ![](https://cdn-images-1.medium.com/max/800/0*nhC_5jlhKw7uqOL6)
 
-Flame chart showing the function causing the lag
+火焰图显示导致滞后的函数
 
-### The Fix
+### 修复问题
 
-And the culprit was….
+罪魁祸首是.......
 
 ```
 return JSON.parse(JSON.stringify(this._data));
 ```
 
-For every request, we were using JSON.parse/stringify to create a deep clone of the data. This method isn’t bad in itself — and is probably one of the faster ways of deep cloning. But they are synchronous methods, and so will block the event loop whilst being executed.
+对于每个请求，我们使用 JSON.parse/stringify 来创建数据的深克隆。这种方法本身不坏 - 可能是深克隆比较快方法之一。但它们是同步方法，因此在执行时会阻塞事件循环。
 
-In our case, this was being called several times on each render of a page (for every section being rendered), with a large amount of data (the data required for the entire page on each execution), and we get several concurrent requests. Since Javascript is single-threaded this would have a knock-on effect on everything else the app was trying to do.
+在我们的案例中，这个方法在每个页面渲染（对于每个被渲染的部分）中多次调用，具有大量数据（每次执行时整个页面所需的数据），并且我们有几个并发请求。由于 Javascript 是单线程的，因此这将对应用程序尝试执行的所有其他操作产生连锁反应。
 
-The reason we were deep cloning the data was because there were some things that were mutating the object, based on some information from the request (for example, if a particular feature toggle was on).
+深克隆数据的原因是，我们会根据请求中的一些信息（例如，是否启用了特定的属性），来改变对象。
 
-To fix this problem - and alleviate the need to clone everything - we applied a deep freeze to the object on retrieval, and then where it was being mutated we could clone the specific bits that needed to be mutated. This still performs a synchronous clone — but only on a much smaller subset of data.
+为了解决这个问题 - 并减轻克隆所有内容的需要 - 我们在检索时对对象应用了深度冻结，然后在数据被改动的地方克隆特定位。这仍然执行同步克隆 - 但仅限于更小的数据子集。
 
-### The Results
+### 结论
 
-With the fix in place, we re-ran the load test and it completed in a fraction of the time, with 0 errors.
+修复好后，我们重新运行了负载测试，并在很短的时间内完成，0 次错误。
 
 ```
-Time taken for tests: 37.476 seconds
-Complete requests: 1000
-Failed requests: 0
+测试用时: 37.476 秒
+完成的请求: 1000
+失败的请求: 0
 ```
 
-Once we released the fix to production, we saw an instant decrease in response time and errors (🤞🏼), and hopefully some happy users!
+我们发布了生产修复程序，看到响应时间和错误（🤞🏼）立即减少，并希望一些用户开心！
 
 ![](https://cdn-images-1.medium.com/max/800/1*zsJVZsXvp39EDlv8vAOk2w.png)
 
-Front Page response times after the fix
+修复后首页的响应时间
 
 ![](https://cdn-images-1.medium.com/max/800/1*ASzi7PZfAIVLLQr5ybNZzw.png)
 
-### The Future
+### 关于未来
 
-*   It would be interesting to run this analysis on some of our other apps and see where we can further optimise and/or reduce dyno sizes.
-*   Can we get more visibility of our event loop?
-*   Our front page should have stale-on-error — so why were still thousands of error pages seen? Is that number good or bad?
+* 对其他一些应用程序运行此分析，并了解我们可以进一步优化和/或减少 dyno 大小的位置。
+* 我们可以让事件循环更可见吗？
+* 我们的首页应该是 stale-on-error - 所以为什么仍然会看到数以千计的错误页面？这个数字好还是坏？
 
 Thanks to [Samuel Parkinson](https://medium.com/@samparkinson_?source=post_page).
 
