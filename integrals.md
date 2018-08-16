@@ -5340,10 +5340,11 @@
 |[json — JavaScript 对象表示法](https://juejin.im/post/5a9432ae5188257a5c6092b0)|校对|1|
 |[嵌套三元表达式棒极了（软件编写）（第十四部分）](https://juejin.im/post/5a7d6769f265da4e7e10ad82)|校对|1|
 
-## 译者：[zhmhhu](https://github.com/zhmhhu) 历史贡献积分：70.5 当前积分：70.5 年度积分：70.5
+## 译者：[zhmhhu](https://github.com/zhmhhu) 历史贡献积分：70.5 当前积分：25.5 年度积分：70.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 8 月兑树莓派套餐 1 个|减去积分|45|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|5|
 |[为什么 UX，UI，CX，IA，IxD 和其他类型的设计都是愚蠢的](https://juejin.im/post/5b3588f2e51d4558dd69a44c)|翻译|4|
 |推荐多篇优秀英文文章|奖励|3|
