@@ -56,7 +56,7 @@
 ## 人工智能
 
 * [使用 Python 进行自动化特征工程](https://juejin.im/post/5b6ea0e4e51d4519044adff0) ([mingxing47](https://github.com/mingxing47) 翻译)
-* [Python 与大数据：Airflow & Jupyter Notebook with Hadoop 3, Spark & Presto](https://juejin.im/post/5b5a7fdfe51d453526175687) ([cf020031308(https://github.com/cf020031308) 翻译)
+* [Python 与大数据：Airflow & Jupyter Notebook with Hadoop 3, Spark & Presto](https://juejin.im/post/5b5a7fdfe51d453526175687) ([cf020031308](https://github.com/cf020031308) 翻译)
 * [自然语言处理真是有趣](https://juejin.im/post/5b6d08e2f265da0f9c67cf0b) ([lihanxiang](https://github.com/lihanxiang) 翻译)
 * [Facebook 的 AI 万金油：StarSpace 神经网络模型简介](https://juejin.im/post/5a83af7c6fb9a0633c661404) ([noahziheng](https://github.com/noahziheng) 翻译)
 * [所有 AI 译文>>](https://github.com/xitu/gold-miner/blob/master/AI.md)
@@ -73,9 +73,9 @@
 
 * [Airbnb 在 React Native 上下的赌注（一）：概述](https://juejin.im/post/5b2c924ff265da59a401f050) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
 * [Airbnb 在 React Native 上下的赌注（二）：技术细节](https://juejin.im/post/5b3b40a26fb9a04fab44e797) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
-* [Airbnb 中的 React Native （三）：建立一个跨平台的移动端团队](https://juejin.im/post/5b446177f265da0f7c4faec8) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
-* [Airbnb 中的 React Native（四）：React Native 退役](https://juejin.im/post/5b447b1e6fb9a04fd3437dad) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
-* [Airbnb 中的 React Native（五 — 完）：Airbnb 移动端路在何方？](https://juejin.im/post/5b46f92de51d45198e721cd7) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
+* [Airbnb 中的 React Native 上下的赌注（三）：建立一个跨平台的移动端团队](https://juejin.im/post/5b446177f265da0f7c4faec8) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
+* [Airbnb 中的 React Native 上下的赌注（四）：React Native 退役](https://juejin.im/post/5b447b1e6fb9a04fd3437dad) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
+* [Airbnb 中的 React Native 上下的赌注（五 — 完）：Airbnb 移动端路在何方？](https://juejin.im/post/5b46f92de51d45198e721cd7) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
 * [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
 
 ## 前端
