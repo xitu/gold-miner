@@ -1,3 +1,5 @@
+* [我是如何使用 Python 在 Medium 上找到并关注有趣的人](https://juejin.im/post/5b72c61851882561311fccce) ([Park-ma](https://github.com/Park-ma) 翻译)
+* [如何使用 Python 和 BeautifulSoup 抓取网站内容](https://juejin.im/post/5b74fcec51882561446fb97f) ([geniusq1981](https://github.com/geniusq1981) 翻译)
 * [我如何使用 Node.js 来实现工作自动化](https://juejin.im/post/5b4fe75ef265da0f54052138) ([geniusq1981](https://github.com/geniusq1981) 翻译)
 * [在 UNIX 中，一切皆文件](https://juejin.im/post/5b652d346fb9a04fc03129e6) ([pmwangyang](https://github.com/pmwangyang) 翻译)
 * [使用 PhpFastCache 提升网站性能](https://juejin.im/post/5b54d01be51d4517c5649965) ([lsvih](https://github.com/lsvih) 翻译)
