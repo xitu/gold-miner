@@ -274,7 +274,7 @@ svclassifier.fit(X_train, y_train)
 
 使用高斯核，你必须指定类 SVC 的核参数额值为 “rbf” 。
 
-#### 预测核评价
+#### 预测和评价
 
 ```
 y_pred = svclassifier.predict(X_test)
@@ -313,7 +313,7 @@ svclassifier.fit(X_train, y_train)
 
 使用 sigmoid 核需要指定 `SVC` 类的参数 `kernel` 的值为 “sigmoid” 。
 
-#### 预测核评价
+#### 预测和评价
 
 ```
 y_pred = svclassifier.predict(X_test)
