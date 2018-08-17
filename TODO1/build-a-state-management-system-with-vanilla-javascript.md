@@ -21,7 +21,7 @@
 
 [查看仓库](http://github.com/hankchizljaw/vanilla-js-state-management)
 
-很酷，对吗？我们先做一些配置工作。我已经整理了一些模版，以便我们可以让这个教程简洁有趣。你需要做的第一件事情是 [从 GitHub 上克隆它](https://github.com/hankchizljaw/vanilla-js-state-management-boilerplate), 或者 [下载并解压它的 ZIP 文件](https://github.com/hankchizljaw/vanilla-js-state-management-boilerplate/archive/master.zip)。
+很酷，对吗？我们先做一些配置工作。我已经整理了一些模版，以便我们可以让这个教程简洁有趣。你需要做的第一件事情是 [从 GitHub 上克隆它](https://github.com/hankchizljaw/vanilla-js-state-management-boilerplate)，或者 [下载并解压它的 ZIP 文件](https://github.com/hankchizljaw/vanilla-js-state-management-boilerplate/archive/master.zip)。
 
 当你下载好了模版，你需要在本地 Web 服务器上运行它。我喜欢使用一个名为 [http-server](https://www.npmjs.com/package/http-server) 的包来做这些事情，但你也可以使用你想用的任何东西。当你在本地运行它时，你会看到如下所示：
 
