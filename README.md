@@ -7,7 +7,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖[人工智能](#ai--deep-learning--machine-learning)、[Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [1083](#近期文章列表) 篇文章，官方文档及手册 [11](#官方文档及手册) 个，共有近 [1000](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 名译者贡献翻译和校对。
+掘金翻译计划目前翻译完成 [1167](#近期文章列表) 篇文章，官方文档及手册 [12](#官方文档及手册) 个，共有近 [1000](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 名译者贡献翻译和校对。
 
 # 官方指南
 
@@ -47,63 +47,64 @@
 
 ## 区块链
 
+* [能源行业聚焦基于区块链技术的加密货币](https://juejin.im/post/5b47f4a9e51d45198a2eb75b) ([geniusq1981](https://github.com/geniusq1981) 翻译)
+* [Envion 通过区块链采矿来支持可再生能源的发展](https://juejin.im/post/5b47f6c2e51d45191b611b09) ([geniusq1981](https://github.com/geniusq1981) 翻译)
 * [BigQuery 中的比特币：使用公共数据分析区块链](https://juejin.im/post/5afc17b16fb9a07aaf35673a) ([LeopPro](https://github.com/LeopPro) 翻译)
 * [用不到 200 行的 GO 语言编写您自己的区块链](https://juejin.im/post/5ad95b056fb9a07aa349cd41) ([Starriers](https://github.com/Starriers) 翻译)
-* [以太坊钱包详解](https://juejin.im/post/5ae2942ff265da0b886d23df) ([XatMassacrE](https://github.com/XatMassacrE) 翻译)
-* [用 Go 编写你自己的区块链挖矿算法！](https://juejin.im/post/5ad6d2ff51882579ef4f7cf0) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
 * [所有区块链译文>>](https://github.com/xitu/gold-miner/blob/master/blockchain.md)
 
 ## 人工智能
 
-* [给人类的机器学习指南🤖👶](https://juejin.im/post/5b136f12f265da6e5415114b) ([sisibeloved](https://github.com/sisibeloved) 翻译)
-* [深度学习中所需的线性代数知识](https://juejin.im/post/5b19d99ae51d4506d81a7a2f) ([maoqyhz](https://github.com/maoqyhz) 翻译)
-* [利用 Keras 深度学习库进行词性标注教程](https://juejin.im/post/5ae4613a5188256727742d7d) ([luochen1992](https://github.com/luochen1992) 翻译)
+* [使用 Python 进行自动化特征工程](https://juejin.im/post/5b6ea0e4e51d4519044adff0) ([mingxing47](https://github.com/mingxing47) 翻译)
+* [Python 与大数据：Airflow & Jupyter Notebook with Hadoop 3, Spark & Presto](https://juejin.im/post/5b5a7fdfe51d453526175687) ([cf020031308](https://github.com/cf020031308) 翻译)
+* [自然语言处理真是有趣](https://juejin.im/post/5b6d08e2f265da0f9c67cf0b) ([lihanxiang](https://github.com/lihanxiang) 翻译)
 * [Facebook 的 AI 万金油：StarSpace 神经网络模型简介](https://juejin.im/post/5a83af7c6fb9a0633c661404) ([noahziheng](https://github.com/noahziheng) 翻译)
 * [所有 AI 译文>>](https://github.com/xitu/gold-miner/blob/master/AI.md)
 
 ## Android
 
-* [更为详细的地图、导航和助手功能 —— Google I/O 2018 的 Android 应用更新](https://juejin.im/post/5aee74626fb9a07abb237f89) ([sisibeloved](https://github.com/sisibeloved) 翻译)
-* [论 Android 中 Span 的正确打开方式](https://juejin.im/entry/5af401bb518825671776537d/) ([tanglie1993](https://github.com/tanglie1993) 翻译)
-* [如何避免拍脑袋想出的产品优先策略](https://juejin.im/post/5b37a0156fb9a00e78666072) ([bobmayuze](https://github.com/bobmayuze) 翻译)
-* [Android 应用和游戏的无障碍开发介绍](https://juejin.im/post/5b31ea42e51d455882380119) ([geniusq1981](https://github.com/geniusq1981) 翻译)
+* [测试原生，Flutter 和 React Native 移动开发之间的性能差异。](https://juejin.im/post/5b62ccef6fb9a04fc564c11b) ([LeeSniper](https://github.com/LeeSniper) 翻译)
+* [深入了解 Flutter](https://juejin.im/post/5b5c3736e51d4519634fe799) ([DateBro](https://github.com/DateBro) 翻译)
+* [使用 Flutter 制作 3D 翻转动画](https://juejin.im/post/5b5534c951882562b9248294) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
+* [Flutter 实用指南：给初学者的 6 个小帖士](https://juejin.im/post/5b5534126fb9a04fcc449f4c) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
 * [所有 Android 译文>>](https://github.com/xitu/gold-miner/blob/master/android.md)
 
 ## iOS
 
-* [不越狱探索 App](https://juejin.im/post/5b0e7eec518825155a048dc4) ([melon8](https://github.com/melon8) 翻译)
-* [苹果公司如何修复 3D Touch](https://juejin.im/post/5b35e5886fb9a00e3642724f) ([Wangalan30](https://github.com/Wangalan30) 翻译)
-* [Airbnb 中的 React Native](https://juejin.im/post/5b2c924ff265da59a401f050) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
-* [使用 Swift 实现原型动画](https://juejin.im/post/5ae28a9b6fb9a07aaa10fa1e) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
+* [Airbnb 在 React Native 上下的赌注（一）：概述](https://juejin.im/post/5b2c924ff265da59a401f050) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
+* [Airbnb 在 React Native 上下的赌注（二）：技术细节](https://juejin.im/post/5b3b40a26fb9a04fab44e797) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
+* [Airbnb 中的 React Native 上下的赌注（三）：建立一个跨平台的移动端团队](https://juejin.im/post/5b446177f265da0f7c4faec8) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
+* [Airbnb 中的 React Native 上下的赌注（四）：React Native 退役](https://juejin.im/post/5b447b1e6fb9a04fd3437dad) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
+* [Airbnb 中的 React Native 上下的赌注（五 — 完）：Airbnb 移动端路在何方？](https://juejin.im/post/5b46f92de51d45198e721cd7) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
 * [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
 
 ## 前端
 
-* [怎样使用简单的三角函数来创建更好的加载动画](https://juejin.im/post/5b33055f518825748871c590) ([zhongdeming428](https://github.com/zhongdeming428) 翻译)
-* [从零开始，在 Redux 中构建时间旅行式调试](https://juejin.im/post/5b24c0bce51d4558ba1a5584) ([weberpan](https://github.com/weberpan) 翻译)
-* [那些好玩却没有被 ECMAScript 2017 采纳的提案](https://juejin.im/post/5ae920fd51882567127852e7) ([Colafornia](https://github.com/Colafornia) 翻译)
-* [Web 应用的未来：Heroku vs Docker](https://juejin.im/post/5ae7dae5518825670f7ba367) ([Hopsken](https://github.com/Hopsken) 翻译)
+* [优化 MP4 视频以获得更快的流传输速度](https://juejin.im/post/5b72bed8e51d45661e00f693) ([HaoChuan9421](https://github.com/HaoChuan9421) 翻译)
+* [如何向带有插槽的 React 组件传递多个 Children](https://juejin.im/post/5b72935a6fb9a009724b3e4e) ([Zheng7426](https://github.com/Zheng7426) 翻译)
+* [用 React 和 Vue 创建了两个完全相同的应用后，发现了这些差异](https://juejin.im/post/5b63f50a5188253128337110) ([jonjia](https://github.com/jonjia) 翻译)
+* [用 30 分钟建立一个网站的方式来学习 Bootstrap 4](https://juejin.im/post/5b5eb7b2e51d451989055d9d) ([Zheng7426](https://github.com/Zheng7426) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 ## 后端
 
-* [从 Java EE 8 Security API 开始 — 第一部分](https://juejin.im/post/5b35a8d4f265da599423598b) ([Starriers](https://github.com/Starriers) 翻译)
-* [通过插图学习 Go 的并发](https://juejin.im/post/5b2cd078e51d4558b70ca399) ([elliott-zhao](https://github.com/elliott-zhao) 翻译)
-* [Kubernetes 分布式应用部署和人脸识别 app 实例](https://juejin.im/post/5b2db0576fb9a00e50313904) ([maoqyhz](https://github.com/maoqyhz) 翻译)
-* [如何通过树莓派的深度学习轻松检测对象](https://juejin.im/post/5b1ba938518825137661af46) ([Starriers](https://github.com/Starriers) 翻译)
+* [如何使用 Python 和 BeautifulSoup 抓取网站内容](https://juejin.im/post/5b74fcec51882561446fb97f) ([geniusq1981](https://github.com/geniusq1981) 翻译)
+* [我如何使用 Node.js 来实现工作自动化](https://juejin.im/post/5b4fe75ef265da0f54052138) ([geniusq1981](https://github.com/geniusq1981) 翻译)
+* [在 UNIX 中，一切皆文件](https://juejin.im/post/5b652d346fb9a04fc03129e6) ([pmwangyang](https://github.com/pmwangyang) 翻译)
+* [使用 PhpFastCache 提升网站性能](https://juejin.im/post/5b54d01be51d4517c5649965) ([lsvih](https://github.com/lsvih) 翻译)
 * [所有后端译文>>](https://github.com/xitu/gold-miner/blob/master/backend.md)
 
 ## 设计
 
-* [创造华丽 UI 的 7 个规则（Part 1）](https://juejin.im/post/5b1dcc7d5188257d7d71946a) ([wzasd](https://github.com/wzasd) 翻译)
-* [创造华丽 UI 的 7 个规则（Part 2）](https://juejin.im/post/5b2a1554e51d4558cc35b3be) ([xujunjiejack](https://github.com/xujunjiejack) 翻译)
-* [用户体验中的稀缺性：成为常态的心理偏见](https://juejin.im/post/5aef0943518825672a02d2ca) ([Starriers](https://github.com/Starriers) 翻译)
-* [细数那些我离不开的 Sketch 插件](https://juejin.im/post/5ae0623ef265da0b8d419aca) ([allenlongbaobao](https://github.com/allenlongbaobao) 翻译)
+* [如何设计移动应用的搜索功能？](https://juejin.im/post/5b692ca251882562b924a6c7) ([xunge0613](https://github.com/xunge0613) 翻译)
+* [在 Sketch 中使用一个设计体系创作：第一部分 [教程]](https://juejin.im/post/5b591a655188257bca290b24) ([pmwangyang](https://github.com/pmwangyang) 翻译)
+* [绘图技巧的快速入门之：6 个绘图练习，让你立即上手！](https://juejin.im/post/5b39823fe51d4558ca674cff) ([wzasd](https://github.com/wzasd) 翻译)
+* [为什么 UX，UI，CX，IA，IxD 和其他类型的设计都是愚蠢的](https://juejin.im/post/5b3588f2e51d4558dd69a44c) ([zhmhhu](https://github.com/zhmhhu) 翻译)
 * [所有设计译文>>](https://github.com/xitu/gold-miner/blob/master/design.md)
 
 ## 产品
 
-* [关于 HomePod WWDC 的愿望清单: 测试版程序、新的语音资源、Echo 等功能](https://juejin.im/post/5b14ff08f265da6e1a602e26) ([dandyxu](https://github.com/dandyxu) 翻译)
+* [虚构问题，低质量软件的根源](https://juejin.im/post/5b65122be51d4517c564d54f) ([ssshooter](https://github.com/ssshooter) 翻译)
 * [watchOS 5 愿望清单：Apple Watch Podcasts、open Siri face 和更新 Control Center 等](https://juejin.im/post/5b15045bf265da6e6039372b) ([talisk](https://github.com/talisk) 翻译)
 * [WWDC 2018：关于iOS 12、iPad Pro、新MacBooks或者更多产品的所有预测](https://juejin.im/post/5b056d485188256710601ecc) ([dandyxu](https://github.com/dandyxu) 翻译)
 * [预测你的游戏的货币化未来](https://juejin.im/post/5ad1d3b6f265da238f12fafa) ([NoName4Me](https://github.com/NoName4Me) 翻译)
@@ -111,8 +112,8 @@
 
 ## 其他
 
+* [编程语言和平台：一条被评论的推文串](https://juejin.im/post/5b4c2b75e51d45195b336d57) ([cf020031308](https://github.com/cf020031308) 翻译)
 * [关于你的编程生涯的一些告诫](https://juejin.im/post/5b0256e36fb9a07aa767f5b4) ([kezhenxu94](https://github.com/kezhenxu94) 翻译)
-* [部署！=发布（第二部分）](https://juejin.im/post/5b00d2fa6fb9a07a9a1120e9) ([Starriers](https://github.com/Starriers) 翻译)
 * [我在编程初级阶段常犯的错误](https://juejin.im/post/5ae97af6f265da0ba062f797) ([kezhenxu94](https://github.com/kezhenxu94) 翻译)
 * [怎样（以及为什么要）保持你的 Git 提交记录的整洁](https://juejin.im/post/5b29060ee51d4558cd2adac0) ([zhongdeming428](https://github.com/zhongdeming428) 翻译)
 * [所有其他分类译文>>](https://github.com/xitu/gold-miner/blob/master/others.md)
