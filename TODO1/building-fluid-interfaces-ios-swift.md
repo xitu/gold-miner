@@ -2,97 +2,97 @@
 > * 原文作者：[Nathan Gitter](https://medium.com/@nathangitter?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/building-fluid-interfaces-ios-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/building-fluid-interfaces-ios-swift.md)
-> * 译者：
+> * 译者：[RydenSun](https://github.com/xitu/gold-miner)
 > * 校对者：
 
-# Building Fluid Interfaces
+# 构建流畅的交互界面
 
-## How to create natural gestures and animations on iOS
+## 如何在 iOS 上创建自然的交互手势及动画
 
-At WWDC 2018, Apple designers presented a talk titled [“Designing Fluid Interfaces”](https://developer.apple.com/videos/play/wwdc2018/803/), explaining the design reasoning behind the gestural interface of iPhone X.
+在 WWDC 2018 上，苹果设计师进行了一次题为  [“设计流畅的交互界面”](https://developer.apple.com/videos/play/wwdc2018/803/) 的演讲，解释了 iPhone X 手势交互体系背后的设计理念。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*EZJGlfbTCPSEq7Exwjla1Q.png)
 
-Apple’s WWDC18 presentation “Designing Fluid Interfaces”
+苹果 WWDC18 演讲 “设计流畅的交互界面”
 
-It’s my favorite WWDC talk ever—I highly recommend it.
+这是我最喜欢的 WWDC 分享 —— 我十分推荐它
 
-The talk provided some technical guidance, which is exceptional for a design presentation, but it was pseudo-code, leaving a lot of unknowns.
+这次分享提供了一些技术性指导，这对一个设计演讲来说是很特殊的，但它只是一些伪代码，留下了太多的未知。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*m_arQ47qnUvIFPNCHRxt7Q.png)
 
-Some Swift-like code from the presentation.
+演讲中一些看起来像 Swift 的代码。
 
-If you try implement these ideas, you might notice a gap between inspiration and implementation.
+如果你想尝试实现这些想法，你可能会发现想法和实现是有差距的。
 
-My goal is to bridge this gap by providing working code examples of every major topic in the presentation.
+我的目的就是通过为演讲中的每一个主要话题，都提供关键的代码，来填补中间的差距。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*zvcJzQnHtJRrDhvfV9XaYw.gif)
 
-The eight (8) interfaces we will create. Buttons, springs, custom interactions, and more!
+我们会创建 8 个界面。 按钮，弹簧动画，自定义界面和更多。
 
-Here’s an outline of what we’ll cover:
+这是我们今天会讲到的内容概览：
 
-1.  A brief summary of the “Designing Fluid Interfaces” talk.
-2.  Eight fluid interfaces, the design theory behind them, and the code to build them.
-3.  Applications for designers and developers.
+1.  “设计流畅的交互界面”分享的简短总结。
+2.  8 个流畅的交互界面，背后的设计理念和构建的代码。
+3.  设计师和开发者的实际应用
 
-### What are fluid interfaces?
+### 什么是流畅的交互界面?
 
-A fluid interface might also be called “fast”, “smooth”, “natural”, or “magical”. It’s a frictionless experience that just feels “right”.
+一个流畅交互界面也可以被描述为“快”，“顺滑”，“自然”或是“奇妙”。它是一种光滑的，无摩擦的体验，让你只会感觉到它是对的。
 
-The WWDC presentation talks about fluid interfaces as “an extension of your mind” and “an extension of the natural world”. An interface is fluid when it behaves according to the way people think, not the way machines think.
+WWDC 分享认为流畅的交互界面是“你思想的延伸”或是“自然世界的延伸”。当一个界面是按照人们的想法做事，而不是按照机器的想法时，他就是流畅的。
 
-### What makes them fluid?
+### 是什么让它们流畅？
 
-Fluid interfaces are responsive, interruptible, and redirectable. Here’s an example of the swipe-to-go-home gesture on iPhone X:
+流畅的交互界面是响应式的，可中断的，并且是可重定向的。这是一个 iPhone X 滑动返回首页的手势案例：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*XxdPbsgL9qeY4QXr1pztfw.gif)
 
-Apps can be closed during their launch animation.
+应用在启动动画中是可以被关闭的。
 
-The interface immediately reacts to the user’s input, can be stopped at any point in the process, and can even change course midway.
+交互界面即时相应用户的输入，可以在任何进程中停止，甚至可以中途改变动画方向。
 
-### Why do we care about fluid interfaces?
+### 我们为什么关注流畅的交互界面？
 
-1.  Fluid interfaces improve the user’s experience, making every interaction feel quick, lightweight, and meaningful.
-2.  They give the user a feeling of control, which builds trust with your app and your brand.
-3.  They are hard to build. A fluid interface is difficult to copy and can be a competitive advantage.
+1.  流畅的交互界面提升了用户体验，让用户感觉每一个交互都是快的，轻量和有意义的。
+2.  它们给予用户一种掌控感，这为你的应用与品牌建立了信任感。
+3.  它们很难被构建。一个流畅的交互界面是很难被仿造，这是一个有力的竞争优势。
 
-### The Interfaces
+### 交互界面
 
-For the remainder of this post, I will show you how to build eight (8) interfaces which cover all the major topics in the presentation.
+这篇文章剩下的部分，我会为你们展示怎样来构建 WWDC 分享中提到的 8 个主要的界面。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*989Lsw_y9JcZsJrAVyxEEQ.png)
 
-Icons representing the eight (8) interfaces we will build.
+图标代表了我们要构建的 8 个交互界面。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*slFD9J80nOOOjm9dsn6aGQ.png)
 
-### Interface #1: Calculator Button
+### 交互界面 #1: 计算器按钮
 
-This is a button that mimics the behavior of buttons in the iOS calculator app.
+这个按钮模仿了 iOS 计算器应用中按钮的表现行为。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*h-Y4Y6K8uxu1mZ6NYst4MA.gif)
 
-#### Key Features
+#### 核心功能
 
-1.  Highlights instantly on touch.
-2.  Can be tapped rapidly even when mid-animation.
-3.  User can touch down and drag outside of the button to cancel the tap.
-4.  User can touch down, drag outside, _drag back in_, and confirm the tap.
+1.  被点击时马上高亮。
+2.  即便处于动画中也可以被立即点击。
+3.  用户可以在按住手势结束时或手指脱离按钮时取消点击。
+4.  用户可以在按住手势结束时，手指脱离按钮和手指重回按钮来确认点击。
 
-#### Design Theory
+#### 设计理念
 
-We want buttons that feel responsive, acknowledging to the user that they are functional. In addition, we want the action to be cancellable if the user decides against their action after they touched down. This allows users to make quicker decisions since they can perform actions in parallel with thought.
+我们希望按钮感觉是即时相应的，让用户确认它们是有功能的。 另外，我们希望操作是可以被取消的，如果用户在按下按钮时决定撤销操作。这允许用户更快的做决定，因为他们可以在考虑的同时进行操作。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*ccdkb04pc02QvnfYJtum8g.png)
 
-Slides from the WWDC presentation showing how gestures in parallel with thought make actions faster.
+WWDC 分享上的幻灯片，展示了手势是如何与想法同时进行的，以此让操作更迅速。
 
-#### Critical Code
+#### 关键代码
 
-The first step to create this button is to use a `UIControl` subclass, not a `UIButton` subclass. A `UIButton` would work fine, but since we are customizing the interaction, we won’t need any of its features.
+第一步是创建一个按钮，继承自 `UIControl`，不是继承自 `UIButton`。 `UIButton`也可以正常工作，但我们既然要自定义交互，那我们就不需要它的任何功能了。
 
 ```
 CalculatorButton: UIControl {
@@ -103,18 +103,18 @@ CalculatorButton: UIControl {
 }
 ```
 
-Next, we will use `UIControlEvents` to assign functions to the various touch interactions.
+下一步，我们会使用 `UIControlEvents` 来为各种点击交互事件分配响应的功能。
 
 ```
 addTarget(self, action: #selector(touchDown), for: [.touchDown, .touchDragEnter])
 addTarget(self, action: #selector(touchUp), for: [.touchUpInside, .touchDragExit, .touchCancel])
 ```
 
-We group the `touchDown` and `touchDragEnter` events into a single “event” called `touchDown` , and we can group the `touchUpInside`, `touchDragExit`, and `touchCancel` events into a single event called `touchUp`.
+我们将 `touchDown` 和 `touchDragEnter` 组合到一个单独的事件，叫做 `touchDown`，并且我们将 `touchUpInside`，`touchDragExit` 和 `touchCancel` 组合一个单独的事件，叫做 `touchUp`。
 
-(For a description of all available`UIControlEvents`, check out [the documentation](https://developer.apple.com/documentation/uikit/uicontrolevents?language=objc).)
+(查看 [这个文档](https://developer.apple.com/documentation/uikit/uicontrolevents?language=objc) 来获取所有可用的 `UIControlEvents` 的描述。)
 
-This gives us two functions to handle the animations.
+这让我们有两个方法来处理动画。
 
 ```
 private var animator = UIViewPropertyAnimator()
@@ -130,51 +130,51 @@ private var animator = UIViewPropertyAnimator()
 }
 ```
 
-On `touchDown`, we cancel the existing animation if needed, and instantly set the color to the highlighted color (in this case a light gray).
+在 `touchDown`，我们根据需要取消存在的动画，然后马上将颜色设置成高亮颜色（在这里是浅灰色）。
 
-On `touchUp`, we create a new animator and start the animation. Using a `UIViewPropertyAnimator` makes it easy to cancel the highlight animation.
+在 `touchUp`，我们创建了一个新的 animator 并且将动画启动。使用 `UIViewPropertyAnimator` ，可以轻松地取消高亮动画。
 
-(Side note: This is not the exact behavior of the buttons in the iOS calculator app, which allow a touch that began in a different button to activate it if the touch was dragged inside the button. In most cases, a button like the one I created here is the intended behavior for iOS buttons.)
+(幻灯片笔记: 这不是严谨的 iOS 计算器应用中按钮的表现，它允许手势从别的按钮移动到这个按钮来启动电机事件。大多数情况下，我在这里创建的按钮就是 iOS 按钮的预期行为)
 
-### Interface #2: Spring Animations
+### 交互界面 #2: 弹簧动画
 
-This interface shows how a spring animation can be created by specifying a “damping” (bounciness) and “response” (speed).
+这个交互展示了弹簧动画是如何可以通过指定一个“阻尼”（反弹）和“响应”（速度）来创建的。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*S0s0LiggTJm1U44lC4kcfg.gif)
 
-#### Key Features
+#### 核心功能
 
-1.  Uses “design-friendly” parameters.
-2.  No concept of animation duration.
-3.  Easily interruptible.
+1.  使用“对设计友好”的参数。
+2.  对动画持续时间无概念。
+3.  可轻易中断。
 
-#### Design Theory
+#### 设计理念
 
-Springs make great animation models because of their speed and natural appearance. A spring animation starts incredibly quickly, spending most of its time gradually approaching its final state. This is perfect for creating interfaces that feel responsive—they spring to life!
+弹簧是一个很好的动画模型，因为它的速度和自然的外观表现。一个弹簧动画可以及其迅速的开始，用其大多数的时间来慢慢接近最终状态。 这对创建一个响应式的交互界面来说是完美的。
 
-A few additional reminders when designing spring animations:
+设计弹簧动画时的几个额外的提醒：
 
-1.  Springs don’t have to be springy. Using a damping value of 1 will create an animation that slowly comes to rest without any bounciness. Most animations should use a damping value of 1.
-2.  Try to avoid thinking about duration. In theory, a spring never fully comes to rest, and forcing a duration on the spring can cause it to feel unnatural. Instead, play with the damping and response values until it feels right.
-3.  Interruption is critical. Because springs spend so much of their time close to their final value, users may think the animation has completed and will try to interact with it again.
+1. 弹簧动画不需要有弹性。使用数值为 1 的阻尼会构建一个动画，它慢慢的向剩下部分靠近，但没有任何反弹。大多数动画应该使用值为 1 的阻尼。
+2. 尝试着避免考虑时长。理论上，一个弹簧动画从来不会完全靠近其余的部分，如果强加上时长限制，会造成动画的不自然。相反，要不断调整阻尼和响应值知道它感觉对。
+3. 可中断性是很关键的。因为弹簧动画消耗了它们绝大部分的时间来接近最终值，用户可能会认为动画已经完成并且会尝试再与它交互。
 
-#### Critical Code
+#### 关键代码
 
-In UIKit, we can create a spring animation with a `UIViewPropertyAnimator` and a `UISpringTimingParameters` object. Unfortunately, there is no initializer that just takes a `damping` and `response`. The closest we can get is the `UISpringTimingParameters` initializer that takes a mass, stiffness, damping, and initial velocity.
+在 UIKit 中，我们可以用 `UIViewPropertyAnimator` 和一个  `UISpringTimingParameters` 对象来构建一个弹簧动画。不幸的是，它没有一个只接受“阻尼”和“相应”的初始化构造器。我们能得到的最接近的初始化构造器是 `UISpringTimingParameters`，它需要质量，硬度，阻尼和初始加速度这几个参数。
 
 ```
 UISpringTimingParameters(mass: CGFloat, stiffness: CGFloat, damping: CGFloat, initialVelocity: CGVector)
 ```
 
-We would like to create a convenience initializer that takes a damping and response, and maps it to the required mass, stiffness, and damping.
+我们希望创建一个简便的初始化构造器，只使用阻尼和响应这两个参数，并且将它们映射至需要的质量，硬度和阻尼。
 
-With a little bit of physics, we can derive the equations we need:
+使用一点物理知识，我们可以导出我们需要的公示：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*G_83X45IJ6J8Cedkvue_WA.png)
 
-Solving for the spring constant and damping coefficient.
+弹簧动画的常量和阻尼系数的解决方案。
 
-With this result, we can create our own `UISpringTimingParameters` with exactly the parameters we desire.
+有了这个结果，我们正好可以使用我们想要的参数来创建我们自己的 `UISpringTimingParameters`。
 
 ```
 extension UISpringTimingParameters {
@@ -186,37 +186,37 @@ extension UISpringTimingParameters {
 }
 ```
 
-This is how we will specify spring animations for all other interfaces.
+这就是我们如何可以指定弹簧动画到所有其他的交互界面。
 
-#### The Physics Behind Spring Animations
+#### 弹簧动画背后的物理学
 
-Want to go deeper on spring animations? Check out this incredible post by Christian Schnorr: [Demystifying UIKit Spring Animations](https://medium.com/ios-os-x-development/demystifying-uikit-spring-animations-2bb868446773).
+想深入研究弹簧动画？ 看看 Christian Schnorr 发的这篇极好的文章：[Demystifying UIKit Spring Animations](https://medium.com/ios-os-x-development/demystifying-uikit-spring-animations-2bb868446773).
 
 ![](https://cdn-images-1.medium.com/max/1600/1*NPFOJlbdIyjPXLYU4nJxUQ.png)
 
-After reading his post, spring animations finally clicked for me. Huge shout-out to Christian for helping me understand the math behind these animations and for teaching me how to solve second-order differential equations.
+读了他的文章之后，我最终理解了弹簧动画。对 Christian 大大的致敬，因为它帮助我理解了这些动画背后的数学理论，而且教我如何解二阶微分方程。
 
-### Interface #3: Flashlight Button
+### 交互界面 #3: 手电筒按钮
 
-Another button, but with much different behavior. This mimics the behavior of the flashlight button on the lock screen of iPhone X.
+又是一个按钮，但又不同的表现形式。它模仿了 iPhone X 锁屏上的手电筒按钮。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*nrzZVlSrZ7hhrxRe_Sl_bA.gif)
 
-#### Key Features
+#### 核心功能
 
-1.  Requires an intentional gesture with 3D touch.
-2.  Bounciness hints at the required gesture.
-3.  Haptic feedback confirms activation.
+1.  需要一个使用 3D Touch 的强力手势。
+2.  对手势有反弹提示。
+3.  对确认启动有震动反馈。
 
-#### Design Theory
+#### 设计理念
 
-Apple wanted to create a button that was easily and quickly accessible, but couldn’t be triggered accidentally. Requiring force pressure to activate the flashlight is a great choice, but lacks affordance and feedback.
+苹果希望创建一个按钮，它可以轻易的并且快速的被接触到，但是并不会被不小心出发。需要强压来启动手电筒是一个很棒的选择，但是缺少了功能的可见性和反馈性。
 
-In order to solve those problems, the button is springy and grows as the user applies force, hinting at the required gesture. In addition, there are two separate vibrations of haptic feedback: one when the required amount of force is applied, and another when the button activates as the force is reduced. These haptics mimic the behavior of a physical button.
+为了解决这个问题，这个按钮是有弹性的，并且会随着用户按压的力度来变大。除此之外，有两个单独的触觉震动反馈：一个是在达到要求的力度按压时，另一个是按压结束按钮被触发时。这些触觉模拟了物理按钮的表现形式。
 
-#### Critical Code
+#### 关键代码
 
-To measure the amount of force being applied to the button, we can use the `UITouch` object provided in touch events.
+为了衡量按压按钮的力度，我们可以使用 touch 事件提供的 `UITouch` 对象。
 
 ```
 override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -228,9 +228,9 @@ override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
 }
 ```
 
-We calculate a scale transform based on the current force, so that the button grows with increasing pressure.
+我们基于用户按压力度计算了缩放比例，这样可以让按钮随着用户按压力度变大。
 
-Since the button could be pressed but not yet activated, we need to keep track of the button’s current state.
+既然按钮可以被按压但不会启动，我们需要持续追踪按钮的实时状态。
 
 ```
 enum ForceState {
@@ -242,9 +242,9 @@ private let activationForce: CGFloat = 0.5
 private let confirmationForce: CGFloat = 0.49
 ```
 
-Having the confirmation force be slightly lower than the activation force prevents the user from rapidly activating and de-activating the button by quickly crossing the force threshold.
+通过将确认压力设置到稍小于启动压力，防止用户通过快速的超过压力阈值来频繁的启动和取消启动按钮。
 
-For haptic feedback, we can use `UIKit`’s feedback generators.
+对于触觉反馈，我们可以使用  `UIKit`’ 的反馈生成器。
 
 ```
 private let activationFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
@@ -252,7 +252,7 @@ private let activationFeedbackGenerator = UIImpactFeedbackGenerator(style: .ligh
 private let confirmationFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
 ```
 
-Finally, for the bouncy animations, we can use a `UIViewPropertyAnimator` with the custom `UISpringTimingParameters` initializers we created before.
+最后，对于反弹动画，我们可以使用 `UIViewPropertyAnimator` 并且配合我们前面构建的 `UISpringTimingParameters` 初始化构造器。
 
 ```
 let params = UISpringTimingParameters(damping: 0.4, response: 0.2)
@@ -264,33 +264,33 @@ animator.addAnimations {
 animator.startAnimation()
 ```
 
-### Interface #4: Rubberbanding
+### 交互界面 #4: 橡皮筋动画
 
-Rubberbanding occurs when a view resists movement. An example is when a scrolling view reaches the end of its content.
+橡皮筋动画发生在视图抗拒移动时。一个例子就是当滚动视图滑到最底部时。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*y0jRo2TeJ9VtCZPmQxyRLw.gif)
 
-#### Key Features
+#### 核心功能
 
-1.  Interface is always responsive, even when an action is invalid.
-2.  De-synced touch tracking indicates a boundary.
-3.  Amount of motion lessens further from the boundary.
+1.  交互界面永远是可响应的，即使当操作是无效的。
+2.  不同步的触摸追踪，代表了边界。
+3.  随着远离边界，移动距离变小。
 
-#### Design Theory
+#### 设计理念
 
-Rubberbanding is a great way to communicate invalid actions while still giving the user a sense of control. It softly indicates a boundary, pulling them back into a valid state.
+橡皮筋动画是一种很好的方式来沟通无效的操作，它仍然会给用户一种掌控感。它温柔的告诉你这是一个边界，将它们拉回到有效的状态。
 
-#### Critical Code
+#### 关键代码
 
-Luckily, rubberbanding is straightforward to implement.
+幸运的是，橡皮筋动画实现起来很直接。
 
 ```
 offset = pow(offset, 0.7)
 ```
 
-By using an exponent between 0 and 1, the view’s offset is moved less the further it is away from its resting position. Use a larger exponent for less movement and a smaller exponent for more movement.
+通过使用 0 到 1 之间的一个指数，视图会随着远离原始位置，移动越来越少。要移动的少就用一个大的指数，移动的多就使用一个小的指数。
 
-For a little more context, this code is usually implemented in a `UIPanGestureRecognizer` callback whenever the touch moves. The offset can be calculated with the delta between the current and original touch locations, and the offset can be applied with a translation transform.
+再详细一点，这段代码一般是在触摸移动时，在 `UIPanGestureRecognizer` 回调中实现的。
 
 ```
 var offset = touchPoint.y - originalTouchPoint.y  
@@ -298,29 +298,29 @@ offset = offset > 0 ? pow(offset, 0.7) : -pow(-offset, 0.7)
 view.transform = CGAffineTransform(translationX: 0, y: offset)
 ```
 
-Note: This is not how Apple performs rubberbanding with elements like scroll views. I like this method because of its simplicity, but there are more complex functions for different behaviors.
+注意:这并不是苹果如何使用想 scroll view 这些元素来实现橡皮筋动画。我喜欢这个方法，是因为它简单，但对不同的表现，还有很多更复杂的方法。
 
-### Interface #5: Acceleration Pausing
+### 交互界面 #5: 加速中止
 
-To view the app switcher on iPhone X, the user swipes up from the bottom of the screen and pauses midway. This interface re-creates this behavior.
+为了看 iPhone X 上的应用切换，用户需要从屏幕底部向上滑，并且在中途停止。这个交互界面就是为了创建这个表现形式。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*GMqctAhbjqpmWmAtsKVeDg.gif)
 
-#### Key Features
+#### 核心功能
 
-1.  Pause is calculated based on the gesture’s acceleration.
-2.  Faster stopping results in a faster response.
-3.  No timers.
+1.  中止是基于收拾加速度来计算的。
+2.  越快的停止导致越快的响应。
+3.  没有计时器。
 
-#### Design Theory
+#### 设计理念
 
-Fluid interfaces should be fast. A delay from a timer, even if short, can make an interface feel sluggish.
+流畅的交互界面应该是快速的。计时器产生的延迟，即便很短，也会让界面感到卡顿。
 
-This interface is particularly cool because its reaction time is based on the user’s motion. If they quickly pause, the interface quickly responds. If they slowly pause, it slowly responds.
+这个交互十分酷，因为它的反应时间是根据用户手势运动的。如果他们很快停止，界面会很快响应。如果他们慢慢停止，界面就慢慢响应。
 
-#### Critical Code
+#### 关键代码
 
-In order to measure acceleration, we can track the most recent values of the pan gesture’s velocity.
+为了衡量加速度，我们可以追踪最新的拖拽手势的速度值。
 
 ```
 private var velocities = [CGFloat]()
@@ -334,9 +334,9 @@ private func track(velocity: CGFloat) {
 }
 ```
 
-This code updates the `velocities` array to always have the last seven velocities, which are used to calculate the acceleration.
+这段代码更新了 `velocities` 数组，这样可以一直持有最新的 7 个速度值，这些可以被用来计算加速度值。
 
-To determine if the acceleration is great enough, we can measure the difference between the first velocity in our array against the current velocity.
+为了判断加速度是否足够大，我们可以计算数组中第一个速度值和目前速度值的差。
 
 ```
 if abs(velocity) > 100 || abs(offset) < 50 { return }
@@ -348,33 +348,33 @@ if ratio > 0.9 {
 }
 ```
 
-We also check to make sure that the motion has a minimum displacement and velocity. If the gesture has lost more than 90% of its velocity, we consider it to be paused.
+我们也要确保手势移动有一个最小位移和速度。如果手势已经慢下来超过 90%，我们会考虑将它停止。
 
-My implementation is not perfect. In my testing it seems to work pretty well, but there is an opportunity for a better heuristic to measure acceleration.
+我的实现并不完美。在我的测视里，它看起来工作的不错，但还有机会深入探索加速度的计算方法。
 
-### Interface #6: Rewarding Momentum
+### 交互界面 #6: 奖励有势头的动画（自我驱动移动）一些反弹
 
-A drawer with open and closed states that has bounciness based on the velocity of the gesture.
+一个抽屉动画，有打开和关闭状态，他们会根据手势的速度有一些反弹
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Wwh583M_4qLWg8Pb16mNeA.gif)
 
-#### Key Features
+#### 核心功能
 
-1.  Tapping the drawer opens it without bounciness.
-2.  Flicking the drawer opens it _with_ bounciness.
-3.  Interactive, interruptible, and reversible.
+1.  点击抽屉动画，没有反弹。
+2.  轻弹出抽屉，有反弹。
+3.  可交互，可中断并且可逆。
 
-#### Design Theory
+#### 设计理念
 
-This drawer shows the concept of rewarding momentum. When the user swipes a view with velocity, it’s much more satisfying to animate the view with bounciness. This makes the interface feel alive and fun.
+抽屉动画展示了这个交互界面的理念。当用户有一定速度的滑动某个视图，将动画附带一些反弹会更令人满意。这样交互界面感觉像活得，也更有趣。
 
-When the drawer is tapped, it animates without bounciness, which feels appropriate, since a tap has no momentum in a particular direction.
+当抽屉被点击时，它的动画是没有反弹的，这感觉起来是对的，因为点击时没有任何明确方向的势头的。
 
-When designing custom interactions, it’s important to remember that interfaces can have different animations for different interactions.
+当设计自定义的交互界面时，要谨记界面对于不同的交互是有不同的动画的。
 
-#### Critical Code
+#### 关键代码
 
-To simplify the logic of tapping versus panning, we can use a custom gesture recognizer subclass that immediately enters the `began` state on touch down.
+为了简化点击与拖拽手势的逻辑，我们可以使用一个自定义的手势识别器的子类，在点击的一瞬间进入 `began` 状态。
 
 ```
 class InstantPanGestureRecognizer: UIPanGestureRecognizer {
@@ -385,7 +385,7 @@ class InstantPanGestureRecognizer: UIPanGestureRecognizer {
 }
 ```
 
-This also allows the user to tap on the drawer during its motion to pause it, similar to tapping on a scroll view that’s currently scrolling. To handle taps, we can check if the velocity is zero when the gesture ends and continue the animation.
+这可以让用户在抽屉运动时，点击抽屉来停止它，这就像点击一个正在滚动的滚动视图。为了处理这些点击，我们可以检查当手势停止时，速度是否为 0 并继续动画。
 
 ```
 if yVelocity == 0 {
@@ -393,7 +393,7 @@ if yVelocity == 0 {
 }
 ```
 
-To handle a gesture with velocity, we first need to calculate its velocity relative to the total remaining displacement.
+为了处理带有速度的手势，我们首先需要计算它相对于剩下的总距离的速度。
 
 ```
 let fractionRemaining = 1 - animator.fractionComplete
@@ -405,7 +405,7 @@ if distanceRemaining == 0 {
 let relativeVelocity = abs(yVelocity) / distanceRemaining
 ```
 
-We can use this relative velocity to continue the animation with the timing parameters that include a little bit of bounciness.
+当我们可以使用这个相对速度时，配合计时变量来继续这个包含一点反弹的动画。
 
 ```
 let timingParameters = UISpringTimingParameters(damping: 0.8, response: 0.3, initialVelocity: CGVector(dx: relativeVelocity, dy: relativeVelocity))
@@ -417,25 +417,25 @@ let durationFactor = CGFloat(newDuration / animator.duration)
 animator.continueAnimation(withTimingParameters: timingParameters, durationFactor: durationFactor)
 ```
 
-Here we are creating a new `UIViewPropertyAnimator` to calculate the time the animation should take so we can provide the correct `durationFactor` when continuing the animation.
+这里我们创建有一个新的 `UIViewPropertyAnimator` 来计算动画需要的时间，这样我们可以在继续动画时提供正确的 `durationFactor`。
 
-There are more complexities related to reversing the animation that I am not going to cover here. If you want to learn more, I wrote a full tutorial for this component: [Building Better iOS App Animations](http://www.swiftkickmobile.com/building-better-app-animations-swift-uiviewpropertyanimator/).
+关于动画的回转，会更复杂，我这里就不介绍了。如果你想知道的哦更多，我写了一个关于这部分的完整的教程：[构建更好的 iOS APP 动画](http://www.swiftkickmobile.com/building-better-app-animations-swift-uiviewpropertyanimator/).
 
-### Interface #7: FaceTime PiP
+### 交互动画 #7: FaceTime PiP
 
-A re-creation of the picture-in-picture UI of the iOS FaceTime app.
+重新创造 iOS FaceTime 应用中的 picture-in-picture UI。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*zHlr_QAPv7YpEF5wb6YZAQ.gif)
 
-#### Key Features
+#### 核心功能
 
-1.  Lightweight, airy interaction.
-2.  Projected position is based on `UIScrollView`'s deceleration rate.
-3.  Continuous animation that respects the gesture’s initial velocity.
+1.  轻量，轻快的交互
+2.  投影位置是基于 `UIScrollView` 的减速速率。
+3.  有遵循手势最初速度的持续动画。
 
-#### Critical Code
+#### 关键代码
 
-Our end goal is to write something like this.
+我们最终的目的是写一些这样的代码。
 
 ```
 let params = UISpringTimingParameters(damping: 1, response: 0.4, initialVelocity: relativeInitialVelocity)
@@ -449,11 +449,11 @@ animator.addAnimations {
 animator.startAnimation()
 ```
 
-We would like to create an animation with an initial velocity that matches the velocity of the pan gesture and animate the pip to the nearest corner.
+我们希望创建一个带有初始速度的动画，并且与拖拽手势的速度相匹配。并且进行 pip 动画到最近的角落。
 
-First, let’s calculate the initial velocity.
+首先，我们需要计算初始速度。
 
-To do this, we need to calculate a relative velocity based on the current velocity, current position, and target position.
+为了能做到这个，我们需要计算基于目前速度，目前为止和目标为止的相对速度。
 
 ```
 let relativeInitialVelocity = CGVector(
@@ -467,11 +467,11 @@ func relativeVelocity(forVelocity velocity: CGFloat, from currentValue: CGFloat,
 }
 ```
 
-We can split the velocity into its x and y components and determine the relative velocity for each.
+我们可以将速度分解为 x 和 y 两部分，并且决定它们各自的相对速度。
 
-Next, let’s calculate the corner for the PiP to animate to.
+下一步，我们为 PiP 动画计算各个角落。
 
-In order to make our interface feel natural and lightweight, we are going to project the final position of the PiP based on its current motion. If the PiP were to slide and come to a stop, where would it land?
+为了让我们的交互界面感觉自然并且轻量，我们要基于它现在的移动来投影 PiP 的最终位置。如果 PiP 可以滑动并且停止，它最终停在哪里？
 
 ```
 let decelerationRate = UIScrollView.DecelerationRate.normal.rawValue
@@ -483,11 +483,11 @@ let projectedPosition = CGPoint(
 let nearestCornerPosition = nearestCorner(to: projectedPosition)
 ```
 
-We can use the deceleration rate of a `UIScrollView` to calculate this resting position. This is important because it references the user’s muscle memory for scrolling. If a user knows about how far a view scrolls, they can use that previous knowledge to intuitively guess how much force is needed to move the PiP to their desired target.
+我们可以使用 `UIScrollView` 的减速速率来计算剩下的位置。这很重要，因为它与用户滑动的肌肉记忆相关。如果一个用户知道一个视图需要滚动多远，他们可以使用之前的知识直觉地猜测 PiP 到最终目标需要多大力。
 
-This deceleration rate is also quite generous, making the interaction feel lightweight—only a small flick is needed to send the PiP flying all the way across the screen.
+这个减速速率也是很宽泛的，让交互感到轻量——只需要一个小小的推动就可以送 PiP 飞到屏幕的另一端。
 
-We can use the projection function provided in the “Designing Fluid Interfaces” talk to calculate the final projected position.
+我们可以使用“设计流畅的交互界面”分享中的投影方法来计算最终的投影位置。
 
 ```
 /// Distance traveled after decelerating to zero velocity at a constant rate.
@@ -496,7 +496,7 @@ func project(initialVelocity: CGFloat, decelerationRate: CGFloat) -> CGFloat {
 }
 ```
 
-The last piece missing is the logic to find the nearest corner based on the projected position. To do this we can loop through all corner positions and find the one with the smallest distance to the projected landing position.
+最后缺失的一块就是基于投影位置找到最近的角落的逻辑。我们可以循环所有角落的位置并且找到一个和投影位置距离最小的角落。
 
 ```
 func nearestCorner(to point: CGPoint) -> CGPoint {
@@ -513,22 +513,22 @@ func nearestCorner(to point: CGPoint) -> CGPoint {
 }
 ```
 
-To summarize the final implementation: We use `UIScrollView`'s deceleration rate to project the pip’s motion to its final resting position, and calculate the relative velocity to feed it all into `UISpringTimingParameters`.
+总结最终的实现：我们使用了 `UIScrollView` 的减速速率来投影 pip 的运动到它最终的位置，并且计算了相对速度传入了 `UISpringTimingParameters`。
 
-### Interface #8: Rotation
+### 交互界面 #8: 旋转
 
-Applying the concepts from the PiP interface to a rotation animation.
+将 PiP 的原理应用到一个旋转动画。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*jL07YlwI-5skQGkc4W8OeQ.gif)
 
-#### Key Features
+#### 核心功能
 
-1.  Uses projection to respect the gesture’s velocity.
-2.  Always ends in a valid orientation.
+1.  使用投影来遵循手势的速度。
+2.  永远停在一个有效的方向。
 
-#### Critical Code
+#### 关键代码
 
-The code here is very similar to the previous PiP interface. We will use the same building blocks, except swapping the `nearestCorner` function for a `closestAngle` function.
+这里的代码和前面的 PiP 很像。 我们会使用同样的构造回调，除了将 `nearestCorner` 方法换成 `closestAngle`。
 
 ```
 func project(...) { ... }
@@ -538,7 +538,7 @@ func relativeVelocity(...) { ... }
 func closestAngle(...) { ... }
 ```
 
-When it’s time to finally create the `UISpringTimingParameters`, we are required to use a `CGVector` for the initial velocity even though our rotation only has one dimension. In any case where the animated property has only one dimension, set the `dx` value to the desired velocity and set the `dy` value to zero.
+当最终是时候创建一个 `UISpringTimingParameters`，针对初始速度，我们是需要使用一个 `CGVector`，即使我们的旋转只有一个维度。任何情况下，如果动画属性只有一个维度，将 `dx` 值设为期望的速度，将 `dy` 值设为 0.
 
 ```
 let timingParameters = UISpringTimingParameters(  
@@ -548,43 +548,43 @@ let timingParameters = UISpringTimingParameters(
 )
 ```
 
-Internally the animator will ignore the `dy` value and use the `dx` value to create the timing curve.
+在内部，动画会忽略 `dy` 的值而使用 `dx` 的值来创建时间曲线。
 
-### Try it yourself!
+### 自己试一试！
 
-These interfaces are much more fun on a real device. To play with these interfaces yourself, the demo app is [available on GitHub](https://github.com/nathangitter/fluid-interfaces).
+这些交互在真机上更有趣。要自己玩一下这些交互的，这个是 demo 应用，可以在 [GitHub](https://github.com/nathangitter/fluid-interfaces) 上获取到。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*7gS4SLe571r7RZvpps3X9A.png)
 
-The fluid interfaces demo app, available on GitHub!
+流畅的交互界面 demo 应用，可以在 GitHub 上获取！
 
-### Practical Applications
+### 实际应用
 
-#### For Designers
+#### 对于设计师
 
-1.  Think about interfaces as fluid mediums of expression, not collections of static elements.
-2.  Consider animations and gestures early in the design process. Layout tools like Sketch are fantastic, but don’t offer the full expressivity of the device.
-3.  Prototype with developers. Get design-minded developers to help you prototype animations, gestures, and haptics.
+1.  把交互界面考虑成流程的表达中介，而不是一些固定元素的组合。
+2.  在设计流程早期就考虑动画和手势。Sketch 这些排版工具是很好用的，但是并不会像设备一样提供完整的表现。
+3.  跟开发工程师进行原型展示。让有设计思维的开发工程师帮助你开发原型的动画，手势和触觉反馈。
 
-#### For Developers
+#### 对于开发工程师
 
-1.  Apply the tips from these interfaces to your own custom components. Think about how they might be combined in new and interesting ways.
-2.  Educate your designers about new possibilities. Many are not aware of the full power of 3D touch, haptics, gestures, and spring animations.
-3.  Prototype with designers. Help them see their designs on a real device, and create tools to help them design more effectively.
+1.  将这些建议应用到你自己开发的自定义交互组件上。考虑如何更有趣的将它们结合到一起。
+2.  教育你的设计师关于这些新的可能。许多设计师没有意识到 3D touch，触觉反馈，手势和弹簧动画的真正力量。
+3.  与设计师一起演示原型。帮助他们在真机上查看自己的设计，并且创建一些工具帮助他们，来让设计更加的有效率。
 
 * * *
 
-If you enjoyed this post, please leave some claps. 👏👏👏
+如果你喜欢这篇文章，请留下一些鼓掌。 👏👏👏
 
-**You can clap up to 50 times**, so get clicking/tapping! 😉
+**你可以点击鼓掌 50 次！**, 所以赶快点啊！ 😉
 
-Please share the post with your iOS designer / iOS developer friends on your social media outlet of choice.
+请将这篇文章在社交媒体上分享给你的 iOS 设计师/iOS 开发工程师朋友。
 
-If you like this kind of stuff, you should follow me on Twitter. I only post high-quality tweets. [twitter.com/nathangitter](https://twitter.com/nathangitter)
+如果你喜欢这种内容，你应该在 Twitter 上关注我。 我只发高质量的内容。[twitter.com/nathangitter](https://twitter.com/nathangitter)
 
-Thanks to [David Okun](https://twitter.com/dokun24) for revising drafts of this post.
+感谢 [David Okun](https://twitter.com/dokun24) 校验。
 
-Thanks to [Christian Schnorr](https://medium.com/@jenoxx?source=post_page) and [David Okun](https://medium.com/@davidokun?source=post_page).
+感谢 [Christian Schnorr](https://medium.com/@jenoxx?source=post_page) 和 [David Okun](https://medium.com/@davidokun?source=post_page).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
