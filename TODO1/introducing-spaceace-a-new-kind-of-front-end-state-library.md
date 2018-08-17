@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-spaceace-a-new-kind-of-front-end-state-library.md](https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-spaceace-a-new-kind-of-front-end-state-library.md)
 > * 译者：[Noah Gao](https://noahgao.net)
-> * 校对者：
+> * 校对者：[Hopsken](https://hopsken.com/)
 
-# SpaceAce 了解下，一个新的前端状态管理库
+# SpaceAce 了解一下，一个新的前端状态管理库
 
-开发前端应用的大家都知道，状态管理是开发中最重要，最具挑战性的一部分。目前流行的基于组件的视图库，如 React，包括功能齐全的（最基本的）状态管理能力。它们使应用中的每个组件都能够管理自己的状态。这对于小型应用程序来说足够了，但您很快就会感到挫败。因为决定哪些组件具有状态以及如何在组件之间共享来自每个状态的数据是一个挑战。最后还要弄清楚状态是如何或为何被改变。
+开发前端应用的大家都知道，状态管理是开发中最重要，最具挑战性的一部分。目前流行的基于组件的视图库，如 React，包括功能齐全的（最基本的）状态管理能力。它们使应用中的每个组件都能够管理自己的状态。这对于小型应用程序来说足够了，但你很快就会感到挫败。因为决定哪些组件具有状态以及如何在组件之间共享来自每个状态的数据将会成为一个挑战。最后还要弄清楚状态是如何或为何被改变。
 
-为了解决面向组件状态的上述问题，Redux 一类的库被引入。它们将该状态集中到一个集中的“store”中，每个组件都可以读写它。为了维护顺序，他们将改变状态的逻辑集中到应用程序的中心部分，称为 [** reducer **](https://redux.js.org/basics/reducers)，使用 **actions**，并使其产生新的状态副本。它非常有效，但学习曲线很高，需要大量的样板代码，并强迫您将更新状态的代码与渲染视图的代码分开。
+为了解决面向组件状态的上述问题，Redux 一类的库被引入。它们将该状态集中到一个集中的“store”中，每个组件都可以读写它。为了维护顺序，他们将改变状态的逻辑集中到应用程序的中心部分，称为 [**reducer**](https://redux.js.org/basics/reducers)，使用 **actions** 调用它们，并使其产生新的状态副本。它非常有效，但学习曲线很高，需要大量的样板代码，并强迫你将更新状态的代码与渲染视图的代码分开。
 
 [SpaceAce](https://github.com/JonAbrams/SpaceAce) 是一个新的库，它具有 Redux 的所有优点，例如集中的 store，不可变状态，单向数据流，明确定义的 actions，它 **还** 极大地简化了代码更新 store 中状态的方式。
 
@@ -17,7 +17,7 @@
 
 ### SpaceAce 是什么？
 
-SpaceAce 提供一个状态管理的 **store** 叫做一个 **space**。一个 space 包括只读（不可变）的状态，还有一些用于更新它的工具集。但是这个 store 里面不只是 **有** 状态，而是它本身就 **是** 状态。同时，他还提供了很多方法来生成新版本的状态。怎么做到？是一些带有属性的函数！很多 JS 开发者不知道 JS 函数也是对象。只是它能执行而已，所以他也能有一些属性，就像对象一样（因为它就是个对象！）。
+SpaceAce 提供一个状态管理的 **store** 叫做一个 **space**。一个 space 包括只读（不可变）的状态，还有一些用于更新它的工具集。但是这个 store 里面不只是 **有** 状态，而是它本身就 **是** 状态。同时，他还提供了很多方法来生成新版本的状态。怎么做到？是一些带有属性的函数！很多 JS 开发者不知道 JS 函数也是对象。只是它能执行而已，所以它也能有一些属性，就像对象一样（因为它就是个对象！）。
 
 每个 space 都是一个有属性的不可变对象，但是只能被读取，不能直接写入。每个 space **也是** 一个函数，能够创建应用改动后的状态副本。
 
@@ -83,16 +83,16 @@ export const PizzaForm = ({ space }) => (
 );
 ```
 
-虽然大多数应用只有许多简单的交互，但它们有时也会包含一些复杂的 action。SpaceAce 允许您自定义 action，所有 action 都与组件再同一文件中。调用时，会为这些 action 提供一个对象，其中包含用于更新状态的便捷函数：
+虽然大多数应用只有许多简单的交互，但它们有时也会包含一些复杂的 action。SpaceAce 允许你自定义 action，所有 action 都与组件在同一文件中。调用时，会为这些 action 提供一个对象，其中包含用于更新状态的便捷函数：
 
 ```javascript
 import { fetchPizza } from '../apiCalls';
 
 /*
   handleSubmit 是一个自定义 action。
-  第一个参数由 SpaceAce 提供。
+  第一个参数由 SpaceAce 提供。·
   其余参数是需要传入的，
-  在这个案例中由React的事件对象组成。
+  在这个案例中由 React 的事件对象组成。
 */
 const handleSubmit = async ({ space, merge }, event) => {
   event.preventDefault();
@@ -132,9 +132,9 @@ export const PizzaForm = ({ space }) => (
 );
 ```
 
-您可能会注意到，所有这些改变空间状态的方式都会假定状态相对较浅，但如果每个应用程序只有一个 space，那怎么可能呢？不可能的！每个 space 都可以有任意数量的 sub-space，它们也只是 space，但它们有父级。每当更新其中一个 sub-space 时，改动会冒泡，一旦更改到达根 sapce，就会触发应用的重新渲染。
+你可能会注意到，所有这些改变 space 状态的方式都会假定状态相对较浅，但如果每个应用程序只有一个 space，那怎么可能呢？不可能的！每个 space 都可以有任意数量的 sub-space，它们也只是 space，但它们有父级。每当更新其中一个 sub-space 时，改动会冒泡，一旦更改到达根 sapce，就会触发应用的重新渲染。
 
-有关子 space 最棒的地方在于，你不用特地去制造它，他将在你访问 space 中的对象或是数组时，自动被创建出来：
+有关子 space 最棒的地方在于，你不用特地去制造它，它将在你··访问 space 中的对象或是数组时，自动被创建出来：
 
 ```javascript
 const handleRemove = ({ remove }, itemToBeRemoved) => {
@@ -179,7 +179,7 @@ const CartItem = ({ space, onRemove }) => (
 
 还有很多功能可以继续探索，我很快就会分享这些有趣的技巧。请继续关注我的下一篇文章！
 
-与此同时，您可以在 [Github 上的代码和文档](https://github.com/JonAbrams/SpaceAce) 中了解更多信息，也可以 [让我知道你的想法](https://twitter.com/JonathanAbrams)！
+与此同时，你可以在 [Github 上的代码和文档](https://github.com/JonAbrams/SpaceAce) 中了解更多信息，也可以 [让我知道你的想法](https://twitter.com/JonathanAbrams)！
 
 感谢 [Zivi Weinstock](https://medium.com/@z1v1?source=post_page) 的付出。
 
