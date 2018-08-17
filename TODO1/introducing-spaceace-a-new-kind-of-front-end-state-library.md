@@ -21,7 +21,7 @@ SpaceAce 提供一个状态管理的 **store** 叫做一个 **space**。一个 s
 
 每个 space 都是一个有属性的不可变对象，但是只能被读取，不能直接写入。每个 space **也是** 一个函数，能够创建应用改动后的状态副本。
 
-最后，放个例子:
+最后，放个例子：
 
 ```javascript
 import Space from 'spaceace';
@@ -90,7 +90,7 @@ import { fetchPizza } from '../apiCalls';
 
 /*
   handleSubmit 是一个自定义 action。
-  第一个参数由 SpaceAce 提供。·
+  第一个参数由 SpaceAce 提供。
   其余参数是需要传入的，
   在这个案例中由 React 的事件对象组成。
 */
