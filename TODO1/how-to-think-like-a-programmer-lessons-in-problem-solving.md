@@ -11,7 +11,7 @@
 
 原文作者 [Richard Reis](https://twitter.com/richardreeze)
 
-如果你对编程感兴趣，那么你之前可能会听说过这样的 `一句话` ：
+如果你对编程感兴趣，那么你之前可能会听说过这样的 `一句话`：
 
 > “每个人都应该学习编程，因为它会教你如何思考。” —— 史蒂夫·乔布斯
 
@@ -37,7 +37,7 @@
 
 你看，某些时候可能你很走运，能够把问题解决。但这却是解决问题中最最糟糕的方法。同时，这对你的时间造成了巨大浪费。
 
-最好的方法包含了以下的两个方面： a) 拥有一套解决问题的框架； b) 不断**练习实践这套框架**。
+最好的方法包含了以下的两个方面：a）拥有一套解决问题的框架；b）不断**练习实践这套框架**。
 
 > “几乎所有的雇主都把解决问题的能力放在首位。
 
@@ -47,9 +47,9 @@
 
 #### 拥有一套解决问题的框架
 
-为了找到正确的框架，我遵循了蒂姆·费里斯 (Tim Ferriss) 关于学习的书[《4 小时厨师》 (the 4-Hour Chef)](https://www.amazon.com/dp/0547884591/?tag=richardreeze-20) 中的建议。
+为了找到正确的框架，我遵循了蒂姆·费里斯（Tim Ferriss）关于学习的书[《4 小时厨师》（the 4-Hour Che）](https://www.amazon.com/dp/0547884591/?tag=richardreeze-20) 中的建议。
 
-这个建议让我采访了两位真正令人印象深刻的人： [C. Jordan Ball](https://www.linkedin.com/in/cjordanball/) （在 [Coderbyte](https://coderbyte.com/) 65,000+ 用户中排名第一或者第二），以及 [V. Anton Spraul](http://vantonspraul.com/) （书籍 “[像程序员般思考：创造性解决难题导论](https://www.amazon.com/dp/1593274246/?tag=richardreeze-20)” 的作者）。
+这个建议让我采访了两位真正令人印象深刻的人：[C. Jordan Ball](https://www.linkedin.com/in/cjordanball/)（在 [Coderbyte](https://coderbyte.com/) 65,000+ 用户中排名第一或者第二），以及 [V. Anton Spraul](http://vantonspraul.com/)（书籍 “[像程序员般思考：创造性解决难题导论](https://www.amazon.com/dp/1593274246/?tag=richardreeze-20)” 的作者）。
 
 我问了他们相同的问题，你猜猜结果如何？他们的答案基本是一致的！
 
@@ -157,9 +157,9 @@
 
 事实上，成功人士的一个普遍模式是他们有着不断练习“微观解决问题”的习惯。例如，彼得·泰尔 (Peter Thiel) 通过下棋，埃隆·马斯克 (Elon Musk) 通过玩电子游戏来进行练习一样。
 
-> “拜伦•里夫斯 (Byron Reeves) 说，‘如果你想知道未来三到五年的企业领导是什么样的，那就看看网络游戏正在发生什么吧。’
+> “拜伦•里夫斯 (Byron Reeves) 说，‘如果你想知道未来三到五年的企业领导是什么样的，那就看看网络游戏正在发生什么吧。’”
 
-> 快进到今天。埃隆·马斯克 (Elon Musk)、雷德·霍夫曼 (Reid Hoffman)、马克·扎克伯格 (Mark Zuckerberg) 和其他许多人都表示，游戏是他们成功建立公司的基石。” —— Mary Meeker （[2017年互联网趋势报告](https://www.recode.net/2017/5/31/15693686/mary-meeker-kleiner-perkins-kpcb-slides-internet-trends-code-2017)）
+> 快进到今天。埃隆·马斯克（Elon Musk）、雷德·霍夫曼（Reid Hoffman）、马克·扎克伯格（Mark Zuckerberg）和其他许多人都表示，游戏是他们成功建立公司的基石。” —— Mary Meeker（[2017年互联网趋势报告](https://www.recode.net/2017/5/31/15693686/mary-meeker-kleiner-perkins-kpcb-slides-internet-trends-code-2017)）
 
 这是否意味着你应该只玩电子游戏？并不是这样。
 
@@ -209,7 +209,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/1*oMycTRCdT2euGs9WbLd7kw.jpeg)
 
-在 Twitter 上向我 [“打个招呼”](https://twitter.com/richardreeze) 吧!
+在 Twitter 上向我 [“打个招呼”](https://twitter.com/richardreeze) 吧！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
