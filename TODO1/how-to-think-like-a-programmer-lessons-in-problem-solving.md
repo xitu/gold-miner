@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-think-like-a-programmer-lessons-in-problem-solving.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-think-like-a-programmer-lessons-in-problem-solving.md)
 > * 译者：[mingxing47](https://github.com/mingxing47)
-> * 校对者：
+> * 校对者：[rockyzhengwu](https://github.com/rockyzhengwu) [Park-ma](https://github.com/Park-ma)
 
 # 如何像程序员般思考 —— 蕴含在问题解决中的经验
 
