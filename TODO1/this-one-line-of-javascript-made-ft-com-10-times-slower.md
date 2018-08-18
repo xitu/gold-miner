@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ft-product-technology/this-one-line-of-javascript-made-ft-com-10-times-slower.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ft-product-technology/this-one-line-of-javascript-made-ft-com-10-times-slower.md)
 > * 译者：[IridescentMia](https://github.com/IridescentMia)
-> * 校对者：
+> * 校对者：[Eternaldeath](https://github.com/Eternaldeath), [Park-ma](https://github.com/Park-ma)
 
 # 一行 JavaScript 代码竟然让 FT.com 网站慢了十倍
 
@@ -37,7 +37,7 @@ FetchError: response timeout at https://….&source=next-front-page over limit: 
 
 ![](https://cdn-images-1.medium.com/max/800/0*dFdztWjeKbMtWdLx)
 
-更神秘的是 Heroku 上显示的响应时间。第95百分位数约为 2 - 3 秒，而最大值有时达到 10 - 15 秒。由于首页被 Fastly 高度缓存，包括 [stale-while-revalidate](https://docs.fastly.com/guides/performance-tuning/serving-stale-content.html) 头，许多用户可能不会注意到。但这很奇怪，因为首页_真的_不应该做很多工作来渲染页面。所有数据都保存在内存中。
+更神秘的是 Heroku 上显示的响应时间。第 95 百分位数约为 2-3 秒，而最大值有时达到 10-15 秒。由于首页被 Fastly 高度缓存，包括 [stale-while-revalidate](https://docs.fastly.com/guides/performance-tuning/serving-stale-content.html) 头，许多用户可能不会注意到。但这很奇怪，因为首页**真的**不应该做很多工作来渲染页面。所有数据都保存在内存中。
 
 ![](https://cdn-images-1.medium.com/max/800/0*0KSUFEF86Vmgjq8S)
 
@@ -49,7 +49,7 @@ FetchError: response timeout at https://….&source=next-front-page over limit: 
 ab -n 1000 -c 10 http://local.ft.com:3002/
 ```
 
-使用 [node-clinic](https://www.nearform.com/blog/introducing-node-clinic-a-performance-toolkit-for-node-js-developers/) 和 [nsolid](https://nodesource.com/products/nsolid)，我们可以对内存、CPU 和应用程序代码有更深的理解。运行它们，确认我们可以在本地复现该问题。首页需要 200 - 300 s 才能完成测试，超过 800 个请求不成功。相比之下，在文章页面上运行相同的测试需要大约 50 秒。
+使用 [node-clinic](https://www.nearform.com/blog/introducing-node-clinic-a-performance-toolkit-for-node-js-developers/) 和 [nsolid](https://nodesource.com/products/nsolid)，我们可以对内存、CPU 和应用程序代码有更深的理解。运行它们，确认我们可以在本地复现该问题。首页需要 200-300 s 才能完成测试，超过 800 个请求不成功。相比之下，在文章页面上运行相同的测试需要大约 50 秒。
 
 ```
 测试用时：305.629 秒
@@ -71,13 +71,13 @@ ab -n 1000 -c 10 http://local.ft.com:3002/
 
 ### 修复问题
 
-罪魁祸首是.......
+罪魁祸首是...
 
 ```
 return JSON.parse(JSON.stringify(this._data));
 ```
 
-对于每个请求，我们使用 JSON.parse/stringify 来创建数据的深克隆。这种方法本身不坏——可能是深克隆比较快方法之一。但它们是同步方法，因此在执行时会阻塞事件循环。
+对于每个请求，我们使用 JSON.parse/stringify 来创建数据的深克隆。这种方法本身不坏 —— 可能是深克隆比较快方法之一。但它们是同步方法，因此在执行时会阻塞事件循环。
 
 在我们的案例中，这个方法在每个页面渲染（对于每个被渲染的部分）中多次调用，具有大量数据（每次执行时整个页面所需的数据），并且我们有几个并发请求。由于 Javascript 是单线程的，因此这将对应用程序尝试执行的所有其他操作产生连锁反应。
 
