@@ -2,44 +2,43 @@
 > * 原文作者：[Hung HD](https://medium.com/@hunghdyb?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/make-shimmer-effect-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/make-shimmer-effect-in-flutter.md)
-> * 译者：
-> * 校对者：
+> * 译者：[geniusq1981](https://github.com/geniusq1981)
 
-# Make shimmer effect in Flutter
+# 在 Flutter 中实现微光闪烁效果
 
-Learn Flutter from UI challenges
+通过挑战 UI 制作来学习 Flutter
 
-### Intro
+### 介绍
 
-I am a passionate mobile developer on both of Android and iOS platform. I used to not believe in all of the cross-platform frameworks (Ionic, Xamarin, ReactNative,..) but I am here now to tell my story when I meet Flutter, a cross-platform framework.
+我是一个狂热的移动开发者，Android 平台和 iOS 平台开发都有涉及。过去我不相信任何跨平台的开发框架（Ionic，Xamarin，ReactNative），但现在我要讲一下我遇到跨平台开发框架 Flutter 之后的故事。
 
-### Inspiration
+### 灵感
 
-As a native developer, I feel the pains of UI customization and there’re even more pains in almost cross-platform frameworks. Flutter comes and really makes sense in this aspect.
+作为一名原生应用开发人员，我深深感到 UI 定制开发是多么痛苦，即使是使用跨平台开发框架去进行开发，这种痛苦也不能得到缓解，有时甚至会更糟糕。但 Flutter 的出现让我看到改善这种痛苦的希望。
 
-Flutter builds up all of the UI elements (called Widget) from scratch. There’s no wrapped native views, no web-based ui elements. Like the way game frameworks builds up the world in game (character, enemies, palaces,..), Flutter is based on Skia graphics renderer engine to draw its own UI world. It really makes sense because you have full-control of what you are drawing on screen. That rings a bell in your head, doesn’t it? With me, it sounds like I can create UI customization easier. I try taking some UI challenges to figure it out.
+Flutter 从无到有构建所有 UI 元素（称为 Widget）。没有去封装原生视图，没有使用基于 web 的 UI 元素。如同游戏框架在游戏中构建游戏世界的方式（角色、敌人、宫殿…）那样，Flutter 基于 Skia 图形渲染引擎来绘制自己的 UI。这样做真的很有意义，因为你可以完全控制你在屏幕上绘制的东西。这是否让你在脑海中想到点什么？对我来说，这听起来似乎是在告诉我我可以更加容易地进行 UI 定制开发了。我尝试挑战一些 UI 效果实现来证明这一点。
 
-A challenge I think of is shimmer effect. This is a very familiar effect, if that name is not familiar to you, think of the ‘Slide to unlock’ animation when you wake up your iPhone.
+我想到的一个挑战是微光闪烁效果。这是一个非常常见的效果，如果你不熟悉这个名字，那么想一下你唤醒手机时所显示的“滑动解锁”动画。
 
 ![](https://cdn-images-1.medium.com/max/800/1*rV4-EajphSqKhKNMULo6gg.gif)
 
-### How it works
+### 怎么做
 
-The basic idea is simple. The animation is made up of the movement of a gradient from left to right.
+基本思路很简单。动画效果由从左到右移动的渐变所组成。
 
-The point is I don’t want to bring up the effect for only text content. This effect is also very familiar as a loading animation in modern mobile applications.
+关键是我不想仅仅为文本内容来做这个效果。这种效果在现代的移动应用中作为加载动画是非常流行的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Q_vOKcscz1lQ7LL_prsARw.gif)
 
-The first naive idea is simply to draw an opaque gradient area in the top of content layout. It works but not a good one. We don’t want our effect make dirty on our white background. The effect need to be only applied for a given content layout.
+第一个初始想法是在内容布局的顶部绘制一个不透明的渐变区域。虽然这可以实现，但不是一个好方法。我们不希望动画效果弄脏我们的整个白色背景。效果需要仅适用在给定的内容布局上。
 
-It’s time to turn to Flutter document and example code to find out how to do it.
+现在是时候参考一下 Flutter 文档和示例代码去了解如何实现这种效果了。
 
-My study drives me to a base class called **SingleChildRenderObjectWidget** which exposes **Canvas** object. **Canvas** is an object that is responsible for drawing content on screen and it has an interesting method called **saveLayer** to “_save a copy of the current transform and clip on the save stack, and then creates a new group which subsequent calls will become a part of”_ (its document said). It’s exactly the feature I need to isolate my shimmer effect on a particular content layer.
+经过研究我发现一个名为 **SingleChildRenderObjectWidget** 的基类，该基类露出一个 **Canvas** 对象。**Canvas** 是一个对象，它负责在屏幕上绘制内容，它有一个有趣的方法称为 **saveLayer**，它用来“在保存堆栈上保存当前变换和片段的副本，然后创建一个新的组，用于保存后续调用”（摘自官方文档）。这正是我需要的特性，它让我可以在特定内容布局上实现微光闪烁效果。
 
-### Implementation
+### 实现
 
-In Flutter, there’s a good practice to follow. A widget often includes a parameter named **child** or **children** that helps us to apply our transforms to descendant widgets. Our **Shimmer** widget also has a **child** and it lets us make up whatever layout we want then pass it as a **child** of **Shimmer**, **Shimmer** widget in its turn will only apply the effect for that **child**.
+在 Flutter 中，有一个很不错的小练习可以参考。一个 widget 通常包含一个名为 **child** 或 **children** 的参数，它可以帮助我们将变换应用到后代 widget。我们的 **Shimmer** widget 也有一个 **child**，它可以让我们创建任何我们想要的布局，然后将它作为 **Shimmer** 的 **child** 进行传递，**Shimmer** widget 反过来只会对那个 **child** 起作用。
 
 ```
 import 'package:flutter/material.dart';
@@ -63,7 +62,7 @@ class _ShimmerState extends State<Shimmer> {
 }
 ```
 
-**_Shimmer** is our internal class responsible for effect painting. It extends from **SingleChildRenderObjectWidget** and overrides **paint** method to do paint tasks. We are going to use **saveLayer** and **paintChild** method of **Canvas** object to capture our **child** as a layer and draw the gradient on it (with a little magic from **BlendMode**).
+**`_Shimmer`** 是负责效果绘画的内部类。它从 **SingleChildRenderObjectWidget** 扩展而来并重写了 **paint** 方法来执行绘制任务。我们使用 **Canvas** 对象的 **saveLayer** 和 **paintChild** 方法来捕捉我们的 **child** 作为一个图层并在上面绘制渐变效果（带上一点 **BlendMode** 的魔法）。
 
 ```
 import 'package:flutter/rendering.dart';
@@ -108,9 +107,9 @@ class _ShimmerFilter extends RenderProxyBox {
 }
 ```
 
-The rest is to make an animation and our effect will really active. There’s nothing special here, we are going to create an animation to translate our **Canvas** from left to right before the gradient is drawn, it makes the effect of gradient moving.
+剩下的就是添加一个动效，让我们的效果动起来。这里没什么特别的，我们将创建一个动效来在绘制渐变之前从左到右移动 **Canvas**，这样就能产生渐变移动的效果。
 
-We create a new **AnimationController** in **_ShimmerState** for our animation. Our **_Shimmer** and **_ShimmerFilter** class also need a new variable (call it **percent**) to store result from that animation execution and call **markNeedsPaint** whenever a new value emitted from **AnimationController** (it causes our widget repainted). The translation value of **Canvas** will be calculated form **percent** value.
+我们在 **`_ShimmerState`** 中为动效创建一个新的 **AnimationController**。我们的 **`_Shimmer`** 类和 **`_ShimmerFilter`** 类还需要一个新变量（称之为 **percent**）来存储该动画执行的进度结果，并在每次 **AnimationController** 发出新值时调用 **markNeedsPaint**（这会让 widget 重新绘制）。**Canvas** 的移动位移量可以根据 **percent** 的值计算出来。
 
 ```
 class _ShimmerState extends State<Shimmer> with TickerProviderStateMixin {
@@ -219,11 +218,11 @@ class _ShimmerFilter extends RenderProxyBox {
 
 [flutter_shimmer3_2.dart](https://gist.github.com/hnvn/6624c02f719d8753c6802f2090e767ce#file-flutter_shimmer3_2-dart)
 
-Not bad. We’ve just done the shimmer effect with roughly 100 lines of code. That’s the beauty of Flutter.
+还不错。我们刚刚只用了大约 100 行代码就实现了微光闪烁效果。这就是 Flutter 的美妙之处。
 
-It’s just beginning. There’re more complex challenges I want to play with Flutter. I will share my results in next posts. Thanks for reading!
+这只是个开始。接下来我会使用 Flutter 来挑战更多更复杂的 UI 效果。我将在下一篇文章中分享我的成果。感谢你的阅读!
 
-> P/S: I already published my code as a package called [shimmer](https://pub.dartlang.org/packages/shimmer).
+> 备注：我已经将我的代码发布为一个名为 [shimmer](https://pub.dartlang.org/packages/shimmer) 的包.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
