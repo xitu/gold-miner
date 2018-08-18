@@ -19,9 +19,9 @@
 
 Web Component 并非单一的技术，而是由一系列 [W3C](https://www.w3.org/) 定义的浏览器标准组成，使得开发者可以构建出浏览器原生支持的组件。这些标准包括：
 
-*   **HTML Templates（译者注：模板）and Slots（译者注：插槽）** – 可复用的 HTML 标签，提供了和用户自定义标签相结合的接口
-*   **Shadow DOM（译者注：影子节点）** – 对标签和样式的一层 DOM 包装
-*   **Custom Elements（译者注：自定义元素）** – 带有特定行为且用户自命名的 HTML 元素
+*   **HTML Templates（译者注：模板）and Slots（译者注：插槽）** — 可复用的 HTML 标签，提供了和用户自定义标签相结合的接口
+*   **Shadow DOM（译者注：影子节点）** — 对标签和样式的一层 DOM 包装
+*   **Custom Elements（译者注：自定义元素）** — 带有特定行为且用户自命名的 HTML 元素
 
 这里还有另一个 Web Component 规范，**HTML Imports**，用于将 HTML 代码及 Web Component 导入到网页中。然而，在交叉参考 [ES Module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) 规范后，[Firefox 团队认为这不是一种最佳实践](https://hacks.mozilla.org/2015/06/the-state-of-web-components/)，该规范也就没多少人在推动了。
 
