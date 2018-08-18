@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/articles-website-design-mistakes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/articles-website-design-mistakes.md)
 > * 译者：[StellaBauhinia](https://github.com/StellaBauhinia)
-> * 校对者：
+> * 校对者：[BillShiyaoZhang](https://github.com/BillShiyaoZhang)，[Hopsken](https://github.com/Hopsken)
 
 # 常见网页设计错误一览
 
