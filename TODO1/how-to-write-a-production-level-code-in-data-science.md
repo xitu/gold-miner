@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-a-production-level-code-in-data-science.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-a-production-level-code-in-data-science.md)
 > - 译者：[sisibeloved](https://github.com/sisibeloved)
-> - 校对者：
+> - 校对者：[yqian1991](https://github.com/yqian1991)、[AceLeeWinnie](https://github.com/AceLeeWinnie)
 
 # 如何在数据科学中写出生产级别的代码？
 
