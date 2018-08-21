@@ -9,11 +9,11 @@
 
 ## 四部分系列的第三系列
 
-在[Quizlet](https://quizlet.com) 的[寻找最优工作流管理系统](https://medium.com/@dustinstansbury/going-with-the-air-flow-quizlets-hunt-for-the-best-workflow-management-system-around-1ca546f8cc68) 的[第一部分](https://medium.com/@dustinstansbury/going-with-the-flow-part-i-an-introduction-to-workflow-management-systems-19987afcdb5e)和[第二部分](https://medium.com/@dustinstansbury/going-with-the-flow-part-ii-a-workflow-management-system-wish-list-3f97d40e9571)中，我们促进了现代商业实践中对工作流管理系统（WMS）的需求，并提供了一份希望获得的特性以及功能列表，这使得我们最后选择了 [Apache Airflow](https://airflow.incubator.apache.org/) 作为我们的 WMS 选择。这篇文章旨在给好奇的读者提供提供关于 Airflow 的组件和操作的详细概述。我们会通过实现本系列[第一部分](https://medium.com/@dustinstansbury/going-with-the-flow-part-i-an-introduction-to-workflow-management-systems-19987afcdb5e)中介绍的示例工作流（查阅 **图 3.1**）来介绍 Airflow 的关键概念。
+在 [Quizlet](https://quizlet.com) 的[寻找最优工作流管理系统](https://medium.com/@dustinstansbury/going-with-the-air-flow-quizlets-hunt-for-the-best-workflow-management-system-around-1ca546f8cc68)的[第一部分](https://medium.com/@dustinstansbury/going-with-the-flow-part-i-an-introduction-to-workflow-management-systems-19987afcdb5e)和[第二部分](https://medium.com/@dustinstansbury/going-with-the-flow-part-ii-a-workflow-management-system-wish-list-3f97d40e9571)中，我们促进了现代商业实践中对工作流管理系统（WMS）的需求，并提供了一份希望获得的特性以及功能列表，这使得我们最后选择了 [Apache Airflow](https://airflow.incubator.apache.org/) 作为我们的 WMS 选择。这篇文章旨在给好奇的读者提供提供关于 Airflow 的组件和操作的详细概述。我们会通过实现本系列[第一部分](https://medium.com/@dustinstansbury/going-with-the-flow-part-i-an-introduction-to-workflow-management-systems-19987afcdb5e)中介绍的示例工作流（查阅 **图 3.1**）来介绍 Airflow 的关键概念。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ytMWtgd5h-1EiGiCe_D3ew.png)
 
-**图 3.1：数据处理工作流的示例.**
+**图 3.1：数据处理工作流的示例。**
 
 Airflow 是一种 WMS，即：它将任务以及它们的依赖看作代码，按照那些计划规范任务执行，并在 worker 进程之间分发需执行的任务。Airflow 提供了一个用于显示当前活动任务和过去任务状态的优秀 UI，并允许用户手动管理任务的执行和状态。
 
@@ -261,8 +261,8 @@ predict_revenue.set_upstream(check_historical_data)
 
 1.  **元数据库**：这个数据库存储有关任务状态的信息。数据库使用在 SQLAlchemy 中实现的抽象层执行更新。该抽象层将 Airflow 剩余组件功能从数据库中干净地分离了出来。
 2. **调度器**：调度器是一种使用 DAG 定义结合元数据中的任务状态来决定哪些任务需要被执行以及任务执行优先级的过程。调度器通常作为服务运行。 
-3. **执行器**: Excutor 是一个消息队列进程，它被绑定到调度器中，用于确定实际执行每个任务计划的工作进程。有不同类型的执行器，每个执行器都使用一个指定工作进程的类来执行任务。例如，`LocalExecutor` 使用与调度器进程在同一台机器上运行的并行进程执行任务。其他像 `CeleryExecutor` 的执行器使用存在于独立的工作机器集群中的工作进程执行任务。
-4. **Workers**: 这些是实际执行任务逻辑的进程，由正在使用的执行器确定。
+3. **执行器**：Excutor 是一个消息队列进程，它被绑定到调度器中，用于确定实际执行每个任务计划的工作进程。有不同类型的执行器，每个执行器都使用一个指定工作进程的类来执行任务。例如，`LocalExecutor` 使用与调度器进程在同一台机器上运行的并行进程执行任务。其他像 `CeleryExecutor` 的执行器使用存在于独立的工作机器集群中的工作进程执行任务。
+4. **Workers**：这些是实际执行任务逻辑的进程，由正在使用的执行器确定。
 
 ![](https://cdn-images-1.medium.com/max/800/1*czjWSmrjiRY1goA0emv7IA.png)
 
@@ -284,8 +284,7 @@ predict_revenue.set_upstream(check_historical_data)
 	
 	步骤 4. 一旦一个 TaskInstance 完成运行，关联的 worker 就会报告到队列并更新数据库中的 TaskInstance 的状态（例如“完成”、“失败”等）。
 	
-	步骤 5. 调度器根据所有已完成的相关 TaskInstance 的状态更新所有活动
-	        DagRuns 的状态（“运行”、“失败”、“完成”）。
+	步骤 5. 调度器根据所有已完成的相关 TaskInstance 的状态更新所有活动 DagRuns 的状态（“运行”、“失败”、“完成”）。
 	
 	步骤 6. 重复步骤 1-5
 ```
