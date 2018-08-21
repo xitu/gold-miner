@@ -2,75 +2,74 @@
 > * 原文作者：[Norbert](https://medium.com/@norbertkozsir?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-heroes-and-villains-bringing-balance-to-the-flutterverse.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-heroes-and-villains-bringing-balance-to-the-flutterverse.md)
-> * 译者：
+> * 译者：[DateBro](https://github.com/DateBro)
 > * 校对者：
 
-# Flutter Heroes and Villains — bringing balance to the Flutterverse.
+# Flutter 的英雄和流氓们 —— 为 Flutterverse 带来平衡
 
-## A story about how heroes and villains work.
+## 这是一个关于英雄和流氓如何运行的故事。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*AHypbXYdBWnNfLoeseJ3lw.gif)
 
-Villains combined with a hero.
+英雄与流氓相伴而生。
+__流氓允许你只需几行代码就可以添加上面的页面转换。__
 
-_Villains allow you to add page transition like the one above with just a few lines of code._
+安装包在[这里](https://github.com/Norbert515/flutter_villains)。你可以在项目的 [README](https://github.com/Norbert515/flutter_villains/blob/master/README.md)如何使用流氓。这篇文章更侧重于解释英雄和流氓以及所有这些背后的思考过程。
 
-The package is available [here](https://github.com/Norbert515/flutter_villains). You can find how to use villains in the projects [README](https://github.com/Norbert515/flutter_villains/blob/master/README.md). This post is more focused on explaining heroes and villains and the thought process behind all of it.
-
-One of the most awesome parts of flutter is having such a nice and clean API for everything. I just **love** the way you can use Heroes. Two simple lines of code, and it just works. You just drop in Heroes at two places, assign according tags and the rest is taken care of.
+Flutter 最令惊奇的一点是它为所有东西提供漂亮和干净的 API。我只是 **喜欢** 你使用英雄的方式。两行简单的代码，它就生效了。你只需要把英雄扔到这两个地方，按照标签分配，其它部分就不需要管了。
 
 * * *
 
-### Before you understand the villain, you must first understand the hero.
+### 在你理解流氓之前，你必须先理解英雄。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*QbbLnNEKCz02skDo2QRuOg.gif)
 
-Simple Hero transition.
+先简单了解一下英雄。
 
-We’ll take a quick look at how the heroes are implemented.
+我们来快速了解一下英雄是如何实现的。
 
-#### Overview
+#### 概览
 
-There are three major steps involved in the hero animation.
+英雄的动画涉及三个主要步骤。
 
-1.  **Finding and matching the heroes**
+1.  **找到并匹配英雄**
 
-The first step is to determine which heroes exist and which have the same tag.
+第一步是确定哪些英雄存在以及哪些英雄具有相同的标记。
 
-**2. Determining the hero positions**
+**2. 确定英雄位置**
 
-Then, the position of both heroes are captured and the flight is ready to happen.
+然后，捕获两个英雄的位置并准备好旅程。
 
-**3. Initiating the flight**
+**3. 启动旅程**
 
-The flight always happens on the new screen, but not with the actual widget. The widget on the opening page is replaced with an empty placeholder widget `(SizedBox)` during the flight. Instead the `Overlay` is used (the `Overlay` can display widgets on top of everything).
+ 旅程始终在新屏幕上进行，而不在实际的组件中。在开始页面上的组件在旅程期间被替换成空的占位符组件 `(SizedBox)`。而使用 `Overlay`（`Overlay`可以在所有内容上显示组件）。
 
-> The whole hero animation happens on the page being opened. The widgets don’t share any state between pages and are completely separate.
+> 整个英雄动画发生在正在打开的页面上。组件是完全独立，不在页面之间共享任何状态的。
 
 * * *
 
-#### The NavigationObserver
+#### NavigationObserver
 
-It is possible to observe the events of routes being pushed and popped with a `NavigationObserver` .
+可以通过 `NavigationObserver` 观察压入和弹出路由的事件。
 
 ```
-/// A [Navigator] observer that manages [Hero] transitions.
+/// 一个管理 [Hero] 过渡的 [Navigator] observer
 ///
-/// An instance of [HeroController] should be used in [Navigator.observers].
-/// This is done automatically by [MaterialApp].
+/// 应该在 [Navigator.observers] 中使用 [HeroController] 的实例
+/// 这由 [MaterialApp] 自动完成。
 class HeroController extends NavigatorObserver
 ```
 
 [HeroController](https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/heroes.dart#L431)
 
-The hero uses this class to start the flight. Besides being able to add `NavigationObservers` yourself, the `MaterialApp` adds the `HeroController` by default. [_Take a look._](https://github.com/flutter/flutter/blob/v0.5.5/packages/flutter/lib/src/material/app.dart#L598)
+英雄使用这个类开始旅程。除了能够自己添加 `NavigationObservers` 之外，`MaterialApp` 默认添加了 `HeroController`。[__看一下这里。__](https://github.com/flutter/flutter/blob/v0.5.5/packages/flutter/lib/src/material/app.dart#L598)
 
-#### The Hero Widget
+#### 英雄组件
 
 ```
-  /// Create a hero.
+  /// 创建一个英雄
   ///
-  /// The [tag] and [child] parameters must not be null.
+  /// [tag] 和 [child] 必须非空。
   const Hero({
     Key key,
     @required this.tag,
@@ -81,18 +80,18 @@ The hero uses this class to start the flight. Besides being able to add `Navigat
        super(key: key);
 ```
 
-The constructor of the [Hero](https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/heroes.dart#L80)
+[英雄](https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/heroes.dart#L80)的构造器
 
-The hero widget doesn’t actually do much. It holds the child and the tag. In addition to that, the `createRectTween` argument determines what route the `Hero` takes while flying to its destination. The default implementation is the `MaterialRectArcTween`. As the name suggests it moves the hero along an arc to its final position.
+英雄组件实际上并没有做太多。它拥有 child 和 tag。除此之外，`createRectTween` 参数决定了 `Hero` 在飞往目的地时所采用的路由。默认的实现是 `MaterialRectArcTween`。顾名思义，它将英雄沿弧线移动到最终位置。
 
-The state of the hero also is responsible for capturing sizes and replacing itself with the placeholder.
+英雄的状态也负责捕获大小并用占位符替换自己。
 
 #### _allHeroesFor
 
-Elements (concrete widgets) are placed in a tree. Using a visitor, you can walk down the tree and gather information.
+元素（具体组件）放在树中。通过访客，你可以沿着树下去并收集信息。
 
 ```
-  // Returns a map of all of the heroes in context, indexed by hero tag.
+  // 返回上下文中所有英雄的 map，由 hero 标记索引。
   static Map<Object, _HeroState> _allHeroesFor(BuildContext context) {
     assert(context != null);
     final Map<Object, _HeroState> result = <Object, _HeroState>{};
@@ -127,16 +126,16 @@ Elements (concrete widgets) are placed in a tree. Using a visitor, you can walk 
 
 [heroes.dart](https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/heroes.dart#L119)
 
-An inline function called visitor is declared inside the method. The `context.visitChildElements(visitor)` method and `element.visitChildren(vistor)`call the function until all elements below the context are visited. On each visit it checks whether that child is a `Hero` and if it is, it saves it into a map.
+在方法内部声明了一个名为 visitor 的内联函数。 `context.visitChildElements(visitor)` 方法和 `element.visitChildren(vistor)` 直到访问完上下文的所有元素才调用函数。在每次访问时，它会检查这个 child 是否为 `Hero`，如果是，则将其保存到 map 中。
 
-#### The start of the flight
+#### 旅程的开始
 
 ```
-  // Find the matching pairs of heros in from and to and either start or a new
-  // hero flight, or divert an existing one.
+  // 在 from 和 to 中找到匹配的英雄对，并启动新的英雄航班，
+  // 或转移现有的英雄航班。
   void _startHeroTransition(PageRoute<dynamic> from, PageRoute<dynamic> to, _HeroFlightType flightType) {
-    // If the navigator or one of the routes subtrees was removed before this
-    // end-of-frame callback was called, then don't actually start a transition.
+    // 如果在调用帧尾回调之前删除了导航器或其中一个路由子树，
+    // 那么接下来实际上不会开始转换。
     if (navigator == null || from.subtreeContext == null || to.subtreeContext == null) {
       to.offstage = false; // in case we set this in _maybeStartHeroTransition
       return;
@@ -144,12 +143,12 @@ An inline function called visitor is declared inside the method. The `context.vi
 
     final Rect navigatorRect = _globalBoundingBoxFor(navigator.context);
 
-    // At this point the toHeroes may have been built and laid out for the first time.
+    // 在这一点上，toHeroes 可能是第一次建造和布局。
     final Map<Object, _HeroState> fromHeroes = Hero._allHeroesFor(from.subtreeContext);
     final Map<Object, _HeroState> toHeroes = Hero._allHeroesFor(to.subtreeContext);
 
-    // If the `to` route was offstage, then we're implicitly restoring its
-    // animation value back to what it was before it was "moved" offstage.
+    // 如果 `to` 路由是在屏幕外的，
+    // 那么我们暗中将其动画值恢复到它“移到”屏幕外之前的状态。
     to.offstage = false;
 
     for (Object tag in fromHeroes.keys) {
@@ -177,23 +176,23 @@ An inline function called visitor is declared inside the method. The `context.vi
 
 [heroes.dart](https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/heroes.dart#L499)
 
-This gets called in response to the route push/pop event. On line 14 and 15 you can see the `_allHeroesFor` call which finds all heroes on both pages. Starting on line 21 a `_HeroFlightManifest` is constructed and the flight is initiated. From here on there is a bunch of code setting up the animation and handling edge cases. I encourage you to take a look at the [whole class](https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/heroes.dart), it’s pretty interesting and there’s a lot to learn from it. Also you can take a look at [this](https://flutter.io/animations/hero-animations/).
+这会响应路由压入/弹出事件而被调用。在第 14 行和第 15 行，你可以看到 `_allHeroesFor` 调用，它可以在两个页面上找到所有英雄。从第 21 行开始构建 `_HeroFlightManifest` 并启动旅程。从这里开始，有一堆动画的代码设置和边缘情况的处理。我建议你看一下[整个类](https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/heroes.dart), 这很有意思，里面还有很多值得学习的东西。你也可以看一下 [这个](https://flutter.io/animations/hero-animations/).
 
 * * *
 
-### How do villains work
+### 流氓是如何运行的
 
-Villains are simpler creatures than Heroes.
+流氓要比英雄更简单。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*DyLbjknJBTxiDOWhcZf0bg.gif)
 
-Hero with 3 villains playing (AppBar, Text, FAB).
+Hero 和 3 个流氓使用（AppBar，Text，FAB）。
 
-They use the same mechanic of finding all villains for a given context and they also use a `NavigationObserver` to automatically react on page transitions. But instead of animating from one screen to another they only animate on their respective screen.
+他们使用相同的机制来查找给定上下文的所有流氓，他们还使用 `NavigationObserver` 自动对页面转换做出反应。但不是从一个屏幕到另一个屏幕的动画，而是仅在它们各自的屏幕上做的动画。
 
-#### SequenceAnimation and custom TickerProvider
+#### SequenceAnimation 和 自定义 TickerProvider
 
-When dealing with animations, you usually use the `SingleTickerProviderStateMixin` or the `TickerProviderStateMixin`. In this case the animation doesn’t start in a `StatefulWidget` and we therefore need another way to access a `TickerProvider`.
+处理动画时，通常使用 `SingleTickerProviderStateMixin`或 `TickerProviderStateMixin`。在这种情况下，动画不会在 `StatefulWidget` 中启动，因此我们需要另一种方法来访问 `TickerProvider`。
 
 ```
 class TransitionTickerProvider implements TickerProvider {
@@ -208,7 +207,7 @@ class TransitionTickerProvider implements TickerProvider {
 }
 ```
 
-Defining a custom ticker is pretty easy. All there is to it is implementing the `TickerProvider` interface and returning a new `Ticker`.
+自定义一个 ticker 非常简单。所有这一切都是为了实现 `TickerProvider` 接口并返回一个新的 `Ticker`。
 
 ```
   static Future playAllVillains(BuildContext context, {bool entrance = true}) {
@@ -221,7 +220,7 @@ Defining a custom ticker is pretty easy. All there is to it is implementing the 
         }
       });
 
-    // Controller for the new page animation because it can be longer then the actual page transition
+    // 用于新页面动画的控制器，因为它的时间比实际页面转换更长
 
     AnimationController controller = new AnimationController(vsync: TransitionTickerProvider(TickerMode.of(context)));
 
@@ -242,16 +241,16 @@ Defining a custom ticker is pretty easy. All there is to it is implementing the 
       villain.startAnimation(sequenceAnimation[villain.hashCode]);
     }
 
-    //Start the animation
+    //开始动画
     return controller.forward().then((_) {
       controller.dispose();
     });
   }
 ```
 
-First all villains which should not be playing (those who set animateExit/animateEntrance to false) are filtered out. Then an `AnimationController` with the custom `TickerProvider` is created. Using the [SequenceAnimation](https://pub.dartlang.org/packages/flutter_sequence_animation) library each `Villain` is assigned an animation running from 0.0–1.0 in their respective time slot (the `from` and `to` duration). At the end, animations are all started. When all of them finish, the controller is disposed.
+首先，所有不应该展示的流氓（那些将 animateExit/ animateEntrance 设置为 false 的人）都会被过滤掉。然后创建一个带有自定义 `TickerProvider` 的 `AnimationController`。使用 [SequenceAnimation](https://pub.dartlang.org/packages/flutter_sequence_animation) 库，每个 `Villain` 被分配一个动画，它们在各自的时间中运行 0.0 —— 1.0（ `from` 和 `to` 持续时间）。最后，动画全部开始。当它们全部完成时，控制器被丢弃。
 
-#### The Villain build()
+#### 流氓的 build() 方法
 
 ```
   @override
@@ -267,43 +266,43 @@ First all villains which should not be playing (those who set animateExit/animat
   }
 ```
 
-This might look scary, but bear with me. Let’s just look at line 3 and 4. The `widget.villainAnimation.animatedWidgetBuilder` is a custom typedef:
+这可能看起来很可怕，但请先忍耐一下。让我们看看第 3 行和第 4 行。`widget.villainAnimation.animatedWidgetBuilder` 是一个自定义的 typedef：
 
 ```
 typedef Widget AnimatedWidgetBuilder(Animation animation, Widget child);
 ```
 
-Its job is to return a widget which animates according to the animation (most of the times the returned widget is an `AnimatedWidget`).
+它的工作是返回一个根据动画绘制的组件（大多数时候返回的组件是一个 `AnimatedWidget`）。
 
-It gets handed the child of the villain and this animation:
+它得到了恶棍的 child 和这个动画：
 
 ```
 widget.villainAnimation.animatable.chain(CurveTween(curve: widget.villainAnimation.curve)).animate(_animation)
 ```
 
-The chain method first evaluates the `CurveTween`. It then uses that value to evaluate the `animatable` on which it is called. This simply adds the desired curve to the animation.
+链方法首先评估 `CurveTween`。然后它使用该值来评估调用它的 `animatable`。这只是将所需的曲线添加到动画中。
 
-**_That was a rough overview on how the villains work, be sure to also look at the_** [**_source code_**](https://github.com/Norbert515/flutter_villains/blob/master/lib/villains/villains.dart) **_and feel free to ask questions._**
+**__这是关于流氓如何工作的粗略概述，请务必也查看__** [**__源代码__**](https://github.com/Norbert515/flutter_villains/blob/master/lib/villains/villains.dart) **__并大胆地提出你们的问题。__**
 
 * * *
 
-### Mutable static variables are bad, let me explain..
+### 可变的静态变量很不好，让我解释一下
 
-I was sitting at my desk in the late evening, writing tests. After a few hours every single test was passing and it seemed there were no bugs. Right before heading to bed I ran all the tests together to make sure it’s alright. Then this happend:
+我在深夜坐在我的办公桌前，写下测试。几个小时后，每一次单独的测试都过去了，似乎没有 bug。就在睡觉之前，我把所有的测试都放在一起，以确保它真的没问题。然后发生了这个：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*l2ugqc801sM0pm6FVa8KsQ.png)
 
-Each test passes on its own but not together
+每个测试都只能单独通过
 
-I was pretty confused. Every test succeed before. Sure enough, when I ran those two tests by themselves, they worked as expected. But when running all tests together the last two failed. WTF.
+我很困惑。每次测试都成功。果然，当我自己运行这两个测试时，它们很正常。但是当一起运行所有测试时，最后两个失败了。WTF。
 
-The first reaction was obviously: “My code must be working, it has to do something with the way tests are executed! Maybe tests are playing in parallel and thus interfering with each other? Maybe it is because I used the same keys?”.
+第一反应显然是：“我的代码肯定没错，它必须对测试的执行方式做些什么！也许测试是并行播放因此相互干扰？也许是因为我使用了相同的键？”
 
-Brian Egan point out to me that deleting one particular test fixed the bug and moving it to the top made all other tests fail too. If that doesn’t scream “SHARED DATA” then I don’t know what does.
+Brian Egan向我指出，删除一个特定的测试修复了错误并将其移到顶部使得其他所有测试也失败了。如果那不叫“共享数据”那么我不知道是什么。
 
-When I found out what the problem was I just couldn’t stop laughing. It was exactly the reason why using static variables are considered bad in certain situations.
+当我发现问题是什么时，我忍不住笑了。这正是在某些情况下使用静态变量被认为不好的原因。
 
-Basically, the predefined animations were all static. I was too lazy to write a method for each animation taking all the parameters that a `VillainAnimation` needs. So I made the `VillainAnimation` _mutable (bad idea)._ This way I didn’t have to explicitly write all the necessary parameters into the method. This looked like this when using it:
+基本上，预定义的动画都是静态的。我懒得为每个动画编写一个方法来获取 `VillainAnimation` 所需的所有参数。所以我使 `VillainAnimation` __是可变的（坏主意）__。这样我就没有必要在方法中明确写出所有必要的参数。使用时看起来像这样：
 
 ```
 Villain(
@@ -313,19 +312,19 @@ Villain(
 )
 ```
 
-The test which broke everything was supposed to test villain transitions starting after the page transition finished. It set the starting point of the animation to 1 second. Because it was setting it on a static reference, the test after that used that as the default. The tests failed because an animation can’t run from 1 second to 750 milliseconds.
+打破一切的测试应该在页面转换完成后开始测试流氓转换。它将动画的起点设置为 1 秒。因为它是在静态引用上设置它，之后的测试使用它作为默认值。测试失败，因为动画无法在 1 秒到 750 毫秒之间运行。
 
-The fix was pretty easy (making everything immutable and passing the arguments in the method) but I still found this little bug quite entertaining.
+修复很简单（使一切都不可变并在方法中传递参数）但我仍然发现这个小错误非常有趣。
 
 * * *
 
-### Wrapping up
+### 总结
 
-Thanks to the Villains the balance between good and evil is now restored.
+感谢流氓恢复了好坏之间的平衡。
 
-Opinions and discussions about the #fluttervillains are welcome. If you create cool animations with the villains, I’d love to see it.
+关于 #fluttervillains 的意见和讨论是受欢迎的。如果你与流氓一起制作很酷的动画，我很希望看到它。
 
-[My Twitter: @norbertkozsir](https://twitter.com/norbertkozsir?lang=en)
+[我的 Twitter: @norbertkozsir](https://twitter.com/norbertkozsir?lang=en)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
@@ -333,3 +332,4 @@ Opinions and discussions about the #fluttervillains are welcome. If you create c
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
