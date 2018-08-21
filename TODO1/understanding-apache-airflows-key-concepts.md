@@ -2,8 +2,8 @@
 > * 原文作者：[Dustin Stansbury](https://medium.com/@dustinstansbury?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-apache-airflows-key-concepts.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-apache-airflows-key-concepts.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[yqian1991](https://github.com/yqian1991)
 
 # 理解 Apache Airflow 的关键概念
 
@@ -15,11 +15,11 @@
 
 **图 3.1：数据处理工作流的示例.**
 
-Airflow 是一种 WMS，即：它将任务以及它们的依赖看作代码，按照那些计划规范任务执行，并在 worker 进程之间分发需执行的任务。Airflow 提供了一个用于显示当前活动任务和过去任务状态的优秀 UI，并显示有关执行任务的诊断信息，允许用户手动管理任务的执行和状态。
+Airflow 是一种 WMS，即：它将任务以及它们的依赖看作代码，按照那些计划规范任务执行，并在 worker 进程之间分发需执行的任务。Airflow 提供了一个用于显示当前活动任务和过去任务状态的优秀 UI，并允许用户手动管理任务的执行和状态。
 
-#### 工作流都是 “DAGs”
+#### 工作流都是“有向无环图”
 
-Airflow 中的工作流是具有方向性依赖的任务集合。具体说明则是 Airflow 使用有向无圈图 —— 或简短的 DAG —— 来表现工作流。图中的每个节点都是一个任务，在任务之间定义边缘依赖（该图强制为无循环的，因此不会出现循环依赖，从而导致无限执行循环）。
+Airflow 中的工作流是具有方向性依赖的任务集合。具体说明则是 Airflow 使用有向有向无环图 —— 或简称的 DAG —— 来表现工作流。图中的每个节点都是一个任务，图中的边表示的是任务之间的依赖（该图强制为无循环的，因此不会出现循环依赖，从而导致无限执行循环）。
 
 **图 3.2** 顶部演示了我们的示例工作流是如何在 Airflow 中变现为 DAG 的。注意在[**图 1.1**](https://medium.com/@dustinstansbury/going-with-the-flow-part-i-an-introduction-to-workflow-management-systems-19987afcdb5e) 中我们的示例工作流任务的执行计划结构与**图 3.2** 中的 DAG 结构相似。
 
@@ -257,11 +257,11 @@ predict_revenue.set_upstream(check_historical_data)
 
 #### Airflow 的架构
 
-在其核心中，Airflow 是建立在元数据库上的队列系统。数据库存储队列任务的专题，调度器使用这些程序来确定如何将其它任务添加到队列的优先级。此功能由四个主要组件编排。（请参阅**图 3.2 的左子面板**）：
+在其核心中，Airflow 是建立在元数据库上的队列系统。数据库存储队列任务的状态，调度器使用这些状态来确定如何将其它任务添加到队列的优先级。此功能由四个主要组件编排。（请参阅**图 3.2 的左子面板**）：
 
 1.  **元数据库**：这个数据库存储有关任务状态的信息。数据库使用在 SQLAlchemy 中实现的抽象层执行更新。该抽象层将 Airflow 剩余组件功能从数据库中干净地分离了出来。
 2. **调度器**：调度器是一种使用 DAG 定义结合元数据中的任务状态来决定哪些任务需要被执行以及任务执行优先级的过程。调度器通常作为服务运行。 
-3. **执行器**: Excutor 是一个消息列队进程，它被绑定到调度器中，用于确定实际执行每个任务计划的工作进程。有不同类型的执行器，每个执行器都使用一个指定工作进程的类来执行任务。例如，`LocalExecutor` 使用与调度器进程在同一台机器上运行的并行进程执行任务。其他像 `CeleryExecutor` 的执行器使用存在于独立的工作机器集群中的工作进程执行任务。
+3. **执行器**: Excutor 是一个消息队列进程，它被绑定到调度器中，用于确定实际执行每个任务计划的工作进程。有不同类型的执行器，每个执行器都使用一个指定工作进程的类来执行任务。例如，`LocalExecutor` 使用与调度器进程在同一台机器上运行的并行进程执行任务。其他像 `CeleryExecutor` 的执行器使用存在于独立的工作机器集群中的工作进程执行任务。
 4. **Workers**: 这些是实际执行任务逻辑的进程，由正在使用的执行器确定。
 
 ![](https://cdn-images-1.medium.com/max/800/1*czjWSmrjiRY1goA0emv7IA.png)
@@ -282,7 +282,7 @@ predict_revenue.set_upstream(check_historical_data)
 	
 	步骤 3. 每个可用的 worker 从队列中取一个 TaskInstance，然后开始执行它，将此 TaskInstance 的数据库记录从“排队”更新为“运行”。
 	
-	步骤 4.一个 TaskInstance 一旦完成运行，关联的 worker 就会返回到队列并更新数据库中的 TaskInstance 的状态（例如“完成”、“失败”等）。
+	步骤 4. 一旦一个 TaskInstance 完成运行，关联的 worker 就会报告到队列并更新数据库中的 TaskInstance 的状态（例如“完成”、“失败”等）。
 	
 	步骤 5. 调度器根据所有已完成的相关 TaskInstance 的状态更新所有活动
 	        DagRuns 的状态（“运行”、“失败”、“完成”）。
@@ -307,7 +307,7 @@ predict_revenue.set_upstream(check_historical_data)
 *   `airflow test DAG_ID TASK_ID EXECUTION_DATE`。允许用户在不影响元数据库或关注任务依赖的情况下独立运行任务。这个命令很适合独立测试自定义 Operator 类的基本行为。
 *   `airflow backfill DAG_ID TASK_ID -s START_DATE -e END_DATE`。在 `START_DATE` 和 `END_DATE` 之间执行历史数据的回填，而不需要运行调度器。当你需要更改现有工作流的一些业务逻辑并需要更新历史数据时，这是很好的。（请注意，回填**不需要**在数据库中创建 `DagRun` 条目，因为它们不是由 `[SchedulerJob](https://github.com/apache/incubator-airflow/blob/master/airflow/jobs.py#L471)` 类运行的）。
 *   `airflow clear DAG_ID`。移除 `DAG_ID` 元数据库中的 `TaskInstance` 记录。当你迭代工作流/DAG 功能时，这会很有用。
-*   `airflow resetdb`：虽然你通常不想经常运行这个命令，但如果你需要创建一个“干净的板子”，这是非常有帮助的，这种情况载最初设置 Airflow 时可能会出现（注意：这个命令只影响数据库，不删除日志）。
+*   `airflow resetdb`：虽然你通常不想经常运行这个命令，但如果你需要创建一个“干净的历史记录”，这是非常有帮助的，这种情况载最初设置 Airflow 时可能会出现（注意：这个命令只影响数据库，不删除日志）。
 
 综上所述，我们提供了一些更加抽象的概念，作为 Airflow 的基础。在此系列的[最后部分 installment](https://medium.com/@dustinstansbury/going-with-the-flow-part-iv-airflow-in-practice-a903cbb5626d) 中，我们将讨论在生产中部署 Airflow 时的一些更实际的注意事项。
 
