@@ -4481,7 +4481,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[用 30 分钟建立一个网站的方式来学习 Bootstrap 4](https://juejin.im/post/5b5eb7b2e51d451989055d9d)|翻译|7|
+|[ECMAScript 修饰器微指南](https://juejin.im/post/5b543d8af265da0f4a4e711f)|翻译|7|
 |[用 React 和 Vue 创建了两个完全相同的应用后，发现了这些差异](https://juejin.im/post/5b63f50a5188253128337110)|翻译|6|
 |[单元素组件模式简介](https://juejin.im/post/5b445d79e51d4519596b5f87)|翻译|5.5|
 |[⚛ React 状态管理工具博物馆](https://juejin.im/post/5afd18cf6fb9a07acb3d13ac)|翻译|7.5|
@@ -6262,7 +6262,7 @@
 |------|-------|-------|
 |[Javascript（ES6）Generator 入门](https://juejin.im/post/5b4c22aa6fb9a04faf479be1)|翻译|6|
 |[由 CSS 网格系统的创造者们所讲述的故事](https://juejin.im/post/5b503d9ef265da0f504a518e)|校对|1.5|
-|[用 30 分钟建立一个网站的方式来学习 Bootstrap 4](https://juejin.im/post/5b5eb7b2e51d451989055d9d)|校对|2|
+|[ECMAScript 修饰器微指南](https://juejin.im/post/5b543d8af265da0f4a4e711f)|校对|2|
 |[用 React 和 Vue 创建了两个完全相同的应用后，发现了这些差异](https://juejin.im/post/5b63f50a5188253128337110)|校对|1.5|
 |[一份在你的 iPhone 上平衡实用和美观的指南](https://juejin.im/post/5b4c0d0ce51d4519503b1e67)|校对|1.5|
 |[虚构问题，低质量软件的根源](https://juejin.im/post/5b65122be51d4517c564d54f)|翻译|5.5|
@@ -6423,7 +6423,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[用 30 分钟建立一个网站的方式来学习 Bootstrap 4](https://juejin.im/post/5b5eb7b2e51d451989055d9d)|校对|2|
+|[ECMAScript 修饰器微指南](https://juejin.im/post/5b543d8af265da0f4a4e711f)|校对|2|
 |[让我们一起解决“this”难题  —  第二部分](https://juejin.im/post/5b6915cce51d4519962f0ca7)|校对|1|
 
 ## 译者：[Gavin-Gong](https://github.com/Gavin-Gong) 历史贡献积分：4.5 当前积分：4.5 年度积分：4.5

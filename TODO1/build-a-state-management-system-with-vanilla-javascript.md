@@ -2,42 +2,42 @@
 > * 原文作者：[ANDY BELL](https://css-tricks.com/author/andybell/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/build-a-state-management-system-with-vanilla-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/build-a-state-management-system-with-vanilla-javascript.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Shery](https://github.com/shery)
+> * 校对者：[IridescentMia](https://github.com/IridescentMia) [coconilu](https://github.com/coconilu)
 
-# Build a state management system with vanilla JavaScript
+# 使用原生 JavaScript 构建状态管理系统
 
-Managing state is not a new thing in software, but it’s still relatively new for building software in JavaScript. Traditionally, we’d keep state within the DOM itself or even assign it to a global object in the window. Now though, we’re spoiled with choices for libraries and frameworks to help us with this. Libraries like Redux, MobX and Vuex make managing cross-component state almost trivial. This is great for an application’s resilience and it works really well with a state-first, reactive framework such as React or Vue.
+状态管理在软件方面并不新鲜，但在 JavaScript 构建的应用中仍然相对较新。习惯上，我们会直接将状态保持在 DOM 上，甚至将其分配给 window 中的全局对象。但是现在，我们已经有了许多选择，这些库和框架可以帮助我们管理状态。像 Redux，MobX 和 Vuex 这样的库可以轻松管理跨组件状态。它大大提升了应用程序的扩展性，并且它对于状态优先的响应式框架（如 React 或 Vue）非常有用。
 
-How do these libraries work though? What would it take to write one ourselves? Turns out, it’s pretty straightforward and there’s an opportunity to learn some really common patterns and also learn about some useful modern APIs that are available to us.
+这些库是如何运作的？我们自己写个状态管理会怎么样？事实证明，它非常简单，并且有机会学习一些非常常见的设计模式，同时了解一些既有用又能用的现代 API。
 
-Before we get started, it’s recommended that you have an intermediary knowledge of JavaScript. You should know about data types and ideally, you should have a grasp of some more modern ES6+ JavaScript features. If not, [we’ve got your back](https://css-tricks.com/learning-gutenberg-4-modern-javascript-syntax/). It’s also worth noting that I’m not saying that you should replace Redux or MobX with this. We’re working on a little project to skill-up together and, hey, it could definitely power a small application if you were keeping an eye on the size of your JavaScript payload.
+在我们开始之前，请确保你已掌握中级 JavaScript 的知识。你应该了解数据类型，理想情况下，你应该掌握一些更现代的 ES6+ 语法特性。如果没有，[这可以帮到你](https://css-tricks.com/learning-gutenberg-4-modern-javascript-syntax/)。值得注意的是，我并不是说你应该用这个代替 Redux 或 MobX。我们正在一起开发一个小项目来提升技能，嘿，如果你在乎的是 JavaScript 文件规模的大小，那么它确实可以应付一个小型应用。
 
-### Getting started
+### 入门
 
-Before we dive into code, take a look at what we’re building. It’s a “done list" that adds up the things you’ve achieved today. It’ll update various elements of the UI like magic — all with no framework dependencies. That’s not the real magic though. Behind the scenes, we’ve got a little state system that’s sitting, waiting for instructions and maintaining a single source of truth in a predictable fashion.
+在我们深入研究代码之前，先看一下我们正在开发什么。它是一个汇总了你今天所取得成就的“完成清单”。它将在不依赖框架的情况下像魔术般更新 UI 中的各种元素。但这并不是真正的魔术。在幕后，我们已经有了一个小小的状态系统，它等待着指令，并以一种可预测的方式维护单一来源的数据。
 
-[View Demo](https://vanilla-js-state-management.hankchizljaw.io)
+[查看演示](https://vanilla-js-state-management.hankchizljaw.io)
 
-[View Repo](http://github.com/hankchizljaw/vanilla-js-state-management)
+[查看仓库](http://github.com/hankchizljaw/vanilla-js-state-management)
 
-Pretty cool, right? Let’s do some admin first. I’ve put together a bit of a boilerplate so we can keep this tutorial snappy. The first thing you need to do is either [clone it from GitHub](https://github.com/hankchizljaw/vanilla-js-state-management-boilerplate), or [download a ZIP archive](https://github.com/hankchizljaw/vanilla-js-state-management-boilerplate/archive/master.zip) and expand it.
+很酷，对吗？我们先做一些配置工作。我已经整理了一些模版，以便我们可以让这个教程简洁有趣。你需要做的第一件事情是 [从 GitHub 上克隆它](https://github.com/hankchizljaw/vanilla-js-state-management-boilerplate)，或者 [下载并解压它的 ZIP 文件](https://github.com/hankchizljaw/vanilla-js-state-management-boilerplate/archive/master.zip)。
 
-Now that you’ve got that going, you’re going to need to run it in a local web server. I like to use a package called [http-server](https://www.npmjs.com/package/http-server) for these sort of things, but you can use whatever you want. When you've got it running locally, you should see something that looks like this:
+当你下载好了模版，你需要在本地 Web 服务器上运行它。我喜欢使用一个名为 [http-server](https://www.npmjs.com/package/http-server) 的包来做这些事情，但你也可以使用你想用的任何东西。当你在本地运行它时，你会看到如下所示：
 
 ![](https://cdn.css-tricks.com/wp-content/uploads/2018/07/state-js-1.png)
 
-The initial state of our boilerplate.
+我们模版的初始状态。
 
-#### Setting up our structure
+#### 建立项目结构
 
-Open the root folder in your favorite text editor. This time, for me, the root folder is:
+用你喜欢的文本编辑器打开根目录。这次对我来说，根目录是：
 
 ```
 ~/Documents/Projects/vanilla-js-state-management-boilerplate/
 ```
 
-You should see a structure that looks a bit like this:
+你应该可以看到类似这样的结构：
 
 ```
 /src
@@ -47,11 +47,11 @@ You should see a structure that looks a bit like this:
 └── README.md
 ```
 
-### Pub/Sub
+### 发布/订阅
 
-Next, open up the `src` folder and then open up the `js` folder that lives in there. Make a new folder called `lib`. Inside that, make a new file called `pubsub.js`.
+接下来，打开 `src` 文件夹，然后进入里面的 `js` 文件夹。创建一个名为 `lib` 的新文件夹。在里面，创建一个名为 `pubsub.js` 的新文件。
 
-The structure of your `js` directory should look like this:
+你的 `js` 目录结构应该是这样的：
 
 ```
 /js
@@ -59,17 +59,17 @@ The structure of your `js` directory should look like this:
 └── pubsub.js
 ```
 
-Open up `pubsub.js` because we’re going to make a little [Pub/Sub pattern](https://msdn.microsoft.com/en-us/magazine/hh201955.aspx), which is short for “Publish/Subscribe." We’re creating the functionality that allows other parts of our application to subscribe to named events. Another part of the application can then publish those events, often with some sort of relevant payload.
+因为我们准备要创建一个小型的 [Pub/Sub 模式（发布/订阅模式）](https://msdn.microsoft.com/en-us/magazine/hh201955.aspx)，所以请打开 `pubsub.js`。我们正在创建允许应用程序的其他部分订阅具名事件的功能。然后，应用程序的另一部分可以发布这些事件，通常还会携带一些相关的载荷。
 
-Pub/Sub is sometimes hard to grasp, so how about an analogy? Imagine you work in a restaurant and your customers have a starter and a main course. If you’ve ever worked in a kitchen, you’ll know that when the server clears the starters, they let the chefs know which table’s starters are cleared. This is a cue to start on the main courses for that table. In a big kitchen, there are a few chefs who will probably be on different dishes. They’re all _subscribed_ to the cue from the server that the customers have finished their starters, so they know to do their _function_, which is to prepare the main course. So, you’ve got multiple chefs waiting on the same cue (named event) to do different functions (callback) to each other.
+Pub/Sub 有时很难掌握，那举个例子呢？假设你在一家餐馆工作，你的顾客点了一个前菜和主菜。如果你曾经在厨房工作过，你会知道当侍者清理前菜时，他们让厨师知道哪张桌子的前菜已经清理了。这是该给那张桌子上主菜的提示。在一个大厨房里，有一些厨师可能在准备不同的菜肴。他们都**订阅**了侍者发出的顾客已经吃完前菜的提示，因此他们自己知道要**准备主菜**。所以，你有多个厨师订阅了同一个提示（具名事件），收到提示后做不同的事（回调）。
 
 ![](https://cdn.css-tricks.com/wp-content/uploads/2018/07/state-management-restaurant.jpg)
 
-Hopefully thinking of it like that helps it make sense. Let’s move on!
+希望这样想有助于理解。让我们继续！
 
-The PubSub pattern loops through all of the subscriptions and fires their callbacks with that payload. It’s a great way of creating a pretty elegant reactive flow for your app and we can do it with only a few lines of code.
+PubSub 模式遍历所有订阅，并触发其回调，同时传入相关的载荷。这是为你的应用程序创建一个非常优雅的响应式流程的好方法，我们只需几行代码即可完成。
 
-Add the following to `pubsub.js`:
+将以下内容添加到 `pubsub.js`：
 
 ```
 export default class PubSub {
@@ -79,9 +79,9 @@ export default class PubSub {
 }
 ```
 
-What we’ve got there is a fresh new class and we’re setting `this.events` as a blank object by default. The `this.events` object will hold our named events.
+我们得到了一个全新的类，我们将 `this.events` 默认设置为空对象。`this.events` 对象将保存我们的具名事件。
 
-After the constructor's closing bracket, add the following:
+在 constructor 函数的结束括号之后，添加以下内容：
 
 ```
 subscribe(event, callback) {
@@ -96,9 +96,9 @@ subscribe(event, callback) {
 }
 ```
 
-This is our subscribe method. You pass a string `event`, which is the event’s unique name and a callback function. If there’s not already a matching event in our `events` collection, we create it with a blank array so we don’t have to type check it later. Then, we push the callback into that collection. If it already existed, this is all the method would do. We return the length of the events collection, because it might be handy for someone to know how many events exist.
+这是我们的订阅方法。你传递一个唯一的字符串 `event` 作为事件名，以及该事件的回调函数。如果我们的 `events` 集合中还没有匹配的事件，那么我们使用一个空数组创建它，这样我们不必在以后对它进行类型检查。然后，我们将回调添加到该集合中。如果它已经存在，就直接将回调添加到该集合中。我们返回事件集合的长度，这对于想要知道存在多少事件的人来说会方便些。
 
-Now that we’ve got our subscribe method, guess what comes next? You know it: the `publish` method. Add the following after your subscribe method:
+现在我们已经有了订阅方法，猜猜看接下来我们要做什么？你知道的：`publish` 方法。在你的订阅方法之后添加以下内容：
 
 ```
 publish(event, data = {}) {
@@ -113,19 +113,19 @@ publish(event, data = {}) {
 }
 ```
 
-This method first checks to see if the passed event exists in our collection. If not, we return an empty array. No dramas. If there is an event, we loop through each stored callback and pass the data into it. If there are no callbacks (which shouldn’t ever be the case), it’s all good, because we created that event with an empty array in the `subscribe` method.
+该方法首先检查我们的事件集合中是否存在传入的事件。如果没有，我们返回一个空数组。没有悬念。如果有事件，我们遍历每个存储的回调并将数据传递给它。如果没有回调（这种情况不应该出现），也没事，因为我们在 `subscribe` 方法中使用空数组创建了该事件。
 
-That’s it for PubSub. Let’s move on to the next part!
+这就是 PubSub 模式。让我们继续下一部分！
 
-### The core Store object
+### Store 对象（核心）
 
-Now that we’ve got our Pub/Sub module, we’ve got our only dependency for the meat‘n’taters of this little application: the Store. We’ll go ahead and start fleshing that out now.
+我们现在已经有了 Pub/Sub 模块，我们这个小应用程序的核心模块 Store 类有了它的唯一依赖。现在我们开始完善它。
 
-Let’s first outline what this does.
+让我们先来概述一下这是做什么的。
 
-The Store is our central object. Each time you see `@import store from '../lib/store.js`, you'll be pulling in the object that we're going to write. It'll contain a `state` object that, in turn, contains our application state, a `commit` method that will call our **>mutations**, and lastly, a `dispatch` function that will call our **actions**. Amongst this and core to the `Store` object, there will be a Proxy-based system that will monitor and broadcast state changes with our `PubSub` module.
+Store 是我们的核心对象。每当你看到 `@import store from'../lib/store.js` 时，你就会引入我们要编写的对象。它将包含一个 `state` 对象，该对象又包含我们的应用程序状态，一个 `commit` 方法，它将调用我们的 **>mutations**，最后一个 `dispatch` 函数将调用我们的 **actions**。在这个应用和 `Store` 对象的核心之间，将有一个基于代理的系统，它将使用我们的 `PubSub` 模块监视和广播状态变化。
 
-Start off by creating a new directory in your `js` directory called `store`. In there, create a new file called `store.js`. Your `js` directory should now look like this:
+首先在 `js` 目录中创建一个名为 `store` 的新目录。在那里，创建一个名为 `store.js` 的新文件。现在你的 `js` 目录应该如下所示：
 
 ```
 /js
@@ -135,15 +135,15 @@ Start off by creating a new directory in your `js` directory called `store`. In 
     └── store.js
 ```
 
-Open up `store.js` and import our Pub/Sub module. To do that, add the following right at the top of the file:
+打开 `store.js` 并导入我们的 Pub/Sub 模块。为此，请在文件顶部添加以下内容：
 
 ```
 import PubSub from '../lib/pubsub.js';
 ```
 
-For those who work with ES6 regularly, this will be very recognizable. Running this sort of code without a bundler will probably be less recognizable though. There's a [heck of a lot of support](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#Browser_compatibility) already for this approach, too!
+对于那些经常使用 ES6 的人来说，这将是非常熟悉的。但是，在没有打包工具的情况下运行这种代码可能不太容易被浏览器识别。对于这种方法，已经获得了很多[浏览器支持](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#Browser_compatibility)！
 
-Next, let's start building out our object. Straight after the import, add the following to `store.js`:
+接下来，让我们开始构建我们的对象。在导入文件后，直接将以下内容添加到 `store.js`：
 
 ```
 export default class Store {
@@ -153,7 +153,7 @@ export default class Store {
 }
 ```
 
-This is all pretty self-explanatory, so let's add the next bit. We're going to add default objects for `state`, `actions`, and `mutations`. We're also adding a `status` element that we'll use to determine what the object is doing at any given time. This goes right after `let self = this;`:
+这一切都一目了然，所以让我们添加下一项。我们将为 `state`，`actions` 和 `mutations` 添加默认对象。我们还添加了一个 `status` 属性，我们将用它来确定对象在任意给定时间正在做什么。这是在 `let self = this;` 后面的：
 
 ```
 self.actions = {};
@@ -162,13 +162,13 @@ self.state = {};
 self.status = 'resting';
 ```
 
-Straight after that, we'll create a new `PubSub` instance that will be attached the `Store` as an `events` element:
+之后，我们将创建一个新的 `PubSub` 实例，它将作为 `store` 的 `events` 属性的值：
 
 ```
 self.events = new PubSub();
 ```
 
-Next, we're going to search the passed `params` object to see if any `actions` or `mutations` were passed in. When the `Store` object is instantiated, we can pass in an object of data. Included in that can be a collection of `actions` and `mutations` that control the flow of data in our store. The following code comes next right after the last line that you added:
+接下来，我们将搜索传入的 `params` 对象以查看是否传入了任何 `actions` 或 `mutation`。当实例化 `Store` 对象时，我们可以传入一个数据对象。其中包括 `actions` 和 `mutation` 的集合，它们控制着我们 store 中的数据流。在你添加的最后一行代码后面添加以下代码：
 
 ```
 if(params.hasOwnProperty('actions')) {
@@ -180,7 +180,7 @@ if(params.hasOwnProperty('mutations')) {
 }
 ```
 
-That's all of our defaults set and nearly all of our potential params set. Let's take a look at how our `Store` object keeps track of all of the changes. We're going to use a [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) to do this. What the Proxy does is essentially work on behalf of our state object. If we add a `get` trap, we can monitor every time that the object is asked for data. Similarly with a `set` trap, we can keep an eye on changes that are made to the object. This is the main part we're interested in today. Add the following straight after the last lines that you added and we'll discuss what it's doing:
+这就是我们所有的默认设置和几乎所有潜在的参数设置。让我们来看看我们的 `Store` 对象如何跟踪所有的变化。我们将使用 [Proxy（代理）](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)来完成此操作。Proxy（代理）所做的工作主要是代理 state 对象。如果我们添加一个 `get` 拦截方法，我们可以在每次询问对象数据时进行监控。与 `set` 拦截方法类似，我们可以密切关注对象所做的更改。这是我们今天感兴趣的主要部分。在你添加的最后一行代码之后添加以下内容，我们将讨论它正在做什么：
 
 ```
 self.state = new Proxy((params.state || {}), {
@@ -203,13 +203,13 @@ self.state = new Proxy((params.state || {}), {
 });
 ```
 
-What's happening here is we're trapping the state object `set` operations. That means that when a mutation runs something like `state.name = 'Foo'` , this trap catches it before it can be set and provides us an opportunity to work with the change or even reject it completely. In our context though, we're setting the change and then logging it to the console. We're then publishing a `stateChange` event with our `PubSub` module. Anything subscribed to that event's callback will be called. Lastly, we're checking the status of `Store`. If it's not currently running a `mutation`, it probably means that the state was updated manually. We add a little warning in the console for that to give the developer a little telling off.
+这部分代码说的是我们正在捕获状态对象 `set` 操作。这意味着当 mutation 运行类似于 `state.name ='Foo'` 时，这个拦截器会在它被设置之前捕获它，并为我们提供了一个机会来处理更改甚至完全拒绝它。但在我们的上下文中，我们将会设置变更，然后将其记录到控制台。然后我们用 `PubSub` 模块发布一个 `stateChange` 事件。任何订阅了该事件的回调将被调用。最后，我们检查 `Store` 的状态。如果它当前不是一个 `mutation`，则可能意味着状态是手动更新的。我们在控制台中添加了一点警告，以便给开发人员一些提示。
 
-There's a lot going on there, but I hope you're starting to see how this is all coming together and importantly, how we're able to maintain state centrally, thanks to Proxy and Pub/Sub.
+这里做了很多事，但我希望你们开始看到这一切是如何结合在一起的，重要的是，我们如何能够集中维护状态，这要归功于 Proxy（代理）和 Pub/Sub。
 
-#### Dispatch and commit
+#### Dispatch 和 commit
 
-Now that we've added our core elements of the `Store`, let's add two methods. One that will call our `actions` named `dispatch` and another that will call our `mutations` called `commit`. Let's start with `dispatch` by adding this method after your `constructor` in `store.js`:
+现在我们已经添加了 `Store` 的核心部分，让我们添加两个方法。一个是将调用我们 `actions` 的 `dispatch`，另一个是将调用我们 `mutation` 的 `commit`。让我们从 `dispatch` 开始，在 `store.js` 中的 `constructor` 之后添加这个方法：
 
 ```
 dispatch(actionKey, payload) {
@@ -233,9 +233,9 @@ dispatch(actionKey, payload) {
 }
 ```
 
-The process here is: look for an action and, if it exists, set a status and call the action while creating a logging group that keeps all of our logs nice and neat. Anything that is logged (like a mutation or Proxy log) will be kept in the group that we define. If no action is set, it'll log an error and bail. That was pretty straightforward, and the `commit` method is even more straightforward.
+此处的过程是：查找 action，如果存在，则设置状态并调用 action，同时创建日志记录组以使我们的所有日志保持良好和整洁。记录的任何内容（如 mutation 或 Proxy（代理）日志）都将保留在我们定义的组中。如果未设置任何 action，它将记录错误并返回 false。这非常简单，而且 `commit` 方法更加直截了当。
 
-Add this after your `dispatch` method:
+在 `dispatch` 方法之后添加：
 
 ```
 commit(mutationKey, payload) {
@@ -256,21 +256,21 @@ commit(mutationKey, payload) {
 }
 ```
 
-This method is pretty similar, but let's run through the process anyway. If the mutation can be found, we run it and get our new state from its return value. We then take that new state and merge it with our existing state to create an up-to-date version of our state.
+这种方法非常相似，但无论如何我们都要自己了解这个过程。如果可以找到 mutation，我们运行它并从其返回值获得新状态。然后我们将新状态与现有状态合并，以创建我们最新版本的 state。
 
-With those methods added, our `Store` object is pretty much complete. You could actually modular-ize this application now if you wanted because we've added most of the bits that we need. You could also add some tests to check that everything run as expected. But I'm not going to leave you hanging like that. Let's make it all actually do what we set out to do and continue with our little app!
+添加了这些方法后，我们的 `Store` 对象基本完成了。如果你愿意，你现在可以模块化这个应用程序，因为我们已经添加了我们需要的大部分功能。你还可以添加一些测试来检查所有内容是否按预期运行。我不会就这样结束这篇文章的。让我们实现我们打算去做的事情，并继续完善我们的小应用程序！
 
-### Creating a base component
+### 创建基础组件
 
-To communicate with our store, we've got three main areas that update independently based on what's stored in it. We're going to make a list of submitted items, a visual count of those items, and another one that's visually hidden with more accurate information for screen readers. These all do different things, but they would all benefit from something shared to control their local state. We're going to make a base component class!
+为了与我们的 store 通信，我们有三个主要区域，根据存储在其中的内容进行独立更新。我们将列出已提交的项目，这些项目的可视化计数，以及另一个在视觉上隐藏着为屏幕阅读器提供更准确的信息。这些都做着不同的事情，但他们都会从共享的东西中受益，以控制他们的本地状态。我们要做一个基础组件类！
 
-First up, let's create a file. In the `lib` directory, go ahead and create a file called `component.js`. The path for me is:
+首先，让我们创建一个文件。在 `lib` 目录中，继续创建一个名为 `component.js` 的文件。我的文件路径是：
 
 ```
 ~/Documents/Projects/vanilla-js-state-management-boilerplate/src/js/lib/component.js
 ```
 
-Once that file is created, open it and add the following:
+创建该文件后，打开它并添加以下内容：
 
 ```
 import Store from '../store/store.js';
@@ -292,23 +292,23 @@ export default class Component {
 }
 ```
 
-Let's talk through this chunk of code. First up, we're importing the `Store` _class_. This isn't because we want an instance of it, but more for checking one of our properties in the `constructor`. Speaking of which, in the `constructor` we're looking to see if we've got a render method. If this `Component` class is the parent of another class, then that will have likely set its own method for `render`. If there is no method set, we create an empty method that will prevent things from breaking.
+让我们来谈谈这段代码吧。首先，我们要导入 `Store` **类**。这不是因为我们想要它的实例，而是更多用于检查 `constructor` 中的一个属性。说到这个，在 `constructor` 中我们要看看我们是否有一个 render 方法。如果这个 `Component` 类是另一个类的父类，那么它可能会为 `render` 设置自己的方法。如果没有设置方法，我们创建一个空方法来防止事情出错。
 
-After this, we do the check against the `Store` class like I mentioned above. We do this to make sure that the `store` prop is a `Store` class instance so we can confidently use its methods and properties. Speaking of which, we're subscribing to the global `stateChange` event so our object can _react_. This is calling the `render` function each time the state changes.
+在此之后，我们像上面提到的那样对 `Store` 类进行检查。我们这样做是为了确保 `store` 属性是一个 `Store` 类实例，这样我们就可以放心地使用它的方法和属性。说到这一点，我们订阅了全局 `stateChange` 事件，所以我们的对象可以做到**响应式**。每次状态改变时都会调用 `render` 函数。
 
-That's all we need to write for that class. It'll be used as a parent class that other components classes will `extend`. Let's crack on with those!
+这就是我们需要为该类所要写的全部内容。它将被用作其他组件类 `extend` 的父类。让我们一起来吧！
 
-### Creating our components
+### 创建我们的组件
 
-Like I said earlier, we've got three components to make and their all going to `extend` the base `Component` class. Let's start off with the biggest one: the list of items!
+就像我之前说过的那样，我们要完成三个组件，它们都通过 `extend` 关键字，继承了基类 `Component`。让我们从最大的一个组件开始开始：项目清单！
 
-In your `js` directory, create a new folder called `components` and in there create a new file called `list.js`. For me the path is:
+在你的 `js` 目录中，创建一个名为 `components` 的新文件夹，然后创建一个名为 `list.js` 的新文件。我的文件路径是：
 
 ```
 ~/Documents/Projects/vanilla-js-state-management-boilerplate/src/js/components/list.js
 ```
 
-Open up that file and paste this whole chunk of code in there:
+打开该文件并将这整段代码粘贴到其中：
 
 ```
 import Component from '../lib/component.js';
@@ -350,13 +350,13 @@ export default class List extends Component {
 };
 ```
 
-I hope that code is pretty self-explanatory after what we've learned earlier in this tutorial, but let's skim through it anyway. We start off by passing our `Store` instance up to the `Component` parent class that we are extending. This is the `Component` class that we've just written.
+我希望有了前面教程，这段代码的含义对你来说是不言而喻的，但是无论如何我们还是要说下它。我们先将 `Store` 实例传递给我们继承的 `Component` 父类。就是我们刚刚编写的 `Component` 类。
 
-After that, we declare our render method that gets called each time the `stateChange` Pub/Sub event happens. In this `render` method we put out either a list of items, or a little notice if there are no items. You'll also notice that each button has an event attached to it and they dispatch and action within our store. This action doesn't exist yet, but we'll get to it soon.
+在那之后，我们声明了 render 方法，每次触发 Pub/Sub 的 `stateChange` 事件时都会调用的这个 render 方法。在这个 `render` 方法中，我们会生成一个项目列表，或者是没有项目时的通知。你还会注意到每个按钮都附有一个事件，并且它们会触发一个 action，然后由我们的 store 处理 action。这个 action 还不存在，但我们很快就会添加它。
 
-Next up, create two more files. These are two new components, but they're tiny — so we're just going to paste some code in them and move on.
+接下来，再创建两个文件。虽然是两个新组件，但它们很小 —— 所以我们只是向其中粘贴一些代码即可，然后继续完成其他部分。
 
-First, create `count.js` in your `component` directory and paste the following in it:
+首先，在你的 `component` 目录中创建 `count.js`，并将以下内容粘贴进去：
 
 ```
 import Component from '../lib/component.js';
@@ -383,7 +383,7 @@ export default class Count extends Component {
 }
 ```
 
-Looks pretty similar to list, huh? There's nothing in here that we haven't already covered, so let's add another file. In the same `components` directory add a `status.js` file and paste the following in it:
+看起来跟 list 组件很相似吧？这里没有任何我们尚未涉及的内容，所以让我们添加另一个文件。在相同的 `components` 目录中添加 `status.js` 文件并将以下内容粘贴进去：
 
 ```
 import Component from '../lib/component.js';
@@ -406,9 +406,9 @@ export default class Status extends Component {
 }
 ```
 
-Again, we've covered everything in there, but you can see how handy it is having a base `Component` to work with, right? That's one of the many benefits of [Object-orientated Programming](https://en.wikipedia.org/wiki/Object-oriented_programming), which is what most of this tutorial is based on.
+与之前一样，这里没有任何我们尚未涉及的内容，但是你可以看到有一个基类 `Component` 是多么方便，对吧？这是[面向对象编程](https://en.wikipedia.org/wiki/Object-oriented_programming)众多优点之一，也是本教程的大部分内容的基础。
 
-Finally, let's check that your `js` directory is looking right. This is the structure of where we're currently at:
+最后，让我们来检查一下 `js` 目录是否正确。这是我们目前所处位置的结构：
 
 ```
 /src
@@ -425,17 +425,17 @@ Finally, let's check that your `js` directory is looking right. This is the stru
         └──main.js
 ```
 
-### Let's wire it up
+### 让我们把它连起来
 
-Now that we've got our front-end components and our main `Store`, all we've got to do is wire it all up.
+现在我们已经有了前端组件和主要的 `Store`，我们所要做的就是将它全部连接起来。
 
-We've got our store system and the components to render and interact with its data. Let's now wrap up by hooking up the two separate ends of the app and make the whole thing work together. We’ll need to add an initial state, some `actions` and some `mutations`. In your `store` directory, add a new file called `state.js`. For me it's like this:
+我们已经让 store 系统和组件通过数据来渲染和交互。现在让我们把应用程序的两个独立部分联系起来，让整个项目一起协同工作。我们需要添加一个初始状态，一些 `actions` 和一些 `mutations`。在 `store` 目录中，添加一个名为 `state.js` 的新文件。我的文件路径是：
 
 ```
 ~/Documents/Projects/vanilla-js-state-management-boilerplate/src/js/store/state.js
 ```
 
-Open up that file and add the following:
+打开该文件并添加以下内容：
 
 ```
 export default {
@@ -446,7 +446,7 @@ export default {
 };
 ```
 
-This is pretty self-explanatory. We're adding a default set of items so that on first-load, our little app will be fully interactive. Let's move on to some `actions`. In your `store` directory, create a new file called `actions.js` and add the following to it:
+这段代码的含义不言而喻。我们正在添加一组默认项目，以便在第一次加载时，我们的小程序将是可完全交互的。让我们继续添加一些 `actions`。在你的 `store` 目录中，创建一个名为 `actions.js` 的新文件，并将以下内容添加进去：
 
 ```
 export default {
@@ -459,7 +459,7 @@ export default {
 };
 ```
 
-The actions in this app are pretty minimal. Essentially, each action is passing a payload to a mutation, which in turn, commits the data to store. The `context`, as we learned earlier, is the instance of the `Store` class and the `payload` is passed in by whatever dispatches the action. Speaking of mutations, let's add some. In this same directory add a new file called `mutations.js`. Open it up and add the following:
+这个应用程序中的 actions 非常少。本质上，每个 action 都会将 payload（关联数据）传递给 mutation，而 mutation 又将数据提交到 store。正如我们之前所了解的那样，`context` 是 `Store` 类的实例，`payload` 是触发 action 时传入的。说到 mutations，让我们来添加一些。在同一目录中添加一个名为 `mutation.js` 的新文件。打开它并添加以下内容：
 
 ```
 export default {
@@ -476,9 +476,9 @@ export default {
 };
 ```
 
-Like the actions, these mutations are minimal. In my opinion, your mutations should always be simple because they have one job: mutate the store's state. As a result, these examples are as complex as they should ever be. Any proper logic should happen in your `actions`. As you can see for this system, we return the new version of the state so that the ``Store`'s <code>commit`` method can do its magic and update everything. With that, the main elements of the store system are in place. Let's glue them together with an index file.
+与 actions 一样，这些 mutations 很少。在我看来，你的 mutations 应该保持简单，因为他们有一个工作：改变 store 的 state。因此，这些例子就像它们最初一样简单。任何适当的逻辑都应该发生在你的 `actions` 中。正如你在这个系统中看到的那样，我们返回新版本的 state，以便 `Store` 的 `<code>commit` 方法可以发挥其魔力并更新所有内容。有了这个，store 系统的主要模块就位。让我们通过 index 文件将它们结合到一起。
 
-In the same directory, create a new file called `index.js`. Open it up and add the following:
+在同一目录中，创建一个名为 `index.js` 的新文件。打开它并添加以下内容：
 
 ```
 import actions from './actions.js';
@@ -493,17 +493,17 @@ export default new Store({
 });
 ```
 
-All this file is doing is importing all of our store pieces and glueing them all together as one succinct `Store` instance. Job done!
+这个文件把我们所有的 store 模块导入进来，并将它们结合在一起作为一个简洁的 `Store` 实例。任务完成！
 
-### The final piece of the puzzle
+### 最后一块拼图
 
-The last thing we need to put together is the `main.js` file that we included in our `index.html` page _waaaay_ up at the start of this tutorial. Once we get this sorted, we'll be able to fire up our browsers and enjoy our hard work! Create a new file called `main.js` at the root of your `js` directory. This is how it looks for me:
+我们需要做的最后一件事是添加本教程开头的 _waaaay_ 页面 `index.html` 中包含的 `main.js` 文件。一旦我们整理好了这些，我们就能够启动浏览器并享受我们的辛勤工作！在 `js` 目录的根目录下创建一个名为 `main.js` 的新文件。这是我的文件路径：
 
 ```
 ~/Documents/Projects/vanilla-js-state-management-boilerplate/src/js/main.js
 ```
 
-Open it up and add the following:
+打开它并添加以下内容：
 
 ```
 import store from './store/index.js'; 
@@ -516,7 +516,7 @@ const formElement = document.querySelector('.js-form');
 const inputElement = document.querySelector('#new-item-field');
 ```
 
-So far, all we're doing is pulling in dependencies that we need. We've got our `Store`, our front-end components and a couple of DOM elements to work with. Let's add this next bit to make the form interactive, straight under that code:
+到目前为止，我们做的就是获取我们需要的依赖项。我们拿到了 `Store`，我们的前端组件和几个 DOM 元素。我们紧接着添加以下代码使表单可以直接交互：
 
 ```
 formElement.addEventListener('submit', evt => {
@@ -532,9 +532,9 @@ formElement.addEventListener('submit', evt => {
 });
 ```
 
-What we're doing here is adding an event listener to the form and preventing it from submitting. We then grab the value of the textbox and trim any whitespace off it. We do this because we want to check if there's actually any content to pass to the store next. Finally, if there's content, we dispatch our `addItem` action with that content and let our shiny new `store` deal with it for us.
+我们在这里做的是向表单添加一个事件监听器并阻止它提交。然后我们获取文本框的值并修剪它两端的空格。我们这样做是因为我们想检查下一步是否会有任何内容传递给 store。最后，如果有内容，我们将使用该内容作为 payload（关联数据）触发我们的 `addItem` action，并且让我们闪亮的新 `store` 为我们处理它。
 
-Let's add some more code to `main.js`. Under the event listener, add the following:
+让我们在 `main.js` 中再添加一些代码。在事件监听器下，添加以下内容：
 
 ```
 const countInstance = new Count();
@@ -546,29 +546,29 @@ listInstance.render();
 statusInstance.render();
 ```
 
-All we're doing here is creating new instances of our components and calling each of their `render` methods so that we get our initial state on the page.
+我们在这里所做的就是创建组件的新实例并调用它们的每个 `render` 方法，以便我们在页面上获得初始状态。
 
-With that final addition, we are done!
+随着最后的添加，我们完成了！
 
-Open up your browser, refresh and bask in the glory of your new state managed app. Go ahead and add something like _"Finished this awesome tutorial"_ in there. Pretty neat, huh?
+打开你的浏览器，刷新并沉浸在新状态管理应用程序的荣耀中。来吧，添加一些类似于**“完成这个令人敬畏的教程”**的条目。很整洁，是吧？
 
-### Next steps
+### 下一步
 
-There's a lot of stuff you could do with this little system that we've put together. Here are some ideas for taking it further on your own:
+你可以借助我们一起整合的小系统来做很多事情。以下是你自己进一步探索的一些想法：
 
-*   You could implement some local storage to maintain state, even when you reload
-*   You could pull out the front-end of this and have a little state system for your projects
-*   You could continue to develop the front-end of this app and make it look awesome. (I'd be really interested to see your work, so please share!)
-*   You could work with some remote data and maybe even an API
-*   You could take what you've learned about `Proxy` and the Pub/Sub pattern and develop those transferable skills further
+*   你可以实现一些本地存储，以保持状态，即使当你重新加载时
+*   你可以分离出前端模块，只为你的项目提供一个小型状态系统
+*   你可以继续开发此应用程序的前端模块并使其看起来很棒。（我真的很想看到你的作品，所以请分享！）
+*   你可以使用一些远程数据，甚至可以使用 API
+*   你可以整理你所学到的关于 `Proxy` 和 Pub/Sub 模式的知识，并进一步学习那些可用于不同工作的技能
 
-### Wrapping up
+### 总结
 
-Thanks for learning about how these state systems work with me. The big, popular ones are much more complex and smarter that what we've done — but it's still useful to get an idea of how these systems work and unravel the mystery behind them. It's also useful to learn how powerful JavaScript can be with no frameworks whatsoever.
+感谢你同我一起学习状态系统是如何工作的。那些大型的主流状态管理库比我们所做的事情要复杂，智能得多 —— 但了解这些系统如何运作并揭开它们背后的神秘面纱仍然有用。无论如何，了解 JavaScript 在不使用框架下的强大能力也很有用。
 
-If you want a finished version of this little system, check out this [GitHub repository](https://github.com/hankchizljaw/vanilla-js-state-management). You can also see a demo [here](https://vanilla-js-state-management.hankchizljaw.io).
+如果你想要这个小系统的完成版本，请查看这个 [GitHub 仓库](https://github.com/hankchizljaw/vanilla-js-state-management)。你还可以在[此处](https://vanilla-js-state-management.hankchizljaw.io)查看演示。
 
-If you develop on this further, I'd love to see it, so hit me up on [Twitter](https://twitter.com/hankchizljaw) or post in the comments below if you do!
+如果你在此基础上进一步开发，我很乐意看到它，所以如果你这样做，请在[推特](https://twitter.com/hankchizljaw)上跟我联络或发表在下面的评论中！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
