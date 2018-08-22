@@ -1,4 +1,4 @@
-> * 原文地址：[ How to Save UI Designers & Front-End Developers up to 50% of Their Time ](https://uxplanet.org/how-to-save-ui-designers-front-end-developers-up-to-50-of-their-time-39a30254ec05)
+> * 原文地址：[How to Save UI Designers & Front-End Developers up to 50% of Their Time](https://uxplanet.org/how-to-save-ui-designers-front-end-developers-up-to-50-of-their-time-39a30254ec05)
 > * 原文作者：[Henry Latham](https://uxplanet.org/@LathamHenry)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-save-ui-designers-front-end-developers-up-to-50-of-their-time.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-save-ui-designers-front-end-developers-up-to-50-of-their-time.md)
