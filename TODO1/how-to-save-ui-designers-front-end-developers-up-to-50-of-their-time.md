@@ -109,7 +109,7 @@ Furthermore, we all tend to assume that weekly design reviews, retrospectives & 
 
 And this comes down to a fundamental misunderstanding — or knowledge gap — between UI Designers & Front-End Developers.
 
-![A typical UI Designer: Trimmed beard, horn\\-rimmed spectacles & novel item of clothing, such as a gold bow\\-tie](https://cdn-images-1.medium.com/max/1600/1*4sv72hGSswh5z5oUBLjQGA.jpeg)
+![A typical UI Designer: Trimmed beard, horn-rimmed spectacles & novel item of clothing, such as a gold bow-tie](https://cdn-images-1.medium.com/max/1600/1*4sv72hGSswh5z5oUBLjQGA.jpeg)
 
 **UI Designers** tend to consider themselves artists. Their work is a work of _art_. _If only_ users could understand the beauty of their work, they would have _millions_ of users.
 
@@ -200,7 +200,7 @@ We focus on short-term goals (finishing the sprint or getting through the backlo
 
 We don’t stop to solve the inefficiencies in the race to fulfil our sprint goals or to get through that long list of features & bugs to build.
 
-Because it’s easier to focus on the short-term. Because we are stressed. [Because we rarely ever stop to think in our pursuit of ‘being busy’ & the sense of purpose it provides us](#)(https://medium.com/punchintheface/the-art-of-being-busy-fdcf9b5a2d65).
+Because it’s easier to focus on the short-term. Because we are stressed. [Because we rarely ever stop to think in our pursuit of ‘being busy’ & the sense of purpose it provides us](https://medium.com/punchintheface/the-art-of-being-busy-fdcf9b5a2d65).
 
 ![Your company’s current vs. optimal performance over time](https://cdn-images-1.medium.com/max/1600/1*ax3hgfnBOf0XqFVV865J6w.png)
 
@@ -281,6 +281,7 @@ Maybe start with a header (with text & buttons), some text rows & whatever else 
 
 _*Elements refer to a group of Symbols, such as a row or a header_
 
+* YouTube 视频链接：https://youtu.be/5MGNi24hHAE
 
 **3/7 Overrides (changing the information within an element)**
 
@@ -375,7 +376,6 @@ You must be vigilant, constantly learning, constantly looking for new tools to s
 ---- 
 
 ![Me at a pop-up bar I co-owned in Porto, Portugal](https://cdn-images-1.medium.com/max/2000/1*FCYtMc3I98p3WaBaCQ6qMw.jpeg)
-
 
 ### About me:
 
