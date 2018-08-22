@@ -58,7 +58,7 @@
 
 许多公司因为我没有大团队工作经验和没有大学文凭的简历拒绝了我。
 
-但我也不是空手而去。我自己开发上架的应用被[下载了 100 万次](https://medium.com/@thecaraway/how-i-lean-startupd-my-way-to-240k-on-the-saturated-app-store-92862ba3c6fc)。我与人合作创办了一家(低成本的)初创公司，并以自由职业者的身份与一些很酷的客户合作。我有很好的公共项目来展示我的技能。
+但我也不是空手而去。我自己开发上架的应用被[下载了 100 万次](https://medium.com/@thecaraway/how-i-lean-startupd-my-way-to-240k-on-the-saturated-app-store-92862ba3c6fc)。我与人合作创办了一家（低成本的）初创公司，并以自由职业者的身份与一些很酷的客户合作。我有很好的公共项目来展示我的技能。
 
 我在一个主要的科技市场(德克萨斯州奥斯丁)找到了工作，也得到了一些远程工作机会。我被聘为高级职位。我想我的经历对初级和中级程序员也有帮助。
 
@@ -70,7 +70,7 @@
 
 ### 搞定你的 iOS 简历
 
-不想重复造轮子，所以如果你有时间，请[阅读这篇编写开发人员简历指南](https://medium.freecodecamp.org/how-to-write-a-good-resume-in-2017-b8ea9dfdd3b9)
+不想重复造轮子，所以如果你有时间，请[阅读这篇编写开发人员简历指南](https://medium.freecodecamp.org/how-to-write-a-good-resume-in-2017-b8ea9dfdd3b9)。
 
 如果你没有时间：
 
@@ -165,7 +165,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*vjgAq86vcjnwb3Wx3OkKZg.png)
 
-注意到它甚至有一个错字😂(尽管我不建议这样做)
+注意到它甚至有一个错字 😂 （尽管我不建议这样做）
 
 请注意我是如何把自己缺乏团队经验说成是一件我急于克服的事情（这是真的）。
 
@@ -182,7 +182,7 @@
 #### 不说的太具体，下面是一些我遇到的几个编程挑战中所做的关键工作：
 
 *   [AutoLayout](https://www.raywenderlich.com/125718/coding-auto-layout) 和 [Autoresizing](https://stackoverflow.com/questions/12986130/proper-autoresizingmask) 视图
-*   调整文本大小以适应不同的屏幕([Dynamic Text](https://www.raywenderlich.com/77092/text-kit-tutorial-swift))
+*   调整文本大小以适应不同的屏幕（[Dynamic Text](https://www.raywenderlich.com/77092/text-kit-tutorial-swift)）
 *   使用基本 API 进行网络请求
 *   使用 TableViews 和 CollectionViews
 *   用 Core Data，UserDefaults 或存档来持久化数据
