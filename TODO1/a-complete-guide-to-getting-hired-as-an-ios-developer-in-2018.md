@@ -2,266 +2,266 @@
 > * 原文作者：[Rob Caraway](https://blog.usejournal.com/@robcaraway?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-complete-guide-to-getting-hired-as-an-ios-developer-in-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-complete-guide-to-getting-hired-as-an-ios-developer-in-2018.md)
-> * 译者：
-> * 校对者：
+> * 译者：[melon8](https://github.com/melon8)
+> * 校对者：[Park-ma](https://github.com/Park-ma)
 
-# A Complete Guide to Getting Hired as an iOS Developer in 2018
+# 2018 年 iOS 开发找工作完全指南
 
-## Or How not to Waste Two Thousand Hours of Your Life
+## 或如何避免浪费你人生的两千个小时
 
 ![](https://cdn-images-1.medium.com/max/1600/1*CSEtc6xuG1-Va_JWQC7naQ.jpeg)
 
-I got rejected from a job I drained three and a half months of energy toward.
+我被一份耗费了我三个半月精力的工作拒绝了。
 
-I learned it all. The company’s everything was to become my everything. I could tell you about basically everything each founder published online.
+我做了所有的准备。那个公司的一切就是我的一切。我几乎可以告诉你所有关于那家公司创始人在网上发表的东西。
 
-I romanticized. Like, so much.
+我大概十分天真了。
 
-Imagine me writing a massive blog post, pack filled with actual code and working examples on how to improve their app. Because that’s what I did.
+想象一下，我写了一篇很长的博客，里面全是实际的代码和如何改进他们应用程序的例子。因为我就是这么做的。
 
-Despite investing all my free energy, I said _out loud_ acquiring the job was NO gimme. I didn’t believe that, but saying it felt comforting.
+尽管我投入了所有的精力，我还是得**大声**说，得到这份工作是不可能的。我不想相信，但说出来还让我感到了一点安慰。
 
-After finally getting their attention MONTHS after setting my sights on them, I had a fantastic call with their CTO who invited me try their coding challenge.
+几个月后，我终于吸引了他们的注意。我和他们的 CTO 通了电话，聊得很愉快，他们邀请我参加编程挑战。
 
-I spent a week making it PERFECT, and their team was impressed. My confidence was high and I felt secure.
+我花了一周的时间来做到完美，他们的团队也表示对我的代码印象深刻。我自信心高涨，感到自己很安全。
 
-Then, I took their paired programming test.
+然后，我参加了他们的结对编程测试。
 
-> Two days later, I got a rejection email. Not a good fit, they told me. Over two thousand hours to learn a one hour lesson.
+> 两天后，我收到一封拒绝邮件。他们告诉我，我不是很合适。超过 2000 个小时来学习换来了一小时的教训。
 
-I collapsed on my couch. They were right. I didn’t REALLY fit in to their needs — I’d only spent months convincing myself I did.
+我瘫倒在沙发上。他们是对的。我并没有真的符合他们的需求 —— 我只是花了几个月的时间说服自己我做到了。
 
-It’s easy for me to see how ludicrous and risky my behavior was in retrospect. I guess old me feared rejection and wanted to do everything he could toward reducing that rejection.
+回想起来，很容易看出我的行为是多么荒唐和危险。我猜原来的我太害怕被拒绝，想要尽自己所能来减少被拒绝的可能性。
 
-> Most of us probably deal with the opposite energy — by sending out our resumes en masse to every company possible. And getting zero responses.
+> 也许我们大多数人需要处理这种负能量 —— 把简历群发给每个可能的公司，然后石沉大海没有回应。
 
-After my awful rejection, I wised up (as if I had a choice). I developed an actual strategy, and got hired as an iOS developer at a company that I was ACTUALLY a good fit for.
+在遭到可怕的拒绝后，我醒悟过来了(好像我别无选择)。于是我重新制定了一个实际可行的策略，并最终被一家我认为非常合适的公司应聘为 iOS 开发人员。
 
-### What this guide aims to accomplish:
+### 本篇指南旨在实现的目标：
 
-The strategies I outline **require no prior network** and are for those app developers who are looking to get **full time work**. While you don’t need to know anyone, knowing how to communicate and sell yourself helps.
+我概述的这些策略**不需要先前的人际关系网络**，并且是那些希望获得**全职工作**的 iOS 开发者。虽然你不需要认识任何人，但知道如何沟通和推销自己还是有帮助的。
 
-**You’ll need a body of work** — meaning any or all of:
+**你需要做大量的工作** —— 意思是以下任一条或全部：
 
-*   Apps you’ve launched available for download
-*   Open source projects you’ve launched or contributed to
-*   Content you’ve generated as a thought leader in the area
-*   Or other related work experience
+*   你发布的可以下载的应用程序
+*   你启动或参与的开源项目
+*   你作为该领域的意见领袖创造的内容
+*   或其他相关工作经验
 
-_I can’t help you sell yourself if you’ve got nothing to sell._
+**如果你没有任何可以推销的东西，那我也帮不了你。**
 
-By the end of this guide, you’ll know what it mostly takes in 2018 to get an iOS job at a company that builds consumer facing apps.
+到本指南的结尾，你就会知道在 2018 年，在一家开发面向消费者的应用的公司获得一份 iOS 开发工作需要做出什么准备工作。
 
-#### For context, about me:
+#### 关于我的背景：
 
-I’ve been programming apps since iOS4. I have no college degree. I’d never had a full-time job, and I’d never worked in an “agile” environment or with a big team.
+我从 iOS4 开始就开始开发 app。我没有大学学位。我从未有过全职工作，也从未在“敏捷”开发环境或大的团队中工作过。
 
-Many companies turned me down for my zero big team, no college degree resume.
+许多公司因为我没有大团队工作经验和没有大学文凭的简历拒绝了我。
 
-But I wasn’t going in empty-handed, either. I have [achieved 1 million downloads](https://medium.com/@thecaraway/how-i-lean-startupd-my-way-to-240k-on-the-saturated-app-store-92862ba3c6fc) with my own apps. I’ve cofounded a (low budget) startup, and I’ve worked with some cool clients as a freelancer. I have decent public projects that show off my skills.
+但我也不是空手而去。我自己开发上架的应用被[下载了 100 万次](https://medium.com/@thecaraway/how-i-lean-startupd-my-way-to-240k-on-the-saturated-app-store-92862ba3c6fc)。我与人合作创办了一家（低成本的）初创公司，并以自由职业者的身份与一些很酷的客户合作。我有很好的公共项目来展示我的技能。
 
-I got hired working in a major tech market (Austin, Texas) but was getting job opportunities from remote jobs, too. I got hired in a senior role. I imagine this will help junior and mid level programmers, too.
+我在一个主要的科技市场(德克萨斯州奥斯丁)找到了工作，也得到了一些远程工作机会。我被聘为高级职位。我想我的经历对初级和中级程序员也有帮助。
 
-**Before we jump into the heavy stuff:**
+**在我们跳进沉重的东西之前：**
 
-> **My number one rule to eventually getting hired is: Document Everything!**
+> **我最终被录用的第一条规则是：把所有的事情都记录下来！**
 
-Taking notes on a company, tracking which resumes and cover letters work, and taking notes after each interview will help you get better faster.
+对公司做笔记，跟踪哪些简历和求职信有用，每次面试后做笔记，这些会帮助你变得更快更好。
 
-### Nailing your iOS Resume
+### 搞定你的 iOS 简历
 
-Not tryna reinvent any wheels, so if you’ve got the time, [read the guide to writing developer resumes here.](https://medium.freecodecamp.org/how-to-write-a-good-resume-in-2017-b8ea9dfdd3b9)
+不想重复造轮子，所以如果你有时间，请[阅读这篇编写开发人员简历指南](https://medium.freecodecamp.org/how-to-write-a-good-resume-in-2017-b8ea9dfdd3b9)。
 
-If you ain’t got that kinda time:
+如果你没有时间：
 
-#### A slightly tweaked version of the resume I used to get hired:
+#### 我曾经被应聘时的简历的一个稍微修改过的版本：
 
 ![](https://cdn-images-1.medium.com/max/800/1*4xXwKJBUGdKxfn9Rrs1mVg.png)
 
-> Your resume should be simple and readable. List your accomplishments in an easy to read format, prioritized with what makes you look the best.
+> 你的简历应该简单易读。以一种易于阅读的格式列出你的成就，优先列出让你看起来最好的事情。
 
-**Your resume should have:**
+**你的简历应该有：**
 
-*   Education (if degree obtained or important classes taken)
-*   Work experience
-*   Open source (provide links)
-*   Your apps (provide links if possible)
-*   Most relevant technical skills (keep it minimal)
-*   Anything else noteworthy (clubs you were in, developer meetup you founded, hackathon you won)
+*   教育背景（如获得学位或选修重要课程）
+*   工作经验
+*   开源项目（提供链接）
+*   你的个人应用程序（如果可能的话提供链接）
+*   最相关的技术技能（保持最小篇幅）
+*   其他值得注意的事情（你参加的俱乐部，你举办的开发者见面会，你赢的黑客马拉松）
 
-Do _not_ mention if you’re senior or junior level. Let your resume speak for itself.
+**不**要提及你是高级还是初级开发。让你的简历说明一切。
 
-**Keep several versions of your resume**. Each version should try to tailor the descriptive details in a way that cater to each company’s personality.
+**对你的简历维护几个版本**。每个版本都应该尽量根据不同公司的个性调整描述细节。
 
-You’re not going to lie, but instead write it in a way that sell the parts of you that the company is looking for the most.
+不是让你去撒谎，而是以不同公司最看重的方面来推销自己。
 
-### Others Ways to Get Ahead
+### 获得成功的其他方法
 
-#### Build a great personal website.
+#### 建立一个很棒的个人网站。
 
-Your website allows expression in a way your resume may not. [Check mine out](http://robcaraway.com/about/). When I walked into [InMotion Software](http://www.inmotionsoftware.com/)’s office, they had my website’s about me page pulled up. They hired me a few days after.
+你的网站可以表达出简历无法表达的东西。[看看我的个人网站](http://robcaraway.com/about/)。当我走进 [InMotion Software](http://www.inmotionsoftware.com/) 的办公室时，他们打开了我的个人网站的 about me 页面。几天后他们给了我 offer。
 
-[Here’s another good website example](https://peterlyons.com/). Keep it clean and try to express exactly what you’ve done _in a way your potential employers want to hear._
+[这是另一个很好的个人网站的例子](https://peterlyons.com/)。保持网站的整洁，用**你潜在雇主希望看到的方式**准确地表达你做了什么。
 
-If you have to lie, you’re probably trying to reach for a position you’re not qualified for. That’s okay. Adjust your expectations and recalibrate.
+如果你不得不撒谎，你可能是在努力争取一个并不适合你的职位。没关系。调整你的期望，重新准备。
 
-If you’re not great at web development, stick to building your website on something like Squarespace or Wordpress.
+如果你不擅长 web 开发，请坚持在 Squarespace 或者 Wordpress 上建立你的网站。
 
-**If you know web development, build your own site.** Mine uses Node.js and Hexo. This shows I’m comfortable jumping into other areas of code if needed, which can’t hurt your employers to know.
+**如果了解网页开发，建立你自己的网站**。我使用了 Node.js 和 Hexo。这表明，如果需要的话，我很乐意跳到其他的代码领域，这不会损害雇主的利益。
 
-#### Build a strong LinkedIn profile.
+#### 建立强大的 LinkedIn 页面。
 
-You’re hurting yourself if you think LinkedIn is “lame”. I got several opportunities through LinkedIn.
+如果你认为 LinkedIn “很挫”，那你就是在和自己过不去。我就通过 LinkedIn 得到了了一些工作机会。
 
 ![](https://cdn-images-1.medium.com/max/600/1*cQ2mbHxy07bYePiL7I4O4Q.png)
 
-As of Mid 2018
+截至 2018 年中
 
-[Take a look at mine](https://www.linkedin.com/in/rob-caraway/), for example. You don’t need to be an expert: I only started really working on it last year.
+[看看我的 LinkedIn 页面](https://www.linkedin.com/in/rob-caraway/)。你没必要成为 LinkedIn 方面的专家：我去年才开始真正地研究它。
 
-Keep it current and **have a good photo of yourself**. I took a photo I use as a selfie. Get a photo editor app and touch it up. Practice taking good photos.
+要保持更新并且**有一个自己的好看的照片**。我拍了一张我满意的自拍上去。用编辑照片的 app，修修图。多练习可以让你拍出更好的照片。
 
-> Add specific keywords to your profile that help you appear in searches you want your profile to show up in.
+添加特定的关键字到你的个人资料中，以助你出现在你期待的某些搜索关键词下面。
 
-Imagine if you live in a less competitive area than Austin — you can probably stand out pretty fast.
+想象一下，如果你生活在一个不是奥斯丁这样竞争激烈的地区，你可能很快就会脱颖而出。
 
-### Applying for Jobs the Smart Way
+### 以聪明的方式申请工作
 
-Here’s some great ways to find iOS developer jobs:
+这里有一些找到 iOS 开发工作的好方法：
 
-*   Check [Angel.co](https://angel.co/) jobs (check your area, and “Remote OK” jobs)
-*   Google “iOS Developer jobs [PreferredCity]” Google, Glassdoor, ZipRecruiter and Indeed will pop up with relevant results.
-*   Google “remote iOS Jobs”
-*   Check the stack overflow boards if you have a decent profile
-*   Same with Github.
-*   Search LinkedIn Jobs for iOS developer
-*   Network at related tech events
+*   查看 [Angel.co](https://angel.co/) 上面的工作（搜索在你的工作地和“支持远程工作”的工作）
+*   Google 搜索 “iOS 开发人员的工作 [首选城市]”。谷歌，Glassdoor，ZipRecruiter 和 Indeed 会弹出相关结果。
+*   Google 搜索 “远程 iOS 开发”
+*   检查你的 Stack Overflow 板块，做出漂亮的个人页面
+*   Github 同上
+*   在 LinkedIn 上 搜索 iOS 开发者职位
+*   参加相关的技术活动
 
-One last good spot — usually cities will have a local tech website. Austin has [BuiltInAustin](https://www.builtinaustin.com/jobs). I actually found the post for the company I currently work for through this board.
+最后一个好地方 —— 通常城市会有一个本地的技术网站。奥斯丁有 [BuiltInAustin](https://www.builtinaustin.com/jobs)。实际上我就是通过这个板块找到了我现在工作的公司的职位。
 
-> Keywords to use in your searches: Mobile, App, iOS, Swift, Developer, Engineer, Programmer, Remote, Architect, iPhone
+> 在你的搜索中使用的关键词：移动，应用，iOS, Swift，开发者，工程师，程序员，远程，架构师，iPhone
 
-Keep a list of the jobs in a document (I used apple notes) that you like.
+在你喜欢的文档应用(我用的是苹果备忘录)中记录工作列表。
 
-> Takes notes on their website, their app, their glassdoor reviews, and any other bodies of work to see what you like (and dislike) about each company.
+> 记录他们的网站、他们的应用程序、他们的 glassdoor 评论以及其他的你喜欢（或不喜欢）每家公司的哪些方面。
 
-Find a pace for applying that feels sustainable. You want to have enough time to do some basic due dilligence.
+找到一种你感觉可持续的申请速度。你需要足够的时间去做一些基本的准备工作。
 
-I found applying for about two to three companies a week worked best for me, but if you’ve already got full-time work, you might apply every two weeks or even slower — that’s okay if you keep at it.
+我发现每周申请两到三家公司对我来说最合适，但如果你已经有了全职工作，你可能每两周甚至更慢地申请一次 —— 如果你坚持下去，那也没什么问题。
 
-Think about what gets you excited for each company. You may not be entirely passionate about the product they make, but instead you love the technologies, culture of their company, what you might learn, or the people they help.
+想想是什么让你为每个公司感到兴奋。你可能不是对他们的产品充满热情，但你喜欢他们公司的技术、文化、你可能学到的东西，或者他们帮助的人。
 
-#### Writing the cover letter
+#### 写求职信
 
-After you’ve researched, you’ve probably noted things you like about the company. Maybe something they specifically mentioned in their for-hire ad resonated with you.
+在做了充分研究之后，你可能会注意到一些让你喜欢上这家公司的地方。也许他们在招聘广告中特别提到的一些事情引起了你的共鸣。
 
-Use these to express how you could be a great fit and how you want to hear back from them.
+用这些来表达为什么你是一个非常合适的人选，以及你想从他们那里得到怎样的反馈。
 
-Keep it somewhat casual. No one wants to be put to sleep with corporate jargon and 500 words of nothing.
+稍微放松随意一些。没有面试官愿意听让人发困的企业行话和 500 字毫无意义的独白。
 
-Take the positives you mentioned when taking notes on the company, and bring up one or two things that caught your attention. Mention why you think you’re qualified very briefly, and be on your way.
+把你对公司做笔记的时候提到的积极的方面拿出来，并提出一两件引起你注意的事。简单地用你自己的方式说一下为什么你认为自己可以胜任。
 
-#### Here’s a cover letter I used that got me a phone interview:
+#### 这里有一封我用过的求职信，让我得到了一个电话面试机会：
 
 ![](https://cdn-images-1.medium.com/max/800/1*vjgAq86vcjnwb3Wx3OkKZg.png)
 
-Notice it even has a typo 😂(though I don’t recommend doing that)
+注意到它甚至有一个错字 😂 （尽管我不建议这样做）
 
-Notice how I framed my lack of experience on teams — as something I was eager and excited to overcome (which was true).
+请注意我是如何把自己缺乏团队经验说成是一件我急于克服的事情（这是真的）。
 
-Like your resume, keep track of several versions of the cover letter you used and be mindful of which worked and which didn’t using a spreadsheet.
+像你的简历一样，记录你用过的求职信的几个版本，注意哪些有用，哪些没有用电子表格。
 
-### Preparing for the coding challenge
+### 为编程挑战做准备
 
-A coding challenge is a small exercise you can do on your own time (with a loose deadline usually) that tests your knowledge and coding skills.
+编程挑战是一个测试你知识和编码技能的小练习，你可以在自己的时间内（通常是在一个宽松的期限内）做。
 
-> The coding challange will usually consist of one or two view controllers, and leverages one or two relevant technologies (like networking and core data).
+编程挑战通常由一个或两个视图控制器组成，并要用到一个或两个相关技术（如网络和 core data）。
 
-I’m not about to spill the beans of all the companies EXACT coding challenges, but I’d imagine even the companies I applied would appreciate if more candidates were prepared and knowledgable about what they want you to know.
+我不打算透露所有公司的准确的题目，但我想，即使是我申请的公司，如果有更多的应聘者做好准备，并且对公司想让应聘者知道的东西有足够的了解，公司也会很感激的。
 
-#### So without getting too specific, here are some key things I worked on in the several coding challenges I took:
+#### 不说的太具体，下面是一些我遇到的几个编程挑战中所做的关键工作：
 
-*   [AutoLayout](https://www.raywenderlich.com/125718/coding-auto-layout) and [Autoresizing](https://stackoverflow.com/questions/12986130/proper-autoresizingmask) views
-*   Adjusting Text Size to fit different screens ([Dynamic Text](https://www.raywenderlich.com/77092/text-kit-tutorial-swift))
-*   Making network calls to a basic API
-*   Using TableViews and CollectionViews
-*   Persisting Data with Core Data, UserDefaults, or Archiving
-*   Know how to use storyboards, but be prepared to write your views and controllers programmatically
+*   [AutoLayout](https://www.raywenderlich.com/125718/coding-auto-layout) 和 [Autoresizing](https://stackoverflow.com/questions/12986130/proper-autoresizingmask) 视图
+*   调整文本大小以适应不同的屏幕（[Dynamic Text](https://www.raywenderlich.com/77092/text-kit-tutorial-swift)）
+*   使用基本 API 进行网络请求
+*   使用 TableViews 和 CollectionViews
+*   用 Core Data，UserDefaults 或存档来持久化数据
+*   知道如何使用 storyboards，也要准备好以纯代码方式编写视图和控制器
 *   [Size classing](https://www.raywenderlich.com/162311/adaptive-layout-tutorial-ios-11-getting-started)
-*   Loading Images asynchronously and displaying them on main thread
-*   Adding infinite scroll to a tableview or collection view
-*   Modularizing your code well. Don’t just stuff everything in a view controller. Know how to build immutable models and service layer objects.
+*   异步加载图片并在主线程上显示
+*   向 tableview 或 collection view 添加无限滚动
+*   将代码模块化。不要把所有东西都塞进视图控制器。了解如何构建不可变的模型和服务层对象。
 
-These same items above may also show up in an Interview.
+以上这些内容也可能会出现在面试中。
 
-You won’t be able to write perfect code. That’s okay:
+你不可能写出完美的代码。这是可以接受的：
 
-> Whenever you write code you know is imperfect, stick a //TODO or //FIXME statement with how you would improve it to show to the team you know what tradeoffs you had to make.
+> 当你写代码的时候，如果你知道代码不完美，你可以用 //TODO 或 //FIXME 来说明你将如何改进它，以向团队展示你知道你必须做的权衡。
 
-You’re also being tested on your ability to make a product people might like, too. If you know how to make it ultra fast, smooth, and pretty, do it even if they don’t require it (and you have time) unles they say otherwise.
+别人也会看你是否有能力做出人们喜欢的产品。如果你知道如何让它超快、平滑、漂亮，即使他们没有要求（如果你也有时间），你也要去做，除非他们明确说不需要做。
 
-### How to Approach the Pair Programming Challenge
+### 如何处理结对编程挑战
 
-_Not every company will do this part, but its worth being mindful of._
+**不是每个公司都会做这一部分，但是值得注意。**
 
-For pair programming, you’ll likely either be working on code that you created in the coding challenge, or with assignments that are similar to the type of code that the company wants you to write.
+对于结对编程，你可能要处理你在编码挑战中创建的代码，或者处理与公司希望你编写的代码类型类似的任务。
 
-Unfortunately you can’t really “fake” this portion. You have to trust your instincts here because you won’t be able to change how you behave immediately around another person you don’t know.
+不幸的是，你不能真的“伪造”这一部分。你必须相信你的直觉，因为在你不认识的人面前，你无法立即改变自己的行为。
 
-> Don’t stress, and have fun during the assignment. If you feel it didn’t go well afterward, take notes on what you could do better.
+> 不要紧张，在任务中要玩得开心。如果事后你觉得不太顺利，记下你能做得更好的事情。
 
-If you’d like to practice, work on some projects next to a friend. The more often the better.
+如果你想练习，那就坐在你朋友旁边一起做一些项目。越多越好。
 
-### Nailing The Interview
+### 搞定面试
 
-The topics you’ll have to be prepared to talk about:
+你需要准备好谈论的话题：
 
-*   Big O Notation. Examples of Big O in Swift / Obj C
-*   Data Structures.
-*   Creating a LinkedList in Swift (just in case)
-*   Struct vs. a Class in Swift
-*   Know how Swift Standard Library data structures work (at a basic level)
+*   大 O 符号。Swift/Obj-C 中的时间复杂度的例子
+*   数据结构
+*   用 Swift 创建一个 LinkedList（以防万一）
+*   Struct vs. Swift 的类
+*   了解 Swift 标准库数据结构是如何工作的（基本程度）
 *   MVC, [MVVM](https://www.raywenderlich.com/192471/design-patterns-by-tutorials-mvvm)
-*   Code you wrote in the coding Challenges or:
-*   Code you might write to solve a problem similar to problems the company faces
-*   How your interests and goals align with what the company is trying to do
-*   “Where you see your career going in 5 years” will likely come up
+*   你在编程挑战中写的代码或：
+*   为解决类似公司面临的问题你可能会编写的代码
+*   你的兴趣和目标与公司的目标是如何一致的
+*   “你认为5年后你的职业生涯会怎样”之类的问题很可能会出现
 
-Building interest in a company is often times a “fake it till you make it” situation. The more you research and figure out the ways you can meaningfully contribute to a company, the more your interests will begin to “magically” align with them.
+对一家公司产生兴趣往往是一种“假装直到你成功”的情况。你越是研究并找出对公司有意义的贡献的方式，你的兴趣就越会“神奇地”与他们保持一致。
 
-Don’t force it too hard though — companies with awful Glassdoor reviews and a sporadic mission are almost always worth avoiding.
+不过，不要太强迫自己 —— 那些有着糟糕的 Glassdoor 评论和零星任务的公司几乎总是你需要避开的坑。
 
-From what I noticed (though not an absolute rule): The bigger the company, the more academic the interview will seem. Prepare for a lot of “Gotcha!” questions and problems from a Big N company.
+我所注意到的（虽然不是绝对的规则）：公司越大，面试就显得越学术。准备好应对来自大公司问题中的“陷阱”吧。
 
-Small companies usually will have a lot less formality because they don’t need it.
+小公司通常会有更少的形式，因为他们不需要它。
 
-#### Other important ways to prepare:
+#### 其他重要的准备方法：
 
-*   Read [Advanced Swift](https://www.objc.io/books/advanced-swift/)
-*   [Take swift quizzes online](https://www.hackingwithswift.com/test) in your spare time
-*   Read [Cracking the Coding Interview](https://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/0984782850/ref=pd_lpo_sbs_14_t_0?_encoding=UTF8&psc=1&refRID=DC92Y76B7Z8DXK6VWH9T), especially sections about data structures and Big O notation.
+*   读 [Advanced Swift](https://www.objc.io/books/advanced-swift/)
+*   在你的业余时间参加 [swift 在线测验](https://www.hackingwithswift.com/test)
+*   阅读 [Cracking the Coding Interview](https://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/0984782850/ref=pd_lpo_sbs_14_t_0?_encoding=UTF8&psc=1&refRID=DC92Y76B7Z8DXK6VWH9T)，特别是关于数据结构和时间复杂度的部分。
 
-### Final thoughts
+### 最后的想法
 
-Find the balance between obsessing over one job and not caring at all which job you get.
+找到渴望得到工作和完全不关心你得到的工作之间的平衡。
 
-If you stick to the process, you will get better — the resume I got hired with looks completely different from the one I started with. I learned to handle interviews with a way more nonchalant attidude.
+如果你坚持上述的过程，你会变得更好 —— 我得到的这份工作使用的简历和我刚开始找工作时投递的简历看起来完全不同。我学会了用一种更淡定的态度来处理面试。
 
-Let the process gives you wings. You get better with every rejection, so reward yourself for improvement, not whether you got the job or not.
+让这个过程给你翅膀。每次被拒绝都会让你变得更好，所以要奖励自己的进步，而仅仅是关心你是否得到了这份工作。
 
-Finally, if you live in the Austin area: [InMotion Software is hiring](https://www.builtinaustin.com/company/inmotion-software/jobs)! :) I’ve had a lot of fun working with them.
+最后，如果你住在奥斯汀地区：[InMotion Software 正在招聘](https://www.builtinaustin.com/company/inmotion-software/jobs)！:) 我和他们一起工作很开心。
 
-### Learn how to make amazing apps and more
+### 学习如何制作令人惊叹的应用程序等等
 
-If you got value out of this article, Rob Caraway writes detailed guides on **app development, entrepreneurship and building a great developer career**. [Get notified by signing up here.](http://robcaraway.com) _Thoughts are his own._
+如果你从这篇文章中有所收获，Rob Caraway 写了关于**应用程序开发、创业和建立一个伟大的开发者职业生涯的详细指南**。[在这里注册就会得到通知](http://robcaraway.com) **是他自己的想法。**
 
 * * *
 
-#### More where this came from
+#### 这篇文章从哪来的
 
-This story is published in [Noteworthy](http://blog.usejournal.com), where thousands come every day to learn about the people & ideas shaping the products we love.
+这个文章发表在 [Noteworthy](http://blog.usejournal.com) 上，每天都有成千上万的人来这里了解塑造我们喜爱的产品的人们和想法。
 
-Follow our publication to see more product & design stories featured by the [Journal](https://usejournal.com/?utm_source=usejournal.com&utm_medium=blog&utm_campaign=guest_post) team.
+跟随我们的出版物去看更多的产品和设计的故事，由 [Journal](https://usejournal.com/?utm_source=usejournal.com&utm_medium=blog&utm_campaign=guest_post) 团队提供。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
