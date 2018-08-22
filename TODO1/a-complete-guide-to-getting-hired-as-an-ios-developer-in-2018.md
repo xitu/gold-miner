@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-complete-guide-to-getting-hired-as-an-ios-developer-in-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-complete-guide-to-getting-hired-as-an-ios-developer-in-2018.md)
 > * 译者：[melon8](https://github.com/melon8)
-> * 校对者：
+> * 校对者：[Park-ma](https://github.com/Park-ma)
 
 # 2018 年 iOS 开发找工作完全指南
 
-## 何避免浪费你人生的两千个小时
+## 或如何避免浪费你人生的两千个小时
 
 ![](https://cdn-images-1.medium.com/max/1600/1*CSEtc6xuG1-Va_JWQC7naQ.jpeg)
 
@@ -72,7 +72,7 @@
 
 不想重复造轮子，所以如果你有时间，请[阅读这篇编写开发人员简历指南](https://medium.freecodecamp.org/how-to-write-a-good-resume-in-2017-b8ea9dfdd3b9)
 
-如果你没有时间:
+如果你没有时间：
 
 #### 我曾经被应聘时的简历的一个稍微修改过的版本：
 
@@ -80,7 +80,7 @@
 
 > 你的简历应该简单易读。以一种易于阅读的格式列出你的成就，优先列出让你看起来最好的事情。
 
-**你的简历应该有:**
+**你的简历应该有：**
 
 *   教育背景（如获得学位或选修重要课程）
 *   工作经验
@@ -127,7 +127,7 @@
 
 ### 以聪明的方式申请工作
 
-这里有一些找到 iOS 开发工作的好方法:
+这里有一些找到 iOS 开发工作的好方法：
 
 *   查看 [Angel.co](https://angel.co/) 上面的工作（搜索在你的工作地和“支持远程工作”的工作）
 *   Google 搜索 “iOS 开发人员的工作 [首选城市]”。谷歌，Glassdoor，ZipRecruiter 和 Indeed 会弹出相关结果。
@@ -179,7 +179,7 @@
 
 我不打算透露所有公司的准确的题目，但我想，即使是我申请的公司，如果有更多的应聘者做好准备，并且对公司想让应聘者知道的东西有足够的了解，公司也会很感激的。
 
-#### 不说的太具体，下面是一些我遇到的几个编程挑战中所做的关键工作:
+#### 不说的太具体，下面是一些我遇到的几个编程挑战中所做的关键工作：
 
 *   [AutoLayout](https://www.raywenderlich.com/125718/coding-auto-layout) 和 [Autoresizing](https://stackoverflow.com/questions/12986130/proper-autoresizingmask) 视图
 *   调整文本大小以适应不同的屏幕([Dynamic Text](https://www.raywenderlich.com/77092/text-kit-tutorial-swift))
@@ -194,7 +194,7 @@
 
 以上这些内容也可能会出现在面试中。
 
-你不可能写出完美的代码。这是可以接受的:
+你不可能写出完美的代码。这是可以接受的：
 
 > 当你写代码的时候，如果你知道代码不完美，你可以用 //TODO 或 //FIXME 来说明你将如何改进它，以向团队展示你知道你必须做的权衡。
 
@@ -214,7 +214,7 @@
 
 ### 搞定面试
 
-你需要准备好谈论的话题:
+你需要准备好谈论的话题：
 
 *   大 O 符号。Swift/Obj-C 中的时间复杂度的例子
 *   数据结构
@@ -235,7 +235,7 @@
 
 小公司通常会有更少的形式，因为他们不需要它。
 
-#### 其他重要的准备方法:
+#### 其他重要的准备方法：
 
 *   读 [Advanced Swift](https://www.objc.io/books/advanced-swift/)
 *   在你的业余时间参加 [swift 在线测验](https://www.hackingwithswift.com/test)
