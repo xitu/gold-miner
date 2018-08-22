@@ -1,84 +1,84 @@
-> * 原文地址：[Naive Bayes Classification With Sklearn](https://blog.sicara.com/naive-bayes-classifier-sklearn-python-example-tips-42d100429e44)
-> * 原文作者：[Martin Müller](https://blog.sicara.com/@martinmller_55863?source=post_header_lockup)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/naive-bayes-classifier-sklearn-python-example-tips.md](https://github.com/xitu/gold-miner/blob/master/TODO1/naive-bayes-classifier-sklearn-python-example-tips.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[Naive Bayes Classification With Sklearn](https://blog.sicara.com/naive-bayes-classifier-sklearn-python-example-tips-42d100429e44)
+> - 原文作者：[Martin Müller](https://blog.sicara.com/@martinmller_55863?source=post_header_lockup)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/naive-bayes-classifier-sklearn-python-example-tips.md](https://github.com/xitu/gold-miner/blob/master/TODO1/naive-bayes-classifier-sklearn-python-example-tips.md)
+> - 译者：[sisibeloved](https://github.com/sisibeloved)
+> - 校对者：
 
-# Naive Bayes Classification With Sklearn
+# Sklearn 中的朴素贝叶斯分类器
 
 ![](https://cdn-images-1.medium.com/max/1000/1*CGLYSpJGxg8g0EDeOeOe3w.png)
 
-Gaussian Distribution With Bean Machine
+用豆机实现的高斯分布
 
-This **tutorial** details **Naive Bayes classifier** algorithm, its **principle**, **pros & cons**, and provides an example using the **Sklearn** **python** **Library.**
+这篇**教程**详述了**朴素贝叶斯分类器**的算法、它的**原理**及**优缺点**，并提供了一个使用 **Sklearn 库**的示例。
 
-### Context
+## 背景
 
-Let’s take the famous [**Titanic Disaster dataset**](https://www.kaggle.com/c/titanic/download/train.csv). It gathers Titanic passenger personal information and whether or not they survived to the shipwreck. Let’s try to make a prediction of survival using passenger ticket fare information.
+以著名的[**泰坦尼克号遇难者数据集**](https://www.kaggle.com/c/titanic/download/train.csv)为例。它收集了泰坦尼克号的乘客的个人信息以及是否从那场海难中生还。让我们试着用乘客的船票费用来预测一下他能否生还。
 
 ![](https://cdn-images-1.medium.com/max/800/1*L1BTmw1Zb5iwhl1PtyL6qw.png)
 
-_500 passengers onboard Titanic_
+**泰坦尼克号上的 500 名乘客**
 
-Imagine you take a random sample of 500 passengers. In this sample, **30% of people survived**. Among passenger who survived, the **fare ticket mean is 100$**. It falls to **50$** in the subset of people who **did not survive**. Now, let’s say you have a new passenger. You do not know if he survived or not but you know he bought a **30$ ticket** to cross the Atlantic. What is your prediction of survival for this passenger?
+假设你随机取了 500 名乘客。在这些样本中，**30%** 的人幸存下来。幸存乘客的平均票价为 **100 美元**，而遇难乘客的平均票价为 **50 美元**。现在，假设你有了一个新的乘客。你不知道他是否幸存，但你知道他买了一张 **30 美元**的票穿越大西洋。请你预测一下这个乘客是否幸存。
 
-### Principle
+## 原理
 
-Ok, you probably answered that this passenger **did not survive**. Why? Because according to the information contained in the random subset of passengers, you assumed that **chances of survival were low** and that **being poor reduced chances of survival**. You put this passenger in the **closest group of likelihood** (the low fare ticket group). This is what the Naive Bayes classifier does.
+好吧，你可能回答说这个乘客**没能幸存**。为什么？因为根据上文所取的乘客的随机子集中所包含的信息，**本来的生还几率就很低（30%），而穷人的生还几率则更低**。你会把这个乘客放在**最可能的组别**（低票价组）。这就是朴素贝叶斯分类器所要实现的。
 
-### How does it work?
+## 分析
 
-The Naive Bayes classifier aggregates information using conditional probability with an **assumption of independence among features**. What does it mean? For example, it means we have to assume that the comfort of the room on the Titanic is independent of the fare ticket. **This assumption is absolutely wrong** and it is why it is called **Naive**. It allows to simplify the calculation, even on very large datasets. Let’s find why.
+朴素贝叶斯分类器利用条件概率来聚集信息，并假设特征之间相对独立。这是什么意思呢？举个例子，这意味着我们必须假定泰坦尼克号的房间舒适度与票价无关。显然这个假设是错误的，这就是为什么我们将这个假设称为**朴素**（Naive）的原因。朴素假设使得计算得以简化，即使在非常大的数据集上也是如此。让我们来一探究竟。
 
-The Naive Bayes classifier is based on **finding functions describing the probability of belonging to a class given features**. We write it P(_Survival | f1,…, fn)._ We apply the [Bayes law](https://en.wikipedia.org/wiki/Bayes%27_theorem) to simplify the calculation:
+朴素贝叶斯分类器的原理是寻找能够描述给定特征的概率的函数，写作 **P(Survival | f1,…, fn)**。我们使用[贝叶斯定理](https://en.wikipedia.org/wiki/Bayes%27_theorem)来简化计算：
 
 ![](https://cdn-images-1.medium.com/max/800/1*UWkbRkbDVnd8ZOlEspuXOQ.png)
 
-Formula 1: Bayes Law
+式 1：贝叶斯定理
 
-P(_Survival)_ is easy to compute and we do not need P( _f1,…, fn)_ to build a classifier. It remains P(_f1,…, fn | Survival)_ calculation. If we apply the [conditional probability formula](https://en.wikipedia.org/wiki/Conditional_probability) to simplify calculation again:
+**P(Survival)** 很容易计算，而我们构建分类器也不需要用到 **P(f1,…, fn)**，因此问题回到计算 **P(f1,…, fn | Survival)** 上来。我们应用[条件概率公式](https://en.wikipedia.org/wiki/Conditional_probability)来再一次简化计算：
 
 ![](https://cdn-images-1.medium.com/max/800/1*bxBF8kYy8QWnFR_CcwUU_g.png)
 
-Formula 2: First development
+式 2：初步拓展
 
-Each calculation of terms of the last line above requires a dataset where all conditions are available. To calculate the probability of obtaining f_n given the Survival, f_1, …, f_n-1 information, we need to have enough data with different values of f_n where condition {Survival, f_1, …, f_n-1} is verified. **It requires a lot of data**. We face the [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality). Here is where the _Naive Assumption_ will help. **As feature are assumed independent, we can simplify calculation** by considering that the condition {Survival, f_1, …, f_n-1} is equal to {Survival}:
+上式最后一行的每一项的计算都需要一个包含所有条件的数据集。为了计算 {Survival, f_1, …, f_n-1} 条件下 fn 的概率（即 **P(fn | Survival, f_1, …, f_n-1)**），我们需要有足够多不同的满足条件 {Survival, f_1, …, f_n-1} 的 fn 值。这会需要大量的数据，并导致[维度灾难](https://en.wikipedia.org/wiki/Curse_of_dimensionality)。这时**朴素假设**(Naive Assumption)的好处就凸显出来了。假设特征是独立的，我们可以认为条件 {Survival, f_1, …, f_n-1} 的概率等于 {Survival} 的概率，以此来简化计算：
 
 ![](https://cdn-images-1.medium.com/max/800/1*1kJUTxyMEn80NkA0O7rJXg.png)
 
-Formula 3: Applying Naive Assumption
+式 3：应用朴素假设
 
-Finally to classify a new vector of features, we just have to choose the _Survival_ value (1 or 0) for which P(f_1, …, f_n|_Survival_) is the highest:
+最后，为了分类，新建一个特征向量，我们只需要选择**是否生还**的值（1 或 0），令 P(f1, …, fn|Survival) 最高，即为最终的分类结果：
 
 ![](https://cdn-images-1.medium.com/max/800/1*0tKBMhq0I1P22I61h_wpOw.png)
 
-Formula 4: argmax classifier
+式 4：argmax 分类器
 
-**NB**: One **common mistake is to consider the probability outputs of the classifier as true**. In fact, Naive Bayes is known as a **bad estimator**, so do not take those probability outputs too seriously.
+**注意**：常见的错误是认为分类器输出的概率是对的。事实上，朴素贝叶斯被称为**差估计器**，所以不要太认真地看待这些输出概率。
 
-### Find the correct distribution function
+## 找出合适的分布函数
 
-One last step remains to begin to implement a classifier. How to model the probability functions P(f_i| Survival)? There are three available models in the Sklearn python library:
+最后一步就是实现分类器。怎样为概率函数 P(f_i| Survival) 建立模型呢？在 Sklearn 库中有三种模型：
 
-*   [**Gaussian:**](http://scikit-learn.org/stable/modules/naive_bayes.html)  It assumes that continuous features follow a [normal distribution](https://en.wikipedia.org/wiki/Normal_distribution).
+- [**高斯分布:**](http://scikit-learn.org/stable/modules/naive_bayes.html) 假设特征连续，且符合[正态分布](https://en.wikipedia.org/wiki/Normal_distribution).
 
 ![](https://cdn-images-1.medium.com/max/800/1*bnciZ5w3Uw3YZ2ziRJ7-gw.png)
 
-Normal Distribution
+正态分布
 
-*   [**Multinomial**](http://scikit-learn.org/stable/modules/naive_bayes.html)**:** It is useful if your features are discrete.
-*   [**Bernoulli**](http://scikit-learn.org/stable/modules/naive_bayes.html)**:** The binomial model is useful if your features are binary.
+- [**多项式分布**](http://scikit-learn.org/stable/modules/naive_bayes.html)**:** 适合离散特征。
+- [**贝努利分布**](http://scikit-learn.org/stable/modules/naive_bayes.html)**:** 适合二元特征。
 
 ![](https://cdn-images-1.medium.com/max/800/1*4abK9yj9FTjpaIEDlM4vAw.png)
 
-Binomial Distribution
+二项式分布
 
-### Python Code
+## Python 代码
 
-Here we implement a classic **Gaussian Naive Bayes** on the Titanic Disaster dataset. We will use Class of the room, Sex, Age, number of siblings/spouses, number of parents/children, passenger fare and port of embarkation information.
+接下来，基于泰坦尼克遇难者数据集，我们实现了一个经典的**高斯朴素贝叶斯**。我们将使用船舱等级、性别、年龄、兄弟姐妹数目、父母/子女数量、票价和登船口岸这些信息。
 
-```
+```python
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -86,17 +86,17 @@ import time
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB, BernoulliNB, MultinomialNB
 
-# Importing dataset
+# 导入数据集
 data = pd.read_csv("data/train.csv")
 
-# Convert categorical variable to numeric
+# 将分类变量转换为数字
 data["Sex_cleaned"]=np.where(data["Sex"]=="male",0,1)
 data["Embarked_cleaned"]=np.where(data["Embarked"]=="S",0,
                                   np.where(data["Embarked"]=="C",1,
                                            np.where(data["Embarked"]=="Q",2,3)
                                           )
                                  )
-# Cleaning dataset of NaN
+# 清除数据集中的非数字值（NaN）
 data=data[[
     "Survived",
     "Pclass",
@@ -108,12 +108,12 @@ data=data[[
     "Embarked_cleaned"
 ]].dropna(axis=0, how='any')
 
-# Split dataset in training and test datasets
+# 将数据集拆分成训练集和测试集
 X_train, X_test = train_test_split(data, test_size=0.5, random_state=int(time.time()))
 ```
 
-```
-# Instantiate the classifier
+```python
+# 实例化分类器
 gnb = GaussianNB()
 used_features =[
     "Pclass",
@@ -125,14 +125,14 @@ used_features =[
     "Embarked_cleaned"
 ]
 
-# Train classifier
+# 训练分类器
 gnb.fit(
     X_train[used_features].values,
     X_train["Survived"]
 )
 y_pred = gnb.predict(X_test[used_features])
 
-# Print results
+# 打印结果
 print("Number of mislabeled points out of a total {} points : {}, performance {:05.2f}%"
       .format(
           X_test.shape[0],
@@ -143,13 +143,13 @@ print("Number of mislabeled points out of a total {} points : {}, performance {:
 
 > Number of mislabeled points out of a total 357 points: 68, performance 80.95%
 
-The performance of our classifier is **80.95%**.
+这个分类器的正确率为 **80.95%**。
 
-### Illustration with 1 feature
+## 使用单个特征说明
 
-Let’s **restrain the classification** using the _Fare_ information only. Here we compute the P(S_urvival_ = 1) and P(S_urvival_ = 0) probabilities:
+让我们试着只使用票价信息来约束分类器。下面我们计算 P(Survival = 1) 和 P(Survival = 0) 的概率：
 
-```
+```python
 mean_survival=np.mean(X_train["Survived"])
 mean_not_survival=1-mean_survival
 print("Survival prob = {:03.2f}%, Not survival prob = {:03.2f}%"
@@ -158,15 +158,15 @@ print("Survival prob = {:03.2f}%, Not survival prob = {:03.2f}%"
 
 > Survival prob = 39.50%, Not survival prob = 60.50%
 
-Then, according to the _formula 3_, we just need to find the **probability distribution function** P(fare| Survival = 0) and P(fare| Survival = 1). We choose the Gaussian Naive Bayes classifier. Thus we have to make the assumption that those distributions are Gaussian.
+然后，根据式 3，我们只需要得出概率分布函数 P(fare| Survival = 0) 和 P(fare| Survival = 1)。我们选用高斯朴素贝叶斯分类器，因此，必须假设数据按高斯分布。
 
 ![](https://cdn-images-1.medium.com/max/800/1*e0ctDeOBlR2-Vhp1MoCmfA.png)
 
-Formula 5: Gaussian formula (σ: standard deviation / μ: mean)
+式 5：高斯公式（σ：标准差 / μ：均值）
 
-Then we have to find the mean and the standard deviation of the Fare datasets for different _Survival_ values. We obtain the following results:
+然后，我们需要算出**是否生还**值不同的情况下，票价数据集的均值和标准差。我们得到以下结果：
 
-```
+```python
 mean_fare_survived = np.mean(X_train[X_train["Survived"]==1]["Fare"])
 std_fare_survived = np.std(X_train[X_train["Survived"]==1]["Fare"])
 mean_fare_not_survived = np.mean(X_train[X_train["Survived"]==0]["Fare"])
@@ -178,30 +178,30 @@ print("mean_fare_not_survived = {:03.2f}".format(mean_fare_not_survived))
 print("std_fare_not_survived = {:03.2f}".format(std_fare_not_survived))
 ```
 
-```
+```bash
 mean_fare_survived = 54.75
 std_fare_survived = 66.91
 mean_fare_not_survived = 24.61
 std_fare_not_survived = 36.29
 ```
 
-Let’s see the resulting distributions regarding _survived_ and _not_survived_ histograms:
+让我们看看关于**生还**和**未生还**的直方图的结果分布：
 
 ![](https://cdn-images-1.medium.com/max/800/1*43SvhJOLnPZihcEAPzMcoA.png)
 
-Figure 1: Fare Histograms and Gaussian distributions for each survival values (Scales are not accurate)
+图 1：各个**是否生还**值的票价直方图和高斯分布（缩放等级并不对应）
 
-We notice that distributions are **not nicely fitted** to the dataset. Before implementing a model, it is better to verify if the distribution of features follows one of the three models detailed above. If continuous features do not have a normal distribution, we should use **transformations** or different methods to **convert it in a normal distribution**. Here we will consider that distributions are normal to simplify this illustration. We apply the _Formula 1_ Bayes law and obtain this classifier:
+可以发现，分布与数据集并没有**很好地拟合**。在实现模型之前，最好验证特征分布是否遵循上述三种模型中的一种。如果连续特征不具有正态分布，则应使用**变换**或不同的方法将其**转换成正态分布**。为了便于说明，这我们将分布看作是正态的。应用**式 1** 贝叶斯定理，可得以下这个分类器：
 
 ![](https://cdn-images-1.medium.com/max/800/1*z0W-9WcG-pmX9L29fCW02A.png)
 
-Figure 2: Gaussian Classifier
+图 2：高斯分类器
 
-If _classifier(Fare) ≥ ~78_ then P(fare| Survival = 1) _≥_ P(fare| Survival = 0) and we classify this person as _Survival._ Else we classify as _Not Survival._ We obtain a **64.15%** performance classifier.
+如果票价分类器的值超过 78（classifier(Fare) ≥ ~78），则 P(fare| Survival = 1) ≥ P(fare| Survival = 0)，我们将这个人归类为**生还**。否则我们就将他归为**未生还**。我们得到了一个正确率为 64.15% 的分类器。
 
-If we train the **Sklearn Gaussian Naive Bayes classifier** on the same dataset. We obtain exactly the same results:
+如果我们在同一数据集上训练 **Sklearn 高斯朴素贝叶斯**分类器，将会得到完全相同的结果：
 
-```
+```python
 from sklearn.naive_bayes import GaussianNB
 gnb = GaussianNB()
 used_features =["Fare"]
@@ -218,7 +218,7 @@ print("Mean Fare not_survived {:05.2f}".format(gnb.theta_[0][0]))
 print("Mean Fare survived: {:05.2f}".format(gnb.theta_[1][0]))
 ```
 
-```
+```bash
 Number of mislabeled points out of a total 357 points: 128, performance 64.15%
 Std Fare not_survived 36.29
 Std Fare survived: 66.91
@@ -226,29 +226,28 @@ Mean Fare not_survived 24.61
 Mean Fare survived: 54.75
 ```
 
-### Pro and cons of Naive Bayes Classifiers
+## 朴素贝叶斯分类器的优缺点
 
-**_Pros:_**
+**优点：**
 
-*   Computationally fast
-*   Simple to implement
-*   Works well with small datasets
-*   Works well with high dimensions
-*   Perform well even if the _Naive Assumption_ is not perfectly met. In many cases, the approximation is enough to build a good classifier.
+- 计算迅速
+- 实现简单
+- 在小数据集上表现良好
+- 在高维度数据上表现良好
+- 即使**朴素假设**没有完全满足，也能表现良好。在许多情况下，建立一个好的分类器只需要近似的数据就够了。
 
-**_Cons:_**
+**缺点：**
 
-*   Require to **remove correlated features** because they are voted twice in the model and it can lead to **over inflating importance**.
-*   If a categorical variable has a category in test data set **which was not observed in training data set**, then the model will assign a **zero probability**. It will not be able to make a prediction. This is often known as **“Zero Frequency”**. To solve this, we can use the **smoothing technique**. One of the simplest smoothing techniques is called [Laplace estimation](https://stats.stackexchange.com/questions/108797/in-naive-bayes-why-bother-with-laplacian-smoothing-when-we-have-unknown-words-i). **Sklearn** applies Laplace smoothing by default when you train a Naive Bayes classifier.
+- 需要**移除关联特征**，因为它们会在模型中被计算两次，这将导致该特征的重要性被高估。
+- 如果在训练数据集中，某个分类变量出现了测试数据集中没有被观察到的类别，那么模型会把这种情况设为**零概率**。它将无法做出预测。这通常被称为『**零位频率**』。我们可以使用平滑技术来解决这个问题。最简单的平滑技术之一称为[拉普拉斯平滑](<(https://stats.stackexchange.com/questions/108797/in-naive-bayes-why-bother-with-laplacian-smoothing-when-we-have-unknown-words-i)>)。当你训练一个朴素贝叶斯分类器时，**Sklearn** 会默认使用拉普拉斯平滑算法。
 
-### Conclusion
+## 结语
 
-**Thank you** for reading this article. I hope it helped you to understand what is **Naive Bayes classification** and why it is a **good idea** to use it.
+**非常感谢**你阅读这篇文章。我希望它能帮助你理解**朴素贝叶斯分类器**的概念以及它的**优点**。
 
-Thanks to [Antoine Toubhans](https://medium.com/@AntoineToubhans?source=post_page), [Flavian Hautbois](https://medium.com/@FlavianHautbois?source=post_page), [Adil Baaj](https://medium.com/@AdilBaaj?source=post_page), and [Raphaël Meudec](https://medium.com/@raphaelmeudec?source=post_page).
+致谢 [Antoine Toubhans](https://medium.com/@AntoineToubhans?source=post_page)、[Flavian Hautbois](https://medium.com/@FlavianHautbois?source=post_page)、[Adil Baaj](https://medium.com/@AdilBaaj?source=post_page) 和 [Raphaël Meudec](https://medium.com/@raphaelmeudec?source=post_page)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
