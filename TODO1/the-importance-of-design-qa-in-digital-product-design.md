@@ -2,95 +2,95 @@
 > * 原文作者：[Jess Eddy](https://uxdesign.cc/@jesseddy?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-importance-of-design-qa-in-digital-product-design.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-importance-of-design-qa-in-digital-product-design.md)
-> * 译者：
+> * 译者：[lihanxiang](https://github.com/lihanxiang)
 > * 校对者：
 
-# The importance of Design QA in digital product design
+# 设计 QA 在应用程序设计中的重要性
 
 ![](https://cdn-images-1.medium.com/max/1000/1*VzeWB6aXXOFAXcy_whmHXA.jpeg)
 
-Great customer experiences don’t happen by accident. In digital product design, the customer experience encompasses everything that the product team does; development, design, DevOps, and QA — everyone’s role impacts the customer experience but especially the design and user experience. Since I’m a product designer, there’s a particular part of the process that I’m obsessed with, and that’s making sure that designs get implemented as intended. What does this mean? It means ensuring that design work is coded to closely if not perfectly match the actual designs.
+完美的用户体验不是偶然事件。在应用程序的设计中，产品团队所作的一切都是为了用户体验；开发、设计、DevOps 和 质量保证 —— 每一个角色都影响着用户体验，尤其是设计和用户体验之间的关系。自从我成为一个产品设计师之后，在我执着追求的事物中有着重要的一环，就是保证产品的设计能够按照预期实现。这是什么意思呢？它代表着设计方面的编码工作需要与实际中的设计完全匹配。
 
-#### Why is this important?
+#### 这为什么如此重要？
 
-Consistency is one of the main tenets of good product design. Over time as a product is designed and developed inconsistencies inevitably crop up. Over time this can add up and turn into “design debt.”
+一致性是优秀产品设计中的一个主要原则，随着时间推移，产品的设计和开发的不一致性会不可避免地出现。慢慢地，这些问题累积成了“设计负债”。
 
-> **Design Debt** affects the integrity of the user experience. This is what happens when a bunch of incremental changes collect over time and yield a disjointed, inconsistent, and patched-together experience. —[ Design debt](https://austinknight.com/writing/design-debt/)
+> **设计负债**影响着用户体验的完整性。当一些变数随着时间的推进不断出现，就会有设计与现实脱节、不一致并且一直处于补缺补漏的状态。 —— [设计负债](https://austinknight.com/writing/design-debt/)
 
-While it may be challenging to address 100% of inconsistencies all of the time, doing Design QA is a big step towards combatting design debt.
+虽然在每时每刻都能够完全解决不一致性问题是一件极具挑战的事，实行设计 QA 是打击设计负债的重要一步。
 
 ![](https://cdn-images-1.medium.com/max/800/1*upgX1rUDn8GHiGLHGnvegg.jpeg)
 
-#### Design QA can be a challenge
+#### 设计 QA 会是一大挑战
 
-_There are other fundamental flaws that can make Design QA a challenge:_
+**还有一些基本缺陷也能使设计质量保证成为挑战：**
 
-*   Teams or companies do not understand or value design enough to create a process that fosters good design outcomes → **_“the feature works”_**
-*   People don’t see the difference between a design and a poorly coded version of it → **_“looks good enough to me”_**
-*   The focus of teams is on speed and feature delivery — and visual integrity is easier to cut than coding → **_“we don’t have time for it”_**
+*   团队或公司不够理解或不够重视设计，没能够创建一个足以产生优秀设计结果的环境 → **“该功能有效”**
+*   人们没有意识到一个设计过的和一个编码不佳的版本之间的区别 → **“对我而言足够了”**
+*   团队的重点研究对象是快速完成以及功能交付 —— 视觉完整性比编码更容易缩减 → **“我们没时间做这个”**
 
-#### Speed vs. quality
+#### 速度 vs. 质量
 
-To elaborate on the last point, as a product team works together, they sometimes run the risk of getting into **feature delivery mode and shipping.** Teams can lose sight of the bigger picture and attention to detail while trying to close as many tickets as possible before the Sprint ends. As a team races to the end of the Sprint and increases velocity, this may create a scenario where the integrity of the design implementation can fall to the wayside as a “time-saving” measure.
+为了说明最后一点，作为一个产品团队，他们常常冒险尝试**功能交付运输模式。**在“短跑”结束之前，团队通常会因为要完成某些功能而牺牲对大局的观念以及对细节的把握。在这场团队比赛结束之前，为了加快速度，设计相关的实现可能为了“节约时间”而让步。
 
 ![](https://cdn-images-1.medium.com/max/800/1*c2BMSom9UKNXvx3RX9ig0A.jpeg)
 
-#### Collaboration is good, but it’s not enough
+#### 协作是一件好事，但这不够
 
-I’ve written before about how [**teamwork**](https://blog.prototypr.io/design-driven-development-36a30dd8088c) and [**collaboration**](https://blog.sydneydesigners.co/tips-for-designers-developers-working-together-to-implement-great-uis-e93ef179bf13) are necessary requirements for product teams to do great work together. Co-designing at the conceptual stage, designer and developer pairing, using tools like Zeplin to create transparency and bridge the gap between design and CSS; these are all great and do help, but they don’t take the place of having a designer formally sign-off on coded designs before they are shipped.
+我之前有写过，[**团队合作**](https://blog.prototypr.io/design-driven-development-36a30dd8088c)和[**协作**](https://blog.sydneydesigners.co/tips-for-designers-developers-working-together-to-implement-great-uis-e93ef179bf13)是产品团队完成工作的必要条件.设计师和开发人员在概念阶段的共同设计，使用类似 Zeplin 这样的工具来搭建设计和 CSS 之间的桥梁并缩小差距；这些都很棒并且能对我们有所帮助，但这些方式并没有取代设计师在开始之前签署编码设计协议的传统方式。
 
-**This is where Design QA comes in!** ✨
+**设计 QA 是这么来的！** ✨
 
 ![](https://cdn-images-1.medium.com/max/800/1*wOrbseW_894i4gxGpFRygQ.jpeg)
 
-#### What is Design QA
+####什么是设计 QA
 
-Design QA _(QA = Quality Assurance)_ is merely a step in the process between development and testing. It’s a chance for the designer to:
+设计 QA **（QA = 质量保证）**仅仅是开发和测试之间的一个步骤。这是一个对于设计师的机会来做： 
 
-1.  Review the coded version of the UI prior to testing
-2.  Work with the developer(s) to make updates to the UI in code
+1.  在测试之前先查看 UI 的编码版本
+2.  与开发者一起在代码中对 UI 进行升级
 
-Maybe you work on a tiny team and are already working very close together doing some version of design QA already; perhaps you work at a company like [Pivotal](https://medium.com/product-labs/how-designers-and-developers-can-pair-together-to-create-better-products-e4b09e3ca096) where designers and developers spend time co-working together and design QA is built into the workflow already. If not though, it’s very easy to for the quality of implementation to lose its place in the process.
+或许你在一个小团队中工作，并且已经非常默契地进行了一些版本的设计 QA；又或许你在一家像 [Pivotal](https://medium.com/product-labs/how-designers-and-developers-can-pair-together-to-create-better-products-e4b09e3ca096) 这样的公司工作，设计师和开发者共同工作，设计 QA 已经被嵌入到工作流程之中。如果不是这样，设计实现的质量就很容易在开发中被忽略。
 
-#### **Design QA as part of the workflow**
+#### **将设计 QA 作为工作流程的一部分**
 
-Your standard workflow might look some version of this. If your team works in any sort of Sprint and moves a ticket from one part of the development lifecycle to another, your (design) work may be in any one of these categories at any given time.
+你的标准工作流程可能看起来有这些版本。如果你的团队在进行任何类型的工作时，将某项任务从开发周期的一个位置移向另一个位置，那么您的（设计）工作就是为这些任务而服务。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*zkvxs-LNJ4o5mizlXsXtzQ.jpeg)
 
-In a workflow like this, how do we ensure the integrity of design? When a ticket is done in development, it’s usually up to the developer working on the ticket — or the product manager to move it to testing. Sure, teams can get into the habit of trying to do some version of Design QA without having a step in the process for it, but that breaks down quickly; people forget or decide for themselves that the design implementation is good.
+在这样的工作流程中，我们如何确保设计的完整性？当开发中的一个任务完成时，通常由这个任务的开发者或产品经理来将所完成的任务移至测试部门。当然，团队可以养成直接做一些版本的设计 QA，而不是在这个过程中进行的习惯，但是这将会失败；毕竟人们所忘记的或者自己做主的设计实现才是最好的。
 
-> The more important question is: if design implementation is essential, why don’t we just have a step for it?
+> 更重要的问题是：如果设计实现是必要的，为什么我们不采取措施呢？
 
-By making Design QA a deliberate step in the process, it can’t be skipped. It’s also recognition that design implementation is an important part of the process that the team values. When we account for Design QA in the process, the workflow mentioned above, now looks more like this.
+通过将设计 QA 作为工作流程中举足轻重的一个步骤，就能避免它被忽略。同样也需要认识到设计实现是团队需要重视的工作流程中的一个重要部分。当我们在工作流程中加入设计 QA 之后，上述的工作流程看起来就更像这样。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*gGlwpzE6SICzhxuIBSj4EA.jpeg)
 
-#### Include developers in the design process
+#### 让开发者加入设计流程
 
-Just as it helps for designers to be involved when designs are being coded, it’s also key to include developers in the design process.
+正如在编码时有设计师的加入一样，将开发者加入设计流程也同样重要。
 
-> Design and development are really two sides of the same coin and the more isolated they are from one another, the more challenging the whole process will be.
+> 设计和开发就像是一枚硬币的两面，它们彼此之间越独立，整个工作流程就越具有挑战性。
 
-**_To include developers in the design process, you can do things like:_**
+**为了让开发者加入设计流程中，你能这么做：**
 
-*   Discuss the requirements of a feature before beginning design to suss out technical details that may impact design decisions
-*   Sketch out initial design solutions together
-*   Share designs with developers throughout the process to get feedback
+*   在某项功能开始设计之前，讨论这项功能的要求，以确定可能影响设计决策的技术细节。
+*   一起描述初始的设计解决方案
+*   在工作中与开发者分享设计思想来获得反馈
 
-Most of the challenges we face in product design and development can be solved with mutual respect, communication and honesty.
+在产品设计和开发中，我们遇到的大部分挑战都能通过相互尊重、积极沟通和心怀诚意来解决。
 
-#### Happy making!
+#### 享受工作!
 
 ![](https://cdn-images-1.medium.com/max/800/1*cNVE90I4t-UsLP-V0skdtA.jpeg)
 
-#### Additional Reading
+#### 补充阅读
 
-→ [_Why Developers and Designers Should Work Together_](https://www.dtelepathy.com/blog/business/developers-designers-should-work-together)
+→ [**为什么要开发者和设计师一起工作**](https://www.dtelepathy.com/blog/business/developers-designers-should-work-together)
 
-→ [_Tips for Designers & Developers Working Together to Implement Great UI’s_](https://blog.sydneydesigners.co/tips-for-designers-developers-working-together-to-implement-great-uis-e93ef179bf13)
+→ [**对于设计师与开发者一起实现优秀 UI 的一些提示**](https://blog.sydneydesigners.co/tips-for-designers-developers-working-together-to-implement-great-uis-e93ef179bf13)
 
-→ [_How Designers And Developers Can Communicate To Create Better Projects_](https://www.smashingmagazine.com/2018/04/working-together-designers-developers/)
+→ [**设计师与开发者应如何沟通以创造更好的项目**](https://www.smashingmagazine.com/2018/04/working-together-designers-developers/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
