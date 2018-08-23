@@ -46,13 +46,13 @@ _作者注：当我在耶路撒冷和约旦河西岸写这篇文章的时候，�
 
 通过我的方法，让UI设计师可以花更多的时间做快乐的设计，让前端开发能集中精力开发功能，而不是在那里一个像素一个像素地调间距。设计到开发的流程（我简称为 “D2D” ）效率将真正提高十倍。
 
-![（你一定会大吃一惊）](https://media.giphy.com/media/q4sdF9tchap6E/giphy.gif)
+![你一定会大吃一惊](https://media.giphy.com/media/q4sdF9tchap6E/giphy.gif "你一定会大吃一惊")
 
 ## 你为什么要关心这个？
 
 许多产品经理和UI设计师读到这里都会想，
 
-“我已经用了 3 年 Sketch 的 Symbols 和 Typography  功能， _说一些我不知道的东西吧，然后停止你那愚蠢的圣诞节比喻。”_
+_“我已经用了 3 年 Sketch 的 Symbols 和 Typography  功能， 说一些我不知道的东西吧，然后停止你那愚蠢的圣诞节比喻。”_
 
 他们并没有错。我猜想大多数设计师  _一定程度上_ 都会在 Sketch 文件里创建可重用的 Symbols (类似于编程术语中的“对象”）。
 
@@ -109,13 +109,13 @@ D2D 效率低下一直存在的一个原因是，我们总是假设我们在公�
 
 这可以归结为：UI设计师和前端工程师之间的根本误解，或者说是专业鸿沟。
 
-![典型的UI设计师形象：精心修剪的胡须，新颖时尚的装扮](https://cdn-images-1.medium.com/max/1600/1*4sv72hGSswh5z5oUBLjQGA.jpeg)
+![典型的UI设计师形象：精心修剪的胡须，新颖时尚的装扮](https://cdn-images-1.medium.com/max/1600/1*4sv72hGSswh5z5oUBLjQGA.jpeg "典型的UI设计师形象：精心修剪的胡须，新颖时尚的装扮")
 
 **UI设计师** 倾向于认为自己是艺术家，他们的作品是 _艺术品_ 。 _只要_用户能够理解他们作品中的美，他们的产品就能拥有 _数百万_用户。
 
 他们喜欢排版，并热衷于手工艺和手冲咖啡。他们最喜欢的颜色是 #FEB4B1。
 
-![典型的程序员形象：毫不在乎的打扮，极其小众的兴趣爱好，比如 Magic The Gathering （译者注：一种集换式卡牌游戏。）](https://media.giphy.com/media/Pch8FiF08bc1G/giphy.gif)
+![典型的程序员形象：毫不在乎的打扮，极其小众的兴趣爱好，比如 Magic The Gathering （译者注：一种集换式卡牌游戏。）](https://media.giphy.com/media/Pch8FiF08bc1G/giphy.gif "典型的程序员形象：毫不在乎的打扮，极其小众的兴趣爱好，比如 Magic The Gathering （译者注：一种集换式卡牌游戏。）")
 
 **程序员**，他们只想创造很酷炫的东西，他们并不太关心它们看起来的样子和视觉表现。对他们来讲，“样式” 这个难以捉摸的概念是留给艺术家的，对他们来说就像“约会”一样陌生。他们并不能理解为什么红色的阴影是 _更_红的，为什么标题文本应该往左边 _一点点_ 。
 
@@ -127,9 +127,9 @@ D2D 效率低下一直存在的一个原因是，我们总是假设我们在公�
 
 他们每个人都认为彼此的专业领域都是令人难以置信的复杂和费解的。因此，他们不惜一切代价避免介入彼此的领域。
 
-![程序员眼里设计师的工作](https://cdn-images-1.medium.com/max/1600/1*u3XoSRSQpivSn1gcCwsfxQ.jpeg)
+![程序员眼里设计师的工作](https://cdn-images-1.medium.com/max/1600/1*u3XoSRSQpivSn1gcCwsfxQ.jpeg "程序员眼里设计师的工作")
 
-![设计师眼里程序员的工作](https://cdn-images-1.medium.com/max/1600/1*RZ5gOgjgtvslNcqYrZ78Hw.jpeg)
+![设计师眼里程序员的工作](https://cdn-images-1.medium.com/max/1600/1*RZ5gOgjgtvslNcqYrZ78Hw.jpeg "设计师眼里程序员的工作")
 
 也许两个群体都不知道，或者坦白地说不关心，现在UI设计师的视觉工作和前端工程师的工作已经有很多重合的部分。
 
@@ -142,15 +142,15 @@ D2D 效率低下一直存在的一个原因是，我们总是假设我们在公�
 > “产生良好结果的模式应该被推广，而那些造成问题的人应该得到纠正。“
 > - Jeff Gothelf，Lean UX的作者
 
-![React Native - 对象起的作用](https://cdn-images-1.medium.com/max/1600/1*CRotLNVwJOkvunucRFr9eg.png)
+![React Native - 对象起的作用](https://cdn-images-1.medium.com/max/1600/1*CRotLNVwJOkvunucRFr9eg.png "React Native - 对象起的作用")
 
-![Sketch - Symbol 起的作用](https://cdn-images-1.medium.com/max/1600/1*CtF2FIGBm9GuUWnDP-TS0g.png)
+![Sketch - Symbol 起的作用](https://cdn-images-1.medium.com/max/1600/1*CtF2FIGBm9GuUWnDP-TS0g.png "Sketch - Symbol 起的作用")
 
 ## 4. 无法遵循对象驱动设计存在的问题
 
 ### 1. 设计系统的缺失会浪费设计师和程序员大量的时间
 
-![简单的 UI 与复杂的 UI](https://cdn-images-1.medium.com/max/1600/1*VQlMEHrQOCI5LtgcZf4VuA.jpeg)
+![简单的 UI 与复杂的 UI](https://cdn-images-1.medium.com/max/1600/1*VQlMEHrQOCI5LtgcZf4VuA.jpeg "简单的 UI 与复杂的 UI")
 
 **_UI 设计师_**
 
@@ -168,7 +168,7 @@ D2D 效率低下一直存在的一个原因是，我们总是假设我们在公�
 
 其次，许多 UI 设计师认为他们的作品是艺术，而不是科学。因此他们并不情愿为了实用主义而牺牲作品的美感。
 
-![成为UI设计师后发现竟然不能挣到钱，梦想破灭了。](https://media.giphy.com/media/l0GRkzJhkMlJotMFq/giphy.gif)
+![成为UI设计师后发现竟然不能挣到钱，梦想破灭了。](https://media.giphy.com/media/l0GRkzJhkMlJotMFq/giphy.gif "成为UI设计师后发现竟然不能挣到钱，梦想破灭了。")
 
 他们喜欢花费大量的时间对现有元素进行细微的调整，而不是把很容易实现的设计稿尽快交付给前端工程师。
 
@@ -190,7 +190,7 @@ UI 设计师过分关注细节导致项目进度减缓，这个事实也让问�
 
 因此，尽管在前期有设计评审和讨论环节，他们最终还是去做了一些重复的、不合理的、或者实现起来很困难的东西。
 
-![假装在认真评审的工程师们，实际上已经满脑子都是最喜欢的代码了](https://media.giphy.com/media/CU94B6y3UhjHO/giphy.gif)
+![假装在认真评审的工程师们，实际上已经满脑子都是最喜欢的代码了](https://media.giphy.com/media/CU94B6y3UhjHO/giphy.gif "假装在认真评审的工程师们，实际上已经满脑子都是最喜欢的代码了")
 
 ### 2. 随着时间的推移，D2D 效率愈来愈低下
 
@@ -202,7 +202,7 @@ D2D 效率低下的时间越长，对现有和未来团队成员的资源浪费�
 
 因为关注短期的目标很容易，因为大家都面临很大的压力， [因为我们很少会停下来思考我们如此忙碌的真正目的是什么](https://medium.com/punchintheface/the-art-of-being-busy-fdcf9b5a2d65)。
 
-![随着时间的推移，最理想的效率和当前的效率](https://cdn-images-1.medium.com/max/1600/1*ax3hgfnBOf0XqFVV865J6w.png)
+![随着时间的推移，最理想的效率和当前的效率](https://cdn-images-1.medium.com/max/1600/1*ax3hgfnBOf0XqFVV865J6w.png "随着时间的推移，最理想的效率和当前的效率")
 
 ### 3. 没有设计系统 = 设计缺陷
 
@@ -212,7 +212,7 @@ D2D 效率低下的时间越长，对现有和未来团队成员的资源浪费�
 
 假如所有的图标都没有统一的尺寸，有些是24x24，有些是40x24，有些是12x16。这不仅会浪费程序员的时间（正如我在第一点所强调的那样），而且还意味着将来任何的变化都会变得非常麻烦。如果将来希望更改某些图标，就必须针对每一个图标每一个特定的尺寸进行重新设计和导出，否则这些图标在最终的展示时候要么错位，要么会被拉伸。
 
-![所有的图标都使用统一的尺寸，对设计师和前端工程师来讲都是非常方便的](https://cdn-images-1.medium.com/max/2000/1*JojPssOu2NqC5VWmPS8lfw.png)
+![所有的图标都使用统一的尺寸，对设计师和前端工程师来讲都是非常方便的](https://cdn-images-1.medium.com/max/2000/1*JojPssOu2NqC5VWmPS8lfw.png "所有的图标都使用统一的尺寸，对设计师和前端工程师来讲都是非常方便的")
 
 此外，如果UI 设计师在 Sketch 文件中，不创建严格的文本样式、取色板，以及可重复使用的 Symbols（比如所有按钮尺寸都是24x24）的话，就会严重阻碍我们编辑现有元素的效率。
 
@@ -233,7 +233,7 @@ D2D 效率低下的时间越长，对现有和未来团队成员的资源浪费�
 
 ---- 
 
-![在这里下载我的免费UI工具包：http://eepurl.com/dhWTbP](https://cdn-images-1.medium.com/max/2000/1*Nb36bdEIFdzIPcrk3Zlc3w.jpeg)
+![在这里下载我的免费UI工具包：http://eepurl.com/dhWTbP](https://cdn-images-1.medium.com/max/2000/1*Nb36bdEIFdzIPcrk3Zlc3w.jpeg "在这里下载我的免费UI工具包：http://eepurl.com/dhWTbP")
 
 ## 如何实现对象驱动的设计
 
@@ -269,7 +269,7 @@ UI 设计师必须是完全认可他们应该为 D2D 流程负责任。否则，
 
 对象驱动的设计必须从基础开始：定义颜色和文本样式。因为所有其他的元素都需要这些信息：比如，一个按钮需要明确背景颜色、边框颜色；一行文本需要明确字体、字号和行高。
 
-![为单个页面创建独立控件](https://cdn-images-1.medium.com/max/2000/1*eOnRXOD1lBOwvgTqNrJE0g.png)
+![为单个页面创建独立控件](https://cdn-images-1.medium.com/max/2000/1*eOnRXOD1lBOwvgTqNrJE0g.png "为单个页面创建独立控件")
 
 **2/7 为单个页面创建独立控件**
 
@@ -303,7 +303,7 @@ YouTube 视频链接：https://youtu.be/5MGNi24hHAE （已经打不开了）
 
 现在尝试创建4-5个页面，并且所有的页面都只能基于先前定义的 Symbols 来创建。不要担心它们是不是缺少组织或者搭建起来很不方便：意识到这些问题，并从中学习和思考，本质上也是学习的一个过程。
 
-![信息架构：逻辑清晰地组织你的 Symbols](https://cdn-images-1.medium.com/max/2000/1*9LAZ3Zd3znKMWmmPipqImA.png)
+![信息架构：逻辑清晰地组织你的 Symbols](https://cdn-images-1.medium.com/max/2000/1*9LAZ3Zd3znKMWmmPipqImA.png "信息架构：逻辑清晰地组织你的 Symbols")
 
 **5/7 为 Symbols 准确地命名**
 
@@ -319,7 +319,7 @@ YouTube 视频链接：https://youtu.be/5MGNi24hHAE （已经打不开了）
 
 如果不能做到以上所说的点，将来在 Symbols 的查找和重命名上就会耗费大量的时间，而且也无法用一种逻辑清晰的方式来添加新的 Symbols。
 
-![一个全面的设计系统](https://cdn-images-1.medium.com/max/2000/1*mbfLtwW8TkOGxM12LGY6WQ.png)
+![一个全面的设计系统](https://cdn-images-1.medium.com/max/2000/1*mbfLtwW8TkOGxM12LGY6WQ.png "一个全面的设计系统")
 
 **6/7 创建全面的设计系统**
 
@@ -339,7 +339,7 @@ YouTube 视频链接：https://youtu.be/5MGNi24hHAE （已经打不开了）
 
 当你将你的设计系统保存到 Sketch 中的 “Template”，并与其他 UI 设计师共享后，你们就可以开瓶酒好好庆祝下了。
 
-![疯狂地庆祝...](https://media.giphy.com/media/mp1JYId8n0t3y/giphy.gif)
+![疯狂地庆祝...](https://media.giphy.com/media/mp1JYId8n0t3y/giphy.gif "疯狂地庆祝...")
 
 ### 第3步：维护你的设计系统
 
@@ -375,7 +375,7 @@ YouTube 视频链接：https://youtu.be/5MGNi24hHAE （已经打不开了）
 
 ---- 
 
-![我在葡萄牙波尔图共同拥有的一个弹出式酒吧里](https://cdn-images-1.medium.com/max/2000/1*FCYtMc3I98p3WaBaCQ6qMw.jpeg)
+![作者在葡萄牙波尔图共同拥有的一个弹出式酒吧里](https://cdn-images-1.medium.com/max/2000/1*FCYtMc3I98p3WaBaCQ6qMw.jpeg "作者在葡萄牙波尔图共同拥有的一个弹出式酒吧里")
 
 ## 关于作者：
 
