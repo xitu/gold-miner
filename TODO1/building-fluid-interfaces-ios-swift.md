@@ -423,7 +423,7 @@ animator.continueAnimation(withTimingParameters: timingParameters, durationFacto
 
 ### 交互动画 #7: FaceTime PiP
 
-重新创造 iOS FaceTime 应用中的 picture-in-picture UI。
+重新创造 iOS FaceTime 应用中的 picture-in-picture（下文中简称 Pip）UI。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*zHlr_QAPv7YpEF5wb6YZAQ.gif)
 
