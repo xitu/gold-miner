@@ -25,7 +25,7 @@
 
 如果你想尝试实现这些想法，你可能会发现想法和实现是有差距的。
 
-我的目的就是通过为演讲中的每一个主要话题，都提供关键的代码，来填补中间的差距。
+我的目的就是通过提供每个主要话题的可行的代码例子，来减少差距。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*zvcJzQnHtJRrDhvfV9XaYw.gif)
 
@@ -37,7 +37,7 @@
 2.  8 个流畅的交互界面，背后的设计理念和构建的代码。
 3.  设计师和开发者的实际应用
 
-### 什么是流畅的交互界面?
+### 什么是流畅的交互界面？
 
 一个流畅交互界面也可以被描述为“快”，“顺滑”，“自然”或是“奇妙”。它是一种光滑的，无摩擦的体验，让你只会感觉到它是对的。
 
@@ -69,7 +69,7 @@ WWDC 演讲认为流畅的交互界面是“你思想的延伸”或是“自然
 
 ![](https://cdn-images-1.medium.com/max/2000/1*slFD9J80nOOOjm9dsn6aGQ.png)
 
-### 交互界面 #1: 计算器按钮
+### 交互界面 #1：计算器按钮
 
 这个按钮模仿了 iOS 计算器应用中按钮的表现行为。
 
@@ -92,7 +92,7 @@ WWDC 演讲上的幻灯片，展示了手势是如何与想法同时进行的，
 
 #### 关键代码
 
-第一步是创建一个按钮，继承自 `UIControl`，不是继承自 `UIButton`。 `UIButton`也可以正常工作，但我们既然要自定义交互，那我们就不需要它的任何功能了。
+第一步是创建一个按钮，继承自 `UIControl`，不是继承自 `UIButton`。`UIButton` 也可以正常工作，但我们既然要自定义交互，那我们就不需要它的任何功能了。
 
 ```
 CalculatorButton: UIControl {
@@ -112,7 +112,7 @@ addTarget(self, action: #selector(touchUp), for: [.touchUpInside, .touchDragExit
 
 我们将 `touchDown` 和 `touchDragEnter` 组合到一个单独的事件，叫做 `touchDown`，并且我们将 `touchUpInside`，`touchDragExit` 和 `touchCancel` 组合一个单独的事件，叫做 `touchUp`。
 
-(查看 [这个文档](https://developer.apple.com/documentation/uikit/uicontrolevents?language=objc) 来获取所有可用的 `UIControlEvents` 的描述。)
+（查看 [这个文档](https://developer.apple.com/documentation/uikit/uicontrolevents?language=objc) 来获取所有可用的 `UIControlEvents` 的描述。）
 
 这让我们有两个方法来处理动画。
 
@@ -132,11 +132,11 @@ private var animator = UIViewPropertyAnimator()
 
 在 `touchDown`，我们根据需要取消存在的动画，然后马上将颜色设置成高亮颜色（在这里是浅灰色）。
 
-在 `touchUp`，我们创建了一个新的 animator 并且将动画启动。使用 `UIViewPropertyAnimator` ，可以轻松地取消高亮动画。
+在 `touchUp`，我们创建了一个新的 animator 并且将动画启动。使用 `UIViewPropertyAnimator`，可以轻松地取消高亮动画。
 
-(幻灯片笔记: 这不是严谨的 iOS 计算器应用中按钮的表现，它允许手势从别的按钮移动到这个按钮来启动点击事件。大多数情况下，我在这里创建的按钮就是 iOS 按钮的预期行为)
+（幻灯片笔记：这不是严谨的 iOS 计算器应用中按钮的表现，它允许手势从别的按钮移动到这个按钮来启动点击事件。大多数情况下，我在这里创建的按钮就是 iOS 按钮的预期行为）
 
-### 交互界面 #2: 弹簧动画
+### 交互界面 #2：弹簧动画
 
 这个交互展示了弹簧动画是如何可以通过指定一个“阻尼”（反弹）和“响应”（速度）来创建的。
 
@@ -190,13 +190,13 @@ extension UISpringTimingParameters {
 
 #### 弹簧动画背后的物理学
 
-想深入研究弹簧动画？ 看看 Christian Schnorr 发的这篇极好的文章：[Demystifying UIKit Spring Animations](https://medium.com/ios-os-x-development/demystifying-uikit-spring-animations-2bb868446773).
+想深入研究弹簧动画？看看 Christian Schnorr 发的这篇极好的文章：[Demystifying UIKit Spring Animations](https://medium.com/ios-os-x-development/demystifying-uikit-spring-animations-2bb868446773)。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*NPFOJlbdIyjPXLYU4nJxUQ.png)
 
 读了他的文章之后，我最终理解了弹簧动画。对 Christian 大大的致敬，因为它帮助我理解了这些动画背后的数学理论，而且教我如何解二阶微分方程。
 
-### 交互界面 #3: 手电筒按钮
+### 交互界面 #3：手电筒按钮
 
 又是一个按钮，但又不同的表现形式。它模仿了 iPhone X 锁屏上的手电筒按钮。
 
@@ -244,7 +244,7 @@ private let confirmationForce: CGFloat = 0.49
 
 通过将确认压力设置到稍小于启动压力，防止用户通过快速的超过压力阈值来频繁的启动和取消启动按钮。
 
-对于触觉反馈，我们可以使用  `UIKit`’ 的反馈生成器。
+对于触觉反馈，我们可以使用 `UIKit` 的反馈生成器。
 
 ```
 private let activationFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
@@ -264,7 +264,7 @@ animator.addAnimations {
 animator.startAnimation()
 ```
 
-### 交互界面 #4: 橡皮筋动画
+### 交互界面 #4：橡皮筋动画
 
 橡皮筋动画发生在视图抗拒移动时。一个例子就是当滚动视图滑到最底部时。
 
@@ -300,7 +300,7 @@ view.transform = CGAffineTransform(translationX: 0, y: offset)
 
 注意:这并不是苹果如何使用像 scroll view 这些元素来实现橡皮筋动画。我喜欢这个方法，是因为它简单，但对不同的表现，还有很多更复杂的方法。
 
-### 交互界面 #5: 加速中止
+### 交互界面 #5：加速中止
 
 为了看 iPhone X 上的应用切换，用户需要从屏幕底部向上滑，并且在中途停止。这个交互界面就是为了创建这个表现形式。
 
@@ -352,9 +352,9 @@ if ratio > 0.9 {
 
 我的实现并不完美。在我的测试里，它看起来工作的不错，但还有机会深入探索加速度的计算方法。
 
-### 交互界面 #6: 奖励有自我动量的动画一些反弹效果
+### 交互界面 #6：奖励有自我动量的动画一些反弹效果
 
-一个抽屉动画，有打开和关闭状态，他们会根据手势的速度有一些反弹
+一个抽屉动画，有打开和关闭状态，他们会根据手势的速度有一些反弹。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Wwh583M_4qLWg8Pb16mNeA.gif)
 
@@ -419,7 +419,7 @@ animator.continueAnimation(withTimingParameters: timingParameters, durationFacto
 
 这里我们创建有一个新的 `UIViewPropertyAnimator` 来计算动画需要的时间，这样我们可以在继续动画时提供正确的 `durationFactor`。
 
-关于动画的回转，会更复杂，我这里就不介绍了。如果你想知道的哦更多，我写了一个关于这部分的完整的教程：[构建更好的 iOS APP 动画](http://www.swiftkickmobile.com/building-better-app-animations-swift-uiviewpropertyanimator/).
+关于动画的回转，会更复杂，我这里就不介绍了。如果你想知道的哦更多，我写了一个关于这部分的完整的教程：[构建更好的 iOS APP 动画](http://www.swiftkickmobile.com/building-better-app-animations-swift-uiviewpropertyanimator/)。
 
 ### 交互动画 #7: FaceTime PiP
 
@@ -538,7 +538,7 @@ func relativeVelocity(...) { ... }
 func closestAngle(...) { ... }
 ```
 
-当最终是时候创建一个 `UISpringTimingParameters`，针对初始速度，我们是需要使用一个 `CGVector`，即使我们的旋转只有一个维度。任何情况下，如果动画属性只有一个维度，将 `dx` 值设为期望的速度，将 `dy` 值设为 0.
+当最终是时候创建一个 `UISpringTimingParameters`，针对初始速度，我们是需要使用一个 `CGVector`，即使我们的旋转只有一个维度。任何情况下，如果动画属性只有一个维度，将 `dx` 值设为期望的速度，将 `dy` 值设为 0。
 
 ```
 let timingParameters = UISpringTimingParameters(  
@@ -576,15 +576,15 @@ let timingParameters = UISpringTimingParameters(
 
 如果你喜欢这篇文章，请留下一些鼓掌。 👏👏👏
 
-**你可以点击鼓掌 50 次！**, 所以赶快点啊！ 😉
+**你可以点击鼓掌 50 次！** 所以赶快点啊！ 😉
 
 请将这篇文章在社交媒体上分享给你的 iOS 设计师/iOS 开发工程师朋友。
 
-如果你喜欢这种内容，你应该在 Twitter 上关注我。 我只发高质量的内容。[twitter.com/nathangitter](https://twitter.com/nathangitter)
+如果你喜欢这种内容，你应该在 Twitter 上关注我。我只发高质量的内容。[twitter.com/nathangitter](https://twitter.com/nathangitter)
 
-感谢 [David Okun](https://twitter.com/dokun24) 校验。
+感谢 [David Okun](https://twitter.com/dokun24) 校对。
 
-感谢 [Christian Schnorr](https://medium.com/@jenoxx?source=post_page) 和 [David Okun](https://medium.com/@davidokun?source=post_page).
+感谢 [Christian Schnorr](https://medium.com/@jenoxx?source=post_page) 和 [David Okun](https://medium.com/@davidokun?source=post_page)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
