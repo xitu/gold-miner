@@ -2,107 +2,106 @@
 > * 原文作者：[ph7spot.com](https://ph7spot.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/in-unix-everything-is-a-file.md](https://github.com/xitu/gold-miner/blob/master/TODO1/in-unix-everything-is-a-file.md)
-> * 译者：
-> * 校对者：
+> * 译者：[pmwangyang](https://github.com/pmwangyang)
 
-# In UNIX Everything is a File
+# 在 UNIX 中，一切皆文件
 
-The UNIX operating system crystallizes a couple of unifying ideas and concepts that shaped its design, user interface, culture and evolution. One of the most important of these is probably the mantra: “everything is a file”, widely regarded as one of the defining points of UNIX.
+为了有计划的发展架构设计、界面、文化和开发路线，UNIX 系统明确了一系列统一的概念和创想。这几点里面最重要的一点莫过于一句咒语：「一切皆文件」，被广泛认为是 UNIX 的定义之一。
 
-This key design principle consists of providing a unified paradigm for accessing a wide range of input/output resources: documents, directories, hard-drives, CD-Roms, modems, keyboards, printers, monitors, terminals and even some inter-process and network communications. The trick is to provide a common abstraction for all of these resources, each of which the UNIX fathers called a “file”. Since every “file” is exposed through the same API1, you can use the same set of basic commands to read/write to a disk, keyboard, document or network device.
+最主要的设计原则是提供一个访问大范围输入/输出资源（包括文件、文件夹、硬盘、CD-ROM、调制解调器、键盘、打印机、显示器、终端机甚至跨进程和网络通讯）的统一的范例。窍门是提供一个所有这些资源的抽象对象，UNIX 之父把这个对象叫做「文件」。因为每个「文件」都由同一个 API<sup><a href="#note1">[1]</a></sup>暴露，所以你可以用同一套命令来读写/操作磁盘、键盘、文件或网络设备。
 
-This fundamental concept is actually two-fold:
+这个基本概念有两种含义：
 
-*   In UNIX everything is a stream of bytes
-*   In UNIX the filesystem is used as a universal name space
+*   在 UNIX 中，一切都是字节流
+*   在 UNIX 中，文件系统被用作通用的命名空间
 
-## In UNIX Everything is a Stream of Bytes
+## 在 UNIX 中，一切都是字节流
 
-So what really constitutes a file in UNIX? A file is not much more than a plain collection of bytes that you can read and/or write. Once you have a reference to a file, called a file descriptor2, I/O access in UNIX is done using the same set of operations, the same API – whatever the type of the device and the underlying hardware.
+在 UNIX 中，文件是由什么组成的呢？文件其实和一系列可读写的字节没什么区别。如果你有一个文件的索引（我们称之为「文件描述符<sup><a href="#note2">[2]</a></sup>」），那么 UNIX 的 I/O 通道就已经准备好了，他们有着同样的一套操作和 API —— 无论设备的类型如何、底层硬件是什么。
 
-Historically, UNIX was the first operating system to abstract all I/O under such a unified concept and small set of primitives. At the time, most operating systems were providing a distinct API for each device or device family. Some early microcomputer operating systems even required you to use multiple user commands to copy files – each one dedicated to a specific floppy disk size!
+纵观历史，UNIX 是第一个把 I/O 抽象成一个统一的概念和一系列原语的系统。那时，大部分操作系统为每一种或一类设备提供不同的 API。一些早期的微型计算机操作系统甚至需要你使用多个命令去拷贝文件 —— 因为每个命令对应指定的软盘大小！
 
-From the programmer and the user perspectives, UNIX exposes:
+对于大多数程序员和用户来说，UNIX 向他们暴露了：
 
-*   Documents stored on a hard-drive
-*   Directories
-*   Links
-*   Mass storage devices (e.g. hard-drive, CD-ROM, Tape, USB Key)
-*   Inter-process communication (e.g. Pipes, Shared Memory, UNIX Sockets)
+*   硬盘中的文件
+*   文件夹
+*   链接
+*   大容量存储设备（例如：硬盘、CD-ROM、磁带、USB 设备）
+*   跨进程通信（例如：管线、共享内存、UNIX 套接字）
 
-*   Network connections
-*   Interactive terminals
-*   Almost all other devices (e,g, Printers, Graphic Card)
+*   网络通信
+*   可交互终端
+*   几乎其他所有设备（例如：打印机、显卡）
 
-as a stream of bytes that you can:
+对于字节流这种形式你可以：
 
-*   `read`
-*   `write`
-*   `lseek`
-*   `close`
+*   `read`（读）
+*   `write`（写）
+*   `lseek`（指针移动）
+*   `close`（关闭）
 
-The unified API feature is extremely empowering and fundamental for UNIX programs: you can write a program processing a file while being blissfully unaware of whether the file is actually stored on a local disk, stored on a remote drive somewhere on the network, streamed over the Internet, typed interactively by the user or even generated in memory by another program. This dramatically reduces the program complexity and eases the developer’s learning curve. Besides, this fundamental feature of the UNIX architecture also makes composing programs together a snap (you just pipe two special files: standard input and standard output).
+统一的 API 特性对于 UNIX 程序来说是基础也是非常有效的：在 UNIX 中你可以很很轻松地编写一个处理文件的程序，因为不需要关心文件是存储在本地磁盘中、储存在远程网络驱动器上、在互联网中传播、通过用户互动输入，还是通过其他程序在内存中生成。这显著降低了程序的复杂性、减缓了开发者的学习曲线。并且，UNIX 架构的这个基础特性也让程序组合到一起非常简单（你只需要传输两个特殊的文件：标准输入和标准输出）。
 
-Finally, please note that while all files present a consistent API, some operations might not be supported by a specific type of device. For instance, and for obvious reasons, you cannot `lseek` on a mouse device, or `write` on a CD-ROM device (assuming your CD is read-only).
+最后请注意，当所有的文件提供一致的 API 时，一些特殊类型的设备可能会不支持某些操作。举个很明显的例子，你不可以在鼠标设备上使用 `lseek` 命令，或在 CD-ROM 设备上使用 `write` 命令（假设你的 CD 是只读的）。
 
-## The Filesystem as a Universal Name Space
+## 文件系统有通用命名空间
 
-In UNIX, files are not only a stream of bytes with a consistent API, they can also be referenced in a uniform manner: the filesystem is used as a universal namespace.
+在 UNIX 里，文件不仅仅是有一致 API 的字节流，而且可以被统一的方式索引：文件系统有着通用命名空间。
 
-### Global Namespace and the Mounting Mechanism
+### 全局命名空间和挂载机制
 
-UNIX filesystem paths provide a consistent and global scheme to label resources, regardless of their nature. For instance you can reference a local directory with `/usr/local`, a file with `/home/joe/memo.pdf`, a CD-ROM with `/mnt/cdrom`, a directory on a network drive with `/usr`, a hard disk partition with `/dev/sda1`, a UNIX domain socket with `/tmp/mysql.sock`, a terminal with `/dev/tty0` or even a mouse with `/dev/mouse`. This global namespace is often viewed as a hierarchy of files and directories. However, as the previous examples illustrate, this is just a convenient abstraction, and a file path can reference just about anything: a filesystem, an device, a network share or a communication channel.
+UNIX 的文件系统路径为标签资源提供了一致的全局方案，从而可以忽略他们的物理地址。举几个例子，你可以使用 `/usr/local` 命令访问一个本地文件夹、`/home/joe/memo.pdf` 命令访问一个文件、`/mnt/cdrom` 命令访问 CD-ROM、`/usr` 命令访问网络驱动器上的一个文件夹、`/dev/sda1` 命令访问硬盘分区、`/tmp/mysql.sock` 命令访问 UNIX 域名套接字、`/dev/tty0` 命令访问终端，甚至使用 `/dev/mouse` 命令来访问鼠标。这些通用命名空间通常看起来像一个文件层级或文件夹，其实就像前面举的例子，这些只是一个方便的抽象概念，一个文件路径可以引用一切东西：一个文件系统、一个设备、一个网络共享或信道。
 
-The namespace is hierarchical and all resources can be referenced from the root directory (`/`). You can access multiple filesystems within the same namespace: you just “attach” a device or a filesystem (let’s say an external hard-drive) at a specific location in the namespace (say `/backups`). In UNIX jargon, this action is called _mounting_ a filesystem, and the namespace location where you attach the filesystem is called a _mount point_. You can reference all the resources of a mounted filesystem as a part of the global namespace by prefixing them with the mount point (say the file `/backups/myproject-Oct07.zip`)
+命名空间是分层的，所有的资源都可以从根文件夹(`/`)访问到。你可以使用同样的命名空间来访问多个文件系统：你只是在命名空间的指定的位置（比如 `/backups`）「连接」了一个设备或文件系统（比如外置硬盘）。用 UNIX 术语来说，这个操作叫做 **挂载**（_mounting_）一个文件系统，你连接文件系统的命名空间位置叫做 **挂载点**（_mount point_）。你可以通过给挂载的文件系统中的所有资源添加以挂载点命名的前缀，就像访问通用命名空间的一部分一样，来访问它的所有资源（比如 `/backups/myproject-Oct07.zip` 这个文件）。
 
-The mounting mechanism I just described is crucial in establishing a unified and coherent namespace where heterogenous resources can be transparently overlaid. Contrast this with the filesystem namespace found in Microsoft operating systems – MS-DOS and Windows treat devices as files, but do _not_ use the file system as a universal name space. The Namespace is partitioned and each physical storage location is treated as a distinct entity3: `C:\` is the first hard drive, `E:\` the CD-ROM device, etc.
+当不同的资源会被明显覆盖的情况下，我刚刚描述的挂载机制在建立一个统一的、明确的命名空间时就至关重要。对比一下这种命名空间和微软操作系统中的文件系统命名空间 —— MS-DOS 和 Windows 把设备视为文件但是 **不会**把文件系统放在通用命名空间中，它的命名空间是分区的并且每个物理存储地址被视为独特的实体<sup><a href="#note3">[3]</a></sup>：`C:\` 是第一个硬盘，`E:\` 是 CD-ROM 设备等等。
 
-### Pseudo Filesystems
+### 伪文件系统
 
-Early on, UNIX dramatically increased the integration of Input/Output resources by providing a global API and putting devices into a unified filesystem name space. This approach was so successful that ever since there has been a trend of exposing more and more resources and system services as part of the filesystem global namespace. This effort was pioneered by Plan 9 and is now present in all modern UNIX systems.
+早期，UNIX 因为提供全局 API 以及将设备挂载到统一的文件系统命名空间的特性，大幅提升了输入/输出资源的集成度。这个方法是如此成功，以至于从那时开始有一种将更多资源和系统服务暴露为文件系统全局命名空间的趋势。Plan 9 是这种做法的先驱，而现在所有新的 UNIX 系统都这么做了。
 
-This approach lead to the creation of numerous _pseudo_ filesystems that behave like normal file systems but can be used to access resources that are not directly related to a traditional filesystem. For instance you can use a pseudo filesystem to query and control processes, access kernel internals or establish TCP connections. These pseudo filesystems provide filesystem semantics as a convenient way to represent hierarchical information and to offer uniform access to a wide variety of objects. Pseudo filesystems, sometimes also referred to as virtual filesystems, typically have no physical presence and backing storage at all, they are memory based.
+这种方法导致产生了许多 **伪文件系统**，这些系统看起来和一般的文件系统一样，但是可以存取没有直接关联传统文件系统的资源。比如你可以使用伪文件系统来查询控制进程、存取内核内部或建立 TCP 连接。这些伪文件系统具有文件系统语义，可以展示分层信息，并为大部分对象提供了统一存取的方式。伪文件系统有时也被称为虚拟文件系统，特点是没有物理设备也没有备份存储器，只依靠内存来工作。
 
-Example of pseudo filesystems are:
+伪文件系统的例子：
 
-*   **procfs** (`/proc`): The proc filesystem contains a hierarchy of special files which can be used to query or control running processes or peek into the kernel internals through standard file entries (mostly text based).
-*   **devfs** (`/dev` or `/devices`): Devfs presents all devices on the system as a dynamic filesystem namespace. Devfs also manages this namespace and interfaces directly with kernel device drivers to provide intelligent device management – including device entry registration/unregistration.
-*   **tmpfs** (`/tmp`): Temporary filesystem whose content disappear on reboot. Tmpfs is designed for speed and efficiency with features such as dynamic filesystem size as well as memory storage with transparent fallback to swap space.
-*   **portalfs** (`/p`): With the BSD portal filesystem you can attach a server process to the filesystem global namespace. This can be used to provide transparent access to network services through the filesystem. For instance an application could interact with the SMTP server hosted by `ph7spot.com` just by opening a regular file:`/p/tcp/ph7spot.com/smtp`. The Portal filesystem is somewhat magical in that it provides socket semantic in the filesystem which can be piped and leveraged by standard UNIX tools (e.g. `cat`, `grep`, `awk`, etc.) – even from the shell!
-*   **ctfs** (`/system/contract`): The contract filesystem acts as a file based interface to Solaris contract subsystem. A Solaris contract defines the behavior of a process or process group for various types of event and failures – e.g. restart it if it dies. Solaris contracts provide very advanced capabilities for software management and monitoring in environments such as clustering fail-over software, batch queuing systems, and grid computing engines.
+*   **procfs** (`/proc`)：proc 文件系统包含一个特殊文件层，这个文件层可以用来查询或控制运行中的进程，或通过标准文件入口（大部分基于文本）一窥内核内部文件。
+*   **devfs** (`/dev` or `/devices`)：devfs 将所有系统中的设备以动态文件系统命名空间呈现。devfs 也可以通过内核设备驱动直接管理这些命名空间和接口，以此来提供智能的设备管理 —— 包括设备入口注册/反注册。
+*   **tmpfs** (`/tmp`)：临时文件系统的内容会在重启时消失，tmpfs 是为速度和效率而设计的，具有动态文件系统大小、用以空间清理的显式回退等特性。
+*   **portalfs** (`/p`)：通过 BSD 门户文件系统，你可以将一个服务器进程连接到文件系统通用命名空间上。这样可以提供明确的通过文件系统对网络服务的存取过程。比如一个 App 可以通过打开一个合规的文件 `/p/tcp/ph7spot.com/smtp` 来和 `ph7spot.com` 上的 SMTP 服务器进行交互。门户文件系统很神奇，因为它在文件系统中可以提供套接字语义，还可以被 UNIX 系统工具传输和使用（比如：`cat`, `grep`, `awk` 等等）—— 甚至可以通过 shell 来使用！
+*   **ctfs** (`/system/contract`)：协定文件系统作为一个以文件为基础的接口的 Solaris 协定子系统。Solaris 协定为各种各样的事件和失败情况定义了一个进程或进程组的表现形式 —— 比如，进程停止时重启。 Solaris 协定为诸如群集故障转移软件，批处理排队系统和网格计算引擎等环境中的软件管理和监视提供了非常高级的功能。
 
-The previous examples should give you an idea of the wide range of system resources that can be managed through filesystem semantics.
+能够通过文件系统语义进行管理的系统资源究竟涉及多么大的范围，上面的例子可以让你对有一个清楚的认识了。
 
-## Conclusion
+## 结论
 
-In modern UNIX operating systems all devices and most type of communications between processes are managed and visible as files or pseudo-files within the filesystem hierarchy. This fundamental UNIX vision and design principle, known as “Everything is a File”, is one of the key factors for UNIX success and longevity. It provided a powerful yet simple abstraction that the system, the tools and the community could build on. More importantly it provided strong integration and a fundamental composition mechanism for connecting tools and applications in an ad-hoc manner to solve the problem at hand.
+在现代的 UNIX 操作系统中，所有设备和大部分进程间通信在文件系统层级都以文件或伪文件的形式查看和管理。「一切皆文件」的 UNIX 基础愿景和设计原则，是 UNIX 成功和长久的关键因素。它提供了一个有力、简单的抽象，使得系统、工具和社区可以在其之上建立。更重要的是它用一种专有的方式来解决问题，那就是为链接工具和应用提供了强有力的集成和基础组合机制。
 
-Despite the success of the “Everything is a File” metaphor, some people are somewhat skeptical on its universality. When every file is considered to be a stream of bytes, one consequence is the lack of standard support for meta-data: To process a file appropriately, each application must come up with its own way of figuring the file type, structure and sematics. Besides, for the meta-data to be preserved, _every_ tool that processes the stream must keep the meta-data unaltered (e.g. XMP information for a photograph). Therefore, while the fact that a UNIX file is just a big bag of bytes is extremely powerful for connecting programs based on a text interface, it seriously limits application composition when it comes to multimedia and binary formats.
+尽管「一切皆文件」这个比喻很成功，但是一些人或多或少怀疑它的普遍性。当每个文件都被视为字节流时，产生的一个后果就是元数据缺少标准支持：为了合适地处理一个文件，每个应用必须想办法计算文件类型、架构和语义。并且，为了保存元数据，**每个**处理数据流的工具必须保持元数据不变（比如照片中的 XMP 信息）。因此，尽管 UNIX 文件的一大堆字节的形态对于链接文字界面的程序极度高效，同时也严重限制了多媒体和二进制应用的组合。
 
-In spite of its limitations, most people acknowledge the power in the metaphor and its effect on the integration of the operating system. Ever since UNIX was first released, researchers kept trying to further this central concept. For instance, the Plan 9 operating system pioneered a fully integrated approach to system resources: A cornerstone of Plan 9 vision was the objective to represent not only devices and communication channels but _all_ system interfaces through the filesystem. For instance, Plan 9 designers noted that in UNIX, network devices cannot _completely_ be considered as regular files: They are accessed through sockets which have distinct opening semantics and which reside in a different name space (host and port for internet sockets). Plan 9 implementation demonstrated that you could successfully unify all local and remote devices in a global namespace. This concept eventually came back to UNIX in the form of portalfs.
+尽管它有它的限制，但很多人也承认这个比喻的影响力，和它在操作系统一体化上的效果。自从 UNIX 第一次发布以来，研究者们持续推进这一中心思想。比如 Plan 9 操作系统倡导一个将系统资源完全集成的方法：Plan 9 愿景的基础就是这样的目标 —— 不仅仅设备和信道，而是将 **所有**系统接口通过文件系统代表。比如 Plan 9 的设计人员注意到在 UNIX 中，网络设备不能 **完全地**被视为合格的文件：它们通过套接字存取，而套接字有特有的打开语义并且属于一个不同的命名空间（因特网套接字的主机和端口）。Plan 9 实现并且证明了，你可以在一个全局命名空间里成功的统一所有本地和远程设备。这个想法最终以 `portalfs` 的形式在 UNIX 中实现。
 
-Other innovative concepts from Plan 9 built on the “In UNIX Everything is a File” principle. For instance, Plan 9 provides yet another layer of abstraction on top on the unified namespace design: The filesystem namespace can be customized for each user or each process and even adjusted dynamically4. Ultimately, Plan 9 demonstrated that “In UNIX Everything is a File” metaphor could be implemented on an even larger scale. In fact, this fundamental concept continues to expand within modern UNIX operating systems5.
+其他来源于 Plan 9 的创新的概念也是基于「UNIX 中，一切皆文件」原则创建的。比如 Plan 9 在统一命名空间设计之上提供了另一个抽象层：文件系统命名空间可以被每个用户、每个进程自定义，甚至动态调整<sup><a href="#note4">[4]</a></sup>。最后，Plan 9 证明了「UNIX 中，一切皆文件」这个比喻，可以被在更大的层面上实现。事实上，这个基础概念在现代 UNIX 操作系统中正被继续发扬光大<sup><a href="#note5">[5]</a></sup>。
 
-## References
+## 参考文献
 
-*   The fantastic book “The Art of UNIX Programming” by Eric S. Raymond.
-*   “The Elements of Operating-System Style” and “Problems in the Design of UNIX” chapters are especially relevant to this document.
-*   “10 Things I Hate About (U)NIX” by David Chisnall.
-*   Mouting Definition by the The Linux Information Project
-*   “UNIX File Types” on Wikipedia
-*   “Understanding UNIX Concepts” by USAIL (UNIX System Administration Independent Learning)
-*   The Filesystem Hierachy Standard
-*   The proc Filesystem by Redhat
-*   A Modular User Mode File System for BSD
-*   “Self-Healing in Modern Operating Systems” by Michael W. Shapiro for a better understanding of Solaris contracts.
+*   一本了不起的书 —— 《The Art of UNIX Programming》，Eric S. Raymond 著。
+*   《The Elements of Operating-System Style》和《Problems in the Design of UNIX》两章对本文有很大帮助。
+*   《10 Things I Hate About (U)NIX》，David Chisnall 著。
+*   「Linux 情报项目」中的挂载定义。
+*   Wikipedia 上的 《UNIX File Types》。
+*   《Understanding UNIX Concepts》，USAIL (UNIX System Administration Independent Learning) 著。
+*   《文件系统层级标准》。
+*   《proc 文件系统》，Redhat 出品。
+*   《BSD 系统下的模块化用户模式文件系统》。
+*   《Self-Healing in Modern Operating Systems》，Michael W 著。帮你更深入地理解 Solaris 协议子系统。
 
 * * *
 
-1.  For more background on the UNIX operating system read this wikipedia entry
-2.  A file descriptor is simply an abstract key for accessing a file. A file descriptor is usually an integer and is associated with an open file.
-3.  For more details see this wikipedia entry
-4.  This concept also eventually made its way back to UNIX in the for ofunionfs
-5.  For example of current activity in this arena, check out unionfs, portalfs andobjfs for instance.
+1.  <span id="note1">想知道更多关于 UNIX 操作系统的背景故事，请阅读维基百科[入口](https://zh.wikipedia.org/wiki/UNIX)（译者注：需科学上网）。</span>
+2.  <span id="note2">文件描述符只是存取一个文件的抽象键，文件描述符通常是整型值并且关联到一个打开的文件。</span>
+3.  <span id="note3">了解详情请查看维基百科（译者注：原文没有地址，自行搜索吧）</span>
+4.  <span id="note4">这个概念最终以 unionfs 的形式在 UNIX 中实现</span>
+5.  <span id="note5">需要这个领域当前活动的一些例子，请查看 unionfs、portalfs 和 objfs 获取实例。</span>
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
