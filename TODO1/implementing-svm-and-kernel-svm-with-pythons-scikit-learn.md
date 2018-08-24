@@ -37,7 +37,7 @@ SVM 通过最大化所有类中的数据点到[决策边界](https://en.wikipedi
 
 #### 导入库
 
-下面的代码导入所有需要的库
+下面的代码导入所有需要的库：
 
 ```
 import pandas as pd
