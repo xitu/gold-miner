@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/databook-turning-big-data-into-knowledge-with-metadata-at-uber.md](https://github.com/xitu/gold-miner/blob/master/TODO1/databook-turning-big-data-into-knowledge-with-metadata-at-uber.md)
 > * 译者：[cf020031308](https://github.com/cf020031308)
-> * 校对者：
+> * 校对者：[yqian1991](https://github.com/yqian1991)
 
 # Databook：通过元数据，Uber 将大数据转化为知识
 
@@ -76,7 +76,7 @@ Databook 引入多个数据源作为输入，存储相关元数据并通过 REST
 
 我们的下一个挑战是确定如何最且成效且最高效地从多种不同数据源采集元数据。我们考虑过多种方案，包括创建一个分布式的容错框架，利用基于事件的数据流来近乎实时地检测和调试问题。
 
-我们先创建了爬虫来定期采集各种数据源和微服务生成的有关数据集的元数据信息，例如表的使用数据统计，它由我们用于解析和分析 SQL 的强大开源工具 [Queryparser](https://eng.uber.com/queryparser/) 生成。 _（顺带一提：Queryparser 也由我们的“数据知识平台”团队创建_）。
+我们先创建了爬虫来定期采集各种数据源和微服务生成的有关数据集的元数据信息，例如表的使用数据统计，它由我们用于解析和分析 SQL 的强大开源工具 [Queryparser](https://eng.uber.com/queryparser/) 生成。**（顺带一提：Queryparser 也由我们的“数据知识平台”团队创建）。**
 
 我们需要以可扩展的方式频繁采集元数据信息，还不能阻塞到其他的爬虫任务。为此，我们将爬虫部署到了不同的机器，这就要求分布式的爬虫之间能进行有效协调。我们考虑配置 [Quartz](http://www.quartz-scheduler.org/) 的集群模式（由 MySQL 支持）来做分布式调度。但是，却又面临两个实现上的障碍：首先，在多台机器上以集群模式运行 Quartz 需要石英钟的定期[同步](http://www.quartz-scheduler.org/documentation/quartz-2.2.x/configuration/ConfigJDBCJobStoreClustering.html)，这增加了外部依赖，其次，在启动调度程序后我们的 MySQL 连接就一直不稳定。最后，我们排除了运行 Quartz 集群的方案。
 
@@ -130,9 +130,9 @@ Databook 后端最初是使用 MySQL，因为它开发速度快，可以通过 U
 
 ### 我们如何展示数据
 
-Databook 提供了两种访问元数据的主要方法：RESTful API 和可视化 UI。 Databook 的 RESTful API 用 [Dropwizard](https://www.dropwizard.io/) （一个用于高性能 RESTful Web 服务的 Java 框架）开发，并部署在多台计算机上，由 Uber 的内部请求转发服务做负载平衡。
+Databook 提供了两种访问元数据的主要方法：RESTful API 和可视化 UI。Databook 的 RESTful API 用 [Dropwizard](https://www.dropwizard.io/)（一个用于高性能 RESTful Web 服务的 Java 框架）开发，并部署在多台计算机上，由 Uber 的内部请求转发服务做负载平衡。
 
-在 Uber，Databook 主要用于其他服务以程序方式访问数据。例如，我们的内部查询解析/重写服务依赖于 Databook 中的表模式信息。 API 可以支持高通量读取，并且可以水平扩展，当前的每秒查询峰值约为 1,500。可视化 UI 由 React.js 和 Redux 以及 D3.js 编写，主要服务于整个公司的工程师、数据科学家、数据分析师和运营团队，用以分流数据质量问题并识别和探索相关数据集。
+在 Uber，Databook 主要用于其他服务以程序方式访问数据。例如，我们的内部查询解析/重写服务依赖于 Databook 中的表模式信息。API 可以支持高通量读取，并且可以水平扩展，当前的每秒查询峰值约为 1,500。可视化 UI 由 React.js 和 Redux 以及 D3.js 编写，主要服务于整个公司的工程师、数据科学家、数据分析师和运营团队，用以分流数据质量问题并识别和探索相关数据集。
 
 ##### 搜索
 
