@@ -25,7 +25,7 @@
 
 [![](https://eng.uber.com/wp-content/uploads/2018/08/image6.png)](http://eng.uber.com/wp-content/uploads/2018/08/image6.png)
 
-图 1。Databook 是 Uber 的内部平台，可以展示和管理数据有关内部位置和所有者的元数据。
+图 1：Databook 是 Uber 的内部平台，可以展示和管理数据有关内部位置和所有者的元数据。
 
 为使数据集的发现和探索更容易，我们创建了 Databook。 Databook 平台管理和展示着 Uber 中丰富的数据集元数据，使我们员工得以探索、发现和有效利用 Uber 的数据。 Databook 确保数据的背景信息 —— 它的意义、质量等 —— 能被成千上万试图分析它的人接触到。简而言之，Databook 的元数据帮助 Uber 的工程师、数据科学家和运营团队将此前只能干看的原始数据转变为可用的知识。
 
@@ -58,7 +58,7 @@ Databook 的架构可以分为三个部分：采集元数据、存储元数据�
 
 [![](https://eng.uber.com/wp-content/uploads/2018/08/image4.png)](http://eng.uber.com/wp-content/uploads/2018/08/image4.png)
 
-图 2。Databook 架构：元数据从 Vertica、Hive 和其他存储系统中获取，存储到后端数据库，通过 RESTful API 输出。
+图 2：Databook 架构：元数据从 Vertica、Hive 和其他存储系统中获取，存储到后端数据库，通过 RESTful API 输出。
 
 Databook 引入多个数据源作为输入，存储相关元数据并通过 RESTful API 输出（Databook 的 UI 会使用这些 API）。
 
@@ -68,7 +68,7 @@ Databook 引入多个数据源作为输入，存储相关元数据并通过 REST
 
 [![](https://eng.uber.com/wp-content/uploads/2018/08/image11.png)](http://eng.uber.com/wp-content/uploads/2018/08/image11.png)
 
-图 3。Databook 由两个不同的应用层组成：数据采集爬虫和请求服务层。
+图 3：Databook 由两个不同的应用层组成：数据采集爬虫和请求服务层。
 
 两层隔离开可减少附带影响。例如，数据采集爬虫作业可能占用较多的系统资源，没隔离就会影响到请求服务层上 API 的 SLA。另外，与 Databook 的请求服务层相比，数据采集层对中断不太敏感，如果数据采集层挂掉，可确保仍有之前的元数据能提供，从而最大限度地减少对用户的影响。
 
@@ -86,7 +86,7 @@ Databook 引入多个数据源作为输入，存储相关元数据并通过 REST
 
 [![](https://eng.uber.com/wp-content/uploads/2018/08/image5.png)](http://eng.uber.com/wp-content/uploads/2018/08/image5.png)
 
-图 4。在 Databook 中，对每个表采集上下游关系/新鲜度元数据。
+图 4：在 Databook 中，对每个表采集上下游关系/新鲜度元数据。
 
 这种架构使我们的系统能够以程序方式触发其他微服务并近乎实时地向数据用户发送信息。但我们仍需使用我们的爬虫执行诸如采集/刷新样本数据的任务，以控制对目标资源的请求频率，而对于在事件发生时不一定需要采集的元数据（比如数据集使用情况统计）则自动触发其他系统。
 
@@ -102,13 +102,13 @@ Databook 引入多个数据源作为输入，存储相关元数据并通过 REST
 
 [![](https://eng.uber.com/wp-content/uploads/2018/08/image3.png)](http://eng.uber.com/wp-content/uploads/2018/08/image3.png)
 
-图 5。Databook 将集群无关的元数据持久化保存到所有表中。
+图 5：Databook 将集群无关的元数据持久化保存到所有表中。
 
 这方案可确保持久化数据保持整洁。例如在图 5 中，如果“列 1”不存在，该集群就会拒绝该请求。但这存在一个重要的问题：在写入时将集群无关的元数据关联到集群相关的元数据，所有集群相关的元数据必须已经存在，这在时间上只有一次机会。例如，当在图 5 中改动表列描述时，还只有集群 1 有此“列 1”，则集群 2 的写入失败。之后，集群 2 中同一个表的模式被更新，但已错失机会，除非我们定期重试写入，否则此描述将永远不可用，这导致系统复杂化。下面图 6 描述了这种情况：
 
 [![](https://eng.uber.com/wp-content/uploads/2018/08/image9.png)](http://eng.uber.com/wp-content/uploads/2018/08/image9.png)
 
-图 6. Databook 将集群无关的元数据持久保存到所有表中。
+图 6：Databook 将集群无关的元数据持久保存到所有表中。
 
 ##### 读时关联
 
@@ -116,7 +116,7 @@ Databook 引入多个数据源作为输入，存储相关元数据并通过 REST
 
 [![](https://eng.uber.com/wp-content/uploads/2018/08/image10.png)](http://eng.uber.com/wp-content/uploads/2018/08/image10.png)
 
-图 7。Databook 在读取时关联集群相关和集群无关的元数据。
+图 7：Databook 在读取时关联集群相关和集群无关的元数据。
 
 ##### 存储选择
 
@@ -140,7 +140,7 @@ Databook 提供了两种访问元数据的主要方法：RESTful API 和可视�
 
 [![](https://eng.uber.com/wp-content/uploads/2018/08/image1.png)](http://eng.uber.com/wp-content/uploads/2018/08/image1.png)
 
-图 8。Databook 允许用户按不同的维度进行搜索，包括名称、所有者和列。
+图 8：Databook 允许用户按不同的维度进行搜索，包括名称、所有者和列。
 
 ### Databook 的新篇章
 
