@@ -7,20 +7,20 @@
 
 # 用 Scikit-Learn 实现 SVM 和 Kernel SVM
 
-[支持向量机](https://en.wikipedia.org/wiki/Support_vector_machine)(SVM) 是一种用于分类问题的有监督机器学习算法。支持向量机提出于 20 世纪 60 年代在 90 年代得到了进一步的发展。然而，由于能取得很好的效果，最近才开始变得特别受欢迎。
+[支持向量机](https://en.wikipedia.org/wiki/Support_vector_machine)(SVM) 是一种监督学习分类算法。支持向量机提出于 20 世纪 60 年代在 90 年代得到了进一步的发展。然而，由于能取得很好的效果，最近才开始变得特别受欢迎。与其他机器学习算法相比，SVM有其独特之处。
 
-本文先简明地介绍支持向量机背后的理论和如何使用 Python 中的 Scikit-Learn 库来实现。然后转向更高阶的 Kernel SVM 同样使用 Scikit-Learn 实现。
+本文先简明地介绍支持向量机背后的理论和如何使用 Python 中的 Scikit-Learn 库来实现。然后我们将学习高级SVM理论如 Kernel SVM，同样会使用Scikit-Learn来实践。
 
 ### 简单  SVM
 
-考虑二维线性可分数据，如图 1，典型的机器学习算法希望找到使得错误最小的分类边界。如果你仔细看图 1 ，会发现能把数据点正确分类的边界不唯一。两条虚线和一条实线都能正确分类所有点。
+考虑二维线性可分数据，如图 1，典型的机器学习算法希望找到使得分类错误最小的分类边界。如果你仔细看图 1 ，会发现能把数据点正确分类的边界不唯一。两条虚线和一条实线都能正确分类所有点。
 ![Multiple Decision Boundaries](https://s3.amazonaws.com/stackabuse/media/implementing-svm-kernel-svm-python-scikit-learn-1.jpg)
 
 _图 1: 多决策边界_
 
-SVM 通过最大化所有类中的数据点到[决策边界](https://en.wikipedia.org/wiki/Decision_boundary)的最小距离的方法来确定边界，这是 SVM 和其他算法的主要区别。一个 SVM 不只是找一个决策边界；它能找到最优决策边界。
+SVM 通过最大化所有类中的数据点到[决策边界](https://en.wikipedia.org/wiki/Decision_boundary)的最小距离的方法来确定边界，这是 SVM 和其他算法的主要区别。 SVM 不只是找一个决策边界；它能找到最优决策边界。
 
-能使所有类到决策边界的最小距离最大的边界是最优决策边界。那些离决策边界最近的点被称作支持向量如图 2。决策边界被称作最大化间隔分类器，或者最大化间隔超平面。
+能使所有类到决策边界的最小距离最大的边界是最优决策边界。如图2所示，那些离决策边界最近的点被称作支持向量。在支持向量机中决策边界被称作最大间隔分类器，或者最大间隔超平面。
 
 ![Decision Boundary with Support Vectors](https://s3.amazonaws.com/stackabuse/media/implementing-svm-kernel-svm-python-scikit-learn-2.jpg)
 
@@ -69,7 +69,7 @@ bankdata = pd.read_csv("D:/Datasets/bill_authentication.csv")
 bankdata.shape
 ```
 
-你将看到输出为（1372, 5）。数据集有 1372 行和 5 列。
+你将看到输出为（1372, 5）。这意味着数据集有 1372 行和 5 列。
 
 为了对数据长什么样有个直观感受，可以执行下面的命令：
 
@@ -85,7 +85,7 @@ bankdata.head()
 
 #### 数据预处理
 
-数据预处理包括（1）把属性和列表标签分开和（2）划分训练数据集和测试数据集。
+数据预处理包括（1）把属性和类表标签分开和（2）划分训练数据集和测试数据集。
 
 把属性和类别标签分开，执行下面的代码：
 
@@ -96,9 +96,9 @@ y = bankdata['Class']
 
 上面代码第一行从 `bankdata` dataframe 中移除了类别标签列  “Class” 并把结果赋值给变量 `X` 。函数 `drop()`  删除指定列。
 
-第二行，只有类别列存储在变量 `y` 里。现在变量 `X` 包含所有的属性变量 `y` 包含对应的类别标签。
+第二行，只将类别列存储在变量 `y` 里。现在变量 `X` 包含所有的属性变量 `y` 包含对应的类别标签。
 
-数据被已经被分成属性和分类标签，最后一步预处理是划分出训练集和测试集。幸运的是 Scikit-Learn 中 `model_selection` 模块提供了函数 `train_test_split` 允许我们优雅地把数据分成训练和测试两部分。
+现在数据集已经将属性和类别标签分开，最后一步预处理是划分出训练集和测试集。幸运的是 Scikit-Learn 中 `model_selection` 模块提供了函数 `train_test_split` 允许我们优雅地把数据分成训练和测试两部分。
 执行下面的代码完成划分:
 
 ```
@@ -128,7 +128,7 @@ y_pred = svclassifier.predict(X_test)
 
 #### 算法评价
 
-混淆矩阵、精度、招呼率和 F1 值是分类任务最常用的评价指标。Scikit-Learn 的 `metrics` 模块中提供了 `classification_report` 和`confusion_matrix` 等方法，这些方法可以快速的计算这些评价指标。
+混淆矩阵、精度、召回率和 F1 是分类任务最常用的一些评价指标。Scikit-Learn 的 `metrics` 模块中提供了 `classification_report` 和`confusion_matrix` 等方法，这些方法可以快速的计算这些评价指标。
 
 下面是计算评价指标的代码:
 
@@ -153,11 +153,11 @@ print(classification_report(y_test,y_pred))
 avg / total        1.00     1.00       1.00       275
 ```
 
-从上面的评价结果中我们可以发现 SVM 比决策树稍微的要好。SVM 只有 1% 的错分类而 决策树有 4% 。
+从上面的评价结果中我们可以发现 SVM 比决策树稍微的要好。SVM 只有 1% 的错分类而决策树有 4% 。
 
 ### Kernel SVM
 
-在上面的章节我们看到了如何使用 简单 SVM 算法在线性可分数据上找到决策边界。然而，当数据不是线性可分的时候如图 3，直线就不能再作为决策边界了。
+在上面的章节我们看到了如何使用简单 SVM 算法在线性可分数据上找到决策边界。然而，当数据不是线性可分的时候如图 3，直线就不能再作为决策边界了。
 
 ![Non-linearly Separable Data](https://s3.amazonaws.com/stackabuse/media/implementing-svm-kernel-svm-python-scikit-learn-3.jpg)
 
@@ -165,11 +165,11 @@ Fig 3: 非线性可分数据
 
 对非线性可分的数据集，简单的 SVM 算法就不再适用。一种改进的 SVM 叫做 Kernel SVM 可以用来解决非线性可分数据的分类问题。
 
-从根本上说，kernel SVM 把在低维空间中线性不可分数据映射成在高维空间中线性可分的数据这样不同类别的数据点就分布在了不同的维度上。同样，这里涉及到复杂的数学，但是如果你只是使用 SVM 完全不同担心。我们可以很简单的使用 Python 的 Scikit-Learn 库来实现 kernel SVM。
+从根本上说，kernel SVM 把在低维空间中线性不可分数据映射成在高维空间中线性可分的数据, 这样不同类别的数据点就分布在了不同的维度上。同样，这里涉及到复杂的数学，但是如果你只是使用 SVM 完全不用担心。我们可以很简单的使用 Python 的 Scikit-Learn 库来实现和使用 kernel SVM。
 
 ### 使用 Scikit-Learn 实现 Kernel SVM
 
-和实现简单的 SVM 一样。在这部分我们使用有名的[ iris 数据] (https://en.wikipedia.org/wiki/Iris_flower_data_set) ，该数据把植物分成不同的类别使用四个属性：sepal-width, sepal-length, petal-width and petal-length.
+和实现简单的 SVM 一样。在这部分我们使用有名的[ 鸢尾花数据集 ] (https://en.wikipedia.org/wiki/Iris_flower_data_set) ，.依照植物下面的四个属性去预测它属于哪个分类：萼片宽度，萼片长度，花瓣宽度和花瓣长度。
 
 数据可以从下面的链接下：
 
@@ -260,7 +260,7 @@ Iris-versicolor       1.00     0.92       0.96        13
     avg / total       0.97     0.97       0.97        30
 ```
 
-现在让我们使用 高斯和 sigmoid 核来重复上面的步骤。
+现在让我们使用高斯和 sigmoid 核来重复上面的步骤。
 
 #### 2. 高斯核
 
@@ -344,7 +344,7 @@ Iris-versicolor       0.00     0.00       0.00        13
 
 对比发现 sigmoid 核是最差的。因为 sigmoid 返回 0 和 1 两个值，sigmoid 核更适合二分类问题。而我们的例子中有三个类别。
 
-高斯核与多项式核有差不多的表现。高斯核预测准确率 100% 多项式核也只有 1% 的误差。高斯核表现稍好。然而没有准确的规则来评价哪种核函数在任何场景下都更好。只能通过在测试集上的测试结果来选择哪一个核在你的数据集上表现更好。
+高斯核与多项式核有差不多的表现。高斯核预测准确率 100% 多项式核也只有 1% 的误差。高斯核表现稍好。然而没有硬性的规则来评价哪种核函数在任何场景下都更好。只能通过在测试集上的测试结果来选择哪一个核在你的数据集上表现更好。
 
 ### 资源
 
@@ -358,7 +358,7 @@ Want to learn more about Scikit-Learn and other useful machine learning algorith
 
 本文我们学习了基本的 SVM 和 kernel SVMs 。还了解了SVM 算法背后的直觉以及如何使用 Python 库 Scikit-Learn 来实现。我们也学习了使用不同类型的核来实现 SVM 。我猜你已经想把这些算法应用到真实的数据上了比如[kaggle.com](https://www.kaggle.com)
 
-最后我还是建议你去详细了解下 SVM 背后的数学。虽然如果只使用 SVM 算法并不需要了解那些数学，但要理解算法是如何找到决策边界的会数学会很有帮助。
+最后我还是建议你去详细了解下 SVM 背后的数学。虽然如果只使用 SVM 算法并不需要了解那些数学，但要理解算法是如何找到决策边界的数学会很有帮助。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
