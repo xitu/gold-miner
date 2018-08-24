@@ -9,7 +9,7 @@
 
 ![](https://i.loli.net/2018/08/16/5b751c9f4474b.png)
 
-从司机与骑手的位置和目的地，到餐馆的订单和支付交易，Uber 的运输平台上的每次互动都是由数据驱动的。数据赋能了 Uber 的全球市场，使我们面向全球车手、司机和食客的产品得以具备更可靠、更无缝的用户体验，并使我们自己的员工能够更有效地完成工作。
+从司机与乘客的位置和目的地，到餐馆的订单和支付交易，Uber 的运输平台上的每次互动都是由数据驱动的。数据赋能了 Uber 的全球市场，使我们面向全球乘客、司机和食客的产品得以具备更可靠、更无缝的用户体验，并使我们自己的员工能够更有效地完成工作。
 
 凭借系统的复杂性和数据的广泛性，Uber 将数据驱动提升到了一个新的水平：每天处理万亿级的 Kafka 消息，横跨多个数据中心的 [HDFS](https://eng.uber.com/scaling-hdfs/) 中存储着数百 PB 的数据，并支持每周上百万的分析查询。
 
@@ -17,7 +17,7 @@
 
 ### 业务（和数据）的指数增长
 
-自 2016 年以来，Uber 的平台上已增加了多项新业务，包括 [Uber Eats](https://www.ubereats.com/)、[Uber Freight](https://freight.uber.com/)，以及 [Jump Bikes](https://jumpbikes.com/)。如今，我们每天至少完成 1500 万次行程，每月活跃有超过 7500 万骑手。在过去的八年中，Uber 已从一家小型创业公司发展到在全球拥有 18,000 名员工。
+自 2016 年以来，Uber 的平台上已增加了多项新业务，包括 [Uber Eats](https://www.ubereats.com/)、[Uber Freight](https://freight.uber.com/)，以及 [Jump Bikes](https://jumpbikes.com/)。如今，我们每天至少完成 1500 万次行程，每月活跃有超过 7500 万乘客。在过去的八年中，Uber 已从一家小型创业公司发展到在全球拥有 18,000 名员工。
 
 随着这种增长，数据系统和工程架构的复杂性也增加了。例如有数万张表分散在多个在役的分析引擎中，包括 [Hive](https://hive.apache.org/)、[Presto](https://eng.uber.com/presto/) 和 [Vertica](https://www.vertica.com/)。这种分散导致我们急需了解信息的全貌，特别是我们还在不断添加新业务和新员工。 2015 年的时候，Uber 开始手动维护一些静态 HTML 文件来对表进行索引。
 
@@ -31,10 +31,10 @@
 
 通过 Databook，我们摒弃了手动更新，转为使用一种先进的自动化元数据库来采集各种经常刷新的元数据。Databook 具有以下特性：
 
-*   **拓展性：**易于添加新的元数据、存储和记录。
-*   **访问性：**所有元数据可被服务以程序方式获取。
-*   **扩展性：**支持高通量读取。
-*   **功能性：**跨数据中心读写。
+*   **拓展性：** 易于添加新的元数据、存储和记录。
+*   **访问性：** 所有元数据可被服务以程序方式获取。
+*   **扩展性：** 支持高通量读取。
+*   **功能性：** 跨数据中心读写。
 
 Databook 提供了各种各样的元数据，这些元数据来自 Hive、Vertica、[MySQL](https://eng.uber.com/mysql-migration/)、[Postgres](https://www.postgresql.org/)、[Cassandra](http://cassandra.apache.org/) 和其他几个内部存储系统，包括：
 
@@ -140,7 +140,7 @@ Databook 提供了两种访问元数据的主要方法：RESTful API 和可视�
 
 [![](https://eng.uber.com/wp-content/uploads/2018/08/image1.png)](http://eng.uber.com/wp-content/uploads/2018/08/image1.png)
 
-图 8.Databook 允许用户按不同的维度进行搜索，包括名称、所有者和列。
+图 8。Databook 允许用户按不同的维度进行搜索，包括名称、所有者和列。
 
 ### Databook 的新篇章
 
