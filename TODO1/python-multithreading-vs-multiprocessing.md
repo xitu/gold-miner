@@ -5,7 +5,7 @@
 > * 译者：[lsvih](https://github.com/lsvih)
 > * 校对者：
 
-# Python 的线程与进程
+# Python 的多线程与多进程
 
 ## 初学者的并行编程指南
 
