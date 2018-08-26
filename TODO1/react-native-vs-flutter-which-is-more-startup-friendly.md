@@ -9,23 +9,23 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*Qnt_ctP0ZrlL959Dj3HZAw.jpeg)
 
-Due to a huge demand for mobile apps, a large number of businesses and start-ups have shifted their core app development concerns to mobile app development.
+由于对移动应用的大量需求，很多公司已经把他们应用开发的重心转移到移动应用上了。
 
-There is a constant inflow of niche technology, platforms, and frameworks when it comes to developing a mobile application for new businesses. This allows mobile developers to create revolutionary mobile applications.
+开发新的移动应用，是一个不断有新技术、平台和框架流入的领域。这使得移动开发者可以创建革命性的移动应用。
 
-Nowadays, cross-platform app development is getting more popularity among start-ups. With which developers can design an e-commerce app, various interactive apps, and social apps.
+现在，跨平台应用开发正在创业公司中变得越来越流行。开发者可以用它来设计电子商务应用、各种互动应用和社交应用。
 
-Therefore, the two mobile app development frameworks react native vs flutter is creating the buzz and fighting to prove itself to be the host of the cross-platform mobile app development.
+因此，有两个移动应用开发框架，react native 和 flutter，引起了广泛的讨论，并且互相竞争，试图证明自己是跨平台移动应用的最合适的宿主。
 
-React native was introduced by Facebook and in very less it got a huge popularity and give many benefits to companies. However, Google’s flutter is new to mobile app development but it creates beautiful native applications and helps developers to develop cross-platform apps with an ease.
+React native 是被 Facebook 开发的，并且很快获得了大众的欢迎，使得公司从中获益。Google 的 flutter 是移动应用开发的新技术，但它能够创建美丽的原生应用，并且帮助开发者轻松创建跨平台应用。
 
-In this blog, we have compared the two mobile app development frameworks(react native vs flutter) on the basis of various parameters as listed below.
+在这个博客中，我们基于下述的各种参数，比较了两个移动应用开发框架（react native 和 flutter）。
 
-This would help startups choosing the best one for their mobile app development project at an ease. You can also [**hire developers**](https://www.valuecoders.com/hire-developers?utm_source=hiredev_reactflutter_medium&utm_medium=mantra) from top mobile app development companies to excel your development work.
+这将有助于创业公司轻松选择最适合他们开发移动应用的框架。你也可以从顶级的移动应用开发公司 [**招聘开发者**](https://www.valuecoders.com/hire-developers?utm_source=hiredev_reactflutter_medium&utm_medium=mantra)来使你的开发工作更加出色。
 
-**The list of various parameters on which the comparison has been done is given below:**
+**比较所基于的参数如下：**
 
-1.  **User Interface**
+1.  **用户界面**
 
 ![](https://cdn-images-1.medium.com/max/800/1*geJ1v8mM6-GTA6PDvdFKbw.jpeg)
 
