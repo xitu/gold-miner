@@ -574,11 +574,11 @@ pattern.map(tpl);
 // ￩ Effect([Function])
 ```
 
-对照一下类型可能会使得事情更加清晰一点。map 的类型签名可能长这样：
+对照一下类型可能会使得事情更加清晰一点。map 的函数声明可能长这样：
 
     _map :: Effect a ~> (a -> b) -> Effect b_
 
-模板函数是这样的签名：
+这是模板函数的函数声明：
 
     _tpl :: String -> Object -> String_
 
