@@ -29,21 +29,21 @@ React native 是被 Facebook 开发的，并且很快获得了大众的欢迎，
 
 ![](https://cdn-images-1.medium.com/max/800/1*geJ1v8mM6-GTA6PDvdFKbw.jpeg)
 
-When it comes to creating blocks for the user interface, there is a big gap between React Native and Flutter. Reactive Native is based on native components. However, the case with Flutter is completely different. It works exceptionally good with proprietary widget sets. In-fact, the case of owner widgets is quite exciting and help you obtain fully customized UI designs with good interoperability with additional native support.
+在用户界面中创建块，在 React Native 和 Flutter 中有很大的不同。Reactive Native 是基于 native 组件的。但是，Flutter 的情况是完全不同的。它非常适用于私有的控件。实际上，用户私有的控件非常令人激动，它能给你完全自定义的 UI 设计，以及与原生环境的良好的合作。
 
-Unfortunately, there are some drawbacks too. Let’s the example of Cupertino library which lacks the iOS style way components. And this is a big problem among the mobile [**app developers**](https://www.valuecoders.com/hire-developers?utm_source=home_reactflutter_medium&utm_medium=mantra). In the war of react native vs flutter, the user experience is much better with react native.
+不幸的是，这也有一些缺点。举例来说，Cupertino 库缺少 iOS 风格的控件。这对于[**移动应用开发者**](https://www.valuecoders.com/hire-developers?utm_source=home_reactflutter_medium&utm_medium=mantra)来说，是一个很大的问题。在 react native 对 flutter 的战争中，react native 的用户体验要好很多。
 
-**Winner (In comparison of react native vs flutter):** React Native
+**胜者 (react native 与 flutter 的比较):** React Native
 
-**2) Development Time**
+**2) 开发时间**
 
 ![](https://cdn-images-1.medium.com/max/800/1*Jv0iakVUFYTAhDpBQeMbXA.png)
 
-The bunch of mobile app development companies that have emerged these days have demonstrated their excellence in the timely delivery of projects and React Native has remained one of the best partners for all these companies. This framework reduces the timeframe for mobile app development, adds more to the user interface and takes less time to develop projects.
+最近出现的移动应用开发公司擅长按时交付项目，而 React Native 一直是这些公司最好的伙伴之一。这个框架缩短了移动应用开发的时间表，为用户界面添加了内容并减少了开发项目所需的时间。
 
-In the comparison of react native vs flutter, Flutter is new and requires considerable time to develop projects and if we talk about this framework in this particular aspect. React Native has ready-to-use components that help accelerate the landscape of mobile application development without creating much problems for app developers. Flutter also promises high-quality usability, but the framework for application development needs to get more recognition over react native.
+在 react native 与 flutter 的比较中，Flutter 是新的，并且需要大量的时间开发项目。React Native 具有完整可用的组件，它帮助开发者加速移动应用开发，而不会给开发者带来太多额外的问题。Flutter 也承诺具有很高的可用性，但这个开发框架还需要获得比 react native 更好的声誉。
 
-**Winner(react native vs flutter):** React Native
+**胜者（react native 对 flutter）:** React Native
 
 **You may like: [How To Make A Budget-Friendly Mobile App?](https://www.valuecoders.com/blog/technology-and-apps/make-budget-friendly-mobile-app/?utm_source=blog_reactflutter_medium&utm_medium=mantra)**
 
