@@ -2,8 +2,8 @@
 > - 原文作者：[James Sinclair](https://jrsinclair.com/articles/2018/how-to-deal-with-dirty-side-effects-in-your-pure-functional-javascript/)
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-deal-with-dirty-side-effects-in-your-pure-functional-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-deal-with-dirty-side-effects-in-your-pure-functional-javascript.md)
-> - 译者：
-> - 校对者：
+> - 译者：[Gavin-Gong](https://github.com/Gavin-Gong)
+> - 校对者：[huangyuanzhen](https://github.com/huangyuanzhen), [AceLeeWinnie](https://github.com/AceLeeWinnie)
 
 # 如何使用纯函数式 JavaScript 处理脏副作用
 
