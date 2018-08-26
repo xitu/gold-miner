@@ -2,8 +2,8 @@
 > * 原文作者：[AppDynamics](https://www.javacodegeeks.com/author/appdynamics)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/optimize-enterprise-scale-node-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/optimize-enterprise-scale-node-js.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[geniusq1981](https://github.com/geniusq1981)
 
 # 如何优化企业级规模的 Node.js 应用程序
 
@@ -27,44 +27,44 @@ Node.js 日益成为应用程序开发的首选技术，对 Node.js 的专业开
 
 具体来说，eBook 为以下每一个关键点都提供了提示、技巧以及最佳实践：
 
-## 1. 为生产做准备：
+## 1. 为产品发布做准备：
 
 在任何应用程序开发过程中，准备发布总是一个关键点，Node.js 项目也是如此。在问题影响你的部署过程、最终用户或业务本身之前，这是你的团队找到并修复问题的最后机会。
 
-EBook 向用户介绍了发布前的过程，并强调了一下内容：
+EBook 向用户介绍了发布前的过程，并重点强调了以下方面的内容：
 
 *   优化你的代码
-*   Error 处理的最佳实践
+*   异常处理的最佳实践
 *   确保你的代码符合安全要求
 *   配置生产环境
 *   部署的注意事项
 
 当涉及到代码优化时，[eBook 中详细描述预生产前的最佳实践](https://www.appdynamics.com/lp/advanced-nodejs-guide/?utm_source=javacodegeeks&utm_medium=sponsorship%20content%20syndication&utm_campaign=jcg%20sponsored%20post&utm_content=how%20to%20optimize%20enterprise-scale%20node.js%20applications&utm_term=jcg%20sponsored%20post%20sponsorship&utm_budget=digital)中有一个名为 “linting.” 的过程。这需要通过代码库运行一个自动化的代码质量工具 —— 比如 ESLint 或者 JShint。它通常只涉及非常基础的质量问题，但重点是：在将应用程序置于危险情况之前，它可以捕捉到可避免的 —— 而且非常容易修复的 error。
 
-## 2.部署 Node.js 的前 24 小时
+## 2.部署 Node.js 后的首个 24 小时
 
 在介绍完有效预生产前的工作流的基本原理后，我们接下来将看到在部署后的最初 24 小时内所期望的是什么，以及如何做出响应。
 
 部署企业级应用程序可能令人痛苦。毕竟，[XebiaLabs 的应用程序发布自动化调查趋势](https://www.wired.com/insights/2013/04/why-30-of-app-deployments-fail/)显示，接近 30% 的应用程序部署失败。同时，[自动化运维、持续交付以及应用程序自动化发布调查趋势](https://techbeacon.com/survey-paints-discouraging-scenario-enterprise-it-software-delivery-development)显示，77% 的组织存在然间生产发布的问题。显然，任何负责部署应用程序的人都应该为出错做好准备 —— 可能是经常性或偶尔发生的错误。
 
-虽然健壮的预生产过程可以帮组最小化 bug、配置失败和其他可避免问题的影响，但专业 Node.js 开发者应该了解如何解决常见的“第一天”部署问题 —— 尤其是那些导致奔溃或高影响的问题。
+虽然健壮的预生产过程可以帮助最小化 bug、配置失败和其他可避免问题的影响，但专业 Node.js 开发者应该了解如何定位常见的“第一天”部署问题 —— 尤其是那些导致奔溃或高影响的问题。
 
 在最初的 24 小时内可能会出现的典型问题包括：
 
-*   Node.js 进程奔溃
-*   超过 API 的利用率
-*   WebSocket 问题的疑难解答
+*   Node.js 进程崩溃
+*   超出 API 的调用频率限制
+*   解决 WebSocket 问题
 *   依赖问题
 *   文件上传问题
 *   DDoS 攻击
 
-这些第一天的好消息中有一个惊喜（会有惊喜），就是你会学到更多关于构建更好 Node.js 应用程序，以及如何通过产生最少的部署问题来部署应用程序。尽管以后还会发生问题，但真正严重的问题会越来越少。
+除了第一天会出现的这些问题（也会有惊喜）之外还有好消息，就是你会学到更多关于构建更好 Node.js 应用程序，以及如何通过产生最少的部署问题来部署应用程序。尽管以后还会发生问题，但真正严重的问题会越来越少。
 
 更好的消息是，一旦你有效地解决了第一天的问题，你以后就会处理一个更稳定和更可靠的应用程序。这反过来让你可以专注于如何提高应用程序的性能，以及如何升级自己的构建、测试和部署 Node.js 应用程序的流程。
 
 ## 3. 持续管理
 
-已经成功部署后，[eBook](https://www.appdynamics.com/lp/advanced-nodejs-guide/?utm_source=javacodegeeks&utm_medium=sponsorship%20content%20syndication&utm_campaign=jcg%20sponsored%20post&utm_content=how%20to%20optimize%20enterprise-scale%20node.js%20applications&utm_term=jcg%20sponsored%20post%20sponsorship&utm_budget=digital) 的最后一章将查看 Node.js 应用程序正在进行的管理。尽管这与任何其他应用程序的发布过程没有什么不同，但你还是应该注意以下一些细节：
+已经成功部署后，[eBook](https://www.appdynamics.com/lp/advanced-nodejs-guide/?utm_source=javacodegeeks&utm_medium=sponsorship%20content%20syndication&utm_campaign=jcg%20sponsored%20post&utm_content=how%20to%20optimize%20enterprise-scale%20node.js%20applications&utm_term=jcg%20sponsored%20post%20sponsorship&utm_budget=digital) 的最后一章关注 Node.js 应用程序的持续管理。尽管这与任何其他应用程序的发布过程没有什么不同，但你还是应该注意以下一些细节：
 
 *   内存泄露
 *   管理 Node.js 的并发性
