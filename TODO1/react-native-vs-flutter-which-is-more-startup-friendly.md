@@ -45,7 +45,7 @@ React native 是被 Facebook 开发的，并且很快获得了大众的欢迎，
 
 **胜者（react native 对 flutter）:** React Native
 
-**You may like: [How To Make A Budget-Friendly Mobile App?](https://www.valuecoders.com/blog/technology-and-apps/make-budget-friendly-mobile-app/?utm_source=blog_reactflutter_medium&utm_medium=mantra)**
+**你可能会喜欢: [如何做出一个省钱的移动应用？](https://www.valuecoders.com/blog/technology-and-apps/make-budget-friendly-mobile-app/?utm_source=blog_reactflutter_medium&utm_medium=mantra)**
 
 **3) 性能**
 
@@ -57,33 +57,33 @@ React native 是被 Facebook 开发的，并且很快获得了大众的欢迎，
 
 React Native 在 hybrid 应用中的使用使得开发者在运行架构、native 组件和库方面难以不遇到问题。在另一方面，Flutter使开发者很容易复用现有的代码。它的 C++ 引擎支持这种语言，这会给你额外的奖励。
 
-**Winner(react native vs flutter):** Flutter
+**胜者(react native 对 flutter):** Flutter
 
-**Also Read:** [**Top Mobile App Development Companies in India For Startups and SMEs | 2018**](https://hackernoon.com/top-mobile-app-development-companies-in-india-for-startups-and-smes-2018-4059ed17a0ca)
+**扩展阅读:** [**适合创业公司和中小型公司的印度移动应用开发公司 | 2018**](https://hackernoon.com/top-mobile-app-development-companies-in-india-for-startups-and-smes-2018-4059ed17a0ca)
 
-**4) Stability**
+**4) 稳定性**
 
 ![](https://cdn-images-1.medium.com/max/800/1*sO7kdtL_RaVhGTCHf881FA.png)
 
-When it comes to comparison of react native vs flutter, stability is one of the most important aspects for [**mobile app development companie**](https://www.valuecoders.com/mobile-application-development?utm_source=home_reactflutter_medium&utm_medium=mantra)**s**. And the competition seems difficult here. Flutter lacked a bit of competition since it only had the Alpha version. The version is not suitable for large projects.
+说到 react native 和 flutter 的比较，稳定性是对 [**移动应用开发公司**](https://www.valuecoders.com/mobile-application-development?utm_source=home_reactflutter_medium&utm_medium=mantra) 而言最重要的方面之一。竞争看起来有些难，因为 Flutter 只有 alpha 版本，不太有竞争力。这个版本不适合大型项目。
 
-However, in the last year, Google announced Flutter beta 2, which offers impressive beta tools for developers. React Native enjoys the support of a large community and is quite stable since its launch. As Flutter is still making its place in the industry, React Native seems to be the winner of this section in the war of react native vs flutter.
+但是，在去年，Google 发布了 Flutter beta 2，它给开发者提供了出色的 beta 工具。React Native 有来自一个大社区的支持，并从发布以来一直很稳定。由于 Flutter 仍然在业界中试图占据一席之地，React Native 似乎是 react native 和 flutter 的战争中这个方面的赢家。
 
-**Winner(react native vs flutter):** React Native
+**胜者(react native 对 flutter):** React Native
 
-**Related: [Native App vs Hybrid App Development: What To Pick?](https://www.valuecoders.com/blog/technology-and-apps/native-app-vs-hybrid-app/?utm_source=blog_reactflutter_medium&utm_medium=mantra)**
+**相关材料: [Native 应用对 Hybrid 应用开发: 选择什么?](https://www.valuecoders.com/blog/technology-and-apps/native-app-vs-hybrid-app/?utm_source=blog_reactflutter_medium&utm_medium=mantra)**
 
-**5) Clientele**
+**5) 客户**
 
 ![](https://cdn-images-1.medium.com/max/800/1*dyDl69cH8Vr-8X0U2PZMkA.jpeg)
 
-The popularity of React Native does not need to mention for businesses these days. It was and still is one of the most promising mobile app development frameworks for developers of all ages. It has all the necessary components important to carry out the project of any size. Speaking particularly about the number of clients of this popular framework, it has some important names, such as Skype, Facebook, Tesla, Airbnb, Instagram, Walmart and many more.
+React Native ，目前在业界的流行程度是不用说的。对于各种年龄的开发者而言，它一直是最有前途的移动应用开发框架之一。他对于开发所有规模的项目而言都有合适的组件。在这个框架的客户中，有一些重要的名字，如 Skype、Facebook、Tesla、Airbnb、Instagram、Walmart 等等。
 
-Since Flutter was launched a few years ago, it is still trying to make its presence felt in the industry. As a framework is still making its base, it will take some time to gather the momentum. Currently, only one Hamilton application is what you have in store to show. However, as time progresses, you will surely add important brands to your list.
+因为 Flutter 是在几年前被发布的，它仍在试图在业界创造一些存在感。作为一个仍在奠基阶段的框架，它还需要一段时间来扩大发展势头。目前，你在应用商店只能看到一个 ”Hamilton“ 应用。但是，随着时间的流逝，你将肯定会发现更多的著名品牌。
 
-**Winner(react native vs flutter):** React Native
+**胜者(react native 对 flutter):** React Native
 
-**6) Documentation & Toolkit**
+**6) 文档 & 工具箱**
 
 ![](https://cdn-images-1.medium.com/max/800/1*B18aQH_4ZDsIoudtJ2gv1g.png)
 
