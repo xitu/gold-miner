@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/naive-bayes-classifier-sklearn-python-example-tips.md](https://github.com/xitu/gold-miner/blob/master/TODO1/naive-bayes-classifier-sklearn-python-example-tips.md)
 > - 译者：[sisibeloved](https://github.com/sisibeloved)
-> - 校对者：
+> - 校对者：[rockyzhengwu](https://github.com/rockyzhengwu)
 
 # Sklearn 中的朴素贝叶斯分类器
 
@@ -31,7 +31,7 @@
 
 朴素贝叶斯分类器利用条件概率来聚集信息，并假设特征之间相对独立。这是什么意思呢？举个例子，这意味着我们必须假定泰坦尼克号的房间舒适度与票价无关。显然这个假设是错误的，这就是为什么我们将这个假设称为**朴素**（Naive）的原因。朴素假设使得计算得以简化，即使在非常大的数据集上也是如此。让我们来一探究竟。
 
-朴素贝叶斯分类器的原理是寻找能够描述给定特征的概率的函数，写作 **P(Survival | f1,…, fn)**。我们使用[贝叶斯定理](https://en.wikipedia.org/wiki/Bayes%27_theorem)来简化计算：
+朴素贝叶斯分类器本质上是寻找能描述给定特征条件下属于某个类别的概率的函数，这个函数写作 **P(Survival | f1,…, fn)**。我们使用[贝叶斯定理](https://en.wikipedia.org/wiki/Bayes%27_theorem)来简化计算：
 
 ![](https://cdn-images-1.medium.com/max/800/1*UWkbRkbDVnd8ZOlEspuXOQ.png)
 
@@ -238,8 +238,8 @@ Mean Fare survived: 54.75
 
 **缺点：**
 
-- 需要**移除关联特征**，因为它们会在模型中被计算两次，这将导致该特征的重要性被高估。
-- 如果在训练数据集中，某个分类变量出现了测试数据集中没有被观察到的类别，那么模型会把这种情况设为**零概率**。它将无法做出预测。这通常被称为『**零位频率**』。我们可以使用平滑技术来解决这个问题。最简单的平滑技术之一称为[拉普拉斯平滑](<(https://stats.stackexchange.com/questions/108797/in-naive-bayes-why-bother-with-laplacian-smoothing-when-we-have-unknown-words-i)>)。当你训练一个朴素贝叶斯分类器时，**Sklearn** 会默认使用拉普拉斯平滑算法。
+- 需要**移除相关特征**，因为它们会在模型中被计算两次，这将导致该特征的重要性被高估。
+- 如果测试集中，某分类变量的一个类别没有在训练集中出现过，那么模型会把这种情况设为**零概率**。它将无法做出预测。这通常被称为『**零位频率**』。我们可以使用平滑技术来解决这个问题。最简单的平滑技术之一称为[拉普拉斯平滑](<(https://stats.stackexchange.com/questions/108797/in-naive-bayes-why-bother-with-laplacian-smoothing-when-we-have-unknown-words-i)>)。当你训练一个朴素贝叶斯分类器时，**Sklearn** 会默认使用拉普拉斯平滑算法。
 
 ## 结语
 
