@@ -5,7 +5,7 @@
 > * 译者： [LoneyIsError](https://github.com/LoneyIsError)
 > * 校对者：
 
-# 在iOS中使用 UITests 测试 Facebook 登录功能
+# 在 iOS 中使用 UITests 测试 Facebook 登录功能
 
 ![](https://cdn-images-1.medium.com/max/800/0*Opf2sAlTPclE_4kE.jpg)
 
