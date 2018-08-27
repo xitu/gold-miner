@@ -2,7 +2,7 @@
 > * 原文作者：[Mantra Malhotra](https://hackernoon.com/@valuecoders.vc?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-native-vs-flutter-which-is-more-startup-friendly.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-native-vs-flutter-which-is-more-startup-friendly.md)
-> * 译者：
+> * 译者：[tanglie1993](https://github.com/tanglie1993)
 > * 校对者：
 
 # React Native vs Flutter: Which Is More Startup friendly?
