@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/layouts-of-tomorrow.md](https://github.com/xitu/gold-miner/blob/master/TODO1/layouts-of-tomorrow.md)
 > * 译者：[MeFelixWang](https://github.com/MeFelixWang)
-> * 校对者：
+> * 校对者：[IridescentMia](https://github.com/IridescentMia)
 
 # 明日之布局
 
-如果在过去你几年中参加任一网页设计演讲，你可能已经看过 Jon Gold 这篇著名的推文：
+如果在过去几年中你参加过任一网页设计演讲，你可能已经看过 Jon Gold 这篇著名的推文：
 
 ![](https://i.loli.net/2018/08/18/5b77acde227f4.png)
 
-它讽刺了今天很多网站看起来都一样的事实，因为它们都遵循我们共同决定使用的相同标准布局实践。建立博客？主栏，组件侧边栏。营销网站？大图，三个博眼球的框（**一定**是三个）。
+它讽刺了今天很多网站看起来都一样的事实，因为它们都遵循我们共同决定使用的相同标准布局实践。建立博客？主栏，工具侧边栏。营销网站？大图，三个博眼球的框（**一定**是三个）。
 
 当我们回顾早期的网页时，我认为今天的网页设计有更大的创造力。
 
@@ -65,7 +65,7 @@
 
 👉 **由于这仅用于演示目的，因此我没有为旧版浏览器降级、打补丁。我的目标是在这里测试现代 CSS 的功能，因此并非所有功能都具有跨浏览器支持（如下所示）。我发现它在最新版本的 Firefox 或 Chrome 中效果最佳。**
 
-让这个有趣的一些事情：
+实现过程中一些有趣的东西：
 
 ### 布局
 
@@ -102,7 +102,7 @@
 
 虽然这种效果通常是通过 Javascript 绑定滚动事件然后应用不同的 transform 样式来实现的，但还有更好的方法：完全用 CSS。
 
-这里的秘诀是利用 CSS 3D 变换将图层沿 z 轴分开。Scott Kellum 和 Keith Clark 的这项技术实际上是通过在滚动容器上使用 perspective 和在视差子元素上使用 translateZ 来实现的：
+这里的秘诀是利用 CSS 3D 变换将图层沿 z 轴分开。Scott Kellum 和 Keith Clark 的[这项技术](https://developers.google.com/web/updates/2016/12/performant-parallaxing)实际上是通过在滚动容器上使用 perspective 和在视差子元素上使用 translateZ 来实现的：
 
 ```
 .parallax-container {
