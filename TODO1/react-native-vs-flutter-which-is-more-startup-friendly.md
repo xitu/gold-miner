@@ -99,19 +99,9 @@ React Native ，目前在业界的流行程度是不用说的。对于各种年�
 
 所以，我们已经看到了两个[**移动应用开发框架**](https://www.valuecoders.com/mobile-application-development?utm_source=home_reactflutter_medium&utm_medium=mantra) 是否适用于创业公司的一个详细的比较。如上所述，他们在稳定性、性能、文档等方面都各有优缺点。
 
-However, it is difficult to decide which one is the winner as they have their own pros and cons. In my opinion, Flutter being new framework would take time to get stable and would travel miles to compete successfully with already popular mobile app development framework i.e. React Native. Hence, React Native is a good choice to start with and can be declared as the winner right now.
+然而，很难确定其中哪一个是胜者，因为它们各自都有优缺点。按我的观点，Flutter 是新框架，它需要一些时间稳定下来，并且和已经很流行的移动应用开发框架（如 React native）相比还有一段路要走。因此，React native 是一个好的选择。在目前可以被视为胜者。
 
-No doubt, Flutter can also be a good choice as it creates beautiful mobile apps and can help start-ups to earn well in less time. Moreover, it has an impressive future too. So if you are planning to develop amazing mobile apps then [**hire expert mobile app developers**](https://www.valuecoders.com/hire-developers/hire-mobile-app-developers?utm_source=hiremobile_reactflutter_medium&utm_medium=mantra) from a reliable & top mobile app development compan**y** like ValueCoders.
-
-At Valuecoders( [**a leading software development company in India**](https://www.valuecoders.com?utm_source=home_reactflutter_medium&utm_medium=mantra)), we provide agile software teams for all kinds of mobile app development projects. Few of the benefits to partner with us are:
-
-- Flexible Hiring Models
-
-- On-time delivery and NDAs
-
-- Zero billing guarantee
-
-- Guaranteed SLAs
+无疑，Flutter 也可作为一个好的选择，因为它可以创建漂亮的移动应用，并能帮助创业公司在更少的时间中获取收入。而且，它有一个好的未来。如果你计划开发出色的移动应用，从像 ValueCoders 那样顶尖、可靠的移动应用开发公司[**雇用专业的应用开发者**](https://www.valuecoders.com/hire-developers/hire-mobile-app-developers?utm_source=hiremobile_reactflutter_medium&utm_medium=mantra)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
