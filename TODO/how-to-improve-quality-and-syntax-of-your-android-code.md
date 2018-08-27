@@ -3,7 +3,8 @@
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [尹述迪](http://yinshudi.com/)
 * 校对者: [laobie](https://github.com/laobie)
-* 状态 :  完成
+
+# 如何提高安卓代码的质量和语法
 
 在这篇文章中，我会介绍几种不同的方式，让你通过自动化工具提高你的Android代码质量，包括 [Checkstyle](http://checkstyle.sourceforge.net/)， [Findbugs](http://findbugs.sourceforge.net/)， [PMD](http://pmd.sourceforge.net/)， 当然，还有我们最熟悉的[Android Lint](http://tools.android.com/tips/lint)。 为了让你的代码保持缜密的语法，同时避免一些糟糕的实现和错误，使用自动化的方式测试你的代码十分有用，尤其是当你和队友一起工作时。我会细心地解释如何直接通过你的Gradle构建脚本使用这些工具，和怎么方便地配置它们。
 

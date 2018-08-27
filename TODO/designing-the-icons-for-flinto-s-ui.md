@@ -1,86 +1,85 @@
 > * 原文链接: [Designing the Icons for Flinto’s UI](https://medium.com/flinto-software/designing-the-icons-for-flinto-s-ui-ddd9e5788cce#.yr5asvf9c)
 * 原文作者 : [Peter Nowell](https://medium.com/@pnowelldesign)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者 : 
+* 译者 : [edvardhua](https://github.com/edvardHua)
+* 校对者 : [Ruixi](https://github.com/Ruixi), [CoderBOBO](https://github.com/CoderBOBO)
 
+# 我是如何为 Mac 应用 Flinto 设计 UI 图标的
 
+[Flinto 团队](https://www.flinto.com/mac) 最近采访了我关于Flinto用户界面图标背后的设计流程。
 
-_The_ [_Flinto_](https://www.flinto.com/mac) _team recently interviewed me about the design process behind producing all of the icons for Flinto’s user interface:_
+#### 你是怎么为Mac版本的Flinto贡献自己的设计？
 
-#### How did you contribute to Flinto for Mac?
+我参与了[Flinto](https://www.flinto.com/mac)新的Mac版本的用户界面部分和用户体验部分的设计，就在他发布之前的几个月。但是因为Flinto是一个特殊的工具，我们越是深入思考每一部分的用户体验，我们越感觉到Flinto需要大量的定制icons。譬如说Flinto应用的列表（List），工具栏（Toolbar），动画的设计面板（Transition Designer），下拉手势（Gestures dropdown）都需要他们独自的一套图标。所以，如何快速的设计图标变成了我的主要工作。
 
-I worked with Flinto in the months leading up to the release of their new [powerful Mac app](https://www.flinto.com/mac), and contributed to various parts of the user interface and experience. But because Flinto is a very specialized tool, the more we thought through each part of the user experience the more we realized that _the app was going to require a ton of custom icons_. Nearly every part of the interface, from the Layers List, to the Toolbar, to the Transition Designer, to the Gestures dropdown was going to require its own set of icons. So that quickly became my main job!
+#### 当设计大型应用的图标和菜单的时候，你采用什么样的设计策略？
 
-#### What is your strategy when designing elements like icons or menus inside of a bigger app?
-
-Design is always driven by context. Surprisingly, I found that designing for a professional Mac app was one of the most complex contexts to work within. Even just for the icons! Toolbar icons have to be a certain size, and look a certain way. That is different from the appearance of sidebar icons, which is different from those you’d find in a dropdown menu. Some icons re-appear in multiple places, at multiple sizes, and in multiple styles. Establishing consistency across all parts of Flinto’s interface meant that every icon had to be especially versatile. No symbols that looked great at one size, or in a certain style, but couldn’t be adapted to others.
+设计总是情境驱动的。我惊奇的发现专业Mac应用的情境设计是最复杂的工作之一，就算你只是设计图标。工具栏（Toolbar）的图标大小必须一致，而且最好根据图标知道用途。这与侧边栏的图标和下拉菜单看到的图标的设计原则上有所差异。 一些图标会以不同的尺寸和不同的样式重复出现在不同的地方。不是只要调整图标尺寸或者样式就能够适用于每一个用户界面的，所以我在设计图标的时候需要考虑到图标是否具有通用性以及不破坏用户界面的整体一致性。
 
 ![](https://cdn-images-1.medium.com/max/600/1*ttfWxwTTFE_Jy0yJhYwtPQ.jpeg)
 
-My icon design process begins on paper. I’m a big believer in that. It begins with drawing every imaginable possibility for that icon — what the subject matter or metaphor will be and what variations they could take. While in this **conceptual** phase, I try to remind myself to put _everything_ down on paper — even random ideas that seem unrelated. The next stage is **evaluation**; analyzing each concept based on how well it fits the goals, constraints, and context for this particular icon.
+我都是在纸上开始设计图标的，我一直坚信这个原则。我会在纸上画下我想象中这个图标的所有可能性，譬如设计的这个图标包含了什么暗喻以及图标可能需要/产生的变化。所以在**概念设计**的这个阶段上，我尽量让自己将所有的内容都写在我的纸上，甚至是一些不相关的想法。下一步则**分析**概念设计中的内容如何能够更好符合我们设计的目标，已有的限制以及这个图标的情境联系。
 
-> I find it essential to separate the drawing & conceptual process from the evaluation process. The former requires imagination, curiosity, and withholding of judgement. It is an additive process. It is spur of the moment. Evaluation — while equally important — requires criticism, pragmatism, and the time to consider a long list of implications. It is a subtractive process. If you try to do both at the same time you will end up with nothing. Your pen will never touch the paper.
+> 我发现将绘图构思和评估这两个过程分开进行是很至关重要的。前者的工作需要想象力，好奇心，而且持有自己主观的判断，是一个加法的过程，是心血来潮的创作。评估则需要批判性，实用性，以及需要考虑图标背后一连串所延伸出来的隐喻，是一个做减法的过程。如果你尝试同时做这两件事情，那么你会考虑不过来从而得不到任何结果。
 
-I recently taught a class about [Icon Design at CreativeLive](http://shrsl.com/?~boxl), and outlined what I think are the most important design principles for icons. Those are what I use to evaluate my ideas and sketches.
+我最近还在网上授课讲述我认为在[设计图标](http://shrsl.com/?~boxl)中最重要的原则。里面还包含了我是如何来评估我的想法和草稿的。
 
-Generally only a handful of concepts make their way onto the computer. When I fire up Sketch, it’s production time. There will still be some creative decisions along the way, but the predominant goal is to _refine_ the form of an icon and make sure it is pixel-perfect. I’m really passionate about both of those, but I especially cause a racket when the latter is neglected!
+通常来说，只有一部分的设计想法会被保存到电脑里面。使用sketch可以提高我的生产效率并且在生产的过程中会有一些创造性的决定。但最主要的目的还是要完善和精炼图标的形式，保证每一个图标都是像素完美的。我对此具备相当大的热情，我对其他忽视这个细节的人感到很烦恼。
 
-#### Can you explain a little bit more about pixel perfection, and how to achieve it?
+#### 能够为我们再稍微解释一下什么是“像素完美”和如何实现？
 
-The term pixel perfect can mean a lot of things — it’s more of an ideal than a single concrete characteristic. Like “attention to detail,” it’s easier to identify when it has been ignored! Pixel perfection has a tremendous impact on the recognizability and efficacy of a small icon. And achieving it often requires more than just aligning design elements to the pixel grid (tips below). Basically it’s a fight against antialiasing. Antialiasing is a great thing, but it can produce very fuzzy results — especially for diagonal and curved lines.
+像素完美其实意味着很多东西，它更像是一个想法而不是一个能够具体描述的特征。像“注意细节”一样，当被忽视的时候我们能够很容易的感觉出来。完美的像素对小图标的可辨别度有巨大的影响。想要实现像素完美不仅仅是将设计元素的像素网格对齐（如下图）。这基本上来说就是在和锯齿做斗争。使用抗锯齿是很好的一件事情，但它会让图像一些地方产生模糊，尤其是在对角线和曲线中。
 
 ![](http://ww3.sinaimg.cn/large/a490147fjw1f2m0jk2o2kj20go0i4760.jpg)
 
-For example, we wanted to include some indication in the Layers List about when a layer is hidden or locked. We weren’t as concerned about them being easily-clickable buttons (although they are) as we were about having small indicators that took up minimal space — especially because _two_ icons would have to be visible if a layer was _both_ hidden and locked. To accomplish this, the icons had to be meticulously pixel-perfect. I’m incredibly proud of how clear those little 8x8 icons turned out.
+举个例子，我们想在图层列表中加上一些注释来表明哪些层是被隐藏或者是被锁住的。当然给图层加上隐藏和锁定是很简单的事情，只需要点击按钮操作一下就好了。我们考虑的是我们有一个小的注释，他会占用一小部分空间，来注释两个已经隐藏和锁定图标。为了完成这个目标，我们的图标必须要做到像素完美。我对我设计的8x8大小的图标感到非常的自豪。
 
 ![](http://ww3.sinaimg.cn/large/a490147fjw1f2m0k0slikj20m807xjsz.jpg)
 
-<figcaption>**“Half Size”** bitmaps shown for readers using a retina display, to see the 1x icon in full pixels. **“Double Size”** shown for readers using a non-retina display, to see the 2x icon in full pixels. Best viewed on a landscape tablet or larger screen.</figcaption>
+<figcaption>对于使用retina显示屏的读者，我们显示**“一半尺寸”**的位图，如图1x的全像素图标。对于非retina显示屏的读者，则使用**“双倍尺寸”**的位图，如图2x的全像素图标。 请以横向模式显示上图来获得最好的显示效果。</figcaption>
 
-In an ideal world, a well-made vector icon can simply be exported at various pixel-densities and look great at all of those scales. But much of the time, the limitations of designing a 1x asset aren’t worth carrying over to higher pixel densities. You may be able to build an icon perfectly at 2x, but need to make adjustments to create a decent and crisp 1x asset. At least half of the icons in Flinto’s UI have unique 1x and 2x versions, such as the “Connect Layers” icon throughout the Transition Designer.
+在一个理想的世界中，一枚制作精良矢量图标可以轻易地适应各种像素密度的输出，并在所有对应尺寸中显示效果良好。但是大部分时候，使用一倍大小的图标并不能够处理得到更高尺寸的图标。你可能需要先做一个完美的两倍尺寸的图标，然后再调整成一倍尺寸来创建一个新的视觉满意的图标。在Flinto中至少一半的图标都有其对应1倍和2倍尺寸，譬如贯穿整个过渡动画设计面板的"概念图层"图标。
 
 ![](http://ww4.sinaimg.cn/large/a490147fjw1f2m0ksytpgj20m808wq5a.jpg)
 
-**For anyone who is curious, here are some techniques I used for fine tuning the antialiasing of icons in Flinto:**
+**针对于这块感兴趣的读者，这里有我是如何对Flinto图标的抗锯齿进行细调的技术细节。**
 
-*   Resize and reposition shapes for crisper results, even if that means the position or dimensions have decimals. It’s about appearance, not values.
-*   Only use curves or rounded corners when there are at least 2px to render each 90° angle of that radius’s circle (see below), or 3px for 180°, as with a rounded ends of a line (below). Goodbye, rounded 1pt line caps — at least until we’re all using 3x screens.
+*  重新调整和重新定位图形来获得看上去视觉舒服的图形，尽管这样处理后位置或者像素值会有小数点，但在这个阶段视觉是重点。
+*  只使用曲线或者圆角时，至少要使用2px来渲染 90° 角的半径圆，或者使用3px渲染180°角的半径圆，来作为圆的线段末尾（如下图）。1pt大小线的线段的圆角线帽的效果是很糟糕的，至少我们使用的屏幕都会将其放大三倍来显示。
 
 ![](http://ww4.sinaimg.cn/large/a490147fjw1f2m0lacz7xj20m80bmdha.jpg)
 
-<figcaption>Nobody wants fuzzy line caps! Only a 3x screen (or higher) can render a decipherable rounded line cap on a 1pt line.</figcaption>
+<figcaption>没有人想要模糊的线帽！只有三倍大小（或者更大）的显示器才能够对1pt大小的线条渲染清晰可见的圆角线帽。</figcaption>
 
-*   Adjust border width/thickness to be slightly wider or thinner than 1pt on thin curved or diagonal lines, for a more consistent perceived thickness.
-*   Mask out unwanted blurry pixels. This will even have an effect if a shape is masked out by a duplicate of itself (no change in shape).
-*   Duplicate a shape or its border (same position) to be slightly bolder.
-*   Determine when it’s ok to have a little antialiasing fuzziness because a more important part of the icon benefits. It’s going to be ok!
+*  为了让线条粗细更加一致，调整边框宽度/粗细来达到稍宽或者稍厚会比使用1pt的细曲线或者斜线更好。
+*  消除不必要的模糊像素。这在你需要使用图形自身标记自己的时候将会很有效。
+*  通过复制图形或者边框（同一方向）来轻微调整图形的粗细。
+*  如果图标可以有小模糊锯齿能够为图标的其他部分提供一定帮助，这也是可以的。
 
-There are other ways of massaging antialiasing, but these are the techniques I get the most mileage from.
+当然还有其他有关于如何平滑抗锯齿的技巧，但是我刚才所说的是我从中获益最大的。
 
-#### What makes a great icon?
+#### 什么造就了一枚好图标？
 
-That’s such a loaded question! Especially because icons embody so many design principles in a small package. I actually approached that topic in my [icon design class](http://shrsl.com/?~boxl), and used a couple stories from working on Flinto.
+这是个问题！尤其是当图标包含了很多设计原则的时候。我在我的[图标设计课程](http://shrsl.com/?~boxl)里面通过讲我在Flinto工作遇到的一些故事来描述我是如何造就一枚好图标的。
 
-One of them was about **using familiar symbols and being obvious**. When we started to make the icon for the home screen in Flinto’s Canvas, Nathan had the idea that we could design the icon to be reminiscent of an Eichler home. Eichler was a builder whose “Mid-Century modern” buildings can be seen in neighborhoods all over California.
+其中的一个原则就是**使用熟悉的符号并且让他显眼**。当我们开始为Flinto的主页面的画布设计图标的时候，内森有一个想法，我们可以设计一个图标让我们回忆起[艾西勒的住宅](http://www.sj33.cn/architecture/slsj/jiaju/201405/38754_3.html)。艾西勒是一位建筑师，他设计了中世纪现代建筑的住宅，这种风格的住宅在加州很流行。
 
 ![](http://ww1.sinaimg.cn/large/a490147fjw1f2m0mhofdpj20go0ci74z.jpg)
 
 ![](http://ww4.sinaimg.cn/large/a490147fjw1f2m0mwpmrbj20go0cimye.jpg)
 
-<figcaption>Eichler’s mid-century modern homes inspired us to explore less conventional “home” icons.</figcaption>
+<figcaption>艾西勒的中世纪现代建筑的住宅给了我们灵感去探索设计一个独特的“home”图标。</figcaption>
 
-I think they’re awesome and Nathan was actually in the market to buy one, so we enthusiastically explored the idea. I produced tons of concepts for the home icon, attempting to distill what was uniquely Eichler into a _very_ small square-ish area (ideally 16x16) without relying on color or grayscale (transparency). And we found that these more clever icons didn’t perform their core task as well as the more obvious home icons. We settled on a version that was just slightly expressive and played off the asymmetry in Eichler’s architecture, while remaining obvious and recognizable to users.
+我们认为这个想法很酷而且内森也买了一套使用这种设计元素的房子，所以我们对这个想法很有热情。我做了很多个home图标的概念设计，尝试着将艾西勒住宅的特点萃取到一个16*16正方形的图标里面，而且在图标不添加色彩和透明度效果。我们发现这些看似巧妙的图标并没有很好展现图标本身的职责而且作为home图标也不够显眼。于是我们决定做一个直观并且能够表达艾西勒住宅不对称特点而且对其他用户而言有高辨别度的图标。
 
 ![](http://ww4.sinaimg.cn/large/a490147fjw1f2m0nda8s2j20m80ab0sx.jpg)
 
-<figcaption>Obvious trumped clever, and we selected the bottom-center home icon.</figcaption>
+<figcaption>直观胜过巧妙，我们选择了底部中间图标作为home键。</figcaption>
 
-Another characteristic of a great icon is how well it harmonizes with its surroundings. That includes UI around the icon, size & weight of adjacent text, operating system conventions, and other icons in that collection.
+另外评价一个好图标的原则是他是否能够与周围的元素看上去融洽。这些元素包括图标周围的UI，邻接文本的大小和字重，操作系统的习惯（譬如说，在mac os下cmd+s是保存，而在win下则是ctrl + s），以及其他图标的集合。
 
-So whereas the home icon basically exists on its own, the toolbar icons, Gesture icons, and Arrange icons exist in a set. And designing an icon set can be exponentially more challenging. You’ll get half-way through designing a collection of symbols and realize that the style or visual metaphor you’ve been using doesn’t hold up for every required icon, and now everything needs to change! 🙈
+所以尽管home图标基本上是单独存在的，但是工具图标，手势图标，排版图标都是集合方式存在的。设计图标的集合的挑战是很大的。你会在设计一个图标集合设计到一半的时候发现你所使用的视觉隐喻不能够适应每一个这个集合里面需要的图标，这意味着你需要重新做一遍。 🙈
 
 ![](http://ww3.sinaimg.cn/large/a490147fjw1f2m0nupc7uj20m80283yh.jpg)
 
-This happened with the Gesture icons (shown here at 200% scale). Their simplicity—which now seems obvious—was born from a long list of constraints and future considerations. Some of the icons shown above aren’t even in the app yet… but it was important to know that the icon set could expand to accommodate them if necessary.
-
+这种情况通常发生在手势图标上（上图是以200%比例显示）现在这些图标看上去很简单和直观，然而我们在设计他时是有很多限制条件的，并且还要考虑未来的兼容性。一些我们在这里展示的图标还没有出现在Flinto中...但很重要的一点是，在遇到有需要的时候，我们设计的图标集能够扩展并且容纳它们。

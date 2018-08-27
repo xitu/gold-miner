@@ -5,6 +5,7 @@
 * 校对者: [CaesarPan](https://github.com/CaesarPan)、[cdpath](https://github.com/cdpath)
 * 状态 :  完成
 
+# Slack 如此成功的秘诀
 
 “[Slack](http://www.slack.com) 成功的秘诀究竟是什么？你们究竟为他们做了什么特别的事情让它如此成功？我希望你们也能帮我打造一款同样出色的产品。” 车载蓝牙里噼噼啪啪地传来一段声音。电话的另一边是我的一位潜在客户，他是一个成功的SaaS软件公司的CEO，想聘请我们帮他重新设计产品。于是我又开始讲述起那个我已经说过数百遍的故事。
 

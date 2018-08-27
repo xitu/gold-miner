@@ -1,4 +1,4 @@
-* 原文链接 : [World-Class Testing Development Pipeline for Android - Part 1.](http://blog.karumi.com/world-class-testing-development-pipeline-for-android/)
+> * 原文链接 : [World-Class Testing Development Pipeline for Android - Part 1.](http://blog.karumi.com/world-class-testing-development-pipeline-for-android/)
 * 原文作者 : [Karumi](hello@karumi.com)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [markzhai](https://github.com/markzhai)

@@ -5,6 +5,8 @@
 * 校对者: [zxc0328](https://github.com/zxc0328)、[Aaaaaashu](https://github.com/Aaaaaashu)
 * 状态 :  完成
 
+# Promise 是如何工作的?
+
 ## 目录
 
 ## 1\. 入门介绍

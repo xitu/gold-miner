@@ -1,0 +1,185 @@
+> * 原文地址：[Data Pre-Processing in Python: How I learned to love parallelized applies with Dask and Numba](https://medium.com/@ernestk.social/how-i-learned-to-love-parallelized-applies-with-python-pandas-dask-and-numba-f06b0b367138)
+> * 原文作者：[Ernest Kim](https://medium.com/@ernestk.social?source=post_header_lockup)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-i-learned-to-love-parallelized-applies-with-python-pandas-dask-and-numba.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-i-learned-to-love-parallelized-applies-with-python-pandas-dask-and-numba.md)
+> * 译者：
+> * 校对者：
+
+# Data Pre-Processing in Python: How I learned to love parallelized applies with Dask and Numba
+
+*   If you’re comfortable with using Pandas to transform data, create features, and perform cleaning, you can easily parallelize your workflow with Dask and Numba.
+*   In pure speed: Dask beats Python, Numba beats Dask, Numba+Dask beats ’em all
+*   Instead of using a Pandas apply, separate out numerical calculations into a Numba sub-function and use a Dask `map_partition + apply`
+*   On a 1 million row dataset, creating new features with a mix of numerical calculation and Pandas methods, number of times slower than Numba+Dask:
+
+Python: **60.9x** | Dask: **8.4x** | Numba: **5.8x** | Numba+Dask: **1x**
+
+* * *
+
+![](https://cdn-images-1.medium.com/max/800/1*ury0XRvKWpwAZsMQ_m1_cg.jpeg)
+
+Go fast with Numba and Dask.
+
+As a master’s candidate of Data Science at the [University of San Francisco](https://www.usfca.edu/arts-sciences/graduate-programs/data-science), I get to regularly wrangle with data. Applies are one of the many tricks I’ve picked up to help create new features or clean-up data. Now, I’m only [data scientist-ish](https://github.com/ernestk-git/data-scientist-ish) and not an expert in computer science. I am, however, a tinkerer that enjoys making code faster. Today, I’ll be sharing my experiences with parallelizing applies, with a particular focus on common data prep tasks.
+
+Python aficionados may know that Python implements what’s known as a Global Interpreter Lock. Those more grounded in computer science can [tell you more](https://stackoverflow.com/questions/1294382/what-is-a-global-interpreter-lock-gil), but for our purposes, the GIL can make using all of those cpu cores in your computer tricky. What’s worse, our chief data wrangler package, Pandas, rarely implements multi-processing code.
+
+#### **Apply vs Multiprocessing.map**
+
+```
+%time df.some_col.apply(lambda x : clean_transform_kthx(x))
+Wall time: HAH! RIP BUDDY
+# WHY YOU NO RUN IN PARALLEL!?
+```
+
+Those of us crossing over from the R realm know that the Tidyverse has done some wonderful things for handling data. One of my favorite packages, [plyr](http://had.co.nz/plyr/), allows R users to easily parallelize their applies on data frames. From Hadley Wickham:
+
+> plyr is a set of tools for a common set of problems: you need to **split** up a big data structure into homogeneous pieces, **apply** a function to each piece and then **combine** all the results back together
+
+What I wanted was plyr for Python! Sadly, it does not yet exist, but I used a [hacky solution](http://blog.adeel.io/2016/11/06/parallelize-pandas-map-or-apply/) from the multiprocessing package for a while. It certainly works, but I wanted something that was more akin to regular Pandas applies…but like, parallel and stuff.
+
+#### [**Dask**](https://dask.pydata.org/en/latest/)
+
+![](https://cdn-images-1.medium.com/max/800/1*wfQ_pXwrr7Y_0_aXSVmQWg.png)
+
+Thanks for all the cores [AMD](https://www.amd.com/en/ryzen)!
+
+We spend a bit of class time on Spark so when I started using Dask, it was easier to grasp its main conceits. Dask is designed to run in parallel across many cores or computers but mirror many of the functions and syntax of Pandas.
+
+Let’s dive in to an example! For a recent data challenge, I was trying to take an external source of data (many geo-encoded points) and match them to a bunch of street blocks we were analyzing. I was calculating euclidean distances and using a simple max-heuristic to assign it to a block:
+
+![](https://cdn-images-1.medium.com/max/800/1*rNIJiaWUAv-DmM7JxdsD9Q.png)
+
+Is the point close to L3? The L1 + L2 may shock you…
+
+My original apply:
+
+`my_df.apply(lambda x: nearest_street(x.lat,x.lon),axis=1)`
+
+My Dask apply:
+
+```
+dd.from_pandas(my_df,npartitions=nCores).\
+   map_partitions(
+      lambda df : df.apply(
+         lambda x : nearest_street(x.lat,x.lon),axis=1)).\
+   compute(get=get)
+# imports at the end
+```
+
+Pretty similar right? The apply statement is wrapped around a `map_partitions`, there’s a `compute()` at the end, and I had to initialize `npartitions`. Spark users will find this familiar, but let’s disentangle this a bit for the rest of us. [Partitions](http://dask.pydata.org/en/latest/dataframe.html) are just that, your Pandas data frame divided up into chunks. On my computer with 6-Cores/12-Threads, I told it to use 12 partitions. Dask handles the rest for you thankfully.
+
+Next, map_partitions is simply applying that lambda function to each partition. Since many of our data processing code operates on each row independently, we do not have to worry too much about the order of these operations (which row goes first or last is irrelevant). Lastly, the compute() is telling Dask to process everything that came before and deliver the end product to me. Many distributed libraries like Dask or Spark implement ‘lazy evaluation’, or creating a list of tasks and only executing when prompted to do so. Here, compute() calls Dask to map the apply to each partition and (get=get) makes it parallel.
+
+I did not use a Dask `apply` because I am iterating over rows to generate a new array that will become a feature. The Dask `apply` only works across [columns](http://dask.pydata.org/en/latest/dataframe-api.html#dask.dataframe.DataFrame.apply).
+
+Here are the imports for the Dask code:
+
+```
+from dask import dataframe as dd
+from dask.multiprocessing import get
+from multiprocessing import cpu_count
+nCores = cpu_count()
+```
+
+#### [**Numba**](http://numba.pydata.org/#)**,** [**Numpy**](http://numba.pydata.org/numba-doc/dev/reference/numpysupported.html) **and** [**Broadcasting**](https://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
+
+Since I was classifying my data based on some simple algebraic calculations (Pythagorean theorem basically), I figured it would run quickly enough in typical Python code that looks like this:
+
+```
+matches = []
+for i in intersections:
+   l3 = np.sqrt( (i[0] - i[1])**2 + (i[2] - i[3])**2 )
+   # ... Some more of these
+   dist = l1 + l2
+   if dist < (l3 * 1.2):
+      matches.append(dist)
+      # ... More stuff
+### you get the idea, there's a for-loop checking to see if 
+### my points are close to my streets and then returning closest
+### I even used numpy, that means fast right?
+```
+
+![](https://cdn-images-1.medium.com/max/800/1*z4h3mQ-ztG1MA0dz1tRlpg.png)
+
+It was not.
+
+Broadcasting is the idea of writing code with a vector mindset as opposed to scalar. Say I have an array, and I want to futz with it. Normally, I would iterate over it and transform each cell individually.
+
+```
+# over one array
+for cell in array:
+   cell * CONSTANT - CONSTANT2
+# over two arrays
+for i in range(len(array)):
+   array[i] = array[i] + array2[i]
+```
+
+Instead, I can skip the for loops entirely and perform operations across the entire array. Numpy functions incorporate broadcasting and can be used to perform element-wise computations (1-element in an array to a corresponding 1-element in another array).
+
+```
+# over one array
+(array * CONSTANT) - CONSTANT2
+
+# over two arrays of same length
+# different lengths follow broadcasting rules  
+array = array - array2
+```
+
+Broadcasting can accomplish so much more, but let’s look at my skeleton code:
+
+```
+from numba import jit
+
+@jit # numba magic
+def some_func()
+   l3_arr = np.sqrt( (intersections[:,0] - intersections[:,1])**2 +\
+                     (intersections[:,2] - intersections[:,3])**2 )
+   # now l3 is an array containing all of my block lengths
+   # likewise, l1 and l2 are now equal sized arrays 
+   # containing distance of point to all intersections
+
+   dist = l1_arr + l2_arr
+
+   match_arr = dist < (l3_arr * 1.2)
+   # so instead of iterating, I just immediately compare all of my
+   # point-to-street distances at once and have a handy 
+   # boolean index
+```
+
+Essentially, we’re changing `for i in array: do stuff` to `do stuff on array`. The best part is that it’s fast, even compared to parallelizing versus Dask. The good part is that if we stick to basic Numpy and Python, we can Just-In-Time compile just about any function. The bad part is that it only plays well with Numpy and simple Python syntax. I had to strip out all of the numerical calculations from my functions into sub-functions, but the speed increase was magical…
+
+#### Putting it all together
+
+To combine my Numba function with Dask, I simply applied the function with `map_partition()`. I was curious if parallelized operations and broadcasting could work hand in hand for a speed-up. I was pleasantly surprised to see a large speed up, especially with larger data sets:
+
+![](https://cdn-images-1.medium.com/max/800/1*RGap2-WIEWrgo2RDf6jdiA.png)
+
+Go Numba go!
+
+![](https://cdn-images-1.medium.com/max/800/1*q_f-EzQFuLC14amYx9VbMA.png)
+
+So x is: 1, 10, 100, 1000…
+
+The first graph indicates that linear computation without broadcasting performs poorly. We see that parallelizing the code with Dask is almost as effective as using Numba+broadcasting, but clearly, Dask+Numba outperforms others.
+
+I include the second graph to anger people that like simple and interpretable graphics. Or it’s there to show that Dask comes with some overhead costs, but Numba does not. I took `head(nRows)` to create these charts and noticed it was not until 1k — 10k rows that Dask came into its own. I also found it curious that Numba alone was consistently faster than Dask, although the combination of Dask+Numba could not be beat at large nRows.
+
+**Optimizations**
+
+To be able to JIT compile with Numba, I re-wrote my functions to take advantage of broadcasting. Out-of-curiosity, I reran these functions to compare Numba+Broadcasting vs Just Broadcasting (Numpy only basically). On average, `@jit` executes about 24% faster for identical code.
+
+![](https://cdn-images-1.medium.com/max/800/1*YsYMh8inCLZbRVD0xpbzNw.png)
+
+Thanks JIT!
+
+I’m sure there are ways to optimize even further, but I liked that I was able to quickly port my previous work into Dask and Numba for a 60x speed increase. Numba only really requires that I stick to Numpy functions and think about arrays all at once. Dask is very user friendly and offers a familiar syntax for Pandas or Spark users. If there are other speed tricks that are easy to implement, please feel free to share!
+
+* * *
+
+*   All work conducted on a home-built server running Ubuntu 16.04, Python 3, and Anaconda on AMD Ryzen 1600, 32 GB RAM, GTX 1080.
+
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。

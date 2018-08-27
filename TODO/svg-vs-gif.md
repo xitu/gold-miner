@@ -5,6 +5,8 @@
 * 校对者: [ychow](https://github.com/ychow)
 * 状态 :  完成
 
+# Animated SVG vs GIF
+
 SVG不仅可用于展示静态图像，与其它图片格式相比，呈现动画的能力只是其强大的特性之一。这也是SVG优于包括GIF在内的其它位图格式的众多原因之一。当然，这种优势仅适用于适合SVG的应用场景，例如：
 
 * Logo图，

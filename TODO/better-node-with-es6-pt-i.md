@@ -1,41 +1,42 @@
 >* 原文链接 : [Better Node with ES6, Pt. I](https://scotch.io/tutorials/better-node-with-es6-pt-i)
 * 原文作者 : [Peleke](https://github.com/Peleke)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [huanglizhuo](https://github.com/huanglizhuo) 
+* 校对者: [yllziv](https://github.com/yllziv) , [godofchina](https://github.com/godofchina)
 
+# 使用 ES6 写更好的 JavaScript part I：广受欢迎的新特性
 
-## Introduction
+## 介绍 
 
-With the ES2015 spec finalized and Node.js shipping with a substantial subset of its functionailty, it's safe to say it: The Future is Upon Us.
+在 ES2015 规范敲定并且 Node.js 增添了大量的函数式子集的背景下，我们终于可以拍着胸脯说：未来就在眼前。
 
-. . . I've always wanted to say that.
+. . . 我早就想这样说了
 
-But, it's true. The [V8 Engine is swiftly approaching spec-compliance](http://v8project.blogspot.com/2016/03/v8-release-50.html), and [Node ships with a good selection of ES2015 features ready for production](https://nodejs.org/en/docs/es6/). It's this latter list of features that I consider the Essentials™, as it represents the set of feature we can use without a transpiler like [Babel](https://babeljs.io/) or [Traceur](https://github.com/google/traceur-compiler).
+但这是真的。[V8 引擎将很快实现规范](http://v8project.blogspot.com/2016/03/v8-release-50.html)，而且 [Node 已经添加了大量可用于生产环境的 ES2015 特性](https://nodejs.org/en/docs/es6/)。下面要列出的是一些我认为很有必要的特性，而且这些特性是不使用需要像 [Babel](https://babeljs.io/) 或者 [Traceur](https://github.com/google/traceur-compiler) 这样的翻译器就可以直接使用的。
 
-This article will cover three of the more popular ES2015 features available in Node:
+这篇文章将会讲到三个相当流行的 ES2015 特性，并且已经在 Node 中支持了了：
 
-*   Block scoping with `let` and `const`;
-*   Arrow functions; and
-*   Shorthand properties & methods.
+*   用 `let` 和 `const` 声明块级作用域；
+*   箭头函数；
+*   简写属性和方法。
 
-Let's get to it.
+让我们马上开始。
 
-## Block Scope with `let` and `const`
+## `let` 和 `const` 声明块级作用域
 
-**Scope** refers to where in your program your variables are visible. In other words, it's the set of rules that determines where you're allowed to use the variables you've declared.
+**作用域** 是你程序中变量可见的区域。换句话说就是一系列的规则，它们决定了你声明的变量在哪里是可以使用的。
 
-We've mostly all heard the claim that JavaScript only creates new scopes inside of functions. While a good 98% of the useful scopes you've created were, in fact, function scopes, there are actually _three_ ways to create a new scope in JavaScript. You can:
+大家应该都听过 ，在 JavaScript 中只有在函数内部才会创造新的作用域。然而你创建的 98% 的作用域事实上都是函数作用域，其实在 JavaScript 中有三种创建新作用域的方法。你可以这样：
 
-1.  **Create a function**. You probably know this already.
-2.  **Create a `catch` block**. [I'm not kidding](https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20&%20closures/apB.md).
-3.  **Create a code block**. If you're writing ES2015\. declaring variables with `let` or `const` within a code block restricts their visibility _to that block **only**_. This is called _block scoping_.
+1.  **创建一个函数**。你应该已经知道这种方式。
+2.  **创建一个 `catch` 块**。 [我绝对没哟开玩笑](https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20&%20closures/apB.md).
+3.  **创建一个代码块**。如果你用的是 ES2015，在一段代码块中用 `let` 或者 `const` 声明的变量会限制它们**只在**这个块中可见。这叫做_块级作用域_.
 
-A _block_ is just a section of code wrapped in curly braces. `{ like this }`. They appear naturally around `if`/`else` statements and `try`/`catch`/`finally` blocks. You can also wrap arbitrary sections of code in braces to create a code block, if you want to take advantage of block-scoping.
+一个_代码块_就是你用花括号包起来的部分。 `{ 像这样 }`。在 `if`/`else` 声明和 `try`/`catch`/`finally` 块中经常出现。如果你想利用块作用域的优势，你可以用花括号包裹任意的代码来创建一个代码块
 
-Consider this snippet.
+考虑下面的代码片段。
 
-    // You have to use strict to try this in Node
+    // 在 Node 中你需要使用 strict 模式尝试这个
     "use strict";
 
     var foo = "foo";
@@ -44,7 +45,7 @@ Consider this snippet.
             var bar = "bar";
             let foobar = foo + bar;
         }
-        // Both foo and bar are visible here
+        // foo 和 bar 这里都可见 
         console.log("This situation is " + foo + bar + ". I'm going home.");
 
         try {
@@ -67,37 +68,39 @@ Consider this snippet.
     } catch (err) {
         console.log("invisible hasn't been declared, yet, so we get a " + err);
     }
-    let invisible = "You can't see me, yet"; // let-declared variables are inaccessible before declaration
+    let invisible = "You can't see me, yet"; // let 声明的变量在声明前是不可访问的
 
-A few things to note.
 
-*   Notice that `foobar` isn't visible outside of the `if` block, because we declared it with `let`;
-*   We can use `foo` anywhere, because we defined it as a `var` in the global scope; and
-*   We can use `bar` anywhere inside of `baz`, because `var`-declared variables are accessible throughout the entirety of the scope they're defined.
-*   We can't use `let` or `const`-declared variables before we've defined them. In other words, they're not hoisted by the compiler, as `var`-declarations are.
+还有些要强调的
 
-The `const` keyword behaves similarly to `let`, with two differences.
+*   注意 `foobar` 在 `if` 块之外是不可见的，因为我们没有用`let` 声明；
+*   我们可以在任何地方使用 `foo` ，因为我们用 `var` 定义它为全局作用域可见；
+*   我们可以在 `baz` 内部任何地方使用 `bar`， 因为 `var`-声明的变量是在定义的整个作用域内都可见。
+*   用 let or const 声明的变量不能在定义前调用。换句话说，它不会像 `var` 变量一样被编译器提升到作用域的开始处。
 
-1.  You _must_ assign a value to a const-declared variable when you create it. You can't create it first and assign it later.
-2.  You _cannot_ change the vaue of a `const`-declared variable after you create it. If you try, you'll get a `TypeError`.
+`const` 与 `let` 类似，但有两点不同。
+
+
+1.  _必须_ 给声明为 `const` 的变量在声明时赋值。不可以先声明后赋值。
+2.  _不能_ 改变`const`变量的值，只有在创建它时可以给它赋值。如果你试图改变它的值，会得到一个 `TyepError`。
 
 ### `let` & `const`: Who Cares?
 
-Since we've gotten by just fine with `var` for a good twenty years, now, you might be wondering if we _really_ need new variables.
+我们已经用 `var` 将就了二十多年了，你可能在想我们_真的_需要新的类型声明关键字吗？（这里作者应该是想表达这个意思）
 
-Good question. The short answer -- no. Not _really_. But there are a few good reasons to use `let` and `const` where possible.
+问的好，简单的回答就是-- 不， 并不 _真正_ 需要。但在可以用`let` 和 `const` 的地方使用它们很有好处的。
 
-*   Neither `let` nor `const`-declared variables are hoisted to the top of their scopes, which can make for more readable, less confusing code.
-*   They limit your variables' visibility as much as possible, which helps prevent confusing namespace collisions.
-*   It's easier to reason about programs that reassign variables only when absolutely necesary. `const` helps enforce immutable variable references.
+*   `let` 和 `const` 声明变量时都不会被提升到作用域开始的地方，这样可以使代码可读性更强，制造尽可能少的迷惑。
+*   它会尽可能的约束变量的作用域，有助于减少令人迷惑的命名冲突。
+*   这样可以让程序只有在必须重新分配变量的情况下重新分配变量。 `const` 可以加强常量的引用。
 
-Another use case is that of `let` in `for` loops.
+另一个例子就是 `let` 在 `for` 循环中的使用：
 
     "use strict";
 
     var languages = ['Danish', 'Norwegian', 'Swedish'];
 
-    // Pollutes global namespace. Ew!
+    //会污染全局变量!
     for (var i = 0; i < languages.length; i += 1) {
         console.log(`${languages[i]} is a Scandinavian language.`);
     }
@@ -114,35 +117,35 @@ Another use case is that of `let` in `for` loops.
         console.log(`You got a ${err}; no dice.`);
     }
 
-Using `var` to declare the counter in a `for` loop doesn't _actually_ keep the counter local to the loop. Using `let` instead does.
+在 `for`循环中使用 `var` 声明的计数器并不会 _真正_ 把计数器的值限制在本次循环中。 而 `let` 可以。
 
-`let` also has the major advantage of rebinding the loop variable on every iteration, so each loop gets its _own_ copy, rather than sharing the globally-scoped variable.
+`let` 在每次迭代时重新绑定循环变量有很大的优势，这样每个循环中拷贝 自身 , 而不是共享全局范围内的变量。
 
     "use strict";
 
-    // Simple & Clean
+    // 简洁明了
     for (let i = 1; i < 6; i += 1) {
         setTimeout(function() {
             console.log("I've waited " + i + " seconds!");
         }, 1000 * i);
     }
 
-    // Totally dysfunctional
+    // 功能完全混乱
     for (var j = 0; j < 6; j += 1) {
             setTimeout(function() {
             console.log("I've waited " + j + " seconds for this!");
         }, 1000 * j);
     }
 
-The first loop does what you think it does. The bottom one prints "I've waited 6 seconds!", every second.
+第一层循环会和你想象的一样工作。而下面的会每秒输出 "I've waited 6 seconds!"。
 
-Pick your poison.
+好吧，我选择狗带。
 
-## The Quirks of Dynamic `this`
+## 动态 `this` 关键字的怪异
 
-JavaScript's `this` keyword is notorious for doing basically everything except for you want it to.
+JavaScript 的 `this` 关键字因为总是不按套路出牌而臭名昭著。
 
-The truth is, the [rules are really quite simple](https://github.com/getify/You-Dont-Know-JS/tree/master/this%20%26%20object%20prototypes). Regardless, there are situations where `this` can encourage awkward idioms.
+事实上，它的 [规则相当简单](https://github.com/getify/You-Dont-Know-JS/tree/master/this%20%26%20object%20prototypes)。不管怎么说，`this` 在有些情形下会导致奇怪的用法
 
     "use strict";
 
@@ -161,26 +164,25 @@ The truth is, the [rules are really quite simple](https://github.com/getify/You-
 
     polyglot.introduce();
 
-Inside of `introduce`, `this.name` is `undefined`. Right outside of the callback, in our `forEach` loop, it refers to the `polyglot` object. Often, what we want in cases like this is for `this` within our inner function to refer to the same object that `this` refers to in the outer function.
+在 `introduce` 里, `this.name` 是 `undefined`。在回调函数外面，也就是 `forEach` 中， 它指向了 `polyglot` 对象。在这种情形下我们总是希望在函数内部 `this` 和函数外部的 `this` 指向同一个对象。
 
-The problem is that functions in JavaScript always define their own `this` values upon invocation, according to a [well-established set of four rules](https://github.com/getify/You-Dont-Know-JS/blob/master/this%20&%20object%20prototypes/ch2.md). This mechanim is known as _dynamic `this`_.
+问题是在 JavaScript 中函数会根据[确定性四原则](https://github.com/getify/You-Dont-Know-JS/blob/master/this%20&%20object%20prototypes/ch2.md)在调用时定义自己的 `this` 变量。这就是著名的 _动态 `this`_ 机制。
 
-Not a single one of these rules involves looking up what `this` means "nearby"; there is no conceivable way for the JavaScript engine to define `this` based on its meaning within a surrounding scope.
+这些规则中没有一个是关于查找 this 所描述的“附近作用域”的；也就是说并没有一个确切的方法可以让 JavaScript 引擎能够基于包裹作用域来定义 this的含义。
 
-This all means that, when the engine looks up the value of `this`, it _will_ find one, but it will _not_ be the same as the value outside of the callback. There are two traditional workarounds to the problem.
+这就意味着当引擎查找 `this` 的值时，可以找到值，但却和回调函数之外的不是同一个值。有两种传统的方案可以解决这个问题。
 
-1.  Save `this` in the outer function to a variable, usually called `self`, and use that within the inner function; or
-2.  Call [`bind`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) on the inner function to permanently set its `this` value.
+1.  在函数外面吧 `this` 保存到一个变量中，通常取名 `self`，并在内部函数中使用；或者
+2.  在内部函数中调用 [`bind`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) 阻止对 `this` 的赋值。 
 
-These methods work, but they can be noisy.
+以上两种办法均可生效，但会产生副作用。
 
-If, on the other hand, inner functions did _not_ set their own `this` values, JavaScript would look up the value of `this` just as it would look up the value of any other variable: By stepping through parent scopes until it finds one with the same name. That would let us use the value of `this` from "nearby" source code, and is known as _lexical `this`_.
+另一方面，如果内部函数 _没有_ 设置它自己的 `this` 值，JavaScript 会像查找其它变量那样查找 `this` 的值：通过遍历父作用域直到找到同名的变量。这样会让我们使用附近作用域代码中的 this 值，这就是著名的 _词法 `this`_ 。
 
-Quite a bit of code would be quite a bit cleaner if we had such a feature, don't you think?
+如果有样的特性，我们的代码将会更加的清晰，不是吗?
 
-### Lexical `this` with Arrow Functions
-
-With ES2015, we do. Arrow functions do _not_ bind a `this` value, allowing us to take advantage of lexical binding of the `this` keyword. We can refactor the broken code from above like this:
+### 箭头函数中的词法 `this` 
+在 ES2015 中，我们有了这一特性。箭头函数 _不会_ 绑定 `this` 值，允许我们利用词法绑定 `this` 关键字。这样我们就可以像这样重构上面的代码了：
 
     "use strict";
 
@@ -194,46 +196,45 @@ With ES2015, we do. Arrow functions do _not_ bind a `this` value, allowing us to
         }
     }
 
-. . . And all would work as expected.
+. . . 这样就会按照我们想的那样工作了。
 
-Arrow functions have a few types of syntax.
+箭头函数有一些新的语法。
 
     "use strict";
 
     let languages = ["Spanish", "French", "Italian", "German", "Polish"];
 
-    // In a multiline arrow function, you must use curly braces, 
-    //  and you must include an explicit return statement.
-    let languages_lower = languages.map((language) => {
+    // 多行箭头函数必须使用花括号， 
+    // 必须明确包含返回值语句
+        let languages_lower = languages.map((language) => {
         return language.toLowerCase()
     });
 
-    // In a single-line arrow function, curly braces are optional,
-    //   and the function implicitly returns the value of the last expression.
-    //   You can include a return statement if you'd like, but it's optional.
+    // 单行箭头函数，花括号是可省的，
+    // 函数默认返回最后一个表达式的值
+    // 你可以指明返回语句，这是可选的。
     let languages_lower = languages.map((language) => language.toLowerCase());
 
-    // If your arrow function only takes one argument, you don't need to wrap it in
-    //   parentheses. 
+    // 如果你的箭头函数只有一个参数，可以省略括号
     let languages_lower = languages.map(language => language.toLowerCase());
 
-    // If your function takes multiple arguments, you must wrap them in parentheses.
+    // 如果箭头函数有多个参数，必须用圆括号包裹
     let languages_lower = languages.map((language, unused_param) => language.toLowerCase());
 
     console.log(languages_lower); // ["spanish", "french", "italian", "german", "polish"]
 
-    // Finally, if your function takes no arguments, you must include empty parentheses before the arrow.
+    // 最后，如果你的函数没有参数，你必须在箭头前加上空的括号。
     (() => alert("Hello!"))();
 
-[The MDN docs on arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) are great for reference.
+[MDN 关于箭头函数的文档](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) 解释的很好。
 
-## Shorthand Properties & Methods
+## 简写属性和方法
 
-ES2015 also gives us a few new ways to define properties and methods on objects.
+ES2015 提供了在对象上定义属性和方法的一些新方式。
 
-### Shorthand Methods
+### 简写方法
 
-In JavaScript, a _method_ is a property on an object that has a function value:
+在 JavaScript 中， _method_ 是对象的一个有函数值的属性：
 
     "use strict";
 
@@ -243,7 +244,7 @@ In JavaScript, a _method_ is a property on an object that has a function value:
         },
     }
 
-In ES2015, we can simply write:
+在ES2015 中，我们可以这样简写：
 
     "use strict";
 
@@ -261,38 +262,38 @@ In ES2015, we can simply write:
         }
     }
 
-Note that you can use generators to define methods, too. All you need to do is prepend the function's name with an asterisk (*).
+注意你也可以使用生成器去定义方法。只需要在函数名前面加一个星号 (*)。
 
-These are called _method definitions_. They're similar to traditional functions-as-properties, but have a few key differences:
+这些叫做 _方法定义_ 。和传统的函数作为属性很像，但有一些不同：
 
-*   You can _only_ call `super` from a _method definition_;
-*   You are _not_ allowed to call a method definition with `new`.
+*   _只能_ 在方法定义处调用 `super` ；
+*   _不允许_ 用 `new` 调用方法定义。
 
-I'll cover classes and the `super` keyword in a later article. If you just can't wait, [Exploring ES6](http://exploringjs.com/es6/ch_classes.html) has all the goodies.
+我会在随后的几篇文章中讲到 `super` 关键字。如果你等不及了， [Exploring ES6](http://exploringjs.com/es6/ch_classes.html) 中有关于它的干货。
 
-### Shorthand & Computed Properties
+### 简写和推导属性
 
-ES6 also introduces _shorthand_ and _computed properties_.
+ES6 还引入了 _简写_ 和 _推导属性_ 。
 
-If the name of your object's keys are identical to the variables naming their values, you can initialize your object literal with just the _variable names_, rather than defining it as a redundant key-value pair.
+如果对象的键值和变量名是一致的，那么你可以仅用变量名来初始化你的对象，而不是定义冗余的键值对。
 
     "use strict";
 
     const foo = 'foo';
     const bar = 'bar';
 
-    // Old syntax
+    // 旧语法
     const myObject = {
         foo : foo,
         bar : bar
     };
 
-    // New syntax
+    // 新语法
     const myObject = { foo, bar }
 
-Both syntaxes create an object with `foo` and `bar` keys that refer to the values of the `foo` and `bar` variables. The latter approach is semantically identical; it's just syntactically sweeter.
+两中语法都以 `foo` 和 `bar` 键值指向 `foo` and `bar` 变量。 后面的方式语义上更加一致；这只是个语法糖。
 
-I often take advantage of shorthand properties to write succinct definitions of public APIs when using the [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript).
+当用[揭示模块模式](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript)来定义一些简洁的公共 API 的定义，我常常利用简写属性的优势。
 
     "use strict";
 
@@ -305,10 +306,10 @@ I often take advantage of shorthand properties to write succinct definitions of 
             return 'bar';
         }
 
-        // Write this:
+        // 这样写:
         const publicAPI = { foo, bar }
 
-        /* Not this:
+        /* 不要这样写:
         const publicAPI =  {
            foo : foo,
            bar : bar
@@ -317,16 +318,16 @@ I often take advantage of shorthand properties to write succinct definitions of 
         return publicAPI;
     };
 
-Here, we create and return a `publicAPI` object, whose key `foo` refers to the `foo` method, and whose key `bar` refers to the `bar` method.
+这里我们创建并返回了一个 `publicAPI` 对象，键值 `foo` 指向 `foo` 方法，键值 `bar` 指向 `bar` 方法。
 
-### Computed Property Names
+### 推导属性名
 
-This is a _bit_ of a niche case, but ES6 also allows you to use expressions as property names.
+这是 _不常见_ 的例子，但 ES6 允许你用表达式做属性名。
 
     "use strict";
 
     const myObj = {
-      // Set property name equal to return value of foo function
+      // 设置属性名为 foo 函数的返回值
         [foo ()] () {
           return 'foo';
         }
@@ -338,18 +339,19 @@ This is a _bit_ of a niche case, but ES6 also allows you to use expressions as p
 
     console.log(myObj.foo() ); // 'foo'
 
-According to Dr. Raushmayer in [Exploring ES6](http://exploringjs.com/), the main use case for this feature is in setting property names equal to [Symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol) values.
+根据 Dr. Raushmayer 在 [Exploring ES6](http://exploringjs.com/)中讲的，这种特性最主要的用途是设置属性名与 [Symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol) 值一样。
 
-### Getter & Setter Methods
+### Getter 和 Setter 方法
 
-Finally, I'd like to remind you of the `get` and `set` methods, which have been around since ES5\.
+最后，我想提一下 `get` 和 `set` 方法，它们在 ES5 中就已经支持了。
+
 
     "use strict";
 
-    // Example adapted from MDN's page on getters
+    // 例子采用的是 MDN's 上关于 getter 的内容
     //   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
     const speakingObj = {
-        // Track how many times "speak" has been called 
+        // 记录 “speak” 方法调用过多少次
         words : [],
 
         speak (word) {
@@ -358,7 +360,7 @@ Finally, I'd like to remind you of the `get` and `set` methods, which have been 
         },
 
         get called () {
-            // Returns latest word
+            // 返回最新的单词
             const words = this.words;
             if (!words.length)
                 return 'speakingObj hasn\'t spoken, yet.';
@@ -373,18 +375,18 @@ Finally, I'd like to remind you of the `get` and `set` methods, which have been 
 
     console.log(speakingObj.called); // 'blargh'
 
-There are a few things to keep in mind when using getters:
+使用 getters 时要记得下面这些:
 
-*   Getters can't take arguments;
-*   You can't have properties with the same names as your getter functions;
-*   You can create a getter dynamically by using `Object.defineProperty(OBJECT, "property name", { get : function () { . . . } })`
+*   Getters 不接受参数；
+*   属性名不可以和 getter 函数重名；
+*   可以用 `Object.defineProperty(OBJECT, "property name", { get : function () { . . . } })` 动态创建 getter
 
-As an example of this last point, we could have defined the above getter this way:
+作为最后这点的例子，我们可以这样定义上面的 getter 方法：
 
     "use strict";
 
     const speakingObj = {
-        // Track how many times "speak" has been called 
+        // 记录 “speak” 方法调用过多少次
         words : [],
 
         speak (word) {
@@ -393,9 +395,9 @@ As an example of this last point, we could have defined the above getter this wa
         }
     };
 
-    // This is just to prove a point. I definitely wouldn't write it this way.
+    // 这只是为了证明观点。我是绝对不会这样写的
     function called () {
-        // Returns latest word
+        // 返回新的单词
         const words = this.words;
         if (!words.length)
             return 'speakingObj hasn\'t spoken, yet.';
@@ -405,29 +407,29 @@ As an example of this last point, we could have defined the above getter this wa
 
     Object.defineProperty(speakingObj, "called", get : getCalled ) 
 
-In addition to getters, we have setters. Unsurprsingly, they set properties on an object with custom logic.
+除了 getters，还有 setters。像平常一样，它们通过自定义的逻辑给对象设置属性。
 
     "use strict";
 
-    // Create a new globetrotter!
+    // 创建一个新的 globetrotter（环球者）！
     const globetrotter = {
-        // Language spoken in the country our globetrotter is currently in
+        // globetrotter 现在所处国家所说的语言 
         const current_lang = undefined,
 
-        // Number of countries our globetrotter has travelled to
+        // globetrotter 已近环游过的国家
         let countries = 0,
 
-        // See how many countries we've travelled to
+        // 查看环游过哪些国家了
         get countryCount () {
             return this.countries;
         }, 
 
-        // Reset current language whenever our globe trotter flies somewhere new
+        // 不论 globe trotter 飞到哪里，都重新设置他的语言
         set languages (language) {
-            // Increment number of coutnries our globetrotter has travelled to
+            // 增加环游过的城市数
             countries += 1;
 
-            // Reset current language
+            // 重置当前语言
             this.current_lang = language; 
         };
     };
@@ -438,27 +440,26 @@ In addition to getters, we have setters. Unsurprsingly, they set properties on a
     globetrotter.language = 'Spanish';
     globetrotter.countryCount(); // 2
 
-Everything we said about getters above applies to setters as well, with one difference:
+上面讲的关于 getters 的也同样适用于 setters ，但有一点不同：
 
-*   Unlike getters, which can take _no_ arguments, setters _must_ take _exactly one_ argument
+*   getter _不接受_ 参数， setters _必须_ 接受 _正好一个_ 参数。
 
-Breaking either of these rules throws an error.
+破坏这些规则中的任意一个都会抛出一个错误。
 
-Now that Angular 2 is bringing TypeScript and the `class` keyword to the fore, I expect `get` and `set` to spike in popularity. . . But I kind of hope they don't.
+既然 Angular 2 正在引入 TypeCript 并且把 `class` 带到了台前，我希望 `get` and `set` 能够流行起来. . . 但还有点希望它们不要🔥起来。
 
-## Conclusion
+## 结论
 
-Tomorrow's JavaScript is happening today, and it's high time to get a grip on what it has to offer. In this article, we've looked at three of the more popular features from ES2015:
+未来的 JavaScript 正在变成现实，是时候把它提供的东西都用起来了。这篇文章里，我们浏览了 ES2015 的三个很流行的特性：
 
-*   Block scoping with `let` and `const`;
-*   Lexical scoping of `this` with arrow functions;
-*   Shorthand object properties and methods, plus a review of getter and setter functions.
+*   `let` 和 `const` 带来的块级作用域；
+*   箭头函数带来的 `this` 的词法作用域；
+*   简写属性和方法，以及 getter 和 setter 函数的回顾。
 
-For detailed thoughts on `let`, `const`, and the notion of block scoping, read [Kyle Simpson's take on block scoping](https://davidwalsh.name/for-and-against-let). If all you need is a quick practical reference, check the MDN pages for [`let`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) and [`const`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const).
+关于 `let`，`const`，以及块级作用域的详细信息，请参考 [Kyle Simpson's take on block scoping](https://davidwalsh.name/for-and-against-let)。这里有你快速练习需要的所有指导，参考 MDN 关于 [`let`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) 和 [`const`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const)的详细信息。
 
-Dr Rauschmayer has a [wonderful article on arrow functions and lexical `this`](http://www.2ality.com/2012/04/arrow-functions.html). It's great reading if you want a bit more detail than I had room to cover here.
+Dr Rauschmayer 写了一片篇[相当好的关于箭头函数和词法 `this` 的文章](http://www.2ality.com/2012/04/arrow-functions.html)。如果你想了解关于这篇文章更深层次的信息，这绝对是一篇好文。
 
-Finally, for an exhaustive take on all of what we've talked about here -- and a great deal more -- Dr Rauschmayer's book, [Exploring ES6](http://exploringjs.com/), is the best all-in-one reference the web has to offer.
+最后关于我们这里讨论的所有的更详细更深入的内容，请看 Dr Rauschmayer 的书 [Exploring ES6](http://exploringjs.com/)，这是最好的关于 web 最好的一体化指导手册。 
 
-What ES2015 feature are you most excited about? Is there anything you'd like to see covered in a future article? Let me know in the comments below, or hit me on Twitter ([@PelekeS](http://twitter.com/PelekeS)) -- I'll do my best to get back to everyone individually.
-
+ES2015 的特性中哪个最让你激动? 有什么想让我在后面的文章中写入的新特性? 那就在下面或者在 Twitter 上 ([@PelekeS](http://twitter.com/PelekeS)) 评论吧 -- 我会尽最大的努力单独回复你的。

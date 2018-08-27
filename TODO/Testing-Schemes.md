@@ -4,6 +4,8 @@
 * 译者 : [Tuccuay](https://github.com/Tuccuay)
 * 校对者 : [Dwight](https://github.com/ldhlfzysys), [LoneyIsError](https://github.com/LoneyIsError)
 
+# 使用 Xcode 的 Scheme 来跑不同的测试集合
+
 [Eigen](https://github.com/artsy/eigen) 这个项目用来介绍测试集再好不过。这个项目在过去3年里，程序包的大小，复杂度和开发人员的数量都不断增加，这是积极的迹象。这种测试模式让我们对这些变化更加顺手。
 
 在我最快的计算机上，我们只需要等一分钟—— `Executed 1105 tests, with 1 failure (0 unexpected) in 43.221 (48.201) seconds` 来执行整个测试集。我觉得我可以只用 20 秒来完成，所以我研究了如何用 [AppCode](https://www.jetbrains.com/objc/) 处理运行测试，这份指南可以让你基于这个技术轻松的在 Xcode 里搭建起测试集。

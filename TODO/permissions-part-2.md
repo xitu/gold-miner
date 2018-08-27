@@ -1,11 +1,10 @@
-* 原文链接 : [Permissions – Part 2](https://blog.stylingandroid.com/permissions-part-2/)
+> * 原文链接 : [Permissions – Part 2](https://blog.stylingandroid.com/permissions-part-2/)
 * 原文作者 : [Styling Android](https://blog.stylingandroid.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Hugo](https://github.com/xcc3641)
 * 校对者 : [Adam Shen](https://github.com/shenxn), [JOJO](https://github.com/Sausure)
 
-
-# 深入浅出Android权限（二）
+# 深入浅出 Android 权限（二）
 
 因为 Marshmallow（Android 6.0）一个新的权限模型的引入，Android 开发者需要采取不同于以往的方式来获取 Android 的权限。本系列中我们将从技术以及如何提供流畅用户体验的角度，讲解处理权限请求的方法。  
 

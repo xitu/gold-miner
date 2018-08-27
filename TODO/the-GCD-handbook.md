@@ -2,9 +2,9 @@
 * 原文作者 : [Soroush](soroush@khanlou.com.)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [LoneyIsError](https://github.com/LoneyIsError)
-* 校对者:[woopqww111](https://github.com/woopqww111)[hsinshufan](https://github.com/hsinshufan)
+* 校对者:[woopqww111](https://github.com/woopqww111), [hsinshufan](https://github.com/hsinshufan)
 
-
+# 给 iOS 开发者的 GCD 用户手册
 
 Grand Central Dispatch,或者GCD，是一个极其强大的工具。它给你一些底层的组件，像队列和信号量，让你可以通过一些有趣的方式来获得有用的多线程效果。可惜的是，这个基于C的API是一个有点神秘，它不会明显的告诉你如何使用这个底层组件来实现更高层次的方法。在这篇文章中，我希望描述那些你可以通过GCD提供给你的底层组件来实现的一些用法。
 

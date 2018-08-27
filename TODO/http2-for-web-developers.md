@@ -1,12 +1,10 @@
-# Web开发者的HTTP/2性能优化指南
-
 > * 原文链接 : [HTTP/2 For Web Developers](https://blog.cloudflare.com/http-2-for-web-developers/)
-> * 原文作者 : [Ryan Hodson](https://blog.cloudflare.com/author/ryan-hodson/)
-> * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者 : [Zhongyi Tong](https://github.com/geeeeeeeeek)
-> * 校对者：[Evaxtt](https://github.com/Evaxtt), [Adam Shen](https://github.com/shenxn)
+* 原文作者 : [Ryan Hodson](https://blog.cloudflare.com/author/ryan-hodson/)
+* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者 : [Zhongyi Tong](https://github.com/geeeeeeeeek)
+* 校对者：[Evaxtt](https://github.com/Evaxtt), [Adam Shen](https://github.com/shenxn)
 
-
+# Web 开发者的 HTTP/2 性能优化指南
 
 HTTP/2改变了Web开发者优化网站的方式。在HTTP/1.1中，为了压缩5%的页面加载速度，人们会通过雪碧图、内联代码、细分域名、合并代码等方式，来想方设法地优化TCP连接和HTTP请求。
 

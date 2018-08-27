@@ -5,6 +5,8 @@
 * 校对者 :
 * 状态 : 待定
 
+# 350 个特性看透 ES6
+
 ### Introduction
 
 *   ES6 – also known as Harmony, `es-next`, ES2015 – is the latest finalized specification of the language

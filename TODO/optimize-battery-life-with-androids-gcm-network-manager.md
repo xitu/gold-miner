@@ -1,10 +1,10 @@
-# 使用GCM网络管理工具优化电池使用
-
 > * 原文链接 : [Optimize Battery Life with Android's GCM Network Manager](https://www.bignerdranch.com/blog/optimize-battery-life-with-androids-gcm-network-manager/)
 * 原文作者 : [Matt Compton](https://www.bignerdranch.com/about-us/nerds/matt-compton/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [程大治](http://blog.chengdazhi.com)
 * 校对者: [leokelly](https://github.com/leokelly), [Zhongyi Tong](https://github.com/geeeeeeeeek)
+
+# 使用 GCM 网络管理工具优化电池使用
 
 通过[GCM网络管理工具](https://developers.google.com/android/reference/com/google/android/gms/gcm/GcmNetworkManager)我们可以注册用于执行网络任务的服务，其中每一个任务都是一件独立的工作。GCM的API帮助进行任务的调度，并让Google Play服务在系统中批量进行网络操作。
 

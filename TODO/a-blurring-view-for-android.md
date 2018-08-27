@@ -4,6 +4,7 @@
 * 译者 : [Sausre](https://github.com/Sausure)
 * 校对者 :[lekenny](https://github.com/lekenny),[Adam Shen](https://github.com/shenxn)
 
+# 在 Android 下进行实时模糊渲染
 
 ## 模糊渲染
   模糊渲染能生动地表达内容间的层次感。当专注于当前特定内容的时候，它允许用户维持相对的上下文，即使模糊层下面的内容发生了视差移动或者动态变化。

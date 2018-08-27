@@ -1,52 +1,54 @@
 >* 原文链接 : [Better JavaScript with ES6, Pt. II: A Deep Dive into Classes](https://scotch.io/tutorials/better-javascript-with-es6-pt-ii-a-deep-dive-into-classes)
 * 原文作者 : [Peleke](https://github.com/Peleke)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [Malcolm](https://github.com/malcolmyu)
+* 校对者: [嘤嘤嘤](https://github.com/xingwanying), [Jack-Kingdom](https://github.com/Jack-Kingdom)
 
-## Out with the Old, In with the `new`
+# 使用 ES6 编写更好的 JavaScript Part II：深入探究 [类]
 
-Let's be clear about one thing from the start:
+## 辞旧迎新
 
-> Under the hood, ES6 classes are not something that is radically new: They mainly provide more convenient syntax to create old-school constructor functions. ~ Axel Rauschmayer
+在本文的开始，我们要说明一件事：
 
-Functionally, `class` is little more than syntactic sugar over the prototype-based behavior delegation capabilities we've had all along. This article will take a close look at the basic use of ES2015's `class` keyword, from the perspective of its relation to prototypes. We'll cover:
+> 从本质上说，ES6 的 classes 主要是给创建老式构造函数提供了一种更加方便的语法，并不是什么新魔法 —— Axel Rauschmayer，Exploring ES6 作者
 
-*   Defining and instantiating classes;
-*   Creating subclasses with `extends`;
-*   `super` calls from subclasses; and
-*   Examples of important symbol methods.
+从功能上来讲，`class` 声明就是一个语法糖，它只是比我们之前一直使用的基于原型的行为委托功能更强大一点。本文将从新语法与原型的关系入手，仔细研究 ES2015 的 `class` 关键字。文中将提及以下内容：
 
-Along the way, we'll pay special attention to how `class` maps to prototype-based code under the hood.
+* 定义与实例化类；
+* 使用 `extends` 创建子类；
+* 子类中 `super` 语句的调用；
+* 以及重要的标记方法（symbol method）的例子。
 
-Let's take it from the top.
+在此过程中，我们将特别注意 `class` 声明语法从本质上是如何映射到基于原型代码的。
 
-## A Step Back: What Classes _Aren't_
+让我们从头开始说起。
 
-JavaScript's "classes" aren't anything like classes in Java, Python, or . . . Really, any other object-oriented language you're likely to have used. Which, by the way, I'll refer to as _class_-oriented languages, as that's more accurate.
+## 退一步说：Classes **不是**什么
 
-In traditional class-oriented languages, you create _classes_, which are templates for _objects_. When you want a new object, you _instantiate_ the class, which tells the language engine to _copy_ the methods and properties of the class into a new entity, called an _instance_. The _instance_ is your object, and, after instantiation, has absolutely no active relation with the parent class.
+JavaScript 的『类』与 Java、Python 或者其他你可能用过的面向对象语言中的类不同。其实后者可能称作面向『类』的语言更为准确一些。
 
-JavaScript does _not_ have such copy mechanics. "Instantiating" a `class` in JavaScript _does_ create a new object, but _not_ one that is independent of its parent class.
+在传统的面向类的语言中，我们创建的**类**是**对象**的模板。需要一个新对象时，我们**实例化**这个类，这一步操作告诉语言引擎将这个类的方法和属性**复制**到一个新实体上，这个实体称作**实例**。**实例**是我们自己的对象，且在实例化之后与父类毫无内在联系。
 
-Rather, it creates an object that is linked to a _prototype_. Changes to that prototype propagate to the new object, _even after_ instantiation.
+而 JavaScript **没有**这样的复制机制。在 JavaScript 中『实例化』一个类创建了一个新对象，但这个新对象却**不**独立于它的父类。
 
-Prototypes are an immensely powerful design pattern in their own right. There are a number of techniques for using them to emulate something like traditional class mechanics, and it's these techniques that `class` provides compact syntax for.
+正相反，它创建了一个与**原型**相连接的对象。即使是在**实例化之后**，对于原型的修改也会传递到实例化的新对象去。
 
-To summarize:
+原型本身就是一个无比强大的设计模式。有许多使用了原型的技术模仿了传统类的机制，`class` 便为这些技术提供了简洁的语法。
 
-1.  JavaScript _does not_ have classes, the way that Java and other languages have classes; and
-2.  JavaScript's `class` is (mostly) just syntactical sugar for prototypes, which are _very_ different from traditional classes.
+总而言之：
 
-With that out of the way, let's get our feet wet with `class`.
+1. JavaScript **不存在** Java 和其他面向对象语言中的类概念；
+2. JavaScript 的 `class` 很大程度上只是原型继承的语法糖，与传统的类继承有**很大的不同**。
 
-## Base Classes: Declarations & Expressions
+搞清楚这些之后，让我们先看一下 `class`。
 
-You create classes with the `class` keyword, followed by an identifier, and finally, a code block, called the _class body_. These are called **class declarations**. Class declarations that don't use the `extends` keyword are called _base classes_:
+## 类基础：声明与表达式
+
+我们使用 `class` 关键字创建类，关键字之后是变量标识符，最后是一个称作**类主体**的代码块。这种写法称作**类的声明**。没有使用 `extends` 关键字的类声明被称作**基类**：
 
     "use strict";
 
-    // Food is a base class
+    // Food 是一个基类
     class Food {
 
         constructor (name, protein, carbs, fat) {
@@ -61,7 +63,7 @@ You create classes with the `class` keyword, followed by an identifier, and fina
         }
 
         print () {
-          console.log( this.toString() );
+            console.log( this.toString() );
         }
     }
 
@@ -70,66 +72,65 @@ You create classes with the `class` keyword, followed by an identifier, and fina
     chicken_breast.print(); // 'Chicken Breast | 26g P :: 0g C :: 3.5g F'
     console.log(chicken_breast.protein); // 26 (LINE A)
 
-A few things to note.
+需要注意到以下事情：
 
-*   Classes can _only_ contain method definitions, **not** data properties;
-*   When defining methods, you use [shorthand method definitions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Method_definitions);
-*   Unlike when creating objects, you do _not_ separate method definitions in class bodies with commas; and
-*   You _can_ refer to properties on instances of the class directly (Line A).
+* 类**只能**包含方法定义，**不能**有数据属性；
+* 定义方法时，可以使用[简写方法定义](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Method_definitions)；
+* 与创建对象不同，我们不能在类主体中使用逗号分隔方法定义；
+* 我们**可以**在实例化对象上直接引用类的属性（如 LINE A）。
 
-A distinctive feature of classes is the function called **constructor**. This is where you initialize your object's properties.
+类有一个独有的特性，就是 **contructor** 构造方法。在构造方法中我们可以初始化对象的属性。
 
-You don't _have_ to define a constructor function. If you choose not to, the engine will insert an empty one for you:
+构造方法的定义并**不是必须**的。如果不写构造方法，引擎会为我们插入一个空的构造方法：
 
     "use strict";
 
-    class NoConstructor { 
-        /* JavaScript inserts something like this:
+    class NoConstructor {
+        /* JavaScript 会插入这样的代码：
          constructor () { }
         */
     }
 
-    const nemo = new NoConstructor(); // Works, but pretty boring
+    const nemo = new NoConstructor(); // 能工作，但没啥意思
 
-Assigning a class to a variable is called a **class expression**, and is an alternative to the above syntax:
+将一个类赋值给一个变量的形式叫**类表达式**，这种写法可以替代上面的语法形式：
 
     "use strict";
 
-    // This is an anonymous class expression -- you can't refer to the it by name within the class body.
+    // 这是一个匿名类表达式，在类主体中我们不能通过名称引用它
     const Food = class {
-        // Class definition is the same as before. . . 
+        // 和上面一样的类定义……
     }
 
-    // This is a named class expression -- you /can/ refer to this class by name within the class body . . . 
+    // 这是一个命名类表达式，在类主体中我们可以通过名称引用它
     const Food = class FoodClass {
-        // Class definition is the same as before . . . 
+        // 和上面一样的类定义……
 
-        //  Adding new method, to demonstrate we can refer to FoodClass by name
-        //   within the class . . . 
+        //  添加一个新方法，证明我们可以通过内部名称引用 FoodClass……        
         printMacronutrients () {
-          console.log(`${FoodClass.name} | ${FoodClass.protein} g P :: ${FoodClass.carbs} g C :: ${FoodClass.fat} g F`)
+            console.log(`${FoodClass.name} | ${FoodClass.protein} g P :: ${FoodClass.carbs} g C :: ${FoodClass.fat} g F`)
         }
     }
 
     const chicken_breast = new Food('Chicken Breast', 26, 0, 3.5);
     chicken_breast.printMacronutrients(); // 'Chicken Breast | 26g P :: 0g C :: 3.5g F'
 
-    // . . . But /not/ outside of it
+    // 但是不能在外部引用
     try {
-        console.log(FoodClass.protein); // ReferenceError 
-    } catch (err) { 
+        console.log(FoodClass.protein); // 引用错误
+    } catch (err) {
         // pass
     }
 
-This behavior is analogous to that of [anonymous and named function expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function).
+这一行为与[匿名函数与命名函数表达式](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function)很类似。
 
-## Creating Subclasses with `extends` & Calling with `super`
+## 使用 `extends` 创建子类以及使用 super 调用
 
-Classes created with `extends` are called **subclasses**, or **derived classes**. Using them is straightforward. Building on our Food example:
+使用 `extends` 创建的类被称作**子类**，或**派生类**。这一用法简单明了，我们直接在上面的例子中构建：
 
     "use strict";
 
-    // FatFreeFood is a derived class
+    // FatFreeFood 是一个派生类
     class FatFreeFood extends Food {
 
         constructor (name, protein, carbs) {
@@ -137,7 +138,7 @@ Classes created with `extends` are called **subclasses**, or **derived classes**
         }
 
         print () {
-            super.print(); 
+            super.print();
             console.log(`Would you look at that -- ${this.name} has no fat!`);
         }
 
@@ -146,209 +147,209 @@ Classes created with `extends` are called **subclasses**, or **derived classes**
     const fat_free_yogurt = new FatFreeFood('Greek Yogurt', 16, 12);
     fat_free_yogurt.print(); // 'Greek Yogurt | 26g P :: 16g C :: 0g F  /  Would you look at that -- Greek Yogurt has no fat!'
 
-Everything we discussed above regarding base classe holds true for derived classes, but with a few additional points.
+派生类拥有我们上文讨论的一切有关基类的特性，另外还有如下几点新特点：
 
-*   Subclasses are declared with the `class` keyword, followed by an identifier, and then the `extends` keyword, followed by an _arbitrary expression_. This will generally just be an identifier, [but could, in theory, be a function](https://gist.github.com/sebmarkbage/fac0830dbb13ccbff596).
-*   If your derived class needs to refer to the class it extends, it can do so with the `super` keyword.
-*   A derived class can't contain an empty constructor. Even if all the constructor does is call `super()`, you'll still have to do so explicitly. It can, however, contain _no_ constructor.
-*   You _must_ call `super` in the constructor of a derived class before you use `this`.
+* 子类使用 `class` 关键字声明，之后紧跟一个标识符，然后使用 `extend` 关键字，最后写一个**任意表达式**。这个表达式通常来讲就是个标识符，但[理论上也可以是函数](https://gist.github.com/sebmarkbage/fac0830dbb13ccbff596)。
+* 如果你的派生类需要引用它的父类，可以使用 `super` 关键字。
+* 一个派生类不能有一个空的构造函数。即使这个构造函数就是调用了一下 `super()`，你也得把它显式的写出来。但派生类却可以**没有**构造函数。
+* 在派生类的构造函数中，**必须**先调用 `super`，才能使用 `this` 关键字（译者注：仅在构造函数中是这样，在其他方法中可以直接使用 `this`）。
 
-In JavaScript, there are precisely two use cases for the `super` keyword.
+在 JavaScript 中仅有两个 `super` 关键字的使用场景：
 
-1.  **Within subclass constructor calls**. If initializing your derived class requires you to use the parent class's constructor, you can call `super(parentConstructorParams[ )` within the subclass constructor, passing along any necessary parameters.
-2.  **To refer to methods in the superclass**. Within normal method definitions, derived classes can refer to methods on the parent class with dot notation: `super.methodName`.
+1. **在子类构造函数中调用**。如果初始化派生类是需要使用父类的构造函数，我们可以在子类的构造函数中调用 `super(parentConstructorParams)`，传递任意需要的参数。
+2. **引用父类的方法**。在常规方法定义中，派生类可以使用点运算符来引用父类的方法：`super.methodName`。
 
-Our `FatFreeFood` demonstrates both use cases:
+我们的 `FatFreeFood` 演示了这两种情况：
 
-1.  In the constructor, we simply call `super`, passing along `0` as our quantity of fat.
-2.  In our `print` method, we first call `super.print`, and add additional logic after.
+1. 在构造函数中，我们简单的调用了 `super`，并将脂肪的量传入为 `0`。
+2. 在我们的 `print` 方法中，我们先调用了 `super.print`，之后才添加了其他的逻辑。
 
-Believe it or not, that wraps up the basic syntactical overview of `class`; this is all you need to start experimenting.
+不管你信不信，~~我反正是信了~~以上说的已涵盖了有关 `class` 的基础语法，这就是你开始实验需要掌握的全部内容。
 
-## Prototypes: A Deep Dive
+## 深入学习原型
 
-It's time we turn our attention to how `class` maps to JavaScript's underlying prototype mechanisms. We'll look at:
+现在我们开始关注 `class` 是怎么映射到 JavaScript 内部的原型机制的。我们会关注以下几点：
 
-*   Creating objects with constructor calls;
-*   The nature of prototype linkages;
-*   Property & method delegation; and
-*   Emulating classes with prototypes
+* 使用构造调用创建对象；
+* 原型连接的本质；
+* 属性和方法委托；
+* 使用原型模拟类。
 
-### Creating Objects with Constructor Calls
+### 使用构造调用创建对象
 
-Constructors are nothing new. Calling _any_ function with the `new` keyword causes it to return an object -- this is called making a _constructor call_, and such functions are generally called _constructors_:
+构造函数不是什么新鲜玩意儿。使用 `new` 关键字调用**任意**函数会使其返回一个对象 —— 这一步称作创建了一个**构造调用**，这种函数通常被称作**构造器**：
 
     "use strict";
 
     function Food (name, protein, carbs, fat) {
         this.name    = name;
         this.protein = protein;
-        this.carbs    = carbs;
-        this.fat          = fat;
+        this.carbs   = carbs;
+        this.fat     = fat;
     }
 
-    // Calling Food with 'new' is a "constructor call", and results in its returning an object 
+    // 使用 'new' 关键字调用 Food 方法，就是构造调用，该操作会返回一个对象
     const chicken_breast = new Food('Chicken Breast', 26, 0, 3.5);
     console.log(chicken_breast.protein) // 26
 
-    // Failing to call Food with 'new' results in its returning 'undefined'
+    // 不用 'new' 调用 Food 方法，会返回 'undefined'
     const fish = Food('Halibut', 26, 0, 2);
     console.log(fish); // 'undefined'
 
-When you call a function with `new`, four things happen under the hood:
+当我们使用 `new` 关键字调用函数时，JS 内部执行了下面四个步骤：
 
-1.  A new object gets created (let's call it **O**);
-2.  **O** gets linked to another object, called its _prototype_;
-3.  The function's `this` value is set to refer to **O**;
-4.  The function implicitly returns **O**.
+1. 创建一个新对象（这里称它为 **O**）；
+2. 给 **O** 赋予一个连接到其他对象的链接，称为**原型**；
+3. 将函数的 `this` 引用指向 **O**；
+4. 函数隐式返回 **O**。
 
-It's between steps three and four that the engine executes your function's specific logic.
+在第三步和第四步之间，引擎会执行你函数中的具体逻辑。
 
-Knowing this, we can rewrite our `Food` function to work _without_ the `new` keyword:
+知道了这一点，我们就可以重写 `Food` 方法，使之不用 `new` 关键字也能工作：
 
     "use strict";
 
-    // Eliminating the need for 'new' -- just for demonstration
+    // 演示示例：消除对 'new' 关键字的依赖
     function Food (name, protein, carbs, fat) {
-           // Step One: Create a new Object
-        const obj = { }; 
+        // 第一步：创建新对象
+        const obj = { };
 
-        // Step Two: Link prototypes -- we'll cover this in greater detail shortly
+        // 第二步：链接原型——我们在下文会更加具体地探究原型的概念
         Object.setPrototypeOf(obj, Food.prototype);
 
-        // Step Three: Set 'this' to point to our new Object
-        //    Since we can't reset `this` inside of a running execution context, 
-        //      we simulate Step Three by using 'obj' instead of 'this'
+        // 第三步：设置 'this' 指向我们的新对象
+        // 尽然我们不能再运行的执行上下文中重置 `this`
+        // 我们在使用 'obj' 取代 'this' 来模拟第三步
         obj.name    = name;
         obj.protein = protein;
-        obj.carbs    = carbs;
-        obj.fat         = fat;
+        obj.carbs   = carbs;
+        obj.fat     = fat;
 
-        // Step Four: Return the newly created object
+        // 第四步：返回新创建的对象
         return obj;
     }
 
     const fish = Food('Halibut', 26, 0, 2);
     console.log(fish.protein); // 26
 
-Three of these four steps are straightforward. Creating an object, assigning properties, and writing a `return` statement are unlikely to give most developers any conceptual trouble: It's the prototype weirdness that trips people up.
+四步中的三步都是简单明了的。创建一个对象、赋值属性、然后写一个 `return` 声明，这些操作对大多数开发者来说没有理解上的问题——然而这就是难倒众人的黑魔法原型。
 
-### Grokking the Prototype Chain
+### 直观理解原型链
 
-Under normal circumstances, all objects in JavaScript -- including Functions -- are linked to another object, called its _prototype_.
+在通常情况下，JavaScript 中的包括函数在内的所有对象都会链接到另一个对象上，这就是**原型**。
 
-If you request a property on an object that the object doesn't have, JavaScript checks the object's prototype for that property. In other words, if you ask for a property on an object that the object doesn't have, it says: "I don't know. Ask my prototype."
+如果我们访问一个对象本身没有的属性，JavaScript 就会在对象的原型上检查该属性。换句话说，如果你对一个对象请求它没有的属性，它会对你说：『这个我不知道，问我的原型吧』。
 
-This process -- referring lookups for nonexistent properties to another object -- is called _delegation_.
+在另一个对象上查找不存在属性的过程称作**委托**。
 
     "use strict";
 
-    // joe has no toString property . . . 
+    // joe 没有 toString 方法……
     const joe    = { name : 'Joe' },
-           sara  = { name : 'Sara' };
+        sara   = { name : 'Sara' };
 
     Object.hasOwnProperty(joe, toString); // false
     Object.hasOwnProperty(sara, toString); // false
 
-    // . . . But we can call it anyway!
-    joe.toString(); // '[object Object]', instead of ReferenceError!
-    sara.toString(); // '[object Object]', instead of ReferenceError!
+    // ……但我们还是可以调用它！
+    joe.toString(); // '[object Object]'，而不是引用错误！
+    sara.toString(); // '[object Object]'，而不是引用错误！
 
-The output from our `toString` calls is utterly useless, but note that this snippet doesn't raise a single `ReferenceError`! That's because, while neither `joe` or `sara` has a `toString` property, _their prototype does_.
+尽管我们的 `toString` 的输出完全没啥用，但请注意：这段代码没有引起任何的 `ReferenceError`！这是因为尽管 `joe` 和 `sara` 没有 `toString` 的属性，**但他们的原型有啊**。
 
-When we look for `sara.toString()`, `sara` says, "I don't have a `toString` property. Ask my prototype." JavaScript, obligingly, does as told, and asks `Object.prototype` if _it_ has a `toString` property. Since it does, it hands `Object.prototype`'s `toString` back to our program, which executes it.
+当我们寻找 `sara.toString()` 方法时，`sara` 说：『我没有 `toString` 属性，找我的原型吧』。正如上文所说，JavaScript 会亲切的询问 `Object.prototype` 是否含有 `toString` 属性。由于原型上有这一属性，JS 就会把 `Object.prototype` 上的 `toString` 返回给我们程序并执行。
 
-It doesn't matter that `sara` didn't have the property herself -- _we just delegated the lookup to the prototype_.
+`sara` 本身没有属性没关系——**我们会把查找操作委托到原型上**。
 
-In other words, we can access non-existent properties on an object _as long as that object's prototype **does** have those properties_. We can take advantage of this by assigning properties and methods to an object's prototype, so that we can use them as if they existed on the object itself.
+换言之，我们就可以访问到对象上并不存在的属性，**只要其的原型上有这些属性**。我们可以利用这一点将属性和方法赋值到对象的原型上，然后我们就可以调用这些属性，好像它们真的存在在那个对象上一样。
 
-Even better, if several objects share the same prototype -- as is the case with `joe` and `sara` above -- they can _all_ access that prototype's properties, immediately after we assign them, _without_ our having to copy those properties or methods to each individual object.
+更给力的是，如果几个对象共享相同的原型——正如上面的 `joe` 和 `sara` 的例子一样——当我们给原型赋值属性之后，它们就**都**可以访问了，**无需**将这些属性单独拷贝到每一个对象上。
 
-This is what people generally refer to as _prototypical/prototypal inheritance_ -- if my object doesn't have it, but my object's prototype does, my object _inherits_ the property.
+这就是为何大家把它称作**原型继承**——如果我的对象没有，但对象的原型有，那我的对象也能**继承**这个属性。
 
-In reality, there's no "inheritance" going on, here. In class-oriented languages, inheritance implies behavior is _copied_ from a parent to a child. In JavaScript, no such copying takes place -- which is, in fact, one of the major benefits of prototypes over classes.
+事实上，这里并没有发生什么『继承』。在面向类的语言里，继承指从父类**复制**属性到子类的行为。在 JavaScript 里，没发生这种复制的操作，事实上这就是原型继承与类继承相比的一个主要优势。
 
-Here's a quick recap before we see precisely where these prototypes come from:
+在我们探究原型究竟是怎么来的之前，我们先做一个简要回顾：
 
-*   `joe` and `sara` do _not_ "inherit" a `toString` property;
-*   `joe` and `sara`, as a matter of fact, do _not_ "inherit" from `Object.prototype` _at all_;
-*   `joe` and `sara` _are_ **linked** to `Object.prototype`;
-*   Both `joe` and `sara` are linked to the _same_ `Object.prototype`.
-*   To find the prototype of an object -- let's call it **O** -- you use: `Object.getPrototypeOf(O)`.
+* `joe` 和 `sara` **没有**『继承』一个 `toString` 的属性；
+* `joe` 和 `sara` 实际上根本**没有**从 `Object.prototype` 上『继承』；
+* `joe` 和 `sara` 是**链接**到了 `Object.prototype` 上；
+* `joe` 和 `sara` 链接到了**同一个** `Object.prototype` 上。
+* 如果想找到一个对象的（我们称它作**O**）原型，我们可以使用 `Object.getPrototypeof(O)`。
 
-And, just to hammer it home: Objects do not "inherit from" their prototypes. They _delegate_ to them.
+然后我们再强调一遍：对象没有『继承自』他们的原型。他们只是**委托**到原型上。
 
-Period.
+以上。
 
-Let's dig deeper.
+接下来让我们深♂入一下。
 
-## Setting an Object's Prototype
+## 设置对象的原型
 
-We learned above that (almost) every object (**O**) has a _prototype_ (**P**), and that, when you look for a property on **O** that **O** doesn't have, the JavaScript engine will look for that property on **P** instead.
+我们已了解到基本上每个对象（下文以 **O** 指代）都有原型（下文以 **P** 指代），然后当我们查找 **O** 上没有的属性，JavaScript 引擎就会在 **P** 上寻找这个属性。
 
-From here, the questions are:
+至此我们有两个问题：
 
-1.  How do _functions_ play into all of this?
-2.  Where do these prototypes come from, anyway?
+1. 以上情况**函数**怎么玩？
+2. 这些原型是从哪里来的？
 
-### A Function Named Object
+### 名为 Object 的函数
 
-Before the JavaScript engine executes a program, it builds an environment to run it in, in which it creates a function, called [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object), and an associated object, called [Object.prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype).
+在 JavaScript 引擎执行程序之前，它会创建一个环境让程序在内部执行，在执行环境中会创建一个函数，叫做 [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object), 以及一个关联对象，叫做 [Object.prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype)。
 
-In other words, `Object` and `Object.prototype` _always_ exist, in _any_ executing JavaScript program.
+换句话说，`Object` 和 `Object.prototype` 在**任意**执行中的 JavaScript 程序中**永远**存在。
 
-The _function_, `Object`, is like any other function. In particular, it's a _constructor_ -- calling it returns a new object:
+这个 `Object` 乍一看好像和其他函数没什么区别，但特别之处在于它是一个**构造器**——在调用它时返回一个新对象：
 
     "use strict";
 
     typeof new Object(); // "object"
-    typeof Object();         // A peculiarity of the Object function is that it does /not/ need to be called with new.
+    typeof Object();     // 这个 Object 函数的特点是不需要使用 new 关键字调用
 
-The _object_, `Object.prototype`, is . . . Well, an object. And, like many objects, it has properties.
+这个 `Object.prototype` **对象**是个……对象。正如其他对象一样，它有属性。
 
-![Properties on Object.prototype](https://i.imgsafe.org/ebbd5e3.png)
+![Object.prototype 上的属性](https://i.imgsafe.org/ebbd5e3.png)
 
-Here's what you need to know about `Object` and `Object.prototype`:
+关于 `Object` 和 `Object.prototype` 你需要知道以下几点：
 
-1.  The _function_, `Object`, has a property, called `.prototype`, which points to an object (`Object.prototype`);
-2.  The _object_, `Object.prototype`, has a property, called `.constructor`, which points to a function (`Object`).
+1. `Object` **函数**有一个叫做 `.prototype` 的属性，指向一个对象（`Object.prototype`）；
+2. `Object.prototype` **对象**有一个叫做 `.constructor` 的属性，指向一个函数（`Object`）。
 
-As it turns out, this general scheme is true for _all_ functions in JavaScript. When you create a function -- `someFunction` -- it will have a property, `.prototype`, that points to an object, called `someFunction.prototype`.
+实际上，这个总体方案对于 JavaScript 中的**所有**函数都是适用的。当我们创建一个函数——下文称作 `someFunction`——这个函数就会有一个属性 `.prototype`，指向一个叫做 `someFunction.prototype` 的对象。
 
-Conversely, that object -- `someFunction.prototype` -- will have a property, called `.constructor`, which points _back_ to the function `someFunction`.
+与之相反，`someFunction.prototype` 对象会有一个叫做 `.contructor` 的属性，它的引用指回函数 `someFunction`。
 
     "use strict";
 
     function foo () {  console.log('Foo!');  }
 
-    console.log(foo.prototype); // Points to an object called 'foo'
-    console.log(foo.prototype.constructor); // Points to the function, 'foo'
+    console.log(foo.prototype); // 指向一个叫 'foo' 的对象
+    console.log(foo.prototype.constructor); // 指向 'foo' 函数
 
-    foo.prototype.constructor(); // Prints 'Foo!' -- just proving that 'foo.prototype.constructor' does, in fact, point to our original function 
+    foo.prototype.constructor(); // 输出 'Foo!' —— 仅为证明确实有 'foo.prototype.constructor' 这么个方法且指向原函数
 
-The major points to keep in mind are these:
+需要记住以下几个要点：
 
-1.  All functions have a property, called `.prototype`, which points to an object associated with that function.
-2.  All function prototypes have a property, called `.constructor`, which points back to the function.
-3.  A function prototype's `.constructor` does not necessarily point to the function that created the function prototype . . . Confusingly enough. We'll touch on this in greater detail soon.
+1. 所有的函数都有一个属性，叫做 `.prototype`，它指向这个函数的关联对象。
+2. 所有函数的原型都有一个属性，叫做 `.constructor`，它指向这个函数本身。
+3. 一个函数原型的 `.constructor` 并非必须指向创建这个函数原型的函数……有点绕，我们等下会深入探讨一下。
 
-These are the rules for setting a _function's_ prototype. With that out of the way, we can cover three rules for setting an object's prototype:
+设置**函数**的原型有一些规则，在开始之前，我们先概括设置对象原型的三个规则：
 
-1.  The "default" rule;
-2.  Setting the prototype implicitly, with `new`;
-3.  Setting the prototype explicitly, with `Object.create`.
+1. 『默认』规则；
+2. 使用 `new` 隐式设置原型；
+3. 使用 `Object.create` 显式设置原型。
 
-### The Default Rule
+### 默认规则
 
-Consider this snippet:
+考虑下这段代码：
 
     "use strict";
 
     const foo = { status : 'foobar' };
 
-Refreshingly simple. All we've done is create an object, called `foo`, and give it a property, called `status`.
+十分简单，我们做的事儿就是创建一个叫 `foo` 的对象，然后给他一个叫 `status` 的属性。
 
-Behind the scenes, however, JavaScript does a little extra work. When we create an object literal, JavaScript sets the object's prototype reference to `Object.prototype`, and sets its `.constructor` reference to `Object`:
+然后 JavaScript 在幕后多做了点工作。当我们在字面上创建一个对象时，JavaScript 将对象的原型指向 `Object.prototype` 并设置其原型的 `.constructor` 指向 `Object`：
 
     "use strict";
 
@@ -357,32 +358,34 @@ Behind the scenes, however, JavaScript does a little extra work. When we create 
     Object.getPrototypeOf(foo) === Object.prototype; // true
     foo.constructor === Object; // true
 
-### Setting the Prototype Implicitly with `new`
+### 使用 `new` 隐式设置原型
 
-Let's take another look at our modified `Food` example.
+让我们再看下之前调整过的 `Food` 例子。
 
     "use strict";
 
     function Food (name, protein, carbs, fat) {
         this.name    = name;
         this.protein = protein;
-        this.carbs    = carbs;
-        this.fat          = fat;
+        this.carbs   = carbs;
+        this.fat     = fat;
     }
 
-By now, we know that the _function_ `Food` will be associated with an _object_, called `Food.prototype`.
+现在我们知道**函数** `Food` 将会与一个叫做 `Food.prototype` 的**对象**关联。
 
-When we create an object using the `new` keyword, JavaScript:
+当我们使用 `new` 关键字创建一个对象，JavaScript 将会：
 
-1.  Sets the object's prototype reference to the `.prototype` property of the function you called with `new`; and
-2.  Sets the object's `.constructor` reference to the function you called `new` with.
+1. 设置这个对象的原型指向我们使用 `new` 调用的函数的 `.prototype` 属性；
+2. 设置这个对象的 `.constructor` 指向我们使用 `new` 调用到的构造函数。
 
-    const tootsie_roll = new Food('Tootsie Roll', 0, 26, 0);
+```js
+const tootsie_roll = new Food('Tootsie Roll', 0, 26, 0);
 
-    Object.getPrototypeOf(tootsie_roll) === Food.prototype; // true
-    tootsie_roll.constructor === Food; // true
+Object.getPrototypeOf(tootsie_roll) === Food.prototype; // true
+tootsie_roll.constructor === Food; // true
+```
 
-This is what lets us do slick stuff like this:
+这就可以让我们搞出下面这样的黑魔法：
 
     "use strict";
 
@@ -393,15 +396,15 @@ This is what lets us do slick stuff like this:
     const dinner = new Food('Lamb Chops', 52, 8, 32);
     dinner.cook(); // 'Lamb Chops are cooking!'
 
-### Setting the Prototype Explicitly with `Object.create`
+### 使用 `Object.create` 显式设置原型
 
-Finally, we can set an object's prototype reference _manually_, using a utility called `Object.create`.
+最后我们可以使用 `Object.create` 方法手工设置对象的原型引用。
 
     "use strict";
 
     const foo = {
         speak () {
-        console.log('Foo!');
+            console.log('Foo!');
         }
     };
 
@@ -410,25 +413,26 @@ Finally, we can set an object's prototype reference _manually_, using a utility 
     bar.speak(); // 'Foo!'
     Object.getPrototypeOf(bar) === foo; // true
 
-Remember the four things that JavaScript does under the hood when you call a function with `new`? `Object.create` does all but the third step:
+还记得使用 `new` 调用函数的时候，JavaScript 在幕后干了哪四件事儿吗？`Object.create` 就干了这三件事儿：
 
-1.  Create a new object;
-2.  Set its prototype reference; and
-3.  Return the new object.
+1. 创建一个新对象；
+2. 设置它的原型引用；
+3. 返回这个新对象。
 
-[You can see this yourself if you take a look at the polyfill](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create).
+[你可以自己去看下 MDN 上写的那个 polyfill。](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create)
+（译者注：polyfill 就是给老代码实现现有新功能的补丁代码，这里就是指老版本 JS 没有 `Object.create` 函数，MDN 上有手工撸的一个替代方案）
 
-### Emulating `class` Behavior
+### 模拟 `class` 行为
 
-Using prototypes directly, emulating class-oriented behavior required a bit of manual acrobatics.
+直接使用原型来模拟面向类的行为需要一些技巧。
 
     "use strict";
 
     function Food (name, protein, carbs, fat) {
         this.name    = name;
         this.protein = protein;
-        this.carbs    = carbs;
-        this.fat          = fat;
+        this.carbs   = carbs;
+        this.fat     = fat;
     }
 
     Food.prototype.toString = function () {
@@ -439,139 +443,139 @@ Using prototypes directly, emulating class-oriented behavior required a bit of m
         Food.call(this, name, protein, carbs, 0);
     }
 
-    // Setting up "subclass" relationships
+    // 设置 "subclass" 关系
     // =====================
-    // LINE A :: Using Object.create to manually set FatFreeFood's "parent".
+    // LINE A :: 使用 Object.create 手动设置 FatFreeFood's 『父类』.
     FatFreeFood.prototype = Object.create(Food.prototype);
 
-    // LINE B :: Manually (re)setting constructor reference (!)
+    // LINE B :: 手工重置 constructor 的引用
     Object.defineProperty(FatFreeFood.constructor, "constructor", {
         enumerable : false,
-        writeable      : true,
-        value             : FatFreeFood
+        writeable  : true,
+        value      : FatFreeFood
     });
 
-At Line A, we have to set `FatFreeFood.prototype` equal to a new object, whose prototype reference is to `Food.prototype`. If we fail to do this, our "child classes" won't have access to "superclass" methods.
+在 Line A，我们需要设置 `FatFreeFood.prototype` 使之等于一个新对象，这个新对象的原型引用是 `Food.prototype`。如果没这么搞，我们的子类就不能访问『超类』的方法。
 
-Unfortunately, this results in the rather bizarre behavior that `FatFreeFood.constructor` is [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function) . . . Not `FatFreeFood`. So, to keep everything sane, we have to manually set `FatFreeFood.constructor` by hand at Line B.
+不幸的是，这个导致了相当诡异的结果：`FatFreeFood.constructor` 是 [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function)，而不是 `FatFreeFood`。为了保证一切正常，我们需要在 Line B 手工设置 `FatFreeFood.constructor`。
 
-Sparing developers from the noise and unwieldliness of emulating class behavior with prototypes is one of the motives for the `class` keyword. It _does_ provide a solution to the most common gotchas of prototype syntax.
+让开发者从使用原型对类行为笨拙的模仿中脱离苦海是 `class` 关键字的产生动机之一。它确实也提供了避免原型语法常见陷阱的解决方案。
 
-Now that we've seen so much of JavaScript's prototype mechanics, it should be easier to appreciate just _how_ much easier it can make things!
+现在我们已经探究了太多关于 JavaScript 的原型机制，你应该更容易理解 class 关键字让一切变得多么简单了吧！
 
-## A Closer Look at Methods
+## 深入探究下方法
 
-Now that we've seen the essentials of JavaScript's prototype system, we'll wrap up by taking a closer look at three kinds of methods classes support, and a special case of the last sort:
+现在我们已了解到 JavaScript 原型系统的必要性，我们将深入探究一下类支持的三种方法，以及一种特殊情况，以结束本文的讨论。
 
-*   Constructors;
-*   Static methods;
-*   Prototype methods; and
-*   "Symbol methods", a special case of _prototype methods_
+* 构造器；
+* 静态方法；
+* 原型方法；
+* 一种**原型方法**的特殊情况：『标记方法』。
 
-I didn't come up with these groups -- credit goes to Dr Rauschmayer for identifying them in [Exploring ES6](http://exploringjs.com/es6/ch_classes.html).
+并非我提出的这三组方法，这要归功于 Rauschmayer 博士在 [探索 ES6](http://exploringjs.com/es6/ch_classes.html) 一书中的定义。
 
-### Class Constructors
+### 类构造器
 
-A class's `constructor` function is where you'll focus your initialization logic. The `constructor` is special in a few ways:
+一个类的 `constructor` 方法用于关注我们的初始化逻辑，`constructor` 方法有以下几个特殊点：
 
-1.  It's the only method of a class from which you can make a superconstructor call;
-2.  It handles all the dirty work of setting up the prototype chain properly; and
-3.  It acts as the definition of the class.
+1. 只有在构造方法里，我们才可以调用父类的构造器；
+2. 它在背后处理了所有设置原型链的工作；
+3. 它被用作类的定义。
 
-Point 2 is one of the principle benefits to using `class` in JavaScript. To quote heading 15.2.3.1 of Exploring ES6:
+第二点就是在 JavaScript 中使用 `class` 的一个主要好处，我们来引用一下《探索 ES6》书里的 15.2.3.1 的标题：
 
-> **The prototype of a subclass is the superclass.**
+> **子类的原型就是超类**
 
-As we've seen, setting this up manually is tedious and error-prone. That the language takes care of it all behind the scenes if we use `class` is a major boon.
+正如我们所见，手工设置非常繁琐且容易出错。如果我们使用 `class` 关键字，JavaScript 在内部会负责搞定这些设置，这一点也是使用 `class` 的优势。
 
-Point 3 is interesting. In JavaScript, a class is just a function -- it's equivalent to the `constructor` method in the class.
+第三点有点意思。在 JavaScript 中类仅仅是个函数——它等同于与类中的 `constructor` 方法。
 
     "use strict";
 
     class Food {
-        // Class definition is the same as before . . . 
+        // 和之前一样的类定义……
     }
 
     typeof Food; // 'function'
 
-Unlike normal-functions-as-constructors, you can't call a class's constructor without the `new` keyword:
+与一般把函数作为构造器的方式不同，我们不能不用 `new` 关键字而直接调用类构造器：
 
-`const burrito = Food('Heaven', 100, 100, 25); // TypeError`
+`const burrito = Food('Heaven', 100, 100, 25); // 类型错误`
 
-. . . Which raises another question: What happens when we call a function-as-constructor _without_ new?
+这就引发了另一个问题：当我们**不用** `new` 调用函数构造器的时候发生了什么？
 
-The short answer: It returns `undefined`, as does any function without an explicit return. You just have to trust your users will constructor-call your function. This is why the community has adopted the convention of only capitalizing constructor names: It's a reminder to call with `new`.
+简短的回答是：对于任何没有显式返回的函数来说都是返回 `undefined`。我们只需要相信用我们构造函数的用户都会使用构造调用。这就是社区为何约定构造方法的首字母大写：提醒使用者要用 `new` 来调用。
 
     "use strict";
 
     function Food (name, protein, carbs, fat) {
         this.name    = name;
         this.protein = protein;
-        this.carbs    = carbs;
-        this.fat          = fat;
+        this.carbs   = carbs;
+        this.fat     = fat;
     }
 
     const fish = Food('Halibut', 26, 0, 2); // D'oh . . .
     console.log(fish); // 'undefined'
 
-The long answer: It returns `undefined`, _unless_ you manually detect that it wasn't called with `new`, and then do something about it yourself.
+长一点的回答是：返回 `undefined`，除非你手工检测是否使用被 `new` 调用，然后进行自己的处理。
 
-ES2015 introdues a property that makes this check trivial: `[new.target]`([https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new.target](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new.target)).
+ES2015 引入了一个属性使得这种检测变得简单: `[new.target]`([https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new.target](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new.target)).
 
-`new.target` is a property defined on all functions called with `new`, including class constructors. When you call a function with the `new` keyword, the value of `new.target` within the function body is the function itself. If the function wasn't called with `new`, its value is `undefined`.
+`new.target` 是一个定义在所有使用 `new` 调用的函数上的属性，包括类构造器。 当我们使用 `new` 关键字调用函数时，函数体内的 `new.target` 的值就是这个函数本身。如果函数没有被 `new` 调用，这个值就是 `undefined`。
 
     "use strict";
 
-    // Enforcing constructor call
+    // 强行构造调用
     function Food (name, protein, carbs, fat) {
-        // Manually call 'new' if user forgets
+        // 如果用户忘了手工调用一下
         if (!new.target)
-            return new Food(name, protein, carbs, fat); 
+            return new Food(name, protein, carbs, fat);
 
         this.name    = name;
         this.protein = protein;
-        this.carbs    = carbs;
-        this.fat          = fat;
+        this.carbs   = carbs;
+        this.fat     = fat;
     }
 
-    const fish = Food('Halibut', 26, 0, 2); // Oops -- but, no problem!
+    const fish = Food('Halibut', 26, 0, 2); // 糟了，不过没关系！
     fish; // 'Food {name: "Halibut", protein: 20, carbs: 5, fat: 0}'
 
-This wasn't any worse in ES5:
+在 ES5 里用起来也还行：
 
     "use strict";
 
     function Food (name, protein, carbs, fat) {
 
         if (!(this instanceof Food))
-            return new Food(name, protein, carbs, fat); 
+            return new Food(name, protein, carbs, fat);
 
         this.name    = name;
         this.protein = protein;
-        this.carbs    = carbs;
-        this.fat          = fat;
+        this.carbs   = carbs;
+        this.fat     = fat;
     }
 
-The [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new.target) has more details on `new.target`, and the [spec is the definitive reference](https://tc39.github.io/ecma262/#sec-built-in-function-objects) for the truly curious. The descriptions of [[Construct]] are particularly illuminating.
+[MDN 文档](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new.target)讲述了 `new.target` 的更多细节，而且给有兴趣者[配上了 ES2015 规范作为参考](https://tc39.github.io/ecma262/#sec-built-in-function-objects)。规范里有关 [[Construct]] 的描述很有启发性。
 
-### Static Methods
+### 静态方法
 
-_Static methods_ are methods on the constructor function itself, which are _not_ available on instances of the class. You define them by using the `static` keyword.
+**静态方法**是构造方法自己的方法，**不能**被类的实例化对象调用。我们使用 `static` 关键字定义静态方法。
 
     "use strict";
 
     class Food {
-         // Class definition is the same as before . . . 
+         // 和之前一样……
 
-         // Adding a static method
+         // 添加静态方法
          static describe () {
-           console.log('"Food" is a data type for storing macronutrient information.');
-          }
+             console.log('"Food" 是一种存储了营养信息的数据类型');
+         }
     }
 
-    Food.describe(); // '"Food" is a data type for storing macronutrient information.'
+    Food.describe(); // '"Food" 是一种存储了营养信息的数据类型'
 
-Static methods are analogous to attaching properties directly to old-school functions-as-constructors:
+静态方法与老式构造函数中直接属性赋值相似：
 
     "use strict";
 
@@ -580,25 +584,25 @@ Static methods are analogous to attaching properties directly to old-school func
 
         this.name    = name;
         this.protein = protein;
-        this.carbs    = carbs;
-        this.fat          = fat;
+        this.carbs   = carbs;
+        this.fat     = fat;
     }
 
     Food.count = 0;
     Food.describe = function count () {
-           console.log(`You've created ${Food.count} food(s).`);
+        console.log(`你创建了 ${Food.count} 个 food`);
     };
 
     const dummy = new Food();
-    Food.describe(); // "You've created 1 food."
+    Food.describe(); // "你创建了 1 个 food"
 
-### Prototype Methods
+### 原型方法
 
-Any method that isn't a constructor or a static method is _prototype method_. The name comes from the fact that we used to achieve this functionality by attaching functions to the `.prototype` of functions-as-constructors:
+任何不是构造方法和静态方法的方法都是**原型方法**。之所以叫原型方法，是因为我们之前通过给构造函数的原型上附加方法的方式来实现这一功能。
 
     "use strict";
 
-    // Using ES6:
+    // 使用 ES6：
     class Food {
 
         constructor (name, protein, carbs, fat) {
@@ -609,15 +613,15 @@ Any method that isn't a constructor or a static method is _prototype method_. Th
         }
 
         toString () {  
-        return `${this.name} | ${this.protein}g P :: ${this.carbs}g C :: ${this.fat}g F`; 
+            return `${this.name} | ${this.protein}g P :: ${this.carbs}g C :: ${this.fat}g F`;
         }
 
         print () {  
-        console.log( this.toString() );  
+            console.log( this.toString() );  
         }
     }
 
-    // In ES5:
+    // 在 ES5 里：
     function Food  (name, protein, carbs, fat) {
         this.name = name;
         this.protein = protein;
@@ -625,93 +629,91 @@ Any method that isn't a constructor or a static method is _prototype method_. Th
         this.fat = fat;
     }
 
-    // The name "prototype methods" presumably comes from the fact that we 
-    //    used to attach such methods to the '.prototype' old-school functions-as-constructors.
+    // 『原型方法』的命名大概来自我们之前通过给构造函数的原型上附加方法的方式来实现这一功能。
     Food.prototype.toString = function toString () {
-        return `${this.name} | ${this.protein}g P :: ${this.carbs}g C :: ${this.fat}g F`; 
+        return `${this.name} | ${this.protein}g P :: ${this.carbs}g C :: ${this.fat}g F`;
     };
 
     Food.prototype.print = function print () {
-        console.log( this.toString() ); 
+        console.log( this.toString() );
     };
 
-To be clear, it's perfectly fine to use generators in method definitions, as well:
+应该说明，在方法定义时完全可以使用生成器。
 
     "use strict";
 
     class Range {
 
-      constructor(from, to) {
-        this.from = from;
-        this.to   = to;
-      }
-
-      * generate () {
-        let counter = this.from,
-            to      = this.to;
-
-        while (counter < to) {
-          if (counter == to)
-            return counter++;
-          else
-            yield counter++;
+        constructor(from, to) {
+            this.from = from;
+            this.to   = to;
         }
-      }
+
+        * generate () {
+            let counter = this.from,
+                to      = this.to;
+
+            while (counter < to) {
+                if (counter == to)
+                    return counter++;
+                else
+                    yield counter++;
+            }
+        }
     }
 
     const range = new Range(0, 3);
     const gen = range.generate();
     for (let val of range.generate()) {
-      console.log(`Generator value is: ${ val }. `);
-      //  Prints:
-      //    Generator value is: 0.
-      //    Generator value is: 1.
-      //    Generator value is: 2.
+        console.log(`Generator 的值是 ${ val }. `);
+        //  Prints:
+        //    Generator 的值是 0.
+        //    Generator 的值是 1.
+        //    Generator 的值是 2.
     }
 
-### Symbol Methods
+### 标志方法
 
-Finally, there are the _symbol methods_. These are functions whose names are `Symbol` values, and which the JavaScript engine recognizes and uses when you use certain built-in constructs with your custom objects.
+最后我们说说**标志方法**。这是一些名为 `Symbol` 值的方法，当我们在自定义对象中使用内置构造器时，JavaScript 引擎可以识别并使用这些方法。
 
-The [MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol) provide a succinct overview of what Symbols are in general:
+[MDN 文档](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol)提供了一个 Symbol 是什么的简要概览：
 
-> A symbol is a unique and immutable data type and may be used as an identifier for object properties.
+> Symbol 是一个唯一且不变的数据类型，可以作为一个对象的属性标示符。
 
-Creating a new symbol provides you with a value that is guaranteed to be unique within your program. This is what makes it useful for naming object properties: You're guaranteed never to accidentally shadow anything. Symbol-valued keys also aren't innumerable, so they're largely invisible to the outside world ([but not completely](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect/ownKeys)).
+创建一个新的 symbol，会给我们提供一个被认为是程序里的唯一标识的值。这一点对于命名对象的属性十分有用：我们可以确保不会不小心覆盖任何属性。使用 Symbol 做键值也不是无数的，所以他们很大程度上对外界是不可见的（也不完全是，可以通过 [Reflect.ownKeys](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect/ownKeys) 获得）
 
     "use strict";
 
     const secureObject = {
-        // This key is guaranteed to be unique.
+        // 这个键可以看作是唯一的
         [new Symbol("name")] : 'Dr. Secure A. F.'
     };
 
-    console.log( Object.getKeys(superSecureObject) ); // [] -- The symbol property is pretty hard to get at . . .  
-    console.log( Reflect.ownKeys(secureObject) ); // [Symbol("name")] -- . . . But, not /truly/ hidden.
+    console.log( Object.getKeys(superSecureObject) ); // [] -- 标志属性不太好获取    console.log( Reflect.ownKeys(secureObject) ); // [Symbol("name")] -- 但也不是完全隐藏的
 
-More interestingly for us, they give us a way to tell the JavaScript engine to use certain functions for special purposes.
+对我们来讲更有意思的是，这给我们提供了一种方式来告诉 JavaScript 引擎使用特定方法来达到特定的目的。
 
-The so-called [Well-known Symbols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol) are special object keys that identify functions the JavaScript engine invokes when you use certain built-in constructs with custom objects.
+所谓的『[众所周知的 Symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol)』是一些特定对象的键，当你在定义对象中使用时他们时，JavaScript 引擎会触发一些特定方法。
 
-This is a bit exotic for JavaScript, so let's see an example:
+这对于 JavaScript 来说有点怪异，我们还是看个例子吧：
 
     "use strict";
 
-    // Extending Array lets us use 'length' in an intuitive way,
-    //   and also gives us access to built-in array methods, like 
-    //   map, filter, reduce, push, pop, etc.
+    // 继承 Array 可以让我们直观的使用 'length'
+    // 同时可以让我们访问到内置方法，如
+    // map、filter、reduce、push、pop 等
     class FoodSet extends Array {
 
-        // ...foods collects arbitrary number of arguments into an array
-        //   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator
+        // foods 把传递的任意参数收集为一个数组
+        // 参见：https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator
         constructor(...foods) {
             super();
             this.foods = [];
             foods.forEach((food) => this.foods.push(food))
         }
 
-         // Custom iterator behavior. This isn't very *useful* iterator behavior, mind you, but it's a fine example.
-         // The asterisk *must* precede the name of the key.
+         // 自定义迭代器行为，请注意，这不是多么好用的迭代器，但是个不错的例子
+         // 键名前必须写星号
          * [Symbol.iterator] () {
             let position = 0;
             while (position < this.foods.length) {
@@ -723,54 +725,52 @@ This is a bit exotic for JavaScript, so let's see an example:
              }
          }
 
-          // Return an object of type Array, rather than type FoodSet, when users
-          //   use built-in array methods. This makes our FoodSet interoperable
-          //   with code expecting an array.
-          static get [Symbol.species] () {
-              return Array;
-          }
+         // 当我们的用户使用内置的数组方法，返回一个数组类型对象
+         // 而不是 FoodSet 类型的。这使得我们的 FoodSet 可以被一些
+         // 期望操作数组的代码操作
+         static get [Symbol.species] () {
+             return Array;
+         }
     }
 
     const foodset = new FoodSet(new Food('Fish', 26, 0, 16), new Food('Hamburger', 26, 48, 24));
 
-    // When you use for . . . of with a FoodSet, JavaScript will iterate using the function you 
-    //    assoiated with the key [Symbol.iterator].
+    // 当我们使用 for ... of 操作 FoodSet 时，JavaScript 将会使用
+    // 我们之前用 [Symbol.iterator] 做键值的方法
     for (let food of foodset) {
-      // Prints all of our foods
-      console.log( food );
+        // 打印全部 food
+        console.log( food );
     }
 
-    // JavaScript creates and returns a new object when you `filter` on an array, 
-    //    which it creates using the default constructor of the object you execute `filter` on.
-    //
-    //    Since most code would expect filter to return an Array, we can tell JavaScript
-    //       to use the Array constructor when implicitly creating a new instance by 
-    //       overriding [Symbol.species].
+    // 当我们执行数组的 `filter` 方法时，JavaScript 创建并返回一个新对象
+    // 我们在什么对象上执行 `filter` 方法，新对象就使用这个对象作为默认构造器来创建
+    // 然而大部分代码都希望 filter 返回一个数组，于是我们通过重写 [Symbol.species]
+    // 的方式告诉 JavaScript 使用数组的构造器
     const healthy_foods = foodset.filter((food) => food.name !== 'Hamburger');
 
-    console.log( healthy_foods instanceof FoodSet ); // 
+    console.log( healthy_foods instanceof FoodSet ); //
     console.log( healthy_foods instanceof Array );
 
-When you use a `for...of` loop on an object, JavaScript will try to execute the object's _iterator_ function, which is the function associated with the key, `Symbol.iterator`. If you provide your own definition, JavaScript will use that. If you don't, it'll use the default implementation, if there is one; or do nothing, if there isn't.
+当你使用 `for...of` 遍历一个对象时，JavaScript 将会尝试执行对象的**迭代器**方法，这一方法就是该对象 `Symbol.iterator` 属性上关联的方法。如果我们提供了自己的方法定义，JavaScript 就会使用我们自定义的。如果没有自己制定的话，如果有默认的实现就用默认的，没有的话就不执行。
 
-`Symbol.species` is a bit more exotic. In a custom class, the default `Symbol.species` function is the constructor for your class. When you subclass built-in collections, like `Array` or `Set`, however, you'll often want to be able to use your subclass wherever you could use an instance of the parent class.
+`Symbo.species` 更奇异了。在自定义的类中，默认的 `Symbol.species` 函数就是类的构造函数。当我们的子类有内置的集合（例如 `Array` 和 `Set`）时，我们通常希望在使用父类的实例时也能使用子类。
 
-Returning instances of the parent class from methods on the class _instead_ of instances of the derived class gets us closer to ensuring full interoperability of a subclass with more general code. This is `Symbol.species` allows.
+通过方法返回父类的实例**而不是**派生类的实例，使我们更能确保我们子类在大多数代码里的可用性。而 `Symbol.species` 可以实现这一功能。
 
-Don't sweat it if this bit doesn't make much sense. Using symbols this way -- or at all -- is still a niche case, and the point of these examples is to demonstrate:
+如果不怎么需要这个功能就别费力去搞了。Symbol 的这种用法——或者说有关 Symbol 的全部用法——都还比较罕见。这些例子只是为了演示：
 
-1.  That you _can_ use certain built-in JavaScript constructs with custom classes; and
-2.  _How_ you achieve that, in two common cases.
+1. 我们**可以**在自定义类中使用 JavaScript 内置的特定构造器；
+2. 用两个普通的例子展示了怎么实现这一点。
 
-## Conclusion
 
-ES2015's `class` keyword does _not_ bring us "true classes", a là Java or SmallTalk. Rather, it simply provides a more convenient syntax for creating objects related via prototype linkage. Under the hood, there's nothing new here.
+## 结论
 
-I covered enough of JavaScript's prototype mechanism for our discussion, but there's quite a bit more to say. Read Kyle Simpson's [this & Object Prototypes](https://github.com/getify/You-Dont-Know-JS/tree/master/this%20%26%20object%20prototypes) for fuller coverage on that front. [Appendix A](https://github.com/getify/You-Dont-Know-JS/blob/master/this%20&%20object%20prototypes/apA.md) is particularly relevant.
+ES2015 的 `class` 关键字**没有**带给我们 Java 里或是 SmallTalk 里那种『真正的类』。宁可说它只是提供了一种更加方便的语法来创建通过原型关联的对象，本质上没有什么新东西。
 
-For the nitty-gritty on ES2015 classes, Dr Rauschmayer's [Exploring ES6: Classes](http://exploringjs.com/es6/ch_classes.html) should be your go-to resource. It was the inspiration for much of what I've written here.
+在我们的论述中我基本涵盖了 JavaScript 的原型机制，但还需要说一点：看一下 Kyle Simpson 的 [this 与对象原型](https://github.com/getify/You-Dont-Know-JS/tree/master/this%20%26%20object%20prototypes)一文可以对上面所述的进行一次全面的回顾，它的[附录 A](https://github.com/getify/You-Dont-Know-JS/blob/master/this%20&%20object%20prototypes/apA.md) 也与本文密切相关。
 
-Finally, if you've got questions, drop a line in the comments, or [hit me on Twitter](https://twitter.com/PelekeS). I'll do my best to get back to everyone directly.
+如果想了解 ES2015 类的有关细节，可以去看 Rauschmayer 博士的[探索 ES6：类](http://exploringjs.com/es6/ch_classes.html)。这正是我写本文的灵感来源。
 
-What do you think about `class`? Love it, hate it, no strong feelings? It seems like everyone's got an opinion -- let us know yours below!
+最后如果你有什么问题，可以给我评论或者 [Twitter](https://twitter.com/PelekeS) 上艾特我。我会尽我所能回答每个人的问题。
 
+你对 `class` 的感受是什么呢？喜欢、讨厌，还是毫无感觉？每个人都有自己的观点——在下面说出你的观点吧！

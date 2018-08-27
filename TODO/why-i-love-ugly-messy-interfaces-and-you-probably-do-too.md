@@ -4,6 +4,7 @@
 * 译者 : [circlelove](https://github.com/circlelove)
 * 校对者: [Jonwei](https://github.com/Jonwei)， [Ruixi](https://github.com/Ruixi) 
 
+# 为什么我们喜欢丑的、一团糟的界面以及你为什么也要这样
 
 美丽、清新、整洁、明了、极简。这些词语在相当一段时间里面主导了设计的话语。为了防止你忘记他们，在 Creativeblog 上面查看[网站的合集](http://www.creativebloq.com/portfolios/examples-712368)。在一篇文章当中，美丽这个词被使用了6次，而简单被用了11次。
 

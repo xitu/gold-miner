@@ -1,69 +1,69 @@
 >* 原文链接 : [Better JavaScript with ES6, Pt. III: Cool Collections & Slicker Strings](https://scotch.io/tutorials/better-javascript-with-es6-pt-iii-cool-collections-slicker-strings)
 * 原文作者 : [Peleke](https://github.com/Peleke)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [godofchina](https://github.com/godofchina)
+* 校对者: [Jack-Kingdom](https://github.com/Jack-Kingdom)， [malcolmyu](https://github.com/malcolmyu)
 
+# 使用 ES6 写更好的 JavaScript part III：好用的集合和反引号
 
-## Introduction
+## 简介
 
-ES2015 brings some heavy-hitting changes to the language, such as [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) and [generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators). But not _everything_ about the new standard is a landmark addition -- quite a few features are convenience methods that are quick to learn and fun to use.
+ES2015 发生了一些重大变革，像 [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) 和 [generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators). 但并非新标准的一切都高不可攀。 -- 相当一部分新特性可以快速上手。
 
-In this article, we'll take a look at a smattering of such goodies:
+在这篇文章里，我们来看下新特性带来的好处:
 
-*   New collections: `map`, `weakmap`, `set`, and `weakset`
-*   Most of the [new `String` methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla#Additions_to_the_String_object); and
-*   Template literals.
+*   新的集合: `map`，`weakmap`，`set`， `weakset`
+*   大部分的 [new `String` methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla#Additions_to_the_String_object)
+*   模板字符串。
 
-Let's start with the last of them; bottoms up.
+我们开始这个系列的最后一章吧。
 
-_Note: This is part 3 of the Better JavaScript series. You can see parts 1 and 2 here:_
+_标注: 这是 the Better JavaScript 系列的第三章。 前两章在这儿:_
 
-*   [Better JavaScript with ES6, Part 1: Popular Features](https://scotch.io/tutorials/better-node-with-es6-pt-i)
-*   [Better JavaScript with ES6, Part 2: A Deep Dive into Classes](https://scotch.io/tutorials/better-javascript-with-es6-pt-ii-a-deep-dive-into-classes)
+*   [Better JavaScript with ES6, Part 1: Popular Features](http://gold.xitu.io/entry/5736e4f41532bc006545106e)
+*   [Better JavaScript with ES6, Part 2: A Deep Dive into Classes](http://gold.xitu.io/entry/573969b91ea4930060f3e31a)
 
-## Template Literals
+## 模板字符串
 
-**Template literals** scratch three itches, allowing you to:
+**模板字符串** 解决了三个痛点，允许你做如下操作:
 
-1.  Evaluate JavaScript expressions _inside_ of strings, called _string interpolation_.
-2.  Write multi-line strings, without having to concatenate strings or insert newline characters (`\n`).
-3.  Use "raw" strings -- strings in which backslash escapes are ignored, and interpreted literally.
+1.  定义在字符串_内部的_表达式，称为 _字符串插值_。
+2.  写多行字符串无须用换行符 (`\n`) 拼接。
+3.  使用 "raw" 字符串 -- 在反斜杠内的字符串不会被转义，视为常量。
 
     "use strict";
 
-    /* There are three major use cases for tempate literals: 
-      * String interpolation, multi-line strings, and raw strings.
+    /* 三个模板字符串的例子: 
+      * 字符串插值，多行字符串，raw 字符串。
       * ================================= */
 
     // ==================================
-    // 1\. STRING INTERPOLATION :: Evaluate an expression -- /any/ expression -- inside of a string.
+    // 1\. 字符串插值 :: 解析任何一个字符串中的表达式。
     console.log(`1 + 1 = ${1 + 1}`);
 
     // ==================================
-    // 2\. MULTI-LINE STRINGS :: Write this:
+    // 2\. 多行字符串 :: 这样写:
     let childe_roland = 
     `I saw them and I knew them all. And yet
     Dauntless the slug-horn to my lips I set,
     And blew “Childe Roland to the Dark Tower came.”`
 
-    // . . . Instead of this:
+    // . . . 代替下面的写法:
     child_roland = 
     'I saw them and I knew them all. And yet\n' +
     'Dauntless the slug-horn to my lips I set,\n' +
     'And blew “Childe Roland to the Dark Tower came.”';
 
     // ==================================
-    // 3\. RAW STRINGS :: Prefixing with String.raw cause JavaScript to ignore backslash escapes.
-    // It'll still evaluate expressions wrapped in ${}, though.
+    // 3\. raw 字符串 :: 在字符串前加 raw 前缀，javascript 会忽略转义字符。
+    // 依然会解析包在 ${} 的表达式
     const unescaped = String.raw`This ${string()} doesn't contain a newline!\n`
 
     function string () { return "string"; }
 
-    console.log(unescaped); // 'This string doesn't contain a newline!\n' -- Note that \n is printed literally
+    console.log(unescaped); // 'This string doesn't contain a newline!\n' -- 注意 \n 会被原样输出
 
-    // You can use template strings to create HTML templates similarly to the way
-    //   React uses JSX (Angular 2 uses them this way).
+    // 你可以像 React 使用 JSX 一样，用模板字符串创建 HTML 模板
     const template = 
     `
     <div class="${getClass()}">
@@ -77,60 +77,60 @@ _Note: This is part 3 of the Better JavaScript series. You can see parts 1 and 2
         return "some-stateful-class";
     }
 
-    console.log(template); // A bit bulky to copy the output here, so try it yourself!
+    console.log(template); // 这样使用略显笨，自己试试吧！
 
-    // Another common use case is printing variable names:
+    // 另一个常用的例子是打印变量名:
     const user = { name : 'Joe' };
 
-    console.log("User's name is " + user.name + "."); // A little cumbersome . . . 
-    console.log(`User's name is ${user.name}.`); // . . . A bit nicer.
+    console.log("User's name is " + user.name + "."); // 有点冗长
+    console.log(`User's name is ${user.name}.`); // 这样稍好一些
 
-1.  To use string interpolation, wrap your string with backticks instead of quotes, and wrap the expression whose result you want embedded in `${}`.
-2.  For multi-line strings, simply wrap your string in backticks, and break lines wherever you wish. JavaScript will insert a newline at the break.
-3.  To use raw strings, prefixe the template literal, still wrapped in backticks, with `String.raw`.
+1.  使用字符串插值，用反引号代替引号包裹字符串，并把我们想要的表达式嵌入在${}中。
+2.  对于多行字符串，只需要把你要写的字符串包裹在反引号里，在要换行的地方直接换行。 JavaScript 会在换行处插入新行。
+3.  使用原生字符串，在模板字符串前加前缀`String.raw`，仍然使用反引号包裹字符串。
 
-Template literals may be little more than sugar . . . But they're the sweetest.
+模板字符串或许只不过是一种语法糖 . . . 但它比语法糖略胜一筹。
 
-## New String Methods
+## 新的字符串方法
 
-ES2015 adds some additional methods to `String`, as well. These fall into two classes:
+ES2015 也给 `String` 新增了一些方法。他们主要归为两类:
 
-1.  General-use convenience methods; and
-2.  Methods for better unicode support.
+1.  通用的便捷方法
+2.  扩充 Unicode 支持的方法。
 
-We'll only cover the first class in this article, as the unicode-specific methods have fairly niche use cases. [The MDN docs have a a full list of the new String methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla#Additions_to_the_String_object), if you're curious.
+在本文里我们只讲第一类，同时 unicode 特定方法也有相当好的用例 。如果你感兴趣的话，这是地址 [在 MDN 的文档里，有一个关于字符串新方法的完整列表](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla#Additions_to_the_String_object)。
 
 ## startsWith & endsWith
 
-For starters, we now have [String.prototype.startsWith](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith). It's available on any string, and takes two arguments:
+对新手而言，我们有 [String.prototype.startsWith](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith)。 它对任何字符串都有效，它需要两个参数:
 
-1.  A _search string_; and
-2.  An integer position, _n_. This is optional.
+1.  一个是 _search string_ 还有
+2.  整形的位置参数 _n_。这是可选的。
 
-`String.prototype.startsWith` will check if the string you call it on starts with the _search string_, starting at the _nth_ character of the string. If you don't pass a position, it starts from the beginning.
+`String.prototype.startsWith` 方法会检查以 _nth_ 位起的字符串是否以 _search string_ 开始。如果没有位置参数，则默认从头开始。
 
-It returns `true` if your string starts with the search string, and `false` otherwise.
+如果字符串以要搜索的字符串开头返回 `true`，否则返回 `false`。
 
     "use strict";
 
     const contrived_example = "This is one impressively contrived example!";
 
-    // does this string start with "This is one"?
+    // 这个字符串是以 "This is one" 开头吗?
     console.log(contrived_example.startsWith("This is one")); // true
 
-    // does this start with "is" at character 4?
+    // 这个字符串的第四个字符以 "is" 开头?
     console.log(contrived_example.startsWith("is", 4)); // false
 
-    // does this start with "is" at character 5?
+    // 这个字符串的第五个字符以 "is" 开始?
     console.log(contrived_example.startsWith("is", 5)); // true
 
 ## endsWith
 
-[String.prototype.endsWith](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith) is similar: It takes a search string and a position, as well.
+[String.prototype.endsWith](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith) 和startswith相似: 它也需要两个参数：一个是要搜索的字符串，一个是位置。
 
-With `String.prototype.endsWith`, however, the position tells the function which character in the original string to treat as "last".
+然而 `String.prototype.endsWith` 位置参数会告诉函数要搜索的字符串在原始字符串中被当做结尾处理。
 
-In other words, it'll chop off every character in your string after the _nth_, and check if _that_ ends with the search string you passed.
+换句话说，它会切掉 _nth_ 后的所有字符串，并检查是否以要搜索的字符结尾。
 
     "use strict";
 
@@ -141,38 +141,38 @@ In other words, it'll chop off every character in your string after the _nth_, a
     console.log(contrived_example.slice(0, 11)); // "This is one"
     console.log(contrived_example.endsWith("one", 11)); // true
 
-    // In general, passing a position is like doing this:
+    // 通常情况下，传一个位置参数向下面这样:
     function substringEndsWith (string, search_string, position) {
         // Chop off the end of the string
         const substring = string.slice(0, position);
 
-        // Check if the shortened string ends with the search string
+        // 检查被截取的字符串是否已 search_string 结尾
         return substring.endsWith(search_string);
     }
 
 ## includes
 
-ES2015 also adds [String.prototype.includes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes). You call it on a string, and pass it a search term. It returns `true` if the string contains the search term, and `false` otherwise.
+ES2015 也添加了 [String.prototype.includes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes)。 你需要用字符串调用它，并且要传递一个搜索项。如果字符串包含搜索项会返回 `true`，反之返回 `false`。
 
     "use strict";
 
     const contrived_example = "This is one impressively contrived example!";
 
-    // does this string include the word impressively?
+    // 这个字符串是否包含单词 impressively ?
     contrived_example.includes("impressively"); // true
 
-Back in the days of cavemen, we had to do this:
+ES2015之前，我们只能这样:
 
     "use strict";
     contrived_example.indexOf("impressively") !== -1 // true
 
-Not much worse. But, `String.prototype.includes` _is_ an improvement, in that it shields use from the leaky abstraction of equation truth to an arbitrary integer return value.
+不算太坏。但是，`String.prototype.includes` _是_ 一个改善，它屏蔽了任意整数返回值为 true 的漏洞。
 
 ## repeat
 
-We've also got [String.prototype.repeat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/repeat). You can call this one on any string, and, like `includes`, it more or less does what its name implies.
+还有 [String.prototype.repeat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/repeat)。可以对任意字符串使用，像 `includes` 一样，它会或多或少地完成函数名指示的工作。
 
-It takes a single argument: An integer _count_. An example is clearer than an explanation, so here you go:
+它只需要一个参数: 一个整型的 _count_。使用案例说明一切，上代码:
 
     const na = "na";
 
@@ -180,156 +180,154 @@ It takes a single argument: An integer _count_. An example is clearer than an ex
 
 ## raw
 
-Finally, we have [String.raw](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/raw), which we met briefly above.
+最后，我们有 [String.raw](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/raw)，我们在上面简单介绍过。
 
-If you prefix a template literal with `String.raw`, it won't evaluate escape sequences within the string:
+一个模板字符串以 `String.raw` 为前缀，它将不会在字符串中转义:
 
-    /* Since the backslash alone means "escape", we need to double it to print
-      *   one. Similarly, \n in a normal string is interpreted as "newline". 
+    /* 单右斜线要转义，我们需要双右斜线才能打印一个右斜线，\n 在普通字符串里会被解析为换行
       *   */
     console.log('This string \\ has fewer \\ backslashes \\ and \n breaks the line.');
 
-    // Not so, with String.raw!
+    // 不想这样写的话用 raw 字符串
     String.raw`This string \\ has too many \\ backslashes \\ and \n doesn't break the line.`
 
-## Unicode Methods
+## Unicode 方法
 
-While we won't cover the rest of the new string methods, I'd be remiss if I didn't point you to a few must-reads on the topic.
+虽然我们不涉及剩余的 string 方法，但是如果我不告诉你去这个主题的必读部分就会显得我疏忽。 
+*   Dr Rauschmayer 对于 [Unicode in JavaScript](http://speakingjs.com/es5/ch24.html) 的介绍
+*   他关于 [ES2015's Unicode Support in Exploring ES6](http://exploringjs.com/es6/ch_unicode.html#sec_escape-sequences) 和
+*   [The Absolute Minimum Every Software Developer Needs to Know About Unicode](http://www.joelonsoftware.com/articles/Unicode.html) 的讨论。
 
-*   Dr Rauschmayer's introduction to [Unicode in JavaScript](http://speakingjs.com/es5/ch24.html);
-*   His discussion of [ES2015's Unicode Support in Exploring ES6](http://exploringjs.com/es6/ch_unicode.html#sec_escape-sequences); and
-*   [The Absolute Minimum Every Software Developer Needs to Know About Unicode](http://www.joelonsoftware.com/articles/Unicode.html).
+无论如何我不得不跳过它的最后一部分。虽然有些老但是还是有优点的。
 
-I just had to slip that last one in there somehow. Oldie but goodie.
-
-Here are the docs for the missing string methods, just so you know what they are.
+这里是文档中缺失的字符串方法，这样你会知道缺哪些东西了。
 
 *   [String.fromCodePoint](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCodePoint) & [String.prototype.codePointAt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/codePointAt);
-*   [String.prototype.normalize](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize); and
+*   [String.prototype.normalize](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize); 和
 *   [Unicode point escapes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Unicode_code_point_escapes).
 
-## Collections
+## 集合
 
-ES2015 brings us four new collection types:
+ES2015 新增了一些集合类型:
 
-1.  [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) and [WeakMap](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)
-2.  [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set), and [WeakSet](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet).
+1.  [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) 和 [WeakMap](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)
+2.  [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set) 和 [WeakSet](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet)。
 
-Proper Map and Set types are fantastically convenient, and weak variants, while somewhat exotic to the JavaScript landscape, are exciting additions to the language.
+合适的 Map 和 Set 类型十分方便使用，还有弱变量是一个令人兴奋的改动，虽然它对Javascript来说像舶来品一样。
 
 ## Map
 
-A _map_ is simply a key-value pair. The easiest way to think of this is by analogy with objects, whose property names are analogous to _keys_ associated with a _value_.
+_map_ 就是简单的键值对。最简单的理解方式就是和 object 类似，一个键对应一个值。
 
     "use strict";
 
-    // We can think of foo as a key, and bar as a value.
+    // 我们可以把 foo 当键，bar 当值
     const obj = { foo : 'bar' };
 
-    // The foo 'key' of obj has value 'bar'
+    // 对象键为 foo 的值为 bar
     obj.foo === 'bar'; // true
 
-The new Map type is conceptually similar, but lets you use arbitrary datatypes for keys -- not just strings and symbols -- and eliminates some of the _many_ [pitfalls associated with trying to use an object as a map](http://www.2ality.com/2012/01/objects-as-maps.html).
+新的 Map 类型在概念上是相似的，但是可以使用任意的数据类型作为键 -- 不止 strings 和 symbols -- 还有除了 [pitfalls associated with trying to use an objects a map](http://www.2ality.com/2012/01/objects-as-maps.html) 的一些东西。
 
-The following snippet demonstrates the Map API.
+下面的片段例举了 Map 的 API.
 
     "use strict";
 
-    // Constructor  
+    // 构造器
     let scotch_inventory = new Map();
 
     // BASIC API METHODS
-    // Map.prototype.set (K, V) :: Create a key, K, and set its value to V.
+    // Map.prototype.set (K, V) :: 创建一个键 K，并设置它的值为 V。
     scotch_inventory.set('Lagavulin 18', 2);
     scotch_inventory.set('The Dalmore', 1);
 
-    // You can also create a map from an array of 2-element arrays.
+    // 你可以创建一个 map 里面包含一个有两个元素的数组
     scotch_inventory = new Map([['Lagavulin 18', 2], ['The Dalmore', 1]]);
 
-    // All maps have a size property. This tells you how many key-value pairs are stored within.
-    //   BE SURE TO USE 'size', NOT 'length', when you work with Map and Set.
+    // 所有的 map 都有 size 属性，这个属性会告诉你 map 里有多少个键值对。
+    // 用 Map 或 Set 的时候，一定要使用 size ，不能使用 length
     console.log(scotch_inventory.size); // 2
 
-    // Map.prototype.get(K) :: Return the value associated with the key, K. If the key doesn't exist, return undefined.
+    // Map.prototype.get(K) :: 返回键相关的值。如果键不存在返回 undefined
     console.log(scotch_inventory.get('The Dalmore')); // 1
     console.log(scotch_inventory.get('Glenfiddich 18')); // undefined
 
-    // Map.prototype.has(K) :: Return true if map contains the key, K. Otherwise, return false.
+    // Map.prototype.has(K) :: 如果 map 里包含键 K 返回true，否则返回 false
     console.log(scotch_inventory.has('The Dalmore')); // true
     console.log(scotch_inventory.has('Glenfiddich 18')); // false
 
-    // Map.prototype.delete(K) :: Remove the key, K, from the map. Return true if succesful, or false if K doesn't exist.
+    // Map.prototype.delete(K) :: 从 map 里删除键 K。成功返回true，不存在返回 false
     console.log(scotch_inventory.delete('The Dalmore')); // true -- breaks my heart
 
-    // Map.prototype.clear() :: Remove all key-value pairs from the map.
+    // Map.prototype.clear() :: 清楚 map 中的所有键值对
     scotch_inventory.clear();
     console.log( scotch_inventory ); // Map {} -- long night
 
-    // ITERATOR METHODS
-    // Maps provide a number of ways to loop through their keys and values. 
-    //  Let's reset our inventory, and then explore.
+    // 遍历方法
+    // Map 提供了多种方法遍历键值。 
+    //  重置值，继续探索
     scotch_inventory.set('Lagavulin 18', 1);
     scotch_inventory.set('Glenfiddich 18', 1);
-
-    /* Map.prototype.forEach(callback[, thisArg]) :: Execute a function, callback, on every key-value pair in the map. 
-      *   You can set the value of 'this' inside the callback by passing a thisArg, but that's optional and seldom necessary.
-      *   Finally, note that the callback gets passed the VALUE and KEY, in that order. */
+    
+    /* Map.prototype.forEach(callback[, thisArg]) :: 对 map 里的每个键值对执行一个回调函数 
+      *   你可以在回调函数内部设置 'this' 的值，通过传递一个 thisArg 参数，那是可选的而且没有太大必要那样做
+      *   最后，注意回调函数已经被传了键和值 */
     scotch_inventory.forEach(function (quantity, scotch) {
         console.log(`Excuse me while I sip this ${scotch}.`);
     });
 
-    // Map.prototype.keys() :: Returns an iterator over the keys in the map.
+    // Map.prototype.keys() :: 返回一个 map 中的所有键
     const scotch_names = scotch_inventory.keys();
     for (let name of scotch_names) {
         console.log(`We've got ${name} in the cellar.`);
     }
 
-    // Map.prototype.values() :: Returns an iterator over the values of the map.
+    // Map.prototype.values() :: 返回 map 中的所有值
     const quantities = scotch_inventory.values();
     for (let quantity of quantities) {
         console.log(`I just drank ${quantity} of . . . Uh . . . I forget`);
     }
 
-    // Map.prototype.entries() :: Returns an iterator over [key, value] pairs, provided as an array with two entries. 
-    //   You'll often see [key, value] pairs referred to as "entries" when people talk about maps. 
+    // Map.prototype.entries() :: 返回 map 的所有键值对，提供一个包含两个元素的数组 
+    //   以后会经常看到 map 里的键值对和 "entries" 关联 
     const entries = scotch_inventory.entries();
     for (let entry of entries) {
         console.log(`I remember! I drank ${entry[1]} bottle of ${entry[0]}!`);
     }
 
-Maps are sweet. But objects are still useful for this kind of key-value record keeping. If all of the following hold, you might still want an object:
+但是 Object 在保存键值对的时候仍然有用。 如果符合下面的全部条件，你可能还是想用 Object:
 
-1.  You know your key-value pairs when you write your code;
-2.  You know you're probably not going to add or remove key-value pairs;
-3.  All of your keys are Strings or Symbols.
+1.  当你写代码的时候，你知道你的键值对。
+2.  你知道你可能不会去增加或删除你的键值对。
+3.  你使用的键全都是 string 或 symbol。
 
-On the other hand, if _any_ of the following are true, you probably want a map.
+另一方面，如果符合以下_任意_条件，你可能会想使用一个 map。
 
-1.  You need to iterate over the entries of the map -- this is surprisingly tricky to do with objects.
-2.  You don't necessarily know the number or names of your keys when you write your code.
-3.  You need complicated keys, like Objects or other Maps (!).
+1.  你需要遍历整个map -- 然而这对 object 来说是难以置信的.
+2.  当你写代码的时候不需要知道键的名字或数量。
+3.  你需要复杂的键，像 Object 或 别的 Map (!).
 
-Iterating over an object you use as a map is possible, but tricky -- there are some nonobvious gotchas lurking in the shadows. Maps are much simpler to work with, and have the added advantage of consistency. Whereas object properties are iterated in random order, **maps iterate over their entries in the order of insertion**.
+像遍历一个 map 一样遍历一个 object 是可行的，但奇妙的是 -- 还会有一些坑潜伏在暗处。 Map 更容易使用，并且增加了一些可集成的优势。然而 object 是以随机顺序遍历的，**map 是以插入的顺序遍历的**。
 
-Similarly, adding arbitrary, dynamically named key-value pairs to an object is _possible_. But, tricky: If you ever need to iterate such a pseudo-map, you'll need to remember to update the number of entries manually, for instance.
+添加随意动态键名的键值对给一个 object 是_可行的_。但奇妙的是: 比如说如果你曾经遍历过一个伪 map ，你需要记住手动更新条目数。
 
-Finally, if you need keys that aren't Strings or Symbols, you don't have a choice but to use a Map.
+最后一条，如果你要设置的键名不是 string 或 symbol，你除了选择 Map 别无选择。
 
-These are just guidelines, but they're good rules of thumb.
+上面的这些只是一些指导性的意见，并不是最好的规则。
 
 ## WeakMap
 
-You may have heard of this nifty feature called a [garbage collector](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)), which periodically finds objects your program no longer needs and gets rid of them.
+你可能听说过一个特别棒的特性 [垃圾回收器](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science))，它会定期地检查不再使用的对象并清除。
 
 [To quote Dr Rauschmayer](http://www.2ality.com/2015/01/es6-maps-sets.html):
 
-> A WeakMap is a map that doesn't prevent its keys from being garbage-collected. That means that you can associate data with objects without having to worry about memory leaks.
+> WeakMap 不会阻止它的键值被垃圾回收。那意味着你可以把数据和对象关联起来不用担心内存泄漏。
 
-In other words, if your program loses all external references to the _keys_ of a WeakMap, it can garbage-collect their _values_.
+换句换说，就是你的程序丢掉了 WeakMap _键_ 的所有外部引用，他能自动垃圾回收他们的值。
 
-For a good, albeit drastically simplified, use case, consider a SPA that displays items on a user's wishlists, with item descriptions and an image, which we consume as JSON returned by an API call.
+尽管大大简化了用例，考虑到 SPA(单页面应用) 就是用来展示用户希望展示的东西，像一些物品描述和一张图片，我们可以理解为 API 返回的 JSON。
 
-It would make sense to cache those results to cut down the number of times we have to hit the server. We could use a Map for this:
+理论上来说我们可以通过缓存响应结果来减少请求服务器的次数。我们可以这样用 Map :
 
     "use strict";
 
@@ -343,98 +341,98 @@ It would make sense to cache those results to cut down the number of times we ha
         return cache.get(element);
     }
 
-. . . Which works, but potentially leaks memory.
+. . . 这是行得通的，但是有内存泄漏的危险。
 
-Since this is a SPA, our users may want to navigate away from the wishlist view. That would make our "wishlist item" objects pretty useless, and eligible for garbage collection.
+因为这是一个 SPA，用户或许想离开这个视图，这样的话我们的 "视图" object 就会失效，会被垃圾回收。
 
-Unfortunately, if you use a normal Map, you'll have to clear it yourself when those objects become unreachable.
+不幸的是，如果你使用的是正常的 Map ,当这些 object 不使用时，你必须自行清除。
 
-Using a WeakMap instead solves the problem for us:
+使用 WeakMap 替代就可以解决上面的问题:
 
     "use strict";
 
-    const cache = new WeakMap(); // No more memory leak!
+    const cache = new WeakMap(); // 不会再有内存泄露了
 
-    // The rest is the same . . . 
+    // 剩下的都一样
 
-This way, when the application loses all references to the unneeded elements, the garbage collector can recycle them automagically. Nifty.
+这样当应用失去不需要的元素的引用时，垃圾回收系统可以自动重用那些元素。
 
-The API for WeakMap is similar to that of Map, with a few key differences:
+WeakMap 的API 和Map 相似，但有如下几点不同:
 
-1.  You can only use Object keys in a WeakMap. That means no Strings, and no Symbols.
-2.  WeakMaps only have `set`, `get`, `has`, and `delete` methods -- that means **you can't iterate over weak maps**.
-3.  WeakMaps don't have a `size` property.
+1.  在 WeakMap 里你可以使用 object 作为键。 这意味着不能以 String 和 Symbol 做键。
+2.  WeakMap 只有 `set`，`get`，`has`，和 `delete` 方法 -- 那意味着 **你不能遍历 weak map**.
+3.  WeakMaps 没有 `size` 属性。
 
-The reason you can't iterate a WeakMap, or check its length, is because the garbage collector could run in the middle of your iteration: One moment, it'd be full. The next, empty.
+不能遍历或检查 WeakMap 的长度的原因是，在遍历过程中可能会遇到垃圾回收系统的运行: 这一瞬间是满的，下一秒就没了。
 
-That sort of unpredictable behavior is precisely what the TC39 sought to avoid in forbidding iteration and size-checks on WeakMaps.
+这种不可预测的行为需要谨慎对待，TC39(ECMA第39届技术委员会) 曾试图避免禁止 WeakMap 的遍历和长度检测。
 
-For other use cases, check out the section on [Use Cases for WeakMap](http://exploringjs.com/es6/ch_maps-sets.html#_use-cases-for-weakmaps), from Exploring ES6.
+其他的案例，可以在这里找到 [Use Cases for WeakMap](http://exploringjs.com/es6/ch_maps-sets.html#_use-cases-for-weakmaps)，来自 Exploring ES6.
 
 ## Set
 
-A **Set** is a collection that contains only unique values. In other words, each element of a set can appear only once.
+**Set** 就是只包含一个值的集合。换句换说，每个 set 的元素只会出现一次。
 
-This is a useful data type if you need to keep track of objects that are inherently unique, such as the current users in a chat room.
+这是一个有用的数据类型，如果你要追踪唯一并且固定的 object ,比如说聊天室的当前用户。
 
-Set and Map have almost identical APIs. The main difference is that Set doesn't have a `set` method, since it doesn't store key-value pairs. Everything is just about the same.
+Set 和 Map 有完全相同的 API。主要的不同是 Set 没有 `set` 方法，因为它不能存储键值对。剩下的几乎相同。
 
     "use strict";
 
-    // Constructor  
+    // 构造器
     let scotch_collection = new Set();
 
-    // BASIC API METHODS
-    // Set.prototype.add (O) :: Add an object, O, to the set.
+    // 基本的 API 方法
+    // Set.prototype.add (O) :: 和 set 一样，添加一个对象
     scotch_collection.add('Lagavulin 18');
     scotch_collection.add('The Dalmore');
 
-    // You can also create a set from an array.
+    // 你也可以用数组构造一个 set
     scotch_collection = new Set(['Lagavulin 18', 'The Dalmore']);
 
-    // All sets have a length property. This tells you how many objects are stored.
-    //   BE SURE TO USE 'size', NOT 'length', when you work with Map and Set.
+    // 所有的 set 都有一个 length 属性。这个属性会告诉你 set 里有多少对象
+    //   用 set 或 map 的时候，一定记住用 size，不用 length
     console.log(scotch_collection.size); // 2
 
-    // Set.prototype.has(O) :: Return true if set contains the object, O. Otherwise, return false.
+    // Set.prototype.has(O) :: 包含对象 O 返回 true 否则返回 false
     console.log(scotch_collection.has('The Dalmore')); // true
     console.log(scotch_collection.has('Glenfiddich 18')); // false
 
-    // Set.prototype.delete(O) :: Remove the object, O, from the set. Return true if successful; false if O isn't in the set.
-    scotch_collection.delete('The Dalmore'); // true -- breaks my heart
+    // Set.prototype.delete(O) :: 删除 set 中的 O 对象，成功返回 true，不存在返回 false
+    scotch_collection.delete('The Dalmore'); // true -- break my heart
 
-    // Set.prototype.clear() :: Remove all objects from the set.
+    // Set.prototype.clear() :: 删除 set 中的所有对象
     scotch_collection.clear();
     console.log( scotch_collection ); // Set {} -- long night.
 
-    /* ITERATOR METHODS
-     * Sets provide a number of ways to loop through their keys and values. 
-     *  Let's reset our collection, and then explore. */
+    /* 迭代方法
+     * Set 提供了多种方法遍历
+     *  重新设置值，继续探索 */
     scotch_collection.add('Lagavulin 18');
     scotch_collection.add('Glenfiddich 18');
 
-    /* Set.prototype.forEach(callback[, thisArg]) :: Execute a function, callback,
-     *  on every key-value pair in the set. You can set the value of 'this' inside 
+    /* Set.prototype.forEach(callback[, thisArg]) :: 执行一个函数，回调函数
+     *  set 里在每个的键值对。 You can set the value of 'this' inside 
      *  the callback by passing a thisArg, but that's optional and seldom necessary. */
     scotch_collection.forEach(function (scotch) {
         console.log(`Excuse me while I sip this ${scotch}.`);
     });
 
-    // Set.prototype.values() :: Returns an iterator over the values of the set.
+    // Set.prototype.values() :: 返回 set 中的所有值
     let scotch_names = scotch_collection.values();
     for (let name of scotch_names) {
         console.log(`I just drank ${name} . . . I think.`);
     }
-
-    // Set.prototype.keys() :: For sets, this is IDENTICAL to the values function.
+ 
+    // Set.prototype.keys() ::  对 set 来说，和 Set.prototype.values() 方法一致
     scotch_names = scotch_collection.keys();
     for (let name of scotch_names) {
         console.log(`I just drank ${name} . . . I think.`);
     }
 
-    /* Set.prototype.entries() :: Returns an iterator over [value, value] pairs, 
-     *   provided as an array with two entries. This is a bit redundant, but it's
-     *   done this way to maintain interoperability with the Map API. */
+    /* Set.prototype.entries() :: 返回 map 的所有键值对，提供一个包含两个元素的数组 
+     *   这有点多余，但是这种方法可以保留 map API 的可操作性
+     *    */
     const entries = scotch_collection.entries();
     for (let entry of entries) {
         console.log(`I got some ${entry[0]} in my cup and more ${entry[1]} in my flask!`);
@@ -442,18 +440,18 @@ Set and Map have almost identical APIs. The main difference is that Set doesn't 
 
 ## WeakSet
 
-WeakSet is to Set as WeakMap is to Map. Like WeakMap:
+WeakSet 相对于 Set 就像 WeakMap 相对于 Map :
 
-1.  References to objects in a WeakSet are weakly-held.
-2.  WeakSets do not have a `size` property.
-3.  You can't iterate over a WeakSet.
+1.  在 WeakSet 里 object 的引用是弱类型的。 
+2.  WeakSet 没有 property 属性。
+3.  不能遍历 WeakSet。
 
-Use cases for weak sets don't abound, but there are a few. [Domenic Denicola](https://mail.mozilla.org/pipermail/es-discuss/2015-June/043027.html) has called them "perfect for branding" -- that is, marking an object as satisfying some or other quality.
+Weak set的用例并不多，但是这儿有一些 [Domenic Denicola](https://mail.mozilla.org/pipermail/es-discuss/2015-June/043027.html) 称呼它们为 "perfect for branding" -- 意思就是标记一个对象以满足其他需求。
 
-Here's the example he gave:
+这儿是他给的例子:
 
-    /* The following example comes from an archived email thread on use cases for WeakSet.
-      *    The text of the email, along with the rest of the thread, is available here:
+    /* 下面这个例子来自 Weakset 使用案例的邮件讨论 
+      *    邮件的内容和讨论的其余部分在这儿:
       *      https://mail.mozilla.org/pipermail/es-discuss/2015-June/043027.html
       */
 
@@ -471,15 +469,15 @@ Here's the example he gave:
       }
     }
 
-This is a lightweight technique way for preventing people from using `method` on any object that was _not_ created by the `Foo` constructor.
+这是一个轻量科学的方法防止大家在一个 _没有_ 被 `Foo` 构造出的 object 上使用 `method`。
 
-Using a WeakSet has the advantage that it allows objects in `foos` to be garbage-collected when they become unreachable.
+使用的 WeakSet 的优势是允许 `foo` 里的 object 使用完后被垃圾回收。
 
-## Conclusion
+## 总结
 
-In this article, we've taken a look at some of the sweeter sugar that ES2015 brings, from new convenience methods on `String` and template literals to proper Map and Set implementations.
+这篇文章里，我们已经了解了 ES2015 带来的一些好处，从 `string` 的便捷方法和模板变量到适当的Map 和 Set 实现。
 
-The `String` methods and template literals are easy to get started with. And, while you may not need to sling around weak sets anytime soon, I think Set and Map will grow on you pretty swiftly.
+`String` 方法 和 模板字符串易于上手。同时你很快也就不用到处用 weak set 了，我认为你很快就会喜欢上 Set 和 Map。
 
-If you've got any questions, drop a line in the comments below, or hit me on Twitter ([@PelekeS](http://twitter.com/PelekeS)-- I'll get back to everyone individually.
+如何你有任何问题，请在下方留言，或在 Twitter([@PelekeS](http://twitter.com/PelekeS) 上跟我联系-- 我会逐一答复。
 

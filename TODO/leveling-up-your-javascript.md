@@ -4,6 +4,7 @@
 * 译者 : [Hikerpig](https://github.com/hikerpig)
 * 校对者: [Nark Qi](https://github.com/narcotics726), [JasinYip](https://github.com/JasinYip)
 
+# JavaScript 姿势提升简略
 
 JavaScript 是一门入门容易，但是相当难以精通的语言。可现今一些文章总假设你已经精通了它。
 

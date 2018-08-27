@@ -4,6 +4,8 @@
 * 译者 : [sqrthree (根号三)](https://github.com/sqrthree)
 * 校对者: [shenxn](https://github.com/shenxn)、[CoderBOBO](https://github.com/CoderBOBO)
 
+# 在 chrome 的开发者工具里 debug node.js 代码
+
 这篇文章介绍了一种在 Chrome 开发者工具里面开发、调试和分析 Node.js 应用程序的新方法。
 
 ## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#devtool)devtool

@@ -1,10 +1,12 @@
+# 用工厂流水线的方式来理解 RxJava 的概念
+
+本文已授权微信公众号 AndroidDeveloper 独家发布。
+
 >* 原文链接 : [RxJava – the production line](http://www.thedroidsonroids.com/blog/android/rxjava-production-line/)
 * 原文作者 : [Mateusz Budzar]()
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Sausure](https://github.com/Sausure)
 * 校对者 : [lizhuo](https://github.com/huanglizhuo), [Rocky](https://github.com/rockzhai)
-
-
 
 ##  为什么另写一篇 RxJava 的文章?
 

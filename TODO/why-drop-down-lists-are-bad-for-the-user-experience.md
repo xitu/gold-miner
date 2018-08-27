@@ -1,44 +1,44 @@
 >* 原文链接 : [Why drop-down lists are bad for the user experience.](https://medium.com/apegroup-texts/why-drop-down-lists-are-bad-for-the-user-experience-eeda5cbbd315#.p1yny0k15)
 * 原文作者 : [Nils Sköld](https://medium.com/@NilsSkold)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [邵辉Vista](https://github.com/shaohui10086)
+* 校对者:[L9m](https://github.com/L9m), [circlelove](https://github.com/circlelove)
 ![](https://cdn-images-1.medium.com/fit/t/1200/504/0*gY3MGKcuxGcVrBwJ.png)
 
-# Why drop-down lists are bad for the user experience.
+# 下拉菜单为何是一种不好的用户体验？
 
-#### An industry standard that makes no sense at all.
+#### 一个完全不合理的行业标准
 
-Over the time working with user interfaces and usability, especially when I do user input forms, I have grown more and more aware of the fact that drop-down lists almost always are bad for the user experience.
+随着在用户界面和可用性方面的研究，尤其在用户输入表单上，我越来越意识到一个事实那就是下拉列表的用户体验几乎总是不好的。
 
-A drop-down list is used when there are a number of options in which the user is only allowed to choose one. It works very much in the same fashion as radio buttons do. The reason to use it instead of radio buttons, is that it takes up much less space. But I have already stated that [we don’t need to save vertical space on the web anymore](https://medium.com/design-ux/11faa3abb6b7).
+下拉列表经常用于有多个选项，只允许用户选择一个的时候。它和单选按钮的效用相同。使用它而不使用单选按钮的理由，是因为它占用更少的空间，但是我已经陈述过了[我们不再需要节省网页上的垂直方向上的空间](https://medium.com/design-ux/11faa3abb6b7)。
 
-A drop-down list suffers from a huge problem, the user can’t see all the options they are presented with directly. Instead the need to click to see the options, then scan through the options, then click to make a selection. This is especially bad when in a form of mostly input fields, where many users only use the keyboard.
+下拉列表有一个很大的问题，那就是用户不能直接看到所有选项，而是需要点击查看所有的选项，然后浏览一遍，然后才能做出一个选择。当用户在大多数输入表单上使用键盘时，下拉列表的体验是特别不好的。
 
-Here are some proposed alternatives that we should use instead of drop-down lists:
+下面是一些替代下拉列表的可选方案：
 
-#### 1\. Replace drop-down menues with radio buttons
+#### 1\. 用多个单选按钮替换下拉列表
 
-Instead of hiding the options for the user behind a click, it should be laid out in plain sight. The user can then see what options she has and make an informed decision. Be sure to design the radio buttons so that it’s clear than only one can be selected.
+这些选项应该直接出现在视野中，而不是在用户点击后才显示。这样用户就能直接看到有哪些选项，然后做出知情的决策。一定要确认单选按钮做得简单明了，并且只能选择一个。
 
 ![](https://cdn-images-1.medium.com/max/800/0*Utv3Kmbo8HWtLiIl.png)
 
-#### 2\. Two options should be a switch
+#### 2\. 两个选项应作为一个开关按钮
 
-If there are only two options, then a drop-down should be replaced with a switch, and the most common option should be prefilled. A great example of this is chosing gender in a sign-up form. With a drop down, everyone has to do 2 click: selecting the menu and then selecting the choice. In a switch, where female is pre-selected (51% of the population), then only 49% of the users have to do 1 click. That’s a HUGE difference. Here is an example of the bad way, from Yahoo.com:
+如果只有两个选项，应该把下拉菜单替换成一个开关，并且最普遍的那个选项应该被预选上，一个很好的例子就是在一个注册表单里选择性别，如果用一个下拉菜单，每个用户都需要做两次点击--选择这个菜单然后选择这个选项，用开关的话，女性（全部人口的51%）被预选上，那么只有9%的人需要做1次点击，这是一个巨大的差别，这里就有一个很糟糕的例子，来自Yahoo.com：
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f2w3s0eu0nj20m805a74f.jpg)
 
-#### 3\. Many options should be a auto-complete field
+#### 3\. 许多选项应作为一个自动完成控件
 
-It is widely accepted that the maximum number of items in a drop-down list should be around 15 items (some say 12, others say 16). If it’s more than that it easy gets confusing and a hard choice to make for the user. Scanning through a long list of items puts a lot of choice in the hands of the user. We should always strive towards taking as many options away from the user as possible. The less they have to think because we do the thinking in the background, the better.
+一个被广泛接受的观点就是下拉列表里最多的选项数应该在15个左右（有人说是12，另一些人说是16），如果超过了一个范围，很容易产生迷惑性，对用户来说是一个很艰难的抉择，浏览一个那么长的选项列表，那么多的选项放在用户手里。我们应该努力尽可能地去除很多选项，因为我们已经在后台做了很多工作，这样用户要想的越少，越好。
 
-A perfect example is the country selector. It is still standard to add a drop-down when choosing your country of residence, and this is absolutlely [ludacris](http://open.spotify.com/track/77dC7dKzMm65Y9jkJs0Ssd). Smashing Mag wrote a great article on this matter a year ago called [Redesigning the Country Selector](http://uxdesign.smashingmagazine.com/2011/11/10/redesigning-the-country-selector/). Always use a auto-complete field when there are many possible inputs, and let the system do the work, not the user.
+一个很好的例子就是国家选择器，到现在为止，当你选择你的国家时，使用下拉列表仍是一个绝对的标准。[ludacris](http://open.spotify.com/track/77dC7dKzMm65Y9jkJs0Ssd),Smashing Mag一年前就这个问题写过一篇很好的文章，叫做[《重新设计国家选择器》](http://uxdesign.smashingmagazine.com/2011/11/10/redesigning-the-country-selector/)，当有很多可能的选项时，使用自动完成控件，让系统去完成这样的工作，而不是用户。
 
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f2w3sl6tm8j2077065glw.jpg)
 
-So, are there any situations where a drop-down menu might be the best option? Well, yes there is. In any situation where you have more options than you can fit as radio buttons in your form, and where the users don’t know which options they are presented with. But this happens in very rare cases, and if it does it could be wise to re-think that typical field to make it easier for the user. For a great example of how forms should be designed, [head over to Typeform](http://www.typeform.com/). They do everything right.
+所以，有没有哪些位置用一个下拉列表才是最佳的选择呢？是的，当然有，在任意一种你有多个选项的情况下，你都可以在你的表单里使用多个单选按钮，用户根本就不知道他们当前选的是哪一个的，但是这种情况发生得很少，如果这种事情真的发生了，那么重新思考一下，利用多样的控件来让用户使用起来更简单才是明智的，作为一个很好的表单应该怎么设计的例子，[浏览一下Typeform](http://www.typeform.com/)，他们做的每一件事情都是对的。
 
-For final words, I give you this, which is a bit off-topic but needs to be said: If the field is optional it shouldn’t be in the form. Take away everything that is unneccesary for the sign up process, or unneccesary for the user. That also means you don’t need to put out * for mandatory fields. (If by some chance you still need to have optional fields, mark them as optional, not the other way around).
+最后几句，我想说几句虽然有些偏离主题但是需要说的：如果这个字段是可选的，那它就不应该出现在表单里，移除所有不必要的注册流程和对用户来说不必要的东西。这就通常意味着你需要在必选的模块那加一个*（如果在某些情况下，你仍然需要可选的输入框，标出它们是可选的）*。
 
 

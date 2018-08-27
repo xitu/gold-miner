@@ -1,28 +1,29 @@
 >* 原文链接 : [Web Font Loading Patterns](https://www.bramstein.com/writing/web-font-loading-patterns.html)
 * 原文作者 : [Bram Stein](https://www.bramstein.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [SHENXN](https://github.com/shenxn)
+* 校对者: [hikerpig](https://github.com/hikerpig), [L9m](https://github.com/L9m)
 
+# 网页端字体加载优化
 
-Web font load­ing may seem com­pli­cated, but it is ac­tu­ally quite sim­ple if you use these font load­ing pat­terns. Com­bine the pat­terns to cre­ate cus­tom font load­ing be­hav­iour that works in all browsers.
+网络字体加载看起来也许非常复杂，但如果你使用本文的字体加载模式的话，这也并不是一件复杂的事情。你可以将这些模式组合起来，创建一个兼容所有浏览器的字体加载方式。
 
-The code ex­am­ples in these pat­terns use [Font Face Ob­server](https://github.com/bramstein/fontfaceobserver), a small and sim­ple web font loader. Font Face Ob­server will use the most ef­fi­cient way to load a font de­pend­ing on browser sup­port, so it is a great way to load web fonts with­out hav­ing to worry about cross-browser com­pat­i­bil­ity.
+这些模式的代码样例都使用了 [Font Face Observer](https://github.com/bramstein/fontfaceobserver)，一个精简的网络字体加载器。Font Face Observer 将会根据浏览器的兼容情况使用最高效的方式来加载字体，所以这是一个非常棒的网络字体加载方式，同时你不需要为跨浏览器的兼容性而操心。
 
-1.  [Ba­sic font load­ing](#basic-font-loading)
-2.  [Load­ing groups of fonts](#loading-groups-of-fonts)
-3.  [Load­ing fonts with a time­out](#loading-fonts-with-a-timeout)
-4.  [Pri­ori­tised load­ing](#prioritised-loading)
-5.  [Cus­tom font dis­play](#custom-font-display)
-6.  [Op­ti­mise for caching](#optimise-for-caching)
+1.  [基础字体加载模式](#basic-font-loading)
+2.  [分组字体加载模式](#loading-groups-of-fonts)
+3.  [限制字体加载时间](#loading-fonts-with-a-timeout)
+4.  [队列加载模式](#prioritised-loading)
+5.  [自定义字体显示行为](#custom-font-display)
+6.  [为缓存优化](#optimise-for-caching)
 
-It’s im­pos­si­ble to rec­om­mend a sin­gle pat­tern that works best for every­one. Take a close look at your site and vis­i­tors and se­lect a font load­ing pat­tern, or a com­bi­na­tion of pat­terns, that work best for you.
+不存在一种普适所有情况的单一模式。选择一种适合你自己网站的字体加载模式才是最好的。
 
-## [](https://www.bramstein.com/writing/web-font-loading-patterns.html#basic-font-loading)Basic font loading
+## [](#basic-font-loading)基础字体加载模式
 
-Font Face Ob­server gives you con­trol over web font load­ing us­ing a sim­ple promise based in­ter­face. It does­n’t mat­ter where your fonts come from: you can host them your­self, or use a web font ser­vice such as [Google Fonts](http://www.google.com/fonts), [Type­kit](http://typekit.com/), [Fonts.com](https://fonts.com/), and [Web­type](http://webtype.com/).
+Font Face Observer 使用一种基于 Promise（译者注：Promise 对象是用于进行延迟或者异步运算的，一个 Promise 代表一个尚未执行，但是将会执行的操作） 的接口来提供对网络字体加载的完整控制。你字体放在哪里并不重要：你可以自行放置，也可以使用 [Google Fonts](http://www.google.com/fonts)、[Typekit](http://typekit.com/)、[Fonts.com](https://fonts.com/)、[Webtype](http://webtype.com/) 等服务。
 
-To keep the pat­terns sim­ple this ar­ti­cle as­sumes you’re self-host­ing web fonts. This means you should have one or mul­ti­ple `@font-face` rules in your <abbr>CSS</abbr> files for the web fonts you want to load us­ing Font Face Ob­server. For the sake of brevity, the `@font-face` rules won’t be in­cluded in each font load­ing pat­terns, but they should be as­sumed to be there.
+为了保持模式示例的精简，这篇文章假设你将网络字体放在自己的服务器上。这意味着你的 CSS 文件中应该有一个或多个 `@font-face` 来定义你希望通过 Font Face Observer 加载的字体。为了简洁，`@font-face` 不会出现在所有的模式中，但是你应该假设它们存在。
 
     @font-face {
       font-family: Output Sans;
@@ -30,7 +31,7 @@ To keep the pat­terns sim­ple this ar­ti­cle as­sumes you’re self-host­i
            url(output-sans.woff) format("woff");
     }
 
-The most ba­sic pat­tern is to load one or mul­ti­ple in­di­vid­ual fonts. You can do this by cre­at­ing sev­eral `FontFaceObserver` in­stances, one for each web font, and call­ing their `load` method.
+最基础的模式就是加载一个或多个独立的字体。你可以通过为每个字体创建一个单独的 `FontFaceObserver` 实例，并调用它们的 `load` 方法来实现。
 
     var output = new FontFaceObserver('Output Sans');
     var input = new FontFaceObserver('Input Mono');
@@ -43,11 +44,11 @@ The most ba­sic pat­tern is to load one or mul­ti­ple in­di­vid­ual fonts
       console.log('Input Mono has loaded.');
     });
 
-This will load each web font in­de­pen­dently, which is use­ful when the fonts are un­re­lated and sup­posed to ren­der pro­gres­sively (i.e. as soon as they load). Un­like the [na­tive font load­ing <abbr>API</abbr>](https://www.w3.org/TR/css-font-loading/) you don’t pass font <abbr>URL</abbr>s to Font Face Ob­server. It will use the `@font-face` rules al­ready avail­able in your <abbr>CSS</abbr> to load fonts. This al­lows you to load your web fonts man­u­ally us­ing JavaScript, with a grace­ful degra­da­tion to ba­sic <abbr>CSS</abbr>.
+通过这种方式，每个网络字体将会被独立加载，这在字体间没有依赖关系且应该渐进渲染（即在加载完成后就渲染）时非常有用。与 [原生字体加载接口](https://www.w3.org/TR/css-font-loading/) 不同，你不需要将字体的 URL 传递给 Font Face Observer，它会使用 CSS 文件中已经定义的 `@font-face` 规则来加载字体。这样你就可以在使用 JavaScript 手动加载字体的同时，还能优雅降级到利用 CSS 的实现。
 
-## [](https://www.bramstein.com/writing/web-font-loading-patterns.html#loading-groups-of-fonts)Loading groups of fonts
+## [](#loading-groups-of-fonts)分组字体加载模式
 
-You can also load mul­ti­ple fonts at the same time by group­ing them: they will ei­ther all load, or the en­tire group will fail to load. This can be use­ful if the fonts you’re load­ing be­long to the same fam­ily and you want to stop the group from ren­der­ing un­less all of the styles load. This will pre­vent the browser from gen­er­at­ing faux styles when it does­n’t have the en­tire font fam­ily.
+你也可以在加载多个字体的时候将它们分组：一个组内的字体只能全部加载成功或是全部加载失败。如果你加载的字体文件属于同一个字体族，且你希望仅在它们全部加载成功时才进行渲染，那么这种方式将会非常实用。这可以阻止浏览器在没能成功加载整个字体族时渲染出糟糕的网页。
 
     var normal = new FontFaceObserver('Output Sans');
     var italic = new FontFaceObserver('Output Sans', {
@@ -61,15 +62,15 @@ You can also load mul­ti­ple fonts at the same time by group­ing them: they w
       console.log('Output Sans family has loaded.');
     });
 
-You can group fonts by us­ing `Promise.all`. When the promise is re­solved all fonts will have loaded. If the promise is re­jected at least one of the fonts failed to load.
+你可以使用 `Promise.all` 来对字体进行分组。只有在所有字体都成功加载后 Promise 才会被解析，一旦有某个字体加载失败，Promise 就会被拒绝。
 
-An­other use case for group­ing fonts is to re­duce re­flows. If you load and ren­der web fonts pro­gres­sively the browser will need to re­cal­cu­late the lay­out mul­ti­ple times due to the dif­fer­ence in font met­rics be­tween the fall­back and web fonts. Group­ing can re­duce this to a sin­gle re­lay­out.
+将字体分组的另一个用途是减少页面布局的重新计算渲染。如果你逐步加载和渲染所有字体，浏览器将会因为网络字体和降级字体之间不同的尺寸而多次重新计算布局。将字体分组可以把多次计算布局优化为一次。
 
-## [](https://www.bramstein.com/writing/web-font-loading-patterns.html#loading-fonts-with-a-timeout)Loading fonts with a timeout
+## [](#loading-fonts-with-a-timeout)限制字体加载时间
 
-Some­times fonts take a long time to load. This can be prob­lem­atic be­cause web fonts are of­ten used to ren­der the main con­tent of your site: the text. It’s not ac­cept­able to in­def­i­nitely wait for a font to load. You can fix this by adding a timer to your font load­ing.
+有些时候字体需要很长时间来加载，但由于字体通常是用于渲染网站的主要内容——文字，长时间的加载就会造成问题。无限制地等待一个字体的加载是不可接受的。你可以通过向字体加载添加一个计时器来解决这个问题。
 
-The fol­low­ing helper func­tion cre­ates timers by re­turn­ing a promise that is re­jected when the time has ex­pired.
+如下的辅助函数创建了一个计时器，超时后会返回一个被拒绝的 Promise.
 
     function timer(time) {
       return new Promise(function (resolve, reject) {
@@ -77,7 +78,7 @@ The fol­low­ing helper func­tion cre­ates timers by re­turn­ing a promise 
       });
     }
 
-By us­ing `Promise.race` we can let font load­ing and the timer “race” each other. For ex­am­ple, if the font loads be­fore the timer fires, the font has won and the promise will be re­solved. If the timer fires be­fore the font loads, the promise will be re­jected.
+通过使用 `Promise.race`，我们可以让字体加载和计时器“竞速”。举个例子，如果字体在计时器触发前加载完成，字体就胜利了，Promise 将会被解析。如果计时器在字体加载完成前触发，Promise 就会被拒绝。
 
     var font = new FontFaceObserver('Output Sans');
 
@@ -90,11 +91,11 @@ By us­ing `Promise.race` we can let font load­ing and the timer “race” eac
       console.log('Output Sans has timed out.');
     });
 
-In this ex­am­ple a font is raced against a timer of one sec­ond. In­stead of rac­ing against a sin­gle font it is also pos­si­ble to race a timer against a group of fonts. This is a sim­ple and ef­fec­tive way to limit the amount of time it takes to load fonts.
+在这个例子中，字体与一个1秒的计时器竞速。除了与单个字体竞速，计时器还可以与一组字体竞速。这是一种简单而且有效的限制字体加载时间的方法。
 
-## [](https://www.bramstein.com/writing/web-font-loading-patterns.html#prioritised-loading)Prioritised loading
+## [](#prioritised-loading)队列加载模式
 
-Of­ten, only a hand­ful of fonts are crit­i­cal to ren­der the “above the fold” con­tent on your site. Load­ing these fonts first, be­fore other more op­tional fonts, will im­prove the per­for­mance of your site. You can do this us­ing pri­ori­tised load­ing.
+通常情况下，只有部分字体对于渲染首屏内容来说是必要的。在加载其它可选字体之前先加载这些字体，将会极大程度地改善你网站的性能。你可以使用队列加载模式来实现。
 
     var primary = new FontFaceObserver('Primary');
     var secondary = new FontFaceObserver('Secondary');
@@ -107,25 +108,25 @@ Of­ten, only a hand­ful of fonts are crit­i­cal to ren­der the “above the
       });
     });
 
-Pri­ori­tised load­ing makes the sec­ondary font de­pen­dent on the pri­mary font. If the pri­mary font fails to load, the sec­ondary font will never load. This can be a very use­ful prop­erty.
+队列加载模式将会使次要字体依赖于主要字体。如果主要字体加载失败，次要字体将不会被加载。这会是一个非常重要的特性。
 
-For ex­am­ple, you could use pri­ori­tised load­ing to load a small pri­mary font with lim­ited char­ac­ter sup­port fol­lowed by a larger sec­ondary font with sup­port for more char­ac­ters or styles. Be­cause the pri­mary font is very small it will load and ren­der much faster. If the pri­mary font fails to load you prob­a­bly don’t want to try to load the sec­ondary font ei­ther, be­cause it is likely to fail as well.
+举个例子，你可以使用队列加载模式来加载一个小的主要字体以提供有限的支持，之后再加载一个更大的次要字体来提供更多特征和样式。因为主要字体非常小，它的加载和渲染将会非常快。如果主要字体加载失败，你可能也不希望加载次要字体，因为其很可能也会加载失败。
 
-This use of pri­ori­tised load­ing is de­scribed in more de­tail by Zach Leather­man in [Flash of Faux Text](http://www.zachleat.com/web/foft/) and [Web Font Anti-Pat­terns: Data URIs](http://www.zachleat.com/web/web-font-data-uris/).
+如果需要更详细的关于队列加载模式的信息，请参阅 Zach Leatherman 的文章 [Flash of Faux Text](http://www.zachleat.com/web/foft/) 以及 [Web Font Anti-Patterns: Data URIs](http://www.zachleat.com/web/web-font-data-uris/)。
 
-## [](https://www.bramstein.com/writing/web-font-loading-patterns.html#custom-font-display)Custom font display
+## [](#custom-font-display)自定义字体显示行为
 
-Be­fore a browser can show a web font it needs to be down­loaded over the net­work. This usu­ally takes a lit­tle while, and browsers be­have dif­fer­ently while they are down­load­ing web fonts. Some browsers hide text while web fonts are load­ing, while oth­ers show fall­back fonts im­me­di­ately. This is com­monly re­ferred to as the Flash Of In­vis­i­ble Text (<abbr>FOIT</abbr>) and the Flash Of Un­styled Text (<abbr>FOUT</abbr>).
+浏览器显示网络字体前需要先通过网络下载字体，这通常需要一定的时间，并且不同的浏览器在下载网络字体时有不同的行为。一些浏览器在加载字体时隐藏文字，而另一些浏览器会先显示降级字体。这两种方法通常被称为 Flash Of Invisible Text（FOIT）和 Flash Of Unstyled Text（FOUT）。
 
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f3aa9x12itj21540lraf4.jpg)
 
-In­ter­net Ex­plorer and Edge use <abbr>FOUT</abbr> and show fall­back fonts un­til the web font has fin­ished down­load­ing. All other browsers use <abbr>FOIT</abbr> and hide text while web fonts are down­load­ing.
+IE 和 Edge 使用 FOUT，即在网络字体加载完成之前显示降级字体。所有其他的浏览器都使用 FOIT，即在网络字体加载时隐藏文本。
 
-A new <abbr>CSS</abbr> prop­erty called `font-display` ([CSS Font Ren­der­ing Con­trols](https://tabatkins.github.io/specs/css-font-display/)) is meant to con­trol this be­hav­iour. Un­for­tu­nately, it is still un­der de­vel­op­ment and not yet sup­ported in any browser (it’s cur­rently be­hind a flag in Chrome and Opera). How­ever, we can im­ple­ment the same be­hav­iour in all browsers us­ing [Font Face Ob­server](https://github.com/bramstein/fontfaceobserver).
+一个新的 CSS 属性 `font-display`（[CSS Font Rendering Controls](https://tabatkins.github.io/specs/css-font-display/)）是用于控制这个行为的。然而，该特性依然处于开发阶段并尚未被任何浏览器支持（当前在 Chrome 和 Opera 中可以手动开启）。然而，我们可以使用 [Font Face Observer](https://github.com/bramstein/fontfaceobserver) 在所有的浏览器中实现相同的功能。
 
-You can trick browsers that use <abbr>FOIT</abbr> into ren­der­ing fall­back fonts im­me­di­ately by only us­ing fully loaded web fonts in your font stack. If a web font is not in your font stack while it is be­ing down­loaded, those browsers will not at­tempt to hide text.
+你可以通过仅在字体栈中放入加载完成的字体来使得使用 FOIT 的浏览器在加载网络字体时使用降级字体渲染。如果正在下载的字体不在字体栈中，那些浏览器就不会试图隐藏文本。
 
-The eas­i­est way to do this is by set­ting a class on your `html` el­e­ment for each of the three load­ing state of web fonts: load­ing, loaded, and failed. The `fonts-loading` class is set as soon as font load­ing starts. The `fonts-loaded` class is added when fonts load, and the `fonts-failed` class is added when they fail to load.
+最简单的实现方法是在 `html` 元素上为三个网络字体加载状态设置不同的 class：loading（加载中），loaded（加载完成），以及 failed（加载失败）。
 
     var font = new FontFaceObserver('Output Sans');
     var html = document.documentElement;
@@ -140,7 +141,7 @@ The eas­i­est way to do this is by set­ting a class on your `html` el­e­men
       html.classList.add('fonts-failed');
     });
 
-Us­ing these three classes and some sim­ple <abbr>CSS</abbr> you can im­ple­ment <abbr>FOUT</abbr> that works across all browsers. We start by defin­ing fall­back fonts for all el­e­ments that will use web fonts. When the `fonts-loaded` class is pre­sent on the `html` el­e­ment we ap­ply the web font by chang­ing the font stack for those el­e­ments. This will force the browser to load the web font, but be­cause the font has al­ready loaded it will be ren­dered al­most in­stan­ta­neously.
+使用这三个 class 和一些简单的 CSS，你就可以在所有浏览器中实现 FOUT。我们为所有将要使用网络字体的元素定义降级字体。当 `fonts-loaded` class 出现在 `html` 元素上时，我们通过改变元素的字体栈来应用网络字体。这将会要求浏览器加载网络字体，但是因为这些字体已经下载完成了，渲染操作将能在瞬间完成。
 
     body {
       font-family: Verdana, sans-serif;
@@ -150,9 +151,9 @@ Us­ing these three classes and some sim­ple <abbr>CSS</abbr> you can im­ple­
       font-family: Output Sans, Verdana, sans-serif;
     }
 
-Load­ing web fonts this way might re­mind you of pro­gres­sive en­hance­ment. This is not a co­in­ci­dence. The Flash Of Un­styled Text is pro­gres­sive en­hance­ment. The de­fault ex­pe­ri­ence is ren­dered us­ing fall­back fonts, and then en­hanced with web fonts.
+使用这种方法来加载网络字体可能会让你想到渐进增强（progressive enhancement），这不是一个巧合。FOUT 就是一种渐进增强。默认的体验是使用降级字体渲染，然后使用网络字体来增强体验。
 
-Im­ple­ment­ing <abbr>FOIT</abbr> is equally sim­ple. When web fonts start load­ing you hide con­tent that is us­ing web fonts, and when the web fonts load you dis­play the con­tent again. Take care to also deal with fail­ure. Your con­tent should be ac­ces­si­ble even if your web fonts fail to load.
+实现 FOIT 同样简单。只要在网络字体开始加载时隐藏使用这些字体的内容，当字体加载完成后再重新显示。注意要记得处理加载失败的情况，即使网络字体加载失败，你的内容应该依然可见。
 
     .fonts-loading body {
       visibility: hidden;
@@ -163,13 +164,13 @@ Im­ple­ment­ing <abbr>FOIT</abbr> is equally sim­ple. When web fonts start l
       visibility: visible;
     }
 
-Does hid­ing con­tent like this make you un­com­fort­able? Good. It should. Hid­ing con­tent should only be used in very spe­cial cir­cum­stances, for ex­am­ple if there is no good fall­back for your web font, or if you know the font is al­ready cached.
+这样隐藏内容是否让你感到不适？对，隐藏内容应该在非常特殊的情况下才被使用，比如你的网络字体没有合适的降级字体，或者你知道字体已经被缓存了。
 
-## [](https://www.bramstein.com/writing/web-font-loading-patterns.html#optimise-for-caching)Optimise for caching
+## [](#optimise-for-caching)为缓存优化
 
-The other font load­ing pat­terns let you cus­tomise when and how fonts load. Of­ten you want your code to be­have dif­fer­ently if a font is al­ready in the cache. For ex­am­ple, if a font is cached, there is no need to ren­der fall­back fonts first. We can ac­com­plish this by keep­ing track of the cache state of web fonts us­ing ses­sion stor­age.
+其他的字体加载模式允许你自定义你加载字体的时间和方式。通常情况下，如果字体已经在缓存中，你会希望以不同的方式渲染字体。比如说，当字体已经被缓存时，就不需要先渲染降级字体了。我们可以通过使用 session storage 跟踪缓存情况的方式来实现。
 
-When a font loads we set a boolean flag in the ses­sion stor­age. This flag will stored through­out a browse ses­sion, so it is a fairly good in­di­ca­tor for whether or not a file is in the browser cache.
+当一个字体被加载后，我们在 session 中创建一个布尔型标记。这个标记将会保持在整个会话过程中，所以这会是判断文件是否在浏览器缓存中的一个很好的方法。
 
     var font = new FontFaceObserver('Output Sans');
 
@@ -179,7 +180,7 @@ When a font loads we set a boolean flag in the ses­sion stor­age. This flag wi
       sessionStorage.fontsLoaded = false;
     });
 
-You can then use this in­for­ma­tion to change your font load­ing strat­egy when the font is cached. For ex­am­ple you can in­clude the fol­low­ing JavaScript snip­pet in the `head` el­e­ment of your page to im­me­di­ately ren­der web fonts.
+然后你就可以使用这个信息以在字体被缓存时改变字体加载策略。比如说，你可以在 `head` 元素中插入如下的 JavaScript 片段来直接渲染网络字体。
 
     if (sessionStorage.fontsLoaded) {
       var html = document.documentElement;
@@ -187,5 +188,4 @@ You can then use this in­for­ma­tion to change your font load­ing strat­egy
       html.classList.add('fonts-loaded');
     }
 
-If you’re load­ing fonts this way your vis­i­tors will ex­pe­ri­ence <abbr>FOUT</abbr> the first time they visit your site, but sub­se­quent pages will ren­der web fonts im­me­di­ately. This means you can have pro­gres­sive en­hance­ment and still have a good user ex­pe­ri­ence with­out dis­tract­ing your re­peat vis­i­tors.
-
+如果你使用这种方式加载字体，用户会在第一次访问你的网站时体验到 FOUT，但是随后的页面将会直接渲染网络字体。这样你既有渐进增强，又不会破坏重复访问者的体验。

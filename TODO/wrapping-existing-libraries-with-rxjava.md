@@ -1,10 +1,10 @@
-# 使用 RxJava 封装现有的库
-
 >* 原文链接 : [Wrapping Existing Libraries With RxJava](http://ryanharter.com/blog/2015/07/07/wrapping-existing-libraries-with-rxjava/)
 * 原文作者 : [Ryan Harter](http://ryanharter.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [尹述迪](http://yinshudi.com)
 * 校对者: [markzhai](https://github.com/markzhai) , [Sausure](https://github.com/Sausure)
+
+# 使用 RxJava 封装现有的库
 
 [RxJava](https://github.com/ReactiveX/RxJava) 是最近 Android 世界里十分流行的一个库，并且有着充分的流行的理由。虽然函数式响应编程的学习曲线十分陡峭，但学会之后的好处是相当巨大的。
 

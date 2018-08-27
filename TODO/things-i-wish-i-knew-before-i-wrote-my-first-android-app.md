@@ -5,13 +5,15 @@
 * 校对者: [Glowin](https://github.com/Glowin)、[achilleo](https://github.com/achilleo)
 * 状态 :  完成
 
-我的第一个 APP 是极其糟糕的. 实际上, 它已经糟糕到了让我把它从商店下架, 我甚至不愿费事儿再把它写进简历. 这个 APP 本来不会这样糟糕, 如果在我写它之前知道一些关于安卓开发的事情.
+# 我希望在我写第一个安卓 APP 前知道的 6 件事情
 
-这有一个你在开发你的第一个安卓 APP 需要牢记的事情的列表. 我下面要说的这些经验教训都是从我在我的第一个安卓 APP 的源码里的真实的错误中得来的. 将这些(经验)铭记在心将会帮助你写一个你可以为止骄傲的 APP.
+我的第一个 APP 是极其糟糕的. 实际上, 它已经糟糕到了让我把它从商店下架, 我甚至不愿费事儿再把它写进简历. 如果在我写它之前知道一些关于安卓开发的事情, 这个 APP 本来不会这样糟糕.
+
+这有一个你在开发你的第一个安卓 APP 时需要牢记的事情的列表. 我下面要说的这些经验教训都是从我的第一个安卓 APP 的源码里的真实的错误中得来的. 将这些(经验)铭记在心将会帮助你写一个你可以为之骄傲的 APP.
 
 当然, 如果你像一个学生一样进行你的开发工作, 无论如何你都有可能在不久之后讨厌你的 APP. 就像 @codestandards 说的,
 
-> 如果你一年前写的代码现在看起来还挺不错的, 你可能获得没有什么足够的长进(在这一年之间).
+> 如果你一年前写的代码现在看起来还挺不错的, 你可能获得没有足够的长进(在这一年之间).
 > 
 > — Code Standards (@codestandards) [2015年5月21日](https://twitter.com/codestandards/status/601373392059518976)
 
@@ -37,7 +39,7 @@
         }
     }
 
-这可能看起来是一个谁也不可能犯的错误. 然而并不是. 我就犯过这样的错误. 我也看到过别人出这样的错误, 我也遇到过不能一下子指出为什么这(对 Contexts 的静态引用)是一个错误的的人. 不要这么做. 这是一个及其愚蠢的行为.
+这可能看起来是一个谁也不可能犯的错误. 然而并不是. 我就犯过这样的错误. 我也看到过别人出这样的错误, 我也遇到过不能一下子指出为什么这(对 Contexts 的静态引用)是一个错误的的人. 不要这么做. 这是一个极其愚蠢的行为.
 
 如果 MeTrackerStore 类一直持有 Activity 传递进它的构造函数的引用. 这个 Activity 将永远不会被垃圾回收. (除非这个静态的变量被分配给一个不同的 Activity.) 这是因为 mMeTrackerStore 是静态的, 在第一次运行应用的时候内存就会被分配给这个静态变量, 并且直到应用的进程退出这些资源才会被回收.
 
@@ -69,7 +71,7 @@
 
 在这个例子中, 任何 GetLatAndLongAndUpdateMapCameraAsyncTask 对象都将有个DefineGeofenceFragment 对象的引用. 匿名类也是如此: 它会对包含它的类对象有个隐式的引用.
 
-这个 GetLatAndLongAndUpdateMapCameraAsyncTask 对象对 Fragment 对象有个隐式的的引用, 一个我们无法控制它生命周期的对象. Android SDK 负责适当的创建和销毁 Fragment 对象, 如果因为 GetLatAndLongAndUpdateMapCameraAsyncTask 对象正在执行所以不能被回收的话, 那它持有对象也无法被回收.
+这个 GetLatAndLongAndUpdateMapCameraAsyncTask 对象对 Fragment 对象有个隐式的的引用, 一个我们无法控制它生命周期的对象. Android SDK 负责适当地创建和销毁 Fragment 对象, 如果因为 GetLatAndLongAndUpdateMapCameraAsyncTask 对象正在执行所以不能被回收的话, 那它隐式引用的对象也无法被回收.
 
 这有一个非常棒的Google IO 视频  [that explains why this sort of thing happens]
 (https://www.youtube.com/watch?v=_CruQY55HOk).

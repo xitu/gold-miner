@@ -1,10 +1,10 @@
-# 11个顶级设计师分享他们的职业建议
-
 * 原文链接 : [11 Top Designers Share Honest Career Advice](https://studio.uxpin.com/blog/11-top-designers-give-11-pieces-of-realistic-ux-advice/)
 * 原文作者 : [Roger Huang]
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Adam Shen](https://github.com/shenxn)
 * 校对者: [iThreeKing](https://github.com/iThreeKing)，[circlelove](https://github.com/circlelove)
+
+# 11个顶级设计师分享他们的职业建议
 
 优秀的设计者是终生学习者。
 

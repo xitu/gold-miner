@@ -1,8 +1,10 @@
-* 原文链接 : [The Two Types of Product Virality](https://medium.com/@philipla/the-two-types-of-product-virality-8ae744b1c4d7#.lwgcxzx4d)
+> * 原文链接 : [The Two Types of Product Virality](https://medium.com/@philipla/the-two-types-of-product-virality-8ae744b1c4d7#.lwgcxzx4d)
 * 原文作者 : [Philip La](https://medium.com/@philipla)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [huanglizhuo](https://github.com/huanglizhuo) 
 * 校对者: [JasinYip](https://github.com/JasinYip), [godofchina](https://github.com/godofchina)
+
+# 你真的懂病毒式营销吗
 
 无论我是在演讲还是在讲授，在讨论对于“病毒式营销”所带来的增长时，我都认为对于产品来说这是一个最好的吸引眼球和增加新用户的途径。它不但免费，而且可以带来广泛影响。
 
@@ -57,7 +59,7 @@
 
 *   **Hotmail 标语:** 早期 Hotmail 在它们邮件的结尾会有一句标语，那就是著名的 “Get Your Free Email at Hotmail”， 用户发送邮件时所有的接收者都会看到这条标语，然后就会意识到 Hotmail 的存在。
 
-*   **Nike+ 跑步 APP , 分享奔跑:** 当你通过 app 记录了一次精彩的跑步历程,你会很自然的想到把它分享到你的社交网络。Nike+ 在 Facebook 等社交网络上提供了一种独特的积分，它会在你的社交网络上显示你的步数和路劲图。一旦你的朋友看到你的活动就会意识到 Nick+ 跑步 APP。
+*   **Nike+ 跑步 APP , 分享奔跑:** 当你通过 app 记录了一次精彩的跑步历程,你会很自然的想到把它分享到你的社交网络。Nike+ 在 Facebook 等社交网络上提供了一种独特的积分，它会在你的社交网络上显示你的步数和路径图。一旦你的朋友看到你的活动就会意识到 Nick+ 跑步 APP。
 
 ![](https://cdn-images-1.medium.com/max/400/1*4dSbYd1PksIBpkErEM5x8w.png)
 
@@ -73,7 +75,7 @@ DPV 常常给潜在的新用户提供了一种情景意识，这会提高他们�
 
 DPV 和 PPV **并不是相互独立的** 很多产品都会拥有这两者。比如，Facebook 的照片标签被归为 DPV， 但它的一些其他的功能特性，比如事件、群组，这些都需要特定的人加入才有意义，这就产生了 PPV。
 
-当你想要给你的产品做病毒式营销时最好这两种都要考虑。能否用和怎么用都要更根据你的产品来决定。你得对你的用户以及他们与非用户交流关于这个产品是可能对应的场景有深刻的理解，这样才可以成功的运用这两种营销。
+当你想要给你的产品做病毒式营销时最好这两种都要考虑。能否用和怎么用都要更根据你的产品来决定。你得对你的用户以及他们与非用户交流关于这个产品是可能对应的场景有深刻的理解，这样才可以成功地运用这两种营销。
 
 做到这些是很难的, 正像平常一样[产品市场定位](http://www.startup-marketing.com/the-startup-pyramid/) 仍然是关注增长前的最重要的事情, 但如果你可以灵活运用 PPV 和 DPV 并以一种可扩展的方式运作，它们会给你带来大量的增长。
 

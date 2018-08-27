@@ -5,6 +5,8 @@
 * 校对者 :[Glow Chiang](https://github.com/Glowin), [Void Main](https://github.com/void-main)
 * 状态 : 完成
 
+# 每个 Android 开发者都应该读的 Android Studio Tips
+
 欢迎来到Phillipe Breault发布的Android Studio技巧wiki页面。
 
 我创建了这个仓库是因为我认为Phillipe Breault发布的每一个Android Studio技巧都应该被记录下来。
@@ -459,10 +461,10 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 ![](https://lh3.googleusercontent.com/-sXEoJvHd_QQ/VCvo5CMmOuI/AAAAAAAAN5c/zq_9YB05-3U/w443-h287-no/36-executionpoint.gif)
 
-# 53. 扩大选择（Shrink Selection）
+# 53. 扩大选择（Extend Selection）
 
 - **描述：**该操作会在上下文逐渐扩大当前选择范围。例如，它会先选中当前变量，再选中当前语句，然后选中整个方法，等等。
-- **快捷键：**Cmd + F2(OS X)、Ctrl + F2（Windows、Linux）
+- **快捷键：**Alt + ↓ (OS X)、Ctrl + w （Windows、Linux）
 
 ![](https://lh6.googleusercontent.com/-7KdcfTVc-is/U_xh2BbGyzI/AAAAAAAANFE/joWJV9qWBB4/w357-h212-no/12-expand_shrink_selection.gif)
 
