@@ -5,7 +5,7 @@
 > * 译者：[tanglie1993](https://github.com/tanglie1993)
 > * 校对者：
 
-# React Native vs Flutter: Which Is More Startup friendly?
+# React Native 对 Flutter: 哪一个对创业公司更加友好？
 
 ![](https://cdn-images-1.medium.com/max/800/1*Qnt_ctP0ZrlL959Dj3HZAw.jpeg)
 
