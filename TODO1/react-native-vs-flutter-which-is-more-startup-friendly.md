@@ -87,17 +87,17 @@ React Native ，目前在业界的流行程度是不用说的。对于各种年�
 
 ![](https://cdn-images-1.medium.com/max/800/1*B18aQH_4ZDsIoudtJ2gv1g.png)
 
-The process of tools along with the documentation is an extensive process. And when it comes to documentation, Flutter facilitates the process. In addition, it makes it easier for [**mobile app developers**](https://www.valuecoders.com/hire-developers/hire-mobile-app-developers?utm_source=home_reactflutter_medium&utm_medium=mantra) to use them while documenting their application. Therefore, there is no doubt that Flutter is an impressive option against its counterpart.
+使用文档和工具箱的过程可能是相当复杂的。对于写文档而言，Flutter 加快了这个过程。另外，它使得[**移动应用开发者**](https://www.valuecoders.com/hire-developers/hire-mobile-app-developers?utm_source=home_reactflutter_medium&utm_medium=mantra) 在写文档时可以更轻易地使用它们。因此，Flutter 和它的竞争对手相比，无疑是出色的选择。
 
-On the other hand, the documentation with React Native is a bit clumsy. In addition, this framework omits a series of components that are quite important to smooth the process. So we can see that the comparison with respect to the tools brings a hard competition between the two frames. Flutter has extensive IDEs and tools with React Native support. Its compatibility with Visual Studio Code, Android Studio etc. adds more to the prominence of the framework.
+在另一方面， React Native 的文档显得有些笨重。另外，这个框架省略了一系列可以改善开发体验的工具。所以我们可以发现，两种框架在开发工具方面的竞争很激烈。Flutter 有广泛的支持 React Native 的 IDE 和工具。它和 Visual Studio Code、Android Studio 等具有良好的兼容性。这使得这个框架更加出色。
 
-**Winner(react native vs flutter):** Flutter
+**胜者(react native 对 flutter):** Flutter
 
-**Read Also: [9 Top JavaScript Frameworks For Mobile App Development](https://www.valuecoders.com/blog/technology-and-apps/top-javascript-frameworks-for-mobile-app-development/?utm_source=blog_reactflutter_medium&utm_medium=mantra)**
+**扩展阅读: [9 个最好的 JavaScript 移动应用开发框架](https://www.valuecoders.com/blog/technology-and-apps/top-javascript-frameworks-for-mobile-app-development/?utm_source=blog_reactflutter_medium&utm_medium=mantra)**
 
-**Conclusion:**
+**结论:**
 
-So we have seen a detailed comparison of both the [**mobile app development**](https://www.valuecoders.com/mobile-application-development?utm_source=home_reactflutter_medium&utm_medium=mantra) frameworks for start-ups. Both have their own plus points in terms of stability, performance, documentation etc. as discussed above.
+所以，我们已经看到了两个[**移动应用开发框架**](https://www.valuecoders.com/mobile-application-development?utm_source=home_reactflutter_medium&utm_medium=mantra) 是否适用于创业公司的一个详细的比较。如上所述，他们在稳定性、性能、文档等方面都各有优缺点。
 
 However, it is difficult to decide which one is the winner as they have their own pros and cons. In my opinion, Flutter being new framework would take time to get stable and would travel miles to compete successfully with already popular mobile app development framework i.e. React Native. Hence, React Native is a good choice to start with and can be declared as the winner right now.
 
