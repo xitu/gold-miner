@@ -47,15 +47,15 @@ React native 是被 Facebook 开发的，并且很快获得了大众的欢迎，
 
 **You may like: [How To Make A Budget-Friendly Mobile App?](https://www.valuecoders.com/blog/technology-and-apps/make-budget-friendly-mobile-app/?utm_source=blog_reactflutter_medium&utm_medium=mantra)**
 
-**3) Performance**
+**3) 性能**
 
 ![](https://cdn-images-1.medium.com/max/800/1*Nu2WBSE8G_GilhJ0gzqmmw.png)
 
-A good comparison of these frameworks i.e. react native vs flutter, precisely in terms of performance, gives us revealing results. The mobile app developers who know these languages well would surely agree with this point of rewarding Google Flutter with some extra points. Flutter has the advantage over its competitors due to Dart frame. In addition, the Javascript layer helps to connect with native components more easily.
+对这些框架（比如react native 和 flutter）的一个好的比较，可以给我们很有信息量的结果，特别是在性能方面。了解这些语言的移动应用开发者们，会同意在这方面给 Google 的 Flutter 加分的。由于 Dart 框架的存在，Flutter 和它的竞争对手相比是有优势的。而且，Javascript 层可以使开发者更容易地和原生组件通信。
 
-On the other hand, React Native has had a large following, but app developers know the pain when it comes to creating hybrid applications. But, in the case of native applications, the framework adjusts exceptionally well to the requirements. The framework means that developers do not have problems to create an application that has a native environment.
+在另一方面，React Native 有很多的支持者，但开发者们知道创建 hybrid 应用的痛苦。但是，对于 native 应用而言，这个框架特别能够适应需求。这个框架意味着开发者在创建具有 native 环境的应用时不会遇到问题。
 
-The use of React Native for hybrid applications makes it a little complicated for developers to run the architect, the native components and the library without problems. Flutter, on the other hand, makes it easy for developers to reuse existing code. The C ++ engine also supports the language, and that gives you reward points.
+React Native 在 hybrid 应用中的使用使得开发者在运行架构、native 组件和库方面难以不遇到问题。在另一方面，Flutter使开发者很容易复用现有的代码。它的 C++ 引擎支持这种语言，这会给你额外的奖励。
 
 **Winner(react native vs flutter):** Flutter
 
