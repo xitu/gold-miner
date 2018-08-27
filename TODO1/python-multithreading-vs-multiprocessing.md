@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/python-multithreading-vs-multiprocessing.md](https://github.com/xitu/gold-miner/blob/master/TODO1/python-multithreading-vs-multiprocessing.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[yqian1991](https://github.com/yqian1991)
 
 # Python 的多线程与多进程
 
@@ -11,13 +11,13 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/1*bHJr8cxHLidDg9T4442P8g.png)
 
-在参加 Kaggle 的 [Understanding the Amazon from Space](https://www.kaggle.com/c/planet-understanding-the-amazon-from-space) 比赛时，我试图对自己代码的各个部分进行加速。速度在 Kaggle 比赛中至关重要。高排名常常需要尝试数百种模型结构与超参组合，能在每个 epoch 的最后一分钟内省出 10 秒都是一个巨大的胜利。
+在参加 Kaggle 的 [Understanding the Amazon from Space](https://www.kaggle.com/c/planet-understanding-the-amazon-from-space) 比赛时，我试图对自己代码的各个部分进行加速。速度在 Kaggle 比赛中至关重要。高排名常常需要尝试数百种模型结构与超参组合，能在一个持续一分钟的 epoch 中省出 10 秒都是一个巨大的胜利。
 
 让我吃惊的是，数据处理是最大的瓶颈。我用了 Numpy 的矩阵旋转、矩阵翻转、缩放及裁切等操作，在 CPU 上进行运算。Numpy 和 Pytorch 的 DataLoader 在某些情况中使用了并行处理。我同时会运行 3 到 5 个实验，每个实验都各自进行数据处理。但这种处理方式看起来效率不高，我希望知道我是否能用并行处理来加快所有实验的运行速度。
 
 ### 什么是并行处理？
 
-简单来说就是在同一时刻做两件事情，也可是是在不同的 CPU 上分别运行代码，或者说当程序等待外部资源（文件加载、API 调用等）时把“浪费”的 CPU 周期充分利用起来提高效率。
+简单来说就是在同一时刻做两件事情，也可以是在不同的 CPU 上分别运行代码，或者说当程序等待外部资源（文件加载、API 调用等）时把“浪费”的 CPU 周期充分利用起来提高效率。
 
 下面的例子是一个“正常”的程序。它会使用单线程，依次进行下载一个 URL 列表的内容。
 
@@ -88,7 +88,7 @@ def visualize_runtimes(results):
 
 #### **Python 的 GIL 锁问题**
 
-CPython（python 的标准实现）有一个叫做 [GIL](https://wiki.python.org/moin/GlobalInterpreterLock)（全局解释锁）的东西，会阻止在程序中同时执行两个线程。一些人非常不喜欢它，但也有一些人喜欢它。目前有一些解决它的方法，不过 Numpy 之类的库大都是通过执行外部 C 语言代码来绕过这中限制。
+CPython（python 的标准实现）有一个叫做 [GIL](https://wiki.python.org/moin/GlobalInterpreterLock)（全局解释锁）的东西，会阻止在程序中同时执行两个线程。一些人非常不喜欢它，但也有一些人喜欢它。目前有一些解决它的方法，不过 Numpy 之类的库大都是通过执行外部 C 语言代码来绕过这种限制。
 
 #### **何时使用线程，何时使用进程？**
 
