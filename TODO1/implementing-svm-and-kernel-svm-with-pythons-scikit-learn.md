@@ -2,42 +2,42 @@
 > * 原文作者：[Usman Malik](https://twitter.com/usman_malikk)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/implementing-svm-and-kernel-svm-with-pythons-scikit-learn.md](https://github.com/xitu/gold-miner/blob/master/TODO1/implementing-svm-and-kernel-svm-with-pythons-scikit-learn.md)
-> * 译者：
-> * 校对者：
+> * 译者：[rockyzhengwu](https://github.com/rockyzhengwu)
+> * 校对者：[zhusimaji](https://github.com/zhusimaji), [TrWestdoor](https://github.com/TrWestdoor)
 
-# Implementing SVM and Kernel SVM with Python's Scikit-Learn
+# 用 Scikit-Learn 实现 SVM 和 Kernel SVM
 
-A [support vector machine](https://en.wikipedia.org/wiki/Support_vector_machine) (SVM) is a type of supervised machine learning classification algorithm. SVMs were introduced initially in 1960s and were later refined in 1990s. However, it is only now that they are becoming extremely popular, owing to their ability to achieve brilliant results. SVMs are implemented in a unique way when compared to other machine learning algorithms.
+[支持向量机](https://en.wikipedia.org/wiki/Support_vector_machine)（SVM）是一种监督学习分类算法。支持向量机提出于 20 世纪 60 年代在 90 年代得到了进一步的发展。然而，由于能取得很好的效果，最近才开始变得特别受欢迎。与其他机器学习算法相比，SVM 有其独特之处。
 
-In this article we'll see what support vector machines algorithms are, the brief theory behind support vector machine and their implementation in Python's Scikit-Learn library. We will then move towards an advanced SVM concept, known as Kernel SVM, and will also implement it with the help of Scikit-Learn.
+本文先简明地介绍支持向量机背后的理论和如何使用 Python 中的 Scikit-Learn 库来实现。然后我们将学习高级 SVM 理论如 Kernel SVM，同样会使用 Scikit-Learn 来实践。
 
-### Simple SVM
+### 简单 SVM
 
-In case of linearly separable data in two dimensions, as shown in Fig. 1, a typical machine learning algorithm tries to find a boundary that divides the data in such a way that the misclassification error can be minimized. If you closely look at Fig. 1, there can be several boundaries that correctly divide the data points. The two dashed lines as well as one solid line classify the data correctly.
+考虑二维线性可分数据，如图 1，典型的机器学习算法希望找到使得分类错误最小的分类边界。如果你仔细看图 1，会发现能把数据点正确分类的边界不唯一。两条虚线和一条实线都能正确分类所有点。
 
 ![Multiple Decision Boundaries](https://s3.amazonaws.com/stackabuse/media/implementing-svm-kernel-svm-python-scikit-learn-1.jpg)
 
-_Fig 1: Multiple Decision Boundaries_
+**图 1：多决策边界**
 
-SVM differs from the other classification algorithms in the way that it chooses the [decision boundary](https://en.wikipedia.org/wiki/Decision_boundary) that maximizes the distance from the nearest data points of all the classes. An SVM doesn't merely find a decision boundary; it finds the most optimal decision boundary.
+SVM 通过最大化所有类中的数据点到[决策边界](https://en.wikipedia.org/wiki/Decision_boundary)的最小距离的方法来确定边界，这是 SVM 和其他算法的主要区别。SVM 不只是找一个决策边界；它能找到最优决策边界。
 
-The most optimal decision boundary is the one which has maximum margin from the nearest points of all the classes. The nearest points from the decision boundary that maximize the distance between the decision boundary and the points are called support vectors as seen in Fig 2. The decision boundary in case of support vector machines is called the maximum margin classifier, or the maximum margin hyper plane.
+能使所有类到决策边界的最小距离最大的边界是最优决策边界。如图 2 所示，那些离决策边界最近的点被称作支持向量。在支持向量机中决策边界被称作最大间隔分类器，或者最大间隔超平面。
 
 ![Decision Boundary with Support Vectors](https://s3.amazonaws.com/stackabuse/media/implementing-svm-kernel-svm-python-scikit-learn-2.jpg)
 
-_Fig 2: Decision Boundary with Support Vectors_
+**图 2：决策边界的支持向量**
 
-There is complex mathematics involved behind finding the support vectors, calculating the margin between decision boundary and the support vectors and maximizing this margin. In this tutorial we will not go into the detail of the mathematics, we will rather see how SVM and Kernel SVM are implemented via the Python Scikit-Learn library.
+寻找支持向量、计算决策边界和支持向量之间的距离和最大化该距离涉及到很复杂的数学知识。本教程不打算深入到数学的细节，我们只会看到如何使用 Python 的 Scikit-Learn 库来实现 SVM 和 Kernel-SVM。
 
-### Implementing SVM with Scikit-Learn
+### 通过 Scikit-Learn 实现 SVM
 
-The dataset that we are going to use in this section is the same that we used in the classification section of the [decision tree tutorial](/decision-trees-in-python-with-scikit-learn/).
+我们将使用和[决策树教程](https://stackabuse.com/decision-trees-in-python-with-scikit-learn/)一样的数据。
 
-Our task is to predict whether a bank currency note is authentic or not based upon four attributes of the note i.e. skewness of the wavelet transformed image, variance of the image, entropy of the image, and curtosis of the image. This is a binary classification problem and we will use SVM algorithm to solve this problem. The rest of the section consists of standard machine learning steps.
+我们的任务是通过四个属性来判断纸币是不是真的，四个属性是小波变换图像的偏度、图像的方差、图像的熵和图像的曲率。我们将使用 SVM 解决这个二分类问题。剩下部分是标准的机器学习流程。
 
-#### Importing libraries
+#### 导入库
 
-The following script imports required libraries:
+下面的代码导入所有需要的库：
 
 ```
 import pandas as pd
@@ -46,75 +46,75 @@ import matplotlib.pyplot as plt
 %matplotlib inline
 ```
 
-#### Importing the Dataset
+#### 导入数据
 
-The data is available for download at the following link:
+数据可以从下面的链接下载：
 
 [https://drive.google.com/file/d/13nw-uRXPY8XIZQxKRNZ3yYlho-CYm_Qt/view](https://drive.google.com/file/d/13nw-uRXPY8XIZQxKRNZ3yYlho-CYm_Qt/view)
 
-The detailed information about the data is available at the following link:
+数据的详细信息可以参考下面的链接：
 
 [https://archive.ics.uci.edu/ml/datasets/banknote+authentication](https://archive.ics.uci.edu/ml/datasets/banknote+authentication)
 
-Download the dataset from the Google drive link and store it locally on your machine. For this example the CSV file for the dataset is stored in the "Datasets" folder of the D drive on my Windows computer. The script reads the file from this path. You can change the file path for your computer accordingly.
+从 Google drive 链接下载数据并保存在你本地。这个例子中数据集保存在我 Windows 电脑的 D 盘 “Datasets” 文件夹下的 CSV 文件里。下面的代码从文件路径中读取数据。你可以根据文件在你自己电脑上的路径修改。
 
-To read data from CSV file, the simplest way is to use `read_csv` method of the pandas library. The following code reads bank currency note data into pandas dataframe:
+读取 CSV 文件的最简单方法是使用 pandas 库中的 `read_csv` 方法。下面的代码读取银行纸币数据记录到 pandas 的  dataframe:
 
 ```
 bankdata = pd.read_csv("D:/Datasets/bill_authentication.csv")
 ```
 
-#### Exploratory Data Analysis
+#### 探索性数据分析
 
-There are virtually limitless ways to analyze datasets with a variety of Python libraries. For the sake of simplicity we will only check the dimensions of the data and see first few records. To see the rows and columns and of the data, execute the following command:
+使用 Python 中各种各样的库几乎可以完成所有的数据分析。为了简单起见，我们只检查数据的维数并查看最前面的几条记录。查看数据的行数和列数，执行下面的语句：
 
 ```
 bankdata.shape
 ```
 
-In the output you will see (1372,5). This means that the bank note dataset has 1372 rows and 5 columns.
+你将看到输出为（1372, 5）。这意味着数据集有 1372 行和 5 列。
 
-To get a feel of how our dataset actually looks, execute the following command:
+为了对数据长什么样有个直观感受，可以执行下面的命令：
 
 ```
 bankdata.head()
 ```
 
-The output will look like this:
+输出下面如下:
 
 ![](https://i.loli.net/2018/08/15/5b73e22032c4a.jpg)
 
-You can see that all of the attributes in the dataset are numeric. The label is also numeric i.e. 0 and 1.
+你可以发现所有的属性都是数值型。类别标签也是数值型即 0 和 1。
 
-#### Data Preprocessing
+#### 数据预处理
 
-Data preprocessing involves (1) Dividing the data into attributes and labels and (2) dividing the data into training and testing sets.
+数据预处理包括（1）把属性和类表标签分开和（2）划分训练数据集和测试数据集。
 
-To divide the data into attributes and labels, execute the following code:
+把属性和类别标签分开，执行下面的代码：
 
 ```
 X = bankdata.drop('Class', axis=1)
 y = bankdata['Class']
 ```
 
-In the first line of the script above, all the columns of the `bankdata` dataframe are being stored in the `X` variable except the "Class" column, which is the label column. The `drop()` method drops this column.
+上面代码第一行从 `bankdata` dataframe 中移除了类别标签列 “Class” 并把结果赋值给变量 `X`。函数 `drop()` 删除指定列。
 
-In the second line, only the class column is being stored in the `y` variable. At this point of time `X` variable contains attributes while `y` variable contains corresponding labels.
+第二行，只将类别列存储在变量 `y` 里。现在变量 `X` 包含所有的属性变量 `y` 包含对应的类别标签。
 
-Once the data is divided into attributes and labels, the final preprocessing step is to divide data into training and test sets. Luckily, the `model_selection` library of the Scikit-Learn library contains the `train_test_split` method that allows us to seamlessly divide data into training and test sets.
+现在数据集已经将属性和类别标签分开，最后一步预处理是划分出训练集和测试集。幸运的是 Scikit-Learn 中 `model_selection` 模块提供了函数 `train_test_split` 允许我们优雅地把数据分成训练和测试两部分。
 
-Execute the following script to do so:
+执行下面的代码完成划分：
 
 ```
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20)
 ```
 
-#### Training the Algorithm
+#### 算法训练
 
-We have divided the data into training and testing sets. Now is the time to train our SVM on the training data. Scikit-Learn contains the `svm` library, which contains built-in classes for different SVM algorithms. Since we are going to perform a classification task, we will use the support vector classifier class, which is written as `SVC` in the Scikit-Learn's `svm` library. This class takes one parameter, which is the kernel type. This is very important. In the case of a simple SVM we simply set this parameter as "linear" since simple SVMs can only classify linearly separable data. We will see non-linear kernels in the next section.
+我们已经把数据分成了训练集和测试集。现在我们使用训练集来训练。Scikit-Learn 库中的 `svm` 模块实现了各种不同的 SVM 算法。由于我们要完成一个分类任务，我们将使用由 Scikit-Learn 中 `svm` 模块下的 `SVC` 类实现的支持向量分类器。这个类需要一个参数指定核函数的类型。这参数很重要。这里考虑最简单的 SVM 把类型参数设为 `linear` 线性支持向量机只适用于线性可分数据。我们在下一部分介绍非线性核。
 
-The `fit` method of SVC class is called to train the algorithm on the training data, which is passed as a parameter to the `fit` method. Execute the following code to train the algorithm:
+把训练数据传给 SVC 类 `fit` 方法来训练算法。执行下面的代码完成算法训练：
 
 ```
 from sklearn.svm import SVC
@@ -122,19 +122,19 @@ svclassifier = SVC(kernel='linear')
 svclassifier.fit(X_train, y_train)
 ```
 
-#### Making Predictions
+#### 做预测
 
-To make predictions, the `predict` method of the `SVC` class is used. Take a look at the following code:
+`SVC` 类的 `predict` 方法可以用来预测新的数据的类别。代码如下：
 
 ```
 y_pred = svclassifier.predict(X_test)
 ```
 
-#### Evaluating the Algorithm
+#### 算法评价
 
-Confusion matrix, precision, recall, and F1 measures are the most commonly used metrics for classification tasks. Scikit-Learn's `metrics` library contains the `classification_report` and `confusion_matrix` methods, which can be readily used to find out the values for these important metrics.
+混淆矩阵、精度、召回率和 F1 是分类任务最常用的一些评价指标。Scikit-Learn 的 `metrics` 模块中提供了 `classification_report` 和`confusion_matrix` 等方法，这些方法可以快速的计算这些评价指标。
 
-Here is the code for finding these metrics:
+下面是计算评价指标的代码：
 
 ```
 from sklearn.metrics import classification_report, confusion_matrix
@@ -142,9 +142,9 @@ print(confusion_matrix(y_test,y_pred))
 print(classification_report(y_test,y_pred))
 ```
 
-#### Results
+#### 结果
 
-The evaluation results are as follows:
+下面是评价结果：
 
 ```
 [[152    0]
@@ -157,31 +157,31 @@ The evaluation results are as follows:
 avg / total        1.00     1.00       1.00       275
 ```
 
-From the results it can be observed that SVM slightly outperformed the decision tree algorithm. There is only one misclassification in the case of SVM algorithm compared to four misclassifications in the case of the decision tree algorithm.
+从上面的评价结果中我们可以发现 SVM 比决策树稍微的要好。SVM 只有 1% 的错分类而决策树有 4%。
 
 ### Kernel SVM
 
-In the previous section we saw how the simple SVM algorithm can be used to find decision boundary for linearly separable data. However, in the case of non-linearly separable data, such as the one shown in Fig. 3, a straight line cannot be used as a decision boundary.
+在上面的章节我们看到了如何使用简单 SVM 算法在线性可分数据上找到决策边界。然而，当数据不是线性可分的时候如图 3，直线就不能再作为决策边界了。
 
 ![Non-linearly Separable Data](https://s3.amazonaws.com/stackabuse/media/implementing-svm-kernel-svm-python-scikit-learn-3.jpg)
 
-Fig 3: Non-linearly Separable Data
+Fig 3: 非线性可分数据
 
-In case of non-linearly separable data, the simple SVM algorithm cannot be used. Rather, a modified version of SVM, called Kernel SVM, is used.
+对非线性可分的数据集，简单的 SVM 算法就不再适用。一种改进的 SVM 叫做 Kernel SVM 可以用来解决非线性可分数据的分类问题。
 
-Basically, the kernel SVM projects the non-linearly separable data lower dimensions to linearly separable data in higher dimensions in such a way that data points belonging to different classes are allocated to different dimensions. Again, there is complex mathematics involved in this, but you do not have to worry about it in order to use SVM. Rather we can simply use Python's Scikit-Learn library that to implement and use the kernel SVM.
+从根本上说，kernel SVM 把在低维空间中线性不可分数据映射成在高维空间中线性可分的数据, 这样不同类别的数据点就分布在了不同的维度上。同样，这里涉及到复杂的数学，但是如果你只是使用 SVM 完全不用担心。我们可以很简单的使用 Python 的 Scikit-Learn 库来实现和使用 kernel SVM。
 
-### Implementing Kernel SVM with Scikit-Learn
+### 使用 Scikit-Learn 实现 Kernel SVM
 
-Implementing Kernel SVM with Scikit-Learn is similar to the simple SVM. In this section, we will use the famous [iris dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set) to predict the category to which a plant belongs based on four attributes: sepal-width, sepal-length, petal-width and petal-length.
+和实现简单的 SVM 一样。在这部分我们使用有名的[鸢尾花数据集](https://en.wikipedia.org/wiki/Iris_flower_data_set)，依照植物下面的四个属性去预测它属于哪个分类：萼片宽度，萼片长度，花瓣宽度和花瓣长度。
 
-The dataset can be downloaded from the following link:
+数据可以从下面的链接下：
 
 [https://archive.ics.uci.edu/ml/datasets/iris4](https://archive.ics.uci.edu/ml/datasets/iris4)
 
-The rest of the steps are typical machine learning steps and need very little explanation until we reach the part where we train our Kernel SVM.
+剩下的步骤就是典型的机器学习步骤在训练 Kernel SVM 之前我们需要一些简单说明。
 
-#### Importing Libraries
+#### 导入库
 
 ```
 import numpy as np
@@ -189,7 +189,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 ```
 
-#### Importing the Dataset
+#### 导入数据
 
 ```
 url = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
@@ -201,27 +201,27 @@ colnames = ['sepal-length', 'sepal-width', 'petal-length', 'petal-width', 'Class
 irisdata = pd.read_csv(url, names=colnames)
 ```
 
-#### Preprocessing
+#### 预处理
 
 ```
 X = irisdata.drop('Class', axis=1)
 y = irisdata['Class']
 ```
 
-#### Train Test Split
+#### 训练和测试集划分
 
 ```
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20)
 ```
 
-#### Training the Algorithm
+#### 算法训练
 
-To train the kernel SVM, we use the same `SVC` class of the Scikit-Learn's `svm` library. The difference lies in the value for the kernel parameter of the `SVC` class. In the case of the simple SVM we used "linear" as the value for the kernel parameter. However, for kernel SVM you can use Gaussian, polynomial, sigmoid, or computable kernel. We will implement polynomial, Gaussian, and sigmoid kernels to see which one works better for our problem.
+同样使用 Scikit-Learn 的 `svm` 模块中的 `SVC` 类。区别在于类 `SVC` 的核函数类型参数的值不一样。在简单 SVM 中我们使用的核函数类型是 “linear”。然而，kernel SVM 你可以使用 高斯、多项式、sigmoid或者其他可计算的核。我们将实现多项式、高斯和 sigmoid 核并检验哪一个表现更好。
 
-#### 1. Polynomial Kernel
+#### 1. 多项式核
 
-In the case of [polynomial kernel](https://en.wikipedia.org/wiki/Polynomial_kernel), you also have to pass a value for the `degree` parameter of the `SVC` class. This basically is the degree of the polynomial. Take a look at how we can use a polynomial kernel to implement kernel SVM:
+在[多项式核](https://en.wikipedia.org/wiki/Polynomial_kernel)的情况下，你开需要传递一个叫`degree` 的参数给`SVC` 类。这个参数是多项式的次数。看下面的代码如何实现多项式核实现 kernel SVM：
 
 ```
 from sklearn.svm import SVC
@@ -229,19 +229,19 @@ svclassifier = SVC(kernel='poly', degree=8)
 svclassifier.fit(X_train, y_train)
 ```
 
-#### Making Predictions
+#### 做预测
 
-Now once we have trained the algorithm, the next step is to make predictions on the test data.
+现在我们已经训练好了算法，下一步是在测试集上做预测。
 
-Execute the following script to do so:
+运行下面的代码来实现：
 
 ```
 y_pred = svclassifier.predict(X_test)
 ```
 
-#### Evaluating the Algorithm
+####  算法评价
 
-As usual, the final step of any machine learning algorithm is to make evaluations for polynomial kernel. Execute the following script:
+通常机器学习算法的最后一步是评价多项式核。运行下面的代码。
 
 ```
 from sklearn.metrics import classification_report, confusion_matrix
@@ -249,7 +249,7 @@ print(confusion_matrix(y_test, y_pred))
 print(classification_report(y_test, y_pred))
 ```
 
-The output for the kernel SVM using polynomial kernel looks like this:
+使用多项式核的 kernel SVM 的输出如下：
 
 ```
 [[11  0  0]
@@ -264,11 +264,11 @@ Iris-versicolor       1.00     0.92       0.96        13
     avg / total       0.97     0.97       0.97        30
 ```
 
-Now let's repeat the same steps for Gaussian and sigmoid kernels.
+现在让我们使用高斯和 sigmoid 核来重复上面的步骤。
 
-#### 2. Gaussian Kernel
+#### 2. 高斯核
 
-Take a look at how we can use polynomial kernel to implement kernel SVM:
+看一眼我们是如何使用高斯核实现 kernel SVM 的：
 
 ```
 from sklearn.svm import SVC
@@ -276,9 +276,9 @@ svclassifier = SVC(kernel='rbf')
 svclassifier.fit(X_train, y_train)
 ```
 
-To use Gaussian kernel, you have to specify 'rbf' as value for the Kernel parameter of the SVC class.
+使用高斯核，你必须指定类 SVC 的核参数额值为 “rbf”。
 
-#### Prediction and Evaluation
+#### 预测和评价
 
 ```
 y_pred = svclassifier.predict(X_test)
@@ -290,7 +290,7 @@ print(confusion_matrix(y_test, y_pred))
 print(classification_report(y_test, y_pred))
 ```
 
-The output of the Kernel SVM with Gaussian kernel looks like this:
+使用高斯核的输出：
 
 ```
 [[11  0  0]
@@ -305,9 +305,9 @@ Iris-versicolor       1.00     1.00       1.00        13
     avg / total       1.00     1.00       1.00        30
 ```
 
-#### 3. Sigmoid Kernel
+#### 3. Sigmoid 核
 
-Finally, let's use a sigmoid kernel for implementing Kernel SVM. Take a look at the following script:
+最后，让我们使用 sigmoid 核实现 Kernel SVM。看下面的代码：
 
 ```
 from sklearn.svm import SVC
@@ -315,9 +315,9 @@ svclassifier = SVC(kernel='sigmoid')
 svclassifier.fit(X_train, y_train)
 ```
 
-To use the sigmoid kernel, you have to specify 'sigmoid' as value for the `kernel` parameter of the `SVC` class.
+使用 sigmoid 核需要指定 `SVC` 类的参数 `kernel` 的值为 “sigmoid”。
 
-#### Prediction and Evaluation
+#### 预测和评价
 
 ```
 y_pred = svclassifier.predict(X_test)
@@ -329,7 +329,7 @@ print(confusion_matrix(y_test, y_pred))
 print(classification_report(y_test, y_pred))
 ```
 
-The output of the Kernel SVM with Sigmoid kernel looks like this:
+使用 Sigmoid 核的输出如下：
 
 ```
 [[ 0  0 11]
@@ -344,25 +344,25 @@ Iris-versicolor       0.00     0.00       0.00        13
     avg / total       0.04     0.20       0.07        30
 ```
 
-#### Comparison of Kernel Performance
+#### 对比核的表现
 
-If we compare the performance of the different types of kernels we can clearly see that the sigmoid kernel performs the worst. This is due to the reason that sigmoid function returns two values, 0 and 1, therefore it is more suitable for binary classification problems. However, in our case we had three output classes.
+对比发现 sigmoid 核是最差的。因为 sigmoid 返回 0 和 1 两个值，sigmoid 核更适合二分类问题。而我们的例子中有三个类别。
 
-Amongst the Gaussian kernel and polynomial kernel, we can see that Gaussian kernel achieved a perfect 100% prediction rate while polynomial kernel misclassified one instance. Therefore the Gaussian kernel performed slightly better. However, there is no hard and fast rule as to which kernel performs best in every scenario. It is all about testing all the kernels and selecting the one with the best results on your test dataset.
+高斯核与多项式核有差不多的表现。高斯核预测准确率 100% 多项式核也只有 1% 的误差。高斯核表现稍好。然而没有硬性的规则来评价哪种核函数在任何场景下都更好。只能通过在测试集上的测试结果来选择哪一个核在你的数据集上表现更好。
 
-### Resources
+### 资源
 
-Want to learn more about Scikit-Learn and other useful machine learning algorithms? I'd recommend checking out some more detailed resources, like an online course:
+是否想学习更多的 Scikit-Learn 和的机器学习算法相关知识？我推荐你查看更多的资料，如在线课程：
 
 *   [Python for Data Science and Machine Learning Bootcamp](http://stackabu.se/python-data-science-machine-learning-bootcamp)
 *   [Machine Learning A-Z: Hands-On Python & R In Data Science](http://stackabu.se/machine-learning-hands-on-python-data-science)
 *   [Data Science in Python, Pandas, Scikit-learn, Numpy, Matplotlib](http://stackabu.se/data-science-python-pandas-sklearn-numpy)
 
-### Conclusion
+### 总结
 
-In this article we studied both simple and kernel SVMs. We studied the intuition behind the SVM algorithm and how it can be implemented with Python's Scikit-Learn library. We also studied different types of kernels that can be used to implement kernel SVM. I would suggest you try to implement these algorithms on real-world datasets available at places like [kaggle.com](https://www.kaggle.com).
+本文我们学习了基本的 SVM 和 kernel SVMs。还了解了 SVM 算法背后的直觉以及如何使用 Python 库 Scikit-Learn 来实现。我们也学习了使用不同类型的核来实现 SVM。我猜你已经想把这些算法应用到真实的数据上了比如 [kaggle.com](https://www.kaggle.com)。
 
-I would also suggest that you explore the actual mathematics behind the SVM. Although you are not necessarily going to need it in order to use the SVM algorithm, it is still very handy to know what is actually going on behind the scene while your algorithm is finding decision boundaries.
+最后我还是建议你去详细了解下 SVM 背后的数学。虽然如果只使用 SVM 算法并不需要了解那些数学，但要理解算法是如何找到决策边界的数学会很有帮助。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

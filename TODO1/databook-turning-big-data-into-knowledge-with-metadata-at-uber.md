@@ -2,151 +2,151 @@
 > * 原文作者：[Luyao Li, Kaan Onuk and Lauren Tindal](https://eng.uber.com/databook/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/databook-turning-big-data-into-knowledge-with-metadata-at-uber.md](https://github.com/xitu/gold-miner/blob/master/TODO1/databook-turning-big-data-into-knowledge-with-metadata-at-uber.md)
-> * 译者：
-> * 校对者：
+> * 译者：[cf020031308](https://github.com/cf020031308)
+> * 校对者：[yqian1991](https://github.com/yqian1991)
 
-# Databook: Turning Big Data into Knowledge with Metadata at Uber
+# Databook：通过元数据，Uber 将大数据转化为知识
 
 ![](https://i.loli.net/2018/08/16/5b751c9f4474b.png)
 
-From driver and rider locations and destinations, to restaurant orders and payment transactions, every interaction on Uber’s transportation platform is driven by data. Data powers Uber’s global marketplace, enabling more reliable and seamless user experiences across our products for riders, drivers, and eaters worldwide, as well as empowering our own employees to more efficiently do their jobs.
+从司机与乘客的位置和目的地，到餐馆的订单和支付交易，Uber 的运输平台上的每次互动都是由数据驱动的。数据赋能了 Uber 的全球市场，使我们面向全球乘客、司机和食客的产品得以具备更可靠、更无缝的用户体验，并使我们自己的员工能够更有效地完成工作。
 
-Uber takes data-driven to the next level with the complexity of its systems and breadth of data, processing trillions of Kafka messages per day, storing hundreds of petabytes of data in [HDFS](https://eng.uber.com/scaling-hdfs/) across multiple data centers, and supporting millions of weekly analytical queries.
+凭借系统的复杂性和数据的广泛性，Uber 将数据驱动提升到了一个新的水平：每天处理万亿级的 Kafka 消息，横跨多个数据中心的 [HDFS](https://eng.uber.com/scaling-hdfs/) 中存储着数百 PB 的数据，并支持每周上百万的分析查询。
 
-Big data by itself, though, isn’t enough to leverage insights; to be used efficiently and effectively, data at Uber scale requires context to make business decisions and derive insights. To provide further insight, we built Databook, Uber’s in-house platform that surfaces and manages metadata about the internal locations and owners of certain datasets, allowing us to turn data into knowledge.
+然而大数据本身并不足以形成见解。Uber 规模的数据要想被有效且高效地运用，还需要结合背景信息来做业务决策，这才能形成见解。为此我们创建了 Uber 的内部平台 Databook，该平台用于展示和管理具体数据集的有关内部位置和所有者的元数据，从而使我们能够将数据转化为知识。
 
-### Exponential business (and data) growth
+### 业务（和数据）的指数增长
 
-Since 2016, Uber has added several new lines of business to its platform, including [Uber Eats](https://www.ubereats.com/), [Uber Freight](https://freight.uber.com/), and [Jump Bikes](https://jumpbikes.com/). Now, we complete over 15 million trips a day, with over 75 million monthly active riders. In the last eight years, the company has grown from a small startup to 18,000 employees across the globe.
+自 2016 年以来，Uber 的平台上已增加了多项新业务，包括 [Uber Eats](https://www.ubereats.com/)、[Uber Freight](https://freight.uber.com/)，以及 [Jump Bikes](https://jumpbikes.com/)。如今，我们每天至少完成 1500 万次行程，每月活跃有超过 7500 万乘客。在过去的八年中，Uber 已从一家小型创业公司发展到在全球拥有 18,000 名员工。
 
-With this growth comes an increased complexity of data systems and engineering architecture. For instance, tens of thousands of tables exist across the multiple analytics engines we use, including [Hive](https://hive.apache.org/), [Presto](https://eng.uber.com/presto/), and [Vertica](https://www.vertica.com/). This dispersion makes it imperative to have full visibility into what information is available, especially as we continue to add new line-of-business data and employees. In 2015, Uber began cataloging its tables with a set of static HTML files that were manually maintained.
+随着这种增长，数据系统和工程架构的复杂性也增加了。例如有数万张表分散在多个在役的分析引擎中，包括 [Hive](https://hive.apache.org/)、[Presto](https://eng.uber.com/presto/) 和 [Vertica](https://www.vertica.com/)。这种分散导致我们急需了解信息的全貌，特别是我们还在不断添加新业务和新员工。 2015 年的时候，Uber 开始手动维护一些静态 HTML 文件来对表进行索引。
 
-As the company grew, so did the number of tables and relevant metadata that we needed to update. To ensure that our data analytics could keep up with our company’s pace of growth, we needed an easier and faster way to make these updates. At this scale and pace of growth, a robust system for discovering all datasets and their relevant metadata is not just nice to have: it is absolutely integral to making data useful at Uber.
+随着公司发展，要更新的表和相关元数据的量也在增长。为确保我们的数据分析能跟上，我们需要一种更加简便快捷的方式来做更新。在这种规模和增长速度下，有个能发现所有数据集及其相关元数据的强大系统简直不要太赞：它绝对是让 Uber 数据能利用起来的必备品。
 
 [![](https://eng.uber.com/wp-content/uploads/2018/08/image6.png)](http://eng.uber.com/wp-content/uploads/2018/08/image6.png)
 
-Figure 1. Databook is Uber’s in-house platform that surfaces and manages metadata about internal data locations and owners.
+图 1：Databook 是 Uber 的内部平台，可以展示和管理数据有关内部位置和所有者的元数据。
 
-To make dataset discovery and exploration easier, we created Databook. The Databook platform manages and surfaces rich metadata about Uber’s datasets, enabling employees across Uber to explore, discover, and effectively utilize data at Uber. Databook ensures that context about data—what it means, its quality, and more—is not lost among the thousands of people trying to analyze it. In short, Databook’s metadata empowers Uber’s engineers, data scientists, and operations teams to move from viewing raw data to having actionable knowledge.
+为使数据集的发现和探索更容易，我们创建了 Databook。 Databook 平台管理和展示着 Uber 中丰富的数据集元数据，使我们员工得以探索、发现和有效利用 Uber 的数据。 Databook 确保数据的背景信息 —— 它的意义、质量等 —— 能被成千上万试图分析它的人接触到。简而言之，Databook 的元数据帮助 Uber 的工程师、数据科学家和运营团队将此前只能干看的原始数据转变为可用的知识。
 
-With Databook, we went from making manual updates to leveraging an advanced, automated metadata store to collect a wide variety of frequently refreshed metadata. Databook incorporates the following features:
+通过 Databook，我们摒弃了手动更新，转为使用一种先进的自动化元数据库来采集各种经常刷新的元数据。Databook 具有以下特性：
 
-*   **Extensibility:** New metadata, storage, and entities are easy to add.
-*   **Accessibility:** Services can access all metadata programmatically.
-*   **Scalability:** Support for high-throughput read.
-*   **Power:** Cross-data center read and write.
+*   **拓展性：** 易于添加新的元数据、存储和记录。
+*   **访问性：** 所有元数据可被服务以程序方式获取。
+*   **扩展性：** 支持高通量读取。
+*   **功能性：** 跨数据中心读写。
 
-Databook provides a wide variety of metadata derived from Hive, Vertica, [MySQL](https://eng.uber.com/mysql-migration/), [Postgres](https://www.postgresql.org/), [Cassandra](http://cassandra.apache.org/), and several other internal storage systems, including:
+Databook 提供了各种各样的元数据，这些元数据来自 Hive、Vertica、[MySQL](https://eng.uber.com/mysql-migration/)、[Postgres](https://www.postgresql.org/)、[Cassandra](http://cassandra.apache.org/) 和其他几个内部存储系统，包括：
 
-*   Table schema
-*   Table/column descriptions
-*   Sample data
-*   Statistics
-*   Lineage
-*   Table freshness, SLAs, and owners
-*   Personal data categorization
+*   表模式
+*   表/列的说明
+*   样本数据
+*   统计数据
+*   上下游关系
+*   表的新鲜度、SLA 和所有者
+*   个人数据分类
 
-All metadata is accessible through both visualizations in a central UI and a [RESTful API](https://restfulapi.net/). The Databook UI enables users to access the metadata easily, while the API allows Databook metadata to power other services and use cases across Uber.
+所有的元数据都可以通过一个中心化的 UI 和 [RESTful API](https://restfulapi.net/) 来访问到。 UI 使用户可以轻松访问到元数据，而 API 则使 Databook 中的元数据能被 Uber 的其他服务和用例使用。
 
-Though open source solutions like LinkedIn’s [WhereHows](https://github.com/linkedin/WhereHows/wiki) already existed, the [Play framework](https://www.playframework.com/) and [Gradle](https://gradle.org/) were not supported at Uber during Databook’s development. WhereHows also lacked the cross-data center read and write support that was critical to our performance needs. As such, we set out to build our own, in-house solution, written in Java to leverage its built-in functionality and mature ecosystem.
+虽说当时已经有了像 LinkedIn 的 [WhereHows](https://github.com/linkedin/WhereHows/wiki) 这种开源解决方案，但在 Databook 的开发期间，Uber 还没有采用 [Play 框架](https://www.playframework.com/)和 [Gradle](https://gradle.org/)（译者注：两者为 WhereHows 的依赖）。 且 WhereHows 缺乏跨数据中心读写的支持，而这对满足我们的性能需求至关重要。因此，利用 Java 本身强大的功能和成熟的生态系统，我们创建了自己内部的解决方案。
 
-Next, we’ll take you through how we created Databook and the challenges we experienced along the way.
+接下来，我们将向您介绍我们创建 Databook 的过程以及在此过程中我们遇到的挑战。
 
-### Databook architecture
+### Databook 的架构
 
-Databook’s architecture can be broken down into three sections: how metadata is collected, how metadata is stored, and how metadata is surfaced. Figure 2, below, depicts the tool’s overall architecture:
+Databook 的架构可以分为三个部分：采集元数据、存储元数据以及展示元数据。下面图 2 描绘的是该工具的整体架构：
 
 [![](https://eng.uber.com/wp-content/uploads/2018/08/image4.png)](http://eng.uber.com/wp-content/uploads/2018/08/image4.png)
 
-Figure 2. The Databook architecture takes in metadata from Vertica, Hive, and other storage systems, stores it in its back-end databases, and outputs the data using RESTful APIs.
+图 2：Databook 架构：元数据从 Vertica、Hive 和其他存储系统中获取，存储到后端数据库，通过 RESTful API 输出。
 
-Databook intakes multiple sources as inputs, stores the relevant metadata, and outputs this information through RESTful APIs, which powers the Databook UI.
+Databook 引入多个数据源作为输入，存储相关元数据并通过 RESTful API 输出（Databook 的 UI 会使用这些 API）。
 
-When first designing Databook, one major decision we had to make was whether we would store the metadata we collect or fetch it as requested. Our service needed to support high-throughput and low-latency read, and if we delegated this responsibility to the metadata sources, it would require all sources to support high-throughput and low-latency read, which would introduce complexity and risk. For example, a Vertica query that fetches table schema typically takes a few seconds to process, making it ill-suited for visualizations. Similarly, our Hive metastore manages all of Hive’s metadata, making it risky to require support for high-throughput read requests. Since Databook supports so many different metadata sources, we decided to store the metadata in the Databook architecture itself. In addition, while most use cases require fresh metadata, they do not need to see metadata changes in real time, making periodical crawling possible.
+在初次设计 Databook 时，我们就必须做出一个重大的决定，是事先采集元数据存起来，还是等到要用时现去获取？我们的服务需要支持高通量和低延迟的读取，如果我们将此需求托付给元数据源，则所有元数据源都得支持高通量和低延迟的读取，这会带来复杂性和风险。比如，获取表模式的 Vertica 查询通常要处理好几秒，这并不适合用来做可视化。同样，我们的 Hive metastore 管理着所有 Hive 的元数据，令其支持高通量读取请求会有风险。既然 Databook 支持许多不同的元数据源，我们就决定将元数据存储在 Databook 自身的架构中。此外，大多数用例虽然需要新鲜的元数据，但并不要求实时看到元数据的更改，因此定期爬取是可行的。
 
-We also separated the request serving layer from the data collection layer so that each runs in a separate process, as depicted in Figure 3, below:
+我们还将请求服务层与数据采集层分开，以使两者能运行在独立的进程中，如下面的图 3 所示：
 
 [![](https://eng.uber.com/wp-content/uploads/2018/08/image11.png)](http://eng.uber.com/wp-content/uploads/2018/08/image11.png)
 
-Figure 3. Databook is comprised of two different application layers: data collection crawlers and a request serving layer.
+图 3：Databook 由两个不同的应用层组成：数据采集爬虫和请求服务层。
 
-This isolates both layers, thereby reducing collateral impact. For example, data collection crawling jobs may use significant system resources, which could impact the SLA of APIs on the request serving layer. Moreover, compared to Databook’s request serving layer, the data collection layer is less sensitive to outages, ensuring that, if the data collection layer is down, outdated metadata will still be served, in turn minimizing impact to users.
+两层隔离开可减少附带影响。例如，数据采集爬虫作业可能占用较多的系统资源，没隔离就会影响到请求服务层上 API 的 SLA。另外，与 Databook 的请求服务层相比，数据采集层对中断不太敏感，如果数据采集层挂掉，可确保仍有之前的元数据能提供，从而最大限度地减少对用户的影响。
 
-### Event-based collection vs. scheduled collection
+### 事件驱动采集 vs 定时采集
 
-Our next challenge was to determine how we could most effectively and performantly collect metadata from several different, disparate data sources. We considered multiple options, including: creating a fault-tolerant framework in a distributed manner and leveraging event-based streaming to detect and debug issues in near real time.
+我们的下一个挑战是确定如何最且成效且最高效地从多种不同数据源采集元数据。我们考虑过多种方案，包括创建一个分布式的容错框架，利用基于事件的数据流来近乎实时地检测和调试问题。
 
-We first created crawlers to periodically collect information from our various data sources and microservices that generate metadata information about datasets, such as table usage statistics derived by our powerful open source tool for parsing and analyzing SQL, [Queryparser](https://eng.uber.com/queryparser/). _(Fun fact: Queryparser was also built by our Data Knowledge Platform team_).
+我们先创建了爬虫来定期采集各种数据源和微服务生成的有关数据集的元数据信息，例如表的使用数据统计，它由我们用于解析和分析 SQL 的强大开源工具 [Queryparser](https://eng.uber.com/queryparser/) 生成。**（顺带一提：Queryparser 也由我们的“数据知识平台”团队创建）。**
 
-We needed to collect metadata information frequently in a scalable manner without blocking other crawler tasks; in order to do this, we deployed our crawlers to different machines, requiring effective coordination between crawlers in a distributed manner. We considered configuring [Quartz](http://www.quartz-scheduler.org/) in clustering mode for distributed scheduling (backed by MySQL). However, we faced two blockers that prevented us from implementing this solution: first, running Quartz in clustering mode on multiple machines requires Quartz clocks to be [synced](http://www.quartz-scheduler.org/documentation/quartz-2.2.x/configuration/ConfigJDBCJobStoreClustering.html) periodically, adding an external dependency, and second, we experienced constant MySQL connection instability after the schedulers started. As a result, we ruled out running Quartz in clustering mode.
+我们需要以可扩展的方式频繁采集元数据信息，还不能阻塞到其他的爬虫任务。为此，我们将爬虫部署到了不同的机器，这就要求分布式的爬虫之间能进行有效协调。我们考虑配置 [Quartz](http://www.quartz-scheduler.org/) 的集群模式（由 MySQL 支持）来做分布式调度。但是，却又面临两个实现上的障碍：首先，在多台机器上以集群模式运行 Quartz 需要石英钟的定期[同步](http://www.quartz-scheduler.org/documentation/quartz-2.2.x/configuration/ConfigJDBCJobStoreClustering.html)，这增加了外部依赖，其次，在启动调度程序后我们的 MySQL 连接就一直不稳定。最后，我们排除了运行 Quartz 集群的方案。
 
-However, we still decided to use Quartz for its robust in-memory scheduling functionality to make publishing tasks into our task queue easier and more efficient. For Databook’s task queue, we leveraged Uber’s open-sourced task execution framework, [Cherami](https://eng.uber.com/cherami/). This open source tool allows us to decouple consumer applications in a distributed system, enabling them to communicate in an asynchronous manner across multiple consumer groups. With Cherami, we deployed crawlers in Docker containers into different hosts and multiple data centers. Using Cherami made it possible to collect various metadata from many different sources without blocking any tasks, while keeping CPU and memory consumption under a desirable level and in a single host.
+但是，我们仍然决定使用 Quartz，以利用其强大的内存中调度功能来更轻松、更高效地向我们的任务队列发布任务。对于 Databook 的任务队列，我们用的是 Uber 的开源任务执行框架 [Cherami](https://eng.uber.com/cherami/)。这个开源工具让我们能在分布式系统中将消费程序解耦，使其能跨多个消费者群组进行异步通信。有了 Cherami，我们将 Docker 容器中的爬虫部署到了不同的主机和多个数据中心。使用 Cherami 使得从多个不同来源采集各种元数据时不会阻塞任何任务，同时让 CPU 和内存的消耗保持在理想水平并限制在单个主机中。
 
-Though our crawlers worked for most metadata types, some metadata needed to be captured in near real time, which is why we decided to transition to an event-based architecture using Kafka. With this, we are able to detect and debug data outages instantly. Our system can also capture critical metadata changes, such as dataset lineage and freshness, as depicted in Figure 4, below:
+尽管我们的爬虫适用于大多数元数据类型，但有一些元数据还需要近乎实时地获取，所以我们决定过渡到基于 Kafka 的事件驱动架构。有了这个，我们就能及时检测和调试数据中断。我们的系统还可以捕获元数据的重大变动，例如数据集上下游关系和新鲜度，如下面的图 4 所示：
 
 [![](https://eng.uber.com/wp-content/uploads/2018/08/image5.png)](http://eng.uber.com/wp-content/uploads/2018/08/image5.png)
 
-Figure 4. In Databook, metadata lineage/freshness is collected for each table.
+图 4：在 Databook 中，对每个表采集上下游关系/新鲜度元数据。
 
-This architecture enables our system to programmatically trigger other microservices and send communications to data users in near real time. However, we still use our crawlers for tasks such as collecting (or refreshing) sample data, throttling requests against destination resources, and for metadata that does not necessarily need to be collected when an event happens that automatically triggers other systems (e.g., dataset usage statistics).
+这种架构使我们的系统能够以程序方式触发其他微服务并近乎实时地向数据用户发送信息。但我们仍需使用我们的爬虫执行诸如采集/刷新样本数据的任务，以控制对目标资源的请求频率，而对于在事件发生时不一定需要采集的元数据（比如数据集使用情况统计）则自动触发其他系统。
 
-In addition to polling and collecting metadata in near real time, the Databook UI also collects manual, semantic information about datasets from both dataset consumers and producers, such as descriptions of tables and columns.
+除了近乎实时地轮询和采集元数据之外，Databook UI 还从使用者和生产者处采集数据集的说明、语义，例如表和列的描述。
 
-### How we store metadata
+### 我们如何存储元数据
 
-At Uber, most of our pipelines run in multiple clusters for failover purposes. As a result, the values (for example, latency and usage) for some types of metadata can differ for the same table across different clusters, which are defined as cluster-specific. On the contrary, the manual metadata collected from users is cluster-agnostic: descriptions and ownership information apply to the same table across clusters. In order to link these two types of metadata correctly, such as associating a column description to a table column in all clusters, two potential approaches can be adopted: link during write or link during read.
+在 Uber，我们的大多数数据管道都运行在多个集群中，以实现故障转移。因此，同一张表的某些类型的元数据的值（比如延迟和使用率）可能因集群的不同而不同，这种数据被定义为集群相关。相反，从用户处采集的说明元数据与集群无关：描述和所有权信息适用于所有集群中的同一张表。 为了正确关联这两种类型的元数据，例如将列描述与所有集群中的表列相关联，可以采用两种方案：写时关联或读时关联。
 
-##### Link during write
+##### 写时关联
 
-When associating cluster-specific metadata with cluster-agnostic metadata, the most straightforward strategy is linking together metadata during the write. For example, when a user adds a column description to a given table column, we persist the information to the table in all clusters, depicted in Figure 5, below:
+将集群相关的元数据与集群无关的元数据相关联时，最直接的策略是在写入期间将元数据关联在一起。例如，当用户给某个表列添加描述时，我们就将信息保存到所有集群的表中，如下面的图 5 所示：
 
 [![](https://eng.uber.com/wp-content/uploads/2018/08/image3.png)](http://eng.uber.com/wp-content/uploads/2018/08/image3.png)
 
-Figure 5. Databook persists cluster-agnostic metadata to all tables.
+图 5：Databook 将集群无关的元数据持久化保存到所有表中。
 
-This approach ensures that the persisted data is in a clean state. For instance, in Figure 5, if “column 1” does not exist, it will reject the request. However, there is a major problem: to link cluster-agnostic metadata to cluster-specific metadata during the write time, all cluster-specific metadata must be present, and there is only one chance in terms of time. For example, when the description is triggered in Figure 4, only Cluster 1 has this “column 1,” so the write to Cluster 2 fails. Later, schema of the same table in Cluster 2 gets updated, but the chance has slipped away and this description will never be available unless we periodically retry the write, thereby complicating the system. Figure 6, below, depicts this scenario:
+这方案可确保持久化数据保持整洁。例如在图 5 中，如果“列 1”不存在，该集群就会拒绝该请求。但这存在一个重要的问题：在写入时将集群无关的元数据关联到集群相关的元数据，所有集群相关的元数据必须已经存在，这在时间上只有一次机会。例如，当在图 5 中改动表列描述时，还只有集群 1 有此“列 1”，则集群 2 的写入失败。之后，集群 2 中同一个表的模式被更新，但已错失机会，除非我们定期重试写入，否则此描述将永远不可用，这导致系统复杂化。下面图 6 描述了这种情况：
 
 [![](https://eng.uber.com/wp-content/uploads/2018/08/image9.png)](http://eng.uber.com/wp-content/uploads/2018/08/image9.png)
 
-Figure 6. Databook persists cluster-agnostic metadata to all tables.
+图 6：Databook 将集群无关的元数据持久保存到所有表中。
 
-##### Link during read
+##### 读时关联
 
-Another way to achieve the goal is linking cluster-agnostic and cluster-specific metadata during read. This approach resolves the issue of missing metadata in link during write as these two types of metadata are linked during read, whenever the cluster-specific metadata is present. When “column 1” shows up after the schema is updated, its description will be merged at the time users read, as depicted in Figure 7, below:
+实现目标的另一种方案是在读取时关联集群无关和集群相关的元数据。由于这两种元数据是在读取时尝试关联，无所谓集群相关的元数据一时是否存在，因此这方案能解决写时关联中丢失元数据的问题。当表模式更新后显示“列 1”时，其描述将在用户读取时被合并，如下面图 7 所示：
 
 [![](https://eng.uber.com/wp-content/uploads/2018/08/image10.png)](http://eng.uber.com/wp-content/uploads/2018/08/image10.png)
 
-Figure 7. Databook links cluster-specific and cluster-agnostic metadata during reads.
+图 7：Databook 在读取时关联集群相关和集群无关的元数据。
 
-##### Storage choice
+##### 存储选择
 
-MySQL was initially used to power Databook’s backend since it’s fast to develop and can be provisioned automatically through Uber’s infrastructure portal. However, when it comes to multi-data center support, a shared MySQL cluster is not ideal for three reasons:
+Databook 后端最初是使用 MySQL，因为它开发速度快，可以通过 Uber 的基础设施自动配置。但是，当涉及多数据中心支持时，共享 MySQL 集群并不理想，原因有三：
 
-*   A single master: First, only single master was supported at uber, resulting in slow write times (adding ~70ms for each write in our case) from other data centers.
-*   Manual promotion: Second, auto-promotion was not supported at the time. As a result, if the master node was down, it took hours to promote a new master node.
-*   Data volume: Another reason we switched from MySQL is the massive volume of data Uber generates. We intended to keep all history changes, and wanted our system to support future expansion without spending too much time on cluster maintenance.
+*   单个主节点：首先，Uber 仅支持单个主节点，导致其他数据中心的写入时间较慢（我们这情况每次写入增加约 70ms）。
+*   手动提权：其次，当时不支持自动提权。因此，如果主节点挂掉，要花数小时才能提升一个新的主节点。
+*   数据量：我们弃用 MySQL 的另一个原因是 Uber 所产生的大量数据。我们打算保留所有历史变更，并希望我们的系统支持未来扩展，而无需在集群维护上花费太多时间。
 
-For these reasons, we chose Cassandra to replace MySQL because of its robust XDC replication support, allowing us to write data from multiple data centers without suffering from increased latency. And because Cassandra is linear scalable, we no longer needed to worry about accommodating Uber’s ever increasing data volume.
+出于这些原因，我们选择 Cassandra 来取代 MySQL，因为它具有强大的 XDC 复制支持，允许我们从多个数据中心写入数据而不会增加延迟。而且由于 Cassandra 具有线性可扩展性，我们不再需要担心适应 Uber 不断增长的数据量。
 
-### How we surface data
+### 我们如何展示数据
 
-Databook provides two primary means of accessing metadata: a RESTful API and visual UI. Databook’s RESTful API is powered by [Dropwizard](https://www.dropwizard.io/), a Java framework for high-performance RESTful web services, and is deployed in multiple machines and load balanced by Uber’s in-house request forwarding service.
+Databook 提供了两种访问元数据的主要方法：RESTful API 和可视化 UI。Databook 的 RESTful API 用 [Dropwizard](https://www.dropwizard.io/)（一个用于高性能 RESTful Web 服务的 Java 框架）开发，并部署在多台计算机上，由 Uber 的内部请求转发服务做负载平衡。
 
-At Uber, Databook is mainly used by other services which access data in a programmatic way. For example, our in-house query parsing/rewriting service relies on table schema information in Databook. The API can support high-throughput read and is horizontally scalable, with a current peak queries per second of around 1,500. The visualization UI is written in React.js and Redux as well as D3.js and is primarily used by engineers, data scientists, data analysts, and operations teams throughout the company to triage data quality issues and identify and explore relevant datasets.
+在 Uber，Databook 主要用于其他服务以程序方式访问数据。例如，我们的内部查询解析/重写服务依赖于 Databook 中的表模式信息。API 可以支持高通量读取，并且可以水平扩展，当前的每秒查询峰值约为 1,500。可视化 UI 由 React.js 和 Redux 以及 D3.js 编写，主要服务于整个公司的工程师、数据科学家、数据分析师和运营团队，用以分流数据质量问题并识别和探索相关数据集。
 
-##### Search
+##### 搜索
 
-Search, a critical feature of the Databook UI, empowers users to easily access and navigate table metadata. We use Elasticsearch as our full-index search engine, which in turn syncs data from Cassandra. With Databook, users can search across multiple dimensions, such as name, owner, column, and nested column, depicted in Figure 8, below, enabling fresher and more accurate data analysis:
+搜索是 Databook UI 的一项重要功能，它使用户能够轻松访问和导航表元数据。我们使用 Elasticsearch 作为我们的全索引搜索引擎，它从 Cassandra 同步数据。如下面图 8 所示，使用 Databook，用户可结合多个维度搜索，例如名称、所有者、列和嵌套列，从而实现更及时、更准确的数据分析：
 
 [![](https://eng.uber.com/wp-content/uploads/2018/08/image1.png)](http://eng.uber.com/wp-content/uploads/2018/08/image1.png)
 
-Figure 8. Databook lets users search by different dimensions, including name, owner, and column.
+图 8：Databook 允许用户按不同的维度进行搜索，包括名称、所有者和列。
 
-### Databook’s next chapter
+### Databook 的新篇章
 
-With Databook, metadata at Uber is now more actionable and useful than ever before, but we are still working to expand our impact by building out new, more robust functionalities. Some functionalities we hope to develop for Databook include the abilities to generate data insights with machine learning models and create advanced issue detection, prevention, and mitigation mechanisms.
+通过 Databook，Uber 现在的元数据比以往更具可操作性和实用性，但我们仍在努力通过建造新的、更强大的功能来扩展我们的影响力。我们希望为 Databook 开发的一些功能包括利用机器学习模型生成数据见解的能力，以及创建高级的问题检测、预防和缓解机制。
 
-If building scalable, smart services and developing innovative complex technologies with a mix of both in-house and open source solutions appeals to you, please reach out to Zoe Abrams ([za@uber.com](mailto:za@uber.com)) or apply for a [role](https://www.uber.com/careers/list/29589/) on our team!
+如果结合内部和开源解决方案建立可扩展的智能服务并开发有创意的复杂技术对您来说有吸引力，请联系 Zoe Abrams（[za@uber.com](mailto:za@uber.com)）或申请我们团队的[职位](https://www.uber.com/careers/list/29589/)！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

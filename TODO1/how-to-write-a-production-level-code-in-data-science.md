@@ -1,156 +1,157 @@
-> * 原文地址：[How to write a production-level code in Data Science?](https://towardsdatascience.com/how-to-write-a-production-level-code-in-data-science-5d87bd75ced)
-> * 原文作者：[Venkatesh Pappakrishnan, Ph.D.](https://towardsdatascience.com/@venkatesh.kumaran?source=post_header_lockup)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-a-production-level-code-in-data-science.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-a-production-level-code-in-data-science.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[How to write a production-level code in Data Science?](https://towardsdatascience.com/how-to-write-a-production-level-code-in-data-science-5d87bd75ced)
+> - 原文作者：[Venkatesh Pappakrishnan, Ph.D.](https://towardsdatascience.com/@venkatesh.kumaran?source=post_header_lockup)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-a-production-level-code-in-data-science.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-a-production-level-code-in-data-science.md)
+> - 译者：[sisibeloved](https://github.com/sisibeloved)
+> - 校对者：[AceLeeWinnie](https://github.com/AceLeeWinnie), [yqian1991](https://github.com/yqian1991)
 
-# How to write a production-level code in Data Science?
+# 如何在数据科学中写出生产级别的代码？
 
-Ability to write a production-level code is one of the sought-after skills for a data scientist role— either posted explicitly or not. For a software engineer turned data scientist this may not sound like a challenging task as they might have already perfected their skill at developing production level codes and deployed into production several times.
+编写生产级别的代码的能力是数据科学家梦寐以求的技能之一 —— 无论职位要求上是否明确的要求。对于由软件工程师转型的数据科学家来说这可能没什么难度，毕竟他们也许已经在生产代码的开发和部署上有着丰富的经验。
 
-This article is for those who are new to writing production-level code and interested in learning it such as fresh graduates from universities or any professionals who made into data science (or planning to make the transition). For them writing production-level code might seem like a formidable task.
+这篇文章是针对那些刚开始编写生产级代码并有兴趣学习它的人，比如大学的应届毕业生或从事数据科学（和计划转型）的专业人员。对于他们来说，编写生产级代码看上去是一项艰巨的任务。
 
-I will give you tips on how to write a production-level code and practice it, you don’t necessarily have to be in a data science role to learn this skill.
+我会介绍几个编写生产级别代码的技巧，请多加练习，此外这篇文章不需要用到任何数据科学方面的专业知识。
 
-#### **1. Keep it modular**
+## **1. 保持模块化**
 
-This is basically a software design technique recommended for any software engineer. The idea here is to break a large code into small independent sections(functions) based on its functionality. There are two parts to it.
+这对于任何软件工程师来说都是需要掌握的基本技巧。它的核心思想是把庞大的代码块基于其功能分割成一个个小型的独立代码段（函数）。它由两部分组成。
 
-(i) Break the code into smaller pieces each intended to perform a specific task (may include sub tasks)
+(i) 将代码拆成小块，每一块执行特定的功能（可以包含子功能）。
 
-(ii) Group these functions into modules (or python files) based on its usability. It also helps in staying organized and ease of code maintainability
+(ii) 将这些函数基于用途组合成模块（或 Python 文件）。这也有助于保持代码的有序性和可维护性。
 
-The first step is to decompose a large code into many simple functions with specific inputs (and input formats) and outputs (and output formats). As mentioned earlier, each function should perform a single task such as _cleanup outliers in the data, replace erroneous values, score a model, calculate root-mean-squared error (RMSE)_, and so on. Try to break each of those functions further down to performing sub tasks and continue till none of the functions can be further broken down.
+首先将庞大的代码块分解成许多简单函数，每一个都包含特定格式的输入和输出。如上所述，每个函数应实现单一职责，如 **清除数据中的离群点、替换谬误值、对模型进行评分、计算标准差（RMSE，又译作均方根差）** 等等。尝试将这些函数继续分解成执行更小单元的子任务的函数，直至无法拆分。
 
-**_Low-level functions_** — the most basic functions that cannot be further decomposed. For example, computing _RMSE_ or Z-score of the data. Some of these functions can be widely used for training and implementation of any algorithm or machine learning model.
+**底层函数** —— 无法再进一步分解的基本函数。比如，计算数据的标准差（RMSE）或标准分数（Z-score）。其中的某些函数可以广泛应用于实现算法或训练机器学习模型。
 
-**_Medium-level functions_** — a function that uses one or more of low-level functions and/or other medium-level functions to perform its task. For instance, _cleanup outliers_ function use _compute Z-score_ function to remove the outliers by only retained data within certain bounds or an _error_ function that uses _compute RMSE_ function  to get RMSE values.
+**中间层函数** —— 使用一个或多个底层函数和/或其他中间层函数来实现功能。举个例子，**清除数据中的离群点** 函数会使用 **计算标准分数** 函数来清除离群点，只保留特定边界内的数据；**误差** 函数会使用 **计算标准差** 函数来获取标准差。
 
-**_High-level functions _**— a function that uses one or more of medium-level functions and/or low-level functions to perform its task. For example, model training function that uses several functions such as function to get randomly sampled data, a model scoring function, a metric function, etc.
+**上层函数** —— 使用一个或多个中间层函数以及底层函数来实现功能。打个比方，模型训练函数使用了随机获取标本数据函数、模型评估函数和矩阵函数等多个函数。
 
-The final steps are to group all the low-level and medium-level functions that will be useful for more than one algorithm into a python file (can be imported as a module) and all other low-level and medium-level functions that will be useful only for the algorithm in consideration into another python file. All the high-level functions should reside in a separate python file. This python file dictates each step in the algorithm development — from combining data from different sources to final machine learning model.
+最后，将所有能够复用的底层和中间层函数分到一个 Python 文件中（可以作为模块导入），将所有其它的专用的底层和中间层函数分到另一个 Python 文件中。所有高级函数应该归到同一个单独的 Python 文件中。这个 Python 文件为算法开发中的每一步提供指引 —— 从组合多源数据到机器学习模型的构建。
 
-There is no hard-and-fast rule to follow the above steps but I highly suggest you to start with these steps and develop your own style there after.
+尽管无须墨守成规，但我还是推荐你按这个流程，一步一个脚印，直至培养出自己的代码风格。
 
-#### **2. Logging and Instrumentation**
+## **2. 日志和监测工具**
 
-Logging and Instrumentation (LI) are analogous to black box in air crafts that record all the happenings in the cockpit. The main purpose of LI is to record useful information from the code during its execution to help the programmer mainly to debug if anything goes awry and also to improve the performance of the code (such as reduced execution times).
+日志和监测工具（LI）就像飞机上的黑匣子，负责记录驾驶舱中的一切。LI 的主要目的是记录代码运行时的有效信息，以便开发者在错误发生时调试和提升代码性能（比如减少运行时间）。
 
-What is the difference between Logging and Instrumentation?
+那么日志和监测工具有什么区别呢？
 
-**(i) Logging — **Records only actionable information such as critical failures during run time and structured data such as intermediate results that will be later used by the code itself. Multiple log levels such as debug, info, warn, and errors are acceptable during development and testing phases. However avoid them at all cost during production.
+(i) **日志记录** —— 只记录可操作的信息，如运行期间的关键故障和诸如代码本身稍后将用到的中间结果之类的结构化数据。在开发和测试阶段可以使用多种日志级别，如 debug、info、warn 和 error。然而，在生产过程中需要不惜一切代价来避免这么做。
 
-_Logging should be minimal containing only information that requires human attention and immediate handling_.
+**日志记录应尽量简洁，只包含需要引起维护者注意的和需要立即处理的信息。**
 
-**(ii) Instrumentation — **records  all other information left out in logging that would help us validate code execution steps and work on performance improvements if necessary. Here it is always better to have more data so instrument as much information as possible.
+(ii) **监测工具** —— 记录所有日志中遗漏的其它信息，这将帮助我们验证代码执行的步骤，并在必要时为改进性能提供帮助。数据越多，监测工具能给的信息就越多。
 
-To validate code execution steps—We should record information such as task name, intermediate results, steps went through, etc. This would help us to validate the results and also to confirm that the algorithm has followed the intended steps. Invalid results or strangely performing algorithm may not raise a critical error that would be caught in logging. Hence it is imperative to records these information.
+验证代码执行步骤 —— 我们应该记录诸如任务名称、中间结果、步骤经过等信息，这将有助于我们验证结果，并确认算法是否遵循预期的步骤。无效的结果或奇怪的执行算法可能不会引发足以被日志记录的严重错误。因此，记录这些信息势在必行。
 
-To improve performance — We should record time taken for each task/subtask and memory utilized by each variable. This would help us improve our code in making necessary changes optimizing the code to run faster and limit memory consumption (or identify memory leaks which is common in python).
+提升性能  ——  我们应该记录每个任务/子任务使用的时间和每个变量占用的内存。这将有助于我们改进代码，进行必要的更改，优化代码以更快地运行，并限制内存消耗（或发现 Python 中常见的内存泄漏）。
 
-_Instrumentation should record all other information left out in logging that would help us to validate code execution steps and work on performance improvements. It is better to have more data than less._
+**监测工具记录所有留存在日志记录中的其它信息，这将帮助我们验证代码执行的步骤，并在必要时为改进性能提供帮助。对此，数据越多越好。**
 
-**3. Code Optimization**
+## **3. 代码优化**
 
-Code optimization implies both reduced time complexity (run time) as well as reduced space complexity (memory usage). The time/space complexity is commonly denoted as O(x) also known as **_Big-O representation_** where x is the dominant term in time- or space- taken polynomial. The time- and space- complexity are the metric for measuring **_algorithm efficiency_**.
+代码优化包含减少时间复杂度（运行时间）和减少空间复杂度（内存占用）两方面。时间/空间复杂度通常表示成 O(x)，其中 x 是关于时间或空间的多项式，这也被称为 **大 O 表示法**。时间和空间复杂度被用来衡量 **算法效率**。
 
-For example, lets say we have a nested _for_ loop of size _n_ each and takes about 2 seconds each run followed by a simple _for_ loop that takes 4 seconds for each run. Then the equation for time consumption can be written as
+例如，假设我们有一个大小为 _n_ 的嵌套的 _for_ 循环，每次运行大约需要 2 秒，接着是一个简单的 _for_ 循环，每次运行需要 4 秒。那么，时间消耗方程可以写成
 
-Time taken ~ 2 n²+4 n = O(n²+n) = O(n²)
+时间消耗 ≈ 2n²+4n = O(n²+n) = O(n²)
 
-For Big-O representation, we should drop the non-dominant terms (as it will be negligible as _n_ tends to _inf_) as well as the coefficients. The coefficients or the scaling factors are ignored as we have less control over that in terms of optimization flexibility. Please note that the coefficients in the absolute time taken refers to the product of number of _for_ loops and the time taken for each run whereas the coefficients in O(n²+n) represents the number of _for_ loops (1 double _for_ loop and 1 single _for_ loop). Again we should drop the lower order terms from the equation. Hence the Big-O for the above process is O(n²).
+当使用大 O 表示法时，我们应该去掉常数项（因为 _n_ 趋向于无穷时它可以忽略不计）以及系数。系数或缩放因子之所以被忽略，是因为我们在优化时能对其造成的影响很小。请注意，在绝对时间消耗的表达式中的系数指的是 _for_ 环数的次数和每次运行所花费的时间的乘积，而 O(n²+n) 中的系数代表了 _for_ 循环的数目（1 个双层 _for_ 循环和 1 个单层 _for_ 循环）。同样地，我们可以去掉方程中的低阶项。因此，上述过程的时间复杂度为 O(n²)。
 
-Now, our goal is to replace least efficient part of the code with a better alternative with lower time complexity. For example, O(n) is better than O(n²). The most common killers in the code are _for_ loops and the least common but worse than _for_ loop are recursive functions (O(branch^depth)). Try to replace as many _for_ loops as possible with python modules or functions which are usually heavily optimized with possible C-code performing the computation, instead of python, to achieve shorter run time.
+现在，我们的目标是用时间复杂度较低的方案替换代码的低效部分。例如，O(n) 优于 O(n²)。代码中最常见的时间消耗部分是 _for_ 循环，最不常见但比 _for_ 循环更差的是递归函数（时间复杂度为 O(分支^深度)）。尽量用 Python 的模块或函数替换尽可能多的 _for_ 循环，这些函数通常用 C 而不是 Python ，并进行过深度优化，以实现较短的运行时间。
 
-I highly recommend you to read the section about “Big-O” in [_Cracking the coding interview_](https://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/0984782850/ref=sr_1_1?ie=UTF8&qid=1517896199&sr=8-1&keywords=cracking+the+coding+interviews) by Gayle McDowell. In fact, try to read the entire book to improve your coding skills.
+强烈推荐你阅读 Gayle McDowell 的[《**程序员面试金典**》](https://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/0984782850/ref=sr_1_1?ie=UTF8&qid=1517896199&sr=8-1&keywords=cracking+the+coding+interviews)一书中的“大 O 算法”章节。事实上，读完整本书能够提升你的编码技巧。
 
-**4. Unit Testing**
+## **4. 单元测试**
 
-_Unit testing_ — automates code testing in terms of functionality
+**单元测试** —— 根据功能实现代码测试自动化
 
-Your code have to clear multiple stages of testing and debugging before getting into production. Usually there are three levels — development, staging, and production. In some companies, there will be a level before production that mimics the exact environment of a production system. The code should be free from any obvious issues and should be able to handle potential exceptions when it reaches production.
+在进入生产环境之前，你的代码必须通过多个测试和调试阶段。这通常分为三个层次 —— 开发、预发和生产。在一些公司中，部署到生产环境之前有一个部署到真实生产系统模拟环境的阶段。当代码部署到生产环境时，它应该没有任何明显的问题，并且应该能够处理潜在的异常。
 
-To be able to identify different issues that may rise we need to test our code against different scenarios, different data sets, different edge and corner cases, etc. It is inefficient to carry out this process manually every time we want to test the code which would be every time we make a major change to the code. Hence opt for Unit testing which contains a set of test cases and it can be executed whenever we want to test the code.
+为了能够发现可能出现的各种各样的问题，我们需要对不同的场景、不同的数据集、不同的边界情况等进行测试。当我们对代码做了重大更改时，每次需要手动执行测试代码的效率是很低的。因此选择包含一组测试用例的单元测试，并且只要我们想要测试代码就可以执行它。
 
-We have to add different test cases with expected results to test our code. The unit testing module goes through each test case, one-by-one, and compares the output of the code with the expected value. If the expected results are not achieved, the test fails —it is an early indicator that you code would fail if deployed into production. We need to debug the code and then repeat the process until all test cases are cleared off.
+我们必须添加具有预期结果的不同测试用例来测试我们的代码。单元测试模块逐个遍历测试用例，并将代码的输出与期望值进行比较。如果未达到预期结果，则测试失败 —— 这预示着如果部署到生产环境中，你的代码可能会报错。我们需要调试代码然后重复该过程，直到所有测试用例都能通过。
 
-To make our life easy, python has a module called _unittest_ to implement unit testing.
+人生苦短，因此 Python 有一个名为 **unittest** 的模块来实现单元测试。
 
-**5. Compatibility with ecosystem**
+## **5. 兼容性**
 
-Most likely, your code is not going to be a standalone function or module. It will to be integrated into company’s code ecosystem and your code has to run synchronously with other parts of the ecosystem without any flaws/failures.
+实际生产中很有可能的是，你的代码并不是独立的函数或模块。它将被集成到公司的代码生态系统中，你的代码必须与生态系统的其他部分同步运行，而不会出现任何缺陷/故障。
 
-For instance, lets say that you have developed an algorithm to give recommendations. The process flow usually consists of getting recent data from the database, update/generate recommendations, store it in a database which will be read by front-end frameworks such as webpages (using APIs) to display the recommended items to the user. Simple! It is like a chain, the new chain-link should lock-in with the previous and the next chain-link otherwise the process fails. Similarly, each process has to run as expected.
+例如，假设你已经开发了一种推荐算法。整个流程通常包括从数据库获取最新数据、更新/生成推荐和将其存储在数据库中，该数据库将被前端框架（如网页，通过 API）读取，来向用户显示推荐项目。这很简单！这个过程就像一根链条，新的链接应该与前一个和后一个链接闭合，否则推荐过程就会失败。同样地，每个流程都必须按预期运行。
 
-Each process will have a well-defined input and output requirements, expected response time, and more. If and when requested by other modules for updated recommendations (from webpage), your code should return the expected values in a desired format in an acceptable time. If the results are unexpected values (suggesting to buy milk when we are shopping for electronics), undesired format (suggestions in the form of texts rather than pictures), and unacceptable time (no one waits for mins to get recommendations, at least these days) — implies that the code is not in sync with system.
+每个流程都有明确的输入和输出要求、预期的响应时间等等。当其他模块请求更新推荐（来自网页）时，你的代码应该在可接受的时间内以所需格式返回预期值。如果结果是不符合预期的值（在购买电子产品时推荐购买牛奶）、不希望的格式（推荐以文本而不是图片的格式展示）或是不可接受的时间（时至今日，没有人愿意等待几分钟来获得推荐）—— 这暗示代码与系统不同步。
 
-The best way to avoid such scenario is to discuss with the relevant team about the requirements before we begin the development process. If the team is not available, go through the code documentation (most probably you will find a lot of information in there) and code itself, if necessary, to understand the requirements.
+要避免这种情况，最佳的方法是在开始开发之前与相关团队讨论需求。如果行不通，请查看代码文档（很可能会在那里找到大量信息），或在必要时自己编写代码文档来理解需求。
 
-**6. Version Control**
+## **6. 版本控制**
 
-Git — a version control system is one of the best things that has happened in recent times for source code management. It tracks the changes made to the computer code. Perhaps there are many existing version control/tracking systems but Git is widely used compared to any other.
+Git —— 一个堪称近年来源代码管理中的最佳发明之一的版本控制系统，它会跟踪计算机上代码的更改。跟许多现存的版本控制/跟踪系统相比，Git 是使用最为广泛的。
 
-The process in simple terms “modify and commit”. I have over simplified it. There are so many steps to the process such as creating a branch for development, committing changes locally, pulling files from remote, pushing files to remote branch, and much more which I am going to leave it to you to explore on your own.
+这个过程简单地说就是“修改和提交”。我可能讲得过于轻描淡写了。这个过程有很多步骤，比如为开发创建分支、在本地提交更改、从远程拉取文件、将文件推送到远程分支，以及更多功能留待你深入探索。
 
-Every time we make a change to the code, instead of saving the file with a different name, we commit the changes — meaning overwriting the old file with new changes with a key linked to it. We usually write comments every time we commit a change to the code. Let’s say, you don’t like changes made in the last commit and want to revert back to previous version, it can be done easily using the commit reference key. Git is so powerful and useful for code development and maintenance.
+每次我们对代码进行更改，我们不需要用不同的名称保存文件，而是提交更改 —— 这意味着用新的更改覆写旧文件，并为这次提交赋予一个提交 ID。每当我们对代码进行更改时，我们通常会添加提交注释。假如，你不喜欢上次提交中所做的更改，并希望恢复到以前的版本，通过提交 ID 可以轻松做到。Git 对于代码开发和维护来说非常有用。
 
-You might have already understood why this is important for production systems and why it is mandatory to learn Git. We must always have the flexibility to go back to an older version that is stable just in case the new version fails unexpectedly.
+你可能已经理解了版本控制对于生产系统的重要性，以及学习 Git 的必要性。为了预防新版本出现意外错误的情况，我们需要随时能够回到稳定的旧版本。
 
-**7. Readability**
+## **7. 可读性**
 
-The code you write should be easily digestible for others as well, at least for your team mates. Moreover, it will be challenging even for you to understand your own code in few months after writing the code, if proper naming conventions are not followed.
+你编写的代码同样也应该易于他人理解，至少对于你的团队成员而言。此外，如果不遵循正确的命名约定，即使你自己在编写代码的几个月后理解自己的代码也是很有难度的。
 
-**(i) Appropriate variable and function names**
+### **(i) 合适的变量名和函数名**
 
-The variable and function names should be self explanatory. When someone reads your code it should be easy for then to find what each variable contains and what each function does, at least to some extent.
+变量和函数名称应该是自解释的。当有人阅读你的代码时，应该很容易理解每个变量包含的内容以及每个函数的作用，至少在某种程度上如此。
 
-It is perfectly okay to have a long name that clearly states its functionality/role rather than having short names such as x, y, z, etc., that are vague. Try not to exceed 30 char for variable names and 50–60 for function names.
+给函数或变量赋一个长名称是完全可以接受的，这个名称要能够明确说明其功能/角色，而不像 x、y、z 等短无意义的名称。并且变量名称尽量不要超过 30 个字符，函数名称尽量不要超过 50-60 个字符。
 
-Previously, the standard code width was 80 char based on IBM standard which is totally outdated. Now, as per GitHub standards, it is around 120. Setting 1/4th limit of page width for character names we get 30 which is long enough yet doesn’t fill the page. The function names could be little longer but again shouldn’t fill the entire page. So by setting a limit of 1/2th of page width we get 60.
+以前，基于 IBM 标准的代码宽度为 80 个字符，这已经完全过时了。现在，根据 GitHub 标准大约是 120 个字符。取页面宽度的 1/4，我们得到 30 这个足够长但是又不会填满页面的变量名称长度。函数名称可以稍长一些，但同样不应该填充整个页面。因此，取页面宽度的 1/2，我们得到 60。
 
-For instance, the variable for average age of Asian men in a sample data can be written as _mean\_age\_men_Asia_ rather than _age_ or _x_. Similar argument applies for function names as well.
+例如，样本数据中亚洲男性平均年龄的变量可以写成 _mean_age_men_Asia_ 而不是 _age_ 或 _x_ 。类似的规则也适用于函数名称。
 
-**(ii) Doc string and comments**
+### **(ii) 文档字符串和注释**
 
-In addition to appropriate variable and function names, it is essential to have comments and notes wherever necessary to help the reader in understanding the code.
+除了合适的变量和函数名称之外，必须在必要时提供注释，以帮助读者理解代码。
 
-**_Doc string_** — Function/class/module specific. The first few lines of text inside the function definition that describes the role of the function along with its inputs and outputs. The text should be placed between set of 3 double quotes.
+**文档字符串**  ——  适用于函数/类/模块。函数定义中的前几行文字描述了函数的作用及其输入和输出。这段文字需要用 3 个双引号包裹起来。
 
+```python
 def <function_name>:
 
-“””<docstring>”””
+"""<docstring>"""
 
 return <output>
+```
 
-**_Comments _**— can be placed any where in the code to inform the reader about the action/role of a particular section/line. The need for comments will be considerable reduced if we give appropriate names to variables and functions — the code will be, for the most part, self explanatory.
+**注释** —— 可以放在代码中的任何位置，以告知读者特定行或代码段的作用。如果我们给变量和函数赋予合适的名称，注释的需求将大大减少 —— 大部分代码都能自我解释。
 
-#### **Code review:**
+## **代码审查：**
 
-Although, it is not a direct step in writing production quality code, code review by your peers will be helpful in improving your coding skill.
+虽然这不是编写符合生产质量的代码的直接步骤，但是同行的代码审查将有助于提高您的编码技巧。
 
-No one writes a flawless computer code, unless someone has more than 10 years of experience. There will be always room for improvement. I have seen professionals with several years of experience writing an awful code and also interns who were pursuing their bachelors degree with outstanding coding skills — you can always find someone who is better than you. It all depends on how many how many hours someone invests in learning, practicing, and most importantly improving that particular skill.
+没有人能写出完美的代码，除非那人有超过 10 年的经验。代码总有改进的余地。我见过有多年经验的专业人士写出了糟糕的代码，也见过正在攻读学士学位的菜鸟拥有出色的编码技巧 —— 你总能找到比你更优秀的人。这一切都取决于投入多少时间学习和练习，最重要的是熟能生巧。
 
-I know that people better than you always exist but it is not always possible to find them in your team with only whom your can share your code. Perhaps you are the best in your team. In that case, it is okay to ask others in the team to test and give feedback to your code. Even though, they are not as good as you, something might have escaped your eyes that they might catch.
+我知道比你更优秀的人总是存在但你的团队中不一定有。也许你是团队中最厉害的。在这种情况下，让团队中的其他人测试你的代码并提供反馈依然可行。尽管他们并不像你那么出色，但他们能发现一些被你忽略的东西。
 
-Code review is especially important when you are in early stages of your career. It would greatly improve your coding skills. Please follow the steps below for successfully getting your code reviewed.
+当你处于职业生涯的早期阶段时，代码审查尤为重要。它会大大提高你的编码技巧。遵循以下步骤，来成功检查你的代码。
 
-(i) After you complete writing your code with all the development, testing, and debugging. Make sure you don’t leave out any silly mistakes. Then kindly request your peers for code review.
+(i) 完成所有开发、测试和调试的代码编写。确保不要犯任何低级的错误。然后请你的伙伴帮忙进行代码审查。
 
-(ii) Forward them your code link. Don’t ask them to review several scripts at one time. Ask them one after the other. The comments they give for the first script are perhaps applicable to other scripts as well. Make sure you apply those changes on other scripts, if applicable, before sending out the second script for review.
+(ii) 把你的代码链接转发给他们。一个接一个发给他们，而不要让他们一次性审阅多个脚本。他们为第一个脚本提供的意见也可能适用于其他脚本。在发送第二个脚本以供审阅之前，请确保在其他脚本上应用这些更改（如果适用）。
 
-(iii) Give them a week or two to read and test your code for each iteration. Also provide all necessary information to test your code like sample inputs, limitations, and so on.
+(iii) 给他们一两个星期来阅读和测试每次迭代的代码。同时还需提供测试代码所需的所有信息，如样本输入、限制条件等。
 
-(iv) Meet with each one of them and get their suggestions. Remember, you don’t have to included all their suggestions in your code, select the ones that you think will improve the code at your own discretion.
+(iv) 与他们每个人面谈并听取他们的建议。请记住，你不必在代码中采纳所有建议，自行选择你认为可以改进你的代码的建议。
 
-(v) Repeat until you and your team are satisfied. Try to fix or improve your code in the first few iterations (max 3–4) otherwise it might create a bad impression about your code ability.
+(v) 一直重复，直到你和你的团队满意为止。尝试在前几次迭代中修复或改进您的代码（最多 3-4 次），否则可能会留下编码能力不足的坏印象。
 
-Hope this article is helpful and you enjoyed reading it.
+希望这篇文章能对你有所帮助。
 
-I would love to read your feedback.
+期待您的反馈。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
