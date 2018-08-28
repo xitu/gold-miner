@@ -5,63 +5,63 @@
 > * 译者：
 > * 校对者：
 
-# How to connect Stackdriver to your smart home server for error logging
+# 如何将 Stackdriver 连接到智能家居服务器以进行错误记录
 
-When [integrating your smart home devices with the Google Assistant](http://developers.google.com/smarthome), you may have run into this error: “Couldn’t update the setting. Check your connection.”
+当[你的智能家居设备与 Google Assistant 集成](http://developers.google.com/smarthome)时，你可能会遇到以下错误：“无法更新设置，请检查你的连接。”
 
 ![](https://cdn-images-1.medium.com/max/800/1*r2idup5FQDZmC42mzmgI8Q.png)
 
-_A common error message reported in the Google Assistant settings_
+**Google Assistant 设置中报告的常见错误**
 
-This error can stem from a number of reasons during the account linking and SYNC process.
+这个错误可能源于账号连接和 SYNC 同步过程的许多原因。
 
-To get better insight into these errors, you can use [Stackdriver](https://cloud.google.com/stackdriver/), Google Cloud’s logging system. When an error happens during account linking or the subsequent SYNC events, it is automatically logged and provides you with information.
+为了更好地了解这些错误，你可以使用 [Stackdriver](https://cloud.google.com/stackdriver/)，Google Cloud 的日志系统。当账户连接或随后的 SYNC 事件发生错误时，它会自动记录错误并向你提供信息。
 
 ![](https://cdn-images-1.medium.com/max/1000/0*IJ00VIZ-VbVAVCDo)
 
-_Screenshot of error messages that may come from Stackdriver_
+**可能来自堆栈驱动程序的错误报告消息的屏幕截图**
 
-The logs you receive are automatically cleaned to remove any Personally Identifiable Information (PII) and will not include a detailed trace.
+你收到的日志会自动清除并移除任何个人可识别信息（PII），而且不会包含详细的追踪。
 
-To get started, you can navigate to the Google Cloud Console for your project and select the **Logging** option in the **Stackdriver** section of the navigation drawer:
+启动时，你可以导航到项目的 Google Cloud 控制台，在抽屉导航的 **Stackdriver** 部分中选择 **Logging** 选项：
 
 ![](https://cdn-images-1.medium.com/max/800/0*NmViOR5WTQg1EaMA)
 
-You can filter by **Google Assistant Action > All version_id** to see errors specifically for your smart home fulfillment:
+你可以通过 **Google Assistant Action > All version_id** 来查看专门为你的智能家居实现而出现的错误：
 
 ![](https://cdn-images-1.medium.com/max/800/0*3V2nv9H5ixwHnHZZ)
 
-While this is handy, having to go to a separate page to view errors may not fit with your development workflow, and it may not present you with easily accessible data to include in a weekly stats report, for example. Let’s see how to export your logs from Stackdriver and into your infrastructure, letting you build additional integrations on top of this data.
+尽管很方便，但必须转到单独的页面去查看错误可能不适合你的开发流，而且它可能不会为你提供易于访问的数据，例如，包含在每周统计报表中的数据。让我们看看如何将你的日志从 Stackdriver 导出到你的基础设施中，让你在这些数据之上构建额外的集成。
 
-Using StackDriver, you can set up a sink that will contain logs with a particular filter. The logs in this sink can be sent through Cloud Pub/Sub to an endpoint that you own.
+使用 Stackdriver，你可以设置包含带有特定过滤器的日志接收装置。这个接收装置中的日志可以通过 Cloud 发布/订阅发送到你拥有的端点。
 
-### Domain verification
+### 域名验证
 
-Before you can push messages to an endpoint, you will need to verify that you own the domain. You can register it through the [**APIs & Services**](https://console.cloud.google.com/apis/credentials) section in the Google Cloud Console.
+在将消息推送到端点之前，你需要验证你自己的域名。你可以通过 Google Cloud 控制台的 [**APIs & Services**](https://console.cloud.google.com/apis/credentials) 部分进行注册。
 
 ![](https://cdn-images-1.medium.com/max/800/1*NnaTFrEa1aLKMHkUzcCwKw.png)
 
-Under **Credentials > Domain Verification**, add a domain. After adding your domain, you will be taken to the Google Search console. Follow the instructions there to finish verifying your website before proceeding:
+在 **Credentials > Domain Verification** 下，添加一个域名。在添加完你自己的域名之后，你将被带到 Google 搜索控制。在继续操作之前，按照说明完成对你完整的验证：
 
 ![](https://cdn-images-1.medium.com/max/800/0*xSL__AZHX5S-B5I2)
 
-### Configure Pub/Sub
+### 配置发布/订阅
 
-With [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/), you can configure tasks to be run on certain events such as when a new log appears in Stackdriver. By adding a filter, you can limit the types of logs that will trigger an event. You can configure a server endpoint to subscribe to these events.
+使用[Google Cloud 发布/订阅](https://cloud.google.com/pubsub/)，你可以静任务配置为在某些事件上运行，例如，当新日志出现在 Stackdriver 中时，通过添加过滤器你可以限制触发事件的日志类型。你也可以配置服务器端点来订阅这些事件。
 
-To start exporting your SYNC errors, type in the filter “text:SYNC” and click the **CREATE EXPORT** button. Here, you can create a sink which connects to a Google Cloud Pub/Sub topic. This will enable you to handle an event each time a new log entry appears:
+要开始导出 SYNC 错误，请输入过滤器 “text:SYNC”，点击 **CREATE EXPORT** 按钮。在这里，你可以创建一个连接到 Google Cloud 发布/订阅的主题接收器。这将是你能够在每次出现日志条目时处理事件：
 
 ![](https://cdn-images-1.medium.com/max/800/0*7BR2AOyLdL5T3nav)
 
-In the navigation drawer, open up the Pub/Sub overview and create a new subscription:
+在抽屉导航中，打开发布/订阅概述，创建一个新的订阅：
 
 ![](https://cdn-images-1.medium.com/max/800/0*_LSoY1bG3eenfsRN)
 
-Here, you can create a new subscription. For the Delivery Type, enter the URL that you want to use to receive subscriptions. This has to be to a server that you own for purposes of domain verification:
+这里，你可以新建一个订阅。对于交付类型，输入用于接收订阅的的 URL。为了进行验证域名验证，你必须拥有自己的服务器：
 
 ![](https://cdn-images-1.medium.com/max/800/0*h30i-CpLpUr6LnXR)
 
-On your server, you will need to add a handler for your receiving endpoint. In this example, it is _/alerts/stackdriver_. This is a webhook on your server. Cloud Pub/Sub will send a POST request to that URL with the log data in the request body. An implementation using Node.js is shown in the code snippet below:
+在你的服务器上，为了接受端点，你需要添加一个处理器。在这个示例中，它是 **/alerts/stackdriver**。这是你服务器上的一个钩子。Cloud 发布/订阅会向 URL 发送一个在请求体重包含日志数据的 POST 请求。下面的代码片段显示了使用 Node.js 的实现：
 
 ```
 app.post('/alerts/stackdriver', (req, res) => {
@@ -76,7 +76,7 @@ app.post('/alerts/stackdriver', (req, res) => {
 });
 ```
 
-Now we can test to see if this pub/sub topic works. In your smart home integration, set your SYNC response to return an invalid device type, such as _LART_. An example of this response can be seen in the code snippet below:
+我们现在可以测试这个发布/订阅主题是否有效。在你的智能家居集成中，设置你的 SYNC 回复返回一个无效的设备类型，例如 **LART**。以下代码片段是这个响应示例：
 
 ```
 const app = smarthome();
@@ -94,13 +94,13 @@ app.onSync(body => {
 })
 ```
 
-When you try to link your account, you will see an error in the Google Assistant settings and a corresponding error in StackDriver:
+当你尝试连接你的账户时，你会在 Google Assistant 设置中看到一个错误，然后在 StackDriver 中看到与之对应的错误：
 
 ![](https://cdn-images-1.medium.com/max/800/0*uQkduKOXIjQj58lH)
 
 ![](https://cdn-images-1.medium.com/max/800/0*aIv-TNfo2xn2A5G9)
 
-In your server, you will also see this error being logged. When you encounter this error, you can look at the SYNC response that you have sent and identify that the error has come from a typo in your device type. You can fix this error in your webhook by fixing the string where you return this device information. You can see the corrected code snippet below:
+在你的服务器中，你也会看到此错误正在被记录。当你遇到此错误时，你可以查看已发送的 SYNC，并确定该错误来自设备类型的错误。你可以通过修复返回此设备信息的字符串来修复 webhook 中的错误。你可以在以下代码片段中看到更正的内容：
 
 ```
 const app = smarthome();
@@ -118,7 +118,7 @@ const app = smarthome();
 })
 ```
 
-Once you start ingesting these errors, there are many things that you can do to improve the reliability of your smart home integration, such as adding email alerts or creating a dashboard of common issues. By identifying these problems early and getting detailed information about what is happening, you will be able to make changes faster and with greater confidence.
+一旦你开始获取这些错误，你可以做许多事情来提高你的智能家居集成的可靠性，例如添加电子邮件警告或创建常见问题的仪表盘。通过及时发现这些问题并获取正在发生的事件的详细信息，你可以更快、更有信心地进行更正。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
