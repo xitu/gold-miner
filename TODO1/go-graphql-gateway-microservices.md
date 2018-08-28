@@ -2,36 +2,38 @@
 > * 原文作者：[Tin Rabzelj](https://outcrawl.com/authors/tin-rabzelj)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/go-graphql-gateway-microservices.md](https://github.com/xitu/gold-miner/blob/master/TODO1/go-graphql-gateway-microservices.md)
-> * 译者：
+> * 译者：[Changkun Ou](https://github.com/changkun)
 > * 校对者：
 
-# Using GraphQL with Microservices in Go
+# 使用 Go 编写微服务及其 GraphQL 网关
 
 ![](https://outcrawl.com/static/cover-4772a81f84b65ba37535f8c41959eeaa-08884.jpg)
 
-A few months ago, a really nice Go package [vektah/gqlgen](https://github.com/vektah/gqlgen) for GraphQL became popular. This article describes how GraphQL is implemented in "Spidey", an exemplary microservices based online store.
+几个月前，一个优秀的 GraphQL Go 包 [vektah/gqlgen](https://github.com/vektah/gqlgen) 开始流行。本文描述了在 Spidey 项目（一个在线商店的基本微服务）中如何实现 GraphQL。
 
-Some parts listed below are missing, but complete source code is available on [GitHub](https://github.com/tinrab/spidey).
+下面列出的一些代码可能存在一些缺失，完整的代码请访问 [GitHub](https://github.com/tinrab/spidey)。
 
-## Architecture
+## 架构
 
-Spidey encompasses three services that are exposed to the user through a GraphQL gateway. Communication within the cluster is through [gRPC](https://grpc.io).
+Spidey 包含了三个不同的服务并暴露给了 GraphQL 网关。集群间的通信则通过 [gRPC](https://grpc.io) 来完成。
 
-Account service manages accounts and catalog manages products. Order service deals with creating orders. It talks to the other two services to properly validate orders.
+账户服务管理了所有的账号；目录管理了所有的产品；订单服务则处理了所有的订单创建行为。它会与其他两个服务进行通信来告知订单是否正常完成。
 
 ![Architecture](https://outcrawl.com/static/architecture-7b089f424d0abd2c29eb2d51ed362550-0381e.jpg)
 
-Individual services have three layers: **server**, **service** and **repository**. **Server** is responsible for communication, in Spidey's case its gRPC. **Service** contains any business logic. **Repository** is responsible for writing and reading data from a database.
+独立的服务包含三层：**服务端**、**服务**以及**仓库**。服务端作负责通信，也就是 Spidey 中使用 gRPC。服务则包含了业务逻辑。仓库则负责对数据库进行读写操作。
 
-## Getting started
+## 起步
 
-Running Spidey requires [Docker](https://docs.docker.com/install/), [Docker Compose](https://docs.docker.com/compose/install/), [Go](https://golang.org/doc/install), [Protocol Buffers](https://github.com/google/protobuf) compiler and its [Go](https://developers.google.com/protocol-buffers/docs/reference/go-generated) plugin, and the super cool [vektah/gqlgen](https://github.com/vektah/gqlgen) package.
+运行 Spidey 需要 [Docker](https://docs.docker.com/install/)、 [Docker Compose](https://docs.docker.com/compose/install/)、 [Go](https://golang.org/doc/install)、 [Protocol Buffers](https://github.com/google/protobuf) 编译器及其 Go 插件以及非常有用的 [vektah/gqlgen](https://github.com/vektah/gqlgen) 包。
 
-You'll also need [vgo](https://www.godoc.org/golang.org/x/vgo) tool, which is in early stages of development. The [dep](https://github.com/golang/dep) tool will work as well, but included `go.mod` file will be ignored.
+你还需要安装 [vgo](https://www.godoc.org/golang.org/x/vgo)（一个处于早期开发阶段的包管理工具）。工具 [dep](https://github.com/golang/dep) 也是一种选择，但是包含的 `go.mod` 文件会被忽略。
 
-## Docker setup
+> 译注：在 Go 1.11 中 vgo 作为官方集成的 Go Modules 发布，已集成在 go 命令中，使用 go mod 进行使用，指令与 vgo 基本一致。
 
-Each service is implemented in its own subdirectory and contains at least `app.dockerfile` file. The `db.dockerfile` is used to build the database image.
+## Docker 设置
+
+每个服务在其自身的子文件夹中实现，并至少包含一个 `app.dockerfile` 文件。`app.dockerfile` 文件用户构建数据库镜像。
 
 ```
 account
@@ -44,11 +46,11 @@ account
 └── up.sql
 ```
 
-All services are defined inside [docker-compose.yaml](https://github.com/tinrab/spidey/blob/master/docker-compose.yaml) file.
+所有服务通过外部的 [docker-compose.yaml](https://github.com/tinrab/spidey/blob/master/docker-compose.yaml) 定义。
 
-Here's an extract for the account service:
+下面是截取的一部分关于 Account 服务的内容：
 
-```
+```yaml
 version: "3.6"
 
 services:
@@ -71,19 +73,19 @@ services:
     restart: "unless-stopped"
 ```
 
-The context is specifically set to ensure that `vendor` directory can be copied inside the Docker container. All services share the same dependencies and some need each other's definitions.
+设置 `context` 的目的是保证 `vendor` 目录能够被复制到 Docker 容器中。所有服务共享相同的依赖、某些服务还依赖其他服务的定义。
 
-## Account service
+## 账户服务
 
-Account service exposes functions for creating and retrieving accounts.
+账户服务暴露了创建以及索引账户的方法。
 
-### Service
+### 服务
 
-API of the account service is defined with the following interface:
+账户服务的 API 定义的接口如下：
 
 [account/service.go](https://github.com/tinrab/spidey/blob/master/account/service.go)
 
-```
+```go
 type Service interface {
   PostAccount(ctx context.Context, name string) (*Account, error)
   GetAccount(ctx context.Context, id string) (*Account, error)
@@ -96,9 +98,9 @@ type Account struct {
 }
 ```
 
-Implementation needs a reference to the repository.
+实现需要用到 Repository：
 
-```
+```go
 type accountService struct {
   repository Repository
 }
@@ -108,9 +110,9 @@ func NewService(r Repository) Service {
 }
 ```
 
-The service is responsible for any business logic. The `PostAccount` functions is implemented like this:
+这个服务负责了所有的业务逻辑。`PostAccount` 函数的实现如下：
 
-```
+```go
 func (s *accountService) PostAccount(ctx context.Context, name string) (*Account, error) {
   a := &Account{
     Name: name,
@@ -123,20 +125,20 @@ func (s *accountService) PostAccount(ctx context.Context, name string) (*Account
 }
 ```
 
-It leaves parsing wire format to the server and dealing with a database to the repository.
+它将线路协议解析处理为服务端，并将数据库处理为 Repository。
 
-### Database
+### 数据库
 
-Data model for an account is very simple:
+一个账户的数据模型非常简单：
 
-```
+```sql
 CREATE TABLE IF NOT EXISTS accounts (
   id CHAR(27) PRIMARY KEY,
   name VARCHAR(24) NOT NULL
 );
 ```
 
-The above data definition SQL file will be copied and executed inside the Docker container.
+上面定义数据的 SQL 文件会复制到 Docker 容器中执行。
 
 [account/db.dockerfile](https://github.com/tinrab/spidey/blob/master/account/db.dockerfile)
 
@@ -148,7 +150,7 @@ COPY up.sql /docker-entrypoint-initdb.d/1.sql
 CMD ["postgres"]
 ```
 
-PostgreSQL database is accessed through a repository interface.
+PostgreSQL 数据库通过下面的 Repository 接口进行访问：
 
 [account/repository.go](https://github.com/tinrab/spidey/blob/master/account/repository.go)
 
@@ -161,7 +163,7 @@ type Repository interface {
 }
 ```
 
-Repository is implemented as a wrapper over the Go's standard library SQL package.
+Repository 基于 Go 标准库 SQL 包进行封装：
 
 ```
 type postgresRepository struct {
@@ -183,11 +185,11 @@ func NewPostgresRepository(url string) (Repository, error) {
 
 ### gRPC
 
-The gRPC service is defined with the following Protocol Buffers file:
+账户服务的 gRPC 服务定义了下面的 Protocol Buffer：
 
 [account/account.proto](https://github.com/tinrab/spidey/blob/master/account/account.proto)
 
-```
+```protobuf
 syntax = "proto3";
 package pb;
 
@@ -228,26 +230,26 @@ service AccountService {
 }
 ```
 
-Because the `package` is set to `pb`, the generated code will be available from the `pb` subpackage.
+由于这个包被设置为了 `pb`，于是生成的代码可以从 `pb` 子包导入使用。
 
-gRPC code is generated with the command specified at the top of [account/server.go](https://github.com/tinrab/spidey/blob/master/account/server.go) file and by using Go's generate command.
+gRPC 的代码可以使用 Go 的 `generate` 指令配合 [account/server.go](https://github.com/tinrab/spidey/blob/master/account/server.go) 文件最上方的注释进行编译生成：
 
 [account/server.go](https://github.com/tinrab/spidey/blob/master/account/server.go)
 
-```
+```go
 //go:generate protoc ./account.proto --go_out=plugins=grpc:./pb
 package account
 ```
 
-Running the following command will generate code inside `pb` subdirectory.
+运行下面的命令就可以将代码生成到 `pb` 子目录：
 
-```
+```bash
 $ go generate account/server.go
 ```
 
-Server works as an adapter over the `Service` interface, and transforming request and response types accordingly.
+服务端作为 `Service` 服务接口的适配器，对应转换了请求和返回的类型。
 
-```
+```go
 type grpcServer struct {
   service Service
 }
@@ -264,9 +266,9 @@ func ListenGRPC(s Service, port int) error {
 }
 ```
 
-Here's how the `PostAccount` functions looks like:
+下面是 `PostAccount` 函数的实现：
 
-```
+```go
 func (s *grpcServer) PostAccount(ctx context.Context, r *pb.PostAccountRequest) (*pb.PostAccountResponse, error) {
   a, err := s.service.PostAccount(ctx, r.Name)
   if err != nil {
@@ -279,11 +281,11 @@ func (s *grpcServer) PostAccount(ctx context.Context, r *pb.PostAccountRequest) 
 }
 ```
 
-### Usage
+### 用法
 
-gRPC server is initialized inside [account/cmd/account/main.go](https://github.com/tinrab/spidey/blob/master/account/cmd/account/main.go) file.
+gRPC 服务端在 [account/cmd/account/main.go](https://github.com/tinrab/spidey/blob/master/account/cmd/account/main.go) 文件中进行初始化：
 
-```
+```go
 type Config struct {
   DatabaseURL string `envconfig:"DATABASE_URL"`
 }
@@ -311,26 +313,26 @@ func main() {
 }
 ```
 
-A client struct is implemented inside [account/client.go](https://github.com/tinrab/spidey/blob/master/account/client.go) file for convenience. With it, account service can be used without worrying about the underlying RPC implementation, as seen later on.
+客户端结构体的实现位于 [account/client.go](https://github.com/tinrab/spidey/blob/master/account/client.go) 文件中。这样账户服务就可以在无需了解 RPC 内部实现的情况下进行实现，我们之后再来详细讨论。
 
-```
+```go
 account, err := accountClient.GetAccount(ctx, accountId)
 if err != nil {
   log.Fatal(err)
 }
 ```
 
-## Catalog service
+## 目录服务
 
-Catalog service deals with products in the Spidey store. It's implemented similarly as the account service, but uses Elasticsearch to persist products.
+目录服务负责处理 Spidey 商店的商品。它实现了类似于账户服务的功能，但是使用了 Elasticsearch 对商品进行持久化。
 
-### Service
+### 服务
 
-Account service conforms to the following interface:
+目录服务遵循下面的接口：
 
 [catalog/service.go](https://github.com/tinrab/spidey/blob/master/catalog/service.go)
 
-```
+```go
 type Service interface {
   PostProduct(ctx context.Context, name, description string, price float64) (*Product, error)
   GetProduct(ctx context.Context, id string) (*Product, error)
@@ -347,13 +349,13 @@ type Product struct {
 }
 ```
 
-### Database
+### 数据库
 
-The repository implements abstractions over Elasticsearch by using [olivere/elastic](https://github.com/olivere/elastic) package underneath.
+ Repository 基于 Elasticsearch [olivere/elastic](https://github.com/olivere/elastic) 包进行实现。
 
 [catalog/repository.go](https://github.com/tinrab/spidey/blob/master/catalog/repository.go)
 
-```
+```go
 type Repository interface {
   Close()
   PutProduct(ctx context.Context, p Product) error
@@ -364,9 +366,9 @@ type Repository interface {
 }
 ```
 
-Because Elasticsearch stores IDs separately from documents, there's a helper struct for products which doesn't contain the ID.
+由于 Elasticsearch 将文档和 ID 分开存储，因此实现的一个商品的辅助结构没有包含 ID：
 
-```
+```go
 type productDocument struct {
   Name        string  `json:"name"`
   Description string  `json:"description"`
@@ -374,9 +376,9 @@ type productDocument struct {
 }
 ```
 
-Inserting products into the database involves copying over all the fields into the `productDocument` struct:
+将商品插入到数据库中：
 
-```
+```go
 func (r *elasticRepository) PutProduct(ctx context.Context, p Product) error {
   _, err := r.client.Index().
     Index("catalog").
@@ -394,13 +396,11 @@ func (r *elasticRepository) PutProduct(ctx context.Context, p Product) error {
 
 ### gRPC
 
-The gRPC service is defined in the [catalog/catalog.proto](https://github.com/tinrab/spidey/blob/master/catalog/catalog.proto) file, and implemented in the [catalog/server.go](https://github.com/tinrab/spidey/blob/master/catalog/server.go) file.
-
-One notable difference from the account service is that it doesn't define all the endpoints from the service interface.
+目录服务的 gRPC 服务定义在 [catalog/catalog.proto](https://github.com/tinrab/spidey/blob/master/catalog/catalog.proto) 文件中，并在 [catalog/server.go](https://github.com/tinrab/spidey/blob/master/catalog/server.go) 中进行实现。与账户服务不同的是，它没有在服务接口中定义所有的 endpoint。
 
 [catalog/catalog.proto](https://github.com/tinrab/spidey/blob/master/catalog/catalog.proto)
 
-```
+```protobuf
 syntax = "proto3";
 package pb;
 
@@ -447,13 +447,13 @@ service CatalogService {
 }
 ```
 
-Searching and retrieving by IDs is missing, while `GetProductsRequest` message contains extra fields.
+尽管 `GetProductRequest` 消息包含了额外的字段，但通过 ID 的搜索与索引实现。
 
-This is how the `GetProducts` functions looks like:
+下面的代码展示了 `GetProducts` 函数的实现：
 
 [catalog/server.go](https://github.com/tinrab/spidey/blob/master/catalog/server.go)
 
-```
+```go
 func (s *grpcServer) GetProducts(ctx context.Context, r *pb.GetProductsRequest) (*pb.GetProductsResponse, error) {
   var res []Product
   var err error
@@ -485,21 +485,21 @@ func (s *grpcServer) GetProducts(ctx context.Context, r *pb.GetProductsRequest) 
 }
 ```
 
-It decides what service function to call based on arguments given. The goal is to mimic how a REST HTTP endpoint would look like.
+它决定了当给定何种参数来调用何种服务函数。其目标是模拟 REST HTTP 的 endpoint。
 
-Having one endpoint, which looks like `/products?[ids=...]&[query=...]&skip=0&take=100`, is easier to work with while consuming the API.
+对于 `/products?[ids=...]&[query=...]&skip=0&take=100` 形式的请求，只有设计一个 endpoint 来完成 API 调用会相对容易一些。
 
-## Order service
+## Order 服务
 
-Order service is a bit trickier. It needs to call account and catalog services to validate requests, since an order can only be created for an account and products that exist.
+Order 订单服务就比较棘手了。他需要调用账户和目录服务来验证请求，因为一个订单只能给一个特定的账号和一个存在的商品进行创建。
 
 ### Service
 
-The `Service` interface defines functions for creating orders and retrieving all orders made by some account.
+`Service` 接口定义了通过账户创建和索引全部订单的接口。
 
 [order/service.go](https://github.com/tinrab/spidey/blob/master/order/service.go)
 
-```
+```go
 type Service interface {
   PostOrder(ctx context.Context, accountID string, products []OrderedProduct) (*Order, error)
   GetOrdersForAccount(ctx context.Context, accountID string) ([]Order, error)
@@ -522,13 +522,13 @@ type OrderedProduct struct {
 }
 ```
 
-### Database
+### 数据库
 
-An order can contain multiple products, so the data model must support that. The `order_products` table below describes an ordered product with an ID of `product_id` and the quantity of such products. The `product_id` field will have to be retrieved from the catalog service.
+一个订单可以包含多个商品，因此数据模型必须支持这种形式。下面的 `order_products` 表描述了 ID 为 `product_id` 的订购产品以及此类产品的数量。而  `product_id` 字段必须可以从目录服务进行检索。
 
 [order/up.sql](https://github.com/tinrab/spidey/blob/master/order/up.sql)
 
-```
+```sql
 CREATE TABLE IF NOT EXISTS orders (
   id CHAR(27) PRIMARY KEY,
   created_at TIMESTAMP WITH TIME ZONE NOT NULL,
@@ -544,11 +544,11 @@ CREATE TABLE IF NOT EXISTS order_products (
 );
 ```
 
-The `Repository` interface is very simple.
+`Repository` 接口很简单：
 
 [order/repository.go](https://github.com/tinrab/spidey/blob/master/order/repository.go)
 
-```
+```go
 type Repository interface {
   Close()
   PutOrder(ctx context.Context, o Order) error
@@ -556,20 +556,20 @@ type Repository interface {
 }
 ```
 
-But the implementation is not quite so simple.
+但实现它却并不简单。
 
-One order must be inserted in two steps using a transaction, and then selected using a join statement.
+一个订单必须使用事务机制分两步插入，然后通过 join 语句进行查询。
 
-Reading an order from a database requires parsing tabular data into the object hierarchy. The code below works by traversing through returned rows and groups products into orders based on order's ID.
+从数据库中读取订单需要解析一个表状结构数据读取到对象结构中。下面的代码基于订单 ID 将商品读取到订单中：
 
-```
+```go
 orders := []Order{}
 order := &Order{}
 lastOrder := &Order{}
 orderedProduct := &OrderedProduct{}
 products := []OrderedProduct{}
 
-// Scan rows into Order structs
+// 将每行读取到 Order 结构体
 for rows.Next() {
   if err = rows.Scan(
     &order.ID,
@@ -581,7 +581,7 @@ for rows.Next() {
   ); err != nil {
     return nil, err
   }
-  // Scan order
+  // 读取订单
   if lastOrder.ID != "" && lastOrder.ID != order.ID {
     newOrder := Order{
       ID:         lastOrder.ID,
@@ -593,7 +593,7 @@ for rows.Next() {
     orders = append(orders, newOrder)
     products = []OrderedProduct{}
   }
-  // Scan products
+  // 读取商品
   products = append(products, OrderedProduct{
     ID:       orderedProduct.ID,
     Quantity: orderedProduct.Quantity,
@@ -602,7 +602,7 @@ for rows.Next() {
   *lastOrder = *order
 }
 
-// Add last order (or first :D)
+// 添加最后一个订单 (或者第一个 :D)
 if lastOrder != nil {
   newOrder := Order{
     ID:         lastOrder.ID,
@@ -617,13 +617,13 @@ if lastOrder != nil {
 
 ### gRPC
 
-The gRPC server needs to contact account and catalog services before delegating the request to the order service implementation.
+Order 服务的 gRPC 服务端需要在实现时与账户和目录服务建立联系。
 
-The protocol is defined as follows:
+Protocol Buffers 定义如下：
 
 [order/order.proto](https://github.com/tinrab/spidey/blob/master/order/order.proto)
 
-```
+```protobuf
 syntax = "proto3";
 package pb;
 
@@ -679,11 +679,11 @@ service OrderService {
 }
 ```
 
-Running the server requires passing in the necessary URLs for other services.
+运行服务需要传递其他服务的 URL：
 
 [order/server.go](https://github.com/tinrab/spidey/blob/master/order/server.go)
 
-```
+```go
 type grpcServer struct {
   service       Service
   accountClient *account.Client
@@ -721,21 +721,21 @@ func ListenGRPC(s Service, accountURL, catalogURL string, port int) error {
 }
 ```
 
-Creating an order involves calling the account service, to check if the account exists, and then doing the same for products. Fetching products is also required for calculating the total price, which is handled by the service. You don't want users passing in their own sum.
+创建订单涉及调用帐户服务、检查帐户是否存在、然后对产品执行相同操作。计算总价时还需要读取产品价格。你不会希望用户能传入自己的商品的总价。
 
-```
+```go
 func (s *grpcServer) PostOrder(
   ctx context.Context,
   r *pb.PostOrderRequest,
 ) (*pb.PostOrderResponse, error) {
-  // Check if account exists
+  // 检查账户是否存在
   _, err := s.accountClient.GetAccount(ctx, r.AccountId)
   if err != nil {
     log.Println(err)
     return nil, err
   }
 
-  // Get ordered products
+  // 获取订单商品
   productIDs := []string{}
   for _, p := range r.Products {
     productIDs = append(productIDs, p.ProductId)
@@ -746,7 +746,7 @@ func (s *grpcServer) PostOrder(
     return nil, err
   }
 
-  // Construct products
+  // 构造商品
   products := []OrderedProduct{}
   for _, p := range orderedProducts {
     product := OrderedProduct{
@@ -768,14 +768,14 @@ func (s *grpcServer) PostOrder(
     }
   }
 
-  // Call service implementation
+  // 调用服务实现
   order, err := s.service.PostOrder(ctx, r.AccountId, products)
   if err != nil {
     log.Println(err)
     return nil, err
   }
 
-  // Make response order
+  // 创建订单响应
   orderProto := &pb.Order{
     Id:         order.ID,
     AccountId:  order.AccountID,
@@ -798,13 +798,13 @@ func (s *grpcServer) PostOrder(
 }
 ```
 
-When querying for orders made by specific account, calling the catalog service is also necessary because product details (name, price and description) are needed.
+当请求特定账户的订单时，由于需要产品的详情，因此调用目录服务是有必要的。
 
-## GraphQL service
+## GraphQL 服务
 
-The GraphQL schema is defined inside [graphql/schema.graphql](https://github.com/tinrab/spidey/blob/master/graphql/schema.graphql) file.
+GraphQL schema 的定义在 [graphql/schema.graphql](https://github.com/tinrab/spidey/blob/master/graphql/schema.graphql) 文件中：
 
-```
+```graphql
 scalar Time
 
 type Account {
@@ -872,19 +872,19 @@ type Query {
 }
 ```
 
-The `gqlgen` tool will generate a bunch of types, but more control is needed for the `Order` model. It is specified in the [graphql/types.json](https://github.com/tinrab/spidey/blob/master/graphql/types.json) file, so the model wont be automatically generated.
+`gqlgen` 工具会生成一堆类型，但是还需要对 `Order` 模型进行一些控制，在 [graphql/types.json](https://github.com/tinrab/spidey/blob/master/graphql/types.json) 文件中进行制定，从而不会自动生成模型：
 
-```
+```json
 {
   "Order": "github.com/tinrab/spidey/graphql/graph.Order"
 }
 ```
 
-The `Order` struct can now be implemented manually.
+现在可以手动实现 `Order` 结构了：
 
 [graphql/graph/models.go](https://github.com/tinrab/spidey/blob/master/graphql/graph/models.go)
 
-```
+```go
 package graph
 
 import time "time"
@@ -897,24 +897,24 @@ type Order struct {
 }
 ```
 
-The command for generating types is defined at the top of [graphql/graph/graph.go](https://github.com/tinrab/spidey/blob/master/graphql/graph/graph.go) file.
+生成类型的指令在 [graphql/graph/graph.go](https://github.com/tinrab/spidey/blob/master/graphql/graph/graph.go) 顶部：
 
-```
+```go
 //go:generate gqlgen -schema ../schema.graphql -typemap ../types.json
 package graph
 ```
 
-It can be run with:
+通过下面的命令运行：
 
-```
+```bash
 $ go generate ./graphql/graph/graph.go
 ```
 
-GraphQL server has references to all other services.
+GraphQL 服务端引用了所有其他服务。
 
 [graphql/graph/graph.go](https://github.com/tinrab/spidey/blob/master/graphql/graph/graph.go)
 
-```
+```go
 type GraphQLServer struct {
   accountClient *account.Client
   catalogClient *catalog.Client
@@ -922,20 +922,20 @@ type GraphQLServer struct {
 }
 
 func NewGraphQLServer(accountUrl, catalogURL, orderURL string) (*GraphQLServer, error) {
-  // Connect to account service
+  // 连接账户服务
   accountClient, err := account.NewClient(accountUrl)
   if err != nil {
     return nil, err
   }
 
-  // Connect to product service
+  // 连接目录服务
   catalogClient, err := catalog.NewClient(catalogURL)
   if err != nil {
     accountClient.Close()
     return nil, err
   }
 
-  // Connect to order service
+  // 连接订单服务
   orderClient, err := order.NewClient(orderURL)
   if err != nil {
     accountClient.Close()
@@ -951,11 +951,11 @@ func NewGraphQLServer(accountUrl, catalogURL, orderURL string) (*GraphQLServer, 
 }
 ```
 
-The `GraphQLServer` struct needs to implement all generated resolvers. Mutations can be found in [graphql/graph/mutations.go](https://github.com/tinrab/spidey/blob/master/graphql/graph/mutations.go) and queries in [graphql/graph/queries.go](https://github.com/tinrab/spidey/blob/master/graphql/graph/queries.go).
+`GraphQLServer` 结构体需要实现所有生成的 resolver。修改（Mutation）可以在 [graphql/graph/mutations.go](https://github.com/tinrab/spidey/blob/master/graphql/graph/mutations.go) 中找到，查询（Query）则可以在 [graphql/graph/queries.go](https://github.com/tinrab/spidey/blob/master/graphql/graph/queries.go) 中找到。
 
-Mutations call the relevant service by using its client, and passing in the arguments.
+修改操作通过调用相关服务客户端传入参数进行实现：
 
-```
+```go
 func (s *GraphQLServer) Mutation_createAccount(ctx context.Context, in AccountInput) (*Account, error) {
   ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
   defer cancel()
@@ -973,34 +973,32 @@ func (s *GraphQLServer) Mutation_createAccount(ctx context.Context, in AccountIn
 }
 ```
 
-Queries can have other nested queries. In Spidey's example, querying for an account can also query its orders, as seen in the `Account_orders` function.
+查询能够互相嵌套。在 Spidey 中，查询账户还可以查询其订单，见 `Account_orders` 函数。
 
-```
+```go
 func (s *GraphQLServer) Query_accounts(ctx context.Context, pagination *PaginationInput, id *string) ([]Account, error) {
-  // This will be called first
+  // 会被首先调用
   // ...
 }
 
 func (s *GraphQLServer) Account_orders(ctx context.Context, obj *Account) ([]Order, error) {
-  // Then this, to return orders from the account "obj"
+  // 然后执行这个函数，返回 "obj" 账户的订单
   // ...
 }
 ```
 
-## Wrapping up
+## 总结
 
-To run Spidey, execute the following commands:
+执行下面的命令就可以运行 Spidey：
 
-```
+```bash
 $ vgo vendor
 $ docker-compose up -d --build
 ```
 
-And open [http://localhost:8000/playground](http://localhost:8000/playground) in your browser.
+然后你就可以在浏览器中访问 [http://localhost:8000/playground](http://localhost:8000/playground) 来使用 GraphQL 工具创建一个账户了：
 
-In the GraphQL tool presented, try creating an account:
-
-```
+```graphql
 mutation {
   createAccount(account: {name: "John"}) {
     id
@@ -1009,9 +1007,9 @@ mutation {
 }
 ```
 
-Which returns:
+返回结果为：
 
-```
+```json
 {
   "data": {
     "createAccount": {
@@ -1022,9 +1020,9 @@ Which returns:
 }
 ```
 
-Then create some products:
+然后可以创建一些产品：
 
-```
+```graphql
 mutation {
   a: createProduct(product: {name: "Kindle Oasis", description: "Kindle Oasis is the first waterproof Kindle with our largest 7-inch 300 ppi display, now with Audible when paired with Bluetooth.", price: 300}) { id },
   b: createProduct(product: {name: "Samsung Galaxy S9", description: "Discover Galaxy S9 and S9+ and the revolutionary camera that adapts like the human eye.", price: 720}) { id },
@@ -1034,9 +1032,9 @@ mutation {
 }
 ```
 
-Note the returned IDs:
+注意返回的 ID 值：
 
-```
+```json
 {
   "data": {
     "a": {
@@ -1058,9 +1056,9 @@ Note the returned IDs:
 }
 ```
 
-Then order something:
+然后发起一些订单：
 
-```
+```graphql
 mutation {
   createOrder(order: { accountId: "15t4u0du7t6vm9SRa4m3PrtREHb", products: [
     { id: "15t7jjANR47uODEPUIy1od5APnC", quantity: 2 },
@@ -1074,9 +1072,9 @@ mutation {
 }
 ```
 
-And verify the returned cost:
+根据返回结果检查返回的费用：
 
-```
+```json
 {
   "data": {
     "createOrder": {
@@ -1088,11 +1086,10 @@ And verify the returned cost:
 }
 ```
 
-The entire source code is available on [GitHub](https://github.com/tinrab/spidey).
+完整代码请查看 [GitHub](https://github.com/tinrab/spidey)。
 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
