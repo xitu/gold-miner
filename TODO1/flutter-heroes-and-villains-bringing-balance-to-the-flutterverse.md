@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-heroes-and-villains-bringing-balance-to-the-flutterverse.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-heroes-and-villains-bringing-balance-to-the-flutterverse.md)
 > * 译者：[DateBro](https://github.com/DateBro)
-> * 校对者：
 
 # Flutter 的英雄和流氓们 —— 为 Flutterverse 带来平衡
 
@@ -12,6 +11,7 @@
 ![](https://cdn-images-1.medium.com/max/1600/1*AHypbXYdBWnNfLoeseJ3lw.gif)
 
 英雄与流氓相伴而生。
+
 __流氓允许你只需几行代码就可以添加上面的页面转换。__
 
 安装包在[这里](https://github.com/Norbert515/flutter_villains)。你可以在项目的 [README](https://github.com/Norbert515/flutter_villains/blob/master/README.md)如何使用流氓。这篇文章更侧重于解释英雄和流氓以及所有这些背后的思考过程。
@@ -53,9 +53,9 @@ Flutter 最令惊奇的一点是它为所有东西提供漂亮和干净的 API�
 可以通过 `NavigationObserver` 观察压入和弹出路由的事件。
 
 ```
-/// 一个管理 [Hero] 过渡的 [Navigator] observer
+/// 一个管理 [Hero] 过渡的 [Navigator] observer。
 ///
-/// 应该在 [Navigator.observers] 中使用 [HeroController] 的实例
+/// 应该在 [Navigator.observers] 中使用 [HeroController] 的实例。
 /// 这由 [MaterialApp] 自动完成。
 class HeroController extends NavigatorObserver
 ```
@@ -67,7 +67,7 @@ class HeroController extends NavigatorObserver
 #### 英雄组件
 
 ```
-  /// 创建一个英雄
+  /// 创建一个英雄。
   ///
   /// [tag] 和 [child] 必须非空。
   const Hero({
@@ -86,7 +86,7 @@ class HeroController extends NavigatorObserver
 
 英雄的状态也负责捕获大小并用占位符替换自己。
 
-#### _allHeroesFor
+#### `_allHeroesFor`
 
 元素（具体组件）放在树中。通过访客，你可以沿着树下去并收集信息。
 
@@ -126,7 +126,7 @@ class HeroController extends NavigatorObserver
 
 [heroes.dart](https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/heroes.dart#L119)
 
-在方法内部声明了一个名为 visitor 的内联函数。 `context.visitChildElements(visitor)` 方法和 `element.visitChildren(vistor)` 直到访问完上下文的所有元素才调用函数。在每次访问时，它会检查这个 child 是否为 `Hero`，如果是，则将其保存到 map 中。
+在方法内部声明了一个名为 visitor 的内联函数。`context.visitChildElements(visitor)` 方法和 `element.visitChildren(vistor)` 直到访问完上下文的所有元素才调用函数。在每次访问时，它会检查这个 child 是否为 `Hero`，如果是，则将其保存到 map 中。
 
 #### 旅程的开始
 
@@ -176,7 +176,7 @@ class HeroController extends NavigatorObserver
 
 [heroes.dart](https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/heroes.dart#L499)
 
-这会响应路由压入/弹出事件而被调用。在第 14 行和第 15 行，你可以看到 `_allHeroesFor` 调用，它可以在两个页面上找到所有英雄。从第 21 行开始构建 `_HeroFlightManifest` 并启动旅程。从这里开始，有一堆动画的代码设置和边缘情况的处理。我建议你看一下[整个类](https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/heroes.dart), 这很有意思，里面还有很多值得学习的东西。你也可以看一下 [这个](https://flutter.io/animations/hero-animations/).
+这会响应路由压入/弹出事件而被调用。在第 14 行和第 15 行，你可以看到 `_allHeroesFor` 调用，它可以在两个页面上找到所有英雄。从第 21 行开始构建 `_HeroFlightManifest` 并启动旅程。从这里开始，有一堆动画的代码设置和边缘情况的处理。我建议你看一下[整个类](https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/widgets/heroes.dart)，这很有意思，里面还有很多值得学习的东西。你也可以看一下 [这个](https://flutter.io/animations/hero-animations/)。
 
 * * *
 
@@ -248,7 +248,7 @@ class TransitionTickerProvider implements TickerProvider {
   }
 ```
 
-首先，所有不应该展示的流氓（那些将 animateExit/ animateEntrance 设置为 false 的人）都会被过滤掉。然后创建一个带有自定义 `TickerProvider` 的 `AnimationController`。使用 [SequenceAnimation](https://pub.dartlang.org/packages/flutter_sequence_animation) 库，每个 `Villain` 被分配一个动画，它们在各自的时间中运行 0.0 —— 1.0（ `from` 和 `to` 持续时间）。最后，动画全部开始。当它们全部完成时，控制器被丢弃。
+首先，所有不应该展示的流氓（那些将 animateExit/ animateEntrance 设置为 false 的人）都会被过滤掉。然后创建一个带有自定义 `TickerProvider` 的 `AnimationController`。使用 [SequenceAnimation](https://pub.dartlang.org/packages/flutter_sequence_animation) 库，每个 `Villain` 被分配一个动画，它们在各自的时间中运行 0.0 —— 1.0（`from` 和 `to` 持续时间）。最后，动画全部开始。当它们全部完成时，控制器被丢弃。
 
 #### 流氓的 build() 方法
 
@@ -282,7 +282,7 @@ widget.villainAnimation.animatable.chain(CurveTween(curve: widget.villainAnimati
 
 链方法首先评估 `CurveTween`。然后它使用该值来评估调用它的 `animatable`。这只是将所需的曲线添加到动画中。
 
-**__这是关于流氓如何工作的粗略概述，请务必也查看__** [**__源代码__**](https://github.com/Norbert515/flutter_villains/blob/master/lib/villains/villains.dart) **__并大胆地提出你们的问题。__**
+**这是关于流氓如何工作的粗略概述，请务必也查看 [源代码](https://github.com/Norbert515/flutter_villains/blob/master/lib/villains/villains.dart) 并大胆地提出你们的问题。**
 
 * * *
 
@@ -292,7 +292,7 @@ widget.villainAnimation.animatable.chain(CurveTween(curve: widget.villainAnimati
 
 ![](https://cdn-images-1.medium.com/max/1600/1*l2ugqc801sM0pm6FVa8KsQ.png)
 
-每个测试都只能单独通过
+每个测试都只能单独通过。
 
 我很困惑。每次测试都成功。果然，当我自己运行这两个测试时，它们很正常。但是当一起运行所有测试时，最后两个失败了。WTF。
 
