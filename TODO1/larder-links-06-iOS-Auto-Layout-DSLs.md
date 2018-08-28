@@ -9,11 +9,11 @@
 
 如果你在iOS开发时使用 `Auto Layout` 来纯代码布局的话，你很容易就会感到啰嗦和乏味。DSL（译者注：原意为「领域特定语言」，在本文中根据语境译为「布局语言」）能够将基础的API转换成可以简单、快速开发和阅读的代码。有很多这类布局语言支持 Auto Layout，甚至有几个还支持手动 frame 布局。
 
-我可以给你推荐一些我偶然遇到并且保存到我的 Ladar 书签中的布局语言（别忘了你可以在 Github 中 star 这些库，并且可以自动更新到你的 Lardar 账户中）。
+我可以给你推荐一些我偶然遇到并且保存到我的 Ladar 书签中的布局语言（别忘了你可以在 Github 中 star 这些库，并且可以自动更新到你的 Lardar 账户中）。
 
 ### [SnapKit](https://github.com/SnapKit/SnapKit) [Swift] & [Masonry](https://github.com/SnapKit/Masonry) [Objective-C]
 
-现在我已经使用 SnapKit 一段时间了，在这之前是 Masonry。SnapKit 是 Masonry 的 Swift 版继承者，二者使用的是同一种构思，都值得使用。
+现在我已经使用 SnapKit 一段时间了，在这之前是 Masonry。SnapKit 是 Masonry 的 Swift 版继承者，二者使用的是同一种构思，都值得使用。
 
 SnapKit 使用闭包（Masonry 则用 block）和点语法来链接自动布局的约束需求。下面是一个使用 SnapKit 添加约束的例子：
 
@@ -44,7 +44,7 @@ myView.easy.layout(
 )
 ```
 
-EasyPeasy 另一个有趣的地方是可以给约束添加条件，比如：
+EasyPeasy 另一个有趣的地方是可以给约束添加条件，比如：
 
 ```
 var isCenterAligned = true
