@@ -61,14 +61,14 @@
 
 最后一步就是实现分类器。怎样为概率函数 P(f_i| Survival) 建立模型呢？在 Sklearn 库中有三种模型：
 
-- [**高斯分布:**](http://scikit-learn.org/stable/modules/naive_bayes.html) 假设特征连续，且符合[正态分布](https://en.wikipedia.org/wiki/Normal_distribution).
+- [**高斯分布：**](http://scikit-learn.org/stable/modules/naive_bayes.html)假设特征连续，且符合[正态分布](https://en.wikipedia.org/wiki/Normal_distribution).
 
 ![](https://cdn-images-1.medium.com/max/800/1*bnciZ5w3Uw3YZ2ziRJ7-gw.png)
 
 正态分布
 
-- [**多项式分布**](http://scikit-learn.org/stable/modules/naive_bayes.html)**:** 适合离散特征。
-- [**贝努利分布**](http://scikit-learn.org/stable/modules/naive_bayes.html)**:** 适合二元特征。
+- [**多项式分布：**](http://scikit-learn.org/stable/modules/naive_bayes.html)适合离散特征。
+- [**贝努利分布：**](http://scikit-learn.org/stable/modules/naive_bayes.html)适合二元特征。
 
 ![](https://cdn-images-1.medium.com/max/800/1*4abK9yj9FTjpaIEDlM4vAw.png)
 
@@ -248,6 +248,7 @@ Mean Fare survived: 54.75
 致谢 [Antoine Toubhans](https://medium.com/@AntoineToubhans?source=post_page)、[Flavian Hautbois](https://medium.com/@FlavianHautbois?source=post_page)、[Adil Baaj](https://medium.com/@AdilBaaj?source=post_page) 和 [Raphaël Meudec](https://medium.com/@raphaelmeudec?source=post_page)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
 
 ---
 
