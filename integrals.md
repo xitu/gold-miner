@@ -1704,10 +1704,11 @@
 |[用 Swift 开发我的第一个 iOS 应用前，我想要知道这些内容](http://gold.xitu.io/entry/57c66667c4c9710061a57b3f/)|校对|2|
 |[你的设计应该「所见即所得」](http://gold.xitu.io/entry/57c5978f128fe1005fdf4858/)|校对|1|
 
-## 译者：[steinliber](https://github.com/steinliber) 历史贡献积分：72 当前积分：12 年度积分：20
+## 译者：[steinliber](https://github.com/steinliber) 历史贡献积分：85 当前积分：25 年度积分：33
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|13|
 |[自然语言处理真是有趣](https://juejin.im/post/5b6d08e2f265da0f9c67cf0b)|校对|3|
 |2018 年 7 月兑掘金桌垫和 GitHub 贴纸各 1 个|减去积分|15|
 |[Erlang 之禅第一部分](https://juejin.im/post/5b2a16cce51d4558d726e8c9)|翻译|6|
@@ -4265,10 +4266,11 @@
 |[JavaScript 如何工作：在 V8 引擎里 5 个优化代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)|校对|2|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|4|
 
-## 译者：[caoyi0905](https://github.com/caoyi0905) 历史贡献积分：28.5 当前积分：18.5 年度积分：3
+## 译者：[caoyi0905](https://github.com/caoyi0905) 历史贡献积分：30.5 当前积分：20.5 年度积分：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|2|
 |[使用 Python 实现接缝裁剪算法](https://juejin.im/post/5b46ee8e6fb9a04fc436ad60)|翻译|3|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|8|
 |[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|10|
@@ -5272,10 +5274,11 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：296 当前积分：266 年度积分：296
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：306 当前积分：276 年度积分：306
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|10|
 |[Flutter 中的原生应用程序状态](https://juejin.im/post/5b651edc6fb9a04fbc221435)|翻译|3|
 |[无头渲染组件](https://juejin.im/post/5b5e919f51882519d3467f41)|翻译|4.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|11.5|
@@ -5950,10 +5953,11 @@
 |[Awesome Flutter 校对](https://github.com/xitu/awesome-flutter)|校对|1|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1|
 
-## 译者：[lihanxiang](https://github.com/lihanxiang) 历史贡献积分：19 当前积分：11 年度积分：19
+## 译者：[lihanxiang](https://github.com/lihanxiang) 历史贡献积分：19 当前积分：1 年度积分：19
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 8 月兑掘金桌垫 1 个|减去积分|10|
 |[自然语言处理真是有趣](https://juejin.im/post/5b6d08e2f265da0f9c67cf0b)|翻译|9|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1|
 |[2018 年，如何选择最好的静态站点生成器](https://juejin.im/post/5b47079bf265da0faa3655be)|校对|0.5|
@@ -6249,10 +6253,11 @@
 |------|-------|-------|
 |[为 GitHub 项目做出贡献的初学者指南](https://juejin.im/entry/5b2e58ba6fb9a00e4966ee4b)|校对|1.5|
 
-## 译者：[upupming](https://github.com/upupming) 历史贡献积分：4.5 当前积分：4.5 年度积分：4.5
+## 译者：[upupming](https://github.com/upupming) 历史贡献积分：8 当前积分：8 年度积分：8
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3.5|
 |[修订 The JavaScript Tutorial](https://github.com/xitu/javascript-tutorial-zh/pull/151)|修订|1|
 
@@ -6452,3 +6457,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[Slidable：一个 Flutter 的故事](https://juejin.im/post/5b5e84b86fb9a04fa91bfeb6)|校对|1.5|
+
+## 译者：[CoolRice](https://github.com/CoolRice) 历史贡献积分：1 当前积分：1 年度积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1|
