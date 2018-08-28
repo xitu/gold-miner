@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/larder-links-06-iOS-Auto-Layout-DSLs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/larder-links-06-iOS-Auto-Layout-DSLs.md)
 > * 译者：[pmwangyang](https://github.com/pmwangyang)
-> * 校对者：
+> * 校对者：[RickeyBoy](https://github.com/RickeyBoy)
 
 # 你 Ladar 中该珍藏的：iOS 布局语言
 
@@ -246,7 +246,7 @@ constrain(view1, view2, view3) { view1, view2, view3 in
 
 我还发现了许多的自动布局语言，但并没有添加到 Larder 中或在这里列举。大部分是因为它们要么太老并且没人维护，或者是太简单、没有特点。但这并不意味着它们没有用，只是我在寻找最有趣、最独特使用自动布局语法糖的方式罢了。
 
-希望你可以在这个列表里找到一些新的可尝试的东西！如果你认为我漏掉了值得探究的库，请在这个 Twitter [@LarderApp](http://www.twitter.com/larderapp) 里和我们分享
+希望你可以在这个列表里找到一些新的可尝试的东西！如果你认为我漏掉了值得探究的库，请在这个 Twitter [@LarderApp](http://www.twitter.com/larderapp) 里和我们分享。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
