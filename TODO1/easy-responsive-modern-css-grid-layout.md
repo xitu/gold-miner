@@ -2,28 +2,28 @@
 > * 原文作者：[Ahmed Bouchefra](https://www.sitepoint.com/author/abouchefra/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/easy-responsive-modern-css-grid-layout.md](https://github.com/xitu/gold-miner/blob/master/TODO1/easy-responsive-modern-css-grid-layout.md)
-> * 译者：
+> * 译者：[MeFelixWang](https://github.com/MeFelixWang)
 > * 校对者：
 
-# Easy and Responsive Modern CSS Grid Layout
+# 简单的响应式现代 CSS 网格布局
 
-**In this article, we’ll show how to create a responsive modern CSS Grid layout, demonstrating how to use fallback code for old browsers, how to add CSS Grid progressively, and how to restructure the layout in small devices and center elements using the alignment properties.**
+**在本文中，我们将展示如何创建响应式现代 CSS 网格布局，演示如何在旧浏览器上使用降级代码，如何逐步添加 CSS 网格，如何使用对齐属性重新构建小型设备的布局以及居中元素。**
 
-In a previous [article](https://www.sitepoint.com/easy-responsive-css-grid-layouts/) we explored four different techniques for easily building responsive grid layouts. That article was written back in 2014 — before CSS Grid was available — so in this tutorial, we’ll be using a similar HTML structure but with modern CSS Grid layout.
+在之前的[文章](https://www.sitepoint.com/easy-responsive-css-grid-layouts/)中，我们探索了四种不同的技术，可以轻松构建响应式网格布局。那篇文章是在 2014 年写的 —— 在 CSS 网格可用之前 —— 因此在本教程中，我们将使用类似的 HTML 结构，但使用现代 CSS 网格布局。
 
-Throughout this tutorial, we’ll create a demo with a basic layout using floats and then enhance it with CSS Grid. We’ll demonstrate many useful utilities such as centering elements, spanning items, and easily changing the layout on small devices by redefining grid areas and using media queries. You can find the code in this pen: https://codepen.io/SitePoint/pen/OweYNp
+在本教程中，我们将使用浮动来创建一个带有基本布局的演示，然后使用 CSS 网格对其进行增强。我们将演示许多有用的实用工具，例如居中元素，跨越元素，以及通过重新定义网格区域和使用媒体查询轻松更改小型设备上的布局。你可以在此 Codepen 中找到代码：[https：//codepen.io/SitePoint/pen/OweYNp](https：//codepen.io/SitePoint/pen/OweYNp)
 
-## Responsive Modern CSS Grid Layout
+## 响应式现代 CSS 网格布局
 
-Before we dive into creating our responsive grid demo, let’s first introduce CSS Grid.
+在我们开始创建响应式网格演示之前，首先介绍一下 CSS 网格。
 
-CSS Grid is a powerful 2-dimensional system that was added to most modern browsers in 2017. It has dramatically changed the way we’re creating HTML layouts. Grid Layout allows us to create grid structures in CSS and not HTML.
+CSS 网格是一个功能强大的二维系统，在 2017 年被添加到大多数现代浏览器中。它极大地改变了我们创建 HTML 布局的方式。网格布局允许我们在 CSS 而不是 HTML 中创建网格结构。
 
-CSS Grid is supported in most modern browsers except for IE11, which supports an older version of the standard that could give a few issues. You can use [caniuse.com](https://caniuse.com/#feat=css-grid) to check for support.
+除了 IE11 之外，大多数现代浏览器都支持 CSS 网格，IE11 支持可能产生一些问题的旧版标准。你可以使用 [caniuse.com](https://caniuse.com/#feat=css-grid) 来检查支持情况。
 
-A Grid Layout has a parent container with the `display` property set to `grid` or `inline-grid`. The child elements of the container are grid items which are implicitly positioned thanks to a powerful Grid algorithm. You can also apply different classes to control the placement, dimensions, position and other aspects of the items.
+网格布局有一个 `display` 属性为 `grid` 或 `inline-grid` 的父容器。容器的子元素是网格项，由强大的网格算法隐式定位。你还可以应用不同的类来控制子项的放置，尺寸，位置和其他方面的东西。
 
-Let’s start with a basic HTML page. Create an HTML file and add the following content:
+让我们从一个基本的 HTML 页面开始。创建 HTML 文件并添加以下内容：
 
 ```
 <header>
@@ -52,12 +52,13 @@ Let’s start with a basic HTML page. Create an HTML file and add the following 
 ```
 
 We use HTML semantics to define the header, sidebar, main and footer sections of our page. In the main section, we add a set of items using the `<article>` tag. `<article>` is an HTML5 semantic tag that could be used for wrapping independent and self-contained content. A single page could have any number of `<article>` tags.
+我们使用 HTML 语义标签来定义页面的标题，侧边栏，主体和页脚部分。在主体部分中，我们使用 `<article>` 标记添加一组子项。`<article>` 是一个 HTML5 语义标签，可用于包装独立和自包含的内容。单个页面可以包含任意数量的 `<article>` 标签。
 
-This is a screen shot of the page at this stage:
+这是此阶段页面的屏幕截图：
 
 ![The basic HTML layout so far](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2018/08/1534467147basic-html.png)
 
-Next, let’s add basic CSS styling. Add a `<style>` tag in the head of the document and add the following styles:
+接下来，让我们添加基本的 CSS 样式。在文档的头部添加 `<style>` 标签并添加以下样式：
 
 ```
 body {
@@ -109,25 +110,26 @@ main > article {
 }
 ```
 
-This is a small demonstration page, so we’ll style tags directly to aid readability rather than applying class naming systems.
+这是一个小型演示页面，因此我们将直接设置标签样式以提高可读性，而不是应用类命名系统。
 
 We use floats to position the sidebar to the left and the main section to the right and we set the width of the sidebar to a fixed _6.3rem_ width. Then we calculate and set the remaining width for the main section using the CSS `calc()` function. The main section contains a gallery of items organized as vertical blocks.
+我们使用浮动将侧边栏定位到左侧，将主体部分定位到右侧，我们将侧边栏的宽度设置为固定的 **6.3rem**。然后我们使用 CSS `calc()` 函数来计算并设置主体部分的剩余宽度。主体部分包含一个有垂直排列的子项的 gallery。
 
 ![A gallery of items organized as vertical blocks](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2018/08/1534467330gallery-1024x249.png)
 
-The layout is not perfect. For example, the sidebar does not have the same height as the main content section. There are various CSS techniques to solve the problems but most are hacks or workarounds. Since this layout is a fallback for Grid, it will be seen by a rapidly diminishing number of users. The fallback is usable and good enough.
+布局并不完美。例如，侧边栏与主体内容部分的高度不同。有各种 CSS 技术可以解决这些问题，但大多数都是 hack 或变通办法。由于此布局是网格的降级，因此快速减少的用户也可以看到。降级是可用的，足够了。
 
-The latest versions of Chrome, Firefox, Edge, Opera and Safari have support for CSS Grid, so that means if your visitors are using these browsers you don’t need to worry about providing a fallback. Also you need to account for evergreen browsers. The latest versions of Chrome, Firefox, Edge, and Safari are **evergreen browsers**. That is, they automatically update themselves silently without prompting the user. To ensure your layout works in every browser, you can start with a default float-based fallback then use progressive enhancement techniques to apply a modern Grid layout. Those with older browsers will not receive an identical experience but it will be good enough.
+最新版本的 Chrome，Firefox，Edge，Opera 和 Safari 都支持 CSS 网格，这意味着如果你的访问者使用这些浏览器，则无需提供降级。你还需要考虑常青浏览器。最新版本的 Chrome，Firefox，Edge 和 Safari 是**常青浏览器**。也就是说，它们会在不提示用户的情况下自动静默更新。为确保你的布局适用于每个浏览器，你可以从默认的基于浮动的降级开始，然后使用渐进增强技术应用现代网格布局。那些使用旧浏览器的用户将无法获得相同的体验，但这样就足够了。
 
-## Progressive Enhancement: You Don’t Have to Override Everything
+## 渐进增强：你不必全部覆盖
 
-When adding the CSS Grid layout on top of your fallback layout, you don’t actually need to override all tags or use completely separate CSS styles:
+在降级布局的顶部添加 CSS 网格布局时，实际上不需要覆盖所有标签或使用完全独立的 CSS 样式：
 
-*   In a browser that doesn’t support CSS Grid, the grid properties you add will be simply ignored.
-*   If you’re using floats for laying out elements, keep in mind that a grid item takes precedence over float. That is, if you add a `float: left|right` style to an element which is also a grid element (a child of a parent element that has a `display: grid` style), the float will be ignored in favor of grid.
-*   Specific feature support can be checked in CSS using `@supports` rules. This allows us to override fallback styles where necessary while older browsers ignore the `@supports` block.
+* 在不支持 CSS 网格的浏览器中，你添加的网格属性将被忽略。
+* 如果你使用浮动来布置元素，请记住网格项优先于浮动项。也就是说，如果将 `float: left|right` 样式添加到也是网格元素的元素（具有 `display: grid` 样式的父元素的子元素），则将忽略浮动以支持网格。
+* 可以使用 `@supports` 规则在 CSS 中检查特定功能的支持情况。这允许我们在必要时覆盖降级样式，而旧浏览器会忽略 `@supports` 代码块。
 
-Now, let’s add CSS Grid to our page. First, let’s make the `<body>` a grid container and set the grid columns, rows and areas:
+现在，让我们在页面中添加 CSS 网格。首先，我们让 `<body>` 成为一个网格容器并设置网格列，行和区域：
 
 ```
 body {
@@ -142,13 +144,13 @@ body {
 }
 ```
 
-We use the `display:grid` property to mark `<body>` as a grid container. We set a grid gap of `0.1vw`. Gaps lets you create gutters between Grid cells instead of using margins.
+我们使用 `display:grid` 属性将 `<body>` 标记为网格容器。我们将网格 gap 设为 `0.1vw`。gap 允许你在网格单元格之间创建间距，而不是使用外边距。
 
-We also use `grid-template-columns` to add two columns. The first column takes a fixed width which is `6.5rem` and the second column takes the remaining width. `fr` is a fractional unit and `1fr` equals one part of the available space.
+我们用 `grid-template-columns` 来添加两列。第一列宽度固定为 `6.5rem`，第二列为剩余宽度。`fr` 是一个小数单位，`1fr` 等于可用空间的一部分。
 
-Next, we use `grid-template-rows` to add three rows. The first row takes a fixed height which equals `6rem`, the third row takes a fixed height of `3rem` and the remaining available space (`1fr`) is assigned to the second row.
+接下来，我们用 `grid-template-rows` 添加三行。第一行高度固定为 `6rem`，第三行高度固定为 `3rem`，剩余可用空间（`1fr`）指定给第二行。
 
-We then use `grid-template-areas` to assign the virtual cells, resulted from the intersection of columns and rows, to areas. Now we need to actually define those areas specified in the areas template using `grid-area`:
+然后我们用 `grid-template-areas` 将由列和行的交集产生的虚拟单元格分配给区域。现在我们需要使用 `grid-area` 实际定义区域模板中指定的区域：
 
 ```
 header {
@@ -169,13 +171,13 @@ main {
 }
 ```
 
-Most of our fallback code doesn’t have any side effects on the CSS Grid except for the width of the main section `width: calc(100% - 7.2rem);` which calculates the remaining width for the main section after subtracting the width of the sidebar plus any margin/padding spaces.
+我们的大多数降级代码对 CSS 网格没有任何副作用，除了主体部分的宽度 `width: calc(100% - 7.2rem);`，它在减去侧边栏的宽度加上外边距/内边距后计算主体部分的剩余宽度。
 
-This is a screen shot of the result. Notice how the main area is not taking the full remaining width:
+这是结果的屏幕截图。注意主体区域没有占用剩余的全部宽度：
 
 ![Progressive layout with current grid settings](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2018/08/1534468684current-grid-1024x665.png)
 
-To solve this issue, we can add `width: auto;` when Grid is supported:
+要解决此问题，我们可以在支持网格时添加 `width: auto;`：
 
 ```
 @supports (display: grid) {
@@ -185,13 +187,13 @@ To solve this issue, we can add `width: auto;` when Grid is supported:
 }
 ```
 
-This is the screen shot of the result now:
+这是结果的屏幕截图：
 
 ![The effect of adding width: auto](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2018/08/1534469049adding-width-auto-1024x667.png)
 
-## Adding a Nested Grid
+## 添加嵌套网格
 
-A Grid child can be a Grid container itself. Let’s make the main section a Grid container:
+网格子节点可以​​是网格容器本身。让我们将 main 部分作为一个网格容器：
 
 ```
 main {
@@ -203,13 +205,13 @@ main {
 }
 ```
 
-We use a grid gap of `0.1vw` and we define columns and rows using the `repeat(auto-fill, minmax(12rem, 1fr));` function. The `auto-fill` option tries to fill the available space with as many columns or rows as possible, creating implicit columns or rows if needed. If you want to fit the available columns or rows into the available space, you need to use `auto-fit`. Read a good explanation of [the differences between `auto-fill` and `auto-fit`](https://css-tricks.com/auto-sizing-columns-css-grid-auto-fill-vs-auto-fit/).
+我们将网格 gap 设为 `0.1vw` 并使用 `repeat(auto-fill, minmax(12rem, 1fr));` 函数定义列和行。`auto-fill` 选项会尝试使用尽可能多的列或行填充可用空间，必要时会创建隐式列或行。如果要将可用列或行放入可用空间，则需要使用 `auto-fit`。详情请阅读 [`auto-fill` 和 `auto-fit` 的差异](https://css-tricks.com/auto-sizing-columns-css-grid-auto-fill-vs-auto-fit/)。
 
-This is the screen shot of the result:
+这是结果的屏幕截图：
 
 ![A nested grid](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2018/08/1534469316nested-grid-1024x666.png)
 
-## Using the Grid `grid-column`, `grid-row` and `span` Keywords
+## 使用网格 `grid-column`，`grid-row` 和 `span` 关键词
 
 CSS Grid provides `grid-column` and `grid-row`, which allow you to position grid items inside their parent grid using grid lines. They’re shorthand for the following properties:
 
