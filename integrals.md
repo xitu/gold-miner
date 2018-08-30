@@ -1409,10 +1409,11 @@
 |[好的与坏的，Swift 语言面面观（一）](http://gold.xitu.io/entry/578c647a6be3ff006ce49e91)|校对|1|
 |[Android 中美腻的下划线](http://gold.xitu.io/entry/578705faa34131005b46e9c2)|校对|1|
 
-## 译者：[tanglie1993](https://github.com/tanglie1993/) 历史贡献积分：75 当前积分：75 年度积分：11
+## 译者：[tanglie1993](https://github.com/tanglie1993/) 历史贡献积分：80 当前积分：80 年度积分：16
 
 |文章|类型|积分|
 |------|-------|-------|
+|[写一个完整的 Flutter App 是什么感觉](https://juejin.im/post/5b7e18c4e51d4538cf53d1f8)|翻译|5|
 |[论 Android 中 Span 的正确打开方式](https://juejin.im/entry/5af401bb518825671776537d/)|翻译|2|
 |[使用 leanback 的 DiffCallback：和 DiffUtil 回调之间的区别](https://juejin.im/post/5a9218ee5188257a5c60892a)|校对|0.5|
 |[从 SQLite 逐步迁移到 Room](https://juejin.im/post/5a8c3a2cf265da4e761fd721)|校对|1|
@@ -2633,10 +2634,11 @@
 |[再谈 CSS 中的代码味道](https://juejin.im/post/58c2034dac502e0062cf8e2a/)|校对|1|
 |[Google 是如何构建 web 框架的](https://gold.xitu.io/entry/58bcdda4128fe1007e5b44db/)|校对|1|
 
-## 译者：[atuooo](https://github.com/atuooo) 历史贡献积分：47.5 当前积分：32.5 年度积分：7
+## 译者：[atuooo](https://github.com/atuooo) 历史贡献积分：48.5 当前积分：33.5 年度积分：8
 
 |文章|类型|积分|
 |------|-------|-------|
+|[写一个完整的 Flutter App 是什么感觉](https://juejin.im/post/5b7e18c4e51d4538cf53d1f8)|校对|1|
 |[工作量证明 vs 权益证明：基本挖矿指南](https://juejin.im/post/5a9ded346fb9a028b617065a)|校对|2|
 |[Service workers：Progressive Web Apps 背后的小英雄](https://juejin.im/post/5a9c8c87f265da238c3a23e4)|校对|1|
 |[为什么你的 APP 在 Sketch 上看起来更好：探索 Sketch 和 iOS 的渲染差异](https://juejin.im/post/5a9572575188257a61326630)|校对|1|
@@ -5729,10 +5731,11 @@
 |[React & Redux 顶级开发伴侣](https://juejin.im/post/5acae8dc6fb9a028c06b1c4c)|校对|1|
 |[拖放库中 React 性能的优化](https://juejin.im/post/5ac31b096fb9a028bc2dedfc)|校对|3|
 
-## 译者：[Hopsken](https://github.com/Hopsken) 历史贡献积分：19.5 当前积分：19.5 年度积分：19.5
+## 译者：[Hopsken](https://github.com/Hopsken) 历史贡献积分：21.5 当前积分：21.5 年度积分：21.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[常见网页设计错误一览](https://juejin.im/post/5b7984265188254312414c1f)|校对|2|
 |[SpaceAce 了解一下，一个新的前端状态管理库](https://juejin.im/post/5b7653c96fb9a009c72cb7af)|校对|1.5|
 |[Javascript（ES6）Generator 入门](https://juejin.im/post/5b4c22aa6fb9a04faf479be1)|校对|1.5|
 |[单元素组件模式简介](https://juejin.im/post/5b445d79e51d4519596b5f87)|翻译|1.5|
@@ -5786,10 +5789,11 @@
 |[用户体验中的稀缺性：成为常态的心理偏见](https://juejin.im/post/5aef0943518825672a02d2ca)|校对|1.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|2|
 
-## 译者：[sisibeloved](https://github.com/sisibeloved) 历史贡献积分：60 当前积分：60 年度积分：60
+## 译者：[sisibeloved](https://github.com/sisibeloved) 历史贡献积分：64 当前积分：64 年度积分：64
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Sklearn 中的朴素贝叶斯分类器](https://juejin.im/post/5b8510be51882542d23a1d66)|翻译|4|
 |[如何在数据科学中写出生产层面的代码？](https://juejin.im/post/5b7adb7751882542d63b2805)|翻译|7|
 |[Web 应用架构基础课](https://juejin.im/post/5b69a8eef265da0f926baa56)|校对||2|
 |[在 UNIX 中，一切皆文件](https://juejin.im/post/5b652d346fb9a04fc03129e6)|校对|2.5|
@@ -5804,10 +5808,11 @@
 |[用 Java 代码实现区块链](https://juejin.im/post/5ae57d9e6fb9a07ab83dcc03)|校对|4|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
 
-## 译者：[mingxing47](https://github.com/mingxing47) 历史贡献积分：22.5 当前积分：22.5 年度积分：22.5
+## 译者：[mingxing47](https://github.com/mingxing47) 历史贡献积分：27.5 当前积分：27.5 年度积分：27.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何像程序员般思考 —— 蕴含在问题解决中的经验](https://juejin.im/post/5b76839ae51d4566491c24bb)|翻译|5|
 |[我是如何使用 Python 在 Medium 上找到并关注有趣的人](https://juejin.im/post/5b72c61851882561311fccce)|校对|1.5|
 |[使用 Python 进行自动化特征工程](https://juejin.im/post/5b6ea0e4e51d4519044adff0)|翻译|7|
 |[[字幕翻译] Andrew Godwin — Django 异步 — PyCon 2018](https://www.bilibili.com/video/av24571596/)|校对|3.5|
@@ -6388,10 +6393,12 @@
 |[在 Sketch 中使用一个设计体系创作: 第二部分 [教程]](https://juejin.im/post/5b5d2a456fb9a04fc80b8f4b)|翻译|2.5|
 |[在 Sketch 中使用一个设计体系创作：第一部分 [教程]](https://juejin.im/post/5b591a655188257bca290b24)|校对|0.5|
 
-## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：15 当前积分：15 年度积分：15
+## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：17 当前积分：17 年度积分：17
 
 |文章|类型|积分|
 |------|-------|-------|
+|[写一个完整的 Flutter App 是什么感觉](https://juejin.im/post/5b7e18c4e51d4538cf53d1f8)|校对|1.5|
+|[如何像程序员般思考 —— 蕴含在问题解决中的经验](https://juejin.im/post/5b76839ae51d4566491c24bb)|校对|0.5|
 |[如何提升设计到开发的协作效率](https://juejin.im/post/5b83609de51d4538c210a957)|校对|2|
 |[一行 JavaScript 代码竟然让 FT.com 网站慢了十倍](https://juejin.im/post/5b7bb6dfe51d4538bf55aa5f)|校对|1.5|
 |[2018 年七个通过脑电图分析实现“读心术”的 Javascript 库](https://juejin.im/post/5b7f63e651882542c20f22f0)|校对|2|
@@ -6403,10 +6410,11 @@
 |[正则表达式要跑 5 天，所以我做了个工具将其缩短至 15 分钟。](https://juejin.im/post/5b6d426f6fb9a04fd1604341)|校对|0.5|
 |[Tab Bar 就是新的汉堡菜单](https://juejin.im/post/5b61684fe51d451986517e31)|校对|1.5|
 
-## 译者：[StellaBauhinia](https://github.com/StellaBauhinia) 历史贡献积分：4 当前积分：4 年度积分：4
+## 译者：[StellaBauhinia](https://github.com/StellaBauhinia) 历史贡献积分：9 当前积分：9 年度积分：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|[常见网页设计错误一览](https://juejin.im/post/5b7984265188254312414c1f)|翻译|5|
 |[使用 Web Beacon API 记录活动](https://juejin.im/post/5b694b5de51d4519700fa56a)|校对|2.5|
 |[正则表达式要跑 5 天，所以我做了个工具将其缩短至 15 分钟。](https://juejin.im/post/5b6d426f6fb9a04fd1604341)|校对|1.5|
 
@@ -6437,10 +6445,11 @@
 |------|-------|-------|
 |[优化 MP4 视频以获得更快的流传输速度](https://juejin.im/post/5b72bed8e51d45661e00f693)|校对|0.5|
 
-## 译者：[BillShiyaoZhang](https://github.com/BillShiyaoZhang) 历史贡献积分：2.5 当前积分：2.5 年度积分：2.5
+## 译者：[BillShiyaoZhang](https://github.com/BillShiyaoZhang) 历史贡献积分：4 当前积分：4 年度积分：4
 
 |文章|类型|积分|
 |------|-------|-------|
+|[常见网页设计错误一览](https://juejin.im/post/5b7984265188254312414c1f)|校对|1.5|
 |[实用 ProGuard 规则示例](https://juejin.im/post/5b72b49a5188256137188578)|校对|2|
 |[如何向带有插槽的 React 组件传递多个 Children](https://juejin.im/post/5b72935a6fb9a009724b3e4e)|校对|0.5|
 
@@ -6501,8 +6510,23 @@
 |------|-------|-------|
 |[如何提升设计到开发的协作效率](https://juejin.im/post/5b83609de51d4538c210a957)|翻译|9|
 
-## 译者：[rockyzhengwu](https://github.com/rockyzhengwu) 历史贡献积分：2 当前积分：2 年度积分：2
+## 译者：[rockyzhengwu](https://github.com/rockyzhengwu) 历史贡献积分：12 当前积分：12 年度积分：12
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何像程序员般思考 —— 蕴含在问题解决中的经验](https://juejin.im/post/5b76839ae51d4566491c24bb)|校对|2|
+|[Sklearn 中的朴素贝叶斯分类器](https://juejin.im/post/5b8510be51882542d23a1d66)|校对|2|
+|[用 Scikit-Learn 实现 SVM 和 Kernel SVM](https://juejin.im/post/5b7fd39af265da43831fa136)|翻译|6|
 |[如何提升设计到开发的协作效率](https://juejin.im/post/5b83609de51d4538c210a957)|校对|2|
+
+## 译者：[zhusimaji](https://github.com/zhusimaji) 历史贡献积分：2 当前积分：2 年度积分：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[用 Scikit-Learn 实现 SVM 和 Kernel SVM](https://juejin.im/post/5b7fd39af265da43831fa136)|校对|2|
+
+## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：2 当前积分：2 年度积分：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[用 Scikit-Learn 实现 SVM 和 Kernel SVM](https://juejin.im/post/5b7fd39af265da43831fa136)|校对|2|
