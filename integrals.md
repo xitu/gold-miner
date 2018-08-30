@@ -2634,10 +2634,11 @@
 |[再谈 CSS 中的代码味道](https://juejin.im/post/58c2034dac502e0062cf8e2a/)|校对|1|
 |[Google 是如何构建 web 框架的](https://gold.xitu.io/entry/58bcdda4128fe1007e5b44db/)|校对|1|
 
-## 译者：[atuooo](https://github.com/atuooo) 历史贡献积分：48.5 当前积分：33.5 年度积分：8
+## 译者：[atuooo](https://github.com/atuooo) 历史贡献积分：51.5 当前积分：36.5 年度积分：11
 
 |文章|类型|积分|
 |------|-------|-------|
+|[构建流畅的交互界面](https://juejin.im/post/5b7e2b34e51d4538843612cc)|校对|3|
 |[写一个完整的 Flutter App 是什么感觉](https://juejin.im/post/5b7e18c4e51d4538cf53d1f8)|校对|1|
 |[工作量证明 vs 权益证明：基本挖矿指南](https://juejin.im/post/5a9ded346fb9a028b617065a)|校对|2|
 |[Service workers：Progressive Web Apps 背后的小英雄](https://juejin.im/post/5a9c8c87f265da238c3a23e4)|校对|1|
@@ -4069,10 +4070,11 @@
 |[cnJason 翻译开源库 Java 215 个](#)|翻译|21.5|
 |[cnJason 翻译开源库 Java 100 个](#)|翻译|10|
 
-## 译者：[RickeyBoy](https://github.com/RickeyBoy) 历史贡献积分：24.5 当前积分：24.5 年度积分：14
+## 译者：[RickeyBoy](https://github.com/RickeyBoy) 历史贡献积分：26 当前积分：26 年度积分：15.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[你 Ladar 中该珍藏的：iOS 布局语言](https://juejin.im/post/5b84fe97f265da437c43422f)|校对|1.5|
 |[重写 loadView() 方法使 Swift 视图代码更加简洁](https://juejin.im/post/5b68fe5b6fb9a04fd16039c0)|翻译|3|
 |[Swift 中的内存泄漏](https://juejin.im/post/5b07a1c251882538914a5d3e)|翻译|7|
 |[避免 Swift 单元测试中的强制解析](https://juejin.im/post/5a9ce4ac6fb9a028b547602e)|翻译|4|
@@ -5388,10 +5390,11 @@
 |[在 V8 引擎中设置原型（prototypes）](https://juejin.im/post/5a9921e76fb9a028bd4bc3c4)|校对|1|
 |[json — JavaScript 对象表示法](https://juejin.im/post/5a9432ae5188257a5c6092b0)|校对|1|
 
-## 译者：[rydensun](https://github.com/rydensun) 历史贡献积分：30 当前积分：20 年度积分：30
+## 译者：[rydensun](https://github.com/rydensun) 历史贡献积分：38 当前积分：28 年度积分：38
 
 |文章|类型|积分|
 |------|-------|-------|
+|[构建流畅的交互界面](https://juejin.im/post/5b7e2b34e51d4538843612cc)|翻译|8|
 |[Tab Bar 就是新的汉堡菜单](https://juejin.im/post/5b61684fe51d451986517e31)|翻译|3|
 |[如何设计移动应用的搜索功能？](https://juejin.im/post/5b692ca251882562b924a6c7)|校对|1|
 |2018 年 6 月兑掘金桌垫 1 个|减去积分|10|
@@ -5657,10 +5660,11 @@
 |[如何用 Python 写一个 Discord 机器人](https://juejin.im/post/5ac1b9796fb9a028c42e5a61)|校对|0.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
 
-## 译者：[melon8](https://github.com/melon8) 历史贡献积分：24 当前积分：24 年度积分：24
+## 译者：[melon8](https://github.com/melon8) 历史贡献积分：30 当前积分：30 年度积分：30
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 iOS 开发找工作完全指南](https://juejin.im/post/5b7eca206fb9a019ff713277)|翻译|6|
 |[不越狱探索 App](https://juejin.im/post/5b0e7eec518825155a048dc4)|翻译|7|
 |[Story 中 Type Mode 在 iOS 和 Android 上的实现](https://juejin.im/post/5ae7e1596fb9a07ab9794332)|翻译|5|
 |[轻松管理 Swift 项目中的不同环境](https://juejin.im/post/5af264a4f265da0b967233ff)|翻译|4|
@@ -6373,10 +6377,11 @@
 |[关于 React Motion 的简要介绍](https://juejin.im/post/5b48061551882519790c77f3)|翻译|4|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1|
 
-## 译者：[pmwangyang](https://github.com/pmwangyang) 历史贡献积分：11 当前积分：11 年度积分：11
+## 译者：[pmwangyang](https://github.com/pmwangyang) 历史贡献积分：16 当前积分：16 年度积分：16
 
 |文章|类型|积分|
 |------|-------|-------|
+|[你 Ladar 中该珍藏的：iOS 布局语言](https://juejin.im/post/5b84fe97f265da437c43422f)|翻译|5|
 |[在 UNIX 中，一切皆文件](https://juejin.im/post/5b652d346fb9a04fc03129e6)|翻译|4|
 |[编程语言和平台：一条被评论的推文串](https://juejin.im/post/5b4c2b75e51d45195b336d57)|校对|2|
 |[在 Sketch 中使用一个设计体系创作: 第二部分 [教程]](https://juejin.im/post/5b5d2a456fb9a04fc80b8f4b)|校对|0.5|
@@ -6393,10 +6398,11 @@
 |[在 Sketch 中使用一个设计体系创作: 第二部分 [教程]](https://juejin.im/post/5b5d2a456fb9a04fc80b8f4b)|翻译|2.5|
 |[在 Sketch 中使用一个设计体系创作：第一部分 [教程]](https://juejin.im/post/5b591a655188257bca290b24)|校对|0.5|
 
-## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：17 当前积分：17 年度积分：17
+## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：19 当前积分：19 年度积分：19
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 iOS 开发找工作完全指南](https://juejin.im/post/5b7eca206fb9a019ff713277)|校对|2|
 |[写一个完整的 Flutter App 是什么感觉](https://juejin.im/post/5b7e18c4e51d4538cf53d1f8)|校对|1.5|
 |[如何像程序员般思考 —— 蕴含在问题解决中的经验](https://juejin.im/post/5b76839ae51d4566491c24bb)|校对|0.5|
 |[如何提升设计到开发的协作效率](https://juejin.im/post/5b83609de51d4538c210a957)|校对|2|
