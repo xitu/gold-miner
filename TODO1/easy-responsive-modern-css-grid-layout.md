@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/easy-responsive-modern-css-grid-layout.md](https://github.com/xitu/gold-miner/blob/master/TODO1/easy-responsive-modern-css-grid-layout.md)
 > * 译者：[MeFelixWang](https://github.com/MeFelixWang)
-> * 校对者：
+> * 校对者：[CoolRice](https://github.com/CoolRice)
 
 # 简单的响应式现代 CSS 网格布局
 
