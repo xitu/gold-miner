@@ -1,3 +1,6 @@
+* [构建流畅的交互界面](https://juejin.im/post/5b7e2b34e51d4538843612cc) ([rydensun](https://github.com/rydensun) 翻译)
+* [2018 年 iOS 开发找工作完全指南](https://juejin.im/post/5b7eca206fb9a019ff713277) ([melon8](https://github.com/melon8) 翻译)
+* [你 Ladar 中该珍藏的：iOS 布局语言](https://juejin.im/post/5b84fe97f265da437c43422f) ([pmwangyang](https://github.com/pmwangyang) 翻译)
 * [重写 loadView() 方法使 Swift 视图代码更加简洁](https://juejin.im/post/5b68fe5b6fb9a04fd16039c0) ([RickeyBoy](https://github.com/RickeyBoy) 翻译)
 * [React Native 中使用转场动画！](https://juejin.im/post/5b69467e5188251b3c3b4e4e) ([talisk](https://github.com/talisk) 翻译)
 * [一份在你的 iPhone 上平衡实用和美观的指南](https://juejin.im/post/5b4c0d0ce51d4519503b1e67) ([94haox](https://github.com/94haox) 翻译)
