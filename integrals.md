@@ -2165,10 +2165,11 @@
 |[我在手撕 SVG 条形图时踩过的定位坑](http://gold.xitu.io/entry/58306b428ac2470061b60ede/)|校对|1|
 |[构建 Android APP 一定要绕过的 30 个坑](http://gold.xitu.io/entry/58217b84570c350060bc40f8/)|校对|1|
 
-## 译者：[aceleewinnie](https://github.com/AceLeeWinnie) 历史贡献积分：88 当前积分：43 年度积分：6.5
+## 译者：[aceleewinnie](https://github.com/AceLeeWinnie) 历史贡献积分：91 当前积分：46 年度积分：9.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何在数据科学中写出生产层面的代码？](https://juejin.im/post/5b7adb7751882542d63b2805)|校对|3|
 |[如何使用纯函数式 JavaScript 处理脏副作用](https://juejin.im/post/5b82bdb351882542e241ed32)|校对|5|
 |[GraphQL API 设计最佳实践](https://juejin.im/post/5a3f494d6fb9a0450a678f8d)|翻译|1.5|
 |[使用 CSS Grid：以兼容不支持栅格化布局的浏览器](https://juejin.im/post/5a3f494d6fb9a0450a678f8d)|校对|2|
@@ -2872,10 +2873,11 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：274 当前积分：208 年度积分：66.5
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：277.5 当前积分：211.5 年度积分：70
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Python 的多线程与多进程](https://juejin.im/post/5b84f3086fb9a01a1a27cedb)|翻译|3.5|
 |[使用 PhpFastCache 提升网站性能](https://juejin.im/post/5b54d01be51d4517c5649965)|翻译|5|
 |[使用多重赋值与元组解包提升 Python 代码的可读性](https://juejin.im/post/5b3c2cf1e51d451925625b94)|翻译|5.5|
 |2018 年 6 月兑服务器 1 个|减去积分|25|
@@ -5281,10 +5283,12 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：306 当前积分：276 年度积分：306
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：315 当前积分：285 年度积分：315
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Apache Airflow 的关键概念](https://juejin.im/post/5b7ba247e51d4538d42ab6a0)|翻译|6|
+|[如何优化企业级规模的 Node.js 应用程序](https://juejin.im/post/5b83c639f265da436d7e4c5e)|翻译|3|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|10|
 |[Flutter 中的原生应用程序状态](https://juejin.im/post/5b651edc6fb9a04fbc221435)|翻译|3|
 |[无头渲染组件](https://juejin.im/post/5b5e919f51882519d3467f41)|翻译|4.5|
@@ -5782,10 +5786,11 @@
 |[用户体验中的稀缺性：成为常态的心理偏见](https://juejin.im/post/5aef0943518825672a02d2ca)|校对|1.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|2|
 
-## 译者：[sisibeloved](https://github.com/sisibeloved) 历史贡献积分：53 当前积分：53 年度积分：53
+## 译者：[sisibeloved](https://github.com/sisibeloved) 历史贡献积分：60 当前积分：60 年度积分：60
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何在数据科学中写出生产层面的代码？](https://juejin.im/post/5b7adb7751882542d63b2805)|翻译|7|
 |[Web 应用架构基础课](https://juejin.im/post/5b69a8eef265da0f926baa56)|校对||2|
 |[在 UNIX 中，一切皆文件](https://juejin.im/post/5b652d346fb9a04fc03129e6)|校对|2.5|
 |[介绍 Google Play 上新的优质 Android 应用与游戏](https://juejin.im/post/5ae978d151882567370633ca)|翻译|2|
@@ -6106,10 +6111,11 @@
 |------|-------|-------|
 |[Vue.js 还是 React？你会选择哪一个？为什么?](https://juejin.im/post/5b25b3a16fb9a00e70686180)|校对|0.5|
 
-## 译者：[geniusq1981](https://github.com/geniusq1981) 历史贡献积分：68 当前积分：68 年度积分：68
+## 译者：[geniusq1981](https://github.com/geniusq1981) 历史贡献积分：69.5 当前积分：69.5 年度积分：69.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何优化企业级规模的 Node.js 应用程序](https://juejin.im/post/5b83c639f265da436d7e4c5e)|校对|1.5|
 |[2018 年七个通过脑电图分析实现“读心术”的 Javascript 库](https://juejin.im/post/5b7f63e651882542c20f22f0)|翻译|4|
 |[用 Flutter 写一个待办事项应用](https://juejin.im/post/5b4f52275188251b11096a28)|校对|2|
 |[使用 Flutter 制作 3D 翻转动画](https://juejin.im/post/5b5534c951882562b9248294)|校对|1|
@@ -6247,10 +6253,11 @@
 |------|-------|-------|
 |[从 Java EE 8 Security API 开始 — 第一部分](https://juejin.im/post/5b35a8d4f265da599423598b)|校对|3|
 
-## 译者：[cf020031308](https://github.com/cf020031308) 历史贡献积分：30.5 当前积分：30.5 年度积分：30.5
+## 译者：[cf020031308](https://github.com/cf020031308) 历史贡献积分：37.5 当前积分：37.5 年度积分：37.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Databook：通过元数据，Uber 将大数据转化为知识](https://juejin.im/post/5b800032e51d45389d3b4950)|翻译|7|
 |[从 Cron 到 Airflow 的迁移中我们学到了什么](https://juejin.im/post/5b4c3575f265da0f7334bbc9)|翻译|4.5|
 |[Robinhood 为什么使用 Airflow](https://juejin.im/post/5b4808f751882519ec07eaba)|翻译|5|
 |[正则表达式要跑 5 天，所以我做了个工具将其缩短至 15 分钟。](https://juejin.im/post/5b6d426f6fb9a04fd1604341)|翻译|5|
@@ -6303,10 +6310,14 @@
 |------|-------|-------|
 |[通过 SSH 远程使用 Python 解释器来运行 Flask](https://juejin.im/post/5b3e25a8e51d45191716d187)|校对|1.5|
 
-## 译者：[yqian1991](https://github.com/yqian1991) 历史贡献积分：30.5 当前积分：30.5 年度积分：30.5
+## 译者：[yqian1991](https://github.com/yqian1991) 历史贡献积分：37.5 当前积分：37.5 年度积分：37.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Apache Airflow 的关键概念](https://juejin.im/post/5b7ba247e51d4538d42ab6a0)|校对|2|
+|[如何在数据科学中写出生产层面的代码？](https://juejin.im/post/5b7adb7751882542d63b2805)|校对|1.5|
+|[Python 的多线程与多进程](https://juejin.im/post/5b84f3086fb9a01a1a27cedb)|校对|1.5|
+|[Databook：通过元数据，Uber 将大数据转化为知识](https://juejin.im/post/5b800032e51d45389d3b4950)|校对|2|
 |[使用 Python 进行自动化特征工程](https://juejin.im/post/5b6ea0e4e51d4519044adff0)|校对|2.5|
 |[从 Cron 到 Airflow 的迁移中我们学到了什么](https://juejin.im/post/5b4c3575f265da0f7334bbc9)|校对|2|
 |[Airflow: 一个工作流程管理平台](https://juejin.im/post/5b5bd2b6f265da0f60131d0c)|翻译|4|
