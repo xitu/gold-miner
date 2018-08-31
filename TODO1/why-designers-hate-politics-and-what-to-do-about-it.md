@@ -2,8 +2,7 @@
 > * 原文作者：[Scott Berkun](https://medium.com/@berkun?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-designers-hate-politics-and-what-to-do-about-it.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-designers-hate-politics-and-what-to-do-about-it.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starriers](https://github.com/Starriers)
 
 # 为什么设计师讨厌政治（如何解决）
 
