@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-importance-of-design-qa-in-digital-product-design.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-importance-of-design-qa-in-digital-product-design.md)
 > * 译者：[lihanxiang](https://github.com/lihanxiang)
-> * 校对者：
 
 # 设计 QA 在应用程序设计中的重要性
 
@@ -45,7 +44,7 @@
 
 ####什么是设计 QA
 
-设计 QA **（QA = 质量保证）**仅仅是开发和测试之间的一个步骤。这是一个对于设计师的机会来做： 
+设计 QA**（QA = 质量保证）**仅仅是开发和测试之间的一个步骤。这是一个对于设计师的机会来做： 
 
 1.  在测试之前先查看 UI 的编码版本
 2.  与开发者一起在代码中对 UI 进行升级
@@ -75,12 +74,12 @@
 **为了让开发者加入设计流程中，你能这么做：**
 
 *   在某项功能开始设计之前，讨论这项功能的要求，以确定可能影响设计决策的技术细节。
-*   一起描述初始的设计解决方案
-*   在工作中与开发者分享设计思想来获得反馈
+*   一起描述初始的设计解决方案。
+*   在工作中与开发者分享设计思想来获得反馈。
 
 在产品设计和开发中，我们遇到的大部分挑战都能通过相互尊重、积极沟通和心怀诚意来解决。
 
-#### 享受工作!
+#### 享受工作！
 
 ![](https://cdn-images-1.medium.com/max/800/1*cNVE90I4t-UsLP-V0skdtA.jpeg)
 
