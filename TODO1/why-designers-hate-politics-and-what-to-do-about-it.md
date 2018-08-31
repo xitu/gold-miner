@@ -2,54 +2,53 @@
 > * 原文作者：[Scott Berkun](https://medium.com/@berkun?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-designers-hate-politics-and-what-to-do-about-it.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-designers-hate-politics-and-what-to-do-about-it.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starriers](https://github.com/Starriers)
 
-# Why Designers Hate Politics (And What To Do About It)
+# 为什么设计师讨厌政治（如何解决）
 
-People who design things for a living depend on optimism. To do their job well, whether it’s designing websites or automobiles, they must believe they have the talent to make things that are better than what currently exists in the world. The problem is that this optimism, when combined with immaturity, creates a shallow view of how organizations work. Designers claim, and often with good reason, that they understand human behavior better than others, but their distaste for what they call politics reveals they’re ignorant of one of the most natural behaviors people in groups have. Designers who hate, or don’t comprehend, politics betray their own ideas by not recognizing how politics defines the landscape they must work on.
+为生活而设计产品的人拥有乐观主义。为了做好他们自己的工作，无论是设计网站还是汽车，他们都坚信自己拥有能创造出比目前世界上已有产品更好的产品的能力。问题是，这种乐观主义，一旦掺杂不成熟的思想，就会对组织的工作产生肤浅的想法。设计师往往会带有充分理由的声明，他们比任何人都了解人类的行为，但他们对政治的厌恶态度表明，他们不了解群体中最自然的行为之一。那些讨厌，不理解政治的设计师背叛了他们自己的理念，因为他们没有认识到政治是如何定义他们必须工作的环境的。
 
-A major part of the confusion is that the word politics is used in two very different ways:
+困扰的主要原因之一是，政治一词有两种截然不同的用法：
 
-*   Politics (n): the things self-serving, manipulative people do.
-*   Politics (n): the process of making decisions that apply to members of a group.
+*   Politics (n): 自私自利以及善于玩弄权术的人做的事情。
+*   Politics (n): 适用于某一群体成员的决策过程。
 
-When someone says “I hate working in Stan’s organization, he’s so political” they’re using the first definition, and they specifically mean the abuse of power to serve someone’s self-interest or the creation of a culture of fear and dysfunction. These are bad things, for sure, but often the word politics is used in a lazy way, by someone who simply doesn’t understand why their ideas get shot down, or why they’re not given the power they think they deserve. Rather than examining the culture they’re in (who is thriving here? what are they doing that I am not? Do I need new skills or a new job?), they blame the very concept of politics.
+当有人说“我讨厌在 Stan 组织的工作，它太政治化了”时，他们用的是第一定义，他们明确地指明滥用权力来为某人自己的利益服务或创造一种W恐惧和功能失衡的文化。这些无疑都是坏事，但政治一词经常被那些根本无法理解为什么他们的想法被否决，或为什么他们没有得到应有权力的人宽泛地使用。相比于审视他们所身处的文化（谁促使了繁荣？为什么他们那么做了，而我没有？我需要的是新技能还是新工作？），他们更愿意去指着政治理念。
 
-The big lesson many designers are in denial of is that **human nature is political** (2nd definition above)**.** The fields of sociology, anthropology and psychology are largely about the complex challenges of people trying to get along with each other (and themselves). Put simply, when you organize people to do something, whether it’s throwing a party or starting a company, each individual has their own opinions on the right way to do it. And they have preferences for who they like to work with and what tasks they like to work on. This means no matter how talented a project leader is some people will not get everything they want. This motivates people to influence those with power or to try and take it for themselves (and if raises, promotions and prestige are at stake the tendency for people to forget their ideals increases). There are of course many ways to express ambition, some much healthier and more transparent than others, but politics are everywhere people are.
+许多设计师都拒绝接受的教训是**人类的天性就是政治性的**（上述第二定义）**。**社会学、人类学和心理学领域主要是探讨人类尝试彼此（和自己）相处的复杂挑战。简而言之，当你组织热门去做某件事时，不管是举办聚会还是创建公司，每个人对正确做法都有自己的观点。他们喜欢和谁一起工作，喜欢做什么工作。这意味着，无论一个项目负责人多么有才华，有些人永远也不会得到他们想要的一切。这会激励人们去影响那些有权势的人，或视图为自己争取权利（如果加薪、升职或者信誉危在旦夕，人们往往会忘记自己的目标）。当然，表达自己雄心壮志的方式有很多，有些会更健康，更透明，但政治无处不在。
 
-> _“Every management act is a political act… in some way \[it\] redistributes or reinforces power.” — Richard Farson_
+> **“每一种管理行为都是一种政治行为，在某种程度上重新分配或增强权利” —— Richard Farson**
 
-Blaming “politics”, in the abstract, is a convenient way to avoid taking responsibility for solving problems. The same is true for pointing fingers at “management,” “engineering,” or “marketing” and saying how stupid they are (See: [The Fallacy of ‘They Don’t Get It’](http://scottberkun.com/2010/the-fallacy-of-they-dont-get-it/)). Pointing fingers doesn’t make them any less stupid or ineffective, and deflects any personal responsibility for learning how to be more persuasive, collaborative or thoughtful in how you approach working with them (which may be part of the problem). And who knows, it’s possible that with a careful eye, it might just be that what you see as incompetence in others is just a smart person constrained by similarly difficult political factors as your own. Of course some workplaces are truly broken, but that mostly raises the goal of finding yourself a new place to work. When a designer, a natural optimist, is pessimistic about who they work for and with, it’s time to move on.
+抽象地说，指责“政治”是避免对解决问题负责的一种便捷方式。这同样适用于指责“管理”、“工程”或“营销”，并说他们有多愚蠢（参阅：[他们得不到的错误](http://scottberkun.com/2010/the-fallacy-of-they-dont-get-it/)）。指指点点并不能能让他们变得愚蠢或无效，也不会转移个人的责任，学会如何与他们合作（这可能是问题的一部分），让他们更有说服力、更有协作精神或更有思想。谁知道，如果仔细观察，可能只有你认为别人无能的东西只是一个聪明的人，受到和你一样困难的政治因素的约束。当然，有些工作场所真的不好，但这主要是为了给自己找个新地工作场所，当一个天生乐观的设计师，对他们为谁工作和与谁一起工作而感到悲观时，是时候向前看了。
 
-Designers love to talk about their mastery of problem-solving skills, but **politics is just another kind of problem-solving: people problems**. If you approach organizational problems with the same optimism, discipline and creativity that you approach a design or engineering problem, you can find alternatives to explore and use them to make better decisions. And this is the grand irony of designers complaining about politics: designers should be great at the combination of problem-solving and understanding people, yet so often they can’t escape their frustration that these problems even exist. It’s immature to expect an entire organization, or species, to suddenly work differently simply because you’ve arrived, yet this is often what designers do. The twisted joke is that often everyone wants more power and thinks they are most deserving of it, yet (designers) can’t see that the people who frustrate them the most are acting on similar feelings to their own.
+设计师喜欢讨论他们解决问题的技巧，但**政治只是另一种解决问题的方法：人性问题**。如果你用与设计或工程问题相同的乐观、纪律和创造力来来解决组织性问题，你会发现其他方式来探索和使用它们，以便做出更多的决策。这是对设计师抱怨政治的最大讽刺：设计师应该善于将解决问题理解人性结合在一起，然而他们常常无法摆脱他们对已存在问题的失望。仅仅因为你的到来而期望有一个完整的组织或个体之间突然以不同的方式进行工作是不成熟的，然而设计师往往就是那么做的。扭曲的笑话是，每个人都想要更多的权力，他们认为自己值得拥有，然而（设计师）却没发现最让他们沮丧的人是在以与自己拥有着相似的情绪做事。
 
-The greatest factor in your political experience of an organization is your boss. A good manager will buffer you from organizational drama and [set you up to succeed](http://scottberkun.com/2018/set-up-to-succeed-or-fail/), while a bad one will amplify the worst problems an organization has. For designers, this means the heaviest political burdens land on the most senior designer in their organization. It’s their job to pave the way for all the people who work for them, establishing relationships with other powerful people in the organization. But sadly design as a profession suffers from the [Peter Principle](https://en.wikipedia.org/wiki/Peter_principle). The problem of overpromotion is universal in the working world, but design is a specialized enough field that often the people who become design directors, or executives, are far better at designing than directing, leading or managing. In the best cases they know their primary job is to be an ambassador of design to the CEO and other executives, to form partnerships, align goals and gain influence that can be transferred down into their own organization. But even as an individual designer without much support from above, there are still many things you can do.
+在你组织的政治经验中，最重要的因素是你的 boss。一个好的管理者会把你从组织性的戏剧中拉回来，然后[助你成功](http://scottberkun.com/2018/set-up-to-succeed-or-fail/)，然而一个糟糕的管理者却会放大组织中存在的最严重的问题。对于设计师来说，这意味着最沉重的政治复旦落在他们组织中最高级的设计师身上。他们的工作是为所有为他们工作的人铺平到了，与组织中其他有权势的人建立关系。但可悲的是设计作为一种职业，遭受了来自 [Peter Principle](https://en.wikipedia.org/wiki/Peter_principle) 的影响。过度升职的问题在工作中比比皆是，但设计是一个非常专业的领域，成为设计总监或主管的人往往比指导、领导或管理的人更擅长设计。在最好的情况下，他们直到自己的主要工作是担任 CEO 和其他高管的设计大使，建立合作伙伴关系，调整目标，并获得影响力，这些影响可以转移到自己的组织中。但是，即使作为一个没有从上面得到很多支持的个人设计师，你依然可以做很多事情。
 
-The way forward is that politics, even in the healthiest organization, is based on your reputation. The same organization will feel very different if you have a great reputation for getting good work done vs. having a terrible one (or no reputation at all). This means earning trust and cultivating respect from your peers and superiors is the path. This is far more productive than allowing your audible frustrations at “politics” in meetings be [the primary way people know you](http://scottberkun.com/2009/how-to-keep-your-mouth-shut/). And much like designers study users, they can also study their coworkers and superiors. By asking simple questions, much can be revealed that makes healthier politics possible:
+即使是在最公平的组织中，前进的方法 —— 政治，也是基于你的声誉。在同一个组织中，你完成工作情况的优劣（或者你一点信誉没有）会决定你在组织中的待遇好坏。这意味着获取信任与培养来自同辈与上级的尊重是必由之路。这远比允许你在[让人们了解你的主要](http://scottberkun.com/2009/how-to-keep-your-mouth-shut/)会议上听到的“政治”挫折要高效的多。就像设计师学习用户一样，他们也可以学习他们同事和上级。通过询问简单的问题，可以提高提示更多健康的政治的可能性：
 
-*   What does my boss value? What problems is she trying to solve? How can my talents help solve them?
-*   What problems is her boss trying to solve? How aligned are they? (Is the real problem between my boss and my skip-level manager?)
-*   Who in the organization frustrates them the most? Why? (Powerful people have their own politics to deal with too)
-*   Who among my peers is thriving here? Why? (If no one is thriving, also ask why)
-*   What can I learn from them?
-*   Who frustrates me the most? Are my goals aligned with theirs? Why not? Who sets their goals? Do they have a good relationship with who sets mine? Who is the boss of all of them and why haven’t they fixed this problem yet?
-*   Is my work simply low priority and what I see as “politics” is really just a prioritization decision?
-*   Who has more influence than I do, that I trust, who can lend me their ear for advice?
-*   What realistic expectations do they think I should have for the culture here?
-*   What political skills are my weakest? How can I become a better facilitator? negotiator? persuader?
-*   Who has a good reputation that I can partner with to pitch an idea and use their reputation to help grow mine?
-*   Is there a manager here that I’d be better suited working for?
-*   Or is it just time for me to find a new place to work?
+*   我的 boss 的价值所在？她在尝试解决什么问题？我的才能对解决问题有帮助么？
+*   她的 boss 尝试解决的问题是什么？他们是如何保证平衡的？（这是 boss 和越级管理者之间的真实问题么？）
+*   组织中谁最让他们失望？为什么？（有权势的人也有自己的政治要处理）
+*   同一阶层中谁让这里更繁荣？为什么？（如果没有人这里繁荣，那么原因是什么）
+*   我可以从他们那里学到什么？
+*   谁最让我失望？我的目标和他们的一致么？为什么？谁给他们设定了目标？他们与设置我的目标的人关系好么？谁才是最终的 boss，为什么他们还没有解决这个问题？
+*   我的工作优先级很低，我所见到“政治”实际上只是优先级次序决定的么？
+*   比我更具影响力的人让我相信他可以帮助我听到更多人的意见？
+*   他们认为我对这里的文化有什么现实的期望？
+*   我们薄弱的政治技能是什么？我如何才能变成一个更好的引导者？谈判专家？说服者？
+*   是否有一个我可以说出自己想法并用它的名声帮助自己成长的声誉良好的人？
+*   这里是否有更能配合我工作的经理？
+*   或许是我需要换个新的工作环境？
 
 ***
 
-References:
+参考资源：
 
-*   This essay is adapted from Chp 16. of the bestseller [Making Things Happen](http://www.amazon.com/dp/B0026OR3AS/tag=scottberkunco-20/)
-*   [How To Make Things Happen](http://scottberkun.com/2012/how-to-make-things-happen/)
-*   [Dealing with Organizational Politics](https://jarango.com/2018/04/09/dealing-with-organizational-politics/), By Jorge Arango (his essay inspired me to write this one)
-*   [A Critique of Don’t Fuck Up The Culture](http://scottberkun.com/2014/critique-dont-fuck-up-culture/)
+*   本文改编自畅销书[让事情顺利发生](http://www.amazon.com/dp/B0026OR3AS/tag=scottberkunco-20/)的第 16 章
+*   [如何让事情顺利发生](http://scottberkun.com/2012/how-to-make-things-happen/)
+*   [处理组织的政治](https://jarango.com/2018/04/09/dealing-with-organizational-politics/), By Jorge Arango (his essay inspired me to write this one)
+*   [不要毁坏文化的批判](http://scottberkun.com/2014/critique-dont-fuck-up-culture/)
 
 ![](https://cdn-images-1.medium.com/max/800/1*akPxfOQMFk-096sGzWIIUA.jpeg)
 
