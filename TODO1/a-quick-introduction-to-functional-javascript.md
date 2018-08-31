@@ -2,8 +2,8 @@
 > * 原文作者：[Angelos Chalaris](https://hackernoon.com/@chalarangelo?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-quick-introduction-to-functional-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-quick-introduction-to-functional-javascript.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Zheng7426](https://github.com/Zheng7426)
+> * 校对者：[AmyFoxFN](https://github.com/AmyFoxFN)
 
 # 函数式 JavaScript 快速入门
 
@@ -297,19 +297,19 @@ articles.reduce(tagView,[]);
 */
 ```
 
-使用 reduce（）来进行一项复杂的转化
+使用 reduce() 来进行一项复杂的转化
 
 上面这个例子可能看起来会有些小复杂，所以需要一步一步来研究。首先呢，咱想要的最终结果是一个数组，所以累加器的初始值就成了`[]`。然后，咱想要数组中的每一个对象都包含标签名、使用该标签的文章数目以及文章标题的列表。不但如此，每一个标签在数组中只能出现一次，所以咱必须用 `.some()`、`.find()` 和 `.findIndex()` 来检查标签是否存在，之后将现有标签的对象进行转化，而不是另加一个新的对象。
 
 棘手的地方在于，咱不能定义一个函数来检查每个标签是否都存在（否则需要 7 个不同的函数）。所以咱们才在当前标签的循环里定义高阶函数，这样一来就可以再次使用高阶函数，避免重写代码。对了，其实这也可以通过 Currying 来完成，但我不会在本文中解释这个技巧。
 
-* [**现实中的 Currying**： 当我开始学习函数式编程时，我学到了很多有趣的概念……](https://hackernoon.com/currying-in-the-real-world-b9627d74a554)
+* [**现实中的 Currying**：当我开始学习函数式编程时，我学到了很多有趣的概念……](https://hackernoon.com/currying-in-the-real-world-b9627d74a554)
 
 当咱们在累加器数组中获取标签的对象之后，只需要把使用该标签的文章数目递增，并且将当前标签下的文章添加到其文章数组中就行了。最后，咱们返回累加器，大功告成。仔细阅读的话会发现代码不但非常简短，而且很容易理解。相同情况下，非函数式编程的代码将会看起来非常令人困惑，而且明显会更冗杂。
 
 #### 结语
 
-函数式编程作为目前最热门的趋势之一，是有其充分原因的。它使咱们在写出更清晰、更精简和更“吝啬”代码的同时，不必去担心副作用和状态的改变。JavaScript 的`[Array.prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype)`  方法在许多日常情况下非常实用，并且让咱们在对数组进行简单和复杂的转化，也不必去写太多重复的代码。
+函数式编程作为目前最热门的趋势之一，是有其充分原因的。它使咱们在写出更清晰、更精简和更“吝啬”代码的同时，不必去担心副作用和状态的改变。JavaScript 的 `[Array.prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype)` 方法在许多日常情况下非常实用，并且让咱们在对数组进行简单和复杂的转化，也不必去写太多重复的代码。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
