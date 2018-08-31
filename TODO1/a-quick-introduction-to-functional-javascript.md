@@ -50,11 +50,11 @@ h(5); // 25
 
 #### 使用数组原型的内置方法
 
-`[Array.prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype)` 应该是你学习 JavaScript 函数式编程的第一步，它涵盖了很多**数组转化**的实用方法，这些方法在现代网页应用里相当的常见。
+[`Array.prototype`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype) 应该是你学习 JavaScript 函数式编程的第一步，它涵盖了很多**数组转化**的实用方法，这些方法在现代网页应用里相当的常见。
 
 * [**Array.prototype**: Array.prototype 属性表示数组构造函数的原型，并允许你添加新属性……](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype)
 
-先来看看这个叫 `[Array.prototype.sort()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)` 的方法会很不错，因为这个转化挺直白的。顾名思义，咱可以用这个方法来**给数组排序**。`.sort()` 只接收一个参数(即一个用于比较两个元素的函数）。如果第一个元素在第二个元素的前面，结果返回的是负值。反之，则返回正值。
+先来看看这个叫 [`Array.prototype.sort()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) 的方法会很不错，因为这个转化挺直白的。顾名思义，咱可以用这个方法来**给数组排序**。`.sort()` 只接收一个参数(即一个用于比较两个元素的函数）。如果第一个元素在第二个元素的前面，结果返回的是负值。反之，则返回正值。
 
 排序听起来非常简单，然而当你需要给比一般数字数组复杂得多的数组排序时，可能就不那么简单了。在下面这个例子里，我们有一个对象的数组，里面存的是以磅（**lbs**）或千克（**kg**）为单位的体重，咱们需要对这些人的体重进行升序排列。代码看起来会是这样：
 
@@ -93,7 +93,7 @@ secondList.sort(sortByWeight); // Jonathan, Margaret, Richard, Bill
 
 * * *
 
-通常你对数组的操作也不单只是排序而已。就我的经验而言，根据属性来**过滤一个数组**很常见，而且没有什么方法比 `[Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)` 更加合适。过滤数组并不困难，因为你只需将一个函数作为参数，对于那些需要被过滤掉的元素，该函数会返回 `false`。反之，该函数会返回 `true`。很简单，不是吗？咱们来看看实例：
+通常你对数组的操作也不单只是排序而已。就我的经验而言，根据属性来**过滤一个数组**很常见，而且没有什么方法比 [`Array.prototype.filter()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) 更加合适。过滤数组并不困难，因为你只需将一个函数作为参数，对于那些需要被过滤掉的元素，该函数会返回 `false`。反之，该函数会返回 `true`。很简单，不是吗？咱们来看看实例：
 
 ```
 // 一群人的数组
@@ -116,7 +116,7 @@ myFriends.filter(isMale); // John, Mike, Richard, Keith
 
 关于过滤的一个简单例子
 
-虽然 `.filter()` 会返回数组中所有符合条件的元素，你也可以用 `[Array.prototype.find()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)` 提取数组中第一个符合条件的元素，或是用 `[Array.prototype.findIndex()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex)` 来提取数组中第一个匹配到的元素索引。同理，你可以使用 `[Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)` 来测试是否至少有一个元素符合条件，抑或是用 `[Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)` 来检查是否所有的元素都符合条件。这些方法在某些应用中可以变得相当有用，所以咱们来看一个囊括了这几种方法的例子：
+虽然 `.filter()` 会返回数组中所有符合条件的元素，你也可以用 [`Array.prototype.find()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find) 提取数组中第一个符合条件的元素，或是用 [`Array.prototype.findIndex()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex) 来提取数组中第一个匹配到的元素索引。同理，你可以使用 [`Array.prototype.some()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some) 来测试是否至少有一个元素符合条件，抑或是用 [`Array.prototype.every()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every) 来检查是否所有的元素都符合条件。这些方法在某些应用中可以变得相当有用，所以咱们来看一个囊括了这几种方法的例子：
 
 ```
 // 一组关于分数的数组
@@ -164,7 +164,7 @@ else
 
 * * *
 
-先撇开上面例子里复杂的逻辑，咱们有的时候只想要**将数组转化成另一个数组**，且无需对数组里的数据做那么多的改变。这个时候 `[Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)` 就派上用场了，我们可以用这个方法来转化数组中的对象。`.map()`和之前例子所用到的方法并不相同，区别在于其作为参数的高阶函数会返回一个对象，可以是任何你想写的对象。让我用一个简单的例子来演示一下：
+先撇开上面例子里复杂的逻辑，咱们有的时候只想要**将数组转化成另一个数组**，且无需对数组里的数据做那么多的改变。这个时候 [`Array.prototype.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) 就派上用场了，我们可以用这个方法来转化数组中的对象。`.map()`和之前例子所用到的方法并不相同，区别在于其作为参数的高阶函数会返回一个对象，可以是任何你想写的对象。让我用一个简单的例子来演示一下：
 
 ```
 // 一个有 4 个对象的数组
@@ -192,7 +192,7 @@ myFriends.map(fullName);
 
 * * *
 
-最后还有一点非常值得你注意，那就是**常规目的数组转化**中的 `[Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)`。`.reduce()` 与上面提到的所有方法都有所不同，因为它的参数不仅仅是一个高阶函数，还包含一个**累加器**。一开始听起来可能有些令人困惑，所以先看一个例子来帮助你理解 `.reduce()` 背后的基础概念吧：
+最后还有一点非常值得你注意，那就是**常规目的数组转化**中的 [`Array.prototype.reduce()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)。`.reduce()` 与上面提到的所有方法都有所不同，因为它的参数不仅仅是一个高阶函数，还包含一个**累加器**。一开始听起来可能有些令人困惑，所以先看一个例子来帮助你理解 `.reduce()` 背后的基础概念吧：
 
 ```
 // 关于不同公司支出的数组
