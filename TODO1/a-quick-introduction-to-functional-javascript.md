@@ -15,9 +15,9 @@
 
 #### 重新定义函数
 
-在深入接触 JavaScript 的函数式编程范例之前，咱们得先知道什么是 **高阶函数**、它的用途以及这个定义本身究竟有什么含义。高阶函数既可以把函数当成参数来接收，也可以作为把函数作为结果输出。你应该要记住 **函数其实是值**，也就是说你可以像传递变量一样去传递函数。
+在深入接触 JavaScript 的函数式编程范例之前，咱们得先知道什么是 **高阶函数**、它的用途以及这个定义本身究竟有什么含义。高阶函数既可以把函数当成参数来接收，也可以作为把函数作为结果输出。你需要记住 **函数其实也是一种值**，也就是说你可以像传递变量一样去传递函数。
 
-所以呢，在 JavaScript 里其实你可以这么做：
+所以呢，在 JavaScript 里你可以这么做：
 
 ```
 // 创建函数
@@ -42,21 +42,21 @@ h(5); // 25
 
 一旦使用上面这个技巧，你的代码更容易被重复利用，同时功能也更加强大。咱们都经历过这样的情况：想要把一个函数传到另一个函数里去执行任务，但需要写一些额外的代码来实现这一点，对吧？使用函数式编程的话，你将不再需要写额外的代码，并且可以使你的代码变得很干净、易于理解。
 
-* [**为什么函数式编程很重要**：在面试软件工程师的时候测试泛函编程为何会对你的企业有好处](https://hackernoon.com/why-functional-programming-matters-c647f56a7691)
+* [**为什么函数式编程很重要**：在面试软件工程师的时候测验他们的函数式编程能力为何会对你的企业有好处](https://hackernoon.com/why-functional-programming-matters-c647f56a7691)
 
-有一点要注意，正确的泛函代码的特点是**没有副作用**，也就是说函数的输入只应依赖于它们的参数，并且不应该使用或者改变任何函数之外的环境。这个特点有重要的含义，举个例子：如果传递进函数的参数相同，那么输出的结果也总是相同的；如果一个被调用的函数所输出的结果并没有被用到，那么这个结果即使被删掉也不会影响别的代码。
+有一点要注意，正确的泛函代码的特点是**没有副作用**，也就是说函数应该只依赖于它们的参数输入，并且不应以任何方式影响到外界环境。这个特点有重要的含义，举个例子：如果传递进函数的参数相同，那么输出的结果也总是相同的；如果一个被调用的函数所输出的结果并没有被用到，那么这个结果即使被删掉也不会影响别的代码。
 
 * * *
 
 #### 使用数组原型的内置方法
 
-`[Array.prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype)` 应该是你学习 JavaScript 函数式编程的第一步，它涵盖了很多**数组转化**的使用方法，这些方法在现代网页应用里相当的常见。
+`[Array.prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype)` 应该是你学习 JavaScript 函数式编程的第一步，它涵盖了很多**数组转化**的实用方法，这些方法在现代网页应用里相当的常见。
 
 * [**Array.prototype**: Array.prototype 属性表示数组构造函数的原型，并允许你添加新属性……](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype)
 
-先来看看这个叫 `[Array.prototype.sort()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)` 的方法会很不错，因为这个转化挺直白的。顾名思义，咱可以用这个方法来**给数组排序**。`.sort()` 只接收一个参数(即一个用于比较两个元素的函数）。如果第一个元素在第二个元素的前面，结果返回的是小于零的值。反之，则返回大于零的值。
+先来看看这个叫 `[Array.prototype.sort()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)` 的方法会很不错，因为这个转化挺直白的。顾名思义，咱可以用这个方法来**给数组排序**。`.sort()` 只接收一个参数(即一个用于比较两个元素的函数）。如果第一个元素在第二个元素的前面，结果返回的是负值。反之，则返回正值。
 
-排序听起来非常简单，然而当你需要给比一般数字数组复杂得多的数组排序时，可能就不那么简单了。在下面这个例子里，我们有一个对象的数组，其体重以磅（**lbs**）或千克（**kg**）为单位，咱们需要对这些人的体重进行升序排列。代码看起来会是这样：
+排序听起来非常简单，然而当你需要给比一般数字数组复杂得多的数组排序时，可能就不那么简单了。在下面这个例子里，我们有一个对象的数组，里面存的是以磅（**lbs**）或千克（**kg**）为单位的体重，咱们需要对这些人的体重进行升序排列。代码看起来会是这样：
 
 ```
 // 咱们这个比较函数的定义
@@ -116,7 +116,7 @@ myFriends.filter(isMale); // John, Mike, Richard, Keith
 
 关于过滤的一个简单例子
 
-虽然 `.filter()` 会返回数组中所有符合条件的元素，你也可以用 `[Array.prototype.find()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)` 提取数组中第一个符合条件的元素，或是用 `[Array.prototype.findIndex()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex)` 来提取数组中第一个匹配到的元素索引。同理，你可以使用 `[Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)` 来测试是否至少有一个元素符合条件，抑或是用 `[Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)` 来检查是否所有的元素都符合条件。这些方法在某些应用中可以变得相当使用，所以咱们来看一个囊括了这几种方法的例子：
+虽然 `.filter()` 会返回数组中所有符合条件的元素，你也可以用 `[Array.prototype.find()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)` 提取数组中第一个符合条件的元素，或是用 `[Array.prototype.findIndex()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex)` 来提取数组中第一个匹配到的元素索引。同理，你可以使用 `[Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)` 来测试是否至少有一个元素符合条件，抑或是用 `[Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)` 来检查是否所有的元素都符合条件。这些方法在某些应用中可以变得相当有用，所以咱们来看一个囊括了这几种方法的例子：
 
 ```
 // 一组关于分数的数组
@@ -188,7 +188,7 @@ myFriends.map(fullName);
 
 对数组里的对象进行 mapping 操作
 
-从上面这个例子可以看出，一旦对数组使用了 `.map()` 方法，很容易就能得到一个仅包含咱们所需属性的数组。在这个例子里，咱只想要对象中 `name` 和 `surname` 这两行文本，所以才使用简单的 mapping（译者注：即使用 map 方法） 来利用原来包含很多对象的数组上创建了另一个只包含文本的数组。Mapping 这种方式可能比你想象的还要常用，它在每个网页开发者的口袋中可以成为很强大的工具。所以说，这整篇文章里你如果别的没记住的话，没关系，但千万要记住如何使用 `.map()`。
+从上面这个例子可以看出，一旦对数组使用了 `.map()` 方法，很容易就能得到一个仅包含咱们所需属性的数组。在这个例子里，咱只想要对象中 `name` 和 `surname` 这两行字符串，所以才使用简单的 mapping（译者注：即使用 map 方法） 来利用原来包含很多对象的数组上创建了另一个只包含字符串的数组。Mapping 这种方式可能比你想象的还要常用，它在每个网页开发者的口袋中可以成为很强大的工具。所以说，这整篇文章里你如果别的没记住的话，没关系，但千万要记住如何使用 `.map()`。
 
 * * *
 
