@@ -70,7 +70,7 @@ ngrok http 5000
 
 ### 创建 Nexmo 应用程序
 
-进入你的应用程序，然后新增一个。对事件 URL 和应答 URL 使用 Ngrok 转发 URL，添加 `/event` 作为事件 URL(e.g. `http://016a0331.ngrok.io/event`) 的路径，对应答 URL(e.g. `http://016a0331.ngrok.io/ncco`) 使用  `/ncco`。我们之后会设置这些端点。在你的电脑上通过用户接口生成并存储一对公钥/私钥对。
+进入你的应用程序，然后新增一个。对事件 URL 和应答 URL 使用 Ngrok 转发 URL，添加 `/event` 作为事件 URL(e.g. `http://016a0331.ngrok.io/event`) 的路径，对应答 URL(e.g. `http://016a0331.ngrok.io/ncco`) 使用 `/ncco`。我们之后会设置这些端点。在你的电脑上通过用户接口生成并存储一对公钥/私钥对。
 
 ![Screen capture of a user creating an application using the Nexmo application menu. A user clicks on add new application. In the form that appears the user enters babelfish as the application name, `http://016a0331.ngrok.io/event` as the Event URL, and `http://016a0331.ngrok.io/ncco` as the Answer URL. The user then clicks on the `Generate public/private key pair` link, saves the key when prompted, and finally clicks on create application.” The last step for our number setup is to link the number you purchased earlier to your application. Use the application dashboard to link the number.](https://www.nexmo.com/wp-content/uploads/2018/03/create-application.gif)
 
@@ -102,7 +102,7 @@ NEXMO_PRIVATE_KEY = '''-----BEGIN PRIVATE KEY-----
 <your-private-key>
 -----END PRIVATE KEY-----'''
  
-# 你必须注册一个免费的微软账号才能使用微软语音翻译 API： http://docs.microsofttranslator.com/speech-translate.html
+# 你必须注册一个免费的微软账号才能使用微软语音翻译 API：http://docs.microsofttranslator.com/speech-translate.html
 MICROSOFT_TRANSLATION_SPEECH_CLIENT_SECRET = "<your-api-key>"
 ```
 
@@ -362,7 +362,7 @@ class EventHandler(web.RequestHandler):
 
 现在我们打开一个连接，Nexmo 会在 `on_message` 方法中处理我们发送的信息。我们从 Nexmo 收到第一个消息是带有元数据的纯文本。在收到这一消息后，我们会设置 `WSHandler` 的 `whoami` 属性，以便能识别发言人。之后，我们会创建一个我们发送到语音翻译 API 的 wave 标题。为了向语音翻译 API 发送消息，我们将创建一个 `translator_future`。根据调用者的不同，例如，消息来源，我们将使用相应的语言变量创建 `translator_future`，以便 API 了解从哪种语言翻译成哪种其他的语言。
 
-`translator_future` 是连接到语音翻译 API 的另一个 WebSocket。我们使用它来传递我们从 Nexmo Voice API 接收到的消息。在它创建之后，`translator_future` 被存储在变量 `ws` 中，被用来发送我们之前创建的 wave 标题。 来自 Nexmo 的每个后续消息都是二进制消息。这些二进制消息使用 `translator_future` 传递语音翻译 API，它会处理音频并返回转录的翻译。
+`translator_future` 是连接到语音翻译 API 的另一个 WebSocket。我们使用它来传递我们从 Nexmo Voice API 接收到的消息。在它创建之后，`translator_future` 被存储在变量 `ws` 中，被用来发送我们之前创建的 wave 标题。来自 Nexmo 的每个后续消息都是二进制消息。这些二进制消息使用 `translator_future` 传递语音翻译 API，它会处理音频并返回转录的翻译。
 
 当我们初始化 `translator_future` 时，我们声明语言翻译 API 处理我们时，它应该会调用 `speech_to_translation_completed` 方法。这个方法在接收到消息后，会检查消息是否为空，然后以消息接收语言语音出消息内容。它只会对其他调用者说出消息，而不是最初说话的人。此外，我们还会将翻译内容打印到终端。
 
