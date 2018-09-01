@@ -237,7 +237,7 @@ main article:nth-child(2) {
 
 我们想让头部，侧边栏和页脚中的文本以及 `<article>` 元素内的数字居中。
 
-CSS 网格提供了六个属性 `justify-items`，`align-items`，`justify-content`，`align-content`，`justify-self` 和 `align-self`，可用于对齐和分散网格项。它们实际上是 [CSS 盒对齐模型](https://www.w3.org/TR/css-align-3/)的一部分。
+CSS 网格提供了六个属性 `justify-items`、`align-items`、`justify-content`、`align-content`、`justify-self` 和 `align-self`，可用于对齐和分散网格项。它们实际上是 [CSS 盒对齐模型](https://www.w3.org/TR/css-align-3/)的一部分。
 
 在头部内，侧边栏，文章和页脚选择器内添加以下内容：
 
@@ -248,7 +248,7 @@ justify-items: center;
 ```
 
 * `justify-items` 用于沿行轴或在水平方向上对齐网格项。
-* `align-items` 沿着列轴或在垂直方向上对齐网格项。它们都可以使用 `start`，`end`，`center` 和 `stretch`。
+* `align-items` 沿着列轴或在垂直方向上对齐网格项。它们都可以使用 `start`、`end`、`center` 和 `stretch`。
 
 这是居中元素后的屏幕截图：
 
@@ -278,7 +278,7 @@ justify-items: center;
 }
 ```
 
-在宽度 `<= 575px` 的设备上我们使用宽度分别为 `6rem`，`1fr`，`5.5rem` 和 `5.5rem` 的四行，以及占满所有可用空间的一列。我们还重新定义了网格区域，让侧边栏在小型设备上处于主体内容区域下面的第三行：
+在宽度 `<= 575px` 的设备上我们使用宽度分别为 `6rem`、`1fr`、`5.5rem` 和 `5.5rem` 的四行，以及占满所有可用空间的一列。我们还重新定义了网格区域，让侧边栏在小型设备上处于主体内容区域下面的第三行：
 
 ![The developing mobile layout](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2018/08/1534470445mobile2.png)
 
@@ -296,7 +296,7 @@ justify-items: center;
 
 ![The final mobile layout](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2018/08/1534470564mobile3.png)
 
-你可以在本文开头附近的 pen 中找到最终代码，也可以直接[访问此 pen ](https://codepen.io/SitePoint/pen/OweYNp)。
+你可以在本文开头附近的 pen 中找到最终代码，也可以直接[访问此 pen](https://codepen.io/SitePoint/pen/OweYNp)。
 
 ## 结论
 
