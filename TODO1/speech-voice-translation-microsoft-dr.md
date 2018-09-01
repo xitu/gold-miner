@@ -7,17 +7,17 @@
 
 # 使用 Nexmo 和微软语音翻译 API 构建 Babel Fish
 
-如果在过去的几个月时间里你关注过互联网上的变化，那你就会注意到 Google 的即时翻译 Pixel Buds。就像**给 Galaxy 的 Hitchhiker 指南**中的 Bable Fish一样的技术，可以为穿戴者翻译任何可感知的语言，因此让他们可以像虚拟人类一样与穿戴者进行交流。使用 Google 的 Pixel Buds 代价昂贵 —— 因此我们为什么不自己动手构建？这也是 [Danielle](https://twitter.com/dantoml) 和我最近在 [hackference](https://2017.hackference.co.uk/) 上所构想的。我们想要继续去创建一种让电话交流的双方，可以听到自己所需对方说话内容的翻译版本的 Nexmo Babel Fish。
+如果在过去的几个月时间里你关注过互联网上的变化，那你就会注意到 Google 的即时翻译 Pixel Buds。它是一个像给 **Galaxy 的 Hitchhiker 指南**中 Bable Fish 一样的技术，可以为穿戴者翻译任何可感知的语言并让他们像虚拟人类一样与穿戴者进行交流。但使用 Google 的 Pixel Buds 代价昂贵 —— 那么我们为何不自己动手构建呢？这也是 [Danielle](https://twitter.com/dantoml) 和我最近在 [hackference](https://2017.hackference.co.uk/) 上所构想的。我们想要去创建一个让电话交流的双方可以根据自己所需，听到彼此说话内容的翻译版本的 Nexmo Babel Fish。
 
 ![Image of a Babel fish from The Hitchhiker's Guide to the Galaxy](https://www.nexmo.com/wp-content/uploads/2018/03/babelfish.png)
 
 来自给 Galaxy 的 Hitchhiker 的指南中的 Bable Fish 的图片。
 
-在这篇博客中，我们会重温 Babel Fish 系统是如何在完成所需设置和配置的情况下一步一步运行的。然后我们会设置一个 Nexmo number 来处理调用。在此之后，我们会实现一个通过 WebSocket 接收语言，并将传入的语音从 Nexmo number路由到微软语言翻译 API 的 Python 服务器。我们会使用语音翻译 API 来处理转录和翻译。在此基础上，我们将实现管理双向对话的逻辑，并指示 Nexmo number来语音出翻译内容。为了便于实现，双方必须都调用我们的 Nexmo number。下面，你可以看见来自任何一方的语音实例是如何处理的高级图表。注意在本教程中，我会使用一个德语/英语的示例。
+在这篇博客中，我们将介绍搭建 Babel Fish 系统的步骤。首先我们需要设置和配置环境。然后我们会设置一个 Nexmo number 来处理调用。在此之后，我们会搭建一个通过 WebSocket 接收语音，并将其从 Nexmo number 传送到微软语言翻译 API 的 Python 服务器。我们会使用语音翻译 API 来处理转录和翻译。在此基础上，我们将实现管理双向对话的逻辑，并指示 Nexmo number 说出翻译内容。为了便于实现，双方必须都调用我们的 Nexmo number。你可以参考下面的高级图表，它展示了来自任何一方的语音实例是如何处理的。注意在本教程中，我会使用一个德语/英语的示例。
 
 ![Diagram that shows how a message passes through the system. A German caller speaks a message in German which Nexmo passes through to a Python server. The Python server sends the German audio to the Microsoft Speech API. The Speech API responds by sending the English translation as text to the Python server. The Python server then sends a request to Nexmo to speak the English message to the British caller. At this point the British caller hears the translated message in English.](https://www.nexmo.com/wp-content/uploads/2018/03/system_diagram.png)
 
-图标显示消息是如何通过系统的图表的。一个德语调用者在德语中传递一条 Nexmo 给 Python 服务器的消息。Python 服务器将德语音频发送给微软语音 API。语音 API 通过将英文翻译作为文本发送到 Python 服务器来响应请求。Python 服务器会向 Nexmo 发送请求，向英语调用者说出英语消息。在这一点上，英语调用者会听到翻译后的英语信息。
+该图表展示了消息如何在系统中传递。一个德语调用者通过 Nexmo 发送一条德语消息给 Python 服务器。Python 服务器将德语音频发送给微软语音 API。语音 API 将英文翻译作为文本发送到 Python 服务器来响应请求。Python 服务器会向 Nexmo 发送请求，向英语调用者说出英语消息。此时英语调用者便会听到翻译后的英语信息。
 
 如果你只想看代码，可以在 [Github](https://github.com/npentrel/babelfish) 上找到。
 
@@ -62,15 +62,15 @@ ngrok http 5000
 
 ### 获取一个 Nexmo number
 
-为了我们的翻译服务，我们需要一个 Nexmo number。如果你还没有在 [dashboard.nexmo.com/sign-up](https://dashboard.nexmo.com/sign-up) 注册一个开发者账号，接下来，请前往 [dashboard.nexmo.com/buy-numbers](https://dashboard.nexmo.com/buy-numbers) 购买一个具有语音功能的编号。
+使用我们的翻译服务需要一个 Nexmo Number。如果你还没有账号，可以在 [dashboard.nexmo.com/sign-up](https://dashboard.nexmo.com/sign-up) 进行注册，请前往 [dashboard.nexmo.com/buy-numbers](https://dashboard.nexmo.com/buy-numbers) 购买一个具有语音功能的 Nexmo number。
 
 ![Screen capture of a user buying a number using the Nexmo buy numbers menu. A user selects their country, Voice as the feature, and mobile as the type and clicks on the search button. The user then clicks on buy for the first number that comes up and confirms the purchase.](https://www.nexmo.com/wp-content/uploads/2018/03/buy-nexmo-number.gif)
 
-屏幕捕获让用户可以使用 Nexmo 的购买编号菜单来购买编号。用户选择国家，语音将作为特征，移动设备作为类型，最后点击搜索按钮。用户想购买的话，点击第一个数字，就会出现购确认购买的按钮。
+该截屏展示了用户如何使用 Nexmo 的购买编号菜单来购买 Nexmo number。用户需要选择国家和语音将作为特征，移动设备作为类型，最后点击搜索按钮。然后点击第一个数字边的购买链接，便可确认购买。
 
 ### 创建 Nexmo 应用程序
 
-进入你的应用程序，然后新增一个。使用 Ngrok 转发 URL for both the Event URL and the Answer URL adding `/event` as the path for the Event URL (e.g. `http://016a0331.ngrok.io/event`) and `/ncco` for the Answer URL (e.g. `http://016a0331.ngrok.io/ncco`). 我们之后会设置这些端点。在你的电脑上通过用户接口生成并存储一对公钥/私钥对。
+进入你的应用程序，然后新增一个。对事件 URL 和应答 URL 使用 Ngrok 转发 URL，添加 `/event` 作为事件 URL(e.g. `http://016a0331.ngrok.io/event`) 的路径，对应答 URL(e.g. `http://016a0331.ngrok.io/ncco`) 使用  `/ncco`。我们之后会设置这些端点。在你的电脑上通过用户接口生成并存储一对公钥/私钥对。
 
 ![Screen capture of a user creating an application using the Nexmo application menu. A user clicks on add new application. In the form that appears the user enters babelfish as the application name, `http://016a0331.ngrok.io/event` as the Event URL, and `http://016a0331.ngrok.io/ncco` as the Answer URL. The user then clicks on the `Generate public/private key pair` link, saves the key when prompted, and finally clicks on create application.” The last step for our number setup is to link the number you purchased earlier to your application. Use the application dashboard to link the number.](https://www.nexmo.com/wp-content/uploads/2018/03/create-application.gif)
 
@@ -193,9 +193,9 @@ class AzureAuthClient(object):
 
 计算机通信协议 WebSocket 允许我们在一个 TCP 连接中拥有一个双向通信管道。Nexmo 的 Voice API [允许你将电话调用链接到这样的 WebScoket 端点](https://developer.nexmo.com/voice/voice-api/guides/call-a-websocket/python)。我们会使用 Tornado Web 服务器 web 框架来实现我们的 WebSocket 协议。
 
-如果你一直按照步骤来的，而且所有的文件都如我们所描述的新建的，那么你可以从下面的 Tornado Web 服务器配置开始。这个代码会处理我们的所有导入，配置 Nexmo 客户端以及 azure auth 客户端，同时开放 5000 端口。注意这个服务器目前还未执行任何有用操作。它有 3 个端点：`ncco`、`event` 以及会分别调用 `CallHandler`、`EventHandler` 和 `WSHandler` 的 `socket`。我们会在下面的部分实现处理器。
+如果你一直按照步骤来，而且所有的文件都如我们所描述的创建，那么你可以从下面的 Tornado Web 服务器配置开始。这个代码会处理所有的导入，配置 Nexmo 客户端以及 azure auth 客户端，并使用 5000 端口启动服务器。注意这个服务器目前还未执行任何有用操作。它有 3 个端点：`ncco`、`event` 和 `socket`，它们会分别调用 `CallHandler`、`EventHandler` 和 `WSHandler`。我们会在下面的部分实现处理器。
 
-在你的项目目录张红新建名为 `main.py` 的文件，然后将以下代码复制进去。
+在你的项目文件夹中创建一个名为 `main.py` 的文件，并将以下代码复制进去。
 
 ```
 from string import Template
@@ -477,7 +477,8 @@ def speak(uuid, text, vn):
 
 通过在终端中输入 `python main.py` 来运行。现在和别人合作（或者使用两部手机）。从两条线上拨打你的 Nexmo 号码。你应该可以听到欢迎信息，然后就可以用你选择的两种语音进行交流了。
 
-我们概括一下：我们开始于环境配置，然后是 Nexmo 应用程序和微软的语言翻译 API。之后，我们构建了自己的 Tornado WebServer，它允许我们使用 WebSocket 来处理语音调用，可以将语音调用的语音传递给语音翻译 API。API 为我们翻译并转录语音。得到结果后，我们用新语言说出信息。由于路由逻辑，我们的服务处理双向调用，这意味着我们的服务在连接两个调用者后，会先翻译任何一个人的语音以确保他们彼此可以选择彼此需要的语言来进行沟通。
+我们概括一下：我们首先配置了环境， Nexmo 应用程序和微软的语言翻译 API。然后构建了自己的 Tornado WebServer，它允许我们使用 WebSocket 来处理语音调用，可以将语音调用的语音传递给语音翻译 API。API 为我们翻译并转录语音。得到结果后，我们用新语言说出信息。我们的路由逻辑使得我们的服务可以处理双向调用，即我们的服务在连接两个调用者后，会先翻译任何一个人的语音以确保他们彼此可以选择彼此需要的语言来进行沟通。
+
 我们现在做到了。我们正在运行的 Babel Fish！恐怕我们的 DIY Babel Fish 并不会像电影中的那样可爱，但这是一种可行性的选择。
 
 如果你有任何疑问，请联系 [@naomi_pen](https://twitter.com/naomi_pen) 或在 [naomi.codes](http://naomi.codes/) 上找我。
