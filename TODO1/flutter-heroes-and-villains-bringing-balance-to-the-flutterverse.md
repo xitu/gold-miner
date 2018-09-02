@@ -26,7 +26,7 @@ One of the most awesome parts of flutter is having such a nice and clean API for
 ![](https://cdn-images-1.medium.com/max/1600/1*QbbLnNEKCz02skDo2QRuOg.gif)
 
 Simple Hero transition.
-
+ 
 We’ll take a quick look at how the heroes are implemented.
 
 #### Overview
@@ -44,14 +44,14 @@ Then, the position of both heroes are captured and the flight is ready to happen
 **3. Initiating the flight**
 
 The flight always happens on the new screen, but not with the actual widget. The widget on the opening page is replaced with an empty placeholder widget `(SizedBox)` during the flight. Instead the `Overlay` is used (the `Overlay` can display widgets on top of everything).
-
+ 
 > The whole hero animation happens on the page being opened. The widgets don’t share any state between pages and are completely separate.
 
 * * *
 
 #### The NavigationObserver
 
-It is possible to observe the events of routes being pushed and popped with a `NavigationObserver` .
+It is possible to observe the events of routes being pushed and popped with a `NavigationObserver`.
 
 ```
 /// A [Navigator] observer that manages [Hero] transitions.
@@ -132,7 +132,7 @@ An inline function called visitor is declared inside the method. The `context.vi
 #### The start of the flight
 
 ```
-  // Find the matching pairs of heros in from and to and either start or a new
+// Find the matching pairs of heros in from and to and either start or a new
   // hero flight, or divert an existing one.
   void _startHeroTransition(PageRoute<dynamic> from, PageRoute<dynamic> to, _HeroFlightType flightType) {
     // If the navigator or one of the routes subtrees was removed before this

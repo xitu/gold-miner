@@ -2,28 +2,28 @@
 > * 原文作者：[Jon Abrams](https://medium.com/@jonathanabrams?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-spaceace-a-new-kind-of-front-end-state-library.md](https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-spaceace-a-new-kind-of-front-end-state-library.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Noah Gao](https://noahgao.net)
+> * 校对者：[Hopsken](https://hopsken.com/)
 
-# Introducing SpaceAce, a new kind of front-end state library
+# SpaceAce 了解一下，一个新的前端状态管理库
 
-Anyone who’s developed front-end applications knows that managing the state is one of the most important, and challenging, aspects. Popular component-based view libraries, like React, include fully functional, if not rudimentary, state management. They enable each component of your application to manage their own state. They work well enough for small applications, but you’ll quickly encounter frustration. It’s a challenge deciding which components have state and how the data from each state gets shared between components. Then there’s figuring out how or why state was changed.
+开发前端应用的大家都知道，状态管理是开发中最重要，最具挑战性的一部分。目前流行的基于组件的视图库，如 React，包括功能齐全的（最基本的）状态管理能力。它们使应用中的每个组件都能够管理自己的状态。这对于小型应用程序来说足够了，但你很快就会感到挫败。因为决定哪些组件具有状态以及如何在组件之间共享来自每个状态的数据将会成为一个挑战。最后还要弄清楚状态是如何或为何被改变。
 
-To address the above problems of component-oriented state, libraries like Redux were introduced. They centralize that state into a centralized “store” that every component can read and write to. To maintain order they centralize the logic that changes the state into a central part of the application called the [**reducer**](https://redux.js.org/basics/reducers), which is invoked using **actions**,  and causing it to produce a fresh copy of the state. It’s very effective but has a high learning curve, requires a lot of boiler-plate, and forces you to separate code that updates the state from the code that renders the view.
+为了解决面向组件状态的上述问题，Redux 一类的库被引入。它们将该状态集中到一个集中的“store”中，每个组件都可以读写它。为了维护顺序，他们将改变状态的逻辑集中到应用程序的中心部分，称为 [**reducer**](https://redux.js.org/basics/reducers)，使用 **actions** 调用它们，并使其产生新的状态副本。它非常有效，但学习曲线很高，需要大量的样板代码，并强迫你将更新状态的代码与渲染视图的代码分开。
 
-[SpaceAce](https://github.com/JonAbrams/SpaceAce) is a new library that takes all the benefits of Redux, such as a centralized store, immutable state, unidirectional data flow, clearly defined actions, **and** it greatly simplifies how your code updates the store’s state.
+[SpaceAce](https://github.com/JonAbrams/SpaceAce) 是一个新的库，它具有 Redux 的所有优点，例如集中的 store，不可变状态，单向数据流，明确定义的 actions，它 **还** 极大地简化了代码更新 store 中状态的方式。
 
-We’ve been using SpaceAce to manage state in our main React app at [Trusted Health](https://www.trustedhealth.com/) for nearly a year now with great success. While our engineering team is relatively small (3 people) it has really sped up feature development without sacrificing code complexity or testability.
+我们已经在 [Trusted Health](https://www.trustedhealth.com/) 的主 React 应用上用 SpaceAce 来管理状态将近一年了，取得了巨大的成功。我们的工程师团队相对较小（只有三个人），它在不加大代码复杂度和牺牲可测试性的基础上，加速了我们的功能开发。
 
-### What is SpaceAce?
+### SpaceAce 是什么？
 
-SpaceAce provides a state management _store_ known as a **space**. A space is the read-only (immutable) state and a toolkit for updating it. But this store doesn’t just _have_ state inside it, it _is_ the state. At the same time, it provides multiple methods for generating new version of state. How? It’s a function… with properties! Many JS developers don’t know that JS functions are also objects. In addition to being executable, they can also have properties, just like objects (because they’re objects too!).
+SpaceAce 提供一个状态管理的 **store** 叫做一个 **space**。一个 space 包括只读（不可变）的状态，还有一些用于更新它的工具集。但是这个 store 里面不只是 **有** 状态，而是它本身就 **是** 状态。同时，他还提供了很多方法来生成新版本的状态。怎么做到？是一些带有属性的函数！很多 JS 开发者不知道 JS 函数也是对象。只是它能执行而已，所以它也能有一些属性，就像对象一样（因为它就是个对象！）。
 
-Each space is an immutable object with properties that can be read directly, but cannot be changed directly. Each space is _also_ a function that can create a new copy with specified changes applied to the state.
+每个 space 都是一个有属性的不可变对象，但是只能被读取，不能直接写入。每个 space **也是** 一个函数，能够创建应用改动后的状态副本。
 
-Finally, an example:
+最后，放个例子：
 
-```
+```javascript
 import Space from 'spaceace';
 
 const space = new Space({
@@ -36,13 +36,13 @@ const newSpace = space({ appName: "SpaceAce demo" });
 console.log(`Old app name: ${space.appName}, new app name: ${newSpace.appName}`);
 ```
 
-Outputs: “Old app name: SpaceAce demoe, new app name: SpaceAce demo”
+将会输出：“Old app name: SpaceAce demoe, new app name: SpaceAce demo”
 
-The above example shows how you make a space and directly “change” it by calling it with an object to merge onto the state. This is similar to [React’s setState](https://itnext.io/react-setstate-usage-and-gotchas-ac10b4e03d60), applying a shallow merge. Keep in mind though that the original space doesn’t change, it instead returns a copy with the changes applied.
+上面的例子展示了如何创建一个 space 并通过调用它将一个对象合并到状态来直接“更改”它。这和 [React 的 setState](https://itnext.io/react-setstate-usage-and-gotchas-ac10b4e03d60) 很像，应用了一次浅合并。记住，原本的 space 并没有变化，只是被一个应用了改动的副本给替换了。
 
-However, it’s not really useful until the application re-renders with the new state. To make that easier, a **subscribe** function is provided. It invokes a callback whenever the associated space “changes”:
+然而，这对应用在有新状态时需要进行重新渲染的场景来说，没用。为了让解决这个场景更简单，一个 **subscribe** 函数被提供出来。它能在相关 space 被“改动”时去调用回调：
 
-```
+```javascript
 import Space, { subscribe } from 'spaceace';
 
 const space = new Space({
@@ -58,61 +58,61 @@ subscribe(space, ({ newSpace, causedBy }) => {
   );
 });
 
-// Causes React to render
+// 将使 React 重新渲染
 space({ appName: "SpaceAce demo" });
 ```
 
-Most of the time, the state changes due to something the user has done. They click a checkbox, select an option from a dropdown, or type into a field. SpaceAce makes updating state from these simple interactions **ridiculously easy**. If you invoke the space with a string, it generates and returns a handler function:
+大多数情况下，状态都是因为用户做的事情而发生变化。比如，他们单击一个复选框、从下拉列表中选择一个选项或填入一个字段。SpaceAce 通过这些简单的交互来更新状态 **非常简单**。如果使用字符串调用 space，它将生成并返回处理函数：
 
-```
+```javascript
 export const PizzaForm = ({ space }) => (
   <form>
     <label>Name</label>
-    <input 
-      type="text" 
-      value={space.name || ''} 
-      onChange={space('name')} // Whenever user types, `space.name` is updated
+    <input
+      type="text"
+      value={space.name || ''}
+      onChange={space('name')} // 当用户输入时，`space.name` 会被更新
     />
     <label>Do you like pizza?</label>
     <input
       type="checkbox"
       checked={space.pizzaLover || false}
-      onChange={space('pizzaLover')} // Assigns true or false to `space.pizzaLover`
+      onChange={space('pizzaLover')} // 分配 true 或 false 给 `space.pizzaLover`
      />
   </form>
 );
 ```
 
-While most apps contain a lot of simple interactions, they also consist of complex actions. SpaceAce allows you to define custom actions, all within the same file as your component. When called, these actions are given an object filled with handy functions for updating the state:
+虽然大多数应用只有许多简单的交互，但它们有时也会包含一些复杂的 action。SpaceAce 允许你自定义 action，所有 action 都与组件在同一文件中。调用时，会为这些 action 提供一个对象，其中包含用于更新状态的便捷函数：
 
-```
+```javascript
 import { fetchPizza } from '../apiCalls';
 
-/* 
-  handleSubmit is a custom action.
-  The first parameter is provided by SpaceAce.
-  The remaining parameters are passed-through
-  which in this case consists of React's event object
+/*
+  handleSubmit 是一个自定义 action。
+  第一个参数由 SpaceAce 提供。
+  其余参数是需要传入的，
+  在这个案例中由 React 的事件对象组成。
 */
 const handleSubmit = async ({ space, merge }, event) => {
   event.preventDefault();
-  
-  // merge does a shallow merge, allowing the assignment of multiple properties at once
-  merge({ saving: true }); // updates space immediately, triggers re-render
-  
+
+  // merge 函数将进行浅合并，允许一次分配多个属性
+  merge({ saving: true }); // 立即更新 space，将触发重新渲染
+
   const { data, error } = await fetchPizza({ name: space.name });
   if (error) return merge({ error: errorMsg, saving: false });
-  
-  merge({ 
-    saving: false, 
-    pizza: data.pizza // 'Pepperoni', hopefully
+
+  merge({
+    saving: false,
+    pizza: data.pizza // 期待得到 'Pepperoni'
   });
 };
 
 /*
-  handleReset is another custom action.
-  This one erases all properties on the space,
-  replacing them with only the specified ones.
+  handleReset 是另一个自定义 action。
+  这个函数可以用来将 space 的所有属性抹除，
+  将它们用另一些替换掉。
 */
 const handleReset = ({ replace }) => {
   replace({
@@ -123,7 +123,7 @@ const handleReset = ({ replace }) => {
 
 export const PizzaForm = ({ space }) => (
   <form onSubmit={space(handleSubmit)}>
-    {/* ... some input elements */}
+    {/* ... 一些 input 元素 */}
     <p className="error">{space.errorMsg}</p>
     {space.pizza && <p>You’ve been given: {space.pizza}</p>}
     <button disabled={space.saving} type="submit">Get Pizza</button>
@@ -132,30 +132,30 @@ export const PizzaForm = ({ space }) => (
 );
 ```
 
-You may notice that all these ways of changing a space’s state assumes that the state is relatively shallow, but how is that possible if there’s only one space per app? It isn’t! Every space can have any number of child sub-spaces, which are also just spaces, but they have parents. Whenever one of those child spaces is updated the changes bubble up, triggering a re-render of the app once the change reaches the root space.
+你可能会注意到，所有这些改变 space 状态的方式都会假定状态相对较浅，但如果每个应用程序只有一个 space，那怎么可能呢？不可能的！每个 space 都可以有任意数量的 sub-space，它们也只是 space，但它们有父级。每当更新其中一个 sub-space 时，改动会冒泡，一旦更改到达根 sapce，就会触发应用的重新渲染。
 
-The best part of child spaces, is you don’t need to explicitly make them. They’re automatically created when you access an object or array on the space:
+有关子 space 最棒的地方在于，你不用特地去制造它，它将在你··访问 space 中的对象或是数组时，自动被创建出来：
 
-```
+```javascript
 const handleRemove = ({ remove }, itemToBeRemoved) => {
-  // `remove` is available on array spaces, runs callback 
-  // on each element.
-  // For any callback that returns true, the element is removed
+  // `remove` 将在数组型 space 中可用，
+  // 它将为每个元素运行回调。
+  // 如果回调的结果是 true，元素将被删除。
   remove(item => item === itemToBeRemoved);
 };
 
-/* 
-  A shopping cart's space is an array of items,
-  each being an object, and therefore a space too.
+/*
+  一个购物车的 space 将是一个物品的数组，
+  每个物品都是对象，它也将是一个 space。
 */
 export const ShoppingCart = ({ space }) => (
   <div>
     <ul>
       {space.map(item => (
         <li key={item.uuid}>
-          <CartItem 
-            space={item} 
-            onRemove={space(handleRemove).bind(null, item)} 
+          <CartItem
+            space={item}
+            onRemove={space(handleRemove).bind(null, item)}
            />
         </li>
       )}
@@ -165,23 +165,23 @@ export const ShoppingCart = ({ space }) => (
 const CartItem = ({ space, onRemove }) => (
   <div>
     <strong>{space.name}</strong>
-    <input 
-      type="number" 
-      min="0" 
-      max="10" 
+    <input
+      type="number"
+      min="0"
+      max="10"
       onChange={space('count')}
-      value={space.count} 
+      value={space.count}
      />
     <button onClick={onRemove}>Remove</button>
   </div>
 );
 ```
 
-There’re a bunch more features to discover, and fun tricks that I’ll be sharing soon. Stay tuned for my next post!
+还有很多功能可以继续探索，我很快就会分享这些有趣的技巧。请继续关注我的下一篇文章！
 
-Meanwhile, check out the [documentation and code on Github](https://github.com/JonAbrams/SpaceAce) and [let me know what you think](https://twitter.com/JonathanAbrams)!
+与此同时，你可以在 [Github 上的代码和文档](https://github.com/JonAbrams/SpaceAce) 中了解更多信息，也可以 [让我知道你的想法](https://twitter.com/JonathanAbrams)！
 
-Thanks to [Zivi Weinstock](https://medium.com/@z1v1?source=post_page).
+感谢 [Zivi Weinstock](https://medium.com/@z1v1?source=post_page) 的付出。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

@@ -1,3 +1,4 @@
+* [如何像程序员般思考 —— 蕴含在问题解决中的经验](https://juejin.im/post/5b76839ae51d4566491c24bb) ([mingxing47](https://github.com/mingxing47) 翻译)
 * [编程语言和平台：一条被评论的推文串](https://juejin.im/post/5b4c2b75e51d45195b336d57) ([cf020031308](https://github.com/cf020031308) 翻译)
 * [为 GitHub 项目做出贡献的初学者指南](https://juejin.im/entry/5b2e58ba6fb9a00e4966ee4b) ([sophiayang1997](https://github.com/sophiayang1997) 翻译)
 * [怎样（以及为什么要）保持你的 Git 提交记录的整洁](https://juejin.im/post/5b29060ee51d4558cd2adac0) ([zhongdeming428](https://github.com/zhongdeming428) 翻译)

@@ -1,3 +1,6 @@
+* [用 Scikit-Learn 实现 SVM 和 Kernel SVM](https://juejin.im/post/5b7fd39af265da43831fa136) ([rockyzhengwu](https://github.com/rockyzhengwu) 翻译)
+* [Sklearn 中的朴素贝叶斯分类器](https://juejin.im/post/5b8510be51882542d23a1d66) ([sisibeloved](https://github.com/sisibeloved) 翻译)
+* [使用 Python 进行自动化特征工程](https://juejin.im/post/5b6ea0e4e51d4519044adff0) ([mingxing47](https://github.com/mingxing47) 翻译)
 * [Python 与大数据：Airflow & Jupyter Notebook with Hadoop 3, Spark & Presto](https://juejin.im/post/5b5a7fdfe51d453526175687) ([cf020031308](https://github.com/cf020031308) 翻译)
 * [自然语言处理真是有趣](https://juejin.im/post/5b6d08e2f265da0f9c67cf0b) ([lihanxiang](https://github.com/lihanxiang) 翻译)
 * [给人类的机器学习指南🤖👶](https://juejin.im/post/5b136f12f265da6e5415114b) ([sisibeloved](https://github.com/sisibeloved) 翻译)
