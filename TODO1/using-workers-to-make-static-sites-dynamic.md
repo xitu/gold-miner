@@ -1,5 +1,5 @@
 > * 原文地址：[Using Workers To Make Static Sites Dynamic](https://blog.cloudflare.com/using-workers-to-make-static-sites-dynamic/)
-> * 原文作者：[]()
+> * 原文作者：[Guest Author](https://blog.cloudflare.com/author/guest-author/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/using-workers-to-make-static-sites-dynamic.md](https://github.com/xitu/gold-miner/blob/master/TODO1/using-workers-to-make-static-sites-dynamic.md)
 > * 译者：
