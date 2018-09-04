@@ -5,23 +5,23 @@
 > * 译者：
 > * 校对者：
 
-# Camera Enumeration on Android
+# Android 的多摄像头支持
 
-Starting in Android P, logical multi-camera and USB camera support have been added. What does this mean for Android developers?
+从 Android P 开始，增加了逻辑多摄像头和 USB 摄像头支持。这对 Android 开发者来说意味着什么？
 
-### Multiple cameras
+### 多摄像头
 
-Multiple cameras in a single device are nothing new but, until now, Android devices have been limited to at most two cameras: front and back. If you wanted to open the first camera, all you had to do was:
+一台设备有多个摄像头没什么新鲜的，但是直到现在，Android 设备仍然最多只有前后两个摄像头。如果你想要打开第一个摄像头，需要进行以下操作：
 
 ```
 val cameraDevice = Camera.open(0)
 ```
 
-But those were simpler times. Today, multiple cameras can mean two or more cameras in the front and/or in the back. That’s a lot of lenses to choose from!
+但是这些是比较简单的操作。如今多摄像头意味着前置或者后置有两个及两个以上的摄像头。有很多镜头可供选择！
 
 ### Camera2 API
 
-For compatibility reasons, the above code still works even years after the old Camera API was deprecated. But, as the ecosystem evolved, there was a need for more advanced camera features. So Android introduced Camera2 with Android 5.0 (Lollipop), API level 21 and above. The equivalent code to open the first existing camera using the Camera2 API looks like this:
+由于兼容性问题，尽管旧的 Camera API 已经被废弃很长时间，上述的代码仍然有效。但是随着生态系统的发展，需要更先进的相机功能。因此，Android 5.0（Lollipop）引进了 Camera2，适用于 API 21 及以上。用 Camera2 API 来打开第一个存在的摄像头代码如下所示:
 
 ```
 val cameraManager = activity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
@@ -39,14 +39,14 @@ cameraManager.openCamera(cameraId, object : CameraDevice.StateCallback() {
 }, null)
 ```
 
-### First is not always best
+### 第一个并不是最好的选择
 
-So far so good. If all we need is an app that opens the first existing camera, this will work on most Android phones. But consider the following scenarios:
+上述代码目前看起来没什么问题。如果我们所需要的只是一个能够打开第一个存在的摄像头的应用程序，那么它在大部分的 Android 手机上都有效。但是考虑到以下场景:
 
-*   If a device has no cameras, the app will crash. This may seem unlikely, until we realize that Android runs in many kinds of devices, including Android Things, Android Wear and Android TV, which add up to millions of users.
-*   If a device has at least one back-facing camera, it will be mapped to the first camera in the list. But apps running on devices with no back cameras, such as PixelBooks and most other ChromeOS laptops, will open the single, front-facing camera.
+*   如果设备没有摄像头，那么应用程序会崩溃。这看起来似乎不太可能，但是要知道 Android 运用在各种设备上，包括 Android Things、Android Wear 和 Android TV 等这些有数百万用户的设备。
+*   如果设备至少有一个后置摄像头，它将会映射到列表中的第一个摄像头。但是当应用程序运行在没有后置摄像头的设备上，比如 PixelBooks 或者其他一些 ChromeOS 的笔记本电脑，将会打开单个的前置摄像头。
 
-What should we do? Check the camera list and camera characteristics:
+那么我们应该怎么做？检查摄像头列表和摄像头特性：
 
 ```
 
@@ -55,17 +55,17 @@ val characteristics = cameraManager.getCameraCharacteristics(cameraId)
 val cameraLensFacing = characteristics.get(CameraCharacteristics.LENS_FACING)
 ```
 
-The variable `cameraLensFacing` will be one of:
+变量 `cameraLensFacing` 有以下取值:
 
 *   [CameraMetadata.LENS_FACING_FRONT](https://developer.android.com/reference/android/hardware/camera2/CameraMetadata#LENS_FACING_FRONT)
 *   [CameraMetadata.LENS_FACING_BACK](https://developer.android.com/reference/android/hardware/camera2/CameraMetadata#LENS_FACING_BACK)
 *   [CameraMetadata.LENS_FACING_EXTERNAL](https://developer.android.com/reference/android/hardware/camera2/CameraMetadata#LENS_FACING_EXTERNAL)
 
-For more information about lens-facing configuration, take a look at [the documentation](https://developer.android.com/reference/android/hardware/camera2/CameraCharacteristics#LENS_FACING).
+更多有关摄像头配置的信息，请查看[文档](https://developer.android.com/reference/android/hardware/camera2/CameraCharacteristics#LENS_FACING).
 
-### Sensible defaults
+### 合理的默认设置
 
-Depending on the use-case of the application, we may want to open a specific camera lens configuration by default (if it’s available). For example, a selfie app would most likely want to open the front-facing camera, while an augmented reality app should probably start with the back camera. We can wrap this logic into a function, which properly handles the cases mentioned above:
+根据应用程序的使用情况，我们希望默认打开特定的相机镜头配置（如果可以提供这样的功能）。比如，自拍应用程序很可能想要打开前置摄像头，而一款增强现实类的应用程序应该希望打开后置摄像头。我们可以将这样的一个逻辑包装成一个函数，它可以正确地处理上面提到的情况:
 
 ```
 fun getFirstCameraIdFacing(cameraManager: CameraManager,
@@ -84,17 +84,17 @@ fun getFirstCameraIdFacing(cameraManager: CameraManager,
 }
 ```
 
-### Switching cameras
+### 切换摄像头
 
-So far, we have discussed how to select a default camera depending on what the application wants to do. Many camera applications also give users the option to switch between cameras:
+目前为止，我们讨论了如何基于应用程序的用途选择默认摄像头。很多相机应用程序还为用户提供切换摄像头的功能:
 
 ![](https://cdn-images-1.medium.com/max/800/0*bv1q93VR4XIoazVZ)
 
-Switch camera button in the Google Camera app
+Google 相机应用中切换摄像头按钮
 
-To implement this feature it’s tempting to select the next camera from the list provided by [CameraManager.getCameraIdList()](https://developer.android.com/reference/android/hardware/camera2/CameraManager#getCameraIdList%28%29), but this is not a good idea. The reason is that starting in Android P, we expect to see more devices with multiple cameras facing the same way, or even have external cameras connected via USB. If we want to provide the user with a UI that lets them switch between different facing cameras, the recommendation ([as per the documentation](https://developer.android.com/reference/android/hardware/camera2/CameraMetadata#REQUEST_AVAILABLE_CAPABILITIES_LOGICAL_MULTI_CAMERA)) is to choose the first available camera for each possible lens-facing configuration.
+要实现这个功能，尝试从[CameraManager.getCameraIdList()](https://developer.android.com/reference/android/hardware/camera2/CameraManager#getCameraIdList%28%29)提供的列表中选择下一个摄像头，但是这并不是个好的方式。因为从 Android P 开始，我们将会看到在同样的情况下更多的设备有多摄像头，或者通过 USB 连接到外部摄像头。如果我们想要提供给用户切换不同摄像头的 UI，建议 ([按照文档](https://developer.android.com/reference/android/hardware/camera2/CameraMetadata#REQUEST_AVAILABLE_CAPABILITIES_LOGICAL_MULTI_CAMERA)) 是为每个可能的镜头配置选择第一个可用的摄像头。
 
-Although there is no one-size-fits-all logic for selecting the next camera, the following code works for most use cases:
+尽管没有一个通用的逻辑可以用来选择下一个摄像头，但是下述代码适用于大部分情况：
 
 ```
 fun filterCameraIdsFacing(cameraIds: Array<String>, cameraManager: CameraManager,
@@ -134,19 +134,18 @@ fun getNextCameraId(cameraManager: CameraManager, currCameraId: String? = null):
 }
 ```
 
-This may appear complicated, but we need to account for a large set of devices with many different configurations.
+这看起来可能有点复杂，但是我们需要考虑到大量的有不同配置的设备。
 
-### Compatibility behavior
+### 兼容性行为
 
-For applications still using the deprecated Camera API, the number of cameras advertised by [Camera.getNumberOfCameras()](https://developer.android.com/reference/android/hardware/Camera#getNumberOfCameras%28%29) depends on OEM implementation. The documentation states:
+对于那些仍然在使用已经废弃的 Camera API 的应用程序，通过 [Camera.getNumberOfCameras()](https://developer.android.com/reference/android/hardware/Camera#getNumberOfCameras%28%29) 得到的摄像头的数量取决于 OEM 的实现。文档上是这样描述的:
 
-> If there is a logical multi-camera in the system, to maintain app backward compatibility, this method will only expose one camera for every logical camera and underlying physical cameras group. Use camera2 API to see all cameras.
+> 如果系统中有逻辑多摄像头，为了保持应用程序的向后兼容性，这个方法仅为每个逻辑摄像头和底层的物理摄像头组公开一个摄像头。使用 camera2 API 去查看所有摄像头。
 
-Read [the rest of the documentation](https://developer.android.com/reference/android/hardware/Camera.CameraInfo.html#orientation) closely for more details. In general, a similar advice applies: use the [Camera.getCameraInfo()](https://developer.android.com/reference/android/hardware/Camera#getCameraInfo%28int,%20android.hardware.Camera.CameraInfo%29) API to query all camera [orientations](https://developer.android.com/reference/android/hardware/Camera.CameraInfo.html#orientation), and expose only one camera for each available orientation to users that are switching between cameras.
+请仔细阅读 [其余文档](https://developer.android.com/reference/android/hardware/Camera.CameraInfo.html#orientation) 获得更多信息。通常来说，类似的建议适用于：使用 [Camera.getCameraInfo()](https://developer.android.com/reference/android/hardware/Camera#getCameraInfo%28int,%20android.hardware.Camera.CameraInfo%29) API 查询所有的摄像头[方向](https://developer.android.com/reference/android/hardware/Camera.CameraInfo.html#orientation), 在用户切换摄像头时，仅仅只为每个可用的方向提供一个摄像头。
 
-### Best practices
-
-Android runs on many different devices. You should not assume that your application will always run on a traditional handheld device with one or two cameras. Pick the most appropriate cameras for the application. If you don’t need a specific camera, select the first camera with the desired lens-facing configuration. If there are external cameras connected, it may be reasonable to assume that the user would prefer to see those first.
+### 最佳实践
+Android 运行在许多不同的设备上。你不应该假设你的应用程序总是在有一两个摄像头的传统的手持设备上运行,而是应该为你的应用程序选择最适合的摄像头。如果你不需要特定的摄像头，选择有所需默认配置的第一个摄像头。如果设备连接了外部摄像头，则可以合理的假设用户希望首先看到这些外部摄像头中的第一个。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
