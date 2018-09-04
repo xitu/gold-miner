@@ -2,8 +2,7 @@
 > * 原文作者：[Nick Felker](https://medium.com/@fleker?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-connect-stackdriver-to-your-smart-home-server-for-error-logging.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-connect-stackdriver-to-your-smart-home-server-for-error-logging.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starriers](https://github.com/Starriers)
 
 # 如何将 Stackdriver 连接到智能家居服务器以进行错误记录
 
