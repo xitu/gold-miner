@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-heroes-and-villains-bringing-balance-to-the-flutterverse.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-heroes-and-villains-bringing-balance-to-the-flutterverse.md)
 > * 译者：[DateBro](https://github.com/DateBro)
-> * 校对者：
 
 # Flutter 的 Heroes 和 Villains —— 为 Flutterverse 带来平衡
 
@@ -193,7 +192,7 @@ Hero 和 3 个 Villain 使用（AppBar，Text，FAB）。
 
 #### SequenceAnimation 和 自定义 TickerProvider
 
-处理动画时，通常使用 `SingleTickerProviderStateMixin`或 `TickerProviderStateMixin`。在这种情况下，动画不会在 `StatefulWidget` 中启动，因此我们需要另一种方法来访问 `TickerProvider`。
+处理动画时，通常使用 `SingleTickerProviderStateMixin` 或 `TickerProviderStateMixin`。在这种情况下，动画不会在 `StatefulWidget` 中启动，因此我们需要另一种方法来访问 `TickerProvider`。
 
 ```
 class TransitionTickerProvider implements TickerProvider {
@@ -249,7 +248,7 @@ class TransitionTickerProvider implements TickerProvider {
   }
 ```
 
-首先，所有不应该展示的 Villain（那些将 animateExit/ animateEntrance 设置为 false 的人）都会被过滤掉。然后创建一个带有自定义 `TickerProvider` 的 `AnimationController`。使用 [SequenceAnimation](https://pub.dartlang.org/packages/flutter_sequence_animation) 库，每个 `Villain` 被分配一个动画，它们在各自的时间中运行 0.0 —— 1.0（`from` 和 `to` 持续时间）。最后，动画全部开始。当它们全部完成时，控制器被丢弃。
+首先，所有不应该展示的 Villain（那些将 animateExit/animateEntrance 设置为 false 的人）都会被过滤掉。然后创建一个带有自定义 `TickerProvider` 的 `AnimationController`。使用 [SequenceAnimation](https://pub.dartlang.org/packages/flutter_sequence_animation) 库，每个 `Villain` 被分配一个动画，它们在各自的时间中运行 0.0 —— 1.0（`from` 和 `to` 持续时间）。最后，动画全部开始。当它们全部完成时，控制器被丢弃。
 
 #### Villains 的 build() 方法
 
@@ -299,7 +298,7 @@ widget.villainAnimation.animatable.chain(CurveTween(curve: widget.villainAnimati
 
 第一反应显然是：“我的代码肯定没错，它一定对测试的执行方式做了些什么！也许测试是并行播放因此相互干扰？也许是因为我使用了相同的键？”
 
-Brian Egan向我指出，删除一个特定的测试修复了错误并将其移到顶部使得其他所有测试也失败了。如果那不是“共享数据”那么我不知道是什么。
+Brian Egan 向我指出，删除一个特定的测试修复了错误并将其移到顶部使得其他所有测试也失败了。如果那不是“共享数据”那么我不知道是什么。
 
 当我发现问题是什么时，我忍不住笑了。这正是在某些情况下使用静态变量不好的原因。
 
