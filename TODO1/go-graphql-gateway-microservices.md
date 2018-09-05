@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/go-graphql-gateway-microservices.md](https://github.com/xitu/gold-miner/blob/master/TODO1/go-graphql-gateway-microservices.md)
 > * 译者：[Changkun Ou](https://github.com/changkun)
-> * 校对者：
+> * 校对者：[razertory](https://github.com/razertory)
 
 # 使用 Go 编写微服务及其 GraphQL 网关
 
