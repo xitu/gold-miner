@@ -15,13 +15,13 @@
 
 ## 架构
 
-Spidey 包含了三个不同的服务并暴露给了 GraphQL 网关。集群间的通信则通过 [gRPC](https://grpc.io) 来完成。
+Spidey 包含了三个不同的服务并暴露给了 GraphQL 网关。集群内部的通信则通过 [gRPC](https://grpc.io) 来完成。
 
-账户服务管理了所有的账号；目录管理了所有的产品；订单服务则处理了所有的订单创建行为。它会与其他两个服务进行通信来告知订单是否正常完成。
+账户服务管理了所有的账号；目录服务管理了所有的产品；订单服务则处理了所有的订单创建行为。它会与其他两个服务进行通信来告知订单是否正常完成。
 
 ![Architecture](https://outcrawl.com/static/architecture-7b089f424d0abd2c29eb2d51ed362550-0381e.jpg)
 
-独立的服务包含三层：**服务端**、**服务**以及**仓库**。服务端作负责通信，也就是 Spidey 中使用 gRPC。服务则包含了业务逻辑。仓库则负责对数据库进行读写操作。
+独立的服务包含三层：**Server 层**、**Service 层**以及**Repository 层**。服务端作负责通信，也就是 Spidey 中使用 gRPC。服务则包含了业务逻辑。仓库则负责对数据库进行读写操作。
 
 ## 起步
 
@@ -679,7 +679,7 @@ service OrderService {
 }
 ```
 
-运行服务需要传递其他服务的 URL：
+运行订单服务需要传递其他服务的 URL：
 
 [order/server.go](https://github.com/tinrab/spidey/blob/master/order/server.go)
 
