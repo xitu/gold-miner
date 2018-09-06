@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/running-uitests-with-facebook-login-in-ios.md](https://github.com/xitu/gold-miner/blob/master/TODO1/running-uitests-with-facebook-login-in-ios.md)
 > * 译者： [LoneyIsError](https://github.com/LoneyIsError)
-> * 校对者：
+> * 校对者：[Alan](https://github.com/Wangalan30)
 
 # 在 iOS 中使用 UITests 测试 Facebook 登录功能
 
@@ -17,7 +17,7 @@
 
 ### 挑战
 
-*   对我们来说，Facebook 现在使用了 `Safari controller`，而我们主要处理 `web view`，这带来了一些挑战。从 iOS 9+ 开始，Facebook 决定使用 `safari` 取代 `native facebook app` 来避免应用间的切换。你可以在这里阅读详细信息 [在iOS 9上为人们构建最佳的 Facebook 登录体验](https://developers.facebook.com/blog/post/2015/10/29/Facebook-Login-iOS9/)
+*   对我们来说，使用 Facebook 的挑战主要在于， 它使用了 `Safari controller`，而我们主要处理 `web view`。从 iOS 9+ 开始，Facebook 决定使用 `safari` 取代 `native facebook app` 以此来避免应用间的切换。你可以在这里阅读详细信息 [在iOS 9上为人们构建最佳的 Facebook 登录体验](https://developers.facebook.com/blog/post/2015/10/29/Facebook-Login-iOS9/)
 *   它并没有我们想要的 `accessibilityIdentifier` 或者 `accessibilityLabel`
 *   webview 内容将来可能会发生变化 😸
 
@@ -27,7 +27,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/0*kVdiqx7CB7b43dRw.png)
 
-当我们创建测试用户时，您可以选择不同语言。这将是 Safari Web 视图中显示的语言。我现在选择的是 `Norwegian` 🇳🇴 
+当我们创建测试用户时，您还可以选择不同语言。这将是 Safari Web 视图中显示的语言。我现在选择的是 `Norwegian` 🇳🇴 
 
 ![](https://cdn-images-1.medium.com/max/800/0*H7V1GZN413eb1y4n.png)
 
@@ -49,11 +49,11 @@ app.showFacebookLoginFormButton.tap()
 
 ### 检查登录状态
 
-当在 Safari 访问 Facebook 表单时，用户可能已经登录过。所以我们需要处理这两个场景。当用户已经登录时，Facebook 会返回`你已经登录`或 `OK` 按钮。
+当在 Safari 访问 Facebook 表单时，用户也许已经登录过，也许没有。所以我们需要处理这两种情况。所以我们需要处理这两个场景。当用户已经登录时，Facebook 会返回`你已经登录`或 `OK` 按钮。
 
 这里的建议是添加断点，然后使用 `lldb` 命令 `po app.staticTexts` 和 `po app.buttons`，查看当前断点下的 UI 元素。
 
-您可以检查静态文本，或只是点击 “OK” 按钮
+您可以检查静态文本，或只是点击 `OK` 按钮
 
 ```
 var isAlreadyLoggedInSafari: Bool {
@@ -63,7 +63,7 @@ var isAlreadyLoggedInSafari: Bool {
 
 ### 等待并刷新
 
-因为 Facebook 表单是一个 webview ，所以它的内容有点动态。并且 UITest 似乎会缓存内容以便快速查询，因此在检查 `staticTexts` 之前，我们需要 `wait` 和 `refresh the cache`
+因为 Facebook 表单是一个 webview ，所以它的内容是有点动态的。并且 UITest 似乎会缓存内容以便快速查询，因此在检查 `staticTexts` 之前，我们需要 `wait` 和 `refresh the cache`
 
 ```
 app.clearCachedStaticTexts()
@@ -89,7 +89,7 @@ extension XCTestCase {
 
 ### 等待元素出现
 
-但更保险的方法是等待元素出现。对于 Facebook 登录表单，他们应该在加载后显示 `Facebook` 标签。所以我们应该等待这个元素
+但更保险的方法是等待元素出现。对于 Facebook 登录表单来说，他们会在加载后显示 `Facebook` 的标签。所以我们应该等待这个元素出现
 
 ```
 extension XCTestCase {
@@ -128,7 +128,7 @@ if app.isAlreadyLoggedInSafari {
 
 ### 处理中断
 
-都知道当应用程序显示带有位置的地图时，`Core Location` 会要求获得位置请求许可。所以我们也需要处理这种中断。你需要确保在弹框弹出之前尽早调用它
+我们知道，当要显示位置地图时，`Core Location` 会发送请求许可。所以我们也需要处理这种中断。你需要确保在弹框弹出之前尽早调用它
 
 ```
 fileprivate func handleLocationPermission() {
@@ -139,22 +139,22 @@ fileprivate func handleLocationPermission() {
 }
 ```
 
-还有一个问题，这个`监视器`不会被调用。所以解决方法是在弹框弹起时再次调用 `app.tap()`。 在我的情况下，当我的`地图`显示1,2秒后，调用 `app.tap()`，这是为了确保在显示弹框之后再调用`app.tap()`
+还有一个问题，这个`监视器`不会被调用。所以解决方法是在弹框弹起时再次调用 `app.tap()`。 对我来说，我会在我的 ‘地图’ 显示1到2秒后调用 `app.tap()`，这是为了确保在显示弹框之后再调用 `app.tap()`
 
 更详细的指南，请阅读 [#48](https://github.com/onmyway133/blog/issues/48)
 
 ### 如果用户未登录
 
-在这种情况下，我们需要填写邮箱账户和密码。 您可以查看下面的`完整源代码`部分。当方法不起作用或者 `po` 命令没有打印出你需要的元素时，这可能是因为缓存或者你需要等到动态内容渲染完成后在再尝试。
+在这种情况下，我们需要填写邮箱账户和密码。 您可以查看下面的`完整源代码`部分。当如果方法不起作用或者 `po` 命令并没有打印出你需要的元素时，这可能是因为缓存或者你需要等到动态内容渲染完成后在再尝试。
 
 您需要等待元素出现
 
 ### 点击文本输入框
 
-你可能会遇到这个错误 `Neither element nor any descendant has keyboard focus`, 这里是解决方法
+如果遇到这种情况 `Neither element nor any descendant has keyboard focus`, 这是解决方法
 
-*   如果你在模拟器上测试, 确保 `Simulator -> Hardware -> Keyboard -> Connect Hardware Keyboard` 没有被选择
-*   点击后稍微 `wait` 一下 
+*   如果你在模拟器上测试, 请确保没有选中 `Simulator -> Hardware -> Keyboard -> Connect Hardware Keyboard` 
+*   点击后稍微 `稍等` 一下 
 
 ```
 app.emailTextField.tap()
@@ -162,7 +162,7 @@ app.emailTextField.tap()
 
 ### 清除所有文字
 
-想法是将光标移动到输入框的末尾，依次删除每一个字符，然后键入下一个文本
+此举是为了将光标移动到文本框末尾，然后依次删除每一个字符，并键入新的文本
 
 ```
 extension XCUIElement {
@@ -182,7 +182,7 @@ extension XCUIElement {
 
 ### 修改语言环境
 
-在我的测试中，我想用挪威语进行测试，所以我们需要找到 `Norwegian` 选项并点击它。它被 `UI Test` 识别为`静态文本`
+对我来说，我想用挪威语进行测试，所以我们需要找到 `Norwegian` 选项并点击它。它被 `UI Test` 识别为`静态文本`
 
 ```
 var norwegianText: XCUIElement {
@@ -360,7 +360,7 @@ extension XCUIElement {
 }
 ```
 
-### 还有一点
+### 另外一点
 
 感谢这些我原创文章的有用反馈 [https://github.com/onmyway133/blog/issues/44](https://github.com/onmyway133/blog/issues/44), 这里有一些更多的点子
 
