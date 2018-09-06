@@ -1,5 +1,5 @@
 > * 原文地址：[The Open Source Project Nginx](http://aosabook.org/en/nginx.html)
-> * 原文作者：[]()
+> * 原文作者：[Andrew Alexeev](http://aosabook.org/en/intro2.html#alexeev-andrew)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-open-source-project-nginx.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-open-source-project-nginx.md)
 > * 译者：
