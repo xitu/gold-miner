@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/whats-coming-up-in-javascript-2018-async-generators-better-regex.md](https://github.com/xitu/gold-miner/blob/master/TODO1/whats-coming-up-in-javascript-2018-async-generators-better-regex.md)
 > * 译者：[MeFelixWang](https://github.com/MeFelixWang)
-> * 校对者：
+> * 校对者：[CoderMing](https://github.com/CoderMing)
 
 ![](https://cdn.thenewstack.io/media/2018/08/ba3bc5a9-res-3615421_1920-1024x681.jpg)
 
