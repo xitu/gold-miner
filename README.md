@@ -46,7 +46,7 @@
 * [Awesome Flutter](https://github.com/xitu/awesome-flutter)
 * [macOS Security and Privacy Guide](https://github.com/xitu/macOS-Security-and-Privacy-Guide)
 * [State of Vue.js report 2017 中文版](https://github.com/xitu/gold-miner/blob/master/TODO/state-of-vue-report-2017.md)
-* [Elasticsearch 参考手册](https://github.com/rpgmakervx/elasticsearch-reference-translation)
+* [Next.js 轻量级 React 服务端渲染应用框架中文文档](http://nextjs.frontendx.cn/)
 
 ## 区块链
 
