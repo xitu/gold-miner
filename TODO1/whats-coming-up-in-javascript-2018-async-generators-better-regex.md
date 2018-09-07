@@ -17,7 +17,7 @@
 
 [Promise.prototype.finally](https://github.com/tc39/proposal-promise-finally) 对异步编程也很有帮助，在一个 promise 状态变为 fulfilled 或 rejected 后，指定一个最终方法来进行清理。
 
-## 更多常规正则表达式
+## 更多常规正则表达式功能
 
 Terlson 对正则表达式的改进感到特别兴奋（其中大部分工作都是由 V8 团队完成的，他们已经完成了这四个主要功能的早期实现），因为这是此语言落后的领域。
 
@@ -59,7 +59,7 @@ BigInt 提案也处于第三阶段。目前，ECMAScript 只有 64 位浮点数�
 
 微软是 The New Stack 的赞助商。
 
-功能图[来自](https://pixabay.com/en/res-the-wind-pbx-current-3615421/) Pixabay。
+首图[来自](https://pixabay.com/en/res-the-wind-pbx-current-3615421/) Pixabay。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
