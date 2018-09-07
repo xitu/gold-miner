@@ -9,11 +9,11 @@
 
 2018 年 6 月发布的最新年度[ ECMAScript 更新](http://www.ecma-international.org/ecma-262/9.0/index.html)，尽管在常见功能的积压上仍然远远小于 ECMAScript 6，但依然是迄今为止最大的年度版本。
 
-身为 ECMAScript 编辑及微软在 [ECMA TC39 委员会]((https://github.com/tc39))代表的 [Brian Terlson](https://github.com/bterlson) 告诉 The New Stack：这个版本中两个最大的开发者功能是异步生成器和一些期待已久的正则表达式改进，以及 rest/spread 属性，。
+身为 ECMAScript 编辑及微软在 [ECMA TC39 委员会]((https://github.com/tc39))代表的 [Brian Terlson](https://github.com/bterlson) 告诉 The New Stack：这个版本中两个最大的开发者功能是异步生成器和一些期待已久的正则表达式改进，以及 rest/spread 属性。
 
 “异步生成器和迭代器是将异步函数和迭代器结合起来的结果，所以它就像你可以在其中等待的异步生成器或你可以从中得到返回值的异步函数，”他解释道。以前，ECMAScript 允许你编写一个可以输入或等待但不能同时进行两者操作的函数。“这对于在 Web 平台占比越来越大的消费流来说非常方便，尤其是在 Fetch 对象公开流的情况下。”
 
-异步迭代器类似于 Observable 模式，但更灵活。“Observable 是推模型; 一旦你订阅了它，无论你是否准备好，你都会得到全速的爆炸式的事件和通知，所以你必须实施缓冲或采样策略来处理干扰，”Terlson 解释道。异步迭代器是一种推拉模型 —— 你请求一个值后发送给你 —— 这对于诸如网络 IO 原语之类的东西更有效。
+异步迭代器类似于 Observable 模式，但更灵活。“Observable 是推模型; 一旦你订阅了它，无论你是否准备好，你都会被爆炸式的事件和通知冲击，所以你必须实施缓冲或采样策略来处理干扰，”Terlson 解释道。异步迭代器是一种推拉模型 —— 你请求一个值后发送给你 —— 这对于诸如网络 IO 原语之类的东西更有效。
 
 [Promise.prototype.finally](https://github.com/tc39/proposal-promise-finally) 对异步编程也很有帮助，在一个 promise 状态变为 fulfilled 或 rejected 后，指定一个最终方法来进行清理。
 
@@ -21,13 +21,13 @@
 
 Terlson 对正则表达式的改进感到特别兴奋（其中大部分工作都是由 V8 团队完成的，他们已经完成了这四个主要功能的早期实现），因为这是此语言落后的领域。
 
-“自从 JavaScript 诞生之日起，ECMAScript 正则表达式就没有过显着进步；几乎所有其他编程语言的正则表达式库都比 ECMAScript 的功能高级。“ECMAScript 6 包含了[一些小的更新](http://2ality.com/2015/07/regexp-es6.html)，但他将 ECMAScript 2018 视为“第一次明显改变你如何编写正则表达式的更新”。
+“自从 JavaScript 诞生之日起，ECMAScript 正则表达式就没有过显著进步；几乎所有其他编程语言的正则表达式库都比 ECMAScript 的功能高级。“ECMAScript 6 包含了[一些小的更新](http://2ality.com/2015/07/regexp-es6.html)，但他将 ECMAScript 2018 视为“第一次明显改变你如何编写正则表达式的更新”。
 
 [dotAll 标志](https://github.com/tc39/proposal-regexp-dotall-flag)使点字符匹配所有字符，而不再会对匹配一些换行符（比如 n 或 f ）无效。“你不能使用点字符，除非你处于多行模式并且你不关心每行的结束，”他指出。这方面的变通办法创造了一些不必要的复杂的正则表达式，Terlson 期望“每个人都能在正则表达式中使用该模式”。
 
 [命名捕获组](https://github.com/tc39/proposal-regexp-named-groups)与许多其他语言中的命名组类似，你可以在命名正则表达式匹配的字符串中的不同部分，并将其视为对象。“这几乎等同于在你的正则表达式中添加注释，通过赋予它一个名字来解释该组试图捕捉的内容，”他解释道。“这个模式的一部分是月份，这是出生日期......这对于未来其他人维护你的模式真的很有帮助。”
 
-还有其他关于空格的提案，即告诉正则表达式引擎忽略模式匹配中的空格、换行符以及注释，允许在空格后的行尾添加注释，这种特性可能包含在 ECMAScript 的未来版本中并将进一步提高可维护性。
+还有其他关于空字符的提案，即告诉正则表达式引擎忽略模式匹配中的空格、换行符以及注释，允许在空格后的行尾添加注释，这种特性可能包含在 ECMAScript 的未来版本中并将进一步提高可维护性。
 
 以前 ECMAScript 有先行断言但没有后行断言。“人们使用了一些技巧，比如反转字符串，然后进行匹配，或一些其他 hacks，”Terlson 指出。这对于查找和替换的正则表达式特别有用。“你看到的并没有成为你匹配的一部分，所以如果你要替换前后任何一边有美元符号的数字，你就可以做到这一点而无需做额外的工作将美元符号重新放回去。”ECMAScript [后行断言](https://github.com/tc39/proposal-regexp-lookbehind)允许像 C# 中那样的可变长度的后行断言，而不仅仅是 Perl 中的固定长度模式。
 
