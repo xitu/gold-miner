@@ -2,12 +2,12 @@
 > * 原文作者：[Oscar Wahltinez](https://medium.com/@owahltinez?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/camera-enumeration-on-android.md](https://github.com/xitu/gold-miner/blob/master/TODO1/camera-enumeration-on-android.md)
-> * 译者：
-> * 校对者：
+> * 译者：[luoqiuyu](https://github.com/luoqiuyu)
+> * 校对者：[hanliuxin5](https://github.com/hanliuxin5)
 
 # Android 的多摄像头支持
 
-从 Android P 开始，增加了逻辑多摄像头和 USB 摄像头支持。这对 Android 开发者来说意味着什么？
+从 Android P 开始，添加了对逻辑多摄像头和 USB 摄像头的支持。这对 Android 开发者来说意味着什么？
 
 ### 多摄像头
 
@@ -44,7 +44,7 @@ cameraManager.openCamera(cameraId, object : CameraDevice.StateCallback() {
 上述代码目前看起来没什么问题。如果我们所需要的只是一个能够打开第一个存在的摄像头的应用程序，那么它在大部分的 Android 手机上都有效。但是考虑到以下场景:
 
 *   如果设备没有摄像头，那么应用程序会崩溃。这看起来似乎不太可能，但是要知道 Android 运用在各种设备上，包括 Android Things、Android Wear 和 Android TV 等这些有数百万用户的设备。
-*   如果设备至少有一个后置摄像头，它将会映射到列表中的第一个摄像头。但是当应用程序运行在没有后置摄像头的设备上，比如 PixelBooks 或者其他一些 ChromeOS 的笔记本电脑，将会打开单个的前置摄像头。
+*   如果设备至少有一个后置摄像头，它将会映射到列表中的第一个摄像头。但是当应用程序运行在没有后置摄像头的设备上，比如 PixelBooks 或者其他一些 ChromeOS 的笔记本电脑，将会打开唯一一个前置摄像头。
 
 那么我们应该怎么做？检查摄像头列表和摄像头特性：
 
@@ -92,7 +92,7 @@ fun getFirstCameraIdFacing(cameraManager: CameraManager,
 
 Google 相机应用中切换摄像头按钮
 
-要实现这个功能，尝试从[CameraManager.getCameraIdList()](https://developer.android.com/reference/android/hardware/camera2/CameraManager#getCameraIdList%28%29)提供的列表中选择下一个摄像头，但是这并不是个好的方式。因为从 Android P 开始，我们将会看到在同样的情况下更多的设备有多摄像头，或者通过 USB 连接到外部摄像头。如果我们想要提供给用户切换不同摄像头的 UI，建议 ([按照文档](https://developer.android.com/reference/android/hardware/camera2/CameraMetadata#REQUEST_AVAILABLE_CAPABILITIES_LOGICAL_MULTI_CAMERA)) 是为每个可能的镜头配置选择第一个可用的摄像头。
+要实现这个功能，尝试从[CameraManager.getCameraIdList()](https://developer.android.com/reference/android/hardware/camera2/CameraManager#getCameraIdList%28%29)提供的列表中选择下一个摄像头，但是这并不是个好的方式。因为从 Android P 开始，我们将会看到在同样的情况下更多的设备有多个摄像头，甚至有通过 USB 连接的外部摄像头。如果我们想要提供给用户切换不同摄像头的 UI，建议 ([按照文档](https://developer.android.com/reference/android/hardware/camera2/CameraMetadata#REQUEST_AVAILABLE_CAPABILITIES_LOGICAL_MULTI_CAMERA)) 是为每个可能的镜头配置选择第一个可用的摄像头。
 
 尽管没有一个通用的逻辑可以用来选择下一个摄像头，但是下述代码适用于大部分情况：
 
@@ -145,6 +145,7 @@ fun getNextCameraId(cameraManager: CameraManager, currCameraId: String? = null):
 请仔细阅读 [其余文档](https://developer.android.com/reference/android/hardware/Camera.CameraInfo.html#orientation) 获得更多信息。通常来说，类似的建议适用于：使用 [Camera.getCameraInfo()](https://developer.android.com/reference/android/hardware/Camera#getCameraInfo%28int,%20android.hardware.Camera.CameraInfo%29) API 查询所有的摄像头[方向](https://developer.android.com/reference/android/hardware/Camera.CameraInfo.html#orientation), 在用户切换摄像头时，仅仅只为每个可用的方向提供一个摄像头。
 
 ### 最佳实践
+
 Android 运行在许多不同的设备上。你不应该假设你的应用程序总是在有一两个摄像头的传统的手持设备上运行,而是应该为你的应用程序选择最适合的摄像头。如果你不需要特定的摄像头，选择有所需默认配置的第一个摄像头。如果设备连接了外部摄像头，则可以合理的假设用户希望首先看到这些外部摄像头中的第一个。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
