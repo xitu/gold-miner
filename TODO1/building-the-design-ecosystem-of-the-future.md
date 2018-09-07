@@ -47,7 +47,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*SenVAHnqgG4uTWEm971hXQ.gif)
 
-### 为什么选择InVision
+### 为什么选择 InVision
 
 根据 [Jim Collins](https://www.jimcollins.com/article_topics/articles/good-to-great.html) 的说法，伟大的公司并没有从他们的目的地或者他们将如何到达那里开始，而是从与谁一起开始。他们从让那些愿意付出几倍努力的人上车开始。没有比 InVision 更好的例子了。
 
