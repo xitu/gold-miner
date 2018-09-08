@@ -57,13 +57,13 @@ css-vars
 
 ![](https://cdn-images-1.medium.com/max/800/1*0z13r6yik2WcRMiNoWHl8g.png)
 
-模式容器
+Modal 容器
 
 此容器将监听 `CTRL + E` 组合键，当它监听到事件时，显示隐藏的菜单。这个 `Modal` 组件其实是一个 React Portal……
 
 ![](https://cdn-images-1.medium.com/max/800/1*D3xwDmwtLh7xtP1hRyldGw.png)
 
-模式 Portal
+Modal Portal
 
 模式 Portal 可以附着和脱离 `modal-root` 元素。有了它，我就可以创建 `Theme` 组件，这个组件拥有可以选择不同主题的菜单。
 
