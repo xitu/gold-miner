@@ -2,32 +2,32 @@
 > * 原文作者：[Sara Wegman](https://medium.com/@sarawegman?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-simple-chrome-extension-in-vanilla-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-simple-chrome-extension-in-vanilla-javascript.md)
-> * 译者：
+> * 译者：[Shery](https://github.com/shery)
 > * 校对者：
 
-# How to Build a Simple Chrome Extension in Vanilla JavaScript
+# 如何使用原生 JavaScript 构建简单的 Chrome 扩展程序
 
-Today, I’m going to show you how to make Chrome extension in vanilla JavaScript — that is, plain JavaScript without any additional frameworks like React, Angular, or Vue.
+今天，我将向你展示如何使用原生 JavaScript 开发 Chrome 扩展程序 —— 也就是说，不使用诸如 React，Angular，Vue 之类框架的纯 JavaScript。
 
-Building a Chrome extension is very easy — in my first year of programming, I released two extensions, and I made both using just HTML, CSS, and plain JavaScript. In this article, I’ll walk you through how to the same in just a few minutes.
+开发 Chrome 扩展程序非常简单 —— 在我开始编程生涯的头一年，我发布了两个扩展程序，这两个扩展程序都只用了 HTML，CSS 和纯 JavaScript 进行开发。在本文中，我将在几分钟内引导你完成相同的操作。
 
-I’ll be showing you how to make a simple Chrome extension dashboard from scratch. If you have your own idea for an extension, however, and just want to know what to add to your existing project files to get it working in Chrome, you can skip down to the section on customizing your own `manifest.json` file and icon.
+我将向你展示怎样开发简单的 dashboard 类型的 Chrome 扩展程序。但是，如果你有自己的想法，并且只想知道需要往现有项目中添加什么内容就可以让它在 Chrome 中运行，你可以跳转到自定义 `manifest.json` 文件和图标的部分。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*BOYvlX903vKaY8TI2JJFQA.png)
 
-### About Chrome Extensions
+### 关于 Chrome 扩展程序
 
-A Chrome extension is essentially just a group of files that customizes your experience in the Google Chrome browser. There are a few different kinds of Chrome extensions; some activate when a certain condition is met, like when you’re on a store checkout page; some only pop up when you click on an icon; and some appear each time you open a new tab. Both of the extensions that I published this year are ‘new tab’ extensions; the first is [Compliment Dash](http://bit.ly/complimentdash), a dashboard that keeps a to-do list and compliments the user, and the second is a tool for pastors called [Liturgical.li](http://liturgical.li/). If you know how to code a basic website, then you can code this kind of extension without too much difficulty.
+Chrome 扩展程序本质上只是一组可以自定义 Google Chrome 浏览器体验的文件。Chrome 扩展程序有几种不同的类型；有些在满足某个特定条件时激活，例如当你来到商店的结账页面时；有些只在你点击图标时弹出；还有些每次打开新标签时都会出现。今年我发布的两个扩展程序都是“新标签”类型的；第一个是 [Compliment Dash](http://bit.ly/complimentdash)，这是一个用于保存待办事项列表并赞美用户的 dashboard，第二个是 [Liturgical.li](http://liturgical.li/)，一款针对牧师的工具。如果你知道如何开发简单的网页，那么你就可以毫不费力地开发这类扩展程序。
 
-### Prerequisites
+### 前提
 
-We’re going to keep things simple, so in this tutorial, we’ll just be using HTML, CSS, and some basic JavaScript, as well as customizing a `manifest.json` file that I’ll include below. Chrome extensions vary in complexity, so building a Chrome extension can be as simple or complicated as you want it to be. After you learn the basics here, you’ll be able to create something much more complicated using your own skillset.
+我们要把事情简单化，因此在本教程中，我们将只使用 HTML，CSS 和一些基础的 JavaScript，以及如何自定义我将在下面添加的 `manifest.json` 文件。Chrome 扩展程序的复杂程度各不相同，因此构建 Chrome 扩展程序的复杂度取决于你想开发什么样的应用。在学习了基础知识之后，你可以使用自己的技术栈开发更复杂的扩展程序。
 
-### Setting Up Your Files
+### 创建你的项目文件
 
-For this tutorial, we’re going to create a simple dashboard that greets the user by name. Let’s call our extension Simple Greeting Dashboard.
+在本教程中，我们将开发一个通过名字来欢迎用户的简单 dashboard。让我们称之为 Simple Greeting Dashboard。
 
-To get started, you’ll want to create three files: `index.html`, `main.css`, and `main.js`. Put these in their own folder. Next, fill the HTML file with basic HTML document setup, and connect it to the CSS and JS files:
+首先，你需要创建三个文件：index.html，main.css 和 main.js。把它们放在单独的文件夹中。接下来，使用基础的 HTML 代码填充 HTML 文件，并引用 CSS 和 JS 文件：
 
 ```
 <!-- =================================
@@ -42,15 +42,15 @@ Simple Greeting Dashboard
   <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
 </head>
 <body>
-   <!-- My code will go here -->
+   <!-- 将在这里添加业务代码 -->
    <script src="main.js"></script>
 </body>
 </html>
 ```
 
-### Customizing Your manifest.json file
+### 自定义你的 manifest.json 文件
 
-These files won’t be enough to get your project working as a Chrome extension. For that, we need a `manifest.json` file that we’ll customize with some basic information about our extension. You can download that file on [Google’s developer portal,](https://developer.chrome.com/extensions/getstarted) or just copy/paste the following lines into a new file and save it as `manifest.json` in your folder:
+这些文件还不足以让你的项目作为 Chrome 扩展程序运行。为此，我们需要一个 `manifest.json` 文件，我们将使用一些基本的扩展程序信息进行自定义。你可以在 [Google 的开发人员网站](https://developer.chrome.com/extensions/getstarted) 上下载该文件，也可以直接将以下代码复制/粘贴到新文件中，并且以 `manifest.json` 的文件名保存在你的文件夹中：
 
 ```
 {
@@ -61,9 +61,9 @@ These files won’t be enough to get your project working as a Chrome extension.
 }
 ```
 
-Now, let’s update the sample file with a little more information about our extension. We’ll want to change only the first three values of this code: `name`, `version`, and `description`. Let’s fill in our name and a one-line description, and since this is our first version, let’s keep that value at 1.0. The `manifest_version` number should be kept the same.
+现在，让我们使用更多的扩展程序信息来更新示例文件。我们只想更改这段代码的前三个值：`name`，`version` 和 `description`。让我们来填写扩展程序名字和一行描述，因为这是我们的第一个版本，让我们保持版本值为 1.0。`manifest_version` 编号应该保持不变。
 
-Next, we’re going to add a few lines to tell Chrome what to do with this extension.
+接下来，我们将添加几行代码来告诉 Chrome 如何处理这个扩展程序。
 
 ```
 {
@@ -89,41 +89,41 @@ Next, we’re going to add a few lines to tell Chrome what to do with this exten
 }
 ```
 
-The value `"incognito": "split"` tells Chrome what to do with this extension when it’s in incognito mode. `"split"` will allow the extension to run in its own process when the browser is incognito; for other options, see the [Chrome developer documentation](https://developer.chrome.com/extensions/manifest/incognito).
+`"incognito": "split"` 字段会告知 Chrome 在处于隐身模式时如何处理这个扩展程序。当浏览器处于隐身模式时，`"split"` 将允许扩展程序在其自己的进程中运行；有关其他选项，请参阅 [Chrome 开发者文档](https://developer.chrome.com/extensions/manifest/incognito)。
 
-As you can probably see, `"chrome_url_overrides"` tells Chrome to open `index.html` whenever a new tab is opened. The value of `"permissions"` will give the user a pop-up letting them know that this extension will override their new tab when they try to install it.
+正如你可能看到的那样，`"chrome_url_overrides"` 告诉 Chrome 每次打开新标签时都会打开 `index.html`。`"permissions"` 的值会在用户试图安装这个扩展程序时，向用户提供一个弹框提示，让他们知道这个扩展程序将覆盖他们的新标签。
 
-Finally, we’re telling Chrome what to display as our favicon: a file called `icon.png`, which will be 128 x 128 pixels.
+最后，我们告诉 Chrome 要显示什么作为我们的图标：一个名为 `icon.png` 的文件，尺寸为 128 x 128 像素。
 
-### Creating an Icon
+### 创建一个图标
 
-Since we don’t have the icon file yet, next, we’ll create an icon for Simple Greeting Dash. Feel free to use the one I made below. If you’d like to make your own, you can easily do so using Photoshop or a free service like [Canva](http://canva.com). Just be sure the dimensions are 128 x 128 pixels, and that you save it as `icon.png` in the same folder as your HTML, CSS, JS, and JSON files.
+由于我们还没有图标文件，接下来，我们将为 Simple Greeting Dash 创建一个图标。请随意使用我下面制作的那个图标。如果你想自己制作一个，可以使用 Photoshop 或者 [Canva](http://canva.com) 这样的免费服务轻松完成。请确保尺寸为 128 x 128 像素，并将其作为 `icon.png` 保存在与 HTML，CSS，JS 和 JSON 文件相同的文件夹中。
 
 ![](https://cdn-images-1.medium.com/max/800/1*-dBIaX8IyG0PfHK-2vZ2dA.png)
 
-My 128x128 icon for Simple Greeting Dash
+我为 Simple Greeting Dash 制作的 128 x 128 图标 
 
-### Uploading Your Files (If You’re Coding Your Own Page)
+### 上传文件（如果你正在开发自己的页面）
 
-The information above is all you really need to know to create your own new tab Chrome extension. After you customize your `manifest.json` file, you can design whatever kind of new tab page you want in HTML, CSS, and JavaScript and upload it as shown below. But if you’d like to see how I’m going to make this simple dashboard, skip down to “Creating a Settings Menu.”
+通过以上信息，你可以创建你自己的新标签 Chrome 扩展程序。在自定义 `manifest.json` 文件后，你可以通过 HTML，CSS 和 JavaScript 设计你想要的任意类型的新标签页，并像下面展示的那样将其上传。但是，如果你想了解我将如何制作这个简单的 dashboard，请跳转至“创建设置菜单”。
 
-Once you’re done styling your new tab page, your Chrome extension is done and ready to upload to Chrome. To upload it yourself, head to [**chrome://extensions/**](about:invalid#zSoyz)  in your browser and toggle on Developer Mode in the upper right.
+一旦你完成新标签页的样式设置后，你的 Chrome 扩展程序就算完成了，并准备好了上传到 Chrome。要自己上传已经完成的扩展程序，请在浏览器中访问 [**chrome://extensions/**](about:invalid#zSoyz) 并切换右上角的开发者模式。
 
 ![](https://cdn-images-1.medium.com/max/800/1*O2j2WS2RAPYE_NiOWqyWCw.png)
 
-Refresh the page and click on “Load unpacked.”
+刷新页面并点击“加载已解压的扩展程序”。
 
 ![](https://cdn-images-1.medium.com/max/800/1*gb0c8qmG_MtinG9tOmjxuA.png)
 
-Next, select the folder where you’re storing your HTML, CSS, JS, and `manifest.json` files, as well as your `icon.png`, and upload. The extension should work each time you open a new tab!
+接下来，选择存储 HTML，CSS，JS 和 `manifest.json`，以及你的 `icon.png` 文件的文件夹，并上传这些文件。扩展程序应该在每次打开新的标签页时都生效！
 
-Once you’re done with your extension and have tested it out yourself, you can get a developer account and it to the Chrome extension store. [This guide on publishing your extension](https://developer.chrome.com/webstore/publish) should help.
+一旦你完成扩展程序开发并自行测试后，你可以获取一个开发者帐户并将其转到 Chrome 扩展程序商店。[这个有关发布扩展程序的指南](https://developer.chrome.com/webstore/publish)应该有所帮助。
 
-If you aren’t creating your own extension right now and just want to see what’s possible with Chrome extensions, read on to see how to make a very simple greeting dashboard.
+如果你现在没有创建自己的扩展程序，只想查看 Chrome 扩展程序的功能，请继续阅读，了解如何制作一个非常简单的问候语 dashboard。
 
-### Creating a Settings Menu
+### 创建设置菜单
 
-For my extension, the first thing I’ll want to do is create an input where my user can add their name. Since I don’t want this input to be visible all the time, I’m going to put it in a div called `settings`, which I’ll make visible only when the Settings button is clicked.
+对于我的扩展程序，我要做的第一件事是创建一个输入框，我的用户可以添加他们的名字。由于我不希望这个输入框始终可见，我将把它放在一个名为 `settings` 的 div 中，只有在点击 Settings 按钮后我才会让它可见。
 
 ```
 <button id="settings-button">Settings</button>
@@ -136,13 +136,13 @@ For my extension, the first thing I’ll want to do is create an input where my 
 </div>
 ```
 
-Right now, our settings look like this:
+现在，我们的设置菜单如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*YXSHj-nYAotrbMCAulpJ0Q.png)
 
-So beautiful!
+太美了！
 
-… so I’m going to give them some basic styles in CSS. I’ll give the button and input both some padding and an outline, and then put a little space between the settings and the form.
+... 所以我要在 CSS 文件中给他们添加一些基本的样式。我将给按钮和输入框添加一些内边距和轮廓（outline），然后在 settings 按钮和表单之间添加一些空间。
 
 ```
 .settings {
@@ -174,11 +174,11 @@ form {
 }
 ```
 
-Now our settings look a bit better:
+现在我们的设置菜单看起来好看一点了：
 
 ![](https://cdn-images-1.medium.com/max/800/1*xk-CcvLMpxklx1MIvsD7xQ.png)
 
-But let’s make them hidden when the user hasn’t clicked on Settings. I’ll do this by adding the following to `.settings`, which will cause the name input to disappear off the side of the screen:
+但是让我们在用户没有点击 Settings 按钮时隐藏它们。我将通过将以下样式添加到 `.settings` 表单来实现，这将导致名称输入框从屏幕的一侧消失：
 
 ```
 transform: translateX(-100%);
@@ -186,7 +186,7 @@ transform: translateX(-100%);
 transition: transform 1s;
 ```
 
-Now let’s create a class called `settings-open` that we’ll toggle on and off in JavaScript when the user clicks the Settings button. When `settings-open` is added to `settings`, it will not have any transformations applied to it; it’ll just be visible in its normal position.
+现在让我们创建一个名为 `settings-open` 的样式类名，当用户单击 Settings 按钮时，我们将在 JavaScript 中对这个类名的添加和移除进行切换。当 `settings-open` 添加到 `settings` 表单时，它将不会应用任何变换；它只是在它本该出现的位置可见。
 
 ```
 .settings-open.settings {
@@ -194,7 +194,7 @@ Now let’s create a class called `settings-open` that we’ll toggle on and off
 }
 ```
 
-Let’s get the class toggle working in JavaScript. I’m going to make a function called `openSettings()` that will toggle the class `settings-open` on or off. To do this, I’ll first get the element by its ID of `"settings"`, then use `classList.toggle` to add the class of `settings-open`.
+让我们在 JavaScript 中使类名切换生效。我将创建一个名为 `openSettings()` 的函数，它将添加或移除类名 `settings-open`。为此，我将首先通过其 ID `"settings"` 获取元素，然后使用 `classList.toggle` 添加类名 `settings-open`。
 
 ```
 function openSettings() {
@@ -202,17 +202,17 @@ function openSettings() {
 }
 ```
 
-Now I’ll add an event listener that will trigger the function whenever the Settings button is clicked.
+现在我要添加一个事件监听器，只要点击 Settings 按钮，它就会触发该函数。
 
 ```
 document.getElementById("settings-button").addEventListener('click', openSettings)
 ```
 
-This will make your settings appear or disappear whenever you click the Settings button.
+当你点击 Settings 按钮，这将使你的设置表单显示或消失。
 
-### Creating a Personalized Greeting
+### 创建个性化问候语
 
-Next, let’s create the greeting message. We’ll make an empty `h2` in HTML, and then fill it using innerHTML in JavaScript. I’m going to give the `h2` an ID so I can access it later, and put it inside a `div` called `greeting-container` to center it.
+接下来，让我们创建问候消息。我们将在 HTML 中创建一个空的 `h2` 标签，然后在 JavaScript 中使用 innerHTML 填充它。我将给 `h2` 标签一个 ID，以便我后面能访问到它，并将它放在一个名为 `greeting-container` 的 `div` 中方便使其居中。
 
 ```
 <div class="greeting-container">
@@ -220,13 +220,13 @@ Next, let’s create the greeting message. We’ll make an empty `h2` in HTML, a
 </div>
 ```
 
-Now, in JavaScript, I’m going to create a basic greeting using the user’s name. First I’ll make variable to hold the name, which I’ll keep empty for now, and add to later.
+现在，在 JavaScript 中，我将使用用户名称创建一个基本的问候语。首先，我将声明一个变量保存名称，现在它是空的，稍后添加。
 
 ```
 var userName;
 ```
 
-Even if `userName` wasn’t empty, if I just put `userName` into a greeting in my HTML, Chrome wouldn’t use the same name if I open it in another session. To make sure Chrome remembers who I am, I’m going to have to work with local storage. So I’ll make a function called `saveName()`.
+即使 `userName` 不为空，如果我只是将 `userName` 放入 HTML 中的问候语中，如果我在另一个会话中打开它，Chrome 也不会使用相同的名称。为了确保 Chrome 记住我是谁，我将不得不使用本地存储。所以我将创建一个名为 `saveName()` 的函数。
 
 ```
 function saveName() {
@@ -234,13 +234,13 @@ function saveName() {
 }
 ```
 
-The function `localStorage.setItem()` takes two arguments: the first is a keyword I’ll use to access the information later, and the second is the information it needs to remember; in this case, the `userName`. I’m going to get this saved information through `localStorage.getItem`, which I’m going to use to update the `userName` variable.
+`localStorage.setItem()` 函数有两个参数：第一个是我稍后用来访问信息的关键字，第二个是它需要记住的信息；在这里，需要记住的信息是 `userName`。稍后我将通过 `localStorage.getItem` 获取保存的信息，我将用它来更新 `userName` 变量。
 
 ```
 var userName = localStorage.getItem('receivedName');
 ```
 
-Before we link this to an event listener in the form, I want to tell Chrome what to call me if I haven’t told it my name yet. I’ll do this using an if statement.
+在我们将其链接到表单中的事件监听器之前，如果我还没有告诉 Chrome 我的名字，我想告诉它如何称呼我。我将使用 if 语句执行此操作。
 
 ```
 if (userName == null) {
@@ -248,7 +248,7 @@ if (userName == null) {
 }
 ```
 
-And now, let’s finally hook up our userName variable to our form. I want to do this inside of a function, so that I can call that function whenever the name is updated. Let’s call the function `changeName()`.
+现在，让我们最终将 userName 变量关联到我们的表单。我想在函数内部执行此操作，以便每次更新名称时都可以调用该函数。我们将这个函数命名为 `changeName()`。
 
 ```
 function changeName() {
@@ -257,7 +257,7 @@ function changeName() {
 }
 ```
 
-I want to call this function each time someone submits a name using the form. I’ll do this with an event listener, in which I’ll call the function `changeName()` and also prevent the page’s default of refreshing when a form is submitted.
+我想在每次有人使用表单提交名称时调用此函数。我将使用一个事件监听器执行此操作，我将调用函数 `changeName()`，并在提交表单时阻止页面默认的刷新行为。
 
 ```
 document.getElementById("name-form").addEventListener('submit', function(e) {
@@ -266,7 +266,7 @@ document.getElementById("name-form").addEventListener('submit', function(e) {
 });
 ```
 
-Finally, let’s create our greeting. I’ll put this in a function as well, so that I can call it both when the page is refreshed, and whenever `changeName()` occurs. Here’s the function:
+最后，让我们创建问候语。我也将它放在一个函数中，这样我就可以在刷新页面时和每当 `changeName()` 发生时调用它。这是函数内容：
 
 ```
 function getGreeting() {
@@ -276,11 +276,11 @@ function getGreeting() {
 getGreeting()
 ```
 
-Now I’ll call `getGreeting()` in my `changeName()` function and call it a day!
+现在我将在 `changeName()` 函数中调用 `getGreeting()`，收工！
 
-### Finally, Style Your Page
+### 最后，设计你的页面
 
-Now it’s time to add the finishing touches. I’m going to center my header using flexbox, make it bigger, and add a gradient background to the body in CSS. And to make the button and `h2` pop against the gradient, I’ll make them white.
+现在是时候添加最后的润色了。在 CSS 中，我将使用 flexbox 居中我的标题，为标题设置更大的字体，并为 body 添加渐变背景。为了使按钮和 `h2` 标签同渐变背景形成对比，我会让它们变白。
 
 ```
 .greeting-container {
@@ -305,13 +305,13 @@ html {
 }
 ```
 
-And that’s it! Your page will look like this:
+就是这样！你的页面将如下所示：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*QMqFDrey8Ylut2XLen8JRA.png)
 
-Your very own Chrome extension!
+你自己的 Chrome 扩展程序！
 
-It may not be much, but it’s a great foundation for you to create and style your own Chrome dashboards. Please let us know if you have any questions, and feel free to reach out to me on Twitter at [@saralaughed](https://twitter.com/SaraLaughed).
+它可能不是很多，但它是你创建和设计自己的 Chrome dashboards 的良好基础。如果你有任何疑问，请告诉我们，并随时在 Twitter 上与我联系，[@saralaughed](https://twitter.com/SaraLaughed)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
