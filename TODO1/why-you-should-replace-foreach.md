@@ -20,7 +20,7 @@ people.forEach(person => {
 });
 ```
 
-这段代码的意思是，处理一个包含所有人的数组，以找出每个年龄小于 15 岁的人。然后选择 person 对象中的其中几个字段作为 'kids' 对象，并将其复制到 kids 数组中。
+这段代码的意思是，处理一个包含所有人的数组，以找出每个年龄小于 15 岁的人。然后选择 person 对象中的其中几个字段作为 'kids' 对象，并将其复制到 kids 数组中。
 
 虽然这是有效的，但这是非常必要的（参见[编程范例](https://en.wikipedia.org/wiki/Programming_paradigm)）编码方式。你可能有所怀疑，这有什么不对？要理解这一点，让我们首先熟悉两个朋友 `map` 和 `filter`。
 
@@ -41,7 +41,7 @@ const doubled = numbers.map(number => number * 2); // [2, 4, 6, 8, 10]
 const even = numbers.filter(number => number % 2 === 0); // [2, 4]
 ```
 
-既然我们知道 `map` 和 `filter` 会做什么，让我们接下来看一个我希望前面的示例应当如何编写的例子：
+既然我们知道 `map` 和 `filter` 会做什么，让我们接下来看一个我希望前面的示例应当如何编写的例子：
 
 ```
 const kids = people
