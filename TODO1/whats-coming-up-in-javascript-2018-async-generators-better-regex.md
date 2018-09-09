@@ -5,6 +5,8 @@
 > * 译者：[MeFelixWang](https://github.com/MeFelixWang)
 > * 校对者：[CoderMing](https://github.com/CoderMing)
 
+# JavaScript 2018 中即将迎来的新功能：异步生成器及更好的正则表达式
+
 ![](https://cdn.thenewstack.io/media/2018/08/ba3bc5a9-res-3615421_1920-1024x681.jpg)
 
 2018 年 6 月发布的最新年度 [ECMAScript 更新](http://www.ecma-international.org/ecma-262/9.0/index.html)，尽管在常见功能的积压上仍然远远小于 ECMAScript 6，但依然是迄今为止最大的年度版本。
