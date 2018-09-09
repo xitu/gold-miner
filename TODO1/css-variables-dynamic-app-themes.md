@@ -3,8 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/css-variables-dynamic-app-themes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/css-variables-dynamic-app-themes.md)
 > * 译者：[CoolRice](https://github.com/CoolRice)
-> * 校对者：[Yifan Xiang](https://github.com/diliburong)
-> * 校对者：[CoderMing](https://github.com/CoderMing)
+> * 校对者：[Yifan Xiang](https://github.com/diliburong), [CoderMing](https://github.com/CoderMing)
 
 # CSS 变量和 JavaScript 让应用支持动态主题 🎨
 
