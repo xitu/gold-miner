@@ -41,7 +41,7 @@ cameraManager.openCamera(cameraId, object : CameraDevice.StateCallback() {
 
 ### 第一个并不是最好的选择
 
-上述代码目前看起来没什么问题。如果我们所需要的只是一个能够打开第一个存在的摄像头的应用程序，那么它在大部分的 Android 手机上都有效。但是考虑到以下场景:
+上述代码目前看起来没什么问题。如果我们所需要的只是一个能够打开第一个存在的摄像头的应用程序，那么它在大部分的 Android 手机上都有效。但是考虑到以下场景：
 
 *   如果设备没有摄像头，那么应用程序会崩溃。这看起来似乎不太可能，但是要知道 Android 运用在各种设备上，包括 Android Things、Android Wear 和 Android TV 等这些有数百万用户的设备。
 *   如果设备至少有一个后置摄像头，它将会映射到列表中的第一个摄像头。但是当应用程序运行在没有后置摄像头的设备上，比如 PixelBooks 或者其他一些 ChromeOS 的笔记本电脑，将会打开唯一一个前置摄像头。
@@ -92,7 +92,7 @@ fun getFirstCameraIdFacing(cameraManager: CameraManager,
 
 Google 相机应用中切换摄像头按钮
 
-要实现这个功能，尝试从[CameraManager.getCameraIdList()](https://developer.android.com/reference/android/hardware/camera2/CameraManager#getCameraIdList%28%29)提供的列表中选择下一个摄像头，但是这并不是个好的方式。因为从 Android P 开始，我们将会看到在同样的情况下更多的设备有多个摄像头，甚至有通过 USB 连接的外部摄像头。如果我们想要提供给用户切换不同摄像头的 UI，建议 ([按照文档](https://developer.android.com/reference/android/hardware/camera2/CameraMetadata#REQUEST_AVAILABLE_CAPABILITIES_LOGICAL_MULTI_CAMERA)) 是为每个可能的镜头配置选择第一个可用的摄像头。
+要实现这个功能，尝试从[CameraManager.getCameraIdList()](https://developer.android.com/reference/android/hardware/camera2/CameraManager#getCameraIdList%28%29)提供的列表中选择下一个摄像头，但是这并不是个好的方式。因为从 Android P 开始，我们将会看到在同样的情况下更多的设备有多个摄像头，甚至有通过 USB 连接的外部摄像头。如果我们想要提供给用户切换不同摄像头的 UI，建议（[按照文档](https://developer.android.com/reference/android/hardware/camera2/CameraMetadata#REQUEST_AVAILABLE_CAPABILITIES_LOGICAL_MULTI_CAMERA)）是为每个可能的镜头配置选择第一个可用的摄像头。
 
 尽管没有一个通用的逻辑可以用来选择下一个摄像头，但是下述代码适用于大部分情况：
 
@@ -138,7 +138,7 @@ fun getNextCameraId(cameraManager: CameraManager, currCameraId: String? = null):
 
 ### 兼容性行为
 
-对于那些仍然在使用已经废弃的 Camera API 的应用程序，通过 [Camera.getNumberOfCameras()](https://developer.android.com/reference/android/hardware/Camera#getNumberOfCameras%28%29) 得到的摄像头的数量取决于 OEM 的实现。文档上是这样描述的:
+对于那些仍然在使用已经废弃的 Camera API 的应用程序，通过 [Camera.getNumberOfCameras()](https://developer.android.com/reference/android/hardware/Camera#getNumberOfCameras%28%29) 得到的摄像头的数量取决于 OEM 的实现。文档上是这样描述的：
 
 > 如果系统中有逻辑多摄像头，为了保持应用程序的向后兼容性，这个方法仅为每个逻辑摄像头和底层的物理摄像头组公开一个摄像头。使用 camera2 API 去查看所有摄像头。
 
