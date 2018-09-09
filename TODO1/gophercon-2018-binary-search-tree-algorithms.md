@@ -2,10 +2,10 @@
 > * 原文作者：[Kaylyn Gibilterra](https://twitter.com/kgibilterra)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/gophercon-2018-binary-search-tree-algorithms.md](https://github.com/xitu/gold-miner/blob/master/TODO1/gophercon-2018-binary-search-tree-algorithms.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Changkun Ou](https://github.com/changkun)
+> * 校对者：[razertory](https://github.com/razertory)
 
-# GopherCon 2018 - Demystifying Binary Search Tree Algorithms
+# GopherCon 2018：揭秘二叉查找树算法
 
 By Geoffrey Gilmore for the GopherCon Liveblog on August 30, 2018
 
@@ -13,93 +13,92 @@ Presenter: [Kaylyn Gibilterra](https://twitter.com/kgibilterra)
 
 Liveblogger: [Geoffrey Gilmore](https://github.com/ggilmore)
 
-Learning algorithms can be overwhelming and demoralizing, but it doesn't have to be. In this talk, Kaylyn explains binary search tree algorithms in a simple and straightforward manner with code examples in Go.
+算法的学习势不可挡也令人气馁，但其实大可不必如此。在本次演讲中，Kaylyn 使用 Go 代码作为例子，直接了当的阐述了二叉查找树算法。
 
 * * *
 
-## Introduction
+## 介绍
 
-Kaylyn started writing algorithms for fun over the last year. This might seem strange to you, but it's especially weird for her. She hated her algorithms class in college. Her professor would use complicated jargon and refuse to explain "obvious" concepts. As a result, she only picked up enough knowledge to be able to pass her job interviews and move on with the rest of her life.
+Kaylyn 在最近的一年里尝试通过实现各种算法来找乐子。可能这件事情对于你来说很奇怪，但算法对她而言尤其诡异。她在大学课堂里尤其讨厌算法。她的教授经常使用一些复杂的术语来授课，而且还拒绝解释一些『显然』的概念。结果就是，她只学到了一些能够帮助她找到工作的基本知识。
 
-Her attitude towards algorithms changed once she started to implement them in Go. Converting algorithms written C or Java into Go was surprisingly easy, and she understood them better afterward than she did back in college.
+然而她的态度在当她开始使用 Go 来实现这些算法时就开始转变了。将那些由 C 或者 Java 编写的算法转换到 Go 身上令人意想不到的简单，于是她开始逐渐理解这些算法，并且比在大学期间理解得更为透彻。
 
-Kaylyn will explain why that is and show you how to do it with binary search trees, but before we do that: Why exactly is learning algorithms so awful?
+Kaylyn 将在演讲中解释为什么会出现这种情况、并为你展示如何使用二叉查找树。在这之前，我们需要问：为什么学习算法的体验如此糟糕？
 
-## Learning algorithms is horrible
+## 学习算法很可怕
 
 ![](https://user-images.githubusercontent.com/9022011/44757761-fdfd3100-aaed-11e8-8efb-bcac3d9aebb4.png)
 
-This screenshot is from the binary search tree section of Introduction to Algorithms (a.k.a. CLRS). CLRS is considered to be the "gospel" of algorithms books. To the authors' credit, there hadn't been a great algorithms textbook written before it came out in 1989. However, anyone reading CLRS can tell that it was written by professors whose primary audience was academically minded.
+此截图来自《算法导论》的二叉查找树部分。算法导论被认为是算法书籍的圣经。据作者所说，在 1989 年出版之前，没有一本很好的算法教科书。但是，任何阅读算法导论的人都可以说它是由主要受众具有学术意识的教授编写的。
 
-Some examples of this:
+举几个例子：
 
-*   This page references lots of terms that the book defines elsewhere. So you need to know things like
-    
-    *   what satellite data is
-    *   what a linked list is
-    *   what "pre-order" and "post-order" tree traversal mean
-    
-    You won't know what those things are if you haven't taken notes on every single page in the book.
-    
-*   If you're anything like Kaylyn, the first thing that you scan the page for is for something that looks like code. However, the only code that's on the page explains one way to walk through a binary search tree - not what a binary search tree _actually_ is.
-    
-*   The entire bottom quarter of this page is a theorem and a proof. This is probably well-intentioned. Many textbook authors feel that it's essential to prove to you that their statements are true; otherwise, you won't be able to trust them. The irony here is that CLRS is supposed to be an introductory textbook. However, a beginner doesn't need to know all of the exact details of why the algorithm is correct - they'll take your word for it.
-    
-*   To their credit, they do have a two-sentence area (highlighted in green) explaining what a binary search tree algorithm is. But it's buried in a barely visible sentence that calls it a binary search tree "property", which is confusing terminology for a beginner.
+* 此页引用了本书在其他地方定义的许多术语。所以你需要了解： 
 
-Takeaways:
+  * 什么是卫星数据（satellite data）
+  * 什么是链表（linked list）
+  * 什么是树的先序（pre-order）、后序（post-order）遍历
 
-1.  Academic textbook authors aren't necessarily great teachers. The best teachers often don't write textbooks.
-    
-2.  But most people copy the teaching style/format that the standard textbooks use. Even online resources reference jargon that they think you should know before looking at a binary search tree. In reality, most of this "required knowledge" isn't necessary.
+  如果你没有在书中的每一页上做笔记，你就无法知道这些都是什么。
 
-The rest of this talk will cover what a binary search tree is. You'll find it useful if you're new to Go or new to algorithms. If you're neither, it could still be an excellent refresher and something that you can pass on to other people who are curious about these things.
+* 如果你和 Kaylyn 一样，那么你看这一页的第一件事就是去看代码。但是，页面上唯一的代码只解释了一种遍历二叉查找树的方法，而不是二叉查找树实际上是什么。
 
-## Guess the Number Game
+* 本页的整个底部四分之一是定理和证明，这可能是善意的。许多教科书作者认为向你证明他们的陈述是真实的是相当重要的；否则，你就无法相信他们。可笑的是，算法应该是一本入门教科书。但是，初学者不需要知道算法正确的所有具体细节，因为他们会听你的话。
 
-This is the only thing that you need to know to understand the rest of this talk.
+* 他们确实有一个两句话区域（以绿色框突出显示），解释了二叉查找树算法是什么。但它隐藏在一个几乎看不见的句子中，并称之为二元查找树『性质』，这对于初学者而言是非常令人困惑的术语。
+
+结论:
+
+1. 学术教科书的作者不一定是好老师，最好的老师经常不写教科书。
+2. 可惜大多数人都复制了标准教科书使用的教学风格或格式。 在查看二叉查找树之前，他们默认你已经了解了相关的术语。事实上，大多数这种『必需的知识』并不是必需的。
+
+本演讲的其余部分将介绍二叉查找树的内容。如果你是 Go 新手或算法新手，你会发现它很有用。而如果你都不是，那么它可以作为一次很好的回顾，同时你也分享给对 Go 或者算法感兴趣的人。
+
+## 猜数游戏
+
+这是你在接下来全部演讲中唯一需要知道的东西。
 
 ![](https://user-images.githubusercontent.com/9022011/44758592-a01f1800-aaf2-11e8-9225-00c9d88ccaf9.png)
 
-This is the "Guess the Number Game", a game that many of you played when you were kids. You'd ask your friends to guess a number within a specific range, like 1-100. Your friend would throw out a number like "57". Their first guess was generally wrong since the range is so broad, but you were allowed to tell them if their guess was higher or lower than the answer. They'd keep guessing new numbers, taking into account the hints that you'd give them, and eventually they'd guess the right answer.
+这是一个『猜数游戏』，很多人儿时玩过的游戏。你邀请你的朋友来参加在某个范围内（比如 1 至 100）猜一个特定数的游戏。然后你朋友可能会说『57』。一般情况下第一次猜会猜错，但是你会告诉他们猜测的数字是大了还是小了。然后他可以继续猜测知道最后猜中为止。
 
 ![](https://user-images.githubusercontent.com/9022011/44758764-7b777000-aaf3-11e8-92d4-ebb4e92c2832.png)
 
-This guessing game is pretty much exactly what goes on during binary search. If you understand this guessing game, you also understand the core principal behind binary search tree algorithms. The numbers that they guessed are the numbers in the tree, and the "higher"/"lower" hints tell you the direction that you need to move: either to the right or left child node.
+这个猜数游戏基本上就是一个二叉查找的过程了。如果你正确理解了这个猜数游戏，那么你也能够理解二叉查找树算法背后的原理。你朋友猜测的数字就是查找树中的某个节点，『高了』和『低了』决定了移动的方向：右节点或左节点。
 
-## Rules of Binary Search Trees
+## 二叉查找树的规则
 
-1.  Each node contains one unique key. You use this to make comparisons between nodes. A key can be any comparable type: a string, integer, etc.
-2.  Each node has 0, 1, or at most 2 “children” it points to.
-3.  The keys to the right of any node are greater than that node
-4.  The keys to the left of any node are less than that node
-5.  You cannot have duplicate keys
+1.  每个节点包含一个唯一的 key，用于比较不同的节点大小。一个 key 可以是任何类型：字符串、整数等等。
+2.  每个节点至多两个子节点
+3.  节点的值小于右子树种节点的值
+4.  节点的值大于左子树种节点的值
+5.  没有重复的 key
 
-Binary search trees have three major operations:
+二叉查找树包含三个主要操作：
 
-*   Search
-*   Insert
-*   Delete
+*   查找
+*   插入
+*   删除
 
-Binary search trees make the above operations fast––that's why they are so popular.
+二叉查找树可以让上面这三个操作变得更快，这也是他们为什么如此热门的原因。
 
-## Search
+## 查找
 
 ![](https://cl.ly/dd19a7225c09/Screen%252520Recording%2525202018-08-29%252520at%25252009.03%252520PM.gif)
 
-The above GIF is an example of searching for the number `39` in the tree.
+上面的 GIF 图给出了在树种查找 `39` 的例子。
 
 ![](https://cl.ly/908ecf0f3854/Image%2525202018-08-29%252520at%2525209.31.02%252520PM.png)
 
-An important point to note is that every node to the right of the node that you are currently looking at is going to be _greater_ than the value of the current node. The nodes to the right of the green line are greater than `57`. All the nodes to the left are smaller than `57`.
+一个非常重要的性质是二叉查找树一个节点右子树中节点的值总是大于节点自身的值，而左子树中节点的值总是小于节点自身的值。比如图中 `57` 右边的数总是大于 `57` ，而左边总是小于 `57`。
 
 ![](https://cl.ly/61dfb3a92722/Image%2525202018-08-29%252520at%2525209.33.32%252520PM.png)
 
-This property is true for every node in the tree, not just the root node. In the above picture, all the numbers to the right of the green line are greater than `32`, all the numbers to the left of the red line are smaller than `32`.
+这个性质除了根节点外，对树中每个节点都有效。在上图中，所有右子树的值都大于 `32`，左子树则小于 `32`。
 
-So, now that we know the fundamentals, let's start writing some code.
+好了，我们知道了基本原理，可以开始写代码了。
 
-```
+```go
 type Node struct {
     Key   int
     Left  *Node
@@ -107,17 +106,17 @@ type Node struct {
 }
 ```
 
-The fundamental structure that we are going to use is a `struct`. If you are new to `struct`s, they are essentially just a collection of fields. The three fields that you need are `Key` (used for comparisons with other nodes), and the `Left` and `Right` child nodes.
+基本结构是一个 `stuct` ，如果你还没有用过 `stuct`，`struct` 基本上可以解释为一些字段的集合。这个结构体你需要的只是一个 `Key`（用于比较其他节点），一个 `Left` 和 `Right` 子节点。
 
-When you want to define a `Node`, you can do it using a struct literal:
+当定义一个 节点（Node）时，你可以使用这样的字面量，你可以使用这样的字面量：
 
-```
+```go
 tree := &Node{Key: 6}
 ```
 
-This creates a `Node` with a `Key` value `6`. You might be wondering where the `Left` and `Right` fields are. Nothing is stopping you from providing all the fields:
+它创建了一个 `Key` 为 `6` 的 `Node`。你可能好奇 `Left` 和 `Right` 去哪儿了。事实上他们都被初始化成零值了。
 
-```
+```go
 tree := &Node{
     Key:   6,
     Left:  nil,
@@ -125,115 +124,119 @@ tree := &Node{
 }
 ```
 
-However, you are allowed to specify only a subset of the `struct`'s fields if you a provide field names (e.g., `Key` in this case).
+然而你也可以显式什么这些字段的值（比如上面指定了 `Key`）。
 
-You can also instantiate a `Node` without named fields:
+又或者在没有字段名称的情况下指定字段的值：
 
-```
+```go
 tree := &Node{6, nil, nil}
 ```
 
-In this case: the first argument is `Key`, the second argument is `Left`, and the third argument is `Right`.
+这种情况下，第一个参数为 `Key`，第二个为 `Left`，第三个为 `Right`。
 
-After you instantiate your `Node`, you can access your struct's fields using dot notation like this:
+指定完后你就可以通过点语法来访问他们的值了：
 
-```
+```go
 tree := &Node{6, nil, nil}
 fmt.Println(tree.Key)
 ```
 
-So, let's write the algorithm for `Search`:
+现在我们来实现查找算法 `Search`：
 
-```
+```go
 func (n *Node) Search(key int) bool {
-    // This is our base case. If n == nil, `key`
-    // doesn't exist in our binary search tree. 
+    // 这是我们的基本情况。如果 n == nil，则 `key`
+    // 在二叉查找树种不存在
     if n == nil {
         return false
     }
-
-    if n.Key < key { // move right
+    if n.Key < key { // 向右走
         return n.Right.Search(key)
-    } else if n.Key > key { // move left
+    }
+    if n.Key > key { // 向左走
         return n.Left.Search(key)
     }
-
-    // n.Key == key, we found it!
+    // 如果 n.Key == key，就说明找到了
     return true
 }
 ```
 
-## Insert
+## 插入
 
 ![](https://cl.ly/aaa1f718d537/Screen%252520Recording%2525202018-08-29%252520at%25252010.17%252520PM.gif)
 
-The above GIF is an example of inserting `81` into the tree. Insert is very similar to search. We want to find where `81` should go inside the tree, so we walk the tree using the same rules that we used in `search`, and insert `81` once we find an empty spot.
+上面的 GIF 图片展示了在一个数中插入 `81` 的例子，插入与查找非常类似。我们想要找到应该在什么位置插入 `81`，于是开始查找，然后在合适的位置插入。
 
-```
+```go
 func (n *Node) Insert(key int) {
     if n.Key < key {
-        if n.Right == nil { // we found an empty spot, done!
+        if n.Right == nil { // 我们找到了一个空位，结束！
             n.Right = &Node{Key: key}
-        } else { // look right 
-            n.Right.Insert(key)
+            return
         }
-    } else if n.Key > key {
-        if n.Left == nil { // we found an empty spot, done!
+        // 向右边找
+        n.Right.Insert(key)
+       	return
+    } 
+    if n.Key > key {
+        if n.Left == nil { // 我们找到了一个空位，结束
             n.Left = &Node{Key: key}
-        } else { // look left
-            n.Left.Insert(key)
-        }
+            return
+        } 
+        // 向左边找
+        n.Left.Insert(key)
     }
-   // n.Key == key, don't need to do anything
+    // 如果 n.Key == key，则什么也不做
 }
 ```
 
-[If you haven't seen the `(n *Node)` syntax before, it's known as a pointer receiver.](https://tour.golang.org/methods/4)
+[如果你没见过 `(n *Node)` 语法，可以看看这里关于指针型 receiver 的说明。](https://tour.golang.org/methods/4)
 
-## Delete
+## 删除
 
 ![](https://cl.ly/e261dd30e743/Screen%252520Recording%2525202018-08-29%252520at%25252010.33%252520PM.gif)
 
-The above GIF is an example of deleting `78` from the tree. We search for `78` like we've done before, and in this case, we're able to just "snip" `78` from the tree by directly connecting `85` as the right child of `57`.
+上面的 GIF 图展示了从一个树种删除 78 的情况。`78` 的查找过程和之前类似。这种情况下，我们只需要正确的将 `78` 从树中『剪掉』、将右子节点 `57` 连接到 `85` 就行了。
 
-```
+```go
 func (n *Node) Delete(key int) *Node {
-    // search for `key`
+    // 按 `key` 查找
     if n.Key < key {
         n.Right = n.Right.Delete(key)
-    } else if n.Key > key {
-        n.Left = n.Left.Delete(key)   
-    // n.Key == `key`
-    } else {
-        if n.Left == nil { // just point to opposite node 
-            return n.Right
-        } else if n.Right == nil { // just point to opposite node 
-            return n.Left
-        }
-
-        // if `n` has two children, you need to 
-        // find the next highest number that 
-        // should go in `n`'s position so that
-        // the BST stays correct 
-        min := n.Right.Min()
- 
-        // we only update `n`'s key with min
-        // instead of replacing n with the min
-        // node so n's immediate children aren't orphaned
-        n.Key = min
-        n.Right = n.Right.Delete(min)
+        return n
     }
+    if n.Key > key {
+        n.Left = n.Left.Delete(key)   
+        return n
+    }
+
+    // n.Key == `key`
+    if n.Left == nil { // 只指向反向的节点
+        return n.Right
+    }
+    if n.Right == nil { // 只指向反向的节点
+        return n.Left
+    }
+
+    // 如果 `n` 有两个子节点，则需要确定下一个放在位置 n 的最大值
+    // 使得二叉查找树保持正确的性质
+    min := n.Right.Min()
+
+    // 我们只使用最小节点来更新 `n` 的 key
+    // 因此 n 的直接子节点不再为空
+    n.Key = min
+    n.Right = n.Right.Delete(min)
     return n
 }
 ```
 
-## Min value
+## 最小值
 
 ![](https://cl.ly/9f703767f7c9/Image%2525202018-08-29%252520at%25252011.20.37%252520PM.png)
 
-If you move to the left over and over, you get the smallest number (`24` in this case).
+如果不停的向左移，你会找到最小值（图中为 `24`）
 
-```
+```go
 func (n *Node) Min() int {
     if n.Left == nil {
         return n.Key
@@ -242,11 +245,11 @@ func (n *Node) Min() int {
 }
 ```
 
-## Max value
+## 最大值
 
 ![](https://cl.ly/6e4021ed62d9/Image%2525202018-08-29%252520at%25252011.22.20%252520PM.png)
 
-```
+```go
 func (n *Node) Max() int {
     if n.Right == nil {
         return n.Key
@@ -255,19 +258,18 @@ func (n *Node) Max() int {
 }
 ```
 
-If you move to the right over and over, you get the largest number (`96` in this case).
+如果你一直向右移，则会找到最大值（图中为 `96`）。
 
-## Testing
+## 单元测试
 
-Since we've written the code for each of the primary functions of binary search trees, let's actually test our code! Testing was the most fun part of the process for Kaylyn: testing in Go is _much_ more straightforward than a lot of other languages like Python and C.
+既然我们已经为二叉查找树的每个主要函数编写了代码，那么让我们实际测试一下我们的代码吧！ 测试实践过程中最有意思的部分：Go 中的测试比许多其他语言（如 Python 和 C ）更直接。
 
-```
-// You only need to import one library!
+```go
+// 必须导入标准库
 import "testing"
 
-// This is called a test table. It's a way to easily 
-// specify tests while avoiding boilerplate. 
-// See https://github.com/golang/go/wiki/TableDrivenTests
+// 这个称之为测试表。它能够简单的指定测试用例来避免写出重复代码。
+// 见 https://github.com/golang/go/wiki/TableDrivenTests
 var tests = []struct {
     input  int
     output bool
@@ -292,19 +294,19 @@ func TestSearch(t *testing.T) {
 }
 ```
 
-All you have to do to run this is:
+然后只需要运行：
 
 ```
 > go test
 ```
 
-Go runs your tests and will print a nicely formatted result that tells you if your tests passed, error messages from your test failures, and how long your tests took.
+Go 会运行你的测试并输出一个标准格式的结果，来告诉你测试是否通过，测试失败的消息以及测试花费的时间。
 
-## Benchmarking
+## 性能测试
 
-But wait––there's more! Go also makes it easy to do some very simple benchmarking. This is all the code that you need:
+等等，还有更多内容！Go 可以让性能测试变得非常简洁，你只需要：
 
-```
+```go
 import "testing"
 
 func BenchmarkSearch(b *testing.B) {
@@ -316,15 +318,15 @@ func BenchmarkSearch(b *testing.B) {
 }
 ```
 
-`b.N` will run `tree.Search()` over and over again until it observes a stable execution time for `tree.Search()`.
+`b.N` 会反复运行 `tree.Search()` 来获得 `tree.Search()` 的稳定运行结果。
 
-You can run this test with just the following command:
+通过下面的命令运行测试：
 
 ```
 > go test -bench=
 ```
 
-and your output will look like this:
+输出类似于：
 
 ```
 goos: darwin
@@ -335,64 +337,65 @@ PASS
 ok      github.com/kgibilterra/alGOrithms/bst   3.141s
 ```
 
-The line that you want to pay attention to is this:
+你需要关注的是下面这行：
 
 ```
 BenchmarkSearch-4       1000000000               2.84 ns/op
 ```
 
-This line tells you the speed of the function you have. In this case `test.Search()` took ~2.84 nanoseconds to execute.
+它表明了你函数的执行速度。这种情况下，`test.Search()` 的执行时间大约为 2.84 纳秒。
 
-Since it's easy to run benchmarks, you can start running some experiments such as:
+既然可以简单运行性能测试，那么可以开始做一些实验了，比如：
 
-*   What happens if I use a much larger / deeper tree?
-*   What happens if I change the key that I am searching for?
+*   如果树非常大或者非常深灰发生什么？
+*   如果我修改了需要查找的 key 会发生什么？
 
-Kaylyn found it particularly helpful for things like understanding the performance characteristics between maps and slices. It's nice to get quick, tactile feedback about things that you read about online.
+发现它特别利于理解 map 和 slice 之间的性能特性。希望你能在网上快速找到相关反馈。
 
-## Binary Search Tree Terminology
+> 译者注：二叉查找树的插入、删除、查找时间复杂度为 O(log(n))，最坏情况为 O(n)；Go 的 map 是一个哈希表，我们知道哈希表的插入、删除、查找的平均时间复杂度为 O(1)，而最坏情况下为 O(n)；而 Go 的 Slice 的查找需要遍历 Slice 复杂度为 O(n)，插入和删除在必要时会重新分配内存，最坏情况为 O(n)。
 
-The last thing that we're going to take a look at is some binary search tree terminology. If you decide to learn more about binary search trees on your own, it'll be useful for you know to about these terms:
+## 二叉查找树术语
 
-**Tree height**: Number of edges on the longest path from the root to the base. This determines the speed of your algorithm.
+最后我们来看一些二叉查找树的术语。如果你希望了解二叉查找树的更多内容，那么这些术语是有帮助的：
+
+**树的高度**：从根节点到叶子节点中最长路径的边数，这决定了算法的速度。
 
 ![](https://cl.ly/705355d982d4/Image%2525202018-08-30%252520at%25252012.05.11%252520AM.png)
 
-This tree has a height of `5`.
+图中树的高度 `5`。
 
-**Node depth**: Number of edges from the root to that node
+**节点深度**：从根节点到节点的边数。
 
-`48` is `2` edges away from the root.
+`48` 的深度为 `2`。
 
 ![](https://cl.ly/a0058d294af0/Image%2525202018-08-30%252520at%25252012.08.04%252520AM.png)
 
-**Full binary tree**: Each node has exactly 0 or 2 children
+**满二叉树**：每个非叶子节点均包含两个子节点。
 
 ![](https://cl.ly/3bd94a056d8d/Image%2525202018-08-30%252520at%25252012.10.53%252520AM.png)
 
-**Complete binary tree**: The tree is entirely filled, except for the bottom row, which can be filled from left to right
+**完全二叉树**：每层结点都完全填满，在最后一层上如果不是满的，则只缺少右边的若干结点。
 
 ![](https://cl.ly/d78de1699704/Image%2525202018-08-30%252520at%25252012.12.03%252520AM.png)
 
-**An unbalanced tree**
+**一个非平衡树**
 
 ![](https://cl.ly/1669851131fe/Screen%252520Recording%2525202018-08-30%252520at%25252012.14%252520AM.gif)
 
-Imagine that you're searching for `47` in this tree. Do you see how that takes `7` steps while searching for `24` only takes three? This problem becomes more exacerbated the more "unbalanced" the tree is. The way to fix it is to "balance" the tree:
+想象一下在这颗树上查找 `47`，你可以看到找到需要花费七步，而查找 `24` 则只需要花费三步，这个问题随着『不平衡』的增加而变得严重。解决方法就是使树变得平衡：
 
-**A balanced tree**:
+**一个平衡树**：
 
 ![](https://cl.ly/8ba095d064c8/Image%2525202018-08-30%252520at%25252012.20.17%252520AM.png)
 
-This tree contains the same nodes as the unbalanced tree, but searches on balanced trees are faster (on average) than on unbalanced trees.
+此树包含与非平衡树相同的节点，但在平衡树上查找平均比在不平衡树上查找更快。
 
-## Contact Information
+## 联系方式
 
 Twitter: [@kgibilterra](https://twitter.com/kgibilterra)
 Email: [kgibilterra@gmail.com](mailto:kgibilterra@gmail.com)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
