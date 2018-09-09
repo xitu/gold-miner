@@ -7,9 +7,9 @@
 
 ![](https://cdn.thenewstack.io/media/2018/08/ba3bc5a9-res-3615421_1920-1024x681.jpg)
 
-2018 年 6 月发布的最新年度[ ECMAScript 更新](http://www.ecma-international.org/ecma-262/9.0/index.html)，尽管在常见功能的积压上仍然远远小于 ECMAScript 6，但依然是迄今为止最大的年度版本。
+2018 年 6 月发布的最新年度 [ECMAScript 更新](http://www.ecma-international.org/ecma-262/9.0/index.html)，尽管在常见功能的积压上仍然远远小于 ECMAScript 6，但依然是迄今为止最大的年度版本。
 
-身为 ECMAScript 编辑及微软在 [ECMA TC39 委员会]((https://github.com/tc39))代表的 [Brian Terlson](https://github.com/bterlson) 告诉 The New Stack：这个版本中两个最大的开发者功能是异步生成器和一些期待已久的正则表达式改进，以及 rest/spread 属性。
+身为 ECMAScript 编辑及微软在 [ECMA TC39 委员会](https://github.com/tc39)代表的 [Brian Terlson](https://github.com/bterlson) 告诉 The New Stack：这个版本中两个最大的开发者功能是异步生成器和一些期待已久的正则表达式改进，以及 rest/spread 属性。
 
 “异步生成器和迭代器是将异步函数和迭代器结合起来的结果，所以它就像你可以在其中等待的异步生成器或你可以从中得到返回值的异步函数，”他解释道。以前，ECMAScript 允许你编写一个可以输入或等待但不能同时进行两者操作的函数。“这对于在 Web 平台占比越来越大的消费流来说非常方便，尤其是在 Fetch 对象公开流的情况下。”
 
@@ -31,15 +31,15 @@ Terlson 对正则表达式的改进感到特别兴奋（其中大部分工作都
 
 以前 ECMAScript 有先行断言但没有后行断言。“人们使用了一些技巧，比如反转字符串，然后进行匹配，或一些其他 hacks，”Terlson 指出。这对于查找和替换的正则表达式特别有用。“你看到的并没有成为你匹配的一部分，所以如果你要替换前后任何一边有美元符号的数字，你就可以做到这一点而无需做额外的工作将美元符号重新放回去。”ECMAScript [后行断言](https://github.com/tc39/proposal-regexp-lookbehind)允许像 C# 中那样的可变长度的后行断言，而不仅仅是 Perl 中的固定长度模式。
 
-特别是对于需要支持国际用户的开发人员，允许在正则表达式中使用 [Unicode 属性转义](https://github.com/tc39/proposal-regexp-unicode-property-escapes#ecmascript-proposal-unicode-property-escapes-in-regular-expressions)  `\\p{…}` 和 `\\P{…}` 将使创建 Unicode 可识别的正则表达式变得更加容易。目前，这对开发人员来说是件很麻烦的事。
+特别是对于需要支持国际用户的开发人员，允许在正则表达式中使用 [Unicode 属性转义](https://github.com/tc39/proposal-regexp-unicode-property-escapes#ecmascript-proposal-unicode-property-escapes-in-regular-expressions) `\\p{…}` 和 `\\P{…}` 将使创建 Unicode 可识别的正则表达式变得更加容易。目前，这对开发人员来说是件很麻烦的事。
 
 “Unicode 定义了数字，但这些数字不仅包括基本拉丁语 ASCII 0 到 9，还包括数学数字，粗体数字，大纲数字，花哨的演示数字，表格数字。如果要匹配 Unicode 中的任何数字，则 Unicode 可识别的应用程序必须具有可用的整个 Unicode 数据表。通过添加此功能，你可以将这些全部委托给 Unicode，”他说。如果你想以严格的方式匹配 Unicode 字符，比如说进行表单验证，并且你想做正确的事情而不是告诉人们他们的名称是无效的，这在很多情况下很难做到，但是使用 Unicode 字符类你可以明确指出名称所需的字符范围。已经有了不同语言和脚本的类，所以如果你只想处理希腊语或汉字，完全可以做到。Emoji 正变得越来越普遍。
 
 还有一些新的国际化 API，用于本地化的[日期和时间格式](https://github.com/tc39/proposal-intl-formatToParts)，欧元货币格式和[复数形式](https://github.com/tc39/proposal-intl-plural-rules)，这样可以更轻松地执行本地化标签和按钮等操作。
 
-ECMAScript 2018 扩展了[对象](https://github.com/tc39/proposal-object-rest-spread)和数组对 rest 和 spread 模式的支持（在 React 生态系统中很常见，许多开发人员都没有意识到它还没有完全标准化），Terlson 称之为有超大影响的小功能。rest 和 spread 对于复制和克隆对象很有用，例如，如果你有一个不可变的结构，而你要更改除一个属性之外的所有内容，或者你​​想复制一个对象但添加一个额外的属性。Terlson 指出，这种模式经常用于为选项记录分配默认值。“对于你一直在做的事情来说，这是一个非常好的语法模式。”
+ECMAScript 2018 扩展了[对象](https://github.com/tc39/proposal-object-rest-spread)和数组对 rest 和 spread 模式的支持（在 React 生态系统中很常见，许多开发人员都没有意识到它还没有完全标准化），Terlson 称之为有超大影响的小功能。rest 和 spread 对于复制和克隆对象很有用，例如，如果你有一个不可变的结构，而你要更改除一个属性之外的所有内容，或者你想复制一个对象但添加一个额外的属性。Terlson 指出，这种模式经常用于为选项记录分配默认值。“对于你一直在做的事情来说，这是一个非常好的语法模式。”
 
-Babel 和 TypeScript 等转换器已经支持 ECMAScript 2018 的许多功能。浏览器支持也将随着时间的推移实现，并且所有新功能都已经在 Chrome 的发布版本中（要获得完整的支持矩阵图表，请查看[ ECMAScript 兼容性表](http://kangax.github.io/compat-table/es2016plus/)。）
+Babel 和 TypeScript 等转换器已经支持 ECMAScript 2018 的许多功能。浏览器支持也将随着时间的推移实现，并且所有新功能都已经在 Chrome 的发布版本中（要获得完整的支持矩阵图表，请查看 [ECMAScript 兼容性表](http://kangax.github.io/compat-table/es2016plus/)）。
 
 [![](https://cdn.thenewstack.io/media/2018/08/cf694974-ecmascript.png)](https://cdn.thenewstack.io/media/2018/08/cf694974-ecmascript.png)
 
@@ -53,7 +53,7 @@ ECMAScript 兼容性表检测到的浏览器支持情况。
 
 “库作者正在寻求一种拥有私人状态的方式，以便开发者不能依赖它，”Terlson 解释道。“即使做了他们不应该做的事情，库也不喜欢打断用户。”例如，类中的私有属性将允许库作者避免暴露内部实现细节，如果他们将来可能会修改的话。
 
-BigInt 提案也处于第三阶段。目前，ECMAScript 只有 64 位浮点数类型，但许多平台和 web API 使用 64 位整数 —— 包括[ Twitter 用作推文 ID ](https://dev.twitter.com/overview/api/twitter-ids-json-and-snowflake)的 64 位整数。“你不能再将 JavaScript 中的推文 ID 表示为数字，”Terlson 解释道。“它们必须表示为一个字符串。”BigInt 是一个更通用的提案，用于添加任意精度的整数，而不只是添加 64 位整数。加密 API 和高精度计时器也将利用这一点，Terlson 预计 JIT JavaScript 引擎可能会使用原生 64 位字段来提供大整数以提升性能。
+BigInt 提案也处于第三阶段。目前，ECMAScript 只有 64 位浮点数类型，但许多平台和 web API 使用 64 位整数 — 包括 [Twitter 用作推文 ID](https://dev.twitter.com/overview/api/twitter-ids-json-and-snowflake) 的 64 位整数。“你不能再将 JavaScript 中的推文 ID 表示为数字，”Terlson 解释道。“它们必须表示为一个字符串。” BigInt 是一个更通用的提案，用于添加任意精度的整数，而不只是添加 64 位整数。加密 API 和高精度计时器也将利用这一点，Terlson 预计 JIT JavaScript 引擎可能会使用原生 64 位字段来提供大整数以提升性能。
 
 两项提案已经进入第四阶段；让 catch 绑定成为可选项（如果你不需要实际使用变量，就不必再将变量传递给 catch 块），以及进行[小的语法更改](https://github.com/tc39/proposal-json-superset)以处理 JSON 和 ECMAScript 字符串格式之间的不匹配。这些将与其他在未来几个月内取得进展的提案一起进入 ECMAScript 2019。
 
