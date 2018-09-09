@@ -1,3 +1,5 @@
+* [函数式 JavaScript 编程的简短介绍](https://juejin.im/post/5b8f97135188255c4a70f999) ([Zheng7426](https://github.com/Zheng7426) 翻译)
+* [简单的响应式现代 css 网格布局](https://juejin.im/post/5b8b4ddef265da436d7e594d) ([MeFelixWang](https://github.com/MeFelixWang) 翻译)
 * [使用原生 JavaScript 构建状态管理系统](https://juejin.im/post/5b763528e51d45559e3a5b64) ([shery](https://github.com/shery) 翻译)
 * [布局的下一次革新会是怎样的](https://juejin.im/post/5b85586ce51d4538c77a9cc1) ([MeFelixWang](https://github.com/MeFelixWang) 翻译)
 * [如何使用纯函数式 JavaScript 处理脏副作用](https://juejin.im/post/5b82bdb351882542e241ed32) ([Gavin-Gong](https://github.com/Gavin-Gong) 翻译)
