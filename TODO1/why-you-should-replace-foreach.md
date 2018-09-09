@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-you-should-replace-foreach.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-you-should-replace-foreach.md)
 > * 译者：[zhmhhu](https://github.com/zhmhhu)
-> * 校对者：[CoderMing](https://github.com/CoderMing),[diliburong](https://github.com/diliburong)
+> * 校对者：[CoderMing](https://github.com/CoderMing), [diliburong](https://github.com/diliburong)
 
 # 在 JavaScript 中 为什么你应当使用 map 和 filter 来替代 forEach
 
->当你需要将一个数组或一部分数组复制到一个新数组时，首选 `map` 和 `filter`，而不是 `forEach`。
+> 当你需要将一个数组或一部分数组复制到一个新数组时，首选 `map` 和 `filter`，而不是 `forEach`。
 
 咨询工作对我来说最大的好处之一是我可以看到无数的项目。这些项目有大有小，使用的编程语言和开发人员能力差异很大。尽管我认为有很多模式都应该放弃使用，但 JavaScript 语言中的这种模式尤其要弃用：使用 forEach 创建新数组。该模式实际上非常简单，看起来像这样：
 
@@ -55,8 +55,8 @@ const kids = people
 
 *  关注点分离：过滤和更改数据格式是两个独立的问题，使用单独的方法可以分离关注点。
 *  可测试性：为实现这两个目的，一个简单的、[纯函数](https://en.wikipedia.org/wiki/Pure_function)的方法可以轻松地针对各种行为进行单元测试。值得注意的是，初始实现并不像它依赖于其范围 （`kids` 数组）之外的某些状态那样纯粹。
-*  可读性：由于这些方法具有过滤数据或更改数据格式的明确目的，因此很容易看出正在进行何种操作。特别是因为有那些同类功能的函数，如 `reduce`。
-*  异步编程：`forEach` 和 `async` /`await` 不能很好地协同工作。另一方面，`map` 提供了一个能够结合 promises 和 `async` /`await` 的有效模式。在下一篇博文中有关于此问题的更多信息。
+*  可读性：由于这些方法具有过滤数据或更改数据格式的明确目的，因此很容易看出正在进行何种操作。特别是因为有那些同类功能的函数，如 `reduce`。
+*  异步编程：`forEach` 和 `async`/`await` 不能很好地协同工作。另一方面，`map` 提供了一个能够结合 promises 和 `async`/`await` 的有效模式。在下一篇博文中有关于此问题的更多信息。
 
 另一个值得注意的地方是，当你想引起副作用时（例如更改全局状态），不应当使用 `map`。特别是在不使用或存储 `map` 方法的返回值的情况下。
 
