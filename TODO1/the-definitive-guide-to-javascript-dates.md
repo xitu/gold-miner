@@ -214,7 +214,7 @@ date.setTimezoneOffset(newValue)
 
 Fun fact: those methods “overlap”, so if you, for example, set `date.setHours(48)`, it will increment the day as well.
 
-Good to know: you can add more than one parameter to `setHours()` to also set minutes, seconds and milliseconds: `setHours(0, 0, 0, 0)` \- the same applies to `setMinutes` and `setSeconds`.
+Good to know: you can add more than one parameter to `setHours()` to also set minutes, seconds and milliseconds: `setHours(0, 0, 0, 0)` - the same applies to `setMinutes` and `setSeconds`.
 
 As for get_, also set_ methods have an UTC equivalent:
 
