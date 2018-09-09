@@ -4409,10 +4409,11 @@
 |[你想学 React.js 吗？](https://juejin.im/post/5a2f8ea5f265da43305e6f6b)|翻译|3|
 |[JavaScript 如何工作的: 事件循环和异步编程的崛起 + 5 个关于如何使用 async/await 编写更好的技巧](https://juejin.im/post/5a221d35f265da43356291cc)|校对|4|
 
-## 译者：[athena0304](https://github.com/athena0304) 历史贡献积分：39.5 当前积分：39.5 年度积分：31.5
+## 译者：[athena0304](https://github.com/athena0304) 历史贡献积分：39.5 当前积分：9.5 年度积分：31.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 8 月兑 Octoplush 1 个|减去积分|30|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|4|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|6|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|18.5|
@@ -4832,10 +4833,11 @@
 |[Face ID 对易用性意味着什么](https://juejin.im/post/5a41d01cf265da432c241943)|校对|1|
 |[自动化持续集成/持续分发，以节省更多时间编写代码](https://juejin.im/post/5a44aab86fb9a044ff31c418)|翻译|3|
 
-## 译者：[hanliuxin5](https://github.com/hanliuxin5) 历史贡献积分：56.5 当前积分：56.5 年度积分：56.5
+## 译者：[hanliuxin5](https://github.com/hanliuxin5) 历史贡献积分：56.5 当前积分：46.5 年度积分：56.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 9 月兑掘金桌垫 1 个|减去积分|10|
 |[在 Android P 中使用默认的 TLS 来保护你的用户](https://juejin.im/post/5b29030551882574b4094a6f)|翻译|3|
 |[预测你的游戏的货币化未来](https://juejin.im/post/5ad1d3b6f265da238f12fafa)|校对|1|
 |[利用 Android 构建 TV 的未来](https://juejin.im/post/5a964061f265da4e914b8f88)|校对|1|
@@ -6351,10 +6353,11 @@
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|2|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1.5|
 
-## 译者：[Tivcrmn](https://github.com/Tivcrmn) 历史贡献积分：10 当前积分：10 年度积分：10
+## 译者：[Tivcrmn](https://github.com/Tivcrmn) 历史贡献积分：10 当前积分：0 年度积分：10
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 9 月兑 GitHub 贴纸 1 个和集智水杯 1 个|减去积分|10|
 |[由 CSS 网格系统的创造者们所讲述的故事](https://juejin.im/post/5b503d9ef265da0f504a518e)|翻译|6|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1|
