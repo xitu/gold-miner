@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/using-workers-to-make-static-sites-dynamic.md](https://github.com/xitu/gold-miner/blob/master/TODO1/using-workers-to-make-static-sites-dynamic.md)
 > * 译者：[MeFelixWang](https://github.com/MeFelixWang)
-> * 校对者：
+> * 校对者：[Park-ma](https://github.com/Park-ma)
 
 # 用 Workers 让静态网站动态化
 
@@ -33,7 +33,7 @@
 
 静态网站的难题在于页面加载速度异常快，一旦到达站点，我们就无法根据用户的偏好定制体验了。
 
-有了 Workers，我们可以通过读取边缘的请求报头来解决这个问题。Cloudflare 检测传入请求的原始 IP，并将两个字母的国家代码附加到名为 **“Cf-Ipcountry”**  的报头中。我们可以编写一个简单的 worker 来读取此报头，检查国家代码，然后重定向到相应的站点版本（如果存在的话）。
+有了 Workers，我们可以通过读取边缘的请求报头来解决这个问题。Cloudflare 检测传入请求的原始 IP，并将两个字母的国家代码附加到名为 **“Cf-Ipcountry”** 的报头中。我们可以编写一个简单的 worker 来读取此报头，检查国家代码，然后重定向到相应的站点版本（如果存在的话）。
 
 ```
 addEventListener('fetch', event => {
