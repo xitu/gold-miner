@@ -2,28 +2,28 @@
 > * 原文作者：[Eliz Kılıç](https://medium.com/@eliz_kilic?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-apple-can-fix-3d-touch.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-apple-can-fix-3d-touch.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Wangalan30](https://github.com/Wangalan30)
+> * 校对者：[liruochen1998](https://github.com/liruochen1998)
 
-# How Apple can fix 3D Touch
+# 苹果公司如何修复 3D Touch
 
-I should start with the obvious. _3D Touch is broken_! The user experience is far from great. Apple introduced 3D Touch and its new related interactions Peek and Pop in 2014. It’s been almost 4 years since its first introduction, yet people don’t know/use 3D Touch. Why would they? Even tech-savvy users don’t know which buttons offer 3D touch. Let alone regular users.
+我应该从最显而易见的地方开始。3D Touch 已被破坏！如今 3D Touch 的用户体验远远没有达到预期。苹果公司在 2014 年推出了 3D Touch 和与之相关的新的交互方式 Peek 和 Pop。距离它的第一次推出已经过去了近乎四年，然而人们并不了解以及使用 3D Touch。他们怎么可能知道呢？即使是那些懂得相关技术的用户都不知道按下哪个按钮可以使用 3D Touch，更不用说那些普通用户了。
 
-What would happen if we decide to make all links same color and style as the regular text? People would not know what to click on right? Why is 3D Touch be any different? We rely on our vision to decide actionability before anything else. If you can’t distinguish 3D Touchable buttons from those that are not, how are you supposed to know you can press on them? Look at this screenshot and see if you can tell which of the buttons can be 3D Touched.
+如果我们把所有链接的颜色和风格设置为与普通文本一致会怎么样呢？人们会不知道点哪里对吗？那么 3D Touch 又何尝不是如此呢？通常我们首先会依赖我们的视觉来决定一件事情的可操作性。如果你无法将支持 3D Touch 的按钮与其他按钮区分，你怎么知道你可以按下它们？我们来看下面这张截图，看你能否说出哪些按钮支持 3D Touch。
 
 ![](https://cdn-images-1.medium.com/max/800/1*bqBQU-A7UHWxKePiyFsAww@2x.png)
 
 iOS 11 Control Center
 
-Not all of these buttons can be 3D Touched. How are you supposed to know which is which? The only possible thing you can do is try 3D Touch and remember it. And to make things worse, 3D Touch is not a gimmick anymore. You need to know you should be pressing hard on the “4 Button Control” to access “Personal Hotspot” or “AirDrop” toggles.
+并不是所有的这些按钮都支持 3D Touch。那么你怎么知道哪个是哪个呢？你唯一能做的，就是试出 3D Touch 按钮，然后记住它。同时，更糟糕的是，3D Touch 已经不再是一个噱头。你需要知道，你应该用力按下“4 键控制”来实现“个人热点”和“隔空投送”的切换。
 
-Now that we know what the problem is, here is my solution. Like we did with the link texts years ago on the web, we should visually distinguish 3D Touchable buttons. Look at this same screen and see if you can tell which toggles accept 3D Touch.
+现在我们已经知道问题所在，下面是我的解决方案。像我们多年前在网页上对链接文本所做的那样，我们应该从视觉上区分 3D Touch 按钮。再看看这张屏幕，看你能否说出哪些切换按钮支持 3D Touch。
 
 ![](https://cdn-images-1.medium.com/max/800/1*BsbevA81Bb7IyCefSAjo0w@2x.png)
 
 iOS 11 Control Center with Force Decorators
 
-My solution is adding a line on bottom-right of things that can be 3D Touched. Let’s call them **Force Decorators** (with reference to Force Touch).
+我的解决方案是在按钮的右下方添加一行显示，表明这个按钮支持 3D Touch。我们可以把它们叫做**压感提示**（参考压力触控）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*jouGQM0L8LC-88f4cvlSrQ@2x.png)
 
@@ -33,13 +33,13 @@ Notifications with Force Decorators
 
 Mail with Force Decorators
 
-3D Touch is missing the most obvious thing to be mainstream. Visual cues. I think this is the answer.
+3D Touch 缺少成为主流的最显而易见的东西。视觉提示。我想这就是答案吧。
 
-What do you think about this?
+你怎么看呢？
 
 * * *
 
-You can reach me at Twitter at [twitter.com/eliz_kilic](https://twitter.com/eliz_kilic). Thanks designcode.io for awesome Sketch resources.
+你可以通过我的推特 twitter.com/eliz_kilic 联系我。感谢 designcode.io 提供很棒的草图资源。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

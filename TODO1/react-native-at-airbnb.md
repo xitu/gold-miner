@@ -2,51 +2,51 @@
 > * 原文作者：[Gabriel Peal](https://medium.com/@gpeal?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-native-at-airbnb.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-native-at-airbnb.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ALVINYEH](https://github.com/ALVINYEH)
+> * 校对者：[ChenDongnan](https://github.com/ChenDongnan)
 
-# React Native at Airbnb
+# Airbnb 中的 React Native
 
-##In 2016, we took a big bet on React Native. Two years later, we’re ready to share our experience with the world and show what’s next.
+## 在 2016 年，我们在 React Native 下了一个大赌注。两年后，我们准备与大家分享我们的经验并说明接下来的计划。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*P9Kc_EWojKpqfc1-_AhnSg.jpeg)
 
-Years later, it’s still possible to book a meeting in our Airstream
+多年以后，我们仍然可以在 Airstream 预订一次会议
 
-_This is the first in a series of blog posts in which we outline our experience with React Native and what is next for mobile at Airbnb._
+**这是我们系列博客文章中的第一篇，其中概述了我们在 React Native 这方面的经验以及 Airbnb 移动端以后会发展成什么样子。**
 
-When Airbnb launched 10 years ago, smartphones were in their infancy. Since then, smartphones have become an essential tool to navigate our everyday lives, especially as more and more people travel around the globe. As a community that enables new forms of travel for millions of people, having a world-class app is crucial. Mobile devices are oftentimes their primary or only form of communication while away from home.
+当 Airbnb 在 10 年前推出时，智能手机还处于萌芽阶段。自那以来，智能手机已成为驾驭日常生活的一个重要工具，尤其是现在随着越来越多的人开始周游世界。作为一个能够为数百万人提供新形式旅行的社区，拥有一个世界级的应用显得至关重要。因为移动设备通常是旅行者们远离家时的主要或唯一的通信形式。
 
-Since our first three guests stayed in Rausch Street in 2008, mobile usage has increased from zero to millions of bookings per year. Our apps give hosts the ability to manage their listings on the go and provide travelers with inspiration to discover new places and experiences right at their fingertips.
+自 2008 年我们的前三名客人入住 Rausch 街以来，移动端用户的预定量每年增加数百万。我们的应用让房东能够在行程中管理他们的房源，同时也为旅客提供灵感，用手指轻轻一点就能发现新的地方和体验。
 
-To keep up with the accelerated pace of mobile usage, we’ve grown our team to more than 100 mobile engineers to enable new experiences and improve existing ones.
+为了跟上移动应用的加速步伐，我们已经将团队扩展到 100 多名移动工程师，以实现新的体验并改进现有的工作。
 
-### Placing a Bet on React Native
+### 在 React Native 上下赌注
 
-We are continually evaluating new technologies to enable us to improve the experience of using Airbnb for guests and hosts, move quickly, and maintain a great developer experience. In 2016, one of those technologies was React Native. Back then, we recognized how important mobile was becoming to our business but simply didn’t have enough mobile engineers to reach our goals. As a result, we began to explore alternative options. Our website is built primarily with React. It has been a highly effective and universally liked web framework within Airbnb. Because of this, we saw React Native as an opportunity to open up mobile development to more engineers as well as ship code more quickly by leveraging its cross-platform nature.
+我们不断评估新技术，使我们能够改善客人和房东在使用 Airbnb 时的体验，能够响应迅速的同时，保持良好的开发者体验。在 2016 年，其中一项技术就是 React Native。那时候，我们意识到移动端对我们业务的重要性，但是却没有足够的移动端工程师来完成我们的目标。因此，我们开始探索替代方案。我们的网站主要是由 React 构建的。在 Airbnb，它一直个是非常有效和普遍受欢迎的 Web 框架。因此，我们将 React Native 视为一个让更多工程师接触移动端开发的机会，并且也可以利用它的跨平台特性来更快地发布代码。
 
-When we began investing in React Native, we knew that there were risks. We were adding a new, fast-moving and unproven platform to our codebase that had the potential to fragment it instead of unifying it. We also knew that if we were going to invest in React Native, we wanted to do it right. Our goals with React Native were:
+当我们最初决定开始投入 React Native 时，也知道存在一些风险。我们需要为代码库添加一个新的、快速迭代且未经验证的平台。该平台有可能对代码库进行分割，而不是统一。我们也知道，如果要使用 React Native，就想把它做好。我们的目标是：
 
-1.  Allow us to **move faster** as an organization.
-2.  Maintain the **quality bar** set by native.
-3.  Write product code **once** for mobile instead of **twice**.
-4.  Improve upon the **developer experience**.
+1.  作为一个组织，允许我们**快速迭代**。
+2.  保持原生的**质量标准**。
+3.  为移动端编写**一次**产品代码，而不是**两次**。
+4.  改善**开发人员的体验**。
 
-### Our Experience
+### 我们的经验
 
-Over the past two years, that experiment turned into a serious effort. We have built an incredibly strong integration into our apps to enable complex native features such as shared element transitions, parallax, and geofencing as well as bridges to our existing native infrastructure such as networking, experimentation, and internationalization.
+在过去的两年中，在这个实验上下了不少苦功夫。我们已经在应用中构建了一个令人难以置信的强大集成，实现了复杂的原生功能，如共享元素转换，视差和地理位置以及与我们现有的本地基础架构（如网络，实验和国际化）桥接。
 
-We have launched a number of critical products for Airbnb using React Native. React Native enabled us to launch [Experiences](https://www.airbnb.com/s/experiences), an entirely new business for Airbnb, as well as dozens of other features from reviews to gift cards. Many of these features were built at a time where we simply did not have enough native engineers to achieve our goals.
+我们使用 React Native 为 Airbnb 推出了一系列关键产品。React Native 使我们能够推出更多[体验活动](https://www.airbnb.com/s/experiences)，这是 Airbnb 的一项全新业务，以及从评论到礼品卡的数十项新功能。这些功能都是在我们没有足够的工程师来完成目标的时候构建的。
 
-Different teams had a wide range of experiences with React Native. React Native proved to be an incredible tool at times while posing technical and organizational challenges in others. In this series, we provide a detailed account of our experiences with it and what we’re doing next.
+不同的团队对 React Native 都有丰富的经验。React Native 有时被证明是一个极好的工具，但有时也会在技术和组织上提出挑战。在本系列中，我们详细介绍了我们的经验以及接下来要做的事情。
 
-[In part two](https://medium.com/airbnb-engineering/react-native-at-airbnb-the-technology-dafd0b43838), we enumerate what worked and what didn’t with React Native as a technology.
+[在第二部分](https://juejin.im/post/5b3b40a26fb9a04fab44e797)，我们列举了 React Native 作为一项技术的有效性和缺陷。
 
-[In part three](https://medium.com/airbnb-engineering/building-a-cross-platform-mobile-team-3e1837b40a88), we enumerate some of the organizational challenges associated with building a cross-platform mobile team.
+[在第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/sunsetting-react-native.md)，我们列举了与构建跨平台移动团队相关的一些组织挑战。
 
-[In part four](https://medium.com/airbnb-engineering/sunsetting-react-native-1868ba28e30a), we highlight where we stand with React Native today and what its future at Airbnb looks like.
+[在第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/sunsetting-react-native.md)，我们重点介绍了我们今天与 React Native 的立场以及它在 Airbnb 中的未来。
 
-[In part five](https://medium.com/airbnb-engineering/whats-next-for-mobile-at-airbnb-5e71618576ab), we take our top learnings from React Native and use them to make native even better.
+[在第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/whats-next-for-mobile-at-airbnb.md)，我们会谈到从 React Native 中学到的最重要的知识，并利用它们使得原生表现地更好。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

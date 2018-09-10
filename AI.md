@@ -1,3 +1,8 @@
+* [用 Scikit-Learn 实现 SVM 和 Kernel SVM](https://juejin.im/post/5b7fd39af265da43831fa136) ([rockyzhengwu](https://github.com/rockyzhengwu) 翻译)
+* [Sklearn 中的朴素贝叶斯分类器](https://juejin.im/post/5b8510be51882542d23a1d66) ([sisibeloved](https://github.com/sisibeloved) 翻译)
+* [使用 Python 进行自动化特征工程](https://juejin.im/post/5b6ea0e4e51d4519044adff0) ([mingxing47](https://github.com/mingxing47) 翻译)
+* [Python 与大数据：Airflow & Jupyter Notebook with Hadoop 3, Spark & Presto](https://juejin.im/post/5b5a7fdfe51d453526175687) ([cf020031308](https://github.com/cf020031308) 翻译)
+* [自然语言处理真是有趣](https://juejin.im/post/5b6d08e2f265da0f9c67cf0b) ([lihanxiang](https://github.com/lihanxiang) 翻译)
 * [给人类的机器学习指南🤖👶](https://juejin.im/post/5b136f12f265da6e5415114b) ([sisibeloved](https://github.com/sisibeloved) 翻译)
 * [深度学习中所需的线性代数知识](https://juejin.im/post/5b19d99ae51d4506d81a7a2f) ([maoqyhz](https://github.com/maoqyhz) 翻译)
 * [可微可塑性：一种学会学习的新方法](https://juejin.im/post/5b055308f265da0ba063879d) ([luochen1992](https://github.com/luochen1992) 翻译)

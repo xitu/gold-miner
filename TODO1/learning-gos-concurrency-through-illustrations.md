@@ -2,24 +2,24 @@
 > * 原文作者：[Trevor Forrey](https://medium.com/@trevor4e?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/learning-gos-concurrency-through-illustrations.md](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-gos-concurrency-through-illustrations.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Elliott Zhao](https://github.com/elliott-zhao)
+> * 校对者：[CACppuccino](https://github.com/CACppuccino)
 
-# Learning Go’s Concurrency Through Illustrations
+# 通过插图学习 Go 的并发
 
-You’ve most likely heard of Go in one way or another. It’s been increasing in popularity, and for good reason. Go is fast, simple, and has a great community behind it. One of the most exciting aspects of learning the language is its concurrency model. Go’s concurrency primitives make creating concurrent, multi-threaded programs simple and fun. I’ll be introducing Go’s concurrency primitives through illustrations in hopes that it’ll make these concepts click for future learning. This article is meant for those who’re new to Go and want to start learning about Go’s concurrency primitives: go routines and channels.
+你很可能从各种各样的途径听说过 Go。它因为各种原因而越来越受欢迎。Go 很快，很简单，并且拥有一个很棒的社区。并发模型是学习这门语言最令人兴奋的方面之一。Go 的并发原语使创建并发、多线程的程序变得简单而有趣。我将通过插图介绍 Go 的并发原语，希望能让这些概念更加清晰而有助于将来的学习。本文适用于 Go 的新手，并且想要了解Go的并发原语：Go 例程和通道。
 
-### Single-threaded vs. Multi-threaded Programs
+### 单线程程序与多线程程序
 
-You’ve probably written multiple single-threaded programs before. A common pattern in programming is having multiple functions that perform a specific task, but they don’t get called until a previous part of the program gets data ready for the next function.
+你可能以前写过很多单线程程序。编程中一种常见的模式是用多个函数来完成一个特定的任务，但只有在程序的前一部分为下一个函数准备好数据时才会调用它们。
 
 ![](https://cdn-images-1.medium.com/max/800/1*bFlCApzWW8EYVmSAnXcWYA.jpeg)
 
-This is how we’ll initially set up our first example, a program that mines ore. The functions in this example perform: _finding ore_, _mining ore_, and _smelting ore_. In our example, the mine and ore are represented as an array of strings, with each function taking in and returning a “processed” array of strings. For a single-threaded application, the program would be designed as follows.
+这就是我们设立的第一个例子，采矿程序。这个例子中的函数执行：**寻矿**，**挖矿**和**炼矿**。在我们的例子中，矿坑和矿石被表示为一个字符串数组，每个函数接收它们并返回一个“处理好的”字符串数组。对于单线程应用程序，程序设计如下。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ocFND1VTSp89syQdtvestg.jpeg)
 
-There are 3 main functions. A _finder_, a _miner_, and a _smelter._ In this version of the program, our functions run on a single thread, one right after the other — and this single thread (the gopher named Gary) would need to do all the work.
+有3个主要函数。一个**寻矿者**，一个**矿工**和一个**冶炼工**。在这个版本的程序中，我们的函数在单个线程上运行，一个接一个地运行 - 而这个单线程（名为 Gary 的 gopher）需要完成所有工作。
 
 ```
 func main() {
@@ -30,7 +30,7 @@ func main() {
 }
 ```
 
-Printing out the resulting array of “ore” at the end of every function, we get the following output:
+在每个函数的末尾打印出处理后的“矿石”数组，我们得到以下输出：
 
 ```
 From Finder: [ore ore ore]
@@ -40,17 +40,17 @@ From Miner: [minedOre minedOre minedOre]
 From Smelter: [smeltedOre smeltedOre smeltedOre]
 ```
 
-This style of programming has the benefits of being easy to design, but what happens when you want to take advantage of multiple threads and perform functions independent of each other? This is where concurrent programming comes into play.
+这种编程风格具有易于设计的优点，但是当你想要利用多个线程并执行彼此独立的功能的时候，会发生什么情况？这是并发编程发挥作用的地方。
 
 ![](https://cdn-images-1.medium.com/max/800/1*TAzVDPM6qAZI90yPLkvI7g.jpeg)
 
-This mining design is much more efficient. Now multiple threads (gophers) are working independently; therefore, the whole operation isn’t all on Gary. There’s a gopher finding the ore, one mining the ore, and another smelting the ore — potentially all at the same time.
+这种采矿设计更有效率。现在多线程（gopher 们）独立工作；因此，并不是让 Gary 完成整个行动。有一个 gopher 寻找矿石，一个开采矿石，另一个冶炼矿石——可能全部在同一时间进行。
 
-In order for us to bring this type of functionality into our code we’re going to need two things: a way to create independently working gophers, and a way for gophers to communicate (_send ore)_ to each other. This is where Go’s concurrency primitives come in: goroutines and channels.
+为了让我们将这种类型的功能带入我们的代码中，我们需要两件事：一种创建独立工作的 gopher 的方法，以及一种让 gopher 们相互沟通（**发送矿石**）的方法。这就是 Go 并发原语进场的地方：Go 例程和通道。
 
-### Go routines
+### Go 例程
 
-Go routines can be thought of as lightweight threads. Creating a go routine is as easy as adding _go_ to the start of calling a function. For an example of just how easy it is, lets create two finder functions, call them using the _go_ keyword, and have them print out every time they find “ore” in their mine.
+Go 例程可以被认为是轻量级线程。创建 Go 例程简单到只需要将 _go_ 添加到调用函数的开始。举一个简单的例子，让我们创建两个寻矿函数，使用 _go_ 关键字调用它们，并在他们每次在矿中发现“矿石”时将其打印出来。
 
 ![](https://cdn-images-1.medium.com/max/800/1*lPX8LWWRYZRZzF9E3rSw0g.jpeg)
 
@@ -59,11 +59,11 @@ func main() {
  theMine := [5]string{“rock”, “ore”, “ore”, “rock”, “ore”}
  go finder1(theMine)
  go finder2(theMine)
- <-time.After(time.Second * 5) //you can ignore this for now
+ <-time.After(time.Second * 5) //你可以先忽略这个
 }
 ```
 
-Here’s the output from our program:
+以下是我们程序的输出结果：
 
 ```
 Finder 1 found ore!
@@ -74,15 +74,15 @@ Finder 2 found ore!
 Finder 2 found ore!
 ```
 
-As you can see from the output above, the finders are running concurrently. There’s no real order in who finds ore first, and when ran multiple times, the order isn’t always the same.
+从上面的输出中可以看到，寻矿者正在同时运行。谁先发现矿石并没有真正的顺序，并且当多次运行时，顺序并不总是相同的。
 
-This is great progress! Now we have an easy way to set up a multi-threaded (multi-gopher) program, but what happens when we need our independent go routines to communicate to each other? Welcome to the magical world of _channels_.
+这是伟大的进步！现在我们有一个简单的方法来建立一个多线程（多 Gopher）程序，但是当我们需要我们独立的 Go 例程相互通信时会发生什么？欢迎来到神奇的**通道**世界。
 
-### Channels
+### 通道
 
 ![](https://cdn-images-1.medium.com/max/800/1*9QQ_B3EqsjSa9QtjqHLAZA.jpeg)
 
-Channels allow go routines to communicate with each other. You can think of a channel as a pipe, from which go routines can send and receive information from other go routines.
+通道允许例程彼此通信。您可以将通道视为管道，从中可以发送和接收来自其他 Go 例程的信息。
 
 ![](https://cdn-images-1.medium.com/max/800/1*_rq9tbbJ2SeTfx_j-vlbmw.jpeg)
 
@@ -90,45 +90,45 @@ Channels allow go routines to communicate with each other. You can think of a ch
 myFirstChannel := make(chan string)
 ```
 
-Go routines can _send_ and _receive_ on a channel. This is done through using an arrow (<-) that points in the direction that the data is going.
+Go 例程可以在通道上**发送**和**接收**。这是通过使用指向数据的方向的箭头（<-）来完成的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*KsMXEiIsh4T3Bxopc7fyzg.jpeg)
 
 ```
-myFirstChannel <- "hello" // Send
-myVariable := <- myFirstChannel // Receive
+myFirstChannel <- "hello" // 发送
+myVariable := <- myFirstChannel // 接收
 ```
 
-Now by using a channel, we can have our ore finding gopher send what they discover to our ore breaking gopher right away, without waiting to discover everything.
+现在通过使用一个通道，我们可以让我们的寻矿 gopher 立即将他们发现的东西发送给我们的挖矿 gopher，而无需等待全部发现。
 
 ![](https://cdn-images-1.medium.com/max/800/1*xwA5l08Fy-P8yUQAZ2HVww.jpeg)
 
-I’ve updated the example so the finder code and miner functions are set up as unnamed functions. If you’ve never seen lambda functions don’t focus too much on that part of the program, just know that each of the functions are being called with the _go_ keyword so they’re being ran on their own go routine. What’s important is to notice how the go routines are passing data between each other using the channel, _oreChan_. _Don’t worry, I’ll explain unnamed functions at the end._
+我已经更新了示例，于是寻矿代码和挖矿函数被设置为匿名函数。如果你从来没有见过lambda函数，不要过多地关注程序的那一部分，只要知道每个函数都是用 _go_ 关键字调用的，所以它们正在在自己的例程上运行。重要的是注意 Go 例程如何使用通道 _oreChan_ 在彼此之间传递数据。**别担心，我会在最后解释匿名函数。**
 
 ```
 func main() {
  theMine := [5]string{“ore1”, “ore2”, “ore3”}
  oreChan := make(chan string)
 
- // Finder
+ // 寻矿者
  go func(mine [5]string) {
   for _, item := range mine {
    oreChan <- item //send
   }
  }(theMine)
 
- // Ore Breaker
+ // 矿工
  go func() {
   for i := 0; i < 3; i++ {
-   foundOre := <-oreChan //receive
+   foundOre := <-oreChan //接收
    fmt.Println(“Miner: Received “ + foundOre + “ from finder”)
   }
  }()
- <-time.After(time.Second * 5) // Again, ignore this for now
+ <-time.After(time.Second * 5) // 还是先忽略这个
 }
 ```
 
-In the output below, you can see that our Miner receives the pieces of “ore” one at a time from reading off the ore channel three times.
+在下面的输出中，您可以看到我们的矿工三次通过矿石通道读取，每次接收到一块“矿石”。
 
 Miner: Received ore1 from finder
 
@@ -136,45 +136,45 @@ Miner: Received ore2 from finder
 
 Miner: Received ore3 from finder
 
-Great, now we can send data between different go routines (gophers) in our program. Before we start writing complex programs with channels, lets first cover some crucial to understand channel properties.
+太好了，现在我们可以在程序中的不同 Go 例程（gophers）之间发送数据。在我们开始编写带有通道的复杂程序之前，让我们首先介绍一些理解通道属性的关键点。
 
-#### Channel Blocking
+#### 通道阻塞
 
-Channels block go routines in various situations. This allows our go routines to sync up with each other for a moment, before going on their independently merry way.
+在多种情况下，通道会阻塞例程。这允许我们的 Go 例程在彼此踏上各自的愉悦旅途之前先进行同步。
 
-#### Blocking on a Send
+#### 发送阻塞
 
 ![](https://cdn-images-1.medium.com/max/800/1*1NeNS9JYuZP4iQ9OmdxZqw.jpeg)
 
-Once a go routine (gopher) sends on a channel, the sending go routine blocks until another go routine receives what was sent on the channel.
+一旦一个 Go 例程（gopher）在一个通道上发送，进行发送的 Go 例程就会阻塞，直到另一个 Go 例程收到通道发送的信息为止。
 
-#### Blocking on a Receive
+#### 接收阻塞
 
 ![](https://cdn-images-1.medium.com/max/800/1*bDwp4np-zsKhq0brOvvK9Q.jpeg)
 
-Similar to blocking after sending on a channel, a go routine can block waiting to get a value from a channel, with nothing sent to it yet.
+类似于在通道上发送后的阻塞，Go例程在等待从通道获取值，但还没有发送给它的时候会阻塞。
 
-Blocking can be a bit confusing at first, but you can think of it like a transaction between two go routines (gophers). Whether a gopher is waiting for money or sending money, it will wait until the other partner in the transaction shows up.
+一开始，阻塞可能有点难以理解，但你可以把它想象成两个 Go 例程（gophers）之间的交易。无论 gopher 是等待金钱还是汇款，都会等待交易中的其他合作伙伴出现。
 
-Now that we have an idea on the different ways a go routine can block while communicating through a channel, lets discuss the two different types of channels: _unbuffered,_ and _buffered_. Choosing what type of channel you use can change how your program behaves.
+现在我们对 Go 例程通过通道进行通信的时候会阻塞的不同方式有了一个印象，让我们讨论两种不同类型的通道：**无缓冲**，和**缓冲**。选择使用什么类型的通道可以改变你的程序的行为。
 
-#### Unbuffered Channels
+#### 无缓冲通道
 
 ![](https://cdn-images-1.medium.com/max/800/1*uBaxExhmc7yJWKYAl1wr-g.jpeg)
 
-We’ve been using unbuffered channels in all previous examples. What makes them unique is that only one piece of data fits through the channel at a time.
+在之前的所有例子中，我们都使用了无缓冲的通道。它们的特殊之处在于，一次只有一条数据能够通过通道。
 
-#### Buffered Channels
+#### 缓冲通道
 
 ![](https://cdn-images-1.medium.com/max/800/1*4504pB8sc8Tzk19rOnJ7tA.jpeg)
 
-In concurrent programs, timing isn’t always perfect. In our mining example, we could run into a situation where our finding gopher can find 3 pieces of ore in the time it takes the breaking gopher to process one piece of ore. In order to not let the surveying gopher spend most of its time waiting to send the breaking gopher some ore until it finishes, we can use a _buffered_ channel. Lets start by making a buffered channel with a capacity of 3.
+在并发程序中，时序并不总是完美的。在我们的采矿案例中，我们可能会遇到这样一种情况：我们的寻矿 gopher 可以在矿工 gopher 处理一块矿石的时间内找到 3 块矿石。为了不让寻矿 gopher 把大部分时间花费在等待给矿工 gopher 的工作完成上，我们可以使用**缓冲**通道。让我们开始做一个容量为 3 的缓冲通道。
 
 ```
 bufferedChan := make(chan string, 3)
 ```
 
-Buffered channels work similar to unbuffered channels, but with one catch — we can send multiple pieces of data to the channel before needing another go routine to read from it.
+缓冲通道的工作原理类似于无缓冲通道，仅有一点不同 —— 我们可以在需要另外的 Go 例程读取通道之前将多条数据发送到通道。
 
 ![](https://cdn-images-1.medium.com/max/800/1*17IpvEF6LJCDqLLHQJoCuA.jpeg)
 
@@ -203,7 +203,7 @@ go func() {
 }()
 ```
 
-The order of printing between our two go routines would be:
+我们两个 Go 例程之间的打印顺序是：
 
 ```
 Sent 1st
@@ -215,13 +215,13 @@ second
 third
 ```
 
-To keep things simple, we won’t be using buffered channels in our final program, but it’s important to know what types of channels are available in your concurrency tool belt.
+为了简单起见，我们不会在最终程序中使用缓冲通道，但了解并发工具带中可用的通道类型很重要。
 
-> Note: Using buffered channels doesn’t prevent blocking from happening. For example, if the finding gopher is 10 times faster than the breaker, and they communicate through a buffered channel of size 2, the finding gopher will still block multiple times in the program.
+> 注意：使用缓冲通道不会阻止阻塞的发生。例如，如果寻矿 gopher 比矿工快 10 倍，并且它们通过大小为 2 的缓冲通道进行通信，则发现 gopher 仍将在程序中多次阻塞。
 
-### Putting it all Together
+### 把它们结合起来
 
-Now with the power of go routines and channels, we can write a program that takes full advantage of multiple threads using Go’s concurrency primitives.
+现在凭借 Go 例程和通道的强大功能，我们可以编写一个程序，使用 Go 的并发原语来充分利用多线程。
 
 ![](https://cdn-images-1.medium.com/max/800/1*mdkQasa9ipcJZrSGajSU1A.jpeg)
 
@@ -233,30 +233,30 @@ minedOreChan := make(chan string)
 go func(mine [5]string) {
  for _, item := range mine {
   if item == "ore" {
-   oreChannel <- item //send item on oreChannel
+   oreChannel <- item //在 oreChannel 上发送东西
   }
  }
 }(theMine)
 // Ore Breaker
 go func() {
  for i := 0; i < 3; i++ {
-  foundOre := <-oreChannel //read from oreChannel
+  foundOre := <-oreChannel //从 oreChannel 上读取
   fmt.Println("From Finder: ", foundOre)
-  minedOreChan <- "minedOre" //send to minedOreChan
+  minedOreChan <- "minedOre" //向 minedOreChan 发送
  }
 }()
 // Smelter
 go func() {
  for i := 0; i < 3; i++ {
-  minedOre := <-minedOreChan //read from minedOreChan
+  minedOre := <-minedOreChan //从 minedOreChan 读取
   fmt.Println("From Miner: ", minedOre)
   fmt.Println("From Smelter: Ore is smelted")
  }
 }()
-<-time.After(time.Second * 5) // Again, you can ignore this
+<-time.After(time.Second * 5) // 还是一样，你可以忽略这些
 ```
 
-The output of this program is the following:
+程序的输出如下：
 
 ```
 From Finder:  ore
@@ -278,40 +278,40 @@ From Miner:  minedOre
 From Smelter: Ore is smelted
 ```
 
-This has been a great improvement from our original example! Now each of our functions are running independently on their own go routines. Also, every time there’s a piece of ore processed, it gets carried on to the next stage of our mining line.
+与我们原来的例子相比，这是一个很大的改进！现在，我们的每个函数都是独立运行在自己的 Go 例程上的。另外，每一块矿石在处理之后，都会进入我们采矿线的下一个阶段。
 
-For the sake of keeping the focus on understanding the basics of channels and go routines, there was some important information I didn’t mention above- which, if you don’t know, could cause some trouble when you start programming. Now that you have an understanding of how go routines and channels work, let’s go over some information you should know before you start coding with go routines and channels.
+为了将注意力集中在了解通道和 Go 例程的基础知识上，有一些我没有提到的重要信息 —— 如果你不知道，当你开始编程时可能会造成一些麻烦。现在您已了解 Go 例程和通道的工作原理，让我们在开始使用 Go 例程和通道编写代码之前，先了解一些您应该了解的信息。
 
-### Before you go, you should know..
+### 在出发前，你应该知道……
 
-#### Anonymous Go Routines
+#### 匿名 Go 例程
 
 ![](https://cdn-images-1.medium.com/max/800/1*khLRmT0Dr_ZHN2SU1GVkaQ.jpeg)
 
-Similar to how we can set up a function to run on its own go routine using the _go_ keyword, we can create an anonymous function to run on it’s own go routine using the following format:
+类似于我们可以使用 _go_ 关键字设置一个可以运行自己的 Go 例程的函数，我们可以使用以下格式创建一个匿名函数来运行自己的 Go 例程：
 
 ```
-// Anonymous go routine
+// 匿名 Go 例程
 go func() {
  fmt.Println("I'm running in my own go routine")
 }()
 ```
 
-This way, if we only need to call a function once, we can place it on its own go routine to run, without worrying about creating an official function declaration.
+这样，如果我们只需要调用一次函数，我们可以将它放在自己的 Go 例程中运行，而不用担心创建官方函数声明。
 
-#### The main function is a go routine
+#### 主函数是一个 Go 例程
 
 ![](https://cdn-images-1.medium.com/max/800/1*2XfhTF9gRaS1D7PKNXHyXw.jpeg)
 
-The main function indeed runs in its own go routine! Even more important to know is that once the main function returns, it closes all other go routines that are currently running. This is why we had a timer at the bottom of our main function — which created a channel and sent a value on it after 5 seconds.
+主程序实际上是在自己的 Go 例程中运行的！更重要的是要知道，一旦主函数返回，它将关闭其它所有正在运行的例程。这就是为什么我们在主函数底部有一个计时器 —— 它创建了一个通道，并在 5 秒后发送了一个值。
 
 ```
-<-time.After(time.Second * 5) //Receiving from channel after 5 sec
+<-time.After(time.Second * 5) //在 5 秒后从通道接收
 ```
 
-Remember how a go routine will block on a read until something is sent? That’s exactly what is happening to the main routine by adding this code above. The main routine will block, giving our other go routines 5 seconds of additional life to run.
+还记得一个 Go 例程是如何阻塞一个读取，直到一些东西被发送的吗？通过添加上面的代码，这正是主例程发生的情况。主例程会阻塞，给我们其他的例程 5 秒额外的生命运行。
 
-Now there are much better ways to handle blocking the main function until all other go routines are complete. A common practice is to create a _done channel_ which the main function blocks on waiting to read. Once you finish your work, write to this channel, and the program will end.
+现在有更好的方法来处理阻塞主函数，直到所有其他的 Go 例程完成。通常的做法是创建一个主函数在等待读取时阻塞的 _done_ **通道**。一旦你完成你的工作，写入这个通道，程序将结束。
 
 ![](https://cdn-images-1.medium.com/max/800/1*pMThGvvn_4DhBhcpFfrQiQ.jpeg)
 
@@ -323,18 +323,18 @@ func main() {
   doneChan <- “I’m all done!”
  }()
  
- <-doneChan // block until go routine signals work is done
+ <-doneChan // 阻塞直到 Go 例程发出工作完成的信号
 }
 ```
 
-#### You can range over a channel
+#### 您可以在通道上范围取值
 
-In a previous example we had our miner reading from a channel in a for loop that went through 3 iterations. What would happen if we didn’t know exactly how many pieces of ore would come from the finder? Well, similar to doing ranges over collections, you can _range over a channel_.
+在前面的例子中，我们让我们的矿工在 for 循环中经历了 3 次迭代读取通道。如果我们不知道究竟寻矿者会发送多少矿石，会发生什么？那么，类似于在集合上范围取值，你可以**在通道上范围取值**。
 
-Updating our previous miner function, we could write:
+更新我们以前的矿工函数，我们可以写：
 
 ```
- // Ore Breaker
+ // 矿工
  go func() {
   for foundOre := range oreChan {
    fmt.Println(“Miner: Received “ + foundOre + “ from finder”)
@@ -342,13 +342,13 @@ Updating our previous miner function, we could write:
  }()
 ```
 
-Since the miner needs to read everything that the finder sends him, ranging over the channel here makes sure we receive everything that gets sent.
+由于矿工需要读取寻矿者发送给他的所有内容，因此在此通道上范围取值能够确保我们收到发送的所有内容。
 
-> Note: Ranging over a channel will block until another item is sent on the channel. The only way to stop the go routine from blocking after all sends have occurred is by closing the channel with ‘close(channel)’
+> 注意：对通道进行范围取值将会阻塞通道，直到通道上发送另一个包裹。在发生所有发送之后，阻止 Go 例程阻塞的唯一方法是通过关闭通道 'close(channel)'。
 
-#### You can make a non-blocking read on a channel
+#### 您可以在通道上进行非阻塞读取
 
-But you just told us all about how channels block go routines?! True, but there is a technique where you can make a non-blocking read on a channel, using Go’s _select case_ structure. By using the structure below, your go routine will read from the channel if there’s something there, or run the default case.
+但你刚才告诉我们的全是通道如何阻塞 Go 例程？！没错，但是有一种技术可以使用 Go 的 _select case_ 结构在通道上进行非阻塞式读取。通过使用下面的结构，如果有东西的话，您的 Go 例程将从通道中读取，否则运行默认情况。
 
 ```
 myChan := make(chan string)
@@ -372,16 +372,16 @@ select {
 }
 ```
 
-When ran, this example has the following output:
+运行时，此示例具有以下输出：
 
 ```
 No Msg  
 Message!
 ```
 
-#### You can also do non-blocking sends on a channel
+#### 您也可以在通道上进行非阻塞式发送
 
-Non-blocking sends use the same _select case_ structure to perform their non-blocking operations, the only difference is our case would look like a send rather than a receive.
+非阻塞发送使用相同的 _select case_ 结构来执行其非阻塞操作，唯一的区别是我们的情况看起来像发送而不是接收。
 
 ```
 select {  
@@ -392,19 +392,19 @@ select {
 }
 ```
 
-### Where to learn next
+### 下一步学习
 
 ![](https://cdn-images-1.medium.com/max/800/1*qCzFQ2-l9vmNm6WZ4pFZqA.jpeg)
 
-There are numerous talks and blog posts that cover channels & go routines in much more detail. Now that you have a solid understanding of the purpose and application of these tools, you should be able to get the most out of the following articles and talks.
+有很多讲座和博客文章涵盖通道和例程的更多细节。既然您对这些工具的目的和应用有了扎实的理解，那么您应该能够充分利用以下文章和演讲。
 
-> [Google I/O 2012 — Go Concurrency Patterns](https://www.youtube.com/watch?v=f6kdp27TYZs&t=938s)
+> [Google I/O 2012 — Go 并发模式](https://www.youtube.com/watch?v=f6kdp27TYZs&t=938s)
 
-> [Rob Pike — ‘Concurrency Is Not Parallelism’](https://www.youtube.com/watch?v=cN_DpYBzKso)
+> [Rob Pike — ‘并发并非并行’](https://www.youtube.com/watch?v=cN_DpYBzKso)
 
-> [GopherCon 2017: Edward Muller — Go Anti-Patterns](https://www.youtube.com/watch?v=ltqV6pDKZD8&t=1315s)
+> [GopherCon 2017: Edward Muller — Go 反模式](https://www.youtube.com/watch?v=ltqV6pDKZD8&t=1315s)
 
-Thanks for taking the time to read this. I hope you were able to learn about go routines, channels, and the benefits they bring to writing concurrent programs.
+感谢您抽时间阅读。我希望你能够了解 Go 例程，通道以及它们为编写并发程序带来的好处。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
