@@ -6022,7 +6022,6 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|10|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|2|
 
 ## 译者：[lwjcjmx123](https://github.com/lwjcjmx123) 历史贡献积分：16 当前积分：16 年度积分：16
