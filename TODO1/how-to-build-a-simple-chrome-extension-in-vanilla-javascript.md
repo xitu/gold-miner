@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-simple-chrome-extension-in-vanilla-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-simple-chrome-extension-in-vanilla-javascript.md)
 > * 译者：[Shery](https://github.com/shery)
-> * 校对者：
+> * 校对者：[Park-ma](https://github.com/Park-ma) [CoderMing](https://github.com/CoderMing)
 
 # 如何使用原生 JavaScript 构建简单的 Chrome 扩展程序
 
@@ -27,7 +27,7 @@ Chrome 扩展程序本质上只是一组可以自定义 Google Chrome 浏览器�
 
 在本教程中，我们将开发一个通过名字来欢迎用户的简单 dashboard。让我们称之为 Simple Greeting Dashboard。
 
-首先，你需要创建三个文件：index.html，main.css 和 main.js。把它们放在单独的文件夹中。接下来，使用基础的 HTML 代码填充 HTML 文件，并引用 CSS 和 JS 文件：
+首先，你需要创建三个文件：`index.html`，`main.css` 和 `main.js`。把它们放在单独的文件夹中。接下来，使用基础的 HTML 代码填充 HTML 文件，并引用 CSS 和 JS 文件：
 
 ```
 <!-- =================================
@@ -123,7 +123,7 @@ Simple Greeting Dashboard
 
 ### 创建设置菜单
 
-对于我的扩展程序，我要做的第一件事是创建一个输入框，我的用户可以添加他们的名字。由于我不希望这个输入框始终可见，我将把它放在一个名为 `settings` 的 div 中，只有在点击 Settings 按钮后我才会让它可见。
+对于我的扩展程序，我要做的第一件事情是创建一个让我的用户可以添加他们的名字的输入框。由于我不希望这个输入框始终可见，我将把它放在一个名为 `settings` 的 div 中，只有在点击 Settings 按钮后我才会让它可见。
 
 ```
 <button id="settings-button">Settings</button>
@@ -311,7 +311,7 @@ html {
 
 你自己的 Chrome 扩展程序！
 
-它可能不是很多，但它是你创建和设计自己的 Chrome dashboards 的良好基础。如果你有任何疑问，请告诉我们，并随时在 Twitter 上与我联系，[@saralaughed](https://twitter.com/SaraLaughed)。
+它的功能可能不是很多，但它是你创建和设计自己的 Chrome dashboards 的良好基础。如果你有任何疑问，请告诉我们，并随时在 Twitter 上与我联系，[@saralaughed](https://twitter.com/SaraLaughed)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
