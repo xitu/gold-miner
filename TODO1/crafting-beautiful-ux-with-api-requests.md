@@ -2,132 +2,132 @@
 > * 原文作者：[Ryan Baker](https://uxdesign.cc/@ryan.da.baker?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-beautiful-ux-with-api-requests.md](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-beautiful-ux-with-api-requests.md)
-> * 译者：
+> * 译者：[MeFelixWang](https://github.com/MeFelixWang)
 > * 校对者：
 
-# Crafting beautiful UX with API requests
+# 用 API 请求制作赏心悦目的 UX
 
-## When building web apps, creating a beautiful and responsive experience comes first.
+## 在构建 Web 应用时，首先要创建一个优雅且响应迅速的体验。
 
-Trying to control experience beyond the bounds of the web app is often left as an afterthought. Engineers forget to handle all the things that can go haywire in requesting data from APIs. In this article, I’m going to arm you with three patterns (complete with code snippets) to make your app resilient in the face of unpredictability.
+试图控制超出 Web 应用程序范围的体验通常是事后的想法。工程师忘记了处理从 API 请求数据时可能会遇到的所有麻烦事情。在本文中，我将为你提供三种模式（包括代码片段），以使你的应用程序能弹性应对不可预测的情形。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*lEMi48f7LTbhCpaFKQVM6A.jpeg)
 
-Make your users as happy as this silly man
+让你的用户和这个愚蠢的人类一样快乐
 
-### Pattern 1: Timeouts
+### 模式 1：超时
 
-The timeout is a simple pattern. Boiled down, it says: “Cancel my request if you’re slower to respond than I want”.
+超时是一种简单的模式。简而言之，就是：“如果你的反应比我想要的慢，请取消我的请求”。
 
-#### When to use
+#### 什么时候用
 
-You should use timeouts to set an _upper bound_ on the length of time you want the request to take. What could happen to make your API take longer than expected to respond? It depends on your API, but here are a couple examples of realistic scenarios:
+你应该使用超时来设置你希望请求耗用的时长**上限**。有什么可能会使你的 API 响应时间比预期的长？这取决于你的 API，但以下是一些现实场景的示例：
 
-Your server talks to a database. The database goes down, but the server has a connection timeout of 30 seconds. The server will take all 30 seconds to decide that it can’t talk to the database. This translates to your users waiting for 30 seconds!
+你的服务器与数据库进行通信。数据库宕机了，但服务器的连接超时为 30 秒。服务器将花费完整的 30 秒来确定它无法与数据库通信。这意味着你的用户将等待 30 秒！
 
-You use an AWS load balancer, and the server behind it is down (for whatever reason). You left the load balancer timeout at [the default of 60 seconds](https://aws.amazon.com/blogs/aws/elb-idle-timeout-control/) and it tries to connect to the server for that long before failing.
+你使用了 AWS 负载均衡器，其背后的服务器已宕机（无论出于何种原因）。你将负载均衡器超时保留为[默认值 60 秒](https://aws.amazon.com/blogs/aws/elb-idle-timeout-control/)，并且在失败之前一直尝试连接服务器。
 
-#### When not to use
+#### 什么时候不用
 
-You shouldn’t use timeouts if your API has known variability in response times. A good example of this might be an API that returns report data. Asking for a day’s worth of data is quick (maybe sub-second response time), but asking for eight months takes about 12 seconds.
+如果你的 API 已知响应时间具有可变性，则不应使用超时。一个很好的例子可能是返回报告数据的 API。请求一天的数据是快速的（可能是亚秒响应时间），但请求八个月的数据大约需要 12 秒。
 
-**Don’t use timeouts if you can’t establish a reliable upper bound for how long the request should take.**
+**如果你无法确定对于请求应该花多长时间的可靠上限，则不要使用超时。**
 
-#### How to use
+#### 如何使用
 
-Imagine you have a method in your app that does this:
+假设你的应用程序中有一个方法可以做到这一点：
 
 ![](https://cdn-images-1.medium.com/max/800/1*VrWx5PPIf84n8PKfaxCi8g.png)
 
-example method that may live inside a React component
+示例方法可能存在于 React 组件内部
 
-And you know that your API will respond in under 3 seconds 99.99% of the time. Assuming you use [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) to fetch data from your API, you can do this:
+你知道你的 API 在 99％ 的时间里会在 3 秒内响应。假设你使用 [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) 从 API 获取数据，你可以这样做：
 
 ![](https://cdn-images-1.medium.com/max/800/1*n4ONmQQn8dwfd674LIPfLw.png)
 
-Wrapping your API call with a timeout
+用超时封装 API 调用
 
-_note: most of the libraries you might use to make API calls have a timeout configuration. Please use your tool’s built-in features instead of writing your own_
+**注意：你可能用于进行 API 调用的大多数库都具有超时配置。请使用你工具的内置功能，而不是自己编写**
 
-### Pattern 2: Minimum wait time
+### 模式 2：最短等待时间
 
-A minimum wait time is also a simple pattern. It does the opposite of the timeout: it protects your app from _fast_ API responses.
+最短等待时间也是一种简单的模式。它与超时相反：它可以保护你的应用免受 API **快速**响应的影响。
 
-#### When to use
+#### 什么时候用
 
-A min wait is a great pattern to use if you want to show a loading state to the user, but the API might respond quickly. Users will end up seeing loading states and data “pop” into view before they can focus on anything.
+如果要向用户显示加载状态，则最短等待时间是一种非常好的模式，但 API 可能会快速响应。结果就是用户会看到加载状态，接着数据“弹出”进入视图，然后其才能专注于想做的事。
 
-This is not a good experience. If you display a loading state, you’re telling the user “take a beat, we’re doing something, and we’ll be right back”. It lets the user take a breath, maybe check their phone — the user _expects to wait_ if she sees a loading state. If you take that away too quickly, it’s jarring. You’ve interrupted her break, made her tense.
+这不是一个良好的体验。如果你显示加载状态，你是在告诉用户“稍等，我们正在处理些事儿，我们会马上回来”。这让用户可以喘口气，也许查看一下他们的手机 —— 如果用户看到加载状态，那么用户**希望等待**。如果你获取太快，那就太突兀了。你打断了她的休息，让她变得紧张。
 
-#### **When not to use**
+#### **什么时候不用**
 
-It’s good to avoid a min wait pattern when you have an API that consistently responds very quickly. **Don’t** add a loading state just to add one, and **don’t** make the user wait if they don’t need to.
+当你拥有响应速度始终非常快的 API 时，最好避免使用最短等待模式。**不要**为了添加加载状态而添加，如果不需要，就**不要**让用户等待。
 
-#### How to use
+#### 如何使用
 
-Using the example above, you can write code that says “don’t do anything until both of these things finish” like this:
+使用上面的示例，你可以编写代码“在这两件事完成之前不做任何事”，如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*-eXymmc8GfkuGTG4XrBMfw.png)
 
-forcing a minimum wait time on a request
+强制请求的最短等待时间
 
-### Pattern 3: Retry
+### 模式 3：重试
 
-The retry pattern is the most complicated one I’ll cover. The basic idea is that we want to retry sending a request a couple times if we get a bad response. It’s a pretty simple idea, but there are a few caveats to keep in mind when using it.
+重试模式是我将要介绍的最复杂的模式。基本的想法是，如果得到错误的响应，我们想要重试几次请求。这是一个非常简单的想法，但在使用它时需要记住一些注意事项。
 
-#### When to use
+#### 什么时候用
 
-You want to use this when you make a request to an API that could have intermittent failures. Pretty much, we want to retry when we know that _every now and again_ our request will fail for things beyond our control.
+当你向可能发生间歇性故障的 API 发出请求时，你会希望使用此方法。当知道请求会**不时**因为无法控制的问题而失败时我们几乎都希望重试。
 
-In my case, I use this a lot when I know I’m making a request that uses a specific database. When that database is accessed, sometimes it just fails. Yes, this is bad. Yes, this is a problem that we should fix. As application developers, we might not have the capacity to fix an underlying infrastructure problem and are told “deal with it for now”. This is when you want to retry.
+就我而言，当我知道我正在发出使用特定数据库的请求时，我会经常使用它。访问该数据库时，有时它会失败。是的，这很糟糕。是的，这是我们应该解决的问题。作为应用程序开发人员，当被告知“暂时处理它”时，我们可能没有能力修复底层基础架构问题。这就是你想要重试的时候。
 
-#### When not to use
+#### 什么时候不用
 
-If we have a reliable and consistently responsive API, we don’t need to retry. We don’t want to retry when retrying won’t get us a successful response after a failed response.
+如果我们拥有可靠的且始终如一的响应式 API，则无需重试。如果响应失败并且重试后依然不能成功响应，那我们也就不需要重试了。
 
-Most APIs are consistent. Here’s why you need to be careful with this pattern:
+大多数 API 都是一致的。这就是为什么你需要小心这个模式：
 
-#### How to use
+#### 如何使用
 
-We want to make sure that when we make the request, we’re not hammering the server. Imagine that the server is actually down due to heavy load. Retrying will make a dead server buried six feet under. For this reason, we want what’s called a **backoff strategy** when making subsequent requests. We don’t want to shoot off 5 requests one immediately after the other just in case the server is actually down. We should stagger them to reduce load on the API server.
+我们希望确保在发出请求时，不会对服务器造成冲击。想象一下因为负载过重造成服务器宕机的情形吧。重试将把一个已死的服务器再埋到六英尺深的地下。出于这个原因，我们在进行后续请求时需要所谓的**退避策略**。我们不希望在服务器宕机的情况下仍然立即一个接一个地发出 5 个请求。我们应该错开它们以减少 API 服务器上的负载。
 
-Most of the time, we use an **exponential backoff** to determine how long we should wait until we send the next request. We usually only want to retry 3 times, so here’s an example of the wait times you would get with different functions:
+大多数情况下，我们使用**指数退避**来确定在发送下一个请求之前我们应该等待多长时间。我们通常只想重试 3 次，所以这里有一个使用不同函数的等待时间示例：
 
 ![](https://cdn-images-1.medium.com/max/600/1*SrIVlW-y7ihWboBqzM6O9A.png)
 
-We immediately send the first request. It failed. Next we need to determine how long to wait using our backoff strategy before sending the first retry. Let’s take a look at these plots with X equal to the number of retries we’ve already sent.
+立即发送第一个请求。它失败了。接下来，我们需要确定在发送第一次重试之前使用退避策略等待多长时间。让我们看一下这些曲线，其中 X 等于我们已经发送的重试次数。
 
-With our quadratic (y = x²) and linear (y = x) functions, we get 0 for the first amount of time to wait, i.e. we should send the next request immediately.
+使用我们的二次（y = x²）函数和线性（y = x）函数，在第一个等待时间内我们得到 0，即应该立即发送下一个请求。
 
-So that eliminates those two functions from the running.
+所以可以在运行时消除这两个函数了。
 
-Using our exponential (y = 2^x) and constant (y = 1) functions we get a wait time of 1 second.
+使用指数（y = 2^x）函数和常数（y = 1）函数，我们得到 1 秒的等待时间。
 
-Our constant function doesn’t afford us any flexibility in the number of retries we already sent changing the amount of time we should wait.
+常数函数使我们无法灵活处理已经发送的重试次数，从而改变我们应该等待的时间。
 
-This leaves just our exponential function. Let’s write a function that tells us how many seconds to wait based on how many retries we’ve already sent:
+这就只剩下指数函数了。让我们编写一个函数，来告诉我们根据已经发送的重试次数确定等待多少秒：
 
 ![](https://cdn-images-1.medium.com/max/800/1*3D0xaSIUBz-M5-h1ccbZuA.png)
 
-Our simple y = 2^x function
+简单的 y = 2^x 函数
 
-Before we write our retry function, we want a way to determine if a request was bad. Let’s say the request was bad if it has a status code greater than or equal to 500. Here’s a function we can write for that:
+在编写重试函数之前，我们想要一种方法来确定请求是否错误。假设状态码大于或等于 500 时，请求是错误的。这个就是我们可以为此编写的函数了：
 
 ![](https://cdn-images-1.medium.com/max/800/1*y2ir3VPSLIbr1aWi_WcERg.png)
 
-Our function throws a custom error if it gets a bad response
+如果响应错误，我们的函数会抛出自定义错误
 
-Keep in mind that you might have different criteria to determine if a request failed. Finally, we can write our retry function with our exponential backoff strategy:
+请记住，你可能有不同的标准来确定请求是否失败。最后，我们可以使用指数退避策略编写重试函数：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*kcvzvrQ58jm8GaCRmAKYvA.png)
 
-Our retry with an exponential backoff strategy
+我们使用指数退避策略重试
 
-You’ll notice that I created a function that I didn’t export (_retryWithBackoff). The calling code can’t explicitly pass in the iteration when using our retry function.
+你会注意到我创建了一个我没有导出的函数（_retryWithBackoff）。使用我们的重试函数时，调用代码不能在迭代中显式传递。
 
-### In Conclusion
+### 总结
 
-There are lots of great defensive patterns that provide a good user experience. These are three that you can use today! If you’re interested in learning more I’d recommend [_Release It!_](https://www.amazon.com/Release-Design-Deploy-Production-Ready-Software/dp/1680502395/ref=pd_lpo_sbs_14_t_0?_encoding=UTF8&psc=1&refRID=BNBXXWPWRX7DEQ4CWMKB) A book that goes over these exact problems in building scalable software.
+有很多很好的防御模式可以提供良好的用户体验。这三个你今天就可以使用！如果你有兴趣了解更多，我建议阅读 [**Release It**](https://www.amazon.com/Release-Design-Deploy-Production-Ready-Software/dp/1680502395/ref=pd_lpo_sbs_14_t_0?_encoding=UTF8&psc=1&refRID=BNBXXWPWRX7DEQ4CWMKB)！一本关于如何在构建可扩展软件时解决这些确切问题的书。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
