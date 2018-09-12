@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-beautiful-ux-with-api-requests.md](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-beautiful-ux-with-api-requests.md)
 > * 译者：[MeFelixWang](https://github.com/MeFelixWang)
-> * 校对者：
+> * 校对者：[sunhaokk](https://github.com/sunhaokk)
 
 # 用 API 请求制作赏心悦目的 UX
 
@@ -45,7 +45,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*n4ONmQQn8dwfd674LIPfLw.png)
 
-用超时封装 API 调用
+为你的 API 调用配置超时
 
 **注意：你可能用于进行 API 调用的大多数库都具有超时配置。请使用你工具的内置功能，而不是自己编写**
 
