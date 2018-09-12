@@ -7,9 +7,9 @@
 
 # 如何使用原生 JavaScript 构建简单的 Chrome 扩展程序
 
-今天，我将向你展示如何使用原生 JavaScript 开发 Chrome 扩展程序 —— 也就是说，不使用诸如 React，Angular，Vue 之类框架的纯 JavaScript。
+今天，我将向你展示如何使用原生 JavaScript 开发 Chrome 扩展程序 —— 也就是说，不使用诸如 React、Angular、Vue 之类框架的纯 JavaScript。
 
-开发 Chrome 扩展程序非常简单 —— 在我开始编程生涯的头一年，我发布了两个扩展程序，这两个扩展程序都只用了 HTML，CSS 和纯 JavaScript 进行开发。在本文中，我将在几分钟内引导你完成相同的操作。
+开发 Chrome 扩展程序非常简单 —— 在我开始编程生涯的头一年，我发布了两个扩展程序，这两个扩展程序都只用了 HTML、CSS 和纯 JavaScript 进行开发。在本文中，我将在几分钟内引导你完成相同的操作。
 
 我将向你展示怎样开发简单的 dashboard 类型的 Chrome 扩展程序。但是，如果你有自己的想法，并且只想知道需要往现有项目中添加什么内容就可以让它在 Chrome 中运行，你可以跳转到自定义 `manifest.json` 文件和图标的部分。
 
@@ -21,13 +21,13 @@ Chrome 扩展程序本质上只是一组可以自定义 Google Chrome 浏览器�
 
 ### 前提
 
-我们要把事情简单化，因此在本教程中，我们将只使用 HTML，CSS 和一些基础的 JavaScript，以及如何自定义我将在下面添加的 `manifest.json` 文件。Chrome 扩展程序的复杂程度各不相同，因此构建 Chrome 扩展程序的复杂度取决于你想开发什么样的应用。在学习了基础知识之后，你可以使用自己的技术栈开发更复杂的扩展程序。
+我们要把事情简单化，因此在本教程中，我们将只使用 HTML、CSS 和一些基础的 JavaScript，以及如何自定义我将在下面添加的 `manifest.json` 文件。Chrome 扩展程序的复杂程度各不相同，因此构建 Chrome 扩展程序的复杂度取决于你想开发什么样的应用。在学习了基础知识之后，你可以使用自己的技术栈开发更复杂的扩展程序。
 
 ### 创建你的项目文件
 
 在本教程中，我们将开发一个通过名字来欢迎用户的简单 dashboard。让我们称之为 Simple Greeting Dashboard。
 
-首先，你需要创建三个文件：`index.html`，`main.css` 和 `main.js`。把它们放在单独的文件夹中。接下来，使用基础的 HTML 代码填充 HTML 文件，并引用 CSS 和 JS 文件：
+首先，你需要创建三个文件：`index.html`、`main.css` 和 `main.js`。把它们放在单独的文件夹中。接下来，使用基础的 HTML 代码填充 HTML 文件，并引用 CSS 和 JS 文件：
 
 ```
 <!-- =================================
@@ -50,7 +50,7 @@ Simple Greeting Dashboard
 
 ### 自定义你的 manifest.json 文件
 
-这些文件还不足以让你的项目作为 Chrome 扩展程序运行。为此，我们需要一个 `manifest.json` 文件，我们将使用一些基本的扩展程序信息进行自定义。你可以在 [Google 的开发人员网站](https://developer.chrome.com/extensions/getstarted) 上下载该文件，也可以直接将以下代码复制/粘贴到新文件中，并且以 `manifest.json` 的文件名保存在你的文件夹中：
+这些文件还不足以让你的项目作为 Chrome 扩展程序运行。为此，我们需要一个 `manifest.json` 文件，我们将使用一些基本的扩展程序信息进行自定义。你可以在 [Google 的开发人员网站](https://developer.chrome.com/extensions/getstarted)上下载该文件，也可以直接将以下代码复制/粘贴到新文件中，并且以 `manifest.json` 的文件名保存在你的文件夹中：
 
 ```
 {
@@ -61,7 +61,7 @@ Simple Greeting Dashboard
 }
 ```
 
-现在，让我们使用更多的扩展程序信息来更新示例文件。我们只想更改这段代码的前三个值：`name`，`version` 和 `description`。让我们来填写扩展程序名字和一行描述，因为这是我们的第一个版本，让我们保持版本值为 1.0。`manifest_version` 编号应该保持不变。
+现在，让我们使用更多的扩展程序信息来更新示例文件。我们只想更改这段代码的前三个值：`name`、`version` 和 `description`。让我们来填写扩展程序名字和一行描述，因为这是我们的第一个版本，让我们保持版本值为 1.0。`manifest_version` 编号应该保持不变。
 
 接下来，我们将添加几行代码来告诉 Chrome 如何处理这个扩展程序。
 
@@ -97,7 +97,7 @@ Simple Greeting Dashboard
 
 ### 创建一个图标
 
-由于我们还没有图标文件，接下来，我们将为 Simple Greeting Dash 创建一个图标。请随意使用我下面制作的那个图标。如果你想自己制作一个，可以使用 Photoshop 或者 [Canva](http://canva.com) 这样的免费服务轻松完成。请确保尺寸为 128 x 128 像素，并将其作为 `icon.png` 保存在与 HTML，CSS，JS 和 JSON 文件相同的文件夹中。
+由于我们还没有图标文件，接下来，我们将为 Simple Greeting Dash 创建一个图标。请随意使用我下面制作的那个图标。如果你想自己制作一个，可以使用 Photoshop 或者 [Canva](http://canva.com) 这样的免费服务轻松完成。请确保尺寸为 128 x 128 像素，并将其作为 `icon.png` 保存在与 HTML、CSS、JS 和 JSON 文件相同的文件夹中。
 
 ![](https://cdn-images-1.medium.com/max/800/1*-dBIaX8IyG0PfHK-2vZ2dA.png)
 
@@ -105,7 +105,7 @@ Simple Greeting Dashboard
 
 ### 上传文件（如果你正在开发自己的页面）
 
-通过以上信息，你可以创建你自己的新标签 Chrome 扩展程序。在自定义 `manifest.json` 文件后，你可以通过 HTML，CSS 和 JavaScript 设计你想要的任意类型的新标签页，并像下面展示的那样将其上传。但是，如果你想了解我将如何制作这个简单的 dashboard，请跳转至“创建设置菜单”。
+通过以上信息，你可以创建你自己的新标签 Chrome 扩展程序。在自定义 `manifest.json` 文件后，你可以通过 HTML、CSS 和 JavaScript 设计你想要的任意类型的新标签页，并像下面展示的那样将其上传。但是，如果你想了解我将如何制作这个简单的 dashboard，请跳转至“创建设置菜单”。
 
 一旦你完成新标签页的样式设置后，你的 Chrome 扩展程序就算完成了，并准备好了上传到 Chrome。要自己上传已经完成的扩展程序，请在浏览器中访问 [**chrome://extensions/**](about:invalid#zSoyz) 并切换右上角的开发者模式。
 
@@ -115,7 +115,7 @@ Simple Greeting Dashboard
 
 ![](https://cdn-images-1.medium.com/max/800/1*gb0c8qmG_MtinG9tOmjxuA.png)
 
-接下来，选择存储 HTML，CSS，JS 和 `manifest.json`，以及你的 `icon.png` 文件的文件夹，并上传这些文件。扩展程序应该在每次打开新的标签页时都生效！
+接下来，选择存储 HTML、CSS、JS 和 `manifest.json`，以及你的 `icon.png` 文件的文件夹，并上传这些文件。扩展程序应该在每次打开新的标签页时都生效！
 
 一旦你完成扩展程序开发并自行测试后，你可以获取一个开发者帐户并将其转到 Chrome 扩展程序商店。[这个有关发布扩展程序的指南](https://developer.chrome.com/webstore/publish)应该有所帮助。
 
