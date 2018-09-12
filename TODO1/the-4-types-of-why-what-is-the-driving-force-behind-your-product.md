@@ -15,7 +15,7 @@
 
 Jeff Bezos（译者注：杰夫·贝佐斯，亚马逊创始人）是最开始思索这个问题的人：
 
-> 「人们经常问，10年后世界上会有什么不同，但我认为更重要的是，10年后还有什么不变」 — Jeff Bezos
+> 「人们经常问，10年后世界上会有什么不同，但我认为更重要的是，10年后还有什么不变」— Jeff Bezos
 
 是的，因为人们想要且需要的真理恰恰是基本的事实。在我作为产品团队负责人期间，我找到了几乎可以应用到所有消费体验和产品的四个模型。他们并不互斥 —— 在很多方向他们是互相覆盖的，但其中一个可能比其他的更值得你关注。
 
@@ -70,9 +70,9 @@ Tony 主张 [六大核心需求](https://www.tonyrobbins.com/podcasts/why-we-do-
 * 对于尼采来说，是追寻权利
 * 对于弗兰克来说，是追寻意义
 
-行为改变和 [认知偏见](https://en.wikipedia.org/wiki/List_of_cognitive_biases)背后的一个关键根源是我们追寻快乐、避免痛苦。这是你设计产品体验时的伟大洞察点。
+行为改变和[认知偏见](https://en.wikipedia.org/wiki/List_of_cognitive_biases)背后的一个关键根源是我们追寻快乐、避免痛苦，这也是你设计产品体验时的伟大洞察点。
 
-我们看到专注于用户追寻意义的产品或服务的兴起。比如， [正念](https://www.lumosity.com/mindfulness)  和冥想产品，或者诸如 Toms 和 Feed 这种回馈世界的产品。
+我们看到专注于用户追寻意义的产品或服务的兴起。比如[正念](https://www.lumosity.com/mindfulness) 和冥想产品，或者诸如 Toms 和 Feed 这种回馈世界的产品。
 
 我漏掉了你喜欢的框架吗？如果是，请在评论里提醒我，非常乐意看到你的意见和建议。
 
@@ -80,7 +80,7 @@ Catherine
 
 * * *
 
-**我是一个产品驱动的 VC** [_@FirstMark_](https://medium.com/@FirstMark)。如果你正在组建未来伟大的公司，我很乐意听取您的意见并提供帮助。我的 Email ：catherine@firstmarkcap.com
+**我是一个产品驱动的 VC** [_@FirstMark_](https://medium.com/@FirstMark)。如果你正在组建一个有着宏伟未来的公司，我很乐意听取您的意见并提供帮助。我的 Email：catherine@firstmarkcap.com
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
