@@ -2,38 +2,38 @@
 > * 原文作者：[Guest Author](https://blog.cloudflare.com/author/guest-author/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/using-workers-to-make-static-sites-dynamic.md](https://github.com/xitu/gold-miner/blob/master/TODO1/using-workers-to-make-static-sites-dynamic.md)
-> * 译者：
-> * 校对者：
+> * 译者：[MeFelixWang](https://github.com/MeFelixWang)
+> * 校对者：[Park-ma](https://github.com/Park-ma)
 
-# Using Workers To Make Static Sites Dynamic
+# 用 Workers 让静态网站动态化
 
-_The following is a guest post by [Paddy Sherry](https://www.linkedin.com/in/paddy-sherry-a7420a47/), Lead Developer at Gambling.com Group. They build performance marketing websites and tools, using Cloudflare to serve to their global audience. Paddy is a Web Performance enthusiast with an interest in Serverless Computing._
+**以下是 Gambling.com 集团首席开发人员 [Paddy Sherry](https://www.linkedin.com/in/paddy-sherry-a7420a47/) 的客座文章。他们使用 Cloudflare 为全球受众提供服务，构建绩效营销网站和工具。Paddy 是一位网站性能狂热爱好者，且对无服务器计算很感兴趣。**
 
-> Choosing technology that is used on a large network of sites is a key architectural decision that must be correct. We build static websites but needed to find a way to make them dynamic to do things like geo targeting, restrict access and A/B testing. This post shares our experiences on what we learned when using Workers to tackle these challenges.
+> 选择在大型站点网络上使用的技术是必须正确的关键架构决策。我们构建静态网站，但需要找到一种方法让它们动态地执行地理定位、访问限制和 A/B 测试等操作。这篇文章分享了我们在使用 Workers 解决这些挑战时学到的经验。
 
-### Our Background
+### 我们的背景
 
-At [Gambling.com Group](https://www.gambling.com/corporate), we use Cloudflare on all of our sites so our curiosity level in Workers was higher than most. We are big fans of static websites because nothing is faster than flat HTML. We had been searching for a technology like this for some time and applied to be part of the beta program, so were one of the first to gain access to the functionality.
+在 [Gambling.com 集团](https://www.gambling.com/corporate)，我们在所有网站上都使用 Cloudflare，因此我们对 Workers 的好奇心水平高于大多数人。我们是静态网站的忠实粉丝，因为没有什么比纯 HTML 更快。我们一直在寻找这样的技术并应用于部分测试计划，因此是最先获得该功能的人之一。
 
-The reason we were so keen to experiment with Workers is that for anyone running static sites, 99% of the time, the product requirements can be met but there will always be that one occasion when some computation is needed instead of sending back a static response.
+我们如此热衷于试验 Workers 的原因是，对于任何运行静态站点的人来说，99％ 的时间都可以满足产品要求，但总有一次需要进行一些计算而不是发回静态响应。
 
-Until recently, the most suitable option would have been to add some JavaScript that fires after page load and alters the UI or fetches data from an endpoint. The drawback of this is that users see the page shifting after it loads, even if the script is loaded asynchronously. Flickering pages can be infuriating and there is nothing more irritating than trying to click a link but opening something else because the DOM changed midway through.
+直到最近，最合适的选择是添加一些在页面加载后触发的 JavaScript，并改变 UI 或从端点获取数据。这样做的缺点是用户在加载后会看到页面移位，即使脚本是异步加载的。闪烁的页面可能令人愤怒，没有什么比尝试点击链接但打开了别的东西更令人恼火，因为 DOM 在中途改变了。
 
-A common workaround is to hide the page content until all JavaScript has processed, but this leaves you exposed to a slow loading script with users seeing a white page until the browser has downloaded it. Even if all scripts are downloading quickly, there will be users with slower Internet speeds or located far away from a data centre that can respond to their request.
+一个常见的解决方法是隐藏页面内容，直到所有 JavaScript 都已处理完毕，但这会让你停留在一个缓慢加载的脚本，而且用户在浏览器完成下载之前会看到一个空白页。即使所有脚本都迅速下载，也会有网速较慢或远离数据中心的用户可以响应他们的请求。
 
-**Enter Cloudflare Workers**. Developers can handle these requests and respond dynamically before they even reach the server. There is no post load computation and Workers respond so fast in the background, the transition is unnoticeable.
+**输入 Cloudflare Workers**。开发人员可以处理这些请求，并在它们到达服务器之前动态响应。没有延迟加载计算，Workers 在后台响应非常快，过渡基本不可见。
 
-### Our Use Cases For Workers
+### 我们的 Workers 用例
 
-Since getting access to Workers we’ve been experimenting with ways to make our static sites more dynamic without changing all of the smart technology we’ve built to power our network of websites.
+自使用 Workers 以来，我们一直在尝试各种方法，在不改变我们为网站网络提供的所有智能技术的前提下使我们的静态网站更加动态化。
 
-#### Geo-Targeting
+#### 地理定位
 
-We operate static websites around the world in many languages and use Cloudflare to serve them. Users get there from a google search or by clicking a link somewhere else on the Internet. Often, the site they land on may not be a perfect match for interests because the link they clicked wasn’t pointing at the most optimal location. For example, a user in Canada lands on a UK site and sees prices in Pounds Sterling instead of Canadian Dollars or a person in Italy lands on a US site and sees English content instead of Italian.
+我们以多种语言在全球运营静态网站，并使用 Cloudflare 为其提供服务。用户通过谷歌搜索或点击互联网上其他地方的链接到达网站。通常，他们登陆的网站可能和兴趣不完全匹配，因为他们点击的链接并未指向最佳位置。例如，加拿大的用户登陆英国网站，看到英镑而不是加拿大元的价格，或者意大利的一个人登陆美国网站看到的是英文内容而不是意大利文。
 
-The conundrum of static websites is that the pages load exceptionally fast but once there, we have no further ability to tailor the experience in line with the user's preferences.
+静态网站的难题在于页面加载速度异常快，一旦到达站点，我们就无法根据用户的偏好定制体验了。
 
-With Workers, we were able to solve this problem by reading request headers at the edge. Cloudflare detects the origin IP of the incoming request and appends a two-letter country code to a header called _‘Cf-Ipcountry.’_ We were able to write a simple worker that reads this header, checks the country code, and then redirects to the appropriate site version if it exists.
+有了 Workers，我们可以通过读取边缘的请求报头来解决这个问题。Cloudflare 检测传入请求的原始 IP，并将两个字母的国家代码附加到名为 **“Cf-Ipcountry”** 的报头中。我们可以编写一个简单的 worker 来读取此报头，检查国家代码，然后重定向到相应的站点版本（如果存在的话）。
 
 ```
 addEventListener('fetch', event => {
@@ -61,15 +61,15 @@ async function fetchAndApply(request) {
 }
 ```
 
-Users are now getting a localized version of the site, which better serves their interests and the bounce rate is lower because the content is tailored to their location.
+用户现在正在获取该网站的本地化版本，这能更好地为他们的兴趣服务，并且跳出率更低，因为内容是根据他们的位置定制的。
 
-### Restricting Access To Content
+### 限制对内容的访问
 
-With most sites, there will be occasions when a page needs to be online but not available to the public. For example, an agency demonstrating a new landing page to a client before final approval.
+对于大多数网站，有时页面需要在线但不向公众开放。例如，代理商在最终获准之前向客户展示的新登陆页。
 
-In some cases, companies may need many layers of security to protect their intellectual property and avoid something being seen before it is ready, but for most the information just needs to be hidden and military grade security isn't required.
+在某些情况下，公司可能需要多层安全措施来保护其知识产权并避免在准备就绪之前让用户看到某些内容，但对于大多数情况而言，只需要隐藏信息并不需要军事级别的安全性。
 
-With a Content Management System this is easy to do, but is difficult with a static site. Using Workers, we were able to put together a simple solution that prevents access to the page unless a certain header is present in the request, which can also be adapted to look for a query parameter.
+使用内容管理系统，这很容易做到，但静态站点很难实现。使用 Workers，我们能够拼凑一个简单的解决方案阻止访问页面，除非请求中存在某个也可以用于查找参数的报头。
 
 ```
 addEventListener('fetch', event => {
@@ -89,42 +89,43 @@ async function fetchAndApply(request) {
 }
 ```
 
-A page can now be hidden from the public without major investment in security or authentication technology but is still easy to access for those that need it.
+现在可以向公众隐藏页面，而无需对安全性或身份验证技术进行大量投入，但对于需要进行这些限制的人来说仍然很容易访问。
 
-#### A/B Testing
+#### A/B 测试
 
-A vital tool in optimizing traffic is the insight acquired from A/B testing. While there is no shortage of powerful A/B testing tools, most require the addition of a Javascript that alters the UI after page load. In optimal conditions, this can be unnoticeable to the naked eye but not all users have the best internet speeds and some will experience flicker after the page loads. As discussed above, this is a poor experience with negative consequences.
+优化流量的重要工具需要从 A/B 测试中领悟。虽然不缺乏功能强大的 A/B 测试工具，但大多数都需要添加一个在页面加载后改变 UI 的 JavaScript。在最佳条件下，这可能是肉眼无法察觉的，但并非所有用户都具有最佳的网速，并且有些用户在页面加载后会经历闪烁。如上所述，这是一种带有负面后果的糟糕经历。
 
-We were able to solve this problem with a Worker that makes a call to the A/B testing script URL, fetches the code and redraws the UI before sending the altered response to the user. The result is that users see the variant when the page loads and nothing moves after the first pixel has rendered.
+我们能够通过调用 A/B 测试脚本 URL 的 Worker 来解决这个问题，在将更改后的响应发送给用户之前获取代码并重新绘制 UI。结果是用户在页面加载时看到变体，并且在第一个像素渲染后不会有任何移动。
 
-### Why Workers Has Removed Roadblocks For Us
+### 为什么 Workers 为我们消除了障碍
 
-Workers have allowed us to make our static sites dynamic. Of course, we could have done this with post-load Javascript but the experience for users would have been poor.
+Workers 允许我们让静态网站变得动态化。当然，我们可以通过延迟加载 JavaScript 完成此操作，但用户的体验会很差。
 
-A second option would have been migrating to server rendered sites but even with an architecture shift like that, it would be difficult to have enough servers around the world to give users in all locations the same experience. It also would have been a significant IT investment to undertake such a change.
+第二种选择是迁移到服务器渲染的站点，但即使有这样的架构转换，也很难在全球拥有足够的服务器来为所有位置的用户提供相同的体验。进行这样的改变也是一项重大的 IT 投资。
 
-Workers, on the other hand, can be inserted at top of our architecture with no work required to install or add them. It is a matter of clicking a button in the Cloudflare dashboard and immediately gaining access to the Worker playground. There was no time lost in negotiating a trial or setting up the dev environment, which is a notorious time waster when researching any new technology or vendor.
+另一方面，Workers 可以插入到我们的架构顶部，无需安装或添加。这是一个单击 Cloudflare 仪表板中的按钮并立即访问 Worker 乐园的问题。在探究任何新技术或供应商时所造成的臭名昭著的时间浪费并没有发生在商定试验或建立开发环境时。
 
-### Why We Chose Workers Over AWS Lambda
+### 为什么我们选择 AWS Lambda 上的 Workers
 
-It is important to note that Workers are not the only option in serverless computing, as that is where the industry is generally heading. While AWS Lambda is a strong contender we went with Workers because Lambda requires integration with more AWS services to get started and recent performance tests that suggest Workers are [faster than Lambda](https://blog.cloudflare.com/serverless-performance-comparison-workers-lambda/).
+值得注意的是，Workers 不是无服务器计算的唯一选择，因为这是行业普遍的发展方向。虽然 AWS Lambda 是一个强有力的竞争者，但我们选择了 Workers，因为 Lambda 需要与更多 AWS 服务集成才能启动，而最近的性能测试表明 Workers [比 Lambda 更快](https://blog.cloudflare.com/serverless-performance-comparison-workers-lambda/)。
 
 ![](https://blog.cloudflare.com/content/images/2018/08/Screen-Shot-2018-08-15-at-12.15.55-PM-1-1.png)
 
-While we may have chosen AWS with different requirements, Workers were still much easier to get up and running quickly.
+虽然我们可能因为不同需求选择了 AWS，但 Workers 仍然更容易启动，且运行迅速。
 
-### Improvements We Would Like To See
+### 我们希望看到的改进
 
-Despite our overwhelming approval, there are a couple of things we’d like to see added.
+尽管我们获得了压倒性的批准，但我们还是希望看到一些额外的东西。
 
-Accounts currently have access to a single Worker script unless you have an Enterprise plan. This means a lot of unrelated code is housed in one file and while this is not uncommon on its own, a Worker can only fire on a single URL pattern. This can feel restrictive if you want to trigger functionality on one set of pages, but not others and means that you have a series of if statements in the Worker code that determine when it should fire. It’s not unworkable but not an ideal scenario either.  
-We look forward to the documentation growing with more real world examples, as the Worker Recipe exchange grows and Cloudflare continues to build out more content.
+除非你有企业计划，否则账户当前可以访问单个 Worker 脚本。这意味着许多不相关的代码存放在一个文件中，虽然这本身并不罕见，但是 Worker 只能触发单个 URL 模式。如果想要只在一些页面上触发功能，这可能会有限制，并且意味着你的 Worker 代码中会有一系列 if 语句，用于确定何时触发它。这不是不可行的，但也不是理想的场景。
 
-### Conclusion
+随着 Worker Recipe 交换的增长，以及 Cloudflare 继续构建出更多内容，我们期待文档随着更多真实世界的示例而增长。
 
-We are just at the start of our journey with Cloudflare Workers. As knowledge within our team grows, we can use it to meet our product requirements when appropriate and do more advanced things that were previously impossible without post-load Javascript. Workers are still in their infancy and improvements that can be made. We’ll be following these closely and experimenting to find ways to use them as new features are released.
+### 结论
 
-This guide was a high-level overview. For more in-depth explanations and code snippets, check out this [Review of Cloudflare Workers](https://leaderinternet.com/blog/cloudflare-workers-review) that explains some of the examples in detail
+我们刚刚开始与 Cloudflare Workers 合作。随着团队知识的增长，我们可以在适当的时候使用它来满足我们的产品要求，并且在没有延迟加载 JavaScript 的情况下执行以前不可能的更高级的事情。Workers 仍处于起步阶段，还可以做出改进。我们将密切关注这些并尝试在新功能发布时找到使用它们的方法。
+
+本指南是一个高级概述。有关更深入的解释和代码片段，请查看 [Cloudflare Workers 的这篇评论](https://leaderinternet.com/blog/cloudflare-workers-review)，其中详细解释了一些示例。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
