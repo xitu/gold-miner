@@ -75,7 +75,7 @@
 
 感谢 [Courtney M. Sawyer](https://medium.com/@courtneymsawyer)、[Edgar Chaparro](https://medium.com/@Echaparro) 和 [Lindsey Scott](https://medium.com/@lindseylinds) 帮助我解决语法上的恐怖问题。
 
-感谢 [Courtney Sawyer](https://medium.com/@csawyer?source=post_page)、[Lindsey Scott](https://medium.com/@lindseylinds?source=post_page) 和 [Edgar Chaparro](https://medium.com/@Echaparro?source=post_page). [No rights reserved](http://creativecommons.org/publicdomain/zero/1.0/)。作者没有[保留任何权利]([No rights reserved](http://creativecommons.org/publicdomain/zero/1.0/))。
+感谢 [Courtney Sawyer](https://medium.com/@csawyer?source=post_page)、[Lindsey Scott](https://medium.com/@lindseylinds?source=post_page) 和 [Edgar Chaparro](https://medium.com/@Echaparro?source=post_page). [No rights reserved](http://creativecommons.org/publicdomain/zero/1.0/)。作者没有[保留任何权利]（[No rights reserved](http://creativecommons.org/publicdomain/zero/1.0/)）。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
