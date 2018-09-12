@@ -2,26 +2,26 @@
 > * 原文作者：[Tyler McGinnis](https://twitter.com/tylermcginnis)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/this-keyword-call-apply-bind-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/this-keyword-call-apply-bind-javascript.md)
-> * 译者：
+> * 译者：[CoolRice](https://github.com/CoolRice)
 > * 校对者：
 
-# WTF is this - Understanding the this keyword, call, apply, and bind in JavaScript
+# this 到底指向什么 — 理解 JavaScript 中的 this、call、apply 和 bind
 
 ![](https://tylermcginnis.com/static/wtfIsThis-9b62a3df42b953522d9108f9b51758c4-1eede.jpg)
 
-One of the most misunderstood aspects of JavaScript is the `this` keyword. In this post, you’ll learn four rules for figuring out what the `this` keyword is referencing. Implicit Binding, Explicit Binding, the new binding, and the window binding. In covering these techniques you’ll also learn some other confusing parts of JavaScript as well like `.call`, `.apply`, `.bind`, and the `new` keyword.
+JavaScript 中最容易被误解的一点就是 `this` 关键字。在这篇文章中，你将学习判断 `this` 关键字指向的四个规则。隐式绑定、显示绑定、new 绑定和 window 绑定。在介绍这些技术时，你还将学习一些 JavaScript 其他令人困惑的部分，例如 `.call`、`.apply`、`.bind`和 `new` 关键字。
 
-### Video
+### 视频
 
 * YouTube 视频链接：https://youtu.be/zE9iro4r918
 
-### Post
+### 正文
 
-Before diving into the specifics of the `this` keyword in JavaScript, it’s important to take a step back and first look at why the `this` keyword exists in the first place. The `this` keyword allows you to reuse functions with different contexts. Said differently, **the “this” keyword allows you to decide which object should be focal when invoking a function or a method.** Everything we talk about after this will build upon that idea. We want to be able to reuse functions or methods in different contexts or with different objects.
+在深入了解 JavaScript 中的 `this` 关键字之前，有必要先退一步，看一下为什么 `this` 关键字很重要。`this` 允许复用函数时使用不同的上下文。换句话说，**“this” 关键字允许在调用函数或方法时决定哪个对象应该是焦点。** 之后讨论的所有东西都是基于这个理念。我们希望能够在不同的上下文或在不同的对象中复用函数或方法。
 
-The first thing we’ll look at is how to tell what the `this` keyword is referencing. The first and most important question you need to ask yourself when you’re trying to answer this question is ”**Where is this function being invoked?**”. The **only** way you can tell what the `this` keyword is referencing is by looking at where the function using the `this` keyword was invoked.
+我们要关注的第一件事是如何判断 `this` 关键字的引用。当你试图回答这个问题时，你需要问自己的第一个也是最重要的问题是“**这个函数在哪里被调用？**”。判断 `this` 引用什么的唯一方法就是看使用 `this` 关键字的这个方法在哪里被调用的。
 
-To demonstrate this with an example you’re already familiar with, say we had a `greet` function that took in a name an alerted a welcome message.
+用一个你已经十分熟悉的例子来展示这一点，比如我们有一个 `greet` 方法，它接受一个名字参数并显示有欢迎消息的警告框。
 
 ```
 function greet (name) {
@@ -29,26 +29,26 @@ function greet (name) {
 }
 ```
 
-If I were to ask you exactly what `greet` was going to alert, what would your answer be? Given only the function definition, it’s impossible to know. In order to know what `name` is, you’d have to look at the function invocation of `greet`.
+如果我问你 `greet` 会具体警告什么内容，你的回答是什么？只给出函数定义是不可能知道答案的。为了知道 `name` 是什么，你必须看看 `greet` 函数的调用过程。
 
 ```
 greet('Tyler')
 ```
 
-It’s the exact same idea with figuring out what the `this` keyword is referencing and you can even think about `this` as you would a normal argument to a function - it’s going to change based on how the function is invoked.
+判断 `this` 关键字引用什么也是同样的理念，你甚至可以把 `this` 当成一个正常的函数参数对待 — 它的变化是基于函数怎样被调用的。
 
-Now that we know in order to tell what the `this` keyword is referencing you must look at the function definition, let’s establish four rules to look for when actually looking at the function definition. They are,
+现在我们知道为了判断 `this` 的引用必须先看函数的定义，在实际地查看函数定义时，我们设立了四条规则来查找引用，它们是
 
-1.  Implicit Binding
-2.  Explicit Binding
-3.  new Binding
-4.  window Binding
+1.  隐式绑定
+2.  显示绑定
+3.  new 绑定
+4.  window 绑定
 
-### Implicit Binding
+### 隐式绑定
 
-Remember, the goal here is to be able to look at a function definition using the `this` keyword and tell what `this` is referencing. The first and most common rule for doing that is called the `Implicit Binding`. I’d say it’ll tell you what the `this` keyword is referencing about 80% of the time.
+请记住，这里的目标是查看使用 `this` 关键字的函数定义，并判断 `this` 的指向。执行绑定的第一个也是最常见的规则称为 `隐式绑定`。80% 的情况下它会告诉你 `this` 关键字引用的是什么。
 
-Let’s say we had an object that looked like this
+假如我们有一个这样的对象
 
 ```
 const user = {
@@ -60,15 +60,15 @@ const user = {
 }
 ```
 
-Now, if you were to invoke the `greet` method on the `user` object, you’d do so be using dot notation.
+现在，如果你要调用 `user` 对象上的 `greet` 方法，你会用到点号。
 
 ```
 user.greet()
 ```
 
-This brings us to the main keypoint of the implicit binding rule. In order to figure out what the `this` keyword is referencing, first, **_look to the left of the dot when the function is invoked_**. If there is a “dot”, look to the left of that dot to find the object that the `this` keyword is referencing.
+这就把我们带到隐式绑定规则的主要关键点。为了判断 `this` 关键字的引用，**函数被调用时查看先看点号左侧**。如果有“点”就查看点左侧的对象，这个对象就是 `this` 的引用。
 
-In the example above, `user` is to “the left of the dot” which means the `this` keyword is referencing the `user` object. So, it’s **as if**, inside the `greet` method, the JavaScript interpretor changes `this` to `user`.
+在上面的例子中，`user` 在“点号左侧”意味着 `this` 引用了 `user` 对象。所以就**好像** 在 `greet` 方法的内部 JavaScript 解释器把 `this` 变成了 `user`。
 
 ```
 greet() {
@@ -77,7 +77,7 @@ greet() {
 }
 ```
 
-Let’s take a look at a similar, but slightly more advanced example. Now, instead of just having a `name`, `age`, and `greet` property, let’s also give our user object a `mother` property which also has a `name` and `greet` property.
+我们来看一个类似但稍微高级点的例子。现在，不仅要拥有 `name`、 `age` 和 `greet` 属性，还要为我们的对象提供一个 `mother` 属性，并且此属性也拥有 `name` 和 `greet` 属性。
 
 ```
 const user = {
@@ -95,25 +95,25 @@ const user = {
 }
 ```
 
-Now the question becomes, what is each invocation below going to alert?
+现在问题变成下面的每个函数调用会警告什么？
 
 ```
 user.greet()
 user.mother.greet()
 ```
 
-Whenever we’re trying to figure out what the `this` keyword is referencing we need to look to the invocation and see what’s to the “left of the dot”. In the first invocation, `user` is to the left of the dot which means `this` is going to reference `user`. In the second invocation, `mother` is to the left of the dot which means `this` is going to reference `mother`.
+无论何时我们要判断 `this` 的引用我们都需要查看调用过程，并确认“点的左侧”是什么。第一个调用，`user` 在点左侧意味着 `this` 将引用 `user`。第二次调用中，`mother` 在点的左侧意味着 `this` 引用 `mother`。
 
 ```
 user.greet() // Tyler
 user.mother.greet() // Stacey
 ```
 
-As mentioned earlier, about 80% of the time there will be an object to the “left of the dot”. That’s why the first step you should take when figuring out what the `this` keyword is referencing is to “look to the left of the dot”. But, what if there is no dot? This brings us to our next rule -
+如前所属，大约有 80% 的情况下在“点的左侧”都会有一个对象。这就是为什么在判断 `this` 指向时“查看点的左侧”是你要采取的第一步。但是，如果没有点呢？这就为我们引出了下一条规则 —
 
-### Explicit Binding
+### 显示绑定
 
-Now what if instead of our `greet` function being a method on the `user` object, it was just its own standalone function.
+如果 `greet` 函数不是 `user` 对象的函数，只是一个独立的函数。
 
 ```
 function greet () {
@@ -126,21 +126,21 @@ const user = {
 }
 ```
 
-We know that in order to tell what the `this` keyword is referencing we first have to look at where the function is being invoked. Now this brings up the question, how can we invoke `greet` but have it be invoked with the `this` keyword referencing the `user` object. We can’t just do `user.greet()` like we did before because `user` doesn’t have a `greet` method. In JavaScript, every function contains a method which allows you to do exactly this and that method is named `call`.
+我们知道为了判断 `this` 的引用我们首先必须查看这个函数的调用位置。现在就引出了一个问题，即如何调用 `greet` 方法时 `this` 要引用 `user` 对象。我们不能再用之前做的那样仅仅用 `user.greet()`，因为 `user` 并没有 `greet` 方法。在 JavaScript 中，每个函数都包含了一个方法允许你直接调用，这个方法的名字叫做 `call`。
 
-> “call” is a method on every function that allows you to invoke the function specifying in what context the function will be invoked.
+> “call” 是每个函数都有的一个方法，它允许你调用函数时函数指定函数的上下文。
 
-With that in mind, we can invoke `greet` in the context of `user` with the following code -
+考虑到这一点，用下面的代码可以在调用 `greet` 时用 `user` 做上下文。
 
 ```
 greet.call(user)
 ```
 
-Again, `call` is a property on every function and the first argument you pass to it will be the context in which the function is invoked. In other words, the first argument you pass to call will be what the `this` keyword inside that function is referencing.
+再强调一遍，`call` 是每个函数都有的一个属性，并且传递给它的第一个参数会作为函数被调用时的上下文。换句话说，你传递给 `call` 的第一个参数被函数中的 `this` 引用。
 
-This is the foundation of rule #2 (Explicit Binding) because we’re explicitly (using `.call`), specifying what the `this` keyword is referencing.
+这就是第 2 条规则的基础（显示绑定），因为我们明确地（使用 `.call`）指定了 `this` 的引用。
 
-Now let’s modify our `greet` function just a little bit. What if we also wanted to pass in some arguments? Say along with their name, we also wanted to alert what languages they know. Something like this
+现在让我们对 `greet` 方法做一点小小的改动。假如我们想传一些参数呢？不仅提示他们的名字，还要提示他们知道的语言。就像下面这样
 
 ```
 function greet (lang1, lang2, lang3) {
@@ -148,7 +148,7 @@ function greet (lang1, lang2, lang3) {
 }
 ```
 
-Now in order to pass arguments to a function being invoked with `.call`, you pass them in one by one after you specify the first argument which is the context.
+现在为了将这些参数传递给使用 `.call` 调用的函数，你需要在第一个上下文参数之后一个一个地传入。
 
 ```
 function greet (lang1, lang2, lang3) {
@@ -165,9 +165,9 @@ const languages = ['JavaScript', 'Ruby', 'Python']
 greet.call(user, languages[0], languages[1], languages[2])
 ```
 
-This works and it shows how you can pass arguments to a function being invoked with `.call`. However, as you may have noticed, it’s a tad annoying to have to pass in the arguments one by one from our `languages` array. It would be nice if we could just pass in the whole array as the second argument and JavaScript would spread those out for us. Well good news for us, this is exactly what `.apply` does. `.apply` is the exact same thing as `.call`, but instead of passing in arguments one by one, you can pass in an array and it will spread those out for you as parameters in the function.
+方法奏效，它显示了如何将参数传递给使用 `.call` 调用的函数。不过你可能注意到，`languages` 数组必须一个一个传递参数，这样有些恼人。如果我们可以把整个数组作为第二个参数并让 JavaScript 为我们自动展开就好了。有个好消息，这就是 `.apply` 干的事情。`.apply` 和 `.call` 本质相同，但不是一个一个传递参数，你可以用数组传参而且 `.apply` 会在函数中为你自动展开。
 
-So now using `.apply`, our code can change into this (below) with everything else staying the same.
+那么现在用 `.apply`，我们的代码可以改为下面这个，其他一切都保持不变。
 
 ```
 const languages = ['JavaScript', 'Ruby', 'Python']
@@ -176,7 +176,7 @@ const languages = ['JavaScript', 'Ruby', 'Python']
 greet.apply(user, languages)
 ```
 
-So far under our “Explicit Binding” rule we’ve learned about `.call` as well as `.apply` which both allow you to invoke a function, specifying what the `this` keyword is going to be referencing inside of that function. The last part of this rule is `.bind`. `.bind` is the exact same as `.call` but instead of immediately invoking the function, it’ll return a new function that you can invoke at a later time. So if we look at our code from earlier, using `.bind`, it’ll look like this
+到目前为止，我们学习了关于 `.call` 和 `.apply` 的“显示绑定”规则，用此规则调用的方法可以让你指定 `this` 在方法内的指向。关于这个规则的最后一个部分是 `.bind`。`.bind` 和 `.call` 完全相同，除了不会立刻调用函数，而是返回一个能以后调用的新函数。
 
 ```
 function greet (lang1, lang2, lang3) {
@@ -194,17 +194,15 @@ const newFn = greet.bind(user, languages[0], languages[1], languages[2])
 newFn() // alerts "Hello, my name is Tyler and I know JavaScript, Ruby, and Python"
 ```
 
-### new Binding
+### new 绑定
 
-The third rule for figuring out what the `this` keyword is referencing is called the `new` binding. If you’re unfamiliar with the `new` keyword in JavaScript, whenever you invoke a function with the `new` keyword, under the hood, the JavaScript interpretor will create a brand new object for you and call it `this`. So, naturally, if a function was called with `new`, the `this` keyword is referencing that new object that the interpretor created.
+第三条判断 `this` 引用的规则是 `new` 绑定。若你不熟悉 JavaScript 中的 `new` 关键字，其实每当用 `new` 调用函数时，JavaScript 解释器都会在底层创建一个全新的对象并把这个对象当做 `this`。如果用 `new` 调用一个函数，`this` 会自然地引用解释器创建的新对象。
 
 ```
 function User (name, age) {
   /*
-    Under the hood, JavaScript creates a new object called `this`
-    which delegates to the User's prototype on failed lookups. If a
-    function is called with the new keyword, then it's this new object
-    that interpretor created that the this keyword is referencing.
+    JavaScript 会在底层创建一个新对象 `this`，它会代理不在 User 原型链上的属性。
+    如果一个函数用 new 关键字调用，this 就会指向解释器创建的新对象。
   */
 
   this.name = name
@@ -214,9 +212,9 @@ function User (name, age) {
 const me = new User('Tyler', 27)
 ```
 
-### window Binding
+### window 绑定
 
-Let’s say we had the following code
+假如我们有下面这段代码
 
 ```
 function sayAge () {
@@ -229,13 +227,13 @@ const user = {
 }
 ```
 
-As we covered earlier, if you wanted to invoke `sayAge` in the context of `user`, you could use `.call`, `.apply`, or `.bind`. What would happen if we didn’t use any of those and instead just invoked `sayAge` as you normally would
+如前所述，如果你想用 `user` 做上下文调用 `sayAge`，你可以使用 `.call`、`.apply` 或 `.bind`。但如果我们没有用这些方法，而是直接和平时一样直接调用 `sayAge` 会发生什么呢？
 
 ```
 sayAge() // My age is undefined
 ```
 
-What you’d get is, unsurprisingly, `My name is undefined` because `this.age` would be undefined. Here’s where things get crazy though. What’s really happening here is because there’s nothing to the left of the dot, we’re not using `.call`, `.apply`, `.bind`, or the `new` keyword, JavaScript is defaulting `this` to reference the `window` object. What that means is if we add an `age` property to the `window` object, then when we invoke our `sayAge` function again, `this.age` will no longer be undefined but instead it’ll be whatever the `age` property is on the window object. Don’t believe me? Run this code,
+不出意外，你会得到 `My name is undefined`，因为 `this.age` 是 undefined。这里开始事情变得神奇了。实际上这是因为点的左侧没有任何东西，我们也没有用 `.call`、 `.apply`、`.bind` 或者 `new` 关键字，JavaScript 会默认 `this` 指向 `window` 对象。这意味着如果我们向 `window` 对象添加 `age` 属性并再次调用 `sayAge` 方法，`this.age` 将不再是 undefined 并且变成 window 对象的 `age` 属性值。不相信？让我们运行这段代码
 
 ```
 window.age = 27
@@ -245,11 +243,11 @@ function sayAge () {
 }
 ```
 
-Pretty gnarly, right? That’s why the 4th rule is the `window Binding`. If none of the other rules are met, then JavaScript will default the `this` keyword to reference the `window` object.
+非常神奇，不是吗？这就是第 4 条规则为什么是 `window 绑定` 的原因。如果其它规则都没满足，JavaScript就会默认 `this` 指向 `window` 对象。
 
 * * *
 
-> In `strict mode` added in ES5, JavaScript will do the right thing and instead of defaulting to the window object will just keep “this” as undefined.
+> 在 ES5 添加的 `严格模式` 中，JavaScript 不会默认 `this` 指向 window 对象，而会正确地把 `this` 保持为 undefined。
 
 ```
 'use strict'
@@ -265,14 +263,15 @@ sayAge() // TypeError: Cannot read property 'age' of undefined
 
 * * *
 
-So putting all of our rules into practice, whenever I see the `this` keyword inside of a function, these are the steps I take in order to figure out what it’s referencing.
+因此，将所有规则付诸实践，每当我在函数内部看到 `this` 关键字时，这些就是我为了判断它的引用而采取的步骤。
 
-1.  Look to where the function was invoked.
-2.  Is there an object to the left of the dot? If so, that’s what the “this” keyword is referencing. If not, continue to #3.
-3.  Was the function invoked with “call”, “apply”, or “bind”? If so, it’ll explicitly state what the “this” keyword is referencing. If not, continue to #4.
-4.  Was the function invoked using the “new” keyword? If so, the “this” keyword is referencing the newly created object that was made by the JavaScript interpretor. If not, continue to #5.
-5.  Are you in “strict mode”? If yes, the “this” keyword is undefined. If not, continue to #6.
-6.  JavaScript is weird. “this” is referencing the “window” object.
+1.  查看函数在哪被调用。
+2.  点左侧有没有对象？如果有，它就是 “this” 的引用。如果没有，继续第 2 步。
+3.  该函数是不是用 “call”、“apply” 或者 “bind” 调用的？如果是，它会显式地指明 “this” 的引用。如果不是，继续第 4 步。
+4.  该函数是不是用 “new” 调用的？如果是，“this” 指向的就是 JavaScript 解释器新创建的对象。如果不是，继续第 5 步。
+5.  是否在“严格模式”下？如果是，“this” 就是 undefined，如果不是，继续第 6 步。
+7.  JavaScript 很奇怪，“this” 会指向 “window” 对象。
+
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
