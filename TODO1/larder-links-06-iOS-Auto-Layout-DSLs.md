@@ -2,20 +2,20 @@
 > * 原文作者：[Belle](https://larder.io/blog/larder-links-06-iOS-Auto-Layout-DSLs/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/larder-links-06-iOS-Auto-Layout-DSLs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/larder-links-06-iOS-Auto-Layout-DSLs.md)
-> * 译者：
-> * 校对者：
+> * 译者：[pmwangyang](https://github.com/pmwangyang)
+> * 校对者：[RickeyBoy](https://github.com/RickeyBoy)
 
-# What's in your Larder: iOS layout DSLs
+# 你 Ladar 中该珍藏的：iOS 布局语言
 
-If you're using Auto Layout to write layouts in code for iOS, it can easily get tedious and verbose. DSLs (domain-specific languages) wrap the underlying APIs to make it easier and faster to read and write code. There are plenty of these for Auto Layout, and even a couple that support manual frame layouts, too.
+如果你在iOS开发时使用 `Auto Layout` 来纯代码布局的话，你很容易就会感到啰嗦和乏味。DSL（译者注：原意为「领域特定语言」，在本文中根据语境译为「布局语言」）能够将基础的API转换成可以简单、快速开发和阅读的代码。有很多这类布局语言支持 Auto Layout，甚至有几个还支持手动 frame 布局。
 
-Here are some I've come across that I've added to my Larder (don't forget you can star repos on GitHub and have them automatically sync to your Larder account).
+我可以给你推荐一些我偶然遇到并且保存到我的 Ladar 书签中的布局语言（别忘了你可以在 Github 中 star 这些库，并且可以自动更新到你的 Lardar 账户中）。
 
 ### [SnapKit](https://github.com/SnapKit/SnapKit) [Swift] & [Masonry](https://github.com/SnapKit/Masonry) [Objective-C]
 
-I've been using SnapKit for a while now, and Masonry before that. SnapKit is the Swift successor to Masonry, but both worth with similar ideas.
+现在我已经使用 SnapKit 一段时间了，在这之前是 Masonry。SnapKit 是 Masonry 的 Swift 版继承者，二者使用的是同一种构思，都值得使用。
 
-SnapKit uses closures (Masonry uses blocks) and dot syntax to chain together auto layout constraint requirements. Here are some examples of how you might add constraints in SnapKit:
+SnapKit 使用闭包（Masonry 则用 block）和点语法来链接自动布局的约束需求。下面是一个使用 SnapKit 添加约束的例子：
 
 ```
 view.addSubview(label)
@@ -29,13 +29,13 @@ view.snp.makeConstraints { (make) in
 }
 ```
 
-One thing I love about SnapKit is that you can chain `.labeled()` to give your constraint a name, which will show up in Xcode when your constraint conflict. It helps enormously to figure out which constraints are the problem and get your layouts working, but you don't need to create a reference to each constraint in order to give it an identifying label.
+我特别喜欢 SnapKit 的一点是，你可以使用点语法 `.labeled()` 来命名约束，当你的约束冲突时，可以在 Xcode 中显示出来。这对找到出问题的约束有很大帮助，以使得你的布局可以正常工作，但是你不需要因为这个来给每个约束一个唯一的标签。
 
 ### [EasyPeasy](https://github.com/nakiostudio/EasyPeasy) [Swift]
 
-EasyPeasy offers a nice way to add multiple constraints to a view at once. With SnapKit, you can constrain different aspects of your view in the _same_ way, e.g.: `view.leading.trailing.equalToSuperview()` but you can't chain together constraints for `leading` and `trailing` that are different.
+EasyPeasy 提供了一次性添加多个约束的好方法。在使用 SnapKit 时，你可以用 **同一种** 方法来约束视图的各个方向，比如：`view.leading.trailing.equalToSuperview()`，但是你不能把诸如 `leading` 和 `trailing` 这样不同的约束链接在一起。
 
-With EasyPeasy, you can do so like this:
+在使用 EasyPeasy 时，你可以这样做：
 
 ```
 myView.easy.layout(
@@ -44,7 +44,7 @@ myView.easy.layout(
 )
 ```
 
-Another interesting aspect of EasyPeasy is the ability to add conditions to constraints like so:
+EasyPeasy 另一个有趣的地方是可以给约束添加条件，比如：
 
 ```
 var isCenterAligned = true
@@ -57,13 +57,13 @@ view.easy.layout(
 )
 ```
 
-On iOS, you can also access context about the `UITraitCollection` of the view you're constraining, in order to adjust your layouts more easily for different devices and orientations.
+在 iOS 里，你也可以使用你正在添加约束的视图的 `UITraitCollection` 上下文，更轻松地来为不同的设备和方向调整你的布局。
 
 ### [Stevia](https://github.com/freshOS/Stevia) [Swift]
 
-Stevia is part of freshOS, a project to bring together a set of libraries for iOS developers to use in their projects. While Stevia has some similar ideas to SnapKit, there are a few differences that make it really intriguing.
+Stevia 是 freshOS 的一部分，而 freshOS 是一个帮助 iOS 开发者在他们的项目中集合库文件的项目。Stevia 和 SnapKit 有许多相似点，但有一些不同的地方让 Stevia 相当吸引人。
 
-One is that Stevia offers its own visual layout API. So if you like the visual aspect of Apple's VFL but want something a little less verbose, that doesn't rely on strings and dictionary lookups, Stevia can help. Here's a quick example of the visual layout API in use from the Stevia docs:
+其中一个就是 Stevia 提供它自己的可视化布局 API。所以，如果你喜欢 Apple VFL 的可视化效果但是不想那么啰嗦、不想依赖于字符串和字典检查，Stevia 是一个很好的选择。这有一个 Stevia 文档中使用可视化布局 API 的简单例子：
 
 ```
 layout(
@@ -77,36 +77,36 @@ layout(
 )
 ```
 
-You can also use Stevia like SnapKit, by chaining together various attributes:
+你也可以像 SnapKit 那样使用 Stevia，比如用点语法链接多个属性：
 
 ```
 email.top(100).left(8).right(8).width(200).height(44)
 image.fillContainer()
 ```
 
-And you can use the equation-based API to lay things out like this:
+你也可以使用等式 API 来布局，像这样：
 
 ```
 email.Top == 100
 password.CenterY == forgot.CenterY
 ```
 
-One thing I love about Stevia is that you can constrain multiple views at the same time with functions like these:
+Stevia 让我喜欢的一点是，你可以使用像下面这样的方法同时约束多个视图：
 
 ```
 alignHorizontally(password, forgot)
 equalWidths(email, password)
 ```
 
-With a little set up, you can also get live reloading working with Stevia, to make development a lot faster.
+只需一点点设置，你就可以使用 Stevia 的即时重载功能，让开发更快捷。
 
 ### [Mortar](https://github.com/jmfieldman/Mortar) [Swift]
 
-Unlike SnapKit and Stevia, Mortar doesn't offer chaining at all. It's a highly opinionated library that purposely avoids chaining to improve readability.
+和 SnapKit 以及 Stevia 不同的是，Mortar 压根不提供点语法。它有意地避免点语法来提升可读性。
 
-Like Stevia, however, it does offer a visual layout API, as well as very concise syntax for creating Auto Layout constraints in code.
+但不管怎样，它还是和 Stevia 一样提供了可视的布局 API，同样是一种用代码创建自动布局的简明的语法。
 
-Here's an example of Mortar's visual layout API from the docs:
+这是 Mortar 文档中列举的可视布局 API 例子：
 
 ```
 viewA | viewB[==viewA] || viewC[==40] | 30 | viewD[~~1] | ~~1 | viewE[~~2]
@@ -122,7 +122,7 @@ viewA | viewB[==viewA] || viewC[==40] | 30 | viewD[~~1] | ~~1 | viewE[~~2]
 // viewE has a weighted size of 2
 ```
 
-Mortar also lets you set constraints on multiple views at once, which I find extremely useful. Here's a look at the different ways Mortar constraints can be created:
+Mortar 也允许你同时设置多个视图的约束，这点我认为非常有用。这里是用不同方式创建 Mortar 约束的概览：
 
 ```
 [view1, view2, view3].m_size |=| (100, 200)
@@ -136,15 +136,15 @@ view2.m_size |=| (100, 200)
 view3.m_size |=| (100, 200)
 ```
 
-I'm a bit turned off by the heavy use of symbols in Mortar, but it does make the syntax extremely concise. I imagine once you get your head around the syntax, it could be a lot faster and easier to read and write constraints in Mortar. It's also nice that Mortar doesn't leave out constraint attributes that some of these other libraries don't support, such as `firstBaseline`.
+我对 Mortar 大量符号的使用有点失去了兴趣，但是符号的运用确实让语法非常简洁。我想如果你可以应付这些语法，你可以使用 Mortar 更快、更简单的添加约束。其他非常好的地方是，Mortar 没有忽略其他布局库并不支持的约束属性，比如 `firstBaseline`。
 
 ### [Bamboo](https://github.com/wordlessj/Bamboo) \[Swift\]
 
-While Bamboo seems similar to the other options I've mentioned, it does have some unique aspects that make it worth exploring. One thing I love about Bamboo is its `fill` methods. For starters, you can simply call `fill()` to pin all the edges of a view to its superview. But you can also call, for example, `fillLeft()` to pin the left, top, and bottom edges of a view to its superview, or `fillWidth()` to pin the leading and trailing edges.
+虽然 Bamboo 看起来和我提到的其他库很相似，但是它确实有一些独特的地方，值得我们探索。一个让我喜欢的方面是它的 `fill` 方法。对于初学者，你可以仅仅使用一个 `fill()` 来把当前视图的边缘贴在父视图的边缘上。但是你也可以调用比如 `fillLeft()` 来让视图的左、上、下边缘贴合到父视图上，或者使用 `fillWidth()` 来贴合视图的头和尾边缘。
 
-Another set of methods I love are `before()`, `after()`, `above()`, and `below()`. I often think about positioning my views in this way, so it's nice to be able to express my constraints in code that matches my thought process. Each of these methods takes an optional spacing argument, so you can easily lay out a view after another one, with spacing between.
+另一组我喜欢的方法是 `before()`、`after()`、`above()` 和 `below()`。我经常考虑用这种方法定位我的视图，所以，像这样用代码表达约束和我的思考过程是同步的，这是一个很好的方式。每一个这样的方法都有一个可选的间隔参数，所以你可以轻松地使用间隔参数在一个视图后面布局另一个视图。
 
-And again, one of my favourite features is present here: you can constrain multiple views at once using Bamboo:
+给你展示一个我喜欢的特性：你可以使用 Bamboo 同时约束多个视图：
 
 ```
 // Constrain on each item.
@@ -163,17 +163,17 @@ And again, one of my favourite features is present here: you can constrain multi
 [view1, view2, view3].bb.width(10) // set width of all to 10
 ```
 
-Bamboo also offers a neat option for distributing views evenly along an axis:
+Bamboo 同样提供一个优雅的选择，以便你在坐标轴上均匀地分布视图：
 
 ```
 [view1, view2, view3].bb.distributeX(spacing: 10) // [view1]-10-[view2]-10-[view3]
 ```
 
-And finally, Bamboo also offers [similar syntax for handling manual frame layouts](https://github.com/wordlessj/Bamboo/blob/master/Documentation/Manual%20Layout%20Guide.md), for those times when Auto Layout won't do the job.
+最后，当自动布局失效时，Bamboo 也提供了[手动 frame 布局的近似语法](https://github.com/wordlessj/Bamboo/blob/master/Documentation/Manual%20Layout%20Guide.md)。
 
 ### [Cartography](https://github.com/robb/Cartography) [Swift]
 
-Cartography uses a closure-based approach to constraints, where each closure can take multiple views to constrain against each other. Here's an example from the docs:
+Cartography 使用基于闭包的方法来添加约束，每个闭包可以同时约束多个视图。下面是文档中的例子：
 
 ```
 constrain(view1, view2) { view1, view2 in
@@ -189,7 +189,7 @@ constrain(view1, view2) { view1, view2 in
 }
 ```
 
-You can also do this for just one view at a time, like so:
+你也可以一次只约束一个视图，比如：
 
 ```
 constrain(view) { view in
@@ -198,7 +198,7 @@ constrain(view) { view in
 }
 ```
 
-And you can keep a reference to all the constraints within a closure as a `ConstraintGroup`:
+你也可以将所有的约束放到一个闭包里，就像一个 `ConstraintGroup`：
 
 ```
 let group = constrain(button) { button in
@@ -207,7 +207,7 @@ let group = constrain(button) { button in
 }
 ```
 
-Or you can capture a single constraint from your closure:
+或者只在闭包中保留一个约束：
 
 ```
 var width: NSLayoutConstraint?
@@ -217,7 +217,7 @@ constrain(view) { view in
 }
 ```
 
-Like many of the other DSLs in this post, Cartography offers `edges`, `center`, and `size` compound attributes to speed things up. It also offers a way to align multiple views easily:
+就像本文中其他的布局语言，Cartography 也提供了 `edges`、`center` 和 `size` 之类的混合属性来提高效率。它也提供了简单的对齐多个视图的方法：
 
 ```
 constrain(view1, view2, view3) { view1, view2, view3 in
@@ -225,7 +225,7 @@ constrain(view1, view2, view3) { view1, view2, view3 in
 }
 ```
 
-And to distribute views evenly, like Bamboo does:
+均匀分布视图方面，和 Bamboo 很像：
 
 ```
 constrain(view1, view2, view3) { view1, view2, view3 in
@@ -233,20 +233,20 @@ constrain(view1, view2, view3) { view1, view2, view3 in
 }
 ```
 
-### Other options
+### 其他选择
 
-You might also want to check out some of these libraries:
+你可能还会喜欢下面这些库：
 
-*   [LayoutKit](https://github.com/linkedin/LayoutKit) [Swift, Objective-C], an alternative to Auto Layout made by LinkedIn
-*   [PinLayout](https://github.com/layoutBox/PinLayout) [Swift], a DSL for manual frame layouts
-*   [FlexLayout](https://github.com/layoutBox/FlexLayout) [Swift], a Swift interface for Yoga/Flexbox, made by the team behind PinLayout
-*   [Layout](https://github.com/schibsted/layout) [Swift], a framework for writing layouts using XML template files
+*   [LayoutKit](https://github.com/linkedin/LayoutKit) [Swift, Objective-C]，自动布局的另一种选择，LinkedIn开发。
+*   [PinLayout](https://github.com/layoutBox/PinLayout) [Swift]，一个手动 frame 布局的布局语言。
+*   [FlexLayout](https://github.com/layoutBox/FlexLayout) [Swift]，Yoga/Flexbox 的 Swift 版本接口, 由 PinLayout 背后的团队开发。
+*   [Layout](https://github.com/schibsted/layout) [Swift]，使用XML模板文件布局的框架。
 
 * * *
 
-There are some other Auto Layout DSLs I came across but didn't add to my Larder or include here. Mostly this is because they're either old and not actively maintained, or they're very simple and didn't seem to offer anything particularly unique. That doesn't mean they're not useful, but I was looking for what's most interesting and unique about these different approaches to Auto Layout sugar.
+我还发现了许多的自动布局语言，但并没有添加到 Larder 中或在这里列举。大部分是因为它们要么太老并且没人维护，或者是太简单、没有特点。但这并不意味着它们没有用，只是我在寻找最有趣、最独特使用自动布局语法糖的方式罢了。
 
-Hopefully you'll find something new to try out from this list! If you think I've missed a library that's worth exploring, please share it with us on Twitter at [@LarderApp](http://www.twitter.com/larderapp).
+希望你可以在这个列表里找到一些新的可尝试的东西！如果你认为我漏掉了值得探究的库，请在这个 Twitter [@LarderApp](http://www.twitter.com/larderapp) 里和我们分享。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

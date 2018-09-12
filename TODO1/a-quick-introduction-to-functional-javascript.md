@@ -2,72 +2,72 @@
 > * 原文作者：[Angelos Chalaris](https://hackernoon.com/@chalarangelo?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-quick-introduction-to-functional-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-quick-introduction-to-functional-javascript.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Zheng7426](https://github.com/Zheng7426)
+> * 校对者：[AmyFoxFN](https://github.com/AmyFoxFN)
 
-# A Quick Introduction to Functional Javascript
+# 函数式 JavaScript 快速入门
 
-**Functional programming** is one of the hottest trends right now and there’s a lot of good arguments about why one might want to utilize it in their code. I’m not going to go into a lot of detail about all of the concepts and ideas of functional programming here, however I will try to provide a demonstrative guide of how to use functional programming in everyday situations involving **Javascript**.
+**函数式编程**是目前最热门的趋势之一，有很多好的论点解释了人们为什么想在代码中使用它。我并不打算在这里详细介绍所有函数式编程的概念和想法，而是会尽力给你演示在日常情况下和 **JavaScript** 打交道的时候如何用上这种编程。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*w91eh65v6nxTs2AhLhyRNA.jpeg)
 
-> Functional programming is a programming paradigm that treats computation as the evaluation of mathematical functions and avoids changing-state and mutable data.
+> 函数式编程是一种编程范例，它将计算机运算视为数学上的函数计算，并且避免了状态的改变和易变的数据。
 
-#### Redefining functions
+#### 重新定义函数
 
-Before we get into the nitty-gritty of Javascript’s functional programming paradigm, it’s important to understand what a **higher-order function** is, why it’s useful and the implications stemming from this definition. A higher-order function can take a function as an argument or return one as a result. You should always remember that **functions are values**, meaning you can pass them around, much like you can do with variables.
+在深入接触 JavaScript 的函数式编程范例之前，咱们得先知道什么是**高阶函数**、它的用途以及这个定义本身究竟有什么含义。高阶函数既可以把函数当成参数来接收，也可以作为把函数作为结果输出。你需要记住 **函数其实也是一种值**，也就是说你可以像传递变量一样去传递函数。
 
-So for example, in Javascript, you can do this:
+所以呢，在 JavaScript 里你可以这么做：
 
 ```
-// Create a function.
+// 创建函数
 function f(x){
   return x * x;
 }
-// Use the function.
+// 调用该函数
 f(5); // 25
 
-// Create an anonymous function and assign 
-// it to a variable.
+// 创建匿名函数
+// 并赋值一个变量
 var g = function(x){
   return x * x;
 }
-// Now you can pass the function around.
+// 传递函数
 var h = g;
 // And use it
 h(5); // 25
 ```
 
-Using a function as a value
+把函数当成值来使用
 
-Using the technique showcased above, you can make your code more reusable, while gaining more versatility. We’ve all been in situations where we wished we could pass a function to some other function to execute a task, but we had to write some code to work around this problem, right? Using functional programming, you won’t need any more workarounds and you can make your code significantly cleaner and easier to read.
+一旦使用上面这个技巧，你的代码更容易被重复利用，同时功能也更加强大。咱们都经历过这样的情况：想要把一个函数传到另一个函数里去执行任务，但需要写一些额外的代码来实现这一点，对吧？使用函数式编程的话，你将不再需要写额外的代码，并且可以使你的代码变得很干净、易于理解。
 
-* [**Why functional programming matters**: Why testing for functional programming skills at software developer interviews is good for your business_](https://hackernoon.com/why-functional-programming-matters-c647f56a7691)
+* [**为什么函数式编程很重要**：在面试软件工程师的时候测验他们的函数式编程能力为何会对你的企业有好处](https://hackernoon.com/why-functional-programming-matters-c647f56a7691)
 
-The only catch is that _proper_ functional code is characterized by the **absence of side-effects**, meaning that functions should rely solely on their arguments as input and they should not affect their environment in any way, meaning you should not use or alter anything outside the function itself. This, however, has some important implications, such as the fact that a function will always return the same output provided the same input and the fact that, if the result of a functional call is not used, it can be removed without causing any other changes in the code.
+有一点要注意，正确的泛函代码的特点是**没有副作用**，也就是说函数应该只依赖于它们的参数输入，并且不应以任何方式影响到外界环境。这个特点有重要的含义，举个例子：如果传递进函数的参数相同，那么输出的结果也总是相同的；如果一个被调用的函数所输出的结果并没有被用到，那么这个结果即使被删掉也不会影响别的代码。
 
 * * *
 
-#### Using the array prototype’s built-in methods
+#### 使用数组原型的内置方法
 
-`[Array.prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype)` is where you should start when getting into functional programming in Javascript. It contains a plethora of useful methods for **applying transformations to arrays**, which is a very common use-case scenario in most modern applications.
+[`Array.prototype`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype) 应该是你学习 JavaScript 函数式编程的第一步，它涵盖了很多**数组转化**的实用方法，这些方法在现代网页应用里相当的常见。
 
-* [**Array.prototype**: The Array.prototype property represents the prototype for the Array constructor and allows you to add new properties…_](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype)
+* [**Array.prototype**: Array.prototype 属性表示数组构造函数的原型，并允许你添加新属性……](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype)
 
-Starting with `[Array.prototype.sort()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)` seems like a good idea, as this is a pretty straightforward transformation, which, unsurprisingly, you can use to **sort an array**. `.sort()` only takes one argument, a function that is used to compare two elements, returning a value below zero if the first one should go before the second one or a value above zero if the opposite is true.
+先来看看这个叫 [`Array.prototype.sort()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) 的方法会很不错，因为这个转化挺直白的。顾名思义，咱可以用这个方法来**给数组排序**。`.sort()` 只接收一个参数(即一个用于比较两个元素的函数）。如果第一个元素在第二个元素的前面，结果返回的是负值。反之，则返回正值。
 
-Sorting sounds very simple, until you run into a scenario where you need to compare something more complex than your usual numbers array. For this example, we will have an array of objects, the weights of which are either in pounds (_lbs_) or kilograms (_kg_) and we need to sort them in ascending order based on weight. Let’s look what this would look like:
+排序听起来非常简单，然而当你需要给比一般数字数组复杂得多的数组排序时，可能就不那么简单了。在下面这个例子里，我们有一个对象的数组，里面存的是以磅（**lbs**）或千克（**kg**）为单位的体重，咱们需要对这些人的体重进行升序排列。代码看起来会是这样：
 
 ```
-// Definition of our comparison function.
+// 咱们这个比较函数的定义
 var sortByWeight = function(x,y){
   var xW = x.measurement == "kg" ? x.weight : x.weight * 0.453592;
   var yW = y.measurement == "kg" ? y.weight : y.weight * 0.453592;
   return xW > yW ? 1 : -1;
 }
 
-// Just two slightly different lists of data,
-// that need to be sorted based on weight.
+// 两组数据有细微差别
+// 要根据体重来对它们进行排序
 var firstList = [
   { name: "John", weight: 220, measurement: "lbs" },
   { name: "Kate", weight: 58, measurement: "kg" },
@@ -81,22 +81,22 @@ var secondList = [
   { name: "Richard", weight: 74, measurement: "kg", age: 29 },
 ];
 
-// Using the sorting function we defined to
-// sort both lists.
+// 用开头定义的函数
+// 对两组数据进行排序
 firstList.sort(sortByWeight); // Kate, Mike, Sophie, John 
 secondList.sort(sortByWeight); // Jonathan, Margaret, Richard, Bill
 ```
 
-An example of using functional programming to sort two arrays
+用函数式编程来对两个数组进行排序的例子
 
-In the above example, you can clearly see how using a higher-order function can save you space, time and make your code easier to read and more reusable. If you were to write this without using `.sort()`, you would have to write two loops and repeat the logic for the most part, resulting in longer, bloated and frankly less understandable code.
+在上面的例子里，你可以很清楚地观察到使用高阶函数带来的好处：节省了空间、时间，也让你的代码更能被读懂、更容易被重复利用。如果你不打算用 `.sort()` 来写的话，你得另外写两个循环并重复大部分的逻辑。坦率来说，那样将导致更冗长、臃肿且不易理解的代码。
 
 * * *
 
-Sorting isn’t the only thing you do often in a array. In my experience, f**iltering an array** based on a property is pretty common and what better way to filter an array than `[Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)`. Filtering is not difficult, as you only need to pass a function as an argument, which will return `false` for any items that need to be filtered out, otherwise it will return `true`. Simple, right? Let’s see it in practice:
+通常你对数组的操作也不单只是排序而已。就我的经验而言，根据属性来**过滤一个数组**很常见，而且没有什么方法比 [`Array.prototype.filter()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) 更加合适。过滤数组并不困难，因为你只需将一个函数作为参数，对于那些需要被过滤掉的元素，该函数会返回 `false`。反之，该函数会返回 `true`。很简单，不是吗？咱们来看看实例：
 
 ```
-// An array of people.
+// 一群人的数组
 var myFriends = [
   { name: "John", gender: "male" },
   { name: "Kate", gender: "female" },
@@ -106,7 +106,7 @@ var myFriends = [
   { name: "Keith", gender: "male" }
 ];
 
-// A simple filter based on gender.
+// 基于性别的简易过滤器
 var isMale = function(x){
   return x.gender == "male";
 }
@@ -114,13 +114,13 @@ var isMale = function(x){
 myFriends.filter(isMale); // John, Mike, Richard, Keith
 ```
 
-A simple example of filtering
+关于过滤的一个简单例子
 
-While `.filter()` returns all the elements in the array that match a condition, you can also use `[Array.prototype.find()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)` to get only the first element in the array that matches a condition or `[Array.prototype.findIndex()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex)` to get the first matched element’s index in the array. Similarly, you can use `[Array.prototype.some()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)` to test if at least one element matches a provided condition and `[Array.prototype.every()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every)` to see if all elements of the array match a condition. These can be particularly useful in some kinds of applications, so let’s have a look at an example using a combination of these methods:
+虽然 `.filter()` 会返回数组中所有符合条件的元素，你也可以用 [`Array.prototype.find()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find) 提取数组中第一个符合条件的元素，或是用 [`Array.prototype.findIndex()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex) 来提取数组中第一个匹配到的元素索引。同理，你可以使用 [`Array.prototype.some()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some) 来测试是否至少有一个元素符合条件，抑或是用 [`Array.prototype.every()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every) 来检查是否所有的元素都符合条件。这些方法在某些应用中可以变得相当有用，所以咱们来看一个囊括了这几种方法的例子：
 
 ```
-// An array of high scores. Notice that some
-// of them don't have a name specified.
+// 一组关于分数的数组
+// 不是每一项都标注了人名
 var highScores = [
   {score: 237, name: "Jim"},
   {score: 108, name: "Kit"},
@@ -129,9 +129,9 @@ var highScores = [
   {score: 0}
 ];
 
-// Simple reusable functions that check if
-// an item has a name or not and if an item
-// has a score larger than zero.
+// 这些简单且能重复使用的函数
+// 是用来查看每一项是否有名字
+// 以及分数是否为正数
 var hasName = function(x){
   return typeof x['name'] !== 'undefined';
 }
@@ -142,7 +142,7 @@ var nonZeroHighScore = function(x){
   return x.score != 0;
 }
 
-// Fill in the blank names until none exist.
+// 填充空白的名字，直到所有空白的名字都有“---”
 while (!highScores.every(hasName)){
   var highScore = highScores.find(hasNotName);
   highScore.name = "---";
@@ -150,24 +150,24 @@ while (!highScores.every(hasName)){
   highScores[highScoreIndex] = highScore;
 }
 
-// Check if non-zero scores exist and print
-// them out.
+// 检查非零的分数是否存在
+// 并在 console 里输出
 if (highScores.some(nonZeroHighScore))
   console.log(highScores.filter(nonZeroHighScore));
 else 
   console.log("No non-zero high scores!");
 ```
 
-Using functional programming to structure data
+使用函数式编程来构造数据
 
-At this point everything should start coming together. In the above example, you can clearly see how higher-order functions spared you a lot of repetitive and difficult to understand code. Even in this very simple example, you can see how legible the code is, in contrast to what you would write if you didn’t use the functional programming paradigm.
+到这一步，你应该会有些融会贯通的感觉了。上面的例子清楚地体现出高阶函数是如何使你避免了大量重复且难以理解的代码。这个例子虽然简单，但你也能看出代码的简洁之处，与你在未使用函数式编程范例时所编写的内容形成鲜明对比。
 
 * * *
 
-Taking a step back from the complex logic of the previous example, we sometimes want to just **transform an array to a different one** with more or less fields, without altering the data all that much. Here’s where `[Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)` comes in, allowing us to transform the objects in an array. The difference between `.map()` and the previous methods is that the higher-order function that it uses as its argument should return an object, which can be pretty much anything you want. Let me demonstrate with a simple example:
+先撇开上面例子里复杂的逻辑，咱们有的时候只想要**将数组转化成另一个数组**，且无需对数组里的数据做那么多的改变。这个时候 [`Array.prototype.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) 就派上用场了，我们可以用这个方法来转化数组中的对象。`.map()`和之前例子所用到的方法并不相同，区别在于其作为参数的高阶函数会返回一个对象，可以是任何你想写的对象。让我用一个简单的例子来演示一下：
 
 ```
-// An array of objects.
+// 一个有 4 个对象的数组
 var myFriends = [
   { name: "John", surname: "Smith", age: 52},  
   { name: "Sarah", surname: "Smith", age: 49},  
@@ -175,27 +175,27 @@ var myFriends = [
   { name: "Garry", surname: "Thomas", age: 48}
 ];
 
-// A simple function to get just the name and
-// surname in one string.
+// 一个简单的函数
+// 用来把名和姓放在一起
 var fullName = function(x){
   return x.name + " " + x.surname;
 }
 
 myFriends.map(fullName);
-// Should output
+// 应输出
 // ["John Smith", "Sarah Smith", "Michael Jones", "Garry Thomas"]
 ```
 
-Mapping the objects of an array
+对数组里的对象进行 mapping 操作
 
-In the above example, by applying `.map()` to our array, we easily got an array, the objects of which only contain the desired properties. In this case we only wanted the string representation of the objects’ `name` and `surname` fields, thus we created an array of strings from an array of objects, using a simple mapping. Mapping is more common than you might think and it can be a very powerful tool in every web developer’s arsenal, so if there’s one takeaway from this article is that you should learn how to use `.map()`.
+从上面这个例子可以看出，一旦对数组使用了 `.map()` 方法，很容易就能得到一个仅包含咱们所需属性的数组。在这个例子里，咱只想要对象中 `name` 和 `surname` 这两行字符串，所以才使用简单的 mapping（译者注：即使用 map 方法） 来利用原来包含很多对象的数组上创建了另一个只包含字符串的数组。Mapping 这种方式可能比你想象的还要常用，它在每个网页开发者的口袋中可以成为很强大的工具。所以说，这整篇文章里你如果别的没记住的话，没关系，但千万要记住如何使用 `.map()`。
 
 * * *
 
-Last, but definitely not least, you should pay attention to the **general-purpose array transformation** that is `[Array.prototype.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)`. `.reduce()` is slightly different from all the other methods mentioned above, as it uses a higher-order function as its argument, as well as an **accumulator**. This might sound a little bit confusing at first, so an example should help you grasp the basic idea behind `.reduce()`:
+最后还有一点非常值得你注意，那就是**常规目的数组转化**中的 [`Array.prototype.reduce()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)。`.reduce()` 与上面提到的所有方法都有所不同，因为它的参数不仅仅是一个高阶函数，还包含一个**累加器**。一开始听起来可能有些令人困惑，所以先看一个例子来帮助你理解 `.reduce()` 背后的基础概念吧：
 
 ```
-// Arrays of expenses.
+// 关于不同公司支出的数组
 var oldExpenses = [
   { company: "BigCompany Co.", value: 1200.10},
   { company: "Pineapple Inc.", value: 3107.02},
@@ -206,27 +206,27 @@ var newExpenses = [
   { company: "Megasoft Co.", value: 1208.99}
 ];
 
-// Simple summation function
+// 简单的求和函数
 var sumValues = function(sum, x){
   return sum + x.value;
 }
 
-// Reducing the first array to a sum of values.
+// 将第一个数组降为几个数值之和
 var oldExpensesSum = oldExpenses.reduce(sumValues, 0.0);
-// Reducing the second array to a sum of values.
+// 将第二个数组降为几个数值之和
 console.log(newExpenses.reduce(sumValues, oldExpensesSum)); // 5891.19
 ```
 
-Reducing arrays to sums
+将数组降为和值
 
-The above example should not be particularly confusing to anyone who has ever had to sum the values of an array. We first define a reusable higher-order function that we use to sum the values of each array. Then, we actually use this function to sum the values of the first array and then, using the already accumulated value of the first array’s sum as our starting value, we feed this sum to the second array summation function, so that all values in the second array will be added to that, instead of zero.
+对于任何曾经把数组中的值求和的人来说，理解上面这个例子应该不会特别困难。一开始咱们定义了一个可重复使用的高阶函数，用于把数组中的 value 都加起来。之后，咱们用这个函数来给第一个数组中的支出数值求和，并把求出来的值当成初始值，而不是从零开始地去累加第二个数组中的支出数值。所以最后得出的是两个数组的支出数值总和。
 
-* [**Reduce (Composing Software)**: Note: This is part of the “Composing Software” series on learning functional programming and compositional software…](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d)
+* [**Reduce (编写软件)**：注意：这是关于学习函数式编程和编写软件的“Composing Software”系列的一部分……](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d)
 
-Of course, `.reduce()` can do a whole lot more than just adding up the values in an array. Most **complex transformations** that do not fit into any of the other methods can be easily implemented with `.reduce()` and an array or object accumulator. A practical example would be transforming an array of articles, each with a title and some tags into an array of tags, each with its article count and the array of said articles. Let’s see what this would look like:
+当然了，`.reduce()` 可以做的事情远不止在数组中求和而已。大多数别的方法解决不了的**复杂转化**，都可以使用 `.reduce()` 与一个数组或对象的累加器来轻松解决。一个实用的例子是转化一个有很多篇文章的数组，每一篇文章有一个标题和一些标签。原来的数组会被转化成标签的数组，每一项中有使用该标签的文章数目以及这些文章的标题构成的数组。咱们来看看代码：
 
 ```
-// An array of articles with their tags.
+// 一个带有标签的文章的数组
 var articles = [
   {title: "Introduction to Javascript Scope", tags: [ "Javascript", "Variables", "Scope"]},
   {title: "Javascript Closures", tags: [ "Javascript", "Variables", "Closures"]},
@@ -235,34 +235,34 @@ var articles = [
   {title: "Why Javascript Closures are Important", tags: [ "Javascript", "Variables", "Closures"]},
 ];
 
-// A function that reduces the above array to an
-// array based on tags.
+// 一个能够将文章数组降为标签数组的函数
+// 
 var tagView = function(accumulator, x){
-  // For every tag in the article's tag array
+  // 针对文章的标签数组（原数组）里的每一个标签
   x.tags.forEach(function(currentTag){
-    // Create a function to check if it matches
+    // 写一个函数看看标签是否匹配
     var findCurrentTag = function(y) { return y.tag == currentTag; };
-    // Check if it's already in the accumulator array
+    // 检查是否该标签已经出现在累积器数组
     if (accumulator.some(findCurrentTag)){
-      // Find it and get its index
+      // 找到标签并获得索引
       var existingTag = accumulator.find(findCurrentTag);
       var existingTagIndex = accumulator.findIndex(findCurrentTag);
-      // Update the number and array of articles
+      // 更新使用该标签的文章数目，以及文章标题的列表
       accumulator[existingTagIndex].count += 1;
       accumulator[existingTagIndex].articles.push(x.title);
     }
-    // Otherwise add the tag to the accumulator array
+    // 否则就在累积器数组中增添标签
     else {
       accumulator.push({tag: currentTag, count: 1, articles: [x.title]});
     }
   });
-  // Return the accumulator array
+  // 返回累积器数组
   return accumulator;
 }
 
-// Transform the original array
+// 转化原数组
 articles.reduce(tagView,[]);
-// Output:
+// 输出:
 /*
 [
  {tag: "Javascript", count: 5, articles: [
@@ -297,19 +297,19 @@ articles.reduce(tagView,[]);
 */
 ```
 
-Using reduce() to apply a complex transformation
+使用 reduce() 来进行一项复杂的转化
 
-The above example might seem slightly more complicated than it is, so let’s break it down. First off, we want to get an array as our final result, thus our accumulator’s starting value will be `[]`. Then, we want each object in the array to contain the name of the tag, the count and the actual list of articles. We also know that each tag must appear only once in the array, so we will have to check if it exists using `.some()`, `.find()` and `.findIndex()` like before to transform the existing tag’s object instead of adding a new one.
+上面这个例子可能看起来会有些小复杂，所以需要一步一步来研究。首先呢，咱想要的最终结果是一个数组，所以累加器的初始值就成了`[]`。然后，咱想要数组中的每一个对象都包含标签名、使用该标签的文章数目以及文章标题的列表。不但如此，每一个标签在数组中只能出现一次，所以咱必须用 `.some()`、`.find()` 和 `.findIndex()` 来检查标签是否存在，之后将现有标签的对象进行转化，而不是另加一个新的对象。
 
-The tricky part here is that we cannot define a function to check if each one of the tags exists (otherwise we need 7 different functions), so we define our higher-order function inside the loop for the current tag. That way we can reuse it and we avoid rewriting code. Note that this can also be accomplished by currying, but I will not explain this technique in this article.
+棘手的地方在于，咱不能定义一个函数来检查每个标签是否都存在（否则需要 7 个不同的函数）。所以咱们才在当前标签的循环里定义高阶函数，这样一来就可以再次使用高阶函数，避免重写代码。对了，其实这也可以通过 Currying 来完成，但我不会在本文中解释这个技巧。
 
-* [**Currying in the real world**: When I started to learn functional programming, I learned a lot of interesting concepts. But I was wondering where I…](https://hackernoon.com/currying-in-the-real-world-b9627d74a554)
+* [**现实中的 Currying**：当我开始学习函数式编程时，我学到了很多有趣的概念……](https://hackernoon.com/currying-in-the-real-world-b9627d74a554)
 
-After we get the tag’s object in the accumulator array, we need only increment its count and add the current article to its array of articles. Finally, we return the accumulator and that’s pretty much all there is to it. The code is pretty short and quite easy to understand after reading it carefully, while the corresponding non-functional code would be a very confusing and significantly longer mess.
+当咱们在累加器数组中获取标签的对象之后，只需要把使用该标签的文章数目递增，并且将当前标签下的文章添加到其文章数组中就行了。最后，咱们返回累加器，大功告成。仔细阅读的话会发现代码不但非常简短，而且很容易理解。相同情况下，非函数式编程的代码将会看起来非常令人困惑，而且明显会更冗杂。
 
-#### In conclusion
+#### 结语
 
-Functional programming is one of the hottest trends right now and for a good reason. It allows us to write cleaner, leaner and meaner code without having to worry about side-effects and changing-state. Javascript’s `[Array.prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype)` methods are really useful in many everyday situations and allow us to apply simple and complex transformations to arrays without repeating ourselves.
+函数式编程作为目前最热门的趋势之一，是有其充分原因的。它使咱们在写出更清晰、更精简和更“吝啬”代码的同时，不必去担心副作用和状态的改变。JavaScript 的 `[Array.prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype)` 方法在许多日常情况下非常实用，并且让咱们在对数组进行简单和复杂的转化，也不必去写太多重复的代码。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

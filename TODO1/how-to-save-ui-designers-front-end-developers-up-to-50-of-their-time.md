@@ -3,383 +3,383 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-save-ui-designers-front-end-developers-up-to-50-of-their-time.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-save-ui-designers-front-end-developers-up-to-50-of-their-time.md)
 > * 译者：[meterscao](https://twitter.com/meterscao)
-> * 校对者：
+> * 校对者：[rockyzhengwu](https://github.com/rockyzhengwu), [Park-ma](https://github.com/Park-ma)
 
-# How to Save UI Designers & Front-End Developers up to 50% of Their Time
+# 如何提升设计到开发的协作效率
 
-## And why it’s Christmas in January
+## 为什么一月会有圣诞节
 
-**Warning:** _This article has a lot of funny & unfunny memes, as well as detailed graphics. Hook up to some of that WiFi stuff first unless you want to haemorrage data. It’s also really long, so grab some popcorn & a cold drink._
+**提示：这篇文章有很多有趣和无趣的表情包，也有很多大图。除非你不在乎流量费用，建议最好还是先连上 Wi-Fi 。而且这篇文章真的非常长，你还可以准备一桶爆米花和可乐（笑）。**
 
-#### Christmas in January?
+### 一月的圣诞节？
 
-When you were a young child, Christmas was really, really exciting. Literally I-am-going-to-pee-myself-with-excitement exciting. Contemplating what presents Santa would bring, as well as opening them, constituted a month of unimaginable excitement & joy.
+当你还是个小孩的时候，圣诞节真的真的非常令人兴奋。一想到圣诞老人带来的礼物，以及打开礼物时的场景，让整个月都充满了难以想象的兴奋和喜悦。
 
 ![](https://media.giphy.com/media/l1AvyLF0Sdg6wSZZS/giphy.gif)
 
-In my life as a UI Designer, I enjoyed a similar child-like excitement when exploring the Sketch App for the first time:
+在我作为UI设计师的生涯里，当我第一次使用 Sketch App 时，我也像个孩子一样的兴奋：
 
-> “Are you serious?! I have probably wasted 90% of my time over the last 3 months fucking around with silly little pixelated symbols in Photoshop that don’t even look like I want them to look. Why did no-one tell me about this before?! This is incredible.”
+> “你是认真的吗？！在过去的 3 个月里，我可能已经在 Photoshop 那些愚蠢的小像素图形中浪费了 90％ 的时间，它们甚至看起来都不是我想要的样子。为什么之前没有人告诉我有这个 App ？！太难以置信了。”
 
-As a designer, there have been two stages in my professional life: Life ‘Before Sketch’ (BS) & life ‘After Sketch’ (AS).
+作为一名设计师，我的职业生涯中只有两个阶段：Sketch 之前的生活（BS）和 Sketch 之后生活（AS）。
 
-Let’s not talk about life BS. BS was, as the name suggests, bullshit. Everything looked a bit different, a bit off, a bit pixelated. It took about a week to create a header, let alone a single screen.
+我不想说 Sketch 之前的生活，简直糟糕透了。所有的东西看起来都……有些不一样，有些怪，呃……有点像素化。设计一个标题就差不多要花掉一个星期的时间，更不用说设计一个完整的页面了。
 
-Life AS has been great. You could probably get a team of toddlers together to make up a design team in the AS world.
+有了 Sektch 之后的生活简直不要太爽。我敢说你甚至可以跟一帮小朋友组建一个设计团队。
 
-You can re-use stuff. It’s all beautifully vectorised. Nice & organised. It’s quick. Intuitive. Easy.
+你可以重复使用各种元素。它们都是精美的，矢量化的，有条理的，并且非常简洁和直观。
 
-Well, my friends, if you are a product manager, designer or developer, today you are that little child again.
+好吧，如果你是产品经理，设计师或前端工程师，现在你也会孩子一样地兴奋。
 
-It may be early January, but Christmas has come early this year. **Welcome to the world of object-driven design.**
+可能现在是一月初，但我感觉就像圣诞节一样。**欢迎来到对象驱动设计的世界。**
 
-_N.B. Whilst writing this in Jerusalem & the West Bank, I saw a number of Christmas trees still up… It has since come to my attention that Christmas is, in fact, in January in some Orthodox Christian calendars. And there I was thinking my headline was absurd & attention-grabbing…_
+**作者注：当我在耶路撒冷和约旦河西岸写这篇文章的时候，看到一些圣诞树还摆在上面......从那时起就注意到一些东正教基督教日历中圣诞节实际上是在 1 月的。然后发现我的标题有点荒谬和吸睛......**
 
-![[Download this UI Kit for free](http://eepurl.com/dhWTbP)](https://cdn-images-1.medium.com/max/2000/1*Nb36bdEIFdzIPcrk3Zlc3w.jpeg)
+![[免费下载这个 UI 工具包](http://eepurl.com/dhWTbP)](https://cdn-images-1.medium.com/max/2000/1*Nb36bdEIFdzIPcrk3Zlc3w.jpeg)
 
-In this informative & fun-filled article, I will identify:
+在这篇内容丰富且充满乐趣的文章中，我将解释：
 
-1.  What object-driven design is
-2.  Why the problem has not been solved already
-3.  Why not adopting it is such a big risk
-4.  How to implement it in your design process
+1.  什么是对象驱动的设计
+2.  为什么这些问题仍然没有解决
+3.  为什么不使用面向对象的设计会有很大的风险
+4.  如何在设计流程中采用面向对象的设计
 
-By implementing my methodology, your design-to-development (what I’ll refer to as ‘D2D’) process will genuinely improve ten-fold, allowing your UI Designers to spend more time designing for delight & your Front-End Developers to nerd out on actually building stuff, rather than editing pixel distances.
+通过我的方法，让 UI 设计师可以花更多的时间做快乐的设计，让前端开发能集中精力开发功能，而不是在那里一个像素一个像素地调间距。设计到开发的流程（我简称为 “D2D”）效率将真正提高十倍。
 
-![Your face by the end of this article](https://media.giphy.com/media/q4sdF9tchap6E/giphy.gif)
+![你一定会大吃一惊](https://media.giphy.com/media/q4sdF9tchap6E/giphy.gif "你一定会大吃一惊")
 
-### Why should you care?
+## 你为什么要关心这个？
 
-Many a Product Manager & UI Designer will read this & think,
+许多产品经理和UI设计师读到这里都会想，
 
-_“Tell me something I don’t know. I’ve been using Sketch’s Symbols feature & typography classes for 3 years. Stop with your silly Christmas metaphors.”_
+**“我已经用了 3 年 Sketch 的 Symbols 和 Typography  功能，说一些我不知道的东西吧，然后停止你那愚蠢的圣诞节比喻。”**
 
-And they wouldn’t be wrong. I imagine most designers do create re-usable Symbols (‘objects’ in programming terms) in their Sketch files _to some extent_.
+他们并没有错。我猜想大多数设计师**一定程度上**都会在 Sketch 文件里创建可重用的 Symbols（类似于编程术语中的“对象”）。
 
-**However, not a single UI Designer I have worked with in the last 2 years has created a comprehensive approach to neutralising inefficiency in the D2D handover process.**
+**但是，在过去的两年中，和我合作的设计师里从来没有人能找到一种全面的方式，来改善 D2D 交付过程中的低效问题。**
 
-### 3 Reasons Why The Problem Exists
+## 这个问题存在的 3 个原因
 
-Before delving into the D2D problem itself, it is important to clarify precisely why D2D inefficiencies exist in the first place when there are so many design tools out there.
+在深入研究 D2D 问题之前，首先要说明白：既然已经有这么多的设计工具了，为什么仍然存在 D2D 效率低下的问题。
 
-#### 1. Benchmarking to Mediocrity
+### 1. 平庸的标准
 
-Unfortunately many readers will confidently assume that this is not a problem they or their company suffer from.
+不幸的是，许多读者会自信地认为，这不是他们或他们的公司会遇到的问题。
 
-This is because productivity & efficiency are relative. Very few UI Designers & Product Managers are aware that there is a better design process than their current one.
+因为生产力和效率是相对的。很少有 UI 设计师和产品经理能意识到：可能会存在一个比现在更好的设计流程。
 
-We tend to benchmark off other startups & UI Designers around us. If everyone is working the same way, it’s probably the most efficient one, right?
+我们倾向于以我们周围的其他创业公司和 UI 设计师为标准。如果每个人都以相同的方式工作，那么它可能就是最有效的，对不对？
 
-Wrong.
+不对。
 
-It is a common human bias to base our conception of anything — efficiency in this case — off the information available to us.
+我们有一种最常见的偏见，会基于我们的认知对这个世界上的事物产生刻板的印象，就像我们现在说的“效率”。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*vBBSJ4W5Y4NxOAtlLP2qPQ.jpeg)
 
-An example:
+举个例子：
 
-_Say I am overweight, but all my friends are obese. Because those around me are obese, I will think that I am a healthy guy because my points of references (i.e. my obese friends) are less healthy than I am._
+**假如我有些超重，但我所有的朋友都很胖。当我周围的人都比我胖的时候，我很可能会认为自己是一个健康的人，因为我的参考点（我肥胖的朋友们）比我更糟糕。**
 
-_However, just because they are less healthy than me does not necessarily mean that I am healthy. I am still overweight._
+**然而，仅仅因为他们不如我健康，并不一定意味着我就是健康的。我的体重依旧超重。**
 
-Therefore, to overcome benchmarking & potential mediocrity, always try to innovate in order to make great _leaps_ in efficiency, rather than small, incremental changes.
+因此，为了实现效率的明显**飞跃**，就得去打破平庸的标准，并且不断尝试创新。
 
-> “If I had asked people what they wanted, they would have said faster horses.”
-> **_— Henry Ford_**
+> “如果我问人们想要什么，他们会说更快的马。”
+> **—— 亨利·福特**
 
-#### 2. Unwarranted trust in product development methodologies
+### 2. 盲目相信现有的流程
 
-D2D inefficiencies also tend to occur because we assume that whatever product management methodology we work with in our company has already nullified any major inefficiences.
+D2D 效率低下一直存在的一个原因是，我们总是假设我们在公司使用的这些流程和方法都已经是最优的。
 
-This is not the case with the D2D process.
+但是事实并非如此。
 
-Firstly, regardless of whether you follow agile, lean or design thinking — or a mixture of these — there will always be inefficiencies. Particularly inefficiencies that you are never even aware of.
+首先，不管是否真的遵循敏捷开发的思想，效率低下的问题总会存在。特别有些是你甚至都可能意识不到的问题。
 
-Secondly, you will inevitably find that, as projects start, as Jeff Gothelf, author of LeanUX, states, teams immediately start “pulling away from each other, as opposed to collaborating more effectively” due to lack of alignment or to competing methodologies.
+其次，你一定能意识到，由于缺乏统一的合作和竞争体系，项目一开始就会立即进入“互相抢占资源，而非高效合作”的局面，正如 LeanUX 的作者 Jeff Gothelf 所描述的那样。
 
-This tends to mean that a designer’s resources are stretched, shared out between a few PMs & a horde of developers. It means that everything tends to be chaotic & disorganised. The UI Designer therefore rarely feels able to stop & apply the design thinking necessary to accelerate their design process & lend it greater agility.
+这样的场景往往意味着设计师资源变得紧缺，通常在少数产品经理和大量程序员之间共享。设计师对应多个产品和开发，这导致他们之间的合作也可能会变得混乱和无序。因此，UI 设计师很少能够停下来，尝试做一些系统化的设计方案，使其具有更高的灵活性。
 
-Only by following an object-driven design process is this velocity & agility possible.
+只有遵循对象驱动的设计流程，才能实现真正意义上的速度和敏捷。
 
-![The (exaggerated) reality of a product development cycle](https://media.giphy.com/media/HUkOv6BNWc1HO/giphy.gif "The (exaggerated) reality of a product development cycle")
+![产品开发周期的（夸大的）现实](https://media.giphy.com/media/HUkOv6BNWc1HO/giphy.gif "产品开发周期的（夸大的）现实")
 
-#### 3. Designers & Developers are Different
+### 3. 设计师和程序员是完全不同的人
 
-Furthermore, we all tend to assume that weekly design reviews, retrospectives & omniscient PMs effectively align everyone. True, alignment on _what_ is being worked on is achieved, but not _how_ it should be worked on.
+在我们美好的想象中，设计师每周都能进行设计评审和回顾，无所不能的产品经理也能高效地与每个人沟通和配合。没错，对于检验**做没做**很容易，但是对于**怎么做**就很难。
 
-And this comes down to a fundamental misunderstanding — or knowledge gap — between UI Designers & Front-End Developers.
+这可以归结为：UI设计师和前端工程师之间的根本误解，或者说是专业鸿沟。
 
-![A typical UI Designer: Trimmed beard, horn-rimmed spectacles & novel item of clothing, such as a gold bow-tie](https://cdn-images-1.medium.com/max/1600/1*4sv72hGSswh5z5oUBLjQGA.jpeg)
+![典型的 UI 设计师形象：精心修剪的胡须，新颖时尚的装扮](https://cdn-images-1.medium.com/max/1600/1*4sv72hGSswh5z5oUBLjQGA.jpeg "典型的 UI 设计师形象：精心修剪的胡须，新颖时尚的装扮")
 
-**UI Designers** tend to consider themselves artists. Their work is a work of _art_. _If only_ users could understand the beauty of their work, they would have _millions_ of users.
+**UI设计师**倾向于认为自己是艺术家，他们的作品是**艺术品**。**只要**用户能够理解他们作品中的美，他们的产品就能拥有**数百万**用户。
 
-They tend to love typography & be passionate about artesanal, hand-crushed coffee. Their favourite colour is #FEB4B1.
+他们喜欢排版，并热衷于手工艺和手冲咖啡。他们最喜欢的颜色是 #FEB4B1。
 
-![A typical developer: trimmed goatee, glasses & a niche hobby, such as Magic The Gathering](https://media.giphy.com/media/Pch8FiF08bc1G/giphy.gif)
+![典型的程序员形象：毫不在乎的打扮，极其小众的兴趣爱好，比如 Magic The Gathering（译者注：一种集换式卡牌游戏。）](https://media.giphy.com/media/Pch8FiF08bc1G/giphy.gif "典型的程序员形象：毫不在乎的打扮，极其小众的兴趣爱好，比如 Magic The Gathering （译者注：一种集换式卡牌游戏。）")
 
-**Developers**, on the other hand, just want to programme cool stuff. They don’t care what it looks like. ‘Style’ to them is an elusive concept left to the artists, as alien to them as ‘dating’. They don’t really understand why that shade of red is _too_ red or why that header text should be _just a little bit_ to the left.
+**程序员**，他们只想创造很酷炫的东西，他们并不太关心它们看起来的样子和视觉表现。对他们来讲，“样式” 这个难以捉摸的概念是留给艺术家的，对他们来说就像“约会”一样陌生。他们并不能理解为什么红色的阴影是**更**红的，为什么标题文本应该往左边**一点点**。
 
-They are happiest when left alone to programme some weirdly complex new project.
+当不被打扰地独自为一些复杂的新项目写代码的时候，才是他们最开心的时候。
 
 ---- 
 
-**In essence, they are different people.** With very different skills. Different ways of thinking. Different interests.
+**从本质上讲，他们是不同的人。** 不同的专业技能，不同的思考方式，不同的兴趣爱好。
 
-They each think that each other’s area of expertise is mind-bogglingly complex & completely incomprehensible. They therefore avoid each other’s domain at all costs.
+他们每个人都认为彼此的专业领域都是令人难以置信的复杂和费解的。因此，他们不惜一切代价避免介入彼此的领域。
 
-![What developers think designers do](https://cdn-images-1.medium.com/max/1600/1*u3XoSRSQpivSn1gcCwsfxQ.jpeg)
+![程序员眼里设计师的工作](https://cdn-images-1.medium.com/max/1600/1*u3XoSRSQpivSn1gcCwsfxQ.jpeg "程序员眼里设计师的工作")
 
-![What designers think developers do](https://cdn-images-1.medium.com/max/1600/1*RZ5gOgjgtvslNcqYrZ78Hw.jpeg)
+![设计师眼里程序员的工作](https://cdn-images-1.medium.com/max/1600/1*RZ5gOgjgtvslNcqYrZ78Hw.jpeg "设计师眼里程序员的工作")
 
-Both groups tend to be unaware — or, quite frankly, don’t care — that the visual work of a UI Designer & a Front-End Developer nowadays shares a lot of cross-over.
+也许两个群体都不知道，或者坦白地说不关心，现在UI设计师的视觉工作和前端工程师的工作已经有很多重合的部分。
 
-If both groups therefore aligned over a definitive design language (i.e. the objects (‘Symbols’ in Sketch)) that they used, the D2D process would be incredibly simple & fast.
+基于此，如果这两个角色建立了一种明确的设计语言（也就是 Sketch 中的 Symbols）的话，那么 D2D 流程将会非常简单和快速。
 
-However, because each group remains siloed & uninterested in each other’s craft, there remains a significant knowledge gap between them that leads to inefficiencies in a team’s D2D process.
+但是，由于每个角色对彼此孤立的工作并不感兴趣，因此他们之间仍存在非常明显的知识差距，这是另一个导致团队 D2D 流程低效的原因。
 
-It therefore makes sense to align your UI Designers & Front-End Developers to nullify these inefficiencies:
+因此，UI设计师和前端工程师使用统一的设计语言，对改善低效是非常有意义的：
 
-> “Patterns that yield good outcomes should be amplified. Those that are causing problems should be remedied.”
-> — Jeff Gothelf, Author of Lean UX
+> “产生良好结果的模式应该被推广，而那些造成问题的人应该得到纠正。”
+> —— Jeff Gothelf，Lean UX 的作者
 
-![React Native — Objects in action](https://cdn-images-1.medium.com/max/1600/1*CRotLNVwJOkvunucRFr9eg.png)
+![React Native — 对象起的作用](https://cdn-images-1.medium.com/max/1600/1*CRotLNVwJOkvunucRFr9eg.png "React Native — 对象起的作用")
 
-![Sketch — Symbols in action](https://cdn-images-1.medium.com/max/1600/1*CtF2FIGBm9GuUWnDP-TS0g.png)
+![Sketch — Symbol 起的作用](https://cdn-images-1.medium.com/max/1600/1*CtF2FIGBm9GuUWnDP-TS0g.png "Sketch — Symbol 起的作用")
 
-### 4 Reasons Failing To Follow Object-Driven Design is a Big Problem
+## 4. 无法遵循对象驱动设计存在的问题
 
-#### 1. Not creating a design system wastes a huge amount of designer & developer time
+### 1. 设计系统的缺失会浪费设计师和程序员大量的时间
 
-![Simple UI vs. Complex UI](https://cdn-images-1.medium.com/max/1600/1*VQlMEHrQOCI5LtgcZf4VuA.jpeg)
+![简单的 UI 与复杂的 UI](https://cdn-images-1.medium.com/max/1600/1*VQlMEHrQOCI5LtgcZf4VuA.jpeg "简单的 UI 与复杂的 UI")
 
-**_The UI Designer_**
+**UI 设计师**
 
-Theoretically, a D2D handover should be fairly straight-forward.
+理论上，D2D 交付流程应该是直接的。
 
-Theoretically, the UI Designer will have already aligned with the Front-End Developer & they will seemlessly work together on a simple solution.
+理论上，UI 设计师已经与前端开发能达成一致，并且可以无缝地协作。
 
-Theoretically, both will re-use elements from a predefined design language that both know well. A quick copy & paste in Sketch; a simple line of code.
+理论上，他们会事先约定好统一的设计语言，并且使用可重用的组件和元素。设计师在 Sketch 中复制粘贴一下，前端开发一两行代码就能搞定。
 
-However, theory rarely translates into reality.
+然而，理论却很少能转化为现实。
 
-The reality is that the majority of UI Designer’s spend a lot of time designing custom, new elements.
+实际情况是，大多数 UI 设计师会花大量时间设计一些新的自定义元素。
 
-Firstly, this is because they are not developers & therefore do not understand why it is a lot more work to actually implement something new.
+首先，因为他们不是程序员，所以他们不明白实现这些新的设计元素需要额外做很多的工作。
 
-Secondly, many UI Designer’s consider their work an art, rather than a science, & are therefore unwilling to sacrifice perceived beauty for pragmatism.
+其次，许多 UI 设计师认为他们的作品是艺术，而不是科学。因此他们并不情愿为了实用主义而牺牲作品的美感。
 
-![Can’t make money being an artist. Dreams shattered. Becomes UI Designer.](https://media.giphy.com/media/l0GRkzJhkMlJotMFq/giphy.gif)
+![成为 UI 设计师后发现竟然不能挣到钱，梦想破灭了。](https://media.giphy.com/media/l0GRkzJhkMlJotMFq/giphy.gif "成为 UI 设计师后发现竟然不能挣到钱，梦想破灭了。")
 
-Rather than shipping something quickly — as well as something that is easy to implement — they will spend the majority of their time making small tweaks to existing elements.
+他们喜欢花费大量的时间对现有元素进行细微的调整，而不是把很容易实现的设计稿尽快交付给前端工程师。
 
-They focus too much time on the minor (e.g. moving text a few pixels) rather than the major (e.g. building & testing that big new feature).
+他们花了太多的时间和精力在细节上（比如把文本移动几个像素）而不是项目重心上（比如设计和体验一个新的功能）。
 
-The minutiae is important, but it is difficult to justify when an existing UI element would serve well already.
+细节是很重要，但是当已有的 UI 元素已经很好地满足需求和场景了，很难证明这些细节的调整真的会带来有效的提升。
 
-This problem is also aggregated by the fact that a UI Designer focusing on the minutiae slows down any iterative process in place. Design reviews are pushed back, the PM isn’t up-to-date & the designer tends to spends a lot more time siloed in their own work.
+UI 设计师过分关注细节导致项目进度减缓，这个事实也让问题变得更加显著。设计评审被推迟，产品经理的信息同步也不及时，设计师也只愿花更多的时间在他们各自的设计工作中。
 
-**_The Front-End Developer_**
+**前端工程师**
 
-By the time the Front-End Developer receives the final design he or she is expected to implement, there have likely already been a few meetings to ensure everyone is clear on the expectations.
+当前端工程师拿到设计最终稿时，应当已经进行了几轮评审，以确保每个人都清楚最终的预期。
 
-However, we tend to still see a number of inefficiencies here because:
+但是，我们仍然发现问题仍旧存在，因为：
 
-1.  **Front-End Developers tend to assume that there is some very important reason each design is exactly as it is**. They assume that difficult-to-implement clock dial has to look _exactly_ like that initial design because they view all the UI Designer’s work as that of an expert. They therefore don’t try to simplify or discuss. They just assume there is some clever reasoning behind everything & that the UI Designer will create the perfect solution on the first attempt
-2.  **Front-End Developers tend to hate meetings more than most. **Therefore, rather than wanting a long, drawn-out debate about whether the font size should be 12px or 14px, **they just want to agree on a design, finish the meeting ASAP** & happily go back to programming
-3.  **Front-End Developers tend to be introverted and/or timid**. They are therefore unlikely to stand up to the more confident PM & more egotistical UI Designer
+1.  **前端工程师过分相信设计稿**。他们通常会认为最终实现的效果必须跟设计稿上**完全相同**，尽管有些设计稿实现起来很困难，但是他们将所有 UI 设计师都视为专家。因此，他们不会试图简化或讨论设计方案，他们相信一切背后都有一些合理的原因，UI 设计师的设计稿就是最终完美的方案。
+2.  **前端工程师比其他人更讨厌会议**。因此，他们并不想为了纠结字体大小是 12px 还是 14px 进行冗长和无聊的辩论，**他们只是想尽快开完会，与设计师达成一致**，然后愉快地回去写代码。
+3.  **前端工程师通常比较内向和腼腆**。因此，他们不太可能 PK 得过自信的产品经理和自负的 UI 设计师。
 
-Therefore, despite the meetings & the design reviews, they still end up implementing something that is new, something that is difficult to implement & something that has not been properly critiqued.
+因此，尽管在前期有设计评审和讨论环节，他们最终还是去做了一些重复的、不合理的、或者实现起来很困难的东西。
 
-![Pretending to listen, but dreaming about that really sweet class he just created](https://media.giphy.com/media/CU94B6y3UhjHO/giphy.gif)
+![假装在认真评审的工程师们，实际上已经满脑子都是最喜欢的代码了](https://media.giphy.com/media/CU94B6y3UhjHO/giphy.gif "假装在认真评审的工程师们，实际上已经满脑子都是最喜欢的代码了")
 
-#### 2. D2D inefficiencies compounds over time
+### 2. 随着时间的推移，D2D 效率愈来愈低下
 
-The longer you leave D2D inefficiencies, the greater the waste of resources over time for existing, as well as future, team members. This seems obvious, but is usually over-looked.
+D2D 效率低下的时间越长，对现有和未来团队成员的资源浪费就越大。这道理看起来很明显，但通常总是被我们忽视。
 
-We focus on short-term goals (finishing the sprint or getting through the backlog), rather than investing in our long-term success goals — and ultimate success.
+我们常常更专注于短期目标（加班加点完成手头上堆积的事情），而不是着眼于长期的目标和最终的成功。
 
-We don’t stop to solve the inefficiencies in the race to fulfil our sprint goals or to get through that long list of features & bugs to build.
+在实现短期的冲刺目标和完成大量项目功能的过程中，我们根本无暇去改善合作中的低效问题。
 
-Because it’s easier to focus on the short-term. Because we are stressed. [Because we rarely ever stop to think in our pursuit of ‘being busy’ & the sense of purpose it provides us](https://medium.com/punchintheface/the-art-of-being-busy-fdcf9b5a2d65).
+因为关注短期的目标很容易，因为大家都面临很大的压力，[因为我们很少会停下来思考我们如此忙碌的真正目的是什么](https://medium.com/punchintheface/the-art-of-being-busy-fdcf9b5a2d65)。
 
-![Your company’s current vs. optimal performance over time](https://cdn-images-1.medium.com/max/1600/1*ax3hgfnBOf0XqFVV865J6w.png)
+![随着时间的推移，最理想的效率和当前的效率](https://cdn-images-1.medium.com/max/1600/1*ax3hgfnBOf0XqFVV865J6w.png "随着时间的推移，最理想的效率和当前的效率")
 
-#### 3. No design system = design debt
+### 3. 没有设计系统 = 设计缺陷
 
-The less structured a UI Designer’s approach to the design process is, the more design debt you are building up.
+在设计流程中，UI 设计师的设计越不系统化，在后期的工作中将会面临更多的问题。
 
-Let’s take an example:
+我们来举个例子：
 
-Say I design all of my icons in different sizes. Some at 24x24, some 40x24, some 12x16. Not only is this wasting a developer’s resources (as highlighted in my first point), but it also means that any future development changes are impeded. That is because, if we want to then change these icons in future, they have to be designed at the exact same size for each case in order to not cause mis-alignment or stretching in both our design file & our final product.
+假如所有的图标都没有统一的尺寸，有些是 24x24，有些是 40x24，有些是 12x16。这不仅会浪费程序员的时间（正如我在第一点所强调的那样），而且还意味着将来任何的变化都会变得非常麻烦。如果将来希望更改某些图标，就必须针对每一个图标每一个特定的尺寸进行重新设计和导出，否则这些图标在最终的展示时候要么错位，要么会被拉伸。
 
-![Creating all your icons as a consistent size means a developer can replace them with one word of code & the designer with a quick scroll down their list of Symbols in Sketch](https://cdn-images-1.medium.com/max/2000/1*JojPssOu2NqC5VWmPS8lfw.png)
+![所有的图标都使用统一的尺寸，对设计师和前端工程师来讲都是非常方便的](https://cdn-images-1.medium.com/max/2000/1*JojPssOu2NqC5VWmPS8lfw.png "所有的图标都使用统一的尺寸，对设计师和前端工程师来讲都是非常方便的")
 
-Furthermore, within a UI Designer’s Sketch file, by not creating very strict typography & colour classes, as well as re-usable Symbols (e.g. all buttons being 24x24), we impede our ability to edit existing elements.
+此外，如果 UI 设计师在 Sketch 文件中，不创建严格的文本样式、取色板，以及可重复使用的 Symbols（比如所有按钮尺寸都是24x24）的话，就会严重阻碍我们编辑现有元素的效率。
 
-Rather than being able to make a major change to a text style throughout the product with one click, for example, we need to manually go through every single screen within Sketch to make that change. For an app with more than just a handful of screens, going through & making such changes can waste _the majority_ of a UI Designer’s time (and that is no exaggeration).
+假如想要对整个产品中的文本样式进行统一的调整，我们只能对 Sketch 中的每一个页面挨个进行手动的调整。但是如果使用了 Typography 的话，完全不用如此麻烦。对于一个拥有大量页面的完整 App 来说，这样的调整和更新会浪费UI设计师大量的时间。
 
-#### 4. Not creating a design system impedes collaboration
+### 4. 不建立设计系统会妨碍团队协作
 
-Without a design system in place, the majority of a UI Designer’s time is spent creating new designs or painstakingly editing existing designs.
+如果没有设计系统，UI 设计师的大部分时间都会花在创建新的元素或者对现有的设计不断地修改上面。
 
-This means they have less time to brainstorm & try new ideas within Sketch with a PM or Front-End Developer.
+这意味着他们没有更多的时间进行脑暴或者在 Sketch 里面与前端工程师一起尝试新的想法。
 
-Having a design review where the team can test out different options — or edit the designs being discussed live — is great for getting the entire team’s input & support for a design.
+团队可以通过组织设计评审来测试不同的方案，或者调整正在讨论的设计，这非常有利于整个团队对设计的投入和支持。
 
-> “Teams with a continuous exchange of feedback will build better products.”
-> _— Jim Semick,_ [_InVision_](#)(https://www.invisionapp.com/blog/product-ux-team-collaboration/)
+> “持续相互反馈的团队将会创造更好的产品。”
+> _—— Jim Semick，[InVision](https://www.invisionapp.com/blog/product-ux-team-collaboration/)_
 
-Furthermore, it avoids the need for the UI Designer to go back to the drawing board & to organise another one or two design reviews to discuss the same thing again. This saves the entire team a lot of time.
+此外，设计系统能避免了 UI 设计师为了相同的方案进行重复的设计评审和返工，这为整个团队节省了大量时间。
 
 ---- 
 
-![Download my free UI Kit to get you started [here](http://eepurl.com/dhWTbP)](https://cdn-images-1.medium.com/max/2000/1*Nb36bdEIFdzIPcrk3Zlc3w.jpeg)
+![在这里下载我的免费 UI 工具包：http://eepurl.com/dhWTbP](https://cdn-images-1.medium.com/max/2000/1*Nb36bdEIFdzIPcrk3Zlc3w.jpeg "在这里下载我的免费 UI 工具包：http://eepurl.com/dhWTbP")
 
-### How To Implement Object-Driven Design
+## 如何实现对象驱动的设计
 
-Hopefully I have convinced you of the importance of implementing a design system by now.
+现在，希望你已经明白实施设计系统是多么的重要。
 
-In the following section, I will discuss the importance of changing your UI Designer’s approach to their work, before delving into the specifics of building & maintaing a design system.
+下一节中，在深入研究构建和维护设计系统的细节之前，我将讨论更改 UI 设计师的工作方法的重要性。
 
-#### Step 1: Taking ownership of the D2D process
+### 第1步：获得 D2D 流程的主导权
 
-Before committing to following object-driven design, it is essential to ensure that the UI Designer is properly motivated.
+在承诺遵循对象驱动设计之前，必须确保 UI 设计师能得到适当的激励。
 
-If they are doing this because of some vague idea that it will make the team more efficient — or they are just being told to do it — then don’t bother.
+如果他们做这个的理由很含糊：“这能让团队更高效”、“我们只是被要求这么做”，如果是这样的话，那就算了吧。
 
-If, however, your UI Designer considers the D2D-handoff a key part of their role & entirely their responsibility, then they will be motivated enough to not only complete the work of building a design system, but to maintain & build upon it in the long-term.
+但是，如果设计师打心底认可 D2D 交付流程是他们的角色和责任中很关键的部分，那么他们不仅更有动力和积极性去构建一个设计系统，而且会长期地维护和完善它。
 
-Let me emphasise an important point: **Building a design system is not just a one-off task. Every time you create new designs or test out ideas, they should all be properly structured & organised within your design system for future use.**
+让我强调一下：**建立设计系统不仅仅只是个一次性的任务。每当你开始新的设计或验证方案时，你都应该把他们准确地组织在你的设计系统中，这样可以供将来使用。**
 
-Taking full responsibility for the D2D process must be something the UI Designer believes in completely. If not, then they will never learn enough — or ask enough — about how designs are programatically implemented to help them improve their design process.
+UI 设计师必须是完全认可他们应该为 D2D 流程负责任。否则，他们对于如何用编程的方式实现设计从而改进设计流程的过程，也不会特别的好奇和投入。
 
-They need to be reading articles such as this one, doing a basic programming course, reading Material Design guidelines, watching a Front-End Developer work for a few hours a week, learning from the PM, developers, other designers, etc.
+他们需要阅读一些关于设计和开发流程的文章，参加基础编程的课程，学习 Material Design 指南，了解前端工程师的工作，向产品经理、前端工程师或者其他设计师学习，等等。
 
-**In short, they cannot retreat back into Sketch & Dribbble, sacrificing important learnings in order to focus on what they enjoy & feel comfortable with.**
+**总之，他们要跳出舒适区，不能为了只专注于他们喜欢的和感到舒适的东西而放弃那些更重要的学习，不能最后又回到了 Sketch 和 Dribble 上来。**
 
-#### Step 2: Building a Design System
+### 第2步：构建设计系统
 
-Building a design system’s purpose, at its core, is to create a comprehensive list of elements based on the principles of object-orientated programming. The desired outcome is to closely align designers with programmers around the design system you create in Sketch to radically increasing their velocity as a team.
+构建设计系统的核心目的，是基于面向对象的编程思想创建一个完整的元素列表。期望的结果是通过你在 Sketch 中创建的设计系统，让设计师和程序员能够更加紧密的合作，从而让整个团队也运作得更加的高效。
 
-Better communication between these two groups leads to a better understanding between them, which in turn leads to your team creating better products.
+设计师和程序员之间互相的沟通会带来更加深彼此的理解，也会让整个团队创造出更优秀的产品。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*4iHUG2t0eN-ohh9v5UbH4A.jpeg)
 
-**1/7 Start with the basics: colour & typography**
+**1/7 从基础开始：颜色和文本样式**
 
-Object-driven design requires starting with the basics, namely defining your colours & typography classes. This is because other elements will require this information: A button needs a colour, a row of text requires a typography class.
+对象驱动的设计必须从基础开始：定义颜色和文本样式。因为所有其他的元素都需要这些信息：比如，一个按钮需要明确背景颜色、边框颜色；一行文本需要明确字体、字号和行高。
 
-![Create objects for one screen](https://cdn-images-1.medium.com/max/2000/1*eOnRXOD1lBOwvgTqNrJE0g.png)
+![为单个页面创建独立控件](https://cdn-images-1.medium.com/max/2000/1*eOnRXOD1lBOwvgTqNrJE0g.png "为单个页面创建独立控件")
 
-**2/7 Create objects for one screen**
+**2/7 为单个页面创建独立控件**
 
-By building an example screen, you will rapidly understand how the principles of object-driven design work in practice. In my experience, only by _applying_ the theory in an iterative manner can you effectively learn how to create a full design system.
+通过创建一个示例页面，你就很快能理解对象驱动设计的原理，并指导怎样在实际的工作中运用。根据我的经验，只有不断以迭代的方式来**践行**对象驱动的设计理论，才能真正有效地学习如何创建一个完整的设计系统。
 
-On your first attempt, don’t worry about being too comprehensive. This is because you will quickly realise how creating elements* works once you try to build a few example screens.
+在开始尝试的时候，不要担心不全面。因为当你创建过一些示例页面之后，你很快就能明白怎么合理地创建这些元素。
 
-Maybe start with a header (with text & buttons), some text rows & whatever else you want to experiment with. Remember that consistency requires minimalising how many elements you create.
+可以从标题栏（带有文本和按钮的那种标题栏）、或者文本段落开始，也可以用其他任何你想尝试的控件。请记住，从最小的元素起，就要开始保证设计的一致性。
 
-_*Elements refer to a group of Symbols, such as a row or a header_
+**元素指的是一组 Symbols ，比如一个标题栏或者一个段落文本**
 
-* YouTube 视频链接：https://youtu.be/5MGNi24hHAE
+* YouTube 视频链接：https://youtu.be/5MGNi24hHAE （已经打不开了）
 
-**3/7 Overrides (changing the information within an element)**
+**3/7 Override（更改元素的信息）**
 
-You’ll see on the right-hand panel (under ‘Overrides’) in Sketch that, if you select a Symbol, the information within that object can be changed, such as the text within a header.
+在 Sketch 中如果选中一个 Symbol，在右侧的面板（在 “Override” 中）就能看到这个对象包含的那些可以被修改的的信息，比如标题栏中包含的文本。
 
-Notice how the style does not change, however. This is essentially how front-end programming works:
+但需要注意的是，这样的修改并不会改动到 Symbol 本身的样式。因为这个本质上很像前端的工作方式：
 
-You define the visual UI (e.g. font-size, position, left-align) but you pull the information for the actual content (a name, address, icon, etc.) from your database.
+你定义展示给用户的界面（比如，字号、排版、对齐方式等），但是最终填充的内容（比如名称、地址、图标等等）是从数据库中拉取来的。
 
-You can define where a button goes & its size, for example, but you pull the actual image from a data-base where all your button images are stored.
+比如，你可以定一个图片按钮的位置、大小，但是实际展示的图片是存放在 CDN 中。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*sjN8qeLawj0NKzrQKrNfXA.png)
 
-**4/7 Create a few example screens**
+**4/7 创建一组示例页面**
 
-Now that you have seen the power of Overrides, you see what types of Symbols you will need to create, as well as how Symbols can fit within other Symbols (such as a button within a header).
+现在你已经看到了 Overrides 的强大功能，你知道需要创建哪些类型的 Symbols，以及 Symbols 之间是怎么关联和组合起来的（例如标题栏中的按钮）。
 
-Hopefully you also realise how much organisation & thoughtful planning this process requires. You may have defined some typography classes, for example, but I doubt you created a variation for left-, center- or right-aligned.
+希望你也意识到这个过程需要多么周密的规划和组织了。你可能已经自己定义了一些 Typography ，但我怀疑只是在为左对齐，中对齐还是右对齐创建了一个变体。
 
-Try to create 4–5 screens now, all based on pre-defined Symbols. Don’t worry if it’s still disorganised & some screens don’t quite work: Realising your errors & learning from them is essential to the learning process.
+现在尝试创建 4-5 个页面，并且所有的页面都只能基于先前定义的 Symbols 来创建。不要担心它们是不是缺少组织或者搭建起来很不方便：意识到这些问题，并从中学习和思考，本质上也是学习的一个过程。
 
-![Information Architecture: Organising your Symbols logically](https://cdn-images-1.medium.com/max/2000/1*9LAZ3Zd3znKMWmmPipqImA.png)
+![信息架构：逻辑清晰地组织你的 Symbols](https://cdn-images-1.medium.com/max/2000/1*9LAZ3Zd3znKMWmmPipqImA.png "信息架构：逻辑清晰地组织你的 Symbols")
 
-**5/7 Naming your Symbols correctly**
+**5/7 为 Symbols 准确地命名**
 
-By now, you should have a good understanding of how to build a full design system.
+现在，你应该对如何创建一个完整的设计系统有了清晰的理解。
 
-Before diving in to complete your full design system, however, I recommend spending some time on the information architecture.
+但是在深入研究完整的设计系统之前，我建议花一些时间了解下信息架构。
 
-Information architecture essentially refers to structuring information in a logical, optimal manner.
+信息架构本质上是指用最符合逻辑最优的方式来组织信息。
 
-In the case of a design system, this means structuring all of your objects so that the commonly used objects are easily accessible, they are named logically & there is a clear hierarchy.
+在有设计系统的情况下，所有的对象都处在清晰的层次结构里，并且都有符合逻辑的命名，常用的元素也非常便于使用。
 
-To do this comprehensively, make sure you go through the entire product & identify all the Symbols you need to create & how best to organise them. What do you use most often? How would another designer find these Symbols? What would they expect each Symbol to be called?
+搭建一个全面的设计系统前，首先要确保你已经熟悉整个产品，明确所有你需要创建的 Symbols ，并且明白如何才能找到最佳的方式来组织它们。哪些元素是最常用的？其他设计师怎么能找到这些 Symbols？他们会期望每个 Symbol 应该怎样命名？
 
-Failing to do this correctly will mean a huge amount of time wasted finding objects, re-naming them in future & an inability to add Symbols in future in a logical manner.
+如果不能做到以上所说的点，将来在 Symbols 的查找和重命名上就会耗费大量的时间，而且也无法用一种逻辑清晰的方式来添加新的 Symbols。
 
-![A comprehensive Design System](https://cdn-images-1.medium.com/max/2000/1*mbfLtwW8TkOGxM12LGY6WQ.png)
+![一个全面的设计系统](https://cdn-images-1.medium.com/max/2000/1*mbfLtwW8TkOGxM12LGY6WQ.png "一个全面的设计系统")
 
-**6/7 Creating a comprehensive Design System**
+**6/7 创建全面的设计系统**
 
-Now that you’ve created a few Symbols, have identified which Symbols you will need to build for your product & have created a naming structure, it’s time to complete the entire design system.
+现在你已经创建了一些 Symbols ，很明确你的产品需要哪些 Symbols，并且有一套清晰的命名体系，所以现在是时候来完成整个设计系统了。
 
-Set aside a day or two to fully focus on this task in order to immerse yourself in it & to keep the design system’s structure clear in your head.
+为了保证设计系统的结构清晰，你需要留出专门的时间来完成它，并且全身心投入其中。
 
-As you work through it, you are likely to realise errors in your naming structure. Therefore keep checking your naming structure, building test screens & checking for consistency as you go.
+当你在完成的过程中，可能会发现一些命名上的错误和缺陷。因此，请随时检查你的命名规则，创建一些用于测试的页面并且验证一致性。
 
-Your product is unique, so the Symbols you need to create will be unique. Therefore you will have to think for yourself how best to structure your design system, as well as what to include.
+因为你的产品是独一无二的，因此你需要创建的这些 Symobls 也是独一无二的。所以，你必须去思考如何最好地架构这个设计系统，以及这个系统究竟需要包含哪些内容。
 
-**7/7 Design Review**
+**7/7 设计评审**
 
-Organise a design review with your PMs, UX/UI Designers & Front-End Developers to present the new design system.
+与产品经理，UX/UI 设计师，还有前端工程师一起组织设计评审，来展示新的设计系统。
 
-You are likely to find that all members of the team will instantly see value in it. The Front-End Developers are happy because they have a definitive document to work from, PMs because they can rapidly prototype with the designers, designers because they can all work off the same design system within Sketch.
+你会发现团队的所有成员都会立即意识到它的价值。前端工程师很高兴，因为他们有一个明确的交付文件可供参考和使用；产品经理也很高兴，因为他们可以与设计师快速地搭建产品原型；其他的设计师也很高兴，因为他们都可以在 Sketch 内的同一设计系统中协同工作了。
 
-Once you’ve finished high-fiving, popping bottles & generally celebrating in a exuberant manner, save your design system as a ‘Template’ under Sketch & share with the other UI Designers.
+当你将你的设计系统保存到 Sketch 中的 “Template”，并与其他 UI 设计师共享后，你们就可以开瓶酒好好庆祝下了。
 
-![Popping bottles…](https://media.giphy.com/media/mp1JYId8n0t3y/giphy.gif)
+![疯狂地庆祝...](https://media.giphy.com/media/mp1JYId8n0t3y/giphy.gif "疯狂地庆祝...")
 
-#### Step 3: Maintaining your Design System
+### 第3步：维护你的设计系统
 
-Once completed, you will also need to maintain your design system moving forward.
+当你完成设计系统后，你还需要维持它继续向前迭代。
 
-Any new design ideas should be correctly built & organised as Symbols, even if they are unlikely to be included in the final product.
+任何新的设计元素，不管是否会在最终的产品中体现出来，都应该将它们正确地归类和组织为 Symbols。
 
-This is because you are most likely a busy person with a lot on your plate. It’s therefore pretty unlikely you’ll remember to go back, re-design the final designs as Symbols & name them correctly. It’s also going to waste more time than just doing it right in the first place.
+很可能你的工作非常的繁忙，项目的节奏也非常快，你不太可能会有机会重新将最终的设计稿再一点一点地重构成结构清晰命名规范的 Symbols。与其在将来浪费更多的时间，不如在一开始就用最优的方式来设计。
 
-**Remember: However busy you are, working as fast as possible in the short-term will build up long-term technical debt.**
+**无论你有多忙都请记住：磨刀不误砍柴工。**
 
-Furthermore, if you work in a team of more than one UI Designer, you will all need to contribute to the design system moving forward.
+另外，如果你的团队中还有其他的设计师的话，你们都需要为设计系统的发展作出贡献。
 
-This requires every member of your team to be organised. It also requires somebody to take charge of the design system, adding any new Symbols to your product’s ‘Library’ within Sketch so that all team members have access to all pre-existing & new Symbols.
+团队中的每个成员都必须遵循设计规范。还应该有专门的设计师来负责将新的 Symbols 添加到产品的 “Library” 中，以确保所有的人都能访问到已有的和新增的 Symbols。
 
-This UI Designer should also regularly update the master file online, so that all team members have access to the most recent version, as well as avoiding any wasted time with losing unsaved files. I would recommend using Github for this or [Sketch Cloud](https://sketch.cloud/). You can also pay for [Abstract](https://www.goabstract.com), which is a more visual, designer-friendly way of tracking your file versions.
+这个设计师还应定期更新主干上的文件，以便所有团队成员都可以访问到最新版本，避免因未保存文件而浪费任何时间。我建议使用 Github 或 [Sketch Cloud](https://sketch.cloud/) ，你还可以使用付费版的 [Abstract](https://www.goabstract.com)，用一种更直观、对设计师更友好的方式来管理文件的版本。
 
-Being so organised may seem unnecessary if you’re in a small team, but at some point you are likely to scale your team. If you don’t have an up-to-date design system in place, how will new UI Designers even know where to start? How will you be able to onboard them? Why waste their — and your — time?
+如果你们仅仅是一个很小的团队，似乎就不太需要这样的组织方式。但是在某些时候，你可能需要提前慎重思考：如果没有最新的设计系统，新的 UI 设计师怎样知道从什么地方开始工作？你们怎么互相协作？
 
-#### Step 4: Innovation never ends
+### 第 4 步： 创新永无止境
 
-As I stated in Step 1, a core ingredient to this process is taking responsibility. It’s easy to just stick to what’s expected of you. It’s hard to take responsibility & to be an entrepreneur yourself within the company.
+正如我在步骤 1 中所说的，这个过程的核心要素是承担责任。坚持期望很容易，承担责任却很艰难。
 
-But it’s essential to success.
+但是，这对成功至关重要。
 
-You must be vigilant, constantly learning, constantly looking for new tools to skill up & improve your workflow.
+您必须保持警惕，不断学习，不断寻找新工具来提高技能并改善你的工作流程。
 
-[Sketch App](http://sketchapp.com)  is constantly improving. The community is constantly making [cool new plugins](https://www.sketchappsources.com). Other platforms are emerging as competitors, such as [Adobe XD](http://www.adobe.com/il_en/products/xd.html). Test these tools out. Actively search for them.
+[Sketch App](http://sketchapp.com) 正在不断改进，Sketch 社区也不断出现很酷的[新插件](https://www.sketchappsources.com)。同时其他的设计工具也正在出现，比如 [Adobe XD](http://www.adobe.com/il_en/products/xd.html)，你可以关注这些软件并且尝试一下。
 
-[Top companies spend 5–15% of revenue on training employees](https://www.amazon.com/Oversubscribed-How-People-Lining-Business/dp/0857086197). If you are a UI Designer, insist on spending an afternoon each week on new technologies. Test products out with a free trial or ask for a budget.
+[顶级公司将 5-15％ 的收入用于培训员工](https://www.amazon.com/Oversubscribed-How-People-Lining-Business/dp/0857086197)，如果你是设计师，坚持每周花些时间了解新的技术，体验新的产品。
 
-**Always remember that the short-term, the urgent, the seemingly important — that’s not the key to success. A failure to invest in yours & your company’s long-term future is.**
+**永远记住：投资自身不断学习，并且着眼于公司的长远目标才是成功的关键，而不是眼前那些看起来很紧急或者很重要的事情。**
 
 ---- 
 
-![Me at a pop-up bar I co-owned in Porto, Portugal](https://cdn-images-1.medium.com/max/2000/1*FCYtMc3I98p3WaBaCQ6qMw.jpeg)
+![作者在葡萄牙波尔图共同拥有的一个弹出式酒吧里](https://cdn-images-1.medium.com/max/2000/1*FCYtMc3I98p3WaBaCQ6qMw.jpeg "作者在葡萄牙波尔图共同拥有的一个弹出式酒吧里")
 
-### About me:
+## 关于作者：
 
-_I’m a freelance UX/UI Designer based in Berlin, looking for potential co-founders. If you’re looking for a product founder, hit me up through the comments below._
+**Henry Latham 是一名位于柏林的自由职业 UX / UI设计师，正在寻找潜在的联合创始人。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
