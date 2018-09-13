@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-definitive-guide-to-javascript-dates.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-definitive-guide-to-javascript-dates.md)
 > * 译者：[CoderMing](https://github.com/coderming)
-> * 校对者：
+> * 校对者：[IridescentMia](https://github.com/IridescentMia)， [c6n](https://github.com/c6n)
 
 # JAVASCRIPT 日期权威指南
 
