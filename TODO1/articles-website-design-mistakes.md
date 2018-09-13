@@ -2,409 +2,409 @@
 > * 原文作者：[tilda](http://blog-en.tilda.cc/articles-website-design-mistakes)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/articles-website-design-mistakes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/articles-website-design-mistakes.md)
-> * 译者：
-> * 校对者：
+> * 译者：[StellaBauhinia](https://github.com/StellaBauhinia)
+> * 校对者：[BillShiyaoZhang](https://github.com/BillShiyaoZhang)，[Hopsken](https://github.com/Hopsken)
 
-# Common webpage design mistakes
+# 常见网页设计错误一览
 
-Simple layout and design tips to help you create a stunning webpage
+简单的排版和设计诀窍，助力你编写出出色的网页
 
 ![](https://static.tildacdn.com/tild6662-3339-4234-b635-396133626363/_08.svg)
 
-## Common landing page design mistakes to avoid  
+## 需要避免的首页常见设计错误 
 
-**1. Content is not broken down into logical blocks**
+**1. 页面内容没有分割成逻辑区域**
 
-It is easier for users to digest information if it's grouped into logical blocks. Set padding to 120 px-180 px and separate blocks of text by using colour backgrounds.
+如果页面信息被分组形成逻辑区域，用户会更容易看懂。请把内边距（Padding）设置成 120 像素到 180 像素，并且通过背景色把不同文本区域分开。
 
-![](https://static.tildacdn.com/tild6338-3765-4565-b733-323464326432/-/empty/noroot_1.png)
+![在不同组的相关信息间没有设置边距，而且这个设计稿需要用色块把](https://static.tildacdn.com/tild6338-3765-4565-b733-323464326432/-/empty/noroot_1.png)
 
 ![](https://static.tildacdn.com/tild6662-3662-4139-b465-306238313938/-/empty/noroot_2.png)
 
-There is little padding between sets of related information, plus this design needs colour blocks to divide content into logical sets. As a result, this information is hard to digest and it is unclear which text should go with each block  
+不同组的相关信息间没有设置边距，而且这个设计需要用色块把页面划分出逻辑区域。所以，目前这些信息让人很难看懂，而且文字的区域分组也很不清晰。  
 
-Paddings are large enough, and the blocks are separated by colour, which makes one thing immediately clear – these blocks contain different types of content
+边距足够大，而且不同区域通过背景色分开，这让什么区域包含什么信息变得一目了然。
 
-**2. Uneven spaces between items on a webpage**  
+**2. 页面元素的空白间距不相等**  
 
-Same-size spaces should be set around logical blocks. Otherwise your page will look messy, and users may not give equal consideration to each section.
+请为页面的逻辑区域设置相等的空白间距。否则，你的页面会看起来很凌乱，用户不会把注意力均分到每一个区域上。
 
 ![](https://static.tildacdn.com/tild6335-3338-4263-b430-636365313837/-/empty/_-1.png)
 
 ![](https://static.tildacdn.com/tild6637-3936-4132-a433-373061663564/-/empty/_-1.png)
 
-Spaces of various widths look uneven and create an impression that company information is linked to the header although every block is equally important  
+不同位置的空白间距不均匀，并让人产生了公司信息与标题相连的印象，尽管每个区域的结构是一样的。  
 
-Same-size spaces around headings and the body copy help perceive the logical blocks as carrying equally important information
+标题和内容上下的空白边距相等，让人意识到每个逻辑区域的信息一样重要。
 
-**3. Padding that is too small means that users cannot break down content into logical blocks**  
+**3. 边距太小，意味着用户无法把内容分解成不同逻辑区域**  
 
-To avoid logical parts from blending in, keep them separate and insert a large space (at least 120 px) between them.
+为了避免逻辑分区混在一起，请把它们隔开并插入大段空白（至少 120 像素）。
 
 ![](https://static.tildacdn.com/tild6535-6264-4662-a364-333163663965/-/empty/__20170919__111314_.png)
 
 ![](https://static.tildacdn.com/tild6135-6561-4630-a464-653162353735/-/empty/__20170919__111400.png)
 
-Use narrow padding, and the blocks that make up the site stick to each other. This overloads the page and is quite confusing — a site visitor is led to believe that this is one solid text and not parts with different meaning  
+使用了窄边距，构成站点的区域彼此粘在了一起。这让页面很拥挤，而且十分费解 —— 网站访问者会以为这是一段纯文字，而不是含义不同的区域。 
 
-Padding is large enough so the difference between these two blocks is immediately visible
+边距足够大，因此这两个区域很容易被区别开。
 
-4. Avoid low contrast for text copy on an image
+**4. 避免图上文字与底图对比度太低**
 
-There should be sufficient contrast between text and background. To make copy prominent, place a contrasting filter over the image. Black is a popular colour but you could also use bright colours and mix and match them.  
+文字和背景之间应有足够的对比度。为了让文本更显眼，在底图上放一层（增加）对比度的滤镜。黑色比较流行，但你也可以使用鲜艳的颜色混合搭配。
   
-Another option is using a contrasting image from the start and placing the copy on top of a dark section of a photograph.
+另一个选择是从开始就使用高对比图片，并将放在照片较暗部分的上面。
 
 ![](https://static.tildacdn.com/tild3265-3735-4231-b661-633937623564/-/empty/noroot.png)
 
-This image is too light, which makes reading the text copy too difficult
+这张照片太亮，文字难以阅读
 
 ![](https://static.tildacdn.com/tild3163-3033-4337-b939-303731623563/-/empty/noroot.png)
 
-A filter applied to the photo makes the copy easy to read
+在照片上使用滤镜后文字易于阅读了。
 
-**5. Too many styles on one page**  
+**5. 页面上太多样式**  
 
-Too many typographic and design styles on one page make it look unprofessional and hard to read. To avoid this, limit yourself to a single font and two options for saturation, for example, normal and bold.
+单页上的排版和设计样式太多，会看起来不专业，也难以阅读。为了避免这点，降低页面视觉饱和度，请限制自己只用一个字体和两个文字样式，如普通和加粗。
 
 ![](https://static.tildacdn.com/tild3061-3261-4337-a133-303536616431/-/empty/ggtg.png)
 
 ![](https://static.tildacdn.com/tild3738-6665-4133-b836-316463386665/-/empty/dbgdbg.png)
 
-Because of too many typography styles beings used, it's unclear where the emphasis lies  
+由于使用了太多的排版样式，完全不清楚视觉重点在哪里。  
 
-One font, one colour and two types of saturation. The typography on the page looks neat and clear
+为视觉饱和度只使用了一种字体，一种颜色和两种样式。本页排版看着很整洁。
 
-**6. The colour block is too narrow**
+**6. 色块区域太窄了**
 
-Avoid emphasising narrow page elements with colour. It just doesn't look good. For example, headings are already well marked thanks to their size, type saturation and paddings. Would you like to highlight a particular point on a page? Use a colour background for the entire block, including a related heading and text copy.
+请不要用色块突出狭窄的页面元素。它就是很难看。例如，标题已经通过它们的文字大小、样式和间距变得很显眼了。你想突出页面上的某一点吗？请在整个区域上使用背景色，包括相关的标题和文本。
 
 ![](https://static.tildacdn.com/tild3164-6435-4063-a262-633165613635/-/empty/noroot.png)
 
 ![](https://static.tildacdn.com/tild3337-3730-4631-a466-373330343238/-/empty/noroot.png)
 
-Headings placed on a colour background break up the page's continuity and look like separate, independent elements  
+放置在彩色背景上的标题打破了页面的连续性，让它们看起来像分离的、独立的元素。  
 
-Both the heading and a related text share the same background. It shows they belong to the same logical set
+标题和相关文本使用了相同的背景。这表明它们属于同一逻辑区域。
 
-**7. Too much text copy inside narrow columns**  
+**7. 在窄栏中包含了太多文字**  
 
-When there is a lot of text copy in narrow columns, it is difficult to read because site visitors have to skip from one line to the next. Plus, it just doesn't look good! It's best to cut on the number of columns and shorten the text copy, otherwise nobody will read it.
+当窄栏中含有大量文字时，阅读会很费劲，因为页面访问者不得不一行一行地跳转视线。另外，它就是很难看！最好减少列数，缩短文本长度，否则没人会看的。
 
 ![](https://static.tildacdn.com/tild6639-3039-4437-b564-303364373363/-/empty/__20170919__111314_.png)
 
 ![](https://static.tildacdn.com/tild3462-6430-4837-b465-386132303039/-/empty/__20170919__111400_.png)
 
-Long, contered columns are hard to read  
+长而集中的栏列很难阅读  
 
-There is little text in these columns, so reading it is easy
+栏列中的文本很少，所以很容易阅读
 
-**8. Too much centered text**  
+**8. 太多居中文字了**  
 
-Centering text on the page works well when there is little text, otherwise it's hard for users to navigate it efficiently. At the same time, increase the font size starting from 24 pixels.  
+当文本很短的时候，页面居中是一种很好的方式，否则用户很难高效地浏览。同时，从 24 像素开始增加字体大小。  
   
-If you need to include a lot of text, use the blocks featuring collapsable text copy (in Tilda, it's blocks TX12, TX16N or the button BF703).  
+如果需要包含大量文本，请使用具有可折叠文本功能的区域（在 Tilda 中，它们是 TX12、TX16N 或者是按钮 BF703）。  
 
 ![](https://static.tildacdn.com/tild6461-6364-4466-b037-383265636437/-/empty/noroot_3.png)
 
 ![](https://static.tildacdn.com/tild6337-3962-4361-b861-653434643432/-/empty/noroot_4.png)
 
-Long, centered texts are not easy to read  
+长而集中的文字很难阅读
 
-A short text under a headline (both centered) look good on a page
+标题下的短文本（均为居中样式）在页面上看起来很好
 
-**9. Text copy is superimposed over an essential part of an image**  
+**9. 文字覆盖住了图片的重要部分**  
 
-Avoid covering meaningful parts or small details of an image with text. This way, you will both obscure the image and make the text illegible. Try different positions for the lines such as centering them or aligning text left or placing them vertically.
+避免使用文本覆盖图片的有意义的部分或小细节。这样做的话你既会模糊图像，也使文本难以辨认。尝试不同的文字位置，如居中，左对齐或者垂直放置。
 
 ![](https://static.tildacdn.com/tild3036-3030-4766-b361-376266626562/-/empty/ghtt.png)
 
 ![](https://static.tildacdn.com/tild6431-3864-4635-a564-383039663335/-/empty/dgdfgf.png)
 
-This headline gets in the way of the woman's face. With so many tiny details, it's hard to read the text  
+这个标题挡住了女人的面容。（文字下的图片中）有大量细节，使文本难以阅读。  
 
-The image and text copy are easy to read and form good composition
+图片和文字都容易阅读，构图很好。
 
-**10. Misusing visual hierarchy**  
+**10. 误用视觉层次结构**  
 
-For information hierarchy to be clearly visible on a page, the title on the cover should be bigger than the rest of the headings or at least the same size, especially if the headline is long, for example.  
+为了使页面上的信息层次清晰可见，封面上的标题字体应该大于其余标题，或者至少是相同大小。举个例子，如果标题很长，尤其要这么处理。  
 
 ![](https://static.tildacdn.com/tild6162-6462-4735-b162-356533303736/-/empty/noroot_5_42.png)
 
 ![](https://static.tildacdn.com/tild3638-6633-4232-a238-383133396266/-/empty/4_.png)
 
-The heading on the header is disproportionally smaller than the following heading, which is confusing. Why? It makes the second heading appear more prominent  
+封面上的标题不合比例地小于下面的标题，这很让人费解。为什么？它让第二个标题更显眼了。  
 
-The heading on the header is bigger than the one in the following block, so the whole page looks consistent
+封面上的标题比下面区域中的标题大，因此整个页面看起来协调一致。
 
-The same principle applies to visual hierarchy within a logical block. The headline should be the largest design element on the page, followed by a smaller, less prominent subhead. Next, features titles that follow should be noticeably smaller than the heading, and of the same weight. The smallest fonts should be used for features descriptions.  
+同样的原理适用于逻辑区域内的视觉层次结构。标题应该是页面上最大的设计元素，其次是较小的、不太突出的子标题。接下来，内容标题应明显小于主标题，但使用相同的粗细程度。最小的字体应该用于内容描述。  
   
-This will help site visitors distinguish between the most important and less important information.
+这将有助于页面访问者区分最重要和次等重要的信息。
 
 ![](https://static.tildacdn.com/tild3266-3936-4132-b266-316538306438/-/empty/noroot_.png)
 
 ![](https://static.tildacdn.com/tild3035-3736-4563-b039-346439343137/-/empty/4_1_.png)
 
-The headline is smaller than features titles and seems secondary, although it's more important in this context  
+主标题比内容标题小，看着像从属内容，尽管它在整体内容中更重要。
 
-The headline is the most prominent element on the page and although features titles are written in a smaller type, they are still clearly visible
+主标题是页面上最突出的元素，虽然内容标题的字体较小，但仍然清晰可见。
 
-**11. One logical set is split into two**  
+**11. 一个逻辑区域拆成两个**  
 
-A full-screen image or gallery, following a text, resembles a separate, independent block. If you add padding around the gallery, both text copy and images will look as a logical whole thanks to a shared background.  
+一个跟在文本之后，占据全屏的图像或图片画廊，显得跟独立的区域很像。如果你在图片画廊周围添加边距，由于背景一致，文字和图像看起来是一个逻辑区域整体。 
 
 ![](https://static.tildacdn.com/tild6563-3763-4638-b231-613336373531/-/empty/noroot_6.png)
 
 ![](https://static.tildacdn.com/tild6361-3762-4139-b832-386133616137/-/empty/noroot_7.png)
 
-A full-screen gallery looks disjointed from the headline above and looks like a standalone block
+全屏的图片画廊看起来与上面的标题脱节，像一个独立的区域。
 
-The gallery shares the same backdrop as the heading right above it, which makes the whole composition look solid
+图片画廊和它上面的标题背景一致，这使整个构图看着紧密。
 
-**12. The title is too large and long**  
+**12. 标题太大太长**  
 
-A very large font is perfect for a short sentence. If the headline is long, use a smaller size font. It will be easy to read and leave plenty of space to all other design elements on the page.
+对短句子来说，超大字体是完美适配的。如果标题较长，请使用小号字体。这将利于阅读，并给其它的设计元素在页面上留出足够的空间。
 
 ![](https://static.tildacdn.com/tild3965-3362-4531-b637-353466626339/-/empty/ddfb.png)
 
 ![](https://static.tildacdn.com/tild3839-3862-4333-b234-623335643236/-/empty/ggb.png)
 
-A headline that is too big takes up an entire cover, while design elements jostle for space and the headline is hard to read  
+标题太大，占据了整个封面，而别的设计元素挤在剩余空间中，标题也很难阅读。 
 
-This page is composed well, all the design elements are in balance with each other, and the copy is easy to read
+这个页面被有机地整合到一起，所有的设计元素之间都是协调的，文字也利于阅读。
 
-**13. Wrong use of border styling for buttons**  
+**13. 误用按钮的边框样式**  
 
-Borders are necessary when a button is transparent. Adding a border for a colour button does not make sense, it's just another meaningless design feature that overloads a page and makes it difficult to read it.
+当按钮是透明的时候，边框是必需的。为一个带颜色的按钮添加边框是没有意义的，它是另一个无意义的设计特性，会让页面变得拥挤，并难以阅读。
 
 ![](https://static.tildacdn.com/tild3034-6436-4436-a131-323039316636/noroot.png)
 
-**14. Using too many colours**  
+**14. 使用太多种颜色了**  
 
-Using too many colours on a page is confusing, and it's unclear which bits are more important. One or two colours are enough to give visual prominence to what's really important.
+在页面上使用太多种颜色很令人费解, 而且让人闹不清哪些部分更重要。一两种颜色足以给真正重要的东西带来突出的视觉效果。
 
 ![](https://static.tildacdn.com/tild3330-3362-4636-b132-313337643536/-/empty/dfgdg.png)
 
 ![](https://static.tildacdn.com/tild6461-3831-4261-a666-396132333666/-/empty/dgdgd.png)
 
-There are too many bright colours on the page; this is confusing  
+页面上鲜艳的颜色太多了，这很混乱。  
 
-One colour accent creates variety and doesn't distract from the contents of the page
+一种颜色作为基调，在此之上衍生出色彩多样性，这样就不干扰页面内容了。
 
-**15. Overloaded menu**  
+**15. 拥挤的菜单**  
 
-People visit websites to find solutions to their problems. Help them! Use the menu to help people navigate the website and find what they need quickly and easily. Don't overload them with with excessive information. It's enough to have 5-7 menu items.  
+人们访问网站是要为他们的问题找到解决方法。请帮助他们！使用菜单帮助人们浏览网站，并简单快速地让他们找到需要的东西。不要堆积过多信息使他们不堪重负。5-7 个菜单项就足够了。  
 
 ![](https://static.tildacdn.com/tild3439-6233-4136-b938-396137326564/-/empty/noroot.png)
 
-This menu carries too much information, making site navigation more difficult
+这个菜单包含了太多信息，让页面导航变得很困难。
 
 ![](https://static.tildacdn.com/tild3361-6464-4436-b664-316464393930/-/empty/noroot.png)
 
-A simple menu makes finding what you need easy
+一个简单的菜单让你很容易找到你需要的东西。
 
-## Mistakes in article design  
+## 文章的排版设计错误 
 
-**1. Long, solid copy**  
+**1. 密密麻麻的文字长段**  
 
-A wall of text makes reading difficult to understand. For easy navigation, split it into paragraphs or introduce breaks such as a key phrase or an image.
+一堵墙一样的文字让阅读变得费劲并难以理解。为了舒适的浏览体验，请将其拆分为段落，或引入如关键句样式、图片作为阅读区的分隔。
 
 ![](https://static.tildacdn.com/tild3939-3464-4266-b864-636166643064/-/empty/noroot_6.png)
 
 ![](https://static.tildacdn.com/tild6366-3264-4432-a162-643133313439/-/empty/noroot_7.png)
 
-A wall of text is hard to look at  
+一堵墙一样的文字，很难阅读。
 
-Elements such as pull quotes or images make reading texts easier
+引用句或图片这样的页面元素使阅读文本更容易。
 
-**2. Headline is positioned at the same distance between previous and next paragraphs**
+**2. 标题与上下段落距离相等**
 
-A headline should not 'hang' between chapters at a similar distance because it belongs to the paragraph that follows. The distance above a headline should be 2-3 times bigger than the space under it. At the same time, the distance under a headline should be roughly the same as the space between paragraphs, or slightly larger. This way, the header will visually refer to the subsequent text.
+标题不应该以相等距离挂在章节中间，因为它归属于下面的段落。标题距上方的距离应该比下方大 2-3 倍。同时，标题与下方段落的距离应该与段落间距大致相同，或者稍大一些。这样，标题会从视觉上引领着后续文本。
 
 ![](https://static.tildacdn.com/tild3565-3834-4165-b336-316633336633/-/empty/noroot.png)
 
 ![](https://static.tildacdn.com/tild6637-3961-4431-a265-626230333266/-/empty/noroot.png)
 
-The heading is positioned at an equal distance between paragraphs above and below it, and it's unclear which paragraph it belongs with  
+标题与上下段落之间的距离相等，不清楚它属于哪个段落。  
 
-Thanks to the use of padding under the heading, it's obvious that the heading belongs with the text that follows
+由于标题使用了合适的边距，很明显标题属于下面的段落。
 
-**3. There is no logical order**
+**3. 排版没有逻辑顺序**
 
-In typography, contrasting is used to visually divide different levels of text and establish a strict hierarchy. Main headings should be the most prominent on page, subheads should be considerably smaller but still clearly visible.
+在版面设计中，字体大小对比是用来划分不同视觉层次的文本，并建立严谨结构的。主标题应该是网页中最突出的，子标题应该小不少，但也要清晰可见。
 
 ![](https://static.tildacdn.com/tild6266-3064-4632-a535-663466366432/-/empty/noroot_1_.png)
 
 ![](https://static.tildacdn.com/tild3161-3430-4431-b031-386138373562/-/empty/noroot_2_.png)
 
-A heading and subhead are approximately the same size, and there is no clear hierarchy between them  
+标题和子标题的大小大致相同，之间没有明显的层次结构。  
 
-Logically, the heading is more important than a subhead
+页面排版逻辑显现出标题比副标题更重要。
 
-**4. Different padding above and below blocks**  
+**4. 区域的上下间距不等**  
 
-If blocks carry the same weight, they should have the same look and feel and be positioned at an equal distance from each other.
+如果不同区域在页面中同等重要，那它们应有相同的界面外观，并且位置间距离应该相等。
 
 ![](https://static.tildacdn.com/tild3638-3731-4533-b466-666236316631/-/empty/__20170919__111314.png)
 
 ![](https://static.tildacdn.com/tild6664-6133-4364-b565-373066323731/-/empty/__20170919__111400.png)
 
-If the space between the header and an author's image is too narrow, it looks as if the author has more to do with the header rather than the text that follows  
+如果封面和作者照片之间的空白太窄，看起来作者是与封面，而不是与后面的文本有更多联系。 
 
-Thanks to identical size padding above and below the image, blocks appear equal
+由于图像上下方边距相等，各个区域显得同等重要。
 
-**5. Caption is positioned too close to an image**  
+**5. 说明文字与图片距离太近了**  
 
-On one hand, an illustration and its caption form a whole but these are two separate elements, and captions should not interfere with images.
+从一方面说，图片和说明文字形成一个整体，但这是两个独立的元素，说明文字不应该干扰图片。
 
 ![](https://static.tildacdn.com/tild3930-6362-4536-a661-303737616233/-/empty/__20170919__111314.png)
 
 ![](https://static.tildacdn.com/tild3538-3833-4832-b031-323165616530/-/empty/__20170919__111400.png)
 
-The caption sticks to the image and we have trouble properly engaging with either of them  
+说明文字贴着图片，我们单独看它们其中一个都很别扭。  
 
-There is a lot of white space between the image and its caption, yet it's clear that the caption goes with the image
+图片和说明文字间有很多空白，但是很明显，说明文字是附属于图片的。
 
-**6. There is too little space between subhead and text copy**  
+**6. 子标题和文字间空白太少**  
 
-A subhead and text copy that follows belong together but if the space between paragraphs in an article is bigger than the space between the subhead and the following paragraph, the article looks disjointed.
+子标题和它紧随其后的文本属于一个整体，但是如果文章中段落间的空白大于子标题和段落间的空白，文章看起来是不连贯的。
 
 ![](https://static.tildacdn.com/tild3661-3433-4166-a530-626533623166/-/empty/__20170919__111314.png)
 
 ![](https://static.tildacdn.com/tild6237-6538-4663-a165-383231383036/-/empty/__20170919__111400.png)
 
-Space between a heading and a paragraph is smaller than between paragraphs themselves  
+标题和段落之间的空白小于段落之间的空白。  
 
-Space after the heading is slightly bigger than space between paragraphs
+标题后的空白略大于段落之间的空白。
 
-**7. Stand-out elements are placed too close to the main text**  
+**7. 视觉突出元素放得离正文太近了**  
 
-Elements used as expressions of emphasis such as key phrases or quotes are independent objects. For them to truly stand out, set them at 75-120 px from the main body copy.
+用于强调表达的页面元素，如关键句或引用句是独立的。把它们与正文的边距设置成 75-120 像素，就可以让他们真正显眼。
 
 ![](https://static.tildacdn.com/tild3866-3036-4131-b130-363762346639/-/empty/__20170919__111314_1.png)
 
 ![](https://static.tildacdn.com/tild3535-3932-4163-b237-663561666265/-/empty/__20170919__111400.png)
 
-There is too little space between the main text and stand-out elements  
+正文与突出元素的空白间距太小了。  
 
-A pull quote truly stands out thanks to big padding
+由于空白间距较大，引用句变得真正显眼了。
 
-**8. Low-contrast elements**  
+**8. 元素间的视觉对比差太低**  
 
-If you'd like to emphasise a certain phrase, be bold, make a key phrase bigger than the main text by 10-15 px. Let the key phrase really stand out from the rest of the text.
+如果你想强调某个句子，把它加粗，并且把关键句的字体调到比正文字体号大 10-15 像素。让关键句从正文的其余部分中脱颖而出。
 
 ![](https://static.tildacdn.com/tild6636-3037-4131-b737-626432323630/-/empty/__20170919__111314.png)
 
 ![](https://static.tildacdn.com/tild3335-6134-4533-b731-663961653865/-/empty/__20170919__111400.png)
 
-A key phrase blends in with the rest of the copy. It looks messy, so try to avoid this  
+关键句与剩余文字混在一起。看起来很乱，请尽量避免这样。  
 
-Now everyone can see it thanks to a large font and sufficient padding around the text
+现在每个人都可以一眼看到，因为字体很大，周围有足够的空白间距。
 
-**9. Colour background for a narrow text block**  
+**9. 为窄长的文本区域使用背景色**  
 
-If you'd like to highlight a small section of a page such as author information, it's enough to set sufficient padding around this, which will create an impression of space. Don't place this section on a colour background; this will look out of place.
+如果你想强调页面的一小部分，如作者信息，在它周围设足够的空白间距就够了，用户会对间隔产生印象。不要把这一部分放在背景色上，这样会显得不合适。
 
 ![](https://static.tildacdn.com/tild6536-3766-4464-b432-636566326637/-/empty/__20170919__111314.png)
 
 ![](https://static.tildacdn.com/tild3931-3639-4261-b166-663839393132/-/empty/__20170919__111400.png)
 
-Don't use colour for the subhead. Using a bigger font and padding should be sufficient to make it pop on the page
+不要为子标题加背景色。使用更大的字体和间距就足够让它在页面上突出了。
 
 ![](https://static.tildacdn.com/tild6530-3336-4361-b662-393731333534/noroot_5.png)
 
-**10. There is an empty space between two full-screen images**  
+**10. 两个全屏图片中的空白**  
 
-When you are using several full-screen images in a sequence, avoid leaving a space between them. The border will still be visible, and there is no need to add an additional element. It just doesn't add anything.
+当你使用了一串的全屏图片时，请避免在它们之间留下空白。图片边框是可见的，并且不需要添加额外的元素。别再加任何东西了。
 
 ![](https://static.tildacdn.com/tild3435-6238-4930-b066-303637636530/-/empty/__20170919__111314.png)
 
 ![](https://static.tildacdn.com/tild3236-6334-4632-b632-663762646261/-/empty/__20170919__111400.png)
 
-An empty space between full-screen images make no sense and doesn't look good  
+全屏图片之间的空白没有任何意义，看起来也不好。  
 
-There is a harmonious flow between images in this example
+在这个例子中，图片流是和谐一体的。
 
-**11. Too many design accents being used**  
+**11. 使用了了太多设计语言**  
 
-Design accents (such as boldface here) work well when there are few of them. Put in too many, and this will get in the way of reading the page.
+设计语言（如粗体）在使用很少的时候表现良好。使用太多，就会妨碍页面阅读。
 
 ![](https://static.tildacdn.com/tild6630-3538-4535-b934-336431386461/-/empty/noroot_4.png)
 
-Many words are marked in bold, so the text copy appears broken
+很多单词用粗体标记，所以一段文本好像断裂了。
 
 ![](https://static.tildacdn.com/tild3831-3730-4836-a633-316530323365/-/empty/noroot_3.png)
 
-A few marked words draw attention to themselves, and don't interfere with the rest of the text
+一些有标记的词可以引起读者注意，同时并不干扰正文的其余部分。
 
-**12. Too many typography styles**  
+**12. 太多排版样式**  
 
-Design should not interfere with readability. The fewer typography styles there are, the better important elements are visible. It's enough to emphasise headlines and subheads, and use contrast for key phrases.
+设计不应干扰可读性。排版风格越少，重要的元素就会在视觉上越明显。使用主标题子标题，和关键句样式对比就够了。
 
 ![](https://static.tildacdn.com/tild6231-3337-4233-b238-656363376437/-/empty/__20170919__111314.png)
 
 ![](https://static.tildacdn.com/tild6362-3465-4136-a665-313765616238/-/empty/__20170919__111400.png)
 
-This text has too many typographic devices. They are distracting to the reader  
+这段文本有太多排版元素了。他们在分散读者注意力。  
 
-Very few typography styles, emphasis is clear, and text hierarchy is observed
+非常少的排版样式，强调点很清晰，文本层次结构一览无余。
 
-**13. Centering text in a long article**  
+**13. 在长文本中使用居中样式**  
 
-Centering is usually applied to headlines and block quotes to distinguish them from the rest of the text. A centered long text is difficult to read.
+居中样式通常用于标题和引用句，用以把它们和其余文本区别开来。一个居中的长文本很难阅读。
 
 ![](https://static.tildacdn.com/tild3436-3164-4761-a162-346336326366/-/empty/noroot.png)
 
 ![](https://static.tildacdn.com/tild6333-6465-4166-b433-303831396261/-/empty/noroot.png)
 
-A centered text looks messy, plus it's hard to read  
+一个居中的文本看起来很乱，而且很难阅读。  
 
-A text aligned to the left is easy on the eye
+向左对齐的文本对视觉浏览来说是舒适的。
 
-**14. Headline appears too close to the image**  
+**14. 标题与图片太接近了**  
 
-A headline is an individual design element. It should not sit too close to an image that follows. For a winning combination, set padding at no less than 60 px, and add a subhead – it will unfold the contents of the page and place the right emphasis where you need it.
+标题是一个单独的设计元素。它不应该离下面的图片太近。对于一个成功的标题图片组合区域，请设置元素的间距不小于 60 像素，并添加子标题 —— 它将展开页面内容，把正确的重点放在你需要的地方。
 
 ![](https://static.tildacdn.com/tild3130-3863-4835-b861-393736393364/-/empty/noroot.png)
 
 ![](https://static.tildacdn.com/tild3139-6661-4466-b266-623637356566/-/empty/noroot.png)
 
-The headline sits too close to the image, there is no breathing room on this page  
+标题太贴近图片，页面快窒息了。  
 
-Here the headline is separated from the image by a subhead, and it relates to the entire section, not just the image
+在这里，标题与用图片用子标题分开，它引领了整个区域，而不仅是图片
 
-**15. Using italics when they are not needed**  
+**15. 在不必要的地方使用斜体**  
 
-Italics are used to highlight a word or a short phrase within a text. It is not as immediately noticeable as bold type but it does allow you to make an emphasis where you need it.  
+斜体用来强调文本中的一个词或短语。它并不像加粗样式那样会被立即注意到，但是它确实在需要时做到了强调的效果。 
   
-Don't write everything in italics (body copy, headlines). And if sans-serif fonts are used in text copy, avoid italics altogether.
+不要通篇使用斜体字（正文，标题等）。如果在文本中使用了 sans-serif（无衬线）系字体，请不要使用斜体。
 
 ![](https://static.tildacdn.com/tild3462-3239-4662-b434-633263623635/-/empty/photo.png)
 
-The phrase stands out already thanks to the font size and padding, so the italics are not really needed here
+由于字体大小和空白间距，这个句子已经脱颖而出，所以这里不需要斜体。
 
 ![](https://static.tildacdn.com/tild6365-3238-4338-a537-366232383932/-/empty/photo.png)
 
-Italics are in the right place, adding the right amount of emphasis
+斜体用在了正确的地方，文本加入了适量的强调元素。
 
-**16. Blocks appear out of place relative to the centre of the page and each other**  
+**16. 相对与页面中心和其它元素来说，区域很不协调**  
 
-You can spot this error easily yourself if you take a small break after editing your page(changing font size, alignments or indentation) and taking a look at what's on it.
+如果你在调整页面（改变字体大小，对齐或缩进）的时候休息一下再回顾，你可以轻松地发现这个错误。
 
 ![](https://static.tildacdn.com/tild3861-6565-4264-a565-353831623536/-/empty/__20170919__111314.png)
 
 ![](https://static.tildacdn.com/tild3232-3930-4632-a131-313865623634/-/empty/__20170919__111400.png)
 
-In this example, the headline is shifted to the left, and text copy to the right  
+在这个例子中，标题偏左移了，文本偏右移了。  
 
-All text elements are in harmony with each other
+所有的文本元素彼此和谐。
 
 * * *
   
-Writers: Ira Smirnova, Masha Belaya, Julia Zass  
-Design and layout: Julia Zass  
+作者: Ira Smirnova, Masha Belaya, Julia Zass  
+页面排版设计: Julia Zass  
   
-Did you find this article useful? If so, please share it with your friends. Thanks so much!
+你觉得这篇文章有用吗？如果是，请与你的朋友分享。非常感谢！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

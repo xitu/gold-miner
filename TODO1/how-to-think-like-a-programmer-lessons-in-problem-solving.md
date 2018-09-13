@@ -2,214 +2,214 @@
 > * 原文作者：[Richard Reis](https://medium.freecodecamp.org/@richardreeze?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-think-like-a-programmer-lessons-in-problem-solving.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-think-like-a-programmer-lessons-in-problem-solving.md)
-> * 译者：
-> * 校对者：
+> * 译者：[mingxing47](https://github.com/mingxing47)
+> * 校对者：[rockyzhengwu](https://github.com/rockyzhengwu) [Park-ma](https://github.com/Park-ma)
 
-# How to think like a programmer — lessons in problem solving
+# 如何像程序员般思考 —— 蕴含在问题解决中的经验
 
 ![](https://cdn-images-1.medium.com/max/1600/1*HTRqXgr7CVtRBsyTxurQew.jpeg)
 
-By [Richard Reis](https://twitter.com/richardreeze)
+原文作者 [Richard Reis](https://twitter.com/richardreeze)
 
-If you’re interested in programming, you may well have seen this quote before:
+如果你对编程感兴趣，那么你之前可能会听说过这样的 `一句话`：
 
-> “Everyone in this country should learn to program a computer, because it teaches you to think.” — Steve Jobs
+> “每个人都应该学习编程，因为它会教你如何思考。” —— 史蒂夫·乔布斯
 
-You probably also wondered what does it mean, exactly, to think like a programmer? And _how_ do you do it??
+你可能还想知道，像程序员一样思考到底意味着什么？同时，要**怎么样**才能做到呢？
 
-Essentially,  it’s all about **a more effective way for problem solving**.
+从本质上讲，像程序员般思考是**一种更加有效的解决问题的方法**。
 
-In this post, my goal is to teach you that way.
+通过这篇文章，我的目的是教会你用那样的方式去思考问题。
 
-By the end of it, you’ll know exactly what steps to take to be a better problem-solver.
+到最后，你就会更加清楚地知道，要通过哪些步骤才能成为一个更好的难题终结者。
 
-#### Why is this important?
+#### 这件事为什么很重要？
 
-Problem solving is the meta-skill.
+解决问题是最根本的元技能。
 
-We all have problems. Big and small. How we deal with them is sometimes, well…pretty random.
+我们所有人都会遇到或大或小的各种各样的难题。而很多时候，我们如何去解决这些问题却显得，可以说...很随机。
 
-Unless you have a system, this is probably how you “solve” problems (which is what I did when I started coding):
+除非你有一套解决问题的体系，否则如下很可能就是你“解决”问题的方法（这也正是我编程之初常常走的歧途）：
 
-1.  Try a solution.
-2.  If that doesn’t work, try another one.
-3.  If that doesn’t work, repeat step 2 until you luck out.
+1.  尝试某种解决方案。
+2.  如果这种解决方案不凑效，那么换另外一个进行尝试。
+3.  如果另一种还是不凑效，那么不断重复步骤 2，直到走大运恰好碰到解决这个问题的方法。
 
-Look, sometimes you luck out. But that is the worst way to solve problems! And it’s a huge, huge waste of time.
+你看，某些时候可能你很走运，能够把问题解决。但这却是解决问题中最最糟糕的方法。同时，这对你的时间造成了巨大浪费。
 
-The best way involves a) having a framework and b) **practicing it.**
+最好的方法包含了以下的两个方面：a）拥有一套解决问题的框架；b）不断**练习实践这套框架**。
 
-> “Almost all employers prioritize problem-solving skills first.
+> “几乎所有的雇主都把解决问题的能力放在首位。
 
-> Problem-solving skills are almost unanimously the most important qualification that employers look for….more than programming languages proficiency, debugging, and system design.
+> 解决问题的能力几乎是所有雇主一致追寻的最重要的品质，甚至比精通编程语言、调试和系统设计更为重要。
 
-> Demonstrating computational thinking or the ability to break down large, complex problems is just as valuable (if not more so) than the baseline technical skills required for a job.” — Hacker Rank ([2018 Developer Skills Report](https://research.hackerrank.com/developer-skills/2018/))
+> 证明计算思维或者说分解大型复杂问题的能力，对于一份工作来说，至少与其所需的基本技术技能一样有价值（就算不是更有价值的话）。” —— Hacker Rank （[2018 年开发者技能报告](https://research.hackerrank.com/developer-skills/2018/)）
 
-#### Have a framework
+#### 拥有一套解决问题的框架
 
-To find the right framework, I followed the advice in Tim Ferriss’ book on learning, “[The 4-Hour Chef](https://www.amazon.com/dp/0547884591/?tag=richardreeze-20)”.
+为了找到正确的框架，我遵循了蒂姆·费里斯（Tim Ferriss）关于学习的书[《4 小时厨师》（the 4-Hour Che）](https://www.amazon.com/dp/0547884591/?tag=richardreeze-20) 中的建议。
 
-It led me to interview two really impressive people: [C. Jordan Ball](https://www.linkedin.com/in/cjordanball/) (ranked 1st or 2nd out of 65,000+ users on [Coderbyte](https://coderbyte.com/)), and [V. Anton Spraul](http://vantonspraul.com/) (author of the book “[Think Like a Programmer: An Introduction to Creative Problem Solving](https://www.amazon.com/dp/1593274246/?tag=richardreeze-20)”).
+这个建议让我采访了两位真正令人印象深刻的人：[C. Jordan Ball](https://www.linkedin.com/in/cjordanball/)（在 [Coderbyte](https://coderbyte.com/) 65,000+ 用户中排名第一或者第二），以及 [V. Anton Spraul](http://vantonspraul.com/)（书籍 “[像程序员般思考：创造性解决难题导论](https://www.amazon.com/dp/1593274246/?tag=richardreeze-20)” 的作者）。
 
-I asked them the same questions, and guess what? Their answers were pretty similar!
+我问了他们相同的问题，你猜猜结果如何？他们的答案基本是一致的！
 
-Soon, you too will know them.
+很快，你也会认识到这些答案。
 
-Sidenote: this doesn’t mean they did everything the same way. Everyone is different. You’ll be different. But if you start with principles we all agree are good, you’ll get a lot further a lot quicker.
+作者注：这并不意味着他们用相同的方法去做每一件事。每个人都是不同的，你和他们也是不同的。但如果你遵循了我们都认同的好的原则，以此开始，你会走得更远更快。
 
-> “The biggest mistake I see new programmers make is focusing on learning syntax instead of learning how to solve problems.” —[ V. Anton Spraul](http://vantonspraul.com/)
+> “我看到的新手程序员犯的最大的错误就是专注于学习编程语言语法而不是去学习如何解决问题。” —— [V. Anton Spraul](http://vantonspraul.com/)
 
-So, what should you do when you encounter a new problem?
+那么，遇到新问题时该怎么做呢？
 
-Here are the steps:
+下面就是解决问题的一些步骤：
 
-#### 1. Understand
+#### 1. 理解问题
 
-Know exactly what is being asked. Most hard problems are hard because you don’t understand them (hence why this is the first step).
+准确地理解问题所问的点是什么。绝大多数的难题，仅难在你不能理解这些问题（这就是为什么要把理解问题放在第一步的原因）。
 
-How to know when you understand a problem? When you can explain it in plain English.
+如何知道你已经理解了一个问题？当你能用语言描述它的时候就真的理解了。
 
-Do you remember being stuck on a problem, you start explaining it, and you instantly see holes in the logic you didn’t see before?
+你记忆中是否有这样一个场景，当你被困在一个问题中时，你开始解释它，然后突然之间，你发现了之前从来没有考虑过的逻辑漏洞？
 
-Most programmers know this feeling.
+绝大多数的程序员都应该对这种感觉深有体会。
 
-This is why you should write down your problem, doodle a diagram, or tell someone else about it (or thing… some people use a [rubber duck](https://en.wikipedia.org/wiki/Rubber_duck_debugging)).
+这就是为什么你要把你的问题写下来、画个图或者告诉他人的原因（另外一件事是...有些程序员会使用[小黄鸭调试法](https://en.wikipedia.org/wiki/Rubber_duck_debugging)来解决问题）。
 
-> “If you can’t explain something in simple terms, you don’t understand it.” — Richard Feynman
+> “如果你无法简单地解释清楚某件事，你就还没有弄懂它。” —— Richard Feynman
 
-#### 2. Plan
+#### 2. 做出计划
 
-Don’t dive right into solving without a plan (and somehow hope you can muddle your way through). Plan your solution!
+在没有计划之前千万不要一头扎入问题的解决当中（除非你希望能够蒙混过关）。一定要做好计划！
 
-Nothing can help you if you can’t write down the exact steps.
+如果你无法写下做事情的确切步骤，那么什么都帮不了你。
 
-In programming, this means don’t start hacking straight away. Give your brain time to analyze the problem and process the information.
+在编程中，这意味着不要一开始就强行暴力破解。一定要先给你大脑一些时间来分析问题和处理信息。
 
-To get a good plan, answer this question:
+为了获得一个好的解决问题计划，先回答一下如下问题：
 
-“Given input X, what are the steps necessary to return output Y?”
+“在已有输入 X 的前提下，如果要得到返回值 Y，将要进行哪些必要的步骤？”
 
-Sidenote: Programmers have a great tool to help them with this… Comments!
+作者注：程序员们有一种很棒的工具来解决这个问题...那就是注释！
 
-#### 3. Divide
+#### 3. 划分问题单元
 
-Pay attention. This is the most important step of all.
+注意了，这是所有步骤中最最重要的。
 
-Do not try to solve one big problem. You will cry.
+不要尝试去解决一个大的问题。这样做你肯定会哭的。
 
-Instead, break it into sub-problems. These sub-problems are much easier to solve.
+相反，应该把大问题分解成多个更容易解决的的子问题。
 
-Then, solve each sub-problem one by one. Begin with the simplest. Simplest means you know the answer (or are closer to that answer).
+然后，对这些子问题各个击破。从最简单的问题开始吧。最简单的问题意味着你知道问题的答案（或者至少更为靠近答案）。
 
-After that, simplest means this sub-problem being solved doesn’t depend on others being solved.
+除此之外，最简单的问题还意味着这个子问题的解决并不依赖于其他问题的解决。
 
-Once you solved every sub-problem, connect the dots.
+一旦你把每一个子问题都解决了，然后就把每一个小点连接起来。
 
-Connecting all your _“sub-solutions”_ will give you the solution to the original problem. Congratulations!
+串联起你的每一个**“子方案”**将会让你获得最终的原始问题的解决方案。祝贺你，你已经解决了问题！
 
-This technique is a cornerstone of problem-solving. Remember it (read this step again, if you must).
+这种解决问题的技术是所有问题解决的基石。牢牢记住它（如果有必要，请再次阅读这一步）。
 
-> “If I could teach every beginning programmer one problem-solving skill, it would be the ‘reduce the problem technique.’
+> “如果我能教给每个新手程序员一个解决问题的技巧，那就是‘减少问题的技术’。
 
-> For example, suppose you’re a new programmer and you’re asked to write a program that reads ten numbers and figures out which number is the third highest. For a brand-new programmer, that can be a tough assignment, even though it only requires basic programming syntax.
+> 例如，如果你是一个新程序员，然后你被要求去写一个程序，读取 10 个数字，然后算出哪个数字是第三大的。对于一个全新的程序员来说，这可能是一项艰巨的任务，尽管它只需要基本的编程语法。
 
-> If you’re stuck, you should reduce the problem to something simpler. Instead of the third-highest number, what about finding the highest overall? Still too tough? What about finding the largest of just three numbers? Or the larger of two?
+> 如果你陷入困境，你应该把问题简化。先不考虑找第三大的数，如果你去找最大的数你该如何做？还是太困难？那如果要从三个数字中找到最大的你该怎么做呢？如果从两个数字中寻找呢？
 
-> Reduce the problem to the point where you know how to solve it and write the solution. Then expand the problem slightly and rewrite the solution to match, and keep going until you are back where you started.” — [V. Anton Spraul](http://vantonspraul.com/)
+> 不断简化问题直到你能写出解决方案。然后稍微把问题进行扩展，并写下相应的解决方法，不断扩展下去直到源问题被解决。” —— [V. Anton Spraul](http://vantonspraul.com/)
 
-#### 4. Stuck?
+#### 4. 陷入问题当中？
 
-By now, you’re probably sitting there thinking “Hey Richard... That’s cool and all, but what if I’m stuck and can’t even solve a sub-problem??”
+现在，你可能正坐在那里想到：“嘿，Richard... 这方法很酷，但是如果我卡住了，然后连子问题都无法解决该怎么办？”
 
-First off, take a deep breath. Second, that’s fair.
+首先呢，进行一下深呼吸。其次，这件事是公平的。
 
-Don’t worry though, friend. This happens to everyone!
+不要担心，朋友。这种情况会在每个人身上发生！
 
-The difference is the best programmers/problem-solvers are more curious about bugs/errors than irritated.
+不同的是最好的程序员/问题解决者对 bugs 或错误更感兴趣而不是恼怒。
 
-In fact, here are three things to try when facing a whammy:
+事实上，当不幸面临难题时，这里有三件事可以尝试：
 
-*   Debug: Go step by step through your solution trying to find where you went wrong. Programmers call this _debugging_ (in fact, this is all a debugger does).
+*   调试： 一步一步检查你的解决方案，然后去试图寻找到底那里出错了。程序员们把这件事称为**调试**（事实上，这事全是调试器做的）。
 
-> “The art of debugging is figuring out what you really told your program to do rather than what you thought you told it to do.”” — Andrew Singer
+> “调试的艺术在于找出你真正告诉你的程序去做的事情，而不是你所认为你已经告诉了你的程序去做的事情。” —— Andrew Singer
 
-*   Reassess:  Take a step back. Look at the problem from another perspective. Is there anything that can be abstracted to a more general approach?
+*   重新考虑： 后退一步。从另外一个角度来看待这个问题。是否有可以抽象成更一般的方法？
 
-> “Sometimes we get so lost in the details of a problem that we overlook general principles that would solve the problem at a more general level. […]
+> “有时候我们迷失在问题的细节里，而忽略了能在更一般层面上解决问题的通用方法。 […]
 
-> The classic example of this, of course, is the summation of a long list of consecutive integers, 1 + 2 + 3 + … + n, which a very young Gauss quickly recognized was simply n(n+1)/2, thus avoiding the effort of having to do the addition.” — [C. Jordan Ball](https://www.linkedin.com/in/cjordanball/)
+> 当然，最经典的例子是求连续自然数和， 1 + 2 + 3 + … + n，非常年轻的高斯很快认识到答案是简单的 n(n+1)/2，这样就不用去做加法了。” —— [C. Jordan Ball](https://www.linkedin.com/in/cjordanball/)
 
-Sidenote: Another way of reassessing is starting anew. Delete everything and begin again with fresh eyes. I’m serious. You’ll be dumbfounded at how effective this is.
+作者注：另外一种重新评估的方式是重新开始。删除所有内容，用全新的眼光重新开始。我是认真的，你会惊讶于这是多么的有效。
 
-*   Research:  Ahh, good ol’ Google. You read that right. No matter what problem you have, someone has probably solved it. Find that person/ solution. In fact, do this even if you solved the problem! (You can learn a lot from other people’s solutions).
+*   搜索：啊哈，你没有读错，好好去搜索一下。无论你遇到什么样的问题，很可能已经有人解决过了。去找到那个人或者找到那种解决方法。事实上，即使你解决了问题，你也可以再去调查一下！（你可以从其他人的解决方案中学到很多的东西。）
 
-Caveat: Don’t look for a solution to the big problem. Only look for solutions to sub-problems. Why? Because unless you struggle (even a little bit), you won’t learn anything. If you don’t learn anything, you wasted your time.
+注意：不要去寻找解决一个大问题的方法。只去寻找解决子问题的方案。这是为什么呢？因为除非你努力（哪怕是一点点），否则你什么都学不到。如果你什么都没有学到，你就是在浪费时间。
 
-#### Practice
+#### 不断实践练习这套框架
 
-Don’t expect to be great after just one week. If you want to be a good problem-solver, solve a lot of problems!
+不要期望仅仅一个星期之后就能变得很棒。如果你想成为一个好的问题解决者，那就多去解决一些问题吧！
 
-Practice. Practice. Practice. It’ll only be a matter of time before you recognize that “this problem could easily be solved with <insert concept here>.”
+练习、练习、再练习。迟早你会意识到“这个问题可以通过 <在这里插入概念> 轻松解决”。
 
-How to practice? There are options out the wazoo!
+如何去练习呢？这里有很多的选择！
 
-Chess puzzles, math problems, Sudoku, Go, Monopoly, video-games, cryptokitties, bla… bla… bla….
+象棋谜题、数学难题、数独、围棋、大富翁、电子游戏、加密猫，等等等等。
 
-In fact, a common pattern amongst successful people is their habit of practicing “micro problem-solving.” For example, Peter Thiel plays chess, and Elon Musk plays video-games.
+事实上，成功人士的一个普遍模式是他们有着不断练习“微观解决问题”的习惯。例如，彼得·泰尔 (Peter Thiel) 通过下棋，埃隆·马斯克 (Elon Musk) 通过玩电子游戏来进行练习一样。
 
-> “Byron Reeves said ‘If you want to see what business leadership may look like in three to five years, look at what’s happening in online games.’
+> “拜伦•里夫斯 (Byron Reeves) 说，‘如果你想知道未来三到五年的企业领导是什么样的，那就看看网络游戏正在发生什么吧。’”
 
-> Fast-forward to today. Elon [Musk], Reid [Hoffman], Mark Zuckerberg and many others say that games have been foundational to their success in building their companies.” — Mary Meeker ([2017 internet trends report](https://www.recode.net/2017/5/31/15693686/mary-meeker-kleiner-perkins-kpcb-slides-internet-trends-code-2017))
+> 快进到今天。埃隆·马斯克（Elon Musk）、雷德·霍夫曼（Reid Hoffman）、马克·扎克伯格（Mark Zuckerberg）和其他许多人都表示，游戏是他们成功建立公司的基石。” —— Mary Meeker（[2017年互联网趋势报告](https://www.recode.net/2017/5/31/15693686/mary-meeker-kleiner-perkins-kpcb-slides-internet-trends-code-2017)）
 
-Does this mean you should just play video-games? Not at all.
+这是否意味着你应该只玩电子游戏？并不是这样。
 
-But what are video-games all about? That’s right, problem-solving!
+但是电子游戏到底是关于什么的呢？没错，就是问题解决！
 
-So, what you should do is find an outlet to practice. Something that allows you to solve many micro-problems (ideally, something you enjoy).
+所以，你应该做的是找到能够练习的机会。可以是能让你解决很多小问题的东西（理想情况下，这应该是你喜欢的东西）。
 
-For example, I enjoy coding challenges. Every day, I try to solve at least one challenge (usually on [Coderbyte](https://coderbyte.com/)).
+例如，我喜欢编程挑战。每天，我都试图解决至少一个挑战（通常在 [Coderbyte](https://coderbyte.com/) 上）。
 
-Like I said, all problems share similar patterns.
+正如我所说，所有的问题都有相似的模式。
 
-#### Conclusion
+#### 结论
 
-That’s all folks!
+以上就是全部内容！
 
-Now, you know better what it means to “think like a programmer.”
+直至目前，你已经更好地了解了“像程序员般思考”究竟意味着什么。
 
-You also know that problem-solving is an incredible skill to cultivate (the meta-skill).
+你也知道了解决问题是一种难以置信的技能（元技能）。
 
-As if that wasn’t enough, notice how you also know what to do to practice your problem-solving skills!
+如果这还不够，请注意，你还知道了要练习解决问题的技巧该做些什么！
 
-_Phew…_ Pretty cool right?
+**啧啧啧**... 听起来很酷，对吧？
 
-Finally, I wish you encounter many problems.
+最后，祝你遇到很多问题。
 
-You read that right. At least now you know how to solve them! (also, you’ll learn that with every solution, you improve).
+你没有读错，就是祝你遇到更多的问题。因为至少现在你知道怎么去解决问题了!（同时，你将会知道，每解决一个问题都会使你获得进步）。
 
-> “Just when you think you’ve successfully navigated one obstacle, another emerges. But that’s what keeps life interesting.[…]
+> “就在你认为你已经成功跨越了一个藩篱时，你与另外一个障碍不期而遇。但这就是生活的奇妙之处。[...]
 
-> Life is a process of breaking through these impediments — a series of fortified lines that we must break through.
+> 生活就是一个不断突破桎梏的过程 —— 这是一些我们成长必须突破的阻碍。
 
-> Each time, you’ll learn something.
+> 每次，你都会获取新知。
 
-> Each time, you’ll develop strength, wisdom, and perspective.
+> 每次，你都会变得更加强壮有力，睿智深邃和洞察非凡。
 
-> Each time, a little more of the competition falls away. Until all that is left is you: the best version of you.” — Ryan Holiday ([The Obstacle is the Way](https://www.amazon.com/dp/1591846358/?tag=richardreeze-20))
+> 每次，都会有一些挑战被你逾越，从而消失。直到最后所留下的：是那个最好的你。” —— Ryan Holiday （[绝境逢生的艺术 (The Obstacle is the Way)](https://www.amazon.com/dp/1591846358/?tag=richardreeze-20)）
 
-Now, go solve some problems!
+从现在开始，去解决一些问题吧！
 
-And best of luck 🙂
+祝你好运 🙂
 
-**Special thanks** to [C. Jordan Ball](https://www.linkedin.com/in/cjordanball/) and [V. Anton Spraul](http://vantonspraul.com/). All the good advice here came from them.
+**特别鸣谢** [C. Jordan Ball](https://www.linkedin.com/in/cjordanball/) 和 [V. Anton Spraul](http://vantonspraul.com/)，他们给了我很多宝贵的建议。
 
-Also, all the programming knowledge I’ve acquired in such a short time wouldn’t have happened without [Lambda School](https://lambdaschool.com/). Can’t thank/ recommend them enough.
+此外，如果没有 [Lambda School](https://lambdaschool.com/) 学校，我无法在如此短暂的时间内获得所有的编程知识。在这里我要非常感谢以及强烈推荐他们。
 
-Thanks for reading! 😊 If you enjoyed it, test how many times can you hit 👏 in 5 seconds. It’s great cardio for your fingers AND will help other people see the story.
+感谢您的阅读！ 😊 如果您喜欢这篇文章，请您猛烈地把右手拍向左手，试一试您在 5 秒钟之内能够拍 👏 多少次吧。这是对您有益的手指有氧健身操，当然这也会帮助其他人看到这个故事。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*oMycTRCdT2euGs9WbLd7kw.jpeg)
 
-“[Hello!](https://twitter.com/richardreeze)”
+在 Twitter 上向我 [“打个招呼”](https://twitter.com/richardreeze) 吧！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
