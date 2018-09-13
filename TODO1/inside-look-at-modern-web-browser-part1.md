@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/inside-look-at-modern-web-browser-part1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/inside-look-at-modern-web-browser-part1.md)
 > * 译者：[Colafornia](https://github.com/Colafornia)
-> * 校对者：[CoderMing](https://github.com/CoderMing)
+> * 校对者：[CoderMing](https://github.com/CoderMing) [sakila1012](https://github.com/sakila1012)
 
 # 现代浏览器内部揭秘（第一部分）
 
@@ -25,7 +25,7 @@
 
 图 1：4 个 CPU 核心作为办公人员，坐在办公桌前处理各自的工作
 
-第一个需要了解的计算机部件是 **中央处理器（Central Processing Unit）**，或简称为 **CPU**。CPU 可以看作是计算机的大脑。一个 CPU 核心如图中的办公人员，可以逐一解决很多不同任务。解决从数学到艺术一切任务的同时还知道如何响应客户要求。过去 CPU 大多是单芯片的，一个核心就像存在于同芯片的另一个 CPU。随着现代硬件发展，你经常会有不止一个内核，给你的手机和笔记本提供更多的计算能力。
+第一个需要了解的计算机部件是 **中央处理器（Central Processing Unit）**，或简称为 **CPU**。CPU 可以看作是计算机的大脑。一个 CPU 核心如图中的办公人员，可以逐一解决很多不同任务。它可以在解决从数学到艺术一切任务的同时还知道如何响应客户要求。过去 CPU 大多是单芯片的，一个核心就像存在于同芯片的另一个 CPU。随着现代硬件发展，你经常会有不止一个内核，为你的手机和笔记本电脑提供更多的计算能力。
 
 ### GPU
 
@@ -83,17 +83,9 @@
 
 下表展示每个 Chrome 进程与各自控制的内容：
 
-
-
-
-
-
-
-
-
 | 进程 | 控制 |
 | -----|-----|
-| 浏览器 | 控制应用中的 “Chrome” 部分，包括地址栏，书签，回退与前进按钮。以及处理不可见的特权部分，如网络请求与文件访问。 |
+| 浏览器 | 控制应用中的 “Chrome” 部分，包括地址栏，书签，回退与前进按钮。以及处理 web 浏览器不可见的特权部分，如网络请求与文件访问。 |
 | 渲染 | 控制标签页内网站展示。 |
 | 插件 | 控制站点使用的任意插件，如 Flash。 |
 | GPU | 处理独立于其它进程的 GPU 任务。GPU 被分成不同进程，因为 GPU 处理来自多个不同应用的请求并绘制在相同表面。|
@@ -102,11 +94,11 @@
 
 图 9：不同进程指向浏览器 UI 的不同部分
 
-还有更多进程如扩展进程与应用进程。如果你想要了解有多少进行运行在你的 Chrome 浏览器中，可以点击右上角的选项菜单图标，选择更多工具，然后选择任务管理器。然后会打开一个窗口，其中列出了当前正在运行的进程以及它们当前的 CPU/内存使用量。
+还有更多进程如扩展进程与应用进程。如果你想要了解有多少进程运行在你的 Chrome 浏览器中，可以点击右上角的选项菜单图标，选择更多工具，然后选择任务管理器。然后会打开一个窗口，其中列出了当前正在运行的进程以及它们当前的 CPU/内存使用量。
 
 ## Chrome 多进程架构的优点
 
-前文中提到了 Chrome 使用多个渲染进程。最简单的情况下，你可以想象每个标签页都有自己的渲染进程。假设你打开了三个标签页，每个标签页都拥有自己独立的渲染进程。如果某个标签页失去响应，你可以关掉这个标签页，此时其它标签页依然运行着，可以正常使用。如果所有标签页都运行在同一进程上，那么当某个失去响应，所有标签页都会失去响应。真是个悲伤的故事。
+前文中提到了 Chrome 使用多个渲染进程。最简单的情况下，你可以想象每个标签页都有自己的渲染进程。假设你打开了三个标签页，每个标签页都拥有自己独立的渲染进程。如果某个标签页失去响应，你可以关掉这个标签页，此时其它标签页依然运行着，可以正常使用。如果所有标签页都运行在同一进程上，那么当某个失去响应，所有标签页都会失去响应。这样的体验很糟糕。
 
 ![多个标签页各自的渲染进程](https://developers.google.com/web/updates/images/inside-browser/part1/tabs.svg)
 
@@ -118,7 +110,7 @@
 
 ## 节省更多内存 —— Chrome 中的服务化
 
-同样的方法也适用于浏览器进程。Chrome 正在经历架构变革，它转变为将浏览器程序的每一模块作为一个服务来运行，从而可以轻松实现进程的拆解和聚合。
+同样的方法也适用于浏览器进程。Chrome 正在经历架构变革，它转变为将浏览器程序的每一模块作为一个服务来运行，从而可以轻松实现进程的拆解或聚合。
 
 通常观点是当 Chrome 运行在强力硬件上时，它会将每个服务分解到不同进程中，从而提升稳定性，但是如果 Chrome 运行在资源有限的设备上时，它会将服务聚合到一个进程中从而节省了内存占用。在这一架构变革实现前，类似的整合进程以减少内存使用的方法已经在 Android 类平台上使用。
 
@@ -130,7 +122,7 @@
 
 [站点隔离](https://developers.google.com/web/updates/2018/07/site-isolation) 是近期引入到 Chrome 中的一个功能，它为每个 iframe 运行一个单独的渲染进程。我们已经讨论了许久每个标签页的渲染进程，它允许跨站点 iframe 运行在一个单独的渲染进程，在不同站点中共享内存。运行 a.com 与 b.com 在同一渲染进程中看起来还 ok。
 
-[同源策略](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) 是 web 的核心安全模型。同源策略确保站点不能在未得到其它站点许可的情况下获取其数据。安全攻击的一个主要目标就是绕过同源策略。进程隔离是分离站点的最高效的手段。随着 [Meltdown and Spectre](https://developers.google.com/web/updates/2018/02/meltdown-spectre) 的出现，使用进程来分离站点愈发势在必行。Chrome 67 版本后，桌面版 Chrome 都默认开启了站点隔离，每个标签页的 iframe 都有一个单独的渲染进程。
+[同源策略](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) 是 web 的核心安全模型。同源策略确保站点在未得到其它站点许可的情况下不能获取其数据。安全攻击的一个主要目标就是绕过同源策略。进程隔离是分离站点的最高效的手段。随着 [Meltdown and Spectre](https://developers.google.com/web/updates/2018/02/meltdown-spectre) 的出现，使用进程来分离站点愈发势在必行。Chrome 67 版本后，桌面版 Chrome 都默认开启了站点隔离，每个标签页的 iframe 都有一个单独的渲染进程。
 
 ![站点隔离](https://developers.google.com/web/updates/images/inside-browser/part1/isolation.png)
 
