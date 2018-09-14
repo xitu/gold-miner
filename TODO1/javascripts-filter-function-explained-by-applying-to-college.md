@@ -191,7 +191,7 @@ let admitted = students.filter(function(student){
 })
 ```
 
-啊！所以与 _for_ 循环相比的话，这里就是另外一个重要的差异处。如果你观察一下 goodStudent 变量的话，就会发现它只会得出 true 或者是 false 值，然后，这个布尔值被赋值给 return statement 返回。
+啊！所以与 _for_ 循环相比的话，这里就是另外一个重要的差异处。如果你观察一下 goodStudent 变量的话，就会发现它只会得出 true 或者是 false 值，然后，这个布尔值被赋值给返回语句。
 
 所以， _true_ 或者 false 真的决定了，原始数组里面每个的元素是包含还是排除，然后放到结果的数组， _admitted_。
 
