@@ -77,7 +77,7 @@ greet() {
 }
 ```
 
-我们来看一个类似但稍微高级点的例子。现在，我们的对象不仅要拥有 `name`、 `age` 和 `greet` 属性，还要被添加一个 `mother` 属性，并且此属性也拥有 `name` 和 `greet` 属性。
+我们来看一个类似但稍微高级点的例子。现在，我们的对象不仅要拥有 `name`、`age` 和 `greet` 属性，还要被添加一个 `mother` 属性，并且此属性也拥有 `name` 和 `greet` 属性。
 
 ```
 const user = {
@@ -233,7 +233,7 @@ const user = {
 sayAge() // My age is undefined
 ```
 
-不出意外，你会得到 `My name is undefined`，因为 `this.age` 是 undefined。事情开始变得神奇了。实际上这是因为点的左侧没有任何东西，我们也没有用 `.call`、 `.apply`、`.bind` 或者 `new` 关键字，JavaScript 会默认 `this` 指向 `window` 对象。这意味着如果我们向 `window` 对象添加 `age` 属性并再次调用 `sayAge` 方法，`this.age` 将不再是 undefined 并且变成 window 对象的 `age` 属性值。不相信？让我们运行这段代码
+不出意外，你会得到 `My name is undefined`，因为 `this.age` 是 undefined。事情开始变得神奇了。实际上这是因为点的左侧没有任何东西，我们也没有用 `.call`、`.apply`、`.bind` 或者 `new` 关键字，JavaScript 会默认 `this` 指向 `window` 对象。这意味着如果我们向 `window` 对象添加 `age` 属性并再次调用 `sayAge` 方法，`this.age` 将不再是 undefined 并且变成 window 对象的 `age` 属性值。不相信？让我们运行这段代码
 
 ```
 window.age = 27
