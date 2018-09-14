@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/javascripts-filter-function-explained-by-applying-to-college.md](https://github.com/xitu/gold-miner/blob/master/TODO1/javascripts-filter-function-explained-by-applying-to-college.md)
 > - 译者： [Calpa](https://calpa.me)
-> - 校对者：
+> - 校对者：[linxuesia](https://github.com/linxuesia), [rydensun](https://github.com/rydensun)
 
 # 以申请大学流程来解释 JavaScript 的 filter 方法
 
@@ -13,11 +13,11 @@
 
 相对于 JavaScript 里面的 map() 和 reduce() 方法来说，filter() 方法也许是最一目了然的方法。
 
-_你输入一个数组，以特定方法过滤它们，並返回一个新的数组_
+**你输入一个数组，以特定方法过滤它们，並返回一个新的数组。**
 
 这个看起来很简单，不过我总是想把它换成 for() 循环。因此，我选择一种更加好的方法去理解 filter() 是如何运行的。
 
-我发现， filter 方法就类似大学入学审批官。它们用一堆的参数来决定哪些学生可以进入他们特定的学院。是的，我们希望学院都可以更加灵活，全面地考察我们过去的成就，不过在实际情况中，很多硬性数字指标例如 SAT，ACT，GPA 绩点才是考量的决定因素。
+我发现，filter 方法就类似大学入学审批官。它们用一堆的参数来决定哪些学生可以进入他们特定的学院。是的，我们希望学院都可以更加灵活，全面地考察我们过去的成就，不过在实际情况中，很多硬性数字指标例如 SAT、ACT 和 GPA 绩点才是考量的决定因素。
 
 就让我们一起探讨这个流程吧。
 
@@ -77,7 +77,7 @@ for (let i=0; i < students.length; i++){
 就让我们使用 filter() 方法来达到相同效果吧。
 
 1. Filter 是一个数组方法，所以我们会从学生数组开始。
-2. 对于每一个数组里面的元素，它会调用一个回调 (callback) 方法
+2. 对于每一个数组里面的元素，它会调用一个回调（callback）方法。
 3. 它用 return 来声明哪些元素会出现在最终的数组里面，也就是被录取的学生。
 
 ```
@@ -130,15 +130,15 @@ let admitted = students.filter(function(student){
 
 ![](https://cdn-images-1.medium.com/max/800/0*oV583nYxvCID3r_G)
 
-你可能注意到一件事，與直觉相反 - 我们只会在最后一步获得录取资格，不过在我们的代码里面，变量 _admitted_ 是首先出现在 statement 里面！你可能会预期在这个函数的最后去寻找最终的数组。取而代之，我们用返回来表示哪个元素会结束在 _admitted_。
+你可能注意到一件事，與直觉相反 — 我们只会在最后一步获得录取资格，不过在我们的代码里面，变量 _admitted_ 是首先出现在 statement 里面！你可能会预期在这个函数的最后去寻找最终的数组。取而代之，我们用返回来表示哪个元素会结束在 _admitted_。
 
 ![](https://cdn-images-1.medium.com/max/800/0*VvRQ32vesw8bJsn3)
 
-### 例子 2 - 在 Filter 里面用两个条件判断式
+### 例子 2 — 在 Filter 里面用两个条件判断式
 
 直至现在，在我们的 filter 方法内，我们只用了一个条件判断式。不过这并不代表全部的大学入学流程！通常，入学审查官会观察超过 10 个因素。
 
-让我们看一下这两个因素 - GPA 和 SAT 分数。学生必须拥有 GPA 绩点超过 3.2 及 SAT 分数超过 1900。下面是函数应该出现的样子。
+让我们看一下这两个因素 — GPA 和 SAT 分数。学生必须拥有 GPA 绩点超过 3.2 及 SAT 分数超过 1900。下面是函数应该出现的样子。
 
 ```
 let students = [
