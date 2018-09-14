@@ -88,8 +88,8 @@ new Date('2018 march') //Mar 1st 2018, 00:00:00
 
 ```
 Date.parse('2018-07-22')
-Date.parse('2018-07') //July 1st 2018, 00:00:00
-Date.parse('2018') //Jan 1st 2018, 00:00:00
+Date.parse('2018-07') //July 1st 2018, 00:00:00（译者注：此处的结果为一个时间戳数字，该数字代表 July 1st 2018, 00:00:00 时刻）
+Date.parse('2018') //Jan 1st 2018, 00:00:00（译者注：意思同上）
 Date.parse('07/22/2018')
 Date.parse('2018/07/22')
 Date.parse('2018/7/22')
