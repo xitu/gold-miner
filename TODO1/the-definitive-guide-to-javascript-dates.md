@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-definitive-guide-to-javascript-dates.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-definitive-guide-to-javascript-dates.md)
 > * 译者：[CoderMing](https://github.com/coderming)
-> * 校对者：[IridescentMia](https://github.com/IridescentMia)， [c6n](https://github.com/c6n)
+> * 校对者：[IridescentMia](https://github.com/IridescentMia)，[c6n](https://github.com/c6n)
 
 # JAVASCRIPT 日期权威指南
 
@@ -37,11 +37,11 @@ new Date()
 
 这将会创造一个指向当前时刻的 Date 对象。
 
-从内部来看，Date 对象是表示距离 1970年1月1日(UTC) 所过去的毫秒数。这一天（1970 年1月1日）是非常重要的，因为就计算机而言，这是一切开始的地方。
+从内部来看，Date 对象是表示距离 1970 年 1 月 1 日（UTC）所过去的毫秒数。这一天（1970 年 1 月 1 日）是非常重要的，因为就计算机而言，这是一切开始的地方。
 
-你可能比较熟悉 UNIX 时间戳：它表示距离众人皆知的那天（1970年1月1日）所过去的秒数。
+你可能比较熟悉 UNIX 时间戳：它表示距离众人皆知的那天（1970 年 1 月 1 日）所过去的秒数。
 
-> 要点：UNIX 时间戳的结果是“秒“，JavaScript 的 Date 对象的结果是”毫秒“
+> 要点：UNIX 时间戳的结果是“秒”，JavaScript 的 Date 对象的结果是“毫秒”。
 
 如果我们有一个 UNIX 时间戳，我们可以通过下面的方法类比出一个 JavaScript Date 对象：
 
@@ -101,7 +101,7 @@ Date.parse('2018-07-22T07:22:13')
 
 `Date.parse` 方法将会返回一个时间戳（以毫秒计）而不是 Date 对象。
 
-你也可以通过设置一串有序的表示以一个日期的各个部分的数值来创建一个 Date 对象：年份，月份（从0开始），日期，小时，分钟，秒数和毫秒数：
+你也可以通过设置一串有序的表示以一个日期的各个部分的数值来创建一个 Date 对象：年份，月份（从 0 开始），日期，小时，分钟，秒数和毫秒数：
 
 ```
 new Date(2018, 6, 22, 7, 22, 13, 0)
@@ -122,9 +122,9 @@ JavaScript 在没有找到任何关于时区的信息时，会把时区设置成
 总结一下，你可以通过四种方式来创建一个 Date 对象：
 
 *   **不传任何参数** ，这将创建一个指向“当前时刻”的 Date 对象
-*   传递 **一个数字**，该参数将表示创建的 Date 对象距离 1970年一月一日 00:00（GMT）所过去的毫秒数
+*   传递 **一个数字**，该参数将表示创建的 Date 对象距离 1970 年 1 月 1 日 00:00（GMT）所过去的毫秒数
 *   传递 **一个字符串**，该字符串应该是一个描述日期的字符串
-*   传递 **一串参数** ，这些参数会分别描述一个 Date 对象的某一部分
+*   传递 **一串参数**，这些参数会分别描述一个 Date 对象的某一部分
 
 ## 时区
 
@@ -167,28 +167,28 @@ date.getTime() //1532236933000
 const date = new Date('July 22, 2018 07:22:13')
 
 date.getDate() //22
-date.getDay() //0 (0 表示周日, 1 表示周一..)
+date.getDay() //0（0 表示周日，1 表示周一...）
 date.getFullYear() //2018
-date.getMonth() //6 (从0开始计)
+date.getMonth() //6（从 0 开始计）
 date.getHours() //7
 date.getMinutes() //22
 date.getSeconds() //13
-date.getMilliseconds() //0 (未标明)（译者注：此处的意思为 Date 对象创建时指定毫秒值，JavaScript 默认将毫秒数设置为0）
+date.getMilliseconds() //0（未标明）（译者注：此处的意思为 Date 对象创建时指定毫秒值，JavaScript 默认将毫秒数设置为 0）
 date.getTime() //1532236933000
-date.getTimezoneOffset() //-120 (将会取决于你在哪和你查看的时间 - 例子中的值表示在 CET 时区的夏天). 返回以分钟表示的时间差（译者注：此处涉及到协调世界时及夏令时）
+date.getTimezoneOffset() //-120（将会取决于你在哪和你查看的时间 — 例子中的值表示在 CET 时区的夏天）。返回以分钟表示的时间差（译者注：此处涉及到协调世界时及夏令时）
 ```
 
 这儿还有一些相似的使用 UTC 时区的方法，它们会使用 UTC 时区而不是你所在的时区。
 
 ```
 date.getUTCDate() //22
-date.getUTCDay() //0 (0 表示周日, 1 表示周一..)
+date.getUTCDay() //0（0 表示周日，1 表示周一...)
 date.getUTCFullYear() //2018
-date.getUTCMonth() //6 (从0开始计)
-date.getUTCHours() //5 (看吧，不是上面的结果“7”)
+date.getUTCMonth() //6（从 0 开始计）
+date.getUTCHours() //5（看吧，不是上面的结果“7”）
 date.getUTCMinutes() //22
 date.getUTCSeconds() //13
-date.getUTCMilliseconds() //0 (未标明)
+date.getUTCMilliseconds() //0（未标明）
 ```
 
 ## 修改 Date
@@ -200,7 +200,7 @@ const date = new Date('July 22, 2018 07:22:13')
 
 date.setDate(newValue)
 date.setDay(newValue)
-date.setFullYear(newValue) //note: 不要使用 setYear()，它已经被废弃了
+date.setFullYear(newValue) //note：不要使用 setYear()，它已经被废弃了
 date.setMonth(newValue)
 date.setHours(newValue)
 date.setMinutes(newValue)
@@ -214,7 +214,7 @@ date.setTimezoneOffset(newValue)
 
 一个有趣的事实是：这些方法是互相重合的，举个例子，如果你运行 `date.setHours(48)`，这也会将日期数变大。
 
-很棒的知识点：你可以对 `setHours()` 添加超过一个参数来设置分钟，秒钟和毫秒：`setHours(0, 0, 0, 0)` ——这也适用于 `setMinutes` 和 `setSeconds`。（译者注：即 `setMinutes` 可以设置分钟，秒和毫秒， `setSeconds` 可以设置秒和毫秒）
+很棒的知识点：你可以对 `setHours()` 添加超过一个参数来设置分钟，秒钟和毫秒：`setHours(0, 0, 0, 0)` ——这也适用于 `setMinutes` 和 `setSeconds`。（译者注：即 `setMinutes` 可以设置分钟，秒和毫秒，`setSeconds` 可以设置秒和毫秒）
 
 和 get（获取）方法一样，set（修改）方法也有相同的 UTC 版本：
 
@@ -247,7 +247,7 @@ new Date().getTime()
 
 ## JavaScript 费尽心思让代码工作正常
 
-请注意。如果你定义的日期天数超过了一个月，这将不会报错，同时 Date 对象将会指向下一个月
+请注意。如果你定义的日期天数超过了一个月，这将不会报错，同时 Date 对象将会指向下一个月：
 
 ```
 new Date(2018, 6, 40) //Thu Aug 09 2018 00:00:00 GMT+0200 (Central European Summer Time)
@@ -257,11 +257,11 @@ new Date(2018, 6, 40) //Thu Aug 09 2018 00:00:00 GMT+0200 (Central European Summ
 
 ## 基于你的地点来格式化 Date
 
-全球化的API，在现代化的浏览器中 [被很好地支持](https://caniuse.com/internationalization) （值得注意的例外：UC 浏览器），而这允许你去转化（世界各地的）日期。
+全球化的API，在现代化的浏览器中[被很好地支持](https://caniuse.com/internationalization)（值得注意的例外：UC 浏览器），而这允许你去转化（世界各地的）日期。
 
 这些方法由 `Intl` 项目公布，它同时也帮助我们本地化数字，字符串和货币。
 
-我们对 `Intl.DateTimeFormat()`非常有兴趣。
+我们对 `Intl.DateTimeFormat()` 非常有兴趣。
 
 这里说的是如何使用它：
 
@@ -270,7 +270,7 @@ new Date(2018, 6, 40) //Thu Aug 09 2018 00:00:00 GMT+0200 (Central European Summ
 ```
 // "12/22/2017"
 const date = new Date('July 22, 2018 07:22:13')
-new Intl.DateTimeFormat().format(date) //"22/07/2018"是我所在地区的格式
+new Intl.DateTimeFormat().format(date) //"22/07/2018" 是我所在地区的格式
 ```
 
 按照不同地区来格式化一个 Date 对象：
@@ -295,11 +295,11 @@ new Intl.DateTimeFormat('en-US', options).format(date) //"7/22/2018, 7:22:13 AM"
 new Intl.DateTimeFormat('it-IT', options2).format(date) //"22/7/2018, 07:22:13"
 ```
 
-[这里是你可用参数的参考](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat).
+[这里是你可用参数的参考](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat)。
 
 ## 对比两个 Date 
 
-你可以通过 `Date.getTime()`的值来比较两个 Date 对象：
+你可以通过 `Date.getTime()` 的值来比较两个 Date 对象：
 
 ```
 const date1 = new Date('July 10, 2018 07:22:13')
@@ -317,7 +317,7 @@ if (date2.getTime() === date1.getTime()) {
 }
 ```
 
-谨记，`getTime()`方法返回以毫秒计的数字，所以你需要将当日时刻计入对照之中。 `July 10, 2018 07:22:13` **不等于** `July 10, 2018`。在这种情况下，你可以使用`setHours(0, 0, 0, 0)`来重置当日时刻。
+谨记，`getTime()` 方法返回以毫秒计的数字，所以你需要将当日时刻计入对照之中。`July 10, 2018 07:22:13` **不等于** `July 10, 2018`。在这种情况下，你可以使用 `setHours(0, 0, 0, 0)` 来重置当日时刻。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
