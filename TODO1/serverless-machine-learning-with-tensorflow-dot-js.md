@@ -2,64 +2,64 @@
 > * 原文作者：[jamesthom](http://jamesthom.as)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/serverless-machine-learning-with-tensorflow-dot-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/serverless-machine-learning-with-tensorflow-dot-js.md)
-> * 译者：
+> * 译者：[wzasd](wzasd.github.com)
 > * 校对者：
 
-# Serverless Machine Learning With TensorFlow.js
+# 使用 TensorFlow.js 进行无服务的机器学习
 
-In a [previous blog post](http://jamesthom.as/blog/2018/08/07/machine-learning-in-node-dot-js-with-tensorflow-dot-js/), I showed how to use [TensorFlow.js](https://js.tensorflow.org/) on Node.js to run [visual recognition on images from the local filesystem](https://gist.github.com/jthomas/145610bdeda2638d94fab9a397eb1f1d#file-script-js). TensorFlow.js is a JavaScript version of the open-source machine learning library from Google.
+在[以前的博客中](http://jamesthom.as/blog/2018/08/07/machine-learning-in-node-dot-js-with-tensorflow-dot-js/)，我讲解了如何使用  [TensorFlow.js](https://js.tensorflow.org/) 在 Node.js 上来运行[基于本地文件系统的图像视觉识别](https://gist.github.com/jthomas/145610bdeda2638d94fab9a397eb1f1d#file-script-js)。TensorFlow.js 是来自 Google 的开源机器学习库中的 JavaScript 版本。
 
-Once I had this working with a local Node.js script, my next idea was to convert it into a serverless function. Running this function on [IBM Cloud Functions](https://console.bluemix.net/openwhisk/) ([Apache OpenWhisk](https://openwhisk.incubator.apache.org/)) would turn the script into my own visual recognition microservice.
+当我将本地的 Node.js 脚本跑通，我的下一个想法就是将其转换成为无服务功能。我将会在 [IBM Cloud Functions](https://console.bluemix.net/openwhisk/)（[Apache OpenWhisk](https://openwhisk.incubator.apache.org/)）运行此功能并将脚本转换成自己的可视识别微服务。
 
-![](http://jamesthom.as/images/tfjs-serverless/tf-js-example.gif "Serverless TensorFlow.js Function")
+![](http://jamesthom.as/images/tfjs-serverless/tf-js-example.gif "无服务 TensorFlow.js 功能")
 
-Sounds easy, right? It’s just a JavaScript library? So, zip it up and away we go… **_ahem_** 👊
+听起来很简单，对吧？它只是一个 JavaScript 库？因此，解压它然后我们出发… **啊哈** 👊；
 
-_Converting the image classification script to run in a serverless environment had the following challenges…_
+**将图像分类脚本转换成无服务环境中具有以下挑战：**
 
-*   **TensorFlow.js libraries need to be available in the runtime.**
-*   **Native bindings for the library must be compiled against the platform architecture.**
-*   **Models files need to be loaded from the filesystem.**
+*   **TensorFlow.js 库需要本允许实时运行加载。**
+*   **必须针对运行机器的平台体系构建编译库。**
+*   **需要从文件系统来加载模型文件**
 
-Some of these issues were more challenging than others to fix! Let’s start by looking at the details of each issue, before explaining how [Docker support](http://jamesthom.as/blog/2017/01/16/openwhisk-docker-actions/) in Apache OpenWhisk can be used to resolve them all.
+其中有一些问题会比其他问题更具有挑战性！让我们在解释如何使用 Apache OpenWhisk 中的 [Docker support](http://jamesthom.as/blog/2017/01/16/openwhisk-docker-actions/) 来解决每个问题之前，我们先看一下每个问题的细节部分。
 
-## Challenges
+## 挑战
 
-### TensorFlow.js Libraries
+### TensorFlow.js 库
 
-TensorFlow.js libraries are not included in the [Node.js runtimes](https://github.com/apache/incubator-openwhisk-runtime-nodejs) provided by the Apache OpenWhisk.
+TensorFlow.js 库不包括 Apache OpenWhisk 提供的 [Node.js 运行时的库](https://github.com/apache/incubator-openwhisk-runtime-nodejs)
 
-External libraries [can be imported](http://jamesthom.as/blog/2016/11/28/npm-modules-in-openwhisk/) into the runtime by deploying applications from a zip file. Custom `node_modules` folders included in the zip file will be extracted in the runtime. Zip files are limited to a [maximum size of 48MB](https://github.com/apache/incubator-openwhisk/blob/master/docs/reference.md#actions).
+可以通过从 zip 文件部署应用程序将外部库[导入运行](http://jamesthom.as/blog/2016/11/28/npm-modules-in-openwhisk/)时。zip 文件中包含自定义 `node_modules` 文件夹将运行时中提取。Zip 文件的最大大小[限制为 48 MB](https://github.com/apache/incubator-openwhisk/blob/master/docs/reference.md#actions)。
 
-#### Library Size
+#### 库大小
 
-Running `npm install` for the TensorFlow.js libraries used revealed the first problem… the resulting `node_modules` directory was 175MB. 😱
+对于使用的 TensorFlow.js 库运行 `npm install` 出现了第一个问题......生成的 `node_modules` 目录为 175MB。😱
 
-Looking at the contents of this folder, the `tfjs-node` module compiles a [native shared library](https://github.com/tensorflow/tfjs-node/tree/master/src) (`libtensorflow.so`) that is 135M. This means no amount of JavaScript minification is going to get those external dependencies under the magic 48 MB limit. 👎
+查看该文件夹的内容，`tfjs-node` 模块编译一个 135M 的[本机共享库](https://github.com/tensorflow/tfjs-node/tree/master/src)（`libtensorflow.so`）。 这意味着没有多少 JavaScript 可以缩小到 48MB 的限制下获得这些外部依赖。👎
 
-#### Native Dependencies
+####本地依赖
 
-The `libtensorflow.so` native shared library must be compiled using the platform runtime. Running `npm install` locally automatically compiles native dependencies against the host platform. Local environments may use different CPU architectures (Mac vs Linux) or link against shared libraries not available in the serverless runtime.
+本地必须使用平台运行时编译 `libtensorflow.so` 本机共享库。在本地运行 `npm install` 会自动编译针对主机平台的机器依赖项。本地环境可能使用不同的 CPU 体系结构（Mac 与 Linux）或链接到无服务运行时中不可用的共享库。
 
-### MobileNet Model Files
+### MobileNet 模型文件
 
-TensorFlow models files [need loading from the filesystem](https://js.tensorflow.org/tutorials/model-save-load.html) in Node.js. Serverless runtimes do provide a temporary filesystem inside the runtime environment. Files from deployment zip files are automatically extracted into this environment before invocations. There is no external access to this filesystem outside the lifecycle of the serverless function.
+TensorFlow 模型文件[需要从 Node.js 的文件系统加载](https://js.tensorflow.org/tutorials/model-save-load.html)。无服务运行时确实在运行时环境中提供临时文件系统。部署 zip 文件中的文件在调用之前会自动提取到此环境中。在无服务功能的生命周期之外，没有对该文件系统的外部访问。
 
-Models files for the MobileNet model were 16MB. If these files are included in the deployment package, it leaves 32MB for the rest of the application source code. Although the model files are small enough to include in the zip file, what about the TensorFlow.js libraries? Is this the end of the blog post? Not so fast….
+MobileNet 模型文件有 16MB。如果这些文件包含在部署包中，则其余的应用程序源代码将会留下 32MB 的大小。虽然模型文件足够小，可以包含在 zip 文件中，但是 TensorFlow.js 库呢？这是这篇文章的结尾吗？没那么快…。
 
-**Apache OpenWhisk’s support for custom runtimes provides a simple solution to all these issues!**
+**Apache OpenWhisk 对自定义运行时的支持为所有这些问题提供了简单的解决方案！**
 
-## Custom Runtimes
+## 自定义运行时
 
-Apache OpenWhisk uses Docker containers as the runtime environments for serverless functions (actions). All platform runtime images are [published on Docker Hub](https://hub.docker.com/r/openwhisk/), allowing developers to start these environments locally.
+Apache OpenWhisk 使用 Docker 容器作为无服务功能（操作）的运行时环境。所有的平台运行时的印象都在 [Docker Hub 发布](https://hub.docker.com/r/openwhisk/)，允许开发人员在本地启动这些环境。
 
-Developers can also [specify custom runtime images](https://github.com/apache/incubator-openwhisk/blob/master/docs/actions-docker.md) when creating actions. These images must be publicly available on Docker Hub. Custom runtimes have to expose the [same HTTP API](https://github.com/apache/incubator-openwhisk/blob/master/docs/actions-new.md#action-interface) used by the platform for invoking actions.
+开发人员也可以在创建操作的时候[自定义运行映像](https://github.com/apache/incubator-openwhisk/blob/master/docs/actions-docker.md)。这些图像必须在 Docker Hub 上公开。自定义运行时必须公开平台用于调用 [相同的 HTTP API](https://github.com/apache/incubator-openwhisk/blob/master/docs/actions-new.md#action-interface)。
 
-Using platform runtime images as [parent images](https://docs.docker.com/glossary/?term=parent%20image) makes it simple to build custom runtimes. Users can run commands during the Docker build to install additional libraries and other dependencies. The parent image already contains source files with the HTTP API service handling platform requests.
+将平台运行时的映像用作[父映像](https://docs.docker.com/glossary/?term=parent%20image)可以使构建自定义运行时变得简单。用户可以在 Docker 构建期间运行命令以安装其他库和其他依赖项。父映像已包含具有 Http API 服务处理平台请求的源文件。
 
-### TensorFlow.js Runtime
+### TensorFlow.js 运行时
 
-Here is the Docker build file for the Node.js action runtime with additional TensorFlow.js dependencies.
+以下是 Node.js 操作运行时的 Docker 构建文件，其中包括其他 TensorFlow.js 依赖项。
 
 ```
 FROM openwhisk/action-nodejs-v8:latest
@@ -69,45 +69,45 @@ RUN npm install @tensorflow/tfjs @tensorflow-models/mobilenet @tensorflow/tfjs-n
 COPY mobilenet mobilenet
 ```
 
-`openwhisk/action-nodejs-v8:latest` is the Node.js action runtime image [published by OpenWhisk](https://hub.docker.com/r/openwhisk/action-nodejs-v8/).
+`openwhisk/action-nodejs-v8:latest` 是 OpenWhisk 发布的 Node.js 动作运行时的映像。
 
-TensorFlow libraries and other dependencies are installed using `npm install` in the build process. Native dependencies for the `@tensorflow/tfjs-node` library are automatically compiled for the correct platform by installing during the build process.
+在构建过程中使用 `npm install` 安装 TensorFlow 库和其他依赖项。 通过在构建过程中安装，可以自动为正确的平台编译 `@tensorflow/tfjs-node` 库的本机依赖项。
 
-Since I’m building a new runtime, I’ve also added the [MobileNet model files](https://github.com/tensorflow/tfjs-models/tree/master/mobilenet) to the image. Whilst not strictly necessary, removing them from the action zip file reduces deployment times.
+由于我正在构建一个新的运行时，我还将 [MobileNet 模型文件](https://github.com/tensorflow/tfjs-models/tree/master/mobilenet)添加到了图像中。虽然不是绝对必要，但从动作 zip 文件中删除它们可以减少部署时间。
 
-**_Want to skip the next step? Use this image [`jamesthomas/action-nodejs-v8:tfjs`](https://hub.docker.com/r/jamesthomas/action-nodejs-v8/) rather than building your own._**
+**想跳过下一步吗？使用这个映像 [`jamesthomas/action-nodejs-v8:tfjs`](https://hub.docker.com/r/jamesthomas/action-nodejs-v8/) 而不是建立你自己的。**
 
-### Building The Runtime
+### 构建运行时
 
-_In the [previous blog post](http://jamesthom.as/blog/2018/08/07/machine-learning-in-node-dot-js-with-tensorflow-dot-js/), I showed how to download model files from the public storage bucket._
-
-*   Download a version of the MobileNet model and place all files in the `mobilenet` directory.
-*   Copy the Docker build file from above to a local file named `Dockerfile`.
-*   Run the Docker [build command](https://docs.docker.com/engine/reference/commandline/build/) to generate a local image.
+**在[之前的博客](http://jamesthom.as/blog/2018/08/07/machine-learning-in-node-dot-js-with-tensorflow-dot-js/)中，我展示了如何从公共库下载模型文件。**
+ 
+*   下载 MobileNet 模型的一个版本并将所有文件放在 `mobilenet` 目录中。
+*   将 Docker 构建文件复制到名为 `Dockerfile` 的本地文件。
+*   运行 Docker [build command](https://docs.docker.com/engine/reference/commandline/build/) 生成本地映像。
 
 ```
 docker build -t tfjs .
 ```
 
-*   [Tag the local image](https://docs.docker.com/engine/reference/commandline/tag/) with a remote username and repository.
+*   使用远程用户名和存储库[标记本地映像](https://docs.docker.com/engine/reference/commandline/tag/)。
 
 ```
 docker tag tfjs <USERNAME>/action-nodejs-v8:tfjs
 ```
 
-_Replace `<USERNAME>` with your Docker Hub username._
+**用您的 Docker Hub 用户名替换 `<USERNAME>`**
 
-*   [Push the local image](https://docs.docker.com/engine/reference/commandline/push/) to Docker Hub
+*   [推送本地映像](https://docs.docker.com/engine/reference/commandline/push/) 到 Docker Hub
 
 ```
 docker push <USERNAME>/action-nodejs-v8:tfjs
 ```
 
-Once the image [is available](https://hub.docker.com/r/jamesthomas/action-nodejs-v8/) on Docker Hub, actions can be created using that runtime image. 😎
+一旦 Docker Hub 上的映像[可用](https://hub.docker.com/r/jamesthomas/action-nodejs-v8/)，就可以使用该运行时映像创建操作。😎
 
-## Example Code
+## 示例代码
 
-This source code implements image classification as an OpenWhisk action. Image files are provided as a Base64 encoded string using the `image` property on the event parameters. Classification results are returned as the `results` property in the response.
+此代码将图像分类实现为 OpenWhisk 操作。 使用事件参数上的 `image` 属性将图像文件作为 Base64 编码的字符串提供。分类结果作为响应中的 `results` 属性返回。
 
 ```
 const tf = require('@tensorflow/tfjs')
@@ -207,49 +207,49 @@ async function main (params) {
 }
 ```
 
-### Caching Loaded Models
+### 缓存加载的模型
 
-Serverless platforms initialise runtime environments on-demand to handle invocations. Once a runtime environment has been created, it will be [re-used for further invocations](https://medium.com/openwhisk/squeezing-the-milliseconds-how-to-make-serverless-platforms-blazing-fast-aea0e9951bd0) with some limits. This improves performance by removing the initialisation delay (“cold start”) from request processing.
+无服务的平台按需初始化运行环境用以处理调用。一旦运行环境被创建，他将会对[重新调用](https://medium.com/openwhisk/squeezing-the-milliseconds-how-to-make-serverless-platforms-blazing-fast- aea0e9951bd0)有一些限制。
 
-Applications can exploit this behaviour by using global variables to maintain state across requests. This is often use to [cache opened database connections](https://blog.rowanudell.com/database-connections-in-lambda/) or store initialisation data loaded from external systems.
+应用程序可以通过使用全局变量来维护跨请求的状态来利用此方式。这通常用于[数据库连接的缓存方式](https://blog.rowanudell.com/database-connections-in-lambda/)或存储从外部系统加载的初始化数据。
 
-I have used this pattern to [cache the MobileNet model](https://gist.github.com/jthomas/e7c78bbfe4091ed6ace93d1b53cbf6e5#file-index-js-L80-L82) used for classification. During cold invocations, the model is loaded from the filesystem and stored in a global variable. Warm invocations then use the existence of that global variable to skip the model loading process with further requests.
+我使用[ MobileNet 缓存模型](https://gist.github.com/jthomas/e7c78bbfe4091ed6ace93d1b53cbf6e5#file-index-js-L80-L82)用于分类。在冷调用期间，模型从文件系统加载并存储在全局变量中。然后，热调用使用该全局变量的存在来加速具有进一步请求的模型加载过程。
 
-Caching the model reduces the time (and therefore cost) for classifications on warm invocations.
+缓存模型可以减少热调用分类的时间（从而降低成本）。
 
-### Memory Leak
+### 内存泄漏
 
-Running the Node.js script from blog post on IBM Cloud Functions was possible with minimal modifications. Unfortunately, performance testing revealed a memory leak in the handler function. 😢
+可以通过最简化的修改从 IBM Cloud Functions 上的博客文章来运行 Node.js 脚本。不幸的是，性能测试显示处理函数中存在内存泄漏。😢
 
-_Reading more about [how TensorFlow.js works](https://js.tensorflow.org/tutorials/core-concepts.html) on Node.js uncovered the issue…_
+**在 Node.js 上阅读更多关于 [TensorFlow.js 如何工作](https://js.tensorflow.org/tutorials/core-concepts.html)的信息，揭示了这个问题...**
 
-TensorFlow.js’s Node.js extensions use a native C++ library to execute the Tensors on a CPU or GPU engine. Memory allocated for Tensor objects in the native library is retained until the application explicitly releases it or the process exits. TensorFlow.js provides a `dispose` method on the individual objects to free allocated memory. There is also a `tf.tidy` method to automatically clean up all allocated objects within a frame.
+TensorFlow.js 的 Node.js 扩展使用本机 C++ 库在 CPU 或 GPU 引擎上执行 Tensors。为应用程序显式释放它或进程退出之前，将保留为本机库中的 Tensor 对象分配的内存。TensorFlow.js 在各个对象上提供 `dispose` 方法以释放分配的内存。 还有一个 `tf.tidy` 方法可以自动清理帧内所有已分配的对象。
 
-Reviewing the code, tensors were being created as [model input from images](https://gist.github.com/jthomas/e7c78bbfe4091ed6ace93d1b53cbf6e5#file-index-js-L51-L59) on each request. These objects were not disposed before returning from the request handler. This meant native memory grew unbounded. Adding an explicit `dispose` call to free these objects before returning [fixed the issue](https://gist.github.com/jthomas/e7c78bbfe4091ed6ace93d1b53cbf6e5#file-index-js-L91).
+检查代码时，每个请求都会创建[图像输入数据](https://gist.github.com/jthomas/e7c78bbfe4091ed6ace93d1b53cbf6e5#file-index-js-L51-L59)。在从请求处理程序返回之前，并未处理这些对象。这意味着本机内存增长无限。在返回[修复问题](https://gist.github.com/jthomas/e7c78bbfe4091ed6ace93d1b53cbf6e5#file-index-js-L91)之前添加显式的 `dispose` 调用以释放这些对象。
 
-### Profiling & Performance
+### 分析和性能
 
-Action code records memory usage and elapsed time at different stages in classification process.
+执行代码记录分类过程中不同阶段的内存使用和经过时间。
 
-Recording [memory usage](https://gist.github.com/jthomas/e7c78bbfe4091ed6ace93d1b53cbf6e5#file-index-js-L12-L20) allows me to modify the maximum memory allocated to the function for optimal performance and cost. Node.js provides a [standard library API](https://nodejs.org/docs/v0.4.11/api/all.html#process.memoryUsage) to retrieve memory usage for the current process. Logging these values allows me to inspect memory usage at different stages.
+记录[内存使用情况](https://gist.github.com/jthomas/e7c78bbfe4091ed6ace93d1b53cbf6e5#file-index-js-L12-L20)可以允许我修改分配给该功能的最大内存，以获得最佳性能和成本。 Node.js 提供[标准库 API ](https://nodejs.org/docs/v0.4.11/api/all.html#process.memoryUsage)来检索当前进程的内存使用情况。 记录这些值允许我检查不同阶段的内存使用情况。
 
-Timing [different tasks](https://gist.github.com/jthomas/e7c78bbfe4091ed6ace93d1b53cbf6e5#file-index-js-L71) in the classification process, i.e. model loading, image classification, gives me an insight into how efficient classification is compared to other methods. Node.js has a [standard library API](https://nodejs.org/api/console.html#console_console_time_label) for timers to record and print elapsed time to the console.
+分类过程中的定时[不同任务](https://gist.github.com/jthomas/e7c78bbfe4091ed6ace93d1b53cbf6e5#file-index-js-L71)，即模型加载，图像分类，让我深入了解分类的有效性对比其他方法。Node.js 有一个[标准库 API ](https://nodejs.org/api/console.html#console_console_time_label)，供计时器记录和打印到控制台的已用时间。
 
-## Demo
+## 例子
 
-### Deploy Action
+### 部署代码
 
-*   Run the following command with the [IBM Cloud CLI](https://console.bluemix.net/openwhisk/learn/cli) to create the action.
+*   使用[ IBM Cloud CLI ](https://console.bluemix.net/openwhisk/learn/cli)运行以下命令以创建操作。
 
 ```
 ibmcloud fn action create classify --docker <IMAGE_NAME> index.js
 ```
 
-_Replace `<IMAGE_NAME>` with the public Docker Hub image identifier for the custom runtime. Use `jamesthomas/action-nodejs-v8:tfjs` if you haven’t built this manually._
+**使用自定义运行时的公共 Docker Hub 映像标识符替换 `<IMAGE_NAME>`。 如果你并没有构建它，请使用 `jamesthomas / action-nodejs-v8：tfjs`。**
 
-### Testing It Out
+### 测试
 
-*   Download [this image](https://upload.wikimedia.org/wikipedia/commons/f/fe/Giant_Panda_in_Beijing_Zoo_1.JPG) of a Panda from Wikipedia.
+*   从维基百科下载[此图片](https://upload.wikimedia.org/wikipedia/commons/f/fe/Giant_Panda_in_Beijing_Zoo_1.JPG)。
 
 ![](https://upload.wikimedia.org/wikipedia/commons/f/fe/Giant_Panda_in_Beijing_Zoo_1.JPG)
 
@@ -257,13 +257,13 @@ _Replace `<IMAGE_NAME>` with the public Docker Hub image identifier for the cust
 wget http://bit.ly/2JYSal9 -O panda.jpg
 ```
 
-*   Invoke the action with the Base64 encoded image as an input parameter.
+*   使用 Base64 编码图像作为输入参数调用方法。
 
 ```
 ibmcloud fn action invoke classify -r -p image $(base64 panda.jpg)
 ```
 
-*   Returned JSON message contains classification probabilities. 🐼🐼🐼
+*   返回的 JSON 消息包含分类概率。🐼🐼🐼
 
 ```
 {
@@ -274,15 +274,15 @@ ibmcloud fn action invoke classify -r -p image $(base64 panda.jpg)
 }
 ```
 
-### Activation Details
+### 激活的细节
 
-*   Retrieve logging output for the last activation to show performance data.
+*   检索上次激活的日志记录输出以显示性能数据。
 
 ```
 ibmcloud fn activation logs --last
 ```
 
-**_Profiling and memory usage details are logged to stdout_**
+**分析和内存使用详细信息记录到 stdout**
 
 ```
 prediction function called.
@@ -302,41 +302,42 @@ memory used: rss=144.37 MB, heapTotal=24.33 MB, heapUsed=20.58 MB, external=45.5
 
 ```
 
-`main` is the total elapsed time for the action handler. `mn_model.classify` is the elapsed time for the image classification. Cold start requests print an extra log message with model loading time, `loadModel: 394.547ms`.
 
-## Performance Results
+`main` 是动作处理程序的总耗用时间。 `mn_model.classify` 是图像分类的经过时间。 冷启动请求打印带有模型加载时间的额外日志消息，`loadModel：394.547ms`。
 
-Invoking the `classify` action 1000 times for both cold and warm activations (using 256MB memory) generated the following performance results.
+## 表现结果
 
-### warm invocations
+对冷激活和热激活（使用 256 MB 内存）调用 `classify` 动作1000次会产生以下性能结果。
 
-![](http://jamesthom.as/images/tfjs-serverless/warm-activations.png "Warm Activation Performance Results")
+### 热激活
 
-Classifications took an average of **316 milliseconds to process when using warm environments**. Looking at the timing data, converting the Base64 encoded JPEG into the input tensor took around 100 milliseconds. Running the model classification task was in the 200 - 250 milliseconds range.
+![](http://jamesthom.as/images/tfjs-serverless/warm-activations.png "热激活的表现结果")
 
-### cold invocations
+使用热环境时，分类平均需要处理 **316毫秒**。查看时序数据，将 Base64 编码的 JPEG 转换为输入张量大约需要 100 毫秒。运行模型分类任务的时间范围为 200-250 毫秒。
 
-![](http://jamesthom.as/images/tfjs-serverless/cold-activations.png "Cold Activation Performance Results")
+### 冷激活
 
-Classifications took an average of **1260 milliseconds to process when using cold environments**. These requests incur penalties for initialising new runtime containers and loading models from the filesystem. Both of these tasks took around 400 milliseconds each.
+![](http://jamesthom.as/images/tfjs-serverless/cold-activations.png "冷激活的表现结果")
 
-_One disadvantage of using custom runtime images in Apache OpenWhisk is the lack of [pre-warmed containers](https://medium.com/openwhisk/squeezing-the-milliseconds-how-to-make-serverless-platforms-blazing-fast-aea0e9951bd0). Pre-warming is used to reduce cold start times by starting runtime containers before they are needed. This is not supported for non-standard runtime images._
+使用冷环境时，分类平均需要处理 **1260 毫秒**。这些请求会因初始化新的运行时容器和从文件系统加载模型而受到限制。这两项任务都需要大约 400 毫秒。
 
-### classification cost
+**在 Apache OpenWhisk 中使用自定义运行时映像的一个缺点是缺少[预热容器](https://medium.com/openwhisk/squeezing-the-milliseconds-how-to-make-serverless-platforms-blazing-fast-aea0e9951bd0)。 预热用于通过在需要之前启动运行时容器来减少冷启动时间。 非标准运行时映像不支持此功能。**
 
-IBM Cloud Functions [provides a free tier](https://console.bluemix.net/openwhisk/learn/pricing) of 400,000 GB/s per month. Each further second of execution is charged at $0.000017 per GB of memory allocated. Execution time is rounded up to the nearest 100ms.
+### 分类成本
 
-If all activations were warm, a user could execute **more than 4,000,000 classifications per month in the free tier** using an action with 256MB. Once outside the free tier, around 600,000 further invocations would cost just over $1.
+IBM Cloud Functions [提供免费层](https://console.bluemix.net/openwhisk/learn/pricing)每月 400,000 GB/s。执行的每一秒再执行收费为每 GB 内存分配 0.000017 美元。执行时间四舍五入到最接近的 100 毫秒。
 
-If all activations were cold, a user could execute **more than 1,2000,000 classifications per month in the free tier** using an action with 256MB. Once outside the free tier, around 180,000 further invocations would cost just over $1.
+如果所有激活都是热激活的，那么用户可以使用 256MB 的操作在免费等级中 **每月执行超过 4,000,000 个分类**。一旦超出免费等级，大约 600,000 个进一步的调用将花费超过 1 美元。
 
-## Conclusion
+如果所有激活都是冷激活的，那么用户可以使用 256MB 的动作在免费等级中 **每月执行超过 1,2000,000 个分类**。一旦超出免费等级，大约 180,000 个进一步的调用将花费超过 1 美元。
 
-TensorFlow.js brings the power of deep learning to JavaScript developers. Using pre-trained models with the TensorFlow.js library makes it simple to extend JavaScript applications with complex machine learning tasks with minimal effort and code.
+## 结论
 
-Getting a local script to run image classification was relatively simple, but converting to a serverless function came with more challenges! Apache OpenWhisk restricts the maximum application size to 50MB and native libraries dependencies were much larger than this limit.
+TensorFlow.js 为 JavaScript 开发人员带来了深度学习的力量。使用预先训练的模型和 TensorFlow.js 库，可以轻松地以最少的工作量和代码扩展具有复杂机器学习任务的 JavaScript 应用程序。
 
-Fortunately, Apache OpenWhisk’s custom runtime support allowed us to resolve all these issues. By building a custom runtime with native dependencies and models files, those libraries can be used on the platform without including them in the deployment package.
+获取本地脚本来运行图像分类相对简单，但转换为无服务器功能带来了更多挑战！Apache OpenWhisk 将最大应用程序大小限制为 50MB，本机库依赖项远大于此限制。
+
+幸运的是，Apache OpenWhisk 的自定义运行时支持使我们能够解决所有这些问题。通过使用本机依赖项和模型文件构建自定义运行时，可以在平台上使用这些库，而无需将它们包含在部署包中。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
