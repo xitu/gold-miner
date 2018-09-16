@@ -5298,10 +5298,11 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：330 当前积分：300 年度积分：330
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：342 当前积分：312 年度积分：342
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|12|
 |[使用 Nexmo 和微软语音翻译 API 构建 Babel 鱼](https://juejin.im/post/5b8a78a3e51d4538a515cbda)|翻译|8|
 |[如何将 Stackdriver 连接到智能家居服务器以进行错误记录](https://juejin.im/post/5b8f8df7e51d450e9f66d6f0)|翻译|3|
 |[为什么设计师讨厌政治](https://juejin.im/post/5b89599f51882542b03e6d5b)|翻译|4|
@@ -6462,10 +6463,11 @@
 |[优化 MP4 视频以获得更快的流传输速度](https://juejin.im/post/5b72bed8e51d45661e00f693)|校对|1.5|
 |[如何使用 Python 和 BeautifulSoup 抓取网站内容](https://juejin.im/post/5b74fcec51882561446fb97f)|校对|3|
 
-## 译者：[HaoChuan9421](https://github.com/HaoChuan9421) 历史贡献积分：5.5 当前积分：5.5 年度积分：5.5
+## 译者：[HaoChuan9421](https://github.com/HaoChuan9421) 历史贡献积分：12 当前积分：12 年度积分：12
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|6.5|
 |[深入 Flutter 之手势](https://juejin.im/post/5b70eee8e51d456682516d36)|翻译|1.5|
 |[优化 MP4 视频以获得更快的流传输速度](https://juejin.im/post/5b72bed8e51d45661e00f693)|翻译|4|
 
@@ -6592,3 +6594,21 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[使用 Nexmo 和微软语音翻译 API 构建 Babel 鱼](https://juejin.im/post/5b8a78a3e51d4538a515cbda)|校对|3|
+
+## 译者：[QC-L](https://github.com/QC-L) 历史贡献积分：4 当前积分：4 年度积分：4
+
+|文章|类型|积分|
+|------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|4|
+
+## 译者：[BriFuture](https://github.com/BriFuture) 历史贡献积分：4 当前积分：4 年度积分：4
+
+|文章|类型|积分|
+|------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|4|
+
+## 译者：[YvongYang](https://github.com/YvongYang) 历史贡献积分：5 当前积分：5 年度积分：5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|5|
