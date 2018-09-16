@@ -5,49 +5,50 @@
 > * 译者：
 > * 校对者：
 
-# Understanding Execution Context and Execution Stack in Javascript
+# 理解 JavaScript 中的执行上下文和执行栈
 
 ![](https://cdn-images-1.medium.com/max/2000/0*qPD741uxGb8ldrYt)
 
-Photo by [Greg Rakozy](https://unsplash.com/@grakozy?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
+照片出自 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral) 的 [Greg Rakozy](https://unsplash.com/@grakozy?utm_source=medium&utm_medium=referral)
 
-If you are or want to be a JavaScript developer, then you must know how the JavaScript programs are executed internally. The understanding of execution context and execution stack is vital in order to understand other JavaScript concepts such as Hoisting, Scope, and Closures.
+如果你想成为一名 JavaScript 开发者，你必须知道 JavaScript 程序内部是如何执行的。理解执行上下文和执行栈对于理解其他 JavaScript 概念（如提升，范围和闭包）至关重要。
 
-Properly understanding the concept of execution context and execution stack will make you a much better JavaScript developer.
+正确理解执行上下文和执行栈的概念将使您成为更出色的 JavaScript 开发者。
 
-So without further ado, let’s get started :)
-
-* * *
-
-### Shared with ❤️ in [Bit](https://bitsrc.io)’s Blog
-
-With Bit components are building blocks, and you are the architect. Share, discover and develop components anywhere with your team. Give it a try!
-
-* [**Bit - Share and build with code components**: Bit helps you share, discover and use code components between projects and applications to build new features and…](https://bitsrc.io)
+闲话少说，让我们开始吧 :)
 
 * * *
 
-### What is an Execution Context?
+### 分享自 [Bit](https://bitsrc.io) 的博客❤️
 
-Simply put, an execution context is an abstract concept of an environment where the Javascript code is evaluated and executed. Whenever any code is run in JavaScript, it’s run inside an execution context.
+使用 Bit 组件作为构建模块，你就是架构师。随时随地和你的团队分享、发现和开发组件，快来尝试鲜！
 
-#### Types of Execution Context
+* [**Bit - 分享和创造代码组件**: Bit 能帮助你在不同项目和应用中分享、发现和使用代码组件来创建新功能和……](https://bitsrc.io)
 
-There are three types of execution context in JavaScript.
+* * *
 
-*   **Global Execution Context — **This is the default or base execution context. The code that is not inside any function is in the global execution context. It performs two things: it creates a global object which is a window object (in case of browsers) and sets the value of `this` to equal to the global object. There can only be one global execution context in a program.
-*   **Functional Execution Context —** Every time a function is invoked, a brand new execution context is created for that function. Each function has its own execution context, but it’s created when the function is invoked or called. There can be any number of function execution contexts. Whenever a new execution context is created, it goes through a series of steps in a defined order which I will discuss later in this article.
-*   **Eval Function Execution Context —** Code executed inside an `eval` function also gets its own execution context, but as `eval` isn’t usually used by Javascript developers, so I will not discuss it here.
+### 什么是执行上下文？
+
+简而言之，执行上下文是评估和执行 JavaScript 代码的环境的抽象概念。每当在 JavaScript 中运行任何代码时，它都在执行上下文中运行。
+
+#### 执行上下文的类型
+
+JavaScript 中有三种执行上下文类型。
+
+*   **全局执行上下文 —** 这是默认的或基本的上下文。不在任何函数内部的代码都在全局上下文中。 它会执行两件事：创建一个全局的 window 对象（浏览器的情况下），并且设置 `this` 的值等于这个全局对象。一个程序中只会有一个全局执行上下文。
+*   **函数执行上下文 —** 每当一个函数被调用时, 都会为该函数创建一个新的上下文。 每个函数都有它自己的执行上下文，不过是在函数被调用时创建的。函数上下文可以有任意多个。每当一个新的执行上下文被创建，它会按定义的顺序（将在后文讨论）执行一系列步骤。
+*   **Eval 函数执行上下文 —** 执行在 `eval` 函数内部的代码也会有它属于自己的执行上下文，但由于 JavaScript 开发者并不经常使用 `eval`，所以在这里我不会讨论它。
 
 ### Execution Stack
+### 执行栈
 
-Execution stack, also known as “calling stack” in other programming languages, is a stack with a LIFO (Last in, First out) structure, which is used to store all the execution context created during the code execution.
+执行栈，也就是在其它编程语言中所说的“调用栈”，是一种拥有 LIFO（后进先出）数据结构的栈，被用来存储代码运行时创建的所有执行上下文。
 
-When the JavaScript engine first encounters your script, it creates a global execution context and pushes it to the current execution stack. Whenever the engine finds a function invocation, it creates a new execution context for that function and pushes it to the top of the stack.
+当 JavaScript 引擎第一次遇到你的脚本时，它会创建一个全局的执行上下文并且压入当前执行栈。每当引擎遇到一个函数调用，它会为该函数创建一个新的执行上下文并压入栈的顶部。
 
-The engine executes the function whose execution context is at the top of the stack. When this function completes, its execution stack is popped off from the stack, and the control reaches to the context below it in the current stack.
+引擎会执行那些执行上下文位于栈顶的函数。当该函数执行结束时，执行上下文从栈中弹出，控制流程到达当前栈中的下一个上下文。
 
-Let’s understand this with a code example below:
+让我们通过下面的代码示例来理解：
 
 ```
 let a = 'Hello World!';
@@ -68,29 +69,30 @@ console.log('Inside Global Execution Context');
 
 ![](https://cdn-images-1.medium.com/max/1000/1*ACtBy8CIepVTOSYcVwZ34Q.png)
 
-An Execution Context Stack for the above code.
+上述代码的执行上下文栈。
 
-When the above code loads in the browser, the Javascript engine creates a global execution context and pushes it to the current execution stack. When a call to `first()` is encountered, the Javascript engines creates a new execution context for that function and pushes it to the top of the current execution stack.
 
-When `second()` function is called from within `first()` function, the Javascript engine creates a new execution context for that function and pushes it to the top of the current execution stack. When`second()` function finishes, its execution context is popped off from the current stack, and the control reaches to the execution context below it, that is `first()` function execution context.
+当上述代码在浏览器加载时，JavaScript 引擎创建了一个全局执行上下文并把它压入当前执行栈。当遇到 `first()` 调用时，JavaScript 引擎为该函数创建一个新的执行上下文并把它压入当前执行栈的顶部。
 
-When the `first()` finishes, its execution stack is removed from the stack and control reaches to the global execution context. Once all the code is executed, the JavaScript engine removes the global execution context from the current stack.
+当从 `first()` 函数内部调用 `second()` 函数时，JavaScript 引擎为 `second()` 函数创建了一个新的执行上下文并把它压入当前执行栈的顶部。当 `second()` 函数执行完毕，它的执行上下文会从当前栈弹出，并且控制流程到达下一个执行上下文，即 `first()` 函数的执行上下文。
 
-### How is the Execution Context created?
+当 `first()` 执行完毕，它的执行上下文从栈弹出，控制流程到达全局执行上下文。一旦所有代码执行完毕，JavaScript 引擎从当前栈中移除全局执行上下文。
 
-Up until now, we have seen how the JavaScript engine manages the execution context, Now let’s understand how an execution context is created by the JavaScript engine.
+### 怎么创建执行上下文？
 
-The execution context is created in two phases: **1) Creation Phase** and **2) Execution Phase.**
+到现在，我们已经看过 JavaScript 怎样管理执行上下文了，现在让我们了解 JavaScript 引擎是怎样创建执行上下文的。
+
+创建执行上下文有两个阶段：**1) 创建阶段** 和 **2) 执行阶段**。
 
 ### The Creation Phase
 
-Before any JavaScript code is executed, the execution context goes through the creation phase. Three things happen during the creation phase:
+在 JavaScript 代码执行前，执行上下文将经历创建阶段。在创建阶段会发生三件事：
 
-1.  Value of **this** is determined, also known as **This Binding**.
-2.  **LexicalEnvironment** component is created.
-3.  **VariableEnvironment** component is created.
+1. **this** 值的决定，即我们所熟知的 **This 绑定**。
+2. 创建**词法环境**组件。
+3. 创建**变量环境**组件。
 
-So the execution context can be conceptually represented as follows:
+所以执行上下文在概念上表示如下：
 
 ```
 ExecutionContext = {
@@ -101,10 +103,11 @@ ExecutionContext = {
 ```
 
 #### **This Binding:**
+#### **This 绑定:**
 
-In the global execution context, the value of `this` refers to the global object. (in browsers, `this` refers to the Window Object).
+在全局执行上下文中，`this` 的值引用全局对象。(在浏览器中，`this`引用 Window 对象)。
 
-In the function execution context, the value of `this` depends on how the function is called. If it is called by an object reference, then the value of `this` is set to that object, otherwise the value of `this` is set to the global object or `undefined`(in strict mode). For example:
+在函数执行上下文中，`this` 的值依赖于该函数是如何被调用的。如果它被一个参照对象调用，那么 `this` 会被设置成那个对象，否则 `this` 的值被设置为全局对象或者 `undefined`（在严格模式下）。例如：
 
 ```
 let foo = {
@@ -113,53 +116,53 @@ let foo = {
   }
 }
 
-foo.baz();    // 'this' refers to 'foo', because 'baz' was called 
-             // with 'foo' object reference
+foo.baz();   // 'this' 引用 'foo', 因为 'baz' 被
+             // 参照对象 'foo' 调用
 
 let bar = foo.baz;
 
-bar();       // 'this' refers to the global window object, because
-             // no object reference was given
+bar();       // 'this' 引用全局 window 对象，因为
+             // 没有指定参照对象
 ```
 
-#### Lexical Environment
+#### 词法环境
 
-The [official ES6](http://ecma-international.org/ecma-262/6.0/) docs defines Lexical Environment as
+[官方的 ES6](http://ecma-international.org/ecma-262/6.0/) 文档把词法环境定义为
 
-> A _Lexical Environment_ is a specification type used to define the association of _Identifiers_ to specific variables and functions based upon the lexical nesting structure of ECMAScript code. A Lexical Environment consists of an Environment Record and a possibly null reference to an _outer_ Lexical Environment.
+> **词法环境**是一种规范类型，基于 ECMAScript 代码的词法嵌套结构来定义**标识符**和具体变量和函数的关联。一个词法环境由环境记录器和一个可能的引用**外部**词法环境的空值组成。
 
-Simply put, A _lexical environment_ is a structure that holds **identifier-variable mapping**. (here **identifier** refers to the name of variables/functions, and **variable** is the reference to actual object [including function type object] or primitive value).
+简单来说**词法环境**是一种持有**标识符—变量映射**的结构。（这里的**标识符**引用变量/函数的名字，而**变量**是对实际对象[包含函数类型对象]或原始数据的引用）。
 
-Now, _within_ the Lexical Environment, there are two components: (1) the **environment record** and (2) a **reference to the outer environment**.
+现在，在词法环境的**内部**有两个组件：(1) **环境记录器**和 (2) 一个**外部环境的引用**。
 
-1.  The _environment record_ is the actual place where the variable and function declarations are stored.
-2.  The _reference to the outer environment_ means it has access to its parent lexical environment (scope).
+1.  **环境记录器**是存储变量和函数声明的实际位置。
+2.  **外部环境的引用**意味着它可以访问其父级词法环境（作用域）。
 
-There are two types of _lexical environment_:
+**词法环境**有两种类型：
 
-*   A _global environment_ (in a global execution context) is a Lexical Environment which does not have an outer environment. The global environment’s outer environment reference is **null**. It has built-in Object/Array/etc. prototype functions (associated with the global object i.e window object) inside this environment record as well as any user-defined global variables, and the value of `this` refers to the global object.
-*   In _function environment_, the user-defined variables inside the function are stored in the _environment record_. And the reference to the outer environment can be the global environment, or whatever outer function that wraps around the inner function.
+*   **全局环境**（在全局执行上下文中）是没有外部环境引用的词法环境。全局环境的外部环境引用是 **null**。它拥有内建的 Object/Array/等、在环境记录器内的原型函数（关联全局对象，比如 window 对象）还有任何用户定义的全局变量，并且 `this`的值指向全局对象。
+*   在**函数环境**中，函数内部用户定义的变量存储在**环境记录器**中。并且引用的外部环境可能是全局环境，或者任何包含此内部函数的外部函数。
 
-There are also two types of **_environment record_**  (see above!):
+**环境记录器**也有两种类型（如上！）：
 
-1.  **Declarative environment record** stores variables, functions, and parameters.
-2.  **Object environment record** is used to define association of variables and functions appeared in the _global context._
+1.  **声明式环境记录器**存储变量、函数和参数。
+2.  **对象环境记录器**用来定义出现在**全局上下文**中的变量和函数的关系。
 
-In short,
+简而言之，
 
-*   In _global environment_, the environment record is object environment record.
-*   In _function_ environment, the environment record is declarative environment record.
+*   在**全局环境**中，环境记录器是对象环境记录器。
+*   在**函数环境**中，环境记录器是声明式环境记录器。
 
-**Note —** for _function environment_, the _declarative environment record_ also contains an `arguments` object that stores mapping between indexes and arguments passed to the function and the _length_ of the arguments passed into the function.
+**注意 —** 对于**函数环境**，**声明式环境记录器**还包含了一个传递给函数的 `arguments` 对象（此对象存储索引和参数的映射）和传递给函数的参数的 **length**。
 
-Abstractly, the lexical environment looks like this in pseudocode:
+抽象地讲，词法环境在伪代码中看起来像这样：
 
 ```
 GlobalExectionContext = {
   LexicalEnvironment: {
     EnvironmentRecord: {
       Type: "Object",
-      // Identifier bindings go here
+      // 在这里绑定标识符
     }
     outer: <null>
   }
@@ -169,22 +172,22 @@ FunctionExectionContext = {
   LexicalEnvironment: {
     EnvironmentRecord: {
       Type: "Declarative",
-      // Identifier bindings go here
+      // 在这里绑定标识符
     }
     outer: <Global or outer function environment reference>
   }
 }
 ```
 
-#### Variable Environment:
+#### 变量环境:
 
-It’s also a Lexical Environment whose EnvironmentRecord holds bindings created by _VariableStatements_ within this execution context.
+它同样是一个词法环境，其环境记录器持有**变量声明语句**在执行上下文中创建的绑定关系。
 
-As written above, the variable environment is also a lexical environment, So it has all the properties of a lexical environment as defined above.
+如上所述，变量环境也是一个词法环境，所以它有着上面定义的词法环境的所有属性。
 
-In ES6, one difference between **LexicalEnvironment** component and the **VariableEnvironment** component is that the former is used to store function declaration and variable (`let` and `const`) bindings, while the latter is used to store only variable `(var)` bindings.
+在 ES6 中，**词法环境**组件和**变量环境**的一个不同就是前者被用来存储函数声明和变量（`let` 和 `const`）绑定，而后者只用来存储 `var` 变量绑定。
 
-Let’s look at some code example to understand the above concepts:
+我们看点样例代码来理解上面的概念：
 
 ```
 let a = 20;
@@ -199,7 +202,7 @@ function multiply(e, f) {
 c = multiply(20, 30);
 ```
 
-The execution context will look something like this:
+执行上下文看起来像这样：
 
 ```
 GlobalExectionContext = {
@@ -209,7 +212,7 @@ GlobalExectionContext = {
   LexicalEnvironment: {
     EnvironmentRecord: {
       Type: "Object",
-      // Identifier bindings go here
+      // 在这里绑定标识符
       a: < uninitialized >,
       b: < uninitialized >,
       multiply: < func >
@@ -220,7 +223,7 @@ GlobalExectionContext = {
   VariableEnvironment: {
     EnvironmentRecord: {
       Type: "Object",
-      // Identifier bindings go here
+      // 在这里绑定标识符
       c: undefined,
     }
     outer: <null>
@@ -228,13 +231,12 @@ GlobalExectionContext = {
 }
 
 FunctionExectionContext = {
- 
   ThisBinding: <Global Object>,
 
   LexicalEnvironment: {
     EnvironmentRecord: {
       Type: "Declarative",
-      // Identifier bindings go here
+      // 在这里绑定标识符
       Arguments: {0: 20, 1: 30, length: 2},
     },
     outer: <GlobalLexicalEnvironment>
@@ -243,7 +245,7 @@ FunctionExectionContext = {
 VariableEnvironment: {
     EnvironmentRecord: {
       Type: "Declarative",
-      // Identifier bindings go here
+      // 在这里绑定标识符
       g: undefined
     },
     outer: <GlobalLexicalEnvironment>
@@ -251,45 +253,45 @@ VariableEnvironment: {
 }
 ```
 
-**Note **— The function execution context will only be created when the call to function `multiply` is encountered.
+**注意 —** 只有遇到调用函数 `multiply` 时，函数执行上下文才会被创建。
 
-As you might have noticed that the `let` and `const` defined variables do not have any value associated to them, but `var` defined variables are set to `undefined` .
+可能你已经注意到 `let` 和 `const` 定义的变量并没有关联任何值，但 `var` 定义的变量被设成了 `undefined`。
 
-This is because during the the creation phase, the code is scanned for variable and function declarations, while the function declaration is stored in its entirety in the environment, but the variables are initially set to `undefined` (in case of `var`) or remain uninitialized (in case of `let` and `const`).
+这是因为在创建阶段时，引擎检查代码找出变量和函数声明，虽然函数声明完全存储在环境中，但是变量最初设置为 `undefined`（`var` 情况下），或者未初始化（`let` 和 `const` 情况下）。
 
-This is the reason why you can access `var` defined variables before they are declared (though `undefined`) but get a reference error when accessing `let` and `const` variables before they are declared.
+这就是为什么你可以在声明之前访问 `var` 定义的变量（虽然是 `undefined`），但是在声明之前访问 `let` 和 `const` 的变量会得到一个引用错误。
 
-This is, what we call hoisting.
+这就是我们说的变量声明提升。
 
-### Execution Phase
+### 执行阶段
 
-This is the simplest part of this entire article. In this phase assignments to all those variables are done, and the code is finally executed.
+这是整篇文章中最简单的部分。在此阶段，完成对所有这些变量的分配，最后执行代码。
 
-**Note —** During the execution phase, if the JavaScript engine couldn’t find the value of `let` variable at the actual place it was declared in the source code, then it will assign it the value of `undefined`.
+**注意 —** 在执行阶段，如果 JavaScript 引擎不能在源码中声明的实际位置找到 `let` 变量的值，它会被赋值为 `undefined`。
 
-### Conclusion
+### 结论
 
-So we have discussed how JavaScript programs are executed internally. While it’s not necessary that you learn all these concepts to be an awesome JavaScript developer, having decent understanding of the above concepts will help you to understand other concepts such as Hoisting, Scope, and Closures more easily and deeply.
+我们已经讨论过 JavaScript 程序内部是如何执行的。虽然要成为一名卓越的 JavaScript 开发者并不需要学会全部这些概念，但是如果对上面概念能有不错的理解将有助于你更轻松，更深入地理解其他概念，如变量声明提升，作用域和闭包。
 
-That’s it and if you found this article helpful, please hit the 👏 button and feel free to comment below! I’d be happy to talk 😃
-
-* * *
-
-### Shared in Bit’s blog
-
-Bit makes it very easy to share small components and modules between projects and applications, so that you and your team can build faster. Share components, develop them anywhere and create a beautiful collection. Try it.
-
-* [**Bit - Share and build with code components**: Bit helps you share, discover and use code components between projects and applications to build new features and…](https://bitsrc.io)
+就是这样，如果你发现这篇文章有用，请点击 👏 按钮并在下面自由地评论！我很乐意和你讨论 😃。
 
 * * *
 
-### Learn more
+### 分享自 [Bit](https://bitsrc.io) 的博客
 
-* [**11 React UI Component Libraries You Should Know In 2018**: 11 React component libraries with great components for building your next app’s UI interface in 2018.](https://blog.bitsrc.io/11-react-component-libraries-you-should-know-178eb1dd6aa4)
+Bit 使得在项目和应用中分享小型组件和模块变得非常简单，使您和您的团队可以更快地构建代码。随时随地和你的团队分享、发现和开发组件，快来尝鲜！
 
-* [**5 Tools for Faster Vue.js App Development**: Speed the development of your Vue.js applications.](https://blog.bitsrc.io/5-tools-for-faster-vue-js-app-development-ad7eda1ee6a8)
+* [**Bit - 分享和创造代码组件**: Bit 能帮助你在不同项目和应用中分享、发现和使用代码组件来创建新功能和……](https://bitsrc.io)
 
-* [**How To Write Better Code In React**: 9 Useful tips for writing better code in React: Learn about Linting, propTypes, PureComponent and more.](https://blog.bitsrc.io/how-to-write-better-code-in-react-best-practices-b8ca87d462b0)
+* * *
+
+### 了解更多
+
+* [**2018 年你应该知道的 11 种 React UI 组件库**：，2018 年 11 种拥有优秀组件的 React 组件库，用于构建下一代应用程序 UI 界面。](https://blog.bitsrc.io/11-react-component-libraries-you-should-know-178eb1dd6aa4)
+
+* [**加快 Vue.js 应用开发的 5 种工具**：加速你的 Vue.js 应用开发速度。](https://blog.bitsrc.io/5-tools-for-faster-vue-js-app-development-ad7eda1ee6a8)
+
+* [**在 React 中如何写出更好的代码**：9 个在 React 中写出更好代码的实用小贴士：学习 Linting、propTypes、PureComponent 还有更多。](https://blog.bitsrc.io/how-to-write-better-code-in-react-best-practices-b8ca87d462b0)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
