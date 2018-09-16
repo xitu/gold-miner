@@ -3099,10 +3099,11 @@
 |[光速 React](https://juejin.im/post/591ad6b7128fe1005ce1123a)|校对|1|
 |[如何使用 HTTP Headers 来保护你的 Web 应用](https://juejin.im/post/58f5d3718d6d810057c18f75)|校对|2|
 
-## 译者：[luoqiuyu](https://github.com/luoqiuyu) 历史贡献积分：3 当前积分：3
+## 译者：[luoqiuyu](https://github.com/luoqiuyu) 历史贡献积分：5.5 当前积分：5.5 年度积分：2.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Android 的多摄像头支持](https://juejin.im/post/5b98fcf4f265da0ad13b66e0)|翻译|2.5|
 |[再谈如何安全地在 Android 中存储令牌](https://juejin.im/post/5938f81e5c497d006b6187ea)|校对|1|
 |[如何创建 BubblePicker – Android 多彩菜单动画](https://juejin.im/post/591e734d2f301e006bea5243)|校对|1|
 |[真正行动之前 你将一无所成](https://juejin.im/entry/58f6136861ff4b00580aef28)|校对|1|
@@ -4844,10 +4845,11 @@
 |[Face ID 对易用性意味着什么](https://juejin.im/post/5a41d01cf265da432c241943)|校对|1|
 |[自动化持续集成/持续分发，以节省更多时间编写代码](https://juejin.im/post/5a44aab86fb9a044ff31c418)|翻译|3|
 
-## 译者：[hanliuxin5](https://github.com/hanliuxin5) 历史贡献积分：56.5 当前积分：46.5 年度积分：56.5
+## 译者：[hanliuxin5](https://github.com/hanliuxin5) 历史贡献积分：57.5 当前积分：47.5 年度积分：57.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Android 的多摄像头支持](https://juejin.im/post/5b98fcf4f265da0ad13b66e0)|校对|1|
 |2018 年 9 月兑掘金桌垫 1 个|减去积分|10|
 |[在 Android P 中使用默认的 TLS 来保护你的用户](https://juejin.im/post/5b29030551882574b4094a6f)|翻译|3|
 |[预测你的游戏的货币化未来](https://juejin.im/post/5ad1d3b6f265da238f12fafa)|校对|1|
@@ -6224,10 +6226,12 @@
 |------|-------|-------|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|0.5|
 
-## 译者：[MeFelixWang](https://github.com/MeFelixWang) 历史贡献积分：32 当前积分：32 年度积分：32
+## 译者：[MeFelixWang](https://github.com/MeFelixWang) 历史贡献积分：41 当前积分：41 年度积分：41
 
 |文章|类型|积分|
 |------|-------|-------|
+|[用 Workers 让静态网站动态化](https://juejin.im/post/5b95c5375188255c6e70422a)|翻译|5|
+|[构建未来的设计生态系统](https://juejin.im/post/5b992be8f265da0aa3591346)|翻译|4|
 |[JavaScript 2018 中即将迎来的新功能：异步生成器及更好的正则表达式](https://juejin.im/post/5b95be51f265da0adc18ac08)|翻译|6|
 |[用 API 请求制作赏心悦目的 UX](https://juejin.im/post/5b992d13e51d450e894de541)|翻译|5|
 |[简单的响应式现代 css 网格布局](https://juejin.im/post/5b8b4ddef265da436d7e594d)|翻译|4|
@@ -6439,10 +6443,11 @@
 |[在 Sketch 中使用一个设计体系创作: 第二部分 [教程]](https://juejin.im/post/5b5d2a456fb9a04fc80b8f4b)|翻译|2.5|
 |[在 Sketch 中使用一个设计体系创作：第一部分 [教程]](https://juejin.im/post/5b591a655188257bca290b24)|校对|0.5|
 
-## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：20 当前积分：20 年度积分：20
+## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：21.5 当前积分：21.5 年度积分：21.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[用 Workers 让静态网站动态化](https://juejin.im/post/5b95c5375188255c6e70422a)|校对|1.5|
 |[如何使用原生 JavaScript 构建简单的 Chrome 扩展程序](https://juejin.im/post/5b98a58b6fb9a05cec4d92e0)|校对|1|
 |[2018 年 iOS 开发找工作完全指南](https://juejin.im/post/5b7eca206fb9a019ff713277)|校对|2|
 |[写一个完整的 Flutter App 是什么感觉](https://juejin.im/post/5b7e18c4e51d4538cf53d1f8)|校对|1.5|
@@ -6458,10 +6463,11 @@
 |[正则表达式要跑 5 天，所以我做了个工具将其缩短至 15 分钟。](https://juejin.im/post/5b6d426f6fb9a04fd1604341)|校对|0.5|
 |[Tab Bar 就是新的汉堡菜单](https://juejin.im/post/5b61684fe51d451986517e31)|校对|1.5|
 
-## 译者：[StellaBauhinia](https://github.com/StellaBauhinia) 历史贡献积分：9 当前积分：9 年度积分：9
+## 译者：[StellaBauhinia](https://github.com/StellaBauhinia) 历史贡献积分：11 当前积分：11 年度积分：11
 
 |文章|类型|积分|
 |------|-------|-------|
+|[构建未来的设计生态系统](https://juejin.im/post/5b992be8f265da0aa3591346)|校对|2|
 |[常见网页设计错误一览](https://juejin.im/post/5b7984265188254312414c1f)|翻译|5|
 |[使用 Web Beacon API 记录活动](https://juejin.im/post/5b694b5de51d4519700fa56a)|校对|2.5|
 |[正则表达式要跑 5 天，所以我做了个工具将其缩短至 15 分钟。](https://juejin.im/post/5b6d426f6fb9a04fd1604341)|校对|1.5|
