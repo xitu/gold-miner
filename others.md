@@ -1,3 +1,4 @@
+* [用 Workers 让静态网站动态化](https://juejin.im/post/5b95c5375188255c6e70422a) ([MeFelixWang](https://github.com/MeFelixWang) 翻译)
 * [关于工程师和影响力](https://juejin.im/post/5b8f9a96f265da0ab33125b0) ([cf020031308](https://github.com/cf020031308) 翻译)
 * [如何像程序员般思考 —— 蕴含在问题解决中的经验](https://juejin.im/post/5b76839ae51d4566491c24bb) ([mingxing47](https://github.com/mingxing47) 翻译)
 * [编程语言和平台：一条被评论的推文串](https://juejin.im/post/5b4c2b75e51d45195b336d57) ([cf020031308](https://github.com/cf020031308) 翻译)
