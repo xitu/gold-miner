@@ -2436,10 +2436,11 @@
 |[防守式编程的艺术](https://gold.xitu.io/entry/58980dbc1b69e6005997f069)|校对|1|
 |[为何我抵制使用缓存？](https://gold.xitu.io/entry/5884184f1b69e60058dc7fc6)|校对|1|
 
-## 译者：[vuuihc](https://github.com/vuuihc) 历史贡献积分：45.5 当前积分：45.5 年度积分：12.5
+## 译者：[vuuihc](https://github.com/vuuihc) 历史贡献积分：45.5 当前积分：25.5 年度积分：12.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 9 月兑套头衫 M 号 1 个|减去积分|20|
 |[[字幕翻译] Graham Dumpleton — Secrets of a WSGI master. — PyCon 2018](https://github.com/xitu/gold-miner/blob/master/TODO1/secrets-of-a-wsgi-master-pycon-2018.md) |翻译|9|
 |[用 Python 做一个 H5 游戏机器人](https://juejin.im/post/5aa9e7645188257bf550c745)|校对|1.5|
 |[2018 年要学习的优秀 JavaScript 库与知识](https://juejin.im/post/5a4e23f0f265da3e377bce4f)|校对|2|
@@ -3506,10 +3507,11 @@
 |------|-------|-------|
 |[如何在无损的情况下让图片变的更小](https://juejin.im/post/5959fbe0f265da6c2518d740)|校对|2|
 
-## 译者：[swants](https://github.com/swants) 历史贡献积分：62 当前积分：22 年度积分：23
+## 译者：[swants](https://github.com/swants) 历史贡献积分：62 当前积分：2 年度积分：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 9 月兑套头衫（秋冬款）1 个|减去积分|20|
 |[为什么你需要关注一下 Flutter](https://juejin.im/post/5b508c7cf265da0f955ccb09)|校对|1.5|
 |[Flutter 实用指南：给初学者的 6 个小帖士](https://juejin.im/post/5b5534126fb9a04fcc449f4c)|校对|1.5|
 |2018 年 8 月兑掘金桌垫 1 个|减去积分|10|
@@ -4607,10 +4609,11 @@
 |[如何取消你的 Promise？](https://juejin.im/post/5a32705a6fb9a045117127fa)|校对|1|
 |[你想学 React.js 吗？](https://juejin.im/post/5a2f8ea5f265da43305e6f6b)|校对|2|
 
-## 译者：[Colafornia](https://github.com/Colafornia) 历史贡献积分：82 当前积分：61 年度积分：73.5
+## 译者：[Colafornia](https://github.com/Colafornia) 历史贡献积分：82 当前积分：16 年度积分：73.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 9 月兑 Google DIY 纸板音箱 1 个|减去积分|45|
 |[我们距离 Babel 7.0 发布很近了。这里是所有我们一直在做的很酷的事情。](https://juejin.im/post/5b174f3e518825139b18e1f0)|校对|2.5|
 |[为何前端开发如此不稳定](https://juejin.im/post/5b1f2f1ae51d4506894983ae)|翻译|5|
 |[怎样（以及为什么要）保持你的 Git 提交记录的整洁](https://juejin.im/post/5b29060ee51d4558cd2adac0)|校对|1.5|
@@ -4918,10 +4921,11 @@
 |[开发者也是用户 - 简介](https://juejin.im/post/5a6536e6518825734216ff06)|校对|1|
 |[智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7)|校对|1.5|
 
-## 译者：[pkuwwt](https://github.com/pkuwwt) 历史贡献积分：97 当前积分：52 年度积分：90
+## 译者：[pkuwwt](https://github.com/pkuwwt) 历史贡献积分：97 当前积分：7 年度积分：90
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 9 月兑 Google DIY 纸板音箱 1 个|减去积分|45|
 |[React Native：回顾 Udacity 移动工程团队的使用历程](https://juejin.im/post/5b421b606fb9a04fd15ff802)|翻译|礼物|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|15|
@@ -5751,10 +5755,11 @@
 |[React & Redux 顶级开发伴侣](https://juejin.im/post/5acae8dc6fb9a028c06b1c4c)|校对|1|
 |[拖放库中 React 性能的优化](https://juejin.im/post/5ac31b096fb9a028bc2dedfc)|校对|3|
 
-## 译者：[Hopsken](https://github.com/Hopsken) 历史贡献积分：21.5 当前积分：21.5 年度积分：21.5
+## 译者：[Hopsken](https://github.com/Hopsken) 历史贡献积分：21.5 当前积分：16.5 年度积分：21.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 7 月兑掘金马克杯 1 个（赠集智杯子一个），减 5 积分|减去积分|5|
 |[常见网页设计错误一览](https://juejin.im/post/5b7984265188254312414c1f)|校对|2|
 |[SpaceAce 了解一下，一个新的前端状态管理库](https://juejin.im/post/5b7653c96fb9a009c72cb7af)|校对|1.5|
 |[Javascript（ES6）Generator 入门](https://juejin.im/post/5b4c22aa6fb9a04faf479be1)|校对|1.5|
@@ -5974,10 +5979,11 @@
 |------|-------|-------|
 |[在浏览器里使用 TenserFlow.js 实时估计人体姿态](https://juejin.im/post/5afd833b5188254270642ff3)|校对|2|
 
-## 译者：[sophiayang1997](https://github.com/sophiayang1997) 历史贡献积分：20.5 当前积分：13.5 年度积分：20.5
+## 译者：[sophiayang1997](https://github.com/sophiayang1997) 历史贡献积分：20.5 当前积分：1.5 年度积分：20.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 9 月兑 掘金笔记本一个，比特币两个|减去积分|12|
 |[为 GitHub 项目做出贡献的初学者指南](https://juejin.im/entry/5b2e58ba6fb9a00e4966ee4b)|翻译|2|
 |[一个简单的 ES6 Promises 指南](https://juejin.im/post/5b0eb3b1f265da08f31e770a)|翻译|6|
 |[新的 CSS 特性正在改变网页设计](https://juejin.im/post/5b0cae8c6fb9a009de14c833)|翻译|7|
@@ -6238,10 +6244,11 @@
 |[PWA 再进化，可以生成一个安卓原生的 WebAPK 了](https://juejin.im/post/5b2fb7f2e51d4558b46667be)|翻译|3|
 |[如何避免拍脑袋想出的产品优先策略](https://juejin.im/post/5b37a0156fb9a00e78666072)|校对|2|
 
-## 译者：[DateBro](https://github.com/DateBro) 历史贡献积分：41 当前积分：41 年度积分：41
+## 译者：[DateBro](https://github.com/DateBro) 历史贡献积分：41 当前积分：-4 年度积分：41
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 9 月兑树莓派 1 套|减去积分|45|
 |[Flutter 的英雄和流氓们 —— 为 Flutterverse 带来平衡](https://juejin.im/post/5b8e75a46fb9a019f928e678)|翻译|5|
 |[为什么你需要关注一下 Flutter](https://juejin.im/post/5b508c7cf265da0f955ccb09)|翻译|4|
 |[用 Flutter 写一个待办事项应用](https://juejin.im/post/5b4f52275188251b11096a28)|翻译|6|
@@ -6401,10 +6408,11 @@
 |[关于 React Motion 的简要介绍](https://juejin.im/post/5b48061551882519790c77f3)|翻译|4|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1|
 
-## 译者：[pmwangyang](https://github.com/pmwangyang) 历史贡献积分：16 当前积分：16 年度积分：16
+## 译者：[pmwangyang](https://github.com/pmwangyang) 历史贡献积分：16 当前积分：-1 年度积分：16
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 9 月兑掘金桌垫 x 1，水杯 x 1，比特币 x 1|减去积分|17|
 |[你 Ladar 中该珍藏的：iOS 布局语言](https://juejin.im/post/5b84fe97f265da437c43422f)|翻译|5|
 |[在 UNIX 中，一切皆文件](https://juejin.im/post/5b652d346fb9a04fc03129e6)|翻译|4|
 |[编程语言和平台：一条被评论的推文串](https://juejin.im/post/5b4c2b75e51d45195b336d57)|校对|2|
