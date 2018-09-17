@@ -5,36 +5,36 @@
 > * 译者：
 > * 校对者：
 
-# Build a Simple REST API with Node and OAuth 2.0
+# 使用 Node 和OAuth 2.0 构建一个简单的 REST API
 
-JavaScript is used everywhere on the web - nearly every web page will include at least some JavaScript, and even if it doesn’t, your browser probably has some sort of extension that injects bits of JavaScript code on to the page anyway. It’s hard to avoid in 2018.
+JavaScript 在 web 是随处可见 —— 几乎每个 web 页面都会或多或少的包含一些 JavaScript，即使没有 JavaScript，你的浏览器也可能存在某种扩展类型向页面中注入一些 JavaScript 代码。在 2018，这些事情都不可避免。
 
-JavaScript can also be used outside the context of a browser, for anything from hosting a web server to controlling an RC car or running a full-fledged operating system. Sometimes you want a couple of servers to talk to each other, whether on a local network or over the internet.
+JavaScript 也可以用于浏览器的上下文之外的任何事情，从托管 web 服务器到 RC 汽车或运行成熟的操作系统。有时你想要几个一组无论是在本地网络还是在互联网上都可以相互交流的服务器。
 
-Today, I’ll show you how to create a REST API using Node.js, and secure it with OAuth 2.0 to prevent unwarranted requests. REST APIs are all over the web, but without the proper tools require a ton of boilerplate code. I’ll show you how to use a couple of amazing tools that make it all a breeze, including Okta to implement the Client Credentials Flow, which securely connects two machines together without the context of a user.
+今天，我会向你演示如何使用 Node.js 创建一个 REST API，并使用 OAuth 2.0 保证它的安全性，以此来阻止不必要的请求。REST API 在 web 上比比皆是，但如果没有合适的工具，就需要大量的样板代码。我会向你演示如何使用可以轻松实现客户端认证流的令人惊讶的一些工具，它可以在没有用户上下文的情况下将两台机器安全地连接。
 
-## Build Your Node Server
+## 构建你的 Node 服务器
 
-Setting up a web server in Node is quite simple using the [Express JavaScript library](https://expressjs.com/). Make a new folder that will contain your server.
+使用 [Express JavaScript 库](https://expressjs.com/) 在 Node 中设置 web 服务器非常简单。创建一个包含服务器的新文件夹。
 
 ```
 $ mkdir rest-api
 ```
 
-Node uses a `package.json` to manage dependencies and define your project. To create one, use `npm init`, which will ask you some questions to help you initialize the project. For now, you can use [standard JS](https://standardjs.com/) to enforce a coding standard, and use that as the tests.
+Node 使用 `package.json` 来管理依赖并定义你的项目。我们使用 `npm init` 来新建该文件。该命令会在帮助你初始化项目时询问你一些问题。现在你可以使用[标准 JS](https://standardjs.com/) 来强制执行编码标准，并将其用作测试。
 
 ```
 $ cd rest-api
 
 $ npm init
-This utility will walk you through creating a package.json file.
-It only covers the most common items, and tries to guess sensible defaults.
+这个实用工具将引导你创建 package.json 文件。
+它只涵盖最常见的项目，并试图猜测合理的默认值。
 
-See `npm help json` for definitive documentation on these fields
-and exactly what they do.
+请参阅 `npm help json` 
+来获取关于这些字段的确切文档以及它们所做的事情。
 
-Use `npm install <pkg>` afterwards to install a package and
-save it as a dependency in the package.json file.
+使用 `npm install <pkg>` 
+安装包并将其保存为 package.json 文件中的依赖项。
 
 Press ^C at any time to quit.
 package name: (rest-api)
@@ -64,7 +64,7 @@ About to write to /Users/Braden/code/rest-api/package.json:
 Is this OK? (yes)
 ```
 
-The default entry point is `index.js`, so you should create a new file by that name. The following code will get you a really basic server that doesn’t really do anything but listens on port 3000 by default.
+默认的入口端点是 `index.js`，因此你应该以此为名创建一个文件。下面的代码将为你提供一个出了默认监听 3000 端口以外什么也不做的非常基本的服务器。
 
 **index.js**
 
@@ -85,17 +85,17 @@ const startServer = async () => {
 startServer()
 ```
 
-The `promisify` function of `util` lets you take a function that expects a callback and instead will return a Promise, which is the new standard as far as handling asynchronous code. This also lets us use the relatively new `async`/`await` syntax and make our code look much prettier.
+`util` 的 `promisify` 函数允许你接受一个期望回调的函数，然后返回一个 promise，这是处理异步代码的新标准。这还允许我们使用相对较新的 `async`/`await` 语法，并使我们的代码看起来漂亮得多。
 
-In order for this to work, you need to install the dependencies that you `require` at the top of the file. Add them using `npm install`. This will automatically save some metadata to your `package.json` file and install them locally in a `node_modules` folder.
+为了让它运行，你需要在文件顶部下载你 `require` 的依赖。使用 `npm install` 来添加它们。这会将一些元数据自动保存到你的 `package.json` 文件中，并将它们下载到本地的 `node_modules` 文件中。
 
-**Note**: You should never commit `node_modules` to source control because it tends to become bloated quickly, and the `package-lock.json` file will keep track of the exact versions you used to that if you install this on another machine they get the same code.
+**注意**：你永远都不应该向源代码提交 `node_modules`，因为对于源代码的管理，往往会很快就变得臃肿，而 `package-lock.json` 文件将跟踪你使用的确切版本，如果你将其安装在另一台计算机上，它们将得到相同的代码。
 
 ```
 $ npm install express@4.16.3 util@0.11.0
 ```
 
-For some quick linting, install `standard` as a dev dependency, then run it to make sure your code is up to par.
+对于一些快速 linting，请安装 `standard` 作为 dev 依赖，然后运行它以确保你的代码达到标准。
 
 ```
 $ npm install --save-dev standard@11.0.1
@@ -105,7 +105,7 @@ $ npm test
 > standard
 ```
 
-If all is well, you shouldn’t see any output past the `> standard` line. If there’s an error, it might look like this:
+如果一切顺利，你不应该看到任何输出超过 `> standard` 线。如果有错误，可能如下所示：
 
 ```
 $ npm test
@@ -122,7 +122,7 @@ standard: Run `standard --fix` to automatically fix some problems.
 npm ERR! Test failed.  See above for more details.
 ```
 
-Now that your code is ready and you have installed your dependencies, you can run your server with `node .` (the `.` says to look at the current directory, and then checks your `package.json` file to see that the main file to use in this directory is `index.js`):
+现在，你的代码已经准备好了，也下载了所需的依赖，你可以用 `node .`（）运行服务器了。（`.` 表示查看前目录，然后检查你的 `package.json` 文件，以确定该目录中使用的主文件是 `index.js`）：
 
 ```
 $ node .
@@ -130,7 +130,7 @@ $ node .
 Listening on port 3000
 ```
 
-To test that it’s working, you can use the `curl` command. There are no endpoints yet, so express will return an error:
+为了测试它的工作状态，你可以使用 `curl` 命令。没有终结点，所以 Express 将返回一个错误：
 
 ```
 $ curl localhost:3000 -i
@@ -155,24 +155,24 @@ Connection: keep-alive
 </html>
 ```
 
-Even though it says it’s an error, that’s good. You haven’t set up any endpoints yet, so the only thing for Express to return is a 404 error. If your server wasn’t running at all, you’d get an error like this:
+即使它报错，那也是非常好的情况。你还没有设置任何端点，因此 Express 唯一要返回的是 404 错误。如果你的服务器根本没有运行，你将得到如下错误：
 
 ```
 $ curl localhost:3000 -i
 curl: (7) Failed to connect to localhost port 3000: Connection refused
 ```
 
-## Build Your REST API with Express, Sequelize, and Epilogue
+## 用 Express、Sequelize 和 Epilogue 构建你的 REST API
 
-Now that you have a working Express server, you can add a REST API. This is actually much simpler than you might think. The easiest way I’ve seen is by using [Sequelize](http://docs.sequelizejs.com/) to define your database schema, and [Epilogue](https://github.com/dchester/epilogue) to create some REST API endpoints with near-zero boilerplate.
+你现在有了一台正在运行的 Express 服务器，你可以添加一个 REST API。这实际上比你想象中的简单的多。我看过的最简单的方法是使用 [Sequelize](http://docs.sequelizejs.com/) 来定义数据库字段，[Epilogue](https://github.com/dchester/epilogue) 创建带有接近零样板的 REST API 端点。
 
-You’ll need to add those dependencies to your project. Sequelize also needs to know how to communicate with the database. For now, use SQLite as it will get us up and running quickly.
+你需要将这些依赖加入到你的项目中。Sequelize 也需要知道如何与数据库进行通信。现在，使用 SQLite 是因为它能帮助我们快速地启动和运行。
 
 ```
 npm install sequelize@4.38.0 epilogue@0.7.1 sqlite3@4.0.2
 ```
 
-Create a new file `database.js` with the following code. I’ll explain each part in more detail below.
+新建一个包含以下代码的文件 `database.js`。我会在下面详细解释每一部分。
 
 **database.js**
 
@@ -207,7 +207,7 @@ const initializeDatabase = async (app) => {
 module.exports = initializeDatabase
 ```
 
-Now you just need to import that file into your main app and run the initialization function. Make the following additions to your `index.js` file.
+你现在只需要将那些文件导入主应用程序并运行初始化函数即可。在你的 `index.js` 文件中添加以下内容。
 
 **index.js**
 
@@ -229,7 +229,7 @@ Now you just need to import that file into your main app and run the initializat
    console.log(`Listening on port ${port}`)
 ```
 
-You can now test for syntax errors and run the app if everything seems good:
+你现在可以测试语法错误，如果一切 看上去都正常了，就可以启动应用程序了：
 
 ```
 $ npm test && node .
@@ -243,7 +243,7 @@ Executing (default): PRAGMA INDEX_LIST(`parts`)
 Listening on port 3000
 ```
 
-In another terminal, you can test that this is actually working (to format the JSON response I use a [json CLI](https://github.com/trentm/json), installed globally using `npm install --global json`):
+在另一个终端，你可以测试它是否实际上已经在工作了（我使用 [json CLI](https://github.com/trentm/json) 来格式化 JSON 响应，使用 `npm install --global json` 进行全局安装）：
 
 ```
 $ curl localhost:3000/parts
@@ -279,11 +279,11 @@ $ curl localhost:3000/parts -s0 | json
 ]
 ```
 
-### What’s Going On Here?
+### 这里发生了什么？
 
-Feel free to skip this section if you followed along with all that, but I did promise an explanation.
+如果你之前一直是按照我们的步骤来的，那么是可以跳过这部分的，因为这部分是我之前承诺过要给出的解释。
 
-The `Sequelize` function creates a database. This is where you configure details, such as what dialect of SQL to use. For now, use SQLite to get up and running quickly.
+`Sequelize` 函数创建了一个数据库。这是配置详细信息的地方，例如要使用 SQL 语句。现在，使用 SQLite 来快速启动和运行。
 
 ```
 const database = new Sequelize({
@@ -293,7 +293,7 @@ const database = new Sequelize({
 })
 ```
 
-Once you’ve created the database, you can define the schema for it using `database.define` for each table. Create a table called `parts` with a few useful fields to keep track of parts. By default, Sequelize also automatically creates and updates `id`, `createdAt`, and `updatedAt` fields when you create or update a row.
+一旦创建了数据库，你就可以为每个表使用 `database.define` 来定义它的表。用一些有用的字段创建叫做 `parts` 的表来进跟踪 parts。默认情况下，Sequelize 还会在创建和更新时自动创建和更新 `id`、`createdAt` 和 `updatedAt` 字段。
 
 ```
 const Part = database.define('parts', {
@@ -304,13 +304,13 @@ const Part = database.define('parts', {
 })
 ```
 
-Epilogue requires access to your Express `app` in order to add endpoints. However, `app` is defined in another file. One way to deal with this is to export a function that takes the app and does something with it. In the other file when we import this script, you would run it like `initializeDatabase(app)`.
+结语为了添加端点会请求获取你的 Express `app` 访问权限。但 `app` 被定义在另一个文件中。处理这个问题的一个方法就是导出一个函数，该函数接受应用程序并对其进行一些操作。当我们在另一个文件中导入这个脚本时，你可以像运行 `initializeDatabase(app)` 一样运行它。
 
-Epilogue needs to initialize with both the `app` and the `database`. You then define which REST endpoints you would like to use. The `resource` function will include endpoints for the `GET`, `POST`, `PUT`, and `DELETE` verbs, mostly automagically.
+结语需要同时使用 `app` 和 `database` 来初始化。软化定义你需要使用的 REST 端点。`resource` 函数会包括 `GET`、`POST`、`PUT` 和 `DELETE` 动词的端点，这些动词大多数是自动化的。
 
-To actually create the database, you need to run `database.sync()`, which returns a Promise. You’ll want to wait until it’s finished before starting your server.
+想真正创建数据库，你需要运行返回一个 promise 的 `database.sync()`。在你启动服务器之前，你需要等待它执行结束。
 
-The `module.exports` command says that the `initializeDatabase` function can be imported from another file.
+`module.exports` 意思是 `initializeDatabase` 函数可以从另一个函数中导入。
 
 ```
 const initializeDatabase = async (app) => {
@@ -327,34 +327,34 @@ const initializeDatabase = async (app) => {
 module.exports = initializeDatabase
 ```
 
-## Secure Your Node + Express REST API with OAuth 2.0
+## 用 OAuth 2.0 保护你的 Node + Express REST API
 
-Now that you have a REST API up and running, imagine you’d like a specific application to use this from a remote location. If you host this on the internet as is, then anybody can add, modify, or remove parts at their will.
+现在你已经启动并运行了 REST API，想象你希望一个特定的应用程序从远程位置使用这个 API。如果你把它按照原样存放在互联网上，那么任何人都可以随意添加、修改或删除部位。
 
-To avoid this, you can use the OAuth 2.0 Client Credentials Flow. This is a way of letting two servers communicate with each other, without the context of a user. The two servers must agree ahead of time to use a third-party authorization server. Assume there are two servers, A and B, and an authorization server. Server A is hosting the REST API, and Server B would like to access the API.
+为了避免这个情况，你可以使用 OAuth 2.0 客户端凭据流。这是一种不需要上下文就可以让两个服务器相互通信的方式。这两个服务器必须事先同意使用第三方授权服务器。假设有两个服务器，A 和 B，以及一个接权服务器。服务器 A 托管 REST API，服务器 B 希望访问该 API。
 
-*   Server B sends a secret key to the authorization server to prove who they are and asks for a temporary token.
-*   Server B then consumes the REST API as usual but sends the token along with the request.
-*   Server A asks the authorization server for some metadata that can be used to verify tokens.
-*   Server A verifies the Server B’s request.
-    *   If it’s valid, a successful response is sent and Server B is happy.
-    *   If the token is invalid, an error message is sent instead, and no sensitive information is leaked.
+*   服务器 B 向授权服务器发送一个私钥来证明自己的身份，并申请一个临时令牌。
+*   服务器 B 会向往常一样使用 REST API，但会将令牌与请求一起发送。
+*   服务器 A 向授权服务器请求一些元数据，这些元数据可用于验证令牌。
+*   服务器 A 验证服务器 B 的请求。
+    *   如果它是有效的，一个成功的响应将被发送并且服务器 B 正常运行。
+    *   如果令牌无效，则将发送错误消息，并且不会泄露敏感信息。
 
-### Create an Authorization Server
+### 创建授权服务器
 
-This is where Okta comes into play. Okta can act as an authorization server to allow you to secure your data. You’re probably asking yourself “Why Okta? Well, it’s pretty cool to build a REST app, but it’s even cooler to build a _secure_ one. To achieve that, you’ll want to add authentication so users have to log in before viewing/modifying groups. At Okta, our goal is to make [identity management](https://developer.okta.com/product/user-management/) a lot easier, more secure, and more scalable than what you’re used to. Okta is a cloud service that allows developers to create, edit, and securely store user accounts and user account data, and connect them with one or multiple applications. Our API enables you to:
+这就是 OKta 发挥作用的地方。OKta 可以扮演允许你保护数据的服务器的角色。你可能会问自己“为什么是 OKta？”好的，对于构建 REST 应用程序来说，它非常的酷，但是构建一个**安全**的应用程序会更酷。为了实现这个目标，你需要添加身份验证，以便用户在查看/修改组之前必须要登录才可以。在 Okta 中，我们的目标是确保[身份管理](https://developer.okta.com/product/user-management/)比你过去使用的要更容易、更安全、更可扩展。Okta 是一种云服务，它允许开发者创建、编辑和安全存储用户账户以及用户账户数据，并将它们与一个或多个应用程序连接。我们的 API 允许你：
 
-*   [Authenticate](https://developer.okta.com/product/authentication/) and [authorize](https://developer.okta.com/product/authorization/) your users
-*   Store data about your users
-*   Perform password-based and [social login](https://developer.okta.com/authentication-guide/social-login/)
-*   Secure your application with [multi-factor authentication](https://developer.okta.com/use_cases/mfa/)
-*   And much more! Check out our [product documentation](https://developer.okta.com/documentation/)
+*   [验证](https://developer.okta.com/product/authentication/) 并 [授权](https://developer.okta.com/product/authorization/) 你的用户
+*   存储关于用户的数据
+*   允许基于密码和[社交的登录方式](https://developer.okta.com/authentication-guide/social-login/)
+*   使用[多个代理身份验证](https://developer.okta.com/use_cases/mfa/)来保护你的应用程序
+*   还有更多！查看我们的[产品文档](https://developer.okta.com/documentation/)
 
-If you don’t already have one, [sign up for a forever-free developer account](https://developer.okta.com/signup/), and let’s get started!
+如果你还没有账户，[可以注册一个永久免费的开发者账号](https://developer.okta.com/signup/)，让我们开始吧！
 
-After creating your account, log in to your developer console, navigate to **API**, then to the **Authorization Servers** tab. Click on the link to your `default` server.
+创建账户后，登录到开发者控制台，导航到 **API**，然后导航到 **Authorization Servers** 选项卡。单击 `default` 服务器的链接。
 
-From this **Settings** tab, copy the `Issuer` field. You’ll need to save this somewhere that your Node app can read. In your project, create a file named `.env` that looks like this:
+从这个 **Settings** 选项卡中，复制 `Issuer` 字段。你需要把它保存在你的 Node 应用程序可以阅读的地方。在你的项目中，创建一个名为 `.env` 的文件，如下所示：
 
 **.env**
 
@@ -362,17 +362,17 @@ From this **Settings** tab, copy the `Issuer` field. You’ll need to save this 
 ISSUER=https://{yourOktaDomain}/oauth2/default
 ```
 
-The value for `ISSUER` should be the value from the Settings page’s `Issuer URI` field.
+`ISSUER` 的值应该是设置页面的 `Issuer URI` 字段的值。
 
-![Higlighting the issuer URL.](/assets/blog/rest-api-node/issuer-afa0da4b4f632196092a4da8f243f3bec37615602dc5b62e8e34546fd1018333.png)
+![高亮 issuer URL。](/assets/blog/rest-api-node/issuer-afa0da4b4f632196092a4da8f243f3bec37615602dc5b62e8e34546fd1018333.png)
 
-**Note**: As a general rule, you should not store this `.env` file in source control. This allows multiple projects to use the same source code without needing a separate fork. It also makes sure that your secure information is not public (especially if you’re publishing your code as open source).
+**注意**：一般规则是，你不应该将 `.env` 文件存储在源代码管理中。这允许多个项目同时使用相同的源代码，而不是需要单独的分支。它确保你的安全信息不会被公开（特备是如果你将代码作为开源发布时）。
 
-Next, navigate to the **Scopes** tab. Click the **Add Scope** button and create a scope for your REST API. You’ll need to give it a name (e.g. `parts_manager`) and you can give it a description if you like.
+接下来，导航到 **Scopes** 菜单。单击 **Add Scope** 按钮，然后为 REST API 创建一个作用域。你需要给一个名称（例如，`parts_manager`），如果你愿意，还可以给它一个描述。
 
-![Add scope screenshot.](/assets/blog/rest-api-node/adding-scope-f3ecb3b4eec06d616a130400245843c0de2dd52a54b2fdcff7449a10a2ce75ed.png)
+![添加范围的截图](/assets/blog/rest-api-node/adding-scope-f3ecb3b4eec06d616a130400245843c0de2dd52a54b2fdcff7449a10a2ce75ed.png)
 
-You should add the scope name to your `.env` file as well so your code can access it.
+你还应该将作用域添加到你的 `.env` 文件中，以便你的代码可以访问到它。
 
 **.env**
 
@@ -381,26 +381,26 @@ ISSUER=https://{yourOktaDomain}/oauth2/default
 SCOPE=parts_manager
 ```
 
-Now you need to create a client. Navigate to **Applications**, then click **Add Application**. Select **Service**, then click **Next**. Enter a name for your service, (e.g. `Parts Manager`), then click **Done**.
+你现在需要创建一个客户端。导航到  **Applications**，然后单击 **Add Application**。选择 **Service**，然后单击 **Next**。输入服务名（例如 `Parts Manager`）然后单击 **Done**。
 
-This will take you to a page that has your client credentials. These are the credentials that Server B (the one that will consume the REST API) will need in order to authenticate. For this example, the client and server code will be in the same repository, so go ahead and add this data to your `.env` file. Make sure to replace `{yourClientId}` and `{yourClientSecret}` with the values from this page.
+这将带你到具体的客户凭据的页面。这些是服务器 B （将消耗 REST API 的服务器）为了进行身份验证所需要的凭据。在本例中，客户端和服务器代码位于同一存储库中，因此继续将这些数据添加到你的 `.env` 文件中。请确保将 `{yourClientId}` 和 `{yourClientSecret}` 替换为此页面中的值。
 
 ```
 CLIENT_ID={yourClientId}
 CLIENT_SECRET={yourClientSecret}
 ```
 
-### Create Middleware to Verify Tokens in Express
+### 创建中间件来验证 Express 中的令牌
 
-In Express, you can add middleware that will run before each endpoint. You can then add metadata, set headers, log some information, or even cancel the request early and send an error message. In this case, you’ll want to create some middleware that verifies the token sent by the client. If the token is valid, it will continue to the REST API and return the appropriate response. If the token is invalid, it will instead respond with an error message so that only authorized machines have access.
+在 Express 中，你可以添加将在每个端点之前运行的中间件。然后可以添加元数据，设置报头，记录一些信息，甚至可以提前取消请求并发送错误消息。在本例中，你需要创建一些中间件来验证客户端发送的令牌。如果令牌是有效的，它会被送达至 REST API 并返回适当的响应。如果令牌无效，它将使用错误消息进行响应，这样只有授权的机器才能访问。
 
-To validate tokens, you can use Okta’s middleware. You’ll also need a tool called [dotenv](https://github.com/motdotla/dotenv) to load the environment variables:
+想要验证令牌，你尅使用 OKta 的中间件。你还需要一个叫做 [dotenv](https://github.com/motdotla/dotenv) 的工具来加载环境变量：
 
 ```
 npm install dotenv@6.0.0 @okta/jwt-verifier@0.0.12
 ```
 
-Now create a file named `auth.js` that will export the middleware:
+现在创建一个叫做 `auth.js` 的文件，它可以导出中间件：
 
 **auth.js**
 
@@ -428,11 +428,11 @@ module.exports = async (req, res, next) => {
 }
 ```
 
-This function first checks that the `authorization` header is on the request and throws an error otherwise. If it exists, it should look like `Bearer {token}` where `{token}` is a [JWT](https://www.jsonwebtoken.io/) string. This will throw another error if the header doesn’t start with `Bearer` . Then we send the token to [Okta’s JWT Verifier](https://github.com/okta/okta-oidc-js/tree/master/packages/jwt-verifier) to validate the token. If the token is invalid, the JWT verifier will throw an error. Otherwise, it will return an object with some information. You can then verify that the claims include the scope that you’re expecting.
+函数首先会检查 `authorization` 报头是否在该请求中，然后抛出一个错误。如果存在，它应该类似于 `Bearer {token}`，其中 `{token}` 是一个 [JWT](https://www.jsonwebtoken.io/) 字符串。如果报头不是以 `Bearer` 开头，则会引发另一个错误。然后我们将令牌发送到 [Okta 的 JWT 验证器](https://github.com/okta/okta-oidc-js/tree/master/packages/jwt-verifier) 来验证令牌。如果令牌无效，JWT 验证器将抛出一个错误，否则，它将返回一个带有一些信息的对象。然后你可以验证要求是否包含你期望的范围。
 
-If everything is successful, it calls the `next()` function without any parameters, which tells Express that it’s OK to move on to the next function in the chain (either another middleware or the final endpoint). If you pass a string into the `next` function, Express treats it as an error that will be passed back to the client, and will not proceed in the chain.
+如果一切顺利，它就会以无参的形式调用 `next()` 函数，这将告诉 Express 可以转到链中的下一个函数（另一个中间件或最终端点）。如果将字符串传递给 `next` 函数，那么 Express 将其视为将被传回客户端的错误，并且不会在链中继续。
 
-You still need to import this function and add it as middleware to your app. You also need to load `dotenv` at the top of your index file to make sure that the environment variables from `.env` are loaded in your app. Make the following changes to `index.js`:
+你仍然需要导入这个函数并将其作为中间件添加到应用程序中。你还需要在索引文件的顶部加载 `dotenv`，以确保 `.env` 中的环境变量加载到你的应用程序中。对 `index.js` 作以下更改：
 
 **index.js**
 
@@ -454,15 +454,15 @@ You still need to import this function and add it as middleware to your app. You
    await initializeDatabase(app)
 ```
 
-To test that requests are properly blocked, try running it again…
+如果测试请求是否被正确阻止，请尝试再次运行。。。
 
 ```
 $ npm test && node .
 ```
 
-…then in another terminal run a few `curl` commands to test for:
+然后在另一个终端上运行一些 `curl` 命令来进行检测：
 
-1.  An authorization header is required
+1.  授权报头是否在请求之中
 
 ```
 $ curl localhost:3000/parts
@@ -478,7 +478,7 @@ $ curl localhost:3000/parts
 </html>
 ```
 
-2.  A Bearer token is required in the authorization header
+2.  在授权请求的报头中是否有 Bearer 令牌
 
 ```
 $ curl localhost:3000/parts -H 'Authorization: Basic asdf:1234'
@@ -494,7 +494,7 @@ $ curl localhost:3000/parts -H 'Authorization: Basic asdf:1234'
 </html>
 ```
 
-3.  The Bearer token is valid
+3.  Bearer 令牌是否有效
 
 ```
 $ curl localhost:3000/parts -H 'Authorization: Bearer asdf'
@@ -510,9 +510,9 @@ $ curl localhost:3000/parts -H 'Authorization: Bearer asdf'
 </html>
 ```
 
-### Create a Test Client in Node
+### 在 Node 中创建一个测试客户端
 
-You have now disabled access to the app for someone without a valid token, but how do you get a token and use it? I’ll show you how to write a simple client in Node, which will also help you test that a valid token works.
+你现在已经禁止没有有效令牌的人访问应用程序，但如何获取令牌并使用它呢？我会向你演示如何在 Node 中编写一个简单的客户端，这也将帮助你测试一个有效令牌的工作。
 
 ```
 npm install btoa@1.2.1 request-promise@4.2.2
@@ -567,7 +567,7 @@ const sendAPIRequest = async () => {
 sendAPIRequest()
 ```
 
-Here the code is loading the variables from `.env` into the environment, then grabbing them from Node. Node stores environment variables in `process.env` (`process` is a global variable with a bunch of useful variables and functions).
+这里，代码将 `.env` 中的变量加载到环境中，然后从 Node 中获取它们。节点将环境变量存储在 `process.env`（`process` 是一个具有大量有用变量和函数的全局变量）。
 
 ```
 require('dotenv').config()
@@ -576,9 +576,9 @@ const { ISSUER, CLIENT_ID, CLIENT_SECRET, SCOPE } = process.env
 // ...
 ```
 
-Next, since this will be run from the command line, you can use `process` again to grab the arguments passed in with `process.argv`. This gives you an array with all the arguments passed in. The first two commas are there without variable names in front of them because the first two are unimportant in this case; those will just be the path to `node`, and the name of the script (`client` or `client.js`).
+接下来，由于这将从命令行运行，所以你可以再次使用 `process` 来获取与 `process.argv` 一起传入的参数。这将为你提供一个数组，其中包含传入的所有参数。前两个逗号前面没有任何变量名称，因为在本例中前两个不重要；他们只是通向 `node` 的路径，以及脚本的名称（`client` 或者 `client.js`）。
 
-The URL is required, which would include the endpoint, but the method and JSON data are optional. The default method is `GET`, so if you’re just fetching data you can leave that out. You also wouldn’t need any payload in that case. If the arguments don’t seem right, then this will exit the program with an error message and an exit code of `1`, signifying an error.
+URL 是必须的，它包括端点，但是方法和 JSON 数据是可选的。默认的方法是 `GET`，因此如果你只是获取数据，就可以忽略它。在这种情况下，你也不需要任何有效负载。如果参数看起来不正确，那么这将使用错误消息和退出代码 `1` 退出程序，这表示错误。
 
 ```
 const [,, uri, method, body] = process.argv
@@ -588,9 +588,9 @@ if (!uri) {
 }
 ```
 
-Node currently doesn’t allow for `await` in the main thread, so to make use of the cleaner `async`/`await` syntax, you have to create a function and then call it afterward.
+Node 当前不允许在主线程中使用 `await`，因此要使用更干净的 `async`/`await` 语法，你必须创建一个函数，然后调用它。
 
-If an error occurs in any of the `await`ed functions, the `try`/`catch` they’ll be printed out to the screen.
+如果在任何一个 `await` 函数中发生错误，那么屏幕上就会打印出 `try`/`catch`。
 
 ```
 const sendAPIRequest = async () => {
@@ -604,11 +604,11 @@ const sendAPIRequest = async () => {
 sendAPIRequest()
 ```
 
-This is where the client sends a request to the authorization server for a token. For authorizing with the authorization server itself, you need to use Basic Auth. Basic Auth is the same thing a browser uses when you get one of those built-in pop-ups asking for a username and password. Say your username is `AzureDiamond` and your password is `hunter2`. Your browser would then concatenate them together with a colon (`:`) and then encode them with base64 (this is what the `btoa` function does) to get `QXp1cmVEaWFtb25kOmh1bnRlcjI=`. It then sends an authorization header of `Basic QXp1cmVEaWFtb25kOmh1bnRlcjI=`. The server can then decode the token with base64 to get the username and password.
+这是客户端向授权服务器发送令牌请求的地方。对于授权服务器本身的授权，你需要使用 Basic Auth。当你得到一个内置弹出要求用户名和密码时，基本认证是浏览器使用相同的行为。假设你的用户名是 `AzureDiamond` 并且你的密码是 `hunter2`。你的浏览器就会将它们用 （`:`） 连起来，然后 base64（这就是 `btoa` 函数的功能）对它们进行编码，来获取 `QXp1cmVEaWFtb25kOmh1bnRlcjI=`。然后它发送一个授权报头 `Basic QXp1cmVEaWFtb25kOmh1bnRlcjI=`。服务器可以用 base64 对令牌进行解码，以获取用户名和密码。
 
-Basic authorization isn’t inherently secure because it’s so easy to decode, which is why `https` is important, to prevent a man-in-the-middle attack. Here, the client ID and client secret are the username and password, respectively. That’s also why it’s important to keep your `CLIENT_ID` and `CLIENT_SECRET` private.
+基础授权本身并不安全，因为它很容易被破解，这就是为什么 `https` 对于中间人攻击很重要。在这里，客户端 ID 和客户端密钥分别是用户名和密码。这也是为什么必须保证 `CLIENT_ID` 和 `CLIENT_SECRET` 是私有的原因。
 
-For OAuth 2.0, you also need to specify the grant type, which in this case is `client_credentials` since you’re planning to talk between two machines. You also need to specify the scope. There are a lot of other options that could be added here, but this is all we need for this demo.
+对于 OAuth 2.0，你还需要制定授权类型，在本例中为 `client_credentials`，因为你计划在两台机器之间进行对话。你还要指定作用域。还有需要其他选项需要在这里进行添加，但这是我们这个示例所需要的所有选项。
 
 ```
 const token = btoa(`${CLIENT_ID}:${CLIENT_SECRET}`)
@@ -626,9 +626,9 @@ const auth = await request({
 })
 ```
 
-Once you’re authenticated, you’ll get an access token that you can send along to your REST API that should look something like `Bearer eyJra...HboUg` (the actual token is much longer than that – likely somewhere around 800 characters). The token contains all the information needed for the REST API to verify who you are, when the token will expire, and all kinds of other information, like the scopes requested, the issuer, and the client ID used to request the token.
+一旦你通过验证，你就会得到一个访问令牌，你可以将其发送到 REST API，改令牌应该类似于 `Bearer eyJra...HboUg`（实际令牌要长的多 —— 可能在 800 个字符左右）。令牌包含 REST API 需要的所有信息，可以验证令牌的失效时间以及各种其他信息，像请求作用域、发出者和用于令牌的客户端 ID。
 
-The response from the REST API is then printed to the screen.
+来自 REST API 的响应就会打印在屏幕上。
 
 ```
 const response = await request({
@@ -643,7 +643,7 @@ const response = await request({
 console.log(response)
 ```
 
-Go ahead and test it out now. Again, start the app with `npm test && node .`, then try out some commands like the following:
+现在就尝试一下。同样，用 `npm test && node .` 启动你的应用程序，然后尝试一些像下面的命令：
 
 ```
 $ node client http://localhost:3000/parts | json
@@ -714,17 +714,17 @@ $ node client http://localhost:3000/parts | json
 ]
 ```
 
-## Learn More About Node and OAuth 2.0 Client Credentials with Okta
+## 了解更多关于 Okta 的 Node 和 OAuth 2.0 客户端凭据的更多信息
 
-Hopefully you’ve seen how easy it is to create a REST API in Node and secure it from unauthorized users. Now that you’ve had a chance to make your own sample project, check out some of these other great resources about Node, OAuth 2.0, and Okta. You can also browse the Okta developer blog for other excellent articles.
+希望你已经看到了在 Node 中创建 REST API 并对未经授权的用户进行安全保护是多么容易的。现在，你已经有机会创建自己的示例项目了，请查看有关 Node、OAuth 2.0 和 Okta 的其他一些优秀资源。你还可以浏览 Okta 开发者博客，以获取其他优秀文章。
 
-*   [Implementing the Client Credentials Flow](https://developer.okta.com/authentication-guide/implementing-authentication/client-creds)
-*   [Validating Access Tokens](https://developer.okta.com/authentication-guide/tokens/validating-access-tokens)
-*   [Customizing Your Authorization Server](https://developer.okta.com/authentication-guide/implementing-authentication/set-up-authz-server)
-*   [Tutorial: Build a Basic CRUD App with Node.js](/blog/2018/06/28/tutorial-build-a-basic-crud-app-with-node)
-*   [Secure a Node API with OAuth 2.0 Client Credentials](/blog/2018/06/06/node-api-oauth-client-credentials)
+*   [客户端证书流的实现](https://developer.okta.com/authentication-guide/implementing-authentication/client-creds)
+*   [验证访问令牌](https://developer.okta.com/authentication-guide/tokens/validating-access-tokens)
+*   [自定义授权服务器](https://developer.okta.com/authentication-guide/implementing-authentication/set-up-authz-server)
+*   [教程：用 Node.js 构建一个基本的 CRUD App](/blog/2018/06/28/tutorial-build-a-basic-crud-app-with-node)
+*   [使用 OAuth 2.0 客户端证书保护 Node API](/blog/2018/06/06/node-api-oauth-client-credentials)
 
-As always, you can hit us up in the comments below with feedback or questions, or on Twitter [@oktadev](https://twitter.com/OktaDev). We look forward to hearing from you!
+和以前一样，你可以在下面的评论中或在 Twitter [@oktadev](https://twitter.com/OktaDev) 给我们提供反馈或者提问，我们期待收到你的来信！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
