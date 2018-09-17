@@ -19,7 +19,7 @@ React 16.5 添加了对新的 profiler DevTools 插件的支持。 这个插件�
     *   [火焰图](#火焰图)
     *   [排序图](#排序图)
     *   [Component 图](#Component-图)
-    *   [交互动作 ( Interactions )](交互动作-( Interactions ))
+    *   [交互动作（Interactions）](交互动作-（Interactions）)
 *   [常见问题 & 解决方法](#常见问题-&-解决方法)
   
     *   [你所选择的根元素下没有 profile 数据被记录](#你所选择的根元素下没有-profile-数据被记录)
