@@ -64,7 +64,6 @@ Modal 容器
 ![](https://cdn-images-1.medium.com/max/800/1*D3xwDmwtLh7xtP1hRyldGw.png)
 
 Modal Portal
-模式 Portal
 
 模式 Portal 可以附着和脱离 `modal-root` 元素。有了它，我就可以创建 `Theme` 组件，这个组件拥有可以选择不同主题的菜单。
 

@@ -2,7 +2,7 @@
 > * 原文作者：[Sukhjinder Arora](https://blog.bitsrc.io/@Sukhjinder?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-execution-context-and-execution-stack-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-execution-context-and-execution-stack-in-javascript.md)
-> * 译者：
+> * 译者：[CoolRice](https://github.com/CoolRice)
 > * 校对者：
 
 # 理解 JavaScript 中的执行上下文和执行栈
