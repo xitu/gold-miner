@@ -2,135 +2,135 @@
 > * 原文作者：[Pam Baker](https://uk.pcmag.com/u/pam-baker)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-best-database-as-a-service-solutions-of-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-best-database-as-a-service-solutions-of-2018.md)
-> * 译者：
+> * 译者：[cf020031308](https://github.com/cf020031308)
 > * 校对者：
 
-# The Best Database-as-a-Service Solutions of 2018
+# 2018 年度最佳数据库即服务解决方案
 
-Databases power everything from apps to workflows, and the best way to deploy these data engines for most businesses is via a Database-as-a-Service (DBaaS) that combines cost savings with cutting-edge power. Check out our reviews of top DBaaS solutions to pick the best your business.
+从应用程序到工作流，随处都有数据库的用武之地，而为大多数企业部署这些数据引擎的最佳方式便是成本低廉且功能先进的数据库即服务（DBaaS）。这里我们调研了一些顶级 DBaaS 解决方案供您参考，您可根据自身业务选择其中最合适的。
 
 ![](https://i.loli.net/2018/09/09/5b94c0c4b03e9.png)
 
-## What Is Database-as-a-Service (DBaaS)?
+## 什么是数据库即服务（DBaaS）？
 
-Database-as-a-Service (DBaaS) is the term for database storage and services in the cloud. It has many of the benefits and disadvantages common to other services in the cloud, such as better cost controls on the one hand but more limited features than the on-premises alternative on the other hand. However, it also doubles as engine-style software that powers a large array of other Software-as-a-Service (SaaS) apps, everything from directly-related [data visualization](https://uk.pcmag.com/cloud-services/83744/guide/the-best-data-visualization-tools-of-2018) tools to organization-spanning [enterprise resource planning](https://uk.pcmag.com/cloud-services/83146/guide/the-best-erp-software-for-2018) (ERP) platforms. But DBaaS is also a solution unto itself with pros and cons unique to [database](https://www.pcmag.com/encyclopedia/term/40871/database) functionalities.
+数据库即服务（DBaaS）是云上数据库存储和服务的术语。它具有许多其他云服务常见的优缺点，例如一方面是更好的成本控制，另一方面是比内部替代方案更有限的功能。不同的是，它可兼作引擎式软件，支持从直接相关的[数据可视化](https://uk.pcmag.com/cloud-services/83744/guide/the-best-data-visualization-tools-of-2018)工具到整个组织的[企业资源规划](https://uk.pcmag.com/cloud-services/83146/guide/the-best-erp-software-for-2018)（ERP）平台的大量其他软件即服务（SaaS）应用。同时 DBaaS 这种解决方案仍继承着[数据库](https://www.pcmag.com/encyclopedia/term/40871/database)功能所特有的优缺点。
 
-Benefits of DBaaS include lower entry barriers, greater access to technologies that were previously only in reach for large enterprises, and digitally native use cases such as [Internet of Things](https://uk.pcmag.com/feature/88407/how-to-build-a-business-ready-internet-of-things-use-cases) (IoT) data streaming, [machine learning](https://uk.pcmag.com/feature/89094/the-business-guide-to-machine-learning) (ML) training, and hybrid applications such as an adjunct to computing on the edge.
+DBaaS 的好处之一是令之前只能用于大型企业的技术更易使用，也降低了数字时代特有用例的准入门槛，例如[物联网](https://uk.pcmag.com/feature/88407/how-to-build-a-business-ready-internet-of-things-use-cases)（IoT）数据流、[机器学习](https://uk.pcmag.com/feature/89094/the-business-guide-to-machine-learning)（ML）数据训练，以及辅助边缘计算的混合应用等。
 
-Disadvantages of DBaaS include the general rigidity of databases, the complexity of data science, inflexibilities in integrations, network performance issues, and the complexity that comes with large data transfers. All of these limitations can lead to the real need for assistance from a [database administrator](https://www.pcmag.com/encyclopedia/term/40873/database-administrator) (DBA) despite the claims of many DBaaS vendors that their platforms are self-service and user-friendly.
+DBaaS 的缺点包括数据库的普遍僵化、数据科学的复杂性、集成的不灵活性、网络性能问题以及大数据传输带来的复杂性。这些限制可能导致不得不需要[数据库管理员](https://www.pcmag.com/encyclopedia/term/40873/database-administrator)（DBA）的帮助，尽管许多 DBaaS 供应商声称他们的平台是可自助服务且对用户友好的。
 
-The bottom line is that data science isn't easy, even if the database spin-up and configuration is automated as it is to one degree or another in DBaaS offerings. But there are DBaaS products and services that are easier to use than others, and some are certainly well within the powers of average developers and business analysts.
+重要的是，哪怕 DBaaS 产品中数据库的启动和配置已有一定程度的自动化，数据科学仍不容易。但多种 DBaaS 产品和服务中，有的比其他的更易用，即使普通开发者和业务分析师也足以胜任。
 
-I conducted the reviews in this roundup from the perspective of developers and analysts, and to a lesser degree, small to midsize businesses (SMBs) with few internal IT resources. The goal of this project was not to identify superiority from a strictly technical perspective, but to identify how well a typical user is likely to be able to use the service, without the aid of a DBA, while still retaining the technology's full benefit. If the reviews were done based on technical aspects alone, then the vendor rankings might have been different.
+我从开发者和分析师的角度做了这个总结，因此这对于内部 IT 资源很少的中小型企业（SMB）也有借鉴意义。这个总结的目的不是要从严格的技术角度排出谁优谁劣，而是确定一个普通用户在没有 DBA 的帮助下可以将该服务使用到何种程度，同时仍保留该技术的全部优势。如果仅考虑技术方面，那么供应商排名可能会有所不同。
 
-## What 'Easy to Use' Really Means in a DBaaS
+## 在 DBaaS 中“易于使用”意味着什么
 
-As with any other SaaS offering, DBaaS is actually software on someone else's servers. That's true even in the unfortunately named "serverless" models. The "easy to use" consideration here applies to more than just whether or not the [user interface](https://www.pcmag.com/encyclopedia/term/53558/user-interface) is user-friendly, but also to the following:
+与任何其他 SaaS 产品一样，DBaaS 实际上是其他人服务器上的软件。即使在不幸名为“无服务器”的模型中也是如此。本文的“易于使用”不仅调研[用户界面](https://www.pcmag.com/encyclopedia/term/53558/user-interface)是否对用户友好，还涉及以下方面：
 
-1.  Whether guidance is offered on which database type or engine fits the data or workload,
-2.  How easy it is to load and transfer data,
-3.  How much of the server provisioning and service configuration is handled by ML and automation, and,
-4.  How much of the backup and recovery process is automatic.
+1. 是否提供指导，帮助用户根据自身数据或工作量选择合适的数据库类型或引擎，
+2. 加载和传输数据的容易程度，
+3. 服务器硬件配置和服务配置项的智能程度，以及
+4. 备份和恢复过程的自动化程度。
 
-If the user must make a long list of decisions simply to configure the database, then it's not really easy to use for non-DBAs no matter how many pull-down menus and explanation boxes the UI has. However, it could be easy for DBAs to use and that's fine, too, but for other purposes and a different kind of review. In other words, for a DBaaS to be a strong self-service platform, it needs to eliminate the need for a DBA to be hands-on with every little user interaction.
+如果用户单是配置数据库就得做出一长串决策，那么无论 UI 上有多少下拉菜单和说明框，它对于非 DBA 人士来说就都不算易用。然而对 DBA 来说，无论哪种都算易用，那么出于不同目的也许换个面貌也很好。换句话说，为了使 DBaaS 成为一个强大的自助服务平台，它需要在每一个实际交互细节上消除对 DBA 的需求。
 
-On the other hand, if it is to be an alternative or hybrid add-on to an on-premises database or even a company's primary database (as is often the case with cloud-native companies), then being easy for DBAs to use and monitor should be the primary considerations. For example, if your company has been running an instance of Microsoft's SQL Server on-premises for some years, and now opts to add an instance of Microsoft's Azure SQL Database as a cloud-based backup repository, then most of your end-users will never need to touch that instance. In the same vein, if the database's primary task will be to power another app or workflow, then, again, users won't often need to interact with it directly. After all, once a database is up and running, users can employ tools such as [business intelligence](https://uk.pcmag.com/cloud-services/74173/guide/the-best-self-service-business-intelligence-bi-tools-of-2018) (BI), developer, and [DevOps](https://www.pcmag.com/encyclopedia/term/66383/devops) apps to do the work they're really interested in. The database remains in the background for most of these scenarios, and even advanced users other than the DBA will rarely need to touch it.
+另一方面，如果它是已有数据库的备份，或是混合数据库的一部分，甚至是公司主数据库（云时代的公司通常是这种情况），那么是否利于 DBA 使用和监控就应该是要考虑的首要因素。例如，如果您的公司多年来一直在本地运行 Microsoft SQL Server 实例，而现在选择添加一个 Microsoft Azure SQL 数据库实例作为云上备份，则大多数最终用户将永远用不到这个实例。同样，如果数据库的主要任务是支持另一个应用程序或工作流，那么用户通常不需要直接与其进行交互。毕竟，一旦数据库启动并运行，用户就可以借助[商业智能](https://uk.pcmag.com/cloud-services/74173/guide/the-best-self-service-business-intelligence-bi-tools-of-2018)（BI）、开发者和 [DevOps](https://www.pcmag.com/encyclopedia/term/66383/devops) 应用程序等工具来完成他们真正感兴趣的工作。大多数情况下，数据库仍处于后台，不是 DBA 的话很少需要碰它，即使是高级用户。
 
-That said, ease of use in this review roundup includes the entire spectrum of services offered. The service lets developers, analysts, and the occasional SMB general tech person spin up databases on the fly, with few instructions and little more on hand than a credit card and an internet-connected laptop.
+也就是说，这篇总结中的易用性包括所提供的所有服务。这些服务使得开发者、分析师以及少数 SMB 通用技术人员得以随时启用数据库，而只需要很少的指令，以及信用卡和一台能上网的笔记本电脑。
 
-By those parameters, Microsoft Azure SQL Database is the easiest to use, with MongoDB Atlas coming in a close second. Deciding which of these two Editors' Choice winners you want to use will have more to do with your data's current format and the projects you're working on than ease of use. IBM Db2 on Cloud is also easy to use, although there are plenty of developers who might beg to differ. Most of the griping centers on design restrictions for developers. There's also the the matter of IBM Db2 on Cloud's fewer options in regions, which might prove a drawback in some compliance scenarios with the European Union's [General Data Protection Regulation](https://uk.pcmag.com/feature/91721/gdpr-begins-today-what-you-need-to-know) (GDPR). It's true that MongoDB Atlas isn't compliant with the [Health Insurance Portability and Accountability Act](https://www.pcmag.com/encyclopedia/term/44279/hipaa) (HIPAA) but it will be shortly. In any case, HIPAA affects fewer developers than does GDPR, making the latter a bigger concern for a larger number of developers and analysts and developers.
+考虑到这些，Microsoft Azure SQL 数据库是最容易使用的，MongoDB Atlas 紧随其后。要从这两个“主编推荐”奖项得主中选出适合您使用的，应多考虑您的数据格式和业务，而不是易用性。 IBM Db2 on Cloud 也很容易使用，但很多开发者可能会不赞同。除了大多集中在开发者的设计限制上的槽点外，IBM Db2 on Cloud 还有可选择地区很少的问题，这可能是受限于欧盟[通用数据保护法规](https://uk.pcmag.com/feature/91721/gdpr-begins-today-what-you-need-to-know)（GDPR）。诚然，MongoDB Atlas 还不符合[健康保险流通与责任法案](https://www.pcmag.com/encyclopedia/term/44279/hipaa)（HIPAA），但这是暂时的。即便如此，HIPAA 对开发者的影响也比 GDPR 少，这使得后者成为更多开发者、分析师和开发者的关注点。
 
-## Testing Versions and the Importance of Regions
+## 测试版本，以及地区的重要性
 
-The review of each product includes notations on whether trial or free versions are available and any limitations that may apply. For example, MongoDB Atlas has a "free forever" version with 512 MB of storage and shared [random access memory](https://www.pcmag.com/encyclopedia/term/50159/ram) (RAM). IBM Db2 on Cloud has a free developer edition with enterprise features, but Express-C, its free commercial version, lacks advanced enterprise features. Paid versions vary less as they are most often pegged to storage and computing use rather than to features. However, it's important to note which features and regions are available in the various versions before you choose one.
+对每种产品的调研内容还包括是否有试用版/免费版及其限制。例如，MongoDB Atlas 有一个“永久免费”版本，512 MB 容量和共享[随机存取存储器](https://www.pcmag.com/encyclopedia/term/50159/ram)（RAM）。 IBM Db2 on Cloud 有一个免费的含企业功能的开发者版本，但其免费商业版 Express-C 不含高级企业功能。付费版本差异较小，因为它们通常与存储和计算用量而非功能特性相挂钩。但在选择之前请注意，各种版本中可用的功能和地区非常重要。
 
-Obviously, if it doesn't have advanced enterprise features such as IBM Db2 on Cloud's Express-C version and you need those, then that version isn't going to work out. Likewise, if you have issues with GDPR to address, or a lot of users around the world and you really need to eradicate lag on your app, then Microsoft Azure SQL Database's astounding 50 regions around the globe in 140 countries is going to matter as much as having more version options does.
+显然，如果一个版本没有你正需要的高级企业功能，例如 IBM Db2 on Cloud 的 Express-C 版，那它就没用了。同样，如果您需要解决 GDPR 的问题，或者您需要为世界各地的大量用户提供低延迟的应用程序，那么 Microsoft Azure SQL 数据库惊人的全球 140 个国家的 50 个可选地区就很重要了。
 
-As to your options in regards to regions, Microsoft Azure SQL Database has the most by far. MongoDB Atlas is second, but that's only because it makes good use of the regions from [Amazon Web Services](https://uk.pcmag.com/amazon-web-services/73783/review/amazon-web-services) (AWS), [Google Cloud](https://uk.pcmag.com/google-cloud-platform/73782/review/google-cloud-platform), and [Microsoft Azure](https://uk.pcmag.com/microsoft-azure/73781/review/microsoft-azure) since it's hosted on all three. And, counterintuitively, Google BigQuery came in with the least number of regions.
+地区方面，Microsoft Azure SQL 数据库是迄今为止可选地区最多的。 MongoDB Atlas 排名第二，但这只是因为它托管在 [Amazon Web Services](https://uk.pcmag.com/amazon-web-services/73783/review/amazon-web-services)（AWS）、[Google Cloud](https://uk.pcmag.com/google-cloud-platform/73782/review/google-cloud-platform) 和 [Microsoft Azure](https://uk.pcmag.com/microsoft-azure/73781/review/microsoft-azure) 上，利用了这三家服务提供的地区。另外，与直觉相反，谷歌 BigQuery 的地区数量最少。
 
-Being able to choose the region location for your database is important for two reasons. First, because of regulations such as GDPR, you have to be certain about where your data resides (even in the cloud), where it moves, and how it is used. Being able to select the right location for your database is imperative to staying GDPR-compliant, even if you have no European Union (EU) customer data or EU employee data. Several scenarios apply here.
+能够为数据库选择地区位置非常重要，原因有两个。首先，由于 GDPR 等法规，您必须确定数据所在的位置（即使在云中）、移动位置以及使用方式。即使您没有欧盟（EU）客户数据或欧盟员工数据，为保持符合 GDPR 标准也必须能够选择合适的数据库位置。这里有好些情况可能触碰到 GDPR。
 
-For example, an employee may be American and thus his data is unaffected by GDPR. His wife may be European or American but their child may have dual citizenship if he or she was born in Europe. So, insurance data on them is affected by GDPR. Therefore, even though the company has no EU customer or EU employee data, it still finds itself needing to be GDPR-compliant. That law is seriously complex. And there's another, even more complex privacy law from the EU coming down the pike. It's prudent, therefore, to know precisely where your data is and what's happening with and to it, whether or not you think you don't have any EU individual data to worry about.
+例如，员工可能是美国人，因此他的数据不受 GDPR 的影响。他的妻子可能是欧洲人或美国人，但如果他们的孩子出生在欧洲，就可能拥有双重国籍。那么他们的保险数据将受 GDPR 的影响。因此，即使公司没有欧盟客户或欧盟员工数据，也仍需要符合 GDPR 标准。该法律非常复杂。欧盟甚至还有另外的更复杂的隐私法。因此，谨慎地了解您的数据在何处以及发生了什么，再想想您是否还认为您没有任何欧盟个人数据需要担心。
 
-The closer your data and app are to one another, the better the performance—meaning, the shorter the lag and other issues. You'll want to look for options to deploy your app in the same data center as your database or [colocate](https://www.pcmag.com/encyclopedia/term/39977/colocation) your database next to your app.
+您的数据和应用程序越近，性能就越好，就越不会有滞后或其它问题。您会希望找个与数据库相同的数据中心部署您的应用程序或将您的数据库[寄存](https://www.pcmag.com/encyclopedia/term/39977/colocation)在应用程序旁。
 
-Versions also differ substantially between vendors and also within a single vendor's product lineup. Some are inexpensive on the front end but rack up costs by charging you for various tools and service upgrades, such as additional security or backup and recovery services. Watch out for that.
+供应商之间以及单个供应商的不同产品之间，版本也存在很大差异。有些刚开始不贵，但通过各种工具和服务升级来刺激消费，提高成本，例如额外的安全性或备份和恢复服务。注意这一点。
 
-For this review roundup, I mostly used mid-tier-priced test accounts that were set up by the vendors rather than the more limited trial or free-tier versions. Sometimes I transferred my own test data and sometimes I loaded vendor test data or worked with their preloaded data sets. In many cases, vendors provided credits to ensure I could thoroughly test their systems. Occasionally, I tested free developer editions, as I did with SAP Cloud Platform, because those are usually full-featured ones. In every case, the version I tested is noted in each review writeup.
+这篇总结中，我主要使用由供应商设置的中等价位测试帐户，而不是更受限的试用版或免费版。有时我会传输自己的测试数据，有时我会加载供应商的测试数据或使用他们加载好的数据集。通常，供应商提供了额度以确保我可以彻底测试他们的系统。有时我用免费的开发者版本测试，比如说 SAP Cloud Platform，因为这些版本通常是功能齐全的。不论如何，我会在每篇调研中都写明测试的版本。
 
-## SQL or NoSQL?
+## SQL 还是 NoSQL？
 
-Another factor making direct comparisons more difficult in this review roundup is in the types of databases. As all data professionals know, [SQL](https://www.pcmag.com/encyclopedia/term/51902/sql) handles structured data and [NoSQL](https://www.pcmag.com/encyclopedia/term/63645/nosql) is for unstructured data, though that distinction probably isn't obvious to general users. An example of structured data is a spreadsheet while an example of unstructured data is the Twitter feed firehose. SQL databases are usually referred to as relational databases whereas NoSQL databases are called nonrelational ones.
+另一个使得本文难以直接对比的因素是数据库的类型。正如所有数据专业人士所知，[SQL](https://www.pcmag.com/encyclopedia/term/51902/sql) 处理结构化数据，[NoSQL](https://www.pcmag.com/encyclopedia/term/63645/nosql) 用于非结构化数据，但这种区别对于普通用户来说可能并不明显。结构化数据的例子是电子表格，而非结构化数据的示例是 Twitter 反馈消息。 SQL 数据库通常称为关系数据库，而 NoSQL 数据库称为非关系数据库。
 
-However, when it comes to DBaaS, the options are more varied than just making a structured versus unstructured data determination. For example, MongoDB Atlas, which is open-source NoSQL, runs on other branded cloud services such as AWS, Google, and Microsoft clouds. Some vendors will guide you through the maze of options since their branded DBaaS services offer other product options for other database types.
+但是，当涉及到 DBaaS 时，选项更加多样化，而不仅仅是确定数据是结构化还是非结构化。例如，开源 NoSQL 的 MongoDB Atlas 运行在其他品牌的云服务上，如 AWS、Google 和 Microsoft。一些供应商会指导您完成迷宫般的选项，因为他们的品牌 DBaaS 服务提供了其它类型数据库的产品选项。
 
-For example, IBM Db2 on Cloud is SQL, but it will funnel users at the outset to [Cloudant](https://www.ibm.com/cloud/cloudant), an IBM NoSQL DBaaS product, or to open-source databases, such as MongoDB on IBM, as the uploaded data dictates. That's incredibly useful to those with few data science skills or limited understanding.
+例如，IBM Db2 on Cloud 就是 SQL，但它会在一开始就将用户导入 IBM 的 NoSQL DBaaS 产品 [Cloudant](https://www.ibm.com/cloud/cloudant)，或开源数据库 MongoDB on IBM，就像上传的数据所指示的那样。这对于那些数据科学技能很少或理解力有限的人来说非常有用。
 
-In each review, I note whether the DBaaS product is SQL or NoSQL and whether other database options are available in the product lineup. With most services, you'll need to know from the outset what type of database you need. With a precious few, such as IBM Db2 on Cloud, the onboarding process will guide you to the right database.
+在每篇调研中，我都会注明 DBaaS 产品是 SQL 还是 NoSQL，以及产品中是否有其他数据库选项。大多数服务要求您本身就知道您需要什么类型的数据库。少数服务，如 IBM Db2 on Cloud，会通过新手教程引导您选择正确的数据库。
 
-Here's a quick rule of thumb: If you are working with machine-readable data, then you need SQL. Think spreadsheets and IoT data. If it's human thoughts or expressions, then you need NoSQL. Think social media, video data, and audio data. Be forewarned that sometimes the app will push you one way, usually in demand of SQL. But sometimes end goals will push you another way: NoSQL scales bigger, faster.
+这有一个快速的经验法则：如果您使用的是机器可读的数据，那么您需要 SQL。想想电子表格和物联网数据。如果它是人类的想法或表达，那么你需要 NoSQL。想想社交媒体、视频数据和音频数据。但要事先知道，有时应用程序会向推动您选择某一种类型，通常是 SQL。但有时最终目标会推动您选择另一种类型：NoSQL，利于更大、更快地扩展。
 
-Finally, keep in mind that ML assists are better than flogging the data on your own. ML support is noted in the reviews as well.
+最后，请记住，机器学习辅助比自己篡改数据更好。 机器学习的支持也在调研中有注明。
 
-## Featured Database-as-a-Service Solutions Reviews:
+## 特色数据库即服务解决方案调研：
 
-### [Microsoft Azure SQL Database Review](https://uk.pcmag.com/microsoft-azure-sql-database/116530/review/microsoft-azure-sql-database) ⭐️ ⭐️ ⭐️ ⭐️ ⭐️
+### [Microsoft Azure SQL Database 调研](https://uk.pcmag.com/microsoft-azure-sql-database/116530/review/microsoft-azure-sql-database) ⭐️ ⭐️ ⭐️ ⭐️ ⭐️
 
-**Pros:** Feature-rich. Easy to use. A large number of regions for more GDPR-compliance options. No app breakage in transfers. Machine learning-based auto-tuning capability. Can use older SQL applications dating back to 2005.
+**优点：** 功能丰富。使用方便。许多地区都有更多符合 GDPR 标准的选项。迁移中没有应用程序破损。基于机器学习的自动调整功能。支持 2005 年之后的 SQL 版本。
 
-**Cons:** Suitable for structured data only because the database is SQL. Great for complex queries but unsuitable for messy, human communication data.
+**缺点：** 仅适用于结构化数据，因为数据库是 SQL。非常适合复杂的查询，但不适合不规则的人类通信数据。
 
-**Bottom Line:** Microsoft Azure SQL Database is an excellent Database-as-a-Service (DBaaS) solution for developers, business analysts, and database administrators given its ease of use and exemplary controls.
+**概要：** Microsoft Azure SQL 数据库是一种出色的数据库即服务（DBaaS）解决方案，适用于开发者、业务分析师和数据库管理员，因为它易于使用且可控性出色。
 
-[Read Review](https://uk.pcmag.com/microsoft-azure-sql-database/116530/review/microsoft-azure-sql-database)
+[调研详情](https://uk.pcmag.com/microsoft-azure-sql-database/116530/review/microsoft-azure-sql-database)
 
-### [MongoDB Atlas Review](https://uk.pcmag.com/mongodb-atlas/116531/review/mongodb-atlas) ⭐️ ⭐️ ⭐️ ⭐️ ⭐️
+### [MongoDB Atlas 调研](https://uk.pcmag.com/mongodb-atlas/116531/review/mongodb-atlas) ⭐️ ⭐️ ⭐️ ⭐️ ⭐️
 
-**Pros:** Easy to use. Open source with powerful scaling, sharding, serverless, and machine learning capabilities.
+**优点：** 易于使用。开源，具有强大的扩展、分片、无服务器和机器学习功能。
 
-**Cons:** It's NoSQL so it's unsuitable for complex queries or projects requiring HIPAA compliance. Some applications require SQL databases to function, which eliminates NoSQL databases from consideration.
+**缺点：** 它是 NoSQL，因此它不适合复杂的查询或需要 HIPAA 合规性的项目。某些应用程序需要 SQL 数据库才能运行，就无需考虑 NoSQL 数据库。
 
-**Bottom Line:** MongoDB Atlas is a developer's dream database, with a brilliantly simple user interface, more automation than most Database-as-a-Service (DBaaS) solutions, tons of flexibility and controls, built-in replication, and zero lock-in.
+**概要：** MongoDB Atlas 是开发者的理想数据库，具有非常简单的用户界面，比大多数数据库即服务（DBaaS）解决方案更自动化，高度的灵活性和可控性，内置复制与零锁定。
 
-[Read Review](https://uk.pcmag.com/mongodb-atlas/116531/review/mongodb-atlas)
+[调研详情](https://uk.pcmag.com/mongodb-atlas/116531/review/mongodb-atlas)
 
-### [Amazon Relational Database Service Review](https://uk.pcmag.com/amazon-relational-database-service/116529/review/amazon-relational-database-service) ⭐️ ⭐️ ⭐️ ⭐ ️
+### [Amazon 关系型数据库服务调研](https://uk.pcmag.com/amazon-relational-database-service/116529/review/amazon-relational-database-service) ⭐️ ⭐️ ⭐️ ⭐ ️
 
-**Pros:** Stable and powerful. Provides users with plenty of controls. Very security conscious.
+**优点：** 稳定而强大。为用户提供充分的控制。非常有安全意识。
 
-**Cons:** Complex to set up and move data. Requires help from a database administrator and a network professional for setup. Expensive.
+**缺点：** 设置和移动数据复杂。需要数据库管理员和网络专业人员的帮助才能进行设置。贵。
 
-**Bottom Line:** Amazon Relational Database Service isn't a newbie-friendly Database-as-a-Service (DBaaS) solution, but with the right professionals helping you out, it's a great relational database service.
+**概要：** Amazon 关系型数据库服务不是一种对新手友好的数据库即服务（DBaaS）解决方案，但如果有合适的专业人员帮助您，它将是一个很棒的关系型数据库服务。
 
-[Read Review](https://uk.pcmag.com/amazon-relational-database-service/116529/review/amazon-relational-database-service)
+[调研详情](https://uk.pcmag.com/amazon-relational-database-service/116529/review/amazon-relational-database-service)
 
-### [Google BigQuery Review](https://uk.pcmag.com/google-bigquery/116528/review/google-bigquery) ⭐️ ⭐️ ⭐️ ⭐️
+### [Google BigQuery 调研](https://uk.pcmag.com/google-bigquery/116528/review/google-bigquery) ⭐️ ⭐️ ⭐️ ⭐️
 
-**Pros:** Excellent for Big Data projects. Flexible data ingestion. Fast analysis. Integrates well with almost any type of data.
+**优点：** 非常适合大数据项目。数据提取灵活。分析快速。几乎可以与任何类型的数据集成。
 
-**Cons:** Built for Big Data so it's overkill for small data sets. Confusing SQL dialects. Unwieldy costs without proper attention to tool use and automated scaling. Flat rate pricing works better.
+**缺点：** 专为大数据而设计，因此对小型数据集来说太重了。SQL 方言令人困惑。如果没有适当关注工具使用和自动扩展，将会产生大量成本。更好的统一费率定价。
 
-**Bottom Line:** Google BigQuery is a great Database-as-a-Service (DBaaS) solution for cloud native companies and anyone working with machine learning application development or handling massive sets.
+**概要：** Google BigQuery 是一个出色的数据库即服务（DBaaS）解决方案，适用于云时代的公司以及任何从事机器学习应用程序开发或处理大量数据集的人。
 
-[Read Review](https://uk.pcmag.com/google-bigquery/116528/review/google-bigquery)
+[调研详情](https://uk.pcmag.com/google-bigquery/116528/review/google-bigquery)
 
-### [IBM Db2 on Cloud Review](https://uk.pcmag.com/ibm-db2-on-cloud/116532/review/ibm-db2-on-cloud) ⭐️ ⭐️ ⭐️ ⭐️
+### [IBM Db2 on Cloud 调研](https://uk.pcmag.com/ibm-db2-on-cloud/116532/review/ibm-db2-on-cloud) ⭐️ ⭐️ ⭐️ ⭐️
 
-**Pros:** Incredibly easy data migration and setup. Well designed.
+**优点：** 数据迁移和设置异常简单。设计精良。
 
-**Cons:** Fewer region options, which may impact your performance and compliance requirements depending on what you're doing with the database.
+**缺点：** 可选地区较少，可能会影响您的性能和合规性要求，具体取决于您对数据库的使用方式。
 
-**Bottom Line:** IBM Db2 on Cloud is a dream Database-as-a-Service (DBaaS) solution for developers and business analysts because they can use it without the assistance of a database administrator, even with minimal skills.
+**概要：** IBM Db2 on Cloud 是面向开发者和业务分析师的理想数据库即服务（DBaaS）解决方案，因为他们可以在没有数据库管理员帮助的情况下使用它，而无需太多专业技能。
 
-[Read Review](https://uk.pcmag.com/ibm-db2-on-cloud/116532/review/ibm-db2-on-cloud)
+[调研详情](https://uk.pcmag.com/ibm-db2-on-cloud/116532/review/ibm-db2-on-cloud)
 
-### [SAP Cloud Platform Review](https://uk.pcmag.com/sap-cloud-platform/116527/review/sap-cloud-platform) ⭐️ ⭐️ ⭐️
+### [SAP Cloud Platform 调研](https://uk.pcmag.com/sap-cloud-platform/116527/review/sap-cloud-platform) ⭐️ ⭐️ ⭐️
 
-**Pros:** Great for HANA users and Big Data developers. Yes, that means Internet of Things, machine learning, and Java, too.
+**优点：** 非常适合 HANA 用户和大数据开发者。是的，这意味着适合物联网、机器学习和 Java。
 
-**Cons:** Having two different developer environments is confusing and potentially restrictive.
+**缺点：** 拥有两个不同的开发者环境，这令人困惑，且可能具有限制性。
 
-**Bottom Line:** SAP Cloud Platform needs to mature, but it's still a powerful and unique Database-as-a-Service (DBaaS) solution with many important capabilities.
+**概要：** SAP Cloud Platform 还不够成熟，但它仍然是一个功能强大且独特的数据库即服务（DBaaS）解决方案，具有许多重要功能。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
