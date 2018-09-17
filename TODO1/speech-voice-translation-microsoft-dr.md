@@ -2,34 +2,34 @@
 > * 原文作者：[Naomi Pentrel](https://www.nexmo.com/blog/author/naomi-pentrel/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/speech-voice-translation-microsoft-dr.md](https://github.com/xitu/gold-miner/blob/master/TODO1/speech-voice-translation-microsoft-dr.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[haoyuez](https://github.com/haoyuez)
 
-# Build a Babel Fish with Nexmo, and the Microsoft Translator Speech API
+# 使用 Nexmo 和微软语音翻译 API 构建 Babel Fish
 
-If you were on the internet in these past few months chances are you saw Google’s real-time translation Pixel Buds. A technology quite like the Babel fish in _The Hitchhiker’s Guide to the Galaxy_ that can translate any sentient speech for its wearer thus enabling them to communicate with virtually every being. The Google Pixel Buds come at a price of course – so why not build our own?! That’s what [Danielle](https://twitter.com/dantoml) and I thought at the latest [hackference](https://2017.hackference.co.uk/). We went on to create a Nexmo Babel fish that lets two people talk on the phone with either party hearing a translated version of what the respective other party says.
+如果在过去的几个月时间里你关注过互联网上的变化，那你就会注意到 Google 的即时翻译 Pixel Buds。它是一个像给 **Galaxy 的 Hitchhiker 指南**中 Bable Fish 一样的技术，可以为穿戴者翻译任何可感知的语言并让他们像虚拟人类一样与穿戴者进行交流。但使用 Google 的 Pixel Buds 代价昂贵 —— 那么我们为何不自己动手构建呢？这也是 [Danielle](https://twitter.com/dantoml) 和我最近在 [hackference](https://2017.hackference.co.uk/) 上所构想的。我们想要去创建一个让电话交流的双方可以根据自己所需，听到彼此说话内容的翻译版本的 Nexmo Babel Fish。
 
 ![Image of a Babel fish from The Hitchhiker's Guide to the Galaxy](https://www.nexmo.com/wp-content/uploads/2018/03/babelfish.png)
 
-Image of a Babel fish from The Hitchhiker's Guide to the Galaxy
+来自给 Galaxy 的 Hitchhiker 的指南中的 Bable Fish 的图片。
 
-In this blogpost, we will go over how this Babel fish system works step by step starting with the required setup and configuration. Then, we will set up a Nexmo number for handling incoming calls. Following this, we will implement a Python server which will receive speech via a WebSocket and route the incoming speech from the Nexmo number to the Microsoft Translator Speech API. We will use the Translator Speech API to handle the transcription and translation. On top of this, we will implement logic to manage a bi-directional dialogue and to instruct the Nexmo number to speak the translations. For ease of implementation, both parties will have to call our service’s Nexmo number. Below, you can see a high-level system diagram of how an instance of speech from either side gets processed. Note that throughout this tutorial I will use the example of a German/British English conversation.
+在这篇博客中，我们将介绍搭建 Babel Fish 系统的步骤。首先我们需要设置和配置环境。然后我们会设置一个 Nexmo number 来处理调用。在此之后，我们会搭建一个通过 WebSocket 接收语音，并将其从 Nexmo number 传送到微软语言翻译 API 的 Python 服务器。我们会使用语音翻译 API 来处理转录和翻译。在此基础上，我们将实现管理双向对话的逻辑，并指示 Nexmo number 说出翻译内容。为了便于实现，双方必须都调用我们的 Nexmo number。你可以参考下面的高级图表，它展示了来自任何一方的语音实例是如何处理的。注意在本教程中，我会使用一个德语/英语的示例。
 
 ![Diagram that shows how a message passes through the system. A German caller speaks a message in German which Nexmo passes through to a Python server. The Python server sends the German audio to the Microsoft Speech API. The Speech API responds by sending the English translation as text to the Python server. The Python server then sends a request to Nexmo to speak the English message to the British caller. At this point the British caller hears the translated message in English.](https://www.nexmo.com/wp-content/uploads/2018/03/system_diagram.png)
 
-Diagram that shows how a message passes through the system. A German caller speaks a message in German which Nexmo passes through to a Python server. The Python server sends the German audio to the Microsoft Speech API. The Speech API responds by sending the English translation as text to the Python server. The Python server then sends a request to Nexmo to speak the English message to the British caller. At this point the British caller hears the translated message in English.
+该图表展示了消息如何在系统中传递。一个德语调用者通过 Nexmo 发送一条德语消息给 Python 服务器。Python 服务器将德语音频发送给微软语音 API。语音 API 将英文翻译作为文本发送到 Python 服务器来响应请求。Python 服务器会向 Nexmo 发送请求，向英语调用者说出英语消息。此时英语调用者便会听到翻译后的英语信息。
 
-If you would prefer to just see the code, it is available on GitHub [here](https://github.com/npentrel/babelfish).
+如果你只想看代码，可以在 [Github](https://github.com/npentrel/babelfish) 上找到。
 
-## Prerequisites
+## 准备条件
 
-You will need to have both Python 2.x or 3.x and the HTTP tunnelling software [ngrok](https://ngrok.com/) installed to be able to follow along. We will list all the commands you need to install everything else as you follow along.
+你需要同时安装 Python 2.x 或 3.x 和 HTTP 通道软件 [ngrok](https://ngrok.com/)。我们会列出你在安装过程中需要的所有命令。
 
-## Getting Started
+## 开始
 
-### Set Up Your Environment
+### 配置你的环境
 
-Let’s get started with our DIY Babel fish solution by setting up a virtual environment for this project using [Virtualenv](https://virtualenv.pypa.io/en/stable/). Virtualenv allows us to isolate the dependencies of this project from our other projects. Go ahead and create a directory for this project and copy the following list of dependencies into a file in your project directory named `requirements.txt`:
+我们从使用 [Virtualenv](https://virtualenv.pypa.io/en/stable/) 来为此项目配置虚拟环境的 DIY Babel Fish 的解决方案开始。Virtualenv 允许我们将此项目与其他项目隔离。继续为此项目创建目录，并将以下依赖列表复制到你项目目录中命名为 `requirements.txt` 的文件中：
 
 ```
 nexmo
@@ -37,109 +37,109 @@ tornado>=4.4.2
 requests>=2.12.4
 ```
 
-To create and activate your virtual environment, run the following commands in your terminal:
+为了创建并激活你的虚拟环境，请在终端运行以下命令：
 
 ```
 virtualenv venv  # sets up the environment
 source venv/bin/activate  # activates the environment
 pip install -r requirement.txt  # installs our dependencies
  
-# if you are running python3 please run the following instead
+# 如果你使用的是 Python 3，请使用以下命令
 pip3 install -r requirement.txt
 ```
 
-At this point, please start ngrok in a separate terminal window by running the command below. ngrok will allow us to expose our localhost at port 5000 to incoming requests. You will need to keep ngrok running in the background for this to work. You can read more about connecting ngrok with Nexmo [here](https://www.nexmo.com/blog/2017/07/04/local-development-nexmo-ngrok-tunnel-dr/).
+此时，通过在单独打开一个终端的窗口中运行下列命令来启动 ngrok。ngrok 允许我们将本地 5000 端口暴露给外部请求。为此，你需要让 ngrok 在后台保持正常运行。你可以阅读更多关于用 Nexmo 链接 ngrok 的[信息](https://www.nexmo.com/blog/2017/07/04/local-development-nexmo-ngrok-tunnel-dr/)。
 
 ```
 ngrok http 5000
 ```
 
-Once you run the above command, your terminal should look similar to the screenshot below. You will need the forwarding URL when configuring your Nexmo application and number in the next steps.
+一旦你运行上述命令，你的终端就会和下面的截图类似。下一步，你需要在配置你的 Nexmo 应用程序和编号 时转发 URL。
 
 ![Screenshot of ngrok running in a terminal and displaying a forwarding URL of the form “http://016a0331.ngrok.io”.](https://www.nexmo.com/wp-content/uploads/2018/03/ngrok.png)
 
-Screenshot of ngrok running in a terminal and displaying a forwarding URL of the form “http://016a0331.ngrok.io”.
+在终端运行的 ngrok 以及展示转发来自 “http://016a0331.ngrok.io” URL 的屏幕截图。
 
-### Acquire a Nexmo Number
+### 获取一个 Nexmo number
 
-For our translation service, we need to acquire a Nexmo number. Sign up for a developer account at [dashboard.nexmo.com/sign-up](https://dashboard.nexmo.com/sign-up) if you haven’t yet. Next, head over to [dashboard.nexmo.com/buy-numbers](https://dashboard.nexmo.com/buy-numbers) to purchase a number with voice capability.
+使用我们的翻译服务需要一个 Nexmo Number。如果你还没有账号，可以在 [dashboard.nexmo.com/sign-up](https://dashboard.nexmo.com/sign-up) 进行注册，请前往 [dashboard.nexmo.com/buy-numbers](https://dashboard.nexmo.com/buy-numbers) 购买一个具有语音功能的 Nexmo number。
 
 ![Screen capture of a user buying a number using the Nexmo buy numbers menu. A user selects their country, Voice as the feature, and mobile as the type and clicks on the search button. The user then clicks on buy for the first number that comes up and confirms the purchase.](https://www.nexmo.com/wp-content/uploads/2018/03/buy-nexmo-number.gif)
 
-Screen capture of a user buying a number using the Nexmo buy numbers menu. A user selects their country, Voice as the feature, and mobile as the type and clicks on the search button. The user then clicks on buy for the first number that comes up and confirms the purchase.
+该截屏展示了用户如何使用 Nexmo 的购买编号菜单来购买 Nexmo number。用户需要选择国家和语音将作为特征，移动设备作为类型，最后点击搜索按钮。然后点击第一个数字边的购买链接，便可确认购买。
 
-### Create a Nexmo Application
+### 创建 Nexmo 应用程序
 
-Go to your applications and add a new application. Use the Ngrok forwarding URL for both the Event URL and the Answer URL adding `/event` as the path for the Event URL (e.g. `http://016a0331.ngrok.io/event`) and `/ncco` for the Answer URL (e.g. `http://016a0331.ngrok.io/ncco`). We will set these endpoints up later. Generate a public/private key pair via the user interface and store the key on your computer.
+进入你的应用程序，然后新增一个。对事件 URL 和应答 URL 使用 Ngrok 转发 URL，添加 `/event` 作为事件 URL(e.g. `http://016a0331.ngrok.io/event`) 的路径，对应答 URL(e.g. `http://016a0331.ngrok.io/ncco`) 使用 `/ncco`。我们之后会设置这些端点。在你的电脑上通过用户接口生成并存储一对公钥/私钥对。
 
 ![Screen capture of a user creating an application using the Nexmo application menu. A user clicks on add new application. In the form that appears the user enters babelfish as the application name, `http://016a0331.ngrok.io/event` as the Event URL, and `http://016a0331.ngrok.io/ncco` as the Answer URL. The user then clicks on the `Generate public/private key pair` link, saves the key when prompted, and finally clicks on create application.” The last step for our number setup is to link the number you purchased earlier to your application. Use the application dashboard to link the number.](https://www.nexmo.com/wp-content/uploads/2018/03/create-application.gif)
 
-Screen capture of a user creating an application using the Nexmo application menu. A user clicks on add new application. In the form that appears the user enters babelfish as the application name, `http://016a0331.ngrok.io/event` as the Event URL, and `http://016a0331.ngrok.io/ncco` as the Answer URL. The user then clicks on the `Generate public/private key pair` link, saves the key when prompted, and finally clicks on create application.” The last step for our number setup is to link the number you purchased earlier to your application. Use the application dashboard to link the number.
+使用 Nexmo 应用程序目录创建应用程序的用户屏幕截图。用户点击新增应用程序。在显示的表单中，用户输入 Babelfish 作为应用程序名，`http://016a0331.ngrok.io/event` 作为事件的 URL，`http://016a0331.ngrok.io/ncco` 作为应答 URL。然后用户单击 `Generate public/private key pair` 链接，在提示时保存密钥，最后单击创建应用程序。编号设置的最后一步是将你之前购买的编号链接到你的应用程序。使用应用程序仪表板来链接编号。
 
-### Obtain keys for Microsoft’s Translator Speech API
+### 获取微软语音翻译 API 的密钥
 
-The other service we are going to need to set up is [Microsoft’s Translator Speech API](http://docs.microsofttranslator.com/speech-translate.html). Sign up for a free Microsoft Azure account at [azure.com](http://azure.com) and afterwards go to [portal.azure.com](http://portal.azure.com) and create a Translator Speech API resource. You will need the key it generates for the next step.
+我们需要设置的另一个服务是[微软的语音服务 API](http://docs.microsofttranslator.com/speech-translate.html)。在 [azure.com](http://azure.com) 上注册一个免费的微软 Azure 账号，然后跳转到 [portal.azure.com](http://portal.azure.com)，创建一个语音翻译 API 资源。你需要它为下一步生成的密钥。
 
 ![Screen capture of a user setting up the Microsoft Translator Speech API. A user types translator speech into the Marketplace search on the Microsoft Azure portal. The user then clicks on the Translator Speech API option that comes up and clicks on the create button on the API overview screen. The user then fills in the form for the resource using babelfish as the name, Pay-as-you-go as the subscription, F0 (10 Hours of audio input) as the pricing tier, and babelfish-resource as the resource group name. After checking the box that the user has 'read and understood the notice' and checking add to dashboard, the user clicks on create and is redirected to the dashboard. After the deployment finishes, the user clicks on the deployed resource and is presented with a resource dashboard. On the resource dashboard under the section grab the keys the user clicks on keys and copies key 1.](https://www.nexmo.com/wp-content/uploads/2018/03/microsoft-translator-api.gif)
 
-Screen capture of a user setting up the Microsoft Translator Speech API. A user types translator speech into the Marketplace search on the Microsoft Azure portal. The user then clicks on the Translator Speech API option that comes up and clicks on the create button on the API overview screen. The user then fills in the form for the resource using babelfish as the name, Pay-as-you-go as the subscription, F0 (10 Hours of audio input) as the pricing tier, and babelfish-resource as the resource group name. After checking the box that the user has 'read and understood the notice' and checking add to dashboard, the user clicks on create and is redirected to the dashboard. After the deployment finishes, the user clicks on the deployed resource and is presented with a resource dashboard. On the resource dashboard under the section grab the keys the user clicks on keys and copies key 1.
+设置微软语音翻译 API 的用户屏幕截图。用户在微软 Azure 上的市场搜索中输入语言翻译。然后，用户单击出现的语音翻译 API 选项，再单击 API 概述屏幕上的创建按钮。之后，用户填写资源的表单，使用 babelfish 作为应用程序名，Pay-as-you-go 作为订阅，F0（10 小时的音频输入）作为定价层，babelfish —— 资源作为资源组组名。选中用户已经“阅读并理解注意事项”的选框，并检查添加到仪表板，用户单击创建并重定向到仪表板。部署完成后，用户单击已部署的资源，会显示一个资源仪表板。在资源仪表板中，抓取用户单击的键并复制键 1。
 
-### Manage Secrets and Config
+### 管理密钥和配置
 
-Now that we have our Nexmo number and our Translator Speech API key, all we need to do is set up a secrets and a config file with all these important details so that we don’t have to keep writing them and can keep them separately managed. Store the below in `secrets.py` in your project folder and replace the placeholder values with your values.
+我们现在有了自己的 Nexmo number 和语音翻译 API 密钥。我们现在要做的就是去设置一个包含所有这些重要细节的密码和配置，这样我们就不必继续编辑它们，可以对它们进行单独的管理。将下列内容存储在你项目目录的 `secrets.py` 中，然后用你的值来替换占位符值。
 
 ```
-# Replace the below values with your values
-# Your API key and secret can be found here https://dashboard.nexmo.com/getting-started-guide
+# 用你的值替换下面的值
+# 你的 API 密钥和密码可以在这里找到 https://dashboard.nexmo.com/getting-started-guide
 NEXMO_API_KEY = "<your-api-key>"
 NEXMO_API_SECRET = "<your-api-secret>"
-# Your nexmo number
+# 你的 nexmo 编号
 NEXMO_NUMBER = "+447512345678"
-# This is found on your Nexmo application’s dashboard
+# 这可以在你的 Nexmo 应用程序面板上找到
 NEXMO_APPLICATION_ID = "<nexmo-application-id>"
-# This is the private key you downloaded when setting up your application
+# 这是设置你的应用程序时下载的私钥
 NEXMO_PRIVATE_KEY = '''-----BEGIN PRIVATE KEY-----
 <your-private-key>
 -----END PRIVATE KEY-----'''
  
-# You will have to sign up for a free Microsoft account to use the Microsoft Translator Speech API: http://docs.microsofttranslator.com/speech-translate.html
+# 你必须注册一个免费的微软账号才能使用微软语音翻译 API：http://docs.microsofttranslator.com/speech-translate.html
 MICROSOFT_TRANSLATION_SPEECH_CLIENT_SECRET = "<your-api-key>"
 ```
 
-Afterwards store the below in `config.py` in your project folder and again replace the placeholder values with your values. Note that you can choose other languages than the ones below. You can also alter these at any point later.
+之后，在你的项目目录中，在 `config.py` 中存储以下内容，然后再用值替换占位符值。注意，你也可以选择以下语言的其他语言。你也可以在之后的任意时间更改这些内容。
 
 ```
 HOSTNAME = '<your-value>.ngrok.io'
  
-# Replace the variable assignment with your number in the same format
+# 用相同格式的数字替换变量赋值
 CALLER = '447812345678'
  
-# Replace the variable assignment with your languages
+# 用语言替换变量值
 LANGUAGE1 = 'de-DE'
  
  
-# Replace the variable assignments with the respective name for your language. They can be found here:
+# 将变量赋值替换为你的语言的相应名称。可以在这里找到：
 # https://developer.nexmo.com/api/voice/ncco#voice-names
 VOICE1 = 'Marlene'
  
-# the other person's language and voice
+# 其他语言和语音
 LANGUAGE2 = 'en-US'
 VOICE2 = 'Kimberly'
 ```
 
-## Tutorial Steps
+## 教程步骤
 
-Below we will first go through how to authenticate with the Translator Speech API. Then we will set up our Tornado Web server using a supplied template. Following this, we will implement the `CallHandler`, the `EventHandler`, and the `WSHandler`. The `CallHandler` will handle incoming calls to the Nexmo number for us. On top of that, the `EventHandler` will be used to handle events that Nexmo sends, such as a call starting or completing. With each event, Nexmo sends information about the actor who started or completed the call. We will use this information to store who is in a specific call. The `WSHandler` will meanwhile be used to open the WebSocket through which Nexmo and our Python server will communicate. The Python server will create snippets of audio and send them to the Translator Speech API. The handler will use the information that the `EventHandler` gathers to route messages correctly. Each section below will explain these concepts further and show the respective implementation.
+我们将首先介绍如何使用语言翻译 API 进行身份认证。然后我们将使用提供的模版来设置我们的 Tornado Web 服务器。之后，我们要实现 `CallHandler`、`EventHandler` 以及 `WSHandler`。`CallHandler` 将为我们处理 Nexmo number 的调用。在此基础上，`EventHandler` 将被用于处理 Nexmo 发送的事件，例如开始或完成的调用。在每个事件中，Nexmo 都会发送关于启动或完成调用的执行者的信息。我们会使用这些信息来存储特定调用中的人。`WSHandler` 同时被用来打开 WebSocket，Nexmo 和我们的 Python 服务器通过它进行通信。Python 服务器将创建音频片段并将其发送到语言翻译 API。处理器将使用 `EventHandler` 收集信息来正确地路由。下面的部分会进一步解释这些概念，并显示相应的实现。
 
-### Authenticate with Microsoft’s Translator Speech API
+### 使用微软语言翻译 API 的身份认证
 
-To use the Translator Speech API we need to get a token which we name the `MICROSOFT_TRANSLATION_SPEECH_CLIENT_SECRET`. Luckily Microsoft provides a Python [AzureAuthClient](https://github.com/MicrosoftTranslator/Python-Speech-Translate/blob/master/auth.py) which we will use without change. Please copy the below and save it in a file called `azure_auth_client.py` in your project directory.
+要使用语音翻译 API，我们需要一个名为 `MICROSOFT_TRANSLATION_SPEECH_CLIENT_SECRET` 的 token。幸运的是，微软提供了一个 Python [AzureAuthClient](https://github.com/MicrosoftTranslator/Python-Speech-Translate/blob/master/auth.py)，我们会使用它，不会做任何更改。请将以下内容复制并保存到你的项目目录中名为 `azure_auth_client.py` 的文件中。
 
 ```
 """
-Code example for getting a A from the Azure Platform.
-Visit http://docs.microsofttranslator.com/oauth-token.html to view the API reference
-for Microsoft Azure Cognitive Services authentication service.
+从 Azure 平台获取示例 A 的代码。
+访问 http://docs.microsofttranslator.com/oauth-token.html 来查看
+微软 Azure 认知服务的身份验证服务 API 参考资料。
 """
  
 from datetime import timedelta
@@ -189,13 +189,13 @@ class AzureAuthClient(object):
         return self.token
 ```
 
-### Create a Server
+### 创建服务器
 
-The computer communications protocol WebSockets allows us to have a two-way communication channel over a single TCP connection. Nexmo’s Voice API [lets you connect phone calls to such WebSocket endpoints](https://developer.nexmo.com/voice/voice-api/guides/call-a-websocket/python). We will use the Tornado Web server web framework as it implements the WebSocket protocol for us.
+计算机通信协议 WebSocket 允许我们在一个 TCP 连接中拥有一个双向通信管道。Nexmo 的 Voice API [允许你将电话调用链接到这样的 WebScoket 端点](https://developer.nexmo.com/voice/voice-api/guides/call-a-websocket/python)。我们会使用 Tornado Web 服务器 web 框架来实现我们的 WebSocket 协议。
 
-If you have been following along and named all the files as described, you can start with the below Tornado Web server setup. This code handles all our imports, sets up the Nexmo client and the azure auth client, and starts a server on port 5000. Note that this server does not do anything useful yet. It has three endpoints: `ncco`, `event`, and `socket` which call the `CallHandler`, `EventHandler`, and `WSHandler` respectively. We will implement the handlers in the following sections.
+如果你一直按照步骤来，而且所有的文件都如我们所描述的创建，那么你可以从下面的 Tornado Web 服务器配置开始。这个代码会处理所有的导入，配置 Nexmo 客户端以及 azure auth 客户端，并使用 5000 端口启动服务器。注意这个服务器目前还未执行任何有用操作。它有 3 个端点：`ncco`、`event` 和 `socket`，它们会分别调用 `CallHandler`、`EventHandler` 和 `WSHandler`。我们会在下面的部分实现处理器。
 
-Create a file named `main.py` in your project directory and copy this code into it.
+在你的项目文件夹中创建一个名为 `main.py` 的文件，并将以下代码复制进去。
 
 ```
 from string import Template
@@ -263,15 +263,15 @@ if __name__ == "__main__":
     main()
 ```
 
-### Implement the CallHandler
+### 实现 CallHandler
 
-To connect phone calls to WebSocket endpoints, Nexmo’s Voice API uses a **N**exmo **C**all **C**ontrol **O**bject (**NCCO**) or an API call. When someone calls your Nexmo number, Nexmo will issue a get request to the Answer URL you provided when setting up your Nexmo Voice Application. We pointed our application to our server which now needs to answer this request by returning an `NCCO`. This `NCCO` should instruct Nexmo to give a short welcome message to the caller and then connect the caller to the WebSocket.
+为了将电话调用连接到 WebSocket 端点，Nexmo 的 Voice API 使用 **N**exmo **C**all **C**ontrol **O**bject (**NCCO**) 或 API 调用。当有人调用你的 Nexmo number 时，Nexmo 就会向你在设置 Nexmo Voice 应用程序时提供的 URL 发起 GET 请求。我们将应用程序指向服务器，服务器现在需要通过 `NCCO` 来响应这个请求。这个 `NCCO` 应该指示 Nexmo 给调用者发生一个简短的欢迎消息，然后将调用者连接到 WebSocket。
 
 ![Diagram that shows the interactions between a user, Nexmo, and the web server. When the user calls the Nexmo number, Nexmo sends a GET request to the web server's /ncco endpoint. The web server responds with an NCCO that instructs Nexmo to open a socket with the web server.](https://www.nexmo.com/wp-content/uploads/2018/03/NCCO.png)
 
-Diagram that shows the interactions between a user, Nexmo, and the web server. When the user calls the Nexmo number, Nexmo sends a GET request to the web server's /ncco endpoint. The web server responds with an NCCO that instructs Nexmo to open a socket with the web server.
+显示用户、Nexmo 以及 web 服务器之间的交互图。当用户调用 Nexmo number 时，Nexmo 就会向 web 服务器/ncco 发送一个 GET 请求。web 服务器会指示 Nexmo 打开自身的 socket 来让 NCCO 进行响应。
 
-Go ahead and save the following `NCCO` into a file called `ncco.json` within your project directory. It contains a template that will perform the required actions. However, it includes some placeholder variables (`$hostname`, `$whoami`, and `$cid`) which we will need to replace later when we use it.
+接着将以下的 `NCCO` 保存到你项目中名为 `ncco.json` 的文件中。它包含执行请求动作所需的模版。但是，它也包括一些我们以后使用时需要替换的占位符变量（`$hostname`、`$whoami` 和 `$cid`）。
 
 ```
 [
@@ -300,7 +300,7 @@ Go ahead and save the following `NCCO` into a file called `ncco.json` within you
 ]
 ```
 
-In the template for the server the section reproduced below sets up the mapping between the `/ncco` endpoint and the `CallHandler`. This mapping ensures that when the `/ncco` endpoint receives a GET request, the `CallHandler`‘s get method is executed by the server.
+在服务器模版中，以下再现部分设置了 `/ncco` 端点和 `CallHandler` 之间的映射。这个映射确保了在 `/ncco` 接收到 GET 请求时，`CallHandler` 的 get 方法由服务器执行。
 
 ```
 application = web.Application([
@@ -310,9 +310,9 @@ application = web.Application([
 ])
 ```
 
-When the server executes the method, it returns an assembled `NCCO` using the code below. To begin with, we gather data from the query (i.e. the GET request) in a `data` variable. We also store the `conversation_uuid` for later use. In this case, there is a print statement so that you can see the `conversation_uuid` when you are testing your server. In the next step, the code loads the `NCCO` from the `ncco.json` file we created. To complete the loaded `NCCO`, we substitute the placeholder variables (`$hostname`, `$cid`, and `$whoami`) with the gathered values from the data variable. After the substitution, we are ready to send it back to Nexmo.
+当服务器执行方法时，它会使用以下代码返回一个组装的 `NCCO`。首先，我们从 `data` 变量中查询（即 GET 请求）收集数据。我们还存储`conversation_uuid`，以便之后的使用。在这种情况下，有一个打印语句，可以在你测试服务器时看见 `conversation_uuid`。接下来，代码从我们创建的 `ncco.json` 文件中加载 `NCCO`。为了完成加载 `NCCO`，我们用从数据变量中手机的值替换占位符变量（`$hostname`、`$cid` 和 `$whoami`）。替换之后，我们已经准备好将其返回给 Nexmo 了。
 
-Replace the `CallHandler` from the template above with this code:
+将上述模版中的 `CallHandler` 替换为以下代码：
 
 ```
 class CallHandler(web.RequestHandler):
@@ -333,13 +333,13 @@ class CallHandler(web.RequestHandler):
         self.finish()
 ```
 
-Whenever someone now calls the Nexmo number, Nexmo will send a GET request to our `/ncco` endpoint and the `CallHandler` will assemble and send the `NCCO`. Nexmo will then perform the actions as laid out in the `NCCO`. In this case, that means the caller will hear _“Please wait while we connect you.”_. Afterwards, Nexmo will attempt to connect the call to the provided `socket` endpoint. It also provides Nexmo with the `event` endpoint to be used. If you start your server now by running `python main.py` in your terminal window, you will find that you will hear the message but the call will end after it. This is because we haven’t implemented the `EventHandler` or the `WSHandler`. Let’s do that now!
+无论何时，只要有人调用 Nexmo number，Nexmo 就会向我们的 `/ncco` 端点发送 GET 请求，`CallHandler` 将组装并发送 `NCCO`。Nexmo 之后会执行 `NCCO` 中所设计的动作。在这种情况下，这意味着调用者会听到**“请稍侯，我们正在与你建立连接。”**之后，Nexmo 会尝试将调用连接到提供的 `socket` 端点。它也会提供了 Nexmo 要使用的 `event` 端点。如果你现在通过在终端窗口运行 `python main.py` 来启动服务器，你就会发现你能听到消息，但调用会在消息之后结束。这是因为我们没有实现 `EventHandler` 或 `WSHandler`。我们开始实现吧！
 
-### Implement the EventHandler
+### 实现 EventHandler
 
-The `EventHandler` handles events that Nexmo sends. We are interested in any incoming calls and therefore check any incoming request to see whether its body contains a `direction` and whether that direction is `incoming`. If it is, we will want to store the uuid and finish the request context. The `call_id_by_conversation_id` dictionary will be used for routing messages between the callers in the `WSHandler`.
+`EventHandler` 处理 Nexmo 发送的时间。我们对任何调用都感兴趣，因此我们会检查任何请求，以确定其主体是否包含 `direction`，以及该目录是否为 `incoming`。如果是的话，我们会存储 uuid 并完成上下文请求。`call_id_by_conversation_id` 字典将用于 `WSHandler` 中调用方之间的消息路由。
 
-Replace the `EventHandler` from the template with this code:
+用以下模版代码替换 `EventHandler`：
 
 ```
 class EventHandler(web.RequestHandler):
@@ -354,19 +354,19 @@ class EventHandler(web.RequestHandler):
         self.finish()
 ```
 
-### Implement the WSHandler
+### 实现 WSHandler
 
-The `CallHandler` and the `EventHandler` have allowed our application to set up the call. The `WSHandler` will now take care of the audio stream of the call. The speech on the primary caller’s side will be transcribed and translated by the Translator Speech API, and the resulting text will be spoken by a Nexmo voice on the other end of the line. The second person can thus hear the caller in a language they understand and afterwards respond. The Translator Speech API will translate the response in turn so that the first person hears it in their language. This workflow is the bit we will now implement.
+`CallHandler` 和 `EventHandler` 允许我们的应用程序来设置调用。`WSHandler` 现在将关注调用的音频流。语音的主调用者将通过语音翻译 API 转录并翻译，结果文本将由另一端的 Nexmo 语音说出。因此第二个人就可以用他们所明白的语言来倾听调用者的语音了，然后再作出响应。语言翻译 API 将依次翻译响应，以便第一格人可以听到他们的语言。这个工作流就是我们要实现的部分。
 
-When the Nexmo Voice API connects to a WebSocket, Nexmo sends an initial HTTP GET request to the endpoint. Our server responds with a HTTP 101 to switch protocols, and the server will subsequently connect to Nexmo using TCP. This connection upgrade is handled for us by Tornado. Whenever someone makes a call to our Nexmo number, Nexmo will open a WebSocket for the duration of the call. When a WebSocket is opened and finally closed, the Tornado framework will call the `open` and `close` methods below. We do not need to do anything in either case, but we will print messages so that we can follow what is going on when we run the server.
+当 Nexmo Voice API 连接 WebSocket 时，Nexmo 会向端点发送一个初始化的 HTTP GET 请求。我们的服务器响应 HTTP 101 来切换协议，服务器之后会使用 TCP 连接 Nexmo。连接会通过 Tornado 来为我们处理升级。无论何时有人调用 Nexmo number，Nexmo 都会在调用期间打开 WebSocket。当 WebSocket 被打开并且最后被关闭时，Tornado 框架将调用下面的 `open` 和 `close` 方法。我们不需要在这两种情况下做任何事情，但我们会打印消息，这样我们就可以在服务器运行时跟踪掌握所发生的一切。
 
-Now that we have an open connection, Nexmo will send messages that we handle in the `on_message` method. The first message we will receive from Nexmo will be plain text with metadata. Upon receiving this message, we will set the `whoami` property of the `WSHandler` to be able to identify the speaker. Afterwards, we will create a wave header that we will send to the Translator Speech API. To send messages to the Translator Speech API, we will create a `translator_future`. Depending on the caller, i.e. the person who the message comes from, we will create the `translator_future` with the respective language variables so that the API knows from which language to translate into which other language.
+现在我们打开一个连接，Nexmo 会在 `on_message` 方法中处理我们发送的信息。我们从 Nexmo 收到第一个消息是带有元数据的纯文本。在收到这一消息后，我们会设置 `WSHandler` 的 `whoami` 属性，以便能识别发言人。之后，我们会创建一个我们发送到语音翻译 API 的 wave 标题。为了向语音翻译 API 发送消息，我们将创建一个 `translator_future`。根据调用者的不同，例如，消息来源，我们将使用相应的语言变量创建 `translator_future`，以便 API 了解从哪种语言翻译成哪种其他的语言。
 
-A `translator_future` is another WebSocket that connects to the Speech Translator API. We use it to pass on the messages we receive from the Nexmo Voice API. After its creation, the `translator_future` is stored in the variable `ws` and used to send the wave header we created before. Each subsequent message from Nexmo will be a binary message. These binary messages are passed to the Translator Speech API using the `translator_future` which processes the audio and returns the transcribed translation.
+`translator_future` 是连接到语音翻译 API 的另一个 WebSocket。我们使用它来传递我们从 Nexmo Voice API 接收到的消息。在它创建之后，`translator_future` 被存储在变量 `ws` 中，被用来发送我们之前创建的 wave 标题。来自 Nexmo 的每个后续消息都是二进制消息。这些二进制消息使用 `translator_future` 传递语音翻译 API，它会处理音频并返回转录的翻译。
 
-When we initialize the `translator_future`, we state that when the Translator Speech API has processed our message it should call the method `speech_to_translation_completed`. This method will, upon receiving a message, check that the message is not empty and then speak the message in the language voice of the receiver of the message. It will only speak the message for the other caller, not for the person who initially spoke. Additionally, we will print the translation to the terminal.
+当我们初始化 `translator_future` 时，我们声明语言翻译 API 处理我们时，它应该会调用 `speech_to_translation_completed` 方法。这个方法在接收到消息后，会检查消息是否为空，然后以消息接收语言语音出消息内容。它只会对其他调用者说出消息，而不是最初说话的人。此外，我们还会将翻译内容打印到终端。
 
-Replace the `WSHandler` from the template with this code:
+将模版中的 `WSHandler` 替换为以下代码：
 
 ```
 class WSHandler(websocket.WebSocketHandler):
@@ -420,9 +420,9 @@ class WSHandler(websocket.WebSocketHandler):
         print("Websocket Call Disconnected")
 ```
 
-In the above we use a function called `make_wave_header` to create the header that the Translator Speech API expects. The code used to create a WAV header was copied from the [Python-Speech-Translate](https://github.com/MicrosoftTranslator/Python-Speech-Translate) project and is reproduced below.
+我们使用名为 `make_wave_header` 的函数来创建语言翻译 API 所期望的标题。用于创建 WAV 头的代码复制于 [Python-Speech-Translate](https://github.com/MicrosoftTranslator/Python-Speech-Translate) 项目，如下简介。
 
-Copy the `make_wave_header` function to the end of your `main.py` file:
+将 `make_wave_header` 函数复制到 `main.py` 文件末尾：
 
 ```
 def make_wave_header(frame_rate):
@@ -460,9 +460,9 @@ def make_wave_header(frame_rate):
     return data
 ```
 
-Lastly, the `speak` function used above is a simple wrapper around the `nexmo_client` method `send_speech`. As you can see below, it will print some information that may be useful to you when running the code and then use the Nexmo API to instruct Nexmo to speak a given `text` with a given `voice_name`.
+最后，上述提及的 `speak` 函数其实是在 `nexmo_client` 方法 `send_speech` 周围的进行的简单封装。正如你在下面所看到的那样，它会打印打印一些在运行代码时可能对你有用的信息，然后使用 Nexmo API 指示 Nexmo 使用给定的 `voice_name` 来播放 `text`。
 
-Copy the `speak` function below to the end of your `main.py` file.
+将下列 `speak` 函数复制到你的 `main.py` 文件末尾。
 
 ```
 def speak(uuid, text, vn):
@@ -471,20 +471,21 @@ def speak(uuid, text, vn):
     print(response)
 ```
 
-## Conclusion
+## 结论
 
-If you followed along, you have now successfully built your own Babel fish! If you haven’t followed along you can find the final code [here](https://github.com/npentrel/babelfish).
+如果你一直是按照步骤做的，那么现在应该已经成功构建了自己的 Babel Fish！如果你没有遵循步骤，也可以在[这里](https://github.com/npentrel/babelfish)找到源代码。
 
-Run it by typing `python main.py` into your terminal. Now team up with a fellow human (or use two phones) and call your Nexmo number from two lines. You should hear your welcome message and then be able to talk to each other in your two chosen languages.
+通过在终端中输入 `python main.py` 来运行。现在和别人合作（或者使用两部手机）。从两条线上拨打你的 Nexmo 号码。你应该可以听到欢迎信息，然后就可以用你选择的两种语音进行交流了。
 
-Let us recap: We began by setting up our environment, as well as our Nexmo Application and the Microsoft Translator Speech API. Then, we built our Tornado WebServer which allowed us to use WebSockets to handle voice calls and pass the speech of the voice call on to the Translator Speech API. The API then translates and transcribes the speech for us. Upon receiving the result, we spoke the message in the new language. Our service handles bi-directional calls due to our routing logic which means that our service will, after connecting two callers, translate either person’s speech before relaying it, thus enabling them to communicate in their chosen languages.  
-And there we have it! Our working Babel fish! I’m afraid our DIY babel fish does not look quite as endearing as the one from the movie but it is a working alternative.
+我们概括一下：我们首先配置了环境， Nexmo 应用程序和微软的语言翻译 API。然后构建了自己的 Tornado WebServer，它允许我们使用 WebSocket 来处理语音调用，可以将语音调用的语音传递给语音翻译 API。API 为我们翻译并转录语音。得到结果后，我们用新语言说出信息。我们的路由逻辑使得我们的服务可以处理双向调用，即我们的服务在连接两个调用者后，会先翻译任何一个人的语音以确保他们彼此可以选择彼此需要的语言来进行沟通。
 
-If you have any questions, please reach out on [@naomi_pen](https://twitter.com/naomi_pen) or find me on [naomi.codes](http://naomi.codes/).
+我们现在做到了。我们正在运行的 Babel Fish！恐怕我们的 DIY Babel Fish 并不会像电影中的那样可爱，但这是一种可行性的选择。
 
-### Where Next?
+如果你有任何疑问，请联系 [@naomi_pen](https://twitter.com/naomi_pen) 或在 [naomi.codes](http://naomi.codes/) 上找我。
 
-If you’re interested in exploring this further why not implement logic that allows users to choose languages at the beginning of the call. Such logic might also remove the necessity for hard coding our primary phone number. For a fun project you could also explore making this work for conference calls and creating transcripts for each call. Lastly, I would expect that you might want to work on the security of your service and not let random people call your service. You could achieve this by only letting a certain number (or multiple) use your service and having logic to initiate a second leg of the call from within the call to allow you to invite other users without giving them the privilege of using your Babel fish service. I would love to hear what you build on Twitter [@naomi_pen](https://twitter.com/naomi_pen)!
+### 下一步？
+
+如果你对此有深入了解的兴趣，那么为什么不实现允许用户在调用开始时可以选择语言的逻辑呢？这种逻辑也可能会消除我们硬编码主要电话号码的必要性。对于一个有趣的项目来说，你也可以探索为电话会议工作以及为每个电话创建记录。最后，我设想你可能想要确保你自己服务的安全性以及不让任何人都有机会调用你的服务。你可以通过只允许某个号码（或多个）来使用你的服务，或者使用第二阶段的内部调用的逻辑来允许你邀请没有给定 Bable Fish 服务权限的用户。我很想知道你在 Twitter 上构建的内容 —— [@naomi_pen](https://twitter.com/naomi_pen)！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

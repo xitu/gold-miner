@@ -2,124 +2,124 @@
 > * 原文作者：[Gilad Shoham](https://blog.bitsrc.io/@giladshoham?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/7-javascript-eeg-mind-reading-libraries-for-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO1/7-javascript-eeg-mind-reading-libraries-for-2018.md)
-> * 译者：
-> * 校对者：
+> * 译者：[geniusq1981](https://github.com/geniusq1981)
+> * 校对者：[Park-ma](https://github.com/Park-ma)、[huangyuanzhen](https://github.com/huangyuanzhen)
 
-# 7 Javascript EEG Mind Reading Libraries for 2018
+# 2018 年七个通过脑电图分析实现“读心术”的 Javascript 库
 
-## Useful JS libraries for exploring human-brain signals and reading people’s minds.
+## 用于探索人脑信号以实现读心的 JavaScript 库。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*TOFxZJnsy9DPK3a3ZES05w.jpeg)
 
-“Cool headset right?”
+“这个头戴装置是不是很酷？”
 
-Electroencephalography is a method of monitoring electrical activity in the human brain. It can be used to detect conditions like epilepsy or a brain tumor, to research cognitive aspects of the brain activity, or to learn how the brain reacts to external stimulation like music or images.
+脑电图是一种检测人脑中生物电活动的方法。它可以用来检测人体状态，比如癫痫或者脑瘤，以此来研究脑活动与认知方面的联系，或者用来学习人脑是如何对外部刺激产生反应，比如音乐或影像。
 
-Although somewhat crude compared to other methods, it’s also useful for working the other way around- translating brain activity into actions using external devices (like a laser-equipped robot army).
+尽管相比其他方法，此方法还不够成熟，但是在一些方面它的用途还是很大的 — 可以通过外部设备将大脑活动转化成行为（比如装备激光武器的机器人军队）。
 
-MathLab, python and even R are often [popular languages](https://www.researchgate.net/post/What_is_the_best_open_source_software_to_analyse_EEG_signals2) for working with EEG signals as development in the field (led by projects such as [openBCI](http://openbci.com/)). Much like in [IOT](https://blog.bitsrc.io/10-javascript-iot-libraries-to-use-in-your-next-projects-bef5f9136f83), [ML](https://blog.bitsrc.io/11-javascript-machine-learning-libraries-to-use-in-your-app-c49772cca46c) and other research areas, Javascript [also kicks in](http://www.castillo.io/blog/2016/4/25/neurojavascript/getting-your-brainwaves-to-the-browser-with-javascript).
+在脑电图信号的开发领域（由类似 [openBCI](http://openbci.com/) 这样的项目所引领），MathLab、python 和 R 都是十分 [流行的语言](https://www.researchgate.net/post/What_is_the_best_open_source_software_to_analyse_EEG_signals2)。但是就像其他领域，比如 [IOT](https://blog.bitsrc.io/10-javascript-iot-libraries-to-use-in-your-next-projects-bef5f9136f83)、[ML](https://blog.bitsrc.io/11-javascript-machine-learning-libraries-to-use-in-your-app-c49772cca46c) 和其他一些研究领域那样，Javascript [也会参与其中](http://www.castillo.io/blog/2016/4/25/neurojavascript/getting-your-brainwaves-to-the-browser-with-javascript)。
 
-As part of working on [**Bit**](https://bitsrc.io)**,** we always try to find the frontier of JS applications. So, here are some Javascript libraries and experiments for working with EEG we found particularly cool. Your’e welcome to suggest more useful projects!
+作为在 [**Bit**](https://bitsrc.io) 工作的一部分,我们一直在努力追寻 Javascript 前沿应用。所以，在这里是我们找到的一些非常炫酷的处理脑电图的 Javascript 库和示例。欢迎你能够提供其他更多有用的项目！
 
 ### 1. Muse-js
 
 ![](https://cdn-images-1.medium.com/max/1600/1*gN7_qSoxnCv7y2rW8WpO2g.gif)
 
-An example taken from this great post: [https://medium.com/@urish/reactive-brain-waves-af07864bb7d4](https://medium.com/@urish/reactive-brain-waves-af07864bb7d4)
+从这篇文章可以找到一个示例：[https://medium.com/@urish/reactive-brain-waves-af07864bb7d4](https://medium.com/@urish/reactive-brain-waves-af07864bb7d4)
 
-Muse-js is a JavaScript Library for the 2016 Muse EEG Headset (using web Bluetooth). Inspired by the [muse-lsl](https://github.com/alexandrebarachant/muse-lsl/blob/d2b74412585f3baa852516542a0d0853faec1b4e/muse/muse.py) python library, muse-js is built by [@UriShaked](https://twitter.com/UriShaked) with a humble vision in mind: communicating directly from your brain to your webpage. Why not?
+Muse-js 是一个与 2016 Muse 脑电头盔相匹配的 Javasript 库（使用 web bluetooth）。灵感来自于 [muse-lsl](https://github.com/alexandrebarachant/muse-lsl/blob/d2b74412585f3baa852516542a0d0853faec1b4e/muse/muse.py) python 库, muse-js 由 [@UriShaked](https://twitter.com/UriShaked) 编译，它的目标是：通过人脑直接控制网页。为什么不可以呢？
 
-Muse-js enables web developers to connect, analyze and visualize EEG data with tools like the web browser, RxJS and Angular. Apart from working with “ordinary” brain signals and communicating them to the web, muse-js also handles EEG signals related to eye-movement, which is not only super-cool but also very useful in cutting edge cognitive studies. Give it a go.
+Muse - js 可以让 web 开发者通过浏览器、RxJs 和 Angular 这样的工具去连接、分析或可视化脑电图数据。除了处理“普通”的脑电信号并把它们传送到网页上，muse-js 还可以处理与眼睛移动相关的脑电信号, 这不仅仅超级炫酷，而且对于人类认知的前沿研究也非常有帮助。尝试一下。
 
-* [**urish/muse-js**: muse-js — Muse 2016 EEG Headset JavaScript Library (using Web Bluetooth)](https://github.com/urish/muse-js)
+* [**urish/muse-js**: muse-js — Muse 2016 脑电头盔 Javascript 库（使用 Web Bluetooth）](https://github.com/urish/muse-js)
 
-* [**Reactive Brain Waves**: How to use RxJS, Angular, and Web Bluetooth, along with an EEG Headset, to Do More With Your Brain](https://medium.com/@urish/reactive-brain-waves-af07864bb7d4)
+* [**Reactive Brain Waves**: 如何使用 RxJS、Angular 和 Web Bluetooth，配合脑电头盔，发掘你的大脑](https://medium.com/@urish/reactive-brain-waves-af07864bb7d4)
 
 ### 2. Wits
 
 ![](https://cdn-images-1.medium.com/max/1600/1*AlCW5rzbus1jqJBDSiIkRw.gif)
 
-Born as a part of Brain-Bits, wits is a Node.js library that reads EEG signals with [Emotiv](https://www.emotiv.com/) EPOC EEG headset. It’s implemented as a native C module for raw performance (based on [openyou/emokit-c](https://github.com/openyou/emokit-c.git)), handles a raw EEG data stream of 14 electrodes with 128Hz sample rate and provides a thoughtful API for end users. Here’s an example, and you’re welcome to give it a try.
+wits 是 Brain-Bits 项目的一部分, 它是一个 Node.js 库，可以读取来自 [Emotiv](https://www.emotiv.com/) EPOC 脑电头盔的脑电图信号。它由原生 C 模块实现（基于 [openyou/emokit-c](https://github.com/openyou/emokit-c.git)），以 128Hz 采样率的速度处理 14 路电极原始的脑电图数据流，并且给终端用户提供了丰富的接口。这里有个例子，欢迎试用一下。
 
-```
+```Javascript
 const mind = require('wits')
 mind.open()
 mind.read(console.log)
 ```
 
-* [**dashersw/wits**: _wits — A Node.js library that reads your mind with Emotiv EPOC EEG headset](https://github.com/dashersw/wits)
+* [**dashersw/wits**：wits — 一个使用 Emotiv EPOC 脑电头盔来读心的 Node.js 库](https://github.com/dashersw/wits)
 
 ### 3. Brain-monitor
 
 ![](https://cdn-images-1.medium.com/max/1600/1*hDVSjp4vSjrmqt0wwvKU1Q.gif)
 
-Brain-monitor is in fact a terminal app written in Javascript that displays human-brain EEG signals in real time. It works with Emotiv EPOC EEG headset, analyzing a Raw EEG data stream of 14 electrodes with 128Hz sample rate and processes additional information such as head-orientation and even battery level for your headset. A cool choice for CLI lovers.
+Brain-monitor 实际上是一个用 Javascript 编写的可以实时显示脑电图信号的终端应用。它配合 Emotiv EPOC 脑电头盔一起工作，以 128Hz 的采样频率对 14 个电极的原生脑电信号进行分析，并能处理一些额外的信息，比如头的方向，甚至是头盔的电量。对于喜欢使用命令行的开发者，这是个不错的选择。
 
-* [**dashersw/brain-monitor**: _brain-monitor — A terminal app written in Node.js to monitor brain signals in real-time](https://github.com/dashersw/brain-monitor)
+* [**dashersw/brain-monitor**: _brain-monitor — 一个用 Node.js 编写的实时显示脑电信号的终端应用](https://github.com/dashersw/brain-monitor)
 
 ### 4. Brain-bits
 
 ![](https://cdn-images-1.medium.com/max/1600/1*6pYMJ2_4fV8iMP2_sPwTAg.gif)
 
-Created by the author of wits and brain-monitor, brain-bits is an P300 online spelling mechanism for Emotiv headsets. The project is basically an [Electron](https://electronjs.org)app which runs Node on the backend and Vue.js on the front-end, making use of native modules for Node.js and [brain.js](https://github.com/BrainJS/brain.js) for the neural network and [d3](https://d3js.org) for drawing the EEG electrode monitor. You can see a live demo and learn more from the author [in this talk](https://www.youtube.com/watch?v=_4nrh6mTt4E) given at the 2018 Amsterdam JS conference.
+由 wits 和 brain-monitor 的开发者创建，Brain-bits 是为 Emotiv 脑电头盔所做的一套 P300 在线拼写系统。这个项目基于 [Electron](https://electronjs.org) 应用，后端运行 Node，而前端使用 Vue.js，利用 Node.js 的原生模块以及 [brain.js](https://github.com/BrainJS/brain.js) 来处理神经网络，并使用 [d3](https://d3js.org) 来绘制脑电图。你可以在开发者在 2018 Amsterdam JS 论坛上的 [这次演讲](https://www.youtube.com/watch?v=_4nrh6mTt4E) 里面看到一个现场演示，并能了解更多内容。
 
-* [**dashersw/brain-bits**: _brain-bits — A P300 online spelling mechanism for Emotiv headsets. It’s completely written in Node.js, and the GUI is…](https://github.com/dashersw/brain-bits)
+* [**dashersw/brain-bits**: _brain-bits — 一套为 Emotiv 脑电头盔使用的 P300 在线拼写系统。使用 Node.js 编写，GUI 是……](https://github.com/dashersw/brain-bits)
 
 ### 5. EEG-101
 
 ![](https://cdn-images-1.medium.com/max/1600/1*iPMqXQS3FK1lOa3sD6oolw.png)
 
-EEG-101 is an interactive neuroscience [tutorial app](https://play.google.com/store/apps/details?id=com.eeg_project&hl=en) using Muse and React Native to teach EEG and BCI basics. It teaches the basics of EEG, including where signals come from, how devices work, and how to process data. Built with React Native for Android, the project contains a general purpose binary classifier for EEG data, it streams data from the Muse headset with the LibMuse Java API. A nice way to pick-up and play EEG works.
+EEG-101 是一个使用 Muse 和 React Native 来教授脑电图和 BCI 基础知识的交互式神经学的 [教程应用](https://play.google.com/store/apps/details?id=com.eeg_project&hl=en)。内容包括信号从哪里来，设备如何工作以及如何处理数据。使用 React Native 开发了 Android 应用，项目包含了一个用于脑电图数据的通用二进制分类器，它使用 LibMuse Java API 获取来自 Muse 头盔的数据流。这是一种很好的采集和播放脑电信号的方式。
 
-* [**NeuroTechX/eeg-101**: _eeg-101 — Interactive neuroscience tutorial app using Muse and React Native to teach EEG and BCI basics.](https://github.com/NeuroTechX/eeg-101)
+* [**NeuroTechX/eeg-101**: _eeg-101 — 使用 Muse 和 Reac Native 来教授脑电图和 BCI 基础知识的交互式神经学教程应用。](https://github.com/NeuroTechX/eeg-101)
 
 ### 6. EEG pipes
 
 ![](https://cdn-images-1.medium.com/max/1600/1*1SPDOMNKy-3ntUgiDnpeDA.png)
 
-This project provides pipeable RxJS operators for working with EEG data in Node and the Browser, with features such as FFT, PSD and Power Bands, Buffering and Epoching, IIR Filters and more. Note that an Observable of EEG data is required, which can be done using `fromEvent` from RxJS in order to push callback events into an Observable stream. Enjoy.
+这个项目提供在 Node 和浏览器环境中处理脑电图数据的可管道化的 RxJS 操作符，包括的功能比如 FFT、功率谱密度（PSD）和功率带宽、缓冲和 Epoching、IIR 滤波器等。注意需要一个关于脑电图的 Observable，可以使用 RxJS 的 `fromEvent` 将回调事件压入 Observable 流中。试用一下。
 
-* [**neurosity/eeg-pipes**: _eeg-pipes — Pipeable RxJS operators for working with EEG data in Node and the Browser](https://github.com/neurosity/eeg-pipes)
+* [**neurosity/eeg-pipes**: _eeg-pipes — 在 Node 和浏览器中处理脑电图数据的可管道化 RxJS 操作符](https://github.com/neurosity/eeg-pipes)
 
 ### 7. Open BCI & JS
 
-Open BCI is a project built to provide open-source brain-computer interfaces and low-cost hardware. Created by a group of engineers, researches and makers who “share an unfaltering passion for harnessing the electrical signals of the human brain and body to further understand and expand who we are”.
+Open BCI 是一个提供脑机接口和低成本硬件的开源项目。由工程师、研究人员和制造商组成的开发小组创建，他们希望“分享对利用脑电信号来更深入地理解并扩展我们是谁的坚定热情”。
 
-As such, it’s creating a base for a wide verity of implementations for working with all kinds of EEG-related hardware and software. Some of which, are awesome Javascript implementations for EEG proccessing, visualizing and more working with anything from Node.js to Angular 4. Here are some.
+基于此，它为各种各样脑电相关软硬件实现构筑了一个基础。其中有一些非常棒的 Javascript 实现，使用从 Node.js 到 Angular 进行脑电图处理、可视化和一系列工作。这是一些例子。
 
-* [**pwstegman/WebBCI**: _WebBCI — :bar_chart: JavaScript based EEG signal processing]((https://github.com/pwstegman/WebBCI)
+* [**pwstegman/WebBCI**: _WebBCI — :bar_chart: 基于 JavaScript 的脑电信号处理]((https://github.com/pwstegman/WebBCI)
 
-* [**NeuroJS/openbci-dashboard**: _openbci-dashboard — A fullstack javascript app for capturing and visualizing OpenBCI EEG data](https://github.com/NeuroJS/openbci-dashboard)
+* [**NeuroJS/openbci-dashboard**: _openbci-dashboard — 一个获取并可视化 OpenBCI 脑电数据的全栈 Javascript 应用](https://github.com/NeuroJS/openbci-dashboard)
 
 * [**neurosity/openbci-observable**: _openbci-observable — Making OpenBCI for Node Reactive_github.com](https://github.com/neurosity/openbci-observable)
 
-* [**alexcastillo/angular-openbci-rx**: _angular-openbci-rx — EEG Time Series Data Visualization in Angular 4](https://github.com/alexcastillo/angular-openbci-rx)
+* [**alexcastillo/angular-openbci-rx**: _angular-openbci-rx — 使用 Angular 4 实现脑电时序数据可视化](https://github.com/alexcastillo/angular-openbci-rx)
 
 * * *
 
-### Also check out:
+### 还可以看看：
 
-* [**karan/brain2music**: _brain2music — :musical_note: EEG brainwave data to music (more like noise) in realtime.](https://github.com/karan/brain2music)
+* [**karan/brain2music**: _brain2music — :音符: 脑电波数据实时音乐转换（更像是噪音）](https://github.com/karan/brain2music)
 
 * [**NeuroJS/topogrid**: _topogrid — javascript library for interpolation of topographic EEG plots](https://github.com/NeuroJS/topogrid)
 
 * * *
 
-### Meet Bit
+### 遇见 Bit
 
-[**Bit**](https://bitsrc.io) helps your team build applications faster by turning components and modules into building blocks which can be easily shared, developed and used anywhere to build new projects. Try Bit with Javascript, React and more.
+[**Bit**](https://bitsrc.io) 可以帮助你的团队通过导入组件和模块到编译模块中来快速搭建应用，这些非常容易分享、开发并在任意地方去构建新的工程项目。用 Javascript、React 或者其他方式试用下 Bit。
 
-* [**Bit — Share and build with code components**: _Bit helps you share, discover and use code components between projects and applications to build new features and…]https://bitsrc.io/)
+* [**Bit — 共享和创建代价组件**: Bit 可以帮助你在项目和应用之间共享、发现并使用代码组件来创建新功能特性和其他……](https://bitsrc.io/)
 
 * * *
 
-### Learn More
+### 更多了解
 
-* [**Monorepos Made Easier with Bit and NPM**: _How to leverage Bit + NPM to go monorepo without the overhead.](https://blog.bitsrc.io/monorepo-architecture-simplified-with-bit-and-npm-b1354be62870)
+* [**Monorepos Made Easier with Bit and NPM**：如何利用 Bit 和 NPM 更简单地创建 Monorepos。](https://blog.bitsrc.io/monorepo-architecture-simplified-with-bit-and-npm-b1354be62870)
 
-* [**Write GraphQL APIs on Node with MongoDB**: _How to write GraphQL APIs on Node.js with MongoDB.](https://blog.bitsrc.io/write-graphql-apis-on-node-with-mongodb-f3d0084cbbb8)
+* [**Write GraphQL APIs on Node with MongoDB**：如何使用 Node.js 和 MongoDB 来编写 GraphQL APIs。](https://blog.bitsrc.io/write-graphql-apis-on-node-with-mongodb-f3d0084cbbb8)
 
-* [**11 Javascript Utility Libraries You Should Know In 2018**: _11 Useful Javascript utility libraries to speed your development.](https://blog.bitsrc.io/11-javascript-utility-libraries-you-should-know-in-2018-3646fb31ade)
+* [**11 Javascript Utility Libraries You Should Know In 2018**：能够加快开发的 11 个有用的 Javascript 工具包。](https://blog.bitsrc.io/11-javascript-utility-libraries-you-should-know-in-2018-3646fb31ade)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
