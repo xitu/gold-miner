@@ -9,7 +9,7 @@
 
 当我们在从事大项目或团队开发工作时，我们经常会发现我们写的代码，凌乱、难以阅读并且难以扩展。尤其是当一段时候后我们回头再看自己的代码，必须回想起当初自己写的时候的思路才能看懂。
 
-因此，人们创建了许多 [CSS](https://www.toptal.com/css) 框架来对 CSS 代码进行样式化，使其更具可读性。比如说，**SMACSS**，即 **Scalable（可扩展）**和 **Modular Architecture（模块化）**的 **CSS**，就旨在实现这一点。我采用的是 Johnathan Snook 定的那套 CSS 框架指南。
+因此，人们创建了许多 [CSS](https://www.toptal.com/css) 框架来对 CSS 代码进行样式化，使其更具可读性。比如说，**SMACSS**，即 **Scalable（可扩展）**和 **Modular Architecture（模块化）** 的 **CSS**，就旨在实现这一点。我采用的是 Johnathan Snook 定的那套 CSS 框架指南。
 
 SMACSS 的架构方法与 Bootstrap 或 Foundation 等 CSS 框架略有不同。相反，它是一组规则，更是一套模板或指南。因此，让我们来深入探究下这些 CSS 设计模式，看怎么用它们来让我们的代码更好、更[整洁](https://www.toptal.com/front-end/frontend-clean-code-guide)、更易读、更具模块化。
 
@@ -47,7 +47,7 @@ button {
 
 它应该包含计划在整个网站上使用的默认的大小、边距、颜色、边框和其他默认值。你的排版和表单元素应该在每个页面上具有统一的样式，给人感觉它们是统一的设计和主题。
 
-不管你用不用 SMACSS，我都强烈建议避免使用 `!important`,也不要使用深嵌套，关于为什么我会在这篇帖子的后面进行深入讨论。此外，如果你的项目使用了 CSS 重置代码，那你应该把它放在这一部分（我更喜欢使用 Sass，这样我就可以在 SASS 文件顶部方便地将重置代码引入进来，而不需要将其复制或者在每个页面的 `<header>` 元素单独引用。）。
+不管你用不用 SMACSS，我都强烈建议避免使用 `!important`，也不要使用深嵌套，关于为什么我会在这篇帖子的后面进行深入讨论。此外，如果你的项目使用了 CSS 重置代码，那你应该把它放在这一部分（我更喜欢使用 Sass，这样我就可以在 SASS 文件顶部方便地将重置代码引入进来，而不需要将其复制或者在每个页面的 `<header>` 元素单独引用）。
 
 **相关资源：** [Theming with Sass: An SCSS Tutorial](https://www.toptal.com/sass/theming-scss-tutorial)
 
@@ -59,7 +59,7 @@ button {
 
 SMACSS 布局规则包括顶部栏、侧边栏、正文、页脚等主要部分。
 
-这些布局包括多个 CSS 模块例如 boxes ,cards ,unordered lists ,galleries 等，但我会将这些模块放到下一节再详做讨论。让我们通过一个网页例子来看看怎么对页面进行布局划分：
+这些布局包括多个 CSS 模块例如 boxes、cards、unordered lists 和 galleries 等，但我会将这些模块放到下一节再详做讨论。让我们通过一个网页例子来看看怎么对页面进行布局划分：
 
 ![An example web page that can be organized into header, main, and footer layout styles using SMACSS](https://uploads.toptal.io/blog/image/126676/toptal-blog-image-1532003633585-029d918ef1d38dd3573bb593bb87cdda.png)
 
@@ -85,7 +85,7 @@ SMACSS 布局规则包括顶部栏、侧边栏、正文、页脚等主要部分�
 
 你也可以将上面这些工具样式用在对齐上，比方说你想给 header 子节点或节点文本进行对齐定位，那你只需简单地将合适的类名用在节点上。
 
-另一个例子，你可以在布局框中使用一些默认的外边距，例如 `.l-margin` 有 `20px` 的页边距。然后，无论您想要填充某个 container ,element,card,或者 box ，只需将 `l-margin` 类添加到其中即可。不过你要用一些可复用的写法：
+另一个例子，你可以在布局框中使用一些默认的外边距，例如 `.l-margin` 有 `20px` 的页边距。然后，无论您想要填充某个 container、element、card 或者 box ，只需将 `l-margin` 类添加到其中即可。不过你要用一些可复用的写法：
 
 ```css
 .l-full-width {
@@ -121,7 +121,7 @@ SMACSS 布局规则包括顶部栏、侧边栏、正文、页脚等主要部分�
 
 ## Module（模块规则）
 
-正如我前面提到的，SMACSS 是页面上可重用的小代码块，是单一布局的一部分。这部分 CSS 我们想要存储到单独的文件夹中，因为我们在一个网页会有很多这样的模块代码。并且随着项目的增长，我们可以通过文件夹结构来拆分，比如说，模块/页面 的结构
+正如我前面提到的，SMACSS 是页面上可重用的小代码块，是单一布局的一部分。这部分 CSS 我们想要存储到单独的文件夹中，因为我们在一个网页会有很多这样的模块代码。并且随着项目的增长，我们可以通过文件夹结构来拆分，比如说，模块/页面的结构
 
 ![An example file/folder hierarchy using SMACSS and Sass](https://uploads.toptal.io/blog/image/126677/toptal-blog-image-1532004385659-636d848a5fbaad6340f79d6ad89ac1d8.png)
 
@@ -141,7 +141,7 @@ SMACSS 布局规则包括顶部栏、侧边栏、正文、页脚等主要部分�
 }
 ```
 
-你一定注意到我们在模块前缀后面使用两个连字符。这是因为有时模块名称有两个单词或者它们的前缀类似  `big-article`。我们需要两个连字符来描述子元素的位置。比如你可以试着比较 `big-article-title` 、 `big-article--title` 和 `big-article--text`。
+你一定注意到我们在模块前缀后面使用两个连字符。这是因为有时模块名称有两个单词或者它们的前缀类似 `big-article`。我们需要两个连字符来描述子元素的位置。比如你可以试着比较 `big-article-title`、`big-article--title` 和 `big-article--text`。
 
 此外，如果特定模块占用了大部分页面，您可以将模块嵌套在模块中：
 
@@ -192,7 +192,7 @@ SMACSS 布局规则包括顶部栏、侧边栏、正文、页脚等主要部分�
 
 如果状态规则与布局规则应用于同一元素上，此时我们要添加额外的规则来覆盖前面的规则（如果有的话）。状态规则优先，因为它是规则链中的最后一个规则。
 
-与布局规则一样，我们建议在状态规则使用前缀。这有助于我们识别它们并给予它们优先权。 这里我们使用 `is` 前缀，如 `is-hidden` 或 `is-selected`.
+与布局规则一样，我们建议在状态规则使用前缀。这有助于我们识别它们并给予它们优先权。这里我们使用 `is` 前缀，如 `is-hidden` 或 `is-selected`。
 
 ```HTML
 <header id="header">
@@ -268,9 +268,9 @@ SMACSS 布局规则包括顶部栏、侧边栏、正文、页脚等主要部分�
 
 ### CSS 有几种不同的类型？
 
-有三种不同的类型。内联 CSS 直接放在 HTML 元素的样式属性上。内部 CSS 位于 HTML `header`  内部 `style` 标签内。外部 CSS 是独立的文件并通过 HTML 来索引到，避免网站在不同网页内编写重复的代码。
+有三种不同的类型。内联 CSS 直接放在 HTML 元素的样式属性上。内部 CSS 位于 HTML `header` 内部 `style` 标签内。外部 CSS 是独立的文件并通过 HTML 来索引到，避免网站在不同网页内编写重复的代码。
 
-### ”CSS 模板“是什么意思？
+### “CSS 模板”是什么意思？
 
 CSS 模板通常是用来定义特定的布局以便我们在不同网页甚至不同网站上使用它们。但是除了布局，它们有时也用来为特定元素例如模态框和按钮甚至它们的组合而定义的一组规则。其他一些则用来定义 HTML 元素的默认样式。
 
