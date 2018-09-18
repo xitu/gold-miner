@@ -28,7 +28,7 @@ React 16.5 添加了对新的 profiler DevTools 插件的支持。这个插件�
 
 DevTools 将会对支持新的 profiling API 的 APP 新加一个 “Profiler” tab 列：
 
-[![New DevTools ](/static/devtools-profiler-tab-4da6b55fc3c98de04c261cd902c14dc3-acf85.png)](https://reactjs.org/static/devtools-profiler-tab-4da6b55fc3c98de04c261cd902c14dc3-53c76.png) 
+[![New DevTools ](https://reactjs.org/static/devtools-profiler-tab-4da6b55fc3c98de04c261cd902c14dc3-acf85.png)](https://reactjs.org/static/devtools-profiler-tab-4da6b55fc3c98de04c261cd902c14dc3-53c76.png) 
 
 > Note：`react-dom` 16.5+ 在 DEV 模式下才支持 Profiling，同时生产环境下也可以通过一个 profiling bundle `react-dom/profiling` 来支持。请在 [fb.me/react-profiling](https://fb.me/react-profiling) 上查看如何使用这个 bundle。
 
