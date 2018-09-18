@@ -5,133 +5,135 @@
 > * 译者：
 > * 校对者：
 
-# Inside look at modern web browser (part 1)
+# Inside look at modern web browser (part 2)
 
-## CPU, GPU, Memory, and multi-process architecture
+## What happens in navigation
 
-In this 4-part blog series, we’ll look inside the Chrome browser from high-level architecture to the specifics of the rendering pipeline. If you ever wondered how the browser turns your code into a functional website, or you are unsure why a specific technique is suggested for performance improvements, this series is for you.
+This is part 2 of a 4 part blog series looking at the inner workings of Chrome. In [the previous post](https://developers.google.com/web/updates/2018/09/inside-browser-part1), we looked at how different processes and threads handle different parts of a browser. In this post, we dig deeper into how each process and thread communicate in order to display a website.
 
-As part 1 of this series, we’ll take a look at core computing terminology and Chrome’s multi-process architecture.
+Let’s look at a simple use case of web browsing: you type a URL into a browser, then the browser fetches data from the internet and displays a page. In this post, we’ll focus on the part where a user requests a site and the browser prepares to render a page - also known as a navigation.
 
-**Note:** If you are familiar with the idea of CPU/GPU and process/thread you may skip to [Browser Architecture](#browser-architecture).
+## It starts with a browser process
 
-## At the core of the computer are the CPU and GPU
+![Browser processes](https://developers.google.com/web/updates/images/inside-browser/part2/browserprocesses.png)
 
-In order to understand the environment that the browser is running, we need to understand a few computer parts and what they do.
+Figure 1: Browser UI at the top, diagram of the browser process with UI, network, and storage thread inside at the bottom
 
-### CPU
+As we covered in [part 1: CPU, GPU, Memory, and multi-process architecture](https://developers.google.com/web/updates/2018/09/inside-browser-part1), everything outside of a tab is handled by the browser process. The browser process has threads like the UI thread which draws buttons and input fields of the browser, the network thread which deals with network stack to receive data from the internet, the storage thread that controls access to the files and more. When you type a URL into the address bar, your input is handled by browser process’s UI thread.
 
-![CPU](https://developers.google.com/web/updates/images/inside-browser/part1/CPU.png)
+## A simple navigation
 
-Figure 1: 4 CPU cores as office workers sitting at each desk handling tasks as they come in
+### Step 1: Handling input
 
-First is the **C**entral **P**rocessing **U**nit - or **CPU**. The CPU can be considered your computer’s brain. A CPU core, pictured here as an office worker, can handle many different tasks one by one as they come in. It can handle everything from math to art while knowing how to reply to a customer call. In the past most CPUs were a single chip. A core is like another CPU living in the same chip. In modern hardware, you often get more than one core, giving more computing power to your phones and laptops.
+When a user starts to type into the address bar, the first thing UI thread asks is "Is this a search query or URL?". In Chrome, the address bar is also a search input field, so the UI thread needs to parse and decide whether to send you to a search engine, or to the site you requested.  
 
-### GPU
+![Handling user input](https://developers.google.com/web/updates/images/inside-browser/part2/input.png)
 
-![GPU](https://developers.google.com/web/updates/images/inside-browser/part1/GPU.png)
+Figure 1: UI Thread asking if the input is a search query or a URL
 
-Figure 2: Many GPU cores with wrench suggesting they handle a limited task
+### Step 2: Start navigation
 
-**G**raphics **P**rocessing **U**nit - or **GPU** is another part of the computer. Unlike CPU, GPU is good at handling simple tasks but across multiple cores at the same time. As the name suggests, it was first developed to handle graphics. This is why in the context of graphics "using GPU" or "GPU-backed" is associated with fast rendering and smooth interaction. In recent years, with GPU-accelerated computing, more and more computation is becoming possible on GPU alone.
+When a user hits enter, the UI thread initiates a network call to get site content. Loading spinner is displayed on the corner of a tab, and the network thread goes through appropriate protocols like DNS lookup and establishing TLS Connection for the request.
 
-When you start an application on your computer or phone, the CPU and GPU are the ones powering the application. Usually, applications run on the CPU and GPU using mechanisms provided by the Operating System.
+![Navigation start](https://developers.google.com/web/updates/images/inside-browser/part2/navstart.png)
 
-![Hadware, OS, Application](https://developers.google.com/web/updates/images/inside-browser/part1/hw-os-app.png)
+Figure 2: the UI thread talking to the network thread to navigate to mysite.com
 
-Figure 3: Three layers of computer architecture. Machine Hardware at the bottom, Operating System in the middle, and Application on top.
+At this point, the network thread may receive a server redirect header like HTTP 301. In that case, the network thread communicates with UI thread that the server is requesting redirect. Then, another URL request will be initiated.
 
-## Executing program on Process and Thread
+### Step 3: Read response
 
-![process and threads](https://developers.google.com/web/updates/images/inside-browser/part1/process-thread.png)
+![HTTP response](https://developers.google.com/web/updates/images/inside-browser/part2/response.png)
 
-Figure 4: Process as a bounding box, threads as abstract fish swimming inside of a process
+Figure 3: response header which contains Content-Type and payload which is the actual data
 
-Another concept to grasp before diving into browser architecture is Process and Thread. A process can be described as an application’s executing program. A thread is the one that lives inside of process and executes any part of its process's program.
+Once the response body (payload) starts to come in, the network thread looks at the first few bytes of the stream if necessary. The response's Content-Type header should say what type of data it is, but since it may be missing or wrong, [MIME Type sniffing](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) is done here. This is a "tricky business" as commented in [the source code](https://cs.chromium.org/chromium/src/net/base/mime_sniffer.cc?sq=package:chromium&dr=CS&l=5). You can read the comment to see how different browsers treat content-type/payload pairs.
 
-When you start an application, a process is created. The program might create thread(s) to help it do work, but that's optional. The Operating System gives the process a "slab" of memory to work with and all application state is kept in that private memory space. When you close the application, the process also goes away and the Operating System frees up the memory.
+If the response is an HTML file, then the next step would be to pass the data to the renderer process, but if it is a zip file or some other file then that means it is a download request so they need to pass the data to download manager.
 
-[![process and memory](https://developers.google.com/web/updates/images/inside-browser/part1/memory.png)](https://developers.google.com/web/updates/images/inside-browser/part1/memory.svg) **click on the image to see annimation** 
+![MIME type sniffing](https://developers.google.com/web/updates/images/inside-browser/part2/sniff.png)
 
-Figure 5: Diagram of a process using memory space and storing application data
+Figure 4: Network thread asking if response data is HTML from a safe site
 
-A process can ask the Operating System to spin up another process to run different tasks. When this happens, different parts of the memory are allocated for the new process. If two processes need to talk, they can do so by using **I**nter **P**rocess **C**ommunication (**IPC**). Many applications are designed to work this way so that if a worker process get unresponsive, it can be restarted without stopping other processes which are running different parts of the application.
+This is also where the [SafeBrowsing](https://safebrowsing.google.com/) check happens. If the domain and the response data seems to match a known malicious site, then the network thread alerts to display a warning page. Additionally, [**C**ross **O**rigin **R**ead **B**locking (**CORB**)](https://www.chromium.org/Home/chromium-security/corb-for-developers) check happens in order to make sure sensitive cross-site data does not make it to the renderer process.
 
-[![worker process and IPC](https://developers.google.com/web/updates/images/inside-browser/part1/workerprocess.png)](https://developers.google.com/web/updates/images/inside-browser/part1/workerprocess.svg) **click on the image to see annimation** 
+### Step 3: Find a renderer process
 
-Figure 6: Diagram of separate processes communicating over IPC
+Once all of the checks are done and Network thread is confident that browser should navigate to the requested site, the Network thread tells UI thread that the data is ready. UI thread then finds a renderer process to carry on rendering of the web page.
 
-## Browser Architecture
+![Find renderer process](https://developers.google.com/web/updates/images/inside-browser/part2/findrenderer.png)
 
-So how is a web browser built using processes and threads? Well, it could be one process with many different threads or many different processes with a few threads communicating over IPC.
+Figure 5: Network thread telling UI thread to find Renderer Process
 
-![browser architecture](https://developers.google.com/web/updates/images/inside-browser/part1/browser-arch.png)
+Since the network request could take several hundred milliseconds to get a response back, an optimization to speed up this process is applied. When the UI thread is sending a URL request to the network thread at step 2, it already knows which site they are navigating to. The UI thread tries to proactively find or start a renderer process in parallel to the network request. This way, if all goes as expected, a renderer process is already in standby position when the network thread received data. This standby process might not get used if the navigation redirects cross-site, in which case a different process might be needed.
 
-Figure 7: Different browser architectures in process/thread diagram
+### Step 4: Commit navigation
 
-The important thing to note here is that these different architectures are implementation details. There is no standard specification on how one might build a web browser. One browser’s approach may be completely different from another.
+Now that the data and the renderer process is ready, an IPC is sent from the browser process to the renderer process to commit the navigation. It also passes on the data stream so the renderer process can keep receiving HTML data. Once the browser process hears confirmation that the commit has happened in the renderer process, the navigation is complete and the document loading phase begins.
 
-For the sake of this blog series, we are going to use Chrome’s recent architecture described in the diagram below.
+At this point, address bar is updated and the security indicator and site settings UI reflects the site information of the new page. The session history for the tab will be updated so back/forward buttons will step through the site that was just navigated to. To facilitate tab/session restore when you close a tab or window, the session history is stored on disk.
 
-At the top is the browser process coordinating with other processes that take care of different parts of the application. For the renderer process, multiple processes are created and assigned to each tab. Until very recently, Chrome gave each tab a process when it could; now it tries to give each site its own process, including iframes (see [Site Isolation](#site-isolation)).
+![Commit the navigation](https://developers.google.com/web/updates/images/inside-browser/part2/commit.png)
 
-![browser architecture](https://developers.google.com/web/updates/images/inside-browser/part1/browser-arch2.png)
+Figure 6: IPC between the browser and the renderer processes, requesting to render the page
 
-Figure 8: Diagram of Chrome’s multi-process architecture. Multiple layers are shown under Renderer Process to represent Chrome running multiple Renderer Processes for each tab.
+### Extra Step: Initial load complete
 
-## Which process controls what?
+Once the navigation is committed, the renderer process carries on loading resources and renders the page. We will go over the details of what happens at this stage in the next post. Once the renderer process "finishes" rendering, it sends an IPC back to the browser process (this is after all the `onload` events have fired on all frames in the page and have finished executing). At this point, the UI thread stops the loading spinner on the tab.
 
-The following table describes each Chrome process and what it controls:
+I say "finishes", because client side JavaScript could still load additional resources and render new views after this point.
 
-| Process and What it controls |    |
-| ---------------------------- | -- |
-| Browser | Controls "chrome" part of the application including address bar, bookmarks, back and forward buttons.  
-Also handles the invisible, privileged parts of a web browser such as network requests and file access. |
-| Renderer | Controls anything inside of the tab where a website is displayed.|
-| Plugin | Controls any plugins used by the website, for example, flash. |
-| GPU | Handles GPU tasks in isolation from other processes. It is separated into different process because GPUs handles requests from multiple apps and draw them in the same surface. |
+![Page finish loading](https://developers.google.com/web/updates/images/inside-browser/part2/loaded.png)
 
-![Chrome processes](https://developers.google.com/web/updates/images/inside-browser/part1/browserui.png)
+Figure 7: IPC from the renderer to the browser process to notify the page has "loaded"
 
-Figure 9: Different processes pointing to different parts of browser UI
+## Navigating to a different site
 
-There are even more processes like the Extension process and utility processes. If you want to see how many processes are running in your Chrome, click the options menu icon more_vert at the top right corner, select More Tools, then select Task Manager. This opens up a window with a list of processes that are currently running and how much CPU/Memory they are using.
+The simple navigation was complete! But what happens if a user puts different URL to address bar again? Well, the browser process goes through the same steps to navigate to the different site. But before it can do that, it needs to check with the currently rendered site if they care about [`beforeunload`](https://developer.mozilla.org/en-US/docs/Web/Events/beforeunload) event.
 
-## The benefit of multi-process architecture in Chrome
+`beforeunload` can create "Leave this site?" alert when you try to navigate away or close the tab. Everything inside of a tab including your JavaScript code is handled by the renderer process, so the browser process has to check with current renderer process when new navigation request comes in.
 
-Earlier, I mentioned Chrome uses multiple renderer process. In the most simple case, you can imagine each tab has its own renderer process. Let’s say you have 3 tabs open and each tab is run by an independent renderer process. If one tab becomes unresponsive, then you can close the unresponsive tab and move on while keeping other tabs alive. If all tabs are running on one process, when one tab becomes unresponsive, all the tabs are unresponsive. That’s sad.
+**Caution:** Do not add unconditional `beforeunload` handlers. It creates more latency because the handler needs to be executed before the navigation can even be started. This event handler should be added only when needed, for example if users need to be warned that they might lose data they've entered on the page.
 
-[![multiple renderer for tabs](https://developers.google.com/web/updates/images/inside-browser/part1/tabs.png)](https://developers.google.com/web/updates/images/inside-browser/part1/tabs.svg) **click on the image to see annimation** 
+![beforeunload event handler](https://developers.google.com/web/updates/images/inside-browser/part2/beforeunload.png)
 
-Figure 10: Diagram showing multiple processes running each tab
+Figure 8: IPC from the browser process to a renderer process telling it that it's about to navigate to a different site
 
-Another benefit of separating the browser's work into multiple processes is security and sandboxing. Since operating systems provide a way to restrict processes’ privileges, the browser can sandbox certain processes from certain features. For example, the Chrome browser restricts arbitrary file access for processes that handle arbitrary user input like the renderer process.
+If the navigation was initiated from the renderer process (like user clicked on a link or client-side JavaScript has run `window.location = "https://newsite.com"`) the renderer process first checks `beforeunload` handlers. Then, it goes through the same process as browser process initiated navigation. The only difference is that navigation request is kicked off from the renderer process to the browser process.
 
-Because processes have their own private memory space, they often contain copies of common infrastructure (like V8 which is a Chrome's JavaScript engine). This means more memory usage as they can't be shared the way they would be if they were threads inside the same process. In order to save memory, Chrome puts a limit on how many processes it can spin up. The limit varies depending on how much memory and CPU power your device has, but when Chrome hits the limit, it starts to run multiple tabs from the same site in one process.
+When the new navigation is made to a different site than currently rendered one, a separate render process is called in to handle the new navigation while current render process is kept around to handle events like `unload`. For more, see [an overview of page lifecycle states](https://developers.google.com/web/updates/2018/07/page-lifecycle-api#overview_of_page_lifecycle_states_and_events) and how you can hook into events with [the Page Lifecycle API](https://developers.google.com/web/updates/2018/07/page-lifecycle-api).
 
-## Saving more memory - Servicification in Chrome
+![new navigation and unload](https://developers.google.com/web/updates/images/inside-browser/part2/unload.png)
 
-The same approach is applied to the browser process. Chrome is undergoing architecture changes to run each part of the browser program as a service allowing to easily split into different processes or aggregate into one.
+Figure 9: 2 IPCs from a browser process to a new renderer process telling to render the page and telling old renderer process to unload
 
-General idea is that when Chrome is running on powerful hardware, it may split each service into different processes giving more stability, but if it is on a resource-constraint device, Chrome consolidates services into one process saving memory footprint. Similar approach of consolidating processes for less memory usage have been used on platform like Android before this change.
+## In case of Service Worker
 
-[![Chrome servicfication](https://developers.google.com/web/updates/images/inside-browser/part1/servicfication.png)](https://developers.google.com/web/updates/images/inside-browser/part1/servicfication.svg) **click on the image to see annimation** 
+One recent change to this navigation process is the introduction of [service worker](https://developers.google.com/web/fundamentals/primers/service-workers/). Service worker is a way to write network proxy in your application code; allowing web developers to have more control over what to cache locally and when to get new data from the network. If service worker is set to load the page from the cache, there is no need to request the data from the network.
 
-Figure 11: Diagram of Chrome’s servicification moving different services into multiple processes and a single browser process
+The important part to remember is that service worker is JavaScript code that runs in a renderer process. But when the navigation request comes in, how does a browser process know the site has a service worker?
 
-## Per-frame renderer processes - Site Isolation
+![Service worker scope lookup](https://developers.google.com/web/updates/images/inside-browser/part2/scope_lookup.png)
 
-[Site Isolation](https://developers.google.com/web/updates/2018/07/site-isolation) is a recently introduced feature in Chrome that runs a separate renderer process for each cross-site iframe. We’ve been talking about one renderer process per tab model which allowed cross-site iframes to run in a single renderer process with sharing memory space between different sites. Running a.com and b.com in the same renderer process might seem okay. The [Same Origin Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) is the core security model of the web; it makes sure one site cannot access data from other sites without consent. Bypassing this policy is a primary goal of security attacks. Process isolation is the most effective way to separate sites. With [Meltdown and Spectre](https://developers.google.com/web/updates/2018/02/meltdown-spectre), it became even more apparent that we need to separate sites using processes. With Site Isolation enabled on desktop by default since Chrome 67, each cross-site iframe in a tab gets a separate renderer process.
+Figure 10: the network thread in the browser process looking up service worker scope
 
-![site isolation](https://developers.google.com/web/updates/images/inside-browser/part1/isolation.png)
+When a service worker is registered, the scope of the service worker is kept as a reference (you can read more about scope in this [The Service Worker Lifecycle](https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle) article). When a navigation happens, network thread checks the domain against registered service worker scopes, if a service worker is registered for that URL, the UI thread finds a renderer process in order to execute the service worker code. The service worker may load data from cache, eliminating the need to request data from the network, or it may request new resources from the network.
 
-Figure 12: Diagram of site isolation; multiple renderer processes pointing to iframes within a site
+![serviceworker navigation](https://developers.google.com/web/updates/images/inside-browser/part2/serviceworker.png)
 
-Enabling Site Isolation has been a multi-year engineering effort. Site Isolation isn’t as simple as assigning different renderer processes; it fundamentally changes the way iframes talk to each other. Opening devtools on a page with iframes running on different processes means devtools had to implement behind-the-scenes work to make it appear seamless. Even running a simple Ctrl+F to find a word in a page means searching across different renderer processes. You can see the reason why browser engineers talk about the release of Site Isolation as a major milestone!
+Figure 11: the UI thread in a browser process starting up a renderer process to handle service workers; a worker thread in a renderer process then requests data from the network
+
+## Navigation Preload
+
+You can see this round trip between the browser process and renderer process could result in delays if service worker eventually decides to request data from the network. [Navigation Preload](https://developers.google.com/web/updates/2017/02/navigation-preload) is a mechanism to speed up this process by loading resources in parallel to service worker startup. It marks these requests with a header, allowing servers to decide to send different content for these requests; for example, just updated data instead of a full document.
+
+![Navigation preload](https://developers.google.com/web/updates/images/inside-browser/part2/navpreload.png)
+
+Figure 12: the UI thread in a browser process starting up a renderer process to handle service worker while kicking off network request in parallel
 
 ## Wrap-up
 
-In this post, we’ve covered a high-level view of browser architecture and covered the benefits of a multi-process architecture. We also covered Servicification and Site Isolation in Chrome that is deeply related to multi-process architecture. In the next post, we’ll start diving into what happens between these processes and threads in order to display a website.
+In this post, we looked at what happens during a navigation and how your web application code such as response headers and client-side JavaScript interact with the browser. Knowing the steps browser goes through to get data from the network makes it easier to understand why APIs like navigation preload were developed. In the next post, we’ll dive into how the browser evaluates our HTML/CSS/JavaScript to render pages.
 
 Did you enjoy the post? If you have any questions or suggestions for the future post, I'd love to hear from you in the comment section below or [@kosamari](https://twitter.com/kosamari) on Twitter.
 
