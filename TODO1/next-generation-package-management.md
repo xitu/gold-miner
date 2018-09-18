@@ -11,8 +11,7 @@
 
 下面将介绍 [`tink`](https://t.umblr.com/redirect?z=https%3A%2F%2Fgithub.com%2Fnpm%2Ftink&t=NDM0Zjk2ZmNkNTVkNTU4NDlmNzNkNDQwMWE3YTMwNjI0OTMyNTg5Yix2SGt2amVPVg%3D%3D&b=t%3AnXsLs1P4AptPf1fBr_nFxw&p=https%3A%2F%2Fblog.npmjs.org%2Fpost%2F178027064160%2Fnext-generation-package-management&m=1)，一个 `install-less` 安装程序的概念验证实现。
 
-`think` 作为 Node.js 本身的替代品，以你现有的 `package-lock.json` 文件为工作基础。
-在没有 `node_modules` 目录的项目上尝试之后你会发现，即使从来没有运行过安装，依旧可以使用 `require` 关键词来导入任何依赖项。第一次运行也许需要花费几秒钟的时间来下载和提取包的压缩文件。但是之后的运行几乎能够瞬间完成，即使依旧会核查来确保 `package-lock.json` 中的所有内容都在系统上。
+`think` 作为 Node.js 本身的替代品，以你现有的 `package-lock.json` 文件为工作基础。在没有 `node_modules` 目录的项目上尝试之后你会发现，即使从来没有运行过安装，依旧可以使用 `require` 关键词来导入任何依赖项。第一次运行也许需要花费几秒钟的时间来下载和提取包的压缩文件。但是之后的运行几乎能够瞬间完成，即使依旧会核查来确保 `package-lock.json` 中的所有内容都在系统上。
 
 你会注意到的第一件事是这些模块实际上都没有放入 `node_modules` 目录下，唯一能找到的就是一个 `.package-map.json` 文件。这个文件中包含了已安装的包模块中的所有文件的哈希值。你可以放心地获取所要求的内容，因为它们在加载前已经被验证过了。（如果验证失败，则文件将从其原始源获取，所有过程都是透明的）。
 
