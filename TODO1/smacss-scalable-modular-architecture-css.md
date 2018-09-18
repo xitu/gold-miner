@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/smacss-scalable-modular-architecture-css.md](https://github.com/xitu/gold-miner/blob/master/TODO1/smacss-scalable-modular-architecture-css.md)
 > * 译者：[park-ma](https://github.com/Park-ma)
-> * 校对者：[老教授](https://juejin.im/user/58ff449a61ff4b00667a745c/posts)
+> * 校对者：[老教授](https://juejin.im/user/58ff449a61ff4b00667a745c/posts)[IrisHuang](https://github.com/huangyuanzhen)
 
 # 探索 SMACSS：可扩展的模块化 CSS 框架
 
