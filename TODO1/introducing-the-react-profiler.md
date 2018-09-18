@@ -11,18 +11,17 @@ React 16.5 添加了对新的 profiler DevTools 插件的支持。这个插件�
 
 这篇博文包括以下的话题：
 
-*   [Profile 一个 APP](#profiling-an-application)
-*   [查看性能数据](#reading-performance-data)
-    *   [浏览 commits](#browsing-commits)
-    *   [筛选 commits](#filtering-commits)
-    *   [火焰图](#ranked-chart)
-    *   [排序图](#ranked-chart)
-    *   [Component 图](#component-chart)
-    *   [交互动作（Interactions）](#interactions)
-*   [常见问题 & 解决方法](#troubleshooting)
-    *   [你所选择的根元素下没有 profile 数据被记录](#no-profiling-data-has-been-recorded-for-the-selected-root)
-    *   [你所选中的 commit 记录没有展示时间数据](#no-timing-data-to-display-for-the-selected-commit)
-*   [Profile 一个 APP](#profiling-an-application)
+*   [Profile 一个 APP](#Profile-一个-APP)
+*   [查看性能数据](#查看性能数据)
+    *   [浏览 commits](#浏览-commits)
+    *   [筛选 commits](#筛选-commits)
+    *   [火焰图](#火焰图)
+    *   [排序图](#排序图)
+    *   [Component 图](#Component-图)
+    *   [交互动作（Interactions）](#交互动作（Interactions）)
+*   [常见问题 & 解决方法](#常见问题-&-解决方法)
+    *   [你所选择的根元素下没有 profile 数据被记录](#你所选择的根元素下没有-profile-数据被记录)
+    *   [你所选中的 commit 记录没有展示时间数据](#你所选中的 commit 记录没有展示时间数据)
 
 ## Profile 一个 APP
 
