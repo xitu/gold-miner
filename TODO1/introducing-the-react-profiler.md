@@ -13,7 +13,6 @@ React 16.5 添加了对新的 profiler DevTools 插件的支持。这个插件�
 
 *   [Profile 一个 APP](#profiling-an-application)
 *   [查看性能数据](#reading-performance-data)
-  
     *   [浏览 commits](#browsing-commits)
     *   [筛选 commits](#filtering-commits)
     *   [火焰图](#ranked-chart)
@@ -21,7 +20,6 @@ React 16.5 添加了对新的 profiler DevTools 插件的支持。这个插件�
     *   [Component 图](#component-chart)
     *   [交互动作（Interactions）](#interactions)
 *   [常见问题 & 解决方法](#troubleshooting)
-  
     *   [你所选择的根元素下没有 profile 数据被记录](#no-profiling-data-has-been-recorded-for-the-selected-root)
     *   [你所选中的 commit 记录没有展示时间数据](#no-timing-data-to-display-for-the-selected-commit)
 *   [Profile 一个 APP](#profiling-an-application)
@@ -30,7 +28,7 @@ React 16.5 添加了对新的 profiler DevTools 插件的支持。这个插件�
 
 DevTools 将会对支持新的 profiling API 的 APP 新加一个 “Profiler” tab 列：
 
- [![New DevTools ](/static/devtools-profiler-tab-4da6b55fc3c98de04c261cd902c14dc3-acf85.png)](/static/devtools-profiler-tab-4da6b55fc3c98de04c261cd902c14dc3-53c76.png) 
+[![New DevTools ](/static/devtools-profiler-tab-4da6b55fc3c98de04c261cd902c14dc3-acf85.png)](https://reactjs.org/static/devtools-profiler-tab-4da6b55fc3c98de04c261cd902c14dc3-53c76.png) 
 
 > Note：`react-dom` 16.5+ 在 DEV 模式下才支持 Profiling，同时生产环境下也可以通过一个 profiling bundle `react-dom/profiling` 来支持。请在 [fb.me/react-profiling](https://fb.me/react-profiling) 上查看如何使用这个 bundle。
 
