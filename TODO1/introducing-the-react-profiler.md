@@ -21,7 +21,7 @@ React 16.5 添加了对新的 profiler DevTools 插件的支持。这个插件�
     *   [交互动作（Interactions）](#交互动作interactions)
 *   [常见问题 & 解决方法](#常见问题--解决方法)
     *   [选择的根元素下没有 profile 数据被记录](#选择的根元素下没有-profile-数据被记录)
-    *   [选中的 commit 记录没有展示时间数据](#选中的-commit-记录没有展示时间数据)
+    *   [选中的 commit 记录没有展示时间数据](#选中的-commit-记录没有时间数据可以展示)
 
 ## Profile 一个 APP
 
