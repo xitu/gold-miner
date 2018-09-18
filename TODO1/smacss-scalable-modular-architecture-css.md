@@ -9,7 +9,7 @@
 
 当我们在从事大项目或团队开发工作时，我们经常会发现我们写的代码，凌乱、难以阅读并且难以扩展。尤其是当一段时候后我们回头再看自己的代码，必须回想起当初自己写的时候的思路才能看懂。
 
-因此，人们创建了许多 [CSS](https://www.toptal.com/css) 框架来对 CSS 代码进行样式化，使其更具可读性。比如说，**SMACSS**，即 **Scalable（可扩展）**和 **Modular Architecture（模块化）** 的 **CSS**，就旨在实现这一点。我采用的是 Johnathan Snook 定的那套 CSS 框架指南。
+因此，人们创建了许多 [CSS](https://www.toptal.com/css) 框架来对 CSS 代码进行样式化，使其更具可读性。比如说，**SMACSS**，即 **Scalable（可扩展）** 和 **Modular Architecture（模块化）** 的 **CSS**，就旨在实现这一点。我采用的是 Johnathan Snook 定的那套 CSS 框架指南。
 
 SMACSS 的架构方法与 Bootstrap 或 Foundation 等 CSS 框架略有不同。相反，它是一组规则，更是一套模板或指南。因此，让我们来深入探究下这些 CSS 设计模式，看怎么用它们来让我们的代码更好、更[整洁](https://www.toptal.com/front-end/frontend-clean-code-guide)、更易读、更具模块化。
 
