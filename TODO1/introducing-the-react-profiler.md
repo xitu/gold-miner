@@ -17,11 +17,11 @@ React 16.5 添加了对新的 profiler DevTools 插件的支持。这个插件�
     *   [筛选 commits](#筛选-commits)
     *   [火焰图](#火焰图)
     *   [排序图](#排序图)
-    *   [Component 图](#Component-图)
-    *   [交互动作（Interactions）](#交互动作（interactions）)
-*   [常见问题 & 解决方法](#常见问题-&-解决方法)
-    *   [你所选择的根元素下没有 profile 数据被记录](#你所选择的根元素下没有-profile-数据被记录)
-    *   [你所选中的 commit 记录没有展示时间数据](#你所选中的-commit-记录没有展示时间数据)
+    *   [Component 图](#component-图)
+    *   [交互动作（Interactions）](#交互动作interactions)
+*   [常见问题 & 解决方法](#常见问题--解决方法)
+    *   [选择的根元素下没有 profile 数据被记录](#选择的根元素下没有-profile-数据被记录)
+    *   [选中的 commit 记录没有展示时间数据](#选中的-commit-记录没有展示时间数据)
 
 ## Profile 一个 APP
 
@@ -66,7 +66,8 @@ profiler DevTools 是在 commit 阶段收集性能数据的。各次 commit 会�
 
 ![Filtering commits by time](https://reactjs.org/filtering-commits-683b9d860ef722e1505e5e629df7ef7e.gif)
 
-### 火焰图（译者注：[阮一峰：如何读懂火焰图？](http://www.ruanyifeng.com/blog/2017/09/flame-graph.html)）
+### 火焰图
+（译者注：[阮一峰：如何读懂火焰图？](http://www.ruanyifeng.com/blog/2017/09/flame-graph.html)）
 
 火焰图会展示你所指定的那一次 commit 的信息。图中每一列都代表了一个 React component（例如下图中的 `App`、`Nav`）。各列的尺寸和颜色表示这列所代表的 component 及其 children 的渲染时间（列的宽度表示该 component 最近一次渲染所花费的时间，列的颜色代表在该次 commit 中渲染所花费的时间）。
 
