@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-execution-context-and-execution-stack-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-execution-context-and-execution-stack-in-javascript.md)
 > * 译者：[CoolRice](https://github.com/CoolRice)
-> * 校对者：
+> * 校对者：[linxuesia](https://github.com/linxuesia), [CoderMing](https://github.com/CoderMing)
 
 # 理解 JavaScript 中的执行上下文和执行栈
 
@@ -19,7 +19,7 @@
 
 * * *
 
-### 分享自 [Bit](https://bitsrc.io) 的博客❤️
+### 分享自 [Bit](https://bitsrc.io) 的博客 ❤️
 
 使用 Bit 应用所提供的组件作为构建模块，你就是架构师。随时随地和你的团队分享、发现和开发组件，快来尝试鲜！
 
@@ -35,11 +35,10 @@
 
 JavaScript 中有三种执行上下文类型。
 
-*   **全局执行上下文 —** 这是默认或者说基础的上下文，任何不在函数内部的代码都在全局上下文中。 它会执行两件事：创建一个全局的 window 对象（浏览器的情况下），并且设置 `this` 的值等于这个全局对象。一个程序中只会有一个全局执行上下文。
-*   **函数执行上下文 —** 每当一个函数被调用时, 都会为该函数创建一个新的上下文。 每个函数都有它自己的执行上下文，不过是在函数被调用时创建的。函数上下文可以有任意多个。每当一个新的执行上下文被创建，它会按定义的顺序（将在后文讨论）执行一系列步骤。
-*   **Eval 函数执行上下文 —** 执行在 `eval` 函数内部的代码也会有它属于自己的执行上下文，但由于 JavaScript 开发者并不经常使用 `eval`，所以在这里我不会讨论它。
+*   **全局执行上下文** — 这是默认或者说基础的上下文，任何不在函数内部的代码都在全局上下文中。它会执行两件事：创建一个全局的 window 对象（浏览器的情况下），并且设置 `this` 的值等于这个全局对象。一个程序中只会有一个全局执行上下文。
+*   **函数执行上下文** — 每当一个函数被调用时, 都会为该函数创建一个新的上下文。每个函数都有它自己的执行上下文，不过是在函数被调用时创建的。函数上下文可以有任意多个。每当一个新的执行上下文被创建，它会按定义的顺序（将在后文讨论）执行一系列步骤。
+*   **Eval 函数执行上下文** — 执行在 `eval` 函数内部的代码也会有它属于自己的执行上下文，但由于 JavaScript 开发者并不经常使用 `eval`，所以在这里我不会讨论它。
 
-### Execution Stack
 ### 执行栈
 
 执行栈，也就是在其它编程语言中所说的“调用栈”，是一种拥有 LIFO（后进先出）数据结构的栈，被用来存储代码运行时创建的所有执行上下文。
@@ -102,8 +101,7 @@ ExecutionContext = {
 }
 ```
 
-#### **This Binding:**
-#### **This 绑定:**
+#### **This 绑定：**
 
 在全局执行上下文中，`this` 的值指向全局对象。(在浏览器中，`this`引用 Window 对象)。
 
@@ -179,7 +177,7 @@ FunctionExectionContext = {
 }
 ```
 
-#### 变量环境:
+#### 变量环境：
 
 它同样是一个词法环境，其环境记录器持有**变量声明语句**在执行上下文中创建的绑定关系。
 
@@ -253,7 +251,7 @@ VariableEnvironment: {
 }
 ```
 
-**注意 —** 只有遇到调用函数 `multiply` 时，函数执行上下文才会被创建。
+**注意** — 只有遇到调用函数 `multiply` 时，函数执行上下文才会被创建。
 
 可能你已经注意到 `let` 和 `const` 定义的变量并没有关联任何值，但 `var` 定义的变量被设成了 `undefined`。
 
@@ -267,7 +265,7 @@ VariableEnvironment: {
 
 这是整篇文章中最简单的部分。在此阶段，完成对所有这些变量的分配，最后执行代码。
 
-**注意 —** 在执行阶段，如果 JavaScript 引擎不能在源码中声明的实际位置找到 `let` 变量的值，它会被赋值为 `undefined`。
+**注意** — 在执行阶段，如果 JavaScript 引擎不能在源码中声明的实际位置找到 `let` 变量的值，它会被赋值为 `undefined`。
 
 ### 结论
 
@@ -287,7 +285,7 @@ Bit 使得在项目和应用中分享小型组件和模块变得非常简单，�
 
 ### 了解更多
 
-* [**2018 年你应该知道的 11 种 React UI 组件库**：，2018 年 11 种拥有优秀组件的 React 组件库，用于构建下一代应用程序 UI 界面。](https://blog.bitsrc.io/11-react-component-libraries-you-should-know-178eb1dd6aa4)
+* [**2018 年你应该知道的 11 种 React UI 组件库**：2018 年 11 种拥有优秀组件的 React 组件库，用于构建下一代应用程序 UI 界面。](https://blog.bitsrc.io/11-react-component-libraries-you-should-know-178eb1dd6aa4)
 
 * [**加快 Vue.js 应用开发的 5 种工具**：加速你的 Vue.js 应用开发速度。](https://blog.bitsrc.io/5-tools-for-faster-vue-js-app-development-ad7eda1ee6a8)
 
