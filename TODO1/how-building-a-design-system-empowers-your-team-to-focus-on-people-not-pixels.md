@@ -5,171 +5,171 @@
 > * 译者：
 > * 校对者：
 
-# How building a design system empowers your team to focus on people — not pixels.
+# 如何创建一个设计体系来赋能团队 —— 关注人，而非像素
 
-_This post is the first in a series about_ [_HubSpot Canvas_](https://canvas.hubspot.com/)_, our new Design Language._
+**这篇文章是有关我们新的设计语言 [_HubSpot Canvas_](https://canvas.hubspot.com/) 的系列文章的第一篇。**
 
 ![](https://cdn-images-1.medium.com/max/1000/0*9SsSqQVZoaZo-paO.png)
 
-There’s an [old comedy skit](http://www.funnyordie.com/videos/f648312caa/taco-mail-from-holyhackjack?short_id=17p9&_cc=__d___&_ccid=jp2h43.nvxip9) about a mailman who decides he’s no longer passionate about delivering mail — he’d rather deliver tacos instead.
+这有一个[老喜剧小品](http://www.funnyordie.com/videos/f648312caa/taco-mail-from-holyhackjack?short_id=17p9&_cc=__d___&_ccid=jp2h43.nvxip9)，大意是一个邮递员对送信失去了兴趣 —— 他更愿意去送玉米卷。
 
-In the skit, a man waits by his mailbox to confront the mailman about the lack of actual mail in his mailbox. Despite loving tacos, the resident says, “If I had to choose between the tacos and the mail, I’d have to choose the mail.”
+在这个小品中，一个男子在他的邮箱旁边一直等邮递员的出现，想问问他为什么邮箱里一封信都没有。尽管他也喜欢玉米卷，但是他说：「如果让我在玉米卷和邮件中二选一，我不得不选择邮件。」
 
-Tacos are much more exciting than bills, but the man doesn’t _need_ tacos. He _needs_ his mail.
+玉米卷比邮件刺激多了，但是这个男子**不需要**玉米卷，他**需要**的是他的邮件。
 
-HubSpot customers _need_ a product that’s consistent, highly functional and delightful. So the HubSpot Design team needed to create a design system that would help us fullfil those needs on a continual basis.
+HubSpot 的顾客**需要**一个始终如一、功能强大、令人愉快的产品。所以 HubSpot 设计团队需要创造一个设计体系，来帮助我们持续地实现这些需求。
 
-Over the last couple of years, we’ve:
+在过去的几年里，我们已经：
 
-*   Created a new design language (called HubSpot Canvas; more on that later)
-*   Redesigned the HubSpot platform and refreshed the visual identity of our brand
-*   Built a living, breathing design system that can scale with our growing business
+* 创造了一个新的设计语言（我们叫它「HubSpot Canvas」，我们已经在这上做了很多工作）
+* 重新设计了 HubSpot 平台，更新了我们品牌的视觉形象
+* 建立了一个鲜活的设计体系，可以随着你的商业进展而扩展
 
-In order to accomplish all this, we needed to invest in our talent. We’ve scaled our UX team from 14 product designers, 2 researchers, and 1 writer to more than 34 product designers, 8 researchers, 3 writers, and 1 product illustrator ([and we’re still hiring](https://www.hubspot.com/jobs/search?&department=product+and+engineering)).
+为了实现这一切，我们需要进行人才投资。 我们将我们的 UX 团队从 14 位产品设计师、2 位研究员和 1 位作家扩展到超过 34 位产品设计师、8 位研究员、3 位作家和 1 位产品插画师（并且仍在[持续招聘](https://www.hubspot.com/jobs/search?&department=product+and+engineering)中）。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*yMhbkX8vmnJjUQqrboLs2A.png)
 
-This is the story of how we committed to delivering the mail (while still managing to sneak some tacos in, too).
+这就是我们如何致力于投递邮件的故事（并且忙里偷闲也捎带点玉米卷）。
 
 * * *
 
-### Why we redesigned
+### 我们为什么重新设计
 
-We needed to redesign the HubSpot platform for two reasons. First, to do a better job on delivering the promise of our brand. Our customers love the HubSpot brand. It’s fun, vibrant, and full of personality. But the product, well, wasn’t. It just didn’t reflect the energy our customers were putting into growing their businesses.
+我们需要重新设计 HubSpot 平台，主要有两个原因。首先，更好地旅行我们品牌的承诺。我们的客户喜爱 HubSpot 这个品牌，它很有趣、有活力、有个性。但是目前的产品并不是这样，它并没有给客户投入到生意中的精力很好的回馈。
 
-Second, to eliminate the inconsistencies that had crept into our UI. Our interface had inconsistencies across the platform, which made it harder to use and navigate the tool. Take these two modals in the Marketing Hub as an example:
+其次，消除蔓延到我们 UI 中的不一致性。我们的用户界面在平台上不一致，导致难以使用、难以导航。以 Marketing Hub 中的两个模态页面举例：
 
 ![](https://cdn-images-1.medium.com/max/1000/0*tasdLDY9cnLCvYEX.png)
 
-Notice the inconsistencies in button placement, tab design, and interaction patterns? These inconsistencies increased the cognitive load on our customers, making it difficult for them to perform simple actions like saving their work or closing a dialog, which ultimately slowed them every day.
+注意到按钮位置、选项卡设计和交互模式中的不一致了吗？这些不一致增加了客户的认知负担，使他们执行像保存或关闭对话这样简单的操作都变得困难，这最终会使他们每天都效率低下。
 
-So we decided to start by gathering user feedback about our current design. The feedback wasn’t pretty, but it _was_ valuable:
+所以我们决定从收集用户针对当前设计的反馈开始，反馈并不「美丽」，但是却**很**有价值：
 
-> “Seems more complex than it needs to be.”
+> 「看起来比实际需要的复杂多了。」
 
-> “Too many options. My eye isn’t drawn anywhere specifically.”
+> 「太多选项，我已经眼花缭乱了。」
 
-> “Dense and busy. No white space.”
+> 「有点密集恐惧症，没有留白。」
 
-> “The color combinations are out of date and not pleasing.”
+> 「配色过时，看起来不爽。」
 
-> “Too much grey and everything seems to be tucked away in it’s own little box.”
+> 「太多灰色，所有的东西好像都被小方框圈起来。」
 
-> “Uninteresting.”
+> 「没劲。」
 
-We knew we needed a complete refocus and rededication to the customers we serve — to their personalities, quirks, motivations, aspirations, and even (or especially) their anxieties. Ultimately, we wanted to craft a new design for our product that would be as delightful and easy to use as any of the consumer apps our customers used every day.
+我们意识到需要对客户彻底的重新定位和奉献 —— 根据他们的个性、怪癖、动机、渴望、甚至（或尤其是）他们的焦虑。最终，我们决定给我们的产品打造全新的设计，让它可以愉快而简单地使用，像我们的客户每天都用的那些普通应用那样。
 
-But with that came the realization of a universal truth:
+但随之而来的是残酷的现实：
 
 ![](https://cdn-images-1.medium.com/max/1000/0*shYmOHnr870nSDWY.png)
 
-Redesigning our platform meant we would need to disrupt 40+ product teams across two continents. It meant we would need to divert some design and engineering resources away from creating new experiences so we could fix existing ones. And during the rollout, it meant our support and services teams and our customers would need to continuously adapt to ongoing product changes.
+重新设计我们的平台意味着我们必须分裂横跨两大洲的 40 多个产品团队。也意味着我们需要从创造新体验的资源中转移一些设计和管理资源，以便我们修复现存的资源。并且在上线期间，我们的支持和服务团队还有客户需要不断适应产品的变化。
 
-#### We started this process knowing that we weren’t setting out to redesign just our product — we needed to entirely rethink the way we designed and built products.
+#### 我们开始这个进程时就知道，我们不仅仅是开始重新设计我们的产品 —— 我们需要完全重新思考我们设计和打造产品的方式。
 
-We needed to understand what inefficiencies in our organizational structure and workflows had led us to create a fragmented user experience in the first place, and replace them with practices and systems that worked.
+我们首先需要了解在我们的组织架构和工作流中有什么导致了用户体验的碎片化和低效率，并将它们替换为有效的实例和系统。
 
-So the first part of this story focuses on how we identified those challenges, how we approached the redesign of our product, and the tools we’ve created to empower our design team to be as consistent, efficient, and autonomous as possible.
+所以这个故事的第一部分就是，我们怎样辨别这些挑战、我们如何着手重新设计我们的产品，以及我们创造的赋能我们的设计团队，使之能够尽可能保持持续、高效、自主状态的工具。
 
 * * *
 
-### The root of the problem
+### 问题的根源
 
-Last year, my parents decided to sell my childhood home. I was roped into helping them clean out the attic — an attic that has accumulated twenty years’ worth of stuff. As you can imagine, there were a lot of WTF moments during that cleaning session. Some moments were along the lines of: _WTF: We saved this thing!? Cool!_ But most were more like: _WTF: Why do we still have 87 Beanie Babies?_
+去年，我的父母决定卖掉我儿时的房子，我被他们说服帮助清理阁楼 —— 一个塞满了积累 20 年杂物的阁楼。你可能会想到，清理期间我吐了无数个槽。比如：**「WTF，我们居然保留着这玩意？太棒了！」**但更多的是：**「WTF，为什么我们还留着 87 年的豆豆娃？（译者注：一种毛绒玩具）」**
 
-Well, in much the same way, our design team first needed to audit every component that was ever imagined, coded, and shipped into production over the previous ten years at HubSpot. We needed to get down to this granular level to better understand what the current product experience was. Every designer was asked to go through their respective apps and find every component, take a screenshot, name it, and file it away for review.
+好吧，以同样的方式，我们的设计团队首先需要审核我们过去十年在 HubSpot 畅想过、开发过、投产过的每个组件。我们需要降低到更小的粒度来更好地理解目前产品的体验如何。每个设计师都被要求仔细检查他们各自的 App，找到每个组件、截图、命名并存档，以便评审。
 
-Pop quiz: How many date pickers is too many?
+做个小测试：你认为多少个日期选择器（date picker）算「太多」？
 
-Three? Maybe four?
+三个还是四个？
 
-Well, we had eight.
+呃，我们现在有八个。
 
-Here are some of the other things we found in our attic:
+这是在我们的「阁楼」里发现的其他东西：
 
-*   100+ shades of the color gray
-*   40+ text styles in 3 different fonts
-*   16 different styles of modals
-*   6 different primary buttons (which means we really had _no_ primary button)
-*   5 different ways to filter a table
-*   Modals with confirmation actions on the left
-*   Modals with confirmation actions on the right
-*   Thousands and thousands of lines of custom CSS
+* 100 多个灰色阴影
+* 3 个不同字体对应着 40 多个文本样式
+* 16 个不同样式的模态页面
+* 6 种不同的默认按钮（这意味着根本**没有**默认按钮）
+* 5 种表格过滤方式
+* 确认操作在左侧的模态页面
+* 确认操作在右侧的模态页面
+* 成千上万行自定义 CSS
 
-Here’s a visual of all the buttons that existed in the HubSpot platform at the same time:
+这是同时存在于 HubSpot 平台的所有按钮样式：
 
 ![](https://cdn-images-1.medium.com/max/800/0*Rh1VruiQzhTjgbhC.png)
 
-Does this push your buttons?
+这里有你的按钮样式吗？
 
-So how did this happen? How did we end up with so many buttons? How did we end up with so many date pickers?
+是什么导致了这种情况？我们怎么有这么多按钮？我们怎么有这么多的日期选择器？
 
-Here’s an actual Slack conversation from those old, darker days:
+这是那段古老、黑暗的日子里，Slack 上的真实对话：
 
 ![](https://cdn-images-1.medium.com/max/800/1*Y0e2gqKh0shBq7uS3Hs-kw.png)
 
-Putting the sass back in SaaS
+让 SaaS 来阻止这些无意义的讨论吧。
 
-The truth is, no designer or developer at HubSpot really wants to spend their time reimagining the date picker.
+真实的情况是，没有一个 HubSpot 的设计师或开发者真的想去花时间来重制日期选择器。
 
-We identified that the reason teams had created so many variations of essentially the same styles and components was because our organizational structure created visibility issues. In short, it was very hard to discover what was already in play, and easier to just build something new.
+我们意识到，我们的团队创造了这么多看起来多样化但本质相同的样式和组件的原因，是我们的组织架构出了明显的问题。简而言之，构造新东西看起来更简单，正在起作用的东西却很难被发觉。
 
-The HubSpot product team consists of small, autonomous teams that are structured around solving for specific customer needs. This allows us to move quickly as a product development organization and be highly responsive to our customers’ changing needs. But it also presents challenges when it comes to keeping different product teams aligned.
+HubSpot 的产品团队由围绕解决客户特殊需求的小规模、自治团队构建而成，这使得我们得以迅速迁移为一个产品开发组织并且对客户的需求变化高度敏感，但这种方式对于保持不同的产品团队的一致提出了挑战。
 
-When you have 40+ product teams rapidly building, shipping, and iterating, it’s actually pretty easy to lose sight of the overall customer experience. Being tightly focused on a specific problem often means you’re putting on blinders to everything else. Because of these blinders, our designers and developers were unknowingly recreating existing elements, components, and patterns across our user interface. This led to a fragmented user experience and compounded design and tech debt.
+当你们有超过 40 个能够快速构建、发布、迭代的产品团队时，确实很容易出现忽视总体客户体验的情况，紧紧地专注于一个特殊的问题通常意味着戴着墨镜看其他所有问题。因为有这些墨镜的存在，我们的设计师和开发者不知不觉地在用户界面上重建已经存在的元素、组件和图案，这导致了用户体验的碎片化和混杂的设计，还有技术债。
 
-Our small, autonomous team structure isn’t going to change — it’s part of our DNA. So it was clear that we needed to put more effort into creating tools and systems to better align our product teams. By connecting everyone to one centralized design system, we could ensure that we’d have a unified user experience even as we continued to grow.
+我们小型、自治的团队架构不准备改变 —— 因为这是我们基因的一部分。所以很明显，我们需要为创造更好地调整我们的产品团队的工具和系统付出更多的努力。通过把所有人连接到集中的设计体系这种方式，保证在持续发展的同时，有一套统一的用户体验。
 
-#### This would free our designers and developers from obsessing over pixels so they could spend more time obsessing over people.
+#### 这可以让我们的设计师和开发者的心思从「像素」中解放出来，让他们有更多的时间考虑「人」。
 
-### Getting principled
+### 讲原则
 
-The audit helped us identify problems in our design process and understand what aspects of our development culture had created inefficiencies. But before the mood boards could be created, before the typography could be explored, before we could have heated discussions over the perfect hue of orange, we needed to get _principled_.
+审计可以帮助我们识别设计过程中的问题，并且明确我们发展文化的哪些方面导致了效率低下，但是在创建情绪板前、在研究排版前、在我们激烈的讨论橙色的完美色调之前，我们需要**讲原则**
 
-We needed to agree on our core beliefs, the ones we could lean on when decisions were hard. And we needed to uncover which ideals our teams felt the responsibility to uphold.
+我们需要对我们的核心信仰达成共识，这是遇到难以抉择的问题时我们唯一可以依靠的标准，我们需要发现我们的团队认为有责任维护的理想。
 
-So the design team ran a few ideation exercises to establish the foundation of our new design language. We debated, we stack-ranked, and we landed on five core design principles, ones that have guided us through a million micro- and macro-design decisions since.
+所以设计团队进行了一些构思练习来建立我们新设计语言的基础。我们争论，我们排序，然后我们确定了五个核心设计原则，这五个原则指引我们完成了一百万个微观和宏观设计决策。
 
-#### These principles are:
+#### 这些原则是：
 
 ![](https://cdn-images-1.medium.com/max/800/1*8ZFXJph76Xf87rXDi1ICNg.png)
 
-**Clear  
-**We design for clarity and focus. Our work helps users do the next right thing through feature prioritization, visual hierarchy, and contextual awareness.
+**清晰** 
+我们的设计原则是清晰和专注，我们的工作帮助用户在功能优先级、可视化层次和环境认知方面进行下一步正确的选择。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Mx1oVTj3Pe_tfLcnLPELKw.png)
 
-**Human  
-**We foster a sense of joy by humanizing the experience in ways that resonate across cultures. Our work provides users with a playful and personable interaction every time.
+**人性化**
+我们培养一种给体验赋予人性的观念，使得不同文之间产生共鸣，我们的工作每次都给给用户提供有趣并且优雅的交互。
 
 ![](https://cdn-images-1.medium.com/max/800/1*1mQH155WwYQCsFqEcESCHg.png)
 
-**Inbound  
-**We reinforce the message and meaning of the Inbound methodology. Our work makes the Inbound path clear to our users and helps them understand why it’s the right thing to do.
+**入站**
+我们加强了入站方法的信息和含义，我们的工作使用户的入站路径清晰，帮助他们理解为什么这是正确的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*-l2aXvIftJ7K3Xu1yLMEIA.png)
 
-**Integrated  
-**We simplify the user’s experience by creating a unified system that solves for their needs. Our work helps users achieve great things by offering a streamlined, efficient approach.
+**整合**
+我们通过创建统一的系统解决用户的需求来简化用户的体验，我们的工作通过提供改进的、高效的方法帮助用户达到伟大的目标。
 
 ![](https://cdn-images-1.medium.com/max/800/1*pg7By-fiVHS_CVcNvhCA8w.png)
 
-**Collaborative  
-**We devise powerful systems that encourage people to work seamlessly together. Our work helps people create and collaborate with each other in natural, intuitive ways.
+**协作**
+我们设计了强有力的系统鼓励人们一起无缝地工作，我们的工作帮助人们用自然、直观的方式互相创作和协作。
 
-These principles helped us stay aligned and focused as we worked through the many details of redesigning our product. You can change the color of a button, the thickness of a line, and the size of a header. But you shouldn’t change the things you fundamentally believe in. In those aspects of the design, you should be firm.
+我们在重新设计产品的许多细节时，这些原则帮助我们保持一致和专注。你可以修改按钮颜色、线宽、页眉尺寸，但是你不能改变你的基本信仰，在设计的这些方面，你必须保持坚定。
 
 * * *
 
-### A new visual direction
+### 一个新的视觉角度
 
-Our design team ran a few sessions to redesign some of the core screens in our product, then elected a group of four product designers to spend a full, uninterrupted week ideating, designing, and ultimately testing a few different visual directions with our customers. These sessions produced some wildly different design directions that felt really new and exciting.
+我们的设计团队进行了若干个会议来重新设计我们产品中的核心页面，然后选择四个产品设计师作为一组，让他们花一周的时间完全投入到形成概念、设计中，并且最终和客户一起测试几个不同的视觉方向。这些会议产出了一些非常不同的设计方向，让我们感到很新颖，令人兴奋。
 
-Here’s a taste of some very early design concepts from two members of the design language team, Drew Condon and Jackie Barcamonte:
+这是设计语言团队中的两个成员 Drew Condon 和 Jackie Barcamonte 最初的设计概念，请欣赏：
 
 ![](https://cdn-images-1.medium.com/max/800/0*c-I9eExCRkuYV6Rg.png)
 
-Former HubSpot design
+HubSpot 以前的设计
 
 ![](https://cdn-images-1.medium.com/max/800/0*D6ADdRVEVyFNvCxg.jpg)
 
@@ -177,123 +177,122 @@ Former HubSpot design
 
 ![](https://cdn-images-1.medium.com/max/800/0*JHGMI16yfbrSbJdz.png)
 
-Wild, right? Different. Exciting. Definitely not boring, stiff “business software”.
+是不是耳目一新？与众不同、令人兴奋，和那些呆板、沉闷的「商业软件」明显不一样。
 
-The design language team ultimately tested three different design directions with our customers through multiple rounds of surveys and interviews. Once we heard the following statements, we knew we’d found a winning direction:
+设计语言团队和客户通过多轮的调查和访谈，最终尝试了三种不同的设计方向。当我们看到下面的叙述，我们知道我们找到了成功的方向：
 
-> “Makes me feel productive.”
+> 「让我感到效率很高。」
 
-> “I feel capable. I feel like I know exactly what to do.”
+> 「我感到自己很牛，我想我完全知道应该做什么。」
 
-> “This is fun. This is what I would expect from HubSpot.”
+> 「这很有趣，这才是我想要的 HubSpot。」
 
-> “Next generation of web.” _(someone actually said that)_
+> 「新一代的网页。」**（有些人真的这么说）**
 
-> “Doesn’t look like business software.”
+> 「看起来不像商业软件。」
 
-> “Makes me feel in control.”
+> 「让我感到掌控一切。」
 
-Here’s a peek into the evolution of the design direction that was preferred most by the customers we interviewed:
+下面是我们采访的客户最喜欢的设计方向的进化：
 
 ![](https://cdn-images-1.medium.com/max/800/0*4JJBg-EC9gjetEG3.png)
 
-Former HubSpot design
+HubSpot 以前的设计
 
 ![](https://cdn-images-1.medium.com/max/800/0*VNaNbD26_WpUrxIB.png)
 
-Design preferred during first round of interviews
+第一轮访谈最受欢迎的设计
 
 ![](https://cdn-images-1.medium.com/max/800/0*PSHNwIsMTyA5WJ_a.png)
 
-Evolved design for second round of interviews
+第二轮访谈改进的设计
 
-Once we validated our design direction with actual users, it was time to apply that visual style to all of our core UI components. And I’m talking about _hundreds_ of components: buttons, links, selects, tables, breadcrumbs, modals, inputs, popovers (the list goes on). This is where the redesign got a lot less fun and a lot more meticulous and exhausting.
+当我们让用户验证过我们的设计方向后，就是时候把这些视觉样式应用到我们所有的核心 UI 组件上了。我说的是**上百种**组件：按钮、链接、查询框、表格、定位、模态页面、输入框、弹出框（这个列表还很长）。这是重新设计过程中不那么有趣的部分，但却更需要一丝不苟，而且十分耗费精力。
 
-But that meticulous, exhausting work was a long-term investment in our company and our customers. I remember one Friday afternoon that the design language team and I spent in a two-hour long meeting. We were in the trough of sorrow.
+但是这些一丝不苟、耗费精力的工作对于我们公司和客户来说是一个长期投资。我想起有一个周五下午，设计语言团队和我花了整整两个小时来开会，这使我们十分崩溃。
 
 ![](https://cdn-images-1.medium.com/max/1000/0*A5bMyyGst8Mg56gw.png)
 
-Our job that day was to decide on the margin and padding of some of our most atomic components (buttons, controls, inputs, etc.) — the building blocks of our user interface.
+我们那天的工作是决定我们大多数独立组件（按钮、控件、输入框等等，都是我们用户界面的基本要素）的外边距和内边距。
 
-There were five of us in that meeting and we spent probably fifteen minutes carefully considering the margin of all our new buttons. This means that HubSpot was paying the salaries of five designers to sit in a room and debate something as mundane as the space that surrounds text in a box.
+那次会议有五个人参加，我们花了差不多15分钟仔细推敲我们所有新按钮的外边距。这意味着 HubSpot 支付五个设计师的工资，让他们坐在一个屋子里辩论像「文字和文本框的距离」这种索然无味的问题。
 
-But.
+但是。
 
-Not one of our front-end engineers, product designers, researchers, writers, or product illustrators has needed to think about the margin of a button since that decision was made two years ago.
+自从两年前那次讨论之后，我们没有一个前端工程师、产品设计师、研究员、作者或插画师需要再考虑按钮的外边距了。
 
-#### That’s the beauty of building a design system. By deciding on a detail once, you free up your entire product development team to focus on solving actual customer problems.
+#### 创建一个设计体系很美好，推敲一个细节一次，你就可以把你全部的产品开发团队解放出来，让他们专注于解决客户的实际问题。
 
-We put all of our shiny new components, as well as some guidance on how to use them, into Sketch (our design tool of choice). This created an immediate explosion in our team’s productivity, while also (suddenly) keeping our design work closely aligned.
+我们把我们所有精美的新组件，包括使用他们的引导，放进了 Sketch（我们的设计工具）中。这让我们团队的生产力立即爆发了出来，并同时（突然地）让我们的设计工作紧密一致了。
 
 * * *
 
-### Keeping teams aligned
+### 团队协作
 
-Before this process started, we didn’t have one centralized place designers could go to understand which elements or components already existed, and no place where they could go if they wanted to use those elements or components in their own work. Designers and developers were trying their best to make good decisions about which components or patterns to use, but their main reference point was the existing product — which was decidedly inconsistent.
+在这个进程开始前，我们并没有一个集中的地方让设计师知道哪些元素或组件已经存在，也没有让他们在自己的设计中使用这些现成的元素或组件的方法。设计师和开发者尽他们最大的努力决定使用哪个组件或图案，但是他们的主要参考点是那些已存在的产品 —— 那些明显不一致的产品。
 
-To combat inconsistencies (while speeding up our workflow) we built a robust style and component library for our new design language. This thirty-page Sketch file is organized by “component families” and houses every single element or component that comprises our products user interface. It’s updated weekly and is shepherded by a small, rotating task force of product designers and a dedicated front-end development team.
+为了解决矛盾，我们为我们的新设计语言建立了一个健壮的样式和组件库。这个 30 页的 Sketch 文件被以「组件族」的形式组织起来，它存储了组成我们产品用户界面的每一个独立元素或组件。这个组件库每周更新，并且被一个小规模轮值设计师工作组和专门的前端开发者团队管理。
 
-Need an icon? Come right this way.
+需要一个图标？过来拿。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*YEXjbh_z3Q_kCpTRFugtOg.png)
 
-Icons by [Joshua Mulvey](https://dribbble.com/joshua_mulvey), [Sue Yee](https://dribbble.com/suechews), and Chelsea Bathurst
+图标由 [Joshua Mulvey](https://dribbble.com/joshua_mulvey) 、 [Sue Yee](https://dribbble.com/suechews) 和 Chelsea Bathurst 设计。
 
-Need data visualization? You got it.
+需要数据可视化？给你。
 
 ![](https://cdn-images-1.medium.com/max/1000/0*pFLV3FlTdL74O0wY.png)
 
-Data visualization by Drew Condon
+数据可视化由 Drew Condon 设计。
 
-Need a button? As you wish.
+需要一个按钮？如你所愿。
 
 ![](https://cdn-images-1.medium.com/max/1000/0*-GqDKYlgn7I1k8N7.png)
 
-We have one primary button now. It’s orange. We like the color orange.
+我们现在有一种默认按钮了，是橙色的，我们喜欢橙色。
 
-Need literally anything else? HubSpot Canvas has you covered.
+还需要其他任何东西吗？HubSpot Canvas 有一切你想要的。
 
 ![](https://cdn-images-1.medium.com/max/1000/0*V42eVXCKQy2waw_s.png)
 
-Each component that exists in the Sketch kit also exists as a React component, making it easy to translate any mockup into a code the same way you assemble legos.
+每个 Sketch 包中存在的组件同样在 React 中以组件形式存在，方便你将任何模型转化为代码，就像组装乐高玩具那样。
 
-That means our designers don’t spend their days pushing pixels, drawing up spec sheets, or worrying about the responsiveness of their layouts. It means our developers don’t spend hours tweaking custom CSS (in fact, they write almost none at all).
+这表示着我们的设计师不需要花时间调整像素、撰写说明书或者担心有关他们设计的反馈。也意味着我们的开发者们不需要花时间把自定义 CSS 调来调去（实际上他们几乎完全不用写了）。
 
-#### It means our developers spend more time building. And it means our designers spend more time researching, ideating, and iterating, quickly and in high fidelity.
+#### 这意味着我们的开发者可以有更多的时间构建，也意味着我们的设计师可以用更多的时间研究、设想和迭代，不仅仅快，而且高保真。
 
-Here’s a peek at the average HubSpot designer’s workflow, using Sketch libraries and the Runner and Craft (by Invision) plugins.
+这是 HubSpot 设计师一般情况下的工作流的概览，使用了 Sketch 库和 Runner、Craft（由 Invision 开发）插件。
 
 * YouTube 视频链接：https://youtu.be/d4RuKwOwqnM
 
-And to keep pace with the HubSpot product, our component library continues to grow and evolve. It’s maintained by a core group of designers and developers, but everyone on the product team contributes and weighs in. Whenever a new component is built or improved, it’s rolled back into the Sketch library and is accessible to all. This vastly reduces the number of rogue components or duplicate components.
+为了适应 HubSpot 的发展，我们的组件库也在持续更新。它主要由一个由设计师和开发者组成的核心团队维护，但产品团队的每个人贡献着自己的力量，并帮助改进。任何时候，一个新的组件被创建或修改，它都会被存储进 Sketch 库并对所有人开放，这极大地减少了「野组件」和重复组件的数量。
 
 * * *
 
-### Building out the system
+### 扩充设计体系
 
-Our Sketch kit is just one piece of a larger design system. In order for it to be truly effective in the long term, we needed to create tools that worked just as effectively for developers. We learned that the best way to create consistent, functional, and delightful product experiences is to make the lives of those who build those experiences much easier.
+我们的 Sketch 包也只是更大的设计体系中的一小部分，为了让它在长时间内真正发挥作用，我们需要创建一些对于开发者来说切实有效的工具。我们认识到，创造始终如一、功能强大、令人愉快的产品体验的最好方式，是让创造这种体验的人们更简单方便地工作。
 
-[Read the next post](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-gain-widespread-adoption-of-your-design-system.md) to learn how documentation helped cultivate co-ownership between design and development, how we got widespread adoption of our design system, and what tools we’ve created for developers.
+阅读[下一篇](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-gain-widespread-adoption-of-your-design-system.md)来了解文档如何培养设计和开发之间的共同所有权、我们如何广泛使用我们的设计体系，以及我们为开发者创建了哪些工具。 
 
-#### In closing:
+#### 最后：
 
-People over pixels.  
-Mail over tacos.  
-Tacos are delicious.  
-But people need their mail.
+人比像素更重要，
+就像邮件玉米卷。
+玉米卷儿虽好吃，
+邮件才是最痛点。
 
-**Credits:**
-Illustrations by [Sue Yee](https://dribbble.com/suechews)
+**感谢：**
+插画：[Sue Yee](https://dribbble.com/suechews)
 
-**Resources we found helpful:**
-[Atomic Design](http://atomicdesign.bradfrost.com/) by Brad Frost  
-[Designing The Perfect Date And Time Picker](https://www.smashingmagazine.com/2017/07/designing-perfect-date-time-picker/) by Vitaly Friedman  
-[Finding the Right Color Palettes for Data Visualizations](https://blog.graphiq.com/finding-the-right-color-palettes-for-data-visualizations-fcd4e707a283) by Samantha Zhang
+**参考文献：**
+[Atomic Design](http://atomicdesign.bradfrost.com/)，Brad Frost 著；
+[Designing The Perfect Date And Time Picker](https://www.smashingmagazine.com/2017/07/designing-perfect-date-time-picker/)，Vitaly Friedman 著；
+[Finding the Right Color Palettes for Data Visualizations](https://blog.graphiq.com/finding-the-right-color-palettes-for-data-visualizations-fcd4e707a283)，Samantha Zhang 著；
 
-_Originally published on the_ [_HubSpot Product Blog_](https://product.hubspot.com/blog/how-building-a-design-system-empowers-your-team-to-focus-on-people-not-pixels)
+**初次发表于** [_HubSpot 博客_](https://product.hubspot.com/blog/how-building-a-design-system-empowers-your-team-to-focus-on-people-not-pixels)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
