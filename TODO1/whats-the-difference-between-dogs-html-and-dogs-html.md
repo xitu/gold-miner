@@ -2,31 +2,31 @@
 > * 原文作者：[CHRIS COYIER](https://css-tricks.com/author/chriscoyier/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/whats-the-difference-between-dogs-html-and-dogs-html.md](https://github.com/xitu/gold-miner/blob/master/TODO1/whats-the-difference-between-dogs-html-and-dogs-html.md)
-> * 译者：
+> * 译者：[Shery](https://github.com/shery)
 > * 校对者：
 
-# What’s the difference between ./dogs.html and /dogs.html?
+# ./dogs.html 和 /dogs.html 间有什么区别？
 
-They are _both_ **URL paths**. They have different names, though.
+它们**都是** **URL 路径**。但是他们名字不同。
 
 ```html
-<!-- root-relative -->
+<!-- 相对于当前所在目录 -->
 <a href="./dogs.html">Dogs</a>
 
-<!-- absolute -->
+<!-- 相对于根目录 -->
 <a href="/dogs.html">Dogs</a>
 ```
 
-There are also fully-qualified URLs that would be like:
+还有全限定 URL，如下所示：
 
 ```html
-<!-- fully qualified -->
+<!-- 全限定 -->
 <a href="https://website.com/dogs.html">Dogs</a>
 ```
 
-Fully-qualified URL's are pretty obvious in what they do — that link takes you to that exact place. So, let's look those first two examples again.
+全限定 URL 的功能再明显不过 —— 它会指向一个确切的页面。所以，让我们再来看看前两个例子。
 
-Say you have a directory structure like this on your site:
+假设你的网站上有这样的目录结构：
 
 ```
 public/
@@ -36,11 +36,11 @@ public/
     └── dogs.html
 ```
 
-If you put a link on `cats.html` that links to `/dogs.html` (an "absolute" path), it's going to 404 — there is no `dogs.html` at the base/root level of this site! The `/` at the beginning of the path means _"start at the **very bottom** level and go up from there"_ (with `public/` being the very bottom level).
+如果你在 `cats.html` 上放置了一个链接到 `/dogs.html`（一个“绝对”路径）的超链接，那么它将指向 404 页面 —— 这个网站的根目录那一层没有 `dogs.html` 文件！在路径开头的 `/` 意味着__“从**最底层**开始，然后再往上”__（`public/` 是最底层到目录）。
 
-That link on `cats.html` would need to be written as either `./dogs.html` (start one directory back and work up) or `/animals/dogs.html` (explicitly state which directory to start at).
+那个在 `cats.html` 上的链接需要写成 `./dogs.html`（从当前文件所在目录开始）或 `/animals/dogs.html`（明确说明要从哪个目录开始）。
 
-Absolute URLs get longer, naturally, the more complex the directory structure.
+当然，目录结构越复杂，绝对 URL 越长。
 
 ```
 public/
@@ -52,28 +52,28 @@ public/
           └── dogs.html
 ```
 
-With a structure like this, for `dogs.html` to link to `cats.html`, it would have to be either...
+在这样的结构下，就想要从 `dogs.html` 链接到 `cats.html` 而言，URL 肯定是其中之一...
 
 ```html
-<!-- Notice the TWO dots, meaning back up another folder level -->
+<!-- 注意两个点，它表示源文件所在目录的上一级目录 -->
 <a href="../c/cats.html">cats</a>
 
-<!-- Or absolute -->
+<!-- 或者相对于根目录 -->
 <a href="/animals/pets/c/cats.html">cats</a>
 ```
 
-It's worth noting in this scenario that if `animals/` was renamed `animal/`, then the relative link would still work, but the absolute link would not. That can be a downside to using absolute links. When you're that specific, making a change to the path will impact your links.
+在这种情况下值得注意的是，如果 `animals/` 被重命名为 `animal/`，就会使得绝对链接失效，但是相对链接仍会有效。这可能是使用绝对链接的缺点。当你使用绝对链接时，改变路径将会影响你的链接。
 
-We've only looked at HTML linking to HTML, but this idea is universal to the web (and computers, basically). For example, in a CSS file, you might have:
+我们只研究了 HTML 文件中链接到 HTML 文件的情形，但基本上这个思路对于网页（和计算机）是通用的。例如，在 CSS 文件中，你可能有下面这样的代码：
 
 ```css
 body {
-  /* Back up one level from /images and follow this path */
+  /* 当前文件所在目录下的 /images 目录里的图片 */
   background-image: url(./images/pattern.png);
 }
 ```
 
-...which would be correct in this situation:
+...在这种情况下哪个是正确的：
 
 ```
 public/
@@ -83,7 +83,7 @@ public/
 └── style.css
 ```
 
-But if you were to move the CSS file...
+但是如果你移动了 CSS 文件...
 
 ```
 public/
@@ -94,11 +94,11 @@ public/
 └── index.html
 ```
 
-...then that becomes wrong because your CSS file is now nested in another directory and is referencing paths from a deeper level. You'd need to back up another folder level again with two dots, like `../images/pattern.png`.
+...紧接着就会出问题，是因为你的 CSS 文件现在嵌套在另一个目录中，引用路径变得更深。你需要使用两个点再次回到当前文件所在目录的上一级目录，例如 `../images/pattern.png`。
 
-One URL format isn't better than another — it just depends on what you think is more useful and intuitive at the time.
+并不是哪种 URL 格式比另一种格式好 —— 它只取决于你认为当时怎样更有用、更直观。
 
-For me, I think about what is the least likely thing to change. For something like an image asset, I find it very unlikely that I'll ever move it, so linking to it with an absolute URL path (e.g. `/images/pattern.png`) seems the safest. But for linking documents together that all happen to be in the same directory, it seems safer to link them relatively.
+对我来说，我在思考哪些东西最不可能改变。对于类似图像资源的东西，我发现我不太可能移动它，因此使用绝对 URL 路径（例如 `/images/pattern.png`）链接它似乎是最安全的。但是为了链接到恰好位于同一目录中的所有文档，使用相对链接的方式似乎更安全。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
