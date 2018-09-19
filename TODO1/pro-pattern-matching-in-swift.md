@@ -2,24 +2,24 @@
 > * 原文作者：[Nick Teissler](https://www.bignerdranch.com/about/the-team/nick-teissler)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/pro-pattern-matching-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/pro-pattern-matching-in-swift.md)
-> * 译者：
+> * 译者：[ALVINYEH](https://github.com/ALVINYEH)
 > * 校对者：
 
-# Pro Pattern-Matching in Swift
+# Swift 中强大的模式匹配
 
-The switch statement is an indubitable strength of the Swift language. Behind the switch statement is Swift’s pattern-matching, which makes for more readable, safer code. It is possible to take the switch’s pattern-matching readability and power and apply it elsewhere in your code.
+Swift 语言一个无可置疑的优点就是 switch 语句。在 switch 语句的背后是 Swift 的模式匹配，它使得代码更易读，且安全。你可以利用 switch 语句的模式匹配的可读性和优势，将其应用于代码中的其他位置。
 
-The [Swift language reference](https://docs.swift.org/swift-book/ReferenceManual/Patterns.html) specifies eight different varieties of patterns. It can be hard to know the right syntax to use in a pattern match expression. In a typical use-case you might need to know type information, to unwrap a variable, or to simply confirm an optional is non-nil. Using the right pattern, you can avoid awkward unwraps and unused variables.
+在 [Swift 语言文档](https://docs.swift.org/swift-book/ReferenceManual/Patterns.html)中指定了八种不同的模式。在模式匹配表达式中，我们很难知道其正确的语法。在实际情况中，你可能需要知道类型信息，来解包取得变量的值，或者只是确认可选值是非空的。使用正确的模式，可以避免笨拙地解包和未使用的变量。
 
-There are two participants in a pattern match: the pattern and the value. The value is the expression that follows the `switch` keyword, or the `=` operator if the value is being tested outside a `switch` statement. The pattern is the expression that follows a `case` label. The pattern and value are evaluated against each other using rules of the Swift language. As of July 15th, 2018 the [reference](https://docs.swift.org/swift-book/ReferenceManual/Patterns.html) contains some errors about how and where patterns can be used in the prose, but these can be discovered with some experimentation.[1]
+模式匹配中有两个参与者：模式和值。值是紧跟 `switch` 关键字其后的表达式，或者，如果值在 `switch` 语句外测试的，则为 `=` 运算符。模式则是 `case` 后面的表达式。使用 Swift 语言的规则会对模式和值相互评估。截至 2018 年 7 月 15 日，[参考文档](https://docs.swift.org/swift-book/ReferenceManual/Patterns.html)中仍有一些关于如何在文章中以及在何处使用模式的一些错误，不过我们可以通过一些实验来发现它们。[1]
 
-We’ll look at applying patterns in `if`, `guard`, and `while` statements, but before we do, let us warm up with some non-vanilla uses of the switch statement.
+接下来，我们先看看在 `if`、`guard`、和 `while` 语句中应用模式，但在此之前，让我们用 switch 语句的一些非原生用法热下身。
 
-### Matching only non-nil Variables
+### 仅匹配非空变量
 
-If the value trying to be matched is possibly nil, we can use an _Optional Pattern_ to only match the value if it is non-nil and, as a bonus, unwrap it. This is especially useful when dealing with legacy (and some not-so-legacy) Objective-C methods and functions. As of Swift 4.2 with the [reimplementation of IUOs](https://swift.org/blog/iuo/) `!` will be a synonym for `?`. For Objective-C functions without [nullable annotations](https://developer.apple.com/swift/blog/?id=25), you may have to handle this behavior.
+如果试图匹配的值可能为空，我们可以使用**可选值模式**来匹配，如果不是非空的，就解包取值。在处理遗留下来的（以及一些不那么遗留）的 Objective-C 方法和函数时，这一点尤其有用。对于 Swift 4.2，[IUO 的重新实现](https://swift.org/blog/iuo/)使 `!` 与 `？` 同义。而对于 Objective-C 方法，如果没有 [nullable 注解](https://developer.apple.com/swift/blog/?id=25)，你可能不得不处理此行为。
 
-The example here is especially trivial as this new behavior can be unintuitive coming from Swift < 4.2. Take this Objective-C function:
+下面的例子是特别微不足道的，因为这个新的行为可能对于小于 Swift 4.2 的版本不太直观。以下是 Objective-C 方法：
 
 ```
 - (NSString *)aLegacyObjcFunction {
@@ -27,7 +27,7 @@ The example here is especially trivial as this new behavior can be unintuitive c
 }
 ```
 
-The Swift signature will be: `func aLegacyObjcFunction() -> String!`, and in Swift 4.1, this function will compile:
+Swift 方法签名是：`func aLegacyObjcFunction() -> String!`，并且在 Swift 4.1 中，这个方法可以通过编译：
 
 ```
 func switchExample() -> String {
@@ -40,7 +40,7 @@ func switchExample() -> String {
 }
 ```
 
-In Swift 4.2, you’ll get an error: “Value of optional type ‘String?’ not unwrapped; did you mean to use ‘!’ or ‘?’?”. `case let output` is a simple variable-assignment pattern match. It will match the `String?` type returned by `aLegacyObjcFunction` without unwrapping the value. The unintuitive part is that `return aLegacyObjcFunction()` will compile because it skips the variable assignment (pattern match), and with it, the type inference so the returned type is a `String!` and treated as such by the compiler. We should handle this more gracefully, _especially_ if the Objective-C function in question actually can return `nil`.
+而在 Swift 4.2 中，你会收到如下报错：“Value of optional type ‘String?’ not unwrapped; did you mean to use ‘!’ or ‘?’?”（可选类型 ‘String?’ 的值还没有解包，你是否想要使用 ‘!’ 或 ‘?’ ?）。`case let output` 是一个简单的变量赋值模式匹配。它会匹配 `aLegacyObjcFunction` 返回的 `String?` 类型而不会去解包取值。其中不直观的部分是，`return aLegacyObjcFunction()` 是可以通过编译的，因为它跳过了变量赋值（模式匹配），类型推断因此返回的类型是一个 `String!` 的值，这由编译器处理。我们应该更优雅地处理它，**特别是**如果存在有问题的 Objective-C 函数，实际上可以返回 `nil`。
 
 ```
 func switchExample2() -> String {
@@ -55,13 +55,13 @@ func switchExample2() -> String {
 }
 ```
 
-This time, we are handling the optionality intentionally. Notice that we don’t have to use `if let` to unwrap the return value of `aLegacyObcFunction`. The nil pattern match `case let output?:` handles that for us; `output` is a `String`.
+这一次，我们故意去处理可选性的问题。请注意，我们不必使用 `if let` 来解开 `aLegacyObcFunction` 的返回值。空模式匹配帮我们处理 `case let output？：`，其中 `output` 是一个 `String` 类型的值。
 
-### Catching Custom Error Types with Precision
+### 精确捕获自定义错误类型
 
-Pattern-matching can be extremely useful and expressive when catching custom error types. A common design pattern is to define custom error types with `enum`s. This works especially well in Swift, as it’s easy to attach associated values to enum cases to provide more detail about an error.
+在捕获自定义错误类型时，模式匹配非常有用，且富有表现力。一种常见的设计模式是，使用 `enum` 来定义自定义错误类型。这在 Swift 中尤其有效，因为可以容易地将关联值增添到枚举用例中，用来提供更多有关错误的详细信息。
 
-Here we use two flavors of the _Type-Casting Pattern_ as well as two flavors of the _Enumeration Case Pattern_ to handle any errors that may be thrown:
+这里我们使用两种类型的**类型转换模式**，以及两种**枚举用例模式**来处理可能抛出的任何错误：
 
 ```
 enum Error: Swift.Error {
@@ -101,13 +101,13 @@ func getUserDetails() {
 }
 ```
 
-Above in each `catch`, we have matched and caught only as much information as we needed, and nothing extra. Now to move on from `switch` and see where else we can use pattern-matching.
+在每个 `catch` 上方，我们匹配并捕获了我们需要的尽可能多的信息。下面从 `switch` 开始，看看我们还能在哪里使用模式匹配。
 
-### The One-Off Match
+### 一次性匹配
 
-There are many times when you might want to do a one-off pattern match. Possibly a change should only be applied given a single enumeration value and you don’t care about the others. At that point, the beautifully readable switch statement suddenly becomes cumbersome boilerplate.
+很多时候你可能想要进行一次性模式匹配。你可能只需在给定单个枚举值的情况下应用更改，而且不关心其他值。此时，优雅可读的 switch 语句突然变成了累赘的样板文件。
 
-We can use `if case` to unpack a tuple value only if it is non-nil:
+我们仅可以在非空的元组值中使用 `if case` 来解开它：
 
 ```
 if case (_, let value?) = stringAndInt {
@@ -115,9 +115,9 @@ if case (_, let value?) = stringAndInt {
 }
 ```
 
-The above uses three patterns in one statement! At the top is a _Tuple Pattern_ containing an _Optional Pattern_ (not unlike the one above in **Matching a non-nil Variable**), and a sneaky _Wildcard Pattern_, the `_`. Had we used `switch stringAndInt { ... }`, the compiler would have forced us to handle all possible cases explicitly, or with a `default` label.
+上面的例子在一条语句中使用了三种模式！顶部**元组模式**，其中包含了一个**可选模式**（与上面**匹配非空变量**的模式没有什么不同），还有一个鬼祟的通配符模式，`_`。 如果我们使用 `switch stringAndInt {...}`，编译器会强制我们显式地处理所有可能的情况，或者执行 `default` 语句。
 
-Alternatively, if a `guard case` suits your purposes better, there’s not much to change:
+或者，如果 `guard case` 更能满足你的需求，则无需更改：
 
 ```
 guard case (_, let value?) = stringAndInt else {
@@ -126,7 +126,7 @@ guard case (_, let value?) = stringAndInt else {
 }
 ```
 
-You can use patterns to define stopping conditions of `while` loops and `for-in` loops. This can be useful with ranges. An _Expression Pattern_ allows us to avoid the traditional `variable >= 0 && variable <= 10` construct[2]:
+你可以使用模式来定义 `while` 循环和 `for-in` 循环的停止条件。这在范围中非常有用。**正则表达式模式**允许我们避免传统的`variable> = 0 && variable <= 10` 构造 [2]：
 
 ```
 var guess: Int = 0
@@ -138,19 +138,19 @@ while case 0...10 = guess  {
 print("You guessed a number out of the range!")
 ```
 
-In all of these examples, the pattern immediately follows the `case` label and the value comes after the `=`. The only time syntax departs from this is when there is an `is`, `as`, or `in` keyword in the expression. In those situations, the structure is the same if you think of those keywords as a substitute for the `=`. Remembering this, and with nudges from the compiler, you can use all 8 varieties of patterns without having to consult the language reference.
+在所有这些例子中，模式紧跟在 `case` 之后，值则在 `=` 之后。语法与此不同的表达式中有 `is`，`as` 或` in` 关键字。在这些情况下，如果将这些关键字视为 `=` 的替代品，那么结构是相同的。记住这一点，并且通过编译器的提示，你可以使用所有 8 种模式，而无需参考语言的文档。
 
-There is something unique about the `Range` matching _Expression Pattern_ above that we haven’t seen so far in previous examples: its pattern-matching implementation is not a built-in feature, at least not built-in to the compiler. The _Expression Pattern_ uses the Swift Standard Library [`~=` operator](https://developer.apple.com/documentation/swift/1539154?changes=_3). The `~=` operator is a free, generic function defined as:
+到目前为止，我们在前面的例子中还没有看到用 `Range` 来匹配**表达式模式**的一些独特之处：它的模式匹配实现不是内置功能，至少不是内置于编译器中的。**表达式模式**使用了 Swift 标准库 [`〜=` 操作符](https://developer.apple.com/documentation/swift/1539154?changes=_3)。 `〜=` 操作符是一个自由的泛型函数，定义如下：
 
 ```
 func ~= <T>(a: T, b: T) -> Bool where T : Equatable
 ```
 
-You can see the Swift Standard Library `Range` type [overrides this operator](https://developer.apple.com/documentation/swift/range/2428743?changes=_5) to provide a custom behavior that checks if the particular value is within the given range.
+你可以看到 Swift 标准库中的 `Range` 类型[重写了该运算符](https://developer.apple.com/documentation/swift/range/2428743?changes=_5)，提供了一个自定义行为，用来检查特定值是否在给定的范围内。
 
-### Matching Regular Expressions
+### 匹配正则表达式
 
-Let’s create a `Regex` type that implements the `~=` operator. It will be a paper-thin wrapper around [`NSRegularExpression`](https://developer.apple.com/documentation/foundation/nsregularexpression?changes=_9) that uses pattern-matching to make for more readable regex code, something we should always be interested in when working with the arcane regular expression.
+下面让我们创建一个实现 `〜=` 操作符的 `Regex` 类型。它将会是围绕 [`NSRegularExpression`](https://developer.apple.com/documentation/foundation/nsregularexpression?changes=_9) 的一个轻量级的封装器，它使用模式匹配来生成更具可读性的正则表达式代码，在使用神秘的正则表达式时，应始终感兴趣。
 
     struct Regex: ExpressibleByStringLiteral, Equatable {
     
@@ -173,7 +173,7 @@ Let’s create a `Regex` type that implements the `~=` operator. It will be a pa
     }
     
 
-There’s our `Regex` struct. It has a single `NSRegularExpression` property. It can be initialized as a string literal, with the consequence that if we fail to pass a valid regular expression, we’ll get a failure message and a match-all regex instead. Next, we implement the pattern-matching operator, nesting it in an extension so it’s clear where we want the operator to be used.
+这就是我们的 `Regex` 结构体。它有一个 `NSRegularExpression` 属性。它可以初始化为字符串字面常量，其结果是，如果我们无法传递一个有效的正则表达式，那么我们将得到失败的消息和一个匹配所有的正则表达式。接下来，我们实现模式匹配操作符，将其嵌套在扩展中，这样就可以清楚地知道要在何处使用该操作符。
 
 ```
 extension Regex {
@@ -183,9 +183,9 @@ extension Regex {
 }
 ```
 
-We want this struct to be useful out of the box, so I’ll define two class constants that can handle some common regex validation needs. The email regex was borrowed from Matt Gallagher’s [_Cocoa with Love_](http://www.cocoawithlove.com/2009/06/verifying-that-string-is-email-address.html) article and checks email addresses as defined in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt).
+我们希望这个结构体是开箱即用的，所以我将定义两个类常量，用来处理一些常见的正则验证需求。匹配邮箱的正则表达式是从 Matt Gallagher 的 [**Cocoa with Love**](http://www.cocoawithlove.com/2009/06/verifying-that-string-is-email-address.html) 文章里面借用的，并检查了 [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) 中定义的电子邮件地址。
 
-If you’re working with regular expressions in Swift, you can’t simply copy-pasta from your choice of Stack Overflow Regex posts. Swift strings define escape sequences like the newline (`\n`), tab (`\t`), and unicode scalars (`\u{1F4A9}`). These clash with the syntax of regular expressions which is heavy with backslashes and all types of brackets. Other languages like python have convenient raw string syntax. A raw string will take every character literally and does not parse escape sequences, so regular expressions can be inserted in their “pure” form. In Swift, any lone backslashes in a string indicate an escape sequence, so for the compiler to accept most regular expressions, you will need to escape the escape sequences, as well as a few other special characters. There was an [attempt](https://forums.swift.org/t/se-0200-raw-mode-string-literals/11048/178) to bring raw strings to Swift that fizzled out. It’s possible that as Swift continues to become a multi-platform, multi-purpose language, interest will be renewed in this feature. Until then, the already complex email-matching regular expression, becomes this ascii art monster:
+如果你在 Swift 中使用正则表达式，那么你不能就简单地从 Stack Overflow 关于 Regex 帖子中直接复制代码。Swift 字符串定义转义序列，如换行符（`\n`），制表符（`\t`），和 unicode 标量（`\u{1F4A9}`）。这与正则表达式的语法相冲突，因为正则表达式含有大量的反斜杠和所有类型的括号。像 Python，则有方便的原始字符串语法。原始字符串将按逐字逐句地获取每个字符，并且不会解析转义序列，因此可以以“纯净的”形式插入正则表达式。在 Swift 中，字符串中任何单独的反斜杠都表示转义序列，因此对于编译器来说，如果想要接受大多数的正则表达式，就需要转义序列以及一些其他特殊字符。这里有一个小[尝试](https://forums.swift.org/t/se-0200-raw-mode-string-literals/11048/178)，尝试在 Swift 中使用原始字符串，但最后失败了。随着 Swift 继续成为一种多平台，多用途的语言，人们可能会对这个功能重新产生兴趣。在此之前，现有复杂的匹配邮件的正则表达式，变成了这个 ASCII 的艺术怪物：
 
 ```
 static let email: Regex = """
@@ -198,13 +198,13 @@ f])+)\\])$
 """
 ```
 
-We can use a simpler expression to match phone numbers, borrowed from [Stack Overflow](https://stackoverflow.com/questions/16699007/regular-expression-to-match-standard-10-digit-phone-number) and double escaped as previously described:
+我们可以使用一个更简单的表达式来匹配电话号码，借用 [Stack Overflow](https://stackoverflow.com/questions/16699007/regular-expression-to-match-standard-10-digit-phone-number) 以及如前面所述的双转义：
 
 ```
 static let phone: Regex = "^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$"
 ```
 
-Now we can identify phone numbers or emails with our handy, readable pattern syntax:
+现在，我们可以使用方便、易读的模式语法来识别电话号码或电子邮件：
 
     let input = Bool.random() ? "nerd@bignerdranch.com" : "(770) 817-6373"
     switch input {
@@ -217,13 +217,13 @@ Now we can identify phone numbers or emails with our handy, readable pattern syn
     }
     
 
-You might be wondering why you don’t see the `~=` operator above. It’s an implementation detail of the `Expression Pattern` and is used implicitly.
+你可能想知道为什么看不到上面的 `〜=` 操作符。因为它是 `Expression Pattern` 的一个实现细节，且是隐式使用的。
 
-### Remember the Basics!
+### 牢记这些基础知识！
 
-With all these fancy patterns, we shouldn’t forget ways we can use the classic switch. When the pattern-matching `~=` operator is not defined, Swift falls back to using the `==` operator in switch statements. To reiterate, we are no longer in the domain of pattern-matching.
+有了所有这些奇特的模式，我们不应该忘记使用经典 switch 语句的方法。当模式匹配 `〜=` 操作符未定义时，Swift 在 switch 语句中会使用 `==` 操作符。重申一下，我们现在不再处于模式匹配的范畴。
 
-Below is an example. The switch statement here is being used as a [demultiplexer](https://www.electronicshub.org/demultiplexerdemux/) for delegate callbacks. It switches over the `textField` variable, a subclass of `NSObject`. Equality is therefore defined as identity comparison, which will check if the pointer values of the two variables are equal. As an example, take an object which serves as the delegate for three `UITextField`s. Each text field needs to validate its text in a different way. The delegate will receive the same callback for each text field when a user edits text
+以下是一个例子。这里的 switch 语句用来做一个给委托回调的[分离器](https://www.electronicshub.org/demultiplexerdemux/)。它对 `NSObject` 子类的 `textField` 变量执行了 switch 语句。因此，等式被定义为了标识比较，它会检查两个变量的指针值是否相等。举个例子，以一个对象作为三个 `UITextField` 对象的委托。每个文本字段都需要以不同的方式验证其文本。当用户编辑文本时，委托为每个文本字段接收相同的回调，
 
 ```
 func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
@@ -240,21 +240,21 @@ func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
 }
 ```
 
-And can validate each text field differently.
+并且可以不同地验证每个文本字段。
 
-### Concluding
+### 结论
 
-We looked at a few of the patterns available in Swift and examined the structure of pattern-matching syntax. With this knowledge, all of the 8 varieties of patterns are available to use! Patterns come with many benefits and they are an indispensable part of any Swift developer’s toolbox. There is still content this post didn’t cover, like the [niceties of compiler checked exhaustive logic](https://nshipster.com/never/#eliminating-impossible-states-in-generic-types) and patterns combined with `where` clauses.
+我们查阅了 Swift 中可用的一些模式，并检查了模式匹配语法的结构。有了这些知识，所有 8 种模式都可供使用！模式具有许多优点，它是每个 Swift 开发者的工具箱中不可或缺的一部分。这篇文章还有未涵盖到的内容，例如[编译器检查穷举逻辑的细节](https://nshipster.com/never/#eliminating-impossible-states-in-generic-types)以及结合 `where` 语句的一些模式。
 
-Thank you to Erica Sadun for introducing me to the `guard case` syntax in her blog post, [_Afternoon Whoa_](https://ericasadun.com/2016/03/15/afternoon-whoa-swifts-guard-case/), which inspired this one.
+感谢 Erica Sadun 在她的博客文章 [**Afternoon Whoa**](https://ericasadun.com/2016/03/15/afternoon-whoa-swifts-guard-case/) 中向我介绍了 `guard case` 语法，它是这篇文章的灵感来源。
 
-All of the examples for this post can be found in this [gist](https://gist.github.com/nteissler/a9d2b00beddcc309445ebebf1a373b49). The code can be run as a playground or picked through to suit your needs.
+这篇文章中的所有例子都可以在 [gist](https://gist.github.com/nteissler/a9d2b00beddcc309445ebebf1a373b49) 中找到。代码可以在 Playground 运行，也可以根据你的需要进行挑选。
 
-[1] The guide claims for enums with associated values, “the corresponding enumeration case pattern must specify a tuple pattern that contains one element for each associated value.” Just including the enum case without any associated values compiles and matches assuming you don’t need the associated value.
+[1] 该指南要求使用具有关联值的枚举，“对应的枚举用例模式必须指定一个元组模式，其中包含每个关联值的一个元素。”如果您不需要关联的值，只需包含没有任何关联值的enum情况就可以编译和匹配。
 
-Another small correction is that the custom expression operator (~=) may “appear only in switch statement case labels”. Above, we use it in an `if` statement as well. The [language grammar](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#//appleref/swift/grammar/condition-list) specifies both of the above usages correctly, and the error only exists in the prose.
+另一个小的更正是，自定义表达式操作符 `~=` 可能 “仅出现在 switch 语句大小写标签中”。在上述例子中，我们也在一个 `if` 语句中使用到它。[Swift 语法](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#//appleref/swift/grammar/condition-list)正确地说明了上述两种用法，这个小错误只在本文中。
 
-[2] The `readLine` function won’t work in a playground. If you want to run this example, try it from a macOS command-line application.
+[2] `readLine` 方法不适用于 Playground。如果要运行此示例，请从 macOS 命令行应用中尝试。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
