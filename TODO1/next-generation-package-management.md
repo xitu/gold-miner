@@ -15,7 +15,7 @@
 
 你会注意到的第一件事是这些模块实际上都没有放入 `node_modules` 目录下，唯一能找到的就是一个 `.package-map.json` 文件。这个文件中包含了已安装的包模块中的所有文件的哈希值。你可以放心地获取所请求的内容，因为它们在加载前已经被验证过了。（如果验证失败，则文件将从其原始源获取，所有过程都是透明的）。
 
-不过我们并不会良莠不分全盘否定之前的方案。你仍然可以将内容安装入 `node_modules` 目录，这些版本相对缓存版本来说会被优先使用。这为依赖项的实时编辑（有时是必要的调试技术）打开了一条路径，并支持修改软件包发行版中的像 postinstall 这样钩子脚本。
+不过我们并不会良莠不分全盘否定之前的方案。你仍然可以将内容安装入 `node_modules` 目录，这些版本相对缓存版本来说会被优先使用。这为依赖项的实时编辑（有时是必要的调试技术）打开了一条路径，并支持改变软件包分发的 postinstall 脚本。
 
 `tink` 是一个改变我们与 Node.js 项目以及 npm 注册表相关联方式的机会。是否应该在模块中使用 `requrie` 或者 `import` 关键词而不是在 `package.json` 来添加依赖？是否应该默认提供一些像兼容 babel 的 ES Module、typescript 以及 jsx 这样非常受欢迎的功能？这些是我们一直在问自己的问题，我们很乐意听到您所期望的下一代体验。请来 [npm.community](https://t.umblr.com/redirect?z=https%3A%2F%2Fnpm.community&t=MzE1YThiMDY5NDdlM2U2ZGExZGJjYWQwODYzZjJmMjI5NTkzNThlYix2SGt2amVPVg%3D%3D&b=t%3AnXsLs1P4AptPf1fBr_nFxw&p=https%3A%2F%2Fblog.npmjs.org%2Fpost%2F178027064160%2Fnext-generation-package-management&m=1) 告诉我们。
 
