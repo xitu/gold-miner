@@ -97,7 +97,6 @@ Docker 是基于 Linux 容器技术的开源项目。它使用 Luinux 的内核�
 
 #### Docker 引擎
 
-Docker engine is the layer on which Docker runs. It’s a lightweight runtime and tooling that manages containers, images, builds, and more. It runs natively on Linux systems and is made up of:
 Docker 引擎是 Docker 运行的底层。它是一个轻量级的运行时和工具，可以用于管理容器，镜像，构建等等。它在 Linux 本机上运行，由以下部分组成：
 
 1. 在主机上运行的 Docker 守护进程。
