@@ -3,24 +3,24 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/whats-the-difference-between-dogs-html-and-dogs-html.md](https://github.com/xitu/gold-miner/blob/master/TODO1/whats-the-difference-between-dogs-html-and-dogs-html.md)
 > * 译者：[Shery](https://github.com/shery)
-> * 校对者：
+> * 校对者：[Kasheem Lew](https://github.com/kasheemlew) [Cherry](https://github.com/sunshine940326)
 
 # ./dogs.html 和 /dogs.html 间有什么区别？
 
 它们**都是** **URL 路径**。但是他们名字不同。
 
 ```html
-<!-- 相对于当前所在目录 -->
+<!-- 相对于当前所在目录（相对路径） -->
 <a href="./dogs.html">Dogs</a>
 
-<!-- 相对于根目录 -->
+<!-- 相对于根目录（绝对路径） -->
 <a href="/dogs.html">Dogs</a>
 ```
 
-还有全限定 URL，如下所示：
+还有完整 URL 路径，如下所示：
 
 ```html
-<!-- 全限定 -->
+<!-- 完整 URL 路径 -->
 <a href="https://website.com/dogs.html">Dogs</a>
 ```
 
@@ -73,7 +73,7 @@ body {
 }
 ```
 
-...在这种情况下哪个是正确的：
+...在这种情况下是正确的：
 
 ```
 public/
