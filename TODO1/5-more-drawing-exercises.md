@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/5-more-drawing-exercises.md](https://github.com/xitu/gold-miner/blob/master/TODO1/5-more-drawing-exercises.md)
 > * 译者：[Ruixi](https://github.com/Ruixi)
-> * 校对者：
+> * 校对者：[diliburong](https://github.com/diliburong)
 
 # 另外 5 种关于视觉和认知间差异的绘画练习
 
