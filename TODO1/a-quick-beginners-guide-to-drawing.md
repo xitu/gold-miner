@@ -151,7 +151,7 @@
 
 由于这是我的第一个绘图教程，我很好奇你最喜欢哪个部分。关于绘画你还有什么想了解的？**请在下面的评论部分留下您的想法和建议！**
 
-**哦，这是第二部分：“[**另外 5 个绘画练习**](https://medium.com/@ralphammer/5-more-drawing-exercises-9c0df4645387)”！**
+**哦，这是第二部分：“[**另外 5 个绘画练习**](https://github.com/xitu/gold-miner/blob/master/TODO1/5-more-drawing-exercises.md)”！**
 
 **如果你喜欢这篇文章，请点击下面这些小👏（您可以多次“拍手”！）并把这篇文章分享给你的朋友，和[**订阅我的邮箱**](http://eepurl.com/cJJLR1)，你可以在[这里](http://ralphammer.com/writing)找到我的文章。**
 
