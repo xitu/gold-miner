@@ -158,7 +158,7 @@ func TestTableDrivenBowlingGame(t *testing.T) {
 
 ### [GoConvey](http://goconvey.co)
 
-现在，我们不能仅仅满足于开箱即用的 `go test`，于是我们开始使用 Go 提供的工具和库来实现我们自己的测试方法。如果你仔细看过 [SmartyStreets GitHub page](https://github.com/smartystreets)，你会注意到一个比较有名的仓库——GoConvey。它是我们对 [Go OSS社区贡献](https://smartystreets.com/docs/oss)的最早的项目之一。
+现在，我们不能仅仅满足于开箱即用的 `go test`，于是我们开始使用 Go 提供的工具和库来实现我们自己的测试方法。如果你仔细看过 [SmartyStreets GitHub page](https://github.com/smartystreets)，你会注意到一个比较有名的仓库 — GoConvey。它是我们对 [Go OSS社区贡献](https://smartystreets.com/docs/oss)的最早的项目之一。
 
 GoConvey 可以说是一个双管齐下的测试工具。首先，有一个测试运行器监控你的代码，在有变化的时候执行 `go test`，并将结果渲染成炫酷的网页，然后用浏览器展示出来。其次，它提供了一个库让你可以在标准的 `go test` 函数中写行为驱动开发风格的测试。还有一个好消息：你可以自由选择不使用、部分使用或者全部使用 GoConvey 中的这些功能。
 
