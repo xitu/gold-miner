@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-best-database-as-a-service-solutions-of-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-best-database-as-a-service-solutions-of-2018.md)
 > * 译者：[cf020031308](https://github.com/cf020031308)
-> * 校对者：[StellaBauhinia](https://github.com/StellaBauhinia)、[yuwhuawang](https://github.com/yuwhuawang)
+> * 校对者：[StellaBauhinia](https://github.com/StellaBauhinia), [yuwhuawang](https://github.com/yuwhuawang)
 
 # 2018 年度最佳数据库即服务解决方案
 
@@ -42,7 +42,7 @@ DBaaS 的缺点包括数据库的普遍僵化、数据科学的复杂性、集�
 
 ## 测试版本，以及地区的重要性
 
-对每种产品的测评内容还包括是否有试用版/免费版及其限制。例如，MongoDB Atlas 有一个“永久免费”版本，512 MB 存储和共享[随机存取存储器](https://www.pcmag.com/encyclopedia/term/50159/ram)（RAM）。 IBM Db2 on Cloud 有一个免费的含企业功能的开发者版本，但其免费商业版 Express-C 不含高级企业功能。付费版本差异较小，因为它们通常与存储和计算用量而非功能特性相挂钩。然而，在选择之前，注意不同版本的可用功能和区域是非常重要的。
+对每种产品的测评内容还包括是否有试用版/免费版及其限制。例如，MongoDB Atlas 有一个“永久免费”版本，512 MB 存储和共享[随机存取存储器](https://www.pcmag.com/encyclopedia/term/50159/ram)（RAM）。IBM Db2 on Cloud 有一个免费的含企业功能的开发者版本，但其免费商业版 Express-C 不含高级企业功能。付费版本差异较小，因为它们通常与存储和计算用量而非功能特性相挂钩。然而，在选择之前，注意不同版本的可用功能和区域是非常重要的。
 
 显然，如果一个版本没有你正需要的高级企业功能，例如 IBM Db2 on Cloud 的 Express-C 版，那它就没用了。同样，如果您需要解决 GDPR 的问题，或者您需要为世界各地的大量用户提供低延迟的应用程序，那么 Microsoft Azure SQL 数据库惊人的全球 140 个国家的 50 个可选地区就很重要了。
 
@@ -60,7 +60,7 @@ DBaaS 的缺点包括数据库的普遍僵化、数据科学的复杂性、集�
 
 ## SQL 还是 NoSQL？
 
-另一个使得本文难以直接对比的因素是数据库的类型。正如所有数据专业人士所知，[SQL](https://www.pcmag.com/encyclopedia/term/51902/sql) 处理结构化数据，[NoSQL](https://www.pcmag.com/encyclopedia/term/63645/nosql) 用于非结构化数据，但这种区别对于普通用户来说可能并不明显。结构化数据的例子是电子表格，而非结构化数据的示例是 Twitter 反馈消息。 SQL 数据库通常称为关系数据库，而 NoSQL 数据库称为非关系数据库。
+另一个使得本文难以直接对比的因素是数据库的类型。正如所有数据专业人士所知，[SQL](https://www.pcmag.com/encyclopedia/term/51902/sql) 处理结构化数据，[NoSQL](https://www.pcmag.com/encyclopedia/term/63645/nosql) 用于非结构化数据，但这种区别对于普通用户来说可能并不明显。结构化数据的例子是电子表格，而非结构化数据的示例是 Twitter 反馈消息。SQL 数据库通常称为关系数据库，而 NoSQL 数据库称为非关系数据库。
 
 但是，当涉及到 DBaaS 时，选项更加多样化，而不仅仅是确定数据是结构化还是非结构化。例如，开源 NoSQL 的 MongoDB Atlas 运行在其他品牌的云服务上，如 AWS、Google 和 Microsoft。一些供应商会指导您完成迷宫般的选项，因为他们的品牌 DBaaS 服务提供了其它类型数据库的产品选项。
 
