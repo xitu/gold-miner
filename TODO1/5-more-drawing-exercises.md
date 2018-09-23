@@ -16,8 +16,8 @@
 
 我们将着眼于各个方面的**观察**来**加强我们的视觉思维**。
 
-## Exercise 1: Negative Space — see what is NOT there
 ## 练习 1：负空间——见有于无之中
+
 > **在元素之间构建空间！**
 
 ![](https://cdn-images-1.medium.com/max/800/1*BcBbHjBYf1Y0LzPcyjxW-A.gif)
@@ -33,8 +33,8 @@
 
 小贴士：字体设计师们明白负空间的重要性。多多留意在字母之间的空间，才能更加凸显字体的特点！
 
-## Exercise 2: Dynamic drawing— see movements
-## 练习2：动态线——见动于静之中
+## 练习 2：动态线——见动于静之中
+
 > **画出静物的动态！**
 
 ![](https://cdn-images-1.medium.com/max/800/1*rs2qFH96L-E7dsILahV80w.gif)
@@ -55,8 +55,8 @@
 
 注：有的人喜欢把这类图画称为“示意图”。我更喜欢用“动态”来称呼它。因为它完全就是对主体动态的描述。
 
-## Exercise 3: Foreshortening — see in perspective
-## 练习3:近大远小——见透视于空间之中
+## 练习 3：近大远小——见透视于空间之中
+
 > **找一个盒子，找到它的消失线并且画出来！**
 
 ![](https://cdn-images-1.medium.com/max/800/1*1l5OWqIxR9TQS6YUNVn9gA.gif)
@@ -75,8 +75,8 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*4Fu6cFFfpTQ0rltcCTcKuw.gif)
 
-## Exercise 4: Proportion — see flat
-## 练习4:比例——见平于不平之中
+## 练习 4:比例——见平于不平之中
+
 > **画个窗子——你都看到了外面的什么！**
 
 ![](https://cdn-images-1.medium.com/max/800/1*kleqsKsJCSfkS6bpeUqMuw.gif)
@@ -105,8 +105,8 @@
 
 我建议你通过一个窗框来看世界。窗框可以作为**示例**来参考，框住的画面中的树或者房子有多高。
 
-## Exercise 5: Depth — see overlaps
-## 练习5:深度——见秩序于重叠之中
+## 练习 5:深度——见秩序于重叠之中
+
 > **画株植物！**
 
 ![](https://cdn-images-1.medium.com/max/800/1*mNhkP2Tty9WtrVK0a1VT1w.gif)
