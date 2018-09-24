@@ -162,8 +162,7 @@ See how our developers can [build the exact same mockup](https://medium.com/hubs
 
 We’ve made a version of our [HubSpot Canvas UI Library](https://canvas.hubspot.com/) public. In it, you’ll find a subset of our components and styles, pulled straight from our production code. It’s a window into how we build our products here at HubSpot, and we’re sharing it because we’re proud of the time and effort we’ve put into creating our design system and optimizing it for developers and designers so that it stays evergreen. We invite you to take a look and share your thoughts — we can’t wait to hear them.
 
-**Credits:  
-**Illustrations by [Sue Yee](https://dribbble.com/suechews)
+**Credits: Illustrations by [Sue Yee](https://dribbble.com/suechews)**
 
 _Originally published on the_ [_HubSpot Product Blog_](https://product.hubspot.com/blog/how-to-gain-widespread-adoption-of-your-design-system)
 
