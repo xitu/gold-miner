@@ -2,35 +2,35 @@
 > * 原文作者：[Michael Whatcott]()
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/history-of-go-testing.md](https://github.com/xitu/gold-miner/blob/master/TODO1/history-of-go-testing.md)
-> * 译者：
-> * 校对者：
+> * 译者：[kasheemlew](https://github.com/kasheemlew)
+> * 校对者：[StellaBauhinia](https://github.com/StellaBauhinia)
 
-# A History of Testing in Go at SmartyStreets
+# SmartyStreets 的 Go 测试探索之路
 
-I was recently [asked two interesting questions](https://github.com/smartystreets/goconvey/issues/360#issuecomment-368348056):
+最近常有人问我[这两个有趣的问题](https://github.com/smartystreets/goconvey/issues/360#issuecomment-368348056)：
 
-1.  Why did you move (from [GoConvey](http://goconvey.co)) to [gunit](https://github.com/smartystreets/gunit)?
-2.  Are you recommending folks do the same?
+1. 你为什么将测试工具（从 [GoConvey](http://goconvey.co)）换成 [gunit](https://github.com/smartystreets/gunit)？
+2. 你建议大家都这么做吗？
 
-These are great questions, and since I’m a co-creator of GoConvey and principle author of gunit I feel responsible to give a thorough answer. For the impatient, here’s the TL;DR:
+这两个问题很好，作为 GoConvey 的联合创始人兼 gunit 的主要作者，我也有责任将这两个问题解释清楚。直接回答，太长不读系列：
 
-Question 1: Why did you move to gunit?
+问题 1：为什么换用 gunit？
 
-> After using GoConvey and feeling consistent friction with that approach, we came up with an alternate approach that was more aligned with what we value in a testing library and which eliminated said friction. At that point, we couldn’t not make the transition. I go into **a lot** more detail below, eventually culminating in a [succinct, manifesto-style conclusion](#conclusion).
+> 在使用 GoConvey 的过程中，有一些问题一直困扰着我们，所以我们想了一个更能体现测试库中重点的替代方案，以解决这些问题。在当时的情况中，我们已经无法对 GoConvey 做过渡升级方案了。下面我会**更**仔细介绍一下，并提炼到[简明的宣明式结论](#结论)。
 
-Question 2: Are you recommending folks do that same (move from GoConvey to gunit)?
+问题 2：你是否建议大家都这么做（从 GoConvey 换成 gunit）？
 
-> No. What I recommend is that you use only those tools and libraries that facilitate accomplishing your objectives. Get really specific about your requirements for testing tools and then set out to acquire and/or create them as quickly as possible. Testing tools are the foundation upon which you build your whole enterprise. If the rest of this article resonates with you, then gunit might be a compelling option for your consideration. Study things out and make a deliberate choice. The GoConvey community is still going strong and has active maintainers. Feel free to get involved if you feel strongly about supporting the project.
+> 不。我只建议你们使用能帮助你们达成目标的工具和库。你得先明确自己对测试工具的需求，然后再尽快去找或者造适合自己的工具。测试工具是你们构建项目的基础。如果你对后面的内容产生了共鸣，那么 gunit 会成为你选型中一个极具吸引力的选项。你得好好研究，然后慎重选择。GoConvey 的社区还在不断成长，并且拥有很多活跃的维护者。如果你很想支持一下这个项目，随时欢迎加入我们。
 
 * * *
 
-## A long time ago, in a galaxy far, far away…
+## 很久以前在一个遥远的星系...
 
-### Go Test
+### Go 测试
 
-We first started using Go right around the release of Go 1.1 (so, around mid-2013). As we begain getting our feet wet and writing actual code, we naturally came across [`go test`](https://golang.org/cmd/go/#hdr-Test_packages) and the [`"testing"` package](https://golang.org/pkg/testing/). I was happy to see testing baked into the standard library and even the tooling, but was not excited about the idiomatic approach to testing in Go. For the remainder of this article, we’ll use the famous [“Bowling Game” kata](http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata) as a mutating illustration of the various approaches to testing we’ve employed. (You may want to take a moment to familiarize yourself with [the production code](https://github.com/smartystreets/gunit/blob/master/advanced_examples/bowling_game.go) for the test suites presented.)
+我们初次使用 Go 大概是在 Go 1.1 发布的时候（也就是 2013 年年中），在刚开始写代码的时候，我们很自然地接触到了 [`go test`](https://golang.org/cmd/go/#hdr-Test_packages) 和 [`"testing"` 包](https://golang.org/pkg/testing/)。我很高兴看到 testing 包被收进了标准库甚至是工具集中，但是对于它惯用的方法并没有什么感觉。后文中，我们将使用著名的[“保龄球游戏”练习](http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata)对比展示我们使用不同测试工具后得到的效果。（你可以花点时间熟悉一下[生产代码](https://github.com/smartystreets/gunit/blob/master/advanced_examples/bowling_game.go)，以便更好地了解后面的测试部分。）
 
-Here are a few ways to write the bowling game tests using nothing but the standard library `"testing"` package:
+下面是用标准库中的 `"testing"` 包编写保龄球游戏测试的一些方法：
 
 ```
 import "testing"
@@ -107,12 +107,12 @@ func TestPerfectGame(t *testing.T) {
 }
 ```
 
-If you’re coming from an [xUnit](https://en.wikipedia.org/wiki/XUnit) background, you’ll immediately be frustrated by two things:
+对于之前使用过 [xUnit](https://en.wikipedia.org/wiki/XUnit) 的人，下面两点会让你很难受：
 
-1.  The creation of the game construct is repeated as there is no inherent `Setup` function/method.
-2.  The assertion failure messages are all hand-constructed and nested within an if statement that checks for the opposite of the assertion you would normally craft. This kind of negated assertion becomes even more annoying when comparison operators are involed (`<`, `>`, `<=`, `>=`).
+1.  由于没有统一的 `Setup` 函数/方法可以使用，所有游戏中需要不断重复创建 game 结构。
+2.  所有的断言错误信息都得自己写，并且混杂在一个 if 表达式中，由它来以反义检验你所编写的正向断言语句。在使用比较运算符（`<`、`>`、`<=` 和 `>=`）的时候，这些否定断言会更加恼人。
 
-So, we researched more about testing and how the Go community purposefully left out [“our favorite test helpers”](https://golang.org/doc/faq#testing_framework) and the concept of [“assertions methods”](http://xunitpatterns.com/Assertion%20Method.html) in favor of the boilerplate-reducing promise of [“table-driven” tests](https://github.com/golang/go/wiki/TableDrivenTests). Here’s that same suite of tests reimagined using table-driven tests:
+所以，我们调研如何测试，深入了解为什么 Go 社区放弃了[“我们最爱的测试帮手”](https://golang.org/doc/faq#testing_framework)和[“断言方法”](http://xunitpatterns.com/Assertion%20Method.html)的观点，转而使用[“表格驱动”测试](https://github.com/golang/go/wiki/TableDrivenTests)来减少模板代码。用表格驱动测试重新写一遍上面的例子：
 
 ```
 import "testing"
@@ -140,31 +140,31 @@ func TestTableDrivenBowlingGame(t *testing.T) {
 }
 ```
 
-Ok, this is completely different.
+不错，这和之前的代码完全不一样。
 
-The good:
+优点：
 
-1.  It’s a lot shorter! There’s now just a single test function for the entire suite of tests.
-2.  The repetitive setup has been consolidated by the for loop.
-3.  Similarly, there’s now only one assertion to get wrong code.
-4.  It’s easy to add a `skip bool` to the struct definition to allow skipping of individual tests for debugging.
+1.  新的代码短多了！整套测试现在只有一个测试函数了。
+2.  使用循环语句解决了 setup 重复的问题。
+3.  相似的，用户只会从一条断言语句中获取错误码。
+4.  在 debug 的过程中，可以很容易地在 struct 的定义中加一个 `skip bool` 来跳过一些测试
 
-The bad:
+缺点：
 
-1.  The anonymous struct definition mixed into the for loop declaration is strange looking.
-2.  The table-driven approach works in very simple data-in/data-out scenarios but doesn’t scale to more complex scenarios where it becomes cumbersome (or impossible) to represent your entire test suite cleanly in a single struct.
-3.  The slice representing throws/rolls is very ‘noisy’. A little ingenuity would allow us to simplify the throw/roll declaractions, but that would introduce [more complicated logic](http://xunitpatterns.com/Conditional%20Test%20Logic.html) into the test boilerplate.
-4.  Even though there’s only one assertion to code, it’s still indirect/negated and gets under my skin.
+1.  匿名 struct 的定义和循环的声明混在一起，看起来很奇怪。
+2.  表格驱动测试只在一些比较简单的，只涉及数据读入/读出的情况下才比较有效。当情况逐渐复杂起来的时候，它会变得很笨重，也不容易（或者说不可能）用单一的 struct 对整个测试进行扩展。
+3.  使用 slice 表示 throws/rolls 很“烦人”。虽然动动脑筋我们还是可以简化一下的，但是这会让我们的模板代码的[逻辑变复杂](http://xunitpatterns.com/Conditional%20Test%20Logic.html)。
+4.  尽管只用写一条断言语句，但是这种间接/否定式的测试还是让我很愤怒。
 
 ### [GoConvey](http://goconvey.co)
 
-At this point we just couldn’t be content with the out-of-the-box `go test` experience so we set out to implement our own approach on top of the tool and library provided by Go. If you’ve perused the [SmartyStreets GitHub page](https://github.com/smartystreets), you may have noticed a somewhat popular repository called GoConvey, one of our very first [contributions to the Go OSS community](https://smartystreets.com/docs/oss).
+现在，我们不能仅仅满足于开箱即用的 `go test`，于是我们开始使用 Go 提供的工具和库来实现我们自己的测试方法。如果你仔细看过 [SmartyStreets GitHub page](https://github.com/smartystreets)，你会注意到一个比较有名的仓库 — GoConvey。它是我们对 [Go OSS社区贡献](https://smartystreets.com/docs/oss)的最早的项目之一。
 
-GoConvey is a two-pronged testing tool. The first is a test runner that watches your code for changes, runs `go test`, and displays a fancy rendering of the results in a web browser. The second is a library that allows you to write BDD-style tests inside standard `go test` functions. Good news: You can use either or both or neither of these aspects of the GoConvey project.
+GoConvey 可以说是一个双管齐下的测试工具。首先，有一个测试运行器监控你的代码，在有变化的时候执行 `go test`，并将结果渲染成炫酷的网页，然后用浏览器展示出来。其次，它提供了一个库让你可以在标准的 `go test` 函数中写行为驱动开发风格的测试。还有一个好消息：你可以自由选择不使用、部分使用或者全部使用 GoConvey 中的这些功能。
 
-Our main reason for creating GoConvey was two-fold: recreate the kind of test runner we left behind in [JetBrains IDEs](https://www.jetbrains.com/) (we were using ReSharper) and the kind of test composition and assertions we enjoyed using libraries like [nUnit](http://nunit.org/) and [Machine.Specifications](https://github.com/machine/machine.specifications) (we were a .Net shop previous to picking up Go).
+有两个原因促使我们开发了 GoConvey：重新开发一个我们本来打算在 [JetBrains IDEs](https://www.jetbrains.com/) 中完成的测试运行器（我们当时用的是 ReSharper）以及创造一套我们很喜欢的像 [nUnit](http://nunit.org/) 和 [Machine.Specifications](https://github.com/machine/machine.specifications)（在开始使用 Go 之前我们是 .Net 商店）那样的测试组合和断言。
 
-Here’s what the same test suite would look like in a GoConvey test suite:
+下面是用 GoConvey 重写上面测试的效果：
 
 ```
 import (
@@ -225,13 +225,13 @@ func TestBowlingGameScoring(t *testing.T) {
 }
 ```
 
-Like the table-driven approach, the entire suite is contained in a single function. Like the original example, we are making use of a few helpers to make repeated rolls/throws. Unlike either example there is now a clever, a word which here means [non](https://github.com/smartystreets/goconvey/issues/4)-[trivial](https://github.com/smartystreets/goconvey/issues/81) and [scope-based](https://github.com/smartystreets/goconvey/issues/248), [execution model](https://github.com/smartystreets/goconvey/wiki/Execution-order) in play. The `game` variable is shared by the entire suite but the magic of GoConvey is that each outer scope is executed for each of the inner scopes. So, each test case has a degree of isolation. Obviously, if you aren’t careful about initialization and scoping you can get into trouble.
+和表格驱动的方法一样，整个测试都包含在一个函数中。又像在原来的例子中一样，我们通过一个辅助函数进行重复的 rolls/throw。不同于其他的例子，我们现在已经拥有了一个巧妙的、[不](https://github.com/smartystreets/goconvey/issues/4)[繁琐的](https://github.com/smartystreets/goconvey/issues/81)、[基于作用域](https://github.com/smartystreets/goconvey/issues/248)的[执行模型](https://github.com/smartystreets/goconvey/wiki/Execution-order)。所有的测试共享了 `game` 变量，但 GoConvey 的奇妙之处在于每个外层作用域都针对每个内层作用域执行。所以，每一个测试之间又相对隔离。显然，如果不注意初始化和作用域的话，你很容易就会陷入麻烦。
 
-Also, when you wrap calls to `Convey` in for loops (like trying to combine GoConvey and table-driven tests), weird things can happen. The `*testing.T` is completely managed by the top-level `Convey` call (did you notice it’s slightly different from all other `Convey` calls?) and so you don’t need to pass it around to make assertions, but if you’ve written any reasonably complex test suites with GoConvey you’ll know that it’s actually pretty cumbersome to extract helper functions. What I’ve done before to get around this is create a `Fixture struct` to hold all the state for a test suite and then create methods on that struct which I then call from the `Convey` callbacks. So there’s the Convey block/scope and then, somewhere else, there’s the Fixture and its methods. It gets wierd.
+另外，当你将对 Convey 的调用加入到循环中时（例如尝试将 GoConvey 和表格驱动测试组合起来使用），可能会发生一些诡异的事情。`*testing.T` 完全由顶层的 `Convey` 调用管理（你注意到它和其他的 `Convey` 稍有不同了吗？），因此你也不必在所有需要断言的地方都传递这个参数。但是如果用 GoConvey 写过任何稍微复杂点的测试的话，你就会发现取出辅助函数的过程相当复杂。在我决定绕过这个问题之前，我建了一个 `固定结构` 来存放所有测试的状态，然后在这个结构里创建 `Convey` 的回调会用到的函数。所以一会是 Convey 的块和作用域，一会又是固定结构和它的方法，这看起来就很奇怪了。
 
 ### [gunit](https://github.com/smartystreets/gunit)
 
-So, it took a while but in the end we realized that we really just wanted xUnit for Go, but without any of the wierd dot-imports or underscored package-level registration variables (lookin’ at you [GoCheck](https://labix.org/gocheck)). We also were still very much in favor of the assertions used by GoConvey. So, they ended up being split to [their own repository](https://github.com/smartystreets/assertions) and then gunit was born:
+所以，尽管我们花了点时间，但最终还是意识到我们只是想要一个 Go 版本的 xUint，它需要摒弃奇怪的点导入和下划线包等级注册变量（看看你的 [GoCheck](https://labix.org/gocheck)）。我们还是很喜欢 GoConvey 中的断言，于是从原来的项目中分裂出了一个[独立的仓库](https://github.com/smartystreets/assertions)，gunit 就这样诞生了：
 
 ```
 import (
@@ -300,11 +300,11 @@ func (this *BowlingGameScoringFixture) rollStrike() {
 }
 ```
 
-As you can see, it’s trivial to extract helper methods because we are operating on struct-level state, not a function’s local variable state. Also, the Setup/Test/Teardown execution model of xUnit is so much simpler to understand (and implement) than GoConvey’s scoped execution model. The `*testing.T` is now managed by the embedded `*gunit.Fixture`. This approach is equally straightforward for simple scenarios as well as the most complex interaction-based test you might find.
+可以看到，去除辅助方法的过程很繁琐，这是因为我们是在操作结构级的状态，而不是函数的局部变量的状态。此外，xUnit 中配置/测试/清除的执行模型比 GoConvey 中的作用域执行模型好懂多了。这里，`*testing.T` 现在由嵌入的 `*gunit.Fixture` 管理。这种方式对于简单的和基于交互的复杂测试来说同样直观好懂。
 
-Another important contrast between gunit and GoConvey is that in terms of xUnit Test Patterns, GoConvey employs [shared fixtures](http://xunitpatterns.com/Shared%20Fixture.html) where gunit uses [fresh fixtures](http://xunitpatterns.com/Fresh%20Fixture.html). Both have a place, depending on your context. Fresh fixtures are generally more desirable in a unit test context, whereas a shared fixture might be more advantageous in an integration/systems testing context where there is expensive setup.
+gunit 和 GoConvey 的另一个巨大区别是，按照 xUnit 的测试模式，GoConvey 使用[共享的固定结构](http://xunitpatterns.com/Shared%20Fixture.html)而 gunit 使用[全新的固定结构](http://xunitpatterns.com/Fresh%20Fixture.html)。这两种方法都有道理，主要还是看你的应用场景。全新的固定结构通常在单元测试中更能让人满意，而共享的固定结构在一些配置消耗比较大的情况下更有利，例如集成测试或系统测试。
 
-The concept of fresh fixtures makes it much easier to ensure that separate test cases are truly isolated. This allows gunit to use [`t.Parallel()`](https://golang.org/pkg/testing/#T.Parallel) by default. Also, because we are simply using reflection to invoke subtests, it’s possible to use the `-run` parameter to single out specific test cases:
+全新的固定结构更能保证分开的测试项之间是相互独立的，因此 gunit 默认使用 [`t.Parallel()`](https://golang.org/pkg/testing/#T.Parallel)。同样的，因为我们只用反射调用子测试，所以也可以使用 `-run` 参数挑选特定的测试项执行：
 
 ```
 $ go test -v -run 'BowlingGameScoringFixture/TestPerfectGame'
@@ -320,12 +320,12 @@ PASS
 ok  	github.com/smartystreets/gunit/advanced_examples	0.007s
 ```
 
-Admittedly, there’s a bit of boilerplate still present (the stuff at the top of the fixture file). We’ve installed the following live template into [GoLand](https://www.jetbrains.com/go/) which automates most of that. Here are instructions for installing that live template in GoLand:
+但不可否认，一些之前的样本代码仍然存在（比如文件头部的一些代码）。我们在 [GoLand](https://www.jetbrains.com/go/) 中安装了下面的实时模板，这些会自动生成前面大部分的内容。下面是在 GoLand 中安装实时模板的命令：
 
-*   In GoLand, open preferences.
-*   Under `Editor/Live Templates` highlight the `Go` list and click the `+` sign and choose “Live Template”.
-*   Give it an abbreviation (we use `fixture`)
-*   Paste the following into the `Template text` area:
+*   在 GoLand 中打开偏好设置。
+*   在 `编辑器/实时模板` 中选中 `Go` 列表，然后点击 `+` 号并选择“实时模板”
+*   给他取个缩写名（我们用的是 `fixture`）
+*   将下面的代码粘贴到 `模板文本` 区域：
 
 ```
 func Test$NAME$(t *testing.T) {
@@ -343,26 +343,25 @@ func (this *$NAME$) Test$END$() {
 }
 ```
 
-*   Underneath that, click on `Define` next to the warning about “No applicable context yet”.
-*   Put a check in the `Go` box and then click `OK`.
+*   在那之后，点击“未指定应用上下文”警告旁边的`定义`。
+*   在 `Go` 前面打个勾然后点`OK`。
 
-Now, when opening a test file, just type `fixture` and let the tab-completion fill in the template.
+现在我们只用打开一个测试文件，输入 `fixture` 然后用 tab 自动补全测试模板就行了。
 
-## Conclusion
+## 结论
 
-Allow me to couch our conclusions in the style of the [Manifesto for Agile Software Development](http://agilemanifesto.org/):
+让我效仿[敏捷软件开发宣言](http://agilemanifesto.org/)的风格来做个总结：
 
-> We are uncovering better ways of **testing** software by doing it and helping others do it. Through this work we have come to value:
-> 
-> *   **Fresh fixtures** over shared fixtures
-> *   **Simple execution models** over clever scoping semantics
-> *   **Struct-level scope** over local function (or package-level) variable scope
-> *   **Straightforward assertion functions** over inverted checks and hand-crafted failure messages
-> 
-> That is, while there is value in the way the other testing libraries operate (items on the right), we value the way gunit works more (items on the left).
+> 我们不断实践、帮助他人，最终发现了更好的方法来进行软件**测试**。这让我们实现了很多有价值的东西：
+>
+> *   在**共享的固定结构**的基础上实现了**全新的固定结构**
+> *   用巧妙的作用域语义实现了**简单的执行模型**
+> *   用局部函数（或者说包级的）变量作用域实现了**结构级作用域**
+> *   通过倒置的检查和手动创建的错误信息实现了**直接的断言函数**
+>
+> 也就是说，虽然其他的测试库也很不错（这是一方面），我们更喜欢 gunit（这是另一方面）。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
