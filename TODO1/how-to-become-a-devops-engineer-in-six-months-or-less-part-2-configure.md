@@ -5,160 +5,158 @@
 > * 译者：
 > * 校对者：
 
-# How To Become a DevOps Engineer In Six Months or Less, Part 2: Configure
+# 如何在六个月或更短的时间内成为DevOps 工程师，第2部分：配置
 
 ![](https://cdn-images-1.medium.com/max/1000/0*CqfqPJ0kz66ZHKtt)
 
-Photo by [Reto Simonet](https://unsplash.com/@reetoo?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
+照片由 [Reto Simonet](https://unsplash.com/@reetoo?utm_source=medium&utm_medium=referral) 拍摄于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
 
-_NOTE: this is Part 2 of a multi-part series. For Part 1, please click [here](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md)._
+注意: 这是《如何如何在六个月或更短的时间内成为DevOps工程师》系列的第二部分，第一部分请点击 [这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md).
 
-Let’s recap quickly where we are.
+让我们快速回顾一下上期内容。
 
-In Part 1, I argued the job of DevOps Engineering is to built fully automated, digital pipelines that move code from a developer’s machine to production.
+在第一部分中，我认为DevOps 工程师的工作是构建全自动的数字流水线，将代码从开发环境转到生产环境。
 
-Now, to do this job effectively requires a solid understanding of fundamentals, depicted here:
+现在，要有效地完成这项工作需要对基本原理有充分的了解，请看下图所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*GNxucS4v93-XdnD5-vWB_w.png)
 
-DevOps Fundamentals
+<div style="text-align:center">DevOps基础介绍图</div>
 
-as well as a good understanding of tools and skills (see next graphic below) that build upon these fundamentals.
+以及基于这些基础知识的工具和技能的良好理解(见下图）。
 
-A quick reminder: your goal is to learn things in blue first, left to right, followed by the things in purple, left to right.
+提示：你的目标是先从左到右学习蓝色字体部分知识，然后从左到右学习紫色字体部分知识。
 
-OK, back to our topic. In this article, we will cover the **first** stage of our digital pipeline: Configure.
+好的，回到我们的主题。在本文中，我们将介绍数字流水线的第一个阶段：配置。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*0S3C5EmK7p_iESafTNB4Ug.png)
 
-Focus on the Configure stage
+<div style="text-align:center">配置阶段介绍图</div>
 
-What happens during the Configure stage?
+配置阶段会发生什么？
 
-Since the code we are creating needs machines to run on, the Configure stage actually builds the infrastructure that runs our code.
+由于我们创建的代码需要运行机器，因此配置阶段实际上在构建运行代码的基础结构。
 
-In the past, provisioning infrastructure was a lengthy, labor-intensive, error-prone ordeal.
+在过去，配置基础设施是一项漫长的，劳动密集型，容易出错的考验。
 
-Now, because we have our awesome cloud, all provisioning can be done with a click of a button. Or, many clicks, at least.
+现在，因为我们拥有令人敬畏的云，所以只需点击一下或者至少很多下按钮即可完成所有配置。 
 
-However, turns out clicking buttons to accomplish these tasks is a Bad Idea.
+然而，实践证明点击按钮来完成这些任务是一个坏主意。
 
-Why?
+为什么这么说呢？
 
-Because button clicking is
+因为按钮点击:
 
-1.  error prone (humans make mistakes),
-2.  not versioned (clicks cannot be stored in git),
-3.  not repeatable (more machines = more clicking),
-4.  and not testable (no idea if my clicks will actually work or mess stuff up).
+1.容易出错(人为犯错），
+2.没有版本化(点击不能存储在git中），
+3.不可重复(更多机器=更多点击），
+4.并且不可测试(不知道我的点击是否真的有效或弄乱了）。
 
-For example, think of all the work required to provision your dev environment… then the int environment… then QA… then staging… then prod in US… then prod in EU… It gets very tedious, very annoying, very quickly.
+例如，想想在开发环境先配置所需的所有工作......然后是初始化环境...然后系统测试 ......然后进行分级...然后在美国部署生产环境......然后在欧盟部署生产环境......它变得非常乏味，非常烦人，非常快。
 
-Therefore, a new way is needed. That new way is i**nfrastructure-as-code** and that’s what this Configure stage is all about.
+因此，需要一种新的方式。 这种新的方式是**架构即代码**，这就是这个配置阶段的全部内容。
 
-As a best practice, infrastructure-as-code mandates that whatever work is needed to provision computing resources it must be done via code only.
+作为最佳实践，架构即代码要求无论需要哪些工作来配置计算资源，都必须通过代码完成。
 
-NOTE: by “computing resources” I mean everything needed to properly run an application in prod: compute, storage, networking, databases, etc. Hence the name, “infrastructure-as-code.”
+注意：“计算资源”是指在产品中正确运行应用程序所需的一切：计算，存储，网络，数据库等。因此，名称为“架构即代码”。
 
-Further, it means that instead of clicking our way through our infrastructure deployment, we will instead
+此外，这意味着，我们将通过架构即代码部署而不是点击方式:
 
-1.  write up the desired infrastructure state in [Terraform](https://www.terraform.io/),
-2.  store it in our source code control,
-3.  go through a formal [Pull Request](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow) process to solicit feedback,
-4.  test it,
-5.  execute to provision all the resources needed.
+1.在[Terraform](https://www.terraform.io/）中写出所需的基础设施状态，
+2.将其存储在我们的源代码控制中，
+3.通过正式[Pull Request](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow）流程征求反馈意见，
+4.测试一下，
+5.执行提供所需的所有容器资源。
 
-Now, the obvious question is, “Why Terraform? Why not Chef or Puppet or Ansible or CFEngine or Salt or CloudFormation or ${whatever}?”
+现在，显而易见的问题是，“为何选择Terraform？ 为什么不使用Chef或Puppet或Ansible或CFEngine或Salt或CloudFormation或其他的？“
 
-Good question! Barrels of virtual ink have been spilled debating this very issue.
+好问题！ 
 
-In short, I think you should learn Terraform because
+简而言之，我认为你应该学习Terraform因为如下：
 
-1.  It is very trendy, therefore the job opportunities are plentiful
-2.  It is somewhat easier to learn than others
-3.  It is cross-platform
+1.  这很新潮，因此工作机会很多
+2.  比其他人更容易学习
+3.  这是跨平台的
 
-Now, can you pick one of the other ones and still be successful? Absolutely!
+现在，你能选择其中一个并成功吗？ 绝对能！
 
 * * *
 
-SIDE NOTE: this space is rapidly evolving and is pretty confusing. I want to take a few minutes to talk about some recent history and where I see things evolving.
+侧记：这个空间正在迅速发展，非常混乱。我想用几分钟的时间来谈论一些最近的历史和我看到它的发展。像Terraform和CloudFormation之类的东西被用来提供基础设施，而像Ansible之类的东西被用来配置基础设施。
 
-Traditionally, things like Terraform and CloudFormation have been used to **provision** infrastructure, whereas things like Ansible are used to **configure** it.
+一般，像Terraform和CloudFormation这样的东西已被用来提供**基础设施**，而像Ansible这样的东西则被用来配置**基础设施**。
 
-You can think of Terraform as a tool to create a foundation, Ansible to put the house on top and then the application gets deployed however you wish (can be Ansible also, for example.)
+您可以将Terraform视为创建基础的工具，Ansible将房子置于最顶层，然后根据您的需要部署应用程序(例如Ansible）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*9kmJS9w9gNgqJMmmqb_NVg.png)
 
-How to think about these tools
+<div style="text-align:center">如何理解这些工具介绍图</div>
 
-In other words, you create your VMs with Terraform and then use Ansible to configure the servers, as well as potentially deploy your applications.
+换句话说，您使用Terraform创建VM，然后使用Ansible配置服务器，以及可能用它部署您的应用程序。
 
-Traditionally (!) that is how these things played together.
+通常这些工具在一起使用。
 
-However, Ansible can do a lot (if not all) that Terraform can do. The reverse is also mostly true.
+但是，Ansible可以做的(如果不是全部），Terraform也可以做。 反过来也是如此。
 
-Don’t let that bother you. Just know that Terraform is one of the most dominant players in the infrastructure-as-code space, so I strongly recommend you start there.
+不要让那些困扰你。 只要知道Terraform是基础架构代码空间中最具好的工具之一，所以我强烈建议你从这里开始。
 
-In fact, Terraform+AWS expertise is one of the hottest skill sets to acquire right now!
+事实上，Terraform + AWS的专业知识是目前最炙手可热的技能之一！
 
-However, if you are going to defer Ansible in favor of Terraform, you still need to know how to configure large numbers of servers programmatically, right?
+但是，如果你想推迟Ansible支持Terraform，你仍然需要知道如何以编程方式批量配置服务器，对吧？
 
-Not necessarily!
+不必要！
 
 * * *
 
-Actually, I predict that **configuration management** tools like Ansible will decrease in importance, while **infrastructure provisioning** tools like Terraform or CloudFormation will rise in importance.
+实际上，我预测像Ansible这样的**配置管理**工具的重要性将会降低，而像Terraform或CloudFormation这样的**基础配置**工具的重要性将会提高。
 
-Why?
+为什么这样说呢？
 
-Because of something called “[immutable deployments](https://blog.codeship.com/immutable-infrastructure/).”
+因为所谓的“[不可变部署](https://blog.codeship.com/immutable-infrastructure/)。”
 
-Simply put, immutable deployments refer to the practice of never altering your deployed infrastructure. In other words, your unit of deployment is a VM or a Docker container, not a piece of code.
+简而言之，就是是指不改变已部署的基础架构的做法。换句话说，您的部署单元是VM或Docker容器，而不是一段代码。
 
-So, you don’t deploy code to a set of static VMs, you deploy whole VMs, with the code already baked in.
+因此，您不会将代码部署到VM集群中，而是部署一整个已经编译了代码的VM。
 
-You don’t change how the VMs are configured, you deploy new VMs with the desired configuration in place.
+您不会更改VM的配置方式，而是部署更改了配置的新VM。
 
-You don’t patch prod machines, you deploy new machines, already patched.
+您不会对生产环境机器打补丁，而是直接部署已经打补丁的新机器。
 
-You don’t run one set of VMs in dev and a different set of VMs in prod, they are all the same.
+您不在开发环境和生产环境部署的VM集群配置不同，它们都是相同的。
 
-You get my point.
+你应该明白了我的意思。
 
-When used correctly, this is a very powerful pattern and one I strongly recommend!
+如果使用得当，这是一个非常强大的模式，我强烈推荐！
 
-NOTE: Immutable deployments mandate that configuration be separate from your code. Please read the [12 Factor App](https://12factor.net/) manifesto which details this (and other awesome ideas!) in great detail. This is a must-read for DevOps practitioners.
+注意：不可变部署要求将配置与您的代码分开。请阅读[12 Factor App](https://12factor.net/），其中详细介绍了这个(以及其他令人敬畏的想法！）。这是DevOps从业者必读的内容。
 
-The decoupling of code from config is super important — you don’t want to re-deploy the entire application stack every time you rotate your database passwords. Instead, make sure the apps pull it from an external config store (SSM/Consul/etc.)
+代码与配置的分离非常重要 - 您不希望每次修改数据库密码时都重新部署整个应用程序。相反，请确保应用程序可以从外部配置存储(SSM / Consul / etc）中提取它。
 
-Further, you can easily see how given the rise of immutable deployments, tools like Ansible start playing less of a prominent role.
+此外，您可以很容易地看到，如果不可变部署的兴起，像Ansible这样的工具开始扮演的角色不那么突出。
 
-Reason is, you only need to configure **one** server and deploy it a whole bunch of times as part of your auto-scaling group.
+原因您只需要配置**一台**服务器并将其作为自动扩展的集群一部分进行多次部署。
 
-Or, if you are doing containers, you definitely want immutable deployments almost by definition. You do **not** want your dev container to be different from your QA container and that be different from prod.
+或者，如果您正在使用容器，您肯定希望几乎按要求进行不可变部署。你不**希望你的开发容器与你的QA容器不同，并且与生产环境不同。
 
-You want **the exact same container** across all your environments. This avoids configuration drift and simplifies roll-backs in case of issues.
+您希望**在所有环境中使用完全相同的容器**。这可以避免配置偏差，并在出现问题时简化回滚。
 
-Containers aside, for those folks who are just starting out, provisioning AWS infrastructure using Terraform is a textbook DevOps pattern and something you really need to master.
+除了容器之外，对于那些刚刚开始使用Terraform的人来说，使用Terraform配置AWS基础设施是一个教科书DevOps模式，你真正需要掌握它。
 
-But wait… what if I need to look at logs to troubleshoot a problem? Well, you won’t be logging into the machines to look at logs any more, you will instead be looking at the centralized logging infrastructure for all your logs.
+但是等等...如果我需要查看日志来解决问题怎么办？好吧，您将不再登录计算机来查看日志，而是查看所有日志的集中式日志记录基础结构。
 
-In fact, some handsome chap already wrote a detailed [post](https://medium.com/@devfire/deploying-the-elk-stack-on-amazon-ecs-dd97d671df06) on how to deploy an ELK stack in AWS — give it a read if you want to see how it’s done in practice.
+事实上，一些聪明的家伙已经写了一篇关于如何在AWS中部署ELK集群的详细[文章](https://medium.com/@devfire/deploying-the-elk-stack-on-amazon-ecs-dd97d671df06)- 如果你想看看它在实践中是如何完成的，请点击上面链接查看。
 
-Further, you can disable remote access altogether and feel good about being more secure than most people out there!
+此外，您可以完全禁用远程访问，这样比大多数没有禁用的人更安全！
 
 ![](https://cdn-images-1.medium.com/max/800/0*nX3CGWxtkMFh5P5N.jpg)
 
-How you are guaranteed to feel with immutable deployments
+总而言之，我们的全自动“DevOps”之旅始于配置运行代码所需的计算资源 - 配置阶段。而实现这一目标的最佳方法是通过不可变部署。
 
-To summarize, our fully automated “DevOps” journey begins with provisioning the computing resources needed to run our code — Configure stage. And the best way to accomplish that is via immutable deployments.
+最后，如果您对从何处开始感到好奇，Terraform + AWS组合是您开始旅程的绝佳场所！
 
-Finally, if you are curious about where exactly to start, Terraform+AWS combo is a solid place to begin your journey!
+这就是“配置”阶段的全部内容。
 
-That’s all for the “Configure” stage.
-
-Part 3, “Version” is [here](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-3-version.md)!
+第三部分的内容在[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or -less-part-3-version.md）！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
