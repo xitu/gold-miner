@@ -68,7 +68,7 @@ awesome_code.GOOD.12.25.2018.pl
 
 源代码控制：一种将文件保存在**集中**位置的方法，其中多个团队可以在公共代码库上一起工作。
 
-现在，这个想法并不新鲜。我能找到的最早提及的[文章]（https://en.wikipedia.org/wiki/Source_Code_Control_System）可以追溯到1972年！因此，我们应该将代码集中在一个地方的想法肯定是老的。
+现在，这个想法并不新鲜。我能找到的最早提及的[文章](https://en.wikipedia.org/wiki/Source_Code_Control_System)可以追溯到1972年！因此，我们应该将代码集中在一个地方的想法肯定是老的。
 
 然而，相对较新的是**所有开发过程必须被版本化**的想法。
 
@@ -110,7 +110,7 @@ git的不同之处在于它包含**分布式**源代码控制的概念。
 
 但是，有一些非常非常好。
 
-我推荐大家阅读，学习和练习的一系列教程是[Atlassian’s Git Tutorials](https://www.atlassian.com/git/tutorials).
+我推荐大家阅读，学习和练习的一系列教程是[Atlassian's Git Tutorials](https://www.atlassian.com/git/tutorials).
 
 事实上，它们都非常好，但特别是世界各地的专业软件工程师使用的部分：[Git Workflows](https://www.atlassian.com/git/tutorials/comparing-workflows).
 
