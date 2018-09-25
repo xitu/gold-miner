@@ -5,82 +5,82 @@
 > * 译者：
 > * 校对者：
 
-# The 4 types of ‘Why’: What is the driving force behind your product?
+# 四个「为什么」：是什么在背后驱动你的产品？
 
-I recently wrote about a framework I created called [the Ladder of Needs](https://medium.com/@kit_ulrich/a-surprisingly-simple-technique-for-a-rockstar-product-vision-the-ladder-of-needs-ae624d81ca6b), a simple tool for product people to create a compelling vision. It combines the best of Simon Sinek’s ideas from [Start with Why](https://www.amazon.com/Start-Why-Leaders-Inspire-Everyone/dp/1591846447) and Clay Christensen’s classic [framework of ‘jobs to be done’](https://hbr.org/2016/09/know-your-customers-jobs-to-be-done).
+我刚刚在写我创作的一个叫做[需求的阶梯](https://medium.com/@kit_ulrich/a-surprisingly-simple-technique-for-a-rockstar-product-vision-the-ladder-of-needs-ae624d81ca6b)的框架，它是一个可以让产品人员创造美好愿景的简单工具。「需求的阶梯」结合了 Simon Sinek 在 [《Start with Why》](https://www.amazon.com/Start-Why-Leaders-Inspire-Everyone/dp/1591846447) 中最棒的想法和 Clay Christensen 的经典著作 [《framework of ‘jobs to be done’》](https://hbr.org/2016/09/know-your-customers-jobs-to-be-done)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*4RcIun2jW3x010o9MrYIVw.png)
 
-**So, how do you determine the ‘Why’ behind your product?**
+**所以，你如何决定你产品背后的「为什么」？**
 
-Start by considering this gem from Jeff Bezos:
+Jeff Bezos（译者注：杰夫·贝佐斯，亚马逊创始人）是最开始思索这个问题的人：
 
-> “People often ask what will be different in the world in 10 years, the more important question is what will be the same” — Jeff Bezos
+> 「人们经常问，10年后世界上会有什么不同，但我认为更重要的是，10年后还有什么不变」— Jeff Bezos
 
-So true, because the fundamentals of what people want and need are exactly that…fundamental truths. In my time as a product leader, I have found 4 models that apply to almost all consumer experiences and products. These are not mutually exclusive — they are ideas that overlap in many ways, but one will likely call to you more than the others.
+是的，因为人们想要且需要的真理恰恰是基本的事实。在我作为产品团队负责人期间，我找到了几乎可以应用到所有消费体验和产品的四个模型。他们并不互斥 —— 在很多方向他们是互相覆盖的，但其中一个可能比其他的更值得你关注。
 
 ![](https://cdn-images-1.medium.com/max/800/0*1mrb_-l-2fb9vd5i)
 
-What is your customer’s scarcest resource? It tends to be either money, time, energy.
+什么是你的客户缺乏的资源？一般来说有三个方面 —— 钱、时间、精力。
 
-You may have seen this meme on Twitter or Instagram before (I’d love to know whom to credit with it’s creation). It’s a great framework for products.
+你可能之前在 Twitter 或 Instagram 上看过这张图片（我很想知道它的作者是谁），这是一个伟大的产品框架。
 
 ![](https://cdn-images-1.medium.com/max/800/0*3CW4a_5cLbHd2Jc3)
 
-This is why Bezos’ answer to his own question, ‘what will be the same in the world in 10 years’, was that Amazon customers would always want lower prices (money) and faster shipping (time). Amazon’s strategy was built by focusing on these core customer needs.
+这就是 Bezos 提出的「10年后世界上还有什么不变」这个问题的答案 —— 亚马逊的客户总是想要更低的价格（金钱）和更快的运输（时间）， 亚马逊的战略就是通过专注于这些核心客户需求而建立的。
 
-This is also why Uber isn’t in the business of selling rides, it is in the business of selling time.
+这也是为什么 Uber 的商业模式不是「卖车」，而是「卖时间」。
 
 ![](https://cdn-images-1.medium.com/max/800/0*RU-i26YVSvVkfGa4)
 
-I have found that Tony Robbins is a bit of a lightning rod figure. When I mention his name people generally respond in one of two camps: ‘I love him, he is awesome’ or ‘he is a cult leader’. No matter what your personal perspective is, his framework on the 6 core human needs is still a classic.
+我发现 Tony Robbins 有点像避雷针。 当我提到他的名字时，人们通常会分成两个阵营：「我爱他，他很棒」或「他是邪教领袖」。无论你的个人观点是什么，他对人类六大核心需求的框架仍然非常经典。
 
-Tony advocates that there are [6 core human needs](https://www.tonyrobbins.com/podcasts/why-we-do-what-we-do/) that drive our behaviors:
+Tony 主张 [六大核心需求](https://www.tonyrobbins.com/podcasts/why-we-do-what-we-do/) 驱动着人们的行为：
 
-*   **Certainty**: The need for safety, stability, predictability, comfort
-*   **Uncertainty/Variety**: The need for surprise, excitement, novelty, change
-*   **Love & Connection**: The need for social attachment, approval. To feel connected and loved
-*   **Significance**: The need to have meaning, pride. To feel special and wanted
-*   **Growth**: The need for constant development, intellectually, emotionally, spiritually
-*   **Contribution**: The need to give to others. To protect, care for, serve
+*   **确定性**：对安全性，稳定性，可预测性和舒适性的需求
+*   **不确定性/多样性**：对惊喜，兴奋，新奇，变化的需求
+*   **爱与联系**：对社会依附、认可，感受到联系和爱的需求
+*   **重要性**：对存在意义、自尊心，感受到特别和被需要的需求
+*   **成长**：对不断发展智力、情感、精神的需求
+*   **贡献**：对给予、保护、关心、服务他人的需求
 
-Even more fascinating, is that Tony believes **_any experience, product, or action is addictive if it serves 3 of these needs_**.
+更棒的是， Tony 认为 **任何体验，产品或行为如果能满足其中三项需求，就会让人上瘾**.
 
-For example, Facebook solves for (1) love & connection…by feeling connected with your friends, (2) significance…by receiving feedback/prominence from what you post and (3) variety….you never know what will appear in your feed.
+举个例子，Facebook 解决了（1）爱与联系……通过与朋友的联系，（2）重要性……通过接收你发布的内容的回复/点赞，以及（3）多样性……你永远不知道你的订阅中会出现什么。
 
 ![](https://cdn-images-1.medium.com/max/800/0*K2w_x6uBwkJvtuJ1)
 
-Taking a slightly more negative spin, many products also solve for one of the seven deadly sins:
+再让我们来看看负面，许多产品也解决了以下七个致命原罪的一种：
 
-*   **Pride**
-*   **Greed**
-*   **Lust**
-*   **Envy**
-*   **Gluttony**
-*   **Sloth**
-*   **Wrath**
+*   **骄傲**
+*   **贪婪**
+*   **性欲**
+*   **嫉妒**
+*   **暴食**
+*   **懒惰**
+*   **愤怒**
 
-Targeting one of these seven deadly sins often makes a product addictive. In this framework, Facebook solves for pride. Uber and Amazon solve for sloth and greed.
+针对这七种致命原罪中的一种设计的产品常常让人上瘾。 在这个框架中，Facebook 解决了骄傲。 Uber 和 Amazon 解决了懒惰和贪婪。
 
 ![](https://cdn-images-1.medium.com/max/800/0*kFRWAKIQtQ-C_Mb6)
 
-Last but not least, several psychologists have offered up frameworks for the purpose of life:
+最后，但并非不重要的是，一些心理学家提供了生命的目的框架：
 
-*   For Freud, it was the search for pleasure
-*   For Nietzsche, it was the search for power
-*   For Frankl, it was the search for meaning
+* 对于弗洛伊德来说，是追寻快乐
+* 对于尼采来说，是追寻权利
+* 对于弗兰克尔来说，是追寻意义
 
-One key principle behind behavior change and our [cognitive biases](https://en.wikipedia.org/wiki/List_of_cognitive_biases) is that we seek pleasure and avoid pain. This has always been a great insight to use as you design your product experiences.
+行为改变和[认知偏见](https://en.wikipedia.org/wiki/List_of_cognitive_biases)背后的一个关键根源是我们追寻快乐、避免痛苦，这也是你设计产品体验时的伟大洞察点。
 
-We are seeing the rise of products and services that focus on customers’ search for meaning. For example, the rise of [mindfulness](https://www.lumosity.com/mindfulness) and meditation products. Or, products such as Toms and Feed which give back to the world.
+我们看到专注于用户追寻意义的产品或服务的兴起。比如[正念](https://www.lumosity.com/mindfulness) 和冥想产品，或者诸如 Toms 和 Feed 这种回馈世界的产品。
 
-Have I missed a framework you love? If so, please add it to the comments below. I’d love to hear any and all reactions you have.
+我漏掉了你喜欢的框架吗？如果是，请在评论里提醒我，非常乐意看到你的意见和建议。
 
 Catherine
 
 * * *
 
-_I am a product-driven VC_ [_@FirstMark_](https://medium.com/@FirstMark)_. If you are building one of tomorrow’s great companies, I’d love to hear from you and help. Email me at catherine@firstmarkcap.com_
+**我是一个产品驱动的 VC** [_@FirstMark_](https://medium.com/@FirstMark)。如果你正在组建一个有着宏伟未来的公司，我很乐意听取您的意见并提供帮助。我的 Email：catherine@firstmarkcap.com
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
