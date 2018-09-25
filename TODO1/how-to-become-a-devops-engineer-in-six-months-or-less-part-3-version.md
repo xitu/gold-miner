@@ -16,7 +16,7 @@
 
 简而言之，这一系列文章讲述了一个故事。
 
-而这个故事正在学习如何将想法转化为金钱，尽快 - 现代DevOps开发的精髓。
+而这个故事正在学习如何将想法转化为金钱，快速 - 现代DevOps开发的精髓。
 
 具体而言，在[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md) 我们谈到了DevOps的文化和目标。
 
