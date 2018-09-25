@@ -5,142 +5,141 @@
 > * 译者：
 > * 校对者：
 
-# How To Become a DevOps Engineer In Six Months or Less, Part 3: Version
+# 如何在六个月或更短的时间内成为DevOps 工程师，第三部分：版本控制
 
 ![](https://cdn-images-1.medium.com/max/1000/0*WbA21p1XhfwT36Cx)
 
-“Close-up of a backlit laptop keyboard” by [Markus Petritz](https://unsplash.com/@petritzdesigns?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
 
-_NOTE: this is Part 3 of a multi-part series. For Part 1, please click [here](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md). Part 2 is [here](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md)._
+注意: 这是《如何如何在六个月或更短的时间内成为DevOps工程师》系列的第三部分，第一部分请点击 [这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md). 第二部分点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md).
 
-Let’s quickly recap where we are.
+让我们快速回顾一下上期内容。
 
-In short, this series of posts tells a story.
+简而言之，这一系列文章讲述了一个故事。
 
-And that story is learning how to take an idea and turn it into money, as quickly as possible — the essence of the modern DevOps movement.
+而这个故事正在学习如何将想法转化为金钱，尽快 - 现代DevOps开发的精髓。
 
-Specifically, in [Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md) we talked about the DevOps culture and goals.
+具体而言，在[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md) 我们谈到了DevOps的文化和目标。
 
-In [Part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md), we talked about how to lay the foundation for future code deployments with Terraform. Of course, Terraform is code also!
+在[第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md), 我们讨论了如何使用Terraform为未来的代码部署奠定基础。 当然，Terraform也是代码！
 
-Consequently, in this post, we will discuss how to keep all these pieces of code from completely going haywire all over the place. Spoiler, it’s all about [_git_](https://git-scm.com/)!
+因此，在这篇文章中，我们将讨论如何防止所有这些代码完全失控。 剧透，这都是关于 [_git_](https://git-scm.com/)!
 
-Bonus: we will also talk about how to use this git business to build and promote your own personal brand.
+额外奖励：我们还将讨论如何使用此git business来构建和推广您自己的个人品牌。
 
-For reference, we are here in our journey:
+作为参考，我们从这里开始：：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*N-4zkp9GM6apxn3GMWcT0A.png)
 
-DevOps Journey
+DevOps之旅
 
 * * *
 
-So, when we talk of “Versioning” what do we mean?
+那么，当我们谈论“版本控制”时，我们在说什么？
 
-Imagine you are working on some piece of software. You are making changes to it constantly, adding or removing features as needed. Often, the latest change will be a “breaking” change. In other words, whatever it was you did last, broke whatever you had working prior.
+想象一下，你正在开发一些软件。您正在不断更改它，根据需要添加或删除功能。 通常情况下，最新的变化将是一次“破坏性”的变化。 换句话说，无论你最后做了什么，都打破了之前的工作。
 
-Now what?
+怎么办？
 
-Well. If you are really Old School, you probably had a tendency to name your first file like this:
+好。 如果您在以前的学校，您可能倾向于将您的第一个文件命名为：
 
 ```
 awesome_code.pl
 ```
 
-Then you start making changes and you need to preserve what works, in case you have to go back to it.
+然后你开始对文件做一些修改，你需要保留有用的东西，万一你必须恢复它。
 
-So, you rename your file to this:
+因此，您将文件重命名为：
 
 ```
 awesome_code.12.25.2018.pl
 ```
 
-And that works fine. Until one day you make more than one change per day, so you end up with this:
+这很好。 直到有一天你每天进行多次更改，所以你最终会得到这样的结果：
 
 ```
 awesome_code.GOOD.12.25.2018.pl
 ```
 
-And so on.
+等等。
 
-Of course, in a professional environment, you have multiple teams collaborating on the same codebase, which breaks this model even further.
+当然，在专业环境中，您有多个团队在相同的代码库上进行协作，这进一步打破了这个模型。
 
-Needless to say, this crazy train derails fast.
+毋庸置疑，上面这种文件重命名来版本管理肯定行不通。
 
-Enter Source Code Control: a way to keep your files in a **centralized** location, where multiple teams can work together on a common codebase.
+源代码控制：一种将文件保存在**集中**位置的方法，其中多个团队可以在公共代码库上一起工作。
 
-Now, this idea is not new. The earliest [mention](https://en.wikipedia.org/wiki/Source_Code_Control_System) of such a thing that I’ve been able to find dates back to 1972! So, the idea that we should centralize our code in one place is definitely old.
+现在，这个想法并不新鲜。我能找到的最早提及的[文章]（https://en.wikipedia.org/wiki/Source_Code_Control_System）可以追溯到1972年！因此，我们应该将代码集中在一个地方的想法肯定是老的。
 
-What is relatively new, however, is the idea that **all production artifacts must be versioned**.
+然而，相对较新的是**所有开发过程必须被版本化**的想法。
 
-What does that mean?
+那是什么意思？
 
-It means that everything that touches your production environment must be stored in version control, subject to tracking, review, and history of changes.
+这意味着触及生产环境的所有内容都必须存储在版本控制中，并受到跟踪，审核和更改历史记录的影响。
 
-Moreover, enforcing the “all prod artifacts must be versioned” law really forces you to approach problems with the “automation first” mindset.
+此外，强制执行“所有开发过程必须版本化”的原则实际上迫使您以“自动化第一”的思维方式处理问题。
 
-For example, when you decide to just click your way through a complex problem in your Dev AWS environment, you can pause and think, “Is all this clicking a versioned artifact?”
+例如，当您决定在Dev AWS环境中只通过点击解决复杂问题时，您可以暂停并思考，“所有点击事件都受版本控制吗？”
 
-Of course, the answer is, “no”. So, while it is OK to do rapid prototypes via UI to see if something works or not, these efforts must really be short-lived. Longer term, please make sure you do everything in Terraform or another infrastructure-as-code tool.
+当然，答案是“不”。因此，虽然可以通过UI进行快速原型查看是否有效，但这些努力必须是短暂的。从长远来看，请确保您使用Terraform或其他架构即代码执行所有操作都受版本控制。
 
-OK, so if everything is a versioned artifact, how do we store and manage these things, exactly?
+好的，所以如果一切都受版本控制，那么我们如何存储和管理这些东西呢？
 
-The answer is git.
+答案是git。
 
-Until [git](https://git-scm.com/doc) came along, using source code control systems like SVN or others was clunky, not user friendly and was in general a pretty painful experience.
+在 [git](https://git-scm.com/doc) 出现之前，使用像SVN或其他的源代码控制系统是笨重的，不是用户友好的，并且通常是非常痛苦的经历。
 
-What git does differently is that embraces the notion of a **distributed** source code control.
+git的不同之处在于它包含**分布式**源代码控制的概念。
 
-In other words, you are not locking other people out of a centralized source code repository, while you are working on your changes. Instead, you are working on a complete **copy** of the codebase. And that copy then gets _merged_ into the _master_ repository.
+换句话说，当您正在处理更改时，您不会将其他人锁定在集中式源代码存储库之外。 相反，您正在编写代码库的完整**副本**。然后该副本会_merged_进入_master_存储库。
 
-Keep in mind, the above is a gross oversimplification of how git works. But it is enough for the purposes of this article, even though knowing the inner workings of git is both valuable and takes a while to master.
+请记住，以上是对git如何工作的粗略过度简化。但就本文而言，这已经足够了，即使知道git的内部工作方式既有价值又需要一段时间才能掌握。
 
 ![](https://cdn-images-1.medium.com/max/800/0*hoGY4_63YI8B7Pbc.png)
 
 [https://xkcd.com/1597/](https://xkcd.com/1597/)
 
-For now, just remember that git is **not** like SVN of old. It is a distributed source code control system, where multiple teams can work on a shared codebase safely and securely.
+现在，请记住，git**不是**像旧版的SVN一样。 它是一个分布式源代码控制系统，多个团队可以安全，可靠地在共享代码库上工作。
 
-What does it mean for us?
+这对我们意味着什么？
 
-Specifically, I would strongly argue that you **cannot** become a professional DevOps (Cloud) Engineer without knowing how git works. It’s as simple as that.
+具体来说，如果没有使用git版本管理而自称作专业的DevOps（云）工程师，我严重怀疑你。 就这么简单。
 
-OK, so how does one learn git, exactly?
+好的，那么如何学习git呢？
 
-I must say, Googling for a “git tutorial” has the dubious distinction of coming up with extremely comprehensive and extremely confusing tutorials.
+我必须说，Google搜索“git教程”的区别在于它提供的教程非常全面但非常令人困惑。
 
-However, there are a few that are really, really good.
+但是，有一些非常非常好。
 
-One such series of tutorials I urge everyone to read, learn and practice with is [Atlassian’s Git Tutorials](https://www.atlassian.com/git/tutorials).
+我推荐大家阅读，学习和练习的一系列教程是[Atlassian’s Git Tutorials](https://www.atlassian.com/git/tutorials).
 
-In fact, they are all pretty good but one section in particular is what is used by professional software engineers the world over: [Git Workflows](https://www.atlassian.com/git/tutorials/comparing-workflows).
+事实上，它们都非常好，但特别是世界各地的专业软件工程师使用的部分：[Git Workflows](https://www.atlassian.com/git/tutorials/comparing-workflows).
 
-I cannot stress this enough. Time and again, lack of understanding how git feature branching works or failure to explain Gitflow is what sinks 99% of aspiring DevOps engineers candidacies.
+我再怎么强调也不为过。一次又一次地，缺乏理解git特性分支是如何工作的，或者没有解释Gitflow是什么让99%有抱负的DevOps工程师落选的原因。
 
-This is a key point. You can come to an interview and not know Terraform or whatever the latest trendy infrastructure-as-code tool is and that’s ok — one can learn it on the job.
+这是关键。你可以参加面试，不知道Terraform或者最新的架构及代码是什么，没关系 - 你可以在工作中学习它。
 
-But not knowing git and how it works is a signal that you lack the fundamentals of modern software engineering best practices, DevOps or not. That signals to hiring managers that your learning curve is going to be very steep. You do not want to signal that!
+不知道git及其工作方式表明你缺乏现代软件工程最佳实践的基础知识，DevOps与否。这向招聘经理发出信号，表明你的学习曲线非常陡峭。你不想发出信号！
 
-Conversely, your ability to confidently speak of git best practices tells the hiring managers that you come with a software engineering mindset first — exactly the kind of image you want to project.
+相反，您自信地谈论git最佳实践的能力告诉招聘经理您首先要具备软件工程思维模式 - 这正是您想要应用到工作中的思维。
 
-To summarize: you don’t need to become world’s foremost git expert to land that awesome DevOps role but you do need to live and breathe git for a while to be able to confidently speak about what’s going on.
+总而言之，你不需要成为世界上最重要的git专家，来获得令人敬畏的DevOps角色，但你确实需要在一段时间内生活和呼吸git，才能自信地谈论正在发生的事情。
 
-At a minimum, you should be well versed in how to
+至少，你应该精通如下:
 
-1.  Fork a repo
-2.  Create branches
-3.  Merge changes from upstream and back
-4.  Create Pull Requests
+1. Fork 一个仓库
+2. 创建分支
+3. 合并两个不同的commit
+4. 创建Pull请求
 
-Now, once you get through the introductory git tutorials, get yourself a [GitHub](https://help.github.com/) account.
+现在，一旦您完成介绍性的git教程，请获取[GitHub](https://help.github.com/) 帐户。
 
-NOTE: GitLab is OK also but at the time of this writing, GitHub is the most prevalent open source git repository, so you want to be where everyone else is.
+注意：GitLab也可以，但在撰写本文时，GitHub是最流行的开源git存储库，因此您肯定希望和其他人分享。
 
-Once you have your GitHub account, start contributing your code to it! Whatever you learn that requires you to write code, make sure you commit it to GitHub regularly.
+获得GitHub帐户后，开始为其提供代码！ 无论你学到什么，都需要你编写代码，请确保定期将它提交给GitHub。
 
-This not only instills good source code control discipline but helps you build your own personal brand.
+这不仅可以灌输良好的源代码控制规则，还可以帮助您建立自己的个人品牌。
 
-NOTE: when you are learning how to use git+GitHub, pay special attention to [Pull Requests](https://help.github.com/articles/about-pull-requests/) (or PRs, if you want to be cool).
+注意: 当你学习如何使用git + GitHub时，要特别注意[Pull Requests](https://help.github.com/articles/about-pull-requests/) (也叫 PRs, 如果你想变酷).
 
 ![](https://cdn-images-1.medium.com/max/800/0*E1Y3iKOJjkKiwcoa)
 
@@ -148,32 +147,32 @@ Pull Request, by [Vidar Nordli-Mathisen](https://unsplash.com/@vidarnm?utm_sourc
 
 * * *
 
-Brand: a way to showcase to the wider world what you are capable of.
+品牌：向更广阔的世界展示您的能力的一种方式。
 
-One way (currently, one of the better ways!) is to establish to solid GitHub presence as a proxy for your brand. Almost all employers these days will ask for one anyway.
+这种方式（目前，更好的方式之一！）是建立一个GitHub账户，作为您的品牌代表。 这些天几乎所有的面试官都会要求求职者有GitHub账户。
 
-Therefore, you should strive to have a neat, carefully curated GitHub account — something you can put on your resume and be proud of.
+因此，您应该努力拥有一个整洁，精心策划的GitHub帐户 - 您可以将其放在简历上并为此感到自豪。
 
-In later sections, we’ll talk about how to build a simple but cool-looking website on GitHub using the [Hugo](https://gohugo.io/) framework. For now, just putting your code into GitHub is enough.
+在后面的部分中，我们将讨论如何使用[Hugo]（https://gohugo.io/）框架在GitHub上构建一个简单但酷炫的网站。 现在，只需将代码放入GitHub即可。
 
-Later on, as you get more experienced, you might consider having two GitHub accounts. One for your personal stuff you use to store practice code you write and another account to store code you want to show others.
+稍后，随着您的经验越来越丰富，您可能会考虑使用两个GitHub帐户。 一个用于存储您编写的练习代码的个人资料，另一个用于存储您想要向其他人展示的代码。
 
-To summarize:
+总结一下：
 
-*   Learn git
-*   Contribute everything you’ve learned to GitHub
-*   Leverage #1 and #2 as a showcase of all the things you have learned thus far
-*   Profit!
+* 学习git
+* 将您学到的所有知识贡献给GitHub
+* 利用＃1和＃2作为迄今为止所学到的所有知识的展示
+* 从中受益！
 
-Finally, please keep in mind the latest developments in this space, such as [GitOps](https://queue.acm.org/detail.cfm?ref=rss&id=3237207).
+最后，请记住这个领域的最新发展，例如 [GitOps](https://queue.acm.org/detail.cfm?ref=rss&id=3237207).
 
-GitOps takes all the ideas we have been discussing thus far to new levels — where everything is done via git, pull requests, and deployment pipelines.
+GitOps将我们迄今为止讨论的所有想法提升到新的水平 - 一切都通过git, pull requests, and deployment pipelines。
 
-Please note that GitOps and approaches like it speak to the **business** side of things. Specifically, that we are not after using complex things like git because they are cool.
+请注意，GitOps和类似的工具应用于**商业**方面的事情。 具体来说，我们不是在使用像git之类的复杂东西，因为它们很酷。
 
-Instead, we are using git to enable business agility, speed up innovation and deliver features faster — these are things that allow our business to make more money in the end!
+相反，我们使用git来实现业务敏捷性，加速创新并更快地交付功能 - 这些都可以让我们的业务最终赚到更多钱！
 
-That’s all for now!
+目前为止就这样了！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
