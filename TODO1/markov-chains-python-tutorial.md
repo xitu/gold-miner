@@ -107,19 +107,19 @@ transitionMatrix = [[0.2,0.6,0.2],[0.1,0.6,0.3],[0.2,0.7,0.1]]
 
 别忘了，要保证概率之和是 1。另外在写代码时多打印一些错误信息没什么不好的！
 
-```
+``` python
 if sum(transitionMatrix[0])+sum(transitionMatrix[1])+sum(transitionMatrix[1]) != 3:
     print("Somewhere, something went wrong. Transition matrix, perhaps?")
 else: print("All is gonna be okay, you should move on!! ;)")
 ```
 
-```
+``` 
 All is gonna be okay, you should move on!! ;)
 ```
 
 现在就要进入正题了。我们要用 `numpy.random.choice` 从可能的转移集合选出随机样本。代码中大部分参数的含义从参数名就能看出来，不过参数 `p` 可能比较费解。它是可选参数，可以传入样品集的概率分布，这里传入的是转移矩阵。
 
-```
+``` python
 # 实现了可以预测状态的马尔可夫模型的函数。
 def activity_forecast(days):
     # 选择初始状态
@@ -182,7 +182,7 @@ def activity_forecast(days):
 activity_forecast(2)
 ```
 
-```
+``` 
 Start state: Sleep
 Possible states: ['Sleep', 'Sleep', 'Run']
 End state after 2 days: Run
@@ -191,7 +191,7 @@ Probability of the possible sequence of states: 0.12
 
 结果可以得到从睡觉状态开始的可能转移及其概率。进一步拓展这个函数，可以让它从睡觉状态开始，迭代上几百次，就能得到终止于特定状态的预期概率。下面改写一下 `activity_forecast` 函数，加一些循环 ……
 
-```
+``` python
 def activity_forecast(days):
     # 选择初始状态
     activityToday = "Sleep"
@@ -265,7 +265,7 @@ percentage = (count/10000) * 100
 print("The probability of starting at state:'Sleep' and ending at state:'Run'= " + str(percentage) + "%")
 ```
 
-```
+``` 
 The probability of starting at state:'Sleep' and ending at state:'Run'= 62.419999999999995%
 ```
 
