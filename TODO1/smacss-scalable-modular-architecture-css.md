@@ -2,34 +2,34 @@
 > * 原文作者：[SLOBODAN GAJIC](https://www.toptal.com/resume/slobodan-gajic)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/smacss-scalable-modular-architecture-css.md](https://github.com/xitu/gold-miner/blob/master/TODO1/smacss-scalable-modular-architecture-css.md)
-> * 译者：
-> * 校对者：
+> * 译者：[park-ma](https://github.com/Park-ma)
+> * 校对者：[老教授](https://juejin.im/user/58ff449a61ff4b00667a745c/posts) [IrisHuang](https://github.com/huangyuanzhen)
 
-# Exploring SMACSS: Scalable and Modular Architecture for CSS
+# 探索 SMACSS：可扩展的模块化 CSS 框架
 
-When we are working on big projects or with groups of developers, we often find that our code is messy, difficult to read, and hard to extend. This is especially true after time passes and we come back and look at it again—we have to try to be in the same mindset where we were when we wrote it.
+当我们在从事大项目或团队开发工作时，我们经常会发现我们写的代码，凌乱、难以阅读并且难以扩展。尤其是当一段时候后我们回头再看自己的代码，必须回想起当初自己写的时候的思路才能看懂。
 
-So what a lot of people have done is they have created [CSS](https://www.toptal.com/css) architectures to help to style their code so that CSS becomes more readable. **SMACSS**—i.e., **Scalable** and **Modular Architecture** for **CSS**—aims to do just that. It’s a particular set of CSS architecture guidelines from Jonathan Snook that I’ve adopted.
+因此，人们创建了许多 [CSS](https://www.toptal.com/css) 框架来对 CSS 代码进行样式化，使其更具可读性。比如说，**SMACSS**，即 **Scalable（可扩展）** 和 **Modular Architecture（模块化）** 的 **CSS**，就旨在实现这一点。我采用的是 Johnathan Snook 定的那套 CSS 框架指南。
 
-Now, the architectural approach of SMACSS is a bit different from a CSS framework like Bootstrap or Foundation. Instead, it’s a set of rules, more like a template or guide. So let’s dive into some CSS design patterns to find out how we can use them to make our code better, [cleaner](https://www.toptal.com/front-end/frontend-clean-code-guide), easier to read, and more modular.
+SMACSS 的架构方法与 Bootstrap 或 Foundation 等 CSS 框架略有不同。相反，它是一组规则，更是一套模板或指南。因此，让我们来深入探究下这些 CSS 设计模式，看怎么用它们来让我们的代码更好、更[整洁](https://www.toptal.com/front-end/frontend-clean-code-guide)、更易读、更具模块化。
 
-Every SMACSS project structure uses five categories:
+每个 SMACSS 项目结构分为 5 种规则：
 
-1.  Base
-2.  Layout
-3.  Modules
-4.  State
-5.  Theme
+1.  Base（基础）
+2.  Layout（布局）
+3.  Modules（模块）
+4.  State（状态）
+5.  Theme（主题）
 
-## Base
+## Base（基础规则）
 
-In SMACSS, base styles define what an element should look like anywhere on the page. They are the defaults. If you’re using a reset stylesheet, this ensures that your resulting styles are the same across browsers despite the differences among their internal, hard-coded base CSS defaults.
+在 SMACSS 中，基础样式定义了元素全局的默认样式。如果你用了样式重置代码，那会让你的样式表现在不同浏览器上保持一致，即便这些浏览器内部定义的默认 CSS 有所不同。
 
-In a base style, you should only include bare element selectors, or those with pseudo-classes, but not with class or ID selectors. (You should have really good reason to put class or ID inside it, maybe only if you are styling a third-party plugin’s elements and you need to override the default styling for that particular element.)
+在基础规则中，你应该只包含基本元素选择器或者那些伪类选择器，不应包含类选择器或者 ID 选择器。（你应该在理由相当充分时才将类或 ID 放进去，可能也就只有一种情况了：你用了第三方插件的节点又想对特点节点的默认样式进行覆盖。）
 
-Here is an example of how a base file unit should look:
+这是一个基础规则的文件单元的例子：
 
-```
+```css
 html {
     margin: 0;
     font-family: sans-serif;
@@ -45,31 +45,31 @@ button {
 }
 ```
 
-So it should include default sizes, margins, colors, borders, and any other default values you plan to use across your website. Your typography and your form elements should have unified styles which appear on every page and give a feel and look that they are part of the same design and theme.
+它应该包含计划在整个网站上使用的默认的大小、边距、颜色、边框和其他默认值。你的排版和表单元素应该在每个页面上具有统一的样式，给人感觉它们是统一的设计和主题。
 
-SMACSS or not, I highly recommend avoiding the use of `!important` as much as possible, and not to use deep nesting, but I will talk more about that later in this post. Also if your practice is to use reset CSS, this is the place where you should include it. (I prefer to use Sass, so I just include it at the top of the file, rather than having to copy it in or refer to it separately from each page’s `<head>` element.)
+不管你用不用 SMACSS，我都强烈建议避免使用 `!important`，也不要使用深嵌套，关于为什么我会在这篇帖子的后面进行深入讨论。此外，如果你的项目使用了 CSS 重置代码，那你应该把它放在这一部分（我更喜欢使用 Sass，这样我就可以在 SASS 文件顶部方便地将重置代码引入进来，而不需要将其复制或者在每个页面的 `<header>` 元素单独引用）。
 
-**Related:** [Theming with Sass: An SCSS Tutorial](https://www.toptal.com/sass/theming-scss-tutorial)
+**相关资源：** [Theming with Sass: An SCSS Tutorial](https://www.toptal.com/sass/theming-scss-tutorial)
 
-## Layout
+## Layout（布局规则）
 
-Layout styles will divide the page into major sections—not sections like navigation or maybe the accordion, for example, but really top-level divisions:
+布局将会把页面分成几个主要部分 — 不是导航或折叠面板等部分，而是真正的顶级划分。
 
 ![Example SMACSS layout styles: header, sidebar, content/main, and footer](https://uploads.toptal.io/blog/image/126678/toptal-blog-image-1532005221485-9d465e68a1d43f1f2c19d0cdc8e3b389.png)
 
-SMACSS layout styles are for major sections like header, sidebar, content/main, and footer.
+SMACSS 布局规则包括顶部栏、侧边栏、正文、页脚等主要部分。
 
-These layouts will hold multiple CSS modules like boxes, cards, unordered lists, galleries, and the like, but I will talk more about modules in the next section. Let’s consider an example web page to see what we can split into layouts:
+这些布局包括多个 CSS 模块例如 boxes、cards、unordered lists 和 galleries 等，但我会将这些模块放到下一节再详做讨论。让我们通过一个网页例子来看看怎么对页面进行布局划分：
 
 ![An example web page that can be organized into header, main, and footer layout styles using SMACSS](https://uploads.toptal.io/blog/image/126676/toptal-blog-image-1532003633585-029d918ef1d38dd3573bb593bb87cdda.png)
 
-Here we have header, main, and footer. These layouts have modules like links and logo on the header at the top, boxes and articles on main, and links and copyright for the footer. We usually give layouts an ID selector, as they don’t repeat on the page and they are unique.
+这些布局包含一些模块，比如顶部栏的链接和 logo，正文的盒子结构和文章，页脚的链接和版权。对于上面的布局，我们通常会设置 ID 选择器，因为他们在页面上是单独唯一的。
 
-Also you should prefix rules for layout styles with the letter `l` to distinguish them from module styles. Usually here you would style things specific to layout, like border, alignments, margins, etc. Also the background of that part of the page could make sense, even if it doesn’t seem to be quite as layout-specific.
+你还应该使用字母 `l` 为布局规则添加前缀，以区分其他的模块样式。通常你要设置一些和布局相关的东西，比如边框，对齐，外边距等。页面那些大布局的背景也可以考虑写进去，即使它看起来不那么像是一种布局样式。
 
-Here is an example of how it should look:
+这是一个布局规则的例子：
 
-```
+```css
 #header {  
     background: #fcfcfc;
 }
@@ -83,19 +83,19 @@ Here is an example of how it should look:
 }
 ```
 
-You can also add these helpers for alignments which you can use to easily position elements by just adding the appropriate class to its child or to align its text.
+你也可以将上面这些工具样式用在对齐上，比方说你想给 header 子节点或节点文本进行对齐定位，那你只需简单地将合适的类名用在节点上。
 
-For another example, you could use some default margins on a layout box, like `.l-margin` having a margin of `20px`. Then, wherever you want padding for some container, element, card, or box, you just add the `l-margin` class to it. But you want something reusable:
+另一个例子，你可以在布局框中使用一些默认的外边距，例如 `.l-margin` 有 `20px` 的页边距。然后，无论您想要填充某个 container、element、card 或者 box ，只需将 `l-margin` 类添加到其中即可。不过你要用一些可复用的写法：
 
-```
+```css
 .l-full-width {
     width: 100%;
 }
 ```
 
-Not something internally coupled like this:
+不是像这样内部耦合的东西：
 
-```
+```css
 .l-width-25 {
     width: 25px;
 }
@@ -103,13 +103,13 @@ Not something internally coupled like this:
 
 * * *
 
-I want to take a moment to talk about naming conventions in SMACSS. If you’ve never heard of the concept of namespacing in CSS, it’s basically adding the name to the beginning of another element to help distinguish it from anything else. But why do we need this?
+我想花点时间谈谈 SMACSS 中的命名规则。如果您从未在 CSS 中听说过命名空间的概念，那它基本上就是将名称添加到另一个元素的开头，以帮助区分它与其他任何元素。可我们为什么要这么做呢？
 
-I don’t know if you’ve ever run into the following problem. You’re writing CSS and you have a label on something—you put in whatever styles you like, and call your class `.label`. But then you come to another element later on, and you also want it to be `.label`, but style it differently. So two different things have the same name—a naming conflict.
+我不知道你是否遇到过下面的问题。你写 CSS 代码时发现页面上有一个标签，于是你给它加了一些样式，并命名为 `.lable` 类。之后你又遇到一个元素，也想将其命名为 `.label` 类，但样式与前面的不同。于是两个不同的东西拥有相同的名称，这就是一次命名冲突。
 
-Namespacing helps you resolve this. Ultimately, they are called the same thing on one level, but they have a different namespace—a different prefix—and thus can represent two different styles:
+命名空间可帮助你解决此问题。最终，它们在同一级别上被称为相同的东西，但由于应用了不同的前缀，于是属于不同的命名空间，也就可以表示两种不同的样式
 
-```
+```css
 .box--label {
     color: blue;
 }
@@ -119,15 +119,15 @@ Namespacing helps you resolve this. Ultimately, they are called the same thing o
 }
 ```
 
-## Module
+## Module（模块规则）
 
-Like I mentioned earlier, SMACSS modules are smaller bits of code that are reusable on the page, and they are part of a single layout. These are parts of CSS that we want to store in a separate folder, as we will have a lot of these on a single page. And as a project grows, we can split using folder structure best practices, i.e., by modules/pages:
+正如我前面提到的，SMACSS 是页面上可重用的小代码块，是单一布局的一部分。这部分 CSS 我们想要存储到单独的文件夹中，因为我们在一个网页会有很多这样的模块代码。并且随着项目的增长，我们可以通过文件夹结构来拆分，比如说，模块/页面的结构
 
 ![An example file/folder hierarchy using SMACSS and Sass](https://uploads.toptal.io/blog/image/126677/toptal-blog-image-1532004385659-636d848a5fbaad6340f79d6ad89ac1d8.png)
 
-So in the previous example, we had an article, which can be a module on its own. How should CSS be structured here? We should have a class `.article` which can have child elements `title` and `text`. So to be able to keep it in the same module, we need to prefix the child elements:
+于是在前面例子中，假如我们（在页面上）有一篇文章，它可以作为一个独立的模块。如何在这里构建 CSS 呢？我们应该有一个 `.article` 的类，它有 `title` 和 `text` 的子元素。因此，为了让它们保存在同一模块，我们需要在子元素上使用前缀：
 
-```
+```css
 .article {
     background: #f32;
 }
@@ -141,11 +141,11 @@ So in the previous example, we had an article, which can be a module on its own.
 }
 ```
 
-You may notice that we are using two hyphens after the module prefix. The reason is that sometimes module names have two words or their own prefixes like `big-article`. We need to have two hyphens in order to tell what part of it is the child element—e.g. compare `big-article-title` to `big-article--title` and `big-article--text`.
+你一定注意到我们在模块前缀后面使用两个连字符。这是因为有时模块名称有两个单词或者它们的前缀类似 `big-article`。我们需要两个连字符来描述子元素的位置。比如你可以试着比较 `big-article-title`、`big-article--title` 和 `big-article--text`。
 
-Also, you can nest modules inside modules if a particular module takes a large portion of the page:
+此外，如果特定模块占用了大部分页面，您可以将模块嵌套在模块中：
 
-```
+```HTML
 <div class="box">
     <div class="box--label">This is box label</div>
     <ul class="box--list list">
@@ -154,13 +154,13 @@ Also, you can nest modules inside modules if a particular module takes a large p
 </div>
 ```
 
-Here, in this simple example, you can see that `box` is a module and `list` is another module inside it. So `list--li` is a child of the `list` module and not of the `box`. One of the key concepts here is to use two selectors max per each CSS rule, but in most scenarios to have only one selector with prefixes.
+在这个简单的例子中，你可以看到 `box` 是一个模块 `list` 是在它里面的另一个模块。使用 `list--li` 是 `list` 模块的子项而不是 `box` 的。这里的关键概念是每个 CSS 规则最多有两个选择器，但在大多数情况下只有一个选择器是带前缀的。
 
-This way, we can avoid duplicating rules and also having extra selectors on child elements with the same names, thus improving speed. But it also helps us avoid using the unwanted `!important`-style rules, which are a sign of poorly structured CSS projects.
+这样，我们可以避免重复规则，并且在具有相同名称的子元素上具有额外的选择器，从而提高速度。它也有助于我们避免使用不需要的 `!important` 规则，这些规则是结构不合理的 CSS 项目的标志。
 
-Good (note the single selector):
+好的例子（注意单选择器）：
 
-```
+```css
 .red--box {
     background: #fafcfe;
 }
@@ -170,9 +170,9 @@ Good (note the single selector):
 }
 ```
 
-Bad (note the repetition within selectors and the overlapping reference method):
+不好的例子（注意选择器内的重复和重叠）：
 
-```
+```css
 .red .box {
     background: #fafcfe;
 }
@@ -186,15 +186,15 @@ Bad (note the repetition within selectors and the overlapping reference method):
 }
 ```
 
-## State
+## State（状态规则）
 
-What state defines in SMACSS is a way to describe how our modules look in different dynamic situations. So this part is really for interactivity: We want different behavior if an element is considered to be hidden, expanded, or modified. For example, a jQuery accordion will need help defining when you can or can’t see an element’s content. It helps us to define an element’s style at a specific time.
+在 SMACSS 中状态规则是描述我们的模块在不同状态下显示外观的一种方式。所以说这一部分是关于交互性的：我们需要有不同的行为去描述元素的隐藏、扩展或修改。例如，jQuery 折叠面板控件就需要定义状态，来表示节点内容何时可见何时不可见。它有助于我们在特定时刻定义元素的样式。
 
-States are applied to the same element as layout so we are adding an additional rule which will override previous ones, if any. The state rule is given precedence, as it’s the last one in the chain of rules.
+如果状态规则与布局规则应用于同一元素上，此时我们要添加额外的规则来覆盖前面的规则（如果有的话）。状态规则优先，因为它是规则链中的最后一个规则。
 
-As with layout styles, we tend to use prefixes here. This helps us to recognize them and to give them priority. Here we use the `is` prefix, as in `is-hidden` or `is-selected`.
+与布局规则一样，我们建议在状态规则使用前缀。这有助于我们识别它们并给予它们优先权。这里我们使用 `is` 前缀，如 `is-hidden` 或 `is-selected`。
 
-```
+```HTML
 <header id="header">
     <ul class="nav">
         <li class="nav--item is-selected">Contact</li>
@@ -203,88 +203,88 @@ As with layout styles, we tend to use prefixes here. This helps us to recognize 
 </header>
 ```
 
-```
+```css
 .nav--item.is-selected {
     color: #fff;
 }
 ```
 
-Here, `!important` may be used, as state is often used as a JavaScript modification and not at render time. For example, you have element that’s hidden on page load. On button click, you want to show it. But the default class is like this:
+在这里，`!important` 是可以使用的，因为状态规则经常被用于 JavaScript 的修改而不是渲染时。例如，你需要一个元素在网页加载时是隐藏的，而在点击按钮时显示，但是默认类是像下面这样写的：
 
-```
+```css
 .box .element {
     display: none;
 }
 ```
 
-So if you just add this:
+因此如果你只是添加了下面代码：
 
-```
+```css
 .is-shown {
     display: block;
 }
 ```
 
-It will remain hidden even after you add the `.is-shown` class to the element via JavaScript. This is because the first rule is two levels deep and will override it.
+即使你通过 JavaScript 添加了 `.is-shown` 之后它还是隐藏的，这是因为第一条规则是是二级深度的，将后一条规则覆盖。
 
-So you can instead define the state class like this:
+因此你可以改为这样定义状态类：
 
-```
+```css
 .is-shown {
     display: block !important;
 }
 ```
 
-This is how we distinguish state modifiers from layout ones, which apply only on a page’s initial load. This will work now while maintaining the advantages of minimal selectors.
+这就是我们如何区分状态规则和布局规则，布局规则仅用于页面的初始加载。这样不仅可以达到目的，还可以保持最少选择器的优势。
 
-## Theme
+## Theme（主题规则）
 
-This one should be the most obvious, as it’s used to contain the rules of the primary colors, shapes, borders, shadows, and such. Mostly these are elements which repeat across a whole website. We don’t want to redefine them each time we create them. Instead we want to define a unique class which we only add on later to a default element.
+这个应该是最显而易见的规则，因为它定义了颜色、形状、边框、阴影还有其他等等。这些大多数都是在网站上重复使用的元素。我们不必在每次使用它们的时候都重新定义它们一下，相反，我们希望定义一个独特的类然后使用时只需添加上即可。
 
-```
+```css
 .button-large {
     width: 60px;
     height: 60px;
 }
 ```
 
-```
+```html
 <button class="button-large">Like</button>
 ```
 
-Don’t confuse these SMACSS theme rules with base ones, since base rules target only default appearance and they tend to be something like resetting to default browser settings, whereas a theme unit is more of a type of styling where it gives the final look, unique for this specific color scheme.
+不要将 SMACSS 主题规则和基础规则混淆，基础规则定义了默认外观，类似于重置浏览器的默认设置，而主题规则定义了一组最终外观的样式，唯一的颜色方案。
 
-Theme rules can also be useful if a site has more than a single style or perhaps a couple of themes used in different states and therefore can be easily changed or swapped during some events on a page, e.g. with a theme-switch button. At the very least, they keep all theme styles in one place so you can change them easily and keep them nicely organized.
+当网站具有多套样式或者需要在不同状态下使用不同主题时，主题规则非常有用，因为当用户通过页面上的某些事件例如，主题切换按钮，触发时，主题规则可以很方便地更改和切换。至少，他们将所有主题风格保存在一个地方，以便你可以轻松地更改它们并使它们保持良好的组织结构。
 
-## CSS Organization Methodologies
+## CSS 组织方法
 
-I’ve covered some of the key concepts of this CSS architecture idea. If you want to learn more about this concept you can visit [the official website of SMACSS](https://smacss.com/) and get deeper into it.
+我已经介绍了这个 CSS 架构思想的关键概念。如果你想了解更多，请访问 [SMACSS 的官方网站](https://smacss.com/)并进行深入的学习。
 
-Yes, you can probably use more advanced methodologies like [OOCSS and BEM](https://medium.com/@Intelygenz/how-to-organize-your-css-with-oocss-bem-smacss-a2317fa083a7). The latter covers almost the complete frontend workflow and its technologies. But some may find BEM selectors too long and overwhelming and also too complicated to use. If you need something simpler that’s easier to pick up and to incorporate into your workflow—and also something that defines ground rules for you and your team—SMACSS is a perfect fit.
+你也可以使用更高级的方法例如 [OOCSS 和 BEM](https://medium.com/@Intelygenz/how-to-organize-your-css-with-oocss-bem-smacss-a2317fa083a7)。后者几乎包含了所有前端工作流程和技术。但是一些人会觉得 BEM 的选择器太长太重，使用起来太复杂。如果你需要更简单易懂，并容易将其纳入你的工作流程 — 以及为你和你的团队定义基本规则的东西 — SMACSS 非常适合。
 
-It will be easy for new team members not only to understand what previous developers did, but also to start working on it instantly, without any differences in coding style. SMACSS is just a CSS architecture and it does what it says on the tin—nothing more and nothing less.
+这不仅让团队新成员很容易的理解以前开发者的工作，还帮助他们快速上手项目，并没有任何代码风格上的差异。 SMACSS 只是一个 CSS 框架，它完成了它所描述的工作，不多也不少。
 
-## UNDERSTANDING THE BASICS
+## 了解基础知识
 
-### What are the different types of CSS?
+### CSS 有几种不同的类型？
 
-There are three types. Inline CSS is placed directly on an HTML element's style attribute. Internal CSS sits inside style tags in the HTML header. External CSS is a separate file sourced by an HTML file, avoiding duplication both within and between the HTML pages on a website.
+有三种不同的类型。内联 CSS 直接放在 HTML 元素的样式属性上。内部 CSS 位于 HTML `header` 内部 `style` 标签内。外部 CSS 是独立的文件并通过 HTML 来索引到，避免网站在不同网页内编写重复的代码。
 
-### What is meant by "CSS template"?
+### “CSS 模板”是什么意思？
 
-CSS templates are usually specific layouts defined such that we can use them on multiple pages or even websites. Sometimes they go beyond layout, defining a set of rules for specific types of elements like modals and buttons, or even groups of them. Some also define default styles for HTML elements.
+CSS 模板通常是用来定义特定的布局以便我们在不同网页甚至不同网站上使用它们。但是除了布局，它们有时也用来为特定元素例如模态框和按钮甚至它们的组合而定义的一组规则。其他一些则用来定义 HTML 元素的默认样式。
 
-### Why is CSS so important?
+### 为什么 CSS 如此重要？
 
-CSS is absolutely a must in modern day web pages. Without it, web pages are just plain text and pictures on a blank background. It not only gives style to the page, but also organizes layout and provides effects and animations—so it's important for interactivity as well.
+CSS 在现代网页中绝对是必须的。没有它，网页只是空白页面上的一堆纯文本和图片。它不仅给网页提供样式，还组织布局和提供动画效果 — 因此它对互交性也很重要。
 
-### What are the advantages of using CSS?
+### 使用 CSS 有什么优点？
 
-One of the main advantages is to have all styles in one place rather than having them across a whole web page on every element. It gives us more formatting options and helps optimize both page load time and code reuse.
+一个主要的优点是将所有的样式放在一起而不是让它们分散在整个网站的每一个元素上。它为我们提供了更多的格式选项，有助于优化页面加载时间和增加代码的复用性。
 
-### Why is scalability so important?
+### 为什么可扩展性如此重要？
 
-In general, scalability is important in order to stay extensible and maintainable as a project grows. With CSS in particular, if we don't write scalable and modular code, it quickly grows out of control, becoming hard to understand and to work on, especially for newcomers. Hence the need for SMACSS.
+一般来说，随着项目增长，可扩展性带来的可伸缩性和可维护性非常重要。特别是在CSS中，如果我们编写的代码不具备可扩展性和模块化，它会迅速失去控制，变得难以理解和工作，特别是对于新手而言。 因此我们需要 SMACSS。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

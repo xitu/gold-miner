@@ -1,3 +1,4 @@
+* [Android 的多摄像头支持](https://juejin.im/post/5b98fcf4f265da0ad13b66e0) ([luoqiuyu](https://github.com/luoqiuyu) 翻译)
 * [React Native 对 Flutter: 哪一个对创业公司更加友好？](https://juejin.im/post/5b949e5d5188255c791ae376) ([tanglie1993](https://github.com/tanglie1993) 翻译)
 * [Flutter 的英雄和流氓们 —— 为 Flutterverse 带来平衡](https://juejin.im/post/5b8e75a46fb9a019f928e678) ([DateBro](https://github.com/DateBro) 翻译)
 * [如何将 Stackdriver 连接到智能家居服务器以进行错误记录](https://juejin.im/post/5b8f8df7e51d450e9f66d6f0) ([Starriers](https://github.com/Starriers) 翻译)
