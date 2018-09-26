@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# 如何在六个月或更短的时间内成为DevOps 工程师，第2部分：配置
+# 如何在六个月或更短的时间内成为DevOps 工程师，第二部分：配置
 
 ![](https://cdn-images-1.medium.com/max/1000/0*CqfqPJ0kz66ZHKtt)
 
