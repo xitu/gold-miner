@@ -2,12 +2,12 @@
 > * 原文作者：[Catherine (Kit) Ulrich](https://medium.com/@kit_ulrich?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-4-types-of-why-what-is-the-driving-force-behind-your-product.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-4-types-of-why-what-is-the-driving-force-behind-your-product.md)
-> * 译者：
-> * 校对者：
+> * 译者：[pmwangyang](https://github.com/pmwangyang)
+> * 校对者：[Park-ma](https://github.com/Park-ma), [rydensun](https://github.com/rydensun)
 
 # 四个「为什么」：是什么在背后驱动你的产品？
 
-我刚刚在写我创作的一个叫做[需求的阶梯](https://medium.com/@kit_ulrich/a-surprisingly-simple-technique-for-a-rockstar-product-vision-the-ladder-of-needs-ae624d81ca6b)的框架，它是一个可以让产品人员创造美好愿景的简单工具。「需求的阶梯」结合了 Simon Sinek 在 [《Start with Why》](https://www.amazon.com/Start-Why-Leaders-Inspire-Everyone/dp/1591846447) 中最棒的想法和 Clay Christensen 的经典著作 [《framework of ‘jobs to be done’》](https://hbr.org/2016/09/know-your-customers-jobs-to-be-done)。
+我刚刚在写我创作的一个叫做[需求的阶梯](https://medium.com/@kit_ulrich/a-surprisingly-simple-technique-for-a-rockstar-product-vision-the-ladder-of-needs-ae624d81ca6b)的框架，它是一个可以让产品人员创造美好愿景的简单工具。「需求的阶梯」结合了 Simon Sinek 在 [《Start with Why》](https://www.amazon.com/Start-Why-Leaders-Inspire-Everyone/dp/1591846447)中最棒的想法和 Clay Christensen 的经典著作[《framework of ‘jobs to be done’》](https://hbr.org/2016/09/know-your-customers-jobs-to-be-done)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*4RcIun2jW3x010o9MrYIVw.png)
 
@@ -27,15 +27,15 @@ Jeff Bezos（译者注：杰夫·贝佐斯，亚马逊创始人）是最开始�
 
 ![](https://cdn-images-1.medium.com/max/800/0*3CW4a_5cLbHd2Jc3)
 
-这就是 Bezos 提出的「10年后世界上还有什么不变」这个问题的答案 —— 亚马逊的客户总是想要更低的价格（金钱）和更快的运输（时间）， 亚马逊的战略就是通过专注于这些核心客户需求而建立的。
+这就是 Bezos 提出的「10 年后世界上还有什么不变」这个问题的答案 —— 亚马逊的客户总是想要更低的价格（金钱）和更快的运输（时间），亚马逊的战略就是通过专注于这些核心客户需求而建立的。
 
 这也是为什么 Uber 的商业模式不是「卖车」，而是「卖时间」。
 
 ![](https://cdn-images-1.medium.com/max/800/0*RU-i26YVSvVkfGa4)
 
-我发现 Tony Robbins 有点像避雷针。 当我提到他的名字时，人们通常会分成两个阵营：「我爱他，他很棒」或「他是邪教领袖」。无论你的个人观点是什么，他对人类六大核心需求的框架仍然非常经典。
+我发现 Tony Robbins 有点像避雷针。当我提到他的名字时，人们通常会分成两个阵营：「我爱他，他很棒」或「他是邪教领袖」。无论你的个人观点是什么，他对人类六大核心需求的框架仍然非常经典。
 
-Tony 主张 [六大核心需求](https://www.tonyrobbins.com/podcasts/why-we-do-what-we-do/) 驱动着人们的行为：
+Tony 主张[六大核心需求](https://www.tonyrobbins.com/podcasts/why-we-do-what-we-do/)驱动着人们的行为：
 
 *   **确定性**：对安全性，稳定性，可预测性和舒适性的需求
 *   **不确定性/多样性**：对惊喜，兴奋，新奇，变化的需求
@@ -44,7 +44,7 @@ Tony 主张 [六大核心需求](https://www.tonyrobbins.com/podcasts/why-we-do-
 *   **成长**：对不断发展智力、情感、精神的需求
 *   **贡献**：对给予、保护、关心、服务他人的需求
 
-更棒的是， Tony 认为 **任何体验，产品或行为如果能满足其中三项需求，就会让人上瘾**.
+更棒的是，Tony 认为**任何体验，产品或行为如果能满足其中三项需求，就会让人上瘾**。
 
 举个例子，Facebook 解决了（1）爱与联系……通过与朋友的联系，（2）重要性……通过接收你发布的内容的回复/点赞，以及（3）多样性……你永远不知道你的订阅中会出现什么。
 
@@ -60,7 +60,7 @@ Tony 主张 [六大核心需求](https://www.tonyrobbins.com/podcasts/why-we-do-
 *   **懒惰**
 *   **愤怒**
 
-针对这七种致命原罪中的一种设计的产品常常让人上瘾。 在这个框架中，Facebook 解决了骄傲。 Uber 和 Amazon 解决了懒惰和贪婪。
+针对这七种致命原罪中的一种设计的产品常常让人上瘾。在这个框架中，Facebook 解决了骄傲。Uber 和 Amazon 解决了懒惰和贪婪。
 
 ![](https://cdn-images-1.medium.com/max/800/0*kFRWAKIQtQ-C_Mb6)
 
