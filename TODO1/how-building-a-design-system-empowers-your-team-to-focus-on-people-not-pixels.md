@@ -2,8 +2,8 @@
 > * 原文作者：[Mariah Muscato](https://medium.com/@mariahmuscato?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-building-a-design-system-empowers-your-team-to-focus-on-people-not-pixels.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-building-a-design-system-empowers-your-team-to-focus-on-people-not-pixels.md)
-> * 译者：
-> * 校对者：
+> * 译者：[pmwangyang](https://github.com/pmwangyang)
+> * 校对者：[rydensun](https://github.com/rydensun)
 
 # 如何创建一个设计体系来赋能团队 —— 关注人，而非像素
 
@@ -25,7 +25,7 @@ HubSpot 的顾客**需要**一个始终如一、功能强大、令人愉快的�
 * 重新设计了 HubSpot 平台，更新了我们品牌的视觉形象
 * 建立了一个鲜活的设计体系，可以随着我们的商业进展而扩展
 
-为了实现这一切，我们需要进行人才投资。 我们将我们的 UX 团队从 14 位产品设计师、2 位研究员和 1 位作家扩展到超过 34 位产品设计师、8 位研究员、3 位作家和 1 位产品插画师（并且仍在[持续招聘](https://www.hubspot.com/jobs/search?&department=product+and+engineering)中）。
+为了实现这一切，我们需要进行人才投资。我们将我们的 UX 团队从 14 位产品设计师、2 位研究员和 1 位作家扩展到超过 34 位产品设计师、8 位研究员、3 位作家和 1 位产品插画师（并且仍在[持续招聘](https://www.hubspot.com/jobs/search?&department=product+and+engineering)中）。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*yMhbkX8vmnJjUQqrboLs2A.png)
 
@@ -237,7 +237,7 @@ HubSpot 以前的设计
 
 ![](https://cdn-images-1.medium.com/max/1000/1*YEXjbh_z3Q_kCpTRFugtOg.png)
 
-图标由 [Joshua Mulvey](https://dribbble.com/joshua_mulvey) 、 [Sue Yee](https://dribbble.com/suechews) 和 Chelsea Bathurst 设计。
+图标由 [Joshua Mulvey](https://dribbble.com/joshua_mulvey)、[Sue Yee](https://dribbble.com/suechews) 和 Chelsea Bathurst 设计。
 
 需要数据可视化？给你。
 
@@ -290,7 +290,7 @@ HubSpot 以前的设计
 [Designing The Perfect Date And Time Picker](https://www.smashingmagazine.com/2017/07/designing-perfect-date-time-picker/)，Vitaly Friedman 著；
 [Finding the Right Color Palettes for Data Visualizations](https://blog.graphiq.com/finding-the-right-color-palettes-for-data-visualizations-fcd4e707a283)，Samantha Zhang 著；
 
-**初次发表于** [_HubSpot 博客_](https://product.hubspot.com/blog/how-building-a-design-system-empowers-your-team-to-focus-on-people-not-pixels)
+**初次发表于** [_HubSpot_ 博客](https://product.hubspot.com/blog/how-building-a-design-system-empowers-your-team-to-focus-on-people-not-pixels)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
