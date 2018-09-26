@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/unsupervised-learning-with-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/unsupervised-learning-with-python.md)
 > * 译者：[zhmhhu](https://github.com/zhmhhu)
-> * 校对者：[jianboy](https://github.com/jianboy),[7Ethan](https://github.com/7Ethan)
+> * 校对者：[jianboy](https://github.com/jianboy), [7Ethan](https://github.com/7Ethan)
 
 # Python 中的无监督学习算法
 
@@ -80,7 +80,7 @@ plt.show()
 
 ![](https://cdn-images-1.medium.com/max/800/1*W97xJQLjkOUqbYL5_3EZQQ.png)
 
-紫色：Setosa，绿色： Versicolor，黄色：Virginica
+紫色：Setosa，绿色：Versicolor，黄色：Virginica
 
 ## 聚类
 
@@ -98,7 +98,7 @@ K 均值是一种迭代聚类算法，旨在在每次迭代中找到局部最大
 
 群集的每个质心都是一组特征值，用于定义结果组。检查质心特征权重可用于定性地解释每个群集代表什么类型的组。
 
-我们从 sklearn 库导入 K 均值模型，拟合特征并预测。
+我们从 sklearn 库导入 K 均值模型，拟合特征并预测。
 
 **Python 中的 K 均值算法实现。**
 
@@ -158,7 +158,7 @@ samples = seeds_df.values
 
 """
 使用带有 method ='complete' 关键字参数的
-linkage()函数对样本执行分层聚类。
+linkage() 函数对样本执行分层聚类。
 将结果合并。
 """
 mergings = linkage(samples, method='complete')
@@ -186,11 +186,11 @@ plt.show()
 *   当群集的形状是超球形时（如 2D 中的圆圈，3D 中的球体），我们发现 K 均值工作良好。
 *   K-均值不允许噪声数据，而在分层聚类中我们可以直接使用噪声数据集进行聚类。
 
-### t-SNE聚类
+### t-SNE 聚类
 
 它是可视化的无监督学习方法之一。t-SNE 代表 **t 分布的随机嵌入邻域**。它将高维空间映射到可以可视化的 2 维或 3 维空间。具体地，它通过二维或三维点对每个高维对象建模，使得相似对象由附近点建模，而非相似对象由远点以高概率建模。
 
-**用于鸢尾花数据集的 Python 中的 t-SNE 聚类实现**
+**用于鸢尾花数据集的 Python 中的 t-SNE 聚类实现。**
 
 ```
 # 引入模块
@@ -267,7 +267,7 @@ plt.show()
 
 ## 更多无监督技术：
 
-*   主成分分析 ([PCA](https://towardsdatascience.com/pca-using-python-scikit-learn-e653f8989e60))
+*   主成分分析（[PCA](https://towardsdatascience.com/pca-using-python-scikit-learn-e653f8989e60)）
 *   异常检测
 *   自动编码
 *   深度信念网络
@@ -279,7 +279,7 @@ plt.show()
 
 **重要链接：**
 
-**Python 中的监督学习算法.**
+**Python 中的监督学习算法。**
 
 * [**用 Python 进行监督学习**：为什么是人工智能和机器学习](https://towardsdatascience.com/supervised-learning-with-python-cf2c1ae543c1)
 * [**机器学习简介**：机器学习是一个从实例和经验中进行学习的思想，它没有明确编程方法。](https://towardsdatascience.com/introduction-to-machine-learning-db7c668822c4)
