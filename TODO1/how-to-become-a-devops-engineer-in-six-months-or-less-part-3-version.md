@@ -9,6 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1000/0*WbA21p1XhfwT36Cx)
 
+“背光式笔记本的特写镜头” 由 [Markus Petritz](https://unsplash.com/@petritzdesigns?utm_source=medium&utm_medium=referral) 发布在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)	
 
 注意: 这是《如何如何在六个月或更短的时间内成为DevOps工程师》系列的第三部分，第一部分请点击 [这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md). 第二部分点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md).
 
