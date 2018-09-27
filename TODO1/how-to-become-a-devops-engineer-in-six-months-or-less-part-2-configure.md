@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1000/0*CqfqPJ0kz66ZHKtt)
 
-照片由[Reto Simonet](https://unsplash.com/@reetoo?utm_source=medium&utm_medium=referral) 拍摄于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
+照片由[Reto Simonet](https://unsplash.com/@reetoo?utm_source=medium&utm_medium=referral) 发布在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
 
 注意：这是《如何如何在六个月或更短的时间内成为 DevOps 工程师》系列的第二部分，第一部分请点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md).
 
