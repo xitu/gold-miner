@@ -11,23 +11,23 @@
 
 “背光式笔记本的特写镜头” 由 [Markus Petritz](https://unsplash.com/@petritzdesigns?utm_source=medium&utm_medium=referral) 发布在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)	
 
-注意: 这是《如何如何在六个月或更短的时间内成为DevOps工程师》系列的第三部分，第一部分请点击 [这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md). 第二部分点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md).
+注意: 这是《如何如何在六个月或更短的时间内成为DevOps 工程师》系列的第三部分，第一部分请点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md). 第二部分点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md).
 
 让我们快速回顾一下上期内容。
 
 简而言之，这一系列文章讲述了一个故事。
 
-而这个故事正在学习如何将想法转化为金钱，快速 - 现代化DevOps开发的精髓。
+而这个故事正在学习如何将想法转化为金钱，快速——现代化DevOps开发的精髓。
 
 具体而言，在[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md) 我们谈到了DevOps的文化和目标。
 
 在[第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md), 我们讨论了如何使用Terraform为未来的代码部署奠定基础。 当然，Terraform也是代码！
 
-因此，在这篇文章中，我们将讨论如何防止所有这些代码完全失控。 剧透，这都是关于 [_git_](https://git-scm.com/)!
+因此，在这篇文章中，我们将讨论如何防止所有这些代码完全失控。剧透，这都是关于 [_git_](https://git-scm.com/)!
 
 额外奖励：我们还将讨论如何使用此git business来构建和推广您自己的个人品牌。
 
-作为参考，我们从这里开始：：
+作为参考，我们从这里开始：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*N-4zkp9GM6apxn3GMWcT0A.png)
 
@@ -37,7 +37,7 @@ DevOps之旅
 
 那么，当我们谈论“版本控制”时，我们在说什么？
 
-想象一下，你正在开发一些软件。您正在不断更改它，根据需要添加或删除功能。 通常情况下，最新的变化将是一次“破坏性”的变化。 换句话说，无论你最后做了什么，都打破了之前的工作。
+想象一下，你正在开发一些软件。您正在不断更改它，根据需要添加或删除功能。 通常情况下，最新的变化将是一次“破坏性”的变化。 换句话说，无论你最后做了什么，都打乱之前的工作。
 
 怎么办？
 
@@ -115,7 +115,7 @@ git的不同之处在于它包含**分布式**源代码控制的概念。
 
 事实上，它们都非常好，但特别是世界各地的专业软件工程师使用的部分：[Git Workflows](https://www.atlassian.com/git/tutorials/comparing-workflows).
 
-我再怎么强调也不为过。一次又一次地，缺乏理解git特性分支是如何工作的，或者没有解释Gitflow是什么让99%有抱负的DevOps工程师落选的原因。
+我再怎么强调也不为过。一次又一次地，缺乏理解git特性分支是如何工作的，或者没有解释Gitflow是什么让99%有抱负的DevOps 工程师落选的原因。
 
 这是关键。你可以参加面试，不知道Terraform或者最新的架构及代码是什么，没关系 - 你可以在工作中学习它。
 
