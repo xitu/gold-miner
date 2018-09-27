@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1000/0*CqfqPJ0kz66ZHKtt)
 
-照片由[Reto Simonet](https://unsplash.com/@reetoo?utm_source=medium&utm_medium=referral) 发布在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
+照片由 [Reto Simonet](https://unsplash.com/@reetoo?utm_source=medium&utm_medium=referral) 发布在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
 
 注意：这是《如何如何在六个月或更短的时间内成为 DevOps 工程师》系列的第二部分，第一部分请点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md).
 
@@ -52,7 +52,7 @@
 3. 不可重复(更多机器=更多点击），
 4. 并且不可测试(不知道我的点击是否真的有效或弄乱了）。
 
-例如，想想在开发环境先配置所需的所有工作......然后是初始化环境......然后系统测试......然后进行分级......然后在美国部署生产环境......然后在欧盟部署生产环境......它变得非常乏味，非常烦人，非常快。
+例如，想想在开发环境先配置所需的所有工作...然后是初始化环境...然后系统测试...然后进行分级...然后在美国部署生产环境...然后在欧盟部署生产环境...它变得非常乏味，非常烦人，非常快。
 
 因此，需要一种新的方式。这种新的方式是**架构即代码**，这就是这个配置阶段的全部内容。
 
