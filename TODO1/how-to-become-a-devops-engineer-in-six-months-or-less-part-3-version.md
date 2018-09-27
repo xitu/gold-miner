@@ -19,9 +19,9 @@
 
 而这个故事正在学习如何将想法转化为金钱，快速 —— 现代化 DevOps 开发的精髓。
 
-具体而言，在[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md) 我们谈到了 DevOps 的文化和目标。
+具体而言，在[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md)我们谈到了 DevOps 的文化和目标。
 
-在[第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md), 我们讨论了如何使用 Terraform 为未来的代码部署奠定基础。 当然，Terraform 也是代码！
+在[第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md)，我们讨论了如何使用 Terraform 为未来的代码部署奠定基础。 当然，Terraform 也是代码！
 
 因此，在这篇文章中，我们将讨论如何防止所有这些代码完全失控。剧透，这都是关于 [_git_](https://git-scm.com/)!
 
@@ -140,7 +140,7 @@ git 的不同之处在于它包含**分布式**源代码控制的概念。
 
 这不仅可以灌输良好的源代码控制规则，还可以帮助您建立自己的个人品牌。
 
-注意: 当你学习如何使用 git + GitHub 时，要特别注意[Pull Requests](https://help.github.com/articles/about-pull-requests/) (也叫 PRs, 如果你想变酷).
+注意: 当你学习如何使用 git + GitHub 时，要特别注意[Pull Requests](https://help.github.com/articles/about-pull-requests/) (也叫 PRs， 如果你想变酷)。
 
 ![](https://cdn-images-1.medium.com/max/800/0*E1Y3iKOJjkKiwcoa)
 
