@@ -21,7 +21,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*GNxucS4v93-XdnD5-vWB_w.png)
 
-<div style="text-align:center">DevOps基础介绍图</div>
+<div style="text-align:center">DevOps 基础介绍图</div>
 
 以及基于这些基础知识的工具和技能的良好理解(见下图）。
 
@@ -45,16 +45,16 @@
 
 为什么这么说呢？
 
-因为按钮点击:
+因为按钮点击：
 
 1. 容易出错(人为犯错），
 2. 没有版本化(点击不能存储在 git 中），
 3. 不可重复(更多机器=更多点击），
 4. 并且不可测试(不知道我的点击是否真的有效或弄乱了）。
 
-例如，想想在开发环境先配置所需的所有工作......然后是初始化环境...然后系统测试 ......然后进行分级......然后在美国部署生产环境......然后在欧盟部署生产环境......它变得非常乏味，非常烦人，非常快。
+例如，想想在开发环境先配置所需的所有工作......然后是初始化环境......然后系统测试......然后进行分级......然后在美国部署生产环境......然后在欧盟部署生产环境......它变得非常乏味，非常烦人，非常快。
 
-因此，需要一种新的方式。 这种新的方式是**架构即代码**，这就是这个配置阶段的全部内容。
+因此，需要一种新的方式。这种新的方式是**架构即代码**，这就是这个配置阶段的全部内容。
 
 作为最佳实践，架构即代码要求无论需要哪些工作来配置计算资源，都必须通过代码完成。
 
@@ -62,13 +62,13 @@
 
 此外，这意味着，我们将通过架构即代码部署而不是点击方式:
 
-1. 在[Terraform](https://www.terraform.io/）中写出所需的基础设施状态，
+1. 在[Terraform](https://www.terraform.io/)中写出所需的基础设施状态，
 2. 将其存储在我们的源代码控制中，
-3. 通过正式[Pull Request](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow）流程征求反馈意见，
+3. 通过正式[Pull Request](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow)流程征求反馈意见，
 4. 测试一下，
 5. 执行提供所需的所有容器资源。
 
-现在，显而易见的问题是，“为何选择 Terraform ？ 为什么不使用 Chef 或 Puppet 或 Ansible 或 CFEngine 或 Salt 或 CloudFormation 或其他的？“
+现在，显而易见的问题是，“为何选择 Terraform ？为什么不使用 Chef 或 Puppet 或 Ansible 或 CFEngine 或 Salt 或 CloudFormation 或其他的？“
 
 好问题！ 
 
@@ -78,7 +78,7 @@
 2. 比其他人更容易学习
 3. 这是跨平台的
 
-现在，你能选择其中一个并成功吗？ 绝对能！
+现在，你能选择其中一个并成功吗？绝对能！
 
 * * *
 
@@ -86,7 +86,7 @@
 
 一般，像 Terraform 和 CloudFormation 这样的东西已被用来提供**基础设施**，而像 Ansible 这样的东西则被用来配置**基础设施**。
 
-您可以将 Terraform 视为创建基础的工具， Ansible 将房子置于最顶层，然后根据您的需要部署应用程序(例如 Ansible ）。
+您可以将 Terraform 视为创建基础的工具， Ansible 将房子置于最顶层，然后根据您的需要部署应用程序（例如 Ansible ）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*9kmJS9w9gNgqJMmmqb_NVg.png)
 
@@ -98,7 +98,7 @@
 
 但是， Ansible 可以做的(如果不是全部），Terraform 也可以做。 反过来也是如此。
 
-不要让那些困扰你。 只要知道 Terraform 是基础架构代码空间中最具好的工具之一，所以我强烈建议你从这里开始。
+不要让那些困扰你。只要知道 Terraform 是基础架构代码空间中最具好的工具之一，所以我强烈建议你从这里开始。
 
 事实上，Terraform + AWS 的专业知识是目前最炙手可热的技能之一！
 
@@ -122,7 +122,7 @@
 
 您不会对生产环境机器打补丁，而是直接部署已经打补丁的新机器。
 
-您不在开发环境和生产环境部署的VM集群配置不同，它们都是相同的。
+您不在开发环境和生产环境部署的 VM 集群配置不同，它们都是相同的。
 
 你应该明白了我的意思。
 
@@ -130,7 +130,7 @@
 
 注意：不可变部署要求将配置与您的代码分开。请阅读[12 Factor App](https://12factor.net/），其中详细介绍了这个(以及其他令人敬畏的想法！）。这是 DevOps 从业者必读的内容。
 
-代码与配置的分离非常重要 - 您不希望每次修改数据库密码时都重新部署整个应用程序。相反，请确保应用程序可以从外部配置存储( SSM/Consul/etc )中提取它。
+代码与配置的分离非常重要 —— 您不希望每次修改数据库密码时都重新部署整个应用程序。相反，请确保应用程序可以从外部配置存储( SSM/Consul/etc )中提取它。
 
 此外，您可以很容易地看到，如果不可变部署的兴起，像 Ansible 这样的工具开始扮演的角色不那么突出。
 
@@ -158,7 +158,7 @@
 
 第三部分的内容在[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or -less-part-3-version.md）！
 
-> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到[掘金翻译计划](https://github.com/xitu/gold-miner)对译文进行修改并 PR，也可获得相应奖励积分。文章开头的**本文永久链接**即为本文在 GitHub 上的 MarkDown 链接。
 
 
 ---
