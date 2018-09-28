@@ -7,7 +7,7 @@
 
 # 如何在东南亚拓展您的应用业务
 
-## 使用 Android (Go 版)进行本地化和向新市场发展的四个关键策略
+## 使用 Android (Go 版)进行本地化和向新市场拓展的四个关键策略
 
 ![](https://cdn-images-1.medium.com/max/1600/1*mNb91X17FSyOL7CKXh6E-A.png)
 
@@ -27,7 +27,7 @@
 
 本地化是关键。我建议将应用和游戏内容以及 Google Play 商店列表翻译成本地语言。这对于没有广泛使用英语的泰国、印度尼西亚和越南等市场至关重要。已翻译的开发人员已经看到应用安装、用户和支出的增长。
 
-> _例如，基于比较本地化前后 3 个月的应用内支出，GTarcade 的 Discacy of Discord-FuriousWings 报告称，当游戏本地化为泰国时，有150％的增长，而本地化为印度尼西亚时，有 40％ 的增长。同样，Supercell 数据显示把 [_Hay Day_](https://play.google.com/store/apps/details?id=com.supercell.hayday) 本地化为_泰国_后的支出增加了 40％。_
+> _例如，基于比较本地化前后 3 个月的应用内支出，GTarcade 的 Discacy of Discord-FuriousWings 报告称，当游戏本地化为泰国时，有150％的增长，而本地化为印度尼西亚时，有 40％ 的增长。同样，Supercell 数据显示_ [_Hay Day_](https://play.google.com/store/apps/details?id=com.supercell.hayday) _本地化为_泰国_后的支出增加了 40％。_
 
 如果您不熟悉新市场，请使用 [store listing experiments](https://developer.android.com/distribute/best-practices/grow/store-listing-experiments) 以您的目标语言来测试商店列表的版本。
 
@@ -70,7 +70,7 @@
 *   **用他们的语言与人沟通：** 要建立一个强大的社区，您需要用他们的语言与人沟通。这意味着让母语使用者响应 Play 商店中的用户评论并通过其他渠道提供通信。当 Netmarble 在印度尼西亚推出他们的热门游戏 [Lineage2 Revolution](https://play.google.com/store/apps/details?id=com.netmarble.revolutionthm) 时，他们通过当地语言回复了印度尼西亚语版 Google Play 上的用户评论。自推出以来，Lineage2 Revolution一直是印度尼西亚在Google Play上排名前三的游戏。
 *   **建立当地社交媒体：** 成功的开发者使用当地市场的流行社交媒体定期向社区传达相关新闻和内容。这些社交渠道也是人们向您传达客户服务问题的热门方式。例如，[IGG.COM](https://play.google.com/store/apps/dev?id=8895734616362643252) 估计，东南亚超过 50% 的客户服务问题来自社交渠道。
 *   **考虑与内容创作者合作：** YouTube 在东南亚非常受欢迎。事实上，泰国和印度尼西亚[在移动设备上观看 YouTube 的比例最高](https://www.thinkwithgoogle.com/intl/en-apac/trends-and-insights/beyond-numbers-youtube-shapes-lives-thailand-indonesia/)。因此，许多游戏开发人员与创作者一起制作游戏玩法，以帮助教育和重新吸引玩家。
-*   **不要低估线下：** 离线活动是在东南亚建立社区的重要元素。开发人员，如 [Com2uS](https://play.google.com/store/apps/dev?id=6850516909323484758) 和 [Siamgame](https://play.google.com/store/apps/dev?id=6476992165808510390) 定期为最狂热的粉丝举办线下活动，培养强烈的社区意识，增加重新参与度。电子竞技在东南亚越来越受欢迎，它甚至被列入今年的亚洲运动会，在雅加达和印度尼西亚的巨港举办。[Hero Games](https://play.google.com/store/apps/dev?id=9060101706093336387) 和 [Garena](https://play.google.com/store/apps/details?id=com.dts.freefireth) 将电子竞技视为推动与东南亚游戏玩家社区互动的主要因素。
+*   **不要低估线下：** 线下活动是在东南亚建立社区的重要元素。开发人员，如 [Com2uS](https://play.google.com/store/apps/dev?id=6850516909323484758) 和 [Siamgame](https://play.google.com/store/apps/dev?id=6476992165808510390) 定期为最狂热的粉丝举办线下活动，培养强烈的社区意识，增加重新参与度。电子竞技在东南亚越来越受欢迎，它甚至被列入今年的亚洲运动会，在雅加达和印度尼西亚的巨港举办。[Hero Games](https://play.google.com/store/apps/dev?id=9060101706093336387) 和 [Garena](https://play.google.com/store/apps/details?id=com.dts.freefireth) 将电子竞技视为推动与东南亚游戏玩家社区互动的主要因素。
 
 ### 后记
 
@@ -80,7 +80,7 @@
 
 ###  你怎么看？
 
-您是否有关于在东南亚中构建应用和游戏业务的想法？请在下面的评论中告诉我们，或使用 *#AskPlayDev** 发送推文，我们会在[@GooglePlayDev](http://twitter.com/googleplaydev)回复，我们会在 Google Play 上定期分享有关如何取得成功的新闻和提示。
+您是否有关于在东南亚中构建应用和游戏业务的想法？请在下面的评论中告诉我们，或使用 *#AskPlayDev** 发送推文，我们会从[@GooglePlayDev](http://twitter.com/googleplaydev)中进行回复，我们会在 Google Play 上定期分享有关如何取得成功的新闻和提示。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
