@@ -2,8 +2,8 @@
 > * 原文作者：[Indrek Lasn](https://medium.freecodecamp.org/@wesharehoodies?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/survival-guide-for-new-developers.md](https://github.com/xitu/gold-miner/blob/master/TODO1/survival-guide-for-new-developers.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ssshooter](https://github.com/ssshooter)
+> * 校对者：[yuwhuawang](https://github.com/yuwhuawang), [zx-Zhu](https://github.com/zx-Zhu)
 
 # 新手开发者须知
 
