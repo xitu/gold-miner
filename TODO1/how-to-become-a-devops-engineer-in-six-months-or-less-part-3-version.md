@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1000/0*WbA21p1XhfwT36Cx)
 
-“背光式笔记本的特写镜头” 由 [Markus Petritz](https://unsplash.com/@petritzdesigns?utm_source=medium&utm_medium=referral) 发布在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)	
+“背光式笔记本的特写镜头”由 [Markus Petritz](https://unsplash.com/@petritzdesigns?utm_source=medium&utm_medium=referral) 发布在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)	
 
 注意: 这是《如何如何在六个月或更短的时间内成为DevOps 工程师》系列的第三部分，第一部分请点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md). 第二部分点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md).
 
@@ -21,7 +21,7 @@
 
 具体而言，在[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md)我们谈到了 DevOps 的文化和目标。
 
-在[第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md)，我们讨论了如何使用 Terraform 为未来的代码部署奠定基础。 当然，Terraform 也是代码！
+在[第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md)，我们讨论了如何使用 Terraform 为未来的代码部署奠定基础。当然，Terraform 也是代码！
 
 因此，在这篇文章中，我们将讨论如何防止所有这些代码完全失控。剧透，这都是关于 [_git_](https://git-scm.com/)!
 
@@ -41,7 +41,7 @@ DevOps 之旅
 
 怎么办？
 
-好。 如果您在以前的学校，您可能倾向于将您的第一个文件命名为：
+好。如果您在以前的学校，您可能倾向于将您的第一个文件命名为：
 
 ```
 awesome_code.pl
@@ -55,7 +55,7 @@ awesome_code.pl
 awesome_code.12.25.2018.pl
 ```
 
-这很好。 直到有一天你每天进行多次更改，所以你最终会得到这样的结果：
+这很好。直到有一天你每天进行多次更改，所以你最终会得到这样的结果：
 
 ```
 awesome_code.GOOD.12.25.2018.pl
@@ -99,7 +99,7 @@ git 的不同之处在于它包含**分布式**源代码控制的概念。
 
 [https://xkcd.com/1597/](https://xkcd.com/1597/)
 
-现在，请记住，git **不是**像旧版的SVN一样。 它是一个分布式源代码控制系统，多个团队可以安全，可靠地在共享代码库上工作。
+现在，请记住，git **不是**像旧版的SVN一样。它是一个分布式源代码控制系统，多个团队可以安全，可靠地在共享代码库上工作。
 
 这对我们意味着什么？
 
@@ -136,11 +136,11 @@ git 的不同之处在于它包含**分布式**源代码控制的概念。
 
 注意：GitLab 也可以，但在撰写本文时，GitHub 是最流行的开源git存储库，因此您肯定希望和其他人分享。
 
-获得 GitHub 帐户后，开始为其提供代码！ 无论你学到什么，都需要你编写代码，请确保定期将它提交给 GitHub。
+获得 GitHub 帐户后，开始为其提供代码！无论你学到什么，都需要你编写代码，请确保定期将它提交给 GitHub。
 
 这不仅可以灌输良好的源代码控制规则，还可以帮助您建立自己的个人品牌。
 
-注意: 当你学习如何使用 git + GitHub 时，要特别注意[Pull Requests](https://help.github.com/articles/about-pull-requests/) (也叫 PRs， 如果你想变酷)。
+注意：当你学习如何使用 git + GitHub 时，要特别注意[Pull Requests](https://help.github.com/articles/about-pull-requests/) (也叫 PRs， 如果你想变酷)。
 
 ![](https://cdn-images-1.medium.com/max/800/0*E1Y3iKOJjkKiwcoa)
 
@@ -152,11 +152,11 @@ Pull Request, by [Vidar Nordli-Mathisen](https://unsplash.com/@vidarnm?utm_sourc
 
 这种方式（目前，更好的方式之一！）是建立一个 GitHub 账户，作为您的品牌代表。 这些天几乎所有的面试官都会要求求职者有 GitHub 账户。
 
-因此，您应该努力拥有一个整洁，精心策划的 GitHub 帐户 - 您可以将其放在简历上并为此感到自豪。
+因此，您应该努力拥有一个整洁，精心策划的 GitHub 帐户 —— 您可以将其放在简历上并为此感到自豪。
 
-在后面的部分中，我们将讨论如何使用[Hugo]（https://gohugo.io/）框架在 GitHub 上构建一个简单但酷炫的网站。 现在，只需将代码放入 GitHub 即可。
+在后面的部分中，我们将讨论如何使用 [Hugo](https://gohugo.io/) 框架在 GitHub 上构建一个简单但酷炫的网站。 现在，只需将代码放入 GitHub 即可。
 
-稍后，随着您的经验越来越丰富，您可能会考虑使用两个 GitHub 帐户。 一个用于存储您编写的练习代码的个人资料，另一个用于存储您想要向其他人展示的代码。
+稍后，随着您的经验越来越丰富，您可能会考虑使用两个 GitHub 帐户。一个用于存储您编写的练习代码的个人资料，另一个用于存储您想要向其他人展示的代码。
 
 总结一下：
 
@@ -167,9 +167,9 @@ Pull Request, by [Vidar Nordli-Mathisen](https://unsplash.com/@vidarnm?utm_sourc
 
 最后，请记住这个领域的最新发展，例如 [GitOps](https://queue.acm.org/detail.cfm?ref=rss&id=3237207).
 
-GitOps 将我们迄今为止讨论的所有想法提升到新的水平 - 一切都通过 git, pull requests, and deployment pipelines。
+GitOps 将我们迄今为止讨论的所有想法提升到新的水平 —— 一切都通过 git, pull requests, and deployment pipelines。
 
-请注意，GitOps 和类似的工具应用于**商业**方面的事情。 具体来说，我们不是在使用像 git 之类的复杂东西，因为它们很酷。
+请注意，GitOps 和类似的工具应用于**商业**方面的事情。具体来说，我们不是在使用像 git 之类的复杂东西，因为它们很酷。
 
 相反，我们使用 git 来实现业务敏捷性，加速创新并更快地交付功能 —— 这些都可以让我们的业务最终赚到更多钱！
 
