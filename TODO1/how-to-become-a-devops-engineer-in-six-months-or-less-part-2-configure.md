@@ -11,7 +11,7 @@
 
 照片由 [Reto Simonet](https://unsplash.com/@reetoo?utm_source=medium&utm_medium=referral) 发布在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
 
-注意：这是《如何如何在六个月或更短的时间内成为 DevOps 工程师》系列的第二部分，第一部分请点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md).
+**注意**：这是《如何如何在六个月或更短的时间内成为 DevOps 工程师》系列的第二部分，第一部分请点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md).
 
 让我们快速回顾一下上期内容。
 
@@ -23,11 +23,11 @@
 
 <div style="text-align:center">DevOps 基础介绍图</div>
 
-以及基于这些基础知识的工具和技能的良好理解(见下图）。
+以及基于这些基础知识的工具和技能的良好理解（见下图）。
 
 提示：你的目标是先从左到右学习蓝色字体部分知识，然后从左到右学习紫色字体部分知识。
 
-好的，回到我们的主题。在本文中，我们将介绍数字流水线的第一个阶段：配置。
+好的，回到我们的主题。在本文中，我们将介绍数字流水线的**第一个**阶段：配置。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*0S3C5EmK7p_iESafTNB4Ug.png)
 
@@ -35,11 +35,11 @@
 
 配置阶段会发生什么？
 
-由于我们创建的代码需要运行机器，因此配置阶段实际上在构建运行代码的基础结构。
+由于我们创建的代码需要运行机器，因此配置阶段实际上是在构建运行代码的基础结构。
 
-在过去，配置基础设施是一项漫长的，劳动密集型，容易出错的考验。
+在过去，配置基础设施是一项漫长的、劳动密集型、容易出错的考验。
 
-现在，因为我们拥有令人敬畏的云，所以只需点击一下或者至少很多下按钮即可完成所有配置。 
+现在，因为我们拥有令人敬畏的云服务，所以只需点击一下或者多点几下即可完成所有配置。 
 
 然而，实践证明点击按钮来完成这些任务是一个坏主意。
 
@@ -52,23 +52,23 @@
 3. 不可重复(更多机器=更多点击），
 4. 并且不可测试(不知道我的点击是否真的有效或弄乱了）。
 
-例如，想想在开发环境先配置所需的所有工作...然后是初始化环境...然后系统测试...然后进行分级...然后在美国部署生产环境...然后在欧盟部署生产环境...它变得非常乏味，非常烦人，非常快。
+例如，想想在开发环境先配置所需的所有工作...然后是初始化环境...然后系统测试...然后进行分级...然后在美国部署生产环境...然后在欧盟部署生产环境...它很快就会变得非常乏味和烦人。
 
 因此，需要一种新的方式。这种新的方式是**架构即代码**，这就是这个配置阶段的全部内容。
 
 作为最佳实践，架构即代码要求无论需要哪些工作来配置计算资源，都必须通过代码完成。
 
-注意：“计算资源”是指在产品中正确运行应用程序所需的一切：计算，存储，网络，数据库等。因此，名称为“架构即代码”。
+注意：“计算资源”是指在产品中正确运行应用程序所需的一切：计算、存储、网络、数据库等。因此，名称为“架构即代码”。
 
 此外，这意味着，我们将通过架构即代码部署而不是点击方式：
 
-1. 在[Terraform](https://www.terraform.io/)中写出所需的基础设施状态，
+1. 在 [Terraform](https://www.terraform.io/) 中写出所需的基础设施状态，
 2. 将其存储在我们的源代码控制中，
-3. 通过正式[Pull Request](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow)流程征求反馈意见，
+3. 通过正式 [Pull Request](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow)流程征求反馈意见，
 4. 测试一下，
 5. 执行提供所需的所有容器资源。
 
-现在，显而易见的问题是，“为何选择 Terraform ？为什么不使用 Chef 或 Puppet 或 Ansible 或 CFEngine 或 Salt 或 CloudFormation 或其他的？“
+现在，显而易见的问题是，“为何选择 Terraform？为什么不使用 Chef 或 Puppet 或 Ansible 或 CFEngine 或 Salt 或 CloudFormation 或其他的？”
 
 好问题！ 
 
