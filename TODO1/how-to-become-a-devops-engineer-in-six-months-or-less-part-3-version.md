@@ -11,7 +11,7 @@
 
 “背光式笔记本的特写镜头”由 [Markus Petritz](https://unsplash.com/@petritzdesigns?utm_source=medium&utm_medium=referral) 发布在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)	
 
-注意: 这是《如何如何在六个月或更短的时间内成为DevOps 工程师》系列的第三部分，第一部分请点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md). 第二部分点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md).
+注意：这是《如何如何在六个月或更短的时间内成为DevOps 工程师》系列的第三部分，第一部分请点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md). 第二部分点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md).
 
 让我们快速回顾一下上期内容。
 
@@ -63,7 +63,7 @@ awesome_code.GOOD.12.25.2018.pl
 
 等等。
 
-当然，在专业环境中，您有多个团队在相同的代码库上进行协作，这进一步打破了这个模型。
+当然，在专业环境中，您有多个团队在相同的代码库上进行协作，这进一步打破这种文档备份方案。
 
 毋庸置疑，上面这种文件重命名来版本管理肯定行不通。
 
@@ -73,21 +73,21 @@ awesome_code.GOOD.12.25.2018.pl
 
 然而，相对较新的是**所有开发过程必须被版本化**的想法。
 
-那是什么意思？
+什么意思呢？
 
-这意味着触及生产环境的所有内容都必须存储在版本控制中，并受到跟踪，审核和更改历史记录的影响。
+这就是说涉及生产环境的所有内容都必须存储在版本控制中，并受到跟踪、审核和记录历史更改。
 
 此外，强制执行“所有开发过程必须版本化”的原则实际上迫使您以“自动化第一”的思维方式处理问题。
 
-例如，当您决定在 Dev AWS 环境中只通过点击解决复杂问题时，您可以暂停并思考，“所有点击事件都受版本控制吗？”
+例如，当您决定在 Dev AWS 环境中只通过点击解决复杂问题时，您可以暂停并思考这么一个问题：“所有点击操作都受版本控制了吗？”
 
-当然，答案是“不”。因此，虽然可以通过UI进行快速原型查看是否有效，但这些努力必须是短暂的。从长远来看，请确保您使用Terraform或其他架构即代码执行所有操作都受版本控制。
+当然，答案是“不”。因此，虽然可以通过 UI 进行快速原型查看是否有效，但这些努力必须是短暂的。从长远来看，请确保您使用 Terraform 或其他架构即代码工具来执行所有操作都受版本控制。
 
 好的，所以如果一切都受版本控制，那么我们如何存储和管理这些东西呢？
 
 答案是 git 。
 
-在[git](https://git-scm.com/doc) 出现之前，使用像 SVN 或其他的源代码控制系统是笨重的，不是用户友好的，并且通常是非常痛苦的经历。
+在 [git](https://git-scm.com/doc) 出现之前，使用像 SVN 或其他的源代码控制系统是笨重的，不是用户友好的，并且通常是非常痛苦的经历。
 
 git 的不同之处在于它包含**分布式**源代码控制的概念。
 
@@ -99,29 +99,29 @@ git 的不同之处在于它包含**分布式**源代码控制的概念。
 
 [https://xkcd.com/1597/](https://xkcd.com/1597/)
 
-现在，请记住，git **不是**像旧版的SVN一样。它是一个分布式源代码控制系统，多个团队可以安全，可靠地在共享代码库上工作。
+现在，请记住，git **不是**像旧版的 SVN 一样。它是一个分布式源代码控制系统，多个团队可以安全，可靠地在共享代码库上工作。
 
 这对我们意味着什么？
 
-具体来说，如果没有使用 git 版本管理而自称作专业的 DevOps（云）工程师，我严重怀疑你。 就这么简单。
+具体来说，如果没有使用 git 版本管理而自称作专业的 DevOps（云）工程师，我严重怀疑你的能力。 就这么简单。
 
 好的，那么如何学习 git 呢？
 
-我必须说，Google 搜索“ git 教程”的区别在于它提供的教程非常全面但非常令人困惑。
+我必须说，Google 搜索 “git 教程”的区别在于它提供的教程非常全面但非常令人困惑。
 
 但是，有一些非常非常好。
 
-我推荐大家阅读，学习和练习的一系列教程是[Atlassian's Git Tutorials](https://www.atlassian.com/git/tutorials).
+我推荐大家阅读，学习和练习的一系列教程是 [Atlassian's Git Tutorials](https://www.atlassian.com/git/tutorials)。
 
 事实上，它们都非常好，但特别是世界各地的专业软件工程师使用的部分：[Git Workflows](https://www.atlassian.com/git/tutorials/comparing-workflows).
 
-我再怎么强调也不为过。一次又一次地，缺乏理解git特性分支是如何工作的，或者没有解释 Gitflow 是什么让 99% 有抱负的 DevOps 工程师落选的原因。
+我再怎么强调也不为过。一次又一次地，缺乏理解 git 分支是如何工作的，或者没有解释 Gitflow 是什么让 99% 有抱负的 DevOps 工程师落选的原因。
 
-这是关键。你可以参加面试，不知道 Terraform 或者最新的架构及代码是什么，没关系 - 你可以在工作中学习它。
+这是关键。你可以参加面试，即使不知道 Terraform 或者最新的架构及代码是什么，没关系 - 你可以在工作中学习它。
 
 不知道 git 及其工作方式表明你缺乏现代软件工程最佳实践的基础知识，DevOps 与否。这向招聘经理发出信号，表明你的学习曲线非常陡峭。你不想发出信号！
 
-相反，您自信地谈论 git 最佳实践的能力告诉招聘经理您首先要具备软件工程思维模式 - 这正是您想要应用到工作中的思维。
+相反，您自信地谈论 git 最佳实践的能力告诉招聘经理您首先要具备软件工程思维模式 —— 这正是您想要应用到工作中的思维。
 
 总而言之，你不需要成为世界上最重要的 git 专家，来获得令人敬畏的 DevOps 角色，但你确实需要在一段时间内生活和呼吸 git，才能自信地谈论正在发生的事情。
 
@@ -132,15 +132,15 @@ git 的不同之处在于它包含**分布式**源代码控制的概念。
 3. 合并两个不同的 commit
 4. 创建 Pull 请求
 
-现在，一旦您完成介绍性的git教程，请获取[GitHub](https://help.github.com/) 帐户。
+现在，一旦您完成介绍性的 git 教程，请获取 [GitHub](https://help.github.com/) 帐户。
 
-注意：GitLab 也可以，但在撰写本文时，GitHub 是最流行的开源git存储库，因此您肯定希望和其他人分享。
+注意：GitLab 也可以，但在撰写本文时，GitHub 是最流行的开源 git 存储库，因此您肯定希望和其他人分享。
 
 获得 GitHub 帐户后，开始为其提供代码！无论你学到什么，都需要你编写代码，请确保定期将它提交给 GitHub。
 
-这不仅可以灌输良好的源代码控制规则，还可以帮助您建立自己的个人品牌。
+这不仅可以灌输良好的源代码控制思想，还可以帮助您建立自己的个人品牌。
 
-注意：当你学习如何使用 git + GitHub 时，要特别注意[Pull Requests](https://help.github.com/articles/about-pull-requests/) (也叫 PRs， 如果你想变酷)。
+注意：当你学习如何使用 git + GitHub 时，要特别注意 [Pull Requests](https://help.github.com/articles/about-pull-requests/) (也叫 PRs， 如果你想变酷)。
 
 ![](https://cdn-images-1.medium.com/max/800/0*E1Y3iKOJjkKiwcoa)
 
@@ -152,7 +152,7 @@ Pull Request, by [Vidar Nordli-Mathisen](https://unsplash.com/@vidarnm?utm_sourc
 
 这种方式（目前，更好的方式之一！）是建立一个 GitHub 账户，作为您的品牌代表。 这些天几乎所有的面试官都会要求求职者有 GitHub 账户。
 
-因此，您应该努力拥有一个整洁，精心策划的 GitHub 帐户 —— 您可以将其放在简历上并为此感到自豪。
+因此，您应该努力拥有一个整洁、精心策划的 GitHub 帐户 —— 您可以将其放在简历上并为此感到自豪。
 
 在后面的部分中，我们将讨论如何使用 [Hugo](https://gohugo.io/) 框架在 GitHub 上构建一个简单但酷炫的网站。 现在，只需将代码放入 GitHub 即可。
 
@@ -165,7 +165,7 @@ Pull Request, by [Vidar Nordli-Mathisen](https://unsplash.com/@vidarnm?utm_sourc
 * 利用＃1和＃2作为迄今为止所学到的所有知识的展示
 * 从中受益！
 
-最后，请记住这个领域的最新发展，例如 [GitOps](https://queue.acm.org/detail.cfm?ref=rss&id=3237207).
+最后，请记住这个领域的最新发展，例如 [GitOps](https://queue.acm.org/detail.cfm?ref=rss&id=3237207)。
 
 GitOps 将我们迄今为止讨论的所有想法提升到新的水平 —— 一切都通过 git, pull requests, and deployment pipelines。
 
