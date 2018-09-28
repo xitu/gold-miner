@@ -11,7 +11,7 @@
 
 照片由 [Reto Simonet](https://unsplash.com/@reetoo?utm_source=medium&utm_medium=referral) 发布在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
 
-**注意**：这是《如何如何在六个月或更短的时间内成为 DevOps 工程师》系列的第二部分，第一部分请点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md).
+**注意 ：这是《如何如何在六个月或更短的时间内成为 DevOps 工程师》系列的第二部分，第一部分请点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md).**
 
 让我们快速回顾一下上期内容。
 
@@ -64,7 +64,7 @@
 
 1. 在 [Terraform](https://www.terraform.io/) 中写出所需的基础设施状态，
 2. 将其存储在我们的源代码控制中，
-3. 通过正式 [Pull Request](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow)流程征求反馈意见，
+3. 通过正式 [Pull Request](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow) 流程征求反馈意见，
 4. 测试一下，
 5. 执行提供所需的所有容器资源。
 
@@ -82,7 +82,7 @@
 
 * * *
 
-侧记：这个空间正在迅速发展，非常混乱。我想用几分钟的时间来谈论一些最近的历史和我看到它的发展。像 Terraform 和 CloudFormation 之类的东西被用来提供基础设施，而像 Ansible 之类的东西被用来配置基础设施。
+侧记：这项技术正在迅速发展，非常混乱。我想用几分钟的时间来谈论一些最近的历史和我看到它的发展。像 Terraform 和 CloudFormation 之类的东西被用来提供基础设施，而像 Ansible 之类的东西被用来配置基础设施。
 
 一般，像 Terraform 和 CloudFormation 这样的东西已被用来提供**基础设施**，而像 Ansible 这样的东西则被用来配置**基础设施**。
 
@@ -112,7 +112,7 @@
 
 为什么这样说呢？
 
-因为所谓的“[不可变部署](https://blog.codeship.com/immutable-infrastructure/)。”
+因为所谓的“[不可变部署](https://blog.codeship.com/immutable-infrastructure/)”。
 
 简而言之，就是是指不改变已部署的基础架构的做法。换句话说，您的部署单元是 VM 或 Docker 容器，而不是一段代码。
 
