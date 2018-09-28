@@ -2,68 +2,68 @@
 > * 原文作者：[Yaz](https://uxdesign.cc/@yazinakkawi?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-airbnb-proved-that-storytelling-is-the-most-important-skill-in-design.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-airbnb-proved-that-storytelling-is-the-most-important-skill-in-design.md)
-> * 译者：
-> * 校对者：
+> * 译者：[CoolRice](https://github.com/CoolRice)
+> * 校对者：[lihanxiang](https://github.com/lihanxiang), [Park-ma](https://github.com/Park-ma)
 
-## How Snow White helped Airbnb prove that storytelling is the most important skill in design
+## 白雪公主如何帮助 Airbnb 证明在设计中最重要的技能是讲故事
 
-## The company’s biggest breakthrough innovations start with text.
+## 公司最大的突破性创新始于文字。
 
 ![](https://cdn-images-1.medium.com/max/800/1*hz4NkBByaFm4Mkg_Hf8olQ.jpeg)
 
 Photo by [Alexis Marcou](https://dribbble.com/AlexisMarcou)
 
-Want to know the secret to Airbnb’s success and world-class user experience? You might want to turn to the Disney movie Snow White.
+想知道 Airbnb 成功的秘诀和世界级用户体验吗？你可能想求助于迪士尼电影《白雪公主》。
 
-But before I can explain why, let me introduce you to Tom Wolfe.
+但在我解释原因之前，让我向你介绍 Tom Wolfe。
 
-### “Not Seeing is Believing, but Believing is Seeing.”
+### “不见即信，但信即所见”
 
-Tom Wolfe was known for revolutionizing journalism in the 60’s by combining the colorful storytelling more commonly used in fiction writing, and applying it to his non-fiction reporting.
+Tom Wolfe 闻名于 60 年代的新闻业革命，因其在小说创作中使用更多丰富多彩的故事情节并将其应用于他的非小说类报道。
 
-In the opening pages of one of his books, _The Painted Word_, Wolfe describes his sudden, astonishing epiphany about the radical movement of contemporary art — in particular, about the rise of abstract paintings that you look at and think, “Well, I could’ve made that.”
+在他的一本书《The Painted Word》的开篇页面中，Wolfe 描述了他对当代艺术激进运动的突然、惊人的顿悟 —— 特别是关于你所看到和思考的抽象绘画的兴起，“好吧，我已经可以理解了。”
 
-Wolfe’s epiphany was sparked by a [_New York Times_ critique](https://www.nytimes.com/1974/04/28/archives/realism-the-painting-is-fiction-enough-art.html) of realism art. In short, the critic-in-chief wrote that, without a theory to go with it, it’s hard to appreciate a painting.
+Wolfe 的顿悟是由[纽约时报批判](https://www.nytimes.com/1974/04/28/archives/realism-the-painting-is-fiction-enough-art.html)现实主义艺术引发的。简而言之，这位批评者写道，如果没有理论依据它，就很难欣赏一幅画。
 
-Wolfe vividly recalls reading this and being rattled, having a serious “aha moment.” For the first time, he finally understood contemporary art.
+Wolfe 生动地回忆起读这篇文章并感到不安然后有了一个认真的 “aha moment”，这是他第一次理解当代艺术。
 
-> _“All these years I, like so many others, had stood in front of a thousand, two thousand, God-knows-how-many thousand [paintings] . . . All these years, in short, I had assumed that in art, if nowhere else, seeing is believing. Well — how very shortsighted! Now, at last, on April 28, 1974, I could see. I had gotten it backward all along. “Not “seeing is believing,” you ninny, but_ “believing is seeing,” _for Modern Art has become completely literary: the paintings and other works exist only to illustrate the text.”_
+> “这些年来，我和许多其他人一样，站在一千，两千，天知道有多少个[绘画]面前……简而言之，这些年来，我一直认为在艺术领域里如果没有别的方法，那么所见即所信。啊 — 多么地短视！现在终于在1974年4月28日，我知道了我的理解一直都是落后的。“不是**看见就相信**，你个笨蛋，而是**相信即所见**，**因为现代艺术已经完全变成文学的：绘画和其他作品只是为了说明文字而存在**。”
 
-Well, like a painting, experience design starts with words; words that ask and answer a question. How do you want to make someone feel? What message do you want to send? What behaviors do you want to encourage?
+好吧，就像一幅画一样，体验设计启始于文字；提问和回答问题的文字。你想让别人有什么样的感受？你想传递什么样的信息？你想鼓励什么样的行为？
 
-Great experience design is, as Wolfe described, completely literary — a narrative of an outcome that is achieved through the design of a product or service.
+正如 Wolfe 所描述的那样，伟大的体验设计完全是文学上的 —— 对结果（通过产品或服务的设计实现的）的叙述。
 
-### How Airbnb Used Storytelling (and Hired Pixar Animators) to Design Cutting-Edge Experiences
+### Airbnb 如何使用讲故事（和聘请皮克斯动画师）来设计前沿体验
 
-Each person within a company contributes to the experience design by telling stories. Stories throughout the experience design process capture the essence of each moment for the customer and the ideal outcome, without confining the design process to a specific solution: what the customer does, thinks, and feels at every step.
+公司内的每个人都通过讲故事来为体验设计做出贡献。整个体验设计过程中的故事捕捉了客户每个时刻的本质和理想的结果，而不是将设计过程局限于特定的解决方案：客户在每一步都做了什么，思考和感受到什么。
 
-And like Wolfe, Airbnb harnessed the power of storytelling to create a customer experience breakthrough in the early days of the company.
+和 Wolfe 一样，Airbnb 利用讲故事的力量在公司成立初期创造了客户体验的突破。
 
-When Airbnb CEO Brian Chesky read Walt Disney’s biography, he discovered a technique invented by Disney and his animators to create _Snow White and the Seven Dwarfs._ The technique was called storyboarding, creating comic-book-like outline of the story to allow all of the film’s collaborators understand the shape the vision of the film’s narrative.
+当 Airbnb 首席执行官 Brian Chesky 阅读沃尔特迪士尼的传记时，他发现迪士尼和他的动画师发明了一种**创造白雪公主和七个小矮人**的技术。这种技术被称为故事板，创造漫画书般的故事轮廓，让所有电影的合作者都能理解电影叙事的视觉形态。
 
-It was a light-bulb moment for Chesky, who immediately decided to adopt storyboarding to design the future of the Airbnb customer experience.
+对于 Chesky 来说，这是一个灯泡时刻，他立即决定采用故事板来设计未来的 Airbnb 用户体验。
 
-[As _Fast Company_ reports](https://www.fastcompany.com/3002813/how-snow-white-helped-airbnbs-mobile-mission), this project was code-named “Snow White” and started with a list of the emotional moments that comprise the end-to-end Airbnb experience, which quickly evolved into stories shared around the company.
+正如 [**Fast Company** 报道](https://www.fastcompany.com/3002813/how-snow-white-helped-airbnbs-mobile-mission)的那样，这个项目代号为“白雪公主”并从一系列情感时刻开始，这些情感时刻组成了端到端的 Airbnb 体验，并迅速演变为围绕公司的故事分享。
 
-Ironically, to increase the fidelity of the stories as a communication tool, Airbnb hired an animator from Disney’s Pixar to illustrate the storyboards of the customer experience.
+有趣的是，为了提高故事作为交流工具的保真度，Airbnb 聘请了迪士尼皮克斯的动画师来演示客户体验的故事板。
 
-Here’s how the storytelling process became a roadmap in the early stages of the company:
+视频讲述在公司早期阶段讲故事流程是怎样成为公司路线图的：
 
 * YouTube 视频链接：https://youtu.be/nT7Irq8YuSo
 
-To inform the stories-driven design process, Airbnb wanted to tell the story of the perfect trip. [In a podcast interview](https://www.stitcher.com/podcast/stitcher/masters-of-scale/e/51210073), Chesky describes an experiment in which he offered a single customer the trip of a lifetime: Airbnb spent tens of thousands of dollars to give one person the best possible experience traveling as possible.
+为了告知故事驱动的设计流程，Airbnb 希望讲述完美旅行的故事。[在一次播客采访](https://www.stitcher.com/podcast/stitcher/masters-of-scale/e/51210073)中，Chesky 描述了一个实验，在实验中他为一位客户提供了一生的旅行体验：Airbnb 花费数万美元给一个人尽可能最好的旅行体验。
 
-That one customer’s mind-blowing experience was the foundation of the story that, when broken down into the storyboards, would eventually scale into what’s known today as [Airbnb trips](https://www.airbnb.com/new).
+一个令人兴奋的用户体验在分解融入到故事板，最终就扩展为今天所知的 [Airbnb 之旅](https://www.airbnb.com/new)。
 
-### Every Designer is a Storyteller
+### 每个设计师都是讲故事的人
 
-Every business breakthrough starts with a story, from a customer’s pain point or, like in the case of Airbnb, a story about a particularly excellent experience a customer once had.
+每个业务突破都始于一个故事，从客户的痛点开始，或者像 Airbnb 一样，是一个关于客户曾经拥有的特别优秀体验的故事。
 
-Most designers or entrepreneurs strive for product innovations with wireframes or product sketches. But why not start with a text? Whether it’s a movie-script-like document written in Microsoft Word, or a comic-book strip drawn on paper.
+大多数设计师或企业家都在努力通过线框或产品草图进行产品创新。但为什么不从文字开始呢？无论它是用 Microsoft Word 编写的类似电影脚本的文档，还是纸上绘制的连环画漫画。
 
-Granted, stories don’t _always_ precede form. Stories and designs inform each other symbiotically — working through a design can help inform the story, too. But starting with storytelling can make the process more digestible and sharable.
+当然，故事并不**总是**先于形式。故事和设计相互相通 — 通过设计工作也可以帮助讲述故事。但从讲故事开始可以使这个设计过程更容易消化和共享。
 
-Start with text because, as Wolfe once taught us, the things we make only exist to illustrate stories we want to manifest into reality; whether it’s an animated Disney film or an innovative product or service.
+正如 Wolfe 曾教我们的那样，从文字开始是因为我们所做的事情都只是为了说明故事（想要表现为现实的）；无论是动画迪士尼电影还是创新产品或服务。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
