@@ -41,7 +41,7 @@
 
 也就是说，如果你通过 [获取订阅 API](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions/get#response) 来查询这些令牌，包括上面的图表内的 A, D, F, G和H，你会得到 [订阅资源响应](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions#resource) ，响应里表明订阅还没有过期并且付款已经收到，即便如此你也只应该根据最近的令牌来授权。
 
-第一眼看上去很奇怪：为什么最初的令牌还是在被更新后还是有效的？简短的答案是这种实现能够让开发者提供内容和服务时有更多的灵活性，也让 Google 更好的保护用户隐私。然而这也确实需要你在后端服务上进行重要的簿记。
+第一眼看上去很奇怪：为什么最初的令牌还是在被更新后还是有效的？简单来说是这样实现能让开发者更灵活地提供内容和服务，也让 Google 更好的保护用户隐私。然而这也确实需要你在后端服务器上进行重点记录
 
 ### 操作 linkedPurchaseToken
 
@@ -90,16 +90,16 @@
 
 ### 参考资料
 
-*   谷歌 [Play Billing Library](https://developer.android.com/google/play/billing/billing_library_overview)
-*   订阅 [升级和降级](https://developer.android.com/google/play/billing/billing_subscriptions#Allow-upgrade)
-*   [订阅 API](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions#resource)
-*   [优雅出租车](https://github.com/googlesamples/android-play-billing/tree/master/ClassyTaxi) 端对端订阅的简单应用
+*   Google [Play Billing Library](https://developer.android.com/google/play/billing/billing_library_overview)
+*   Subscription [upgrades and downgrades](https://developer.android.com/google/play/billing/billing_subscriptions#Allow-upgrade)
+*   [Subscriptions API](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions#resource)
+*   [ClassyTaxi](https://github.com/googlesamples/android-play-billing/tree/master/ClassyTaxi) 端对端订阅的简单应用
 
 [**_¹重新注册_**](#895f) _是指当一个用户订阅，然后取消订阅，接着又在初始的订阅过期之前重新订阅。尽管用户不会丢失授权，新的订阅也和之前的一样，他们还是会经历另一个付款流程，因为他们承诺了未来的付款。他们会收到新的购买令牌并且 linkedPurchaseToken 字段会在升级或者降级的时候被设置。_
 
 > _本文所有的代码都遵循_ [_Apache 2.0 许可_](https://www.apache.org/licenses/LICENSE-2.0)_。本文不包括 Google 正式产品任何部分，并且只是为了参考使用。_
 
-> 文章开始的令牌图片是从 [该链接](https://commons.wikimedia.org/wiki/File:French_revolutionary_shop_token_%28FindID_530752%29.jpg) 复制的。归属：可移动文物计划/ 大英博物馆基金会。[知识共享](https://en.wikipedia.org/wiki/en:Creative_Commons "w:en:Creative Commons") 下 [归属共享 2.0](https://creativecommons.org/licenses/by-sa/2.0/deed.en) 许可。
+> 文章开始的令牌图片是从 [该链接](https://commons.wikimedia.org/wiki/File:French_revolutionary_shop_token_%28FindID_530752%29.jpg) 复制的。归属：便携式古物计划/ 大英博物馆基金会。[知识共享](https://en.wikipedia.org/wiki/en:Creative_Commons "w:en:Creative Commons") 下 [归属共享 2.0](https://creativecommons.org/licenses/by-sa/2.0/deed.en) 许可。
 
 感谢 [Cartland Cartland](https://medium.com/@cartland_88360?source=post_page)。
 
