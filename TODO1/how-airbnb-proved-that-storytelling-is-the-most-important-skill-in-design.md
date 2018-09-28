@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-airbnb-proved-that-storytelling-is-the-most-important-skill-in-design.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-airbnb-proved-that-storytelling-is-the-most-important-skill-in-design.md)
 > * 译者：[CoolRice](https://github.com/CoolRice)
-> * 校对者：
+> * 校对者：[lihanxiang](https://github.com/lihanxiang), [Park-ma](https://github.com/Park-ma)
 
 ## 白雪公主如何帮助 Airbnb 证明在设计中最重要的技能是讲故事
 
@@ -27,7 +27,7 @@ Wolfe 的顿悟是由[纽约时报批判](https://www.nytimes.com/1974/04/28/arc
 
 Wolfe 生动地回忆起读这篇文章并感到不安然后有了一个认真的 “aha moment”，这是他第一次理解当代艺术。
 
-> “这些年来，我和许多其他人一样，站在一千，两千，天知道有多少个[绘画]面前……简而言之，这些年来，我一直认为在艺术领域里如果没有别的方法，那么所见即所信。啊 — 多么地短视！现在终于在1974年4月28日，我知道了我的理解一直都是落后的。“不是**看见就相信**，你个笨蛋，而是**相信即所见** ，**因为现代艺术已经完全变成文学的：绘画和其他作品只是为了说明文字而存在**。”
+> “这些年来，我和许多其他人一样，站在一千，两千，天知道有多少个[绘画]面前……简而言之，这些年来，我一直认为在艺术领域里如果没有别的方法，那么所见即所信。啊 — 多么地短视！现在终于在1974年4月28日，我知道了我的理解一直都是落后的。“不是**看见就相信**，你个笨蛋，而是**相信即所见**，**因为现代艺术已经完全变成文学的：绘画和其他作品只是为了说明文字而存在**。”
 
 好吧，就像一幅画一样，体验设计启始于文字；提问和回答问题的文字。你想让别人有什么样的感受？你想传递什么样的信息？你想鼓励什么样的行为？
 
