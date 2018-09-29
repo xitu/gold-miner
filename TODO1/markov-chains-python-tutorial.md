@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/markov-chains-python-tutorial.md](https://github.com/xitu/gold-miner/blob/master/TODO1/markov-chains-python-tutorial.md)
 > * 译者：[cdpath](https://github.com/cdpath)
-> * 校对者：
+> * 校对者：[jianboy](https://github.com/jianboy), [Kasheem Lew](https://github.com/kasheemlew)
 
 # 用 Python 实现马尔可夫链的初级教程
 
