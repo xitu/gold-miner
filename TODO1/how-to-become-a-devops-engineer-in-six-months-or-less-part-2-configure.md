@@ -2,8 +2,8 @@
 > * 原文作者：[Igor Kantor](https://medium.com/@devfire?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jianboy](https://github.com/jianboy)
+> * 校对者：[lihanxiang](https://github.com/lihanxiang)
 
 # 如何在六个月或更短的时间内成为 DevOps 工程师，第二部分：配置
 
@@ -11,7 +11,7 @@
 
 照片由 [Reto Simonet](https://unsplash.com/@reetoo?utm_source=medium&utm_medium=referral) 发布在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
 
-**注意：这是《如何如何在六个月或更短的时间内成为 DevOps 工程师》系列的第二部分，第一部分请点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md).**
+**注意：这是《如何如何在六个月或更短的时间内成为 DevOps 工程师》系列的第二部分，第一部分请点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md)。**
 
 让我们快速回顾一下上期内容。
 
@@ -86,7 +86,7 @@
 
 一般，像 Terraform 和 CloudFormation 这样的东西已被用来提供**基础设施**，而像 Ansible 这样的东西则被用来配置**基础设施**。
 
-您可以将 Terraform 视为创建基础的工具， Ansible 将房子置于最顶层，然后根据您的需要部署应用程序（例如 Ansible ）。
+您可以将 Terraform 视为创建基础的工具，Ansible 将房子置于最顶层，然后根据您的需要部署应用程序（例如 Ansible）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*9kmJS9w9gNgqJMmmqb_NVg.png)
 
@@ -96,7 +96,7 @@
 
 通常将这些工具放在一起使用。
 
-但是， Ansible 可以做的(如果不是全部），Terraform 也可以做。反过来也是如此。
+但是， Ansible 可以做的（如果不是全部），Terraform 也可以做。反过来也是如此。
 
 不要让那些困扰你。只要知道 Terraform 是基础架构代码空间中最具好的工具之一，所以我强烈建议你从这里开始。
 
@@ -130,13 +130,13 @@
 
 注意：不可变部署要求将配置与您的代码分开。请阅读[12 Factor App](https://12factor.net/），其中详细介绍了这个(以及其他令人敬畏的想法！）。这是 DevOps 从业者必读的内容。
 
-代码与配置的分离非常重要 —— 您不希望每次修改数据库密码时都重新部署整个应用程序。相反，请确保应用程序可以从外部配置存储 (SSM/Consul/etc) 中提取它。
+代码与配置的分离非常重要 —— 您不希望每次修改数据库密码时都重新部署整个应用程序。相反，请确保应用程序可以从外部配置存储（SSM/Consul/etc）中提取它。
 
 此外，您可以很容易地看到，如果不可变部署的兴起，像 Ansible 这样的工具开始扮演的角色不那么突出。
 
 原因您只需要配置**一台**服务器并将其作为自动扩展的集群一部分进行多次部署。
 
-或者，如果您正在使用容器，您肯定希望几乎按要求进行不可变部署。你不**希望你的开发容器与你的 QA 容器不同，并且与生产环境不同。
+或者，如果您正在使用容器，您肯定希望几乎按要求进行不可变部署。你**不**希望你的开发容器与你的 QA 容器不同，并且与生产环境不同。
 或者，如果您正在使用容器，您肯定希望几乎按要求进行不可变部署。你**不**希望你的开发容器与你的 QA 容器不同，并且与生产环境不同。
 
 您希望**在所有环境中使用完全相同的容器**。这可以避免配置偏差，并在出现问题时简化回滚。
@@ -151,7 +151,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/0*nX3CGWxtkMFh5P5N.jpg)
 
-总而言之，我们的全自动“ DevOps ”之旅始于配置运行代码所需的计算资源 —— 配置阶段。而实现这一目标的最佳方法是通过不可变部署。
+总而言之，我们的全自动 “DevOps” 之旅始于配置运行代码所需的计算资源 —— 配置阶段。而实现这一目标的最佳方法是通过不可变部署。
 
 最后，如果您对从何处开始感到好奇，Terraform + AWS 组合是您开始旅程的绝佳场所！
 
@@ -159,7 +159,7 @@
 
 第三部分的内容在[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or -less-part-3-version.md）！
 
-> 如果发现译文存在错误或其他需要改进的地方，欢迎到[掘金翻译计划](https://github.com/xitu/gold-miner)对译文进行修改并 PR，也可获得相应奖励积分。文章开头的**本文永久链接**即为本文在 GitHub 上的 MarkDown 链接。
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的**本文永久链接**即为本文在 GitHub 上的 MarkDown 链接。
 
 
 ---
