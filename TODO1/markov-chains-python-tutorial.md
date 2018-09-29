@@ -5,7 +5,7 @@
 > * 译者：[cdpath](https://github.com/cdpath)
 > * 校对者：
 
-# 用 Python 实现马尔可夫链的初学者教程
+# 用 Python 实现马尔可夫链的初级教程
 
 ## 学习马尔可夫链及其性质，了解转移矩阵，并用 Python 动手实现！
 
