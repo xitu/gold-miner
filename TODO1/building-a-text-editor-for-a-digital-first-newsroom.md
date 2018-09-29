@@ -2,60 +2,60 @@
 > * 原文作者：[Sophia Ciocca](https://open.nytimes.com/@sophiaciocca?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/building-a-text-editor-for-a-digital-first-newsroom.md](https://github.com/xitu/gold-miner/blob/master/TODO1/building-a-text-editor-for-a-digital-first-newsroom.md)
-> * 译者：
+> * 译者：[diliburong](https://github.com/diliburong)
 > * 校对者：
 
-# Building a Text Editor for a Digital-First Newsroom
+# 为数字优先新闻编辑室开发文本编辑器
 
-## An inside look at the inner workings of a technology you may take for granted
+## 内观一个你可能认为理所当然的技术内部运作
 
 ![](https://cdn-images-1.medium.com/max/800/1*LnJwoZLOuEZ1v1eAN-UWZg.gif)
 
-Illustration by Aaron Krolik/The New York Times
+Aaron Krolik / 纽约时报的插图
 
-If you’re like most people in America, you use a text editor nearly every day. Whether it’s your basic Apple Notes, or something more advanced like Google Docs, Microsoft Word or Medium, our text editors allow us to record and render our important thoughts and information, enabling us to tell stories in the most engaging ways.
+如果你和美国的大多数人一样，几乎每天都会使用某个文本编辑器。无论是您的基本 Apple Notes，还是像 Google Docs、Microsoft Word 或 Mediumz 等更高级的东西，我们的文本编辑器都允许我们记录和呈现我们重要的想法和信息，使我们能够以最吸引人的方式讲述故事。
 
-But you might not have ever thought about how those text editors work  under the hood. Every time you press a key, hundreds of lines of code may be executing to render your desired character on the page. Actions that seem small — such as dragging a selection over a few words of text or turning text into a heading — actually trigger lots of changes in the system underlying the program.
+但是你可能没有想过这些文本编辑器的后台运作原理。每次你按下某个键时，可能会执行数百行的代码来在页面上呈现你想要的字符。看似很小的操作，例如拖动选择文本中的几段文字或或将文本转换为标题，这实际上会触发程序系统底层的大量变化。
 
-While you may not think about the code powering these complicated text-editing maneuvers, my team here at The New York Times thinks about it constantly. Our primary task is to create an ultra-customized story editor for the newsroom. Beyond the basics of being able to type and render content, this new story editor needs to combine the advanced features of Google Docs with the intuitive design focus of Medium, then add lots of features unique to the newsroom’s workflow.
+虽然你可能无需考虑为这些复杂的文本编辑操作提供动力的代码，但我在纽约时报的团队确不断在思考它。我们的主要任务是为新闻工作室创建一个高度定制的报道编辑器。除了输入和呈现内容的基础功能之外，这个新的报道编辑器需要将 Google Docs 的高级特性与 Medium 的直观设计重点结合起来，并且添加新闻室工作流程独有的许多功能特性。
 
-For a number of years, The Times’s newsroom has used a legacy homegrown text editor that hasn’t quite served its many needs. While our older editor is intensely tailored to the newsroom’s production workflow, its UI leaves much to be desired: It heavily compartmentalizes that workflow, separating different parts of a story (e.g. text, photos, social media and copy-editing) into completely different parts of the app. Producing an article in this older editor therefore requires navigating through a lengthy series of unintuitive and visually unappealing tabs.
+多年以来，泰晤士报新闻编辑室使用了一个传统的自制文本编辑器，它并没有满足其众多需求。虽然我们的旧版编辑器非常适合新闻编辑室的生产工作流程，但它的用户界面还有许多不足：它严重的分隔了工作流程，将报道的不同部分（例如文本、照片、社交媒体和文案编辑）分离成应用程序的完全不同的部分。因此，要在这个较老的编辑器中生成一片文章需要浏览一系列冗长的、非直观的，并且视觉上没有吸引力的标签。
 
-In addition to promoting a fragmented workflow for users, the legacy editor also causes a lot of pain on the engineering side. It relies on direct DOM manipulation to render everything in the editor, adding various HTML tags to signify the difference between deleted text, new text and comments. This means engineers on other teams then have to put the article through heavy tag cleanup before it can be published and rendered to the website, a process that is time-consuming and prone to mistakes.
+除了使用户的工作流程碎片化之外，传统的编辑器在工程方面也造成很大的痛苦。它依赖于直接操作 DOM 来在编辑器中呈现所有内容，例如添加各种 HTML 标记以表示已删除文本，新文本和注释之间的区别。这意味着其他团队的工程师必须在文章发布并呈现到网站之前对文章进行大量严格的标记清理，将会是一个耗时并且容易出错的过程。
 
-As the newsroom evolves, we envisioned a new story editor that would visually bring the different components of stories _inline,_ so that reporters and editors alike could see exactly what a story would look like before it publishes. Additionally, the new approach would ideally be more intuitive and flexible in its code implementation, avoiding many of the problems caused by the older editor.
+随着新闻编辑室的发展，我们设想了一个新的报道编辑器，它可以直观的将报道的不同组成部分**内联**，这样记者和编辑都可以在发布前准确的看到报道的样子。另外，理想情况下，新的方法在其代码实现中更加直观和灵活，避免了旧版编辑器的许多问题。
 
-With these two goals in mind, my team set out to build this new text editor, which we named Oak. After much research and months of prototyping, we opted to build it on the foundation of [ProseMirror](http://prosemirror.net/), a robust open-source JavaScript toolkit for building rich-text editors. ProseMirror takes a completely different approach than our old text editor did, representing the document using its own non-HTML [tree-shaped data structure](https://en.wikipedia.org/wiki/Tree_%28data_structure%29) that describes the structure of the text in terms of paragraphs, headings, lists, links and more.
+考虑到这两个目标，我的团队开始开发这个新型文本编辑器，我们将其命名为 Oak。经过大量研究和数月的原型设计，我们选择在 [ProseMirror](http://prosemirror.net/) 的基础上开发它。ProseMirror 是一个用于构建富文本编辑器的强大开源 JavaScript 工具包，它采用了和我们旧版编辑器完全不同的方法，使用它自己的非 HTML [树形结构](https://en.wikipedia.org/wiki/Tree_%28data_structure%29) 来表示文档，该结构根段落、标题、列表和连接等来描述文本的构成。
 
-Unlike the output of our old editor, the output of a text editor built on ProseMirror can ultimately be rendered as a DOM tree, Markdown text or any other number of other formats that can express the concepts it encodes, making it very versatile and solving many of the problems we run into with our legacy text editor.
+与我们旧版的编辑器所不同的是，基于 ProseMirror 开发的文本编辑器的输出可以最终可以呈现为 DOM 树、Markdown 文本或任何其他可以表达其编码概念的其他格式，使它非常通用并且解决许多我们在旧版文本编辑器上遇到的问题。
 
-So how does ProseMirror work, exactly? Let’s jump into the technology behind it.
+那么 ProseMirror 究竟是如何工作的呢？让我们赶快深入它背后的技术。
 
-### Everything is a Node
+### 一切都是节点
 
-ProseMirror structures its main elements — paragraphs, headings, lists, images, etc. — as _nodes_. Many  nodes can have child nodes — e.g., a `heading_basic` node can have child nodes including a `heading1` node, a `byline` node, a `timestamp` node and `image` nodes. This leads to the tree-like structure I mentioned above.
+ProseMirror 将其主要元素--段落、标题、列表、图片等--构造为**节点**。许多节点都可以具有子节点，例如 `heading_basic` 节点可以具有包括 `heading1` 、`byline`、`timestamp` 和 `image` 等子节点。这构成了我上面所提到的属性结构。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*Ek78_oxd_hD-fn_dx-YvFg.png)
 
-The interesting exception to this tree-like structure lies in the way paragraph  nodes codify their text. Consider a paragraph consisting of the sentence, “This is **strong text with _emphasis_**”.
+这种树状结构有趣的例外在于段落节点编纂文本的方式。考虑由以下句子组成的段落，“This is **strong text with _emphasis_**”。
 
-The DOM would codify that sentence as a tree, like this:
+DOM 会将该句子编成树，如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/0*oGZfDS1Rlm4MzAQu.)
 
-_Traditional DOM representation of a sentence — its tags work in a nested, tree-like fashion. Source:_ [_ProseMirror_](https://prosemirror.net/docs/guide/)
+**句子的传统 DOM 表示 — 其标签以嵌套的树状方式工作。来源：** [**ProseMirror**](https://prosemirror.net/docs/guide/)
 
-In ProseMirror, however, the content of a paragraph is represented as a flat sequence of inline elements, each with its own set of styles:
+但是，在 ProseMirror 中，段落的内容表示为一个扁平的内联元素序列，每个元素都有自己的样式
 
 ![](https://cdn-images-1.medium.com/max/800/0*BKjocnJ6-DyNj-tK.)
 
-_How ProseMirror would structure the same sentence. Source:_ [_ProseMirror_](https://prosemirror.net/docs/guide/)
+**ProseMirror 如何构造相同的句子。来源：** [**ProseMirror**](https://prosemirror.net/docs/guide/)
 
-There’s an advantage to this flat paragraph structure: ProseMirror keeps track of every node in terms of its numerical position. Because ProseMirror recognizes the italicized and bolded word “emphasis” in the example above as its own standalone node, it can represent the node’s position as simple character offsets rather than thinking about it as a location in a tree. The text editor can know, for example, that the word “emphasis” begins at position 63 in the document, which makes it easy to select, find and work with.
+扁平化的段落结构有一个有点：ProseMirror 依据其数字位置来追踪每个节点。因为 ProseMirror 将上面示例中的斜体和粗体字 "emphasis" 识别为其自己的独立节点，所以它可以将节点的位置表示为简单的字符偏移，而不是将其视为文档树中的位置。例如，文本编辑器可以知道 "emphasis" 一词从文档的63位开始。这使得选择、查找和使用更加容易。
 
-All of these nodes — paragraph nodes, heading nodes, image nodes, etc. — have certain features associated with them, including sizes, placeholders and draggability. In the case of some specific nodes like images or videos, they also must contain an ID so that media files can be found in the larger CMS environment. How does Oak know about all of these node features?
+所有的这些节点--段落、标题、图像等--具有它们相关联的某些特征，包括大小、占位符和可拖动性。在某些特定节点（如图像或视频），它们还必须包括 ID 以便媒体文件能够在较大的 CMS 环境中被找到。Oak 是如何知道所有这些节点功能的呢？
 
-To tell Oak what a particular node is like, we create it with a “node spec,” a class that defines those custom behaviors or methods that the text editor needs to understand and properly work with the node. We then define a schema of all the nodes that exist in our editor and where each node is allowed to be placed in the overall document. (We wouldn’t, for example, want users placing embedded tweets inside of the header, so we disallow it in the schema.) In the schema, we list all the nodes that exist in the Oak environment and how they relate to each other.
+为了告诉 Oak 特定节点是怎么样的，我们使用“节点规范”来创建它，它是一个定义了文本编辑器需要理解并正确使用节点的自定义方法或行为的类。接着我们定义一个适用于编辑器中所有节点的 schema，并且表明了每个节点在整个文档中能够被允许放置的位置。（例如，我们不希望用户在页眉中放置嵌入式推文，因此我们在模式中禁止它。）在 schema 中我们列出了所有在 Oak 环境中存在的节点以及他们之间的关联方式。
 
 ```
 export function nytBodySchemaSpec() {
@@ -79,41 +79,41 @@ export function nytBodySchemaSpec() {
 }
 ```
 
-Using this list of all the nodes that exist in the Oak environment and how they relate to each other, ProseMirror creates a model of the document at any given time. This model is an object, very similar to the JSON shown next to the example Oak article in the topmost illustration. As the user edits the article, this object is constantly being replaced with a new object that includes the edits, which ensures ProseMirror always knows what the document includes and therefore what to render on the page.
+使用Oak环境中存在的所有节点的列表以及它们彼此之间的关系，ProseMirror 可以在任何时间点创建文档模型。此模型是一个对象，与最顶层插图中示例采用 Oak 编辑的文章旁边显示的 JOSN 结构非常相似。当用户编辑文章时，该对象将不断被包含编辑内容的新对象替换，以确保 ProseMirror 始终知道文档包含的节点信息来在页面上呈现内容。
 
-Speaking of which: Once ProseMirror knows how nodes fit together in a document tree, how does it know what those nodes look like or how to actually display them on the page? To map the ProseMirror state to the DOM, every node has a simple `toDOM()` method out of the box that converts the node to a basic DOM tag — for example, a Paragraph node’s `toDOM()` method would convert it to a `<p>` tag, while an Image node’s `toDOM()` method would convert it to an `<img>` tag. But because Oak needs customized nodes that do very specific things, our team leverages ProseMirror’s NodeView function to design a custom React component that renders the nodes in specific ways.
+说到这里，每当 ProseMirror 知道节点在文档树中如何组合之后，它又是如何那些节点是什么样子又或如何实际在页面上显示它们？要将 ProseMirror 的状态映射到 DOM，每个节点都有一个开箱即用的简易方法 `toDOM()` 用来将节点转化为基本的 DOM 标签。例如，Paragraph 节点的 `toDOM()` 方法会将它转化为 `<p>` 标签，而 Image 节点会被转化为 `<img>` 标签。但是由于 Oak 需要自定义节点来做一些特殊的事务，我们的团队利用 ProseMirror 的 NodeView 功能来设计一个用来以特殊方式渲染节点的自定义 React 组件。
 
-(Note: ProseMirror is framework-agnostic, and NodeViews can be created using any front-end framework or none at all; our team has just chosen to use React.)
+（注意：ProseMirror 与框架无关，NodeView可以使用任何前端框架创建。我们的团队使用 React）
 
-### Keeping track of text styling
+### 跟踪文本样式
 
-If a node is created with a specific visual appearance that ProseMirror gets from its NodeView, how do additional user-added stylings like bold or italics work? That’s what _marks_ are for. You might have noticed them up in the schema code block above.
+如果创建的节点具有通过 ProseMirror 从其 NodeView 获取的特定视觉外观，那么其他用户添加的样式（例如粗体和斜体）改如何生效？这里就是 **marks** 标记的用处，或许你已经在上面的构架代码块中注意到它。
 
-Following the block where we declare all the nodes in the schema, we declare the types of marks each node is allowed to have. In Oak, we support certain marks for some nodes, and not for others — for instance, we allow italics and hyperlinks in small heading nodes, but neither in large heading nodes. Marks for a given node are then kept in that node’s object in ProseMirror’s state of the current document. We also use marks for our custom comment feature, which I’ll get to a little later in this post.
+我们声明了 schema 中的所有节点之后，紧接着定义每个节点允许具有的 marks 类型。在 Oak 中我们为一些节点支持某些 marks，而另一些节点却不支持。例如，我们在小标题节点中允许斜体和超链接，但在大型标题节点中都不允许。对给定节点的 marks 将会保存在 ProseMirror 的当前文档状态中。我们也使用 marks 用于实现自定义批注功能，这将在下文介绍。
 
-### How do edits work under the hood?
+### 编辑功能的幕后工作原理？
 
-In order to render an accurate version of the document at any given time and also track a version history, it’s critically important that we record virtually everything the user does to change the document — for example, pressing the letter “s” or the enter key, or inserting an image. ProseMirror calls each of these micro-changes a _step_.
+为了在任何给定时间呈现文档的准确版本并跟踪版本历史记录，我们记录用户更改文档的几乎所有操作非常重要。例如，按下 “s” 或者回车键，又或插入一张图片。ProseMirror 将每一个这些微小的变化称为一个 **step**。
 
-To ensure that all parts of the app are in sync and showing the most recent data, the state of the document is immutable, meaning that updates to the state don’t happen by simply editing the existing data object. Instead, ProseMirror takes the old object, combines it with this new step object and arrives at a brand new state. (For those of you familiar with Flux concepts, this probably feels familiar.)
+为了确保 app 的所有部分同步并显示最新数据，文档的 state 是不可变的。这就意味着通过简单地编辑现有数据对象，不会发生对 state 的更新。ProseMirror 接受旧对象，并将其与 step 对象合并以达到一个全新状态。（对于一些熟悉Flux概念的人来说，这可能很熟悉。）
 
-This flow both  encourages cleaner code and also leaves a trail of updates, enabling some of the editor’s most important features, including version comparison. We track these steps and their order in our Redux store, making it easy for the user to roll back or roll forward changes to switch between versions and see the edits that different users have made:
+此流程可以鼓励更加清晰的代码同时也能够留下更新的痕迹，从而实现一些编辑器包括版本比较在内的重要功能。我们在 Redux store 中追踪这些 steps 以及它们的顺序，从而使用户能够在版本之间随意切换，轻松实现回滚或前滚更改，并查看不同用户所做的编辑：
 
 ![](https://cdn-images-1.medium.com/max/800/1*tSuAfd7GowO1oQoLRPQt5A.gif)
 
-_Our version comparison feature relies on keeping careful track of each transaction in an immutable Redux state._
+**我们的版本比较功能依赖于仔细跟踪在不可变的 Redux state 下的每个事务。**
 
-### Some of the Cool Features We’ve Built
+### 我们开发的一些炫酷的功能
 
-The ProseMirror library is intentionally modular and extensible, which means it requires heavy customization to do anything at all. This was perfect for us because our goal was to build a text editor to fit the newsroom’s specific requirements. Some of the most interesting features our team has built include:
+ProseMirror 是有意模块化和可模块化的，这意味着实现其他功能需要大量自定义定制。这对我们来说再好不过了，因为我们的目标就是开发一个满足新闻编辑室特殊需求的文本编辑器。我们团队开发的一些最有趣的功能包括：
 
-#### Track Changes
+#### 跟踪变化
 
-Our “track changes” feature, shown above, is arguably Oak’s most advanced and important. With newsroom articles involving a complex flow between reporters and their various editors, it’s important to be able to track what changes different users have made to the document and when. This feature relies heavily on the careful tracking of each transaction, storing each one in a database and then rendering them in the document as green text for additions and red strikeout text for deletions.
+就像上面展示的一样，我们的“跟踪变化”功能可以说是 Oak 最先进最重要的功能。由于新闻编辑室的文章涉及记者和其他各种编辑之间的复杂流程，因此能够跟踪不同用户对文档所做的更改以及何时更改是非常重要的。此功能很大程度上依赖对每个事务的仔细跟踪，并将它们每一个存入数据库中。然后在文档中用绿色来标记新增的内容，红色来标记删除的内容。
 
-#### Custom Headers
+#### 自定义标题
 
-Part of Oak’s purpose is to be a design-focused text editor, giving reporters and editors the ability to present visual journalism in the way that best fits any given story. To this aim, we’ve created custom header nodes including horizontal and vertical full-bleed images. These headers in Oak are each nodes with their own unique NodeViews and schemas that allow them to include bylines, timestamps, images and other nested nodes. For users, they mirror the headers that published articles can have on the reader-facing site, giving reporters and editors as close as possible a representation to what the article will look like when it’s published for the public on the actual New York Times website.
+Oka 的目标之一是成为一个以设计为中心的文本编辑器，让记者和编辑能够以最适合任何给定故事的方式呈现视觉新闻。为此，我们创建了自定义标题节点，其中包括了水平和垂直的全屏图像。Oak 中的这些标题是有着特殊 NodeViews 和 schemas 的节点来允许它们包含署名、时间戳、图像和其他嵌套的节点。对于用户而言，所编辑时的标题是在面向读者的网站上发表的文章的标题的写照，使记者和编辑尽可能接近地表示文章在实际纽约时报网站上发布时的样子。
 
 ![](https://cdn-images-1.medium.com/max/400/1*_cgjmva3RSguksfzzMsfhA.png)
 
@@ -121,21 +121,21 @@ Part of Oak’s purpose is to be a design-focused text editor, giving reporters 
 
 ![](https://cdn-images-1.medium.com/max/400/1*gcFYFMW2K07mmG_q488f1Q.png)
 
-A few of Oak’s header options. From left to right: Basic header, Horizontal full-bleed header, Vertical full-bleed header.
+一些 Oak 的标题选项。从左到右：基本标题，水平全屏标题，垂直全屏标题。
 
-#### Comments
+#### 批注功能
 
-Comments are an important part of the newsroom workflow — editors need to converse with reporters, asking questions and giving suggestions. In our legacy editor, users were forced to put their comments directly into the document alongside the article text, which often made the article look busy and were easy to miss. For Oak, our team created an intricate ProseMirror plugin that renders comments off to the right. Believe it or not, comments are actually a type of _mark_ under the hood. It’s an annotation on text, like bold, italics or hyperlinks; the difference is just the display style.
+评注是新闻编辑工作流程的重要组成部分。编辑需要与记者交流，提出问题并给出建议。在我们旧版编辑器中，用户被迫将他们的批注与文章文本一起直接放入文档中，经常会使文章看起来非常杂乱并且容易被遗漏。对于 Oak，我们团队开发了一个复杂的 ProseMirror 插件能够将批注在文章右侧显示。在底层，批注实际上使一种 **mark**，它使文本的附注像粗体、斜体、或者超链接一样，区别仅仅在于展现的样式。
 
 ![](https://cdn-images-1.medium.com/max/800/1*4t-fGEwAmWDBdhHjTVoswA.gif)
 
-In Oak, comments are a type of mark, but they’re displayed on the right side of the relevant text or node.
+在Oak中，批注是一种 mark，不过显示在相关文本或节点的右侧。
 
 * * *
 
-Oak has come a long way since its conception, and we’re excited to continue building new features for the many newsroom desks that are beginning to make the switch from our legacy editor. We’re planning to begin work soon on a collaborative editing feature that would allow more than one user to edit an article at the same time, which will radically improve the way reporters and editors work together.
+自从它的构思以来，Oak已经走过了漫长的道路，我们很高兴能为开始从旧版编辑器转换的新闻工作室继续开发新功能。我们计划开始开发协同编辑功能，能够允许多个用户同时编辑文章，这将从根本上改善记者和编辑的合作方式。
 
-Text editors are much more complex than many know. I consider it a privilege to be part of the Oak team, building a tool that, as a writer, I find fascinating and also so important for the functioning of one of the world’s largest and most influential newsrooms. Thank you to my managers, Tessa Ann Taylor and Joe Hart, and my team that’s been working on Oak since well before I arrived: Thomas Rhiel, Jeff Sisson, Will Dunning, Matthew Stake, Matthew Berkowitz, Dylan Nelson, Shilpa Kumar, Shayni Sood and Robinson Deckert. I am lucky to have such amazing teammates in making the Oak magic happen. Thank you.
+文本编辑器的复杂程度比许多人所知道的都要高。我为能够成为 Oak 团队的一员来开发这样的工具感到荣幸。作为作者，我觉得这个编辑器非常有趣，并且它对世界上最大和最有影响力的新闻编辑室之一的运作也非常重要。感谢我的经理 Tessa Ann Taylor 和 Joe Hart，以及在我来到这之前已经在 Oak 工作的我们团队：Thomas Rhiel、 Jeff Sisson、Will Dunning、Matthew Stake、Matthew Berkowitz、Dylan Nelson、Shilpa Kumar、Shayni Sood 以及 Robinson Deckert。我很幸运能有这么棒的队友让 Oak 这一魔术编辑器诞生。谢谢。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
