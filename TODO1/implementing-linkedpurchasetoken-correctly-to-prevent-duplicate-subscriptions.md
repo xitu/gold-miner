@@ -95,7 +95,7 @@
 *   [Subscriptions API](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions#resource)
 *   [ClassyTaxi](https://github.com/googlesamples/android-play-billing/tree/master/ClassyTaxi) 端对端订阅的简单应用
 
-[**¹重新注册](#895f) 是指当一个用户订阅，然后取消订阅，接着又在初始的订阅过期之前重新订阅。尽管用户不会丢失授权，新的订阅也和之前的一样，他们还是会经历另一个付款流程，因为他们承诺了未来的付款。他们会收到新的购买令牌并且 linkedPurchaseToken 字段会在升级或者降级的时候被设置。**
+[**¹重新注册**](#895f) **是指当一个用户订阅，然后取消订阅，接着又在初始的订阅过期之前重新订阅。尽管用户不会丢失授权，新的订阅也和之前的一样，他们还是会经历另一个付款流程，因为他们承诺了未来的付款。他们会收到新的购买令牌并且 linkedPurchaseToken 字段会在升级或者降级的时候被设置。**
 
 > **本文所有的代码都遵循 [Apache 2.0 许可](https://www.apache.org/licenses/LICENSE-2.0)。本文不包括 Google 正式产品任何部分，并且只是为了参考使用。**
 
