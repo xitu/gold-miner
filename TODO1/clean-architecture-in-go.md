@@ -2,25 +2,25 @@
 > * 原文作者：[Yusuke Hatanaka](https://medium.com/@hatajoe?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/clean-architecture-in-go.md](https://github.com/xitu/gold-miner/blob/master/TODO1/clean-architecture-in-go.md)
-> * 译者：
+> * 译者：[yuwhuawang](https://github/yuwhuawang)
 > * 校对者：
 
-# Clean Architecture in Go
+# Go 语言的整洁架构之道
 
-## An example of clean architecture in Go using gRPC
+## 一个使用 gRPC 的 Go 项目整洁架构例子
 
-### What I want to tell you
+### 我想告诉你的
 
-Clean architecture is well known architecture these days. However, we may not know about details of the implementation very well.  
-So I tried to make one example that is conscious of clean architecture in Go using gRPC.
+整洁架构是现如今是非常知名的架构了。然而我们也许并不太清楚实现的细节。
+因此我试着创造一个整洁架构的使用 gRPC 的 Go 项目。
 
 * [hatajoe/8am: Contribute to hatajoe/8am development by creating an account on GitHub.](https://github.com/hatajoe/8am "https://github.com/hatajoe/8am")
 
-This small project represents user registration example. Please feel free to respond anything.
+这个小巧的项目是个用户注册的例子。请随意回应任何事情。
 
-### The Structure
+### 结构
 
-8am is based on clean architecture, the project structure is like below.
+8am 基于整洁架构，项目结构如下。
 
 ```
 % tree
@@ -45,42 +45,42 @@ This small project represents user registration example. Please feel free to res
     |...
 ```
 
-The top directory contains three directories:
+最外层目录包括三个文件夹：
 
-*   app: application package root directory
-*   cmd: main package directory
-*   vendor: several vendor packages directory
+*   app：应用包根目录
+*   cmd：主包目录
+*   vendor：一些供应商的包目录
 
-Clean architecture has some conceptual layer like below:
+整洁架构有一些概念性的层次，如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*B7LkQDyDqLN3rRSrNYkETA.jpeg)
 
-There are 4 layers, blue, green, red and yellow layers there in order from the outside. I represented these layers except blue to the app directory:
+一共有 4 层，从外到内分别是蓝色，绿色，红色和黄色。我把应用目录表示为除了蓝色之外的三种颜色：
 
-*   interface: the green layer
-*   usecase: the red layer
-*   domain: the yellow layer
+*   接口：绿色层
+*   用例：红色层
+*   领域：黄色层
 
-The most important thing about clean architecture is to make interfaces through each layer.
+整洁架构最重要的就是让接口穿过每一层。
 
-### Entities — the yellow layer
+### 实体 — 黄色层
 
-IMO, the Entities layer looks like a domain layer of the layered architecture.  
-So I named this layer to app/domain due to that is confused with the entity of DDD.
+在我看来, 实体层就像是分层架构里的领域层。
+因此为了避变和领域驱动设计里的实体概念弄混，我把这一层叫做应用/领域层。
 
-app/domain has three packages:
+应用/领域包括三个包：
 
-*   model: has aggregate, entity and value object
-*   repository: has repository interfaces of aggregate
-*   service: has application services that depend on several models
+*   模型：包含聚合，实体和值对象
+*   存储库：包含聚合对象的仓库接口
+*   服务：包括依赖模型的应用服务
 
-I explain what detail of implementation for each package.
+我将会解释每一个包的实现细节。
 
-#### model
+#### 模型
 
-model has user aggregate like below:
+模型包含如下用户聚合：
 
-> This is not actually aggregate, but I hope you will be on a premise that various entity and value object will be added in the future.
+> 这并不是真正的聚合，但是我希望你们可以将来在本地运行的时候，加入各种各样的实体和值对象。
 
 ```
 package model
@@ -106,13 +106,13 @@ func (u *User) GetEmail() string {
 }
 ```
 
-The aggregate is the boundary of a transaction in order to keep their consistency of business rules. Thus there is one repository against the one aggregate.
+聚合就是一个事务的边界，这个事务是用来保证业务规则的一致性。因此，一个存储库就对应着一个聚合。
 
-#### repository
+#### 存储库
 
-In this layer, the repository is just an interface because of that should not know about the detail of persistence implementation. But also persistence is an important essence for this layer.
+在这一层，存储库应该只是接口，因为它不应该知晓持久化的实现细节。而且持久化也是这一层的非常重要的精髓。
 
-implementation of the user aggregate repository is:
+用户聚合存储的实现如下：
 
 ```
 package repository
@@ -126,11 +126,11 @@ type UserRepository interface {
 }
 ```
 
-FindAll fetches all users who are persisted in the system. And Save persists user to the system. I say it again, this layer should not know what where is the object is saved or serialized.
+FindAll 获取了系统里所有保存的用户。Save 则是把用户保存到系统中。我再次强调，这一层不应该知道对象被保存或者序列化到哪里了。
 
-#### service
+#### 服务
 
-The service layer is gathered business logic that should not be included in the model. For example, this application don’t allow existing email address registration. If model has this validation, we will get to feel something wrong like below:
+服务层是不应该包括在模型层的业务逻辑的集合。 举个例子，该应用不允许任何已经存在的邮箱地址注册。如果这个验证在模型层做，我们就发现如下的错误：
 
 ```
 func (u *User) Duplicated(email string) bool {
@@ -138,8 +138,8 @@ func (u *User) Duplicated(email string) bool {
 }
 ```
 
-`Duplicated function` is not related to `User` model.  
-For solving this, we can add the service layer like below:
+`Duplicated 函数` 和 `User`模型没有关联。  
+为了解决这个问题，我们可以增加服务层，如下所示：
 
 ```
 type UserService struct {
@@ -160,14 +160,12 @@ func (s *UserService) Duplicated(email string) error {
 
 * * *
 
-Entities contain business logic and interface through the other layers.  
-Business logic should be included in the model and service, and should not be depended any other layers. If we need to access any other layer, we should through the layers using repository interface. By inverting the dependencies like this, may packages to be isolated, more testable and maintainable.
+实体包括业务逻辑和穿过其他层的接口。
+业务逻辑应在包含在模型和服务中，并且不应该依赖其他层。如果我们需要访问其他层，我们需要通过存储库接口。通过这样反转依赖，我们可以使这些包更加隔离，更加易于测试和维护。
 
-### Use Cases — the red layer
+### 用例 — 红色层
 
-Use cases are unit of the one operation for application.  
-In 8am, listing user and user registration are defined as use case.  
-Those use cases are represented this interface below:
+用例是应用一次操作的单位。在 8am 中，列出用户和注册用户就是两个用例。这些用例的接口表示如下：
 
 ```
 type UserUsecase interface {
@@ -176,9 +174,9 @@ type UserUsecase interface {
 }
 ```
 
-Why is it an interface? This is because use case is used from interface layer — the green layer. We should always define interface if we are going to through between layers.
+为什么是接口？因为这些用例是在接口层 — 绿色层被使用。在跨层的时候，我们都应该定义成接口。
 
-_UserUsecase_ implementation is simple like below:
+_UserUsecase_ 简单实现如下：
 
 ```
 type userUsecase struct {
@@ -217,11 +215,11 @@ func (u *userUsecase) RegisterUser(email string) error {
 }
 ```
 
-_userUsercase_ depend two packages _repository.UserRepository_ interface and _*service.UserService_ struct. These two packages are must injected when use case initialize by use case user. Those dependencies are solved by DI container in normally, this will be wrote later in this entry.
+_userUsercase_ 依赖两个包。_UserRepository_ 接口和 _*service.UserService*_ 结构体。当使用者初始化用例时，这两个包必须被注入。通常这些依赖都是通过依赖注入容器解决，这个后文会提到。
 
-ListUser use case fetch all registered users and RegisterUser use case register a user to the system if it is not registered same email address.
+列出用户这个用例会取到所有已经注册的用户，注册用户用例是如果同样的邮箱地址没有被注册的话，就用该邮箱把新用户注册到系统。
 
-One point, the _User_ is not _model.User. model.User_ may has many business knowledges, but other layers should not better to know about that. So I defined DAO for use case users due to encapsulate the knowledges.
+有一点要注意， _User_ 不同于 _model.User。model.User_ 也许包含很多业务逻辑，但是其他层最好不要知道这些具体逻辑。所以我为用例 users 定义了 DAO 来封装这些业务逻辑。
 
 ```
 type User struct {
@@ -243,15 +241,15 @@ func toUser(users []*model.User) []*User {
 
 * * *
 
-So, why do you think about this service is used as concrete implementation instead of using interface? This is because that this service depends no other layers. Conversely, the repository through layers and the implementation depends detail of devices that should not known from other layer, thus that was defined an interface. I think this is a most important thing in this architecture.
+所以，为什么服务是具体实现而不是接口呢？因为服务不依赖于其他层。相反的，存储库贯穿了其他层，并且它的实现依赖于其他层不应该知道的设备细节，因此它被定义为接口。我认为这是正解架构中最重要的事情了。
 
-### Interface — the green layer
+### 接口 — 绿色层
 
-This layer is placed the concrete object like handler of the API endpoint, repository of the RDB or other boundaries for interfaces. In this case, I added two concrete objects that memory storage accessor and gRPC service.
+这一层放置的都是操作API接口，关系型数据库的存储库或者其他接口的边界的具体对象。在本例中，我加了两个具体物件，内存存取器和 gRPC 服务。
 
-#### Memory storage accessor
+#### 内存存取器
 
-I added concrete user repository as memory storage accessor.
+我加了具体用户存储库作为内存存取器。
 
 ```
 type userRepository struct {
@@ -303,9 +301,9 @@ func (r *userRepository) Save(user *model.User) error {
 }
 ```
 
-This is concrete implementation of repository. We’ll need to another implementation if we need to persist the user to the RDB or other. But even in such case, we don’t need to change the model layer. The model layer is depending for only repository interface, and not interest for this implementation detail. This is amazing.
+这是存储库的具体实现。如果我们想要把用户保存到数据库或者其他地方的话，需要实现一个新的存储库。尽管如此，我们也不需要修改模型层。这太神奇了。
 
-This _User_ is defined for only in this package. This also for solving about decapsulating of knowledge through between the layers.
+ _User_ 只在这个包里定义。这也是为了解决不同层之间解封业务逻辑的问题。
 
 ```
 type User struct {
@@ -314,10 +312,9 @@ type User struct {
 }
 ```
 
-#### gRPC service
+#### gRPC 服务
 
-I think gRPC service is also included the interface layer.  
-These are defined `app/interface/rpc` directory like below:
+我认为 gRPC 服务也应该在接口层。在目录 `app/interface/rpc` 下可以看到：
 
 ```
 % tree
@@ -331,9 +328,10 @@ These are defined `app/interface/rpc` directory like below:
     └── v1.go
 ```
 
-`protocol` directory contains protocol buffers DSL file(user_service.proto) and generated RPC service code(user_service.pb.go).
+`protocol` 文件夹包含了协议缓存 DSL 文件 (user_service.proto) 和 生成的 RPC 服务
+代码 (user_service.pb.go)。
 
-`user_service.go` is the wrapper of gRPC endpoint handler:
+`user_service.go` 是 gRPC 的端点处理程序的封装：
 
 ```
 type userService struct {
@@ -377,10 +375,10 @@ func toUser(users []*usecase.User) []*protocol.User {
 }
 ```
 
-_userService_ depends for only use case interface.  
-If you want to use use case from another layer (e.g, CUI), you can implement in this interface layer as you like.
+_userService_ 仅依赖用例接口。  
+如果你想使用其它层 （如：GUI） 的用例，你可以按照你的方式实现这个接口。
 
-`v1.go` is resolver of object dependencies using DI container:
+`v1.go` 是使用依赖注入容器的对象依赖性解析器：
 
 ```
 func Apply(server *grpc.Server, ctn *registry.Container) {
@@ -388,18 +386,18 @@ func Apply(server *grpc.Server, ctn *registry.Container) {
 }
 ```
 
-`v1.go` apply package that was retrieved from _*registry.Container_ to gRPC service.
+`v1.go` 把从 _*registry.Container*_ 取回的包应用在 gRPC 服务上。
 
-At the last, let’s take a look about DI container implementation.
+最后，让我们看看依赖注入容器的实现。
 
-#### registry
+#### 注册
 
-The registry is DI container that resolve dependency of object.  
-I have been used github.com/sarulabs/di as DI container.
+注册是解决对象依赖性的依赖注入容器。
+我用的依赖注入容器是 github.com/sarulabs/di 。
 
-[sarulabs/di: Dependency injection container in go (golang). Contribute to sarulabs/di development by creating an account on GitHub.](https://github.com/sarulabs/di "https://github.com/sarulabs/di")
+[sarulabs/di: go (golang) 的依赖注入容器。 请注册 GitHub 账号来为 sarulabs/di 开发贡献](https://github.com/sarulabs/di "https://github.com/sarulabs/di")
 
-github.com/surulabs/di can be used easily:
+github.com/surulabs/di 用起来很简单:
 
 ```
 type Container struct {
@@ -441,11 +439,11 @@ func buildUserUsecase(ctn di.Container) (interface{}, error) {
 }
 ```
 
-For example in above, I associate `user-usecase` string with concrete use case implementation by using `buildUserUsecase` function. Thus we can replace any concrete implementation of use case in one place registry.
+在上面的例子里，我用 `buildUserUsecase` 函数把字符串 `user-usecase` 和具体的用例实现联系起来。这样我们只要在一个地方注册，就可以替换掉任何用例的具体实现。
 
 * * *
 
-Thank you for reading this entry. Feedback is welcome. You have any ideas and improvements feel free to respond me!
+感谢你读完了这篇入门。欢迎提出宝贵意见。如果你有任何想法和改进建议，请不吝赐教！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
