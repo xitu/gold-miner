@@ -2,16 +2,16 @@
 > * 原文作者：[Igor Kantor](https://medium.com/@devfire?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-3-version.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-3-version.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jianboy](https://github.com/jianboy)
+> * 校对者：[lihanxiang](https://github.com/lihanxiang)
 
 # 如何在六个月或更短的时间内成为 DevOps 工程师，第三部分：版本控制
 
 ![](https://cdn-images-1.medium.com/max/1000/0*WbA21p1XhfwT36Cx)
 
-“背光式笔记本的特写镜头”由 [Markus Petritz](https://unsplash.com/@petritzdesigns?utm_source=medium&utm_medium=referral) 发布在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)	
+“背光式笔记本的特写镜头”由 [Markus Petritz](https://unsplash.com/@petritzdesigns?utm_source=medium&utm_medium=referral) 发布在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
 
-**注意：这是《如何如何在六个月或更短的时间内成为DevOps 工程师》系列的第三部分，第一部分请点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md). 第二部分点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md).**
+**注意：这是《如何如何在六个月或更短的时间内成为 DevOps 工程师》系列的第三部分，第一部分请点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md)。第二部分点击[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md)。**
 
 让我们快速回顾一下上期内容。
 
@@ -23,7 +23,7 @@
 
 在[第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md)，我们讨论了如何使用 Terraform 为未来的代码部署奠定基础。当然，Terraform 也是代码！
 
-因此，在这篇文章中，我们将讨论如何防止所有这些代码完全失控。剧透，这都是关于 [_git_](https://git-scm.com/)!
+因此，在这篇文章中，我们将讨论如何防止所有这些代码完全失控。剧透，这都是关于 [_git_](https://git-scm.com/)！
 
 额外奖励：我们还将讨论如何使用此 git business 来构建和推广您自己的个人品牌。
 
@@ -85,15 +85,15 @@ awesome_code.GOOD.12.25.2018.pl
 
 好的，所以如果一切都受版本控制，那么我们如何存储和管理这些东西呢？
 
-答案是 git 。
+答案是 git。
 
 在 [git](https://git-scm.com/doc) 出现之前，使用像 SVN 或其他的源代码控制系统是笨重的，不是用户友好的，并且通常是非常痛苦的经历。
 
 git 的不同之处在于它包含**分布式**源代码控制的概念。
 
-换句话说，当您正在处理更改时，您不会将其他人锁定在集中式源代码存储库之外。 相反，您正在编写代码库的完整**副本**。然后该副本会 _merged_ 进入 _master_ 存储库。
+换句话说，当您正在处理更改时，您不会将其他人锁定在集中式源代码存储库之外。相反，您正在编写代码库的完整**副本**。然后该副本会 _merged_ 进入 _master_ 存储库。
 
-请记住，以上是对git如何工作的粗略过度简化。但就本文而言，这已经足够了，即使知道 git 的内部工作方式既有价值又需要一段时间才能掌握。
+请记住，以上是对 git 如何工作的粗略过度简化。但就本文而言，这已经足够了，即使知道 git 的内部工作方式既有价值又需要一段时间才能掌握。
 
 ![](https://cdn-images-1.medium.com/max/800/0*hoGY4_63YI8B7Pbc.png)
 
@@ -103,7 +103,7 @@ git 的不同之处在于它包含**分布式**源代码控制的概念。
 
 这对我们意味着什么？
 
-具体来说，如果没有使用 git 版本管理而自称作专业的 DevOps（云）工程师，我严重怀疑你的能力。 就这么简单。
+具体来说，如果没有使用 git 版本管理而自称作专业的 DevOps（云）工程师，我严重怀疑你的能力。就这么简单。
 
 好的，那么如何学习 git 呢？
 
@@ -111,13 +111,13 @@ git 的不同之处在于它包含**分布式**源代码控制的概念。
 
 但是，有一些非常非常好。
 
-我推荐大家阅读，学习和练习的一系列教程是 [Atlassian's Git Tutorials](https://www.atlassian.com/git/tutorials)。
+我推荐大家阅读，学习和练习的一系列教程是 [Atlassian’s Git Tutorials](https://www.atlassian.com/git/tutorials)。
 
-事实上，它们都非常好，但特别是世界各地的专业软件工程师使用的部分：[Git Workflows](https://www.atlassian.com/git/tutorials/comparing-workflows).
+事实上，它们都非常好，但特别是世界各地的专业软件工程师使用的部分：[Git Workflows](https://www.atlassian.com/git/tutorials/comparing-workflows)。
 
 我再怎么强调也不为过。一次又一次地，缺乏理解 git 分支是如何工作的，或者没有解释 Gitflow 是什么让 99% 有抱负的 DevOps 工程师落选的原因。
 
-这是关键。你可以参加面试，即使不知道 Terraform 或者最新的架构及代码是什么，没关系 - 你可以在工作中学习它。
+这是关键。你可以参加面试，即使不知道 Terraform 或者最新的架构及代码是什么，没关系 — 你可以在工作中学习它。
 
 不知道 git 及其工作方式表明你缺乏现代软件工程最佳实践的基础知识，DevOps 与否。这向招聘经理发出信号，表明你的学习曲线非常陡峭。你不想发出信号！
 
@@ -125,7 +125,7 @@ git 的不同之处在于它包含**分布式**源代码控制的概念。
 
 总而言之，你不需要成为世界上最重要的 git 专家，来获得令人敬畏的 DevOps 角色，但你确实需要在一段时间内生活和呼吸 git，才能自信地谈论正在发生的事情。
 
-至少，你应该精通如下:
+至少，你应该精通如下：
 
 1. Fork 一个仓库
 2. 创建分支
@@ -140,7 +140,7 @@ git 的不同之处在于它包含**分布式**源代码控制的概念。
 
 这不仅可以灌输良好的源代码控制思想，还可以帮助您建立自己的个人品牌。
 
-注意：当你学习如何使用 git + GitHub 时，要特别注意 [Pull Requests](https://help.github.com/articles/about-pull-requests/) (也叫 PRs， 如果你想变酷)。
+注意：当你学习如何使用 git + GitHub 时，要特别注意 [Pull Requests](https://help.github.com/articles/about-pull-requests/)（也叫 PRs，如果你想变酷）。
 
 ![](https://cdn-images-1.medium.com/max/800/0*E1Y3iKOJjkKiwcoa)
 
@@ -150,11 +150,11 @@ Pull Request, by [Vidar Nordli-Mathisen](https://unsplash.com/@vidarnm?utm_sourc
 
 品牌：向更广阔的世界展示您的能力的一种方式。
 
-这种方式（目前，更好的方式之一！）是建立一个 GitHub 账户，作为您的品牌代表。 这些天几乎所有的面试官都会要求求职者有 GitHub 账户。
+这种方式（目前，更好的方式之一！）是建立一个 GitHub 账户，作为您的品牌代表。这些天几乎所有的面试官都会要求求职者有 GitHub 账户。
 
-因此，您应该努力拥有一个整洁、精心策划的 GitHub 帐户 —— 您可以将其放在简历上并为此感到自豪。
+因此，您应该努力拥有一个整洁、精心策划的 GitHub 帐户 — 您可以将其放在简历上并为此感到自豪。
 
-在后面的部分中，我们将讨论如何使用 [Hugo](https://gohugo.io/) 框架在 GitHub 上构建一个简单但酷炫的网站。 现在，只需将代码放入 GitHub 即可。
+在后面的部分中，我们将讨论如何使用 [Hugo](https://gohugo.io/) 框架在 GitHub 上构建一个简单但酷炫的网站。现在，只需将代码放入 GitHub 即可。
 
 稍后，随着您的经验越来越丰富，您可能会考虑使用两个 GitHub 帐户。一个用于存储您编写的练习代码的个人资料，另一个用于存储您想要向其他人展示的代码。
 
@@ -167,7 +167,7 @@ Pull Request, by [Vidar Nordli-Mathisen](https://unsplash.com/@vidarnm?utm_sourc
 
 最后，请记住这个领域的最新发展，例如 [GitOps](https://queue.acm.org/detail.cfm?ref=rss&id=3237207)。
 
-GitOps 将我们迄今为止讨论的所有想法提升到新的水平 —— 一切都通过 git, pull requests, and deployment pipelines。
+GitOps 将我们迄今为止讨论的所有想法提升到新的水平 — 一切都通过 git、pull requests 和管道的部署。
 
 请注意，GitOps 和类似的工具应用于**商业**方面的事情。具体来说，我们不是在使用像 git 之类的复杂东西，因为它们很酷。
 
