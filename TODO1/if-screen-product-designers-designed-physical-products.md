@@ -2,8 +2,8 @@
 > * 原文作者：[Pablo Stanley](https://thedesignteam.io/@pablostanley?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/if-screen-product-designers-designed-physical-products.md](https://github.com/xitu/gold-miner/blob/master/TODO1/if-screen-product-designers-designed-physical-products.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ssshooter](https://github.com/ssshooter)
+> * 校对者：[Park-ma](https://github.com/Park-ma)
 
 # 如果界面产品设计师设计实体产品
 
@@ -79,7 +79,7 @@ Frances 和 Paul 站在一张木桌旁边，桌子上有几个水平对齐的按
 
 **FRANCES**：餐桌看起来很好……但是按钮都有什么用？
 
-**PAUL**：我们需要更多 **CTA（Call-To-Action 意味引导用户采取某些行动，有利于用户转化）**来提升 **Q4（第四季度）**的 **NPS（Net Promoter Score 即净推荐值）** **KPI（关键绩效指标）**！
+**PAUL**：我们需要更多 **CTA（Call-To-Action 意味引导用户采取某些行动，有利于用户转化）**来提升 **Q4（第四季度）**的 **NPS（Net Promoter Score 即净推荐值）KPI（关键绩效指标）**！
 
 * * *
 
@@ -99,7 +99,7 @@ Gabs 拿着一把古怪的吉他，上面覆盖着特殊的颜色。Paul 在一�
 
 ![](https://cdn-images-1.medium.com/max/800/1*OtiVedoV9YicOXGliFo7AA.jpeg)
 
-Hola, amigxs（西班牙语：你好，我的朋友）。我是 [Pablo Stanley](https://twitter.com/pablostanley)，来自 [InVision](https://medium.com/@InVisionApp) 的设计师。
+Hola，amigxs（西班牙语：你好，我的朋友）。我是 [Pablo Stanley](https://twitter.com/pablostanley)，来自 [InVision](https://medium.com/@InVisionApp) 的设计师。
 
 我常在 [**Twitter**](https://twitter.com/pablostanley) 上发布漫画与设计相关内容。如果你对此感兴趣，请关注我。
 
