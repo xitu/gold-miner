@@ -45,7 +45,7 @@ Frances 和 Paul 站在一起，他们之间的是一根固定在地上的木棍
 
 ![](https://cdn-images-1.medium.com/max/800/1*MAEVKo_Uktu09Zz0LQ-seQ.jpeg)
 
-“你是/你知道 Dieter Rams 吗老哥？” ←这句没搞懂
+“你知道 Dieter Rams 吗，老哥？”
 
 Petunia 和 Paul 站在一起，他们之间的似乎是一台独轮车，Petunia 看起来很困惑。
 
@@ -87,7 +87,7 @@ Frances 和 Paul 站在一张木桌旁边，桌子上有几个水平对齐的按
 
 ![](https://cdn-images-1.medium.com/max/800/1*QJF1owveaJD1fDnHRb36uQ.jpeg)
 
-空气吉他——不是 flaw，是 feature！
+空气吉他 —— 不是 flaw，是 feature！
 
 Gabs 拿着一把古怪的吉他，上面覆盖着特殊的颜色。Paul 在一旁自信得飘飘然。但 Gabs 看起来却很生气。
 
