@@ -5977,10 +5977,11 @@
 |------|-------|-------|
 |[使用 python 和 keras 实现卷积神经网络](https://juejin.im/post/5aefb0f351882567336aa3c7)|校对|1|
 
-## 译者：[shery](https://github.com/shery) 历史贡献积分：28 当前积分：28 年度积分：28
+## 译者：[shery](https://github.com/shery) 历史贡献积分：30 当前积分：30 年度积分：30
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐多篇优秀英文文章|奖励|2|
 |[如何使用原生 JavaScript 构建简单的 Chrome 扩展程序](https://juejin.im/post/5b98a58b6fb9a05cec4d92e0)|翻译|6|
 |推荐优秀英文文章两篇|奖励|1|
 |[使用原生 JavaScript 构建状态管理系统](https://juejin.im/post/5b763528e51d45559e3a5b64)|翻译|6.5|
@@ -6682,3 +6683,15 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3|
+
+## 译者：[DerekTso](https://github.com/DerekTso) 历史贡献积分：3 当前积分：3 年度积分：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|推荐多篇优秀英文文章|奖励|3|
+
+## 译者：[samt42](https://github.com/samt42) 历史贡献积分：1 当前积分：1 年度积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|推荐一篇优秀英文文章|奖励|1|
