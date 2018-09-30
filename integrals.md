@@ -1709,7 +1709,7 @@
 |[用 Swift 开发我的第一个 iOS 应用前，我想要知道这些内容](http://gold.xitu.io/entry/57c66667c4c9710061a57b3f/)|校对|2|
 |[你的设计应该「所见即所得」](http://gold.xitu.io/entry/57c5978f128fe1005fdf4858/)|校对|1|
 
-## 译者：[steinliber](https://github.com/steinliber) 历史贡献积分：93 当前积分：33 年度积分：40
+## 译者：[steinliber](https://github.com/steinliber) 历史贡献积分：92 当前积分：32 年度积分：40
 
 |文章|类型|积分|
 |------|-------|-------|
