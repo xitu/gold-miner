@@ -41,7 +41,7 @@ Xi 的可能取值构成的可数集合 S 称为马尔可夫链**状态空间**�
 
 还可以将马尔可夫链看作有向图，其中图 n 的边标注的是 n 时刻状态转移到 n+1 时刻状态的概率，Pr(Xn+1 = x | Xn = xn)。这个式子可以读做，从已知状态 Xn 转移到状态 Xn+1 的概率。这个概念也可以用从时刻 n 到时刻 n+1 的**转移矩阵**来表示。状态空间的每个状态第一次出现是作为转移矩阵的行，第二次是列。矩阵的每个元素都表示从这一行表示的状态转移到列状态的概率。
 
-如果马尔可夫链有 N 种状态，转移矩阵就是 N x N 维，其中 (I, J) 表示从状态 I 转移到状态 J 的概率。此外，转移矩阵一定是概率矩阵，也就是每一行元素之和一定是 1。为什么？因为每一行表示自身的概率分布。
+如果马尔可夫链有 N 种状态，转移矩阵就是 N x N 维，其中（I, J）表示从状态 I 转移到状态 J 的概率。此外，转移矩阵一定是概率矩阵，也就是每一行元素之和一定是 1。为什么？因为每一行表示自身的概率分布。
 
 所以模型的主要特征包括：状态空间，描述了特定转移发生的概率的转移矩阵以及由初始分布给出的状态空间的初始状态。
 
@@ -74,7 +74,7 @@ Xi 的可能取值构成的可数集合 S 称为马尔可夫链**状态空间**�
 同时，还可以更好地理解马尔可夫链的几个重要性质：
 
 * 互通性：如果一个马尔可夫链可以从任何状态转移至任何状态，那么它就是不可还原的。换句话说，如果任两个状态之间存在一系列步骤的概率为正，就是不可还原的。
-* 周期性：如果马尔可夫链只有在大于 1 的某个整数的倍数时返回某状态，那么马尔可夫链的状态是周期性的。因此，从状态「i」开始，只有经过整数倍个周期「k」才能回到「i」，k 是所有满足条件的整数的最大值。如果 k = 1 状态「i」不是周期性的，如果 k \> 1，「i」才是周期性的。
+* 周期性：如果马尔可夫链只有在大于 1 的某个整数的倍数时返回某状态，那么马尔可夫链的状态是周期性的。因此，从状态「i」开始，只有经过整数倍个周期「k」才能回到「i」，k 是所有满足条件的整数的最大值。如果 k = 1 状态「i」不是周期性的，如果 k > 1，「i」才是周期性的。
 * 瞬态性和常返性：如果从状态「i」开始，有可能无法回到状态「i」，那么状态「i」有瞬态性。否则具有常返性（或者说持续性）。如果某状态可以在有限步内重现，该状态具有常返性，否则没有常返性。
 * 遍历性：状态「i」如果满足非周期性和正重现性，它就有遍历性。如果不具有可还原性的马尔可夫链的每个状态都有遍历性，那么这个马尔可夫链也具有遍历性。
 * 吸收态：如果无法从状态「i」转移到其他状态，「i」处于吸收态。因此，如果 当 i ≠ j 时，pii = 1 且 pij = 0，状态「i」处于吸收态。如果马尔可夫链的每个状态都可以达到吸收态，称其为具有吸收态的马尔可夫链。
@@ -87,14 +87,14 @@ Xi 的可能取值构成的可数集合 S 称为马尔可夫链**状态空间**�
 
 先 import 用到的库。
 
-``` python
+```python
 import numpy as np
 import random as rm
 ```
 
 然后定义状态及其概率，也就是转移矩阵。要记得，因为有三个状态，矩阵是 3 X 3 维的。此外还要定义转移路径，也可以用矩阵表示。
 
-``` python
+```python
 # 状态空间
 states = ["Sleep","Icecream","Run"]
 
@@ -107,19 +107,19 @@ transitionMatrix = [[0.2,0.6,0.2],[0.1,0.6,0.3],[0.2,0.7,0.1]]
 
 别忘了，要保证概率之和是 1。另外在写代码时多打印一些错误信息没什么不好的！
 
-``` python
+```python
 if sum(transitionMatrix[0])+sum(transitionMatrix[1])+sum(transitionMatrix[1]) != 3:
     print("Somewhere, something went wrong. Transition matrix, perhaps?")
 else: print("All is gonna be okay, you should move on!! ;)")
 ```
 
-``` 
+```
 All is gonna be okay, you should move on!! ;)
 ```
 
 现在就要进入正题了。我们要用 `numpy.random.choice` 从可能的转移集合选出随机样本。代码中大部分参数的含义从参数名就能看出来，不过参数 `p` 可能比较费解。它是可选参数，可以传入样品集的概率分布，这里传入的是转移矩阵。
 
-``` python
+```python
 # 实现了可以预测状态的马尔可夫模型的函数。
 def activity_forecast(days):
     # 选择初始状态
@@ -182,16 +182,16 @@ def activity_forecast(days):
 activity_forecast(2)
 ```
 
-``` 
+```
 Start state: Sleep
 Possible states: ['Sleep', 'Sleep', 'Run']
 End state after 2 days: Run
 Probability of the possible sequence of states: 0.12
 ```
 
-结果可以得到从睡觉状态开始的可能转移及其概率。进一步拓展这个函数，可以让它从睡觉状态开始，迭代上几百次，就能得到终止于特定状态的预期概率。下面改写一下 `activity_forecast` 函数，加一些循环 ……
+结果可以得到从睡觉状态开始的可能转移及其概率。进一步拓展这个函数，可以让它从睡觉状态开始，迭代上几百次，就能得到终止于特定状态的预期概率。下面改写一下 `activity_forecast` 函数，加一些循环……
 
-``` python
+```python
 def activity_forecast(days):
     # 选择初始状态
     activityToday = "Sleep"
@@ -265,7 +265,7 @@ percentage = (count/10000) * 100
 print("The probability of starting at state:'Sleep' and ending at state:'Run'= " + str(percentage) + "%")
 ```
 
-``` 
+```
 The probability of starting at state:'Sleep' and ending at state:'Run'= 62.419999999999995%
 ```
 
@@ -277,7 +277,7 @@ The probability of starting at state:'Sleep' and ending at state:'Run'= 62.41999
 
 马尔可夫链教程就到此为止了。本文介绍了马尔可夫链及其性质。简单的马尔可夫链是开始学习 Python 数据科学的必经之路。如果想要更多 Python 统计学资源，请参阅[这个网站](https://www.datacamp.com/community/tutorials/python-statistics-data-science)。
 
-> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 
 ---
