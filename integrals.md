@@ -1709,10 +1709,11 @@
 |[用 Swift 开发我的第一个 iOS 应用前，我想要知道这些内容](http://gold.xitu.io/entry/57c66667c4c9710061a57b3f/)|校对|2|
 |[你的设计应该「所见即所得」](http://gold.xitu.io/entry/57c5978f128fe1005fdf4858/)|校对|1|
 
-## 译者：[steinliber](https://github.com/steinliber) 历史贡献积分：92 当前积分：32 年度积分：40
+## 译者：[steinliber](https://github.com/steinliber) 历史贡献积分：100 当前积分：40 年度积分：48
 
 |文章|类型|积分|
 |------|-------|-------|
+|[容器，虚拟机以及 Docker 的初学者入门介绍](https://juejin.im/entry/5bada97f6fb9a05d0e2e7014/detail)|翻译|8|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|7|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|13|
 |[自然语言处理真是有趣](https://juejin.im/post/5b6d08e2f265da0f9c67cf0b)|校对|3|
@@ -5314,10 +5315,11 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：342 当前积分：312 年度积分：342
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：347 当前积分：317 年度积分：347
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Node 和 OAuth 2.0 构建一个简单的 REST API](https://juejin.im/post/5bb1d3f95188255c6a044d9a)|翻译|5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|12|
 |[使用 Nexmo 和微软语音翻译 API 构建 Babel 鱼](https://juejin.im/post/5b8a78a3e51d4538a515cbda)|翻译|8|
 |[如何将 Stackdriver 连接到智能家居服务器以进行错误记录](https://juejin.im/post/5b8f8df7e51d450e9f66d6f0)|翻译|3|
@@ -6022,10 +6024,12 @@
 |[Awesome Flutter 校对](https://github.com/xitu/awesome-flutter)|校对|1|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1|
 
-## 译者：[lihanxiang](https://github.com/lihanxiang) 历史贡献积分：33 当前积分：15 年度积分：33
+## 译者：[lihanxiang](https://github.com/lihanxiang) 历史贡献积分：38 当前积分：20 年度积分：38
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何在六个月或更短的时间内成为DevOps 工程师，第三部分：版本控制](https://juejin.im/post/5bb067bfe51d450e905a0aa4)|校对|2|
+|[如何在六个月或更短的时间内成为DevOps 工程师，第2部分：配置](https://juejin.im/post/5baf677df265da0a951ee8f5)|校对|3|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|8|
 |[设计 QA 在应用程序设计中的重要性](https://juejin.im/post/5b89421651882542da339868)|翻译|3|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3|
@@ -6201,10 +6205,11 @@
 |[Kubernetes 分布式应用部署和人脸识别 app 实例](https://juejin.im/post/5b2db0576fb9a00e50313904)|校对|0.5|
 |[[字幕翻译] James Bennett — 理解 Python 字节码 — PyCon 2018](https://github.com/xitu/gold-miner/issues/3990)|校对|0.5|
 
-## 译者：[kasheemlew](https://github.com/kasheemlew) 历史贡献积分：8 当前积分：8 年度积分：8
+## 译者：[kasheemlew](https://github.com/kasheemlew) 历史贡献积分：12.5 当前积分：12.5 年度积分：12.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[SmartyStreets 的 Go 测试探索之路](https://juejin.im/post/5ba83f2ff265da0a867c3818)|翻译|4.5|
 |[./dogs.html 和 /dogs.html 间有什么区别？](https://juejin.im/post/5ba7a5dfe51d450e4a1bc136)|校对|1|
 |[Erlang 之禅第二部分](https://juejin.im/post/5b3ea3ed6fb9a04fb8772a2c)|校对|2.5|
 |[Erlang 之禅第一部分](https://juejin.im/post/5b2a16cce51d4558d726e8c9)|校对|2|
@@ -6225,10 +6230,11 @@
 |[自然语言处理真是有趣](https://juejin.im/post/5b6d08e2f265da0f9c67cf0b)|校对|3|
 |[支撑现代存储系统的算法](https://juejin.im/post/5b10f80b5188257d92206851)|校对|1.5|
 
-## 译者：[7Ethan](https://github.com/7Ethan) 历史贡献积分：7 当前积分：7 年度积分：7
+## 译者：[7Ethan](https://github.com/7Ethan) 历史贡献积分：9 当前积分：9 年度积分：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|[容器，虚拟机以及 Docker 的初学者入门介绍](https://juejin.im/entry/5bada97f6fb9a05d0e2e7014/detail)|校对|2|
 |[Erlang 之禅第二部分](https://juejin.im/post/5b3ea3ed6fb9a04fb8772a2c)|翻译|5.5|
 |[Erlang 之禅第一部分](https://juejin.im/post/5b2a16cce51d4558d726e8c9)|校对|1.5|
 
@@ -6320,10 +6326,11 @@
 |------|-------|-------|
 |[从 Java EE 8 Security API 开始 — 第一部分](https://juejin.im/post/5b35a8d4f265da599423598b)|校对|3|
 
-## 译者：[cf020031308](https://github.com/cf020031308) 历史贡献积分：43 当前积分：43 年度积分：43
+## 译者：[cf020031308](https://github.com/cf020031308) 历史贡献积分：50 当前积分：50 年度积分：50
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年度最佳数据库即服务解决方案](https://juejin.im/post/5ba784e3e51d450e9d64984d)|翻译|7|
 |[关于工程师和影响力](https://juejin.im/post/5b8f9a96f265da0ab33125b0)|翻译|5.5|
 |[Databook：通过元数据，Uber 将大数据转化为知识](https://juejin.im/post/5b800032e51d45389d3b4950)|翻译|7|
 |[从 Cron 到 Airflow 的迁移中我们学到了什么](https://juejin.im/post/5b4c3575f265da0f7334bbc9)|翻译|4.5|
@@ -6483,10 +6490,12 @@
 |[正则表达式要跑 5 天，所以我做了个工具将其缩短至 15 分钟。](https://juejin.im/post/5b6d426f6fb9a04fd1604341)|校对|0.5|
 |[Tab Bar 就是新的汉堡菜单](https://juejin.im/post/5b61684fe51d451986517e31)|校对|1.5|
 
-## 译者：[StellaBauhinia](https://github.com/StellaBauhinia) 历史贡献积分：11 当前积分：11 年度积分：11
+## 译者：[StellaBauhinia](https://github.com/StellaBauhinia) 历史贡献积分：15 当前积分：15 年度积分：15
 
 |文章|类型|积分|
 |------|-------|-------|
+|[SmartyStreets 的 Go 测试探索之路](https://juejin.im/post/5ba83f2ff265da0a867c3818)|校对|2|
+|[2018 年度最佳数据库即服务解决方案](https://juejin.im/post/5ba784e3e51d450e9d64984d)|校对|2|
 |[构建未来的设计生态系统](https://juejin.im/post/5b992be8f265da0aa3591346)|校对|2|
 |[常见网页设计错误一览](https://juejin.im/post/5b7984265188254312414c1f)|翻译|5|
 |[使用 Web Beacon API 记录活动](https://juejin.im/post/5b694b5de51d4519700fa56a)|校对|2.5|
@@ -6720,3 +6729,18 @@
 |------|-------|-------|
 |[理解 JavaScript 中的执行上下文和执行栈](https://juejin.im/post/5ba32171f265da0ab719a6d7)|校对|2.5|
 |[以申请大学流程来解释 JavaScript 的 filter](https://juejin.im/post/5b9f09685188255c5e66d60c)|校对|1.5|
+
+## 译者：[jianboy](https://github.com/jianboy) 历史贡献积分：13 当前积分：13 年度积分：13
+
+|文章|类型|积分|
+|------|-------|-------|
+|[如何在六个月或更短的时间内成为DevOps 工程师，第三部分：版本控制](https://juejin.im/post/5bb067bfe51d450e905a0aa4)|翻译|5|
+|[如何在六个月或更短的时间内成为DevOps 工程师，第2部分：配置](https://juejin.im/post/5baf677df265da0a951ee8f5)|翻译|4|
+|[容器，虚拟机以及 Docker 的初学者入门介绍](https://juejin.im/entry/5bada97f6fb9a05d0e2e7014/detail)|校对|2.5|
+|[使用 Node 和 OAuth 2.0 构建一个简单的 REST API](https://juejin.im/post/5bb1d3f95188255c6a044d9a)|校对|1.5|
+
+## 译者：[yuwhuawang](https://github.com/yuwhuawang) 历史贡献积分：2 当前积分：2 年度积分：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[2018 年度最佳数据库即服务解决方案](https://juejin.im/post/5ba784e3e51d450e9d64984d)|校对|2|
