@@ -362,13 +362,13 @@ ISSUER=https://{yourOktaDomain}/oauth2/default
 
 `ISSUER` 的值应该是设置页面的 `Issuer URI` 字段的值。
 
-![高亮 issuer URL。](/assets/blog/rest-api-node/issuer-afa0da4b4f632196092a4da8f243f3bec37615602dc5b62e8e34546fd1018333.png)
+![高亮 issuer URL。](https://developer.okta.com/assets/blog/rest-api-node/issuer-afa0da4b4f632196092a4da8f243f3bec37615602dc5b62e8e34546fd1018333.png)
 
 **注意**：一般规则是，你不应该将 `.env` 文件存储在源代码管理中。这允许多个项目同时使用相同的源代码，而不是需要单独的分支。它确保你的安全信息不会被公开（特备是如果你将代码作为开源发布时）。
 
 接下来，导航到 **Scopes** 菜单。单击 **Add Scope** 按钮，然后为 REST API 创建一个作用域。你需要起一个名称（例如，`parts_manager`），如果你愿意，还可以给它一个描述。
 
-![添加范围的截图](/assets/blog/rest-api-node/adding-scope-f3ecb3b4eec06d616a130400245843c0de2dd52a54b2fdcff7449a10a2ce75ed.png)
+![添加范围的截图](https://developer.okta.com/assets/blog/rest-api-node/adding-scope-f3ecb3b4eec06d616a130400245843c0de2dd52a54b2fdcff7449a10a2ce75ed.png)
 
 你还应该将作用域添加到你的 `.env` 文件中，以便你的代码可以访问到它。
 
