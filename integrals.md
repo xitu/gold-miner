@@ -4426,10 +4426,11 @@
 |[你想学 React.js 吗？](https://juejin.im/post/5a2f8ea5f265da43305e6f6b)|翻译|3|
 |[JavaScript 如何工作的: 事件循环和异步编程的崛起 + 5 个关于如何使用 async/await 编写更好的技巧](https://juejin.im/post/5a221d35f265da43356291cc)|校对|4|
 
-## 译者：[athena0304](https://github.com/athena0304) 历史贡献积分：57.5 当前积分：27.5 年度积分：49.5
+## 译者：[athena0304](https://github.com/athena0304) 历史贡献积分：63.5 当前积分：33.5 年度积分：55.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|6|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|8|
 |[The JavaScript Tutorial 审校](https://github.com/xitu/javascript-tutorial-en)|奖励|10|
 |2018 年 8 月兑 Octoplush 1 个|减去积分|30|
@@ -5992,10 +5993,11 @@
 |------|-------|-------|
 |[使用 python 和 keras 实现卷积神经网络](https://juejin.im/post/5aefb0f351882567336aa3c7)|校对|1|
 
-## 译者：[shery](https://github.com/shery) 历史贡献积分：32 当前积分：2 年度积分：32
+## 译者：[shery](https://github.com/shery) 历史贡献积分：33 当前积分：3 年度积分：33
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐优秀英文文章|奖励|1|
 |[./dogs.html 和 /dogs.html 间有什么区别？](https://juejin.im/post/5ba7a5dfe51d450e4a1bc136)|翻译|2|
 |2018 年 9 月兑 Octoplush 1 个|减去积分|30|
 |推荐多篇优秀英文文章|奖励|2|
@@ -6673,10 +6675,11 @@
 |------|-------|-------|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|4|
 
-## 译者：[BriFuture](https://github.com/BriFuture) 历史贡献积分：14.5 当前积分：14.5 年度积分：14.5
+## 译者：[BriFuture](https://github.com/BriFuture) 历史贡献积分：17.5 当前积分：17.5 年度积分：17.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3|
 |[this 到底指向什么 — 理解 JavaScript 中的 this、call、apply 和 bind](https://juejin.im/post/5b9f176b6fb9a05d3827d03f)|校对|3.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|7|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|4|
