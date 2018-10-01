@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/pro-pattern-matching-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/pro-pattern-matching-in-swift.md)
 > * 译者：[ALVINYEH](https://github.com/ALVINYEH)
-> * 校对者：
 
 # Swift 中强大的模式匹配
 
@@ -17,7 +16,7 @@ Swift 语言一个无可置疑的优点就是 switch 语句。在 switch 语句�
 
 ### 仅匹配非空变量
 
-如果试图匹配的值可能为空，我们可以使用**可选值模式**来匹配，如果不是非空的，就解包取值。在处理遗留下来的（以及一些不那么遗留）的 Objective-C 方法和函数时，这一点尤其有用。对于 Swift 4.2，[IUO 的重新实现](https://swift.org/blog/iuo/)使 `!` 与 `？` 同义。而对于 Objective-C 方法，如果没有 [nullable 注解](https://developer.apple.com/swift/blog/?id=25)，你可能不得不处理此行为。
+如果试图匹配的值可能为空，我们可以使用**可选值模式**来匹配，如果不是非空的，就解包取值。在处理遗留下来的（以及一些不那么遗留）的 Objective-C 方法和函数时，这一点尤其有用。对于 Swift 4.2，[IUO 的重新实现](https://swift.org/blog/iuo/)使 `!` 与 `?` 同义。而对于 Objective-C 方法，如果没有 [nullable 注解](https://developer.apple.com/swift/blog/?id=25)，你可能不得不处理此行为。
 
 下面的例子是特别微不足道的，因为这个新的行为可能对于小于 Swift 4.2 的版本不太直观。以下是 Objective-C 方法：
 
@@ -55,7 +54,7 @@ func switchExample2() -> String {
 }
 ```
 
-这一次，我们故意去处理可选性的问题。请注意，我们不必使用 `if let` 来解开 `aLegacyObcFunction` 的返回值。空模式匹配帮我们处理 `case let output？：`，其中 `output` 是一个 `String` 类型的值。
+这一次，我们故意去处理可选性的问题。请注意，我们不必使用 `if let` 来解开 `aLegacyObcFunction` 的返回值。空模式匹配帮我们处理 `case let output?:`，其中 `output` 是一个 `String` 类型的值。
 
 ### 精确捕获自定义错误类型
 
@@ -126,7 +125,7 @@ guard case (_, let value?) = stringAndInt else {
 }
 ```
 
-你可以使用模式来定义 `while` 循环和 `for-in` 循环的停止条件。这在范围中非常有用。**正则表达式模式**允许我们避免传统的`variable> = 0 && variable <= 10` 构造 [2]：
+你可以使用模式来定义 `while` 循环和 `for-in` 循环的停止条件。这在范围中非常有用。**正则表达式模式**允许我们避免传统的`variable >= 0 && variable <= 10` 构造 [2]：
 
 ```
 var guess: Int = 0
@@ -138,9 +137,9 @@ while case 0...10 = guess  {
 print("You guessed a number out of the range!")
 ```
 
-在所有这些例子中，模式紧跟在 `case` 之后，值则在 `=` 之后。语法与此不同的表达式中有 `is`，`as` 或` in` 关键字。在这些情况下，如果将这些关键字视为 `=` 的替代品，那么结构是相同的。记住这一点，并且通过编译器的提示，你可以使用所有 8 种模式，而无需参考语言的文档。
+在所有这些例子中，模式紧跟在 `case` 之后，值则在 `=` 之后。语法与此不同的表达式中有 `is`、`as` 或 `in` 关键字。在这些情况下，如果将这些关键字视为 `=` 的替代品，那么结构是相同的。记住这一点，并且通过编译器的提示，你可以使用所有 8 种模式，而无需参考语言的文档。
 
-到目前为止，我们在前面的例子中还没有看到用 `Range` 来匹配**表达式模式**的一些独特之处：它的模式匹配实现不是内置功能，至少不是内置于编译器中的。**表达式模式**使用了 Swift 标准库 [`〜=` 操作符](https://developer.apple.com/documentation/swift/1539154?changes=_3)。 `〜=` 操作符是一个自由的泛型函数，定义如下：
+到目前为止，我们在前面的例子中还没有看到用 `Range` 来匹配**表达式模式**的一些独特之处：它的模式匹配实现不是内置功能，至少不是内置于编译器中的。**表达式模式**使用了 Swift 标准库 [`~=` 操作符](https://developer.apple.com/documentation/swift/1539154?changes=_3)。`~=` 操作符是一个自由的泛型函数，定义如下：
 
 ```
 func ~= <T>(a: T, b: T) -> Bool where T : Equatable
@@ -150,28 +149,29 @@ func ~= <T>(a: T, b: T) -> Bool where T : Equatable
 
 ### 匹配正则表达式
 
-下面让我们创建一个实现 `〜=` 操作符的 `Regex` 类型。它将会是围绕 [`NSRegularExpression`](https://developer.apple.com/documentation/foundation/nsregularexpression?changes=_9) 的一个轻量级的封装器，它使用模式匹配来生成更具可读性的正则表达式代码，在使用神秘的正则表达式时，应始终感兴趣。
+下面让我们创建一个实现 `~=` 操作符的 `Regex` 类型。它将会是围绕 [`NSRegularExpression`](https://developer.apple.com/documentation/foundation/nsregularexpression?changes=_9) 的一个轻量级的封装器，它使用模式匹配来生成更具可读性的正则表达式代码，在使用神秘的正则表达式时，应始终感兴趣。
 
-    struct Regex: ExpressibleByStringLiteral, Equatable {
-    
-        fileprivate let expression: NSRegularExpression
-    
-        init(stringLiteral: String) {
-            do {
-                self.expression = try NSRegularExpression(pattern: stringLiteral, options: [])
-            } catch {
-                print("Failed to parse \(stringLiteral) as a regular expression")
-                self.expression = try! NSRegularExpression(pattern: ".*", options: [])
-            }
-        }
-    
-        fileprivate func match(_ input: String) -> Bool {
-            let result = expression.rangeOfFirstMatch(in: input, options: [],
-                                    range NSRange(input.startIndex..., in: input))
-            return !NSEqualRanges(result, NSMakeRange(NSNotFound, 0))
+```
+struct Regex: ExpressibleByStringLiteral, Equatable {
+
+    fileprivate let expression: NSRegularExpression
+
+    init(stringLiteral: String) {
+        do {
+            self.expression = try NSRegularExpression(pattern: stringLiteral, options: [])
+        } catch {
+            print("Failed to parse \(stringLiteral) as a regular expression")
+            self.expression = try! NSRegularExpression(pattern: ".*", options: [])
         }
     }
-    
+
+    fileprivate func match(_ input: String) -> Bool {
+        let result = expression.rangeOfFirstMatch(in: input, options: [],
+                                range NSRange(input.startIndex..., in: input))
+        return !NSEqualRanges(result, NSMakeRange(NSNotFound, 0))
+    }
+}
+```
 
 这就是我们的 `Regex` 结构体。它有一个 `NSRegularExpression` 属性。它可以初始化为字符串字面常量，其结果是，如果我们无法传递一个有效的正则表达式，那么我们将得到失败的消息和一个匹配所有的正则表达式。接下来，我们实现模式匹配操作符，将其嵌套在扩展中，这样就可以清楚地知道要在何处使用该操作符。
 
@@ -217,11 +217,11 @@ static let phone: Regex = "^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]
     }
     
 
-你可能想知道为什么看不到上面的 `〜=` 操作符。因为它是 `Expression Pattern` 的一个实现细节，且是隐式使用的。
+你可能想知道为什么看不到上面的 `~=` 操作符。因为它是 `Expression Pattern` 的一个实现细节，且是隐式使用的。
 
 ### 牢记这些基础知识！
 
-有了所有这些奇特的模式，我们不应该忘记使用经典 switch 语句的方法。当模式匹配 `〜=` 操作符未定义时，Swift 在 switch 语句中会使用 `==` 操作符。重申一下，我们现在不再处于模式匹配的范畴。
+有了所有这些奇特的模式，我们不应该忘记使用经典 switch 语句的方法。当模式匹配 `~=` 操作符未定义时，Swift 在 switch 语句中会使用 `==` 操作符。重申一下，我们现在不再处于模式匹配的范畴。
 
 以下是一个例子。这里的 switch 语句用来做一个给委托回调的[分离器](https://www.electronicshub.org/demultiplexerdemux/)。它对 `NSObject` 子类的 `textField` 变量执行了 switch 语句。因此，等式被定义为了标识比较，它会检查两个变量的指针值是否相等。举个例子，以一个对象作为三个 `UITextField` 对象的委托。每个文本字段都需要以不同的方式验证其文本。当用户编辑文本时，委托为每个文本字段接收相同的回调，
 
