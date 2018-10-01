@@ -2,14 +2,14 @@
 > * 原文作者：[Braden Kelley](https://developer.okta.com/blog/2018/08/21/build-secure-rest-api-with-node)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/build-secure-rest-api-with-node.md](https://github.com/xitu/gold-miner/blob/master/TODO1/build-secure-rest-api-with-node.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starriers](https://github.com/Starriers)
+> * 校对者：[jianboy](https://github.com/jianboy)
 
-# 使用 Node 和OAuth 2.0 构建一个简单的 REST API
+# 使用 Node 和 OAuth 2.0 构建一个简单的 REST API
 
-JavaScript 在 web 是随处可见 —— 几乎每个 web 页面都会或多或少的包含一些 JavaScript，即使没有 JavaScript，你的浏览器也可能存在某种扩展类型向页面中注入一些 JavaScript 代码。在 2018，这些事情都不可避免。
+JavaScript 在 web 是随处可见 —— 几乎每个 web 页面都会或多或少的包含一些 JavaScript，即使没有 JavaScript，你的浏览器也可能存在某种扩展类型向页面中注入一些 JavaScript 代码。直到如今，这些事情都不可避免。
 
-JavaScript 也可以用于浏览器的上下文之外的任何事情，从托管 web 服务器到 RC 汽车或运行成熟的操作系统。有时你想要几个一组无论是在本地网络还是在互联网上都可以相互交流的服务器。
+JavaScript 也可以用于浏览器的上下文之外的任何事情，从托管 web 服务器来控制 RC 汽车或运行成熟的操作系统。有时你想要几个一组无论是在本地网络还是在互联网上都可以相互交流的服务器。
 
 今天，我会向你演示如何使用 Node.js 创建一个 REST API，并使用 OAuth 2.0 保证它的安全性，以此来阻止不必要的请求。REST API 在 web 上比比皆是，但如果没有合适的工具，就需要大量的样板代码。我会向你演示如何使用可以轻松实现客户端认证流的令人惊讶的一些工具，它可以在没有用户上下文的情况下将两台机器安全地连接。
 
@@ -30,11 +30,9 @@ $ npm init
 这个实用工具将引导你创建 package.json 文件。
 它只涵盖最常见的项目，并试图猜测合理的默认值。
 
-请参阅 `npm help json` 
-来获取关于这些字段的确切文档以及它们所做的事情。
+请参阅 `npm help json` 来获取关于这些字段的确切文档以及它们所做的事情。
 
-使用 `npm install <pkg>` 
-安装包并将其保存为 package.json 文件中的依赖项。
+使用 `npm install <pkg>` 命令来安装一个 npm 依赖，并将其保存在 package.json 文件中。
 
 Press ^C at any time to quit.
 package name: (rest-api)
@@ -64,7 +62,7 @@ About to write to /Users/Braden/code/rest-api/package.json:
 Is this OK? (yes)
 ```
 
-默认的入口端点是 `index.js`，因此你应该以此为名创建一个文件。下面的代码将为你提供一个出了默认监听 3000 端口以外什么也不做的非常基本的服务器。
+默认的入口端点是 `index.js`，因此，你应当创建一个 `index.js` 文件。下面的代码将为你提供一个出了默认监听 3000 端口以外什么也不做的非常基本的服务器。
 
 **index.js**
 
@@ -87,7 +85,7 @@ startServer()
 
 `util` 的 `promisify` 函数允许你接受一个期望回调的函数，然后返回一个 promise，这是处理异步代码的新标准。这还允许我们使用相对较新的 `async`/`await` 语法，并使我们的代码看起来漂亮得多。
 
-为了让它运行，你需要在文件顶部下载你 `require` 的依赖。使用 `npm install` 来添加它们。这会将一些元数据自动保存到你的 `package.json` 文件中，并将它们下载到本地的 `node_modules` 文件中。
+为了让它运行，你需要下载你在文件头部导入的 `require` 依赖。使用 `npm install` 来安装他们。这会将一些元数据自动保存到你的 `package.json` 文件中，并将它们下载到本地的 `node_modules` 文件中。
 
 **注意**：你永远都不应该向源代码提交 `node_modules`，因为对于源代码的管理，往往会很快就变得臃肿，而 `package-lock.json` 文件将跟踪你使用的确切版本，如果你将其安装在另一台计算机上，它们将得到相同的代码。
 
@@ -105,7 +103,7 @@ $ npm test
 > standard
 ```
 
-如果一切顺利，你不应该看到任何输出超过 `> standard` 线。如果有错误，可能如下所示：
+如果一切顺利，在 `> standard` 线后，你不应该看到任何输出。如果有错误，可能如下所示：
 
 ```
 $ npm test
@@ -122,7 +120,7 @@ standard: Run `standard --fix` to automatically fix some problems.
 npm ERR! Test failed.  See above for more details.
 ```
 
-现在，你的代码已经准备好了，也下载了所需的依赖，你可以用 `node .`（）运行服务器了。（`.` 表示查看前目录，然后检查你的 `package.json` 文件，以确定该目录中使用的主文件是 `index.js`）：
+现在，你的代码已经准备好了，也下载了所需的依赖，你可以用 `node .` 运行服务器了。（`.` 表示查看前目录，然后检查你的 `package.json` 文件，以确定该目录中使用的主文件是 `index.js`）：
 
 ```
 $ node .
@@ -279,7 +277,7 @@ $ curl localhost:3000/parts -s0 | json
 ]
 ```
 
-### 这里发生了什么？
+### 这发生了什么？
 
 如果你之前一直是按照我们的步骤来的，那么是可以跳过这部分的，因为这部分是我之前承诺过要给出的解释。
 
@@ -331,7 +329,7 @@ module.exports = initializeDatabase
 
 现在你已经启动并运行了 REST API，想象你希望一个特定的应用程序从远程位置使用这个 API。如果你把它按照原样存放在互联网上，那么任何人都可以随意添加、修改或删除部位。
 
-为了避免这个情况，你可以使用 OAuth 2.0 客户端凭据流。这是一种不需要上下文就可以让两个服务器相互通信的方式。这两个服务器必须事先同意使用第三方授权服务器。假设有两个服务器，A 和 B，以及一个接权服务器。服务器 A 托管 REST API，服务器 B 希望访问该 API。
+为了避免这个情况，你可以使用 OAuth 2.0 客户端凭证。这是一种不需要上下文就可以让两个服务器相互通信的方式。这两个服务器必须事先同意使用第三方授权服务器。假设有两个服务器，A 和 B，以及一个接权服务器。服务器 A 托管 REST API，服务器 B 希望访问该 API。
 
 *   服务器 B 向授权服务器发送一个私钥来证明自己的身份，并申请一个临时令牌。
 *   服务器 B 会向往常一样使用 REST API，但会将令牌与请求一起发送。
@@ -344,7 +342,7 @@ module.exports = initializeDatabase
 
 这就是 OKta 发挥作用的地方。OKta 可以扮演允许你保护数据的服务器的角色。你可能会问自己“为什么是 OKta？”好的，对于构建 REST 应用程序来说，它非常的酷，但是构建一个**安全**的应用程序会更酷。为了实现这个目标，你需要添加身份验证，以便用户在查看/修改组之前必须要登录才可以。在 Okta 中，我们的目标是确保[身份管理](https://developer.okta.com/product/user-management/)比你过去使用的要更容易、更安全、更可扩展。Okta 是一种云服务，它允许开发者创建、编辑和安全存储用户账户以及用户账户数据，并将它们与一个或多个应用程序连接。我们的 API 允许你：
 
-*   [验证](https://developer.okta.com/product/authentication/) 并 [授权](https://developer.okta.com/product/authorization/) 你的用户
+*   [验证](https://developer.okta.com/product/authentication/)并[授权](https://developer.okta.com/product/authorization/)你的用户
 *   存储关于用户的数据
 *   允许基于密码和[社交的登录方式](https://developer.okta.com/authentication-guide/social-login/)
 *   使用[多个代理身份验证](https://developer.okta.com/use_cases/mfa/)来保护你的应用程序
@@ -368,7 +366,7 @@ ISSUER=https://{yourOktaDomain}/oauth2/default
 
 **注意**：一般规则是，你不应该将 `.env` 文件存储在源代码管理中。这允许多个项目同时使用相同的源代码，而不是需要单独的分支。它确保你的安全信息不会被公开（特备是如果你将代码作为开源发布时）。
 
-接下来，导航到 **Scopes** 菜单。单击 **Add Scope** 按钮，然后为 REST API 创建一个作用域。你需要给一个名称（例如，`parts_manager`），如果你愿意，还可以给它一个描述。
+接下来，导航到 **Scopes** 菜单。单击 **Add Scope** 按钮，然后为 REST API 创建一个作用域。你需要起一个名称（例如，`parts_manager`），如果你愿意，还可以给它一个描述。
 
 ![添加范围的截图](/assets/blog/rest-api-node/adding-scope-f3ecb3b4eec06d616a130400245843c0de2dd52a54b2fdcff7449a10a2ce75ed.png)
 
@@ -381,9 +379,9 @@ ISSUER=https://{yourOktaDomain}/oauth2/default
 SCOPE=parts_manager
 ```
 
-你现在需要创建一个客户端。导航到  **Applications**，然后单击 **Add Application**。选择 **Service**，然后单击 **Next**。输入服务名（例如 `Parts Manager`）然后单击 **Done**。
+你现在需要创建一个客户端。导航到 **Applications**，然后单击 **Add Application**。选择 **Service**，然后单击 **Next**。输入服务名（例如 `Parts Manager`）然后单击 **Done**。
 
-这将带你到具体的客户凭据的页面。这些是服务器 B （将消耗 REST API 的服务器）为了进行身份验证所需要的凭据。在本例中，客户端和服务器代码位于同一存储库中，因此继续将这些数据添加到你的 `.env` 文件中。请确保将 `{yourClientId}` 和 `{yourClientSecret}` 替换为此页面中的值。
+这将带你到具体的客户凭据的页面。这些是服务器 B（将消耗 REST API 的服务器）为了进行身份验证所需要的凭据。在本例中，客户端和服务器代码位于同一存储库中，因此继续将这些数据添加到你的 `.env` 文件中。请确保将 `{yourClientId}` 和 `{yourClientSecret}` 替换为此页面中的值。
 
 ```
 CLIENT_ID={yourClientId}
@@ -454,7 +452,7 @@ module.exports = async (req, res, next) => {
    await initializeDatabase(app)
 ```
 
-如果测试请求是否被正确阻止，请尝试再次运行。。。
+如果测试请求是否被正确阻止，请尝试再次运行...
 
 ```
 $ npm test && node .
@@ -604,7 +602,7 @@ const sendAPIRequest = async () => {
 sendAPIRequest()
 ```
 
-这是客户端向授权服务器发送令牌请求的地方。对于授权服务器本身的授权，你需要使用 Basic Auth。当你得到一个内置弹出要求用户名和密码时，基本认证是浏览器使用相同的行为。假设你的用户名是 `AzureDiamond` 并且你的密码是 `hunter2`。你的浏览器就会将它们用 （`:`） 连起来，然后 base64（这就是 `btoa` 函数的功能）对它们进行编码，来获取 `QXp1cmVEaWFtb25kOmh1bnRlcjI=`。然后它发送一个授权报头 `Basic QXp1cmVEaWFtb25kOmh1bnRlcjI=`。服务器可以用 base64 对令牌进行解码，以获取用户名和密码。
+这是客户端向授权服务器发送令牌请求的地方。对于授权服务器本身的授权，你需要使用 Basic Auth。当你得到一个内置弹出要求用户名和密码时，基本认证是浏览器使用相同的行为。假设你的用户名是 `AzureDiamond` 并且你的密码是 `hunter2`。你的浏览器就会将它们用（`:`）连起来，然后 base64（这就是 `btoa` 函数的功能）对它们进行编码，来获取 `QXp1cmVEaWFtb25kOmh1bnRlcjI=`。然后它发送一个授权报头 `Basic QXp1cmVEaWFtb25kOmh1bnRlcjI=`。服务器可以用 base64 对令牌进行解码，以获取用户名和密码。
 
 基础授权本身并不安全，因为它很容易被破解，这就是为什么 `https` 对于中间人攻击很重要。在这里，客户端 ID 和客户端密钥分别是用户名和密码。这也是为什么必须保证 `CLIENT_ID` 和 `CLIENT_SECRET` 是私有的原因。
 
