@@ -1,3 +1,5 @@
+* [用 Python 实现马尔可夫链的初学者教程](https://juejin.im/post/5bb031d06fb9a05cdb104888) ([cdpath](https://github.com/cdpath) 翻译)
+* [Python 中的无监督学习算法](https://juejin.im/post/5bab10ed6fb9a05d1f2211b6) ([zhmhhu](https://github.com/zhmhhu) 翻译)
 * [用 Scikit-Learn 实现 SVM 和 Kernel SVM](https://juejin.im/post/5b7fd39af265da43831fa136) ([rockyzhengwu](https://github.com/rockyzhengwu) 翻译)
 * [Sklearn 中的朴素贝叶斯分类器](https://juejin.im/post/5b8510be51882542d23a1d66) ([sisibeloved](https://github.com/sisibeloved) 翻译)
 * [使用 Python 进行自动化特征工程](https://juejin.im/post/5b6ea0e4e51d4519044adff0) ([mingxing47](https://github.com/mingxing47) 翻译)
