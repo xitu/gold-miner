@@ -4401,10 +4401,11 @@
 |[JavaScript 如何工作的: 事件循环和异步编程的崛起 + 5 个关于如何使用 async/await 编写更好的技巧](https://juejin.im/post/5a221d35f265da43356291cc)|翻译|10|
 |[JavaScript 如何工作：在 V8 引擎里 5 个优化代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)|翻译|7|
 
-## 译者：[tvChan](https://github.com/tvChan) 历史贡献积分：36.5 当前积分：2.5 年度积分：18.5
+## 译者：[tvChan](https://github.com/tvChan) 历史贡献积分：36.5 当前积分：-2.5 年度积分：18.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 9 月兑掘金水杯 1 个|减去积分|5|
 |[2018 年 3 月兑小猫 1 个、GitHub 贴纸 pack3 一个、掘金笔记本 1 个和比特币 3 个]()|减去积分|34|
 |[保持 webpack 快速运行的诀窍：一本提高构建性能的现场指导手册](https://juejin.im/post/5a6adc6d5188257350517033)|校对|3|
 |[2018 前端性能优化清单——第一部分](https://juejin.im/post/5a67e49df265da3e377c2d59)|翻译|8|
@@ -5661,10 +5662,11 @@
 |------|-------|-------|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|4|
 
-## 译者：[sunhaokk](https://github.com/sunhaokk) 历史贡献积分：70 当前积分：70 年度积分：70
+## 译者：[sunhaokk](https://github.com/sunhaokk) 历史贡献积分：70 当前积分：45 年度积分：70
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 9 月兑掘金帽衫和水杯各一个|减去积分|25|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|2|
 |[用 API 请求制作赏心悦目的 UX](https://juejin.im/post/5b992d13e51d450e894de541)|校对|1.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|2|
@@ -5977,10 +5979,11 @@
 |------|-------|-------|
 |[使用 python 和 keras 实现卷积神经网络](https://juejin.im/post/5aefb0f351882567336aa3c7)|校对|1|
 
-## 译者：[shery](https://github.com/shery) 历史贡献积分：30 当前积分：30 年度积分：30
+## 译者：[shery](https://github.com/shery) 历史贡献积分：30 当前积分：0 年度积分：30
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 9 月兑 Octoplush 1 个|减去积分|30|
 |推荐多篇优秀英文文章|奖励|2|
 |[如何使用原生 JavaScript 构建简单的 Chrome 扩展程序](https://juejin.im/post/5b98a58b6fb9a05cec4d92e0)|翻译|6|
 |推荐优秀英文文章两篇|奖励|1|
@@ -6160,10 +6163,11 @@
 |------|-------|-------|
 |[Vue.js 还是 React？你会选择哪一个？为什么?](https://juejin.im/post/5b25b3a16fb9a00e70686180)|校对|0.5|
 
-## 译者：[geniusq1981](https://github.com/geniusq1981) 历史贡献积分：69.5 当前积分：69.5 年度积分：69.5
+## 译者：[geniusq1981](https://github.com/geniusq1981) 历史贡献积分：69.5 当前积分：24.5 年度积分：69.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 9 月兑树莓派套餐 1 套|减区积分|45|
 |[如何优化企业级规模的 Node.js 应用程序](https://juejin.im/post/5b83c639f265da436d7e4c5e)|校对|1.5|
 |[2018 年七个通过脑电图分析实现“读心术”的 Javascript 库](https://juejin.im/post/5b7f63e651882542c20f22f0)|翻译|4|
 |[用 Flutter 写一个待办事项应用](https://juejin.im/post/5b4f52275188251b11096a28)|校对|2|
