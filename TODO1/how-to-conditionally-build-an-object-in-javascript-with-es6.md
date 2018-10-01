@@ -13,7 +13,7 @@
 
 自 [Sanity.io](https://sanity.io)（我工作的地方）赞助 [Syntax](https://syntax.fm/show/068/design-tips-for-developers) 以来，我一直在 [CLIs](https://github.com/sanity-io/podcast-to-sanity) 和 [Express, and Serverless functions](https://github.com/sanity-io/Syntax) 处理播客 RSS-feeds。这包含处理和构建包含大量字段和信息的复杂对象。因为处理的数据来源各不相同，所以很难保证所有字段都被填充。还有一些字段是选填的，但你不希望在 RSS XML 或 [JSON FEED](https://jsonfeed.org) 输出没有值的标签。
 
-之前我会通过在对象上添加新 key 来解决这个问题：
+之前我会通过在对象上添加新的键来解决这个问题：
 
 ```
 function episodeParser(data) {
@@ -56,7 +56,7 @@ function episodeParser({
 }
 ```
 
-这个函数使用了两个 ES6 新特性。第一个 `...` 是[**参数对象解构**](https://www.youtube.com/watch?v=-vR3a11Wzt0)，如果你需要在函数中处理大量的参数，这是一个很好的模式。可以取代这种写法：
+这个函数使用了两个 ES6 新特性。第一个是[**参数对象解构**](https://www.youtube.com/watch?v=-vR3a11Wzt0)，如果你需要在函数中处理大量的参数，这是一个很好的模式。可以取代这种写法：
 
 ```
 function episodeParser(data) {
@@ -107,8 +107,7 @@ episodeParser(data)
 //> { guid: 1, title: 'An episode', summary: 'An episode summary', anotherOptionalField: 'some data' }
 ```
 
-您可以在[express.js]（https://github.com/sanity-io/Syntax/blob/master/routeHandlers/rss.js）和[netlify lambdas]（https：）的播客供稿实现中看到它的实际效果。 //github.com/sanity-io/Syntax/blob/master/functions/rss.js）。如果你想亲自尝试Sanity.io，你可以去[sanity.io/freecodecamp](https://sanity.io/freecodecamp?utm_source=freecodecamp&utm_medium=blog&utm_campaign=jq）并获得一个免费的开发者计划。 ✨
-You can see it in action in our podcast feeds implementation for [express.js](https://github.com/sanity-io/Syntax/blob/master/routeHandlers/rss.js) and [netlify lambdas](https://github.com/sanity-io/Syntax/blob/master/functions/rss.js). If you want to try Sanity.io for these implementations yourself,  you can go to [sanity.io/freecodecamp](https://sanity.io/freecodecamp?utm_source=freecodecamp&utm_medium=blog&utm_campaign=jq) and get an upped free developer plan. ✨
+你可以在我们为 [express.js](https://github.com/sanity-io/Syntax/blob/master/routeHandlers/rss.js) 和 [netlify lambdas](https://github.com/sanity-io/Syntax/blob/master/functions/rss.js) 实现的播客订阅中看到实际效果。如果你想亲自尝试 Sanity.io，你可以在 [sanity.io/freecodecamp](https://sanity.io/freecodecamp?utm_source=freecodecamp&utm_medium=blog&utm_campaign=jq) 获得一个免费的开发者计划。 ✨
 
 * * *
 
