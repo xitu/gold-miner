@@ -3,9 +3,8 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lazy-sequences-in-swift-and-how-they-work.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lazy-sequences-in-swift-and-how-they-work.md)
 > * 译者：[RickeyBoy](https://github.com/RickeyBoy)
-> * 校对者：
 
-使用 `map` 和 `filter` 这样的高阶函数在 Swift 项目中非常常见，因为它们是简单的算法，能让你将复杂的想法转化为简单的单行函数。不幸的是，它们没能解决所有的问题 -- 至少在它们的默认实现中没能解决。高阶函数是非常**急迫**的：它们使用闭包立即返回一个新的数组，不论你是否需要提前返回或者只是使用其中特定的元素。当性能很重要时，你可能被逼着写一些具体的辅助方法来避免高阶函数**急迫**的这个性质。
+使用 `map` 和 `filter` 这样的高阶函数在 Swift 项目中非常常见，因为它们是简单的算法，能让你将复杂的想法转化为简单的单行函数。不幸的是，它们没能解决所有的问题 — 至少在它们的默认实现中没能解决。高阶函数是非常**急迫**的：它们使用闭包立即返回一个新的数组，不论你是否需要提前返回或者只是使用其中特定的元素。当性能很重要时，你可能被逼着写一些具体的辅助方法来避免高阶函数**急迫**的这个性质。
 
 ```
 let addresses = getFirstThreeAddresses(withIdentifier: "HOME")
@@ -22,28 +21,28 @@ func getFirstThreeAddresses(withIdentifier identifier: String) -> [Address] {
 }
 ```
 
-幸运的是，Swift 有办法在使用高阶函数的同时保持其高性能和辅助函数 -- Swift 标准库 `Sequences` 和 `Collections` 的惰性执行版本可以通过 `lazy` 关键词获取到。
+幸运的是，Swift 有办法在使用高阶函数的同时保持其高性能和辅助函数 — Swift 标准库 `Sequences` 和 `Collections` 的惰性执行版本可以通过 `lazy` 关键词获取到。
 
-这些变化后的惰性版本使用起来就和普通情况一样，仅有一处改变：它们拥有像 `map` 和 `filter` 一样自定义实现的方法来保证它们的**惰性** -- 这意味着实际上只有在**你需要它们的时候**才会进行运算。
+这些变化后的惰性版本使用起来就和普通情况一样，仅有一处改变：它们拥有像 `map` 和 `filter` 一样自定义实现的方法来保证它们的**惰性** — 这意味着实际上只有在**你需要它们的时候**才会进行运算。
 
 ```
 let allNumbers = Array(1...1000)
 let normalMap = allNumbers.map { $0 * 2 } // 不论你是需要做什么，这段映射都会被执行完
 let lazyMap = allNumbers.lazy.map { $0 * 2 } // 在这里什么都不会发生
-print(lazyMap[0]) // 打印 2, 但其他不涉及的部分都不会发生
+print(lazyMap[0]) // 打印 2，但其他不涉及的部分都不会发生
 ```
 
 虽然一开始看着有点吓人，但它们允许你减少大多数的 `for` 循环，取代以能够提前返回的单行函数。例如，当用于查找满足断言的第一个元素时，这是它与其他方法的比较：
 
 ```
-// 在 [Address] 数组中有 10000 个 Address 元素, 和一个位于最开头的 "HOME" address 元素
+// 在 [Address] 数组中有 10000 个 Address 元素，和一个位于最开头的 "HOME" address 元素
 let address = allAddresses.filter { $0.identifier == "HOME" }.first // ~0.15 秒
 
 // 对比
 
 func firstAddress(withIdentifier identifier: String) -> Address? {
     // 现在你可以使用标准库的 first(where:) 方法，
-    // 但让我们现在假装它不存在
+    // 但让我们现在假装它不存在。
     for address in allAddresses where address.identifier == identifier {
         return address
     }
@@ -126,7 +125,7 @@ print(lazyMap) // LazyMapCollection<LazyFilterCollection<Array<Int>>, Int>
 
 看看 Swift 的源代码，我们可以通过这样一个事实，看到其非急迫性，即这些方法除了返回一个新类型之外，实际上并没有做任何事情：
 
-(我将使用 `LazySequence` 而不是 `LazyCollections` 的代码作为例子， 因为他们在特性上十分相似。 如果你不理解 `Sequences` 如何工作， [那么看一下 Apple 的这篇文章吧。](https://developer.apple.com/documentation/swift/sequence))
+（我将使用 `LazySequence` 而不是 `LazyCollections` 的代码作为例子，因为他们在特性上十分相似。如果你不理解 `Sequences` 如何工作，[那么看一下 Apple 的这篇文章吧。](https://developer.apple.com/documentation/swift/sequence)）
 
 ```
 extension LazySequenceProtocol {
@@ -168,7 +167,7 @@ extension LazyFilterSequence.Iterator: IteratorProtocol, Sequence {
 
 ## `LazyCollection`  的性能困境
 
-如果文章在这里结束的话会很好，但重要的是要知道惰性序列其实是有缺陷 -- 特别是当底层类型是 `Collection` 时。
+如果文章在这里结束的话会很好，但重要的是要知道惰性序列其实是有缺陷 — 特别是当底层类型是 `Collection` 时。
 
 在最开始的例子中，我们的方法获得了满足某个条件的前三个地址。通过将惰性操作链接在一起，这也可以简化为单行函数：
 
@@ -201,12 +200,12 @@ public subscript(bounds: Range<Index>) -> Slice<Self> {
 }
 ```
 
-问题是在 `Collection` 相关术语中，`endIndex` 不是最后一个元素的索引，而是最后一个元素（`index（startIndex，offsetBy：maxLength）`）**之后**的索引。对于我们的惰性 `filter` 函数来说，这意味着为了切割获得前三个家庭地址，我们必须找到**四个**家庭地址 -- 它们甚至可能不存在。
+问题是在 `Collection` 相关术语中，`endIndex` 不是最后一个元素的索引，而是最后一个元素（`index(startIndex, offsetBy:maxLength)`）**之后**的索引。对于我们的惰性 `filter` 函数来说，这意味着为了切割获得前三个家庭地址，我们必须找到**四个**家庭地址 — 它们甚至可能不存在。
 
 这篇文档 [certain lazy types](https://github.com/apple/swift/blob/master/stdlib/public/core/PrefixWhile.swift#L106) 说明了这个问题：
 
 ```
-/// - 注意：获取 `endIndex`、获取 `last`、
+/// - 注意：获取 `endIndex`、获取 `last` 以及
 ///   任何依赖 `endIndex` 的方法或者是
 ///   依赖于 collection 头部符合条件的元素个数进行移动的方法，
 ///   都可能无法匹配 `Collection` 协议保证的性能。
@@ -215,22 +214,22 @@ public subscript(bounds: Range<Index>) -> Slice<Self> {
 public struct LazyPrefixWhileCollection<Base: Collection> {
 ```
 
-更糟糕的是，因为一个 `Slice` 只是原始 `Collection` 的一个窗口，所以将它转换为`Array` 需要调用使用了惰性 filter 方法的 `Collection` 的 `count` 属性的函数 -- 但是因为 `lazy.filter（_ :)` 操作不符合 `RandomAccessCollection` 协议，`count`只能通过遍历整个 `Collection` 来找到。
+更糟糕的是，因为一个 `Slice` 只是原始 `Collection` 的一个窗口，所以将它转换为`Array` 需要调用使用了惰性 filter 方法的 `Collection` 的 `count` 属性的函数 — 但是因为 `lazy.filter(_:)` 操作不符合 `RandomAccessCollection` 协议，`count`只能通过遍历整个 `Collection` 来找到。
 
 由于 Lazy Sequence 缺少缓存，这导致整个过滤/切片过程**再次**发生。因此，如果第四个元素不存在或者与第三个元素相距太远，那么 `lazy` 版本的执行速度将比原始版本差两倍。
 
-好消息是这种情况可以被避免 -- 如果你不确定你的惰性操作是否会在合理的时间内运行，你可以通过将结果视为 `Sequence` 来保证效率。虽然这样失去 `BidirectionalCollection` 所具有的反向遍历功能，但保证了前向操作将再次快速。
+好消息是这种情况可以被避免 — 如果你不确定你的惰性操作是否会在合理的时间内运行，你可以通过将结果视为 `Sequence` 来保证效率。虽然这样失去 `BidirectionalCollection` 所具有的反向遍历功能，但保证了前向操作将再次快速。
 
 ```
 let sequence: AnySequence = allAddresses.lazy.filter { $0.identifier == "HOME" }.prefix(3)
-let result = Array(sequence) // ~0.004 秒!
+let result = Array(sequence) // ~0.004 秒！
 ```
 
 ## Conclusion
 
-使用 `lazy` 对象可以让你快速编写高性能、复杂的东西 -- 代价是需要了解 Swift 内部机制以防止出现重大问题。像所有功能一样，它们有巨大的优点也有等同的缺点，在这种情况下，需要了解 `Sequences` 和 `Collections` 之间的主要区别，汲取它们中的最佳功能来使用。一旦掌握，映射得到特定元素，将变得非常简单和直观。
+使用 `lazy` 对象可以让你快速编写高性能、复杂的东西 — 代价是需要了解 Swift 内部机制以防止出现重大问题。像所有功能一样，它们有巨大的优点也有等同的缺点，在这种情况下，需要了解 `Sequences` 和 `Collections` 之间的主要区别，汲取它们中的最佳功能来使用。一旦掌握，映射得到特定元素，将变得非常简单和直观。
 
-在 Twitter 上关注我 -- [@rockthebruno](https://twitter.com/rockthebruno)，如果你想分享任何的更正或者建议，请告知我。
+在 Twitter 上关注我 — [@rockthebruno](https://twitter.com/rockthebruno)，如果你想分享任何的更正或者建议，请告知我。
 
 ## 参考文献和优秀文章
 
@@ -241,6 +240,7 @@ let result = Array(sequence) // ~0.004 秒!
 [Sequence](https://developer.apple.com/documentation/swift/sequence)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
 
 ---
 
