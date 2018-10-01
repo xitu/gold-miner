@@ -142,7 +142,7 @@ extension LazySequenceProtocol {
 这样的神奇来自这些独特类型的内部实现。例如，如果我们看一下 `LazyMapSequence` 和 `LazyFilterSequence`，我们可以看到它们只不过是常规的 `Sequences`，它存储一个操作并仅在迭代时应用它们的对应的立刻生效的方法：
 
 ```
-// _base 是原始的 sequence
+// _base 是原始的 Sequence
 extension LazyMapSequence.Iterator: IteratorProtocol, Sequence {
     @inlinable
     public mutating func next() -> Element? {
@@ -165,7 +165,7 @@ extension LazyFilterSequence.Iterator: IteratorProtocol, Sequence {
 }
 ```
 
-## `LazyCollection`  的性能困境
+## `LazyCollection` 的性能困境
 
 如果文章在这里结束的话会很好，但重要的是要知道惰性序列其实是有缺陷 — 特别是当底层类型是 `Collection` 时。
 
