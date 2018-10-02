@@ -2,150 +2,150 @@
 > * 原文作者：[Google Play Apps & Games Team](https://medium.com/@googleplayteam?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/better-stats-for-better-decisionsbetter-stats-for-better-decisions.md](https://github.com/xitu/gold-miner/blob/master/TODO1/better-stats-for-better-decisions.md)
-> * 译者：
+> * 译者：[BriFuture](https://github.com/BriFuture)
 > * 校对者：
 
-# Better stats for better decisions
+# 更好的数据，更明智的决策
 
 ![](https://cdn-images-1.medium.com/max/2000/0*xQKF5835ivk1ZLVs)
 
-## The latest Google Play Console and Firebase features to help you analyze your audience
+## 最新的 Google Play Console 和 Firebase 能够帮助你分析你的用户
 
-_Authored by:_ [_Tom Grinsted_](https://medium.com/@tomgrinsted_1649) _(Product Manager for the Google Play Console) and_ [_Tamzin Taylor_](https://medium.com/@tamzint) _(Head of Apps & Games BD, Western Europe at Google Play)_
+_作者：_ [_Tom Grinsted_](https://medium.com/@tomgrinsted_1649) _(Google Play Console 的产品经理) 和_ [_Tamzin Taylor_](https://medium.com/@tamzint) _(Google Play 西欧区应用及游戏部主管)_
 
-Every day Google Play generates over 3 billion events, such as store searches, listing page views, and app installs. Part of our job is turning all of these events — and all of the amazing data that comes with them — into metrics, insights, and the tools that you can use to make better decisions.
+Google Play 每天可产生逾 30 亿次事件，包括商店搜索，详情页浏览以及应用安装等事件。将所有事件和随之而来的数据量化成指标，做出分析并做成可以让你做出更明智的决策的工具，是我们的一部分工作。
 
-When you look at what you do in your business on a daily basis, you’ll find that you are making decisions, lots of decisions: about your business, your acquisitions, about your development, and about your product roadmaps. And, good decisions are founded on good insights and good data.
+回想一下你每天在业务中所做的事情时，你就会发现你总是在做决策，很多决策：关于业务，关于获取，关于开发，还有关于产品规划的。是的，良好的分析和数据才能做出明智的决策。
 
-In this post, we are going to discuss some of the key tools you can use to drive discovery, acquisition, engagement, and monetization. We will also introduce the user lifecycle model that guides the development of benchmarks, insights, and tools to help with decision-making.
+本篇文章我们会讨论一些重要的工具，你能用它们来进行发现、获取、互动和获利。我们还会介绍用户生命周期模型，基准、观点和帮助制定决策的工具的发展都由它指引。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*VRurbfuiI5T9EsYU)
 
-### The user lifecycle
+### 用户生命周期
 
-As with any great journey, you need a place to start: a framework to guide thinking about the benchmarks, insights, and tools you need, as developers, to grow your app and build your business. This framework is the user lifecycle.
+和每一段美好的旅途一样，你要从某个位置出发：你需要一个框架，它能让你以开发者的身份思考，需要哪些基准、观点和工具，还能为你完善应用、开创事业。这个框架就是用户生命周期。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*BzrCmXezIGvetz2N)
 
-The lifecycle starts with discovery and acquisition. This phase is about getting in front of people, showing them that you’ve got a really interesting app or game, and persuading them to install it.
+生命周期始于发现和获取。这一阶段是，在大家面前，告诉他们你制作了一个十分有趣的应用或者游戏，并且安利他们安装。
 
-After the install comes engagement and monetization. You now have people coming back to your product every day: opening it and (hopefully) loving it. They’re also buying your in-app products and subscriptions, so you are getting paid as well.
+安装完毕后就是交互和获利了。现在你得让人们每天都使用你的产品：打开它并且（最好是）爱上它。他们还会购买应用内商品并且订阅，因此你也可以获得收入。
 
-It would be great if this were the end of the story, if everybody you acquire continues to use your app. But unfortunately, it’s not. Some people are — for whatever reason — going to uninstall your app or game, and become a lost user.
+如果你获得的每个人都会一直使用你的应用，而这就是故事的结局，那就真是太好了，但很不幸，你想多了。不论什么原因，有些人都会卸载你的应用或者游戏，从而成为流失的用户。
 
-That doesn’t have to be the end of the story. Increasingly, the user lifecycle continues by persuading people to come back, to give you a second or a third chance, by telling them about the wonderful new features your app has and convincing them that they’ll want to try it again.
+这不一定是故事的结局。劝服大家回归，用户生命周期才能延续，给你第二次或第三次机会，告诉他们在你应用中的美妙的新特性，让他们相信他们会想再次尝试这个应用。
 
-And it’s within this framework that we and our colleagues at Google Play think about the challenges in front of us.
+正是在这个框架中，我们和 Google Play 的同事思考了摆在我们面前的挑战。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*V39kFGek9nwQy46O)
 
-### Tools for discovery and acquisition
+### 用于发现和获取的工具
 
-Before we look at some of the tools to help with decision-making, there are three Google Play Store features which are worth mentioning: early access, pre-registration, and Google Play Instant.
+在我们查看有助于制定决策的工具前，先看看 Google Play Store 中的 3 个功能：抢先体验，预注册和 Google Play 免安装（Instant）。
 
-With the **early access program** you don’t wait until your app is in production to start discovering users. When you put your app or game into an open release track in the Google Play Console, you make it available to one of the over 230 million people who have opted in to open testing, with 2.5 million more people signing up each week.
+**抢先体验程序（early access program）** 让你可以在正式版应用发布前就开始发现用户。当你将应用或者游戏放到 Google Play Console 的开放下载渠道，就让 2 亿 3000 万用户中的某一个获取这款应用，他们参加了开放测试，而且每周还有 250 多万新人注册。
 
-Then there is **pre-registration**. Using this feature you can put your app or game into the Play Store, but, instead of the install button, people find a Pre-Registration button. Once someone has opted in, you can tell them when your app or game goes into production.
+然后是 **预注册**。使用这个功能你可以把应用或者游戏放到 Play 商店，但人们只能看到预注册（Pre-Registration）按钮而不是安装按钮。一旦有人参加，你就可以告诉他们，这款应用或者游戏什么时候发布正式版。
 
-> Ville Heijari, CMO at Rovio Entertainment Corporation, commented: “pre-registration was instrumental to get our fans excited about the upcoming game, and to notify them of the availability of the game at launch.”
+> Ville Heijari, Rovio 娱乐公司的市场总监，评论道：“预注册很有用，能让你的粉丝对期待即将到来的游戏，并且在发布游戏时他们会得到通知。”
 
-The third feature is **Google Play Instant**. This is an extension of our Instant Apps, which provides people with a low friction way to experience your app by enabling people to try an app or game without installing it.
+第三个功能是 **Google Play Instant（免安装）**。这是对免安装应用的扩展，它可以提供一小部分的应用体验，让用户不安装应用就可以尝试体验一款应用或者游戏。
 
-> Hothead Games implemented Google Play Instant, and director of marketing Oliver Birch has noted: “we’ve almost doubled the overall click-through rate on our Store listing. New user acquisitions are up 19%+. [As a result] we are planning to expand instant throughout our portfolio of games.”
+> Hothead Games 提到了 Google Play Instant，市场预测师 Oliver Birch 说道：“我们几乎已经让商店列表中所有的应用点击率翻倍了。新用户增长率超过 19%。（因此）我们正计划对我们的所有游戏进行免安装推广。”
 
-However, you can only manage what you can measure, which is why, to support the launch of Google Play Instant and to help you understand the contribution it’s making to your bottom line, there are new stats in the Play Console.
+然而，你只可以管理你能够估量的东西。为了支持 Google Play Instant 的启动，帮助你了解它对你的底线的贡献，才有了 Play Console 中新的统计数据，
 
-You can now see the number of Instant App launches and conversions, the number of times someone who launched your Instant App goes on to download the full version. And, because the stats are in the Play Console, you can slice and dice this information with your other key metrics, such as installs and revenue. The latest addition to these stats is the ability to track which products — browsers, Search, and the Play Store — are driving most of your Instant App success.
+你现在可以查看免安装应用（Instant App）启动和转换的数量，某个用户打开你的免安装应用，进而下载完整版本的次数。而且，由于数据在 Play Console 中，你可以使用其他的关键指标，如安装和收入，切分整合信息。新添加的数据能够跟踪是哪款产品——浏览器，Search 还是 Play 商店，推动你的免安装应用成功。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*Bk80wPWQh-4yY5rU)
 
-Now, you probably care about acquiring valuable users. The buyer acquisition report has always done a good job showing you how you convert play store visitors into repeat buyers, and now it tells you about Average Revenue Per User (ARPU) at each of those stages.
+现在你可能在意如何获取有价值的用户。购买者的获取报告总是能做好这个工作，向你展示如何将 Play 商店中的访客变成老顾客，并且现在它会告诉你在每个阶段中，每个用户带来的平均收入（ARPU）。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*yRFpGCBHKQlGJy_z)
 
-With this change, you see exactly how much average revenue per user you’re getting from different marketing channels, including organic traffic. Whether you’re running a classic CPM model, cost-per-Install model, or you’re driving value further down the funnel, this information will help you evaluate your strategies and make better decisions.
+有了这一改进，你可以清楚的看到每个用户的平均花费是多少，你从一个不同的市场渠道中获取，包含自然流量。无论你要使用经典的 CPM 模型，还是要使用每次安装的花费（cost-per-Install）模型，或是要把价值推向漏斗尖部，这一信息对你评估自己的策略和制定更好的决策都非常重要。
 
-And finally, for the discussion about discovery and acquisition, there are new benchmarks.
+最后，关于发现和获取的讨论，有新的基准。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*ezYvfaP8ns_N4Ag1)
 
-Benchmarks are great, because they help you focus your investment on the items that will give you the best return. The retained installers benchmarks in the user acquisition funnel, which also include all your organic traffic, let you see exactly where the there are opportunities to improve and where your efforts have paid off.
+基准很棒，因为它们帮助你专注于投资那些收益最高的东西。保留应用的安装者是用户获取漏斗的基准，这也包含所有的自然流量，让你看看到底哪里有机会进行改进，哪里让你的投入获得回报。
 
-> Brandon Ross of strategic partnerships at Intuit Inc. comments: “Organic Benchmarks have helped us gauge conversion performance vs. peers and helped us optimize our discovery and conversion.”
+> Intuit 合作公司的合作策略师 Brandon Ross 评论道：“自然基准帮助我们衡量与同行的转换率对比，并且帮助我们优化了查找和转换。”
 
 ![](https://cdn-images-1.medium.com/max/1600/0*-hQDAzHzWMpsOWN7)
 
-### Tools for engagement and monetization
+### 增强和获利的工具
 
-Let’s broaden our horizons and talk about Firebase tools, in addition to those in the Google Play Console.
+让我们拓宽眼界，谈谈 Firebase 工具，还有 Google Play Console 中的工具。
 
-But first, don’t forget the Google Play Console **events timeline**.
+首先，不要忘了 Google Play Console 中的 **事件时间线（events timeline）**。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*bPh3Rcmatd1DIMp0)
 
-This new report provides you with contextual information at the bottom of charts in the statistics page, Android vitals dashboard, subscription dashboard, and in other charts on the Play Console. The report shows your metrics in relation to events that affect your app, such as the rolling out of a new release. For example, you can see whether a change
+这篇新报告在统计页中图表的底部，Android vitas 控制面板，订阅控制面板，还有 Play Console 上的其他图表中提供了情境信息。报告将会展示对应用有影响的相关事件信息，比如新版本的占有率。举个例子，你可以看到与发行新版本相关的平均比率变化或价格变化是增加还是减少了 ARPU。
 
-in average rating correlates with the rollout of a new release, or a price change is increasing or decreasing ARPU.
 
-When it comes to discovering how people are engaging with your app, the tools offered by Firebase now provide even more help. In particular, **Google Analytics for Firebase** is enabled just by linking the analytics SDK to your app and, of course, signing up for the service.
 
-Out-of-the-box, Google Analytics for Firebase gives you meaningful metrics about engagement and retention. But, you can also instrument your code to track the activities that matter the most to your app or game.
+涉及到探索人们与应用的交互方式，Firebase 提供的这一工具现在可以提供更多的帮助。特别是，将分析 SDK 链接到你的应用中就能启用 **Google Analytics for Firebase** ，当然，这需要注册相应服务。
+
+开箱即用，Google Analytics for Firebase 提供了关于交互和保留用户的有意义的指标。但是，你也可以编写代码来追踪对你的应用或者游戏影响最大的活动。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*wKhlf4ypBdPgQpWk)
 
-Interpreting all the information you get back from Google Analytics for Firebase can sometimes be a challenge, however, this can now be made a lot easier by using **Firebase Predictions**.
+解析你从 Google Analytics for Firebase 获得的所有信息，这有时候可能是个难题，但是 **Firebase Predictions** 可以让它变得简单得多。
 
-Firebase Predictions uses analytics data combined with machine-learning and other tools to give you predictions about how people are going to behave in your app. By default, you get predictions about people’s spend and churn. Again, you can also instrument your app to get predictions about the features and behaviors that matter most to you.
+Firebase Predictions 使用解析数据，结合机器学习和其他工具，为你预测人们使用应用的方式。默认地，你可以获取用户花费和流失的预测。而且，你可以构建自己的应用，预测对你而言最重要的功能和行为。
 
-Moving on to the monetization phase, there have been several enhancements to the information about subscriptions. The **subscription dashboard** which launched last year and is used on a regular basis by the majority of top-earning subscription businesses. This is why we’ve continued to enhance the dashboard, including improvements to the retention and cancellation reports.
+接着是获利阶段，已经有一些针对订阅信息的改进。自去年启用的 **订阅控制面板（subscription dashboard）** 被由大多数最赚钱的订阅业务定期使用。这就是为什么我们一直在加强这个面板的功能，包括改进用户保留和删除的报告。
 
-Keep a look out for upcoming updates to the **subscription retention and cancellation reports**, which will make it easier to compare cohorts and evaluate key features, such as free trials and account hold. You will also be able to easily track more of the data that is important to you, such as renewals.
+注意观察即将到来的 **订阅、保留和删除报告** 的更新，它会让同类群组的比较及免费尝试和账号保留等重要功能的评估变得更加简单。你也能够轻松地追踪更多像续费这样的重要数据。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*SKEE_M66uRfVJKbg)
 
-With the new **cohort selector** you can select groups of users, selecting them by SKUs, date, and country. Use this feature to concentrate on a group of subscribers and analyze their performance. For example, you can pick an SKU with a free trial and compare it with an SKU with an introductory price to see which one earns you more revenue.
+通过 **同类群组选择器**，你可以通过 SKU（库存量单位），日期和国家选出一组用户，使用这个功能，专注于一组订阅者并分析他们的行为。比如，你可以选择一个免费尝试的 SKU，将它与一个产品价格的 SKU 对比，看看哪一个获利更多。
 
-When it comes to reducing your subscription churn, updates to the **cancellation report** will help you get more information about why people unsubscribe.
+涉及到减少订阅时，更新 **卸载报告** 会帮你获得更多信息，关于人们取消订阅的原因的。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*WJzoyAnXXde_D6Ef)
 
-When someone cancels a subscription, they are given the opportunity to complete a survey, so that they can explain why they’re canceling. And the results of these surveys are available on the subscription dashboard.
+当某个用户取消了订阅，让他们填写一份调查表，这样他们就可以解释为什么取消。并且这些调查的结果可以从订阅控制面板上查看。
 
-The dashboard now also reports on win-back features, such as **account hold** and **grace period**.
+控制面板现在也可以报告用户回归特征，诸如 **账号保留** 和 **使用周期**。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*-rQoM5mDb6yXpKmm)
 
-### Win-backs and re-installs
+### 用户回归、重新安装
 
-The Play Console provides reports about uninstalls, for example, daily uninstall metrics or the uninstall events. Also, on the retained installers acquisition report, you can find details such as how long people keep your app before uninstalling.
+Play Console 提供关于卸载的报告，比如，每日的卸载信息或者卸载事件。而且，在保存的安装者获取报告中，你可以找到诸如人们保留应用的时间。
 
-We have heard from many developers that they want more information, and we understand why. Later this year, you will see features such as the ability to analyze how many people are uninstalling your app and how many are installing your app again. So, stay tuned for more updates.
+我们从很多开发者那里获知，他们想要更多信息，我们能理解其中的原因。今年稍晚时候，你会看到一些新功能，比如能够分析有多少人卸载你的应用，有多少人在安装你的应用。因此保持关注以便获得更多更新。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*8iSi6BGBiDcP8t7N)
 
-### App dashboard
+### App dashboard 应用面板
 
-All of this new information creates a challenge. As a developer, you’re already really busy. You’ve got loads of tools, both from Google and others, and many different places to visit to get all the information you need. What you need is an easy way to see what the Play Console has to offer and the information that’s important to you.
+所有的新信息带来了挑战。作为开发者，你已经够忙了。你也有一堆工具，来自 Google 或其它公司的，还要查看许多不同的地方来获取你需要的所有信息。你需要的是用简单的方式来查看 Play Console 必须提供的，并且对你而言重要的信息。
 
-There is a solution: the **app dashboard** in the Google Play Console.
+一个解决方案是：Google Play Console 中的 **应用控制面板**。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*yd-BCQ5XxJKRmBlh)
 
-The app dashboard is the landing page you arrive at after selecting an app in the Google Play Console. It starts by providing trending information: such as installs, revenue, ratings, and crashes. In the sections that follow you’ll find groups of complementary data, such as installs and uninstalls, and revenue and RPU.
+在 Google Play Console 中选中一款应用后打开的页面就是应用控制面板。最前面的是提供的趋势信息：如安装，收益，评分和崩溃等。后面是一组互补的数据，如安装和卸载，总收益和每位用户带来的收入（RPU）。
 
-The dashboard is customizable; every section can be expanded or collapsed. So, if you’re interested in your revenue you can have that section open, but less interested in preregistration you can collapse that section. The dashboard then remembers your preferences and stays exactly as you leave it.
+面板可以定制，每一部分都能被展开或者折叠。因此如果你对收益感兴趣，你可以展开这一部分，但对预注册部分不那么感兴趣，就可以将这一部分折叠。面板会记住你的偏好，并保持你离开时的状态。
 
-### Final word
+### 终语
 
-User lifecycle has become an important way in which new features and updates to the Google Play Console are driven. As a result, these changes are designed to help you optimize every stage, from Google Play Instant and pre-registration for discovery and acquisition through to new subscription reports, enhanced acquisition reports, the new events timeline, and the uninstall stats. This information — and other details, such as your technical performance — are wrapped together in the app dashboard.
+用户生命周期已经成为促使 Google Play Console 的新功能和更新的重要方式了。结果，这些变化是为了帮助你优化每一个阶段：从用于发现和获取的 Google Play Instant 和预注册，到新的订阅报告、加强的获取报告、新的事件时间线以及卸载统计。这一信息和其它的细节，比如技术性能，都包含在了应用控制面板中。
 
-All of these tools will help drive your success, by better understanding your audience. If you want to learn more [check out more acquisition best practices](https://developer.android.com/distribute/best-practices/grow/user-aquisition), or hear more from us about the launches in our session from I/O 2018 below.
+这里的所有工具将会帮助你走向成功，通过让你更好的理解用户。如果你想了解更多内容，[查看更多关于获取的最佳实践](https://developer.android.com/distribute/best-practices/grow/user-aquisition)，或者在下方的 I/O 2018 会议中了解更多发布内容。
 
 * YouTube 视频链接：https://youtu.be/oib_gHJA_-0?list=PLWz5rJ2EKKc9Gq6FEnSXClhYkWAStbwlC
 
-### What do you think?
+### 你怎么看？
 
-Do you have thoughts on analyzing your app acquisition and engagement data? Let us know in the comments below or tweet using **#AskPlayDev** and we’ll reply from [@GooglePlayDev](http://twitter.com/googleplaydev), where we regularly share news and tips on how to be successful on Google Play.
+你有什么关于分析应用获取和交互的想法吗？在下方的评论区留言或者在推特上参加 **#AskPlayDev** 的讨论，我们会用 [@GooglePlayDev](http://twitter.com/googleplaydev) 账号进行回复，我们经常在推特上分享一些如何在 Google Play 中获得成功的消息和小窍门。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
