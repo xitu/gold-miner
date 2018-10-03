@@ -2,8 +2,8 @@
 > * 原文作者：[Knut Melvær](https://medium.freecodecamp.org/@kmelve?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-conditionally-build-an-object-in-javascript-with-es6.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-conditionally-build-an-object-in-javascript-with-es6.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ssshooter](https://github.com/ssshooter)
+> * 校对者：[kezhenxu94](https://github.com/kezhenxu94), [Park-ma](https://github.com/Park-ma)
 
 # 如何使用 JavaScript ES6 有条件地构造对象
 
@@ -76,7 +76,7 @@ function({id, title}) {
 
 这也是避免函数参数过多的好方法。还要注意对象解构的 `description = 'No summary'` 部分，这就是所谓的默认参数。如果 `description` 未定义，它将被默认定义为字符串 `No summary`。
 
-第二个 `...` 是 [**展开语法**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)。如果条件为真（`&&` 的作用），它将会“unwrap（解包）”对象：
+第二个 `...` 是[**展开语法**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)。如果条件为真（`&&` 的作用），它将会 “unwrap（解包）”对象：
 
 ```
 {
