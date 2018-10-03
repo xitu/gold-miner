@@ -9,7 +9,7 @@
 
 ![](https://i.loli.net/2018/09/29/5baf804a63637.png)
 
-模块化 CSS 是一组编写代码的原则，基于这个原则的代码具有高性能和可维护性。它起源于雅虎和 Yandex 的开发人员，目的是迎接维护大型代码库带来的挑战。有些规则在提出之初稍有争议，但后来被认为是最佳实践。
+模块化 CSS 是一组编写代码的原则，基于这个原则编写的代码具有高性能和可维护性。它起源于雅虎和 Yandex 的开发人员，目的是迎接维护大型代码库带来的挑战。有些规则在提出之初稍有争议，但后来被认为是最佳实践。
 
 **目录：**
 
@@ -23,7 +23,7 @@
 5.  [FAQ](#faq)
 6.  [总结，模块化 CSS 太美妙啦](#in-conclusion-modular-css-is-dope)
 
-**（Pssst：如果你对这篇文章的篇幅感到不知所措，[观看视频](https://www.youtube.com/watch?v=Ty5jtMZXbmk)可能更适合你，这篇文章来源于这个演讲。）**
+**（Pssst：如果你对这篇文章的篇幅感到不知所措，[观看视频](https://www.youtube.com/watch?v=Ty5jtMZXbmk)可能更适合你，这篇文章来源于此演讲。）**
 
 ## 大规模 CSS 的处理难点
 
@@ -33,11 +33,11 @@
 
 来源：[Nicholas Gallagher](https://twitter.com/necolas/status/360170108028600320)，图：[dotCSS](https://www.youtube.com/watch?v=L8w3v9m6G04)
 
-这句话直指大规模 CSS 问题的核心。写代码并不难，难是难在不让你的代码随着时间的推移成为拖累你的“技术债”。
+这句话直指大规模 CSS 问题的核心。写代码并不难，难的是在不让你的代码随着时间的推移成为拖累你的“技术债”。
 
 ### 难以理解
 
-以下是 [CSS Guidelines](https://cssguidelin.es/#naming-conventions-in-html) 中的一个示例，展示了我们遇到的一个问题。除了写这段代码的人，没有人知道这段代码是干什么的。
+以下是 [CSS Guidelines](https://cssguidelin.es/#naming-conventions-in-html) 中的一个示例，这个示例展示了一个问题：除了写这段代码的人，没有人知道这段代码是干什么的。
 
 ```
 <div class="box profile pro-user">
@@ -52,7 +52,7 @@
 
 ### 难以复用
 
-复用代码会非常棘手。假设你要在另一个页面上复用某个页面上的样式，但是这么做的时候，你会发现那个样式是专为第一个页面而写的。代码的作者认为它只用在某个特定元素中，或者它是从页面继承某些类。它在其他环境中根本不起作用。你不想修改原来的内容，然后你直接复制了代码。
+复用代码会非常棘手。假设你要在另一个页面上复用某个页面上的样式，但你想这么做的时候，会发现那个样式是专为第一个页面而写的。代码的作者认为它只用在某个特定元素中，或者它是从页面继承某些类，在其他环境中根本不起作用。你不想修改原来的内容，然后直接复制了代码。
 
 现在你有两个问题：一份原始代码，一份重复代码，你的维护负担直接增加了一倍。
 
@@ -82,7 +82,7 @@
 
 我会觉得：“好吧，这是一个书店页面，侧边栏中有一些小部件，右侧列出了大概是书籍封面的清单，一个精选书评，下面还有其他的评论。”
 
-我当时认为一个页面是一个完整的单元，页面里的较小部分从属于页面。这是一种自上而下的思考方法，这导致大量只服务于单个页面的一次性代码。这不利于编写可复用代码。
+我当时认为一个页面是一个完整的单元，页面里的较小部分从属于页面。这是一种自上而下的思考方法，这导致大量只服务于单个页面的一次性代码，不利于编写可复用代码。
 
 ![Illustration of a design comp for a bookstore with the components highlighted](https://spaceninja.ghost.io/content/images/2016/11/components.jpg)
 
@@ -98,13 +98,13 @@
 
 图：[BEM Method](https://github.com/bem-site/bem-method/blob/bem-info-data/articles/19-bem-principles/19-bem-principles.ru.md)
 
-这会让你想起乐高？应该的！几乎所有撰写有关模块化 CSS 的人都使用乐高进行类比。使用标准化，易于理解，并且无论上下文如何改变都可以预测的块来构建 UI 的是一个很好的思路。
+这会让你想起乐高？应该的！几乎所有撰写有关模块化 CSS 的人都使用乐高进行类比。使用标准化，易于理解，并且不依赖上下文的块来构建 UI 的是一个很好的思路。
 
 这样的“块”最着名的例子之一是由 [Nicole Sullivan](https://twitter.com/stubbornella) 定义的“媒体对象”，她认为这种对象是你将在任何网站上找到的最小的组件之一。
 
 ![An example of the media object](https://spaceninja.ghost.io/content/images/2016/11/media-blocks.jpg)
 
-它将固定宽度的图像组合到灵活宽度的容器的一侧。到处都可以看到这个模式。她撰写了一篇案例研究，名为 [The Media Object Saves Hundreds of Lines of Code](http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/)，谈到将此模式应用于大型网站，最大的例子之一便是 Facebook：
+它将固定宽度的图像组合到灵活宽度的容器的一侧，现在到处都可以看到这个模式。她撰写了一篇案例研究，名为 [The Media Object Saves Hundreds of Lines of Code](http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/)，谈到将此模式应用于大型网站，最大的例子之一便是 Facebook：
 
 ![The media object highlighted in red on the facebook homepage](https://spaceninja.ghost.io/content/images/2016/11/facebook-image-block.png)
 
@@ -120,9 +120,9 @@
 
 ### OOCSS
 
-面向对象的 CSS（Object-Oriented CSS）/ [OOCSS](https://github.com/stubbornella/oocss/wiki)，由 [Nicole Sullivan](https://twitter.com/stubbornella) 于 2009 年提出，这基于她在雅虎*的工作。它是模块化 CSS 的起源。她的核心概念是 —— 对象是**可重用的模式（pattern）**，其视觉外观不由上下文决定。
+面向对象的 CSS（Object-Oriented CSS）/ [OOCSS](https://github.com/stubbornella/oocss/wiki) 是模块化 CSS 的起源，由 [Nicole Sullivan](https://twitter.com/stubbornella) 于 2009 年提出，这基于她在雅虎的工作。这个框架的核心思想是 —— 对象是**可重用的模式（pattern）**，其视觉外观不由上下文决定。
 
-* 有人质疑雅虎的能力，需要了解他们的前端团队当时研发的 [YUI library](https://yuilibrary.com/) 是非常前沿的技术。在 2009 年，雅虎不是一家没有前途的科技公司。
+* 有人质疑雅虎的能力，雅虎的前端团队当时研发的 [YUI library](https://yuilibrary.com/) 是非常前沿的技术。在 2009 年，雅虎不是一家没有前途的科技公司。
 
 ![“a CSS ‘object’ is a repeating visual pattern, that can be abstracted into an independent snippet of HTML, CSS, and possibly JavaScript. That object can then be reused throughout a site.” —Nicole Sullivan](https://spaceninja.ghost.io/content/images/2016/11/stubbornella.jpg)
 
@@ -238,7 +238,7 @@ BEM 所做的另一件事是定义了非常严格的命名约定：
 
 **注意：这里的嵌套指实践中在 Sass 或 Less 嵌套选择器的做法，但即使你没有使用预处理器也适用，因为这关乎选择器优先度问题。**
 
-这个原则是不出问题是因为严格的命名约定。我们曾经使用嵌套选择器将它们隔离在命名空间的上下文中。而 BEM 的命名约定本身就提供了命名空间，因此我们不再需要嵌套。即使 CSS 的根级别的所有内容都是单个类，但这些名称的具体程度足以避免冲突。
+这个原则不出问题是因为严格的命名约定。我们曾经使用嵌套选择器将它们隔离在命名空间的上下文中。而 BEM 的命名约定本身就提供了命名空间，因此我们不再需要嵌套。即使 CSS 的根级别的所有内容都是单个类，但这些名称的具体程度足以避免冲突。
 
 一般来说，选择器可以在没有嵌套的情况下生效，就不要嵌套它。 BEM 允许此规则的唯一例外是基于块状态或其修饰符的样式元素。例如，可以使用 `.btn__text` 然后用 `.btn--orange .btn__text` 来覆盖应用了修饰符按钮的文本颜色。
 
@@ -257,11 +257,11 @@ BEM 所做的另一件事是定义了非常严格的命名约定：
 以下是他为CSS系统可能包含的规则类型定义的类别：
 Here are the categories he defined for the types of rules a CSS system might contain:
 
-1.  **基础（Base）** 规则是HTML元素的默认样式，如链接，段落和标题。
-2.  **布局（Layout）** 规则将页面分成几个部分，并将一个或多个模块组合在一起。它们只定义布局，而不管颜色或字体。
+1.  **基础（Base）**规则是HTML元素的默认样式，如链接，段落和标题。
+2.  **布局（Layout）**规则将页面分成几个部分，并将一个或多个模块组合在一起。它们只定义布局，而不管颜色或字体。
 3.  **模块（Modules）**（又名“对象”或“块”）是可重用的，设计中的一个模块。例如，按钮，媒体对象，产品列表等。
-4.  **状态（State）** 规则描述了模块或布局在特定状态下的外观。通常使用 JavaScript 应用或删除。例如，隐藏，扩展，激活等。
-5.  **主题（Theme）** 规则描述了模块或布局在主题应用时的外观，例如，在 Yahoo Mail 中，可以使用用户主题，这会影响页面上的每个模块。（这非常适用于像雅虎这样的应用程序，但大多数网站都不会使用此类别。）
+4.  **状态（State）**规则描述了模块或布局在特定状态下的外观。通常使用 JavaScript 应用或删除。例如，隐藏，扩展，激活等。
+5.  **主题（Theme）**规则描述了模块或布局在主题应用时的外观，例如，在 Yahoo Mail 中，可以使用用户主题，这会影响页面上的每个模块。（这非常适用于像雅虎这样的应用程序，但大多数网站都不会使用此类别。）
 
 #### 命名约定前缀
 
@@ -275,11 +275,9 @@ Here are the categories he defined for the types of rules a CSS system might con
 
 ## 共享模块化原则
 
-以上框架与其说不同不如说它们更加相似。我看到从 OOCSS 到 BEM 再到 SMACSS 的明确发展。它们的发展代表了我们行业在性能和大规模编写 CSS 方面不断增长的经验。
-These frameworks are more alike than they are different. I see a clear path from OOCSS to BEM to SMACSS. Their evolution represents our industry’s growing experience with performance and writing CSS at scale.
+这些框架与其说不同不如说它们更加相似。我看到从 OOCSS 到 BEM 再到 SMACSS 的明确发展。它们的发展代表了我们行业在性能和大规模 CSS 领域不断增长的经验。
 
-你不必选择其中一个框架，相反，让我们尝试定义模块化 CSS 的通用规则。让我们看看这些框架共享并保留最佳部分。
-You don’t need to pick just one. Instead, let’s try to define the universal themes of Modular CSS. Let’s see what these frameworks share and keep the best parts.
+你不必选择其中一个框架，相反，我们可以尝试定义模块化 CSS 的通用规则。让我们看看这些框架共用和保留的最佳部分。
 
 ### 模块化元素
 
@@ -293,11 +291,11 @@ You don’t need to pick just one. Instead, let’s try to define the universal 
 
 模块化系统中的样式可以分为以下几类：
 
-*   **Base** 规则是 HTML 元素的默认样式，如：`a`，`li`，`h1`
-*   **Layout** 规则控制模块的布局方式，但不控制视觉外观，如：`.l-centered`，`.l-grid`，`.l-fixed-top`
-*   **Modules** 是可复用的，独立的 UI 组件视觉样式，如：`.m-profile`，`.m-card`，`.m-modal`
-*   **State** 规则由 JavaScript 添加，如：`.is-hidden`, `.is-collapsed`, `.is-active`
-*   **Helper**（又名功能）规则适用范围小，独立于模块，如：`.h-uppercase`, `.h-nowrap`, `.h-muted`
+*   **基础（Base）**规则是 HTML 元素的默认样式，如：`a`，`li`，`h1`
+*   **布局（Layout）**规则控制模块的布局方式，但不控制视觉外观，如：`.l-centered`，`.l-grid`，`.l-fixed-top`
+*   **模块（Modules）**是可复用的，独立的 UI 组件视觉样式，如：`.m-profile`，`.m-card`，`.m-modal`
+*   **状态（State）**规则由 JavaScript 添加，如：`.is-hidden`, `.is-collapsed`, `.is-active`
+*   **助手（Helper）**（又名功能）规则适用范围小，独立于模块，如：`.h-uppercase`, `.h-nowrap`, `.h-muted`
 
 ### 模块化规则
 
@@ -378,8 +376,7 @@ You don’t need to pick just one. Instead, let’s try to define the universal 
 
 或者换句话说，**模块化 CSS 是可预测的，可维护的并且是高性能的。**
 
-现在我们可以重温那个老笑话，并做一个小小的改变：
-Now we can revisit that old joke, and make a slight change:
+现在我们可以重温那个老笑话，结局发生了变化：
 
 ![Two CSS properties walk into a bar. Everything is fine, thanks to modular code and proper namespacing.](https://spaceninja.ghost.io/content/images/2016/11/updated-tweet.png)
 
