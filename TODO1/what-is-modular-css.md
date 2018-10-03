@@ -257,11 +257,11 @@ BEM 所做的另一件事是定义了非常严格的命名约定：
 以下是他为CSS系统可能包含的规则类型定义的类别：
 Here are the categories he defined for the types of rules a CSS system might contain:
 
-1.  **基础（Base）**规则是HTML元素的默认样式，如链接，段落和标题。
-2.  **布局（Layout）**规则将页面分成几个部分，并将一个或多个模块组合在一起。它们只定义布局，而不管颜色或字体。
+1.  **基础（Base）** 规则是HTML元素的默认样式，如链接，段落和标题。
+2.  **布局（Layout）** 规则将页面分成几个部分，并将一个或多个模块组合在一起。它们只定义布局，而不管颜色或字体。
 3.  **模块（Modules）**（又名“对象”或“块”）是可重用的，设计中的一个模块。例如，按钮，媒体对象，产品列表等。
-4.  **状态（State）**规则描述了模块或布局在特定状态下的外观。通常使用 JavaScript 应用或删除。例如，隐藏，扩展，激活等。
-5.  **主题（Theme）**规则描述了模块或布局在主题应用时的外观，例如，在 Yahoo Mail 中，可以使用用户主题，这会影响页面上的每个模块。（这非常适用于像雅虎这样的应用程序，但大多数网站都不会使用此类别。）
+4.  **状态（State）** 规则描述了模块或布局在特定状态下的外观。通常使用 JavaScript 应用或删除。例如，隐藏，扩展，激活等。
+5.  **主题（Theme）** 规则描述了模块或布局在主题应用时的外观，例如，在 Yahoo Mail 中，可以使用用户主题，这会影响页面上的每个模块。（这非常适用于像雅虎这样的应用程序，但大多数网站都不会使用此类别。）
 
 #### 命名约定前缀
 
@@ -284,17 +284,17 @@ Here are the categories he defined for the types of rules a CSS system might con
 模块化系统由以下元素组成：
 
 *   **模块（Module）：**（又名对象，块或组件）一种可复用且自成一体的模式。如媒体对象，导航和页眉。
-*   **子元素（Child Element）：**一个不能独立存在的小块，属于模块的一部分。如媒体对象中的图像，导航选项卡和页眉 logo。
+*   **子元素（Child Element）：** 一个不能独立存在的小块，属于模块的一部分。如媒体对象中的图像，导航选项卡和页眉 logo。
 *   **模块修改器（Module Modifier）：**（又名皮肤或主题）改变模块的视觉外观。如左/右对齐的媒体对象，垂直/水平导航。
 
 ### 模块化类别
 
 模块化系统中的样式可以分为以下几类：
 
-*   **基础（Base）**规则是 HTML 元素的默认样式，如：`a`，`li`，`h1`
-*   **布局（Layout）**规则控制模块的布局方式，但不控制视觉外观，如：`.l-centered`，`.l-grid`，`.l-fixed-top`
-*   **模块（Modules）**是可复用的，独立的 UI 组件视觉样式，如：`.m-profile`，`.m-card`，`.m-modal`
-*   **状态（State）**规则由 JavaScript 添加，如：`.is-hidden`, `.is-collapsed`, `.is-active`
+*   **基础（Base）** 规则是 HTML 元素的默认样式，如：`a`，`li`，`h1`
+*   **布局（Layout）** 规则控制模块的布局方式，但不控制视觉外观，如：`.l-centered`，`.l-grid`，`.l-fixed-top`
+*   **模块（Modules）** 是可复用的，独立的 UI 组件视觉样式，如：`.m-profile`，`.m-card`，`.m-modal`
+*   **状态（State）** 规则由 JavaScript 添加，如：`.is-hidden`, `.is-collapsed`, `.is-active`
 *   **助手（Helper）**（又名功能）规则适用范围小，独立于模块，如：`.h-uppercase`, `.h-nowrap`, `.h-muted`
 
 ### 模块化规则
