@@ -2,8 +2,8 @@
 > * 原文作者：[Scott Vandehey](https://spaceninja.com/author/scott/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-is-modular-css.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-is-modular-css.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ssshooter](https://github.com/ssshooter)
+> * 校对者：[Hopsken](https://github.com/Hopsken) [Park-ma](https://github.com/Park-ma)
 
 # 什么是模块化 CSS？
 
@@ -13,15 +13,15 @@
 
 **目录：**
 
-1.  [大规模 CSS 的处理难点](#css-at-scale-is-difficult)
-2.  [什么是模块化？](#what-is-modularity)
-3.  [模块化框架](#modular-frameworks)
+1.  [大规模 CSS 的处理难点](#大规模CSS的处理难点)
+2.  [什么是模块化](#什么是模块化)
+3.  [模块化框架](#模块化框架)
     1.  [OOCSS](#oocss)
     2.  [BEM](#bem)
     3.  [SMACSS](#smacss)
-4.  [共享模块化原则](#shared-modular-principles)
+4.  [共享模块化原则](#共享模块化原则)
 5.  [FAQ](#faq)
-6.  [总结，模块化 CSS 太美妙啦](#in-conclusion-modular-css-is-dope)
+6.  [总结，模块化 CSS 太美妙啦](#总结，模块化-CSS-太美妙啦)
 
 **（偷偷告诉你：如果你对这篇文章的篇幅感到不知所措，[观看视频](https://www.youtube.com/watch?v=Ty5jtMZXbmk)可能更适合你，这篇文章来源于此演讲。）**
 
@@ -64,7 +64,7 @@
 
 ![](https://i.loli.net/2018/09/29/5baf80a3771fb.png)
 
-## 什么是模块化？
+## 什么是模块化
 
 那么我们如何解决这些问题呢？答案在于**模块化**这个概念，但这是什么呢？我们先看看 [Harry Roberts](https://twitter.com/csswizardry) 对[关注点分离](https://cssguidelin.es/#the-separation-of-concerns)的见解：
 
@@ -290,11 +290,11 @@ BEM 所做的另一件事是定义了非常严格的命名约定：
 
 模块化系统中的样式可以分为以下几类：
 
-*   **基础（Base）** 规则是 HTML 元素的默认样式，如：`a`，`li`，`h1`
-*   **布局（Layout）** 规则控制模块的布局方式，但不控制视觉外观，如：`.l-centered`，`.l-grid`，`.l-fixed-top`
-*   **模块（Modules）** 是可复用的，独立的 UI 组件视觉样式，如：`.m-profile`，`.m-card`，`.m-modal`
-*   **状态（State）** 规则由 JavaScript 添加，如：`.is-hidden`, `.is-collapsed`, `.is-active`
-*   **助手（Helper）**（又名功能）规则适用范围小，独立于模块，如：`.h-uppercase`, `.h-nowrap`, `.h-muted`
+*   **基础（Base）** 规则是 HTML 元素的默认样式，如：`a`、`li` 和 `h1`
+*   **布局（Layout）** 规则控制模块的布局方式，但不控制视觉外观，如：`.l-centered`、`.l-grid` 和 `.l-fixed-top`
+*   **模块（Modules）** 是可复用的，独立的 UI 组件视觉样式，如：`.m-profile`、`.m-card` 和 `.m-modal`
+*   **状态（State）** 规则由 JavaScript 添加，如：`.is-hidden`、`.is-collapsed` 和 `.is-active`
+*   **助手（Helper）**（又名功能）规则适用范围小，独立于模块，如：`.h-uppercase`、`.h-nowrap` 和 `.h-muted`
 
 ### 模块化规则
 
