@@ -13,7 +13,7 @@
 
 **目录：**
 
-1.  [大规模 CSS 的处理难点](#大规模CSS的处理难点)
+1.  [大规模 CSS 的处理难点](#c1)
 2.  [什么是模块化](#什么是模块化)
 3.  [模块化框架](#模块化框架)
     1.  [OOCSS](#oocss)
@@ -25,7 +25,7 @@
 
 **（偷偷告诉你：如果你对这篇文章的篇幅感到不知所措，[观看视频](https://www.youtube.com/watch?v=Ty5jtMZXbmk)可能更适合你，这篇文章来源于此演讲。）**
 
-## 大规模 CSS 的处理难点
+<h2 name="c1">大规模 CSS 的处理难点</h2>
 
 模块化 CSS 使用的主要场景是棘手的大规模 CSS。正如 [Nicholas Gallagher](https://twitter.com/necolas) [所说的](https://twitter.com/necolas/status/360170108028600320)：
 
