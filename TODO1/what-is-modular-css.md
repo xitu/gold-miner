@@ -21,7 +21,7 @@
     3.  [SMACSS](#smacss)
 4.  [共享模块化原则](#共享模块化原则)
 5.  [FAQ](#faq)
-6.  [总结，模块化 CSS 太美妙啦](#总结，模块化-CSS-太美妙啦)
+6.  [总结，模块化 CSS 太美妙啦](#c6)
 
 **（偷偷告诉你：如果你对这篇文章的篇幅感到不知所措，[观看视频](https://www.youtube.com/watch?v=Ty5jtMZXbmk)可能更适合你，这篇文章来源于此演讲。）**
 
@@ -347,7 +347,7 @@ BEM 所做的另一件事是定义了非常严格的命名约定：
 
 该规则的最后一个例外是“helper”或“utility”类可能会发生冲突，在这些情况下，你可以安全地考虑使用 `!important`。我知道，你曾被告知 `!important` 不是什么好东西，永远不应该被使用，但我们的做法有细微的差别：主动使用它来确保 helper 类总是优先还是不错的。 （[Harry Roberts has more to say on this topic in the CSS Guidelines](https://cssguidelin.es/#important)。）
 
-## 总结，模块化 CSS 太美妙啦
+<h2 name="c6">总结，模块化 CSS 太美妙啦</h2>
 
 我们来简要回顾一下，还记得这段代码吗？
 
