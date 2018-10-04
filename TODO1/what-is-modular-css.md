@@ -23,11 +23,11 @@
 5.  [FAQ](#faq)
 6.  [总结，模块化 CSS 太美妙啦](#in-conclusion-modular-css-is-dope)
 
-**（Pssst：如果你对这篇文章的篇幅感到不知所措，[观看视频](https://www.youtube.com/watch?v=Ty5jtMZXbmk)可能更适合你，这篇文章来源于此演讲。）**
+**（偷偷告诉你：如果你对这篇文章的篇幅感到不知所措，[观看视频](https://www.youtube.com/watch?v=Ty5jtMZXbmk)可能更适合你，这篇文章来源于此演讲。）**
 
 ## 大规模 CSS 的处理难点
 
-模块化 CSS 使用的主要场景是棘手的大规模 CSS。[Nicholas Gallagher](https://twitter.com/necolas) [所说的](https://twitter.com/necolas/status/360170108028600320)，我很喜欢：
+模块化 CSS 使用的主要场景是棘手的大规模 CSS。正如 [Nicholas Gallagher](https://twitter.com/necolas) [所说的](https://twitter.com/necolas/status/360170108028600320)：
 
 ![“Replace ‘can you build this?’ with ‘can you maintain this without losing your minds?’” —Nicolas Gallagher](https://spaceninja.ghost.io/content/images/2016/11/necolas-1.jpg)
 
@@ -46,7 +46,7 @@
 </div>
 ```
 
-> `box` 和 `profile` 有什么关系？`profile` 和 `avatar` 有什么关系？或者他们之间有关系吗？你应该在 `bio` 旁边添加 `pro-user` 吗？`image` 和 `profile` 写在同一部分 CSS 吗？可以在其他地方使用 `avatar` 吗？
+> `box` 和 `profile` 有什么关系？`profile` 和 `avatar` 有什么关系？或者他们之间真的有关系吗？你应该在 `bio` 旁边添加 `pro-user` 吗？`image` 和 `profile` 写在同一部分 CSS 吗？可以在其他地方使用 `avatar` 吗？
 
 光看代码无法回答这些问题，你必须在 CSS 代码中推理他们的作用。
 
@@ -92,7 +92,7 @@
 
 你会发现页面里包含的是 logo，搜索栏，导航，照片列表，辅助导航，标签框，视频播放器等。这些是可以网站的任何位置都可以独立使用的内容。它们只是碰巧在这个特定页面以这种方式组合。
 
-模块化 CSS 是自下而上的思维。你需要从构建整个站点的可复用构建块开始。
+模块化 CSS 是自下而上的思维，需要从构建整个站点的可复用构建模块开始。
 
 ![Image of workers building with Lego bricks](https://spaceninja.ghost.io/content/images/2016/11/legos.png)
 
@@ -100,11 +100,11 @@
 
 这会让你想起乐高？应该的！几乎所有撰写有关模块化 CSS 的人都使用乐高进行类比。使用标准化，易于理解，并且不依赖上下文的块来构建 UI 的是一个很好的思路。
 
-这样的“块”最着名的例子之一是由 [Nicole Sullivan](https://twitter.com/stubbornella) 定义的“媒体对象”，她认为这种对象是你将在任何网站上找到的最小的组件之一。
+这样的“块”最著名的例子之一是由 [Nicole Sullivan](https://twitter.com/stubbornella) 定义的“媒体对象”，她认为这种对象是你将在任何网站上找到的最小的组件之一。
 
 ![An example of the media object](https://spaceninja.ghost.io/content/images/2016/11/media-blocks.jpg)
 
-它将固定宽度的图像组合到灵活宽度的容器的一侧，现在到处都可以看到这个模式。她撰写了一篇案例研究，名为 [The Media Object Saves Hundreds of Lines of Code](http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/)，谈到将此模式应用于大型网站，最大的例子之一便是 Facebook：
+它将固定宽度的图像组合到灵活宽度的容器的一侧，现在到处都可以看到这个模式。她撰写了一篇名为 [The Media Object Saves Hundreds of Lines of Code](http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/) 的案例研究，谈到将此模式应用于大型网站，最大的例子之一便是 Facebook：
 
 ![The media object highlighted in red on the facebook homepage](https://spaceninja.ghost.io/content/images/2016/11/facebook-image-block.png)
 
@@ -172,7 +172,7 @@ BEM 由 3 部分组成：
 
 #### 块（Block）
 
-块是网页逻辑和功能的独立组件。 BEM 的发起人对其提出了更详尽的定义：
+块是网页逻辑和功能的独立组件。BEM 的发起人对其提出了更详尽的定义：
 
 首先，块是**可嵌套的**。它们应该能被包含在另一个块中，而不会破坏任何样式。例如，可能在侧栏中有一个标签界面小部件的块，该块可能包含按钮，这些按钮也是一种单独的块。按钮的样式和选项卡式元素的样式不会相互影响，一个嵌套在另一个中，仅此而已。
 
@@ -254,12 +254,11 @@ BEM 所做的另一件事是定义了非常严格的命名约定：
 
 #### 类别（Categories）
 
-以下是他为CSS系统可能包含的规则类型定义的类别：
-Here are the categories he defined for the types of rules a CSS system might contain:
+以下是他为 CSS 系统可能包含的规则定义的类别：
 
 1.  **基础（Base）** 规则是HTML元素的默认样式，如链接，段落和标题。
-2.  **布局（Layout）** 规则将页面分成几个部分，并将一个或多个模块组合在一起。它们只定义布局，而不管颜色或字体。
-3.  **模块（Modules）**（又名“对象”或“块”）是可重用的，设计中的一个模块。例如，按钮，媒体对象，产品列表等。
+2.  **布局（Layout）** 规则将页面分成几个部分，并将一个或多个模块组合在一起。它们只定义布局，而不管颜色或排版。
+3.  **模块（Module）**（又名“对象”或“块”）是可重用的，设计中的一个模块。例如，按钮，媒体对象，产品列表等。
 4.  **状态（State）** 规则描述了模块或布局在特定状态下的外观。通常使用 JavaScript 应用或删除。例如，隐藏，扩展，激活等。
 5.  **主题（Theme）** 规则描述了模块或布局在主题应用时的外观，例如，在 Yahoo Mail 中，可以使用用户主题，这会影响页面上的每个模块。（这非常适用于像雅虎这样的应用程序，但大多数网站都不会使用此类别。）
 
@@ -275,7 +274,7 @@ Here are the categories he defined for the types of rules a CSS system might con
 
 ## 共享模块化原则
 
-这些框架与其说不同不如说它们更加相似。我看到从 OOCSS 到 BEM 再到 SMACSS 的明确发展。它们的发展代表了我们行业在性能和大规模 CSS 领域不断增长的经验。
+这些框架的相同之处远胜于其不同之处。我看到从 OOCSS 到 BEM 再到 SMACSS 的明确发展。它们的发展代表了我们行业在性能和大规模 CSS 领域不断增长的经验。
 
 你不必选择其中一个框架，相反，我们可以尝试定义模块化 CSS 的通用规则。让我们看看这些框架共用和保留的最佳部分。
 
@@ -303,7 +302,7 @@ Here are the categories he defined for the types of rules a CSS system might con
 
 *   不要使用 ID
 *   CSS 嵌套不要超过一层
-*   将类添加到子元素
+*   为子元素添加类名
 *   遵循命名约定
 *   为类名添加前缀
 
