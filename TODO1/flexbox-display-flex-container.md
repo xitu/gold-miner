@@ -2,18 +2,19 @@
 > * 原文作者：[Rachel Andrew](https://www.smashingmagazine.com/author/rachel-andrew)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flexbox-display-flex-container.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flexbox-display-flex-container.md)
-> * 译者：
+> * 译者：[linxuesia](https://github.com/linxuesia)
 > * 校对者：
 
 # What Happens When You Create A Flexbox Flex Container?
+# 当你创建 Flexbox 布局时，都发生了什么
 
-**Quick summary:** In my ideal world, CSS Grid and Flexbox would have arrived together, fully formed to make up a layout system for the web. Instead, however, we got Flexbox first and, due to it being better at creating grid-type layouts than floats, we ended up with a lot of Flexbox-based grid systems. In fact, many of the places where people find Flexbox difficult or confusing are really due to this attempt to make it a method for grid layout.
+**快速简介：** 在我的理想世界里，CSS Grid 和 Flexbox 一起出现，完整的构成网络布局系统。然而，我们先有了 Flexbox 属性，因为它比浮动(floats)更适合用来做栅格式布局，所以出现了很多以 Flexbox 为基础的栅格布局系统。事实上，很多人觉得 Flexbox 令人困扰或者难以理解，正是因为尝试把它作为栅格布局的方法。
 
-In a short series of articles, I’m going to spend some time in detailed unpacking of Flexbox — in the same way I have done in the past with grid. We’ll have a look at the things Flexbox was designed for, what it really does well, and why we might not choose it as a layout method. In this article, we will take a detailed look at what actually happens when you add `display: flex` to your stylesheet.
+在接下来的一系列文章里面，我会花一点时间来结构 Flexbox - 以之前我用来理解 grid 属性的方式。我们一起看看 Flexbox 设计是为了什么，它擅长处理什么，以及你为什么不选择它作为布局的方法。在这篇文章中，我们会详细看一下，当你在样式表添加`display: flex`的时候，究竟会发生什么。
 
-### A Flex Container, Please!
+### 一个 Flex 容器，拜托了！
 
-In order to use Flexbox, you need an element that will be the flex container. In your CSS, you use `display: flex`:
+为了使用 Flexbox 布局，你需要一个元素作为 flex 容器，在 CSS 中，使用`display: flex`:
 
 HTML:
 
@@ -56,13 +57,13 @@ p {
 }
 ```
 
-See the Pen [Smashing Flexbox Series 1: display: flex;](https://codepen.io/rachelandrew/pen/PBRGQO) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+查看这个例子 [Smashing Flexbox Series 1: display: flex;](https://codepen.io/rachelandrew/pen/PBRGQO) ，作者 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 在 [CodePen](https://codepen.io) 上.
 
-Let us spend a little while thinking about what `display: flex` really means. In the [Display Module Level 3](https://www.w3.org/TR/css-display-3/), each value of display is described as actually being a combination of two things: an inner display model, and an outer display model. When we add `display: flex`, we are really defining `display: block flex`. The outer display type of our flex container is `block`; it acts like a block level element in normal flow. The inner display type is `flex`, so items directly inside our container will participate in flex layout.
+让我们花一点点时间来思考一下到底`display: flex`意味着什么。在[显示模式第三级](https://www.w3.org/TR/css-display-3/)中, display 的每一个值都由两个部分构成：内部显示模式和外部显示模式。当我们添加`display: flex`时，我们其实定义的是`display: block flex`。外部的 flex 容器是块级显示（`block`），它在文档流中以正常的块级元素来显示。内部显示模式是`flex`，所以在容器内部的直接子元素按照弹性布局来排列。
 
-This is something you might never have really thought about but probably understand anyway. The flex container acts like any other block on your page. If you have a paragraph followed by a flex container, both of these things behave as we have become accustomed to block elements behaving.
+这些事情你可能之前从未想过，但是还是能够理解。flex 容器在页面中就像其他块状元素一样表现。如果你在 flex 容器后面紧跟一个段落，它们两个都会表现为正常的块状元素。
 
-We can also define our container with a value of `inline-flex` which is like using `display: inline flex`, i.e. a flex container that acts like an inline level element, with children that participate in flex layout. The children of our inline flex container behave in the same way that children of our block flex container behave; the difference is how the container itself behaves in the overall layout.
+我们也可以把容器的属性设置为`inline-flex`,就和设置成`display:inline flex`一样，这就是说，flex 容器表现为普通行内元素，其子元素参与 flex 布局。在 flex 容器内的子元素就和块级 flex 容器内的子元素表现一样，不同之处就在于容器本身在整体布局中的表现。
 
 HTML:
 
@@ -106,53 +107,52 @@ p {
 }
 ```
 
-See the Pen [Smashing Flexbox Series 1: display: inline-flex;](https://codepen.io/rachelandrew/pen/YjaGvZ) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+查看这个例子 [Smashing Flexbox Series 1: display: inline-flex;](https://codepen.io/rachelandrew/pen/YjaGvZ) ，作者 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 在 [CodePen](https://codepen.io)上.
 
-This concept of elements having an outer display type, which defines how they behave as a box on the page (plus an inner display type) dictating how their children behave is quite useful. You can apply this thinking to any box in CSS. How does this element act? How do the children of this element act? The answers relate to their outer and inner display models.
+元素具有这种外部显示模式的概念，它定义了元素以单独一个盒模型的方式在在页面中如何表现（包括一个内部显示模式），对于预示它的子元素的表现也非常有用。你可以把这种思考应用于任何 CSS 定义的盒模型。这个元素将会如何表现？它的子元素又会怎样表现？这些问题的答案就与它们的内部显示模式和外部显示模式有关。
 
-### Rows Or Columns?
+### 行或者列？
 
-Once we have defined our flex container, some initial values come into play. Without our adding any extra properties, the flex items display as a row. This happens because the initial value of the `flex-direction` property is `row`. If you don’t set it, you get a row.
-
-The `flex-direction` property is how we set the direction of the main axis. Other values for `flex-direction` are:
+一旦我们定义了 flex 容器之后，一些初始值就开始发挥作用了。在我们没有添加任何其他属性的情况下，flex 子项目会按照行来排列。这是因为`flex-direction`属性的初始值就是`row`。如果你不对它进行设置，它就会显示成行。
+`flex-direction`属性它是用来设置主轴的排列方向，这个属性还有其他的值：
 
 *   `column`
 *   `row-reverse`
 *   `column-reverse`
 
-With our items in a row, the items are placed with the first item at the start edge of the inline dimension and display in the order that they appear in the source. In the specification, this edge is described as `main-start`:
+将我们的子项目排列起来，子项目从内联维度的起始边缘的第一个项目开始排列，并且按照它们在文档中的顺序来排列。在规范中，这个边缘就被叫做`flex-start`。
 
-[![main-start is at the beginning of the row](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ab7497e5-90a0-4073-bc37-12842297a090/row-main-start.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ab7497e5-90a0-4073-bc37-12842297a090/row-main-start.png) 
+[![main-start 是一行的开始](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ab7497e5-90a0-4073-bc37-12842297a090/row-main-start.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ab7497e5-90a0-4073-bc37-12842297a090/row-main-start.png)
 
-`main-start` is at the start of the inline dimension ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ab7497e5-90a0-4073-bc37-12842297a090/row-main-start.png))
+`main-start` 是行内维度的起始位置 ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ab7497e5-90a0-4073-bc37-12842297a090/row-main-start.png))
 
-If we use the value `column`, the items begin to lay out from the start edge of the block dimension and therefore form a column.
+如果我么使用`column`属性，子项目从块级维度的起始位置开始排列，因此构成一列。
 
-[![Items laid out as a column, main-start is at the top](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/480a9d24-8038-4946-aa9b-752d580df4db/column-main-start.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/480a9d24-8038-4946-aa9b-752d580df4db/column-main-start.png) 
+[![子项目按照列来排列，main-start 位于顶部](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/480a9d24-8038-4946-aa9b-752d580df4db/column-main-start.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/480a9d24-8038-4946-aa9b-752d580df4db/column-main-start.png)
 
-`main-start` is the start of the block dimension ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/480a9d24-8038-4946-aa9b-752d580df4db/column-main-start.png))
+`main-start` 是块级维度的起始位置 ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/480a9d24-8038-4946-aa9b-752d580df4db/column-main-start.png))
 
-When we use `row-reverse`, the location of `main-start` and `main-end` are switched; therefore, the items lay themselves out one after the other ending up in reverse order.
+当我们使用`row-reverse`时，`main-start`和`main-end`的位置互换了，因此，子项目也会相应的按照相反的顺序来排列。
 
-[![Items start at the end of the row](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/2a1852ed-c713-49b8-93ca-b9e295b4b8ff/row-reverse-main-start.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/2a1852ed-c713-49b8-93ca-b9e295b4b8ff/row-reverse-main-start.png) 
+[![子项目从行的末尾开始排列](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/2a1852ed-c713-49b8-93ca-b9e295b4b8ff/row-reverse-main-start.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/2a1852ed-c713-49b8-93ca-b9e295b4b8ff/row-reverse-main-start.png)
 
-`main-start` is at the end of the inline dimension ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/2a1852ed-c713-49b8-93ca-b9e295b4b8ff/row-reverse-main-start.png))
+`main-start` 在内联维度的末尾 ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/2a1852ed-c713-49b8-93ca-b9e295b4b8ff/row-reverse-main-start.png))
 
-The value `column-reverse` does the same thing. It’s important to remember that these values don’t “switch the order of items” although this is what we see happening, they change the place where the flow of items starts: by switching where `main-start` is. So our items do display in reverse order, but that is because they start laying out at the other end of the container.
+`column-reverse`也是一样的。有件很重要的事情需要记住，那就是这些值并不会改变子项目的顺序，尽管它们看起来是这样的效果，它们改变的是这些子项目开始排列的位置：通过改变`main-start`来达到目的。所以我们的子项目会按照相反的方向来排列，这仅仅是因为它是从容器的结束位置开始排列的。
 
-It is also important to remember that when this happens, the effect is purely visual. We are asking the items to display themselves starting at the end edge; they are still flowing in the same order and this is the order that your screen reader uses and also the order they can be tabbed through. You should never use `row-reverse` when what you really want to do is change the order of the items. Make that change in your document source.
+另外还有一件很重要的事情要记住，当它发生时，这仅仅是视觉上的，我们要求子项目从结束位置开始排列。它们在文档中仍然是原来的顺序，当你使用屏幕阅读器的时候仍旧可以通过 Tab 键来索引。当你真的想要改变子元素的顺序的时候，你不应该使用`row-reverse`，而是直接在文档源中去改变。
 
-### The Two Axes Of Flexbox
+### Flexbox 的两根轴线
 
-We have already exposed an important feature of flexbox: the ability to switch the main axis from row to column. This axis switching is why I think that often it is easier to understand things like alignment in Grid Layout first. With Grid, working in two dimensions, you can align on both axes in pretty much the same way. Flexbox is a little trickier because different things happen depending on whether you are working with the main axis, or the cross axis.
+我们已经揭露了 flexbox 的一个重要特性：能够将主轴从行切换为列。这种轴的切换，就是为什么我常常认为网格布局中的对齐更容易理解的原因。在网格布局中，从两个维度出发，你都可以使用几乎相同的方式在两个轴上对齐。对于弹性布局来说会更麻烦点，因为在主轴和交叉轴上子项目的表现是不太相同的。
 
-We have already encountered the main axis, i.e. the axis that you define as the value of `flex-direction`. The cross axis is the other dimension. If you have set `flex-direction: row`, your main axis is along the row, and your cross axis is down the columns. With `flex-direction: column`, the main axis is down the column and your cross axis along the rows. It is here where we need to explore another important feature of Flexbox, and that is the fact that it is not tied to the physical dimensions of the screen. We don’t talk about a row running from left to right, or a column from top to bottom, because that is not always the case.
+我们已经了解了主轴，也就是说，你用`flex-direction`属性的值来定义的那根轴线。交叉轴则是另外一个维度。如果你设置`flex-direction: row`，你的主轴是沿着行的方向，你的交叉轴是沿着列的方向。如果是`flex-direction: column`，主轴是沿着列的方向，交叉轴是沿着行的方向。在这里我们就需要讨论 flexbox 的另外一个重要特点，那就是它与屏幕的物理方向无关。我们不讨论从左到右方向的行，或从上到下方向的列，因为情况并非总是如此。
 
-#### Writing Modes
+#### 书写模式
 
-When I described row and column above, I mentioned the block and inline _dimensions_. This article is written in English, which is a horizontal writing mode. This means that when you ask Flexbox to give you a row, you get a horizontal display of your flex items. In this case, `main-start` is on the left — the place in which sentences start in English.
+当我在上文中形容行和列的时候，我提到了块级和行内的维度 _dimensions_ 。这篇文章是用英文写的，它是水平的书写模式。这就意味着当你要 Flexbox 为你提供一行时，子项目会水平的展示。在这个例子中，`main-start`是在左边 - 也就是英文中句子开始的位置。
 
-If I were working in a right-to-left language such as Arabic, then the start edge would be on the right:
+如果我使用的是从右到左书写的语言，比如阿拉伯语的话，起始位置就会位于右边：
 
 HTML:
 
@@ -196,11 +196,11 @@ p {
 }
 ```
 
-See the Pen [Smashing Flexbox Series 1: row with rtl text](https://codepen.io/rachelandrew/pen/JBLEdZ) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+查看这个例子 [Smashing Flexbox Series 1: row with rtl text](https://codepen.io/rachelandrew/pen/JBLEdZ) ，作者 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 在 [CodePen](https://codepen.io)上。
 
-The initial values of flexbox mean that if all I do is create a flex container, my items would start on the right and be displayed moving towards the left. **The start edge in the inline direction is the place where sentences start in the writing mode you are using**.
+flexbox 的初始值意味着，如果我所做的只是创建一个flex容器，我的子项目将会从右侧开始显示，并且向左移动。 **内联方向的起始位置是你用正在使用的书写模式句子开始的位置**。
 
-If you happen to be in a vertical writing mode and ask for a row, your row will run vertically, because that is the way in which rows of text run in a vertical language. You can try this by adding the `writing-mode` property to your flex container and setting it to the value `vertical-lr`. Now, when you set `flex-direction` to `row`, you get a vertical column of items.
+如果你恰好使用的是垂直书写模式并且要求行，那么你的行将会垂直排列，因为这就是垂直书写方式语言排列行的方式。你可以尝试为 flex 容器设置`writing-mode`属性，并把值设置为`vertical-lr`。现在，你再把`flex-direction`设置为行，子项目就会按照垂直的列来排布了。
 
 HTML:
 
@@ -244,13 +244,13 @@ p {
 }
 ```
 
-See the Pen [Smashing Flexbox Series 1: row with a vertical writing mode](https://codepen.io/rachelandrew/pen/oMqBXa) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+查看这个例子 [Smashing Flexbox Series 1: row with a vertical writing mode](https://codepen.io/rachelandrew/pen/oMqBXa) ，作者 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 在 [CodePen](https://codepen.io)上。
 
-So a row can run horizontally, with a `main-start` of the left or the right, and also run vertically with `main-start` at the top. It’s still a `flex-direction` of `row` even if our horizontal text accustomed minds find it hard to think of a row running vertically!
+所以，一行可以水平的运行，`main-start`在左侧或者右侧，也可以垂直运行，`main-start`在顶部。即使我们的脑袋习惯了横向文本，很难想象一行垂直运行，但它的`flex-direction`属性的值仍然是`row`！
 
-To cause the items to lay themselves out in the block dimension, we set the value of `flex-direction` to `column` or `column-reverse`. In English (or in Arabic), we then see the items displaying one on top of the other down the page, starting at the top of the container.
+为了让子项目以块级排列，我们可以把`flex-direction`的值设置成`column`或者`column-reverse`。在英语（或者阿拉伯语）里，我们会看到子项目从容器的顶部开始显示。
 
-In a Vertical Writing Mode, the Block dimension runs across the page, as this is the direction blocks are laid out in those writing modes. If you ask for a column in `vertical-lr`, your blocks will run left to right vertically:
+在垂直书写模式中，块级维度在页面上运行，因为这是块级元素在这些模式中的排列方向。如果你将一列设置为为`vertical-lr`，你的块级元素会从左到右来垂直排列。
 
 HTML:
 
@@ -294,34 +294,34 @@ p {
 }
 ```
 
-See the Pen [Smashing Flexbox Series 1: column in vertical-lr writing mode](https://codepen.io/rachelandrew/pen/yqKgeb) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+查看这个例子 [Smashing Flexbox Series 1: column in vertical-lr writing mode](https://codepen.io/rachelandrew/pen/yqKgeb) ，作者 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 在 [CodePen](https://codepen.io)上。
 
-However, no matter in which direction the blocks are displayed, if you are working with a `column` then you are working in the block dimension.
+但是，不管块级元素怎么显示，只要你使用的是`column`方向，那么你就是在块级维度之中。
 
-Understanding the fact that a row or a column can run in different physical directions is helpful in understanding some of the terminology being used for Grid and Flexbox. We don’t refer to ‘left and right’ or ‘top and bottom’ in Flexbox and Grid because we don’t make any assumption as to the writing mode of our document. All of CSS is becoming more writing mode aware; if you are interested in some other properties and values being implemented to make the rest of CSS behave in this same way, read my article on [Logical Properties and Values](https://www.smashingmagazine.com/2018/03/understanding-logical-properties-values/).
+了解一行或者一列能够在不同的物理方向上运行，有助于我们理解网格布局和弹性布局中的一些术语。我们并不会使用‘左和右’、‘上和下’这样的方向，因为在网格布局和弹性布局中，我们并不会指定文档的书写模式。现在所有的 CSS 都变的更注重书写模式了。如果你也对一些能够使其他 CSS 表现相同的值和属性感兴趣的话，可以读一下我的这片文章 有逻辑的属性和值 [Logical Properties and Values](https://www.smashingmagazine.com/2018/03/understanding-logical-properties-values/)。
 
-As a summary, remember that:
+总结一下，记住：
 
 *   **flex-direction: row**
-    
-    *   main axis = inline dimension
-    *   `main-start` will be where sentences begin in that writing mode
-    *   cross axis = block dimension
+
+    *   主轴 = 行内维度
+    *   `main-start` 位于当前书写模式下句子开头的位置
+    *   交叉轴 = 块级维度
 *   **flex-direction: column**
-    
-    *   main axis = block dimension
-    *   `main-start` will be where blocks start to lay out in that writing mode
-    *   cross axis = inline dimension
+
+    *   主轴 = 块级维度
+    *   `main-start` 位于当前书写模式下块级元素的开头位置
+    *   交叉轴 = 行内维度
 
 ### Initial Alignment
 
-Some other things happen when we apply `display: flex`. Some initial alignment happens. In a future article in this series, we will take a good look at alignment; however, in our exploration of `display: flex`, we should look at the initial values that are applied.
+当我们设置`display: flex`时，还有一些事情发生。初始的对齐方式会被应用。在接下来的一系列文章中，我们会好好地了解一下对齐方式。但是，在我们探索`display: flex`的时候，我们应该看一下被应用的初始值。
 
-**Note**: _It is worth noting that while these alignment properties started life in the Flexbox specification, the Box Alignment specification will ultimately supersede those defined in the Flexbox specification, as explained in [the Flexbox specification](https://www.w3.org/TR/css-flexbox-1/#alignment)_.
+**注意**：_值得注意的是，尽管这些对齐属性始于 Flexbox 规范，子项目的对齐规范会最终取代容器上定义的对齐规范，如[flexbox 规范](https://www.w3.org/TR/css-flexbox-1/#alignment)中所述。_
 
-#### Main-Axis Alignment
+#### 主轴对齐方式
 
-The initial value of `justify-content` is set to `flex-start`. It is as if our CSS was:
+`justify-content`属性的初始值是`flex-start`，就像我们的 CSS 写的那样：
 
 ```
 .container {
@@ -330,21 +330,21 @@ The initial value of `justify-content` is set to `flex-start`. It is as if our C
 }
 ```
 
-This is the reason that our flex items line up at the start edge of the flex container. It’s also the reason why when we set `row-reverse` they switch to the end edge because that edge then becomes the start of the main axis.
+这就是我们的 flex 子项目在 flex 容器的起始位置开始排列的原因。这也是为什么当我们设置`row-reverse`时，它们切换到结束位置开始排列的原因，因为那条边成为主轴的起点。
 
-When you see an alignment property which begins with `justify-`, then it applies to the main axis in Flexbox. So `justify-content` performs main-axis alignment and aligns our items to the start.
+当你看见对齐属性以`justify-`开头时，这个属性就是作用于主轴的。所以`justify-content`属性规定主轴的对齐方式，并将子项目从起始位置对齐。
 
-The other possible values for `justify-content` are:
+`justify-content`还有其他的值：
 
 *   `flex-end`
 *   `center`
 *   `space-around`
 *   `space-between`
-*   `space-evenly` (added in Box Alignment)
+*   `space-evenly` (在块级对齐方式中添加)
 
-These values deal with the distribution of available space in the flex container. This is why the items are moved around, or spaced out. If you add `justify-content: space-between`, then any available space is shared out between the items. However, this can only happen if there is free space to start with. If you had a tightly packed flex container (with no extra space after all the items had been laid out), then `justify-content` would do nothing at all.
+这些值用来处理 flex 容器中剩余空间的分布。它们决定了子项目之间的间隔和移动。如果你添加属性`justify-content: space-between`，剩余空间被平均分配给子项目。当然，这只有在容器有剩余空间的情况下才会发生。如果你的 flex 容器被全部充满了（子项目排布完后，没有任何剩余空间），那么`justify-content`属性不会有任何作用。
 
-You can see this if you switch your `flex-direction` to `column`. Without a height on the flex container there is no free space, so setting `justify-content: space-between` won’t achieve anything. If you add a height and make it so that the container is taller than is required to display the items, then the property has an effect:
+你可以把`flex-direction`设置成`column`。flex 容器没有高度的情况下不会有剩余空间，所以设置`justify-content: space-between`不会发生变化。如果你把容器设置成比展示所需要的高度更高的话，那么这个属性就会发挥作用了：
 
 HTML:
 
@@ -389,11 +389,11 @@ p {
 }
 ```
 
-See the Pen [Smashing Flexbox Series 1: column with a height](https://codepen.io/rachelandrew/pen/wxmgrW) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+查看这个例子 [Smashing Flexbox Series 1: column with a height](https://codepen.io/rachelandrew/pen/wxmgrW) ，作者 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 在 [CodePen](https://codepen.io)上.
 
-#### Cross-Axis Alignment
+#### 交叉轴的对齐方式
 
-Items are also aligned on the cross axis with a single line flex container; the alignment that we are performing is to align the boxes against each other in the line. In the next example, one of our boxes has more content in than all the others. Something is telling the other boxes to stretch to the same height. That something is the `align-items` property, which has an initial value of `stretch`:
+子项目在单一交叉轴的 flex 容器中也会沿交叉轴对齐。这里我们执行的对齐是子项目沿着交叉轴上相互对齐的方式。在下一个例子中，有一个子项目比其他的占据更多空间。其他的子项目会按照某种规定来拉伸到相同的高度，这个规定就是`align-items`属性，它的初始值就是`stretch`：
 
 HTML:
 
@@ -445,16 +445,16 @@ p {
 }
 ```
 
-See the Pen [Smashing Guide to Layout: clearfix](https://codepen.io/rachelandrew/pen/GBxryJ) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+查看这个例子 [Smashing Guide to Layout: clearfix](https://codepen.io/rachelandrew/pen/GBxryJ) ，作者 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 在 [CodePen](https://codepen.io)上.
 
-When you see an alignment property which begins with `align-` and you are in flexbox, then you are dealing with cross-axis alignment, and `align-items` aligns the items within the flex line. The other possible values are:
+当你在 flex 布局中看到对齐属性是以`align-`开头的，那就是交叉轴的对齐方式，`align-items`属性将子项目在沿着交叉轴方向对齐，它的其他的值包括：
 
 *   `flex-start`
 *   `flex-end`
 *   `center`
 *   `baseline`
 
-If you do not want the boxes to all stretch to the height of the tallest, then setting `align-items: flex-start` will cause them all to align to the start edge of the cross axis.
+如果你不想其他的子项目跟拉伸到跟最高的那一项一样高的话，设置`align-items: flex-start`，它会把子项目都沿着交叉轴的起始位置对齐。
 
 HTML:
 
@@ -507,21 +507,21 @@ p {
 }
 ```
 
-See the Pen [Smashing Flexbox Series 1: align-items: flex-start](https://codepen.io/rachelandrew/pen/RBMKyN) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+查看这个例子 [Smashing Flexbox Series 1: align-items: flex-start](https://codepen.io/rachelandrew/pen/RBMKyN) ，作者 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 在 [CodePen](https://codepen.io)上.
 
-### Initial Values For The Flex Items
+### flex 子项目的初始值
 
-Finally, the flex items themselves also have initial values, they are set to:
+终于，flex 子项目也是有初始值的，它们被设置成：
 
 *   `flex-grow: 0`
 *   `flex-shrink: 1`
 *   `flex-basis: auto`
 
-This means that our items will not grow by default to fill the available space on the main axis. If `flex-grow` were set to a positive value, this would cause the items to grow and take up any available space.
+这意味我们的子项目默认情况下不会自动充满剩余空间。如果`flex-grow`被设置成一个正数，才会导致子项目拉伸并占据剩余空间。
 
-The items can shrink, however, as `flex-shrink` is set to the positive value of `1`. This means that if we have a very narrow flex container, then the items will get as small as they can before any overflow happens. This is sensible behavior; in general, we want things to stay inside their boxes and not overflow if there is space to display them.
+这些子项目同样可以收缩，`flex-shrink`的值默认是被设置成1。这就意味着，如果我们的 flex 容器非常小，那么其中的子元素在 overflow 属性发挥作用之前就会自动的缩小，这是一个非常敏感的属性，总的来说，我们希望子项目在容器没有足够空间去排列的情况下依然能保持在容器之内，并且不会溢出。
 
-In order to get the best possible layout by default, `flex-basis` is set to `auto`. We will have a proper look at what that means in a future article in this series, however, most of the time you can think of `auto` as “big enough to fit the content”. What you will see happen, when you have flex items that fill the container, and one of those items has a larger amount of content than the others, the larger item will be given more space.
+为了默认情况下或者最好的展示效果，`flex-basis`属性被设置成`auto`，我们会在接下来的一系列文章中好好了解这代表什么。现在，你只需要将`auto`理解为“大到足够适应容器”。你将会看到发生什么，当你的 flex 容器中一些子项目，其中的一个占据的空间更大，那么它会被分配更多的空间。
 
 HTML:
 
@@ -564,25 +564,25 @@ p {
 }
 ```
 
-See the Pen [Smashing Flexbox Series 1: initial values of flex items](https://codepen.io/rachelandrew/pen/JBLWJo) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+查看这个例子 [Smashing Flexbox Series 1: initial values of flex items](https://codepen.io/rachelandrew/pen/JBLWJo) ，作者 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 在 [CodePen](https://codepen.io)上.
 
-This is Flexbox’s flexibility in action. With a `flex-basis` of auto and no sizing applied to the items, the flex items have a base size of the `max-content` size. This would be the size they would be if they stretched out and did no wrapping whatsoever. Then, space is taken away from each item in proportion, detailed in the following note in [the flexbox specification](https://www.w3.org/TR/css-flexbox-1/#flex-flex-shrink-factor).
+这就是弹性布局的灵活性的实例。`flex-basis`属性设置为自动，子项目没有设置尺寸，那么子项目就会有一个`max-content`的基础尺寸。这就是它们延伸之后没有任何包装的尺寸。然后，子项目按照比例来占据空间，详见以下[flexbox 规范](https://www.w3.org/TR/css-flexbox-1/#flex-flex-shrink-factor)中的说明
 
-> “Note: The flex shrink factor is multiplied by the flex base size when distributing negative space. This distributes negative space in proportion to how much the item is able to shrink, so that e.g. a small item won’t shrink to zero before a larger item has been noticeably reduced.”
+> “注意：分配收缩空间时，是要根据基本尺寸乘以收缩的基数。收缩的空间的比例就是子项目收缩的比例，所以比如一个小的子项目在较大的子项目明显收缩之前，是不会被收缩到没有空间的。”
 
-The larger item has less space taken away and so we get the final layout. You can compare the two screenshots below, both taken using the example above. However, in the first screenshot, the third box has a smaller amount of content, and therefore our columns have a more equal distribution of space.
+较大的子项目收缩的空间更多，现在我们得到了最终的布局结果。你可以比较一下下面两个截图，都是使用的上面的例子，不同的是在第一个截图中，第三个盒子的内容尺寸较小，因此列的排布空间更均匀一些。
 
-[![The example with a larger item shows the item taking up more space](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f7dfeea5-845f-406a-81fe-f1da8612ce93/shrinking-auto.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f7dfeea5-845f-406a-81fe-f1da8612ce93/shrinking-auto.png) 
+[![这是较大的子项目占据更多空间的例子](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f7dfeea5-845f-406a-81fe-f1da8612ce93/shrinking-auto.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f7dfeea5-845f-406a-81fe-f1da8612ce93/shrinking-auto.png)
 
-The items flex to give the larger item more room ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f7dfeea5-845f-406a-81fe-f1da8612ce93/shrinking-auto.png))
+弹性布局会分配给较大的子项目更多空间 ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f7dfeea5-845f-406a-81fe-f1da8612ce93/shrinking-auto.png))
 
-Flexbox here is helping us to end up with a reasonable end result given no other input from the person writing the CSS. Rather than reduce the space evenly and end up with a very tall item with a couple words on each line, it assigns that item more space to lay itself out. Within this kind of behavior is the key to the real use cases for Flexbox. Flexbox is at its best when used to lay sets of things out — along one axis — in a flexible and content aware way. I’m touching on a little of the detail here, but we will take a proper look at these algorithms later in this series.
+弹性布局正在帮助我们获得一个合理的最终结果，而不用写 CSS 的人来定义。对于一个每行有几个单词的子项目，它会为这个项目分配更多的空间来展示，而不是平均的减少空间，最终得到一个非常高的元素。这项行为正是如何正确使用弹性布局的关键。弹性布局最适用于用于沿着一条轴线排列的元素，以一种弹性和感知内容的方式。这里我简单介绍了一点细节，但在接下来的系列文章中我们会更加正确的了解这些计算机制。
 
-### Summary
+### 总结
 
-In this article, I’ve taken the initial values of Flexbox, in order to explain what actually happens when you say `display: flex`. It’s a surprising amount once you begin to unpack it, and contained within these few properties are many of the key features of flex layouts.
+在这篇文章中，我用弹性布局的初始值来介绍当你设置`display: flex`的时候，究竟发生了什么。令人惊讶的是，当你逐步分解的时候，它的数量惊人，并且在这些属性中包含了弹性布局的核心特点。
 
-Flex layouts are flexible: they try to make good choices by default about your content — squishing and stretching to get the best readability. Flex layouts are writing mode aware: the directions of row and column relate to the writing mode being used. Flex layouts allow alignment of the items as a group on the main axis, by choosing how space is distributed. They allow alignment of items within their flex line, moving the items on the cross axis in relationship to each other. Importantly, flex layouts understand how big your content is, and try to make good basic decisions in order to display it. In future articles, we will explore these areas in more depth, and consider further exactly when and why we might choose to use Flexbox.
+弹性布局是非常灵活的：它尝试根据你的内容来自动的选择 - 通过收缩和拉伸达到最好的阅读效果。弹性布局是感知书写模式的：行和列的方向跟书写模式是相关联的。弹性布局通过分配空间，允许子项目在主轴上以一组的方式来对齐。它还允许子项目按照线来对齐，使得交叉轴上的项目相互关联。更重要的是，弹性布局知道你的内容有多大，并且尽量采用更好的方式来展示你的内容。在接下来的文章中，我们会更加深入的探索，思考我们什么时候用弹性布局，为什么要用弹性布局。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
