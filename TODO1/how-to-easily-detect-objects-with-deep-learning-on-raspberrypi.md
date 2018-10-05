@@ -2,77 +2,77 @@
 > * 原文作者：[Sarthak Jain](https://medium.com/@sarthakjain?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-easily-detect-objects-with-deep-learning-on-raspberrypi.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-easily-detect-objects-with-deep-learning-on-raspberrypi.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[luochen1992](https://github.com/luochen1992)、[jasonxia23](https://github.com/jasonxia23)
 
-# How to easily Detect Objects with Deep Learning on Raspberry Pi
+# 如何轻松地在树莓派上使用深度学习检测目标
 
-## The real world poses challenges like having limited data and having tiny hardware like Mobile Phones and Raspberry Pis which can’t run complex Deep Learning models. This post demonstrates how you can do object detection using a Raspberry Pi. Like cars on a road, oranges in a fridge, signatures in a document and teslas in space.
+## 真实世界带来的挑战，是有限的数据以及小型硬件，诸如手机和树莓派等，这些硬件无法运行复杂的深度学习模型。这篇文章演示了如何使用树莓派进行对象检测，就像公路上的汽车，冰箱里的橘子，文件上的签名，太空中的特斯拉。
 
-Disclaimer: I’m building [nanonets.com](https://nanonets.com/objectdetection/?utm_source=medium.com&utm_medium=content&utm_campaign=How%20to%20easily%20Detect%20Objects%20with%20Deep%20Learning%20on%20RaspberryPi&utm_content=top) to help build ML with less data and no hardware
+免责声明：我正在用更少的数据和无硬件的方式构建 [nanonets.com](https://nanonets.com/objectdetection/?utm_source=medium.com&utm_medium=content&utm_campaign=How%20to%20easily%20Detect%20Objects%20with%20Deep%20Learning%20on%20RaspberryPi&utm_content=top) 来帮助建立机器学习。
 
-> _If you’re impatient scroll to the bottom of the post for the Github Repos_
+> **如果你没有耐心继续阅读下去，可以直接翻阅到底部查看 Github 的仓库。**
 
 ![](https://cdn-images-1.medium.com/max/800/1*YJbdykJRHFlzlIXWwn0nIA.gif)
 
-Detecting Vehicles on the Road of Mumbai.
+检测孟买路上的车辆。
 
-### Why Object Detection?, Why Raspberry Pi?
+### 为什么要检测对象？为什么使用树莓派？
 
-The raspberry pi is a neat piece of hardware that has captured the hearts of a generation with ~15M devices sold, with hackers building even [cooler projects](http://www.trustedreviews.com/opinion/best-raspberry-pi-projects-pi-3-pi-zero-2949390) on it. Given the popularity of Deep Learning and the [Raspberry Pi Camera](https://www.raspberrypi.org/products/camera-module-v2/) we thought it would be nice if we could detect any object using Deep Learning on the Pi.
+树莓派是一款优秀的硬件，它已经捕获了与售卖 1500 万台设备同时代的人的心，甚至于黑客用其构建了[更酷的项目](http://www.trustedreviews.com/opinion/best-raspberry-pi-projects-pi-3-pi-zero-2949390)。鉴于深度学习和[树莓派相机](https://www.raspberrypi.org/products/camera-module-v2/)的流行，我们认为如果能够通过树莓派进行深度学习来检测任何对象，会是一件非常有意义的事情。
 
-Now you will be able to detect a photobomber in your selfie, someone entering Harambe’s cage, where someone kept the Sriracha or an Amazon delivery guy entering your house.
+现在你将能够在你的自拍中发现一个 potobomber，有人进入 Harambe 的笼子，在那里有人让 Sriracha 或 Amazon 送货员进入你的房子。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*rqB2c-c3yz09CtQLWb2dFg.png)
 
-### What is Object Detection?
+### 什么是对象检测？
 
-20Myears of evolution have made human vision fairly evolved. The human brain has [30**_%_** of it’s Neurons work on processing vision (as compared with 8 percent for touch and just 3 percent for hearing)](http://discovermagazine.com/1993/jun/thevisionthingma227). Humans have two major advantages when compared with machines. One is stereoscopic vision, the second is an almost infinite supply of training data (an infant of 5 years has had approximately 2.7B Images sampled at 30fps).
+20M 年的进化使人类的视觉得到了相当大的进化。人类大脑有 [**30%** 的神经元负责处理视觉（相比之下，触觉和听觉分别为 8% 和 3%）](http://discovermagazine.com/1993/jun/thevisionthingma227)。与机器相比，人类有两大优势。一是立体视觉，二是近乎无限的训练数据（一个 5 岁的婴儿，以 30fps 的速度获取大约 2.7B 的图像）。 
 
 ![](https://cdn-images-1.medium.com/max/800/1*4tPwx3wG720gOmIOaONOEQ.jpeg)
 
-To mimic human level performance scientists broke down the visual perception task into four different categories.
+为了模仿人类层次的表现水平，科学家将视觉感知任务分解为四个不同的类别。
 
-1.  **Classification**, assigns a label to an entire image
-2.  **Localization**, assigns a bounding box to a particular label
-3.  **Object Detection**, draws multiple bounding boxes in an image
-4.  **Image segmentation**, creates precise segments of where objects lie in an image
+1.  **分类**，为整个图像指定一个标签
+2.  **Localization**，为特定标签指定一个边框
+3.  **对象检测**，在图像中绘制多个边界框
+4.  **图像分割**，创建图像中物体所在位置的精确部分
 
-Object detection has been good enough for a variety of applications (even though image segmentation is a much more precise result, it suffers from the complexity of creating training data. It typically takes a human annotator 12x more time to segment an image than draw bounding boxes; this is more anecdotal and lacks a source). Also, after detecting objects, it is separately possible to segment the object from the bounding box.
+对于各种应用来说，对象检测已经足够好了（即使图像分割结果更为精确，但它受到创建训练数据的复杂性影响。对于一个人类标注者来说，分割图像所花的时间比绘制边界框要多 12 倍；这是更多的轶事，但缺乏一个来源）。而且在检测对象之后，可以单独从边界框中分割对象。
 
-#### Using Object Detection:
+#### 使用对象检测：
 
-Object detection is of significant practical importance and has been used across a variety of industries. Some of the examples are mentioned below:
+对象检测具有重要的现实意义，已经在各行业中被广泛使用。以下是相关示例：
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZUGVScHbBgmmzO82bALIZQ.jpeg)
 
-### How do I use Object Detection to solve my own problem?
+### 我如何使用对象检测来解决我自己的问题？
 
-Object Detection can be used to answer a variety of questions. These are the broad categories:
+对象检测可用来回答各种问题。这是粗略的分类：
 
-1.  **Is an object present** in my Image or not? eg is there an intruder in my house
-2.  **Where is an object** in the image? eg when a car is trying to navigate it’s way through the world, its important to know where an object is.
-3.  **How many objects** are there in an image? Object detection is one of the most efficient ways of counting objects. eg How many boxes in a rack inside a warehouse
-4.  **What are the different types of objects** in the Image? eg Which animal is there in which part of the Zoo?
-5.  **What is the size of an object?** Especially with a static camera, it is easy to figure out the size of an object. eg What is the size of the Mango
-6.  **How are different objects interacting with each other?** egHow does the formation on a football field effect the result?
-7.  **Where is an object with respect to time (Tracking an Object). eg** Tracking a moving object like a train and calculating it’s speed etc.
+1.  **在我的图像中是否存在对象**？例如，我家有入侵者么。
+2.  **对象在哪里**，在图像中？例如，当一辆汽车试图在世界各地行驶时，知道物体在哪里是很重要的。
+3.  **有多少个对象**，它们都在图像中么？ 对象检测是计算物体的最有效的方法之一。例如，一个仓库里的架子上有多少箱子。
+4.  **什么是不同类型的对象**在图像中？比如哪个动物在动物园的哪个地方？ 
+5.  **对象的大小是多少**？ 尤其是使用静态相机时，很容易计算出物体的大小。比如芒果的大小是多少？
+6.  **不同对象如何相互作用？**足球场上的阵型如何影响结果？
+7.  **与时间有关的对象在何处（追踪对象）比如**追踪像火车这样的移动物体，并计算它的速度等。
 
-### Object Detection in under 20 Lines of Code
+### 20 行以下代码中的对象检测
 
 ![](https://cdn-images-1.medium.com/max/800/1*I4vKwR9X33DoNz36I1IooQ.jpeg)
 
-YOLO Algorithm Visualized.
+YOLO 算法可视化。
 
-There are a variety of models/architectures that are used for object detection. Each with trade-offs between speed, size, and accuracy. We picked one of the most popular ones: [YOLO](https://pjreddie.com/darknet/yolo/) (You only look once). and have shown how it works below in under 20 lines of code (if you ignore the comments).
+有多种用于对象检测的模型/体系结构。在速度、尺寸和精度之间进行权衡。我们选了一个最受欢迎的：[YOLO](https://pjreddie.com/darknet/yolo/)（您只看了一次）。并在 20 行以下的代码中展示了它的工作原理（如果忽略注释的 haunted）。
 
-**Note: This is pseudo code, not intended to be a working example. It has a black box which is the CNN part of it which is fairly standard and shown in the image below.**
+**注意：这是伪代码，不会成为一个有用的例子。它有一个接近 CNN 标准的部分黑盒，如下所示**。
 
-You can read the full paper here: [https://pjreddie.com/media/files/papers/yolo_1.pdf](https://pjreddie.com/media/files/papers/yolo_1.pdf)
+你可以在这里阅读全文：[https://pjreddie.com/media/files/papers/yolo_1.pdf](https://pjreddie.com/media/files/papers/yolo_1.pdf)
 
 ![](https://cdn-images-1.medium.com/max/800/1*hV1SLRRZ-5ySyARb2P0uXA.png)
 
-Architecture of the Convolutional Neural Network used in YOLO.
+YOLO 中的卷积神经网络结构。
 
 ```
 #this is an Image of size 140x140. We will assume it to be black and white (ie only one channel, it would have been 140x140x3 for rgb)
@@ -141,61 +141,61 @@ for (i<0; i<NoOfCells; i=i+1):
 print final_predictions
 ```
 
-YOLO in <20 lines of code, explained.
+YOLO 在 <20 行代码中的解释。
 
-### How do we build a Deep Learning model for Object Detection?
+### 我们如何构建用于对象检测的深度学习模型？
 
-#### The workflow for Deep Learning has 6 Primary Steps Broken into 3 Parts
+#### 深度学习工作流的 6 个主要步骤将分成 3 个阶段
 
-1.  Gathering Training Data
-2.  Training the model
-3.  Predictions on New Images
+1.  收集训练数据
+2.  训练模型
+3.  预测新图像
 
 ![](https://cdn-images-1.medium.com/max/800/1*hUOIe8skkgMQx68-279z_A.jpeg)
 
 * * *
 
-### Phase 1 — Gather Training Data
+### 阶段 1 —— 收集训练数据
 
-#### **Step 1. Collect Images (at least 100 per Object):**
+#### **第 1 步 收集图像（每个对象至少有 100 张图像）：**
 
-For this task, you probably need a few 100 Images per Object. Try to capture data as close to the data you’re going to finally make predictions on.
+在这个任务中，每个对象需要几百张图像。尝试将数据捕获到您最终要对其进行预测的数据上。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZqUXpif7jgmAsIwX7ZFdrQ.png)
 
-#### **Step 2. Annotate (draw boxes on those Images manually):**
+#### **第 2 步 注解（手动绘制这些图像）：**
 
-Draw bounding boxes on the images. You can use a tool like [labelImg](https://github.com/tzutalin/labelImg). You will typically need a few people who will be working on annotating your images. This is a fairly intensive and time consuming task.
+在图像上绘制边界框。您可以使用像 [labelImg](https://github.com/tzutalin/labelImg) 这样的工具。您需要一些人来注释您的图像。这是一个相当密集且耗时的任务。
 
 ![](https://cdn-images-1.medium.com/max/800/1*osRdxUvKXSaOHX-9VyGbCQ.png)
 
 * * *
 
-### Phase 2 — Training a Model on a GPU Machine
+### 阶段 2 — 在 GPU 机器上训练模型
 
-#### **Step 3. Finding a Pretrained Model for Transfer Learning:**
+#### **第 3 步 寻找可以迁移学习的预训练模型**
 
-You can read more about this at [medium.com/nanonets/nanonets-how-to-use-deep-learning-when-you-have-limited-data-f68c0b512cab](http://medium.com/nanonets/nanonets-how-to-use-deep-learning-when-you-have-limited-data-f68c0b512cab). You need a pretrained model so you can reduce the amount of data required to train. Without it, you might need a few 100k images to train the model.
+您可以在 [medium.com/nanonets/nanonets-how-to-use-deep-learning-when-you-have-limited-data-f68c0b512cab](http://medium.com/nanonets/nanonets-how-to-use-deep-learning-when-you-have-limited-data-f68c0b512cab) 中阅读到更多有关这方面的信息。您需要一个预训练模型，这样您就可以减少训练所需的数据量。没有它，您可能需要几十万张的图像来训练模型。
 
-[You can find a bunch of pretrained models here](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)
+[你可以在这里找到一些预训练的模型](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)
 
-#### **Step 4. Training on a GPU (cloud service like AWS/GCP etc or your own GPU Machine):**
+#### **第 4 步骤， 在 GPU 上训练（像 AWS/GCP 等云服务或您自己的 GPU 机器）：**
 
 ![](https://cdn-images-1.medium.com/max/800/1*b1-9TBSK6GUMGWd27wcLvQ.png)
 
-#### Docker Image
+#### Docker 镜像
 
-The process of training a model is unnecessarily difficult to simplify the process we created a docker image would make it easy to train.
+训练模型的过程不是必要的，但创建 docker 镜像使得训练变得更加简单的过程很难简化。
 
-To start training the model you can run:
+你可以通过运行如下内容来开始训练模型：
 
 ```
 sudo nvidia-docker run -p 8000:8000 -v `pwd`:data docker.nanonets.com/pi_training -m train -a ssd_mobilenet_v1_coco -e ssd_mobilenet_v1_coco_0 -p '{"batch_size":8,"learning_rate":0.003}' 
 ```
 
-#### [Please refer to this link for details on how to use](https://github.com/NanoNets/RaspberryPi-ObjectDetection-TensorFlow)
+#### [有关如何使用的详细信息，请参阅此链接](https://github.com/NanoNets/RaspberryPi-ObjectDetection-TensorFlow)
 
-The docker image has a run.sh script that can be called with the following parameters
+docker 镜像拥有一个可以用以下参数调用的 run.sh 脚本
 
 ```
 run.sh [-m mode] [-a architecture] [-h help] [-e experiment_id] [-c checkpoint] [-p hyperparameters]
@@ -207,33 +207,33 @@ run.sh [-m mode] [-a architecture] [-h help] [-e experiment_id] [-c checkpoint] 
 -c          applicable when mode is export, used to specify checkpoint to use for export
 ```
 
-You can find more details at:
+您可以在以下找到更多细节：
 
-* [**NanoNets/RaspberryPi-ObjectDetection-TensorFlow**: RaspberryPi-ObjectDetection-TensorFlow - Object Detection using TensorFlow on a Raspberry Pi](https://github.com/NanoNets/RaspberryPi-ObjectDetection-TensorFlow)
+* [**NanoNets/RaspberryPi-ObjectDetection-TensorFlow**: RaspberryPi-ObjectDetection-TensorFlow - 在树莓派上使用 Tensorflow 进行对象检测](https://github.com/NanoNets/RaspberryPi-ObjectDetection-TensorFlow)
 
-**To train a model you need to select the right hyper parameters.**
+**为了训练模型，您需要选择正确的超参数。**
 
-**Finding the right parameters**
+**找到正确的参数**
 
-The art of “Deep Learning” involves a little bit of hit and try to figure out which are the best parameters to get the highest accuracy for your model. There is some level of black magic associated with this, along with a little bit of theory. [This is a great resource for finding the right parameters](https://blog.slavv.com/37-reasons-why-your-neural-network-is-not-working-4020854bd607).
+“深度学习”的艺术含有一点点讽刺，但它会尝试找出哪些会为您的模型获得最高精度的最佳参数。与此相关的是某些程度的黑魔法以及一点理论。[这是找到正确参数的好资源](https://blog.slavv.com/37-reasons-why-your-neural-network-is-not-working-4020854bd607)。
 
-**Quantize Model (make it smaller to fit on a small device like the Raspberry Pi or Mobile)**
+**量化模型（使其更小以适应像树莓派或手机这样的小型设备）**
 
-Small devices like Mobile Phones and Rasberry PI have very little memory and computation power.
+诸如手机和树莓派这样的小型设备，内存和计算能力都很小。
 
-Training neural networks is done by applying many tiny nudges to the weights, and these small increments typically need floating point precision to work (though there are research efforts to use quantized representations here too).
+训练神经网络是通过对权重施加许多微小推进完成的，而这些微小的增量通常需要浮点精度才能工作（尽管这里也有研究努力使用量化表示）。
 
-Taking a pre-trained model and running inference is very different. One of the magical qualities of Deep Neural Networks is that they tend to cope very well with high levels of noise in their inputs.
+采用预先训练模型并运行推理是非常不同的。深度神经网络的神奇特性之一是，它们往往能很好地处理输入中的高噪声。
 
-**Why Quantize?**
+**为什么要量化？**
 
-Neural network models can take up a lot of space on disk, with the original AlexNet being over 200 MB in float format for example. Almost all of that size is taken up with the weights for the neural connections, since there are often many millions of these in a single model.
+例如，神经网络模型会占用大量磁盘空间，起初 AlexNet 是 200 MB 以上的浮点格式。因为在单个模型中经常有数百万个神经连接，因此几乎所有大小都被神经连接的权重所决定。
 
-The Nodes and Weights of a neural network are originally stored as 32-bit floating point numbers. The simplest motivation for quantization is to shrink file sizes by storing the min and max for each layer, and then compressing each float value to an eight-bit integer.The size of the files is reduced by 75%.
+神经网络的节点和权重起初被存储为 32-bit 浮点数，最简单的量化动机是通过存储每个层的最小和最大值来缩小文件大小，然后将每个浮点值压缩为一个 8 位整数，文件大小因此减小了 75%。
 
 ![](https://cdn-images-1.medium.com/max/800/0*Ey92vYBh1Wq2uHfH.png)
 
-**Code for Quantization:**
+**量化代码：**
 
 ```
 curl -L "https://storage.googleapis.com/download.tensorflow.org/models/inception_v3_2016_08_28_frozen.pb.tar.gz" |
@@ -251,15 +251,15 @@ bazel-bin/tensorflow/tools/graph_transforms/transform_graph \
 ```
 * * *
 
-### **Phase 3: Predictions on New Images using the Raspberry Pi**
+### **第 3 阶段：使用树莓派预测新图像**
 
-#### **Step 5. Capture a new Image via the camera**
+#### **第 5 步，通过相机捕捉新图像**
 
-You need the Raspberry Pi camera live and working. Then capture a new Image
+你需要树莓派生活和工作。然后捕获一个新图像
 
 ![](https://cdn-images-1.medium.com/max/800/1*tMcyYPmB8aCJYXSS8Y2I8A.jpeg)
 
-For instructions on how to install checkout this [link](https://thepihut.com/blogs/raspberry-pi-tutorials/16021420-how-to-install-use-the-raspberry-pi-camera)
+安装说明参见此[链接](https://thepihut.com/blogs/raspberry-pi-tutorials/16021420-how-to-install-use-the-raspberry-pi-camera)
 
 ```
 import picamera, os
@@ -269,23 +269,23 @@ camera.capture('image1.jpg')
 os.system("xdg-open image1.jpg")
 ```
 
-Code to Capture a new Image.
+捕获新图像的代码。
 
-#### Step 6. Predicting a new Image
+#### 第 6 步，预测新图像
 
-**Download Model**
+**下载模型**
 
-Once your done training the model you can download it on to your pi. To export the model run:
+一旦你完成了模型的训练，你就可以把它下载到你的树莓派上了。要导出模型运行：
 
 ```
 sudo nvidia-docker run -v `pwd`:data docker.nanonets.com/pi_training -m export -a ssd_mobilenet_v1_coco -e ssd_mobilenet_v1_coco_0 -c /data/0/model.ckpt-8998
 ```
 
-Then download the model onto the Raspberry Pi.
+然后将模型下载到树莓派上。
 
-**Install TensorFlow on the Raspberry Pi**
+**在树莓派上下载 Tensorflow**
 
-Depending on your device you might need to change the installation a little
+根据设备的不同，您可能需要稍微更改安装
 
 ```
 sudo apt-get install libblas-dev liblapack-dev python-dev libatlas-base-dev gfortran python-setuptools libjpeg-dev
@@ -303,7 +303,7 @@ cd models/research/protoc object_detection/protos/*.proto --python_out=.
 export PYTHONPATH=$PYTHONPATH:/home/pi/models/research:/home/pi/models/research/slim
 ```
 
-**Run model for predicting on the new Image**
+**运行模型以预测新图像**
 
 ```
 python ObjectDetectionPredict.py --model data/0/quantized_graph.pb --labels data/label_map.pbtxt --images /data/image1.jpg /data/image2.jpg
@@ -311,39 +311,39 @@ python ObjectDetectionPredict.py --model data/0/quantized_graph.pb --labels data
 
 * * *
 
-### Performance Benchmarks on Raspberry Pi
+### 树莓派的性能基准测试
 
-The Raspberry Pi has constraints on both Memory and Compute (a version of Tensorflow Compatible with the Raspberry Pi GPU is still not available). Therefore, it is important to benchmark how much time do each of the models take to make a prediction on a new image.
+树莓派对内存和计算都有限制（与树莓派 GPU 兼容的 Tensorflow 版本仍然不可用）。因此，对基准测试来说，每个模型需要多少时间才能对新图像进行预测非常重要。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*Z1z6TWrmvpW5DQ0WPKkTFw.png)
 
-Benchmarks for different Object Detection Models running on Raspberry Pi.
+在树莓派中运行不同对象检测的基准测试。
 
 * * *
 
 ![](https://cdn-images-1.medium.com/max/800/1*m5grJCpQ6Dk6Ee-JEBIPPg.jpeg)
 
-#### We at NanoNets have a goal of making working with Deep Learning super easy. Object Detection is a major focus area for us and we have made a workflow that solves a lot of the challenges of implementing Deep Learning models.
+#### 我们在 NanoNets 的目标是使深度学习工作更加简单。对象检测是我们关注的一个主要领域，我们已经制定了一个工作流来解决实现深度学习模型的许多挑战。
 
-### How NanoNets make the Process Easier:
+### NanoNets 如何使过程更简单：
 
-#### 1. No Annotation Required
+#### 1. 无需注解
 
-We have removed the need to annotate Images, we have expert annotators who will **annotate your images for you**.
+我们已经删除了注释图像的需求，我们有专业的注释人员为**为您的图像注释**。
 
-#### 2. Automatic Best Model and Hyper Parameter Selection
+#### 2. 自动优化模型与超参数的选择
 
-We **automatically train the best mode**l for you, to achieve this we run a battery of model with different parameters to select the best for your data
+我们为您**自动化训练最好的模型**。为了实现这个，我们运行一组具有不同参数的模型，来为您的数据选择最佳模型。
 
-#### 3. No Need for expensive Hardware and GPUs
+#### 3. 不需要昂贵的硬件和 GPU
 
-NanoNets is **entirely in the cloud** and runs without using any of your hardware. Which makes it much easier to use.
+NanoNets **完全在云端运行**而且无需任何硬件。这使得它更容易使用。
 
-#### 4. Great for Mobile devices like the Raspberry Pi
+#### 4. 适合像树莓派这样的移动设备
 
-Since devices like the Raspberry Pi and mobile phones were not built to run complex compute heavy tasks, you can outsource the workload to our cloud which does all of the compute for you
+因为像树莓派和手机这样的设备并不是为了运行复杂的计算任务而构建的，所以您可以把工作量外包给我们的云，它会为您完成所有的计算
 
-### Here is a simple snippet to make prediction on an image using the NanoNets API
+### 这里是使用 NanoNets API 对图像进行预测的简单片段
 
 ```
 import picamera, json, requests, os, random
@@ -373,19 +373,19 @@ im.save("image2.jpg")
 os.system("xdg-open image2.jpg")
 ```
 
-Code to make a prediction on a new Image using NanoNets.
+使用 NanoNets 对新图像进行预测的代码
 
-### Build your Own NanoNet
+### 构建您自己的 NanoNet
 
 ![](https://cdn-images-1.medium.com/max/800/1*D0woyU-XyyqlUsNP1ToOBA.png)
 
-### You can try building your own model from:
+### 您可以尝试从以下几点来构建属于自己的模型：
 
-### 1. Using a GUI (also auto annotate Images): [https://nanonets.com/objectdetection/](https://nanonets.com/objectdetection/?utm_source=medium.com&utm_medium=content&utm_campaign=How%20to%20easily%20Detect%20Objects%20with%20Deep%20Learning%20on%20RaspberryPi&utm_content=bottom)
+### 1. 使用 GUI（也可以自动注释图像）：[https://nanonets.com/objectdetection/](https://nanonets.com/objectdetection/?utm_source=medium.com&utm_medium=content&utm_campaign=How%20to%20easily%20Detect%20Objects%20with%20Deep%20Learning%20on%20RaspberryPi&utm_content=bottom)
 
-### 2. Using our API: [https://github.com/NanoNets/object-detection-sample-python](https://github.com/NanoNets/object-detection-sample-python)
+### 2. 使用我们的 API：[https://github.com/NanoNets/object-detection-sample-python](https://github.com/NanoNets/object-detection-sample-python)
 
-#### Step 1: Clone the Repo
+#### 第 1 步：克隆仓库
 
 ```
 git clone [https://github.com/NanoNets/object-detection-sample-python.git](https://github.com/NanoNets/object-detection-sample-python.git)
@@ -393,57 +393,57 @@ cd object-detection-sample-python
 sudo pip install requests
 ```
 
-#### Step 2: Get your free API Key
+#### 第 2 步：获取您的免费 API 的密钥
 
-Get your free API Key from [http://app.nanonets.com/user/api_key](http://app.nanonets.com/user/api_key)
+从 [http://app.nanonets.com/user/api_key](http://app.nanonets.com/user/api_key) 中获取您的免费 API 密钥
 
-#### Step 3: Set the API key as an Environment Variable
+#### 第 3 步：将 API 密钥设置为环境变量
 
 ```
 export NANONETS_API_KEY=YOUR_API_KEY_GOES_HERE
 ```
 
-#### Step 4: Create a New Model
+#### 第 4 步：创建新模型
 
 ```
 python ./code/create-model.py
 ```
 
-> Note: This generates a MODEL_ID that you need for the next step
+> 注意：这将生成下一步所需的模型 ID
 
-#### Step 5: Add Model Id as Environment Variable
+#### 第 5 步：添加模型 ID 作为环境变量
 
 ```
 export NANONETS_MODEL_ID=YOUR_MODEL_ID
 ```
 
-#### Step 6: Upload the Training Data
+#### 第 6 步：上传训练数据
 
-Collect the images of object you want to detect. You can annotate them either using our web UI (https://app.nanonets.com/ObjectAnnotation/?appId=YOUR_MODEL_ID) or use open source tool like [labelImg](https://github.com/tzutalin/labelImg). Once you have dataset ready in folders, `images` (image files) and `annotations` (annotations for the image files), start uploading the dataset.
+收集您想要检测对象的图像。您可以使用我们的 web UI(https://app.nanonets.com/ObjectAnnotation/?appId=YOUR_MODEL_ID) 对其进行注释，或者使用像 [labelImg](https://github.com/tzutalin/labelImg) 这样的开源工具。一旦在文件夹中准备好数据集，`images`（图像文件）和 `annotations`（图像文件注解），就可以开始上传数据集了。 
 
 ```
 python ./code/upload-training.py
 ```
 
-#### Step 7: Train Model
+#### 第 7 步：训练模型
 
-Once the Images have been uploaded, begin training the Model
+一旦图像上传完毕，就开始训练模型
 
 ```
 python ./code/train-model.py
 ```
 
-#### Step 8: Get Model State
+#### 第 8 步：获取模型状态
 
-The model takes ~2 hours to train. You will get an email once the model is trained. In the meanwhile you check the state of the model
+模型训练需要 2 个小时。一旦模型被训练，您将收到一封电子邮件。同时检查模型的状态
 
 ```
 watch -n 100 python ./code/model-state.py
 ```
 
-#### Step 9: Make Prediction
+#### 第 9 步：预测
 
-Once the model is trained. You can make predictions using the model
+一旦模型训练好了，您就可以使用来进行预测
 
 ```
 python ./code/prediction.py PATH_TO_YOUR_IMAGE.jpg
@@ -451,22 +451,22 @@ python ./code/prediction.py PATH_TO_YOUR_IMAGE.jpg
 
 * * *
 
-### Code (Github Repos)
+### 代码（GitHub 仓库）
 
-#### Github Repos to Train a model:
+#### 训练模型的 Github 仓库：
 
-1.  [Tensorflow Code for model Training and Quantization](https://github.com/NanoNets/RaspberryPi-ObjectDetection-TensorFlow)
-2.  [NanoNets Code for model Training](https://github.com/NanoNets/IndianRoadsObjectDetectionDataset)
+1.  [用于模型训练和量化的 Tensorflow 代码](https://github.com/NanoNets/RaspberryPi-ObjectDetection-TensorFlow)
+2.  [NanoNets 模型训练代码](https://github.com/NanoNets/IndianRoadsObjectDetectionDataset)
 
-#### Github Repos for Raspberry Pi to make Predictions (ie Detecting New Objects):
+#### 为树莓派做出预测的 GitHub 仓库（即检测新对象）：
 
-1.  [Tensorflow Code for making Predictions on the Raspberry Pi](https://github.com/NanoNets/TF-OD-Pi-Test)
-2.  [NanoNets Code for making Predictions on the Raspberry Pi](https://gist.github.com/sjain07/a30388035c0b39b53841c501f8262ee2)
+1.  [在树莓派上用于预测的 Tensorflow 代码](https://github.com/NanoNets/TF-OD-Pi-Test)
+2.  [在树莓派上用于预测的 NanoNets 代码](https://gist.github.com/sjain07/a30388035c0b39b53841c501f8262ee2)
 
-#### Datasets with Annotations:
+#### 带有注释的数据集：
 
-1.  [Cars on Indian Roads sees, dataset for extracting vehicles from Images of Indian Roads](https://github.com/NanoNets/IndianRoadsObjectDetectionDataset)
-2.  [Coco Dataset](http://cocodataset.org/#download)
+1.  [印度公路可见的车辆，从印度道路图像中提取车辆的数据集](https://github.com/NanoNets/IndianRoadsObjectDetectionDataset)
+2.  [Coco 数据集](http://cocodataset.org/#download)
 
 
 ---
