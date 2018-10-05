@@ -2,42 +2,42 @@
 > * 原文作者：[Scott Vandehey](https://spaceninja.com/author/scott/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-is-modular-css.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-is-modular-css.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ssshooter](https://github.com/ssshooter)
+> * 校对者：[Hopsken](https://github.com/Hopsken) [Park-ma](https://github.com/Park-ma)
 
-# What is Modular CSS?
+# 什么是模块化 CSS？
 
 ![](https://i.loli.net/2018/09/29/5baf804a63637.png)
 
-Modular CSS is a collection of principles for writing code that is performant and maintainable at scale. It originated with developers at Yahoo and Yandex as a way to address the challenges of maintaining a large codebase. Some of the guidelines were controversial when introduced, but have since come to be recognized as best practices.
+模块化 CSS 是一组编写代码的原则，基于这个原则编写的代码具有高性能和可维护性。它起源于雅虎和 Yandex 的开发人员，目的是迎接维护大型代码库带来的挑战。有些规则在提出之初稍有争议，但后来被认为是最佳实践。
 
-**Table of Contents:**
+**目录：**
 
-1.  [CSS at Scale is Difficult](#css-at-scale-is-difficult)
-2.  [What is Modularity?](#what-is-modularity)
-3.  [Modular Frameworks](#modular-frameworks)
+1.  [大规模 CSS 的处理难点](#c1)
+2.  [什么是模块化](#什么是模块化)
+3.  [模块化框架](#模块化框架)
     1.  [OOCSS](#oocss)
     2.  [BEM](#bem)
     3.  [SMACSS](#smacss)
-4.  [Shared Modular Principles](#shared-modular-principles)
+4.  [共享模块化原则](#共享模块化原则)
 5.  [FAQ](#faq)
-6.  [In Conclusion, Modular CSS is Dope](#in-conclusion-modular-css-is-dope)
+6.  [总结，模块化 CSS 太美妙啦](#c6)
 
-_(Pssst: If you feel overwhelmed by the length of this post, you might prefer to [watch a video](https://www.youtube.com/watch?v=Ty5jtMZXbmk) of the presentation it was based on.)_
+**（偷偷告诉你：如果你对这篇文章的篇幅感到不知所措，[观看视频](https://www.youtube.com/watch?v=Ty5jtMZXbmk)可能更适合你，这篇文章来源于此演讲。）**
 
-## CSS at Scale is Difficult
+<h2 name="c1">大规模 CSS 的处理难点</h2>
 
-The primary problem that Modular CSS was created to solve is that CSS at scale is tricky. I love [this quote](https://twitter.com/necolas/status/360170108028600320) from [Nicholas Gallagher](https://twitter.com/necolas):
+模块化 CSS 使用的主要场景是棘手的大规模 CSS。正如 [Nicholas Gallagher](https://twitter.com/necolas) [所说的](https://twitter.com/necolas/status/360170108028600320)：
 
 ![“Replace ‘can you build this?’ with ‘can you maintain this without losing your minds?’” —Nicolas Gallagher](https://spaceninja.ghost.io/content/images/2016/11/necolas-1.jpg)
 
-quote: [Nicholas Gallagher](https://twitter.com/necolas/status/360170108028600320), photo: [dotCSS](https://www.youtube.com/watch?v=L8w3v9m6G04)
+来源：[Nicholas Gallagher](https://twitter.com/necolas/status/360170108028600320)，图：[dotCSS](https://www.youtube.com/watch?v=L8w3v9m6G04)
 
-That gets to the heart of the problem with CSS at scale. Writing code isn’t the challenge. Doing so in a way that isn’t going to cripple you with technical debt over time is.
+这句话直指大规模 CSS 问题的核心。写代码并不难，难的是在不让你的代码随着时间的推移成为拖累你的“技术债”。
 
-### Difficult to Understand
+### 难以理解
 
-Here’s an example from the [CSS Guidelines](https://cssguidelin.es/#naming-conventions-in-html) that shows the kind of problem we run into. No one but the person who wrote this code knows what it does.
+以下是 [CSS Guidelines](https://cssguidelin.es/#naming-conventions-in-html) 中的一个示例，这个示例展示了一个问题：除了写这段代码的人，没有人知道这段代码是干什么的。
 
 ```
 <div class="box profile pro-user">
@@ -46,182 +46,182 @@ Here’s an example from the [CSS Guidelines](https://cssguidelin.es/#naming-con
 </div>
 ```
 
-> How are the classes `box` and `profile` related to each other? How are the classes `profile` and `avatar` related to each other? Are they related at all? Should you be using `pro-user` alongside `bio`? Will the classes `image` and `profile` live in the same part of the CSS? Can you use `avatar` anywhere else?
+> `box` 和 `profile` 有什么关系？`profile` 和 `avatar` 有什么关系？或者他们之间真的有关系吗？你应该在 `bio` 旁边添加 `pro-user` 吗？`image` 和 `profile` 写在同一部分 CSS 吗？可以在其他地方使用 `avatar` 吗？
 
-There’s no way to answer those questions from here. You have to do a bunch of detective work in the CSS.
+光看代码无法回答这些问题，你必须在 CSS 代码中推理他们的作用。
 
-### Difficult to Reuse
+### 难以复用
 
-Reusing code can be surprisingly tricky. Let’s say there’s a style on one page that you want to reuse on another page, but when you try, you find out it was written in a way that only works on the first page. The author assumed it was living inside a particular element or that it was inheriting certain classes from the page. It doesn’t work at all in a different context. You don’t want to break the original, so you duplicate the code.
+复用代码会非常棘手。假设你要在另一个页面上复用某个页面上的样式，但你想这么做的时候，会发现那个样式是专为第一个页面而写的。代码的作者认为它只用在某个特定元素中，或者它是从页面继承某些类，在其他环境中根本不起作用。你不想修改原来的内容，然后直接复制了代码。
 
-Now you’ve got two problems: You’ve got your original code and your duplicated code. You’ve doubled your maintenance burden.
+现在你有两个问题：一份原始代码，一份重复代码，你的维护负担直接增加了一倍。
 
-### Difficult to Maintain
+### 难以维护
 
-CSS at scale can also be challenging to maintain. You change the markup, and the styles collapse like a house of cards. You want to update a style on one page, and it breaks on another. You try to override the other page, but get caught in a specificity war.
+大规模的 CSS 也难以维护。你改变了一个标签，样式就会像纸牌屋一样崩溃。你想更新一个页面上的样式，却破坏了另一个页面的样式。你试图覆盖其他页面，但又深陷于优先度问题。
 
-It reminds me of one of my favorite CSS jokes:
+它让我想起了我最喜欢的 CSS 笑话之一：
 
 ![](https://i.loli.net/2018/09/29/5baf80a3771fb.png)
 
-## What is Modularity?
+## 什么是模块化
 
-So how do we solve these problems? The answer lies in the concept of _modularity_, but what does that even mean? Let’s start with this quote from [Harry Roberts](https://twitter.com/csswizardry) about the [separation of concerns](https://cssguidelin.es/#the-separation-of-concerns):
+那么我们如何解决这些问题呢？答案在于**模块化**这个概念，但这是什么呢？我们先看看 [Harry Roberts](https://twitter.com/csswizardry) 对[关注点分离](https://cssguidelin.es/#the-separation-of-concerns)的见解：
 
 ![“Code which adheres to the separation of concerns can be much more confidently modified, edited, extended, and maintained because we know how far its responsibilities reach. We know that modifying layout, for example, will only ever modify layout—nothing else.” —Harry Roberts](https://spaceninja.ghost.io/content/images/2016/11/csswizardry.jpg)
 
-quote: [Harry Roberts](https://cssguidelin.es/#the-separation-of-concerns), photo: [CSSwizardry.com](https://csswizardry.com/)
+来源：[Harry Roberts](https://cssguidelin.es/#the-separation-of-concerns)，图：[CSSwizardry.com](https://csswizardry.com/)
 
-This is a common programming practice that many CSS developers aren’t familiar with. The idea is to make sure that the thing you’re writing isn’t going to do more than it was written to do unexpectedly.
+这是一个常见编程习惯，但是许多 CSS 开发者不太熟悉。这个思想是确保你所写的东西不会比你想要做的更多。
 
-Let me give you an example of the way I used to work before I learned about Modular CSS. I would get a comp like this from my designer:
+举个例子，说明我在学习模块化 CSS 之前的工作方式。设计师给我这样的草图：
 
 ![Illustration of a design comp for a bookstore website](https://spaceninja.ghost.io/content/images/2018/09/bookstore-comp.gif)
 
-image: [Yandex](https://github.com/bem-site/bem-method/blob/bem-info-data/articles/yandex-frontend-dev/yandex-frontend-dev.en.md)
+图：[Yandex](https://github.com/bem-site/bem-method/blob/bem-info-data/articles/yandex-frontend-dev/yandex-frontend-dev.en.md)
 
-I would think “Okay, I’m looking at a bookstore page. I’ve got a few widgets in a sidebar. I’ve got lists of what I assume are book covers over on the right side. I’ve got a featured book review, and I’ve got a couple more reviews below that.”
+我会觉得：“好吧，这是一个书店页面，侧边栏中有一些小部件，右侧列出了大概是书籍封面的清单，一个精选书评，下面还有其他的评论。”
 
-I was thinking of the page as a complete unit, and of the smaller pieces as belonging to the page. That approach is top-down thinking and results in code that’s full of one-offs and special bits that only live a single page. It’s not conducive to writing reusable code.
+我当时认为一个页面是一个完整的单元，页面里的较小部分从属于页面。这是一种自上而下的思考方法，这导致大量只服务于单个页面的一次性代码，不利于编写可复用代码。
 
 ![Illustration of a design comp for a bookstore with the components highlighted](https://spaceninja.ghost.io/content/images/2016/11/components.jpg)
 
-image: [Yandex](https://github.com/bem-site/bem-method/blob/bem-info-data/articles/yandex-frontend-dev/yandex-frontend-dev.en.md)
+图：[Yandex](https://github.com/bem-site/bem-method/blob/bem-info-data/articles/yandex-frontend-dev/yandex-frontend-dev.en.md)
 
-What Modular CSS asks you to do is step back, and instead of thinking about this at the page level, look at the fact that your page is made up of small chunks of discrete content. This isn’t a page. This is a collection of pieces.
+模块化 CSS 需要你换一个角度看问题，不从页面级别考虑，而是关注组成页面的小块。这不是一个页面而是一个组件的集合。
 
-You’ve got a logo, a search bar, navigation, a photo list, a secondary nav, a tabbed box, a video player, etc. These are discrete pieces of content that could be used anywhere in your site. They just happen to be assembled this way on this particular page.
+你会发现页面里包含的是 logo，搜索栏，导航，照片列表，辅助导航，标签框，视频播放器等。这些是可以网站的任何位置都可以独立使用的内容。它们只是碰巧在这个特定页面以这种方式组合。
 
-Modular CSS is bottom-up thinking. It asks you to start with the reusable building blocks that your entire site is constructed from.
+模块化 CSS 是自下而上的思维，需要从构建整个站点的可复用构建模块开始。
 
 ![Image of workers building with Lego bricks](https://spaceninja.ghost.io/content/images/2016/11/legos.png)
 
-image: [BEM Method](https://github.com/bem-site/bem-method/blob/bem-info-data/articles/19-bem-principles/19-bem-principles.ru.md)
+图：[BEM Method](https://github.com/bem-site/bem-method/blob/bem-info-data/articles/19-bem-principles/19-bem-principles.ru.md)
 
-Does that remind you of anything? It should! The Lego analogy is used by almost everyone who writes about Modular CSS for a good reason. The idea of building a UI out of standardized, easy-to-understand blocks that behave predictably regardless of context is a great concept.
+这会让你想起乐高？应该的！几乎所有撰写有关模块化 CSS 的人都使用乐高进行类比。使用标准化，易于理解，并且不依赖上下文的块来构建 UI 的是一个很好的思路。
 
-One of the most famous examples of this type of block is the “media object,” defined by [Nicole Sullivan](https://twitter.com/stubbornella). She argued that this object is one of the smallest discrete pieces of content that you’re going to find on any site.
+这样的“块”最著名的例子之一是由 [Nicole Sullivan](https://twitter.com/stubbornella) 定义的“媒体对象”，她认为这种对象是你将在任何网站上找到的最小的组件之一。
 
 ![An example of the media object](https://spaceninja.ghost.io/content/images/2016/11/media-blocks.jpg)
 
-It combines a fixed width image to one side of flexible width content. You can see this everywhere. She produced a case study, called “[The Media Object Saves Hundreds of Lines of Code](http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/),” that talked about applying this pattern to large-scale sites. One of her biggest examples was Facebook:
+它将固定宽度的图像组合到灵活宽度的容器的一侧，现在到处都可以看到这个模式。她撰写了一篇名为 [The Media Object Saves Hundreds of Lines of Code](http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/) 的案例研究，谈到将此模式应用于大型网站，最大的例子之一便是 Facebook：
 
 ![The media object highlighted in red on the facebook homepage](https://spaceninja.ghost.io/content/images/2016/11/facebook-image-block.png)
 
-image: [Nicole Sullivan](http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/)
+图：[Nicole Sullivan](http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/)
 
-Here she’s highlighted all the media objects in a Facebook stream. There’s a profile in the upper left, the navigation elements on the right side, every post in the feed, and even the ads. Sometimes they’re nested within each other. Although they’re used for different purposes, they all share the same underlying pattern: fixed width image, flexible width text.
+这里高亮显示了 Facebook 流中的所有媒体对象。左上角个人信息，右侧导航元素，订阅的每个帖子，甚至是广告都是媒体对象。有时它们彼此嵌套。虽然使用目的不同，但它们都共享相同的基础模式：固定宽度的图像，弹性宽度的文本。
 
-Her point was that when we’re talking about operating at the scale of Facebook, there’s not 10 or 20 or 30 media objects. There are hundreds or thousands on pages like this. So you can imagine that if you optimize the styles used for these repeated patterns you can save dramatic amounts of code. That leads to real performance and cost savings.
+她的观点是，以 Facebook 的规模运营时，媒体对象就不止几十个，这样的页面上有数百上千个。因此，可以想象如果为复用样式作优化，可以节省大量代码，这可以带来真正的高性能和低成本。
 
-## Modular Frameworks
+## 模块化框架
 
-So, now that we’re clear on the concept of _modularity_, let’s look at three of the biggest frameworks to have advanced the concept over the years:
+那么，既然我们已经明确了**模块化**的概念，那么让我们看看这些年来推崇这一概念的三大框架：
 
 ### OOCSS
 
-Object-Oriented CSS, or [OOCSS](https://github.com/stubbornella/oocss/wiki), was created by [Nicole Sullivan](https://twitter.com/stubbornella) in 2009, and it’s based on her work for Yahoo*. It’s the origin point of Modular CSS. Her core concept was that objects are **reusable patterns** whose visual appearance is not determined by context.
+面向对象的 CSS（Object-Oriented CSS）/ [OOCSS](https://github.com/stubbornella/oocss/wiki) 是模块化 CSS 的起源，由 [Nicole Sullivan](https://twitter.com/stubbornella) 于 2009 年提出，这基于她在雅虎的工作。这个框架的核心思想是 —— 对象是**可重用的模式（pattern）**，其视觉外观不由上下文决定。
 
-* For those of you who are going “Yahoo? Really?” You need to understand that their front-end team was doing some really cutting-edge stuff with the [YUI library](https://yuilibrary.com/) at the time. In 2009, Yahoo was not a dead-end tech company.
+* 有人质疑雅虎的能力，雅虎的前端团队当时研发的 [YUI library](https://yuilibrary.com/) 是非常前沿的技术。在 2009 年，雅虎不是一家没有前途的科技公司。
 
 ![“a CSS ‘object’ is a repeating visual pattern, that can be abstracted into an independent snippet of HTML, CSS, and possibly JavaScript. That object can then be reused throughout a site.” —Nicole Sullivan](https://spaceninja.ghost.io/content/images/2016/11/stubbornella.jpg)
 
-quote: [Nicole Sullivan](https://github.com/stubbornella/oocss/wiki), photo: [John Morrison](https://www.flickr.com/photos/localcelebrity/6025913421/)
+来源：[Nicole Sullivan](https://github.com/stubbornella/oocss/wiki)，图：[John Morrison](https://www.flickr.com/photos/localcelebrity/6025913421/)
 
-That’s the roots of Modular CSS, right there, as she defined it back in 2009. Beyond that, OOCSS can be boiled down to a few core principles:
+正如她在 2009 年所定义的那样，这就是模块化 CSS 的起源。除此之外，OOCSS 可归结为几个核心原则：
 
-#### Context-Independent
+#### 上下文无关
 
-The first is that an object should **look the same** no matter where you put it. Objects should not be styled based on their context.
+首先，无论你把它放在哪里，一个对象都应该**看起来无差别**，不应根据对象的上下文设置对象的样式。
 
-For example, rather than make all buttons in the sidebar orange, and all buttons in the main area blue, you should make a button class that’s blue, and a modifier that’s orange. Then your orange buttons can be used anywhere because they’re not tied to the sidebar, they’re just one of your button styles.
+例如，不是将侧边栏中的所有按钮都设置为橙色，将主区域中的所有按钮设置为蓝色，而是应该创建一个蓝色的按钮类，以及一个橙色的 modifier。这样做橙色按钮可以在任何地方使用，它们没有被绑定在侧边栏上，它们只是你的按钮样式之一。
 
-#### Skinning (aka Theming)
+#### 皮肤（主题）
 
-Another concept she talked about is how to abstract the **structure of an object** from the **skin that is being applied**.
+她谈到的另一个概念，是如何从**正在应用的皮肤**中抽象出**对象的结构**。
 
-We can return to the example of the media object. The way it looks is independent of the markup and the structure that’s defined. There’s a containing element, a fixed-width image, and the content. You can style that a hundred different ways, but the markup, the structure, is going to be the same regardless of how it looks.
+我们可以回到媒体对象的例子。它的样式与标签结构无关。有一个容器，一个固定宽度的图像和内容。你可以应用不同的样式，但是无论样式如何改变，标签结构都是一样的。
 
-Something else she advised was to create reusable classes for common visual patterns. One of her examples was that on Amazon in 2009, there were drop shadows on almost everything, and they were all just a little different. They were graphical elements all created by different artists, and they were similar, but they weren’t the same. By standardizing those drop shadows, you can optimize the code and make the site more performant.
+她建议的其他方法是为常见的视觉模式创建可复用的类。她给出了一个例子，在 2009 年的亚马逊网站几乎所有的东西都有阴影，但因为它们由不同设计师创作，所以相似却不相同。通过标准化这些元素阴影，可以优化代码并使网站更高效。
 
-#### Use Classes
+#### 使用 Class
 
-She also had a principle that was very controversial at the time but has since been borne out: Use classes to name your objects and their child elements so markup can change without impacting style.
+当时她提出了一个非常具有争议性的规则，但后来被广为接受：使用 class 来命名对象及其子元素，这样可以在不影响样式的情况下修改 HTML 标签。
 
-What she was getting at is that you don’t want your markup to determine your CSS. So if you change the headline from an `h1` to an `h4`, you shouldn’t have to update your CSS. That headline should have a class on it, and that class will be applied regardless of what element you choose. For example, your navigation should be something like `.site-nav` _not_ `#header ul`.
+她不希望 CSS 由 HTML 标签来确定，这样的话如果将标题从“h1”更改为“h4”，则不必更新 CSS。无论选择哪个标签，该标题应该有一个固有的 class。例如，你的导航应该类似于 `.site-nav` **而不是** `#header ul`。
 
-#### Don’t Use IDs
+#### 不使用 ID
 
-The natural corollary to “always use classes” was her recommendation never to use ID selectors. This was opposed to the common practice of the time to use IDs for namespacing and refer directly to elements nested inside them.
+既然建议“总是使用 class”，那么自然禁止使用 ID 选择器。这与当时使用 ID 作为命名空间的常见实践相违背，直接引用嵌套在其中的元素。
 
-IDs mess up specificity because they’re too strong, but more importantly, objects are meant to be reusable. IDs are, by definition, unique. So if you put an ID on your object, you can’t reuse it on the same page and are missing the point of a modular object.
+ID 会扰乱 CSS 优先度，这是其次，对象必须是可复用的。根据定义，ID 是唯一的。因此，如果在对象上设置 ID，则无法在同一页面上重复使用它，缺少了模块化对象的要点。
 
 ### BEM
 
-That brings us to the next big framework to help define the Modular CSS ethos. [BEM](https://en.bem.info/methodology/), which stands for Block, Element, Modifier, was also created in 2009. It was developed at Yandex, which is like the Russian version of Google. They also operate a search engine and webmail program, so they were solving the same scale-related problems as Yahoo at the same time.
+接下来介绍下一个弘扬模块化 CSS 精神的框架。[BEM](https://en.bem.info/methodology/)，三个字母分别代表 Block、Element、Modifier，BEM 也是在 2009 年提出，起源于 Yandex（可以说是俄语版的 Google），除搜索业务外还运营网络邮件程序，因此在编程上他们也需要解决与雅虎相同规模的难题。
 
-They came up with a very similar set of operating principles for how to write code. Their central concept was that **blocks** (what Nicole called “objects”) are made of child **elements** and can be **modified** (or “skinned” or “themed”).
+他们提出了一套非常类似的代码原则。他们的核心概念是 —— **块（block）**（Nicole 称之为“物体（object）”）由子**元素（element）**构成，并且可以**修改（modified）**（或“主题化”）。
 
-Here’s how [Varya Stepanova](https://twitter.com/varya_en), one of the lead front-enders that worked on BEM, described it:
+以下是其中一位负责 BEM 的开发者 [Varya Stepanova](https://twitter.com/varya_en) 对 BEM 的描述：
 
 ![“BEM is a way to modularize development of web pages. By breaking your web interface into components… you can have your interface divided into independent parts, each one with its own development cycle.” —Varya Stepanova](https://spaceninja.ghost.io/content/images/2016/11/varya.jpg)
 
-quote: [Varya Stepanova](https://www.youtube.com/watch?v=ya7QsFUfn3U), photo: [ScotlandJS](https://www.youtube.com/watch?v=gWzYMJjtx-Y)
+来源：[Varya Stepanova](https://www.youtube.com/watch?v=ya7QsFUfn3U)，图：[ScotlandJS](https://www.youtube.com/watch?v=gWzYMJjtx-Y)
 
-BEM is made up of three parts:
+BEM 由 3 部分组成：
 
-#### Blocks
+#### 块（Block）
 
-Blocks are logically and functionally independent components of a web page. The creators of BEM added a few other properties beyond what Nicole defined:
+块是网页逻辑和功能的独立组件。BEM 的发起人对其提出了更详尽的定义：
 
-Firstly, blocks are **nestable**. They should be capable of being contained inside another block without breaking anything. For example, you might have a block that’s a tabbed interface widget in your sidebar, and that block might contain buttons, which are a separate type of block. The styles for your buttons and the styles for the tabbed element don’t interact with each other. It just happens that the one is nested within the other.
+首先，块是**可嵌套的**。它们应该能被包含在另一个块中，而不会破坏任何样式。例如，可能在侧栏中有一个标签界面小部件的块，该块可能包含按钮，这些按钮也是一种单独的块。按钮的样式和选项卡式元素的样式不会相互影响，一个嵌套在另一个中，仅此而已。
 
-Secondly, blocks are **repeatable**. An interface should be able to contain multiple instances of the same block. Like Nicole was saying about the media object, the ability to reuse a block can result in dramatic code savings.
+其次，块是**可重复的**。界面应该能够包含同一块的多个实例。就像 Nicole 所说的媒体对象一样，复用块可以节省大量代码。
 
-#### Elements
+#### 元素（Element）
 
-Elements are the constituent parts of a block that can’t be used outside of it. A good example is if you have a navigation menu, the items it contains don’t make sense outside the context of the menu. You wouldn’t define a block for a menu item. You’d have a block for the menu itself, and the menu items are child elements.
+元素是块的组成部分，它不能在块之外使用。一个不错的例子：一个导航菜单，它包含的项目在菜单的上下文之外没有意义。你不会为菜单项定义块，菜单本身应定义为块，而菜单项是其子元素。
 
-#### Modifiers
+#### 修饰符（Modifier）
 
-Modifiers define the appearance and behavior of a block. For example, the appearance of the menu block may change from vertical to horizontal depending on the modifier that is used.
+修饰符定义块的外观和行为。例如，菜单块的外观的垂直或水平，取决于所使用的修饰符。
 
-#### Naming Convention
+#### 命名约定
 
-The other thing BEM did was to define a very strict naming convention:
+BEM 所做的另一件事是定义了非常严格的命名约定：
 
 `.block-name__element--modifier`
 
-That looks a little complicated, so let me break it down a bit:
+这看起来有点复杂，我来分解一下：
 
-*   Names are written in lower case
-*   Words within names are separated by hyphens (`-`)
-*   Elements are delimited by double underscores (`__`)
-*   Modifiers are delimited by double hyphens (`--`)
+*   名称以小写字母书写
+*   名称中的单词用连字符（`-`）分隔
+*   元素由双下划线（`__`）分隔
+*   修饰符由双连字符（`--`）分隔
 
-This is getting a bit abstract, so let’s have an example:
+这么说也有点抽象，举一个例子：
 
 ![Example of .minifig to indicate a lego minifig](https://spaceninja.ghost.io/content/images/2016/11/minifig-1.png)
 
-Here we have a standard Lego minifig. It’s a blue astronaut. We’ll identify it with the block class `.minifig`.
+现在我们有一个标准的乐高 minifig。他是一个蓝色的宇航员。我们将使用 `.minifig` 类来区分他。
 
 ![Example of .minifig module with child elements such as .minifig__head and .minifig__legs](https://spaceninja.ghost.io/content/images/2016/11/minifig-2.png)
 
-You can see that the `.minifig` block is made up of smaller elements such as `.minifig__head` and `.minifig__legs`. Now let’s add a modifier:
+可以看到 `.minifig` 块由较小的元素组成，例如 `.minifig__head` 和 `.minifig__legs`。现在我们添加一个修饰符：
 
 ![Example of .minifig--red module modifier, turning the minifig red](https://spaceninja.ghost.io/content/images/2016/11/minifig-3.png)
 
-By adding the `.minifig--red` modifier we’ve created a red version of our standard blue astronaut.
+通过添加 `.minifig--red` 修饰符，我们创建了标准蓝色宇航员的红色版本。
 
 ![Example of a .minifig--yellow-new module modifier, turning the minifig yellow](https://spaceninja.ghost.io/content/images/2016/11/minifig-4.png)
 
-Alternatively, we can use the `.minifig--yellow-new` modifier to change our astronaut to the new-style yellow uniform.
+或者，我们可以使用 `.minifig--yellow-new` 修饰符将我们的宇航员改为新式黄制服版。
 
 ![Example of a .minifig--batman module modifier making a drastic change in the appearance of the minifig](https://spaceninja.ghost.io/content/images/2016/11/minifig-5.png)
 
-You can make more dramatic changes in the same way. By using the `.minifig--batman` modifier, we’ve changed the appearance of every part of the minifig with just a single class.
+你可以使用同样的方式进行更夸张的修改。通过使用 `.minifig--batman` 修饰符，我们只用一个类就改变了 minifig 的每个部分的外观。
 
-Here’s a more practical example of the BEM syntax in action:
+这是实践中的 BEM 语法例子：
 
 ```
 <button class="btn btn--big btn--orange">
@@ -230,101 +230,101 @@ Here’s a more practical example of the BEM syntax in action:
 </button>
 ```
 
-Even without seeing any CSS, you can tell at a glance that this code will create a big orange price button. Whether you like this style with the hyphens and underscores or not, the idea of having a strict naming convention is a huge step forward. It makes code self-documenting!
+即使不看样式代码，你也可以一眼就看出这段代码会创建一个既大又橙的价格按钮。无论你是否喜欢带有连字符和下划线的这种风格，拥有严格的命名约定是模块化 CSS 向前迈出的一大步，这让代码带有自文档的效果！
 
-#### No Nested CSS
+#### 不嵌套 CSS
 
-Like OOCSS’ recommendation to use classes and not IDs, BEM added a few principles to how to write code. Most notably, they argue you should not nest CSS selectors. Nested selectors increase specificity, making it more difficult to reuse code. For example, just use `.btn__price` _not_ `.btn .btn__price`.
+就像 OOCSS 建议使用 class 而不使用 ID 一样，BEM 也为代码风格作了一些限制。最值得注意的是，他们认为不应该嵌套 CSS 选择器。嵌套选择器扰乱了优先度，使得重用代码变得更加困难。例如，只需使用 `.btn__price` **而不是** `.btn .btn__price`。
 
-_Note: Nesting here refers to the practice of actually nesting selectors in Sass or Less, but the broader concept applies even if you’re not using a preprocessor because it’s about selector specificity._
+**注意：这里的嵌套指实践中在 Sass 或 Less 嵌套选择器的做法，但即使你没有使用预处理器也适用，因为这关乎选择器优先度问题。**
 
-This principle works because of their strict naming convention. We used to nest selectors to isolate them within a namespaced context. BEM’s naming convention provides a namespace, so we don’t need to nest anymore. Even though everything is a single class at the root level of your CSS, the names are specific enough to avoid conflicts.
+这个原则不出问题是因为严格的命名约定。我们曾经使用嵌套选择器将它们隔离在命名空间的上下文中。而 BEM 的命名约定本身就提供了命名空间，因此我们不再需要嵌套。即使 CSS 的根级别的所有内容都是单个类，但这些名称的具体程度足以避免冲突。
 
-As a rule, if a selector will work without being nested then do not nest it. The only exception that BEM allows for this rule is styling elements based on the state of a block or its modifier. For example, you might have `.btn__text` and then `.btn--orange .btn__text` to override the text color of a button when a modifier is applied.
+一般来说，选择器可以在没有嵌套的情况下生效，就不要嵌套它。 BEM 允许此规则的唯一例外是基于块状态或其修饰符的样式元素。例如，可以使用 `.btn__text` 然后用 `.btn--orange .btn__text` 来覆盖应用了修饰符按钮的文本颜色。
 
 ### SMACSS
 
-The final framework we’re going to discuss is [SMACSS](https://smacss.com/), which stands for Scalable & Modular Architecture for CSS. It was created by [Jonathan Snook](https://twitter.com/snookca) in 2011. He also worked at Yahoo, writing CSS for Yahoo Mail.
+我们最后要讨论的框架是 [SMACSS](https://smacss.com/)，含义是 CSS 的可扩展性和模块化架构（Scalable & Modular Architecture）。[Jonathan Snook](https://twitter.com/snookca) 于 2011 年提出了 SMACSS，当时他在雅虎工作，为 Yahoo Mail 编写 CSS。
 
 ![“At the very core of SMACSS is categorization. By categorizing CSS rules, we begin to see patterns and can define better practices around each of these patterns.” —Jonathan Snook](https://spaceninja.ghost.io/content/images/2016/11/snookca.jpg)
 
-quote: [Jonathan Snook](https://smacss.com/book/categorizing), photo: [Elida Arrizza](https://www.flickr.com/photos/elidr/10864268273/)
+来源：[Jonathan Snook](https://smacss.com/book/categorizing)，图：[Elida Arrizza](https://www.flickr.com/photos/elidr/10864268273/)
 
-The key concept that he added, building on OOCSS and BEM, was that different **categories** of components need to be handled differently.
+他在 OOCSS 和 BEM 的基础上添加的关键概念是，不同**类别**的组件需要以不同的方式处理。
 
-#### Categories
+#### 类别（Categories）
 
-Here are the categories he defined for the types of rules a CSS system might contain:
+以下是他为 CSS 系统可能包含的规则定义的类别：
 
-1.  **Base** rules are default styles for HTML elements like links, paragraphs, and headlines.
-2.  **Layout** rules divide the page into sections, and hold one or more modules together. They only define the layout, not color or typography.
-3.  **Modules** (aka “objects” or “blocks”) are the reusable, modular parts of a design. For example, buttons, media objects, product lists, etc.
-4.  **State** rules describe how modules or layouts look in a particular state. Typically applied or removed with JavaScript. For example, hidden, expanded, active, etc.
-5.  **Theme** rules describe how modules or layouts look when a theme is applied. For example, in Yahoo Mail, you might apply a user theme, which would affect every modules on the page. (This is really specific to apps like Yahoo. Most sites won’t use this category.)
+1.  **基础（Base）** 规则是HTML元素的默认样式，如链接，段落和标题。
+2.  **布局（Layout）** 规则将页面分成几个部分，并将一个或多个模块组合在一起。它们只定义布局，而不管颜色或排版。
+3.  **模块（Module）**（又名“对象”或“块”）是可重用的，设计中的一个模块。例如，按钮，媒体对象，产品列表等。
+4.  **状态（State）** 规则描述了模块或布局在特定状态下的外观。通常使用 JavaScript 应用或删除。例如，隐藏，扩展，激活等。
+5.  **主题（Theme）** 规则描述了模块或布局在主题应用时的外观，例如，在 Yahoo Mail 中，可以使用用户主题，这会影响页面上的每个模块。（这非常适用于像雅虎这样的应用程序，但大多数网站都不会使用此类别。）
 
-#### Naming Convention Prefixes
+#### 命名约定前缀
 
-The next principle he introduced was using prefixes to differentiate between categories of rules. He liked the idea that BEM had a clear naming convention, but he wanted to be able to tell at a glance what type of module he was looking at.
+下一个原则是使用前缀来区分类别，他喜欢 BEM 明确的命名约定，但他还希望能够一目了然地看出模块的类型。
 
-*   `l-` is used as a prefix for layout rules: `l-inline`
-*   `m-` is used as a prefix for module rules: `m-callout`
-*   `is-` is used as a prefix for state rules: `is-collapsed`
+*   `l-` 用作布局规则的前缀：`l-inline`
+*   `m-` 用作模块规则的前缀：`m-callout`
+*   `is-` 用作状态规则的前缀：`is-collapsed`
 
-(There’s no prefix for base rules because they’re applied to HTML elements directly, without using a class.)
+（基础规则没有前缀，因为它们直接应用于 HTML 元素而不使用类。）
 
-## Shared Modular Principles
+## 共享模块化原则
 
-These frameworks are more alike than they are different. I see a clear path from OOCSS to BEM to SMACSS. Their evolution represents our industry’s growing experience with performance and writing CSS at scale.
+这些框架的相同之处远胜于其不同之处。我看到从 OOCSS 到 BEM 再到 SMACSS 的明确发展。它们的发展代表了我们行业在性能和大规模 CSS 领域不断增长的经验。
 
-You don’t need to pick just one. Instead, let’s try to define the universal themes of Modular CSS. Let’s see what these frameworks share and keep the best parts.
+你不必选择其中一个框架，相反，我们可以尝试定义模块化 CSS 的通用规则。让我们看看这些框架共用和保留的最佳部分。
 
-### Modular Elements
+### 模块化元素
 
-A modular system is composed of these elements:
+模块化系统由以下元素组成：
 
-*   **Module:** (aka object, block, or component) a reusable and self-contained pattern. Examples include media object, navigation, and page header.
-*   **Child Element:** a discrete piece of a module that can’t stand alone. Examples include media object image, navigation tab, and page header logo.
-*   **Module Modifier:** (aka skin or theme) alters the visual appearance of a module. Examples include left/right aligned media objects, vertical/horizontal navigation.
+*   **模块（Module）：**（又名对象，块或组件）一种可复用且自成一体的模式。如媒体对象，导航和页眉。
+*   **子元素（Child Element）：** 一个不能独立存在的小块，属于模块的一部分。如媒体对象中的图像，导航选项卡和页眉 logo。
+*   **模块修改器（Module Modifier）：**（又名皮肤或主题）改变模块的视觉外观。如左/右对齐的媒体对象，垂直/水平导航。
 
-### Modular Categories
+### 模块化类别
 
-Styles in a modular system can be organized into the following categories:
+模块化系统中的样式可以分为以下几类：
 
-*   **Base** rules are default styles for HTML elements. Examples: `a`, `li`, `h1`
-*   **Layout** rules control how modules are laid out, but not visual appearance. Examples: `.l-centered`, `.l-grid`, `.l-fixed-top`
-*   **Modules** are visual styles for reusable, self-contained UI components. Examples: `.m-profile`, `.m-card`, `.m-modal`
-*   **State** rules are added by JavaScript. Examples: `.is-hidden`, `.is-collapsed`, `.is-active`
-*   **Helper** (aka utility) rules are small in scope and independent of modules. Examples: `.h-uppercase`, `.h-nowrap`, `.h-muted`
+*   **基础（Base）** 规则是 HTML 元素的默认样式，如：`a`、`li` 和 `h1`
+*   **布局（Layout）** 规则控制模块的布局方式，但不控制视觉外观，如：`.l-centered`、`.l-grid` 和 `.l-fixed-top`
+*   **模块（Modules）** 是可复用的，独立的 UI 组件视觉样式，如：`.m-profile`、`.m-card` 和 `.m-modal`
+*   **状态（State）** 规则由 JavaScript 添加，如：`.is-hidden`、`.is-collapsed` 和 `.is-active`
+*   **助手（Helper）**（又名功能）规则适用范围小，独立于模块，如：`.h-uppercase`、`.h-nowrap` 和 `.h-muted`
 
-### Modular Rules
+### 模块化规则
 
-When writing styles in a modular system, follow these rules:
+在模块化系统中编写样式时，请遵循以下规则：
 
-*   Don’t use IDs
-*   Don’t nest CSS deeper than one level
-*   Add classes to child elements
-*   Follow a naming convention
-*   Prefix class names
+*   不要使用 ID
+*   CSS 嵌套不要超过一层
+*   为子元素添加类名
+*   遵循命名约定
+*   为类名添加前缀
 
 ## FAQ
 
-### Doesn’t this mean my HTML has lots of classes?
+### 这么做 HTML 不会有很多类吗？
 
-The first objection I often see raised to a Modular CSS approach is that it can result in many classes in your HTML. I think this is because it used to be considered a best practice to avoid having too many classes in your markup. Nicole Sullivan wrote a great blog post called “[Our (CSS) Best Practices are Killing Us](http://www.stubbornella.org/content/2011/04/28/our-best-practices-are-killing-us/)” back in 2011, explicitly refuting this idea.
+模块化 CSS 最常见的反对意见就是，它会在 HTML 中产生许多类。我认为这是因为长期以来 CSS 的最佳实践都认为应该避免大量 class 使用。早在 2011 年，Nicole Sullivan 就写了一篇很棒的博文 [Our (CSS) Best Practices are Killing Us](http://www.stubbornella.org/content/2011/04/28/our-best-practices-are-killing-us/)，明确驳斥了这个想法。
 
-One option I see some devs advocating is using a preprocessor’s `extend` function to concatenate multiple styles into a single class name. I would recommend against this, because it makes your code less flexible. Instead of allowing other devs to combine your lego bricks in new ways, they’re stuck with the few combinations you’ve defined.
+我看到一些开发人员提倡使用预处理器的 `extend` 函数将多个样式连接成一个类名。我建议不要这样做，因为它会使你的代码不那么灵活。他们不能让其他开发者以新的方式组合你的乐高积木，而是固定了你定义的几种组合。
 
-#### But BEM Class Names are Long and Ugly!
+#### BEM 的类名又长又丑！
 
-Don’t be afraid of long class names. They’re self-documenting! When I see BEM-style class names (or any other modular naming convention), I appreciate the fact that I can tell at a glance what these classes are intended for. It’s like a paper trail in your markup.
+不要因为类名太长而害怕，他们是自文档的！当我看到 BEM 风格的类名（或任何其他模块化命名约定）时，我会觉得很愉悦，因为只要看一眼就能知道这些类的含义。你可以在 HTML 中清晰理解它们。
 
-### What’s the Naming Convention for a Grandchild Element?
+### 孙元素的命名如何约定？
 
-Long story short: There’s no such thing.
+长话短说：没这回事。
 
-Newcomers to Modular CSS quickly grasp the idea of child elements: `minifig__arm` is a part of `minifig`. However, sometimes they get hung up on matching their DOM structure in the CSS, and they ask how to indicate further levels of nesting, like `minifig__arm__hand`.
+模块化 CSS 初学者可以快速掌握子元素的概念：`minifig__arm` 是 `minifig` 的一部分。然而，有时候他们处理 CSS 中的 DOM 结构时，会疑问如何作深层嵌套，比如 `minifig__arm__hand`。
 
-There’s just no need for this. Remember that the idea is to separate your styles from your markup. It shouldn’t matter whether `hand` is a direct child of `minifig` or nested several levels deep in the DOM. All the CSS cares about is that `hand` is a child of `minifig`.
+没有必要这样做。请记住，这个思路是要将样式与标记分离。无论 `hand` 是 `minifig` 的直接子元素还是嵌套了多少层，都无关紧要。CSS 关心的只有 `hand` 是 `minifig` 的孩子。
 
 ```
 .minifig {}
@@ -333,23 +333,23 @@ There’s just no need for this. Remember that the idea is to separate your styl
   .minifig__hand {} /* do this instead */
 ```
 
-### What About Module Conflicts?
+### 模块冲突怎么办？
 
-Another thing that Modular CSS newbies tend to get concerned about is conflicts between modules. e.g., if I apply both the `l-card` module and the `m-author-profile` module to the same element, will it cause a problem?
+模块化 CSS 初学者比较关注的另一件事是模块之间的冲突。例如，如果我将 `l-card` 模块和 `m-author-profile` 模块同时应用于同一个元素，是否会导致问题？
 
-The answer is that ideally, modules shouldn’t overlap much. In this example, the `l-card` module is concerned with layout, while the `m-author-profile` module is concerned with styling. You might see `l-card` set width and margins, while `m-author-profile` applies a background color and font.
+答案是：理想情况下，模块不应该重叠太多。在这个例子中，`l-card` 模块关注布局，而 `m-author-profile` 模块关注样式，你可能会看到 `l-card` 设置宽度和边距，而 `m-author-profile` 设置背景颜色和字体。
 
 ![](https://i.loli.net/2018/09/29/5baf81580aa8a.png)
 
-One way to test that your modules are properly isolated and don’t conflict is to load them in a random order. You may be able to configure your build system to shuffle the module stylesheets at build time. If you start seeing bugs, you’ll know that you’ve got CSS that expects to be loaded in a specific order.
+测试模块是否冲突的一种方法是以随机顺序加载它们。你可以将项目构建配置中设定为在构建时随机交换样式位置。如果看到bug，就证明你的 CSS 需要以特定顺序加载。
 
-If you find that you need to apply two modules to the same element and they are conflicting, consider whether these are really two separate modules. Perhaps they could be collapsed into a single module with a modifier?
+如果你发现需要将两个模块应用于同一个元素并且它们存在冲突，请考虑它们是否真的是两个独立的模块。也许它们可以用一个修饰符组合成一个模块？
 
-The final exception to the rule is that “helper” or “utility” classes will likely conflict, and in these cases, you can safely consider using `!important`. I know, you’ve been told `!important` is evil, and should never be used, but let’s apply a bit of nuance: Using it proactively to ensure a helper class always wins a specificity battle is fine. ([Harry Roberts has more to say on this topic in the CSS Guidelines](https://cssguidelin.es/#important).)
+该规则的最后一个例外是“helper”或“utility”类可能会发生冲突，在这些情况下，你可以安全地考虑使用 `!important`。我知道，你曾被告知 `!important` 不是什么好东西，永远不应该被使用，但我们的做法有细微的差别：主动使用它来确保 helper 类总是优先还是不错的。 （[Harry Roberts has more to say on this topic in the CSS Guidelines](https://cssguidelin.es/#important)。）
 
-## In Conclusion, Modular CSS is Dope
+<h2 name="c6">总结，模块化 CSS 太美妙啦</h2>
 
-Let’s have a brief recap. Remember this?
+我们来简要回顾一下，还记得这段代码吗？
 
 ```
 <div class="box profile pro-user">
@@ -358,9 +358,9 @@ Let’s have a brief recap. Remember this?
 </div>
 ```
 
-> How are the classes `box` and `profile` related to each other? How are the classes `profile` and `avatar` related to each other? Are they related at all? Should you be using `pro-user` alongside `bio`? Will the classes `image` and `profile` live in the same part of the CSS? Can you use `avatar` anywhere else?
+> `box` 和 `profile` 有什么关系？`profile` 和 `avatar` 有什么关系？或者他们之间有关系吗？你应该在 `bio` 旁边添加 `pro-user` 吗？`image` 和 `profile` 写在同一部分 CSS 吗？可以在其他地方使用 `avatar` 吗？
 
-Now we know how to address all those concerns. By writing Modular CSS and using a proper naming convention, we can produce self-documenting code:
+现在我们知道如何解决这些问题了。通过编写模块化 CSS 并使用适当的命名约定，我们可以编写自文档的代码：
 
 ```
 <div class="l-box m-profile m-profile--is-pro-user">
@@ -369,13 +369,13 @@ Now we know how to address all those concerns. By writing Modular CSS and using 
 </div>
 ```
 
-We can see which classes are and are not related to each other, and how. We know what classes we can’t use outside of the scope of this component. Also, we know which classes we are free to reuse elsewhere.
+我们可以看到哪些类彼此相关，哪些类彼此不相关，以及如何相关。我们知道在这个组件的范围之外我们不能使用哪些类，当然，我们还知道哪些类可以在其他地方复用。
 
-Modular CSS simplifies code and facilitates refactoring. It produces self-documenting code. It results in reusable code that doesn’t influence outside its scope.
+模块化 CSS 简化了代码并推进了重构，产出自文档的代码，这样的代码不影响外部作用域且可复用。
 
-Or to put it another way, **Modular CSS is predictable, maintainable, and performant.**
+或者换句话说，**模块化 CSS 是可预测的，可维护的并且是高性能的。**
 
-Now we can revisit that old joke, and make a slight change:
+现在我们可以重温那个老笑话，结局发生了变化：
 
 ![Two CSS properties walk into a bar. Everything is fine, thanks to modular code and proper namespacing.](https://spaceninja.ghost.io/content/images/2016/11/updated-tweet.png)
 
@@ -385,3 +385,4 @@ Now we can revisit that old joke, and make a slight change:
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
