@@ -138,7 +138,7 @@ function test(fruit, quantity) {
 
 ## 3. 使用函数默认参数和解构
 
-我猜你估计很熟悉以下的代码，在 JavaScript 中我们经常需要检查 `null` / `undefined` 并赋予默认值：
+我猜你也许很熟悉以下的代码，在 JavaScript 中我们经常需要检查 `null` / `undefined` 并赋予默认值：
 
 ```
 function test(fruit, quantity) {
