@@ -5,37 +5,37 @@
 > * 译者：
 > * 校对者：
 
-# How to organize a Hacktoberfest-themed meetup
+# 如何组织Hacktoberfest主题的聚会活动
 
-### Step-by-step
+### 步骤
 
-1.  Craft an event agenda.
-2.  Set a date: Confirm that your preferred venue and any co-organizers, speakers, and facilitators are available.
-3.  Promote the event: Invite your community to attend. And don't forget to add your event [here](http://do.co/hacktoberfest18event)!
-4.  Facilitate the event: Create an open, inclusive, and welcoming atmosphere.
-5.  Share special moments on social media. (Please remember to ask attendees permission to use their photos.)
+1. 制定活动日程。
+2. 设定日期：确认您的首选场地以及任何协办单位，演讲者和辅导员是否可用。
+3. 推广活动：邀请您的社区人员参加。别忘了在[这里](http://do.co/hacktoberfest18event)添加您的活动！
+4. 促进活动：营造开放、包容和热情的氛围。
+5. 在社交媒体上分享活动的精彩时刻。（请记得要求与会者使用他们的照片。）
 
-### Who to invite to the meetup
+### 邀请谁参加聚会
 
-Anyone interested in learning about and/or contributing to open source.
+任何有兴趣了解的人或开源项目有贡献的人。
 
-### When's the best time to host your meetup?
+### 什么时候是举办聚会的最佳时间？
 
-Preferably the first half of October to give participants time to complete five PRs!
+最好在 10 月上半月给参加者时间完成 5 个 PR ！
 
-### Where to host your event
+### 在哪里举办活动
 
-An easily accessible, inclusive location with reliable WiFi and a comfortable space that is workshop and live-coding friendly, for example:
+一个交通便利、包容性的位置，可靠的WiFi和舒适的空间，工作室和现场编码友好，例如：
 
-*   Classroom at a university or code school
-*   Coworking space
-*   Incubator/accelerator
-*   Office of an open source/tech company
-*   Anywhere that will have you!
+*   大学或代码学校的课堂
+*   协同工作室
+*   孵化器/加速器
+*   开源/科技公司办公室
+*   任何有你的地方！
 
-### Sample agenda
+### 样本议程
 
-This is merely a suggestion — feel free to customize it to suit your community!
+这只是一个建议 —— 您可以随意定制它以适合您的社区人员！
 
 *   **Welcome** Set a welcoming, open, and inclusive tone. Thank everyone for attending, tell them about yourself, and give an overview of the programming of the day/evening, and remind them of the code of conduct.
     
@@ -50,102 +50,102 @@ This is merely a suggestion — feel free to customize it to suit your community
 *   **Hack time** Hacking together: facilitate the formation of groups by interest/[insert your community's preferred format].
     
 
-### Speakers & facilitators
+### 演讲者和推动者
 
-You and your co-organizers are encouraged to facilitate the workshops! (You got it!) If you’d like extra help, invite open source project owners/maintainers, leaders passionate about open source, and computer science educators who support open source in your community to come speak or help with meetup attendees. If there is an experienced open source enthusiast in your community, reach out to them via email or on Twitter! The worst that can happen is they’re not able to attend :)
+鼓励您和您的共同组织者为研讨会提供便利！（你明白了！）如果您需要额外的帮助，请邀请开源项目所有者/维护者，对开源感兴趣的领导者，以及支持社区开源的计算机科学教育工作者来与会议与会者发言或提供帮助。如果您的社区中有经验丰富的开源爱好者，请通过电子邮件或Twitter与他们联系！可能发生的最糟糕的是他们无法参加:)
 
-### Photo sharing
+### 照片分享
 
-Encourage event participants to share photos on social media using the hashtag #hacktoberfest. (Please be mindful of photo preferences of attendees — don’t force camera shy individuals into photos!)
+鼓励活动参与者使用#hacktoberfest标签在社交媒体上分享照片。（请注意与会者的照片偏好 - 不要强迫相机害羞的人进入照片！）
 
 > [#Hacktoberfest](https://www.instagram.com/p/_cgvl-OW_W/?utm_source=ig_embed)
 > 
 > A post shared by [Coston](https://www.instagram.com/costonperkins/?utm_source=ig_embed) (@costonperkins) on Dec 18, 2015 at 11:49am PST
 
-### Food & drinks
+### 食物和饮料
 
-Something delicious that your community will enjoy! Bonus: one or two items that add a festive [fall/autumn](https://www.pinterest.com/explore/fall-party-foods/) or [Oktoberfest](https://www.pinterest.com/explore/oktoberfest-party/) mood. Remember to account for food allergies, preferences, and local alcohol consumption laws (if alcohol is served).
+您的社区将享受美味的东西！额外奖励：增加一个节日秋季/秋季或慕尼黑啤酒节情绪的一两件物品。请记住食物过敏，偏好和当地酒精消费法（如果饮酒）。Something delicious that your community will enjoy! Bonus: one or two items that add a festive [fall/autumn](https://www.pinterest.com/explore/fall-party-foods/) or [Oktoberfest](https://www.pinterest.com/explore/oktoberfest-party/) mood. 
 
-### Other fun ideas
+### 其他有趣的想法
 
-*   First pull request of the evening to receive [insert prize].
-*   Raffle off 3–5 prizes to be given away at the end of the evening.
-*   Wrap up the event by inviting participants to share what they learned/worked on.
+*   晚上第一次拉请求[插入奖品]。
+*   在晚上结束时，将获得3-5个奖品。
+*   通过邀请参与者分享他们学习/工作的内容来总结活动。
 
-### Event code of conduct
+### 事件行为准则
 
-Hacktoberfest events are welcoming, open, and inclusive. Include this line on your event page: "Please read our [Events Code of Conduct](https://docs.google.com/document/d/1gFKOhyUqMZzrZcbq8A_TpO5x9J9HK6agv70awCH8pyI/edit?usp=sharing) before attending. Happy hacking!"
+Hacktoberfest活动热情、开放、包容各方。在您的活动页面上添加以下内容：“请在出席之前阅读我们的[活动行为准则](https://docs.google.com/document/d/1gFKOhyUqMZzrZcbq8A_TpO5x9J9HK6agv70awCH8pyI/edit?usp=sharing)。快乐的黑客行为！”
 
-## Promoting your event
+## 宣传你的活动
 
-1.  Share the event via email, social networks, and/or printed flyers. Consider posting on channels popular with developers and open source enthusiasts in your area, including but not limited to:
-    *   Meetup: your own Meetup page, or [contact us](mailto:domeetups@digitalocean.com) if you'd like to make it an official [DigitalOcean meetup](http://www.meetup.com/pro/digitalocean/)
+1.  通过电子邮件，社交网络和/或印刷传单分享活动。考虑在您所在地区的开发人员和开源爱好者欢迎的频道上发帖，包括但不限于：
+    *   Meetup: 您自己的Meetup页面，如果您想成为DigitalOcean官方聚会，请与我们联系your own Meetup page, or [contact us](mailto:domeetups@digitalocean.com) if you'd like to make it an official [DigitalOcean meetup](http://www.meetup.com/pro/digitalocean/)
     *   Twitter
-    *   Facebook Pages
-    *   LinkedIn Groups
-    *   Google Groups
-    *   Newsletters, websites, and social media accounts that share startup/tech events regularly
-    *   Local Code Schools and Universities
-2.  Add your meetup event [here](http://do.co/hacktoberfest18event).
+    *   Facebook 页面
+    *   LinkedIn 群组
+    *   Google 论坛
+    *   定期分享启动/技术活动的简报，网站和社交媒体帐户
+    *   当地法典学校和大学
+2.  在[此处](http://do.co/hacktoberfest18event)添加您的聚会活动。 
 
-### Logos & branding
+### 标识和品牌
 
  [![](/assets/postcards-e72b4f64502b90d122a4374b90c67dd339951b1ca05f00a3eb8e7ceddd0ed3f0.png)](https://assets.digitalocean.com/hacktoberfest/hacktoberfest_2018_brand_assets.zip) 
 
-#### Promote your event
+#### 推广您的活动
 
-Logos, banners, posters, and more! We kindly ask that you adopt Hacktoberfest Brand Guidelines as you share your event/content.
+标志，横幅，海报等等！我们恳请您在分享您的活动/内容时采用Hacktoberfest品牌指南。
 
 [Download assets](https://assets.digitalocean.com/hacktoberfest/hacktoberfest_2018_brand_assets.zip)
 
-### Sample copy for your event page
+### 活动页面的样本副本
 
-**Event name ideas**
+**活动名称的想法**
 
 *   Hacktoberfest Open Hack Night
 *   Hacktoberfest Open Hack Day
 *   Hacktoberfest in [Your City]!
 *   Hacktoberfest Open Hack Fest!
 
-**Description**
+**描述**
 
-It's Hacktoberfest 2018! Let's celebrate open source over food, drinks, learning, and great company!
+它是2018年的Hacktoberfest！让我们庆祝食物，饮料，学习和伟大公司的开源！
 
-**Agenda**
+**议程**
 
-[Time] [Topic] [Time] [Topic] [Time] [Topic] [Time] [Topic]
+[时间] [主题] [时间] [主题] [时间] [主题] [时间] [主题]
 
-**What's Hacktoberfest?**
+**什么是Hacktoberfest？**
 
-Hacktoberfest — brought to you by DigitalOcean in partnership with GitHub and Twilio — is a month-long celebration of open source software. Maintainers are invited to guide would-be contributors towards issues that will help move the project forward, and contributors get the opportunity to give back to both projects they like, and ones they've just discovered. No contribution is too small—bug fixes and documentation updates are valid ways of participating.
+Hacktoberfest —— 由 DigitalOcean 与 GitHub 和 Twilio 合作为您带来 —— 是一个为期一个月的开源软件庆典。我们邀请维护者指导潜在的贡献者来解决有助于推动项目进展的问题，并且贡献者有机会回馈他们喜欢的项目以及他们刚刚发现的项目。没有贡献太小 —— 错误修复和文档更新是有效的参与方式。
 
-Can't make it to this event? Hacktoberfest is virtual and open to participants from around the globe. [Sign up to participate today](https://hacktoberfest.digitalocean.com/).
+不能参加这个活动吗？Hacktoberfest是虚拟的，对来自世界各地的参与者开放。[立即注册参加](https://hacktoberfest.digitalocean.com/)。
 
-**Rules and Prizes**
+**规则和奖品**
 
-First sign up on the Hacktoberfest site. If you open up five pull requests between October 1 and October 31, you'll win a free, limited edition Hacktoberfest T-shirt. (Pull requests do not have to be merged and accepted; as long as they've been opened between the very start of October 1 and the very end of October 31, they count towards a free T-shirt.)
+首先注册Hacktoberfest网站。如果你在10月1日到10月31日期间提出五个拉动请求，你将获得一个免费的限量版Hacktoberfest T恤。（拉动请求不必合并和接受;只要它们在10月1日开始到10月31日结束之间打开，他们就会计入一件免费的T恤。）
 
-Connect with other Hacktoberfest participants (Hacktobefestants?) by using the hashtag, #hacktoberfest, on your social media platform of choice.
+通过在您选择的社交媒体平台上使用标签#hacktoberfest，与其他Hacktoberfest参与者（Hacktobefestants？）联系。
 
-New to DigitalOcean? Receive USD $10 in infrastructure credit at [do.co/hacktoberfest2018](https://do.co/hacktoberfest2018).
+DigitalOcean新手？在 [do.co/hacktoberfest2018](https://do.co/hacktoberfest2018) 获得10美元的基础设施信贷。
 
-## Resources
+## 资源
 
 ### Git
 
-*   [GitHub Learning Lab](https://lab.github.com/)
-*   [How To Create a Pull Request on GitHub](https://www.digitalocean.com/community/tutorials/how-to-create-a-pull-request-on-github)
-*   [GitHub Training Kit](https://github.com/github/training-kit): Open source slides, workbook, and cheat sheet courseware for teaching Git and GitHub classes
-*   [Understanding the GitHub Flow](https://guides.github.com/introduction/flow/)
-*   [GitHub training sessions and webcasts](https://services.github.com/training/)
-*   [Patchwork](http://patchwork.github.io/): Casual, mentored workshops for beginners to Git and GitHub
-*   [More resources from GitHub](https://services.github.com/resources/)
+*   [GitHub学习实验室](https://lab.github.com/)
+*   [如何在GitHub上创建一个Pull请求](https://www.digitalocean.com/community/tutorials/how-to-create-a-pull-request-on-github)
+*   [GitHub 培训套件](https://github.com/github/training-kit)：用于教授Git和GitHub课程的开源幻灯片，工作簿和备忘单课件
+*   [了解GitHub流程](https://guides.github.com/introduction/flow/)
+*   [GitHub培训课程和网络广播](https://services.github.com/training/)
+*   [Patchwork](http://patchwork.github.io/): 为初学者提供Git和GitHub的休闲辅导研讨会
+*   [GitHub的更多资源](https://services.github.com/resources/)
 
-### Open Source
+### 开源
 
-[Open source 101](https://opensource.guide/how-to-contribute)
+[开源 101](https://opensource.guide/how-to-contribute)
 
-### Where to find Open Source projects to work on?
+### 在哪里可以找到开源项目？
 
 [GitHub](https://help.github.com/articles/where-can-i-find-open-source-projects-to-work-on/)
 
@@ -194,11 +194,11 @@ To win a shirt, you must sign up on the Hacktoberfest site and make five pull re
 
 **Where can I make pull requests?**
 
-Pull requests can be made in any GitHub-hosted repositories/projects.
+可以在任何GitHub托管的存储库/项目中进行拉取请求。
 
-**What if I don't complete five pull requests by October 31st?**
+**如果我在 10 月 31 日之前没有完成五个 PR 怎么办？**
 
-Everyone who participates receives limited-edition Hacktoberfest stickers—regardless if you complete the five pull requests or not.
+参与的每个人都会收到限量版的Hacktoberfest贴纸 - 无论你是否完成了五个拉动请求。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
