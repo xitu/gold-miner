@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/5-tips-to-write-better-conditionals-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/5-tips-to-write-better-conditionals-in-javascript.md)
 > * 译者：[Hopsken](https://blog.hopsken.com)
-> * 校对者：
+> * 校对者：[ThomasWhyne](https://github.com/ThomasWhyne)
 
 # 五个小技巧让你写出更好的 JavaScript 条件语句
 
 ![](https://scotch-res.cloudinary.com/image/upload/dpr_1,w_1050,q_auto:good,f_auto/v1536994013/udpahiv8rqlemvz0x3wc.png)
 
-在 JavaScript 中，我们常常要写不少的条件语句。这里有五个小技巧，可以让你写出更干净、漂亮的条件语句。
+在使用 JavaScript 时，我们常常要写不少的条件语句。这里有五个小技巧，可以让你写出更干净、漂亮的条件语句。
 
 ## 1. 使用 Array.includes 来处理多重条件
 
@@ -24,9 +24,9 @@ function test(fruit) {
 }
 ```
 
-乍一看，这么写似乎没什么大问题。然而，如果我们想要更多的红色水果呢，比方说『樱桃』和『蔓越莓』？我们是不是得用更多的 `||` 来扩展这条语句？
+乍一看，这么写似乎没什么大问题。然而，如果我们想要匹配更多的红色水果呢，比方说『樱桃』和『蔓越莓』？我们是不是得用更多的 `||` 来扩展这条语句？
 
-我们可以通过使用 `Array.includes`[(Array.includes)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes) 重写以上语句。
+我们可以使用 `Array.includes`[(Array.includes)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes) 重写以上条件句。
 
 ```
 function test(fruit) {
@@ -186,7 +186,7 @@ test({ }); // unknown
 test({ name: 'apple', color: 'red' }); // apple
 ```
 
-观察以上的例子，我们希望打印出水果的名称，当然如果它存在的话，否则打印『unknown』。我们可以通过默认参数和解构赋值的方法来避免写出 `fruit && fruit.name` 这种条件。
+观察上面的例子，当水果名称属性存在时，我们希望将其打印出来，否则打印『unknown』。我们可以通过默认参数和解构赋值的方法来避免写出 `fruit && fruit.name` 这种条件。
 
 ```
 // 解构 —— 只得到 name 属性
