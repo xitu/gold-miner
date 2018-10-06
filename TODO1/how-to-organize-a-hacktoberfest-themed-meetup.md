@@ -33,7 +33,7 @@
 *   开源/科技公司的办公室
 *   任何有你的地方！
 
-### 样本议程
+### 议程示
 
 这只是一个建议 —— 您可以随意定制它以适合您的社区人员！
 
@@ -58,7 +58,7 @@
 
 ### 食物和饮料
 
-您的社区将享受美味的东西！额外奖励：增加一个[秋收节/中秋节](https://www.pinterest.com/explore/fall-party-foods/) or [Oktoberfest](https://www.pinterest.com/explore/oktoberfest-party/)或(慕尼黑啤酒节)[(https://www.pinterest.com/explore/oktoberfest-party/)]等节日活动。请记住食物过敏，偏好和当地酒精消费法律法规（如果饮酒）。
+您的社区将享受美味的东西！额外奖励：增加一个[秋收节/中秋节](https://www.pinterest.com/explore/fall-party-foods/) or [Oktoberfest](https://www.pinterest.com/explore/oktoberfest-party/)或[慕尼黑啤酒节](https://www.pinterest.com/explore/oktoberfest-party/)等节日活动。请记住食物过敏，偏好和当地酒精消费法律法规（如果饮酒）。
 
 ### 其他有趣的想法
 
