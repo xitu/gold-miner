@@ -5,47 +5,47 @@
 > * 译者：
 > * 校对者：
 
-# Good practices for high-performance and scalable Node.js applications [Part 1/3]
+# 高性能和可扩展Node.js应用程序的良好实践[第1/3部分]
 
 ![](https://cdn-images-1.medium.com/max/2000/1*LBVvh_2LqmucG-dP6Em-ww.jpeg)
 
-In this series of 3 articles we will cover some good practices about developing a Node.js web back-end application.
+在本系列的3篇文章中，我们将介绍有关开发Node.js Web后端应用程序的一些良好实践。
 
-The series will not be a tutorial about Node, all the things you will read are intended for developers already familiar with the basics of Node.js and are looking for some hints about improving their architectures.
+本系列将不是关于 Node 的教程，您将阅读的所有内容都适用于已经熟悉 Node.js 基础知识的开发人员，并且正在寻找有关改进其架构的一些提示。
 
-The main focus will be about efficiency and performance, in order to obtain the best result with less resources.
+主要关注的是效率和性能，以便以更少的资源获得最佳结果。
 
-One way to improve the throughput of a web application is to scale it, instantiate it multiple times balancing the incoming connection between the multiple instances, so this first article will be about **how to horizontally scale a Node.js application**, on multiple cores or on multiple machines.
+提高Web应用程序吞吐量的一种方法是对其进行扩展，多次实例化它以平衡多个实例之间的传入连接，因此第一篇文章将介绍**如何水平扩展Node.js应用程序**， 多个核心或多台机器。
 
-When you scale up, you have to be careful about different aspects of your application, from the state to the authentication, so the second article will cover some **things you must consider** when scaling up a Node.js application.
+当您向上扩展时，您必须小心应用程序的不同方面，从状态到身份验证，因此第二篇文章将介绍在扩展Node.js应用程序时必须考虑的一些事项。
 
-Over the mandatories ones, there are some **good practices you can address** that will be covered in the third article, like splitting api and worker processes, the adoption of priority queues, the management of periodic jobs like cron processes, that are not intended to run N times when you scale up to N processes/machines.
+在强制性规则中，有一些**可以解决的良好实践**将在第三篇文章中介绍，例如拆分api和工作进程，采用优先级队列，管理周期性工作，如cron进程， 当您扩展到N个进程/机器时，不打算运行N次。
 
-### Chapter 1 — Horizontally scaling a Node.js application
+### 第1章 —— 水平扩展 Node.js 应用程序
 
-Horizontal scaling is about duplicating your application instance to manage a larger number of incoming connections. This action can be performed on a single multi-core machine or across different machines.
+水平扩展是关于复制应用程序实例以管理大量传入连接。此操作可以在单个多核计算机上执行，也可以在不同计算机上执行。
 
-Vertical scaling is about increasing the single machine performances, and it do not involve particular work on the code side.
+垂直缩放是关于增加单机性能，并且它不涉及代码方面的特定工作。
 
-### Multiple processes on same machine
+### 同一台机器上的多个进程
 
-One common way to increase the throughput of your application is to spawn one process for each core of your machine. By this way the already efficient “concurrency” management of requests in Node.js (see “event driven, non-blocking I/O”) can be multiplied and parallelized.
+增加应用程序吞吐量的一种常用方法是为计算机的每个核心生成一个进程。通过这种方式，Node.js中请求的已经有效的“并发”管理（参见“事件驱动，非阻塞I / O”）可以相乘和并行化。
 
-It is probably not clever to spawn a number of processes bigger than the number of cores, because at the lower level the OS will likely balance the CPU time between those processes.
+产生大于核心数量的大量进程可能并不聪明，因为在较低级别，操作系统可能会平衡这些进程之间的CPU时间。
 
-There are different strategies for scaling on a single machine, but the common concept is to have multiple processes running on the same port, with some sort of internal load balancing used to distribute the incoming connections across all the processes/cores.
+在单个计算机上有不同的扩展策略，但常见的概念是在同一端口上运行多个进程，并使用某种内部负载平衡来分配所有进程/核心上的传入连接。
 
 ![](https://cdn-images-1.medium.com/max/800/1*p6YEK7y6JsVYBaZkhu4UbQ.png)
 
-The strategies described below are the standard Node.js **cluster mode** and the automatic, higher-level **PM2 cluster** functionality.
+下面描述的策略是标准的Node.js **集群模式**和自动的，更高级别的** PM2集群**功能。
 
-### Native cluster mode
+### 本机群集模式
 
-The native Node.js cluster module is the basic way to scale a Node app on a single machine ([https://Node.js.org/api/cluster.html](https://nodejs.org/api/cluster.html)). One instance of your process (called “master”) is the one responsible to spawn the other child processes (called “workers”), one for each core, that are the ones that runs your application. The incoming connections are distributed following a round-robin strategy across all the workers, that exposes the service on the same port.
+本机Node.js集群模块是在单个机器上扩展Node应用程序的基本方法 ([https://Node.js.org/api/cluster.html](https://nodejs.org/api/cluster.html))。您的进程的一个实例（称为“master”）是负责生成其他子进程（称为“worker”）的实例，每个进程对应一个运行应用程序的进程。 传入连接按照所有工作人员的循环策略进行分发，从而在同一端口上公开服务。
 
-The main drawback of this approach is the necessity to manage inside the code the difference between master and worker processes manually, typically with a classic if-else block, without the ability to easily modify the number of processes on-the-fly.
+这种方法的主要缺点是必须在代码内部管理主进程和工作进程之间的差异，通常使用经典的if-else块，而无法轻松修改进程中的进程数。
 
-The following example is taken from the official documentation:
+以下示例取自官方文档：
 
 ```
 const cluster = require(‘cluster’);
@@ -79,31 +79,31 @@ if (cluster.isMaster) {
 }
 ```
 
-### PM2 Cluster mode
+### PM2群集模式
 
-If you are using PM2 as your process manager (I suggest you to), there is a magic cluster feature that let you scale your process across all the cores without worrying about the cluster module. The PM2 daemon will cover the role of the “master” process, and it will spawn N processes of your application as workers, with round-robin balancing.
+如果您使用PM2作为流程管理器（我建议您），那么有一个神奇的群集功能，可以让您跨所有核心扩展流程，而无需担心群集模块。 PM2守护程序将涵盖“主”进程的角色，它将作为工作程序生成应用程序的N个进程，并进行循环平衡。
 
-By this way you simply write your application as you would do for single-core usage (with some cautions that we’ll cover in next article), and PM2 will care about the multi-core part.
+通过这种方式，您可以像编写单核用户一样编写应用程序（我们将在下一篇文章中介绍一些注意事项），PM2将关注多核部分。
 
 ![](https://cdn-images-1.medium.com/max/800/0*zWc1jyWm1FNEeNgZ.)
 
-Once your application is started in cluster mode, you can adjust the number of instances on-the-fly using “pm2 scale”, and perform “0-second-downtime” reloads, where the processes are restarted in series in order to have always at least one process online.
+在群集模式下启动应用程序后，您可以使用“pm2 scale”即时调整实例数，并执行“0-second-downtime”重新加载，其中进程将重新串联，以便始终 至少有一个在线流程。
 
-As a process manager, PM2 will also take care of restarting your processes if they crash like many other useful things you should consider when running node in production.
+作为流程管理器，如果PM2在生产中运行节点时应该考虑的许多其他有用的东西崩溃，PM2也将负责重新启动流程。
 
-If you need to scale even further, you’ll probably need to deploy more machines.
+如果您需要进一步扩展，则可能需要部署更多计算机。
 
-### Multiple machines with network load balancing
+### 具有网络负载平衡的多台计算机
 
-The main concept in scaling across multiple machines is similar to scaling on multiple cores, there are multiple machines, each one running one or more processes, and a balancer to redirect traffic to each machine.
+跨多台计算机进行扩展的主要概念类似于在多个核心上进行扩展，有多台计算机，每台计算机运行一个或多个进程，以及用于将流量重定向到每台计算机的平衡器。
 
-Once the request is sent to a particular node, the internal balancer described in the previous paragraph send the traffic to a particular process.
+将请求发送到特定节点后，上一段中描述的内部平衡器会将流量发送到特定进程。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ryiL00dESNJTL_jRnUyAyA.png)
 
-A network balancer can be deployed in different ways. If you use AWS to provision your infrastructure, a good choice is to use a managed load balancer like ELB (Elastic Load Balancer), because it supports useful features like auto-scaling, and it is easy to set up.
+可以以不同方式部署网络平衡器。 如果您使用AWS来配置您的基础架构，一个不错的选择是使用像ELB（Elastic Load Balancer）这样的托管负载均衡器，因为它支持自动扩展等有用功能，并且易于设置。
 
-But if you want to do it old-school, you can deploy a machine and setup a balancer with NGINX by yourself. The configuration of a reverse proxy that points to an upstream is quite simple for this job. Below an example for the configuration:
+但是如果你想做旧学校，你可以自己部署一台机器并用NGINX设置一个平衡器。 指向上游的反向代理的配置对于此作业来说非常简单。 下面是配置示例：
 
 ```
 http {
@@ -124,23 +124,23 @@ http {
 }
 ```
 
-By this way the load balancer will be the only entrypoint of your application exposed to the outer world. If you worry about it being the single point of failure of your infrastructure, you can deploy multiple load balancers that points to the same servers.
+通过这种方式，负载均衡器将是您的应用程序暴露给外部世界的唯一入口点。 如果您担心它是基础架构的单点故障，您可以部署多个指向相同服务器的负载平衡器。
 
-In order to distribute the traffic between the balancers (each one with its own ip address), you can add multiple DNS “A” records to your main domain, so the DNS resolver will distribute the traffic between your balancers, resolving to a different IP address each time.
+为了在平衡器之间分配流量（每个都有自己的IP地址），您可以向主域添加多个DNS“A”记录，因此DNS解析器将在您的平衡器之间分配流量，解析为不同的IP 每次都解决。
 
-By this way you can achieve redundancy also on the load balancers.
+通过这种方式，您还可以在负载平衡器上实现冗余。
 
 ![](https://cdn-images-1.medium.com/max/800/1*iSVmpaGmwYzXWydLJnzM3A.png)
 
-### Next steps
+### 下一步
 
-What we have seen here is how to scale a Node.js app at different levels in order to obtain the highest possible performance from your infrastructure, from single node, to multi node and multi balancer, but be careful: if you want to use your application in a multi-process environment, it must be prepared and ready for that, or you will incur in several problems and undesired behaviours.
+我们在这里看到的是如何在不同级别扩展Node.js应用程序，以便从您的基础架构获得尽可能高的性能，从单节点到多节点和多平衡器，但要小心：如果您想使用 在多进程环境中的应用程序，它必须准备好并为此做好准备，否则您将遇到几个问题和不良行为。
 
-In the next article we’ll find out what to do to make your application scale-ready. You can find it [here](https://medium.com/iquii/good-practices-for-high-performance-and-scalable-node-js-applications-part-2-3-2a68f875ce79).
+I在下一篇文章中，我们将了解如何使您的应用程序扩展就绪。 你可以在[这里](https://medium.com/iquii/good-practices-for-high-performance-and-scalable-node-js-applications-part-2-3-2a68f875ce79)找到它。
 
 * * *
 
-_Clap as much as you like if you appreciate this post!_
+_如果你欣赏这篇文章，尽可能 Clap !_
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
