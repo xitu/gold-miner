@@ -2,28 +2,27 @@
 > * 原文作者：[Jason Brown](https://codeburst.io/@browniefed?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/immutable-data-with-immer-and-react-setstate.md](https://github.com/xitu/gold-miner/blob/master/TODO1/immutable-data-with-immer-and-react-setstate.md)
-> * 译者：
+> * 译者：[HaoChuan9421](https://github.com/HaoChuan9421)
 > * 校对者：
 
-# Immutable Data with Immer and React setState
+# Immer 下的不可突变数据和 React 的 setState
+[Immer](https://github.com/mweststrate/immer) 是为 JavaScript 不可突变性打造的一个非常棒的全新库。之前像 [Immutable.js](https://github.com/facebook/immutable-js) 这样的库，它需要引入操作你数据的所有新方法。
 
-[Immer](https://github.com/mweststrate/immer) is an incredible new library for JavaScript immutability. In previously libraries like [Immutable.js](https://github.com/facebook/immutable-js) it required whole new methods of operating on your data.
+它很不错，但是需要复杂的适配器并在 JSON 和 _不可突变_ 之间来回转换，以便在需要时与其他库一起使用。
 
-This was great but required complicated adapters and converting back and forth between JSON and Immutable in order to work with other libraries if needed.
+Immer 简化了这一点，你可以像往常一样使用数据和 JavaScript 对象。这意味着当你需要考虑性能并且想知道数据何时发生了变更时，你可以使用三个等号来做严格的全等检查以及证明数据的确发生了变更。
 
-Immer simplifies this and you use data and JavaScript objects as your normally would. This means when you need performance and need to know when something changes you can use a triple equal strict equality check and prove that something has indeed changed or not changed.
+你对 `shouldComponentUpdate` 的调用不再需要使用双等或者全等去遍历整个数据并进行比较。
 
-Your `shouldComponentUpdate` calls are no longer require shallow or deep equals to traverse all the data and compare.
-
-### Screencast of Article
+### 文章截图
 
 ![](https://s1.ax2x.com/2018/09/28/5HELrX.png)
 
 注：此处为截图，原文为视频，建议看英文原文。
 
-### Spread Operator
+### 对象展开运算符
 
-In latest JavaScript many developers depend on the spread operator `...` to do immutability. For example you can spread the previous object in and override specific keys, or add in new keys. This will use `Object.assign` under the hood and return a new object.
+在最新版本的 JavaScript 中，许多开发者依赖对象展开运算符来实现不可突变性。例如，你可以展开之前的对象并覆盖特殊的属性，或者增加新的属性。它会在底层使用 `Object.assign` 并返回一个新对象。
 
 ```
 
@@ -38,11 +37,11 @@ const newObject = {
 };
 ```
 
-Our `newObject` will now be a completely different object so any strict equality checking (`prevObject === newObject` ) will be false. So it is indeed creating a new object. The name will no longer just be `Jason` but will be `Jason Brown` and because we didn't do anything with the `id` key it stays the same.
+我们的 `newObject` 现在会是一个完全不同的对象，所以任何全等判断（`prevObject === newObject`）将会返回 false。所以它完全创建了一个新对象。name 属性也不再是 `Jason` 而是会变成 `Jason Brown`，而且由于我们没有对 `id` 属性进行任何操作，所以它会保持不变。
 
-This applies to React in that if you have a nested object on `state` you need to update and spread in the previous object because React will only merge `state` at the base level of keys.
+这也适用于 React，如果你在 `state` 中有嵌套的对象，你需要对之前的对象进行展开操作和更新，因为 React 只会合并最外层的属性。
 
-Lets look at an example. Say we have 2 nested counters but we only want to update one and not mess with the other.
+让我们看一个例子。可以看到我们有两个嵌套的计数器，但是我们只想更新其中的一个而不影响另一个。
 
 ```
 import React, { Component } from "react";
@@ -63,7 +62,7 @@ class App extends Component {
 export default App;
 ```
 
-Next in our `componentDidMount` we'll set up an interval and update our nested counter. However we want to preserve the `otherCounter` value so we need to use the spread operator to bring over the previous nested state.
+下一步在 `componentDidMount` 钩子中，我们将设置一个间隔定时器来更新我们嵌套的计数器。不过，我们希望保持 `otherCounter` 的值不变。所以，我们需要使用对象展开运算符来把它从以前嵌套的 state 中带过来。
 
 ```
 componentDidMount() {
@@ -80,15 +79,15 @@ componentDidMount() {
   }
 ```
 
-This is an all too common scenario in React, and if your data is really nested it adds complexity when you need to spread more than one level deep.
+这在 React 中是一个非常常见的场景。而且，如果你的数据是嵌套的非常深的，当你需要展开多个层级时，它会增加复杂性。
 
-### Immer Produce Basic
+### Immer Produce 基础
 
-Immer allows for us to still use the mutations (directly modifying a value) but without actually worrying about managing the number of spreads, or even what data was touched and needs to be immutable.
+Immer 允许继续使用突变（直接改变值）而完全无需担心如何去管理展开的层级，或者哪些数据我们触及过以及需要维持不可突变性。
 
-Lets setup a scenario where you are passing in a value to increase a counter by and additionally have a user object that isn’t going to be touched.
+让我们设置一个场景：你向计数器传递一个值来进行递增，与此同时，我们还有一个 user 对象是不需要被触及的。
 
-Here we render our app and pass in the increment value.
+这里我们渲染我们的应用并传递递增的值。
 
 ```
 ReactDOM.render(<App increaseCount={5} />, document.getElementById("root"));
@@ -119,21 +118,20 @@ class App extends Component {
 export default App;
 ```
 
-We setup our app just like before now with a user object and a nested counter.
+我们像之前那样设置了我们的应用，现在我们有一个 user 对象和一个嵌套的计数器。
 
-We’ll import `immer` and name the default import `produce`. As in when given the current state, it'll help us produce the next state.
+我们将导入 `immer` 并把它的默认值赋给  `produce` 变量。在给定当前 state 时，它将帮助我们创建下一个 state。
 
 ```
 import produce from "immer";
 ```
-
-Next we’ll create a function called `counter` that takes state and props so we can read the current count and then update with the next count based upon the requested `increaseCount` prop.
+接下来，我们将创建一个叫做 `counter` 的函数，它接收 state 和 props 作为参数，这样我们就可以读取当前的计数，并基于 `increaseCount` 属性更新我们的下一次计数。
 
 ```
 const counter = (state, props) => {};
 ```
 
-The produce method of Immer takes a `state` as it's first argument, and a function to mutate your data for the next state as it's second argument.
+Immer 的 produce 方法接收 `state` 作为第一个参数，以及一个为下一个状态改变数据的函数作为第二个参数。
 
 ```
 produce(state, draft => {
@@ -141,7 +139,7 @@ produce(state, draft => {
 });
 ```
 
-Now if we put it all together. We can create a counter function that takes some state and some props and calls the produce function. We then mutate the `draft` of what the next state should look like and the Immer produce function will create a new immutable state for us.
+如果你现在把他们放在一起。我们就可以创建计数器函数，它接收 state 和 props 并调用 produce 函数。然后我们按照对下一次状态期望的样子去改变 `draft`。Immer 的 produce 函数将为我们创建一个新的不可突变状态。
 
 ```
 const counter = (state, props) => {
@@ -151,7 +149,7 @@ const counter = (state, props) => {
 };
 ```
 
-Our updated interval function might look something like this.
+我们更新后的间隔计数器函数大概会是这样。
 
 ```
 componentDidMount() {
@@ -162,7 +160,7 @@ componentDidMount() {
   }
 ```
 
-However we only touched the `count` and `counter`, what happened to our `user` object? Did that object reference get changed as well? The answer is no. Immer knows exactly what data has been touched. So if we did an strict equality check after the component has been updated we can see that the previous user object and the next user object in state are exactly the same.
+不过我们只是触及过 `count` 和 `counter`，我们的 `user` 对象上又发生了什么呢？对象的引用是否也发生了变化？答案是否定的。Immer 确切的知道哪些数据是被触及过的。所以，如果我们在组件更新之后进行一次全等检测，我们可以看到 state 中之前的 user 对象和之后的 user 对象是完全相同的。
 
 ```
 componentDidUpdate(prevProps, prevState) {
@@ -170,15 +168,15 @@ componentDidUpdate(prevProps, prevState) {
   }
 ```
 
-This is huge for when performance might matter when you use `shouldComponentUpdate` or need an easy way to know if a row has updated for something like `FlatList` in React Native.
+当你考虑性能而使用 `shouldComponentUpdate` 时，或者类似于 React Native 中`FlatList` 那样，需要一种简单的方式来知道某一行是否已经更新时，这就非常的重要。
 
-### Immer Currying
+### Immer 柯里化
 
-Immer can make operations even easier. If it sees that you are passing in a function as the first argument instead of an object it will create a curried function for you. So rather than the a new object the `produce` function returns another function.
+Immer 可以使得操作更加简单。如果它发现你传递的第一个参数是一个函数而不是一个对象，它就会为你创建一个柯里化的函数。因此，`produce` 函数返回另一个函数而不是一个新对象。
 
-It will take the first argument when it’s called and use that as the `state` you want to mutate, and then additionally any other arguments will also be passed along.
+当它被调用时，它会把第一个参数用作你希望改变的 `state`，然后还会传递任何其他参数。
 
-So rather than a function we could create a counter function and the `props` will be proxied along.
+因此，它不仅仅是可以创建一个计数器函数的工厂函数，就连 `props` 也会被代理。
 
 ```
 const counter = produce((draft, props) => {
@@ -186,9 +184,9 @@ const counter = produce((draft, props) => {
 });
 ```
 
-Then because `produce` returned a function we can pass this directly into our `setState` which has the ability to take a function. You should use a functional `setState` when you are referencing your previous state, and in our case we need to reference the previous count to increase it to it's new count. It will pass in the current state and props which is exactly what we've set our `counter` to expect.
+得益于 `produce` 返回一个函数，我们可以直接把它传递给 `setState`，因为 `setState` 有接收函数作为参数的能力。当你正在引用之前的状态时，你应该使用函数化的 `setState`（函数作为第一个参数）。在我们的场景中，我们需要引用之前的计数来把它增加到新的计数。它将传递当前的 state 和 props 作为参数，这也正是设置我们的 `counter` 函数所需要的。
 
-So our new interval will just have `this.setState` receiving `counter` which is a function.
+所以我们的间隔计数器仅需要 `this.setState` 接收 `counter` 函数即可。
 
 ```
 componentDidMount() {
@@ -198,13 +196,13 @@ componentDidMount() {
   }
 ```
 
-### Ending
+### 总结
 
 ![](https://cdn-images-1.medium.com/max/800/1*zcy1pxsvHOm2bqjkPCaMVw.png)
 
-This is obviously a contrived example but has huge real world applications. Long lists of data where a single field is updated can be easily compared and only the single row updated. Large nested forms only need to update the specific parts that were touched.
+这显然是一个人为的示例，但具有广泛的现实应用。可以轻松比较更新了单个字段的一长串列表数据。大型嵌套表单只需要更新触及过的特定部分。
 
-You no longer have to do a shallow or deep comparison and can now do a strict equality check and know for certain whether or not your data has actually changed and if you need to re-render.
+你不再需要做浅比对或者深比对，而且你现在可以做全等检查来准确的知道你的数据是否发生了改变并决定是否需要重新渲染。
 
 * * *
 
