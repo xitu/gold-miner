@@ -6,6 +6,7 @@
 > * 校对者：
 
 # Immer 下的不可突变数据和 React 的 setState
+
 [Immer](https://github.com/mweststrate/immer) 是为 JavaScript 不可突变性打造的一个非常棒的全新库。之前像 [Immutable.js](https://github.com/facebook/immutable-js) 这样的库，它需要引入操作你数据的所有新方法。
 
 它很不错，但是需要复杂的适配器并在 JSON 和 _不可突变_ 之间来回转换，以便在需要时与其他库一起使用。
