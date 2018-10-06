@@ -112,7 +112,7 @@ p {
 
 ### 行或者列？
 
-一旦我们定义了 flex 容器之后，一些默认值就开始发挥作用了。在我们没有添加任何其他属性的情况下，flex 子项目（flex item）会按照行来排列。这是因为  `flex-direction` 属性的默认值就是`row`。如果你不对它进行设置，它就会按照行的方向来显示。
+一旦我们定义了 flex 容器之后，一些默认值就开始发挥作用了。在我们没有添加任何其他属性的情况下，flex 子项目（flex item）会按照行来排列。这是因为  `flex-direction` 属性的默认值就是 `row`。如果你不对它进行设置，它就会按照行的方向来显示。
 `flex-direction` 属性是用来设置主轴（main axis）的排列方向，这个属性还有其他的值：
 
 *   `column`
@@ -314,7 +314,7 @@ p {
 
 ### 默认对齐方式
 
-当我们设置 `display: flex` 时，还会发生一些事情，默认的对齐方式会发挥作用。在该系列的其他文章中，我们会好好地了解一下对齐方式。但是，我们现在在探索`display: flex`的时候，也应该看一下这些发挥作用的默认值。
+当我们设置 `display: flex` 时，还会发生一些事情，默认的对齐方式会发挥作用。在该系列的其他文章中，我们会好好地了解一下对齐方式。但是，我们现在在探索 `display: flex` 的时候，也应该看一下这些发挥作用的默认值。
 
 **注意**：**值得注意的是，尽管这些对齐属性始于 Flexbox 规范，但 Box Alignment（盒模型对齐）会最终覆盖 Flexbox 规范的相关内容，如 [flexbox 规范](https://www.w3.org/TR/css-flexbox-1/#alignment)中所述。**
 
@@ -561,7 +561,7 @@ p {
 ```
 请看 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 在 [CodePen](https://codepen.io) 上的这个例子：[Smashing Flexbox Series 1: initial values of flex items](https://codepen.io/rachelandrew/pen/JBLWJo)。
 
-上面这个例子就是弹性布局灵活性的体现。在`flex-basis` 属性的默认值是 `auto`，并且子项目（flex item）没有设置尺寸的情况下，它就会有一个 `max-content` 的基础尺寸。这就是它根据内容自动延伸之后没有经过任何其他包装的尺寸。然后，子项目按照比例来占据剩余空间，详见以下 [flexbox 规范](https://www.w3.org/TR/css-flexbox-1/#flex-flex-shrink-factor) 中的说明。
+上面这个例子就是弹性布局灵活性的体现。在 `flex-basis` 属性的默认值是 `auto`，并且子项目（flex item）没有设置尺寸的情况下，它就会有一个 `max-content` 的基础尺寸。这就是它根据内容自动延伸之后没有经过任何其他包装的尺寸。然后，子项目按照比例来占据剩余空间，详见以下 [flexbox 规范](https://www.w3.org/TR/css-flexbox-1/#flex-flex-shrink-factor) 中的说明。
 
 > 『注意：分配收缩空间时，是要根据基本尺寸乘以弹性收缩系数（flex shrink factor）。收缩空间的大小与子项目设置的 `flex-shrink` 的大小成比例。比如说有一个较小的子项目，在其他较大的子项目明显收缩之前，是不会被收缩到没有空间的。』
 
