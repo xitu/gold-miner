@@ -9,14 +9,14 @@
 
 ## 一个使用 gRPC 的 Go 项目整洁架构例子
 
-### 我想告诉你的
+### 我想告诉你的是
 
 整洁架构是现如今是非常知名的架构了。然而我们也许并不太清楚实现的细节。
-因此我试着创造一个整洁架构的使用 gRPC 的 Go 项目。
+因此我试着创造一个有着整洁架构的使用 gRPC 的 Go 项目。
 
 * [hatajoe/8am: Contribute to hatajoe/8am development by creating an account on GitHub.](https://github.com/hatajoe/8am "https://github.com/hatajoe/8am")
 
-这个小巧的项目是个用户注册的例子。请随意回应任何事情。
+这个小巧的项目是个用户注册的例子。请随意在本文下面回复。
 
 ### 结构
 
@@ -49,7 +49,7 @@
 
 *   app：应用包根目录
 *   cmd：主包目录
-*   vendor：一些供应商的包目录
+*   vendor：一些第三方包目录
 
 整洁架构有一些概念性的层次，如下所示：
 
@@ -126,11 +126,11 @@ type UserRepository interface {
 }
 ```
 
-FindAll 获取了系统里所有保存的用户。Save 则是把用户保存到系统中。我再次强调，这一层不应该知道对象被保存或者序列化到哪里了。
+FindAll 获取了系统里所有被保存的用户。Save 则是把用户保存到系统中。我再次强调，这一层不应该知道对象被保存或者序列化到哪里了。
 
 #### 服务
 
-服务层是不应该包括在模型层的业务逻辑的集合。 举个例子，该应用不允许任何已经存在的邮箱地址注册。如果这个验证在模型层做，我们就发现如下的错误：
+服务层是不应该包含在模型层中的业务逻辑集合。举个例子，该应用不允许任何已经存在的邮箱地址注册。如果这个验证在模型层做，我们就发现如下的错误：
 
 ```
 func (u *User) Duplicated(email string) bool {
@@ -138,7 +138,7 @@ func (u *User) Duplicated(email string) bool {
 }
 ```
 
-`Duplicated 函数` 和 `User`模型没有关联。  
+`Duplicated 函数`和 `User` 模型没有关联。  
 为了解决这个问题，我们可以增加服务层，如下所示：
 
 ```
@@ -161,9 +161,9 @@ func (s *UserService) Duplicated(email string) error {
 * * *
 
 实体包括业务逻辑和穿过其他层的接口。
-业务逻辑应在包含在模型和服务中，并且不应该依赖其他层。如果我们需要访问其他层，我们需要通过存储库接口。通过这样反转依赖，我们可以使这些包更加隔离，更加易于测试和维护。
+业务逻辑应该包含在模型和服务中，并且不应该依赖其他层。如果我们需要访问其他层，我们需要通过存储库接口。通过这样反转依赖，我们可以使这些包更加隔离，更加易于测试和维护。
 
-### 用例 — 红色层
+### 用例 —— 红色层
 
 用例是应用一次操作的单位。在 8am 中，列出用户和注册用户就是两个用例。这些用例的接口表示如下：
 
@@ -174,9 +174,9 @@ type UserUsecase interface {
 }
 ```
 
-为什么是接口？因为这些用例是在接口层 — 绿色层被使用。在跨层的时候，我们都应该定义成接口。
+为什么是接口？因为这些用例是在接口层 —— 绿色层被使用。在跨层的时候，我们都应该定义成接口。
 
-_UserUsecase_ 简单实现如下：
+__UserUsecase__ 简单实现如下：
 
 ```
 type userUsecase struct {
@@ -215,11 +215,11 @@ func (u *userUsecase) RegisterUser(email string) error {
 }
 ```
 
-_userUsercase_ 依赖两个包。_UserRepository_ 接口和 _*service.UserService*_ 结构体。当使用者初始化用例时，这两个包必须被注入。通常这些依赖都是通过依赖注入容器解决，这个后文会提到。
+__userUsercase__ 依赖两个包。__UserRepository__ 接口和 __*service.UserService*__ 结构体。当使用者初始化用例时，这两个包必须被注入。通常这些依赖都是通过依赖注入容器解决，这个后文会提到。
 
-列出用户这个用例会取到所有已经注册的用户，注册用户用例是如果同样的邮箱地址没有被注册的话，就用该邮箱把新用户注册到系统。
+ListUser 这个用例会取到所有已经注册的用户，RegisterUser 用例是如果同样的邮箱地址没有被注册的话，就用该邮箱把新用户注册到系统。
 
-有一点要注意， _User_ 不同于 _model.User。model.User_ 也许包含很多业务逻辑，但是其他层最好不要知道这些具体逻辑。所以我为用例 users 定义了 DAO 来封装这些业务逻辑。
+有一点要注意， __User__ 不同于 __model.User. model.User__ 也许包含很多业务逻辑，但是其他层最好不要知道这些具体逻辑。所以我为用例 users 定义了 DAO 来封装这些业务逻辑。
 
 ```
 type User struct {
@@ -241,11 +241,11 @@ func toUser(users []*model.User) []*User {
 
 * * *
 
-所以，为什么服务是具体实现而不是接口呢？因为服务不依赖于其他层。相反的，存储库贯穿了其他层，并且它的实现依赖于其他层不应该知道的设备细节，因此它被定义为接口。我认为这是正解架构中最重要的事情了。
+所以，为什么服务是具体实现而不是接口呢？因为服务不依赖于其他层。相反的，存储库贯穿了其他层，并且它的实现依赖于其他层不应该知道的设备细节，因此它被定义为接口。我认为这是这个架构中最重要的事情了。
 
-### 接口 — 绿色层
+### 接口 —— 绿色层
 
-这一层放置的都是操作API接口，关系型数据库的存储库或者其他接口的边界的具体对象。在本例中，我加了两个具体物件，内存存取器和 gRPC 服务。
+这一层放置的都是操作 API 接口，关系型数据库的存储库或者其他接口的边界的具体对象。在本例中，我加了两个具体物件，内存存取器和 gRPC 服务。
 
 #### 内存存取器
 
@@ -303,7 +303,7 @@ func (r *userRepository) Save(user *model.User) error {
 
 这是存储库的具体实现。如果我们想要把用户保存到数据库或者其他地方的话，需要实现一个新的存储库。尽管如此，我们也不需要修改模型层。这太神奇了。
 
- _User_ 只在这个包里定义。这也是为了解决不同层之间解封业务逻辑的问题。
+ __User__ 只在这个包里定义。这也是为了解决不同层之间解封业务逻辑的问题。
 
 ```
 type User struct {
@@ -328,7 +328,7 @@ type User struct {
     └── v1.go
 ```
 
-`protocol` 文件夹包含了协议缓存 DSL 文件 (user_service.proto) 和 生成的 RPC 服务
+`protocol` 文件夹包含了协议缓存 DSL 文件 (user_service.proto) 和生成的 RPC 服务
 代码 (user_service.pb.go)。
 
 `user_service.go` 是 gRPC 的端点处理程序的封装：
@@ -375,8 +375,8 @@ func toUser(users []*usecase.User) []*protocol.User {
 }
 ```
 
-_userService_ 仅依赖用例接口。  
-如果你想使用其它层 （如：GUI） 的用例，你可以按照你的方式实现这个接口。
+__userService__ 仅依赖用例接口。  
+如果你想使用其它层（如：GUI）的用例，你可以按照你的方式实现这个接口。
 
 `v1.go` 是使用依赖注入容器的对象依赖性解析器：
 
@@ -386,18 +386,18 @@ func Apply(server *grpc.Server, ctn *registry.Container) {
 }
 ```
 
-`v1.go` 把从 _*registry.Container*_ 取回的包应用在 gRPC 服务上。
+`v1.go` 把从 __*registry.Container*__ 取回的包应用在 gRPC 服务上。
 
 最后，让我们看看依赖注入容器的实现。
 
 #### 注册
 
 注册是解决对象依赖性的依赖注入容器。
-我用的依赖注入容器是 github.com/sarulabs/di 。
+我用的依赖注入容器是 github.com/sarulabs/di。
 
-[sarulabs/di: go (golang) 的依赖注入容器。 请注册 GitHub 账号来为 sarulabs/di 开发贡献](https://github.com/sarulabs/di "https://github.com/sarulabs/di")
+[sarulabs/di: go (golang) 的依赖注入容器。 请注册 GitHub 账号来为 sarulabs/di 开发做贡献](https://github.com/sarulabs/di "https://github.com/sarulabs/di")
 
-github.com/surulabs/di 用起来很简单:
+github.com/surulabs/di 可以被这样简单的使用：F
 
 ```
 type Container struct {
