@@ -11,7 +11,7 @@
 
 ## 最新的 Google Play Console 和 Firebase 能够帮助你分析你的用户
 
-_作者：_ [_Tom Grinsted_](https://medium.com/@tomgrinsted_1649) _(Google Play Console 的产品经理) 和_ [_Tamzin Taylor_](https://medium.com/@tamzint) _(Google Play 西欧区应用及游戏部主管)_
+**作者：**[_Tom Grinsted_](https://medium.com/@tomgrinsted_1649)（Google Play Console 的产品经理）和 [_Tamzin Taylor_](https://medium.com/@tamzint)（_Google Play_ 西欧区应用及游戏部主管）
 
 Google Play 每天可产生逾 30 亿次事件，包括商店搜索，详情页浏览以及应用安装等事件。将所有事件和随之而来的数据量化成指标，做出分析并做成可以让你做出更明智的决策的工具，是我们的一部分工作。
 
@@ -43,7 +43,7 @@ Google Play 每天可产生逾 30 亿次事件，包括商店搜索，详情页�
 
 在我们查看有助于制定决策的工具前，先看看 Google Play Store 中的 3 个功能：抢先体验，预注册和 Google Play 免安装（Instant）。
 
-**抢先体验程序（early access program）** 让你可以在正式版应用发布前就开始发现用户。当你将应用或者游戏放到 Google Play Console 的开放下载渠道，就让 2 亿 3000 万用户中的某一个获取这款应用，他们参加了开放测试，而且每周还有 250 多万新人注册。
+**抢先体验程序（early access program）**让你可以在正式版应用发布前就开始发现用户。当你将应用或者游戏放到 Google Play Console 的开放下载渠道，就让 2 亿 3000 万用户中的某一个获取这款应用，他们参加了开放测试，而且每周还有 250 多万新人注册。
 
 然后是 **预注册**。使用这个功能你可以把应用或者游戏放到 Play 商店，但人们只能看到预注册（Pre-Registration）按钮而不是安装按钮。一旦有人参加，你就可以告诉他们，这款应用或者游戏什么时候发布正式版。
 
@@ -87,7 +87,7 @@ Google Play 每天可产生逾 30 亿次事件，包括商店搜索，详情页�
 
 
 
-涉及到探索人们与应用的交互方式，Firebase 提供的这一工具现在可以提供更多的帮助。特别是，将分析 SDK 链接到你的应用中就能启用 **Google Analytics for Firebase** ，当然，这需要注册相应服务。
+涉及到探索人们与应用的交互方式，Firebase 提供的这一工具现在可以提供更多的帮助。特别是，将分析 SDK 链接到你的应用中就能启用 **Google Analytics for Firebase**，当然，这需要注册相应服务。
 
 开箱即用，Google Analytics for Firebase 提供了关于交互和保留用户的有意义的指标。但是，你也可以编写代码来追踪对你的应用或者游戏影响最大的活动。
 
@@ -97,7 +97,7 @@ Google Play 每天可产生逾 30 亿次事件，包括商店搜索，详情页�
 
 Firebase Predictions 使用解析数据，结合机器学习和其他工具，为你预测人们使用应用的方式。默认地，你可以获取用户花费和流失的预测。而且，你可以构建自己的应用，预测对你而言最重要的功能和行为。
 
-接着是获利阶段，已经有一些针对订阅信息的改进。自去年启用的 **订阅控制面板（subscription dashboard）** 被由大多数最赚钱的订阅业务定期使用。这就是为什么我们一直在加强这个面板的功能，包括改进用户保留和删除的报告。
+接着是获利阶段，已经有一些针对订阅信息的改进。自去年启用的 **订阅控制面板（subscription dashboard）**被由大多数最赚钱的订阅业务定期使用。这就是为什么我们一直在加强这个面板的功能，包括改进用户保留和删除的报告。
 
 注意观察即将到来的 **订阅、保留和删除报告** 的更新，它会让同类群组的比较及免费试用和账号保留等重要功能的评估变得更加简单。你也能够轻松地追踪更多像续费这样的重要数据。
 
