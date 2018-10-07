@@ -1,7 +1,7 @@
 > * 原文地址：[Better stats for better decisions](https://medium.com/googleplaydev/better-stats-for-better-decisions-3661717b4f2d)
 > * 原文作者：[Google Play Apps & Games Team](https://medium.com/@googleplayteam?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/better-stats-for-better-decisionsbetter-stats-for-better-decisions.md](https://github.com/xitu/gold-miner/blob/master/TODO1/better-stats-for-better-decisions.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/better-stats-for-better-decisions.md](https://github.com/xitu/gold-miner/blob/master/TODO1/better-stats-for-better-decisions.md)
 > * 译者：[BriFuture](https://github.com/BriFuture)
 > * 校对者：[jianboy](https://github.com/jianboy)
 
