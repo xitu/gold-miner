@@ -13,7 +13,7 @@
 
 ## 1. 使用 Array.includes 来处理多重条件
 
-举个栗子🌰：
+举个栗子 🌰：
 
 ```
 // 条件语句
@@ -71,7 +71,7 @@ function test(fruit, quantity) {
 // 测试结果
 test(null); // 报错：No fruits
 test('apple'); // 打印：red
-test('apple', 20); // 打印：red, big quantity
+test('apple', 20); // 打印：red，big quantity
 ```
 
 让我们来仔细看看上面的代码，我们有：
@@ -232,7 +232,7 @@ test({ name: 'apple', color: 'red' }); // apple
 
 ```
 function test(color) {
-  // 使用 switch/case 来找到对应颜色的水果
+  // 使用 switch case 来找到对应颜色的水果
   switch (color) {
     case 'red':
       return ['apple', 'strawberry'];
@@ -306,7 +306,7 @@ function test(color) {
 }
 ```
 
-解决问题的方法永远不只一种。对于这个例子我们展示了四种实现方法。Coding is fun!
+解决问题的方法永远不只一种。对于这个例子我们展示了四种实现方法。Coding is fun！
 
 ## 5. 使用 Array.every 和 Array.some 来处理全部/部分满足条件
 
@@ -370,7 +370,7 @@ function test() {
 
 让我们一起写出可读性更高的代码吧。希望这篇文章能给你们带来一些帮助。
 
-就是这样啦。Happy coding!
+就是这样啦。Happy coding！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
