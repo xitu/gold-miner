@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/5-tips-to-write-better-conditionals-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/5-tips-to-write-better-conditionals-in-javascript.md)
 > * 译者：[Hopsken](https://blog.hopsken.com)
-> * 校对者：[ThomasWhyne](https://github.com/ThomasWhyne)
+> * 校对者：[ThomasWhyne](https://github.com/ThomasWhyne) [Park-ma](https://github.com/Park-ma)
 
 # 五个小技巧让你写出更好的 JavaScript 条件语句
 
@@ -15,7 +15,7 @@
 
 举个栗子 🌰：
 
-```
+```javascript
 // 条件语句
 function test(fruit) {
   if (fruit == 'apple' || fruit == 'strawberry') {
@@ -28,7 +28,7 @@ function test(fruit) {
 
 我们可以使用 `Array.includes`[(Array.includes)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes) 重写以上条件句。
 
-```
+```javascript
 function test(fruit) {
   // 把条件提取到数组中
   const redFruits = ['apple', 'strawberry', 'cherry', 'cranberries'];
@@ -48,7 +48,7 @@ function test(fruit) {
 *   如果没有提供水果，抛出错误。
 *   如果该水果的数量大于 10，将其打印出来。
 
-```
+```javascript
 function test(fruit, quantity) {
   const redFruits = ['apple', 'strawberry', 'cherry', 'cranberries'];
 
@@ -80,7 +80,7 @@ test('apple', 20); // 打印：red，big quantity
 
 就我个人而言，我遵循的一个总的规则是**当发现无效条件时尽早返回**。
 
-```
+```javascript
 /_ 当发现无效条件时尽早返回 _/
 
 function test(fruit, quantity) {
@@ -104,7 +104,7 @@ function test(fruit, quantity) {
 如此一来，我们就少写了一层嵌套。这是种很好的代码风格，尤其是在 if 语句很长的时候（试想一下，你得滚动到底部才能知道那儿还有个 else 语句，是不是有点不爽）。
 
 如果反转一下条件，我们还可以进一步地减少嵌套层级。注意观察下面的条件 2 语句，看看是如何做到这点的：
-```
+```javascript
 /_ 当发现无效条件时尽早返回 _/
 
 function test(fruit, quantity) {
@@ -140,7 +140,7 @@ function test(fruit, quantity) {
 
 我猜你也许很熟悉以下的代码，在 JavaScript 中我们经常需要检查 `null` / `undefined` 并赋予默认值：
 
-```
+```javascript
 function test(fruit, quantity) {
   if (!fruit) return;
   const q = quantity || 1; // 如果没有提供 quantity，默认为 1
@@ -155,7 +155,7 @@ test('apple', 2); // We have 2 apple!
 
 事实上，我们可以通过函数的默认参数来去掉变量 `q`。
 
-```
+```javascript
 function test(fruit, quantity = 1) { // 如果没有提供 quantity，默认为 1
   if (!fruit) return;
   console.log(`We have ${quantity} ${fruit}!`);
@@ -170,7 +170,7 @@ test('apple', 2); // We have 2 apple!
 
 那么如果 `fruit` 是一个对象（Object）呢？我们还可以使用默认参数吗？
 
-```
+```javascript
 function test(fruit) { 
   // 如果有值，则打印出来
   if (fruit && fruit.name)  {
@@ -188,7 +188,7 @@ test({ name: 'apple', color: 'red' }); // apple
 
 观察上面的例子，当水果名称属性存在时，我们希望将其打印出来，否则打印『unknown』。我们可以通过默认参数和解构赋值的方法来避免写出 `fruit && fruit.name` 这种条件。
 
-```
+```javascript
 // 解构 —— 只得到 name 属性
 // 默认参数为空对象 {}
 function test({name} = {}) {
@@ -212,7 +212,7 @@ test({ name: 'apple', color: 'red' }); // apple
 
 这里有一个使用 Lodash 的例子：
 
-```
+```javascript
 //  使用 lodash 库提供的 _ 方法
 function test(fruit) {
   console.log(_.get(fruit, 'name', 'unknown'); // 获取属性 name 的值，如果没有，设为默认值 unknown
@@ -230,7 +230,7 @@ test({ name: 'apple', color: 'red' }); // apple
 
 让我们看下面的例子，我们想要根据颜色打印出各种水果：
 
-```
+```javascript
 function test(color) {
   // 使用 switch case 来找到对应颜色的水果
   switch (color) {
@@ -252,7 +252,7 @@ test('yellow'); // ['banana', 'pineapple']
 
 上面的代码看上去并没有错，但是就我个人而言，它看上去很冗长。同样的结果可以通过对象字面量来实现，语法也更加简洁：
 
-```
+```javascript
 // 使用对象字面量来找到对应颜色的水果
   const fruitColor = {
     red: ['apple', 'strawberry'],
@@ -267,7 +267,7 @@ function test(color) {
 
 或者，你也可以使用 [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) 来实现同样的效果：
 
-```
+```javascript
 // 使用 Map 来找到对应颜色的水果
   const fruitColor = new Map()
     .set('red', ['apple', 'strawberry'])
@@ -289,7 +289,7 @@ Todd Motto 有一篇[文章](https://toddmotto.com/deprecating-the-switch-statem
 
 就以上的例子，事实上我们可以通过重构我们的代码，使用 `Array.filter` 实现同样的效果。
 
-```
+```javascript
  const fruits = [
     { name: 'apple', color: 'red' }, 
     { name: 'strawberry', color: 'red' }, 
@@ -312,7 +312,7 @@ function test(color) {
 
 最后一个小技巧更多地是关于使用新的（也不是很新了）JavaScript 数组函数来减少代码行数。观察以下的代码，我们想要检查是否所有的水果都是红色的：
 
-```
+```javascript
 const fruits = [
     { name: 'apple', color: 'red' },
     { name: 'banana', color: 'yellow' },
@@ -334,7 +334,7 @@ function test() {
 
 这段代码也太长了！我们可以通过 `Array.every` 来缩减代码：
 
-```
+```javascript
 const fruits = [
     { name: 'apple', color: 'red' },
     { name: 'banana', color: 'yellow' },
@@ -351,7 +351,7 @@ function test() {
 
 清晰多了对吧？类似的，如果我们想要检查是否有至少一个水果是红色的，我们可以使用 `Array.some` 仅用一行代码就实现出来。
 
-```
+```javascript
 const fruits = [
     { name: 'apple', color: 'red' },
     { name: 'banana', color: 'yellow' },
