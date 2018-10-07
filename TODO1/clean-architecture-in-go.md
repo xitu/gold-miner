@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/clean-architecture-in-go.md](https://github.com/xitu/gold-miner/blob/master/TODO1/clean-architecture-in-go.md)
 > * 译者：[yuwhuawang](https://github/yuwhuawang)
-> * 校对者：
+> * 校对者：[https://github.com/lihanxiang](lihanxiang), [tmpbook](https://github.com/tmpbook)
 
 # Go 语言的整洁架构之道
 
@@ -219,7 +219,7 @@ __userUsercase__ 依赖两个包。__UserRepository__ 接口和 __*service.UserS
 
 ListUser 这个用例会取到所有已经注册的用户，RegisterUser 用例是如果同样的邮箱地址没有被注册的话，就用该邮箱把新用户注册到系统。
 
-有一点要注意， __User__ 不同于 __model.User. model.User__ 也许包含很多业务逻辑，但是其他层最好不要知道这些具体逻辑。所以我为用例 users 定义了 DAO 来封装这些业务逻辑。
+有一点要注意，**User** 不同于 **model.User. model.User** 也许包含很多业务逻辑，但是其他层最好不要知道这些具体逻辑。所以我为用例 users 定义了 DAO 来封装这些业务逻辑。
 
 ```
 type User struct {
@@ -395,9 +395,9 @@ func Apply(server *grpc.Server, ctn *registry.Container) {
 注册是解决对象依赖性的依赖注入容器。
 我用的依赖注入容器是 github.com/sarulabs/di。
 
-[sarulabs/di: go (golang) 的依赖注入容器。 请注册 GitHub 账号来为 sarulabs/di 开发做贡献](https://github.com/sarulabs/di "https://github.com/sarulabs/di")
+[sarulabs/di: go (golang) 的依赖注入容器。请注册 GitHub 账号来为 sarulabs/di 开发做贡献](https://github.com/sarulabs/di "https://github.com/sarulabs/di")
 
-github.com/surulabs/di 可以被这样简单的使用：F
+github.com/surulabs/di 可以被这样简单的使用：
 
 ```
 type Container struct {
