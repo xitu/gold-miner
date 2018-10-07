@@ -9,11 +9,11 @@
 
 ![](https://cdn-images-1.medium.com/max/1000/0*StLXK67qSOoUwyCM.)
 
-『空旷的高速公路横穿多彩的沙漠』-- 由 [Johannes Plenio](https://unsplash.com/@jplenio?utm_source=medium&utm_medium=referral) 发布在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral) 。
+『空旷的高速公路横穿多彩的沙漠』— 由 [Johannes Plenio](https://unsplash.com/@jplenio?utm_source=medium&utm_medium=referral) 发布在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)。
 
-_注：这是系列文章的第一部分。_
+**注：这是系列文章的第一部分。**
 
-_第二部分在[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md)._
+**第二部分在[这里](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md)。**
 
 ### 目标受众
 
@@ -81,9 +81,9 @@ DevOps 试图将开发人员（Dev）和运维人员（Ops）融合到一个组�
 
 然而，大多数公司一般都会使用一些主流的（最新的，如果你愿意）工具和概念，这就是本文的全部主题！
 
-同样，因为工具和技能不同，在学习工具时，请确保不要忽视自己的技能（面试，网络，书面沟通，故障排除等）
+同样，因为工具和技能不同，在学习工具时，请确保不要忽视自己的技能（面试、网络、书面沟通和故障排除等）
 
-最重要的是，不要忘记我们追求的目标 - **构建一个全自动的数字管道，将想法转化为可以创造收入的代码。**
+最重要的是，不要忘记我们追求的目标 — **构建一个全自动的数字管道，将想法转化为可以创造收入的代码。**
 
 这是整篇文章中唯一重要的内容！
 
@@ -91,7 +91,7 @@ DevOps 试图将开发人员（Dev）和运维人员（Ops）融合到一个组�
 
 以下是你的路线图。
 
-掌握以下内容，你可以安心的称自己为 DevOps 工程师！或者云工程师 - 如果你讨厌『DevOps』这个称呼。
+掌握以下内容，你可以安心的称自己为 DevOps 工程师！或者云工程师 — 如果你讨厌『DevOps』这个称呼。
 
 下面的图代表我（也可能是这个领域工作的大多数人）的想法，是关于一个 DevOps 工程师应该了解什么。也就是说，这只是一种建议，肯定会有不同的声音，这并没有什么问题，我们不追求完美，我们是在建立坚实的基础。
 
@@ -111,11 +111,11 @@ DevOps 基础知识
 
 现实世界的技能
 
-注意：上面的技能管道缺少了测试 - 编写测试用例，这是故意的 - 编写集成和验收测试用例并不容易，这通常是开发人员承担的工作。故意遗漏『测试』阶段是因为该学习路线图的目标是快速获取新技能与工具。笔者认为缺乏测试专业知识只是成为 DevOps 的一个微不足道的障碍。
+注意：上面的技能管道缺少了测试 — 编写测试用例，这是故意的 - 编写集成和验收测试用例并不容易，这通常是开发人员承担的工作。故意遗漏『测试』阶段是因为该学习路线图的目标是快速获取新技能与工具。笔者认为缺乏测试专业知识只是成为 DevOps 的一个微不足道的障碍。
 
 还有，请记住，我们不是在这里学习一堆无关的技术吐槽。我们需要对完整的工具链有深刻的理解，要将这些工具结合在一起，讲述一个连贯的故事。
 
-这个故事是**端到端的流程自动化 - 一种可以像装配流水线一样改动的数字管道。**
+这个故事是**端到端的流程自动化 — 一种可以像装配流水线一样改动的数字管道。**
 
 而且，你一定也不想学一堆工具然后止步不前，工具更新换代很快，概念则不是。因此，你要做的是使用工具作为代表去学习更高级别的概念，而不是学习工具的使用。
 
@@ -155,7 +155,7 @@ Python：如今最主流的后端语言。易上手，使用广泛。红利：Py
 
 从下面几个开始：VPC，EC2，IAM，S3，CloudWatch，ELB（在 EC2 的保护伞之下）还有安全组。这些东西可以帮助你入门，每个现代的，支持云的企业都会大量使用这些工具。
 
-AWS 自己的培训[网站](https://www.aws.training/?src=training) 是一个很好的起点。
+AWS 自己的培训[网站](https://www.aws.training/?src=training)是一个很好的起点。
 
 我建议你每天流出 20-30 分钟来练习 Python，Liunx 还有 AWS。
 
@@ -163,7 +163,7 @@ AWS 自己的培训[网站](https://www.aws.training/?src=training) 是一个很
 
 这就是基础层！
 
-在随后的文章中，我们将讨论下一级的复杂的东西：如何完全以自动化的方式[配置](https://medium.com/@devfire/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure-a2dfc11f6f7d)，管理版本，管理包，部署，运行和监控软件！
+在随后的文章中，我们将讨论下一级的复杂的东西：如何完全以自动化的方式[配置](https://medium.com/@devfire/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure-a2dfc11f6f7d)，管理版本、管理包、部署、运行和监控软件！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
