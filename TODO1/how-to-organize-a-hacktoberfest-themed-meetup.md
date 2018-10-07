@@ -33,7 +33,7 @@
 *   开源/科技公司的办公室
 *   任何有你的地方！
 
-### 议程示
+### 议程示例
 
 这只是一个建议 —— 您可以随意定制它以适合您的社区人员！
 
@@ -42,7 +42,7 @@
 *   **开源简介** 请参阅[参考资料](https://hacktoberfest.digitalocean.com/#resources)部分获取灵感。
 *   **研讨会：如何为开源做贡献** 请参阅[参考资料](https://hacktoberfest.digitalocean.com/#resources)部分获取灵感。
 *   **演示 [可选; 在 hack 活动前后]** 任何有兴趣分享他们的开源项目的人都可以进行 3–5 分钟演示。
-*   **Hack 活动** 共同 Hacking：由兴趣促进群组的形成/[插入您社区的首选格式]。
+*   **Hack 活动** 共同 Hacking：由兴趣促进群组的形成。
 
 ### 演讲者和推动者
 
@@ -50,7 +50,7 @@
 
 ### 照片分享
 
-鼓励活动参与者使用 #hacktoberfest 标签在社交媒体上分享照片。（请注意与会者的照片偏好 - 不要强迫不想公开照片的人进入照片！）
+鼓励活动参与者使用 #hacktoberfest 标签在社交媒体上分享照片。（请注意与会者的照片偏好 —— 不要强迫不想公开照片的人进入照片！）
 
 >文章 [#Hacktoberfest](https://www.instagram.com/p/_cgvl-OW_W/?utm_source=ig_embed)
 >
@@ -58,7 +58,7 @@
 
 ### 食物和饮料
 
-您的社区将享受美味的东西！额外奖励：增加一个[秋收节/中秋节](https://www.pinterest.com/explore/fall-party-foods/) or [Oktoberfest](https://www.pinterest.com/explore/oktoberfest-party/)或[慕尼黑啤酒节](https://www.pinterest.com/explore/oktoberfest-party/)等节日活动。请记住食物过敏，偏好和当地酒精消费法律法规（如果饮酒）。
+您的社区将享受美味的东西！额外奖励：增加一个[秋收节/中秋节](https://www.pinterest.com/explore/fall-party-foods/)或[慕尼黑啤酒节](https://www.pinterest.com/explore/oktoberfest-party/)等节日活动。请记住食物过敏、偏好和当地酒精消费法律法规（如果饮酒）。
 
 ### 其他有趣的想法
 
@@ -74,7 +74,6 @@ Hacktoberfest 活动热情、开放、包容氛围。在您的活动页面上添
 
 1.  通过电子邮件，社交网络和/或印刷传单分享活动。考虑在您所在地区的开发人员和开源爱好者欢迎的频道上发帖，包括但不限于：
     *   Meetup: 您自己的 Meetup 页面，如果您想举行官方[DigitalOcean 聚会](http://www.meetup.com/pro/digitalocean/)，请[与我们联系](mailto:domeetups@digitalocean.com)
-    *   Twitter
     *   Twitter
     *   Facebook 页面
     *   LinkedIn 群组
@@ -99,7 +98,7 @@ Hacktoberfest 活动热情、开放、包容氛围。在您的活动页面上添
 
 *   Hacktoberfest 开放黑客之夜
 *   Hacktoberfest 开放黑客日
-*   [上海] Hacktoberfest 节！
+*   [上海/其他城市] Hacktoberfest 节！
 *   Hacktoberfest 打开黑客帝国！
 
 **描述**
