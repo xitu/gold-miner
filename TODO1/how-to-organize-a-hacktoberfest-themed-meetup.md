@@ -73,7 +73,7 @@ Hacktoberfest 活动欢迎各位来宾，能给您一个开放、包容的氛围
 ## 宣传你的活动
 
 1.  通过电子邮件，社交网络和/或印刷传单分享活动。考虑在您所在地区的开发人员和开源爱好者的发帖途径，包括但不限于：
-    *   Meetup: 您自己的 Meetup 页面，如果您想举行官方[DigitalOcean 聚会](http://www.meetup.com/pro/digitalocean/)，请[与我们联系](mailto:domeetups@digitalocean.com)
+    *   Meetup: 您自己的 Meetup 页面，如果您想举行官方 [DigitalOcean 聚会](http://www.meetup.com/pro/digitalocean/)，请[与我们联系](mailto:domeetups@digitalocean.com)
     *   Twitter、Facebook、LinkedIn 群组、Google 论坛
     *   定期分享启动/技术活动的简报，网站和社交媒体帐户
     *   当地编程学校
