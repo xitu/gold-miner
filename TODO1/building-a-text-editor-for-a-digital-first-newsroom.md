@@ -13,7 +13,7 @@
 
 Aaron Krolik / 纽约时报的插图
 
-如果你和美国的大多数人一样，几乎每天都会使用某个文本编辑器。无论是您的基本 Apple Notes，还是像 Google Docs、Microsoft Word 或 Mediumz 等更高级的东西，我们的文本编辑器都允许我们记录和呈现我们重要的想法和信息，使我们能够以最吸引人的方式讲述故事。
+如果你和美国的大多数人一样，几乎每天都会使用某个文本编辑器。无论是基本的 Apple Notes，还是像 Google Docs、Microsoft Word 或 Mediumz 等更高级的东西，我们的文本编辑器都允许我们记录和呈现我们重要的想法和信息，使我们能够以最吸引人的方式讲述故事。
 
 但是你可能没有想过这些文本编辑器的后台运作原理。每次你按下某个键时，可能会执行数百行的代码来在页面上呈现你想要的字符。看似很小的操作，例如拖动选择文本中的几段文字或将文本转换为标题，这实际上会触发程序系统底层的大量变化。
 
@@ -33,7 +33,7 @@ Aaron Krolik / 纽约时报的插图
 
 ### 一切都是节点
 
-ProseMirror 将其主要元素--段落、标题、列表、图片等--构造为**节点**。许多节点都可以具有子节点，例如 `heading_basic` 节点可以具有包括 `heading1` 、`byline`、`timestamp` 和 `image` 等子节点。这构成了我上面所提到的属性结构。
+ProseMirror 将其主要元素 — 段落、标题、列表、图片等 — 构造为**节点**。许多节点都可以具有子节点，例如 `heading_basic` 节点可以具有包括 `heading1` 、`byline`、`timestamp` 和 `image` 等子节点。这构成了我上面所提到的属性结构。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*Ek78_oxd_hD-fn_dx-YvFg.png)
 
@@ -43,15 +43,15 @@ DOM 会将该句子编成树，如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/0*oGZfDS1Rlm4MzAQu.)
 
-**句子的传统 DOM 表示 — 其标签以嵌套的树状方式工作。来源：** [**ProseMirror**](https://prosemirror.net/docs/guide/)
+**句子的传统 DOM 表示 — 其标签以嵌套的树状方式工作。来源：[ProseMirror](https://prosemirror.net/docs/guide/)**
 
 但是，在 ProseMirror 中，段落的内容表示为一个扁平的内联元素序列，每个元素都有自己的样式
 
 ![](https://cdn-images-1.medium.com/max/800/0*BKjocnJ6-DyNj-tK.)
 
-**ProseMirror 如何构造相同的句子。来源：** [**ProseMirror**](https://prosemirror.net/docs/guide/)
+**ProseMirror 如何构造相同的句子。来源：[ProseMirror](https://prosemirror.net/docs/guide/)**
 
-扁平化的段落结构有一个有点：ProseMirror 依据其数字位置来追踪每个节点。因为 ProseMirror 将上面示例中的斜体和粗体字 "emphasis" 识别为其自己的独立节点，所以它可以将节点的位置表示为简单的字符偏移，而不是将其视为文档树中的位置。例如，文本编辑器可以知道 "emphasis" 一词从文档的63位开始。这使得选择、查找和使用更加容易。
+扁平化的段落结构有一个有点：ProseMirror 依据其数字位置来追踪每个节点。因为 ProseMirror 将上面示例中的斜体和粗体字 "emphasis" 识别为其自己的独立节点，所以它可以将节点的位置表示为简单的字符偏移，而不是将其视为文档树中的位置。例如，文本编辑器可以知道 "emphasis" 一词从文档的 63 位开始。这使得选择、查找和使用更加容易。
 
 所有的这些节点--段落、标题、图像等--具有它们相关联的某些特征，包括大小、占位符和可拖动性。在某些特定节点（如图像或视频），它们还必须包括 ID 以便媒体文件能够在较大的 CMS 环境中被找到。Oak 是如何知道所有这些节点功能的呢？
 
@@ -135,7 +135,7 @@ Oka 的目标之一是成为一个以设计为中心的文本编辑器，让记�
 
 自从它的构思以来，Oak已经走过了漫长的道路，我们很高兴能为开始从旧版编辑器转换的新闻工作室继续开发新功能。我们计划开始开发协同编辑功能，能够允许多个用户同时编辑文章，这将从根本上改善记者和编辑的合作方式。
 
-文本编辑器的复杂程度比许多人所知道的都要高。我为能够成为 Oak 团队的一员来开发这样的工具感到荣幸。作为作者，我觉得这个编辑器非常有趣，并且它对世界上最大和最有影响力的新闻编辑室之一的运作也非常重要。感谢我的经理 Tessa Ann Taylor 和 Joe Hart，以及在我来到这之前已经在 Oak 工作的我们团队：Thomas Rhiel、 Jeff Sisson、Will Dunning、Matthew Stake、Matthew Berkowitz、Dylan Nelson、Shilpa Kumar、Shayni Sood 以及 Robinson Deckert。我很幸运能有这么棒的队友让 Oak 这一魔术编辑器诞生。谢谢。
+文本编辑器的复杂程度比许多人所知道的都要高。我为能够成为 Oak 团队的一员来开发这样的工具感到荣幸。作为作者，我觉得这个编辑器非常有趣，并且它对世界上最大和最有影响力的新闻编辑室之一的运作也非常重要。感谢我的经理 Tessa Ann Taylor 和 Joe Hart，以及在我来到这之前已经在 Oak 工作的我们团队：Thomas Rhiel、Jeff Sisson、Will Dunning、Matthew Stake、Matthew Berkowitz、Dylan Nelson、Shilpa Kumar、Shayni Sood 以及 Robinson Deckert。我很幸运能有这么棒的队友让 Oak 这一魔术编辑器诞生。谢谢。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
