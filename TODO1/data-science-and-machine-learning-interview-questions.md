@@ -2,8 +2,8 @@
 > * 原文作者：[George Seif](https://towardsdatascience.com/@george.seif94?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/data-science-and-machine-learning-interview-questions.md](https://github.com/xitu/gold-miner/blob/master/TODO1/data-science-and-machine-learning-interview-questions.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jianboy](https://github.com/jianboy)
+> * 校对者：[yqian1991](https://github.com/yqian1991)
 
 # 数据科学和机器学习面试问题
 
