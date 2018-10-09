@@ -2,14 +2,14 @@
 > * 原文作者：[Stefan Judis](https://dev.to/stefanjudis)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/three-input-element-properties-that-i-discovered-while-reading-mdn.md](https://github.com/xitu/gold-miner/blob/master/TODO1/three-input-element-properties-that-i-discovered-while-reading-mdn.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ssshooter](https://github.com/ssshooter)
+> * 校对者：[GpingFeng](https://github.com/GpingFeng) [Park-ma](https://github.com/Park-ma)
 
 # 我在阅读 MDN 时发现的 3 个 Input 元素属性
 
-我最近在 Twitter 偶然发现了 [Dan Abramov 的推文](https://twitter.com/dan_abramov/status/1035190868876177409)。他分享的一段简短的代码引起了我注意的。这段代码从 DOM（([Document Object Model](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model))）访问 input 元素，并读取或更改了它的一些属性，其中令我惊叹的是 `defaultValue`。
+我最近在 Twitter 偶然发现了 [Dan Abramov 的推文](https://twitter.com/dan_abramov/status/1035190868876177409)。他分享的一段简短的代码引起了我注意的。这段代码使用 JavaScript 访问 DOM（([Document Object Model](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model))）中的 input 元素，并读取或更改了它的一些属性，其中令我惊叹的是 `defaultValue` 属性。
 
-我立即打开 MDN 阅读更多关于 `HTTMLInputElements` 的 `defaultValue` 属性，并偶然发现了一些我不知道的属性，这便是我写这篇短文的原因。
+我立即打开 MDN 阅读更多关于 `HTTMLInputElement` 的 `defaultValue` 属性，并偶然发现了一些我不知道的属性，这便是我写这篇短文的原因。
 
 那么我们开始吧！
 
@@ -55,7 +55,7 @@ input.indeterminate = true;
 
 将 `indeterminate` 设置为 `true` 对复选框的值没有任何影响，我想到的唯一应用场景是 [Chris Coyier 在 CSSTricks 提到的](https://css-tricks.com/indeterminate-checkboxes/) 嵌套复选框。
 
-`indeterminate` 不仅适用于复选框，还可以用于单选按钮和进度元素。假设有一组单选按钮，没有一个按钮被选择。在你未作出选择前，它们默认处于 `indeterminate` 状态。
+`indeterminate` 不仅适用于复选框，还可以用于单选按钮和进度元素。假设有一组单选按钮，没有一个按钮被选择。在你未作出选择前，它们都没有被选中同时也都没有不被选中，这时它们就处于 `indeterminate` 状态。
 
 还有一种玩法，你可以对被选定元素使用 CSS 伪类 `:indeterminate`，这样可以在单选按钮组未被选择时方便展示一些特殊的 UI 组件。
 
@@ -71,7 +71,7 @@ input:indeterminate ~ .msg {
 }
 ```
 
-有关属性 `indeterminate` 的有趣之处在于你可以将它设置为 `true` 或 `false`，这将影响复选框的伪类，但不会影响单选按钮。**对于单选按钮，按钮组的实际选择状态始终是正确的**。
+有关 `indeterminate` 属性的有趣之处在于你可以将它设置为 `true` 或 `false`，这将影响复选框的伪类，但不会影响单选按钮。**对于单选按钮，按钮组的实际选择状态始终是正确的**。
 
 顺道提一下，[progress 元素](https://developer.mozilla.org/de/docs/Web/HTML/Element/progress) 在未定义 `value` 属性时也将匹配 `:indeterminate` 选择器。
 
@@ -107,7 +107,7 @@ setInterval( _ => {
 
 ### 快速简单的总结
 
-MDN 是一种奇妙的网站。即使在使用了 `input` 元素的八年之后，仍能发现新玩法，这就是我喜欢的 Web 开发的原因。我以后会定期随机阅读 MDN 的文章（我有一个日常 Slack-bot，提醒我打开 [bit.ly/randommdn](http://bit.ly/randommdn)），因为学无止境！我强烈推荐 MDN！
+MDN 是一种奇妙的网站。即使在我使用了 `input` 元素的八年之后，仍能发现新玩法，这就是我喜欢的 Web 开发的原因。我以后会定期随机阅读 MDN 的文章（我有一个日常 Slack-bot，提醒我打开 [bit.ly/randommdn](http://bit.ly/randommdn)），因为学无止境！我强烈推荐 MDN！
 
 感谢阅读！ ❤️
 
