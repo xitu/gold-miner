@@ -2,74 +2,75 @@
 > * 原文作者：[David Venturi](https://medium.freecodecamp.org/@davidventuri?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/every-single-machine-learning-course-on-the-internet-ranked-by-your-reviews.md](https://github.com/xitu/gold-miner/blob/master/TODO1/every-single-machine-learning-course-on-the-internet-ranked-by-your-reviews.md)
-> * 译者：
+> * 译者：[davelet](https://github.com/davelet)
 > * 校对者：
 
-# Every single Machine Learning course on the internet, ranked by your reviews
+# 基于留言数量的机器学习在线课程排名
 
 ![](https://cdn-images-1.medium.com/max/2000/1*vBLkfW8S-ZqHb8TmNEW1XA.jpeg)
 
-[_Wooden Robot_](https://www.pexels.com/photo/wooden-robot-6069/) _by Kaboompics_
+_Kaboompics 的_[_木头人_](https://www.pexels.com/photo/wooden-robot-6069/)
 
-A year and a half ago, I dropped out of one of the best computer science programs in Canada. I started creating my own [data science master’s program](https://medium.com/@davidventuri/i-dropped-out-of-school-to-create-my-own-data-science-master-s-here-s-my-curriculum-1b400dcee412#.5fwwphdqd) using online resources. I realized that I could learn everything I needed through edX, Coursera, and Udacity instead. And I could learn it faster, more efficiently, and for a fraction of the cost.
+一年半以前，我退出了加拿大最好的计算机科学课程之一，开始使用线上资源创建我自己的[数据科学研究生课程](https://medium.com/@davidventuri/i-dropped-out-of-school-to-create-my-own-data-science-master-s-here-s-my-curriculum-1b400dcee412#.5fwwphdqd)。我意识到只要通过edX、Coursera 和 Udacity 就能学到所有我需要的东西，而且学习得更快更高效，学费还比大学低！
 
-I’m almost finished now. I’ve taken many data science-related courses and audited portions of many more. I know the options out there, and what skills are needed for learners preparing for a data analyst or data scientist role.  So I started creating a review-driven guide that recommends the best courses for each subject within data science.
+现在我马上就完成了！我学习了很多数据科学相关的课程而且评估了更多课程的部分内容。我知道了如何选择，也知道了什么技能对于打算成为数据分析家或者数据科学家的学员是必需的。所以我之前开始创建一个浏览驱动的用于推荐数据科学领域内各学科最好课程的指导。
 
-For the first guide in the series, I recommended a few [coding classes](https://medium.freecodecamp.com/if-you-want-to-learn-data-science-start-with-one-of-these-programming-classes-fb694ffe780c#.42hhzxopw) for the beginner data scientist. Then it was [statistics and probability classes](https://medium.freecodecamp.com/if-you-want-to-learn-data-science-take-a-few-of-these-statistics-classes-9bbabab098b9#.p7pac546r). Then [introductions to data science](https://medium.freecodecamp.com/i-ranked-all-the-best-data-science-intro-courses-based-on-thousands-of-data-points-db5dc7e3eb8e). Also, [data visualization](https://medium.freecodecamp.com/an-overview-of-every-data-visualization-course-on-the-internet-9ccf24ea9c9b).
+在本系列的第一篇指导中我给刚入门的数据科学家们先推荐一些[编码课程](https://medium.freecodecamp.com/if-you-want-to-learn-data-science-start-with-one-of-these-programming-classes-fb694ffe780c#.42hhzxopw)，然后是[概率统计课程](https://medium.freecodecamp.com/if-you-want-to-learn-data-science-take-a-few-of-these-statistics-classes-9bbabab098b9#.p7pac546r)，然后是[数据科学概论](https://medium.freecodecamp.com/i-ranked-all-the-best-data-science-intro-courses-based-on-thousands-of-data-points-db5dc7e3eb8e)，还有[数据可视化](https://medium.freecodecamp.com/an-overview-of-every-data-visualization-course-on-the-internet-9ccf24ea9c9b)。
 
-### Now onto machine learning.
+### 欢迎来到机器学习
 
-For this guide, I spent a dozen hours trying to identify every online machine learning course offered as of May 2017, extracting key bits of information from their syllabi and reviews, and compiling their ratings. **My end goal was to identify the three best courses available and present them to you, below.**
+我为了这篇指导花费了十几个小时尝试找出截至到 2017 年 5 月的所有在线课程，根据它们的简介和评论抽取关键信息并计算评分。**我最终的目标本来是找出最好的三门课程呈现出来以飨读者。**
 
-For this task, I turned to none other than the open source Class Central community, and its database of thousands of course ratings and reviews.
+为了实现这个目标，我特意到开源社区 Class Central，它的数据库中有数以千计的课程评分和留言。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*u1dxHyShejSN3cgXGFQIAA.png)
 
-Class Central’s [homepage](https://www.class-central.com/).
+_Class Central 的_[_主页_](https://www.class-central.com/).
 
-Since 2011, [Class Central](https://www.class-central.com/) founder [Dhawal Shah](https://medium.com/@dhawalhs) has kept a closer eye on online courses than arguably anyone else in the world. Dhawal personally helped me assemble this list of resources.
+自从 2011 年起，[Class Central](https://www.class-central.com/) 的创始人 [Dhawal Shah](https://medium.com/@dhawalhs) 就一直无可争议的是最贴近在线课程的研究者。Dhawal 个人也帮我一起收集了这个资源列表。
 
-### How we picked courses to consider
+### 我们如何甄选课程
 
-Each course must fit three criteria:
+每一门课程都必须满足如下三条准则：
 
-1.  **It must have a significant amount of machine learning content.** Ideally, machine learning is the primary topic.  Note that deep learning-only courses are excluded. More on that later.
-2.  **It must be on-demand or offered every few months.**
-3.  **It must be an interactive online course, so no books or read-only tutorials**. Though these are viable ways to learn, this guide focuses on courses. Courses that are strictly videos (i.e. with no quizzes, assignments, etc.) are also excluded.
+1.  **必须包含大量的机器学习内容**。原则上机器学习应该是首要主题。注意，只涉及深度学习的课程应该被排除，后面会详述。
+2.  **必须按需或每隔几个月提供一次。**
+3.  **必须是可交互的在线课程，不能使用书本或只读性质的指南**。尽管那些也是学习的途径，但是这里只关注课程。完全的视频教程（也就是说没有测验或课后作业等）也要排除。
 
-We believe we covered every notable course that fits the above criteria. Since there are seemingly hundreds of courses on [Udemy](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14494&RD_PARM1=https%253A%252F%252Fwww.udemy.com%252F), we chose to consider the most-reviewed and highest-rated ones only.
+我相信我们已经包含了所有符合上述准则值得关注的的课程。鉴于我们从 [Udemy](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14494&RD_PARM1=https%253A%252F%252Fwww.udemy.com%252F) 上面收集了几百门课程，我们只选择其中留言最多、评分最高的课程。
 
-There’s always a chance that we missed something, though. So please let us know in the comments section if we left a good course out.
+不过由于精力有限，一定还是有可能我们会忽略掉某课程的。如果你发现我们漏掉了一门好课程，请在评论区留言让我们知道。
 
-### How we evaluated courses
+### 我们如何评估课程
 
-We compiled average ratings and number of reviews from Class Central and other review sites to calculate a weighted average rating for each course. We read text reviews and used this feedback to supplement the numerical ratings.
+我们从 Class Central 以及其他点评网站汇集了每门课程的平均评分，以此来计算它们的加权平均分。我们阅读了文字评论，通过那些课程反馈来补充分数。
 
-We made subjective syllabus judgment calls based on three factors:
+我们根据三个因素进行了教学大纲的主观判断:
 
-1.  **Explanation of the machine learning workflow.** Does the course outline the steps required for executing a successful ML project? See the next section for what a typical workflow entails.
-2.  **Coverage of machine learning techniques and algorithms.** Are a variety of techniques (e.g. regression, classification, clustering, etc.) and algorithms (e.g. within classification: naive Bayes, decision trees, support vector machines, etc.) covered or just a select few? Preference is given to courses that cover more without skimping on detail.
-3.  **Usage of common data science and machine learning tools.** Is the course taught using popular programming languages like Python, R, and/or Scala? How about popular libraries within those languages? These aren’t necessary, but helpful so slight preference is given to these courses.
+1.  **对机器学习工作流程的解释程度**。课程是否描绘了成功运行一个 ML 工程的必要步骤？ 有关典型工作流程的含义，请参阅下一节。
+2.  **对机器学习技术和算法的覆盖程度**。 是否涉及了各种技术（例如回归、分类、聚类等）和相关算法（比如分类算法：朴素贝叶斯、决策树、支持向量机等），还是只简单挑选了几个？我们优先考虑的课程覆盖得更多，而不是仅仅介绍梗概。
+3.  **对通用数据科学和机器学习工具的使用程度**。课程教学上是否使用了流行的编程语言，比如 Python、R 或 Scala？对这些语言的流行类库使用如何？这些当然不是必需的但是是有用的，所以对这些课程我们略有偏好。
 
-### What is machine learning? What is a workflow?
+### 什么是机器学习？工作流程如何？
 
-A popular definition originates from [Arthur Samuel](https://en.wikipedia.org/wiki/Arthur_Samuel "Arthur Samuel") in 1959: machine learning is a subfield of computer science that gives _“computers the ability to learn without being explicitly programmed.”_ In practice, this means developing computer programs that can make predictions based on data. Just as humans can learn from experience, so can computers, where data = experience.
+一个流行的定义起源于 1959 年 [Arthur Samuel](https://en.wikipedia.org/wiki/Arthur_Samuel "Arthur Samuel") 的说法： in 1959: 机器学习是计算机科学的一个分支，能够“_让计算机自主学习而无需显式编程_”。实践中，这意味着开发的计算机程序可以根据数据进行预测。就像人类可以根据经验学习一样，计算机也可以。对于计算机，数据 = 经验。
 
-A machine learning workflow is the process required for carrying out a machine learning project. Though individual projects can differ, most workflows share several common tasks: problem evaluation, data exploration, data preprocessing, model training/testing/deployment, etc. Below you’ll find helpful visualization of these core steps:
+
+机器学习工作流程是执行机器学习项目所需的过程。尽管单个项目可能不同，但是绝大多数工作流程都需要这么几个通用任务：问题评估，数据探索，数据预处理，模型训练、测试、部署，等等。下面你会看到这些核心步骤有用的的可视化展示：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*KzmIUYPmxgEHhXX7SlbP4w.jpeg)
 
-The core steps of typical machine learning workflow, [via UpX Academy](https://upxacademy.com/introduction-machine-learning/)
+[UpX Academy](https://upxacademy.com/introduction-machine-learning/) 提供的典型机器学习工作流程核心步骤
 
-The ideal course introduces the entire process and provides interactive examples, assignments, and/or quizzes where students can perform each task themselves.
+理想的课程能够介绍完整的过程并提供交互式的例子、课后作业、小测试，学员们能自己体验到每个任务。
 
-### Do these courses cover deep learning?
+### 这些课程包含了深度学习吗？
 
-First off, let’s define deep learning. Here is a succinct description:
+首先咱们来定义一下深度学习。简洁点的定义是：
 
-> “Deep learning is a subfield of machine learning concerned with algorithms inspired by the structure and function of the brain called artificial neural networks.”
+> “深度学习是机器学习的一个分支，关注的是受大脑结构和功能启发的人工神经网络算法。”
 
-> — Jason Brownlee from [Machine Learning Mastery](http://machinelearningmastery.com/what-is-deep-learning/)
+> — Jason Brownlee，来自[掌握机器学习](http://machinelearningmastery.com/what-is-deep-learning/)
 
 As would be expected, portions of some of the machine learning courses contain deep learning content. I chose not to include deep learning-only courses, however. If you are interested in deep learning specifically, we’ve got you covered with the following [article](https://medium.freecodecamp.com/dive-into-deep-learning-with-these-23-online-courses-bf247d289cc0):
 
