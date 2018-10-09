@@ -2,8 +2,8 @@
 > * 原文作者：[hacktoberfest](https://hacktoberfest.digitalocean.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-organize-a-hacktoberfest-themed-meetup.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-organize-a-hacktoberfest-themed-meetup.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jianboy](https://github.com/jianboy)
+> * 校对者：[suineJWL](https://github.com/suineJWL)
 
 # 如何组织 Hacktoberfest 主题聚会
 
@@ -25,7 +25,7 @@
 
 ### 在哪里举办活动
 
-就近、设施齐全、环境舒适、 且WiFi稳定、适合打代码的地方，例如：
+就近、设施齐全、环境舒适、且 WiFi 稳定、适合打代码的地方，例如：
 
 *   大学教室
 *   共享办公空间
@@ -41,7 +41,7 @@
 *   **Hacktoberfest 简介：庆祝活动，奖品和说明** 提及 Hacktoberfest 的关键点很重要，例如：“Hacktoberfest 活动就是鼓励对开源生态系统做出有意义的贡献，对于初学者和资深人员来说都是如此。”
 *   **开源简介** 请参阅[参考资料](https://hacktoberfest.digitalocean.com/#resources)。
 *   **研讨会：如何为开源做贡献** 请参阅[参考资料](https://hacktoberfest.digitalocean.com/#resources)。
-*   **演示 [可选; 在 hack 活动前后]** 任何有兴趣分享他们的开源项目的人都可以进行 3–5 分钟演示。
+*   **演示 [可选；在 hack 活动前后]** 任何有兴趣分享他们的开源项目的人都可以进行 3–5 分钟演示。
 *   **Hack 活动** 共同 Hacking：由兴趣促进群组的形成。
 
 ### 演讲者和主持人
@@ -63,7 +63,7 @@
 ### 其他有趣的想法
 
 *   晚会上第一个完成 Pull 请求的获得奖品。
-*   晚会结束时，分发3-5个奖品.。
+*   晚会结束时，分发 3-5 个奖品.。
 *   通过邀请参与者分享他们学习/工作的经验来总结活动。
 
 ### 行为准则
@@ -74,7 +74,7 @@ Hacktoberfest 活动欢迎各位来宾，能给您一个开放、包容的氛围
 
 1.  通过电子邮件，社交网络和/或印刷传单分享活动。考虑在您所在地区的开发人员和开源爱好者的发帖途径，包括但不限于：
     *   Meetup: 您自己的 Meetup 页面，如果您想举行官方 [DigitalOcean 聚会](http://www.meetup.com/pro/digitalocean/)，请[与我们联系](mailto:domeetups@digitalocean.com)
-    *   Twitter、Facebook、LinkedIn 群组、Google 论坛
+    *   Twitter、Facebook、LinkedIn 群组和 Google 论坛
     *   定期分享启动/技术活动的简报，网站和社交媒体帐户
     *   当地编程学校
 2.  在[此处](http://do.co/hacktoberfest18event)添加您的聚会活动。
@@ -114,7 +114,7 @@ Hacktoberfest —— 由 DigitalOcean 与 GitHub 和 Twilio 合作推出 —— 
 
 **规则和奖品**
 
-首先在 Hacktoberfest 网站上注册。如果你在 10 月 1 日到 10 月 31 日期间提出五个 Pull 请求，你将免费获得一件限量版 Hacktoberfest T恤。（Pull 请求不必合并和接受;只要它们在 10 月 1 日到 10 月 31 日之间被打开，他们就会计入一件免费的T恤。）
+首先在 Hacktoberfest 网站上注册。如果你在 10 月 1 日到 10 月 31 日期间提出五个 Pull 请求，你将免费获得一件限量版 Hacktoberfest T恤。（Pull 请求不必合并和接受；只要它们在 10 月 1 日到 10 月 31 日之间被打开，他们就会计入一件免费的 T 恤。）
 
 通过在您选择的社交媒体平台上使用话题 #hacktoberfest，与其他 Hacktoberfest 参与者（Hacktobefestants？）联系。
 
@@ -126,10 +126,10 @@ DigitalOcean 新手？在 [do.co/hacktoberfest2018](https://do.co/hacktoberfest2
 
 *   [GitHub 学习实验室](https://lab.github.com/)
 *   [如何在 GitHub 上创建一个 Pull 请求](https://www.digitalocean.com/community/tutorials/how-to-create-a-pull-request-on-github)
-*   [GitHub 培训套件](https://github.com/github/training-kit)：用于教授Git和GitHub课程的开源幻灯片，工作簿和备忘单课件
+*   [GitHub 培训套件](https://github.com/github/training-kit)：用于教授 Git 和 GitHub 课程的开源幻灯片，工作簿和备忘单课件
 *   [了解 GitHub 流程](https://guides.github.com/introduction/flow/)
 *   [GitHub 培训课程和网络广播](https://services.github.com/training/)
-*   [Patchwork](http://patchwork.github.io/): 为初学者提供 Git 和 GitHub 的休闲辅导研讨会
+*   [Patchwork](http://patchwork.github.io/)：为初学者提供 Git 和 GitHub 的休闲辅导研讨会
 *   [GitHub 的更多资源](https://services.github.com/resources/)
 
 ### 开源
@@ -146,7 +146,7 @@ DigitalOcean 新手？在 [do.co/hacktoberfest2018](https://do.co/hacktoberfest2
 
 ## 活动组织者网络研讨会
 
-了解规划和举行 Hacktoberfest 聚会的最佳实践，了解您可能面临的挑战，以及如何创建最佳协作环境的问题。 另外，请在我们现场直播提问！ 会议将被录制并在此后发布。
+了解规划和举行 Hacktoberfest 聚会的最佳实践，了解您可能面临的挑战，以及如何创建最佳协作环境的问题。另外，请在我们现场直播提问！会议将被录制并在此后发布。
 
 预订你的位置：
 
@@ -158,16 +158,16 @@ DigitalOcean 新手？在 [do.co/hacktoberfest2018](https://do.co/hacktoberfest2
 
 ## 常见问题解答
 
-**为什么要举办 Hacktoberfest  主题聚会?**
+**为什么要举办 Hacktoberfest 主题聚会？**
 
 *   提高社区对开源的认识
 *   享受社交环境中的开源贡献
 *   亲自与项目所有者、维护者、贡献者和社区成员会面
 *   了解开源生态系统：从如何启动开源项目到营销项目、持续增长、以及故障排除和维护
 
-_组织者：基于社区的最大利益，为您的活动定下基调！ 随意关注上述任何组合，以及更多！_
+**组织者：基于社区的最大利益，为您的活动定下基调！ 随意关注上述任何组合，以及更多！**
 
-**我如何注册 Hacktoberfest ？**
+**我如何注册 Hacktoberfest？**
 
 在 [hacktoberfest.digitalocean.com](https://hacktoberfest.digitalocean.com/) 注册您的 GitHub 凭据。
 
@@ -181,7 +181,7 @@ Hacktoberfest 向全球社区的每个人开放！
 
 **规则是什么？**
 
-要赢得一件衬衫，你必须在 Hacktoberfest 网站上注册，并在 10 月 31 日之前在 GitHub 上完成五个 Pull 请求。 （Pull 请求不必合并和接受;只要它们在 10 月 1 日到 10 月 31 日之间被打开，它们就会计入一件免费的T恤。）
+要赢得一件衬衫，你必须在 Hacktoberfest 网站上注册，并在 10 月 31 日之前在 GitHub 上完成五个 Pull 请求。（Pull 请求不必合并和接受;只要它们在 10 月 1 日到 10 月 31 日之间被打开，它们就会计入一件免费的T恤。）
 
 **在哪里发起 Pull 请求？**
 
