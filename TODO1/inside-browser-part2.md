@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/inside-browser-part2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/inside-browser-part2.md)
 > * 译者：[CoolRice](https://github.com/CoolRice)
-> * 校对者：
+> * 校对者：[ThomasWhyne](https://github.com/ThomasWhyne)
 
 # 现代浏览器内部揭秘（第二部分）
 
 ## 导航时发生了什么
 
-这是关于 Chrome 内部工作的 4 篇博客系列的第 2 篇。在[上一篇文章](https://developers.google.com/web/updates/2018/09/inside-browser-part1)中，我们研究了不同的进程和线程如何处理浏览器的不同部分。在这篇文章中，我们会深入研究每个进程和线程如何进行通信以展示网站。
+这是关于 Chrome 内部工作的 4 篇博客系列的第 2 篇。在[上一篇文章](https://developers.google.com/web/updates/2018/09/inside-browser-part1)中，我们研究了不同的进程和线程如何处理浏览器的不同部分。在这篇文章中，我们会更深入研究每个进程和线程如何进行通信以展示网站。
 
-让我们看一个网络浏览的简单用例：你在浏览器中键入 URL，然后浏览器从互联网获取数据并显示一个页面。在这篇文章中，我们将重点放在用户请求站点和浏览器准备渲染页面部分 —— 也被称为导航。
+让我们看一个网络浏览的简单用例：你在浏览器中键入 URL，然后浏览器从互联网获取数据并显示一个页面。在这篇文章中，我们将重点放在用户请求站点和浏览器准备渲染页面部分 —— 亦即导航。
 
 ## 它以浏览器进程开始
 
@@ -19,13 +19,13 @@
 
 图 1：顶部是浏览器 UI ，底部是拥有 UI、网络和存储线程的浏览器进程图
 
-正如我们在[第1部分：CPU、GPU、内存和多进程架构](https://developers.google.com/web/updates/2018/09/inside-browser-part1)中所述，tab 外所有的一切都被浏览器进程处理。浏览器进程有很多线程，例如绘制浏览器按钮和输入栏的 UI 线程、处理网络栈以从因特网获取数据的网络线程、控制文件访问的存储线程以及更多。当你在地址栏中键入 URL 时，你的输入将由浏览器进程的UI线程处理。
+正如我们在[第1部分：CPU、GPU、内存和多进程架构](https://developers.google.com/web/updates/2018/09/inside-browser-part1)中所述，tab 外的一切都被浏览器进程处理。浏览器进程有很多线程，例如绘制浏览器按钮和输入栏的 UI 线程、处理网络栈以从因特网获取数据的网络线程、控制文件访问的存储线程等。当你在地址栏中键入 URL 时，你的输入将由浏览器进程的UI线程处理。
 
 ## 一个简单导航
 
 ### 第 1 步：处理输入
 
-当一个用户开始在地址栏键入时，UI 线程要问的第一件事是 “这是一次搜索查询还是一个 URL 地址？”。在 Chrome 中，地址栏同时也是一个搜索输入栏，所以 UI 线程需要解析和决定是否把你发送到搜索引擎，或是你要请求的网站。
+当一个用户开始在地址栏键入时，UI 线程要问的第一件事是 “这是一次搜索查询还是一个 URL 地址？”。在 Chrome 中，地址栏同时也是一个搜索输入栏，所以 UI 线程需要解析和决定把你的请求发送到搜索引擎，或是你要请求的网站。
 
 ![处理用户输入](https://developers.google.com/web/updates/images/inside-browser/part2/input.png)
 
@@ -45,9 +45,9 @@
 
 ![HTTP 响应](https://developers.google.com/web/updates/images/inside-browser/part2/response.png)
 
-图 3：响应头包含 Content-type 和 payload（实际数据）
+图 3：包含 Content-type 的响应头以及作为实际数据的 payload
 
-一旦响应 body（playload） 开始进入，必要时网络线程会查看流头部的前几个字节。响应 Content-Type 会声明数据的类型，但是由于它会丢失或者错误，[MIME 类型嗅探](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)就是解决这个问题的。这是[源码](https://cs.chromium.org/chromium/src/net/base/mime_sniffer.cc?sq=package:chromium&dr=CS&l=5)中评论的“棘手的业务”。你可以阅读评论看一下不同的浏览器是怎么处理 content-type/payload 对的。
+一旦响应 body（playload） 开始进入，必要时网络线程会查看流头部的前几个字节。响应 Content-Type 会声明数据的类型，但是由于它会丢失或者错误，[MIME 类型嗅探](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)就是解决这个问题的。这是[源码](https://cs.chromium.org/chromium/src/net/base/mime_sniffer.cc?sq=package:chromium&dr=CS&l=5)中评论的“棘手的事情”。你可以阅读评论看一下不同的浏览器是怎么处理 content-type/payload 对的。
 
 如果响应是一个 HTML 文件，那么下一步就会把数据传给渲染进程，但是如果是一个压缩文件或是其他文件，那么意味着它是一个下载请求，因此需要将数据传递给下载管理器。
 
@@ -89,7 +89,7 @@
 
 ## 导航到另一个站点
 
-简单导航已经完毕！但是用户在地址栏输入另一个 URL 会怎样呢？好吧，浏览器进程会执行相同的步骤来导航到一个不同的站点。但是在它做这个之前，它会检查当前已经渲染的站点是否关心离开事件。
+简单导航已经完毕！但是用户在地址栏输入另一个 URL 会怎样呢？好吧，浏览器进程会执行相同的步骤来导航到一个不同的站点。但是在它做这个之前，它会检查当前已经渲染的站点是否关心 [`beforeunload`](https://developer.mozilla.org/en-US/docs/Web/Events/beforeunload) 事件。
 
 `beforeunload` 可以在你试图导航离开或关闭 tab 时创建"离开此站点？"警告。包括你的 JavaScript 代码，所有 tab 内的东西都是由渲染进程处理，所以当新的导航到来时，浏览器进程必须要跟当前的渲染进程核对。
 
@@ -133,9 +133,9 @@
 
 ## 总结
 
-在这篇文章中，我们研究了导航过程中发生了什么，以及你的 Web 应用代码（例如响应头和客户端 JavaScript）如何与浏览器交互。了解浏览器通过网络获取数据的步骤，可以更容易地理解为什么开发导航预加载等API。在下一篇文章中，我们将深入探讨浏览器如何计算 HTML/CSS/JavaScript 以渲染页面。
+在这篇文章中，我们研究了导航过程中发生了什么，以及你的 Web 应用代码（例如响应头和客户端 JavaScript）如何与浏览器交互。了解浏览器通过网络获取数据的步骤，可以更容易地理解为什么开发导航预加载等API。在下一篇文章中，我们将深入探讨浏览器如何分析 HTML/CSS/JavaScript 以渲染页面。
 
-你喜欢这篇文章吗？如果您对以后的文章有任何问题或建议，我很乐意在下面的评论区域或 [@kosamari](https://twitter.com/kosamari) 在 Twitter 上收到您的来信。
+你喜欢这篇文章吗？如果您对以后的文章有任何问题或建议，欢迎在下面的评论区或在 Twitter [@kosamari](https://twitter.com/kosamari) 上留下您的宝贵意见。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
