@@ -7,7 +7,7 @@
 
 # 我在阅读 MDN 时发现的 3 个 Input 元素属性
 
-我最近在 Twitter 偶然发现了 [Dan Abramov 的推文](https://twitter.com/dan_abramov/status/1035190868876177409)。他分享的一段简短的代码引起了我注意的。这段代码使用 JavaScript 访问 DOM（([Document Object Model](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model))）中的 input 元素，并读取或更改了它的一些属性，其中令我惊叹的是 `defaultValue` 属性。
+我最近在 Twitter 偶然发现了 [Dan Abramov 的推文](https://twitter.com/dan_abramov/status/1035190868876177409)。他分享的一段简短的代码引起了我注意的。这段代码使用 JavaScript 访问 DOM（[Document Object Model](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)）中的 input 元素，并读取或更改了它的一些属性，其中令我惊叹的是 `defaultValue` 属性。
 
 我立即打开 MDN 阅读更多关于 `HTTMLInputElement` 的 `defaultValue` 属性，并偶然发现了一些我不知道的属性，这便是我写这篇短文的原因。
 
@@ -51,7 +51,7 @@ const input = document.querySelector('input');
 input.indeterminate = true;
 ```
 
-[![Checkbox in indeterminate state including a dash instead of being empty or including a checkmark](//images.ctfassets.net/f20lfrunubsq/3DG7ExLKLCEQyWw4ysC4Ag/53ad885c80761ea3aa8f3f5d253b7db2/checkbox.png)](//images.ctfassets.net/f20lfrunubsq/3DG7ExLKLCEQyWw4ysC4Ag/53ad885c80761ea3aa8f3f5d253b7db2/checkbox.png)
+[![Checkbox in indeterminate state including a dash instead of being empty or including a checkmark](https://images.ctfassets.net/f20lfrunubsq/3DG7ExLKLCEQyWw4ysC4Ag/53ad885c80761ea3aa8f3f5d253b7db2/checkbox.png)](https://images.ctfassets.net/f20lfrunubsq/3DG7ExLKLCEQyWw4ysC4Ag/53ad885c80761ea3aa8f3f5d253b7db2/checkbox.png)
 
 将 `indeterminate` 设置为 `true` 对复选框的值没有任何影响，我想到的唯一应用场景是 [Chris Coyier 在 CSSTricks 提到的](https://css-tricks.com/indeterminate-checkboxes/) 嵌套复选框。
 
@@ -59,7 +59,7 @@ input.indeterminate = true;
 
 还有一种玩法，你可以对被选定元素使用 CSS 伪类 `:indeterminate`，这样可以在单选按钮组未被选择时方便展示一些特殊的 UI 组件。
 
-[![Radio buttons followed by a message showcasing the :indeterminate pseudo-class](//images.ctfassets.net/f20lfrunubsq/gR6DWzopxemgaKa4eUika/d71705c5621232e54fa902eda0e87267/radios.png)](//images.ctfassets.net/f20lfrunubsq/gR6DWzopxemgaKa4eUika/d71705c5621232e54fa902eda0e87267/radios.png)
+[![Radio buttons followed by a message showcasing the :indeterminate pseudo-class](https://images.ctfassets.net/f20lfrunubsq/gR6DWzopxemgaKa4eUika/d71705c5621232e54fa902eda0e87267/radios.png)](https://images.ctfassets.net/f20lfrunubsq/gR6DWzopxemgaKa4eUika/d71705c5621232e54fa902eda0e87267/radios.png)
 
 ```
 .msg {
@@ -85,7 +85,7 @@ input:indeterminate ~ .msg {
 
 这三个属性可以确定用户选择的内容，并且使用起来非常简单。如果用户在输入字段中选择文本，则可以使用这三个属性计算所选内容。
 
-[![Input with selected characters](//images.ctfassets.net/f20lfrunubsq/pTKyzmAjwkSuMqi6wO2iA/e966e1a23477226bf9046a36645300b1/selection.png)](//images.ctfassets.net/f20lfrunubsq/pTKyzmAjwkSuMqi6wO2iA/e966e1a23477226bf9046a36645300b1/selection.png)
+[![Input with selected characters](https://images.ctfassets.net/f20lfrunubsq/pTKyzmAjwkSuMqi6wO2iA/e966e1a23477226bf9046a36645300b1/selection.png)](https://images.ctfassets.net/f20lfrunubsq/pTKyzmAjwkSuMqi6wO2iA/e966e1a23477226bf9046a36645300b1/selection.png)
 
 ```
 const input = document.querySelector('input');
