@@ -1,5 +1,5 @@
 > * 原文地址：[Streaming RNNs in TensorFlow](https://hacks.mozilla.org/2018/09/speech-recognition-deepspeech/)
-> * 原文作者：[]()
+> * 原文作者：[Reuben Morais](https://hacks.mozilla.org/author/rmoraismozilla-com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/speech-recognition-deepspeech.md](https://github.com/xitu/gold-miner/blob/master/TODO1/speech-recognition-deepspeech.md)
 > * 译者：
