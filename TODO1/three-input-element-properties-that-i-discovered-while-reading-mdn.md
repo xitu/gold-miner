@@ -15,7 +15,7 @@
 
 ## `defaultValue`
 
-这是 Dan 推文中的示例 -- HTML 代码中有一个 input 元素，该元素具有 `value` 属性（attribute）（attribute 在 HTML 代码中定义，而 property 属于 JavaScript 对象）。
+这是 Dan 推文中的示例 — HTML 代码中有一个 input 元素，该元素具有 `value` 属性（attribute）（attribute 在 HTML 代码中定义，而 property 属于 JavaScript 对象）。
 
 ```
 <input type="text" value="Hello world">
@@ -103,7 +103,7 @@ setInterval( _ => {
 
 你可以在 [CodePen](https://codepen.io/stefanjudis/pen/yxMjWe) 测试这段代码。
 
-以上是这次分享的全部内容 :)
+以上是这次分享的全部内容。 :)
 
 ### 快速简单的总结
 
