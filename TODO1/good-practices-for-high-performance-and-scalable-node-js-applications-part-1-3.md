@@ -2,8 +2,8 @@
 > * 原文作者：[virgafox](https://medium.com/@virgafox?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/good-practices-for-high-performance-and-scalable-node-js-applications-part-1-3.md](https://github.com/xitu/gold-miner/blob/master/TODO1/good-practices-for-high-performance-and-scalable-node-js-applications-part-1-3.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jianboy](https://github.com/jianboy/)
+> * 校对者：[unicar9](https://github.com/unicar9/)
 
 # Node.js 高性能和可扩展应用程序的最佳实践[第 1/3 部分]
 
