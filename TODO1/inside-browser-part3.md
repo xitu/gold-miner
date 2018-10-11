@@ -2,16 +2,16 @@
 > * 原文作者：[Mariko Kosaka](https://developers.google.com/web/resources/contributors/kosamari)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/inside-browser-part3.md](https://github.com/xitu/gold-miner/blob/master/TODO1/inside-browser-part3.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ssshooter](https://github.com/ssshooter)
+> * 校对者：[ThomasWhyne](https://github.com/ThomasWhyne) 
 
 # 现代浏览器内部揭秘（第三部分）
 
-## 渲染进程的底层机制
+## 渲染进程的内部机制
 
-这是关于浏览器工作原理博客系列四部分中的第三部分。之前，我们介绍了[多进程架构](https://github.com/xitu/gold-miner/blob/master/TODO1/inside-look-at-modern-web-browser-part1.md)和[导航流](https://github.com/xitu/gold-miner/blob/master/TODO1/inside-browser-part2.md)。在这篇文章中，我们将一探渲染进程的底层机制。
+这是关于浏览器工作原理博客系列四部分中的第三部分。之前，我们介绍了[多进程架构](https://github.com/xitu/gold-miner/blob/master/TODO1/inside-look-at-modern-web-browser-part1.md)和[导航流](https://github.com/xitu/gold-miner/blob/master/TODO1/inside-browser-part2.md)。在这篇文章中，我们将一探渲染进程的内部机制。
 
-渲染流程涉及 Web 性能的许多方面。由于渲染流程的流程太复杂，因此本文只进行概述。如果你想深入了解，可以在 [the Performance section of Web Fundamentals](https://developers.google.com/web/fundamentals/performance/why-performance-matters/) 找到相关资源。
+渲染进程涉及 Web 性能的许多方面。由于渲染进程的流程太复杂，因此本文只进行概述。如果你想深入了解，可以在 [the Performance section of Web Fundamentals](https://developers.google.com/web/fundamentals/performance/why-performance-matters/) 找到相关资源。
 
 ## 渲染进程处理网站内容
 
@@ -21,7 +21,7 @@
 
 ![Renderer process](https://developers.google.com/web/updates/images/inside-browser/part3/renderer.png)
 
-图 1：渲染进程包含主线程、工作线程、合成线程和内部栅格线程
+图 1：渲染进程内部包含主线程、工作线程、合成线程和光栅线程
 
 ## 解析（Parsing）
 
@@ -67,7 +67,7 @@ Web 开发者可以通过多种方式向浏览器发送提示，以便很好地�
 
 图 4：一个人站在一幅画前，电话线与另一个人相连
 
-布局是查找元素几何的过程。主线程遍历 DOM，计算样式并创建布局树，其中包含 x y 坐标和边界框大小等信息。布局树可能与 DOM 树结构类似，但它仅包含页面上可见内容相关的信息。如果一个元素应用了 `display：none`，那么该元素不是布局树的一部分（但 `visibility：hidden` 的元素在布局树中）。类似地，如果应用了如 `p::before{content:"Hi!"}` 的伪类，则即使它不在 DOM 中，也包含于布局树中。
+布局是计算元素几何形状的过程。主线程遍历 DOM，计算样式并创建布局树，其中包含 x y 坐标和边界框大小等信息。布局树可能与 DOM 树结构类似，但它仅包含页面上可见内容相关的信息。如果一个元素应用了 `display：none`，那么该元素不是布局树的一部分（但 `visibility：hidden` 的元素在布局树中）。类似地，如果应用了如 `p::before{content:"Hi!"}` 的伪类，则即使它不在 DOM 中，也包含于布局树中。
 
 ![layout](https://developers.google.com/web/updates/images/inside-browser/part3/layout.png)
 
@@ -137,7 +137,7 @@ CSS 可以使元素浮动到一侧、隐藏溢出的元素、更改书写方向�
 
 现在浏览器知道文档的结构、每个元素的样式、页面的几何形状和绘制顺序，它是如何绘制页面的？把这些信息转换为屏幕上的像素，我们称为光栅化。
 
-也许处理这种情况的一种简单的方法是在视口内部使用栅格部件。如果用户滚动页面，则移动光栅框架，并通过光栅化填充缺少的部分。这就是 Chrome 首次发布时处理栅格化的方式。但是，现代浏览器会运行一个更复杂的过程，我们称为合成。
+处理这种情况的一种简单的方法是，先在光栅化视窗内的画面，如果用户滚动页面，则移动光栅框，并光栅化填充缺少的部分。这就是 Chrome 首次发布时处理光栅化的方式。但是，现代浏览器会运行一个更复杂的过程，我们称为合成。
 
 ### 什么是合成
 
@@ -145,7 +145,7 @@ CSS 可以使元素浮动到一侧、隐藏溢出的元素、更改书写方向�
 
 图 15：合成处理示意动画
 
-合成是一种将页面的各个部分分层，分别栅格化，并在称为合成线程的单独线程中合成为页面的技术。如果发生滚动，由于图层已经光栅化，因此它所要做的只是合成一个新帧。动画也可以以相同的方式（移动图层和合成新帧）实现。
+合成是一种将页面的各个部分分层，分别光栅化，并在称为合成线程的单独线程中合成为页面的技术。如果发生滚动，由于图层已经光栅化，因此它所要做的只是合成一个新帧。动画也可以以相同的方式（移动图层和合成新帧）实现。
 
 你可以在 DevTools 使用 [Layers 面板](https://blog.logrocket.com/eliminate-content-repaints-with-the-new-layers-panel-in-chrome-e2c306d4d752?gi=cd6271834cea) 看看你的网站如何被分层。
 
@@ -161,7 +161,7 @@ CSS 可以使元素浮动到一侧、隐藏溢出的元素、更改书写方向�
 
 ### 主线程的光栅化和合成
 
-一旦创建了图层树并确定了绘制顺序，主线程就会将该信息提交给合成线程。接着，合成线程会光栅化每个图层。一个图层可能会跟整个页面一样大，因此合成线程将它们分块后发送到光栅线程。栅格线程栅格化每个小块后会将它们存储在显存中。
+一旦创建了图层树并确定了绘制顺序，主线程就会将该信息提交给合成线程。接着，合成线程会光栅化每个图层。一个图层可能会跟整个页面一样大，因此合成线程将它们分块后发送到光栅线程。光栅线程光栅化每个小块后会将它们存储在显存中。
 
 ![raster](https://developers.google.com/web/updates/images/inside-browser/part3/raster.png)
 
@@ -189,7 +189,7 @@ CSS 可以使元素浮动到一侧、隐藏溢出的元素、更改书写方向�
 
 ## 总结
 
-在这篇文章中，我们研究了从解析到合成的渲染管道。希望你现在已经有初步了解，可以进一步挖掘网站性能优化的更多信息。
+在这篇文章中，我们研究了渲染管道从解析到合成的整个过程，希望现在你能自主地去了解更多关于网站性能优化的信息。
 
 在本系列的下一篇也是最后一篇文章中，我们将更详细地介绍合成线程，看看当用户移动或点击鼠标时会发生什么。
 
