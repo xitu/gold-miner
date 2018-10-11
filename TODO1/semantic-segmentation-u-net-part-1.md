@@ -59,7 +59,7 @@ Data Science Bowl 2018 和往届比赛一样都是由 Booz Allen Foundation 组�
 
 ![](https://cdn-images-1.medium.com/max/800/1*dKPBgCdJx6zj3MpED3lcNA.png)
 
-图 7. Vanilla U-Net
+图 7. 原生 U-Net
 
 对于熟悉传统卷积神经网络的朋友来说，第一部分（表示为下降）的结构非常眼熟。第一部分可以称作下降或你可以认为它是编码器部分，你在这里用卷积模块处理，然后再使用最大池化下采样，将输入图像编码为不同层级的特征表示。
 
@@ -67,7 +67,7 @@ Data Science Bowl 2018 和往届比赛一样都是由 Booz Allen Foundation 组�
 
 ![](https://cdn-images-1.medium.com/max/800/1*Y5CRI3eoVsjf570nkWEcDg.png)
 
-图 7. Vanilla U-Net 张量图解
+图 7. 原生 U-Net 张量图解
 
 我们可以将在下降部分中的一个操作模块定义为“卷积 → 下采样”。
 
@@ -245,7 +245,7 @@ def nn_interpolate(A, new_size):
 
 图 8. 使用不同参数的转置卷积样例，转自 [https://github.com/vdumoulin/conv_arithmetic](https://github.com/vdumoulin/conv_arithmetic) [12]
 
-在这个 Data Science Bowl de 具体案例中，使用 U-Net 的主要缺点就是细胞核的重叠。如前图所示，创建一个二元的遮罩作为目标输出，U-Net 能够准确做出类似的预测遮罩，这样重叠或邻近的细胞核就会产生联合在一起的遮罩。
+在这个 Data Science Bowl de 具体案例中，使用原生 U-Net 的主要缺点就是细胞核的重叠。如前图所示，创建一个二元的遮罩作为目标输出，U-Net 能够准确做出类似的预测遮罩，这样重叠或邻近的细胞核就会产生联合在一起的遮罩。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ePiNH-RIVPaxNXH1WgFYVw.png)
 
@@ -282,7 +282,7 @@ Fig 9. 重叠的细胞核遮罩
 
 ### **迁移学习以及其他**
 
-目前，我们已经定义了 U-Net 的架构模块并如何转变目标以解决实例分割问题。现在我们来进一步的讨论这些类型编解码网络的灵活性。所谓灵活性，我是指在设计网络时能够拥有的自由度以及创新性。
+目前，我们已经讲解了原生 U-Net 的架构模块并如何转变目标以解决实例分割问题。现在我们来进一步的讨论这些类型编解码网络的灵活性。所谓灵活性，我是指在设计网络时能够拥有的自由度以及创新性。
 
 迁移学习是个非常给力的想法，所以使用深度学习的人都避不开它。简单来说，迁移学习就是在缺乏大规模数据集时，使用在拥有大量数据的类似任务上预先训练好的网络。即使数据足够的情况下，迁移学习也能一定程度上提升性能，而且不仅可用于计算机视觉中也对 NLP 有效。
 
