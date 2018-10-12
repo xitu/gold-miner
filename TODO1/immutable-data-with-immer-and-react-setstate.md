@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/immutable-data-with-immer-and-react-setstate.md](https://github.com/xitu/gold-miner/blob/master/TODO1/immutable-data-with-immer-and-react-setstate.md)
 > * 译者：[HaoChuan9421](https://github.com/HaoChuan9421)
-> * 校对者：
+> * 校对者：[xutaogit](https://github.com/xutaogit), [HaoChuan9421](https://github.com/HaoChuan9421)
 
 # Immer 下的不可突变数据和 React 的 setState
 
 [Immer](https://github.com/mweststrate/immer) 是为 JavaScript 不可突变性打造的一个非常棒的全新库。之前像 [Immutable.js](https://github.com/facebook/immutable-js) 这样的库，它需要引入操作你数据的所有新方法。
 
-它很不错，但是需要复杂的适配器并在 JSON 和 _不可突变_ 之间来回转换，以便在需要时与其他库一起使用。
+它很不错，但是需要复杂的适配器并在 JSON 和 **不可突变** 之间来回转换，以便在需要时与其他库一起使用。
 
 Immer 简化了这一点，你可以像往常一样使用数据和 JavaScript 对象。这意味着当你需要考虑性能并且想知道数据何时发生了变更，你可以使用三个等号来做严格的全等检查以及证明数据的确发生了变更。
 
@@ -121,7 +121,7 @@ export default App;
 
 我们像之前那样设置了我们的应用，现在我们有一个 user 对象和一个嵌套的计数器。
 
-我们将导入 `immer` 并把它的默认值赋给  `produce` 变量。在给定当前 state 时，它将帮助我们创建下一个 state。
+我们将导入 `immer` 并把它的默认值赋给 `produce` 变量。在给定当前 state 时，它将帮助我们创建下一个 state。
 
 ```
 import produce from "immer";
