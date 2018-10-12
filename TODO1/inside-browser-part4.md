@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/inside-browser-part4.md](https://github.com/xitu/gold-miner/blob/master/TODO1/inside-browser-part4.md)
 > * 译者：
-> * 校对者：  
+> * 校对者：
 
-# 现代浏览器内部揭秘(第四部分)  
+# 现代浏览器内部揭秘（第四部分）
 
 ## 当输入行为介入合成器 
 
