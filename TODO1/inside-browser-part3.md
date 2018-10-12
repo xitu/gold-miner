@@ -31,7 +31,7 @@
 
 DOM 是一个页面在浏览器内部表现，也是 Web 开发人员可以通过 JavaScript 与之交互的数据结构和 API。
 
-将 HTML 到 DOM 的解释由 [HTML Standard](https://html.spec.whatwg.org/) 规定。你可能已经注意到，将 HTML 提供给浏览器这一过程从不会引发错误。像 `Hi! <b>I'm <i>Chrome</b>!</i>` 这样的错误标记，会被理解为 `Hi! <b>I'm <i>Chrome</i></b><i>!</i>`，这是因为 HTML 规范会优雅地处理这些错误。如果你好奇这是如何做到的，可以阅读 [An introduction to error handling and strange cases in the parser](https://html.spec.whatwg.org/multipage/parsing.html#an-introduction-to-error-handling-and-strange-cases-in-the-parser) 的 HTML 规范部分。
+将 HTML 到 DOM 的解析由 [HTML Standard](https://html.spec.whatwg.org/) 规定。你可能已经注意到，将 HTML 提供给浏览器这一过程从不会引发错误。像 `Hi! <b>I'm <i>Chrome</b>!</i>` 这样的错误标记，会被理解为 `Hi! <b>I'm <i>Chrome</i></b><i>!</i>`，这是因为 HTML 规范会优雅地处理这些错误。如果你好奇这是如何做到的，可以阅读 [An introduction to error handling and strange cases in the parser](https://html.spec.whatwg.org/multipage/parsing.html#an-introduction-to-error-handling-and-strange-cases-in-the-parser) 的 HTML 规范部分。
 
 ### 子资源加载
 
@@ -51,7 +51,7 @@ Web 开发者可以通过多种方式向浏览器发送提示，以便很好地�
 
 ## 样式计算
 
-只拥有 DOM 不足以确定页面的外观，因为我们会在 CSS 中设置页面元素的样式。主线程解析 CSS 并确定每个 DOM 节点计算后的样式。这是有关基于 CSS 选择器对每个元素将哪种样式的信息，这可以在 DevTools 的 `computed` 部分中看到。
+只拥有 DOM 不足以确定页面的外观，因为我们会在 CSS 中设置页面元素的样式。主线程解析 CSS 并确定每个 DOM 节点计算后的样式。这是有关基于 CSS 选择器对每个元素应用何种样式的信息，这可以在 DevTools 的 `computed` 部分中看到。
 
 ![computed style](https://developers.google.com/web/updates/images/inside-browser/part3/computedstyle.png)
 
@@ -61,7 +61,7 @@ Web 开发者可以通过多种方式向浏览器发送提示，以便很好地�
 
 ## 布局
 
-现在，渲染进程知道每个节点的样式和文档的结构，但这不足以渲染页面。想象一下，你正试图通过手机向朋友描述一幅画：“这里有一个大红圈和一个小蓝方块”，这并不能让你的朋友了解这幅画看起来怎样。
+现在，渲染进程知道每个节点的样式和文档的结构，但这不足以渲染页面。想象一下，你正试图通过手机向朋友描述一幅画：“这里有一个大红圈和一个小蓝方块”，这并不能让你的朋友知道这幅画究竟长什么样。
 
 ![game of human fax machine](https://developers.google.com/web/updates/images/inside-browser/part3/tellgame.png)
 
@@ -157,7 +157,7 @@ CSS 可以使元素浮动到一侧、隐藏溢出的元素、更改书写方向�
 
 图 16：主线程遍历布局树生成图层树
 
-你可能想要为每个元素都分层，但是合成大量的图层 可能会比每帧都光栅化页面的刷新方式更慢，因此测量应用程序的渲染性能至关重要。有关这个主题的更多信息，请参阅 [Stick to Compositor-Only Properties and Manage Layer Count](https://developers.google.com/web/fundamentals/performance/rendering/stick-to-compositor-only-properties-and-manage-layer-count)。
+你可能想要为每个元素都分层，但是合成大量的图层可能会比每帧都光栅化页面的刷新方式更慢，因此测量应用程序的渲染性能至关重要。有关这个主题的更多信息，请参阅 [Stick to Compositor-Only Properties and Manage Layer Count](https://developers.google.com/web/fundamentals/performance/rendering/stick-to-compositor-only-properties-and-manage-layer-count)。
 
 ### 主线程的光栅化和合成
 
@@ -167,7 +167,7 @@ CSS 可以使元素浮动到一侧、隐藏溢出的元素、更改书写方向�
 
 图17：光栅线程创建分块的位图并发送到 GPU
 
-合成线程会按优先度处理不同的光栅线程，以便视窗（或附近）内的画面可以先被光栅化。图层还具有多个不同分辨率的块，可以处理放大操作等动作。
+合成线程会给不同的光栅线程设置优先级，以便视窗（或附近）内的画面可以先被光栅化。图层还具有多个不同分辨率的块，可以处理放大操作等动作。
 
 一旦块被光栅化，合成线程会收集这些块的信息（称为**绘制四边形**）创建**合成帧**。
 
