@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*dt7IyIBFHQIBwf7_aW861Q.jpeg)
 
-### 第 2 章 —— 如何使您的 Node.js 应用程序可扩展
+### 第 2 章 —— 如何使您的 Node.js 应用程序安全扩展
 
 在[上篇文章](https://medium.com/iquii/good-practices-for-high-performance-and-scalable-node-js-applications-part-1-3-bb06b6204197)中，我们学会了如何水平扩展 Node.js 应用程序。本章中，我们将讨论扩展时必须注意的事项，以便在扩展流程时防止错误发生。
 
