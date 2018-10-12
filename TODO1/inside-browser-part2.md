@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/inside-browser-part2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/inside-browser-part2.md)
 > * 译者：[CoolRice](https://github.com/CoolRice)
-> * 校对者：[ThomasWhyne](https://github.com/ThomasWhyne)
+> * 校对者：[ThomasWhyne](https://github.com/ThomasWhyne), [tian-li](https://github.com/tian-li)
 
 # 现代浏览器内部揭秘（第二部分）
 
@@ -17,9 +17,9 @@
 
 ![浏览器进程](https://developers.google.com/web/updates/images/inside-browser/part2/browserprocesses.png)
 
-图 1：顶部是浏览器 UI ，底部是拥有 UI、网络和存储线程的浏览器进程图
+图 1：顶部是浏览器 UI，底部是拥有 UI、网络和存储线程的浏览器进程图
 
-正如我们在[第1部分：CPU、GPU、内存和多进程架构](https://developers.google.com/web/updates/2018/09/inside-browser-part1)中所述，tab 外的一切都被浏览器进程处理。浏览器进程有很多线程，例如绘制浏览器按钮和输入栏的 UI 线程、处理网络栈以从因特网获取数据的网络线程、控制文件访问的存储线程等。当你在地址栏中键入 URL 时，你的输入将由浏览器进程的UI线程处理。
+正如我们在[第 1 部分：CPU、GPU、内存和多进程架构](https://developers.google.com/web/updates/2018/09/inside-browser-part1)中所述，tab 外的一切都被浏览器进程处理。浏览器进程有很多线程，例如绘制浏览器按钮和输入栏的 UI 线程、处理网络栈以从因特网获取数据的网络线程、控制文件访问的存储线程等。当你在地址栏中键入 URL 时，你的输入将由浏览器进程的 UI 线程处理。
 
 ## 一个简单导航
 
@@ -45,7 +45,7 @@
 
 ![HTTP 响应](https://developers.google.com/web/updates/images/inside-browser/part2/response.png)
 
-图 3：包含 Content-type 的响应头以及作为实际数据的 payload
+图 3：包含 Content-Type 的响应头以及作为实际数据的 payload
 
 一旦开始收到响应主体（payload），网络线程会在必要时查看数据流的前几个字节。响应报文的 Content-Type 字段会声明数据的类型，但是它有可能会丢失或者错误，所以就有了 [MIME 类型嗅探](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)来解决这个问题。这是[源码](https://cs.chromium.org/chromium/src/net/base/mime_sniffer.cc?sq=package:chromium&dr=CS&l=5)中评论的“棘手的问题”。你可以阅读注释看一下不同浏览器是怎么匹配 content-type 和 payload 的。
 
@@ -91,7 +91,7 @@
 
 简单导航已经完毕！但是用户在地址栏输入另一个 URL 会怎样呢？好吧，浏览器进程会执行相同的步骤来导航到一个不同的站点。但是在它做这个之前，它会检查当前已经渲染的站点是否关心 [`beforeunload`](https://developer.mozilla.org/en-US/docs/Web/Events/beforeunload) 事件。
 
-`beforeunload` 可以在你试图导航离开或关闭标签页时创建"离开此站点？"警告。包括你的 JavaScript 代码，所有标签页内的东西都是由渲染进程处理，所以当新的导航请求到来时，浏览器进程必须要跟当前的渲染进程核对。
+`beforeunload` 可以在你试图导航离开或关闭标签页时创建“离开此站点？”警告。包括你的 JavaScript 代码，所有标签页内的东西都是由渲染进程处理，所以当新的导航请求到来时，浏览器进程必须要跟当前的渲染进程核对。
 
 **注意：** 不要添加无条件的 `beforeunload` 处理程序。它会产生更多延迟，因为处理程序需要在导航开始之前执行。应仅在需要时添加此事件处理程序，例如如果需要警告用户他们可能会丢失他们在页面上输入的数据。
 
@@ -125,7 +125,7 @@
 
 ## 导航预加载
 
-你可以看到，如果 service worker 最终决定从网络请求数据，则浏览器进程和渲染器进程之间的往返可能会导致延迟。 [导航预加载](https://developers.google.com/web/updates/2017/02/navigation-preload)是一种通过与 service worker 启动并行加载资源来加速此过程的机制。它用一个头部来标记这些请求，允许服务器决定为这些请求发送不同的内容; 例如，只更新数据而不是完整文档。
+你可以看到，如果 service worker 最终决定从网络请求数据，则浏览器进程和渲染器进程之间的往返可能会导致延迟。[导航预加载](https://developers.google.com/web/updates/2017/02/navigation-preload)是一种通过与 service worker 启动并行加载资源来加速此过程的机制。它用一个头部来标记这些请求，允许服务器决定为这些请求发送不同的内容；例如，只更新数据而不是完整文档。
 
 ![导航预加载](https://developers.google.com/web/updates/images/inside-browser/part2/navpreload.png)
 
@@ -133,7 +133,7 @@
 
 ## 总结
 
-在这篇文章中，我们研究了导航过程中发生了什么，以及你的 Web 应用代码（例如响应头和客户端 JavaScript）如何与浏览器交互。了解浏览器通过网络获取数据的步骤，可以更容易地理解为什么开发导航预加载等API。在下一篇文章中，我们将深入探讨浏览器如何分析 HTML/CSS/JavaScript 以渲染页面。
+在这篇文章中，我们研究了导航过程中发生了什么，以及你的 Web 应用代码（例如响应头和客户端 JavaScript）如何与浏览器交互。了解浏览器通过网络获取数据的步骤，可以更容易地理解为什么开发导航预加载等 API。在下一篇文章中，我们将深入探讨浏览器如何分析 HTML/CSS/JavaScript 以渲染页面。
 
 你喜欢这篇文章吗？如果您对以后的文章有任何问题或建议，欢迎在下面的评论区或在 Twitter [@kosamari](https://twitter.com/kosamari) 上留下您的宝贵意见。
 
