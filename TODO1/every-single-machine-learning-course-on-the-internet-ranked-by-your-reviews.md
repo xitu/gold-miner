@@ -117,7 +117,7 @@ Ng 是一位有活力而又温柔的导师，而且经验丰富。他激励自�
 
 * YouTube 视频链接：https://youtu.be/e0WKJLovaZg
 
-Andrew Ng 的 [机器学习](https://www.class-central.com/mooc/835/coursera-machine-learning)课程预览视频。
+Andrew Ng 的[机器学习](https://www.class-central.com/mooc/835/coursera-machine-learning)课程预览视频。
 
 ### 一门由杰出教授讲授的常春藤大学课程
 
@@ -171,45 +171,45 @@ Eremenko 和 SuperDataScience team 最受学员爱戴的是他们有能力“把
 
 ### 比拼
 
-Our #1 pick had a weighted average rating of 4.7 out of 5 stars over 422 reviews. Let’s look at the other alternatives, sorted by descending rating. A reminder that deep learning-only courses are not included in this guide — you can find those [here](https://medium.freecodecamp.com/dive-into-deep-learning-with-these-23-online-courses-bf247d289cc0).
+我们的第一门甄选课程通过 422 条评论得到了 4.7 星的加权平均得分。我们看一下其他可选课程，以分值降序排列。再次提醒：纯粹深度学习的课程不包含在这篇指导里（那些课程可以在[这里](https://medium.freecodecamp.com/dive-into-deep-learning-with-these-23-online-courses-bf247d289cc0)查看）。
 
-[The Analytics Edge](https://www.class-central.com/mooc/1623/edx-the-analytics-edge) (Massachusetts Institute of Technology/edX): More focused on analytics in general, though it does cover several machine learning topics. Uses R. Strong narrative that leverages familiar real-world examples. Challenging. Ten to fifteen hours per week over twelve weeks. Free with a verified certificate available for purchase. It has a 4.9-star weighted average rating over 214 reviews.
+[《走近数据分析》](https://www.class-central.com/mooc/1623/edx-the-analytics-edge) （麻省理工学院于 edX）：更关注一般分析，虽然也有一些机器学习主题。使用 R 语言。使用我们熟悉的现实世界的例子进行强悍的表述。有挑战。12 周，每周 10 到 15 学时。可自愿购买经过认证的证书。有 214 条评论，加权平均得分 4.9 星。
 
 * YouTube 视频链接：https://youtu.be/1BMSOBCe07k
 
-The promo video for the fantastic MIT course on edx, [The Analytics Edge](https://www.class-central.com/mooc/1623/edx-the-analytics-edge).
+这门麻省理工学院梦幻课程的推广视频：[走近数据分析](https://www.class-central.com/mooc/1623/edx-the-analytics-edge)。
 
-[Python for Data Science and Machine Learning Bootcamp](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fpython-for-data-science-and-machine-learning-bootcamp%2F) (Jose Portilla/Udemy): Has large chunks of machine learning content, but covers the whole data science process. More of a very detailed intro to Python. Amazing course, though not ideal for the scope of this guide. 21.5 hours of on-demand video. Cost varies depending on Udemy discounts, which are frequent. It has a 4.6-star weighted average rating over 3316 reviews.
+[《数据科学和机器学习 Python 训练营》](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fpython-for-data-science-and-machine-learning-bootcamp%2F) （何塞波蒂利亚大学于 Udemy）：包含了完整数据科学流程的内容，有大块的机器学习内容。更详细的 Python 入门。优秀的课程，不过不在本文的理想教授范围。21.5 小时的按需视频。价格根据 Udemy 账户级别进行折扣，这在 Udemy 很常见。有 3316 条评论，加权平均得分 4.6 星。
 
-[Data Science and Machine Learning Bootcamp with R](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fdata-science-and-machine-learning-bootcamp-with-r%2F) (Jose Portilla/Udemy): The comments for Portilla’s above course apply here as well, except for R. 17.5 hours of on-demand video. Cost varies depending on Udemy discounts, which are frequent. It has a 4.6-star weighted average rating over 1317 reviews.
+[《数据科学和机器学习 R 训练营》](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fdata-science-and-machine-learning-bootcamp-with-r%2F)（何塞波蒂利亚大学于 Udemy）：上面对波蒂利亚大学课程的评价同样适用于此，只不过语言换成 R。17.5 小时的按需视频。 价格根据 Udemy 账户级别进行折扣，这在 Udemy 很常见。有 1317 条评论，加权平均得分 4.6 星。
 
-[Machine Learning Series](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fuser%2Flazy-programmer%2F) (Lazy Programmer Inc./Udemy): Taught by a data scientist/big data engineer/full stack software engineer with an impressive resume, Lazy Programmer currently has a series of 16 machine learning-focused courses on Udemy. In total, the courses have 5000+ ratings and almost all of them have 4.6 stars. A useful course ordering is provided in each individual course’s description. Uses Python. Cost varies depending on Udemy discounts, which are frequent.
+[《机器学习系列课程》](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fuser%2Flazy-programmer%2F)（(Lazy Programmer 公司于 Udemy）：由具有不凡工作经验的数据科学家、大数据工程师、全栈软件工程师讲授。 Lazy Programmer 目前在 Udemy 有 16 门聚焦机器学习的课程。总体上看，课程由 5000+ 评分，基本都在 4.6 星以上。每门课的描述中都有一个有用的课程排序。价格根据 Udemy 账户级别进行折扣，这在 Udemy 很常见。
 
-[Machine Learning](https://www.class-central.com/mooc/1020/udacity-machine-learning) (Georgia Tech/Udacity): A compilation of what was three separate courses: Supervised, Unsupervised and Reinforcement Learning. Part of Udacity’s Machine Learning Engineer Nanodegree and Georgia Tech’s Online Master’s Degree (OMS). Bite-sized videos, as is Udacity’s style. Friendly professors. Estimated timeline of four months. Free. It has a 4.56-star weighted average rating over 9 reviews.
+[《机器学习》](https://www.class-central.com/mooc/1020/udacity-machine-learning)（佐治亚理工学院于 Udacity）：三门独立课程组合而成：监督学习、无监督学习和强化学习。是该网站机器学习工程师 Nanodegree 和该校在线硕士学位（OMS）的一部分。一口大小的视频正是 Udacity 的风格。友好的教授们。估计 4 个月可毕业。免费。9 条评论，4.56 星。
 
-[Implementing Predictive Analytics with Spark in Azure HDInsight](https://www.class-central.com/mooc/4151/edx-implementing-predictive-analytics-with-spark-in-azure-hdinsight) (Microsoft/edX): Introduces the core concepts of machine learning and a variety of algorithms. Leverages several big data-friendly tools, including Apache Spark, Scala, and Hadoop. Uses both Python and R. Four hours per week over six weeks. Free with a verified certificate available for purchase. It has a 4.5-star weighted average rating over 6 reviews.
+[《在 Azure HDInsight 中使用 Spark 实现预测分析》](https://www.class-central.com/mooc/4151/edx-implementing-predictive-analytics-with-spark-in-azure-hdinsight)（微软与 edX）：介绍了机器学习的核心概念和一些算法。利用了一些大数据友好的工具，包括 Apache Spark、 Scala 和 Hadoop。Python 和 R 都用到了。预计 6 周，每周 4 课时。可自愿购买经过认证的证书。有 6 条评论，4.5 星。
 
-[Data Science and Machine Learning with Python — Hands On!](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fdata-science-and-machine-learning-with-python-hands-on%2F) (Frank Kane/Udemy): Uses Python. Kane has nine years of experience at Amazon and IMDb. Nine hours of on-demand video. Cost varies depending on Udemy discounts, which are frequent. It has a 4.5-star weighted average rating over 4139 reviews.
+[《使用 Python 学习数据科学和机器学习：手把手教你！》](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fdata-science-and-machine-learning-with-python-hands-on%2F)（Frank Kane 于 Udemy）：使用 Python。Kane 在亚马逊公司和 IMDb有 9 年工作经验。价格根据 Udemy 账户级别进行折扣，这在 Udemy 很常见。有 4139 条评论，4.5 星。
 
-[Scala and Spark for Big Data and Machine Learning](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fscala-and-spark-for-big-data-and-machine-learning%2F) (Jose Portilla/Udemy): “Big data” focus, specifically on implementation in Scala and Spark. Ten hours of on-demand video. Cost varies depending on Udemy discounts, which are frequent. It has a 4.5-star weighted average rating over 607 reviews.
+[用于大数据和机器学习的 Scala 和 Spark 技术](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fscala-and-spark-for-big-data-and-machine-learning%2F)（何塞波蒂利亚大学于 Udemy）：关注“大数据”，尤其是使用 Scala 和 Spark 实现。10 小时的按需视频。价格根据 Udemy 账户级别进行折扣，这在 Udemy 很常见。607 条评论，4.5 星。
 
-[Machine Learning Engineer Nanodegree](https://www.class-central.com/certificate/machine-learning-engineer-nanodegree--nd009) (Udacity): Udacity’s flagship Machine Learning program, which features a best-in-class project review system and career support. The program is a compilation of several individual Udacity courses, which are free. Co-created by Kaggle. Estimated timeline of six months. Currently costs $199 USD per month with a 50% tuition refund available for those who graduate within 12 months. It has a 4.5-star weighted average rating over 2 reviews.
+[机器学习工程师 Nanodegree](https://www.class-central.com/certificate/machine-learning-engineer-nanodegree--nd009)（Udacity）：Udacity 的旗舰机器学习课程，这种课程具有一流的项目评审系统和职业支持。该课程由几个都是免费的独立课程组成。与 Kaggle 联合创建。预计 6 个月学完。目前是每月 199 美元，12 个月之内毕业可享受 50% 的学费退款。2 条评论，4.5 星。
 
-[Learning From Data (Introductory Machine Learning)](https://www.class-central.com/mooc/1240/edx-learning-from-data-introductory-machine-learning) (California Institute of Technology/edX): Enrollment is currently closed on edX, but is also available via CalTech’s independent platform (see below). It has a 4.49-star weighted average rating over 42 reviews.
+[《从数据中学习（机器学习介绍）》](https://www.class-central.com/mooc/1240/edx-learning-from-data-introductory-machine-learning)（加州理工学院于 edX）：课程报名当前在 edX 上关闭了，不过依然可以通过 CalTech 的独立平台报名（见下面）。42 条评论，4.49 星。
 
 * YouTube 视频链接：https://youtu.be/KlP0DpiM7Lw
 
-The intro video for Caltech and Yaser Abu-Mostafa’s [Learning From Data](https://www.class-central.com/mooc/366/learning-from-data-introductory-machine-learning-course).
+Caltech 和 Yaser Abu-Mostafa 的[从数据中学习](https://www.class-central.com/mooc/366/learning-from-data-introductory-machine-learning-course)介绍视频。
 
-[Learning From Data (Introductory Machine Learning)](https://www.class-central.com/mooc/366/learning-from-data-introductory-machine-learning-course) (Yaser Abu-Mostafa/California Institute of Technology): “A real Caltech course, not a watered-down version.” Reviews note it is excellent for understanding machine learning theory. The professor, Yaser Abu-Mostafa, is popular among students and also wrote the textbook upon which this course is based. Videos are taped lectures (with lectures slides picture-in-picture) uploaded to YouTube. Homework assignments are .pdf files. The course experience for online students isn’t as polished as the top three recommendations. It has a 4.43-star weighted average rating over 7 reviews.
+[《从数据中学习（机器学习介绍）》](https://www.class-central.com/mooc/366/learning-from-data-introductory-machine-learning-course)（Yaser Abu-Mostafa 于加州理工学院）：“真正的 Caltech 课程，不是阉割版。”评论强调它在理解机器学习理论上很优秀。Yaser Abu-Mostafa 教授在学生中很流行，还写了这门课使用的教科书。上传到油管的视频是上课录音（带有 PPT 的画中画功能）。家庭作业是 PDF 文件。学生在线学习的课程体验并不如 TOP 3 推荐那么精彩。7条评论，4.43 星。
 
-[Mining Massive Datasets](https://www.class-central.com/mooc/2406/stanford-openedx-mining-massive-datasets) (Stanford University): Machine learning with a focus on “big data.” Introduces modern distributed file systems and MapReduce. Ten hours per week over seven weeks. Free. It has a 4.4-star weighted average rating over 30 reviews.
+[《海量数据集挖掘》](https://www.class-central.com/mooc/2406/stanford-openedx-mining-massive-datasets)（斯坦福大学）：关注“大数据”的机器学习课程。介绍了现代分布式文件系统和 MapReduce。7 周，每周 10 小时。免费。30 条评论，4.4 星。
 
-[AWS Machine Learning: A Complete Guide With Python](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Faws-machine-learning-a-complete-guide-with-python%2F) (Chandra Lingam/Udemy): A unique focus on cloud-based machine learning and specifically Amazon Web Services. Uses Python. Nine hours of on-demand video. Cost varies depending on Udemy discounts, which are frequent. It has a 4.4-star weighted average rating over 62 reviews.
+[《AWS 机器学习：使用 Python 的完整指导》](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Faws-machine-learning-a-complete-guide-with-python%2F)（Chandra Lingam 于 Udemy）：唯一关注基于云端的机器学习课程，尤其是 Amazon Web Service。使用 Python。9 小时按需视频。价格根据 Udemy 账户级别进行折扣，这在 Udemy 很常见。62 条评论，4.4 星。
 
-[Introduction to Machine Learning & Face Detection in Python](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fintroduction-to-machine-learning-in-python%2F) (Holczer Balazs/Udemy): Uses Python. Eight hours of on-demand video. Cost varies depending on Udemy discounts, which are frequent. It has a 4.4-star weighted average rating over 162 reviews.
+[《机器学习介绍和使用 Python 进行面部识别》](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fintroduction-to-machine-learning-in-python%2F)（Holczer Balazs 于 Udemy）：使用 Python。8 小时按需视频。价格根据 Udemy 账户级别进行折扣，这在 Udemy 很常见。162 条评论，4.4 星。
 
-[StatLearning: Statistical Learning](https://www.class-central.com/mooc/1579/stanford-openedx-statlearning-statistical-learning) (Stanford University): Based on the excellent textbook, “[An Introduction to Statistical Learning, with Applications in R](https://www.amazon.com/Introduction-Statistical-Learning-Applications-Statistics-ebook/dp/B01IBM7790)” and taught by the professors who wrote it. Reviewers note that the MOOC isn’t as good as the book, citing “thin” exercises and mediocre videos. Five hours per week over nine weeks. Free. It has a 4.35-star weighted average rating over 84 reviews.
+[《StatLearning：统计学习》](https://www.class-central.com/mooc/1579/stanford-openedx-statlearning-statistical-learning) (Stanford University): Based on the excellent textbook, “[An Introduction to Statistical Learning, with Applications in R](https://www.amazon.com/Introduction-Statistical-Learning-Applications-Statistics-ebook/dp/B01IBM7790)” and taught by the professors who wrote it. Reviewers note that the MOOC isn’t as good as the book, citing “thin” exercises and mediocre videos. Five hours per week over nine weeks. Free. It has a 4.35-star weighted average rating over 84 reviews.
 
 [Machine Learning Specialization](https://www.class-central.com/certificate/machine-learning-specialization) (University of Washington/Coursera): Great courses, but last two classes (including the capstone project) were canceled. Reviewers note that this series is more digestable (read: easier for those without strong technical backgrounds) than other top machine learning courses (e.g. Stanford’s or Caltech’s). Be aware that the series is incomplete with recommender systems, deep learning, and a summary missing. Free and paid options available. It has a 4.31-star weighted average rating over 80 reviews.
 
@@ -307,27 +307,27 @@ CMU is one of the best grad schools for studying machine learning. [Machine Lear
 
 [Machine Learning](http://www.cs.ubc.ca/~nando/540-2013/lectures.html) (Nando de Freitas/University of British Columbia): A graduate machine learning course. The comments in de Freitas’ undergraduate course (above) apply here as well.
 
-### Wrapping it Up
+### 要结束了
 
-This is the fifth of a six-piece series that covers the best online courses for launching yourself into the data science field. We covered programming in the [first article](https://medium.freecodecamp.com/if-you-want-to-learn-data-science-start-with-one-of-these-programming-classes-fb694ffe780c#.fhrn45v3c), statistics and probability in the [second article](https://medium.freecodecamp.com/if-you-want-to-learn-data-science-take-a-few-of-these-statistics-classes-9bbabab098b9#.p7pac546r), intros to data science in the [third article](https://medium.freecodecamp.com/i-ranked-all-the-best-data-science-intro-courses-based-on-thousands-of-data-points-db5dc7e3eb8e), and data visualization in the [fourth](https://medium.freecodecamp.com/an-overview-of-every-data-visualization-course-on-the-internet-9ccf24ea9c9b).
+这是我们推荐最好在线课程来让你步入数据科学领域的六部分中的第五部分。我们的[第一部分](https://medium.freecodecamp.com/if-you-want-to-learn-data-science-start-with-one-of-these-programming-classes-fb694ffe780c#.fhrn45v3c)涵盖了编程课程，[第二部分](https://medium.freecodecamp.com/if-you-want-to-learn-data-science-take-a-few-of-these-statistics-classes-9bbabab098b9#.p7pac546r)是概率统计，[第三部分](https://medium.freecodecamp.com/i-ranked-all-the-best-data-science-intro-courses-based-on-thousands-of-data-points-db5dc7e3eb8e)是数据科学入门，[第四部分](https://medium.freecodecamp.com/an-overview-of-every-data-visualization-course-on-the-internet-9ccf24ea9c9b)是数据可视化。
 
-* [**I ranked every Intro to Data Science course on the internet, based on thousands of data points**: A year ago, I dropped out of one of the best computer science programs in Canada.](https://medium.freecodecamp.com/i-ranked-all-the-best-data-science-intro-courses-based-on-thousands-of-data-points-db5dc7e3eb8e "https://medium.freecodecamp.com/i-ranked-all-the-best-data-science-intro-courses-based-on-thousands-of-data-points-db5dc7e3eb8e")
+* [**我基于数千个数据点对网络上的所有数据科学入门课程进行了排名：一年以前，我退出了加拿大最好的计算机科学课程之一。](https://medium.freecodecamp.com/i-ranked-all-the-best-data-science-intro-courses-based-on-thousands-of-data-points-db5dc7e3eb8e "https://medium.freecodecamp.com/i-ranked-all-the-best-data-science-intro-courses-based-on-thousands-of-data-points-db5dc7e3eb8e")
 
-The final piece will be a summary of those articles, plus the best online courses for other key topics such as data wrangling, databases, and even software engineering.
+最后一部分将会是前面部分的总结，加上其他主题的最好课程，如数据整理、数据库，甚至还有软件工程。
 
-If you’re looking for a complete list of Data Science online courses, you can find them on Class Central’s [Data Science and Big Data](https://www.class-central.com/subject/data-science) subject page.
+如果你在寻找数据科学在线课程的完整列表，可以来 Class Central 的[数据科学和大数据](https://www.class-central.com/subject/data-science)主题页面。
 
-If you enjoyed reading this, check out some of [Class Central](https://www.class-central.com/)’s other pieces:
+如果你读完了还欲罢不能，可以看一下 [Class Central](https://www.class-central.com/) 的其他主题：
 
-* [**Here are 250 Ivy League courses you can take online right now for free**: 250 MOOCs from Brown, Columbia, Cornell, Dartmouth, Harvard, Penn, Princeton, and Yale.](https://medium.freecodecamp.com/ivy-league-free-online-courses-a0d7ae675869 "https://medium.freecodecamp.com/ivy-league-free-online-courses-a0d7ae675869")
+* [**这里有 250 所常春藤联盟高校的在线课程现在**：250 门 MOOC 课程包括布朗大学、哥伦比亚大学、康内尔大学、达特茅斯大学、哈佛大学、b宾夕法尼亚大学、普林斯顿大学和耶鲁大学。](https://medium.freecodecamp.com/ivy-league-free-online-courses-a0d7ae675869 "https://medium.freecodecamp.com/ivy-league-free-online-courses-a0d7ae675869")
 
-* [**The 50 best free online university courses according to data**: When I launched Class Central back in November 2011, there were around 18 or so free online courses, and almost all of…](https://medium.freecodecamp.com/the-data-dont-lie-here-are-the-50-best-free-online-university-courses-of-all-time-b2d9a64edfac "https://medium.freecodecamp.com/the-data-dont-lie-here-are-the-50-best-free-online-university-courses-of-all-time-b2d9a64edfac")
+* [**根据数据统计的 50 门最好的免费在线大学课程**：当我 2011 年十一月初创 Class Central 的时候只有大约 18 门免费在线课程，几乎都来自斯坦福大学。](https://medium.freecodecamp.com/the-data-dont-lie-here-are-the-50-best-free-online-university-courses-of-all-time-b2d9a64edfac "https://medium.freecodecamp.com/the-data-dont-lie-here-are-the-50-best-free-online-university-courses-of-all-time-b2d9a64edfac")
 
-If you have suggestions for courses I missed, let me know in the responses!
+如果你对我遗漏的课程由提议，请回复我让我知道！
 
-If you found this helpful, click the 💚 so more people will see it here on Medium.
+如果你觉得有帮助，点击 💚 会让更多 Medium 板块的用户看到本文。
 
-_This is a condensed version of my_ [_original article_](https://www.class-central.com/report/best-machine-learning-courses/) _published on Class Central, where I’ve included detailed course syllabi._
+_本文是我发布在 Class Central 的_[_原始文章_](https://www.class-central.com/report/best-machine-learning-courses/)_的缩减版，原文包含了详细的课程介绍。_
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
