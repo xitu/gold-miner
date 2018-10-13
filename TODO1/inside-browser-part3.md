@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/inside-browser-part3.md](https://github.com/xitu/gold-miner/blob/master/TODO1/inside-browser-part3.md)
 > * 译者：[ssshooter](https://github.com/ssshooter)
-> * 校对者：[ThomasWhyne](https://github.com/ThomasWhyne) 
+> * 校对者：[ThomasWhyne](https://github.com/ThomasWhyne), [CoolRice](https://github.com/CoolRice)
 
 # 现代浏览器内部揭秘（第三部分）
 
@@ -17,7 +17,7 @@
 
 渲染进程负责标签页内发生的所有事情。在渲染进程中，主线程处理服务器发送到用户的大部分代码。如果你使用 web worker 或 service worker，部分 JavaScript 将由工作线程处理。合成和光栅线程也在渲染进程内运行，以高效，流畅地呈现页面。
 
-渲染进程的核心工作是将 HTML，CSS 和 JavaScript 转换为用户可以与之交互的网页。
+渲染进程的核心工作是将 HTML、CSS 和 JavaScript 转换为用户可以与之交互的网页。
 
 ![Renderer process](https://developers.google.com/web/updates/images/inside-browser/part3/renderer.png)
 
@@ -79,7 +79,7 @@ Web 开发者可以通过多种方式向浏览器发送提示，以便很好地�
 
 确定页面布局是一项很有挑战性的任务。即使是从上到下的块流这样最简单的页面布局，也必须考虑字体的大小以及换行位置，这些因素会影响段落的大小和形状，进而影响下一个段落的位置。
 
-CSS 可以使元素浮动到一侧、隐藏溢出的元素、更改书写方向。你可以想象这一阶段的任务之艰巨。Chrome 浏览器有整个工程师团队负责布局。[BlinkOn 会议的一些访谈](https://www.youtube.com/watch?v=Y5Xa4H2wtVA) 记录了他们工作的细节，有兴趣可以了解一下，挺有趣的。
+CSS 可以使元素浮动到一侧、隐藏溢出的元素、更改书写方向。你可以想象这一阶段的任务之艰巨。Chrome 浏览器有整个工程师团队负责布局。[BlinkOn 会议的一些访谈](https://www.youtube.com/watch?v=Y5Xa4H2wtVA)记录了他们工作的细节，有兴趣可以了解一下，挺有趣的。
 
 ## 绘制
 
@@ -133,7 +133,7 @@ CSS 可以使元素浮动到一侧、隐藏溢出的元素、更改书写方向�
 
 ![naive_rastering.gif](https://i.loli.net/2018/10/07/5bb9802e63e9d.gif)
 
-图14：简单光栅处理示意动画
+图 14：简单光栅处理示意动画
 
 现在浏览器知道文档的结构、每个元素的样式、页面的几何形状和绘制顺序，它是如何绘制页面的？把这些信息转换为屏幕上的像素，我们称为光栅化。
 
@@ -179,7 +179,7 @@ CSS 可以使元素浮动到一侧、隐藏溢出的元素、更改书写方向�
 
 一个绘制四边形的集合，代表一个页面的一帧。
 
-接着，合成帧通过 IPC（进程间通讯）提交给浏览器进程。此时，可以从 UI 线程或其他插件的渲染进程添加另一个合成帧 。这些合成器帧被发送到 GPU 然后在屏幕上显示。如果接收到滚动事件，合成线程会创建另一个合成帧发送到 GPU。
+接着，合成帧通过 IPC（进程间通讯）提交给浏览器进程。此时，可以从 UI 线程或其他插件的渲染进程添加另一个合成帧。这些合成器帧被发送到 GPU 然后在屏幕上显示。如果接收到滚动事件，合成线程会创建另一个合成帧发送到 GPU。
 
 ![composit](https://developers.google.com/web/updates/images/inside-browser/part3/composit.png)
 
