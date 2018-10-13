@@ -17,7 +17,7 @@ Photo by [rawpixel](https://unsplash.com/@rawpixel) via unsplash
 
 Part of my job is performing the so called “technical interviews” during which I evaluate potential candidates that are applying for a “Frontend Developer with React” position.
 
-If you’ve ever Googled “react interview questions” (or any other “\[tech\] interview questions”) you’ve probably seen countless results of “top 10 react interview questions” which are either outdated or rehash the same “what’s the difference between state and props” or “what’s virtual dom” questions.
+If you’ve ever Googled “react interview questions” (or any other “[tech] interview questions”) you’ve probably seen countless results of “top 10 react interview questions” which are either outdated or rehash the same “what’s the difference between state and props” or “what’s virtual dom” questions.
 
 Knowing answers to those questions _should not_ be the basis on which the interviewer decides to hire or not. That’s something a candidate **needs to know,** understand and implement in his daily work. If you’re a candidate being asked those questions either the person interviewing you has no tech background (a HR person or “linkedin headhunter”) or they see this as a formality.
 
@@ -35,7 +35,7 @@ Knowing what the person did at his previous work place (if he’s allowed to sha
 
 #### What’s the main selling point of React _to you._ Why did _you_ chose to go with React?
 
-I don’t expect you to mention JSX, VDOM etc. — we already get that from reading the “features” blurb on the homepage. Why did \*you\* start using React?
+I don’t expect you to mention JSX, VDOM etc. — we already get that from reading the “features” blurb on the homepage. Why did *you* start using React?
 
 Was it because of the “easy to learn, hard to master” API (which _is_ quite small when you compare it to other solutions)? Good — say that, it means you’re willing to learn new things, and learn them as you go.
 
