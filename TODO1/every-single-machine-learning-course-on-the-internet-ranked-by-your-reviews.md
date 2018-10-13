@@ -5,7 +5,7 @@
 > * 译者：[davelet](https://github.com/davelet)
 > * 校对者：
 
-# 基于留言数量的机器学习在线课程排名
+# 基于评论的机器学习在线课程排名
 
 ![](https://cdn-images-1.medium.com/max/2000/1*vBLkfW8S-ZqHb8TmNEW1XA.jpeg)
 
@@ -13,7 +13,7 @@ _Kaboompics 的_[_木头人_](https://www.pexels.com/photo/wooden-robot-6069/)
 
 一年半以前，我退出了加拿大最好的计算机科学课程之一，开始使用线上资源创建我自己的[数据科学研究生课程](https://medium.com/@davidventuri/i-dropped-out-of-school-to-create-my-own-data-science-master-s-here-s-my-curriculum-1b400dcee412#.5fwwphdqd)。我意识到只要通过edX、Coursera 和 Udacity 就能学到所有我需要的东西，而且学习得更快更高效，学费还比大学低！
 
-现在我马上就完成了！我学习了很多数据科学相关的课程而且评估了更多课程的部分内容。我知道了如何选择，也知道了什么技能对于打算成为数据分析家或者数据科学家的学员是必需的。所以我之前开始创建一个浏览驱动的用于推荐数据科学领域内各学科最好课程的指导。
+现在我马上就完成了！我学习了很多数据科学相关的课程而且评估了更多课程的部分内容。我知道了如何选择，也知道了什么技能对于打算成为数据分析家或者数据科学家的学员是必需的。所以我之前开始创建一个评论驱动的用于推荐数据科学领域内各学科最好课程的指导。
 
 在本系列的第一篇指导中我给刚入门的数据科学家们先推荐一些[编码课程](https://medium.freecodecamp.com/if-you-want-to-learn-data-science-start-with-one-of-these-programming-classes-fb694ffe780c#.42hhzxopw)，然后是[概率统计课程](https://medium.freecodecamp.com/if-you-want-to-learn-data-science-take-a-few-of-these-statistics-classes-9bbabab098b9#.p7pac546r)，然后是[数据科学概论](https://medium.freecodecamp.com/i-ranked-all-the-best-data-science-intro-courses-based-on-thousands-of-data-points-db5dc7e3eb8e)，还有[数据可视化](https://medium.freecodecamp.com/an-overview-of-every-data-visualization-course-on-the-internet-9ccf24ea9c9b)。
 
@@ -72,103 +72,104 @@ _Class Central 的_[_主页_](https://www.class-central.com/).
 
 > — Jason Brownlee，来自[掌握机器学习](http://machinelearningmastery.com/what-is-deep-learning/)
 
-As would be expected, portions of some of the machine learning courses contain deep learning content. I chose not to include deep learning-only courses, however. If you are interested in deep learning specifically, we’ve got you covered with the following [article](https://medium.freecodecamp.com/dive-into-deep-learning-with-these-23-online-courses-bf247d289cc0):
+可能你希望这样，我们的课程正好有一些包含了深度学习的内容。但我是没有选择那些只包含深度学习的课程的。如果你就是对深度学习感兴趣，我们建议你学习一下下面的[文章](https://medium.freecodecamp.com/dive-into-deep-learning-with-these-23-online-courses-bf247d289cc0)：
 
-* [Dive into Deep Learning with 12 free online courses: Every day brings new headlines for how deep learning is changing the world around us. A few examples:](https://medium.freecodecamp.com/dive-into-deep-learning-with-these-23-online-courses-bf247d289cc0 "https://medium.freecodecamp.com/dive-into-deep-learning-with-these-23-online-courses-bf247d289cc0")
+* [在线 12 课深入理解深度学习：每天都有关于深度学习如何改变我们周围世界的头条。几个例子：](https://medium.freecodecamp.com/dive-into-deep-learning-with-these-23-online-courses-bf247d289cc0 "https://medium.freecodecamp.com/dive-into-deep-learning-with-these-23-online-courses-bf247d289cc0")
 
-My top three recommendations from that list would be:
+列表里面我最推荐的 TOP 3 是：
 
-*   [**Creative Applications of Deep Learning with TensorFlow**](https://www.class-central.com/mooc/6679/kadenze-creative-applications-of-deep-learning-with-tensorflow)  _by Kadenze_
-*   [**Neural Networks for Machine Learning**](https://www.class-central.com/mooc/398/coursera-neural-networks-for-machine-learning) _by the University of Toronto (taught by Geoffrey Hinton) via Coursera_
-*   [**Deep Learning A-Z™: Hands-On Artificial Neural Networks**](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fdeeplearning%2F) _by Kirill Eremenko, Hadelin de Ponteves, and the SuperDataScience Team via Udemy_
+*   [**使用 TensorFlow 编写深度学习创意应用**](https://www.class-central.com/mooc/6679/kadenze-creative-applications-of-deep-learning-with-tensorflow)， _Kadenze_
+*   [**用于机器学习的神经网络**](https://www.class-central.com/mooc/398/coursera-neural-networks-for-machine-learning)， _多伦多大学 (Geoffrey Hinton执教) 发布于 Coursera_
+*   [**深度学习 A-Z™：手把手教你写人工神经网络**](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fdeeplearning%2F)， _Kirill Eremenko，Hadelin de Ponteves 和 SuperDataScience Team 发布于 Udemy_
 
-### Recommended prerequisites
+### 推荐的先决条件
 
-Several courses listed below ask students to have prior programming, calculus, linear algebra, and statistics experience. These prerequisites are understandable given that machine learning is an advanced discipline.
+下面列出的一些课程要求学员有编程、微积分、线性代数和统计学经验。鉴于机器学习是一门高级学科，这些先决条件是可以理解的。
 
-Missing a few subjects? Good news! Some of this experience can be acquired through our recommendations in the first two articles ([programming](https://medium.freecodecamp.com/if-you-want-to-learn-data-science-start-with-one-of-these-programming-classes-fb694ffe780c#.ld31z08y5), [statistics](https://medium.freecodecamp.com/if-you-want-to-learn-data-science-take-a-few-of-these-statistics-classes-9bbabab098b9)) of this Data Science Career Guide. Several top-ranked courses below also provide gentle calculus and linear algebra refreshers and highlight the aspects most relevant to machine learning for those less familiar.
+有些科目不懂？好消息！其中一些经验可以通过我们在头两篇关于“数据科学生涯指导”的推荐文章（[编程](https://medium.freecodecamp.com/if-you-want-to-learn-data-science-start-with-one-of-these-programming-classes-fb694ffe780c#.ld31z08y5), [统计学](https://medium.freecodecamp.com/if-you-want-to-learn-data-science-take-a-few-of-these-statistics-classes-9bbabab098b9)）中学习到。下面的几个顶级课程还提供了简单的微积分和线性代数复习，并着重突出了与那些不太熟悉的机器学习最相关的方面。
 
-### Our pick for the best machine learning course is…
+### 我们甄选的最佳机器学习课程是……
 
-*   [Machine Learning](https://www.class-central.com/mooc/835/coursera-machine-learning) (Stanford University via Coursera)
+*   [机器学习](https://www.class-central.com/mooc/835/coursera-machine-learning)，斯坦福大学发布于 Coursera
 
-Stanford University’s [Machine Learning](https://www.class-central.com/mooc/835/coursera-machine-learning) on Coursera is the clear current winner in terms of ratings, reviews, and syllabus fit. Taught by the famous Andrew Ng, Google Brain founder and former chief scientist at [Baidu](https://en.wikipedia.org/wiki/Baidu), this was the class that sparked the founding of Coursera. It has a 4.7-star weighted average rating over 422 reviews.
+斯坦福大学发布在 Coursera 的[机器学习](https://www.class-central.com/mooc/835/coursera-machine-learning)在评分、评论和大纲匹配上是目前最明确的赢家。课程由著名的 Andrew Ng 讲授，他是 Google 大脑的创始人，[百度](https://en.wikipedia.org/wiki/Baidu)的前首席科学家。这是引发 Coursera 成立的课程。它通过 422 条评论得到 4.7 星的加权平均得分。
 
-Released in 2011, it covers all aspects of the machine learning workflow. Though it has a smaller scope than the original Stanford class upon which it is based, it still manages to cover a large number of techniques and algorithms. The estimated timeline is eleven weeks, with two weeks dedicated to neural networks and deep learning. Free and paid options are available.
+这门课程发布于 2011 年，涵盖了机器学习工作流程的所有方面。尽管它比自身基于的最初的斯坦福大学课程范围小了一点，依然成功包含了大量的技术和算法。预估的时间线是 7 周，包扩两周的神经网络和深度学习。课程还提供了免费版和收费版两种选择。
 
-Ng is a dynamic yet gentle instructor with a palpable experience. He inspires confidence, especially when sharing practical implementation tips and warnings about common pitfalls. A linear algebra refresher is provided and Ng highlights the aspects of calculus most relevant to machine learning.
+Ng 是一位有活力而又温柔的导师，而且经验丰富。他激励自信，尤其是在分享实际实施技巧和常见陷阱警告的时候。他帮助学员复习线性代数并强调与机器学习最相关的微积分知识。
 
-Evaluation is automatic and is done via multiple choice quizzes that follow each lesson and programming assignments. The assignments (there are eight of them) can be completed in MATLAB or Octave, which is an open-source version of MATLAB. Ng explains his language choice:
 
-> In the past, I’ve tried to teach machine learning using a large variety of different programming languages including C++, Java, Python, NumPy, and also Octave … And what I’ve seen after having taught machine learning for almost a decade is that you learn much faster if you use Octave as your programming environment.
+评估是自动的，通过每节课后的多项选择测验和编程作业完成。这些作业（一共有八次）可以使用 MATLAB 或 Octave 完成，后者是 MATLAB 的一个开源版本。Ng 常解释他对语言的选择：
 
-Though Python and R are likely more compelling choices in 2017 with the [increased popularity of those languages](http://blog.codeeval.com/codeevalblog/2016/2/2/most-popular-coding-languages-of-2016), reviewers note that that shouldn’t stop you from taking the course.
+> 以前我总是尝试使用各种不同的语言讲授机器学习，包括 C++、Java、Python、NumPy，当然还有 Octave，等等。在我教了十年机器学习之后我发现使用 Octave 做为编程环境会让你学得最快。
 
-A few prominent reviewers noted the following:
+尽管 Python 和 R 在 2017 年有着[上升的人气](http://blog.codeeval.com/codeevalblog/2016/2/2/most-popular-coding-languages-of-2016)，似乎更引人注目，评论家们注意到那不应该阻止你学习这门课。
 
-> Of longstanding renown in the MOOC world, Stanford’s machine learning course really is the definitive introduction to this topic. The course broadly covers all of the major areas of machine learning … Prof. Ng precedes each segment with a motivating discussion and examples.
+一些着名评论家注意到以下内容：
 
-> Andrew Ng is a gifted teacher and able to explain complicated subjects in a very intuitive and clear way, including the math behind all concepts. Highly recommended.
+> 作为 MOOC 世界中长期以来的知名课程，斯坦福大学的机器学习确实是这一主题的权威介绍。该课程广泛涵盖了机器学习的所有主要领域。Ng 教授在每个部分之前都有激励性的讨论和例子。
 
-> The only problem I see with this course if that it sets the expectation bar very high for other courses.
+> Andrew Ng 是一位有天赋的老师，能够以相当直观清晰的方式解释复杂主题，包括概念后面的数学原理。强烈推荐！
+
+> 我看这门课的唯一问题是，它是否为其他课程设置了太高的期望值。
 
 ![](https://cdn-images-1.medium.com/max/800/1*viCB-ayFFQi-4Fs_NYLVVQ.png)
 
 * YouTube 视频链接：https://youtu.be/e0WKJLovaZg
 
-The preview video for Andrew Ng’s [Machine Learning](https://www.class-central.com/mooc/835/coursera-machine-learning) class.
+Andrew Ng 的 [机器学习](https://www.class-central.com/mooc/835/coursera-machine-learning)课程预览视频。
 
-### A new Ivy League introduction with a brilliant professor
+### 一门由杰出教授讲授的常春藤大学课程
 
-*   [Machine Learning](https://www.class-central.com/mooc/7231/edx-machine-learning) (Columbia University via edX)
+*   [机器学习](https://www.class-central.com/mooc/7231/edx-machine-learning) （哥伦比亚大学发布于 edX ）
 
-Columbia University’s [Machine Learning](https://www.class-central.com/mooc/7231/edx-machine-learning) is a relatively new offering that is part of their Artificial Intelligence MicroMasters on edX. Though it is newer and doesn’t have a large number of reviews, the ones that it does have are exceptionally strong. Professor John Paisley is noted as brilliant, clear, and clever. It has a 4.8-star weighted average rating over 10 reviews.
+哥伦比亚大学的[机器学习](https://www.class-central.com/mooc/7231/edx-machine-learning)是他们发布在 edX 上的《人工智能微硕士》（ Artificial Intelligence MicroMasters ）课程的一个相当新的部分（_译者注：《微硕士》课程是由 edX 推出的一系列在线研究生课程，可以用来学习职业发展的独立技能或从各自大学获得研究生同等学力证书，相当于一个完整硕士学位的学期_）。 尽管它太新了还没有太多的评论，但是已有的评论却异常给力。授课教授 John Paisley 以杰出、授课简杰、聪明而闻名。这门课程通过它的10条评论加权平均得分 4.8 星。
 
-The course also covers all aspects of the machine learning workflow and more algorithms than the above Stanford offering. Columbia’s is a more advanced introduction, with reviewers noting that students should be comfortable with the recommended prerequisites (calculus, linear algebra, statistics, probability, and coding).
+这门课程覆盖了机器学习工作流程的全部方面，而且在算法上比上面的斯坦福课程还多。哥伦比亚的课程是更加高阶的入门课程，评论中有提到说学员需要很熟悉我们前面推荐的先决条件：微积分、线性代数、统计学、概率论和编程。
 
-Quizzes (11), programming assignments (4), and a final exam are the modes of evaluation. Students can use either Python, Octave, or MATLAB to complete the assignments. The course’s total estimated timeline is eight to ten hours per week over twelve weeks. It is free with a verified certificate available for purchase.
+它的毕业评估由 11 次测验、4 次编程作业和期末考试组成。学员们可自行选择 Python、Octave 或 MATLAB 完成作业。课程的总预计时长是 12 周，每周 8 到 10 课时。 它是免费的，不过具有经过验证的学历证书可供购买。
 
-Below are a few of the aforementioned sparkling [reviews](https://www.coursetalk.com/providers/edx/courses/machine-learning-5):
+下面是一些上面提到的高质量[评论](https://www.coursetalk.com/providers/edx/courses/machine-learning-5)：
 
-> Over all my years of [being a] student I’ve come across professors who aren’t brilliant, professors who are brilliant but they don’t know how to explain the stuff clearly, and professors who are brilliant and know how explain the stuff clearly. Dr. Paisley belongs to the third group.
+> 在当学生的这些年，我经历了各种教授：不够杰出的教授、自身杰出但是授课能力一般的教授、杰出而又擅长授课的教授。Paisley 博士就属于第三种。
 
-> This is a great course … The instructor’s language is precise and that is, to my mind, one of the strongest points of the course. The lectures are of high quality and the slides are great too.
+> 这门课太棒了！老师的语言太精准了，在我看来这也是这门课最突出的亮点之一。课程质量很高，PPT 也超棒。
 
-> Dr. Paisley and his supervisor are … students of Michael Jordan, the father of machine learning. [Dr. Paisley] is the best ML professor at Columbia because of his ability to explain stuff clearly. Up to 240 students have selected his course this semester, the largest number among all professors [teaching] machine learning at Columbia.
+> Paisley 博士和他的导师都是机器学习之父迈克尔·乔丹的学生。 Paisley 博士因为授课清晰成为哥伦比亚大学最好的 ML 教授。这个学期有将近 240 个学生选他的课，这个数字是哥伦比亚大学所有讲授机器学习的教授中最大的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*q4Qa-kxC6MXFwct_9635ug.png)
 
 * YouTube 视频链接：https://youtu.be/mANw77caYSI
 
-The preview video for Columbia University’s MicroMasters on edX. The [Machine Learning](https://www.class-central.com/mooc/7231/edx-machine-learning) intro starts around 1:00.
+哥伦比亚大学发布于 edX 的《微硕士》课程预览视频。[机器学习](https://www.class-central.com/mooc/7231/edx-machine-learning)课程简介开始于大约 1:00。
 
-### A practical intro in Python & R from industry experts
+### 来自工业专家的 Python 和 R 实用简介
 
-*   [Machine Learning A-Z™: Hands-On Python & R In Data Science](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fmachinelearning%2F) (Kirill Eremenko, Hadelin de Ponteves, and the SuperDataScience Team via Udemy)
+*   [机器学习 A-Z™：手把手教你用 Python 和 R 实战数据科学](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fmachinelearning%2F) （Kirill Eremenko，Hadelin de Ponteves 和 SuperDataScience Team 发布于 Udemy）
 
-[Machine Learning A-Z™](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fmachinelearning%2F) on Udemy is an impressively detailed offering that provides instruction in _both_ Python and R, which is rare and can’t be said for any of the other top courses. It has a 4.5-star weighted average rating over 8,119 reviews, which makes it the most reviewed course of the ones considered.
+发布于 Udemy 的[机器学习 A-Z™](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fmachinelearning%2F) 是一门同时介绍了 Python 和 R 的无孔不入般详细的课程。这是罕见的，其他任何顶级课程也不会有这种评价。它的评论数是在我们推荐课程中最高的，高达 8119 条，得到 4.5 星的加权平均得分。
 
-It covers the entire machine learning workflow and an almost ridiculous (in a good way) number of algorithms through 40.5 hours of on-demand video. The course takes a more applied approach and is lighter math-wise than the above two courses. Each section starts with an “intuition” video from Eremenko that summarizes the underlying theory of the concept being taught. de Ponteves then walks through implementation with separate videos for both Python and R.
+它覆盖了全部的机器学习工作流程，还通过 40.5 小时的按需视频教程提供了数量近乎荒谬（好的那种）的算法讲解。这门课比上面两门课更实用，数学要求也低。每个部分都以 Eremenko 的“直觉”视频开始，视频中总结了将被讲授的概念中的重要理论。然后 de Ponteves 会通过一些分开的视频讲述如何通过 Python 和 R 实现出来。
 
-As a “bonus,” the course includes Python and R code templates for students to download and use on their own projects. There are quizzes and homework challenges, though these aren’t the strong points of the course.
+一个“加分项”是这门课程包含了 Python 和 R 的代码模版供学员下载以便在他们自己的项目中使用。课程也提供了测验和家庭作业挑战，不过不是这门课程的有理得分点。
 
-Eremenko and the SuperDataScience team are revered for their ability to “make the complex simple.” Also, the prerequisites listed are “just some high school mathematics,” so this course might be a better option for those daunted by the Stanford and Columbia offerings.
+Eremenko 和 SuperDataScience team 最受学员爱戴的是他们有能力“把复杂的事情搞简单”。此外，这门课程先决条件的要求也“只是一些高中数学”，所以对于被斯坦福和哥伦比亚课程难倒的学员可能是较好的选择。
 
-A few prominent reviewers [noted](https://www.udemy.com/machinelearning/#reviews) the following:
+一些突出的评论者[强调了](https://www.udemy.com/machinelearning/#reviews)以下内容：
 
-> The course is professionally produced, the sound quality is excellent, and the explanations are clear and concise … It’s an incredible value for your financial and time investment.
+> 这门课是专业出品，音质棒极了，释义也特别简洁清晰。你财力和时间的投资绝对有难以估量的回报。
 
-> It was spectacular to be able to follow the course in two different programming languages simultaneously.
+> 在一门课中同时用两种语言学习简直太壮观了.
 
-> Kirill is one of the absolute best instructors on Udemy (if not the Internet) and I recommend taking any class he teaches. … This course has a ton of content, like a ton!
+> Kirill 是 Udemy 上绝对最好的老师之一（如果不是在网上），我推荐他讲的所有课程。这门课有丰富的内容，丰富到爆！
 
 ![](https://cdn-images-1.medium.com/max/800/1*gl_KL2hhIkodQpznSzu8ZA.png)
 
 * YouTube 视频链接：https://youtu.be/JbuYJTbmYEk
 
-The preview video for [Machine Learning A-Z™](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fmachinelearning%2F).
+[机器学习 A-Z™](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fmachinelearning%2F)的预览视频。
 
-### The competition
+### 比拼
 
 Our #1 pick had a weighted average rating of 4.7 out of 5 stars over 422 reviews. Let’s look at the other alternatives, sorted by descending rating. A reminder that deep learning-only courses are not included in this guide — you can find those [here](https://medium.freecodecamp.com/dive-into-deep-learning-with-these-23-online-courses-bf247d289cc0).
 
