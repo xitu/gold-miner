@@ -2,150 +2,149 @@
 > * 原文作者：[Lin Clark](http://code-cartoons.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/making-webassembly-even-faster-firefoxs-new-streaming-and-tiering-compiler.md](https://github.com/xitu/gold-miner/blob/master/TODO1/making-webassembly-even-faster-firefoxs-new-streaming-and-tiering-compiler.md)
-> * 译者：
+> * 译者：[Sam](https://github.com/xutaogit/)
 > * 校对者：
 
-# Making WebAssembly even faster: Firefox’s new streaming and tiering compiler
+# 使 WebAssembly 更快：Firefox 的新流式和分层编译器
 
-People call WebAssembly a game changer because it makes it possible to run code on the web faster. Some of these [speedups are already present](https://hacks.mozilla.org/2017/02/what-makes-webassembly-fast/), and some are yet to come.
+人们都说 WebAssembly 是一个游戏规则改变者，因为它可以让代码更快地在网络上运行。有些[加速已经存在](https://hacks.mozilla.org/2017/02/what-makes-webassembly-fast/)，还有些在不远的将来。
 
-One of these speedups is streaming compilation, where the browser compiles the code while the code is still being downloaded. Up until now, this was just a potential future speedup. But with the release of Firefox 58 next week, it becomes a reality.
+其中一种加速是流式编译，即浏览器在代码还在下载的时候就对其进行编译。截至目前，这只是潜在的未来加速（方式）。但随着下周 Firefox 58 版本的发布，它将成为现实。
 
-Firefox 58 also includes a new 2-tiered compiler. The new baseline compiler compiles code 10–15 times faster than the optimizing compiler.
+Firefox 58 还包含两层新的编译器。新的基线编译器编译代码的速度比优化编译器快了 10-15 倍。
 
-Combined, these two changes mean we compile code faster than it comes in from the network.
+综合起来，这两个变化意味着我们编译代码的速度比从网络中编译代码速度快。
 
 [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/ezgif-5-73711fc5d3.gif)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/ezgif-5-73711fc5d3.gif)
 
-On a desktop, we compile 30-60 megabytes of WebAssembly code per second. That’s [faster than the network](http://www.speedtest.net/global-index) delivers the packets.
+在台式电脑上，我们每秒编译 30-60 兆字节的 WebAssembly 代码。这比网络传送数据包的[速度](http://www.speedtest.net/global-index)还快。
 
-If you use Firefox Nightly or Beta, you can [give it a try](https://lukewagner.github.io/test-tanks-compile-time/) on your own device. Even on a pretty average mobile device, we can compile at 8 megabytes per second —which is faster than the average download speed for pretty much any mobile network.
+如果你使用 Firefox Nightly 或者 Beta，你可以在你自己设备上[试一试](https://lukewagner.github.io/test-tanks-compile-time/)。即便是在很普通的移动设备上，我们可以每秒编译 8 兆字节 —— 这比任何移动网络的平均下载速度都要快得多。
 
-This means your code executes almost as soon as it finishes downloading.
+这意味着你的代码几乎是在它完成下载后就立即执行。
 
-### Why is this important?
+### 为什么这很重要？
 
-Web performance advocates get prickly when sites ship a lot of JavaScript. That’s because downloading lots of JavaScript makes pages load slower.
+当网站发布大批量 JavaScript 代码时，Web 性能拥护者会变得束手无策。这是因为下载大量的 JavaScript 会让页面加载变慢。
 
-This is largely because of the parse and compile times. As [Steve Souders points out](https://calendar.perfplanet.com/2017/tracking-cpu-with-long-tasks-api/), the old bottleneck for web performance used to be the network. But the new bottleneck for web performance is the CPU, and particularly the main thread.
+这很大程度是因为解析和编译时间。正如 [Steve Souder 指出](https://calendar.perfplanet.com/2017/tracking-cpu-with-long-tasks-api/)，网络性能的旧瓶颈曾是网络。但现在网络性能的新瓶颈是 CPU，特别是主线程。
 
 [![Old bottleneck, the network, on the left. New bottleneck, work on the CPU such as compiling, on the right](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/02-500x295.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/02.png)
 
-So we want to move as much work off the main thread as possible. We also want to start it as early as possible so we’re making use of all of the CPU’s time. Even better, we can do less CPU work altogether.
+所以我们想要尽可能多的把工作从主线程中移除。我们也想要尽可能早的启动它，以便我们充分利用 CPU 的所有时间。更好的是，我们可以完全减少 CPU 工作量。
 
-With JavaScript, you can do some of this. You can parse files off of the main thread, as they stream in. But you’re still parsing them, which is a lot of work, and you have to wait until they are parsed before you can start compiling. And for compiling, you’re back on the main thread. This is because JS is usually [compiled lazily](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/), at runtime.
+使用 JavaScript 时，你可以做一些这样的事情。你可以通过流入的方式在主线程外解析文件。但你还是需要解析它们，这就需要很多工作，并且你必须等到它们都解析完了才能开始编译。然后编译的时候，你又回到了主线程上。这是因为 JS 通常是运行时[延迟编译](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/)的。
 
 [![Timeline showing packets coming in on the main thread, then parsing happening simultaneously on another thread. Once parse is done, execution begins on main thread, interrupted occassionally by compiling](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/03-500x167.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/03.png)
 
-With WebAssembly, there’s less work to start with. Decoding WebAssembly is much simpler and faster than parsing JavaScript. And this decoding and the compilation can be split across multiple threads.
+使用 WebAssembly，启动的工作量减少了。解码 WebAssembly 比解析 JavaScript 更简单，更快捷。并且这些解码和编译可以跨多个线程进行拆分。
 
-This means multiple threads will be doing the baseline compilation, which makes it faster. Once it’s done, the baseline compiled code can start executing on the main thread. It won’t have to pause for compilation, like the JS does.
+这意味着多个线程将运行基线编译，这会让它变得更快。一旦完成，基线编译好的代码就可以在主线程上开始执行。它不必像 JS 代码一样暂停编译。
 
 [![Timeline showing packets coming in on the main thread, and decoding and baseline compiling happening across multiple threads simultaneously, resulting in execution starting faster and without compiling breaks.](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/04-500x202.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/04.png)
 
-While the baseline compiled code is running on the main thread, other threads work on making a more optimized version. When the more optimized version is done, it can be swapped in so the code runs even faster.
+当基线编译的代码在主线程上运行时，其他线程则在做更优化的版本。当更优化的版本完成时，它就会替换进来使得代码运行更加快捷。
 
-This changes the cost of loading WebAssembly to be more like decoding an image than loading JavaScript. And think about it… web performance advocates do get prickly about JS payloads of 150 kB, but an image payload of the same size doesn’t raise eyebrows.
+这使得加载 WebAssembly 的成本变得更像解码图片而不是加载  JavaScript。并且想想看 —— 网络性能倡导者肯定接受不了 150kB 的 JS 代码负载量，但相同大小的图像负载量并不会引起人们的注意。
 
 [![Developer advocate on the left tsk tsk-ing about large JS file. Developer advocate on the right shrugging about large image.](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/05-500x218.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/05.png)
 
-That’s because load time is so much faster with images, as Addy Osmani explains in [The Cost of JavaScript](https://medium.com/dev-channel/the-cost-of-javascript-84009f51e99e), and decoding an image doesn’t block the main thread, as Alex Russell discusses in [Can You Afford It?: Real-world Web Performance Budgets](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/).
+这是因为图像的加载时间要快得多，就像 Addy Osmani 在 [JavaScript 的成本](https://medium.com/dev-channel/the-cost-of-javascript-84009f51e99e) 中解释的那样，解码图像并不会阻塞主线程，正如 Alex Russell 在[你能接受吗？真实的 Web 性能预算](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/)中所讨论的那样。
 
-This doesn’t mean that we expect WebAssembly files to be as large as image files. While early WebAssembly tools created large files because they included lots of runtime, there’s currently a lot of work to make these files smaller. For example, Emscripten has a [“shrinking initiative”](https://github.com/kripken/emscripten/issues/5836). In Rust, you can already get pretty small file sizes using the wasm32-unknown-unknown target, and there are tools like [wasm-gc](https://github.com/alexcrichton/wasm-gc) and [wasm-snip](https://github.com/fitzgen/wasm-snip) which can optimize this even more.
+但这并不意味着我们希望 WebAssembly 文件和图像文件一样大。虽然早期的 WebAssembly 工具创建了大型的文件，是因为它们包含了很多运行时（内容），目前来看还有很多工作要做让文件变得更小。例如，Emscripten 有一个[“缩小协议”](https://github.com/kripken/emscripten/issues/5836)。在 Rust 中，你已经可以通过使用 wasm32-unknown-unknown 目标来获取相当小尺寸的文件，并且还有像 [wasm-gc](https://github.com/alexcrichton/wasm-gc) 和 [wasm-snip](https://github.com/fitzgen/wasm-snip) 这样的工具来帮助进一步优化它们。
 
-What it does mean is that these WebAssembly files will load much faster than the equivalent JavaScript.
+这就意味着这些 WebAssembly 文件的加载速度要比等量的 JavaScript 快得多。
 
-This is big. As [Yehuda Katz points out](https://twitter.com/wycats/status/942908325775077376), this is a game changer.
+这很关键。正如 [Yehuda Katz 指出](https://twitter.com/wycats/status/942908325775077376)，这是一个游戏规则改变者。
 
 [![Tweet from Yehuda Katz saying it's possible to parse and compile wasm as fast as it comes over the network.](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/06-500x444.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/06.png)
 
-So let’s look at how the new compiler works.
+所以让我们看看新编译器是怎么工作的吧。
 
-### Streaming compilation: start compiling earlier
+### 流式编译：更早开始的编译
 
-If you start compiling the code earlier, you’ll finish compiling it earlier. That’s what streaming compilation does… makes it possible to start compiling the .wasm file as soon as possible.
+如果你更早开始编译代码，你就更早完成它。这就是流式编译所做的 —— 尽可能快的开始编译 .wasm 文件。
 
-When you download a file, it doesn’t come down in one piece. Instead, it comes down in a series of packets.
+当你下载文件时，它不是单件式的。实际上，它带来的是一系列数据包。
 
-Before, as each packet in the .wasm file was being downloaded, the browser network layer would put it into an ArrayBuffer.
+之前，当 .wasm 文件中的每个包正在下载时，浏览器网络层会把它放进 ArrayBuffer（译者注：数组缓存）中。
 
 [![Packets coming in to network layer and being added to an ArrayBuffer](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/07-500x255.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/07.png)
 
-Then, once that was done, it would move that ArrayBuffer over to the Web VM (aka the JS engine). That’s when the WebAssembly compiler would start compiling.
+然后，一旦完成下载，它会将 ArrayBuffer 转移到 Web VM（也就是 JS 引擎）中。也就到了 WebAssembly 编译器要开始编译的时候。
 
 [![Network layer pushing array buffer over to compiler](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/08-500x218.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/08.png)
 
-But there’s no good reason to keep the compiler waiting. It’s technically possible to compile WebAssembly line by line. This means you should be able to start as soon as the first chunk comes in.
+但是没有充分的理由让编译器等待。从技术上讲，逐行编译 WebAssembly 是可行的。这意味着你能够在第一个块进来的时候就开始启动。
 
-So that’s what our new compiler does. It takes advantage of WebAssembly’s streaming API.
+所以这就是我们新编译器所做的。它利用了 WebAssembly 的流式 API。
 
 [![WebAssembly.instantiateStreaming call, which takes a response object with the source file. This has to be served using MIME type application/wasm.](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/09-500x132.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/09.png)
 
-If you give `WebAssembly.instantiateStreaming` a response object, the chunks will go right into the WebAssembly engine as soon as they arrive. Then the compiler can start working on the first chunk while the next one is still being downloaded.
+如果你提供给 `WebAssembly.instantiateStreaming` 一个响应的对象，则（对象）块一旦到达就会立即进入 WebAssembly 引擎。然后编译器可以开始处理第一个块，即便下一个块还在下载中。
 
 [![Packets going directly to compiler](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/10-500x248.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/10.png)
 
-Besides being able to download and compile the code in parallel, there’s another advantage to this.
+除了能够并行下载和编译代码外，它还有另外一个优势。
 
-The code section of the .wasm module comes before any data (which will go in the module’s memory object). So by streaming, the compiler can compile the code while the module’s data is still being downloaded. If your module needs a lot of data, the data can be megabytes, so this can be significant.
+.wasm 模块中的代码部分位于任何数据（它将引入到模块的内存对象）之前。因此，通过流式传输，编译器可以在模块的数据仍在下载的时候就对其进行编译。如果当你的模块需要大量的数据，且可能是兆字节的时候，这些就会显得很重要。
 
 [![File split between small code section at the top, and larger data section at the bottom](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/11-500x260.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/11.png)
 
-With streaming, we start compiling earlier. But we can also make compiling faster.
+通过流式传输，我们可以提前开始编译。而且我们同样可以更快速地进行编译。
 
-### Tier 1 baseline compiler: compile code faster
+### 第 1 层基线编译器：更快的编译代码
 
-If you want code to run fast, you need to optimize it. But performing these optimizations while you’re compiling takes time, which makes compiling the code slower. So there’s a tradeoff.
+如果你想要代码跑的快，你就需要优化它。但是当你编译时执行这些优化会花费时间，也就会让编译代码变得更慢。所以这里需要一个权衡。
 
-We can have the best of both of these worlds. If we use two compilers, we can have one that compiles quickly without too many optimizations, and another that compiles the code more slowly but creates more optimized code.
+但鱼和熊掌可以兼得。如果我们使用两个编译器，就能让其中一个快速编译但是不做过多的优化工作，而另一个虽然编译慢，但是创建了更多优化的代码。
 
-This is called a tiered compiler. When code first comes in, it’s compiled by the Tier 1 (or baseline) compiler. Then, after the baseline compiled code starts running, a Tier 2 compiler goes through the code again and compiles a more optimized version in the background.
+这就称作为层编译器。当代码第一次进入时，将由第 1 层（或基线）编译器对其编译。然后，当基线编译完成，代码开始运行之后，第 2 层编译器再一次遍历代码并在后台编译更优化的版本。
 
-Once it’s done, it hot-swaps the optimized code in for the previous baseline version. This makes the code execute faster.
+一旦它（译者注：第 2 层编译）完成，它会将优化后的代码热插拔为先前的基线版本。这使代码执行得更快。
 
 [![Timeline showing optimizing compiling happening in the background.](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/12-500x204.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/12.png)
 
-JavaScript engines have been using tiered compilers for a long time. However, JS engines will only use the Tier 2 (or optimizing) compiler when a bit of code gets “warm”… when that part of the code gets called a lot.
+JavaScript 引擎已经使用分层编译器很长一段时间了。然而，JS 引擎只在一些代码变得“温热” —— 当代码的那部分被调用太多次时，才会使用第 2 层（或优化）编译器。
 
-In contrast, the WebAssembly Tier 2 compiler will eagerly do a full recompilation, optimizing all of the code in the module. In the future, we may add more options for developers to control how eagerly or lazily optimization is done.
+相比之下，WebAssembly 的第 2 层编译器会热切地进行全面的重新编译，优化模块中的所有代码。在未来，我们可能会为开发者添加更多选项，用来控制如何进行激进的优化或者惰性的优化。
 
-This baseline compiler saves a lot of time at startup. It compiles code 10–15 times faster than the optimizing compiler. And the code it creates is, in our tests, only 2 times slower.
+基线编译器在启动时节省了大量时间。它编译代码的速度比优化编译器的快 10-15 倍。并且在我们的测试中，它创建代码的速度只慢了 2 倍。
 
-This means your code will be running pretty fast even in those first few moments, when it’s still running the baseline compiled code.
+这意味着，只要仍在运行基线编译代码，即便是在最开始的几分钟你的代码也会运行地很快。
 
-### Parallelize: make it all even faster
+### 并行化：让一切更快
 
-In the [article on Firefox Quantum](https://hacks.mozilla.org/2017/11/entering-the-quantum-era-how-firefox-got-fast-again-and-where-its-going-to-get-faster/), I explained coarse-grained and fine-grained parallelization. We use both for compiling WebAssembly.
+在[关于 Firefox Quantum 的文章](https://hacks.mozilla.org/2017/11/entering-the-quantum-era-how-firefox-got-fast-again-and-where-its-going-to-get-faster/)中，我解释了粗粒度和细粒度的并行化。我们可以用它们来编译 WebAssembly。
 
-I mentioned above that the optimizing compiler will do its compilation in the background. This means that it leaves the main thread available to execute the code. The baseline compiled version of the code can run while the optimizing compiler does its recompilation.
+我在上文有提到，优化编译器会在后台进行编译。这意味着它空出的主线程可用于执行代码。基线编译版本的代码可以在优化编译器进行重新编译时运行。
 
-But on most computers that still leaves multiple cores unused. To make the best use of all of the cores, both of the compilers use fine-grained parallelization to split up the work.
+但在大多数电脑上仍然会有多个核心没有使用。为了充分使用所有核心，两个编译器都使用细粒度并行化来拆解工作。
 
-The unit of parallelization is the function. Each function can be compiled independently, on a different core. This is so fine-grained, in fact, that we actually need to batch these functions up into larger groups of functions. These batches get sent to different cores.
+并行化的单位是功能，每个功能都可以在不同的核心上单独编译。这就是所谓的细粒度，实际上，我们需要将这些功能分批处理成更大的功能组。这些批次会被派送到不同的核心里。
 
-### … then skip all that work entirely by caching it implicitly (future work)
+### ……然后通过隐式缓存完全跳过所有工作（未来的任务）
 
-Currently, decoding and compiling are redone every time you reload the page. But if you have the same .wasm file, it should compile to the same machine code.
+目前，每次重新加载页面时都会重做解码和编译。但是如果你有相同的 .wasm 文件，它编译后都是一样的机器代码。
 
-This means that most of the time, this work could be skipped. And in the future, this is what we’ll do. We’ll decode and compile on first page load, and then cache the resulting machine code in the HTTP cache. Then when you request that URL, it will pull out the precompiled machine code.
+这意味着，很多时候这些工作都可以跳过。这些也是未来我们要做的。我们将在第一页加载时进行解码和编译，然后将生成的机器码缓存在 HTTP 缓存中。之后当你再次请求这个 URL 的时候，它会拉取预编译的机器代码。
 
-This makes load time disappear for subsequent page loads.
+这就能让后续加载页面的加载时间消失了。
 
 [![Timeline showing all work disappearing with caching.](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/13-500x217.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/13.png)
 
-The groundwork is already laid for this feature. We’re [caching JavaScript byte code like this](https://blog.mozilla.org/javascript/2017/12/12/javascript-startup-bytecode-cache/) in the Firefox 58 release. We just need to extend this support to caching the machine code for .wasm files.
+这项功能已经有了基础构建。我们在 Firefox 58 版本中[缓存了这样的 JavaScript 字节代码](https://blog.mozilla.org/javascript/2017/12/12/javascript-startup-bytecode-cache/)。我们只需扩展这种支持来缓存 .wasm 文件的机器代码。
 
-## About [Lin Clark](http://code-cartoons.com)
+## 关于[Lin Clark](http://code-cartoons.com)
 
-Lin is an engineer on the Mozilla Developer Relations team. She tinkers with JavaScript, WebAssembly, Rust, and Servo, and also draws code cartoons.
+Lin 是 Mozilla Developer Relations 团队的工程师。她致力于 JavaScript，WebAssembly，Rust 和 Servo，还会绘制代码漫画。
 
 *   [code-cartoons.com](http://code-cartoons.com)
 *   [@linclark](http://twitter.com/linclark)
 
-[More articles by Lin Clark…](https://hacks.mozilla.org/author/lclarkmozilla-com/)
+[Lin Clark 的更多文章……](https://hacks.mozilla.org/author/lclarkmozilla-com/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
