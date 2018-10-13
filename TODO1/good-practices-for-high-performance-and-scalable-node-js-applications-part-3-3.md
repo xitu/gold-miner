@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# 构建高性能和可扩展性 Node.js 应用的最佳实践（第 3/3 部分）
+# 构建高性能和可扩展性 Node.js 应用的最佳实践 [第 3/3 部分]
 
 ![](https://cdn-images-1.medium.com/max/2000/1*AyzlnTJDIfbZCxdQPp8Seg.jpeg)
 
