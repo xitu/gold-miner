@@ -5783,10 +5783,12 @@
 |[React & Redux 顶级开发伴侣](https://juejin.im/post/5acae8dc6fb9a028c06b1c4c)|校对|1|
 |[拖放库中 React 性能的优化](https://juejin.im/post/5ac31b096fb9a028bc2dedfc)|校对|3|
 
-## 译者：[Hopsken](https://github.com/Hopsken) 历史贡献积分：31.5 当前积分：26.5 年度积分：31.5
+## 译者：[Hopsken](https://github.com/Hopsken) 历史贡献积分：37.5 当前积分：31.5 年度积分：37.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[什么是模块化 CSS？](https://juejin.im/post/5bb6c5195188255c9e02e6f3)|校对|2.5|
+|[五个小技巧让你写出更好的 JavaScript 条件语句](https://juejin.im/post/5bb9e3085188255c352d7326)|翻译|3.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|10|
 |2018 年 7 月兑掘金马克杯 1 个（赠集智杯子一个），减 5 积分|减去积分|5|
 |[常见网页设计错误一览](https://juejin.im/post/5b7984265188254312414c1f)|校对|2|
@@ -5949,10 +5951,11 @@
 |[在 Google I/O 2018 观看 Flutter 的正确姿势](https://juejin.im/post/5aebd7166fb9a07ab4587b3f)|翻译|1.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|7|
 
-## 译者：[kezhenxu94](https://github.com/kezhenxu94) 历史贡献积分：43 当前积分：43 年度积分：43
+## 译者：[kezhenxu94](https://github.com/kezhenxu94) 历史贡献积分：43.5 当前积分：43.5 年度积分：43.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何使用 JavaScript ES6 有条件地构造对象](https://juejin.im/post/5bb47db76fb9a05d071953ea)|校对|0.5|
 |[深度学习中所需的线性代数知识](https://juejin.im/post/5b19d99ae51d4506d81a7a2f)|校对|1.5|
 |[一个简单的 ES6 Promises 指南](https://juejin.im/post/5b0eb3b1f265da08f31e770a)|校对|1|
 |[新的 CSS 特性正在改变网页设计](https://juejin.im/post/5b0cae8c6fb9a009de14c833)|校对|2.5|
@@ -6365,10 +6368,14 @@
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3.5|
 |[修订 The JavaScript Tutorial](https://github.com/xitu/javascript-tutorial-zh/pull/151)|修订|1|
 
-## 译者：[ssshooter](https://github.com/ssshooter) 历史贡献积分：32 当前积分：32 年度积分：32
+## 译者：[ssshooter](https://github.com/ssshooter) 历史贡献积分：54 当前积分：54 年度积分：54
 
 |文章|类型|积分|
 |------|-------|-------|
+|[什么是模块化 CSS？](https://juejin.im/post/5bb6c5195188255c9e02e6f3)|翻译|9|
+|[如何使用 JavaScript ES6 有条件地构造对象](https://juejin.im/post/5bb47db76fb9a05d071953ea)|翻译|2.5|
+|[我在阅读 MDN 时发现的 3 个 Input 元素属性](https://juejin.im/post/5bbc6f035188255c5d56b160)|翻译|3.5|
+|[现代浏览器内部揭秘（第三部分）](https://juejin.im/post/5bc29d56e51d450e9e4466cc)|翻译|7|
 |[新手开发者须知](https://juejin.im/post/5bade6a76fb9a05d32515cf0)|翻译|3|
 |[如果界面产品设计师设计实体产品](https://juejin.im/post/5baf9697e51d456f087ba2a8)|翻译|2.5|
 |[Javascript（ES6）Generator 入门](https://juejin.im/post/5b4c22aa6fb9a04faf479be1)|翻译|6|
@@ -6434,10 +6441,11 @@
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1|
 
-## 译者：[Moonliujk](https://github.com/Moonliujk) 历史贡献积分：9 当前积分：9 年度积分：9
+## 译者：[Moonliujk](https://github.com/Moonliujk) 历史贡献积分：14 当前积分：14 年度积分：14
 
 |文章|类型|积分|
 |------|-------|-------|
+|[当你创建 Flexbox 布局时，都发生了什么](https://juejin.im/post/5bb9740de51d450e782647ed)|校对|5|
 |[用 30 分钟建立一个网站的方式来学习 Bootstrap 4](https://juejin.im/post/5b5eb7b2e51d451989055d9d)|校对|3.5|
 |[无头渲染组件](https://juejin.im/post/5b5e919f51882519d3467f41)|校对|1|
 |[让我们一起解决“this”难题  —  第二部分](https://juejin.im/post/5b6915cce51d4519962f0ca7)|校对|2|
@@ -6484,10 +6492,15 @@
 |[在 Sketch 中使用一个设计体系创作: 第二部分 [教程]](https://juejin.im/post/5b5d2a456fb9a04fc80b8f4b)|翻译|2.5|
 |[在 Sketch 中使用一个设计体系创作：第一部分 [教程]](https://juejin.im/post/5b591a655188257bca290b24)|校对|0.5|
 
-## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：28.5 当前积分：28.5 年度积分：28.5
+## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：34 当前积分：34 年度积分：34
 
 |文章|类型|积分|
 |------|-------|-------|
+|[什么是模块化 CSS？](https://juejin.im/post/5bb6c5195188255c9e02e6f3)|校对|2|
+|[如何使用 JavaScript ES6 有条件地构造对象](https://juejin.im/post/5bb47db76fb9a05d071953ea)|校对|0.5|
+|[我在阅读 MDN 时发现的 3 个 Input 元素属性](https://juejin.im/post/5bbc6f035188255c5d56b160)|校对|0.5|
+|[五个小技巧让你写出更好的 JavaScript 条件语句](https://juejin.im/post/5bb9e3085188255c352d7326)|校对|0.5|
+|[为数字优先新闻编辑室开发文本编辑器](https://juejin.im/post/5bc2f8a86fb9a05d151ccba8)|校对|2|
 |[如果界面产品设计师设计实体产品](https://juejin.im/post/5baf9697e51d456f087ba2a8)|校对|0.5|
 |[探索 SMACSS：可扩展的模块化 CSS 框架](https://juejin.im/post/5ba234c85188255c38535a47)|翻译|6.5|
 |[用 Workers 让静态网站动态化](https://juejin.im/post/5b95c5375188255c6e70422a)|校对|1.5|
@@ -6599,10 +6612,12 @@
 |------|-------|-------|
 |[Slidable：一个 Flutter 的故事](https://juejin.im/post/5b5e84b86fb9a04fa91bfeb6)|校对|1.5|
 
-## 译者：[CoolRice](https://github.com/CoolRice) 历史贡献积分：27 当前积分：27 年度积分：27
+## 译者：[CoolRice](https://github.com/CoolRice) 历史贡献积分：34.5 当前积分：34.5 年度积分：34.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[现代浏览器内部揭秘（第三部分）](https://juejin.im/post/5bc29d56e51d450e9e4466cc)|校对|1.5|
+|[现代浏览器内部揭秘（第二部分）](https://juejin.im/post/5bc293cf6fb9a05ce95c8468)|翻译|6|
 |[React Profiler 介绍](https://juejin.im/post/5ba0f8e4f265da0ab915bcf2)|翻译|4|
 |[理解 JavaScript 中的执行上下文和执行栈](https://juejin.im/post/5ba32171f265da0ab719a6d7)|翻译|5|
 |[this 到底指向什么 — 理解 JavaScript 中的 this、call、apply 和 bind](https://juejin.im/post/5b9f176b6fb9a05d3827d03f)|翻译|6|
@@ -6710,10 +6725,11 @@
 |------|-------|-------|
 |[JAVASCRIPT 日期权威指南](https://juejin.im/post/5b9b4b7bf265da0af6099ed8)|校对|0.5|
 
-## 译者：[diliburong](https://github.com/diliburong) 历史贡献积分：6 当前积分：6 年度积分：6
+## 译者：[diliburong](https://github.com/diliburong) 历史贡献积分：12 当前积分：12 年度积分：12
 
 |文章|类型|积分|
 |------|-------|-------|
+|[为数字优先新闻编辑室开发文本编辑器](https://juejin.im/post/5bc2f8a86fb9a05d151ccba8)|翻译|6|
 |[下一代包管理工具](https://juejin.im/post/5ba9830fe51d450e4d2fe208)|翻译|2|
 |[另外 5 种关于视觉和认知间差异的绘画练习](https://juejin.im/post/5baa5b45f265da0ab915cb7f)|校对|1.5|
 |[在 JavaScript 中 为什么你应当使用 map 和 filter 来替代 forEach](https://juejin.im/post/5b95c4fe5188255c402ae6fb)|校对|0.5|
@@ -6743,10 +6759,11 @@
 |------|-------|-------|
 |推荐一篇优秀英文文章|奖励|1|
 
-## 译者：[linxuesia](https://github.com/linxuesia) 历史贡献积分：4 当前积分：4 年度积分：4
+## 译者：[linxuesia](https://github.com/linxuesia) 历史贡献积分：10 当前积分：10 年度积分：10
 
 |文章|类型|积分|
 |------|-------|-------|
+|[当你创建 Flexbox 布局时，都发生了什么](https://juejin.im/post/5bb9740de51d450e782647ed)|翻译|6|
 |[理解 JavaScript 中的执行上下文和执行栈](https://juejin.im/post/5ba32171f265da0ab719a6d7)|校对|2.5|
 |[以申请大学流程来解释 JavaScript 的 filter](https://juejin.im/post/5b9f09685188255c5e66d60c)|校对|1.5|
 
@@ -6781,3 +6798,24 @@
 |------|-------|-------|
 |[正确实现 linkedPurchaseToken 以避免重复订阅](https://juejin.im/post/5baf9a3e6fb9a05ce2741437)|校对|1.5|
 |[新手开发者须知](https://juejin.im/post/5bade6a76fb9a05d32515cf0)|校对|1|
+
+## 译者：[ThomasWhyne](https://github.com/ThomasWhyne) 历史贡献积分：4.5 当前积分：4.5 年度积分：4.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[五个小技巧让你写出更好的 JavaScript 条件语句](https://juejin.im/post/5bb9e3085188255c352d7326)|校对|1|
+|[现代浏览器内部揭秘（第三部分）](https://juejin.im/post/5bc29d56e51d450e9e4466cc)|校对|1.5|
+|[现代浏览器内部揭秘（第二部分）](https://juejin.im/post/5bc293cf6fb9a05ce95c8468)|校对|2|
+
+## 译者：[tian-li](https://github.com/tian-li) 历史贡献积分：6 当前积分：6 年度积分：6
+
+|文章|类型|积分|
+|------|-------|-------|
+|[当你创建 Flexbox 布局时，都发生了什么](https://juejin.im/post/5bb9740de51d450e782647ed)|校对|3|
+|[现代浏览器内部揭秘（第二部分）](https://juejin.im/post/5bc293cf6fb9a05ce95c8468)|校对|3|
+
+## 译者：[GpingFeng](https://github.com/GpingFeng) 历史贡献积分：1 当前积分：1 年度积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[我在阅读 MDN 时发现的 3 个 Input 元素属性](https://juejin.im/post/5bbc6f035188255c5d56b160)|校对|1|
