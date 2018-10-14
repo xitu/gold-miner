@@ -1,3 +1,5 @@
+* [Swift 中的惰性序列及其原理](https://juejin.im/post/5bc13f036fb9a05d28736f79) ([RickeyBoy](https://github.com/RickeyBoy) 翻译)
+* [Swift 中强大的模式匹配](https://juejin.im/post/5bbc096ce51d450e9162fd9d) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
 * [在 iOS 中使用 UITests 测试 Facebook 登录功能](https://juejin.im/post/5b90e3ae6fb9a05d00458ad8) ([LoneyIsError](https://github.com/LoneyIsError) 翻译)
 * [构建流畅的交互界面](https://juejin.im/post/5b7e2b34e51d4538843612cc) ([rydensun](https://github.com/rydensun) 翻译)
 * [2018 年 iOS 开发找工作完全指南](https://juejin.im/post/5b7eca206fb9a019ff713277) ([melon8](https://github.com/melon8) 翻译)
