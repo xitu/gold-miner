@@ -4,6 +4,8 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lazy-sequences-in-swift-and-how-they-work.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lazy-sequences-in-swift-and-how-they-work.md)
 > * 译者：[RickeyBoy](https://github.com/RickeyBoy)
 
+# Swift 中的惰性序列及其原理
+
 使用 `map` 和 `filter` 这样的高阶函数在 Swift 项目中非常常见，因为它们是简单的算法，能让你将复杂的想法转化为简单的单行函数。不幸的是，它们没能解决所有的问题 — 至少在它们的默认实现中没能解决。高阶函数是非常**急迫**的：它们使用闭包立即返回一个新的数组，不论你是否需要提前返回或者只是使用其中特定的元素。当性能很重要时，你可能被逼着写一些具体的辅助方法来避免高阶函数**急迫**的这个性质。
 
 ```
