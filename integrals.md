@@ -4445,10 +4445,11 @@
 |[如何禁用链接](https://juejin.im/post/5a240aa66fb9a0452577f06a)|校对|1|
 |[JavaScript 如何工作的: 事件循环和异步编程的崛起 + 5 个关于如何使用 async/await 编写更好的技巧](https://juejin.im/post/5a221d35f265da43356291cc)|校对|4|
 
-## 译者：[sakila1012](https://github.com/sakila1012) 历史贡献积分：36.5 当前积分：20.5 年度积分：34.5
+## 译者：[sakila1012](https://github.com/sakila1012) 历史贡献积分：37 当前积分：21 年度积分：35
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐一篇优秀英文文章|奖励|0.5|
 |[现代浏览器内部揭秘（第一部分）](https://juejin.im/post/5b9b0932e51d450e9059c16a)|校对|1.5|
 |[自然语言处理真是有趣](https://juejin.im/post/5b6d08e2f265da0f9c67cf0b)|校对|2|
 |2018 年 6 月兑掘金笔记本 2 个|减去积分|16|
@@ -6003,10 +6004,11 @@
 |------|-------|-------|
 |[使用 python 和 keras 实现卷积神经网络](https://juejin.im/post/5aefb0f351882567336aa3c7)|校对|1|
 
-## 译者：[shery](https://github.com/shery) 历史贡献积分：33 当前积分：3 年度积分：33
+## 译者：[shery](https://github.com/shery) 历史贡献积分：34 当前积分：4 年度积分：34
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐优秀英文文章|奖励|1|
 |推荐优秀英文文章|奖励|1|
 |[./dogs.html 和 /dogs.html 间有什么区别？](https://juejin.im/post/5ba7a5dfe51d450e4a1bc136)|翻译|2|
 |2018 年 9 月兑 Octoplush 1 个|减去积分|30|
@@ -6161,10 +6163,11 @@
 |------|-------|-------|
 |[为什么 VueX 是前端与 API 之间的完美接口](https://juejin.im/post/5b14d1bd6fb9a01e4508bfc1)|校对|0.5|
 
-## 译者：[maoqyhz](https://github.com/maoqyhz) 历史贡献积分：22 当前积分：22 年度积分：22
+## 译者：[maoqyhz](https://github.com/maoqyhz) 历史贡献积分：22 当前积分：7 年度积分：22
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 10 月兑掘金鼠标垫和杯子各 1 个|减去积分|15|
 |[为 GitHub 项目做出贡献的初学者指南](https://juejin.im/entry/5b2e58ba6fb9a00e4966ee4b)|校对|1.5|
 |[Kubernetes 分布式应用部署和人脸识别 app 实例](https://juejin.im/post/5b2db0576fb9a00e50313904)|翻译|10|
 |[从 Java EE 8 Security API 开始 — 第一部分](https://juejin.im/post/5b35a8d4f265da599423598b)|校对|0.5|
@@ -6326,10 +6329,11 @@
 |[如何用 Android vitals 解决应用程序的质量问题](https://juejin.im/post/5b3229a7f265da598c09dd4a)|校对|1|
 |[Android 应用和游戏的无障碍开发介绍](https://juejin.im/post/5b31ea42e51d455882380119)|校对|1|
 
-## 译者：[D-kylin](https://github.com/D-kylin) 历史贡献积分：18 当前积分：18 年度积分：18
+## 译者：[D-kylin](https://github.com/D-kylin) 历史贡献积分：18 当前积分：3 年度积分：18
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 10 月兑掘金水杯和掘金桌垫各 1 个|减去积分|15|
 |[论 Rust 和 WebAssembly 对源码地址索引的极限优化](https://juejin.im/post/5b51948a5188251ac771c064)|翻译|12.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|4|
 |[或许你并不需要 Rust 和 WASM 来提升 JS 的执行效率 — 第二部分](https://juejin.im/post/5b357c20f265da595f0d3f91)|校对|1.5|
@@ -6854,3 +6858,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[如何组织 Hacktoberfest 主题聚会](https://juejin.im/post/5bbc150be51d450e6867be7a)|校对|2|
+
+## 译者：[DerekTso](https://github.com/DerekTso) 历史贡献积分：1 当前积分：1 年度积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|推荐优秀英文文章|奖励|1|
