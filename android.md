@@ -1,3 +1,5 @@
+* [更好的数据，更明智的决策](https://juejin.im/post/5bb9af906fb9a05cf2300f6a) ([BriFuture](https://github.com/BriFuture) 翻译)
+* [如何在东南亚拓展您的应用业务](https://juejin.im/post/5bb84c0cf265da0af775305b) ([jianboy](https://github.com/jianboy) 翻译)
 * [正确实现 linkedPurchaseToken 以避免重复订阅](https://juejin.im/post/5baf9a3e6fb9a05ce2741437) ([yuwhuawang](https://github.com/yuwhuawang) 翻译)
 * [Android 的多摄像头支持](https://juejin.im/post/5b98fcf4f265da0ad13b66e0) ([luoqiuyu](https://github.com/luoqiuyu) 翻译)
 * [React Native 对 Flutter: 哪一个对创业公司更加友好？](https://juejin.im/post/5b949e5d5188255c791ae376) ([tanglie1993](https://github.com/tanglie1993) 翻译)
