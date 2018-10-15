@@ -3,21 +3,21 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/semantic-segmentation-u-net-part-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/semantic-segmentation-u-net-part-1.md)
 > * 译者：[JohnJiangLA](http://github.com/johnjiangla)
-> * 校对者：
+> * 校对者：[haiyang-tju](https://github.com/haiyang-tju)
 
-# 语义分割---U-Net（第一部分）
+# 使用 U-Net 进行语义分割（第一部分）
 
 ** 写给 6 个月前的我 **
 
-在这篇文章中，我会主要讨论语义分割这种像素分类任务和它一种的实现算法。我将对我最近处理过的一些案例做一个简单介绍。
+我将主要关注语义分割这样一种像素级别的分类任务及其特定的一种算法实现。另外我将提供一些近期一直在做的案例练习。
 
-从定义上讲，语义分割是将图像分割为连续部件的过程。例如，分割出属于个人、汽车、树或数据集中任何其他实体的像素。
+从定义上讲，语义分割是将图像分割为连续部件的过程。例如，对属于一个人、一辆车、一棵树或数据集里的任何其它实体的每个像素进行分类。
 
 **语义分割 VS 实例分割**
 
 语义分割相比与它的老哥实例分割来说容易很多。
 
-实例分割时，我们的目标不仅要对每个人，每辆车做出像素级的预测，同时还要将实体区分为 person 1、person 2、tree 1、tree 2、car 1、car 2 等等。目前最优秀的分割算法是 Mask-RCNN：一种使用 RPN（Region Proposal Network）、FPN（Feature Pyramid Network）和 FCN（Fully Convolutional Network）[5, 6, 7, 8]多子网协作的两阶段方法。
+实例分割中，我们的目标不仅要对每个人，每辆车做出像素级的预测，同时还要将实体区分为 person 1、person 2、tree 1、tree 2、car 1、car 2 等等。目前最优秀的分割算法是 Mask-RCNN：一种使用 RPN（Region Proposal Network）、FPN（Feature Pyramid Network）和 FCN（Fully Convolutional Network）[5, 6, 7, 8]多子网协作的两阶段方法。
 
 ![](https://cdn-images-1.medium.com/max/800/1*pKKYS17lOwPsreUVTak37g.png)
 
@@ -33,11 +33,11 @@ Data Science Bowl 2018 刚刚结束，在比赛中我学习到很多。其中最
 
 因为在 [Kaggle](https://www.kaggle.com/c/data-science-bowl-2018/discussion/54741) 上已经有大量对这个任务以及竞赛过程中所用方法的讨论和解释，所以我不会详尽的评述这次竞赛中的每个细节。但由于冠军方案和这篇博文的基础有关联，所以会简要讲解它。
 
-Data Science Bowl 2018 和往届比赛一样都是由 Booz Allen Foundation 组织。今年的任务是从给定的显微镜图像中识别细胞的细胞核，并为每个细胞核绘制出独立的遮罩。
+Data Science Bowl 2018 和往届比赛一样都是由 Booz Allen Foundation 组织。今年的任务是在给定的显微镜图像中识别出细胞核，并为其绘制单独的分割遮罩。
 
-现在，先化一两分钟猜下这个任务需要哪种类型的分割：语义还是实体？
+现在，先花一两分钟猜下这个任务需要哪种类型的分割：语义还是实体？
 
-这是一个样本遮罩图片和原始纤维图像。
+这是一个样本遮罩图片和原始显微图像。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Lj9cyAXoTtOnB_nM5fwMyw.png)
 
@@ -63,7 +63,7 @@ Data Science Bowl 2018 和往届比赛一样都是由 Booz Allen Foundation 组�
 
 对于熟悉传统卷积神经网络的朋友来说，第一部分（表示为下降）的结构非常眼熟。第一部分可以称作下降或你可以认为它是编码器部分，你在这里用卷积模块处理，然后再使用最大池化下采样，将输入图像编码为不同层级的特征表示。
 
-网络的第二部分则包括上采样和级联，然后是普通的卷积运算。对于一些读者来说，在 CNN 中的使用上采样可能是个新概念，但其思路很简单：扩展特征维度，以达到与左侧的相应级联块的相同大小。这里的灰色和绿色的箭头表示将两个特征映射在一起。与其他 FCN 分割网络相比，U-Net 在这方面的主要贡献在于，在上采样和深入网络过程中，我们将下采样中的高分辨率特征与上采样特征连接起来以便在后续的卷积过程中更好地定位和学习实体的表征。由于上采样是稀疏操作，我们需要在早期处理过程中获取良好的先验，以更好的表征位置信息。在 FPN（Feature Pyramidal Networks） 中也有类似的连接匹配分级的思路。
+网络的第二部分则包括上采样和级联，然后是普通的卷积运算。对于一些读者来说，在 CNN 中使用上采样可能是个新概念，但其思路很简单：扩展特征维度，以达到与左侧的相应级联块的相同大小。这里的灰色和绿色的箭头表示将两个特征映射在一起。与其他 FCN 分割网络相比，U-Net 在这方面的主要贡献在于，在上采样和深入网络过程中，我们将下采样中的高分辨率特征与上采样特征连接起来以便在后续的卷积过程中更好地定位和学习实体的表征。由于上采样是稀疏操作，我们需要在早期处理过程中获取良好的先验，以更好的表示位置信息。在 FPN（Feature Pyramidal Networks） 中也有类似的连接匹配分级的思路。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Y5CRI3eoVsjf570nkWEcDg.png)
 
@@ -112,15 +112,15 @@ out   = F.upsample(out_last, scale_factor=2, mode='bilinear')
 out   = torch.cat([down1, out], 1)
 out   = self.up4(out)
 
-# 用于最后预测的 1x1 卷积
+# 用于最后预测的 1 * 1 卷积
 final_out = self.final_conv(out)
 ```
 
 U-Net 上采样模块
 
-仔细看下结构图，你会发现输出尺寸（388 * 388）与原始输入（572*572）并不一致。如果你希望输出保持一致的尺寸，你可以使用填充卷积来保持跨级联的维度一致，
+仔细看下结构图，你会发现输出尺寸（388 * 388）与原始输入（572 * 572）并不一致。如果你希望输出保持一致的尺寸，你可以使用填充卷积来保持跨级联的维度一致，就像我们在上面的示例代码中所做的那样。
 
-当提到这种上采样时，您可能会遇到以下术语之一：转置卷积、上卷积、反卷积或上采样。很多人，包括我和PyTorch的文档编辑都不喜欢反卷积这个术语，因为在上采样阶段，我们实际上是在做常规的卷积运算，并没有字面上所谓的“反”。在进一步讨论之前，如果您不熟悉基本卷积运算及其算术，我强烈建议您访问查看[here](https://github.com/vdumoulin/conv_arithmetic/blob/master/README.md).。[12]
+当提到这种上采样时，您可能会遇到以下术语之一：转置卷积、上卷积、反卷积或上采样。很多人，包括我在内的很多人以及PyTorch技术文档都不喜欢反卷积这个术语，因为在上采样阶段，我们实际上是在做常规的卷积运算，并没有字面上所谓的“反”。在进一步讨论之前，如果你不熟悉基本卷积运算及其算术，我强烈建议你访问查看[here](https://github.com/vdumoulin/conv_arithmetic/blob/master/README.md).。[12]
 
 我将解释从简单到复杂的上采样方法。这里有三种在 PyTorch 中对二维张量进行上采样的方法：
 
@@ -133,12 +133,12 @@ U-Net 上采样模块
 ```
 def nn_interpolate(A, new_size):
     """
-    逐步实现最近邻插值 Nearest Neighbor Interpolation, Step by Step
+    逐步实现最近邻插值
     """
-    # 获取大小 get sizes
+    # 获取大小
     old_size = A.shape
     
-    # 计算扩充后的行与列 calculate row and column ratios
+    # 计算扩充后的行与列
     row_ratio, col_ratio = new_size[0]/old_size[0], new_size[1]/old_size[1]
     
     # 定义新的行与列位置 
@@ -212,7 +212,7 @@ def nn_interpolate(A, new_size):
 
 **双线性插值**
 
-双线性插值虽然计算效率不如最近邻插值，但它是一种更精确的近似算法。单个像素值由距离的所有其他值的加权平均值计算得出。
+双线性插值虽然计算效率不如最近邻插值，但它是一种更精确的近似算法。单个像素值被计算为基于距离的所有其它像素值的加权平均值。
 
 **[PyTorch]** F.upsample(…, mode = “bilinear”)
 
@@ -237,7 +237,7 @@ def nn_interpolate(A, new_size):
 
 **转置卷积**
 
-在转置卷积中，我们可以通过反向传播来学习权重。在论文中，我尝试了针对各种情况的所有上采样方法，在实践中，您可能会更改网络的体系结构，可以尝试所有这些方法，以找到最适合问题的方法。我个人更喜欢转置卷积，因为它更可控，但你可以直接使用简单的双线性插值或最近邻插值。
+在转置卷积中，我们可以通过反向传播来学习权重。在论文中，我尝试了针对各种情况的所有上采样方法，在实践中，你可能会更改网络的体系结构，可以尝试所有这些方法，以找到最适合问题的方法。我个人更喜欢转置卷积，因为它更可控，但你可以直接使用简单的双线性插值或最近邻插值。
 
 **[PyTorch]** nn.ConvTranspose2D(…, stride=…, padding=…)
 
@@ -245,7 +245,7 @@ def nn_interpolate(A, new_size):
 
 图 8. 使用不同参数的转置卷积样例，转自 [https://github.com/vdumoulin/conv_arithmetic](https://github.com/vdumoulin/conv_arithmetic) [12]
 
-在这个 Data Science Bowl de 具体案例中，使用原生 U-Net 的主要缺点就是细胞核的重叠。如前图所示，创建一个二元的遮罩作为目标输出，U-Net 能够准确做出类似的预测遮罩，这样重叠或邻近的细胞核就会产生联合在一起的遮罩。
+在这个 Data Science Bowl 的具体案例中，使用原生 U-Net 的主要缺点就是细胞核的重叠。如前图所示，创建一个二元的遮罩作为目标输出，U-Net 能够准确做出类似的预测遮罩，这样重叠或邻近的细胞核就会产生联合在一起的遮罩。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ePiNH-RIVPaxNXH1WgFYVw.png)
 
@@ -263,7 +263,7 @@ Fig 9. 重叠的细胞核遮罩
 
 解决这类问题的另一种方法是将二元的遮罩转换成复合类型的目标，这是包括获胜方案等许多竞争选手采用的一种方法。U-Net 的一个优点是可以通过在最后一层使用 1*1 卷积来构建网络以实现任意多个输出来表示多个类型。
 
-引用自 Data Science Bowl 获胜队伍：
+引用自 Data Science Bowl 获胜方案：
 
 > 目标为 2 通道遮罩使用  sigmod 激活函数的网络，即（遮罩 - 边界，边界）；目标为 3 通道遮罩使用 softmax 激活函数的网络，即（遮罩 - 边界，1 - 掩码 - 边界）
 > 2 通道全遮罩，即（遮罩，边界）
@@ -284,13 +284,13 @@ Fig 9. 重叠的细胞核遮罩
 
 目前，我们已经讲解了原生 U-Net 的架构模块并如何转变目标以解决实例分割问题。现在我们来进一步的讨论这些类型编解码网络的灵活性。所谓灵活性，我是指在设计网络时能够拥有的自由度以及创新性。
 
-迁移学习是个非常给力的想法，所以使用深度学习的人都避不开它。简单来说，迁移学习就是在缺乏大规模数据集时，使用在拥有大量数据的类似任务上预先训练好的网络。即使数据足够的情况下，迁移学习也能一定程度上提升性能，而且不仅可用于计算机视觉中也对 NLP 有效。
+迁移学习是个非常给力的想法，所以使用深度学习的人都避不开它。简单来说，迁移学习就是在缺乏大规模数据集时，使用在拥有大量数据的类似任务上预先训练好的网络。即使数据足够的情况下，迁移学习也能一定程度上提升性能，而且不仅可用于计算机视觉中，同时对 NLP 也有效。
 
 迁移学习对类似 U-Net 的体系来说也是一种强力的技术。我们之前已经定义了 U-Net 中两个重要的组成部分：上采样和下采样。这里我们将它们理解为编码器和解码器。编码器接受输入并将其编码到一个低维特征空间，这就将输入用更低维度表征。那么试想如果用你理想的 ImageNet 替代这个编码器，比如： VGG， ResNet， Inception， NasNet 等任何你想要的。这些经过高度设计的网络都是在完成一件事：以尽可能优秀的方式对自然图像进行编码，并且 ImageNet 上可以在线获取它们的预训练权值模型。
 
 因此，为什么不使用它们其中一种架构作为我们的编码器，再构建一个解码器，这将与原先的 U-Net 一样可用，但更好，更生猛。
 
-TernausNet 是 [KaggleVagle Carvana](https：//www.kaggle.com/c/carvana-image-masking-challenge) 挑战的获胜架构，它就使用相同的思路，以 VGG11 作为编码器。[15、16]
+TernausNet 是 [KaggleVagle Carvana](https：//www.kaggle.com/c/carvana-image-masking-challenge) 挑战的获胜方案的网络架构，它就使用相同的思路，以 VGG11 作为编码器。[15、16]
 
 ![](https://cdn-images-1.medium.com/max/800/1*mqdUlED6AuhZGip7Ov1o-g.png)
 
@@ -302,9 +302,9 @@ Vladimir Iglovikov 和 Alexey Shvets 的 TernausNet
 
 动态 U-Net 就是这个想法的实现，它能够完成所有的计算和匹配，自动地为任何给定的编码器创建解码器。编码器既可以是现成的预训练的网络，也可以是自定义的网络体系结构。
 
-它使用 PyTorch 编写，目前在 Fast.ai 库中。您可以参考这个 [文档](https://github.com/KeremTurgutlu/deeplearning/blob/master/datasciencebowl2018/FASTAI%20-%20DSBOWL%202018.ipynb) 来查看实践样例或查看[源码](https：//github.com/fastai/blob/master/fastai/models/unet.py)。动态 U-Net 的主要目标是节省开发时间，以实现用尽可能少的代码更简易地对不同的编码器进行实验。
+它使用 PyTorch 编写，目前在 Fast.ai 库中。可以参考这个 [文档](https://github.com/KeremTurgutlu/deeplearning/blob/master/datasciencebowl2018/FASTAI%20-%20DSBOWL%202018.ipynb) 来查看实践样例或查看[源码](https：//github.com/fastai/blob/master/fastai/models/unet.py)。动态 U-Net 的主要目标是节省开发时间，以实现用尽可能少的代码更简易地对不同的编码器进行实验。
 
-在第2部分中，我将解释三维数据的 3D 编码器解码器模型，例如 MRI（核磁共振成像） 扫描图像，并给出我一直在研究的现实案例。
+在第2部分中，我将解释针对三维数据的编码器解码器模型，例如 MRI（核磁共振成像） 扫描图像，并给出我一直在研究的现实案例。
 
 **参考文献**
 
