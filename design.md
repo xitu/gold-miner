@@ -1,3 +1,4 @@
+* [白雪公主如何帮助 Airbnb 证明在设计中最重要的技能是讲故事](https://juejin.im/post/5bb22bc1f265da0a9e53200b) ([CoolRice](https://github.com/CoolRice) 翻译)
 * [如何创建一个设计体系来赋能团队 —— 关注人，而非像素](https://juejin.im/post/5bac2a2fe51d450e942f4853) ([pmwangyang](https://github.com/pmwangyang) 翻译)
 * [另外 5 种关于视觉和认知间差异的绘画练习](https://juejin.im/post/5baa5b45f265da0ab915cb7f) ([Ruixi](https://github.com/Ruixi) 翻译)
 * [构建未来的设计生态系统](https://juejin.im/post/5b992be8f265da0aa3591346) ([MeFelixWang](https://github.com/MeFelixWang) 翻译)
