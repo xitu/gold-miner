@@ -49,13 +49,13 @@ document.body.addEventListener('touchstart',  event => {
 });
 ```
 
-因为在所有的元素上仅需设置一个事件处理，所以这样功效会吸人很多人去使用事件代理模式。然而，如果从浏览器的角度去考量，这等于把整个页面都标记成了 '非快速滚动区'，意味着即便你设计的应用本不必理会页面上一些区域的输入行为，合成线程也必须在每次输入事件产生后与主线程通信并等待结果。如此则得不偿失，使原本能保障页面滚动流畅的合成器无用武之地。
+因为在所有的元素上仅需设置一个事件处理，所以这样的功效会吸引很多人去使用事件代理模式。然而，如果站在浏览器的角度去考量，这等于把整个页面都标记成了 '非快速滚动区'，意味着即便你设计的应用本不必理会页面上一些区域的输入行为，合成线程也必须在每次输入事件产生后与主线程通信并等待结果。如此则得不偿失，使原本能保障页面滚动流畅的合成器无用武之地。
 
 ![full page non fast scrollable region](https://developers.google.com/web/updates/images/inside-browser/part4/nfsr2.png)
 
 图4:非快速滚动区覆盖整个页面下的输入描述示意图
 
-为了从一开始便削减这种负面效应，你可以给事件监听添加一个 [`passive:true` 选项](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Improving_scrolling_performance_with_passive_listeners) 。这会提示浏览器你想在主线程中继续监听事件，但合成器不必停滞，可继续创建新的合成帧。
+为了从一开始便削减这种负面效应，你可以给事件监听添加一个 [`passive:true` 选项](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Improving_scrolling_performance_with_passive_listeners) 。这会提示浏览器你想在主线程中继续监听事件，但合成器不必停滞等候，可继续创建新的合成帧。
 
 ```
 document.body.addEventListener('touchstart', event => {
@@ -110,7 +110,7 @@ document.body.addEventListener('pointermove', event => {
 
 ![unfiltered events](https://developers.google.com/web/updates/images/inside-browser/part4/rawevents.png)
 
-图7:大量事件涌入合成帧时间轴会造成页面卡顿
+图7:大量事件涌入合成帧时间轴会造成页面闪烁
 
 为了降低往主线程中传递的大量调用， Chrome 会聚结这些连续事件(如：`wheel`, `mousewheel`, `mousemove`, `poitermove`, `touchmove` 等)，并将其延迟至下一次 `requestAnimationFrame` 前发送。 
 
