@@ -2,77 +2,77 @@
 > * 原文作者：[Kerem Turgutlu](https://medium.com/@keremturgutlu?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/semantic-segmentation-u-net-part-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/semantic-segmentation-u-net-part-1.md)
-> * 译者：
-> * 校对者：
+> * 译者：[JohnJiangLA](http://github.com/johnjiangla)
+> * 校对者：[haiyang-tju](https://github.com/haiyang-tju)
 
-# Semantic Segmentation — U-Net (Part 1)
+# 使用 U-Net 进行语义分割（第一部分）
 
-_Here again writing to my 6 months ago self…_
+** 写给 6 个月前的我 **
 
-In this post I will mainly be focusing on semantic segmentation, a pixel-wise classification task and a particular algorithm for it. I will be providing a walk-through on some of the cases I had and have been working on lately.
+我将主要关注语义分割这样一种像素级别的分类任务及其特定的一种算法实现。另外我将提供一些近期一直在做的案例练习。
 
-By definition, semantic segmentation is the partition of an image into coherent parts. For example classifying each pixel that belongs to a person, a car, a tree or any other entity in our dataset.
+从定义上讲，语义分割是将图像分割为连续部件的过程。例如，对属于一个人、一辆车、一棵树或数据集里的任何其它实体的每个像素进行分类。
 
-**Semantic Segmentation vs. Instance Segmentation**
+**语义分割 VS 实例分割**
 
-Semantic segmentation is relatively easier compared to it’s big brother, instance segmentation.
+语义分割相比与它的老哥实例分割来说容易很多。
 
-In instance segmentation, our goal is to not only make pixel-wise predictions for every person, car or tree but also to identify each entity separately as person 1, person 2, tree 1, tree 2, car 1, car 2, car 3 and so on. Current state of the art algorithm for instance segmentation is Mask-RCNN: a two-stage approach with multiple sub-networks working together: RPN (Region Proposal Network), FPN (Feature Pyramid Network) and FCN (Fully Convolutional Network) [5, 6, 7, 8].
+实例分割中，我们的目标不仅要对每个人，每辆车做出像素级的预测，同时还要将实体区分为 person 1、person 2、tree 1、tree 2、car 1、car 2 等等。目前最优秀的分割算法是 Mask-RCNN：一种使用 RPN（Region Proposal Network）、FPN（Feature Pyramid Network）和 FCN（Fully Convolutional Network）[5, 6, 7, 8]多子网协作的两阶段方法。
 
 ![](https://cdn-images-1.medium.com/max/800/1*pKKYS17lOwPsreUVTak37g.png)
 
-Fig 4. Semantic Segmentation
+图 4. 语义分割
 
 ![](https://cdn-images-1.medium.com/max/800/1*C90jdvqH1-Kc67wEYwtFLQ.png)
 
-Fig 5. Instance Segmentation
+图 5. 实例分割
 
-### Case Study: Data Science Bowl 2018
+### 研究案例：Data Science Bowl 2018
 
-Data Science Bowl 2018 just ended and I’ve learned a lot from it. Maybe the most important lesson I learned was, even with deep learning, a more automated technique compared to traditional ML, pre and post processing might be crucial to get good results. Those are important skills for a practitioner to obtain and they define the way you structure and model the problem.
+Data Science Bowl 2018 刚刚结束，在比赛中我学习到很多。其中最重要的一点可能就是，即使有了相较于传统机器学习自动化程度更高的深度学习，预处理与后处理可能才是取得优异成绩的关键。这些都是从业人员需要掌握的重要技能，它们决定了为问题搭建网络结构与模型化的方式。
 
-I will not go through every little detail and explanation about this particular competition since there is great amount of discussion and explanation on both the task itself and the methods used throughout the competition [here](https://www.kaggle.com/c/data-science-bowl-2018/discussion/54741) . But I will briefly mention the winning solution as it is related to the foundations of this post. [13]
+因为在 [Kaggle](https://www.kaggle.com/c/data-science-bowl-2018/discussion/54741) 上已经有大量对这个任务以及竞赛过程中所用方法的讨论和解释，所以我不会详尽的评述这次竞赛中的每个细节。但由于冠军方案和这篇博文的基础有关联，所以会简要讲解它。
 
-Data Science Bowl 2018 just like other Data Science Bowls in the past was organized by Booz Allen Foundation. This year’s task was to identify nuclei of cells in a given microscopy image and to provide masks for each nucleus independently.
+Data Science Bowl 2018 和往届比赛一样都是由 Booz Allen Foundation 组织。今年的任务是在给定的显微镜图像中识别出细胞核，并为其绘制单独的分割遮罩。
 
-Now, take a moment or two to guess which type of segmentation this task demands; semantic or instance ?
+现在，先花一两分钟猜下这个任务需要哪种类型的分割：语义还是实体？
 
-Here is a sample masked image and it’s raw microscopy image.
+这是一个样本遮罩图片和原始显微图像。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Lj9cyAXoTtOnB_nM5fwMyw.png)
 
-Fig 6. Masked Nuclei (left) and Original Image (right)
+图 6. 细胞核遮罩（左）和原始图像（右）
 
-Even though it may sound like a semantic segmentation task at first, the task here is instance segmentation. We need to treat each nucleus in the image independently and identify them as nuclei 1, nuclei 2, nuclei 3, … similar to the example we had for car 1, car 2, person 1 and so on. Perhaps the motivation for this task is to track the sizes, the counts and the characteristics of nuclei from a cell sample over time. It is very important to automate this tracking process and further speed up the experimentation of running on different treatments for curing various diseases.
+尽管这个任务起初听起来像是个语义分割任务，但其实需要实例分割。我们需要独立地处理图像中的每个核，并将它们识别为 nuclei 1、nuclei 2、nuclei 3 等等，这就类似于前面那个实例中的 Car 1、Car 2、Person 1 等等。也许这项任务的动机是跟踪记录细胞样本中细胞核的大小、数量和特征。这样的自动化跟踪记录过程非常重要，有助于进一步加速各种疾病治疗实验的研究进程。
 
-Now, you may think that if this article is about semantic segmentation and if Data Science Bowl 2018 is an example of instance segmentation task, then why am I keep talking about this particular competition. If you are thinking about this, then you are definitely right and indeed the end goal for this competition was not an example for semantic segmentation. But as we will keep going you will see how you can actually turn this instance segmentation problem into a multiclass semantic segmentation task. This was the approach that I’ve tried but failed in practice but also turned out to be the high level motivation for the winning solution too.
+你现在可能想，如果这篇文章是关于语义分割的，但如果 Data Science Bowl 2018 是实例分割任务样例，那么我为什么一直要讨论这个特定的比赛。如果你在考虑这些，绝对是正确，这次比赛的最终目标并不能作为语义分割的样例。但是，如何将这个实例分割问题转化为多分类的语义分割任务。这是我尝试过的方法，虽然在实践过程中失败了但是也对最后成功有一定帮助。
 
-During this 3 months of period of the competition there were only two models (or variants of them) which were shared or at least explicitly discussed throughout the forums; Mask-RCNN and U-Net. As I’ve mentioned earlier Mask-RCNN is the state-of-the-art algorithm for object detection which detects individual objects and predicts their masks, as in instance segmentation. Mask-RCNN’s implementation and training is harder since it employs a two-stage learning approach, where you first optimize for an RPN (Region Proposal Network) and then predict bounding boxes, classes and masks simultaneously.
+在这三个月的竞赛中，在整个论坛中分享或至少明确讨论的只有两种模型（或它们的变体）：Mask-RCNN 和 U-Net。正如前面所述，Mask-RCNN 是目前最优秀的对象检测算法，它同实例分割中一样能检测出单个对象并预测它们的遮罩。但由于 Mask-RCNN 使用了两阶段的方式，需要先优化一个 RPN（Region Proposal Network）然后同时预测边界框、类别和遮罩，所以部署与训练都会非常困难。
 
-On the other hand U-Net is a very popular end-to-end encoder-decoder network for semantic segmentation [9]. It was originally invented and first used for biomedical image segmentation, a very similar task we had for Data Science Bowl. There was no silver bullet in the competition, and none of these two architectures alone without post or pre-processing or any minor tweaks in architectural design proved to have a top score. I didn’t have the chance to try Mask-RCNN for this competition, so I kept my experiments around U-Net and learned a lot about it.
+另一方面，U-Net 是种非常流行的用于语义分割的端到端编解码网络[9]。最初它也是创建并应用在生物医学图像分割领域，和这次 Data Science Bowl 非常类似的任务。在这种竞赛中没有银弹，这两种架构如果不做后处理或预处理亦或结构上细微的调整，都不能得到较好的预测值。我在这次比赛中并没有机会尝试 Mask-RCNN，所以我就围绕着 U-Net 进行试验，学习到很多东西。
 
-Also, since our topic is semantic segmentation I will leave Mask-RCNN to other blog posts out there to explain. But if you still insist to try them in your own CV applications, here are two popular github repositories with implementations in [Tensorflow](https://github.com/matterport/Mask_RCNN) and [PyTorch](https://github.com/multimodallearning/pytorch-mask-rcnn). [10, 11]
+另外，由于我们的主题是语义分割，Mask-RCNN 就留给其他博客来解释。但如果你想在自己的 CV 应用上尝试它们，这里有两个已实现功能并受欢迎的 github 库：[Tensorflow](https://github.com/matterport/Mask_RCNN) 和 [PyTorch](https://github.com/multimodallearning/pytorch-mask-rcnn)。[10, 11]
 
-Now, we may continue with U-Net and dive deeper into it’s details...
+现在，我们继续讲解 U-Net，并深入研究它的细节...
 
-Here is the architecture for start:
+下面先以它的体系结构开始：
 
 ![](https://cdn-images-1.medium.com/max/800/1*dKPBgCdJx6zj3MpED3lcNA.png)
 
-Fig 7. Vanilla U-Net
+图 7. 原生 U-Net
 
-For those who are familiar with traditional convolutional neural networks first part (denoted as DOWN) of the architecture will be familiar. This first part is called down or you may think it as the encoder part where you apply convolution blocks followed by a maxpool downsampling to encode the input image into feature representations at multiple different levels.
+对于熟悉传统卷积神经网络的朋友来说，第一部分（表示为下降）的结构非常眼熟。第一部分可以称作下降或你可以认为它是编码器部分，你在这里用卷积模块处理，然后再使用最大池化下采样，将输入图像编码为不同层级的特征表示。
 
-The second part of the network consists of upsample and concatenation followed by regular convolution operations. Upsampling in CNNs may be a new concept to some of the readers but the idea is fairly simple: we are expanding the feature dimensions to meet the same size with the corresponding concatenation blocks from the left. You may see the gray and green arrows, where we concatenate two feature maps together. The main contribution of U-Net in this sense compared to other fully convolutional segmentation networks is that while upsampling and going deeper in the network we are concatenating the higher resolution features from down part with the upsampled features in order to better localize and learn representations with following convolutions. Since upsampling is a sparse operation we need a good prior from earlier stages to better represent the localization. Similar idea of combining matching levels is also seen in FPNs (Feature Pyramidal Networks). [7]
+网络的第二部分则包括上采样和级联，然后是普通的卷积运算。对于一些读者来说，在 CNN 中使用上采样可能是个新概念，但其思路很简单：扩展特征维度，以达到与左侧的相应级联块的相同大小。这里的灰色和绿色的箭头表示将两个特征映射在一起。与其他 FCN 分割网络相比，U-Net 在这方面的主要贡献在于，在上采样和深入网络过程中，我们将下采样中的高分辨率特征与上采样特征连接起来以便在后续的卷积过程中更好地定位和学习实体的表征。由于上采样是稀疏操作，我们需要在早期处理过程中获取良好的先验，以更好的表示位置信息。在 FPN（Feature Pyramidal Networks） 中也有类似的连接匹配分级的思路。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Y5CRI3eoVsjf570nkWEcDg.png)
 
-Fig 7. Vanilla U-Net Tensor Annotation
+图 7. 原生 U-Net 张量图解
 
-We can define one block of operations in down part as convolutions→ downsampling.
+我们可以将在下降部分中的一个操作模块定义为“卷积 → 下采样”。
 
 ```
-# a sample down block
+# 一个采样下降模块
 def make_conv_bn_relu(in_channels, out_channels, kernel_size=3, stride=1, padding=1):
     return [
         nn.Conv2d(in_channels, out_channels, kernel_size=kernel_size,  stride=stride, padding=padding, bias=False),
@@ -84,17 +84,17 @@ self.down1 = nn.Sequential(
     *make_conv_bn_relu(64, 64, kernel_size=3, stride=1, padding=1 ),
 )
 
-# convolutions followed by a maxpool
+# 卷积然后最大池化
 down1 = self.down1(x)
 out1   = F.max_pool2d(down1, kernel_size=2, stride=2)
 ```
 
-U-Net sample down block
+U-Net 下采样模块
 
-Similarly we can define one block of operations in up part as upsampling → concatenation →convolutions.
+同样我们可以在上升部分中定义一个操作模块：“上采样 → 级联 → 卷积”。
 
 ```
-# a sample up block
+# 一个采样上升模块
 def make_conv_bn_relu(in_channels, out_channels, kernel_size=3, stride=1, padding=1):
     return [
         nn.Conv2d(in_channels, out_channels, kernel_size=kernel_size,  stride=stride, padding=padding, bias=False),
@@ -107,61 +107,61 @@ self.up4 = nn.Sequential(
 )
 self.final_conv = nn.Conv2d(32, num_classes, kernel_size=1, stride=1, padding=0 )
 
-# upsample out_last, concatenate with down1 and apply conv operations
+# 对 out_last 上采样，并与 down1 级联，然后卷积
 out   = F.upsample(out_last, scale_factor=2, mode='bilinear')  
 out   = torch.cat([down1, out], 1)
 out   = self.up4(out)
 
-# final 1x1 conv for predictions
+# 用于最后预测的 1 * 1 卷积
 final_out = self.final_conv(out)
 ```
 
-U-Net sample up block
+U-Net 上采样模块
 
-By inspecting the figure more carefully, you may notice that output dimensions (388 x 388) are not same as the original input (572 x 572). If you want to get consistent size, you may apply padded convolutions to keep the dimensions consistent across concatenation levels just like we did in the sample code above.
+仔细看下结构图，你会发现输出尺寸（388 * 388）与原始输入（572 * 572）并不一致。如果你希望输出保持一致的尺寸，你可以使用填充卷积来保持跨级联的维度一致，就像我们在上面的示例代码中所做的那样。
 
-When such upsampling is mentioned you may come across to either one of the following terms: transposed convolution, upconvolution, deconvolution or upsamling. Many people including myself and PyTorch documentations don’t like the term deconvolution, since during upsampling stage we are actually doing regular convolution operations and there is nothing de- about it. Before going any further if you are unfamiliar with basic convolution operations and their arithmetic I highly recommend visiting [here](https://github.com/vdumoulin/conv_arithmetic/blob/master/README.md). [12]
+当提到这种上采样时，您可能会遇到以下术语之一：转置卷积、上卷积、反卷积或上采样。很多人，包括我在内的很多人以及PyTorch技术文档都不喜欢反卷积这个术语，因为在上采样阶段，我们实际上是在做常规的卷积运算，并没有字面上所谓的“反”。在进一步讨论之前，如果你不熟悉基本卷积运算及其算术，我强烈建议你访问查看[here](https://github.com/vdumoulin/conv_arithmetic/blob/master/README.md).。[12]
 
-I will be explaining upsampling methods from simplest to more complex. Here are three ways of upsampling a 2D tensor in PyTorch:
+我将解释从简单到复杂的上采样方法。这里有三种在 PyTorch 中对二维张量进行上采样的方法：
 
-**Nearest Neighbor**
+**最近邻插值**
 
-This is the simplest way of finding the values of missing pixels when resizing (translating) a tensor into a larger tensor, e.g. 2x2 to 4x4, 5x5 or 6x6.
+这是在将张量调整(转换)为更大张量(例如2x2到4x4、5x5或6x6)时寻找缺失像素值的最简单方法。
 
-Let’s implement this basic computer vision algorithm step by step using Numpy:
+我们使用 Numpy 逐步实现这个基础的计算机视觉算法：
 
 ```
 def nn_interpolate(A, new_size):
     """
-    Nearest Neighbor Interpolation, Step by Step
+    逐步实现最近邻插值
     """
-    # get sizes
+    # 获取大小
     old_size = A.shape
     
-    # calculate row and column ratios
+    # 计算扩充后的行与列
     row_ratio, col_ratio = new_size[0]/old_size[0], new_size[1]/old_size[1]
     
-    # define new pixel row position i
+    # 定义新的行与列位置 
     new_row_positions = np.array(range(new_size[0]))+1
     new_col_positions = np.array(range(new_size[1]))+1
     
-    # normalize new row and col positions by ratios
+    # 按照比例标准化新行与列的位置
     new_row_positions = new_row_positions / row_ratio
     new_col_positions = new_col_positions / col_ratio
     
-    # apply ceil to normalized new row and col positions
+    # 对新行与列位置应用 ceil （计算大于等于该值的最小整数）
     new_row_positions = np.ceil(new_row_positions)
     new_col_positions = np.ceil(new_col_positions)
     
-    # find how many times to repeat each element
+    # 计算各点需要重复的次数
     row_repeats = np.array(list(Counter(new_row_positions).values()))
     col_repeats = np.array(list(Counter(new_col_positions).values()))
     
-    # perform column-wise interpolation on the columns of the matrix
+    # 在矩阵的各列执行列向插值
     row_matrix = np.dstack([np.repeat(A[:, i], row_repeats) 
                             for i in range(old_size[1])])[0]
     
-    # perform column-wise interpolation on the columns of the matrix
+    # 在矩阵的各列执行列向插值
     nrow, ncol = row_matrix.shape
     final_matrix = np.stack([np.repeat(row_matrix[i, :], col_repeats)
                              for i in range(nrow)])
@@ -170,15 +170,15 @@ def nn_interpolate(A, new_size):
     
     
 def nn_interpolate(A, new_size):
-    """Vectorized Nearest Neighbor Interpolation"""
+    ""向量化最近邻插值"""
 
     old_size = A.shape
     row_ratio, col_ratio = np.array(new_size)/np.array(old_size)
 
-    # row wise interpolation 
+    # 行向插值
     row_idx = (np.ceil(range(1, 1 + int(old_size[0]*row_ratio))/row_ratio) - 1).astype(int)
 
-    # column wise interpolation
+    # 列向插值
     col_idx = (np.ceil(range(1, 1 + int(old_size[1]*col_ratio))/col_ratio) - 1).astype(int)
 
     final_matrix = A[:, row_idx][col_idx, :]
@@ -210,9 +210,9 @@ def nn_interpolate(A, new_size):
 [torch.FloatTensor of size (1,1,4,4)]
 ```
 
-**Bilinear Interpolation**
+**双线性插值**
 
-Bilinear Interpolation Algorithm is less computationally efficient than nearest neighbor but it’s a more precise approximation. A single pixel value is calculated as the weighted average of all other values based on distances.
+双线性插值虽然计算效率不如最近邻插值，但它是一种更精确的近似算法。单个像素值被计算为基于距离的所有其它像素值的加权平均值。
 
 **[PyTorch]** F.upsample(…, mode = “bilinear”)
 
@@ -235,79 +235,78 @@ Bilinear Interpolation Algorithm is less computationally efficient than nearest 
 [torch.FloatTensor of size (1,1,4,4)]
 ```
 
-**Transposed Convolution**
+**转置卷积**
 
-In transposed convolutions we have weights that we learn through back-propagation. In papers I’ve come across all of these upsampling methods for various cases and also in practice you may change your architecture and try all of them to see which works best for your own problem. I personally prefer transposed convolutions since we have more control over it but you may go for bilinear interpolation or nearest neighbor for simplicity as well.
+在转置卷积中，我们可以通过反向传播来学习权重。在论文中，我尝试了针对各种情况的所有上采样方法，在实践中，你可能会更改网络的体系结构，可以尝试所有这些方法，以找到最适合问题的方法。我个人更喜欢转置卷积，因为它更可控，但你可以直接使用简单的双线性插值或最近邻插值。
 
 **[PyTorch]** nn.ConvTranspose2D(…, stride=…, padding=…)
 
 ![](https://cdn-images-1.medium.com/max/800/1*-u7Cj5jpGUbWkdpT1Y-1Sg.png)
 
-Fig 8. Examples for transposed convolution operation with different parameters. Credit goes to [https://github.com/vdumoulin/conv_arithmetic](https://github.com/vdumoulin/conv_arithmetic) [12]
+图 8. 使用不同参数的转置卷积样例，转自 [https://github.com/vdumoulin/conv_arithmetic](https://github.com/vdumoulin/conv_arithmetic) [12]
 
-If we go back to our original case, Data Science Bowl, the main drawback of using a vanilla U-Net approach in the competition was the overlapping nuclei. As it’s seen in the image above if you create a binary mask and use it as your target, U-Net will surely predict something similar to this and you will have a combined mask for several nuclei which are overlapping or lie very close to each other.
+在这个 Data Science Bowl 的具体案例中，使用原生 U-Net 的主要缺点就是细胞核的重叠。如前图所示，创建一个二元的遮罩作为目标输出，U-Net 能够准确做出类似的预测遮罩，这样重叠或邻近的细胞核就会产生联合在一起的遮罩。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ePiNH-RIVPaxNXH1WgFYVw.png)
 
-Fig 9. Overlapping nuclei mask
+Fig 9. 重叠的细胞核遮罩
 
-Referring to overlapping instances problem, authors of U-Net paper used weighted cross entropy to emphasize learning the borders of cells. This method helped them to separate overlapping instances. Basic idea is to weight borders more and to push network towards learning gaps between close instances.[9]
+对于实例重叠问题，U-Net 论文的作者使用加权交叉熵来着重细胞边界的学习。这种方法有助于分离重叠的实例。基本思路是对边界进行更多的加权操作以使网络能够学习相邻实例间的间隔。
 
 ![](https://cdn-images-1.medium.com/max/800/1*3dp84O3KCVCr1AsJt-QZWQ.png)
 
-Fig 10. Weight map
+图 10. 加权映射
 
 ![](https://cdn-images-1.medium.com/max/800/1*LPbooZuQG_IA0vmbxv96Eg.png)
 
-Fig 11. (a) Raw image (b) ground truth different color for each instance (c) generated segmentation mask (d) pixel-wise weight map
+图 11. (a)原图 (b)各实例添加不同底色 (c)生成分割遮罩 (d)像素加权映射
 
-Another solution to this kind of problem, an approach that was used by many competitors including the winning solution, is to convert binary masks into a multiclass target. The nice thing about U-Net is that you can structure your network to output as many channels as you want and represent any class in any channel by using 1x1 convolution at the final layer.
+解决这类问题的另一种方法是将二元的遮罩转换成复合类型的目标，这是包括获胜方案等许多竞争选手采用的一种方法。U-Net 的一个优点是可以通过在最后一层使用 1*1 卷积来构建网络以实现任意多个输出来表示多个类型。
 
-Quoting from the Data Science Bowl winning solution:
+引用自 Data Science Bowl 获胜方案：
 
-> 2 channels masks for networks with sigmoid activation i.e. (mask — border, border) or 3 channels masks for networks with softmax activation i.e. (mask — border, border , 1 — mask — border)
+> 目标为 2 通道遮罩使用  sigmod 激活函数的网络，即（遮罩 - 边界，边界）；目标为 3 通道遮罩使用 softmax 激活函数的网络，即（遮罩 - 边界，1 - 掩码 - 边界）
+> 2 通道全遮罩，即（遮罩，边界）
 
-> 2 channels full masks i.e. (mask, border)
-
-After making these predictions classical image processing algorithms like watershed can be used for post-processing to further segment individual nuclei. [14]
+在这些预测操作后，就可以使用传统的图像处理算法例如 watershed 做后处理进一步分割出单个细胞核。[14]
 
 ![](https://cdn-images-1.medium.com/max/800/1*DIbLJC1xv_ypx3QFwfXmag.png)
 
-Fig 12. For visual purposes foreground (green) contour (yellow) background (dark) classes
+图 12. 视觉化分类：前景（绿色）轮廓（黄色）背景（黑色）
 
-This was the first official computer vision competition that I’ve had the courage to participate in Kaggle and it was a Data Science Bowl. Even though I’ve completed the competition only in top 20% (which is considered as an average score) I felt the pleasure of participating in a Data Science Bowl and learning the things that I could have never learn if I wasn’t actually participating and trying on my own. Active learning is far more fruitful than watching or reading about similar approaches from online sources.
+这是我第一次鼓起勇气参与 Kaggle 上官方举办的 CV 比赛，而且还是 Data Science Bowl。尽管我最后只以前 20% 的成绩完成了比赛（这通常是比赛的平均水准），但我还是很高兴地参与了这次 Data Science Bowl 并且学习到了一些实际参与和尝试才能学习到的东西。主动学习要远比观看和阅读在线课程资源有成效。
 
-As a deep learning practitioner who just started practicing months back with Fast.ai this was an important step for me towards my never ending journey and it was very valuable in terms of gaining experience. So, for those who feel intimated by challenges that you’ve never seen or solved before I highly recommend you to specifically go after these type of challenges in order to feel the great pleasure of learning something that you didn’t know before.
+作为一名刚开始参与 Fast.ai 课程学习的深度学习从业人员，这是我漫长学习旅程的重要一步，也能从中获取宝贵的经验。所以，我建议各位可以特意地去尝试面对一些你从未见过或解决过的挑战，以感受学习未知事物的巨大乐趣。
 
-Another valuable lesson I’ve learned in this competition was that, in a computer vision (this applies to NLP too) competition it’s very important to check every single prediction by eye to see what’s working and what’s not. If your data is small enough you should go and check each and every individual output for sure. This will allow you to further come up with better ideas or even debug your code if something is wrong with it.
+我在这场比赛中学习到的另一个宝贵教训是，在计算机视觉（同样适用于 NLP）比赛中，亲眼检查每一个预测结果以判断哪些有效很重要。如果你的数据集足够小，那么应该检查每个输出。这可以让你进一步找到更好的思路，或在代码出问题时调试代码。
 
-### **Transfer Learning and Beyond**
+### **迁移学习以及其他**
 
-So far we’ve defined the building blocks of vanilla U-Net and mentioned how we can manipulate targets to solve for instance segmentation. Now we can further discuss the flexibility of these type of encoder-decoder networks. By flexibility I mean the freedom you have over it and the creativity you can put on it’s design.
+目前，我们已经讲解了原生 U-Net 的架构模块并如何转变目标以解决实例分割问题。现在我们来进一步的讨论这些类型编解码网络的灵活性。所谓灵活性，我是指在设计网络时能够拥有的自由度以及创新性。
 
-Anyone who practices deep learning at some point come across to transfer learning because it’s a very powerful idea. In short transfer learning is the concept of using a pretrained network which was trained on many samples for a similar task that we are facing but lacking the same amount of data. Even with enough data transfer learning can boost the performance up to some extent, not only for computer vision tasks but also for NLP too.
+迁移学习是个非常给力的想法，所以使用深度学习的人都避不开它。简单来说，迁移学习就是在缺乏大规模数据集时，使用在拥有大量数据的类似任务上预先训练好的网络。即使数据足够的情况下，迁移学习也能一定程度上提升性能，而且不仅可用于计算机视觉中，同时对 NLP 也有效。
 
-Transfer learning proved to be a powerful technique for U-Net like architectures as well. We’ve previously defined two major components of U-Net; down and up. Let’s rephrase these parts as encoder and decoder this time. Encoder part basically takes the input and encodes it in a low dimensional feature space which represents our input in a lower dimension. Now imagine replacing this encoder with your favorite ImageNet winner; VGG, ResNet, Inception, NasNet, … which ever you want. These networks are highly engineered to do one common thing: to encode a natural image in the best way possible to classify it and their pretrained weights on ImageNet are waiting for you to grab them online.
+迁移学习对类似 U-Net 的体系来说也是一种强力的技术。我们之前已经定义了 U-Net 中两个重要的组成部分：上采样和下采样。这里我们将它们理解为编码器和解码器。编码器接受输入并将其编码到一个低维特征空间，这就将输入用更低维度表征。那么试想如果用你理想的 ImageNet 替代这个编码器，比如： VGG， ResNet， Inception， NasNet 等任何你想要的。这些经过高度设计的网络都是在完成一件事：以尽可能优秀的方式对自然图像进行编码，并且 ImageNet 上可以在线获取它们的预训练权值模型。
 
-So why not use one of these architectures as our encoder and construct the decoder in a way that it will work the same way as the original U-Net, but better, on steroids.
+因此，为什么不使用它们其中一种架构作为我们的编码器，再构建一个解码器，这将与原先的 U-Net 一样可用，但更好，更生猛。
 
-TernausNet which is the winner architecture for [Kaggle Carvana](https://www.kaggle.com/c/carvana-image-masking-challenge) challenge uses the same transfer learning idea with VGG11 as it’s encoder. [15, 16]
+TernausNet 是 [KaggleVagle Carvana](https：//www.kaggle.com/c/carvana-image-masking-challenge) 挑战的获胜方案的网络架构，它就使用相同的思路，以 VGG11 作为编码器。[15、16]
 
 ![](https://cdn-images-1.medium.com/max/800/1*mqdUlED6AuhZGip7Ov1o-g.png)
 
-TernausNet by Vladimir Iglovikov and Alexey Shvets
+Vladimir Iglovikov 和 Alexey Shvets 的 TernausNet
 
-### Fast.ai: Dynamic U-Net
+### Fast.ai: 动态 U-Net
 
-Inspired by TernausNet paper and by many other great resources, I wanted to generalize this idea of using pretrained or custom encoders for U-Net like architectures. So, I’ve came up with a general architecture: [**Dynamic Unet**](https://github.com/fastai/fastai/blob/master/fastai/models/unet.py).
+受到 TernausNet 论文以及其他许多优秀资料的启发，我将这个想法简述为，将预训练或预设的编码器应用于类似于 U-net 的架构。因此，我提出了一个通用体系结构：[**动态 U-Net**](https：//github.com/fastai/blob/master/fastai/models/unet.py).。
 
-Dynamic Unet is an implementation of this idea, it automatically creates the decoder part to any given encoder by doing all the calculations and matching for you. Encoder can either be a pretrained network off the shelf or any custom architecture you define yourself.
+动态 U-Net 就是这个想法的实现，它能够完成所有的计算和匹配，自动地为任何给定的编码器创建解码器。编码器既可以是现成的预训练的网络，也可以是自定义的网络体系结构。
 
-It is written in PyTorch and currently in Fast.ai library. You can refer to this [notebook](https://github.com/KeremTurgutlu/deeplearning/blob/master/datasciencebowl2018/FASTAI%20-%20DSBOWL%202018.ipynb) to see it in action or look at [source](https://github.com/fastai/fastai/blob/master/fastai/models/unet.py). The main goal of Dynamic Unet is to save practioners’ time and allow easier experimentation with different encoders with the least amount of code possible.
+它使用 PyTorch 编写，目前在 Fast.ai 库中。可以参考这个 [文档](https://github.com/KeremTurgutlu/deeplearning/blob/master/datasciencebowl2018/FASTAI%20-%20DSBOWL%202018.ipynb) 来查看实践样例或查看[源码](https：//github.com/fastai/blob/master/fastai/models/unet.py)。动态 U-Net 的主要目标是节省开发时间，以实现用尽可能少的代码更简易地对不同的编码器进行实验。
 
-In part 2 I will be explaining 3D Encoder Decoder models for volumetric data, such as MRI scans and give real world examples that I’ve been working on.
+在第2部分中，我将解释针对三维数据的编码器解码器模型，例如 MRI（核磁共振成像） 扫描图像，并给出我一直在研究的现实案例。
 
-**References**
+**参考文献**
 
 [5] Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks: [https://arxiv.org/abs/1506.01497](https://arxiv.org/abs/1506.01497)
 
@@ -333,7 +332,7 @@ In part 2 I will be explaining 3D Encoder Decoder models for volumetric data, su
 
 [16] TernausNet: U-Net with VGG11 Encoder Pre-Trained on ImageNet for Image Segmentation: [_https://arxiv.org/abs/1801.05746_](https://arxiv.org/abs/1801.05746)
 
-Thanks to [Prince Grover](https://medium.com/@pgrover3?source=post_page) and [Serdar Ozsoy](https://medium.com/@serdarozsoy?source=post_page).
+感谢 [Prince Grover](https://medium.com/@pgrover3?source=post_page) 和 [Serdar Ozsoy](https://medium.com/@serdarozsoy?source=post_page).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
