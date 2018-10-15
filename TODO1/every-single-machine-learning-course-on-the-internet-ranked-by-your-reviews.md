@@ -249,29 +249,29 @@ Sebastian Thrun 和 Katie Malone 讲授的 Udacity [《机器学习简介》](ht
 
 下面的课程截止到 2017 年 5 月还没有或只有一条评论。
 
-[Machine Learning for Musicians and Artists](https://www.class-central.com/mooc/3768/kadenze-machine-learning-for-musicians-and-artists) (Goldsmiths, University of London/Kadenze): Unique. Students learn algorithms, software tools, and machine learning best practices to make sense of human gesture, musical audio, and other real-time data. Seven sessions in length. Audit (free) and premium ($10 USD per month) options available. It has one 5-star review.
+[《给音乐家和艺术家的机器学习》](https://www.class-central.com/mooc/3768/kadenze-machine-learning-for-musicians-and-artists)（Goldsmiths 和 伦敦大学于 Kadenze）：独一无二的课程；学员学习算法、软件工具和机器学习最佳实践来让机器识别人类手势、音频和其他实时数据；一共 7 课；有旁听（免费）和收费（每月 10 美元）版本；有一条 5 星评论。
 
 * YouTube 视频链接：https://youtu.be/pSnRmBt0pXI
 
-The promo video for Goldsmiths, University of London’s [Machine Learning for Musicians and Artists](https://www.class-central.com/mooc/3768/kadenze-machine-learning-for-musicians-and-artists) on Kadenze.
+Kadenze 上 Goldsmiths 和伦敦大学[《给音乐家和艺术家的机器学习》](https://www.class-central.com/mooc/3768/kadenze-machine-learning-for-musicians-and-artists)的宣传视频。
 
-[Applied Machine Learning in Python](https://www.class-central.com/mooc/6673/coursera-applied-machine-learning-in-python) (University of Michigan/Coursera): Taught using Python and the scikit learn toolkit. Part of the Applied Data Science with Python Specialization. Scheduled to start May 29th. Free and paid options available.
+[《应用机器学习（使用 Python）》](https://www.class-central.com/mooc/6673/coursera-applied-machine-learning-in-python)（密歇根大学于 Coursera）：使用 Python 和 scikit 学习工具集上课；是应用机器学习（使用 Python）专业的一部分；计划 5 月 29 号开课；有免费和收费版本。
 
-[Applied Machine Learning](https://www.class-central.com/mooc/6406/edx-applied-machine-learning) (Microsoft/edX): Taught using various tools, including Python, R, and Microsoft Azure Machine Learning (note: Microsoft produces the course). Includes hands-on labs to reinforce the lecture content. Three to four hours per week over six weeks. Free with a verified certificate available for purchase.
+[《应用机器学习》](https://www.class-central.com/mooc/6406/edx-applied-machine-learning)（微软于 edX）：使用了包括 Python、R 和微软 Azure 机器学习工具上课（注意：这是微软出品的课程）。包括动手实验室来强化课程内容；超过 6 周，每周 3 - 4 小时；可自愿购买经过认证的证书。
 
-[Machine Learning with Python](https://bigdatauniversity.com/courses/machine-learning-with-python/) (Big Data University): Taught using Python. Targeted towards beginners. Estimated completion time of four hours. Big Data University is affiliated with IBM. Free.
+[《使用 Python 进行机器学习》](https://bigdatauniversity.com/courses/machine-learning-with-python/)（大数据大学）：使用 Python 上课；目标受众是入门者；预估 4 小时完成；大数据大学隶属于 IBM；免费。
 
-[Machine Learning with Apache SystemML](https://bigdatauniversity.com/courses/machine-learning-apache-systemml/) (Big Data University): Taught using Apache SystemML, which is a declarative style language designed for large-scale machine learning. Estimated completion time of eight hours. Big Data University is affiliated with IBM. Free.
+[使用 Apache SystemML 进行机器学习](https://bigdatauniversity.com/courses/machine-learning-apache-systemml/)（大数据大学）：使用 Apache SystemML 上课，这是一种为大规模机器学习而设计的声明式语言；预估 8 小时完成；大数据大学隶属于 IBM；免费。
 
-[Machine Learning for Data Science](https://www.class-central.com/mooc/8216/edx-machine-learning-for-data-science) (University of California, San Diego/edX): Doesn’t launch until January 2018. Programming examples and assignments are in Python, using Jupyter notebooks. Eight hours per week over ten weeks. Free with a verified certificate available for purchase.
+[《给数据科学的机器学习》](https://www.class-central.com/mooc/8216/edx-machine-learning-for-data-science)（加利福尼亚大学和 San Diego 于 edX）：要到 2018 年一月才开课；程序例子和作业都是 Python的，用的 Jupyter 教材（_译者注：Jupyter 教材是一个开源的在线应用，用户可以自己制作教材并共享给别人_）；10 周，每周 8 小时；可自愿购买经过认证的证书。
 
-[Introduction to Analytics Modeling](https://www.class-central.com/mooc/8217/edx-introduction-to-analytics-modeling) (Georgia Tech/edX): The course advertises R as its primary programming tool. Five to ten hours per week over ten weeks. Free with a verified certificate available for purchase.
+[《分析模型入门》](https://www.class-central.com/mooc/8217/edx-introduction-to-analytics-modeling)（佐治亚科技大学于 edX）：课程通告说使用 R 做为其首选语言；10 周，每周 5 - 10 小时； 可自愿购买经过认证的证书。
 
-[Predictive Analytics: Gaining Insights from Big Data](https://www.class-central.com/mooc/7645/futurelearn-predictive-analytics-gaining-insights-from-big-data) (Queensland University of Technology/FutureLearn): Brief overview of a few algorithms. Uses Hewlett Packard Enterprise’s Vertica Analytics platform as an applied tool. Start date to be announced. Two hours per week over four weeks. Free with a Certificate of Achievement available for purchase.
+[《预测分析：洞察大数据》](https://www.class-central.com/mooc/7645/futurelearn-predictive-analytics-gaining-insights-from-big-data)（昆士兰科技大学于 FutureLearn）：简述了一些算法；使用 Hewlett Packard Enterprise 的 Vertica Analytics 平台做为应用工具；开课时间还未公布；4 周，每周 2 小时；可自愿购买成就证书。
 
-[Introducción al Machine Learning](https://miriadax.net/web/introduccion-al-machine-learning) (Universitas Telefónica/Miríada X): Taught in Spanish. An introduction to machine learning that covers supervised and unsupervised learning. A total of twenty estimated hours over four weeks.
+[《机器学习简介》](https://miriadax.net/web/introduccion-al-machine-learning)（西班牙电信大学于 Miríada X）：西语授课；覆盖了监督和无监督学习的机器学习简介；预估 4 周共 20 小时。
 
-[Machine Learning Path Step](https://www.dataquest.io/path-step/machine-learning) (Dataquest): Taught in Python using Dataquest’s interactive in-browser platform. Multiple guided projects and a “plus” project where you build your own machine learning system using your own data. Subscription required.
+[《机器学习登堂入室》Machine Learning Path Step](https://www.dataquest.io/path-step/machine-learning)（Dataquest）：使用 Dataquest 的浏览器内置交互式平台通过 Python 上课；多个导引项目和一个你使用你自己数据构建的“+”项目；需要订阅。
 
 * * *
 
