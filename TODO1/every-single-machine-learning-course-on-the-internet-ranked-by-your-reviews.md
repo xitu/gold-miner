@@ -11,9 +11,9 @@
 
 _Kaboompics 的_[_木头人_](https://www.pexels.com/photo/wooden-robot-6069/)
 
-一年半以前，我退出了加拿大最好的计算机科学课程之一，开始使用线上资源创建我自己的[数据科学研究生课程](https://medium.com/@davidventuri/i-dropped-out-of-school-to-create-my-own-data-science-master-s-here-s-my-curriculum-1b400dcee412#.5fwwphdqd)。我意识到只要通过edX、Coursera 和 Udacity 就能学到所有我需要的东西，而且学习得更快更高效，学费还比大学低！
+一年半以前，我退出了加拿大最好的计算机科学课程之一，开始使用线上资源创建我自己的[数据科学研究生课程](https://medium.com/@davidventuri/i-dropped-out-of-school-to-create-my-own-data-science-master-s-here-s-my-curriculum-1b400dcee412#.5fwwphdqd)。我意识到只要通过 edX、Coursera 和 Udacity 就能学到所有我需要的东西，而且学习得更快更高效，学费还比大学低！
 
-现在我马上就完成了！我学习了很多数据科学相关的课程而且评估了更多课程的部分内容。我知道了如何选择，也知道了什么技能对于打算成为数据分析家或者数据科学家的学员是必需的。所以我之前开始创建一个评论驱动的用于推荐数据科学领域内各学科最好课程的指导。
+现在我马上就完成了！我学习了很多数据科学相关的课程而且评估了更多课程的部分内容。我知道了如何选择，也知道了什么技能对于打算成为数据分析师或者数据科学家的学员是必需的。所以我之前开始创建一个评论驱动的用于推荐数据科学领域内各学科最好课程的指导。
 
 在本系列的第一篇指导中我给刚入门的数据科学家们先推荐一些[编码课程](https://medium.freecodecamp.com/if-you-want-to-learn-data-science-start-with-one-of-these-programming-classes-fb694ffe780c#.42hhzxopw)，然后是[概率统计课程](https://medium.freecodecamp.com/if-you-want-to-learn-data-science-take-a-few-of-these-statistics-classes-9bbabab098b9#.p7pac546r)，然后是[数据科学概论](https://medium.freecodecamp.com/i-ranked-all-the-best-data-science-intro-courses-based-on-thousands-of-data-points-db5dc7e3eb8e)，还有[数据可视化](https://medium.freecodecamp.com/an-overview-of-every-data-visualization-course-on-the-internet-9ccf24ea9c9b)。
 
@@ -281,17 +281,17 @@ Kadenze 上 Goldsmiths 和伦敦大学[《给音乐家和艺术家的机器学�
 
 [DataCamp](https://www.datacamp.com/courses/topic:machine_learning?tap_a=5644-dce66f&tap_s=93618-a68c98) 提供了几门机器学习的课程。
 
-[Introduction to Machine Learning](https://www.datacamp.com/courses/introduction-to-machine-learning-with-r?tap_a=5644-dce66f&tap_s=93618-a68c98) (DataCamp): Covers classification, regression, and clustering algorithms. Uses R. Fifteen videos and 81 exercises with an estimated timeline of six hours.
+[《机器学习简介》](https://www.datacamp.com/courses/introduction-to-machine-learning-with-r?tap_a=5644-dce66f&tap_s=93618-a68c98)（DataCamp）: 覆盖了分类算法、回归算法和聚类算法；使用 R；15 段视频，81 次练习，预估 6 小时。
 
-[Supervised Learning with scikit-learn](https://www.datacamp.com/courses/supervised-learning-with-scikit-learn?tap_a=5644-dce66f&tap_s=93618-a68c98) (DataCamp): Uses Python and scikit-learn. Covers classification and regression algorithms. Seventeen videos and 54 exercises with an estimated timeline of four hours.
+[《使用 scikit-learn 进行监督学习》](https://www.datacamp.com/courses/supervised-learning-with-scikit-learn?tap_a=5644-dce66f&tap_s=93618-a68c98)（DataCamp）：使用 Python 和 scikit-learn；覆盖了分类算法和回归算法；17 段视频，54 次练习，预估 4 小时。
 
-[Unsupervised Learning in R](https://www.datacamp.com/courses/unsupervised-learning-in-r?tap_a=5644-dce66f&tap_s=93618-a68c98) (DataCamp): Provides a basic introduction to clustering and dimensionality reduction in R. Sixteen videos and 49 exercises with an estimated timeline of four hours.
+[《使用 R 进行非监督学习》](https://www.datacamp.com/courses/unsupervised-learning-in-r?tap_a=5644-dce66f&tap_s=93618-a68c98)（DataCamp）：简单介绍了通过 R 进行聚类和降维；16 段视频，49 次练习，预估 4 小时。
 
-[Machine Learning Toolbox](https://www.datacamp.com/courses/machine-learning-toolbox?tap_a=5644-dce66f&tap_s=93618-a68c98) (DataCamp): Teaches the “big ideas” in machine learning. Uses R. 24 videos and 88 exercises with an estimated timeline of four hours.
+[《机器学习工具箱》](https://www.datacamp.com/courses/machine-learning-toolbox?tap_a=5644-dce66f&tap_s=93618-a68c98)（DataCamp）：讲授机器学习中的“大主意”；使用 R；24 段视频，88 次练习，预估 4 小时。
 
-[Machine Learning with the Experts: School Budgets](https://www.datacamp.com/courses/machine-learning-with-the-experts-school-budgets?tap_a=5644-dce66f&tap_s=93618-a68c98) (DataCamp): A case study from a machine learning competition on DrivenData. Involves building a model to automatically classify items in a school’s budget. DataCamp’s “Supervised Learning with scikit-learn” is a prerequisite. Fifteen videos and 51 exercises with an estimated timeline of four hours.
+[《和专家一起机器学习：学校预算案例》](https://www.datacamp.com/courses/machine-learning-with-the-experts-school-budgets?tap_a=5644-dce66f&tap_s=93618-a68c98)（DataCamp）：是 DrivenData 上面的一个机器学习案例研究；涉及建造机器学习模型对学校的预算项自动分类；先决条件是 DataCamp 的课程《使用 scikit-learn 进行监督学习》；15 段视频，51 次练习，预估 4 小时。
 
-[Unsupervised Learning in Python](https://www.datacamp.com/courses/unsupervised-learning-in-python?tap_a=5644-dce66f&tap_s=93618-a68c98) (DataCamp): Covers a variety of unsupervised learning algorithms using Python, scikit-learn, and scipy. The course ends with students building a recommender system to recommend popular musical artists. Thirteen videos and 52 exercises with an estimated timeline of four hours.
+[《使用 Python 进行非监督学习》](https://www.datacamp.com/courses/unsupervised-learning-in-python?tap_a=5644-dce66f&tap_s=93618-a68c98)（DataCamp）：使用 Python、scikit-learn 和 scipy 讲解了一些非监督学习的算法；课程最后是学员构造一个推荐系统来推荐流行音乐歌手；13 段视频，52 次练习，预估 4 小时。
 
 * * *
 
