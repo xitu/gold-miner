@@ -271,15 +271,15 @@ Kadenze 上 Goldsmiths 和伦敦大学[《给音乐家和艺术家的机器学�
 
 [《机器学习简介》](https://miriadax.net/web/introduccion-al-machine-learning)（西班牙电信大学于 Miríada X）：西语授课；覆盖了监督和无监督学习的机器学习简介；预估 4 周共 20 小时。
 
-[《机器学习登堂入室》Machine Learning Path Step](https://www.dataquest.io/path-step/machine-learning)（Dataquest）：使用 Dataquest 的浏览器内置交互式平台通过 Python 上课；多个导引项目和一个你使用你自己数据构建的“+”项目；需要订阅。
+[《机器学习登堂入室》](https://www.dataquest.io/path-step/machine-learning)（Dataquest）：使用 Dataquest 的浏览器内置交互式平台通过 Python 上课；多个导引项目和一个你使用你自己数据构建的“+”项目；需要订阅。
 
 * * *
 
-The following six courses are offered by [DataCamp](https://www.datacamp.com/courses/topic:machine_learning?tap_a=5644-dce66f&tap_s=93618-a68c98). DataCamp’s hybrid teaching style leverages video and text-based instruction with lots of examples through an in-browser code editor. A subscription is required for full access to each course.
+下面的 6 门课程由 [DataCamp](https://www.datacamp.com/courses/topic:machine_learning?tap_a=5644-dce66f&tap_s=93618-a68c98) 提供。DataCamp 的混合授课风格使用了基于视频和文本并通过一个浏览器内置的代码编辑器穿插大量的例子；每门课都需要完整订阅。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*eRUPgszpDHzEUpvXhFMeUg.png)
 
-[DataCamp](https://www.datacamp.com/courses/topic:machine_learning?tap_a=5644-dce66f&tap_s=93618-a68c98) offers several machine learning courses.
+[DataCamp](https://www.datacamp.com/courses/topic:machine_learning?tap_a=5644-dce66f&tap_s=93618-a68c98) 提供了几门机器学习的课程。
 
 [Introduction to Machine Learning](https://www.datacamp.com/courses/introduction-to-machine-learning-with-r?tap_a=5644-dce66f&tap_s=93618-a68c98) (DataCamp): Covers classification, regression, and clustering algorithms. Uses R. Fifteen videos and 81 exercises with an estimated timeline of six hours.
 
@@ -295,15 +295,15 @@ The following six courses are offered by [DataCamp](https://www.datacamp.com/cou
 
 * * *
 
-[Machine Learning](http://www.cs.cmu.edu/~ninamf/courses/601sp15/index.html) (Tom Mitchell/Carnegie Mellon University): Carnegie Mellon’s graduate introductory machine learning course. A prerequisite to their second graduate level course, “Statistical Machine Learning.” Taped university lectures with practice problems, homework assignments, and a midterm (all with solutions) posted online. A [2011 version](http://www.cs.cmu.edu/~tom/10701_sp11/) of the course also exists. CMU is one of the best graduate schools for studying machine learning and has a whole department dedicated to ML. Free.
+[《机器学习》](http://www.cs.cmu.edu/~ninamf/courses/601sp15/index.html)（Tom Mitchell 和卡耐基梅隆大学）： 该校的研究生机器学习入门课程；它们的第二个研究生课程要求具备“统计机器学习”知识背景；在线发布带有练习题、家庭作业和期中考试（都有答案）的大学课程；还有一个 [2011 版](http://www.cs.cmu.edu/~tom/10701_sp11/)；卡耐基梅隆大学是学习机器学习最好的研究生学校，它有一个系专门研究 ML；免费。
 
-[Statistical Machine Learning](https://www.class-central.com/mooc/8509/statistical-machine-learning) (Larry Wasserman/Carnegie Mellon University): Likely the most advanced course in this guide. A follow-up to Carnegie Mellon’s Machine Learning course. Taped university lectures with practice problems, homework assignments, and a midterm (all with solutions) posted online. Free.
+[《统计机器学习》](https://www.class-central.com/mooc/8509/statistical-machine-learning)（Larry Wasserman 和卡耐基梅隆大学）：和本文其他高级课程一样；是卡耐基梅隆大学机器学习课程的后续课程；在线发布带有练习题、家庭作业和期中考试（都有答案）的大学课程；免费。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*umqMeqC5Ch-kR1i4hPBTrw.png)
 
-CMU is one of the best grad schools for studying machine learning. [Machine Learning](http://www.cs.cmu.edu/~ninamf/courses/601sp15/index.html) and [Statistical Machine Learning](https://www.class-central.com/mooc/8509/statistical-machine-learning) are available online for free.
+卡耐基梅隆大学是学习机器学习最好的研究生学校。[《机器学习》](http://www.cs.cmu.edu/~ninamf/courses/601sp15/index.html)和[《统计机器学习》](https://www.class-central.com/mooc/8509/statistical-machine-learning)都在线上可免费学习。
 
-[Undergraduate Machine Learning](http://www.cs.ubc.ca/~nando/340-2012/index.php) (Nando de Freitas/University of British Columbia): An undergraduate machine learning course. Lectures are filmed and put on YouTube with the slides posted on the course website. The course assignments are posted as well (no solutions, though). de Freitas is now a full-time professor at the University of Oxford and receives praise for his teaching abilities in various forums. Graduate version available (see below).
+[《本科生机器学习》](http://www.cs.ubc.ca/~nando/340-2012/index.php)（Nando de Freitas 和不列颠哥伦比亚大学）：本科生的机器学习课程；上课被录像并和发布在课程网站的PPT一起放在了油管上；课程作业也一起上传了（不过没答案）；de Freitas 现在是牛津大学的全职教授，各个论坛都对他的教学能力表达了赞美；研究生版本也要（见下面）.
 
 [Machine Learning](http://www.cs.ubc.ca/~nando/540-2013/lectures.html) (Nando de Freitas/University of British Columbia): A graduate machine learning course. The comments in de Freitas’ undergraduate course (above) apply here as well.
 
