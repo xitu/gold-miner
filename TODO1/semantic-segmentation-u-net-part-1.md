@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/semantic-segmentation-u-net-part-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/semantic-segmentation-u-net-part-1.md)
 > * 译者：[JohnJiangLA](http://github.com/johnjiangla)
-> * 校对者：[haiyang-tju](https://github.com/haiyang-tju)
+> * 校对者：[haiyang-tju](https://github.com/haiyang-tju) [leviding](https://github.com/leviding)
 
 # 使用 U-Net 进行语义分割（第一部分）
 
-** 写给 6 个月前的我 **
+** 写给6个月前的我 **
 
 我将主要关注语义分割这样一种像素级别的分类任务及其特定的一种算法实现。另外我将提供一些近期一直在做的案例练习。
 
@@ -17,7 +17,7 @@
 
 语义分割相比与它的老哥实例分割来说容易很多。
 
-实例分割中，我们的目标不仅要对每个人，每辆车做出像素级的预测，同时还要将实体区分为 person 1、person 2、tree 1、tree 2、car 1、car 2 等等。目前最优秀的分割算法是 Mask-RCNN：一种使用 RPN（Region Proposal Network）、FPN（Feature Pyramid Network）和 FCN（Fully Convolutional Network）[5, 6, 7, 8]多子网协作的两阶段方法。
+实例分割中，我们的目标不仅要对每个人，每辆车做出像素级的预测，同时还要将实体区分为 person 1、person 2、tree 1、tree 2、car 1、car 2 等等。目前最优秀的分割算法是 Mask-RCNN：一种使用 RPN（Region Proposal Network）、FPN（Feature Pyramid Network）和 FCN（Fully Convolutional Network）[5, 6, 7, 8] 多子网协作的两阶段方法。
 
 ![](https://cdn-images-1.medium.com/max/800/1*pKKYS17lOwPsreUVTak37g.png)
 
@@ -298,13 +298,13 @@ Vladimir Iglovikov 和 Alexey Shvets 的 TernausNet
 
 ### Fast.ai: 动态 U-Net
 
-受到 TernausNet 论文以及其他许多优秀资料的启发，我将这个想法简述为，将预训练或预设的编码器应用于类似于 U-net 的架构。因此，我提出了一个通用体系结构：[**动态 U-Net**](https：//github.com/fastai/blob/master/fastai/models/unet.py).。
+受到 TernausNet 论文以及其他许多优秀资料的启发，我将这个想法简述为，将预训练或预设的编码器应用于类似于 U-net 的架构。因此，我提出了一个通用体系结构：[**动态 U-Net**](https：//github.com/fastai/blob/master/fastai/models/unet.py)。
 
 动态 U-Net 就是这个想法的实现，它能够完成所有的计算和匹配，自动地为任何给定的编码器创建解码器。编码器既可以是现成的预训练的网络，也可以是自定义的网络体系结构。
 
 它使用 PyTorch 编写，目前在 Fast.ai 库中。可以参考这个 [文档](https://github.com/KeremTurgutlu/deeplearning/blob/master/datasciencebowl2018/FASTAI%20-%20DSBOWL%202018.ipynb) 来查看实践样例或查看[源码](https：//github.com/fastai/blob/master/fastai/models/unet.py)。动态 U-Net 的主要目标是节省开发时间，以实现用尽可能少的代码更简易地对不同的编码器进行实验。
 
-在第2部分中，我将解释针对三维数据的编码器解码器模型，例如 MRI（核磁共振成像） 扫描图像，并给出我一直在研究的现实案例。
+在第 2 部分中，我将解释针对三维数据的编码器解码器模型，例如 MRI（核磁共振成像）扫描图像，并给出我一直在研究的现实案例。
 
 **参考文献**
 
@@ -332,7 +332,7 @@ Vladimir Iglovikov 和 Alexey Shvets 的 TernausNet
 
 [16] TernausNet: U-Net with VGG11 Encoder Pre-Trained on ImageNet for Image Segmentation: [_https://arxiv.org/abs/1801.05746_](https://arxiv.org/abs/1801.05746)
 
-感谢 [Prince Grover](https://medium.com/@pgrover3?source=post_page) 和 [Serdar Ozsoy](https://medium.com/@serdarozsoy?source=post_page).
+感谢 [Prince Grover](https://medium.com/@pgrover3?source=post_page) 和 [Serdar Ozsoy](https://medium.com/@serdarozsoy?source=post_page)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
