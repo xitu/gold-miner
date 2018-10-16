@@ -323,7 +323,7 @@ Kadenze 上 Goldsmiths 和伦敦大学[《给音乐家和艺术家的机器学�
 
 * [**根据数据统计的 50 门最好的免费在线大学课程**：当我 2011 年十一月初创 Class Central 的时候只有大约 18 门免费在线课程，几乎都来自斯坦福大学。](https://medium.freecodecamp.com/the-data-dont-lie-here-are-the-50-best-free-online-university-courses-of-all-time-b2d9a64edfac "https://medium.freecodecamp.com/the-data-dont-lie-here-are-the-50-best-free-online-university-courses-of-all-time-b2d9a64edfac")
 
-如果你对我遗漏的课程由提议，请回复我让我知道！
+如果你对我遗漏的课程有建议，请回复我让我知道！
 
 如果你觉得有帮助，点击 💚 会让更多 Medium 板块的用户看到本文。
 
