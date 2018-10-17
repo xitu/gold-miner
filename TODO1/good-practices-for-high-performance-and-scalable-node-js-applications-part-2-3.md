@@ -11,7 +11,7 @@
 
 ### 第 2 章 —— 如何使您的 Node.js 应用程序安全扩展
 
-在[上篇文章](https://medium.com/iquii/good-practices-for-high-performance-and-scalable-node-js-applications-part-1-3-bb06b6204197)中，我们学会了如何无需忧虑代码，而水平扩展 Node.js 应用程序。本章中，我们将讨论扩展时必须注意的事项，以便在扩展流程时防止错误发生。
+在[上篇文章](https://github.com/xitu/gold-miner/blob/master/TODO1/good-practices-for-high-performance-and-scalable-node-js-applications-part-1-3.md)中，我们学会了如何无需忧虑代码，而水平扩展 Node.js 应用程序。本章中，我们将讨论扩展时必须注意的事项，以便在扩展流程时防止错误发生。
 
 ### 从 DB 中分离应用程序实例
 
