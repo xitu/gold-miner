@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/making-webassembly-even-faster-firefoxs-new-streaming-and-tiering-compiler.md](https://github.com/xitu/gold-miner/blob/master/TODO1/making-webassembly-even-faster-firefoxs-new-streaming-and-tiering-compiler.md)
 > * 译者：[Sam](https://github.com/xutaogit/)
-> * 校对者：
+> * 校对者：[Augustwuli](https://github.com/Augustwuli)
 
 # 使 WebAssembly 更快：Firefox 的新流式和分层编译器
 
@@ -45,7 +45,7 @@ Firefox 58 还包含两层新的编译器。新的基线编译器编译代码的
 
 当基线编译的代码在主线程上运行时，其他线程则在做更优化的版本。当更优化的版本完成时，它就会替换进来使得代码运行更加快捷。
 
-这使得加载 WebAssembly 的成本变得更像解码图片而不是加载  JavaScript。并且想想看 —— 网络性能倡导者肯定接受不了 150kB 的 JS 代码负载量，但相同大小的图像负载量并不会引起人们的注意。
+这使得加载 WebAssembly 的成本变得更像解码图片而不是加载 JavaScript。并且想想看 —— 网络性能倡导者肯定接受不了 150kB 的 JS 代码负载量，但相同大小的图像负载量并不会引起人们的注意。
 
 [![Developer advocate on the left tsk tsk-ing about large JS file. Developer advocate on the right shrugging about large image.](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/05-500x218.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/05.png)
 
@@ -123,7 +123,7 @@ JavaScript 引擎已经使用分层编译器很长一段时间了。然而，JS 
 
 并行化的单位是功能，每个功能都可以在不同的核心上单独编译。这就是所谓的细粒度，实际上，我们需要将这些功能分批处理成更大的功能组。这些批次会被派送到不同的核心里。
 
-### ……然后通过隐式缓存完全跳过所有工作（未来的任务）
+### ...然后通过隐式缓存完全跳过所有工作（未来的任务）
 
 目前，每次重新加载页面时都会重做解码和编译。但是如果你有相同的 .wasm 文件，它编译后都是一样的机器代码。
 
@@ -135,16 +135,17 @@ JavaScript 引擎已经使用分层编译器很长一段时间了。然而，JS 
 
 这项功能已经有了基础构建。我们在 Firefox 58 版本中[缓存了这样的 JavaScript 字节代码](https://blog.mozilla.org/javascript/2017/12/12/javascript-startup-bytecode-cache/)。我们只需扩展这种支持来缓存 .wasm 文件的机器代码。
 
-## 关于[Lin Clark](http://code-cartoons.com)
+## 关于 [Lin Clark](http://code-cartoons.com)
 
-Lin 是 Mozilla Developer Relations 团队的工程师。她致力于 JavaScript，WebAssembly，Rust 和 Servo，还会绘制代码漫画。
+Lin 是 Mozilla Developer Relations 团队的工程师。她致力于 JavaScript、WebAssembly、Rust 和 Servo，还会绘制代码漫画。
 
 *   [code-cartoons.com](http://code-cartoons.com)
 *   [@linclark](http://twitter.com/linclark)
 
-[Lin Clark 的更多文章……](https://hacks.mozilla.org/author/lclarkmozilla-com/)
+[Lin Clark 的更多文章...](https://hacks.mozilla.org/author/lclarkmozilla-com/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
 
 ---
 
