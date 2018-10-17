@@ -11,6 +11,7 @@
 
 [在这个系列的第一篇文章中](https://github.com/xitu/gold-miner/blob/master/TODO1/flexbox-display-flex-container.md)，我解释了当你把一个元素设置为 `display: flex` 时发生了什么。这次我们将会讨论下排列属性，同时也会讨论（这些属性）如何和 Flexbox 一起工作。如果你曾经对何时使用 align 属性和 justify 属性感到疑惑的话，我希望这篇文章将会让（排列的）问题变得清晰！
 如果你曾经对何时使用 align 属性和 justify 属性感到疑惑的话
+
 ### Flexbox 排列方式的历史
 
 在整个 CSS 布局的历史中，如何能恰当地在横竖两轴正确排列元素估计是 Web 设计中最难的问题了。所以当浏览器中开始出现能够在两轴恰当地排列元素和元素组的 Flexbox 排列方式时，像你我一样的广大web开发者都为之激动不已。排列方式变得简单到只需要两行 CSS 代码：
@@ -57,7 +58,7 @@ p {
 
 可以看由 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 创建的在 [CodePen](https://codepen.io) 上的展示：[Smashing Flexbox Series 2: center an item](https://codepen.io/rachelandrew/pen/WKLYEX) 。
 
-你所了解的 flexbox 排列属性目前都已经完整地被收录到了 [盒子元素排列规范](https://www.w3.org/TR/css-align-3/)中了。这个规范文档详细地说明了在各种布局情况下的元素排列如何工作。这意味着我们在使用 Flexbox 排列方式或者将来在不同布局情况下都可以在 CSS Grid 中使用相同的排列属性。因此，任何新的排列都会在新的盒子元素排列规范中指出，而不是新的 Flexbox 版本。（译者注：此处是新的特性是以新的排列属性/方法来创建的，而不是更新 Flexbox 版本）
+你所了解的 flexbox 排列属性目前都已经完整地被收录到 [盒子元素排列规范](https://www.w3.org/TR/css-align-3/)中了。这个规范文档详细地说明了在各种布局情况下的元素排列如何工作。这意味着我们在使用 Flexbox 排列方式或者将来在不同布局情况下都可以在 CSS Grid 中使用相同的排列属性。因此，任何新的排列都会在新的盒子元素排列规范中指出，而不是新的 Flexbox 版本。（译者注：此处是新的特性是以新的排列属性/方法来创建的，而不是更新 Flexbox 版本）
 
 ### 属性
 
@@ -72,13 +73,13 @@ p {
 
 我们将会从主轴排列来开始讨论。在主轴上，我们通过 `justify-content` 属性来实现排列。这个属性的作用对象是我们的所有 flexbox 子元素所组成的组。同时也控制着组内所有元素的间距。
 
-默认的 `justify-content` 值是 `flex-start`。这也就是为什么你声明 `display: flex` 之后你的所有 flexbox 子元素朝着你的 flex 盒子的开始排成一行。如果你有一个值为  `row` 的 `flex-direction` 属性同时页面是从左到右读的语言（例如英语）的话，这些字元素将会从左边开始排列。
+默认的 `justify-content` 值是 `flex-start`。这也就是为什么你声明 `display: flex` 之后你的所有 flexbox 子元素朝着你的 flex 盒子的开始排成一行。如果你有一个值为 `row` 的 `flex-direction` 属性同时页面是从左到右读的语言（例如英语）的话，这些字元素将会从左边开始排列。
 
 [![The items are all lined up in a row starting on the left](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/67648629-b445-429f-9fd4-0fb47b7875ef/justify-content-flex-start.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/67648629-b445-429f-9fd4-0fb47b7875ef/justify-content-flex-start.png) 
 
 子元素从盒子的开始排列（[放大预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/67648629-b445-429f-9fd4-0fb47b7875ef/justify-content-flex-start.png))
 
-记住 `justify-content` 只会在 **盒子有剩余空间可以分配时** 发挥作用。所以如果你的子元素占满了主轴的空间的话， `justify-content` 将不会产生任何作用。
+记住 `justify-content` 只会在 **盒子有剩余空间可以分配时** 发挥作用。所以如果你的子元素占满了主轴的空间的话，`justify-content` 将不会产生任何作用。
 
 [![The container is filled with the items](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/064418da-c45c-4fbf-9b4e-65c481c05c00/justify-content-no-space.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/064418da-c45c-4fbf-9b4e-65c481c05c00/justify-content-no-space.png) 
 
@@ -90,7 +91,7 @@ p {
 
 子元素从盒子的结束排列（[放大预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/262c2132-a9bf-4c6c-90cd-4ec445c9f3e1/justify-content-flex-end.png)）
 
-我们可以对这些剩余的区域做其他事情。我们可以通过`justify-content: space-between`来让它分布在 flex 盒子的两个子元素之间。在这种情况下，最前和最后的两个子元素会贴着容器，同时所有的空间将会被平均分配在每一个子元素之间。
+我们可以对这些剩余的区域做其他事情。我们可以通过 `justify-content: space-between`来让它分布在 flex 盒子的两个子元素之间。在这种情况下，最前和最后的两个子元素会贴着容器，同时所有的空间将会被平均分配在每一个子元素之间。
 
 [![Items lined up left and right with equal space between them](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e0df6bac-5250-47d2-82ed-da66306e7c95/justify-content-space-between.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e0df6bac-5250-47d2-82ed-da66306e7c95/justify-content-space-between.png) 
 
@@ -102,7 +103,7 @@ p {
 
 子元素的两侧都有空间（[放大预览(https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/acab1663-6d66-4d98-9d1c-2f2b98911bbe/justify-content-space-around.png)）
 
-在盒子排列规范中可以找到一个 `justify-content`的更新的值，它没有出现在 Flexbox 的规范中。它的值是`space-evenly`。在这种情况下，子元素会均匀分布在容器内，同时额外的空间将会被子元素的两侧所分享
+在盒子排列规范中可以找到一个 `justify-content` 的更新的值，它没有出现在 Flexbox 的规范中。它的值是`space-evenly`。在这种情况下，子元素会均匀分布在容器内，同时额外的空间将会被子元素的两侧所分享。
 
 [![Items with equal amounts of space between and on each end](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/b8960c00-dd71-4147-bd7a-7a32bc98f08a/justify-content-space-evenly.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/b8960c00-dd71-4147-bd7a-7a32bc98f08a/justify-content-space-evenly.png) 
 
@@ -184,7 +185,7 @@ justifyMe.addEventListener("change", function (evt) {
 
 可以看由 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 创建的在 [CodePen](https://codepen.io) 上的展示：[Smashing Flexbox Series 2: justify-content with flex-direction: row](https://codepen.io/rachelandrew/pen/Owraaj)
 
-这些值同样会在你的 `flex-direction` 为 `column` 生效。你可能没有额外的空间来分配一个列，但你可以通过添加 height 属性或者是改变 flex 容器的大小来解决这个问题。就像下面这个 demo 一样。
+这些值同样会在你的 `flex-direction` 为 `column` 时生效。你可能没有额外的空间来分配一个列，但你可以通过添加 height 属性或者是改变 flex 容器的大小来解决这个问题。就像下面这个 demo 一样。
 
 HTML:
 
@@ -431,7 +432,7 @@ alignMe.addEventListener("change", function (evt) {
 
 ### 简写方法 `place-content` 
 
-在盒子元素排列规范中，我们发现了一个简写方法 `place-content`。使用这个属性意味着你可以一次性设置 `justify-content` 和 `align-content`。它的第一个值是 `align-content`，第二个值是 `align-content` 。如果你仅仅设置了一个值A，那么这两个值都将设置成A，因此：
+在盒子元素排列规范中，我们发现了一个简写方法 `place-content`。使用这个属性意味着你可以一次性设置 `justify-content` 和 `align-content`。它的第一个值是 `align-content`，第二个值是 `align-content` 。如果你仅仅设置了一个值 A，那么这两个值都将设置成 A，因此：
 
 ```
 .container {
@@ -588,7 +589,7 @@ alignMe.addEventListener("change", function (evt) {
 
 #### 使用 `align-self` 来设置单个元素的排列
 
-`align-items` 意味着你可以一次设置所有的 flex 子元素。这个操作的真正原理是对所有的 flex 子元素一一设置其 `align-self` 值。当然你也可以任意单一的 flex 子元素设置 `align-self` 值来使其与同一个 flex 容器的其它flex 子元素不一样。
+`align-items` 意味着你可以一次设置所有的 flex 子元素。这个操作的真正原理是对所有的 flex 子元素一一设置其 `align-self` 值。当然你也可以任意单一的 flex 子元素设置 `align-self` 值来使其与同一个 flex 容器的其它 flex 子元素不一样。
 
 在下面的例子中，我使用了 `align-items` 属性来设置 flex 子元素组的排列方式是 `center`，但是同时也给第一个和最后一个设置了 `align-self` 属性来改变他们的排列方式。
 
@@ -642,7 +643,7 @@ p {
 
 可以看由 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 创建的在 [CodePen](https://codepen.io) 上的展示： [Smashing Flexbox Series 2: align-self](https://codepen.io/rachelandrew/pen/KBbLmz) 
 
-### 为什么没有 `justify-self`?
+### 为什么没有 `justify-self`？
 
 一个很常见的问题是为什么不能在主轴上排列单个元素或元素组？ 为什么在主轴上没有 `-self` 排列属性？如果你认为 `justify-content` 和 `align-content` 的作用是关于空余空间分布的，那么它们没有单独的排列方法的理由就显而易见了。我们将flex 子元素作为一整个组进行处理，并以某种方式分配可用空间——在组的开头及结尾或 flex 子元素之间。
 
@@ -798,13 +799,13 @@ p {
 }
 ```
 
-可以看由 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 创建的在 [CodePen](https://codepen.io) 上的展示： [Smashing Flexbox Series 2: safe or unsafe alignment](https://codepen.io/rachelandrew/pen/zLyVmQ)  
+可以看由 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 创建的在 [CodePen](https://codepen.io) 上的展示： [Smashing Flexbox Series 2: safe or unsafe alignment](https://codepen.io/rachelandrew/pen/zLyVmQ)
 
 ### 总结
 
 Flexbox 的排列属性最初以列表的方式出现，但是现在它们有了自己的规范同时也适用于其它的布局环境。这里是一些小知识可能帮助你如何在 Flexbox 中使用它们：
 
-*   `justify-` 适用于主轴， `align-` 适用于交叉轴；
+*   `justify-` 适用于主轴，`align-` 适用于交叉轴；
 *   使用 `align-content` 和 `justify-content` 时你需要空余空间；
 *   `align-content` 和 `justify-content` 属性面向的是子元素组、作用是分享空间。因此，你不能指定一个特定的子元素同时它们也没有对应 `-self` 排列属性；
 *   如果你想去排列一个子元素，或者在主轴上分离出一个组，请用自动外边距实现；
