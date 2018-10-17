@@ -3,14 +3,14 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flexbox-alignment.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flexbox-alignment.md)
 > * 译者：[CodeMing](https://github.com/coderming)
-> * 校对者：[Augustwuli](https://github.com/Augustwuli)
+> * 校对者：
 
 # 你需要知道的所有 Flexbox 排列方式
 
 **简论：** 在这篇文章中，我们将会在探讨一些基本规则的同时谈一谈 Flexbox 的排列属性以帮助我们知道横轴和竖轴上（元素的）对齐是如何实现的。
 
 [在这个系列的第一篇文章中](https://github.com/xitu/gold-miner/blob/master/TODO1/flexbox-display-flex-container.md)，我解释了当你把一个元素设置为 `display: flex` 时发生了什么。这次我们将会讨论下排列属性，同时也会讨论（这些属性）如何和 Flexbox 一起工作。如果你曾经对何时使用 align 属性和 justify 属性感到疑惑的话，我希望这篇文章将会让（排列的）问题变得清晰！
-
+如果你曾经对何时使用 align 属性和 justify 属性感到疑惑的话
 ### Flexbox 排列方式的历史
 
 在整个 CSS 布局的历史中，如何能恰当地在横竖两轴正确排列元素估计是 Web 设计中最难的问题了。所以当浏览器中开始出现能够在两轴恰当地排列元素和元素组的 Flexbox 排列方式时，像你我一样的广大web开发者都为之激动不已。排列方式变得简单到只需要两行 CSS 代码：
@@ -82,7 +82,7 @@ p {
 
 [![The container is filled with the items](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/064418da-c45c-4fbf-9b4e-65c481c05c00/justify-content-no-space.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/064418da-c45c-4fbf-9b4e-65c481c05c00/justify-content-no-space.png) 
 
-盒子没有任何剩余空间可以分配（[放大预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/67648629-b445-429f-9fd4-0fb47b7875ef/justify-content-flex-start.png)）
+盒子没有任何剩余空间可以分配（[放大预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/064418da-c45c-4fbf-9b4e-65c481c05c00/justify-content-no-space.png)）
 
 如果将 `justify-content` 设置为 `flex-end` 的话，所有的元素将会移动到 flex 盒子的结束排成一行。空闲空间将会被移到 flex 盒子的开始之处。
 
