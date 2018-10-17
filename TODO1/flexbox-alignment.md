@@ -2,18 +2,19 @@
 > * 原文作者：[Rachel Andrew](https://www.smashingmagazine.com/author/rachel-andrew)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flexbox-alignment.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flexbox-alignment.md)
-> * 译者：
-> * 校对者：
+> * 译者：[CodeMing](https://github.com/coderming)
+> * 校对者：[Augustwuli](https://github.com/Augustwuli)、[Ivocin](https://github.com/Ivocin)
 
-# Everything You Need To Know About Alignment In Flexbox
+# 你需要知道的所有 Flexbox 排列方式
 
-**Quick summary:** In this article, we take a look at the alignment properties in Flexbox while discovering some basic rules to help remember how alignment on both the main and cross axis works.
+**简论：** 在这篇文章中，我们将会在探讨一些基本规则的同时谈一谈 Flexbox 的排列属性以帮助我们知道横轴和竖轴上（元素的）对齐是如何实现的。
 
-[In the first article of this series](https://github.com/xitu/gold-miner/blob/master/TODO1/flexbox-display-flex-container.md), I explained what happens when you declare `display: flex` on an element. This time we will take a look at the alignment properties, and how these work with Flexbox. If you have ever been confused about when to align and when to justify, I hope this article will make things clearer!
+[在这个系列的第一篇文章中](https://github.com/xitu/gold-miner/blob/master/TODO1/flexbox-display-flex-container.md)，我解释了当你把一个元素设置为 `display: flex` 时发生了什么。这次我们将会讨论下排列属性，同时也会讨论（这些属性）如何和 Flexbox 一起工作。如果你曾经对何时使用 align 属性和 justify 属性感到疑惑的话，我希望这篇文章将会让（排列的）问题变得清晰！
+如果你曾经对何时使用 align 属性和 justify 属性感到疑惑的话
 
-### History Of Flexbox Alignment
+### Flexbox 排列方式的历史
 
-For the entire history of CSS Layout, being able to properly align things on both axes seemed like it might truly be the hardest problem in web design. So the ability to properly align items and groups of items was for many of us the most exciting thing about Flexbox when it first started to show up in browsers. Alignment became as simple as two lines of CSS:
+在整个 CSS 布局的历史中，如何能恰当地在横竖两轴正确排列元素估计是 Web 设计中最难的问题了。所以当浏览器中开始出现能够在两轴恰当地排列元素和元素组的 Flexbox 排列方式时，像你我一样的广大web开发者都为之激动不已。排列方式变得简单到只需要两行 CSS 代码：
 
 HTML:
 
@@ -55,60 +56,60 @@ p {
 }
 ```
 
-See the Pen [Smashing Flexbox Series 2: center an item](https://codepen.io/rachelandrew/pen/WKLYEX) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+可以看由 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 创建的在 [CodePen](https://codepen.io) 上的展示：[Smashing Flexbox Series 2: center an item](https://codepen.io/rachelandrew/pen/WKLYEX) 。
 
-The alignment properties that you might think of as the flexbox alignment properties are now fully defined in the [Box Alignment Specification](https://www.w3.org/TR/css-align-3/). This specification details how alignment works across the various layout contexts. This means that we can use the same alignment properties in CSS Grid as we use in Flexbox — and in future in other layout contexts, too. Therefore, any new alignment capability for flexbox will be detailed in the Box Alignment specification and not in a future level of Flexbox.
+你所了解的 flexbox 排列属性目前都已经完整地被收录到 [盒子元素排列规范](https://www.w3.org/TR/css-align-3/)中了。这个规范文档详细地说明了在各种布局情况下的元素排列如何工作。这意味着我们在使用 Flexbox 排列方式或者将来在不同布局情况下都可以在 CSS Grid 中使用相同的排列属性。因此，任何新的排列都会在新的盒子元素排列规范中指出，而不是新的 Flexbox 版本。（译者注：此处是新的特性是以新的排列属性/方法来创建的，而不是更新 Flexbox 版本）
 
-### The Properties
+### 属性
 
-Many people tell me that they struggle to remember whether to use properties which start with `align-` or those which start with `justify-` in flexbox. The thing to remember is that:
+许多人告诉我他们在使用 flexbox 的时候很难区别是应该使用以 `align-` 还是 `justify-` 开头的属性。所以你需要知道：
 
-*   `justify-` performs main axis alignment. Alignment in the same direction as your `flex-direction`
-*   `align-` performs cross-axis alignment. Alignment across the direction defined by `flex-direction`.
+*   `justify-` 实现主轴上的排列方式。即排列与你的 `flex-direction` 相同的方向。
+*   `align-` 实现交叉轴上的排列方式。即排列与你的 `flex-direction` 相垂直的方向。
 
-Thinking in terms of main axis and cross axis, rather than horizontal and vertical really helps here. It doesn’t matter which way the axis is physically.
+在下文中，根据主轴和交叉轴而不是水平和垂直的方向来思考会更容易理解。（主轴和交叉轴）和物理方位一点关系都没有。
 
-#### Main Axis Alignment With `justify-content`
+#### 用 `justify-content` 来排列主轴
 
-We will start with the main axis alignment. On the main axis, we align using the `justify-content` property. This property deals with all of our flex items as a group, and controls how space is distributed between them.
+我们将会从主轴排列来开始讨论。在主轴上，我们通过 `justify-content` 属性来实现排列。这个属性的作用对象是我们的所有 flexbox 子元素所组成的组。同时也控制着组内所有元素的间距。
 
-The initial value of `justify-content` is `flex-start`. This is why, when you declare `display: flex` all your flex items line up against the start of the flex line. If you have a `flex-direction` of `row` and are in a left to right language such as English, then the items will start on the left.
+默认的 `justify-content` 值是 `flex-start`。这也就是为什么你声明 `display: flex` 之后你的所有 flexbox 子元素朝着你的 flex 盒子的开始排成一行。如果你有一个值为 `row` 的 `flex-direction` 属性同时页面是从左到右读的语言（例如英语）的话，这些字元素将会从左边开始排列。
 
 [![The items are all lined up in a row starting on the left](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/67648629-b445-429f-9fd4-0fb47b7875ef/justify-content-flex-start.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/67648629-b445-429f-9fd4-0fb47b7875ef/justify-content-flex-start.png) 
 
-The items line up to the start ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/67648629-b445-429f-9fd4-0fb47b7875ef/justify-content-flex-start.png))
+子元素从盒子的开始排列（[放大预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/67648629-b445-429f-9fd4-0fb47b7875ef/justify-content-flex-start.png))
 
-Note that the `justify-content` property can only do something **if there is spare space to distribute**. Therefore if you have a set of flex items which take up all of the space on the main axis, using `justify-content` will not change anything.
+记住 `justify-content` 只会在 **盒子有剩余空间可以分配时** 发挥作用。所以如果你的子元素占满了主轴的空间的话，`justify-content` 将不会产生任何作用。
 
 [![The container is filled with the items](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/064418da-c45c-4fbf-9b4e-65c481c05c00/justify-content-no-space.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/064418da-c45c-4fbf-9b4e-65c481c05c00/justify-content-no-space.png) 
 
-There is no space to distribute ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/064418da-c45c-4fbf-9b4e-65c481c05c00/justify-content-no-space.png))
+盒子没有任何剩余空间可以分配（[放大预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/064418da-c45c-4fbf-9b4e-65c481c05c00/justify-content-no-space.png)）
 
-If we give `justify-content` a value of `flex-end` then all of the items will move to the end of the line. The spare space is now placed at the beginning.
+如果将 `justify-content` 设置为 `flex-end` 的话，所有的元素将会移动到 flex 盒子的结束排成一行。空闲空间将会被移到 flex 盒子的开始之处。
 
 [![The items are displayed in a row starting at the end of the container — on the right](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/262c2132-a9bf-4c6c-90cd-4ec445c9f3e1/justify-content-flex-end.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/262c2132-a9bf-4c6c-90cd-4ec445c9f3e1/justify-content-flex-end.png) 
 
-The items line up at the end ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/262c2132-a9bf-4c6c-90cd-4ec445c9f3e1/justify-content-flex-end.png))
+子元素从盒子的结束排列（[放大预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/262c2132-a9bf-4c6c-90cd-4ec445c9f3e1/justify-content-flex-end.png)）
 
-We can do other things with that space. We could ask for it to be distributed _between_ our flex items, by using `justify-content: space-between`. In this case, the first and last item will be flush with the ends of the container and all of the space shared equally between the items.
+我们可以对这些剩余的区域做其他事情。我们可以通过 `justify-content: space-between`来让它分布在 flex 盒子的两个子元素之间。在这种情况下，最前和最后的两个子元素会贴着容器，同时所有的空间将会被平均分配在每一个子元素之间。
 
 [![Items lined up left and right with equal space between them](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e0df6bac-5250-47d2-82ed-da66306e7c95/justify-content-space-between.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e0df6bac-5250-47d2-82ed-da66306e7c95/justify-content-space-between.png) 
 
-The spare space is shared out between the items ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e0df6bac-5250-47d2-82ed-da66306e7c95/justify-content-space-between.png))
+剩余空间分配在子元素之间（[放大预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e0df6bac-5250-47d2-82ed-da66306e7c95/justify-content-space-between.png)）
 
-We can ask that the space to be distributed around our flex items, using `justify-content: space-around`. In this case, the available space is shared out and placed on each side of the item.
+我们也可以通过使用 `justify-content: space-around` 将这些空间环绕着 flex 盒子的子元素。在这种情况下，子元素将会均匀地分布在容器中，同时可用空间也会被这些元素分享。
 
 [![Items spaced out with even amounts of space on each side](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/acab1663-6d66-4d98-9d1c-2f2b98911bbe/justify-content-space-around.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/acab1663-6d66-4d98-9d1c-2f2b98911bbe/justify-content-space-around.png) 
 
-The items have space either side of them ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/acab1663-6d66-4d98-9d1c-2f2b98911bbe/justify-content-space-around.png))
+子元素的两侧都有空间（[放大预览(https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/acab1663-6d66-4d98-9d1c-2f2b98911bbe/justify-content-space-around.png)）
 
-A newer value of `justify-content` can be found in the Box Alignment specification; it doesn’t appear in the Flexbox spec. This value is `space-evenly`. In this case, the items will be evenly distributed in the container, and the extra space will be shared out between and either side of the items.
+在盒子排列规范中可以找到一个 `justify-content` 的更新的值，它没有出现在 Flexbox 的规范中。它的值是`space-evenly`。在这种情况下，子元素会均匀分布在容器内，同时额外的空间将会被子元素的两侧所分享。
 
 [![Items with equal amounts of space between and on each end](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/b8960c00-dd71-4147-bd7a-7a32bc98f08a/justify-content-space-evenly.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/b8960c00-dd71-4147-bd7a-7a32bc98f08a/justify-content-space-evenly.png) 
 
-The items are spaced evenly ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/b8960c00-dd71-4147-bd7a-7a32bc98f08a/justify-content-space-evenly.png))
+元素均匀地分布在容器内（[放大预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/b8960c00-dd71-4147-bd7a-7a32bc98f08a/justify-content-space-evenly.png)）
 
-You can play with all of the values in the demo:
+你可以在 demo 中尝试一下：
 
 HTML:
 
@@ -182,9 +183,9 @@ justifyMe.addEventListener("change", function (evt) {
 });
 ```
 
-See the Pen [Smashing Flexbox Series 2: justify-content with flex-direction: row](https://codepen.io/rachelandrew/pen/Owraaj) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+可以看由 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 创建的在 [CodePen](https://codepen.io) 上的展示：[Smashing Flexbox Series 2: justify-content with flex-direction: row](https://codepen.io/rachelandrew/pen/Owraaj)
 
-These values work in the same way if your `flex-direction` is `column`. You may not have extra space to distribute in a column however unless you add a height or block-size to the flex container as in this next demo.
+这些值同样会在你的 `flex-direction` 为 `column` 时生效。你可能没有额外的空间来分配一个列，但你可以通过添加 height 属性或者是改变 flex 容器的大小来解决这个问题。就像下面这个 demo 一样。
 
 HTML:
 
@@ -259,13 +260,13 @@ justifyMe.addEventListener("change", function (evt) {
 });
 ```
 
-See the Pen [Smashing Flexbox Series 2: justify-content with flex-direction: column](https://codepen.io/rachelandrew/pen/zLyMyV) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+可以看由 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 创建的在 [CodePen](https://codepen.io) 上的展示：[Smashing Flexbox Series 2: justify-content with flex-direction: column](https://codepen.io/rachelandrew/pen/zLyMyV)
 
-#### Cross Axis Alignment with `align-content`
+#### 用 `align-content` 来排列交叉轴
 
-If you have added `flex-wrap: wrap` to your flex container, and have multiple flex lines then you can use `align-content` to align your flex lines on the cross axis. However, this will require that you have additional space on the cross axis. In the below demo, my cross axis is running in the block direction as a column, and I have set the height of the flex container to `60vh`. As this is more than is needed to display my flex items I have spare space vertically in the container.
+如果你给你的 flex 容器添加了 `flex-wrap: wrap` 同时也有好几条 flex 排列行，那你可以用 `align-content` 属性来在交叉轴上排列你的 flex 排列行。不过，这将会需要交叉轴上有额外的空间。在下面这个 demo 中，我的交叉轴作为竖直的列在运行，同时我设置了这个 flex 容器的高度为 `60vh`。由于这个高度比我展示 flex 子元素所需的高度大，所以我的容器有了交叉轴方向上的空余空间。
 
-I can then use `align-content` with any of the values:
+我可以使用下面所有的 `align-content` 属性值：
 
 HTML:
 
@@ -343,9 +344,9 @@ alignMe.addEventListener("change", function (evt) {
 });
 ```
 
-See the Pen [Smashing Flexbox Series 2: align-content with flex-direction: row](https://codepen.io/rachelandrew/pen/pZqqMJ) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+可以看由 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 创建的在 [CodePen](https://codepen.io) 上的展示：[Smashing Flexbox Series 2: align-content with flex-direction: row](https://codepen.io/rachelandrew/pen/pZqqMJ)
 
-If my `flex-direction` were `column` then `align-content` would work as in the following example.
+如果我的 `flex-direction` 值为 `column` 的话，那 `align-content` 属性将像下面这个例子一样运行：
 
 HTML:
 
@@ -425,13 +426,13 @@ alignMe.addEventListener("change", function (evt) {
 });
 ```
 
-See the Pen [Smashing Flexbox Series 2: align-content with flex-direction: column](https://codepen.io/rachelandrew/pen/MBZZNy) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+可以看由 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 创建的在 [CodePen](https://codepen.io) 上的展示：[Smashing Flexbox Series 2: align-content with flex-direction: column](https://codepen.io/rachelandrew/pen/MBZZNy)
 
-As with `justify-content`, we are working with the lines as a group and distributing the spare space.
+正如 `justify-content` 属性一样，我们的设置作用在（子元素所组成的）子元素组中，同时空余空间被分割。
 
-### The `place-content` Shorthand
+### 简写方法 `place-content` 
 
-In the Box Alignment, we find the shorthand `place-content`; using this property means you can set `justify-content` and `align-content` at once. The first value is for `align-content`, the second for `justify-content`. If you only set one value then both values are set to that value, therefore:
+在盒子元素排列规范中，我们发现了一个简写方法 `place-content`。使用这个属性意味着你可以一次性设置 `justify-content` 和 `align-content`。它的第一个值是 `align-content`，第二个值是 `align-content` 。如果你仅仅设置了一个值 A，那么这两个值都将设置成 A，因此：
 
 ```
 .container {
@@ -439,7 +440,7 @@ In the Box Alignment, we find the shorthand `place-content`; using this property
 }
 ```
 
-Is the same as:
+和下面一样：
 
 ```
 .container {
@@ -448,7 +449,7 @@ Is the same as:
 }
 ```
 
-If we used:
+如果我们使用：
 
 ```
 .container {
@@ -456,7 +457,7 @@ If we used:
 }
 ```
 
-This would be the same as:
+那将和下面一样：
 
 ```
 .container {
@@ -465,49 +466,49 @@ This would be the same as:
 }
 ```
 
-#### Cross Axis Alignment With `align-items`
+#### 用 `align-items` 来排列交叉轴
 
-We now know that we can align our set of flex items or our flex lines as a group. However, there is another way we might wish to align our items and that is to align items in relationship to each other on the cross axis. Your flex container has a height. That height might be defined by the height of the tallest item as in this image.
+我们现在知道，我们可以对（所有 flex 子元素所组成的）子元素组进行关于 flex 元素和 flex 排列行的操作。不过，我们希望有其它方式即通过声明元素与元素之间在数轴上的关系来操作我们的元素。你的 flex 容器有一个高度，这个高度可能是由容器内最高的子元素所决定的，就如下图一样。
 
 [![The container height is tall enough to contain the items, the third item has more content](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/dabd13bf-bf9c-411f-86c0-d43cdfb935fe/container-height-of-item.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/dabd13bf-bf9c-411f-86c0-d43cdfb935fe/container-height-of-item.png) 
 
-The container height is defined by the third item ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/dabd13bf-bf9c-411f-86c0-d43cdfb935fe/container-height-of-item.png))
+容器的高度被第三个子元素所定义（[放大预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/dabd13bf-bf9c-411f-86c0-d43cdfb935fe/container-height-of-item.png)）
 
-It might instead be defined by adding a height to the flex container:
+flex 容器的高度可以通过给 flex 容器添加一个 height 属性所代替：
 
-[![The container height is taller than needed to display the items](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/c477a442-ea29-48cf-bed9-94b75593a1b2/container-added-height.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/c477a442-ea29-48cf-bed9-94b75593a1b2/container-added-height.png) 
+[![The container height is taller than needed to display the items](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/c477a442-ea29-48cf-bed9-94b75593a1b2/container-added-height.png)]((https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/c477a442-ea29-48cf-bed9-94b75593a1b2/container-added-height.png) )
 
-The height is defined by a size on the flex container ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/c477a442-ea29-48cf-bed9-94b75593a1b2/container-added-height.png))
+容器的高度通过该容器的大小属性所定义（[放大预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/c477a442-ea29-48cf-bed9-94b75593a1b2/container-added-height.png)）
 
-The reason that flex items appear to stretch to the size of the tallest item is that the initial value of `align-items` is `stretch`. The items stretch on the cross axis to become the size of the flex container in that direction.
+flex 子元素看起来都被拉伸到最高的子元素的高度的原因是 `align-items` 的初始值是 `stretch`。子元素们在交叉轴上被拉伸成 flex 容器在那个方向上的尺寸了。
 
-Note that where `align-items` is concerned, if you have a multi-line flex container, each line acts like a new flex container. The tallest item in that line would define the size of all items in that line.
+请记住哪里出现 `align-items` 会导致困惑：如果你有一个具有多个 flex 排列行的 flex 容器，那么每一个 flex 排列行都会像一个新的 flex 容器一样，（该行的）最高的 flex 子元素将会决定哪一行的所有 flex 子元素高度。
 
-In addition to the initial value of stretch, you can give `align-items` a value of `flex-start`, in which case they align to the start of the container and no longer stretch to the height.
+除了设置拉伸的初始值之外，你也可以给 `align-items` 属性设置一个值 `flex-start`，在这种情况下 flex 子元素将会在容器的开始之处排列同时也不会拉伸。
 
 [![The items are aligned to the start](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7da24e8b-8d18-4ada-9f0e-e417e0293607/align-items-flex-start.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7da24e8b-8d18-4ada-9f0e-e417e0293607/align-items-flex-start.png) 
 
-The items aligned to the start of the cross axis ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7da24e8b-8d18-4ada-9f0e-e417e0293607/align-items-flex-start.png))
+flex 子元素排列在交叉轴的开始之处（[放大预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7da24e8b-8d18-4ada-9f0e-e417e0293607/align-items-flex-start.png)）
 
-The value `flex-end` moves them to the end of the container on the cross axis.
+设置值 `flex-end` 将会把它们（flex 子元素）移到交叉轴的结束之处。
 
 [![Items aligned to the end of the cross axis](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/52d4c377-8c60-4336-be64-f01cb9a20833/align-items-flex-end.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/52d4c377-8c60-4336-be64-f01cb9a20833/align-items-flex-end.png) 
 
-The items aligned to the end of the cross axis ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/52d4c377-8c60-4336-be64-f01cb9a20833/align-items-flex-end.png))
+flex 子元素排列在交叉轴的结束之处（[放大预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/52d4c377-8c60-4336-be64-f01cb9a20833/align-items-flex-end.png)）
 
-If you use a value of `center` the items all centre against each other:
+如果你使用值 `center` ，那 flex 子元素将会排列在交叉轴中央：
 
 [![The items are centered](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/8ccb2aba-b692-4ba5-8827-1043674fc1d4/align-items-center.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/8ccb2aba-b692-4ba5-8827-1043674fc1d4/align-items-center.png) 
 
-Centering the items on the cross axis ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/8ccb2aba-b692-4ba5-8827-1043674fc1d4/align-items-center.png))
+flex 子元素排列在交叉轴中央（[放大预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/8ccb2aba-b692-4ba5-8827-1043674fc1d4/align-items-center.png)）
 
-We can also do baseline alignment. This ensures that the baselines of text line up, as opposed to aligning the boxes around the content.
+我们也可以设置依据文字基准线排列。这将会确保（flex 子元素）以文字的基准线排列，而不是盒子的边框。
 
 [![The items are aligned so their baselines match](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/6607e8bc-9f6b-43a6-9b13-24bff76068f1/align-items-baseline.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/6607e8bc-9f6b-43a6-9b13-24bff76068f1/align-items-baseline.png) 
 
-Aligning the baselines ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/6607e8bc-9f6b-43a6-9b13-24bff76068f1/align-items-baseline.png))
+根据文字基准线排列（[放大预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/6607e8bc-9f6b-43a6-9b13-24bff76068f1/align-items-baseline.png)）
 
-You can try these values out in the demo:
+你可以尝试使用这个 demo 中的值：
 
 HTML:
 
@@ -584,13 +585,13 @@ alignMe.addEventListener("change", function (evt) {
 });
 ```
 
-See the Pen [Smashing Flexbox Series 2: align-items](https://codepen.io/rachelandrew/pen/WKLBpv) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+可以看由 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 创建的在 [CodePen](https://codepen.io) 上的展示：[Smashing Flexbox Series 2: align-items](https://codepen.io/rachelandrew/pen/WKLBpv)
 
-#### Individual Alignment With `align-self`
+#### 使用 `align-self` 来设置单个元素的排列
 
-The `align-items` property means that you can set the alignment of all of the items at once. What this really does is set all of the `align-self` values on the individual flex items as a group. You can also use the `align-self` property on any individual flex item to align it inside the flex line and against the other flex items.
+`align-items` 意味着你可以一次设置所有的 flex 子元素。这个操作的真正原理是对所有的 flex 子元素一一设置其 `align-self` 值。当然你也可以任意单一的 flex 子元素设置 `align-self` 值来使其与同一个 flex 容器的其它 flex 子元素不一样。
 
-In the following example, I have used `align-items` on the container to set the alignment for the group to `center`, but also used `align-self` on the first and last items to change their alignment value.
+在下面的例子中，我使用了 `align-items` 属性来设置 flex 子元素组的排列方式是 `center`，但是同时也给第一个和最后一个设置了 `align-self` 属性来改变他们的排列方式。
 
 HTML:
 
@@ -640,21 +641,21 @@ p {
 }
 ```
 
-See the Pen [Smashing Flexbox Series 2: align-self](https://codepen.io/rachelandrew/pen/KBbLmz) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+可以看由 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 创建的在 [CodePen](https://codepen.io) 上的展示： [Smashing Flexbox Series 2: align-self](https://codepen.io/rachelandrew/pen/KBbLmz) 
 
-### Why Is There No `justify-self`?
+### 为什么没有 `justify-self`？
 
-A common question is why it is not possible to align one item or a group of the items on the main axis. Why is there no `-self` property for main axis alignment in Flexbox? If you think about `justify-content` and `align-content` as being about space distribution, the reason for their being no self-alignment becomes more obvious. We are dealing with the flex items as a group, and distributing available space in some way — either at the start or end of the group or between the items.
+一个很常见的问题是为什么不能在主轴上排列单个元素或元素组？ 为什么在主轴上没有 `-self` 排列属性？如果你认为 `justify-content` 和 `align-content` 的作用是关于空余空间分布的，那么它们没有单独的排列方法的理由就显而易见了。我们将flex 子元素作为一整个组进行处理，并以某种方式分配可用空间——在组的开头及结尾或 flex 子元素之间。
 
-If might be also helpful to think about how `justify-content` and `align-content` work in CSS Grid Layout. In Grid, these properties are used to distribute spare space in the grid container _between grid tracks_. Once again, we take the tracks as a group, and these properties give us a way to distribute any extra space between them. As we are acting on a group in both Grid and Flexbox, we can’t target an item on its own and do something different with it. However, there is a way to achieve the kind of layout that you are asking for when you ask for a `self` property on the main axis, and that is to use auto margins.
+想想 `justify-content` 和 `align-content` 在 CSS Gird 布局中如何起作用也是很有帮助的。这两个属性用于描述在 gird 容器和 gird 块之间的空余空间如何分配。再次地，我们将 gird 块当作一个组，然后这些属性决定他们之间的所有额外空间。正如我们在 Gird 和 Flexbox 中展示的作用那样，我们不能指定某一个元素去做一些不一样的事情。不过，有一个方法可以实现你想要的在主轴上类似 `self` 属性的布局，那就是使用自动外边距。
 
-#### Using Auto Margins On The Main Axis
+#### 在主轴上使用自动外边距
 
-If you have ever centered a block in CSS (such as the wrapper for your main page content by setting a margin left and right of `auto`), then you already have some experience of how auto margins behave. A margin set to auto will try to become as big as it can in the direction it has been set in. In the case of using margins to center a block, we set the left and right both to auto; they each try and take up as much space as possible and so push our block into the center.
+如果你曾经在 CSS 中将一个块级元素居中（就像将页面主元素的容器通过将它的左右外边距设置为 `auto ` ），那么你就已经有了如何设置自动外边距的经验了。当一个外边距的值设置为 auto 时，它（外边距）会尽可能地尝试在其所指的方向上变大。在使用外边距将一个块级元素居中时，我们将其左右的外边距都设置为了 auto；它们（左右外边距）都会尽可能地占据空间于是就将块级元素挤到了中间。
 
-Auto margins work very nicely in Flexbox to align single items or groups of items on the main axis. In the next example, I am achieving a common design pattern. I have a navigation bar using Flexbox, the items are displayed as a row and are using the initial value of `justify-content: start`. I would like the final item to be displayed separated from the others at the end of the flex line — assuming there is enough space on the line to do so.
+在 Flexbox 中使用自动外边距来排列主轴上的单个元素或者一组元素的效果非常好。在下面的例子中，我们实现了一个共同的设计模式。我有一个使用 Flexbox 的导航栏，其子元素以行的形式排列同时使用了默认值 `justify-content: start`。我想让最后的那个子元素和其它子元素分开并展示在 flex 排列行的最后面——假设该行有足够的空间。
 
-I target that item and give it a margin-left of auto. This then means that the margin tries to get as much space as possible to the left of the item, which means the item gets pushed all the way over to the right.
+我定位到了那个元素并且把它的 margin-left 属性设置成了 auto。这意味着它的外边距将会尽可能地占用它左边的空间，这意味着那个子元素被推到了最右边。
 
 HTML:
 
@@ -699,21 +700,21 @@ p {
 }
 ```
 
-See the Pen [Smashing Flexbox Series 2: alignment with auto margins](https://codepen.io/rachelandrew/pen/oMJROm) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+可以看由 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 创建的在 [CodePen](https://codepen.io) 上的展示： [Smashing Flexbox Series 2: alignment with auto margins](https://codepen.io/rachelandrew/pen/oMJROm) 
 
-If you use auto margins on the main axis then `justify-content` will cease to have any effect, as the auto margins will have taken up all of the space that would otherwise be assigned using `justify-content`.
+如果你在主轴上使用了自动外边距，那 `justify-content` 将不会有任何作用，因为自动外边距将会占据所有之前用在 `justify-content` 上的空间。
 
-### Fallback Alignment
+### 回退排列
 
-Each alignment method details a fallback alignment, this is what will happen if the alignment you have requested can’t be achieved. For example, if you only have one item in a flex container and ask for `justify-content: space-between`, what should happen? The answer is that the fallback alignment of `flex-start` is used and your single item will align to the start of the flex container. In the case of `justify-content: space-around`, a fallback alignment of `center` is used.
+每一个排列方法详细来说都会有一个回退排列，它会说明在你请求的排列方式无法实现时会发生什么。举个例子，如果在你的 flex 容器中只有一个子元素但你声明了 `justify-content: space-between`，会发生什么？答案是（该属性的）回退排列 `flex-start` 会让你唯一的那个子元素排列在 flex 容器的开始之处。对于	`justify-content: space-around`，回退排列 `center` 将会被使用。
 
-In the current specification you can’t change what the fallback alignment is, so if you would prefer that the fallback for `space-between` was `center` rather than `flex-start`, there isn’t a way to do that. There is [a note in the spec](https://www.w3.org/TR/css-align-3/#distribution-values) which says that future levels may enable this.
+在现在的规范中你不能改变回退排列的值，所以如果你希望 `space-between` 的回退值是 `center` 而不是 `flex-start` 的话，并没有方法能实现。这是 [一份规范笔记](https://www.w3.org/TR/css-align-3/#distribution-values)，它描述了未来版本可能会支持这种方式。
 
-### Safe And Unsafe Alignment
+### 安全和非安全的排列
 
-A more recent addition to the Box Alignment specification is the concept of safe and unsafe alignment using the _safe_ and _unsafe_ keywords.
+最新的一个添加到盒子元素排列规范的是使用 *safe* 和 *unsafe* 关键词的关于安全和非安全的排列的概念。
 
-With the following code, the final item is too wide for the container and with unsafe alignment and the flex container on the left-hand side of the page, the item becomes cut off as the overflow is outside the page boundary.
+看下面的代码，最后一个元素相较于容器太宽了同时是 unsafe 排列并且 flex 容器是在页面左边的，当子元素溢出界面之外时，其被裁减了。
 
 ```
 .container {  
@@ -730,9 +731,9 @@ With the following code, the final item is too wide for the container and with u
 
 [![The overflowing item is centered and partly cut off](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/54359e1a-e4e4-445a-8fcc-e4ef59591bad/unsafe-alignment.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/54359e1a-e4e4-445a-8fcc-e4ef59591bad/unsafe-alignment.png) 
 
-Unsafe alignment will give you the alignment you asked for but may cause data loss ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/54359e1a-e4e4-445a-8fcc-e4ef59591bad/unsafe-alignment.png))
+不安全的排列将会按照你定义的排列但可能导致界面数据丢失（[放大预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/54359e1a-e4e4-445a-8fcc-e4ef59591bad/unsafe-alignment.png)）
 
-A safe alignment would prevent the data loss occurring, by relocating the overflow to the other side.
+安全的排列将会保护界面数据免于丢失，方式是通过重新移动溢出区间到其他地方：
 
 ```
 .container {  
@@ -749,9 +750,9 @@ A safe alignment would prevent the data loss occurring, by relocating the overfl
 
 [![The overflowing item overflows to the right](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7e31128f-cc18-430d-aa06-9a5307021d0c/safe-alignment.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7e31128f-cc18-430d-aa06-9a5307021d0c/safe-alignment.png) 
 
-Safe alignment tries to prevent data loss ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7e31128f-cc18-430d-aa06-9a5307021d0c/safe-alignment.png))
+安全的排列会尝试避免数据丢失（[放大预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7e31128f-cc18-430d-aa06-9a5307021d0c/safe-alignment.png)）
 
-These keywords have limited browser support right now, however, they demonstrate the additional control being brought to Flexbox via the Box Alignment specification.
+这些关键词现在还很少有浏览器支持（译者注：自测 Chrome 69 已支持），不过，它展示了在盒子元素排列规范中带给了 Flexbox 额外的控制方式。
 
 HTML:
 
@@ -798,20 +799,19 @@ p {
 }
 ```
 
-See the Pen [Smashing Flexbox Series 2: safe or unsafe alignment](https://codepen.io/rachelandrew/pen/zLyVmQ) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+可以看由 Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) 创建的在 [CodePen](https://codepen.io) 上的展示： [Smashing Flexbox Series 2: safe or unsafe alignment](https://codepen.io/rachelandrew/pen/zLyVmQ)
 
-### In Summary
+### 总结
 
-The alignment properties started as a list in Flexbox, but are now in their own specification and apply to other layout contexts. A few key facts will help you to remember how to use them in Flexbox:
+Flexbox 的排列属性最初以列表的方式出现，但是现在它们有了自己的规范同时也适用于其它的布局环境。这里是一些小知识可能帮助你如何在 Flexbox 中使用它们：
 
-*   `justify-` the main axis and `align-` the cross axis;
-*   To use `align-content` and `justify-content` you need spare space to play with;
-*   The `align-content` and `justify-content` properties deal with the items as a group, sharing out space. Therefore, you can’t target an individual item and so there is no `-self` alignment for these properties;
-*   If you do want to align one item, or split a group on the main axis, use auto margins to do so;
-*   The `align-items` property sets all of the `align-self` values as a group. Use `align-self` on the flex child to set the value for an individual item.
+*   `justify-` 适用于主轴，`align-` 适用于交叉轴；
+*   使用 `align-content` 和 `justify-content` 时你需要空余空间；
+*   `align-content` 和 `justify-content` 属性面向的是子元素组、作用是分享空间。因此，你不能指定一个特定的子元素同时它们也没有对应 `-self` 排列属性；
+*   如果你想去排列一个子元素，或者在主轴上分离出一个组，请用自动外边距实现；
+*   `align-items` 属性设置了整个子元素组的所有 `align-self` 值。可以通过设置 `align-self` 属性来设置一个特定的子元素。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
