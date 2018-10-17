@@ -2,69 +2,69 @@
 > * 原文作者：[Vihar Kurama](https://towardsdatascience.com/@vihar.kurama?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/unsupervised-learning-with-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/unsupervised-learning-with-python.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zhmhhu](https://github.com/zhmhhu)
+> * 校对者：[jianboy](https://github.com/jianboy), [7Ethan](https://github.com/7Ethan)
 
-# Unsupervised Learning with Python
+# Python 中的无监督学习算法
 
-Unsupervised Learning is a class of Machine Learning techniques to find the patterns in data. The data given to unsupervised algorithm are not labelled, which means only the input variables(X) are given with no corresponding output variables. In unsupervised learning, the algorithms are left to themselves to discover interesting structures in the data.
+无监督学习是一种用于在数据中查找模式的机器学习技术。提供给无监督算法的数据是没有标记的，这意味着只给出输入变量（X）而没有相应的输出变量。在无监督学习中，算法自己来发现数据中有趣的结构。
 
 ![](https://cdn-images-1.medium.com/max/800/1*c19D4-xJpW8EoP1d46jn8Q.jpeg)
 
-> Yan Lecun, director of AI research, explains that unsupervised learning — teaching machines to learn for themselves without having to be explicitly told if everything they do is right or wrong — is the key to “true” AI.
+> 人工智能研究主任 Yan Lecun 解释说，无监督学习 —— 在不明确告诉他们所做的一切是对还是错的情况下教机器自我学习 —— 是“真正的”人工智能的关键所在。
 
-## Supervised Vs Unsupervised Learning.
+## 监督学习 Vs 无监督学习。
 
-In supervised learning, the system tries to learn from the previous examples that are given. (On the other hand, in unsupervised learning, the system attempts to find the patterns directly from the example given.) So if the dataset is labelled it comes under a supervised problem, it the dataset is unlabelled then it is an unsupervised problem.
+在监督学习中，系统试图从先前给出的示例中学习。（另一方面，在无监督学习中，系统会尝试直接从给定的示例中查找模式。）因此，如果数据集被标记则为监督问题，如果数据集未标记，则是无监督问题。
 
 ![](https://cdn-images-1.medium.com/max/800/1*AZMDyaifxGVdwTV-1BN7kA.png)
 
 [src](http://beta.cambridgespark.com/courses/jpm/01-module.html)
 
-The image to the left is an example of supervised learning; we use regression techniques to find the best fit line between the features. While in unsupervised learning the inputs are segregated based on features and the prediction is based on which cluster it belonged.
+上面的图像是监督学习的一个例子; 我们使用回归算法找到特征之间的最佳拟合线。在无监督学习中，输入的数据以特征为基础而被分隔成不同的群集，并且预测它所属的群集。
 
-## Important Terminology
+## 重要术语
 
-**Feature**: An input variable used in making predictions.
+**Feature**: 用于进行预测的输入变量。
 
-**Predictions:** A model’s output when provided with an input example.
+**Predictions:** 输入示例时的模型输出。
 
-**Example**: One row of a data set. An example contains one or more features and possibly a label.
+**Example**: 一行数据集。一个 example 包含一个或多个特征以及可能的标签。
 
-**Label:** Result of the feature.
+**Label:** 特征结果。
 
-## Preparing data for Unsupervised Learning
+## 无监督学习数据准备
 
-In this article we use, Iris dataset for making our very first predictions. The dataset contains a set of 150 records under 5 attributes — Petal Length , Petal Width , Sepal Length , Sepal width and Class. Iris Setosa, Iris Virginica and Iris Versicolor are the three classes. For our Unsupervised Algorithm we give these four features of the Iris flower and predict which class it belongs to.
+在本文中，我们使用鸢尾花（Iris）数据集进行第一次预测。数据集包含一组有 150 个记录的集合，拥有 5 个属性 —— 花瓣长度、花瓣宽度、萼片长度、萼片宽度和类别。Iris Setosa、Iris Virginica 和 Iris Versicolor 是这三个类别。在我们的无监督算法中，我们给出了鸢尾花的这四个特征并预测它属于哪个类别。
 
-We use sklearn Library in Python to load Iris dataset, and matplotlib for data visualisation. Below is the code snippet for exploring the dataset.
+我们使用 Python 中的 sklearn 库来加载鸢尾花数据集，使用 matplotlib 库来实现数据可视化。以下是用于研究数据集的代码段。
 
 ```
-# Importing Modules
+# 引入模块
 from sklearn import datasets
 import matplotlib.pyplot as plt
 
-# Loading dataset
+# 加载数据集
 iris_df = datasets.load_iris()
 
-# Available methods on dataset
+# 数据集上的可用方法
 print(dir(iris_df))
 
-# Features
+# 特征
 print(iris_df.feature_names)
 
-# Targets
+# 目标
 print(iris_df.target)
 
-# Target Names
+# 目标名称
 print(iris_df.target_names)
 label = {0: 'red', 1: 'blue', 2: 'green'}
 
-# Dataset Slicing
+# 数据集切片
 x_axis = iris_df.data[:, 0]  # Sepal Length
 y_axis = iris_df.data[:, 2]  # Sepal Width
 
-# Plotting
+# 绘制
 plt.scatter(x_axis, y_axis, c=iris_df.target)
 plt.show()
 ```
@@ -80,49 +80,49 @@ plt.show()
 
 ![](https://cdn-images-1.medium.com/max/800/1*W97xJQLjkOUqbYL5_3EZQQ.png)
 
-Violet: Setosa, Green: Versicolor, Yellow: Virginica
+紫色：Setosa，绿色：Versicolor，黄色：Virginica
 
-## Clustering
+## 聚类
 
-In clustering, the data is divided into several groups. In plain words, the aim is to segregate groups with similar traits and assign them into clusters.
+在群集中，数据分为几组。简而言之，目的是将具有相似特征的群体分开并将其分配到对应的群集中。
 
-Visual Example,
+可视化的例子，
 
 ![](https://cdn-images-1.medium.com/max/800/1*58tBPk4oZqhZ-LUq-0Huow.jpeg)
 
-In the above image, the image to the left is raw data where the classification isn’t done, the image in the right is clustered(the data is classified based on its features). When an input is given which is to be predicted then it checks in the cluster it belongs based on it’s features, and the prediction is made.
+在上图中，左边的图像是未进行分类的原始数据，右边的图像是聚类的（数据根据其特征进行分类）。当给出要预测的输入时，它根据它的特征检查它所属的群集，并进行预测。
 
-## K-Means Clustering in Python
+## Python 中的 K-均值 聚类算法
 
-K means is an iterative clustering algorithm that aims to find local maxima in each iteration. Initially desired number of clusters are chosen. Since we know that there are 3 classes involved, we program the algorithm to group the data into 3 classes, by passing the parameter “n_clusters” into our KMeans model. Now randomly three points(inputs) are assigned into three cluster. Based on the centroid distance between each points the next given inputs are segregated into respected clusters. Now, re-computing the centroids for all the clusters.
+K 均值是一种迭代聚类算法，旨在在每次迭代中找到局部最大值。最初选择所需数量的群集。由于我们知道涉及 3 个类别，因此我们将算法编程为将数据分组为 3 个类别，方法是将参数 “n_clusters” 传递给我们的 K 均值模型。现在随机将三个点（输入）分配到三个群集中。基于每个点之间的质心距离，下一个给定的输入被分配到相应的群集。现在，重新计算所有群集的质心。
 
-Each centroid of a cluster is a collection of feature values which define the resulting groups. Examining the centroid feature weights can be used to qualitatively interpret what kind of group each cluster represent.
+群集的每个质心都是一组特征值，用于定义结果组。检查质心特征权重可用于定性地解释每个群集代表什么类型的组。
 
-We import KMeans model from sklearn library, fit out features and predict.
+我们从 sklearn 库导入 K 均值模型，拟合特征并预测。
 
-_K Means Implementation in Python._
+**Python 中的 K 均值算法实现。**
 
 ```
-# Importing Modules
+# 引入模块
 from sklearn import datasets
 from sklearn.cluster import KMeans
 
-# Loading dataset
+# 加载数据集
 iris_df = datasets.load_iris()
 
-# Declaring Model
+# 声明模型
 model = KMeans(n_clusters=3)
 
-# Fitting Model
+# 拟合模型
 model.fit(iris_df.data)
 
-# Predicitng a single input
+# 预测单个输入
 predicted_label = model.predict([[7.2, 3.5, 0.8, 1.6]])
 
-# Prediction on the entire data
+# 预测整个数据
 all_predictions = model.predict(iris_df.data)
 
-# Printing Predictions
+# 打印预测结果
 print(predicted_label)
 print(all_predictions)
 ```
@@ -132,41 +132,41 @@ print(all_predictions)
 [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 2 1 1 1 1 2 1 1 1 1 1 1 2 2 1 1 1 1 2 1 2 1 2 1 1 2 2 1 1 1 1 1 2 1 1 1 1 2 1 1 1 2 1 1 1 2 1 1 2]
 ```
 
-### Hierarchical Clustering
+### 分层聚类
 
-Hierarchical clustering, as the name implies is an algorithm that builds a hierarchy of clusters. This algorithm begins with all the data assigned to a cluster of their own. Then two closest clusters are joined into the same cluster. In the end, this algorithm ends when there is only a single cluster left.
+顾名思义，分层聚类是一种构建聚类层次结构的算法。该算法从分配给自己的群集的所有数据开始。然后将两个最接近的群集合并到同一群集中。最后，当只剩下一个群集时，该算法结束。
 
-The completion of hierarchical clustering can be shown using dendrogram. Now let’s see an example of hierarchical clustering of grain data. The dataset can be found [here](https://raw.githubusercontent.com/vihar/unsupervised-learning-with-python/master/seeds-less-rows.csv).
+可以使用树形图显示分层聚类的完成过程。现在让我们看一下谷物数据的层次聚类的例子。数据集可以在[这里](https://raw.githubusercontent.com/vihar/unsupervised-learning-with-python/master/seeds-less-rows.csv)找到。
 
-_Hierarchical Clustering Implementation in Python._
+**Python 中分层聚类算法的实现。**
 
 ```
-# Importing Modules
+# 引入模块
 from scipy.cluster.hierarchy import linkage, dendrogram
 import matplotlib.pyplot as plt
 import pandas as pd
 
-# Reading the DataFrame
+# 读入 DataFrame
 seeds_df = pd.read_csv(
     "https://raw.githubusercontent.com/vihar/unsupervised-learning-with-python/master/seeds-less-rows.csv")
 
-# Remove the grain species from the DataFrame, save for later
+# 从 DataFrame 中删除谷物种类，稍后再保存
 varieties = list(seeds_df.pop('grain_variety'))
 
-# Extract the measurements as a NumPy array
+# 将测量值提取为 NumPy 数组
 samples = seeds_df.values
 
 """
-Perform hierarchical clustering on samples using the
-linkage() function with the method='complete' keyword argument.
-Assign the result to mergings.
+使用带有 method ='complete' 关键字参数的
+linkage() 函数对样本执行分层聚类。
+将结果合并。
 """
 mergings = linkage(samples, method='complete')
 
 """
-Plot a dendrogram using the dendrogram() function on mergings,
-specifying the keyword arguments labels=varieties, leaf_rotation=90,
-and leaf_font_size=6.
+在合并时使用 dendrogram() 函数绘制树形图，
+指定关键字参数 labels = varieties，leaf_rotation = 90 
+和 leaf_font_size = 6。
 """
 dendrogram(mergings,
            labels=varieties,
@@ -179,35 +179,35 @@ plt.show()
 
 ![](https://cdn-images-1.medium.com/max/800/1*CM2pEq3FmXeKQ-9XublYGQ.png)
 
-## Difference between K Means and Hierarchical clustering
+## K 均值和分层聚类之间的差异
 
-*   Hierarchical clustering can’t handle big data well but K Means clustering can. This is because the time complexity of K Means is linear i.e. O(n) while that of hierarchical clustering is quadratic i.e. O(n2).
-*   In K Means clustering, as we start with an arbitrary choice of clusters, the results generated by running the algorithm multiple times might differ. While results are reproducible in Hierarchical clustering.
-*   K Means is found to work well when the shape of the clusters is hyper spherical (like circle in 2D, sphere in 3D).
-*   K-Means doesn't allow noisy data, while in Hierarchical we can directly use noisy dataset for clustering.
+*   分层聚类不能很好地处理大数据，但 K 均值聚类可以。这是因为 K 均值的时间复杂度是线性的，即 O(n)，而分层聚类的时间复杂度是二次的，即 O(n2)。
+*   在 K 均值聚类中，当我们从任意选择的聚类开始时，通过多次运行算法生成的结果可能会有所不同。然而在分层聚类中结果是可重现的。
+*   当群集的形状是超球形时（如 2D 中的圆圈，3D 中的球体），我们发现 K 均值工作良好。
+*   K-均值不允许噪声数据，而在分层聚类中我们可以直接使用噪声数据集进行聚类。
 
-### t-SNE Clustering
+### t-SNE 聚类
 
-It is one of the unsupervised learning method for visualisation. t-SNE stands for **t-distributed stochastic neighbor embedding.** It maps high dimensional space into a 2 or 3 dimensional space which can be visualised. Specifically, it models each high-dimensional object by a two- or three-dimensional point in such a way that similar objects are modeled by nearby points and dissimilar objects are modeled by distant points with high probability.
+它是可视化的无监督学习方法之一。t-SNE 代表 **t 分布的随机嵌入邻域**。它将高维空间映射到可以可视化的 2 维或 3 维空间。具体地，它通过二维或三维点对每个高维对象建模，使得相似对象由附近点建模，而非相似对象由远点以高概率建模。
 
-_t-SNE Clustering Implementation in Python for Iris Dataset._
+**用于鸢尾花数据集的 Python 中的 t-SNE 聚类实现。**
 
 ```
-# Importing Modules
+# 引入模块
 from sklearn import datasets
 from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
 
-# Loading dataset
+# 加载数据集
 iris_df = datasets.load_iris()
 
-# Defining Model
+# 定义模型
 model = TSNE(learning_rate=100)
 
-# Fitting Model
+# 拟合模型
 transformed = model.fit_transform(iris_df.data)
 
-# Plotting 2d t-Sne
+# 绘制二维的 t-Sne
 x_axis = transformed[:, 0]
 y_axis = transformed[:, 1]
 
@@ -217,39 +217,39 @@ plt.show()
 
 ![](https://cdn-images-1.medium.com/max/800/1*zFroZYrm97bnZxfv4nl-2Q.png)
 
-Violet: Setosa, Green: Versicolor, Yellow: Virginica
+紫色：Setosa，绿色：Versicolor，黄色：Virginica
 
-Here as the Iris dataset has four features(4d) it is transformed and represented in two dimensional figure. Similarly t-SNE model can be applied to a dataset which has n-features.
+这里，由于鸢尾花数据集具有四个特征（4d），因此它被转换并以二维图形表示。类似地，t-SNE 模型可以应用于具有 n 个特征的数据集。
 
-### DBSCAN Clustering
+### DBSCAN 聚类
 
-DBSCAN (Density-Based Spatial Clustering of Applications with Noise) is a popular clustering algorithm used as an replacement to K-means in predictive analytics. It doesn’t require that you input the number of clusters in order to run. But in exchange, you have to tune two other parameters.
+DBSCAN（具有噪声的基于密度的聚类方法）是一种流行的聚类算法，用于替代预测分析中的 K 均值。它不需要输入群集的数量就能运行。但是，你必须调整另外两个参数。
 
-The scikit-learn implementation provides a default for the eps and min_samples parameters, but you’re generally expected to tune those. The eps parameter is the maximum distance between two data points to be considered in the same neighborhood. The min_samples parameter is the minimum amount of data points in a neighborhood to be considered a cluster.
+scikit-learn 实现提供了 eps 和 min_samples 参数的默认值，但是你通常需要调整这些参数。eps 参数是要在同一邻域中考虑的两个数据点之间的最大距离。min_samples 参数是邻域中被视为群集的数据点的最小数量。
 
-_DBSCAN Clustering in Python_
+**Python 中的 DBSCAN 聚类**
 
 ```
-# Importing Modules
+# 引入模块
 from sklearn.datasets import load_iris
 import matplotlib.pyplot as plt
 from sklearn.cluster import DBSCAN
 from sklearn.decomposition import PCA
 
-# Load Dataset
+# 加载数据集
 iris = load_iris()
 
-# Declaring Model
+# 声明模型
 dbscan = DBSCAN()
 
-# Fitting
+# 拟合
 dbscan.fit(iris.data)
 
-# Transoring Using PCA
+# 使用PCA进行转换
 pca = PCA(n_components=2).fit(iris.data)
 pca_2d = pca.transform(iris.data)
 
-# Plot based on Class
+# 基于类别进行绘制
 for i in range(0, pca_2d.shape[0]):
     if dbscan.labels_[i] == 0:
         c1 = plt.scatter(pca_2d[i, 0], pca_2d[i, 1], c='r', marker='+')
@@ -265,30 +265,30 @@ plt.show()
 
 ![](https://cdn-images-1.medium.com/max/800/1*mEW-43TlDuSS3dwbhxlxRg.png)
 
-## More Unsupervised Techniques:
+## 更多无监督技术：
 
-*   Principal Component Analysis ([PCA](https://towardsdatascience.com/pca-using-python-scikit-learn-e653f8989e60))
-*   Anomaly detection
-*   Autoencoders
-*   Deep Belief Nets
-*   Hebbian Learning
-*   Generative Adversarial Networks(GANs)
-*   Self-Organizing maps
+*   主成分分析（[PCA](https://towardsdatascience.com/pca-using-python-scikit-learn-e653f8989e60)）
+*   异常检测
+*   自动编码
+*   深度信念网络
+*   赫布型学习
+*   生成式对抗网络(GANs)
+*   自组织映射
 
 * * *
 
-**Important Links:**
+**重要链接：**
 
-**Supervised Learning In Python.**
+**Python 中的监督学习算法。**
 
-* [**Supervised Learning with Python**: Why Artificial Intelligence and Machine Learning?](https://towardsdatascience.com/supervised-learning-with-python-cf2c1ae543c1)
-* [**Introduction To Machine Learning**: Machine Learning is an idea to learn from examples and experience, without being explicitly programmed.](https://towardsdatascience.com/introduction-to-machine-learning-db7c668822c4)
-* [**Deep Learning with Python**: The human brain imitation.](https://towardsdatascience.com/deep-learning-with-python-703e26853820)
-* [**Linear Algebra for Deep Learning**: The Math behind every deep learning program.](https://towardsdatascience.com/linear-algebra-for-deep-learning-506c19c0d6fa)
+* [**用 Python 进行监督学习**：为什么是人工智能和机器学习](https://towardsdatascience.com/supervised-learning-with-python-cf2c1ae543c1)
+* [**机器学习简介**：机器学习是一个从实例和经验中进行学习的思想，它没有明确编程方法。](https://towardsdatascience.com/introduction-to-machine-learning-db7c668822c4)
+* [**使用 Python 进行深度学习**：模仿人类的大脑。](https://towardsdatascience.com/deep-learning-with-python-703e26853820)
+* [**用于深度学习的线性代数**：每个深度学习程序背后的数学。](https://towardsdatascience.com/linear-algebra-for-deep-learning-506c19c0d6fa)
 
-### Closing Notes
+### 后记
 
-Thanks for reading. If you found this story helpful, please click the below  ❤️ to spread the love.
+感谢阅读。如果你发现这篇文章有用，请点击下面的 ❤️ 来传递爱吧。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

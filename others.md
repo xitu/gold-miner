@@ -1,3 +1,6 @@
+* [如何组织 Hacktoberfest 主题聚会](https://juejin.im/post/5bbc150be51d450e6867be7a) ([jianboy](https://github.com/jianboy) 翻译)
+* [下一代包管理工具](https://juejin.im/post/5ba9830fe51d450e4d2fe208) ([diliburong](https://github.com/diliburong) 翻译)
+* [新手开发者须知](https://juejin.im/post/5bade6a76fb9a05d32515cf0) ([ssshooter](https://github.com/ssshooter) 翻译)
 * [用 Workers 让静态网站动态化](https://juejin.im/post/5b95c5375188255c6e70422a) ([MeFelixWang](https://github.com/MeFelixWang) 翻译)
 * [关于工程师和影响力](https://juejin.im/post/5b8f9a96f265da0ab33125b0) ([cf020031308](https://github.com/cf020031308) 翻译)
 * [如何像程序员般思考 —— 蕴含在问题解决中的经验](https://juejin.im/post/5b76839ae51d4566491c24bb) ([mingxing47](https://github.com/mingxing47) 翻译)
