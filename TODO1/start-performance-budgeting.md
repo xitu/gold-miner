@@ -132,7 +132,7 @@ Zillow [使用](https://www.zillow.com/engineering/bigger-faster-more-engaging-b
 
 ### 结束思考
 
-绩效预算引入了一种**问责**文化，这使得利益相关者能够权衡每次网站变更中[以用户为中心的指标](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics)。和你的团队聊聊，看看是否可以在你的项目里采用性能预算。如果值得加快（译者注：网站体验），那就值得保持快速。❤️
+性能预算引入了一种**问责**文化，这使得利益相关者能够权衡每次网站变更中[以用户为中心的指标](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics)。和你的团队聊聊，看看是否可以在你的项目里采用性能预算。如果值得加快（译者注：网站体验），那就值得保持快速。❤️
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
