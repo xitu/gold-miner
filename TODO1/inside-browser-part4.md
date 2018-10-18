@@ -161,7 +161,7 @@ window.addEventListener('pointermove', event => {
 
 刚踏上开发之路时，我几乎只关注怎样去写代码、怎样提升自己的生产效率。诚然，这些事情很重要，但与此同时我们也应当思考浏览器会怎么去处理我们书写的代码。现代浏览器一直致力探索如何提供更好的用户体验。书写对浏览器友好的代码，反过来也能提供友好的用户体验。路漫漫其修远兮，希望我们能携手共进，构建出对浏览器更为友好的代码。
 
-在此我诚挚感谢 [Alex Russell](https://twitter.com/slightlylate), [Paul Irish](https://twitter.com/paul_irish), [Meggin Kearney](https://twitter.com/MegginKearney), [Eric Bidelman](https://twitter.com/ebidel), [Mathias Bynenes](https://twitter.com/mathias), [Addy Osmani](https://twitter.com/addyosmani), [Kinuko Yasuda](https://twitter.com/kinu), [Nasko Oskov](https://twitter.com/nasko), 以及 Charlie Reis 等人对本系列文章初稿的校对。
+在此笔者诚挚感谢 [Alex Russell](https://twitter.com/slightlylate), [Paul Irish](https://twitter.com/paul_irish), [Meggin Kearney](https://twitter.com/MegginKearney), [Eric Bidelman](https://twitter.com/ebidel), [Mathias Bynenes](https://twitter.com/mathias), [Addy Osmani](https://twitter.com/addyosmani), [Kinuko Yasuda](https://twitter.com/kinu), [Nasko Oskov](https://twitter.com/nasko), 以及 Charlie Reis 等人对本系列文章初稿的校对。
 
 你喜欢这一系列的文章吗？对之后文章如有任何意见或建议，欢迎在下面评论区或是推特[@kosamari](https://twitter.com/kosamari) 里留下您的宝贵意见。 
 
