@@ -27,11 +27,11 @@
 
 图2:悬于页面图层的视图窗口
 
-在上篇文章里，我们探讨了合成器如何通过合成栅格化图层，实现流畅的页面滚动。如果页面未添加任何事件监听，合成器线程会创建新的合成帧，新帧完全独立于主线程。但如果页面添加了一些事件监听，合成器线程如何得知事件是否需要处理？
+在上篇文章里，我们探讨了合成器如何通过合成栅格化图层，实现流畅的页面滚动。如果页面上没有添加任何事件监听，合成器线程会创建独立于主线程的新合成帧。但要是页面上添加了一些事件监听呢？那合成器线程是如何得知事件是否需要处理的？
 
 ## 理解非立即可滚动区
 
-因为运行 JavaScript 脚本是主线程的工作，所以页面合成后，合成进程会将页面里添加了的事件监听的区域标记为 "非立即可滚动区"。有了这个信息，如果输入事件发生在这一区域，合成进程则能确定应将其发往主线程处理。如其发生在该区域外，合成进程则无需等待主线程，继续合成新帧。
+因为运行 JavaScript 脚本是主线程的工作，所以页面合成后，合成进程会将页面里添加了事件监听的区域标记为 "非立即可滚动区"。有了这个信息，如果输入事件发生在这一区域，合成进程则可确定应将其发往主线程处理。如输入事件发生在这一区域之外，合成进程则可确定无需等待主线程，而继续合成新帧。
 
 ![limited non fast scrollable region](https://developers.google.com/web/updates/images/inside-browser/part4/nfsr1.png)
 
@@ -39,7 +39,7 @@
 
 ### 设置事件处理器时须注意
 
-web 开发中常用的事件处理模式是事件代理。因为事件会冒泡，所以你可以在最顶层的元素中添加一个事件处理器，用来代理事件目标产生的任务。下面这样的代码，你可能见过或写过。
+web 开发中常用的事件处理模式是事件代理。因为事件会冒泡，所以你可以在最顶层的元素中添加一个事件处理器，用来代理事件目标产生的任务。下面这样的代码，你可能见过，或许也写过。
 
 ```
 document.body.addEventListener('touchstart',  event => {
@@ -49,13 +49,13 @@ document.body.addEventListener('touchstart',  event => {
 });
 ```
 
-因为在所有的元素上仅需设置一个事件处理，所以这样的功效会吸引很多人去使用事件代理模式。然而，如果站在浏览器的角度去考量，这等于把整个页面都标记成了 '非立即可滚动区'，意味着即便你设计的应用本不必理会页面上一些区域的输入行为，合成线程也必须在每次输入事件产生后与主线程通信并等待返回。如此则得不偿失，使原本能保障页面滚动流畅的合成器无用武之地。
+这样只需添加一个事件处理器，即可监听所有元素，的确十分省事。然而，如果站在浏览器的角度去考量，这等于把整个页面都标记成了 '非立即可滚动区'，意味着即便你设计的应用本不必理会页面上一些区域的输入行为，合成线程也必须在每次输入事件产生后与主线程通信并等待返回。如此则得不偿失，使原本能保障页面滚动流畅的合成器无用武之地。
 
 ![full page non fast scrollable region](https://developers.google.com/web/updates/images/inside-browser/part4/nfsr2.png)
 
 图4:非立即可滚动区覆盖整个页面下的输入描述示意图
 
-为将这种情况的负面效应最小化，你可以给事件监听添加一个 [`passive:true` https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Improving_scrolling_performance_with_passive_listeners)选项 。这会提示浏览器你想在主线程中继续监听事件，但合成器不必停滞等候，可继续创建新的合成帧。
+你可以给事件监听添加一个 [`passive:true` ](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Improving_scrolling_performance_with_passive_listeners)选项 ，将这种负面效果最小化。这会提示浏览器你想在主线程中继续监听事件，但合成器不必停滞等候，可继续创建新的合成帧。
 
 ```
 document.body.addEventListener('touchstart', event => {
