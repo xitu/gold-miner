@@ -2,141 +2,140 @@
 > * 原文作者：[Addy Osmani](https://medium.com/@addyosmani?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/start-performance-budgeting.md](https://github.com/xitu/gold-miner/blob/master/TODO1/start-performance-budgeting.md)
-> * 译者：
+> * 译者：[Sam](https://github.com/xutaogit/)
 > * 校对者：
 
-# Start Performance Budgeting
+# 开启性能预算
 
 ![](https://cdn-images-1.medium.com/max/2000/1*BTZwTbmKyBE60tuXPDy34g.png)
 
-**If you’re building a web experience and want to stay fast, a** [**performance budget**](https://timkadlec.com/2013/01/setting-a-performance-budget/) **can be** [**critical**](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/)**. For success, embrace performance budgets and learn to live within them. Network & CPU limits on mobile can require asking hard questions like, “what is really important to my users?”**
+**如果你正在构建网站体验，并且希望保持快速，[性能预算](https://timkadlec.com/2013/01/setting-a-performance-budget/)也许就[非常重要](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/)。为了能够成功，需要接受性能预算并且学会在生活中运用它们。移动设备上的网络以及 CPU 限制会提出诸如”对我的用户来说真正重要的是什么？“这样的难题。**
 
-When we talk to Fortune 500 companies that put in the work to improve performance, perf metrics will often **rapidly regress** once they return to feature development. Performance budgets help teams prioritize features, optimizations and [facilitate](https://tobias.is/blogging/web-performance-budgets-as-currency/) discussions on what is really important to users.
+当我们同致力于提高性能的世界 500 强企业对话时，(了解到)一旦回归到功能开发，性能指标通常会快速回归。性能预算帮助团队确定功能的优先级，优化并[促进](https://tobias.is/blogging/web-performance-budgets-as-currency/)讨论对用户真正重要的是什么。
 
-> _“Having a pre-defined ‘budget’ is a clear, tangible way to frame decisions about what can and can’t be included, and at a suitably early stage in the project” — Mark Perkins_
+> _“在项目早期的适当阶段，拥有一个预设好的 ‘预算 ’会是一个清晰并切实的方式，可用来决定项目中应该包含什么。”  —— Mark Perkins_
 
-### What’s a performance budget?
+### 什么是性能预算？
 
-A performance budget is a **limit** for pages which the team is not allowed to exceed. It could be a max JavaScript bundle size, total image weight, a specific load time (e.g [Time-to-Interactive](https://calendar.perfplanet.com/2017/time-to-interactive-measuring-more-of-the-user-experience/) in under 5s on 3G/4G) or threshold on any number of other metrics.
+性能预算是一个团队不能允许超过的页面**限制**。它可以是最大的 JavaScript 包大小，所有图像的总体量，特定的加载时间（例如，在 3G/4G 网络上 5s 以内的[交互时间](https://calendar.perfplanet.com/2017/time-to-interactive-measuring-more-of-the-user-experience/)）或者其它任何数量指标的阈值。
 
 ![](https://cdn-images-1.medium.com/max/800/0*qe3ZW3Vvf8lsdxMq.png)
 
-**Performance budgets are not just thresholds however. Much like a financial budget, they’re something consciously spent.** View them as a currency to spend and trade on user-experience. In an environment where the [cost of JavaScript](https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4) is still high on mobile devices, budgets are one of the few tools that can help guide us to success.
+**当然性能预算不仅仅是做门槛限制。它们更像财务预算，需要有意识的使用**。把它们看作是在用户体验上花费和交易的货币。在[ JavaScript 成本](https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4)仍然较高的移动设备环境中，预算可以说是指导我们取得成功的少数工具之一。
 
-### Metrics for perf budgets
+### 性能预算指标
 
-[Metrics](https://timkadlec.com/2014/11/performance-budget-metrics/) for perf budgets can include milestone timings, quantity-based metrics or rule-based metrics.
+性能预算的[指标](https://timkadlec.com/2014/11/performance-budget-metrics/)包括里程碑时间，基于数量的指标和基于规则的指标。
 
 ![](https://cdn-images-1.medium.com/max/800/0*bP485as_8xmWGD9s.png)
 
-**Milestone timings**: timings based on the user-experience loading a page (e.g [Time-to-Interactive](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#time_to_interactive), [First Contentful Paint](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#first_paint_and_first_contentful_paint)). You’ll often want to pair several milestone timings to accurately represent the complete story during page load. Some teams also maintain custom metrics, like “[Time to first tweet](https://blog.alexmaccaw.com/time-to-first-tweet)” for Twitter.
+**里程碑时间**：基于加载一个页面的用户体验的时间（例如，[交互时间](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#time_to_interactive)，[首次内容绘制时间](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#first_paint_and_first_contentful_paint)）。你会经常需要配对几个里程碑时间，用来准确地描述页面加载的整个过程。有些团队还会维护自定义指标，譬如 Twitter 的“[首次推文时间](https://blog.alexmaccaw.com/time-to-first-tweet)”。
 
-**Quantity-based metrics**: based on raw values (e.g. weight of JavaScript (KB/MB), number of HTTP requests). These are focused on the browser experience.
+**基于数量的指标**：基于原始值(例如，JavaScript 的体量(KB/MB)，HTTP 请求数量)。这些都侧重于浏览器体验。
 
-**Rule-based metrics**: scores generated by tools such as [Lighthouse](https://developers.google.com/web/tools/lighthouse/) or [WebPageTest](https://webpagetest.org/). Often, a single number or series to grade your site.
+**基于规则的指标**：通过像 [Lighthouse](https://developers.google.com/web/tools/lighthouse/) 或 [WebPageTest](https://webpagetest.org/) 这样的工具打分。通常是用单个数字或系列为你的网站评级。
 
-Teams who incorporate perf budgets will often have CI warn or error a build if a PR regresses performance. [Lighthouse CI](https://github.com/ebidel/lighthouse-ci#3-call-lighthouse-ci) now supports failing a Lighthouse score when a category (such as performance) has fallen under a certain value:
+如果一个 PR 降低了性能，包含性能预算的团队通常会有 CI 告警或者构建错误提示。[Lighthouse CI](https://github.com/ebidel/lighthouse-ci#3-call-lighthouse-ci) 现在支持当某一类别（比如性能）跌落到特定的值以下时，减低其 Lighthouse 分数：
 
 ![](https://cdn-images-1.medium.com/max/800/0*30uWWuN-yRDK4awS.png)
 
-An example of a “rule” based performance budget in action. Using Lighthouse CI, we can enforce budgets on a performance score. PRs can be failed if their perf score falls below a certain value.
+一个基于”规则“的性能预算实际例子。使用 Lighthouse CI，我们可以给预算设置一个性能分数。如果他们的性能分低于一个特定的值，那么 PR 就会失败。
 
-### Examples of budgets
+### 预算的例子
 
-*   Our product page must ship less than 170KB of JavaScript on mobile
-*   Our search page must include less than 2MB of images on desktop
-*   Our home page must load and get interactive in < 5s on Slow 3G/Moto G4
-*   Our blog must score > 80 on Lighthouse performance audits
+* 我们的产品页面在移动端上发布的 JavaScript 代码必须少于 170KB
+* 我们的搜索页面包含的桌面图片不能超过 2MB
+* 我们的主页必须在慢速的 3G/Moto G4 （网络）上 5s 内加载并可交互
+* 我们的博客必须在 Lighthouse 的性能审查中获得 80+ 的分数
 
-Below is a quantity metric — [JS Size](https://t.co/ZKpkSJfnLy) for The Guardian’s desktop site on [SpeedCurve](https://speedcurve.com/). It highlights in yellow when under budget and red when over budget.
+下面是一个数量指标 —— 在 [SpeedCurve](https://speedcurve.com/) 上 The Guardian’s 桌面网站的 [JS 大小](https://t.co/ZKpkSJfnLy)。它在预算范围内以黄色高亮显示，在超出预算时以红色显示。
 
 ![](https://cdn-images-1.medium.com/max/800/0*JHF8gX8AMSLf9Wj1.jpg)
 
-We can also visualize a milestone metric. Below is [First Interactive](https://developers.google.com/web/tools/lighthouse/audits/first-interactive) (now First CPU Idle) — marking the point when the browser’s main thread is not blocked for more than 50ms by any single task so user input can be responded to quickly.
+我们还可以将里程碑指标可视化。下面是[第一次交互](https://developers.google.com/web/tools/lighthouse/audits/first-interactive)（这时第一个 CPU 空闲） —— 标记了浏览器主线程被任何单个任务阻塞不超过 50 毫秒的时间点，因此可以快速响应用户的输入。
 
 ![](https://cdn-images-1.medium.com/max/800/0*hm42fQwOmOdAsHwr.png)
 
-Budgets can vary by a number of factors including target device class. Comparing the Guardian’s mobile and desktop experiences we can see their total weights differ heavily:
+预算会因为很多因素而显差异，包括目标设备级别。比较 Guardian 的移动端和桌面端体验，我们可以看到它们有很大的总体量差别：
 
 ![](https://cdn-images-1.medium.com/max/800/0*KzrhYg-dqQ59LL-c.jpg)
 
-This may suggest having **budgets for different device classes are worth considering**. e.g. < 170KB JS (min/gzip) for mobile and < 1.5MB for desktop where users may have faster CPUs and network connections.
+这或许表明**不同设备级别间的预算值得考虑**。例如，移动设备 <170KB（min/gzip）的 JS 代码和桌面设备 <1.5MB 的 JS 代码，可以让用户拥有更快的 CPU 和网络连接。
 
-### Quantifying the impact of new features
+### 量化新功能的影响
 
-> _“Deciding a page can’t exceed 500kB when a mock-up containing three carousels and a full-screen high-resolution background image has already been approved isn’t going to do you much good” — Tim Kadlec_
+> _“当一个包含三个旋转木马（译者注：轮播图）和一个全屏高分辨率背景图片的模块已经审批通过时，还要保证页面大小不能超过 500kB 对你来说可能不太好” —— Tim Kadlec_
 
-Often, **non-engineering stakeholders are unaware of the performance consequences of their decisions** on features or design. This is not their fault. We need to make it easier for PMs, designers and stakeholders to understand the **user-experience impact** of their choices.
+通常，**非工程利益相关的人员不能意识到他们的决定**对功能和设计所带来的**性能影响**。这不是他们的错。我们需要让产品经理，设计师和利益相关者更容易理解他们做得选择所带来的**用户体验影响**。
 
-Stakeholders may need help understanding that another JavaScript carousel or plethora of images can heavily impact the performance of a site. Perf budgets can help strategically change mindset towards questioning the value of each thing we add.
+利益相关者可能需要帮助（他们）理解换一种 JavaScript 轮播或者过多的图片会严重影响网站的性能。性能预算可以战略性地帮助我们改变思维模式，以此来考量我们添加每件事物的价值。
 
-Even better is if we can make performance part of project goals from the start. This shifts the mentality of perf budgets only being a factor thought of during development to one where it’s key throughout the project lifecycle.
+如果我们从一开始就把性能作为我们项目目标的一部分，那就更好了。这会是性能预算心态的转变，从只把它当做开发中的一个考量因子，转变成贯穿整个项目生命周期的关键因素。
 
-### Making trade-offs for user-experience
+### 为用户体验做出权衡
 
 ![](https://cdn-images-1.medium.com/max/800/0*KKs6HE9r_U2vUc9d.png)
 
-As with any financial budget, there may be times when your perf budget will be **low**. This can require you to make cuts or trade-offs in order to maintain a consistently fast user-experience. What features are really important to your users? Which ones excite or retain them the most?. This is a difficult conversation and is not always clear cut.
+和任何财务预算一样，你的性能预算有时候可能会**很低**。这就需要你做出一些削减或权衡以确保持续的快速用户体验。哪些功能对你的用户来说是真正重要的？哪一个最能激发或留住他们？这是一个艰难的对话，并且不总是很清晰。
 
-This conversation can result in **dropping one feature to allow for another**. ‘Dropping’ could mean removing it from the critical-path — the feature could still be loaded on-demand at a later point when the user needs it.
+可以用**抛弃一个功能而开放另一个功能**来结束这个对话。“抛弃”可能意味着把它从关键路径移除 —— 该功能仍可在稍后用户需要它的时候按需加载。
 
-In such situations, you can make a call on a page-by-page basis while consulting the performance budget as the source of truth so you can continue to reach your goals.
+在这种情况下，你可以在逐页的基础上，打电话咨询页面性能预算，并把它作为事实来源帮助你持续接近目标。
 
-### Operationalizing budgets
+### 实施预算
 
-Performance budgets are aided by having internal processes for [operationalizing a performance culture](https://rigor.com/blog/2016/06/5978) within a business.
+业务通过[实施绩效文化](https://rigor.com/blog/2016/06/5978)的内部流程方式来实现性能预算。
 
-**Organizational performance budgets ensure that a budget is owned by everyone rather than just being defined by one group.** Perf budgets can’t be something only engineering teams care about.
+**组织化的性能预算要确保预算是关联到每个人身上的，而不仅仅是通过团队的方式来定义**。性能预算不能只是工程团队关心的事。
 
-> _“Web performance budgets should be a collaborative effort about the right factors to create an equation to help the business make the right decisions and generate necessary insights to move its product forward. This is far more fruitful than a potentially antagonizing conversation about sticking to a fixed web performance threshold.” — Tobias Baldauf_
+> _“网络性能预算应该是关于多个正确因素协作效果创建出的一个方程式，用以帮助企业做出正确的决定，并且能产出必要的建议帮助其产品向前发展。这会比开展一项带有潜在冲突的关于旨在修复网站性能阈值的对话要有效得多。” —— Tobias Baldauf_
 
-When budgets have been set and the entire organization is aware early on what the budget parameters are, you’re able to say performance isn’t just an engineering issue, but a critical piece of the whole package as a site is constructed.
+设定好预算，并且让整个组织尽早了解有哪些预算参数时，可以说性能不再只是一个工程问题，而会作为构建网站整个软件包的关键部分。
 
-It provides a guideline for design and engineering when considering performance and should be checked with each decision that could impact performance.
+当考虑性能时它（译者注：预算）提供了设计和工程指南，并且会根据每个可能影响性能的决策做检查。
 
-Monitoring services like SpeedCurve also enable you to [benchmark](https://support.speedcurve.com/get-the-most-out-of-speedcurve/benchmark-yourself-against-your-competitors) your site against competitors, allowing you to easily visualize how they perform on your budgets. This can be a powerful aid when speaking to stakeholders about why staying “under-budget” is important.
+SpeedCurve 等监控服务还能让你针对竞争对手的网站做[基准测试](https://support.speedcurve.com/get-the-most-out-of-speedcurve/benchmark-yourself-against-your-competitors)，使你可以轻松的可视化（查看）他们在你预算上的性能表现。当你告诉利益相关者为什么 “控制预算” 很重要时，这些会是很有帮助。
 
 ![](https://cdn-images-1.medium.com/max/800/0*u16guMcsuAKpzCwH.jpg)
 
-### Tools for enforcing performance budgets
+### 帮助执行性能预算的工具
 
-Many tools exist for enforcing performance budgets.
+存在很多用于实施性能预算的工具。
 
-[**bundlesize**](https://github.com/siddharthkp/bundlesize) is excellent for catching **JavaScript size regressions** in CI:
+[**bundlesize**](https://github.com/siddharthkp/bundlesize) 在 CI 中用于捕获 **JavaScript 回归大小**特别合适：
 
 ![](https://cdn-images-1.medium.com/max/800/0*9jRDyljdEMDmsqSs.jpg)
 
-Tinder.com uses bundlesize to set JavaScript bundle budgets which are checked on each PR commit. Their React app has a main bundle budget of 170KB and a CSS budget of 20KB. Code-splitting enables them to remain within budgets. Sites like Trivago, Zendesk & OpenTable also use it.
+Tinder.com 使用包大小来设置每次 PR 提交时检查的 JavaScript 包预算。他们的 React 应用有一个 170KB 的主包预算和一个 20KB 的 CSS 预算。代码分拆的方式使它们能够保持在预算范围内。诸如 Trivago, Zendesk 和 OpenTable 这样的网站使用的也是这种方式。
 
-Other teams use [**Webpack’s built-in support for perf budgets**](https://medium.com/webpack/webpack-performance-budgets-13d4880fbf6d). You can configure [performance.hints](https://webpack.js.org/configuration/performance/) to warn or fail a build when budgets are crossed. Webpack supports a max [asset size](https://webpack.js.org/configuration/performance/#performance-maxassetsize) or [entry point size](https://webpack.js.org/configuration/performance/#performance-maxentrypointsize) for JavaScript bundles.
+其他团队使用[ Webpack 内置支持的性能预算](https://medium.com/webpack/webpack-performance-budgets-13d4880fbf6d)。你可以配置[ performance.hints ](https://webpack.js.org/configuration/performance/)在超过预算时告警或构建失败。Webpack 支持最大[资源尺寸（maxAssetSize）](https://webpack.js.org/configuration/performance/#performance-maxassetsize)或 JavaScript 包[入口文件尺寸（maxEntrypointSize）](https://webpack.js.org/configuration/performance/#performance-maxentrypointsize)配置。
 
 ![](https://cdn-images-1.medium.com/max/800/0*A_YYVf6zDLhQZtUD.png)
 
-[**SpeedCurve**](http://support.speedcurve.com/get-the-most-out-of-speedcurve/create-performance-budgets-and-set-alerts) support setting budgets for a wide range of metrics, resource sizes and Lighthouse audit categories.
+[**SpeedCurve**](http://support.speedcurve.com/get-the-most-out-of-speedcurve/create-performance-budgets-and-set-alerts) 支持为各种指标，资源大小和 Lighthouse 审查类别的预算配置。
 
 ![](https://cdn-images-1.medium.com/max/800/0*Ae57J3LinlF-4M3R.jpg)
 
 ![](https://cdn-images-1.medium.com/max/800/1*Y4k7aQHDKEGGqqIobKAmQw.png)
 
-A demo tracking the Lighthouse performance score of blog.google with a budget of 80/100. Red shows where the budget has been exceeded.
+例子里以 80/100 的预算追踪了 blog.google 在 Lighthouse 上的性能分数。红线表示预算超出了。
 
-Zillow [use](https://www.zillow.com/engineering/bigger-faster-more-engaging-budget/) SpeedCurve to set budgets for their quantity (e.g. image size) and milestone timing metrics in mobile search. Other performance monitoring services like [Calibre](https://calibreapp.com/docs/metrics/budgets) also support setting budgets and alerting.
+Zillow [使用](https://www.zillow.com/engineering/bigger-faster-more-engaging-budget/) SpeedCurve 为移动搜索中的数量（例如图像大小）和里程碑时间指标设置预算。其他性能监控服务（如 [Calibre](https://calibreapp.com/docs/metrics/budgets)）也支持设置预算和退回时的警报。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Lh3B43rKikOFLbataMNSdg.png)
 
-If you’re at the planning stages of deciding what your target budgets should be, [**https://performancebudget.io**](https://performancebudget.io) is a visual aid with presets for different network speeds.
+如果您正处于决定把什么作为目标预算的计划阶段，[**https://performancebudget.io**](https://performancebudget.io) 是一个预设了不同网络速度的预算视觉辅助。
 
 ![](https://cdn-images-1.medium.com/max/800/0*c_mNxUFA58JBEwIz.png)
 
-and of course, as mentioned earlier, [Lighthouse CI](https://github.com/ebidel/lighthouse-ci#3-call-lighthouse-ci) is a great option for teams that want to enforce rule-based performance budgeting for PRs.
+当然，早些时候提到的，如果一个团队想要以规则为基础在 PR 上做性能预算，[Lighthouse CI](https://github.com/ebidel/lighthouse-ci#3-call-lighthouse-ci) 会是很好的选择。
 
-### Closing thoughts
+### 结束思考
 
-Performance budgets usher a culture of **accountability** that enable stakeholders to weigh the impact to [user-centric metrics](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics) of each change to a site. Talk to your organization and see if you can get by in to adopt performance budgets for your projects. If it’s worth getting fast, it’s worth staying fast. ❤️
+绩效预算引入了一种**问责**文化，这使得利益相关者能够权衡每次网站变更中[以用户为中心的指标](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics)。和你的团队聊聊，看看是否可以在你的项目里采用性能预算。如果值得加快（译者注：网站体验），那就值得保持快速。❤️
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
-
 ---
 
-> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
