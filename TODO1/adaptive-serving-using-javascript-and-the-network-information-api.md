@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/adaptive-serving-using-javascript-and-the-network-information-api.md](https://github.com/xitu/gold-miner/blob/master/TODO1/adaptive-serving-using-javascript-and-the-network-information-api.md)
 > * 译者：[Raoul1996](https://github.com/Raoul1996)
-> * 校对者：[Guangping](https://github.com/GpingFeng)、[CoderMing](https://github.com/CoderMing)
+> * 校对者：[Guangping](https://github.com/GpingFeng), [CoderMing](https://github.com/CoderMing)
 
 # 使用 JavaScript 和网络信息 API 实现自适应服务
 
@@ -34,10 +34,10 @@ Chrome 的有效连接类型目前是使用最近观察到的往返时间（rtt�
 function onConnectionChange() {
     const { rtt, downlink, effectiveType,  saveData } = navigator.connection;
 
-    console.log(`有效网络连接类型: ${effectiveType}`);
-    console.log(`估算的下行速度/带宽: ${downlink}Mb/s`);
-    console.log(`估算的往返时间: ${rtt}ms`);
-    console.log(`打开/请求数据保护模式: ${saveData}`);
+    console.log(`Effective network connection type: ${effectiveType}`);
+    console.log(`Downlink Speed/bandwidth estimate: ${downlink}Mb/s`);
+    console.log(`Round-trip time estimate: ${rtt}ms`);
+    console.log(`Data-saver mode on/requested: ${saveData}`);
 }
 
 navigator.connection.addEventListener('change', onConnectionChange)
