@@ -2,8 +2,8 @@
 > * 原文作者：[Mariko Kosaka](https://developers.google.com/web/resources/contributors/kosamari)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/inside-browser-part4.md](https://github.com/xitu/gold-miner/blob/master/TODO1/inside-browser-part4.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ThomasWhyne](https://github.com/ThomasWhyne)
+> * 校对者：[llp0574](https://github.com/llp0574) [CoolRice](https://github.com/CoolRice)
 
 # 现代浏览器内部揭秘（第四部分）
 
