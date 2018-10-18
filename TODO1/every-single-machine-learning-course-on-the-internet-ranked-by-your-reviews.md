@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*vBLkfW8S-ZqHb8TmNEW1XA.jpeg)
 
-_Kaboompics 的_[_木头人_](https://www.pexels.com/photo/wooden-robot-6069/)
+**Kaboompics 的[木头人](https://www.pexels.com/photo/wooden-robot-6069/)**
 
 一年半以前，我退出了加拿大最好的计算机科学课程之一，开始使用线上资源创建我自己的[数据科学研究生课程](https://medium.com/@davidventuri/i-dropped-out-of-school-to-create-my-own-data-science-master-s-here-s-my-curriculum-1b400dcee412#.5fwwphdqd)。我意识到只要通过 edX、Coursera 和 Udacity 就能学到所有我需要的东西，而且学习得更快更高效，学费还比大学低！
 
@@ -19,13 +19,13 @@ _Kaboompics 的_[_木头人_](https://www.pexels.com/photo/wooden-robot-6069/)
 
 ### 欢迎来到机器学习
 
-我为了这篇指导花费了十几个小时尝试找出截至到 2017 年 5 月的所有在线课程，根据它们的简介和评论抽取关键信息并计算评分。_我最终的目标本来是找出最好的三门课程呈现出来以飨读者。_
+我为了这篇指导花费了十几个小时尝试找出截至到 2017 年 5 月的所有在线课程，根据它们的简介和评论抽取关键信息并计算评分。**我最终的目标本来是找出最好的三门课程呈现出来以飨读者。**
 
 为了实现这个目标，我特意到开源社区 Class Central，它的数据库中有数以千计的课程评分和留言。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*u1dxHyShejSN3cgXGFQIAA.png)
 
-_Class Central 的_[_主页_](https://www.class-central.com/).
+**Class Central 的[主页](https://www.class-central.com/)**.
 
 自从 2011 年起，[Class Central](https://www.class-central.com/) 的创始人 [Dhawal Shah](https://medium.com/@dhawalhs) 就一直无可争议的是最贴近在线课程的研究者。Dhawal 个人也帮我一起收集了这个资源列表。
 
@@ -33,9 +33,9 @@ _Class Central 的_[_主页_](https://www.class-central.com/).
 
 每一门课程都必须满足如下三条准则：
 
-1.  _必须包含大量的机器学习内容_。原则上机器学习应该是首要主题。注意，只涉及深度学习的课程应该被排除，后面会详述。
-2.  _必须按需或每隔几个月提供一次。_
-3.  _必须是可交互的在线课程，不能使用书本或只读性质的指南_。尽管那些也是学习的途径，但是这里只关注课程。完全的视频教程（也就是说没有测验或课后作业等）也要排除。
+1.  **必须包含大量的机器学习内容**。原则上机器学习应该是首要主题。注意，只涉及深度学习的课程应该被排除，后面会详述。
+2.  **必须按需或每隔几个月提供一次。**
+3.  **必须是可交互的在线课程，不能使用书本或只读性质的指南**。尽管那些也是学习的途径，但是这里只关注课程。完全的视频教程（也就是说没有测验或课后作业等）也要排除。
 
 我相信我们已经包含了所有符合上述准则值得关注的的课程。鉴于我们从 [Udemy](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14494&RD_PARM1=https%253A%252F%252Fwww.udemy.com%252F) 上面收集了几百门课程，我们只选择其中留言最多、评分最高的课程。
 
@@ -47,13 +47,13 @@ _Class Central 的_[_主页_](https://www.class-central.com/).
 
 我们根据三个因素进行了教学大纲的主观判断:
 
-1.  _对机器学习工作流程的解释程度_。课程是否描绘了成功运行一个 ML 工程的必要步骤？ 有关典型工作流程的含义，请参阅下一节。
-2.  _对机器学习技术和算法的覆盖程度_。 是否涉及了各种技术（例如回归、分类、聚类等）和相关算法（比如分类算法：朴素贝叶斯、决策树、支持向量机等），还是只简单挑选了几个？我们优先考虑的课程覆盖得更多，而不是仅仅介绍梗概。
-3.  _对通用数据科学和机器学习工具的使用程度_。课程教学上是否使用了流行的编程语言，比如 Python、R 或 Scala？对这些语言的流行类库使用如何？这些当然不是必需的但是是有用的，所以对这些课程我们略有偏好。
+1.  **对机器学习工作流程的解释程度**。课程是否描绘了成功运行一个 ML 工程的必要步骤？ 有关典型工作流程的含义，请参阅下一节。
+2.  **对机器学习技术和算法的覆盖程度**。 是否涉及了各种技术（例如回归、分类、聚类等）和相关算法（比如分类算法：朴素贝叶斯、决策树、支持向量机等），还是只简单挑选了几个？我们优先考虑的课程覆盖得更多，而不是仅仅介绍梗概。
+3.  **对通用数据科学和机器学习工具的使用程度**。课程教学上是否使用了流行的编程语言，比如 Python、R 或 Scala？对这些语言的流行类库使用如何？这些当然不是必需的但是是有用的，所以对这些课程我们略有偏好。
 
 ### 什么是机器学习？工作流程如何？
 
-一个流行的定义起源于 1959 年 [Arthur Samuel](https://en.wikipedia.org/wiki/Arthur_Samuel "Arthur Samuel") 的说法： in 1959: 机器学习是计算机科学的一个分支，能够“_让计算机自主学习而无需显式编程_”。实践中，这意味着开发的计算机程序可以根据数据进行预测。就像人类可以根据经验学习一样，计算机也可以。对于计算机，数据 = 经验。
+一个流行的定义起源于 1959 年 [Arthur Samuel](https://en.wikipedia.org/wiki/Arthur_Samuel "Arthur Samuel") 的说法：机器学习是计算机科学的一个分支，能够“**让计算机自主学习而无需显式编程**”。实践中，这意味着开发的计算机程序可以根据数据进行预测。就像人类可以根据经验学习一样，计算机也可以。对于计算机，数据 = 经验。
 
 
 机器学习工作流程是执行机器学习项目所需的过程。尽管单个项目可能不同，但是绝大多数工作流程都需要这么几个通用任务：问题评估，数据探索，数据预处理，模型训练、测试、部署，等等。下面你会看到这些核心步骤有用的的可视化展示：
@@ -78,9 +78,9 @@ _Class Central 的_[_主页_](https://www.class-central.com/).
 
 列表里面我最推荐的 TOP 3 是：
 
-*   [_使用 TensorFlow 编写深度学习创意应用_](https://www.class-central.com/mooc/6679/kadenze-creative-applications-of-deep-learning-with-tensorflow)， _Kadenze_
-*   [_用于机器学习的神经网络_](https://www.class-central.com/mooc/398/coursera-neural-networks-for-machine-learning)， _多伦多大学 (Geoffrey Hinton执教) 发布于 Coursera_
-*   [_深度学习 A-Z™：手把手教你写人工神经网络_](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fdeeplearning%2F)， _Kirill Eremenko，Hadelin de Ponteves 和 SuperDataScience Team 发布于 Udemy_
+*   **[使用 TensorFlow 编写深度学习创意应用](https://www.class-central.com/mooc/6679/kadenze-creative-applications-of-deep-learning-with-tensorflow)**， Kadenze
+*   **[用于机器学习的神经网络](https://www.class-central.com/mooc/398/coursera-neural-networks-for-machine-learning)**， 多伦多大学 (Geoffrey Hinton执教) 发布于 Coursera
+*   **[深度学习 A-Z™：手把手教你写人工神经网络](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fdeeplearning%2F)**， Kirill Eremenko，Hadelin de Ponteves 和 SuperDataScience Team 发布于 Udemy
 
 ### 推荐的先决条件
 
@@ -123,7 +123,7 @@ Andrew Ng 的[机器学习](https://www.class-central.com/mooc/835/coursera-mach
 
 *   [机器学习](https://www.class-central.com/mooc/7231/edx-machine-learning) （哥伦比亚大学发布于 edX ）
 
-哥伦比亚大学的[机器学习](https://www.class-central.com/mooc/7231/edx-machine-learning)是他们发布在 edX 上的《人工智能微硕士》（ Artificial Intelligence MicroMasters ）课程的一个相当新的部分（_译者注：《微硕士》课程是由 edX 推出的一系列在线研究生课程，可以用来学习职业发展的独立技能或从各自大学获得研究生同等学力证书，相当于一个完整硕士学位的学期_）。 尽管它太新了还没有太多的评论，但是已有的评论却异常给力。授课教授 John Paisley 以杰出、授课简杰、聪明而闻名。这门课程通过它的10条评论加权平均得分 4.8 星。
+哥伦比亚大学的[机器学习](https://www.class-central.com/mooc/7231/edx-machine-learning)是他们发布在 edX 上的《人工智能微硕士》（ Artificial Intelligence MicroMasters ）课程的一个相当新的部分（**译者注**：《微硕士》课程是由 edX 推出的一系列在线研究生课程，可以用来学习职业发展的独立技能或从各自大学获得研究生同等学力证书，相当于一个完整硕士学位的学期）。 尽管它太新了还没有太多的评论，但是已有的评论却异常给力。授课教授 John Paisley 以杰出、授课简杰、聪明而闻名。这门课程通过它的10条评论加权平均得分 4.8 星。
 
 这门课程覆盖了机器学习工作流程的全部方面，而且在算法上比上面的斯坦福课程还多。哥伦比亚的课程是更加高阶的入门课程，评论中有提到说学员需要很熟悉我们前面推荐的先决条件：微积分、线性代数、统计学、概率论和编程。
 
@@ -211,7 +211,7 @@ Caltech 和 Yaser Abu-Mostafa 的[从数据中学习](https://www.class-central.
 
 [《StatLearning：统计学习》](https://www.class-central.com/mooc/1579/stanford-openedx-statlearning-statistical-learning)（斯坦福大学）：基于超优秀的教科书[《统计学习入门，使用 R 程序》](https://www.amazon.com/Introduction-Statistical-Learning-Applications-Statistics-ebook/dp/B01IBM7790)并由编写书的教授上课；评论说 MOOC 引用了书中“薄弱”的练习和平庸的视频，没有书好；9 周，每周 5 课时；免费；84 条评论，4.35 星。
 
-[《机器学习规范》](https://www.class-central.com/certificate/machine-learning-specialization)（华盛顿大学于 Coursera）：超棒的课程，可惜最后两课（包括顶点课程）被删掉了（_译者注：顶点课程是美国大学开设在实用性很强的专业中让学生整合所学领域的知识并充分利用的课程_）；评论说该系列课程比那些顶级机器学习课程 —— 也就是斯坦福和 Caltech 的 —— 更容易消化（对那些没有很强工科背景的学员来说）；记住该课程在推荐系统和深度学习上并不完整，还缺少课程总结；有免费和收费版本；80 条评论，4.31 星。
+[《机器学习规范》](https://www.class-central.com/certificate/machine-learning-specialization)（华盛顿大学于 Coursera）：超棒的课程，可惜最后两课（包括顶点课程）被删掉了（**译者注**：顶点课程是美国大学开设在实用性很强的专业中让学生整合所学领域的知识并充分利用的课程）；评论说该系列课程比那些顶级机器学习课程 —— 也就是斯坦福和 Caltech 的 —— 更容易消化（对那些没有很强工科背景的学员来说）；记住该课程在推荐系统和深度学习上并不完整，还缺少课程总结；有免费和收费版本；80 条评论，4.31 星。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*fgFqV9nyUKHi7txzgKcW4w.png)
 
@@ -225,7 +225,7 @@ Coursera 上华盛顿大学正在上这门[《机器学习规范》](https://www
 
 [《基因组数据科学与聚类》](https://www.class-central.com/mooc/3556/coursera-genomic-data-science-and-clustering-bioinformatics-v)（生物信息学第五部）（加利福尼亚大学和 San Diego 于 Coursera）：面向对计算机科学和生物学的交叉学科感兴趣的人，并展示这门交叉学科如何代表现代科学的重要前沿；关注聚类和数据降维；加州大学圣地亚哥分校（UCSD）生物信息学专业的一部分；有免费和收费版本；3 条评论，4 星。
 
-[《机器学习简介》](https://www.class-central.com/mooc/2996/udacity-intro-to-machine-learning)（Udacity）：在深度和理论上优先考虑学习宽度和实用工具主题（使用 Python）；两位老师 —— Sebastian Thrun 和 Katie Malone —— 让课程充满趣味；课程视频是刚好能够消化的大小；每节课的小项目后面都有测验；目前是 Udacity 数据分析师纳学位的一部分（_译者注：纳学位，或者说 Nanodegree，是优达学院和企业推出的系列联合认证课程,一般可在 12 个月内结业。“纳”模仿自“微学院”中的“微”，都表示模仿自高校。“纳”和“微”都是度量单位，“纳”比“微”更小_）；估计 10 周；免费；19 条评论，3.95 星。
+[《机器学习简介》](https://www.class-central.com/mooc/2996/udacity-intro-to-machine-learning)（Udacity）：在深度和理论上优先考虑学习宽度和实用工具主题（使用 Python）；两位老师 —— Sebastian Thrun 和 Katie Malone —— 让课程充满趣味；课程视频是刚好能够消化的大小；每节课的小项目后面都有测验；目前是 Udacity 数据分析师纳学位的一部分（**译者注**：纳学位，或者说 Nanodegree，是优达学院和企业推出的系列联合认证课程,一般可在 12 个月内结业。“纳”模仿自“微学院”中的“微”，都表示模仿自高校。“纳”和“微”都是度量单位，“纳”比“微”更小）；估计 10 周；免费；19 条评论，3.95 星。
 
 * YouTube 视频链接：https://youtu.be/lL16AQItG1g
 
@@ -263,7 +263,7 @@ Kadenze 上 Goldsmiths 和伦敦大学[《给音乐家和艺术家的机器学�
 
 [使用 Apache SystemML 进行机器学习](https://bigdatauniversity.com/courses/machine-learning-apache-systemml/)（大数据大学）：使用 Apache SystemML 上课，这是一种为大规模机器学习而设计的声明式语言；预估 8 小时完成；大数据大学隶属于 IBM；免费。
 
-[《给数据科学的机器学习》](https://www.class-central.com/mooc/8216/edx-machine-learning-for-data-science)（加利福尼亚大学和 San Diego 于 edX）：要到 2018 年一月才开课；程序例子和作业都是 Python的，用的 Jupyter 教材（_译者注：Jupyter 教材是一个开源的在线应用，用户可以自己制作教材并共享给别人_）；10 周，每周 8 小时；可自愿购买经过认证的证书。
+[《给数据科学的机器学习》](https://www.class-central.com/mooc/8216/edx-machine-learning-for-data-science)（加利福尼亚大学和 San Diego 于 edX）：要到 2018 年一月才开课；程序例子和作业都是 Python的，用的 Jupyter 教材（**译者注**：Jupyter 教材是一个开源的在线应用，用户可以自己制作教材并共享给别人）；10 周，每周 8 小时；可自愿购买经过认证的证书。
 
 [《分析模型入门》](https://www.class-central.com/mooc/8217/edx-introduction-to-analytics-modeling)（佐治亚科技大学于 edX）：课程通告说使用 R 做为其首选语言；10 周，每周 5 - 10 小时； 可自愿购买经过认证的证书。
 
@@ -311,7 +311,7 @@ Kadenze 上 Goldsmiths 和伦敦大学[《给音乐家和艺术家的机器学�
 
 这是我们推荐最好在线课程来让你步入数据科学领域的六部分中的第五部分。我们的[第一部分](https://medium.freecodecamp.com/if-you-want-to-learn-data-science-start-with-one-of-these-programming-classes-fb694ffe780c#.fhrn45v3c)涵盖了编程课程，[第二部分](https://medium.freecodecamp.com/if-you-want-to-learn-data-science-take-a-few-of-these-statistics-classes-9bbabab098b9#.p7pac546r)是概率统计，[第三部分](https://medium.freecodecamp.com/i-ranked-all-the-best-data-science-intro-courses-based-on-thousands-of-data-points-db5dc7e3eb8e)是数据科学入门，[第四部分](https://medium.freecodecamp.com/an-overview-of-every-data-visualization-course-on-the-internet-9ccf24ea9c9b)是数据可视化。
 
-* [_我基于数千个数据点对网络上的所有数据科学入门课程进行了排名_：一年以前，我退出了加拿大最好的计算机科学课程之一。](https://medium.freecodecamp.com/i-ranked-all-the-best-data-science-intro-courses-based-on-thousands-of-data-points-db5dc7e3eb8e "https://medium.freecodecamp.com/i-ranked-all-the-best-data-science-intro-courses-based-on-thousands-of-data-points-db5dc7e3eb8e")
+* [**我基于数千个数据点对网络上的所有数据科学入门课程进行了排名**：一年以前，我退出了加拿大最好的计算机科学课程之一。](https://medium.freecodecamp.com/i-ranked-all-the-best-data-science-intro-courses-based-on-thousands-of-data-points-db5dc7e3eb8e "https://medium.freecodecamp.com/i-ranked-all-the-best-data-science-intro-courses-based-on-thousands-of-data-points-db5dc7e3eb8e")
 
 最后一部分将会是前面部分的总结，加上其他主题的最好课程，如数据整理、数据库，甚至还有软件工程。
 
@@ -319,15 +319,15 @@ Kadenze 上 Goldsmiths 和伦敦大学[《给音乐家和艺术家的机器学�
 
 如果你读完了还欲罢不能，可以看一下 [Class Central](https://www.class-central.com/) 的其他主题：
 
-* [_这里有 250 所常春藤联盟高校的在线课程现在_：250 门 MOOC 课程包括布朗大学、哥伦比亚大学、康内尔大学、达特茅斯大学、哈佛大学、b宾夕法尼亚大学、普林斯顿大学和耶鲁大学。](https://medium.freecodecamp.com/ivy-league-free-online-courses-a0d7ae675869 "https://medium.freecodecamp.com/ivy-league-free-online-courses-a0d7ae675869")
+* [**这里有 250 所常春藤联盟高校的在线课程现在**：250 门 MOOC 课程包括布朗大学、哥伦比亚大学、康内尔大学、达特茅斯大学、哈佛大学、b宾夕法尼亚大学、普林斯顿大学和耶鲁大学。](https://medium.freecodecamp.com/ivy-league-free-online-courses-a0d7ae675869 "https://medium.freecodecamp.com/ivy-league-free-online-courses-a0d7ae675869")
 
-* [_根据数据统计的 50 门最好的免费在线大学课程_：当我 2011 年十一月初创 Class Central 的时候只有大约 18 门免费在线课程，几乎都来自斯坦福大学。](https://medium.freecodecamp.com/the-data-dont-lie-here-are-the-50-best-free-online-university-courses-of-all-time-b2d9a64edfac "https://medium.freecodecamp.com/the-data-dont-lie-here-are-the-50-best-free-online-university-courses-of-all-time-b2d9a64edfac")
+* [**根据数据统计的 50 门最好的免费在线大学课程**：当我 2011 年十一月初创 Class Central 的时候只有大约 18 门免费在线课程，几乎都来自斯坦福大学。](https://medium.freecodecamp.com/the-data-dont-lie-here-are-the-50-best-free-online-university-courses-of-all-time-b2d9a64edfac "https://medium.freecodecamp.com/the-data-dont-lie-here-are-the-50-best-free-online-university-courses-of-all-time-b2d9a64edfac")
 
 如果你对我遗漏的课程有建议，请回复我让我知道！
 
 如果你觉得有帮助，点击 💚 会让更多 Medium 板块的用户看到本文。
 
-_本文是我发布在 Class Central 的_[_原始文章_](https://www.class-central.com/report/best-machine-learning-courses/)_的缩减版，原文包含了详细的课程介绍。_
+**本文是我发布在 Class Central 的[原始文章](https://www.class-central.com/report/best-machine-learning-courses/)的缩减版，原文包含了详细的课程介绍。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
