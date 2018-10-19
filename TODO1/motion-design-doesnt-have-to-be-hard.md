@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*mVa7DA7XfZUb0cDpNj-Vng.gif)
 
-动效让 UI 更有表现力和易于使用。即使动效有很多的潜能，但它可能是设计原则中最少被理解的。这可能是因为它是设计家族中最新的成员。视觉和交互设计可以追溯到早期的 GUIs，但动效设计需要等待现代化的硬件来流畅的渲染动画才可以。UI 动效和传统动画的重叠也会让人模糊不清。在 Disney 的 [12 个基本原则](https://en.wikipedia.org/wiki/12_basic_principles_of_animation) 上，需要花费一生的时间来掌握它们，这意味着 UI 动效设计也同样这么复杂吗？人们经常告诉我，设计动效是很复杂的，亦或是选择正确的值是很玄学的。我认为，作为 UI 中的重要领域，动效设计可以也应该是简单的。
+动效让 UI 更有表现力和易于使用。即使动效有很多的潜能，但它可能是设计原则中最少被理解的。这可能是因为它是设计家族中最新的成员。视觉和交互设计可以追溯到早期的 GUI，但动效设计需要等待现代化的硬件来流畅的渲染动画才可以。UI 动效和传统动画的重叠也会让人模糊不清。在 Disney 的 [12 个基本原则](https://en.wikipedia.org/wiki/12_basic_principles_of_animation) 上，需要花费一生的时间来掌握它们，这意味着 UI 动效设计也同样这么复杂吗？人们经常告诉我，设计动效是很复杂的，亦或是选择正确的值是很玄学的。我认为，作为 UI 中的重要领域，动效设计可以也应该是简单的。
 
 ### 从哪里开始
 
@@ -17,12 +17,12 @@
 
 ### 过渡模式
 
-当设计一个导航过渡是，简易性和连续性是最关键的。为了实现这个目标，我们从动效模式中选择两种类型：
+当设计一个导航过渡时，简易性和连续性是最关键的。为了实现这个目标，我们从动效模式中选择两种类型：
 
-1.  基于一个容器的过渡。
+1.  基于容器的过渡。
 2.  不基于容器的过渡。
 
-#### 基于一个容器的过渡。
+#### 基于容器的过渡。
 
 ![](https://cdn-images-1.medium.com/max/600/1*SX8QU5bCP1ceLQhM1DRr8g.gif)
 
@@ -111,7 +111,7 @@ Easing 描绘了动画加速和减速的比率。大多数导航过渡都使用 
 
 <center>特性动画可以给令人沮丧的错误增添一点趣味。</center>
 
-如果你有兴趣了解更多的关于动效的潜力，一定要阅读我们的 [Material motion guidelines](https://material.io/design/motion/understanding-motion.html#principles)。
+如果你有兴趣了解更多的关于动效的内容，一定要阅读我们的 [Material motion guidelines](https://material.io/design/motion/understanding-motion.html#principles)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
