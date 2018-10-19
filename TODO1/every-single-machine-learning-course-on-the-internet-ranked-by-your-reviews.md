@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/every-single-machine-learning-course-on-the-internet-ranked-by-your-reviews.md](https://github.com/xitu/gold-miner/blob/master/TODO1/every-single-machine-learning-course-on-the-internet-ranked-by-your-reviews.md)
 > * 译者：[davelet](https://github.com/davelet)
-> * 校对者：
+> * 校对者：[Ivocin](https://github.com/Ivocin), [lsvih](https://github.com/lsvih)
 
 # 基于评论的机器学习在线课程排名
 
@@ -25,7 +25,7 @@ _Kaboompics_ **的[木头人](https://www.pexels.com/photo/wooden-robot-6069/)**
 
 ![](https://cdn-images-1.medium.com/max/1000/1*u1dxHyShejSN3cgXGFQIAA.png)
 
-*Class Central* **的[主页](https://www.class-central.com/)**.
+*Class Central* **的[主页](https://www.class-central.com/)**。
 
 自从 2011 年起，[Class Central](https://www.class-central.com/) 的创始人 [Dhawal Shah](https://medium.com/@dhawalhs) 可以毫无争议地说比世界上其他任何人都更加关注在线课程。Dhawal 个人也帮我一起收集了这个资源列表。
 
@@ -45,16 +45,15 @@ _Kaboompics_ **的[木头人](https://www.pexels.com/photo/wooden-robot-6069/)**
 
 我们从 Class Central 以及其他点评网站汇集了每门课程的平均评分和评论的数量，以此来计算它们的加权平均分。我们阅读了文字评论，通过那些课程反馈来补充分数。
 
-我们根据三个因素进行了教学大纲的主观判断:
+我们根据三个因素进行了教学大纲的主观判断：
 
 1.  **对机器学习工作流程的解释程度**。课程是否描绘了成功运行一个 ML 工程的必要步骤？ 有关典型工作流程的含义，请参阅下一节。
-2.  **对机器学习技术和算法的覆盖程度**。 是否涉及了各种技术（例如回归、分类、聚类等）和相关算法（比如分类算法：朴素贝叶斯、决策树、支持向量机等），还是只简单挑选了几个？ 我们更倾向没有省略细节的、覆盖更多机器学习技术和算法内容的课程。
+2.  **对机器学习技术和算法的覆盖程度**。是否涉及了各种技术（例如回归、分类、聚类等）和相关算法（比如分类算法：朴素贝叶斯、决策树、支持向量机等），还是只简单挑选了几个？我们更倾向没有省略细节的、覆盖更多机器学习技术和算法内容的课程。
 3.  **对通用数据科学和机器学习工具的使用程度**。课程教学上是否使用了流行的编程语言，比如 Python、R 或 Scala？对这些语言的流行类库使用如何？这些当然不是必需的但是是有用的，所以对这些课程我们略有偏好。
 
 ### 什么是机器学习？工作流程如何？
 
 一个流行的定义起源于 1959 年 [Arthur Samuel](https://en.wikipedia.org/wiki/Arthur_Samuel "Arthur Samuel") 的说法：机器学习是计算机科学的一个分支，能够“**让计算机自主学习而无需显式编程**”。实践中，这意味着开发的计算机程序可以根据数据进行预测。就像人类可以根据经验学习一样，计算机也可以。对于计算机，数据 = 经验。
-
 
 机器学习工作流程是执行机器学习项目所需的过程。尽管单个项目可能不同，但是绝大多数工作流程都需要这么几个通用任务：问题评估，数据探索，数据预处理，模型训练、测试、部署，等等。下面你会看到这些核心步骤有用的的可视化展示：
 
@@ -78,9 +77,9 @@ _Kaboompics_ **的[木头人](https://www.pexels.com/photo/wooden-robot-6069/)**
 
 列表里面我最推荐的 TOP 3 是：
 
-*   **[使用 TensorFlow 编写深度学习创意应用](https://www.class-central.com/mooc/6679/kadenze-creative-applications-of-deep-learning-with-tensorflow)**， Kadenze
-*   **[用于机器学习的神经网络](https://www.class-central.com/mooc/398/coursera-neural-networks-for-machine-learning)**， 多伦多大学 (Geoffrey Hinton执教) 发布于 Coursera
-*   **[深度学习 A-Z™：手把手教你写人工神经网络](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fdeeplearning%2F)**， Kirill Eremenko，Hadelin de Ponteves 和 SuperDataScience Team 发布于 Udemy
+*   **[使用 TensorFlow 编写深度学习创意应用](https://www.class-central.com/mooc/6679/kadenze-creative-applications-of-deep-learning-with-tensorflow)**，Kadenze
+*   **[用于机器学习的神经网络](https://www.class-central.com/mooc/398/coursera-neural-networks-for-machine-learning)**，多伦多大学 (Geoffrey Hinton执教) 发布于 Coursera
+*   **[深度学习 A-Z™：手把手教你写人工神经网络](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fdeeplearning%2F)**，Kirill Eremenko，Hadelin de Ponteves 和 SuperDataScience Team 发布于 Udemy
 
 ### 推荐的先修课程
 
@@ -101,7 +100,7 @@ Ng 是一位有活力而又温柔的导师，而且经验丰富。他激励自�
 
 课程评价由每节课后的多项选择测验和编程作业自动完成。这些作业（一共有八次）可以使用 MATLAB 或 Octave 完成，后者是 MATLAB 的一个开源版本。Ng 常解释他对语言的选择：
 
-> 以前我总是尝试使用各种不同的语言讲授机器学习，包括 C++、Java、Python、NumPy，当然还有 Octave，等等。在我教了十年机器学习之后我发现使用 Octave 做为编程环境会让你学得最快。
+> 以前我总是尝试使用各种不同的语言讲授机器学习，包括 C++、Java、Python 和 NumPy，当然还有 Octave，等等。在我教了十年机器学习之后我发现使用 Octave 做为编程环境会让你学得最快。
 
 尽管 Python 和 R 在 2017 年有着[上升的人气](http://blog.codeeval.com/codeevalblog/2016/2/2/most-popular-coding-languages-of-2016)，似乎更引人注目，评论家们注意到那不应该阻止你学习这门课。
 
@@ -121,13 +120,13 @@ Andrew Ng 的[机器学习](https://www.class-central.com/mooc/835/coursera-mach
 
 ### 一门由杰出教授讲授的常春藤大学课程
 
-*   [机器学习](https://www.class-central.com/mooc/7231/edx-machine-learning) （哥伦比亚大学发布于 edX ）
+*   [机器学习](https://www.class-central.com/mooc/7231/edx-machine-learning)（哥伦比亚大学发布于 edX ）
 
-哥伦比亚大学的[机器学习](https://www.class-central.com/mooc/7231/edx-machine-learning)是他们发布在 edX 上的《人工智能微硕士》（ Artificial Intelligence MicroMasters ）课程的一个相当新的部分（**译者注**：《微硕士》课程是由 edX 推出的一系列在线研究生课程，可以用来学习职业发展的独立技能或从各自大学获得研究生同等学力证书，相当于一个完整硕士学位的学期）。 尽管它太新了还没有太多的评论，但是已有的评论却异常给力。授课教授 John Paisley 以杰出、授课简杰、聪明而闻名。这门课程有 10 条评论，加权平均得分 4.8 星。
+哥伦比亚大学的[机器学习](https://www.class-central.com/mooc/7231/edx-machine-learning)是他们发布在 edX 上的《人工智能微硕士》（Artificial Intelligence MicroMasters）课程的一个相当新的部分（**译者注**：《微硕士》课程是由 edX 推出的一系列在线研究生课程，可以用来学习职业发展的独立技能或从各自大学获得研究生同等学力证书，相当于一个完整硕士学位的学期）。尽管它太新了还没有太多的评论，但是已有的评论却异常给力。授课教授 John Paisley 以杰出、授课简杰、聪明而闻名。这门课程有 10 条评论，加权平均得分 4.8 星。
 
 这门课程覆盖了机器学习工作流程的全部方面，而且在算法上比上面的斯坦福课程还多。哥伦比亚的课程是更加高阶的入门课程，评论中有提到说学员需要很熟悉我们前面推荐的先修课程：微积分、线性代数、统计学、概率论和编程。
 
-它的毕业评估由 11 次测验、4 次编程作业和期末考试组成。学员们可自行选择 Python、Octave 或 MATLAB 完成作业。课程的总预计时长是 12 周，每周 8 到 10 课时。 课程本身是免费的，不过提供认证证书可供购买。
+它的毕业评估由 11 次测验、4 次编程作业和期末考试组成。学员们可自行选择 Python、Octave 或 MATLAB 完成作业。课程的总预计时长是 12 周，每周 8 到 10 课时。课程本身是免费的，不过提供认证证书可供购买。
 
 下面是一些上文提到的课程的的高质量[评论](https://www.coursetalk.com/providers/edx/courses/machine-learning-5)：
 
@@ -135,7 +134,7 @@ Andrew Ng 的[机器学习](https://www.class-central.com/mooc/835/coursera-mach
 
 > 这门课太棒了！老师的语言太精准了，在我看来这也是这门课最突出的亮点之一。课程质量很高，PPT 也超棒。
 
-> Paisley 博士和他的导师都是机器学习之父迈克尔·乔丹的学生。 Paisley 博士因为授课清晰成为哥伦比亚大学最好的 ML 教授。这个学期有将近 240 个学生选他的课，这个数字是哥伦比亚大学所有讲授机器学习的教授中最大的。
+> Paisley 博士和他的导师都是机器学习之父迈克尔·乔丹的学生。Paisley 博士因为授课清晰成为哥伦比亚大学最好的 ML 教授。这个学期有将近 240 个学生选他的课，这个数字是哥伦比亚大学所有讲授机器学习的教授中最大的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*q4Qa-kxC6MXFwct_9635ug.png)
 
@@ -145,7 +144,7 @@ Andrew Ng 的[机器学习](https://www.class-central.com/mooc/835/coursera-mach
 
 ### 来自工业专家的 Python 和 R 实用简介
 
-*   [机器学习 A-Z™：手把手教你用 Python 和 R 实战数据科学](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fmachinelearning%2F) （Kirill Eremenko，Hadelin de Ponteves 和 SuperDataScience Team 发布于 Udemy）
+*   [机器学习 A-Z™：手把手教你用 Python 和 R 实战数据科学](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fmachinelearning%2F)（Kirill Eremenko，Hadelin de Ponteves 和 SuperDataScience Team 发布于 Udemy）
 
 发布于 Udemy 的[机器学习 A-Z™](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fmachinelearning%2F) 课程的详细程度让人印象深刻，它同时提供了 Python 和 R 的实现用法。这是罕见的，其他任何顶级课程也不会有这种评价。它的评论数是在我们推荐课程中最高的，高达 8119 条，得到 4.5 星的加权平均得分。
 
@@ -159,7 +158,7 @@ Eremenko 和 SuperDataScience team 最受学员爱戴的是他们有能力“把
 
 > 这门课是专业出品，音质棒极了，释义也特别简洁清晰。你金钱和时间的投资绝对有难以估量的回报。
 
-> 在一门课中同时用两种语言学习简直太令人惊叹了.
+> 在一门课中同时用两种语言学习简直太令人惊叹了。
 
 > Kirill 绝对是 Udemy 上最好的老师之一（如果不是在网上），我推荐他讲的所有课程。这门课有丰富的内容，丰富到爆！
 
@@ -167,19 +166,19 @@ Eremenko 和 SuperDataScience team 最受学员爱戴的是他们有能力“把
 
 * YouTube 视频链接：https://youtu.be/JbuYJTbmYEk
 
-[机器学习 A-Z™](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fmachinelearning%2F)的预览视频。
+[机器学习 A-Z™](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fmachinelearning%2F) 的预览视频。
 
 ### 比拼
 
 我们的首选课程通过 422 条评论得到了 4.7 星的加权平均得分。我们看一下其他可选课程，以分值降序排列。再次提醒：纯粹深度学习的课程不包含在这篇指导里（那些课程可以在[这里](https://medium.freecodecamp.com/dive-into-deep-learning-with-these-23-online-courses-bf247d289cc0)查看）。
 
-[《走近数据分析》](https://www.class-central.com/mooc/1623/edx-the-analytics-edge) （麻省理工学院于 edX）：更关注一般分析，虽然也有一些机器学习主题；使用 R 语言；使用我们熟悉的现实世界的例子进行强悍的表述；有挑战；12 周，每周 10 到 15 学时；可自愿购买经过认证的证书；有 214 条评论，加权平均得分 4.9 星。
+[《走近数据分析》](https://www.class-central.com/mooc/1623/edx-the-analytics-edge)（麻省理工学院于 edX）：更关注一般分析，虽然也有一些机器学习主题；使用 R 语言；使用我们熟悉的现实世界的例子进行强悍的表述；有挑战；12 周，每周 10 到 15 学时；可自愿购买经过认证的证书；有 214 条评论，加权平均得分 4.9 星。
 
 * YouTube 视频链接：https://youtu.be/1BMSOBCe07k
 
 这门麻省理工学院梦幻课程的推广视频：[走近数据分析](https://www.class-central.com/mooc/1623/edx-the-analytics-edge)。
 
-[《数据科学和机器学习 Python 训练营》](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fpython-for-data-science-and-machine-learning-bootcamp%2F) （何塞波蒂利亚大学于 Udemy）：包含了完整数据科学流程的内容，有大块的机器学习内容；更详细的 Python 入门；优秀的课程，不过不在本文的理想课程内容范畴；21.5 小时的按需视频；价格根据 Udemy 账户级别进行折扣，这在 Udemy 很常见；有 3316 条评论，加权平均得分 4.6 星。
+[《数据科学和机器学习 Python 训练营》](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fpython-for-data-science-and-machine-learning-bootcamp%2F)（何塞波蒂利亚大学于 Udemy）：包含了完整数据科学流程的内容，有大块的机器学习内容；更详细的 Python 入门；优秀的课程，不过不在本文的理想课程内容范畴；21.5 小时的按需视频；价格根据 Udemy 账户级别进行折扣，这在 Udemy 很常见；有 3316 条评论，加权平均得分 4.6 星。
 
 [《数据科学和机器学习 R 训练营》](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fdata-science-and-machine-learning-bootcamp-with-r%2F)（何塞波蒂利亚大学于 Udemy）：上面对波蒂利亚大学课程的评价同样适用于此，只不过语言换成 R；17.5 小时的按需视频；价格根据 Udemy 账户级别进行折扣，这在 Udemy 很常见；有 1317 条评论，加权平均得分 4.6 星。
 
@@ -201,7 +200,7 @@ Eremenko 和 SuperDataScience team 最受学员爱戴的是他们有能力“把
 
 Caltech 和 Yaser Abu-Mostafa 的[从数据中学习](https://www.class-central.com/mooc/366/learning-from-data-introductory-machine-learning-course)介绍视频。
 
-[《从数据中学习（机器学习介绍）》](https://www.class-central.com/mooc/366/learning-from-data-introductory-machine-learning-course)（Yaser Abu-Mostafa 于加州理工学院）：“真正的 Caltech 课程，不是阉割版”；评论强调它在理解机器学习理论上很优秀；Yaser Abu-Mostafa 教授在学生中很流行，还写了这门课使用的教科书；上传到油管的视频是上课录音（带有 PPT 的画中画功能），家庭作业是 PDF 文件；学生在线学习的课程体验并不如 TOP 3 推荐那么精彩；7条评论，4.43 星。
+[《从数据中学习（机器学习介绍）》](https://www.class-central.com/mooc/366/learning-from-data-introductory-machine-learning-course)（Yaser Abu-Mostafa 于加州理工学院）：“真正的 Caltech 课程，不是阉割版”；评论强调它在理解机器学习理论上很优秀；Yaser Abu-Mostafa 教授在学生中很流行，还写了这门课使用的教科书；上传到油管的视频是上课录音（带有 PPT 的画中画功能），家庭作业是 PDF 文件；学生在线学习的课程体验并不如 TOP 3 推荐那么精彩；7 条评论，4.43 星。
 
 [《海量数据集挖掘》](https://www.class-central.com/mooc/2406/stanford-openedx-mining-massive-datasets)（斯坦福大学）：关注“大数据”的机器学习课程；介绍了现代分布式文件系统和 MapReduce；7 周，每周 10 小时；免费；30 条评论，4.4 星。
 
@@ -219,7 +218,7 @@ Coursera 上华盛顿大学正在上这门[《机器学习规范》](https://www
 
 [《从 0 到 1：机器学习和NLP，使用 Python 切入正题》](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Ffrom-0-1-machine-learning%2F)（Loony Corn 于 Udemy）：“一种脚踏实地，害羞但自信的机器学习技巧”；由具有数十年工业经验的四人小组授课；使用 Python；价格根据 Udemy 账户级别进行折扣，这在 Udemy 很常见；494 条评论，4.2 星。
 
-[《机器学习的原则》](https://www.class-central.com/mooc/6511/edx-principles-of-machine-learning)（微软于 edX）：使用 R、Python 和 微软 Azure 机器学习工具；是微软数据科学专业课程认证的一部分；6 周，每周 3 - 4 小时；可自愿购买经过认证的证书；11 条评论，4.09 星。
+[《机器学习的原则》](https://www.class-central.com/mooc/6511/edx-principles-of-machine-learning)（微软于 edX）：使用 R、Python 和 微软 Azure 机器学习工具；是微软数据科学专业课程认证的一部分；6 周，每周 3-4 小时；可自愿购买经过认证的证书；11 条评论，4.09 星。
 
 [《大数据：统计推断与机器学习》](https://www.class-central.com/mooc/5421/futurelearn-big-data-statistical-inference-and-machine-learning)（昆士兰科技大学于 FutureLearn）：一门聚焦于大数据、漂亮而又简洁的机器学习探索课程；覆盖了诸如 R、H20 流和 WEKA 等工具；推荐三周就学完，每周 2 课时；有免费和收费版本；4 条评论，4 星。
 
@@ -237,9 +236,9 @@ Sebastian Thrun 和 Katie Malone 讲授的 Udacity [《机器学习简介》](ht
 
 [《用于交易的机器学习》](https://www.class-central.com/mooc/1026/udacity-machine-learning-for-trading)（佐治亚科技大学于 Udacity）：专注于将概率机器学习方法应用于交易决策；使用 Python；是 Udacity 机器学习工程师纳学位和佐治亚科大在线硕士学位（OMS）的一部分；估计 4 个月；免费；14 条评论，3.29 星。
 
-[《实用机器学习》](https://www.class-central.com/mooc/1719/coursera-practical-machine-learning)（约翰霍普金斯大学于 Coursera）：简洁、实用的介绍了一些机器学习算法；一些一星二星的评论表达了对课程的各种担忧；是该校数据科学专业的一部分；4周，每周 4 - 9 小时；有免费和收费版本；37 条评论，3.11 星。
+[《实用机器学习》](https://www.class-central.com/mooc/1719/coursera-practical-machine-learning)（约翰霍普金斯大学于 Coursera）：简洁、实用的介绍了一些机器学习算法；一些一星二星的评论表达了对课程的各种担忧；是该校数据科学专业的一部分；4 周，每周 4-9 小时；有免费和收费版本；37 条评论，3.11 星。
 
-[《用于数据科学和数据分析的机器学习》](https://www.class-central.com/mooc/4912/edx-machine-learning-for-data-science-and-analytics)（哥伦比亚大学于 edX）：介绍了机器学习的广泛主题；一些负面评论对课程内容的选择、缺少编程作业和缺乏有灵感的展示提出了担忧；超过 5 周，每周 7 - 10 小时；36 条评论，2.74 星。
+[《用于数据科学和数据分析的机器学习》](https://www.class-central.com/mooc/4912/edx-machine-learning-for-data-science-and-analytics)（哥伦比亚大学于 edX）：介绍了机器学习的广泛主题；一些负面评论对课程内容的选择、缺少编程作业和缺乏有灵感的展示提出了担忧；超过 5 周，每周 7-10 小时；36 条评论，2.74 星。
 
 [《推荐系统规范》](https://www.coursera.org/specializations/recommender-systems)（明尼苏达大学于 Cou）：重点关注了一种特定的机器学习类型 —— 推荐系统；4 节专业课加一节顶点课程，这是一个案例研究；使用 LensKit（推荐系统的一个开源工具集） 上课；有免费和收费版本；2 条评论，2 星。
 
@@ -257,7 +256,7 @@ Kadenze 上 Goldsmiths 和伦敦大学[《给音乐家和艺术家的机器学�
 
 [《应用机器学习（使用 Python）》](https://www.class-central.com/mooc/6673/coursera-applied-machine-learning-in-python)（密歇根大学于 Coursera）：使用 Python 和 scikit 学习工具集上课；是应用机器学习（使用 Python）专业的一部分；计划 5 月 29 号开课；有免费和收费版本。
 
-[《应用机器学习》](https://www.class-central.com/mooc/6406/edx-applied-machine-learning)（微软于 edX）：使用了包括 Python、R 和微软 Azure 机器学习工具上课（注意：这是微软出品的课程）。包括动手实验室来强化课程内容；超过 6 周，每周 3 - 4 小时；可自愿购买经过认证的证书。
+[《应用机器学习》](https://www.class-central.com/mooc/6406/edx-applied-machine-learning)（微软于 edX）：使用了包括 Python、R 和微软 Azure 机器学习工具上课（注意：这是微软出品的课程）。包括动手实验室来强化课程内容；超过 6 周，每周 3-4 小时；可自愿购买经过认证的证书。
 
 [《使用 Python 进行机器学习》](https://bigdatauniversity.com/courses/machine-learning-with-python/)（大数据大学）：使用 Python 上课；目标受众是入门者；预估 4 小时完成；大数据大学隶属于 IBM；免费。
 
@@ -265,13 +264,13 @@ Kadenze 上 Goldsmiths 和伦敦大学[《给音乐家和艺术家的机器学�
 
 [《给数据科学的机器学习》](https://www.class-central.com/mooc/8216/edx-machine-learning-for-data-science)（加利福尼亚大学和 San Diego 于 edX）：要到 2018 年一月才开课；程序例子和作业都是 Python的，用的 Jupyter 教材（**译者注**：Jupyter 教材是一个开源的在线应用，用户可以自己制作教材并共享给别人）；10 周，每周 8 小时；可自愿购买经过认证的证书。
 
-[《分析模型入门》](https://www.class-central.com/mooc/8217/edx-introduction-to-analytics-modeling)（佐治亚科技大学于 edX）：课程通告说使用 R 做为其首选语言；10 周，每周 5 - 10 小时； 可自愿购买经过认证的证书。
+[《分析模型入门》](https://www.class-central.com/mooc/8217/edx-introduction-to-analytics-modeling)（佐治亚科技大学于 edX）：课程通告说使用 R 做为其首选语言；10 周，每周 5-10 小时；可自愿购买经过认证的证书。
 
 [《预测分析：洞察大数据》](https://www.class-central.com/mooc/7645/futurelearn-predictive-analytics-gaining-insights-from-big-data)（昆士兰科技大学于 FutureLearn）：简述了一些算法；使用 Hewlett Packard Enterprise 的 Vertica Analytics 平台做为应用工具；开课时间还未公布；4 周，每周 2 小时；可自愿购买成就证书。
 
 [《机器学习简介》](https://miriadax.net/web/introduccion-al-machine-learning)（西班牙电信大学于 Miríada X）：西语授课；覆盖了监督和无监督学习的机器学习简介；预估 4 周共 20 小时。
 
-[《机器学习登堂入室》](https://www.dataquest.io/path-step/machine-learning)（Dataquest）：使用 Dataquest 的浏览器内置交互式平台通过 Python 上课；多个导引项目和一个你使用你自己数据构建的“+”项目；需要订阅。
+[《机器学习登堂入室》](https://www.dataquest.io/path-step/machine-learning)（Dataquest）：使用 Dataquest 的浏览器内置交互式平台通过 Python 上课；多个导引项目和一个你使用你自己数据构建的 “+” 项目；需要订阅。
 
 * * *
 
@@ -303,7 +302,7 @@ Kadenze 上 Goldsmiths 和伦敦大学[《给音乐家和艺术家的机器学�
 
 卡耐基梅隆大学是学习机器学习最好的研究生学校。[《机器学习》](http://www.cs.cmu.edu/~ninamf/courses/601sp15/index.html)和[《统计机器学习》](https://www.class-central.com/mooc/8509/statistical-machine-learning)都在线上可免费学习。
 
-[《本科生机器学习》](http://www.cs.ubc.ca/~nando/340-2012/index.php)（Nando de Freitas 和不列颠哥伦比亚大学）：本科生的机器学习课程；上课被录像并和发布在课程网站的PPT一起放在了油管上；课程作业也一起上传了（不过没答案）；de Freitas 现在是牛津大学的全职教授，各个论坛都对他的教学能力表达了赞美；研究生版本也要（见下面）.
+[《本科生机器学习》](http://www.cs.ubc.ca/~nando/340-2012/index.php)（Nando de Freitas 和不列颠哥伦比亚大学）：本科生的机器学习课程；上课被录像并和发布在课程网站的 PPT 一起放在了油管上；课程作业也一起上传了（不过没答案）；de Freitas 现在是牛津大学的全职教授，各个论坛都对他的教学能力表达了赞美；研究生版本也要（见下面）。
 
 [Machine Learning](http://www.cs.ubc.ca/~nando/540-2013/lectures.html) (Nando de Freitas/University of British Columbia): A graduate machine learning course. The comments in de Freitas’ undergraduate course (above) apply here as well.
 
