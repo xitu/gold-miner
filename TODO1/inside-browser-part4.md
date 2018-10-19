@@ -13,13 +13,13 @@
 
 ## 浏览器视角下的输入事件
 
-听到 “输入事件” 这个字眼，你脑海里闪现的恐怕只是输入文本或点击鼠标。但在浏览器眼中，输入意味着一切用户行为。不单滚动鼠标滑轮是输入事件，触摸屏幕、滑动鼠标同样也是用户输入事件。
+听到“输入事件”这个字眼，你脑海里闪现的恐怕只是输入文本或点击鼠标。但在浏览器眼中，输入意味着一切用户行为。不单滚动鼠标滑轮是输入事件，触摸屏幕、滑动鼠标同样也是用户输入事件。
 
-诸如触摸屏幕之类用户手势产生时，浏览器进程会率先将其捕获。然而浏览器进程所掌握的信息仅限于行为发生的区域，因为标签页里的内容都由渲染进程负责处理，所以浏览器进程会将事件类型 ( 如 `touchstart` ) 及其坐标发送给渲染进程。渲染进程会寻至事件目标，运行其事件监听器，妥善地处理事件。
+诸如触摸屏幕之类用户手势产生时，浏览器进程会率先将其捕获。然而浏览器进程所掌握的信息仅限于行为发生的区域，因为标签页里的内容都由渲染进程负责处理，所以浏览器进程会将事件类型（如 `touchstart`）及其坐标发送给渲染进程。渲染进程会寻至事件目标，运行其事件监听器，妥善地处理事件。
 
 ![input event](https://developers.google.com/web/updates/images/inside-browser/part4/input.png)
 
-图 1:输入事件由浏览器进程发往渲染进程
+图 1：输入事件由浏览器进程发往渲染进程
 
 ## 合成器接收输入事件
 
@@ -31,7 +31,7 @@
 
 ## 理解非立即可滚动区
 
-因为运行 JavaScript 脚本是主线程的工作，所以页面合成后，合成进程会将页面里添加了事件监听的区域标记为 “非立即可滚动区”。有了这个信息，如果输入事件发生在这一区域，合成进程可以确定应将其发往主线程处理。如输入事件发生在这一区域之外，合成进程则确定无需等待主线程，而继续合成新帧。
+因为运行 JavaScript 脚本是主线程的工作，所以页面合成后，合成进程会将页面里添加了事件监听的区域标记为“非立即可滚动区”。有了这个信息，如果输入事件发生在这一区域，合成进程可以确定应将其发往主线程处理。如输入事件发生在这一区域之外，合成进程则确定无需等待主线程，而继续合成新帧。
 
 ![limited non fast scrollable region](https://developers.google.com/web/updates/images/inside-browser/part4/nfsr1.png)
 
@@ -49,13 +49,13 @@ document.body.addEventListener('touchstart',  event => {
 });
 ```
 
-这样只需添加一个事件处理器，即可监听所有元素，的确十分省事。然而，如果站在浏览器的角度去考量，这等于把整个页面都标记成了 “非立即可滚动区”，意味着即便你设计的应用本不必理会页面上一些区域的输入行为，合成线程也必须在每次输入事件产生后与主线程通信并等待返回。如此则得不偿失，使原本能保障页面滚动流畅的合成器没了用武之地。
+这样只需添加一个事件处理器，即可监听所有元素，的确十分省事。然而，如果站在浏览器的角度去考量，这等于把整个页面都标记成了“非立即可滚动区”，意味着即便你设计的应用本不必理会页面上一些区域的输入行为，合成线程也必须在每次输入事件产生后与主线程通信并等待返回。如此则得不偿失，使原本能保障页面滚动流畅的合成器没了用武之地。
 
 ![full page non fast scrollable region](https://developers.google.com/web/updates/images/inside-browser/part4/nfsr2.png)
 
 图 4：非立即可滚动区覆盖整个页面下的输入描述示意图
 
-你可以给事件监听添加一个 [`passive:true` ](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Improving_scrolling_performance_with_passive_listeners)选项 ，将这种负面效果最小化。这会提示浏览器你想继续在主线程中监听事件，但合成器不必停滞等候，可接着创建新的合成帧。
+你可以给事件监听添加一个 [`passive:true`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Improving_scrolling_performance_with_passive_listeners) 选项 ，将这种负面效果最小化。这会提示浏览器你想继续在主线程中监听事件，但合成器不必停滞等候，可接着创建新的合成帧。
 
 ```
 document.body.addEventListener('touchstart', event => {
@@ -112,7 +112,7 @@ document.body.addEventListener('pointermove', event => {
 
 图 7：大量事件涌入合成帧时间轴会造成页面闪烁
 
-为了降低往主线程中传递过量调用， Chrome 会合并这些连续事件(如：`wheel`, `mousewheel`, `mousemove`, `poitermove`, `touchmove` 等)，并将其延迟至下一次 `requestAnimationFrame` 前发送。 
+为了降低往主线程中传递过量调用，Chrome 会合并这些连续事件（如：`wheel`, `mousewheel`, `mousemove`, `pointermove`, `touchmove` 等），并将其延迟至下一次 `requestAnimationFrame` 前发送。 
 
 ![coalesced events](https://developers.google.com/web/updates/images/inside-browser/part4/coalescedevents.png)
 
@@ -134,7 +134,7 @@ window.addEventListener('pointermove', event => {
     for (let event of events) {
         const x = event.pageX;
         const y = event.pageY;
-        // 使用x、y坐标画线
+        // 使用 x、y 坐标画线
     }
 });
 ```
@@ -161,9 +161,9 @@ window.addEventListener('pointermove', event => {
 
 刚踏上开发之路时，我几乎只关注怎样去写代码、怎样提升自己的生产效率。诚然，这些事情很重要，但与此同时我们也应当思考浏览器会怎么去处理我们书写的代码。现代浏览器一直致力探索如何提供更好的用户体验。书写对浏览器友好的代码，反过来也能提供友好的用户体验。路漫漫其修远兮，希望我们能携手共进，构建出对浏览器更为友好的代码。
 
-在此笔者诚挚感谢 [Alex Russell](https://twitter.com/slightlylate), [Paul Irish](https://twitter.com/paul_irish), [Meggin Kearney](https://twitter.com/MegginKearney), [Eric Bidelman](https://twitter.com/ebidel), [Mathias Bynenes](https://twitter.com/mathias), [Addy Osmani](https://twitter.com/addyosmani), [Kinuko Yasuda](https://twitter.com/kinu), [Nasko Oskov](https://twitter.com/nasko), 以及 Charlie Reis 等人对本系列文章初稿的校对。
+在此笔者诚挚感谢 [Alex Russell](https://twitter.com/slightlylate)、[Paul Irish](https://twitter.com/paul_irish)、[Meggin Kearney](https://twitter.com/MegginKearney)、[Eric Bidelman](https://twitter.com/ebidel)、[Mathias Bynenes](https://twitter.com/mathias)、[Addy Osmani](https://twitter.com/addyosmani)、[Kinuko Yasuda](https://twitter.com/kinu)、[Nasko Oskov](https://twitter.com/nasko) 和 Charlie Reis 等人对本系列文章初稿的校对。
 
-你喜欢这一系列的文章吗？对之后文章如有任何意见或建议，欢迎在下面评论区或是推特[@kosamari](https://twitter.com/kosamari) 里留下您的宝贵意见。 
+你喜欢这一系列的文章吗？对之后文章如有任何意见或建议，欢迎在下面评论区或是推特 [@kosamari](https://twitter.com/kosamari) 里留下您的宝贵意见。 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
