@@ -27,7 +27,7 @@ _Kaboompics_ **的[木头人](https://www.pexels.com/photo/wooden-robot-6069/)**
 
 *Class Central* **的[主页](https://www.class-central.com/)**.
 
-自从 2011 年起，[Class Central](https://www.class-central.com/) 的创始人 [Dhawal Shah](https://medium.com/@dhawalhs) 可以毫无争议地说比世界上其他任何人都更加关注在线课程。
+自从 2011 年起，[Class Central](https://www.class-central.com/) 的创始人 [Dhawal Shah](https://medium.com/@dhawalhs) 可以毫无争议地说比世界上其他任何人都更加关注在线课程。Dhawal 个人也帮我一起收集了这个资源列表。
 
 ### 我们如何甄选课程
 
@@ -37,7 +37,7 @@ _Kaboompics_ **的[木头人](https://www.pexels.com/photo/wooden-robot-6069/)**
 2.  **必须按需或每隔几个月提供一次。**
 3.  **必须是可交互的在线课程，不能使用书本或只读的指南**。尽管那些也是学习的途径，但是这里只关注课程。完全的视频教程（也就是说没有测验或课后作业等）也要排除。
 
-我相信我们已经包含了所有符合上述准则值得关注的的课程。鉴于从 [Udemy](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14494&RD_PARM1=https%253A%252F%252Fwww.udemy.com%252F) 上面收集了几百门课程，我们只选择其中留言最多、评分最高的课程。
+我相信我们已经包含了所有符合上述准则值得关注的的课程。[Udemy](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14494&RD_PARM1=https%253A%252F%252Fwww.udemy.com%252F) 上面有几百门课程，我们只选择其中留言最多、评分最高的课程。
 
 不过由于精力有限，一定还是有可能我们会忽略掉某课程的。如果你发现我们漏掉了一门好课程，请在评论区留言让我们知道。
 
