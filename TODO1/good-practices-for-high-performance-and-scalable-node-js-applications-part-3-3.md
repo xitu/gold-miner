@@ -2,8 +2,8 @@
 > * 原文作者：[virgafox](https://medium.com/@virgafox?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/good-practices-for-high-performance-and-scalable-node-js-applications-part-3-3.md](https://github.com/xitu/gold-miner/blob/master/TODO1/good-practices-for-high-performance-and-scalable-node-js-applications-part-3-3.md)
-> * 译者：
-> * 校对者：
+> * 译者：[steinliber](https://github.com/steinliber)
+> * 校对者：[calpa](https://github.com/calpa)，[Augustwuli](https://github.com/Augustwuli)
 
 # 构建高性能和可扩展性 Node.js 应用的最佳实践（第 3/3 部分）
 
@@ -11,7 +11,7 @@
 
 ### 第三章 — 其它关于 Node.js 应用运行效率和性能的优秀实践
 
-本系列的头两篇文章中我们看到[如何扩展一个 Node.js 应用](https://medium.com/iquii/good-practices-for-high-performance-and-scalable-node-js-applications-part-1-3-bb06b6204197)以及[在应用的代码部分应该考虑什么](https://medium.com/iquii/good-practices-for-high-performance-and-scalable-node-js-applications-part-2-3-2a68f875ce79)才能使其在这个过程中运行如我们所愿。在这最后一篇文章中我们将介绍一些可以进一步提高应用运行效率和性能的其它实践。
+本系列的头两篇文章中我们看到[如何扩展一个 Node.js 应用](https://medium.com/iquii/good-practices-for-high-performance-and-scalable-node-js-applications-part-1-3-bb06b6204197)以及[在应用的代码部分应该考虑什么](https://medium.com/iquii/good-practices-for-high-performance-and-scalable-node-js-applications-part-2-3-2a68f875ce79)才能使其在这个过程中运行如我们所愿。在这最后一篇文章中，我们将介绍一些其它实践，以进一步提高应用运行效率和性能。
 
 ### Web 和 Worker 进程
 
@@ -27,7 +27,7 @@ Web 进程主要的任务是管理**传入的网络调用**并尽快将它们分
 
 **web 和 worker 进程之间的通信**可以通过不同的方式实现。一种常见且有效的解决方案是优先级队列，就像我们将在下一段描述的 Kue 所实现的那样。
 
-这种方式一个很大的优点在于无论在同一台还是不同机器上其都可以**分别独立扩展 web 和 worker 进程**。
+这种方式有一个很大的优点，无论在同一台还是不同机器上其都可以**分别独立扩展 web 和 worker 进程**。
 
 例如，如果你的应用请求量很大，相较于 worker 进程你可以部署更多的 web 进程而几乎不会产生任何副作用。而如果请求量不是很大但是有很多的工作需要 worker 进程去处理，你可以据此重新分配相应的资源。
 
@@ -43,14 +43,13 @@ Web 进程主要的任务是管理**传入的网络调用**并尽快将它们分
 
 ### Cron
 
-应用程序通常需要**定期执行**一些任务。这种类型的操作通常是通过操作系统级别的 **cron 工作**进行管理，也就是会调用你应用程序之外的一个单独脚本。
+应用程序通常需要**定期执行**一些任务。通常这种类型的操作，是通过操作系统级别的 **cron 工作**进行管理，也就是会调用你应用程序之外的一个单独脚本。
 
 当需要把你的应用部署到新的机器上时，这种方式会需要额外的配置工作，如果你想要自动化部署应用时，它会让人对其感到不舒服。
 
 我们可以使用 **NPM 上的** [**cron 模块**](https://www.npmjs.com/package/cron)从而更轻松地实现同样的效果。它允许你在 Node.js 代码中定义 cron 工作，从而使其免于操作系统的配置。
 
-根据上面所描述的 web/worker 进程模式，worker 进程可以通过定期调用一个函数把工作放到队列
-从而实现创建 cron。 
+根据上面所描述的 web/worker 进程模式，worker 进程可以通过定期调用一个函数把工作放到队列从而实现创建 cron。 
 
 使用队列可以使 cron 的实现更加清晰并且还可以利用 Kue 所提供的所有功能，如优先级，重试等。
 
@@ -74,7 +73,7 @@ Web 进程主要的任务是管理**传入的网络调用**并尽快将它们分
 
 在像我们在这个系列所描述的分布式环境中，如果想要所有的节点在处理缓存时表现一致，最好的办法或许是使用 redis 来缓存需要的值。
 
-缓存所需要考虑最困难的方面就是缓存失效。该问题一种快捷实用的解决方案是只考虑缓存时间，这样缓存中的值就会在固定的 TTL 时间后刷新，这样做的缺点是我们不得不等到下一次缓存刷新才能看到响应中的更新。
+缓存所需要考虑最困难的方面就是缓存失效。一种快捷实用的解决方案是只考虑缓存时间，这样缓存中的值就会在固定的 TTL 时间后刷新，这样做的缺点是我们不得不等到下一次缓存刷新才能看到响应中的更新。
 
 如果你能有更多的时间，最好在应用级别实现失效，即当数据库中的值更改时手动刷新 redis 缓存中的相关记录。
 
@@ -82,11 +81,11 @@ Web 进程主要的任务是管理**传入的网络调用**并尽快将它们分
 
 在本系列文章中，我们介绍了有关扩展性和性能的一些主题。在这里所提供的建议可以作为指导，需要根据项目特定的需求进行定制。
 
-请继续关注关于 Node.js 和 DevOps 上垂直主题上的其它文章！
+请继续关注关于 Node.js 和 DevOps 主题内的其它文章！
 
 * * *
 
-_如果你喜欢这篇文章，请多多鼓掌！_
+y_如果你喜欢这篇文章，请多多支持！_
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
