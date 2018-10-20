@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/speech-recognition-deepspeech.md](https://github.com/xitu/gold-miner/blob/master/TODO1/speech-recognition-deepspeech.md)
 > * 译者：[sisibeloved](https://github.com/sisibeloved)
-> * 校对者：
+> * 校对者：[lsvih](https://github.com/lsvih)
 
 # TensorFlow 中的 RNN 串流
 
-[谋智（Mozilla）研究所](http://research.mozilla.org/)的机器学习团队正在开发一个自动语音识别引擎，它将作为[深度语音（DeepSpeech）项目](https://github.com/mozilla/DeepSpeech)的一部分，致力于向开发人员开放语音识别技术和受训模型。我们正在努力提高我们开源的语音转文本引擎的性能和易用性。即将发布的 0.2 版本将包括一个大家期待已久的特性：在录制音频时实时进行语音识别的能力。这篇博客文章描述了我们是怎样修改 STT（即 speech-to-text，语音转文字）引擎的架构，来达到实现实时转录的性能要求。很快，等到正式版本发布，你就可以体验这一音频转换的功能。
+[谋智（Mozilla）研究所](http://research.mozilla.org/)的机器学习团队正在开发一个自动语音识别引擎，它将作为[深度语音（DeepSpeech）项目](https://github.com/mozilla/DeepSpeech)的一部分，致力于向开发人员开放语音识别技术和预训练模型。我们正在努力提高我们开源的语音转文本引擎的性能和易用性。即将发布的 0.2 版本将包括一个大家期待已久的特性：在录制音频时实时进行语音识别的能力。这篇博客文章描述了我们是怎样修改 STT（即 speech-to-text，语音转文字）引擎的架构，来达到实现实时转录的性能要求。不久之后，等到正式版本发布，你就可以体验这一音频转换的功能。
 
-当将神经网络应用到诸如音频或文本的顺序数据时，获取数据随着时间推移而出现的模式是很重要的。循环神经网络（RNN）是具有『记忆』的神经网络 —— 它们不仅将数据中的下一个元素作为输入，而且还将随时间演进的状态作为输入，并使用这个状态来获取与时间相关的模式。有时，你可能希望获取依赖未来数据的模式。解决这个问题的方法之一是使用两个 RNN，一个在时序上向前，而另一个向后，即从数据中的最后一个元素开始，到第一个元素。你可以在 [Chris Olah 的这篇文章](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)中了解更多关于 RNN（以及关于 DeepSpeech 中使用的特定类型的 RNN）的知识。
+当将神经网络应用到诸如音频或文本的顺序数据时，捕获数据随着时间推移而出现的模式是很重要的。循环神经网络（RNN）是具有『记忆』的神经网络 —— 它们不仅将数据中的下一个元素作为输入，而且还将随时间演进的状态作为输入，并使用这个状态来捕获与时间相关的模式。有时，你可能希望捕获依赖未来数据的模式。解决这个问题的方法之一是使用两个 RNN，一个在时序上向前，而另一个按向后的时序（即从数据中的最后一个元素开始，到第一个元素）。你可以在 [Chris Olah 的这篇文章](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)中了解更多关于 RNN（以及关于 DeepSpeech 中使用的特定类型的 RNN）的知识。
 
 ## 使用双向 RNN
 
@@ -17,9 +17,9 @@ DeepSpeech 的当前版本（[之前在 Hacks 上讨论过](https://hacks.mozill
 
 ![This animation shows how the data flows through the network. Data flows from the audio input to feature computation, through three fully connected layers. Then it goes through a bidirectional RNN layer, and finally through a final fully connected layer, where a prediction is made for a single time step.](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/09/bidirectional.gif)
 
-> 这个动画展示了数据如何在网络间流动。数据通过三个全连接层，从音频输入转变成特征计算。然后通过了一个双向 RNN 层，最后通过最终的对单个时间步长进行预测的全连接层。
+> 这个动画展示了数据如何在网络间流动。数据通过三个全连接层，从音频输入转变成特征计算。然后通过了一个双向 RNN 层，最后通过对单个时间步长进行预测的全连接层。
 
-为了做到这一点，你需要有一个分块模型。这是当前模型的图表，显示数据如何流过它。
+为了做到这一点，你需要有一个可以分块处理数据的模型。这是当前模型的图表，显示数据如何流过它。
 
 可以看到，在双向 RNN 中，倒数第二步的计算需要最后一步的数据，倒数第三步的计算需要倒数第二步的数据……如此循环往复。这些是图中从右到左的红色箭头。
 
@@ -27,7 +27,7 @@ DeepSpeech 的当前版本（[之前在 Hacks 上讨论过](https://hacks.mozill
 
 ## 使用单向 RNN 处理串流
 
-因此，我们可以用单向层替换双向层，单向层不依赖于将来的时间步骤。只要我们有足够的音频输入，就能一直计算到最后一层。
+因此，我们可以用单向层替换双向层，单向层不依赖于将来的时间步。只要我们有足够的音频输入，就能一直计算到最后一层。
 
 使用单向模型，你可以分段地提供输入，而不是在同一时间输入整个输入并获得整个输出。也就是说，你可以一次输入 100ms 的音频，立即获得这段时间的输出，并保存最终状态，这样可以将其用作下一个 100ms 的音频的初始状态。
 
@@ -105,7 +105,7 @@ def create_inference_graph(batch_size=1, n_steps=16, n_features=26, width=64):
 
 上述代码创建的图有两个输入和两个输出。输入是序列及其长度。输出是 `logit` 和一个需要在一个新序列开始运行的特殊节点 `initialize_state`。当固化图像时，请确保不固化状态变量 `previous_state_h` 和 `previous_state_c`。
 
-下面是固化图像的代码:
+下面是固化图的代码:
 
 ```python
 from tensorflow.python.tools import freeze_graph
@@ -129,7 +129,7 @@ freeze_graph.freeze_graph_with_def_protos(
 3.  将数据供给模型，在某个地方积累输出。
 4.  重复第二步和第三步直到数据结束。
 
-把几百行的客户端代码扔给读者是没有意义的，但是如果你感兴趣的话，这些 [GitHub](https://github.com/mozilla/DeepSpeech) 上的代码都是满足 MPL 2.0 许可的。事实上，我们有两种不同语言的实现，一个用 [Python](https://github.com/mozilla/DeepSpeech/blob/bb299dc26554b2fbf864b7f0115b4baece15bda5/evaluate.py#L233),用来生成测试报告；另一个用 [C++](https://github.com/mozilla/DeepSpeech/blob/6f27928841c2595c8dd9d08f482c95ca9e42f4b5/native_client/deepspeech.cc)，这是我们官方的客户端 API。
+把几百行的客户端代码扔给读者是没有意义的，但是如果你感兴趣的话，可以查阅 [GitHub 中的代码](https://github.com/mozilla/DeepSpeech)，这些代码均遵循 MPL 2.0 协议。事实上，我们有两种不同语言的实现，一个用 [Python](https://github.com/mozilla/DeepSpeech/blob/bb299dc26554b2fbf864b7f0115b4baece15bda5/evaluate.py#L233)，用来生成测试报告；另一个用 [C++](https://github.com/mozilla/DeepSpeech/blob/6f27928841c2595c8dd9d08f482c95ca9e42f4b5/native_client/deepspeech.cc)，这是我们官方的客户端 API。
 
 ## 性能提升
 
