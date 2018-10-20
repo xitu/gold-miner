@@ -2,85 +2,85 @@
 > * 原文作者：[Therese Fessenden](https://www.nngroup.com/articles/author/therese-fessenden/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/scrolling-and-attention.md](https://github.com/xitu/gold-miner/blob/master/TODO1/scrolling-and-attention.md)
-> * 译者：
+> * 译者：[Ivocin](https://github.com/Ivocin)
 > * 校对者：
 
-# Scrolling and Attention
+# 从2010到2018，你不知道的关于网页滚动和用户注意力的变化
 
-**Summary:** People scroll vertically more than they used to, but new eyetracking data shows that they will still look more above the page fold than below it.
+**摘要：** 新的眼动追踪数据表明：在浏览网页时，人们比以往更多在纵向滚动阅读，但注意力仍然是更多关注首屏的内容。
 
-People’s behaviors are fairly stable and [usability guidelines rarely change over time](https://www.nngroup.com/articles/usability-guidelines-change/). But one user behavior that did change since the early days of the web is the tendency to scroll. In the beginning, users rarely scrolled vertically; but [by 1997, as long pages became common](https://www.nngroup.com/articles/changes-in-web-usability-since-1994/), most people learned to scroll. However, the information above the fold still received most attention: [even as recently as 2010,](https://www.nngroup.com/articles/scrolling-and-attention-original-research/) our eyetracking studies showed that 80% of users’ viewing time was spent above the fold.
+人们的行为相当的稳定，[可用性指南一致鲜有变化](https://www.nngroup.com/articles/usability-guidelines-change/)。但是，自网络早期以来发生变化的一个用户行为是滚动的倾向。 一开始，很少有人纵向滚动查看网页， 但 [到了 1997 年，随着长页面的普及](https://www.nngroup.com/articles/changes-in-web-usability-since-1994/)， 大多数人学会了滚动网页。 然而，首屏上的信息仍然受到了最多的关注： [即使在最近的 2010 年，](https://www.nngroup.com/articles/scrolling-and-attention-original-research/) 我们的眼动追踪研究表明，用户 80% 的浏览时间都花在了首屏上面。
 
-Since 2010, with the advent of [responsive design](https://www.nngroup.com/articles/responsive-web-design-definition/) and [minimalism](https://www.nngroup.com/articles/characteristics-minimalism/), many designers have turned towards long pages (covering several “screenfuls”) with negative space. It’s time to ask, again, whether user behavior has changed due to the popularity of these web-design trends.
+自2010年以来，随着[响应式设计](https://www.nngroup.com/articles/responsive-web-design-definition/) 和 [极简主义](https://www.nngroup.com/articles/characteristics-minimalism/)的出现，许多设计师转向了具有负空间的长页面（覆盖几个“屏幕”）设计。现在是时候再次询问用户行为是否因这些网页设计趋势的普及而发生了变化。
 
-## Eyetracking Data
+## 眼动追踪数据
 
-### About the Study
+### 关于本研究
 
-To answer that question, we analyzed the x, y coordinates of over 130,000 eye fixations on a 1920×1080 screen. These fixations were from 120 participants, who were part of our recent eyetracking study that involved thousands of sites from a wide range of sectors and industries. For this study, we focused our analysis on a broad range of user tasks that spanned a variety of pages and industries, including news, ecommerce, blogs, FAQs, and encyclopedic pages. Our goal was not to analyze individual websites, but rather to characterize the general range of user behaviors.
+为了回答这个问题，我们分析了 1920×1080 屏幕上超过 130,000 个凝视点（eye fixations）的 x, y 坐标。这些凝视点来自 120 名参与者，他们是我们最近的眼动追踪研究的一部分，该研究涉及来自各行各业的数千个网站。在本研究中，我们重点分析了广泛的用户任务，这些任务涵盖各种页面和行业，包括新闻，电子商务，博客，常见问题解答和百科全书页面。我们的目标不是分析个别网站，而是总结出用户行为的变化特征。
 
-We compared these recent data with those obtained from our previous eyetracking study on 1024×768 monitors.
+我们将这些近期数据与我们之前在 1024×768 显示器上进行的眼球跟踪研究中获得的数据进行了比较。
 
-### Study Results
+### 研究结果
 
-Two changes happened between our studies: (a) bigger screens; and (b) new web-design trends, with possible adaptations on the side of the users. We can’t tease apart the relative impact of these two changes, but it doesn’t matter, since both are due to the passage of time, and we can’t undo either one, even if we wanted.
+我们的研究之间发生了两处变化：（a）更大的屏幕; （b）用户可能已经适应了的新的网页设计趋势。我们无法分开这两个变化的相对影响。但没有关系，因为两者都是由于时间的流逝造成的变化。即使我们想要，我们也无法撤消任何一个。
 
-In our most recent study, users spent about **57% of their page-viewing time above the fold. 74% of the viewing time was spent in the first two screenfuls**, up to 2160px. (This analysis disregards the maximum page length — the result can be due to short page lengths or to people giving up after the first two screenfuls of content.)
+在我们最近的一项研究中，用户将大约 **57％ 的页面浏览时间用于首屏。74％ 的浏览时间花费在前两个屏幕上**，最高可达2160px。（此分析忽略了最大页面长度 —— 结果可能是由于页面长度较短或者是用户在浏览了前两个屏幕内容就放弃了阅读。）
 
-These findings are quite different from those [reported in our 2010 article](http://www.nngroup.com/articles/scrolling-and-attention-original-research/): there, 80% of the viewing time was made up of fixations above the fold. However, the pattern of a **sharp decrease in attention following the fold** remains the same in 2018 as in 2010.
+这些发现与我们在 [2010 年的发表的文章](http://www.nngroup.com/articles/scrolling-and-attention-original-research/)完全不同：在那篇文章中，80％ 的浏览时间停留在了首屏。然而**首屏后页面关注度急剧下降**的现象在 2018 年与 2010 年相同。
 
-![Graph: Percentage of Viewing Time](https://media.nngroup.com/media/editor/2018/04/04/percentageviewingtimeverticalattention.png)
+![图表：浏览时间的百分比](https://media.nngroup.com/media/editor/2018/04/04/percentageviewingtimeverticalattention.png)
 
-_Content above the fold receives by far the highest share of the viewing time. About 74% of the time was spent in the top two screenfuls of content (the information above the fold plus the screenful immediately below the fold). The remaining 26% was spent in small increments further down the length of the page._
+**首屏上的内容在浏览时间中占据比最高。大约 74％ 的时间花费在前两个屏幕内容中（首屏加上首屏下方的屏幕信息）。剩余的 26％ 部分随着页面长度的增加少量递减。**
 
-Understandably, not every page is the same length. To determine how people divide their fixations across the page (independent of how long the page is), we split the pages into 20% segments (i.e., one-fifth of each page). On general websites, more than 42% of the viewing time fell within the top 20% of the page, and more than 65% of the time was spent in the top 40% of the page. On search-results pages (SERPs), which we did not isolate in the 2010 findings, 47% of the viewing time was spent on the top 20% of the page (and more than 75% in the top 40%) — likely a reflection of users’ tendency to look only at the top results.
+能够理解的是，并非每个页面的长度都相同。为了确定人们如何在页面上分配他们的注视（无论页面有多长），我们将页面分成 20％ 的分段（即每页的五分之一）。在一般网站上，超过 42％ 的浏览时间落在页面的前20％ 内，超过 65％ 的浏览时间花在页面的前 40％ 上。在搜索结果页面（SERPs）上，结合我们在 2010 年的调查结果，47％ 的浏览时间花费在页面的前 20％（超过 75％ 的浏览时间花在了页面的前 40％上） —— 可能是用户更愿意查看热门搜索结果。
 
-![Graph: Percentage of Viewing Time (By Segment of Content)](https://media.nngroup.com/media/editor/2018/04/04/percentageviewingtimesegmentsvertical-graph.png)
+![图表：浏览时间百分比（按内容分段划分）](https://media.nngroup.com/media/editor/2018/04/04/percentageviewingtimesegmentsvertical-graph.png)
 
-_People spent disproportionately more time viewing the top 20% of a page._
+**人们花费更多时间浏览页面的前20％。**
 
-If we look only at content above the fold — within the first screenful — the information towards the top of the screen received more attention than the information towards the bottom. More than 65% of the viewing time above the fold was concentrated in the top half of the viewport. On SERP, the top half of the first screenful received more than 75% of the viewing time above the fold. (It’s an old truth, but bears repeating: be #1 or #2 on Google, or you hardly exist on the Internet. [Google gullibility](https://www.nngroup.com/articles/user-skills-improving-only-slightly/) remains as strong as when we identified this user behavior, 10 years ago.)
+如果我们只关注首屏的内容 —— 在第一个屏幕中 —— 屏幕顶部的信息比底部信息更受关注。 超过 65％ 的浏览时间集中在视窗的上半部分。在 SERP 上，首屏超过 75% 的浏览时间停留子在了第一个屏幕的上半部分。 （这是一个古老的事实，但也是老生常谈：你在谷歌的搜索结果要么是前两名，要么就在互联网上几乎不存在。 [“轻信谷歌”](https://www.nngroup.com/articles/user-skills-improving-only-slightly/)的现象仍然和我们 10 年前发现这种用户行为时一样强烈。）
 
-![Graph: Percentage of Viewing Time Above the Fold](https://media.nngroup.com/media/editor/2018/04/04/percentageviewingtimeabovefoldvertical-graph.png)
+![图表：首屏浏览时间百分比](https://media.nngroup.com/media/editor/2018/04/04/percentageviewingtimeabovefoldvertical-graph.png)
 
-_Even above the fold, attention was focused toward the top of the page — especially with SERPs._
+**即便在首屏上，注意力也集中在页面顶部 - 尤其是SERP。**
 
-## Scanning & Reading Patterns
+## 浏览和阅读模式
 
-We’ve seen that the content above the fold received most attention (57% of viewing time); the second screenful of content received about a third of that (17% viewing time); the remaining 26% was spread in a long-tail distribution. In other words, the closer a piece of information is to the top of the page, the higher the chance that it will be read.
+我们已经发现首屏上的内容得到了最多的关注（浏览时间的 57％）；第二屏内容浏览时间约三分之一（浏览时间的 17％）；剩余的 26％ 浏览时间呈以长尾分布。换言之，一条信息离页面顶部越近，它被阅读的可能性就越大。
 
-Individual reading patterns confirm this finding. Many users [engage in an F-pattern](https://www.nngroup.com/videos/f-pattern-reading-digital-content/) when they scan a page whose content is not well-structured — they tend to look more thoroughly at the text placed close to the top of the page (the first few paragraphs of text), and then spend fewer and fewer fixations and time on information that appears low on the page.
+个人阅读模式证实了这一发现。许多用户在扫描内容结构不合理的页面时会[使用 F模式](https://www.nngroup.com/videos/f-pattern-reading-digital-content/) —— 他们倾向于更仔细地查看靠近页面顶部的文本（文本的前几段），页面越往下花费时间越少。
 
-Even with lists or information presented in a structured way, people use more eye gazes (and thus reading time) for the top of the page, as they need to understand how the page is organized. Once they do so, they tend to [focus very efficiently](https://www.nngroup.com/articles/eyetracking-tasks-efficient-scanning/) only on the information relevant to the task at hand, thus spending a lot fewer eye gazes (and thus viewing time) on the content placed farther from the top.
+即使是列表或信息以结构化的方式呈现，人们也会在页面顶部投注更多的目光（即阅读时间），因为他们需要了解页面的组织方式。一旦他们这样做，他们倾向[有效地关注](https://www.nngroup.com/articles/eyetracking-tasks-efficient-scanning/) 与手头任务相关地信息，因此在远离顶部的内容上投注更少的目光（即阅读时间）。
 
-![Gazeplot of Crowdrise Charity Search Results](https://media.nngroup.com/media/editor/2018/04/04/charities-gazeplot.png)
+![Crowdrise 网站“慈善”词汇的搜索结果页面的凝视数据图](https://media.nngroup.com/media/editor/2018/04/04/charities-gazeplot.png)
 
-This is a representative gaze plot showing that most of the user’s eye fixations are concentrated in the top part of the page, though not always at the very top. The actual distribution of fixations will depend on the specific design and the user’s goal in visiting the page. Occasionally a user may read a little bit if the information seems interesting, but overall, views peter out further down the page.
+这是一个典型的凝视图，图中显示大多数用户的凝视点都集中在页面的顶部，但并不总是位于最顶部。凝视点的实际分布取决于页面的具体设计和用户访问页面的目标。如果信息看起来很有趣，用户有时可能会阅读一点点，但总体而言，浏览会在页面的下方逐渐消失。
 
-## 2010 vs. Present
+## 2010年 vs 现在 当下
 
-In 2010, 80% of the viewing time was spent above the fold. Today, that number is only 57% — likely a consequence of the pervasiveness of long pages. What does that mean?
+2010年，80％ 的浏览时间都花在了首屏上。今天，这个数字只有57％ —— 可能是由于长页面普遍流行的结果。 那意味着什么？
 
-First, it could be that, overall, designers are doing a good job of creating signifiers to counteract the [illusion of completeness](https://www.nngroup.com/articles/illusion-of-completeness/) and to invite people to scroll. In other words, they are aware of the disadvantages of the long page and mitigate them to some extent. Second, it could mean that users have become conditioned to scroll — the prevalence of pages requiring scrolling has ingrained that behavior in us.
+首先，总的来说，设计师们很好地创造了记号以抵消[页面完整错觉](https://www.nngroup.com/articles/illusion-of-completeness/)，并邀请人们滚动页面。换言之，他们了解了长页面的缺点并在一定程度上缓解了这些缺点。其次，它可能意味着用户已经习惯了滚动阅读 —— 需要滚动阅读的页面的流行让滚动页面植入到了我们的行为中。
 
-At least to some extent. People still don’t scroll a lot — they rarely go beyond the third screenful of info. Basically, the fold as a barrier has been pushed down to the third screenful — 8 years ago, 80% of the viewing time was spent in the first screenful of info (above the fold); today, 81% of the viewing time is spent in the first three screenfuls of information.
+至少在某种程度上。人们仍然不会滚动很多 —— 他们几乎不会滚动到三屏之外。 基本上，首屏的界限已经被推到了第三个屏幕 ——  8年前，浏览时间到 80％ 的停留在了在第一个屏信息中（首屏）；而今天，浏览时间的 81％ 停留在了前三个屏幕上。
 
-We’ve always said that people will scroll if they have a reason to do it. Attention still lingers towards the top of the page — that is the portion of the content that is most discoverable and likely to be viewed by your users. The [interaction cost](https://www.nngroup.com/articles/interaction-cost-definition/) of scrolling reduces the likelihood that content will be viewed in lower parts of a longer page.
+我们总是说人们会在有理由的情况下滚动页面。注意力仍然停留在页面顶部 —— 页面顶部是网页内容中最易发现且可能被用户查看的部分。滚动页面的[交互成本](https://www.nngroup.com/articles/interaction-cost-definition/)降低了用户在较长页面下游部分中查看内容的可能性。
 
-Interestingly, the increase in screen resolution did not lead to a decrease in scrolling, as one might have expected. The reason is probably that designers and developers did not leverage the larger screens, and instead, opted to spread content further apart. For better or worse, users are now encouraged to scroll more than in the past — but not much more. [Information density](https://www.nngroup.com/articles/utilize-available-screen-space/) was probably too high (leading to crowded and busy layouts) in the early days of the web, but page designs definitely tend to be too sparse now.
+有趣的是，屏幕分辨率的增加并没有像人们预期的那样导致滚动的减少。原因可能是设计师和开发者没有利用更大的屏幕，而选择将内容进一步分散。无论好坏，现在鼓励用户滚动网页比过去更多 —— 但不能更多了。在网络的早期，[信息密度](https://www.nngroup.com/articles/utilize-available-screen-space/)可能太高（导致拥挤和繁忙的布局），但现在的页面设计绝对是太稀疏了。
 
-## Implications
+## 启示
 
-Given that users spend more viewing time in the top part of the page, especially above the fold, here are some things you want to keep in mind:
+鉴于用户在页面的顶部花费了更多的观看时间，特别是在首页上，这里有一些你需要记住的事情：
 
-*   **Reserve the top of the page for high-priority content: key business and user goals.** The lower parts of the page can accommodate secondary or related information. Keep major CTAs above the fold.
-*   **Use appropriate font styling to attract attention to important content:** Users rely on elements like headers and bolded text to identify when information is important, and to locate new segments of content. Make sure that these elements are visually distinct and styled consistently across the site so users can easily find them.
-*   **Beware of false floors**, which are increasingly common with modern minimalist designs. The illusion of completeness can interfere with scrolling. Include signifiers (such as cut-off text) to tell people that there is content below the fold.
-*   **Test your design with representative users** to determine the [“ideal” page length](https://www.nngroup.com/articles/infinite-scrolling/) and make sure that the information that users want can be easily seen.
+*   **将高优先级内容放到页面顶部：关键业务和用户目标。**页面的下半部分可以放置次要或相关信息。 将主要的 CTA 放到首屏。
+*   **重要的内容使用合适的字体样式来引起用户注意**：用户根据
+*   **注意不要使用“假地板”**，这在现代简约设计中越来越常见。 完整性的错觉可能会干扰滚动。包括记号（例如截断的文本），告诉人们下面还有内容。
+*   **使用用户代表测试您的设计**，以确定[“理想”页面长度](https://www.nngroup.com/articles/infinite-scrolling/)，并确保用户能够轻松地查看到他们想要的信息。
 
-## Conclusion
+## 结论
 
-While modern webpages tend to be long and include negative space, and users may be more inclined to scroll than in the past, people still spend most of their viewing time in the top part of a page. Content prioritization is a key step in your content-planning process. Strong visual signifiers can sometimes entice users to scroll and discover content below the fold. To determine the ideal page length, test with real users, and keep in mind that very long pages increase the risk of losing the attention of your customers.
+虽然现代网页往往很长并且包含负空间，并且用户可能比过去更倾向于滚动页面，但人们仍然将大部分浏览时间花在了页面的顶部。内容优先级是您的内容规划过程中的关键步骤。强大的视觉指示符有时会诱使用户滚动页面并发现首屏以下的内容。要确定理想的页面长度，请与真实用户一起测试，并记住，很长的页面会增加失去客户注意力的风险。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
