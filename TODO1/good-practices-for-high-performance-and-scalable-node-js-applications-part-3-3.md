@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/good-practices-for-high-performance-and-scalable-node-js-applications-part-3-3.md](https://github.com/xitu/gold-miner/blob/master/TODO1/good-practices-for-high-performance-and-scalable-node-js-applications-part-3-3.md)
 > * 译者：[steinliber](https://github.com/steinliber)
-> * 校对者：[calpa](https://github.com/calpa)，[Augustwuli](https://github.com/Augustwuli)
+> * 校对者：[calpa](https://github.com/calpa), [Augustwuli](https://github.com/Augustwuli)
 
 # 构建高性能和可扩展性 Node.js 应用的最佳实践 [第 3/3 部分]
 
@@ -85,7 +85,7 @@ Web 进程主要的任务是管理**传入的网络调用**并尽快将它们分
 
 * * *
 
-y_如果你喜欢这篇文章，请多多支持！_
+**如果你喜欢这篇文章，请多多支持！**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
