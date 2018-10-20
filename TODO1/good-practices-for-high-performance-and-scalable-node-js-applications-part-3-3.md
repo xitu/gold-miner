@@ -5,7 +5,7 @@
 > * 译者：[steinliber](https://github.com/steinliber)
 > * 校对者：[calpa](https://github.com/calpa)，[Augustwuli](https://github.com/Augustwuli)
 
-# 构建高性能和可扩展性 Node.js 应用的最佳实践（第 3/3 部分）
+# 构建高性能和可扩展性 Node.js 应用的最佳实践 [第 3/3 部分]
 
 ![](https://cdn-images-1.medium.com/max/2000/1*AyzlnTJDIfbZCxdQPp8Seg.jpeg)
 
