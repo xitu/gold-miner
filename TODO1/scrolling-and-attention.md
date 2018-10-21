@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/scrolling-and-attention.md](https://github.com/xitu/gold-miner/blob/master/TODO1/scrolling-and-attention.md)
 > * 译者：[Ivocin](https://github.com/Ivocin)
-> * 校对者：
+> * 校对者：[Moonliujk](https://github.com/Moonliujk)
 
 # 从 2010 到 2018，你不知道的关于网页滚动和用户注意力的变化
 
