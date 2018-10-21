@@ -7,9 +7,9 @@
 
 # 从 2010 到 2018，你不知道的关于网页滚动和用户注意力的变化
 
-**摘要：** 新的眼动追踪数据表明：在浏览网页时，人们比以往更多在纵向滚动阅读，但注意力仍然是更多关注首屏的内容。
+**摘要：** 人们比以前更多地纵向滚动网页，但是新的眼动追踪数据表明：注意力没有变化，人们仍然更关注首屏上的内容。
 
-人们的行为相当的稳定，[可用性指南一致鲜有变化](https://www.nngroup.com/articles/usability-guidelines-change/)。但是，自网络早期以来发生变化的一个用户行为是滚动的倾向。一开始，很少有人纵向滚动网页，但[到了 1997 年，随着长页面的普及](https://www.nngroup.com/articles/changes-in-web-usability-since-1994/)，大多数人学会了滚动网页。然而，首屏上的信息仍然受到了最多的关注：我们的眼动追踪研究表明，[即使在最近的 2010 年，](https://www.nngroup.com/articles/scrolling-and-attention-original-research/)用户 80% 的浏览时间都花在了首屏上面。
+人们的行为相当的稳定，[可用性指南一致鲜有变化](https://www.nngroup.com/articles/usability-guidelines-change/)。但是，从网络出现早期至今，有一个用户行为发生了变化，那就是滚动网页的趋势。一开始，很少有人纵向滚动网页，但[到了 1997 年，随着长页面的普及](https://www.nngroup.com/articles/changes-in-web-usability-since-1994/)，大多数人学会了滚动网页。然而，首屏上的信息仍然受到了最多的关注：我们的眼动追踪研究表明，[即使在最近的 2010 年，](https://www.nngroup.com/articles/scrolling-and-attention-original-research/)用户 80% 的页面浏览时间都花在了首屏上面。
 
 自 2010 年以来，随着[响应式设计](https://www.nngroup.com/articles/responsive-web-design-definition/)和[极简主义](https://www.nngroup.com/articles/characteristics-minimalism/)的出现，许多设计师转向了具有负空间的长页面（覆盖几个“屏幕”）设计。现在是时候再次探究由于这些网页设计趋势的普及用户行为是否发生了变化。
 
