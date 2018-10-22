@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/start-performance-budgeting.md](https://github.com/xitu/gold-miner/blob/master/TODO1/start-performance-budgeting.md)
 > * 译者：[Sam](https://github.com/xutaogit/)
-> * 校对者：
+> * 校对者：[Augustwuli](https://github.com/Augustwuli)，[Calpa](https://github.com/calpa)
 
 # 开启性能预算
 
@@ -11,7 +11,7 @@
 
 **如果你正在构建网站体验，并且希望保持快速，[性能预算](https://timkadlec.com/2013/01/setting-a-performance-budget/)也许就[非常重要](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/)。为了能够成功，需要接受性能预算并且学会在生活中运用它们。移动设备上的网络以及 CPU 限制会提出诸如”对我的用户来说真正重要的是什么？“这样的难题。**
 
-当我们同致力于提高性能的世界 500 强企业对话时，(了解到)一旦回归到功能开发，性能指标通常会快速回归。性能预算帮助团队确定功能的优先级，优化并[促进](https://tobias.is/blogging/web-performance-budgets-as-currency/)讨论对用户真正重要的是什么。
+当我们同致力于提高性能的世界 500 强企业对话时，(了解到)一旦回归到功能开发，性能指标通常会**快速回归**。性能预算帮助团队确定功能的优先级，优化并[促进](https://tobias.is/blogging/web-performance-budgets-as-currency/)讨论对用户真正重要的是什么。
 
 > _“在项目早期的适当阶段，拥有一个预设好的 ‘预算 ’会是一个清晰并切实的方式，可用来决定项目中应该包含什么。”  —— Mark Perkins_
 
@@ -21,7 +21,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/0*qe3ZW3Vvf8lsdxMq.png)
 
-**当然性能预算不仅仅是做门槛限制。它们更像财务预算，需要有意识的使用**。把它们看作是在用户体验上花费和交易的货币。在[ JavaScript 成本](https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4)仍然较高的移动设备环境中，预算可以说是指导我们取得成功的少数工具之一。
+**当然性能预算不仅仅是做门槛限制。它们更像财务预算，需要有意识的使用**。把它们看作是在用户体验上花费和交易的货币。在[JavaScript 成本](https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4)仍然较高的移动设备环境中，预算可以说是指导我们取得成功的少数工具之一。
 
 ### 性能预算指标
 
@@ -31,7 +31,7 @@
 
 **里程碑时间**：基于加载一个页面的用户体验的时间（例如，[交互时间](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#time_to_interactive)，[首次内容绘制时间](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#first_paint_and_first_contentful_paint)）。你会经常需要配对几个里程碑时间，用来准确地描述页面加载的整个过程。有些团队还会维护自定义指标，譬如 Twitter 的“[首次推文时间](https://blog.alexmaccaw.com/time-to-first-tweet)”。
 
-**基于数量的指标**：基于原始值(例如，JavaScript 的体量(KB/MB)，HTTP 请求数量)。这些都侧重于浏览器体验。
+**基于数量的指标**：基于原始值(例如：JavaScript 的体量(KB/MB)，HTTP 请求数量)。这些都侧重于浏览器体验。
 
 **基于规则的指标**：通过像 [Lighthouse](https://developers.google.com/web/tools/lighthouse/) 或 [WebPageTest](https://webpagetest.org/) 这样的工具打分。通常是用单个数字或系列为你的网站评级。
 
@@ -39,7 +39,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/0*30uWWuN-yRDK4awS.png)
 
-一个基于”规则“的性能预算实际例子。使用 Lighthouse CI，我们可以给预算设置一个性能分数。如果他们的性能分低于一个特定的值，那么 PR 就会失败。
+一个基于“规则”的性能预算实际例子。使用 Lighthouse CI，我们可以给预算设置一个性能分数。如果他们的性能分低于一个特定的值，那么 PR 就会失败。
 
 ### 预算的例子
 
@@ -64,11 +64,11 @@
 
 ### 量化新功能的影响
 
-> _“当一个包含三个旋转木马（译者注：轮播图）和一个全屏高分辨率背景图片的模块已经审批通过时，还要保证页面大小不能超过 500kB 对你来说可能不太好” —— Tim Kadlec_
+> _“当一个包含三张轮播图和一张全屏高分辨率背景图片的模块已经审批通过时，还要保证页面大小不能超过 500kB 对你来说可能不太好” —— Tim Kadlec_
 
 通常，**非工程利益相关的人员不能意识到他们的决定**对功能和设计所带来的**性能影响**。这不是他们的错。我们需要让产品经理，设计师和利益相关者更容易理解他们做得选择所带来的**用户体验影响**。
 
-利益相关者可能需要帮助（他们）理解换一种 JavaScript 轮播或者过多的图片会严重影响网站的性能。性能预算可以战略性地帮助我们改变思维模式，以此来考量我们添加每件事物的价值。
+利益相关者可能需要帮助，去理解换一种 JavaScript 轮播或者过多的图片会严重影响网站的性能。性能预算可以战略性地帮助我们改变思维模式，以此来考量我们添加每件事物的价值。
 
 如果我们从一开始就把性能作为我们项目目标的一部分，那就更好了。这会是性能预算心态的转变，从只把它当做开发中的一个考量因子，转变成贯穿整个项目生命周期的关键因素。
 
