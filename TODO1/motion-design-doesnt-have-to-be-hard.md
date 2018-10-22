@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/motion-design-doesnt-have-to-be-hard.md](https://github.com/xitu/gold-miner/blob/master/TODO1/motion-design-doesnt-have-to-be-hard.md)
 > * 译者：[Ryden Sun](https://juejin.im/user/585b9407da2f6000657a5c0c)
-> * 校对者：[Park-ma](https://github.com/Park-ma) [neuqzxy](https://github.com/neuqzxy)
+> * 校对者：[Park-ma](https://github.com/Park-ma)    [neuqzxy](https://github.com/neuqzxy)
 
 # 动效设计可以很简单
 
