@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/motion-design-doesnt-have-to-be-hard.md](https://github.com/xitu/gold-miner/blob/master/TODO1/motion-design-doesnt-have-to-be-hard.md)
 > * 译者：[Ryden Sun](https://juejin.im/user/585b9407da2f6000657a5c0c)
-> * 校对者：
+> * 校对者：[Park-ma](https://github.com/Park-ma) [neuqzxy](https://github.com/neuqzxy)
 
 # 动效设计可以很简单
 
@@ -17,7 +17,7 @@
 
 ### 过渡模式
 
-当设计一个导航过渡时，简易性和连续性是最关键的。为了实现这个目标，我们从动效模式中选择两种类型：
+当设计一个导航过渡时，简易性和连续性是最关键的。为了实现这个目标，我们有两种类型的动效模式可以选择：
 
 1.  基于容器的过渡。
 2.  不基于容器的过渡。
@@ -38,19 +38,19 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*IgUQHrbcRGyGpW8laj6ZWw.gif)
 
-<center>放缓动画来展示元素是怎么被改变大小并被遮罩在容器内的</center>
+<center>慢动画来展示元素如何在容器内被缩放和遮罩</center>
 
 **3.** 元素在淡出过渡时即容器加速时离开。元素在淡入过渡时及容器减速时进入。流畅地处理效果的技巧是通过在元素迅速移动时让他们淡入/淡出来实现的。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*GXG-QKLh4ILSjw3_A9FCfA.gif)
 
-<center>放缓动画来展示元素是怎么使用淡入/淡出的</center>
+<center>慢动画来展示元素是怎么使用淡入/淡出的</center>
 
-将这个模式运用到所有包含一个容器的过渡上，建立一种连贯的设计样式。它也会让开始和结束的组合之间的关系清晰明了，因为它们被带有动效的容器连接了起来。为了展示这种模式的灵活性，下面是它运用到5中不同组合上的例子：
+【将这个模式运用到所有涉及容器的过渡中可以建立一致的风格慢动画。它也会让开始和结束的组合之间的关系清晰明了，因为它们被带有动效的容器连接了起来。为了展示这种模式的灵活性，下面是它运用到 5 种不同组合上的例子：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*uyyN_Xoe3fnvlVi0mvY0nA.gif)
 
-<center>放缓动画来展示开始和结束的组合是怎样被容器链接起来的</center>
+<center>慢动画来展示开始和结束的组合是怎样被容器链接起来的</center>
 
 一些容器简单地使用 Material’s standard easing 从屏幕外侧划入。它划入的方向受它关联的组件的位置影响。比如，点击一个屏幕左上角的导航抽屉图标会让容器从左侧划入。
 
@@ -60,7 +60,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*JmunYZEFJzSaV7kCyzYPMg.gif)
 
-<center>放缓动画来展示容器是如何通过淡入和大小改变动画进入的</center>
+<center>慢动画来展示容器是如何通过淡入和大小改变动画进入的</center>
 
 #### 不基于容器的过渡
 
@@ -71,13 +71,13 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*EMaQi0I-Zvt3JHEiqal56Q.gif)
 
-<center>放缓动画来展示不基于容器的过渡是如何淡入/淡出和改变大小的。</center>
+<center>慢动画来展示不基于容器的过渡是如何淡入/淡出和改变大小的。</center>
 
 如果开始和结束的组合有一个清晰的空间和顺序上的关系，它们可以共享一个动效来加强这个关系。比如导航一个分步组件时，开始和结束的组合在淡入/淡出时共享一个垂直方向的滑动动效。这加强了它们垂直方向的排列布局。当点击一个引导页流程上的下一步按钮，这些组合共享一个横向的滑动动效。从左向右移动加强了流程上的概念。共享的动效使用了 Material’s standard easing。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*9pGkX_CRRRlnhIHy4ZvxOA.gif)
 
-<center>放缓动画来展示垂直向和横向的共享动效</center>
+<center>慢动画来展示垂直向和横向的共享动效</center>
 
 * * *
 
@@ -89,7 +89,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1000/1*9vPdOuElDyPZtCHYM3shFA.gif)
 
-<center>放缓动画来展示不同的动效风格</center>
+<center>慢动画来展示不同的动效风格</center>
 
 #### 选择正确的持续时间和 easing
 
@@ -99,7 +99,7 @@ Easing 描绘了动画加速和减速的比率。大多数导航过渡都使用 
 
 ![](https://cdn-images-1.medium.com/max/1000/1*UNRu3Rm4_fgj8j8xUGFHvg.gif)
 
-<center>放缓动画来展示不同的 easing 类型</center>
+<center>慢动画来展示不同的 easing 类型</center>
 
 * * *
 
