@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/motion-design-doesnt-have-to-be-hard.md](https://github.com/xitu/gold-miner/blob/master/TODO1/motion-design-doesnt-have-to-be-hard.md)
 > * 译者：[Ryden Sun](https://juejin.im/user/585b9407da2f6000657a5c0c)
-> * 校对者：[Park-ma](https://github.com/Park-ma)    [neuqzxy](https://github.com/neuqzxy)
+> * 校对者：[Park-ma](https://github.com/Park-ma) [neuqzxy](https://github.com/neuqzxy)
 
 # 动效设计可以很简单
 
 ![](https://cdn-images-1.medium.com/max/2000/1*mVa7DA7XfZUb0cDpNj-Vng.gif)
 
-动效让 UI 更有表现力和易于使用。即使动效有很多的潜能，但它可能是设计原则中最少被理解的。这可能是因为它是设计家族中最新的成员。视觉和交互设计可以追溯到早期的 GUI，但动效设计需要等待现代化的硬件来流畅的渲染动画才可以。UI 动效和传统动画的重叠也会让人模糊不清。在 Disney 的 [12 个基本原则](https://en.wikipedia.org/wiki/12_basic_principles_of_animation) 上，需要花费一生的时间来掌握它们，这意味着 UI 动效设计也同样这么复杂吗？人们经常告诉我，设计动效是很复杂的，亦或是选择正确的值是很玄学的。我认为，作为 UI 中的重要领域，动效设计可以也应该是简单的。
+动效让 UI 更有表现力和易于使用。即使动效有很多的潜能，但它可能是设计原则中最少被理解的。这可能是因为它是设计家族中最新的成员。视觉和交互设计可以追溯到早期的 GUI，但动效设计需要等待现代化的硬件来流畅的渲染动画才可以。UI 动效和传统动画的重叠也会让人模糊不清。在 Disney 的 [12 个基本原则](https://en.wikipedia.org/wiki/12_basic_principles_of_animation)上，需要花费一生的时间来掌握它们，这意味着 UI 动效设计也同样这么复杂吗？人们经常告诉我，设计动效是很复杂的，亦或是选择正确的值是很玄学的。我认为，作为 UI 中的重要领域，动效设计可以也应该是简单的。
 
 ### 从哪里开始
 
