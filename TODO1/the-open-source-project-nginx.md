@@ -2,273 +2,272 @@
 > * 原文作者：[Andrew Alexeev](http://aosabook.org/en/intro2.html#alexeev-andrew)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-open-source-project-nginx.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-open-source-project-nginx.md)
-> * 译者：
-> * 校对者：
+> * 译者：[razertory](https://github.com/razertory)
+> * 校对者：[yqian1991](https://github.com/yqian1991)
 
-# The Open Source Project Nginx
+# 开源项目之 Nginx
 
-nginx (pronounced "engine x") is a free open source web server written by Igor Sysoev, a Russian software engineer. Since its public launch in 2004, nginx has focused on high performance, high concurrency and low memory usage. Additional features on top of the web server functionality, like load balancing, caching, access and bandwidth control, and the ability to integrate efficiently with a variety of applications, have helped to make nginx a good choice for modern website architectures. Currently nginx is the second most popular open source web server on the Internet.
+nginx（读作 "engine x"）是一位名叫 Igor Sysoev 的俄罗斯软件工程师开发的。自 2004 年发布以来，nginx 就一直专注于实现高性能，高并发和低内存占用。nginx 的额外功能，比如：负载均衡、缓存和流量控制以及高效集成在 Web 服务上的能力，使得它成为了当今网站架构的必选。如今，nginx 已经成为互联网中第二受欢迎的开源 Web 服务器。
 
-## 14.1. Why Is High Concurrency Important?
+## 14.1 高并发为何如此重要？
 
-These days the Internet is so widespread and ubiquitous it's hard to imagine it wasn't exactly there, as we know it, a decade ago. It has greatly evolved, from simple HTML producing clickable text, based on NCSA and then on Apache web servers, to an always-on communication medium used by more than 2 billion users worldwide. With the proliferation of permanently connected PCs, mobile devices and recently tablets, the Internet landscape is rapidly changing and entire economies have become digitally wired. Online services have become much more elaborate with a clear bias towards instantly available live information and entertainment. Security aspects of running online business have also significantly changed. Accordingly, websites are now much more complex than before, and generally require a lot more engineering efforts to be robust and scalable.
+如今，互联网早已无处不在，我们已经很难想象十年前没有互联网的样子。现在的互联网发生了翻天覆地的变化，从基于 NSCA 的可以点击 HTML 页面和基于 Apache 的 Web 服务，到如今能够实现超过 20 亿人实时的沟通。随着 PC、手机和平板的的蔓延，互联网已经将全球经济数字化。面向信息和娱乐的在线服务变得更加优质。线上商业活动的安全方面也发生了明显变化。因此，网站也比以前更加的复杂并且需要大量的工程投入来确保鲁棒性和可扩展性。
 
-One of the biggest challenges for a website architect has always been concurrency. Since the beginning of web services, the level of concurrency has been continuously growing. It's not uncommon for a popular website to serve hundreds of thousands and even millions of simultaneous users. A decade ago, the major cause of concurrency was slow clients—users with ADSL or dial-up connections. Nowadays, concurrency is caused by a combination of mobile clients and newer application architectures which are typically based on maintaining a persistent connection that allows the client to be updated with news, tweets, friend feeds, and so on. Another important factor contributing to increased concurrency is the changed behavior of modern browsers, which open four to six simultaneous connections to a website to improve page load speed.
+并发性成为了网站架构设计的最大挑战之一。自从 web 服务开始的时候，并发性的等级就在持续上升。对于一个热门网站来说，支持几百甚至是几百万用户同时访问来说也不是什么稀罕事情。20 年前，产生并发的原因主要还是客户端的 ADSL 或者拨号（dial-up）连接。如今，并发的产生来源于手机端和以及新型的应用架构，这些架构主要可以支持长连接来提供新闻、信息流发布和朋友间的 feed 流等等。另一方面，导致高并发还由于现代浏览器的工作发生变化，通常是为了提高网页加载速度同时打开 4 到 6 个连接。
 
-To illustrate the problem with slow clients, imagine a simple Apache-based web server which produces a relatively short 100 KB response—a web page with text or an image. It can be merely a fraction of a second to generate or retrieve this page, but it takes 10 seconds to transmit it to a client with a bandwidth of 80 kbps (10 KB/s). Essentially, the web server would relatively quickly pull 100 KB of content, and then it would be busy for 10 seconds slowly sending this content to the client before freeing its connection. Now imagine that you have 1,000 simultaneously connected clients who have requested similar content. If only 1 MB of additional memory is allocated per client, it would result in 1000 MB (about 1 GB) of extra memory devoted to serving just 1000 clients 100 KB of content. In reality, a typical web server based on Apache commonly allocates more than 1 MB of additional memory per connection, and regrettably tens of kbps is still often the effective speed of mobile communications. Although the situation with sending content to a slow client might be, to some extent, improved by increasing the size of operating system kernel socket buffers, it's not a general solution to the problem and can have undesirable side effects.
+为了表述清楚缓慢这种问题，设想一下，一个基于 Apache 的，可以提供 100KB 大小带有文字或者图片的简单 web 服务器。生成或者重新产生这个网页只需要极少不到一秒的时间。但是在带宽只有 80kps 的情况下（下载速度 10kb/s），传输数据到客户端却会花掉 10s。本质上，服务器产生 100kb 数据的速度是相对较快的，随后在传输数据到客户端直至释放连接的过程却是相对较慢的。现在设想，你同时有 1,000 个独立的客户端连到你的服务器并且请求同样的内容。如果对于每个独立的连接，都会占用额外的 1MB 内存，那么对于 1,000 个连接来说就对导致多占用 1000 MB（1G）的内存，而这些仅仅是为了给 1000 个客户端提供 100kb 的内容。实际上，一个典型的 Apache 服务器通常会为了一个连接占用超过 1MB 的内存，遗憾的是几十 k 的带宽足够让手机之间高效通讯。尽管从某种程度而言，发送数据给客户端是慢的，提高操作系统内核的 socket 缓冲大小是可以的，这个不是一个通常的解决方法，并且会有不良影响。
 
-With persistent connections the problem of handling concurrency is even more pronounced, because to avoid latency associated with establishing new HTTP connections, clients would stay connected, and for each connected client there's a certain amount of memory allocated by the web server.
+在持久连接中，处理并发会做起来总比说起来有更多的问题，因为要在新建 HTTP 连接的时候避免延迟，让客户端保持连接并且确保对于每个连接服务端都能够保证有足够内存可供使用。
 
-Consequently, to handle the increased workloads associated with growing audiences and hence higher levels of concurrency—and to be able to continuously do so—a website should be based on a number of very efficient building blocks. While the other parts of the equation such as hardware (CPU, memory, disks), network capacity, application and data storage architectures are obviously important, it is in the web server software that client connections are accepted and processed. Thus, the web server should be able to scale nonlinearly with the growing number of simultaneous connections and requests per second.
+因此，为了能够处理因为用户量增长产生高并发由此带来的负载上升，网站的就必须基于通过一定数目的高效模块来架设。同时，在从获得客户端连接请求，到处理完请求期间，像硬件（CPU，memory，disk），网络容量以及数据存储也是同样重要的。因此，web 服务器需要能在同时请求数和每秒请求频率这两方面都拥有扩展性。
 
-### Isn't Apache Suitable?
+### Apache 不合适吗？
 
-Apache, the web server software that still largely dominates the Internet today, has its roots in the beginning of the 1990s. Originally, its architecture matched the then-existing operating systems and hardware, but also the state of the Internet, where a website was typically a standalone physical server running a single instance of Apache. By the beginning of the 2000s it was obvious that the standalone web server model could not be easily replicated to satisfy the needs of growing web services. Although Apache provided a solid foundation for future development, it was architected to spawn a copy of itself for each new connection, which was not suitable for nonlinear scalability of a website. Eventually Apache became a general purpose web server focusing on having many different features, a variety of third-party extensions, and universal applicability to practically any kind of web application development. However, nothing comes without a price and the downside to having such a rich and universal combination of tools in a single piece of software is less scalability because of increased CPU and memory usage per connection.
+Apache，开始于 1900s，如今依旧统治着互联网。最初它的架构满足于当时的操作系统和硬件，同时也满足于当时的只有一个独立的物理机运行一个 Apache 服务器的互联网状态。在 2000 年始，一个独立的服务器难以满足增长起来的 Web 服务的情况越来越明显。尽管 Apache 提供了一个可靠的基金会用于未来发展，然而，它这种为了每个新连接复制自身的架构，已经不再适用于非线性的网站扩张。最终，Apache 成为了一个有着许多不同特性，第三方扩展，和一些普遍用于 web 应用开发的功能的 web 服务器。然而，没有什么东西是十全十美的，Apache 有者丰富功能的同时，对于每个连接产生的 CPU 和内存消耗使得它不能很好的扩展。
 
-Thus, when server hardware, operating systems and network resources ceased to be major constraints for website growth, web developers worldwide started to look around for a more efficient means of running web servers. Around ten years ago, Daniel Kegel, a prominent software engineer, [proclaimed](http://www.kegel.com/c10k.html) that "it's time for web servers to handle ten thousand clients simultaneously" and predicted what we now call Internet cloud services. Kegel's C10K manifest spurred a number of attempts to solve the problem of web server optimization to handle a large number of clients at the same time, and nginx turned out to be one of the most successful ones.
+因此，当服务器的硬件、操作系统和网络条件成为了网站增长的瓶颈时，全世界的 web 工程师开始寻找一种更加高效的方法。大约十年前，一位名叫  Daniel Kegel 的杰出工程师宣称："是时候让 web 服务能够支持 10k 并发了。"同时他还预测了我们现在会叫互联网云服务。c10k 问题一产生，就引来了许许多多的解决方案用以优化实时的高并发。nginx 成为了其中最出色的解决方案之一。
 
-Aimed at solving the C10K problem of 10,000 simultaneous connections, nginx was written with a different architecture in mind—one which is much more suitable for nonlinear scalability in both the number of simultaneous connections and requests per second. nginx is event-based, so it does not follow Apache's style of spawning new processes or threads for each web page request. The end result is that even as load increases, memory and CPU usage remain manageable. nginx can now deliver tens of thousands of concurrent connections on a server with typical hardware.
+为了解决 C10k 问题中的 10,000 个实时的连接，nginx 用了一种与众不同的架构，这种架构会更适合在同时处理大量的连接和一秒钟内完成多次请求环境中，问题规模的增长是非线性的。nginx 是事件驱动的（event-based，所以它不会用 Apache 的那种为每一个 web 请求都申请一个进程或者线程。结果便是，即使负载升高，内存和 CPU 都还是处于掌控之中。nginx 目前可以在一台普通的机器上，同时处理上万的并发。
 
-When the first version of nginx was released, it was meant to be deployed alongside Apache such that static content like HTML, CSS, JavaScript and images were handled by nginx to offload concurrency and latency processing from Apache-based application servers. Over the course of its development, nginx has added integration with applications through the use of FastCGI, uswgi or SCGI protocols, and with distributed memory object caching systems like _memcached_. Other useful functionality like reverse proxy with load balancing and caching was added as well. These additional features have shaped nginx into an efficient combination of tools to build a scalable web infrastructure upon.
+nginx 的第一个版本主要是和 Apache 服务器一起部署，用来单独处理原本是 Apache 处理的 HTML, CSS, JavaScript 和图片这样的静态资源。在随后的迭代中，nginx 支持像 FastCGI, ，uswgi 或者 SCGI 协议集成到应用当中部署，并且可以利用像 memcached 这样的分布式缓存系统。同时像反向代理，负载均衡这样的特性也随之加上。这些额外的特点让 nginx 成为了构建可扩展性 web 服务的高效的基础组件的工具之一。
 
-In February 2012, the Apache 2.4.x branch was released to the public. Although this latest release of Apache has added new multi-processing core modules and new proxy modules aimed at enhancing scalability and performance, it's too soon to tell if its performance, concurrency and resource utilization are now on par with, or better than, pure event-driven web servers. It would be very nice to see Apache application servers scale better with the new version, though, as it could potentially alleviate bottlenecks on the backend side which still often remain unsolved in typical nginx-plus-Apache web configurations.
+2012 年二月，Apache 2.4.x 分支发布。尽管，这个最新版本的 Apache 增加了多核处理器支持模块和用于提升可扩展性和并发的模块，然而它的性能，并发能力，以及资源利用能力与纯事件驱动的 web 服务器比，依旧难以望其项背。 很乐意看到新版的 Apache 服务器有着更好的可扩展性，尽管这样可以减少自身的瓶颈，然而像典型的 nginx-plus-Apache 配置依旧会被使用。
 
-### Are There More Advantages to Using nginx?
+### 使用 nginx 会有更多的优势吗？
 
-Handling high concurrency with high performance and efficiency has always been the key benefit of deploying nginx. However, there are now even more interesting benefits.
+能够高性能地处理高并发一直是部署了 nginx 之后获得的最主要的好处。然而，还有一些更有趣的东西。
 
-In the last few years, web architects have embraced the idea of decoupling and separating their application infrastructure from the web server. However, what would previously exist in the form of a LAMP (Linux, Apache, MySQL, PHP, Python or Perl)-based website, might now become not merely a LEMP-based one (`E' standing for `Engine x'), but more and more often an exercise in pushing the web server to the edge of the infrastructure and integrating the same or a revamped set of applications and database tools around it in a different way.
+在过去几年中，网站架构就一直在拥抱解耦并从 web 服务器中拆分出一些基础组件。然而，那些原本存在于 LAMP-based 的网站中的基础组件，在 LEMP-based（E 代表着 Nginx 的读音） 的网站中，却能让 web 服务器成为基础组件以及用一种不同的方式去集成相同的或者改进了的应用和数据库工具。
 
-nginx is very well suited for this, as it provides the key features necessary to conveniently offload concurrency, latency processing, SSL (secure sockets layer), static content, compression and caching, connections and requests throttling, and even HTTP media streaming from the application layer to a much more efficient edge web server layer. It also allows integrating directly with memcached/Redis or other "NoSQL" solutions, to boost performance when serving a large number of concurrent users.
+nginx 非常适合做这个，因为它可以方便提供一个并发支持，延迟超时处理，SSL 支持，静态文件支持，压缩和缓存，甚至是 http 流媒体的高效的层级，而这些功能原本处于应用层。nginx 也可以直接集成一些像 Redis/memcached 这样的 NoSQL 用以优化大用户量场景。
 
-With recent flavors of development kits and programming languages gaining wide use, more and more companies are changing their application development and deployment habits. nginx has become one of the most important components of these changing paradigms, and it has already helped many companies start and develop their web services quickly and within their budgets.
+当近代的开发语言和工具流行起来的时候，越来越多的公司正在改变他们的开发和部署方式。nginx 成为了改变过程中最重要的部分，同时，nginx 让很多公司在有限的预算中，快速地启动开发他们的服务。
 
-The first lines of nginx were written in 2002. In 2004 it was released to the public under the two-clause BSD license. The number of nginx users has been growing ever since, contributing ideas, and submitting bug reports, suggestions and observations that have been immensely helpful and beneficial for the entire community.
+nginx 是从 2002 年开始开发。到 2004 年，它以 two-clause BSD license 发布。随后，nginx 用户量开始增高，修改建议，bug 报告，观察报告等都在社区中不断完善 ngix。
 
-The nginx codebase is original and was written entirely from scratch in the C programming language. nginx has been ported to many architectures and operating systems, including Linux, FreeBSD, Solaris, Mac OS X, AIX and Microsoft Windows. nginx has its own libraries and with its standard modules does not use much beyond the system's C library, except for zlib, PCRE and OpenSSL which can be optionally excluded from a build if not needed or because of potential license conflicts.
+nginx 最初的源码是用 C 完成的。nginx 已经可以部署在许多架构和操作系统中，比如 Linux, FreeBSD, Solaris, Mac OS X, AIX and Microsoft Windows。nginx 拥有自己的库并且并没有大量使用 C 标准库，一些像 zlib, PCRE and OpenSSL 这一类的库因为有证书冲突而没有被采用。
 
-A few words about the Windows version of nginx. While nginx works in a Windows environment, the Windows version of nginx is more like a proof-of-concept rather than a fully functional port. There are certain limitations of the nginx and Windows kernel architectures that do not interact well at this time. The known issues of the nginx version for Windows include a much lower number of concurrent connections, decreased performance, no caching and no bandwidth policing. Future versions of nginx for Windows will match the mainstream functionality more closely.
+在 Windows 上部署 nginx 更像是一个实现 nginx 的理论证明而不是一个功能完善的项目。由于内核限制，nginx 的一些功能特性并不能发挥出来。在 windows 上的 nginx 并发能力、性能会更低，也没有缓存和带宽策略。将来 windows 上的 nginx 版本会继续完善。
 
-## 14.2. Overview of nginx Architecture
+## 14.2. nginx 架构总览
 
-Traditional process- or thread-based models of handling concurrent connections involve handling each connection with a separate process or thread, and blocking on network or input/output operations. Depending on the application, it can be very inefficient in terms of memory and CPU consumption. Spawning a separate process or thread requires preparation of a new runtime environment, including allocation of heap and stack memory, and the creation of a new execution context. Additional CPU time is also spent creating these items, which can eventually lead to poor performance due to thread thrashing on excessive context switching. All of these complications manifest themselves in older web server architectures like Apache's. This is a tradeoff between offering a rich set of generally applicable features and optimized usage of server resources.
+传统的解决并发的方式是每个单独的请求一个进程或者线程，并且网络和 io 操作都是阻塞式的。在传统的应用当中，这种做法会由于 CPU 和内存开销导致低效。开启一个独立的进程或者线程会需要预加载一个新的运行时环境和上下文。这些东西也会占用一些额外的 CPU 时间，线程频繁轮换导致的上下文切换带来的开销最终导致了低性能。这些问题在一些旧的 web 服务架构，比如 Apache 中得到了证实。这是在提供丰富普遍特性与优化服务器开销之前的一种权衡。
 
-From the very beginning, nginx was meant to be a specialized tool to achieve more performance, density and economical use of server resources while enabling dynamic growth of a website, so it has followed a different model. It was actually inspired by the ongoing development of advanced event-based mechanisms in a variety of operating systems. What resulted is a modular, event-driven, asynchronous, single-threaded, non-blocking architecture which became the foundation of nginx code.
+从最早开始，nginx 就被设定为在网站用户动态增长期间，用来提高网站性能和服务器资源利用率的工具，以至于它拥有一种与众不同的模型。这是受一些操作系统的事件驱动概念启发。这也产生了 nginx 的核心架构：模块化，事件驱动，异步，单线程，非阻塞。
 
-nginx uses multiplexing and event notifications heavily, and dedicates specific tasks to separate processes. Connections are processed in a highly efficient run-loop in a limited number of single-threaded processes called `worker`s. Within each `worker` nginx can handle many thousands of concurrent connections and requests per second.
+nginx 大量采用多路复用（multiplex）和事件通知，并对每个 nginx 进程分配了特定的任务。连接被有限个数单线程的 worker 进程高效轮询（run-loop）处理。 每个 worker 都可以同时处理数千个并发连接和每秒请求。
 
-### Code Structure
+### Code Structure 代码结构
 
-The nginx `worker` code includes the core and the functional modules. The core of nginx is responsible for maintaining a tight run-loop and executing appropriate sections of modules' code on each stage of request processing. Modules constitute most of the presentation and application layer functionality. Modules read from and write to the network and storage, transform content, do outbound filtering, apply server-side include actions and pass the requests to the upstream servers when proxying is activated.
+worker 代码包含了核心和功能模块。nginx 核心负责维护一个紧凑的轮询，并在处理请求的每个阶段都执行模块中对应的部分。模块构成了大部分表示层和应用层功能。模块从网络和存储介质中进行数据的读写，传输内容，过滤出站内容，执行服务端的动作和当代理功能被打开的时候传递请求到被代理的（upstream）服务器。
 
-nginx's modular architecture generally allows developers to extend the set of web server features without modifying the nginx core. nginx modules come in slightly different incarnations, namely core modules, event modules, phase handlers, protocols, variable handlers, filters, upstreams and load balancers. At this time, nginx doesn't support dynamically loaded modules; i.e., modules are compiled along with the core at build stage. However, support for loadable modules and ABI is planned for the future major releases. More detailed information about the roles of different modules can be found in [Section 14.4](#sec.nginx.internals).
+nginx 模块化的架构可以让开发者在不修改核心代码的情况下加入一些自定也的扩展。nginx 模块稍微有点不同，比如核心模块、事件模块、阶段处理器、协议、变量处理器、filter，upstream 和负载均衡。目前，nginx 不再支持动态加载模块。模块在 nginx build 阶段就会被编译。然而，在将来 nginx 会在主版本上提供 loadable 模块和 ABI。更多关于不同模块的信息详见 [Section 14.4](#sec.nginx.internals).
 
-While handling a variety of actions associated with accepting, processing and managing network connections and content retrieval, nginx uses event notification mechanisms and a number of disk I/O performance enhancements in Linux, Solaris and BSD-based operating systems, like `kqueue`, `epoll`, and `event ports`. The goal is to provide as many hints to the operating system as possible, in regards to obtaining timely asynchronous feedback for inbound and outbound traffic, disk operations, reading from or writing to sockets, timeouts and so on. The usage of different methods for multiplexing and advanced I/O operations is heavily optimized for every Unix-based operating system nginx runs on.
+在处理一些关于网络接收，处理和管理以及内容检索的时候，nginx 使用了事件通知（event notification）机制以及一些操作系统（ Linux, Solaris and BSD-based）的磁盘 IO 优化，比如：`kqueue`, `epoll`, and `event ports`。目的是为操作系统提供尽可能多的提示，以便为入站和出站流量、磁盘操作、socket 读写、超时等获取及时的异步反馈。针对 nginx 运行的每个 unix-like 的操作系统，对多路复用和高级 I/O 操作使用不同的方法进行了大量优化。
 
-A high-level overview of nginx architecture is presented in [Figure 14.1](#fig.nginx.arch).
+更多 nginx 架构高级概述详见 [Figure 14.1](#fig.nginx.arch).
 
 ![](http://aosabook.org/images/nginx/architecture.png)
 
 Figure 14.1: Diagram of nginx's architecture
 
-### Workers Model
+### Workers 的模型
 
-As previously mentioned, nginx doesn't spawn a process or thread for every connection. Instead, `worker` processes accept new requests from a shared "listen" socket and execute a highly efficient run-loop inside each `worker` to process thousands of connections per `worker`. There's no specialized arbitration or distribution of connections to the `worker`s in nginx; this work is done by the OS kernel mechanisms. Upon startup, an initial set of listening sockets is created. `worker`s then continuously accept, read from and write to the sockets while processing HTTP requests and responses.
+正如之前提到的，nginx 并不为每个连接开一个进程或者线程。相反，worker 进程为每个新连接都采用一个共用的监听 socket 并在轮询中高效处理着数千个连接。对于 nginx 的 worker，没有采用一些特别的连接机制，都是由操作系统内核来完成的。一旦启动，一些监听 socket 就会被创建。worker 就会持续地接受连接，处理 http 请求和从对应的这些 socket 中读写数据。
 
-The run-loop is the most complicated part of the nginx `worker` code. It includes comprehensive inner calls and relies heavily on the idea of asynchronous task handling. Asynchronous operations are implemented through modularity, event notifications, extensive use of callback functions and fine-tuned timers. Overall, the key principle is to be as non-blocking as possible. The only situation where nginx can still block is when there's not enough disk storage performance for a `worker` process.
+轮询是 nginx 代码中最复杂的部分。它包括了综合（comprehensive）的内部调用和依赖大量的异步任务处理思想。异步操作通过模块化，事件通知，函数回调和计时器实现。总体上，关键在于尽可能的非阻塞。唯一让 nginx worker 阻塞的只有磁盘不足的情况。
 
-Because nginx does not fork a process or thread per connection, memory usage is very conservative and extremely efficient in the vast majority of cases. nginx conserves CPU cycles as well because there's no ongoing create-destroy pattern for processes or threads. What nginx does is check the state of the network and storage, initialize new connections, add them to the run-loop, and process asynchronously until completion, at which point the connection is deallocated and removed from the run-loop. Combined with the careful use of `syscall`s and an accurate implementation of supporting interfaces like pool and slab memory allocators, nginx typically achieves moderate-to-low CPU usage even under extreme workloads.
+因为 nginx 不会为每个连接新开进程或者线程，内存占用在很多场景下都不会高。nginx 节约了 cpu 占用也是因为没有进程线程的创建和销毁。nginx 要做的就是检查网络和存储，创建新连接，把新连接加入到轮询，并且在完成之前都异步处理。nginx 谨慎采用了一些系统调用比如资源池化和内存分配，以至于在极端的情况下也不会有很高的 CPU 占用。
 
-Because nginx spawns several `worker`s to handle connections, it scales well across multiple cores. Generally, a separate `worker` per core allows full utilization of multicore architectures, and prevents thread thrashing and lock-ups. There's no resource starvation and the resource controlling mechanisms are isolated within single-threaded `worker` processes. This model also allows more scalability across physical storage devices, facilitates more disk utilization and avoids blocking on disk I/O. As a result, server resources are utilized more efficiently with the workload shared across several workers.
+由于 nginx 处理连接就开了几个 worker，在多核情况下可以很好的扩展。大致就是一个核心一个 worker，这样每个 worker 充分利用 cpu 核心，避免了线程切换和锁等待。不会产生资源不足并且每个单线程的 worker 进程中都存在资源管理策略。这种模型允许在不同存储设备之间有更好的扩展性，促进磁盘利用并且避免了磁盘 IO 阻塞。总的来说，服务器资源在多个 worker 工作的情况下被更高效使利用了。
 
-With some disk use and CPU load patterns, the number of nginx `worker`s should be adjusted. The rules are somewhat basic here, and system administrators should try a couple of configurations for their workloads. General recommendations might be the following: if the load pattern is CPU intensive—for instance, handling a lot of TCP/IP, doing SSL, or compression—the number of nginx `worker`s should match the number of CPU cores; if the load is mostly disk I/O bound—for instance, serving different sets of content from storage, or heavy proxying—the number of `worker`s might be one and a half to two times the number of cores. Some engineers choose the number of `worker`s based on the number of individual storage units instead, though efficiency of this approach depends on the type and configuration of disk storage.
+对于某些磁盘使用和 CPU 负载模式，应该调整 nginx worker 的数量。这些规则在这里有点基础，系统管理员应该基于他们的工作负载尝试一些配置。一般建议如下：如果负载模式是 CPU 密集型的—例如，处理大量 TCP/IP、执行 SSL 或压缩，nginx worker 的数量应该与 CPU 核心的数量相匹配；如果负载主要是磁盘 I/O 限制。例如，从存储中提供不同的内容，或者大量的反向代理，workers 的数量可能是内核数量的 1.5 到 2 倍。有些工程师根据单个存储单元（磁盘分区）的数量来选择 workers 的数量，这种方法的效率取决于磁盘存储的类型和配置。
 
-One major problem that the developers of nginx will be solving in upcoming versions is how to avoid most of the blocking on disk I/O. At the moment, if there's not enough storage performance to serve disk operations generated by a particular `worker`, that `worker` may still block on reading/writing from disk. A number of mechanisms and configuration file directives exist to mitigate such disk I/O blocking scenarios. Most notably, combinations of options like sendfile and AIO typically produce a lot of headroom for disk performance. An nginx installation should be planned based on the data set, the amount of memory available for nginx, and the underlying storage architecture.
+nginx 开发人员在即将发布的版本中要解决的一个主要问题是如何避免磁盘 I/O 上的大部分阻塞。目前，如果没有足够的存储性能来服务于由特定的 worker 生成的磁盘操作，那么 worker 仍然可能阻塞从磁盘读取 / 写入。存在许多机制和配置文件指令来减轻此类磁盘 I/O 阻塞场景。最值得注意的是，sendfile 和 AIO 等选项的组合通常会为磁盘性能带来很大的空间。应该根据数据存储、可用的内存大小和底层存储体系结构来计划 nginx 的安装。
 
-Another problem with the existing `worker` model is related to limited support for embedded scripting. For one, with the standard nginx distribution, only embedding Perl scripts is supported. There is a simple explanation for that: the key problem is the possibility of an embedded script to block on any operation or exit unexpectedly. Both types of behavior would immediately lead to a situation where the worker is hung, affecting many thousands of connections at once. More work is planned to make embedded scripting with nginx simpler, more reliable and suitable for a broader range of applications.
+现有 worker 模型的另一个问题是关于内嵌脚本支持的限制。首先，使用标准的 nginx 发行版，只支持嵌入 Perl 脚本。对此有一个简单的解释：关键问题是内嵌脚本可能阻止任何操作或意外退出。这两种类型的行为都会立即导致 worker 被挂起，同时影响数千个连接。需要更多的工作来让 nginx 的嵌入式脚本更简单、更可靠、适合更多的应用程序。
 
-### nginx Process Roles
+### nginx 进程角色
 
-nginx runs several processes in memory; there is a single master process and several `worker` processes. There are also a couple of special purpose processes, specifically a cache loader and cache manager. All processes are single-threaded in version 1.x of nginx. All processes primarily use shared-memory mechanisms for inter-process communication. The master process is run as the `root` user. The cache loader, cache manager and `worker`s run as an unprivileged user.
+nginx 在内存中运行几个进程；有一个 master 进程和几个 worker 进程。还有一些特殊用途的进程，特别是缓存加载器和缓存管理器。版本 1.x 中的所有进程都是单线程的。所有进程主要使用共享内存机制进行进程间通信。主进程作为 root 用户运行。缓存加载器、缓存管理器和 worker 作为非特权用户运行。
 
-The master process is responsible for the following tasks:
+master 进程主要有以下任务
 
-*   reading and validating configuration
-*   creating, binding and closing sockets
-*   starting, terminating and maintaining the configured number of `worker` processes
-*   reconfiguring without service interruption
-*   controlling non-stop binary upgrades (starting new binary and rolling back if necessary)
-*   re-opening log files
-*   compiling embedded Perl scripts
+*   读取并验证配置文件
+*   创建、绑定和关闭 socket
+*   启动，终止和维护配置好了个数的 worker 进程
+*   不中断情况下重新加载配置
+*   控制热更新（从二进制文件启动和必要情况下回滚）
+*   打开日志文件
+*   编译内嵌的 perl 脚本
 
-The `worker` processes accept, handle and process connections from clients, provide reverse proxying and filtering functionality and do almost everything else that nginx is capable of. In regards to monitoring the behavior of an nginx instance, a system administrator should keep an eye on `worker`s as they are the processes reflecting the actual day-to-day operations of a web server.
+worker 进程接受和处理来自客户机的连接，提供反向代理和过滤功能，并完成 nginx 能够做的几乎所有其他事情。关于监视 nginx 实例的状况，系统管理员应该关注 worker 进程，因为他们是反映 web 服务器实际日常操作的过程。
 
-The cache loader process is responsible for checking the on-disk cache items and populating nginx's in-memory database with cache metadata. Essentially, the cache loader prepares nginx instances to work with files already stored on disk in a specially allocated directory structure. It traverses the directories, checks cache content metadata, updates the relevant entries in shared memory and then exits when everything is clean and ready for use.
+缓存加载器进程负责检查磁盘上的缓存项，并使用缓存元数据填充 nginx 的内存数据库。实际上，缓存加载器准备 nginx 实例来处理已经存储在磁盘上的文件，这些文件位于一个特别分配的目录结构中。它遍历目录，检查缓存内容元数据，更新共享内存中的相关条目，然后在一切都干净且可以使用时退出。
 
-The cache manager is mostly responsible for cache expiration and invalidation. It stays in memory during normal nginx operation and it is restarted by the master process in the case of failure.
+缓存管理器主要负责缓存过期和失效。在正常的 nginx 操作过程中，它保持在内存中，在失败的情况下由主进程重新启动。
 
-### Brief Overview of nginx Caching
+### nginx 缓存简览
 
-Caching in nginx is implemented in the form of hierarchical data storage on a filesystem. Cache keys are configurable, and different request-specific parameters can be used to control what gets into the cache. Cache keys and cache metadata are stored in the shared memory segments, which the cache loader, cache manager and `worker`s can access. Currently there is not any in-memory caching of files, other than optimizations implied by the operating system's virtual filesystem mechanisms. Each cached response is placed in a different file on the filesystem. The hierarchy (levels and naming details) are controlled through nginx configuration directives. When a response is written to the cache directory structure, the path and the name of the file are derived from an MD5 hash of the proxy URL.
+nginx 中的缓存是以文件系统上分层数据存储的形式实现的。缓存 key 是可配置的，可以使用不同的特定于请求的参数来控制进入缓存的内容。缓存 key 和缓存元数据存储在共享内存段中，缓存加载器、缓存管理器和 worker 进程可以访问共享内存段。目前，除了操作系统的虚拟文件系统机制产生的优化之外，没有任何文件的是缓存在内存当中。每个缓存的读取都放在文件系统上的不同文件中。层次结构（级别和命名细节）是通过 nginx 配置指令控制的。当将响应写入缓存目录结构时，路径和文件的名称来自代理 URL 的 MD5 值。
 
-The process for placing content in the cache is as follows: When nginx reads the response from an upstream server, the content is first written to a temporary file outside of the cache directory structure. When nginx finishes processing the request it renames the temporary file and moves it to the cache directory. If the temporary files directory for proxying is on another file system, the file will be copied, thus it's recommended to keep both temporary and cache directories on the same file system. It is also quite safe to delete files from the cache directory structure when they need to be explicitly purged. There are third-party extensions for nginx which make it possible to control cached content remotely, and more work is planned to integrate this functionality in the main distribution.
+在缓存中放置内容的过程如下：当 nginx 从 upstream 服务器读取响应时，内容首先被写入缓存目录结构之外的临时文件中。当 nginx 完成对请求的处理后，它会重命名临时文件并将其移动到缓存目录中。如果用于代理的临时文件目录位于另一个文件系统上，则会复制该文件，因此建议将临时目录和缓存目录保存在同一个文件系统上。当需要显式清除缓存目录结构中的文件时，从缓存目录结构中删除文件也是相当安全的。nginx 有第三方的扩展，可以远程控制缓存的内容，并且计划了更多的工作来让这个功能可以集成到主发行版中。
 
-## 14.3. nginx Configuration
+## 14.3. nginx 配置
 
-nginx's configuration system was inspired by Igor Sysoev's experiences with Apache. His main insight was that a scalable configuration system is essential for a web server. The main scaling problem was encountered when maintaining large complicated configurations with lots of virtual servers, directories, locations and datasets. In a relatively big web setup it can be a nightmare if not done properly both at the application level and by the system engineer himself.
+nginx 的配置系统受到了 Igor Sysoev 使用 Apache 的经验的启发。他的主要观点是，对于 web 服务器来说，可伸缩的配置系统是必不可少的。当使用大量虚拟服务器、目录、位置和数据集维护大型复杂配置时，会遇到扩展问题。在一个相对较大的 web 设置中，如果在应用程序和系统工程师都没有正确地完成，那么它可能是一个噩梦。
 
-As a result, nginx configuration was designed to simplify day-to-day operations and to provide an easy means for further expansion of web server configuration.
+因此，nginx 配置的目的是简化日常操作，并提供进一步扩展 web 服务器配置的简单方法。
 
-nginx configuration is kept in a number of plain text files which typically reside in `/usr/local/etc/nginx` or `/etc/nginx`. The main configuration file is usually called `nginx.conf`. To keep it uncluttered, parts of the configuration can be put in separate files which can be automatically included in the main one. However, it should be noted here that nginx does not currently support Apache-style distributed configurations (i.e., `.htaccess` files). All of the configuration relevant to nginx web server behavior should reside in a centralized set of configuration files.
+nginx 的配置保存在许多纯文本文件中，这些文件通常位于 `/usr/local/etc/nginx` 或`/etc/nginx`。主配置文件通常称为 `nginx.conf`。为了保持它的整洁，部分配置可以放在单独的文件中，这些文件可以自动包含在主文件中。然而，这里应该注意到 nginx 目前不支持 apache 风格的分布式配置（即”。htaccess 文件）。所有与 nginx web 服务器行为相关的配置都应该驻留在一组集中的配置文件中。
 
-The configuration files are initially read and verified by the master process. A compiled read-only form of the nginx configuration is available to the `worker` processes as they are forked from the master process. Configuration structures are automatically shared by the usual virtual memory management mechanisms.
+配置文件最初由 master 进程读取和验证。当 worker 进程从 master 进程 fork 时，worker 进程可以使用编译后的只读形式 nginx 配置。配置结构由通常的虚拟内存管理机制自动共享。
 
-nginx configuration has several different contexts for `main`, `http`, `server`, `upstream`, `location` (and also `mail` for mail proxy) blocks of directives. Contexts never overlap. For instance, there is no such thing as putting a `location` block in the `main` block of directives. Also, to avoid unnecessary ambiguity there isn't anything like a "global web server" configuration. nginx configuration is meant to be clean and logical, allowing users to maintain complicated configuration files that comprise thousands of directives. In a private conversation, Sysoev said, "Locations, directories, and other blocks in the global server configuration are the features I never liked in Apache, so this is the reason why they were never implemented in nginx."
+nginx 配置有几个不同的内容：`main`, `http`, `server`, `upstream`, `location` （同时 `mail` 相当于邮件服务代理）。配置文件内容不重叠。例如，在 main 中不存在 location。此外，为了避免不必要的歧义，没有任何类似于“全局 web 服务器”配置的东西。nginx 的配置是干净和合乎逻辑的，允许用户维护包含数千个指令的复杂配置文件。在一次私人谈话中，Sysoev 说，“全局服务器配置中的 location、directory 和其他块是我在 Apache 中不喜欢的特性，所以这就是为什么它们从未在 nginx 中实现的原因。”
 
-Configuration syntax, formatting and definitions follow a so-called C-style convention. This particular approach to making configuration files is already being used by a variety of open source and commercial software applications. By design, C-style configuration is well-suited for nested descriptions, being logical and easy to create, read and maintain, and liked by many engineers. C-style configuration of nginx can also be easily automated.
+配置文件语法、格式和定义遵循所谓的 c 风格约定。这种生成配置文件的特殊方法已经被各种开源和商业软件应用程序所使用。从设计上讲，c 风格的配置非常适合嵌套描述，具有逻辑性，易于创建、阅读和维护，并受到许多工程师的喜爱。nginx 的 c 风格配置也很容易自动化。
 
-While some of the nginx directives resemble certain parts of Apache configuration, setting up an nginx instance is quite a different experience. For instance, rewrite rules are supported by nginx, though it would require an administrator to manually adapt a legacy Apache rewrite configuration to match nginx style. The implementation of the rewrite engine differs too.
+虽然 nginx 的一些指令类似于 Apache 配置的某些部分，但是设置一个 nginx 实例却是完全不同的体验。例如，nginx 支持重写规则，尽管需要管理员手动修改遗留的 Apache 重写配置以匹配 nginx 风格。重写引擎的实现也不同。
 
-In general, nginx settings also provide support for several original mechanisms that can be very useful as part of a lean web server configuration. It makes sense to briefly mention variables and the `try_files` directive, which are somewhat unique to nginx. Variables in nginx were developed to provide an additional even-more-powerful mechanism to control run-time configuration of a web server. Variables are optimized for quick evaluation and are internally pre-compiled to indices. Evaluation is done on demand; i.e., the value of a variable is typically calculated only once and cached for the lifetime of a particular request. Variables can be used with different configuration directives, providing additional flexibility for describing conditional request processing behavior.
+一般来说，nginx 设置还支持一些原始机制，作为精简 web 服务器配置的一部分非常有用。简单地提到变量和`try_files`指令是有意义的，这些指令对于 nginx 来说是唯一的。nginx 变量被开发出来是为了提供一个更强大的机制来控制 web 服务器的运行时配置。变量经过优化以快速解析，并在内部预编译为索引。根据需要进行解析，通常，变量的值只计算一次，并在特定请求的生命周期内缓存。变量可以与不同的配置指令一起使用，为描述条件请求处理行为提供了额外的灵活性。
 
-The `try_files` directive was initially meant to gradually replace conditional `if` configuration statements in a more proper way, and it was designed to quickly and efficiently try/match against different URI-to-content mappings. Overall, the `try_files` directive works well and can be extremely efficient and useful. It is recommended that the reader thoroughly check the [`try_files` directive](http://nginx.org/en/docs/http/ngx_http_core_module.html#try_files) and adopt its use whenever applicable.
+“try_files”指令最初旨在以更合适的方式逐步替换条件“if”配置语句，它的设计目的是快速有效地尝试 / 匹配不同的 uri 到内容的映射。总的来说，`try_files` 指令工作得很好，并且非常高效和有用。更多详情推荐读者去 [`try_files` directive](http://nginx.org/en/docs/http/ngx_http_core_module.html#try_files)
 
-## 14.4. nginx Internals
+## 14.4. nginx 内部
 
-As was mentioned before, the nginx codebase consists of a core and a number of modules. The core of nginx is responsible for providing the foundation of the web server, web and mail reverse proxy functionalities; it enables the use of underlying network protocols, builds the necessary run-time environment, and ensures seamless interaction between different modules. However, most of the protocol- and application-specific features are done by nginx modules, not the core.
+如前所述，nginx 代码库由核心和许多模块组成。 nginx 的核心是负责提供 Web 服务器，Web 和邮件反向代理功能的基础；它支持使用底层网络协议，构建必要的运行时环境，并确保不同模块之间的无缝交互。但是，大多数协议和特定的应用程都是由 nginx 功能模块完成的，而不是核心模块。
 
-Internally, nginx processes connections through a pipeline, or chain, of modules. In other words, for every operation there's a module which is doing the relevant work; e.g., compression, modifying content, executing server-side includes, communicating to the upstream application servers through FastCGI or uwsgi protocols, or talking to memcached.
+在内部，nginx 通过由模块组成的的管道或模块链来处理连接。换句话说，对于每个操作，都有一个正在进行相关工作的模块；例如，压缩，修改内容，执行服务器端，通过 FastCGI 或 uwsgi 协议与 upstream 应用服务器通信，或与 memcached 通信。
 
-There are a couple of nginx modules that sit somewhere between the core and the real "functional" modules. These modules are `http` and `mail`. These two modules provide an additional level of abstraction between the core and lower-level components. In these modules, the handling of the sequence of events associated with a respective application layer protocol like HTTP, SMTP or IMAP is implemented. In combination with the nginx core, these upper-level modules are responsible for maintaining the right order of calls to the respective functional modules. While the HTTP protocol is currently implemented as part of the `http` module, there are plans to separate it into a functional module in the future, due to the need to support other protocols like SPDY (see "[SPDY: An experimental protocol for a faster web](http://www.chromium.org/spdy/spdy-whitepaper)").
+有几个 nginx 模块位于核心和真正的“功能”模块之间。这些模块是`http`和`mail`。这两个模块在核心和较低级别组件之间提供了额外的抽象级别。在这些模块中，实现了与诸如 HTTP，SMTP 或 IMAP 的相应应用层协议相关联的事件序列的处理。结合 nginx 核心，这些上层模块负责维护对各个功能模块的正确调用顺序。虽然 HTTP 协议目前是作为`http`模块的一部分实现的，但由于需要支持 SPDY 等其他协议，因此计划将来将其分离为功能模块。更多 SPDY 协议详见 [SPDY: An experimental protocol for a faster web](http://www.chromium.org/spdy/spdy-whitepaper)
 
-The functional modules can be divided into event modules, phase handlers, output filters, variable handlers, protocols, upstreams and load balancers. Most of these modules complement the HTTP functionality of nginx, though event modules and protocols are also used for `mail`. Event modules provide a particular OS-dependent event notification mechanism like `kqueue` or `epoll`. The event module that nginx uses depends on the operating system capabilities and build configuration. Protocol modules allow nginx to communicate through HTTPS, TLS/SSL, SMTP, POP3 and IMAP.
+功能模块可分为事件模块，阶段处理程序，输出 filter，变量处理程序，协议，上游和负载平衡器。大多数这些模块补充了 nginx 的 HTTP 功能，但事件模块和协议也用于`mail`。事件模块提供特定的 OS 依赖事件通知机制，如`kqueue`或`epoll`。 nginx 使用的事件模块取决于操作系统功能和构建配置。协议模块允许 nginx 通过 HTTPS，TLS / SSL，SMTP，POP3 和 IMAP 进行通信。
 
-A typical HTTP request processing cycle looks like the following.
+典型的 HTTP 请求处理周期如下所示。
 
-1.  Client sends HTTP request.
-2.  nginx core chooses the appropriate phase handler based on the configured location matching the request.
-3.  If configured to do so, a load balancer picks an upstream server for proxying.
-4.  Phase handler does its job and passes each output buffer to the first filter.
-5.  First filter passes the output to the second filter.
-6.  Second filter passes the output to third (and so on).
-7.  Final response is sent to the client.
+1.  客户端发送 http 请求。
+2.  nginx core 依据配置文件中的 location 选择合适的阶段处理器。
+3.  如果配置生效，负载均衡器就会选择一个 upstream 服务器代理。
+4.  阶段处理器执行任务，并把缓冲区的内容传递给第一个 filter。
+5.  第一个 filter 将内容传递给第二个 filter
+6.  第二个 filter 传递给第三个（迭代执行）
+7.  将最后的 response 发送给客户端。
 
-nginx module invocation is extremely customizable. It is performed through a series of callbacks using pointers to the executable functions. However, the downside of this is that it may place a big burden on programmers who would like to write their own modules, because they must define exactly how and when the module should run. Both the nginx API and developers' documentation are being improved and made more available to alleviate this.
+nginx 模块调用是非常可定制的。它使用指向可执行函数的指针来执行一系列回调。然而，这样做的缺点是它可能给想要编写自己的模块的程序员带来很大的负担，因为他们必须准确定义模块应该如何以及何时运行。 nginx API 和开发人员的文档都在不断改进，并且可以更多地用来缓解这个问题。
 
-Some examples of where a module can attach are:
+下面这些列子是可以添加模块的位置：
 
-*   Before the configuration file is read and processed
-*   For each configuration directive for the location and the server where it appears
-*   When the main configuration is initialized
-*   When the server (i.e., host/port) is initialized
-*   When the server configuration is merged with the main configuration
-*   When the location configuration is initialized or merged with its parent server configuration
-*   When the master process starts or exits
-*   When a new worker process starts or exits
-*   When handling a request
-*   When filtering the response header and the body
-*   When picking, initiating and re-initiating a request to an upstream server
-*   When processing the response from an upstream server
-*   When finishing an interaction with an upstream server
+*   在读和处理配置文件之前
+*   在每个服务器出现以及配置文件指向的地方
+*   当 主配置 被初始化的时候
+*   当服务器被初始化的时候
+*   当 server configuration 被合并到 主配置的时候
+*   当 location configuration 初始化或者合并到 parent server configuraton 的时候
+*   当 master 进程启动或者存在的时候
+*   当一个新的 worker 进程启动或者存在的时候
+*   当处理一个请求的时候
+*   当过滤请求 header 和请求 body 的时候
+*   当请求转发到 upstream 服务器的时候
+*   服务器中的响应的时候
+*   当完成与一个 upstream 服务器的交互的时候
 
-Inside a `worker`, the sequence of actions leading to the run-loop where the response is generated looks like the following:
+在 worker 进程中，导致生成响应的运行循环的 action 序列如下所示：
 
-1.  Begin `ngx_worker_process_cycle()`.
-2.  Process events with OS specific mechanisms (such as `epoll` or `kqueue`).
-3.  Accept events and dispatch the relevant actions.
-4.  Process/proxy request header and body.
-5.  Generate response content (header, body) and stream it to the client.
-6.  Finalize request.
-7.  Re-initialize timers and events.
+1.  启动 `ngx_worker_process_cycle()`.
+2.  使用操作系统特定的机制来处理事件（such as `epoll` or `kqueue`）
+3.  接收事件并且分发给相关的 action
+4.  处理 / 代理请求 header 和 body
+5.  产生响应内容 (header, body) 并传递给客户端
+6.  结束请求
+7.  重启 timers，events
 
-The run-loop itself (steps 5 and 6) ensures incremental generation of a response and streaming it to the client.
+轮询本身（步骤 5 和 6）确保增量生成响应并将其流式传输到客户端。
 
-A more detailed view of processing an HTTP request might look like this:
+处理 HTTP 请求的更详细过程可能如下所示
 
-1.  Initialize request processing.
-2.  Process header.
-3.  Process body.
-4.  Call the associated handler.
-5.  Run through the processing phases.
+1.  初始化请求处理
+2.  处理 header
+3.  处理 body
+4.  调用相关的 nginx 处理器
+5.  执行每个处理阶段
 
-Which brings us to the phases. When nginx handles an HTTP request, it passes it through a number of processing phases. At each phase there are handlers to call. In general, phase handlers process a request and produce the relevant output. Phase handlers are attached to the locations defined in the configuration file.
+这将我们带到了每个阶段。当 nginx 处理 HTTP 请求时，它会将其传递给许多处理阶段。在每个阶段都有处理程序可以调用。通常，阶段处理程序处理请求并生成相关输出。阶段处理程序被附加到配置文件中定义的位置。
 
-Phase handlers typically do four things: get the location configuration, generate an appropriate response, send the header, and send the body. A handler has one argument: a specific structure describing the request. A request structure has a lot of useful information about the client request, such as the request method, URI, and header.
+阶段处理程序通常执行以下四项操作：获取位置配置，生成适当的响应，发送 header 以及发送 body。处理程序有一个参数：描述请求的特定结构。请求结构有很多关于客户端请求的有用信息，例如请求 method，URI 和 header。
 
-When the HTTP request header is read, nginx does a lookup of the associated virtual server configuration. If the virtual server is found, the request goes through six phases:
+读取 HTTP 请求 header 时，nginx 会查找关联的虚拟服务器配置。如果找到虚拟服务器，请求将经历六个阶段：
 
-1.  server rewrite phase
-2.  location phase
-3.  location rewrite phase (which can bring the request back to the previous phase)
-4.  access control phase
-5.  try_files phase
-6.  log phase
+1.  服务器重写阶段
+2.  location 阶段
+3.  location 重写阶段（将请求带回到上一个阶段）
+4.  连接控制阶段
+5.  try_files 阶段
+6.  日志阶段
 
-In an attempt to generate the necessary content in response to the request, nginx passes the request to a suitable content handler. Depending on the exact location configuration, nginx may try so-called unconditional handlers first, like `perl`, `proxy_pass`, `flv`, `mp4`, etc. If the request does not match any of the above content handlers, it is picked by one of the following handlers, in this exact order: `random index`, `index`, `autoindex`, `gzip_static`, `static`.
+为了响应请求生成必要的内容，nginx 将请求传递给合适的内容处理程序。根据确切的位置配置，nginx 可能首先尝试所谓的无条件处理程序，如`perl`，`proxy_pass`，`flv`，`mp4`等。如果请求与上述任何内容处理程序都不匹配，则由以下处理程序之一按照以下顺序选择：`random index`，`index`，`autoindex`，`gzip_static`，`static`。
 
-Indexing module details can be found in the nginx documentation, but these are the modules which handle requests with a trailing slash. If a specialized module like `mp4` or `autoindex` isn't appropriate, the content is considered to be just a file or directory on disk (that is, static) and is served by the `static` content handler. For a directory it would automatically rewrite the URI so that the trailing slash is always there (and then issue an HTTP redirect).
+索引模块的详细信息可以在 nginx 文档中找到，但这些是使用尾部斜杠处理请求的模块。如果像`mp4`或`autoindex`这样的专用模块则不合适，内容被认为只是磁盘上的文件或目录（即静态），并由`static`内容处理程序提供服务。对于目录，它会自动重写 URI，以便始终存在尾部斜杠（然后发出 HTTP 重定向）。
 
-The content handlers' content is then passed to the filters. Filters are also attached to locations, and there can be several filters configured for a location. Filters do the task of manipulating the output produced by a handler. The order of filter execution is determined at compile time. For the out-of-the-box filters it's predefined, and for a third-party filter it can be configured at the build stage. In the existing nginx implementation, filters can only do outbound changes and there is currently no mechanism to write and attach filters to do input content transformation. Input filtering will appear in future versions of nginx.
+然后将内容处理程序的内容传递给 filter。filter 也附加到 location，并且可以为 location 配置多个 filter。filter 执行操作处理程序生成的输出的任务。对于预先定义的开箱即用 filter，执行的顺序在编译时就确定。对于第三方 filter，可以在构建阶段对其进行配置。在现有的 nginx 实现中，filter 只能进行出站更改，并且目前没有机制来编写和附加 filter 来进行输入内容转换。输入过滤将出现在 nginx 的未来版本中。
 
-Filters follow a particular design pattern. A filter gets called, starts working, and calls the next filter until the final filter in the chain is called. After that, nginx finalizes the response. Filters don't have to wait for the previous filter to finish. The next filter in a chain can start its own work as soon as the input from the previous one is available (functionally much like the Unix pipeline). In turn, the output response being generated can be passed to the client before the entire response from the upstream server is received.
+filter 遵循特定的设计模式。调用 filter，开始工作，并调用下一个 filter，直到调用链中的最终 filter。之后，nginx 完成响应。filter 不必等待前一个 filter 完成。调用链中的下一个 filter 可以在上一个 filter 的输入可用时立即开始工作（功能上与 Unix 管道非常相似）。反过来，生成的输出响应可以在接收到来自上游服务器的整个响应之前传递给客户端。
 
-There are header filters and body filters; nginx feeds the header and the body of the response to the associated filters separately.
+还有 header filter 和 body filter；nginx 会分别用相关的 filter 来给相应 header 和 body 添加数据
 
-A header filter consists of three basic steps:
+header filter 主要有下面三个步骤
 
-1.  Decide whether to operate on this response.
-2.  Operate on the response.
-3.  Call the next filter.
+1.  决定是否对这个响应进行操作
+2.  操作这个响应
+3.  调用下一个 filter
 
-Body filters transform the generated content. Examples of body filters include:
+body filter 修改生成的数据，下面是 body filter 的一些案例
 
-*   server-side includes
-*   XSLT filtering
-*   image filtering (for instance, resizing images on the fly)
-*   charset modification
-*   `gzip` compression
+*   服务端 includes
+*   XSLT 过滤
+*   图片过滤（比如修改图片尺寸）
+*   修改编码
+*   `gzip`压缩
 *   chunked encoding
 
-After the filter chain, the response is passed to the writer. Along with the writer there are a couple of additional special purpose filters, namely the `copy` filter, and the `postpone` filter. The `copy` filter is responsible for filling memory buffers with the relevant response content which might be stored in a proxy temporary directory. The `postpone` filter is used for subrequests.
+在 filter chain 之后，响应将传递给 writer。除了 writer 之外，还有一些额外特殊用途的 filter，即`copy`和`postpone`filter。 `copy`filter 负责使用可能存储在代理临时目录中的相关响应内容填充内存缓冲区。 `postpone`filter 用于子请求。
 
-Subrequests are a very important mechanism for request/response processing. Subrequests are also one of the most powerful aspects of nginx. With subrequests nginx can return the results from a different URL than the one the client originally requested. Some web frameworks call this an internal redirect. However, nginx goes further—not only can filters perform multiple subrequests and combine the outputs into a single response, but subrequests can also be nested and hierarchical. A subrequest can perform its own sub-subrequest, and a sub-subrequest can initiate sub-sub-subrequests. Subrequests can map to files on the hard disk, other handlers, or upstream servers. Subrequests are most useful for inserting additional content based on data from the original response. For example, the SSI (server-side include) module uses a filter to parse the contents of the returned document, and then replaces `include` directives with the contents of specified URLs. Or, it can be an example of making a filter that treats the entire contents of a document as a URL to be retrieved, and then appends the new document to the URL itself.
+子请求是请求 / 响应处理的非常重要的机制。子请求也是 nginx 最强大的方面之一。对于子请求，nginx 可以从与客户端最初请求的 URL 不同的 URL 返回结果。一些 Web 框架将此称为内部重定向。但是，nginx 更进一步 - 过滤器不仅可以执行多个子请求，而且可以将输出组合成单个响应，但子请求也可以嵌套和分层。子请求可以执行其自己的子子请求，并且子子请求可以发起子子子请求。子请求可以映射到硬盘，其他处理程序或上游服务器上的文件。子请求对于根据原始响应中的数据插入其他内容非常有用。例如，SSI（服务器端包含）模块使用过滤器来解析返回文档的内容，然后将“include”指令替换为指定 URL 的内容。或者，它可以是一个过滤器，将文档的整个内容视为要检索的 URL，然后将新文档附加到 URL 本身
 
-Upstream and load balancers are also worth describing briefly. Upstreams are used to implement what can be identified as a content handler which is a reverse proxy (`proxy_pass` handler). Upstream modules mostly prepare the request to be sent to an upstream server (or "backend") and receive the response from the upstream server. There are no calls to output filters here. What an upstream module does exactly is set callbacks to be invoked when the upstream server is ready to be written to and read from. Callbacks implementing the following functionality exist:
+upstream 和负载均衡器也值得简要描述。upstream 用于实现可以被识别为反向代理（`proxy_pass`处理程序的内容。upstream 模块主要准备将请求发送到 upstream 服务器（或“后端”）并接收响应。这里没有调用输出 filter。当 upstream 服务器准备好被写入和读取时，upstream 模块确切地做的是设置要调用的回调。存在实现以下功能的回调：
+*   创建的请求缓冲被发送到 upstream 服务器的
+*   重新连接到  upstream 服务器（在请求产生之前）
+*   处理 upstream 服务器响应的内容并且存储指向从 upstream 服务器内容的指针。
+*   放弃请求（主要是客户端过早断开连接）
+*   从 upstream 服务器读完内容之后结束请求
+*   整理响应 body（比如删除 http 响应 trailer）
 
-*   Crafting a request buffer (or a chain of them) to be sent to the upstream server
-*   Re-initializing/resetting the connection to the upstream server (which happens right before creating the request again)
-*   Processing the first bits of an upstream response and saving pointers to the payload received from the upstream server
-*   Aborting requests (which happens when the client terminates prematurely)
-*   Finalizing the request when nginx finishes reading from the upstream server
-*   Trimming the response body (e.g. removing a trailer)
+负载均衡器模块连接到`proxy_pass`处理程序，以便在多个 upstream 服务器符合条件时提供选择上游服务器的功能。负载均衡器注册启用配置文件指令，提供额外的上游初始化函数（以解析 DNS 中的上游名称等），初始化连接结构，决定在何处路由请求以及更新统计信息。目前，nginx 支持两种标准规则，用于对 upstream 服务器进行负载均衡：循环和 ip-hash。
 
-Load balancer modules attach to the `proxy_pass` handler to provide the ability to choose an upstream server when more than one upstream server is eligible. A load balancer registers an enabling configuration file directive, provides additional upstream initialization functions (to resolve upstream names in DNS, etc.), initializes the connection structures, decides where to route the requests, and updates stats information. Currently nginx supports two standard disciplines for load balancing to upstream servers: round-robin and ip-hash.
+upstream 和负载均衡处理机制包括用于检测失败的上游服务器以及将新请求重新路由到其余服务器的算法 - 尽管计划进行大量额外工作以增强此功能。总的来说，nginx 开发团队计划对负载均衡器进行更多的工作，并且在下一版本的 nginx 中，将大大改进跨不同上游服务器分配负载以及运行状况检查的机制。
 
-Upstream and load balancing handling mechanisms include algorithms to detect failed upstream servers and to re-route new requests to the remaining ones—though a lot of additional work is planned to enhance this functionality. In general, more work on load balancers is planned, and in the next versions of nginx the mechanisms for distributing the load across different upstream servers as well as health checks will be greatly improved.
+还有一些其他有趣的模块提供了一组额外的变量供配置文件使用。虽然 nginx 中的变量是在不同的模块中创建和更新的，但有两个模块完全专用于变量：`geo`和`map`。 `geo`模块用于根据客户端的 IP 地址进行跟踪。此模块可以创建依赖于客户端 IP 地址的任意变量。另一个模块`map`允许从其他变量创建变量，实质上提供了对主机名和其他运行时变量进行灵活映射的能力。这种模块可以称为变量处理程序。
 
-There are also a couple of other interesting modules which provide an additional set of variables for use in the configuration file. While the variables in nginx are created and updated across different modules, there are two modules that are entirely dedicated to variables: `geo` and `map`. The `geo` module is used to facilitate tracking of clients based on their IP addresses. This module can create arbitrary variables that depend on the client's IP address. The other module, `map`, allows for the creation of variables from other variables, essentially providing the ability to do flexible mappings of hostnames and other run-time variables. This kind of module may be called the variable handler.
+在单个 nginx worker 中实现的内存分配机制在某种程度上受到了 Apache 的启发。nginx 内存管理的高度概述如下：对于每个连接，必要的内存缓冲区被动态分配，链接，用于存储和操作请求和响应的头部和主体，然后在连接释放时释放。值得注意的是，nginx 试图尽可能避免在内存中复制数据，并且大多数数据都是通过指针值传递的，而不是通过调用`memcpy`。
 
-Memory allocation mechanisms implemented inside a single nginx `worker` were, to some extent, inspired by Apache. A high-level description of nginx memory management would be the following: For each connection, the necessary memory buffers are dynamically allocated, linked, used for storing and manipulating the header and body of the request and the response, and then freed upon connection release. It is very important to note that nginx tries to avoid copying data in memory as much as possible and most of the data is passed along by pointer values, not by calling `memcpy`.
+更深入一点，当模块生成响应时，将检索到的内容放入内存缓冲区，然后将其添加到缓冲链链接中。后续处理也适用于此缓冲链链接。缓冲链在 nginx 中非常复杂，因为有几种处理方案因模块类型而异。例如，在实现 body filter 模块时精确管理缓冲区可能非常棘手。这样的模块一次只能在一个缓冲区（链路的链路）上运行，它必须决定是否覆盖输入缓冲区，用新分配的缓冲区替换缓冲区，或者在有问题的缓冲区之前或之后插入新的缓冲区。更复杂的是，有时模块会收到几个缓冲区，因此它必须有一个不完整的缓冲区链。但是，此时 nginx 只提供了一个用于操作缓冲区链的低级 API，因此在进行任何实际实现之前，第三方模块开发人员应该能够熟练使用 nginx 这个神秘的部分。
 
-Going a bit deeper, when the response is generated by a module, the retrieved content is put in a memory buffer which is then added to a buffer chain link. Subsequent processing works with this buffer chain link as well. Buffer chains are quite complicated in nginx because there are several processing scenarios which differ depending on the module type. For instance, it can be quite tricky to manage the buffers precisely while implementing a body filter module. Such a module can only operate on one buffer (chain link) at a time and it must decide whether to overwrite the input buffer, replace the buffer with a newly allocated buffer, or insert a new buffer before or after the buffer in question. To complicate things, sometimes a module will receive several buffers so that it has an incomplete buffer chain that it must operate on. However, at this time nginx provides only a low-level API for manipulating buffer chains, so before doing any actual implementation a third-party module developer should become really fluent with this arcane part of nginx.
+关于上述方法的注释是在连接的整个生命周期中分配了内存缓冲区，因此对于长期连接，保留了一些额外的内存。同时，在空闲的 keepalive 连接上，nginx 只花费 550 个字节的内存。对 nginx 的未来版本进行可能的优化将是重用和共享内存缓冲区以实现长期连接。
 
-A note on the above approach is that there are memory buffers allocated for the entire life of a connection, thus for long-lived connections some extra memory is kept. At the same time, on an idle keepalive connection, nginx spends just 550 bytes of memory. A possible optimization for future releases of nginx would be to reuse and share memory buffers for long-lived connections.
+管理内存分配的任务由 nginx 池分配器完成。共享内存区域用于接受互斥锁，缓存元数据，SSL 会话缓存以及与带宽管制和管理（限制）相关的信息。在 nginx 中实现了一个 slab 分配器来管理共享内存分配。为了同时安全地使用共享内存，可以使用许多锁定机制（互斥锁和信号量）。为了组织复杂的数据结构，nginx 还提供了一个红黑树实现。红黑树用于将缓存元数据保存在共享内存中，跟踪非正则表达式位置定义以及其他几项任务。
 
-The task of managing memory allocation is done by the nginx pool allocator. Shared memory areas are used to accept mutex, cache metadata, the SSL session cache and the information associated with bandwidth policing and management (limits). There is a slab allocator implemented in nginx to manage shared memory allocation. To allow simultaneous safe use of shared memory, a number of locking mechanisms are available (mutexes and semaphores). In order to organize complex data structures, nginx also provides a red-black tree implementation. Red-black trees are used to keep cache metadata in shared memory, track non-regex location definitions and for a couple of other tasks.
+遗憾的是，上述所有内容从未以一致和简单的方式描述，因此开发 nginx 的第三方扩展的工作非常复杂。虽然存在关于 nginx 内部的一些好的文档 - 例如，由 Evan Mille r 生成的那些文档 - 需要大量的逆向工程工作，并且 nginx 模块的实现仍然是许多人的黑科技。
 
-Unfortunately, all of the above was never described in a consistent and simple manner, making the job of developing third-party extensions for nginx quite complicated. Although some good documents on nginx internals exist—for instance, those produced by Evan Miller—such documents required a huge reverse engineering effort, and the implementation of nginx modules is still a black art for many.
+尽管与第三方模块开发相关的某些困难，nginx 用户社区最近看到了许多有用的第三方模块。例如，有一个用于 nginx 的嵌入式 Lua 解释器模块，用于负载均衡的附加模块，完整的 WebDAV 支持，高级缓存控制以及本章作者鼓励并将在未来支持的其他有趣的第三方工作。（参考 Open Resty -- 译者注）
 
-Despite certain difficulties associated with third-party module development, the nginx user community recently saw a lot of useful third-party modules. There is, for instance, an embedded Lua interpreter module for nginx, additional modules for load balancing, full WebDAV support, advanced cache control and other interesting third-party work that the authors of this chapter encourage and will support in the future.
+## 14.5. 收获
 
-## 14.5. Lessons Learned
+当 Igor Sysoev 开始编写 nginx 时，大多数给互联网赋能的软件已经存在，并且这种软件的体系结构通常遵循传统服务器和网络硬件，操作系统和旧的互联网体系结构。然而，这并没有阻止 Igor 认为他能够继续改进 Web 服务器领域的东西。所以，虽然第一课可能看起来很简单，但事实是：总有改进的余地。
 
-When Igor Sysoev started to write nginx, most of the software enabling the Internet already existed, and the architecture of such software typically followed definitions of legacy server and network hardware, operating systems, and old Internet architecture in general. However, this didn't prevent Igor from thinking he might be able to improve things in the web servers area. So, while the first lesson might seem obvious, it is this: there is always room for improvement.
+考虑到更好的 Web 软件的想法，Igor 花了很多时间开发初始代码结构并研究为各种操作系统优化代码的不同方法。十年后，参考在版本 1 上的多年积极开发，他如今正在开发 nginx 版本 2.0 的原型。很明显，一个软件产品的新架构的初始原型和初始代码结构对于未来的重要性是非常重要的。
 
-With the idea of better web software in mind, Igor spent a lot of time developing the initial code structure and studying different ways of optimizing the code for a variety of operating systems. Ten years later he is developing a prototype of nginx version 2.0, taking into account the years of active development on version 1. It is clear that the initial prototype of a new architecture, and the initial code structure, are vitally important for the future of a software product.
+值得一提的另一点是发展应该集中。Windows 版本的 nginx 可能是一个很好的例子，说明如何避免在既不是开发人员的核心竞争力或目标应用程序的情况下稀释开发工作。它同样适用于重写引擎，该引擎在多次尝试增强 nginx 时出现，具有更多功能以便与现有的旧设置向后兼容。
 
-Another point worth mentioning is that development should be focused. The Windows version of nginx is probably a good example of how it is worth avoiding the dilution of development efforts on something that is neither the developer's core competence or the target application. It is equally applicable to the rewrite engine that appeared during several attempts to enhance nginx with more features for backward compatibility with the existing legacy setups.
-
-Last but not least, it is worth mentioning that despite the fact that the nginx developer community is not very large, third-party modules and extensions for nginx have always been a very important part of its popularity. The work done by Evan Miller, Piotr Sikora, Valery Kholodkov, Zhang Yichun (agentzh) and other talented software engineers has been much appreciated by the nginx user community and its original developers.
+但值得一提的是，尽管 nginx 开发者社区不是很大，但 nginx 的第三方模块和扩展一直是其受欢迎程度的重要组成部分。 Evan Miller，Piotr Sikora，Valery Kholodkov，Zhang Yichun（agentzh 中文名：章亦春）以及其他才华横溢的软件工程师所做的工作得到了 nginx 用户社区及其原始开发人员的赞赏。
 
 * * *
 
@@ -280,3 +279,4 @@ This work is made available under the [Creative Commons Attribution 3.0 Unported
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+

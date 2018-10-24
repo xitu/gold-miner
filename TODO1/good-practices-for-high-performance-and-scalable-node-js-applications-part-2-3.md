@@ -1,87 +1,87 @@
 > * 原文地址：[Good practices for high-performance and scalable Node.js applications [Part 2/3]](https://medium.com/iquii/good-practices-for-high-performance-and-scalable-node-js-applications-part-2-3-2a68f875ce79)
-> * 原文作者：[]()
+> * 原文作者：[virgafox](https://medium.com/@virgafox?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/good-practices-for-high-performance-and-scalable-node-js-applications-part-2-3.md](https://github.com/xitu/gold-miner/blob/master/TODO1/good-practices-for-high-performance-and-scalable-node-js-applications-part-2-3.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jianboy](https://github.com/jianboy)
+> * 校对者：[calpa](https://github.com/calpa)
 
-# Good practices for high-performance and scalable Node.js applications [Part 2/3]
+# Node.js 高性能和可扩展应用程序的最佳实践 [第 2/3 部分]
 
 ![](https://cdn-images-1.medium.com/max/2000/1*dt7IyIBFHQIBwf7_aW861Q.jpeg)
 
-### Chapter 2 — How to make your Node.js app ready to scale
+### 第 2 章 —— 如何使您的 Node.js 应用程序安全扩展
 
-In the [last article](https://medium.com/iquii/good-practices-for-high-performance-and-scalable-node-js-applications-part-1-3-bb06b6204197) we saw how to horizontally scale a Node.js application, without worrying about the code. This time we’ll talk about some aspects you must consider in order to prevent undesired behaviours when you scale up your process.
+在[上篇文章](https://github.com/xitu/gold-miner/blob/master/TODO1/good-practices-for-high-performance-and-scalable-node-js-applications-part-1-3.md)中，我们学会了如何无需忧虑代码，而水平扩展 Node.js 应用程序。本章中，我们将讨论扩展时必须注意的事项，以便在扩展流程时防止错误发生。
 
-### Decouple application instances from DB
+### 从 DB 中分离应用程序实例
 
-The first hint isn’t about code, but about your **infrastructure**.
+本章首先要讲的不是代码，而是你的**基础架构**。
 
-If you want your application to be able to scale across different hosts, you must deploy your database on independent machines, so you can freely duplicate your application machine as you wish.
+如果你希望应用程序能够多主机扩展，则必须部署数据库到一些独立的主机，以便可以根据需要自由复制主机。
 
 ![](https://cdn-images-1.medium.com/max/800/1*uSNVUpjeSG8H8AUK8-Yv7A.png)
 
-Deploying application and database on the same machine can be cheap and used for development purpose, but it is absolutely not recommended for production environments, where application and database must be able to scale independently. The same applies to in-memory databases like Redis.
+在同一台机器上部署应用程序和数据库可能很便宜并且用于开发目的，但绝对不建议用于生产环境，其中应用程序和数据库必须能够独立扩展。这同样适用于像 Redis 这样的内存数据库。
 
-### Be stateless
+### 无状态
 
-If you spawn multiple instances of your application, **each process will have its own memory space**. This means that even if you are running on a single machine, when you store some value in a global variable, or more commonly a session in memory, you won’t find it there if the balancer redirects you to another process during the next request.
+如果您生成应用程序的多个实例，**每个进程都有自己的内存空间**。这意味着即使您在一台机器上运行，当您在全局变量中存储某些值，或者更常见的是在内存中存储会话时，如果负载均衡服务器在下一个请求期间将您重定向到另一个进程，您将无法在那里找到它。
 
-This applies both to session data and internal values like any sort of app-wide settings.
+这适用于会话数据和内部值，如任何类型的应用程序配置。
 
-For settings or configurations that can change during run-time, the solution is to store them on the external database (on storage or in-memory) in order to make it accessible by all processes.
+对于可在运行时更改的设置或配置，一种解决方案是将它们存储在外部数据库（磁盘或内存中）上，以使所有进程都可以访问它们。
 
-### Stateless authentication with JWT
+### 使用 JWT 进行无状态身份验证
 
-Authentication is one of the first topics to consider when developing a stateless application. If you store sessions in memory, they will be scoped to that single process.
+身份验证是开发无状态应用程序时要考虑的首要问题之一。如果将会话存储在内存中，它们将作用于该单个进程。
 
-In order to make things work, you should configure your network load balancer to redirect the same user always to the same machine, and your local one to redirect the same user always to the same process (sticky sessions).
+为了使工作正常，您应该将网络负载均衡服务器配置为始终将同一用户重定向到同一台计算机，并将重定向到同一用户的本地用户始终重定向到同一进程（粘性会话）。
 
-A trivial solution to this problem is to set the sessions’ storage strategy to any form of persistence, for example storing them on DB instead of RAM. But if your application checks session data on each request, there will be disk I/O on every API call, that is definitely not good from the performance point of view.
+解决此问题的一个简单方法是将会话的存储策略设置为持久性，例如将它们存储在 DB 中而不是 RAM 中。但是，如果您的应用程序检查每个请求的会话数据，则每次 API 的调用都会有磁盘 I/O 操作，从性能的角度来看，这绝对不是好事。
 
-A better and fast solution (if your authentication framework supports it) is to store sessions on an in-memory DB like Redis. A Redis instance is usually external to application instances like the DB one, but working in memory makes it much faster. Anyway storing sessions in RAM makes you need more memory when your concurrent sessions number grows.
+更好，更快的解决方案（如果您的身份验证框架支持它）是将会话存储在像 Redis 这样的内存数据库中。Redis 实例通常位于应用程序实例外部，例如 DB 实例，但在内存中工作会更快。无论如何，在 RAM 中存储会话会使您在并发会话数增加时需要更多内存。
 
-If you want to embrace a more efficient approach to stateless authentication, you can take a look a **JSON Web Tokens**.
+如果您想采用更有效的无状态身份验证方法，可以查看 **JSON Web 令牌**。
 
-The idea behind JWT is quite simple: When a user logs in, the server generates a token that is essentially a base64 encode of a JSON object containing the payload, plus a signature obtained hashing that payload with a secret key owned by the server. The payload can contain data used to authenticate and authorize the user, for example the userID and its associated ACL roles. The token is sent back to the client and used by it to authenticate every API request.
+JWT 背后的想法很简单：当用户登录时，服务器生成一个令牌，该令牌本质上是包含有效负载的 JSON 对象的 base64 编码，加上签名获得的散列，该负载具有服务器拥有的密钥。有效负载可以包含用于对用户进行身份验证和授权的数据，例如 userID 及其关联的 ACL 角色。令牌被发送回客户端并由其用于验证每个 API 请求。
 
-When the server process an incoming request, it takes the payload of the token and recreates the signature using its secret key. If the two signatures match, the payload can be considered valid and not altered, and the user can be identified.
+当服务器处理传入请求时，它会获取令牌的有效负载并使用其密钥重新签名。如果两个签名匹配，则可以认为有效载荷有效且不被改变，还可以识别用户。
 
-It’s important to remember that **JWT doesn’t provide any form of encryption**. The payload is only encoded in base64 and it is sent in clear text, so if you need to hide the content you must use SSL.
+重要的是要记住 **JWT 不提供任何形式的加密**。有效负载仅在 base64 中编码，并以明文形式发送，因此如果您需要隐藏内容，则必须使用 SSL。
 
-The following schema borrowed by [jwt.io](http://jwt.io) resumes the authentication process:
+[jwt.io](http://jwt.io) 用的以下模式恢复了身份验证过程：
 
 ![](https://cdn-images-1.medium.com/max/800/1*7T41R0dSLEzssIXPHpvimQ.png)
 
-During the authentication process the server doesn’t need to access session data stored somewhere, so each request can be processed by a different process or machine in a very efficient way. No data is saved in RAM, and you don’t need to perform storage I/O, so this approach is really useful as you scale up.
+在认证过程中，服务器不需要访问存储在某处的会话数据，因此每个请求都可以由非常有效的方式由不同的进程或机器处理。RAM 中没有保存数据，也不需要执行存储 I/O 操作，因此在扩展时这种方法非常有用。
 
-### Storage on S3
+### 存储在 S3 上
 
-When you use multiple machines, you can’t save user-generated assets directly on the filesystem, because those files would be accessible only to the processes local to that server. The solution is to **store all the content on an external service**, possibly on a dedicated one like Amazon S3, and save in your DB only the absolute URL that points to that resource.
+使用多服务器时，无法将用户生成的数据直接保存在文件系统上，因为这些文件只能由该服务器本地的进程访问。解决方案是**将所有内容存储在外部服务**上，可能存储在像 Amazon S3 这样的专用服务上，并在数据库中仅保存指向该资源的绝对 URL。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kmIPoA7Ab60n4kO36LWtNQ.png)
 
-Every process/machine will then have access to that resource in the same way.
+然后，每个进程/机器都可以以相同的方式访问该资源。
 
-Using the official AWS sdk for Node.js is quite easy and lets you integrate the service inside your application without particular effort. S3 is quite cheap and it is optimized for this purpose, making it a good choice also in the case your app isn’t multi-process.
+使用 Node.js 的官方 AWS sdk 非常简单，您可以轻松地将服务集成到应用程序中。S3 非常便宜并且针对此目的进行了优化，在您的应用程序不是多进程的情况下也是一个不错的选择。
 
-### Properly configure WebSockets
+### 正确配置 WebSockets
 
-If your application uses WebSockets for real-time interaction between clients or between client and server, you will need to **link your backend instance**s in order to correctly propagate broadcast messages, or messages between clients connected to different nodes.
+如果您的应用程序使用 WebSockets 进行客户端之间或客户端与服务器之间的实时交互，则需要**链接后端实例**，以便在连接到不同节点的客户端之间正确传播广播或消息。
 
-The Socket.io library provides a special adapter for this purpose, called socket.io-redis, that lets you link your server instances using Redis pub-sub functionality.
+Socket.io 库为此提供了一个特殊的数据库连接工具，称为 socket.io-redis，它允许您使用 Redis pub-sub 功能链接服务器实例。
 
-In order to use a multi-node socket.io environment you will also need to force the protocol to “websockets”, because long-polling needs sticky-sessions to work.
+为了使用多节点 socket.io 环境，您还需要配置协议为 “websockets”，因为长轮询需要粘性会话才能工作。
 
-### Next steps
+### 下一步
 
-In this short article we have seen some simple aspects to care about if you want to scale your Node.js app, that can be considered good practices also for single node environments.
+在这篇简短的文章中，我们已经看到了一些关于如何扩展 Node.js 应用程序需要注意的事情，这对于单节点环境也可以被视为良好的实践。
 
-In the next, and last, article of this small serie we’ll see some additional patterns that can make your application perform better. You can find it [here](https://medium.com/iquii/good-practices-for-high-performance-and-scalable-node-js-applications-part-3-3-c1a3381e1382).
+在本系列的下一篇文章（也是最后一篇文章）中，我们介绍一些 Nodejs 的进阶操作。你可以在[这里](https://medium.com/iquii/good-practices-for-high-performance-and-scalable-node-js-applications-part-3-3-c1a3381e1382)找到它。
 
 * * *
 
-_Clap as much as you like if you appreciate this post!_
+**如果这篇文章对你有用，请给我点赞吧！**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
