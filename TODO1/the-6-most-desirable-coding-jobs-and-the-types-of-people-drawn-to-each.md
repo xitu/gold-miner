@@ -35,7 +35,7 @@ These roles are full-stack developer, front-end developer, back-end developer, d
 *   current salary
 *   expected next salary (the first one after advertising their new coding skills)
 
-_*UX designer was a default option in the_ [_original survey_](https://github.com/FreeCodeCamp/2016-new-coder-survey/blob/master/survey-data-dictionary.md)_. Though the degree to which it is a coding job is_ [_debatable_](http://uxmastery.com/how-much-code-should-a-user-experience-designer-write/)_, a basic understanding of code is helpful._
+_UX designer was a default option in the_ [_original survey_](https://github.com/FreeCodeCamp/2016-new-coder-survey/blob/master/survey-data-dictionary.md)_. Though the degree to which it is a coding job is_ [_debatable_](http://uxmastery.com/how-much-code-should-a-user-experience-designer-write/)_, a basic understanding of code is helpful._
 
 ### Gender
 
