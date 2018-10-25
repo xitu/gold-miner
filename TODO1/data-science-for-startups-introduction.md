@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/data-science-for-startups-introduction.md](https://github.com/xitu/gold-miner/blob/master/TODO1/data-science-for-startups-introduction.md)
 > * 译者：[临书](https://github.com/tmpbook)
-> * 校对者：
+> * 校对者：[yqian1991](https://github.com/yqian1991)
 
 # 初创公司的数据科学：简介
 
@@ -17,7 +17,7 @@
 
 #### 为什么选择数据科学？
 
-为您的创业公司雇佣数据科学家时，首先要问的问题之一是：_数据科学将如何改进我们的产品_？在 [Windfall Data](https://angel.co/windfall-data)，我们的产品就是数据，因此数据科学的目标与公司的目标可以很好的协调，可以建立最准确的估算净值模型。而在其他公司（如移动游戏公司），答案可能没那么直接，数据科学可能对了解如何运营业务而不是改进产品更有用。但是在早期阶段就开始收集有关客户行为的数据通常是有益的，这样您就可以在将来改进产品。
+为您的创业公司雇佣数据科学家时，首先要问的问题之一是：**数据科学将如何改进我们的产品**？在 [Windfall Data](https://angel.co/windfall-data)，我们的产品就是数据，因此数据科学的目标与公司的目标可以很好的协调，可以建立最准确的估算净值模型。而在其他公司（如移动游戏公司），答案可能没那么直接，数据科学可能对了解如何运营业务而不是改进产品更有用。但是在早期阶段就开始收集有关客户行为的数据通常是有益的，这样您就可以在将来改进产品。
 
 在初创公司启动数据科学的好处有：
 
@@ -40,7 +40,7 @@
 6.  [**预测建模**](https://medium.com/@bgweber/data-science-for-startups-predictive-modeling-ec88ba8350e9)：讨论监督和非监督学习方法，并介绍流失和交叉推广预测模型，以及评估离线模型性能的方法。
 7.  [**模型制作**](https://medium.com/@bgweber/data-science-for-startups-model-production-b14a29b2f920)：展示如何扩展离线模型以获得数百万条记录，并讨论模型部署的批处理和在线方法。类似的文章有[在 Twitch 产品化数据科学](https://blog.twitch.tv/productizing-data-science-at-twitch-67a643fd8c44)，还有[使用 DataFlow 生成模型](https://towardsdatascience.com/productizing-ml-models-with-dataflow-99a224ce9f19)。
 8.  **实验**：介绍产品的 A/B 测试，讨论如何配置运行实验的框架，并提供 R 和 bootstrapping 示例分析。类似的文章有[分阶段的 A/B 测试](https://blog.twitch.tv/a-b-testing-using-googles-staged-rollouts-ea860727f8b2)。
-9. **推荐系统**：介绍推荐系统的基础知识，并提供扩展生产系统推荐器的示例。类似的文章有[推荐人原型设计](https://towardsdatascience.com/prototyping-a-recommendation-system-8e4dd4a50675)
+9. **推荐系统**：介绍推荐系统的基础知识，并提供扩展生产系统推荐器的示例。类似的文章有[推荐人原型设计](https://towardsdatascience.com/prototyping-a-recommendation-system-8e4dd4a50675)。
 10.  **深度学习**：简要介绍一些问题最好通过深度学习来解决的数据科学问题，例如将聊天消息标记为令人反感的。提供带有 [Keras](https://keras.rstudio.com/) 的 R 接口的原型模型示例，以及使用 [CloudML](https://tensorflow.rstudio.com/tools/cloudml/articles/getting_started.html) 的 R 接口进行产品化。
 
 本系列还存在[网络版](https://bgweber.github.io/)和[印刷版](https://www.amazon.com/dp/1983057975)的书。
@@ -53,7 +53,7 @@
 
 * * *
 
-[Ben Weber](https://www.linkedin.com/in/ben-weber-3b87482/) 是游戏行业的数据科学家，在 Electronic Arts，Microsoft Studios，Daybreak Games 还有 Twitch 都有工作经验。他还是 FinTech 初创公司的第一位数据科学家。
+[Ben Weber](https://www.linkedin.com/in/ben-weber-3b87482/) 是游戏行业的数据科学家，在 Electronic Arts、Microsoft Studios、Daybreak Games 还有 Twitch 都有工作经验。他还是 FinTech 初创公司的第一位数据科学家。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
