@@ -33,7 +33,7 @@
 
 此注释通常由生成源代码映射的程序添加。只有在启用了对源代码映射的支持并打开开发工具时，开发者工具才会加载此文件。
 
-通过响应对压缩的 JavaScript 文件请求的时带 X-SourceMap HTTP 首部的方式，你同样可以声明源代码映射可用。
+通过响应对压缩的 JavaScript 文件请求的时带 `X-SourceMap` HTTP 首部的方式，你同样可以声明源代码映射可用。
 
 ```
 X-SourceMap: /path/to/script.js.map
@@ -83,12 +83,11 @@ uglifyjs [input files] -o script.min.js --source-map script.js.map --source-map-
 
 * * *
 
-**注意**：如果你为 Grunt 使用了 `grunt-contrib-uglify` 插件，请参考关于如何在 Gruntfile 文件中配置这些选项的[文档信息](https://github.com/gruntjs/grunt-contrib-uglify#sourcemap)
+**注意**：如果你为 Grunt 使用了 `grunt-contrib-uglify` 插件，请参考关于如何在 Gruntfile 文件中配置这些选项的[文档信息](https://github.com/gruntjs/grunt-contrib-uglify#sourcemap)。
 
 * * *
 
 还有很多其他可用的工具支持生成源文件映射，一些可选项在下文列出：
-
 
 *   [Closure](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-howgenerate)
 *   [CoffeeScript Compiler](http://coffeescript.org/#source-maps)
