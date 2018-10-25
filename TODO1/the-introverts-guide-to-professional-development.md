@@ -2,67 +2,67 @@
 > * 原文作者：[Jenn](https://dev.to/geekgalgroks)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-introverts-guide-to-professional-development.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-introverts-guide-to-professional-development.md)
-> * 译者：
-> * 校对者：
+> * 译者：[yuwhuawang](https://github.com/yuwhuawang)
+> * 校对者：[calpa](https://github.com/calpa), [Tina92](https://github.com/Tina92)
 
-# The Introvert's Guide to Professional Development
+#职业成长的内部指南
 
-Professional development can seem like a buzzword that companies just throw around. Some companies make budgets for their employees to go to conferences, buy books, and subscribe to learning websites. Other companies scoff at the idea of developers not being at their desks working on projects. Sometimes the biggest hurdle is convincing developers themselves to do any professional development, as it can seem like "wasted" time.
+最近职业成长在一些公司中成了时髦用语。一些公司会提供预算，让他们的雇员参加会议，买书以及订阅相关的在线课程。另一些公司，则嘲笑这个让研发人员不在工位完成项目的主意。有时候职业成长最大的困难，就是说服研发人员自己去做跟职业成长相关的事情，因为在他们眼里，这有些“浪费”时间。
 
-Professional development is important and extremely valuable.
+职业成长是非常重要而且极其有价值的。
 
-## What is professional development?
+##什么是职业成长？
 
-Professional development can be anything that will help you with your career. It comes in many forms.
+职业成长就是任何能够对你的职业有帮助的事情。它有很多的形式。
 
-*   Attending conferences or Meetups
-*   Being in a mentorship
-*   Writing blog posts
-*   Reading articles & books
-*   Watching tutorials & conference videos
-*   Practicing Code Katas
-*   Working on sample projects
-*   Contributing to open source projects
+*   参加会议和见面会
+*   参加导师制度
+*   写博客
+*   阅读文章和书籍
+*   观看教程和会议视频
+*   练习编码招式
+*   致力于示例项目
+*   贡献开源项目
 
-## Why is it important?
+## 为什么它很重要？
 
-Professional development is your chance to stretch and grow your skills as a developer. It is taking the time to step back and look at what you need or want to learn instead of what is needed this instant. It is also practicing or donating your existing skills to others.
+作为一个程序员，职业成长可以帮助你强化和增强你的职业技能。它需要你花时间停下来去思考你需要什么，或者你想学习什么，而不是你当下需要什么。它同时可以把你的技能传授给其他人。
 
-Remember you are often **expected** to do professional development. It is needed to keep up with current technologies and best practices in software development. There are legacy software and languages that are still getting updates; for example, COBOL has been updated in the past five years.
+请记住，你经常会**被期待**有职业成长。在软件界开发中，你都保持需要最新的专业技能和最佳实践。过去的软件和语言都在不断更新；比如，COBOL 就在过去五年中不断地更新。
 
-Talking with other developers in similar fields is still professional development. Many software problems are not new, learning how others solved the same issue can bring to light new answers and solutions. Building and maintaining those personal networks and mentorships can be vital to advancing in your career.
+和你相似领域的程序员交流也是职业成长的一个方式。很多软件问题都不是新的，听听别人是怎么解决相同的问题，会给你带来新的答案和解决方案。建立和维持人际关系和导师关系，对你的职业成长有着重大的影响。
 
-## Making the case to management
+## 为管理制作案例
 
-Not everyone can do professional development only on their own time nor should they be expected to! People have many obligations outside of work and doing professional development shouldn't block them. Making the case for professional development is easier if you are prepared.
+不是每个人都能只在自己的时间来进行职业成长，他们也不应该这样做！除了工作之外，人们还有很多其他的义务，职业成长不应该成为阻碍。如果你准备好了，为职业成长制作案例会简单一些。
 
-1.  **Tie professional development to personal goals mentioned in your annual review.**
+1.  **绑定职业成长和年终总结里提到的个人目标。**
 
-Professional development is your time to hone your skills and become a better developer and person. Becoming a better developer will help you and the company. Many professional development activities are low cost.
+职业成长是磨炼你的技能，让你成为一个更好的程序员和更好的人的一段时间。成为更好的程序员则会对你和公司都有帮助。很多职业成长活动的花费都很少。
 
-2.  **Tie professional development to team or department goals & initiatives.**
+2.  **把职业成长与团队或部门的目标和方案绑定。**
 
-Some groups need to bill all of their time back to a project, and professional development may not fit nicely into any of the current projects. Try tying it to bigger goals and initiatives.
+有些小组需要把所有时间花在项目，职业成长没办法很好地融入到任何现有的项目中。可以在大一点的目标和方案中尝试。
 
-3.  **Have a plan.**
+3.  **定个计划。**
 
-Demonstrate that you are looking ahead to improve skills needed for current and future projects. This often works in tandem with tip #1. If you don't have a plan, you can work with your manager or senior developers to build one.
+阐述你希望提高目前和接下来的项目需要的技能。这一步经常和第一个技巧连起来用。如果你没有计划，你可以和你的领导或者资深的程序员一起制定一个。
 
-4.  **Start small.**
+4.  **从小处开始。**
 
-A defined hour a week or every other week can be a good starting point if your company doesn't explicitly allow for professional development time.
+如果你的公司没有明确的允许你进行职业成长活动，每周或每隔一周用几个小时来进行职业成长活动，是一个很好的开始。
 
-## Do defensive calendaring.
+## 采用防御性的日程。
 
-Schedule an appropriate block of time on your calendar to prevent meetings taking over it. If possible, book a room so you are away from your desk to minimize distractions and interruptions.
+安排一段适合的时间，加入你的日程表，省的会议来打断。如果可能的话，定一个小会议室，这样你就可以离开你的工位，远离打扰和诱惑。
 
-## Actually do it.
+## 真的去做。
 
-Professional development time is only as useful as you make it.
+只有你去做了，职业成长时间才会有价值。
 
-I keep a list of articles, tutorials, and videos to choose from each week. When Wednesday afternoon comes around, I pick something from my list and do it. I also use this time to write blog posts (like this one!) and mentor other developers.
+每周我都有一个关于文章，教程和视频的列表用来选择。当周三下午时，我就从我的列表里选一些东西来学习。我也会用这段时间来写博客（就像这篇）或者教导其他程序员。
 
-**Protect your professional development time** and treat it as the important meeting it is. Your career may depend upon it.
+**保护你的职业成长时间**，把它当做一个重要的会议。你的职业成长就靠它了。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
