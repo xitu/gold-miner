@@ -7,7 +7,7 @@
 
 # 作为自由开发者，7 个步骤让你获得更多的客户
 
-##希望我早几年就知道的一些实用的技巧
+## 希望我早几年就知道的一些实用的技巧
 
 ![](https://cdn-images-1.medium.com/max/1000/1*GjnIq3MYSQy3GP_nsCSFxA.jpeg)
 
