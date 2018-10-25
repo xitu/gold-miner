@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/7-steps-to-get-more-clients-as-a-freelance-developer.md](https://github.com/xitu/gold-miner/blob/master/TODO1/7-steps-to-get-more-clients-as-a-freelance-developer.md)
 > * 译者：[Ryden Sun](https://juejin.im/user/585b9407da2f6000657a5c0c)
-> * 校对者：[xilihuasi](https://github.com/xilihuasi)  [Augustwuli](https://github.com/Augustwuli)
+> * 校对者：[xilihuasi](https://github.com/xilihuasi), [Augustwuli](https://github.com/Augustwuli)
 
 # 作为自由开发者，7 个步骤让你获得更多的客户
 
@@ -66,7 +66,7 @@
 
 当你在进行一项技术性项目的工作时，很容易太专注和集中于一些小的技术细节而忘了重点。
 
-但是如果你只专注于你被要求做的任务上，那你只会产出**平均水平**的结果。**你需要专注的是_有质量的_工作**
+但是如果你只专注于你被要求做的任务上，那你只会产出**平均水平**的结果。**你需要专注的是有质量的工作**
 
 ![](https://cdn-images-1.medium.com/max/800/1*V0UjgCuX9HzTGK6nbAXQIQ.jpeg)
 
@@ -96,7 +96,7 @@
 
 当你考虑如何获得更多的客户时，许多人可能会想：好的，不如我开始在社交媒体上发动态说我找在自由工作的活？
 
-我在 Facebook，Linkedin，Twitter 和 Slack 上看到无数的开发者和设计师发状态跟全世界说我正在寻找自由工作的机会。
+我在 Facebook、Linkedin、Twitter 和 Slack 上看到无数的开发者和设计师发状态跟全世界说我正在寻找自由工作的机会。
 
 最后结果是，这正是你不应该做的事情。你在自我推销的时候迅速丢失了你的价值。
 
@@ -157,7 +157,7 @@
 
 当你有自己的工作流程时，你会工作得很顺心因为这会让你的客户喜欢和你一起合作并且信任你。他们大多数情况下在未来将你推荐给其他公司。
 
-阅读更多关于 [创造流程](https://www.proposify.com/definitive-guide-to-going-freelance-chapter-6)的文章
+阅读更多关于[创造流程](https://www.proposify.com/definitive-guide-to-going-freelance-chapter-6)的文章。
 
 ### 7. 收费高一些 💰
 
