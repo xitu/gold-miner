@@ -224,29 +224,29 @@ impl Handler<UpdateSession> for DatabaseExecutor {
 
 ![](https://cdn-images-1.medium.com/max/800/1*d-HKujYLR5Q2QED4ybEiPw.png)
 
-The Makefile command `make deploy` creates a Docker image called `webapp`, which contains the statically linked backend executable, the current `Config.toml`, TLS certificates and the static content for the frontend. Building a fully statically linked executable in Rust is achieved with a modified variant of the [rust-musl-builder](https://hub.docker.com/r/ekidd/rust-musl-builder/) docker image. The resulting webapp can be tested with `make run`, which starts the container with enabled host networking. The PostgreSQL container should now run in parallel. In general, the overall deployment is not that big part of the deal and should be flexible enough for future adaptions.
+Makefile 命令 `make deploy` 创建一个名为 `webapp` 的 Docker 镜像，其中包含静态链接（staticlly linked）的后端可执行文件、当前的 `Config.toml`、TLS 证书和前端的静态内容。在 Rust 中构建一个完全的静态链接的可执行文件是通过修改的 [rust-musl-builder](https://hub.docker.com/r/ekidd/rust-musl-builder/) 镜像变体实现的。生成的 webapp 可以使用 `make run` 进行测试，这个命令可以启动容器和主机网络。PostgreSQL 容器现在应该并行运行。总的来说，整体部署不应该是这个工程的重要部分，应该足够灵活来适应将来的变动。
 
 ### 总结
 
-As a summary, the basic dependency stack of the application looks like this:
+总结一下，应用程序的基本依赖栈如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*jkm-cPEWdyZeHjAyqNfHHw.png)
 
-The only shared component between the frontend and backend is the Cap’n Proto generated Rust source, which needs a locally installed Cap’n Proto compiler.
+前端和后端之间唯一的共享组件是 Cap'n Proto 生成的 Rust 源，它需要本地安装的 Cap’n Proto 编译器。
 
 #### 那么, 我们的 web 完成了吗（用于生产环境）？
 
-That is the big question, my personal opinion on that is:
+这是一个大问题，这是我的个人观点：
 
-> On the backend side I would tend to say “yes”, because Rust has beside actix-web a very mature [HTTP stack](http://www.arewewebyet.org/topics/stack/) and various different [frameworks](http://www.arewewebyet.org/topics/frameworks/) for building APIs and backend services quickly.
+> 后端部分我倾向于说“是”。因为 Rust 有包含非常成熟的 [HTTP 技术栈](http://www.arewewebyet.org/topics/stack/)的各种各样的[框架](http://www.arewewebyet.org/topics/frameworks/)，类似 actix-web。用于快速构建 API 和后端服务。
 
-> On the frontend side is also a lots of work ongoing because of the WebAssembly hype, but the projects needs to have the same matureness as the backend ones, especially when it comes to stable APIs and testing possibilities. So there is a “no” for the frontend, but we’re on a pretty good track.
+> 前端部分的话，由于 WebAssembly 的炒作，目前还有很多正在进行中的工作。但是项目需要和后端具有相同的成熟度，特别是在稳定的 API 和测试的可行性方面。所以前端应该是“不”。但是我们的方向很好。
 
 ![](https://cdn-images-1.medium.com/max/800/1*BIUlQD822_EKKLv4jtElWg.png)
 
 > 非常感谢你能读到这里。 ❤
 
-I will continue my work on the demonstration application to continuously find out where we are in Rust in relation to web applications. Keep on rusting!
+我将继续完善我的示例程序，来不断探索 Rust 和 Web 应用的连接点。持续 rusting！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
