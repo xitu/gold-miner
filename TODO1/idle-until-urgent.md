@@ -2,49 +2,49 @@
 > * 原文作者：[PHILIP WALTON](https://philipwalton.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/idle-until-urgent.md](https://github.com/xitu/gold-miner/blob/master/TODO1/idle-until-urgent.md)
-> * 译者：
+> * 译者：[Ivocin](https://github.com/Ivocin)
 > * 校对者：
 
-A few weeks ago I was looking at some of the performance metrics for my site. Specifically, I wanted to see how I was doing on our newest metric, [first input delay](https://developers.google.com/web/updates/2018/05/first-input-delay) (FID). My site is just a blog (and doesn’t run much JavaScript), so I expected to see pretty good results.
+几周前，我开始查看我网站的一些性能指标。 具体来说，我想看看我的网站在最新的性能指标 —— [首次输入延迟](https://developers.google.com/web/updates/2018/05/first-input-delay) (FID) 上的表现如何。 我的网站只是一个博客（并没有运行很多的 JavaScript），所以我原本预期得到相当不错的结果。
 
-Input delay that’s less than 100 milliseconds is typically [perceived as instant](https://developers.google.com/web/fundamentals/performance/rail#ux) by users, so the performance goal we recommend (and the numbers I was hoping to see in my analytics) is FID < 100ms for 99% of page loads.
+用户一般对于小于 100 毫秒的输入延迟 [没有感知](https://developers.google.com/web/fundamentals/performance/rail#ux)，因此我们建议的性能目标（以及我希望在我的分析中看到的数字）是对于 99％ 的页面加载，FID 小于100 毫秒。
 
-To my surprise, my site’s FID was 254ms at the 99th percentile. And while that’s not terrible, the perfectionist in me just couldn’t let that slide. I had to fix it!
+令我惊讶的是，我网站 99% 的页面的 FID 在 254 毫秒以内。我是个完美主义者，尽管结果不是很糟糕，但我却无法对这个结果置之不理。我一定得把它搞定！
 
-To make a long story short, without removing any functionality from my site, I was able to get my FID under 100ms at the 99th percentile. But what I’m sure is more interesting to you readers is:
+简而言之，我在不删除网站的任何功能的情况下，把 99% 页面的 FID 降到了 100 毫秒以内。但我详细读者朋友们更感兴趣的是：
 
-*   _How_ I approached diagnosing the problem.
-*   _What_ specific strategies and techniques I used to fix it.
+*   我是**如何**诊断问题的。
+*   我采用了**什么**具体的策略和技术。
 
-To that second point above, while I was trying to solve my issue I stumbled upon a pretty interesting performance strategy that I want to share (it’s the primary reason I’m writing this article).
+说到上文中的第二点，当时我试图解决我的问题时，偶然发现了一个非常有趣的性能策略，特别想分享给大家（这是我写这篇文章的主要原因）。
 
-I’m calling the strategy: _idle until urgent_.
+我把这个策略叫做： **空闲到紧急**。
 
-## My performance problem
+## 我的性能问题
 
-First input delay (FID) is a metric that measures the time between when a user [first interacts](https://developers.google.com/web/updates/2018/05/first-input-delay#what_counts_as_a_first_input) with your site (for a blog like mine, that’s most likely them clicking a link) and the time when the browser is able to respond to that interaction (make a request to load the next page).
+首次输入延迟（FID）是一个网站性能指标，指用户与您的网站[首次交互](https://developers.google.com/web/updates/2018/05/first-input-delay#what_counts_as_a_first_input) （像我这样的博客，最有可能的首次交互是点击链接）和浏览器响应该交互（请求加载下一页面）的时间。
 
-The reason there might be a delay is if the browser’s main thread is busy doing something else (usually executing JavaScript code). So to diagnose a higher-than-expected FID, you should start by creating a performance trace of your site as it’s loading (with CPU and network throttling enabled) and look for individual tasks on the main thread that take a long time to execute. Then once you’ve identified those long tasks, you can try to break them up into smaller tasks.
+存在延迟是由于浏览器的主线程正在忙于做其他事情（通常是在执行 JavaScript 代码）。因此，要诊断这个高于预期的 FID，首先我们需要在网站加载时启动性能追踪（启用 CPU 降频和网络限速），然后找到主线程上找到执行时间长的任务。一旦确定了这些耗时长的任务，我们就可以尝试将它们分解为更小的任务。
 
-Here’s what I found when doing a performance trace of my site:
+以下是我在对网站进行性能追踪时的发现：
 
-[![A performance trace of my site's JavaScript while loading (with network/CPU throttling enabled)](https://philipwalton.com/static/idle-until-urget-before-9bc2ecd0b0.png)](https://philipwalton.com/static/idle-until-urget-before-1400w-efc9f3a53c.png)
+[![我的网站加载时的 JavaScript 性能追踪图（启用网络限速/ CPU 降频）](https://philipwalton.com/static/idle-until-urget-before-9bc2ecd0b0.png)](https://philipwalton.com/static/idle-until-urget-before-1400w-efc9f3a53c.png)
 
-A performance trace of my site's JavaScript while loading (with network/CPU throttling enabled).
+我的网站加载时的 JavaScript 性能追踪图（启用网络限速/ CPU 降频）。
 
-Notice, when the main script bundle is evaluated, it’s run as a single task that takes 233 milliseconds to complete.
+请注意，浏览器把分析主要脚本包作为了一个独立的任务，这个任务耗时 233 毫秒。
 
-[![Evaluating my site's main bundle takes 233ms](https://philipwalton.com/static/idle-until-urget-before-eval-1d68f2dff6.png)](https://philipwalton.com/static/idle-until-urget-before-eval-1400w-7a455de908.png)
+[![运行我网站的主要脚本包耗时 233 毫秒](https://philipwalton.com/static/idle-until-urget-before-eval-1d68f2dff6.png)](https://philipwalton.com/static/idle-until-urget-before-eval-1400w-7a455de908.png)
 
-Evaluating my site's main bundle takes 233ms.
+运行我网站的主要脚本包耗时 233 毫秒。
 
-Some of this code is webpack boilerplate and babel polyfills, but the majority of it is from my script’s `main()` entry function, which itself takes 183ms to complete:
+在这些代码中，一部分来自 webpack 样板文件和 babel polyfill，但大多数代码来自我脚本的 `main()` 入口函数，它本身需要 183 毫秒才能完成：
 
-[![Executing my site's main() entry function takes 183ms.](https://philipwalton.com/static/idle-until-urget-before-main-59f7c95e33.png)](https://philipwalton.com/static/idle-until-urget-before-main-1400w-08fe4dd1c5.png)
+[![执行我网站的 `main()` 入口函数耗时 183 毫秒。](https://philipwalton.com/static/idle-until-urget-before-main-59f7c95e33.png)](https://philipwalton.com/static/idle-until-urget-before-main-1400w-08fe4dd1c5.png)
 
-Executing my site's `main()` entry function takes 183ms.
+执行我网站的 `main()` 入口函数耗时 183 毫秒。
 
-And it’s not like I’m doing anything ridiculous in my `main()` function. I’m initializing my UI components and then running my analytics:
+然而我并没有在 `main()` 函数中做什么可笑的事情。在`main()` 函数中，我先初始化了我的 UI 组件，然后运行了我的 `analytics` 方法：
 
 ```
 const main = () => {
@@ -59,79 +59,79 @@ const main = () => {
 main();
 ```
 
-So what’s taking so long to run?
+那么是什么花了如此长时间运行？
 
-Well, if you look at the tails of this flame chart, you won’t see any single functions that are clearly taking up the bulk of the time. Most individual functions are run in less than 1ms, but when you add them all up, it’s taking more than 100ms to run them in a single, synchronous call stack.
+我们接着来看一下这个火焰图的尾部，可以看到没有一个单独的函数占据了大部分时间。绝大多数函数在耗时不到 1 毫秒，但是当你将它们全部加起来时，在单个同步调用堆栈中，运行它们却需要超过 100 毫秒。
 
-This is the JavaScript equivalent of _death by a thousand cuts._
+JavaScript 就像被“千刀万剐”了一样。
 
-Since the problem is all these functions are being run as part of a single task, the browser has to wait until this task finishes to respond to user interaction. So clearly the solution is to break up this code into multiple tasks, but that’s a lot easier said than done.
+由于这些功能全都作为单个任务的一部分运行，因此浏览器必须等到此任务完成才能响应用户的交互。很明显，解决方案是将这些代码分解为多个任务，但这说起来容易做起来难。
 
-At first glance, it might seem like the obvious solution is to prioritize each of the components in my `main()` function (they’re actually already in priority order), initialize the highest priority components right away, and then defer other component initialization to a subsequent task.
+乍一看，明显的解决方案是将 `main()` 函数中的每个组件分配优先级（它们实际上已经按优先级顺序排列了），立即初始化优先级最高的组件，然后将其他组件的初始化推迟到后续任务中。
 
-While this may help some, it’s not a solution that everyone could implement, nor does it scale well to a really large site. Here’s why:
+虽然这可能有一些作用，但它的可操作行并不强，而且难以应用到大型网站中。原因如下：
 
-*   Deferring UI component initialization only helps if the component isn’t yet rendered. If it’s already rendered than deferring initialization runs the risk that the user tries to interact with it and it’s not yet ready.
-*   In many cases all UI components are either equally important or they depend on each other, so they all need to be initialized at the same time.
-*   Sometimes individual components take long enough to initialize that they’ll block the main thread even if they’re run in their own tasks.
+*   推迟 UI 组件初始化的方法仅在组件尚未渲染时才有用。推迟初始化组件的方法会造成风险：用户有可能遇到组件没有渲染完成的情况。
+*   在许多情况下，所有 UI 组件要么同等重要，要么彼此依赖，因此它们都需要同时进行初始化。
+*   有时单个组件需要足够长的时间来初始化，即使它们在自己的任务中运行，它们也会阻塞主线程。
 
-The reality is that initializing each component in its own task is usually not sufficient and oftentimes not even possible. What’s usually needed is breaking up tasks _within_ each component being initialized.
+实际情况是，我们通常很难让每个组件在各自的任务中初始化，而且这种做法往往不可能实现。我们需要的是在每个组件**内部**的初始化过程中拆解任务。
 
-### Greedy components
+### 贪婪的组件
 
-A perfect example of a component that really needs to have its initialization code broken up can be illustrated by zooming closer down into this performance trace. Mid-way through the `main()` function, you’ll see one of my components uses the [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat) API:
+从下面的性能追踪图可以看出，我们是否真的需要把组件初始化代码进行拆分，让我们来看一个比较好的例子： 在 `main（)` 函数的中间，你会看到我的一个组件使用了 [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat) API:
 
-[![Creating an Intl.DateTimeFormat instance took 13.47ms!](https://philipwalton.com/static/idle-until-urget-before-date-time-format-252558f2ab.png)](https://philipwalton.com/static/idle-until-urget-before-date-time-format-1400w-c67615763f.png)
+[![创建一个 Intl.DateTimeFormat 实例需要 13.47 毫秒！](https://philipwalton.com/static/idle-until-urget-before-date-time-format-252558f2ab.png)](https://philipwalton.com/static/idle-until-urget-before-date-time-format-1400w-c67615763f.png)
 
-Creating an `Intl.DateTimeFormat` instance took 13.47ms!
+创建一个 `Intl.DateTimeFormat` 实例需要 13.47 毫秒！
 
-Creating this object took 13.47 milliseconds!
+创建此对象需要 13.47 毫秒！
 
-The thing is, the `Intl.DateTimeFormat` instance is created in the component’s constructor, but it’s _not actually used_ until it’s needed by other components that reference it to format dates. However, this component doesn’t know when it’s going to be referenced, so it’s playing it safe and instantiating the `Int.DateTimeFormat` object right away.
+问题是，虽然  `Intl.DateTimeFormat` 实例是在组件的构造函数中创建的，但实际上**并没有**其他组件引用它来格式化日期。可是由于该组件不知道何时会引用 `Int.DateTimeFormat` 对象，因此它选择立即初始化该对象。
 
-But is this the right code evaluation strategy? And if not, what is?
+但这是正确的代码求值策略吗？如果不是，那什么是正确的代码求值策略？
 
-## Code evaluation strategies
+## 代码求值策略
 
-When choosing an [evaluation strategy](https://en.wikibooks.org/wiki/Introduction_to_Programming_Languages/Evaluation_Strategies) for potentially expensive code, most developers select one of the following:
+在选择[求值策略](https://en.wikibooks.org/wiki/Introduction_to_Programming_Languages/Evaluation_Strategies)时，大多数开发人员会从如下两种策略中做出选择：
 
-*   **[Eager evaluation](https://en.wikipedia.org/wiki/Eager_evaluation):** where you run your expensive code right away.
-*   **[Lazy evaluation](https://en.wikipedia.org/wiki/Lazy_evaluation):** where you wait until another part of your program needs the result of that expensive code, and you run it then.
+*   **[立即求值](https://en.wikipedia.org/wiki/Eager_evaluation)：** 你可以立即运行耗时的代码。
+*   **[惰性求值](https://en.wikipedia.org/wiki/Lazy_evaluation)：** 等到你的程序里的其他部分需要这段耗时代码的结果时，再去运行它。
 
-These are probably the two most popular evaluation strategies, but after my experience refactoring my site, I now think these are probably your two worst options.
+这两种求值策略可能是目前最受欢迎​​的，但在我重构了我的网站后，我认为这两个策略可能是最糟糕两个选择。
 
-### The downsides of eager evaluation
+### 立即求值的缺点
 
-As the performance problem on my site illustrates pretty well, eager evaluation has the downside that, if a user tries to interact with your page while the code is evaluating, the browser must wait until the code is done evaluating to respond.
+从我网站上的性能问题可以很好地看出，立即求值有一个缺点：如果用户在代码计算时与你的页面进行交互，浏览器必须等到代码运行完成后才能做出响应。
 
-This is especially problematic if your page _looks_ like it’s ready to respond to user input, but then it can’t. Users will perceive your page as sluggish or maybe even completely broken.
+当你的页面**看起来**已经准备好响应用户输入却无法响应时，这个问题尤为明显。用户会感觉你的页面很卡或者甚至认为页面彻底崩溃了。
 
-The more code you evaluate up front, the longer it will take for your page to become interactive.
+预先运行的代码越多，页面交互所需的时间就越长。
 
-### The downsides of lazy evaluation
+### 惰性求值的缺点
 
-If it’s bad to run all your code right away, the next most obvious solution is to wait to run it until it’s actually needed. This way you don’t run code unnecessarily, especially if it’s never actually needed by the user.
+如果立即运行所有代码是不好的，那么一个显而易见的解决方案就是等到需要的时候再运行。这样就不会提前运行不必要的代码，尤其是一些从未被使用过的代码。
 
-Of course, the problem with waiting until the user needs the result of running that code is now you’re _guaranteeing_ that your expensive code will block user input.
+当然，等到用户需要的时候再运行的问题是：你必须**确保**你的高耗时的代码能够阻止用户输入。
 
-For some things (like loading additional content from the network), it makes sense to defer it until it’s requested by the user. But for most code you’re evaluating (e.g. reading from localStorage, processing large datasets, etc.) you definitely want it to happen _before_ the user interaction that needs it.
+对于某些事情（比如从网络加载其他内容），将其推迟到用户请求时再加载是有意义的。但对于你的大多数代码（例如 从 localStorage 读取数据，处理大型数据集等等）而言，你肯定希望它在需要它的用户交互**之前**就执行完毕。
 
-### Other options
+### 其他选择
 
-The other evaluation strategies you can choose from all take an approach somewhere in between eager and lazy. I’m not sure if the following two strategies have official names, but I’m going to call them deferred evaluation and idle evaluation:
+其他可选择的求值策略介于立即求值和惰性求值之间。我不确定以下两种策略是否有官方名称，我把它们称作延迟求值和空闲求值：
 
-*   **Deferred evaluation:** where you schedule your code to be run in a future task, using something like `setTimeout`.
-*   **Idle evaluation:** a type of deferred evaluation where you use an API like [requestIdleCallback](https://developers.google.com/web/updates/2015/08/using-requestidlecallback) to schedule your code to run.
+*   **延迟求值：** 使用 `setTimeout` 之类的函数，在后续任务中来执行你的代码。
+*   **空闲求值:** 一种延迟求值策略，你可以使用像  [requestIdleCallback](https://developers.google.com/web/updates/2015/08/using-requestidlecallback) 这样的 API 来组织代码运行。
 
-Both of these options are usually better than eager or lazy evaluation because they’re far less likely to lead to individual long tasks that block input. This is because, while browsers cannot interrupt any single task to respond to user input (doing so would very likely break sites), they _can_ run a task in between a queue of scheduled tasks, and most browsers _do_ when that task is caused by user input. This is known as [input prioritization](https://blogs.windows.com/msedgedev/2017/06/01/input-responsiveness-event-loop-microsoft-edge/).
+这两个选项通常都比立即求值或惰性求值好，因为它们不太可能由于单个长任务阻塞用户输入。这是因为，虽然浏览器不能中断任何单个任务来响应用户输入（这样做很可能会破坏网站），但是它们**可以**在计划任务队列之间运行任务，而且大多数浏览器**会**优先处理用户输入触发的任务。这称为[输入优先](https://blogs.windows.com/msedgedev/2017/06/01/input-responsiveness-event-loop-microsoft-edge/)。
 
-To put that another way: if you ensure all your code is run in short, distinct tasks (preferably [less than 50ms](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#long_tasks)), your code will never block user input.
+换句话说：如果确保所有代码都运行在耗时短、不同的任务中（最好[小于 50 毫秒](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#long_tasks)），你的代码就再也不会阻塞用户输入了。
 
-**Important!** While browsers can run input callbacks ahead of queued tasks, they _cannot_ run input callbacks ahead of queued microtasks. And since promises and `async` functions run as microtasks, converting your sync code to promise-based code will not prevent it from blocking user input!
+**重要！** 虽然浏览器能够在任务队列中优先执行输入回调函数，但它们**无法**在排列好的微任务之前运行。由于 promise 和 `async` 函数作为微任务运行，将你的同步代码转换为基于 promise 的代码不会起到缓解用户输入阻塞的作用！
 
-If you’re not familiar with the difference between tasks and microtasks, I highly recommend watching my colleague Jake’s excellent [talk on the event loop](https://youtu.be/cCOL7MC4Pl0).
+如果你不熟悉任务和微任务之间的区别，我强烈建议你观看我的同事杰克[关于事件循环](https://youtu.be/cCOL7MC4Pl0)的精彩演讲。
 
-Given what I just said, I could refactor my `main()` function to use `setTimeout()` and `requestIdleCallback()` to break up my initialization code into separate tasks:
+鉴于我刚才所说的，我可以使用 `setTimeout（)` 和`requestIdleCallback（)` 来重构我的 `main()` 函数，将我的初始化代码拆解为单独的任务：
 
 ```
 const main = () => {
@@ -146,25 +146,25 @@ const main = () => {
 main();
 ```
 
-However, while this is better than before (many small tasks vs. one long task), as I explained above it’s likely still not good enough. For example, if I defer the initialization of my UI components (specifically `contentLoader` and `drawer`) they’ll be less likely to block user input, but they also run the risk of not being ready when the user tries to interact with them!
+然而，虽然这比以前更好（许多小任务 vs 一个长任务），正如我上文解释的那样，它可能还不够好。例如，如果我延迟我 UI 组件（特别是 `contentLoader` 和 `drawer`）的初始化过程，虽然它们几乎不会阻塞用户输入，但是当用户尝试与它们交互时，它们也存在未准备好的风险！
 
-And while delaying my analytics with `requestIdleCallback()` is probably a good idea, any interactions I care about before the next idle period will be missed. And if there’s not an idle period before the user leaves the page, these callbacks may never run at all!
+虽然使用 `requestIdleCallback ()`  来延迟我的 `analytics` 方法可能是一个好主意，但在下一个空闲时段之前我关心的任何交互都将被遗漏。而且如果在用户离开页面之前没有空闲时段，这些回调可能永远不会运行！
 
-So if all evaluations strategies have downsides, which one should you pick?
+因此，如果所有这些求值策略都有缺点，那么我们该如何选择呢？
 
-## Idle Until Urgent
+## 空闲到紧急
 
-After spending a lot of time thinking about this problem, I realized that the evaluation strategy I _really_ wanted was one where my code would initially be deferred to idle periods but then run immediately as soon as it’s needed. In other words: _idle-until-urgent_.
+在长时间思考这个问题之后，我意识到我**真正**想要的求值策略是：首先代码推迟到空闲时间段执行，但是一旦被调用则立即执行。换句话说：“空闲到紧急”。
 
-_Idle-until-urgent_ sidesteps most of the downsides I described in the previous section. In the worst case, it has the exact same performance characteristics as lazy evaluation, and in the best case it doesn’t block interactivity at all because execution happens during idle periods.
+“空闲到紧急”的策略回避了我在上一节中指出的大多数缺点。在最坏的情况下，它与延迟计算具有完全相同的性能特征；在最好的情况下，它完全不会阻塞用户交互，因为在空闲时间段，代码都已经执行好了。
 
-I should also mention that this strategy works both for single tasks (computing values idly) as well as multiple tasks (an ordered queue of tasks to be run idly). I’ll explain the single-task (idle value) variant first because it’s a bit easier to understand.
+我还得提一点，这个策略既适用于单任务（空闲时间求值），也适用于多任务（一个有序的任务队列，可以空闲时间运行）。我先解释一下单任务（空闲值）变体，因为它更容易理解。
 
-### Idle values
+### 空闲值
 
-I showed above that `Int.DateTimeFormat` objects can be pretty expensive to initialize, so if an instance isn’t needed right away, it’s better to initialize it during an idle period. Of course, as soon as it _is_ needed, you want it to exist, so this is a perfect candidate for _idle-until-urgent_ evaluation.
+我在上文提到过，初始化 `Int.DateTimeFormat` 对象可能非常耗时，因此若不需要立即调用该实例，最好在空闲时间去初始化。当然，一旦需要它，你就希望它存在，所以这是一个完美的可以用“空闲到紧急”策略来解决的例子。
 
-Consider the following simplified component example that we want to refactor to use this new strategy:
+如下是使用我们新策略的简化版组件的例子：
 
 ```
 class MyComponent {
@@ -182,16 +182,16 @@ class MyComponent {
 }
 ```
 
-Instances of `MyComponent` above do two things in their constructor:
+上面的 `MyComponent` 实例在它们的构造函数中做了两件事：
 
-*   Add an event listener for user interactions.
-*   Create an `Intl.DateTimeFormat` object.
+*   为用户交互添加事件侦听器。
+*   创建 `Intl.DateTimeFormat` 对象。
 
-This component perfectly illustrates why you often need to split up tasks _within_ an individual component (rather than just at the component level).
+该组件很好地说明了为什么我们经常需要在单个组件**内部**拆解任务（而不仅仅在组件级别拆解任务）。
 
-In this case it’s really important that the event listeners run right away, but it’s not important that the `Intl.DateTimeFormat` instance is created until it’s needed by the event handler. Of course we don’t want to create the `Intl.DateTimeFormat` object in the event handler because then its slowness will delay that event from running.
+在这种情况下，事件监听器立即运行非常重要，但在事件处理程序需要之前，创建 `Intl.DateTimeFormat` 实例是不必要的。当然我们也不想在事件处理函数中创建`Intl.DateTimeFormat` 对象，因为这样会使事件处理函数变得很慢。
 
-So here’s how we could update this code to use the _idle-until-urgent_ strategy. Note, I’m making use of an `IdleValue` helper class, which I’ll explain next:
+下面就是我们如何使用“空闲到紧急”策略修改的代码。需要注意的是，我使用了 `IdleValue`  帮助类，后续我会进行讲解：
 
 ```
 import {IdleValue} from './path/to/IdleValue.mjs';
@@ -213,11 +213,11 @@ class MyComponent {
 }
 ```
 
-As you can see, this code doesn’t look much different from the previous version, but instead of assigning `this.formatter` to a new `Intl.DateTimeFormat` object, I’m assigning `this.formatter` to an `IdleValue` object, which I pass an initialization function.
+如你所见，此代码和先前的版本没有太大的区别，但在新代码中，我没有将 `this.formatter` 赋值给新的`Intl.DateTimeFormat` 对象，而是在初始化函数中，将 `this.formatter` 赋值给了 `IdleValue` 对象。
 
-The way this `IdleValue` class works is it schedules the initialization function to be run during the next idle period. If the idle period occurs before the IdleValue instance is referenced, then no blocking occurs and the value can be returned immediately when requested. But if, on the other hand, the value is referenced _before_ the next idle period, then the scheduled idle callback is canceled and the initialization function is run immediately.
+`IdleValue` 类的工作方式是调度初始化函数，在下一个空闲期间运行。如果空闲时间在引用 `IdleValue` 实例之前，则不会发生阻塞，而且可以在请求时立即返回该值。但另一方面，如果在下一个空闲时间**之前**引用该值，则取消初始化函数在空闲时间中的调度任务， 并立即运行该函数。
 
-Here’s the gist of how the `IdleValue` class is implemented (note: I’ve also released this code as part of the [`idlize` package](https://github.com/GoogleChromeLabs/idlize), which includes all the helpers shown in this article):
+下面是如何实现 `IdleValue` 类的要点（注意：我已经发布了这段代码，它是[`idlize` package](https://github.com/GoogleChromeLabs/idlize)包的一部分，`idlize` 包含了本文中出现的全部帮助类):
 
 ```
 export class IdleValue {
@@ -241,9 +241,9 @@ export class IdleValue {
 }
 ```
 
-While including the `IdleValue` class in my example above didn’t require many changes, it did technically change the public API (`this.formatter` vs. `this.formatter.getValue()`).
+虽然在上面的示例中包含 `IdleValue` 类并不需要很多修改，但是它在技术上改变了公共 API（ `this.formatter ` vs `this.formatter.getValue()`）。
 
-If you’re in a situation where you want to use the `IdleValue` class but you can’t change your public API, you can use the `IdleValue` class with ES2015 getters:
+如果你想要使用 `IdleValue` 类但却无法修改公共 API ，则可以将 `IdleValue` 类与 ES2015 的 getters一起使用：
 
 ```
 class MyComponent {
@@ -265,7 +265,7 @@ class MyComponent {
 }
 ```
 
-Or, if you don’t mind a little abstraction, you can use the [`defineIdleProperty()`](https://github.com/GoogleChromeLabs/idlize/blob/master/docs/defineIdleProperty.md) helper (which uses `Object.defineProperty()` under the hood):
+或者，如果你不介意抽象一点，你可以使用[`defineIdleProperty()`](https://github.com/GoogleChromeLabs/idlize/blob/master/docs/defineIdleProperty.md)  帮助类（底层使用的是 `Object.defineProperty()`）：
 
 ```
 import {defineIdleProperty} from './path/to/defineIdleProperty.mjs';
@@ -285,21 +285,21 @@ class MyComponent {
 }
 ```
 
-For individual property values that may be expensive to compute, there’s really no reason not to use this strategy, especially since you can employ it without changing your API!
+对于计算耗时很长的单个属性值，没有理由不使用此策略，尤其使用此策略可以不更改你的 API！
 
-While this example used the `Intl.DateTimeFormat` object, it’s also probably a good candidate for any of the following:
+虽然这个例子使用了 `Intl.DateTimeFormat` 对象，但如下情况使用本策略也是一个好的选择：
 
-*   Processing large sets of values.
-*   Getting a value from localStorage (or a cookie).
-*   Running `getComputedStyle()`, `getBoundingClientRect()`, or any other API that may require recalculating style or layout on the main thread.
+*   处理大量数据集。
+*   从 localStorage（或 cookie）中获取值。
+*   运行 `getComputedStyle()` 、`getBoundingClientRect()` 或任何其他可能需要在主线程上重绘样式或布局的 API。
 
-### Idle task queues
+### 空闲任务队列
 
-The above technique works pretty well for individual properties whose values can be computed with a single function, but in some cases your logic doesn’t fit into a single function, or, even if it technically could, you’d still want to break it up into smaller functions because otherwise you’d risk blocking the main thread for too long.
+上述技术适用于可以通过单个函数计算出来的属性，但在某些情况下，逻辑可能无法写到单个函数里，或者，即使技术上可行，您仍然希望将其拆分为更小的一些函数，以免其长时间阻塞中线程。
 
-In such cases what you really need is a queue where you can schedule multiple tasks (functions) to run when the browser has idle time. The queue will run tasks when it can, and it will pause execution of tasks when it needs to yield back to the browser (e.g. if the user is interacting).
+在这种情况下，我们真正​​需要的是一种队列，在浏览器有空闲时间时，可以安排多个任务（函数）运行的先后顺序。队列将在可能的情况下运行任务，并且当需要回退到浏览器时它将暂停执行任务（例如， 如果用户正在进行交互）。
 
-To handle this, I built an [`IdleQueue`](https://github.com/GoogleChromeLabs/idlize) class, and you can use it like this:
+为了解决这个问题，我构建了一个 [`IdleQueue`](https://github.com/GoogleChromeLabs/idlize) 类，可以像这样使用它：
 
 ```
 import {IdleQueue} from './path/to/IdleQueue.mjs';
@@ -316,58 +316,58 @@ queue.pushTask(() => {
 });
 ```
 
-**Note:** breaking up your synchronous JavaScript code into separate tasks that can run asynchronously as part of a task queue is different from [code splitting](https://developers.google.com/web/fundamentals/performance/optimizing-javascript/code-splitting/), which is about breaking up large JavaScript bundles into smaller files (and is also important for improving performance).
+**注意：** 将同步的 JavaScript 代码拆解为可作为任务队列的一部分的异步运行和[代码分割](https://developers.google.com/web/fundamentals/performance/optimizing-javascript/code-splitting/)不同，代码分割是将较大的 JavaScript 包分解为较小的文件的过程（它对于提高性能也很重要）。
 
-As with the idly-initialized property strategy shown above, idle tasks queues also have a way to run immediately in cases where the result of their execution is needed right away (the “urgent” case).
+与上面提到的的空闲时间初始化属性的策略一样，空闲任务队列也可以在需要立即执行结果的情况下立即运行（“紧急”情况）。
 
-Again, this last bit is really important; not just because sometimes you need to compute something as soon as possible, but often you’re integrating with a third-party API that’s synchronous, so you need the ability to run your tasks synchronously as well if you want to be compatible.
+同样，最后一点非常重要；不仅仅因为有时我们需要尽快计算某些东西，还有一个原因是通常我们集成了同步的第三方 API ，我们需要能够同步运行任务，以保证兼容性。
 
-In a perfect world, all JavaScript APIs would be non-blocking, asynchronous, and composed of small chunks of code that can yield at will back to the main thread. But in the real world, we often have no choice but to be synchronous due to a legacy codebase or integrations with third-party libraries we don’t control.
+在理想的情况下，所有 JavaScript API 都是非阻塞的、异步的、代码量小的，并且由能够返回主线程。但在实际情况下，由于遗留的代码库或集成了无法控制的第三方库，我们通常别无选择，只能保持同步。
 
-As I said before, this is one of the great strengths of the _idle-until-urgent_ pattern. It can be easily applied to most programs without requiring a large-scale rewrite of the architecture.
+正如我之前所说，这是“空闲到紧急”策略的巨大优势之一。它可以轻松应用于大多数程序，而无需大规模重写架构。
 
-### Guaranteeing the urgent
+### 保证紧急任务执行
 
-I mentioned above that `requestIdleCallback()` doesn’t come with any guarantees that the callback will ever run. And when talking to developers about `requestIdleCallback()`, this is the primary explanation I hear for why they don’t use it. In many cases the possibility that code might not run is enough of a reason not to use it—to play it safe and keep their code synchronous (and therefore blocking).
+我在上文提到过，`requestIdleCallback()` 不能保证回调函数一定会执行。这也是我在于开发人员讨论 `requestIdleCallback()`时，得到的他们不使用 `requestIdleCallback()` 的主要原因。在许多情况下，代码可能无法运行的足以成为不使用它的理由 —— 开发人员宁愿保持代码同步以保证安全性（即使会发生阻塞）。
 
-A perfect example of this is analytics code. The problem with analytics code is there are many cases where it needs to run when the page is unloading (e.g. tracking outbound link clicks, etc.), and in such cases `requestIdleCallback()` is simply not an option because the callback would never run. And since analytics libraries don’t know when in the page lifecycle their users will call their APIs, they also tend to play it safe and run all their code synchronously (which is unfortunate since analytics code is definitely not critical to the user experience).
+分析代码就是一个很好的例子。分析代码的问题在于，很多情况下，在页面卸载时，分析代码就要运行（例如， 跟踪外链点击等），在这种情况下，显然使用 `requestIdleCallback()` 不合适，因为回调函数根本不会执行。而且由于开发人员不清楚分析库的 API 在页面的生命周期中的调用时机，他们也倾向于安全地运行它并同步运行所有代码（这很不幸，因为分析代码绝对不是用户体验的关键）。
 
-But with the _idle-until-urgent_ pattern, there’s a simple solution to this. All we have to do is ensure the queue is run immediately whenever the page is in a state where it might soon be unloaded.
+但是使用“闲置到紧急”模式，有一个简单的解决方案。我们所要做的就是确保页面只要处于将要卸载的状态，就会立即运行队列中的分析代码。
 
-If you’re familiar with the advice I give in my recent article on the [Page Lifecycle API](https://developers.google.com/web/updates/2018/07/page-lifecycle-api), you’ll know that [the last reliable callback](https://developers.google.com/web/updates/2018/07/page-lifecycle-api#advice-hidden) developers have before a page gets terminated or discarded is the `visibilitychange` event (as the page’s `visibilityState` changes to hidden). And since in the hidden state the user cannot be interacting with the page, it’s a perfect time to run any queued idle tasks.
+如果你熟悉我近期发表在 [Page Lifecycle API](https://developers.google.com/web/updates/2018/07/page-lifecycle-api)的文章中给出的建议，你就会知道在页面被终止或丢弃之前，[最后一个可靠的回调函数](https://developers.google.com/web/updates/2018/07/page-lifecycle-api#advice-hidden)是 `visibilitychange` 事件（因为页面的 `visibilityState` 会变为隐藏）。而且由于在用户无法在页面隐藏的情况下进行交互，因此这正是运行空闲任务的最佳时机。
 
-In fact, if you use the `IdleQueue` class, you can enable this ability with a simple configuration option passed to the constructor.
+实际上，如果你使用了 `IdleQueue` 类，可以通过一个简单的配置项传递给构造函数，来启用该功能。
 
 ```
 const queue = new IdleQueue({ensureTasksRun: true});
 ```
 
-For tasks like rendering, there’s no need to ensure tasks run before the page unloads, but for tasks like saving user state and sending end-of-session analytics, you’ll likely want to set this option to true.
+对于渲染等任务，无需确保在页面卸载之前运行任务，但对于保存用户状态和发送结束回话分析等任务，你可能希望将此选项设置为 `true`。
 
-**Note:** listening for the `visibilitychange` event should be sufficient to ensure tasks run before the page is unloaded, but due to Safari bugs where [the pagehide and visibilitychange events don’t always fire](https://github.com/GoogleChromeLabs/page-lifecycle/issues/2) when users close a tab, you have to implement a small workaround just for Safari. This workaround [is implemented for you](https://github.com/GoogleChromeLabs/idlize/blob/master/IdleQueue.mjs#L60-L69) in the `IdleQueue` class, but if you’re implementing this yourself, you’ll need to be aware of it.
+**注意：** 监听 `visibilitychange` 事件应该足以确保在卸载页面之前运行任务，但是由于 Safari 漏洞，当用户关闭选项卡时，[页面隐藏和 `visibilitychange` 事件并不总是触发](https://github.com/GoogleChromeLabs/page-lifecycle/issues/2)，你必须实现一个解决方案适用于 Safari 浏览器。这个解决方案已经在 `IdleQueue` 类中[为你实现好了](https://github.com/GoogleChromeLabs/idlize/blob/master/IdleQueue.mjs#L60-L69)，但如果你需要自己实现它，则需要了解它。
 
-**Warning!** Do not listen for the `unload` event as a way to run the queue before the page is unloaded. The unload event is not reliable and it can hurt performance in some cases. See my [Page Lifecycle API article](https://developers.google.com/web/updates/2018/07/page-lifecycle-api#the-unload-event) for more details.
+**警告！** 不要使用监听 `unload` 事件的方式来执行页面卸载前需要执行的队列。 `unload` 事件不可靠，在某些情况下还会降低性能。有关更多详细信息，请参阅我在[Page Lifecycle API 上的文章](https://developers.google.com/web/updates/2018/07/page-lifecycle-api#the-unload-event)。
 
-Use cases for idle-until-urgent
+“空闲到紧急”策略的使用场景
 -------------------------------
 
-Any time you have potentially-expensive code you need to run, you should try to break it up into smaller tasks. And if that code isn’t needed right away but may be needed at some point in the future, it’s a perfect use case for _idle-until-urgent_.
+每当要运行可能非常耗时的代码时，应该尝试将其拆解为更小的任务。如果不需要立即运行该代码，但未来某些时候可能需要，那么这就是一个使用“空闲到紧急”策略的完美场景。
 
-In your own code, the first thing I’d suggest to do is look at all your constructor functions, and if any of them run potentially-expensive operations, refactor them to use an [`IdleValue`](https://github.com/GoogleChromeLabs/idlize/blob/master/docs/IdleValue.md) object instead.
+在你自己的代码中，我建议做的第一件事是查看所有构造函数，如果存在可能会很耗时的操作，使用 [`IdleValue`](https://github.com/GoogleChromeLabs/idlize/blob/master/docs/IdleValue.md) 对象重构它们。
 
-For other bits of logic that are essential but not necessarily critical to immediate user interactions, consider adding that logic to an [`IdleQueue`](https://github.com/GoogleChromeLabs/idlize/blob/master/docs/IdleQueue.md). Don’t worry, if at any time you need to run that code immediately, you can.
+对于其他的对于用户交互是必不可少，但不关键的逻辑，请考虑将这些逻辑添加到 [`IdleQueue`](https://github.com/GoogleChromeLabs/idlize/blob/master/docs/IdleQueue.md)中。不用担心，你可以在任何你需要的时候立即运行该代码。
 
-Two specific examples that are particularly amenable to this technique (and are relevant to a large percentage of websites out there) are persisting application state (e.g. with something like Redux) and analytics.
+特别适合使用该技术的两个具体例子（并且与大部分网站相关）是持久化应用状态（如 Redux）和网站分析。
 
-**Note:** these are all use cases where the _intention_ is that tasks should run during idle periods, so it’s not a problem if they don’t run right away. If you need to handle high-priority tasks where the _intention_ is they should run as soon as possible (yet still yielding to input), then `requestIdleCallback()` may not solve your problem.
+**注意：** 这些使用场景的**目的**都是使任务在空闲时间运行，因此如果这些任务不立即运行则没有问题。 如果你需要处理高优先级的任务，**想要**让它们尽快运行（但仍然优先级低于用户输入），那么`requestIdleCallback()` 可能无法解决你的问题。
 
-Fortunately, some of my colleagues have proposals for new web platform APIs ([`shouldYield()`](https://discourse.wicg.io/t/shouldyield-enabling-script-to-yield-to-user-input/2881/17), and a native [Scheduling API](https://github.com/spanicker/main-thread-scheduling/blob/master/README.md)) that should help.
+幸运的是，我的几个同事开发出了新的 web 平台 API([`shouldYield()`](https://discourse.wicg.io/t/shouldyield-enabling-script-to-yield-to-user-input/2881/17)和原生的 [Scheduling API](https://github.com/spanicker/main-thread-scheduling/blob/master/README.md)）可以帮助我们解决这个问题。
 
-### Persisting application state
+### 持久化应用状态
 
-Consider a Redux app that stores application state in memory but also needs to store it in persistent storage (like localStorage) so it can be reloaded the next time the user visits the page.
+我们来看一个 Redux 应用程序，它将应用程序状态存储在内存中，但也需要将其存储在持久化存储（如localStorage）中，以便用户下次访问页面时可以重新加载。
 
-Most Redux apps that store state in localStorage use a debounce technique roughly equivalent to this:
+大多数使用 localStorage 持久化存储状态的 Redux 应用程序使用了防抖技术，大致代码如下：
 
 ```
 let debounceTimeout;
@@ -386,9 +386,9 @@ store.subscribe(() => {
 });
 ```
 
-While using a debounce technique is definitely better than nothing, it’s not a perfect solution. The problem is there’s no guarantee that when the debounced function does run, it won’t block the main thread at a time critical to the user.
+虽然使用防抖技术总比什么都不做强，但它并不是一个完美的解决方案。问题是无法保证防抖函数运行不会阻塞对用户至关重要的主线程。
 
-It’s much better to schedule the localStorage write for an idle time. You can convert the above code from a debounce strategy to an _idle-until-urgent_ strategy as follows:
+在空闲时间执行 localStorage 写入会好得多。你可以将上述代码从防抖策略转换为“空闲到紧急”的策略，如下所示：
 
 ```
 const queue = new IdleQueue({ensureTasksRun: true});
@@ -407,11 +407,11 @@ store.subscribe(() => {
 });
 ```
 
-And note that this strategy is definitely better than using debounce because it guarantees the state gets saved even if the user is navigating away from the page. With the debounce example, the write would likely fail in such a situation.
+请注意，此策略肯定比使用防抖策略更好，因为它能够保证即使用户离开页面之前将状态存储好。 如果使用上面的防抖策略的例子，在用户离开页面的情况下，很有可能写入状态失败。
 
-### Analytics
+### 分析
 
-Another perfect use case for _idle-until-urgent_ is analytics code. Here’s an example of how you can use the `IdleQueue` class to schedule sending your analytics data in a way that ensures it _will be sent_ even if the user closes the tab or navigates away before the next idle period.
+另一个“空闲到紧急”策略适合的场景就是网站分析代码。下面的例子教你如何使用 `IdleQueue` 类来发送你的网站分析数据，并且可以保证即使用户关闭了标签页或跳转到了其他页面，并且还没有到下次空闲时间的时候，这些数据也可以**正常发送**：
 
 ```
 const queue = new IdleQueue({ensureTasksRun: true});
@@ -430,18 +430,18 @@ signupBtn.addEventListener('click', () => {
 });
 ```
 
-In addition to ensuring the urgent, adding this task to the idle queue also ensures it won’t block any other code that’s needed to respond to the user’s click.
+除了可以保证紧急情况之外，把这个任务添加到空闲时间队列也能够确保其不会阻塞响应用户点击事件的其他代码。
 
-In fact, it’s generally a good idea to run _all_ your analytics code idly, including your initialization code. And for libraries like analytics.js whose [API is already effectively a queue](https://developers.google.com/analytics/devguides/collection/analyticsjs/how-analyticsjs-works#the_ga_command_queue), it’s easy to just add these commands to our `IdleQueue` instance.
+实际上，我建议将你所有的网站分析代码放到空闲时间执行，包括初始化代码。而且像 analytics.js 这样的库，其 [API 已经支持命令队列](https://developers.google.com/analytics/devguides/collection/analyticsjs/how-analyticsjs-works#the_ga_command_queue)，我们只需简单地在我们的 `IdleQueue` 实例上添加这些命令。
 
-For example, you can convert the last part of the [default analytics.js installation snippet](https://developers.google.com/analytics/devguides/collection/analyticsjs/#the_javascript_tracking_snippet) from this:
+例如，你可以将[默认的 analytics.js 初始化代码片段](https://developers.google.com/analytics/devguides/collection/analyticsjs/#the_javascript_tracking_snippet)的最后一部分：
 
 ```
 ga('create', 'UA-XXXXX-Y', 'auto');
 ga('send', 'pageview');
 ```
 
-Into this:
+修改为：
 
 ```
 const queue = new IdleQueue({ensureTasksRun: true});
@@ -450,46 +450,46 @@ queue.pushTask(() => ga('create', 'UA-XXXXX-Y', 'auto'));
 queue.pushTask(() => ga('send', 'pageview'));
 ```
 
-(You could also just create a wrapper around the `ga()` function that automatically queues commands, which is [what I did](https://github.com/philipwalton/blog/blob/0670d46/assets/javascript/analytics.js#L114-L127)).
+(你也可以[我做的](https://github.com/philipwalton/blog/blob/0670d46/assets/javascript/analytics.js#L114-L127)一样在 `ga()` 函数外包裹一个包装器，使其能够自动执行队列命令)。
 
-## Browser support for requestIdleCallback
+## requestIdleCallback 的浏览器兼容性
 
-As of this writing, only Chrome and Firefox support `requestIdleCallback()`. And while a true polyfill isn’t really possible (only the browser can know when it’s idle), it’s quite easy to write a fallback to `setTimeout` (all the helper classes and methods mentioned here [use this fallback](https://github.com/GoogleChromeLabs/idlize/blob/master/docs/idle-callback-polyfills.md)).
+在撰写本文时，只有 Chrome 和 Firefox 支持 `requestIdleCallback()`。虽然真正的 polyfill 是不可能的（只有浏览器可以知道它何时空闲），但是使用 setTimeout 作为一个备用方案还是很容易的（本文提到的所有帮助器类和方法都使用这个[备用方案](https://github.com/GoogleChromeLabs/idlize/blob/master/docs/idle-callback-polyfills.md)）。
 
-And even in browsers that don’t support `requestIdleCallback()` natively, the fallback to `setTimeout` is definitely still better than not using this strategy because browsers can still do input prioritization ahead of tasks queued via `setTimeout()`.
+而且即使在不原生支持 `requestIdleCallback()` 的浏览器中，使用 `setTimeout` 这种备用方案也比不用强，因为浏览器仍然是优先处理用户输入，然后是通过 `setTimeout()` 函数创建的队列中的任务。
 
-## How much does this actually improve performance?
+## 使用本策略实际上提高了多少性能？
 
-At the beginning of this article I mentioned I came up with this strategy as I was trying to improve my website’s FID value. I was trying to split up all the code that ran as soon as my main bundle was loaded, but I also needed to ensure my site continued to work with some third-party libraries that only have synchronous APIs (e.g. analytics.js).
+在本文开头我提到我想出了这个策略，因为我试图提高我网站的 FID 值。我尝试拆分我代码中页面开始加载就运行的代码，并且还得保证一些使用同步 API 的第三方库（如 analytics.js）的正常运行。
 
-The trace I showed before implementing _idle-until-urgent_ had a single, 233ms task that contained all my initialization code. After implementing the techniques I described here, you can see I have multiple, much shorter tasks. In fact, the longest one is now only 37ms!
+上文已经提到，在我使用“空闲到紧急”策略之前，我所有初始化代码在一个任务中耗费了 233 毫秒。在使用了这个策略之后，可以看到出现了更多耗时更短的任务。实际上，最长的一个任务也仅仅耗时 37 毫秒！
 
-[![A performance trace of my site's JavaScript showing many short tasks](https://philipwalton.com/static/idle-until-urget-after-4789aca119.png)](https://philipwalton.com/static/idle-until-urget-after-1400w-d526f6cca8.png)
+[![我网站的 JavaScript 性能跟踪图，上面展示了很多短任务。](https://philipwalton.com/static/idle-until-urget-after-4789aca119.png)](https://philipwalton.com/static/idle-until-urget-after-1400w-d526f6cca8.png)
 
-A performance trace of my site's JavaScript showing many short tasks.
+我网站的 JavaScript 性能跟踪图，上面展示了很多短任务。
 
-A really important point to emphasize here is that the same amount of work is being done as before, it’s just now spread out over multiple tasks and run during idle periods.
+需要重点强调的是，使用新策略重构的代码和之前执行的任务的数量是相同的，现在仅仅就是将其分为多个任务，并且在空闲时间里执行它们。
 
-And since no single task is greater than 50ms, none of them affect my time to interactive (TTI), which is great for my lighthouse score:
+因为所有任务都不超过 50 毫秒，所以没有任何一个任务影响我的交互时间（TTI），这对我的 lighthouse 得分很有帮助：
 
-[![My lighthouse report after implementing idle-until-urget - 100s across the board!](https://philipwalton.com/static/lighthouse-report-4721b091da.png)](https://philipwalton.com/static/lighthouse-report-1400w-1136c250ac.png)
+[![使用了“空闲到紧急”策略后，我的 lighthouse 报告。 - 全部 100 分！](https://philipwalton.com/static/lighthouse-report-4721b091da.png)](https://philipwalton.com/static/lighthouse-report-1400w-1136c250ac.png)
 
-My lighthouse report after implementing _idle-until-urget_.
+使用了“空闲到紧急”策略后，我的 lighthouse 报告。
 
-Lastly, since the point of all this work was to improve my FID, after releasing these changes to production and looking at the results, I was thrilled to discover _a 67% reduction in FID values at the 99th percentile!_
+最后, 由于本工作的目的是提高我网站的 FID, 在将这些变更上线之后, 经过分析，我非常兴奋地看到了**对于99%页面的 FID 减小了 67%！**
 
 | Code version | FID (p99) | FID (p95) | FID (p50) |
 | ------------ | --------- | --------- | --------- |
 | Before _idle-until-urgent_ | **254ms** | 20ms | 3ms |
 | After _Idle-until-urgent_ | **85ms** | 16ms | 3ms |
 
-## Conclusions
+## 总结
 
-In a perfect world, none of our sites would ever block the main thread unnecessarily. We’d all be using web workers to do our non-UI work, and we’d have [`shouldYield()`](https://discourse.wicg.io/t/shouldyield-enabling-script-to-yield-to-user-input/2881/17) and a native [Scheduling API](https://github.com/spanicker/main-thread-scheduling/blob/master/README.md)) built into the browser.
+在理想情况下，没有网站再会去不必要的阻塞主线程了。我们会使用 web worker 来处理我们非 UI 的工作，而且我们还有浏览器内置好的 [`shouldYield()`](https://discourse.wicg.io/t/shouldyield-enabling-script-to-yield-to-user-input/2881/17) 和原生的 [Scheduling API](https://github.com/spanicker/main-thread-scheduling/blob/master/README.md)）。
 
-But in our current world, we web developers often have no choice but to run non-UI code on the main thread, which leads to unresponsiveness and jank.
+但在实际情况下，我们网站工程师往往没有选择，只能将非 UI 的代码放到主线程去执行，这导致了网页出现无响应的问题。
 
-Hopefully this article has convinced you of the need to break up our long-running JavaScript tasks. And since _idle-until-urgent_ can turn a synchronous-looking API into something that actually evaluates code in idle periods, it’s a great solution that works with the libraries we all know and use today.
+希望这篇文章已经说服了你，是时候去打破我们的长耗时 JavaScript 任务了。而且“空闲到紧急”能够把看起来同步的 API 转到空闲时间运行，能够和所有我们已知的和在使用中的工具库结合，“空闲到紧急”是一个极好的解决方案。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
