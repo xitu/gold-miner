@@ -19,7 +19,7 @@ console.log(‘Here’) //程序是否执行到某一个确切的函数
 
 在本篇文章中，我会提到以下内容：在 Chrome 开发者工具中使用断点、跟踪代码、设置监测表达式和应用修复程序。
 
-> **为了能够跟上我的对  Chrome 开发者工具的介绍，你需要使用我创建的一个简单的例子。** [**点击链接**](https://chromedevtoolsdemo.herokuapp.com/)**(可能会花一点时间加载它)**
+> **为了能够跟上我的对  Chrome 开发者工具的介绍，你需要使用我创建的一个简单的例子。** [**点击链接**](https://chromedevtoolsdemo.herokuapp.com/)**（可能会花一点时间加载它）**
 
 ### Step 1：重现 Bug
 
