@@ -7,6 +7,8 @@
 
 # EXPLORATORY STATISTICAL DATA ANALYSIS WITH A KAGGLE DATASET USING PANDAS
 
+![](http://www.dataden.tech/wp-content/uploads/2018/09/runninggu.jpg)
+
 Sometimes, when facing a Data problem, we must first dive into the Dataset and learn about it. Its properties, its distributions — we need to immerse in the domain.
 
 Today we’ll leverage [Python’s Pandas framework](https://towardsdatascience.com/exploratory-data-analysis-with-pandas-and-jupyter-notebooks-36008090d813) for Data Analysis, and Seaborn for Data Visualization.
