@@ -2,42 +2,42 @@
 > * 原文作者：[Reuben Morais](https://hacks.mozilla.org/author/rmoraismozilla-com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/speech-recognition-deepspeech.md](https://github.com/xitu/gold-miner/blob/master/TODO1/speech-recognition-deepspeech.md)
-> * 译者：
-> * 校对者：
+> * 译者：[sisibeloved](https://github.com/sisibeloved)
+> * 校对者：[lsvih](https://github.com/lsvih)
 
-# Streaming RNNs in TensorFlow
+# TensorFlow 中的 RNN 串流
 
-The Machine Learning team at [Mozilla Research](http://research.mozilla.org/) continues to work on an automatic speech recognition engine as part of [Project DeepSpeech](https://github.com/mozilla/DeepSpeech), which aims to make speech technologies and trained models openly available to developers. We’re hard at work improving performance and ease-of-use for our open source speech-to-text engine. The upcoming 0.2 release will include a much-requested feature: the ability to do speech recognition live, as the audio is being recorded. This blog post describes how we changed the STT engine’s architecture to allow for this, achieving real-time transcription performance. Soon, you’ll be able to transcribe audio at least as fast as it’s coming in.
+[谋智（Mozilla）研究所](http://research.mozilla.org/)的机器学习团队正在开发一个自动语音识别引擎，它将作为[深度语音（DeepSpeech）项目](https://github.com/mozilla/DeepSpeech)的一部分，致力于向开发人员开放语音识别技术和预训练模型。我们正在努力提高我们开源的语音转文本引擎的性能和易用性。即将发布的 0.2 版本将包括一个大家期待已久的特性：在录制音频时实时进行语音识别的能力。这篇博客文章描述了我们是怎样修改 STT（即 speech-to-text，语音转文字）引擎的架构，来达到实现实时转录的性能要求。不久之后，等到正式版本发布，你就可以体验这一音频转换的功能。
 
-When applying neural networks to sequential data like audio or text, it’s important to capture patterns that emerge over time. Recurrent neural networks (RNNs) are neural networks that “remember” — they take as input not just the next element in the data, but also a state that evolves over time, and use this state to capture time-dependent patterns. Sometimes, you may want to capture patterns that depend on future data as well. One of the ways to solve this is by using two RNNs, one that goes forward in time and one that goes backward, starting from the last element in the data and going to the first element. You can learn more about RNNs (and about the specific type of RNN used in DeepSpeech) in [this article by Chris Olah](https://colah.github.io/posts/2015-08-Understanding-LSTMs/).
+当将神经网络应用到诸如音频或文本的顺序数据时，捕获数据随着时间推移而出现的模式是很重要的。循环神经网络（RNN）是具有『记忆』的神经网络 —— 它们不仅将数据中的下一个元素作为输入，而且还将随时间演进的状态作为输入，并使用这个状态来捕获与时间相关的模式。有时，你可能希望捕获依赖未来数据的模式。解决这个问题的方法之一是使用两个 RNN，一个在时序上向前，而另一个按向后的时序（即从数据中的最后一个元素开始，到第一个元素）。你可以在 [Chris Olah 的这篇文章](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)中了解更多关于 RNN（以及关于 DeepSpeech 中使用的特定类型的 RNN）的知识。
 
-## Using a bidirectional RNN
+## 使用双向 RNN
 
-The current release of DeepSpeech ([previously covered on Hacks](https://hacks.mozilla.org/2017/11/a-journey-to-10-word-error-rate/)) uses a bidirectional RNN implemented with [TensorFlow](https://www.tensorflow.org/), which means it needs to have the entire input available before it can begin to do any useful work. One way to improve this situation is by implementing a streaming model: Do the work in chunks, as the data is arriving, so when the end of the input is reached, the model is already working on it and can give you results more quickly. You could also try to look at partial results midway through the input.
+DeepSpeech 的当前版本（[之前在 Hacks 上讨论过](https://hacks.mozilla.org/2017/11/a-journey-to-10-word-error-rate/)）使用了用 [TensorFlow](https://www.tensorflow.org/) 实现的双向 RNN，这意味着它需要在开始工作之前具有整个可用的输入。一种改善这种情况的方法是通过实现流式模型：在数据到达时以块为单位进行工作，这样当输入结束时，模型已经在处理它，并且可以更快地给出结果。你也可以尝试在输入中途查看部分结果。
 
 ![This animation shows how the data flows through the network. Data flows from the audio input to feature computation, through three fully connected layers. Then it goes through a bidirectional RNN layer, and finally through a final fully connected layer, where a prediction is made for a single time step.](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/09/bidirectional.gif)
 
-This animation shows how the data flows through the network. Data flows from the audio input to feature computation, through three fully connected layers. Then it goes through a bidirectional RNN layer, and finally through a final fully connected layer, where a prediction is made for a single time step.
+> 这个动画展示了数据如何在网络间流动。数据通过三个全连接层，从音频输入转变成特征计算。然后通过了一个双向 RNN 层，最后通过对单个时间步长进行预测的全连接层。
 
-In order to do this, you need to have a model that lets you do the work in chunks. Here’s the diagram of the current model, showing how data flows through it.
+为了做到这一点，你需要有一个可以分块处理数据的模型。这是当前模型的图表，显示数据如何流过它。
 
-As you can see, on the bidirectional RNN layer, the data for the very last step is required for the computation of the second-to-last step, which is required for the computation of the third-to-last step, and so on. These are the red arrows in the diagram that go from right to left.
+可以看到，在双向 RNN 中，倒数第二步的计算需要最后一步的数据，倒数第三步的计算需要倒数第二步的数据……如此循环往复。这些是图中从右到左的红色箭头。
 
-We could implement partial streaming in this model by doing the computation up to layer three as the data is fed in. The problem with this approach is that it wouldn’t gain us much in terms of latency: Layers four and five are responsible for almost half of the computational cost of the model.
+通过在数据被馈入时进行到第三层的计算，我们可以实现部分流式处理。这种方法的问题是它在延迟方面不会给我们带来太多好处：第四层和第五层占用了整个模型几乎一半的计算成本。
 
-## Using a unidirectional RNN for streaming
+## 使用单向 RNN 处理串流
 
-Instead, we can replace the bidirectional layer with a unidirectional layer, which does not have a dependency on future time steps. That lets us do the computation all the way to the final layer as soon as we have enough audio input.
+因此，我们可以用单向层替换双向层，单向层不依赖于将来的时间步。只要我们有足够的音频输入，就能一直计算到最后一层。
 
-With a unidirectional model, instead of feeding the entire input in at once and getting the entire output, you can feed the input piecewise. Meaning, you can input 100ms of audio at a time, get those outputs right away, and save the final state so you can use it as the initial state for the next 100ms of audio.
+使用单向模型，你可以分段地提供输入，而不是在同一时间输入整个输入并获得整个输出。也就是说，你可以一次输入 100ms 的音频，立即获得这段时间的输出，并保存最终状态，这样可以将其用作下一个 100ms 的音频的初始状态。
 
 ![An alternative architecture that uses a unidirectional RNN in which each time step only depends on the input at that time and the state from the previous step.](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/09/unidirectional.png)
 
-An alternative architecture that uses a unidirectional RNN in which each time step only depends on the input at that time and the state from the previous step.
+> 一种使用单向 RNN 的备选架构，其中每个时间步长仅取决于即时的输入和来自前一步的状态。
 
-Here’s code for creating an inference graph that can keep track of the state between each input window:
+下面是创建一个推理图的代码，它可以跟踪每个输入窗口之间的状态：
 
-```
+```python
 import tensorflow as tf
 
 def create_inference_graph(batch_size=1, n_steps=16, n_features=26, width=64):
@@ -55,29 +55,29 @@ def create_inference_graph(batch_size=1, n_steps=16, n_features=26, width=64):
                                        name='previous_state_h')
     previous_state = tf.contrib.rnn.LSTMStateTuple(previous_state_c, previous_state_h)
 
-    # Transpose from batch major to time major
+    # 从以批次为主转置成以时间为主
     input_ = tf.transpose(input_ph, [1, 0, 2])
 
-    # Flatten time and batch dimensions for feed forward layers
+    # 展开以契合前馈层的维度
     input_ = tf.reshape(input_, [batch_size*n_steps, n_features])
 
-    # Three ReLU hidden layers
+    # 三个隐含的 ReLU 层
     layer1 = tf.contrib.layers.fully_connected(input_, width)
     layer2 = tf.contrib.layers.fully_connected(layer1, width)
     layer3 = tf.contrib.layers.fully_connected(layer2, width)
 
-    # Unidirectional LSTM
+    # 单向 LSTM
     rnn_cell = tf.contrib.rnn.LSTMBlockFusedCell(width)
     rnn, new_state = rnn_cell(layer3, initial_state=previous_state)
     new_state_c, new_state_h = new_state
 
-    # Final hidden layer
+    # 最终的隐含层
     layer5 = tf.contrib.layers.fully_connected(rnn, width)
 
-    # Output layer
+    # 输出层
     output = tf.contrib.layers.fully_connected(layer5, ALPHABET_SIZE+1, activation_fn=None)
 
-    # Automatically update previous state with new state
+    # 用新的状态自动更新原先的状态
     state_update_ops = [
         tf.assign(previous_state_c, new_state_c),
         tf.assign(previous_state_h, new_state_h)
@@ -85,7 +85,7 @@ def create_inference_graph(batch_size=1, n_steps=16, n_features=26, width=64):
     with tf.control_dependencies(state_update_ops):
         logits = tf.identity(logits, name='logits')
 
-    # Create state initialization operations
+    # 创建初始化状态
     zero_state = tf.zeros([batch_size, n_cell_dim], tf.float32)
     initialize_c = tf.assign(previous_state_c, zero_state)
     initialize_h = tf.assign(previous_state_h, zero_state)
@@ -103,11 +103,11 @@ def create_inference_graph(batch_size=1, n_steps=16, n_features=26, width=64):
     }
 ```
 
-The graph created by the code above has two inputs and two outputs. The inputs are the sequences and their lengths. The outputs are the logits and a special “initialize_state” node that needs to be run at the beginning of a new sequence. When freezing the graph, make sure you don’t freeze the state variables previous_state_h and previous_state_c.
+上述代码创建的图有两个输入和两个输出。输入是序列及其长度。输出是 `logit` 和一个需要在一个新序列开始运行的特殊节点 `initialize_state`。当固化图像时，请确保不固化状态变量 `previous_state_h` 和 `previous_state_c`。
 
-Here’s code for freezing the graph:
+下面是固化图的代码:
 
-```
+```python
 from tensorflow.python.tools import freeze_graph
 
 freeze_graph.freeze_graph_with_def_protos(
@@ -122,29 +122,29 @@ freeze_graph.freeze_graph_with_def_protos(
         variable_names_blacklist='previous_state_c,previous_state_h')
 ```
 
-With these changes to the model, we can use the following approach on the client side:
+通过以上对模型的更改，我们可以在客户端采取以下步骤：
 
-1.  Run the “initialize_state” node.
-2.  Accumulate audio samples until there’s enough data to feed to the model (16 time steps in our case, or 320ms).
-3.  Feed through the model, accumulate outputs somewhere.
-4.  Repeat 2 and 3 until data is over.
+1.  运行 `initialize_state` 节点。
+2.  积累音频样本，直到数据足以供给模型（我们使用的是 16 个时间步长，或 320ms）
+3.  将数据供给模型，在某个地方积累输出。
+4.  重复第二步和第三步直到数据结束。
 
-It wouldn’t make sense to drown readers with hundreds of lines of the client-side code here, but if you’re interested, it’s all MPL 2.0 licensed and available on [GitHub](https://github.com/mozilla/DeepSpeech). We actually have two different implementations, [one in Python](https://github.com/mozilla/DeepSpeech/blob/bb299dc26554b2fbf864b7f0115b4baece15bda5/evaluate.py#L233) that we use for generating test reports, and [one in C++](https://github.com/mozilla/DeepSpeech/blob/6f27928841c2595c8dd9d08f482c95ca9e42f4b5/native_client/deepspeech.cc) which is behind our official client API.
+把几百行的客户端代码扔给读者是没有意义的，但是如果你感兴趣的话，可以查阅 [GitHub 中的代码](https://github.com/mozilla/DeepSpeech)，这些代码均遵循 MPL 2.0 协议。事实上，我们有两种不同语言的实现，一个用 [Python](https://github.com/mozilla/DeepSpeech/blob/bb299dc26554b2fbf864b7f0115b4baece15bda5/evaluate.py#L233)，用来生成测试报告；另一个用 [C++](https://github.com/mozilla/DeepSpeech/blob/6f27928841c2595c8dd9d08f482c95ca9e42f4b5/native_client/deepspeech.cc)，这是我们官方的客户端 API。
 
-## Performance improvements
+## 性能提升
 
-What does this all mean for our STT engine? Well, here are some numbers, compared with our current stable release:
+这些架构上的改动对我们的 STT 引擎能造成怎样的影响？下面有一些与当前稳定版本相比较的数字：
 
-*   Model size down from 468MB to 180MB
-*   Time to transcribe: 3s file on a laptop CPU, down from 9s to 1.5s
-*   Peak heap usage down from 4GB to 20MB (model is now memory-mapped)
-*   Total heap allocations down from 12GB to 264MB
+*   模型大小从 468MB 减小至 180MB
+*   转录时间：一个时长 3s 的文件，运行在笔记本 CPU上，所需时间从 9s 降至 1.5s
+*   堆内存的峰值占用量从 4GB 降至 20MB（模型现在是内存映射的）
+*   总的堆内存分配从 12GB 降至 264MB
 
-Of particular importance to me is that we’re now faster than real time without using a GPU, which, together with streaming inference, opens up lots of new usage possibilities like live captioning of radio programs, Twitch streams, and keynote presentations; home automation; voice-based UIs; and so on. If you’re looking to integrate speech recognition in your next project, consider using our engine!
+我觉得最重要的一点，我们现在能在不使用 GPU 的情况下满足实时的速率，这与流式推理一起，开辟了许多新的使用可能性，如无线电节目、Twitch 流和 keynote 演示的实况字幕；家庭自动化；基于语音的 UI；等等等等。如果你想在下一个项目中整合语音识别，考虑使用我们的引擎！
 
-Here’s a small Python program that demonstrates how to use libSoX to record from the microphone and feed it into the engine as the audio is being recorded.
+下面是一个小型 Python 程序，演示了如何使用 libSoX 库调用麦克风进行录音，并在录制音频时将其输入引擎。
 
-```
+```python
 import argparse
 import deepspeech as ds
 import numpy as np
@@ -195,13 +195,13 @@ except KeyboardInterrupt:
     subproc.wait()
 ```
 
-Finally, if you’re looking to contribute to Project DeepSpeech itself, we have plenty of opportunities. The codebase is written in Python and C++, and we would love to add iOS and Windows support, for example. Reach out to us via our [IRC channel](irc://irc.mozilla.org/#machinelearning) or our [Discourse forum](https://discourse.mozilla.org/c/deep-speech).
+最后，如果你想为深度语音项目做出贡献，我们有很多机会。代码库是用 Python 和 C++ 编写的，并且我们将添加对 iOS 和 Windows 的支持。通过我们的 [IRC 频道](irc://irc.mozilla.org/#machinelearning)或我们的 [Discourse 论坛](https://discourse.mozilla.org/c/deep-speech)来联系我们。
 
-## About Reuben Morais
+## 关于 Reuben Morais
 
-Reuben is an engineer on the Machine Learning group at Mozilla Research.
+Reuben 是谋智研究所机器学习小组的一名工程师。
 
-[More articles by Reuben Morais…](https://hacks.mozilla.org/author/rmoraismozilla-com/)
+[Reuben Morais 的更多文章…](https://hacks.mozilla.org/author/rmoraismozilla-com/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
