@@ -5890,21 +5890,6 @@
 |[利用 Keras 深度学习库进行词性标注教程](https://juejin.im/post/5ae4613a5188256727742d7d)|校对|1|
 |[GAN 的 Keras 实现：构建图像去模糊应用](https://juejin.im/post/5ad6e358f265da237b229bb2)|校对|1|
 
-## 译者：[SergeyChang](https://github.com/SergeyChang) 历史贡献积分：25 当前积分：25 年度积分：25
-
-|文章|类型|积分|
-|------|-------|-------|
-|[那些我们不需要的 HTTP 头信息](https://juejin.im/post/5b06c89df265da0db35022d8)|翻译|4.5|
-|[使用 Go 语言的流模式来解析 DrugBank 的 XML（或者任何大的 XML 文件）](https://juejin.im/entry/5b06322a6fb9a07aab2a3d44)|校对|1.5|
-|[可微可塑性：一种学会学习的新方法](https://juejin.im/post/5b055308f265da0ba063879d)|校对|0.5|
-|[给初学者的 Jupyter Notebook 教程](https://juejin.im/post/5af8d3776fb9a07ab7744dd0)|翻译|10|
-|[BigQuery 中的比特币：使用公共数据分析区块链](https://juejin.im/post/5afc17b16fb9a07aaf35673a)|校对|1|
-|[使用 Go 和 AWS Lambda 构建无服务 API](https://juejin.im/post/5af4082f518825672a02f262)|校对|1.5|
-|[为什么你应该开始使用 Kotlin](https://juejin.im/post/5adc1826f265da0b767d0db2)|校对|1|
-|[区块链如何帮助重塑医疗保健行业](https://juejin.im/post/5ad449b56fb9a028c6762db5)|校对|2|
-|[用不到 200 行的 GO 语言编写您自己的区块链](https://juejin.im/post/5ad95b056fb9a07aa349cd41)|校对|2|
-|[GAN 的 Keras 实现：构建图像去模糊应用](https://juejin.im/post/5ad6e358f265da237b229bb2)|校对|1|
-
 ## 译者：[radialine](https://github.com/radialine) 历史贡献积分：6 当前积分：6 年度积分：6
 
 |文章|类型|积分|
@@ -6262,7 +6247,7 @@
 |[自然语言处理真是有趣](https://juejin.im/post/5b6d08e2f265da0f9c67cf0b)|校对|3|
 |[支撑现代存储系统的算法](https://juejin.im/post/5b10f80b5188257d92206851)|校对|1.5|
 
-## 译者：[7Ethan](https://github.com/7Ethan) 历史贡献积分：10.5 当前积分：10.5 年度积分：10.5
+## 译者：[7Ethan](https://github.com/7Ethan) 历史贡献积分：35.5 当前积分：35.5 年度积分：35.5
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -6270,6 +6255,16 @@
 |[容器，虚拟机以及 Docker 的初学者入门介绍](https://juejin.im/entry/5bada97f6fb9a05d0e2e7014/detail)|校对|2|
 |[Erlang 之禅第二部分](https://juejin.im/post/5b3ea3ed6fb9a04fb8772a2c)|翻译|5.5|
 |[Erlang 之禅第一部分](https://juejin.im/post/5b2a16cce51d4558d726e8c9)|校对|1.5|
+|[那些我们不需要的 HTTP 头信息](https://juejin.im/post/5b06c89df265da0db35022d8)|翻译|4.5|
+|[使用 Go 语言的流模式来解析 DrugBank 的 XML（或者任何大的 XML 文件）](https://juejin.im/entry/5b06322a6fb9a07aab2a3d44)|校对|1.5|
+|[可微可塑性：一种学会学习的新方法](https://juejin.im/post/5b055308f265da0ba063879d)|校对|0.5|
+|[给初学者的 Jupyter Notebook 教程](https://juejin.im/post/5af8d3776fb9a07ab7744dd0)|翻译|10|
+|[BigQuery 中的比特币：使用公共数据分析区块链](https://juejin.im/post/5afc17b16fb9a07aaf35673a)|校对|1|
+|[使用 Go 和 AWS Lambda 构建无服务 API](https://juejin.im/post/5af4082f518825672a02f262)|校对|1.5|
+|[为什么你应该开始使用 Kotlin](https://juejin.im/post/5adc1826f265da0b767d0db2)|校对|1|
+|[区块链如何帮助重塑医疗保健行业](https://juejin.im/post/5ad449b56fb9a028c6762db5)|校对|2|
+|[用不到 200 行的 GO 语言编写您自己的区块链](https://juejin.im/post/5ad95b056fb9a07aa349cd41)|校对|2|
+|[GAN 的 Keras 实现：构建图像去模糊应用](https://juejin.im/post/5ad6e358f265da237b229bb2)|校对|1|
 
 ## 译者：[Moosphan](https://github.com/Moosphan) 历史贡献积分：3 当前积分：3 年度积分：3
 
