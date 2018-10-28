@@ -5454,10 +5454,11 @@
 |[在 V8 引擎中设置原型（prototypes）](https://juejin.im/post/5a9921e76fb9a028bd4bc3c4)|校对|1|
 |[json — JavaScript 对象表示法](https://juejin.im/post/5a9432ae5188257a5c6092b0)|校对|1|
 
-## 译者：[rydensun](https://github.com/rydensun) 历史贡献积分：64 当前积分：54 年度积分：64
+## 译者：[rydensun](https://github.com/rydensun) 历史贡献积分：64.5 当前积分：54.5 年度积分：64.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐优秀英文文章|奖励|0.5|
 |[动效设计可以很简单](https://juejin.im/post/5bd11a176fb9a05d101423c0)|翻译|4|
 |[如何让你的设计系统被广泛采用](https://juejin.im/post/5bb6118af265da0af609c581)|翻译|7|
 |[如何创建一个设计体系来赋能团队 —— 关注人，而非像素](https://juejin.im/post/5bac2a2fe51d450e942f4853)|校对|3.5|
@@ -6013,11 +6014,12 @@
 |------|-------|-------|
 |[使用 python 和 keras 实现卷积神经网络](https://juejin.im/post/5aefb0f351882567336aa3c7)|校对|1|
 
-## 译者：[shery](https://github.com/shery) 历史贡献积分：34 当前积分：4 年度积分：34
+## 译者：[shery](https://github.com/shery) 历史贡献积分：38 当前积分：8 年度积分：38
 
 |文章|类型|积分|
 |------|-------|-------|
-|推荐优秀英文文章|奖励|1|
+|现代 JavaScript 教程纠错|奖励|1|
+|推荐优秀英文文章|奖励|4|
 |推荐优秀英文文章|奖励|1|
 |[./dogs.html 和 /dogs.html 间有什么区别？](https://juejin.im/post/5ba7a5dfe51d450e4a1bc136)|翻译|2|
 |2018 年 9 月兑 Octoplush 1 个|减去积分|30|
@@ -6663,10 +6665,12 @@
 |------|-------|-------|
 |[Slidable：一个 Flutter 的故事](https://juejin.im/post/5b5e84b86fb9a04fa91bfeb6)|校对|1.5|
 
-## 译者：[CoolRice](https://github.com/CoolRice) 历史贡献积分：56.5 当前积分：56.5 年度积分：56.5
+## 译者：[CoolRice](https://github.com/CoolRice) 历史贡献积分：60 当前积分：60 年度积分：60
 
 |文章|类型|积分|
 |------|-------|-------|
+|现代 JavaScript 教程纠错|奖励|3|
+|推荐优秀英文文章|奖励|0.5|
 |[现代浏览器内部揭秘（第四部分）](https://juejin.im/post/5bc95247e51d450e40072e49)|校对|1.5|
 |[以面试官的角度来看 React 工作面试](https://juejin.im/post/5bca74cfe51d450e9163351b)|翻译|6.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|11|
@@ -6940,3 +6944,15 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[动效设计可以很简单](https://juejin.im/post/5bd11a176fb9a05d101423c0)|校对|1.5|
+
+## 译者：[2qif49lt](https://github.com/2qif49lt) 历史贡献积分：1 当前积分：1 年度积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|推荐优秀英文文章|奖励|1|
+
+## 译者：[poorli](https://github.com/poorli) 历史贡献积分：1 当前积分：1 年度积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[修订译文 https://github.com/xitu/gold-miner/pull/4636](https://github.com/xitu/gold-miner/pull/4636)|奖励|1|
