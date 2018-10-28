@@ -2,64 +2,63 @@
 > * 原文作者：[Nicholas Samuel](https://stackabuse.com/how-to-format-dates-in-python/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-format-dates-in-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-format-dates-in-python.md)
-> * 译者：
+> * 译者：[Raoul1996](https://github.com/Raoul1996)
 > * 校对者：
 
-# How to Format Dates in Python
+# Python 中如何格式化日期
 
-## Introduction
+## 介绍
 
-Python comes with a variety of useful objects that can be used out of the box. Date objects are examples of such objects. Date types are difficult to manipulate from scratch, due to the complexity of dates and times. However, Python date objects make it extremely easy to convert dates into the desirable string formats.
+Python 附带了各种有用的对象，可以直接使用。例如日期对象就是一个例子。由于日期和时间的复杂性，日期类型很难从头开始操作。所幸，Python 日期对象使得将日期转换成所需的字符串格式变得相当容易。
 
-Date formatting is one of the most important tasks that you will face as a programmer. Different regions around the world have different ways of representing dates/times, therefore your goal as a programmer is to present the date values in a way that is readable to the users.
+日期格式化是作为程序员的你最重要的任务之一。不同地区表示日期/时间的方法各不相同，因此你作为程序员的一大目标是以用户可读的方式显示日期值。
 
-For example, you may need to represent a date value numerically like "02-23-2018". On the flip side, you may need to write the same date value in a longer textual format like "Feb 23, 2018". In another scenario, you may want to extract the month in string format from a numerically formated date value.
+例如，你可能需要用数字格式表示日期值，如 “02-23-2018”。另一方面，你可能需要以更长的文本格式（如 “Feb 23,2018“）表示相同的日期。在另一种情况下，你可能希望从数字格式的日期值中提取出字符串格式的月份。
 
-In this article, we will study different types of date objects along with their functionalities.
+在本文中，我们将研究不同类型的日期对象及其功能。
 
-### The datetime Module
-
-Python's `datetime` module, as you probably guessed, contains methods that can be used to work with date and time values. To use this module, we first import it via the `import` statement as follows:
+### datetime 模块
+正如你猜到的， Python 的 `datetime` 模块包含可用于处理日期和时间值的方法。要使用这个模块，我们得先通过以下 `import` 语句将其导入：
 
 ```
 import datetime
 ```
 
-We can represent time values using the `time` class. The attributes for the `time` class include the hour, minute, second and microsecond.
+我们可以使用 `time` 类表示时间值。时间类的属性包括小时、分钟、秒和微秒。
 
-The arguments for the `time` class are optional. Although if you don't specify any argument you will get back a time of 0, which is unlikely to be what you need most of the time.
+`time` 类的参数是可选的。尽管不指定任何参数，你将获得 0 的时间（对象），但这大多数时候不太可能是你需要的。
 
-For example, to initialize a time object with a value of 1 hour, 10 minutes, 20 seconds and 13 microseconds, we can run the following command:
+例如，要初始化值为 1 小时、10 分种、20 秒、13 微秒的时间对象，我们可以运行以下命令：
 
 ```
 t = datetime.time(1, 10, 20, 13)
 ```
 
-To see the time, let's use the `print` function:
+让我们使用 print 功能来查看时间：
 
 ```
 print(t)
 ```
 
-**Output:**
+**输出：**
 
 ```
 01:10:20.000013
 ```
 
-You may need to see either the hour, minute, second, or microsecond only, here is how you can do so:
+你可能只需要查看小时、分钟、秒或者微秒，您可以像下边这么做：
 
 ```
 print('hour:', t.hour)
 ```
 
-**Output:**
+**输出：**
 
 ```
 hour: 1
 ```
 
-The minutes, seconds and microseconds for the above time can be retrieved as follows:
+可以按照如下方式检索上述时间（对象）的分钟、秒或者微秒:
 
 ```
 print('Minutes:', t.minute)
@@ -67,7 +66,7 @@ print('Seconds:', t.second)
 print('Microsecond:', t.microsecond)
 ```
 
-**Output:**
+**输出：**
 
 ```
 Minutes: 10
@@ -75,9 +74,9 @@ Seconds: 20
 Microseconds: 13
 ```
 
-The values for the calendar date can be represented via the `date` class. The instances will have attributes for year, month, and day.
+日历日期指可以通过 `date` 类表示。示例具有的属性有年、月和日。
 
-Let us call the `today` method to see today's date:
+让我们来调用 `today` 方法来查看今天的日期：
 
 ```
 import datetime
@@ -86,29 +85,29 @@ today = datetime.date.today()
 print(today)
 ```
 
-**Output:**
+**输出：**
 
 ```
 2018-09-15
 ```
 
-The code will return the date for today, therefore the output you see will depend on the day you run the above script.
+代码将返回今天的日期，因此你看到的输出取决于你运行脚本的日期。
 
-Now let's call the `ctime` method to print the date in another format:
+现在我们调用 `ctime` 方法以另一种格式打印日期：
 
 ```
 print('ctime:', today.ctime())
 ```
 
-**Output:**
+**输出：**
 
 ```
 ctime: Sat Sep 15 00:00:00 2018
 ```
 
-The `ctime` method uses a longer date-time format than the examples we saw before. This method is primarily used for converting Unix-time (the number of seconds since Jan. 1st, 1970) to a string format.
+`ctime` 方法会使用比我们之前看到的示例更长的日期时间格式。此方法主要用于将 Unix 时间（从 1970 年 1 月 1 日以来的秒数）准换为字符串格式。
 
-And here is how we can display the year, the month, and the day using the `date` class:
+以下是我们如何使用 `date` 类显示年份，月份和日期：
 
 ```
 print('Year:', today.year)
@@ -116,7 +115,7 @@ print('Month:', today.month)
 print('Day :', today.day)
 ```
 
-**Output**
+**输出**
 
 ```
 Year: 2018
@@ -125,19 +124,19 @@ Month: 9
 Day : 15
 ```
 
-### Converting Dates to Strings with strftime
+### 使用 strfttime 将日期转换为字符串
 
-Now that you know how to create Date and Time objects, let us learn how to format them into more readable strings.
+既然你已经知道如何创建时间和日期对象，那么让我们学习如何将它们格式化为更易读的字符串。
 
-To achieve this, we will be using the `strftime` method. This method helps us convert date objects into readable strings. It takes two parameters, as shown in the following syntax:
+为此，我们将使用 `strftime` 方法。这个方法可以帮助我们将日期对象转换为可读字符串。它需要两个参数，语法如下所示：
 
 ```
 time.strftime(format, t)
 ```
 
-The first parameter is the format string, while the second parameter is the time to be formatted, which is optional.
+第一个参数是格式字符串，第二个参数是格式化的时间，可选值。
 
-This method can also be used on a `datetime` object directly, as shown in the following example:
+这个方法也可以在 `datetime` 对象上直接调用。如以下示例所示：
 
 ```
 import datetime
@@ -147,22 +146,22 @@ x = datetime.datetime(2018, 9, 15)
 print(x.strftime("%b %d %Y %H:%M:%S"))
 ```
 
-**Output:**
+**输出：**
 
 ```
 Sep 15 2018 00:00:00
 ```
 
-We have used the following character strings to format the date:
+我们使用以下字符串来格式化日期:
 
-*   `%b`: Returns the first three characters of the month name. In our example, it returned "Sep"
-*   `%d`: Returns day of the month, from 1 to 31. In our example, it returned "15".
-*   `%Y`: Returns the year in four-digit format. In our example, it returned "2018".
-*   `%H`: Returns the hour. In our example, it returned "00".
-*   `%M`: Returns the minute, from 00 to 59. In our example, it returned "00".
-*   `%S`: Returns the second, from 00 to 59. In our example, it returned "00".
+*   `%b`: 返回月份名称的前三个字符。在我们的例子中，它返回 ”Sep“
+*   `%d`: 返回本月的日期，从 1 到 31。在我们的例子中， 它返回 "15"。
+*   `%Y`: 返回四位数格式的年份。在我们的例子中， 它返回 "2018"。
+*   `%H`: 返回小时。在我们的例子中， 它返回 "00"。
+*   `%M`: 返回分钟，从 00 到 59。在我们的例子中， 它返回 "00"。
+*   `%S`: 返回秒，从 00 到 59。在我们的例子中， 它返回 "00"。
 
-We did not pass a time, hence the values for time are all "00". The following example shows how the time can be formatted as well:
+我们没有时间（对象），因此时间值都是 ”00“。下面的例子显示了如何格式化时间：
 
 ```
 import datetime
@@ -172,34 +171,34 @@ x = datetime.datetime(2018, 9, 15, 12, 45, 35)
 print(x.strftime("%b %d %Y %H:%M:%S"))
 ```
 
-**Output:**
+**输出：**
 
 ```
 Sep 15 2018 12:45:35
 ```
 
-#### The Complete Character Code List
+#### 完整的字符代码列表
 
-Other than the character strings given above, the `strftime` method takes several other directives for formatting date values:
+除了上面给出的字符串外，`strftime` 方法还使用了其他几个指令来格式化日期值：
 
-*   `%a`: Returns the first three characters of the weekday, e.g. Wed.
-*   `%A`: Returns the full name of the weekday, e.g. Wednesday.
-*   `%B`: Returns the full name of the month, e.g. September.
-*   `%w`: Returns the weekday as a number, from 0 to 6, with Sunday being 0.
-*   `%m`: Returns the month as a number, from 01 to 12.
-*   `%p`: Returns AM/PM for time.
-*   `%y`: Returns the year in two-digit format, that is, without the century. For example, "18" instead of "2018".
-*   `%f`: Returns microsecond from 000000 to 999999.
-*   `%Z`: Returns the timezone.
-*   `%z`: Returns UTC offset.
-*   `%j`: Returns the number of the day in the year, from 001 to 366.
-*   `%W`: Returns the week number of the year, from 00 to 53, with Monday being counted as the first day of the week.
-*   `%U`: Returns the week number of the year, from 00 to 53, with Sunday counted as the first day of each week.
-*   `%c`: Returns the local date and time version.
-*   `%x`: Returns the local version of date.
-*   `%X`: Returns the local version of time.
+*   `%a`: 返回平日的前三个字符，例如 Wed。
+*   `%A`: 返回返回平日的全名，例如 Wednesday。
+*   `%B`: 返回月份的全名，例如 September。
+*   `%w`: 返回平日作为数字，从 0 到 6，周日为 0。
+*   `%m`: 将月份作为数字返回，从 01 到 12。
+*   `%p`: 返回 AM/PM 时间。
+*   `%y`: 返回两位数格式的年份，即没有世纪。例如，”18“ 而不是 ”2018“。
+*   `%f`: 返回从 000000 到 999999 的微秒。
+*   `%Z`: 返回时区。
+*   `%z`: 返回 UTC 偏移量。
+*   `%j`: 返回当年的日期编号，从 001 到 366。
+*   `%W`: 返回年份的周数，从 00 到 53.星期一被记为一周第一天。
+*   `%U`: 返回年份的周数，从 00 到 53.星期日被记为一周第一天。
+*   `%c`: 返回本地日期和时间版本。
+*   `%x`: 返回本地日期版本。
+*   `%X`: 返回本地时间版本。
 
-Consider the following example:
+请考虑以下示例：
 
 ```
 import datetime
@@ -209,101 +208,101 @@ x = datetime.datetime(2018, 9, 15)
 print(x.strftime('%b/%d/%Y'))
 ```
 
-**Output:**
+**输出：**
 
 ```
 Sep/15/2018
 ```
 
-And here is how you can get the month only:
+以下是你只获取月份的方法：
 
 ```
 print(x.strftime('%B'))
 ```
 
-**Output:**
+**输出：**
 
 ```
 September
 ```
 
-Let us display the year:
+让我们只展示年份：
 
 ```
 print(x.strftime('%Y'))
 ```
 
-**Output:**
+**输出：**
 
 ```
 2018
 ```
 
-In this example we have used the format code `%Y`. Notice that the `Y` is in uppercase. Now write it in lowercase:
+在这个例子中，我们使用了格式化代码 `%Y`。请注意，它的 Y 是大写的，现在使用小写写：
 
 ```
 print(x.strftime('%y'))
 ```
 
-**Output:**
+**输出：**
 
 ```
 18 
 ```
 
-This time, the century has been omitted. As you can see, with these formatting codes you can represent the date-time in just about any form that you'd like.
+这次省略了世纪。如你所见，使用这些格式化代码，你可以用你想要的任何方式表示日期时间。
 
-### Converting Strings to Dates with strptime
+### 使用 strptime 将字符串转换成日期
 
-The `strftime` method helped us convert date objects into more readable strings. The `strptime` method does the opposite, that is, it takes strings and converts them into date objects that Python can understand.
+`strftime` 方法帮助我们将日期对象转换为可读的字符串，`strptime` 恰恰相反。它作用于字符串，并将它们转换成 Python 可以理解的日期对象。
 
-Here is the syntax for the method:
+这是这个方法的语法：
 
 ```
 datetime.strptime(string, format)
 ```
 
-The `string` parameter is the value in string format that we want to convert into date format. The `format` parameter is the directive specifying the format to be taken by the date after the conversion.
+`string` 参数是我们转换成日期格式的字符串值。`format` 参数是指定转换后日期采用的格式的指令。
 
-For example, let's say we need to convert the string "9/15/18" into a `datetime` object.
+例如，假设我们需要将字符串 “9/15/18” 转换成 `datetime` 对象。
 
-Let's first import the `datetime` module. We will use the `from` keyword in order to be able to reference the specific module functions without the dot format:
+我们先导入 `datetime` 模块，我们将使用 `form` 关键字以便能够在没有点格式的情况下引用模块中特定的函数：
 
 ```
 from datetime import datetime
 ```
 
-We can then define the date in the form of a string:
+然后我们可以用字符串形式定义日期：
 
 ```
 str = '9/15/18'
 ```
 
-Python will not be able to understand the above string as a datetime until we convert it to an actual `datetime` object. We can successfully do so by calling the `strptime` method.
+在将字符串转换为实际的 `datetime` 对象之前， Python 无法将上述字符串理解为日期时间。我们可以通过调用 `strptime` 方法成功完成：
 
-Execute the following command to convert the string:
+执行以下命令转换字符串：
 
 ```
 date_object = datetime.strptime(str, '%m/%d/%y')
 ```
 
-Let's now call the `print` function to display the string in `datetime` format:
+现在让我们调用 `print` 函数用 `datetime` 格式显示字符串：
 
 ```
 print(date_object)
 ```
 
-**Output:**
+**输出：**
 
 ```
 2018-09-15 00:00:00
 ```
 
-As you can see, the conversion was successful!
+如你所见，转换成功！
 
-You can see that the forward slash "/" has been used to separate the various elements of the string. This tells the `strptime` method what format our date is in, which in our case "/" is used as a separator.
+你可以看到正斜杠 “/” 用于分隔字符串的各个元素。这告诉 `strptime` 方法我们的日期是什么格式，我们的例子中是用 "/" 作为分隔符。
 
-But what if the day/month/year was separated by a "-"? Here is how you'd handle that:
+但是，如果月/日/年被 “-” 分隔怎么办？你应该这么处理：
 
 ```
 from datetime import datetime
@@ -314,17 +313,17 @@ date_object = datetime.strptime(str, '%m-%d-%y')
 print(date_object)
 ```
 
-**Output:**
+**输出：**
 
 ```
 2018-09-15 00:00:00
 ```
 
-And again, thanks to the format specifier the `strptime` method was able to parse our date and convert it to a date object.
+再一次，多亏了格式说明符，`strptime` 方法能够解析我们的日期并将其转换为日期对象。
 
-### Conclusion
+### 结论
 
-In this article, we studied how to format dates in Python. We saw how the `datetime` module in Python can be used for the manipulation of date and time values. The module contains a number of classes that can be used for this purpose. For example, the `time` class is used to represent time values while the `date` class is used to represent calendar date values.
+在本文中，我们研究了如何在 Python 中格式化日期。我们看到 Python 中的 `datetime` 模块如何操作日期和时间值。该模块包含了许多操作日期时间的类，比如，`time` 类用于表示时间值，而 `date` 类用来表示日历日期值。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
