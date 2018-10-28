@@ -1272,10 +1272,11 @@
 |[使用 Zopfli 优化 PNG 图片](http://gold.xitu.io/entry/578e3a34c4c971005e059ee9)|翻译|3|
 |[让你的网站更炫酷的一些小 tips](https://gold.xitu.io/entry/577f402b79bc4400329db962)|校对|3|
 
-## 译者：[llp0574](https://github.com/llp0574) 历史贡献积分：87 当前积分：37 年度积分：8
+## 译者：[llp0574](https://github.com/llp0574) 历史贡献积分：87 当前积分：2 年度积分：8
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 10 月兑 Google DIY 音箱 1 个（部分积分由区块链分舵扣除）|减去积分|35|
 |[现代浏览器内部揭秘（第四部分）](https://juejin.im/post/5bc95247e51d450e40072e49)|校对|2.5|
 |[2018 如何玩转 JavaScript](https://juejin.im/entry/5aa0e46d6fb9a028b54775cd/detail)|翻译|4|
 |[比特币的三个经济阶段](https://juejin.im/post/5a61d5336fb9a01cb049667e)|校对|1.5|
@@ -5200,10 +5201,11 @@
 |[为 Django Framework 贡献你的力量并没有想象中的那么难](https://juejin.im/post/5a77cd6e5188257a79247fe1)|翻译|3|
 |[大话（Summer vs winter Observable）之我与 Rx Observable[Android RxJava2]（这是什么鬼）第六话](https://juejin.im/post/5a7cfdaaf265da4e7f35901a)|校对|3|
 
-## 译者：[LeeSniper](https://github.com/LeeSniper) 历史贡献积分：41 当前积分：41 年度积分：41
+## 译者：[LeeSniper](https://github.com/LeeSniper) 历史贡献积分：41 当前积分：16 年度积分：41
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 10 月兑 Google Play 开发者账号 1 个|减去积分|25|
 |[测试原生，Flutter 和 React Native 移动开发之间的性能差异。](https://juejin.im/post/5b62ccef6fb9a04fc564c11b)|翻译|3|
 |[Airbnb 在 React Native 上下的赌注（二）：技术细节](https://juejin.im/post/5b3b40a26fb9a04fab44e797)|校对|1.5|
 |[绘图技巧的快速入门之：6 个绘图练习，让你立即上手！](https://juejin.im/post/5b39823fe51d4558ca674cff)|校对|2.5|
@@ -5600,10 +5602,11 @@
 |[写给前端开发者的 GraphQL 指南w](https://juejin.im/post/5ac09072518825558c479215)|翻译|4|
 |[iOS App 上一种灵活的路由方式](https://juejin.im/post/5aafc278f265da23805973e3)|校对|1|
 
-## 译者：[allenlongbaobao](https://github.com/allenlongbaobao) 历史贡献积分：92 当前积分：82 年度积分：91
+## 译者：[allenlongbaobao](https://github.com/allenlongbaobao) 历史贡献积分：92 当前积分：72 年度积分：91
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 10 月兑掘金鼠标垫 1 个|减去积分|10|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3|
 |[Vue.js 还是 React？你会选择哪一个？为什么?](https://juejin.im/post/5b25b3a16fb9a00e70686180)|翻译|3.5|
 |[JavaScript 是如何工作的：Service Worker 的生命周期与使用场景](https://juejin.im/post/5b14c1d86fb9a01e700ff2f2)|校对|1|
@@ -6051,10 +6054,11 @@
 |[Awesome Flutter 校对](https://github.com/xitu/awesome-flutter)|校对|1|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1|
 
-## 译者：[lihanxiang](https://github.com/lihanxiang) 历史贡献积分：46 当前积分：28 年度积分：46
+## 译者：[lihanxiang](https://github.com/lihanxiang) 历史贡献积分：46 当前积分：13 年度积分：46
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 10 月兑掘金 T 恤 XXL 和掘金水杯各 1 个|减去积分|15|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|6|
 |[白雪公主如何帮助 Airbnb 证明在设计中最重要的技能是讲故事](https://juejin.im/post/5bb22bc1f265da0a9e53200b)|校对|0.5|
 |[Go 语言的整洁架构之道/一个使用 gRPC 的 Go 项目整洁架构例子](https://juejin.im/post/5bb99195e51d450e551a3a2f)|校对|1.5|
@@ -6372,10 +6376,11 @@
 |------|-------|-------|
 |[从 Java EE 8 Security API 开始 — 第一部分](https://juejin.im/post/5b35a8d4f265da599423598b)|校对|3|
 
-## 译者：[cf020031308](https://github.com/cf020031308) 历史贡献积分：50 当前积分：50 年度积分：50
+## 译者：[cf020031308](https://github.com/cf020031308) 历史贡献积分：50 当前积分：40 年度积分：50
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 10 月兑掘金鼠标垫 1 个|减去积分|10|
 |[2018 年度最佳数据库即服务解决方案](https://juejin.im/post/5ba784e3e51d450e9d64984d)|翻译|7|
 |[关于工程师和影响力](https://juejin.im/post/5b8f9a96f265da0ab33125b0)|翻译|5.5|
 |[Databook：通过元数据，Uber 将大数据转化为知识](https://juejin.im/post/5b800032e51d45389d3b4950)|翻译|7|
@@ -6741,10 +6746,11 @@
 |------|-------|-------|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|4|
 
-## 译者：[BriFuture](https://github.com/BriFuture) 历史贡献积分：29 当前积分：29 年度积分：29
+## 译者：[BriFuture](https://github.com/BriFuture) 历史贡献积分：29 当前积分：4 年度积分：29
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 10 月兑 Google Play 开发者账号 1 个|减去积分|25|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|6|
 |[更好的数据，更明智的决策](https://juejin.im/post/5bb9af906fb9a05cf2300f6a)|翻译|5.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3|
