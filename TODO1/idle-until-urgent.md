@@ -34,7 +34,7 @@
 
 我的网站加载时的 JavaScript 性能跟踪图（启用网络限速和 CPU 降频）。
 
-请注意，浏览器把运行主要脚本包作为了一个独立的任务，这个任务耗时 233 毫秒。
+请注意，主要脚本包作为一个独立的任务在浏览器中运行，这个任务耗时 233 毫秒。
 
 [![运行我网站的主要脚本包耗时 233 毫秒](https://philipwalton.com/static/idle-until-urget-before-eval-1d68f2dff6.png)](https://philipwalton.com/static/idle-until-urget-before-eval-1400w-7a455de908.png)
 
@@ -63,7 +63,7 @@ main();
 
 那么是什么花了如此长时间运行？
 
-我们接着来看一下这个火焰图的尾部，可以看到没有一个函数占据了大部分时间。绝大多数函数耗时不到 1 毫秒，但是当你将它们全部加起来时，在单个同步调用堆栈中，运行它们却需要超过 100 毫秒。
+我们继续来看一下这个火焰图的尾部，可以看到没有一个函数占据了大部分时间。绝大多数函数耗时不到 1 毫秒，但是当你将它们全部加起来时，在单个同步调用堆栈中，运行它们却需要超过 100 毫秒。
 
 JavaScript 就像被“千刀万剐”了一样。
 
@@ -215,9 +215,9 @@ class MyComponent {
 }
 ```
 
-如你所见，此代码和先前的版本没有太大的区别，但在新代码中，我没有将 `this.formatter` 赋值给新的`Intl.DateTimeFormat` 对象，将 `this.formatter` 赋值给了 `IdleValue` 对象，在 `IdleValue` 内部进行 `Intl.DateTimeFormat` 的初始化过程。
+如你所见，此代码和先前的版本没有太大的区别，但在新代码中，我没有将 `this.formatter` 赋值给新的`Intl.DateTimeFormat` 对象，而是将 `this.formatter` 赋值给了 `IdleValue` 对象，在 `IdleValue` 内部进行 `Intl.DateTimeFormat` 的初始化过程。
 
-`IdleValue` 类的工作方式是调度初始化函数，在下一个空闲时间运行。如果空闲时间在引用 `IdleValue` 实例之前，则不会发生阻塞，而且可以在请求时立即返回该值。但另一方面，如果在下一个空闲时间**之前**引用了 `IdleValue` 实例，则取消初始化函数在空闲时间中的调度任务，并且立即运行初始化函数。
+`IdleValue` 类的工作方式是调度初始化函数，使其在浏览器的下一个空闲时间运行。如果空闲时间在引用 `IdleValue` 实例之前，则不会发生阻塞，而且可以在请求时立即返回该值。但另一方面，如果在下一个空闲时间**之前**引用了 `IdleValue` 实例，则取消初始化函数在空闲时间中的调度任务，并且立即运行初始化函数。
 
 下面是如何实现 `IdleValue` 类的要点（注意：我已经发布了这段代码，它是[`idlize` 包](https://github.com/GoogleChromeLabs/idlize)的一部分，`idlize` 里面包含了本文出现的所有帮助类)：
 
@@ -318,7 +318,7 @@ queue.pushTask(() => {
 });
 ```
 
-**注意：** 将同步的 JavaScript 代码拆解单独的任务和[代码分割](https://developers.google.com/web/fundamentals/performance/optimizing-javascript/code-splitting/)不同：前者的被拆解了的任务为可作为任务队列的一部分，并异步运行；而代码分割是将较大的 JavaScript 包拆分为较小的文件的过程（它对于提高性能也很重要）。
+**注意：** 将同步的 JavaScript 代码拆解单独的任务和[代码分割](https://developers.google.com/web/fundamentals/performance/optimizing-javascript/code-splitting/)不同：前者被拆解的任务为可作为任务队列的一部分，并异步运行；而代码分割则是将较大的 JavaScript 包拆分为较小的文件的过程（它对于提高性能也很重要）。
 
 与上面提到的的空闲时间初始化属性的策略一样，空闲任务队列也可以在需要立刻得到结果的情况下立即运行（“紧急”情况）。
 
@@ -330,7 +330,7 @@ queue.pushTask(() => {
 
 ### 保证紧急任务执行
 
-我在上文提到过，`requestIdleCallback()` 不能保证回调函数一定会执行。这也是我在于开发人员讨论 `requestIdleCallback()`时，得到的他们不使用 `requestIdleCallback()` 的主要原因。在许多情况下，代码可能无法运行足以成为不使用它的理由 —— 开发人员宁愿保险地保持代码同步（即使会发生阻塞）。
+我在上文提到过，`requestIdleCallback()` 不能保证回调函数一定会执行。这也是我在与开发人员讨论 `requestIdleCallback()` 时，得到的他们不使用 `requestIdleCallback()` 的主要原因。在许多情况下，代码可能无法运行足以成为不使用它的理由 —— 开发人员宁愿保险地保持代码同步（即使会发生阻塞）。
 
 网站分析代码就是一个很好的例子。网站分析代码的问题在于，很多情况下，在页面卸载时，网站分析代码就要运行（例如，跟踪外链点击等），在这种情况下，显然使用 `requestIdleCallback()` 不合适，因为回调函数根本不会执行。而且由于开发人员不清楚分析库的 API 在页面的生命周期中的调用时机，他们也倾向于求稳，让所有代码同步运行（这很不幸，因为网站分析代码绝对不是用户体验的关键）。
 
@@ -376,11 +376,11 @@ let debounceTimeout;
 
 // 使用了 1000 毫秒的防抖来持久化存储状态到 localStorage 里。
 store.subscribe(() => {
-  // Clear pending writes since there are new changes to save.
+  // 清除等待中的写入操作，因为有新的修改需要保存。
   clearTimeout(debounceTimeout);
 
-  // Schedule the save with a 1000ms timeout (debounce),
-  // so frequent changes aren't saved unnecessarily.
+  // 在 1000 毫秒（防抖）之后执行保存操作，
+  // 频繁的变化没有必要保存。
   debounceTimeout = setTimeout(() => {
     const jsonData = JSON.stringify(store.getState());
     localStorage.setItem('redux-data', jsonData);
@@ -388,7 +388,7 @@ store.subscribe(() => {
 });
 ```
 
-虽然使用防抖技术总比什么都不做强，但它并不是一个完美的解决方案。问题是无法保证防抖函数的运行不会阻塞主线程，这对用户至关重要。
+虽然使用防抖技术总比什么都不做强，但它并不是一个完美的解决方案。问题是无法保证防抖函数的运行不会阻塞对用户至关重要的主线程。
 
 在空闲时间执行 localStorage 写入会好得多。你可以将上述代码从防抖策略转换为“空闲到紧急”策略，如下所示：
 
@@ -458,7 +458,7 @@ queue.pushTask(() => ga('send', 'pageview'));
 
 在撰写本文时，只有 Chrome 和 Firefox 支持 `requestIdleCallback()`。虽然真正的 polyfill 是不可能的（只有浏览器可以知道它何时空闲），但是使用 setTimeout 作为一个备用方案还是很容易的（本文提到的所有帮助器类和方法都使用这个[备用方案](https://github.com/GoogleChromeLabs/idlize/blob/master/docs/idle-callback-polyfills.md)）。
 
-而且即使在不原生支持 `requestIdleCallback()` 的浏览器中，使用 `setTimeout` 这种备用方案也比不用强，因为浏览器仍然是优先处理用户输入，然后是通过 `setTimeout()` 函数创建的队列中的任务。
+而且即使在不原生支持 `requestIdleCallback()` 的浏览器中，使用 `setTimeout` 这种备用方案也比不用强，因为浏览器仍然是优先处理用户输入，然后再处理通过 `setTimeout()` 函数创建的队列中的任务。
 
 ## 使用本策略实际上提高了多少性能？
 
@@ -478,7 +478,7 @@ queue.pushTask(() => ga('send', 'pageview'));
 
 使用了“空闲到紧急”策略后，我的 lighthouse 报告。
 
-最后, 由于本工作的目的是提高我网站的 FID, 在将这些变更上线之后, 经过分析，我非常兴奋地看到，**对于 99% 的页面，FID 减小了 67%！**
+最后, 由于本工作的目的是提高我网站的 FID, 在将这些变更上线之后, 经过分析，我非常兴奋地看到：**对于 99% 的页面，FID 减少了 67%！**
 
 | Code version | FID (p99) | FID (p95) | FID (p50) |
 | ------------ | --------- | --------- | --------- |
