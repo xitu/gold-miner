@@ -7,19 +7,19 @@
 
 # 如何停止使用 console.log() 并开始使用浏览器调试代码
 
-在我开始软件开发者之旅时，我在这条路上遇到了很多颠簸。大多数新人要面对的最常见的困难之一就是调试代码。 起初， 当我意识到我可以打开 Chrome 浏览器的控制台，并且通过使用 console.log() 输出变量值找到 bug 在哪的时候，我觉得我发现了圣杯。但是使用这个方法调试代码结果是非常地无效率。出于幽默, 这里列举了一些我喜欢使用的例子：
+在我开始软件开发者之旅时，我在这条路上遇到了很多颠簸。大多数新人要面对的最常见的困难之一就是调试代码。 起初，当我意识到我可以打开 Chrome 浏览器的控制台，并且通过使用 console.log() 输出变量值去找到 bug 在哪的时候，我觉得我发现了圣杯。但是使用这个方法调试代码非常的低效。出于幽默, 这里列举了一些我喜欢使用的例子：
 
 console.log(‘Total Price:’, total) //为了看值是否已经被变量存储了 
 
-console.log(‘Here’) //程序是否执行到某一个确切的函数
+console.log(‘Here’) //判断程序是否执行到某一个确切的函数
 
 我认为大多数开发者开始意识到用这个办法去调试你的程序是不大行得通。这儿有更好的方法去调试你的程序！
 
-令人万分感谢的方法是使用你的浏览器调试工具。我将会在下文单独详细介绍 Chrome 的开发者工具。
+令人万分感谢的是使用你的浏览器调试工具。我将会在下文单独详细介绍 Chrome 的开发者工具。
 
 在本篇文章中，我会提到以下内容：在 Chrome 开发者工具中使用断点、跟踪代码、设置监测表达式和应用修复程序。
 
-> **为了能够跟上我的对  Chrome 开发者工具的介绍，你需要使用我创建的一个简单的例子。** [**点击链接**](https://chromedevtoolsdemo.herokuapp.com/)**（可能会花一点时间加载它）**
+> **为了能够跟上我的对 Chrome 开发者工具的介绍，你需要使用我写的一个简单的例子。** [**点击链接**](https://chromedevtoolsdemo.herokuapp.com/)**（可能会花一点时间加载它）**
 
 ### Step 1：重现 Bug
 
@@ -37,7 +37,7 @@ console.log(‘Here’) //程序是否执行到某一个确切的函数
 
 ### Step 2：学习使用 Sources 面板
 
-为了在 Chrome 浏览器中调试代码，你需要习惯使用开发者工具。你可以按快捷键 Command+Option+I（Mac）和 Control+Shift+I（Linux）打开 Chrome 开发者工具。
+要在 Chrome 浏览器中调试代码，你得习惯使用开发者工具。你可以按快捷键 Command+Option+I（Mac）和 Control+Shift+I（Linux）打开 Chrome 开发者工具。
 
 ![](https://cdn-images-1.medium.com/max/800/1*t3SETtaOVas1trQfjRO4gw.png)
 
@@ -113,7 +113,7 @@ console.log(‘Here’) //程序是否执行到某一个确切的函数
 
 ### Step 7：修复你的代码
 
-让我们回到代码中， querySelector() 一定是罪魁祸首!
+让我们回到代码中，querySelector() 一定是罪魁祸首!
 
 ![](https://cdn-images-1.medium.com/max/800/1*Bg6oJPpIZKnBywUG3U_l1w.png)
 
