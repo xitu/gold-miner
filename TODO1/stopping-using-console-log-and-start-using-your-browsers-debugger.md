@@ -2,8 +2,8 @@
 > * 原文作者：[Parag Zaveri](https://medium.com/@parag.g.zaveri?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/stopping-using-console-log-and-start-using-your-browsers-debugger.md](https://github.com/xitu/gold-miner/blob/master/TODO1/stopping-using-console-log-and-start-using-your-browsers-debugger.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Augustwuli](https://github.com/Augustwuli)
+> * 校对者：[Raoul1996](https://github.com/Raoul1996), [Marszht](https://github.com/Marszht)
 
 # 如何停止使用 console.log() 并开始使用浏览器调试代码
 
@@ -25,13 +25,13 @@ console.log(‘Here’) //判断程序是否执行到某一个确切的函数
 
 我们通过执行一系列的操作开始重现 bug。
 
-1.  在这个案例中，我们将使用一个轻便的小费计算器重现 bug。如果你还没有打开这个例子的链接。 请点击[**这里。**](https://chromedevtoolsdemo.herokuapp.com/)
-2.  在‘Entree 1’中输入 12
-3.  在‘Entree 2’中输入 8
-4.  在‘Entree 3’中输入10
-5.  在‘Tax’中输入 10
-6.  ‘Tip’选择 20%
-7.  点击 `Calculate Bill`。计算得到的 Total Plus Tip 应该是 36.3（译者注：此处我去看过作者原博客了，这篇博客之前计算结果有问题，后来作者修改了代码，真正的结果是36.3，所以结果和图片的结果是不一样的），然而我们得到了一个差别很大的结果。呀！结果居然显示的是 15500.1。
+1.  在这个案例中，我们将使用一个轻便的小费计算器重现 bug。如果你还没有打开这个例子的链接。请点击[**这里。**](https://chromedevtoolsdemo.herokuapp.com/)
+2.  在 ‘Entree 1’ 中输入 12
+3.  在 ‘Entree 2’ 中输入 8
+4.  在 ‘Entree 3’ 中输入10
+5.  在 ‘Tax’ 中输入 10
+6.  ‘Tip’ 选择 20%
+7.  点击 `Calculate Bill`。计算得到的 Total Plus Tip 应该是 36.3（译者注：此处我去看过作者原博客了，这篇博客之前计算结果有问题，后来作者修改了代码，真正的结果是 36.3，所以结果和图片的结果是不一样的），然而我们得到了一个差别很大的结果。呀！结果居然显示的是 15500.1。
 
 ![](https://cdn-images-1.medium.com/max/800/1*r-TVPOq2bvKB1clw9vgCHg.png)
 
@@ -55,7 +55,7 @@ console.log(‘Here’) //判断程序是否执行到某一个确切的函数
 
 为了我们能够调试代码，我们在程序运行开始之前通过设置一个鼠标事件来设置断点。
 
-> 在调试窗口的最下面有个“Event Listener Breakpoints”。打开它，并且在展开的列表中打开“Mouse”列表，选择'click'。
+> 在调试窗口的最下面有个“Event Listener Breakpoints”。打开它，并且在展开的列表中打开“Mouse”列表，选择 ‘click’。
 
 现在当你点击 `Calculate Bill` 按钮后，调试器将在第一个绑定了“onClick()”的函数的第一行代码的位置暂停执行。如果调试器在任何其他地方，点击 Calculate Bill 按钮后调试器都会跳到该位置。
 
@@ -83,17 +83,17 @@ console.log(‘Here’) //判断程序是否执行到某一个确切的函数
 
 哇哦！能够跟踪你的代码真是令人大吃一惊，但是有一点麻烦对吧？一般情况下，我只想知道在确切的地方的变量值是多少。解决这个问题的更好的办法就是设置代码行的断点。
 
-> **作者注**: 设置代码行的断点就是我为什么用 Chrome 开发者工具取代使用 console.log() 函数调试代码的原因。
+> **作者注**：设置代码行的断点就是我为什么用 Chrome 开发者工具取代使用 console.log() 函数调试代码的原因。
 
 为了设置代码行的断点，只需要简单地点击代码的行数，然后你就可以看到更多关于该行代码的信息。之后你可以像往常一样跑起你的代码，调试器将会在你设置代码行断点的地方停下来跟踪或者跳过每一个函数。
 
-**标注:如果你遇到了麻烦，请确认你已经取消了在前面已经选择的鼠标的  click 事件**
+**标注：如果你遇到了麻烦，请确认你已经取消了在前面已经选择的鼠标的 click 事件**
 
 ![](https://cdn-images-1.medium.com/max/800/1*boS5jNmWpJQMc4o5VHReWA.png)
 
 正如你看见的那样，显示得到 subtotal 的值是“10812”。在代码被执行到所有 entree 变量的时候，设置的 entree 的值也在 scope 标签下被列了出来 。
 
-嗯······我认为我已经向你指出了 bug。字符串连接了所有的变量?
+嗯...我认为我已经向你指出了 bug。字符串连接了所有的变量?
 
 让我们设置监测表达式来确认这个想法吧！
 
@@ -103,7 +103,7 @@ console.log(‘Here’) //判断程序是否执行到某一个确切的函数
 
 一个监测表达式能提供更多关于代码中的变量或者表达式的信息。
 
-> 为了’监测‘被声明的值， 请点击在调试窗口顶部的 watch 标签，然后在打开的面板中点击 + 号。你可以在这里写下变量名或者其他的表达式。
+> 为了“监测”被声明的值，请点击在调试窗口顶部的 watch 标签，然后在打开的面板中点击 + 号。你可以在这里写下变量名或者其他的表达式。
 
 通过下面这个 demo，我将监测第一个 entree 的值并且使用 type of 来发现 entree 变量的类型。
 
@@ -117,9 +117,9 @@ console.log(‘Here’) //判断程序是否执行到某一个确切的函数
 
 ![](https://cdn-images-1.medium.com/max/800/1*Bg6oJPpIZKnBywUG3U_l1w.png)
 
-所以我们应该如何修改它呢？我们可以强制将 string 转换成 number 类型。例如，在74行将代码改成Number(getEntree1())。
+所以我们应该如何修改它呢？我们可以强制将 string 转换成 number 类型。例如，在 74 行将代码改成 Number(getEntree1())。
 
-> 为了能够实际编辑代码，你将需要到’sources‘面板左边的’elements‘面板下。如果你不能看到 javascript 代码，你需要展开 script 标签。在这里点击鼠标右键并选择’edit as html‘。
+> 为了能够实际编辑代码，你将需要到 ‘sources’ 面板左边的 ‘elements’ 面板下。如果你不能看到 javascript 代码，你需要展开 script 标签。在这里点击鼠标右键并选择 ‘edit as html’。
 
 ![](https://cdn-images-1.medium.com/max/800/1*NPHg0e_aRlVkNYEbQQCITw.png)
 
@@ -138,6 +138,7 @@ console.log(‘Here’) //判断程序是否执行到某一个确切的函数
 > Demo Code: [https://github.com/paragzaveri/chromeDevTools](https://github.com/paragzaveri/chromeDevTools)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
 
 ---
 
