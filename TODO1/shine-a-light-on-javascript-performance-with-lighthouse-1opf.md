@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/shine-a-light-on-javascript-performance-with-lighthouse-1opf.md](https://github.com/xitu/gold-miner/blob/master/TODO1/shine-a-light-on-javascript-performance-with-lighthouse-1opf.md)
 > * 译者：[Raoul1996](https://github.com/Raoul1996)
-> * 校对者：[calpa](https://github.com/calpa)、[GpingFeng](https://github.com/GpingFeng)
+> * 校对者：[calpa](https://github.com/calpa), [GpingFeng](https://github.com/GpingFeng)
 
 # 通过 Lighthouse 了解 JavaScript 性能
 
-不确定 [JavaScript 的开销](https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4)对于您那的用户体验来讲是不是太高了？🙃 [Lighthouse](https://developers.google.com/web/tools/lighthouse/) 有 [JavaScript 执行时间审计](https://developers.google.com/web/tools/lighthouse/audits/bootup)，用来衡量 JavaScript 对于页面加载性能的影响。
+不确定 [JavaScript 的开销](https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4)对于您那的用户体验来讲是不是太高了？🙃[Lighthouse](https://developers.google.com/web/tools/lighthouse/) 有 [JavaScript 执行时间审计](https://developers.google.com/web/tools/lighthouse/audits/bootup)，用来衡量 JavaScript 对于页面加载性能的影响。
 
 [![](https://res.cloudinary.com/practicaldev/image/fetch/s--sglLOF1R--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/ggbnzgr8b1k8suklbjsr.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--sglLOF1R--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/ggbnzgr8b1k8suklbjsr.png)
 
@@ -37,11 +37,11 @@
 
 总结.. 🎁
 
-JavaScript 会对您的用户体验产生巨大的影响; Lighthouse 可以在这里有效的改善。为了保持较低的 JavaScript 传输和处理时间：
+JavaScript 会对您的用户体验产生巨大的影响；Lighthouse 可以在这里有效的改善。为了保持较低的 JavaScript 传输和处理时间：
 
-*   只发送你用户需要的代码
-*   精简压缩脚本
-*   移除未使用的代码和依赖
+*   只发送你用户需要的代码。
+*   精简压缩脚本。
+*   移除未使用的代码和依赖。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
