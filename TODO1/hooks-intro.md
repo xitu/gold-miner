@@ -43,7 +43,7 @@ function Example() {
 
 **Hook 不会取代你对 React 概念的理解。** 相反地，Hook 为你已知的 React 概念(props，state，context，refs 和 lifecycle)提供了更直接的 API。并且稍后我们还将演示，Hook 还提供了一种组合它们新的强大的方式。
 
-**如果你只是想开始学习 Hook，请随意[直接跳到下一页！](https://reactjs.org/docs/hooks-overview.html))** 你也可以继续阅读本页，详细了解我们为什么要添加 Hook，以及我们是如何在不重写应用程序的情况下开始使用它们的。
+**如果你只是想开始学习 Hook，请随意[直接跳到下一页！](https://reactjs.org/docs/hooks-overview.html)** 你也可以继续阅读本页，详细了解我们为什么要添加 Hook，以及我们是如何在不重写应用程序的情况下开始使用它们的。
 
 ## 动机
 
@@ -71,13 +71,13 @@ React 没有提供把可重用行为“附加”到组件上的方法(例如，�
 
 通过我们的观察，发现类是学习 React 最大的障碍。你必须理解 `this` 在 JavaScript 中是怎么工作的，大多数语言中它的工作方式有很大不同。你必须记住绑定事件处理程序。如果没有不稳定的[语法提案](https://babeljs.io/docs/en/babel-plugin-transform-class-properties/)，代码就非常冗长。人们可以很好地理解属性，状态和自上而下的数据流，但仍然很艰难地与类作斗争。React 中的函数和类组件之间的区别以及何时使用哪种组件，即使在经验丰富的 React 开发人员之间也会引发分歧。
 
-此外，React 已经推出大概五年时间了，并且我们希望确保它在未来的五年里还保持相关性。就像 [Svelte](https://svelte.technology/)，[Angular](https://angular.io/)，[Glimmer](https://glimmerjs.com/)和其他人表明的那样，[提前编译](https://en.wikipedia.org/wiki/Ahead-of-time_compilation)组件未来有很大的潜力。特别是在它不局限于模版的情况下。目前，我们已经使用 [Prepack](https://prepack.io/) 做了[组件折叠](https://github.com/facebook/react/issues/7323)的实验，并且我们已经看到了有前景的早期结果。但是，我们发现类组件可能会引发无意识的模式使得这些优化回退到较慢的路径上。类也给今天的工具提出了问题。例如，类不能很好地压缩，并且它们使得热更新加载变得片状和不可靠。我们希望提供一种 API，使代码更可能的留在可优化的路径上。 
+此外，React 已经推出大概五年时间了，并且我们希望确保它在未来的五年里还保持相关性。就像 [Svelte](https://svelte.technology/)，[Angular](https://angular.io/)，[Glimmer](https://glimmerjs.com/) 和其他人表明的那样，[提前编译](https://en.wikipedia.org/wiki/Ahead-of-time_compilation)组件未来有很大的潜力。特别是在它不局限于模版的情况下。目前，我们已经使用 [Prepack](https://prepack.io/) 做了[组件折叠](https://github.com/facebook/react/issues/7323)的实验，并且我们已经看到了有前景的早期结果。但是，我们发现类组件可能会引发无意识的模式使得这些优化回退到较慢的路径上。类也给今天的工具提出了问题。例如，类不能很好地压缩，并且它们使得热更新加载变得片状和不可靠。我们希望提供一种 API，使代码更可能的留在可优化的路径上。 
 
-为了解决这个问题，**Hook 允许你在没有类的情况下使用更多 React 的功能。** 概念上来说，React 组件一直是更接近于函数的。Hook 拥抱函数，但不会牺牲掉 React 实际的精神。Hook 提供了对命令式逃生舱口（译者注：可讨论）的访问，并且不需要你学习复杂的函数式或反应式编程技术。
+为了解决这个问题，**Hook 允许你在没有类的情况下使用更多 React 的功能。** 概念上来说，React 组件一直是更接近于函数的。Hook 拥抱函数，但不会牺牲掉 React 实际的精神。Hook 提供了对命令式逃生舱口的访问，并且不需要你学习复杂的函数式或反应式编程技术。
 
 >例子
 >
->[Hook 概览](https://reactjs.org/docs/hooks-overview.html) 是开始学习 Hook 的好地方。
+>[Hook 概览](https://reactjs.org/docs/hooks-overview.html)是开始学习 Hook 的好地方。
 
 ## 逐步采用策略
 
