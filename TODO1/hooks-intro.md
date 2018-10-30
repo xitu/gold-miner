@@ -7,7 +7,7 @@
 
 # Hook 介绍
 
-*Hook* 是一项新的功能提案，可以让你在不编写类的情况下使用状态和其他 React 功能。它们目前处于 React v16.7.0-alpha 阶段，并且在[开放式 RFC 中](https://github.com/reactjs/rfcs/pull/68)进行着讨论。
+*Hook* 是一项新的功能提案，可以让你在不编写类的情况下使用状态(state)和其他 React 功能。它们目前处于 React v16.7.0-alpha 阶段，并且在[开放式 RFC 中](https://github.com/reactjs/rfcs/pull/68)进行着讨论。
 
 ```js{4,5}
 import { useState } from 'react';
@@ -47,11 +47,11 @@ function Example() {
 
 ## 动机
 
-Hook 解决了我们在过去五年时间里编写和维护数以万计 React 组件时遇到的各种看似不相关的问题。无论你是在学习 React，还是每天使用它，甚至说是喜欢使用具有类似组件模型的其他库，你都有可能注意到这些问题。
+Hook 解决了我们在过去五年时间里编写和维护数以万计 React 组件时遇到的各种看似不相关的问题。无论你是在学习 React，还是日常使用，甚至说是喜欢使用具有类似组件模型的其他库，你都有可能注意到这些问题。
 
 ### 在组件之间重用带状态逻辑很困难
 
-React 没有提供把可重用行为“附加”到组件(例如，把它关联到 store 里)上的方式。如果你已经使用了 React 一段时间，你可能会熟练使用[渲染属性](https://reactjs.org/docs/render-props.html)和[高阶组件](https://reactjs.org/docs/higher-order-components.html)的模式尝试解决这个问题。但这些模式需要你在使用它们的时候对组件进行重构，这可能会很麻烦并且使代码更难以跟踪。如果你看一下 React DevTools 里的典型 React 应用程序，你也许会发现一个由提供者，消费者，高阶组件，渲染属性和其他抽象层包裹起来的“包装地狱”组件。虽然我们可以[在 React DevTools 中过滤它们](https://github.com/facebook/react-devtools/pull/503)，但这里引出了一个更深层次的基本问题：React 需要一个更好的分享带状态逻辑的原语。
+React 没有提供把可重用行为“附加”到组件上的方法(例如，把它关联到 store 里)。如果你已经使用了 React 一段时间，你可能会熟练使用[渲染属性](https://reactjs.org/docs/render-props.html)和[高阶组件](https://reactjs.org/docs/higher-order-components.html)的模式尝试解决这个问题。但这些模式需要你在使用它们的时候对组件进行重构，这可能会很麻烦并且使代码更难以跟踪。如果你看一下 React DevTools 里的典型 React 应用程序，你也许会发现一个由提供者，消费者，高阶组件，渲染属性和其他抽象层包裹起来的“包装地狱”组件。虽然我们可以[在 React DevTools 中过滤它们](https://github.com/facebook/react-devtools/pull/503)，但这里引出了一个更深层次的基本问题：React 需要一个更好的分享带状态逻辑的原语。
 
 使用 Hook，你可以从一个组件中导出带状态逻辑，以便它可以单独测试和复用。**Hook 允许你在不改变组件层次结构的情况下复用带状态逻辑。** 这样就可以轻松地在多个组件之间或者社区里共享 Hook。
 
@@ -59,7 +59,7 @@ React 没有提供把可重用行为“附加”到组件(例如，把它关联�
 
 ### 复杂的组件变得难以理解
 
-我们经常不得不维护从简单开始，但后来变成无法管理的带状态逻辑和副作用混杂的组件。每个生命周期方法通常都包含了混杂的不相关的逻辑。例如，组件也许要在 `componentDidMount` 和 `componentDidUpdate` 方法里执行数据提取。但是，相同的 `componentDidMount` 方法可能包含不相关的设置事件监听的逻辑，用于清除 `componentWillUnmount` 里的执行。本该一起更改的相关联代码被拆分，而完全不相关的代码却最终组合到一个方法里。这就太容易引入 bug 和导致不一致了。
+我们经常不得不维护从简单开始，但后来变成混杂着带状态逻辑和副作用无法管理的组件。每个生命周期方法通常都包含了一堆不相关的逻辑。例如，组件也许要在 `componentDidMount` 和 `componentDidUpdate` 方法里请求数据。但是，同样是在 componentDidMount 方法，可能会包含不相关的设置事件监听的逻辑，还得在componentWillUnmount 里清除。本该一起更改的相关联代码被拆分，而完全不相关的代码却最终组合到一个方法里。这就太容易引入 bug 和导致不一致了。
 
 很多情况下不可能把这些组件拆分得更小，因为到处都有带状态的逻辑。而且测试它们也很困难。这就是许多人更喜欢将 React 与单独的状态管理库相结合的原因之一。但是，这通常会引入太多的抽象(概念)，使得你在不同的文件之间跳转，同时让重用组件变得更加困难。
 
@@ -69,9 +69,9 @@ React 没有提供把可重用行为“附加”到组件(例如，把它关联�
 
 ### 类(Class)混淆了人类和机器
 
-通过我们的观察，发现类是学习 React 最大的障碍。你必须理解 `this` 在 JavaScript 中是怎么工作的，大多数语言中它的工作方式有很大不同。你必须记住绑定事件处理程序。没有不稳定的[语法提案](https://babeljs.io/docs/en/babel-plugin-transform-class-properties/)，代码就非常冗长。人们可以很好地理解属性，状态和自上而下的数据流，但仍然很艰难地与类作斗争。React 中的函数和类组件之间的区别以及何时使用每类组件，即使在经验丰富的 React 开发人员之间也会引发分歧。
+通过我们的观察，发现类是学习 React 最大的障碍。你必须理解 `this` 在 JavaScript 中是怎么工作的，大多数语言中它的工作方式有很大不同。你必须记住绑定事件处理程序。如果没有不稳定的[语法提案](https://babeljs.io/docs/en/babel-plugin-transform-class-properties/)，代码就非常冗长。人们可以很好地理解属性，状态和自上而下的数据流，但仍然很艰难地与类作斗争。React 中的函数和类组件之间的区别以及何时使用哪种组件，即使在经验丰富的 React 开发人员之间也会引发分歧。
 
-此外，React 已经推出大概五年时间了，并且我们希望确保它在未来的五年里还保持相关性。就像 [Svelte](https://svelte.technology/)，[Angular](https://angular.io/)，[Glimmer](https://glimmerjs.com/)和其他人表明的那样，[提前编译](https://en.wikipedia.org/wiki/Ahead-of-time_compilation)组件有很大的未来潜力。特别是在它不局限于模版的情况下。目前，我们已经使用 [Prepack](https://prepack.io/) 做了[组件折叠](https://github.com/facebook/react/issues/7323)的实验，并且我们已经看到了有前景的早期结果。但是，我们发现类组件可能会引发无意识的模式使得这些优化回退到较慢的路径上。类也给今天的工具提出了问题。例如，类不能很好地压缩，并且它们使得热更新加载变得片状和不可靠。我们希望提供一种 API，使代码更可能的留在可优化的路径上。 
+此外，React 已经推出大概五年时间了，并且我们希望确保它在未来的五年里还保持相关性。就像 [Svelte](https://svelte.technology/)，[Angular](https://angular.io/)，[Glimmer](https://glimmerjs.com/)和其他人表明的那样，[提前编译](https://en.wikipedia.org/wiki/Ahead-of-time_compilation)组件未来有很大的潜力。特别是在它不局限于模版的情况下。目前，我们已经使用 [Prepack](https://prepack.io/) 做了[组件折叠](https://github.com/facebook/react/issues/7323)的实验，并且我们已经看到了有前景的早期结果。但是，我们发现类组件可能会引发无意识的模式使得这些优化回退到较慢的路径上。类也给今天的工具提出了问题。例如，类不能很好地压缩，并且它们使得热更新加载变得片状和不可靠。我们希望提供一种 API，使代码更可能的留在可优化的路径上。 
 
 为了解决这个问题，**Hook 允许你在没有类的情况下使用更多 React 的功能。** 概念上来说，React 组件一直是更接近于函数的。Hook 拥抱函数，但不会牺牲掉 React 实际的精神。Hook 提供了对命令式逃生舱口（译者注：可讨论）的访问，并且不需要你学习复杂的函数式或反应式编程技术。
 
