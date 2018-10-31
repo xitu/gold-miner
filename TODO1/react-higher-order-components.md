@@ -5,7 +5,7 @@
 > * 译者：[CoderMing](https://github.com/coderming)
 > * 校对者：
 
-# React 高阶组件
+# 深入理解 React 高阶组件
 
 ![](https://tylermcginnis.com/static/higherOrderComponents-5d56d61ada5a155f12e10d5a4abb0936-b64db.png)
 
