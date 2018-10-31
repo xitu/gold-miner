@@ -2,24 +2,24 @@
 > * 原文作者：[Tyler McGinnis](https://twitter.com/tylermcginnis)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-higher-order-components.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-higher-order-components.md)
-> * 译者：
+> * 译者：[CoderMing](https://github.com/coderming)
 > * 校对者：
 
-# React Higher-Order Components
+# React 高阶组件
 
 ![](https://tylermcginnis.com/static/higherOrderComponents-5d56d61ada5a155f12e10d5a4abb0936-b64db.png)
 
-> There’s two important things to note before we get started. First, what we’re going to talk about is just a pattern. It’s not really even a React thing as much as it is a component architecture thing. Second, this isn’t required knowledge to build a React app. You could skip this post, never learn what we’re about to talk about, and still build fine React applications. However, just like building anything, the more tools you have available the better the outcome will be. If you write React apps, you’d be doing yourself a disservice by not having this in your “toolbox”.
+> 在这篇文章的开始之前，我们有两点需要注意：首先，我们所讨论的仅仅是一种设计模式。它甚至就像组件结构一样不是 React 里的东西。第二，它不是构建一个 React 应用所必须的知识。你可以关掉这篇文章、不学习在这篇文章中我们所讨论的内容，你仍然可以构建一个正常的 React 应用。不过，就像构建所有东西一样，你有更多可用的工具就会得到更好的结果。如果你在写 React 应用，在你的“工具箱”之中没有这个（React 高阶组件）的话会对你是非常不利的。
 
-You can’t get very far into studying software development before you hear the (almost cultish) mantra of `Don't Repeat Yourself` or `D.R.Y`. Sometimes it can be taken a bit too far, but for the most part, it’s a worthwhile goal. In this post we’re going to look at the most popular pattern for accomplishing DRY in a React codebase, Higher-Order Components. However before we can explore the solution, we must first fully understand the problem.
+在你听到 `Don't Repeat Yourself` 或者 `D.R.Y` 这样的名言之前你是不会在软件开发的钻研之路上走得很远的。有时候实行这些名言会有点过于麻烦，但是在大多数情况下，（实行它）是一个有价值的目标。在这篇文章中我们将会去探讨在 React 库中实现 DRY 的最著名的模式——高阶组件。不过在我们探索答案之前，我们首先必须要完全明确问题来源。
 
-Let’s say we were in charge of recreating a dashboard similar to Stripe’s. As most projects go, everything goes great until the very end. Just when you think you’re about to be done, you notice that the dashboard has a bunch of different tooltips that need to appear when certain elements are hovered over.
+假设我们要负责重新创建一个类似于 Sprite（译者注：国外的一个在线支付公司）的仪表盘。正如大多数项目那样，一切事务在最后收尾之前都工作得很正常。就在你认为项目即将完成的时候，你发现在仪表盘上有一串不一样的提示框需要你某些元素 hover 的时候显示。
 
 ![GIF of Stripe's dashboard with lots of tooltips](https://tylermcginnis.com/images/posts/react-fundamentals/tool-tips.gif)
 
-There are a few ways to approach this. The one you decide to go with is to detect the hover state of the individual components and from that state, show or not show the tooltip. There are three components you need to add this hover detection functionality to - `Info`, `TrendChart` and `DailyChart`.
+这里有好几种方式可以实现这个效果。其中一个你可能想到的是监听特定的组件的 hover 状态然后通过那个状态决定展示还是不展示提示框。在上图中，你有三个组件需要添加它们的监听函数—— `Info`、`TrendChart` 和 `DailyChart`。
 
-Let’s start with `Info`. Right now it’s just a simple SVG icon.
+让我们从 `Info` 组件开始。现在它只是一个简单的 SVG 图标。
 
 ```
 class Info extends React.Component {
@@ -36,7 +36,7 @@ class Info extends React.Component {
 }
 ```
 
-Now we need to add functionality to it so it can detect whether it’s being hovered over or not. We can use the `onMouseOver` and `onMouseOut` mouse events that come with React. The function we pass to `onMouseOver` will be invoked when the component is hovered over and the function we pass to `onMouseOut` will be invoked when the component is no longer being hovered over. To do this the React way, we’ll add a `hovering` state property to our component so that we can cause a re-render when the `hovering` state changes, showing or hiding our tooltip.
+现在我们需要给它添加功能函数让它能够监听它是否被监听了。我们可以使用 React 所附带的 `onMouseOver` 和 `onMouseOut` 这两个鼠标时间。我们传递给 `onMouseOver` 的函数将会在组件被鼠标悬停后触发，同时我们传递给 `onMouseOut` 的函数将会在组件不再被鼠标悬停时触发。要以 React 的方式来操作，我们会给给我们的组件添加一个 `hovering` state 属性，所以我们可以在 `hovering` state 属性改变的时候触发重绘，来展示或者隐藏我们的提示框。
 
 ```
 class Info extends React.Component {
@@ -63,7 +63,7 @@ class Info extends React.Component {
 }
 ```
 
-Looking good. Now we need to add the same functionality to our other two components, `TrendChart` and `DailyChart`. If it’s not broke, don’t fix it. Our hover logic for `Info` worked great so let’s use that same code again.
+上面的代码看起来很棒。现在我们要添加同样的功能给我们的其他两个组件——`TrendChart` 和 `DailyChart`。如果这两个组件没有出问题，就请不要修复它。我们对于 `Info` 的悬停功能运行的很好，所以请在写一遍之前的逻辑代码。
 
 ```
 class TrendChart extends React.Component {
@@ -87,7 +87,7 @@ class TrendChart extends React.Component {
 }
 ```
 
-You probably know the next step. We can do the same thing for our final `DailyChart` component.
+你或许知道下一步了：我们需要对最后一个组件 `DailyChart` 做同样的事情。
 
 ```
 class DailyChart extends React.Component {
@@ -111,11 +111,11 @@ class DailyChart extends React.Component {
 }
 ```
 
-And with that, we’re all finished. You may have written React like this before. It’s not the end of the world (#shipit), but it’s not very “DRY”. As you saw, we’re repeating the exact same hover logic in every one of our components.
+这样的话，我们就全部做完了。你可能以前曾经这样写过 React 代码。这不是世界的结束 It’s not the end of the world (#shipit)，但是它很不 “DRY”。正如我们所看到的，我们在我们的每一个组件中抖重复着逻辑很明确的鼠标悬停逻辑。
 
-At this point, the **problem** should be pretty clear, **we want to avoid duplicating our hover logic anytime a new component needs it**. So what’s the **solution**? Well before we get to that, let’s talk about a few programming concepts that’ll make the step to understanding the solution much easier, `callbacks` and `higher-order functions`.
+从这点看的话，**问题**问题变得非常清晰了：**我们希望避免在在每个需要添加鼠标悬停逻辑的组件是都再写一遍相同的逻辑**。所以，**答案**是什么？在我们开始前，让我们先讨论一些能让我们更容易理解答案的编程思想—— `回调函数` 和 `高阶函数`。
 
-In JavaScript, functions are “first class objects”. What that means is that just like objects/arrays/strings can be assigned to a variable, passed as an argument to a function, or returned from a function, so too can other functions.
+在 JavaScript 中，函数是 “一等公民”。这意味着它就像对象/数组/字符串那样可以被声明为一个变量、当作函数的参数或者在函数中返回一个函数，即使返回的是其他函数也可以。
 
 ```
 function add (x, y) {
@@ -129,11 +129,11 @@ function addFive (x, addReference) {
 addFive(10, add) // 15
 ```
 
-Your brain might have got a little weird on this one if you’re not used to it. We pass the `add` function as an argument to the `addFive` function, rename it `addReference`, and then we invoke it.
+如果你没这样用过，你可能会感到困惑。我们将 `add` 函数作为一个参数传入 `addFive` 函数，重新命名为 `addReference`，然后我们出发了着个函数。
 
-When you do this, the function you’re passing as an argument is called a **callback** function and the function you’re passing the callback function to is called a **higher-order function**.
+这时候，你作为参数所传递进去的函数被叫做**回调**函数同时你使用回调函数所构建的新函数被叫做**高阶函数**。
 
-Because vocabulary is important, here’s the same code with the variables re-named to match the concepts they’re demonstrating.
+因为这些名词很重要，下面是一份根据它们所表示的含义重新命名后的同样逻辑的代码。
 
 ```
 function add (x,y) {
@@ -147,7 +147,7 @@ function higherOrderFunction (x, callback) {
 higherOrderFunction(10, add)
 ```
 
-This pattern should look familiar, it’s everywhere. If you’ve ever used any of the JavaScript Array methods, jQuery, or a library like lodash, you’ve used both higher-order functions and callbacks.
+这个模式很常见，哪里都有它。如果你之前用过任何 JavaScript 数组方法、jQuery 或者是 lodash 这类的库，你就已经用过高阶函数和回调函数了。
 
 ```
 [1,2,3].map((i) => i + 5)
@@ -155,11 +155,11 @@ This pattern should look familiar, it’s everywhere. If you’ve ever used any 
 _.filter([1,2,3,4], (n) => n % 2 === 0 );
 
 $('#btn').on('click', () =>
-  console.log('Callbacks are everywhere')
+  console.log('回调函数哪里都有')
 )
 ```
 
-Let’s go back to our example. What if instead of just creating an `addFive` function, we also wanted an `addTen` function, `addTwenty` function, etc. With our current implementation, we’d have to duplicate a lot of our logic whenever we needed a new function.
+让我们回到我们之前的例子。如果我们不仅仅想创建一个 `addFive` 函数，我们也想创建 `addTen`函数、 `addTwenty` 函数等等，我们该怎么办？在我们当前的实践方法中，我们必须在需要的时候去重复地写我们的逻辑。
 
 ```
 function add (x, y) {
@@ -183,7 +183,7 @@ addTen(10, add) // 20
 addTwenty(10, add) // 30
 ```
 
-Again, this isn’t terrible, but we’re repeating a lot of the same logic. The goal here is to be able to create as many “adder” functions (`addFive`, `addTen`, `addTwenty`, etc) as we need, while minimizing code duplication. To accomplish this, what if we create a `makeAdder` function? This function can take in a number and a reference to the original `add` function. Because the goal of this function is to make a new adder function, we can have it return a brand new function that accepts the number to add. That was a lot of words. Let’s see some code.
+再一次出现这种情况，这样写并不糟糕，但是我们重复写了好多相似的逻辑。这里我们的目标是要能根据需要写很多 “adder” 函数（`addFive`、`addTen`、`addTwenty` 等等），同时尽可能减少代码重复。为了完成这个目标，我们创建一个 `makeAdder` 函数怎么样？着个函数可以传入一个数字和原始 `add` 函数。因为着个函数的目的是创建一个新的 adder 函数，我们可以让其返回一个全新的传递数字来实现加法的函数。这儿讲的有点多，让我们来看下代码吧。
 
 ```
 function add (x, y) {
@@ -205,18 +205,18 @@ addTen(10) // 20
 addTwenty(10) // 30
 ```
 
-Cool. Now we can make as many “adder” functions as we need while minimizing the duplicate code we have to write.
+太酷了！现在我们可以在需要的时候随意地用最小的代码重复度创建 “adder” 函数。
 
-> If you care, this concept of having a function with multiple parameters return a new function with fewer parameters is called “Partial Application” and it’s a functional programming technique. JavaScript’s “.bind” method is a common example of this.
+> 如果你关心的话，这个通过一个多参数的函数来返回一个具有较少参数的函数的模式被叫做 “部分应用（Partial Application）“，它也是函数式编程的技术。JavaScript 内置的 “.bind“ 方法也是一个类似的例子。
 
-Alright but what does this have to do with React and the problem we saw earlier of duplicating our hover logic anytime a new component needs it? Well just as creating our `makeAdder` higher-order function allowed us to minimize code duplication, so too can making a similar “higher-order component” help us in the same way. However, instead of the higher-order function returning a new function that invokes the callback, the higher-order component can return a new component that renders the “callback” component 🤯. That was a lot. Let’s break it down.
+好吧，拿着与 React 以及我们之前遇到鼠标悬停的组件有什么关系呢？我们刚刚通过创建了我们的 `makeAdder` 这个高阶函数来实现了代码复用，那我们也可以创建一个类似的 “高阶组件” 来帮助我们实现相同的功能（代码复用）。不过，不像高阶函数返回一个新的函数那样，高阶组件返回一个新的组件来渲染 “回调” 组件🤯。这里有点复杂，让我们来攻克它。
 
-##### (Our) Higher-Order Function
+##### （我们的）高阶函数
 
-*   Is a function
-*   Takes in a callback function as an argument
-*   Returns a new function
-*   The function it returns can invoke the original callback function that was passed in
+*   是一个函数
+*   有一个回调函数做为参数
+*   返回一个新的函数
+*   返回的这个函数会触发我们之前传入的回调函数
 
 ```
 function higherOrderFunction (callback) {
@@ -226,12 +226,12 @@ function higherOrderFunction (callback) {
 }
 ```
 
-##### (Our) Higher-Order Component
+##### （我们的）高阶组件
 
-*   Is a component
-*   Takes in a component as an argument
-*   Returns a new component
-*   The component it returns can render the original component that was passed in
+*   是一个组件
+*   有一个组件做为参数
+*   返回一个新的组件
+*   返回的这个组件会渲染我们之前传入的组件
 
 ```
 function higherOrderComponent (Component) {
@@ -243,7 +243,7 @@ function higherOrderComponent (Component) {
 }
 ```
 
-So now that we have the basic idea of what a higher-order component does, let’s start building ours out. If you’ll remember, the problem earlier was that we were duplicating all of our hover logic amongst all of the component that needed that functionality.
+我们已经有了一个高阶函数的基本概念了，现在让我们来构建它。如果你还记得的话，我们之前的问题是我们重复地在每个需要的组件上写我们的鼠标悬停的处理逻辑。
 
 ```
 state = { hovering: false }
@@ -251,9 +251,9 @@ mouseOver = () => this.setState({ hovering: true })
 mouseOut = () => this.setState({ hovering: false })
 ```
 
-With that in mind, we want our higher-order component (which we’ll call `withHover`) to be able to encapsulate that hover logic in itself and then pass the `hovering` state to the component that it renders. That will allow us to prevent duplicating all the hover logic and instead, put it into a single location (`withHover`).
+哦绿到这一点，我们希望我们的高阶组件（我们把它称作 `withHover`）自身需要能包裹我们的鼠标悬停处理逻辑然后传递 `hovering` state 给其所需要渲染的组件。这将允许我们能够复用鼠标悬停逻辑，并将其装入单一的位置（`withHover`）。
 
-Ultimately, here’s the end goal. Whenever we want a component that is aware of it’s `hovering` state, we can pass the original component to our `withHover` higher-order component.
+最后，下面的代码就是我们的最终目标。无论什么时候我们想让一个组件具有 `hovering` state，我们都可以通过给 `withHover` 高阶组件传递一个原始组件来实现。
 
 ```
 const InfoWithHover = withHover(Info)
@@ -261,7 +261,7 @@ const TrendChartWithHover = withHover(TrendChart)
 const DailyChartWithHover = withHover(DailyChart)
 ```
 
-Then, whenever any of the components that `withHover` returns are rendered, they’ll render the original component, passing it a `hovering` prop.
+于是，无论给 `withHover` 传递什么组件，它都会渲染原始组件，同时传递一个 `hovering` prop。
 
 ```
 function Info ({ hovering, height }) {
@@ -281,13 +281,13 @@ function Info ({ hovering, height }) {
 }
 ```
 
-Now the last thing we need to do is actually implement `withHover`. As we saw above, it needs to do three things
+现在我们需要做的最后一件事是封装 `withHover`。正如我们上面所看到的：
 
-*   Take in a “Component” argument.
-*   Return a new component
-*   Render the “Component” argument passing it a “hovering” prop.
+*   传入一个组件参数
+*   返回一个新的组件
+*   渲染传入参数的那个组件同时传递一个 “hovering” prop。
 
-##### Take in a “Component” argument.
+##### 传入一个组件参数
 
 ```
 function withHover (Component) {
@@ -295,7 +295,7 @@ function withHover (Component) {
 }
 ```
 
-##### Return a new component
+##### 返回一个新的组件
 
 ```
 function withHover (Component) {
@@ -305,9 +305,9 @@ function withHover (Component) {
 }
 ```
 
-#### Render the “Component” argument passing it a “hovering” prop.
+#### 渲染传入参数的那个组件同时传递一个 “hovering” prop
 
-Now the question becomes, how do we get the `hovering` state? Well, we already have the code for that that we build earlier. We just need to add it to the new component and then pass the `hovering` state as a prop when we render the argument `Component`.
+现在问题变为了我们应该如何获取 `hovering` 呢？好吧，我们已经有之前写逻辑的代码了。我们仅仅需要将其添加添加到一个新的组件同时将 `hovering` state 作为一个 prop 传递给参数中的 `组件` 。
 
 ```
 function withHover(Component) {
@@ -326,13 +326,13 @@ function withHover(Component) {
 }
 ```
 
-The way I like to think about it (and how it’s mentioned in the React docs) is **a component transforms props into UI, a higher-order component transforms a component into another component.** In our case, we’re transforming our `Info`, `TrendChart`, and `DailyChart` components into new components which are aware of their hover state via a `hovering` prop.
+我比较喜欢的思考这些知识的方式（同时也在 React 文档中有提到）是 **组件是将 props 搬运到视图层，高阶组件则是将一个组件搬运到另一个组件。**在我们的例子中，我们将我们的 `Info`、`TrendChart` 和 `DailyChart` 组件搬运到一个具有 `hovering` prop 的组件中。 
 
 * * *
 
-At this point we’ve covered all of the fundamentals of Higher-Order Components. There are still a few more important items to discuss though.
+在这一点上，我们已经涵盖到了高阶组件的所有基础知识。这里还有一些很重要的知识我们需要来说明下。
 
-If you look back at our `withHover` HOC, one weakness it has is it assumes that the consumer of it is fine with receiving a prop named `hovering`. For the most part this is probably fine but there are certain use cases where it wouldn’t be. For example, what if the component already had a prop named `hovering`? We’d have a naming collision. One change we can make is to allow the consumer of our `withHover` HOC to specify what they want the name of the hovering state to be when it’s passed to their component as a prop. Because `withHover` is just a function, let’s change it up to accept a second argument which specifies the name of the prop that we’ll pass to the component.
+如果你再回去看我们的 `withHover` 高阶组件的话，它有一个缺点就是它已经假定了一个名为 `hovering` 的 prop。在大多数情况下这样或许是没问题的，但是在某些情况下会出问题。举个例子，如果（原来的）组件已经有一个叫做 `hovering` 的 prop 呢？这里我们出现了命名冲突。我们可以做的是让我们的 `withHover` 高阶组件能够允许用户自己定义传入子组件的 prop 名。因为 `withHover` 只是一个函数，让我们让它的第二个参数来描述传递给子组件 prop 的名字。
 
 ```
 function withHover(Component, propName = 'hovering') {
@@ -355,7 +355,7 @@ function withHover(Component, propName = 'hovering') {
 }
 ```
 
-Now we’ve set the default prop name to `hovering` (via ES6’s default parameters), but if the consumer of `withHover` wants to change that, they can by passing in the new prop name as the second argument.
+现在我们设置了默认的 prop 名称为 `hovering`（通过使用 ES6 的参数预设值来实现），如果用户想改变  `withHover` 的默认 prop 名的话，可以通过第二个参数来传递一个新的 prop 名。
 
 ```
 function withHover(Component, propName = 'hovering') {
@@ -398,7 +398,7 @@ const InfoWithHover = withHover(Info, 'showTooltip')
 
 * * *
 
-You may have noticed another problem with our `withHover` implementation as well. Looking at our `Info` component, you’ll notice that it should also takes in a `height` property. With the current way we’ve set it up, `height` is going to be undefined. The reason for that is because our `withHover` component is the one rendering the `Component`. Currently how we’ve set it up, we’re not passing any props to `<Component />` besides the `hovering` prop that we created.
+你可能发现了我们的 `withHover` 函数实现的另外一个问题。看看我们的 `Info` 组件，·你可能会发现其还有一个 `height` 属性，但是 `height` 将会是 undefined。其原因是我们的 `withHover` 组件是渲染 `Component` 组件的函数。事实上我们这样做的话，除了 `hovering` prop 以外我们不会传递任何 prop 给我们最终创建的 `<Component />` 。
 
 ```
 const InfoWithHover = withHover(Info)
@@ -408,7 +408,7 @@ const InfoWithHover = withHover(Info)
 return <InfoWithHover height="16px" />
 ```
 
-The `height` prop gets passed to the `InfoWithHover` component. But what exactly is that component? It’s the component that we’re returning from `withHover`.
+`height` prop 通过 `InfoWithHover` 组件传入，但是事实上真的是它需要这个 prop 吗？当然不是，事实上是我们通过 `withHover` 所创建并返回的那个组件。
 
 ```
 function withHover(Component, propName = 'hovering') {
@@ -433,7 +433,7 @@ function withHover(Component, propName = 'hovering') {
 }
 ```
 
-Inside of the `WithHover` component `this.props.height` is `16px` but from there we don’t do anything with it. We need to make sure that we pass that through to the `Component` argument that we’re rendering.
+深入 `WithHover` 组件内部，`this.props.height` 的值是 `16px` 但是我们没有用它做任何事情。我们需要确保我们将其传入给我们实际渲染的 `Component`。
 
 ```
    render() {
@@ -452,9 +452,9 @@ Inside of the `WithHover` component `this.props.height` is `16px` but from there
 
 * * *
 
-At this point we’ve seen the benefits of using Higher-Order Components to reuse component logic amongst various components without duplicating code. But, does it have any pitfalls? It does, and we’ve already seen it.
+由此来看，我们已经感受到了使用高阶组件减少代码重复的诸多优点。但是，它（高阶组件）还有什么坑吗？当然有，我们马上就去踩踩这些坑。
 
-When using a HOC, there’s an [inversion of control](https://en.wikipedia.org/wiki/Inversion_of_control) happening. Imagine we were using a third part HOC like React Router’s `withRouter` HOC. According to their docs, ”`withRouter` will pass `match`, `location`, and `history` props to the wrapped component whenever it renders.”
+当我们使用高阶组件时，会发生一些 [控制反转](https://en.wikipedia.org/wiki/Inversion_of_control) 的情况。想象下我们正在用类似于 React Router 的 `withRouter` 这类第三方的高阶组件。 根据它们的文档，“`withRouter` 将会在任何其被渲染的时候传递 `match`、`location 和 `history` prop 给其所包裹的组件”。
 
 ```
 class Game extends React.Component {
@@ -468,10 +468,9 @@ class Game extends React.Component {
 export default withRouter(Game)
 ```
 
-Notice we’re not the ones creating the `Game` element (ie `<Game />`). We’re handing over our component entirely to React Router and we’re trusting them to not only render it, but also pass it the correct props. We saw this problem earlier when we talked about naming collisions with `hovering`. To fix that we decided to let the consumer of our `withHover` HOC pass in a second argument to configure what the prop name was going to be. With the 3rd party `withRouter` HOC, we don’t have that option. If our `Game` component is already using `match`, `location`, or `history`, we’re out of luck. We’d either have to modify those names in our component or we’d have to stop using the `withRouter` HOC.
+请注意，我们并没有（由 `<Game />` 组件直接）在界面上渲染 `Game` 元素。我们将我们的组件全权交给了 React Router 同时我们也相信其不止能正确渲染组件，也能正确传递 props。我们We’re handing over our component entirely to React Router and we’re trusting them to not only render it, but also pass it the correct props. 我们之前在讨论 `hovering` prop 命名冲突的时候看到过这个问题。为了修复这个问题我们尝试着给我们的 `withHover` 高阶组件传递第二个参数来允许修改 prop 的名字。但是在使用第三方高阶组件的时候，我们没有这个配置项。如果我们的 `Game` 组件已经使用了 `match`、`location` 或者  `history` 的话，就没有（像使用我们自己的组件）那没幸运了。我们除了改变我们之前所需要使用的 props 名之外就只能不使用 `withRouter` 高阶组件了。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
