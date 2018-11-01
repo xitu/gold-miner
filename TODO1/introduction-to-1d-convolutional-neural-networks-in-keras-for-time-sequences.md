@@ -2,48 +2,48 @@
 > * 原文作者：[Nils Ackermann](https://blog.goodaudience.com/@nils.ackermann?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/introduction-to-1d-convolutional-neural-networks-in-keras-for-time-sequences.md](https://github.com/xitu/gold-miner/blob/master/TODO1/introduction-to-1d-convolutional-neural-networks-in-keras-for-time-sequences.md)
-> * 译者：
+> * 译者：[haiyang-tju](https://github.com/haiyang-tju)
 > * 校对者：
 
-# Introduction to 1D Convolutional Neural Networks in Keras for Time Sequences
+# 在 Keras 中使用一维卷积神经网络处理时间序列数据
 
-### Introduction
+### 概述
 
-Many articles focus on two dimensional convolutional neural networks. They are particularly used for image recognition problems. 1D CNNs are covered to some extend, e.g. for natural language processing (NLP). Few articles provide an explanatory walkthrough on how to construct a 1D CNN though for other machine learning problems that you might be facing. This article tries to bridge this gap.
+许多技术文章都关注于二维卷积神经网络（2D CNN）的使用，特别是在图像识别的问题中。而一维卷积神经网络（1D CNNs）只在一定程度上有所涉及，比如在自然语言处理（NLP）中。目前很少有文章能够提供关于如何构造一维卷积神经网络来解决你可能正面临的一些机器学习问题。本文试图补上这样一个短板。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*lRzUdVtTa0MdbZ3dRP67PA.jpeg)
 
-### When to Apply a 1D CNN?
+### 何时应用 1D CNN？
 
-A CNN works well for identifying simple patterns within your data which will then be used to form more complex patterns within higher layers. A 1D CNN is very effective when you expect to derive interesting features from shorter (fixed-length) segments of the overall data set and where the location of the feature within the segment is not of high relevance.
+CNN 可以很好地识别出数据中的简单模式，然后使用这些简单模式在更高级的层中生成更复杂的模式。当你希望从整体数据集中较短的（固定长度）片段中获得感兴趣特征，并且该特性在该数据片段中的位置不具有高度相关性时，1D CNN 是非常有效的。
 
-This applies well to the analysis of time sequences of sensor data (such as gyroscope or accelerometer data). It also applies to the analysis of any kind of signal data over a fixed-length period (such as audio signals). Another application is NLP (although here LSTM networks are more promising since the proximity of words might not always be a good indicator for a trainable pattern).
+1D CNN 可以很好地应用于传感器数据的时间序列分析（比如陀螺仪或加速度计数据）。同样也可以很好地用于分析具有固定长度周期的信号数据（比如音频信号）。另外一种应用是自然语言处理（尽管在 NLP 中使用 LSTM 网络更有前途，因为单词的接近性可能并不总是一个可训练模式的好的指标）
 
-### What is the Difference Between a 1D CNN and a 2D CNN?
+### 1D CNN 和 2D CNN 之间有什么区别？
 
-CNNs share the same characteristics and follow the same approach, no matter if it is 1D, 2D or 3D. The key difference is the dimensionality of the input data and how the feature detector (or filter) slides across the data:
+无论是一维、二维还是三维，卷积神经网络（CNNs）都具有相同的特点和相同的处理方法。关键区别在于输入数据的维数以及特征检测器（或滤波器）如何在数据之间滑动：
 
 ![](https://cdn-images-1.medium.com/max/800/1*aBN2Ir7y2E-t2AbekOtEIw.png)
 
-“1D versus 2D CNN” by Nils Ackermann is licensed under Creative Commons [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/)
+“一维和二维卷积神经网络” 由 Nils Ackermann 根据知识共享 [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/) 许可下授权。
 
-### Problem Statement
+### 问题描述
 
-In this article we will focus on time-sliced accelerometer sensor data coming from a smartphone carried by its users on their waist. Based on the accelerometer data of the x, y and z axis, the 1D CNN should predict the type of activity a user is performing (such as “Walking”, “Jogging” or “Standing”). You can find more information in my two other articles [here](https://medium.com/@nils.ackermann/human-activity-recognition-har-tutorial-with-keras-and-core-ml-part-1-8c05e365dfa0) and [here](https://medium.com/@nils.ackermann/human-activity-recognition-har-tutorial-with-keras-and-core-ml-part-2-857104583d94). Each time interval of the data will look similar to this for the various activities.
+在本文中，我们将专注于基于时间片的加速度传感器数据的处理，这些数据来自于用户的腰带式智能手机设备。基于 x、y 和 z 轴的加速度计数据，1D CNN 用来预测用户正在进行的活动类型（比如“步行”、“慢跑”或“站立”）。你可以在我的另外两篇文章中找到更多的信息 [这里](https://medium.com/@nils.ackermann/human-activity-recognition-har-tutorial-with-keras-and-core-ml-part-1-8c05e365dfa0) 和 [这里](https://medium.com/@nils.ackermann/human-activity-recognition-har-tutorial-with-keras-and-core-ml-part-2-857104583d94)。 对于各种活动，在每个时间间隔上的数据看起来都与此类似。
 
 ![](https://cdn-images-1.medium.com/max/800/1*t2nFJAuI_Jfp0ZyxRpwRQg.png)
 
-Example time series from the accelerometer data
+来自加速度计数据的时间序列样例
 
-### How to Construct a 1D CNN in Python?
+### 如何在 Python 中构造一个 1D CNN？
 
-There are many standard CNN models available. I picked one of the models described on the [Keras website](https://keras.io/getting-started/sequential-model-guide/) and modified it slightly to fit the problem depicted above. The following picture provides a high level overview of the constructed model. Each layer will be explained further.
+目前已经有许多得标准 CNN 模型可用。我选择了 [Keras 网站](https://keras.io/getting-started/sequential-model-guide/) 上描述的一个模型，并对它进行了微调，以适应前面描述的问题。下面的图片对构建的模型进行一个高级概述。其中每一层都将会进一步加以解释。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*Y117iNR_CnBtBh8MWVtUDg.png)
 
-“1D CNN Example” by Nils Ackermann is licensed under Creative Commons [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/)
+“一维卷积神经网络示例” 由 Nils Ackermann 根据知识共享 [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/) 许可下授权。
 
-But let’s first take a look at the Python code in order to construct this model:
+让我们先来看一下对应的 Python 代码，以便构建这个模型：
 
 ```
 model_m = Sequential()
@@ -59,7 +59,7 @@ model_m.add(Dense(num_classes, activation='softmax'))
 print(model_m.summary())
 ```
 
-Running this code will result in the following deep neural network:
+运行这段代码将得到如下的深层神经网络输出：
 
 ```
 _________________________________________________________________
@@ -90,20 +90,20 @@ _________________________________________________________________
 None
 ```
 
-Let’s dive into each layer and see what is happening:
+让我们深入到每一层中，看看到底发生了什么：
 
-*   **Input data:** The data has been preprocessed in such a way that each data record contains 80 time slices (data was recorded at 20 Hz sampling rate, therefore each time interval covers four seconds of accelerometer reading). Within each time interval, the three accelerometer values for the x axis, y axis and z axis are stored. This results in an 80 x 3 matrix. Since I typically use the neural network within iOS, the data must be passed into the neural network as a flat vector of length 240. The first layer in the network must reshape it to the original shape which was 80 x 3.
-*   **First 1D CNN layer:** The first layer defines a filter (or also called feature detector) of height 10 (also called kernel size). Only defining one filter would allow the neural network to learn one single feature in the first layer. This might not be sufficient, therefore we will define 100 filters. This allows us to train 100 different features on the first layer of the network. The output of the first neural network layer is a 71 x 100 neuron matrix. Each column of the output matrix holds the weights of one single filter. With the defined kernel size and considering the length of the input matrix, each filter will contain 71 weights.
-*   **Second 1D CNN layer:** The result from the first CNN will be fed into the second CNN layer. We will again define 100 different filters to be trained on this level. Following the same logic as the first layer, the output matrix will be of size 62 x 100.
-*   **Max pooling layer:** A pooling layer is often used after a CNN layer in order to reduce the complexity of the output and prevent overfitting of the data. In our example we chose a size of three. This means that the size of the output matrix of this layer is only a third of the input matrix.
-*   **Third and fourth 1D CNN layer:** Another sequence of 1D CNN layers follows in order to learn higher level features. The output matrix after those two layers is a 2 x 160 matrix.
-*   **Average pooling layer:** One more pooling layer to further avoid overfitting. This time not the maximum value is taken but instead the average value of two weights within the neural network. The output matrix has a size of 1 x 160 neurons. Per feature detector there is only one weight remaining in the neural network on this layer.
-*   **Dropout layer:** The dropout layer will randomly assign 0 weights to the neurons in the network. Since we chose a rate of 0.5, 50% of the neurons will receive a zero weight. With this operation, the network becomes less sensitive to react to smaller variations in the data. Therefore it should further increase our accuracy on unseen data. The output of this layer is still a 1 x 160 matrix of neurons.
-*   **Fully connected layer with Softmax activation:** The final layer will reduce the vector of height 160 to a vector of six since we have six classes that we want to predict (“Jogging”, “Sitting”, “Walking”, “Standing”, “Upstairs”, “Downstairs”). This reduction is done by another matrix multiplication. Softmax is used as the activation function. It forces all six outputs of the neural network to sum up to one. The output value will therefore represent the probability for each of the six classes.
+*   **输入数据：** 数据经过预处理后，每条数据记录中包含有 80 个时间片（数据是以 20Hz 的采样频率进行记录的，因此每个时间间隔中就包含有 4 秒的加速度计数据）。在每个时间间隔内，存储加速度计的 x 轴、 y 轴和 z 轴的三个数据。这样就得到了一个 80 x 3 的矩阵。由于我通常是在 iOS 系统中使用神经网络的，所以数据必须以长度为 240 的平展后的向量形式传递到神经网络中。网络的第一层必须再将其变形为原始的 80 x 3 的形状。
+*   **第一个 1D CNN 层：** 第一层定义了高度为 10（也称为内核大小）的滤波器（也称为特征检测器）。只有定义了一个滤波器，神经网络才能够在第一层中学习到一个单一的特征。这可能还不够，因此我们会定义 100 个滤波器。这样我们就在网络的第一层中训练得到 100 个不同的特性。第一个神经网络层的输出是一个 71 x 100 的矩阵。输出矩阵的每一列都包含一个滤波器的权值。在定义内核大小并考虑输入矩阵长度的情况下，每个过滤器将包含 71 个权重值。
+*   **第二个 1D CNN 层：** 第一个 CNN 的输出结果将被输入到第二个 CNN 层中。我们将在这个网络层上再次定义 100 个不同的滤波器进行训练。按照与第一层相同的逻辑，输出矩阵的大小为 62 x 100。
+*   **最大值池化层：** 为了减少输出的复杂度和防止数据的过拟合，在 CNN 层之后经常会使用池化层。在我们的示例中，我们选择了大小为 3 的池化层。这意味着这个层的输出矩阵的大小只有输入矩阵的三分之一。
+*   **第三和第四个 1D CNN 层：** 为了学习更高层次的特征，这里又使用了另外两个 1D CNN 层。这两层之后的输出矩阵是一个 2 x 160 的矩阵。
+*   **平均值池化层：** 多添加一个池化层，以进一步避免过拟合的发生。这次的池化不是取最大值，而是取神经网络中两个权重的平均值。输出矩阵的大小为 1 x 160 。每个特征检测器在神经网络的这一层中只剩下一个权重。
+*   **Dropout 层：** Dropout 层会随机地为网络中的神经元赋值零权重。由于我们选择了 0.5 的比率，则 50% 的神经元将会是零权重的。通过这种操作，网络对数据的微小变化的响应就不那么敏感了。因此，它能够进一步提高对不可见数据处理的准确性。这个层的输出仍然是一个 1 x 160 的矩阵。
+*   **使用 Softmax 激活的全连接层：** 最后一层将会把长度为 160 的向量降为长度为 6 的向量，因为我们有 6 个类别要进行预测（即 “慢跑”、“坐下”、“走路”、“站立”、“上楼”、“下楼”）。这里的维度下降是通过另一个矩阵乘法来完成的。Softmax 被用作激活函数。它强制神经网络的所有六个输出值的加和为一。因此，输出值将表示这六个类别中的每个类别出现的概率。
 
-### Training and Testing the Neural Network
+### 训练和测试该神经网络
 
-Here is the Python code to train the model with a batch size of 400 and a training and validation split of 80 to 20.
+下面是一段用以训练模型的 Python 代码，批大小为 400，其中训练集和验证集的分割比例是 80 比 20。
 
 ```
 callbacks_list = [
@@ -128,7 +128,7 @@ history = model_m.fit(x_train,
                       verbose=1)
 ```
 
-The model reaches an accuracy of 97% for the training data.
+该模型在训练数据上的准确率可达 97%。
 
 ```
 ...
@@ -144,7 +144,7 @@ Epoch 13/50
 16694/16694 [==============================] - 17s 1ms/step - loss: 0.0626 - acc: 0.9799 - val_loss: 0.7219 - val_acc: 0.8107
 ```
 
-Running it against the test data reveals an accuracy of 92%.
+根据测试集数据进行测试，其准确率为 92%。
 
 ```
 Accuracy on test data: 0.92
@@ -152,7 +152,7 @@ Accuracy on test data: 0.92
 Loss on test data: 0.39
 ```
 
-This is a good number considering that we used one of the standard 1D CNN models. Our model also scores well on precision, recall, and the f1-score.
+考虑到我们使用的是标准的 1D CNN 模型，得到这样的结果已经很好了。我们的模型在精度（precision）、召回率（recall）和 f1 值（f1-score）上的得分也很高。
 
 ```
               precision    recall  f1-score   support
@@ -167,36 +167,36 @@ This is a good number considering that we used one of the standard 1D CNN models
 avg / total       0.92      0.92      0.92      6584
 ```
 
-Here is a brief recap of what those scores mean:
+下面对这些分数的含义做一个简要回顾：
 
 ![](https://cdn-images-1.medium.com/max/800/1*wTGN860kbMvnZUNQbCBYVg.png)
 
-“Prediction versus Outcome Matrix” by Nils Ackermann is licensed under Creative Commons [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/)
+“预测和结果矩阵”  由 Nils Ackermann 根据知识共享 [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/) 许可下授权。
 
-*   **Accuracy:** The ratio between correctly predicted outcomes and the sum of all predictions. ((TP + TN) / (TP + TN + FP + FN))
-*   **Precision:** When the model predicted positive, was it right? All true positives divided by all positive predictions. (TP / (TP + FP))
-*   **Recall:** How many positives did the model identify out of all possible positives? True positives divided by all actual positives. (TP / (TP + FN))
-*   **F1-score:** This is the weighted average of precision and recall. (2 x recall x precision / (recall + precision))
+*   **精确度（Accuracy）：** 正确预测的结果与所有预测的结果总和之比。即 ((TP + TN) / (TP + TN + FP + FN))
+*   **精度（Precision）：** 当模型预测为正样本时，它是对的吗？所有的正确预测的正样本除以所有的正样本预测。即 (TP / (TP + FP))
+*   **召回率（Recall）：** 为模型识别出的所有正样本中有多少是正确预测的正样本？正确预测的正样本除以所有的正样本预测。即 (TP / (TP + FN))
+*   **F1值（F1-score）：** 是精度和召回率的加权平均值。即 (2 x recall x precision / (recall + precision))
 
-The associated confusion matrix against the test data looks as following.
+测试数据上对应的混淆矩阵如下所示。
 
 ![](https://cdn-images-1.medium.com/max/800/1*aUZdBNo8ppvPpOI39a-v_g.png)
 
-### Summary
+### 总结
 
-In this article you have seen an example on how to use a 1D CNN to train a network for predicting the user behaviour based on a given set of accelerometer data from smartphones. The full Python code is available on [github](https://github.com/ni79ls/har-keras-cnn).
+本文介绍了如何使用 1D CNN 来训练网络根据智能手机的加速度计数据来预测用户的行为。完整的 Python 代码可以在 [github](https://github.com/ni79ls/har-keras-cnn) 上找到。
 
-### Links and References
+### 链接与引用
 
-*   Keras [documentation](https://keras.io/layers/convolutional/#conv1d) for 1D convolutional neural networks
-*   Keras [examples](https://keras.io/getting-started/sequential-model-guide/) for 1D convolutional neural networks
-*   A good [article](http://www.wildml.com/2015/11/understanding-convolutional-neural-networks-for-nlp/) with an introduction to 1D CNNs for natural language processing problems
+*   Keras [文档](https://keras.io/layers/convolutional/#conv1d) 关于一维卷积神经网络部分
+*   Keras [用例](https://keras.io/getting-started/sequential-model-guide/) 关于一维卷积神经网络部分
+*   一篇关于使用一维卷积神经网络进行自然语言处理的好 [文章](http://www.wildml.com/2015/11/understanding-convolutional-neural-networks-for-nlp/)
 
-### Disclaimer
+### 免责声明
 
-_The postings on this site are my own and do not necessarily represent the postings, strategies or opinions of my employer._
+_网站帖文属于自己，不代表雇佣者的文章、策略或意见。_
 
-**Connect with the Raven team on** [**Telegram**](https://t.me/ravenprotocol)
+**联系 Raven 团队** [**Telegram**](https://t.me/ravenprotocol)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
