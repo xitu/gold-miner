@@ -285,7 +285,7 @@ function Info ({ hovering, height }) {
 
 *   传入一个组件参数
 *   返回一个新的组件
-*   渲染传入参数的那个组件同时传递一个 “hovering” prop。
+*   渲染传入参数的那个组件同时注入一个 “hovering” prop。
 
 ##### 传入一个组件参数
 
@@ -305,7 +305,7 @@ function withHover (Component) {
 }
 ```
 
-#### 渲染传入参数的那个组件同时传递一个 “hovering” prop
+#### 渲染传入参数的那个组件同时注入一个 “hovering” prop
 
 现在问题变为了我们应该如何获取 `hovering` 呢？好吧，我们已经有之前写逻辑的代码了。我们仅仅需要将其添加到一个新的组件同时将 `hovering` state 作为一个 prop 传递给参数中的 `组件` 。
 
