@@ -9,7 +9,7 @@
 
 ## 苹果公司如何弯道超车颠覆传统瑞士制表业
 
-[![Go to the profile of Adrian Zumbrunnen](https://cdn-images-1.medium.com/fit/c/60/60/1*AvC-bmqPn1Ja9cDFPG9vZw.jpeg)]
+![Go to the profile of Adrian Zumbrunnen](https://cdn-images-1.medium.com/fit/c/60/60/1*AvC-bmqPn1Ja9cDFPG9vZw.jpeg)
 
 众所周知，世界上很多最知名的手表品牌都来自瑞士，这已经不是一个秘密了。尽管“瑞士制造”的产品概念似乎已经存在很久了，它却是一个相对近期的现象。
 
