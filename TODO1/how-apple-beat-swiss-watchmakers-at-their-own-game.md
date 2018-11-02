@@ -2,8 +2,8 @@
 > * 原文作者：[Adrian Zumbrunnen](https://medium.com/@azumbrunnen)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-apple-beat-swiss-watchmakers-at-their-own-game.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-apple-beat-swiss-watchmakers-at-their-own-game.md)
-> * 译者：@noturnot
-> * 校对者：@Wangalan30 @Marszht
+> * 译者：[noturnot](https://github.com/noturnot)
+> * 校对者：[Wangalan30](https://github.com/Wangalan30), [Marszht](https://github.com/Marszht)
 
 # 从发条手表到手腕上的计算机
 
@@ -25,7 +25,7 @@
 
 由于时尚度和舒适性都要求更轻薄的手表，全欧洲的钟表匠开始研究构造更加轻盈的钟表装置的方法。[早期制表业](https://watchponder.com/2016/12/20/how-the-swiss-became-the-best-watchmakers-a-series-of-choices-and-fate/)存在的问题恰好反映了今天智能手表生产者所面临的挑战：怎样让手表变得更轻薄和更强大。
 
-正是瑞士大师级钟表匠Abraham-Louis Breguet的技艺和视野启发了我们今天所知的现代腕表——面积大、扁平、光滑以及时髦。如果说英国人是押注在精确性上，那么瑞士人则押注在风格上。没过多久，瑞士通过第一款精确计时器认证腕表确立了一系列高质量手表生产地的地位，尤其是浪琴、IWC 万国表、以及劳力士。
+正是瑞士大师级钟表匠 Abraham-Louis Breguet 的技艺和视野启发了我们今天所知的现代腕表——面积大、扁平、光滑以及时髦。如果说英国人是押注在精确性上，那么瑞士人则押注在风格上。没过多久，瑞士通过第一款精确计时器认证腕表确立了一系列高质量手表生产地的地位，尤其是浪琴、IWC 万国表、以及劳力士。
 
 从 20 世纪早期到 1960 年，瑞士人作为世界顶级制表商的地位是至高无上的。他们开始在手表上刻上标志。不同版本的标志均保持了最初的样式，由于表盘面积太小，这种方式开始出现问题，因此手表业将标志凝聚为两个简单的单词：“瑞士制造”。
 
@@ -41,15 +41,15 @@
 
 为了在钟表业巨变中生存下来，瑞士人需要创新。
 
-通过激进的思想和令人吃惊的设计，Nicolas Hayek 通过他新成立的斯沃琪集团彻底改造了瑞士手表。对于这个新的手表生产线，他的准则是_“_创新,激情,有趣,永恒._”_ 。这个准则不仅仅体现在产品本身，同样也体现在[广告宣传中](https://clickamericana.com/topics/beauty-fashion/the-new-swatch-the-new-wave-of-watches-1980s)。
+通过激进的思想和令人吃惊的设计，Nicolas Hayek 通过他新成立的斯沃琪集团彻底改造了瑞士手表。对于这个新的手表生产线，他的准则是**“创新，激情，有趣，永恒。”**这个准则不仅仅体现在产品本身，同样也体现在[广告宣传中](https://clickamericana.com/topics/beauty-fashion/the-new-swatch-the-new-wave-of-watches-1980s)。
 
 ![](https://cdn-images-1.medium.com/max/600/1*eMc7p0R0_HwKFotDOBFpTQ.png)
 
 Vintage ’80s Swatches. Photo: [Jon Rawlinson via flickr](https://www.flickr.com/photos/london/14474851198/)/[CC BY 2.0](https://creativecommons.org/licenses/by/2.0/legalcode)
 
-斯沃琪集团让塑料手表变得酷。这导致了完全不同的 [产品定位](https://www.bloomberg.com/news/articles/2017-11-21/how-swatch-started-a-revolution-history-of-fashion-watches)。斯沃琪拆解了手表的核心计时功能，并将它转换为时尚宣言。
+斯沃琪集团让塑料手表变得酷。这引发了完全不同的[产品定位](https://www.bloomberg.com/news/articles/2017-11-21/how-swatch-started-a-revolution-history-of-fashion-watches)。斯沃琪拆解了手表的核心计时功能，并将它转换为时尚宣言。
 
-手表不再仅仅和复杂的钟表装置有关——它现在是自我表达的渠道。在智能手机和智能手表的时代，这一从技术到时尚的转换将会变得更为重要。但是这一转变就像距离有人知道“Home”按钮是什么，仍然有数十年的时间。
+手表不再仅仅和复杂的钟表装置有关 —— 它现在是自我表达的渠道。在智能手机和智能手表的时代，这一从技术到时尚的转换将会变得更为重要。但是这一转变就像距离有人知道 “Home” 按钮是什么，仍然有数十年的时间。
 
 在斯沃琪手表创立后的三十余年里，这个行业明显保持着瑞士重新确立制表业全球领导者地位的局面。
 
@@ -57,17 +57,17 @@ Vintage ’80s Swatches. Photo: [Jon Rawlinson via flickr](https://www.flickr.co
 
 ### 智能手表疲劳
 
-智能手表并不是个新概念。自从日本精工公司注意到[詹姆斯·邦德在《007 之八爪女》](https://www.youtube.com/watch?v=rp2IqwWhTkE)中所佩戴的，我们一直梦想着将屏幕放置在我们的手腕上。不幸的是，早期的全部尝试都拥有笨重的设计和短暂的电池寿命。 这也导致了，没有一个在商业上获得成功。
+智能手表并不是个新概念。自从日本精工公司注意到[詹姆斯·邦德在《007 之八爪女》](https://www.youtube.com/watch?v=rp2IqwWhTkE)中所佩戴的，我们一直梦想着将屏幕放置在我们的手腕上。不幸的是，早期的全部尝试都拥有笨重的设计和短暂的电池寿命。这也导致了，没有一个在商业上获得成功。
 
-改变发生在 2012 年，Eric Migicovsky 为他的 Pebble 智能手表（与手机配对）开启了一项 kickstarter（译者注：美国众筹网站）活动。尽管这次活动的目标是筹集十万美元用于生产，他们最终以令人震惊的一千万美元结束。由于它独特的用户体验、持久的电池寿命以及无缝连接 iOS 和 Android 系统的特性，Pebble 手表成为 2000 年代第一款在[商业上成功的智能手表](https://www.punchkick.com/blog/2016/01/06/history-of-the-smart-watch) 。
+改变发生在 2012 年，Eric Migicovsky 为他的 Pebble 智能手表（与手机配对）开启了一项 kickstarter（译者注：美国众筹网站）活动。尽管这次活动的目标是筹集十万美元用于生产，他们最终以令人震惊的一千万美元结束。由于它独特的用户体验、持久的电池寿命以及无缝连接 iOS 和 Android 系统的特性，Pebble 手表成为 2000 年代第一款在[商业上成功的智能手表](https://www.punchkick.com/blog/2016/01/06/history-of-the-smart-watch)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*jX3V6HHVB00ZhU9CS4x19Q.jpeg)
 
-Pebble 智能手表. Photo: [Orde Saunders via flickr](https://www.flickr.com/photos/79578508@N08/12031245446/in/photolist-pXB3DS-jkagzC-jk7qA6-jkah7j-jk65Ki-isiwvB-mhLcow-j8A1u9-iCGR44-6M5a7Z-jk5YR4)/[CC BY 2.0](https://creativecommons.org/licenses/by/2.0/legalcode)
+Pebble 智能手表。Photo：[Orde Saunders via flickr](https://www.flickr.com/photos/79578508@N08/12031245446/in/photolist-pXB3DS-jkagzC-jk7qA6-jkah7j-jk65Ki-isiwvB-mhLcow-j8A1u9-iCGR44-6M5a7Z-jk5YR4)/[CC BY 2.0](https://creativecommons.org/licenses/by/2.0/legalcode)
 
 不幸的是，Pebble 将会很快败给一个即将入场的智能手表新玩家。
 
-在2014年初，新闻报道披露苹果公司试图与瑞士制表商展开合作的消息。斯沃琪集团的 CEO [Nicolas Hayek告诉媒体](https://www.ft.com/content/bd77bd76-b600-11e3-b40e-00144feabdc0)“我们找不到任何理由去参与合作协议的讨论。”
+在 2014 年初，新闻报道披露苹果公司试图与瑞士制表商展开合作的消息。斯沃琪集团的 CEO [Nicolas Hayek告诉媒体](https://www.ft.com/content/bd77bd76-b600-11e3-b40e-00144feabdc0)“我们找不到任何理由去参与合作协议的讨论。”
 
 Hayek 曾因早先与微软的一次智能手表失败合作被指责，他坚定地相信技术限制最终将毁灭这类设备。
 
@@ -75,7 +75,7 @@ Hayek 曾因早先与微软的一次智能手表失败合作被指责，他坚�
 
 在 2014 年的 9 月，就在展示 iPhone 6 之后，Tim Cook 走上舞台，告诉拥挤的观众，苹果公司还有一款产品将要展示。他以 Apple Watch 的名称揭开神秘面纱，而不是预料中的 iWatch。Cook 称它为“……[苹果公司的下一篇章](https://www.techtimes.com/articles/15267/20140912/apple-watch-unveiled-next-chapter-in-apples-story.htm)”。
 
-> 我们相信这款新产品将会重新定义人们从它的分类中所期待的。
+> 我们相信这款新产品将会重新定义人们对它的期待。
 
 许多专家对 Apple Watch 的工业设计提出质疑。[Tag Heuer 的 CEO Jean-Claude Biver 告诉媒体](https://www.telegraph.co.uk/technology/apple/11088667/Apple-Watch-too-feminine-and-looks-like-it-was-designed-by-students-says-LVMH-executive.html)，“老实说，它看起来像是一个学生在第一学期时设计的。”没过多久，Biver 就改变了他的言论。
 
@@ -103,7 +103,7 @@ The Apple Watch Sport. Photo: [Yasunobu Ikeda via flickr](https://www.flickr.com
 
 Apple Watch 几乎是在对传统制表业致敬。通过 Apple Watch 设计的持久特性，苹果公司也许是在说智能手表应该比智能手机更永久一些。
 
-苹果公司更进一步，甚至采用传统钟表的术语去描述用户界面。许多电脑设计者发现[“complications”](https://en.wikipedia.org/wiki/Complication_%28horology%29)（译者注：多功能表，手表专用术语）这一术语并不合适，但是钟表匠们曾经这样称呼。本质上来说，“complications” ——在制表业术语中——代表着这个单词所暗示的含义：他们通过增加日期、秒表、发条等使得手表变得更加复杂。但是，机械手表的“complications”设计主要是用来炫耀技艺，而智能手表中的“complications”旨在合适的时间传达相关信息。苹果公司采用“complications”这一术语去描述表盘上的[应用程序数据](https://developer.apple.com/videos/play/tech-talks/208/) 。他们还采用了传统制表业的另一个术语“[表冠](https://www.hautehorlogerie.org/en/encyclopaedia/glossary-of-watchmaking/s/crown-watchmaking-1/)”(crown)，命名为“数字表冠”放置在设备的一边。
+苹果公司更进一步，甚至采用传统钟表的术语去描述用户界面。许多电脑设计者发现 [“complications”](https://en.wikipedia.org/wiki/Complication_%28horology%29)（译者注：多功能表，手表专用术语）这一术语并不合适，但是钟表匠们曾经这样称呼。本质上来说，“complications” —— 在制表业术语中代表着这个单词所暗示的含义：他们通过增加日期、秒表、发条等使得手表变得更加复杂。但是，机械手表的 “complications” 设计主要是用来炫耀技艺，而智能手表中的 “complications” 旨在合适的时间传达相关信息。苹果公司采用 “complications” 这一术语去描述表盘上的[应用程序数据](https://developer.apple.com/videos/play/tech-talks/208/)。他们还采用了传统制表业的另一个术语“[表冠（crown）](https://www.hautehorlogerie.org/en/encyclopaedia/glossary-of-watchmaking/s/crown-watchmaking-1/)”，命名为“数字表冠”放置在设备的一边。
 
 通过使用相同的语言和制表业的基本原则，苹果公司确保他们的产品独特到让人们觉得新颖，却又相似到可以在我们的手腕上发现它的位置。
 
