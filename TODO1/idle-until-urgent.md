@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/idle-until-urgent.md](https://github.com/xitu/gold-miner/blob/master/TODO1/idle-until-urgent.md)
 > * 译者：[Ivocin](https://github.com/Ivocin)
-> * 校对者：
+> * 校对者：[xilihuasi](https://github.com/xilihuasi)
 
 几周前，我开始查看我网站的一些性能指标。 具体来说，我想看看我的网站在最新的性能指标 —— [首次输入延迟](https://developers.google.com/web/updates/2018/05/first-input-delay) （FID）上的表现如何。 我的网站只是一个博客（并没有运行很多的 JavaScript），所以我原本预期会得到相当不错的结果。
 
@@ -18,11 +18,11 @@
 
 说到上文中的第二点，当时我试图解决我的问题时，偶然发现了一个非常有趣的性能策略，特别想分享给大家（这也是我写这篇文章的主要原因）。
 
-我把这个策略称作：**空闲到紧急**。
+我把这个策略称作：**空闲执行，紧急优先**。
 
 ## 我的性能问题
 
-首次输入延迟（FID）是一个网站性能指标，指用户与网站[首次交互](https://developers.google.com/web/updates/2018/05/first-input-delay#what_counts_as_a_first_input)（像我这样的博客，最有可能的首次交互是点击链接）和浏览器响应该交互（请求加载下一页面）之间的时间。
+首次输入延迟（FID）是一个网站性能指标，指用户与网站[首次交互](https://developers.google.com/web/updates/2018/05/first-input-delay#what_counts_as_a_first_input)（像我这样的博客，最有可能的首次交互是点击链接）和浏览器响应此交互（请求加载下一页面）之间的时间。
 
 存在延迟是由于浏览器的主线程正在忙于做其他事情（通常是在执行 JavaScript 代码）。因此，要诊断这个高于预期的 FID，我们首先需要在网站加载时启动性能跟踪（启用 CPU 降频和网络限速），然后在主线程上找到耗时长的任务。一旦确定了这些耗时长的任务，我们就可以尝试将它们拆解为更小的任务。
 
@@ -127,11 +127,11 @@ JavaScript 就像被“千刀万剐”了一样。
 
 换句话说：如果确保所有代码都运行在耗时短、不同的任务中（最好[小于 50 毫秒](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#long_tasks)），你的代码就再也不会阻塞用户输入了。
 
-**重要！** 虽然浏览器能够在任务队列中优先执行输入回调函数，但是浏览器**无法**将这些输入回调函数在排列好的微任务之前运行。由于 promise 和 `async` 函数作为微任务运行，将你的同步代码转换为基于 promise 的代码不会起到缓解用户输入阻塞的作用！
+**重要！** 虽然浏览器能够在任务队列中优先执行输入回调函数，但是浏览器**无法**将这些输入回调函数在排列好的微任务之前运行。由于 promise 和 `async` 函数作为微任务运行，将你的同步代码转换为基于 promise 的代码不会缓解用户输入阻塞的问题。
 
 如果你不熟悉任务和微任务之间的区别，我强烈建议你观看我的同事杰克[关于事件循环](https://youtu.be/cCOL7MC4Pl0)的精彩演讲。
 
-鉴于我刚才所说的，可以使用 `setTimeout（)` 和`requestIdleCallback（)` 来重构我的 `main()` 函数，将我的初始化代码拆解为单独的任务：
+鉴于我刚才所说的，可以使用 `setTimeout()` 和`requestIdleCallback()` 来重构我的 `main()` 函数，将我的初始化代码拆解为单独的任务：
 
 ```
 const main = () => {
@@ -152,19 +152,19 @@ main();
 
 因此，如果所有这些求值策略都有缺点，那么我们该作何选择呢？
 
-## 空闲到紧急
+## 空闲执行，紧急优先
 
-在长时间思考这个问题之后，我意识到我**真正**想要的求值策略是：先把代码推迟到空闲时间执行，但是一旦代码被调用则立即执行。换句话说：“空闲到紧急”。
+在长时间思考这个问题之后，我意识到我**真正**想要的求值策略是：先把代码推迟到空闲时间执行，但是一旦代码被调用则立即执行。换句话说：“空闲执行，紧急优先”。
 
-“空闲到紧急”的策略回避了我在上一节中指出的大多数缺点。在最坏的情况下，它与延迟计算具有完全相同的性能特征；在最好的情况下，它完全不会阻塞用户交互，因为在空闲时间里，代码都已经执行完毕了。
+“空闲执行，紧急优先”的策略回避了我在上一节中指出的大多数缺点。在最坏的情况下，它与延迟计算具有完全相同的性能特征；在最好的情况下，它完全不会阻塞用户交互，因为在空闲时间里，代码都已经执行完毕了。
 
 我还得提一点，这个策略既适用于单任务（在空闲时间求值），也适用于多任务（创建一个有序的任务队列，可以空闲时间运行队列中的任务）。我先解释一下单任务（空闲值）变体，因为它更容易理解。
 
 ### 空闲值
 
-我在上文提到过，初始化 `Int.DateTimeFormat` 对象可能非常耗时，因此若不需要立即调用该实例，最好在空闲时间去初始化。当然，一旦**需要它**，你就希望它已经存在了。所以这是一个可以用“空闲到紧急”策略来解决的完美的例子。
+我在上文提到过，初始化 `Int.DateTimeFormat` 对象可能非常耗时，因此若不需要立即调用该实例，最好在空闲时间去初始化。当然，一旦**需要它**，你就希望它已经存在了。所以这是一个可以用“空闲执行，紧急优先”策略来解决的完美的例子。
 
-如下是使用我们新策略的简化版组件的例子：
+如下是我们重构以使用新策略的简化版组件的例子：
 
 ```
 class MyComponent {
@@ -191,7 +191,7 @@ class MyComponent {
 
 在这种情况下，事件监听器立即运行非常重要，但在事件处理函数需要之前，创建 `Intl.DateTimeFormat` 实例是不必要的。当然我们也不想在事件处理函数中创建`Intl.DateTimeFormat` 对象，因为这样会使事件处理函数变得很慢。
 
-下面就是使用“空闲到紧急”策略修改后的代码。需要注意的是，这里使用了 `IdleValue`  帮助类，后续我会进行讲解：
+下面就是使用“空闲执行，紧急优先”策略修改后的代码。需要注意的是，这里使用了 `IdleValue`  帮助类，后续我会进行讲解：
 
 ```
 import {IdleValue} from './path/to/IdleValue.mjs';
@@ -324,7 +324,7 @@ queue.pushTask(() => {
 
 在理想的情况下，所有 JavaScript API 都是非阻塞的、异步的、代码量小的，并且由能够返回主线程。但在实际情况下，由于遗留的代码库或集成了无法控制的第三方库，我们通常别无选择，只能使用同步。
 
-正如我之前所说，这是“空闲到紧急”策略的巨大优势之一。它可以轻松应用于大多数程序，而无需大规模重写架构。
+正如我之前所说，这是“空闲执行，紧急优先”策略的巨大优势之一。它可以轻松应用于大多数程序，而无需大规模重写架构。
 
 ### 保证紧急任务执行
 
@@ -344,14 +344,14 @@ const queue = new IdleQueue({ensureTasksRun: true});
 
 对于渲染等任务，无需确保在页面卸载之前运行任务，但对于保存用户状态和发送结束回话分析等任务，可以选择将此选项设置为 `true`。
 
-**注意：** 监听 `visibilitychange` 事件应该足以确保在卸载页面之前运行任务，但是由于 Safari 的漏洞，当用户关闭选项卡时，[页面隐藏和 `visibilitychange` 事件并不总是触发](https://github.com/GoogleChromeLabs/page-lifecycle/issues/2)，我们必须实现一个解决方案来适配 Safari 浏览器。这个解决方案已经在 `IdleQueue` 类中[为你实现好了](https://github.com/GoogleChromeLabs/idlize/blob/master/IdleQueue.mjs#L60-L69)，但如果你需要自己实现它，则需要了解它。
+**注意：** 监听 `visibilitychange` 事件应该足以确保在卸载页面之前运行任务，但是由于 Safari 的漏洞，当用户关闭选项卡时，[页面隐藏和 `visibilitychange` 事件并不总是触发](https://github.com/GoogleChromeLabs/page-lifecycle/issues/2)，我们必须实现一个解决方案来适配 Safari 浏览器。这个解决方案已经在 `IdleQueue` 类中[为你实现好了](https://github.com/GoogleChromeLabs/idlize/blob/master/IdleQueue.mjs#L60-L69)，但如果你需要自己实现它，则需注意这一点。
 
 **警告！** 不要使用监听 `unload` 事件的方式来执行页面卸载前需要执行的队列。 `unload` 事件不可靠，在某些情况下还会降低性能。有关更多详细信息，请参阅我在[Page Lifecycle API 上的文章](https://developers.google.com/web/updates/2018/07/page-lifecycle-api#the-unload-event)。
 
-“空闲到紧急”策略的使用实例
+“空闲执行，紧急优先”策略的使用实例
 -------------------------------
 
-每当要运行可能非常耗时的代码时，应该尝试将其拆解为更小的任务。如果不需要立即运行该代码，但未来某些时候可能需要，那么这就是一个使用“空闲到紧急”策略的完美场景。
+每当要运行可能非常耗时的代码时，应该尝试将其拆解为更小的任务。如果不需要立即运行该代码，但未来某些时候可能需要，那么这就是一个使用“空闲执行，紧急优先”策略的完美场景。
 
 在你自己的代码中，我建议做的第一件事是查看所有构造函数，如果存在可能会很耗时的操作，使用 [`IdleValue`](https://github.com/GoogleChromeLabs/idlize/blob/master/docs/IdleValue.md) 对象重构它们。
 
@@ -388,7 +388,7 @@ store.subscribe(() => {
 
 虽然使用防抖技术总比什么都不做强，但它并不是一个完美的解决方案。问题是无法保证防抖函数的运行不会阻塞对用户至关重要的主线程。
 
-在空闲时间执行 localStorage 写入会好得多。你可以将上述代码从防抖策略转换为“空闲到紧急”策略，如下所示：
+在空闲时间执行 localStorage 写入会好得多。你可以将上述代码从防抖策略转换为“空闲执行，紧急优先”策略，如下所示：
 
 ```
 const queue = new IdleQueue({ensureTasksRun: true});
@@ -411,7 +411,7 @@ store.subscribe(() => {
 
 ### 网站分析
 
-另一个“空闲到紧急”策略适合的实例就是网站分析代码。下面的例子教你如何使用 `IdleQueue` 类来发送你的网站分析数据，并且可以保证，即使用户关闭了标签页或跳转到了其他页面，并且还没有等到下次的空闲时间，这些数据也可以**正常发送**：
+另一个“空闲执行，紧急优先”策略适合的实例就是网站分析代码。下面的例子教你如何使用 `IdleQueue` 类来发送你的网站分析数据，并且可以保证，即使用户关闭了标签页或跳转到了其他页面，并且还没有等到下次的空闲时间，这些数据也可以**正常发送**：
 
 ```
 const queue = new IdleQueue({ensureTasksRun: true});
@@ -454,7 +454,7 @@ queue.pushTask(() => ga('send', 'pageview'));
 
 ## requestIdleCallback 的浏览器兼容性
 
-在撰写本文时，只有 Chrome 和 Firefox 支持 `requestIdleCallback()`。虽然真正的 polyfill 是不可能的（只有浏览器可以知道它何时空闲），但是使用 setTimeout 作为一个备用方案还是很容易的（本文提到的所有帮助器类和方法都使用这个[备用方案](https://github.com/GoogleChromeLabs/idlize/blob/master/docs/idle-callback-polyfills.md)）。
+在撰写本文时，只有 Chrome 和 Firefox 支持 `requestIdleCallback()`。虽然真正的 polyfill 是不可能的（只有浏览器可以知道它何时空闲），但是使用 setTimeout 作为一个备用方案还是很容易的（本文提到的所有帮助类和方法都使用这个[备用方案](https://github.com/GoogleChromeLabs/idlize/blob/master/docs/idle-callback-polyfills.md)）。
 
 而且即使在不原生支持 `requestIdleCallback()` 的浏览器中，使用 `setTimeout` 这种备用方案也比不用强，因为浏览器仍然是优先处理用户输入，然后再处理通过 `setTimeout()` 函数创建的队列中的任务。
 
@@ -462,7 +462,7 @@ queue.pushTask(() => ga('send', 'pageview'));
 
 在本文开头我提到我想出了这个策略，因为我试图提高我网站的 FID 值。我尝试拆分那些页面开始加载就运行的代码，并且还得保证一些使用了同步 API 的第三方库（如 analytics.js）的正常运行。
 
-上文已经提到，在我使用“空闲到紧急”策略之前，我所有初始化代码集中在了一个任务中，耗费了 233 毫秒。在使用了“空闲到紧急”策略之后，可以看到出现了更多耗时更短的任务。实际上，最长的一个任务也仅仅耗时 37 毫秒！
+上文已经提到，在我使用“空闲执行，紧急优先”策略之前，我所有初始化代码集中在了一个任务中，耗费了 233 毫秒。在使用了“空闲执行，紧急优先”策略之后，可以看到出现了更多耗时更短的任务。实际上，最长的一个任务也仅仅耗时 37 毫秒！
 
 [![我网站的 JavaScript 性能跟踪图，上面展示了很多短任务。](https://philipwalton.com/static/idle-until-urget-after-4789aca119.png)](https://philipwalton.com/static/idle-until-urget-after-1400w-d526f6cca8.png)
 
@@ -472,9 +472,9 @@ queue.pushTask(() => ga('send', 'pageview'));
 
 因为所有任务都不超过 50 毫秒，所以没有任何一个任务影响我的交互时间（TTI），这对我的 lighthouse 得分很有帮助：
 
-[![使用了“空闲到紧急”策略后，我的 lighthouse 报告。 - 全部 100 分！](https://philipwalton.com/static/lighthouse-report-4721b091da.png)](https://philipwalton.com/static/lighthouse-report-1400w-1136c250ac.png)
+[![使用了“空闲执行，紧急优先”策略后，我的 lighthouse 报告。 - 全部 100 分！](https://philipwalton.com/static/lighthouse-report-4721b091da.png)](https://philipwalton.com/static/lighthouse-report-1400w-1136c250ac.png)
 
-使用了“空闲到紧急”策略后，我的 lighthouse 报告。
+使用了“空闲执行，紧急优先”策略后，我的 lighthouse 报告。
 
 最后, 由于本工作的目的是提高我网站的 FID, 在将这些变更上线之后, 经过分析，我非常兴奋地看到：**对于 99% 的页面，FID 减少了 67%！**
 
@@ -485,11 +485,11 @@ queue.pushTask(() => ga('send', 'pageview'));
 
 ## 总结
 
-在理想情况下，没有网站再会去不必要的阻塞主线程了。我们会使用 web worker 来处理我们非 UI 的工作，而且我们还有浏览器内置好的 [`shouldYield()`](https://discourse.wicg.io/t/shouldyield-enabling-script-to-yield-to-user-input/2881/17) 和原生的 [Scheduling API](https://github.com/spanicker/main-thread-scheduling/blob/master/README.md)）。
+在理想情况下，我们的网站再也不会不必要地阻塞主线程了。我们会使用 web worker 来处理我们非 UI 的工作，而且我们还有浏览器内置好的 [`shouldYield()`](https://discourse.wicg.io/t/shouldyield-enabling-script-to-yield-to-user-input/2881/17) 和原生的 [Scheduling API](https://github.com/spanicker/main-thread-scheduling/blob/master/README.md)）。
 
 但在实际情况下，我们网站工程师往往没有选择，只能将非 UI 的代码放到主线程去执行，这导致了网页出现无响应的问题。
 
-希望这篇文章已经说服了你，是时候去打破我们的长耗时 JavaScript 任务了。而且“空闲到紧急”策略能够把看起来同步的 API 转到空闲时间运行，能够和全部我们已知的和使用中的工具库结合，“空闲到紧急”是一个极好的解决方案。
+希望这篇文章已经说服了你，是时候去打破我们的长耗时 JavaScript 任务了。而且“空闲执行，紧急优先”策略能够把看起来同步的 API 转到空闲时间运行，能够和全部我们已知的和使用中的工具库结合，“空闲执行，紧急优先”是一个极好的解决方案。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
