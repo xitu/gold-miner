@@ -285,7 +285,7 @@ class MyComponent {
 }
 ```
 
-对于运行非常耗时的单个属性值，没有理由不使用此策略，尤其使用此策略可以不更改你的 API！
+对于运行非常耗时的个别属性值，没有理由不使用此策略，特别是你不用为了使用此策略而去修改你的 API！
 
 虽然这个例子使用了 `Intl.DateTimeFormat` 对象，但如下情况使用本策略也是一个好的选择：
 
@@ -332,7 +332,7 @@ queue.pushTask(() => {
 
 网站分析代码就是一个很好的例子。网站分析代码的问题在于，很多情况下，在页面卸载时，网站分析代码就要运行（例如，跟踪外链点击等），在这种情况下，显然使用 `requestIdleCallback()` 不合适，因为回调函数根本不会执行。而且由于开发人员不清楚分析库的 API 在页面的生命周期中的调用时机，他们也倾向于求稳，让所有代码同步运行（这很不幸，因为网站分析代码绝对不是用户体验的关键）。
 
-但是使用“闲置到紧急”模式来解决这个问题就很简单了。我们所要做的就是确保只要页面处于将要卸载的状态，就会立即运行队列中的网站分析代码。
+但是使用“空闲执行，紧急优先”模式来解决这个问题就很简单了。我们所要做的就是确保只要页面处于将要卸载的状态，就会立即运行队列中的网站分析代码。
 
 如果你熟悉我近期发表在 [Page Lifecycle API](https://developers.google.com/web/updates/2018/07/page-lifecycle-api) 的文章里面给出的建议，你就会知道在页面被终止或丢弃之前，[最后一个可靠的回调函数](https://developers.google.com/web/updates/2018/07/page-lifecycle-api#advice-hidden)是 `visibilitychange` 事件（因为页面的 `visibilityState` 属性会变为隐藏）。而且用户无法在页面隐藏的情况下进行交互，因此这正是运行空闲任务的最佳时机。
 
@@ -355,7 +355,7 @@ const queue = new IdleQueue({ensureTasksRun: true});
 
 在你自己的代码中，我建议做的第一件事是查看所有构造函数，如果存在可能会很耗时的操作，使用 [`IdleValue`](https://github.com/GoogleChromeLabs/idlize/blob/master/docs/IdleValue.md) 对象重构它们。
 
-对于其他的对于用户交互是必不可少，但不关键的逻辑，请考虑将这些逻辑添加到 [`IdleQueue`](https://github.com/GoogleChromeLabs/idlize/blob/master/docs/IdleQueue.md) 中。不用担心，你可以在任何你需要的时候立即运行该代码。
+对于一些必需但又不用直接与用户交互的逻辑部分代码，请考虑将这些逻辑添加到 [`IdleQueue`](https://github.com/GoogleChromeLabs/idlize/blob/master/docs/IdleQueue.md) 中。不用担心，你可以在任何你需要的时候立即运行该代码。
 
 特别适合使用该技术的两个具体实例（并且与大部分网站相关）是持久化应用状态（如 Redux）和网站分析。
 
