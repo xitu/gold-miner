@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-higher-order-components.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-higher-order-components.md)
 > * 译者：[CoderMing](https://github.com/coderming)
-> * 校对者：[giddens9527](https://github.com/giddens9527)、[icy](https://github.com/Raoul1996)
+> * 校对者：[giddens9527](https://github.com/giddens9527), [icy](https://github.com/Raoul1996)
 
 # 深入理解 React 高阶组件
 
@@ -11,13 +11,13 @@
 
 > 在这篇文章的开始之前，我们有两点需要注意：首先，我们所讨论的仅仅是一种设计模式。它甚至就像组件结构一样不是 React 里的东西。第二，它不是构建一个 React 应用所必须的知识。你可以关掉这篇文章、不学习在这篇文章中我们所讨论的内容，之后仍然可以构建一个正常的 React 应用。不过，就像构建所有东西一样，你有更多可用的工具就会得到更好的结果。如果你在写 React 应用，在你的“工具箱”之中没有这个（React 高阶组件）的话会对你是非常不利的。
 
-在你听到 `Don't Repeat Yourself`或者 D.R.Y 这样（中邪一样）的口号之前你是不会在软件开发的钻研之路上走得很远的。有时候实行这些名言会有点过于麻烦，但是在大多数情况下，（实行它）是一个有价值的目标。在这篇文章中我们将会去探讨在 React 库中实现 DRY 的最著名的模式——高阶组件。不过在我们探索答案之前，我们首先必须要完全明确问题来源。
+在你听到 `Don't Repeat Yourself` 或者 D.R.Y 这样（中邪一样）的口号之前你是不会在软件开发的钻研之路上走得很远的。有时候实行这些名言会有点过于麻烦，但是在大多数情况下，（实行它）是一个有价值的目标。在这篇文章中我们将会去探讨在 React 库中实现 DRY 的最著名的模式——高阶组件。不过在我们探索答案之前，我们首先必须要完全明确问题来源。
 
-假设我们要负责重新创建一个类似于 Sprite（译者注：国外的一个在线支付公司）的仪表盘。正如大多数项目那样，一切事务在最后收尾之前都工作得很正常。你发现在仪表盘上有一串不一样的提示框需要你某些元素 hover 的时候显示。 => 你在仪表盘上面发现了一些不同的、（当鼠标）悬停在某些组成元素上面会出现的提示信息。
+假设我们要负责重新创建一个类似于 Sprite（译者注：国外的一个在线支付公司）的仪表盘。正如大多数项目那样，一切事务在最后收尾之前都工作得很正常。你在仪表盘上面发现了一些不同的、（当鼠标）悬停在某些组成元素上面会出现的提示信息。
 
 ![GIF of Stripe's dashboard with lots of tooltips](https://tylermcginnis.com/images/posts/react-fundamentals/tool-tips.gif)
 
-这里有好几种方式可以实现这个效果。其中一个你可能想到的是监听特定的组件的 hover 状态来决定是否展示 tooltip。在上图中，你有三个组件需要添加它们的监听功能—— `Info`、`TrendChart` 和 `DailyChart`。
+这里有好几种方式可以实现这个效果。其中一个你可能想到的是监听特定的组件的 hover 状态来决定是否展示 tooltip。在上图中，你有三个组件需要添加它们的监听功能 —— `Info`、`TrendChart` 和 `DailyChart`。
 
 让我们从 `Info` 组件开始。现在它只是一个简单的 SVG 图标。
 
@@ -63,7 +63,7 @@ class Info extends React.Component {
 }
 ```
 
-上面的代码看起来很棒。现在我们要添加同样的功能给我们的其他两个组件——`TrendChart` 和 `DailyChart`。如果这两个组件没有出问题，就请不要修复它。我们对于 `Info` 的悬停功能运行的很好，所以请再写一遍之前的代码。
+上面的代码看起来很棒。现在我们要添加同样的功能给我们的其他两个组件 —— `TrendChart` 和 `DailyChart`。如果这两个组件没有出问题，就请不要修复它。我们对于 `Info` 的悬停功能运行的很好，所以请再写一遍之前的代码。
 
 ```
 class TrendChart extends React.Component {
@@ -113,9 +113,9 @@ class DailyChart extends React.Component {
 
 这样的话，我们就全部做完了。你可能以前曾经这样写过 React 代码。但这并不该是你最终所该做的（不过这样做也还凑合），但是它很不 “DRY”。正如我们所看到的，我们在我们的每一个组件中都 重复着完全一样的的鼠标悬停逻辑。
 
-从这点看的话，**问题**变得非常清晰了：**我们希望避免在在每个需要添加鼠标悬停逻辑的组件是都再写一遍相同的逻辑**。所以，**解决办法**是什么？在我们开始前，让我们先讨论一些能让我们更容易理解答案的编程思想—— `回调函数` 和 `高阶函数`。
+从这点看的话，**问题**变得非常清晰了：**我们希望避免在在每个需要添加鼠标悬停逻辑的组件是都再写一遍相同的逻辑**。所以，**解决办法**是什么？在我们开始前，让我们先讨论一些能让我们更容易理解答案的编程思想 —— `回调函数` 和 `高阶函数`。
 
-在 JavaScript 中，函数是 “一等公民”。这意味着它就像对象/数组/字符串那样可以被声明为一个变量、当作函数的参数或者在函数中返回一个函数，即使返回的是其他函数也可以。
+在 JavaScript 中，函数是“一等公民”。这意味着它就像对象/数组/字符串那样可以被声明为一个变量、当作函数的参数或者在函数中返回一个函数，即使返回的是其他函数也可以。
 
 ```
 function add (x, y) {
@@ -159,7 +159,7 @@ $('#btn').on('click', () =>
 )
 ```
 
-让我们回到我们之前的例子。如果我们不仅仅想创建一个 `addFive` 函数，我们也想创建 `addTen`函数、 `addTwenty` 函数等等，我们该怎么办？在我们当前的实践方法中，我们必须在需要的时候去重复地写我们的逻辑。
+让我们回到我们之前的例子。如果我们不仅仅想创建一个 `addFive` 函数，我们也想创建 `addTen`函数、`addTwenty` 函数等等，我们该怎么办？在我们当前的实践方法中，我们必须在需要的时候去重复地写我们的逻辑。
 
 ```
 function add (x, y) {
@@ -207,9 +207,9 @@ addTwenty(10) // 30
 
 太酷了！现在我们可以在需要的时候随意地用最低的代码重复度创建 “adder” 函数。
 
-> 如果你在意的话，这个通过一个多参数的函数来返回一个具有较少参数的函数的模式被叫做 “部分应用（Partial Application）“，它也是函数式编程的技术。JavaScript 内置的 “.bind“ 方法也是一个类似的例子。
+> 如果你在意的话，这个通过一个多参数的函数来返回一个具有较少参数的函数的模式被叫做“部分应用（Partial Application）”，它也是函数式编程的技术。JavaScript 内置的 “.bind” 方法也是一个类似的例子。
 
-好吧，那这与 React 以及我们之前遇到鼠标悬停的组件有什么关系呢？我们刚刚通过创建了我们的 `makeAdder` 这个高阶函数来实现了代码复用，那我们也可以创建一个类似的 “高阶组件” 来帮助我们实现相同的功能（代码复用）。不过，不像高阶函数返回一个新的函数那样，高阶组件返回一个新的组件来渲染 “回调” 组件🤯。这里有点复杂，让我们来攻克它。
+好吧，那这与 React 以及我们之前遇到鼠标悬停的组件有什么关系呢？我们刚刚通过创建了我们的 `makeAdder` 这个高阶函数来实现了代码复用，那我们也可以创建一个类似的“高阶组件”来帮助我们实现相同的功能（代码复用）。不过，不像高阶函数返回一个新的函数那样，高阶组件返回一个新的组件来渲染“回调”组件 🤯。这里有点复杂，让我们来攻克它。
 
 ##### （我们的）高阶函数
 
@@ -253,7 +253,7 @@ mouseOut = () => this.setState({ hovering: false })
 
 考虑到这一点，我们希望我们的高阶组件（我们把它称作 `withHover`）自身需要能封装我们的鼠标悬停处理逻辑然后传递 `hovering` state 给其所需要渲染的组件。这将允许我们能够复用鼠标悬停逻辑，并将其装入单一的位置（`withHover`）。
 
-最后，下面的代码就是我们的最终目标。无论什么时候我们想让一个组件具有 `hovering` state，我们都可以通过将它传递给withHover 高阶组件来实现。
+最后，下面的代码就是我们的最终目标。无论什么时候我们想让一个组件具有 `hovering` state，我们都可以通过将它传递给 `withHover` 高阶组件来实现。
 
 ```
 const InfoWithHover = withHover(Info)
@@ -307,7 +307,7 @@ function withHover (Component) {
 
 #### 渲染传入参数的那个组件同时注入一个 “hovering” prop
 
-现在问题变为了我们应该如何获取 `hovering` 呢？好吧，我们已经有之前写逻辑的代码了。我们仅仅需要将其添加到一个新的组件同时将 `hovering` state 作为一个 prop 传递给参数中的 `组件` 。
+现在问题变为了我们应该如何获取 `hovering` 呢？好吧，我们已经有之前写逻辑的代码了。我们仅仅需要将其添加到一个新的组件同时将 `hovering` state 作为一个 prop 传递给参数中的 `组件`。
 
 ```
 function withHover(Component) {
@@ -398,7 +398,7 @@ const InfoWithHover = withHover(Info, 'showTooltip')
 
 * * *
 
-你可能发现了我们的 `withHover` 函数实现的另外一个问题。看看我们的 `Info` 组件，·你可能会发现其还有一个 `height` 属性，但是 `height` 将会是 undefined。其原因是我们的 `withHover` 组件是渲染 `Component` 组件的函数。事实上我们这样做的话，除了 `hovering` prop 以外我们不会传递任何 prop 给我们最终创建的 `<Component />` 。
+你可能发现了我们的 `withHover` 函数实现的另外一个问题。看看我们的 `Info` 组件，你可能会发现其还有一个 `height` 属性，但是 `height` 将会是 undefined。其原因是我们的 `withHover` 组件是渲染 `Component` 组件的函数。事实上我们这样做的话，除了 `hovering` prop 以外我们不会传递任何 prop 给我们最终创建的 `<Component />`。
 
 ```
 const InfoWithHover = withHover(Info)
@@ -454,7 +454,7 @@ function withHover(Component, propName = 'hovering') {
 
 由此来看，我们已经感受到了使用高阶组件减少代码重复的诸多优点。但是，它（高阶组件）还有什么坑吗？当然有，我们马上就去踩踩这些坑。
 
-当我们使用高阶组件时，会发生一些 [控制反转](https://en.wikipedia.org/wiki/Inversion_of_control) 的情况。想象下我们正在用类似于 React Router 的 `withRouter` 这类第三方的高阶组件。 根据它们的文档，“`withRouter` 将会在任何被它包裹的组件渲染时，将 `match`、`location` 和 `history` prop 传递给它们。
+当我们使用高阶组件时，会发生一些[控制反转](https://en.wikipedia.org/wiki/Inversion_of_control)的情况。想象下我们正在用类似于 React Router 的 `withRouter` 这类第三方的高阶组件。根据它们的文档，“`withRouter` 将会在任何被它包裹的组件渲染时，将 `match`、`location` 和 `history` prop 传递给它们”。
 
 ```
 class Game extends React.Component {
