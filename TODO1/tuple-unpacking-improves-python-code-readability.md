@@ -2,40 +2,40 @@
 > * 原文作者：[Trey Hunner](http://treyhunner.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/tuple-unpacking-improves-python-code-readability.md](https://github.com/xitu/gold-miner/blob/master/TODO1/tuple-unpacking-improves-python-code-readability.md)
-> * 译者：
-> * 校对者：
+> * 译者：[lsvih](https://github.com/lsvih)
+> * 校对者：[Zheaoli](https://github.com/Zheaoli)
 
-# Multiple assignment and tuple unpacking improve Python code readability
+# 使用多重赋值与元组解包提升 Python 代码的可读性
 
-Whether I’m teaching new Pythonistas or long-time Python programmers, I frequently find that **Python programmers underutilize multiple assignment**.
+无论是教导新手还是资深 Python 程序员，我都发现 **很多 Python 程序员没有充分利用多重赋值这一特性**。
 
-Multiple assignment (also known as tuple unpacking or iterable unpacking) allows you to assign multiple variables at the same time in one line of code. This feature often seems simple after you’ve learned about it, but **it can be tricky to recall multiple assignment when you need it most**.
+多重赋值（也经常被称为元组解包或者可迭代对象解包）能让你在一行代码内同时对多个变量进行赋值。这种特性在学习时看起来很简单，但在真正需要使用时再去回想它可能会比较麻烦。
 
-In this article we’ll see what multiple assignment is, we’ll take a look at common uses of multiple assignment, and then we’ll look at a few uses for multiple assignment that are often overlooked.
+在本文中，将介绍什么是多重赋值，举一些常用的多重赋值的样例，并了解一些较少用、常被忽视的多重赋值用法。
 
-Note that in this article I will be using [f-strings](https://cito.github.io/blog/f-strings/) which are a Python 3.6+ feature. If you’re on an older version of Python, you’ll need to mentally translate those to use the string `format` method.
+请注意在本文中会用到 [f-strings](https://cito.github.io/blog/f-strings/) 这种 Python 3.6 以上版本才有的特性，如果你的 Python 版本较老，可以使用字符串的 `format` 方法来代替这种特性。
 
-## How multiple assignment works
+## 多重赋值的实现原理
 
-I’ll be using the words **multiple assignment**, **tuple unpacking**, and **iterable unpacking** interchangeably in this article. They’re all just different words for the same thing.
+在本文中，我将使用“多重赋值”、“元组解包”、“迭代对象解包”等不同的词，但他们其实表示的是同一个东西。
 
-Python’s multiple assignment looks like this:
+Python 的多重赋值如下所示：
 
 ```
 >>> x, y = 10, 20
 ```
 
-Here we’re setting `x` to `10` and `y` to `20`.
+在这儿我们将 `x` 设为了 `10`，`y` 设为了 `20`。
 
-What’s happening at a lower level is that we’re creating a tuple of `10, 20` and then looping over that tuple and taking each of the two items we get from looping and assigning them to `x` and `y` in order.
+从更底层的角度看，我们其实是创建了一个 `10, 20` 的元组，然后遍历这个元组，将拿到的两个数字按照顺序分别赋给 `x` 与 `y`。
 
-This syntax might make that a bit more clear:
+写成下面这种语法应该更容易理解：
 
 ```
 >>> (x, y) = (10, 20)
 ```
 
-Parenthesis are optional around tuples in Python and they’re also optional in multiple assignment (which uses a tuple-like syntax). All of these are equivalent:
+在 Python 中，元组周围的括号是可以忽略的，因此在“多重赋值”（写成上面这种元组形式的语法）时也可以省去。下面几行代码都是等价的：
 
 ```
 >>> x, y = 10, 20
@@ -44,7 +44,7 @@ Parenthesis are optional around tuples in Python and they’re also optional in 
 >>> (x, y) = (10, 20)
 ```
 
-Multiple assignment is often called “tuple unpacking” because it’s frequently used with tuples. But we can use multiple assignment with any iterable, not just tuples. Here we’re using it with a list:
+多重赋值常被直接称为“元组解包”，因为它在大多数情况下都是用于元组。但其实我们可以用除了元组之外的任何可迭代对象进行多重赋值。下面是使用列表（list）的结果：
 
 ```
 >>> x, y = [10, 20]
@@ -54,7 +54,7 @@ Multiple assignment is often called “tuple unpacking” because it’s frequen
 20
 ```
 
-And with a string:
+下面是使用字符串（string）的结果：
 
 ```
 >>> x, y = 'hi'
@@ -64,9 +64,9 @@ And with a string:
 'i'
 ```
 
-Anything that can be looped over can be “unpacked” with tuple unpacking / multiple assignment.
+任何可以用于循环的东西都能和元组解包、多重赋值一样被“解开”。
 
-Here’s another example to demonstrate that multiple assignment works with any number of items and that it works with variables as well as objects we’ve just created:
+下面是另一个可以证明多重赋值能用于任何数量、任何变量（甚至是我们自己创建的对象）的例子：
 
 ```
 >>> point = 10, 20, 30
@@ -78,44 +78,44 @@ Here’s another example to demonstrate that multiple assignment works with any 
 30 20 10
 ```
 
-Note that on that last line we’re actually swapping variable names, which is something multiple assignment allows us to do easily.
+请注意，在上面例子中的最后一行我们仅交换了变量的名称。多重赋值可以让我们轻松地实现这种情形。
 
-Alright, let’s talk about how multiple assignment can be used.
+下面我们将讨论如何使用多重赋值。
 
-## Unpacking in a for loop
+## 在 for 循环中解包
 
-You’ll commonly see multiple assignment used in `for` loops.
+你会经常在 `for` 循环中看到多重赋值。下面举例说明：
 
-Let’s take a dictionary:
+先创建一个字典（dict）：
 
 ```
 >>> person_dictionary = {'name': "Trey", 'company': "Truthful Technology LLC"}
 ```
 
-Instead of looping over our dictionary like this:
+下面这种循环遍历字典的方法比较少见：
 
 ```
 for item in person_dictionary.items():
     print(f"Key {item[0]} has value {item[1]}")
 ```
 
-You’ll often see Python programmers use multiple assignment by writing this:
+但你会经常看到 Python 程序员通过多重赋值来这么写：
 
 ```
 for key, value in person_dictionary.items():
     print(f"Key {key} has value {value}")
 ```
 
-When you write the `for X in Y` line of a for loop, you’re telling Python that it should do an assignment to `X` for each iteration of your loop. Just like in an assignment using the `=` operator, we can use multiple assignment here.
+当你在 for 循环中写 `for X in Y` 时，其实是告诉 Python 在循环的每次遍历时都对 `X` 做一次赋值。与用 `=` 符号赋值一样，这儿也可以使用多重赋值。
 
-This:
+这种写法：
 
 ```
 for key, value in person_dictionary.items():
     print(f"Key {key} has value {value}")
 ```
 
-Is essentially the same as this:
+在本质上与这种写法是一致的：
 
 ```
 for item in person_dictionary.items():
@@ -123,18 +123,18 @@ for item in person_dictionary.items():
     print(f"Key {key} has value {value}")
 ```
 
-We’re just not doing an unnecessary extra assignment in the first example.
+与前一个例子相比，我们其实就是去掉了一个没有必要的额外赋值。
 
-So multiple assignment is great for unpacking dictionary items into key-value pairs, but it’s helpful in many other places too.
+因此，多重赋值在用于将字典元素解包为键值对时十分有用。此外，它还在其它地方也可以使用：
 
-It’s great when paired with the built-in `enumerate` function:
+在内置函数 `enumerate` 的值拆分成对时，也是多重赋值的一个很有用的场景：
 
 ```
 for i, line in enumerate(my_file):
     print(f"Line {i}: {line}")
 ```
 
-And the `zip` function:
+还有 `zip` 函数：
 
 ```
 for color, ratio in zip(colors, ratios):
@@ -146,45 +146,45 @@ for (product, price, color) in zip(products, prices, colors):
     print(f"{product} is {color} and costs ${price:.2f}")
 ```
 
-If you’re unfamiliar with `enumerate` or `zip`, see my article on [looping with indexes in Python](http://treyhunner.com/2016/04/how-to-loop-with-indexes-in-python/).
+如果你还对 `enumerate` 和 `zip` 不熟悉，请参阅作者之前的文章 [looping with indexes in Python](http://treyhunner.com/2016/04/how-to-loop-with-indexes-in-python/)。
 
-Newer Pythonistas often see multiple assignment in the context of `for` loops and sometimes assume it’s tied to loops. Multiple assignment works for any assignment though, not just loop assignments.
+有些 Python 新手经常在 `for` 循环中看到多重赋值，然后就认为它只能与循环一起使用。但其实，多重赋值不仅可以用在循环赋值时，还可以用在其它任何需要赋值的地方。
 
-## An alternative to hard coded indexes
+## 替代硬编码索引
 
-It’s not uncommon to see hard coded indexes (e.g. `point[0]`, `items[1]`, `vals[-1]`) in code:
+很少有人在代码中对索引进行硬编码（比如 `point[0]`、`items[1]`、`vals[-1]`）：
 
 ```
 print(f"The first item is {items[0]} and the last item is {items[-1]}")
 ```
 
-When you see Python code that uses hard coded indexes there’s often a way to **use multiple assignment to make your code more readable**.
+当你在 Python 代码中看到有硬编码索引时，一般都可以设法**使用多重赋值来让你的代码更具可读性**。
 
-Here’s some code that has three hard coded indexes:
+下面是一些使用了硬编码索引的代码：
 
-```
+```python
 def reformat_date(mdy_date_string):
     """Reformat MM/DD/YYYY string into YYYY-MM-DD string."""
     date = mdy_date_string.split('/')
     return f"{date[2]}-{date[0]}-{date[1]}"
 ```
 
-We can make this code much more readable by using multiple assignment to assign separate month, day, and year variables:
+我们可以通过多重赋值，分别对月、天、年三个变量进行赋值，让代码更具可读性：
 
-```
+```python
 def reformat_date(mdy_date_string):
     """Reformat MM/DD/YYYY string into YYYY-MM-DD string."""
     month, day, year = mdy_date_string.split('/')
     return f"{year}-{month}-{day}"
 ```
 
-Whenever you see hard coded indexes in your code, stop to consider whether you could use multiple assignment to make your code more readable.
+因此当你准备对索引进行硬编码时，请停下来想一想是不是应该用多重赋值来改善代码的可读性。
 
-## Multiple assignment is very strict
+## 多重赋值是十分严格的
 
-Multiple assignment is actually fairly strict when it comes to unpacking the iterable we give to it.
+在我们对可迭代对象进行解包时，多重赋值的条件是非常严格的。
 
-If we try to unpack a larger iterable into a smaller number of variables, we’ll get an error:
+如果将一个较大的可迭代对象解包到一组数量更小的对象中，会报下面的错误：
 
 ```
 >>> x, y = (10, 20, 30)
@@ -193,7 +193,7 @@ Traceback (most recent call last):
 ValueError: too many values to unpack (expected 2)
 ```
 
-If we try to unpack a smaller iterable into a larger number of variables, we’ll also get an error:
+如果将一个较小的可迭代对象解包到一组数量更多的对象中，会报下面的错误：
 
 ```
 >>> x, y, z = (10, 20)
@@ -202,9 +202,9 @@ Traceback (most recent call last):
 ValueError: not enough values to unpack (expected 3, got 2)
 ```
 
-This strictness is pretty great. If we’re working with an item that has a different size than we expected, the multiple assignment will fail loudly and we’ll hopefully now know about a bug in our program that we weren’t yet aware of.
+这种严格的限制其实很棒，如果我们在处理元素时出现了非预期的对象数量，多重赋值会直接报错，这样我们就能发现一些还没有被发现的 bug。
 
-Let’s look at an example. Imagine that we have a short command line program that parses command-line arguments in a rudimentary way, like this:
+举个例子。假设我们有一个简单的命令行程序，通过原始的方式接受参数，如下所示：
 
 ```
 import sys
@@ -214,23 +214,23 @@ old_file = sys.argv[2]
 print(f"Copying {new_file} to {old_file}")
 ```
 
-Our program is supposed to accept 2 arguments, like this:
+这个程序希望接受两个参数，如下所示：
 
 ```
 $ my_program.py file1.txt file2.txt
 Copying file1.txt to file2.txt
 ```
 
-But if someone called our program with three arguments, they will not see an error:
+但如果在运行程序时输入了三个参数，也不会有任何报错：
 
 ```
 $ my_program.py file1.txt file2.txt file3.txt
 Copying file1.txt to file2.txt
 ```
 
-There’s no error because we’re not validating that we’ve received exactly 2 arguments.
+由于我们没有验证接收到的参数是否为 2 个，因此不会报错。
 
-If we use multiple assignment instead of hard coded indexes, the assignment will verify that we receive exactly the expected number of arguments:
+如果使用多重赋值来代替硬编码索引，在赋值时将会验证程序是否真的接收到了期望个数的参数：
 
 ```
 import sys
@@ -239,17 +239,17 @@ _, new_file, old_file = sys.argv
 print(f"Copying {new_file} to {old_file}")
 ```
 
-**Note**: we’re using the variable name `_` to note that we don’t care about `sys.argv[0]` (the name of our program). Using `_` for variables you don’t care about is just a convention.
+**注意：** 我们用了一个名为 `_` 的变量，意思是我们不想关注 `sys.argv[0]`（对应的是我们程序的名称）。用 `_` 对象来忽略不需关注的变量是一种常用的语法。
 
-## An alternative to slicing
+## 替代数组拆分
 
-So multiple assignment can be used for avoiding hard coded indexes and it can be used to ensure we’re strict about the size of the tuples/iterables we’re working with.
+根据上文，我们一直多重赋值可以用来代替硬编码的索引，并且它严格的条件可以确保我们处理的元组或可迭代对象的大小是正确的。
 
-Multiple assignment can be used to replace hard coded slices too!
+此外，多重赋值还能用于代替硬编码的数组拆分。
 
-Slicing is a handy way to grab a specific portion of the items in lists and other sequences.
+“拆分”是一种手动将 list 或其它序列中的部分元素取出的方法、
 
-Here are some slices that are “hard coded” in that they only use numeric indexes:
+下面是一种用数字索引进行“硬编码”拆分的方法：
 
 ```
 all_after_first = items[1:]
@@ -257,9 +257,9 @@ all_but_last_two = items[:-2]
 items_with_ends_removed = items[1:-1]
 ```
 
-Whenever you see slices that don’t use any variables in their slice indexes, you can often use multiple assignment instead. To do this we have to talk about a feature that I haven’t mentioned yet: the `*` operator.
+当你在拆分时发现没有在拆分索引中用到变量，那么就能用多重赋值来替代它。为了实现多重赋值拆分数组，我们将用到一个之前没提过的特性：`*` 符号。
 
-In Python 3.0, the `*` operator was added to the multiple assignment syntax, allowing us to capture remaining items after an unpacking into a list:
+`*` 符号于 Python 3 中加入了多重赋值的语法中，它可以让我们在解包时拿到“剩余”的元素：
 
 ```
 >>> numbers = [1, 2, 3, 4, 5, 6]
@@ -270,44 +270,44 @@ In Python 3.0, the `*` operator was added to the multiple assignment syntax, all
 1
 ```
 
-The `*` operator allows us to replace hard coded slices near the ends of sequences.
+因此，`*` 可以让我们在取数组末尾时替换硬编码拆分。
 
-These two lines are equivalent:
+下面两行是等价的：
 
 ```
 >>> beginning, last = numbers[:-1], numbers[-1]
 >>> *beginning, last = numbers
 ```
 
-These two lines are equivalent also:
+下面两行也是等价的：
 
 ```
 >>> head, middle, tail = numbers[0], numbers[1:-1], numbers[-1]
 >>> head, *middle, tail = numbers
 ```
 
-With the `*` operator and multiple assignment you can replace things like this:
+有了 `*` 和多重赋值之后，你可以替换一切类似于下面这样的代码：
 
 ```
 main(sys.argv[0], sys.argv[1:])
 ```
 
-With more descriptive code, like this:
+可以写成下面这种更具自描述性的代码：
 
 ```
 program_name, *arguments = sys.argv
 main(program_name, arguments)
 ```
 
-So if you see hard coded slice indexes in your code, consider whether you could use multiple assignment to clarify what those slices really represent.
+总之，如果你写了硬编码的拆分代码，请考虑一下你可以用多重赋值来让这些拆分的逻辑更加清晰。
 
-## Deep unpacking
+## 深度解包
 
-This next feature is something that long-time Python programmers often overlook. It doesn’t come up quite as often as the other uses for multiple assignment that I’ve discussed, but it can be very handy to know about when you do need it.
+这个特性是 Python 程序员长期以来经常忽略的一个东西。它虽然不如我之前提到的几种多重复值用法常用，但是当你用到它的时候会深刻体会到它的好处。
 
-We’ve seen multiple assignment for unpacking tuples and other iterables. We haven’t yet seen that this is can be done _deeply_.
+在前文，我们已经看到多重赋值用于解包元组或者其它的可迭代对象，但还没看过它**更进一步**地进行深度解包。
 
-I’d say that the following multiple assignment is _shallow_ because it unpacks one level deep:
+下面例子中的多重赋值是**浅度**的，因为它只进行了一层的解包：
 
 ```
 >>> color, point = ("red", (1, 2, 3))
@@ -317,7 +317,7 @@ I’d say that the following multiple assignment is _shallow_ because it unpacks
 (1, 2, 3)
 ```
 
-And I’d say that this multiple assignment is _deep_ because it unpacks the previous `point` tuple further into `x`, `y`, and `z` variables:
+而下面这种多重赋值可以认为是**深度**的，因为它将 `point` 元组也进一步解包成了 `x`、`y`、`z` 变量：
 
 ```
 >>> color, (x, y, z) = ("red", (1, 2, 3))
@@ -329,22 +329,22 @@ And I’d say that this multiple assignment is _deep_ because it unpacks the pre
 2
 ```
 
-If it seems confusing what’s going on above, maybe using parenthesis consistently on both sides of this assignment will help clarify things:
+上面的例子可能比较让人迷惑，所以我们在赋值语句两端加上括号来让这个例子更加明了：
 
 ```
 >>> (color, (x, y, z)) = ("red", (1, 2, 3))
 ```
 
-We’re unpacking one level deep to get two objects, but then we take the second object and unpack it also to get 3 more objects. Then we assign our first object and our thrice-unpacked second object to our new variables (`color`, `x`, `y`, and `z`).
+可以看到在第一层解包时得到了两个对象，但是这个语句将第二个对象再次解包，得到了另外的三个对象。然后将第一个对象及新解出的三个对象赋值给了新的对象（`color`、`x`、`y`、`z`）。
 
-Take these two lists:
+下面以这两个 list 为例：
 
 ```
 start_points = [(1, 2), (3, 4), (5, 6)]
 end_points = [(-1, -2), (-3, 4), (-6, -5)]
 ```
 
-Here’s an example of code that works with these lists by using shallow unpacking:
+下面的代码是举例用浅层解包来处理上面的两个 list：
 
 ```
 for start, end in zip(start_points, end_points):
@@ -352,7 +352,7 @@ for start, end in zip(start_points, end_points):
         print(f"Point {start[0]},{start[1]} was negated.")
 ```
 
-And here’s the same thing with deeper unpacking:
+下面用深度解包来做同样的事情：
 
 ```
 for (x1, y1), (x2, y2) in zip(start_points, end_points):
@@ -360,9 +360,9 @@ for (x1, y1), (x2, y2) in zip(start_points, end_points):
         print(f"Point {x1},{y1} was negated.")
 ```
 
-Note that in this second case, it’s much more clear what type of objects we’re working with. The deep unpacking makes it apparent that we’re receiving two 2-itemed tuples each time we loop.
+请注意在第二个例子中，在处理对象时，对象的类型明显更加清晰易懂。深度解包让我们可以明显的看到，在每次循环中我们都会收到两个二元组。
 
-Deep unpacking often comes up when nesting looping utilities that each provide multiple items. For example, you may see deep multiple assignments when using `enumerate` and `zip` together:
+深度解包通常会在每次得到多个元素的嵌套循环中使用。例如，你能在同时使用 `enumerate` 与 `zip` 时应用深度多重赋值：
 
 ```
 items = [1, 2, 3, 4, 2, 1]
@@ -371,9 +371,9 @@ for i, (first, last) in enumerate(zip(items, reversed(items))):
         raise ValueError(f"Item {i} doesn't match: {first} != {last}")
 ```
 
-I said before that multiple assignment is strict about the size of our iterables as we unpack them. With deep unpacking we can also be **strict about the shape of our iterables**.
+前面我提到过多重赋值对于可迭代对象的大小以及解包的大小是非常严格的，在复读解包中我们也可以利用这点**严格控制可迭代对象的大小**。
 
-This works:
+这么写可以正常运行：
 
 ```
 >>> points = ((1, 2), (-1, -2))
@@ -381,7 +381,7 @@ This works:
 True
 ```
 
-But this buggy code works too:
+这种看起来 bug 的代码也能正常运行：
 
 ```
 >>> points = ((1, 2, 4), (-1, -2, 3), (6, 4, 5))
@@ -389,7 +389,7 @@ But this buggy code works too:
 True
 ```
 
-Whereas this works:
+这种写法也能运行：
 
 ```
 >>> points = ((1, 2), (-1, -2))
@@ -398,7 +398,7 @@ Whereas this works:
 True
 ```
 
-But this does not:
+但是这样不行：
 
 ```
 >>> points = ((1, 2, 4), (-1, -2, 3), (6, 4, 5))
@@ -408,15 +408,15 @@ Traceback (most recent call last):
 ValueError: too many values to unpack (expected 2)
 ```
 
-With multiple assignment we’re assigning variables while also making particular assertions about the size and shape of our iterables. Multiple assignment will help you clarify your code to both humans (for **better code readability**) and to computers (for **improved code correctness**).
+在给变量多重赋值时我们其实也对可迭代对象做了一次特殊的断言（assert）。因此多重赋值既能让别人更容易理清你的代码（**因为有着更好的代码可读性**），也能让电脑更好地理解你的代码（**因为对代码进行了确认保证了正确性**）。
 
-## Using a list-like syntax
+## 使用 list 类型语法
 
-I noted before that multiple assignment uses a tuple-like syntax, but it works on any iterable. That tuple-like syntax is the reason it’s commonly called “tuple unpacking” even though it might be more clear to say “iterable unpacking”.
+在前文我提到的多重赋值都用的是元组类型的语法（tuple-like），但其实多重赋值可以用于任何可迭代对象。而这种类似元组的语法也使得多重赋值常被称为“元组解包”。而更准确地来说，多重赋值应该叫做“可迭代对象解包”。
 
-I didn’t mention before that multiple assignment also works with **a list-like syntax**.
+前文中我还没有提到过，多重赋值可以写成 list 类型的语法（list-like）。
 
-Here’s a multiple assignment with a list-like syntax:
+下面是一个应用 list 语法的最简单多重赋值示例：
 
 ```
 >>> [x, y, z] = 1, 2, 3
@@ -424,18 +424,18 @@ Here’s a multiple assignment with a list-like syntax:
 1
 ```
 
-This might seem really strange. What’s the point of allowing both list-like and tuple-like syntaxes?
+这种写法看起来很奇怪。为什么在元组语法之外还要允许这种 list 语法呢？
 
-I use this feature rarely, but I find it helpful for **code clarity** in specific circumstances.
+我也很少使用这种特性，但它在一些特殊情况下能让代码更加**简洁**。
 
-Let’s say I have code that used to look like this:
+举例，假设我有下面这种代码：
 
 ```
 def most_common(items):
     return Counter(items).most_common(1)[0][0]
 ```
 
-And our well-intentioned coworker has decided to use deep multiple assignment to refactor our code to this:
+我们用心良苦的同事决定用深度多重赋值将代码重构成下面这样：
 
 ```
 def most_common(items):
@@ -443,11 +443,11 @@ def most_common(items):
     return value
 ```
 
-See that trailing comma on the left-hand side of the assignment? It’s easy to miss and it makes this code look sort of weird. What is that comma even doing in this code?
+看到赋值语句左侧的最后一个逗号了吗？很容易会将它漏掉，而且这个逗号让代码看起来不伦不类。这个逗号在这段代码中是做什么事的呢？
 
-That trailing comma is there to make a single item tuple. We’re doing deep unpacking here.
+此处的尾部逗号其实是构造了一个单元素的元组，然后对此处进行深度解包。
 
-Here’s another way we could write the same code:
+可以将上面的代码换种写法：
 
 ```
 def most_common(items):
@@ -455,7 +455,7 @@ def most_common(items):
     return value
 ```
 
-This might make that deep unpacking a little more obvious but I’d prefer to see this instead:
+这种写法让深度解包的语法更加明显了。但我更喜欢下面这种写法：
 
 ```
 def most_common(items):
@@ -463,33 +463,29 @@ def most_common(items):
     return value
 ```
 
-The list-syntax in our assignment makes it more clear that we’re unpacking a one-item iterable and then unpacking that single item into `value` and `times_seen` variables.
+赋值中的 list 语法让它更加的清晰，可以明确看出我们将一个单元素可迭代对象进行了解包，并将单元素又解包并赋值给 `value` 与 `times_seen` 对象。
 
-When I see this, I also think _I bet we’re unpacking a single-item list_. And that is in fact what we’re doing. We’re using a [Counter](https://docs.python.org/3/library/collections.html#collections.Counter) object from the collections module here. The `most_common` method on `Counter` objects allows us to limit the length of the list returned to us. We’re limiting the list we’re getting back to just a single item.
+当我看到这种代码时，可以非常确定我们解包的是一个单元组 list（事实上代码做的也正是这个）。我们在此处用了 collections 模组中的 [Counter](https://docs.python.org/3/library/collections.html#collections.Counter) 对象。`Counter` 对象的 `most_common` 方法可以让我们指定返回 list 的长度。在此处我们将 list 限制为仅返回一个元素。
 
-When you’re unpacking structures that often hold lots of values (like lists) and structures that often hold a very specific number of values (like tuples) you may decide that your code appears more _semantically accurate_ if you use a list-like syntax when unpacking those list-like structures.
+当你在解包有很多的值的结构（比如说 list）或者有确定个数值的结构（比如说元组）时，可以考虑用 list 语法来对这些类似 list 的结构进行解包，这样能让代码更加具有“语法正确性”。
 
-If you’d like you might even decide to adopt a convention of always using a list-like syntax when unpacking list-like structures (frequently the case when using `*` in multiple assignment):
+如果你乐意，还可以用对类 list 结构使用 list 语法解包时应用一些 list 的语法（常见的例子为在多重赋值时使用 `*` 符号）：
 
 ```
 >>> [first, *rest] = numbers
 ```
 
-I don’t usually use this convention myself, mostly because I’m just not in the habit of using it. But if you find it helpful, you might consider using this convention in your own code.
+我自己其实不常用这种写法，因为我没有这个习惯。但如果你觉得这种写法有用，可以考虑在你自己的代码中用上它。
 
-When using multiple assignment in your code, consider when and where a list-like syntax might make your code more descriptive and more clear. This can sometimes improve readability.
+结论：当你在代码中用多重赋值时，可以考虑在何时的时候用 list 语法来让你的代码更具自解释性并更加简洁。这有时也能提升代码的可读性。
 
-## Don’t forget about multiple assignment
+## 不要忘记这些多重赋值的用法
 
-Multiple assignment can improve both the readability of your code and the correctness of your code. It can make your code **more descriptive** while also making implicit assertions about the **size and shape** of the iterables you’re unpacking.
+多重赋值可以提高代码的可读性与正确性。它能使你代码**更具自描述性**，同时也可以对正在进行解包的可迭代对象的**大小**进行隐式断言。
 
-The use for multiple assignment that I often see forgotten is its ability to **replace hard coded indexes**, including **replacing hard coded slices** (using the `*` syntax). It’s also common to overlook the fact that multiple assignment works _deeply_ and can be used with both a _tuple-like_ syntax and a _list-like_ syntax.
+据我观察，人们经常忘记多重赋值可以**替换硬编码索引**，以及**替换硬编码拆分**（用 `*` 语法）。深度多重赋值，以及同时使用元组语法和 list 语法也常被忽视。
 
-It’s tricky to recognize and remember all the cases that multiple assignment can come in handy. Please feel free to use this article as your personal reference guide to multiple assignment.
-
-## Like my teaching style?
-
-Want to learn more about Python? I share my favorite Python resources and answer Python questions every week through live chats. Sign up below and I’ll answer **your questions** about how to make your Python code more descriptive, more readable, and more Pythonic.
+认清并记住所有多重赋值的用例是很麻烦的。请随意使用本文作为你使用多重赋值的参考指南。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

@@ -1,3 +1,8 @@
+**更多区块链相关译文，请到 [掘金翻译计划 — 区块链分舵](https://github.com/xitu/blockchain-miner)**
+
+* [为什么我们需要 Web 3.0](https://juejin.im/post/5bb9ace16fb9a05cdf30a9a2) ([zx-Zhu](https://github.com/zx-Zhu) 翻译)
+* [能源行业聚焦基于区块链技术的加密货币](https://juejin.im/post/5b47f4a9e51d45198a2eb75b) ([geniusq1981](https://github.com/geniusq1981) 翻译)
+* [Envion 通过区块链采矿来支持可再生能源的发展](https://juejin.im/post/5b47f6c2e51d45191b611b09) ([geniusq1981](https://github.com/geniusq1981) 翻译)
 * [BigQuery 中的比特币：使用公共数据分析区块链](https://juejin.im/post/5afc17b16fb9a07aaf35673a) ([LeopPro](https://github.com/LeopPro) 翻译)
 * [用不到 200 行的 GO 语言编写您自己的区块链](https://juejin.im/post/5ad95b056fb9a07aa349cd41) ([Starriers](https://github.com/Starriers) 翻译)
 * [用 Java 代码实现区块链](https://juejin.im/post/5ae57d9e6fb9a07ab83dcc03) ([Starriers](https://github.com/Starriers) 翻译)
