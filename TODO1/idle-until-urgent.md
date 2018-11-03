@@ -32,7 +32,7 @@
 
 我的网站加载时的 JavaScript 性能跟踪图（启用网络限速和 CPU 降频）。
 
-请注意，主要脚本包作为一个独立的任务在浏览器中运行，这个任务耗时 233 毫秒。
+可以注意到，主要脚本包在浏览器中单独执行时，它需要耗时 233 毫秒才能完成。
 
 [![运行我网站的主要脚本包耗时 233 毫秒](https://philipwalton.com/static/idle-until-urget-before-eval-1d68f2dff6.png)](https://philipwalton.com/static/idle-until-urget-before-eval-1400w-7a455de908.png)
 
@@ -44,7 +44,7 @@
 
 执行我网站的 `main()` 入口函数耗时 183 毫秒。
 
-然而我并没有在 `main()` 函数中做什么可笑的事情。在 `main()` 函数中，我先初始化了我的 UI 组件，然后运行了我的 `analytics` 方法：
+这并不像是我在 `main()` 函数中做了什么荒谬的事情。在 `main()` 函数中，我先初始化了我的 UI 组件，然后运行了我的 `analytics` 方法：
 
 ```
 const main = () => {
@@ -87,7 +87,7 @@ JavaScript 就像被“千刀万剐”了一样。
 
 创建此对象需要 13.47 毫秒！
 
-问题是，虽然  `Intl.DateTimeFormat` 实例是在组件的构造函数中创建的，但实际上**并没有**其他组件引用它来格式化日期。可是由于该组件不知道何时会引用 `Int.DateTimeFormat` 对象，因此它选择立即初始化该对象。
+问题是，虽然  `Intl.DateTimeFormat` 实例是在组件的构造函数中创建的，但实际上在其他组件用它来格式化日期之前，它都没有被使用过。可是由于该组件不知道何时会引用 `Int.DateTimeFormat` 对象，因此它选择立即初始化该对象。
 
 但这是正确的代码求值策略吗？如果不是，那什么是正确的代码求值策略？
 
@@ -114,7 +114,7 @@ JavaScript 就像被“千刀万剐”了一样。
 
 当然，等到用户需要的时候再运行的问题是：你必须**确保**你的高耗时的代码能够阻止用户输入。
 
-对于某些情况（比如从网络加载其他内容），将其推迟到用户请求时再加载是有意义的。但对于你的大多数代码（例如从 localStorage 读取数据，处理大型数据集等等）而言，你肯定希望它在用户交互**之前**就执行完毕。
+对于某些情况（比如另外加载网络资源），将其推迟到用户请求时再加载是有意义的。但对于你的大多数代码（例如从 localStorage 读取数据，处理大型数据集等等）而言，你肯定希望它在用户交互**之前**就执行完毕。
 
 ### 其他选择
 
@@ -123,7 +123,7 @@ JavaScript 就像被“千刀万剐”了一样。
 *   **延迟求值：** 使用 `setTimeout` 之类的函数，在后续任务中来执行你的代码。
 *   **空闲求值：** 一种延迟求值策略，你可以使用像 [requestIdleCallback](https://developers.google.com/web/updates/2015/08/using-requestidlecallback) 这样的 API 来组织代码运行。
 
-这两个选项通常都比立即求值或惰性求值好，因为它们不太可能由于单个长任务阻塞用户输入。这是因为，虽然浏览器不能中断任何单个任务来响应用户输入（这样做很可能会破坏网站），但是它们**可以**在计划任务队列之间运行任务，而且大多数浏览器**会**优先处理由用户输入触发的任务。这称为[输入优先](https://blogs.windows.com/msedgedev/2017/06/01/input-responsiveness-event-loop-microsoft-edge/)。
+这两个选项通常都比立即求值或惰性求值好，因为它们不太可能由于单个长任务阻塞用户输入。这是因为，虽然浏览器不能中断任何单个任务来响应用户输入（这样做很可能会破坏网站），但是它们**可以**在计划任务队列之间运行任务，而且大多数浏览器会**优先处理**由用户输入触发的任务。这称为[输入优先](https://blogs.windows.com/msedgedev/2017/06/01/input-responsiveness-event-loop-microsoft-edge/)。
 
 换句话说：如果确保所有代码都运行在耗时短、不同的任务中（最好[小于 50 毫秒](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#long_tasks)），你的代码就再也不会阻塞用户输入了。
 
