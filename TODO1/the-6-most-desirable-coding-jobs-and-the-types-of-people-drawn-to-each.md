@@ -5,135 +5,137 @@
 > * 译者：
 > * 校对者：
 
-# 6 个最令人满意的和编程相关的工作（和参与这些工作的人们的类型）
+# The 6 most desirable coding jobs (and the types of people drawn to each)
 
-## Free Code Camp 曾邀请 15,000 人回答他们是谁和他们是如何学习编程的。我根据他们的工作偏好把他们进行归类，然后探究他们之间的不同之处。
+## Free Code Camp asked 15,000 people who they are, and how they’re learning to code. I separated them by their job preference, then explored their differences.
 
 ![](https://cdn-images-1.medium.com/max/2000/1*g4XcQbA156OfOKVlMox2Tw.png)
 
-图片来源于 [**我的博客**](http://davidventuri.com/).
+Image by [**me**](http://davidventuri.com/).
 
-超过 15,000 的人做了 [Free Code Camp’s 2016 New Coder Survey](https://medium.freecodecamp.com/we-asked-15-000-people-who-they-are-and-how-theyre-learning-to-code-4104e29b2781#.jlsxxy4si) 这个调查问卷。被授予研究这份问卷权利的人（正如我）正史无前例的了解人们是如何学习编程的。完整的调查数据被发布在了 [Kaggle](https://www.kaggle.com/freecodecamp/2016-new-coder-survey-).
+More than 15,000 people responded to [Free Code Camp’s 2016 New Coder Survey](https://medium.freecodecamp.com/we-asked-15-000-people-who-they-are-and-how-theyre-learning-to-code-4104e29b2781#.jlsxxy4si), granting researchers (_like me!_) an unprecedented glimpse into how people are learning to code. The entire dataset was released on [Kaggle](https://www.kaggle.com/freecodecamp/2016-new-coder-survey-).
 
-6,503 的新编程人员回答了这个问题：“**你最感兴趣这里面的哪一个角色？**”
+6,503 new coders answered the question: “**Which one of these roles are you most interested in?**”
 
 ![](https://cdn-images-1.medium.com/max/800/1*JvwYcnfRj4Iagpz9iPNhhA.png)
 
-### 6 个最受欢迎的和编程相关的工作和参与这些工作的人们的（不同）类型
+### Here are the 6 most popular coding jobs and the (very different) types of people drawn to each.
 
-这些工作分别是全栈开发者、前端开发者、后端开发者、数据科学家/工程师、移动开发者和用户体验设计师（UX）。对于每一类工作，我们将从这三个**分类的**变量来分析：
+These roles are full-stack developer, front-end developer, back-end developer, data scientist/engineer, mobile developer, and user experience (UX) designer.* For each, we’ll look at three **categorical** variables:
 
-*   性别
-*   地区
-*   学历
+*   gender
+*   citizenship by continent
+*   school degree
 
-…和 5 个**数值**:
+…and five **numerical** ones:
 
-*   年龄
-*   编程经历
-*   每周学习时间
-*   目前的薪水
-*   期望的下一份薪水（在学习新的编程技术之后的第一份工作）
+*   age
+*   programming experience
+*   hours dedicated to learning per week
+*   current salary
+*   expected next salary (the first one after advertising their new coding skills)
 
-**在[原始的调查](https://github.com/FreeCodeCamp/2016-new-coder-survey/blob/master/survey-data-dictionary.md)中，UX 设计师是默认选项 。** 尽管学历对于编程相关工作的影响是[有争议的](http://uxmastery.com/how-much-code-should-a-user-experience-designer-write/)，但是拥有编程基础是有帮助的。
+_UX designer was a default option in the_ [_original survey_](https://github.com/FreeCodeCamp/2016-new-coder-survey/blob/master/survey-data-dictionary.md)_. Though the degree to which it is a coding job is_ [_debatable_](http://uxmastery.com/how-much-code-should-a-user-experience-designer-write/)_, a basic understanding of code is helpful._
 
-### 性别
+### Gender
 
-UX 设计师是迄今为止在性别上呈现最为多样化的一类工作，其中拥有 52% 的男性工作者，46% 的女性工作者。【译者注：这后半句校对者能帮忙想想该怎么翻译吗。。】and the highest percentage of agender, genderqueer, and trans respondents (2%). 移动开发是男性占主导地位的一类工作，男性工作者占了81%，即使全栈开发和后端开发的中男性占比和移动开发的相近。
+UX designer is by far the most diverse discipline in terms of gender, with 52% males, 46% females, and the highest percentage of agender, genderqueer, and trans respondents (2%). Mobile development is the most male-dominated discipline at 81%, though full-stack and back-end development are close.
 
 ![](https://cdn-images-1.medium.com/max/800/1*xrrI67H9qPC5n3m-6p47JQ.png)
 
-### 地区
+### Continent
 
-移动开发者就地区方面来说是最为多元化的。从事 UX 设计的人大部分来自于北美。 
+Mobile developer is the most diverse role in terms of citizenship. UX design is the most North American of all of the disciplines.
 
 ![](https://cdn-images-1.medium.com/max/800/1*5ph4m_K8jAQ1m0ptGMiyDA.png)
 
-Free Code Camp 立基于美国，它的调查的数据会更偏向于北美。
+Free Code Camp is based in the United States, which explains the tilt towards North America.
 
-### 学历
+### School Degree
 
-数据科学和数据工程的数据显示专科学历占多数。移动开发调查者中无高中学历或者仅仅只有高中学历的占比最高。即使后端开发在这些的占比是仅此于移动开发的。
+Data science and data engineering are most skewed towards post-secondary studies. Mobile development has the highest percentage of respondents with no, some, or only a high school education, though back-end development is a close second.
 
 ![](https://cdn-images-1.medium.com/max/1000/1*3FwqSzq8akrxlC01ADfh6A.png)
 
-我想知道这些倾向是否也会在年龄的方面反映出来。
+I wonder if these skews will reflect themselves in the form of age.
 
-### 年龄
+### Age
 
-移动开发者实际上是最年轻的。他们的下四分位数比第二年轻的工作小了2岁。 手机是一门新兴产业，可能与此有关。前端开发是年龄最大的工作，平均年龄是29岁。注意数据科学/数据工程是第二年轻的工作，而不是后端开发。 
+Mobile developers are indeed the youngest. Their 25th percentile is two years younger than the next youngest role. Mobile being a newer discipline probably has something to do with this. Front-end development is the oldest discipline with an average age of 29 years. Note that data science/engineering is second-youngest, not back-end development.
 
 ![](https://cdn-images-1.medium.com/max/800/1*GqHwVpUlWJbCBc44V2jAZQ.png)
 
-顺便一提，这里介绍如何理解这张表（有篇文章中还介绍了[箱型图](http://www.physics.csbsju.edu/stats/box2.html)）： "x" 符号代表的是平均数。盒上的水平线指的是中位数（也被叫中四分位数）。这个盒子的底部指的是下四分位数，盒子的顶部指的是上四分位数。盒须的长度是这个盒子高度的1.5倍。这上面的圆表示的是异常值。为了更明显得看出这些异常值，y轴上的数值以对数的形式增长。
+By the way, here’s how to read this chart (and the other [box plots](http://www.physics.csbsju.edu/stats/box2.html) in this article): the “x” is the mean. The horizontal line is the median (a.k.a. the 50th percentile). The bottom of the box is the 25th percentile, and the top of the box is the 75th percentile. Whisker length is 1.5 times the height of the box. The circles are outliers. All y-axes are on a logarithmic scale to better visualize the outlier-heavy data.
 
-### 编程经历
+### Programming Experience
 
-数据科学家、数据工程师和后端开发时间最长，中位数为8个月。UX 设计师的下四分位数最低，仅仅只有两个月。 编程经历的平均数呈正偏态分布，这本应该是大打折扣的，但却都靠近上四分位数。
+Data scientists-, data engineers-, and back-end developers-in-training have programmed the longest with a median experience of eight months. UX designers have the lowest first quartile — by two whole months — at two months. Programming experience is so positively skewed that some of the means, which should be taken with a grain of salt, are above their third quartile.
 
 ![](https://cdn-images-1.medium.com/max/800/1*VDsE2wJmTP1fVUSfAyFQgA.png)
 
-### 致力于学习的时间
+### Hours Dedicated to Learning
 
-全栈开发者每周拿大部分的时间专注于学习，25% 的调查者每周花 30 多个小时去学习。UX 设计师每周花费最少的时间学习，平均每周学习12小时。
+Full-stack developers dedicate the most time to learning each week, with 25% of respondents dedicating 30+ hours weekly. UX designers spend the least amount of time learning per week with a mean of 12 hours per week.
 
 ![](https://cdn-images-1.medium.com/max/800/1*XnJYDr3UH5aCvVROnb0xKw.png)
 
-与此相反，学习时间的数据和性别以及地区的差别不是很大。（我写过一个完整的[分析](https://medium.freecodecamp.com/new-coders-how-salary-and-time-spent-learning-vary-by-demographic-359ef1ed0da8)） 
+In contrast, time spent learning didn’t vary much by gender and continent. (I wrote a full analysis of this [here](https://medium.freecodecamp.com/new-coders-how-salary-and-time-spent-learning-vary-by-demographic-359ef1ed0da8).)
 
-- [**新的编程人员：学习的时间和薪水如何在不同的人上显示不同的差异**: 我在地区和性别方面上分析了参与 Free Code Camp’s New Coder Survey 调查的人 ](https://medium.freecodecamp.com/new-coders-how-salary-and-time-spent-learning-vary-by-demographic-359ef1ed0da8 )
+- [**New Coders: How Salary and Time Spent Learning Vary by Demographic**: I analyzed the 15,000 respondents to Free Code Camp’s New Coder Survey by continent, gender, and whether they’re an...](https://medium.freecodecamp.com/new-coders-how-salary-and-time-spent-learning-vary-by-demographic-359ef1ed0da8 "https://medium.freecodecamp.com/new-coders-how-salary-and-time-spent-learning-vary-by-demographic-359ef1ed0da8")
 
-### 现在的薪水
+### Current Salary
 
-胸怀抱负的数据科学家和数据工程师很明显是现在薪水最高的。上四分位数的值为每个月 60 k 美元 ，比第二名多出了 8k 美元 。其余感兴趣的工作岗位之间的收入差距不大，尽管都高于2014年美国 28.9 万美元的中值收入。
+Aspiring data scientists and data engineers clearly have the highest current salaries. Their third quartile of $60k per year is $8k higher than the next highest discipline. There isn’t much income differentiation between the remaining job roles of interest, though all are above the [2014 US median income of $28.9k](http://www.cnbc.com/2015/10/20/the-average-american-made-446k-last-year.html).
 
 ![](https://cdn-images-1.medium.com/max/800/1*V0zzOzEIa1UeGN-ocEsUvg.png)
 
-### 期望的下一份薪水
+### Expected Next Salary
 
-那些对数据科学和数据工程感兴趣的人希望在他们的下一份工作中挣取最多的工资，中值期望的薪水是 60 k 美元。前端开发者是最不乐观的工作岗位（是的，这种差异在统计平均值上是很明显的）。请注意全部岗位期望的薪水会比现在的薪水更高。
+Those interested in data science and data engineering expect to earn the most at their next job, with a median expected salary of $60k. Front-end developers are the least optimistic discipline (and yes, this difference in means is statistically significant). Note that expected salaries are higher than current salaries across the board.
 
 ![](https://cdn-images-1.medium.com/max/800/1*P2riZaYwnCuLHmEyJ1lRQg.png)
 
-### 雷达图
+### Radar Chart
 
-让我们用一张雷达图来比较所有数值变量。每个数值变量的平均数，标度（或归一化）在 0 和 1 之间，并把它绘制在径向轴： 
+Let’s compare all of the numerical variables in a single chart, using something called a [radar chart](https://en.wikipedia.org/wiki/Radar_chart). The mean for each numerical variable, scaled (or _normalized_) between 0 and 1, is plotted on a radial axis:
 
 ![](https://cdn-images-1.medium.com/max/800/1*nDrrbok1BD72QC9PxdjRYg.png)
 
-结果马上就出现了：数据科学家/工程师在编程经历、当前薪水和预期下一份薪水方面领先。
+One thing jumps out immediately: data scientists/engineers lead the pack for programming experience, current salary, and expected next salary.
 
-前端和移动开发所拥有的面积最小，这要归功于前者的最低编程经历和预期的下一份薪水的平均值，以及后者的低年龄和当前薪水的平均值。
+Front-end and mobile developers have the smallest areas, thanks to the lowest programming experience and expected next salary means for the former, and low age and current salary means for the latter.
 
-注意，我们严格使用这个图来有效地通过多个数值变量比较工作岗位，而不是说哪个工作岗位更好。基于总体面积的大小判断是雷达图的一种常见的误判。
+Note that we are strictly using this plot to efficiently compare roles across several numerical variables, and not to determine which role is better if such a determination even exists. Perception of strength based on overall area is a common misinterpretation of radar plots.
 
 * * *
 
-### 我们可以从中学到什么?
+### What did we learn?
 
-非常多！每种类型的程序员都有一套独一无二的特征。
+A lot! Each type of programmer has a unique set of characteristics.
 
-相对而言，女性对用户体验设计更感兴趣。亚洲、南美和非洲对移动开发更感兴趣。数据科学/工程和移动开发是在教育领域中最为最不成熟的。
+Relatively speaking, females appear drawn to user experience design. Asians, South Americans, and Africans appear drawn to mobile development. Data science/engineering and mobile development stick out as the most and least seasoned in terms of education, respectively.
 
 ![](https://cdn-images-1.medium.com/max/800/1*Ucj1hW-dU-JC2ygLS76afg.png)
 
-图片来自[Riccardo Carlet](https://dribbble.com/shots/727430-Clyp-Calender-iPhone-iPad?list=users)
+Image via [Riccardo Carlet](https://dribbble.com/shots/727430-Clyp-Calender-iPhone-iPad?list=users)
 
-胸怀抱负的数据科学家/工程师当前薪水是最高的，期望的下一份薪水也是最高的并拥有最多的编程经历。前端开发者年龄是最大的，但是影响不大。全栈开发者致力于每周将自己的大部分时间花费在学习上。
+Aspiring data scientists/engineers have the highest current salaries, expect the highest next salaries, and have the most programming experience. Front-end developers are the oldest, but not significantly. Full-stack developers dedicate the most amount of time to learning per week.
 
 ![](https://cdn-images-1.medium.com/max/600/1*J4P-CJvB8oaKDxh4Vk6ukw.png)
 
 ![](https://cdn-images-1.medium.com/max/600/1*8-Das0n2UI7fX7Mi5_m23A.png)
 
-绘图来自[DataCamp](https://www.datacamp.com/community/tutorials/data-science-industry-infographic#gs.1VaXGTE)
+Graphics via [DataCamp](https://www.datacamp.com/community/tutorials/data-science-industry-infographic#gs.1VaXGTE)
 
-前端开发者的经验和期望的下一份薪水是最少的。UX 设计师每周花费在学习的时间和目前薪水都是最少的。但是对于后者的影响并不是很大。移动开发是最年轻的。 
+Front-end developers are the least experienced coders and expect the lowest next salaries. UX designers spend the least amount of hours learning weekly and have the lowest current salaries, but not significantly for the latter. Mobile developers are the youngest.
 
-### 接下来是什么？
+### What’s next?
 
-你可以在 Kaggle 上找到[更详细的分析版本](https://www.kaggle.com/venturidb/d/freecodecamp/2016-new-coder-survey-/new-coders-a-deeper-dive)，在这篇文章中你可以找到支持本文推理的统计测验。 
+You can find a [more detailed version](https://www.kaggle.com/venturidb/d/freecodecamp/2016-new-coder-survey-/new-coders-a-deeper-dive) of this analysis on Kaggle, where you’ll find statistical tests supporting the inferences in this article.
+-spent-learning-vary-by-demographic-359ef1ed0da8)</div>
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
 
 ---
 
