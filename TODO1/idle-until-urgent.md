@@ -127,7 +127,7 @@ JavaScript 就像被“千刀万剐”了一样。
 
 换句话说：如果确保所有代码都运行在耗时短、不同的任务中（最好[小于 50 毫秒](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#long_tasks)），你的代码就再也不会阻塞用户输入了。
 
-**重要！** 虽然浏览器能够在任务队列中优先执行输入回调函数，但是浏览器**无法**将这些输入回调函数在排列好的微任务之前运行。由于 promise 和 `async` 函数作为微任务运行，将你的同步代码转换为基于 promise 的代码不会缓解用户输入阻塞的问题。
+**重要！** 虽然浏览器能够在任务队列中优先执行输入回调函数，但是浏览器**无法**将这些输入回调函数在排列好的微任务之前运行。由于 promise 和 `async` 函数作为微任务运行，将你的同步代码转换为基于 promise 的代码不会起到缓解用户输入阻塞的作用。
 
 如果你不熟悉任务和微任务之间的区别，我强烈建议你观看我的同事杰克[关于事件循环](https://youtu.be/cCOL7MC4Pl0)的精彩演讲。
 
@@ -372,7 +372,7 @@ const queue = new IdleQueue({ensureTasksRun: true});
 ```
 let debounceTimeout;
 
-// 使用了 1000 毫秒的防抖来持久化存储状态到 localStorage 里。
+// 使用 1000 毫秒的抖动时间将状态更改保存到 localStorage 中。
 store.subscribe(() => {
   // 清除等待中的写入操作，因为有新的修改需要保存。
   clearTimeout(debounceTimeout);
@@ -393,8 +393,8 @@ store.subscribe(() => {
 ```
 const queue = new IdleQueue({ensureTasksRun: true});
 
-// 当浏览器空闲的时候持久化改变了的状态，
-// 仅仅持久化最近的修改以避免而外的工作。
+// 当浏览器空闲的时候存储改变了的状态更改，
+// 为了避免多余地执行代码我们只存储最近发生的状态更改。
 store.subscribe(() => {
   // 清除等待中的写入操作，因为有新的修改需要保存。
   queue.clearPendingTasks();
