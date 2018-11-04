@@ -2,87 +2,89 @@
 > * 原文作者：[Instagram Engineering](https://engineering.instagram.com/@InstagramEng?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/open-sourcing-a-10x-reduction-in-apache-cassandra-tail-latency.md](https://github.com/xitu/gold-miner/blob/master/TODO/open-sourcing-a-10x-reduction-in-apache-cassandra-tail-latency.md)
-> * 译者：
-> * 校对者：
+> * 译者：[stormluke](http://stormluke.me)
+> * 校对者：[allenlongbaobao](https://github.com/allenlongbaobao)
 
-# Open-sourcing a 10x reduction in Apache Cassandra tail latency
+# 让 Apache Cassandra 尾部延迟减小 10 倍，已开源
 
-At Instagram, we have one of the world’s largest deployments of the Apache Cassandra database. We began using Cassandra in 2012 to replace Redis and support product use cases like fraud detection, Feed, and the Direct inbox. At first we ran Cassandra clusters in an AWS environment, but migrated them over to Facebook’s infrastructure when the rest of Instagram moved. We’ve had a really good experience with the reliability and availability of Cassandra, but saw room for improvement in read latency.
+在 Instagram，我们的数据库是全球最大的 Apache Cassandra 部署之一。我们于 2012 年开始用 Cassandra 取代 Redis，来支持欺诈检测、信息流和 Direct 收件箱等产品需求。最初我们在 AWS 环境中运行 Cassandra 集群，但当其他 Instagram 服务迁移到 Facebook 的基础设施上时，我们也迁过去了。对我们来说 Cassandra 的可靠性和可用性体验都很不错，但是在读取延迟上仍有改进空间。
 
-Last year Instagram’s Cassandra team started working on a project to reduce Cassandra’s read latency significantly, which we call Rocksandra. In this post, I will describe the motivation for this project, the challenges we overcame, and performance metrics in both internal and public cloud environments.
+去年，Instagram 的 Cassandra 团队开始致力于一个项目，目标是显著减少 Cassandra 的读取延迟，我们称之为 Rocksandra。在这篇文章中，我将介绍该项目的动机、我们克服的挑战以及在内部环境和公共云环境中的性能指标。
 
-### Motivation
+### 动机
 
-At Instagram, we use Apache Cassandra heavily as a general key value storage service. The majority of Instagram’s Cassandra requests are online, so in order to provide a reliable and responsive user experience for hundreds of millions of Instagram users, we have very tight SLA on the metrics.
+在 Instagram 我们大量使用 Apache Cassandra 作为通用的键值存储服务。大部分 Instagram 的 Cassandra 请求都是实时（Online）的，为了向巨量的 Instagram 用户提供可靠和快速的用户体验，我们对这些指标的 SLA（服务等级协议，Service Level Agreement）非常严格。
 
-Instagram maintains a 5–9s reliability SLA, which means at any given time, the request failure rate should be less than 0.001%. For performance, we actively monitor the throughput and latency of different Cassandra clusters, especially the P99 read latency.
+Instagram 维护 5-9 秒的可靠性 SLA，这意味着在任何时候，请求失败率应该小于 0.001％。为了提高性能，我们实时监控不同 Cassandra 集群的吞吐量和延迟，尤其是 P99 读取延迟。
 
-Here’s a graph that shows the client-side latency of one production Cassandra cluster. The blue line is the average read latency (5ms) and the orange line is the P99 read latency (in the range of 25ms to 60ms and changing a lot based on client traffic).
+下图展示了生产环境中的一个 Cassandra 集群的客户端延迟。蓝线是平均读取延迟（5ms），橙线是 P99 读取延迟（在 25ms 到 60ms 的范围内，并随着客户端流量变化而变动）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Scn1Nm33oukOJpUd4Ukszw.png)
 
 ![](https://cdn-images-1.medium.com/max/800/1*ItBORNwCXce82ZNX6qf6Vg.png)
 
-After investigation, we found the JVM garbage collector (GC) contributed a lot to the latency spikes. We defined a metric called GC stall percentage to measure the percentage of time a Cassandra server was doing stop-the-world GC (Young Gen GC) and could not serve client requests. Here’s another graph that shows the GC stall percentage on our production Cassandra servers. It was 1.25% during the lowest traffic time windows, and could be as high as 2.5% during peak hours.
+经过调查，我们发现 JVM 垃圾收集器（GC）对延迟峰值作出了很大贡献。我们定义了一个叫做 GC 暂停（GC stall）百分比的度量标准，用于度量 Cassandra 服务器在 stop-the-world GC（新生代 GC）并且无法响应客户端请求时所占时间百分比。这是另一张图，显示了我们生产环境 Cassandra 服务器的 GC 暂停百分比。在流量最小的时间段内，这一比例为 1.25％，在高峰时段可以高达 2.5％。
 
-The graph shows that a Cassandra server instance could spend 2.5% of runtime on garbage collections instead of serving client requests. The GC overhead obviously had a big impact on our P99 latency, so if we could lower the GC stall percentage, we would be able to reduce our P99 latency significantly.
+该图显示 Cassandra 服务器会把 2.5％ 的运行时间用于垃圾收集，而不是响应客户端请求。GC 开销显然对我们的 P99 延迟有很大影响，所以如果能够降低 GC 暂停百分比，也就能够显著降低 P99 延迟。
 
-### Solution
+### 解决方案
 
-Apache Cassandra is a distributed database with it’s own LSM tree-based storage engine written in Java. We found that the components in the storage engine, like memtable, compaction, read/write path, etc., created a lot of objects in the Java heap and generated a lot of overhead to JVM. To reduce the GC impact from the storage engine, we considered different approaches and ultimately decided to develop a C++ storage engine to replace existing ones.
+Apache Cassandra 是一个分布式数据库，它使用自己以 Java 编写的基于 LSM 树的存储引擎。我们发现存储引擎中的某些组件，例如 memtable、压缩、读/写的代码路径等等，在 Java 堆中创建了很多对象，并给 JVM 增加了很多开销。为了减少存储引擎带来的 GC 问题，我们考虑了不同的方法，最终决定开发一个 C++ 存储引擎来替代现有的引擎。
 
-We did not want to build a new storage engine from scratch, so we decided to build the new storage engine on top of RocksDB.
+我们不想从头开始构建新的存储引擎，因此决定在 RocksDB 之上构建新的存储引擎。
 
-RocksDB is an open source, high-performance embedded database for key-value data. It’s written in C++, and provides official API language bindings for C++, C, and Java. RocksDB is optimized for performance, especially on fast storage like SSD. It’s widely used in the industry as the storage engine for MySQL, mongoDB, and other popular databases.
+RocksDB 是一款开源的高性能嵌入式数据库，用于处理键值数据。它用 C++ 编写，并且提供了 C++、C 和 Java 的官方 API。RocksDB 针对性能进行了优化，尤其是针对 SSD 这样的快速存储设备。它在业界被广泛用作 MySQL、mongoDB 和其他流行数据库的存储引擎。
 
-### Challenges
+### 挑战
 
-We overcame three main challenges when implementing the new storage engine on RocksDB.
+在 RocksDB 上构建新的存储引擎时，我们克服了三个主要挑战。
 
-The first challenge was that Cassandra does not have a pluggable storage engine architecture yet, which means the existing storage engine is coupled together with other components in the database. To find a balance between massive refactoring and quick iterations, we defined a new storage engine API, including the most common read/write and streaming interfaces. This way we could implement the new storage engine behind the API and inject it into the related code paths inside Cassandra.
+第一个挑战是 Cassandra 的架构不支持可插拔的存储引擎，就是说现有的存储引擎与数据库中的其他组件耦合在一起。为了在大量重构和快速迭代之间找到平衡，我们定义了一个新的存储引擎 API，包括最常见的读/写和流接口。通过这种方式，我们可以在 API 后面构建新的存储引擎，并将其插入到 Cassandra 内部的相关代码路径中。
 
-Secondly, Cassandra supports rich data types and table schema, while RocksDB provides purely key-value interfaces. We carefully defined the encoding/decoding algorithms to support Cassandra’s data model within RocksDB’s data structure and supported same-query semantics as original Cassandra.
+其次，Cassandra 支持丰富的数据类型和表模式，而 RocksDB 只提供纯粹的键值接口。我们仔细地定义了编码/解码算法，以便在 RocksDB 的数据结构之上支持 Cassandra 的数据模型，并支持与原始 Cassandra 相同的查询语义。
 
-The third challenge was about streaming. Streaming is an important component for a distributed database like Cassandra. Whenever we join or remove a node from a Cassandra cluster, Cassandra needs to stream data among different nodes to balance the load across the cluster. The existing streaming implementation was based on the details in the current storage engine. Accordingly, we had to decouple them from each other, make an abstraction layer, and re-implement the streaming using RocksDB APIs. For high streaming throughput, we now stream data into temp sst files first, and then use the RocksDB ingest file API to bulk load them into the RocksDB instance at once.
+第三个挑战是流接口。流传输是像 Cassandra 这样的分布式数据库的重要组成部分。我们新增或移除 Cassandra 集群中的节点时，Cassandra 需要在不同节点之间传输数据以平衡集群中的负载。现有的流传输实现是基于当前存储引擎中的内部细节的。因此，我们必须将它们分离开，建立一个抽象层，并使用 RocksDB API 重新实现流传输。为了提高流吞吐量，目前我们先将数据写入到 temp sst 文件，然后使用 RocksDB ingest file API 将它们一次性批量加载到 RocksDB 中。
 
-### Performance metrics
+### 性能指标
 
-After about a year of development and testing, we have finished a first version of the implementation and successfully rolled it into several production Cassandra clusters in Instagram. In one of our production clusters, the P99 read latency dropped from 60ms to 20ms. We also observed that the GC stalls on that cluster dropped from 2.5% to 0.3%, which was a 10X reduction!
+经过大约一年的开发和测试，我们已经完成了第一个版本的实现，并成功在 Instagram 内部将其推广部署到多个 Cassandra 集群。在我们的其中一个生产集群中，P99 读取延迟从 60ms 降至 20ms。我们还观察到，该群集上的 GC 暂停从 2.5％ 下降到 0.3％，足足减小了 10 倍！
 
-We also wanted to verify whether Rocksandra would perform well in a public cloud environment. We setup a Cassandra cluster in an AWS environment using three i3.8 xlarge EC2 instances, each with 32 cores CPU, 244GB memory, and raid0 with 4 nvme flash disks.
+我们还想验证 Rocksandra 在公共云环境中是否会表现良好。我们使用三个 i3.8 xlarge EC2 实例在 AWS 环境中配置 Cassandra 集群，每个实例都有 32 个 CPU 核心，244GB 内存以及 4 个 nvme 闪存磁盘组成的 raid0。
 
-We used [NDBench](https://github.com/Netflix/ndbench) for the benchmark, and the default table schema in the framework:
+我们使用 [NDBench](https://github.com/Netflix/ndbench) 作为基准测试框架，并使用这个框架中默认的表模式：
 
-> `TABLE emp (`
-> `emp_uname text PRIMARY KEY,
-> emp_dept text,
-> emp_first text,
-> emp_last text`
-> `)`
+```sql
+TABLE emp (
+  emp_uname text PRIMARY KEY,
+  emp_dept text,
+  emp_first text,
+  emp_last text`
+)
+```
 
-We pre-loaded 250M 6KB rows into the database (each server stores about 500GB data on disk). We configured 128 readers and 128 writers in NDBench.
+我们预加载了 2.5 亿行每行 6KB 的数据到数据库中（每个服务器在磁盘上存储大约 500GB 数据），并在 NDBench 中配置了 128 个读取端和 128 个写入端。
 
-We tested different workloads and measured the avg/P99/P999 read/write latencies. As you can see, Rocksandra provided much lower and consistent tail read/write latency.
+我们测试了不同的负载并测量了平均/P99/P999的读/写延迟。如你所见，Rocksandra 提供了更低且更稳定的尾部读/写延迟。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Mpvc-jd61xmcrE4aEth4NA.png)
 
 ![](https://cdn-images-1.medium.com/max/800/1*zZO7xeU8fsWosWbkev873g.png)
 
-We also tested a read-only workload and observed that, at similar P99 read latency (2ms), Rocksandra could provide 10X higher read throughput (300K/s for Rocksandra vs. 30K/s for C* 3.0).
+我们还测试了只读负载，并观察到在相似的 P99 读取延迟（2ms）下，Rocksandra 可以提供 10 倍的读取吞吐量（Rocksandra 为 300K/s，C* 3.0 为 30K/s）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*E-2efj-mMo0dQWEvZyxn1g.png)
 
 ![](https://cdn-images-1.medium.com/max/800/1*d5gs5SJzq6laocevBqA1Bg.png)
 
-### Future work
+### 展望
 
-We have open sourced our [Rocksandra code base](https://github.com/Instagram/cassandra/tree/rocks_3.0) and [benchmark framework](https://github.com/Instagram/cassandra-aws-benchmark), which you can download from Github to try out in your own environment! Please let us know how it performs.
+我们已经开源了 [Rocksandra 代码库](https://github.com/Instagram/cassandra/tree/rocks_3.0) 和 [基准测试框架](https://github.com/Instagram/cassandra-aws-benchmark)，你可以从 Github 上下载并在自己的环境中尝试！请让我们知道它的表现。
 
-As our next step, we are actively working on the development of more C* features support, like secondary indexes, repair, etc. We are also working on a [C* pluggable storage engine architecture](https://issues.apache.org/jira/browse/CASSANDRA-13474) to contribute our work back to the Apache Cassandra community.
+作为下一步，我们正在积极开发更多的 C* 功能支持，如二级索引，数据修复等等。我们还在开发一个 [C* 可插拔存储引擎架构](https://issues.apache.org/jira/browse/CASSANDRA-13474)，将我们的工作回馈给 Apache Cassandra 社区。
 
-If you are in the Bay Area and are interested in learning more about our Cassandra developments, join us at our next meetup event [here](https://www.meetup.com/Apache-Cassandra-Bay-Area/events/248376266/).
+如果您身处湾区，并有兴趣了解更多关于 Cassandra 开发的信息，请参加我们的下一次 [聚会活动](https://www.meetup.com/Apache-Cassandra-Bay-Area/events/248376266/)。
 
-_Dikang Gu is an infrastructure engineer at Instagram._
+Dikang Gu 是 Instagram 的一名基础架构工程师
 
 
 ---

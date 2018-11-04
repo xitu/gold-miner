@@ -2,56 +2,56 @@
 > * 原文作者：[Jay](https://www.thecodingdelight.com/author/ljay189/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/good-coding-practices-tips-enhance-code-quality.md](https://github.com/xitu/gold-miner/blob/master/TODO1/good-coding-practices-tips-enhance-code-quality.md)
-> * 译者：
-> * 校对者：
+> * 译者：[NeoyeElf](https://github.com/NeoyeElf)
+> * 校对者：[dandyxu](https://github.com/dandyxu)，[allenlongbaobao](https://github.com/allenlongbaobao)
 
-# Good Coding Practices – Five Tips to Enhance Code Quality
+# 良好的编码习惯 —— 5 个提高代码质量的技巧
 
-Good coding practices are like a bright beacon guiding unwary developers to the shore at night. Good code is predictable. Easy to debug, extend and test.
+良好的编码习惯像黑夜中的一盏明灯，指引着迷路的开发者安全靠岸。良好的代码是可预测的，是易于调试、扩展和测试的。
 
-Good coding practices help your teammates become more productive and makes working with your code base an overall pleasant experience.
+良好的编码习惯能够提高你同事的工作效率，同时让你的代码库从整体上给人一种愉快的阅读体验。
 
-What I will share with you are five universal good coding practices that will improve the readability, extensibility and overall value of your code. The sooner you understand and apply these principles, the greater the benefits will be.
+接下来我要和你们分享的是 5 个通用的良好编码习惯，它们能提高你代码的可读性，可扩展性和整体质量。越快理解和运用这些准则，你的收益就越大。
 
-Let’s get started.
+让我们开始吧。
 
-## Why Good Coding Practices?
+## 为什么要有良好的编码习惯？
 
-Learning and applying good coding practices is like investing in stocks that you know, for sure, will rise exponentially. In other words, as long as you invest that lump sum right now, the returns you get, years or even months down the track will far outweigh what you put in now.
+学习和运用良好的编码习惯就像投资那些你知道一定会成倍增长的股票。换句话说，你只要现在做一次性的投资，在接下来的几年甚至几个月的收益和回报，将会远远超过你现在的投入。
 
-Developers at all stages in their journey will benefit from applying and learning good coding practices. And as I mentioned before, the sooner you start applying them, the better. Now is the best time to learn and integrate good coding practices into your current projects.
+处于职业生涯任何阶段的开发者都会受益于应用和学习良好的编码习惯。就像我上面所说，你越早开始使用它们，你的收益便越大。现在便是最好的时机来学习和将良好的编码习惯应用于你现在的项目。
 
-I aimed to present these points so that they build on each other, and make sense as both individual pieces of advice and as a cohesive unit.
+我提出这些观点，旨在它们能够互相支撑，且无论是作为单独的建议还是组合起来都是合理的。
 
-## 1. Name Methods and Variables Succinctly
+## 1. 简洁地给方法和变量命名
 
-When naming classes, variables, and methods, it can be very tempting to give names to our methods out of impulse. Especially when everything makes a lot of sense in your head. Try coming back to that code a few months down the line and see if it makes sense to you. If it does, chances are, you named your variables and methods wisely.
+当给类、变量和方法命名时，我们很容易冲动地按照自己的方式给它们命名。特别是当你觉得这一切都很合理时。试着几个月之后再回头看看那些代码，看看它们是否依旧合理。如果是，那么很有可能是你当时明智地命名了你的变量和方法。
 
-[![good coding practices - method names are like headings and sentences in an article](//personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2017/07/good-coding-practices-method-names-are-like-heading-sentences.jpg)](//personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2017/07/good-coding-practices-method-names-are-like-heading-sentences.jpg)
+[![良好的编码习惯 —— 方法名类似文章中的标题和句子](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2017/07/good-coding-practices-method-names-are-like-heading-sentences.jpg)](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2017/07/good-coding-practices-method-names-are-like-heading-sentences.jpg)
 
-Methods are like headings or sentences in an article.
+方法名类似文章中的标题和句子。
 
-Therefore, when naming methods, aim to give names that accurately summarize the contents of the method. If the method name becomes too long or vague, it is an indicator that the method is doing way too many things.
+因此，当给方法命名时，要能够准确概括方法的内容。如果方法名变得太长或模糊，那么表示该方法做了太多的事情。
 
-The code that you write inside of a method body is the words that make up the sentence.
+方法中的内容组成了方法名。
 
-When looking at an article, what stands out to you the most? Generally, it is the heading that stands out the most. Well, in a program, **key methods are like headings**. When writing an article for a high school or college essay, do you just write some random string of words and finalize the heading without a second thought?
+当你阅读一篇文章时，你觉得最突出的是什么？通常，最突出的是标题。在程序中，**关键方法就像标题**。当你为高中或大学散文写投稿文章时，你是否只是随便瞎写几句，然后不假思索地写完标题？
 
-> A simple, intuitive method name is worth a thousand words.
+> 一个简单直观的方法名胜过千言万语。
 
-Naturally, the choice of words in the sentence and how they are packaged together is also important. This is why we also need to be intentional on how we name our variables. Most of the time, before looking at the logic, people try to grasp the big-picture view of the implementation detail by reading the variable names in each line of logic.
+当然，句子中单词的选择以及如何将它们组合在一起也很重要。这就是为什么我们也需要特意地给我们的变量命名。大多数情况下，在查看代码逻辑之前，人们会试图通过阅读每一行中的变量名来对代码实现细节的有一个整体把握。
 
-Make sure that both methods and variable names are clear and accurately describe what is going on. Imagine if you gave a tourist the wrong direction, just how mad and confused he/she will be. You are giving directions to the next programmer who comes around to read your code.
+确保方法和变量名称都是清晰明了的，且准确地描述了正在发生的事情。想象一下，如果你指引给一个游客错误的方向，他/她会多么生气和困惑。你正在为下一个前来阅读你代码的程序员指引道路。
 
-## 2. Minimize Global Variables
+## 2. 尽可能减少使用全局变量
 
-You may have heard this often in programming, regardless of language. People just state that global variables are bad and leave it at that. Let me tell you why global variables should be minimized and avoided when possible.
+不管使用哪种语言，你可能在编程中经常听到这种说法。人们只会说使用全局变量不好，而不去解释为什么不好。那么让我来告诉你为什么应该尽可能地减少和避免全局变量。
 
-> Global variables cause confusion because they are accessible from anywhere within the program.
+> 全局变量会造成困惑，因为程序中的任何地方都可以访问到它们。
 
-The layer of confusion is amplified if that global variable is also mutable. If you declared a variable, chances are, you declared it to use it in your program. And guess what?
+如果全局变量同时也是可变的，则会增加人们的困惑。如果你声明了一个变量，那么很可能你只是想在自己的代码中去使用它。你猜猜接下来会发生什么？
 
-Here is a basic example in JavaScript, but should be easy to understand, regardless of your programming language background.
+这里是一个用 JavaScript 语言编写的基础示例，但无论你使用的是哪种编程语言，下面这段代码都应该很容易理解。
 
 ```
 var GLOBAL_NUMBER = 5;
@@ -60,31 +60,31 @@ return num1 + GLOBAL_NUMBER;
 }
 ```
 
-For this function, even if we put in num1 = 3, we won’t know for certain whether or not we will get 8 because another part of the program may have and can manipulate the value of GLOBAL_NUMBER.
+对于这个函数，即使我们传入 num1 = 3，我们也无法确定该方法是否会返回 8，因为该程序的其他部分也许已经修改了 GLOBAL_NUMBER 的值。
 
-This increases the likelihood of side-effects, especially when we get all funky with multi-threaded programs. Whats worse, the complexity of the program scales in proportion to the size of the program.
+这增加了程序产生副作用的可能性，特别是当我们使用多线程编程时。更糟糕的是，程序的复杂性与代码量的大小成正比。
 
-Use cases of a single global variable in a 100 line program are manageable. But imagine if that program later evolved into a 10,000 line program. There are so many places where that variable could be manipulated. And chances are, by this point, other global variables may have been added to keep track of the program.
+在 100 行的代码中使用单个全局变量是可管理的。但是想象一下，如果这个项目后来演变成一个拥有 10000 行代码的项目。那么项目中有很多地方都可以修改这个变量。而且，到目前为止，代码中可能还添加了其他的全局变量。
 
-You now have a maintenance nightmare.
+现在维护代码简直就是一个噩梦。
 
-If possible, find ways to eliminate global variables. They make the life of every developer working on it hard.
+如果可能的话，找到消除全局变量的方法。全局变量增加了每个开发人员的工作难度。
 
-## 3. Write Code with Predictable Results
+## 3. 编写可预测的代码
 
-If you follow this blog, you might have picked up the fact that I love pure functions. Especially if you are a beginner, I implore you to try writing code that is pure. Let me give you four points to keep when writing code.
+如果你关注我的博客，你可能会发现我喜欢纯函数。特别地，如果你是初学者，我恳请你尝试编写干净的代码。让我来告诉你编写代码中 4 个需要遵守的点。
 
-**Avoid shared states** (Ahemm … global variables). **Keep functions pure**. In other words, functions, classes, subroutines, should all have a **single responsibility**.
+**避免状态共享**（emm...全局变量）。**保持函数干净**。换句话说，函数、类、子程序都应该只有单一的职责。
 
-If your job is to cook rice, then cook rice and nothing else to avoid confusing your coworkers. Don’t do something that you are not supposed to.
+如果你的工作是煮米饭，那就煮米饭，不要做其他的事情，以免让你的同事感到困惑。不要做不该你做的事情。
 
-Code with predictable results is like a vending machine. You insert money in, press the button for Coke. You know that you are going to get a can of Coke in exchange for your money. No exception to the rule. What comes out is predictable. A good coding practice is to write code that yields **predictable outcomes**.
+具有可预测结果的代码就像一台自动售货机。你把钱放进去，按下可乐的按钮。你知道你的钱可以换一罐可乐。对于编码，这条规则也适用。使编码结果可预测。一个良好的编码习惯是编写**可预测结果**的代码。
 
-Imagine if you inserted money and pressed Coke, but instead, the vending machine spat Fanta out at you. Unless you like surprises, or you don’t care what drink you get, you are not going to be happy.
+想象一下，如果你将钱放入自动售货机，按下可乐按钮，但相反，自动售货机给你了芬达。除非你喜欢惊喜，或者你不在乎喝什么，否则你是肯定不会感到快乐的。
 
-Without any exceptions, developers don’t like surprises that are a by-product of poorly written code.
+无一例外，开发人员并不喜欢由糟糕代码的副作用带来的惊喜。 
 
-Let’s take a look at a very simple example.
+让我们来看一个很简单的示例。
 
 ```
 function add(num1, num2) {
@@ -92,7 +92,7 @@ return num1 + num2;
 }
 ```
 
-The simple add function above is pure. It yields predictable outcomes. No matter what environment you work in, regardless of any global variable, if you insert 1 and 2, you will always get 3 back.
+上面这个简单的 add 函数是纯粹的。它产生可预测的结果。无论你在什么环境使用它，无论任何全局变量，如果你输入 1 和 2，你总是会得到 3。
 
 ```
 // This will never equal a value 
@@ -100,55 +100,56 @@ The simple add function above is pure. It yields predictable outcomes. No matter
 add(1, 2);
 ```
 
-## 4. Write Reusable Code
+## 4. 编写可重用的代码
 
-I try to write modular code so that I can simply import that module without having to rewrite it. It is way better than reinventing the wheel and if you keep it pure, guess what? Fewer bugs and side-effects.
+我尝试模块化编码，这样一来我就可以简单地导入该模块，而不必重写它。这比重新发明轮子要好，如果你可以保持模块简洁，这样一来便会减少 bugs 和副作用。
 
-Most importantly, I want you to understand the reason why we like to adhere to these principles.
+最重要的是，我想让你明白为什么我们喜欢坚持这些原则。
 
-[Code is reusable when it can be ported to another development environment and integrated seamlessly Click To Tweet](https://twitter.com/share?text=Code+is+reusable+when+it+can+be+ported+to+another+development+environment+and+integrated+seamlessly&url=https://www.thecodingdelight.com/good-coding-practices-tips-enhance-code-quality/%3Futm_source%3Dtwitter%26utm_medium%3Dsocial%26utm_campaign%3DSocialWarfare&via=JayLee189).
+[当可以将代码移植到另一个开发环境并无缝集成到 Tweet 时，代码便是可重用的。](https://twitter.com/share?text=Code+is+reusable+when+it+can+be+ported+to+another+development+environment+and+integrated+seamlessly&url=https://www.thecodingdelight.com/good-coding-practices-tips-enhance-code-quality/%3Futm_source%3Dtwitter%26utm_medium%3Dsocial%26utm_campaign%3DSocialWarfare&via=JayLee189)
 
-Remember, you are not the only one (or at least you shouldn’t be) writing and maintaining that code base. Building on points one, two and three enables us to achieve point four, which is to write reusable code. In other words, steps 1-3 help us write code that is reusable. Let’s backtrack and review why steps 1-3 help developers write reusable code.
+请记住，你并不是(或者至少不应该是)唯一编写和维护该代码库的人。基于第一、第二和第三点，可以使我们做到第四点，即编写可重用的代码。换句话说，步骤 1-3 帮助我们编写可重用的代码。让我们回顾复习一下为什么步骤 1-3 能帮助开发人员编写可重用代码。
 
-*   Simple and no-nonsense method and variable names make the code more palatable to other developers.
-*   The reusable code should never depend on global states. Code with added dependencies is generally classified as difficult to reuse.
-*   The reusable code should also yield consistent results that are not dependant on mutable states.
+*   简单明了的方法和变量名使代码更容易被其他开发人员所接受。
+*   可重用的代码不应该依赖于全局状态。使用了依赖库的代码通常被归类为难以重用的代码。
+*   可重用的代码应该产生不依赖于可变状态的一致结果。
 
-When writing code, ask yourself the following question: “Can I (and do I want to) reuse this code in another project?”. This will help you write reusable and therefore, more value-adding code.
+当写代码时，尝试问自己：“我能否（或我是否想要）在其他项目中重用这块代码？”。这会帮助你写出可重用的代码，即更加有价值的代码。
 
-## 5. Write Unit Tests
+## 5. 写单元测试
 
-You may have heard this many times, but that is because unit tests provide an avenue for a piece of code to mature. Unit tests are one of the good coding practices that are frowned down upon, because of the time constraints. Project managers and clients want immediate results.
+你可能已经听过很多次了，这是因为单元测试使代码更加成熟和健壮。由于项目时间限制，单元测试成为了不受欢迎的良好编码习惯之一。项目经理和客户希望立刻得到结果。
 
-> Code written with the help of unit tests are like a [Chinese bamboo tree](http://www.mattmorris.com/how-success-is-like-a-chinese-bamboo-tree/). The results are not visible at the start, but with patient and in due time, the benefits are visible and well worth it!
+> 拥有单元测试的代码就像一棵[中国竹子](http://www.mattmorris.com/how-success-is-like-a-chinese-bamboo-tree/)。在开始的时候成效并不明显，但只要你有耐心，在某个适当的时候，收益是显而易见且十分值得的！
 
-In the first four years, the Chinese bamboo tree shows limited growth. And like any plant, it requires nurturing. In the fifth year, it grows 80 feet in just 6 weeks.
+在最初的四年里，中国竹子生长受限。和任何其他植物一样，它需要培养。在第五年，它在仅仅 6 周内就长了 80 英尺。
 
-[![code written with unit tests are like bamboo trees](//personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2017/07/code-written-with-unit-tests-are-like-bamboo-trees.jpg)](//personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2017/07/code-written-with-unit-tests-are-like-bamboo-trees.jpg)
+[![拥有单元测试的代码就像竹子](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2017/07/code-written-with-unit-tests-are-like-bamboo-trees.jpg)](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2017/07/code-written-with-unit-tests-are-like-bamboo-trees.jpg)
 
-Although unit tests do not require as much time to reap the benefits, often at times, your patience, as well as that of your project manager will be tested. However, if time is invested into writing these unit tests and paying attention to the code quality, you will see great improvements in code quality and robustness. All of these ultimately translate into better user experience and easier to extend the code, with minimal side-effects. If you are not allowed to write unit tests at your work place, try getting into a habit of writing them in your personal projects. A lot of companies see the value in writing unit tests, and it is a very useful skill to have.
+虽然单元测试能带来的收益并不需要花那么长的时间，但是通常情况下，你和你项目经理的耐心都将受到考验。当然，如果你们愿意花时间去编写这些单元测试并关注代码质量，代码的质量和健壮性都会得到巨大改进。所有这些努力最终都将转化为更好的用户体验和拥有最小副作用的更容易扩展的代码。
 
-If you are not allowed to write unit tests at your work place, try getting into a habit of writing them in your personal projects. A lot of companies see the value in writing unit tests, and it is a very useful skill to have.
+如果你不被允许在你的工作代码中编写单元测试，那么尝试养成在你的个人项目中编写单元测试的习惯。许多公司看到了编写单元测试的价值，这是一项非常有用的技能。
 
-But more important than the skill, unit tests broaden the developer’s mind to think outside of the box and scan for all possible situations. Accounting for these situations, its likelihood, weighing the pros and cons of adding too many validation checks. Making assumptions, re-engineering. All the blood, sweat and tears will eventually produce beautiful, tested, pure and robust code. One that is reusable, predictable and may potentially serve you well in your future endeavors.
+比这项技能更重要的是，单元测试能够扩宽开发者的视野，从全局考虑问题，检查所有可能的情况。
 
-Accounting for these situations, its likelihood, weighing the pros and cons of adding too many validation checks. Making assumptions, re-engineering. All the blood, sweat and tears will eventually produce beautiful, tested, pure and robust code. One that is reusable, predictable and may potentially serve you well in your future endeavors.
+考虑这些情况的可能性，从而权衡利弊，添加适当数量的有效检查用例。做各种假设，然后重新设计编码。
 
-All the blood, sweat and tears will eventually produce beautiful, tested, pure and robust code. One that is reusable, predictable and may potentially serve you well in your future endeavors.
+所有的这些心血、汗水和眼泪最终将汇聚成优美的、经过测试的纯粹健壮的代码。它可重用，可预测，并可能会很好地服务于你未来的工作。
 
-At the very least, all the acquired knowledge will help mature you as a programmer.
+阅读本文所获取的知识至少可以帮助你成为一名成熟的程序员。
 
-## Grow the List
+## 完善清单
 
-If you would like for me to add more points to this list or feel as though an important point was omitted from the list, please leave a comment and let me know. I will do my best to add to this list as quickly as possible.
+如果你有其他更好的编码习惯想让我加入这份清单中，或者你觉得清单中遗漏了一个重要的点，请在下方评论留言。我会尽快将您的意见加入这份清单中。
 
-Thank you for reading and happy coding!
+感想您的阅读，happy coding!
 
-### About the Author [Jay](https://www.thecodingdelight.com/author/ljay189/)
+### 关于作者 [Jay](https://www.thecodingdelight.com/author/ljay189/)
 
-I am a programmer currently living in Seoul, South Korea. I created this blog as an outlet to express what I know / have been learning in text form for retaining knowledge and also to hopefully help the wider community. I am passionate about data structures and algorithms. The back-end and databases is where my heart is at.
+我是一个程序员，目前住在韩国首尔。我创建这个博客是为了将我已掌握和正在学习的知识用写文章的形式表达出来，以作知识积累，同时也希望能够帮助构建更广大的社区。我热衷于数据结构和算法，专精于后端和数据库。
 
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+

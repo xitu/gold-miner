@@ -7,8 +7,6 @@
 
 # 使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第一部分）
 
-[_点此链接将本文分享到 LinkedIn »_](https://www.linkedin.com/cws/share?url=https%3A%2F%2Fitnext.io%2Fcreate-your-first-ethereum-dapp-with-web3-and-vue-js-c7221af1ed82)
-
 欢迎来到另一个教程！在本教程中，我们将讨论如何使用 Ethereum、Web3js、VueJS 和 Vuex 创建一个简单的、响应式的去中心化应用程序。您可能需要对 javascript 和 web 应用程序有一些了解才能真正享受本教程。如果您不了解 Vue，不用担心，我们将在实现应用程序时简要地介绍一下基础知识。
 
 我们的应用将会很简单。用户可以在 1 到 10 之间下注以太币。当用户猜对时，他得到了他的奖励 x10（略低于庄家切牌）。

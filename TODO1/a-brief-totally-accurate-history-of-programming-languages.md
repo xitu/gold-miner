@@ -2,146 +2,146 @@
 > * 原文作者：[Casper Beyer](https://medium.com/@caspervonb?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-brief-totally-accurate-history-of-programming-languages.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-brief-totally-accurate-history-of-programming-languages.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[L9m](https://github.com/L9m)、[allenlongbaobao](https://github.com/allenlongbaobao)
 
-# A Brief Totally Accurate History Of Programming Languages
+# 简短而又完全精确的编程语言历史
 
-## One Hundred Percent Inspired by Facts
+## 完美的灵感源于事实
 
 ![](https://cdn-images-1.medium.com/max/1600/1*ROH0byc_N5d96ggEk2A8nA.jpeg)
 
 #### 1800
 
-[Joseph Marie Jacquard](https://en.wikipedia.org/wiki/Joseph_Marie_Jacquard) teaches a loom to read punch cards, creating the first heavily multi-threaded processing unit. His invention was fiercely opposed by the silk-weavers who foresaw the birth of Skynet.
+[Joseph Marie Jacquard](https://en.wikipedia.org/wiki/Joseph_Marie_Jacquard) 教会.一个纺织机读穿孔卡片，创建了第一个重量级多线程处理单元。他的发明遭到预见天网（Skynet）诞生的丝织工的强烈反对。
 
 #### 1842
 
-[Ada Lovelace](https://en.wikipedia.org/wiki/Ada_Lovelace) gets bored of being noble and scribbles in a notebook what will later be known as the first published computer program, only slightly inconvenienced by the fact that there were no computers around at the time.
+[Ada Lovelace](https://en.wikipedia.org/wiki/Ada_Lovelace) 厌倦了贵族，后在一个笔记本上无心地写下被后世所称的首个计算机程序，只是当时并没有计算机，事实上稍微有点不方便。
 
 #### 1936
 
-[Alan Turing](https://en.wikipedia.org/wiki/Alan_Turing) invents everything, the British courts do not approve and have him chemically castrated.
+[Alan Turing](https://en.wikipedia.org/wiki/Alan_Turing) 发明的所有东西都被英国法院否决，而且对他采取化学阉割。
 
-The Queen later pardoned him, but unfortunately he had already been dead for centuries at that time.
+尽管女王后来赦免了他，但不幸的是距他逝世已经过去了几个世纪。
 
 #### 1936
 
-[Alonzo Church](https://en.wikipedia.org/wiki/Alonzo_Church) also invents everything with Turing, but from across the pond and was not castrated by the Queen.
+[Alonzo Church](https://en.wikipedia.org/wiki/Alonzo_Church) 和图灵一样也发明了很多东西，但和他不一样的是，女王没有对他进行阉割。
 
 #### 1957
 
-[John Backus](https://en.wikipedia.org/wiki/John_Backus) creates FORTRAN which is the first language that **real programmers use.**
+[John Backus](https://en.wikipedia.org/wiki/John_Backus) 开发了 FORTRAN ，这是第一种被 **程序员真正使用的**语言。
 
 #### 1959
 
-[Grace Hopper](https://en.wikipedia.org/wiki/Grace_Hopper) invents the first enterprise ready business oriented programming language and calls it the “_common business-oriented language”_ or COBOL for short_._
+[Grace Hopper](https://en.wikipedia.org/wiki/Grace_Hopper) 开发了第一种企业可用的面向业务编程语言，叫做“**面向商业的通用语言**”或者简称 **COBOL**。
 
 #### 1964
 
-[John Kemeny](https://en.wikipedia.org/wiki/John_G._Kemeny) and [Thomas Kurtz](https://en.wikipedia.org/wiki/Thomas_E._Kurtz) decide programming is too hard and they need to go back to basics, they call their programming language BASIC.
+[John Kemeny](https://en.wikipedia.org/wiki/John_G._Kemeny) 和 [Thomas Kurtz](https://en.wikipedia.org/wiki/Thomas_E._Kurtz) 认为编程太难了，而他们想要回归基础，因此称它们发明的语言为 BASIC。
 
 #### 1970
 
-[Niklaus Wirth](https://en.wikipedia.org/wiki/Niklaus_Wirth) makes Pascal become a thing along with a number of other languages, he likes making languages.
+[Niklaus Wirth](https://en.wikipedia.org/wiki/Niklaus_Wirth) 让 Pascal 成为了众多语言中的一种，他喜欢发明语言。
 
-He also invents [Wirth’s law](https://en.wikipedia.org/wiki/Wirth%27s_law) which makes Moore’s law obsolete because software developers will write so bloated software that even mainframes cannot keep up. This will later be proven to be true with the invention of Electron.js.
+他还发明了[沃思定律](https://en.wikipedia.org/wiki/Wirth%27s_law) ，这使得摩尔定律变得过时，因为软件开发者编写的软件过于臃肿，即使是大型机也跟不上。这一定律被之后的 Electron.js 证明是正确的。
 
 #### 1972
 
-[Dennis Ritchie](https://en.wikipedia.org/wiki/Dennis_Ritchie) got bored during work hours at Bell Labs so he decided to make C which had curly braces so it ended up being a huge success. Afterwards he added segmentation faults and other developer friendly features to aid productivity.
+[Dennis Ritchie](https://en.wikipedia.org/wiki/Dennis_Ritchie) 在贝尔实验室工作时间感觉无聊，所以决定开发 C，因为 C 有花括号，所以它最终获得了巨大的成功。之后他还添加了分段错误和其他对开发者友好的特性来提高生产效率。
 
-Still having a couple of hours remaining he and his buddies at Bell Labs decided to make an example program demonstrating C, they make a operating system called Unix.
+还有几个小时，他和贝尔实验室的朋友们决定制作一个演示 C 的示例程序，于是他们制作了一个名为 Unix 的操作系统。
 
 #### 1980
 
-[Alan Kay](https://en.wikipedia.org/wiki/Alan_Kay) invents object oriented programming and calls it Smalltalk, in Smalltalk everything is an object, even an object is an object. No one really has time to understand the meaning of small talk.
+[Alan Kay](https://en.wikipedia.org/wiki/Alan_Kay)  发明了面向对象编程语言并称其为 Smalltalk，在 Smalltalk 中，一切都是对象，对象本身也是一个对象。但没有人真正有时间去理解闲聊（small talk ）的意义。
 
 #### 1987
 
-[Larry Wall](https://en.wikipedia.org/wiki/Larry_Wall) has a religious experience, becomes a preacher and makes Perl the doctrine.
+[Larry Wall](https://en.wikipedia.org/wiki/Larry_Wall) 有宗教经验，成为了传教士，并使 Perl 成为教义。
 
 #### 1983
 
-[Jean Ichbiah](https://en.wikipedia.org/wiki/Jean_Ichbiah) notices that Ada Lovelace programs never actually ran and decided to create a language with her name but the language continues to be not run.
+[Jean Ichbiah](https://en.wikipedia.org/wiki/Jean_Ichbiah) 注意到 Ada Lovelace 的程序从没有真正运行过，所以决定用她的名字开发一种语言，但是语言仍然没有运行。
 
 #### 1986
 
-[Brac Box](https://en.wikipedia.org/wiki/Brad_Cox) and [Tol Move](https://en.wikipedia.org/wiki/Tom_Love) decide to make an unreadable version of C based on Smalltalk which they call Objective-C but no one is able to understand the syntax.
+[Brac Box](https://en.wikipedia.org/wiki/Brad_Cox) 和 [Tol Move](https://en.wikipedia.org/wiki/Tom_Love) 决定基于 Smalltalk 开发一个不可读的 C 版本，他们称之为 Object-C，但没有人可以理解语法。
 
 #### 1983
 
-[Bjarne Stroustrup](https://en.wikipedia.org/wiki/Bjarne_Stroustrup) travels back to the future and notices that C is not taking enough time to compile, he adds every feature he can think of to the language and names it C++.
+[Bjarne Stroustrup](https://en.wikipedia.org/wiki/Bjarne_Stroustrup) 回到未来，注意到 C 没有花足够的时间编译，所以他在语言中添加了他想得到的所有特性，并将它命名为 C++。
 
-Programmers everywhere adopt it so they have genuine excuses to watch cat videos and read xkcd while working.
+它得到了广泛使用，所以程序员们在工作时看视频、看新闻有了真正的借口。
 
 #### 1991
 
-[Guido van Rossum](https://en.wikipedia.org/wiki/Guido_van_Rossum) does not like culy braces and invents Python, syntax choices were inspired by Monty Python and the Flying Circus.
+[Guido van Rossum](https://en.wikipedia.org/wiki/Guido_van_Rossum) 不喜欢花括号，于是发明了 Python，语法选择的灵感来源于 Monty Python 和 Flying Circus。
 
 #### 1993
 
-[Roberto Ierusalimschy](https://en.wikipedia.org/wiki/Roberto_Ierusalimschy "Roberto Ierusalimschy") and friends decide they need a scripting language local to Brazil, during localization an error was made that made indices start counting from 1 instead of 0, they named it Lua.
+[Roberto Ierusalimschy](https://en.wikipedia.org/wiki/Roberto_Ierusalimschy "Roberto Ierusalimschy") 和朋友们认为他们需要的是一种巴西本地化脚本语言，在本地化过程中出现了一个错误，导致索引不是从 0 而是从 1 开始计算，他们将其命名为 Lua。
 
 #### 1994
 
-[Rasmus Lerdorf](https://en.wikipedia.org/wiki/Rasmus_Lerdorf) makes a template engine for his personal homepage CGI scripts, he releases his dotfiles on the web.
+[Rasmus Lerdorf](https://en.wikipedia.org/wiki/Rasmus_Lerdorf) 为自己的个人主页 CGI 脚本制作了一个模版引擎，并在网上发布了他的 dotfiles。
 
-The world decides to use these dotfiles for everything and in a frenzy Rasmus throws some extra database bindings in there for the heck of it and calls it PHP.
-
-#### 1995
-
-[Yukihiro Matsumoto](https://en.wikipedia.org/wiki/Yukihiro_Matsumoto) is not very happy, he notices other programmers are not happy. He creates Ruby to make programmers happy. After creating Ruby “Matz” is happy, the Ruby community is happy, everyone is happy.
+时代导致这些文件可以用于任何事物，疯狂的 Rasmus 还在其中引入额外的数据库绑定，并将其称为--PHP。
 
 #### 1995
 
-[Brendan Eich](https://en.wikipedia.org/wiki/Brendan_Eich) takes the weekend off to design a language that will be used to power every single web browser in the world power and eventually Skynet . He originally went to Netscape and said it was called LiveScript but Java became popular during the code review so they decided they better use curly braces and rename it to JavaScript.
+[Yukihiro Matsumoto](https://en.wikipedia.org/wiki/Yukihiro_Matsumoto) 并不开心，他注意到其他程序员也不开心。他发明 Ruby 是为了让程序员开心。在发明出 Ruby 后「Matz」很开心，Ruby 社区也很开心，每个人都是快乐的。
 
-Java turned out to be a trademark that would get them in trouble, JavaScript later gets renamed to ECMAScript and everyone still calls it JavaScript.
+#### 1995
+
+[Brendan Eich](https://en.wikipedia.org/wiki/Brendan_Eich) 利用周末设计了一种语言，用于为世界上的每一个浏览器提供支持，并最终为天网提供服务。起初，他去了网景（Netscape），称它为 LiveScript，但在代码审查期间，Java 变得流行起来，所以他们决定最好使用花括号，并将其重新命名为 JavaScript。
+
+Java 被证明将是一个给他们带来麻烦的商标，JavaScript 后来被重命名为 ECMAScript，但大家仍称之为 JavaScript。
 
 #### 1996
 
-[James Gosling](https://en.wikipedia.org/wiki/James_Gosling) invents Java, the first truly overly verbose object oriented programming language where design patterns rule supreme over pragmatism.
+[James Gosling](https://en.wikipedia.org/wiki/James_Gosling) 发明了 Java，这是第一种真正过于冗长的面向对象编程语言，其设计模式的规则凌驾于实际需要之上。
 
-Its super effective, the manager provider container provider service manager singleton manager provider pattern is born.
+其高效的管理器提供容器提供服务管理单例管理提供商模式就诞生了。
 
 #### 2001
 
-[Anders Hejlsberg](https://en.wikipedia.org/wiki/Anders_Hejlsberg) re-invents Java and calls it C# because programming in C feels cooler than Java. Everyone loves this new version of Java for totally not being like Java.
+[Anders Hejlsberg](https://en.wikipedia.org/wiki/Anders_Hejlsberg) 重新开发 Java 并将其命名为 C#，因为 C 编程感觉比 Java 更酷。每个人都喜欢这个完全不像 Java 的新版 Java。
 
 #### 2005
 
-[David Hanselmeyer Hansen](https://en.wikipedia.org/wiki/David_Heinemeier_Hansson) creates a web framework called Ruby on Rails, people no longer remember that the two are separate things.
+[David Hanselmeyer Hansen](https://en.wikipedia.org/wiki/David_Heinemeier_Hansson)   编写了一个叫做 Ruby on Rails 的 Web 框架，人们从此再也记不得它们曾经是分开的。
 
 #### 2006
 
-[John Resig](https://en.wikipedia.org/wiki/John_Resig) writes a helper library for JavaScript, everyone thinks it’s a language and make careers of copy and pasting jQuery codes from the internets.
+[John Resig](https://en.wikipedia.org/wiki/John_Resig) 为 JavaScript 编写了一个助手库，每个人都认这是一种语言，并从事从互联网复制粘贴 jQuery 代码的职业。
 
 #### 2009
 
-[Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson) and [Rob Pike](https://en.wikipedia.org/wiki/Rob_Pike) decide to make a language like C, but with more safety equipment and more marketable and with Gophers as mascots.
+[Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson) 和 [Rob Pike](https://en.wikipedia.org/wiki/Rob_Pike) 决定发明一种类似 C 的语言， 但要有更安全的「装备」并更有市场前景，还要以 Gophers 作为吉祥物。
 
-They call it Go, make it open source and sell Gopher branded kneepads and helmets separately.
+他们称它为 Go，还开源了它，而且还不捆绑地售卖地鼠牌的护膝和头盔。
 
 #### 2010
 
-Graydon Hoare also wants to make a language like C, he calls it Rust. Everyone demands that every single piece of software be rewritten in Rust immediately. Graydon wants shinier things and starts working on Swift for Apple.
+Graydon Hoare 也想编写一种类似 C 的语言-- Rust。大家都要求可以立即用 Rust 重写每一个软件。Graydon 想要更炫的事情，于是开始为 Apple 开发 Swift。
 
 #### 2012
 
-[Anders Hjelsberg](http://Anders%20Hejlsberg) wants to write C# in web browsers, he designs TypeScript which is JavaScript but with more Java in it.
+[Anders Hjelsberg](http://Anders%20Hejlsberg) 想在 Web 浏览器中编写 C#，于是就设计了一种 JavaScript 语言--TypeScript，而实际上它却包含了很多 Java 内容。
 
 #### 2013
 
-[Jeremy Ashkenas](https://en.wikipedia.org/wiki/Jeremy_Ashkenas "Jeremy Ashkenas") wants to be happy like Ruby developers so he creates CoffeeScript which compiles to be JavaScript but looks more like Ruby. Jeremy never became truly happy like Matz and Ruby developers.
+[Jeremy Ashkenas](https://en.wikipedia.org/wiki/Jeremy_Ashkenas "Jeremy Ashkenas") 希望像 Ruby 开发者那样幸福，所以他创建了最后可以编译成 JavaScript 的 CoffeeScript，但它看起来更像 Ruby。Jeremy 从来没有像 Matz 和 Ruby 开发者那样真正快乐过。
 
 #### 2014
 
-[Chris Lattner](https://en.wikipedia.org/wiki/Chris_Lattner) makes Swift with the primary design goal of not being Objective-C, in the end it looks like Java.
+[Chris Lattner](https://en.wikipedia.org/wiki/Chris_Lattner) 使 Swift 成为了主要的设计语言，而不是 Object-C，最后让 Swift 看起来很像 Java。
 
 * * *
 
-[James Iry, whom I can only assume is a fellow computer science historian made some similar observations back in 2009](http://james-iry.blogspot.com/2009/05/brief-incomplete-and-mostly-wrong.html?m=1)
+[James Iry, 我只能假设他是计算机科学史学者，他曾在 2009 年做过一些类似的观察。](http://james-iry.blogspot.com/2009/05/brief-incomplete-and-mostly-wrong.html?m=1)
 
 
 ---
