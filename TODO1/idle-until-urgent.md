@@ -79,7 +79,7 @@ JavaScript 就像被“千刀万剐”了一样。
 
 ### 贪婪的组件
 
-从下面的性能跟踪图可以看出，我们是否真的需要把组件初始化代码进行拆分，让我们来看一个比较好的例子： 在 `main（)` 函数的中间，你会看到我的一个组件使用了 [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat) API：
+从下面的性能跟踪图可以看出，我们是否真的需要把组件初始化代码进行拆分，让我们来看一个比较好的例子：在 `main()` 函数的中间，你会看到我的一个组件使用了 [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat) API：
 
 [![创建一个 Intl.DateTimeFormat 实例需要 13.47 毫秒！](https://philipwalton.com/static/idle-until-urget-before-date-time-format-252558f2ab.png)](https://philipwalton.com/static/idle-until-urget-before-date-time-format-1400w-c67615763f.png)
 
@@ -87,7 +87,7 @@ JavaScript 就像被“千刀万剐”了一样。
 
 创建此对象需要 13.47 毫秒！
 
-问题是，虽然  `Intl.DateTimeFormat` 实例是在组件的构造函数中创建的，但实际上在其他组件用它来格式化日期之前，它都没有被使用过。可是由于该组件不知道何时会引用 `Int.DateTimeFormat` 对象，因此它选择立即初始化该对象。
+问题是，虽然 `Intl.DateTimeFormat` 实例是在组件的构造函数中创建的，但实际上在其他组件用它来格式化日期之前，它都没有被使用过。可是由于该组件不知道何时会引用 `Int.DateTimeFormat` 对象，因此它选择立即初始化该对象。
 
 但这是正确的代码求值策略吗？如果不是，那什么是正确的代码求值策略？
 
@@ -98,7 +98,7 @@ JavaScript 就像被“千刀万剐”了一样。
 *   **[立即求值](https://en.wikipedia.org/wiki/Eager_evaluation)：** 你可以立即运行耗时的代码。
 *   **[惰性求值](https://en.wikipedia.org/wiki/Lazy_evaluation)：** 等到你的程序里的其他部分需要这段耗时代码的结果时，再去运行它。
 
-这两种求值策略可能是目前最受欢迎​​的，但在我重构了我的网站后，我认为这两个策略可能是最糟糕两个选择。
+这两种求值策略可能是目前最受欢迎的，但在我重构了我的网站后，我认为这两个策略可能是最糟糕两个选择。
 
 ### 立即求值的缺点
 
@@ -146,9 +146,9 @@ const main = () => {
 main();
 ```
 
-然而，虽然这比以前更好（许多小任务 vs. 一个长任务），正如我上文解释的那样，它可能还不够好。例如，如果我延迟我 UI 组件（特别是 `contentLoader` 和 `drawer`）的初始化过程，虽然它们几乎不会阻塞用户输入，但是当用户尝试与它们交互时，它们也存在未准备好的风险！
+然而，虽然这比以前更好（许多小任务 vs. 一个长任务），正如我上文解释的那样，它可能还不够好。例如，如果我延迟我 UI 组件（特别是 `contentLoader` 和 `drawer`）的初始化过程，虽然它们几乎不会阻塞用户输入，但是当用户尝试与它们交互时，它们也存在未准备好的风险！
 
-虽然使用 `requestIdleCallback ()`  来延迟我的 `analytics` 方法可能是一个好主意，但在下一个空闲时间之前我关心的任何交互都将被遗漏。而且如果在用户离开页面之前，浏览器都没有空闲时间，这些回调函数可能永远不会运行！
+虽然使用 `requestIdleCallback ()` 来延迟我的 `analytics` 方法可能是一个好主意，但在下一个空闲时间之前我关心的任何交互都将被遗漏。而且如果在用户离开页面之前，浏览器都没有空闲时间，这些回调函数可能永远不会运行！
 
 因此，如果所有这些求值策略都有缺点，那么我们该作何选择呢？
 
@@ -191,7 +191,7 @@ class MyComponent {
 
 在这种情况下，事件监听器立即运行非常重要，但在事件处理函数需要之前，创建 `Intl.DateTimeFormat` 实例是不必要的。当然我们也不想在事件处理函数中创建`Intl.DateTimeFormat` 对象，因为这样会使事件处理函数变得很慢。
 
-下面就是使用“空闲执行，紧急优先”策略修改后的代码。需要注意的是，这里使用了 `IdleValue`  帮助类，后续我会进行讲解：
+下面就是使用“空闲执行，紧急优先”策略修改后的代码。需要注意的是，这里使用了 `IdleValue` 帮助类，后续我会进行讲解：
 
 ```
 import {IdleValue} from './path/to/IdleValue.mjs';
@@ -241,7 +241,7 @@ export class IdleValue {
 }
 ```
 
-虽然在上面的示例中包含 `IdleValue` 类并不需要很多修改，但是它在技术上改变了公共 API（ `this.formatter ` vs. `this.formatter.getValue()`）。
+虽然在上面的示例中包含 `IdleValue` 类并不需要很多修改，但是它在技术上改变了公共 API（ `this.formatter ` vs. `this.formatter.getValue()`）。
 
 如果你无法修改公共 API，但是还想要使用 `IdleValue` 类，则可以将 `IdleValue` 类与 ES2015 的 getters 一起使用：
 
@@ -297,7 +297,7 @@ class MyComponent {
 
 上文中的技术适用于可以通过单个函数计算出来的属性，但在某些情况下，逻辑可能无法写到单个函数里，或者，即使技术上可行，您仍然希望将其拆分为更小的一些函数，以免其长时间阻塞主线程。
 
-在这种情况下，我们真正​​需要的是一种队列，在浏览器有空闲时间时，可以安排多个任务（函数）按照顺序运行。队列将在可能的情况下运行任务，并且当需要回到浏览器时（比如用户正在进行交互）能够暂停执行任务。
+在这种情况下，我们真正需要的是一种队列，在浏览器有空闲时间时，可以安排多个任务（函数）按照顺序运行。队列将在可能的情况下运行任务，并且当需要回到浏览器时（比如用户正在进行交互）能够暂停执行任务。
 
 为了解决这个问题，我构建了一个 [`IdleQueue`](https://github.com/GoogleChromeLabs/idlize) 类，可以像这样使用它：
 
@@ -346,7 +346,7 @@ const queue = new IdleQueue({ensureTasksRun: true});
 
 **注意：** 监听 `visibilitychange` 事件应该足以确保在卸载页面之前运行任务，但是由于 Safari 的漏洞，当用户关闭选项卡时，[页面隐藏和 `visibilitychange` 事件并不总是触发](https://github.com/GoogleChromeLabs/page-lifecycle/issues/2)，我们必须实现一个解决方案来适配 Safari 浏览器。这个解决方案已经在 `IdleQueue` 类中[为你实现好了](https://github.com/GoogleChromeLabs/idlize/blob/master/IdleQueue.mjs#L60-L69)，但如果你需要自己实现它，则需注意这一点。
 
-**警告！** 不要使用监听 `unload` 事件的方式来执行页面卸载前需要执行的队列。 `unload` 事件不可靠，在某些情况下还会降低性能。有关更多详细信息，请参阅我在[Page Lifecycle API 上的文章](https://developers.google.com/web/updates/2018/07/page-lifecycle-api#the-unload-event)。
+**警告！** 不要使用监听 `unload` 事件的方式来执行页面卸载前需要执行的队列。`unload` 事件不可靠，在某些情况下还会降低性能。有关更多详细信息，请参阅我在[Page Lifecycle API 上的文章](https://developers.google.com/web/updates/2018/07/page-lifecycle-api#the-unload-event)。
 
 “空闲执行，紧急优先”策略的使用实例
 -------------------------------
@@ -357,7 +357,7 @@ const queue = new IdleQueue({ensureTasksRun: true});
 
 对于一些必需但又不用直接与用户交互的逻辑部分代码，请考虑将这些逻辑添加到 [`IdleQueue`](https://github.com/GoogleChromeLabs/idlize/blob/master/docs/IdleQueue.md) 中。不用担心，你可以在任何你需要的时候立即运行该代码。
 
-特别适合使用该技术的两个具体实例（并且与大部分网站相关）是持久化应用状态（如 Redux）和网站分析。
+特别适合使用该技术的两个具体实例（并且与大部分网站相关）是持久化应用状态（如 Redux）和网站分析。
 
 **注意：** 这些使用实例的**目的**都是使任务在空闲时间运行，因此如果这些任务不立即运行则没有问题。如果你需要处理高优先级的任务，**想要**让它们尽快运行（但仍然优先级低于用户输入），那么`requestIdleCallback()` 可能无法解决你的问题。
 
@@ -365,7 +365,7 @@ const queue = new IdleQueue({ensureTasksRun: true});
 
 ### 持久化应用状态
 
-我们来看一个 Redux 应用程序，它将应用程序状态存储在内存中，但也需要将其存储在持久化存储（如localStorage）中，以便用户下次访问页面时可以重新加载。
+我们来看一个 Redux 应用程序，它将应用程序状态存储在内存中，但也需要将其存储在持久化存储（如 localStorage）中，以便用户下次访问页面时可以重新加载。
 
 大多数使用 localStorage 持久化存储状态的 Redux 应用程序使用了防抖技术，大致代码如下：
 
