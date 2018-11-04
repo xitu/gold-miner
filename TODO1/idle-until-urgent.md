@@ -393,7 +393,7 @@ store.subscribe(() => {
 ```
 const queue = new IdleQueue({ensureTasksRun: true});
 
-// 当浏览器空闲的时候存储改变了的状态更改，
+// 当浏览器空闲的时候存储状态更改，
 // 为了避免多余地执行代码我们只存储最近发生的状态更改。
 store.subscribe(() => {
   // 清除等待中的写入操作，因为有新的修改需要保存。
