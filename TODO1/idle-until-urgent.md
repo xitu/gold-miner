@@ -5,7 +5,7 @@
 > * 译者：[Ivocin](https://github.com/Ivocin)
 > * 校对者：[xilihuasi](https://github.com/xilihuasi)，[新舰同学 Xekin](https://github.com/Xekin-FE)
 
-几周前，我开始查看我网站的一些性能指标。 具体来说，我想看看我的网站在最新的性能指标 —— [首次输入延迟](https://developers.google.com/web/updates/2018/05/first-input-delay) （FID）上的表现如何。 我的网站只是一个博客（并没有运行很多的 JavaScript），所以我原本预期会得到相当不错的结果。
+几周前，我开始查看我网站的一些性能指标。具体来说，我想看看我的网站在最新的性能指标 —— [首次输入延迟](https://developers.google.com/web/updates/2018/05/first-input-delay) （FID）上的表现如何。 我的网站只是一个博客（并没有运行很多的 JavaScript），所以我原本预期会得到相当不错的结果。
 
 用户一般对于小于 100 毫秒的输入延迟[没有感知](https://developers.google.com/web/fundamentals/performance/rail#ux)，因此我们推荐的性能目标（以及我希望在我的分析中看到的数字）是对于 99％ 的页面加载，FID 小于 100 毫秒。
 
