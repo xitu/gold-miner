@@ -7,9 +7,15 @@
 
 # Creating a Simple Recommender System in Python using Pandas
 
+# 使用 Pandas 在 Python 中创建一个简单的推荐系统
+
 ## Introduction
 
+## 简介
+
 Have you ever wondered how Netflix suggests movies to you based on the movies you have already watched? Or how does an e-commerce websites display options such as "Frequently Bought Together"? They may look relatively simple options but behind the scenes, a complex statistical algorithm executes in order to predict these recommendations. Such systems are called Recommender Systems, Recommendation Systems, or Recommendation Engines. A [Recommender System](https://en.wikipedia.org/wiki/Recommender_system) is one of the most famous applications of data science and machine learning.
+
+你有没有想过 Netflix 如何根据你已经看过的电影向你推荐电影？或者电商网站如何显示诸如“经常一起购买”等选项？他们可能看起来只是简单的选项，但是背后执行了一套复杂的统计算法以预测这些推荐。这样的系统被称为导购系统，推荐系统或者推荐引擎。[导购系统](https://en.wikipedia.org/wiki/Recommender_system)是数据科学和机器学习领域最著名的应用之一。
 
 A Recommender System employs a statistical algorithm that seeks to predict users' ratings for a particular entity, based on the similarity between the entities or similarity between the users that previously rated those entities. The intuition is that similar types of users are likely to have similar ratings for a set of entities.
 
