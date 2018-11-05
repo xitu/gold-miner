@@ -19,23 +19,43 @@ Have you ever wondered how Netflix suggests movies to you based on the movies yo
 
 A Recommender System employs a statistical algorithm that seeks to predict users' ratings for a particular entity, based on the similarity between the entities or similarity between the users that previously rated those entities. The intuition is that similar types of users are likely to have similar ratings for a set of entities.
 
+推荐系统采用统计算法，该算法基于实体之间的相似性或先前评估这些实体的用户之间的相似性来预测用户对特定实体的评级。直觉就是类似类型的用户可能对一组实体具有相似的评级。
+
 Currently, many of the big tech companies out there use a Recommender System in one way or another. You can find them anywhere from Amazon (product recommendations) to YouTube (video recommendations) to Facebook (friend recommendations). The ability to recommend relevant products or services to users can be a huge boost for a company, which is why it's so common to find this technique employed in so many sites.
+
+目前，许多大型科技公司都以这样或那样的方式使用推荐系统。你可以从亚马逊（产品推荐）到 YouTube（视频推荐）再到 Facebook（朋友推荐）的任何地方找到它们。给用户推荐相关产品和服务的能力对公司来说可能是一个巨大的推动力，这就是为什么此技术在众多网站中被普遍运用的原因。
 
 In this article, we will see how we can build a simple recommender system in Python.
 
+在这篇文章中，我们将看到如何使用 Python 构建一个简单的推荐系统。
+
 ### Types of Recommender Systems
+
+### 推荐系统的类型
 
 There are two major approaches to build recommender systems: Content-Based Filtering and Collaborative Filtering:
 
+主要有两种方式构建推荐系统：基于内容过滤和协同过滤：
+
 #### Content-Based Filtering
+
+#### 基于内容过滤
 
 In content-based filtering, the similarity between different products is calculated on the basis of the attributes of the products. For instance, in a content-based movie recommender system, the similarity between the movies is calculated on the basis of genres, the actors in the movie, the director of the movie, etc.
 
+在基于内容过滤中，不同产品的相似性是根据产品的属性计算出来的。例如，在一个基于内容的电影推荐系统中，电影之间的相似性是根据类型，电影中的演员，电影导演等计算的。
+
 #### Collaborative Filtering
+
+#### 协同过滤
 
 Collaborative filtering leverages the power of the crowd. The intuition behind collaborative filtering is that if a user A likes products X and Y, and if another user B likes product X, there is a fair bit of chance that he will like the product Y as well.
 
+协同过滤利用人群的力量。协同过滤背后的直觉是如果 A 用户喜欢产品 X 和 Y，那么如果 B 用户喜欢产品 X，他就有相当大的可能同样喜欢产品 Y。
+
 Take the example of a movie recommender system. Suppose a huge number of users have assigned the same ratings to movies X and Y. A new user comes who has assigned the same rating to movie X but hasn't watched movie Y yet. Collaborative filtering system will recommend him the movie Y.
+
+举一个电影推荐系统的例子。假设大量的用户对电影 X 和 Y 给出一样的评分。一个新用户来了，他对电影 X 给出了相同的评分但是还没看过电影 Y。协同过滤系统就会把电影 Y 推荐给他。
 
 ### Movie Recommender System Implementation in Python
 
