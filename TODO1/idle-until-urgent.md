@@ -485,7 +485,7 @@ queue.pushTask(() => ga('send', 'pageview'));
 
 ## 总结
 
-在理想情况下，我们的网站再也不会不必要地阻塞主线程了。我们会使用 web worker 来处理我们非 UI 的工作，而且我们还有浏览器内置好的 [`shouldYield()`](https://discourse.wicg.io/t/shouldyield-enabling-script-to-yield-to-user-input/2881/17) 和原生的 [Scheduling API](https://github.com/spanicker/main-thread-scheduling/blob/master/README.md)）。
+在理想情况下，我们的网站再也不会不必要地阻塞主线程了。我们会使用 web worker 来处理我们非 UI 的工作，而且我们还有浏览器内置好的 [`shouldYield()`](https://discourse.wicg.io/t/shouldyield-enabling-script-to-yield-to-user-input/2881/17) 和原生的 [Scheduling API](https://github.com/spanicker/main-thread-scheduling/blob/master/README.md)。
 
 但在实际情况下，我们网站工程师往往没有选择，只能将非 UI 的代码放到主线程去执行，这导致了网页出现无响应的问题。
 
