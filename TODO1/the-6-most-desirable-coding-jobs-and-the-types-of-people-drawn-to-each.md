@@ -13,7 +13,7 @@
 
 图片来源于 [**我的博客**](http://davidventuri.com/).
 
-超过 15,000 的人做了 [Free Code Camp’s 2016 New Coder Survey](https://medium.freecodecamp.com/we-asked-15-000-people-who-they-are-and-how-theyre-learning-to-code-4104e29b2781#.jlsxxy4si) 这个调查问卷。被授予研究这份问卷权利的人（正如我）正史无前例的了解人们是如何学习编程的。完整的调查数据被发布在了 [Kaggle](https://www.kaggle.com/freecodecamp/2016-new-coder-survey-).
+超过 15,000 的人做了 [Free Code Camp’s 2016 New Coder Survey](https://medium.freecodecamp.com/we-asked-15-000-people-who-they-are-and-how-theyre-learning-to-code-4104e29b2781#.jlsxxy4si) 这个调查问卷。被授予研究这份问卷权利的人（**正如我**）正史无前例的了解人们是如何学习编程的。完整的调查数据已发布在了 [Kaggle](https://www.kaggle.com/freecodecamp/2016-new-coder-survey-).
 
 6,503 的新编程人员回答了这个问题：“**你最感兴趣这里面的哪一个角色？**”
 
@@ -35,17 +35,17 @@
 *   目前的薪水
 *   期望的下一份薪水（在学习新的编程技术之后的第一份工作）
 
-**在[原始的调查](https://github.com/FreeCodeCamp/2016-new-coder-survey/blob/master/survey-data-dictionary.md)中，UX 设计师是默认选项 。** 尽管学历对于编程相关工作的影响是[有争议的](http://uxmastery.com/how-much-code-should-a-user-experience-designer-write/)，但是拥有编程基础是有帮助的。
+**在[原始的调查](https://github.com/FreeCodeCamp/2016-new-coder-survey/blob/master/survey-data-dictionary.md)中，UX 设计师是默认选项 。** 尽管学历对于编程相关工作的影响是[**有争议的**](http://uxmastery.com/how-much-code-should-a-user-experience-designer-write/)，但是拥有编程基础是有帮助的。
 
 ### 性别
 
-UX 设计师是迄今为止在性别上呈现最为多样化的一类工作，其中拥有 52% 的男性工作者，46% 的女性工作者。【译者注：这后半句校对者能帮忙想想该怎么翻译吗。。】and the highest percentage of agender, genderqueer, and trans respondents (2%). 移动开发是男性占主导地位的一类工作，男性工作者占了81%，即使全栈开发和后端开发的中男性占比和移动开发的相近。
+UX 设计师是迄今为止在性别上呈现最为多样化的一类工作，其中拥有 52% 的男性工作者，46% 的女性工作者，也是在受访者中无性人、中性人和跨性别者占比最高的一类工作（占2%）。尽管全栈开发和后端开发中的男性占比和移动开发相近，移动开发仍然是男性占主导地位最多的一类工作，占81%。
 
 ![](https://cdn-images-1.medium.com/max/800/1*xrrI67H9qPC5n3m-6p47JQ.png)
 
 ### 地区
 
-移动开发者就地区方面来说是最为多元化的。从事 UX 设计的人大部分来自于北美。 
+移动开发者就地区方面来说是最为多元化的。从事 UX 设计的人大部分来自于北美。
 
 ![](https://cdn-images-1.medium.com/max/800/1*5ph4m_K8jAQ1m0ptGMiyDA.png)
 
@@ -53,7 +53,7 @@ Free Code Camp 立基于美国，它的调查的数据会更偏向于北美。
 
 ### 学历
 
-数据科学和数据工程的数据显示专科学历占多数。移动开发调查者中无高中学历或者仅仅只有高中学历的占比最高。即使后端开发在这些的占比是仅此于移动开发的。
+数据科学和数据工程最倾向招聘具有高等教育学历的人。从事移动开发工作的受访者中，无高中学历或者仅仅只有高中学历的占比最高，而后端开发者中这些人员的占比是仅次于移动开发者的。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*3FwqSzq8akrxlC01ADfh6A.png)
 
@@ -61,15 +61,15 @@ Free Code Camp 立基于美国，它的调查的数据会更偏向于北美。
 
 ### 年龄
 
-移动开发者实际上是最年轻的。他们的下四分位数比第二年轻的工作小了2岁。 手机是一门新兴产业，可能与此有关。前端开发是年龄最大的工作，平均年龄是29岁。注意数据科学/数据工程是第二年轻的工作，而不是后端开发。 
+移动开发者实际上是最年轻的。他们的下四分位数比它下面一个最年轻的角色还要年轻两岁。这可能与手机是一门新兴产业有关。前端开发是年龄最大的工作，平均年龄是29岁。注意数据科学/数据工程是第二年轻的工作，而不是后端开发。 
 
 ![](https://cdn-images-1.medium.com/max/800/1*GqHwVpUlWJbCBc44V2jAZQ.png)
 
-顺便一提，这里介绍如何理解这张表（有篇文章中还介绍了[箱型图](http://www.physics.csbsju.edu/stats/box2.html)）： "x" 符号代表的是平均数。盒上的水平线指的是中位数（也被叫中四分位数）。这个盒子的底部指的是下四分位数，盒子的顶部指的是上四分位数。盒须的长度是这个盒子高度的1.5倍。这上面的圆表示的是异常值。为了更明显得看出这些异常值，y轴上的数值以对数的形式增长。
+顺便一提，这里介绍如何理解这张表（有篇文章中还介绍了[箱型图](http://www.physics.csbsju.edu/stats/box2.html)）："x" 符号代表的是平均数。盒上的水平线指的是中位数（也被叫中四分位数）。这个盒子的底部指的是下四分位数，盒子的顶部指的是上四分位数。盒须的长度是这个盒子高度的1.5倍。这上面的圆表示的是异常值。为了更明显得看出这些异常值，y轴上的数值以对数的形式增长。
 
 ### 编程经历
 
-数据科学家、数据工程师和后端开发时间最长，中位数为8个月。UX 设计师的下四分位数最低，仅仅只有两个月。 编程经历的平均数呈正偏态分布，这本应该是大打折扣的，但却都靠近上四分位数。
+数据科学家、数据工程师和后端开发的编程训练时间最长，中位数为8个月。UX 设计师的下四分位数最低，仅仅只有两个月。 编程经历的平均数呈正偏态分布，这本应该是大打折扣的，但却都靠近上四分位数。
 
 ![](https://cdn-images-1.medium.com/max/800/1*VDsE2wJmTP1fVUSfAyFQgA.png)
 
@@ -79,13 +79,13 @@ Free Code Camp 立基于美国，它的调查的数据会更偏向于北美。
 
 ![](https://cdn-images-1.medium.com/max/800/1*XnJYDr3UH5aCvVROnb0xKw.png)
 
-与此相反，学习时间的数据和性别以及地区的差别不是很大。（我写过一个完整的[分析](https://medium.freecodecamp.com/new-coders-how-salary-and-time-spent-learning-vary-by-demographic-359ef1ed0da8)） 
+相比之下，学习时间的数据在性别和地区方面的差别并不是很大。s's（我写过一个完整的[分析](https://medium.freecodecamp.com/new-coders-how-salary-and-time-spent-learning-vary-by-demographic-359ef1ed0da8)） 
 
 - [**新的编程人员：学习的时间和薪水如何在不同的人上显示不同的差异**: 我在地区和性别方面上分析了参与 Free Code Camp’s New Coder Survey 调查的人 ](https://medium.freecodecamp.com/new-coders-how-salary-and-time-spent-learning-vary-by-demographic-359ef1ed0da8 )
 
 ### 现在的薪水
 
-胸怀抱负的数据科学家和数据工程师很明显是现在薪水最高的。上四分位数的值为每个月 60 k 美元 ，比第二名多出了 8k 美元 。其余感兴趣的工作岗位之间的收入差距不大，尽管都高于2014年美国 28.9 万美元的中值收入。
+胸怀抱负的数据科学家和数据工程师很明显是现在薪水最高的。上四分位数的值为每个月 60 k 美元 ，比第二名多出了 8k 美元 。其余以兴趣为主的工作岗位之间的收入差距不大，尽管都高于2014年美国 28.9 万美元的中值收入。
 
 ![](https://cdn-images-1.medium.com/max/800/1*V0zzOzEIa1UeGN-ocEsUvg.png)
 
@@ -97,7 +97,7 @@ Free Code Camp 立基于美国，它的调查的数据会更偏向于北美。
 
 ### 雷达图
 
-让我们用一张雷达图来比较所有数值变量。每个数值变量的平均数，标度（或归一化）在 0 和 1 之间，并把它绘制在径向轴： 
+让我们用一张雷达图来比较所有数值变量。每个数值变量的平均数，标度（或归一化）在 0 和 1 之间，并把它绘制在径向轴：
 
 ![](https://cdn-images-1.medium.com/max/800/1*nDrrbok1BD72QC9PxdjRYg.png)
 
@@ -113,7 +113,7 @@ Free Code Camp 立基于美国，它的调查的数据会更偏向于北美。
 
 非常多！每种类型的程序员都有一套独一无二的特征。
 
-相对而言，女性对用户体验设计更感兴趣。亚洲、南美和非洲对移动开发更感兴趣。数据科学/工程和移动开发是在教育领域中最为最不成熟的。
+相对而言，女性对用户体验设计更感兴趣。亚洲、南美和非洲对移动开发更感兴趣。数据科学/工程和移动开发分别是在教育方面经验最多和最不足的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Ucj1hW-dU-JC2ygLS76afg.png)
 
@@ -127,7 +127,7 @@ Free Code Camp 立基于美国，它的调查的数据会更偏向于北美。
 
 绘图来自[DataCamp](https://www.datacamp.com/community/tutorials/data-science-industry-infographic#gs.1VaXGTE)
 
-前端开发者的经验和期望的下一份薪水是最少的。UX 设计师每周花费在学习的时间和目前薪水都是最少的。但是对于后者的影响并不是很大。移动开发是最年轻的。 
+前端开发者的经验和期望的下一份薪水是最少的。UX 设计师每周花在学习上的时间和目前薪水都是最少的，但是后者并不是很明显。移动开发是最年轻的。
 
 ### 接下来是什么？
 
