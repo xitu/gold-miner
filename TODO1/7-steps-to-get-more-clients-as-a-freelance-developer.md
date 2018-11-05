@@ -2,187 +2,187 @@
 > * 原文作者：[Jad Joubran](https://medium.freecodecamp.org/@JoubranJad?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/7-steps-to-get-more-clients-as-a-freelance-developer.md](https://github.com/xitu/gold-miner/blob/master/TODO1/7-steps-to-get-more-clients-as-a-freelance-developer.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Ryden Sun](https://juejin.im/user/585b9407da2f6000657a5c0c)
+> * 校对者：[xilihuasi](https://github.com/xilihuasi), [Augustwuli](https://github.com/Augustwuli)
 
-# How to get more clients as a freelance developer
+# 作为自由开发者，7 个步骤让你获得更多的客户
 
-## Practical tips I wish I knew a few years ago
+## 希望我早几年就知道的一些实用的技巧
 
 ![](https://cdn-images-1.medium.com/max/1000/1*GjnIq3MYSQy3GP_nsCSFxA.jpeg)
 
-Whenever a conversation about freelancing kicks off with fellow developer friends, we’re always discussing the same concerns:
+无论何时和开发朋友们谈起关于自由工作的话题，我们总是在讨论一些同样担心的问题：
 
-*   How can I get more clients as a freelance developer?
-*   I finished a coding bootcamp and I want to get started as a freelancer. How can I start?
-*   How do you deal with cheap competition?
-*   How much should I charge?
+*   作为一个自由开发者，我怎样才能获得更多的客户？
+*   我结束了编程训练营并且想开始做一个自由工作者。我应该从哪开始？
+*   你如何处理廉价竞争？
+*   我应该收费多少？
 
-### “How do I get more clients?”
+### “我怎样才能获得更多的客户？”
 
-When I got started as a freelancer a few years ago, I made a lot of mistakes when trying to get more clients.
+我几年之前开始成为一个自由工作者，我在想获取更多的客户时，犯了很多错。
 
-I thought of it like slices of pizza. Charging less (cutting smaller slices), would yield more projects (more slices). Right?
+我开始认为这就像一块披萨。收费低（割小一点的披萨），会获得更多的项目（更多块披萨）。对吧？
 
 ![](https://cdn-images-1.medium.com/max/800/1*Yjyurn2b2xh2zISUFwRUPQ.jpeg)
 
-I also thought that I need to explicitly tell people that I’m a freelancer and post about it on Social media, or else, how will they ever find me?
+我当初也认为我需要明确地告诉别人我是一个自由工作者然后把这些信息发到社交媒体，不然的话，他们怎么能找到我？
 
-I made these mistakes for a few years until I finally realized something.
+在我最终认识到一些东西之前我一直犯着这些错误。
 
-#### Charging low gives a cheap impression to clients
+#### 收费低会给客户一种廉价的印象
 
-This also drives them to ask me to do more work for the same price. I also realized that you immediately lose your value if you sell yourself directly.
+这也导致他们会要求我在相同的价钱下做更多的工作。我也认识到，如果你直接的自我推销会迅速让你丢失价值。
 
-Soon after I realized that I was doing it wrong, I was able to get high quality projects with higher budgets and better working conditions. The amount of effort I was putting in was minimal compared to before.
+不久我就认识到我的做法不对，我有能力获得有更高预算的高质量的项目，还有更好的工作环境。我现在所付出的努力比起之前来说少多了。
 
-In the year that followed, my career started to pick up significantly. I started speaking at conferences around the world, presenting workshops for companies and banks and teaching online courses. Later, I became a [Google Developer Expert in Web Technologies](https://developers.google.com/experts/people/jad-joubran).
+在后来的一年里，我的工作生涯明显地改善了。我开始在全世界的大会上讲话，给公司和银行开讲习班并且在网上教课。后来，我变成了[谷歌 web 技术方面的开发专家](https://developers.google.com/experts/people/jad-joubran)。
 
-Now that we got those misconceptions out of the way. Here’s some good news:
+现在，我们已经抛弃了那些错误的概念，这里是一些好的消息：
 
-**You don’t need 10 years of experience to get more clients. ⚡️**
+**你并不需要 10 年的经验才能获得更多的客户。 ⚡️**
 
-It’s not about the years of experience, it’s about the service that you’re offering. It’s about the whole experience, from the time your client needs the service, all the way until the end.
+这和有多少年经验无关，它是和你能提供什么服务有关。是和整体的体验有关，从你的客户需要服务开始，直到所有都结束。
 
-Here are 7 steps that will help you get there and get you more clients.
+这里有七个步骤，会帮助你获得更多的客户。
 
-### 1. Define who you are 👨‍🎨
+### 1. 定义你自己 👨‍🎨
 
-Before you start getting more clients, first you need to define how you want to appear to others — what’s your image? How do you want people to see you?
+在你开始获得更多客户前，首先你需要定义你想怎样出现在别人面前 —— 你形象是什么？你想人们怎样看到你？
 
-If potential clients hear about you, they often need to know **who you are**. The first thing they would do is simply Google your name.
+如果潜在的客户听说你，他们经常需要知道**你是谁**。他们会做的第一件事就是简单地谷歌一下你的名字。
 
-Try this: Open a new incognito tab and Google your full name. What is your first impression of yourself? Is is aligned with who you are and what you do?
+试一下这个：用浏览器隐身模式搜索你自己的名字。你对于自己的第一印象是什么？这和真正的你还有你所做的事情相符吗？
 
-**You can influence what people think about you.**
+**你可以影响人们对你的看法**
 
-If it’s not completely aligned, the best way to change that image is to create a personal website where you show who you are and what you’re good at. Explain what you do in the first 2 seconds of them landing on your website.
+如果不是完全相符，最好的改变你形象的方式是创建一个个人网页来展示你是谁和你擅长什么。在他们访问你网页的前两秒内，解释你是做什么的。
 
-> “Make it simple. Make it memorable. Make it inviting to look at. Make it fun to read.” — Gary Vaynerchuk
+> “让他简单易懂，让它令人印象深刻。让它令人有兴趣看下去。让它读起来有趣” —— Gary Vaynerchuk
 
-This will motivate your visitors to scroll further down where you will prove to them that you’ve got the experience you claim. More on this in a bit.
+这会刺激你的来访者在在网页上看下去，在这里你会给他们证明你有你所说的经验。稍后会讲更多关于这方面的东西。
 
-### 2. Don’t just be a developer ⚡️
+### 2. 不要仅仅只作一个开发者 ⚡️
 
-When you’re working on technical projects, it’s easy to get carried away and focus on the little technical details and forget about the big picture.
+当你在进行一项技术性项目的工作时，很容易太专注和集中于一些小的技术细节而忘了重点。
 
-But if you focus only on the task you’re asked to do, then you’re going to be producing _average_ results. **What you need to focus on is _quality_ work**.
+但是如果你只专注于你被要求做的任务上，那你只会产出**平均水平**的结果。**你需要专注的是有质量的工作**
 
 ![](https://cdn-images-1.medium.com/max/800/1*V0UjgCuX9HzTGK6nbAXQIQ.jpeg)
 
-For you to focus on quality, you have to work on skills that are around your area of expertise. For example, if you’re a front-end developer, you should definitely know the basics of User Experience and Performance. This will help you deliver outstanding results.
+当你专注于品质时，你需要进行一些你专业相关领域的工作。比如，如果你是一个前端开发者，你肯定需要知道用户体验和表现相关的基础。这会帮助你交付出杰出的结果。
 
-The same applies to soft skills that can help your relationship with clients. For example, communication skills or business strategy. **Understanding the business behind the project will often transform you from a freelancer into a consultant.**
+同样也适用于一些软技能，它们可以帮助你和客户建立良好关系。举个例子，沟通技巧或是商业策略。**理解项目背后的商业逻辑常常会将你从自由工作者转变成一个咨询顾问。**
 
-These skills will prove that you’re not just a developer, you’re a professional driven by quality. That’s what can make you stand out.
+这些技能会证明你不仅仅只是一个开发者，你是一个追求高质量的专业人员。这会让你脱颖而出。
 
-### 3. Show ’em, don’t tell ’em 👀
+### 3. 展示给他们，而不是告诉他们 👀
 
-So how do you prove to people that you are who you claim to be? It’s not enough to say you’re good at what you do. You need to prove to them that you truly are experienced in that skill.
+所以，如何向人们证明你就是你所说的那样呢？光说你很擅长你所做的事情是不够的。你需要向他们证明你确实有这方面技能的经验。
 
-You just have to show them what you’ve done. If you have previous projects to show, then that’s easy, you just display the ones you’re most proud of. But in some other cases (like when you have confidential projects), it might be tricky. This is a great opportunity to show your value without actually saying it.
+你只需要向他们展示你做了什么。如果你有之前做过的项目可以展示，那就简单了，你只需要展示出你最自豪的那一个。但是有时候（比如你的项目是机密的时候），这可能会有点投机取巧，但这是一个极好的机会向他们展示你的价值，都不需要说出来。
 
-Here’s an example: when you go to [my website](https://jadjoubran.io), I’m claiming to be a tech speaker and web consultant.
+这里有一个例子：当你去[我的网站](https://jadjoubran.io)时，我宣称我是一个技术大会的演讲者和 web 咨询顾问。
 
-How do you know this is legit? You can see a background video of me giving talks in many settings (workshops, conferences). From this, visitors immediately lose any doubt and are convinced that I’m a tech speaker indeed.
+你怎么知道这是不是真的？你可以看到背景视频，我在不同场合（研习班，大会）进行演讲。通过这，访问者迅速会舍弃任何猜疑并且信服我确实是一个技术大会的演讲者。
 
 ![](https://cdn-images-1.medium.com/max/800/1*fNAPmAOrYporA01IzS0FuQ.jpeg)
 
-Explain what you do above the fold
+在第一屏就解释你是做什么的
 
-It doesn’t have to be a video. You can prove your value in many different ways, like displaying logos of companies you’ve worked with, and showing blog articles you’ve written.
+它并不需要一定是一个视频。你可以通过许多不同的方式来证明你的价值，比如陈列出你工作过的公司的 logo，还有展示出你在博客上写的文章。
 
-### 4. Use indirect promotion 🎯
+### 4. 使用间接推销方式 🎯
 
-When you think about how to get more clients, a lot of people might think: ok, how about I start by posting on social media that I’m looking for freelance work?
+当你考虑如何获得更多的客户时，许多人可能会想：好的，不如我开始在社交媒体上发动态说我找在自由工作的活？
 
-I’ve seen countless posts on Facebook, LinkedIn, Twitter & Slack of developers and designers announcing to the whole world that they are looking for freelance opportunities.
+我在 Facebook、Linkedin、Twitter 和 Slack 上看到无数的开发者和设计师发状态跟全世界说我正在寻找自由工作的机会。
 
-It turns out, that’s exactly what you shouldn’t do. You immediately lose your value when you sell yourself directly.
+最后结果是，这正是你不应该做的事情。你在自我推销的时候迅速丢失了你的价值。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ATY0-7Lb5lJx_0wfzmRtWg.jpeg)
 
-Will Code HTML for Food
+编 HTML 代码换口饭吃
 
-Look at it this way. Remember how you felt when someone **called you** on the phone to sell you a certain service? How spammy was that? Wouldn’t you most likely ignore and hang up as soon as possible?
+这样想一下。还记得当有人**打电话给你**，向你推销一种特定的服务是什么感觉？是有多廉价呢？你会不会大概率忽略或者或者迅速挂电话呢？
 
-**One of the greatest tricks that I’ve learned when it comes to getting clients is to never approach clients.**
+**我学的到的最好的获取客户的技巧就是永远不要接触客户。**
 
-It sounds contadictory, but it’s true. Instead, you apply the concept of indirect promotion.
+这听起来很矛盾，但却是真的。相反，你是运用了间接推销的概念。
 
-How? Simply share on your social networks the activities and projects that you’re working on without mentioning the fact that you’re looking for clients. After you share your activities a few times, people will start to know you for what you do and they’ll immediately recommend you for their friends and relatives whenever there’s an opportunity.
+怎样呢？只需要简单地在社交网络上分享你最近工作的活动和项目而不需要提到你正在寻找客户的事实。在你几次分享你近期活动后，人们会开始知道你在做什么并且在有机会时，他们会迅速把你推荐给他们的朋友和相关的人。
 
-That’s how I’ve gotten 100% of all my projects in the last 6 years. It works!
+近 6 年来，我就是这样获得了我所有的项目。它管用的！
 
-If you’ve never had a freelance project before, then build a sample project instead of going and looking for work. Make it look very appealing.
+如果你之前从没有过自由工作的项目，那就打造一个示例项目而不是到处寻找。让它看起来很吸引人。
 
-Here’s an example of a tweet I posted.
+这是我发过的一个 tweet 例子。
 
 ![](https://i.loli.net/2018/10/01/5bb207440840b.png)
 
-### 5. Don’t aim for a steady stream of projects ⏳
+### 5. 目标不要在于稳定的项目来源 ⏳
 
-You might think that being a successful freelancer means having a steady stream of projects and being 100% occupied with freelance work.
+你可能认为成功的自由工作者意味着有稳定的项目来源并且是被自由工作百分百占用的。
 
-But it doesn’t have to be this way, and in fact, it shouldn’t.
+但是不需要一定这样，并且事实上，是不应该的。
 
-If you’re occupied with freelance work all the time, then you’re not leaving time for you to be creative, learn new things, and work on your personal presence.
+如果你全部时间都被自由工作占据了的话，你不会给自己留出创造的时间，学习新东西并且优化自己的个人形象。
 
-**I leave 50% of my time for personal research.** During that time, I watch online conferences, read technical articles, and try out the latest technologies.
+**我会为自己留出 50% 的时间做研究。**在这段时间内，我会看线上的大会，读技术文章并且尝试最新的技术。
 
 ![](https://cdn-images-1.medium.com/max/800/1*LG1PJ4OxCjvE4noc24iydA.jpeg)
 
-People often ask me, how did you learn XYZ.. and the answer is always the same: I built a sample app for it.
+人们经常会问我，你是怎么学习 XYZ.. 的，而答案永远是一样的：我为它做了一个示例 app。
 
-So it’s really important that you don’t keep on looking for freelance projects all the time, but take the time to learn new technologies which will in fact get you better projects and new opportunities over time.
+因此你没有一直寻找自由工作的项目并不严重，但是花时间学习新技术事实上会带给你更好的项目和机会。
 
-### 6. Come up with your own process 🔖
+### 6. 找到自己的工作流程 🔖
 
-It’s hard for us freelancers to be organized, since we’ve got plenty of responsibilities on our plate. To make sure you have a smooth workflow with each client, create a process that you can follow for most of your projects.
+对于我们这样的自由工作者很难安排的有条理，因为我们有太多的职责要做。为了确保和每一个客户都有一个流畅的工作流程，要创造一个你可以在大多数项目上遵循的流程。
 
-This way, you’ll have a plan ready to be launched whenever a potential project comes up. You don’t have to worry about the little things.
+这样，你会在任何潜在项目到来时有随时有一个可执行的计划。你不需要去担心那些细小的事情。
 
 ![](https://cdn-images-1.medium.com/max/800/1*2elFS_hJ1y47D8sXpO_tNw.jpeg)
 
-Here’s an example of my project kickoff workflow:
+这是我关于项目启动的工作流程例子：
 
-1.  Send proposal PDF
-2.  Send contract
-3.  Sign and receive counter-signed contract
-4.  Send downpayment invoice
-5.  Receive downpayment
-6.  Carry out freelance task
-7.  Send final invoice
-8.  Send feedback form
+1.  发送提案 PDF
+2.  发送合约
+3.  签订和接受对方已签字的合约
+4.  发送定金发票
+5.  收取定金
+6.  完成自由工作任务
+7.  发送最终发票
+8.  发送反馈表单
 
-When you have a personalized workflow, you will be comfortable working which will make your clients enjoy working with you and trust you. They will most likely refer you to other companies in the future.
+当你有自己的工作流程时，你会工作得很顺心因为这会让你的客户喜欢和你一起合作并且信任你。他们大多数情况下在未来将你推荐给其他公司。
 
-Read more about [creating a process](https://www.proposify.com/definitive-guide-to-going-freelance-chapter-6).
+阅读更多关于[创造流程](https://www.proposify.com/definitive-guide-to-going-freelance-chapter-6)的文章。
 
-### 7. Charge higher 💰
+### 7. 收费高一些 💰
 
-If you’re just getting started, it’s okay to charge cheap for the first project or two, but after that you have to start charging higher.
+如果你刚开始，对你第一个或第二个项目收费少是可以的，但是后面你需要开始收费高一些。
 
-You might think you don’t deserve to charge higher yet, but going through these steps will let you charge higher, because you have value that’s worth charging more for.
+你可能会认为你还不值得收费高一些，但是通过这些步骤会让你收费高一些，因为你已经有了收费更多的价值。
 
-You may not know this, but **charging low makes your client feel that they’re getting low quality results.**
+你可能还不知道这个，但是**收费低会让你的客户感觉他们会得到低质量的交付结果。**
 
-If you already have a lot of freelance work because you’re charging cheap, it’s more likely that charging higher will make you lose some clients. But that’s actually a good thing, as you’ll end up earning a bit more while having more free time for research. It’s a risk that you shouldn’t be afraid to take as it’s totally worth it.
+如果因为你收费低，你已经有了很多自由工作的项目，那你可能会失去一些客户因为你提高了收费。但这确实是一件好事，因为你最终会挣得更多而且会有更多的时间来做研究。这是一个你不需要害怕去承担的风险，因为它值得。
 
-Also, you won’t be working with over-demanding clients, you’ll be working with clients that will appreciate your services.
+同样，你也不会和那些要求过多的客户合作，你会和那些欣赏你服务的客户合作。
 
-When coming up with a price, you have to be comfortable charging that price — and then increase it by 10 to 25%.
+当提到价格时，你需要很舒适地收取这个费用 —— 然后提价 10% 到 25%。
 
-Let’s say for example you’re already working on a certain project for an hourly rate of €80/hour. Since you dedicated a few hours of your time over the past few months to learn more about User Experience & Web Performance, you should now increase your hourly rate by around 15% as you’re bringing more value to the project.
+举个例子，你已经在一个项目工作了，收取 €80 一小时。自从你在过去的几个月已经花费了时间学习用户体验和 web 性能表现，那你现在应该提高你当前时薪的 15%，因为你给这个项目带来了更多的价值。
 
-Following these steps completely changed my life and I hope it will change yours too.
+遵循这些步骤，我已经完全改变了我的生活并且希望它也会改变你的生活。
 
-I can’t stress enough the importance of experimentation with new technologies. Don’t wait for opportunities to knock on your door. Create those opportunities instead.
+我不能再更多的强调尝试新技术的重要性了。不要等待机会来敲你的门。相反，要自己创造这些机会。
 
-These were just a few tips from my free email course [Become an expert developer](https://learn.jadjoubran.io/). If you like these tips, then you will definitely love the course as we go in more details on how to grow in your expertise, get more quality clients, and more.
+这些这是我免费的电子邮件课程[变成一个专家级开发者](https://learn.jadjoubran.io/)的一小部分意见。如果你喜欢这些意见，那你绝对会喜欢我的课程，因为我们会在如何增长你的专业性上讲得更深入，获取更多的优质的客户，还有更多其他的东西。
 
-*   [Freelancing](https://medium.freecodecamp.org/tagged/freelancing?source=post)
-*   [Self Impr](https://medium.freecodecamp.org/tagged/self-improvement?source=post)
+*   [自由工作](https://medium.freecodecamp.org/tagged/freelancing?source=post)
+*   [自我印象](https://medium.freecodecamp.org/tagged/self-improvement?source=post)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
