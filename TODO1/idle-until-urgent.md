@@ -5,7 +5,7 @@
 > * 译者：[Ivocin](https://github.com/Ivocin)
 > * 校对者：[xilihuasi](https://github.com/xilihuasi)，[新舰同学 Xekin](https://github.com/Xekin-FE)
 
-几周前，我开始查看我网站的一些性能指标。具体来说，我想看看我的网站在最新的性能指标 —— [首次输入延迟](https://developers.google.com/web/updates/2018/05/first-input-delay) （FID）上的表现如何。 我的网站只是一个博客（并没有运行很多的 JavaScript），所以我原本预期会得到相当不错的结果。
+几周前，我开始查看我网站的一些性能指标。具体来说，我想看看我的网站在最新的性能指标 —— [首次输入延迟](https://developers.google.com/web/updates/2018/05/first-input-delay)（FID）上的表现如何。我的网站只是一个博客（并没有运行很多的 JavaScript），所以我原本预期会得到相当不错的结果。
 
 用户一般对于小于 100 毫秒的输入延迟[没有感知](https://developers.google.com/web/fundamentals/performance/rail#ux)，因此我们推荐的性能目标（以及我希望在我的分析中看到的数字）是对于 99％ 的页面加载，FID 小于 100 毫秒。
 
@@ -131,7 +131,7 @@ JavaScript 就像被“千刀万剐”了一样。
 
 如果你不熟悉任务和微任务之间的区别，我强烈建议你观看我的同事杰克[关于事件循环](https://youtu.be/cCOL7MC4Pl0)的精彩演讲。
 
-鉴于我刚才所说的，可以使用 `setTimeout()` 和`requestIdleCallback()` 来重构我的 `main()` 函数，将我的初始化代码拆解为单独的任务：
+鉴于我刚才所说的，可以使用 `setTimeout()` 和 `requestIdleCallback()` 来重构我的 `main()` 函数，将我的初始化代码拆解为单独的任务：
 
 ```
 const main = () => {
@@ -148,7 +148,7 @@ main();
 
 然而，虽然这比以前更好（许多小任务 vs. 一个长任务），正如我上文解释的那样，它可能还不够好。例如，如果我延迟我 UI 组件（特别是 `contentLoader` 和 `drawer`）的初始化过程，虽然它们几乎不会阻塞用户输入，但是当用户尝试与它们交互时，它们也存在未准备好的风险！
 
-虽然使用 `requestIdleCallback ()` 来延迟我的 `analytics` 方法可能是一个好主意，但在下一个空闲时间之前我关心的任何交互都将被遗漏。而且如果在用户离开页面之前，浏览器都没有空闲时间，这些回调函数可能永远不会运行！
+虽然使用 `requestIdleCallback()` 来延迟我的 `analytics` 方法可能是一个好主意，但在下一个空闲时间之前我关心的任何交互都将被遗漏。而且如果在用户离开页面之前，浏览器都没有空闲时间，这些回调函数可能永远不会运行！
 
 因此，如果所有这些求值策略都有缺点，那么我们该作何选择呢？
 
@@ -213,7 +213,7 @@ class MyComponent {
 }
 ```
 
-如你所见，此代码和先前的版本没有太大的区别，但在新代码中，我没有将 `this.formatter` 赋值给新的`Intl.DateTimeFormat` 对象，而是将 `this.formatter` 赋值给了 `IdleValue` 对象，在 `IdleValue` 内部进行 `Intl.DateTimeFormat` 的初始化过程。
+如你所见，此代码和先前的版本没有太大的区别，但在新代码中，我没有将 `this.formatter` 赋值给新的 `Intl.DateTimeFormat` 对象，而是将 `this.formatter` 赋值给了 `IdleValue` 对象，在 `IdleValue` 内部进行 `Intl.DateTimeFormat` 的初始化过程。
 
 `IdleValue` 类的工作方式是调度初始化函数，使其在浏览器的下一个空闲时间运行。如果空闲时间在引用 `IdleValue` 实例之前，则不会发生阻塞，而且可以在请求时立即返回该值。但另一方面，如果在下一个空闲时间**之前**引用了 `IdleValue` 实例，则取消初始化函数在空闲时间中的调度任务，并且立即运行初始化函数。
 
@@ -241,7 +241,7 @@ export class IdleValue {
 }
 ```
 
-虽然在上面的示例中包含 `IdleValue` 类并不需要很多修改，但是它在技术上改变了公共 API（ `this.formatter ` vs. `this.formatter.getValue()`）。
+虽然在上面的示例中包含 `IdleValue` 类并不需要很多修改，但是它在技术上改变了公共 API（`this.formatter` vs. `this.formatter.getValue()`）。
 
 如果你无法修改公共 API，但是还想要使用 `IdleValue` 类，则可以将 `IdleValue` 类与 ES2015 的 getters 一起使用：
 
@@ -291,7 +291,7 @@ class MyComponent {
 
 *   处理大量数据集。
 *   从 localStorage（或 cookie）中获取值。
-*   运行 `getComputedStyle()` 、`getBoundingClientRect()` 或任何其他可能需要在主线程上重绘样式或布局的 API。
+*   运行 `getComputedStyle()`、`getBoundingClientRect()` 或任何其他可能需要在主线程上重绘样式或布局的 API。
 
 ### 空闲任务队列
 
@@ -346,10 +346,9 @@ const queue = new IdleQueue({ensureTasksRun: true});
 
 **注意：** 监听 `visibilitychange` 事件应该足以确保在卸载页面之前运行任务，但是由于 Safari 的漏洞，当用户关闭选项卡时，[页面隐藏和 `visibilitychange` 事件并不总是触发](https://github.com/GoogleChromeLabs/page-lifecycle/issues/2)，我们必须实现一个解决方案来适配 Safari 浏览器。这个解决方案已经在 `IdleQueue` 类中[为你实现好了](https://github.com/GoogleChromeLabs/idlize/blob/master/IdleQueue.mjs#L60-L69)，但如果你需要自己实现它，则需注意这一点。
 
-**警告！** 不要使用监听 `unload` 事件的方式来执行页面卸载前需要执行的队列。`unload` 事件不可靠，在某些情况下还会降低性能。有关更多详细信息，请参阅我在[Page Lifecycle API 上的文章](https://developers.google.com/web/updates/2018/07/page-lifecycle-api#the-unload-event)。
+**警告！** 不要使用监听 `unload` 事件的方式来执行页面卸载前需要执行的队列。`unload` 事件不可靠，在某些情况下还会降低性能。有关更多详细信息，请参阅我在 [Page Lifecycle API 上的文章](https://developers.google.com/web/updates/2018/07/page-lifecycle-api#the-unload-event)。
 
-“空闲执行，紧急优先”策略的使用实例
--------------------------------
+## “空闲执行，紧急优先”策略的使用实例
 
 每当要运行可能非常耗时的代码时，应该尝试将其拆解为更小的任务。如果不需要立即运行该代码，但未来某些时候可能需要，那么这就是一个使用“空闲执行，紧急优先”策略的完美场景。
 
@@ -359,9 +358,9 @@ const queue = new IdleQueue({ensureTasksRun: true});
 
 特别适合使用该技术的两个具体实例（并且与大部分网站相关）是持久化应用状态（如 Redux）和网站分析。
 
-**注意：** 这些使用实例的**目的**都是使任务在空闲时间运行，因此如果这些任务不立即运行则没有问题。如果你需要处理高优先级的任务，**想要**让它们尽快运行（但仍然优先级低于用户输入），那么`requestIdleCallback()` 可能无法解决你的问题。
+**注意：** 这些使用实例的**目的**都是使任务在空闲时间运行，因此如果这些任务不立即运行则没有问题。如果你需要处理高优先级的任务，**想要**让它们尽快运行（但仍然优先级低于用户输入），那么 `requestIdleCallback()` 可能无法解决你的问题。
 
-幸运的是，我的几个同事开发出了新的 web 平台 API([`shouldYield()`](https://discourse.wicg.io/t/shouldyield-enabling-script-to-yield-to-user-input/2881/17)和原生的 [Scheduling API](https://github.com/spanicker/main-thread-scheduling/blob/master/README.md)）可以帮助我们解决这个问题。
+幸运的是，我的几个同事开发出了新的 web 平台 API（[`shouldYield()`](https://discourse.wicg.io/t/shouldyield-enabling-script-to-yield-to-user-input/2881/17) 和原生的 [Scheduling API](https://github.com/spanicker/main-thread-scheduling/blob/master/README.md)）可以帮助我们解决这个问题。
 
 ### 持久化应用状态
 
@@ -450,7 +449,7 @@ queue.pushTask(() => ga('create', 'UA-XXXXX-Y', 'auto'));
 queue.pushTask(() => ga('send', 'pageview'));
 ```
 
-(你也可以像[我做的](https://github.com/philipwalton/blog/blob/0670d46/assets/javascript/analytics.js#L114-L127)一样对 `ga()` 使用包装器，使其能够自动执行队列命令)。
+（你也可以像[我做的](https://github.com/philipwalton/blog/blob/0670d46/assets/javascript/analytics.js#L114-L127)一样对 `ga()` 使用包装器，使其能够自动执行队列命令）。
 
 ## requestIdleCallback 的浏览器兼容性
 
@@ -472,7 +471,7 @@ queue.pushTask(() => ga('send', 'pageview'));
 
 因为所有任务都不超过 50 毫秒，所以没有任何一个任务影响我的交互时间（TTI），这对我的 lighthouse 得分很有帮助：
 
-[![使用了“空闲执行，紧急优先”策略后，我的 lighthouse 报告。 - 全部 100 分！](https://philipwalton.com/static/lighthouse-report-4721b091da.png)](https://philipwalton.com/static/lighthouse-report-1400w-1136c250ac.png)
+[![使用了“空闲执行，紧急优先”策略后，我的 lighthouse 报告 — 一共 100 分钟！](https://philipwalton.com/static/lighthouse-report-4721b091da.png)](https://philipwalton.com/static/lighthouse-report-1400w-1136c250ac.png)
 
 使用了“空闲执行，紧急优先”策略后，我的 lighthouse 报告。
 
