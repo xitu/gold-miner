@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-github-actions.md](https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-github-actions.md)
 > * 译者：[子非](https://www.github.com/CoolRice)
-> * 校对者：
+> * 校对者：[Raoul1996](https://github.com/Raoul1996), [calpa](https://github.com/calpa)
 
 # GitHub Actions 介绍，了解一下？
 
@@ -17,7 +17,7 @@
 
 Actions 是一小段代码片段，可以运行很多 GitHub 事件，最普遍的是推送到 master 分支。但它并非仅限于此。它们都已经直接和 GitHub 整合，这意味着你不在需要中间服务或者需要你自己来写方案。并且它们已经有很多选项可供你选择。例如，你可以发布到 NPM 并且部署到各种云服务，举一些例子（Azure，AWS，Google Cloud，Zeit……凡是你说得出的）。
 
-**但是 actions 不止部署和发布。** 这就是它们酷炫的地方。它们都是容器，毫不夸张地说你可以做**任何事情** —— 有着无尽的可能性！你可以用它们压缩合并 CSS 和 JavaScript，在人们在你的项目仓库里在你的仓库创建 issue 的时候向你发送信息，以及更多……没有任何限制。
+**但是 actions 并不仅仅只是部署和发布。** 这就是它们酷炫的地方。它们都是容器，毫不夸张地说你可以做**任何事情** —— 有着无尽的可能性！你可以用它们压缩合并 CSS 和 JavaScript，在人们在你的项目仓库里在你的仓库创建 issue 的时候向你发送信息，以及更多……没有任何限制。
 
 你也可以不需要自己来配置或创建容器。Actions 允许你指向别的项目仓库，一个已存在的 Dockerfile，或者路径，操作将相应地运行。对于开源可能性和生态系统而言，这是一种全新的蠕虫病毒。
 
@@ -60,7 +60,7 @@ GitHub Actions beta 版站点。
 *   **Label**：这是 Action 的名称，正如你所假设的那样。此名称由 resolves 数组中的工作流引用 —— 这就是在它们之间创建连接的原因。这篇文章是在 GUI 中为你抽象出来的，但你会在下一节中看到，如果你在代码中工作，你需要保持引用相同才能进行链接工作。
 *   **Runs**：允许你覆盖入口点。这很好，因为如果你想 git 在容器中运行，可以做到！
 *   **Args**：这是你所期望的 —— 它允许你将参数传递给容器。
-*   **secrets**和**env**：这些都是非常重要的，因为这是你将如何使用密码，保护数据，而无需直接提交他们到仓库。如果你正在使用需要令牌来部署的东西，你可能会在这里使用 secret 来传递它。
+*   **secrets** 和 **env**：这些都是非常重要的，因为这是你将如何使用密码，保护数据，而无需直接提交他们到仓库。如果你正在使用需要令牌来部署的东西，你可能会在这里使用 secret 来传递它。
 
 [其中许多操作都有自述文件](https://github.com/actions/?WT.mc_id=actions-csstricks-sdras)，可以告诉您需要什么。“secrets”和“env”的设置通常如下所示：
 
@@ -131,11 +131,11 @@ action "deploy" {
 }
 ```
 
-可以看到我们启动了流程，并明确我们想它在 **on push**(`on = "push"`)运行。还有很多其它你可以用的选项，[这里是完整的清单列表](https://developer.github.com/actions/creating-workflows/workflow-configuration-options/?WT.mc_id=actions-csstricks-sdras#events-supported-in-workflow-files)。
+可以看到我们启动了流程，并明确我们想它在 **on push**（`on = "push"`）运行。还有很多其它你可以用的选项，[这里是完整的清单列表](https://developer.github.com/actions/creating-workflows/workflow-configuration-options/?WT.mc_id=actions-csstricks-sdras#events-supported-in-workflow-files)。
 
-下方的**resolves**行 `resolves = ["deploy"]` 是一个 action 数组，它会串联随后的工作流。不用指定顺序，只是一个完全列表。你可以看到我们调用 “deploy” 后面的 action —— 只需要匹配这些字符串，这就是它们之间如何引用的。
+下方的 **resolves** 行 `resolves = ["deploy"]` 是一个 action 数组，它会串联随后的工作流。不用指定顺序，只是一个完全列表。你可以看到我们调用“deploy”后面的 action —— 只需要匹配这些字符串，这就是它们之间如何引用的。
 
-下面，我们看一看 **action** 部分。第一行 **uses** 十分有趣：立刻你可以使用我们之前讨论的任何预定义 action([这是完全清单](https://github.com/actions/?WT.mc_id=actions-csstricks-sdras))。但你也可以使用其它人的仓库，甚至是托管在 Docker 站点的文件。例如，如果我们想在容器中执行 git，[让我们使用这个](https://hub.docker.com/r/alpine/git/~/dockerfile/)。我可以这样做 `uses = "docker://alpine/git:latest"`。（感谢 [Matt Colyer](https://twitter.com/mcolyer) 为我指出 URL 的正确方法）
+下面，我们看一看 **action** 部分。第一行 **uses** 十分有趣：立刻你可以使用我们之前讨论的任何预定义 action（[这是完全清单](https://github.com/actions/?WT.mc_id=actions-csstricks-sdras)）。但你也可以使用其它人的仓库，甚至是托管在 Docker 站点的文件。例如，如果我们想在容器中执行 git，[让我们使用这个](https://hub.docker.com/r/alpine/git/~/dockerfile/)。我可以这样做 `uses = "docker://alpine/git:latest"`。（感谢 [Matt Colyer](https://twitter.com/mcolyer) 为我指出 URL 的正确方法）
 
 我们可能需要在这里定义一些机密的配置或环境变量，并且这样使用它们：
 
@@ -152,7 +152,7 @@ action "Deploy Webapp" {
 
 ### 创建一个自定义 action
 
-自定义 action 会采用我们[运行部署 Web App 到 Azure](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-get-started-nodejs?WT.mc_id=actions-csstricks-sdras) 经常用的命令，并把它们写成以只传几个值的方式，这样 action 就会为我们全部执行。文件看起来要比你在 GUI 上创建的 [第一个基础 Azure action](https://github.com/actions/azure?WT.mc_id=actions-csstricks-sdras) 更复杂并且是建立在它之上的。
+自定义 action 会采用我们[运行部署 Web App 到 Azure](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-get-started-nodejs?WT.mc_id=actions-csstricks-sdras) 经常用的命令，并把它们写成以只传几个值的方式，这样 action 就会为我们全部执行。文件看起来要比你在 GUI 上创建的[第一个基础 Azure action](https://github.com/actions/azure?WT.mc_id=actions-csstricks-sdras) 更复杂并且是建立在它之上的。
 
 在 entrypoint.sh：
 
@@ -213,7 +213,7 @@ action "Deploy to Azure" {
 
 ![在设置中添加秘钥](https://css-tricks.com/wp-content/uploads/2018/10/Screen-Shot-2018-10-16-at-10.20.35-PM.png)
 
-最终，我们有了需要运行命令的所有环境变量。我们可以从之前[创建 App 服务账户](#article-header-id-2)获得它们。先前的 `tenant` 变成了 `TENANT_ID`，`name` 变成了 `SERVICE_PRINCIPAL`，并且 `APPID` 由你来命名:)
+最终，我们有了需要运行命令的所有环境变量。我们可以从之前[创建 App 服务账户](#article-header-id-2)获得它们。先前的 `tenant` 变成了 `TENANT_ID`，`name` 变成了 `SERVICE_PRINCIPAL`，并且 `APPID` 由你来命名 :)
 
 现在你也可以使用这个 action 工具！所有的代码在[这个仓库中开源](https://github.com/sdras/example-azure-node/)。只要记住由于我们手动创建 `main.workflow`，你将必须同时手动编辑 main.workflow 文件里的环境变量 —— 一旦你停止使用 GUI，它的工作方式将和之前不再一样。
 
