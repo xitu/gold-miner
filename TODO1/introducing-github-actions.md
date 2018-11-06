@@ -25,9 +25,9 @@ Actions 是一小段代码片段，可以运行很多 GitHub 事件，最普遍�
 
 有两种方法建立 action：通过流程 GUI 或者手动写提交文件。我们将以 GUI 开始，因为它简单易懂，然后学习手写方式，因为它能提供最大化的控制。
 
-首先，我们通过[此处蓝色的大按钮](https://github.com/features/actions?WT.mc_id=actions-csstricks-sdras)登陆 beta 版。进入 beta 版可能会花费一点点时间，稍等一下。
+首先，我们通过[此处蓝色的大按钮](https://github.com/features/actions?WT.mc_id=actions-csstricks-sdras)登录 beta 版。进入 beta 版可能会花费一点点时间，稍等一下。
 
-![GitHub Actions beta 版站点的截图，其中有一个巨大的蓝色按钮来点击登陆。](https://css-tricks.com/wp-content/uploads/2018/10/github-actions-beta.png)
+![GitHub Actions beta 版站点的截图，其中有一个巨大的蓝色按钮来点击加入 beta 测试。](https://css-tricks.com/wp-content/uploads/2018/10/github-actions-beta.png)
 
 GitHub Actions beta 版站点。
 
@@ -57,9 +57,9 @@ GitHub Actions beta 版站点。
 
 以下是我们提供的选项的简要说明：
 
-*   **Label**： 这是 Action 的名称，正如你所假设的那样。此名称由 resolves 数组中的工作流引用 —— 这就是在它们之间创建连接的原因。这篇文章是在 GUI 中为你抽象出来的，但你会在下一节中看到，如果你在代码中工作，你需要保持引用相同才能进行链接工作。
-*   **Runs**： 允许你覆盖入口点。这很好，因为如果你想 git 在容器中运行，可以做到！
-*   **Args**： 这是你所期望的 —— 它允许你将参数传递给容器。
+*   **Label**：这是 Action 的名称，正如你所假设的那样。此名称由 resolves 数组中的工作流引用 —— 这就是在它们之间创建连接的原因。这篇文章是在 GUI 中为你抽象出来的，但你会在下一节中看到，如果你在代码中工作，你需要保持引用相同才能进行链接工作。
+*   **Runs**：允许你覆盖入口点。这很好，因为如果你想 git 在容器中运行，可以做到！
+*   **Args**：这是你所期望的 —— 它允许你将参数传递给容器。
 *   **secrets**和**env**：这些都是非常重要的，因为这是你将如何使用密码，保护数据，而无需直接提交他们到仓库。如果你正在使用需要令牌来部署的东西，你可能会在这里使用 secret 来传递它。
 
 [其中许多操作都有自述文件](https://github.com/actions/?WT.mc_id=actions-csstricks-sdras)，可以告诉您需要什么。“secrets”和“env”的设置通常如下所示：
@@ -83,7 +83,7 @@ action "deploy" {
 
 如果你要使用其它服务，这部分会发生变化，但是你需要在你要在你使用的地方创建一个已存在的服务来部署。
 
-首先你需要获取你的[免费 Azure 账户](https://azure.microsoft.com/en-us/free/?WT.mc_id=actions-csstricks-sdras)。我喜欢用[Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest&WT.mc_id=actions-csstricks-sdras)，如果你没有安装过，你可以运行：
+首先你需要获取你的[免费 Azure 账户](https://azure.microsoft.com/en-us/free/?WT.mc_id=actions-csstricks-sdras)。我喜欢用 [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest&WT.mc_id=actions-csstricks-sdras)，如果你没有安装过，你可以运行：
 
 ```
 brew update && brew install azure-cli
@@ -131,13 +131,13 @@ action "deploy" {
 }
 ```
 
-可以看到我们启动了流程，并明确我们想它在 **on push**(`on = "push"`)运行。还有很多其它你可以用的选项，[这里是完全清单](https://developer.github.com/actions/creating-workflows/workflow-configuration-options/?WT.mc_id=actions-csstricks-sdras#events-supported-in-workflow-files)。
+可以看到我们启动了流程，并明确我们想它在 **on push**(`on = "push"`)运行。还有很多其它你可以用的选项，[这里是完整的清单列表](https://developer.github.com/actions/creating-workflows/workflow-configuration-options/?WT.mc_id=actions-csstricks-sdras#events-supported-in-workflow-files)。
 
-下方的**resolves**行 `resolves = ["deploy"]` 是一个 action 数组，它会串联随后的工作流。不用指定顺序，只是一个完全列表。你可以看到我们调用 "deploy" 后面的 action —— 只需要匹配这些字符串，这就是它们之间如何引用的。
+下方的**resolves**行 `resolves = ["deploy"]` 是一个 action 数组，它会串联随后的工作流。不用指定顺序，只是一个完全列表。你可以看到我们调用 “deploy” 后面的 action —— 只需要匹配这些字符串，这就是它们之间如何引用的。
 
 下面，我们看一看 **action** 部分。第一行 **uses** 十分有趣：立刻你可以使用我们之前讨论的任何预定义 action([这是完全清单](https://github.com/actions/?WT.mc_id=actions-csstricks-sdras))。但你也可以使用其它人的仓库，甚至是托管在 Docker 站点的文件。例如，如果我们想在容器中执行 git，[让我们使用这个](https://hub.docker.com/r/alpine/git/~/dockerfile/)。我可以这样做 `uses = "docker://alpine/git:latest"`。（感谢 [Matt Colyer](https://twitter.com/mcolyer) 为我指出 URL 的正确方法）
 
-我们可能需要在这里定义一些隐蔽的或环境变量，并且这样使用它们：
+我们可能需要在这里定义一些机密的配置或环境变量，并且这样使用它们：
 
 ```
 action "Deploy Webapp" {
@@ -150,9 +150,9 @@ action "Deploy Webapp" {
 }
 ```
 
-### 创建一个定制 action
+### 创建一个自定义 action
 
-定制 action 会采用我们[运行部署 Web App 到 Azure](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-get-started-nodejs?WT.mc_id=actions-csstricks-sdras) 经常用的命令，并把它们写成以只传几个值的方式，这样 action 就会为我们全部执行。文件看起来要比你在 GUI 上创建的 [第一个基础 Azure action](https://github.com/actions/azure?WT.mc_id=actions-csstricks-sdras) 更复杂并且是建立在它之上的。
+自定义 action 会采用我们[运行部署 Web App 到 Azure](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-get-started-nodejs?WT.mc_id=actions-csstricks-sdras) 经常用的命令，并把它们写成以只传几个值的方式，这样 action 就会为我们全部执行。文件看起来要比你在 GUI 上创建的 [第一个基础 Azure action](https://github.com/actions/azure?WT.mc_id=actions-csstricks-sdras) 更复杂并且是建立在它之上的。
 
 在 entrypoint.sh：
 
@@ -207,7 +207,7 @@ action "Deploy to Azure" {
 }
 ```
 
-这段流程代码对你来说应该很熟悉 —— 它在 on push 时启动并且执行叫 “Deploy to Azure”的 action。
+这段流程代码对你来说应该很熟悉 —— 它在 on push 时启动并且执行叫“Deploy to Azure”的 action。
 
 [`uses` 指向内部的目录](https://developer.github.com/actions/creating-workflows/workflow-configuration-options/#using-a-dockerfile-image-in-an-action)，在这个目录我们存放其他文件。我们需要添加一个秘钥，来让我们在 App 里存放密码。我们把这个叫服务密码，并且我们会在设置里添加配置它：
 
@@ -225,11 +225,11 @@ action "Deploy to Azure" {
 
 ### 改变游戏规则
 
-GitHub Actions 不止是关于网站，尽管你可以看到它们对它们有多么方便。这是一种全新的思考方式，关于我们怎样处理基础设施，事件甚至托管的方式。在这个模型中需要考虑 Docker。
+GitHub Actions 并不仅仅只是关于网站，尽管你可以看到它们对它们有多么方便。这是一种全新的思考方式，关于我们怎样处理基础设施，事件甚至托管的方式。在这个模型中需要考虑 Docker。
 
 通常，当你创建 Dockerfile 时，你必须编写 Dockerfile，使用 Docker 创建镜像，然后将映像推送到某处，以便托管供其他人下载。在这个范例中，你可以将它指向一个包含现有 Docker 文件的 git 仓库，或者直接托管在 Docker 上的东西。
 
-你也不需要在任何地方托管镜像，因为 GitHub 会为你即时构建。这使得 GitHub 生态系统中的所有内容都保持开放，这对于开源来说是巨大的，并且可以更容易地分叉和共享。你还可以将 Dockerfile 直接放在你的操作中，这意味着你不必为这些 Dockerfiles 维护单独的仓库。
+你也不需要在任何地方托管镜像，因为 GitHub 会为你即时构建。这使得 GitHub 生态系统中的所有内容都保持开放，这对于开源来说是巨大的，并且可以更容易地 fork 和共享。你还可以将 Dockerfile 直接放在你的操作中，这意味着你不必为这些 Dockerfiles 维护单独的仓库。
 
 总而言之，这非常令人兴奋。部分原因在于灵活性：一方面，你可以选择使用大量抽象并使用 GUI 和现有操作创建所需的工作流，另一方面，你可以在容器内自己编写代码，构建和微调任何想要的内容，甚至将多个可重用的自定义 action 链接在一起。全部在一个地方托管你的代码。
 
