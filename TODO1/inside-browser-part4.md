@@ -2,44 +2,44 @@
 > * 原文作者：[Mariko Kosaka](https://developers.google.com/web/resources/contributors/kosamari)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/inside-browser-part4.md](https://github.com/xitu/gold-miner/blob/master/TODO1/inside-browser-part4.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ThomasWhyne](https://github.com/ThomasWhyne)
+> * 校对者：[llp0574](https://github.com/llp0574) [CoolRice](https://github.com/CoolRice)
 
-# Inside look at modern web browser (part 4)
+# 现代浏览器内部揭秘（第四部分）
 
-## Input is coming to the Compositor
+## 用户输入行为与合成器 
 
-This is the last of the 4 part blog series looking inside of Chrome; investigating how it handles our code to display a website. In the previous post, we looked at [the rendering process and learned about the compositor](https://developers.google.com/web/updates/2018/09/inside-browser-part3). In this post, we'll look at how compositor is enabling smooth interaction when user input comes in.
+内部揭秘系列博客对现代浏览器如何处理代码、显示页面展开探讨。该系列博客共四篇，这是最后一篇。在上篇博客里，我们了解了 [渲染进程与合成器](https://developers.google.com/web/updates/2018/09/inside-browser-part3)。这里我们将一窥当用户输入行为发生时，合成器如何继续保障交互流畅。
 
-## Input events from the browser's point of view
+## 浏览器视角下的输入事件
 
-When you hear "input events" you might only think of a typing in textbox or mouse click, but from the browser's point of view, input means any gesture from the user. Mouse wheel scroll is an input event and touch or mouse over is also an input event.
+听到“输入事件”这个字眼，你脑海里闪现的恐怕只是输入文本或点击鼠标。但在浏览器眼中，输入意味着一切用户行为。不单滚动鼠标滑轮是输入事件，触摸屏幕、滑动鼠标同样也是用户输入事件。
 
-When user gesture like touch on a screen occurs, the browser process is the one that receives the gesture at first. However, the browser process is only aware of where that gesture occurred since content inside of a tab is handled by the renderer process. So the browser process sends the event type (like `touchstart`) and its coordinates to the renderer process. Renderer process handles the event appropriately by finding the event target and running event listeners that are attached.
+诸如触摸屏幕之类用户手势产生时，浏览器进程会率先将其捕获。然而浏览器进程所掌握的信息仅限于行为发生的区域，因为标签页里的内容都由渲染进程负责处理，所以浏览器进程会将事件类型（如 `touchstart`）及其坐标发送给渲染进程。渲染进程会寻至事件目标，运行其事件监听器，妥善地处理事件。
 
 ![input event](https://developers.google.com/web/updates/images/inside-browser/part4/input.png)
 
-Figure 1: Input event routed through the browser process to the renderer process
+图 1：输入事件由浏览器进程发往渲染进程
 
-## Compositor receives input events
+## 合成器接收输入事件
 
 ![composit.gif](https://i.loli.net/2018/10/08/5bbaaa3d26b97.gif)
 
-Figure 2: Viewport hovering over page layers
+图 2：悬于页面图层的视图窗口
 
-In the previous post, we looked at how the compositor could handle scroll smoothly by compositing rasterized layers. If no input event listeners are attached to the page, Compositor thread can create a new composite frame completely independent of the main thread. But what if some event listeners were attached to the page? How would the compositor thread find out if the event needs to be handled?
+在上篇文章里，我们探讨了合成器如何通过合成栅格化图层，实现流畅的页面滚动。如果页面上没有添加任何事件监听，合成器线程会创建独立于主线程的新合成帧。但要是页面上添加了事件监听呢？合成器线程又是如何得知事件是否需要处理的？
 
-## Understanding non-fast scrollable region
+## 理解非立即可滚动区
 
-Since running JavaScript is the main thread's job, when a page is composited, the compositor thread marks a region of the page that has event handlers attached as "Non-Fast Scrollable Region". By having this information, the compositor thread can make sure to send input event to the main thread if the event occurs in that region. If input event comes from outside of this region, then the compositor thread carries on compositing new frame without waiting for the main thread.
+因为运行 JavaScript 脚本是主线程的工作，所以页面合成后，合成进程会将页面里添加了事件监听的区域标记为“非立即可滚动区”。有了这个信息，如果输入事件发生在这一区域，合成进程可以确定应将其发往主线程处理。如输入事件发生在这一区域之外，合成进程则确定无需等待主线程，而继续合成新帧。
 
 ![limited non fast scrollable region](https://developers.google.com/web/updates/images/inside-browser/part4/nfsr1.png)
 
-Figure 3: Diagram of described input to the non-fast scrollable region
+图 3：非立即可滚动区输入描述示意图
 
-### Be aware when you write event handlers
+### 设置事件处理器时须注意
 
-Common event handling pattern in web development is the event delegation. Since events bubble, you can attach one event handler at the topmost element and delegate tasks based on event target. You might have seen or written code like the blow.
+web 开发中常用的事件处理模式是事件代理。因为事件会冒泡，所以你可以在最顶层的元素中添加一个事件处理器，用来代理事件目标产生的任务。下面这样的代码，你可能见过，或许也写过。
 
 ```
 document.body.addEventListener('touchstart',  event => {
@@ -49,13 +49,13 @@ document.body.addEventListener('touchstart',  event => {
 });
 ```
 
-Since you only need to write one event handler for all elements, ergonomics of this event delegation pattern are attractive. However, if you look at this code from the browser's point of view, now the entire page is marked as a non-fast scrollable region. This means even if your application doesn't care about input from certain parts of the page, the compositor thread has to communicate with the main thread and wait for it every time an input event comes in. Thus, the smooth scrolling ability of the compositor is defeated.
+这样只需添加一个事件处理器，即可监听所有元素，的确十分省事。然而，如果站在浏览器的角度去考量，这等于把整个页面都标记成了“非立即可滚动区”，意味着即便你设计的应用本不必理会页面上一些区域的输入行为，合成线程也必须在每次输入事件产生后与主线程通信并等待返回。如此则得不偿失，使原本能保障页面滚动流畅的合成器没了用武之地。
 
 ![full page non fast scrollable region](https://developers.google.com/web/updates/images/inside-browser/part4/nfsr2.png)
 
-Figure 4: Diagram of described input to the non-fast scrollable region covering an entire page
+图 4：非立即可滚动区覆盖整个页面下的输入描述示意图
 
-In order to mitigate this from happening, you can pass `passive: true` options in your event listener. This hints to the browser that you still want to listen to the event in the main thread, but compositor can go ahead and composite new frame as well.
+你可以给事件监听添加一个 [`passive:true`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Improving_scrolling_performance_with_passive_listeners) 选项 ，将这种负面效果最小化。这会提示浏览器你想继续在主线程中监听事件，但合成器不必停滞等候，可接着创建新的合成帧。
 
 ```
 document.body.addEventListener('touchstart', event => {
@@ -65,28 +65,28 @@ document.body.addEventListener('touchstart', event => {
  }, {passive: true});
 ```
 
-## Check if the event is cancelable
+## 检查事件是否可撤销
 
 ![page scroll](https://developers.google.com/web/updates/images/inside-browser/part4/scroll.png)
 
-Figure 5: A web page with part of the page fixed to horizontal scroll
+图 5：部分区域仅可水平方向滚动的网页
 
-Imagine you have a box in a page that you want to limit scroll direction to horizontal scroll only.
+设想一下这种情形：页面上有一个盒子，你要将其滚动方向限制为水平滚动。
 
-Using `passive: true` option in your pointer event means that the page scroll can be smooth, but vertical scroll might have started by the time you want to `preventDefault` in order to limit scroll direction. You can check against this by using `event.cancelable` method.
+为目标事件设置 `passive:true` 选项可让页面滚动平滑，但在你使用 `preventDefault` 以限制滚动方向时，垂直方向滚动可能已经触发。使用 `event.cancelable` 方法可以检查并阻止这种情况发生。
 
 ```
 document.body.addEventListener('pointermove', event => {
     if (event.cancelable) {
-        event.preventDefault(); // block the native scroll
+        event.preventDefault(); // 阻止默认的滚动行为
         /*
-        *  do what you want the application to do here
+        *  这里设置程序执行任务
         */
     } 
-}, {passive: true});
+}, {passive:: true});
 ```
 
-Alternatively, you may use CSS rule like `touch-action` to completely eliminate the event handler.
+或者，你也可以应用 `touch-action` 这类 CSS 规则，完全地将事件处理器屏蔽掉。
 
 ```
 #area { 
@@ -94,39 +94,39 @@ Alternatively, you may use CSS rule like `touch-action` to completely eliminate 
 }
 ```
 
-## Finding the event target
+## 定位事件目标
 
 ![hit test](https://developers.google.com/web/updates/images/inside-browser/part4/hittest.png)
 
-Figure 6: The main thread looking at the paint records asking what's drawn on x.y point
+图 6：主线程检查绘制记录查询坐标 x、y 处绘制内容
 
-When the compositor thread sends an input event to the main thread, the first thing to run is a hit test to find the event target. Hit test uses paint records data that was generated in the rendering process to find out what is underneath the point coordinates in which the event occurred.
+合成器将输入事件发送至主线程后，首先运行的是命中检测。命中检测会使用渲染进程中产生的绘制记录数据，找出事件发生坐标下的内容。
 
-## Minimizing event dispatches to the main thread
+## 降低往主线程发送事件的频率  
 
-In the previous post, we discussed how our typical display refreshes screen 60 times a second and how we need to keep up with the cadence for smooth animation. For input, a typical touch-screen device delivers touch event 60-120 times a second, and a typical mouse delivers events 100 times a second. Input event has higher fidelity than our screen can refresh.
+之前的文章里，我们探讨了常见显示屏如何以每秒 60 帧的频率刷新，以及我们要怎样与其刷新频率保持步调一致，以营造出流畅的动画效果。而对于用户的输入行为，常见触摸屏设备的事件传输频率为每秒 60~120 次，常见鼠标设备的事件传输频率为每秒 100 次。可见，输入事件有着比显示屏幕更高的保真度。
 
-If a continuous event like `touchmove` was sent to the main thread 120 times a second, then it might trigger excessive amount of hit tests and JavaScript execution compared to how slow the screen can refresh.
+如果一连串 `touchmove` 这样的事件以每秒 120 次的频率发送往主线程，那么可能会触发过量的命中检测及 JavaScript 脚本执行。相形而言，我们的屏幕刷新率则更为低下。
 
 ![unfiltered events](https://developers.google.com/web/updates/images/inside-browser/part4/rawevents.png)
 
-Figure 7: Events flooding the frame timeline causing page jank
+图 7：大量事件涌入合成帧时间轴会造成页面闪烁
 
-To minimize excessive calls to the main thread, Chrome coalesces continuous events (such as `wheel`, `mousewheel`, `mousemove`, `pointermove`, `touchmove` ) and delays dispatching until right before the next `requestAnimationFrame`.
+为了降低往主线程中传递过量调用，Chrome 会合并这些连续事件（如：`wheel`, `mousewheel`, `mousemove`, `pointermove`, `touchmove` 等），并将其延迟至下一次 `requestAnimationFrame` 前发送。 
 
 ![coalesced events](https://developers.google.com/web/updates/images/inside-browser/part4/coalescedevents.png)
 
-Figure 8: Same timeline as before but event being coalesced and delayed
+图 8：相同的时间轴下事件被合并且延迟发送
 
-Any discrete events like `keydown`, `keyup`, `mouseup`, `mousedown`, `touchstart`, and `touchend` are dispatched immediately.
+所有独立的事件，如: `keydown`, `keyup`, `mouseup`, `mousedown`, `touchstart`, 及  `touchend` 则会立即发往主线程。
 
-## Use `getCoalescedEvents` to get intra-frame events
+## 使用 `getCoalescedEvents` 获取帧内事件
 
-For most web applications, coalesced events should be enough to provide a good user experience. However, if you are building things like drawing application and putting a path based on `touchmove` coordinates, you may lose in-between coordinates to draw a smooth line. In that case, you can use the `getCoalescedEvents` method in the pointer event to get information about those coalesced events.
+事件合并可帮助大多数 web 应用构建良好的用户体验。然而，如果你开发的是一个绘图类应用，需要基于 `touchmove` 事件的坐标绘制线路，那么在你试图画下一根光滑的线条时，区间内的一些坐标点也可能会因事件合并而丢失。这时，你可以使用目标事件的  `getCoalescedEvents` 方法获取事件合并后的信息。
 
 ![getCoalescedEvents](https://developers.google.com/web/updates/images/inside-browser/part4/getCoalescedEvents.png)
 
-Figure 9: Smooth touch gesture path on the left, coalesced limited path on the right
+图 9：左为流畅的触摸手势路径、右为事件合并后的有限路径
 
 ```
 window.addEventListener('pointermove', event => {
@@ -134,36 +134,36 @@ window.addEventListener('pointermove', event => {
     for (let event of events) {
         const x = event.pageX;
         const y = event.pageY;
-        // draw a line using x and y coordinates.
+        // 使用 x、y 坐标画线
     }
 });
 ```
 
-## Next steps
+## 后续步骤
 
-In this series, we've covered inner workings of a web browser. If you have never thought about why DevTools recommends adding `{passive: true}` on your event handler or why you might write `async` attribute in your script tag, I hope this series shed some light on why a browser needs those information to provide faster and smoother web experience.
+本系列文章里，我们探讨了很多关于 web 浏览器内部的工作原理。如果之前你从来没想过：为什么 Devtools 推荐在事件处理器上添加 `{passive:true}` 选项、为什么有时须在 script 标签里添加 `async` 属性？那么我希望这一系列文章能帮助你了解，为什么传递这些信息给浏览器能让其提供更为迅捷流畅的 web 体验。
 
-### Use Lighthouse
+### 使用 Lighthouse  
 
-If you want to make your code be nice to the browser but have no idea where to start, [Lighthouse](https://developers.google.com/web/tools/lighthouse/) is a tool that runs audit of any website and gives you a report on what's being done right and what needs improvement. Reading through the list of audits also gives you an idea of what kind of things a browser cares about.
+如果你想构建出对浏览器更为友好的代码，却一直毫无头绪，那么不妨先从使用 [Lighthouse](https://developers.google.com/web/tools/lighthouse/) 开始。Lighthouse 是个可以帮助你审查网站工具，并且能提供页面性能报告。性能报告会告诉你什么地方处理得当，什么地方有待提升。浏览审查列表也能让你了解浏览器着力关注的重点所在。
 
-### Learn how to measure performance
+### 学习如何评测性能
 
-Performance tweaks may vary for different sites, so it is crucial that you measure the performance of your site and decide what fits the best for your site. Chrome DevTools team has few tutorials on [how to measure your site's performance](https://developers.google.com/web/tools/chrome-devtools/speed/get-started).
+对于不同的站点，桎梏其性能之处可能不尽相同，所以专门为你自己的站点定制化一套性能评测方案，并择优选取技术应用，是重中之重。Chrome 的 Devtools 团队就 [如何测试你的站点性能](https://developers.google.com/web/tools/chrome-devtools/speed/get-started) 撰有相关教程可供参阅。
 
-### Add Feature Policy to your site
+### 为你的站点添加 Feature Policy
 
-If you want to take an extra step, [Feature Policy](https://developers.google.com/web/updates/2018/06/feature-policy) is a new web platform feature that can be a guardrail for you when you are building your project. Turning on feature policy guarantees the certain behavior of your app and prevents you from making mistakes. For example, If you want to ensure your app will never block the parsing, you can run your app on synchronous scripts policy. When `sync-script: 'none'` is enabled, parser-blocking JavaScript will be prevented from executing. This prevents any of your code from blocking the parser, and the browser doesn't need to worry about pausing the parser.
+如果你想进一步采用更多方案，[Feature Policy](https://developers.google.com/web/updates/2018/06/feature-policy) 是一个新的 web 平台，可在开发时为你保驾护航。开启 feature policy 可以限制应用行为，并使你远离诸多技术弊端。举个例子，如果你想确保应用不会阻塞解析，那么可以采用同步脚本方案运行应用。开启 `sync-script:'none'` 后，导致解析阻塞的 JavaScript 脚本会被阻止运行。这就确保了你的代码不会阻塞解析，浏览器也无须考虑暂停运行解析器。
 
-## Wrap up
+## 总结
 
 ![thank you](https://developers.google.com/web/updates/images/inside-browser/part4/thanks.png)
 
-When I started building websites, I almost only cared about how I would write my code and what would help me be more productive. Those things are important, but we should also think about how browser takes the code we write. Modern browsers have been and continue to invest in ways to provide a better web experience for users. Being nice to the browser by organizing our code, in turn, improves your user experience. I hope you join me in the quest to be nice to the browsers!
+刚踏上开发之路时，我几乎只关注怎样去写代码、怎样提升自己的生产效率。诚然，这些事情很重要，但与此同时我们也应当思考浏览器会怎么去处理我们书写的代码。现代浏览器一直致力探索如何提供更好的用户体验。书写对浏览器友好的代码，反过来也能提供友好的用户体验。路漫漫其修远兮，希望我们能携手共进，构建出对浏览器更为友好的代码。
 
-Huge thank you to everyone who reviewed early drafts of this series, including (but not limited to): [Alex Russell](https://twitter.com/slightlylate), [Paul Irish](https://twitter.com/paul_irish), [Meggin Kearney](https://twitter.com/MegginKearney), [Eric Bidelman](https://twitter.com/ebidel), [Mathias Bynenes](https://twitter.com/mathias), [Addy Osmani](https://twitter.com/addyosmani), [Kinuko Yasuda](https://twitter.com/kinu), [Nasko Oskov](https://twitter.com/nasko), and Charlie Reis.
+在此笔者诚挚感谢 [Alex Russell](https://twitter.com/slightlylate)、[Paul Irish](https://twitter.com/paul_irish)、[Meggin Kearney](https://twitter.com/MegginKearney)、[Eric Bidelman](https://twitter.com/ebidel)、[Mathias Bynenes](https://twitter.com/mathias)、[Addy Osmani](https://twitter.com/addyosmani)、[Kinuko Yasuda](https://twitter.com/kinu)、[Nasko Oskov](https://twitter.com/nasko) 和 Charlie Reis 等人对本系列文章初稿的校对。
 
-Did you enjoy the this series? If you have any questions or suggestions for the future post, I'd love to hear from you in the comment section below or [@kosamari](https://twitter.com/kosamari) on Twitter.
+你喜欢这一系列的文章吗？对之后文章如有任何意见或建议，欢迎在下面评论区或是推特 [@kosamari](https://twitter.com/kosamari) 里留下您的宝贵意见。 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

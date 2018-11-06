@@ -2,18 +2,18 @@
 > * 原文作者：[Sascha Grunert](https://medium.com/@saschagrunert?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-web-application-completely-in-rust.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-web-application-completely-in-rust.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Raoul1996](https://github.com/Raoul1996)
+> * 校对者：[7Ethan](https://github.com/7Ethan), [calpa](https://github.com/calpa)
 
-# A web application completely in Rust
+# Rust 开发完整的 Web 应用程序
 
-My latest software architectural experiment is to write a complete real-world web application in Rust with as less as boilerplate as possible. Within this post I want to share my findings with you to answer the question on [how much web](http://www.arewewebyet.org) Rust actually is.
+我在软件架构方面最新的尝试，是在 Rust 中使用尽可能少的模板文件来搭建一个真实的 web 应用程序。在这篇文章中我将和大家分享我的发现，来回答实际上[有多少网站](http://www.arewewebyet.org)在使用 Rust 这个问题。
 
-The related project to this post [can be found on GitHub](https://github.com/saschagrunert/webapp.rs/tree/rev1). I put both, the client-side frontend and the server-side backend, into one repository for maintainability. This means Cargo needs to compile a frontend and a backend binary of the whole application with different dependencies.
+这篇文章提到的项目[都可以在 GitHub 上找到](https://github.com/saschagrunert/webapp.rs/tree/rev1)。为了提高项目的可维护性，我将前端（客户端）和后端（服务端）放在了一个仓库中。这就需要 Cargo 为整个项目去分别编译有着不同依赖关系的前端和后端二进制文件。
 
-> Please be aware that the project is currently fastly architectural evolving and everey related source code of this article can be found within the `rev1` branch.
+> 请注意，目前这个项目正在快速迭代中可以在 `rev1` 这个分支上找到所有相关的代码。你可以点击[此处](https://medium.com/@saschagrunert/lessons-learned-on-writing-web-applications-completely-in-rust-2080d0990287)阅读这个本系列博客的第二部分。
 
-The Application itself is a simple authentication demonstration. It allows you to login with a chosen username and password (must be the same) and fails when they are not equal. After the successful authentication a [JSON Web Token (JWT)](https://en.wikipedia.org/wiki/JSON_Web_Token) is stored on both the client and server side. Storing the token on the server side is usually not needed but I’ve done that for demonstration purposes. It could be used to track how much users are actually logged in for example. The whole application can be configured via a single [Config.toml](https://github.com/saschagrunert/webapp.rs/blob/rev1/Config.toml), for example to set the database credentials or server host and port.
+这个应用是一个简单的身份验证示范，它允许你选一个用户名和密码（必须相同）来登录，当它们不同就会失败。验证成功后，将一个 [JSON Web Token (JWT)](https://en.wikipedia.org/wiki/JSON_Web_Token) 同时保存在客户端和服务端。通常服务端不需要存储 token，但是出于演示的目的，我们还是存储了。举个栗子，这个 token 可以被用来追踪实际登录的用户数量。整个项目可以通过一个 [Config.toml](https://github.com/saschagrunert/webapp.rs/blob/rev1/Config.toml) 文件来配置，比如去设置数据库连接凭证，或者服务器的 host 和 port。
 
 ```
 [server]
@@ -32,25 +32,25 @@ password = "password"
 database = "database"
 ```
 
-The default Config.toml for the webapp
+webapp 默认的 Config.toml 文件
 
-### The Frontend — Client Side
+### 前端 —— 客户端
 
-I decided to use [yew](https://github.com/DenisKolodin/yew) for the client side of the application. Yew is a modern Rust framework inspired by Elm, Angular and ReactJS for creating multi-threaded frontend apps with [WebAssembly](https://en.wikipedia.org/wiki/WebAssembly) (Wasm). The project is under highly active development and there are not that many stable releases yet.
+我决定使用 [yew](https://github.com/DenisKolodin/yew) 来搭建应用程序的客户端。Yew 是一个现代的 Rust 应用框架，受到 Elm、Angular 和 ReactJS 的启发，使用 [WebAssembly](https://en.wikipedia.org/wiki/WebAssembly)(Wasm) 来创建多线程的前端应用。该项目正处于高度活跃发展阶段，并没有发布那么多稳定版。
 
-The tool [cargo-web](https://github.com/koute/cargo-web) is a direct dependency of yew, which makes cross compilation to Wasm straight forward. There are actually three major Wasm targets available within the Rust compiler:
+[cargo-web](https://github.com/koute/cargo-web) 工具是 yew 的直接依赖之一，能直接交叉编译出 Wasm。实际上，在 Rust 编译器中使用 Wasm 有三大主要目标：
 
-*   _asmjs-unknown-emscripten _— using [asm.js](https://en.wikipedia.org/wiki/Asm.js) via Emscripten
-*   _wasm32-unknown-emscripten_ — using WebAssembly via Emscripten
-*   _wasm32-unknown-unknown _— using WebAssembly with Rust’s native WebAssembly backend
+*   _asmjs-unknown-emscripten_ — 通过 Emscripten 使用 [asm.js](https://en.wikipedia.org/wiki/Asm.js) 
+*   _wasm32-unknown-emscripten_ — 通过 Emscripten 使用 WebAssembly 
+*   _wasm32-unknown-unknown_ — 使用带有 Rust 原生 WebAssembly 后端的 WebAssembly 
 
 ![](https://cdn-images-1.medium.com/max/800/1*8q4reKhsoW7H-vxSzh-KJQ.jpeg)
 
-I decided to use the last one which requires a nightly Rust compiler, but demonstrates Rust native Wasm possiblities as its best.
+我决定使用最后一个，需要一个 nightly Rust 编译器，事实上，演示 Rust 原生的 Wasm 可能是最好的。
 
-> WebAssembly is currently one of the hottest 🔥 topics when it comes to Rust. There is a lots of ongoing work in relation to cross compiling Rust to Wasm and integrating it in the nodejs (npm packaging) world. I decided to go the direct way, without any JavaScript dependencies.
+> WebAssembly 目前是 Rust 最热门 🔥的话题之一。关于编译 Rust 成为 Wasm 并将其集成到 nodejs（npm 打包），世界上有很多开发者为这项技术努力着。我决定采用直接的方式，不引入任何 JavaScript 依赖。
 
-When starting the frontend of the web application (in my project via `make frontend`), cargo-web cross compiles the application to Wasm and packages it together with some static content. Then cargo-web starts a local web server which serves the application for development purposes.
+当启动 web 应用程序的前端部分的时候（在我的项目中用 `make frontend`），cargo-web 将应用编译成 Wasm，并且将其与静态资源打包到一起。然后 cargo-web 启动一个本地 web 服务器，方便应用程序进行开发。
 
 ```
 > make frontend
@@ -60,38 +60,34 @@ When starting the frontend of the web application (in my project via `make front
     Processing "app.wasm"...
     Finished processing of "app.wasm"!
 
-If you need to serve any extra files put them in the 'static' directory
-in the root of your crate; they will be served alongside your application.
-You can also put a 'static' directory in your 'src' directory.
-
-Your application is being served at '/app.js'. It will be automatically
-rebuilt if you make any changes in your code.
-
-You can access the web server at `http://0.0.0.0:8000`.
+如果需要对任何其他文件启动服务，将其放入项目根目录下的 'static' 目录；然后它们将和你的应用程序一起提供给用户。
+同样可以把静态资源目录放到 ‘src’ 目录中。
+你的应用通过 '/app.js' 启动，如果有任何代码上的变动，都会触发自动重建。
+你可以通过 `http://0.0.0.0:8000` 访问 web 服务器。
 ```
 
-Yew has some great features, like the reusable component architecture, which made it easy to split my application into three major components:
+Yew 有些很好用的功能，就像可复用的组件架构，可以很轻松的将我的应用程序分为三个主要的组件：
 
-*   [_RootComponent_](https://github.com/saschagrunert/webapp.rs/blob/rev1/src/frontend/components/root.rs): Directly mounted on the `<body>` tag of the website and decides which child component should be loaded next. If a JWT is found on initial entering of the page, it tries to renew the token with a backend communication. If this fails, it routes to the _LoginComponent_.
-*   [_LoginComponent_](https://github.com/saschagrunert/webapp.rs/blob/rev1/src/frontend/components/login.rs): A child of the _RootComponent_ and contains the login form field. It also communicates with the backend for a basic username and password authentication and saves the JWT within a cookie on successful authentication. Routes to the _ContentComponent_ on successful authentication.
+*   [**根组件**](https://github.com/saschagrunert/webapp.rs/blob/rev1/src/frontend/components/root.rs)：直接挂载在网页的 `<body>` 标签，决定接下来加载哪一个子组件。如果在进入页面的时候发现了 JWT，那么将尝试和后端通信来更新这个 token，如果更新失败，则路由到 **登录组件**。
+*   [**登录组件**](https://github.com/saschagrunert/webapp.rs/blob/rev1/src/frontend/components/login.rs)：**根组件** 的一个子组件包含登录表单字段。它同样和后端进行基本的用户名和密码的身份验证，并在成功后将 JWT 保存到 cookie 中。成功验证身份后路由到 **内容组件**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*0h9AZ2uIwzbdDvUTsna9Lw.png)
 
-The LoginComponent
+<center>登录组件</center>
 
-*   [_ContentComponent_](https://github.com/saschagrunert/webapp.rs/blob/rev1/src/frontend/components/content.rs): Another child of the _RootComponent_ and contains the main page content (for now only a header and logout button). It can be reached via the _RootComponent_ (if a valid session token is already available) or via the _LoginComponent_ (on successful authentication). This component communicates with the backend when the user pushed the logout button.
+*   [**内容组件**](https://github.com/saschagrunert/webapp.rs/blob/rev1/src/frontend/components/content.rs)：**根组件的** 的另一个子组件，包括一个主页面内容（目前只有一个头部和一个登出按钮）。它可以通过 **根组件** 访问（如果有效的 session token 已经可用）或者通过 **登录组件** （成功认证）访问。当用户按下登出按钮后，这个组件将会和后端进行通信。
 
 ![](https://cdn-images-1.medium.com/max/800/1*8ryczcVc5JrfrkMkBgFcuw.png)
 
-The ContentComponent
+<center>内容组件</center>
 
-*   _RouterComponent_: Holds all possible routes between the components which hold content. Also contains an initial “loading” state and an “error” state of the application. Is directly attached to the _RootComponent_.
+*   **路由组件**：保存包含内容的组件之间的所有可能路由。同样包含应用的一个初始的 “loading” 状态和一个 “error” 状态，并直接附加到 **根组件** 上。
 
-Services are one of the next key concepts of yew. They allow reusing the same logic between components like logging facades or [cookie handling](https://github.com/saschagrunert/webapp.rs/blob/rev1/src/frontend/services/cookie.rs). Services are stateless between components and will be created on component initialization. Beside services yew contains the concepts of Agents. They can be used for sharing data between components and provide an overall application state, like needed for a routing agent. To accomplish the routing for the demonstration application between all components [a custom routing agent and service](https://github.com/saschagrunert/webapp.rs/blob/rev1/src/frontend/services/router.rs) was implemented. Yew actually ships no stand-alone router, [but their examples](https://github.com/DenisKolodin/yew/tree/master/examples/routing) contain a reference implementation which supports all kinds of URL modifications.
+服务是 yew 的下一个关键概念之一。它允许组件间重用相同的逻辑，比如日志记录或者 [cookie 处理](https://github.com/saschagrunert/webapp.rs/blob/rev1/src/frontend/services/cookie.rs)。在组件的服务是无状态的，并且服务会在组件初始化的时候被创建。除了服务， yew 还包含了代理（Agent）的概念。代理可以用来在组件间共享数据，提供一个全局的应用状态，就像路由代理所需要的那样。为了在所有的组件之间完成示例程序的路由，实现了一套[自定义的路由代理和服务](https://github.com/saschagrunert/webapp.rs/blob/rev1/src/frontend/services/router.rs)。Yew 实际上没有独立的路由，[但他们的示例](https://github.com/DenisKolodin/yew/tree/master/examples/routing)提供了一个支持所有类型 URL 修改的参考实现。
 
-> Amazingly, yew uses the [Web Workers API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API) to spawn agents in separate threads and uses a local scheduler attached to a thread for concurrent tasks. This enables high concurrency applications within the browser written in Rust.
+> 太让人惊讶了，yew 使用 [Web Workers API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API) 在独立的线程中生成代理，并使用附加到线程的本地的任务调度程序来执行并发任务。这使得使用 Rust 在浏览器中编写高并发应用成为可能。
 
-Every component implements its [own \`Renderable\` trait](https://github.com/saschagrunert/webapp.rs/blob/rev1/src/frontend/components/root.rs#L123) which enables us to include HTML directly within the rust source via the `[html!{}](https://github.com/DenisKolodin/yew#jsx-like-templates-with-html-macro)` macro, this is pretty great and for sure checked by the compilers internal borrow checker!
+每个组件都实现了[自己的 `Renderable` 特性](https://github.com/saschagrunert/webapp.rs/blob/rev1/src/frontend/components/root.rs#L123)，这让我们可以直接通过 `[html!{}](https://github.com/DenisKolodin/yew#jsx-like-templates-with-html-macro)` 宏在 rust 源码中包含 HTML。这非常棒，并且确保了使用编辑器内置的 borrow checker 进行检查！
 
 ```
 impl Renderable<LoginComponent> for LoginComponent {
@@ -129,13 +125,13 @@ impl Renderable<LoginComponent> for LoginComponent {
 }
 ```
 
-The `Renderable` implementation for the LoginComponent
+登录组件 `Renderable` 的实现
 
-The communication from the frontend to the backend and vice versa is implemented via a [WebSocket](https://en.wikipedia.org/wiki/WebSocket) connection for every client. The WebSocket has the benefit that it is usable for binary messages and the server is able to push notifications to the client too if needed. Yew already ships a WebSocket service, but I decided to [create a custom version](https://github.com/saschagrunert/webapp.rs/blob/rev1/src/frontend/services/websocket.rs) for the demonstration application mainly reasoned by the lazy initialized connection directly within the service. If the WebSocket service would be created during component initialization I would had to track multiple socket connections.
+每个客户端从前端到后端的通信（反之亦然）通过 [WebSocket](https://en.wikipedia.org/wiki/WebSocket) 连接来实现。WebSocket 的好处是可以使用二进制信息，并且如果需要的话，服务端同时可以向客户端推送通知。Yew 已经发行了一个 WebSocket 服务，但我还是要为示例程序[创建一个自定义的版本](https://github.com/saschagrunert/webapp.rs/blob/rev1/src/frontend/services/websocket.rs)，主要是因为要在服务中的延迟初始化连接。如果在组件初始化的时候创建 WebSocket 服务，那么我们就得去追踪多个套接字连接。
 
 ![](https://cdn-images-1.medium.com/max/800/1*w3kQzk007POxE3PqjECqXQ.png)
 
-I decided to use the binary protocol [Cap’n Proto](https://capnproto.org) as application data communication layer (instead of something like [JSON](https://www.json.org), [MessagePack](https://msgpack.org) or [CBOR](http://cbor.io)) for speed and compactness reasons. One little side note worth to mention is that I did not use the [interface RPC Protocol](https://capnproto.org/rpc.html) of Cap’n Proto, because the Rust implementation does not compile for WebAssembly (because of [tokio-rs](https://github.com/tokio-rs/tokio)’ unix dependencies). This makes it a little bit harder to distinguish between the right request and response types, but a [cleanly structured API](https://github.com/saschagrunert/webapp.rs/blob/rev1/src/protocol.capnp) could solve the problem here:
+出于速度和紧凑的考量。我决定使用一个二进制协议 —— [Cap’n Proto](https://capnproto.org)，作为应用数据通信层（而不是 [JSON](https://www.json.org)、[MessagePack](https://msgpack.org) 或者 [CBOR](http://cbor.io)这些）。值得一提的是，我没有使用 Cap’n Proto 的[RPC 接口协议](https://capnproto.org/rpc.html)，因为其 Rust 实现不能编译成 WebAssembly（由于 [tokio-rs](https://github.com/tokio-rs/tokio)’ unix 依赖项）。这使得正确区分请求和响应类型稍有困难，但是[结构清晰的 API](https://github.com/saschagrunert/webapp.rs/blob/rev1/src/protocol.capnp) 可以解决这个问题：
 
 ```
 @0x998efb67a0d7453f;
@@ -167,34 +163,34 @@ struct Response {
 }
 ```
 
-Cap’n Proto protocol definition for the application
+应用程序的 Cap’n Proto 协议定义
 
-You can see that we have two different login request variants here: One for the _LoginComponent_ (credential request with username and password) and another for the _RootComponent_ (already available token renewal request). All needed protocol related implementations are packed within a [protocol service](https://github.com/saschagrunert/webapp.rs/blob/rev1/src/frontend/services/protocol.rs), which makes it easily reusable within the whole frontend.
+你可以看到我们这里有两个不同的登录请求变体：一个是 **登录组件**（用户名和密码的凭证请求），另一个是 **根组件**（已经存在的 token 刷新请求）。所有需要的协议实现都包含在[协议服务](https://github.com/saschagrunert/webapp.rs/blob/rev1/src/frontend/services/protocol.rs)中，这使得它在整个前端中可以被轻松复用。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Ngm7Avt7AM7ITqjlPcfARw.jpeg)
 
-UIkit — A lightweight and modular front-end framework for developing fast and powerful web interfaces.
+UIkit - 用于开发快速且功能强大的 Web 界面的轻量级模块化前端框架
 
-The user interface of the frontend is powered by [UIkit](https://getuikit.com), where version `3.0.0` will be released in the near future. A custom [build.rs](https://github.com/saschagrunert/webapp.rs/blob/rev1/build.rs) script automatically downloads all needed UIkit dependencies and compiles the overall stylesheet. This means custom styles can be inserted within a [single style.scss file](https://github.com/saschagrunert/webapp.rs/blob/rev1/src/frontend/style.scss) and are application wide applied. Neat!
+前端的用户界面由 [UIkit](https://getuikit.com) 提供支持，其 `3.0.0` 版将在不久的将来发布。自定义的 [build.rs](https://github.com/saschagrunert/webapp.rs/blob/rev1/build.rs) 脚本会自动下载 UIkit 所需要的全部依赖项并编译整个样式表。这就意味着我们可以在[单独的一个 style.scss 文件](https://github.com/saschagrunert/webapp.rs/blob/rev1/src/frontend/style.scss)中插入自定义的样式，然后在应用程序中使用。安排！（PS: 原文是 `Neat!`）
 
-#### Frontend testing
+#### 前端测试
 
-Testing is a little bit a problem in my opionion: The separate services can be tested pretty easily, but yew does not provide a convenient way how to test single components or agents yet. Integration and end-to-end testing of the frontend is also not possible within plain Rust for now. It could be possible to use projects like [Cypress](https://www.cypress.io) or [Protractor](http://www.protractortest.org/#/) but this would include too much JavaScript/TypeScript boilerplate so I skipped this option.
+在我的看来，测试可能会存在一些小问题。测试独立的服务很容易，但是 yew 还没有提供一个很优雅的方式去测试单个组件或者代理。目前在 Rust 内部也不可能对前端进行整合以及端到端测试。或许可以使用 [Cypress](https://www.cypress.io) 或者 [Protractor](http://www.protractortest.org/#/) 这类项目，但是这会引入太多的 JavaScript/TypeScript 样板文件，所以我跳过了这个选项。
 
-> But hey, maybe this is a good starting point for a new project: An end-to-end testing framework written in Rust! What do you think?
+> 但是呢，或许这是一个新项目的好起点：用 Rust 编写一个端到端测试框架！你怎么看？
 
-### The Backend — Server Side
+### 后端 —— 服务端
 
-My chosen framework for the backend is [actix-web](https://github.com/actix/actix-web): A small, pragmatic, and extremely fast Rust [actor framework](https://en.wikipedia.org/wiki/Actor_model). It supports all needed technologies like WebSockets, TLS and [HTTP/2.0](https://actix.rs/docs/http2/). Actix-web supports different handlers and resources, but within the demonstration application are just two main routes used:
+我选择的后端框架是 [actix-web](https://github.com/actix/actix-web)：一个小而务实且极其快速的 Rust [actor 框架](https://en.wikipedia.org/wiki/Actor_model)。它支持所有需要的技术，比如 WebSockets、TLS 和 [HTTP/2.0](https://actix.rs/docs/http2/). Actix-web 支持不同的处理程序和资源，但在示例程序中只用到了两个主要的路由：
 
-*   `**/ws**`: The main websocket communication resource
-*   `**/**`: The main application handler which routes to the statically deployed frontend application
+*   `**/ws**`：主要的 websocket 通信资源。
+*   `**/**`：路由到静态部署的前端应用的主程序处理句柄（handler）
 
-By default, actix-web spawns as much workers as CPU cores are available on the local machine. This means a possible application state has to be shared safely between all threads, but this is really no problem with Rusts fearless concurrency patterns. Nevertheless, the overall backend should be stateless, because it could be deployed with multiple replicas in parallel within an cloud based (like [Kubernetes](https://kubernetes.io)) environment. So the applications state should be outside of the backend within a separate [Docker](https://www.docker.com) container instance for example.
+默认情况下，actix-web 会生成与本地计算机逻辑 CPU 数量一样多的 works（译者注：翻译参考了[Actix 中文文档中服务器一节的多线程部分](https://actix-cn.github.io/document/server.html#%E5%A4%9A%E7%BA%BF%E7%A8%8B)）。这就意味着必须在线程之间安全的共享可能的应用程序状态，但这对于 Rust 无所畏惧的并发模式来说完全不是问题。尽管如此，整个后端应该是无状态的，因为可能会在云端（比如 [Kubernetes](https://kubernetes.io)）上并行部署多个副本。所以应用程序状态应该在单个 [Docker](https://www.docker.com) 容器实例中的后端服务之外。
 
 ![](https://cdn-images-1.medium.com/max/800/1*vbIdg_EDv0Jakk7iGByH-Q.png)
 
-I decided to use a [PostgreSQL](https://www.postgresql.org) database as main data storage. Why? Because the awesome [Diesel project](http://diesel.rs) already supports PostgreSQL and provides a safe, extensible Object-relational mapping (ORM) and query builder for it. This is pretty great since actix-web already supports Diesel. In result, a custom idiomatic Rust domain specific language can be used to create, read, update or delete (CRUD) the sessions within the database like this:
+我决定使用 [PostgreSQL](https://www.postgresql.org) 作为主要的数据存储。为什么呢？因为令人敬畏的 [Diesel 项目](http://diesel.rs) 已经支持 PostgreSQL，并且为它提供了一个安全、可拓展的对象关系映射（ORM）和查询构建器（query builder）。这很棒，因为 actix-web 已经支持了 Diesel。这样的话，就可以自定义惯用的 Rust 域特定语言来创建、读取、更新或者删除（CRUD）数据库中的会话，如下所示：
 
 ```
 impl Handler<UpdateSession> for DatabaseExecutor {
@@ -211,43 +207,43 @@ impl Handler<UpdateSession> for DatabaseExecutor {
 }
 ```
 
-UpdateSession Handler for actix-web powered by Diesel.rs
+由 Diesel.rs 提供的 actix-web 的 UpdateSession 处理程序
 
-For the connection handling between actix-web and Diesel the [r2d2](https://github.com/sfackler/r2d2) project is used. This means we have (beside the application with its workers) an shared application state which holds multiple connections to the database as a single connection pool. This makes the whole backend very easily large scaling and flexible. The whole server instantiation can be found [here](https://github.com/saschagrunert/webapp.rs/blob/master/src/backend/server.rs#L44-L82).
+至于 actix-web 和 Diesel 之间的连接的处理，使用 [r2d2](https://github.com/sfackler/r2d2) 项目。这就意味着我们（应用程序和它的 works）具有共享的应用程序状态，该状态将多个连接保存到数据库作为单个连接池。这使得整个后端非常灵活，很容易大规模拓展。[这里](https://github.com/saschagrunert/webapp.rs/blob/master/src/backend/server.rs#L44-L82)可以找到整个服务器示例。
 
-#### Backend testing
+#### 后端测试
 
-The [integration testing](https://github.com/saschagrunert/webapp.rs/blob/rev1/tests/backend.rs) of the backend is done by setting up a test instance and connecting to an already running database. Then a standard WebSocket client (I used [tungstenite](https://github.com/snapview/tungstenite-rs)) can be used to send the protocol related Cap’n Proto data to the server and evaluate the expected results. This worked pretty well! I did not use the [actix-web specific test servers](https://actix.rs/actix-web/actix_web/test/index.html) because setting up a real server was not much more work. Unit testing of the other parts of the backend worked as simple as expected and produced no real pitfalls.
+后端的[集成测试](https://github.com/saschagrunert/webapp.rs/blob/rev1/tests/backend.rs)通过设置一个测试用例并连接到已经运行的数据库来完成。然后可以使用标准的 WebSocket 客户端（我使用 [tungstenite](https://github.com/snapview/tungstenite-rs)）将与协议相关的 Cap'n Proto 数据发送到服务器并验证预期结果。这很好用！我没有用 [actix-web 特定的测试服务器](https://actix.rs/actix-web/actix_web/test/index.html)，因为设置一个真正的服务器并费不了多少事儿。后端其他部分的单元测试工作像预期一样简单，没有任何棘手的陷阱。
 
-### The Deployment
+### 部署
 
-Deploying the application can be done easily via an Docker image.
+使用 Docker 镜像可以很轻松地部署应用程序。
 
 ![](https://cdn-images-1.medium.com/max/800/1*d-HKujYLR5Q2QED4ybEiPw.png)
 
-The Makefile command `make deploy` creates a Docker image called `webapp`, which contains the statically linked backend executable, the current `Config.toml`, TLS certificates and the static content for the frontend. Building a fully statically linked executable in Rust is achieved with a modified variant of the [rust-musl-builder](https://hub.docker.com/r/ekidd/rust-musl-builder/) docker image. The resulting webapp can be tested with `make run`, which starts the container with enabled host networking. The PostgreSQL container should now run in parallel. In general, the overall deployment is not that big part of the deal and should be flexible enough for future adaptions.
+Makefile 命令 `make deploy` 创建一个名为 `webapp` 的 Docker 镜像，其中包含静态链接（staticlly linked）的后端可执行文件、当前的 `Config.toml`、TLS 证书和前端的静态资源。在 Rust 中构建一个完全的静态链接的可执行文件是通过修改的 [rust-musl-builder](https://hub.docker.com/r/ekidd/rust-musl-builder/) 镜像变体实现的。生成的 webapp 可以使用 `make run` 进行测试，这个命令可以启动容器和主机网络。PostgreSQL 容器现在应该并行运行。总的来说，整体部署不应该是这个工程的重要部分，应该足够灵活来适应将来的变动。
 
-### Summary
+### 总结
 
-As a summary, the basic dependency stack of the application looks like this:
+总结一下，应用程序的基本依赖栈如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*jkm-cPEWdyZeHjAyqNfHHw.png)
 
-The only shared component between the frontend and backend is the Cap’n Proto generated Rust source, which needs a locally installed Cap’n Proto compiler.
+前端和后端之间唯一的共享组件是 Cap’n Proto 生成的 Rust 源，它需要本地安装的 Cap’n Proto 编译器。
 
-#### So, are we web yet (in production)?
+#### 那么, 我们的 web 完成了吗（用于生产环境）？
 
-That is the big question, my personal opinion on that is:
+这是一个大问题，这是我的个人观点：
 
-> On the backend side I would tend to say “yes”, because Rust has beside actix-web a very mature [HTTP stack](http://www.arewewebyet.org/topics/stack/) and various different [frameworks](http://www.arewewebyet.org/topics/frameworks/) for building APIs and backend services quickly.
+> 后端部分我倾向于说“是”。因为 Rust 有包含非常成熟的 [HTTP 技术栈](http://www.arewewebyet.org/topics/stack/)的各种各样的[框架](http://www.arewewebyet.org/topics/frameworks/)，类似 actix-web。用于快速构建 API 和后端服务。
 
-> On the frontend side is also a lots of work ongoing because of the WebAssembly hype, but the projects needs to have the same matureness as the backend ones, especially when it comes to stable APIs and testing possibilities. So there is a “no” for the frontend, but we’re on a pretty good track.
+> 前端部分的话，由于 WebAssembly 的炒作，目前还有很多正在进行中的工作。但是项目需要和后端具有相同的成熟度，特别是在稳定的 API 和测试的可行性方面。所以前端应该是“不”。但是我们依然在正确的方向。
 
 ![](https://cdn-images-1.medium.com/max/800/1*BIUlQD822_EKKLv4jtElWg.png)
 
-> Thank you very much for reading until here. ❤
+> 非常感谢你能读到这里。 ❤
 
-I will continue my work on the demonstration application to continuously find out where we are in Rust in relation to web applications. Keep on rusting!
+我将继续完善我的示例程序，来不断探索 Rust 和 Web 应用的连接点。持续 rusting！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
