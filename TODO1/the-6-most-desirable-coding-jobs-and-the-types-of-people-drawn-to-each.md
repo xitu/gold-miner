@@ -2,8 +2,8 @@
 > * 原文作者：[David Venturi](https://medium.freecodecamp.org/@davidventuri?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-6-most-desirable-coding-jobs-and-the-types-of-people-drawn-to-each.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-6-most-desirable-coding-jobs-and-the-types-of-people-drawn-to-each.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Augustwuli](https://github.com/Augustwuli)
+> * 校对者：[zhmhhu](https://github.com/zhmhhu), [lihanxiang](https://github.com/lihanxiang)
 
 # 6 个最令人满意的和编程相关的工作（和参与这些工作的人们的类型）
 
@@ -13,7 +13,7 @@
 
 图片来源于 [**我的博客**](http://davidventuri.com/).
 
-超过 15,000 的人做了 [Free Code Camp’s 2016 New Coder Survey](https://medium.freecodecamp.com/we-asked-15-000-people-who-they-are-and-how-theyre-learning-to-code-4104e29b2781#.jlsxxy4si) 这个调查问卷。被授予研究这份问卷权利的人（**正如我**）正史无前例的了解人们是如何学习编程的。完整的调查数据已发布在了 [Kaggle](https://www.kaggle.com/freecodecamp/2016-new-coder-survey-).
+超过 15,000 的人做了 [Free Code Camp’s 2016 New Coder Survey](https://medium.freecodecamp.com/we-asked-15-000-people-who-they-are-and-how-theyre-learning-to-code-4104e29b2781#.jlsxxy4si) 这个调查问卷。被授予研究这份问卷权利的人（**正如我**）正史无前例的了解人们是如何学习编程的。完整的调查数据已发布在了 [Kaggle](https://www.kaggle.com/freecodecamp/2016-new-coder-survey-)。
 
 6,503 的新编程人员回答了这个问题：“**你最感兴趣这里面的哪一个角色？**”
 
@@ -27,7 +27,7 @@
 *   地区
 *   学历
 
-…和 5 个**数值**:
+...和 5 个**数值**：
 
 *   年龄
 *   编程经历
@@ -69,23 +69,23 @@ Free Code Camp 立基于美国，它的调查的数据会更偏向于北美。
 
 ### 编程经历
 
-数据科学家、数据工程师和后端开发的编程训练时间最长，中位数为8个月。UX 设计师的下四分位数最低，仅仅只有两个月。 编程经历的平均数呈正偏态分布，这本应该是大打折扣的，但却都靠近上四分位数。
+数据科学家、数据工程师和后端开发的编程训练时间最长，中位数为 8 个月。UX 设计师的下四分位数最低，仅仅只有两个月。编程经历的平均数呈正偏态分布，这本应该是大打折扣的，但却都靠近上四分位数。
 
 ![](https://cdn-images-1.medium.com/max/800/1*VDsE2wJmTP1fVUSfAyFQgA.png)
 
 ### 致力于学习的时间
 
-全栈开发者每周拿大部分的时间专注于学习，25% 的调查者每周花 30 多个小时去学习。UX 设计师每周花费最少的时间学习，平均每周学习12小时。
+全栈开发者每周拿大部分的时间专注于学习，25% 的调查者每周花 30 多个小时去学习。UX 设计师每周花费最少的时间学习，平均每周学习 12 小时。
 
 ![](https://cdn-images-1.medium.com/max/800/1*XnJYDr3UH5aCvVROnb0xKw.png)
 
-相比之下，学习时间的数据在性别和地区方面的差别并不是很大。s's（我写过一个完整的[分析](https://medium.freecodecamp.com/new-coders-how-salary-and-time-spent-learning-vary-by-demographic-359ef1ed0da8)） 
+相比之下，学习时间的数据在性别和地区方面的差别并不是很大。（我写过一个完整的[分析](https://medium.freecodecamp.com/new-coders-how-salary-and-time-spent-learning-vary-by-demographic-359ef1ed0da8)）
 
-- [**新的编程人员：学习的时间和薪水如何在不同的人上显示不同的差异**: 我在地区和性别方面上分析了参与 Free Code Camp’s New Coder Survey 调查的人 ](https://medium.freecodecamp.com/new-coders-how-salary-and-time-spent-learning-vary-by-demographic-359ef1ed0da8 )
+- [**新的编程人员：学习的时间和薪水如何在不同的人上显示不同的差异**：我在地区和性别方面上分析了参与 Free Code Camp’s New Coder Survey 调查的人](https://medium.freecodecamp.com/new-coders-how-salary-and-time-spent-learning-vary-by-demographic-359ef1ed0da8)
 
 ### 现在的薪水
 
-胸怀抱负的数据科学家和数据工程师很明显是现在薪水最高的。上四分位数的值为每个月 60 k 美元 ，比第二名多出了 8k 美元 。其余以兴趣为主的工作岗位之间的收入差距不大，尽管都高于2014年美国 28.9 万美元的中值收入。
+胸怀抱负的数据科学家和数据工程师很明显是现在薪水最高的。上四分位数的值为每个月 60k 美元，比第二名多出了 8k 美元 。其余以兴趣为主的工作岗位之间的收入差距不大，尽管都高于2014年美国 28.9 万美元的中值收入。
 
 ![](https://cdn-images-1.medium.com/max/800/1*V0zzOzEIa1UeGN-ocEsUvg.png)
 
@@ -109,7 +109,7 @@ Free Code Camp 立基于美国，它的调查的数据会更偏向于北美。
 
 * * *
 
-### 我们可以从中学到什么?
+### 我们可以从中学到什么？
 
 非常多！每种类型的程序员都有一套独一无二的特征。
 
@@ -117,7 +117,7 @@ Free Code Camp 立基于美国，它的调查的数据会更偏向于北美。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Ucj1hW-dU-JC2ygLS76afg.png)
 
-图片来自[Riccardo Carlet](https://dribbble.com/shots/727430-Clyp-Calender-iPhone-iPad?list=users)
+图片来自 [Riccardo Carlet](https://dribbble.com/shots/727430-Clyp-Calender-iPhone-iPad?list=users)
 
 胸怀抱负的数据科学家/工程师当前薪水是最高的，期望的下一份薪水也是最高的并拥有最多的编程经历。前端开发者年龄是最大的，但是影响不大。全栈开发者致力于每周将自己的大部分时间花费在学习上。
 
@@ -125,7 +125,7 @@ Free Code Camp 立基于美国，它的调查的数据会更偏向于北美。
 
 ![](https://cdn-images-1.medium.com/max/600/1*8-Das0n2UI7fX7Mi5_m23A.png)
 
-绘图来自[DataCamp](https://www.datacamp.com/community/tutorials/data-science-industry-infographic#gs.1VaXGTE)
+绘图来自 [DataCamp](https://www.datacamp.com/community/tutorials/data-science-industry-infographic#gs.1VaXGTE)
 
 前端开发者的经验和期望的下一份薪水是最少的。UX 设计师每周花在学习上的时间和目前薪水都是最少的，但是后者并不是很明显。移动开发是最年轻的。
 
@@ -134,6 +134,7 @@ Free Code Camp 立基于美国，它的调查的数据会更偏向于北美。
 你可以在 Kaggle 上找到[更详细的分析版本](https://www.kaggle.com/venturidb/d/freecodecamp/2016-new-coder-survey-/new-coders-a-deeper-dive)，在这篇文章中你可以找到支持本文推理的统计测验。 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
 
 ---
 
