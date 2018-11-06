@@ -1,3 +1,4 @@
+* [代码评审的 8 点建议](https://juejin.im/post/5bd1e6696fb9a05d096597c6) ([xiaoxi666](https://github.com/xiaoxi666) 翻译)
 * [如何组织 Hacktoberfest 主题聚会](https://juejin.im/post/5bbc150be51d450e6867be7a) ([jianboy](https://github.com/jianboy) 翻译)
 * [下一代包管理工具](https://juejin.im/post/5ba9830fe51d450e4d2fe208) ([diliburong](https://github.com/diliburong) 翻译)
 * [新手开发者须知](https://juejin.im/post/5bade6a76fb9a05d32515cf0) ([ssshooter](https://github.com/ssshooter) 翻译)

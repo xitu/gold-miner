@@ -101,7 +101,7 @@
 
 如果渲染进程已经启动了导航（像用户点击一个链接或者客户端 JavaScript 运行 `window.location = "https://newsite.com"`），渲染进程会先检查 `beforeunload` 事件处理程序。然后，它会像浏览器处理启动导航一样执行相同的步骤。唯一不同的是导航请求是由渲染进程发送到浏览器进程的。
 
-当新导航到的站点不同于当前已渲染的站点时，会调用一个独立的渲染进程来处理新导航，同时保持当前的渲染进程来处理类似 `unload` 的事件。有关更多信息，请查看[页面生命周期概览](https://developers.google.com/web/updates/2018/07/page-lifecycle-api#overview_of_page_lifecycle_states_and_events)以及如何使用[页面声明周期 API](https://developers.google.com/web/updates/2018/07/page-lifecycle-api) 挂钩事件。
+当新导航到的站点不同于当前已渲染的站点时，会调用一个独立的渲染进程来处理新导航，同时保持当前的渲染进程来处理类似 `unload` 的事件。有关更多信息，请查看[页面生命周期概览](https://developers.google.com/web/updates/2018/07/page-lifecycle-api#overview_of_page_lifecycle_states_and_events)以及如何使用[页面生命周期 API](https://developers.google.com/web/updates/2018/07/page-lifecycle-api) 挂钩事件。
 
 ![新导航与 unload](https://developers.google.com/web/updates/images/inside-browser/part2/unload.png)
 

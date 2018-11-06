@@ -2,93 +2,92 @@
 > * 原文作者：[virgafox](https://medium.com/@virgafox?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/good-practices-for-high-performance-and-scalable-node-js-applications-part-3-3.md](https://github.com/xitu/gold-miner/blob/master/TODO1/good-practices-for-high-performance-and-scalable-node-js-applications-part-3-3.md)
-> * 译者：
-> * 校对者：
+> * 译者：[steinliber](https://github.com/steinliber)
+> * 校对者：[calpa](https://github.com/calpa), [Augustwuli](https://github.com/Augustwuli)
 
-# Good practices for high-performance and scalable Node.js applications [Part 3/3]
+# 构建高性能和可扩展性 Node.js 应用的最佳实践 [第 3/3 部分]
 
 ![](https://cdn-images-1.medium.com/max/2000/1*AyzlnTJDIfbZCxdQPp8Seg.jpeg)
 
-### Chapter 3 — Additional good practices for efficiency and performance
+### 第三章 — 其它关于 Node.js 应用运行效率和性能的优秀实践
 
-In the first two articles of this serie we saw [how to scale a Node.js application](https://medium.com/iquii/good-practices-for-high-performance-and-scalable-node-js-applications-part-1-3-bb06b6204197) and [what to consider on the code side](https://medium.com/iquii/good-practices-for-high-performance-and-scalable-node-js-applications-part-2-3-2a68f875ce79) to make it behave as expected during this process. In this last article we’ll cover some additional practices that can improve efficiency and performance a little further.
+本系列的头两篇文章中我们看到[如何扩展一个 Node.js 应用](https://medium.com/iquii/good-practices-for-high-performance-and-scalable-node-js-applications-part-1-3-bb06b6204197)以及[在应用的代码部分应该考虑什么](https://medium.com/iquii/good-practices-for-high-performance-and-scalable-node-js-applications-part-2-3-2a68f875ce79)才能使其在这个过程中运行如我们所愿。在这最后一篇文章中，我们将介绍一些其它实践，以进一步提高应用运行效率和性能。
 
-### Web and Worker processes
+### Web 和 Worker 进程
 
-As you probably know, **Node.js is in practice single-threaded**, so a single instance of the process can only perform one action at a time. During the life-cycle of a web application, **many different tasks** are performed: managing API calls, reading/writing to DB, communicating with external network services, execution of some sort of inevitable CPU intensive work etc.
+就像你可能知道的那样，**Node.js 在实际运行中是单线程的**，因此一个进程实例在同一时间只能执行一个操作。在 Web 应用的运行生命周期中，会执行**很多不同类型的任务**：包括管理 API 调用，读/写数据库，与外部网络服务通信，以及不可避免地执行某些 CPU 密集型工作等。
 
-Although you use asynchronous programming, delegating all this actions to the same process that responds to your API calls can be a quite inefficient approach.
+尽管你使用的是异步编程，但是将所有这些操作都指派给同一个用于响应 API 调用的进程真的是一种效率很低的方式。
 
-A common pattern is based on the **separation of responsibilities** between two different kind of processes that compose your application, usually a **web** process and a **worker** one.
+一种常见的模式是基于组成你应用不同类型进程之间的**责任分离**，这种情况下进程通常被分为 **web** 进程和 **worker** 进程。
 
 ![](https://cdn-images-1.medium.com/max/800/1*4u5WMX_JB8-E2byEBcUyYw.png)
 
-The web process is designed to mainly manage the **incoming network calls**, and to dispatch them as fast as possible. Any time a non-blocking task needs to be performed, like for example sending an email/notification, write a log, execute a triggered action which result is not necessary to answer the API call, the web process delegates the action to the worker one.
+Web 进程主要的任务是管理**传入的网络调用**并尽快将它们分发出去。每当一个非阻塞任务需要被执行时，例如发送电子邮件/通知，写日志，执行一个触发操作，它们都不需要马上响应 API 调用返回结果，Web 进程会把这些操作委派给 worker 进程。
 
-The **communication between web and worker** processes can be implemented in different ways. A common and efficient solution is a priority queue, like the one implemented in Kue, described in the next paragraph.
+**web 和 worker 进程之间的通信**可以通过不同的方式实现。一种常见且有效的解决方案是优先级队列，就像我们将在下一段描述的 Kue 所实现的那样。
 
-One big win of this approach is the **possibility to scale web and worker processes independently**, on the same or on different machines.
+这种方式有一个很大的优点，无论在同一台还是不同机器上其都可以**分别独立扩展 web 和 worker 进程**。
 
-For instance if your application is an high-traffic one, with little side-work generated, you can deploy more web processes than worker ones, while if there are few network requests that generates a lot of jobs for the worker, you can redistribute your resources accordingly.
+例如，如果你的应用请求量很大，相较于 worker 进程你可以部署更多的 web 进程而几乎不会产生任何副作用。而如果请求量不是很大但是有很多的工作需要 worker 进程去处理，你可以据此重新分配相应的资源。
 
 ### Kue
 
-In order to make web and worker processes talk to each other, a **queue** is a flexible approach that lets you not to worry about inter-process communication.
+为了使 web 进程和 worker 进程可以相互通信，使用**队列**是一种灵活的方式，它可以使你不需要担心进程之间的通信。
 
-[Kue](http://automattic.github.io/kue/) is a common queue library for Node.js, it is based on Redis and lets you put in communication processes that are spawned on the same or on different machines in the exact same way.
+[Kue](http://automattic.github.io/kue/) 是 Node.js 中常用的队列库，它基于 Redis 并且让你可以用完全一致的方式让运行在同一台或不同机器上的进程间相互通信。
 
-Any kind of process can create a job and put it in the queue, then worker processes are configured to pick these jobs and execute them. A lot of options can be provided for each job, like priority, TTL, delay etc.
+任何类型的进程都可以创建一个工作并将之放入队列，然后被配置的相应 worker 进程就会从队列中提取并执行它。每个工作都提供了大量的可配置选项，如优先级，TTL，延迟等。
 
-The more worker processes you spawn, the more parallel throughput you have to execute these jobs.
+你创建的 worker 进程越多，执行这些作业的并行吞吐量也就越大。
 
 ### Cron
 
-It is common for an application to have some tasks that need to be **performed periodically**. Usually this kind of operations are managed through **cron jobs** at the OS level, where a single script is invoked from the outside of your application.
+应用程序通常需要**定期执行**一些任务。通常这种类型的操作，是通过操作系统级别的 **cron 工作**进行管理，也就是会调用你应用程序之外的一个单独脚本。
 
-This approach introduces the need of extra work when deploying your application on a new machine, that makes the process uncomfortable if you want to automate the deploy.
+当需要把你的应用部署到新的机器上时，这种方式会需要额外的配置工作，如果你想要自动化部署应用时，它会让人对其感到不舒服。
 
-A more comfortable way to achieve the same result is to use the [**cron module**](https://www.npmjs.com/package/cron) **available on NPM**. It lets you to define cron jobs inside the Node.js code, making it independent from the OS configuration.
+我们可以使用 **NPM 上的** [**cron 模块**](https://www.npmjs.com/package/cron)从而更轻松地实现同样的效果。它允许你在 Node.js 代码中定义 cron 工作，从而使其免于操作系统的配置。
 
-According to the web/worker pattern described above, the worker process can create the cron, which invokes a function putting a new job on the queue periodically.
+根据上面所描述的 web/worker 进程模式，worker 进程可以通过定期调用一个函数把工作放到队列从而实现创建 cron。 
 
-Using the queue makes it more clean and can take advantage of all the features offered by kue like priority, retries, etc.
+使用队列可以使 cron 的实现更加清晰并且还可以利用 Kue 所提供的所有功能，如优先级，重试等。
 
-The problems come out when you have more than one worker process, because the cron function would wake app on every process at the same time, putting into the queue duplicates of the same job that would be executed many times.
+当你的应用有多个 worker 进程时就会出现一个问题，因为同一时间所有 worker 进程的 cron 函数都会唤醒应用把多个同样重复的工作放入队列，从而导致同一个工作将会被执行多次。
 
-In order to solve this problem it is necessary to **identify a single worker process that will perform the cron operations**.
+为了解决这个问题，有必要**识别将要执行 cron 操作的单个 worker 进程**。
 
-### Leader election and cron-cluster
+### Leader 选举和 cron-cluster
 
-This kind of problem is known as “**leader election**”, and for this specific scenario there is an NPM package that does the trick for us, called [cron-cluster](https://www.npmjs.com/package/cron-cluster).
+这种类型的问题被称为 “**leader 选举**”，NPM 为我们提供了这种特定情况下的处理方案，有一个叫做 [cron-cluster](https://www.npmjs.com/package/cron-cluster) 的包。
 
-It expose the same API that powers the cron module, but during setup it requires a **redis connection** used to communicate with the other processes and perform the leader election algorithm.
+它在维持和 cron 模块一致 API 的同时增强了模块，但是在启动过程中它需要有 **redis 连接**，用于和其它进程间通信和执行 leader 选举算法。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kDpGv4d1Mj_AGg9TFVFhhQ.png)
 
-Using redis as a single source of truth, **all the process will agree about who will execute the cron**, and only one copy of the jobs will be put in the queue. After that, all the worker processes will be eligible to execute the jobs as usual.
+使用 redis 作为单一事实的来源，**所有进程最终都会同意谁将执行 cron**，并且只有一个工作副本会被放入队列中。在这之后，所有的 worker 进程都可以像往常一样选择是否执行这个工作。
 
-### Caching API calls
+### 缓存 API 调用
 
-**Server-side caching** is a common way to **improve performance and reactivity** of your API calls, but it is a very wide topic with with a lot of possible implementations.
+**服务端缓存**是提高你 API 调用**性能和反馈性**一种常用的方式，但这是一个非常广泛的主题，有很多可能的实现。
 
-In a distributed environment like the one we described in this serie, using redis to store the cached values is probably the best approach in order to have all the nodes behaving equally.
+在像我们在这个系列所描述的分布式环境中，如果想要所有的节点在处理缓存时表现一致，最好的办法或许是使用 redis 来缓存需要的值。
 
-The most difficult aspect to consider with caching is its invalidation. The quick-and-dirty solution considers only time, so the values in cache are flushed after a fixed TTL, with the downside of having to wait the next flush in order to see updates in the responses.
+缓存所需要考虑最困难的方面就是缓存失效。一种快捷实用的解决方案是只考虑缓存时间，这样缓存中的值就会在固定的 TTL 时间后刷新，这样做的缺点是我们不得不等到下一次缓存刷新才能看到响应中的更新。
 
-If you have more time to spend, it would be a better idea to implement the invalidation at the application level, manually flushing the records on the redis cache when the values change on DB.
+如果你能有更多的时间，最好在应用级别实现失效，即当数据库中的值更改时手动刷新 redis 缓存中的相关记录。
 
-### Conclusions
+### 结论
 
-In this serie of articles we covered some general topics about scaling and performance. The suggestions provided can be taken as a guideline that need to be customized on the particular need of your project.
+在本系列文章中，我们介绍了有关扩展性和性能的一些主题。在这里所提供的建议可以作为指导，需要根据项目特定的需求进行定制。
 
-Stay tuned for other articles about vertical topics on Node.js and DevOps!
+请继续关注关于 Node.js 和 DevOps 主题内的其它文章！
 
 * * *
 
-_If you like this article, clap as much as you want!_
+**如果你喜欢这篇文章，请多多支持！**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
