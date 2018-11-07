@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/exploratory-statistical-data-analysis-with-a-kaggle-dataset-using-pandas.md](https://github.com/xitu/gold-miner/blob/master/TODO1/exploratory-statistical-data-analysis-with-a-kaggle-dataset-using-pandas.md)
 > * 译者：[haiyang-tju](https://github.com/haiyang-tju)
-> * 校对者：
+> * 校对者：[rocheers](https://github.com/rocheers)
 
 # 使用 Pandas 对 Kaggle 数据集进行统计数据分析
 
