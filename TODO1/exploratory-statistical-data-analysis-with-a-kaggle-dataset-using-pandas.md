@@ -11,19 +11,19 @@
 
 有时，当遇到一个数据问题的时候，对于数据集，我们必须首先深入研究并了解它。了解它的性质，它的分布等等，这是我们需要专注的领域。
 
-今天，我们将利用 [Python Panda ](https://towardsdatascience.com/exploratory-data-analysis-with-pandas-and-jupyter-notebooks-36008090d813)框架进行数据分析，并利用 Seaborn 进行数据的可视化。
+今天，我们将利用 [Python Pandas](https://towardsdatascience.com/exploratory-data-analysis-with-pandas-and-jupyter-notebooks-36008090d813) 框架进行数据分析，并利用 Seaborn 进行数据的可视化。
 
 作为一名极客程序员，我的审美观念很低。Seaborn 对我来说是一种很好的可视化工具，因为只需要坐标点即可。
 
-它在底层使用 Matplotlib 作为绘图引擎，使用默认的样式来设置图形，着使得它们看起来比我所能做的更漂亮。让我们来看一下数据集，我会给大家展示一种看待不同特征时的直观感受。也许我们能从中获得一些真知灼见呢！
+它在底层使用 Matplotlib 作为绘图引擎，使用默认的样式来设置图形，这使得它们看起来比我所能做的更漂亮。让我们来看一下数据集，我会给大家展示一种看待不同特征时的直观感受。也许我们能从中获得一些真知灼见呢！
 
 #### 没有鸡蛋就不能做煎蛋卷：数据集。
 
 下面的分析中，我使用的是 [120 年的奥运会](https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results#athlete_events.csv) 数据集，你可以通过点击这个链接来下载或阅读更多的相关信息。
 
-我是从 Kaggle 上免费下载该数据集的，Kaggle 是一个很棒的网站，如果你需要获取一个数据集来尝试一些新的 [机器学习算法](http://www.dataden.tech/data-science/machine-learning-introduction-applying-logistic-regression-to-a-kaggle-dataset-with-tensorflow/)，来温习一些框架的 API，或者只是想要玩一下。
+我是从 Kaggle 上免费下载该数据集的。如果你需要获取一个数据集来尝试一些新的 [机器学习算法](http://www.dataden.tech/data-science/machine-learning-introduction-applying-logistic-regression-to-a-kaggle-dataset-with-tensorflow/)，来温习一些框架的 API，或者只是想要玩一下，Kaggle 是一个很棒的网站。
 
-我将只使用的 CSV 文件中的 ‘athlete_events’，其中记录了自 1900 年以来的每一场奥运会比赛的运动员信息，即每个参赛运动员出生地所属的国家，以及他们是否获奖等等。
+我将只使用 CSV 文件中的 ‘athlete_events’，其中记录了自 1900 年以来的每一场奥运会比赛的运动员信息，即每个参赛运动员出生地所属的国家，以及他们是否获奖等等。
 
 有趣的是， 文件中的 _medals_ 列中有 85% 的数据是空的，所以平均只有 15% 的奥运会运动员获得了奖牌。 此外，还有一些运动员获得了不止一枚奖牌，这表明，在为数不多的奥运级别运动员中，只有更少的人能获得奖牌。所以他们的功劳是更大的！
 
@@ -31,7 +31,7 @@
 
 首先，在深入了解该数据集之前，可以先通过一些直观数据来了解数据集的模式。比如数据集中有多少数据丢失了？数据有多少列？我想先从这些问题开始分析。
 
-我在分析过程中使用 Jupyter 笔记进行， 我会为我运行的每段代码添加注释，以便你可以继续学习。
+我在分析过程中使用 Jupyter 笔记进行，我会为我运行的每段代码添加注释，以便你可以继续学习。
 
 该 Jupyter 笔记可以在 [这个仓库中](https://github.com/StrikingLoo/Olympics-analysis-notebook/) 找到, 你可以打开来看一下，并可以从任何一个地方开始。
 
@@ -78,7 +78,7 @@ Medal: 85.3262072323% --Notice how 15% of athletes did not get any medals
 
 在序列数据上使用 Pandas 的计数方法可以得到非空行的数量。而通过查看 shape 属性，可以查看到总的行数，不管它们是否为空。
 
-之后就是减法和除法的问题了。我们可以看到只有四栏的属性不完全完整：身高、体重、年龄和奖牌。
+之后就是减法和除法的问题了。我们可以看到只有四栏的属性不完整：身高、体重、年龄和奖牌。
 
 奖牌属性的不完整是因为一个运动员可能实际上并没有赢得奖牌，所以可以预料到这条数据是不完全的。然而，在体重、身高和年龄的方面，不完整的数据让我们面临着相当大的挑战。
 
@@ -189,14 +189,14 @@ m_year_count = df[df.Sex=='M'].groupby('Year').agg('count').Name
 
 如果你有任何有趣的想法可以用来分析体重和身高的数据，请告知我！我对每项运动的分组不够深入，所以可能会有一些错误的解释。以上就是今天的内容，我希望你们觉得这个分析很有趣，或者至少你们学到了一些 Pandas 或者数据分析的相关知识。
 
-我把笔记放在了 [GitHub](https://github.com/StrikingLoo/Olympics-analysis-notebook/) 上，这样你就可以复制这个项目，可以做你自己的分析，然后提出一个拉取请求。
+我把笔记放在了 [GitHub](https://github.com/StrikingLoo/Olympics-analysis-notebook/) 上，这样你就可以复制这个项目，可以做你自己的分析，然后提出一个 pull request （拉取请求）。
 
 当然你可以得到所有的功劳！希望你们在图形显示和视觉分析上做的比我要好。
 
-[_第2部分关于运动的深入理解_](https://github.com/xitu/gold-miner/blob/master/TODO1/extracting-insights-from-a-kaggle-dataset-using-pythons-pandas-and-seaborn.md) _在这里可以找到。_
+[**第2部分关于运动的深入理解**](https://github.com/xitu/gold-miner/blob/master/TODO1/extracting-insights-from-a-kaggle-dataset-using-pythons-pandas-and-seaborn.md) **在这里可以找到。**
 
-_可以 [在 medium 上关注我](http://www.medium.com/@strikingloo)_ _以获取更多软件开发和数据科学相关的教程、提示和技巧。
-_如果你真的喜欢这篇文章，和朋友分享吧！__
+**可以 [在 medium 上关注我](http://www.medium.com/@strikingloo)** **以获取更多软件开发和数据科学相关的教程、提示和技巧。
+**如果你真的喜欢这篇文章，和朋友分享吧！****
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
