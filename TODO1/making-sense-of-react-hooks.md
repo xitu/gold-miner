@@ -2,163 +2,163 @@
 > * 原文作者：[Dan Abramov](https://medium.com/@dan_abramov?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/making-sense-of-react-hooks.md](https://github.com/xitu/gold-miner/blob/master/TODO1/making-sense-of-react-hooks.md)
-> * 译者：
+> * 译者：[HaoChuan9421](https://github.com/HaoChuan9421/)
 > * 校对者：
 
-# Making Sense of React Hooks
+# 理解 React 钩子（Hooks）
 
-This week, [Sophie Alpert](https://mobile.twitter.com/sophiebits) and I presented the “Hooks” proposal at React Conf, followed by a deep dive from [Ryan Florence](https://mobile.twitter.com/ryanflorence):
+本周，[Sophie Alpert](https://mobile.twitter.com/sophiebits) 和我在 React Conf 上提到了“钩子”提案，紧接着是 [Ryan Florence](https://mobile.twitter.com/ryanflorence) 的深入介绍：
 
 * YouTube 视频链接：https://youtu.be/dpw9EHDh2bM
 
-I strongly recommend to watch this opening keynote to see the problems we’re trying to solve with the Hooks proposal. However, even an hour is a big time investment, so I decided to share a few thoughts on Hooks below.
+我强烈建议你看一下这个开场主题演讲，以了解我们尝试用钩子提案去解决的问题。不过，即便是一个小时也是时间上的巨大投入，所以我决定在下面分享一些关于钩子的想法。
 
-> **Note: Hooks are an experimental proposal to React. You don’t need to learn about them right now. Also, note that this post contains my personal opinions and doesn’t necessarily reflect the positions of the React team.**
+> **注意: 钩子是 React 的实验性提案。你无需现在就去学习它们。另请注意，这篇文章包含我的个人意见，并不一定反映 React 团队的立场。**
 
-### Why Hooks?
+### 为什么需要钩子？
 
-We know that components and top-down data flow help us organize a large UI into small, independent, reusable pieces. **However, we often can’t break complex components down any further because the logic is stateful and can’t be extracted to a function or another component.** Sometimes that’s what people mean when they say React doesn’t let them “separate concerns.”
+我们知道组件和自上而下的数据流可以帮助我们将庞大的 UI 组织成小型，独立，可复用的块。**但是，我们经常无法进一步拆分复杂的组件，因为逻辑是有状态的，而且无法抽象为函数或其他组件。** 这也就是人们有时说 React 不允许他们“分离关注点”的意思。
 
-These cases are very common and include animations, form handling, connecting to external data sources, and many other things we want to do from our components. When we try to solve these use cases with components alone, we usually end up with:
+这些情况很常见，包括动画、表单处理、连接到外部数据源以及其他很多我们希望在组件中做的事情。当我们尝试单独使用组件来解决这些问题时，通常我们会这样收场：
 
-*   **Huge components** that are hard to refactor and test.
-*   **Duplicated logic** between different components and lifecycle methods.
-*   **Complex patterns** like render props and higher-order components.
+*   **巨大的组件** 难以重构和测试。
+*   **重复的逻辑** 在不同的组件和生命周期函数之间。
+*   **复杂的模式** 像 render 属性和高阶组件。
 
-We think Hooks are our best shot at solving all of these problems. **Hooks let us organize the logic _inside_ a component into reusable isolated units:**
+我们认为钩子是我们解决所有这些问题的最佳实践。**钩子让我们将组件 _内部_ 的逻辑组织成可复用的隔离单元：**
 
 ![](https://i.loli.net/2018/10/31/5bd98faa90275.png)
 
-**Hooks apply the React philosophy (explicit data flow and composition) _inside_ a component, rather than just _between_ the components.** That’s why I feel that Hooks are a natural fit for the React component model.
+**钩子在组件 _内部_ 应用 React 的哲学（显式数据流和组合），而不仅仅是组件 _之间_ 。** 这就是为什么我觉得组件天生就适用于 React 的组件模型。
 
-Unlike patterns like render props or higher-order components, Hooks don’t introduce unnecessary nesting into your component tree. They also don’t suffer from the [drawbacks of mixins](https://reactjs.org/blog/2016/07/13/mixins-considered-harmful.html#why-mixins-are-broken).
+不同于 render 属性或高阶组件等的模式，钩子不会在组件树中引入不必要的嵌套。它们也没有遭受 [mixins 的弊端](https://reactjs.org/blog/2016/07/13/mixins-considered-harmful.html#why-mixins-are-broken)。
 
-Even if you have a visceral first reaction (as I did at first!), I encourage you to give this proposal a fair try and play with it. I think you’ll like it.
+即使你内心一开始是抵触的（就像我刚开始一样！），我还是强烈建议你直接对这个提案进行一次尝试和探索。我想你会喜欢它的。
 
-### Do Hooks Make React Bloated?
+### 钩子会使 React 变得臃肿吗？
 
-Before we look at Hooks in detail, you might be worried that we’re just adding more concepts to React with Hooks. That’s a fair criticism. I think that while there is definitely going to be a short-term cognitive cost to learning them, the end result will be the opposite.
+在我们详细介绍钩子之前，你可能会担心我们通过钩子只是向 React 添加了更多概念。这是一个公正的批评。我认为虽然学习它们肯定会有短期的认知成本，不过最终的结果却恰恰相反。
 
-**If the React community embraces the Hooks proposal, it will _reduce_ the number of concepts you need to juggle when writing React applications.** Hooks let you always use functions instead of having to constantly switch between functions, classes, higher-order components, and render props.
+**如果 React 社区接受钩子的提案，这将减少编写 React 应用时需要考虑的概念数量。** 钩子可以使得你始终使用函数，而不必在函数，类，高阶组件和 reader 属性之间不断切换。
 
-In terms of the implementation size, the Hooks support increases React only by ~1.5kB (min+gzip). While this isn’t much, it’s also likely that **adopting Hooks could _reduce_ your bundle size** because code using Hooks tends to minify better than equivalent code using classes. This example below is a bit extreme but it effectively demonstrates why (click to see the whole thread):
+就部署大小而言，钩子的支持仅仅增加了 React ~1.5kB（min + gzip）的大小。虽然不多，但由于使用钩子的代码倾向于比使用类的等效代码小，所以使用钩子也可能会减少你的包大小。下面这个例子有点极端，但它有效地展示了我这么说的原因（点击查看整个帖子）：
 
 ![](https://i.loli.net/2018/10/31/5bd98fde2d939.png)
 
-**The Hooks proposal doesn’t include any breaking changes.** Your existing code would keep on working even if you adopted Hooks in the newly written components. In fact, that’s exactly what we recommend — don’t do any big rewrites! It’s a good idea to wait with adopting Hooks in any critical code. Still, we’d appreciate if you could experiment with the 16.7 alpha to provide us with feedback on the [Hooks proposal](https://github.com/reactjs/rfcs/pull/68) and [report any bugs](https://github.com/facebook/react/issues/new).
+**钩子提案不包括任何重大变化。**即使你在新编写的组件中采用了钩子，你现有的代码仍将照常运行。事实上，这正是我们推荐的 —— 不做大的重写！在任何关键代码中采用钩子都是一个好主意。与此同时，如果你能够尝试 16.7 alpha 版并在 [Hooks proposal](https://github.com/reactjs/rfcs/pull/68) 和 [report any bugs](https://github.com/facebook/react/issues/new) 向在我们提供反馈，我们将不胜感激。
 
-### What Are Hooks, Exactly?
+### 究竟什么是钩子？
 
-To understand Hooks, we need to take a step back and think about code reuse.
+要了解钩子，我们需要退一步来思考代码复用。
 
-Today, there are a lot of ways to reuse logic in React apps. We can write simple functions and call them to calculate something. We can also write components (which themselves could be functions or classes). Components are more powerful, but they have to render some UI. This makes them inconvenient for sharing non-visual logic. This is how we end up with complex patterns like render props and higher-order components. **Wouldn’t React be simpler if there was just _one_ common way to reuse code instead of so many?**
+今天，有很多方式可以在 React 应用中复用逻辑。我们可以编写一个简单的函数并调用它们来进行某些计算。我们也可以编写组件（它们本身可以是函数或类）。组件更强大，但它们必须渲染一些 UI。这使得它们不便于共享非可视逻辑。这就是我们最终不得不用到 render 属性和高阶组件等复杂模式的原因。**如果只用 _一种_ 简单的方式来复用代码而不是那么多，那么React会不会简单点？**
 
-Functions seem to be a perfect mechanism for code reuse. Moving logic between functions takes the least amount of effort. However, functions can’t have local React state inside them. You can’t extract behavior like “watch window size and update the state” or “animate a value over time” from a class component without restructuring your code or introducing an abstraction like Observables. Both approaches hurt the simplicity that we like about React.
+函数似乎是代码复用的一种完美机制。在函数之间组织逻辑仅需要很少的精力。但是，函数内无法包含 React 的本地状态。你也无法做到在不重构代码或不引入像 Observables 这类抽象的情况下，从类组件中抽象出“监视窗口大小并更新状态”或“随时间变化改变动画值”的行为。这两种方法都破坏了我们喜欢的 React 的简单性。
 
-Hooks solve exactly that problem. Hooks let you use React features (like state) from a function — by doing a single function call. React provides a few built-in Hooks exposing the “building blocks” of React: state, lifecycle, and context.
+钩子正好解决了这个问题。 钩子允许你通过调用单个函数以在函数中使用 React 的特性（如状态）。React 提供了一些内置的钩子，它们暴露了 React 的“构建块”：状态，生命周期和上下文。
 
-**Since Hooks are regular JavaScript functions, you can combine built-in Hooks provided by React into your own “custom Hooks”.** This lets you turn complex problems into one-liners and share them across your application or with the React community:
+**由于钩子是普通的 JavaScript 函数，因此你可以将 React 提供的内置钩子组合到你自己的“自定义钩子”中。**这使你可以将复杂问题转换为一行代码，并在整个应用或 React 社区中分享它们：
 
 ![](https://i.loli.net/2018/10/31/5bd990044fa52.png)
 
-Note that custom Hooks are not technically a React feature. The possibility of writing your own Hooks naturally follows from the way Hooks are designed.
+注意，自定义钩子从技术上讲并不是 React 的特性。编写自定义钩子的可行性源自于钩子的设计方式。
 
-### Show Me Some Code!
+### 来点代码！
 
-Let’s say we want to subscribe a component to the current window width (for example, to display different content on a narrow viewport).
+假设我们想要将订阅一个自适应当前窗口宽度的组件（例如，在有限是的视图上显示不同的内容）。
 
-There are several ways you can write this kind of code today. They involve writing a class, setting up some lifecycle methods, or maybe even extracting a render prop or a higher-order component if you want to reuse it between components. But I think nothing quite beats this:
+现在你有几种方法可以编写这种代码。它们涉及编写类，设置一些生命周期函数，如果要在组件之间复用，甚至可以需要提取 render 属性或更高一层的组件。但我认为没有比这更好的了：
 
 ![](https://cdn-images-1.medium.com/max/800/1*j8U3U0nZvmEKJrSOK7iH5g.png)
 
-**If you read this code, it does exactly what it says.** We _use the window width_ in our component, and React re-renders our component if it changes.  And that’s the goal of Hooks — to make components truly declarative even if they contain state and side effects.
+**如果你看这段代码，它恰恰就是我所表达的。** 我们在我们的组件中 _使用窗口的宽度_ ，而 React 将会在它变化是重新渲染。这就是钩子的目的 —— 使组件做到真正的声明式，即使它们包含状态和附带效应。
 
-Let’s look at how we could implement this custom Hook. We’d _use the React local state_ to keep the current window width, and _use a side effect_ to set that state when the window resizes:
+让我们来看看如何实现这个自定义钩子。我们 _使用 React 的本地状态_ 来保存当前窗口宽度，并在窗口调整大小时 _使用一个附带效应_ 来设置该状态：
 
 ![](https://cdn-images-1.medium.com/max/800/1*9QhpwSGTKM-c8sc4UNcxqA.png)
 
-As you can see above, the built-in React Hooks like _useState_ and _useEffect_ serve as the basic building blocks. We can use them from our components directly, or we can combine them into custom Hooks like _useWindowWidth_. Using custom Hooks feels as idiomatic as using React’s built-in API.
+就像你从上面看到的那样，像 _useState_ 和 _useEffect_ 这样作为基本构建块的 React 内置钩子。我们可以直接在组件中使用它们，或者我们可以将它们整合到自定义钩子中，就像 _useWindowWidth_ 那样。使用自定义钩子感觉就像使用 React 的内置 API 一样得心应手。
 
-You can learn more about built-in Hooks from [this overview](https://reactjs.org/docs/hooks-overview.html).
+你可以从[此概述](https://reactjs.org/docs/hooks-overview.html)中了解有关内置钩子的更多信息。
 
-**Hooks are fully encapsulated — each time you call a Hook, it gets isolated local state within the currently executing component.** This doesn’t matter for this particular example (window width is the same for all components!), but it’s what makes Hooks so powerful. They’re not a way to share _state_ — but a way to share _stateful logic_. We don’t want to break the top-down data flow!
+**钩子是完全封装的 —— 你每次调用钩子函数, 它都会得到和当前执行组件关联的本地状态。** 对这个特殊的例子来说并不重要（所有组件的窗口宽度是相同的！），但这正是钩子如此强大的原因。它们不仅是一种共享 _状态_ 的方式，更是共享 _状态化逻辑_ 的方式。我们不想破坏自上而下的数据流！
 
-Each Hook may contain some local state and side effects. You can pass data between multiple Hooks just like you normally do between functions. They can take arguments and return values because they _are_ JavaScript functions.
+每个钩子都可以包含一些本地状态和附带效应。你可以在不同钩子之间传值，就像在通常在函数之间做的那样。钩子可以接受参数并返回值，因为它们 _就是_ JavaScript 函数。
 
-Here’s an example of a React animation library experimenting with Hooks:
+这是一个实验钩子的 React 动画库的例子：
 
 ![](https://i.loli.net/2018/10/31/5bd9904fc600f.png)
 
 [Edit on CodeSandbox](https://codesandbox.io/s/ppxnl191zx?from-embed)
 
-Note how in the demo source code, the staggering animation is implemented by passing values through several custom Hooks in the same render function.
+注意，在演示代码中，通过向同一渲染函数中的几个自定义钩子传值来实现交错动画。
 
 ![](https://cdn-images-1.medium.com/max/800/1*NJ2G1R_32k95WiPel5JHpg.png)
 
-(If you want to learn more about this example, check out [this tutorial](https://medium.com/@drcmda/hooks-in-react-spring-a-tutorial-c6c436ad7ee4).)
+（如果你想了解更多关于这个例子的信息, 查看[此介绍](https://medium.com/@drcmda/hooks-in-react-spring-a-tutorial-c6c436ad7ee4)。）
 
-The ability to pass data between Hooks make them a great fit for expressing animations, data subscriptions, form management, and other stateful abstractions. **Unlike render props or higher-order components, Hooks don’t create a “false hierarchy” in your render tree.** They’re more like a flat list of “memory cells” attached to a component. No extra layers.
+在钩子之间传递数据的能力使得它们非常适合实现动画、数据订阅、表单管理和其他状态化的抽象。**不同于 render 属性和高阶组件，钩子不会在渲染树中创建“错误层次结构”。**它们更像是一个连接到组件的“存储单元”的平面列表。没有额外的层。
 
-### So What About Classes?
+### 类又该何去何从？
 
-Custom Hooks are, in our opinion, the most appealing part of the Hooks proposal. But in order for custom Hooks to work, React needs to provide functions with a way to declare state and side effects. And that’s exactly what built-in Hooks like _useState_ and _useEffect_ let us do. You can learn about them in the [documentation](https://reactjs.org/docs/hooks-overview.html).
+在我们看来，自定义钩子是钩子提案中最吸引人的部分。但是为了使自定义钩子工作，React 需要为函数提供一种声明状态和附带效应的办法。而这也正是像 _useState_ 和 _useEffect_ 这样的内置钩子允许我们做的事情。你可以在[文档](https://reactjs.org/docs/hooks-overview.html)中了解它们。
 
-It turns out that these built-in Hooks aren’t _only_ useful for creating custom Hooks. They are _also_ sufficient for defining components in general, as they provide us with all the necessary features like state. This is why we’d like Hooks to become the primary way to define React components in the future.
+事实证明，这些内置钩子 _不仅_ 可用于创建自定义钩子。它们 _也_ 足以用来定义组件，因为它们为我们提供了所有必要的功能，如状态。这就是为什么我们希望钩子成为未来定义 React 组件的主要原因。
 
-We have no plans to deprecate classes. At Facebook we have tens of thousands of class components and, like you, we have no intention of rewriting them. But if the React community embraces Hooks, it doesn’t make sense to have two different recommended ways to write components. Hooks can cover all use cases for classes while providing more flexibility in extracting, testing, and reusing code. This is why Hooks represent our vision for the future of React.
+我们没有打算弃用类。在 Facebook，我们有成千上万的类组件，而且和你一样，我们无意重写它们。但是如果 React 社区接受了钩子，那么同时推荐两种不同的方式来编写组件是没有意义的。钩子可以涵盖类的所有应用场景，同时在抽象，测试和复用代码方面提供更大的灵活性。这就是为什么钩子代表了我们对 React 未来的愿景。
 
-### But Aren’t Hooks Magic?
+### 不过钩子是不是有点“魔术化”？
 
-You may have been surprised by the [Rules of Hooks](https://reactjs.org/docs/hooks-rules.html).
+你可能会对[钩子的规则](https://reactjs.org/docs/hooks-rules.html)感到惊讶。
 
-**While it’s unusual that Hooks have to be called at the top level, you probably wouldn’t want to define state in a condition even if you could.** For example, you can’t define state conditionally in a class either, and over four years of talking to React users I haven’t heard a complaint about this.
+**虽然必须在顶层调用钩子是不寻常的，但即使可以，你可能也不希望在某种情况下定义状态。**例如，你无法在类中有条件地定义状态，而且在过去四年和 React 用户的交流中，我也没有听到过对此的抱怨。
 
-This design is crucial to enabling custom Hooks without introducing extra syntactic noise or other pitfalls. We recognize the initial unfamiliarity but we think this tradeoff is worth the features it enables. If you disagree, I encourage you to play with it in practice and see if that changes how you feel.
+这种设计在不引入额外的语法噪音或其他坑的情况下，对自定义钩子至关重要。我们知道（用户可能）一开始不熟悉，但我们认为这种取舍对未来是值得的。如果你不同意，我鼓励你动手去实践一下，看看这是否会改变你的感受。
 
-We’ve been using Hooks in production for a month to see whether engineers get confused by these rules. We found that in practice people get used to them in a matter of hours. Personally, I admit that these rules “felt wrong” to me at first too, but I quickly got over it. This experience mirrored my first impression with React. (Did you like React immediately? I didn’t until my second try.)
+我们已经在生产环境下使用钩子一个月了，以观察工程师们是否对这些规则感到困惑。我们发现实际情况是人们会在几个小时内习惯它们。就个人而言，我承认这些规则起初让我“感觉不对”，但我很快就克服了它。这次经历像极了我对 React 的第一印象。（你一开始就喜欢 React 吗？我可不是！直到第二次尝试。）
 
-Note that there is no “magic” in the implementation of Hooks either. As Jamie [points out](https://mobile.twitter.com/jamiebuilds/status/1055538414538223616), it looks pretty similar to this:
+记住，在钩子的实现中也没有什么“魔术”。就像 Jamie [指出](https://mobile.twitter.com/jamiebuilds/status/1055538414538223616)的那样，它像极了这个：
 
 ![](https://cdn-images-1.medium.com/max/800/1*xNeUnpwUvFMuQu9Zr6A3AA.jpeg)
 
-We keep a list of Hooks per component, and move to the next item in the list whenever a Hook is used. Thanks to the Rules of Hooks, their order is the same on every render, so we can provide the component with correct state for each call. Don’t forget that React doesn’t need to do anything special to know which component is rendering — React _is_ what’s calling your component.
+我们为每个组件保留了一个钩子列表，并在每次钩子被调用时移动到列表中的下一项。得意于钩子的规则，它们的顺序在每次渲染中都是相同的，因此我们可以为每次调用提供正确的组件状态。要知道 React 不需要做任何特殊处理就能知道哪个组件正在渲染 —— 调用你的组件的 _正是_ React。
 
-Perhaps you’re wondering where React keeps the state for Hooks. The answer is it’s kept in the exact same place where React keeps state for classes. React has an internal update queue which is the source of truth for any state, no matter how you define your components.
+也许你在想 React 在哪里保存了钩子的状态。答案就是，它保存在和 React 为类保持状态相同位置。无论你如何定义组件，React 都有一个内部的更新队列，它是任何状态的真实来源。
 
-Hooks don’t rely on Proxies or getters which can be common in modern JavaScript libraries. So arguably Hooks are _less_ magic than some popular approaches to similar problems. I’d say Hooks are about as much magic as calling _array.push_ and _array.pop_ (for which the call order matters too!)
+钩子不依赖于现代 JavaScript 库中常见的代理或 getter。按理说，钩子比一些解决类似问题的流行方法 _更_ 平常。我想说钩子就像调用 array.push 和 array.pop 一样普通（一样的取决于调用顺序！）。
 
-The design of Hooks isn’t tied to React. In fact, during the first few days after the proposal was published, different people came up with experimental implementations of the same Hooks API for Vue, Web Components, and even plain JavaScript functions.
+钩子的设计与 React 无关。事实上，在提案发布后的前几天，不同的人提出了针对 Vue，Web Components 甚至原生 JavaScript 函数的相同钩子 API 的实验性实现。
 
-Finally, if you’re a functional programming purist and feel uneasy about React relying on mutable state as an implementation detail, you might find it satisfactory that handling Hooks could be implemented in a pure way using algebraic effects (if JavaScript supported them). And of course React has always relied on mutable state internally — precisely so that _you_ don’t have to.
+最后，如果你是一个纯函数编程主义者并且对 React 依赖可突变状态的实现细节感到不安，你会欣喜的发现完成钩子可以以纯粹的代数方式实现（如果JavaScript支持它们）。当然，React 一直依赖于内部的可突变状态 —— 正因如此 _你_ 不必那样做。
 
-Whether you were concerned from a more pragmatic or a dogmatic perspective (if you were at all), I hope that at least one of these justifications makes sense. Most importantly, I think Hooks let us build components with less effort, and create better user experiences. And that’s why I’m personally excited about Hooks.
+无论你是从一个更务实还是教条的角度来考虑（或者你两者兼有），我希望至少有一个立场是有意义的。最重要的是，我认为钩子让我们用更少的精力去构建组件，并提供更好的用户体验。这就正是我个人对钩子感到兴奋的地方。
 
-### Spread Love, Not Hype
+### 传播正能量，而不是炒作
 
-If Hooks still don’t seem compelling to you, I can totally understand it. I still hope that you’ll give them a try on a small pet project and see if that changes your opinion. Whether you haven’t experienced the problems Hooks solve, or if you have a different solution in mind, please let us know in the RFC!
+如果钩子对你还没有什么吸引力，我完全可以理解。我仍然希望你能在一个很小的项目上尝试一下，看看是否会改变你的看法。无论你是遇到需要钩子来解决的问题，还是说你有不同的解决方案，欢迎通过 RFC 告诉我们！
 
-If I _did_ get you excited, or at least a little bit curious, that’s great! I have just one favor to ask. There are many folks who are learning React right now, and they will get confused if we hurry with writing tutorials and declaring best practices for a feature that has barely been out for a few days. There are some things about Hooks that aren’t quite clear yet even to us on the React team.
+如果我 _让_ 你感到兴奋，或者说有那么点好奇，那就太好了！我只有一个问题要问。现在有很多人正在学习 React，如果我们匆匆忙忙的编写教程并把仅仅才出现几天的功能宣称为最佳实践，他们会感到困惑。即使对我们在 React 团队的人来说，关于钩子的一些事情还不是很清楚。
 
-**If you create any content about Hooks while they’re unstable, please mention prominently that they are an experimental proposal, and include a link to the** [**official documentation**](https://reactjs.org/hooks)**.** We’ll keep it up to date with any changes to the proposal. We’ve also spent quite a bit of effort to make it comprehensive, so many questions are already answered there.
+**如果你在钩子不稳定期间开发了任何有关钩子的内容，请突出提示它们是一个实验性提案，并包含指向** [**官方文档**](https://reactjs.org/hooks) **的链接。**我们会在提案发生任何改变时及时更新它。我们也花了相当多的精力来完善它，所以很多问题已在那里得到了解决。
 
-When you talk to other people who aren’t as excited as you are, please be courteous. If you see a misconception, you can share extra information if the other person is open to it. But any change is scary, and as a community we should try our best to help people instead of alienating them. And if I (or anyone else on the React team) fail to follow this advice, please call us out!
+当你和其他不像你那么兴奋的人交流时，请保持礼貌。如果你发现别人对此有误解，如果对方乐意的话你可以和他分享更多信息。但任何改变都是可怕的，作为一个社区，我们应该尽力帮助人们，而不是疏远他们。如果我（或 React 团队中的任何其他人）未遵循此建议，请致电我们！
 
-### Next Steps
+### 更进一步
 
-Check out the documentation for Hooks proposal to learn more about it:
+查看钩子提案的文档以了解更多信息：
 
-*   [Introducing Hooks](https://reactjs.org/docs/hooks-intro.html) (motivation)
-*   [Hooks at a Glance](https://reactjs.org/docs/hooks-overview.html) (walkthrough)
-*   [Writing Custom Hooks](https://reactjs.org/docs/hooks-custom.html)
-*   [Hooks FAQ](https://reactjs.org/docs/hooks-faq.html) (it’s likely your question is answered there!)
+*   [钩子介绍](https://reactjs.org/docs/hooks-intro.html) （动力）
+*   [钩子小瞥](https://reactjs.org/docs/hooks-overview.html) （通览）
+*   [编写自定义钩子](https://reactjs.org/docs/hooks-custom.html)
+*   [钩子常见问题](https://reactjs.org/docs/hooks-faq.html) （也许你问题的答案就在其中！）
 
-Hooks are still in an early stage, but we’re excited to hear feedback from all of you. You can direct it to the [RFC](https://github.com/reactjs/rfcs/pull/68), but we’ll also do our best to keep up with the conversations on Twitter.
+钩子仍然处于早期阶段，但我们很乐意能听到你们的反馈。你可以直接去 [RFC](https://github.com/reactjs/rfcs/pull/68)，与此同时，我们也会尽量及时回复 Twitter 上的对话。
 
-Please let me know if something isn’t clear, and I’d be happy to chat about your concerns. Thank you for reading!
+如果有不清楚的地方，请告诉我，我很乐意为你答疑解惑。感谢你的阅读！
 
 ![](https://cdn-images-1.medium.com/max/800/1*_XMyHqfFSyw03BiNjBoV3Q.jpeg)
 
-Vitra — Portemanteau Hang it all
+<p align="center">Vitra — Portemanteau Hang it all</p>
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
