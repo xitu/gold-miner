@@ -2,51 +2,51 @@
 > * 原文作者：[Rudi Yardley](https://medium.com/@ryardley?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-hooks-not-magic-just-arrays.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-hooks-not-magic-just-arrays.md)
-> * 译者：
+> * 译者：[Xekin-FE](https://github.com/Xekin-FE)
 > * 校对者：
 
-# React hooks: not magic, just arrays
+# 揭开 React Hooks 的神秘面纱:数组解构融成魔法
 
-## Untangling the rules around the proposal using diagrams
+## 用图表一步步解析关于此提案的执行规则
 
-I am a huge fan of the new hooks API. However, it has some [odd constraints](https://reactjs.org/docs/hooks-rules.html) about how you need to use it. Here I present a model for how to think about using the new API for those that are struggling to understand the reasons for those rules.
+我是一个对 React Hooks 这个 API 非常感兴趣的忠实粉丝。关于如何使用它，这里有一些[奇怪的规则](https://reactjs.org/docs/hooks-rules.html)。为了那些纠结于如何使用这些规则的人，在这里我会以模型图的方式来向你们展示新 API。
 
-### WARNING: Hooks are experimental
+### 警告: Hooks 这项提案仍在测试阶段
 
-_This article is about the hooks API which currently is an experimental proposal. You can find documentation for the stable React API_ [_here_](https://reactjs.org)_._
+_这篇文章主要讲述的是关于 React hooks 这项新 API，此时这个提案仍处于 alpha 测试版本。你可以在 [React 官方文档](https://reactjs.org)中找到稳定的 React API_
 
 * * *
 
 ![](https://cdn-images-1.medium.com/max/2000/1*TharLROVH7aX2MotovHOBQ.jpeg)
 
-Photo by rawpixel.com from Pexels
+图片来自网站 Pexels(rawpixel.com)
 
-### Unpacking how hooks work
+### 拆解 Hooks 的工作方式
 
-I have heard some people struggling with the ‘magic’ around the new hooks API draft proposal so I thought I would attempt to unpack how the syntax proposal works at least on a superficial level.
+“就像魔法一样无法理解”，这是我从一些人口中听到的对于这项新提案的评价，所以我愿意尝试通过拆解这项提案的代码语法去了解它是如何在代码中工作的，至少也要了解它最表层的执行逻辑。
 
-#### The rules of hooks
+#### Hooks 的规则
 
-There are two main usage rules the React core team stipulates you need to follow to use hooks which they outline in the [hooks proposal documentation](https://reactjs.org/docs/hooks-rules.html).
+React 的核心团队规定我们在使用 hooks 时必须遵从他们的 [hooks 提案文档](https://reactjs.org/docs/hooks-rules.html)，在文档中主要有两条使用规定。
 
-*   **Don’t call Hooks inside loops, conditions, or nested functions**
-*   **Only Call Hooks from React Functions**
+*   **不要在循环、条件语句或者嵌套函数中调用 Hooks**
+*   **只能在 React 函数中调用 Hooks**
 
-The latter I think is self evident. To attach behaviour to a functional component you need to be able to associate that behaviour with the component somehow.
+对于后者我觉得是不言而喻的。要将自己的业务代码嵌入到功能组件当中你自然需要以通过某种方式将你的代码和组件联系起来。
 
-The former however I think can be confusing as it might seem unnatural to program using an API like this and that is what I want to explore today.
+至于前者我认为也是令人感到困惑的一点，因为与正常编程时调用 API 的方式相比，它可能看起来并不寻常，这也是我今天正想探索的地方。
 
-#### State management in hooks is all about arrays
+#### 在 hooks 中，状态管理都与数组有关
 
-To get a clearer mental model, let’s have a look at what a simple implementation of the hooks API might look like.
+为了让我们更直白地理解这个模型，让我们直接实现一个简单的 hooks API 看看它可能长什么样子。
 
-**_Please note this is speculation and only one possible way of implementing the API to show how you might want to think about it. This is not necessarily how the API works internally. Also this is only a proposal. This all may change in the future._**
+**_请注意这只是推测，并且只是可能的 API 实现途径，主要是为了展示我们应该通过怎样的思维去理解它。当然这并不一定就是实际 API 的内部工作方式。而且目前这只是一个提案，在未来一切都可能发生改变_**
 
-#### How could we implement \`useState()\` ?
+#### 我们可以怎样实现 \`useState()\` ?
 
-Let’s unpack an example here to demonstrate how an implementation of the state hook might work.
+让我们通过剖析一个例子来演示一下状态钩子的实现可能会怎么运行吧。
 
-First let’s start with a component:
+首先让我们从一个组件开始:
 
 ```
 function RenderFunctionComponent() {
@@ -59,59 +59,59 @@ function RenderFunctionComponent() {
 }
 ```
 
-The idea behind the hooks API is that you can use a setter function returned as the second array item from the hook function and that setter will control state which is managed by the hook.
+实现 hooks API 的基本思想是把一个 setter 方法作为钩子函数返回的第二个数组项，之后通过这个 setter 方法来控制钩子管理的状态。
 
-### So what’s React going to do with this?
+### 所以让我们来看看 React 将利用它来做些什么?
 
-Let’s annotate how this might work internally within React. The following would work within the execution context for rendering a particular component. That means that the data stored here lives one level outside of the component being rendered. This state is not shared with other components but it is maintained in a scope that is accessible to subsequent rendering of the specific component.
+让我先解释一下在 React 的内部中它可能会怎么工作。下面图表将为我们展示在渲染一个特定组件时其内部执行上下文的执行过程。这也意味着存储在这里的数据位于被渲染的组件外面的一层。虽然这里的状态没有与其他组件共享，但是它会继续保留在一定范围之内以供后续渲染对应的特殊组件时使用。
 
-#### 1) Initialisation
+#### 1) 初始化
 
-Create two empty arrays: `setters` and `state`
+声明两个空数组：`setters` 和 `state`
 
-Set a cursor to 0
+设置一个 cursor 参数为 0
 
 ![](https://cdn-images-1.medium.com/max/1600/1*LAZDuAEm7nbcx0vWVKJJ2w.png)
 
-Initialisation: Two empty arrays, Cursor is 0
+初始化：两个空数组，cursor 参数为 0
 
 * * *
 
-#### 2) First render
+#### 2) 初次渲染
 
-Run the component function for the first time.
+第一次执行组件方法
 
-Each `useState()` call, when first run, pushes a setter function (bound to a cursor position) onto the `setters` array and then pushes some state on to the `state` array.
+当调用 `useState()` 时，第一次会将一个 setter 方法（就是以 cousor 为下标时的参数）添加到 `setters` 数组当中然后再把一些状态添加到 `state` 数组当中。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*8TpWnrL-Jqh7PymLWKXbWg.png)
 
-First render: Items written to the arrays as cursor increments.
+初次渲染： cursor ++，变量分别被写入数组当中
 
 * * *
 
-#### 3) Subsequent render
+#### 3) 后续渲染
 
-Each subsequent render the cursor is reset and those values are just read from each array.
+后续的每一次渲染过程当中 cursor 都将被重置，而渲染的值都只是从每一次的数组当中取出来的。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*qtwvPWj-K3PkLQ6SzE2u8w.png)
 
-Subsequent render: Items read from the arrays as cursor increments
+后续渲染：从数组（以 cursor 为下标）中读取了每一项变量的值
 
 * * *
 
-#### 4) Event handling
+#### 4) 事件代理
 
-Each setter has a reference to it’s cursor position so by triggering the call to any `setter` it will change the state value at that position in the state array.
+因为每一个 setter 方法都和其 cursor 绑定以至于通过触发来调用任何 `setter` 时它都将改变对应索引位置的状态数组的状态值。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*3L8YJnn5eV5ev1FuN6rKSQ.png)
 
-Setters “remember” their index and set memory according to it.
+Setters “记住”了他们的索引并根据它来写入内存
 
 * * *
 
-#### And the naive implementation
+#### 以及底层的实现
 
-Here is a code example to demonstrate that implementation:
+这里用一段代码示例来展示：
 
 ```
 let state = [];
@@ -125,7 +125,7 @@ function createSetter(cursor) {
   };
 }
 
-// This is the pseudocode for the useState helper
+// 这是我仿写的 useState 帮助类
 export function useState(initVal) {
   if (firstRun) {
     state.push(initVal);
@@ -140,7 +140,7 @@ export function useState(initVal) {
   return [value, setter];
 }
 
-// Our component code that uses hooks
+// 我们在组件代码中使用上面的钩子
 function RenderFunctionComponent() {
   const [firstName, setFirstName] = useState("Rudi"); // cursor: 0
   const [lastName, setLastName] = useState("Yardley"); // cursor: 1
@@ -153,7 +153,7 @@ function RenderFunctionComponent() {
   );
 }
 
-// This is sort of simulating Reacts rendering cycle
+// 这里模拟了 React 的渲染周期
 function MyComponent() {
   cursor = 0; // resetting the cursor
   return <RenderFunctionComponent />; // render
@@ -170,11 +170,11 @@ console.log(state); // Subsequent-render: ['Rudi', 'Yardley']
 console.log(state); // After-click: ['Fred', 'Yardley']
 ```
 
-### Why order is important
+### 为什么这样的规则不可避免？
 
-Now what happens if we change the order of the hooks for a render cycle based on some external factor or even component state?
+现在如果我们根据一些外部因素或者甚至是组件状态去把 hooks 命令放在渲染周期里执行会怎样呢？
 
-Let’s do the thing the React team say you should not do:
+让我们尝试写一些 React 团队规定限制之外的逻辑:
 
 ```
 let firstRender = true;
@@ -195,47 +195,47 @@ function RenderFunctionComponent() {
 }
 ```
 
-This breaks the rules!
+这破坏了规则!
 
-Here we have a `useState` call in a conditional. Let’s see the havoc this creates on the system.
+在这里我们在条件语句中调用了一个 `useState`。一起来看这样会对整个系统造成多大的影响。
 
-#### Bad Component First Render
+#### 被“破坏”的组件第一次渲染
 
 ![](https://cdn-images-1.medium.com/max/1600/1*C4IA_Y7v6eoptZTBspRszQ.png)
 
-Rendering an extra ‘bad’ hook that will be gone next render
+渲染一个外部的“坏”钩，之后它将会在下次渲染时消失不见。
 
-At this point our instance vars `firstName` and `lastName` contain the correct data but let’s have a look what happens on the second render:
+在此时我们在实例中声明的 `firstName` 和 `lastName` 暂时还带着正确的数据，但接下来让我们看看在第二次渲染时会发生什么：
 
-#### Bad Component Second Render
+#### 被“破坏”的组件第二次渲染
 
 ![](https://cdn-images-1.medium.com/max/1600/1*aK7jIm6oOeHJqgWnNXt8Ig.png)
 
-By removing the hook between renders we get an error.
+在渲染时移除了钩子之后，我们发现了一个错误。
 
-Now both `firstName` and `lastName` are set to `“Rudi”` as our state storage becomes inconsistent. This is clearly erroneous and doesn’t work but it gives us an idea of why the rules for hooks are laid out the way they are.
+由于在此时我们的状态存储了错位的数据使 `firstName` 和 `lastName` 被同时赋值为 `“Rudi”`。这很明显是不正确的而且它也没有任何作用，但是这也给我们说明了为什么 hooks 具有这样的规则限制。
 
-> The React team are stipulating the usage rules because not following them will lead to inconsistent data
+> React 团队正在制定使用规范因为不遵守它们将会使数据错位。
 
-#### Think about hooks manipulating a set of arrays and you wont break the rules
+#### 思考一下如何在不违反规则的情况下使用 hooks 操作一组数组
 
-So now it should be clear as to why you cannot call `use` hooks within conditionals or loops. Because we are dealing with a cursor pointing to a set of arrays, if you change the order of the calls within render, the cursor will not match up to the data and your use calls will not point to the correct data or handlers.
+所以现在我们应该非常清楚为什么我们不能在循环或者条件语句中调用 `use` 钩子。因为事实上我们的代码处理是基于数组解构赋值的，如果你更改了渲染时的调用顺序，那么就会使我们的数据或者事件处理器在解构后没有匹配正确。
 
-So the trick is to think about hooks managing it’s business as a set of arrays that need a consistent cursor. If you do this everything should work.
+所以技巧是考虑让 hooks 用一致的 cursor 来管理数组业务，如果你这么做就可以让它正常的工作。
 
-### Conclusion
+### 结论
 
-Hopefully I have laid out a clearer mental model for how to think about what is going on under the hood with the new hooks API. Remember the true value here is being able to group concerns together so being careful about order and using the hooks API will have a high payoff.
+希望我是建立了一个比较清晰的模型向你们展示了这个新 hooks API 在底层是如何进行工作的。记住这里真正的价值是如何把我们所好奇的点一步步解析出来所以你只要多注意 hooks API 的规则，这样我们就能更好的利用它。
 
-Hooks is an effective plugin API for React Components. There is a reason why people are excited about this and if you think about this kind of model where state exists as a set of arrays then you should not find yourselves breaking the rules around their usage.
+在 React 组件中 Hooks 是一个高效率的 API。这也是人们对它趋之若鹜的原因，如果你还没想到答案，那么只要把数组存储为状态的形式，就会发现你并没有破坏他们的规则。
 
-I hope to have a look at the `useEffects` method in the future and try to compare that to React’s component lifecycle methods.
+我希望将来可以持续再了解一下 `useEffects` 方法并且尝试对比一下它和 React 的那些生命周期方法有什么区别。
 
 * * *
 
-_This article is a living document please reach out to me if you want to contribute or see anything inaccurate here._
+_这篇文章尚有不足之处，如果你有更好的建议或者发现了文章中的错误纰漏请及时跟我联系。_
 
-_You can follow Rudi Yardley on Twitter as_ [_@rudiyardley_](https://twitter.com/rudiyardley) _or on Github as_ [_@_ryardley](https://github.com/ryardley)
+_你可以在 Twitter 上关注 Rudi Yardley_[_@rudiyardley_](https://twitter.com/rudiyardley)_或者关注 github_[_@_ryardley](https://github.com/ryardley)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
