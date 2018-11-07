@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/making-sense-of-react-hooks.md](https://github.com/xitu/gold-miner/blob/master/TODO1/making-sense-of-react-hooks.md)
 > * 译者：[HaoChuan9421](https://github.com/HaoChuan9421/)
-> * 校对者：
+> * 校对者：[calpa](https://github.com/calpa)
 
 # 理解 React 钩子（Hooks）
 
@@ -89,7 +89,7 @@
 
 ![](https://i.loli.net/2018/10/31/5bd9904fc600f.png)
 
-[Edit on CodeSandbox](https://codesandbox.io/s/ppxnl191zx?from-embed)
+[在 CodeSandbox 上运行这个例子](https://codesandbox.io/s/ppxnl191zx?from-embed)
 
 注意，在演示代码中，通过向同一渲染函数中的几个自定义钩子传值来实现交错动画。
 
@@ -129,7 +129,7 @@
 
 钩子的设计与 React 无关。事实上，在提案发布后的前几天，不同的人提出了针对 Vue，Web Components 甚至原生 JavaScript 函数的相同钩子 API 的实验性实现。
 
-最后，如果你是一个纯函数编程主义者并且对 React 依赖可突变状态的实现细节感到不安，你会欣喜的发现完成钩子可以以纯粹的代数方式实现（如果JavaScript支持它们）。当然，React 一直依赖于内部的可突变状态 —— 正因如此 _你_ 不必那样做。
+最后，如果你是一个纯函数编程主义者并且对 React 依赖可突变状态的实现细节感到不安，你会欣喜的发现完成钩子可以以纯粹的代数方式实现（如果 JavaScript 支持它们）。当然，React 一直依赖于内部的可突变状态 —— 正因如此 _你_ 不必那样做。
 
 无论你是从一个更务实还是教条的角度来考虑（或者你两者兼有），我希望至少有一个立场是有意义的。最重要的是，我认为钩子让我们用更少的精力去构建组件，并提供更好的用户体验。这就正是我个人对钩子感到兴奋的地方。
 
@@ -137,7 +137,7 @@
 
 如果钩子对你还没有什么吸引力，我完全可以理解。我仍然希望你能在一个很小的项目上尝试一下，看看是否会改变你的看法。无论你是遇到需要钩子来解决的问题，还是说你有不同的解决方案，欢迎通过 RFC 告诉我们！
 
-如果我 _让_ 你感到兴奋，或者说有那么点好奇，那就太好了！我只有一个问题要问。现在有很多人正在学习 React，如果我们匆匆忙忙的编写教程并把仅仅才出现几天的功能宣称为最佳实践，他们会感到困惑。即使对我们在 React 团队的人来说，关于钩子的一些事情还不是很清楚。
+如果我 _让_ 你感到兴奋，或者说有那么点好奇，那就太好了！我只有一个问题要问。现在有很多人正在学习 React，如果我们匆匆忙忙的编写教程，并把仅仅才出现几天的功能宣称为最佳实践，他们会感到困惑。即使对我们在 React 团队的人来说，关于钩子的一些事情还不是很清楚。
 
 **如果你在钩子不稳定期间开发了任何有关钩子的内容，请突出提示它们是一个实验性提案，并包含指向** [**官方文档**](https://reactjs.org/hooks) **的链接。**我们会在提案发生任何改变时及时更新它。我们也花了相当多的精力来完善它，所以很多问题已在那里得到了解决。
 
@@ -147,7 +147,7 @@
 
 查看钩子提案的文档以了解更多信息：
 
-*   [钩子介绍](https://reactjs.org/docs/hooks-intro.html) （动力）
+*   [钩子介绍](https://reactjs.org/docs/hooks-intro.html) （动机）
 *   [钩子小瞥](https://reactjs.org/docs/hooks-overview.html) （通览）
 *   [编写自定义钩子](https://reactjs.org/docs/hooks-custom.html)
 *   [钩子常见问题](https://reactjs.org/docs/hooks-faq.html) （也许你问题的答案就在其中！）
