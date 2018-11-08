@@ -2,67 +2,67 @@
 > * 原文作者：[SARAH DRASNER](https://css-tricks.com/author/sdrasner/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-github-actions.md](https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-github-actions.md)
-> * 译者：
-> * 校对者：
+> * 译者：[子非](https://www.github.com/CoolRice)
+> * 校对者：[Raoul1996](https://github.com/Raoul1996), [calpa](https://github.com/calpa)
 
-# Introducing GitHub Actions
+# GitHub Actions 介绍，了解一下？
 
-It’s a common situation: you create a site and it’s ready to go. It’s all on GitHub. But you’re not _really done_. You need to set up deployment. You need to set up a process that runs your tests for you and you're not manually running commands all the time. Ideally, every time you push to master, everything runs for you: the tests, the deployment... all in one place.
+有一种常见的情况：你创建了一个网站并且已经准备运行了。这一切都在 GitHub 上。但是你还没**真正完成**。你需要准备部署。你需要准备一个处理程序来为你运行测试，你不用总是手动运行命令。理想情况下，每一次你推送到 master 分支，所有东西都会在某个地方为你自动运行：测试，部署……
 
-Previously, there were only few options here that could help with that. You could piece together other services, set them up, and integrate them with GitHub. You could also write post-commit hooks, which also help.
+以前，只有很少的选项可以帮助解决这个问题。你可能需要把其他服务集中，设置，并和 GitHub 整合。你也可以写 post-commit hooks，这也会有帮助。
 
-But now, **enter [GitHub Actions](https://github.com/features/actions).**
+但是现在，**[GitHub Actions](https://github.com/features/actions) 已经到来**。
 
 ![](https://css-tricks.com/wp-content/uploads/2018/10/github-actions.png)
 
-Actions are small bits of code that can be run off of various GitHub events, the most common of which is pushing to master. But it's not necessarily limited to that. They’re all directly integrated with GitHub, meaning you no longer need a middleware service or have to write a solution yourself. And they already have many options for you to choose from. For example, you can publish straight to npm and deploy to a variety of cloud services, (Azure, AWS, Google Cloud, Zeit... you name it) just to name a couple.
+Actions 是一小段代码片段，可以运行很多 GitHub 事件，最普遍的是推送到 master 分支。但它并非仅限于此。它们都已经直接和 GitHub 整合，这意味着你不在需要中间服务或者需要你自己来写方案。并且它们已经有很多选项可供你选择。例如，你可以发布到 NPM 并且部署到各种云服务，举一些例子（Azure，AWS，Google Cloud，Zeit……凡是你说得出的）。
 
-_But actions are more than deploy and publish._ That’s what’s so cool about them. They’re containers all the way down, so you could quite literally do _pretty much anything_ — the possibilities are endless! You could use them to minify and concatenate CSS and JavaScript, send you information when people create issues in your repo, and more... the sky's the limit.
+**但是 actions 并不仅仅只是部署和发布。** 这就是它们酷炫的地方。它们都是容器，毫不夸张地说你可以做**任何事情** —— 有着无尽的可能性！你可以用它们压缩合并 CSS 和 JavaScript，在人们在你的项目仓库里在你的仓库创建 issue 的时候向你发送信息，以及更多……没有任何限制。
 
-You also don’t need to configure/create the containers yourself, either. Actions let you point to someone else’s repo, an existing Dockerfile, or a path, and the action will behave accordingly. This is a whole new can of worms for open source possibilities, and ecosystems.
+你也可以不需要自己来配置或创建容器。Actions 允许你指向别的项目仓库，一个已存在的 Dockerfile，或者路径，操作将相应地运行。对于开源可能性和生态系统而言，这是一种全新的蠕虫病毒。
 
-### Setting up your first action
+### 建立你的第一个 action
 
-There are two ways you can set up an action: through the workflow GUI or by writing and committing the file by hand. We’ll start with the GUI because it’s so easy to understand, then move on to writing it by hand because that offers the most control.
+有两种方法建立 action：通过流程 GUI 或者手动写提交文件。我们将以 GUI 开始，因为它简单易懂，然后学习手写方式，因为它能提供最大化的控制。
 
-First, we’ll sign up for the beta by clicking on the [big blue button here](https://github.com/features/actions?WT.mc_id=actions-csstricks-sdras). It might take a little bit for them to bring you into the beta, so hang tight.
+首先，我们通过[此处蓝色的大按钮](https://github.com/features/actions?WT.mc_id=actions-csstricks-sdras)登录 beta 版。进入 beta 版可能会花费一点点时间，稍等一下。
 
-![A screenshot of the GitHub Actions beta site showing a large blue button to click to join the beta.](https://css-tricks.com/wp-content/uploads/2018/10/github-actions-beta.png)
+![GitHub Actions beta 版站点的截图，其中有一个巨大的蓝色按钮来点击加入 beta 测试。](https://css-tricks.com/wp-content/uploads/2018/10/github-actions-beta.png)
 
-The GitHub Actions beta site.
+GitHub Actions beta 版站点。
 
-Now let’s create a repo. I made a [small demo repo](https://github.com/actions/azure?WT.mc_id=actions-csstricks-sdras) with a tiny Node.js sample site. I can already notice that I have a new tab on my repo, called Actions:
+现在我们来创建一个仓库。我使用一个小的 Node.js 演示站点建了一个[小型演示仓库](https://github.com/actions/azure?WT.mc_id=actions-csstricks-sdras)。我可以发现在我的仓库上已经有一个新选项卡，叫做 Actions：
 
-![A screenshot of the sample repo showing the Actions tab in the menu.](https://css-tricks.com/wp-content/uploads/2018/10/action1.jpg)
+![在演示仓库的截图中显示菜单中的 Actions 选项卡](https://css-tricks.com/wp-content/uploads/2018/10/action1.jpg)
 
-If I click on the Actions tab, this screen shows:
+如果我点击 Actions 选项卡，屏幕会显示：
 
-![screen that shows ](https://css-tricks.com/wp-content/uploads/2018/10/Screen-Shot-2018-10-16-at-4.21.15-PM.png)
+![屏幕显示](https://css-tricks.com/wp-content/uploads/2018/10/Screen-Shot-2018-10-16-at-4.21.15-PM.png)
 
-I click "Create a New Workflow," and then I’m shown the screen below. This tells me a few things. First, I’m creating a hidden folder called `.github`, and within it, I’m creating a file called `main.workflow`. If you were to create a workflow from scratch (which we’ll get into), you’d need to do the same.
+我点击“Create a New Workflow”，然后我能看到下面的界面。这告诉我一些东西。首先，我创建了一个叫 `.github` 的隐藏文件夹，在它里面，我创建了一个叫 `main.workflow` 的隐藏文件。如果你要从 scratch（我们将详细讲解）创建工作流，你需要执行相同的操作。
 
-![new workflow](https://css-tricks.com/wp-content/uploads/2018/10/connect0.jpg)
+![新工作流](https://css-tricks.com/wp-content/uploads/2018/10/connect0.jpg)
 
-Now, we see in this GUI that we’re kicking off a new workflow. If we draw a line from this to our first action, a sidebar comes up with a ton of options.
+现在，我们能看到在这个 GUI 中我们启动了一个新的工作流。如果从我们的第一个 action 画一条线，会出现一个拥有大量选项的边侧栏。
 
-![show all of the action options in the sidebar](https://css-tricks.com/wp-content/uploads/2018/10/action-options.jpg)
+![显示边侧栏中所有 action 选项](https://css-tricks.com/wp-content/uploads/2018/10/action-options.jpg)
 
-There are actions in here for npm, Filters, Google Cloud, Azure, Zeit, AWS, Docker Tags, Docker Registry, and Heroku. As mentioned earlier, you’re not limited to these options — it's capable of so much more!
+这里有很多关于 npm、Filters、Google Cloud、Azure、Zeit、AWS、Docker Tags、Docker Registry 和 Heroku 的 action。如前所述，你没有任何关于这些选项的限制 —— 它能够做的非常多！
 
-I work for Azure, so I’ll use that as an example, but each action provides you with the same options, which we'll walk through together.
+我在 Azure 工作，所以我将以此为例，但是每一个 action 都提供给你相同选项，我们可以一起使用。
 
-![shows options for azure in the sidebar](https://css-tricks.com/wp-content/uploads/2018/10/options-azure.jpg)
+![在边侧栏显示 Azure 选项](https://css-tricks.com/wp-content/uploads/2018/10/options-azure.jpg)
 
-At the top where you see the heading "GitHub Action for Azure," there’s a "View source" link. That will take you directly to the [repo that's used](https://github.com/actions/azure?WT.mc_id=actions-csstricks-sdras) to run this action. This is really nice because you can also submit a pull request to improve any of these, and have the flexibility to change what action you’re using if you’d like, with the "uses" option in the Actions panel.
+在顶部，你可以看到“GitHub Action for Azure”标题，其中包含“View source”链接。这将直接带你到用于运行此操作的[仓库](https://github.com/actions/azure?WT.mc_id=actions-csstricks-sdras)。这非常好，因为你还可以提交拉取请求以改进其中任何一项，并且可以根据 Actions 面板中的“uses”选项灵活地更改你正在使用的 action。
 
-Here's a rundown of the options we're provided:
+以下是我们提供的选项的简要说明：
 
-*   **Label:** This is the name of the Action, as you’d assume. This name is referenced by the Workflow in the `resolves` array — that is what's creating the connection between them. This piece is abstracted away for you in the GUI, but you'll see in the next section that, if you're working in code, you'll need to keep the references the same to have the chaining work.
-*   **Runs** allows you to override the entry point. This is great because if you’d like to run something like `git` in a container, you can!
-*   **Args:** This is what you’d expect — it allows you to pass arguments to the container.
-*   **secrets** and **env**: These are both really important because this is how you’ll use passwords and protect data without committing them directly to the repo. If you’re using something that needs one token to deploy, you’d probably use a secret here to pass that in.
+*   **Label**：这是 Action 的名称，正如你所假设的那样。此名称由 resolves 数组中的工作流引用 —— 这就是在它们之间创建连接的原因。这篇文章是在 GUI 中为你抽象出来的，但你会在下一节中看到，如果你在代码中工作，你需要保持引用相同才能进行链接工作。
+*   **Runs**：允许你覆盖入口点。这很好，因为如果你想 git 在容器中运行，可以做到！
+*   **Args**：这是你所期望的 —— 它允许你将参数传递给容器。
+*   **secrets** 和 **env**：这些都是非常重要的，因为这是你将如何使用密码，保护数据，而无需直接提交他们到仓库。如果你正在使用需要令牌来部署的东西，你可能会在这里使用 secret 来传递它。
 
-[Many of these actions have readmes](https://github.com/actions/?WT.mc_id=actions-csstricks-sdras) that tell you what you need. The setup for "secrets" and "env" usually looks something like this:
+[其中许多操作都有自述文件](https://github.com/actions/?WT.mc_id=actions-csstricks-sdras)，可以告诉您需要什么。“secrets”和“env”的设置通常如下所示：
 
 ```
 action "deploy" {
@@ -73,35 +73,35 @@ action "deploy" {
 }
 ```
 
-You can also string multiple actions together in this GUI. It's very easy to make things work one action at a time, or in parallel. This means you can have nicely running async code simply by chaining things together in the interface.
+您还可以在 GUI 中将多个 action 串联起来。很容易让 action 顺序执行或并行执行。这意味着只需在界面中将东西链接在一起就可以很好地运行异步代码。
 
-### Writing an action in code
+### 用代码写 action
 
-So, what if none of the actions shown here are quite what we need? Luckily, writing actions is really pretty fun! I wrote an action to deploy a Node.js web app to Azure because that will let me deploy any time I push to the repo's master branch. This was super fun because now I can reuse it for the rest of my web apps. Happy Sarah!
+如果这里显示的并没有我们需要的怎么办？幸运的是写 action 其实非常有趣！我写过一个 action 来部署 Node.js 的 Web 应用到 Azure，因为它允许我在每次推送到仓库的主分支时随时部署。这个超级有趣，因为我现在可以复用它到我的其它 Web 应用。
 
-#### Create the app services account
+#### 创建应用服务账户
 
-If you’re using other services, this part will change, but you do need to create an existing service in whatever you’re using in order to deploy there.
+如果你要使用其它服务，这部分会发生变化，但是你需要在你要在你使用的地方创建一个已存在的服务来部署。
 
-First you'll need to get your [free Azure account](https://azure.microsoft.com/en-us/free/?WT.mc_id=actions-csstricks-sdras). I like using [the Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest&WT.mc_id=actions-csstricks-sdras), so if you don’t already have that installed, you’d run:
+首先你需要获取你的[免费 Azure 账户](https://azure.microsoft.com/en-us/free/?WT.mc_id=actions-csstricks-sdras)。我喜欢用 [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest&WT.mc_id=actions-csstricks-sdras)，如果你没有安装过，你可以运行：
 
 ```
 brew update && brew install azure-cli
 ```
 
-Then, we’ll log in to Azure by running:
+然后，我们运行下面代码来登录：
 
 ```
 az login
 ```
 
-Now, we'll create a [Service Principle](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli?view=azure-cli-latest&WT.mc_id=actions-csstricks-sdras) by running:
+现在，我们会创建 [Service Principle](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli?view=azure-cli-latest&WT.mc_id=actions-csstricks-sdras)，通过运行：
 
 ```
 az ad sp create-for-rbac --name ServicePrincipalName --password PASSWORD
 ```
 
-It will pass us this bit of output, that we'll use in creating our action:
+它会输出如下内容，会在创建我们的 action 时用到：
 
 ```
 {
@@ -113,9 +113,9 @@ It will pass us this bit of output, that we'll use in creating our action:
 }
 ```
 
-#### What's in an action?
+#### action 里面有什么？
 
-Here is a base example of a workflow and an action so that you can see the bones of what it’s made of:
+这里有一个基本的流程示例和一个 action，你可以看到它的架构：
 
 ```
 workflow "Name of Workflow" {
@@ -131,13 +131,13 @@ action "deploy" {
 }
 ```
 
-We can see that we kick off the workflow, and specify that we want it to run **on push** (`on = "push"`). There are many other options you can use as well, [the full list is here](https://developer.github.com/actions/creating-workflows/workflow-configuration-options/?WT.mc_id=actions-csstricks-sdras#events-supported-in-workflow-files).
+可以看到我们启动了流程，并明确我们想它在 **on push**（`on = "push"`）运行。还有很多其它你可以用的选项，[这里是完整的清单列表](https://developer.github.com/actions/creating-workflows/workflow-configuration-options/?WT.mc_id=actions-csstricks-sdras#events-supported-in-workflow-files)。
 
-The **resolves** line beneath it `resolves = ["deploy"]` is an array of the actions that will be chained following the workflow. This doesn't specify the order, but rather, is a full list of everything. You can see that we called the action following "deploy" — these strings need to match, that's how they are referencing one another.
+下方的 **resolves** 行 `resolves = ["deploy"]` 是一个 action 数组，它会串联随后的工作流。不用指定顺序，只是一个完全列表。你可以看到我们调用“deploy”后面的 action —— 只需要匹配这些字符串，这就是它们之间如何引用的。
 
-Next, we'll look at that **action** block. The first **uses** line is really interesting: right out of the gate, you can use any of the predefined actions we talked about earlier ([here's a list of all of them](https://github.com/actions/?WT.mc_id=actions-csstricks-sdras)). But you can also use another person's repo, or even files hosted on the Docker site. For example, if we wanted to execute git inside a container, [we would use this one](https://hub.docker.com/r/alpine/git/~/dockerfile/). I could do so with: `uses = "docker://alpine/git:latest"`. (Shout out to [Matt Colyer](https://twitter.com/mcolyer) for pointing me in the right direction for the URL.)
+下面，我们看一看 **action** 部分。第一行 **uses** 十分有趣：立刻你可以使用我们之前讨论的任何预定义 action（[这是完全清单](https://github.com/actions/?WT.mc_id=actions-csstricks-sdras)）。但你也可以使用其它人的仓库，甚至是托管在 Docker 站点的文件。例如，如果我们想在容器中执行 git，[让我们使用这个](https://hub.docker.com/r/alpine/git/~/dockerfile/)。我可以这样做 `uses = "docker://alpine/git:latest"`。（感谢 [Matt Colyer](https://twitter.com/mcolyer) 为我指出 URL 的正确方法）
 
-We may need some secrets or environment variables defined here and we would use them like this:
+我们可能需要在这里定义一些机密的配置或环境变量，并且这样使用它们：
 
 ```
 action "Deploy Webapp" {
@@ -150,11 +150,11 @@ action "Deploy Webapp" {
 }
 ```
 
-### Creating a custom action
+### 创建一个自定义 action
 
-What we're going to do with our custom action is take the commands we usually [run to deploy a web app to Azure](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-get-started-nodejs?WT.mc_id=actions-csstricks-sdras), and write them in such a way that we can just pass in a few values, so that the action executes it all for us. The files look more complicated than they are- really we're taking that [first base Azure action](https://github.com/actions/azure?WT.mc_id=actions-csstricks-sdras) you saw in the GUI and building on top of it.
+自定义 action 会采用我们[运行部署 Web App 到 Azure](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-get-started-nodejs?WT.mc_id=actions-csstricks-sdras) 经常用的命令，并把它们写成以只传几个值的方式，这样 action 就会为我们全部执行。文件看起来要比你在 GUI 上创建的[第一个基础 Azure action](https://github.com/actions/azure?WT.mc_id=actions-csstricks-sdras) 更复杂并且是建立在它之上的。
 
-In entrypoint.sh:
+在 entrypoint.sh：
 
 ```
 #!/bin/sh
@@ -182,13 +182,13 @@ git remote add azure https://${DEPLOYUSER}:${DEPLOYPASS}@${APPID}.scm.azurewebsi
 git push azure master
 ```
 
-A couple of interesting things to note about this file:
+这个文件有几点有趣的东西要注意：
 
-*   `set -e` in a shell script will make sure that if anything blows up the rest of the file doesn't keep evaluating.
-*   The lines following "Getting username/password" look a little tricky — really what they're doing is extracting the username and password from [Azure's publishing profiles](https://docs.microsoft.com/en-us/cli/azure/webapp/deployment?view=azure-cli-latest&WT.mc_id=actions-csstricks-sdras#az-webapp-deployment-list-publishing-profiles). We can then use it for the following line of code where we add the remote.
-*   You might also note that in those lines we passed in `-o tsv`, this is something we did to [format the code](https://docs.microsoft.com/en-us/cli/azure/format-output-azure-cli?view=azure-cli-latest&WT.mc_id=actions-csstricks-sdras) so we could pass it directly into an environment variable, as tsv strips out excess headers, etc.
+*   shell 脚本中的 `set -e` 确保如果有任何事情发生异常，文件其余部分则不会运行。
+*   随后的“Getting username/password”行看起来有点棘手 —— 实际上他们做的是从 [Azure 的发布文档 ](https://docs.microsoft.com/en-us/cli/azure/webapp/deployment?view=azure-cli-latest&WT.mc_id=actions-csstricks-sdras#az-webapp-deployment-list-publishing-profiles)中抽取用户名和密码。我们可以在随后要使用 remote add 的行中使用它。
+*   你也许会注意到有些行我们传入了 `-o tsv`，这是[格式化代码](https://docs.microsoft.com/en-us/cli/azure/format-output-azure-cli?view=azure-cli-latest&WT.mc_id=actions-csstricks-sdras)，所以我们可以把它直接传进环境变量，如 tsv 脚本剔除多余的头部信息等等。
 
-Now we can work on our `main.workflow` file!
+现在我们开始着手 `main.workflow` 文件！
 
 ```
 workflow "New workflow" {
@@ -207,31 +207,31 @@ action "Deploy to Azure" {
 }
 ```
 
-The workflow piece should look familiar to you — it's kicking off on push and resolves to the action, called "Deploy to Azure."
+这段流程代码对你来说应该很熟悉 —— 它在 on push 时启动并且执行叫“Deploy to Azure”的 action。
 
-[`uses` is pointing to within the directory](https://developer.github.com/actions/creating-workflows/workflow-configuration-options/#using-a-dockerfile-image-in-an-action), which is where we housed the other file. We need to add a secret, so we can store our password for the app. We called this service pass, and we'll configure this by going here and adding it, in settings:
+[`uses` 指向内部的目录](https://developer.github.com/actions/creating-workflows/workflow-configuration-options/#using-a-dockerfile-image-in-an-action)，在这个目录我们存放其他文件。我们需要添加一个秘钥，来让我们在 App 里存放密码。我们把这个叫服务密码，并且我们会在设置里添加配置它：
 
-![adding a secret in settings](https://css-tricks.com/wp-content/uploads/2018/10/Screen-Shot-2018-10-16-at-10.20.35-PM.png)
+![在设置中添加秘钥](https://css-tricks.com/wp-content/uploads/2018/10/Screen-Shot-2018-10-16-at-10.20.35-PM.png)
 
-Finally, we have all of the environment variables we'll need to run the commands. We got all of these from the earlier section where we [created our App Services Account](#article-header-id-2). The `tenant` from earlier becomes `TENANT_ID`, `name` becomes the `SERVICE_PRINCIPAL`, and the `APPID` is actually whatever you'd like to name it :)
+最终，我们有了需要运行命令的所有环境变量。我们可以从之前[创建 App 服务账户](#article-header-id-2)获得它们。先前的 `tenant` 变成了 `TENANT_ID`，`name` 变成了 `SERVICE_PRINCIPAL`，并且 `APPID` 由你来命名 :)
 
-You can use this action too! All of the code is [open source at this repo](https://github.com/sdras/example-azure-node/). Just bear in mind that since we created the `main.workflow` manually, you will have to also edit the env variables manually within the main.workflow file — once you stop using GUI, it doesn't work the same way anymore.
+现在你也可以使用这个 action 工具！所有的代码在[这个仓库中开源](https://github.com/sdras/example-azure-node/)。只要记住由于我们手动创建 `main.workflow`，你将必须同时手动编辑 main.workflow 文件里的环境变量 —— 一旦你停止使用 GUI，它的工作方式将和之前不再一样。
 
-Here you can see everything deploying nicely, turning green, and we have our wonderful "Hello World" app that redeploys whenever we push to master 🎉
+这里你可以看到项目部署的非常好并且状态良好，每当推送到 master 时我们的 “Hello World” App 都可以重新部署啦 🎉
 
-![successful workflow showing green](https://css-tricks.com/wp-content/uploads/2018/10/Screen-Shot-2018-10-16-at-10.55.35-PM.png)
+![工作流运行成功](https://css-tricks.com/wp-content/uploads/2018/10/Screen-Shot-2018-10-16-at-10.55.35-PM.png)
 
-![Hello Work app screenshot](https://css-tricks.com/wp-content/uploads/2018/10/Screen-Shot-2018-10-16-at-10.56.03-PM.png)
+![Hello Word App 的截图](https://css-tricks.com/wp-content/uploads/2018/10/Screen-Shot-2018-10-16-at-10.56.03-PM.png)
 
-### Game changing
+### 改变游戏规则
 
-GitHub actions aren't only about websites, though you can see how handy they are for them. It's a whole new way of thinking about how we deal with infrastructure, events, and even hosting. Consider Docker in this model.
+GitHub Actions 并不仅仅只是关于网站，尽管你可以看到它们对它们有多么方便。这是一种全新的思考方式，关于我们怎样处理基础设施，事件甚至托管的方式。在这个模型中需要考虑 Docker。
 
-Normally when you create a Dockerfile, you would have to write the Dockerfile, use Docker to build the image, and then push the image up somewhere so that it’s hosted for other people to download. In this paradigm, you can point it at a git repo with an existing Docker file in it, or something that's hosted on Docker directly.
+通常，当你创建 Dockerfile 时，你必须编写 Dockerfile，使用 Docker 创建镜像，然后将映像推送到某处，以便托管供其他人下载。在这个范例中，你可以将它指向一个包含现有 Docker 文件的 git 仓库，或者直接托管在 Docker 上的东西。
 
-You also don't need to host the image anywhere as GitHub will build it for you on the fly. This keeps everything within the GitHub ecosystem, which is huge for open source, and allows for forking and sharing so much more readily. You can also put the Dockerfile directly in your action which means you don’t have to maintain a separate repo for those Dockerfiles.
+你也不需要在任何地方托管镜像，因为 GitHub 会为你即时构建。这使得 GitHub 生态系统中的所有内容都保持开放，这对于开源来说是巨大的，并且可以更容易地 fork 和共享。你还可以将 Dockerfile 直接放在你的操作中，这意味着你不必为这些 Dockerfiles 维护单独的仓库。
 
-All in all, it's pretty exciting. Partially because of the flexibility: on the one hand you can choose to have a lot of abstraction and create the workflow you need with a GUI and existing action, and on the other you can write the code yourself, building and fine-tuning anything you want within a container, and even chain multiple reusable custom actions together. All in the same place you're hosting your code.
+总而言之，这非常令人兴奋。部分原因在于灵活性：一方面，你可以选择使用大量抽象并使用 GUI 和现有操作创建所需的工作流，另一方面，你可以在容器内自己编写代码，构建和微调任何想要的内容，甚至将多个可重用的自定义 action 链接在一起。全部在一个地方托管你的代码。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
