@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/extracting-insights-from-a-kaggle-dataset-using-pythons-pandas-and-seaborn.md](https://github.com/xitu/gold-miner/blob/master/TODO1/extracting-insights-from-a-kaggle-dataset-using-pythons-pandas-and-seaborn.md)
 > * 译者：[haiyang-tju](https://github.com/haiyang-tju)
-> * 校对者：
+> * 校对者：[rocheers](https://github.com/rocheers)
 
 # 使用 Python 的 Pandas 和 Seaborn 框架从 Kaggle 数据集中提取信息
 
@@ -11,11 +11,11 @@
 
 好奇心和直觉是数据科学家最强大的两个工具。第三个可能就是 Pandas 了。
 
-在我的 [前一篇文章](https://github.com/xitu/gold-miner/blob/master/TODO1/exploratory-statistical-data-analysis-with-a-kaggle-dataset-using-pandas.md) 中，我展示了如何了解一个数据集的完整性，并绘制一些变量，以及查看随时间变化的趋势和倾向。
+我在 [上一篇文章](https://github.com/xitu/gold-miner/blob/master/TODO1/exploratory-statistical-data-analysis-with-a-kaggle-dataset-using-pandas.md) 中，展示了如何了解一个数据集的完整性，并绘制一些变量，以及查看随时间变化的趋势和倾向。
 
-为此，我在 Jupyter 笔记本上使用了 [Python 的 Pandas 框架](https://towardsdatascience.com/exploratory-data-analysis-with-pandas-and-jupyter-notebooks-36008090d813) 进行数据分析和处理，并使用Seaborn 框架进行可视化。
+为此，我在 Jupyter Notebook 上使用了 [Python 的 Pandas 框架](https://towardsdatascience.com/exploratory-data-analysis-with-pandas-and-jupyter-notebooks-36008090d813) 进行数据分析和处理，并使用Seaborn 框架进行可视化。
 
-在前一篇文章中，和本文一样，我们使用了 [Kaggle 上 120 年奥运会数据集](https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results#athlete_events.csv)，研究了女性运动员随时间推进的参与情况、运动员的体重和身高分布以及以及其它一些变量分析，但没有使用每一位运动员参与运动项目的数据。
+和本文一样，前一篇文章中我们使用了 [Kaggle 上 120 年奥运会数据集](https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results#athlete_events.csv)，研究了女性运动员随时间推进的参与情况、运动员的体重和身高分布以及其它一些变量的分析，但没有使用到每一位运动员参与运动项目的数据。
 
 这一次，我们将关注数据集的体育运动栏数据，并获取一些关于它的信息。
 
@@ -25,7 +25,7 @@
 *   哪些运动项目较新，哪些较旧？有没有什么运动项目是由于失去了奥运会的青睐而停止了比赛呢？
 *   有没有在某些运动项目中，总是同样的队伍获胜吗？那最多样化的运动呢，获胜者是不是来自于不同的地区？
 
-与前面一样，我们分析中使用的项目放在 [这个Github项目](https://github.com/StrikingLoo/Olympics-analysis-notebook) 中，你可以对其进行 fork （复制），并添加自己的分析和理解。
+与前面一样，我们分析中使用的项目放在 [这个 Github 项目](https://github.com/StrikingLoo/Olympics-analysis-notebook) 中，你可以对其进行 fork （复制），并添加自己的分析和理解。
 让我们开始吧！
 
 ### 体重与身材分析
@@ -251,8 +251,8 @@ Art Competitions 1948
 我们看到艺术比赛在 1948 年被取消，马球自 1936 年以来就没有在奥运会上出现过，飞行比赛也是如此。如果有人知道飞行比赛到底是什么，请告知我。我可以想到是在飞机上进行，但不知道比赛会是什么样子。也许是飞机飞行比赛？让它们再回到赛场上吧！
 
 今天就到这里，伙计们！我希望你能喜欢这个教程，或许你已经得到了一个新的有趣的想法，可以在你的下次家庭晚餐中聊一聊。
- 和以往一样，你可以随意从该分析中 fork （复制）代码并添加自己的观点。后续工作我正在考虑使用基于运动、体重和身高列的数据来 [训练一个小型的机器学习模型来预测运动员的性别](http://www.dataden.tech/data-science/machine-learning-introduction-applying-logistic-regression-to-a-kaggle-dataset-with-tensorflow/)，告诉我你会用什么模型呢？ 
-如果你觉得本文有什么没能得到正确的解释，或者有一些简单错误，请让我知道，让我们共同学习！
+和以往一样，你可以随意从该分析中 fork （复制）代码并添加自己的观点。后续工作我正在考虑使用基于运动、体重和身高列的数据来 [训练一个小型的机器学习模型来预测运动员的性别](http://www.dataden.tech/data-science/machine-learning-introduction-applying-logistic-regression-to-a-kaggle-dataset-with-tensorflow/)，告诉我你会用什么模型呢？ 
+如果你觉得本文有什么地方表述不正确，或者有一些简单错误，请让我知道，让我们共同学习！
 
 **继续访问网站以获取更多数据分析文章、 Python 技术教程和其它数据相关内容。如果你喜欢这篇文章，请在 twitter 上与你的朋友分享。**
 
