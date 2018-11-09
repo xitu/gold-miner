@@ -40,7 +40,7 @@ React 的核心团队规定我们在使用 hooks 时必须遵从他们的 [hooks
 
 为了让我们更直白地理解这个模型，让我们直接实现一个简单的 hooks API 实例看看它可能长什么样子。
 
-**_请注意这只是推测，并且只是可能的 API 实现方法，主要是为了展示应该通过怎样的思维去理解它。当然这并不一定就是实际 API 的内部工作方式。而且目前这也只是一个提案，在未来一切都可能发生改变_**
+**_请注意这只是推测，并且只是可能的 API 实现方法，主要是为了展示应该通过怎样的思维去理解它。当然这并不一定就是 API 实际的内部工作方式。而且目前这也只是一个提案，在未来一切都可能发生改变_**
 
 #### 我们可以怎样实现 \`useState()\` ?
 
@@ -105,7 +105,7 @@ function RenderFunctionComponent() {
 
 ![](https://cdn-images-1.medium.com/max/1600/1*3L8YJnn5eV5ev1FuN6rKSQ.png)
 
-Setters “记住”了他们的索引并根据它来写入内存
+Setters “记住”了他们的索引并根据它来写入内存。
 
 * * *
 
@@ -125,7 +125,7 @@ function createSetter(cursor) {
   };
 }
 
-// 这是我仿写的 useState 帮助类
+// 这是我仿写的 useState 辅助类
 export function useState(initVal) {
   if (firstRun) {
     state.push(initVal);
@@ -174,7 +174,7 @@ console.log(state); // After-click: ['Fred', 'Yardley']
 
 现在如果我们根据一些外部因素或者甚至是组件状态去把 hooks 命令放在渲染周期里执行会怎样呢？
 
-让我们尝试写一些 React 团队规定限制之外的逻辑:
+让我们尝试写一些 React 团队规定限制之外的逻辑：
 
 ```
 let firstRender = true;
