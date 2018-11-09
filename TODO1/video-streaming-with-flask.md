@@ -68,8 +68,7 @@ def stock_table():
     return Response(generate_stock_table())
 ```
 
-在这个例子中你可以看到 Flask 是如何使用生成器的。某个返回流式响应的路由需要返回一个入参为生成器的 `Response` 对象。Flask 将会负责调用生成器，并把所有部分的结果以块的形式发送给客户端。
-
+在这个例子中你可以看到 Flask 是如何使用生成器的。某个返回流式响应的路由需要返回一个入参为生成器的 `Response` 对象。Flask 将会负责调用生成器，并把所有部分的结果以块的形式发送给客户端。  
 > 译者注：python3 中，访问 `/stock-table` 路由时，如果在 Debug 模式下看到 `AttributeError: 'NoneType' object has no attribute 'app'`，则需要将 Response 的入参用 `stream_with_context()` 预处理。导入该函数：`from flask import stream_with_context`，路由的返回值：`return Response( stream_with_context( generate_stock_table() ) )`。
 
 对于这个特殊的例子，假设 `Stock.query.all()` 返回的是可迭代的数据库查询结果，那么你可以按每次一行的速度生成一个巨大的表，因此无论查询结果中的元素数量有多少，该 Python 进程的内存占用不会因为装配巨大的响应字符串而变得越来越大。
@@ -99,7 +98,6 @@ Content-Type: image/jpeg
 ...
 ```
 
-As you see above, the structure is pretty simple. The main `Content-Type` header is set to `multipart/x-mixed-replace` and a boundary string is defined. Then each part is included, prefixed by two dashes and the part boundary string in their own line. The parts have their own `Content-Type` header, and each part can optionally include a `Content-Length` header with the length in bytes of the part payload, but at least for images browsers are able to deal with the stream without the length.
 如你所见，结构很简单。主要的 `Content-Type` 头部设为 `multipart/x-mixed-replace`，还定义了边界字符串。然后是各个分部，边界字符串前面带有两个横线，占据一行。这部分有自己的 `Content-Type` 头部，每个部分有可选的 `Content-Length` 头部，表明该部分数据的字节数长度，但至少对于图片来说，浏览器不需要长度也能够处理流数据。
 
 ## 构建一个实时视频流服务器
