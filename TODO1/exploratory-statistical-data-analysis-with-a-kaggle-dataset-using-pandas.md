@@ -27,13 +27,13 @@
 
 有趣的是， 文件中的 _medals_ 列中有 85% 的数据是空的，所以平均只有 15% 的奥运会运动员获得了奖牌。 此外，还有一些运动员获得了不止一枚奖牌，这表明，在为数不多的奥运级别运动员中，只有更少的人能获得奖牌。所以他们的功劳是更大的！
 
-#### 开始分析： 数据集是什么样的？
+#### 开始分析：数据集是什么样的？
 
 首先，在深入了解该数据集之前，可以先通过一些直观数据来了解数据集的模式。比如数据集中有多少数据丢失了？数据有多少列？我想先从这些问题开始分析。
 
 我在分析过程中使用 Jupyter 笔记进行，我会为我运行的每段代码添加注释，以便你可以继续学习。
 
-该 Jupyter 笔记可以在 [这个仓库中](https://github.com/StrikingLoo/Olympics-analysis-notebook/) 找到, 你可以打开来看一下，并可以从任何一个地方开始。
+该 Jupyter 笔记可以在 [这个仓库中](https://github.com/StrikingLoo/Olympics-analysis-notebook/) 找到，你可以打开来看一下，并可以从任何一个地方开始。
 
 我首先要做的是使用 Pandas 来加载数据，并检查它们的大小。
 
@@ -175,7 +175,7 @@ m_year_count = df[df.Sex=='M'].groupby('Year').agg('count').Name
 
 ![Female participation in the Olympics over time.](https://cdn-images-1.medium.com/max/800/0*qtjbN64IzHEuj-Kn.png)
 
-随时间推移，女性参与（橙色） 对 男性参与（蓝色）。
+随时间推移，女性参与（橙色）对男性参与（蓝色）。
 
 这一次，我们可以清楚地看到这样一个模式的出现：女性的参与数量实际上正在快速地接近男性的数量！另一件有趣的事情是：看到下面的小点了吗，在右边？我想那就是冬季奥运会！无论如何，对于女性代表来说，这幅图看起来相当乐观，尽管还没有在哪一年中女性的参与者多于男性。
 
@@ -189,7 +189,7 @@ m_year_count = df[df.Sex=='M'].groupby('Year').agg('count').Name
 
 如果你有任何有趣的想法可以用来分析体重和身高的数据，请告知我！我对每项运动的分组不够深入，所以可能会有一些错误的解释。以上就是今天的内容，我希望你们觉得这个分析很有趣，或者至少你们学到了一些 Pandas 或者数据分析的相关知识。
 
-我把笔记放在了 [GitHub](https://github.com/StrikingLoo/Olympics-analysis-notebook/) 上，这样你就可以复制这个项目，可以做你自己的分析，然后提出一个 pull request （拉取请求）。
+我把笔记放在了 [GitHub](https://github.com/StrikingLoo/Olympics-analysis-notebook/) 上，这样你就可以复制这个项目，可以做你自己的分析，然后提出一个 pull request（拉取请求）。
 
 当然你可以得到所有的功劳！希望你们在图形显示和视觉分析上做的比我要好。
 
