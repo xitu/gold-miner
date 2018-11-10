@@ -25,7 +25,7 @@
 *   哪些运动项目较新，哪些较旧？有没有什么运动项目是由于失去了奥运会的青睐而停止了比赛呢？
 *   有没有在某些运动项目中，总是同样的队伍获胜吗？那最多样化的运动呢，获胜者是不是来自于不同的地区？
 
-与前面一样，我们分析中使用的项目放在 [这个 Github 项目](https://github.com/StrikingLoo/Olympics-analysis-notebook) 中，你可以对其进行 fork （复制），并添加自己的分析和理解。
+与前面一样，我们分析中使用的项目放在 [这个 Github 项目](https://github.com/StrikingLoo/Olympics-analysis-notebook) 中，你可以对其进行 fork（复制），并添加自己的分析和理解。
 让我们开始吧！
 
 ### 体重与身材分析
@@ -109,7 +109,7 @@ for sport,weight in plot_data[-5:]:
     print(sport + ': ' + str(weight))
 ```
 
-结果（省略了最重的，因为我们已经在上面看过了）如下:
+结果（省略了最重的，因为我们已经在上面看过了）如下：
 
 ```
 lightest:
@@ -159,7 +159,7 @@ sns.lineplot(data=plot_dict, x='x', y='y')
 
 ![](https://cdn-images-1.medium.com/max/800/1*3NE2GsVnKoVG4cdHuP35uA.png)
 
-奥林匹克运动员的体型（重量 / 高度）分布
+奥林匹克运动员的体型（重量/高度）分布
 
 以下是具有体型最小值和最大值的运动项目：
 
@@ -251,12 +251,12 @@ Art Competitions 1948
 我们看到艺术比赛在 1948 年被取消，马球自 1936 年以来就没有在奥运会上出现过，飞行比赛也是如此。如果有人知道飞行比赛到底是什么，请告知我。我可以想到是在飞机上进行，但不知道比赛会是什么样子。也许是飞机飞行比赛？让它们再回到赛场上吧！
 
 今天就到这里，伙计们！我希望你能喜欢这个教程，或许你已经得到了一个新的有趣的想法，可以在你的下次家庭晚餐中聊一聊。
-和以往一样，你可以随意从该分析中 fork （复制）代码并添加自己的观点。后续工作我正在考虑使用基于运动、体重和身高列的数据来 [训练一个小型的机器学习模型来预测运动员的性别](http://www.dataden.tech/data-science/machine-learning-introduction-applying-logistic-regression-to-a-kaggle-dataset-with-tensorflow/)，告诉我你会用什么模型呢？ 
+和以往一样，你可以随意从该分析中 fork（复制）代码并添加自己的观点。后续工作我正在考虑使用基于运动、体重和身高列的数据来 [训练一个小型的机器学习模型来预测运动员的性别](http://www.dataden.tech/data-science/machine-learning-introduction-applying-logistic-regression-to-a-kaggle-dataset-with-tensorflow/)，告诉我你会用什么模型呢？ 
 如果你觉得本文有什么地方表述不正确，或者有一些简单错误，请让我知道，让我们共同学习！
 
-**继续访问网站以获取更多数据分析文章、 Python 技术教程和其它数据相关内容。如果你喜欢这篇文章，请在 twitter 上与你的朋友分享。**
+**继续访问网站以获取更多数据分析文章、Python 技术教程和其它数据相关内容。如果你喜欢这篇文章，请在 twitter 上与你的朋友分享。**
 
-**可以在 [Twitter](http://twitter.com/strikingloo) 或者  [Medium](http://www.medium.com/@strikingloo) 上关注我获取更多新内容。**
+**可以在 [Twitter](http://twitter.com/strikingloo) 或者 [Medium](http://www.medium.com/@strikingloo) 上关注我获取更多新内容。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
