@@ -1,31 +1,35 @@
-> * 原文地址：[Implement Google Inbox Style Animation on Android](https://proandroiddev.com/implement-google-inbox-style-animation-on-android-18c261baeda6)
-> * 原文作者：[Huan Nguyen](https://proandroiddev.com/@huan.nguyen?source=post_header_lockup)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/implement-google-inbox-style-animation-on-android.md](https://github.com/xitu/gold-miner/blob/master/TODO1/implement-google-inbox-style-animation-on-android.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[Implement Google Inbox Style Animation on Android](https://proandroiddev.com/implement-google-inbox-style-animation-on-android-18c261baeda6)
+> - 原文作者：[Huan Nguyen](https://proandroiddev.com/@huan.nguyen?source=post_header_lockup)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/implement-google-inbox-style-animation-on-android.md](https://github.com/xitu/gold-miner/blob/master/TODO1/implement-google-inbox-style-animation-on-android.md)
+> - 译者：[YueYong](https://github.com/YueYongDev)
+> - 校对者：
 
-# Implement Google Inbox Style Animation on Android
+# 在 Android 上实现 Google Inbox 的样式动画
 
 ![](https://cdn-images-1.medium.com/max/2000/1*aPCvPk2Yoh7C2e4MovuT8Q.jpeg)
 
-As an Android user and developer, I am always attracted to great apps with nice and meaningful animations. To me such apps not only deliver great features to make their users life easier but also show the enthusiasm to bring their user experience to the next level from the team behind them. I often enjoy playing and replaying those animations and then spending hours trying to replicate them myself. One of those apps is Google Inbox which offers a beautiful email open/close animation shown below (in case you’re not familiar with it).
+作为一个 Android 用户和开发人员，我总是被精美的应用程序所吸引，这些应用程序具有漂亮而有意义的动画。对我来说，这样的应用程序不仅拥有了强大的功能，使用户的生活更便捷，同时还表现出他们背后的团队为了将用户体验提升一个层次所投入的精力和热情。我经常享受体验这些动画，然后花费数小时时间去试图复制它们。其中一个应用程序是 Google Inbox ，它提供了一个漂亮的电子邮件打开/关闭动画，如下所示（如果你不熟悉它）。
+
+
 
 ![](https://cdn-images-1.medium.com/max/800/1*KOc31AjVOzoNIutQPYIdow.gif)
 
-In this article, I’m going to take you through my journey of replicating the animation on Android.
+在本文中，我将带您体验在 Android 上复制动画的旅程。
 
-* * *
+------
 
-### Setup
+### 设置
 
-To replicate the animation, I built a simple app with 2 fragments, Email List fragment and Email Details fragment shown below.
+为了复制动画，我构建了一个简单的带有2个 fragment 的应用程序 ，如下所示分别是 Email List fragment 和 Email Details fragment 。
 
 ![](https://cdn-images-1.medium.com/max/800/1*LoYsgZ4-uXPYdgqzXMmRmg.png)
 
-Email List’s InProgress state (left) — Email List’s Success state (middle) — Email Details (right)
+电子邮件列表 InProgress 状态（左） - 电子邮件列表 Success 状态（中） - 电子邮件详细信息（右）
 
-To simulate the email fetching network request, I created a `[ViewModel](https://developer.android.com/reference/android/arch/lifecycle/ViewModel)` for Email List fragment which generates 2 states, `InProgress` which indicates email data is being fetched and `Success` which indicates email data has successfully fetched and ready to be rendered (The network request is simulated to take 2 seconds).
+为了模拟电子邮件获取网络请求，我为 Email List fragment 创建了一个 `[ViewModel]（https://developer.android.com/reference/android/arch/lifecycle/ViewModel）`，它生成了2个状态，`InProgress` 表示正在获取电子邮件，`Success` 表示电子邮件数据已成功获取并准备好呈现（网络请求被模拟为2秒）。
+
+
 
 ```
 sealed class State {
@@ -34,7 +38,7 @@ sealed class State {
 }
 ```
 
-Email List fragment has a method to render those states as follows.
+Email List fragment 有一种方法来呈现这些状态，如下所示。
 
 ```
 private fun render(state: State) {
@@ -52,13 +56,13 @@ private fun render(state: State) {
 }
 ```
 
-Whenever Email List fragment is freshly loaded, email data is fetched and it renders `InProgress` state until email data becomes available (`Success` state). Tapping on any of the email items in the email list would take user to the Email Details fragment and tapping back from Email Details brings user back to the Email List.
+每当 Email List fragment 被新加载时，都会获取电子邮件数据并呈现 `InProgress` 状态，直到电子邮件数据可用（`Success`状态）。点击电子邮件列表中的任何电子邮件项目将使用户进入 Email Details fragment ，并将用户从电子邮件详细信息中带回电子邮件列表。
 
-Now the journey begins…
+现在开始我们的旅程吧...
 
-### First stop — what kind of animation that is?
+### 第一站 - 那是什么样的动画？
 
-One could immediately tell that it is a kind of `[Explode](https://developer.android.com/reference/android/transition/Explode)` transition since the items above and below the tapped item are transitioning away from it. But wait a minute, the Email Details view are transformed and expanded from the tapped email item too. That means there is also a shared element transition. With that said, below is my first attempt.
+有一点是可以立刻确定的就是他是一种 `[Explode]（https://developer.android.com/reference/android/transition/Explode）`过渡动画，因为在被点击的 item 上下的 item 有过度。但是等一下，电子邮件详细信息 view 也会从点击的电子邮件项目进行转换和扩展。这意味着还有一个共享元素转换。结合我说的，下面是我做出的第一次尝试。
 
 ```
 override fun onBindViewHolder(holder: EmailViewHolder, position: Int) {
@@ -100,25 +104,25 @@ override fun onBindViewHolder(holder: EmailViewHolder, position: Int) {
     }
 ```
 
-And here is what I got (Email Details view’s background is purposefully set as blue to clearly demonstrate the transitions)…
+这是我得到的（电子邮件详细信息视图的背景设置为蓝色，以便清楚地演示过渡效果）...
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZuO5DDmtjvb2zY2kTyRxwQ.gif)
 
-Certainly it is not what I want. There are two problems here.
+当然这不是我想要的。这里有两个问题。
 
-1.  The email items do not start to transition at the same time. Items farer from the tapped items start to transition sooner.
-2.  The shared element transition on the tapped email item is not synchronised with the transitions of the other items, i.e., `Email 4` and `Email 6` should always be sticked at the top and bottom edge of the blue rectangle when it is expanded, respectively. But they do not!
+1. 电子邮件项目不会同时开始转换。远离被点击条目的 items 过度的更快。
+2. 被点击的电子邮件项目上的共享元素转换与其他项目的转换不同步，即，当分别展开时，`Email 4` 和`Email 6`应始终粘贴在蓝色矩形的顶部和底部边缘。但他们没有！
 
-So what’s wrong here?
+所以究竟哪里出了问题？
 
-### Second stop: the out-of-the-box Explode transition is not what I want.
+### 第二站：开箱即用的 Explode 效果不是我想要的。
 
-After digging into the `Explode` source code, I found two interesting facts:
+在深入研究 `Explode` 源代码后，我发现了两个有趣的事实：
 
-*   It uses `CircularPropagation` which enforces the rule that views farer from the epicenter will transition sooner than views closers to the epicenter when they disappear from screens. The epicenter of the `Explode` transition was set to be the rectangle covering the tapped email item. This explains why the untapped email item views are not transitioning together as mentioned above.
-*   The distances over which the above and below email items transition are not the distance from the tapped item to the top and bottom of the screen, respectively. In this specific situation, that distance is determined to be the longest among the distances from the centre point of the tapped item to each corner of the screen.
+- 它使用 `CircularPropagation` 来强制执行这样一条规则，即，当它们从屏幕上消失时，离中心远的视图过渡速度会地比离中心近的视图快。`Explode`过渡的中心被设置为覆盖被点击的电子邮件项目的矩形。这解释了为什么未打开的电子邮件项目视图不会如上所述一起转换。
+- 电子邮件条目的上下距离和被点击的条目的上下距离是不一样的。在这种特定情况下，该距离被确定为从被点击项目的中心点到屏幕的每个角落的距离中最长的。
 
-So I decided to write my own `Explode` transition. I name it `SlideExplode` since it’s very similar to a `Slide` transition except having 2 parts moving in 2 opposite directions.
+所以我决定编写自己的 `Explode`过渡。我将它命名为 `SlideExplode` ，因为它与`Slide `  过渡非常相似，只是有2个部分在2个相反的方向上移动。
 
 ```
 import android.animation.Animator
@@ -190,19 +194,19 @@ class SlideExplode : Visibility() {
 }
 ```
 
-Now that I’ve swap `Explode` for `SlideExplode`, let’s try again.
+现在我已经为 `SlideExplode` 交换了 `Explode`，让我们再试一次。
 
 ![](https://cdn-images-1.medium.com/max/800/1*7ddUWQHt5AnSMHbH7rV2LA.gif)
 
-Much better! The above and below items now start transitioning at the same time. Note that since the interpolator was set to `FastOutSlowIn`, `Email 4` and `Email 6` slow down when they are near the top and bottom edges, respectively. That indicates the `SlideExplode` transition works properly.
+这样就好多了！上面和下面的项目现在开始同时转换。请注意，由于插值器设置为 `FastOutSlowIn`，因此当`Email 4`和`Email 6`分别靠近顶部和底部边缘时，它们会减慢速度。这表明 `SlideExplode` 过渡正常。
 
-However, The `Explode` transition and the shared element transition are still not synchronised. We could see they are moving in different patterns which indicates their interpolators might be different. The former transition starts very fast and slow down at the end while the later is slow at first and accelerates after a while.
+但是，`Explode` 转换和共享元素转换仍未同步。我们可以看到他们正在以不同的模式移动，这表明他们的插值器可能不同。前一个过渡开始非常快，最后减速，而后者一开始很慢，一段时间后加速。
 
-But how? I did set the interpolators to be the same in the code!
+但是怎么样？我确实在代码中将插值器设置相同了！
 
-### Stop 3: It’s TransitionSet to blame!
+### 第三站：原来是 TransitionSet 的锅！
 
-I dug into the source code again. This time I found whenever I set interpolator to a `TransitionSet`, it does not distribute the interpolator to its contained transitions. This happens only with the standard `TransitionSet`. Its support version (`android.support.transition.TransitionSet`) works properly. To fix this issue we could either switch to the support version or explicitly pass the interpolator to the contained transitions using the below extension function.
+我再次深入研究源代码。这次我发现每当我将插值器设置为` TransitionSet` 时，它都不会在过渡的时候将插值器分配给它。这仅在标准  `TransitionSet中` 发生。它的支持版本（`android.support.transition.TransitionSet`）正常工作。要解决此问题，我们可以切换到支持版本，或者使用下面的扩展函数将插值器明确地传递给包含的转换。
 
 ```
 fun TransitionSet.setCommonInterpolator(interpolator: Interpolator): TransitionSet {
@@ -214,25 +218,25 @@ fun TransitionSet.setCommonInterpolator(interpolator: Interpolator): TransitionS
 }
 ```
 
-Let’s try again after updating how we set the interpolator.
+让我们在更新插值器的设置后再试一次。
 
 ![](https://cdn-images-1.medium.com/max/800/1*und_Bh9Mf-pJRMnyNCO9lg.gif)
 
-YAYYYY! It looks correct now. But how about the reverse transition?
+YAYYYY！现在看起来很正确。但反向过渡怎么样？
 
 ![](https://cdn-images-1.medium.com/max/800/1*0SnMV9Lw5_KKpFllkdzXmg.gif)
 
-No where close to what I want! The Explode transition seems to work. However the shared element transition doesn’t.
+没有达到我想要的结果！Explode 过渡似乎有效。但是，共享元素过渡不会。
 
-### Stop 4: Postpone Enter Transition
+### 第四站：推迟进入转换
 
-The reason why the reverse transition didn’t work is that it was played too early. For any transition to work, it needs to capture the start and end states (size, position, bound) of the target views, which are the `Email Details` view and `Email 5 item` in this case. If the reverse transition is started before `Email 5 item`’s state is available, it wouldn’t function properly like what we saw.
+反向过渡动画不起作用的原因是它发挥得太早。对于任何过渡的工作，它需要捕获目标视图的开始和结束状态（大小，位置，范围），在这种情况下，它们是  `Email Details`  视图和  `Email 5 item` 项。如果在 `Email 5 item` 的状态可用之前启动了反向转换，则它将无法像我们所看到的那样正常运行。
 
-The solution here is to postpone the reverse transition until the items are drawn. Luckily, the transition framework offers a pair of methods `postponeEnterTransition` which flags to the system that the enter transition should be postponed and `startPostponedEnterTransition` which signals that it can be started. Note that `startPostponedEnterTransition` must be called at some time after `postponeEnterTransition` was called. Otherwise the transition would never be played and the fragment is not popped.
+这里的解决方案是推迟反向转换，直到绘制项目。幸运的是， transition 框架提供了一对 `postponeEnterTransition`  方法，它向系统标记输入过渡应该被推迟，`startPostponedEnterTransition` 表示它可以启动。请注意，必须在调用 `startPostponedEnterTransition` 后的某个时间调用 `postponeEnterTransition` 。否则，将永远不会执行过渡动画，并且 fragment 也不会弹出。
 
-Given our setup, whenever the Email List fragment is reentered by popping Email Details fragment, it grabs the latest state from the view model and renders the email list straightaway. Therefore if we postponed the transition until the email list is rendered, that wouldn’t be a considerably long wait and thus the postponement makes sense (popping after restoring from process death is a different story. That’s be covered later in the post).
+根据我们的设置，每当从 Email Details fragment 重新进入 Email List fragment 时，它会从视图模型中获取最新状态并立即呈现电子邮件列表。因此，如果我们推迟过渡动画，直到呈现电子邮件列表，这不会是相当长的等待，因此推迟是有意义的（从死进程中恢复并弹出是一个不同的故事。这将在后面的帖子中介绍）。
 
-The updated code looks like the followings. We’d postpone the enter transition in `onViewCreated`.
+更新后的代码如下所示。我们推迟了  `onViewCreated`  中的 enter 转换。
 
 ```
 override fun onViewCreated(view: View, savedState: Bundle?) {
@@ -242,7 +246,7 @@ override fun onViewCreated(view: View, savedState: Bundle?) {
 }
 ```
 
-And start the postponed transition after rendering the state. This is done using [doOnPreDraw](https://android.github.io/android-ktx/core-ktx/androidx.view/android.view.-view/do-on-pre-draw.html).
+并在渲染状态后开始推迟过渡。这是使用 [doOnPreDraw](https://android.github.io/android-ktx/core-ktx/androidx.view/android.view.-view/do-on-pre-draw.html)完成的。
 
 ```
 is Success -> {
@@ -255,13 +259,13 @@ is Success -> {
 
 ![](https://cdn-images-1.medium.com/max/800/1*kpw-wtv3aOOki3p225Ou8Q.gif)
 
-Now it works! But would the transitions survive orientation change?
+现在它成功了！但当方向变换时这个过度效果还会存在吗？
 
-### Stop 5: Address orientation change
+### 第五站：位置方向改变
 
-After a rotation, there is no reverse transition to Email List fragment. After some debugging I found that the transitions are destroyed together with the fragments on orientation change. Therefore, the transitions should be recreated after fragment is destroyed. Moreover, the epicenter of the `Explode` transition is normally not be the same across portrait and landscape mode due to the screen size and UI differences. Hence we would need to update the epicenter too.
+转换后，Email List fragment 并没有发生反转过渡动画。经过一些调试后，我发现当 fragment 的方向发生改变时，过渡动画也被销毁了。因此，应在 fragment 被销毁后重新创建过渡动画。此外，由于屏幕尺寸和 UI 差异， `Explode` 的过渡中心在纵向和横向模式下通常是不相同的。因此我们也需要更新中心区域。
 
-That requires us to keep track of the position of the tapped item and restore it on orientation change, which leads to the updated code as follows.
+这要求我们跟踪点击项目的位置并在方向更改时重新记录，这将导致更新的代码如下。
 
 ```
 override fun onViewCreated(view: View, savedState: Bundle?) {
@@ -305,21 +309,21 @@ override fun onSaveInstanceState(outState: Bundle) {
 }
 ```
 
-### Stop 6: Handle activity destroyed and process death
+### 第六站：处理 Activity 被销毁和进程被杀死的情况
 
-The transitions now survive orientation change. But how about activity destroyed or process death? In our specific scenario, the Email List viewModel does not survive in either cases and thus neither does the email data. Our transitions depends on the position of the tapped email item and thus would not work if the data was lost.
+过渡动画现在可以在方向变化中存活，但在 activity 被销毁或者进程被杀死时又会有什么样的效果呢？在我们的特定方案中，电子邮件列表 viewModel 在任何一种情况下都不存活，因此电子邮件数据也不存在。我们的转换取决于所点击的电子邮件项目的位置，因此如果数据丢失则无法使用。
 
-Curiously, I checked out a couple of famous apps to see how they deal with transitions in such cases:
+奇怪的是，我查看了几个著名的应用程序，看看它们在这种情况下如何处理转换：
 
-*   Google Inbox: interestingly it doesn’t need to deal with such cases since it reloads the Email List (not email details) after activity is destroyed.
-*   Google Play: no reverse shared element transition after activity destroyed or process death.
-*   Plaid (not really an app but a great demo of material design on Android): no reverse shared element transition even after orientation change (as of the time of writing).
+- Google Inbox: 有趣的是，它不需要处理这种情况，因为它会在活动被销毁后重新加载电子邮件列表（而不是电子邮件详细信息）。
+- Google Play: 活动销毁或处理死亡后没有反向共享元素转换。
+- Plaid (不是一个真正的应用程序，而是 Android 上的一个优秀的 material design 的 demo ): 即使在方向改变之后（截至编写时），也没有反向共享元素过渡。
 
-Although the above list is by no mean enough to conclude Android apps’ pattern to deal with transitions in such cases, it at least shows some opinion.
+虽然上面的列表没有足够的结论来处理 Android 应用程序在这种情况下处理转换的模式，但它至少显示了一些观点。
 
-Back to our specific issue, normally there are two possibilities depending on each app’s approach of handling such cases: (1) ignore data lost and re-fetch the data and (2) persist data and restore it. Since this post is mainly about transition, I’m not going into discussing when which approach is better and why etc. If approach (1) is taken, no reverse transition should be played since we don’t know if the previously tapped email item would be fetched again and even if it is, we don’t know its position in the list. If approach (2) is taken, we could play the transitions like what was done for the orientation change scenario.
+回到我们的具体问题，通常有两种可能性取决于每个应用程序处理此类情况的方法：（1）忽略丢失的数据并重新获取数据，以及（2）保留数据并恢复数据。由于这篇文章主要是关于过渡动画，所以我不打算讨论在什么情况下哪种方法更好以及为什么等。如果采用方法（1），则不应该进行反向转换，因为我们不知道先前被点击的电子邮件项目是否会被取回，即使它是，我们不知道它在列表中的位置。如果采用方法（2），我们可以像定向改变方案那样进行转换。
 
-Approach (1) is my preference in this particular scenario since new emails could come every minute and thus it’s not useful to reload an obsolete list of emails after activity destroyed or process death which typically happen after a user leaves the app for a while. In our setup, email data would automatically be fetched when the Email List fragment is recreated after activity destroyed or process death so not much needs to be done. We just need to make sure `startPostponedEnterTransition` is called when the `InProgress` state is rendered:
+方法（1）是我在这种特定情况下的偏好，因为新的电子邮件可能每分钟都会出现，因此在活动销毁或处理死亡之后重新加载过时的电子邮件列表是没有用的，这通常发生在用户离开应用程序一段时间之后。在我们的设置中，当activity 被销毁或进程被杀死后后重新创建电子邮件列表片段时，将自动获取电子邮件数据，因此不需要做太多工作。我们只需要确保在呈现  `InProgress`  状态时调用  `startPostponedEnterTransition`：
 
 ```
 is InProgress -> {
@@ -330,9 +334,9 @@ is InProgress -> {
 }
 ```
 
-### Stop 7: Polish the transitions.
+### 第七站：让过渡动画更加平滑
 
-So far we’ve got a basic “Inbox style” transition. There are many ways to polish it. One example is to fade in the details while it is expanded, similar to what the Inbox app does. That can be achieved as follows:
+到目前为止,我们已经有了一个基本的  “Inbox style”  过渡。有很多方法实现平滑。一个例子是在展开细节时呈现淡入效果，类似于收件箱应用程序的功能。这可以通过以下方式实现：
 
 ```
 class EmailDetailsFragment : Fragment() {
@@ -351,30 +355,29 @@ class EmailDetailsFragment : Fragment() {
 }
 ```
 
-The transition now looks like below.
+过渡动画现在看起来如下。
 
 ![](https://cdn-images-1.medium.com/max/800/1*viOG8N-3JVhlxJRTW13JpA.gif)
 
-### Is it completely replicated yet?
+### 他已经被完全复制了吗？
 
-Most of it. The only thing missing is the ability to swipe the Email Detail view vertically to reveal other emails in the Email List and trigger the reverse transition by releasing finger which are shown in the below GIF.
+基本上是。唯一缺少的是能够垂直滑动电子邮件详细信息视图以显示电子邮件列表中的其他电子邮件，并通过释放手指触发反向过渡，就和下面的 GIF 图所展示的效果一样。
 
 ![](https://cdn-images-1.medium.com/max/800/1*duoZc7YrobM4PDa0TzOtAQ.gif)
 
-Such animation makes a lot of sense to me because if a user could tap on an email item to open/expand it, it is natural for him to drag down the email details to dismiss/collapse it. At the moment I’m exploring a couple of options to implement such an effect and they will be discussed in the next article.
+这样的动画对我来说很有意义，因为如果用户可以点击电子邮件项目来打开/展开它，他自然会拖下电子邮件详细信息来隐藏/折叠它。目前我正在探索实现这种效果的几个选项，它们将在下一篇文章中讨论。
 
-* * *
+------
 
-That’s it. Implementing animations is a challenging yet fun part of Android development. I hope you enjoy working with animations as much as I do. The source code can be found [here](https://github.com/huan-nguyen/InboxStyleAnimation). Feedback/comments/discussions all welcome!
+那就这样吧。实现动画是 Android 开发中一个具有挑战性但又有趣的部分。我希望你喜欢和我一样喜欢动画。源代码可以在[这里](https://github.com/huan-nguyen/InboxStyleAnimation)找到。欢迎提出反馈/意见/讨论！
 
-*   [Android](https://proandroiddev.com/tagged/android?source=post)
-*   [Transitions](https://proandroiddev.com/tagged/transitions?source=post)
-*   [Animation](https://proandroiddev.com/tagged/animation?source=post)
-*   [Material](https://proandroiddev.com/tagged/material-design?source=post)
+- [Android](https://proandroiddev.com/tagged/android?source=post)
+- [Transitions](https://proandroiddev.com/tagged/transitions?source=post)
+- [Animation](https://proandroiddev.com/tagged/animation?source=post)
+- [Material](https://proandroiddev.com/tagged/material-design?source=post)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
-
----
+------
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
