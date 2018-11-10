@@ -2,8 +2,8 @@
 > * 原文作者：[Usman Malik](https://twitter.com/usman_malikk)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-simple-recommender-system-in-python-using-pandas.md](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-simple-recommender-system-in-python-using-pandas.md)
-> * 译者：
-> * 校对者：
+> * 译者：[xilihuasi](https://github.com/xilihuasi)
+> * 校对者：[TrWestdoor](https://github.com/TrWestdoor)
 
 # 使用 Pandas 在 Python 中创建一个简单的推荐系统
 
@@ -53,7 +53,7 @@ ratings_data = pd.read_csv("E:\Datasets\ml-latest-small\\ratings.csv")
 ratings_data.head()
 ```
 
-在上面的脚本中，我们使用 [Pandas 库](/beginners-tutorial-on-the-pandas-python-library/) 的 `read_csv()` 方法读取 "ratings.csv" 文件。接下来，我们调用 `read_csv()` 函数返回的 dataframe 对象的 `head()` 方法。它将展示数据集的前五行数据。
+在上面的脚本中，我们使用 [Pandas 库](https://stackabuse.com/beginners-tutorial-on-the-pandas-python-library/) 的 `read_csv()` 方法读取 "ratings.csv" 文件。接下来，我们调用 `read_csv()` 函数返回的 dataframe 对象的 `head()` 方法。它将展示数据集的前五行数据。
 
 输出结果如下：
 
@@ -169,7 +169,7 @@ Name: rating, dtype: int64
 
 现在你会看到真正的好电影就排在顶部了。以上列表证实了我们的观点，好电影通常会收到更高的评分。现在我们知道每部电影的平均评分和评分数量都是重要的属性了。让我们创建一个新的包含这些属性的 dataframe。
 
-执行如下脚本创建 `ratings_mean_count` dataframe，首先将每部电影的平均评分添加到这个 dataframe ：
+执行如下脚本创建 `ratings_mean_count` dataframe，首先将每部电影的平均评分添加到这个 dataframe：
 
 ```
 ratings_mean_count = pd.DataFrame(movie_data.groupby('title')['rating'].mean())
@@ -230,7 +230,7 @@ ratings_mean_count['rating'].hist(bins=50)
 
 ![Average ratings histogram](https://s3.amazonaws.com/stackabuse/media/creating-simple-recommender-system-python-pandas-2.png)
 
-您可以看到整数值的 bar 比浮点值更高，因为大多数用户会做出整数评分，即 1,2,3,4 或 5。此外，很明显，数据的正态分布较弱，平均值约为 3.5。数据中有一些异常值。
+您可以看到整数值的 bar 比浮点值更高，因为大多数用户会做出整数评分，即 1、2、3、4 或 5。此外，很明显，数据的正态分布较弱，平均值约为 3.5。数据中有一些异常值。
 
 前面，我们说有更多评分数的电影通常也有高平均评分，因为一部好电影通常都是家喻户晓的，而很多人都会看这样的电影，因此通常会有更高的评分。我们看看在我们的数据集中的电影是否也是这种情况。我们将平均评分与评分数量进行对比：
 
@@ -244,7 +244,7 @@ sns.jointplot(x='rating', y='rating_counts', data=ratings_mean_count, alpha=0.4)
 
 ![Average ratings vs number of ratings](https://s3.amazonaws.com/stackabuse/media/creating-simple-recommender-system-python-pandas-3.png)
 
-该图表明，通常，更高平均评分的电影相对较低平均评分的来说有更多评分数量。
+该图表明，相较于低平均分的电影来说，高平均分的电影往往有更多的评分数量。
 
 #### 找出电影之间的相似之处
 
