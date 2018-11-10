@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-hooks-not-magic-just-arrays.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-hooks-not-magic-just-arrays.md)
 > * 译者：[Xekin-FE](https://github.com/Xekin-FE)
-> * 校对者：
+> * 校对者：[Hopsken](https://blog.hopsken.com)、[CoderMing](https://github.com/CoderMing)
 
 # 揭开 React Hooks 的神秘面纱:数组解构融成魔法
 
 ## 用模型解析此提案的执行规则
 
-我是一个对 React Hooks 这个 API 非常感兴趣的忠实粉丝。关于如何使用它，这里有一些[奇怪的规则](https://reactjs.org/docs/hooks-rules.html)。为了那些纠结于如何使用这些规则的人，在这里我会以模型图的方式来向你们展示这个新的 API。
+我超喜欢 React 新出的这个 Hooks API。关于如何使用它，这里有一些[奇怪的规则](https://reactjs.org/docs/hooks-rules.html)。为了那些纠结于为什么要有这些规则的人，在这里我会以模型图的方式来向你们展示这个新的 API。
 
 ### 警告: Hooks 这项提案仍在测试阶段
 
@@ -27,18 +27,18 @@ _这篇文章主要讲述的是关于 React hooks 这项新 API，此时这个�
 
 #### Hooks 的规则
 
-React 的核心团队规定我们在使用 hooks 时必须遵从他们的 [hooks 提案文档](https://reactjs.org/docs/hooks-rules.html)，而在文档中主要有两条使用规定。
+React 的核心团队规定我们在使用 hooks 时必须遵从 [hooks 提案文档](https://reactjs.org/docs/hooks-rules.html)中列出的两条规则。
 
 *   **不要在循环、条件语句或者嵌套函数中调用 Hooks**
 *   **只能在 React 函数中调用 Hooks**
 
-对于后者我觉得是不言而喻的。要将自己的业务代码嵌入到功能组件当中你自然需要以通过某种方式将你的代码和组件联系起来。
+对于后者我觉得是不言而喻的。要将自己的业务代码嵌入到功能组件当中，你自然需要以通过某种方式将你的代码和组件联系起来。
 
-至于前者我认为也是令人感到困惑的一点，因为这与正常编程时调用 API 的方式相比可能看起来并不寻常，这也是我今天正想探索的地方。
+至于前者我认为也是令人感到困惑的一点，因为这与正常编程时调用 API 的方式相比起来并不寻常，这也是我今天正想探索的一点。
 
 #### 在 hooks 中，状态管理都与数组有关
 
-为了让我们更直白地理解这个模型，让我们直接实现一个简单的 hooks API 实例看看它可能长什么样子。
+为了让我们更清晰地理解这个模型，让我们直接实现一个简单的 hooks API 实例看看它可能长什么样子。
 
 **_请注意这只是推测，并且只是可能的 API 实现方法，主要是为了展示应该通过怎样的思维去理解它。当然这并不一定就是 API 实际的内部工作方式。而且目前这也只是一个提案，在未来一切都可能发生改变_**
 
@@ -225,7 +225,7 @@ function RenderFunctionComponent() {
 
 ### 结论
 
-希望我是建立了一个比较清晰的模型向你们展示了这个新 hooks API 在底层是如何进行工作的。记住这里真正的价值是如何把我们所好奇的点一步步解析出来所以你只要多注意 hooks API 的规则，这样我们就能更好的利用它。
+希望我是建立了一个比较清晰的模型向你们展示了这个新 hooks API 在底层是如何进行工作的。记住这里真正的价值是如何把我们所好奇的点一步步解析出来，所以你只要多注意 hooks API 的规则，这样我们就能更好的利用它。
 
 在 React 组件中 Hooks 是一个高效率的 API。这也是人们对它趋之若鹜的原因，如果你还没想到答案，那么只要把数组存储为状态的形式，就会发现你并没有破坏他们的规则。
 
