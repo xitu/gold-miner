@@ -1,51 +1,53 @@
-> * 原文地址：[Javascript: call(), apply() and bind()](https://medium.com/@omergoldberg/javascript-call-apply-and-bind-e5c27301f7bb)
-> * 原文作者：[Omer Goldberg](https://medium.com/@omergoldberg?source=post_header_lockup)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-call-apply-and-bind.md](https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-call-apply-and-bind.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[Javascript: call(), apply() and bind()](https://medium.com/@omergoldberg/javascript-call-apply-and-bind-e5c27301f7bb)
+> - 原文作者：[Omer Goldberg](https://medium.com/@omergoldberg?source=post_header_lockup)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-call-apply-and-bind.md](https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-call-apply-and-bind.md)
+> - 译者：[YueYong](https://github.com/YueYongDev)
+> - 校对者：
 
-# Javascript: call(), apply() and bind()
+# Javascript: call(), apply() 和 bind()
 
-### “this” refresher
+### 回顾一下 “this”
 
-In Object Oriented JS we learned that in JS, everything is an object. Because everything is an object, we came to understand that we could set and access additional properties to functions.
+我们了解到，在面向对象的JS中，一切都是对象。因为一切都是对象，我们开始明白我们可以为函数设置和访问其他属性。
 
-Setting properties to a function and additional methods via the prototype is super awesome … **but how do we access them?!??!**
+通过原型给函数设置属性并且添加方法非常棒……**但是我们如何访问它们？！??！**
 
 ![](https://cdn-images-1.medium.com/max/800/1*IWxOuXB3csN4_na6SSm_Rg.gif)
 
-When he says myself, he really means ‘this’
+当他说自己时，他的确意味着 'this'
 
-We were introduced to the `this` keyword. We learned that every function gets this property automatically. So at this point in time, if we were to create a mental model of our function execution context( I am not the only one who does this!… right?!?!), it would look something like this:
+我们介绍过 `this` 关键字。我们了解到每个函数都会自动获取此属性。所以这时，如果我们需要创建一个有关我们函数运行上下文的抽象模型（我不是唯一一个这么做的人！。。。对吗？！？！），他就会看起来像这样：
 
 ![](https://cdn-images-1.medium.com/max/800/1*oGDRHlH5QWXTFTenWvMaBw.png)
 
-It took us a little while to get comfortable with the `this` keyword, but once we did we began to realize how useful it is. `this` is used inside a function, and will always refer to a single object — [the object that invokes (calls) the function where “this”  is used](http://javascriptissexy.com/understand-javascripts-this-with-clarity-and-master-it/).
+我们花了一些时间来熟悉 `this` 关键字，但是一旦我们这样做了，我们就开始意识到它有多么有用了。`this` 在函数内部使用，并且总是引用单个对象 — [the object that invokes (calls) the function where “this”  is used](http://javascriptissexy.com/understand-javascripts-this-with-clarity-and-master-it/)。
 
-But life isn’t perfect. Sometimes, we lose our `this` reference. When that happens, we end up using confusing hacks to save our reference to `this`. Check out this confusing hack [from our localStorage exercise:](https://github.com/Arieg419/ITCCodingBootcamp/blob/master/localStorage/eBay.js)
+但是生活肯定都不是完美的。有时候我们会失去 `this` 的引用。当这种情况发生时，我们最终使用了令人困惑的解决方法去保存我们对于 `this`  的引用。让我们通过[ localSorage 练习](https://github.com/Arieg419/ITCCodingBootcamp/blob/master/localStorage/eBay.js)来看看这个方法吧：
+
+https://github.com/Arieg419/ITCCodingBootcamp/blob/master/localStorage/eBay.js)
 
 ![](https://cdn-images-1.medium.com/max/800/1*aE3Ao2PIEo21WK7C6Ofdfg.png)
 
-Line 31 :(
+第 31 行 :(
 
-So why did I need to save a `this` reference? Because _inside_ deleteBtn.addEventListener, `this` refers to the _deleteBtn_ object. This is unfortunate. Is there a better solution?
+那为什么我需要保存 `this`  引用呢？因为在 deleteBtn.addEventListener 中，`this`  指向了 _deleteBtn_ 对象。这并不太好。有更好的解决方案吗？
 
-* * *
+------
 
-### call(), apply() and bind() — a new hope
+### call(), apply() 和 bind() — 一个新的希望
 
-Up until now we have treated functions as objects that are composed of a name (optional, can also be an anonymous function) and the code it executes when it is invoked. But that isn’t the entire truth. As a truth loving person, I must let you know that a function actually looks closer to the following image:
+到目前为止，我们已将函数视为由名称（可选，也可以是匿名函数）及其在调用时执行的代码所组成的对象。但也并不都是这样。作为一个真爱粉，我必须让你知道一个函数实际上看起来更接近下面的图像：
 
 ![](https://cdn-images-1.medium.com/max/800/1*TkzF3ckhM9Xf_U9XFaCyhA.png)
 
-What is this??????? Don’t worry! I will now walk through these 3 similar methods that appear on every function with examples. Rejoice!
+这是什么？？？？？？？别担心！现在，我将通过示例介绍每个函数中出现的这3种类似方法。
 
 ### **bind()**
 
-[The official docs say:](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_objects/Function/bind) The `**bind()**` method creates a new function that, when called, has its `this` keyword set to the provided value. (It actually talks about even more stuff, but we’ll leave that for another time :) )
+[官方文档说：](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_objects/Function/bind)`**bind（）**`方法创建一个新函数，在调用时，将其 `this` 关键字设置为所需的值。（它实际上谈论了更多的东西，但我们将把它留下另一次:)）
 
-This is extremely powerful. It let’s us explicitly define the value of `this` when calling a function. Let’s look at cooooode:
+这非常强大。它让我们在调用函数时明确定义  `this`  的值。我们来看看 cooooode：
 
 ```
 var pokemon = {
@@ -66,14 +68,14 @@ var logPokemon = pokemonName.bind(pokemon); // creates new object and binds poke
 logPokemon(); // 'Pika Chu I choose you!'
 ```
 
-Using the `bind() method on line 14.`
+在第14行使用 `bind（）方法`。
 
-**_Let’s break it down._** When we use the `bind()` method:
+***我们来逐个分析。***当我们使用了 `bind()` 方法：
 
-1.  the JS engine is creating a new `pokemonName` instance and binding `pokemon` as its `this` variable. It is important to understand that **_it copies the pokemonName function._**
-2.  After creating a copy of the `pokemonName` function it is able to call `logPokemon()`, although it wasn’t on the pokemon object initially. It will now recognizes its properties (_Pika_ and _Chu) and its methods._
+1. JS引擎创建了一个新的 `pokemonName` 的实例，并将 `pokemon`  绑定为此变量。 重要的是要理解**_它复制了pokemonName函数。_**
+2. 在创建了 `pokemonName` 函数的副本之后，它可以调用 `logPokemon（）` 方法，尽管它最初不在`pokemon` 对象上。它现在将识别其属性（Pika和Chu）及其方法。
 
-And the cool thing is, after we bind() a value we can use the function just like it was any other normal function. We could even update the function to accept parameters, and pass them like so:
+很酷的是，在我们 bind() 一个值后，我们可以像使用任何其他正常函数一样使用该函数。我们甚至可以更新函数来接受参数，并像这样传递它们：
 
 ```
 var pokemon = {
@@ -98,17 +100,17 @@ logPokemon('sushi', 'algorithms'); // Pika Chu  loves sushi and algorithms
 
 ### call(), apply()
 
-[The official docs for call() say](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call): The `**call()**` method calls a function with a given `this` value and arguments provided individually.
+[call() 方法的官方文档说：](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call)`**call()**` 方法调用一个给定 `this`  值的函数，并单独提供参数。
 
-What that means, is that we can call any function, and _explicitly specify what_ `_this_` _should reference_ within the calling function. Really similar to the `bind()` method! This can definitely save us from writing hacky code (even though we are all still hackerzzz).
+这意味着，我们可以调用任何函数，并明确指定 `_this_` 应该在调用函数中引用的内容。真的类似于 `bind()` 方法！这绝对可以让我们免于编写 hacky 代码（即使我们仍然是 hackerzzz ）。
 
-The main differences between `bind()` and `call()` is that the `call()` method:
+`bind()` 和 `call()`  之间的主要区别在于 `call()`  方法：
 
-1.  Accepts additional parameters as well
-2.  Executes the function it was called upon right away.
-3.  The `call()` method does not make a copy of the function it is being called on.
+1. 支持接受其他参数
+2. 执行它立即调用的函数。
+3. `call()` 方法不会复制正在调用它的函数。
 
-`call()` and `apply()` serve the **exact same purpose.** The **_only difference between how they work is that_** call() expects all parameters to be passed in individually, whereas apply() expects an array of all of our parameters. Example:
+`call()` 和`apply()` 使用于**完全相同的目的。** **它们工作方式之间的唯一区别**是 `call()`  期望所有参数都单独传递，而 `apply()` 需要所有参数的数组。 例如：
 
 ```
 var pokemon = {
@@ -128,15 +130,14 @@ pokemonName.call(pokemon,'sushi', 'algorithms'); // Pika Chu  loves sushi and al
 pokemonName.apply(pokemon,['sushi', 'algorithms']); // Pika Chu  loves sushi and algorithms
 ```
 
-Notice that apply accepts and array, and call expects each param individually.
+注意，apply 接受数组，call 接受每个单独的参数。
 
-These built in methods, that exist on every JS function can be very useful. Even if you do not end up using them in your day to day programming, you will still run into it often when reading other peoples code.
+这些存在于每一个 JS 函数的内置方法都非常有用。即使你最终没有在日常编程中使用它们，你仍然会在阅读其他人的代码时经常遇到它们。
 
-If you have any questions, as always, reach out via [Instagram](https://www.instagram.com/omeragoldberg/) ❤
+如果您有任何疑问，请一如既往地通过  [Instagram](https://www.instagram.com/omeragoldberg/)  与我们联系。❤
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
-
----
+------
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
