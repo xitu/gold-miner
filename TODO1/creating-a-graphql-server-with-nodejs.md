@@ -2,24 +2,24 @@
 > * 原文作者：[Aman Mittal](https://medium.com/@amanhimself?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-graphql-server-with-nodejs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-graphql-server-with-nodejs.md)
-> * 译者：
+> * 译者：[Raoul1996](https://github.com/Raoul1996)
 > * 校对者：
 
-# Creating a GraphQL server with NodeJS
+# 使用 NodeJS 创建一个 GraphQL 服务器
 
-## Hello World! with GraphQL — In this tutorial, you will learn how to build a GraphQL server with Nodejs and Express using Apollo Server library 2.0.
+## Hello World！在这个 GraphQL 的教程中，你可以学到如何使用 Apollo Server 库 2.0 版本来构建一个基于 NodeJS 和 Experss 的 GraphQL 服务器。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*mbwU_n49CU8SEJyLPaTAUw.png)
 
-When it comes to network requests between a client and a server application, REST (which stands for _Representational state transfer_) is one of the most popular choices for connecting the two. In the world of [REST APIs](https://medium.com/crowdbotics/building-a-rest-api-with-koajs-417c276929e2), everything revolves around the idea of having resources as accessible URLs. We then use CRUD operations (Create, Read, Update, Delete), which are basically HTTP methods such as GET, POST, PUT & DELETE, to interact with the data.
+当谈到客户端和应用程序服务器之间的网络请求时，REST（*[表现层状态转换](https://zh.wikipedia.org/wiki/%E8%A1%A8%E7%8E%B0%E5%B1%82%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2)*的代表）是连接二者最常用的选择之一。在 [REST API](https://medium.com/crowdbotics/building-a-rest-api-with-koajs-417c276929e2) 的世界中，一切都围绕着如何把资源作为可访问的 URL。然后我们会进行 CURD 操作（新建、读取、更新、删除），这些操作是 HTTP 的基本方法，如 GET、POST、PUT 和 DELETE，来与数据进行交互。
 
-Here is an example of a typical REST request:
+这是一个典型的 REST 请求的例子：
 
-```
-// example of a request
+```http
+// 请求示例
 https://swapi.co/api/people/
 
-// response of the above request in JSON
+// 上面请求的 JSON 格式响应
 {
 	"results": [
 		{
@@ -51,19 +51,20 @@ https://swapi.co/api/people/
 }
 ```
 
-The response format for a REST API is not necessarily JSON, but this is the preferred method these days with most APIs. **Apart from REST, another way to handle network requests has emerged: GraphQL. Open sourced in 2015, GraphQL is changing the way developers write an API on the server side and handle it on the client side.** GraphQL was developed and is actively maintained by Facebook.
+REST API 的响应的格式未必会是 JSON，但是这是目前大多数 API 的首选方法。**除了 REST，还出现了另一种处理网络请求的方法：GraphQL。开源于 2015 年，GraphQL 正在改变开发人员在服务端写 API 以及在客户端处理的方式。** GraphQL 由 Facebook 开发并积极维护。
 
-### Shortcomings of REST
 
-GraphQL is a query language to develop an API. In contrast to REST, which is an architecture or ‘a way of doing things’, graphQL was developed with a concept in mind that a client requests only the desired set of items from the server in a single request.
+### REST 的弊端
 
-In REST architecture or like on our above example, when fetching the films Luke Skywalker appeared in in Star Wars movies, we are getting an array of `films` or the name of `homeworld` which further consists different API URLs that lead us to details of different sets of JSON data. This is certainly an example of over fetching. The client side, in order to get the details of films in which the character Luke Skywalker appeared, and the name of his home planet, will have to send multiple requests to the server.
+GraphQL 是一种用于 API 开发的查询语言。和 REST（一种架构或者“一种做事方式”）相比，GraphQL 的开发基于一个理念：客户端每次仅从服务端请求所需要的项目集合。
 
-With GraphQL, this can be resolved into a single network request. Hop on to the API url: `https://graphql.github.io/swapi-graphql/` and see run the following query.
+在上面的例子中，使用了 REST 或者其他类似架构。当请求电影时，Luke Skywalker 出现在电影 Star Wars 中，我们得到了一系列的 `电影` 或者 `homeworld` 的名称，他们还包含了不同的 API URL，引导我们去了解不同 JSON 数据集的详细信息。这肯定是一个过度获取（over fetching）的例子。客户端为了去获取人物 Luke Skywalker 出现在电影中的细节以及他家乡星球的名称，只能去向服务端发起多个请求。
 
-_Note: In the example below, you can ignore how the GraphQL API is working behind the scenes. I will be walking you step by step to build your own (maybe the first) GraphQL API later in this tutorial._
+使用 GraphQL，就可以将其解析为单个网络请求。转到 API 网址：`https://graphql.github.io/swapi-graphql/`，查看运行以下查询（query）。
 
-```
+*注意：在下面的例子中，你可以不必理会 GraphQL API 幕后的工作方式。我将在本教程后面逐步构建你自己的（可能是第一个）GraphQL API。*
+
+```graphql
 {
 	allPeople {
 		edges {
@@ -86,7 +87,7 @@ _Note: In the example below, you can ignore how the GraphQL API is working behin
 }
 ```
 
-We are going to fetch the data that we need such as the name of the character, their `gender`, `homeworld`, and the title of the `films` they appeared. After running the above query, you will get the following result:
+我们将获取我们需要的数据。例如角色的名称、他们的性别（`gender`）、家园（`homeworld`），以及他们出现的电影（`films`）的标题。运行上述查询，你将获得以下结果：
 
 ```
 {
@@ -180,36 +181,37 @@ We are going to fetch the data that we need such as the name of the character, t
 }
 ```
 
-If the client side of an application is triggering the above GraphQL URL, it will only send one request on the network to get the desired result, thus eliminating any possibility of over fetching or sending multiple requests.
+如果应用程序的客户端正在触发上述 GraphQL URL，它只需要咋网络上发一个请求就可以得到所需结果。从而消除了任何会导致过度获取或发送多个请求的可能性。
 
-### Pre-requisites
+### 先决条件
 
-To follow this tutorial, all you need is `Nodejs` and `npm` installed on your local machine.
+要学习本课程，你只需要在本地计算机上安装 `nodejs` 和 `npm` 即可。
 
 *   [Nodejs](http://nodejs.org) `^8.12.0`
 *   npm `^6.4.1`
 
-### GraphQL in a nutshell
+### GraphQL 简述
 
-In a nutshell, **GraphQL** is a syntax that elucidates how to ask for _data_ and is generally used to retrieve data (aka, a _query_) or make changes to it (aka _mutation)_ from a sever to a client.
+简而言之，**GraphQL** 是一种用于阐述如何请求 *data* 的语法，通常用于从客户端检索数据（也称为 *query*）或者对其进行更改（也称为 *mutation*）。
 
-GraphQL has few defining characteristics:
 
-*   It lets the client specify exactly what data it needs. This is also known as declarative data fetching.
-*   It is not opinionated about the network layer
-*   It makes easier to combine several sets of data from multiple sources
-*   It uses a strongly typed system when declaring the structure of data in the form of both the schema and the query. This helps validating the queries even before the network requests are sent.
+GraphQL 几乎没有什么定义特征：
 
-### Building Blocks of a GraphQL API
+* 它允许客户端准确指定所需的数据。这也成为声明性数据提取。
+* 对网络层没有看法
+* 使组合来自多个来源的多组数据更容易
+* 在以 schema 和 query 的形式声明数据结构时，它使用强类型系统。这有助于在发送网络请求之前校验查询。
 
-A GraphQL API has four building blocks:
+### GraphQL API 的构建模块
+
+GraphQL API 有四个构建模块：
 
 *   schema
 *   query
 *   mutations
 *   resolvers
 
-**Schema** is defined at the server in the form of objects. Each object corresponds to data types such that they can be queried upon. For example:
+**Schema** 以对象的形式在服务器上定义。每个对象对应于数据类型，以便于去查询他们。例如：
 
 ```
 type User {
@@ -218,55 +220,53 @@ type User {
 	age: Int
 }
 ```
+上面的 schema 定义了一个用户对象的样子。其中必需的字段 `id` 用 `!` 符号标识。还包含其他字段，例如 *string* 类型的 `name` 和 *integer* 类型的 `age`。这也会在查询数据的时候对 `schena` 进行验证。
 
-The schema above defines the shape of a user object with a required field `id` denoted by the `!` sign. Other fields such as the`name` which is of type _string_ and age which is of type _integer_ are also included. This also validates the schema when querying for the data.
-
-**Queries** are what you use to make a request to a GraphQL API. For instance, in our example above, when we are fetching the data related to a Star Wars character. Let us simplify this. To query in GraphQL, it is about asking for specific fields on objects. For example, using the same API as we did above, we fetch the name of all the characters in Star Wars. Below you can see the difference. On left-hand side of the image, is the query and on the right-hand side is the image.
+**Queries** 是你用来向 GraphQL API 发出请求的方法。例如，在我们上面的示例中，就像我们获取 Star Wars 相关的数据时那样。让我们简化一下，如果在 GraphQL 中查询，就是在查询对象的特定字段。例如，使用上面相同的 API，我们呢获取 Star Wars 中所有角色的名称。下面你可以看到差异，在图片的左侧是查询，右侧是结果。（译者注： 原文是 on the right-hand side is the image，译者认为不是很合适）
 
 ![](https://cdn-images-1.medium.com/max/1000/1*L-Z_EF1tNkq4jUhsopHasw.png)
 
-The good thing about GraphQL queries is that they can be nested to go as deep as you’d like. This is hard to do in a REST API. The operation becomes much more complex.
+使用 GraphQL 查询的好处是它们可以嵌套到你想要的深度。这在 REST API 中很难做到。（在 REST API 中）操作变得复杂得多。
 
-Below is another example of a nested query, a more complex one
+下面是一个更复杂的嵌套查询示例：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*ug3h4hZmAeuNHyy93Ygy2Q.png)
 
-**Mutations:** In REST architecture, to modify the data we either use `POST` to add data or `PUT` to update the existing fields with the data. In GraphQL, the overall concept is similar. You will send a query to cause the write operations on the server side. However, this form of the query is called a Mutation.
+**Mutations:** 在 REST 架构中，要修改数据，我们要么使用 `POST` 来添加数据，要么使用 `PUT` 来更新现有字段的数据。在 GraphQL 中，整体的概念是类似的。你可以发送一个 query 来在服务端执行写入操作。但是。这种形式的查询称为 Mutation。
 
-**Resolvers** are the link between the schema and the data. They provide functionality that can be used to interact with databases through different operations.
+**Resolvers** 是 schema 和 data 之间的纽带。它们提供可用于通过不同操作与数据库交互的功能。
 
-_In this tutorial, you will learn how to setup a GraphQL server with_ [_Nodejs_](https://www.crowdbotics.com/build/node-js?utm_source=medium&utm_campaign=nodeh&utm_medium=node&utm_content=koa-rest-api) _using the same building blocks we have just learned._
+*在这个教程中，你将学习用我们刚刚学到的构件，来使用 [_Nodejs_](https://www.crowdbotics.com/build/node-js?utm_source=medium&utm_campaign=nodeh&utm_medium=node&utm_content=koa-rest-api) 构建 GraphQL 服务器。*
 
-### Hello World! with GraphQL
+### Hello World! 使用 GraphQL
 
-Lets now write our first GraphQL server. For this tutorial, we are going to use [Apollo Server.](https://www.apollographql.com/docs/apollo-server/) We need to install three packages in total for the Apollo Server to work with our existing Express application as a middleware. The good thing about Apollo Server is that it can be used with several popular frameworks for Node.js: Express, [Koa](https://medium.com/crowdbotics/building-a-rest-api-with-koajs-417c276929e2), and [Hapi](https://medium.com/crowdbotics/setting-up-nodejs-backend-for-a-react-app-fe2219f26ea4). Apollo itself is kept library-agnostic, so it is possible to connect it with a lot of third-party libraries in client and server applications.
+现在我们来写我们第一个 GraphQL 服务器。本教程中，我们将使用 [Apollo Server](https://www.apollographql.com/docs/apollo-server/)。我们需要为 Apollo Server 安装三个包才能使用现有的 Express 应用程序作为中间件。Apollo Server 的优点在于它可以与 Node.js 的几个流行框架一起使用：Express、[Koa](https://medium.com/crowdbotics/building-a-rest-api-with-koajs-417c276929e2) 和 [Hapi](https://medium.com/crowdbotics/setting-up-nodejs-backend-for-a-react-app-fe2219f26ea4)。Apollo 本身和库无关，因此在客户端和服务器应用程序中，它可以和许多第三方库连接。
 
-Open your terminal and install the following dependencies:
+打开你的终端安装以下依赖：
 
-```
-# First create a new empty directory
+```bash
+# 首先新建一个空文件夹
 mkdir apollo-express-demo
 
-# Then initialize it
+# 然后初始化
 npm init -y
 
-# Install required dependencies
+# 安装需要的依赖
 npm install --save graphql apollo-server-express express
 ```
+让我们简要了解下这些依赖的作用。
 
-Let us understand briefly what these dependencies do.
+* `graphql` 是一个支持库，使我们所期望添加的模块
+* 添加到现有应用程序中的 `apollp-server-express` 是相应的 HTTP 服务器支持包
+* `express` 是 Nodejs 的 web 框架
 
-*   `graphql` is a support library and is a required module for our purpose
-*   `apollo-server-express` is added to an existing application and is a corresponding HTTP server support package
-*   `express` web framework for Nodejs
-
-You can take a look at the following image of all the dependencies I installed without any error.
+你可以在下面的图中看到我安装了全部的依赖，没有出现任何错误。
 
 ![](https://cdn-images-1.medium.com/max/800/1*gCozaTuzY6DHaPG4Ya43zA.png)
 
-Create a new file called `index.js` at the root of your project with the following code.
+在你项目的根路径下，新建一个名字为 `index.js` 、包含以下代码的文件。
 
-```
+```js
 const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
 
@@ -291,34 +291,33 @@ app.listen({ port: 4000 }, () =>
 	console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
 );
 ```
+这是我们服务器文件的起点。首先，我们仅仅只需要 `express` 模块。`gql` 是一个模板文字标记，用于将 GraphQL schema 编写为类型。schema 由具有强制 *Query* 类型的类型定义组成，用于读取数据。它还可以包含表示其他数据字段的字段和嵌套字段。在我们上面的例子中，我们定义了 `typeDefs` 来编写 graphQL 的 schema。
 
-This is our initial server file in which we start by simply requiring the `express` module. The `gql` is a template literal tag that is used for writing GraphQL schema as types. The schema consists of type definitions with a mandatory _Query_ type for reading data. It can further have fields and nested fields representing other data fields. In our above example, we are defining `typeDefs` to write a graphQL schema.
+然后 `resolvers` 映入眼帘。Resolver 用于从 schema 中返回字段的数据。在我们的示例中，我们定义了一个 resolver，它将函数 `hello()` 映射到我们的 schema 上实现。接下来，我们创建一个 `server`，它使用 `ApolloServer` 类来实例化并启动服务器。由于我们使用了 Express，所以我们需要集成 `ApolloServer` 类。通过 `applyMiddleware()` 作为 `app` 来传递它，来添加 Apollo Server 的中间件。这里的 `app` 是 Express 的一个实例，代表了现有的应用程序。
 
-Then `resolvers` come into picture. Resolvers are used to return data for the fields from a schema. We are defining one resolver in our example which maps the function `hello()` to implement on our schema. Next, we create a `server` that uses the `ApolloServer` class to instantiate and start the server. Since we are using Express, we need to integrate the `ApolloServer` class. We are passing it by the method `applyMiddleware()` as the`app` to add the Apollo Server’s middleware. `app` here represents the existing application and is an instance of Express.
+最后，我们使用 Express 模块提供的 `app.listen()` 来引导服务器。要运行服务器，只需要打开 terminal 并运行命令 `node index.js`。现在，从浏览器窗口访问 url：`http://localhost:4000/graphql` 来看看它的操作。
 
-Lastly, we bootstrap the server by using `app.listen()` which is provided by the Express module itself. To run the server, open up your terminal and run the command `node index.js`. Now, from a browser window, visit the url: `http://localhost:4000/graphql` to see it action.
-
-Apollo Server sets up GraphQL Playground for you so that you can start running queries and exploring schemas quickly as shown below.
+Apollo Server 为你设置了 GraphQL Playground，供你快速开始运行 query，探索 schema，如下所示。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*ba4JULFAk5VbSFRsNxof8g.png)
 
-To run a query, type the following query on the left-hand side which is the editable space and then press the ▶ (play) button in the middle.
+要运行一个 query，在左侧编辑空白部分，输入以下 query。然后按中间的 ▶ （play）按钮。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*SGaIF-GZ0E0QLg2K6sJ7CA.png)
 
-The schema tab on the right-hand side describes the data type of our query `hello`. This is coming straight from the `typeDefs` we defined in our server.
+右侧的 schema 卡描述了我们查询 `hello` 的数据类型。这直接来自我们服务器中定义的 `typeDefs`。
 
 ![](https://cdn-images-1.medium.com/max/800/1*3v_Uh_k2gjC-XueD9PhWvQ.png)
 
-_Voila!_ You just created your first GraphQL server. Now let us extend our current knowledge for the real world.
+*瞧！*你刚创建了第一个 GraphQL 服务器。现在让我们拓展下我们对现实世界的认知。
 
-### Building an API with GraphQL
+### 使用 GraphQL 构建 API
 
-So far we have put together all the modules and whatever necessary terminology that comes with it. In this section, we are going to create a small _Star Wars API_ for our own demonstration purpose using Apollo Server. You might have guessed by now that Apollo server is a library that helps you to connect a GraphQL schema to an HTTP server using Nodejs. It is not bound to only a specific Node framework, for example, we used ExpressJS in the previous section. It supports [Koa](https://medium.com/crowdbotics/building-a-rest-api-with-koajs-417c276929e2), Restify, [Hapi](https://medium.com/crowdbotics/setting-up-nodejs-backend-for-a-react-app-fe2219f26ea4), and Lambda too. For our API, let’s continue to use Express.
+目前为止我们整理了所有必要的模块以及随附的必要术语。在这一节，我们将用 Apollo Server 为我们的演示去创建一个小的 *Star Wars API*。你可能已经猜到了 Apollo server 是一个库，可以帮助你使用 Nodejs 将 GraphQL schema 连接到 HTTP server。它不局限于特定的 Node 框架。例如上一节中我们使用了 ExpressJS。Apollo Server 支持 [Koa](https://medium.com/crowdbotics/building-a-rest-api-with-koajs-417c276929e2)，Restify，[Hapi](https://medium.com/crowdbotics/setting-up-nodejs-backend-for-a-react-app-fe2219f26ea4) 和 Lambda。对于我们的 API，我们继续使用 Express。
 
-### Compiling with Babel
+### 使用 Babel 进行编译
 
-If you want to start from scratch, go ahead and.install all the libraries from the section `Hello World! With GraphQL`. Here are dependencies the we installed in the previous section:
+如果想从头开始，请继续。从 `Hello World！With GraphQL` 一节安装所有的库。这是我们在前面一节中安装的所有依赖：
 
 ```
 "dependencies": {
@@ -328,21 +327,21 @@ If you want to start from scratch, go ahead and.install all the libraries from t
 	}
 ```
 
-I am going to use the same project and the same file `index.js` to bootstrap the server. But before we start building our API, I want you to show you how to use ES6 modules in our demo project. Working with front-end libraries like React and Angular which already have support for ES6 features such as `import` and `export default` statements. Nodejs version `8.x.x` has way around this. All we need is a transpiler which allows us to write JavaScript using ES6 features. You can totally skip this step and use the good old `require()` statements.
+我将使用相同的项目和相同的文件 `index.js` 去引导服务器启动。但是在我们构建我们的 API 之前，我想告诉你如何在我们的演示项目中使用 ES6 modules。对于使用像 React 和 Angular 这样的前端库，他们已经支持了 ES6 特性。例如 `import` 和 `export default` 这样的语句。Nodejs 版本 `8.x.x` 解决了这个问题。我们所需要的只是一个转换器（transpiler）让我们使用 ES6 特性编写 JavaScript。你完全可以跳过这个步骤使用旧的 `require()` 语句。
 
-What is a _transpiler_ though?
+那么什么是*转换器*呢？
 
-> _Transpilers are also known as ‘source-to-source compilers’ that read code from source written in one programming language and produce an equivalent code in another language._
+> *转换器（Transpiler）也被称作‘源到源的编译器’，从一种编程语言写的源码中读取代码转换成另一种语言的等效代码。* 
 
-In the case of Nodejs, we are not switching programming languages, rather we need to use new language features that are not supported by the LTS version of Node I am using. I am going to setup [**Babel**](https://babeljs.io/) **compiler** and enable it in our project by going through the following configuration process.
+在 Nodejs 的情况下，我们不会切换编程语言，而是要使用哪些我目前使用的 LTS 版本的 Node 不支持的语言的新特性。我将安装 [**Babel**](https://babeljs.io/) **编译器**，并通过接下来的配置过程在我们的项目中启用它。
 
-First, you will have to install few dependencies and do mind `-D` flag as we only need these dependencies for our development environment.
+首先，你需要安装一些依赖，记得使用 `-D` 参数。因为我们只会在开发环境中用到这些依赖。
 
-```
+```bash
 npm install -D babel-cli babel-preset-env babel-watch
 ```
 
-Once you have installed them, add a `.babelrc` file to the root of the project and add the following config:
+只要你成功安装了他们，在项目的根目录下添加一个 `.babelrc` 文件并且添加以下配置：
 
 ```
 {
@@ -350,7 +349,7 @@ Once you have installed them, add a `.babelrc` file to the root of the project a
 }
 ```
 
-The last step in the configuration process is to add a `dev` `script` in `package.json`. This will take care of running the babel compiler on its own (automate) once there is a change. This done by `babel-watch` that also takes care of re-starting [Nodejs](https://www.crowdbotics.com/build/node-js?utm_source=medium&utm_campaign=nodeh&utm_medium=node&utm_content=koa-rest-api) web server.
+配置流程的最后一步是在 `package.json` 中添加一个 `dev` `脚本（script）`。一旦（项目文件）发生变化，babel 编译器将自动运行。这由 `babel-watch` 完成。同时它也负责重新启动 [Nodejs](https://www.crowdbotics.com/build/node-js?utm_source=medium&utm_campaign=nodeh&utm_medium=node&utm_content=koa-rest-api) 网络服务器。
 
 ```
 "scripts": {
@@ -358,9 +357,9 @@ The last step in the configuration process is to add a `dev` `script` in `packag
 }
 ```
 
-To see it action add the following code to your `index.js` and see if everything is working fine.
+要查看它的操作，请将以下代码添加到 `index.js` 中，看看是否一切正常。
 
-```
+```js
 import express from 'express';
 
 const app = express();
@@ -372,17 +371,17 @@ app.listen({ port: 4000 }, () =>
 );
 ```
 
-From terminal write `npm run dev`. If there are no errors, you will get the following:
+在终端中输入 `npm run dev`，不出意外，你可以看到下面的信息：
 
 ![](https://cdn-images-1.medium.com/max/800/1*Cix-Zl8mbZf90qpuHxEB8g.png)
 
-You can also visit `http://localhost:4000/` in a browser window to see it action.
+你也可以在浏览器中访问 `http://localhost:4000/` 去看看其操作。
 
-### Adding a Schema
+### 添加 Schema
 
-We need a schema to start our GraphQL API. Let us create a new file called `api/schema.js` inside the directory `api`. Add the following the schema.
+我们需要一个 schema 来启动我们的 GraphQL API。让我们在 `api` 目录下创建一个名字为 `api/schema.js` 的新文件。添加以下 schema。
 
-```
+```js
 import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
@@ -401,17 +400,17 @@ const typeDefs = gql`
 export default typeDefs;
 ```
 
-Our schema consists of two queries in total. The first is `allPeople` through which all characters in our API can be fetched and listed. The second query `person` is to retrieve one person using their id. Both of these query types are dependent on a custom type called `Person` object which contains four properties.
+我们的 schema 一共包含两个 query。第一个是 `allPeople`，通过它我们可以列出到 API 中的所有的人物。第二个查询 `person` 是使用他们的 id 检索一个人。这两种查询类型都依赖于一个名为 `Person` 对象的自定义类型，该对象包含四个属性。
 
-### Add a Resolver
+### 添加 Resolver
 
-We have already learned about the importance of a resolver. It is based on a simple mechanism that it has to link the schema and the data. Resolvers are functions that contain the logic behind a query or mutation. They are used then to retrieve data and return it on the relevant request.
+我们已经了解了 resolver 的重要性。它基于一种简单的机制，去关联 schema 和 data。Resolver 是包含 query 或者 mutation 背后的逻辑和函数。然后使用它们来检索数据并在相关请求上返回。
 
-If you have built servers before using Express, you can think of a resolver as a controller where each controller is built for a specific route. Since we are not using any database behind our server, we must provide some dummy data to mock our API.
+如果在使用 Express 之前构建了服务器，则可以将 resolver 视为控制器，其中每一个控制器都是针对特定路由构建。由于我们不在服务器后面使用数据库，因此我们必须提供一些虚拟数据来模拟我们的 API。
 
-Create a new file called `resolvers.js` and add the following code.
+创建一个名为 `resolvers.js` 的新文件并添加下面的文件。
 
-```
+```js
 const defaultData = [
 	{
 		id: 1,
@@ -443,15 +442,15 @@ const resolvers = {
 export default resolvers;
 ```
 
-First, we define the `defaultData` array which contains details of two characters from Star Wars. Both of these objects inside the array have four properties as per our schema. Next is our `resolvers` object which contains two functions. `allPeople()` here can be used later to retrieve all the data inside the`defaultData` array. The `person()` arrow function, uses an argument `id` to retrieve the person object with the requested ID. This we have already defined in our query.
+首先，我们定义 `defaultData` 数组，其中包含 Star Wars 中两个人物的详细信息。根据我们的 schema ，数组中的这两个对象都有四个属性。接下来是我们的 `resolvers` 对象，它包含两个函数。这里可以使用 `allPeople()` 来检索 `defaultData` 数组中的所有数据。`person()` 箭头函数使用参数 `id` 来检索具有请求 ID 的 person 对象。这个已经在我们的查询中定义了。
 
-You have to export both resolvers and schema objects to use them with Apollo Server middleware.
+你必须导出 resolver 和 schema 对象才能将它们与 Apollo Server 中间件一起使用。
 
-### Implementing the Server
+### 实现服务器
 
-Now that we have defined our schema and resolver, we will implement the server inside the file `index.js`. Start by importing Apollo Server from `apollo-server-express`. We also need to import our schema and resolvers object from the `api/` folder. Then, use GraphQL middleware from the Apollo Server Express library to instantiate the GraphQL API.
+现在我们定义了 schema 和 resolver，我们将要在 `index.js` 文件里边实现服务器。首先从 `apollo-server-express` 导入 Apollo-Server。我们还需要从 `api/` 文件夹导入我们的 schema 和 resolvers 对象。然后，使用 Apollo Server Express 库中的 GraphQL 中间件实例化 GraphQL API。
 
-```
+```js
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 
@@ -473,10 +472,9 @@ app.listen(PORT, () =>
 	console.log(`🚀 GraphQL playground is running at http://localhost:4000`)
 );
 ```
+最后，我们使用 `app.listen()` 来引导我们的 Express 服务器。你现在可以从终端执行命令 `npm run dev`来运行服务器。服务器节点启动后，将提示成功消息，指示服务器已经启动。
 
-Lastly, we bootstrap our Express server using `app.listen()`. You can run the server now executing the command from the terminal `npm run dev`. Once the Node server starts, it will prompt a success message indicating the server has started.
-
-Now to test our GraphQL API, hop on to `http://localhost:4000/graphql` URL in a browser window and run the following query.
+现在要测试我们的 GraphQL API，在浏览器窗口中跳转 `http://localhost:4000/graphql` URL 并运行以下 query。
 
 ```
 {
@@ -489,11 +487,11 @@ Now to test our GraphQL API, hop on to `http://localhost:4000/graphql` URL in a 
 }
 ```
 
-Hit the _play_ button and you will see a familiar result on the right side section like below.
+点击 *play* 按钮，你将在右侧部分看到熟悉的结果，如下所示。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*BnyLxWTl_9yDpoIDLH-Xzg.png)
 
-This is all happening because our query type `allPeople` has custom business logic to retrieve all the data (in our case the mock data we are providing as an array inside `resolvers.js`) using a resolver. To fetch a single person object try running another query like this. Remember you have to provide the ID.
+一切正常，因为我们的查询类型 `allPeople` 具有自定义的业务逻辑，可以使用 resolver 检索所有数据（在我们的例子中，我们在 `resolvers.js` 中作为数据提供的模拟数据）。要获取单个人物对象，请尝试运行类似的其他 query。请记住，必须提供 ID。
 
 ```
 {
@@ -504,13 +502,13 @@ This is all happening because our query type `allPeople` has custom business log
 }
 ```
 
-Run the above query, and as a result, you can have the values of each field/property you have mentioned to query up on. Your result will be similar to the following.
+运行上面的查询，在结果中，你可以获得得到的每个字段/属性的值以进行查询。你的结果将类似于以下内容。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*DOSW6mN894ZYg498rVxNKg.png)
 
-Great! I am sure you must have got hold of how to create a GraphQL query and run it. Apollo Server library is a powerful one. It also enables us to edit the playground. _Suppose we want to edit the theme of the playground?_ All we have to do is provide an option when creating `ApolloServer` instance, in our case the `SERVER`.
+完美！我相信你必须掌握如何创建 GraphQL query 并运行它。Apollo Server 库功能很强大。它让我们能够编辑 playground。*假设我们要编辑 playground 的主题？* 我们要做的就是在创建 `ApolloServer` 实例时提供一个选项，在我们的例子中事 `SERVER`。
 
-```
+```js
 const SERVER = new ApolloServer({
 	typeDefs,
 	resolvers,
@@ -522,27 +520,27 @@ const SERVER = new ApolloServer({
 });
 ```
 
-The `playground` property has many features such defining a default endpoint for the playground to changing the theme. You can even enable the playground in the production mode. More configurable options can be found in the official documentation of Apollo Server [**here**](https://www.apollographql.com/docs/apollo-server/v2/features/graphql-playground.html)**.**
+`playground` 属性有很多功能，例如定义 playground 的默认端点（endpoint）以更改主题。你甚至可以在生产模式启用 playground。更多配置项可以在Apollo Server 的官方文档中找到，[**这里。**]
 
-After changing the theme we get the following.
+更改主题后我们获取下面的结果。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*cZ7KO6x0FVXql9c04ZshIA.png)
 
-### Conclusion
+### 结论
 
-If you completed this tutorial step by step, _Congratulations!🎉_
+如果你一步一步完成教程，那么 *祝贺你！🎉*
 
-You have learned how to configure an Express server with Apollo library to setup your own GraphQL API. Apollo Server is an open source project and is one the most stable solution to create GraphQL APIs for full-stack applications. It also supports client-side out of the box for React, Vue, Angular, Meteor, and Ember as well as Native mobile development with Swift and Java. More information about this can be found [**here**](https://www.apollographql.com/docs/react/).
+你已经学习了如何使用 Apollo 库配置 Express 服务器来设置您自己的 GraphQL API。Apollo Server 是一个开源项目，是为全栈应用程序创建 GraphQL API 的最稳定的解决方案之一。他还支持客户端开箱即用的 React、Vue、Angular、Meteor 和 Ember 以及使用 Swift 和 Java 的 Native 移动开发。有关这方面的更多信息可以在[**这里**](https://www.apollographql.com/docs/react/)找到。
 
-**The complete code for the tutorial at this Github repository 👇**
+**在此 Github 存储库中查看教程的完整代码 👇**
 
-* [**amandeepmittal/apollo-express-demo**: Apollo Server Express. Contribute to amandeepmittal/apollo-express-demo development by creating an account on GitHub.](https://github.com/amandeepmittal/apollo-express-demo "https://github.com/amandeepmittal/apollo-express-demo")
+* [**amandeepmittal/apollo-express-demo**: Apollo Server Express. 通过在 Github 上创建一个账户，为 amandeepmittal/apollo-express-demo 开发做贡献。](https://github.com/amandeepmittal/apollo-express-demo "https://github.com/amandeepmittal/apollo-express-demo")
 
-#### Starting a new Node.js project, or looking for a Node developer?
+#### 启动一个新的 Node.js 项目，或者寻找一个 Node 开发者？
 
-[**Crowdbotics helps business build cool things with Node**](http://crowdbotics.com/build/node-js?utm_source=medium&utm_campaign=nodeh&utm_medium=node&utm_content=koa-rest-api)  (among other things). If you have a Node project where you need additional developer resources, drop us a line. Crowbotics can help you estimate build time for given product and feature specs, and provide specialized Node developers as you need them. **If you’re building with Node,** [**check out Crowdbotics**](http://crowdbotics.com/build/node-js?utm_source=medium&utm_campaign=nodeh&utm_medium=node&utm_content=koa-rest-api)**.**
+[**Crowdbotics 帮助企业利用 Node 构建酷炫的东西**](http://crowdbotics.com/build/node-js?utm_source=medium&utm_campaign=nodeh&utm_medium=node&utm_content=koa-rest-api)  (除此之外)。如果你有一个 Node 项目，你需要其他开发者资源，请给我们留言。 Crowbotics 可以帮助您估算给定产品的功能规格的构建时间，并根据您的需要提供专门的 Node 开发者。**如果你使用 Node 构建，** [**查看 Crowdbotics**](http://crowdbotics.com/build/node-js?utm_source=medium&utm_campaign=nodeh&utm_medium=node&utm_content=koa-rest-api)**.**
 
-Thanks to [William Wickey](https://medium.com/@wwickey) for help with editing.
+感谢 [William Wickey](https://medium.com/@wwickey) 提供编辑方面的帮助。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
