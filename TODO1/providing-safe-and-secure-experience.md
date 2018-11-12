@@ -1,5 +1,5 @@
 > * 原文地址：[Providing a safe and secure experience for our users](https://android-developers.googleblog.com/2018/10/providing-safe-and-secure-experience.html)
-> * 原文作者：[]()
+> * 原文作者：[Android Developers Blog](https://android-developers.googleblog.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/providing-safe-and-secure-experience.md](https://github.com/xitu/gold-miner/blob/master/TODO1/providing-safe-and-secure-experience.md)
 > * 译者：
