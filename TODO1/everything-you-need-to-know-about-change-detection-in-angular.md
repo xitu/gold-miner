@@ -5,59 +5,59 @@
 > * 译者：
 > * 校对者：
 
-# Everything you need to know about change detection in Angular
+# 关于 Angular 的变化检测，你需要知道的一切
 
-## Exploring the underlying implementation and use cases
+## 探究内部实现和具体用例
 
 ![](https://cdn-images-1.medium.com/max/800/1*bB59KfaXSpZKoy234UJnTQ.jpeg)
 
 * * *
 
-If like me and want to have a comprehensive understanding of the change detection mechanism in Angular you’ll have to explore the sources since there is not much information available on the web. Most articles mention that each component has its own change detector which is responsible for checking the component, but they don’t go beyond that and mostly focus on use cases for immutables and change detection strategy. This article provides you with the information required to understand _why_ use cases with immutables work and _how_ change detection strategy affects the check. Also, what you will learn from this article will enable you to come up with various scenarios for performance optimization on your own.
+如果你想我一样希望对 Angular 的变化检测机制有和全面的了解，你就不得不去查看源码，因为网上几乎没有这方面的文章。 大部分文章只是提到每个组件都有自己的用来检测组件变化的变化检测器，而且重点都在使用不可变变量（immutable）和变化检测策略（change detection strategy）上，但是没人进行更深入的探讨。这篇文章会带你一起了解*为什么*不可变变量可以出发变化检测以及变化监测策略*如何* 影响检测。另外，你从本文中学到的东西也会让你自己能想出来各种提升性能的场景。
 
-This article consists of two parts. The first part is pretty technical and contains a lot of links to the sources. It explains in detail how the change detection mechanism works under the hood. Its content is based on the newest Angular version — 4.0.1. The way how change detection mechanism is implemented under the hood in this version is different from the earlier 2.4.1. If interested you can read a little about how it worked in [this stackoverflow answer](http://stackoverflow.com/a/42807309/2545680).
+本文包括两部分。第一部分比较偏技术，会有很多源码的链接。主要讲解变化检测机制是如何运作的。本文的内容是基于（当时的）最新版本——Angular 4.0.1。这个版本中的变化检测机制和 2.4.1 的有一点不同。如果你有兴趣的话，可以参考[Stack Overflow上的这个回答](http://stackoverflow.com/a/42807309/2545680)。
 
-The second part shows how change detection can be used in the application and its content is applicable for both earlier 2.4.1 and the newest 4.0.1 versions of Angular since public API has not changed.
+第二部分展示了如何应用变化检测。由于 2.4.1 和 4.0.1 的 API 没有发生变化，所以这一部分对于两个版本都适用。
 
 * * *
 
-### View as a core concept
+### 核心概念：视图（view）
 
-It’s been mentioned across the tutorials that an Angular application is a tree of components. However, under the hood angular uses a low-level abstraction called [view](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/types.ts#L301)_._ There is a direct relationship between a view and a component — one view is associated with one component and vice verse. A view holds a [reference](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/types.ts#L309) to the associated component class instance in the `component` property. All operations like property checks and DOM updates are performed on views, hence it’s more technically correct to state that angular is a tree of views, while a component can be described as a higher level concept of a view. Here is what you can read about the view [in the sources](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/linker/view_ref.ts#L31):
+Angular 的教程上一直在说，一个Angular应用是一颗组件树。然而，在Angular内部使用的是一种叫做[视图（view）](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/types.ts#L301)的低阶抽象。视图和组件直接是有直接联系的————一个视图都有一个与之关联的组件，反之亦然。视图通过 `component` 属性将其与对应的组件类[关联](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/types.ts#L309)起来。所有的操作都在视图中执行，比如属性检查和更新 DOM。所以，从技术上来说，更正确的说法是：一个Angular应用是一颗视图树。组件可以描述为视图的更高阶的概念。关于视图，[源码](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/linker/view_ref.ts#L31)中有这样一段描述：
 
-> A View is a fundamental building block of the application UI. It is the smallest grouping of Elements which are created and destroyed together.
+> 视图是构成应用 UI 的基本元素。它是一组一起被创造和销毁的最小合集。
 
-> Properties of elements in a View can change, but the structure (number and order) of elements in a View cannot. Changing the structure of Elements can only be done by inserting, moving or removing nested Views via a ViewContainerRef. Each View can contain many View Containers.
+> 视图的属性可以更改，而视图中元素的结构（数量和顺序）不能更改。想要改变元素的结构，只能通过用 `ViewContainerRef` 来插入、移动或者移除嵌入的视图。每个视图可以包含多个视图容器（View Container）
 
-In this article I will be using notions of component view and component interchangeably.
+在这篇文章中，我会交替使用组件视图和组件的概念。
 
-> It’s important to note here that all articles on the web and answers on StackOverflow regarding change detection refer to the View I’m describing here as Change Detector Object or ChangeDetectorRef. In reality, there’s no separate object for change detection and View is what change detection runs on.
+> 值得一提的是，网上有关变化检测文章和 Stack Overflow 中的回答中，都把本文中的视图称为变化检测器对象（Change Detector Object）或者 ChangeDetectorRef。实际上，变化检测并没有单独的对象，它其实是在视图上运行的。
 
-Each view has a link to its child views through [nodes](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/types.ts#L316) property and hence can perform actions on child views.
+每个视图都通过 [`nodes`属性](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/types.ts#L316)将其与子视图相关联，这样就能对子视图进行操作。
 
-### View state
+### 视图的状态
 
-Each view has a [state](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/types.ts#L317), which plays very important role because based on its value Angular decides whether to run change detection for the view and **all its children** or skip it. There are many [possible states](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/types.ts#L325) but the following ones are relevant in the context of this article:
+每个视图都有一个 [`state`属性](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/types.ts#L317)。这是一个非常重要的属性，因为 Angular 会根绝这个属性的值来确定是否要对此视图和所有的子视图执行变化检测。`state`属性有很多[可能的值](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/types.ts#L325)，与本文相关的有以下几种：
 
 1.  FirstCheck
 2.  ChecksEnabled
 3.  Errored
 4.  Destroyed
 
-Change detection is skipped for the view and its child views if `ChecksEnabled` is `false` or view is in the `Errored` or `Destroyed` state. By default, all views are initialized with `ChecksEnabled` unless `ChangeDetectionStrategy.OnPush` is used. More on that later. The states can be combined, for example, a view can have both `FirstCheck` and `ChecksEnabled` flags set.
+如果 `CheckesEnabled` 是 `false` 或者视图的状态是 `Errored` 或者 `Destroyed`，变化检测就会跳过此视图和其所有子视图。默认情况下，所有的视图都以 `ChecksEnabled` 作为初始值，除非使用了 `ChangeDetectionStrategy.OnPush`。后面会对此进行更多的解释。视图的可以同时有多个状态，比如，可以同时是 `FirstCheck` 和 `ChecksEnabled`。
 
-Angular has a bunch of high-level concepts to manipulate the views. I’ve written about some of them [here](https://hackernoon.com/exploring-angular-dom-abstractions-80b3ebcfc02). One such concept is [ViewRef](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/refs.ts#L219). It encapsulates the [underlying component view](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/refs.ts#L221) and has an aptly named method [detectChanges](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/refs.ts#L239). When an asynchronous event takes place, Angular [triggers change detection](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/application_ref.ts#L552.) on its top-most ViewRef, which after running change detection for itself **runs change detection for its child views**.
+Angular 中有很多高阶概念来操作视图。我在[这篇文章](https://hackernoon.com/exploring-angular-dom-abstractions-80b3ebcfc02)中讲过其中一些。其中一个概念是 [ViewRef](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/refs.ts#L219)。它封装了[底层组件视图](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/refs.ts#L221)，里面还有一个命名很恰当的方法，叫做 [`detectChanges`](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/refs.ts#L239)。当异步事件发生时，Angular 会在最顶层的 ViewRef 上[触发变化检测](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/application_ref.ts#L552.)。最顶层的 ViewRef 自己执行了变化检测后，就会**对其子视图进行变化检测**。
 
-This `viewRef` is what you can inject into a component constructor using `ChangeDetectorRef` token:
+你可以使用 `ChangeDetectorRef` 令牌来将 `viewRef` 注入到组件的构造函数中：
 
-```
+```ts
 export class AppComponent {
     constructor(cd: ChangeDetectorRef) { ... }
 ```
 
-As can be seen from this classes definition:
+从其定义可以看出这点：
 
-```
+```ts
 export declare abstract class ChangeDetectorRef {
     abstract checkNoChanges(): void;
     abstract detach(): void;
@@ -72,53 +72,53 @@ export abstract class ViewRef extends ChangeDetectorRef {
 
 * * *
 
-### Change detection operations
+### 变化检测操作
 
-The main logic responsible for running change detection for a view resides in [checkAndUpdateView](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/view.ts#L325) function. Most of its functionality performs operations on **child** component views. This function **is called recursively** for each component starting from the host component. It means that a child component becomes parent component on the next call as a recursive tree unfolds.
+执行变化检测的主要逻辑在 [`checkAndUpdateView`](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/view.ts#L325) 方法中。此方法主要是对**子**组件视图执行操作。而且会对从宿主组件开始的所有组件**递归地调用**此方法。也就是说，在下次递归中，子组件就变成了父组件。
 
-When this function triggered for a particular view it does the following operations in the specified order:
+当为某个视图触发这个方法时，会按照以下顺序执行操作：
 
-1.  sets `ViewState.firstCheck` to `true` if a view is checked for the first time and to `false` if it was already checked before
-2.  checks and [updates input properties](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/provider.ts#L154) on a child component/directive instance
-3.  [updates](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/provider.ts#L436) child view change detection state (part of change detection strategy implementation)
-4.  [runs change detection](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/view.ts#L327) for the embedded views (repeats the steps in the list)
-5.  [calls](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/provider.ts#L202) `OnChanges` lifecycle hook on a child component if bindings changed
-6.  [calls](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/provider.ts#L202) `OnInit` and `ngDoCheck` on a child component (`OnInit` is called only during first check)
-7.  [updates](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/query.ts#L91) `ContentChildren` query list on a child view component instance
-8.  [calls](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/provider.ts#L503) `AfterContentInit` and `AfterContentChecked` lifecycle hooks on child component instance (`AfterContentInit` is called only during first check)
-9.  [updates DOM interpolations](https://hackernoon.com/the-mechanics-of-dom-updates-in-angular-3b2970d5c03d) for the **current view** if properties on **current view** component instance changed
-10.  [runs change detection](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/view.ts#L541) for a child view (repeats the steps in this list)
-11.  [updates](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/query.ts#L91) `ViewChildren` query list on the current view component instance
-12.  [calls](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/provider.ts#L503) `AfterViewInit` and `AfterViewChecked` lifecycle hooks on child component instance (`AfterViewInit` is called only during first check)
-13.  [disables checks](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/view.ts#L346) for the current view (part of change detection strategy implementation)
+1.  如果视图是第一次被检测，将 `ViewState.firstCheck` 设置为 `true`，如果之前已经检测过了，设置为 `false`
+2.  [检查并更新](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/provider.ts#L154)子组件或子指令实例的输入属性
+3.  [更新](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/provider.ts#L436)子视图的变化检测状态（这也是变化检测策略的一部分）
+4.  对嵌入的视图[执行变化检测](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/view.ts#L327)（重复此列表中的步骤）
+5.  如果绑定发生了改变，对子组件[调用](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/provider.ts#L202) `OnChanges` 生命周期钩子
+6.  对子组件[调用](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/provider.ts#L202) `OnInit` 和 `ngDoCheck`（`OnInit` 只会在第一次检测时调用）
+7.  [更新](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/query.ts#L91)子视图组件实例的 `ContentChildren` 查询列表
+8.  对子组件实例[调用](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/provider.ts#L503) `AfterContentInit` 和 `AfterContentChecked` 生命周期钩子（`AfterContentInit` 只会在第一次检测时调用）
+9.  如果**当前视图**组件实例的属性发生改变，[更新**当前视图**的 DOM 插值](https://hackernoon.com/the-mechanics-of-dom-updates-in-angular-3b2970d5c03d)
+10.  对子视图[执行变化检测](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/view.ts#L541)（重复此列表中的步骤）
+11.  [更新](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/query.ts#L91)当前试图组件实例的 `ViewChildren` 查询列表
+12.  对子组件实例[调用](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/provider.ts#L503) `AfterViewInit` 和 `AfterViewChecked` 生命周期钩子（`AfterViewInit` 只在第一次检测时调用）
+13.  [取消](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/view.ts#L346)对当前视图的检查（这也是变化检测策略的一部分）
 
-There are few things to highlight based on the operations listed above.
+对于上面的操作列表，以下几点值得一提：
 
-The first thing is that `onChanges` lifecycle hook is triggered on a child component before the child view is checked and it will be triggered even if changed detection for the child view will be skipped. This is important information and we will see how we can leverage this knowledge in the second part of the article.
+首先，子组件会在子视图被检测之前触发 `onChanges` 生命周期钩子，哪怕子视图的变化检测被跳过了。这是十分重要的一点，之后我们会在第二部分中看到我们可以如何利用这一点。
 
-The second thing is that DOM for a view is updated as part of a change detection mechanism while the view being checked. This means that if a component is not checked, the DOM is not updated even if component properties used in a template change. The templates are rendered before the first check. What I refer to as DOM update is actually interpolation update. So if you have `<span>some {{name}}</span>`, the DOM element `span` will be rendered before the first check. During the check only `{{name}}` part will be rendered.
+第二，当检测视图时，更新视图的 DOM 是变化检测机制的一部分。也就是说，如果组件没被检测，DOM 也就不会更新，用于模板中的组件属性发生了变化。第一次检测之前，模板就已经被渲染好了。我所说的更新 DOM 其实是指更新插值。比如 `<span>some {{name}}</span>`，在第一次检测之前，就会把 DOM 元素 `span` 渲染好。检测过程中，只会渲染 `{{name}}` 部分。
 
-Another interesting observation is that state of a child component view can be changed during change detection. I mentioned earlier that all component views are initialized with `ChecksEnabled` by default, but for all components that use `OnPush` strategy change detection is disabled after the first check (operation 9 in the list):
+再一个很有意思的是，子组件视图的状态可以在变化检测的时候改变。之前我提到所有的组件视图都默认初始化为 `ChecksEnabled`。但是所有使用 `OnPush` 策略的组件，在第一次检测之后，就不在进行变化检测了（列表中的第9步）：
 
-```
+```ts
 if (view.def.flags & ViewFlags.OnPush) {
   view.state &= ~ViewState.ChecksEnabled;
 }
 ```
 
-It means that during the following change detection run the check will be skipped for this component view and all its children. The documentation about the `OnPush` strategy states that a component will be checked only if its bindings have changed. So to do that the checks have to be enabled by setting `ChecksEnabled` bit. And this is what the following code does (operation 2):
+也就是说，之后的变化检测，都会将它和它的子组件跳过。`OnPush` 的文档中说，只有在它的绑定发生变化时，才会执行检测。所以要设置 `CheckesEnabled` 位来启用检测。下面这段代码就是这个作用（第2步操作）：
 
-```
+```ts
 if (compView.def.flags & ViewFlags.OnPush) {
   compView.state |= ViewState.ChecksEnabled;
 }
 ```
 
-The state is updated only if parent view bindings changed and child component view was initialized with `ChangeDetectionStrategy.OnPush`.
+只有当父视图的绑定发生了变化，且子组件视图初始化为 `ChangeDetectionStrategy.OnPush` 时，才会更新状态
 
-Finally, change detection for the current view is responsible for starting change detection for child views (operation 8). This is the place where state of the child component view is checked and if it’s `ChecksEnabled`, then for this view the change detection is performed. Here is the relevant code:
+最后，当前视图的变化检测也负责启动子视图的变化检测（第8步）。此处会检查子组件视图的状态，如果是 `ChecksEnabled`，那么就对其执行变化检测。这是相关的代码：
 
-```
+```ts
 viewState = view.state;
 ...
 case ViewAction.CheckAndUpdate:
@@ -129,9 +129,9 @@ case ViewAction.CheckAndUpdate:
 }
 ```
 
-Now you know that view state controls whether change detection is performed for this view and its children or not. So the question begs — can we control that state? It turns out we can and this is what the second part of this article is about.
+现在你知道了视图状态控制了是否对此视图和它的子视图进行变化检测。现那么问题来了——我们能控制这个状态吗？答案是可以，这也是本文第二部分要讲的。
 
-Some lifecycle hooks are called before the DOM update (3,4,5) and some after (9). So if you have the following components hierarchy: `A -> B -> C`, here is the order of hooks calls and bindings updates:
+有些生命周期钩子在更新 DOM 前调用（3, 4, 5），有些在之后（9）。比如有这样一个组件结构：`A -> B -> C`，它们的生命周期钩子调用和更新绑定的顺序是这样的：
 
 ```
 A: AfterContentInit
@@ -153,19 +153,19 @@ A: AfterViewChecked
 
 * * *
 
-### Exploring the implications
+### 总结
 
-Let’s assume that we have the following components tree:
+假设我们有如图所示的组件树
 
 ![](https://cdn-images-1.medium.com/max/800/1*aRo_mATLsi0B3p7E6Ndv4Q.png)
 
-A tree of components
+一颗组件树
 
-As we learnt above, each component is associated with a component view. Each view is initialized with the `ViewState.ChecksEnabled` which means when angular runs change detection every component in the tree will be checked.
+根据前面说的，每个组件都有一个视图与之相关联。每一个视图都初始化为 `ViewState.ChecksEnabled`，也就是说当 Angular 进行变化检测时，这棵树中的每一个组件都会被检测。
 
-Suppose we want to disable change detection for the `AComponent` and its children. That’s easy to do — we just need to set `ViewState.ChecksEnabled` to `false`. Changing state is a low-level operation, so Angular provides for us a bunch of public methods available on the view. Every component can get a hold of its associated view through `ChangeDetectorRef` token. For this class Angular docs define the following public interface:
+假如我们想禁用 `AComponent` 和它的子组件的变化检测，只需要将 `ViewState.ChecksEnabled` 设置为 `false`。由于改变状态是低阶操作，所以 Angular 为我们提供了许多视图的公共方法。每个组件都可以通过 `ChangeDetectorRef` 令牌来获取与之相关联的视图。Angular 文档中对这个类定义了如下公共接口：
 
-```
+```ts
 class ChangeDetectorRef {
   markForCheck() : void
   detach() : void
@@ -176,32 +176,32 @@ class ChangeDetectorRef {
 }
 ```
 
-Let’s see what we can wrangle it to our benefit.
+来看下我们可以如何使用这些接口。
 
 #### detach
 
-The first method that allows us manipulating the state is `detach` which simply disables checks for the current view:
+第一个允许我们操作状态的是 `detach`，它可以对当前视图禁用检查：
 
-```
+```ts
 detach(): void { this._view.state &= ~ViewState.ChecksEnabled; }
 ```
 
-Let’s see how it can be used in the code:
+来看下如何在代码中使用：
 
-```
+```ts
 export class AComponent {
   constructor(public cd: ChangeDetectorRef) {
     this.cd.detach();
   }
 ```
 
-This ensures that during the following change detection runs the left branch starting with `AComponent` will be skipped (orange components will not be checked):
+这保证了在接下来的变化检测中，从 `AComponent` 开始，左子树都会被跳过（橙色的组件都不会被检测）：
 
 ![](https://cdn-images-1.medium.com/max/800/1*QtTCrT0cVGxoPJAapKGSAA.png)
 
-There are two things to note here — first is that even though we changed state for `AComponent`, all its child components will not be checked as well. Second is that since no change detection will be performed for the left branch components, DOM in their templates will not be updated as well. Here is the small example to demonstrate it:
+这里需要注意两点——首先，尽管我们改变的是 `AComponent` 的状态，其所有子组件都不会被检测。第二，由于整个左子树的组件都不执行变化检测，它们模板中的 DOM 也不会更新。下面的例子简单描述了一下这种情况：
 
-```
+```ts
 @Component({
   selector: 'a-comp',
   template: `<span>See if I change: {{changed}}</span>`
@@ -217,13 +217,13 @@ export class AComponent {
   }
 ```
 
-The first time the component is checked the span will be rendered with the text `See if I change: false`. And within two seconds when `changed` property is updated to `true` the text in the span will not be changed. However, if we remove this line `this.cd.detach()`, everything will work as expected.
+当组件第一次被检测时，`span` 就会被渲染成 `See if I change: false`。两秒之后，`changed` 属性变成了 `true`，`span` 中的文字并不会更新。然而，如果去掉 `this.cd.detach()`，就会按照预想的样子更新了。
 
 #### reattach
 
-As shown in the first part of the article `OnChanges` lifecycle hook will still be triggered for `AComponent` if input binding `aProp` changes on the `AppComponent`. This means that once we are notified that input properties change, we can activate change detector for the current component to run change detection and detach it on the next tick. Here is the snippet demonstrating that:
+如第一部分所说，如果 `AComponent` 的输入绑定 `aProp` 发生了变化，`AComponent` 的 `Onchanges` 声明周期钩子就会被触发。这意味着一旦我们得知输入属性发生了变化，就可以对当前组件启动变化检测器来检测变化，然后在下一个周期将其分离。这段代码就是这个作用：
 
-```
+```ts
 export class AComponent {
   @Input() inputAProp;
 
@@ -239,23 +239,23 @@ export class AComponent {
   }
 ```
 
-Since `reattach` simply [sets](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/refs.ts#L242) `ViewState.ChecksEnabled` bit:
+由于 `reattach` 只是简单地[设置](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/refs.ts#L242) `ViewState.ChecksEnabled` 位：
 
-```
+```ts
 reattach(): void { this._view.state |= ViewState.ChecksEnabled; }
 ```
 
-this is almost equivalent to what is done when `ChangeDetectionStrategy` is set to `OnPush`: disable check after the first change detection run, enable it when parent component bound property changes and disable after the run.
+这和将 `ChangeDetectionStrategy` 设置为 `OnPush` 的效果基本上是一样的：在第一次变化检测之后禁用检测，在父组件绑定的属性发生变化时启用，检测完之后再次禁用。
 
-Please note that `OnChanges` hook is only triggered for the top-most component in the disabled branch, not for every component in the disabled branch.
+需要注意的是，`OnChanges` 钩子只会在禁用检测的子树的最顶端组件触发，并不会对整个子树的所有组件都触发。
 
 #### markForCheck
 
-The `reattach` method enables checks for the current component only, but if changed detection is not enabled for its parent component, it will have no effect. It means that `reattach` method is only useful for top-most component in the disabled branch.
+`reattach` 方法只是对当前组件启用检测，如果它的父组件没有启用变化检测，就不会生效。也就是说 `reattach` 方法只对最禁用检测的子树的顶端组件有用。
 
-We need a way to enable check for all parent components up to root component. And [there is a method](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/util.ts#L110) for it `markForCheck`:
+我们需要一个能够检测所有父组件直到跟组件的方法。[这个方法](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/util.ts#L110)就是 `markForCheck`：
 
-```
+```ts
 let currView: ViewData|null = view;
 while (currView) {
   if (currView.def.flags & ViewFlags.OnPush) {
@@ -265,11 +265,11 @@ while (currView) {
 }
 ```
 
-As you can see from the implementation, it simply iterates upwards and enables checks for every parent component up to the root.
+从代码中可以看出，它只是简单地向上迭代直到根节点，将所有的父组件都启用检查。
 
-When is this useful? Just as with `ngOnChanges` the `ngDoCheck` lifecycle hook is triggered even if the component uses `OnPush` strategy. Again, it’s only triggered for the top-most component in the disabled branch, not for every component in the disabled branch. But we can use this hook to perform custom logic and mark our component eligible for one change detection cycle run. Since Angular only checks object references, we may implement the dirty checking of some object property:
+那么什么时候能用到这个方法呢？和 `ngOnChanges` 一样，使用 `OnPush` 策略时也会 `ngDoCheck` 生命周期钩子。再说一次，只有禁用检查的子树的最顶端的组件会触发，子树里的其他组件都不会触发。但是我们可以使用这个钩子来执行一些自定义的逻辑，然后将组件标记为可以执行一次变化检测。由于 Angular 只检测对象引用，我们可以在此检查一下对象的属性：
 
-```
+```ts
 Component({
    ...,
    changeDetection: ChangeDetectionStrategy.OnPush
@@ -293,9 +293,9 @@ MyComponent {
 
 #### detectChanges
 
-There is a way to run change detection **once** for the current component and all its children. This is done using `detectChanges` [method](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/refs.ts#L239). This method runs change detection for the current component view regardless of its state, which means that checks may remain disabled for the current view and component will not be checked during following regular change detection runs. Here is an example:
+有一种方法可以对当前组件和所有子组件执行**一次**变化检测，这就是 `detectChanges` [方法](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/refs.ts#L239)。这个方法会对当前组件视图执行变化检测，不管组件的状态是什么。也就是说，视图仍会禁用检测，并且在接下来常规的变化检测中，不会检测此组件。比如：
 
-```
+```ts
 export class AComponent {
   @Input() inputAProp;
 
@@ -308,19 +308,19 @@ export class AComponent {
   }
 ```
 
-DOM is updated when input property changes even though change detector reference remains detached.
+尽管变化检测器引用仍保持分离，但 DOM 元素仍会随着输入绑定的变化而变化。
 
 #### checkNoChanges
 
-This last method available on the change detector ensures that there will be no changes done on the current run of change detection. Basically, it performs 1,7,8 operations from the list in the first article and throws an exception if it finds a changed binding or determines that DOM should be updated.
+这是变化检测器的最后一个方法，其主要作用是保证当前执行的变化检测中，不会有变化发生。简单来说，它执行本文第一部分提到的列表中的第1、7、8步。如果发现绑定发生了变化或者 DOM 需要更新，就抛出异常。
 
 * * *
 
-### Have a question?
+### 还有疑问？
 
-If you have a clarifying question regarding this article contents, I suggest you create a question on stackoverflow and post a link here in the comments. In this way the entire community benefits. Thanks
+如果关于此文你又问题需要澄清，请到 Stack Overflow 提问，然后在本文评论区贴上链接。这样整个社区都能受益。谢谢。
 
-### For more insights follow me on [Twitter](https://twitter.com/maxim_koretskyi) and on [Medium](https://medium.com/@maxim.koretskyi).
+### 请在 [Twitter](https://twitter.com/maxim_koretskyi) 和 [Medium](https://medium.com/@maxim.koretskyi) 上关注我以获得更多资讯
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
