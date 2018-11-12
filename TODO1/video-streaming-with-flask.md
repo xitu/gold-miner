@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/video-streaming-with-flask.md](https://github.com/xitu/gold-miner/blob/master/TODO1/video-streaming-with-flask.md)
 > * 译者：[BriFuture](https://github.com/brifuture)
-> * 校对者：
+> * 校对者：[Mcskiller](https://github.com/Mcskiller), [Park-ma](https://github.com/Park-ma)
 
 # 用 Flask 输出视频流
 
@@ -11,7 +11,7 @@
 
 本文专注于**流**，一个有意思的特性，它让 Flask 应用能够以分割成小块的形式提供超大的响应，这可能要花一段较长的时间。为了阐明这个主题，你将会看到如何构建一个实时视频流服务器。
 
-**注意**： 现在有一篇关于本文的后续文章，[Flask Video Streaming Revisited](http://blog.miguelgrinberg.com/post/flask-video-streaming-revisited)，我在后续文章中讲了关于本文介绍的流服务器的一些改进。
+**注意**：现在有一篇关于本文的后续文章，[Flask Video Streaming Revisited](http://blog.miguelgrinberg.com/post/flask-video-streaming-revisited)，我在后续文章中讲了关于本文介绍的流服务器的一些改进。
 
 ## 什么是流？
 
@@ -68,7 +68,8 @@ def stock_table():
     return Response(generate_stock_table())
 ```
 
-在这个例子中你可以看到 Flask 是如何使用生成器的。某个返回流式响应的路由需要返回一个入参为生成器的 `Response` 对象。Flask 将会负责调用生成器，并把所有部分的结果以块的形式发送给客户端。  
+在这个例子中你可以看到 Flask 是如何使用生成器的。某个返回流式响应的路由需要返回一个入参为生成器的 `Response` 对象。Flask 将会负责调用生成器，并把所有部分的结果以块的形式发送给客户端。
+
 > 译者注：python3 中，访问 `/stock-table` 路由时，如果在 Debug 模式下看到 `AttributeError: 'NoneType' object has no attribute 'app'`，则需要将 Response 的入参用 `stream_with_context()` 预处理。导入该函数：`from flask import stream_with_context`，路由的返回值：`return Response( stream_with_context( generate_stock_table() ) )`。
 
 对于这个特殊的例子，假设 `Stock.query.all()` 返回的是可迭代的数据库查询结果，那么你可以按每次一行的速度生成一个巨大的表，因此无论查询结果中的元素数量有多少，该 Python 进程的内存占用不会因为装配巨大的响应字符串而变得越来越大。
@@ -81,7 +82,7 @@ def stock_table():
 
 实现原地更新的秘诀在于使用 **multipart（分部）** 响应。分部响应的内容是一个包含分部内容类型的头部，后面的是用 **boundary（分界线）** 标记分割的部分，每一部分有各自的特定内容类型。
 
-有若干个分部内容类型用于不同的用途。为了达到让流中的每部分能够替代前一部分的目的，内容类型必须用 `multipart/x-mixed-replace` 。为了让你知道它看上去是什么样的，这里有个分部视频流的结构：
+有若干个分部内容类型用于不同的用途。为了达到让流中的每部分能够替代前一部分的目的，内容类型必须用 `multipart/x-mixed-replace`。为了让你知道它看上去是什么样的，这里有个分部视频流的结构：
 
 ```
 HTTP/1.1 200 OK
@@ -104,7 +105,7 @@ Content-Type: image/jpeg
 
 在本文中已经有了足够的理论，现在是时候构建一个完整的能够将直播视频流式传输到浏览器的应用了。
 
-有很多种流式传输视频到浏览器的方式，每一种方法各有优劣。与 Flask 的流式特性结合得非常好的一种方法是流式输出一系列单独的 JPEG 图片。这被称为 [移动的 JPEG（Motion JPEG）]((http://en.wikipedia.org/wiki/Motion_JPEG))，这种方法正被一些 IP 安全摄像头使用。这种方法的延迟低，但是质量并不是最好，因为对于移动视频来说， JPEG 的压缩并不高效。
+有很多种流式传输视频到浏览器的方式，每一种方法各有优劣。与 Flask 的流式特性结合得非常好的一种方法是流式输出一系列单独的 JPEG 图片。这被称为 [移动的 JPEG（Motion JPEG）](http://en.wikipedia.org/wiki/Motion_JPEG)，这种方法正被一些 IP 安全摄像头使用。这种方法的延迟低，但是质量并不是最好，因为对于移动视频来说，JPEG 的压缩并不高效。
 
 下面你将看到一个特别简单但又十分完善的 web 应用，可以提供移动的 JPEG 流：
 
