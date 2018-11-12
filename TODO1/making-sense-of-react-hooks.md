@@ -13,7 +13,7 @@
 
 我强烈推荐大家观看这个开场演讲，在这个演讲里，大家可以了解到我们尝试使用 Hooks 提案去解决的问题。不过，花费一个小时看视频也是时间上的巨大投入，所以我决定在下面分享一些关于 Hooks 的想法。
 
-> **注意: Hooks 是 React 的实验性提案。你无需现在就去学习它们。另请注意，这篇文章包含我的个人意见，并不一定代表 React 团队的立场**。
+> **注意：Hooks 是 React 的实验性提案。你无需现在就去学习它们。另请注意，这篇文章包含我的个人意见，并不一定代表 React 团队的立场**。
 
 ### 为什么需要 Hooks？
 
@@ -73,7 +73,7 @@ Hooks 正好解决了这个问题。 Hooks 允许你通过调用单个函数以�
 
 **如果你看这段代码，它恰恰就是我所表达的**。我们在我们的组件中**使用窗口的宽度**，而 React 将会在它变化是重新渲染。这就是 Hooks 的目的 —— 使组件做到真正的声明式，即使它们包含状态和副作用。
 
-让我们来看看如何实现这个自定义 Hooks。我们 **使用 React 的本地状态来保存当前窗口宽度，并在窗口调整大小时**使用一个副作用来设置该状态：
+让我们来看看如何实现这个自定义 Hooks。我们**使用 React 的本地状态来保存当前窗口宽度，并在窗口调整大小时**使用一个副作用来设置该状态：
 
 ![](https://cdn-images-1.medium.com/max/800/1*9QhpwSGTKM-c8sc4UNcxqA.png)
 
@@ -146,10 +146,10 @@ Hooks 的设计与 React 无关。事实上，在提案发布后的前几天，�
 
 查看 Hooks 提案的文档以了解更多信息：
 
-*   [Hooks 介绍](https://reactjs.org/docs/hooks-intro.html) （动机）
-*   [Hooks 小瞥](https://reactjs.org/docs/hooks-overview.html) （通览）
+*   [Hooks 介绍](https://reactjs.org/docs/hooks-intro.html)（动机）
+*   [Hooks 小瞥](https://reactjs.org/docs/hooks-overview.html)（通览）
 *   [编写自定义 Hooks](https://reactjs.org/docs/hooks-custom.html)
-*   [Hooks 常见问题](https://reactjs.org/docs/hooks-faq.html) （也许你问题的答案就在其中！）
+*   [Hooks 常见问题](https://reactjs.org/docs/hooks-faq.html)（也许你问题的答案就在其中！）
 
 Hooks 仍然处于早期阶段，但我们很乐意能听到你们的反馈。你可以直接去 [RFC](https://github.com/reactjs/rfcs/pull/68)，与此同时，我们也会尽量及时回复 Twitter 上的对话。
 
