@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-design-system-decision-tree.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-design-system-decision-tree.md)
 > * 译者：[zhmhhu](https://github.com/zhmhhu)
-> * 校对者：
+> * 校对者：[calpa](https://github.com/calpa), [Wangalan30](https://github.com/Wangalan30)
 
 # 设计师的决策树
 
@@ -17,13 +17,13 @@ Jared 对大字体极度喜爱，Karen 对粉彩情有独钟，而 Jordan，出�
 
 于是，团队开始了它的任务。你们研究其他风格指南，对产品进行 UI 和 UX 审核，并在接下来的六个月中构建一个美观、全面的设计语言。你们向内部的一个热心工程和营销团队推广它，同时，你们撰写的关于它的博客获得了大量关注。你们做到了！
 
-但是之后…
+但是之后...
 
 一个星期后。你正坐在一个设计评论会议中，并注意到 Jared 在他的模型中将头部大小推高了几个点。
 
 “那个 h1 看起来比它在风格指南中更大，”你自告奋勇地说。
 
-“是的，”Jared 说。“在这种情况下，这种类型的尺寸和我的内容不符。我需要更大更粗壮的东西。“
+“是的，”Jared 说。“在这种情况下，这种类型的尺寸和我的内容不符。我需要更大更粗壮的东西。”
 
 ### 进入决策树
 
