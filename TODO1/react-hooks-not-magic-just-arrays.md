@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-hooks-not-magic-just-arrays.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-hooks-not-magic-just-arrays.md)
 > * 译者：[Xekin-FE](https://github.com/Xekin-FE)
-> * 校对者：[Hopsken](https://blog.hopsken.com)、[CoderMing](https://github.com/CoderMing)
+> * 校对者：[Hopsken](https://blog.hopsken.com), [CoderMing](https://github.com/CoderMing)
 
 # 揭开 React Hooks 的神秘面纱:数组解构融成魔法
 
@@ -13,13 +13,13 @@
 
 ### 警告: Hooks 这项提案仍在测试阶段
 
-_这篇文章主要讲述的是关于 React hooks 这项新 API，此时这个提案仍处于 alpha 测试版本。你可以在 [React 官方文档](https://reactjs.org)中找到稳定的 React API_
+**这篇文章主要讲述的是关于 React hooks 这项新 API，此时这个提案仍处于 alpha 测试版本。你可以在 [React 官方文档](https://reactjs.org)中找到稳定的 React API。**
 
 * * *
 
 ![](https://cdn-images-1.medium.com/max/2000/1*TharLROVH7aX2MotovHOBQ.jpeg)
 
-图片来自网站 Pexels(rawpixel.com)
+图片来自网站 Pexels（rawpixel.com）
 
 ### 拆解 Hooks 的工作方式
 
@@ -42,11 +42,11 @@ React 的核心团队规定我们在使用 hooks 时必须遵从 [hooks 提案�
 
 **_请注意这只是推测，并且只是可能的 API 实现方法，主要是为了展示应该通过怎样的思维去理解它。当然这并不一定就是 API 实际的内部工作方式。而且目前这也只是一个提案，在未来一切都可能发生改变_**
 
-#### 我们可以怎样实现 \`useState()\` ?
+#### 我们可以怎样实现 `useState()`？
 
 让我们通过剖析一个例子来演示一下状态钩子的实现可能会怎么运行吧。
 
-首先让我们从一个组件开始:
+首先让我们从一个组件开始：
 
 ```
 function RenderFunctionComponent() {
@@ -85,7 +85,7 @@ function RenderFunctionComponent() {
 
 ![](https://cdn-images-1.medium.com/max/1600/1*8TpWnrL-Jqh7PymLWKXbWg.png)
 
-初次渲染： cursor ++，变量分别被写入数组当中
+初次渲染：cursor ++，变量分别被写入数组当中
 
 * * *
 
@@ -195,7 +195,7 @@ function RenderFunctionComponent() {
 }
 ```
 
-这破坏了规则!
+这破坏了规则！
 
 在这里我们在条件语句中调用了一个 `useState`。一起来看这样会对整个系统造成多大的影响。
 
@@ -233,9 +233,9 @@ function RenderFunctionComponent() {
 
 * * *
 
-_这篇文章尚有不足之处，如果你有更好的建议或者发现了文章中的错误纰漏请及时跟我联系。_
+**这篇文章尚有不足之处，如果你有更好的建议或者发现了文章中的错误纰漏请及时跟我联系。**
 
-_你可以在 Twitter 上关注 Rudi Yardley_[_@rudiyardley_](https://twitter.com/rudiyardley)_或者关注 github_[_@_ryardley](https://github.com/ryardley)
+**你可以在 Twitter 上关注 Rudi Yardley [_@rudiyardley_](https://twitter.com/rudiyardley) 或者关注 github [_@_ryardley](https://github.com/ryardley)**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
