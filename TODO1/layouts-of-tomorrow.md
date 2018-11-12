@@ -2,74 +2,74 @@
 > * 原文作者：[mxbck](https://twitter.com/intent/follow?screen_name=mxbck)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/layouts-of-tomorrow.md](https://github.com/xitu/gold-miner/blob/master/TODO1/layouts-of-tomorrow.md)
-> * 译者：
-> * 校对者：
+> * 译者：[MeFelixWang](https://github.com/MeFelixWang)
+> * 校对者：[IridescentMia](https://github.com/IridescentMia)
 
-# The Layouts of Tomorrow
+# 明日之布局
 
-If you’ve been to any web design talk in the last couple of years, you’ve probably seen this famous tweet by Jon Gold:
+如果在过去几年中你参加过任一网页设计演讲，你可能已经看过 Jon Gold 这篇著名的推文：
 
 ![](https://i.loli.net/2018/08/18/5b77acde227f4.png)
 
-It mocks the fact that a lot of today’s websites look the same, as they all follow the same standard layout practices that we’ve collectively decided to use. Building a blog? Main column, widget sidebar. A marketing site? Big hero image, three teaser boxes (it _has_ to be three).
+它讽刺了今天很多网站看起来都一样的事实，因为它们都遵循我们共同决定使用的相同标准布局实践。建立博客？主栏，工具侧边栏。营销网站？大图，三个博眼球的框（**一定**是三个）。
 
-When we look back at what the web was like in earlier days, I think there’s room for a lot more creativity in web design today.
+当我们回顾早期的网页时，我认为今天的网页设计有更大的创造力。
 
-## Enter CSS Grid
+## 进入 CSS 网格
 
-[Grid](https://www.w3.org/TR/css-grid-1/) is the first real tool for layout on the web. Everything we had up until now, from tables to floats to absolute positioning to flexbox - was meant to solve a different problem, and we found ways to use and abuse it for layout purposes.
+[Grid](https://www.w3.org/TR/css-grid-1/) 是网页布局上第一个真正的工具。到目前为止，我们所拥有的一切，从表格到浮动，从绝对定位到弹性盒子 —— 都是为了解决不同的问题，我们找到了使用和滥用它来进行布局的方法。
 
-The point of these new tools is not to build the same things again with different underlying technology. It has a lot more potential: It could re-shape the way we think about layout and enable us to do entirely new, different things on the web.
+这些新工具的重点不是使用不同的底层技术再次构建相同的东西。它有更多的潜力：它可以重塑我们对布局的思考方式，使我们能够在网页上做一些全新的，不同的事情。
 
-Now I know it’s hard to get into a fresh mindset when you’ve been building stuff a certain way for a long time. We’re trained to think about websites as header, content and footer. Stripes and boxes.
+我知道，当你长时间以某种方式构建东西时，很难进入一种新的思维模式。我们受过培训，将网站视为标题，内容和页脚的组合。还有条纹和盒子。
 
-But to keep our industry moving forward (and our jobs interesting), it’s a good idea to take a step back once in a while and rethink how we do things.
+但为了让我们的行业持续进步（以及让我们的工作有趣），偶尔退一步并重新思考我们的工作方式是个好主意。
 
-If we didn’t, we’d still be building stuff with spacer gifs and all-uppercase `<TABLE>` tags. 😉
+如果我们不这样做，我们仍然会使用间隔的 gif 图和全大写 `<TABLE>` 标签来构建东西。😉
 
-## So, how could things look?
+## 那么，看起来会是什么样呢？
 
-I went over to dribbble in search of layout ideas that are pushing the envelope a bit. The kind of design that would make frontend developers like me frown at first sight.
+我在 dribbble 上寻找过让布局有所突破的想法。那种会让像我这样的前端开发人员乍一看眉头紧锁的设计。
 
-There’s a lot of great work out there - here’s a few of my favorites:
+有很多很棒的作品 —— 这里有一些我最喜欢的：
 
-[![](warehouse.jpg)](https://dribbble.com/shots/1573896-Warehouse)
+[![](https://mxb.at/blog/layouts-of-tomorrow/warehouse.jpg)](https://dribbble.com/shots/1573896-Warehouse)
 
 "Warehouse" by [Cosmin Capitanu](https://dribbble.com/Radium)
 
-[![](fashion_boutique.gif)](https://dribbble.com/shots/2375246-Fashion-Butique-slider-animation)
+[![](https://mxb.at/blog/layouts-of-tomorrow/fashion_boutique.gif)](https://dribbble.com/shots/2375246-Fashion-Butique-slider-animation)
 
 "Fashion Boutique" by [KREATIVA Studio](https://dribbble.com/KreativaStudio)
 
-[![](organic_juicy.png)](https://dribbble.com/shots/4316958-Organic-Juicy-Co-Landing-Page)
+[![](https://mxb.at/blog/layouts-of-tomorrow/organic_juicy.png)](https://dribbble.com/shots/4316958-Organic-Juicy-Co-Landing-Page)
 
 "Organic Juicy Co." by [Broklin Onjei](https://dribbble.com/broklinonjei)
 
-[![](travel_summary.jpg)](https://dribbble.com/shots/1349782-Travel-Summary)
+[![](https://mxb.at/blog/layouts-of-tomorrow/travel_summary.jpg)](https://dribbble.com/shots/1349782-Travel-Summary)
 
 "Travel Summary" by [Piotr Adam Kwiatkowski](https://dribbble.com/p_kwiatkowski)
 
-[![](digital_walls.gif)](https://dribbble.com/shots/2652364-Digital-Walls)
+[![](https://mxb.at/blog/layouts-of-tomorrow/digital_walls.gif)](https://dribbble.com/shots/2652364-Digital-Walls)
 
 "Digital Walls" by [Cosmin Capitanu](https://dribbble.com/Radium)
 
-I especially like that last one. It reminds me a bit of the “Metro Tiles” that were all the rage in Windows 8. Not only is this visually impressive, its very flexible too - I could see this working on a phone, a tablet, even on huge TV screens or in augemented reality, as suggested by the designer.
+我特别喜欢最后一个。它让我想起了 Windows 8 中风靡一时的“Metro Tiles”。它不仅视觉上令人印象深刻，而且非常灵活 —— 它可以在手机，平板电脑上工作，在设计师的建议下，即使在巨大的电视屏幕上或 AR 中也可以。
 
-How hard is it to make something like this, given the tools we have today? I wanted to find out and started building a prototype.
+考虑到我们今天拥有的工具，制作这样的东西有多难？我想搞清楚，于是开始构建原型。
 
-I tried to approach this with real production constraints in mind. So the interface had to be responsive, performant and accessible. (It’s not required to be pixel-perfect everywhere though, cause you know - [that’s not a real thing](http://dowebsitesneedtobeexperiencedexactlythesameineverybrowser.com/).)
+我试着在生产环境的真实约束下来实现它。因此，界面必须具有响应性，高性能和可访问性。（尽管如此，它并不需要像素级还原，因为你懂的 —— [那是不可能的](http://dowebsitesneedtobeexperiencedexactlythesameineverybrowser.com/)。）
 
-Here’s how it turned out:
+结果如下：
 
-You can check out [the final result](https://codepen.io/mxbck/live/81020404c9d5fd873a717c4612c914dd) on Codepen.
+你可以在 Codepen 上查看[最终结果](https://codepen.io/mxbck/live/81020404c9d5fd873a717c4612c914dd)。
 
-👉 _Since this is just for demo purposes, I did not include fallbacks and polyfills for older browsers. My goal was to test the capabilities of modern CSS here, so not all features have cross-browser support (read below). I found that it works best in recent versions of Firefox or Chrome._
+👉 **由于这仅用于演示目的，因此我没有为旧版浏览器降级、打补丁。我的目标是在这里测试现代 CSS 的功能，因此并非所有功能都具有跨浏览器支持（如下所示）。我发现它在最新版本的 Firefox 或 Chrome 中效果最佳。**
 
-Some of the things that made this interesting:
+实现过程中一些有趣的东西：
 
-### Layout
+### 布局
 
-Unsurprisingly, the essential factor for the “Metro Tiles” is the grid. The entire layout logic fits inside this block:
+不出所料，“Metro Tiles”的关键因素是网格。整个布局逻辑在此代码块下自适应：
 
 ```
 .boxgrid {
@@ -92,17 +92,17 @@ Unsurprisingly, the essential factor for the “Metro Tiles” is the grid. The 
 }
 ```
 
-The magic is mostly in the second line there. `repeat(auto-fit, minmax(150px, 1fr))` handles the column creation responsively, meaning it will fit as many boxes as possible in a row to make sure they align with the outer edges.
+神奇的地方主要在第二行。`repeat(auto-fit, minmax(150px, 1fr))` 响应地处理列创建，这意味着它将在一行中连续放入尽可能多的盒子以确保它们与外边缘对齐。
 
-The `--push` modifier class is used to achieve the design’s effect where some boxes “skip” a column. Since this is not easily possible without explicitly setting the grid lines, I opted for this trick: The actual grid cell spans two columns, but only allows enough space for the box to fill have the cell.
+`--push` 修饰类用于实现设计的效果，其中一些盒子“跳过”一栏。由于在没有明确设置网格线的情况下这是不可能的，我用了个技巧：实际的网格单元格跨越两列，但只允许有足够的空间来填充单元格。
 
-### Animation
+### 动画
 
-The original design shows that the section backgrounds and the tile grid move at different speeds, creating the illusion of depth. Nothing extraordinary, just some good old parallax.
+原始设计中每节背景和每个 tile 网格以不同的速度移动，产生了深度上的错觉。没什么特别的，只是一些好的旧视差而已。
 
-While this effect is usually achieved by hooking into the scroll event and then applying different `transform` styles via Javascript, there’s a better way to do it: entirely in CSS.
+虽然这种效果通常是通过 Javascript 绑定滚动事件然后应用不同的 transform 样式来实现的，但还有更好的方法：完全用 CSS。
 
-The secret here is to leverage CSS 3D transforms to separate the layers along the z-axis. [This technique](https://developers.google.com/web/updates/2016/12/performant-parallaxing) by Scott Kellum and Keith Clark essentially works by using `perspective` on the scroll container and `translateZ` on the parallax children:
+这里的秘诀是利用 CSS 3D 变换将图层沿 z 轴分开。Scott Kellum 和 Keith Clark 的[这项技术](https://developers.google.com/web/updates/2016/12/performant-parallaxing)实际上是通过在滚动容器上使用 perspective 和在视差子元素上使用 translateZ 来实现的：
 
 ```
 .parallax-container {
@@ -123,13 +123,13 @@ The secret here is to leverage CSS 3D transforms to separate the layers along th
 }
 ```
 
-A huge benefit of this method is the improved performance (because it doesn’t touch the DOM with calculated styles), resulting in fewer repaints and an almost 60fps smooth parallax scroll.
+这种方法的一个巨大好处是提高了性能（因为它不会触及带有计算样式的 DOM），其结果是减少了重绘及做到几乎 60fps 的平滑视差滚动。
 
-### Snap Points
+### 吸附点
 
-[CSS Scroll Snap Points](https://drafts.csswg.org/css-scroll-snap/) are a somewhat experimental feature, but I thought it would fit in nicely with this design. Basically, you can tell the browser scroll to “snap” to certain elements in the document, if it comes in the proximity of such a point. Support is [quite limited](https://caniuse.com/#feat=css-snappoints) at the moment, your best bet to see this working is in Firefox or Safari.
+[CSS Scroll Snap Points](https://drafts.csswg.org/css-scroll-snap/) 是一个有点实验性的功能，但我认为它很适合这种设计。基本上，你可以告诉浏览器在文档中滚动到接近某个元素的点时“吸附”到该元素上。目前支持非常有限，你最好的选择是在 Firefox 或 Safari 中使用它。
 
-There are currently different versions of the spec, and only Safari supports the most recent implementation. Firefox still uses an older syntax. The combined approach looks like this:
+目前有不同版本的规范，只有 Safari 支持最新的实现。Firefox 仍然使用较旧的语法。组合方法如下所示：
 
 ```
 .scroll-container {
@@ -145,23 +145,23 @@ There are currently different versions of the spec, and only Safari supports the
 }
 ```
 
-The `scroll-snap-type` tells the scroll container to snap along the `y` axis (vertical) with a “strictness” of `proximity`. This lets the browser decide whether a snap point is in reach, and if it’s a good time to jump.
+`scroll-snap-type` 告诉滚动容器沿着 `y` 轴（垂直方向）根据 `proximity` “严格”地进行吸附。这使浏览器可以决定是否可以使用吸附点，以及是否是跳转的好时机。
 
-Snap points are a small enhancement for capable browsers, all others simply fall back to default scrolling.
+对于功能强大的浏览器，吸附点是一个小小的增强功能，而其他浏览器只是简单地降级为默认滚动。
 
-### Smooth Scroll
+### 平滑滚动
 
-The only Javascript involved is handling the smooth scroll when the menu items on the left, or the direction arrows on top/bottom are clicked. This is progressively enhanced from a simple in-page-anchor link `<a href="#vienna">` that jumps to the selected section.
+唯一涉及 Javascript 的地方是在左侧的菜单项或点击顶部/底部的方向箭头时处理平滑滚动时。这是从简单的页内锚链接 `<a href="#vienna">` 跳转到所选部分的渐进增强。
 
-To animate it, I chose to use the vanilla `Element.scrollIntoView()` method [(MDN Docs)](https://developer.mozilla.org/de/docs/Web/API/Element/scrollIntoView). Some browsers accept an option to use “smooth” scrolling behaviour here, instead of jumping to the target section right away.
+为了实现动画，我选择使用 vanilla `Element.scrollIntoView()` 方法 [(MDN Docs)](https://developer.mozilla.org/de/docs/Web/API/Element/scrollIntoView)。某些浏览器接受一个可选参数来使用“平滑”滚动行为，而不是立即跳转到目标部分。
 
-The [scroll behaviour property](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior) is currrently a Working Draft, so support is not quite there yet. Only Chrome and Firefox support this at the moment - However, there is [a polyfill](http://iamdustan.com/smoothscroll/) available if necessary.
+[scroll behaviour property](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior) 目前是一个工作草案，所以还没有普遍支持。目前只有 Chrome 和 Firefox 支持此功能 —— 但是，如果需要，可以使用[补丁](http://iamdustan.com/smoothscroll/)。
 
-## Think outside the box(es)
+## 创造性思考
 
-While this is just one interpretation of what’s possible, I’m sure there are countless other innovative ideas that could be realized using the tools we have today. Design trends may come and go as they always have; but I truly think it’s worth remembering that the web is a fluid medium. Technologies are constantly changing, so why should our layouts stay the same? Go out there and explore.
+虽然这只是对可能性的一种解释，但我确信使用我们现有的工具可以实现无数其他创新想法。设计趋势可能一如既往地来去匆匆; 但我确信认为值得记住的是，网页是一种流动的媒介。技术在不断变化，为什么我们的布局保持不变？去探索吧。
 
-## Further Resources
+## 更多资源
 
 *   [Invision “Design Genome” Site](https://www.invisionapp.com/enterprise/design-genome) - Awesome Grid Layout
 *   [Layout Land](https://www.youtube.com/channel/UC7TizprGknbDalbHplROtag) - Jen Simmons’ Youtube Channel

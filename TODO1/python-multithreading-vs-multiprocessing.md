@@ -2,34 +2,34 @@
 > * 原文作者：[Brendan Fortuner](https://medium.com/@bfortuner?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/python-multithreading-vs-multiprocessing.md](https://github.com/xitu/gold-miner/blob/master/TODO1/python-multithreading-vs-multiprocessing.md)
-> * 译者：
-> * 校对者：
+> * 译者：[lsvih](https://github.com/lsvih)
+> * 校对者：[yqian1991](https://github.com/yqian1991)
 
-# Intro to Threads and Processes in Python
+# Python 的多线程与多进程
 
-## Beginner’s guide to parallel programming
+## 初学者的并行编程指南
 
 ![](https://cdn-images-1.medium.com/max/1600/1*bHJr8cxHLidDg9T4442P8g.png)
 
-Competing in Kaggle’s [Understanding the Amazon from Space](https://www.kaggle.com/c/planet-understanding-the-amazon-from-space) competition, I started timing various parts of my code to see if I could speed things up. Speed is critical in Kaggle. Ranking well often requires trying hundreds of architectural and hyper-parameter combinations. Shaving 10 seconds off an epoch that lasts 1 minute is a huge win.
+在参加 Kaggle 的 [Understanding the Amazon from Space](https://www.kaggle.com/c/planet-understanding-the-amazon-from-space) 比赛时，我试图对自己代码的各个部分进行加速。速度在 Kaggle 比赛中至关重要。高排名常常需要尝试数百种模型结构与超参组合，能在一个持续一分钟的 epoch 中省出 10 秒都是一个巨大的胜利。
 
-To my surprise, I found data augmentation was my biggest bottleneck. The methods I used — rotations, flips, zooms and crops — relied on Numpy and ran on the CPU. Numpy uses parallel processing in some cases and Pytorch’s data loaders do as well, but I was running 3–5 experiments at a time and each experiment was doing its own augmentation. This seemed inefficient and I was curious to see if I could speed things up with parallel processing.
+让我吃惊的是，数据处理是最大的瓶颈。我用了 Numpy 的矩阵旋转、矩阵翻转、缩放及裁切等操作，在 CPU 上进行运算。Numpy 和 Pytorch 的 DataLoader 在某些情况中使用了并行处理。我同时会运行 3 到 5 个实验，每个实验都各自进行数据处理。但这种处理方式看起来效率不高，我希望知道我是否能用并行处理来加快所有实验的运行速度。
 
-### What is parallel processing?
+### 什么是并行处理？
 
-Basically doing two things at the same time, either running code simultaneously on different CPUs, or running code on the same CPU and achieving speedups by taking advantage of “wasted” CPU cycles while your program is waiting for external resources — file loading, API calls.
+简单来说就是在同一时刻做两件事情，也可以是在不同的 CPU 上分别运行代码，或者说当程序等待外部资源（文件加载、API 调用等）时把“浪费”的 CPU 周期充分利用起来提高效率。
 
-As an example, here is a “normal” program. It downloads a list of URLs one at a time using a single _thread_.
+下面的例子是一个“正常”的程序。它会使用单线程，依次进行下载一个 URL 列表的内容。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*FxpoyXf9dxLQO7JW.png)
 
-Here is the same program using 2 _threads._ It divides urls among threads giving us nearly a 2x speedup.
+下面是一个同样的程序，不过使用了 2 个线程。它把 URL 列表分给不同的线程，处理速度几乎翻倍。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*yVD6mleQs8wfhXjb.png)
 
-If you’re curious how to generate these charts and what they mean you can find the code [here](https://github.com/bfortuner/ml-study/blob/master/multitasking_python.ipynb), but to briefly summarize:
+如果你对如何绘制以上图表感到好奇，可以参考[源码](https://github.com/bfortuner/ml-study/blob/master/multitasking_python.ipynb)，下面也简单介绍一下：
 
-1.  Add a timer inside your function and return its start and stop time
+1.  在你函数内部加上一个计时器，并返回函数执行的起始与结束时间
 
 ```
 URLS = [url1, url2, url3, ...]
@@ -40,13 +40,13 @@ def download(url, base):
     return start,stop
 ```
 
-2. To visualize a single thread, run your function multiple times and store the start and stop times
+2. 单线程程序的可视化如下：多次执行你的函数，并将多个开始结束的时间存储下来
 
 ```
 results = [download(url, 1) for url in URLS]
 ```
 
-3. Transpose the resulting array of [start, stop] times and plot a bar chart
+3. 将 [start, stop] 的结果数组进行转置，绘制柱状图
 
 ```
 def visualize_runtimes(results):
@@ -57,50 +57,50 @@ def visualize_runtimes(results):
     plt.xlabel("Seconds")
 ```
 
-Charts for multiple threads can be generated the same way. The methods in Python’s concurrency library return an array of results.
+多线程的图表生成方式与此类似。Python 的并发库一样可以返回结果数组。
 
-### **Process vs Thread**
+### **进程 vs 线程**
 
-A **process** is an instance of program (e.g. Jupyter notebook, Python interpreter). Processes spawn **threads** (sub-processes) to handle subtasks like reading keystrokes, loading HTML pages, saving files. Threads live inside processes and share the same memory space.
+一个**进程**就是一个程序的实例（比如 Jupyter notebook 或 Python 解释器）。进程启动**线程**（子进程）来处理一些子任务（比如按键、加载 HTML 页面、保存文件等）。线程存活于进程内部，线程间共享相同的内存空间。
 
-**Example: Microsoft Word**  
-When you open Word, you create a process. When you start typing, the process spawns threads: one to read keystrokes, another to display text, one to autosave your file, and yet another to highlight spelling mistakes. By spawning multiple threads, Microsoft takes advantage of idle CPU time (waiting for keystrokes or files to load) and makes you more productive.
+**举例：Microsoft Word**  
+当你打开 Word 时，你其实就是创建了一个进程。当你开始打字时，进程启动了一些线程：一个线程专门用于获取键盘输入，一个线程用于显示文本，一个线程用于自动保存文件，还有一个线程用于拼写检查。在启动这些线程之后，Word 就能更好的利用空闲的 CPU 时间（等待键盘输入或文件加载的时间）让你有更高的工作效率。
 
-#### **Process**
+#### **进程**
 
-*   Created by the operating system to run programs
-*   Processes can have multiple threads
-*   Two processes can execute code simultaneously in the same python program
-*   Processes have more overhead than threads as opening and closing processes takes more time
-*   Sharing information between processes is slower than sharing between threads as processes do not share memory space. In python they share information by pickling data structures like arrays which requires IO time.
+*   由操作系统创建，以运行程序
+*   一个进程可以包括多个线程
+*   两个进程可以在 Python 程序中同时执行代码
+*   启动与终止进程需要花费更多的时间，因此用进程比用线程的开销更大
+*   由于进程不共享内存空间，因此进程间交换信息比线程间交换信息要慢很多。在 Python 中，用序列化数据结构（如数组）的方法进行信息交换会花费 IO 处理级别的时间。
 
-#### **Thread**
+#### **线程**
 
-*   Threads are like mini-processes that live inside a process
-*   They share memory space and efficiently read and write to the same variables
-*   Two threads cannot execute code simultaneously in the same python program (although there are workarounds*)
+*   线程是在进程内部的类似迷你进程的东西
+*   不同的线程共享同样的内存空间，可以高效地读写相同的变量
+*   两个线程不能在同一个 Python 程序中执行代码（有解决这个问题的方法`*`）
 
-#### CPU vs Core
+#### CPU vs 核
 
-The **CPU**, or processor, manages the fundamental computational work of the computer. CPUs have one or more **cores**, allowing the CPU to execute code simultaneously.
+**CPU**，或者说处理器，管理着计算机最基本的运算工作。CPU 有一个或着多个**核**，可以让 CPU 同时执行代码。
 
-With a single core, there is no speedup for CPU-intensive tasks (e.g. loops, arithmetic). The OS switches back and forth between tasks executing each one a little bit at a time. This is why for small operations (e.g. downloading a few images), multitasking can sometimes hurt your performance. There is overhead associated with launching and maintaining multiple tasks.
+如果只有一个核，那么对 CPU 密集型任务（比如循环、运算等）不会有速度的提升。操作系统需要在很小的时间片在不同的任务间来回切换调度。因此，做一些很琐碎的操作（比如下载一些图片）时，多任务处理反而会降低处理性能。这个现象的原因是在启动与维护多个任务时也有性能的开销。
 
-#### **Python’s GIL _problem_**
+#### **Python 的 GIL 锁问题**
 
-CPython (the standard python implementation) has something called the [GIL](https://wiki.python.org/moin/GlobalInterpreterLock) (Global Interpreter Lock), which prevent two threads from executing simultaneously in the same program. Some people are upset by this, while others fiercely defend it. There are workarounds, however, and libraries like Numpy bypass this limitation by running external code in C.
+CPython（python 的标准实现）有一个叫做 [GIL](https://wiki.python.org/moin/GlobalInterpreterLock)（全局解释锁）的东西，会阻止在程序中同时执行两个线程。一些人非常不喜欢它，但也有一些人喜欢它。目前有一些解决它的方法，不过 Numpy 之类的库大都是通过执行外部 C 语言代码来绕过这种限制。
 
-#### **When to use threads vs processes?**
+#### **何时使用线程，何时使用进程？**
 
-*   **Processes** speed up Python operations that are CPU intensive because they benefit from multiple cores and avoid the GIL.
-*   **Threads** are best for IO tasks or tasks involving external systems because threads can combine their work more efficiently. Processes need to pickle their results to combine them which takes time.
-*   **Threads** provide no benefit in python for CPU intensive tasks because of the GIL.
+*   得益于多核与不存在 GIL，**多进程**可以加速 CPU 密集型的 Python 程序。
+*   **多线程**可以很好的处理 IO 任务或涉及外部系统的任务，因为线程可以将不同的工作高效地结合起来。而进程需要对结果进行序列化才能汇聚多个结果，这需要消耗额外的时间。
+*   由于 GIL 的存在，**多线程**对 CPU 密集的 Python 程序没有什么帮助。
 
-*For certain operations like Dot Product, Numpy works around Python’s GIL and executes code in parallel.
+`*`对于点积等某些运算，Numpy 绕过了 Python 的 GIL 锁，能够并行执行代码。
 
-### Parallel processing examples
+### 并行处理示例
 
-Python’s [concurrent.futures library](https://docs.python.org/3/library/concurrent.futures.html) is surprisingly pleasant to work with. Simply pass in your function, a list of items to work on, and the number of workers. In the next few sections, I walk through various experiments I ran to learn more about when to use threads vs processing.
+Python 的 [concurrent.futures 库](https://docs.python.org/3/library/concurrent.futures.html)用起来轻松愉快。你只需要简单的将函数、待处理的对象列表和并发的数量传给它即可。在下面几节中，我会以几种实验来演示何时使用线程何时使用进程。
 
 ```
 def multithreading(func, args, 
@@ -116,9 +116,9 @@ def multiprocessing(func, args,
     return list(res)
 ```
 
-#### **API calls**
+#### **API 调用**
 
-I found threads work better for API calls and observed speedups over serial processing and multiprocessing.
+对于 API 调用，多线程明显比串行处理与多进程速度要快很多。
 
 ```
 def download(url):
@@ -130,25 +130,25 @@ def download(url):
 
 ![](https://cdn-images-1.medium.com/max/1600/0*8SmynNwwW8nePlQf.png)
 
-**2 threads**
+**2 个线程**
 
 ![](https://cdn-images-1.medium.com/max/1600/0*vCyQXr1HQdAaJJDP.png)
 
-**4 threads**
+**4 个线程**
 
 ![](https://cdn-images-1.medium.com/max/1600/0*Mj0T3T_fYBzzjXQt.png)
 
-**2 processes**
+**2 个进程**
 
 ![](https://cdn-images-1.medium.com/max/1600/0*UzBbZNxBUaVmjM-N.png)
 
-**4 processes**
+**4 个进程**
 
 ![](https://cdn-images-1.medium.com/max/1600/0*ZBofiDY2P4gciHCB.png)
 
-#### **IO Heavy Task**
+#### **IO 密集型任务**
 
-I passed in a bunch of huge text strings to see how write performance differed. Threads seemed to win here, but multiprocessing also improved runtime.
+我传入了一个巨大的文本，以观测线程与进程的写入性能。线程效果较好，但多进程也让速度有所提升。
 
 ```
 def io_heavy(text):
@@ -157,24 +157,24 @@ def io_heavy(text):
     f.close()
 ```
 
-**Serial**
+**串行**
 
 ```
 %timeit -n 1 [io_heavy(TEXT,1) for i in range(N)]
 >> 1 loop, best of 3: 1.37 s per loop
 ```
 
-**4 threads**
+**4 个线程**
 
 ![](https://cdn-images-1.medium.com/max/1600/0*rARC61dTge2NwbFt.png)
 
-**4 processes**
+**4 个进程**
 
 ![](https://cdn-images-1.medium.com/max/1600/0*iEYUn87JGyJrNd4W.png)
 
-#### CPU Intensive
+#### CPU 密集型任务
 
-Multiprocessing won the day here as expected. Processes avoid the GIL and execute code simultaneously on multiple cores.
+由于没有 GIL，可以在多核上同时执行代码，多进程理所当然的胜出。
 
 ```
 def cpu_heavy(n):
@@ -185,13 +185,13 @@ def cpu_heavy(n):
 
 ![](https://cdn-images-1.medium.com/max/1600/0*VODW-i_4b75hFoNY.png)
 
-**Serial:** 4.2 seconds  
-**4 threads:** 6.5 seconds  
-**4 processes:** 1.9 seconds
+**串行：** 4.2 秒  
+**4 个线程：** 6.5 秒  
+**4 个进程：** 1.9 秒
 
-#### Numpy Dot Product
+#### Numpy 中的点积
 
-As expected, I saw no benefit adding threads or processes to this code. Numpy executes external C code behind the scenes and thus evades the GIL.
+不出所料，无论是用多线程还是多进程都不会对此代码有什么帮助。Numpy 在幕后执行外部的 C 语言代码，绕开了 GIL。
 
 ```
 def dot_product(i, base):
@@ -202,15 +202,15 @@ def dot_product(i, base):
 
 ```
 
-**Serial:** 2.8 seconds  
-**2 threads:** 3.4 seconds  
-**2 processes:** 3.3 seconds
+**串行：** 2.8 秒  
+**2 个线程：** 3.4 秒  
+**2 个进程：** 3.3 秒
 
-Here’s a [notebook](https://github.com/bfortuner/ml-study/blob/master/multitasking_python.ipynb) you can use to replicate these experiments on your own.
+以上实验的 Notebook 请[参考此处](https://github.com/bfortuner/ml-study/blob/master/multitasking_python.ipynb)，你可以自己来复现这些实验。
 
-### **Resources**
+### **相关资源**
 
-Here are the articles I enjoyed and referenced while I explored this topic. In particular I want to call out Nathan Grigg’s [blog post](https://nathangrigg.com/2015/04/python-threading-vs-processes), which gave me the idea for the visualizations.
+以下是我在探索这个主题时的一些参考文章。特别推荐 Nathan Grigg 的[这篇博客](https://nathangrigg.com/2015/04/python-threading-vs-processes)，给了我可视化方法的灵感。
 
 * [**Multiprocessing vs Threading Python**: I am trying to understand the advantages of multiprocessing over threading. I know that multiprocessing gets around the…](http://stackoverflow.com/questions/3044580/multiprocessing-vs-threading-python)
 
