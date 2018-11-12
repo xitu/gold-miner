@@ -2,7 +2,7 @@
 > * 原文作者：[Max, Wizard of the Web](https://blog.angularindepth.com/@maxim.koretskyi?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/everything-you-need-to-know-about-change-detection-in-angular.md](https://github.com/xitu/gold-miner/blob/master/TODO1/everything-you-need-to-know-about-change-detection-in-angular.md)
-> * 译者：
+> * 译者：[tian-li](https://github.com/tian-li)
 > * 校对者：
 
 # 关于 Angular 的变化检测，你需要知道的一切
