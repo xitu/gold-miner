@@ -432,7 +432,7 @@ alignMe.addEventListener("change", function (evt) {
 
 ### 简写方法 `place-content` 
 
-在盒子元素排列规范中，我们发现了一个简写方法 `place-content`。使用这个属性意味着你可以一次性设置 `justify-content` 和 `align-content`。它的第一个值是 `align-content`，第二个值是 `align-content` 。如果你仅仅设置了一个值 A，那么这两个值都将设置成 A，因此：
+在盒子元素排列规范中，我们发现了一个简写方法 `place-content`。使用这个属性意味着你可以一次性设置 `justify-content` 和 `align-content`。它的第一个值是 `align-content`，第二个值是 `justify-content` 。如果你仅仅设置了一个值 A，那么这两个值都将设置成 A，因此：
 
 ```
 .container {
