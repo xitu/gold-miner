@@ -6,18 +6,25 @@
 > * 校对者：
 
 # Understanding JavaScript’s ‘undefined’
+# 理解 JavaScript 中的 undefined
 
 Compared to other languages, JavaScript’s concept of undefined is a little confusing. In particular, trying to understand ReferenceErrors (“x is not defined”) and how best to code against them can be frustrating.
+与其他的语言相比，JavaScript 中 undefined 的概念是有点模糊的。特别是试图去理解 ReferenceErrors (“x is not defined”)以及如何最好地针对它们编写代码是很令人沮丧的。
 
 This is my attempt to straighten things out a little. If you’re not already familiar with the difference between variables and properties in JavaScript (including the internal VariableObject) now might be a good time to check out my [previous posting](https://javascriptweblog.wordpress.com/2010/08/09/variables-vs-properties-in-javascript/).
+本文是我试图把这件事情弄清楚的一点尝试。如果你还不熟悉 JavaScript 中变量和属性的区别，那么最好先去阅读一下我的[上一篇文章](https://javascriptweblog.wordpress.com/2010/08/09/variables-vs-properties-in-javascript/)。
 
 #### What is undefined?
+#### 什么是 undefined？
 
 In JavaScript there is Undefined (type), undefined (value) and undefined (variable).  
+在 JavaScript 中有 Undefined (type)、 undefined (value) 和 undefined (variable)。
   
 **Undefined (type)** is a built-in JavaScript type.
+**Undefined (type)** 是内置的 JavaScript 类型。
 
 **undefined (value)** is a primitive and is the sole value of the Undefined type. Any property that has not been assigned a value, assumes the `undefined` value. (ECMA 4.3.9 and 4.3.10). A function without a return statement, or a function with an empty return statement returns undefined. The value of an unsupplied function argument is undefined.
+**undefined (value)** 是未定义类型的唯一值。任何未被赋值的属性都被定义为 `undefined`（ECMA 4.3.9 and 4.3.10）。没有返回语句的函数，或者有空返回语句的函数返回未定义的值。未提供的函数参数的值未定义。
 
 ```
 var a;
@@ -34,6 +41,7 @@ typeof d; //"undefined"
 ```
 
 **undefined (variable)** is a global property whose initial value is undefined (value), Since its a global property we can also access it as a variable. For consistency I’m always going to call it a variable in this article.
+**undefined (variable)** 是一个初始值为 undefined (value) 的全局属性，因为它是一个全局属性，我们还可以将其作为变量访问。为了保持一致性，我在本文中将它称为变量。
 
 ```
 typeof undefined; //"undefined"
@@ -44,9 +52,10 @@ typeof f; //"undefined"
 ```
 
 As of ECMA 3, its value can be reassigned :
+从 ECMA 3 开始，它可以被重新赋值：
 
 ```
-undefined = "washing machine"; //assign a string to undefined (variable)
+undefined = "washing machine"; // 把 string 赋值给 undefined (变量)
 typeof undefined //"string"
  
 f = undefined;
@@ -55,10 +64,13 @@ f; //"washing machine"
 ```
 
 Needless to say, re-assigning values to the undefined variable is very bad practice, and in fact its not allowed by ECMA 5 (though amongst the current set of full browser releases, only Safari enforces this).
+不用说，给 undefined 变量重新赋值是非常不好的实践。事实上，ECMA 5 不允许这样做（不过，在当前的浏览器中，只有 Safari 执行了）。
 
 #### And then there’s null?
+#### 然后是 null ？
 
 Yes, generally well understood but worth re-stating: `undefined` is distinct from `null` which is also a primitive value representing the _intentional_ absence of a value. The only similarity between `undefined` and `null` is they both coerce to false.
+是的，一般都很好理解，但是还需要重申的是：`undefined` 和 `null` 是不同的。
 
 #### So what’s a ReferenceError?
 
