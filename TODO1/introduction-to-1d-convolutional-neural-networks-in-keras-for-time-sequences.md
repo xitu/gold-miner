@@ -41,7 +41,7 @@ CNN 可以很好地识别出数据中的简单模式，然后使用这些简单�
 
 ![](https://cdn-images-1.medium.com/max/1000/1*Y117iNR_CnBtBh8MWVtUDg.png)
 
-“一维卷积神经网络示例” 由 Nils Ackermann 在知识共享许可 [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/) 下授权。
+“一维卷积神经网络示例”由 Nils Ackermann 在知识共享许可 [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/) 下授权。
 
 让我们先来看一下对应的 Python 代码，以便构建这个模型：
 
@@ -194,7 +194,7 @@ avg / total       0.92      0.92      0.92      6584
 
 ### 免责声明
 
-_网站帖文属于自己，不代表雇佣者的文章、策略或意见。_
+**网站帖文属于自己，不代表雇佣者的文章、策略或意见。**
 
 **联系 Raven 团队** [**Telegram**](https://t.me/ravenprotocol)
 
