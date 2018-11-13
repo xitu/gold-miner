@@ -2,18 +2,19 @@
 > * 原文作者：[Toon Verwaest](https://medium.com/@tverwaes?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/setting-up-prototypes-in-v8.md](https://github.com/xitu/gold-miner/blob/master/TODO/setting-up-prototypes-in-v8.md)
-> * 译者：
-> * 校对者：
+> * 译者：[缪宇](https://juejin.im/user/57df39fca0bb9f0058a3c63d/posts)
+> * 校对者：[zhmhhu](https://github.com/zhmhhu) [老教授](https://juejin.im/user/58ff449a61ff4b00667a745c) 
 
-# Setting up prototypes in V8
+# 在 V8 引擎中设置原型（prototypes）
 
-Prototypes (as in `func.prototype`) are used to emulate classes. They typically contain all methods of the class, their `__proto__` is the “superclass”, and they do not change after they are set up.
+原型（比如 `func.prototype` ）是用来模拟类的实现。它们通常包含类的所有方法，它们的 `__proto__` 就是“父类（superclass）”，它们设置好后就不会修改了。
 
-The performance of setting up prototypes is important for startup time of applications since that’s often when the entire class hierarchy is set up.
+原型在设置时的性能表现对于应用程序的启动时间至关重要，因为此时通常要建立起整个类的层次结构。
 
-### Transitioning object shapes
 
-The main way objects are encoded is by separating the _hidden class_ (description) from the _object_ (content). When new objects are instantiated, they are created using the same _initial hidden class_ as previous objects from the same constructor. As properties are added, objects _transition_ from hidden class to hidden class, typically following previous transitions in the so-called “transition tree”. E.g., if we have the following constructor:
+### 转换对象形态（Transitioning object shapes）
+
+对象被编码的主要方式是将**隐藏类（描述）**和**对象（内容）**分隔开。当一个对象被实例化，和之前来自同一个构造函数的对象使用相同的**初始化隐藏类**。当属性被添加，对象从一个隐藏类切换到另一个隐藏类，通常是在所谓的“转换树（transition tree）”中重复之前的转换。举个例子，比如我们有以下的构造函数：
 
 ```
 function C() {
@@ -21,64 +22,63 @@ function C() {
   this.b = 2;
 }
 ```
+如果我们实例化一个对象 `var o = new C()`，它首先会使用一个没有任何属性的初始化隐藏类 M0。当 `a` 被添加，我们将从 M0 切换到一个新的隐藏类 M1，M1 描述属性 `a`。接着添加 `b` 的时候，我们再切换到另一个新的隐藏类来描述 `a` 和 `b`。
 
-If we instantiate an object `var o = new C()`, it starts out using an initial hidden class M0 attached to C without any properties. When `a` is added, we transition from that hidden class to a new hidden class M1 that described the property `a`. And then when we add `b`, we go to a new hidden class that describes both `a` and `b`.
+如果我们现在实例化第二个对象 `var o2 = new C()`，它将重复上面的转换。从 M0 开始，接着 M1，最后是 M2。`a` 和 `b` 被添加完成。
 
-If we now instantiate a second object `var o2 = new C()` it will follow those transitions. It starts out using M0, then goes to M1 and finally M2 as `a` and `b` are added.
+这样做有三个重要的好处：
 
-Doing this has 3 main advantages:
+1.  尽管创建第一个对象的开销是很大的，并且要求我们创建所有隐藏的类和转换，但是创建后续对象是非常快的。
+2.  结果对象比完整的字典要小。我们只需要在对象中存储值，而不需要存储关于属性的信息（比如名称）。
+3.  我们现在在内联缓存（inline cache）和优化代码时有一个对象形态可以使用，以后访问类似形态的对象就可以在同一位置找，方便快捷。
 
-1.  Even though setting up the first object is fairly expensive and requires us to create all the hidden classes and transitions, setting up subsequent objects is really fast.
-2.  The resulting objects are smaller than full dictionaries would be. We only need to store values in the object rather than also information about the property (such as the name).
-3.  We now have a shape description we can use in both inline caches and optimized code to quickly access similarly shaped objects in a single location.
+这样有利于频繁创建相似形态的对象。同样的事情也发生在对象字面量中：`{a:1, b:2}` 内部也会有隐藏类 M0，M1 和 M2。
 
-This works very well for object shapes that are expected to reoccur very frequently. A similar thing happens internally for object literals: `{a:1, b:2}` will also internally have hidden classes M0, M1 and M2.
+网上有很多相关知识讲解，大家可以去看看 Lars Bak 的视频：
 
-A lot has been written about this; see e.g., the following explanation by Lars Bak:
+YouTube 视频见：[V8: an open source JavaScript engine](https://youtu.be/hWhMKalEicY)
 
-YouTube 视频见：https://youtu.be/hWhMKalEicY
+### 原型（Prototypes）就像特别的雪花
 
-### Prototypes are special snowflakes
+不同于常规构造函数实例化对象，原型是典型的不与其他对象分享形态的对象。这会带来三点变化：
 
-Unlike instances created from regular constructors, prototypes are typically unique objects that don’t share shape with other of objects. This changes the calculation for all 3 points above:
+1.  通常来讲，没有对象能从缓存的转换（cached transitions）中受益，而且设置转换树（transition tree）的开销也是没有必要的。
+2.  创建所有转换隐藏类的内存开销是很大的。事实上，在改变这个之前，我们通常会看到为了一个简单的原型就要用上一大堆的隐藏类。
+3.  从一个原型中加载实际上并不像在原型链中使用那么常见。如果我们通过原型链从一个原型对象中加载，我们将不会分发原型的隐藏类，以及需要用不同的方法检查它是否有效。
 
-1.  There’s typically no object that will benefit from the cached transitions, and setting up the transition tree is just an unnecessary cost.
-2.  There’s nothing to offset the memory overhead from creating all the transitioning hidden classes. In fact, before we changed this, we’d typically see a large fraction of hidden classes used for single prototypes.
-3.  Loading from a prototype is actually not as common as using it through the prototype chain. If we load from a prototype object through a prototype chain, we won’t have dispatched on the prototype’s hidden class and need a different way to check if it’s valid anyway.
+为了优化原型，V8 对其形态的跟踪不同于常规的转换对象，我们不需要跟踪转换树（transition tree），而是将隐藏类调整为原型对象，让它保持高性能。举个例子，比如执行 `delete object.property` 会拖慢对象的性能，但如果是原型就不会出现这种情况。因为我们总是会保持它们的可缓存性（有些问题我们还在解决中）。
 
-To optimize prototypes, V8 keeps track of their shape differently from regular transitioning objects. Instead of keeping track of the transition tree, we tailor the hidden class to the prototype object, and always keep it fast. E.g., even if `delete object.property` would typically turn objects into a “slow” state, this isn’t the case for prototypes. We’ll always keep them cacheable (with some caveats that we’re working on resolving).
+我们也改变了原型的设置。原型包含了2个重要的阶段：**设置**和**使用**。原型在**设置**阶段被编译成字典对象（dictionary objects）。在那个状态下存储原型的速度非常快的，而且不需要进入 C++ 的运行时（跨边界的花销是非常巨大的）。与创建一个转换隐藏类来初始化对象相比，这是一个巨大的进步，因为前者必须进入C++ 运行时才行。
 
-We also changed how we set up prototypes. Prototypes have 2 main phases: _setup_ and _use._ Prototypes in the _setup_ phase are encoded as dictionary objects. Stores to prototypes in that state are really fast, and do not necessarily need to enter the C++ runtime (a boundary crossing which is pretty expensive). This is a huge improvement over the initial object setup that needs to create a transitioning hidden class; partially because this has to be done in the C++ runtime.
-
-Any direct access to the prototype, or access through a prototype chain, will transition it to _use_ state, making sure that all such accesses from now on are fast. And as stated above, even if you delete a property, we’ll turn it fast again afterwards.
+任何对原型的直接访问，或者通过原型链访问原型，都会将它切换成**使用**状态，这样确保了所有访问从此时开始是快速的。当处于使用状态，即使你删除属性，在删除之后我们也会快速的切换回来。
 
 ```
 function Foo() {}
-// Now proto is in "setup" mode.
+// 现在 proto 对象是"设置"模式。
 var proto = Foo.prototype;
 proto.method1 = function() { ... }
 proto.method2 = function() { ... }
 
 var o = new Foo();
-// Transitions proto to "use" mode.
+// 切换 proto 到"使用"模式。
 o.method1();
 
-// Also transitions proto to "use" mode.
+// 也会切换 proto 到"使用"模式。
 proto.method1.call(o);
 ```
 
-### Is it a prototype?
+### 它是原型吗？
 
-To be able to benefit from any of the above, we need to know that an object is actually used as a prototype. Because of the nature of JS, it’s very hard to analyze your program at compile time. For that reason we don’t even try to figure out at object creation whether something will end up as a prototype at this moment (this may change over time of course…). Once we see an object installed as a prototype, we’ll mark it as such. E.g., if you do:
+为了用上上面说的优化方法，我们需要知道一个对象是否真的会被作为原型使用。由于 JavaScript 的特性，我们很难在编译阶段分析你的代码。出于这个原因，我们甚至没有尝试在对象创建过程中确定什么东西最终会成为原型（当然，以后可能会发生变化）。一旦我们看到一个对象赋值给一个原型，我们将对它进行标记。举个例子来讲：
 
 ```
 var o = {x:1};
 func.prototype = o;
 ```
 
-we don’t know that `o` is used as a prototype until fully at the end. We’ll have created the object in the typical fairly expensive transition-creating manner. Once it’s installed though, it’s marked as a prototype, and goes into the _setup_ state. And into the _use_ phaseonce you start using it.
+一开始我们也不知道 `o` 用作原型，直到赋值给 `func.prototype`。我像往常那样花费巨大的开销来创建对象。一旦像它那样被赋值，它就被标记成原型，进入**设置**阶段。当你使用它，就会进入**使用**阶段。
 
-If instead you’d do the following, we’ll know that `o` is a prototype before any properties are added. It’ll go into the _setup_ phase before properties are added, and it’ll be much faster:
+如果你像下面这样写，我们会在属性添加前就知道 `o` 是一个原型。于是它将在添加属性前进入设置阶段，后面的代码执行就会快得多：
 
 ```
 var o = {};
@@ -86,22 +86,22 @@ func.prototype = o;
 o.x = 1;
 ```
 
-Note that it’s also fine to just use `var o = func.prototype`, since `func.prototype` is always created as something that knows it’s a prototype; obviously ;-).
+注意你也可以这样使用 `var o = func.prototype`，因为很显然 `func.prototype` 在创建时就知道它是一个原型。
 
-### How to set up prototypes
+### 怎样设置原型（prototypes）？
 
-If you set up your prototype in the following way, you get the benefit that we know func.prototype is a prototype before methods are added:
+如果你用下面的方式设置原型，我们在方法添加之前很容易就知道 func.prototype 就是一个原型：
 
 ```
-// Omit the following line if the default Object.prototype as __proto__ is fine.
+// 如果默认的 Object.prototype 为 __proto__，则省略下面这行代码。
 func.prototype = Object.create(…);
 func.prototype.method1 = …
 func.prototype.method2 = …
 ```
 
-While this is already pretty good, we actually have to load `func.prototype` for each method. Even though we have recently further optimized specifically the `func.prototype` loads, they are unnecessary and will be worse for performance and memory usage than just direct local variable access.
+虽然已经很不错了，但事实上我们不得不为每个方法都加载一次 `func.prototype`。尽管最近我们正在进一步优化 `func.prototype` 的加载，但这种加载是不必要的，性能和内存的使用将比直接访问本地变量访问更糟糕。
 
-In short, the ideal way to setup prototypes is as follows:
+简而言之，理想的原型设置方法如下：
 
 ```
 var proto = func.prototype = Object.create(…);
@@ -109,7 +109,7 @@ proto.method1 = …
 proto.method2 = …
 ```
 
-Thanks to [Benedikt Meurer](https://medium.com/@bmeurer?source=post_page).
+感谢 [Benedikt Meurer](https://medium.com/@bmeurer?source=post_page).
 
 
 ---

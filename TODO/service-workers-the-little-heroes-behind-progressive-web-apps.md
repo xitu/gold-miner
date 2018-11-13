@@ -2,87 +2,87 @@
 > * 原文作者：[Flavio Copes](https://medium.freecodecamp.org/@writesoftware?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/service-workers-the-little-heroes-behind-progressive-web-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO/service-workers-the-little-heroes-behind-progressive-web-apps.md)
-> * 译者：
-> * 校对者：
+> * 译者：[FateZeros](https://github.com/FateZeros)
+> * 校对者：[MechanicianW](https://github.com/MechanicianW) [atuooo](https://github.com/atuooo)
 
-# Service workers: the little heroes behind Progressive Web Apps
+# Service workers：Progressive Web Apps 背后的小英雄
 
 ![](https://cdn-images-1.medium.com/max/800/1*CqQTKb0N2o0suacfiluO8w.jpeg)
 
-Service workers are at the core of [Progressive Web Apps](https://flaviocopes.com/what-is-a-progressive-web-app/). They allow caching of resources and push notifications, which are two of the main distinguishing features that have set native apps apart up to this point.
+Service workers 是 [Progressive Web Apps](https://flaviocopes.com/what-is-a-progressive-web-app/) 的核心。它们允许缓存资源和推送通知，这是原生 app 应用的两个突出特性。
 
-A service worker is a **programmable proxy** between your web page and the network which provides the ability to intercept and cache network requests. This effectively lets you **create an offline-first experience for your app**.
+service worker 是你的网页和网络之间的 **可编程代理**，它可以拦截和缓存网络请求。这实际上可以让你 **使自己的 app 具有离线优先的体验**。
 
-Service workers are a special kind of web worker: a JavaScript file associated with a web page which runs on a worker context, separate from the main thread. This gives the benefit of being non-blocking — so computations can be done without sacrificing the UI responsiveness.
+Service workers 是一种特殊的 web worker：一个关联工作环境上运行的网页且与主线程分离的 JavaScript 文件。它带来了非阻塞这一优点 —— 所以计算处理可以在不牺牲 UI 响应的情况下完成。
 
-Since it’s on a separate thread, it has no DOM access. Nor does it have access to the Local Storage APIs and the XHR API. It can only communicate back to the main thread using the **Channel Messaging API**.
+因为它在单独的线程上，因此它没有访问 DOM 的权限，也没有访问本地存储 APIs 和 XHR API 的权限。它只能使用 **Channel Messaging API** 与主线程通信。
 
-Service Workers cooperate with other recent Web APIs:
+Service Workers 与其他新进的 Web APIs 搭配：
 
 * **Promises**
 * **Fetch API**
 * **Cache API**
 
-And they are **only available on HTTPS** protocol pages (except for local requests, which do not need a secure connection. This makes testing easier.).
+它们 **只在使用 HTTPS** 协议的页面可用（除了本地请求不需要安全连接，这会使测试更简单。）。
 
-### Background Processing
+### 后台运行
 
-Service workers run independently of the application they are associated with, and they can receive messages when they are not active.
+Service workers 独立运行，当与其相关联的应用没有运行的时候也可以接收消息。
 
-For example they can work:
+它们可以后台运行的几种情况：
 
-* when your mobile application is **in the background**, not active
-* when your mobile application is **closed** and even not running in the background
-* when **the browser is closed**, if the app is running in the browser
+* 当你的手机应用 **在后台运行**，没有激活
+* 当你的手机应用 **关闭** 甚至没有在后台运行
+* 当**浏览器关闭**，如果 app 运行在浏览器上
 
-The main scenarios where service workers are very useful are:
+service workers 非常有用的几种场景：
 
-* They can be used as a **caching layer** to handle network requests, and cache content to be used when offline
-* They can allow **push notifications**
+* 它们可以作为**缓存层**来处理网络请求，并且缓存离线时要使用的内容
+* 它们允许**推送通知**
 
-A service worker only runs when needed, and it’s stopped when not used.
+service worker 只有在需要的时候运行，不然则停止运行。
 
-### Offline Support
+### 离线支持
 
-Traditionally, the offline experience for web apps has been very poor. Without a network, often mobile web apps simply won’t work. Native mobile apps, on the other hand, have the ability to offer either a working version or some kind of nice message.
+传统上，web app 的离线体验一直很差。没有网络，web app 通常根本无法工作。另一方面，原生手机 app 则有能力提供一种可以离线运行的版本或者友好的消息提示。
 
-This is not a nice message, but this is what a web pages look like in Chrome without a network connection:
+这就不是一种友好的消息提示，但这是 Chrome 中一个网页在没有网络连接情况下的样子：
 
 ![](https://cdn-images-1.medium.com/max/800/0*JxRXpDzGFHmwnED8.png)
 
-Possibly the only nice thing about this is that you get to play a free game by clicking the dinosaur — but it gets boring pretty quickly.
+可能唯一的好处就是你可以点击恐龙来玩免费的小游戏 —— 但这很快就会变的无聊。
 
 ![](https://cdn-images-1.medium.com/max/800/0*X11fKp3LDkz0G6ug.gif)
 
-In the recent past, the HTML5 AppCache already promised to allow web apps to cache resources and work offline. But its lack of flexibility and confusing behavior made it clear that it wasn’t good enough for the job (and [it’s been discontinued](https://html.spec.whatwg.org/multipage/offline.html#offline)).
+最近，HTML5 AppCache 已经承诺允许 web apps 缓存资源和离线工作。但是它缺乏灵活性，而且混乱的表现也让它不足胜任这项工作（并[已经停止](https://html.spec.whatwg.org/multipage/offline.html#offline)）。
 
-Service workers are the new standard for offline caching.
+Service workers 是新的离线缓存标准。
 
-Which kind of caching is possible?
+可以进行哪种缓存？
 
-### Precache assets during installation
+### 在安装期间预缓存资源
 
-Assets that are reused throughout the application, like images, CSS, JavaScript files, can be installed the first time the app is opened.
+可以在第一次打开 app 的时候安装在整个应用中重用的资源，如图片，CSS，JavaScript 文件。
 
-This gives the base of what is called the **App Shell architecture**.
+这就给出了所谓的 **App Shell 体系**。
 
-### Caching network requests
+### 缓存网络请求
 
-Using the **Fetch API,** we can edit the response coming from the server, determining if the server is not reachable and providing a response from the cache instead.
+使用 **Fetch API**，我们可以编辑来自服务器的响应，如果服务器无法访问，可以从缓存中提供响应作为替代。
 
-### A Service Worker Lifecycle
+### Service Worker 生命周期
 
-A service worker goes through three steps to become fully functional:
+service worker 经过以下三个步骤才能提供完整的功能：
 
-* Registration
-* Installation
-* Activation
+* 注册
+* 安装
+* 激活
 
-### Registration
+### 注册
 
-Registration tells the browser where the server worker is, and it starts the installation in the background.
+注册告诉浏览器 service worker 在哪里，并在后台开始安装。
 
-Example code to register a service worker placed in `worker.js`:
+注册放置在 `worker.js` 中 service worker 的示例代码：
 
 ```
 if ('serviceWorker' in navigator) { 
@@ -99,15 +99,15 @@ if ('serviceWorker' in navigator) {
 }
 ```
 
-Even if this code is called multiple times, the browser will only perform the registration if the service worker is new and not registered previously, or if it has been updated.
+即使此代码被多次调用，如果 service worker 是新的，并且以前没有被注册，或者已更新，浏览器将仅执行注册。
 
-#### Scope
+#### 作用域
 
-The `register()` call also accepts a scope parameter, which is a path that determines which part of your application can be controlled by the service worker.
+`register()` 调用还接受一个作用域参数，该参数是一个路径用来确定应用程序的哪一部分可以由 service worker 控制。
 
-It defaults to all files and subfolders contained in the folder that contains the service worker file, so if you put it in the root folder, it will have control over the entire app. In a subfolder, it will only control pages accessible under that route.
+它默认包含 service worker 的文件夹中的所有文件和子文件夹，所以如果将它放到根文件夹，它将控制整个 app。在子文件夹中，它将只会控制当前路径下的页面。
 
-The example below registers the worker, by specifying the `/notifications/` folder scope.
+下面的示例通过指定 `/notifications/` 文件夹范围来注册 service worker。
 
 ```
 navigator.serviceWorker.register('/worker.js', { 
@@ -115,19 +115,19 @@ navigator.serviceWorker.register('/worker.js', {
 })
 ```
 
-The `/` is important: in this case, the page `/notifications` won’t trigger the Service Worker, while if the scope was
+`/` 很重要：在这种情况下，页面 `/notifications` 不会触发 service worker，而如果作用域是：
 
 ```
 { scope: '/notifications' }
 ```
 
-it would have worked.
+它就会起作用。
 
-NOTE: The service worker cannot “up” itself from a folder: if its file is put under `/notifications`, it cannot control the `/` path or any other path that is not under `/notifications`.
+注意：service worker 不能从一个文件夹中“提升”自己的作用域：如果它的文件放在 `/notifications` 下，它不能控制 `/` 路径或其他不在 `/notifications` 下的路径。 
 
-### Installation
+### 安装
 
-If the browser determines that a service worker is outdated or has never been registered before, it will proceed to install it.
+如果浏览器确定 service worker 过期或者以前从未注册过，则会继续安装。
 
 ```
 self.addEventListener('install', (event) => { 
@@ -135,15 +135,15 @@ self.addEventListener('install', (event) => {
 });
 ```
 
-This is a great time to prepare the service worker to be used by **initializing a cache.** Then **cache the App Shell** and static assets using the **Cache API**.
+这是使用 service worker **初始化缓存**的好时机。然后使用 **Cache API** **缓存 App Shell** 和静态资源。
 
-### Activation
+### 激活
 
-Once the service worker has been successfully registered and installed, the third step is activation.
+一旦 service worker 被成功注册和安装，第三步就是激活。
 
-At this point, the service worker will be able to work with new page loads.
+这时，当界面加载时，service worker 就能正常工作了。
 
-It cannot interact with pages already loaded, so the service worker is only useful the second time the user interacts with the app or reloads one of the pages already open.
+它不能和已经加载的页面进行交互，因此 service worker 只有在用户和应用交互的第二次或重新加载已打开的页面时才有用。
 
 ```
 self.addEventListener('activate', (event) => { 
@@ -151,25 +151,25 @@ self.addEventListener('activate', (event) => {
 });
 ```
 
-A good use case for this event is to cleanup old caches and things associated with the old version that are unused in the new version of the service worker.
+这个事件的一个好的用例是清除旧缓存和一些关联到旧版本并且没有被新版本的 service worker 使用的文件。
 
-### Updating a Service Worker
+### 更新 Service Worker
 
-To update a service worker, you just need to change one byte in it. When the register code is run, it will be updated.
+要更新 service worker，你只需修改其中的一个字节。当寄存器代码运行的时候，它就会被更新。
 
-Once a service worker is updated, it won’t become available until all pages that were loaded with the old service worker attached are closed.
+一旦更新了 service worker，直到所有关联到旧版本 service worker 已加载的页面全部关闭，新的 service worker 才会起作用。
 
-This ensures that nothing will break on the apps/pages that are already working.
+这确保了在已经工作的应用/页面上不会有任何中断。
 
-Refreshing the page is not enough, as the old worker is still running and it hasn’t been removed.
+刷新页面还不够，因为旧的 worker 仍在运行，且没有被删除。
 
-### Fetch Events
+### Fetch 事件
 
-A **fetch event** is fired when a resource is requested on the network.
+当网络请求资源时 **fetch 事件** 被触发。
 
-This offers us the ability to **look in the cache** before making network requests.
+这给我们提供了在发起网络请求前查看**缓存**的能力。
 
-For example, the snippet below uses the **Cache API** to check if the requested URL was already stored in the cached responses. If that’s the case, it returns the cached response. Otherwise, it executes the fetch request and returns it.
+例如，下面的代码片段使用 **Cache API** 来检查请求的 URL 是否已经存储在缓存响应里面。如果已存在，它会返回缓存中的响应。否则，它会执行 fetch 请求并返回结果。
 
 ```
 self.addEventListener('fetch', (event) => {
@@ -187,11 +187,11 @@ self.addEventListener('fetch', (event) => {
 })
 ```
 
-### Background Sync
+### 后台同步
 
-Background sync allows outgoing connections to be deferred until the user has a working network connection.
+后台同步允许发出的连接延迟，直到用户有可用的网络连接。
 
-This is key to ensure that a user can use the app offline, take actions on it, and queue server-side updates for when there is a connection open (instead of showing an endless spinning wheel trying to get a signal).
+这是确保用户能离线使用 app，能对其进行操作，并且当网络连接时排队进行服务端更新（而不是显示尝试获取信号的无限旋转圈）的关键。
 
 ```
 navigator.serviceWorker.ready.then((swRegistration) => { 
@@ -199,7 +199,7 @@ navigator.serviceWorker.ready.then((swRegistration) => {
 });
 ```
 
-This code listens for the event in the service worker:
+这段代码监听 service worker 中的事件：
 
 ```
 self.addEventListener('sync', (event) => { 
@@ -209,21 +209,21 @@ self.addEventListener('sync', (event) => {
 })
 ```
 
-`doSomething()` returns a promise. If it fails, another sync event will be scheduled to retry automatically until it succeeds.
+`doSomething()` 返回一个 promise 对象。如果失败，另一个同步事件将安排自动重试，直到成功。
 
-This also allows an app to update data from the server as soon as there is a working connection available.
+这也允许应用程序在有可用网络连接时，立即从服务器更新数据。
 
-### Push Events
+### 推送事件
 
-Service workers enable web apps to provide native Push Notifications to users.
+Service workers 让 web apps 为用户提供本地推送。
 
-Push and Notifications are actually two different concepts and technologies that are combined to provide what we know as **Push Notifications**. Push provides the mechanism that allows a server to send information to a service worker, and Notifications are the way service workers can show information to the user.
+推送和通知实际上是两种不同的概念和技术，它们结合起来就是我们所知的 **推送通知**。推送提供了允许服务器向 service worker 发送消息的机制，通知就是 servic worker 向用户显示信息的方式。
 
-Since service workers run even when the app is not running, they can listen for push events coming. They then either provide user notifications, or update the state of the app.
+因为 service workers 即使在 app 没有运行的时候也可以运行，它们可以监听即将到来的推送事件。然后它们要么提供用户通知，要么更新 app 状态。
 
-Push events are initiated by a backend, through a browser push service, like the one provided by [Firebase](https://flaviocopes.com/firebase-hosting).
+推送事件用后端通过浏览器推送服务启动，如 [Firebase](https://flaviocopes.com/firebase-hosting) 提供的推送服务。
 
-Here is an example of how the web worker can listen for incoming push events:
+下面这个例子展示了 web worker 如何能够监听到即将到来的推送事件：
 
 ```
 self.addEventListener('push', (event) => { 
@@ -240,15 +240,15 @@ self.addEventListener('push', (event) => {
 })
 ```
 
-### A note about console logs:
+### 有关控制台日志的说明：
 
-If you have any console log statement (`console.log` and friends) in the service worker, make sure you turn on the `Preserve log` feature provided by the Chrome Devtools (or equivalent).
+如果 service work 有任何控制台日志语句（`console.log` 和其类似），请确保你打开了 Chrome Devtools（或类似工具）提供的 `Preserve log` 功能。
 
-Otherwise, since the service worker acts before the page is loaded, and the console is cleared before loading the page, you won’t see any log in the console.
+否则，由于 service worker 在页面加载前执行，并且在加载页面前清除了控制台，你将不会在控制台看到任何日志输出。
 
-Thanks for reading through this tutorial. There’s a lot to learn about this topic! I publish a lot of related content on my [blog about frontend development](https://flaviocopes.com), don’t miss it! 😀
+感谢阅读这篇文章，关于这个主题还有很多值得学习的地方！我在[关于前端开发的博客](https://flaviocopes.com)中发表了很多相关的内容，别忘记去看！😀
 
-_Originally published at_ [_flaviocopes.com_](https://flaviocopes.com/service-workers/)_._
+**最初发表于**[**flaviocopes.com**](https://flaviocopes.com/service-workers/)。
 
 
 ---

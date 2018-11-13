@@ -2,14 +2,14 @@
 > * 原文作者：[Benedikt Meurer](https://medium.com/@bmeurer?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/surprising-polymorphism-in-react-applications.md](https://github.com/xitu/gold-miner/blob/master/TODO/surprising-polymorphism-in-react-applications.md)
-> * 译者：
-> * 校对者：
+> * 译者： [Candy Zheng](https://github.com/blizzardzheng)
+> * 校对者：[goldEli](https://github.com/goldEli)，[老教授](https://juejin.im/user/58ff449a61ff4b00667a745c)
 
-# Surprising polymorphism in React applications
+# React 应用中的性能隐患 —— 神奇的多态
 
-Modern web applications based on the [React](https://facebook.github.io/react/) framework usually manage their state via immutable data structures, i.e. using the popular [Redux](http://redux.js.org/) state container. This pattern has a couple of benefits and is becoming ever more popular even outside the React/Redux world.
+基于 React 框架的现代 web 应用经常通过不可变数据结构来管理它们的状态。比如使用比较知名的 Redux 状态管理工具。这种模式有许多优点并且即使在 React/Redux 生态圈外也越来越流行。
 
-The core of this mechanism are so-called _reducers_. Those are functions that map one state of the application to the next one according to a specific action — i.e. in response to user interaction. Using this core abstraction, complex state and reducers can be composed of simpler ones, which makes it easy to unit test the code in separation. Consider the following example from the [Redux documentation](http://redux.js.org/docs/basics/ExampleTodoList.html):
+这种机制的核心被称作为 ``reducers``。 它们是一些能根据一个特定的映射行为 `action`（例如对用户交互的响应）把应用从一个状态映射到下一个状态的函数。通过这种核心抽象的概念，复杂的状态和 reducers 可以由一些更简单状态和 reducers 组成，这使得它易于对各部分代码隔离做单元测试。我们仔细分析一下 [Redux 文档](http://redux.js.org/docs/basics/ExampleTodoList.html) 中的例子。
 
 ```
 const todo = (state = {}, action) => {
@@ -35,7 +35,7 @@ const todo = (state = {}, action) => {
 }
 ```
 
-The `todo` reducer maps an existing `state` to a new state in response to a given `action`. The state is represented as plain old JavaScript object. Looking at this code from a performance perspective, it seems to follow the principles for monomorphic code, i.e. keeping the object shape the same.
+这个名叫  `todo` 的 reducer 根据给定的 `action` 把一个已有的 `state` 映射到了一个新的状态。这个状态就是一个普通的 JavaScript 对象。我们单从性能角度来看这段代码，他似乎是符合单态法则的，比如这个对象的形状（key／value）保持一致。
 
 ```
 const s1 = todo({}, {
@@ -59,11 +59,11 @@ render(s1);
 render(s2);
 ```
 
-Speaking naively the property accesses in `render` should be monomorphic, i.e. the `state` objects should have the same shape — [map or hidden class in V8 speak](https://github.com/v8/v8/wiki/Design%20Elements#fast-property-access) — all the time, both `s1` and `s2` have `id`, `text` and `completed` properties in this order. However, running this code in the `d8` shell and tracing the ICs (inline caches), we observe that `render` sees different object shapes and the `state.id` and `state.text` property accesses become polymorphic:
+表面上来看， `render` 中访问属性应该是单态的，比如说 `state` 对象应该有相同的对象形状- [map 或者 V8 概念中的 hidden class 形式](https://github.com/v8/v8/wiki/Design%20Elements#fast-property-access) — 不管什么时候， `s1` 和 `s2` 都拥有 `id`, `text` 和 `completed` 属性并且它们有序。然而，当通过 `d8` 运行这段代码并跟踪代码的 ``ICs`` (内联缓存) 时，我们发现那个 `render` 表现出来的对象形状不相同， `state.id` 和 `state.text` 的获取变成了多态形式：
 
 ![](https://cdn-images-1.medium.com/max/800/1*FrfEaOkxshIj79wJDQyrIQ.png)
 
-So where does this polymorphism comes from? It’s actually pretty subtle and has to do with the way V8 handles object literals. Each object literal — i.e. expression of the form `{a:va,...,z:vb}` defines a root map in the transition tree of maps (remember map is V8 speak for object shape). So if you use an empty object literal `{}` than the transition tree root is a map that doesn’t contain any properties, whereas if you use `{id:id, text:text, completed:completed}` object literal, then the transition tree root is a map that contains these three properties. Let’s look at a simplified example:
+那么问题来了，这个多态是从哪里来的？它确实表面看上去一致但其实有微小差异，我们得从 V8 是如何处理对象字面量着手分析。V8 里，每个对象字面量 (比如  `{a:va,...,z:vb}` 形式的表达形式 ) 定义了一个初始的`` map`` （map 在 V8 概念中特指对象的形状）这个 ``map`` 会在之后属性变动时迁移成其他形式的 ``map``。所以，如果你使用一个空对象字面量  {}  时，这棵迁移树（transition tree）的根是一个不包含任何属性的 ``map``，但如果你使用  `{id:id, text:text, completed:completed}` 形式的对象字面量，那么这个迁移树（transition tree）的根就会是一个包含这三个属性，让我们来看一个精简过的例子：
 
 ```
 let a = {x:1, y:2, z:3};
@@ -78,15 +78,15 @@ console.log("b is", b);
 console.log("a and b have same map:", %HaveSameMap(a, b));
 ```
 
-You can run this code in Node.js passing the `--allow-natives-syntax` command line flag (which enables the use of the `%HaveSameMap` intrinsic), i.e.:
+你可以在 ``Node.js`` 运行命令后面加上 `--allow-natives-syntax` 跑这段代码（开启即可应用内部方法 `%HaveSameMap`），举个例子：
 
 ![](https://cdn-images-1.medium.com/max/800/1*yzSaH_AE5z7r9PWBXlvwWg.png)
 
-So despite these objects `a` and `b` looking the same — having the same properties with the same types in the same order — they don’t have the same map. The reason being that they have different transition trees, as illustrated by the following diagram:
+尽管 `a` and `b` 这两个对象看上去是一样的 —— 依次拥有相同类型的属性，它们 map 结构并不一样。原因是它们的迁移树（transition tree）并不相同，我们可以看以下的示例来解释：
 
 ![](https://cdn-images-1.medium.com/max/800/1*fkbEgBWk74icFH1yZIH7Lw.png)
 
-So polymorphism hides where objects are allocated via different (incompatible) object literals. This especially applies to common uses of `Object.assign`, for example
+所以当对象初始化期间被分配不同的对象字面量时，迁移树（transition tree）就不同，``map`` 也就不同，多态就隐含的形成了。这一结论对大家普遍用的 `Object.assign`也适用，比如：
 
 ```
 let a = {x:1, y:2, z:3};
@@ -98,15 +98,15 @@ console.log("b is", b);
 console.log("a and b have same map:", %HaveSameMap(a, b));
 ```
 
-still yields different maps, because the object `b` starts out as empty object (the `{}` literal) and `Object.assign` just slaps properties on it.
+这段代码还是产生了不同的 ``map`` ，因为对象  `b` 是从一个空对象( `{}` 字面量) 创建的，而属性是等到`Object.assign` 才给他分配。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Xu-nIj21gj-GlHDkzsSOSA.png)
 
-This also applies if you use spread properties and transpile it using Babel, because Babel — and probably other transpilers as well — use `Object.assign` for spread properties.
+这也表明，当你使用  ``spread`` （拓展运算符）处理属性，并且通过 Babel 来语法转译，就会遇到这个多态的问题。因为 Babel （其他转译器可能也一样）, 对 ``spread`` 语法使用了 `Object.assign` 处理。
 
 ![](https://cdn-images-1.medium.com/max/800/1*F2x8lRcZ83pQDvftelFOgA.png)
 
-One way to avoid this is to consistently use `Object.assign` so that all objects start from the empty object literal. But this can become a performance bottleneck in the state management logic:
+有一种方法可以避免这个问题，就是始终使用 `Object.assign` ，并且所有对象从一个空的对象字面量开始。但是这也会导致这个状态管理逻辑存在性能瓶颈：
 
 ```
 let a = Object.assign({}, {x:1, y:2, z:3});
@@ -118,8 +118,7 @@ console.log("b is", b);
 console.log("a and b have same map:", %HaveSameMap(a, b));
 ```
 
-That being said, it’s not the end of the world if some code becomes polymorphic. Staying monomorphic might not matter at all for most of your code. You should measure really carefully before making the decision to optimize the wrong thing.
-
+不过，当一些代码变成多态也不意味着一切完了。对大部分代码而言，单态还是多态并没啥关系。你应该在决定优化时多思考优化的价值。
 
 ---
 
