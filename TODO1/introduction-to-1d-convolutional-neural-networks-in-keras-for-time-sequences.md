@@ -25,7 +25,7 @@ CNN 可以很好地识别出数据中的简单模式，然后使用这些简单�
 
 ![](https://cdn-images-1.medium.com/max/800/1*aBN2Ir7y2E-t2AbekOtEIw.png)
 
-“一维和二维卷积神经网络” 由 Nils Ackermann 根据知识共享 [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/) 许可下授权。
+“一维和二维卷积神经网络” 由 Nils Ackermann 在知识共享许可 [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/) 下授权。
 
 ### 问题描述
 
@@ -41,7 +41,7 @@ CNN 可以很好地识别出数据中的简单模式，然后使用这些简单�
 
 ![](https://cdn-images-1.medium.com/max/1000/1*Y117iNR_CnBtBh8MWVtUDg.png)
 
-“一维卷积神经网络示例” 由 Nils Ackermann 根据知识共享 [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/) 许可下授权。
+“一维卷积神经网络示例” 由 Nils Ackermann 在知识共享许可 [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/) 下授权。
 
 让我们先来看一下对应的 Python 代码，以便构建这个模型：
 
@@ -171,7 +171,7 @@ avg / total       0.92      0.92      0.92      6584
 
 ![](https://cdn-images-1.medium.com/max/800/1*wTGN860kbMvnZUNQbCBYVg.png)
 
-“预测和结果矩阵”由 Nils Ackermann 根据知识共享 [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/) 许可下授权。
+“预测和结果矩阵”由 Nils Ackermann 在知识共享 [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/) 许可下授权。
 
 *   **精确度（Accuracy）：** 正确预测的结果与所有预测的结果总和之比。即 ((TP + TN) / (TP + TN + FP + FN))
 *   **精度（Precision）：** 当模型预测为正样本时，它是对的吗？所有的正确预测的正样本除以所有的正样本预测。即 (TP / (TP + FP))
