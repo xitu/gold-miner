@@ -7,7 +7,7 @@
 
 # 从现有的代码库创建 Swift 包管理器
 
-Swift 包管理器（SPM）非常适合编写快速工具，你甚至可以从应用程序中提取现有代码。诀窍是意识到你可以将文件夹符号链接到 SPM 项目中，这意味着通过一些工作你可以创建一个包装生产代码部分的命令行工具。
+Swift 包管理器（SPM）非常适合编写快速工具，你甚至可以从应用程序中提取现有代码。诀窍是你需要意识到你可以将文件夹符号链接到 SPM 项目中，这意味着通过一些工作你可以创建一个包装生产代码部分的命令行工具。
 
 ### 你为什么要这么做？
 
@@ -15,19 +15,19 @@ Swift 包管理器（SPM）非常适合编写快速工具，你甚至可以从�
 
 ### 注意事项
 
-你不能使用导入 `UIKit` 的代码，因为这项技术仅适用于基于 `Foundation` 库的代码。虽然这听起来有限制，但是在理想情况下，业务逻辑和数据操作的代码都不应该接触有关 `UIKit` 的东西。
+你不能使用 `UIKit` 框架的下的代码，因为这项技术仅适用于基于 `Foundation` 库的代码。虽然这听起来有限制，但是在理想情况下，业务逻辑和数据操作的代码都不应该都不应该引入有关 `UIKit` 框架下的东西。
 
 具有依赖性导致了该技术更加难，不过你仍然可以使用它，但是需要在 `Package.swift` 中进行更多的配置。
 
 ### 你要怎么做呢？
 
-这取决于你的项目结构，我这里有一个[示例项目](https://github.com/paulsamuels/SymlinkedSPMExample)。这是一个小型的iOS项目，它显示了一个博客的帖子列表（你并不需要看项目本身，项目本身并不重要）。项目中博客的帖子来自于假的 JSON 数据，它没有特别好的结构，因此应用程序需要进行自定义解码。为了保持它的轻量级，我将以下面的方式构建最简单的包装器：
+这取决于你的项目结构。我这里有一个[示例项目](https://github.com/paulsamuels/SymlinkedSPMExample)。这是一个小型的 iOS 项目，它显示了一个博客的帖子列表（你并不需要看项目本身，项目本身并不重要）。项目中博客的帖子来自于假的 JSON 数据，它没有特别好的结构，因此应用程序需要进行自定义解码。为了保持它的轻量级，我将以下面的方式构建最简单的包装器：
 
 *   从标准输入中读取	
 *   使用生产解析代码
 *   打印解码结果或错误
 
-你可以疯狂地给它添加更多的更能，但是这个简单的工具将会让我们在不启动模拟器的情况下，快速反馈给我们生产代码是否接受某些 JSON 数据或者显示任何可能发生的错误。
+你可以疯狂地给它添加更多的更能，但是这个简单的工具将会让我们在不启动模拟器的情况下，快速为我们提供关于生产代码是否可以接受某些 JSON 的反馈或者显示任何可能发生的错误。
 
 这个示例项目的基础结构如下：
 
@@ -151,9 +151,9 @@ $ echo '{ "posts" : [ { "title" : "Some post" } ] }' | swift run web-api
 keyNotFound(CodingKeys(stringValue: "tags", intValue: nil), Swift.DecodingError.Context(codingPath: [CodingKeys(stringValue: "posts", intValue: nil), _JSONKey(stringValue: "Index 0", intValue: 0)], debugDescription: "No value associated with key CodingKeys(stringValue: \"tags\", intValue: nil) (\"tags\").", underlyingError: nil))
 ```
 
-*   第一个例子是错误的，因为它没有关键 `posts`
-*   第二个例子也是错误的，因为 `posts` 没有 `title` 键
-*   第三个例子还是错误的，因为 `posts` 没有 `tags` 键
+*   第一个例子是错误的，因为它没有 `posts`
+*   第二个例子也是错误的，因为 `posts` 没有 `title` 
+*   第三个例子还是错误的，因为 `posts` 没有 `tags` 
 
 **在实际应用中，我将用管道的方式输出一个实时或暂存断点的 `curl` 结果，而非手写的 JSON 代码**
 
