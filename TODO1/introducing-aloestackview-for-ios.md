@@ -92,15 +92,15 @@ AloeStackView 不是我们用于在 Airbnb 上构建 iOS UI 的唯一基础架�
 
 * * *
 
-_想参与其中吗？我们一直在寻找_ [_有才华的人加入我们的团队_](https://www.airbnb.com/careers)_!_
+**想参与其中吗？我们一直在寻找** [**有才华的人加入我们的团队**](https://www.airbnb.com/careers) **!**
 
 * * *
 
-_AloeStackView 由 Marli Oshlack、Fan Cox 和 Arthur Pang 开发和维护。_
+**AloeStackView 由 Marli Oshlack、Fan Cox 和 Arthur Pang 开发和维护。**
 
-_AloeStackView 同样也受益于许多 Airbnb 工程师的贡献: Daniel Crampton、Francisco Diaz、 David He、 Jeff Hodnett、 Eric Horacek、 Garrett Larson、 Jasmine Lee、 Isaac Lim、 Jacky Lu、 Noah Martin、 Phil Nachum、 Gonzalo Nuñez、 Laura Skelton、 Cal Stephens 和 Ortal Yahdav。_
+**AloeStackView 同样也受益于许多 Airbnb 工程师的贡献: Daniel Crampton、Francisco Diaz、 David He、 Jeff Hodnett、 Eric Horacek、 Garrett Larson、 Jasmine Lee、 Isaac Lim、 Jacky Lu、 Noah Martin、 Phil Nachum、 Gonzalo Nuñez、 Laura Skelton、 Cal Stephens 和 Ortal Yahdav。**
 
-_此外，没有得到 Jordan Harband、 Tyler Hedrick、 Michael Bachand、 Laura Skelton、 Dan Federman 和 John Pottebaum 的帮助和支持，就不可能开源这个项目._
+**此外，如果没有得到 Jordan Harband、 Tyler Hedrick、 Michael Bachand、 Laura Skelton、 Dan Federman 和 John Pottebaum 的帮助和支持，就不可能开源这个项目.**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
