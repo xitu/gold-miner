@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/creating-spm-tools-from-your-existing-codebase.md](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-spm-tools-from-your-existing-codebase.md)
 > * 译者：[iWeslie](https://github.com/iWeslie)
-> * 校对者：
+> * 校对者：[LoneyIsError](https://github.com/LoneyIsError), [iWeslie](https://github.com/iWeslie)
 
 # 从现有的代码库创建 Swift 包管理器
 
@@ -155,7 +155,7 @@ keyNotFound(CodingKeys(stringValue: "tags", intValue: nil), Swift.DecodingError.
 *   第二个例子也是错误的，因为 `posts` 没有 `title` 
 *   第三个例子还是错误的，因为 `posts` 没有 `tags` 
 
-**在实际应用中，我将用管道的方式输出一个实时或暂存断点的 `curl` 结果，而非手写的 JSON 代码**
+**在实际应用中，我将用管道的方式输出一个实时或暂存断点的 `curl` 结果，而非手写的 JSON 代码。**
 
 这真的很酷，因为我可以看到生产代码没有解析其中的一些示例，并且我可以看到解释了错误原因的信息。如果没有这个工具，我需要手动运行应用程序并找出一种方法来获取不同的 JSON 有效负载而来运行解析逻辑。
 
