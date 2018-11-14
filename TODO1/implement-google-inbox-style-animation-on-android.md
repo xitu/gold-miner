@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/implement-google-inbox-style-animation-on-android.md](https://github.com/xitu/gold-miner/blob/master/TODO1/implement-google-inbox-style-animation-on-android.md)
 > - 译者：[YueYong](https://github.com/YueYongDev)
-> - 校对者：
+> - 校对者：[zx-Zhu](https://github.com/zx-Zhu)
 
 # 在 Android 上实现 Google Inbox 的样式动画
 
@@ -226,15 +226,15 @@ YAYYYY！现在看起来很正确。但反向过渡怎么样？
 
 ![](https://cdn-images-1.medium.com/max/800/1*0SnMV9Lw5_KKpFllkdzXmg.gif)
 
-没有达到我想要的结果！Explode 过渡似乎有效。但是，共享元素过渡不会。
+没有达到我想要的结果！Explode 过渡似乎有效。但是，共享元素过渡没有。
 
 ### 第四站：推迟进入转换
 
 反向过渡动画不起作用的原因是它发挥得太早。对于任何过渡的工作，它需要捕获目标视图的开始和结束状态（大小，位置，范围），在这种情况下，它们是  `Email Details`  视图和  `Email 5 item` 项。如果在 `Email 5 item` 的状态可用之前启动了反向转换，则它将无法像我们所看到的那样正常运行。
 
-这里的解决方案是推迟反向转换，直到绘制项目。幸运的是， transition 框架提供了一对 `postponeEnterTransition`  方法，它向系统标记输入过渡应该被推迟，`startPostponedEnterTransition` 表示它可以启动。请注意，必须在调用 `startPostponedEnterTransition` 后的某个时间调用 `postponeEnterTransition` 。否则，将永远不会执行过渡动画，并且 fragment 也不会弹出。
+这里的解决方案是推迟反向转换，直到 items 都被绘制完。幸运的是， transition 框架提供了一对 `postponeEnterTransition`  方法，它向系统标记输入过渡应该被推迟，`startPostponedEnterTransition` 表示它可以启动。请注意，必须在调用 `startPostponedEnterTransition` 后的某个时间调用 `postponeEnterTransition` 。否则，将永远不会执行过渡动画，并且 fragment 也不会弹出。
 
-根据我们的设置，每当从 Email Details fragment 重新进入 Email List fragment 时，它会从视图模型中获取最新状态并立即呈现电子邮件列表。因此，如果我们推迟过渡动画，直到呈现电子邮件列表，这不会是相当长的等待，因此推迟是有意义的（从死进程中恢复并弹出是一个不同的故事。这将在后面的帖子中介绍）。
+根据我们的设置，每当从 Email Details fragment 重新进入 Email List fragment 时，它会从 view model 中获取最新状态并立即呈现电子邮件列表。因此，如果我们推迟过渡动画，直到呈现电子邮件列表，等待时间不会太长（从死进程中恢复并弹出是一个不同的情况。这将在后面的帖子中介绍）。
 
 更新后的代码如下所示。我们推迟了  `onViewCreated`  中的 enter 转换。
 
@@ -317,11 +317,11 @@ override fun onSaveInstanceState(outState: Bundle) {
 
 - Google Inbox: 有趣的是，它不需要处理这种情况，因为它会在活动被销毁后重新加载电子邮件列表（而不是电子邮件详细信息）。
 - Google Play: 活动销毁或处理死亡后没有反向共享元素转换。
-- Plaid (不是一个真正的应用程序，而是 Android 上的一个优秀的 material design 的 demo ): 即使在方向改变之后（截至编写时），也没有反向共享元素过渡。
+- Plaid (不是一个真正的应用程序，但却是 Android 上的一个优秀的 material design 的 demo ): 即使在方向改变之后（截至编写时），也没有反向共享元素过渡。
 
 虽然上面的列表没有足够的结论来处理 Android 应用程序在这种情况下处理转换的模式，但它至少显示了一些观点。
 
-回到我们的具体问题，通常有两种可能性取决于每个应用程序处理此类情况的方法：（1）忽略丢失的数据并重新获取数据，以及（2）保留数据并恢复数据。由于这篇文章主要是关于过渡动画，所以我不打算讨论在什么情况下哪种方法更好以及为什么等。如果采用方法（1），则不应该进行反向转换，因为我们不知道先前被点击的电子邮件项目是否会被取回，即使它是，我们不知道它在列表中的位置。如果采用方法（2），我们可以像定向改变方案那样进行转换。
+回到我们的具体问题，通常有两种可能性取决于每个应用程序处理此类情况的方法：（1）忽略丢失的数据并重新获取数据，以及（2）保留数据并恢复数据。由于这篇文章主要是关于过渡动画，所以我不打算讨论在什么情况下哪种方法更好以及为什么等。如果采用方法（1），则不应该进行反向转换，因为我们不知道先前被点击的电子邮件项目是否会被取回，即使知道，我们不知道它在列表中的位置。如果采用方法（2），我们可以像定向改变方案那样进行转换。
 
 方法（1）是我在这种特定情况下的偏好，因为新的电子邮件可能每分钟都会出现，因此在活动销毁或处理死亡之后重新加载过时的电子邮件列表是没有用的，这通常发生在用户离开应用程序一段时间之后。在我们的设置中，当activity 被销毁或进程被杀死后后重新创建电子邮件列表片段时，将自动获取电子邮件数据，因此不需要做太多工作。我们只需要确保在呈现  `InProgress`  状态时调用  `startPostponedEnterTransition`：
 
