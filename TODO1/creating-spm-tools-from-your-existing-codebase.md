@@ -2,36 +2,36 @@
 > * 原文作者：[Paul Samuels](https://paul-samuels.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/creating-spm-tools-from-your-existing-codebase.md](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-spm-tools-from-your-existing-codebase.md)
-> * 译者：
-> * 校对者：
+> * 译者：[iWeslie](https://github.com/iWeslie)
+> * 校对者：[LoneyIsError](https://github.com/LoneyIsError), [iWeslie](https://github.com/iWeslie)
 
-# Creating Swift Package Manager tools from your existing codebase
+# 从现有的代码库创建 Swift 包管理器
 
-The Swift Package Manager (SPM) is perfect for writing quick tools and you can even bring along your existing code from your production apps. The trick is realising that you can symlink a folder into the SPM project, which means with some work you can create a command line tool that wraps parts of your production code.
+Swift 包管理器（SPM）非常适合编写快速工具，你甚至可以从应用程序中提取现有代码。诀窍是你需要意识到你可以将文件夹符号链接到 SPM 项目中，这意味着通过一些工作你可以创建一个包装生产代码部分的命令行工具。
 
-### Why would you want to do this?
+### 你为什么要这么做？
 
-It's very project dependent but a common use case would be for creating support/debugging/CI validation tools. For example a lot of apps work with remote data - in order to carry out it's function the app will need to convert the remote data into custom types and use business rules to do useful things with this data. There are multiple failure points in this flow that will manifest as either an app crash or incorrect app behaviour. The way to debug this would be to fire up the app with the debugger attached and start exploring, this is where it would be nice to have tools to help explore problems and potentially prevent them.
+虽然它很依赖于项目，但是常见的用例是创建支持、调试和持续集成（CI）验证工具。例如，许多应用程序为了实现功能而使用远端的数据，应用程序需要将远程数据转换为自定义的类型，并且使用业务规则对此数据执行有用的操作。在此流程中会有多个故障点显示出应用程序的崩溃或不正确的行为，因此解决的方法是在有附加调试器的情况下启动并进行调试，Swift 包管理器将是一个帮助发现问题并潜在地阻止问题的好工具。
 
-### Caveats
+### 注意事项
 
-You can not use code that imports `UIKit` which means that this technique is only going to work for `Foundation` based code. This sounds limiting but ideally business logic and data manipulation code shouldn't know about `UIKit`.
+你不能使用 `UIKit` 框架的下的代码，因为这项技术仅适用于基于 `Foundation` 库的代码。虽然这听起来有限制，但是在理想情况下，业务逻辑和数据操作的代码都不应该都不应该引入有关 `UIKit` 框架下的东西。
 
-Having dependencies makes this technique harder. You can still get this to work but it will require more configuration in `Package.swift`.
+具有依赖性导致了该技术更加难，不过你仍然可以使用它，但是需要在 `Package.swift` 中进行更多的配置。
 
-### How do you do it?
+### 你要怎么做呢？
 
-This depends on how your project is structured. I've got an example project [here](https://github.com/paulsamuels/SymlinkedSPMExample). This project is a small iOS app that displays a list of blog posts (don't look at the iOS project itself it's not really important for this). The blog posts come from a fake JSON feed that doesn't have a particularly nice structure, so the app needs to do custom decoding. In order to keep this light I'm going to build the simplest wrapper possible - it will:
+这取决于你的项目结构。我这里有一个[示例项目](https://github.com/paulsamuels/SymlinkedSPMExample)。这是一个小型的 iOS 项目，它显示了一个博客的帖子列表（你并不需要看项目本身，项目本身并不重要）。项目中博客的帖子来自于假的 JSON 数据，它没有特别好的结构，因此应用程序需要进行自定义解码。为了保持它的轻量级，我将以下面的方式构建最简单的包装器：
 
-*   Read from standard in
-*   Use the production parsing code
-*   Print the decoded results or an error
+*   从标准输入中读取	
+*   使用生产解析代码
+*   打印解码结果或错误
 
-You can go wild and add a lot more features to this but this simple tool will give us really quick feedback on whether some JSON will be accepted by the production code or show any errors that might occur, all without firing up a simulator.
+你可以疯狂地给它添加更多的更能，但是这个简单的工具将会让我们在不启动模拟器的情况下，快速为我们提供关于生产代码是否可以接受某些 JSON 的反馈或者显示任何可能发生的错误。
 
-The basic structure of this example project looks like this:
+这个示例项目的基础结构如下：
 
-```
+```bash
 .
 └── SymlinkedSPMExample
     ├── AppDelegate.swift
@@ -46,29 +46,27 @@ The basic structure of this example project looks like this:
             └── BlogPostsRequest.swift
 ```
 
-I have deliberately created a `Types` directory that contains only the code I want to reuse.
+我特意创建了一个仅包含我想重用的代码的 `Types` 目录。想要创建利用次生产代码的命令行工具，我们可以执行以下操作：
 
-To create a command line tool that makes use of this production code I can perform the following:
-
-```
+```bash
 mkdir -p tools/web-api
 cd tools/web-api
 swift package init --type executable
 ```
 
-This has scaffolded a project that we can now manipulate. First let's get our production source symlinked:
+现在我们已经搭建了一个可以操作的项目。首先让我们把生产代码进行链接：
 
-```
+```bash
 cd Sources
 ln -s ../../../SymlinkedSPMExample/WebService/Types WebService
 cd ..
 ```
 
-_You'll want to use a relative path for the symlink or it will break when moving between machines_
+**你要给这个链接使用相对路径，否则在迁移到别的电脑上时会奔溃**
 
-The project structure now looks like this:
+现在项目的结构现在看起来像这样：
 
-```
+```bash
 .
 ├── SymlinkedSPMExample
 │   ├── AppDelegate.swift
@@ -92,11 +90,11 @@ The project structure now looks like this:
         └── Tests
 ```
 
-Now I need to update the `Package.swift` file to create a new target for this code and to add a dependency so that the `web-api` executable can utilise the production code.
+现在我需要更新 `Package.swift` 文件来给代码创建一个新的 target 并且添加一个依赖，从而使得 `web-api` 可执行文件可以使用这些生产代码
 
 `Package.swift`
 
-```
+```swift
 // swift-tools-version:4.0
 
 import PackageDescription
@@ -110,11 +108,11 @@ let package = Package(
 )
 ```
 
-Now that SPM knows how to build the project let's write the code mentioned above to use the production parsing code.
+既然 SPM 知道如何构建项目，那就让我们利用生产解析代码来写之前提到的代码吧。
 
 `main.swift`
 
-```
+```swift
 import Foundation
 import WebService
 
@@ -125,11 +123,11 @@ do {
 }
 ```
 
-With this in place we can now start to run JSON through the tool and see if the production code would handle it or not:
+有了这些后，我们现在可以开始通过这个工具运行 JSON 来看看生产代码是否会处理它：
 
-Here's what it looks like when we try and send valid JSON through the tool:
+以下是我们尝试通过这个工具发送有效 JSON 时的样子：
 
-```
+```bash
 $ echo '{ "posts" : [] }' | swift run web-api
 []
 
@@ -140,9 +138,9 @@ $ echo '{ "posts" : [ { "title" : "Some post", "tags" : [ { "value" : "cool" } ]
 [WebService.BlogPost(title: "Some post", tags: ["cool"])]
 ```
 
-Here's an example of the error messages we get with invalid JSON:
+下面是当我们输入无效的 JSON 时所得到的错误信息示例：
 
-```
+```bash
 $ echo '{}' | swift run web-api
 keyNotFound(CodingKeys(stringValue: "posts", intValue: nil), Swift.DecodingError.Context(codingPath: [], debugDescription: "No value associated with key CodingKeys(stringValue: \"posts\", intValue: nil) (\"posts\").", underlyingError: nil))
 
@@ -153,22 +151,22 @@ $ echo '{ "posts" : [ { "title" : "Some post" } ] }' | swift run web-api
 keyNotFound(CodingKeys(stringValue: "tags", intValue: nil), Swift.DecodingError.Context(codingPath: [CodingKeys(stringValue: "posts", intValue: nil), _JSONKey(stringValue: "Index 0", intValue: 0)], debugDescription: "No value associated with key CodingKeys(stringValue: \"tags\", intValue: nil) (\"tags\").", underlyingError: nil))
 ```
 
-*   The first example is erroring as there is no key `posts`
-*   The second example is erroring because a `post` does not have a `title` key
-*   The third example is erroring because a `post` does not have a `tags` key
+*   第一个例子是错误的，因为它没有 `posts`
+*   第二个例子也是错误的，因为 `posts` 没有 `title` 
+*   第三个例子还是错误的，因为 `posts` 没有 `tags` 
 
-_In real life I would be piping the output of `curl`ing a live/staging endpoint not hand crafting JSON._
+**在实际应用中，我将用管道的方式输出一个实时或暂存断点的 `curl` 结果，而非手写的 JSON 代码。**
 
-This is really cool because I can see that the production code does not parse some of these examples and I get the error messages that explain why. If I didn't have this tool I would need to run the app manually and figure out a way to get the different JSON payloads to run through the parsing logic.
+这真的很酷，因为我可以看到生产代码没有解析其中的一些示例，并且我可以看到解释了错误原因的信息。如果没有这个工具，我需要手动运行应用程序并找出一种方法来获取不同的 JSON 有效负载而来运行解析逻辑。
 
-### Conclusion
+### 总结
 
-This post covers the basic technique of using SPM to create tools using your production code. You can really run with this and create some beautiful workflows like:
+本文介绍了通过 SPM 使用生产代码来创建工具的基本技术。你可以真正地运行它并创建一些漂亮的工作流程，例如：
 
-*   Add the tool as a step in the CI pipeline of the web-api to ensure no deployments could take place that break the mobile clients.
-*   Expand the tool to also apply the business rules (from the production code) to see if errors are introduced at the level of the feed, parsing or business rules.
+*   将该工具添加为 web-api 的持续集成管道中作为一个步骤，以确保使移动客户端崩溃的部署不会发生。
+*   展开该工具以应用业务规则（来自生产代码）以查看是否在提要，解析或业务规则层级引入了错误。
 
-I've started using the idea in my own projects and I'm excited about how it going to help me and potentially other members of my team.
+我已经开始在我自己的项目中使用这个想法了，我很高兴它能帮助我和我团队的其他成员。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
