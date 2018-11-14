@@ -15,17 +15,17 @@
 
 在 Airbnb，我们一直在寻找提高构建产品效率的方法。
 
-在过去几年中，我们的移动开发工作以惊人的速度增长。仅在过去一年中，我们就已经为我们的 iOS 应用添加了超过 260 个页面。与此同时，越来越多的人开始使用我们的原生移动应用程序。这种趋势没有明显放缓的迹象。
+在过去几年中，我们的移动开发工作以惊人的速度增长。仅在过去一年中，我们就已经为我们的 iOS 应用添加了超过 260 个页面。与此同时，越来越多的人开始使用我们的原生移动应用程序。这种趋势没有显示出放缓的迹象。
 
-大约两年前，我们开会讨论了我们在 iOS 上如何构建产品，看看是否有提高开发效率的空间。我们发现的一个主要问题是，在我们的 iOS 应用中实施新页面需要花费数天甚至数周的开发时间。
+大约两年前，我们详尽讨论了我们在 iOS 上如何构建产品，看看是否有提高开发效率的空间。我们发现的一个主要问题是，在我们的 iOS 应用中实现一个新的页面需要花费数天甚至数周的开发时间。
 
-所以我们要着手改变这一点。我们希望找到一种比我们想象的更快地构建页面的方法。我们希望工程师能够在几分钟或几小时内（而不是几天或几周）为 iOS 应用添加新页面。
+所以我们要着手改变这一点。我们希望找到一个尽可能比我们想象的还要快的方法来构建页面。我们希望工程师能够在在几分钟或几小时内为 iOS 应用添加新页面，而不是数天或数周的时间。
 
 在过去两年中，我们在快速构建高质量的 iOS UI 方面吸取了许多教训。
 
 基于其中的一些知识，我们今天非常兴奋地介绍我们在 Airbnb 开发过程中的一种工具，以帮助您快速，轻松，高效地编写 iOS UI。
 
-### 介绍 AloeStackView
+### AloeStackView 简介
 
 在 Airbnb，我们从 2016 年开始在我们的 iOS 应用程序中使用 [AloeStackView](https://github.com/airbnb/AloeStackView)，并且已经使用它在应用程序中实现了近 200 个页面。用例非常多样化：从设置页面的使用到创建新的列表，再到列表状的操作弹层(例如 UIActionSheet)。
 
@@ -40,9 +40,9 @@ AloeStackView 首先着重于使 UI 非常快速，简单和直接实现。它�
 
 当我们研究如何提高 iOS 开发效率时，我们意识到的第一件事就是在应用程序中实现最小的页面需要做多少工作。
 
-事实证明，由于引入了设计用于处理大型和复杂屏幕的抽象，有时会成为较小页面的负担。
+事实证明，引入了设计用于处理大型和复杂页面的抽象，有时会成为较小页面的负担。
 
-通常，较小的屏幕不会受益于这些抽象提供的优点。例如，如果 UI 完全适合单个页面，那么它将不会从视图回收中受益。显然，如果我们使用围绕视图回收的抽象来构建单个页面，那么我们必须要为这个功能增加的 API 复杂性付出代价。
+通常，较小的页面不会受益于这些抽象提供的优点。例如，如果 UI 完全适合单个页面，那么它将不会从视图回收中受益。显然，如果我们使用围绕视图回收的抽象来构建单个页面，那么我们必须要为这个功能增加的 API 复杂性付出代价。
 
 为了解决这个问题，我们首先寻找更简单的方法来编写页面。我们发现的一种非常有效的技术是使用嵌套在 UIScrollView 中的 UIStackView 来布局页面。这种方法成为我们构建 AloeStackView 的基础。
 
@@ -74,7 +74,7 @@ AloeStackView 没有 reloadData 方法，或其他任何方式通知它更改有
 
 ### 保持代码可管理性
 
-第三方依赖项经常引入应用程序的一个问题是二进制大小增加。这正是我们想用 AloeStackView 避免的。整个库少于 500 行代码，没有外部依赖性，这使二进制大小增加到最小。
+经常引入第三方依赖会导致的一个问题是二进制包大小的增加。这正是我们想用 AloeStackView 避免的。整个库少于 500 行代码，没有外部依赖，这使二进制包大小的增加最小。
 
 少量代码除了占用空间少以外也有其他方面的帮助：它使库更易于理解，更快地集成到现有应用程序中，无需调试，也更容易做出贡献。
 
@@ -86,9 +86,9 @@ AloeStackView 不是我们用于在 Airbnb 上构建 iOS UI 的唯一基础架�
 
 ### 开始您的使用
 
-我们很高兴的开源了 AloeStackView。如果您想了解更多信息，请访问 [GitHub repository](https://github.com/airbnb/AloeStackView) 来开始您的使用。
+我们很高兴的开源了 AloeStackView。如果您想了解更多信息，请访问 [GitHub repository](https://github.com/airbnb/AloeStackView) 。
 
-如果您或您的公司发现此库有用，我们很乐意听取您的意见。如果您想要取得联系，请随时给维护人员发送电子邮件 (你可以在 [GitHub](https://github.com/airbnb/AloeStackView#maintainers) 找到我们), 或者你可以通过 [aloestackview@airbnb.com](mailto:aloestackview@airbnb.com) 联系我们.
+如果您或您的公司发现此库有用，我们很乐意听取您的意见。如果您想要取得联系，请随时给维护人员发送电子邮件 (你可以在 [GitHub](https://github.com/airbnb/AloeStackView#maintainers) 找到我们)，或者你可以通过 [aloestackview@airbnb.com](mailto:aloestackview@airbnb.com) 联系我们。
 
 * * *
 
@@ -100,7 +100,7 @@ AloeStackView 不是我们用于在 Airbnb 上构建 iOS UI 的唯一基础架�
 
 **AloeStackView 同样也受益于许多 Airbnb 工程师的贡献: Daniel Crampton、Francisco Diaz、 David He、 Jeff Hodnett、 Eric Horacek、 Garrett Larson、 Jasmine Lee、 Isaac Lim、 Jacky Lu、 Noah Martin、 Phil Nachum、 Gonzalo Nuñez、 Laura Skelton、 Cal Stephens 和 Ortal Yahdav。**
 
-**此外，如果没有得到 Jordan Harband、 Tyler Hedrick、 Michael Bachand、 Laura Skelton、 Dan Federman 和 John Pottebaum 的帮助和支持，就不可能开源这个项目.**
+**此外，如果没有得到 Jordan Harband、 Tyler Hedrick、 Michael Bachand、 Laura Skelton、 Dan Federman 和 John Pottebaum 的帮助和支持，就不可能开源这个项目。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
