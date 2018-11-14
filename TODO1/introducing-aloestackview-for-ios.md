@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-aloestackview-for-ios.md](https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-aloestackview-for-ios.md)
 > * 译者：[LoneyIsError](https://github.com/LoneyIsError)
-> * 校对者：
+> * 校对者：[Weslie](https://github.com/iWeslie)
 
 # 介绍适用于 iOS 的 AloeStackView
 
