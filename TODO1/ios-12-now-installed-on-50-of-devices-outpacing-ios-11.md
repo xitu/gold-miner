@@ -2,24 +2,24 @@
 > * 原文作者：[bzamayo](https://twitter.com/bzamayo)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ios-12-now-installed-on-50-of-devices-outpacing-ios-11.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ios-12-now-installed-on-50-of-devices-outpacing-ios-11.md)
-> * 译者：
+> * 译者：[LoneyIsError](https://github.com/LoneyIsError)
 > * 校对者：
 
-# iOS 12 now installed on 50% of active devices, outpacing iOS 11 adoption
+# iOS 12 占有率超过 50%，超过了 iOS 11
 
 ![](https://i1.wp.com/9to5mac.com/wp-content/uploads/sites/6/2018/10/ios-12-50-percent.jpg?resize=1024%2C0&quality=82&strip=all&ssl=1)
 
-Apple launched iOS 12 with much fanfare earlier this month but early adoption appeared sluggish. However, in the following weeks, iOS 12 adoption has actually outpaced iOS 11 now, [according to data from Mixpanel](https://mixpanel.com/trends/#report/ios_12/from_date:-29,report_unit:day,to_date:0).
+Apple 本月早些时候大张旗鼓推出了 iOS 12，但早期占有率的增长似乎很缓慢。但是，在接下来的几周内，iOS 12 的占有率实际上已超过 iOS 11, [根据Mixpanel的数据](https://mixpanel.com/trends/#report/ios_12/from_date:-29,report_unit:day,to_date:0)。
 
-iOS 12 is now installed on more than 50% of active iPhones, iPads and iPod touch devices. It took iOS 11 a month to reach this milestone; iOS 12 has achieved it in under twenty days.
+现在有超过 50％ 以上的正在使用的 iPhone，iPad 和 iPod touch 设备上安装了 iOS 12。iOS 11 达到这个里程碑花费了一个月的时间，而 iOS 12 在不到 20 天的时间内实现了它。
 
-Many perceived iOS 11 as a bad year for OS updates with various complaints of instability, bugginess and sluggishness. Apple combated this narrative head on with iOS 12. The company advertises iOS 12 as a performance upgrade, with notable speedups especially on older iPhone and iPad models.
+许多人认为对于 iOS 系统的更新来说，iOS 11 是糟糕的一年，他们总是抱怨着系统稳定性，系统漏洞和性能方面的种种问题。苹果公司通过 iOS 12 上打破了这些报怨。苹果公司宣称 iOS 12 是一次性能方面的升级，特别是在较旧的 iPhone 和 iPad 设备上具有显著的加速表现。
 
-iOS 12 supports all devices that can run iOS 11, meaning the iOS 12 user base stretches all the way back to iPhone 5S.  Despite a slow start, iOS 12 adoption has surged in the last few days, almost doubling in just seven days. The positive reception from the community (with no showstopper iOS bugs hitting the headlines) surely must have helped accelerate adoption.
+iOS 12 支持所有可以运行 iOS 11 的设备，这意味着 iOS 12 用户群可以一直延伸到使用 iPhone 5S 的用户中。尽管起步缓慢，iOS 12 的占有率在过去几天内不断飙升，仅在 7 天内几乎翻了一番。来自社区的积极接受（并没有 iOS 漏洞成为头条新闻来搅局）肯定有助于加快用户升级。
 
-Mixpanel statistics — which are based on a combination of web and mobile app analytics — typically report higher percentages than Apple’s statistics which derive active iOS versions based on App Store usage. However, Apple is yet to update its official stats to include a timeframe after iOS 12 was released (Apple’s chart was last updated on September 3rd, reporting iOS 11 topped 85% adoption). [Last year](https://9to5mac.com/2017/11/08/ios-11-adoption-penetration/), Apple’s official numbers did not cross the 50% mark for iOS 11 until November.
+Mixpanel 的统计数据 - 基于 Web 和移动应用程序分析的组合 - 通常报告的百分比高于 Apple 的统计数据，这些统计数据是根据 App Store 的使用情况得出了当前活跃的 iOS 版本。不过，苹果尚未更新其包括 iOS 12 发布后的时间表的官方统计数据(Apple 的官方数据最后一次更新于 9 月 3 日，报告称 iOS 11 的占有率高达 85％)。 [去年](https://9to5mac.com/2017/11/08/ios-11-adoption-penetration/), 苹果公司的官方数据显示 iOS 11 直到 11 月才超过 50％。
 
-iOS 12 uptake will likely continue to be strong for the foreseeable future. iOS 12.1 will include major new features like group FaceTime and [more than 70 new emoji](https://9to5mac.com/2018/10/02/ios-12-1-new-emoji/), which always help to incentivize people to upgrade. Apple is also readying a bevy of new hardware that will come preinstalled with iOS 12, including a new iPad Pro lineup and the iPhone XR launch on October 26.
+在可预见的未来，iOS 12 占有率的增长可能会继续保持强劲势头。iOS 12.1 将包括一些的新功能，主要如群组 FaceTime 和 [超过 70 个新的表情](https://9to5mac.com/2018/10/02/ios-12-1-new-emoji/)，这些更新总是有助于激励用户升级。苹果公司还准备推出一系列预装 iOS 12 的新设备，包括新的 iPad Pro 和 10 月 26日 发布的 iPhone XR。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
