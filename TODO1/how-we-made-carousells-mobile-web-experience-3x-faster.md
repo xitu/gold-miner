@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-we-made-carousells-mobile-web-experience-3x-faster.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-we-made-carousells-mobile-web-experience-3x-faster.md)
 > * 译者：[Noah Gao](https://noahgao.net)
-> * 校对者：[kyrieliu](https://kyrieliu.cn)
+> * 校对者：[kyrieliu](https://kyrieliu.cn) [Moonliujk](https://github.com/Moonliujk)
 
 # 我们是怎样把 Carousell 的移动端 Web 体验搞快了 3 倍的？
 
 ## 回顾一下我们构建 Progressive Web App 的 6 个月
 
-[Carousell](https://careers.carousell.com/about/) 是一个在新加坡开发的移动分类广告市场，并在包括印度尼西亚、马来西亚和菲律宾在内的许多东南亚国家开展业务。我们在今年年初为一批用户灰度了我们移动 Web 端的[渐进式 PWA 应用](https://developers.google.com/web/progressive-web-apps/)] 版本。
+[Carousell](https://careers.carousell.com/about/) 是一个在新加坡开发的移动分类广告市场，并在包括印度尼西亚、马来西亚和菲律宾在内的许多东南亚国家开展业务。我们在今年年初为一批用户推出了我们移动 Web 端的[渐进式网页应用（PWA）](https://developers.google.com/web/progressive-web-apps/)] 版本。
 
 在本文中，我们将分享 (1) 我们想要建立更快的 Web 端体验的动机，(2) 我们怎么完成它，(3) 它对我们用户的影响，以及 (4) 是什么帮助了我们快速完成。
 
@@ -43,13 +43,13 @@ Web 端通常是我们的新用户发现和了解 Carousell 的入口。**我们
 
 > — [你能负担得起吗？：现实世界中的网络性能预算](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/).
 
-由于 [在加载过程中存在多个时刻，都会影响到用户对这个页面是否“足够快”的感知](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics)，我们将预算基于指标组合起来。
+由于 [在加载过程中存在多个时刻，都会影响到用户对这个页面是否“足够快”的感知](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics)，我们将预算基于一套组合的指标。
 
 > 加载网页就像一个有三个关键时刻的电影胶片。三个时刻分别是：它发生了吗？ 它有用吗？ 然后，它能用起来吗？
 
 > — [2018 年里 JavaScript 的花费](https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4)
 
-我们决定为关键路径的资源设置 120 KB的上限，在所有页面上还有一个 2 秒的 [*首屏内容渲染*](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#first_paint_and_first_contentful_paint) 和 5 秒的 [*可交互时间*](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#time_to_interactive) 限制。这些数字和指标都是 基于 Alex Russell 的一篇发人深省的文章 [真实世界的 Web 性能预算](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/) 以及 Google [以用户为中心的性能指标]。
+我们决定为关键路径的资源设置 120 KB 的上限，在所有页面上还有一个 2 秒的 [**首屏内容渲染**](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#first_paint_and_first_contentful_paint) 和 5 秒的 [**可交互时间**](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#time_to_interactive) 限制。这些数字和指标都是基于 Alex Russell 的一篇发人深省的文章 [真实世界的 Web 性能预算](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/) 以及 Google [以用户为中心的性能指标]。
 
 ```
 关键路径资源          120KB
@@ -68,7 +68,7 @@ Lighthouse 性能得分  > 85
 
 ⚠️ bundlesize 阻止了一个超出预算的 PR 🚫
 
-理想情况下，我们也会自动检查 *首屏渲染时间* 和 *可交互时间* 指标。但是，我们目前还没有这样做，因为我们想先发布初始页面。我们认为我们可以通过我们的小团队规模来避免这种情况，每周通过我们的 Lighthouse 审核我们的发布，以确保我们的变更在预算范围内。
+理想情况下，我们也会自动检查 **首屏渲染时间** 和 **可交互时间** 指标。但是，我们目前还没有这样做，因为我们想先发布初始页面。我们认为我们可以通过我们的小团队规模来避免这种情况，每周通过我们的 Lighthouse 审核我们的发布，以确保我们的变更在预算范围内。
 
 在我们积压的工作中，下一步就是自建性能监控框架。
 
@@ -76,7 +76,7 @@ Lighthouse 性能得分  > 85
 
 1.  **我们采用了一部分** [**PRPL 模式**](https://developers.google.com/web/fundamentals/performance/prpl-pattern/)**。**我们为每个页面请求发送最少量的资源（使用 [基于路由的代码拆分](https://github.com/jamiebuilds/react-loadable)），并 [使用 Workbox 预先缓存应用程序包的其余部分](https://developers.google.com/web/tools/workbox/modules/workbox-precaching)。我们还拆分了不必要的组件。例如，如果用户已登录，则应用程序将不会加载登录和注册组件。目前，我们仍然在几个方面偏离了 PRPL 模式。首先，由于我们没有时间重新设计的旧页面，该应用程序有多个应用程序外壳。其次，我们还没有探索为不同的浏览器生成单独的构建打包。
 
-2.  **内联的** [**关键的 CSS**](https://developers.google.com/speed/docs/insights/OptimizeCSSDelivery)**.** 我们使用 [webpack 的 mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin) 来提取并内联的方式引入对应页面的关键 CSS，以优化首屏渲染时间。这样就给用户提供了 [*一些事情* 正在发生](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#user-centric_performance_metrics) 的感觉。
+2.  **内联的** [**关键的 CSS**](https://developers.google.com/speed/docs/insights/OptimizeCSSDelivery)**.** 我们使用 [webpack 的 mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin) 来提取并内联的方式引入对应页面的关键 CSS，以优化首屏渲染时间。这样就给用户提供了 [**一些事情** 正在发生](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#user-centric_performance_metrics) 的感觉。
 
 3.  **懒加载视口外的图像。** 并且逐步加载它们。我们创建了一个滚动观察组件，其基于 [react-lazyload](https://github.com/jasonslyvia/react-lazyload)，它会监听 [滚动事件](https://developer.mozilla.org/en-US/docs/Web/Events/scroll)，一旦计算出图像在视口内，就开始加载图像。
 
@@ -157,7 +157,7 @@ for (const route of routes) {
 
 #### 一致的 Carousell 设计系统
 
-在我们开展这项工作的同时，我们的设计团队也在同时创建标准化设计系统。由于我们的PWA是一个新项目，我们有机会根据设计系统创建一组标准化的 UI 组件和 CSS 常量。
+在我们开展这项工作的同时，我们的设计团队也在同时创建标准化设计系统。由于我们的 PWA 是一个新项目，我们有机会根据设计系统创建一组标准化的 UI 组件和 CSS 常量。
 
 拥有一致的设计使我们能够快速迭代。每个 UI 组件**我们只构建一次，然后在多个地方复用它**。例如，我们有一个 `ListingCardList` 组件，它显示列表卡片的提要并触发回调，以便在滚动到结尾时提示其父组件加载更多列表。我们在主页，列表页面，搜索页面和个人信息页面中使用了它。
 
@@ -177,7 +177,7 @@ for (const route of routes) {
 
 ### 小结
 
-我们创建了一个轻量级的 PWA 来为我们具有不可靠网速的用户提供服务，一个页面接一个页面地发布，提高了我们的商业指标*和*用户体验。
+我们创建了一个轻量级的 PWA 来为我们具有不可靠网速的用户提供服务，一个页面接一个页面地发布，提高了我们的商业指标**和**用户体验。
 
 #### 是什么帮助我们保持足够快的速度
 
@@ -196,9 +196,9 @@ for (const route of routes) {
 
 我们希望本文能够启发您在设计和构建 Web 体验时考虑性能。
 
-*在此为参与这个项目的人欢呼：Trong Nhan Bui, Hui Yi Chia, Diona Lin, Yi Jun Tao, and Marvin Chin。当然也要感谢 Google，特别是要感谢 Swetha and Minh 对这个项目的建议。*
+**在此为参与这个项目的人欢呼：Trong Nhan Bui, Hui Yi Chia, Diona Lin, Yi Jun Tao, and Marvin Chin。当然也要感谢 Google，特别是要感谢 Swetha and Minh 对这个项目的建议。**
 
-*感谢 Bui，* [*Danielle Joy*](https://medium.com/@xdaniejoyy)*，*[*Hui Yi*](https://medium.com/@c_huiyi)*，*[*Jingwen Chen*](https://medium.com/@jin_)*，*[*See Yishu*](https://medium.com/@yishu)*，还有* [*Yao Hui Chua*](https://medium.com/@yaohuichua) 的写作和校对。
+**感谢 Bui，** [**Danielle Joy**](https://medium.com/@xdaniejoyy)**，**[**Hui Yi**](https://medium.com/@c_huiyi)**，**[**Jingwen Chen**](https://medium.com/@jin_)**，**[**See Yishu**](https://medium.com/@yishu)**，还有** [**Yao Hui Chua**](https://medium.com/@yaohuichua) 的写作和校对。
 
 最后，多亏了 [Hui Yi](https://medium.com/@c_huiyi?source=post_page)，[Yao Hui Chua](https://medium.com/@yaohuichua?source=post_page)，[Danielle Joy](https://medium.com/@xdaniejoyy?source=post_page)，[Jingwen Chen](https://medium.com/@jin_?source=post_page)，还有 [See Yishu](https://medium.com/@yishu?source=post_page)。
 
