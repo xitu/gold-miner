@@ -9,15 +9,13 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*aPCvPk2Yoh7C2e4MovuT8Q.jpeg)
 
-作为一个 Android 用户和开发人员，我总是被精美的应用程序所吸引，这些应用程序具有漂亮而有意义的动画。对我来说，这样的应用程序不仅拥有了强大的功能，使用户的生活更便捷，同时还表现出他们背后的团队为了将用户体验提升一个层次所投入的精力和热情。我经常享受体验这些动画，然后花费数小时时间去试图复制它们。其中一个应用程序是 Google Inbox ，它提供了一个漂亮的电子邮件打开/关闭动画，如下所示（如果你不熟悉它）。
-
-
+作为一个 Android 用户和开发人员，我总是被精美的应用程序所吸引，这些应用程序具有漂亮而有意义的动画。对我来说，这样的应用程序不仅拥有了强大的功能，使用户的生活更便捷，同时还表现出他们背后的团队为了将用户体验提升一个层次所投入的精力和热情。我经常享受体验这些动画，然后花费数小时时间去试图复制它们。其中一个应用程序是 Google Inbox，它提供了一个漂亮的电子邮件打开/关闭动画，如下所示（如果你不熟悉它）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*KOc31AjVOzoNIutQPYIdow.gif)
 
 在本文中，我将带您体验在 Android 上复制动画的旅程。
 
-------
+---
 
 ### 设置
 
@@ -28,8 +26,6 @@
 电子邮件列表 InProgress 状态（左） - 电子邮件列表 Success 状态（中） - 电子邮件详细信息（右）
 
 为了模拟电子邮件获取网络请求，我为 Email List fragment 创建了一个 `[ViewModel]（https://developer.android.com/reference/android/arch/lifecycle/ViewModel）`，它生成了2个状态，`InProgress` 表示正在获取电子邮件，`Success` 表示电子邮件数据已成功获取并准备好呈现（网络请求被模拟为2秒）。
-
-
 
 ```
 sealed class State {
@@ -367,7 +363,7 @@ class EmailDetailsFragment : Fragment() {
 
 这样的动画对我来说很有意义，因为如果用户可以点击电子邮件项目来打开/展开它，他自然会拖下电子邮件详细信息来隐藏/折叠它。目前我正在探索实现这种效果的几个选项，它们将在下一篇文章中讨论。
 
-------
+---
 
 那就这样吧。实现动画是 Android 开发中一个具有挑战性但又有趣的部分。我希望你喜欢和我一样喜欢动画。源代码可以在[这里](https://github.com/huan-nguyen/InboxStyleAnimation)找到。欢迎提出反馈/意见/讨论！
 
@@ -378,6 +374,6 @@ class EmailDetailsFragment : Fragment() {
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
-------
+---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
