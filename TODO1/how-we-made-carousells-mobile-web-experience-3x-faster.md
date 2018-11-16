@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-we-made-carousells-mobile-web-experience-3x-faster.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-we-made-carousells-mobile-web-experience-3x-faster.md)
 > * 译者：[Noah Gao](https://noahgao.net)
-> * 校对者：[kyrieliu](https://kyrieliu.cn) [Moonliujk](https://github.com/Moonliujk)
+> * 校对者：[kyrieliu](https://kyrieliu.cn), [Moonliujk](https://github.com/Moonliujk)
 
 # 我们是怎样把 Carousell 的移动端 Web 体验搞快了 3 倍的？
 
@@ -27,7 +27,7 @@
 
 🌩 Lighthouse 的性能表现得分会是一个很好的叫醒服务～ 🏠
 
-Web 端通常是我们的新用户发现和了解 Carousell 的入口。**我们想从一开始就给他们一个愉快的体验，因为** [**性能就是用户体验**](http://designingforperformance.com/performance-is-ux/)**。**
+Web 端通常是我们的新用户发现和了解 Carousell 的入口。**我们想从一开始就给他们一个愉快的体验，因为 [性能就是用户体验](http://designingforperformance.com/performance-is-ux/)。**
 
 为此，我们设计完成了一种全新的，性能优先的 Web 端体验。当我们决定首先使用哪些页面做尝试时，我们选择了产品列表页面和主页，因为 Google Analytics 的统计表明这些页面的自然流量最大。
 
@@ -45,7 +45,7 @@ Web 端通常是我们的新用户发现和了解 Carousell 的入口。**我们
 
 由于 [在加载过程中存在多个时刻，都会影响到用户对这个页面是否“足够快”的感知](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics)，我们将预算基于一套组合的指标。
 
-> 加载网页就像一个有三个关键时刻的电影胶片。三个时刻分别是：它发生了吗？ 它有用吗？ 然后，它能用起来吗？
+> 加载网页就像一个有三个关键时刻的电影胶片。三个时刻分别是：它发生了吗？它有用吗？然后，它能用起来吗？
 
 > — [2018 年里 JavaScript 的花费](https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4)
 
@@ -54,13 +54,13 @@ Web 端通常是我们的新用户发现和了解 Carousell 的入口。**我们
 ```
 关键路径资源          120KB
 首屏内容渲染          2s
-可交互时间             5s
+可交互时间            5s
 Lighthouse 性能得分  > 85
 ```
 
 🔼 我们的性能预算 🌟
 
-为了能把性能预算坚持下去，我们在一开始选择库时就十分慎重，包括 react, react-router, redux, redux-saga, [unfetch](https://github.com/developit/unfetch)。
+为了能把性能预算坚持下去，我们在一开始选择库时就十分慎重，包括 react、react-router、redux、redux-saga 和 [unfetch](https://github.com/developit/unfetch)。
 
 我们还整合了 [bundlesize](https://github.com/siddharthkp/bundlesize) 到我们的 PR 流程当中，用来执行我们在关键路径资源上的性能预算方案。
 
@@ -76,11 +76,11 @@ Lighthouse 性能得分  > 85
 
 1.  **我们采用了一部分** [**PRPL 模式**](https://developers.google.com/web/fundamentals/performance/prpl-pattern/)**。**我们为每个页面请求发送最少量的资源（使用 [基于路由的代码拆分](https://github.com/jamiebuilds/react-loadable)），并 [使用 Workbox 预先缓存应用程序包的其余部分](https://developers.google.com/web/tools/workbox/modules/workbox-precaching)。我们还拆分了不必要的组件。例如，如果用户已登录，则应用程序将不会加载登录和注册组件。目前，我们仍然在几个方面偏离了 PRPL 模式。首先，由于我们没有时间重新设计的旧页面，该应用程序有多个应用程序外壳。其次，我们还没有探索为不同的浏览器生成单独的构建打包。
 
-2.  **内联的** [**关键的 CSS**](https://developers.google.com/speed/docs/insights/OptimizeCSSDelivery)**.** 我们使用 [webpack 的 mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin) 来提取并内联的方式引入对应页面的关键 CSS，以优化首屏渲染时间。这样就给用户提供了 [**一些事情** 正在发生](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#user-centric_performance_metrics) 的感觉。
+2.  **内联的 [关键的 CSS](https://developers.google.com/speed/docs/insights/OptimizeCSSDelivery)。** 我们使用 [webpack 的 mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin) 来提取并内联的方式引入对应页面的关键 CSS，以优化首屏渲染时间。这样就给用户提供了 [**一些事情** 正在发生](https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics#user-centric_performance_metrics) 的感觉。
 
 3.  **懒加载视口外的图像。** 并且逐步加载它们。我们创建了一个滚动观察组件，其基于 [react-lazyload](https://github.com/jasonslyvia/react-lazyload)，它会监听 [滚动事件](https://developer.mozilla.org/en-US/docs/Web/Events/scroll)，一旦计算出图像在视口内，就开始加载图像。
 
-4.  **压缩所有的图像来减少在网络中传输的数据量。** 这将在我们的 CDN 提供商的 [自动化图像压缩](https://blog.cloudflare.com/introducing-polish-automatic-image-optimizati/) 服务中进行。如果你不使用 CDN，或者只是对图像的性能问题感到好奇，Addy Osmani 有一个 [关于如何自动进行图像优化的指南](https://images.guide).
+4.  **压缩所有的图像来减少在网络中传输的数据量。** 这将在我们的 CDN 提供商的 [自动化图像压缩](https://blog.cloudflare.com/introducing-polish-automatic-image-optimizati/) 服务中进行。如果你不使用 CDN，或者只是对图像的性能问题感到好奇，Addy Osmani 有一个 [关于如何自动进行图像优化的指南](https://images.guide)。
 
 5.  **使用 Service Worker 来缓存网络请求。**这减少了数据不会经常变化的 API 的数据使用量，并改善了应用程序后续的访问加载时间。我们找到了 [The Offline Cookbook](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/) 来帮助我们决定采用哪种缓存策略。直到我们有了多了应用外壳，Workbox 默认的 [`registerNavigationRoute`](https://developers.google.com/web/tools/workbox/modules/workbox-routing#how_to_register_a_navigation_route) 并不适用于我们的实际场景，所以我们不得补自行完成一个 handler 来匹配当前应用外壳的导航请求。
 
@@ -137,7 +137,7 @@ for (const route of routes) {
 
 ⚙️ 我们对所有的应用外壳采用了一个超时时间为 3 秒的网络优先策略 🐚
 
-在这些变化中，我们严重依赖 Chrome 的 “中端移动设备” 模拟功能（即网络限制为3G速度），并创建了多个 Lighthouse 审计来评估我们工作的影响。
+在这些变化中，我们严重依赖 Chrome 的“中端移动设备”模拟功能（即网络限制为 3G 速度），并创建了多个 Lighthouse 审计来评估我们工作的影响。
 
 ### 结果：我们怎么做到的
 
@@ -149,7 +149,7 @@ for (const route of routes) {
 
 ![](https://cdn-images-1.medium.com/max/800/1*6ql8gjD3IKSITGfyQZCZuA.gif)
 
-⏮ [在较快的 3G 网络下的 Nexus 5上，我们列表页面的前后对比](https://www.webpagetest.org/video/compare.php?tests=171020_B8_97732ed88ebc522d6a042f0ad502ccd4,181009_HJ_07aee97a8bbe626fee8b11a3c5661980)。更新：[WebPageTest 对这个页面的简单报告](https://www.webpagetest.org/result/181031_XQ_e4603b6421fc22743c5790f34abcc4e2/)。 ⏭
+⏮ [在较快的 3G 网络下的 Nexus 5 上，我们列表页面的前后对比](https://www.webpagetest.org/video/compare.php?tests=171020_B8_97732ed88ebc522d6a042f0ad502ccd4,181009_HJ_07aee97a8bbe626fee8b11a3c5661980)。更新：[WebPageTest 对这个页面的简单报告](https://www.webpagetest.org/result/181031_XQ_e4603b6421fc22743c5790f34abcc4e2/)。 ⏭
 
 * * *
 
@@ -196,11 +196,11 @@ for (const route of routes) {
 
 我们希望本文能够启发您在设计和构建 Web 体验时考虑性能。
 
-**在此为参与这个项目的人欢呼：Trong Nhan Bui, Hui Yi Chia, Diona Lin, Yi Jun Tao, and Marvin Chin。当然也要感谢 Google，特别是要感谢 Swetha and Minh 对这个项目的建议。**
+**在此为参与这个项目的人欢呼：Trong Nhan Bui、Hui Yi Chia、Diona Lin、Yi Jun Tao 和 Marvin Chin。当然也要感谢 Google，特别是要感谢 Swetha and Minh 对这个项目的建议。**
 
-**感谢 Bui，** [**Danielle Joy**](https://medium.com/@xdaniejoyy)**，**[**Hui Yi**](https://medium.com/@c_huiyi)**，**[**Jingwen Chen**](https://medium.com/@jin_)**，**[**See Yishu**](https://medium.com/@yishu)**，还有** [**Yao Hui Chua**](https://medium.com/@yaohuichua) 的写作和校对。
+**感谢 Bui、[**Danielle Joy**](https://medium.com/@xdaniejoyy)、[Hui Yi](https://medium.com/@c_huiyi)、[Jingwen Chen](https://medium.com/@jin_)、[See Yishu](https://medium.com/@yishu) 和 [Yao Hui Chua](https://medium.com/@yaohuichua) 的写作和校对。
 
-最后，多亏了 [Hui Yi](https://medium.com/@c_huiyi?source=post_page)，[Yao Hui Chua](https://medium.com/@yaohuichua?source=post_page)，[Danielle Joy](https://medium.com/@xdaniejoyy?source=post_page)，[Jingwen Chen](https://medium.com/@jin_?source=post_page)，还有 [See Yishu](https://medium.com/@yishu?source=post_page)。
+最后，多亏了 [Hui Yi](https://medium.com/@c_huiyi?source=post_page)、[Yao Hui Chua](https://medium.com/@yaohuichua?source=post_page)、[Danielle Joy](https://medium.com/@xdaniejoyy?source=post_page)、[Jingwen Chen](https://medium.com/@jin_?source=post_page) 和 [See Yishu](https://medium.com/@yishu?source=post_page)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
