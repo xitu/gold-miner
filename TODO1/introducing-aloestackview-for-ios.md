@@ -60,15 +60,15 @@ AloeStackView 首先着重于使 UI 非常快速，简单和直接实现。它�
 
 AloeStackView 没有 reloadData 方法，或其他任何方式通知它更改有关视图。这使得它比像 UITableView 这样的类更不容易出错且更容易调试。例如，AloeStackView 永远不会因为对其管理的视图的基础数据的更改导致崩溃。
 
-由于 AloeStackView 底层使用了 UIStackView，因此在滚动时它不会回收视图。这消除了因未正确回收视图而导致的常见错误。 它还提供了额外的优点，即当用户与它们交互时不需要独立地维护视图状态。这可以使一些UI更容易实现，并减少错误可能蔓延的表面区域。
+由于 AloeStackView 底层使用了 UIStackView，因此在滚动时它不会回收视图。这消除了因未正确回收视图而导致的常见错误。它还提供了额外的优点，即当用户与它们交互时不需要独立地维护视图状态。这可以使一些UI更容易实现，并减少错误可能蔓延的表面区域。
 
 ### 权衡利弊
 
 虽然 AloeStackView 既方便又实用，但我们发现它并不适合所有的情况。
 
-例如，AloeStackView 在您加载屏幕时一次性布局整个 UI。因此，较长的屏幕会在 UI 首次显示之前看到延迟。 因此，AloeStackView 更适合用少于一两个内容来实现的 UI。
+例如，AloeStackView 在您加载屏幕时一次性布局整个 UI。因此，较长的屏幕会在 UI 首次显示之前看到延迟。因此，AloeStackView 更适合用少于一两个内容来实现的 UI。
 
-放弃视图回收机制也是一种权衡：虽然 AloeStackView 编写 UI 的速度更快，而且不容易出错，但是它的性能不佳，并且对更长的页面来说，会比 UITableView 这样的类使用更多的内存。 因此，像 UITableView 和 UICollectionView 这样的类仍然是展示包含许多相同类型视图的页面的良好选择，它们都展示相似了的数据。
+放弃视图回收机制也是一种权衡：虽然 AloeStackView 编写 UI 的速度更快，而且不容易出错，但是它的性能不佳，并且对更长的页面来说，会比 UITableView 这样的类使用更多的内存。因此，像 UITableView 和 UICollectionView 这样的类仍然是展示包含许多相同类型视图的页面的良好选择，它们都展示相似了的数据。
 
 尽管有这些限制，我们发现AloeStackView非常适合大量的用例。事实证明，AloeStackView 在实现 UI 方面非常高效和高效，并帮助我们实现了提高 iOS 开发效率的目标。
 
@@ -86,13 +86,13 @@ AloeStackView 不是我们用于在 Airbnb 上构建 iOS UI 的唯一基础架�
 
 ### 开始您的使用
 
-我们很高兴的开源了 AloeStackView。如果您想了解更多信息，请访问 [GitHub repository](https://github.com/airbnb/AloeStackView) 。
+我们很高兴的开源了 AloeStackView。如果您想了解更多信息，请访问 [GitHub repository](https://github.com/airbnb/AloeStackView)。
 
-如果您或您的公司发现此库有用，我们很乐意听取您的意见。如果您想要取得联系，请随时给维护人员发送电子邮件 (你可以在 [GitHub](https://github.com/airbnb/AloeStackView#maintainers) 找到我们)，或者你可以通过 [aloestackview@airbnb.com](mailto:aloestackview@airbnb.com) 联系我们。
+如果您或您的公司发现此库有用，我们很乐意听取您的意见。如果您想要取得联系，请随时给维护人员发送电子邮件（你可以在 [GitHub](https://github.com/airbnb/AloeStackView#maintainers) 找到我们），或者你可以通过 [aloestackview@airbnb.com](mailto:aloestackview@airbnb.com) 联系我们。
 
 * * *
 
-**想参与其中吗？我们一直在寻找** [**有才华的人加入我们的团队**](https://www.airbnb.com/careers) **!**
+**想参与其中吗？我们一直在寻找 [有才华的人加入我们的团队](https://www.airbnb.com/careers)！**
 
 * * *
 
