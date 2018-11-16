@@ -198,7 +198,7 @@ for (const route of routes) {
 
 **在此为参与这个项目的人欢呼：Trong Nhan Bui、Hui Yi Chia、Diona Lin、Yi Jun Tao 和 Marvin Chin。当然也要感谢 Google，特别是要感谢 Swetha and Minh 对这个项目的建议。**
 
-**感谢 Bui、[**Danielle Joy**](https://medium.com/@xdaniejoyy)、[Hui Yi](https://medium.com/@c_huiyi)、[Jingwen Chen](https://medium.com/@jin_)、[See Yishu](https://medium.com/@yishu) 和 [Yao Hui Chua](https://medium.com/@yaohuichua) 的写作和校对。
+**感谢 Bui、[Danielle Joy](https://medium.com/@xdaniejoyy)、[Hui Yi](https://medium.com/@c_huiyi)、[Jingwen Chen](https://medium.com/@jin_)、[See Yishu](https://medium.com/@yishu) 和 [Yao Hui Chua](https://medium.com/@yaohuichua) 的写作和校对。**
 
 最后，多亏了 [Hui Yi](https://medium.com/@c_huiyi?source=post_page)、[Yao Hui Chua](https://medium.com/@yaohuichua?source=post_page)、[Danielle Joy](https://medium.com/@xdaniejoyy?source=post_page)、[Jingwen Chen](https://medium.com/@jin_?source=post_page) 和 [See Yishu](https://medium.com/@yishu?source=post_page)。
 
