@@ -1,35 +1,34 @@
-> * 原文地址：[Providing a safe and secure experience for our users](https://android-developers.googleblog.com/2018/10/providing-safe-and-secure-experience.html)
-> * 原文作者：[Android Developers Blog](https://android-developers.googleblog.com)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/providing-safe-and-secure-experience.md](https://github.com/xitu/gold-miner/blob/master/TODO1/providing-safe-and-secure-experience.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[Providing a safe and secure experience for our users](https://android-developers.googleblog.com/2018/10/providing-safe-and-secure-experience.html)
+> - 原文作者：[Android Developers Blog](https://android-developers.googleblog.com)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/providing-safe-and-secure-experience.md](https://github.com/xitu/gold-miner/blob/master/TODO1/providing-safe-and-secure-experience.md)
+> - 译者：[YueYong](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2FYueYongDev)
+> - 校对者：
 
-# Providing a safe and secure experience for our users
+# 为用户提供安全可靠的体验
 
-_Posted by Paul Bankhead, Director, Product Management, Google Play_
+_发表自 Google Play 的产品经理总监，  *Paul Bankhead*_
 
-We focus relentlessly on security and privacy on the Google Play Store to ensure Android users have a positive experience discovering and installing apps and games they love. We regularly update our [Google Play Developer policies](https://play.google.com/about/developer-content-policy/) and today have introduced stronger controls and [new policies](https://play.google.com/about/updates-resources/) to keep user data safe. Here are a few updates:
+我们不遗余力地关注 Google Play Store 的安全性和隐私，以确保 Android 用户拥有发现和安装他们喜欢的应用程序和游戏的积极体验。我们定期更新我们的  [Google Play 开发者条款](https://play.google.com/about/developer-content-policy/) ，今天引入了更强的控制和[新的策略](https://play.google.com/about/updates-resources/)来保持用户数据的安全。以下是一些更新：
 
-## Upgrading for security and performance
+## 安全性和性能升级
 
-As previously [announced](https://android-developers.googleblog.com/2017/12/improving-app-security-and-performance.html), as of November 1, 2018, Google Play will [require](https://developer.android.com/distribute/best-practices/develop/target-sdk) updates to existing apps to target API level 26 (Android 8.0) or higher (this is already required for all new apps). Our goal is to ensure all apps on Google Play are built using the latest APIs that are optimized for security and performance.
+如前[所述](https://android-developers.googleblog.com/2017/12/improving-app-security-and-performance.html)，截至 2018 年 11 月 1 日， Google Play 将[要求](https://developer.android.com/distribute/best-practices/develop/target-sdk)对现有应用程序进行更新，使其达到 API 级别26（ Android 8.0 ）或更高（对于所有新应用程序来说，这已经是必需的）。我们的目标是确保 Google Play 上的所有应用程序都是使用最新的 API 来构建的，这些 API 是为安全性和性能优化而设计的。
 
-## Protecting Users
+## 保护用户
 
-Our Google Play Developer policies are designed to provide a safe and secure experience for our users while also giving developers the tools they need to succeed. For example, we have always required developers to limit permission requests to only what is needed for their app to function and to be clear with users about what data they access.
+我们的 Google Play Developer 策略旨在为用户提供安全可靠的体验，同时为开发人员提供获得成功所需的工具。例如，我们一直要求开发人员将权限请求限制为应用程序运行所需的权限，并明确用户访问了哪些数据。
 
-As part of today's Google Play Developer Policy [update](https://play.google.com/about/updates-resources/), we're announcing changes related to SMS and Call Log permissions. Some Android apps ask for permission to access a user's phone (including call logs) and SMS data. Going forward, Google Play will limit which apps are allowed to ask for these permissions. Only an app that has been selected as a user's default app for making calls or text messages will be able to access call logs and SMS, respectively.
+作为今天的 Google Play 开发者策略[更新](https://play.google.com/about/updates-resources/)的一部分，我们公布了与 SMS 和呼叫日志权限相关的更改。一些 Android 应用程序请求访问用户的电话（包括通话日志）和 SMS 数据。向前看， Google Play 将限制那些可以请求这些权限的应用程序。只有被选为用户默认通话或短信的应用程序才能分别访问通话日志和 SMS 。
 
-Please visit our [Google Play Developer Policy Center](https://play.google.com/about/developer-content-policy/#!?modal_active=none) and this [Help Center](https://support.google.com/googleplay/android-developer/answer/9047303) article for detailed information on product alternatives to SMS and call logs permissions. For example, the [SMS Retriever API](https://developers.google.com/identity/sms-retriever/overview) enables you to perform SMS-based user verification and [SMS Intent](https://developer.android.com/guide/components/intents-common#SendMessage) enables you to initiate an SMS or MMS text message to share content or invitations. We'll be working with our developer partners to give them appropriate time to adjust and update their apps, and will begin enforcement 90 days from this policy update.
+请访问我们的 [Google Play Developer 策略中心](https://play.google.com/about/developer-content-policy/#!?modal_active=none)和这篇[帮助中心文章](https://support.google.com/googleplay/android-developer/answer/9047303) ，以获得关于 SMS 和呼叫日志权限的产品替代方案的详细信息。例如， [SMS Retriever API](https://developers.google.com/identity/sms-retriever/overview)  使您能够执行基于 SMS 的用户验证， [SMS Intent](https://developer.android.com/guide/components/intents-common#SendMessage)  使你能够发起 SMS 或 MMS 文本消息来共享内容或邀请。我们将与我们的开发伙伴合作，给他们适当的时间来调整和更新他们的应用程序，并将从此策略更新开始实施90天。
 
-In the coming months, we'll be rolling out additional controls and policies across our various products and platforms, and will continue to work with you, our developers, to help with the transition.
+在未来几个月中，我们将在各个产品和平台上推出额外的控制和策略，并将继续与你（我们的开发人员）合作，以帮助你完成过渡。
 
-The trust of our users is critical and together we'll continue to build a safe and secure Android ecosystem.
+我们的用户信任是至关重要的，我们将继续建立一个安全和可靠的 Android 生态系统。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
-
----
+------
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
