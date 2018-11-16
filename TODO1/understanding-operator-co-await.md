@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-operator-co-await.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-operator-co-await.md)
 > * 译者：[7Ethan](https://github.com/7Ethan)
-> * 校对者：[razertory](https://github.com/razertory),[noahziheng](https://github.com/noahziheng)
+> * 校对者：[razertory](https://github.com/razertory), [noahziheng](https://github.com/noahziheng)
 
 # C++ 协程：理解 `co_await` 运算符
 
@@ -17,8 +17,8 @@
 
 ## 协程技术规范给我们提供了什么？
 
-*   三个新的关键字： `co_await`， `co_yield` 和 `co_return`
-*   `std::experimental` 命名空间的几个新类型:
+*   三个新的关键字：`co_await`，`co_yield` 和 `co_return`
+*   `std::experimental` 命名空间的几个新类型：
     *   `coroutine_handle<P>`
     *   `coroutine_traits<Ts...>`
     *   `suspend_always`
@@ -26,7 +26,7 @@
 *   一种能够让库的作者与协程交互并定制它们行为的通用机制。
 *   一个使异步代码变得更加简单的语言工具！
 
- C++ 协程技术规范在语言中提供的工具，可以理解为协程的*低级汇编语言*。 这些工具很难直接以安全的方式使用，主要是供库作者使用，用于构建应用程序开发人员可以安全使用的更高级别的抽象。
+ C++ 协程技术规范在语言中提供的工具，可以理解为协程的**低级汇编语言**。这些工具很难直接以安全的方式使用，主要是供库作者使用，用于构建应用程序开发人员可以安全使用的更高级别的抽象。
 
 未来会将这些新的低级工具交付给即将到来的语言标准（可能是 C++20），以及标准库中伴随的一些高级类型，这些高级类型封装了这些低级构建块，应用程序开发人员将可以通过一种安全的方式轻松访问协程。
 
@@ -34,11 +34,11 @@
 
 有趣的是，协程技术规范实际上并没有定义协程的语义。它没有定义如何生成返回给调用者的值，没有定义如何处理传递给 `co_return` 语句的返回值，如何处理传递出协程的异常，它也没有定义应该恢复协程的线程。
 
-相反，它指定了库代码的通用机制，那就是通过实现符合特定接口的类型来定制协程的行为。然后，编译器生成代码，在库提供的类型实例上调用方法。这种方法类似于库作者通过定义 `begin()` / `end()` 方法或 `iterator` 类型来定制基于范围的 for 循环的实现。
+相反，它指定了库代码的通用机制，那就是通过实现符合特定接口的类型来定制协程的行为。然后，编译器生成代码，在库提供的类型实例上调用方法。这种方法类似于库作者通过定义 `begin()`/`end()` 方法或 `iterator` 类型来定制基于范围的 for 循环的实现。
 
 协程技术规范没有对协程的机制规定任何特定的语义，这使它成为一个强大的工具。它允许库作者为各种不同目的来定义许多不同种类的协程。
 
-例如，你可以定义一个异步生成单个值的协程，或者一个延迟生成一系列值的协程，或者如果遇到 `nullopt` 值，则通过提前退出来简化控制流以消耗 `optional <T>` 值的协程。
+例如，你可以定义一个异步生成单个值的协程，或者一个延迟生成一系列值的协程，或者如果遇到 `nullopt` 值，则通过提前退出来简化控制流以消耗 `optional<T>` 值的协程。
 
 协程技术规范定义了两种接口：**Promise** 接口和 **Awaitable** 接口。
 
@@ -74,7 +74,7 @@
 
 让我们假设等待协程的 promise 对象具有类型 `P`，并且 `promise` 是对当前协程的 promise 对象的 l-value 引用。
 
-如果 promise 类型 `P` 有一个名为 `await_transform` 的成员，那么 `<expr>` 首先被传递给 `promise.await_transform（<expr>）` 以获得 **Awaitable** 的值。 否则，如果 promise 类型没有 `await_transform` 成员，那么我们使用直接评估 `<expr>` 的结果作为 **Awaitable** 对象。
+如果 promise 类型 `P` 有一个名为 `await_transform` 的成员，那么 `<expr>` 首先被传递给 `promise.await_transform(<expr>)` 以获得 **Awaitable** 的值。否则，如果 promise 类型没有 `await_transform` 成员，那么我们使用直接评估 `<expr>` 的结果作为 **Awaitable** 对象。
 
 然后，如果 **Awaitable** 对象，有一个可用的运算符 `co_await()` 重载，那么调用它来获取 **Awaiter** 对象。 否则，`awaitable` 的对象被用作 awaiter 对象。
 
@@ -166,7 +166,7 @@ decltype(auto) get_awaiter(Awaitable&& awaitable)
 
 ## 协程句柄
 
-你可能已经注意到 `coroutine_handle <P>` 类型的使用，该类型被传递给 `co_await` 表达式的 `await_suspend()` 调用。
+你可能已经注意到 `coroutine_handle<P>` 类型的使用，该类型被传递给 `co_await` 表达式的 `await_suspend()` 调用。
 
 该类型表示协程帧的非拥有句柄，可用于恢复协程的执行或销毁协程帧。它还可以用于访问协程的 promise 对象。
 
@@ -203,19 +203,19 @@ namespace std::experimental
 
 在实现 **Awaitable** 类型时，你将在 `coroutine_handle` 上使用的主要方法是 `.resume()`，当操作完成并希望恢复等待的协程的执行时，应该调用这个方法。在 `coroutine_handle` 上调用 `.resume()` 将在 `<resume-point>` 重新唤醒一个挂起的协程。当协程接下来遇到一个 `<return-to-caller-or-resumer>` 时，对 `.resume()` 的调用将返回。
 
-`.destroy()` 方法销毁协程帧，调用任何范围内变量的析构函数并释放协程帧使用的内存。通常，你不需要（实际上应该是避免）调用 `.destroy()`，除非你是一个实现协程 promise 类型的库编写者。通常，协程帧将由从对协程的调用返回的某种 RAII（译者注：资源获取即初始化）类型拥有。 所以在没有与 RAII 对象合作的情况下调用 `.destroy()` 可能会导致双重销毁的错误。
+`.destroy()` 方法销毁协程帧，调用任何范围内变量的析构函数并释放协程帧使用的内存。通常，你不需要（实际上应该是避免）调用 `.destroy()`，除非你是一个实现协程 promise 类型的库编写者。通常，协程帧将由从对协程的调用返回的某种 RAII（译者注：资源获取即初始化）类型拥有。所以在没有与 RAII 对象合作的情况下调用 `.destroy()` 可能会导致双重销毁的错误。
 
-`.promise()` 方法返回对协程的 promise 对象的引用。但是，就像 `.destroy()` 那样，它通常只在你创建协程 promise 类型时才有用。 你应该将协程的 promise 对象视为协程的内部实现细节。 对于大多数**常规的 Awaitable** 类型，你应该使用 `coroutine_handle <void>` 作为 `await_suspend()` 方法的参数类型，而不是 `coroutine_handle <Promise>`。
+`.promise()` 方法返回对协程的 promise 对象的引用。但是，就像 `.destroy()` 那样，它通常只在你创建协程 promise 类型时才有用。你应该将协程的 promise 对象视为协程的内部实现细节。对于大多数**常规的 Awaitable** 类型，你应该使用 `coroutine_handle<void>` 作为 `await_suspend()` 方法的参数类型，而不是 `coroutine_handle<Promise>`。
 
-`coroutine_handle <P> :: from_promise（P＆promise）` 函数允许从对协程的 promise 对象的引用重构协程句柄。注意，你必须确保类型 `P` 与用于协程帧的具体 promise 类型完全匹配; 当具体的 promise 类型是 `Derived` 时，试图构造 `coroutine_handle <Base>` 会出现未定义的行为的错误。
+`coroutine_handle<P>::from_promise(P& promise)` 函数允许从对协程的 promise 对象的引用重构协程句柄。注意，你必须确保类型 `P` 与用于协程帧的具体 promise 类型完全匹配；当具体的 promise 类型是 `Derived` 时，试图构造 `coroutine_handle<Base>` 会出现未定义的行为的错误。
 
-`.address()`/`from_address()` 函数允许将协程句柄转换为 `void*` 指针。这主要是为了允许作为 “context(上下文)”参数传递到现有的 C 风格的 API 中，因此你可能会发现在某些情况下实现 **Awaitable** 类型很有用。但是，在大多数情况下，我发现有必要将附加信息传递给这个 'context' 参数中的回调，因此我通常最终将 `coroutine_handle` 存储在结构中并将指针传递给 'context' 参数中的结构而不是使用 `.address()` 返回值。
+`.address()`/`from_address()` 函数允许将协程句柄转换为 `void*` 指针。这主要是为了允许作为 “context(上下文)”参数传递到现有的 C 风格的 API 中，因此你可能会发现在某些情况下实现 **Awaitable** 类型很有用。但是，在大多数情况下，我发现有必要将附加信息传递给这个 ‘context’ 参数中的回调，因此我通常最终将 `coroutine_handle` 存储在结构中并将指针传递给 ‘context’ 参数中的结构而不是使用 `.address()` 返回值。
 
 ## 无同步的异步代码
 
 `co_await` 运算符的一个强大的设计功能是在协程挂起之后但在执行返回给调用者/恢复者之前执行代码的能力。
 
-这允许 Awaiter 对象在协程已经被挂起之后发起异步操作，将被挂起的协程的(句柄) `coroutine_handle` 传递给运算符，当操作完成时(可能在另一个线程上)它可以安全地恢复操作，而不需要任何额外的同步。
+这允许 Awaiter 对象在协程已经被挂起之后发起异步操作，将被挂起的协程的(句柄) `coroutine_handle` 传递给运算符，当操作完成时（可能在另一个线程上）它可以安全地恢复操作，而不需要任何额外的同步。
 
 例如，当协程已经挂起时，在 `await_suspend()` 内启动异步读操作意味着我们可以在操作完成时恢复协程，而不需要任何线程同步来协调启动操作的线程和完成操作的线程。
 
@@ -247,11 +247,11 @@ Time     Thread 1                           Thread 2
 
 ### 与 Stackful 协程的比较
 
-我想稍微多做一些说明，比较一下协程技术规范中的 stackless 协程在协程挂起后与一些现有的常见的协程工具(如 Win32 纤程或 boost::context )一起执行逻辑的能力。
+我想稍微多做一些说明，比较一下协程技术规范中的 stackless 协程在协程挂起后与一些现有的常见的协程工具（如 Win32 纤程或 boost::context）一起执行逻辑的能力。
 
-对于许多 stackful 协程框架，一个协程的暂停操作与另一个协程的恢复操作相结合，形成一个 “context-switch(上下文切换)” 操作。使用这种 “context-switch” 操作，通常在挂起当前协程之后，而在将执行转移到另一个协程之前，没有机会执行逻辑。
+对于许多 stackful 协程框架，一个协程的暂停操作与另一个协程的恢复操作相结合，形成一个 “context-switch（上下文切换）”操作。使用这种 “context-switch” 操作，通常在挂起当前协程之后，而在将执行转移到另一个协程之前，没有机会执行逻辑。
 
-这意味着，如果我们想在 stackful 协程之上实现类似的异步文件读取操作，那么我们必须在挂起协程*之前*启动操作。因此，可以在协程暂停*之前*在另一个线程上完成操作，并且有资格恢复。在另一个线程上完成的操作和协程挂起之间的这种潜在竞争需要某种线程同步来仲裁，并决定胜利者。
+这意味着，如果我们想在 stackful 协程之上实现类似的异步文件读取操作，那么我们必须在挂起协程**之前**启动操作。因此，可以在协程暂停*之前*在另一个线程上完成操作，并且有资格恢复。在另一个线程上完成的操作和协程挂起之间的这种潜在竞争需要某种线程同步来仲裁，并决定胜利者。
 
 通过使用 trampoline context 可以解决这个问题，该上下文可以在初始化上下文被挂起后代表启动上下文启动操作。然而，这将需要额外的基础设施和额外的上下文切换以使其工作，并且这引入的开销可能大于它试图避免同步的成本。
 
@@ -269,7 +269,7 @@ Time     Thread 1                           Thread 2
 
 最终，协程帧仍然可以在堆上分配。但是，一旦分配了，协程帧就可以使用这个堆分配来执行许多异步操作。
 
-你想想，协程帧就像一种高性能的 arena 内存分配器。编译器在编译时计算出所有局部变量所需的 arena 总大小，然后能够根据需要将内存分配给局部变量，而开销为零！试着用自定义分配器打败它;)
+你想想，协程帧就像一种高性能的 arena 内存分配器。编译器在编译时计算出所有局部变量所需的 arena 总大小，然后能够根据需要将内存分配给局部变量，而开销为零！试着用自定义分配器打败它 ：)
 
 ## 示例：实现简单的线程同步原语
 
@@ -309,13 +309,13 @@ task<> consumer()
 }
 ```
 
-让我们首先考虑一下这个事件可能存在的状态：`not set` 和 `set`。
+让我们首先考虑一下这个事件可能存在的状态：‘not set’ 和 ‘set’。
 
-当它处于 'not set' 状态时，有一队（可能为空的）协程正在等待它变为 'set' 状态。
+当它处于 ‘not set’ 状态时，有一队（可能为空的）协程正在等待它变为 ‘set’ 状态。
 
 当它处于 ‘set’ 状态时，不会有任何等待的协程，因为 `co_wait` 状态下的事件可以在不暂停的情况下继续。
 
-这个状态实际上可以用一个 `std :: atomic <void *>` 来表示。
+这个状态实际上可以用一个 `std::atomic<void*>` 来表示。
 
 *   为 ‘set’ 状态保留一个特殊的指针值。在这种情况下，我们将使用事件的 `this` 指针，因为我们知道不能与任何列表项相同的地址。
 *   否则，事件处于 ‘not set’ 状态，并且该值是指向等待协程结构的单链表的头部的指针。
@@ -366,9 +366,9 @@ private:
 
 它还需要充当 `awaiter` 值链表中的节点，因此它需要持有指向列表中下一个 `awaiter` 对象的指针。
 
-它还需要存储正在执行 `co_await` 表达式的等待协程的`coroutine_handle`，以便在事件变为 'set' 状态时事件可以恢复协程。我们不关心协程的 promise 类型是什么，所以我们只使用 `coroutine_handle <>`（这是 `coroutine_handle <void>` 的简写）。
+它还需要存储正在执行 `co_await` 表达式的等待协程的`coroutine_handle`，以便在事件变为 ‘set’ 状态时事件可以恢复协程。我们不关心协程的 promise 类型是什么，所以我们只使用 `coroutine_handle<>`（这是 `coroutine_handle<void>` 的简写）。
 
-最后，它需要实现 **Awaiter** 接口，因此需要三种特殊方法：`await_ready`，`await_suspend` 和 `await_resume`。 我们不需要从 `co_await` 表达式返回一个值，因此 `await_resume` 可以返回 `void`。
+最后，它需要实现 **Awaiter** 接口，因此需要三种特殊方法：`await_ready`，`await_suspend` 和 `await_resume`。我们不需要从 `co_await` 表达式返回一个值，因此 `await_resume` 可以返回 `void`。
 
 当我们将这些都放在一起，`awaiter` 的基本类接口如下所示：
 
@@ -391,7 +391,7 @@ private:
 };
 ```
 
-现在，当我们执行 `co_await` 一个事件时，如果事件已经设置，我们不希望等待协程暂停。 因此，如果事件已经设置，我们可以定义 `await_ready()` 来返回 `true`。
+现在，当我们执行 `co_await` 一个事件时，如果事件已经设置，我们不希望等待协程暂停。因此，如果事件已经设置，我们可以定义 `await_ready()` 来返回 `true`。
 
 ```cpp
 bool async_manual_reset_event::awaiter::await_ready() const noexcept
@@ -404,7 +404,7 @@ bool async_manual_reset_event::awaiter::await_ready() const noexcept
 
 首先，它需要将等待协程的句柄存入 `m_awaitingCoroutine` 成员，以便事件稍后可以在其上调用 `.resume()`。
 
-然后，当我们完成了这一步，我们需要尝试将 awaiter 自动加入到 waiters 的链表中。如果我们成功加入它，然后我们返回 `true` ，以表明我们不想立即恢复协程，否则，如果我们发现事件已并发地更改为 `set` 状态，那么我们返回 `false` ，以表明协程应立即恢复。
+然后，当我们完成了这一步，我们需要尝试将 awaiter 自动加入到 waiters 的链表中。如果我们成功加入它，然后我们返回 `true`，以表明我们不想立即恢复协程，否则，如果我们发现事件已并发地更改为 `set` 状态，那么我们返回 `false`，以表明协程应立即恢复。
 
 ```cpp
 bool async_manual_reset_event::awaiter::await_suspend(
@@ -439,7 +439,7 @@ bool async_manual_reset_event::awaiter::await_suspend(
 }
 ```
 
-注意，在加载旧状态时，我们使用 'acquire' 查看内存顺序，如果我们读取特殊的 'set' 值时，那么我们就可以看到在调用 'set()' 之前发生的写操作。
+注意，在加载旧状态时，我们使用 ‘acquire’ 查看内存顺序，如果我们读取特殊的 ‘set’ 值时，那么我们就可以看到在调用 ‘set()’ 之前发生的写操作。
 
 如果 compare-exchange 执行成功，我们需要 ‘release’ 的状态，以便后续的 ‘set()’ 调用将看到我们对 m_awaitingconoutine 的写入，以及之前对协程状态的写入。
 
@@ -447,7 +447,7 @@ bool async_manual_reset_event::awaiter::await_suspend(
 
 现在我们已经定义了 `awaiter` 类型，让我们回过头来看看 `async_manual_reset_event` 方法的实现。
 
-首先是构造函数。它需要初始化为 'not set' 状态和空的 waiters 链表（即 `nullptr`）或初始化为 'set' 状态（即 `this`）。
+首先是构造函数。它需要初始化为 ‘not set’ 状态和空的 waiters 链表（即 `nullptr`）或初始化为 ‘set’ 状态（即 `this`）。
 
 ```cpp
 async_manual_reset_event::async_manual_reset_event(
@@ -456,7 +456,7 @@ async_manual_reset_event::async_manual_reset_event(
 {}
 ```
 
-接下来，`is_set()` 方法非常简单 - 如果它具有特殊值 `this`，则为 'set'：
+接下来，`is_set()` 方法非常简单 - 如果它具有特殊值 `this`，则为 ‘set’：
 
 ```cpp
 bool async_manual_reset_event::is_set() const noexcept
@@ -465,7 +465,7 @@ bool async_manual_reset_event::is_set() const noexcept
 }
 ```
 
-然后是 `reset()` 方法，如果它处于 'set' 状态，我们希望它转换为 'not set' 状态，否则保持原样。
+然后是 `reset()` 方法，如果它处于 ‘set’ 状态，我们希望它转换为 ‘not set’ 状态，否则保持原样。
 
 ```cpp
 void async_manual_reset_event::reset() noexcept
@@ -475,7 +475,7 @@ void async_manual_reset_event::reset() noexcept
 }
 ```
 
-使用 `set()` 方法，我们希望通过使用特殊的 'set' 值（`this`）将当前状态来转换到 'set' 状态，然后检查原本的值是什么。 如果有任何等待的协程，那么我们希望在返回之前依次顺序恢复它们。
+使用 `set()` 方法，我们希望通过使用特殊的 ‘set’ 值（`this`）将当前状态来转换到 ‘set’ 状态，然后检查原本的值是什么。 如果有任何等待的协程，那么我们希望在返回之前依次顺序恢复它们。
 
 ```cpp
 void async_manual_reset_event::set() noexcept
