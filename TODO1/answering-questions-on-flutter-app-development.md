@@ -1,85 +1,85 @@
-> * 原文地址：[Answering Questions on Flutter App Development](https://medium.com/@dev.n/answering-questions-on-flutter-app-development-6d50eb7223f3)
-> * 原文作者：[Deven Joshi](https://medium.com/@dev.n?source=post_header_lockup)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/answering-questions-on-flutter-app-development.md](https://github.com/xitu/gold-miner/blob/master/TODO1/answering-questions-on-flutter-app-development.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[Answering Questions on Flutter App Development](https://medium.com/@dev.n/answering-questions-on-flutter-app-development-6d50eb7223f3)
+> - 原文作者：[Deven Joshi](https://medium.com/@dev.n?source=post_header_lockup)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/answering-questions-on-flutter-app-development.md](https://github.com/xitu/gold-miner/blob/master/TODO1/answering-questions-on-flutter-app-development.md)
+> - 译者：[YueYong](https://github.com/YueYongDev)
+> - 校对者：[zx-Zhu](https://github.com/zx-Zhu)
 
-# Answering Questions on Flutter App Development
+# 回答有关 Flutter App 开发的问题
 
 ![](https://cdn-images-1.medium.com/max/800/1*lMa5iiFWt33MxXUN7t9k6Q.png)
 
-After interacting with a lot of students and developers personally and through my talks and workshops, I realised a lot of them have common questions and sometimes misconceptions about Flutter and app development in it. So I decided to write an article for clarifying doubts which were rather prevalent. Note that this article is meant to be an explainer rather than a point-perfect description of every aspect. There might be some exceptions I might not have covered for brevity. Note that Flutter itself also has a FAQ page for various backgrounds at [flutter.io](https://www.flutter.io) , I will be focusing more on questions I see asked frequently. Some of them are also included in the Flutter FAQs but I try to give my perspective on it.
+通过我的讲座和研讨会在与很多学生和开发人员亲自交流后，我意识到他们中很多人都对 Flutter 和应用程序开发有共同的问题，甚至还有误解。因此我决定去写一篇文章来解释这些普遍的疑惑。注意，这篇文章旨在解释一些问题，而不是对每个方面的详细表述。为简洁起见，我可能没有涉及到一些例外情况。请注意，Flutter 本身也有一个针对各种背景下的常问问题页面 [flutter.io](https://flutter.io/)，在这里我将更多地关注我经常看到的问题。虽然其中一些也包含在 Flutter 常见问题解答中，但是我还是尝试着去给出我的观点。
 
-#### Where are the layout files? / Why doesn’t Flutter have layout files?
+#### 布局文件在哪里？/ 为什么 Flutter 没有布局文件？
 
-In the Android framework, we separate an activity into layout and code. Because of this, we need to get references to views to work on them in Java. (Of course Kotlin lets you avoid that.) The layout file itself would be written in XML and consist of Views and ViewGroups.
+在 Android 框架中，我们将 Activity 分为布局和代码。因此，我们需要引用视图以在 Java 中使用它们。（当然 Kotlin 可以避免这种情况。）布局文件本身用 XML 编写，包含 Views 和 ViewGroups。
 
-Flutter uses a completely new approach where instead of Views, **you use widgets**. A View in Android was mostly an element of the layout, but in Flutter, a Widget is pretty much everything. Everything from a button to a layout structure is a widget. The advantage here is in **customisability**. Imagine a button in Android. It has attributes like text which lets you add text to the button. But a button in Flutter does not take a title as a string, but another widget. Meaning **inside a button you can have text, an image, an icon and pretty much anything you can imagine** without breaking layout constraints. This also lets you make customised widgets pretty easily whereas in Android making customised views is a rather difficult thing to do.
+Flutter 使用一种全新的方法，而不是视图，**使用 Widget**。在 Android 中，View 就是布局的一个组件，但在 Flutter 中，Widget 几乎就是一切。从按钮到布局结构，所有的这些都是一个 Widget。他在这里的优势是**可定制性**。想象一下 Android 中的一个按钮。它具有文本等属性，可让你向按钮添加文本。但 Flutter 中的按钮不会将标题作为字符串，而是另一个 widget。这意味着，**在按钮内部，您可以拥有文本，图像，图标以及您可以想象的任何内容**，并且不会破坏布局约束。这也让你可以很容易地制作自定义 Widget，而在 Android 中制作自定义 view 是一件相当困难的事情。
 
-#### Isn’t drag-and-drop easier than making a layout in code?
+#### 拖放不比在代码中进行布局更容易吗？
 
-In some respect, that is true. But a lot of us in the Flutter community prefer the code way but that does not mean drag-and-drop is impossible to implement. If you completely prefer drag-and-drop, then Flutter Studio is a fantastic resource I’d recommend which helps you generate layouts from drag-and-drop. It’s a tool I’m genuinely impressed by and would love to see how it grows.
+在某些方面，这是事实。但 Flutter 社区中的很多人都更喜欢代码方式，但这并不意味着拖放无法实现。如果你完全喜欢拖放，那么 Flutter Studio 是我推荐的一个很棒的资源，它可以通过拖放帮助你生成布局。这是一个让我印象深刻的工具，很想知道它将来会如何发展。
 
-Link: [https://flutterstudio.app](https://flutterstudio.app)
+链接:  [https://flutterstudio.app](https://flutterstudio.app)
 
-#### Does Flutter work like a browser? / How is it different from a WebView based application?
+#### Flutter 是否像浏览器一样工作？/ 它与基于 WebView 的应用程序有何不同？
 
-To answer this question simply: **Code you write for a WebView or an app that runs similarly has to go through multiple layers to finally get executed.** In essence, Flutter leapfrogs that by **compiling down to native ARM** code to execute on both platforms. “Hybrid” apps are slow, sluggish and look different from the platform they run on. Flutter apps run much, much faster than their hybrid counterparts. Also, it’s much easier to access native components and sensors using plugins rather than using WebViews which can’t take full use of their platform.
+简单地回答这个问题：**为 WebView 编写的代码或类似运行的应用程序必须经过多个层才能最终执行。**从本质上讲，Flutter 通过**编译到原生 ARM** 代码来实现这两个平台上的执行。“混合”应用程序缓慢，缓慢，与它们运行的平台看起来不同。Flutter 应用程序的运行速度远远超过混合应用程序。此外，使用插件访问本机组件和传感器要比使用无法充分利用其平台的 WebView 更容易。
 
-#### Why are there Android and iOS folders in the Flutter project?
+#### 为什么 Flutter 项目中有 Android 和 iOS 文件夹？
 
-There are three main folders in the Flutter project: lib, android and ios. ‘lib’ takes care of your Dart files. The Android and iOS folders exist to actually build an app on those respective platforms with the Dart files running on them. They also help you add permissions and platform-specific functionality to your project. When you run a Flutter project, it builds depending on which emulator or device it is running on, doing a Gradle or XCode build using the folders inside it. **In short, those folders are entire apps which set the stage for the Flutter code to run.**
+Flutter项目中有三个主要文件夹：lib、android 和 ios 。'lib' 负责处理你的 Dart 文件。Android 和 iOS 文件夹用于在各自的平台上实际构建应用程序，并在其上运行 Dart 文件。它们还可以帮助您为项目添加权限和特定于平台的功能。当您运行 Flutter 项目时，它会根据运行的模拟器或设备进行构建，使用其中的文件夹执行 Gradle 或 XCode 构建。**简而言之，这些文件夹为 Flutter 代码的运行成为一个完整的 APP 奠定了基础。**
 
-#### Why is my Flutter app so large?
+#### 为什么我的 Flutter 这么大？
 
-If you’ve run a Flutter application, you know it’s **fast**. Blazingly fast. How does it do that? When building an application, instead of only taking specific resources, it **essentially takes all of them**. Why does that help? Because if I change an icon from one to the other, it doesn't have to do a complete rebuild of the application. That’s why a Flutter **debug** build is so large. When a release build is created, only the needed resources are taken in and we get sizes we’re much more used to. Flutter apps will still be a tad bit larger than Android apps but it’s rather minuscule and plus the Flutter team is constantly looking for ways to reduce app size.
+如果你运行 Flutter 应用程序，你知道它很快。非常**快**。它是如何做到的？在构建应用程序时，它**实际上用到了所有资源文件**，而不是仅使用特定的资源文件。为什么这有帮助？因为如果我将图标从一个更改为另一个，则不必完全重建应用程序。这就是 Flutter 调试版本如此之大的原因。创建发布版本时，只会获取所需的资源文件，并且我们会获得更多习惯的大小。Flutter 应用程序仍然比 Android 应用程序略大，但它相当小，加上 Flutter 团队一直在寻找减少应用程序大小的方法。
 
-#### **If I am a novice in programming and I want to start with mobile development, should I start with Flutter?**
+#### **如果我是编程新手并且我想从移动开发开始，我应该从 Flutter 开始吗？**
 
-This has more of a two part answer.
+这有两部分答案。
 
-1.  Flutter is quite nice to code in and has a lot less code than Android or iOS apps for the same pages. So for most applications, I don’t think there will be a major problem.
-2.  One thing you need to keep in mind is Flutter also relies on Android and iOS projects and you need to be familiar with at least the project structure in those. If you want to write any native code, you definitely will need experience in either or both platforms.
+1. 对于相同的页面，Flutter 非常适合编码并且代码比 Android 或 iOS 应用程序少得多。因此对于大多数应用程序，我认为不会出现重大问题。
+2. 您需要记住的一件事是 Flutter 还依赖于 Android 和 iOS 项目，你至少需要熟悉那些项目结构。如果您想编写任何原生代码，你肯定需要在任一平台或两个平台上都有经验。
 
-My personal opinion would be learn Android/iOS for a month or two and then start with Flutter.
+我的个人意见是学习 Android / iOS 一两个月，然后再开始学习 Flutter。
 
-#### What are packages and plugins?
+#### Packages 和 plugins 是什么？
 
-Packages allow you to **import new widgets or functionality** into your app. There is a small distinction between packages and plugins. Packages are usually new components or code written purely in Dart whereas plugins work to allow more functionality on the device side using native code. Usually on DartPub, both packages and plugins are referred to as packages and only while creating a new package is the distinction clearly mentioned.
+Packages 允许您将新的工具或功能导入你的应用程序。Packages 和 plugins 之间有一点区别。Packages 通常是新的组件或纯粹在 Dart 中编写的代码，而 plugins 允许更多功能在设备上使用原生代码。通常在 DartPub 上，Packages 和 plugins 都被称为包，并且只有在创建新包时才明确提到区别。
 
-#### What is the pubspec.yaml file and what does it do?
+#### 什么是 pubspec.yaml 文件，它有什么作用？
 
-The Pubspec.yaml allows you to define the packages your app relies on, declare your assets like images, audio, video, etc. It also allows you to set constraints for your app. For Android developers, this is roughly similar to a build.gradle file, but the differences between the two are also evident.
+Pubspec.yaml 允许你定义应用依赖的包，声明你的资源文件，如图片，音频，视频等。它还允许你为你的应用设置约束。对于 Android 开发人员来说，这大致类似于 build.gradle 文件，但两者之间的差异也很明显。
 
-#### Why does the first Flutter app build take so long?
+#### 为什么第一个 Flutter 应用程序构建需要这么长时间？
 
-When building a Flutter app for the first time, a **device-specific APK or IPA file is built**. Hence, Gradle and XCode are used to build the files, taking time. The next time the app is restarted or hot-reloaded, Flutter essentially patches the changes on top of the existing app giving a blazing fast refresh.
+首次构建 Flutter 应用程序时，会**构建特定于设备的 APK 或 IPA文件**。因为要用到 Gradle 和 XCode 用于构建文件，需要时间。下次重新启动或热重新加载应用程序时，Flutter 实际上会在现有应用程序之上修补更改，从而实现快速刷新。
 
-**Note:** The changes made with hot reload or restart **ARE NOT SAVED** on the device APK or IPA file. To ensure your app has all your changes on-device, consider stopping and running the app again.
+**注意：**热重载或重启所做的更改不会设备 APK 或 IPA 文件中保存。要确保你的应用在设备上完成所有更改，请考虑停止并重新运行该应用。
 
-#### What does State mean? What is setState()?
+#### State 是什么意思？什么是 setState()？
 
-**In simple terms, “State” is a collection of the variable values of your widget.** Anything that can change like a counter count, text, etc. can be part of State. Imagine a counter app, the main dynamic thing is the counter count. When the count changes, the screen needs to be refreshed to display the new value. **setState() is essentially a way of telling the app to refresh and rebuild the screen with the new values.**
+**简单来说，“State” 是 widget 变量值的集合。** 任何像计数器，文本等一样可以改变的东西都可以成为 State 的一部分。**想象一个柜台应用程序，主要的动态是计数器计数。计数更改时，需要刷新屏幕以显示新值。** setState() 本质上是一种告诉应用程序使用新值刷新和重建屏幕的方法。
 
-#### What are Stateful and Stateless widgets?
+#### 什么是有状态和无状态小部件？
 
-TL;DR: A widget that allows you to refresh the screen is a Stateful widget. A widget that does not is Stateless.
+太长了，简单的说：允许你刷新屏幕的 Widget是一个有状态小部件。反之则是无状态的。
 
-In more detail, a dynamic widget with content that can change should be a Stateful widget. A Stateless widget can only change content when the parameters are changed and hence needs to be done above the point of its location in the widget hierarchy. A screen or widget containing static content should be a stateless widget but to change the content, needs to be stateful.
+详细地说，具有可以更改的内容的动态窗口小部件应该是有状态的 Widget。无状态 Widget 只能在参数更改时更改内容，因此需要在窗口小部件层次结构中的位置点之上完成。包含静态内容的屏幕或窗口小部件应该是无状态窗口小部件，但要更改内容，需要是有状态的。
 
-#### How do you deal with indentation and structure in Flutter code?
+#### 如何处理 Flutter 代码中的缩进和结构？
 
-Android Studio provides tooling to make structuring Flutter code easier. The two main things are:
+Android Studio 提供了一些工具，可以更轻松地构建 Flutter 代码。两个主要的方法是：
 
-1.  **Alt + Enter/ Command + Enter**: This allows you to easily wrap and remove widgets as well as swap widgets in a complex hierarchy. To use this simply point your cursor at the widget declaration and press the keys to give you a few options. This legitimately feels like a godsend at times.
-2.  **DartFMT**: dartfmt formats your code to maintain a clean hierarchy and indentation. It makes your code much prettier to work with after you accidentally move a few brackets around.
+1. **Alt + Enter/ Command + Enter**：这使你可以轻松地在复杂的层次结构中包装和删除窗口小部件以及交换窗口小部件。要使用此功能，只需将光标指向小部件声明，然后按键即可为您提供一些选项。这种智能的感觉有时像天赐之物。
+2. **DartFMT**：dartfmt 格式化您的代码以保持干净的层次结构和缩进。在你不小心移动几个括号后，它使您的代码更漂亮。
 
-#### Why do we pass functions to widgets?
+#### 为什么我们将函数传递给小部件？
 
-We pass a function to a widget essentially saying, “invoke this function when something happens”. Functions are first class objects in Dart and can be passed as parameters to other functions. Callbacks using interfaces like Android (<Java 8) have too much boilerplate code for a simple callback.
+我们将一个函数传递给一个小部件，主要是说“当事情发生时调用这个函数”。函数是 Dart 中的第一类对象，可以作为参数传递给其他函数。使用 Android（<Java 8） 等接口的回调有太多的样板代码用于简单的回调。
 
-**Java callback:**
+**Java 回调：**
 
 ```
 button.setOnClickListener(new View.OnClickListener() {
@@ -91,9 +91,9 @@ button.setOnClickListener(new View.OnClickListener() {
 );
 ```
 
-(Notice that this is only the code for setting up a listener. Defining a button requires separate XML code.)
+（请注意，这只是用于设置侦听器的代码。定义按钮需要单独的 XML 代码。）
 
-**Dart equivalent:**
+**Dart equivalent：**
 
 ```
 FlatButton(
@@ -103,15 +103,15 @@ FlatButton(
 )
 ```
 
-(Dart does both declaration as well as setting up the callback.)
+（Dart同时进行声明以及设置回调。）
 
-This becomes much cleaner and organised and helps us avoid unnecessary complication.
+这变得更加整洁，并帮助我们避免不必要的复杂化。
 
-#### What is ScopedModel / BLoC Pattern?
+#### 什么是 ScopedModel / BLoC 模式？
 
-ScopedModel and BLoC(Business Logic Components) are common Flutter app architecture patterns to **help separate business logic from UI code and using fewer Stateful Widgets**. There are [better resources](https://medium.com/flutter-community/let-me-help-you-to-understand-and-choose-a-state-management-solution-for-your-app-9ffeac834ee3) to learn these and I do not believe it to be justified to explain them in a few lines.
+ScopedModel 和 BLoC（业务逻辑组件）是常见的 Flutter 应用程序架构模式，可帮助**将业务逻辑与 UI 代码分离，并使用更少的有状态 widget。** 有[更好的资源](https://medium.com/flutter-community/let-me-help-you-to-understand-and-choose-a-state-management-solution-for-your-app-9ffeac834ee3)来学习这些，我不认为有理由在几行中解释它们。
 
-I hope this article cleared up a few doubts here and there, and I will try to keep it updated with any common questions I get. Leave a few claps if you enjoyed the article and be sure to comment if you want me to add any other asked questions.
+我希望这篇文章能够消除一些疑问，并且我将尽力更新我遇到的常见问题。如果你喜欢这篇文章，请给我一些鼓励，如果你希望我添加其他问题，请务必发表评论。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
