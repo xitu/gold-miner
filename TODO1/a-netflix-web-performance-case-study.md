@@ -11,7 +11,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Pxmm24WKcYUqFC1Fsh_n7g.png)
 
-**提纲：Web 性能优化没有银弹。简单的静态网页得益于使用极少 JavaScript 代码的服务端渲染。库的谨慎使用可以为复杂的页面带来巨大的价值**
+**提纲：Web 性能优化没有银弹。简单的静态网页得益于使用极少 JavaScript 代码的服务端渲染。库的谨慎使用可以为复杂的页面带来巨大的价值。**
 
 [Netflix](https://netflix.com) 是最受欢迎的视频流服务之一。自 2016 年在全球推出以来，公司发现许多新用户不仅通过移动设备完成注册，而且还使用了不太理想的网络连接。
 
@@ -29,7 +29,7 @@ Netflix 开发者优化性能的地方是未登录主页，用户在此页面注
 
 新用户和已登出用户的 Netflix.com 主页
 
-此页面初始包含 300 KB 的 JavaScript 代码，其中一些是 React 和其他客户端代码（例如像 Lodash 的工具库），而且还有一些是必要的上下文数据用来给 React 的状态注水（hydrate）。
+此页面初始包含 300KB 的 JavaScript 代码，其中一些是 React 和其他客户端代码（例如像 Lodash 的工具库），而且还有一些是必要的上下文数据用来给 React 的状态注水（hydrate）。
 
 所有 Netflix 的网页都由服务端 React 渲染，这些页面为生成的 HTML 和客户端应用提供服务，因此维持新优化的主页结构不变和保持开发人员体验的一致性同样重要。
 
@@ -45,7 +45,7 @@ Homepage 选项卡是最初使用 React 编写的组件的示例
 
 通过关闭浏览器中的 JavaScript 来观察站点中仍在起作用的元素，开发者团队可以决定 React 在未登录主页是否真正必要。
 
-由于页面中的多数元素是基本的 HTML，剩下的元素比如 JavaScript 点击处理和添加类可以用原生 JavaScript 来替换，而页面原来使用 React 实现的语言切换器则使用不到 300 行的原生 JavaScript 代码重构，
+由于页面中的多数元素是基本的 HTML，剩下的元素比如 JavaScript 点击处理和添加类可以用原生 JavaScript 来替换，而页面原来使用 React 实现的语言切换器则使用不到 300 行的原生 JavaScript 代码重构。
 
 移植到原生 JavaScript 的组件完全列表：
 
@@ -62,9 +62,9 @@ Homepage 选项卡是最初使用 React 编写的组件的示例
 
 ![](https://cdn-images-1.medium.com/max/800/1*zd9QTVBtN2xmrZ94s4TYYA.jpeg)
 
-**移除客户端 React、Lodash 和其他一些库前后的负载比较**
+**移除客户端 React、Lodash 和其他一些库前后的负载比较。**
 
-在[实验](https://developers.google.com/web/fundamentals/performance/speed-tools/#lab_data)环境下，我们可以使用 [Lighthouse](https://developers.google.com/web/tools/lighthouse/) （[trace](https://www.webpagetest.org/lighthouse.php?test=180822_M4_a5899bc8928b958d06902161c15b2c86&run=2)）快速测验用户是否能与 Netflix 主页交互。结果桌面端的 TTI 少于 3.5 s。
+在[实验](https://developers.google.com/web/fundamentals/performance/speed-tools/#lab_data)环境下，我们可以使用 [Lighthouse](https://developers.google.com/web/tools/lighthouse/)（[trace](https://www.webpagetest.org/lighthouse.php?test=180822_M4_a5899bc8928b958d06902161c15b2c86&run=2)）快速测验用户是否能与 Netflix 主页交互。结果桌面端的 TTI 少于 3.5s。
 
 
 ![](https://cdn-images-1.medium.com/max/800/1*xviETZh4IDKxT5x_k2u8cg.png)
@@ -101,7 +101,7 @@ const xhrRequest = new XMLHttpRequest();
 // 打开请求来“预加载”资源
 xhrRequest.open('GET', '../bundle.js', true);
 
-// 发送!
+// 发送！
 xhrRequest.send();
 ```
 
@@ -113,7 +113,7 @@ xhrRequest.send();
 
 #### Netflix 未登录主页 —— 优化总结
 
-通过预加载 Netflix 未登录主页资源和优化客户端代码，Netflix 可以在注册过程中出色地提升可交互时间指标。通过使用浏览器内置 API 和 XHR 预加载来预获取未来页面，Netflix 可以把可交互时间降低 30%。这是针对下一页面的加载， 其中包含单页应用注册过程的引导代码。
+通过预加载 Netflix 未登录主页资源和优化客户端代码，Netflix 可以在注册过程中出色地提升可交互时间指标。通过使用浏览器内置 API 和 XHR 预加载来预获取未来页面，Netflix 可以把可交互时间降低 30%。这是针对下一页面的加载，其中包含单页应用注册过程的引导代码。
 
 Netflix 团队进行的代码优化表明，React 是一个十分有用的库，不过它可能无法为每个问题提供足够的解决方案。通过从第一个用于注册的入口页面的客户端代码中删除 React，可交互时间减少了 50% 以上。缩短客户端上的可交互时间还可以让用户以更快地速度单击注册按钮，这表明代码优化完全可以带来更好的用户体验。
 
@@ -125,7 +125,7 @@ Netflix 团队进行的代码优化表明，React 是一个十分有用的库，
 
 ### 总结
 
-通过密切关注 JavaScript 的开销，Netflix 发现了改善可交互时间的机会。若想发现你的站点是否有机会在这点上做得更好，可以借助你的[性能工具](https://developers.google.com/web/fundamentals/performance/speed-tools/)
+通过密切关注 JavaScript 的开销，Netflix 发现了改善可交互时间的机会。若想发现你的站点是否有机会在这点上做得更好，可以借助你的[性能工具](https://developers.google.com/web/fundamentals/performance/speed-tools/)。
 
 Netflix 决定做出的权衡是使用 React 对入口页面进行服务器渲染，同时也在其上预先获取 React 和其余注册流程的代码。这样可以优化首次加载性能，同时还可以优化其余注册流的加载时间，因为它是一个单页应用程序，因此需要下载更大的 JS 打包文件。
 
@@ -133,11 +133,11 @@ Netflix 决定做出的权衡是使用 React 对入口页面进行服务器渲�
 
 #### 补充说明：
 
-*   Netflix 考虑过使用 [Preact](https://preactjs.com/)，但是，对于低交互性的简单页面流而言，使用原生 JavaScript 是一个更简单的选择。
+*   Netflix 考虑过使用 [Preact](https://preactjs.com/)，但是对于低交互性的简单页面流而言，使用原生 JavaScript 是一个更简单的选择。
 *   Netflix 试验过使用 [Service Workers](https://developers.google.com/web/fundamentals/primers/service-workers/) 进行静态资源缓存。那时 Safari 不支持这个 API（现在支持了），但他们现在又在探索这个了。Netflix 的注册过程更多需要的是较旧的浏览器支持而不是会员体验。许多用户都会在较旧的浏览器上注册，但会在其原生移动应用或电视设备上观看 Netflix。
 *   Netflix 的入口页面极为动态。这是他们的注册过程中进行 A/B 测试最多的页面，机器学习模型用于根据位置、设备类型和许多其他因素定制消息和图像。支持近 200 个国家，每个派生页面都面对着不同的本地化、法律和价值信息挑战。有关 A/B 测试的更多信息，请参阅 Ryan Burgess 的[测试，只为更好的用户体验](https://www.youtube.com/watch?v=TmhJN6rdm28)。
 
-**感谢 Netflix UI 工程师，[Tony Edwards](https://twitter.com/tedwards947)，[Ryan Burgess](https://twitter.com/burgessdryan)，[Brian Holt](https://twitter.com/holtbt?lang=en)，[Jem Young](https://twitter.com/JemYoung?lang=en)，[Kristofer Baxter](https://twitter.com/kristoferbaxter)（Google），[Nicole Sullivan](https://twitter.com/stubbornella)（Chrome）和 [Houssein Djirdeh](https://twitter.com/hdjirdeh)（Chrome）的审阅和贡献。**
+**感谢 Netflix UI 工程师，[Tony Edwards](https://twitter.com/tedwards947)、[Ryan Burgess](https://twitter.com/burgessdryan)、[Brian Holt](https://twitter.com/holtbt?lang=en)、[Jem Young](https://twitter.com/JemYoung?lang=en)、[Kristofer Baxter](https://twitter.com/kristoferbaxter)（Google）、[Nicole Sullivan](https://twitter.com/stubbornella)（Chrome）和 [Houssein Djirdeh](https://twitter.com/hdjirdeh)（Chrome）的审阅和贡献。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
