@@ -6832,7 +6832,7 @@
 |------|-------|-------|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|5|
 
-## 译者：[CoderMing](https://github.com/CoderMing) 历史贡献积分：35.5 当前积分：35.5 年度积分：3.5
+## 译者：[CoderMing](https://github.com/CoderMing) 历史贡献积分：35.5 当前积分：35.5 年度积分：35.5
 
 |文章|类型|积分|
 |------|-------|-------|
