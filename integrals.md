@@ -2692,10 +2692,11 @@
 |[在 Xcode 项目中使用 swift package fetch](https://juejin.im/entry/58c7a4cb1b69e6006bec354c/)|校对|1|
 |[Swift + 关键字](https://gold.xitu.io/entry/58bf76aaa22b9d0058896bff/)|校对|1|
 
-## 译者：[xilihuasi](https://github.com/xilihuasi) 历史贡献积分：21 当前积分：21 年度积分：5
+## 译者：[xilihuasi](https://github.com/xilihuasi) 历史贡献积分：29 当前积分：29 年度积分：13
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Pandas 在 Python 中创建一个简单的推荐系统](https://juejin.im/post/5be958416fb9a049af6cc969)|翻译|8|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|5|
 |[如何用 TypeScript 玩转后端？](https://juejin.im/post/5a36837d6fb9a045167d4644)|翻译|4|
 |[高阶函数一点通](https://juejin.im/entry/594a3eaaa0bb9f006b0c304a/detail)|校对|1|
@@ -2897,10 +2898,11 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：293 当前积分：227 年度积分：85.5
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：295 当前积分：229 年度积分：87.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[在 Keras 中使用一维卷积神经网络处理时间序列数据](https://juejin.im/post/5beb7432f265da61524cf27c)|校对|2|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|10|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|2|
 |[TensorFlow 中的 RNN 串流](https://juejin.im/post/5bcb2975f265da0a8d36c7d8)|校对|1.5|
@@ -3865,10 +3867,11 @@
 |------|-------|-------|
 |[为什么我们渴求女性来设计 AI ](https://juejin.im/post/599c1e45518825242a02596e)|校对|1|
 
-## 译者：[tmpbook](https://github.com/tmpbook) 历史贡献积分：27.5 当前积分：27.5 年度积分：7.5
+## 译者：[tmpbook](https://github.com/tmpbook) 历史贡献积分：31 当前积分：31 年度积分：11
 
 |文章|类型|积分|
 |------|-------|-------|
+|[初创公司的数据科学：简介](https://juejin.im/post/5bd55b76f265da0ae472ce1b)|翻译|3.5|
 |[Go 语言的整洁架构之道/一个使用 gRPC 的 Go 项目整洁架构例子](https://juejin.im/post/5bb99195e51d450e551a3a2f)|校对|1.5|
 |[如何在六个月或更短的时间内成为 DevOps 工程师，第一部分](https://juejin.im/post/5bc21c125188255c53364ad5)|翻译|6|
 |[如何使用 Golang 中的 Go-Routines 写出高性能的代码](https://juejin.im/post/5a17c0f9f265da431a42e060)|翻译|4|
@@ -4226,10 +4229,11 @@
 |------|-------|-------|
 |[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|校对|2|
 
-## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：58 当前积分：30 年度积分：27.5
+## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：62 当前积分：34 年度积分：31.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何使用 Python 格式化时间型数据](https://juejin.im/post/5be26d15f265da61776b720a)|翻译|4|
 |[代码评审的 8 点建议](https://juejin.im/post/5bd1e6696fb9a05d096597c6)|校对|1.5|
 |[使用 JavaScript 和网络信息 API 实现自适应服务](https://juejin.im/post/5bc73482e51d450ea3639c7c)|翻译|3|
 |[Node.js 能进行 HTTP/2 推送啦！](https://juejin.im/post/5ad61595f265da23a04a129c)|翻译|3|
@@ -6285,10 +6289,11 @@
 |[自然语言处理真是有趣](https://juejin.im/post/5b6d08e2f265da0f9c67cf0b)|校对|3|
 |[支撑现代存储系统的算法](https://juejin.im/post/5b10f80b5188257d92206851)|校对|1.5|
 
-## 译者：[7Ethan](https://github.com/7Ethan) 历史贡献积分：35.5 当前积分：35.5 年度积分：35.5
+## 译者：[7Ethan](https://github.com/7Ethan) 历史贡献积分：38 当前积分：38 年度积分：38
 
 |文章|类型|积分|
 |------|-------|-------|
+|[深度学习将会给我们所有人的生活一个教训：工作是为了机器准备的](https://juejin.im/post/5bd71fd6f265da0aa94a5bce)|校对|2.5|
 |[Python 中的无监督学习算法](https://juejin.im/post/5bab10ed6fb9a05d1f2211b6)|校对|1.5|
 |[容器，虚拟机以及 Docker 的初学者入门介绍](https://juejin.im/entry/5bada97f6fb9a05d0e2e7014/detail)|校对|2|
 |[Erlang 之禅第二部分](https://juejin.im/post/5b3ea3ed6fb9a04fb8772a2c)|翻译|5.5|
@@ -6463,10 +6468,11 @@
 |------|-------|-------|
 |[通过 SSH 远程使用 Python 解释器来运行 Flask](https://juejin.im/post/5b3e25a8e51d45191716d187)|校对|1.5|
 
-## 译者：[yqian1991](https://github.com/yqian1991) 历史贡献积分：44 当前积分：44 年度积分：44
+## 译者：[yqian1991](https://github.com/yqian1991) 历史贡献积分：46.5 当前积分：46.5 年度积分：46.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[初创公司的数据科学：简介](https://juejin.im/post/5bd55b76f265da0ae472ce1b)|校对|2.5|
 |[开源项目之 Nginx](https://juejin.im/post/5bc55a25f265da0ae8014147)|校对|5|
 |[数据科学和机器学习面试问题](https://juejin.im/post/5bbb104f5188255c960c4d7e)|校对|1.5|
 |[Apache Airflow 的关键概念](https://juejin.im/post/5b7ba247e51d4538d42ab6a0)|校对|2|
@@ -6724,17 +6730,19 @@
 |[用 Scikit-Learn 实现 SVM 和 Kernel SVM](https://juejin.im/post/5b7fd39af265da43831fa136)|翻译|6|
 |[如何提升设计到开发的协作效率](https://juejin.im/post/5b83609de51d4538c210a957)|校对|2|
 
-## 译者：[zhusimaji](https://github.com/zhusimaji) 历史贡献积分：10 当前积分：10 年度积分：10
+## 译者：[zhusimaji](https://github.com/zhusimaji) 历史贡献积分：12.5 当前积分：12.5 年度积分：12.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Pandas 在 Python 中创建一个简单的推荐系统](https://juejin.im/post/5be958416fb9a049af6cc969)|校对|2.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|8|
 |[用 Scikit-Learn 实现 SVM 和 Kernel SVM](https://juejin.im/post/5b7fd39af265da43831fa136)|校对|2|
 
-## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：2 当前积分：2 年度积分：2
+## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：4.5 当前积分：4.5 年度积分：4.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Pandas 在 Python 中创建一个简单的推荐系统](https://juejin.im/post/5be958416fb9a049af6cc969)|校对|2.5|
 |[用 Scikit-Learn 实现 SVM 和 Kernel SVM](https://juejin.im/post/5b7fd39af265da43831fa136)|校对|2|
 
 ## 译者：[unimp](https://github.com/unimp) 历史贡献积分：0.5 当前积分：0.5 年度积分：0.5
@@ -6879,10 +6887,11 @@
 |[容器，虚拟机以及 Docker 的初学者入门介绍](https://juejin.im/entry/5bada97f6fb9a05d0e2e7014/detail)|校对|2.5|
 |[使用 Node 和 OAuth 2.0 构建一个简单的 REST API](https://juejin.im/post/5bb1d3f95188255c6a044d9a)|校对|1.5|
 
-## 译者：[yuwhuawang](https://github.com/yuwhuawang) 历史贡献积分：12 当前积分：12 年度积分：12
+## 译者：[yuwhuawang](https://github.com/yuwhuawang) 历史贡献积分：20 当前积分：20 年度积分：20
 
 |文章|类型|积分|
 |------|-------|-------|
+|[深度学习将会给我们所有人的生活一个教训：工作是为了机器准备的](https://juejin.im/post/5bd71fd6f265da0aa94a5bce)|翻译|8|
 |[Go 语言的整洁架构之道/一个使用 gRPC 的 Go 项目整洁架构例子](https://juejin.im/post/5bb99195e51d450e551a3a2f)|翻译|3.5|
 |[正确实现 linkedPurchaseToken 以避免重复订阅](https://juejin.im/post/5baf9a3e6fb9a05ce2741437)|翻译|5|
 |[新手开发者须知](https://juejin.im/post/5bade6a76fb9a05d32515cf0)|校对|1.5|
@@ -6931,10 +6940,13 @@
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|7|
 |[我在阅读 MDN 时发现的 3 个 Input 元素属性](https://juejin.im/post/5bbc6f035188255c5d56b160)|校对|1|
 
-## 译者：[haiyang-tju](https://github.com/haiyang-tju) 历史贡献积分：7 当前积分：7 年度积分：7
+## 译者：[haiyang-tju](https://github.com/haiyang-tju) 历史贡献积分：24.5 当前积分：24.5 年度积分：24.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Pandas 对 Kaggle 数据集进行统计数据分析](https://juejin.im/post/5be8c994f265da61461db107)|翻译|6.5|
+|[使用 Python 的 Pandas 和 Seaborn 框架从 Kaggle 数据集中提取信息](https://juejin.im/post/5be8caf651882551cc25acf5)|翻译|5.5|
+|[在 Keras 中使用一维卷积神经网络处理时间序列数据](https://juejin.im/post/5beb7432f265da61524cf27c)|翻译|5.5|
 |[语义分割 — U-Net（第一部分）](https://juejin.im/post/5bc55ec8f265da0a8f35ef20)|校对|3|
 |[使用 TensorFlow.js 进行无服务的机器学习](https://juejin.im/post/5bc13de2e51d450e827b88fc)|校对|4|
 
@@ -6994,10 +7006,13 @@
 |------|-------|-------|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|4|
 
-## 译者：[rocheers](https://github.com/rocheers) 历史贡献积分：9 当前积分：9 年度积分：9
+## 译者：[rocheers](https://github.com/rocheers) 历史贡献积分：15 当前积分：15 年度积分：15
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何使用 Python 格式化时间型数据](https://juejin.im/post/5be26d15f265da61776b720a)|校对|1.5|
+|[使用 Pandas 对 Kaggle 数据集进行统计数据分析](https://juejin.im/post/5be8c994f265da61461db107)|校对|2.5|
+|[使用 Python 的 Pandas 和 Seaborn 框架从 Kaggle 数据集中提取信息](https://juejin.im/post/5be8caf651882551cc25acf5)|校对|2|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
 
@@ -7012,3 +7027,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |修订 https://github.com/xitu/gold-miner/pull/4670|奖励积分|1|
+
+## 译者：[Justin-Wong](https://github.com/Justin-Wong) 历史贡献积分：3 当前积分：3 年度积分：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|[深度学习将会给我们所有人的生活一个教训：工作是为了机器准备的](https://juejin.im/post/5bd71fd6f265da0aa94a5bce)|校对|3|
