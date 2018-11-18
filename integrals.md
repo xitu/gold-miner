@@ -1861,10 +1861,11 @@
 |[Swift 中的面向协议编程是如何点亮我的人生的](http://gold.xitu.io/entry/58044fc5a22b9d005b4f56b2)|翻译|4|
 |[Swift 3，这些陷阱在等你](http://gold.xitu.io/entry/57f6fa03816dfa0056a4d782/)|校对|1|
 
-## 译者：[tina92](https://github.com/Tina92) 历史贡献积分：62 当前积分：2 年度积分：6
+## 译者：[tina92](https://github.com/Tina92) 历史贡献积分：63 当前积分：3 年度积分：7
 
 |文章|类型|积分|
 |------|-------|-------|
+|[职业成长的内部指南](https://juejin.im/post/5bd722a65188252dd11662af)|校对|1|
 |[2018 年 5 月兑 T 恤 L 号 1 个](#)|减去积分|10|
 |[2018 年 4 月兑 套头衫 M 号 1 个](#)|减去积分|20|
 |[不要害怕 Rebase](https://juejin.im/post/5ab1bdbe518825556e5df5f8)|校对|1|
@@ -2692,10 +2693,11 @@
 |[在 Xcode 项目中使用 swift package fetch](https://juejin.im/entry/58c7a4cb1b69e6006bec354c/)|校对|1|
 |[Swift + 关键字](https://gold.xitu.io/entry/58bf76aaa22b9d0058896bff/)|校对|1|
 
-## 译者：[xilihuasi](https://github.com/xilihuasi) 历史贡献积分：29 当前积分：29 年度积分：13
+## 译者：[xilihuasi](https://github.com/xilihuasi) 历史贡献积分：31 当前积分：31 年度积分：15
 
 |文章|类型|积分|
 |------|-------|-------|
+|[作为自由开发者，7 个步骤让你获得更多的客户](https://juejin.im/post/5bd660c26fb9a05ce576e9b7)|校对|2|
 |[使用 Pandas 在 Python 中创建一个简单的推荐系统](https://juejin.im/post/5be958416fb9a049af6cc969)|翻译|8|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|5|
 |[如何用 TypeScript 玩转后端？](https://juejin.im/post/5a36837d6fb9a045167d4644)|翻译|4|
@@ -3787,10 +3789,11 @@
 |[AI 能解决你的 UX 设计问题吗？](https://juejin.im/post/5992aa306fb9a03c445df727)|校对|1|
 |[REST API 已死，GraphQL 长存](https://juejin.im/post/5991667b518825485d28dfb1)|校对|2|
 
-## 译者：[calpa](https://github.com/calpa) 历史贡献积分：18 当前积分：18 年度积分：13
+## 译者：[calpa](https://github.com/calpa) 历史贡献积分：19 当前积分：19 年度积分：14
 
 |文章|类型|积分|
 |------|-------|-------|
+|[职业成长的内部指南](https://juejin.im/post/5bd722a65188252dd11662af)|校对|1|
 |推荐优秀英文文章一篇|奖励积分|1|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1|
 |[构建高性能和可扩展性 Node.js 应用的最佳实践 [第 3/3 部分]](http://5bcf14cee51d451cb039d13d/)|校对|1|
@@ -4702,10 +4705,11 @@
 |------|-------|-------|
 |[从 Gzip 压缩 SVG 说起 — 论如何减小资源文件的大小](https://juejin.im/post/5a30a7fdf265da4309452517)|校对|1|
 
-## 译者：[noahziheng](https://github.com/noahziheng) 历史贡献积分：26.5 当前积分：11.5 年度积分：23
+## 译者：[noahziheng](https://github.com/noahziheng) 历史贡献积分：29.5 当前积分：14.5 年度积分：26
 
 |文章|类型|积分|
 |------|-------|-------|
+|[C++ 协程：理解运算符 co_await](https://juejin.im/post/5bee59a1e51d4545453dc558)|校对|3|
 |2018 年 11 月兑掘金桌垫和水杯各 1 个|减去积分|15|
 |[SpaceAce 了解一下，一个新的前端状态管理库](https://juejin.im/post/5b7653c96fb9a009c72cb7af)|翻译|3.5|
 |[如何向带有插槽的 React 组件传递多个 Children](https://juejin.im/post/5b72935a6fb9a009724b3e4e)|校对|1|
@@ -5452,10 +5456,11 @@
 |[json — JavaScript 对象表示法](https://juejin.im/post/5a9432ae5188257a5c6092b0)|校对|1|
 |[嵌套三元表达式棒极了（软件编写）（第十四部分）](https://juejin.im/post/5a7d6769f265da4e7e10ad82)|校对|1|
 
-## 译者：[zhmhhu](https://github.com/zhmhhu) 历史贡献积分：86 当前积分：41 年度积分：86
+## 译者：[zhmhhu](https://github.com/zhmhhu) 历史贡献积分：87.5 当前积分：42.5 年度积分：87.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[6 个最令人满意的和编程相关的工作（和参与这些工作的人们的类型）](https://juejin.im/post/5be271f0e51d450556196864)|校对|1.5|
 |[Python 中的无监督学习算法](https://juejin.im/post/5bab10ed6fb9a05d1f2211b6)|翻译|5|
 |[在 JavaScript 中 为什么你应当使用 map 和 filter 来替代 forEach](https://juejin.im/post/5b95c4fe5188255c402ae6fb)|翻译|2.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|8|
@@ -5472,10 +5477,11 @@
 |[在 V8 引擎中设置原型（prototypes）](https://juejin.im/post/5a9921e76fb9a028bd4bc3c4)|校对|1|
 |[json — JavaScript 对象表示法](https://juejin.im/post/5a9432ae5188257a5c6092b0)|校对|1|
 
-## 译者：[rydensun](https://github.com/rydensun) 历史贡献积分：64.5 当前积分：54.5 年度积分：64.5
+## 译者：[rydensun](https://github.com/rydensun) 历史贡献积分：70 当前积分：60 年度积分：70
 
 |文章|类型|积分|
 |------|-------|-------|
+|[作为自由开发者，7 个步骤让你获得更多的客户](https://juejin.im/post/5bd660c26fb9a05ce576e9b7)|翻译|5.5|
 |推荐优秀英文文章|奖励|0.5|
 |[动效设计可以很简单](https://juejin.im/post/5bd11a176fb9a05d101423c0)|翻译|4|
 |[如何让你的设计系统被广泛采用](https://juejin.im/post/5bb6118af265da0af609c581)|翻译|7|
@@ -5547,9 +5553,10 @@
 |[斐波那契数列中的偶数（Python vs. JavaScript）](https://juejin.im/post/5aaa61f8f265da237b21d258)|翻译|2|
 |[测试 React & Redux 应用真实引导](https://juejin.im/post/5a9cc812518825556f54e3b6)|校对|1.5|
 
-## 译者：[razertory](https://github.com/razertory) 历史贡献积分：15 当前积分：15 年度积分：15
+## 译者：[razertory](https://github.com/razertory) 历史贡献积分：18 当前积分：18 年度积分：18
 |文章|类型|积分|
 |------|-------|-------|
+|[C++ 协程：理解运算符 co_await](https://juejin.im/post/5bee59a1e51d4545453dc558)|校对|3|
 |[开源项目之 Nginx](https://juejin.im/post/5bc55a25f265da0ae8014147)|翻译|11|
 |[GopherCon 2018：揭秘二叉查找树算法](https://juejin.im/post/5b94de9c5188255c5047076c)|校对|2|
 |[使用 Go 编写微服务及其 GraphQL 网关](https://juejin.im/post/5b94cf476fb9a05d26593f07)|校对|1.5|
@@ -6076,10 +6083,11 @@
 |[Awesome Flutter 校对](https://github.com/xitu/awesome-flutter)|校对|1|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1|
 
-## 译者：[lihanxiang](https://github.com/lihanxiang) 历史贡献积分：56 当前积分：28 年度积分：56
+## 译者：[lihanxiang](https://github.com/lihanxiang) 历史贡献积分：57.5 当前积分：29.5 年度积分：57.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[6 个最令人满意的和编程相关的工作（和参与这些工作的人们的类型）](https://juejin.im/post/5be271f0e51d450556196864)|校对|1.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|10|
 |2018 年 10 月兑掘金 T 恤 XXL 1 个|减去积分|10|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|6|
@@ -6289,10 +6297,11 @@
 |[自然语言处理真是有趣](https://juejin.im/post/5b6d08e2f265da0f9c67cf0b)|校对|3|
 |[支撑现代存储系统的算法](https://juejin.im/post/5b10f80b5188257d92206851)|校对|1.5|
 
-## 译者：[7Ethan](https://github.com/7Ethan) 历史贡献积分：38 当前积分：38 年度积分：38
+## 译者：[7Ethan](https://github.com/7Ethan) 历史贡献积分：49 当前积分：49 年度积分：49
 
 |文章|类型|积分|
 |------|-------|-------|
+|[C++ 协程：理解运算符 co_await](https://juejin.im/post/5bee59a1e51d4545453dc558)|翻译|11|
 |[深度学习将会给我们所有人的生活一个教训：工作是为了机器准备的](https://juejin.im/post/5bd71fd6f265da0aa94a5bce)|校对|2.5|
 |[Python 中的无监督学习算法](https://juejin.im/post/5bab10ed6fb9a05d1f2211b6)|校对|1.5|
 |[容器，虚拟机以及 Docker 的初学者入门介绍](https://juejin.im/entry/5bada97f6fb9a05d0e2e7014/detail)|校对|2|
@@ -6887,10 +6896,11 @@
 |[容器，虚拟机以及 Docker 的初学者入门介绍](https://juejin.im/entry/5bada97f6fb9a05d0e2e7014/detail)|校对|2.5|
 |[使用 Node 和 OAuth 2.0 构建一个简单的 REST API](https://juejin.im/post/5bb1d3f95188255c6a044d9a)|校对|1.5|
 
-## 译者：[yuwhuawang](https://github.com/yuwhuawang) 历史贡献积分：20 当前积分：20 年度积分：20
+## 译者：[yuwhuawang](https://github.com/yuwhuawang) 历史贡献积分：23 当前积分：23 年度积分：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|[职业成长的内部指南](https://juejin.im/post/5bd722a65188252dd11662af)|翻译|3|
 |[深度学习将会给我们所有人的生活一个教训：工作是为了机器准备的](https://juejin.im/post/5bd71fd6f265da0aa94a5bce)|翻译|8|
 |[Go 语言的整洁架构之道/一个使用 gRPC 的 Go 项目整洁架构例子](https://juejin.im/post/5bb99195e51d450e551a3a2f)|翻译|3.5|
 |[正确实现 linkedPurchaseToken 以避免重复订阅](https://juejin.im/post/5baf9a3e6fb9a05ce2741437)|翻译|5|
@@ -6962,10 +6972,12 @@
 |------|-------|-------|
 |推荐优秀英文文章|奖励|1|
 
-## 译者：[Augustwuli](https://github.com/Augustwuli) 历史贡献积分：12 当前积分：12 年度积分：12
+## 译者：[Augustwuli](https://github.com/Augustwuli) 历史贡献积分：18.5 当前积分：18.5 年度积分：18.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[作为自由开发者，7 个步骤让你获得更多的客户](https://juejin.im/post/5bd660c26fb9a05ce576e9b7)|校对|1.5|
+|[6 个最令人满意的和编程相关的工作（和参与这些工作的人们的类型）](https://juejin.im/post/5be271f0e51d450556196864)|翻译|5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|2|
 |[代码评审的 8 点建议](https://juejin.im/post/5bd1e6696fb9a05d096597c6)|校对|1.5|
 |[构建高性能和可扩展性 Node.js 应用的最佳实践 [第 3/3 部分]](http://5bcf14cee51d451cb039d13d/)|校对|1|
