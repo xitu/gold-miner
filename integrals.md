@@ -1714,10 +1714,11 @@
 |[用 Swift 开发我的第一个 iOS 应用前，我想要知道这些内容](http://gold.xitu.io/entry/57c66667c4c9710061a57b3f/)|校对|2|
 |[你的设计应该「所见即所得」](http://gold.xitu.io/entry/57c5978f128fe1005fdf4858/)|校对|1|
 
-## 译者：[steinliber](https://github.com/steinliber) 历史贡献积分：109 当前积分：49 年度积分：57
+## 译者：[steinliber](https://github.com/steinliber) 历史贡献积分：109 当前积分：4 年度积分：57
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 11 月兑 Google DIY 纸板音响 1 个|减去积分|45|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|5|
 |[构建高性能和可扩展性 Node.js 应用的最佳实践 [第 3/3 部分]](http://5bcf14cee51d451cb039d13d/)|翻译|4|
 |[容器，虚拟机以及 Docker 的初学者入门介绍](https://juejin.im/entry/5bada97f6fb9a05d0e2e7014/detail)|翻译|8|
@@ -4591,10 +4592,11 @@
 |------|-------|-------|
 |[JavaScript 工作原理：内存管理 + 处理常见的 4 种内存泄漏](https://juejin.im/post/5a2559ae6fb9a044fe4634ba)|翻译|8|
 
-## 译者：[LeopPro](https://github.com/LeopPro) 历史贡献积分：52 当前积分：44 年度积分：39
+## 译者：[LeopPro](https://github.com/LeopPro) 历史贡献积分：52 当前积分：37 年度积分：39
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 11 月兑 GitHub Micro 会员 1 个|减去积分|7|
 |2018 年 7 月兑集智优盘 1 个|减去积分|8|
 |[支撑现代存储系统的算法](https://juejin.im/post/5b10f80b5188257d92206851)|翻译|12|
 |[BigQuery 中的比特币：使用公共数据分析区块链](https://juejin.im/post/5afc17b16fb9a07aaf35673a)|翻译|3|
@@ -4693,10 +4695,11 @@
 |------|-------|-------|
 |[从 Gzip 压缩 SVG 说起 — 论如何减小资源文件的大小](https://juejin.im/post/5a30a7fdf265da4309452517)|校对|1|
 
-## 译者：[noahziheng](https://github.com/noahziheng) 历史贡献积分：26.5 当前积分：26.5 年度积分：23
+## 译者：[noahziheng](https://github.com/noahziheng) 历史贡献积分：26.5 当前积分：11.5 年度积分：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 11 月兑掘金桌垫和水杯各 1 个|减去积分|15|
 |[SpaceAce 了解一下，一个新的前端状态管理库](https://juejin.im/post/5b7653c96fb9a009c72cb7af)|翻译|3.5|
 |[如何向带有插槽的 React 组件传递多个 Children](https://juejin.im/post/5b72935a6fb9a009724b3e4e)|校对|1|
 |[Facebook 的 AI 万金油：StarSpace 神经网络模型简介](https://juejin.im/post/5a83af7c6fb9a0633c661404)|翻译|5|
@@ -6506,10 +6509,11 @@
 |[让我们一起解决“this”难题  —  第二部分](https://juejin.im/post/5b6915cce51d4519962f0ca7)|校对|2|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|2.5|
 
-## 译者：[xutaogit](https://github.com/xutaogit) 历史贡献积分：33 当前积分：33 年度积分：33
+## 译者：[xutaogit](https://github.com/xutaogit) 历史贡献积分：33 当前积分：26 年度积分：33
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 10 月兑掘金比特币和 GitHub 贴纸 package 4 各 1 个|减去积分|7|
 |[使 WebAssembly 更快：Firefox 的新流式和分层编译器](https://juejin.im/post/5bc70955e51d450e98754dad)|翻译|5.5|
 |[Immer 下的不可突变数据和 React 的 setState](https://juejin.im/post/5bc06798e51d453eb93daa80)|校对|1.5|
 |[开启性能预算](https://juejin.im/post/5bd40d3151882529642b24c8)|翻译|5|
@@ -6907,10 +6911,11 @@
 |[当你创建 Flexbox 布局时，都发生了什么](https://juejin.im/post/5bb9740de51d450e782647ed)|校对|3|
 |[现代浏览器内部揭秘（第二部分）](https://juejin.im/post/5bc293cf6fb9a05ce95c8468)|校对|3|
 
-## 译者：[GpingFeng](https://github.com/GpingFeng) 历史贡献积分：11.5 当前积分：11.5 年度积分：11.5
+## 译者：[GpingFeng](https://github.com/GpingFeng) 历史贡献积分：11.5 当前积分：6.5 年度积分：11.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 11 月兑掘金水杯 1 个|减去积分|5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|2|
 |[使用 JavaScript 和网络信息 API 实现自适应服务](https://juejin.im/post/5bc73482e51d450ea3639c7c)|校对|1.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|7|
