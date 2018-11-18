@@ -2180,10 +2180,11 @@
 |[我在手撕 SVG 条形图时踩过的定位坑](http://gold.xitu.io/entry/58306b428ac2470061b60ede/)|校对|1|
 |[构建 Android APP 一定要绕过的 30 个坑](http://gold.xitu.io/entry/58217b84570c350060bc40f8/)|校对|1|
 
-## 译者：[aceleewinnie](https://github.com/AceLeeWinnie) 历史贡献积分：97 当前积分：52 年度积分：15.5
+## 译者：[aceleewinnie](https://github.com/AceLeeWinnie) 历史贡献积分：102 当前积分：57 年度积分：20.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|6|
 |[如何在数据科学中写出生产层面的代码？](https://juejin.im/post/5b7adb7751882542d63b2805)|校对|3|
 |[如何使用纯函数式 JavaScript 处理脏副作用](https://juejin.im/post/5b82bdb351882542e241ed32)|校对|5|
@@ -5355,10 +5356,11 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：382 当前积分：352 年度积分：382
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：399 当前积分：369 年度积分：399
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|17|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|35|
 |[使用 Node 和 OAuth 2.0 构建一个简单的 REST API](https://juejin.im/post/5bb1d3f95188255c6a044d9a)|翻译|5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|12|
@@ -6314,10 +6316,11 @@
 |------|-------|-------|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|0.5|
 
-## 译者：[MeFelixWang](https://github.com/MeFelixWang) 历史贡献积分：46 当前积分：46 年度积分：46
+## 译者：[MeFelixWang](https://github.com/MeFelixWang) 历史贡献积分：52 当前积分：52 年度积分：52
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|6|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|5|
 |[用 Workers 让静态网站动态化](https://juejin.im/post/5b95c5375188255c6e70422a)|翻译|5|
 |[构建未来的设计生态系统](https://juejin.im/post/5b992be8f265da0aa3591346)|翻译|4|
@@ -6498,10 +6501,11 @@
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1|
 
-## 译者：[Moonliujk](https://github.com/Moonliujk) 历史贡献积分：41.5 当前积分：41.5 年度积分：41.5
+## 译者：[Moonliujk](https://github.com/Moonliujk) 历史贡献积分：47.5 当前积分：47.5 年度积分：47.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|6|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3|
 |[从 2010 到 2018，你不知道的关于网页滚动和用户注意力的变化](https://juejin.im/post/5bcf0a38f265da0afb33834d)|校对|2.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|19|
@@ -6770,10 +6774,11 @@
 |------|-------|-------|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|4|
 
-## 译者：[BriFuture](https://github.com/BriFuture) 历史贡献积分：33 当前积分：8 年度积分：33
+## 译者：[BriFuture](https://github.com/BriFuture) 历史贡献积分：41 当前积分：16 年度积分：41
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|8|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|4|
 |2018 年 10 月兑 Google Play 开发者账号 1 个|减去积分|25|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|6|
@@ -6789,10 +6794,11 @@
 |------|-------|-------|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|5|
 
-## 译者：[CoderMing](https://github.com/CoderMing) 历史贡献积分：24 当前积分：24 年度积分：24
+## 译者：[CoderMing](https://github.com/CoderMing) 历史贡献积分：29 当前积分：29 年度积分：29
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|5|
 |[使用 JavaScript 和网络信息 API 实现自适应服务](https://juejin.im/post/5bc73482e51d450ea3639c7c)|校对|0.5|
 |[从 2010 到 2018，你不知道的关于网页滚动和用户注意力的变化](https://juejin.im/post/5bcf0a38f265da0afb33834d)|校对|1.5|
 |[你需要知道的所有 Flexbox 排列方式](https://juejin.im/post/5bc728f2f265da0aef4e3f6d)|翻译|6|
@@ -6988,10 +6994,11 @@
 |------|-------|-------|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|4|
 
-## 译者：[rocheers](https://github.com/rocheers) 历史贡献积分：6 当前积分：6 年度积分：6
+## 译者：[rocheers](https://github.com/rocheers) 历史贡献积分：9 当前积分：9 年度积分：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
 
 ## 译者：[Marszht](https://github.com/Marszht) 历史贡献积分：1 当前积分：1 年度积分：1
