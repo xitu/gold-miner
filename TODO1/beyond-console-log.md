@@ -5,13 +5,13 @@
 > - 译者：[Pomelo1213](https://github.com/Pomelo1213)
 > - 校对者：
 
-# 不局限于 console.log()
+# 你不知道的 console 命令
 
 ## 相比使用 console.log 去输出值，我们有更多的方式去调试 JavaScript 。看似我要去闲扯调试器，实则不然。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*uUhNZZObj6zD9_qxrDTD9w.jpeg)
 
-告诉写 JavaScript 的人应该使用浏览器的调试器，这看来很不错，并且肯定有其适用的时间和场合。但是大多数时候你仅仅只想查看一段特定的代码是否执行或者一个变量的值是什么，而不是迷失在 RxJS 代码库或者一个 Promise 库的深处。
+告诉写 JavaScript 的人应该使用浏览器的调试器去调试代码，这看来很不错，并且肯定有其适用的时间和场合。但是大多数时候你仅仅只想查看一段特定的代码是否执行或者一个变量的值是什么，而不是迷失在 RxJS 代码库或者一个 Promise 库的深处。
 
 然而，尽管 `console.log` 有其适用的场合，大多数人仍然没有意识到`console`本身除了基础 `log` 还有许多选择。合理使用这些方法能让调试更简单，更快速，并且更加直观。
 
@@ -19,7 +19,7 @@
 
 标准的 console.log 有着惊人数量的函数特性，这些是人们没有预料到的。尽管多数人将它作为 `console.log(object)` 使用，但你仍然能写 `console.log(object, otherObject, string)` 并且它会将所有东西都整齐的打印出来。有时候确实很方便。
 
-不止那些，这儿还有另一种格式：`console.lo(msg, values)`。这个执行方式和 C 或者 PHP 的`sprintf`很相似。
+不止那些，这儿还有另一种格式：`console.log(msg, values)`。这个执行方式和 C 或者 PHP 的`sprintf`很相似。
 
 ```
 console.log('I like %s but I do not like %s.', 'Skittles', 'pus');
@@ -69,7 +69,7 @@ let element = document.getElementById('2x-container');
 
 ![](https://cdn-images-1.medium.com/max/800/1*l7ujPmSWwpH7QtXCZ-jk2Q.png)
 
-我打开了一些元素节点。清晰的展示了 DOM 节点，一览无余。但是 `console.dir(element)` 给我们一个意外不同的输出。
+我打开了一些元素节点。清晰的展示了 DOM 节点，一览无余，而且我们还可以跳转到子DOM节点。但是 `console.dir(element)` 给我们一个意外不同的输出。
 
 ![](https://cdn-images-1.medium.com/max/800/1*CERwy7Fs7tdijOxugLW54A.png)
 
@@ -119,11 +119,11 @@ const transactions = [{
 
 这小箭头允许你点击并会展开这个数组，但这并不是我们想要的「一目了然」。
 
-然而更有用的是 `console.table(data)` 的输出。
+而 `console.table(data)` 的输出则对我们更为有帮助。
 
 ![](https://cdn-images-1.medium.com/max/800/1*wr2e5dAr_K5ilwMsYMetgw.png)
 
-第二个参数选项是你想要显示列表的某列。默认是整个列表，但是我们也能这样做。
+第二个可选参数是你想要显示列表的某列。默认是整个列表，但是我们也能这样做。
 
 ```
 > console.table(data, ["id", "price"]);
@@ -159,7 +159,7 @@ console.assert(tx.timestamp, tx);
 
 当和任何**有效**的事物对象一起使用时会跳过。但是有一个触发了我们的日志记录，因为时间戳在 0 和 null 时为**假值**。
 
-有时我们想要更加复杂的场景。举个例子，我们看到了关于用户 `WAL0412` 的数据问题并且想要只展示来自它们的事务。这是直接的解答方式。
+有时我们想要更加复杂的场景。举个例子，我们看到了关于用户 `WAL0412` 的数据问题并且想要只展示来自它们的事务。这将会是一个非常简便的方案。
 
 ```
 console.assert(tx.buyer === 'WAL0412', tx);
@@ -173,11 +173,11 @@ console.assert(tx.buyer !== 'WAL0412', tx);
 
 我们想做的就是这样。在那种情况下，所有**不是 ** WAL0412 号顾客的事务都为真值，只留下那些符合的事务。或者，也不完全是。
 
-诸如此类，`console.assert()` 并不总是特别的有用。但是在特定的场景下会是最优雅的的解决方法。
+诸如此类，`console.assert()` 并不是一直都很管用。但是在特定的场景下会是最优雅的的解决方法。
 
 ### console.count()
 
-Count 仅仅作为一个计数器，另一个小众 的用法是，还可选的命名这个计数器。
+另外一个合适的用法是，将console作为一个计数器使用。
 
 ```
 for(let i = 0; i < 10000; i++) {
