@@ -2703,10 +2703,11 @@
 |[创建和使用 WebAssembly 组件](https://juejin.im/post/58d0bbe144d90400684c0f3a)|翻译|5|
 |[Web 分享 API 赋予浏览器原生分享能力](https://gold.xitu.io/entry/58c174ec44d9040069777f17/)|校对|1|
 
-## 译者：[Iridescentmia](https://github.com/IridescentMia) 历史贡献积分：40 当前积分：25 年度积分：10
+## 译者：[Iridescentmia](https://github.com/IridescentMia) 历史贡献积分：43 当前积分：28 年度积分：13
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐优秀英文文章三篇|奖励积分|3|
 |[JAVASCRIPT 日期权威指南](https://juejin.im/post/5b9b4b7bf265da0af6099ed8)|校对|2|
 |[一行 JavaScript 代码竟然让 FT.com 网站慢了十倍](https://juejin.im/post/5b7bb6dfe51d4538bf55aa5f)|翻译|3|
 |[布局的下一次革新会是怎样的](https://juejin.im/post/5b85586ce51d4538c77a9cc1)|校对|1.5|
@@ -3783,10 +3784,11 @@
 |[AI 能解决你的 UX 设计问题吗？](https://juejin.im/post/5992aa306fb9a03c445df727)|校对|1|
 |[REST API 已死，GraphQL 长存](https://juejin.im/post/5991667b518825485d28dfb1)|校对|2|
 
-## 译者：[calpa](https://github.com/calpa) 历史贡献积分：17 当前积分：17 年度积分：12
+## 译者：[calpa](https://github.com/calpa) 历史贡献积分：18 当前积分：18 年度积分：13
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐优秀英文文章一篇|奖励积分|1|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1|
 |[构建高性能和可扩展性 Node.js 应用的最佳实践 [第 3/3 部分]](http://5bcf14cee51d451cb039d13d/)|校对|1|
 |[Node.js 高性能和可扩展应用程序的最佳实践 [第 2/3 部分]](https://juejin.im/post/5bca9208f265da0ade1ceffb)|校对|1|
@@ -6025,10 +6027,11 @@
 |------|-------|-------|
 |[使用 python 和 keras 实现卷积神经网络](https://juejin.im/post/5aefb0f351882567336aa3c7)|校对|1|
 
-## 译者：[shery](https://github.com/shery) 历史贡献积分：38 当前积分：8 年度积分：38
+## 译者：[shery](https://github.com/shery) 历史贡献积分：39 当前积分：9 年度积分：39
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐优秀英文文章|奖励|1|
 |现代 JavaScript 教程纠错|奖励|1|
 |推荐优秀英文文章|奖励|4|
 |推荐优秀英文文章|奖励|1|
@@ -6680,10 +6683,11 @@
 |------|-------|-------|
 |[Slidable：一个 Flutter 的故事](https://juejin.im/post/5b5e84b86fb9a04fa91bfeb6)|校对|1.5|
 
-## 译者：[CoolRice](https://github.com/CoolRice) 历史贡献积分：60 当前积分：60 年度积分：60
+## 译者：[CoolRice](https://github.com/CoolRice) 历史贡献积分：61 当前积分：61 年度积分：61
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐优秀英文文章|奖励|1|
 |现代 JavaScript 教程纠错|奖励|3|
 |推荐优秀英文文章|奖励|0.5|
 |[现代浏览器内部揭秘（第四部分）](https://juejin.im/post/5bc95247e51d450e40072e49)|校对|1.5|
@@ -6989,3 +6993,15 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
+
+## 译者：[Marszht](https://github.com/Marszht) 历史贡献积分：1 当前积分：1 年度积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|推荐优秀英文文章一篇|奖励积分|1|
+
+## 译者：[stonehank](https://github.com/stonehank) 历史贡献积分：1 当前积分：1 年度积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|修订 https://github.com/xitu/gold-miner/pull/4670|奖励积分|1|
