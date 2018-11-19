@@ -2,201 +2,201 @@
 > * 原文作者：[Neelabh Pant](https://blog.statsbot.co/@neelabhpant?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/time-series-prediction-using-recurrent-neural-networks-lstms.md](https://github.com/xitu/gold-miner/blob/master/TODO1/time-series-prediction-using-recurrent-neural-networks-lstms.md)
-> * 译者：
+> * 译者：[haiyang-tju](https://github.com/haiyang-tju)
 > * 校对者：
 
-# A Guide For Time Series Prediction **Using** Recurrent Neural Networks (LSTMs)
+# 使用递归神经网络（LSTMs）对时序数据进行预测
 
-## Forecasting future currency exchange rates with long short-term memory (LSTMs)
+## 使用长短期记忆网络（LSTMs）来预测未来货币汇率变化
 
 ![](https://cdn-images-1.medium.com/max/800/1*aFXm8OFmNq1sTItCQP-xUw.png)
 
-_The_ [_Statsbot_](http://statsbot.co?utm_source=blog&utm_medium=article&utm_campaign=timeseries_lstm) _team has already published the article about using_ [_time series analysis for anomaly detection_](https://blog.statsbot.co/time-series-anomaly-detection-algorithms-1cef5519aef2)_. Today, we’d like to discuss time series prediction with a long short-term memory model (LSTMs). We asked a data scientist, Neelabh Pant, to tell you about his experience of forecasting exchange rates using recurrent neural networks._
+[**Statsbot**](http://statsbot.co?utm_source=blog&utm_medium=article&utm_campaign=timeseries_lstm)  **团队已经发表了一篇关于**[ **使用时间序列分析进行异常检测** ](https://blog.statsbot.co/time-series-anomaly-detection-algorithms-1cef5519aef2)**的文章。今天，我们将讨论使用长短期记忆模型（LSTMs）进行时间序列的预测。我们请数据科学家 Neelabh Pant 向大家来讲述他使用循环神经网络预测汇率变化的经验。**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*MvLugAVHIv0uPX0A1RyGTw.jpeg)
 
-As an Indian guy living in the US, I have a constant flow of money from home to me and vice versa. If the USD is stronger in the market, then the Indian rupee (INR) goes down, hence, a person from India buys a dollar for more rupees. If the dollar is weaker, you spend less rupees to buy the same dollar.
+作为一个生活在美国的印度人，我和我的家人之间会有源源不断的资金流相互流转。如果美元在市场上走强，那么印度卢比（INR）就会下跌，因此，一个印度人将要用更多的卢比来购买一美元。如果美元走弱，你就会花更少的卢比去购买同样的一美元。
 
-If one can predict how much a dollar will cost tomorrow, then this can guide one’s decision making and can be very important in minimizing risks and maximizing returns. Looking at the strengths of a neural network, especially a recurrent neural network, I came up with the idea of predicting the exchange rate between the USD and the INR.
+如果你能预测出明天的一美元是什么价格，那么它就能指导你的决策，这对于最小化风险和最大化回报是非常重要的。通过观察神经网络的优势，特别是循环神经网络，我想到了预测美元和印度卢比的汇率。
 
-There are a lot of methods of forecasting exchange rates such as:
+预测汇率的方法有很多，例如：
 
-*   **Purchasing Power Parity (PPP)**, which takes the inflation into account and calculates inflation differential.
-*   **Relative Economic Strength Approach**, which considers the economic growth of countries to predict the direction of exchange rates.
-*   **Econometric model** is another common technique used to forecast the exchange rates which is customizable according to the factors or attributes the forecaster thinks are important. There could be features like interest rate differential between two different countries, GDP growth rates, income growth rates, etc.
-*   **Time series model** is purely dependent on the idea that past behavior and price patterns can be used to predict future price behavior.
+*   **购买力平价（PPP）**，它将通货膨胀考虑在内并计算通胀的差异。
+*   **相对经济实力方法**，它考虑了各国经济增长，以此对汇率的走势进行预测。
+*   **计量经济模式** 是另一种常用的汇率预测技术，可以根据预测者认为重要的因素或属性进行定制。这样的因素或属性可能是不同国家之间存在的利率差异、GDP 的增长率、收入增长率等特征。
+*   **时间序列模型** 则是纯粹取决于过去的变化行为和价格模式来预测未来的汇率对应价格。
 
-In this article, we’ll tell you how to predict the future exchange rate behavior using time series analysis and by making use of machine learning with time series.
+在本文中，我们将告诉你如何使用机器学习进行时间序列分析来预测未来的汇率变化。
 
-### Sequence problems
+### 序列问题
 
-Let us begin by talking about sequence problems. The simplest machine learning problem involving a sequence is a one to one problem.
+让我们从顺序问题开始。涉及序列的最简单的机器学习问题是一对一问题。
 
 ![](https://cdn-images-1.medium.com/max/800/0*7AIMLPm1e7hgGolz.)
 
-One to One
+一对一
 
-In this case, we have one data input or tensor to the model and the model generates a prediction with the given input. Linear regression, classification, and even image classification with convolutional network fall into this category. We can extend this formulation to allow for the model to make use of the pass values of the input and the output.
+在这种情况下，模型的输入数据或输入张量只有一个，同时模型根据给定的输入生成一个对应的预测。线性回归、分类和使用卷积网络进行的图像分类都属于这一范畴。将其进行拓展，可以允许模型使用输入和输出的旧值。
 
-It is known as the one to many problem. The one to many problem starts like the one to one problem where we have an input to the model and the model generates one output. However, the output of the model is now fed back to the model as a new input. The model now can generate a new output and we can continue like this indefinitely. You can now see why these are known as recurrent neural networks.
+这就是一对多问题了。一对多问题开始时就和一对一问题一样，模型有一个输入，同时生成一个输出。然而，模型的输出现在作为新的输入反馈给模型。模型现在可以生成一个新的输出，我们可以这样无限地继续循环下去。现在你可以看到为什么这些被称为循环神经网络了。
 
 ![](https://cdn-images-1.medium.com/max/800/0*QFWZFOLMH4EyyZxu.)
 
-One to Many
+一对多
 
-A recurrent neural network deals with sequence problems because their connections form a directed cycle. In other words, they can retain state from one iteration to the next by using their own output as input for the next step. In programming terms this is like running a fixed program with certain inputs and some internal variables. The simplest recurrent neural network can be viewed as a fully connected neural network if we **unroll** the time axes.
+使用递归神经网络处理序列问题，因为它们都可以连接形成一个有向的循环。换句话说，通过使用它们自己的输出作为下一个步骤的输入，它们可以保持从一个迭代到下一个迭代的状态。使用编程的术语来说，这就像是在运行一个固定的程序，其中带有特定输入和一些内部变量。如果我们在时间轴上将其**展开**，最简单的递归神经网络可以看作是一个完全连接的神经网络。
 
 ![](https://cdn-images-1.medium.com/max/800/0*x1vmPLhmSow0kzvK.)
 
-RNN Unrolled Time
+在时间轴上展开的 RNN
 
 ![](https://cdn-images-1.medium.com/max/800/0*ni39BJU15z96HtxW.)
 
-In this univariate case only two weights are involved. The weight multiplying the current input _xt_, which is _u,_ and the weight multiplying the previous output _yt-1_, which is _w_. This formula is like the exponential weighted moving average (EWMA) by making its pass values of the output with the current values of the input.
+在这种单变量情况下，只涉及到两个权重。权重 **u** 乘以当前的输入 **xt**，而另一个权重 **w** 乘以前一次的输出 **yt-1**。这个公式类似于指数加权移动平均方法（EWMA），它将输出的通过值与输入的当前值结合起来。
 
-One can build a deep recurrent neural network by simply stacking units to one another. A simple recurrent neural network works well only for a short-term memory. We will see that it suffers from a fundamental problem if we have a longer time dependency.
+可以通过简单堆叠神经网络单元来建立一个深层的循环神经网络。一个简单的循环神经网络只对短期记忆有效。如果我们有更长的时间依赖性，就能够看到它遇到的长时依赖的根本问题。
 
-### Long Short-Term Neural Network
+### 长短时神经网络
 
-As we have talked about, a simple recurrent network suffers from a fundamental problem of not being able to capture long-term dependencies in a sequence. This is a problem because we want our RNNs to analyze text and answer questions, which involves keeping track of long sequences of words.
+正如我们已经讨论过的，一个简单的循环网络存在一个根本问题，即不能捕获序列中的长时依赖关系。我们构建的 RNNs 在分析文本和回答问题时，涉及到跟踪长序列的单词，所以这将会是一个问题。
 
-In late ’90s, [LSTM was proposed by Sepp Hochreiter and Jurgen Schmidhuber](http://www.mitpressjournals.org/doi/abs/10.1162/neco.1997.9.8.1735), which is relatively insensitive to gap length over alternatives RNNs, hidden markov models, and other sequence learning methods in numerous applications.
+在 90 年代后期，[LSTM 是由 Sepp Hochreiter 和 Jurgen Schmidhuber 提出的](http://www.mitpressjournals.org/doi/abs/10.1162/neco.1997.9.8.1735)，用来替代 RNNs、隐马尔科夫模型以及其它众多应用中的序列学习方法，相比于它们 LSTM 对时间间隔长度不敏感。
 
 ![](https://cdn-images-1.medium.com/max/800/0*_rC7UKSazzfOkpFZ.)
 
-LSTM Architecture
+LSTM 网络结构
 
-This model is organized in cells which include several operations. LSTM has an internal state variable, which is passed from one cell to another and modified by **Operation Gates**.
+该模型是一个操作单元，其中包括几个基本操作。LSTM 有一个内部状态变量，它从一个单元传递到另外一个单元，并由 **操作门** 来修改。
 
-1. **Forget Gate**
+1. **遗忘门**
 
 ![](https://cdn-images-1.medium.com/max/800/0*YK0duxOW-Jly8DZk.)
 
-It is a sigmoid layer that takes the output at _t-1_ and the current input at time _t_ and concatenates them into a single tensor and applies a linear transformation followed by a sigmoid. Because of the sigmoid, the output of this gate is between 0 and 1. This number is multiplied with the internal state and that is why the gate is called a forget gate. If _ft=0_ then the previous internal state is completely forgotten, while if _ft=1_ it will be passed through unaltered.
+使用一个 sigmoid 层来接收前一个时间节点 **t-1** 的输出和当前时间节点 **t** 的输入，将其合并成为一个张量（tensor），然后在其后应用一个线性变换。经过 sigmoid 激活函数后，遗忘门的输出为 0 到 1 之间的数值。这个数值将会与内部状态相乘，这也就是为什么它会被称为遗忘门的原因。如果 **ft=0**，则完全忘记之前的内部状态，如果 **ft=1**，则会没有任何改变地通过。
 
-2. **Input Gate**
+2. **输入门**
 
 ![](https://cdn-images-1.medium.com/max/800/0*wO-TFX3T3t6l6BFJ.)
 
-The input gate takes the previous output and the new input and passes them through another sigmoid layer. This gate returns a value between 0 and 1. The value of the input gate is multiplied with the output of the candidate layer.
+输入门接受先前的输出和新输入，并将其传递到另一个 sigmoid 层。输入门返回的也是 0 到 1 之间的值。然后输入门返回的值与候选层的输出相乘。
 
 ![](https://cdn-images-1.medium.com/max/800/0*Zq_yfpO7eG4WL6QY.)
 
-This layer applies a hyperbolic tangent to the mix of input and previous output, returning a candidate vector to be added to the internal state.
+这一层对输入和先前层的输出进行混合，然后应用双曲切线激活，返回一个候选向量添加到内部状态上。
 
-The internal state is updated with this rule:
+内部状态更新规则如下：
 
 ![](https://cdn-images-1.medium.com/max/800/0*9yb45Vnf6g47dDv8.)
 
-.The previous state is multiplied by the forget gate and then added to the fraction of the new candidate allowed by the output gate.
+之前的状态乘以遗忘门输出，然后添加到输出门允许的新的候选项中。
 
-3. **Output Gate**
+3. **输出门**
 
 ![](https://cdn-images-1.medium.com/max/800/0*9Wb-rBVYurzKpzHp.)
 
 ![](https://cdn-images-1.medium.com/max/800/0*vdc6Tlu5KBPFN7c9.)
 
-This gate controls how much of the internal state is passed to the output and it works in a similar way to the other gates.
+输出门控制着有多少内部状态被传递给输出，它的工作方式类似于其它的门结构。
 
-These three gates described above have independent weights and biases, hence the network will learn how much of the past output to keep, how much of the current input to keep, and how much of the internal state to send out to the output.
+上面描述的这三个门结构具有独立的权值和偏差，因此网络需要学习有多少过去的输出需要保留，有多少当前的输入需要保留，以及有多少的内部状态需要被传送到输出。
 
-In a recurrent neural network, you not only give the network the data, but also the state of the network one moment before. For example, if I say “Hey! Something crazy happened to me when I was driving” there is a part of your brain that is flipping a switch that’s saying “Oh, this is a story Neelabh is telling me. It is a story where the main character is Neelabh and something happened on the road.” Now, you carry a little part of that one sentence I just told you. As you listen to all my other sentences you have to keep a bit of information from all past sentences around in order to understand the entire story.
+在递归神经网络中，需要输入的不仅仅是当前网络的输入数据，还有该网络的前一个时刻的状态数据。例如，如果我说“嘿！我在开车的时候发生了一件疯狂的事情“，然后你的大脑某个部分就开始转动开关，说”哦，这是 Neelabh 告诉我的一个故事，故事的主角是 Neelabh，路上发生了一些事情。“现在，你就会带有我刚刚告诉你的那句话种的一小部分数据了。当你听我所有的其它句子的时候，为了理解整个故事，你必须从所有过去的句子中保留一些信息。
 
-Another example is _video processing,_ where you would again need a recurrent neural network. What happens in the current frame is heavily dependent upon what was in the last frame of the movie most of the time. Over a period of time, a recurrent neural network tries to learn what to keep and how much to keep from the past, and how much information to keep from the present state, which makes it so powerful as compared to a simple feed forward neural network.
+另外一个例子是使用循环神经网络进行**视频处理**。在当前帧中发生的事情在很大程度上取决于影片的后面一帧的数据。在一段时间内，一个循环神经网络应该学习到保留什么、从过去的数据中保留多少、以及对当前状态保留多少的策略，这使得它比简单的前馈神经网络更加强大。
 
-### Time Series Prediction
+### 时间序列预测
 
-I was impressed with the strengths of a recurrent neural network and decided to use them to predict the exchange rate between the USD and the INR. The dataset used in this project is the exchange rate data between January 2, 1980 and August 10, 2017. Later, I’ll give you a link to download this dataset and experiment with it.
+我对循环神经网络的优势印象是很深刻的，决定使用它来预测美元和印度卢比的汇率。本项目使用的数据集是 1980 年 1 月 2 日至 2017 年 8 月 10 日的汇率数据。稍后，我会提供一个链接来下载这个数据集并进行实验。
 
 ![](https://cdn-images-1.medium.com/max/800/0*f70CZA2vHe0R_rsq.)
 
-Table 1. Dataset Example
+表 1 数据集示例
 
-The dataset displays the value of $1 in rupees. We have a total of 13,730 records starting from January 2, 1980 to August 10, 2017.
+数据集显示了 1 美元的卢比价值。从 1980 年 1 月 2 日到 2017 年 8 月 10 日，我们总共有 13730 项记录。
 
 ![](https://cdn-images-1.medium.com/max/800/0*UYHLdtUFPTM7YPs6.)
 
-USD vs INR
+USD 对 INR
 
-Over the period, the price to buy $1 in rupees has been rising. One can see that there was a huge dip in the American economy during 2007–2008, which was hugely caused by the great recession during that period. It was a period of general economic decline observed in world markets during the late 2000s and early 2010s.
+从整个阶段看，1 美元的卢比价格一直是在上涨的。我们可以看到，美国经济在 2007 到 2008 年间大幅下滑，这在很大程度上是由那段时期的大衰退造成的。2000 年代末至 2010 年代初，全球市场普遍经历了经济衰退。
 
-This period was not very good for the world’s developed economies, particularly in North America and Europe (including Russia), which fell into a definitive recession. Many of the newer developed economies suffered far less impact, particularly China and India, whose economies grew substantially during this period.
+这段时期对世界上的发达经济体来说并不是很好，特别是北美和欧洲（包括俄罗斯），它们已经陷入了严重的经济衰退。许多较新的发达经济体受到的影响要小得多，特别是中国和印度，这两个国家的经济在这段时期大幅增长。
 
-### Test-Train Split
+### 测试-训练数据划分
 
-Now, to train the machine we need to divide the dataset into test and training sets. It is very important when you do time series to split train and test with respect to a certain date. So, you don’t want your test data to come before your training data.
+现在，要训练模型，我们就需要将数据划分为测试集和训练集。处理时间序列时，以一个特定的日期将其划分为训练集和测试集是非常重要的。所以，我们不希望看到的是测试数据出现在训练数据之前。
 
-In our experiment, we will define a date, say January 1, 2010, as our split date. The training data is the data between January 2, 1980 and December 31, 2009, which are about 11,000 training data points.
+在我们的实验中，我们将定义一个日期，比如 2010 年 1 月 1 日，作为我们分开的日期。训练数据是 1980 年 1 月 2 日至 2009 年 12 月 31 日之间的数据，大约有 11000 个训练数据点。
 
-The test dataset is between January 1, 2010 and August 10, 2017, which are about 2,700 points.
+测试数据集在 2010 年 1 月 1 日到 2017 年 8 月 10 日之间，大约 2700 个数据点。
 
 ![](https://cdn-images-1.medium.com/max/800/0*jXH_D2Zd8TOmXa1H.)
 
-Train-Test Split
+测试-训练数据划分
 
-The next thing to do is normalize the dataset. You only need to fit and transform your training data and just transform your test data. The reason you do that is you don’t want to assume that you know the scale of your test data.
+接下来要做的是对数据集进行规范化。只需要调整和变换训练数据，然后变换测试数据即可。这样做的原因是，假定我们是不知道测试数据的规模的。
 
-Normalizing or transforming the data means that the new scale variables will be between zero and one.
+对数据进行规范化或变换是指应用一个新的介于 0 和 1 之间的缩放变量。
 
-### Neural Network Models
+### 神经网络模型
 
-**A fully Connected Model** is a simple neural network model which is built as a simple regression model that will take one input and will spit out one output. This basically takes the price from the previous day and forecasts the price of the next day.
+将其按照简单的回归模型进行构建，它将接受一个输入，然后得到一个输出，这样可以使用一个**全连接神经网络模型**。基本上是取前一天的价格来预测第二天的价格。
 
-As a loss function, we use mean squared error and stochastic gradient descent as an optimizer, which after enough numbers of epochs will try to look for a good local optimum. Below is the summary of the fully connected layer.
+我们使用均方差作为损失函数，使用随机梯度下降作为优化器，在训练足够多的时期（epochs）后，将会找到一个较好的局部最优值。下面是全连接层的概要。
 
 ![](https://cdn-images-1.medium.com/max/800/0*u3xLjEmM4m-0Ucjr.)
 
-Summary of a Fully Connected Layer
+全连接层概要
 
-After training this model for 200 epochs or _early_callbacks_ (whichever came first), the model tries to learn the pattern and the behavior of the data. Since we split the data into training and testing sets we can now predict the value of testing data and compare them with the ground truth.
+在将该模型训练到 200 个时期后或者无论出现哪个 _early_callbacks_（即满足条件的提前终止回调）之后，该模型通过训练学习到数据的模式和行为。由于我们将数据分为训练集和测试集，我们现在可以预测测试数据对应的数值了，并将其与真实值进行比较。
 
 ![](https://cdn-images-1.medium.com/max/600/0*6-fJhYPOGwCzGEs7.)
 
-Ground Truth(blue) vs Prediction(orange)
+真实值（蓝色）对 预测值（橙色）
 
-As you can see, the model is not good. It essentially is repeating the previous values and there is a slight shift. The fully connected model is not able to predict the future from the single previous value. Let us now try using a recurrent neural network and see how well it does.
+正如你所看到的，这个模型的表现并不好。它本质上就是重复前面的数据，只有一个轻微的变化。全连接模型不能从单个先前值来预测未来的数据。现在让我们来尝试使用一个循环神经网络，看看它做得如何。
 
-### **Long Short-Term Memory**
+### **长短时记忆**
 
-The recurrent model we have used is a one layer sequential model. We used 6 LSTM nodes in the layer to which we gave input of shape (1,1), which is one input given to the network with one value.
+我们使用的循环网络模型是一个单层的顺序模型。在我们输入维度形状为 (1,1) 的层中使用了 6 个 LSTM 节点，即该网络的输入只有一个。
 
 ![](https://cdn-images-1.medium.com/max/800/0*fDevZBB0iBwHtlIw.)
 
-Summary of LSTM Model
+LSTM 模型概要
 
-The last layer is a dense layer where the loss is mean squared error with stochastic gradient descent as an optimizer. We train this model for 200 epochs with _early_stopping_ callback. The summary of the model is shown above.
+最后一层是密集层（即全连接层），损失函数采用的是均方差，优化器使用随机梯度下降算法。我们使用 _early_stopping_ 回调对这个模型进行了200次的训练。模型的概要如上图所示。
 
 ![](https://cdn-images-1.medium.com/max/600/1*ysQ--yj7je3GReiiX5knBg.png)
 
-LSTM Prediction
+LSTM 预测
 
-This model has learned to reproduce the yearly shape of the data and doesn’t have the lag it used to have with a simple feed forward neural network. It is still underestimating some observations by certain amounts and there is definitely room for improvement in this model.
+这个模型已经学到了重现数据在年度内的整体形状，而且不像前面使用简单的前馈神经网络那样有延迟。但是它仍然低估了一些观察值，所以该模型肯定还有改进的空间。
 
-### Changes in the model
+### 模型修改
 
-There can be a lot of changes to be made in this model to make it better. One can always try to change the configuration by changing the optimizer. Another important change I see is by using the [Sliding Time Window](https://en.wikipedia.org/wiki/Data_stream_management_system#Windows) method, which comes from the field of stream data management system.
+该模型可以做很多的改变来使它变得更好。一般可以直接通过修改优化器来更改模型训练配置。另外一个重要的修改是使用了[滑动时间窗口](https://en.wikipedia.org/wiki/Data_stream_management_system#Windows)的方法，它是来自于流数据管理系统领域的方法。
 
-This approach comes from the idea that only the most recent data are important. One can show the model data from a year and try to make a prediction for the first day of the next year. Sliding time window methods are very useful in terms of fetching important patterns in the dataset that are highly dependent on the past bulk of observations.
+这种方法来自于这样一种观点，即只有最近的数据才是重要的。你可以使用一年的模型数据，并试着对下一年的第一天做出预测。滑动时间窗口方法在获取数据集中的重要模式方面非常有用，这些模式高度依赖于过去的大量观察。
 
-Try to make changes to this model as you like and see how the model reacts to those changes.
+你可以尝试根据个人喜好对该模型进行修改，并查看模型对这些修改的反应。
 
-### Dataset
+### 数据集
 
-I made the dataset available on my github account [under deep learning in python repository](https://github.com/neelabhpant/Deep-Learning-in-Python). Feel free to download the dataset and play with it.
+我在 github 账户的仓库中 [deep learning in python](https://github.com/neelabhpant/Deep-Learning-in-Python) 提供了该数据集。请随意下载并使用它。
 
-### Useful sources
+### 有用的资源
 
-I personally follow some of my favorite data scientists like [Kirill Eremenko](https://www.superdatascience.com), [Jose Portilla](https://www.udemy.com/user/joseporitlla/), [Dan Van Boxel](https://www.youtube.com/user/dvbuntu) (better known as Dan Does Data), and many more. Most of them are available on different podcast stations where they talk about different current subjects like RNN, Convolutional Neural Networks, LSTM, and even the most recent technology, [Neural Turing Machine](https://en.wikipedia.org/wiki/Neural_Turing_machine).
+我个人关注了一些喜欢的数据科学家，比如 [Kirill Eremenko](https://www.superdatascience.com)， [Jose Portilla](https://www.udemy.com/user/joseporitlla/)， [Dan Van Boxel](https://www.youtube.com/user/dvbuntu) （即著名的 Dan Does Data），等等。他们中的大多数人都可以在不同的博客站点上找到，他们的博客中有很多不同的主题，比如 RNN，卷积神经网络， LSTM，甚至最新的[神经图灵机](https://en.wikipedia.org/wiki/Neural_Turing_machine)技术。
 
-Try to keep up with the news of different [artificial intelligence conferences](http://www.aaai.org). By the way, if you are interested, then Kirill Eremenko is [coming to San Diego this November](https://www.datasciencego.com/?utm_source=Email&utm_medium=AllLess_ID1&utm_content=EM2_EarlyBirds_ImageLogo&utm_campaign=event) with his amazing team to give talks on Machine Learning, Neural Networks, and Data Science.
+保持更新各种[人工智能会议](http://www.aaai.org)的新闻。顺便说一下，如果你感兴趣的话， Kirill Eremenko 将会[在今年的 11 月份](https://www.datasciencego.com/?utm_source=Email&utm_medium=AllLess_ID1&utm_content=EM2_EarlyBirds_ImageLogo&utm_campaign=event)来到圣地亚哥和他的团队一起做关于机器学习、神经网络和数据科学的演讲。
 
-### Conclusion
+### 结论
 
-LSTM models are powerful enough to learn the most important past behaviors and understand whether or not those past behaviors are important features in making future predictions. There are several applications where LSTMs are highly used. Applications like speech recognition, music composition, handwriting recognition, and even in my current research of human mobility and travel predictions.
+LSTM 模型足够强大，可以学习到最重要的过去行为，并理解这些过去的行为是否是进行未来预测的重要特征。在许多应用程序中，LSTM 的使用率都很高。一些应用比如如语音识别、音乐合成、手写识别，甚至是在我目前的人口流动和旅游预测等的研究中。
 
-According to me, LSTM is like a model which has its own memory and which can behave like an intelligent human in making decisions.
+在我看来，LSTM 就像是一个拥有自己记忆的模型，在做决定时可以表现得像一个聪明的人。
 
-Thank you again and happy machine learning!
+再次感谢，并祝在机器学习的学习过程中得到快乐！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
