@@ -179,9 +179,9 @@ Angus Croll: [JavaScript 中的变量与属性](https://javascriptweblog.wordpre
 
 Juriy Zaytsev (“kangax”): [理解 Delete](http://perfectionkills.com/understanding-delete/)  
 
-Dmitry A. Soshnikov: [ECMA-262-3 - 第二章 - 变量对象。](http://dmitrysoshnikov.com/ecmascript/chapter-2-variable-object/)  
+Dmitry A. Soshnikov: [ECMA-262-3 详解：第 2 章 Variable 对象](http://dmitrysoshnikov.com/ecmascript/chapter-2-variable-object/)  
 
-[ECMA-262 第五版](http://www.ecmascript.org/docs/tc39-2009-043.pdf)  
+[ECMA-262 第五版标准文档](http://www.ecmascript.org/docs/tc39-2009-043.pdf)  
 
 **undefined**: 4.3.9, 4.3.10, 8.1
 
