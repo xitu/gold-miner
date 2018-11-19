@@ -2,40 +2,40 @@
 > * 原文作者：[Strikingloo](http://www.dataden.tech/author/strikingloo/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/exploratory-statistical-data-analysis-with-a-kaggle-dataset-using-pandas.md](https://github.com/xitu/gold-miner/blob/master/TODO1/exploratory-statistical-data-analysis-with-a-kaggle-dataset-using-pandas.md)
-> * 译者：
-> * 校对者：
+> * 译者：[haiyang-tju](https://github.com/haiyang-tju)
+> * 校对者：[rocheers](https://github.com/rocheers)
 
-# EXPLORATORY STATISTICAL DATA ANALYSIS WITH A KAGGLE DATASET USING PANDAS
+# 使用 Pandas 对 Kaggle 数据集进行统计数据分析
 
 ![](http://www.dataden.tech/wp-content/uploads/2018/09/runninggu.jpg)
 
-Sometimes, when facing a Data problem, we must first dive into the Dataset and learn about it. Its properties, its distributions — we need to immerse in the domain.
+有时，当遇到一个数据问题的时候，对于数据集，我们必须首先深入研究并了解它。了解它的性质，它的分布等等，这是我们需要专注的领域。
 
-Today we’ll leverage [Python’s Pandas framework](https://towardsdatascience.com/exploratory-data-analysis-with-pandas-and-jupyter-notebooks-36008090d813) for Data Analysis, and Seaborn for Data Visualization.
+今天，我们将利用 [Python Pandas](https://towardsdatascience.com/exploratory-data-analysis-with-pandas-and-jupyter-notebooks-36008090d813) 框架进行数据分析，并利用 Seaborn 进行数据的可视化。
 
-As a geeky programmer with poor sense of aesthetics, I’ve found Seaborn to be an awesome visualization tool whenever I need to get a point accross.
+作为一名极客程序员，我的审美观念很低。Seaborn 对我来说是一种很好的可视化工具，因为只需要坐标点即可。
 
-It uses Matplotlib under the hood, but sets graphics up with default style values that make them look a lot prettier than I could ever manage to make them. We’ll take a look at a Dataset, and I’ll try to give you an intuition of how to look at different features. Who knows, maybe we’ll actually gain some insights from this!
+它在底层使用 Matplotlib 作为绘图引擎，使用默认的样式来设置图形，这使得它们看起来比我所能做的更漂亮。让我们来看一下数据集，我会给大家展示一种看待不同特征时的直观感受。也许我们能从中获得一些真知灼见呢！
 
-#### Can’t Make an Omelette with no Eggs: The Dataset.
+#### 没有鸡蛋就不能做煎蛋卷：数据集。
 
-For this analysis I’m using the [120 years of olympics](https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results#athlete_events.csv) Dataset, which you can download or read more about by clicking the link.
+下面的分析中，我使用的是 [120 年的奥运会](https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results#athlete_events.csv) 数据集，你可以通过点击这个链接来下载或阅读更多的相关信息。
 
-I downloaded it for free from Kaggle, an awesome site if you need to get a Dataset to try out some new [Machine Learning algorithm](http://www.dataden.tech/data-science/machine-learning-introduction-applying-logistic-regression-to-a-kaggle-dataset-with-tensorflow/), brush up on some framework’s API, or just have a bit of fun.
+我是从 Kaggle 上免费下载该数据集的。如果你需要获取一个数据集来尝试一些新的 [机器学习算法](http://www.dataden.tech/data-science/machine-learning-introduction-applying-logistic-regression-to-a-kaggle-dataset-with-tensorflow/)，来温习一些框架的 API，或者只是想要玩一下，Kaggle 是一个很棒的网站。
 
-I’ll only be using the ‘athlete_events’ CSV file, which has a row for every competitor on every Olympics game since 1900, with their country of birth, whether they obtained a medal, etc.
+我将只使用 CSV 文件中的 ‘athlete_events’，其中记录了自 1900 年以来的每一场奥运会比赛的运动员信息，即每个参赛运动员出生地所属的国家，以及他们是否获奖等等。
 
-As an interesting fact, the _medals_ column is 85% empty, so on average only about 15% of Omlympics Athletes actually get a medal. Add to that that some Athletes get more than one, and it shows how an even narrower quantity of the already few Olympic level athletes actually earn a medal. All the more credit to them!
+有趣的是， 文件中的 _medals_ 列中有 85% 的数据是空的，所以平均只有 15% 的奥运会运动员获得了奖牌。 此外，还有一些运动员获得了不止一枚奖牌，这表明，在为数不多的奥运级别运动员中，只有更少的人能获得奖牌。所以他们的功劳是更大的！
 
-#### Starting the Analysis: What’s the Dataset like?
+#### 开始分析：数据集是什么样的？
 
-First of all, before I try to glean any insights, I’d like to get a better intuition on what the Dataset’s like. How many of it’s data are missing? How many different columns are there? Those are the questions I like to start off from.
+首先，在深入了解该数据集之前，可以先通过一些直观数据来了解数据集的模式。比如数据集中有多少数据丢失了？数据有多少列？我想先从这些问题开始分析。
 
-I’m using a Jupyter Notebook for this analysis, but I’ll be adding code snippets for every relevant line I run so you can follow along.
+我在分析过程中使用 Jupyter 笔记进行，我会为我运行的每段代码添加注释，以便你可以继续学习。
 
-I made the Notebook available [in this repository](https://github.com/StrikingLoo/Olympics-analysis-notebook/) nonetheless, in case you want to take a peek yourself, and want a place to start from.
+该 Jupyter 笔记可以在 [这个仓库中](https://github.com/StrikingLoo/Olympics-analysis-notebook/) 找到，你可以打开来看一下，并可以从任何一个地方开始。
 
-What I’ll do first is load the data with Pandas, and check its size.
+我首先要做的是使用 Pandas 来加载数据，并检查它们的大小。
 
 ```
 import pandas as pd
@@ -46,9 +46,9 @@ df.shape
 #(271116, 15)
 ```
 
-In this case, the Dataset has 15 different columns, and a whole 271116 rows! That’s over 270k athletes! I wonder how many different athletes there actually are, though. Also, how many of them actually won medals?
+在这个例子中，数据集中有 15 个不同的列，以及整整 271116 行！也就是超过 27 万的运动员数据！但是接下来我想知道实际上有多少不同的运动员。还有，他们中有多少人赢得了奖牌？
 
-In order to check this, I’ll first list the Dataset’s rows calling the ‘list’ function on the Dataset. I see we have many interesting features.
+为了查看这些数据，首先字数据集上调用 ‘list’ 函数列出行数据。我们可以看到许多感兴趣的特征。
 
 ```
 list(df)
@@ -56,9 +56,9 @@ list(df)
 # 'Sport','Event','Medal']
 ```
 
-A few of the things I can think of here are, we could look at average height and weight for Olympics Athletes or divide them by sports. We could also see the distribution of both variables depending on Sex. We may even see how many Medals each country got as a time Series, and see the rise and fall of civilizations throughout the twentieth century.
+我能想到的一些事情是，我们可以查看奥运会运动员的平均身高和体重，或者通过不同的运动来划分他们。我们还可以查看依赖于性别的两个变量的分布。我们甚至还可以看到每个国家有多少奖牌，将此作为时间序列，来查看整个二十世纪文明的兴衰。
 
-The possibilities are endless! But first let’s tackle the difficult issues: how complete is our Dataset?
+可能性是无限的！但首先让我们来解决这个难题：我们的数据集有多完整？
 
 ```
 def NaN_percent(df, column_name):
@@ -76,17 +76,17 @@ Medal: 85.3262072323% --Notice how 15% of athletes did not get any medals
 '''
 ```
 
-Using Pandas’ count method on a series, I can get the quantity of non-empty rows. However looking at the shape property, I can actually see the total quantity of rows, regardless of whether they’re empty or not.
+在序列数据上使用 Pandas 的计数方法可以得到非空行的数量。而通过查看 shape 属性，可以查看到总的行数，不管它们是否为空。
 
-After that it’s just a matter of substracting and dividing. We see only four columns are incomplete at all: Height, Weight, Age and Medal.
+之后就是减法和除法的问题了。我们可以看到只有四栏的属性不完整：身高、体重、年龄和奖牌。
 
-Medal is incomplete any time an athlete doesn’t actually win a medal, so it is to be expected for it to not be too full. However on the Weight, Height and Age fronts we’re pretty challenged.
+奖牌属性的不完整是因为一个运动员可能实际上并没有赢得奖牌，所以可以预料到这条数据是不完全的。然而，在体重、身高和年龄的方面，不完整的数据让我们面临着相当大的挑战。
 
-I tried filtering the rows by different years, but the incompleteness seems to be consistent over time, which makes me think there may be a few countries that do not supply those data about their Athletes.
+我试着用不同的年份对这些数据行进行过滤，但这种不完整性似乎随着时间的推移而保持一致，这让我觉得可能是有一些国家不提供运动员的这些相关数据。
 
-#### Starting our Actual Analysis: What’s the Deal with Medals?
+#### 开始我们真正的分析： 奖牌情况是怎样的？
 
-The first question we asked about this domain was, how many different people actually won a medal since 1900? The following snippet answers that question:
+我们问的第一个问题是，自 1900 年以来，有多少不同的人获得过奖牌？下面的代码片段回答了这个问题：
 
 ```
 total_rows = df.shape[0]
@@ -98,16 +98,16 @@ medal_winners = len(df[df.Medal.fillna('None')!='None'].Name.unique())
 #'271116 134732 28202'
 ```
 
-As you see, almost 135 thousand different people have competed on the Olympic games in the last 120 years, but only a little over 28 thousand have earned at least one medal.
+正如你所看到的，在过去的 120 年里，大约有 13.5 万不同的人参加了奥运会，但是只有 2.8 万多人获得了至少一枚奖牌。
 
-That’s about one in five, which is not that bad. It’s not that optimistic once you consider many are actually competing in more than one category though.
+获得奖牌比率大约是五分之一，还不错。但如果你考虑到许多人实际上会参加多个类别的运动，那就不那么乐观了。
 
-Now that we’re at it, how many medals have actually been earned throughout these 120 years?
+既然我们已经分析到这里了，那么在这 120 年里运动员们到底赢得了多少奖牌呢？
 
 ```
-# See Medal distribution.
+# 查看奖牌分布
 print(df[df.Medal.fillna('None')!='None'].Medal.value_counts())
-# How many total medals.
+# 总共多少奖牌
 df[df.Medal.fillna('None')!='None'].shape[0]
 '''
 Gold      13372
@@ -117,34 +117,34 @@ Total: 39783
 '''
 ```
 
-Unsurprisingly, the Medal distribution is almost uniform: Almost the same quantity of gold, silver and bronze medals have been earned.
+不出所料，奖牌榜上的分布几乎是均匀的：获得的金牌、银牌和铜牌的数量几乎是相同的。
 
-However, a total of almost 39 thousand medals have been awarded, which means if you belong to that top 20% of athletes that earn any medals, you’re expected to earn more than one on average.
+然而，总共颁发了近 3.9 万枚奖牌，这意味着如果你属于获得奖牌最多的那 20% 的运动员，那么你的平均奖牌数将超过 1 枚。
 
-What about distribution by countries? To obtain this, we’ll run the following snippets:
+那么按照国家来进行分配呢？为了获得这些信息，可以运行下面的代码片段：
 
 ```
 team_medal_count = df.groupby(['Team','Medal']).Medal.agg('count')
-# order them by quantity
+# 按照数量进行排列
 team_medal_count = team_medal_count.reset_index(name='count').sort_values(['count'], ascending=False)
-#team_medal_count.head(40) to show the first rows
+#team_medal_count.head(40) 用来显示第一行
 
 def get_country_stats(country):
     return team_medal_count[team_medal_count.Team==country]
-# get_country_stats('some_country') to get that country's medals
+# get_country_stats('some_country') 获得对应国家的奖牌
 ```
 
-Using that function, we could get the amount of medals of each type a certain country got, whereas by fetching the head of the Pandas DataFrame we may see the countries with the most medals.
+使用这个函数我们可以得到某个国家获得的每种类型的奖牌数量，而通过获取 Pandas 数据帧头部以看到获得奖牌最多的国家。
 
-Interestingly, the second country to ever earn more medals is still the Soviet Union, even though it hasn’t been around for almost 20 years.
+有趣的是，奖牌数最多国家的第二名仍然是苏联，尽管它已经近 20 年没有出现了。
 
-First spot is for the USA -in all categories-, and third spot is for Germany. I also looked into Argentina and Croatia, my two nations, and was surprised to see Croatia has already earned 58 gold medals, even though it has only been around since 1991 (that’s 1992 in Olympics’ years).
+在所有类别中，第一名是美国，第三名是德国。我还观察了我的两个国家——阿根廷和克罗地亚，惊讶地发现克罗地亚已经赢得了 58 枚金牌，尽管这是从 1991 年（那是 1992 年的奥运会）以来的事情。
 
-Finding a script to get the different years on which a country participated of the Olympics will be left as an exercise for the reader — I bet you can do this!
+写一段代码作为练习，获取到某一个国家参加奥运会的不同年份数据，我相信你能做到！
 
-#### Female Participation
+#### 女性参与情况
 
-Another interesting thing I thought of was, what was female representation like in the Olympics throughout the century? This snippet answered the question:
+我想到的另一件有趣的事是，从这整个世纪以来，女性在奥运会上的表现如何？这段代码回答了这个问题：
 
 ```
 unique_women = len(df[df.Sex=='F'].Name.unique())
@@ -160,11 +160,11 @@ df[df.Sex=='F'].Year.min()
 #1900
 ```
 
-I was surprised to see women participated in the games even since as early as 1900. However, historically there have been three men in the Olympics for every one woman. Surprised by women’s participation in the games in 1900, I decided to check their numbers throughout time. I finally used Seaborn!
+让我惊讶的是早在 1900 年就有女性参加了奥运会。然而，从历史上看，奥运会的男女比例是 3 比 1。惊讶于女性早在 1900 年就参加了奥运会，我决定查看一下整个时间段里面她们的参与人数。我终于用到了 Seaborn！
 
 ![Female participation in the Olympics over time.](https://cdn-images-1.medium.com/max/800/0*Gp3AI-vPaxL7LlWs.png)
 
-We can see female participation has been ramping up very fast these past few decades, starting from almost zero and reaching the thousands. However, are they actually growing in participation faster than men? Or is this just a matter of world population? To solve that, I made this second graph:
+我们可以看到，在过去的几十年里，女性的参与率一直在快速上升，从几乎为零上升到数千。然而，她们的参与率真的比男性增长得快吗？或者这只是世界人口的问题？为了解决这个问题，我做了第二副图：
 
 ```
 f_year_count = df[df.Sex=='F'].groupby('Year').agg('count').Name
@@ -175,28 +175,28 @@ m_year_count = df[df.Sex=='M'].groupby('Year').agg('count').Name
 
 ![Female participation in the Olympics over time.](https://cdn-images-1.medium.com/max/800/0*qtjbN64IzHEuj-Kn.png)
 
-Female participation (Orange) vs male (Blue) over time.
+随时间推移，女性参与（橙色）对男性参与（蓝色）。
 
-This time we can clearly see how a pattern emerges: women are actually approaching men in sheer numbers! Another funny thing emerges here: see those little dots below, to the right? I think those are the Winter Olympics! Anyway, the picture looks pretty optimistic for female representation, even though there hasn’t been a single year with more female participants than male yet.
+这一次，我们可以清楚地看到这样一个模式的出现：女性的参与数量实际上正在快速地接近男性的数量！另一件有趣的事情是：看到下面的小点了吗，在右边？我想那就是冬季奥运会！无论如何，对于女性代表来说，这幅图看起来相当乐观，尽管还没有在哪一年中女性的参与者多于男性。
 
-#### Miscellaneae Analysis: Height and Weight
+#### 其它分析：身高和体重
 
-I spent a long while looking at height and weight graphs, but didn’t glean any interesting conclusions.
+我花了很长时间来查看身高和体重相关图，但没有得到任何有趣的结论。
 
-*   Both are clearly normally distributed for most sports
-*   Men are consistently heavier and taller than women in all sports I checked
-*   the only interesting variation seems to be how far apart a gender falls from another depending on the Sport.
+*   这两种属性在大多数运动中都是呈正态分布的
+*   在我所观察过的所有运动中，男性总是比女性更重和更高
+*   唯一有趣的变化似乎是根据此项运动来可以分析两种性别之间的差别到底有多大。
 
-If you have any interesting ideas about things you could analyse using Weight and Height, please let me know! I haven’t gone deep enough in grouping by each sport, so there might be some insights to be gained there. That was all for today, I hope you found this analysis interesting, or at least you learned a bit about Pandas or Data Analysis.
+如果你有任何有趣的想法可以用来分析体重和身高的数据，请告知我！我对每项运动的分组不够深入，所以可能会有一些错误的解释。以上就是今天的内容，我希望你们觉得这个分析很有趣，或者至少你们学到了一些 Pandas 或者数据分析的相关知识。
 
-I made the notebook available on [GitHub](https://github.com/StrikingLoo/Olympics-analysis-notebook/) so you can fork the project, do your own analysis and then do a pull request.
+我把笔记放在了 [GitHub](https://github.com/StrikingLoo/Olympics-analysis-notebook/) 上，这样你就可以复制这个项目，可以做你自己的分析，然后提出一个 pull request（拉取请求）。
 
-Of course you can take all the credit! Hopefully you’ll be better than I with graphs and visuals.
+当然你可以得到所有的功劳！希望你们在图形显示和视觉分析上做的比我要好。
 
-[_Part 2 on extracting insights about sports_](https://github.com/xitu/gold-miner/blob/master/TODO1/extracting-insights-from-a-kaggle-dataset-using-pythons-pandas-and-seaborn.md) _is already available._
+[**第2部分关于运动的深入理解**](https://github.com/xitu/gold-miner/blob/master/TODO1/extracting-insights-from-a-kaggle-dataset-using-pythons-pandas-and-seaborn.md) **在这里可以找到。**
 
-_Try [following me on medium](http://www.medium.com/@strikingloo)_ _for more tutorials, tips and tricks for Software Developers and Data Scientists.  
-_And if you really liked this article, share it with a friend!__
+**可以 [在 medium 上关注我](http://www.medium.com/@strikingloo)** **以获取更多软件开发和数据科学相关的教程、提示和技巧。
+**如果你真的喜欢这篇文章，和朋友分享吧！****
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
