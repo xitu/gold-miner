@@ -17,7 +17,7 @@
 
 ### console.log()
 
-标准的 console.log 有着惊人数量的函数特性，这些是人们没有预料到的。尽管多数人将它作为 `console.log(object)` 使用，但你仍然能写 `console.log(object, otherObject, string)` 并且它会将所有东西都整齐的打印出来。有时候确实很方便。
+很多人不知道经典的 console.log 其实有着丰富的函数特性。尽管多数人将它作为 `console.log(object)` 使用，但你仍然能写 `console.log(object, otherObject, string)` 并且它会将所有东西都整齐的打印出来。有时候确实很方便。
 
 不止那些，这儿还有另一种格式：`console.log(msg, values)`。这个执行方式和 C 或者 PHP 的`sprintf`很相似。
 
@@ -35,7 +35,7 @@ console.log('I like %s but I do not like %s.', 'Skittles', 'pus');
 
 ![](https://cdn-images-1.medium.com/max/800/1*k36EIUqbxmWeYwZVqOrzNQ.png)
 
-另一个有趣是 `%c`，你可能并不这么认为。事实上它是作为 CSS 值的占位符。
+你可能并不认为另一个有趣是 `%c`。实际上它是作为 CSS 值的占位符。
 
 ```
 console.log('I am a %cbutton', 'color: white; background-color: orange; padding: 2px 5px; border-radius: 2px');
@@ -43,7 +43,7 @@ console.log('I am a %cbutton', 'color: white; background-color: orange; padding:
 
 ![](https://cdn-images-1.medium.com/max/800/1*LetSPI-9ubOuADejUa_YSA.png)
 
-后面的值可以一直添加，这里没有「结束标签」，确实有点怪异。但是你可以像这样将它们隔开。
+后面的值可以一直添加，在这里没有「结束标签」确实有点怪异。但是你可以像这样将它们隔开。
 
 ![](https://cdn-images-1.medium.com/max/800/1*cHWO5DRw9c2z9Jv_Fx2AvQ.png)
 
