@@ -2,68 +2,68 @@
 > * 原文作者：[Mike Finney](https://www.raywenderlich.com/u/finneycanhelp)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/dynamic-features-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/dynamic-features-in-swift.md)
-> * 译者：
+> * 译者：[iWeslie](https://github.com/iWeslie)
 > * 校对者：
 
-# Dynamic Features in Swift
+# Swift 中的动态特性
 
-> In this tutorial, you’ll learn to use dynamic features in Swift to write clean code, create code clarity and resolve unforeseen issues quickly.
+> 在本教程中，你将学习如何使用 Swift 中的动态特性编写干净的代码，编写清晰的代码并快速解决无法预料的问题。
 
-As a busy Swift developer, you have needs that are specific to your world yet common to all. You want to create clean-looking code, learn what’s going on in your code at a glance and resolve unforeseen issues quickly.
+作为一个忙碌的 Swift 开发者，你有特定于你的世界的需求，还要适用于所有人。 你希望编写整洁的代码，一目了然地了解代码中的内容并快速解决无法预料的问题。
 
-This tutorial ties together the dynamic and flexible parts of Swift to meet those needs. Using the latest Swift technology, you’ll learn how to customize output to your console, hook into third-party object state changes, and use some sweet syntactical sugar to write cleaner code.
+本教程将 Swift 的动态性和灵活性结合在一起来满足那些需求。 通过使用最新的 Swift 技术，你将学习如何自定义输出到控制台，挂钩第三方对象状态更改，并使用一些甜蜜的语法糖来编写更清晰的代码。
 
-Specifically, you will learn about:
+具体来说，你将学习以下内容：
 
 *   `Mirror`
 *   `CustomDebugStringConvertible`
-*   Key-value Observing with Key Paths
-*   Dynamic Member Lookup
-*   Related technologies
+*   使用 keypath 进行键值监听（KVO）
+*   动态查找成员
+*   相关技术
 
-Most of all, you’ll have a doggone good time!
+最重要的是，你将度过一段美好的时光！
 
-This tutorial requires Swift 4.2 or later. Until Xcode 10 is released, you must [download the latest Xcode 10 Beta](https://developer.apple.com/download/) or install the latest [Swift 4.2 snapshot](https://swift.org/download/#snapshots).
+本教程需要 Swift 4.2 或更高版本。你必须下载最新的 [Xcode 10](https://developer.apple.com/download/) 或安装最新的 [Swift 4.2](https://swift.org/download/#snapshots)。
 
-Also, you must have an understanding of basic Swift types. The [Getting to Know Enums, Structs and Classes in Swift](https://www.raywenderlich.com/119881/enums-structs-and-classes-in-swift) tutorial is a great place to start. Although not strictly required, you may want to look into [Implementing Custom Subscripts in Swift](https://www.raywenderlich.com/123102/implementing-custom-subscripts-swift) as well.
+此外，你必须了解基本的 Swift 类型。Swift 入门教程（[原文链接](https://www.raywenderlich.com/119881/enums-structs-and-classes-in-swift)）中的[枚举](https://www.cnswift.org/enumerations)，[类和结构体](https://www.cnswift.org/classes-and-structures)是一个很好的起点。 虽然不是严格要求，但你也可以查看在 Swift 中实现[自定义下标](https://www.cnswift.org/subscripts)（[原文链接](https://www.raywenderlich.com/123102/implementing-custom-subscripts-swift)）。
 
-## Getting Started
+## 入门
 
-Before doing anything, download the starter and final projects by clicking on the _Download Materials_ button at the top or the bottom of the tutorial. Unzip the downloaded file.
+在执行任何操作之前，**请首先[下载材料](https://koenig-media.raywenderlich.com/uploads/2018/08/DynamicFeaturesInSwift.zip)**（入门项目和最终项目）。
 
-You’ll be happy to know that all the code you need to let you focus on learning the dynamic features of Swift is already written for you! Like walking with a friendly guide dog, this tutorial will guide you through everything in the starter code.
+你将很高兴地知道，所需专注学习 Swift 动态特性所需的所有代码已经为你编写好了！ 就像和友好的导盲犬一起散步一样，本教程将指导你完成入门项目代码中的所有内容。
 
 ![](https://koenig-media.raywenderlich.com/uploads/2018/06/smiling_dog_small.jpg)
 
-Happy Dog
+​			快乐的狗狗
 
-In the starter code directory named _DynamicFeaturesInSwift-Starter_, you’ll see three playground pages: _DogMirror_, _DogCatcher_ and _KennelsKeyPath_. The playground is set to run on macOS. This tutorial is platform-agnostic and only focuses on the Swift language.
+在名为 **DynamicFeaturesInSwift-Starter** 的入门项目代码目录中，你将看到三个 Playground 页面：**DogMirror**，**DogCatcher** 和 **KennelsKeyPath**。Playground 在macOS上运行。本教程与平台无关，仅侧重于 Swift 语言。
 
-## Reflecting on Mirror and Debug Output
+## 使用 Mirror 的反射机制与调试输出
 
-Whether you’re tracking down an issue or just exploring running code, uncluttered information in the console makes all the difference. Swift offers many ways of customizing console output and capturing crucial events. For customizing output, it doesn’t get any deeper than Mirror. Swift offers more power than the strongest sled dog to pull you out of the icy cold land of confusion!
+无论你是断点调试追踪问题还是只探索正在运行的代码，控制台中的信息是否整洁都会产生比较大的影响。 Swift 提供了许多自定义控制台输出和捕获关键事件的方法。 对于自定义输出，它没有 Mirror 深入。 Swift 提供比最强大的雪橇犬还要强大的力量，能把你从冰冷的雪地拉出来！
 
 ![](https://koenig-media.raywenderlich.com/uploads/2018/06/siberian_husky_small.jpg)
 
-Siberian Husky Sled Dogs
+​			西伯利亚雪橇犬
 
-Before learning more about `Mirror`, you’ll first write some customized console output for a type. This will help you more clearly see what’s going on.
+在了解有关 `Mirror` 的更多信息之前，你首先要为一个类型编写一些自定义的控制台输出。 这将有助于你更清楚地了解目前正在发生的事情。
 
 ### CustomDebugStringConvertible
 
-Open _DynamicFeaturesInSwift.playground_ in Xcode and go to the **DogMirror** page.
+用 Xcode 打开 **DynamicFeaturesInSwift.playground** 并前往 **DogMirror** 页面。
 
-In honor of all those cute little dogs that get lost, caught by a dog catcher and then reunited with their owners, this page has a `Dog` class and `DogCatcherNet` class. Focus on the `DogCatcherNet` first.
+为了纪念那些迷路的可爱的小狗，它们被捕手抓住然后与它们的主人团聚，这个页面有 Dog 类和 DogCatcherNet 类。 首先我们看一下 DogCatcherNet 类。
 
-Since the lost doggies out there must be caught and reunited with their owners, dog catchers must be supported. The code you write in the following project will help dog catchers evaluate the quality of nets.
+由于丢失的小狗必须被捕获并与其主人团聚，所以我们必须支持捕狗者。你在以下项目中编写的代码将帮助捕狗者评估网络的质量。
 
-In the playground, look at the following:
+在 Playground 里，看看以下内容：
 
-```
+```swift
 enum CustomerReviewStars { case one, two, three, four, five }
 ```
 
-```
+```swift
 class DogCatcherNet {
   let customerReviewStars: CustomerReviewStars
   let weightInPounds: Double
@@ -77,7 +77,7 @@ class DogCatcherNet {
 
 ```
 
-```
+```swift
 let net = DogCatcherNet(stars: .two, weight: 2.6)
 debugPrint("Printing a net: \(net)")
 debugPrint("Printing a date: \(Date())")
@@ -85,20 +85,20 @@ print()
 
 ```
 
-The `DogCatcherNet` has two properties: `customerReviewStars` and its `weightInPounds`. Customer review stars reflect the customers’ feelings about the net product. The weight in pounds tells the dog catchers what burden they will experience lugging a net around.
+`DogCatcherNet` 有两个属性：`customerReviewStars` 和 `weightInPounds`。客户评论的星星数量反映了客户对净产品的感受。 以磅为单位的重量告诉狗捕捉者他们将经历拖拽网的负担。
 
-Run the playground. The first two lines you should see are similar to the following:
+运行 Playground。你应该看到的内容前两行与下面类似：
 
 ```
 "Printing a net: __lldb_expr_13.DogCatcherNet"
 "Printing a date: 2018-06-19 22:11:29 +0000"
 ```
 
-As you can see, the debug output in the console prints something related to a net and a date. Bless its heart; the output from the code looks like it was made by a robotic pet. This pet tried hard, but it needs help from us humans. As you can see, it’s printing out extra information such as “__lldb_expr_.” Printing out the date provides something more useful. It’s up in the air as to whether or not this is enough to help you track down a problem that’s been dogging you.
+正如你所见，控制台中的调试输出会打印与网络和日期相关的内容。保佑它吧！代码的输出看起来像是由机器宠物制作的。这只宠物已经尽力了，但它需要我们人类的帮助。正如您所看到的，它打印出了诸如 **_lldb_expr** 之类的额外信息。打印出的日期可以提供更有用的功能，但是这是否足以帮助你追踪一直困扰着你的问题还尚不清楚。
 
-To increase your chances of success, you need to apply some console output customization basics using `CustomDebugStringConvertible` magic. In the playground, add the following code right under _☆ Add Conformance to CustomDebugStringConvertible for DogCatcherNet here_:
+为了增加成功的机会，你需要用到 **CustomDebugStringConvertible** 的魔力来基础自定义制台输出。在 Playground 上，在 **DogCatcherNet **里的 **☆ Add Conformance to CustomDebugStringConvertible** 下面添加以下代码：
 
-```
+```swift
 extension DogCatcherNet: CustomDebugStringConvertible {
   var debugDescription: String {
     return "DogCatcherNet(Review Stars: \(customerReviewStars),"
@@ -111,6 +111,10 @@ extension DogCatcherNet: CustomDebugStringConvertible {
 For something small like `DogCatcherNet`, a type can conform to `CustomDebugStringConvertible` and provide its own debug description using the `debugDescription` property.
 
 Run the playground. Except for a date value difference, the first two lines should include:
+
+对于像 `DogCatcherNet` 这样的小东西，一个类可以遵循 `CustomDebugStringConvertible` 并使用 `debugDescription` 属性来提供自己的调试信息。
+
+运行 Playground。除日期值会有差异外，前两行应包括：
 
 ```
 "Printing a net: DogCatcherNet(Review Stars: two, Weight: 2.6)"
@@ -515,7 +519,6 @@ In regards to the _Dynamic Member Lookup_ Swift 4.2 feature, it doesn’t hurt t
 Have more to say or ask about the dynamic power of Swift? Join in on the forum discussion below!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
