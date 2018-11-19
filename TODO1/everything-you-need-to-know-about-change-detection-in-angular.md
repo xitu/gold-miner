@@ -13,9 +13,9 @@
 
 * * *
 
-如果你想跟我一样对 Angular 的变化检测机制有全面的了解，你就不得不去查看源码，因为网上几乎没有这方面的文章。 大部分文章只提到每个组件都有自己的变化检测器，且重点在使用不可变变量（immutable）和变化检测策略（change detection strategy）上，却没有进行更深入的探讨。这篇文章会带你一起了解*为什么*不可变变量可以触发变化检测及变化监测策略*如何* 影响检测。另外，你可以将本文中学到的知识运用到各种需要提升性能的场景中。
+如果你想跟我一样对 Angular 的变化检测机制有全面的了解，你就不得不去查看源码，因为网上几乎没有这方面的文章。 大部分文章只提到每个组件都有自己的变化检测器，且重点在使用不可变变量（immutable）和变化检测策略（change detection strategy）上，却没有进行更深入的探讨。这篇文章会带你一起了解**为什么**不可变变量可以触发变化检测及变化监测策略**如何** 影响检测。另外，你可以将本文中学到的知识运用到各种需要提升性能的场景中。
 
-本文包括两部分。第一部分比较偏技术，会有很多源码的链接。主要讲解变化检测机制是如何运作的。本文的内容是基于（当时的）最新版本——Angular 4.0.1。该版本中的变化检测机制和 2.4.1 的有一点不同。如果你有兴趣，可以参考[Stack Overflow上的这个回答](http://stackoverflow.com/a/42807309/2545680)。
+本文包括两部分。第一部分比较偏技术，会有很多源码的链接。主要讲解变化检测机制是如何运作的。本文的内容是基于（当时的）最新版本——Angular 4.0.1。该版本中的变化检测机制和 2.4.1 的有一点不同。如果你有兴趣，可以参考 [Stack Overflow 上的这个回答](http://stackoverflow.com/a/42807309/2545680)。
 
 第二部分展示了如何应用变化检测。由于 2.4.1 和 4.0.1 的 API 没有发生变化，所以这一部分对于两个版本都适用。
 
@@ -98,7 +98,7 @@ export abstract class ViewRef extends ChangeDetectorRef {
 
 第二，当检测视图时，更新视图的 DOM 是变化检测机制的一部分。也就是说，如果组件没被检测，DOM 也就不会更新，用于模板中的组件属性发生了变化。第一次检测之前，模板就已经被渲染好了。我所说的更新 DOM 其实是指更新插值。比如 `<span>some {{name}}</span>`，在第一次检测之前，就会把 DOM 元素 `span` 渲染好。检测过程中，只会渲染 `{{name}}` 部分。
 
-再一个很有意思的是，子组件视图的状态可以在变化检测的时候改变。之前我提到所有的组件视图都默认初始化为 `ChecksEnabled`。但是所有使用 `OnPush` 策略的组件，在第一次检测之后，就不在进行变化检测了（列表中的第9步）：
+另一个很有意思的是，子组件视图的状态可以在变化检测的时候改变。之前我提到所有的组件视图都默认初始化为 `ChecksEnabled`。但是所有使用 `OnPush` 策略的组件，在第一次检测之后，就不在进行变化检测了（列表中的第 9 步）：
 
 ```ts
 if (view.def.flags & ViewFlags.OnPush) {
@@ -106,7 +106,7 @@ if (view.def.flags & ViewFlags.OnPush) {
 }
 ```
 
-也就是说，之后的变化检测，都会将它和它的子组件跳过。`OnPush` 的文档中说，只有在它的绑定发生变化时，才会执行检测。所以要设置 `CheckesEnabled` 位来启用检测。下面这段代码就是这个作用（第2步操作）：
+也就是说，之后的变化检测，都会将它和它的子组件跳过。`OnPush` 的文档中说，只有在它的绑定发生变化时，才会执行检测。所以要设置 `CheckesEnabled` 位来启用检测。下面这段代码就是这个作用（第 2 步操作）：
 
 ```ts
 if (compView.def.flags & ViewFlags.OnPush) {
@@ -116,7 +116,7 @@ if (compView.def.flags & ViewFlags.OnPush) {
 
 只有当父视图的绑定发生了变化，且子组件视图初始化为 `ChangeDetectionStrategy.OnPush` 时，才会更新状态。
 
-最后，当前视图的变化检测也负责启动子视图的变化检测（第8步）。此处会检查子组件视图的状态，如果是 `ChecksEnabled`，那么就对其执行变化检测。这是相关的代码：
+最后，当前视图的变化检测也负责启动子视图的变化检测（第 8 步）。此处会检查子组件视图的状态，如果是 `ChecksEnabled`，那么就对其执行变化检测。这是相关的代码：
 
 ```ts
 viewState = view.state;
@@ -253,7 +253,7 @@ reattach(): void { this._view.state |= ViewState.ChecksEnabled; }
 
 `reattach` 方法只是对当前组件启用检测，如果它的父组件没有启用变化检测，就不会生效。也就是说 `reattach` 方法只对最禁用检测的子树的顶端组件有用。
 
-我们需要一个能够检测所有父组件直到跟组件的方法。[这个方法](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/util.ts#L110)就是 `markForCheck`：
+我们需要一个能够检测所有父组件直到根组件的方法。[这个方法](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/util.ts#L110)就是 `markForCheck`：
 
 ```ts
 let currView: ViewData|null = view;
