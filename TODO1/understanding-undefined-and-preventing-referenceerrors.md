@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-undefined-and-preventing-referenceerrors.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-undefined-and-preventing-referenceerrors.md)
 > * 译者：[yanyixin](https://github.com/yanyixin)
-> * 校对者：
+> * 校对者：[noahziheng](https://github.com/noahziheng)、[Moonliujk](https://github.com/Moonliujk)
 
 # 理解 JavaScript 中的 undefined
 
