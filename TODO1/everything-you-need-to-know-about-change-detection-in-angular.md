@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/everything-you-need-to-know-about-change-detection-in-angular.md](https://github.com/xitu/gold-miner/blob/master/TODO1/everything-you-need-to-know-about-change-detection-in-angular.md)
 > * 译者：[tian-li](https://github.com/tian-li)
-> * 校对者：
+> * 校对者：[nanjingboy](https://github.com/nanjingboy), [Mcskiller](https://github.com/Mcskiller)
 
 # 关于 Angular 的变化检测，你需要知道的一切
 
@@ -13,9 +13,9 @@
 
 * * *
 
-如果你想跟我一样对 Angular 的变化检测机制有全面的了解，你就不得不去查看源码，因为网上几乎没有这方面的文章。 大部分文章只提到每个组件都有自己的变化检测器，且重点在使用不可变变量（immutable）和变化检测策略（change detection strategy）上，却没有进行更深入的探讨。这篇文章会带你一起了解**为什么**不可变变量可以触发变化检测及变化监测策略**如何** 影响检测。另外，你可以将本文中学到的知识运用到各种需要提升性能的场景中。
+如果你想跟我一样对 Angular 的变化检测机制有全面的了解，你就不得不去查看源码，因为网上几乎没有这方面的文章。大部分文章只提到每个组件都有自己的变化检测器，且重点在使用不可变变量（immutable）和变化检测策略（change detection strategy）上，却没有进行更深入的探讨。这篇文章会带你一起了解**为什么**不可变变量可以触发变化检测及变化监测策略**如何** 影响检测。另外，你可以将本文中学到的知识运用到各种需要提升性能的场景中。
 
-本文包括两部分。第一部分比较偏技术，会有很多源码的链接。主要讲解变化检测机制是如何运作的。本文的内容是基于（当时的）最新版本——Angular 4.0.1。该版本中的变化检测机制和 2.4.1 的有一点不同。如果你有兴趣，可以参考 [Stack Overflow 上的这个回答](http://stackoverflow.com/a/42807309/2545680)。
+本文包括两部分。第一部分比较偏技术，会有很多源码的链接。主要讲解变化检测机制是如何运作的。本文的内容是基于（当时的）最新版本 —— Angular 4.0.1。该版本中的变化检测机制和 2.4.1 的有一点不同。如果你有兴趣，可以参考 [Stack Overflow 上的这个回答](http://stackoverflow.com/a/42807309/2545680)。
 
 第二部分展示了如何应用变化检测。由于 2.4.1 和 4.0.1 的 API 没有发生变化，所以这一部分对于两个版本都适用。
 
@@ -27,7 +27,7 @@ Angular 的教程上一直在说，一个 Angular 应用是一颗组件树。然
 
 > 视图是构成应用 UI 的基本元素。它是一组一起被创造和销毁的最小合集。
 
-> 视图的属性可以更改，而视图中元素的结构（数量和顺序）不能更改。想要改变元素的结构，只能通过用 `ViewContainerRef` 来插入、移动或者移除嵌入的视图。每个视图可以包含多个视图容器（View Container）
+> 视图的属性可以更改，而视图中元素的结构（数量和顺序）不能更改。想要改变元素的结构，只能通过用 `ViewContainerRef` 来插入、移动或者移除嵌入的视图。每个视图可以包含多个视图容器（View Container）。
 
 在这篇文章中，我会交替使用组件视图和组件的概念。
 
@@ -312,7 +312,7 @@ export class AComponent {
 
 #### checkNoChanges
 
-这是变化检测器的最后一个方法，其主要作用是保证当前执行的变化检测中，不会有变化发生。简单来说，它执行本文第一部分提到的列表中的第1、7、8步。如果发现绑定发生了变化或者 DOM 需要更新，就抛出异常。
+这是变化检测器的最后一个方法，其主要作用是保证当前执行的变化检测中，不会有变化发生。简单来说，它执行本文第一部分提到的列表中的第 1、7、8 步。如果发现绑定发生了变化或者 DOM 需要更新，就抛出异常。
 
 * * *
 
