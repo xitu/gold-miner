@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-undefined-and-preventing-referenceerrors.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-undefined-and-preventing-referenceerrors.md)
 > * 译者：[yanyixin](https://github.com/yanyixin)
-> * 校对者：[noahziheng](https://github.com/noahziheng)、[Moonliujk](https://github.com/Moonliujk)
+> * 校对者：[noahziheng](https://github.com/noahziheng), [Moonliujk](https://github.com/Moonliujk)
 
 # 理解 JavaScript 中的 undefined
 
-与其他的语言相比，JavaScript 中 undefined 的概念是有些令人困惑的。特别是试图去理解 ReferenceError （“x is not defined”）以及如何针对它们写出优雅的代码是很令人沮丧的。
+与其他的语言相比，JavaScript 中 undefined 的概念是有些令人困惑的。特别是试图去理解 ReferenceError（“x is not defined”）以及如何针对它们写出优雅的代码是很令人沮丧的。
 
 本文是我试图把这件事情弄清楚的一些尝试。如果你还不熟悉 JavaScript 中变量和属性的区别（包括内部的 VariableObject），那么最好先去阅读一下我的[上一篇文章](https://javascriptweblog.wordpress.com/2010/08/09/variables-vs-properties-in-javascript/)。
 
 #### 什么是 undefined？
   
-在 JavaScript 中有 Undefined (type)、 undefined (value) 和 undefined (variable)。
+在 JavaScript 中有 Undefined (type)、undefined (value) 和 undefined (variable)。
   
 **Undefined (type)** 是 JavaScript 的内置类型。
 
@@ -46,7 +46,7 @@ typeof f; //"undefined"
 从 ECMA 3 开始，它可以被重新赋值：
 
 ```
-undefined = "washing machine"; // 把一个字符串赋值给 undefined (变量）
+undefined = "washing machine"; //把一个字符串赋值给 undefined (变量）
 typeof undefined //"string"
  
 f = undefined;
@@ -56,7 +56,7 @@ f; //"washing machine"
 
 毋庸置疑，给 undefined 变量重新赋值是非常不好的做法。事实上，ECMA 5 不允许这样做（不过，在当前的浏览器中，只有 Safari 强制执行了）。
 
-#### 然后是 null ？
+#### 然后是 null？
 
 是的，一般都很好理解，但是还需要重申的是：`undefined` 与 `null` 不同，`null` 表示**有意的**缺少值的原始值。`undefined` 和 `null` 唯一的相似之处是，它们都为 false。
 
@@ -104,14 +104,14 @@ function a() {
 
 ```
 var foo;
-foo.bar; //TypeError （基值，foo 是未定义的）
-bar.baz; //ReferenceError （bar 是不能被解析的）
-undefined.foo; //TypeError （基值是未定义的）
+foo.bar; //TypeError（基值，foo 是未定义的）
+bar.baz; //ReferenceError（bar 是不能被解析的）
+undefined.foo; //TypeError（基值是未定义的）
 ```
 
 变量引用永远会被解析，因为 var 关键字确保 VariableObject 总是被赋给基值。
 
-根据定义，既不是属性也不是变量的引用是不可解析的，并且会抛出一个 ReferenceError:
+根据定义，既不是属性也不是变量的引用是不可解析的，并且会抛出一个 ReferenceError：
 
 ```
 foo; //ReferenceError
@@ -138,7 +138,7 @@ bar; //"1,2,3"
 
 当然，这很烦人。如果 JavaScript 在遇到无法解析的引用时始终抛出 ReferenceErrors 那就更好了（实际上这是它在 ECMA 严格模式下所做的）。
 
-#### 什么时候需要针对 ReferenceError 进行编码?
+#### 什么时候需要针对 ReferenceError 进行编码？
 
 如果你的代码写得够好的话，其实很少需要这样做。我们已经看到，在典型的用法中，只有一种方法可以获得不可解析的引用：使用既不是属性也不是变量的仅在语法上正确的引用。在大多数情况下，确保记住 var 关键字可以避免这种情况。只有在引用只存在于某些浏览器或第三方代码中的变量时，才会出现运行时异常。
 
@@ -162,7 +162,7 @@ if (typeof console != "undefined") {
 
 然而，这在我看来总是很繁琐的，更不用说可疑的了（它不是引用名称是 undefined，而是基值为 undefined）。但是无论如何，我更喜欢保留 `typeof` 来进行类型检查。
 
-幸运的是，还有另一种方法：我们已经知道，如果 undefined 属性的基值被定义，那么它就不会抛出 ReferenceError —— 而且由于 console 属于全局对象，我们就可以这样做:
+幸运的是，还有另一种方法：我们已经知道，如果 undefined 属性的基值被定义，那么它就不会抛出 ReferenceError —— 而且由于 console 属于全局对象，我们就可以这样做：
 
 ```
 window.console && console.log(new Date());
@@ -172,20 +172,19 @@ window.console && console.log(new Date());
 
 #### 我在哪里可以阅读更多？
 
-
 Mozilla 开发者中心：[undefined](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/undefined)
 
-Angus Croll: [JavaScript 中的变量与属性](https://javascriptweblog.wordpress.com/2010/08/09/variables-vs-properties-in-javascript/)  
+Angus Croll：[JavaScript 中的变量与属性](https://javascriptweblog.wordpress.com/2010/08/09/variables-vs-properties-in-javascript/)  
 
-Juriy Zaytsev (“kangax”): [理解 Delete](http://perfectionkills.com/understanding-delete/)  
+Juriy Zaytsev (“kangax”)：[理解 Delete](http://perfectionkills.com/understanding-delete/)  
 
-Dmitry A. Soshnikov: [ECMA-262-3 详解：第 2 章 Variable 对象](http://dmitrysoshnikov.com/ecmascript/chapter-2-variable-object/)  
+Dmitry A. Soshnikov：[ECMA-262-3 详解：第 2 章 Variable 对象](http://dmitrysoshnikov.com/ecmascript/chapter-2-variable-object/)  
 
 [ECMA-262 第五版标准文档](http://www.ecmascript.org/docs/tc39-2009-043.pdf)  
 
-**undefined**: 4.3.9, 4.3.10, 8.1
+**undefined**：4.3.9, 4.3.10, 8.1
 
-**Reference Error**: 8.7.1, 8.7.2, 10.2.1, 10.2.1.1.4, 10.2.1.2.4, and 11.13.1.
+**Reference Error**：8.7.1, 8.7.2, 10.2.1, 10.2.1.1.4, 10.2.1.2.4, and 11.13.1.
 
 **ECMAScript 的严格模式** Annex C
 
