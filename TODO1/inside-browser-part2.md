@@ -2,138 +2,140 @@
 > * 原文作者：[Mariko Kosaka](https://developers.google.com/web/resources/contributors/kosamari)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/inside-browser-part2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/inside-browser-part2.md)
-> * 译者：
-> * 校对者：
+> * 译者：[CoolRice](https://github.com/CoolRice)
+> * 校对者：[ThomasWhyne](https://github.com/ThomasWhyne), [tian-li](https://github.com/tian-li)
 
-# Inside look at modern web browser (part 1)
+# 现代浏览器内部揭秘（第二部分）
 
-## CPU, GPU, Memory, and multi-process architecture
+## 导航时发生了什么
 
-In this 4-part blog series, we’ll look inside the Chrome browser from high-level architecture to the specifics of the rendering pipeline. If you ever wondered how the browser turns your code into a functional website, or you are unsure why a specific technique is suggested for performance improvements, this series is for you.
+这是关于 Chrome 内部工作的 4 篇博客系列的第 2 篇。在[上一篇文章](https://github.com/xitu/gold-miner/blob/master/TODO1/inside-look-at-modern-web-browser-part1.md)中，我们研究了不同的进程和线程如何处理浏览器的不同部分。在这篇文章中，我们会更深入研究每个进程和线程如何进行通信以展示网站。
 
-As part 1 of this series, we’ll take a look at core computing terminology and Chrome’s multi-process architecture.
+让我们看一个网络浏览的简单用例：你在浏览器中键入 URL，然后浏览器从互联网获取数据并显示一个页面。在这篇文章中，我们将重点放在用户请求站点和浏览器准备渲染页面部分 —— 亦即导航。
 
-**Note:** If you are familiar with the idea of CPU/GPU and process/thread you may skip to [Browser Architecture](#browser-architecture).
+## 它以浏览器进程开始
 
-## At the core of the computer are the CPU and GPU
+![浏览器进程](https://developers.google.com/web/updates/images/inside-browser/part2/browserprocesses.png)
 
-In order to understand the environment that the browser is running, we need to understand a few computer parts and what they do.
+图 1：顶部是浏览器 UI，底部是拥有 UI、网络和存储线程的浏览器进程图
 
-### CPU
+正如我们在[第 1 部分：CPU、GPU、内存和多进程架构](https://developers.google.com/web/updates/2018/09/inside-browser-part1)中所述，tab 外的一切都被浏览器进程处理。浏览器进程有很多线程，例如绘制浏览器按钮和输入栏的 UI 线程、处理网络栈以从因特网获取数据的网络线程、控制文件访问的存储线程等。当你在地址栏中键入 URL 时，你的输入将由浏览器进程的 UI 线程处理。
 
-![CPU](https://developers.google.com/web/updates/images/inside-browser/part1/CPU.png)
+## 一个简单导航
 
-Figure 1: 4 CPU cores as office workers sitting at each desk handling tasks as they come in
+### 第 1 步：处理输入
 
-First is the **C**entral **P**rocessing **U**nit - or **CPU**. The CPU can be considered your computer’s brain. A CPU core, pictured here as an office worker, can handle many different tasks one by one as they come in. It can handle everything from math to art while knowing how to reply to a customer call. In the past most CPUs were a single chip. A core is like another CPU living in the same chip. In modern hardware, you often get more than one core, giving more computing power to your phones and laptops.
+当用户开始在地址栏键入时，UI 线程要问的第一件事是 “这是一次搜索查询还是一个 URL 地址？”。在 Chrome 中，地址栏同时也是一个搜索输入栏，所以 UI 线程需要解析和决定把你的请求发送到搜索引擎，或是你要请求的网站。
 
-### GPU
+![处理用户输入](https://developers.google.com/web/updates/images/inside-browser/part2/input.png)
 
-![GPU](https://developers.google.com/web/updates/images/inside-browser/part1/GPU.png)
+图 1：UI 线程询问输入内容是搜索查询还是 URL 地址
 
-Figure 2: Many GPU cores with wrench suggesting they handle a limited task
+### 第 2 步：开始导航
 
-**G**raphics **P**rocessing **U**nit - or **GPU** is another part of the computer. Unlike CPU, GPU is good at handling simple tasks but across multiple cores at the same time. As the name suggests, it was first developed to handle graphics. This is why in the context of graphics "using GPU" or "GPU-backed" is associated with fast rendering and smooth interaction. In recent years, with GPU-accelerated computing, more and more computation is becoming possible on GPU alone.
+当用户按下 Enter 键时，UI 线程启用网络调取去获取站点内容。加载动画会显示在标签页的一角，网络线程会通过适当的协议，像 DNS 查找和为请求建立 TLS 连接。
 
-When you start an application on your computer or phone, the CPU and GPU are the ones powering the application. Usually, applications run on the CPU and GPU using mechanisms provided by the Operating System.
+![导航开始](https://developers.google.com/web/updates/images/inside-browser/part2/navstart.png)
 
-![Hadware, OS, Application](https://developers.google.com/web/updates/images/inside-browser/part1/hw-os-app.png)
+图 2：UI 线程告诉网络线程要导航到 mysite.com
 
-Figure 3: Three layers of computer architecture. Machine Hardware at the bottom, Operating System in the middle, and Application on top.
+在这时，网络线程可能会收到像 HTTP 301 那样的服务器重定向头。这种情况下，网络线程会告诉 UI 线程，服务器正在请求重定向。然后，另一个 URL 请求会被启动。
 
-## Executing program on Process and Thread
+### 第 3 步：读取响应
 
-![process and threads](https://developers.google.com/web/updates/images/inside-browser/part1/process-thread.png)
+![HTTP 响应](https://developers.google.com/web/updates/images/inside-browser/part2/response.png)
 
-Figure 4: Process as a bounding box, threads as abstract fish swimming inside of a process
+图 3：包含 Content-Type 的响应头以及作为实际数据的 payload
 
-Another concept to grasp before diving into browser architecture is Process and Thread. A process can be described as an application’s executing program. A thread is the one that lives inside of process and executes any part of its process's program.
+一旦开始收到响应主体（payload），网络线程会在必要时查看数据流的前几个字节。响应报文的 Content-Type 字段会声明数据的类型，但是它有可能会丢失或者错误，所以就有了 [MIME 类型嗅探](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)来解决这个问题。这是[源码](https://cs.chromium.org/chromium/src/net/base/mime_sniffer.cc?sq=package:chromium&dr=CS&l=5)中评论的“棘手的问题”。你可以阅读注释看一下不同浏览器是怎么匹配 content-type 和 payload 的。
 
-When you start an application, a process is created. The program might create thread(s) to help it do work, but that's optional. The Operating System gives the process a "slab" of memory to work with and all application state is kept in that private memory space. When you close the application, the process also goes away and the Operating System frees up the memory.
+如果响应是一个 HTML 文件，那么下一步就会把数据传给渲染进程，但是如果是一个压缩文件或是其他文件，那么意味着它是一个下载请求，因此需要将数据传递给下载管理器。
 
-[![process and memory](https://developers.google.com/web/updates/images/inside-browser/part1/memory.png)](https://developers.google.com/web/updates/images/inside-browser/part1/memory.svg) **click on the image to see annimation** 
+![MIME 类型嗅探](https://developers.google.com/web/updates/images/inside-browser/part2/sniff.png)
 
-Figure 5: Diagram of a process using memory space and storing application data
+图 4：网络线程询问一个响应数据是否是从安全网站来的 HTML
 
-A process can ask the Operating System to spin up another process to run different tasks. When this happens, different parts of the memory are allocated for the new process. If two processes need to talk, they can do so by using **I**nter **P**rocess **C**ommunication (**IPC**). Many applications are designed to work this way so that if a worker process get unresponsive, it can be restarted without stopping other processes which are running different parts of the application.
+此时也会进行 [SafeBrowsing](https://safebrowsing.google.com/) 检查。如果域名和响应数据似乎匹配到一个已知的恶意网站，那么网络线程会显示一个警告页面。除此之外，还会发生 [**C**ross **O**rigin **R**ead **B**locking（**CORB**）](https://www.chromium.org/Home/chromium-security/corb-for-developers)检查，以确保敏感的跨域数据不被传给渲染进程。
 
-[![worker process and IPC](https://developers.google.com/web/updates/images/inside-browser/part1/workerprocess.png)](https://developers.google.com/web/updates/images/inside-browser/part1/workerprocess.svg) **click on the image to see annimation** 
+### 第 4 步：查找渲染进程
 
-Figure 6: Diagram of separate processes communicating over IPC
+一旦所有的检查执行完毕并且网络线程确信浏览器会导航到请求的站点，网络线程会告诉 UI 线程所有的数据准备完毕。UI 线程会寻找渲染进程去开始渲染 web 页面。
 
-## Browser Architecture
+![寻找渲染进程](https://developers.google.com/web/updates/images/inside-browser/part2/findrenderer.png)
 
-So how is a web browser built using processes and threads? Well, it could be one process with many different threads or many different processes with a few threads communicating over IPC.
+图 5：网络线程告诉 UI 线程去查找渲染进程
 
-![browser architecture](https://developers.google.com/web/updates/images/inside-browser/part1/browser-arch.png)
+由于网络请求会花费几百毫秒才获取回响应，因此可以应用一个优化措施。当第 2 步 UI 线程正发送一个 URL 请求给网络线程时，它已经知道它们会导航到哪个站点。在网络请求的同时，UI 并行地线程尝试主动寻找或开启一个渲染进程。这样，如果一切按预期进行，渲染进程在网络线程接受到数据时就已经处于待命状态。如果导航跨域重定向，这个待命进程也许不会被用到，这种情况下也许会用到另一个进程。
 
-Figure 7: Different browser architectures in process/thread diagram
+### 第 5 步：提交导航
 
-The important thing to note here is that these different architectures are implementation details. There is no standard specification on how one might build a web browser. One browser’s approach may be completely different from another.
+现在数据和渲染进程已经就绪，浏览器进程会发送一个 IPC（进程间通信）到渲染进程去提交导航。它也会传递数据流，所以渲染进程可以保持接收 HTML 数据。一旦浏览器进程收到渲染进程已经提交的确认消息，导航完毕并且文档加载解析开始。
 
-For the sake of this blog series, we are going to use Chrome’s recent architecture described in the diagram below.
+这时，地址栏已经更新，安全指示器和站点设置 UI 会反映新页面的站点信息。此标签页的 session 历史记录会被更新，所以前进/后退按钮会走向刚导航过的站点。当你关闭标签页或者窗口，为了优化 tab/session 的还原，session 历史被保存在硬盘上。
 
-At the top is the browser process coordinating with other processes that take care of different parts of the application. For the renderer process, multiple processes are created and assigned to each tab. Until very recently, Chrome gave each tab a process when it could; now it tries to give each site its own process, including iframes (see [Site Isolation](#site-isolation)).
+![提交导航](https://developers.google.com/web/updates/images/inside-browser/part2/commit.png)
 
-![browser architecture](https://developers.google.com/web/updates/images/inside-browser/part1/browser-arch2.png)
+图 6：浏览器和渲染进程间的 IPC，请求渲染页面。
 
-Figure 8: Diagram of Chrome’s multi-process architecture. Multiple layers are shown under Renderer Process to represent Chrome running multiple Renderer Processes for each tab.
+### 额外的步骤：初始加载完毕
 
-## Which process controls what?
+一旦导航被提交，渲染进程开始加载资源和渲染页面。我们将在下一篇文章中讲解这个阶段发生什么的细节。一旦渲染进程渲染“完毕”。它会发送一个 IPC 返回给浏览器进程（这会在页面所有的 frame 的 `onload` 事件已经触发和执行完毕后发生）。这时，UI 线程停止标签页上的加载动画。
 
-The following table describes each Chrome process and what it controls:
+我之所以说“结束”，是因为客户端 JavaScript 可以在这时之后仍然加载额外的资源并且渲染新视图。
 
-| Process and What it controls |    |
-| ---------------------------- | -- |
-| Browser | Controls "chrome" part of the application including address bar, bookmarks, back and forward buttons.  
-Also handles the invisible, privileged parts of a web browser such as network requests and file access. |
-| Renderer | Controls anything inside of the tab where a website is displayed.|
-| Plugin | Controls any plugins used by the website, for example, flash. |
-| GPU | Handles GPU tasks in isolation from other processes. It is separated into different process because GPUs handles requests from multiple apps and draw them in the same surface. |
+![页面加载结束](https://developers.google.com/web/updates/images/inside-browser/part2/loaded.png)
 
-![Chrome processes](https://developers.google.com/web/updates/images/inside-browser/part1/browserui.png)
+图 7：渲染进程发送 IPC 到浏览器进程通知页面“已被加载”
 
-Figure 9: Different processes pointing to different parts of browser UI
+## 导航到另一个站点
 
-There are even more processes like the Extension process and utility processes. If you want to see how many processes are running in your Chrome, click the options menu icon more_vert at the top right corner, select More Tools, then select Task Manager. This opens up a window with a list of processes that are currently running and how much CPU/Memory they are using.
+简单导航已经完毕！但是用户在地址栏输入另一个 URL 会怎样呢？好吧，浏览器进程会执行相同的步骤来导航到一个不同的站点。但是在它做这个之前，它会检查当前已经渲染的站点是否关心 [`beforeunload`](https://developer.mozilla.org/en-US/docs/Web/Events/beforeunload) 事件。
 
-## The benefit of multi-process architecture in Chrome
+`beforeunload` 可以在你试图导航离开或关闭标签页时创建“离开此站点？”警告。包括你的 JavaScript 代码，所有标签页内的东西都是由渲染进程处理，所以当新的导航请求到来时，浏览器进程必须要跟当前的渲染进程核对。
 
-Earlier, I mentioned Chrome uses multiple renderer process. In the most simple case, you can imagine each tab has its own renderer process. Let’s say you have 3 tabs open and each tab is run by an independent renderer process. If one tab becomes unresponsive, then you can close the unresponsive tab and move on while keeping other tabs alive. If all tabs are running on one process, when one tab becomes unresponsive, all the tabs are unresponsive. That’s sad.
+**注意：** 不要添加无条件的 `beforeunload` 处理程序。它会产生更多延迟，因为处理程序需要在导航开始之前执行。应仅在需要时添加此事件处理程序，例如如果需要警告用户他们可能会丢失他们在页面上输入的数据。
 
-[![multiple renderer for tabs](https://developers.google.com/web/updates/images/inside-browser/part1/tabs.png)](https://developers.google.com/web/updates/images/inside-browser/part1/tabs.svg) **click on the image to see annimation** 
+![beforeunload 事件处理程序](https://developers.google.com/web/updates/images/inside-browser/part2/beforeunload.png)
 
-Figure 10: Diagram showing multiple processes running each tab
+图 8：浏览器进程向渲染进程发送 IPC 告诉它将要导航到另一个站点
 
-Another benefit of separating the browser's work into multiple processes is security and sandboxing. Since operating systems provide a way to restrict processes’ privileges, the browser can sandbox certain processes from certain features. For example, the Chrome browser restricts arbitrary file access for processes that handle arbitrary user input like the renderer process.
+如果渲染进程已经启动了导航（像用户点击一个链接或者客户端 JavaScript 运行 `window.location = "https://newsite.com"`），渲染进程会先检查 `beforeunload` 事件处理程序。然后，它会像浏览器处理启动导航一样执行相同的步骤。唯一不同的是导航请求是由渲染进程发送到浏览器进程的。
 
-Because processes have their own private memory space, they often contain copies of common infrastructure (like V8 which is a Chrome's JavaScript engine). This means more memory usage as they can't be shared the way they would be if they were threads inside the same process. In order to save memory, Chrome puts a limit on how many processes it can spin up. The limit varies depending on how much memory and CPU power your device has, but when Chrome hits the limit, it starts to run multiple tabs from the same site in one process.
+当新导航到的站点不同于当前已渲染的站点时，会调用一个独立的渲染进程来处理新导航，同时保持当前的渲染进程来处理类似 `unload` 的事件。有关更多信息，请查看[页面生命周期概览](https://developers.google.com/web/updates/2018/07/page-lifecycle-api#overview_of_page_lifecycle_states_and_events)以及如何使用[页面生命周期 API](https://developers.google.com/web/updates/2018/07/page-lifecycle-api) 挂钩事件。
 
-## Saving more memory - Servicification in Chrome
+![新导航与 unload](https://developers.google.com/web/updates/images/inside-browser/part2/unload.png)
 
-The same approach is applied to the browser process. Chrome is undergoing architecture changes to run each part of the browser program as a service allowing to easily split into different processes or aggregate into one.
+图 9：2 个 IPC（从浏览器进程到新渲染进程）告知渲染页面并告知旧渲染进程卸载
 
-General idea is that when Chrome is running on powerful hardware, it may split each service into different processes giving more stability, but if it is on a resource-constraint device, Chrome consolidates services into one process saving memory footprint. Similar approach of consolidating processes for less memory usage have been used on platform like Android before this change.
+## 如果有 Service Worker
 
-[![Chrome servicfication](https://developers.google.com/web/updates/images/inside-browser/part1/servicfication.png)](https://developers.google.com/web/updates/images/inside-browser/part1/servicfication.svg) **click on the image to see annimation** 
+最近对导航过程的改变是引入了 [service worker](https://developers.google.com/web/fundamentals/primers/service-workers/)。service worker 是一种在你的应用代码中编写网络代理的方法；允许 Web 开发者更好地控制本地缓存内容以及何时从网络获取新数据。如果将 service worker 设置为从缓存加载页面，则无需从网络请求数据。
 
-Figure 11: Diagram of Chrome’s servicification moving different services into multiple processes and a single browser process
+要记住的重要部分是 Service Worker 是在渲染进程中运行的 JavaScript 代码。但是当导航请求进入时，浏览器进程如何知道该站点有 service worker？
 
-## Per-frame renderer processes - Site Isolation
+![service worker 作用域检查](https://developers.google.com/web/updates/images/inside-browser/part2/scope_lookup.png)
 
-[Site Isolation](https://developers.google.com/web/updates/2018/07/site-isolation) is a recently introduced feature in Chrome that runs a separate renderer process for each cross-site iframe. We’ve been talking about one renderer process per tab model which allowed cross-site iframes to run in a single renderer process with sharing memory space between different sites. Running a.com and b.com in the same renderer process might seem okay. The [Same Origin Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) is the core security model of the web; it makes sure one site cannot access data from other sites without consent. Bypassing this policy is a primary goal of security attacks. Process isolation is the most effective way to separate sites. With [Meltdown and Spectre](https://developers.google.com/web/updates/2018/02/meltdown-spectre), it became even more apparent that we need to separate sites using processes. With Site Isolation enabled on desktop by default since Chrome 67, each cross-site iframe in a tab gets a separate renderer process.
+图 10：浏览器进程中的网络线程查找 service worker 作用域
 
-![site isolation](https://developers.google.com/web/updates/images/inside-browser/part1/isolation.png)
+当注册一个 service worker 时，保持 service worker 的作用域作为一个引用（你可以在这篇文章 [The Service Worker Lifecycle](https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle) 中阅读更多关于作用域的知识）。当一个导航发生时，网络线程用已注册的 service worker 作用域来检查域名，如果已经为该 URL 注册了一个 service worker，UI 线程会找一个渲染线程来执行 service worker 的代码。service worker 可能从缓存中加载数据，无需从网络请求数据，或者可以从网络请求新资源。
 
-Figure 12: Diagram of site isolation; multiple renderer processes pointing to iframes within a site
+![service worker 导航](https://developers.google.com/web/updates/images/inside-browser/part2/serviceworker.png)
 
-Enabling Site Isolation has been a multi-year engineering effort. Site Isolation isn’t as simple as assigning different renderer processes; it fundamentally changes the way iframes talk to each other. Opening devtools on a page with iframes running on different processes means devtools had to implement behind-the-scenes work to make it appear seamless. Even running a simple Ctrl+F to find a word in a page means searching across different renderer processes. You can see the reason why browser engineers talk about the release of Site Isolation as a major milestone!
+图 11：浏览器中的 UI 线程启动渲染进程来处理 service workers；然后，渲染进程中的工作线程从网络请求数据
 
-## Wrap-up
+## 导航预加载
 
-In this post, we’ve covered a high-level view of browser architecture and covered the benefits of a multi-process architecture. We also covered Servicification and Site Isolation in Chrome that is deeply related to multi-process architecture. In the next post, we’ll start diving into what happens between these processes and threads in order to display a website.
+你可以看到，如果 service worker 最终决定从网络请求数据，则浏览器进程和渲染器进程之间的往返可能会导致延迟。[导航预加载](https://developers.google.com/web/updates/2017/02/navigation-preload)是一种通过与 service worker 启动并行加载资源来加速此过程的机制。它用一个头部来标记这些请求，允许服务器决定为这些请求发送不同的内容；例如，只更新数据而不是完整文档。
 
-Did you enjoy the post? If you have any questions or suggestions for the future post, I'd love to hear from you in the comment section below or [@kosamari](https://twitter.com/kosamari) on Twitter.
+![导航预加载](https://developers.google.com/web/updates/images/inside-browser/part2/navpreload.png)
+
+图 12：浏览器进程中的 UI 线程启动渲染进程以在并行启动网络请求的同时处理 service worker
+
+## 总结
+
+在这篇文章中，我们研究了导航过程中发生了什么，以及你的 Web 应用代码（例如响应头和客户端 JavaScript）如何与浏览器交互。了解浏览器通过网络获取数据的步骤，可以更容易地理解为什么开发导航预加载等 API。在下一篇文章中，我们将深入探讨浏览器如何分析 HTML/CSS/JavaScript 以渲染页面。
+
+你喜欢这篇文章吗？如果您对以后的文章有任何问题或建议，欢迎在下面的评论区或在 Twitter [@kosamari](https://twitter.com/kosamari) 上留下您的宝贵意见。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

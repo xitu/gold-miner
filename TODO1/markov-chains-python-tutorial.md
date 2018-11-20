@@ -2,112 +2,112 @@
 > * 原文作者：[Sejal Jaiswal](https://www.datacamp.com/profile/cjsejal)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/markov-chains-python-tutorial.md](https://github.com/xitu/gold-miner/blob/master/TODO1/markov-chains-python-tutorial.md)
-> * 译者：
-> * 校对者：
+> * 译者：[cdpath](https://github.com/cdpath)
+> * 校对者：[jianboy](https://github.com/jianboy), [Kasheem Lew](https://github.com/kasheemlew)
 
-# Markov Chains in Python: Beginner Tutorial
+# 用 Python 实现马尔可夫链的初级教程
 
-## Learn about Markov Chains, their properties, transition matrices, and implement one yourself in Python!
+## 学习马尔可夫链及其性质，了解转移矩阵，并用 Python 动手实现！
 
-A Markov chain is a mathematical system usually defined as a collection of random variables, that transition from one state to another according to certain probabilistic rules. These set of transition satisfies the **Markov Property**, which states that the probability of transitioning to any particular state is dependent solely on the current state and time elapsed, and not on the sequence of state that preceded it. This unique characteristic of Markov processes render them **memoryless**.
+马尔可夫链是通常用一组随机变量定义的数学系统，可以根据具体的概率规则进行状态转移。转移的集合满足**马尔可夫性质**，也就是说，转移到任一特定状态的概率只取决于当前状态和所用时间，而与其之前的状态序列无关。马尔可夫链的这个独特性质就是**无记忆性**。
 
-In this tutorial, you will discover when you can use markov chains, what the [Discrete Time Markov chain](#dtmc) is. You'll also learn about the components that are needed to build a (Discrete-time) [Markov chain model](#model) and some of its common properties. Next, you'll implement one such simple model with Python using its `numpy` and `random` libraries. You will also learn some of the ways to represent a Markov chain like a state diagram and [transition matrix](#transitionmatrix).
+跟随本教程学会使用马尔可夫链，你就会懂得[离散时间马尔可夫链](https://www.datacamp.com/community/tutorials/markov-chains-python-tutorial#dtmc)是什么。你还会学习构建（离散时间）[马尔可夫链模型](https://www.datacamp.com/community/tutorials/markov-chains-python-tutorial#model)所需的组件及其常见特性。接着学习用 Python 及其 `numpy` 和 `random` 库来实现一个简单的模型。还要学习用多种方式来表示马尔可夫链，比如状态图和[转移矩阵](https://www.datacamp.com/community/tutorials/markov-chains-python-tutorial#transitionmatrix)。
 
-Want to tackle more statistics topics with Python? Check out DataCamp's [Statistical Thinking in Python](https://www.datacamp.com/courses/statistical-thinking-in-python-part-1) course!
+想用 Python 处理更多统计问题？了解一下 DataCamp 的 [Python 统计学思维课程](https://www.datacamp.com/courses/statistical-thinking-in-python-part-1)！
 
-Let's transition...
+开始吧……
 
-## Why Markov Chains?
+## 为什么要用马尔可夫链？
 
-Markov Chains have prolific usage in mathematics. They are widely employed in economics, game theory, communication theory, genetics and finance. They arise broadly in statistical specially Bayesian statistics and information-theoretical contexts. When it comes real-world problems, they are used to postulate solutions to study cruise control systems in motor vehicles, queues or lines of customers arriving at an airport, exchange rates of currencies, etc. The algorithm known as PageRank, which was originally proposed for the internet search engine Google, is based on a Markov process. [Reddit's Subreddit Simulator](https://www.reddit.com/r/SubredditSimulator/comments/3g9ioz/what_is_rsubredditsimulator/) is a fully-automated subreddit that generates random submissions and comments using markov chains, so cool!
+马尔可夫链在数学中有广泛使用。同时也在经济学，博弈论，通信原理，遗传学和金融学领域有广泛应用。通常出现在统计学，尤其是贝叶斯统计，和信息论上下文中。在现实中，马尔可夫链为研究机动车辆的巡航定速系统，抵达机场的乘客的排队序列，货币汇率等问题提供了解决思路。最早由 Google 搜索引擎提出的 PageRank 就是基于马尔可夫过程的算法。Reddit 有个叫子版块模拟器的子版块，帖子和评论全部用马尔可夫链自动生成生成，厉害吧！
 
-## Markov Chain
+## 马尔可夫链
 
-A Markov chain is a random process with the Markov property. A random process or often called stochastic property is a mathematical object defined as a collection of random variables. A Markov chain has either discrete state space (set of possible values of the random variables) or discrete index set (often representing time) - given the fact, many variations for a Markov chain exists. Usually the term "Markov chain" is reserved for a process with a discrete set of times, that is a Discrete Time Markov chain (DTMC).
+马尔可夫链是具有马尔可夫性质的随机过程。随机过程或者说具有随机性质是指由一组随机变量定义的数学对象。马尔可夫链要么有离散状态空间（一组随机变量的可能值的集合）要么有离散索引集合（通常表示时间），鉴于此，马尔可夫链有众多变种。而通常所说的「马尔可夫链」是指具有离散时间集合的过程，也就是离散时间马尔可夫链（DTMC）。
 
-## Discrete Time Markov chain
+## 离散时间马尔可夫链
 
-A discrete-time Markov chain involves a system which is in a certain state at each step, with the state changing randomly between steps. The steps are often thought of as moments in time (But you might as well refer to physical distance or any other discrete measurement). A discrete time Markov chain is a sequence of random variables X1, X2, X3, ... with the Markov property, such that the probability of moving to the next state depends only on the present state and not on the previous states. Putting this is mathematical probabilistic formula:
+离散时间马尔可夫链所包含的系统的每一步都处于某个状态，步骤之间的状态随机变化。这些步骤常被比作时间的各个瞬间（不过你也可以想成物理距离或者随便什么离散度量）。离散时间马尔可夫链是随机变量 X1，X2，X3 … 的序列，不过要满足马尔可夫性质，所以转移到下一概率只和现在的状态有关，与之前的状态无关。用概率数学公式表示如下：
 
 Pr( Xn+1 = x | X1 = x1, X2 = x2, …, Xn = xn) = Pr( Xn+1 = x | Xn = xn)
 
-As you can see, the probability of Xn+1 only depends on the probability of Xn that precedes it. Which means the knowledge of the previous state is all that is necessary to determine the probability distribution of the current state, satisfying the rule of conditional independence (or said other way: you only need to know the current state to determine the next state).
+可见 Xn+1 的概率只和之前的 Xn 的概率有关。所以只需要知道上一个状态就可以确定现在状态的概率分布，满足条件独立（也就是说：只需要知道现在状态就可以确定下一个状态）。
 
-The possible values of Xi form a countable set S called the **state space** of the chain. The state space can be anything: letters, numbers, basketball scores or weather conditions. While the time parameter is usually discrete, the state space of a discrete time Markov chain does not have any widely agreed upon restrictions, and rather refers to a process on an arbitrary state space. However, many applications of Markov chains employ finite or countably infinite state spaces, because they have a more straightforward statistical analysis.
+Xi 的可能取值构成的可数集合 S 称为马尔可夫链**状态空间**。状态空间可以是任何东西：字母，数字，篮球比分或者天气情况。虽说时间参数通常是离散的，离散时间马尔可夫链的状态空间却没有什么广泛采用的约束条件，还不如参考任意状态空间下的过程。不过许多马尔可夫链的应用都用到了统计分析更简单的有限或可数无穷状态空间。
 
-## Model
+## 模型
 
-A Markov chain is represented using a probabilistic automaton (It only sounds complicated!). The changes of state of the system are called transitions. The probabilities associated with various state changes are called transition probabilities. A probabilistic automaton includes the probability of a given transition into the transition function, turning it into a transition matrix.
+马尔可夫链用概率自动机表示（相信我它没有听上去那么复杂！）。系统状态的改变叫做转移。各个状态改变的概率叫做转移概率。概率自动机包括从已知转移到转移方程的概率，将其转换为转移矩阵。
 
-You can think of it as a sequence of directed graphs, where the edges of graph n are labeled by the probabilities of going from one state at time n to the other states at time n+1, Pr(Xn+1 = x | Xn = xn). You can read this as, probability of going to state Xn+1 given value of state Xn. The same information is represented by the **transition matrix** from time n to time n+1. Every state in the state space is included once as a row and again as a column, and each cell in the matrix tells you the probability of transitioning from its row's state to its column's state.
+还可以将马尔可夫链看作有向图，其中图 n 的边标注的是 n 时刻状态转移到 n+1 时刻状态的概率，Pr(Xn+1 = x | Xn = xn)。这个式子可以读做，从已知状态 Xn 转移到状态 Xn+1 的概率。这个概念也可以用从时刻 n 到时刻 n+1 的**转移矩阵**来表示。状态空间的每个状态第一次出现是作为转移矩阵的行，第二次是列。矩阵的每个元素都表示从这一行表示的状态转移到列状态的概率。
 
-If the Markov chain has N possible states, the matrix will be an N x N matrix, such that entry (I, J) is the probability of transitioning from state I to state J. Additionally, the transition matrix must be a stochastic matrix, a matrix whose entries in each row must add up to exactly 1. Why? Since each row represents its own probability distribution.
+如果马尔可夫链有 N 种状态，转移矩阵就是 N x N 维，其中（I, J）表示从状态 I 转移到状态 J 的概率。此外，转移矩阵一定是概率矩阵，也就是每一行元素之和一定是 1。为什么？因为每一行表示自身的概率分布。
 
-So, the model is characterized by a state space, a transition matrix describing the probabilities of particular transitions, and an initial state across the state space, given in the initial distribution.
+所以模型的主要特征包括：状态空间，描述了特定转移发生的概率的转移矩阵以及由初始分布给出的状态空间的初始状态。
 
-Whole lot of words eh?
+好像很复杂？
 
-Let's check out a simple example to understand the concepts:
+我们来看一个简单的例子帮助理解这些概念：
 
-When Cj is sad, which isn't very usual: she either goes for a run, goobles down icecream or takes a nap.
+如果 Cj 难得心情不好，她会跑步，或者大吃特吃冰淇淋（译者注：原文 gooble 应为 gobble），要么打个盹儿来调整。
 
-From historic data, if she spent sleeping a sad day away. The next day it is 60% likely she will go for a run, 20% she will stay in bed the next day and 20% chance she will pig out on icecream.
+根据以往数据，如果她睡了一觉调整心情，第二天她有 60% 的可能去跑步，20% 的可能继续待在床上，还有 20% 的可能吃一大份冰淇淋。
 
-When she is sad and goes for a run, there is a 60% chances she'll go for a run the next day, 30% she gorges on icecream and only 10% chances she'll spend sleeping the next day.
+如果她跑步散心，第二天她有 60% 的可能接着跑步，30% 的可能吃冰淇淋，只有 10% 的可能会去睡觉。
 
-Finally, when she indulges on icecream on a sad day, there is a mere 10% chance she continues to have icecream the next day as well, 70% she is likely to go for a run and 20% chance that she spends sleeping the next day.
+最后，如果她难过时纵情冰淇淋，第二天只有 10% 的可能性继续吃冰淇淋，有 70% 的可能性跑步，还有 20% 的可能性睡觉。
 
 ![](http://res.cloudinary.com/dyd911kmh/image/upload/f_auto,q_auto:best/v1523011817/state_diagram_pfkfld.png)
 
-The Markov Chain depicted in the **state diagram** has 3 possible states: sleep, run, icecream. So, the transition matrix will be 3 x 3 matrix. Notice, the arrows exiting a state always sums up to exactly 1, similarly the entries in each row in the transition matrix must add up to exactly 1 - representing probability distribution. In the transition matrix, the cells do the same job that the arrows do in the state diagram.
+上面由状态图表示的马尔可夫链有 3 个可能状态：睡觉，跑步和冰淇淋。所以转移矩阵是 3 x 3 矩阵。注意，离开某一状态的箭头的值的和一定是 1，这跟状态矩阵每一行元素之和是 1 一样，都表示概率的分布。转移矩阵中每个元素的含义跟状态图的每个状态类似。
 
 ![](http://res.cloudinary.com/dyd911kmh/image/upload/f_auto,q_auto:best/v1523011817/transition_matrix_gj27nq.png)
 
-Now that you have seen the example, this should give you an idea of the different concepts related to a Markov chain. But, how and where can you use these theory in real life?
+这个例子应该会帮助你理解与马尔可夫链有关的几个不同概念。不过在现实世界中如何应用这一理论呢？
 
-With the example that you have seen, you can now answer questions like: "Starting from the state: sleep, what is the probability that Cj will be running (state: run) at the end of a sad 2-day duration?"
+借助这个例子，你应该能够回答这种问题：「从睡觉状态开始，2 天后 Cj 最后选择跑步（跑步状态）的概率是多少？」
 
-Let's work this one out: In order to move from state: sleep to state: run, Cj must either stay on state: sleep the first move (or day), then move to state: run the next (second) move (0.2 $cdot$ 0.6); or move to state: run the first day and then stay there the second (0.6 $cdot$ 0.6) or she could transition to state: icecream on the first move and then to state: run in the second (0.2 $cdot$ 0.7). So the probability: ((0.2 $cdot$ 0.6) + (0.6 $cdot$ 0.6) + (0.2 $cdot$ 0.7)) = 0.62. So, we can now say that there is a 62% chance that Cj will move to state: run after two days of being sad, if she started out in the state: sleep.
+我们一起算一下。要从睡觉状态转移到跑步状态，Cj 有如下选择：第一天继续睡觉，第二天跑步（0.2 ⋅ 0.6）；第一天换成跑步，第二天继续跑步（0.6 ⋅ 0.6）；第一天去吃冰淇淋，第二天换成跑步（0.2 ⋅ 0.7）。算下来概率是：((0.2 ⋅ 0.6) + (0.6 ⋅ 0.6) + (0.2 ⋅ 0.7)) = 0.62。所以说，从睡觉状态开始，2天后 Cj 处于跑步状态的概率是 62%。
 
-Hopefully, this gave you an idea of the various questions you can answer using a Markov Chain network.
+希望这个例子可以告诉你马尔可夫链网络都可以解决哪些问题。
 
-Also, with this clear in mind, it becomes easier to understand some important properties of Markov chains:
+同时，还可以更好地理解马尔可夫链的几个重要性质：
 
-*   Reducibility: a Markov chain is said to be irreducible if it is possible to get to any state from any state. In other words, a Markov chain is irreducible if there exists a chain of steps between any two states that has positive probability.
-*   Periodicity: a state in a Markov chain is periodic if the chain can return to the state only at multiples of some integer larger than 1. Thus, starting in state 'i', the chain can return to 'i' only at multiples of the period 'k', and k is the largest such integer. State 'i' is aperiodic if k = 1 and periodic if k > 1.
-*   Transience and Recurrence: A state 'i' is said to be transient if, given that we start in state 'i', there is a non-zero probability that we will never return to 'i'. State i is recurrent (or persistent) if it is not transient. A recurrent state is known as positive recurrent if it is expected to return within a finite number of steps and null recurrent otherwise.
-*   Ergodicity: a state 'i' is said to be ergodic if it is aperiodic and positive recurrent. If all states in an irreducible Markov chain are ergodic, then the chain is said to be ergodic.
-*   Absorbing State: a state i is called absorbing if it is impossible to leave this state. Therefore, the state 'i' is absorbing if pii = 1 and pij = 0 for i ≠ j. If every state can reach an absorbing state, then the Markov chain is an absorbing Markov chain.
+* 互通性：如果一个马尔可夫链可以从任何状态转移至任何状态，那么它就是不可还原的。换句话说，如果任两个状态之间存在一系列步骤的概率为正，就是不可还原的。
+* 周期性：如果马尔可夫链只有在大于 1 的某个整数的倍数时返回某状态，那么马尔可夫链的状态是周期性的。因此，从状态「i」开始，只有经过整数倍个周期「k」才能回到「i」，k 是所有满足条件的整数的最大值。如果 k = 1 状态「i」不是周期性的，如果 k > 1，「i」才是周期性的。
+* 瞬态性和常返性：如果从状态「i」开始，有可能无法回到状态「i」，那么状态「i」有瞬态性。否则具有常返性（或者说持续性）。如果某状态可以在有限步内重现，该状态具有常返性，否则没有常返性。
+* 遍历性：状态「i」如果满足非周期性和正重现性，它就有遍历性。如果不具有可还原性的马尔可夫链的每个状态都有遍历性，那么这个马尔可夫链也具有遍历性。
+* 吸收态：如果无法从状态「i」转移到其他状态，「i」处于吸收态。因此，如果 当 i ≠ j 时，pii = 1 且 pij = 0，状态「i」处于吸收态。如果马尔可夫链的每个状态都可以达到吸收态，称其为具有吸收态的马尔可夫链。
 
-**Tip**: if you want to also see a visual explanation of Markov chains, make sure to visit [this page](http://setosa.io/ev/markov-chains/).
+**窍门**：可以看看[这个网站](http://setosa.io/ev/markov-chains/)给出的马尔可夫链的可视化解释。
 
-## Markov Chains in Python
+## 用 Python 实现马尔可夫链
 
-Let's try to code the example above in Python. And although in real life, you would probably use a library that encodes Markov Chains in a much efficient manner, the code should help you get started...
+我们用 Python 来实现一下上面这个例子。当然实际使用的库实现的马尔可夫链的效率会高得多，这里还是给出实例代码帮助你入门……
 
-Let's first import some of the libraries you will use.
+先 import 用到的库。
 
-```
+```python
 import numpy as np
 import random as rm
 ```
 
-Let's now define the states and their probability: the transition matrix. Remember, the matrix is going to be a 3 X 3 matrix since you have three states. Also, you will have to define the transition paths, you can do this using matrices as well.
+然后定义状态及其概率，也就是转移矩阵。要记得，因为有三个状态，矩阵是 3 X 3 维的。此外还要定义转移路径，也可以用矩阵表示。
 
-```
-# The statespace
+```python
+# 状态空间
 states = ["Sleep","Icecream","Run"]
 
-# Possible sequences of events
+# 可能的事件序列
 transitionName = [["SS","SR","SI"],["RS","RR","RI"],["IS","IR","II"]]
 
-# Probabilities matrix (transition matrix)
+# 概率矩阵（转移矩阵）
 transitionMatrix = [[0.2,0.6,0.2],[0.1,0.6,0.3],[0.2,0.7,0.1]]
 ```
 
-Oh, always make sure the probabilities sum up to 1. And it doesn't hurt to leave error messages, at least when coding!
+别忘了，要保证概率之和是 1。另外在写代码时多打印一些错误信息没什么不好的！
 
-```
+```python
 if sum(transitionMatrix[0])+sum(transitionMatrix[1])+sum(transitionMatrix[1]) != 3:
     print("Somewhere, something went wrong. Transition matrix, perhaps?")
 else: print("All is gonna be okay, you should move on!! ;)")
@@ -117,18 +117,18 @@ else: print("All is gonna be okay, you should move on!! ;)")
 All is gonna be okay, you should move on!! ;)
 ```
 
-Now let's code the real thing. You will use the `numpy.random.choice` to generate a random sample from the set of transitions possible. While most of its arguments are self-explanatory, the `p` might not be. It is an optional argument that lets you enter the probability distribution for the sampling set, which is the transition matrix in this case.
+现在就要进入正题了。我们要用 `numpy.random.choice` 从可能的转移集合选出随机样本。代码中大部分参数的含义从参数名就能看出来，不过参数 `p` 可能比较费解。它是可选参数，可以传入样品集的概率分布，这里传入的是转移矩阵。
 
-```
-# A function that implements the Markov model to forecast the state/mood.
+```python
+# 实现了可以预测状态的马尔可夫模型的函数。
 def activity_forecast(days):
-    # Choose the starting state
+    # 选择初始状态
     activityToday = "Sleep"
     print("Start state: " + activityToday)
-    # Shall store the sequence of states taken. So, this only has the starting state for now.
+    # 应该记录选择的状态序列。这里现在只有初始状态。
     activityList = [activityToday]
     i = 0
-    # To calculate the probability of the activityList
+    # 计算 activityList 的概率
     prob = 1
     while i != days:
         if activityToday == "Sleep":
@@ -178,7 +178,7 @@ def activity_forecast(days):
     print("End state after "+ str(days) + " days: " + activityToday)
     print("Probability of the possible sequence of states: " + str(prob))
 
-# Function that forecasts the possible state for the next 2 days
+# 预测 2 天后的可能状态
 activity_forecast(2)
 ```
 
@@ -189,11 +189,11 @@ End state after 2 days: Run
 Probability of the possible sequence of states: 0.12
 ```
 
-You get a random set of transitions possible along with the probability of it happening, starting from state: Sleep. Extend the program further to maybe iterate it for a couple of hundred times with the same starting state, you can then see the expected probability of ending at any particular state along with its probability. Let's rewrite the function `activity_forecast` and add a fresh set of loops to do this...
+结果可以得到从睡觉状态开始的可能转移及其概率。进一步拓展这个函数，可以让它从睡觉状态开始，迭代上几百次，就能得到终止于特定状态的预期概率。下面改写一下 `activity_forecast` 函数，加一些循环……
 
-```
+```python
 def activity_forecast(days):
-    # Choose the starting state
+    # 选择初始状态
     activityToday = "Sleep"
     activityList = [activityToday]
     i = 0
@@ -244,23 +244,23 @@ def activity_forecast(days):
         i += 1    
     return activityList
 
-# To save every activityList
+# 记录每次的 activityList
 list_activity = []
 count = 0
 
-# `Range` starts from the first count up until but excluding the last count
+# `range` 从第一个参数开始数起，一直到第二个参数（不包含）
 for iterations in range(1,10000):
         list_activity.append(activity_forecast(2))
 
-# Check out all the `activityList` we collected    
+# 查看记录到的所有 `activityList`    
 #print(list_activity)
 
-# Iterate through the list to get a count of all activities ending in state:'Run'
+# 遍历列表，得到所有最终状态是跑步的 activityList
 for smaller_list in list_activity:
     if(smaller_list[2] == "Run"):
         count += 1
 
-# Calculate the probability of starting from state:'Sleep' and ending at state:'Run'
+# 计算从睡觉状态开始到跑步状态结束的概率
 percentage = (count/10000) * 100
 print("The probability of starting at state:'Sleep' and ending at state:'Run'= " + str(percentage) + "%")
 ```
@@ -269,15 +269,15 @@ print("The probability of starting at state:'Sleep' and ending at state:'Run'= "
 The probability of starting at state:'Sleep' and ending at state:'Run'= 62.419999999999995%
 ```
 
-How did we approximate towards the desired 62%?
+那么问题来了，计算得到的结果为何会趋于 62%？
 
-**Note** This is actually the "law of large numbers", which is a principle of probability that states that the frequencies of events with the same likelihood of occurrence even out, but only if there are enough trials or instances. In other words, as the number of experiments increases, the actual ratio of outcomes will converge on a theoretical or expected ratio of outcomes.
+**注意** 这实际是「大数定律」在发挥作用。大数定律是概率论定律，用来说明在试验次数足够多时，可能性相同的事件发生的频率趋于一致。也就是说，随着试验次数的增加，实际比率会趋于理论或预测的概率。
 
-## Markov State of Mind
+## 马尔可夫思维
 
-This concludes the tutorial on Markov Chains. You have been introduced to Markov Chains and seen some of its properties. Simple Markov chains are one of the required, foundational topics to get started with data science in Python. If you'd like more resources to get started with statistics in Python, make sure to check out [this page](https://www.datacamp.com/community/tutorials/python-statistics-data-science).
+马尔可夫链教程就到此为止了。本文介绍了马尔可夫链及其性质。简单的马尔可夫链是开始学习 Python 数据科学的必经之路。如果想要更多 Python 统计学资源，请参阅[这个网站](https://www.datacamp.com/community/tutorials/python-statistics-data-science)。
 
-> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 
 ---
