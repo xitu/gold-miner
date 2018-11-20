@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划 — 区块链分舵](https://github.com/xitu/blockchain-miner)
 > * 本文永久链接：[https://github.com/xitu/blockchain-miner/tree/master/article/0001/ethereum-bitcoin-explainer.md](https://github.com/xitu/blockchain-miner/tree/master/article/0001/ethereum-bitcoin-explainer.md)
 > * 译者：[Noah Gao](https://noahgao.net)
-> * 校对者：
+> * 校对者：[haiyang-tju](https://github.com/haiyang-tju), [7Ethan](https://github.com/7Ethan)
 
-# 以太坊: 能帮我们把 Uber 换掉的非比特币加密货币
+# 以太坊：能帮我们把 Uber 换掉的非比特币加密货币
 
 ![](https://i.amz.mshcdn.com/GKd0az4kW5ADnn02y_0yWdZ1PNQ=/950x534/filters:quality(90)/https%3A%2F%2Fblueprint-api-production.s3.amazonaws.com%2Fuploads%2Fcard%2Fimage%2F423288%2Fae2d8151-8fd7-4271-9459-ca3027da88ef.jpg)
 
@@ -17,9 +17,9 @@
 
 ## 所以，以太坊到底是什么？
 
-以太坊是一个去中心化的应用，支持加密货币或数字货币，就像比特币一样。你可以用它进行线上付款、货币交换 、或着是在任何可以接受它的地方买卖东西。
+以太坊是一个去中心化的应用，支持加密货币或数字货币，就像比特币一样。你可以用它进行线上付款、货币交换、或着是在任何可以接受它的地方买卖东西。
 
-但以太坊超过比特币的地方在于。这种被称为 ether 的加密货币，运行在一种“智能合约”上。智能合约是一种区块链技术和“if:then”系统，**当**满足了一定的条件时，它允许以太坊进行交易。
+但以太坊超过比特币的地方在于。这种被称为 ether 的加密货币，运行在一种“智能合约”上。智能合约是一种区块链技术和 "if:then" 系统，**当**满足了一定的条件时，它允许以太坊进行交易。
 
 比特币虽然也运行在区块链（一种分布式的、去中心化的交易帐本）之上，但它不会涉及智能合约的这些额外步骤。
 
@@ -43,7 +43,7 @@
 
 ## 现在谁在用以太坊？
 
-不出我们所料，以太坊与比特币有着相似的客户。但以太坊仍处于较早的实验性阶段。投资者和投机者都还专注于建构新的应用 - 而不是引入以太坊的 ATM 机。
+不出我们所料，以太坊与比特币有着相似的客户。但以太坊仍处于较早的实验性阶段。投资者和投机者都还专注于建构新的应用 — 而不是引入以太坊的 ATM 机。
 
 ## 我该怎么买到以太坊？
 
@@ -75,7 +75,7 @@ Bunz 说，除了以太坊之外，加密货币 Zerocash 是最有说服力的�
 
 ![](https://i.amz.mshcdn.com/cdexu-hJicRNp0GFxbxHAlAwOBM=/fit-in/1200x9600/https%3A%2F%2Fblueprint-api-production.s3.amazonaws.com%2Fuploads%2Fcard%2Fimage%2F425307%2Fd2371fbb-a09f-4f05-8eea-0801141faf11.jpg)
 
-图片来源： [worldcoinindex.com](http://worldcoinindex.com)
+图片来源：[worldcoinindex.com](http://worldcoinindex.com)
 
 ## 以太坊实际上有多重要？
 
