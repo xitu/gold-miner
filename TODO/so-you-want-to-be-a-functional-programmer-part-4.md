@@ -1,8 +1,8 @@
 > * 原文地址：[So You Want to be a Functional Programmer (Part 4)](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-4-18fbe3ea9e49#.1p212lwov)
-* 原文作者：[Charles Scalfani](https://medium.com/@cscalfani)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[linpu.li](https://github.com/llp0574)
-* 校对者：[luoyaqifei](https://github.com/luoyaqifei)，[supertong](https://github.com/supertong)
+> * 原文作者：[Charles Scalfani](https://medium.com/@cscalfani)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者：[linpu.li](https://github.com/llp0574)
+> * 校对者：[luoyaqifei](https://github.com/luoyaqifei)，[supertong](https://github.com/supertong)
 
 # 准备充分了嘛就想学函数式编程？(第四部分)
 
