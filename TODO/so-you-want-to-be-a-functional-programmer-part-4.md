@@ -228,8 +228,18 @@
 
     var filter = (pred, array) => {
         var newArray = [];
+        for (var i = 0; i < array.length; ++i) {
+            if (pred(array[i]))
+                newArray[newArray.length] = array[i];
+        }
+        return newArray;
+    };  
+    
+注意谓词函数 **_pred_** ，如果通过验证返回 TRUE，否则返回 FALSE。
 
-    for (var i = 0; i  x % 2 !== 0;
+下面展示了如何使用 **_filter_** 函数来过滤奇数：
+    
+    var isOdd = x => x % 2 !== 0;
     var numbers = [1, 2, 3, 4, 5];
     var oddNumbers = filter(isOdd, numbers);
     console.log(oddNumbers); // [1, 3, 5]
