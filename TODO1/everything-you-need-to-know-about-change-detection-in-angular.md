@@ -23,7 +23,7 @@
 
 ### 核心概念：视图（view）
 
-Angular 的教程上一直在说，一个 Angular 应用是一颗组件树。然而，在 Angular 内部使用的是一种叫做[视图（view）](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/types.ts#L301)的低阶抽象。视图和组件直接是有直接联系的——一个视图都有一个与之关联的组件，反之亦然。视图通过 `component` 属性将其与对应的组件类[关联](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/types.ts#L309)起来。所有的操作都在视图中执行，比如属性检查和更新 DOM。所以，从技术上来说，更正确的说法是：一个 Angular 应用是一颗视图树。组件可以描述为视图的更高阶的概念。关于视图，[源码](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/linker/view_ref.ts#L31)中有这样一段描述：
+Angular 的教程上一直在说，一个 Angular 应用是一颗组件树。然而，在 Angular 内部使用的是一种叫做[视图（view）](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/types.ts#L301)的低阶抽象。视图和组件之间是有直接联系的 —— 每个视图都有与之关联的组件，反之亦然。视图通过 `component` 属性将其与对应的组件类[关联](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/view/types.ts#L309)起来。所有的操作都在视图中执行，比如属性检查和更新 DOM。所以，从技术上来说，更正确的说法是：一个 Angular 应用是一颗视图树。组件可以描述为视图的更高阶的概念。关于视图，[源码](https://github.com/angular/angular/blob/6b79ab5abec8b5a4b43d563ce65f032990b3e3bc/packages/core/src/linker/view_ref.ts#L31)中有这样一段描述：
 
 > 视图是构成应用 UI 的基本元素。它是一组一起被创造和销毁的最小合集。
 
