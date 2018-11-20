@@ -6,26 +6,13 @@
 
 # 准备充分了嘛就想学函数式编程？(第四部分)
 
-
 想要理解函数式编程，第一步总是最重要，也是最困难的。但是只要有了正确的思维，其实也不是太难。
 
 之前的部分: [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/so-you-want-to-be-a-functional-programmer-part-1.md), [第二部分](https://github.com/xitu/gold-miner/blob/master/TODO/so-you-want-to-be-a-functional-programmer-part-2.md), [第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/so-you-want-to-be-a-functional-programmer-part-3.md)
 
 #### 柯里化
 
-
-
-
-
-
-
-
-
 ![](https://cdn-images-1.medium.com/max/1600/1*zihd0We3yAkjAxleLPL2aA.png)
-
-
-
-
 
 如果你还记得[第三部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7)内容的话，就会知道我们在组合 **_mult5_** 和 **_add_** 这两个函数时遇到问题的原因是：**_mult5_** 接收一个参数而 **_add_** 却接收两个。
 
@@ -72,19 +59,7 @@
 
 #### 柯里化和重构
 
-
-
-
-
-
-
-
-
 ![](https://cdn-images-1.medium.com/max/1600/1*kbFszF2qDVeeN591mpq8Ug.png)
-
-
-
-
 
 柯里化在重构的的时候也能发挥它闪亮的一面，当我们创建一个多参数通用版本的函数时，我们可以通过柯里化的方法用它来创建接收更少参数的特定版本的函数。
 
@@ -148,19 +123,7 @@
 
 #### 常用的功能函数
 
-
-
-
-
-
-
-
-
 ![](https://cdn-images-1.medium.com/max/1600/1*I7nCgMOzuVxKPj_amfQxNw.png)
-
-
-
-
 
 让我们来看三个函数式（编程）语言里的常用函数。
 
@@ -278,19 +241,7 @@
 
 #### 我的脑子！！！
 
-
-
-
-
-
-
-
-
 ![](https://cdn-images-1.medium.com/max/1600/1*IK5485-iZaHeZRfP8aWmYg.png)
-
-
-
-
 
 目前为止足够了.
 
@@ -298,7 +249,6 @@
 
 下一篇: [第五部分](https://github.com/xitu/gold-miner/blob/master/TODO/so-you-want-to-be-a-functional-programmer-part-5.md)
 
-_如果你喜欢这篇文章，点击下面的![💚](https://linmi.cc/wp-content/themes/bokeh/images/emoji/1f49a.png)，其他人就可以在这里看到了哦。_
+**如果你喜欢这篇文章，点击下面的![💚](https://linmi.cc/wp-content/themes/bokeh/images/emoji/1f49a.png)，其他人就可以在这里看到了哦。**
 
 如果你想加入 Web 开发者学习社区并帮助其他人在 Elm 里用函数式编程开发 Web 应用，请看我的 Facebook Group，**学习 Elm 编程** [https://www.facebook.com/groups/learnelm/](https://www.facebook.com/groups/learnelm/)。
-
