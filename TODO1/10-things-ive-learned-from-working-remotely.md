@@ -1,94 +1,94 @@
 > * 原文地址：[10 things I've learned from working remotely](https://dev.to/lkopacz/10-things-ive-learned-from-working-remotely-240h)
 > * 原文作者：[Lindsey Kopacz](https://dev.to/lkopacz)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/10-things-ive-learned-from-working-remotely.md](https://github.com/xitu/gold-miner/blob/master/TODO1/10-things-ive-learned-from-working-remotely.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/10-things-ive-learned-from-working-remote.，ly.md](https://github.com/xitu/gold-miner/blob/master/TODO1/10-things-ive-learned-from-working-remotely.md)
 > * 译者：
 > * 校对者：
 
-# 10 things I've learned from working remotely
+# 在远程工作中领悟到的 10 件事
 
-I feel like the idea of working remotely is pretty divided. People either love it or hate it. After reading a lot of posts and experiencing it for myself, I decided I wanted to write a few things I've learned to help those that are on the fence about it. I've been working remotely for 16 months now and have gotten the hang of what parts work well for me.
+对于远程工作，我有着截然不同的理念。人们要么持喜欢的态度，要么就是带有偏见。在阅读大量文章以及亲身体验之后，我决定去写一些我学过的东西来帮助那些对此持怀疑态度的人。到目前为止，我已经远程工作了 16 个月，也已经掌握了我适应的那些部分。
 
-1. Learn how to set boundaries, even with yourself
+1. 学会如何设置界限，甚至于是自己的
 
-The hardest part of working from home is the fact that if you're not used to creating a structure for yourself, it becomes challenging to set boundaries. When you work in an office, there are boundaries built in. When you are in the office, you're working. When you're not in the office, you're not working. It gets a little hairier when you don't have that built in.
+在家工作最困难部分是如果你不习惯为创建一个结构，那么设定界限就会变得极具挑战性。当你在办公司工作时，环境自身就会存在一定的界限。当你在办公室时，你会自觉地工作。而当你离开办公室时，你就自然不会去工作。当你没有在那个环境中设置界限时，自觉工作就会变得很艰难。
 
-Here is what I do to set boundaries with myself:
+这是我为自己设置界限所做的事情：
 
-- I never work in my PJs. I always physically change into something, even if it's a T-shirt and jeans, but I find the actual routine of changing gives me the boundary of PJs = sleep and/or chill time.  
-- Additionally, I never work from my bed.  
-- I have an office that is dedicated to where I work. I don't work in common areas because those I prefer to associate that as "home."  
-- I observe when my meetings are. If I have an early meeting, I set an "Out of Office" block on my calendar after the 8-hour mark of signing on. Vice versa if I have a late meeting, I start working later. I am candid with my manager that I don't want to work over 8 hours. I haven't had issues with people abusing that. If you work at a good company, they should respect that your work should not take over your day.
+- 我从来不会穿睡衣工作。我一直在意衣着的事情，甚至是一件 T 恤和牛仔裤，但我发现实际的例行改变总是.我总是从身体上寻找变化点，即使是 T 恤和牛仔裤。但我发现，实际的计划改变了我的时间=睡眠和/或失望的时间界限。
+- 此外，我从不在床上工作。
+- 我有一个专门负责自己工作的办公室。我不在公共区工作，因为我更喜欢把它当成“家”。
+- 我遵守自己的开会时间。如果我有一个早些时间的会议，我会在自己的日历上设置一个 8 小时之后才会响的“离开办公室”的闹钟。如果是会议稍晚，那就做一个相反的决定，然后开始工作。我对我的经理坦率地说，我不想工作超过 8 个小时。我对职员过度加班没有意见。但是如果你在一家好公司，他们应该尊重你的工作，而不是去占据你一整天的时间。
 
-## 2. Have a morning routine
+## 2. 有一个晨间计划
 
-Having a morning routine is absolutely key for me. I don't understand how people roll out of bed and open their computers to start working. For me, the separation between waking up and "going to work" is very important to me and has been really helpful for my mental health. I usually wake up around 7 am and get online to start work around 9:30 am.
+晨间计划对我来说非常重要。我无法理解人们是如何直接从床上起来，然后打开电脑开始工作的。对我来说，醒着和“去工作”之间的间断非常重要，因为这对我的心理健康真的很有帮助。我一般在早晨 7 左右醒来，然后在 9:30 左右开始上网工作。
 
-Here is what my morning routine is like:
+我的晨间计划是这样的：
 
-- Wake up  
-- Go to the gym. Pump some iron or get some cardio in.  
-- Cook breakfast and eat without anything work-related.  
-- Meditate  
-- Journal (optional, that's more on tough days)  
-- Work on blog  
-- Sign into work
+- 起床  
+- 去健身房
+- 做早饭，吃早饭，和工作没有任何关系  
+- 沉思  
+- 日记（可选的，在那些艰难的岁月） 
+- 在博客上工作  
+- 工作签到
 
-## 3. Having a pet helps tremendously
+## 3. 养宠物很有帮助
 
-When I got my cat, my quality of life went up so much. I actually have rejected opportunities because I don't want to leave her (which my partner thinks is silly, but he doesn't know how awesome it is). I'm sure this is also very similar if you have a pup. I imagine taking your dog for a walk is a fantastic way to take a break and stretch your legs. With my cat, she will sit next to me and cuddle, so if I am having a tough time, it really helps calm me down.
+当我养了自己的小猫时，我的生活质量也提高了很多。事实上，我为了它拒绝了一些机会，因为我不想让它离开我一小会儿（我的另一半认为这很愚蠢）。我敢肯定，如果你有一只小狗，情况应该也会类似。我可以想象你带着狗一起散步，伸展双腿的情景。而我的猫，则会坐在我旁边小憩，所以如果我有一个困难的时间，它真的可以帮助我冷静下来。
 
-## 4. Take breaks, especially if you're feeling emotional and stressed
+## 4. 休息一下，特别是当你感到情绪激动和压力很大的时候
 
-I take a 5-minute break every hour to walk around and stretch my legs. This is a short enough break to not completely have to re-familiarize myself with what I was working on, but long enough to really give myself a breather. This is something I do regardless if I am feeling great or awful, but it's mandatory in my workday routine.
+我每小时休息 5 分钟，通过四处走动和伸展双腿的方式。这个休息时间足够的短，以至于我不需要完全重复熟悉我正在做的事情，但只有足够长的时间才能让自己真正的休息一下。这是我现在正在做的，不管我是否感觉很好或者很糟，因为是在我的计划中，所以这是强制性的。
 
-Regarding tough times, one of my favorite things about working from home is if I am having a really tough time, I can step aside, cry and not feel self-conscious about someone seeing me. The fact that I release the energy really helps me let go and get back to work. This is 1000 times better than holding onto it for hours because of how much I am trying to hold back tears.
+关于艰难时期，我在家工作最喜欢的一件事是如果我真的需要度过一段艰难的时期，我会走到一边，然后大声哭出来，而且我不用因为担心被别人看到而刚到害羞。事实上，我释放出的压力，可以让我尽快走出来，然后回归到工作上。这比我想忍住眼泪不掉，坚持几个小时要好 1000 倍。
 
-## 5. Get to know your conferencing software and how to use it
+## 5. 熟悉你的会议软件以及如何使用它
 
-Know how to mute yourself and unmute yourself quickly. Make sure you're not saying snarky things while unmuted. In larger meetings, learn to use the chats within the software to ask questions.
+了解如何让自己安静下来，以及如何快速脱离这种状态。确保你在活跃的时候不会说出尖酸刻薄的话。在大型会议中，学会使用软件中的聊天来提问。
 
-## 6. Make plans to socialize outside of work at least once a week
+## 6. 每周至少计划出一次工作以为的社交活动
 
-I am an extrovert, so this is not difficult for me at all. I think working remotely is a little bit more difficult for introverts (my own opinion) because after working a long day, their way to recharge is to be alone. However, social interaction is always good for the soul, regardless of introversion or extraversion.
+我是外向的人，所以这对我来说并不难。我觉得远程工作对于内向的人来说（个人观点）有些看你，以为在工作一天之后，他们的休息方式是一个人。而无论是内向的还是外向的，社交互动的目的总是为了有益精神世界。
 
-## 7. Be active in local non-work Slack communities
+## 7. 积极参与当地的非工作性质的社区
 
-This is where I have met so many of my technical friends that I can actually go grab a coffee or a beer with. It's a fantastic way to network without awkwardly going to professional meetups without knowing anyone. It's also a great way to learn about meetups and events and see what meetups your internet friends are attending!
+在这里，我遇到了很多技术上志同道合的朋友，我经常和他们一起去和咖啡或者啤酒。与尴尬的参加而且还不认识任何的专业会议相比，这种社交方式的体验让人惬意。这同时也是一个了解会议和事件的好方式，可以了解他们参加了什么会议。
 
-## 8. Set reminders to brush your teeth
+## 8. 设置提醒刷牙的时间
 
-Some people may find this gross, but I cannot tell you how many times I was working on my blog while drinking my coffee before signing onto work and just straight up forgot to brush my teeth. I set a reminder every weekday at 10:30 am, just in case I forget.
+有些人可能会觉得恶心，但我很想告诉你好多次我在上班前喝咖啡时，在博客上工作了一段时间才想起来自己忘记刷牙了。所以我设置了每个工作日的 10:30 am 来提醒我以防自己忘记。
 
-## 9. Try to set up "social time" at work
+## 9. 尝试在工作中设置“社交时间”
 
-Admittedly, I am VERY bad at this. But sometimes you need little pockets of time to hang out on you conferencing software to just chat. You can even name the meeting "Water Cooler Chat." It's also really helpful for moral to do it after everyone has gone through a stressful launch of a product or website. I think the reason why I don't do this very often is that I am very much in work mode when I am at work and what I love about working remotely is not getting distracted. But some people absolutely need social time with their coworkers.
+不可否认的是，我在这方面做得很差。但有时你确实需要在会议聊天软件上花费一些时间来闲聊。你甚至可以为此命名为 "Water Cooler Chat"。对于那些刚刚经历过一个压力巨大的产品或网站发布的人来说，这种方式的压力释放是有意义的。我认为我之所以不经常这样做，是因为我在工作的时候处于工作状态，而我喜欢的远程工作方式不会让我分心。但有些人也确实需要和同时在一起相处的社交时间。
 
-## 10. Do not force it if it doesn't work for you
+## 10.如果这对你无效，就不要在强制使用它
 
-You do not have to work remote. If it really is bad for your health and you struggle with these things, work in an office. I personally love it and plan on being remote for as long as I can. I love the flexibility that it adds to my life and the time I save on commuting. With all the things I am working on right now, it really allows me to have a social life even with all my side projects.
+远程工作不一定适合你。如果这真的对你的健康有害，而且它们对你造成了困扰，那么你也许更适合在办公室工作。我个人是非常热衷于这种方式的，而且会尽我可能的来规划远程工作方式。我喜欢它为我生活带来的灵活性，而且这也节省了我上下班所花费的时间。我现在所做的事情可以允许我即使在办公也可以有时间来进行社交活动。
 
-I'd love to hear, what are your tips for working remotely?
+我很乐意倾听你对于远程工作的想法。
 
 ---
 
 **[Fabien Ninoles](https://dev.to/ninoles):**
 
-I have built my company for two years now, working entirely remotely (with about 20 remote devs today, most of them in Montreal area, with an office to share if necessary, but most of them are still working from home most days of the week).
+到目前为止，我的公司已经成立两年了，完全是远程工作（现在大概有 20 个远程开发者，其中大多数在 Montreal 地区，必要时有一个办公室可供共享，但大多数人一周的时间都是呆在家里工作）。
 
-I agree with all your points and would like to add some myself, about communication.
+我同意你所有的观点，但我仍然想补充一点，是关于沟通的。
 
-Communication is way more important when working remotely. Some think it will be an isolating experience, but, by my own experience, I found it is very easy to keep the line open with today's tools. However, I had to relearn it quite a bit:
+对于远程工作来说，交流是非常重要的。一些人认为这将是一种被孤立的体验，但根据我自己的经验，我发现用今天的工具保持交流是非常容易的。然而有一点要承认的是，我必须要学习会更多：
 
-1. You will be far more interrupt when working remotely instead of in an office. People will less hesitate to ask you a question or start a conversation because they will not know you were already engaged in other work or conversation. Which means:
+1. 相比办公室工作，远程工作会受到更多的中断。人们会毫不犹豫地想你提问或是开始交谈，因为他们不知道你正在参与其他工作或者交流。这意味着：
 
-2. Your exchanges will be terser, especially with people that supervise many others or are central to your organization. You have to imagine them surrounded by people like in a press conference and trying to answer everyone questions. Don't try to second-guess the intent based on what's NOT written. Ask for clarification when it's unclear. And, remember, you'll be this person too, so:
+2. 你的交流将更加简洁，特别是与管理许多其他人或对你的组织起核心作用的人之间的交流。你必须想象他们周围的人，像在一个新闻发布会上，并试图回答每个人的问题。不要试图根据没有写的东西来猜测意图。当不清楚的时候奥球澄清。记住，你可能也会成为这个人，所以：
 
-3. You really need to be more clear with your intentions. Even with emoji (or maybe even more?), intents doesn't travel that's well through chat and emails. Take the time to respond carefully, fully, and don't hesitate to request a video/audio call if necessary. Communication among people is still primarily an oral tradition, and body language is also an important part of it. And something I often forget:
+3. 你真正需要是更明白自己的意图。即使使用表情符号（甚至是更多复杂内容），意图也不会通过聊天和电子邮件来进行正确完整的传递。花点时间仔细充分的回复，如有必要，也可以发起视频/语音通话。人与人之间的对话仍然是主要的交流手段，肢体语言也是其中的重要组成部分。我常常忘记的是：
 
-4. Don't hesitate to schedule a meeting, even for 15 minutes. Create a chat room for it, if necessary. In an office, this corresponds to take a room to talk without both disturbing other, or being disturbed. Be sure that your online status says "In a meeting" during this time. This way, your conversation will be more productive and you'll keep the noise level at a minimum for everyone.
+4. 即使是 15 分钟的会议。也不要犹豫要不要去安排。如果有必要，就为此新建一个聊天室。在办公室里，这相当于在没有打扰他人或者被打扰的情况下，在一个房间里交谈。确保在这此期间你的在线状态是“在会议中”。这样，你的谈话将更高效，而且对于没人来说你都会保持最小的打扰。
 
-5. Well, that's my tips. No as well broad as yours but I hope that could help some people to join in the remote wagon. My quality of life has greatly improved since I did, and I'm pretty sure it is a step in the right direction to reduce the impact urbanization and promotes our more rural regions.
+5. 好的，这些就是我的想法了。虽然没有你的见解宽阔，但我希望这能帮助一些人加入远程工作的对我。我的生活质量的确提高了很多，我确信这是一个正确的方向，可以减少对城市化的影响，促进我们的农村的确的发展。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
