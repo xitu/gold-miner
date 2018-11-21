@@ -4,13 +4,15 @@
 > * 译者：[gy134340](https://github.com/gy134340)
 > * 校对者：[avocadowang](https://github.com/avocadowang),[Aladdin-ADD](https://github.com/Aladdin-ADD)
 
-# 跌宕起伏的函数式编程（软件编写）
+# [第一部分] 跌宕起伏的函数式编程（软件编写）
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg">
 
 烟雾的方块艺术 —MattysFlicks —(CC BY 2.0)
 
 > 注意：这是从基础学习函数式编程和使用 JavaScript ES6+ 编写软件的第一部分。保持关注，接下来还有很多！
+>
+> [<< 从第一篇开始](https://github.com/xitu/gold-miner/blob/master/TODO1/composing-software-an-introduction.md) | [下一篇 >](https://github.com/xitu/gold-miner/blob/master/TODO/why-learn-functional-programming-in-javascript-composing-software.md)
 
 当我 6 岁时，我花了很多时间跟我的小伙伴玩电脑游戏，他家有一个装满电脑的房间。对于我说，它们有不可抗拒的魔力。我花了很多时间探索所有的游戏。一天我问他，“我们怎样做一个游戏？”
 
