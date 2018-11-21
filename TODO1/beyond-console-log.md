@@ -3,23 +3,23 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/beyond-console-log.md](https://github.com/xitu/gold-miner/blob/master/TODO1/beyond-console-log.md)
 > - 译者：[Pomelo1213](https://github.com/Pomelo1213)
-> - 校对者：
+> - 校对者：[RicardoCao-Biker](https://github.com/RicardoCao-Biker), [CoderMing](https://github.com/CoderMing)
 
 # 你不知道的 console 命令
 
-## 相比使用 console.log 去输出值，我们有更多的方式去调试 JavaScript 。看似我要去闲扯调试器，实则不然。
+## 相比使用 console.log 去输出值，我们有更多的方式去调试 JavaScript。你以为我要聊调试器么？不不不你想错了。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*uUhNZZObj6zD9_qxrDTD9w.jpeg)
 
 告诉写 JavaScript 的人应该使用浏览器的调试器去调试代码，这看来很不错，并且肯定有其适用的时间和场合。但是大多数时候你仅仅只想查看一段特定的代码是否执行或者一个变量的值是什么，而不是迷失在 RxJS 代码库或者一个 Promise 库的深处。
 
-然而，尽管 `console.log` 有其适用的场合，大多数人仍然没有意识到`console`本身除了基础 `log` 还有许多选择。合理使用这些方法能让调试更简单、更快速，并且更加直观。
+然而，尽管 `console.log` 有其适用的场合，大多数人仍然没有意识到 `console` 本身除了基础 `log` 还有许多选择。合理使用这些方法能让调试更简单、更快速，并且更加直观。
 
 ### console.log()
 
 很多人不知道经典的 console.log 其实有着丰富的函数特性。尽管大多数人只使用 `console.log(object)` 这种语法，但你仍然能写 `console.log(object, otherObject, string)` 并且它会将所有东西都整齐的打印出来。有时候确实很方便。
 
-不止那些，这儿还有另一种格式：`console.log(msg, values)`。这个执行方式和 C 或者 PHP 的`sprintf`很相似。
+不止那些，这儿还有另一种格式：`console.log(msg, values)`。这个执行方式和 C 或者 PHP 的 `sprintf` 很相似。
 
 ```
 console.log('I like %s but I do not like %s.', 'Skittles', 'pus');
@@ -65,7 +65,7 @@ console.log('I am a %cbutton', 'color: white; background-color: orange; padding:
 let element = document.getElementById('2x-container');
 ```
 
-这是 log 输入 element 的输出
+这是 log 输入 element 的输出：
 
 ![](https://cdn-images-1.medium.com/max/800/1*l7ujPmSWwpH7QtXCZ-jk2Q.png)
 
@@ -171,7 +171,7 @@ console.assert(tx.buyer === 'WAL0412', tx);
 console.assert(tx.buyer !== 'WAL0412', tx);
 ```
 
-我们想做的就是这样。在那种情况下，所有**不是 ** WAL0412 号顾客的事务都为真值，只留下那些符合的事务。或者，也不完全是。
+我们想做的就是这样。在那种情况下，所有**不是** WAL0412 号顾客的事务都为真值，只留下那些符合的事务。或者，也不完全是。
 
 诸如此类，`console.assert()` 并不是一直都很管用。但是在特定的场景下会是最优雅的的解决方法。
 
@@ -341,6 +341,7 @@ let myClass = new MyClass(false);
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
-------
+
+---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
