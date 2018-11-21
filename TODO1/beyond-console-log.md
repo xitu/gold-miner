@@ -1,41 +1,41 @@
-> * 原文地址：[Beyond console.log()](https://medium.com/@mattburgess/beyond-console-log-2400fdf4a9d8)
-> * 原文作者：[Matt Burgess](https://medium.com/@mattburgess?source=post_header_lockup)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/beyond-console-log.md](https://github.com/xitu/gold-miner/blob/master/TODO1/beyond-console-log.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[Beyond console.log()](https://medium.com/@mattburgess/beyond-console-log-2400fdf4a9d8)
+> - 原文作者：[Matt Burgess](https://medium.com/@mattburgess?source=post_header_lockup)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/beyond-console-log.md](https://github.com/xitu/gold-miner/blob/master/TODO1/beyond-console-log.md)
+> - 译者：[Pomelo1213](https://github.com/Pomelo1213)
+> - 校对者：[RicardoCao-Biker](https://github.com/RicardoCao-Biker), [CoderMing](https://github.com/CoderMing)
 
-# Beyond console.log()
+# 你不知道的 console 命令
 
-## There is more to debugging JavaScript than console.log to output values. It might seem obvious I’m going to pimp the debugger, but actually no.
+## 相比使用 console.log 去输出值，我们有更多的方式去调试 JavaScript。你以为我要聊调试器么？不不不你想错了。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*uUhNZZObj6zD9_qxrDTD9w.jpeg)
 
-It seems like it’s cool to tell people doing JavaScript that they should be using the browser’s debugger, and there’s certainly a time and a place for that. But a lot of the time you just want to see whether a particular bit of code executes or what a variable is, **without** disappearing into the RxJS codebase or the bowels of a Promise library.
+告诉写 JavaScript 的人应该使用浏览器的调试器去调试代码，这看来很不错，并且肯定有其适用的时间和场合。但是大多数时候你仅仅只想查看一段特定的代码是否执行或者一个变量的值是什么，而不是迷失在 RxJS 代码库或者一个 Promise 库的深处。
 
-Nevertheless, while `console.log` has its place, a lot of people don’t realise that the `console` itself has a lot of options beyond the basic `log`. Appropriate use of these functions can make debugging easier, faster, and more intuitive.
+然而，尽管 `console.log` 有其适用的场合，大多数人仍然没有意识到 `console` 本身除了基础 `log` 还有许多选择。合理使用这些方法能让调试更简单、更快速，并且更加直观。
 
 ### console.log()
 
-There is a surprising amount of functionality in good old console.log that people don’t expect. While most people use it as `console.log(object)`, you can also do `console.log(object, otherObject, string)` and it will log them all out neatly. Occasionally handy.
+很多人不知道经典的 console.log 其实有着丰富的函数特性。尽管大多数人只使用 `console.log(object)` 这种语法，但你仍然能写 `console.log(object, otherObject, string)` 并且它会将所有东西都整齐的打印出来。有时候确实很方便。
 
-More than that, there’s another format: `console.log(msg, values)`. This works a lot like something like `sprintf` in C or PHP.
+不止那些，这儿还有另一种格式：`console.log(msg, values)`。这个执行方式和 C 或者 PHP 的 `sprintf` 很相似。
 
 ```
 console.log('I like %s but I do not like %s.', 'Skittles', 'pus');
 ```
 
-Will output exactly as you’d expect.
+会准确的输出你所预期的东西。
 
 ```
 > I like Skittles but I do not like pus.
 ```
 
-Common placeholders are `%o` (that’s a letter o, not a zero) which takes an object, `%s` which takes a string, and `%d` which is for a decimal or integer.
+一般的占位符有 `%o`（这是字符 o，不是 0）表示一个对象，`%s` 表示一个字符串，以及 `%d` 代表一个小数或者整数。
 
 ![](https://cdn-images-1.medium.com/max/800/1*k36EIUqbxmWeYwZVqOrzNQ.png)
 
-Another fun one is `%c` but your mileage may vary on this. It’s actually a placeholder for CSS values.
+你可能并不认为另一个有趣是 `%c`。实际上它是作为 CSS 值的占位符。
 
 ```
 console.log('I am a %cbutton', 'color: white; background-color: orange; padding: 2px 5px; border-radius: 2px');
@@ -43,49 +43,49 @@ console.log('I am a %cbutton', 'color: white; background-color: orange; padding:
 
 ![](https://cdn-images-1.medium.com/max/800/1*LetSPI-9ubOuADejUa_YSA.png)
 
-The values will run onto anything that follows, there’s no “end tag”, which is a bit weird. But you can mangle it a bit like this.
+后面的值可以一直添加，在这里没有「结束标签」确实有点怪异。但是你可以像这样将它们隔开。
 
 ![](https://cdn-images-1.medium.com/max/800/1*cHWO5DRw9c2z9Jv_Fx2AvQ.png)
 
-It’s not elegant, nor is it particularly useful. That’s not really a button, of course.
+这并不优美，也不是特别的有用。当然这也不是真实的按钮。
 
 ![](https://cdn-images-1.medium.com/max/800/1*0qgPtZGOZKBKPi1Va5wf2A.png)
 
-Again, is it useful? Ehhhhh.
+真的很有用吗？不太认同。
 
 ### **console.dir()**
 
-For the most part, `console.dir()` functions very much like `log()`, though it looks a teeny bit different.
+通常来看，`console.dir()` 功能和 `log()` 非常相似，尽管看起来有略微不同。
 
 ![](https://cdn-images-1.medium.com/max/800/1*AUEqpGMNKtp28OK057V3Ow.png)
 
-Dropping down the little arrow will show the same exact object details as above, which can also be seen from the `console.log` version. Where things diverge more drasically, and more interesting, is when you look at elements.
+下拉小箭头展示的对象信息和 `console.log` 的视图里一样。但是在你观察元素节点的时候，两者结果会非常有趣并且截然不同。
 
 ```
 let element = document.getElementById('2x-container');
 ```
 
-This is the output from logging that input:
+这是 log 输入 element 的输出：
 
 ![](https://cdn-images-1.medium.com/max/800/1*l7ujPmSWwpH7QtXCZ-jk2Q.png)
 
-I’ve popped open a few elements. This is clearly showing the DOM, and we can navigate through it. But `console.dir(element)` gives us a surprisingly different output.
+我打开了一些元素节点。清晰的展示了 DOM 节点，一览无余，而且我们还可以跳转到子DOM节点。但是 `console.dir(element)` 给我们一个意外不同的输出。
 
 ![](https://cdn-images-1.medium.com/max/800/1*CERwy7Fs7tdijOxugLW54A.png)
 
-This is a way more _objecty_ way of looking at the element. There may be times when that’s what you actually want, something more like inspecting the element.
+这是一种更**对象化**的方式去观察元素节点。也许在某些像监测元素节点的时候，这样的结果才是你所想要的。
 
 ### console.warn()
 
-Probably the most obvious direct replacement for `log()`, you can just use `console.warn()` in exactly the same way. The only real difference is the output is a bit yellow. Specifically the output is at a warning level not an info level, so the browser will treat it slightly differently. This has the effect of making it a bit more obvious in a cluttered output.
+可能是 `log()` 最直接明显的替换，你可以用相同的方式使用 `console.warn()`。唯一的区别在于输出是一抹黄色。确切的说，输出是一个 warn 级别而不是一个 info 级别的信息，因此浏览器的处理稍稍有些不同。在一堆杂乱的输出中高亮你的输出是很有效果的。
 
-There’s a bigger advantage, though. Because the output is a warning rather than an info, you can filter out all the `console.log` and leave only `console.warn`. This is particularly helpful in those occasionally chatty apps that constantly output a bunch of useless nonsense to the browser. Clearing the noise can let you see your output much more easily.
+不过，这还有一个更大的优点。因为输出是一个 warn 级别而不是一个 info 级别，你可以将所有的 `console.log` 过滤掉只留下 `console.warn`。这有时在那些不停输出一堆无用和无意义的东西到浏览器的随意的应用程序中是非常有用。屏蔽干扰能更容易的看到你自己的输出。
 
 ### console.table()
 
-It’s surprising that this isn’t better known, but the `console.table()` function is intended to display tabular data in a way that’s much neater than just dumping out the raw array of objects.
+令人惊讶的是这个并没有广为人知，但是 `console.table()` 方法更偏向于一种方式展示列表形式的数据，这比只扔下原始的对象数组要更加整洁。
 
-As an example, here’s a list of data.
+举一个例子，下面是数据的列表。
 
 ```
 const transactions = [{
@@ -111,37 +111,37 @@ const transactions = [{
 }];
 ```
 
-If we use `console.log` to dump out the above we get some pretty unhelpful output:
+如果使用 `console.log` 去列出以上信息，我们能得到一些中看不中用的输出：
 
 ```
 ▶ (3) [{…}, {…}, {…}]
 ```
 
-The little arrow lets you click down and open up the array, sure, but it’s not really the “at a glance” that we’d like.
+这小箭头允许你点击并会展开这个数组，但这并不是我们想要的「一目了然」。
 
-The output from `console.table(data)` though, is a lot more helpful.
+而 `console.table(data)` 的输出则对我们更为有帮助。
 
 ![](https://cdn-images-1.medium.com/max/800/1*wr2e5dAr_K5ilwMsYMetgw.png)
 
-The optional second argument is the list of columns you want. Obviously defaults to all columns, but we can also do this.
+第二个可选参数是你想要显示列表的某列。默认是整个列表，但是我们也能这样做。
 
 ```
 > console.table(data, ["id", "price"]);
 ```
 
-We get this output, showing only the id and the price. Useful for overly large objects with largely irrelevant detail. The index column is auto-created and doesn’t go away as far as I can tell.
+我们得到这样的输出，仅仅只展示 id 和 price。在有着大量不相关信息的庞杂对象中非常有用。index 列是自动生成的并且据我所知是不会消失。
 
 ![](https://cdn-images-1.medium.com/max/800/1*_je_I8pwxVgFjvCnwybMDw.png)
 
-Something to note here is that this is out of order — the arrow on the far right column header shows why. I clicked on that column to sort by it. Very handy for finding the biggest or smallest of a column, or just getting a different look at the data. That functionality has nothing to do with only showing some columns, by the way. It’s always available.
+值得一提的是在最右一列头部的右上角有个箭头可以颠倒次序。点击了它，会排序整个列。非常方便的找出一列的最大或者最小值，或者只是得到不同的数据展示形式。这个功能特性并没有做什么，只是对列的展示。但总会是有用的。
 
-`console.table()` only has the ability to handle a maximum of 1000 rows, so it might not be suitable to all datasets.
+`console.table()` 只有处理最多1000行的数据的能力，所以它可能并不适用于所有的数据集合。
 
 ### console.assert()
 
-A function whose usefulness is often missed, `assert()` is the same as `log()` but only in the case where the first argument is _falsey_. It does nothing at all if the first argument is true.
+一个经常被忽视的实用的函数，`assert()` 在第一个参数是 _falsey_ 时和 `log()` 一样。当第一个参数为真值时也什么都不做。
 
-This can be particularly useful for cases where you have a loop (or several different function calls) and only one displays a particular behaviour. Essentially it’s the same as doing this.
+这个在你需要循环（或者不同的函数调用）并且只有一个要显示特殊的行为的场景下特别有用。本质上和这个是一样的。
 
 ```
 if (object.whatever === 'value') {
@@ -149,35 +149,35 @@ if (object.whatever === 'value') {
 }
 ```
 
-To clarify, when I say “the same as” I should better say that it’s the **opposite of** doing that. So you’d need to invert the conditional.
+澄清一下，当我说「一样」的时候，我本应该说是做**相反**的事。所以你需要变换一下场合。
 
-So let’s assume that one of our values above is coming through with a `null` or `0` in its timestamp, which is screwing up our code formatting the date.
+所以，假设我们上面的值在时间戳里有一个 `null` 或者 `0`，这会破坏我们代码日期格式。
 
 ```
 console.assert(tx.timestamp, tx);
 ```
 
-When used with any of the **valid** transaction objects it just skips on past. But the broken one triggers our logging, because the timestamp is 0 or null, which is _falsey_.
+当和任何**有效**的事物对象一起使用时会跳过。但是有一个触发了我们的日志记录，因为时间戳在 0 和 null 时为**假值**。
 
-Sometimes we want more complex conditionals. For example, we’ve seen issues with the data for user `WAL0412` and want to display out only transactions from them. This is the intuitive solution.
+有时我们想要更加复杂的场景。举个例子，我们看到了关于用户 `WAL0412` 的数据问题并且想要只展示来自它们的事务。这将会是一个非常简便的方案。
 
 ```
 console.assert(tx.buyer === 'WAL0412', tx);
 ```
 
-This looks right, but won’t work. Remember, the condition has to be false… we want to _assert_, not _filter_.
+看起来正确，但是并不奏效。牢记，场景必须是为否定态,我门想要的是**断言**，而不是**过滤**。
 
 ```
 console.assert(tx.buyer !== 'WAL0412', tx);
 ```
 
-This will do what we want. Any transaction where the buyer is **not** WAL0412 will be true on that conditional, leaving only the ones that are. Or… aren’t not.
+我们想做的就是这样。在那种情况下，所有**不是** WAL0412 号顾客的事务都为真值，只留下那些符合的事务。或者，也不完全是。
 
-Like a few of these, `console.assert()` isn’t always particularly useful. But it can be an elegant solution in specific cases.
+诸如此类，`console.assert()` 并不是一直都很管用。但是在特定的场景下会是最优雅的的解决方法。
 
 ### console.count()
 
-Another one with a niche use, count simply acts as a counter, optionally as a named counter.
+另外一个合适的用法是，将console作为一个计数器使用。
 
 ```
 for(let i = 0; i < 10000; i++) {
@@ -193,9 +193,9 @@ for(let i = 0; i < 10000; i++) {
 }
 ```
 
-This is not useful code, and a bit abstract. Also I’m not going to demonstrate the `isPrime` function, just pretend it works.
+这不是一段有用的代码，并且有点抽象。我也不打算去证明 `isPrime` 函数，只假设可以运行。
 
-What we’ll get should be essentially a list of
+我们将得到应该是这样的列表
 
 ```
 odds: 1
@@ -211,17 +211,17 @@ multiplesOfFive: 2
 ...
 ```
 
-And so on. This is useful for cases where you may have been just dumping out the index, or you would like to keep one (or more) running counts.
+以及剩下的。在你只想列出索引，或者想保留一次（或多次）计数的情况下非常有用。
 
-You can also use `console.count()` just like that, with no arguments. Doing so calls it `default`.
+你也能像那样使用 `console.count()`，不需要参数。使用 `default` 调用。
 
-There’s also a related `console.countReset()` that you can use to reset the counter if you like.
+这还有关联函数 `console.countReset()`，如果你希望重置计数器可以使用它。
 
 ### console.trace()
 
-This is harder to demo in a simple bit of data. Where it excels is when you’re trying to figure out inside a class or library which actual caller is causing the problem.
+这在简单的数据中演示更加困难。在你试图找出有问题的内部类或者库的调用这一块是它最擅长。
 
-For example, there might be 12 different components calling a service, but one of them doesn’t have a dependency set up properly.
+举个例子，这儿可能有 12 个不同的组件正在调用一个服务，但是其中一个没有正确配置依赖。
 
 ```
 export default class CupcakeService {
@@ -237,11 +237,11 @@ export default class CupcakeService {
 }
 ```
 
-Using `console.log()` alone here would tell us what the dataLib is being passed in as, but not where. The stacktrace, though, will tell us very clearly that the problem is `Dashboard.js`, which we can see is `new CupcakeService(false)` and causing the error. And now we get bullied into using TypeScript.
+这里单独使用 `console.log()` 我们只能知道执行了哪一个基础库，并不知道执行的具体位置。但是，堆栈轨迹会清楚的告诉我们问题在于 `Dashboard.js`，我们从中发现 `new CupcakeService(false)` 是造成出错的罪魁祸首。
 
 ### console.time()
 
-A dedicated function for tracking time taken for actions, console.time() is better way to track the microtime taken for JavaScript executions.
+console.time() 是专门用于监测操作的时间开销的函数，也是监测 JavaScript 细微时间的更好的方式。
 
 ```
 function slowFunction(number) {
@@ -261,9 +261,9 @@ var time = new Date().getTime() - start;
 console.log(`Execution time: ${ time }`);
 ```
 
-This is an old school method. I should also point to the console.log above. A lot of people don’t realise you can use template strings and interpolation there, but you can. From time to time it helps.
+这是一个过时的方法。我指的同样还有上面的 console.log。大多数人没有意识到这里你本可以使用模版字符串和插值法。它时不时的会帮助到你。
 
-So let’s modernise the above.
+那么让我们更新一下上面的代码。
 
 ```
 const slowFunction = number =>  {
@@ -280,11 +280,11 @@ for (i = 0; i < 100000; ++i) {
 console.timeEnd();
 ```
 
-We now no longer need to do any math or set temporary variables.
+我现在不需要去做任何算术或者设置临时变量。
 
 ### console.group()
 
-Now we’re probably in the most complex and advanced area of the console output. Group lets you… well, group things. In particular it lets you nest things. Where it excels is in terms of showing structure that exists in code.
+如今我们可能在大多数 console 中要输出高级和复杂的东西。分组可以让你归纳这些。尤其是让你能使用嵌套。它擅长展示代码中存在的结构关系。
 
 ```
 // this is the global scope
@@ -302,11 +302,11 @@ console.groupEnd();
 console.log('All done now');
 ```
 
-This is kind of rough again. You can see the output here.
+这又有一点难以理解。你可以看看这里的输出。
 
 ![](https://cdn-images-1.medium.com/max/800/1*4Dil0L35FnGxiVPJx4mJsQ.png)
 
-Not really useful for much, but you could potentially see how some of these are combined.
+这并不是很有用，但是你能看到其中一些是如何组合的。
 
 ```
 class MyClass {
@@ -329,15 +329,15 @@ let myClass = new MyClass(false);
 
 ![](https://cdn-images-1.medium.com/max/800/1*MW0eKpxlBK-Cf9atJv3Baw.png)
 
-This is a lot of work and a lot of code for debugging info that might not be all that useful. But it’s nevertheless an interesting idea, and you can see how much clearer it can make the **context** of your logging.
+很多工作和代码在调试信息上可能并不是那么有用。但是仍然是一个有意思的办法，同时你可以看到它使你打印的上下文是多么的清晰。
 
-There is a final point to make on these, which is `console.groupCollapsed`. Functionally this is the same as `console.group` but the block starts off closed. It’s not as well supported, but if you have a huge block of nonsense you might want hidden by default it’s an option.
+关于这个，还有最后一点需要说明，那就是 `console.groupCollapsed`。功能上和 `console.group` 一样，但是分组块一开始是折叠的。它没有得到很好的支持，但是如果你有一个无意义的庞大的分组并想默认隐藏它，可以试试这个。
 
-### Conclusion
+### 结语
 
-There’s not really much of a conclusion to make here. All of these tools are potentially useful, in cases where you might just want a tiny bit more than `console.log(pet)` but don’t really need a debugger.
+这里真的没有过多的总结。在你可能只想得到比 `console.log(pet)` 的信息更多一点，并且不太需要调试器的时候，上面这些工具都可能帮到你。
 
-Probably the most useful is `console.table`, but all the others have their place as well. I’m a fan of `console.assert` for cases where we want to debug something out, but only under a specific condition.
+也许最有用的是 `console.table`，但是其他方法也都有其适用的场景。在我们想要调试一些东西时，我热衷于使用 `console.assert`，但那也只在某种特殊情况下。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
