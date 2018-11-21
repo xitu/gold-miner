@@ -4,7 +4,7 @@
 > * 译者：[sunui](http://suncafe.cc)
 > * 校对者：[Aladdin-ADD](https://github.com/Aladdin-ADD)、[avocadowang](https://github.com/avocadowang)
 
-# 函数式程序员的 JavaScript 简介 (软件编写) #
+# [第三篇] 函数式程序员的 JavaScript 简介（软件编写）
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg">
 
