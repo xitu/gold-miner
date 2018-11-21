@@ -4,7 +4,7 @@
 > * 译者：[gy134340](https://github.com/gy134340)
 > * 校对者：[sunui](https://github.com/sunui),[avocadowang](https://github.com/avocadowang)
 
-# [第二部分] 为什么用 JavaScript 学习函数式编程？（软件编写）
+# [第二篇] 为什么用 JavaScript 学习函数式编程？（软件编写）
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg">
 
