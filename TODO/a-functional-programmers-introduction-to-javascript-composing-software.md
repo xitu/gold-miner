@@ -11,7 +11,7 @@
 烟雾艺术魔方 — MattysFlicks — (CC BY 2.0)
 
 > 注意：这是“软件编写”系列文章的第三部分，该系列主要阐述如何在 JavaScript ES6+ 中从零开始学习函数式编程和组合化软件（compositional software）技术（译注：关于软件可组合性的概念，参见维基百科 [Composability](https://en.wikipedia.org/wiki/Composability)）。后续还有更多精彩内容，敬请期待！
-> [< 上一篇](https://github.com/xitu/gold-miner/blob/master/TODO/69bca85e75f4b99b33c193c21f577db93622ee8b/TODO/why-learn-functional-programming-in-javascript-composing-software.md)  | [<<第一篇](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md)  | [下一篇 >](https://github.com/xitu/gold-miner/blob/master/TODO/higher-order-functions-composing-software.md)
+> [< 上一篇](https://github.com/xitu/gold-miner/blob/master/TODO/why-learn-functional-programming-in-javascript-composing-software.md)  | [<<第一篇](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md)  | [下一篇 >](https://github.com/xitu/gold-miner/blob/master/TODO/higher-order-functions-composing-software.md)
 
 对于不熟悉 JavaScript 或 ES6+ 的同学，这里做一个简短的介绍。无论你是 JavaScript 开发新手还是有经验的老兵，你都可能学到一些新东西。以下内容仅是浅尝辄止，吊吊大家的兴致。如果想知道更多，还需深入学习。敬请期待吧。
 
