@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ios-12-now-installed-on-50-of-devices-outpacing-ios-11.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ios-12-now-installed-on-50-of-devices-outpacing-ios-11.md)
 > * 译者：[LoneyIsError](https://github.com/LoneyIsError)
-> * 校对者：[Park-ma](https://github.com/Park-ma)
+> * 校对者：[Park-ma](https://github.com/Park-ma)，[weibinzhu](https://github.com/weibinzhu)
 
-# iOS 12 占有率超过 50%，超过了 iOS 11
+# iOS 12 占有率达到 50%，超过了 iOS 11
 
 ![](https://i1.wp.com/9to5mac.com/wp-content/uploads/sites/6/2018/10/ios-12-50-percent.jpg?resize=1024%2C0&quality=82&strip=all&ssl=1)
 
@@ -15,13 +15,13 @@ Apple 本月早些时候大张旗鼓推出了 iOS 12，但早期占有率的增�
 
 现在有超过 50％ 以上的正在使用的 iPhone，iPad 和 iPod touch 设备上安装了 iOS 12。iOS 11 达到这个里程碑花费了一个月的时间，而 iOS 12 在不到 20 天的时间内实现了它。
 
-许多人认为对于 iOS 系统的更新来说，iOS 11 是糟糕的一年，他们总是抱怨着系统稳定性，系统漏洞和性能方面的种种问题。苹果公司通过 iOS 12 回击了这些不满。苹果公司宣称 iOS 12 是一次性能方面的升级，特别是在较旧的 iPhone 和 iPad 设备上具有显著的加速表现。
+许多人认为对于 iOS 系统的更新来说，iOS 11 是糟糕的一年，他们总是抱怨着系统稳定性，系统漏洞和性能方面的种种问题。苹果公司通过 iOS 12 回击了这些不满。苹果公司宣称 iOS 12 是一次性能方面的升级，特别是在较旧的 iPhone 和 iPad 设备上运行速度上有显著的提升。
 
 iOS 12 支持所有可以运行 iOS 11 的设备，这意味着 iOS 12 用户群可以一直延伸到使用 iPhone 5S 的用户中。尽管起步缓慢，iOS 12 的占有率在过去几天内不断飙升，仅在 7 天内几乎翻了一番。来自社区的积极接受（并没有 iOS 漏洞成为头条新闻来搅局）肯定有助于加快用户升级。
 
-Mixpanel 的统计数据 - 基于 Web 和移动应用程序分析的组合 - 通常报告的百分比高于 Apple 的统计数据，这些统计数据是根据 App Store 的使用情况得出了当前活跃的 iOS 版本。不过，苹果尚未更新其包括 iOS 12 发布后的时间表的官方统计数据(Apple 的官方数据最后一次更新于 9 月 3 日，报告称 iOS 11 的占有率高达 85％)。 [去年](https://9to5mac.com/2017/11/08/ios-11-adoption-penetration/), 苹果公司的官方数据显示 iOS 11 直到 11 月才超过 50％。
+基于 Web 和移动应用综合分析得出的 Mixpanel 的统计数据，通常会比 Apple 的统计数据 - 根据 App Store 的使用情况得出当前活跃的 iOS 版本 - 有着更高的百分比。不过，苹果尚未更新其包括 iOS 12 发布后的时间表的官方统计数据(Apple 的官方数据最后一次更新于 9 月 3 日，报告称 iOS 11 的占有率高达 85％)。 [去年](https://9to5mac.com/2017/11/08/ios-11-adoption-penetration/), 苹果公司的官方数据显示 iOS 11 直到 11 月才超过 50％。
 
-在可预见的未来，iOS 12 占有率的增长可能会继续保持强劲势头。iOS 12.1 将包括一些的新功能，主要如群组 FaceTime 和 [超过 70 个新的表情](https://9to5mac.com/2018/10/02/ios-12-1-new-emoji/)，这些更新总是有助于激励用户升级。苹果公司还准备推出一系列预装 iOS 12 的新设备，包括新的 iPad Pro 和 10 月 26日 发布的 iPhone XR。
+在可预见的未来，iOS 12 占有率的增长很可能会继续保持强劲势头。iOS 12.1 将包括一些的新功能，主要如群组 FaceTime 和 [超过 70 个新的表情](https://9to5mac.com/2018/10/02/ios-12-1-new-emoji/)，而这些新功能总是有助于激励用户升级。苹果公司还准备推出一系列预装 iOS 12 的新设备，包括新的 iPad Pro 系列和 10 月 26日 发售的 iPhone XR。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
