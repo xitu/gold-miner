@@ -100,9 +100,8 @@ print()
 
 ```swift
 extension DogCatcherNet: CustomDebugStringConvertible {
-  var debugDescription: String {
-    return "DogCatcherNet(Review Stars: \(customerReviewStars),"
-      + " Weight: \(weightInPounds))"
+  public var debugDescription: String {
+    return "DogCatcherNet(Review Stars: \(customerReviewStars), Weight: \(weightInPounds)"
   }
 }
 
@@ -179,7 +178,7 @@ func log(itemToMirror: Any) {
 
 将以下代码添加到 `log(itemToMirror:)` 的末尾:
 
-```
+```swift
 for case let (label?, value) in mirror.children {
   debugPrint("⭐ \(label): \(value) ⭐")
 }
@@ -252,7 +251,7 @@ var dog: Dog?
 
 这将使用其默认调试描述和狗的名称输出狗的属性。
 
-是时候轻轻地把狗放进网里了。现在把 **☆ Uncomment assigning the dog** 的下面一行取消注释，可爱的小狗就可以被放到网里了。
+是时候轻轻地把狗放进网里了。现在把 **☆ Uncomment assigning the dog** 那一行取消注释，可爱的小狗就可以被放到网里了。
 ```swift
 net.dog = Dog() // ☆ Uncomment out assigning the dog
 ```
@@ -319,7 +318,7 @@ let keyPath = \Kennels.available
 
 ```swift
 kennels.observe(keyPath) { kennels, change in
-  if (kennels.available) {
+  if kennels.available {
     print("kennels are available")
   }
 }
@@ -427,7 +426,7 @@ Dog's speed is 12.
 **动态成员查询** 给你的语法糖只是扔掉了。这是一个很好的功能，使 Swift 的某些特定用例和语言互操作性可以让人看到并且令人愉快。
 ### 友好的捕狗者
 
-动态成员查询** 的原始提案解决了语言互操作性问题，尤其是对于 Python。但是，这并不是唯一有用的情况。
+**动态成员查询** 的原始提案解决了语言互操作性问题，尤其是对于 Python。但是，这并不是唯一有用的情况。
 
 为了演示纯粹的 Swift 用例，你将使用 **DogCatcher.xcplaygroundpage** 中的 `JSONDogCatcher` 代码。它是一个简单的结构，具有一些属性，用于处理`String`，`Int`和 JSON 字典。使用这样的结构，你可以创建一个 `JSONDogCatcher` 并最终搜索特定的 `String` 或 `Int` 值。
 **传统下标方法**
