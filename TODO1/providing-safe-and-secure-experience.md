@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/providing-safe-and-secure-experience.md](https://github.com/xitu/gold-miner/blob/master/TODO1/providing-safe-and-secure-experience.md)
 > - 译者：[YueYong](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2FYueYongDev)
-> - 校对者：
+> - 校对者：[zx-Zhu](https://github.com/zx-Zhu)、[Wangalan30](https://github.com/Wangalan30)
 
 # 为用户提供安全可靠的体验
 
@@ -13,13 +13,13 @@ _发表自 Google Play 的产品经理总监，  *Paul Bankhead*_
 
 ## 安全性和性能升级
 
-如前[所述](https://android-developers.googleblog.com/2017/12/improving-app-security-and-performance.html)，截至 2018 年 11 月 1 日， Google Play 将[要求](https://developer.android.com/distribute/best-practices/develop/target-sdk)对现有应用程序进行更新，使其达到 API 级别26（ Android 8.0 ）或更高（对于所有新应用程序来说，这已经是必需的）。我们的目标是确保 Google Play 上的所有应用程序都是使用最新的 API 来构建的，这些 API 是为安全性和性能优化而设计的。
+如前[所述](https://android-developers.googleblog.com/2017/12/improving-app-security-and-performance.html)，截至 2018 年 11 月 1 日， Google Play 将[要求](https://developer.android.com/distribute/best-practices/develop/target-sdk)对现有应用程序进行更新，使其达到 API 级别26（ Android 8.0 ）或更高（对于所有新应用程序来说，这已经是必需的）。我们的目标是确保 Google Play 上的所有应用程序都是使用优化了安全性和性能的最新的 API 来构建的。
 
 ## 保护用户
 
-我们的 Google Play Developer 策略旨在为用户提供安全可靠的体验，同时为开发人员提供获得成功所需的工具。例如，我们一直要求开发人员将权限请求限制为应用程序运行所需的权限，并明确用户访问了哪些数据。
+我们的 Google Play 开发者策略旨在为用户提供安全可靠的体验，同时为开发人员提供获得成功所需的工具。例如，我们一直要求开发人员将权限请求限制为应用程序运行所需的权限，并使用户清楚 APP 访问了他们的哪些数据。
 
-作为今天的 Google Play 开发者策略[更新](https://play.google.com/about/updates-resources/)的一部分，我们公布了与 SMS 和呼叫日志权限相关的更改。一些 Android 应用程序请求访问用户的电话（包括通话日志）和 SMS 数据。向前看， Google Play 将限制那些可以请求这些权限的应用程序。只有被选为用户默认通话或短信的应用程序才能分别访问通话日志和 SMS 。
+作为今天的 Google Play 开发者策略[更新](https://play.google.com/about/updates-resources/)的一部分，我们公布了与 SMS 和呼叫日志权限相关的更改。一些 Android 应用程序请求访问用户的电话（包括通话记录）和 SMS 数据。将来， Google Play 将限制哪些应用程序可以请求这些权限。只有被选为用户默认通话或短信的应用程序才能分别访问通话记录和 SMS 。
 
 请访问我们的 [Google Play Developer 策略中心](https://play.google.com/about/developer-content-policy/#!?modal_active=none)和这篇[帮助中心文章](https://support.google.com/googleplay/android-developer/answer/9047303) ，以获得关于 SMS 和呼叫日志权限的产品替代方案的详细信息。例如， [SMS Retriever API](https://developers.google.com/identity/sms-retriever/overview)  使您能够执行基于 SMS 的用户验证， [SMS Intent](https://developer.android.com/guide/components/intents-common#SendMessage)  使你能够发起 SMS 或 MMS 文本消息来共享内容或邀请。我们将与我们的开发伙伴合作，给他们适当的时间来调整和更新他们的应用程序，并将从此策略更新开始实施90天。
 
