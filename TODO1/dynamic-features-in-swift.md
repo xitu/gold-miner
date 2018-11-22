@@ -108,10 +108,6 @@ extension DogCatcherNet: CustomDebugStringConvertible {
 
 ```
 
-For something small like `DogCatcherNet`, a type can conform to `CustomDebugStringConvertible` and provide its own debug description using the `debugDescription` property.
-
-Run the playground. Except for a date value difference, the first two lines should include:
-
 对于像 `DogCatcherNet` 这样的小东西，一个类可以遵循 `CustomDebugStringConvertible` 并使用 `debugDescription` 属性来提供自己的调试信息。
 
 运行 Playground。除日期值会有差异外，前两行应包括：
@@ -121,15 +117,15 @@ Run the playground. Except for a date value difference, the first two lines shou
 "Printing a date: 2018-06-19 22:10:31 +0000"
 ```
 
-For a larger type with many properties, this approach comes with the cost of explicit boilerplate to type. That’s not a problem for one with dogged determination. If short on time, there are other options such as `dump`.
+对于具有许多属性的较大类型，此方法需要显式样板的类型。 对于有决心的人来说，这不是问题。 如果时间不够，还有其他选项，例如 `dump`。
 
 ### Dump
 
-How to avoid needing to add boilerplate code manually? One solution is to use `dump`. `dump` is a generic function that prints out all the names and values of a type’s properties.
+如何避免需要手动添加样板代码？一种解决方案是使用 `dump`。`dump` 是一个通用函数，它打印出类型属性的所有名称和值。
 
-The playground already contains calls that dump out the net and `Date`. The code looks like this:
+Playground 已经包含 dump 出捕狗网和日期的调用。代码如下所示：
 
-```
+```swift
 dump(net)
 print()
 
@@ -137,7 +133,7 @@ dump(Date())
 print()
 ```
 
-Run the playground. The console output looks something like:
+运行 playground。控制台的输出如下：
 
 ```
 ▿ DogCatcherNet(Review Stars: two, Weight: 2.6) #0
@@ -148,40 +144,40 @@ Run the playground. The console output looks something like:
   - timeIntervalSinceReferenceDate: 551727346.52924
 ```
 
-Due to the work you’ve done so far with `CustomDebugStringConvertible`, the `DogCatcherNet` looks better than it otherwise would. The output contains:
+由于你目前使用 `CustomDebugStringConvertible` 完成的工作，`DogCatcherNet` 看起来比其他方式更好。 输出包含：
 
-```
+```swift
 DogCatcherNet(Review Stars: two, Weight: 2.6)
 ```
 
-`dump` also spits out each property automatically. Great! It’s time to make those properties more readable by using Swift’s `Mirror`.
+`dump` 还会自动输出每个属性。棒极了！现在是时候使用 Swift 的 `Mirror` 让这些属性更具可读性了。
 
 ### Swift Mirror
 
 ![](https://koenig-media.raywenderlich.com/uploads/2018/06/mirror_dog_small.jpg)
 
-Mirror, mirror, on the wall. Who’s the fairest dog of them all?
+​			魔镜魔镜，告诉我，谁才是世界上最棒的狗？
 
-`Mirror` lets you display values of any type instance through the playground or the debugger at runtime. In short, `Mirror`‘s power is introspection. Introspection is a subset of [reflection](https://developer.apple.com/documentation/swift/swift_standard_library/debugging_and_reflection).
+`Mirror` 允许你在运行时通过 playground 或调试器显示任何类型实例的值。简而言之，`Mirror` 的强大在于内省。内省是 [反射 ](https://developer.apple.com/documentation/swift/swift_standard_library/debugging_and_reflection)的一个子集。
 
-### Creating a Mirror-Powered Dog Log
+### 创建一个 Mirror 驱动的狗狗日志
 
-It’s time to create a Mirror-powered dog log. To help with debugging, it’s ideal to display the values of the net to the console through a log function with custom output complete with emoticons. The log function should be able to handle any item you pass it.
+是时候创建一个 Mirror 驱动的狗狗日志了。为了协助调试，最理想的是通过日志功能向控制台显示捕狗网的值，其中自定义输出带有表情符号。日志功能应该能够处理你传递的任何项目。
 
-### Creating a Mirror
+### 创建一个 Mirror
 
-It’s time to create a log function that uses a mirror. To start, add the following code right under _☆ Create log function here_:
+是时候创建一个使用 Mirror 的日志功能了。首先，在 **☆ Create log function here** 添加以下代码：
 
-```
+```swift
 func log(itemToMirror: Any) {
   let mirror = Mirror(reflecting: itemToMirror)
   debugPrint("Type: 🐶 \(type(of: itemToMirror)) 🐶 ")
 }
 ```
 
-This creates the mirror for the passed-in item. A mirror lets you iterate over the parts of an instance.
+这将为传入的对象创建镜像，镜像允许你迭代实例的各个部分。
 
-Add the following code to the end of the `log(itemToMirror:)`:
+将以下代码添加到 `log(itemToMirror:)` 的末尾:
 
 ```
 for case let (label?, value) in mirror.children {
@@ -189,18 +185,18 @@ for case let (label?, value) in mirror.children {
 }
 ```
 
-This accesses the `children` property of the mirror, gets each label-value pair, then prints them out to the console. The label-value pair is type-aliased as `Mirror.Child`. For a `DogCatcherNet` instance, the code iterates over the properties of a net object.
+这将访问镜像的 `children` 属性，获取每个标签值对，然后将它们打印到控制台。标签值对的类型别名为 `Mirror.Child`。 对于 `DogCatcherNet` 实例，代码迭代捕狗网对象的属性。
 
-To clarify, a child of the instance being inspected has nothing to do with a superclass or subclass hierarchy. The children accessible through a mirror are just the parts of the instance being inspected.
+澄清一点，被检查实例的孩子与父类或子类层次结构无关。 通过镜像访问的孩子只是被检查实例的一部分。
 
-Now, it’s time to call your new log method. Add the following code right under _☆ Log out the net and a Date object here_:
+现在，是时候调用新的日志方法了。在 **☆ Log out the net and a Date object here** 添加以下代码：
 
-```
+```swift
 log(itemToMirror: net)
 log(itemToMirror: Date())
 ```
 
-Run the playground. You’ll see at the bottom of the console output some doggone great output:
+运行 playground。你会在控制台的底部看到一些很棒的输出：
 
 ```
 "Type: 🐶 DogCatcherNet 🐶 "
@@ -210,19 +206,17 @@ Run the playground. You’ll see at the bottom of the console output some doggon
 "⭐ timeIntervalSinceReferenceDate: 551150080.774974 ⭐"
 ```
 
-This shows all the properties’ names and values. The names appear as they do in your code. For example, `customerReviewStars` is literally how the property name is spelled in code.
+这显示了所有属性的名称和值。名称和你在代码中写的一样。例如，`customerReviewStars` 实际上是如何在代码中拼写属性名称。
 
 ### CustomReflectable
 
-What if you wanted more of a dog and pony show in which the property names are displayed more clearly as well? What if you didn’t want some of the properties displayed? What if you wanted items displayed that are not technically part of the type? You’d use `CustomReflectable`.
+如果你想要让更多的狗或者小马也能更清楚地显示其中的属性名称应该怎么办呢？如果你又不想显示某些属性要怎么办呢？如果你希望在技术上显示的不属于该类型的每一项，又该怎么办呢？这时你可以使用 `CustomReflectable`。
 
-`CustomReflectable` provides the hook with which you can specify what parts of a type instance are shown by using a custom `Mirror`. To conform to `CustomReflectable`, a type must define the `customMirror` property.
+`CustomReflectable` 提供了一个接口，你可以使用自定义的 `Mirror` 来指定需要显示类型实例的哪些部分。要遵循 `CustomReflectable` 协议，这个类必须定义 `customMirror` 属性。
+在与几位捕手程序员交谈后，你发现打印捕狗网的 `weightInPounds` 属性并没有帮助于调试。但是 `customerReviewStars` 的信息非常有用，他们希望`customerReviewStars` 的标签显示为 “Customer Review Stars”。现在，是时候让 `DogCatcherNet` 遵循 `CustomReflectable` 了。
+在 **☆ Add Conformance to CustomReflectable for DogCatcherNet here** 后面添加以下代码：
 
-After speaking with several dog catcher programmers, you’ve discovered that spitting out the `weightInPounds` of the net has not helped with debugging. However, the `customerReviewStars` information is extremely helpful and they’d like the label for `customerReviewStars` to appear as “Customer Review Stars.” Now, it’s time to make `DogCatcherNet` conform to `CustomReflectable`.
-
-Add the following code right under _☆ Add Conformance to CustomReflectable for DogCatcherNet here_:
-
-```
+```swift
 extension DogCatcherNet: CustomReflectable {
   public var customMirror: Mirror {
     return Mirror(DogCatcherNet.self,
@@ -233,38 +227,37 @@ extension DogCatcherNet: CustomReflectable {
 }
 ```
 
-Run the playground and see the following output:
+运行 playground 能看到如下的输出：
 
 ```
 "Type: 🐶 DogCatcherNet 🐶 "
 "⭐ Customer Review Stars: two ⭐"
 ```
 
-_Where’s the Dog?_  
-The whole point of the net is to handle having a dog. When the net is populated with a dog, there must be a way to pull out information about the dog in the net. Specifically, you need the dog’s name and age.
+**狗狗上哪去了呢？**
+捕狗网的作用是当有狗来的时候抓住它。当网里装满狗时，必须有办法在网中提取有关狗的信息。具体来说，你需要狗的名字和年龄。
 
-The playground page already has a `Dog` class. It’s time to connect `Dog` with `DogCatcherNet`. In the spot labeled as _☆ Add Optional called dog of type Dog here_, add the following property to `DogCatcherNet`:
+Playground 的页面已经有一个 `Dog` 类。是时候将 `Dog` 与 `DogCatcherNet` 连接起来了。在标记了 **☆ Add Optional called dog of type Dog here** 的标签下为 `DogCatcherNet` 添加以下属性：
 
-```
+```swift
 var dog: Dog?
 ```
 
-With the dog property added to the `DogCatcherNet`, it’s time to add the dog to the `customMirror` for the `DogCatcherNet`. Add the following dictionary entries right after the line `children: ["Customer Review Stars": customerReviewStars,`:
+随着狗的属性添加到了 `DogCatcherNet`，是时候再将狗添加到`DogCatcherNet` 的 `customMirror` 了。在 `children：[“Customer Review Stars”：customerReviewStars，` 这一行下添加以下的一个字典：
 
-```
+```swift
 "dog": dog ?? "",
 "Dog name": dog?.name ?? "No name"
 ```
 
-This will output the dog using its default debug description and dog’s name, respectively labeled “dog” and “Dog name.”
+这将使用其默认调试描述和狗的名称输出狗的属性。
 
-Time to gently put a dog into the net. Right under _☆ Uncomment assigning the dog_, uncomment that line so the cute little dog is put into the net:
-
-```
+是时候轻轻地把狗放进网里了。现在把 **☆ Uncomment assigning the dog** 的下面一行取消注释，可爱的小狗就可以被放到网里了。
+```swift
 net.dog = Dog() // ☆ Uncomment out assigning the dog
 ```
 
-Run the playground and see the following:
+运行 Playground 能看到如下输出：
 
 ```
 "Type: 🐶 DogCatcherNet 🐶 "
@@ -273,56 +266,58 @@ Run the playground and see the following:
 "⭐ Dog name: Abby ⭐"
 ```
 
-_Mirror Convenience_  
-It’s pretty nice to be able to see everything. However, there are those times when you just want to pluck out a part from a mirror. To do that, you use [`descendant(_:_:)`](https://developer.apple.com/documentation/swift/mirror/1540759-descendant). Add the following code to the end of the playground page to create a mirror and use `descendant(_:_:)` to pluck out the name and age:
+**Mirror 的便利**
 
-```
+能够看到一切真是太好了。但是，有些时候你只想看到镜像的其中一部分。为此，使用 [`descendant(_:_:)`](https://developer.apple.com/documentation/swift/mirror/1540759-descendant) 来取出名称和年龄：
+
+```swift
 let netMirror = Mirror(reflecting: net)
 
 print ("The dog in the net is \(netMirror.descendant("dog", "name") ?? "nonexistent")")
 print ("The age of the dog is \(netMirror.descendant("dog", "age") ?? "nonexistent")")
 ```
 
-Run the playground and see at the bottom of the console output:
+运行 Playground，你将在控制台底部看到如下输出：
 
 ```
 The dog in the net is Bernie
 The age of the dog is 2
 ```
 
-That’s doggone dynamic introspection there. It can be quite useful for debugging your own types! Having deeply explored `Mirror`, you’re done with _DogMirror.xcplaygroundpage_.
+那是烦人的动态内省。它对于调试自定义的类型非常有用！在深入探讨了 `Mirror` 后，你就完成了 **DogMirror.xcplaygroundpage**。
 
-### Wrapping Up Mirror and Debug Output
+### 封装 Mirror 调试输出
 
-There are many ways to track, like a bloodhound, what’s going on in a program. `CustomDebugStringConvertible`, `dump` and `Mirror` let you see more clearly what you are hunting for. Swift’s introspection power is highly useful — especially as you start building bigger and more complex applications!
+有很多方法可以追踪程序中发生了什么，例如猎犬。`CustomDebugStringConvertible` ，`dump` 和 `Mirror` 能让你更清楚地看到你在寻找什么。Swift 的内省功能非常有用，特别是当你开始构建更庞大更复杂的应用程序时！
 
-## Key Paths
+## KeyPath
 
-On the subject of tracking what’s going on in a program, Swift has something wonderful called key paths. For capturing an event such as when a value has changed in a third-party library object, look `to KeyPath`‘s `observe` for help.
+有关跟踪程序中发生的事情的情况，Swift 有一些很棒的解决方案，叫做 keypath。要捕获事件，例如当第三方库对象中的值发生更改时，请向 `键值监听` 寻求帮助。
 
-In Swift, key paths are strongly typed paths whose types are checked at compile time. In Objective-C, they were only strings. The tutorial [What’s New in Swift 4?](https://www.raywenderlich.com/163857/whats-new-swift-4) does a great job covering the concepts in the Key-Value Coding section.
+在 Swift 中，keyPath 是强类型的路径，其类型在编译时被检查。在 Objective-C 中，它们只是字符串。教程 [Swift 4 新特性](https://knightcai.github.io/2017/09/11/Swift-4-新特性/) 在键值编码部分的概念方面做得很好。
 
-There are several different types of `KeyPath`. Commonly discussed types include [KeyPath](https://developer.apple.com/documentation/swift/keypath), [WritableKeyPath](https://developer.apple.com/documentation/swift/writablekeypath) and [ReferenceWritableKeyPath](https://developer.apple.com/documentation/swift/referencewritablekeypath). Here’s a summary of the different ones:
+有几种不同类型的 `KeyPath`。常见的类型包括 [KeyPath](https://developer.apple.com/documentation/swift/keypath)，[WritableKeyPath](https://developer.apple.com/documentation/swift/writablekeypath) 和 [ReferenceWritableKeyPath](https://developer.apple.com/documentation/swift/referencewritablekeypath)。以下是它们的摘要：
 
-*   `KeyPath`: Specifies a root type on a specific value type.
-*   `WritableKeyPath`: A KeyPath whose value you can also write to. It doesn’t work with classes.
-*   `ReferenceWritableKeyPath`: A WritableKeyPath used for classes since classes are reference types.
+*   `KeyPath`：指定特定值类型的根类型。
+*   `WritableKeyPath`：可写入的 KeyPath，它不能用于类。
+*   `ReferenceWritableKeyPath`：用于类的可写入 KeyPath，因为类是引用类型。
 
-A practical example of using a key path is in observing or capturing when a value changes on an object.
+使用 KeyPath 的一个例子是在对象的值发生更改后观察或捕获。
 
-When you encounter a bug involving a third-party object, there is immense power in knowing when the state of that object changes. Beyond debugging, sometimes it just makes sense to hook up your custom code to respond when a value changes in a third-party object such as Apple’s UIImageView object. In [Design Patterns on iOS using Swift – Part 2/2](https://www.raywenderlich.com/160653/design-patterns-ios-using-swift-part-22), you can learn more about the observer pattern in the section titled _Key-Value Observing (KVO)_.
+当你遇到涉及第三方对象的 bug 时，知道该对象的状态何时发生变化就显得尤为重要。除了调试之外，有时在第三方对象（例如Apple的UIImageView对象）中的值发生更改时，调用自定义代码进行响应是有意义的。在[Design Patterns on iOS using Swift – Part 2/2](https://www.raywenderlich.com/160653/design-patterns-ios-using-swift-part-22)中，你可以了解有关观察者模式的更多信息。
 
-However, there’s a use case here related to the kennels that fits right into our doggy world. Without this KVO power, how would dog catchers easily know when the kennels are available to put more dogs inside? Although many dog catchers would just love to take home each and every lost dog they find, it’s just not practical.
 
-So dog catchers who just want to help dogs find their way home need to know when the kennels are available to place dogs into. The first step to making this possible is creating a key path. Open the _KennelsKeyPath_ page and, right after _☆ Add KeyPath here_, add this:
+然而，这里有一个与狗窝相关的用例，它适合我们的狗狗世界。如果没有强大的键值监听，捕狗者如何轻易地知道什么时候狗窝可以放入更多的狗呢？虽然许多捕狗者只是喜欢把他们发现的每只丢失的狗带回家，但这是不切实际的。
 
-```
+因此，只想帮助狗回家的捕狗者需要知道什么时候狗窝可以放入狗。实现这一目标的第一步是创建一个 KeyPath。打开 **KennelsKeyPath** 页面，然后在 **☆Add KeyPath here** 下面添加：
+
+```swift
 let keyPath = \Kennels.available
 ```
 
-This is how you create a `KeyPath`. You use a backslash on the type, followed by a chain of dot-separated properties — in this case, one property deep. To use the `KeyPath` to observe changes to the `available` property, add the following code after _☆ Add observe method call here_:
+这就是你创建 `KeyPath` 的方法。你可以在类型上使用反斜杠，后跟一系列点分隔的属性，在这种情况下能取到最后一个属性。要使用 `KeyPath` 来监听对 `available` 属性的更改，请在 **☆ Add observe method call here** 之后添加以下代码：
 
-```
+```swift
 kennels.observe(keyPath) { kennels, change in
   if (kennels.available) {
     print("kennels are available")
@@ -330,39 +325,38 @@ kennels.observe(keyPath) { kennels, change in
 }
 ```
 
-Click run and see the following message output to the console:
+点击运行，你能看到控制台的输出如下：
 
 ```
 Kennels are available.
 ```
 
-This approach can also be great for figuring out when a value has changed. Imagine being able to debug state changes to third-party objects! Nailing down when an item of interest changes can really keep you from barking up the wrong tree.
+这种方法对于确定值何时发生变化的情况也很有用。想象一下，我们居然能够调试第三方框架里对象状态的修改！当有意思的项发生变化时，可以确保你不用看到烦人的错误调用的树的输出。
 
-You’re done with the _KennelsKeyPath_ page!
+到现在为止你已经完成了 **KennelsKeyPath** 项目！
 
-## Understanding Dynamic Member Lookup
+## 理解动态成员查询
+如果你一直在紧跟 Swift 4.2 的变化，你可能听说过 **动态成员查询（Dynamic Member Lookup）**。如果没有，你在这里不仅仅只是学习这个概念。
 
-If you’ve been keeping up with Swift 4.2 changes, you may have heard about _Dynamic Member Lookup_. If not, you’ll go beyond just learning the concept here.
+在本教程的这一部分中，你将通过一个如何创建真正的 JSON DSL（域规范语言）的示例来看到 Swift 中 **动态成员查询** 的强大功能，该示例允许调用者使用点表示法来访问来自 JSON 数据的值。
 
-In this part of the tutorial, you’ll see the power of _Dynamic Member Lookup_ in Swift by going over an example of how to create a real JSON DSL (Domain Specification Language) that allows the caller to use dot notation to access values from a JSON dictionary.
+**动态成员查询** 使编码人员能够对编译时不存在的属性使用点语法，而不是使用混乱的方式。简而言之，你将拥有那些属性运行时必存在的信念来编写代码，从而获得易于阅读的代码。
 
-_Dynamic Member Lookup_ empowers the coder to use dot syntax for properties that don’t exist at compile time as opposed to messier ways. In short, you’re coding on faith that the members will exist at runtime and getting nice-to-read code in the process.
+正如 [proposal for this feature](https://github.com/apple/swift-evolution/blob/master/proposals/0195-dynamic-member-lookup.md)  和  [associated conversations in the Swift community](https://forums.swift.org/t/se-0195-introduce-user-defined-dynamic-member-lookup-types/8658/10) 中提到，这个功能为和其他语言的互操作性提供了极大的支持，例如 Python，数据库实现者和围绕 “基于字符串的” API（如CoreImage）创建无样板包装器等。
 
-As mentioned in the [proposal for this feature](https://github.com/apple/swift-evolution/blob/master/proposals/0195-dynamic-member-lookup.md) and [associated conversations in the Swift community](https://forums.swift.org/t/se-0195-introduce-user-defined-dynamic-member-lookup-types/8658/10), this power offers great support for interoperability with other languages such as Python, database implementors and creating boilerplate-free wrappers around “stringly-typed” APIs such as CoreImage.
+### @dynamicMemberLookup 简介
 
-### Introducing @dynamicMemberLookup
+打开 **DogCatcher** 页面并查看代码。在 Playground 里，`狗`  表示狗的运行有一个 ` 方向`。
 
-Open the _DogCatcher_ page and review the code. In the playground, `Dog` represents the way a dog is running with `Direction`.
+使用 `dynamicMemberLookup` 的功能，即使这些属性没有明确存在，也可以访问 `directionOfMovement` 和 `moving` 。现在是时候让 ` Dog`  变的动态了。
 
-With the `dynamicMemberLookup` power, `directionOfMovement` and `moving` can be accessed even though those properties don’t explicitly exist. It’s time to make `Dog` dynamic.
+### 把 dynamicMemberLookup 添加到 Dog
 
-### Adding dynamicMemberLookup to the Dog
+激活此动态功能的方法是使用注解 `@dynamicMemberLookup`。
 
-The way to activate this dynamic power is through the use of the type attribute `@dynamicMemberLookup`.
+在 **☆ Add subscript method that returns a Direction here** 下添加以下代码：
 
-Add the following code under _☆ Add subscript method that returns a Direction here_:
-
-```
+```swift
 subscript(dynamicMember member: String) -> Direction {
   if member == "moving" || member == "directionOfMovement" {
     // Here's where you would call the motion detection library
@@ -373,11 +367,11 @@ subscript(dynamicMember member: String) -> Direction {
 }
 ```
 
-Now add `dynamicMemberLookup` to `Dog` by uncommenting the line that’s marked _☆ Uncomment this line_ above `Dog`.
+现在通过取消 **☆ Uncomment this line** 下面的注释，来将标记 `dynamicMemberLookup` 添加到 `Dog` 中。
 
-You can now access a property named `directionOfMovement` or `moving`. Give it a try by adding the following on the line after _☆ Use the dynamicMemberLookup feature for dynamicDog here_:
+你现在可以访问名为 `directionOfMovement` 或 `moving` 的属性。尝试在 **☆ Use the dynamicMemberLookup feature for dynamicDog here** 下面上添加以下内容：
 
-```
+```swift
 let directionOfMove: Dog.Direction = dynamicDog.directionOfMovement
 print("Dog's direction of movement is \(directionOfMove).")
 
@@ -385,18 +379,18 @@ let movingDirection: Dog.Direction = dynamicDog.moving
 print("Dog is moving \(movingDirection).")
 ```
 
-Run the playground. With the values sometimes being _left_ and sometimes being _right_, the first two lines you should see are similar to:
+运行 Playground。由于狗有时在 **左边** 且有时在 **右边**，因此你应该看到输出的前两行类似于：
 
 ```
 Dog's direction of movement is left.
 Dog is moving left.
 ```
 
-### Overloading subscript(dynamicMember:)
+### 重载下标 (dynamicMember:)
 
-Swift supports [overloading subscript declarations](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Declarations.html#//apple_ref/doc/uid/TP40014097-CH34-ID379) with different return types. Try this out by adding a `subscript` that returns an `Int` right under _☆ Add subscript method that returns an Int here_:
+Swift 支持用不同的返回值 [重载下标声明](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Declarations.html#//apple_ref/doc/uid/TP40014097-CH34-ID379) 。在 **☆ Add subscript method that returns an Int here** 下面尝试添加返回一个  `Int` 的 `subscript` ：
 
-```
+```swift
 subscript(dynamicMember member: String) -> Int {
   if member == "speed" {
     // Here's where you would call the motion detection library
@@ -407,41 +401,39 @@ subscript(dynamicMember member: String) -> Int {
 }
 ```
 
-Now, you can access a property named `speed`. Speed to victory by adding the following under `movingDirection` that you added earlier:
+现在你可以访问名为 `speed` 的属性。通过在之前添加的 `movingDirection` 下添加以下内容来加快胜利速度：
 
-```
+```swift
 let speed: Int = dynamicDog.speed
 print("Dog's speed is \(speed).")
 ```
 
-Run the playground. The output should contain:
+运行 Playground，输出应该包含以下内容：
 
 ```
 Dog's speed is 12.
 ```
 
-Pretty nice, huh? That’s a powerful feature that keeps the code looking nice even if you need to access other programming languages such as Python. As hinted at earlier, there’s a catch…
+是不是太棒了。即使你需要访问其他编程语言（如Python），这也是一个强大的功能，可以使代码保持良好状态。如前所述，有一个问题......
 
 ![](https://koenig-media.raywenderlich.com/uploads/2018/06/dog_ears_perk_up2_small.jpg)
 
-“A catch?” I’m all ears.
+​			“想抓我？”我全听到了。
 
-### Compiler and Code Completion Gone to the Dogs
+### 给狗编译并完成代码
 
-In exchange for this dynamic runtime feature, you don’t get the benefits of compile-time checking of properties that depend on the `subscript(dynamicMember:)` functionality. Also, Xcode’s code completion feature can’t help you out either. However, the good news is that professional iOS developers read more code than they write.
+为了换取动态运行时的特性，你无法获得依赖于 `subscript（dynamicMember :)` 功能属性的编译时检查的好处。此外，Xcode 的代码自动补全功能也无法帮助你。但好消息是专业 iOS 开发者能阅读到比他们编写的还要多的代码。
 
-The syntactic sugar that _Dynamic Member Lookup_ gives you is nothing to just throw away. It’s a nice feature that makes certain specific use cases of Swift and language interoperability bearable and enjoyable to view.
+**动态成员查询** 给你的语法糖只是扔掉了。这是一个很好的功能，使 Swift 的某些特定用例和语言互操作性可以让人看到并且令人愉快。
+### 友好的捕狗者
 
-### Friendly Dog Catcher
+动态成员查询** 的原始提案解决了语言互操作性问题，尤其是对于 Python。但是，这并不是唯一有用的情况。
 
-The original proposal for _Dynamic Member Lookup_ addressed language interoperability, particularly with Python. However, that’s not the only circumstance where it’s useful.
+为了演示纯粹的 Swift 用例，你将使用 **DogCatcher.xcplaygroundpage** 中的 `JSONDogCatcher` 代码。它是一个简单的结构，具有一些属性，用于处理`String`，`Int`和 JSON 字典。使用这样的结构，你可以创建一个 `JSONDogCatcher` 并最终搜索特定的 `String` 或 `Int` 值。
+**传统下标方法**
+实现类似遍历 JSON 字典的传统方法是使用 `下标` 方法。Playground 已经包含传统的 `下标` 实现。使用 `subscript` 方法访问 `String` 或 `Int` 值通常如下所示，并且也在 Playground 中：
 
-To demonstrate a pure Swift use case, you’re going to work on the `JSONDogCatcher` code found in _DogCatcher.xcplaygroundpage_. It’s a simple struct with a few properties designed to handle `String`, `Int` and JSON dictionary. With a struct like this, you can create a `JSONDogCatcher` and ultimately go foraging for specific `String` or `Int` values.
-
-_Traditional Subscript Method_  
-A traditional way of drilling down into a JSON dictionary with a struct like this is to use a `subscript` method. The playground already contains a traditional `subscript` implementation. Accessing the `String` or `Int` values using the `subscript` method typically looks like the following and is also in the playground:
-
-```
+```swift
 let json: [String: Any] = ["name": "Rover", "speed": 12,
                           "owner": ["name": "Ms. Simpson", "age": 36]]
 
@@ -451,37 +443,36 @@ let messyName: String = catcher["owner"]?["name"]?.value() ?? ""
 print("Owner's name extracted in a less readable way is \(messyName).")
 ```
 
-Although you have to look past the brackets, quotes and question marks, this works.
-
-Run the playground. You can now see the following:
+虽然你必须遍历查询括号，引号和问号来获得其中的数据，但这很有效。
+运行 Playground，你看到的输出将会如下：
 
 ```
 Owner's name extracted in a less readable way is Ms. Simpson.
 ```
 
-Although it works fine, it would be easier on the eyes to just use dot syntax. With _Dynamic Member Lookup_, you can drill down a multi-level JSON data structure.
+虽然它可以解决问题，但是使用点语法就可以更轻松了。使用 **动态成员查询**，你可以深入了解多级 JSON 数据结构。
 
-_Adding dynamicMemberLookup to the Dog Catcher_  
-Like `Dog`, it’s time to add the `dynamicMemberLookup` attribute to the `JSONDogCatcher` struct.
+**将 dynamicMemberLookup 添加到 Dog Catcher**
+就像 `Dog` 一样，是时候将 `dynamicMemberLookup` 属性添加到 `JSONDogCatcher` 结构中了。
 
-Add the following code right under _☆ Add subscript(dynamicMember:) method that returns a JSONDogCatcher here_:
+在 **☆ Add subscript(dynamicMember:) method that returns a JSONDogCatcher here** 下添加以下代码：
 
-```
+```swift
 subscript(dynamicMember member: String) -> JSONDogCatcher? {
   return self[member]
 }
 ```
 
-The `subscript(dynamicMember:)` method calls the already existing `subscript` method but takes away the boilerplate code of using brackets and `String` keys. Now, uncomment the line which has _☆ Uncomment this line_ above `JSONDogCatcher`:
+下标方法  `subscript(dynamicMember:)` 调用已存在的 `下标` 方法，但删除了使用括号和 `String` 作为键的样板代码。 现在，取消在 `JSONDogCatcher` 上 标有 **☆ Uncomment this line**  的注释：
 
-```
+```swift
 @dynamicMemberLookup
 struct JSONDogCatcher {
 ```
 
-With that in place, you can use dot notation to get the dog’s speed and owner’s name. Try it out by adding the following right under _☆ Use dot notation to get the owner’s name and speed through the catcher_:
+有了这个之后，你就可以使用点语法来获得狗的速度和它主人的名字。 尝试在 **☆ Use dot notation to get the owner’s name and speed through the catcher** 下添加以下代码：
 
-```
+```swift
 let ownerName: String = catcher.owner?.name?.value() ?? ""
 print("Owner's name is \(ownerName).")
 
@@ -489,7 +480,7 @@ let dogSpeed: Int = catcher.speed?.value() ?? 0
 print("Dog's speed is \(dogSpeed).")
 ```
 
-Run the playground. See the speed and the owner’s name in the console:
+运行 Playground，你会看到控制台输出了速度和狗主人的名字：
 
 ```
 Owner's name is Ms. Simpson.
@@ -500,23 +491,27 @@ Now that you have the owner’s name, the dog catcher can contact the owner and 
 
 What a happy ending! The dog and its owner are together again and the code looks cleaner. Through the power of dynamic Swift, this dynamic dog can go back to chasing bunnies in the backyard.
 
+现在你得到了主人的名字，狗捕手可以联系主人来让他知道他的狗被找到了！
+
+多么幸福的结局！ 狗和它的主人再次团聚，而且代码也看起来更整洁。 通过 Swift 的动态的力量，这条活泼的狗可以回到后院去追兔子了。
+
 ![](https://koenig-media.raywenderlich.com/uploads/2018/06/bunny_small.jpg)
 
-Simpson’s dog loves chasing but not catching
+​			辛普森的狗喜欢追逐而不是追赶
 
-## Where to Go From Here?
+## 后记
 
-You can download the completed version of the project using the _Download Materials_ button at the top or bottom of this tutorial.
+你可以使用本教程顶部的 **下载材料** 链接下载到项目的完整版本。
 
-In this tutorial, you harnessed the dynamic power that Swift offers in version 4.2. You learned about Swift’s introspective reflection powers such as `Mirror`, customizing console output, hooking into _Key-Value Observing with KeyPaths_ and _Dynamic Member Lookup_.
+在本教程中，你利用了 Swift 4.2 中提供的动态功能。了解了 Swift 的内省反射功能（例如 `Mirror` ）自定义控制台输出，使用 KeyPath 进行 **键值监听 ** 和 **动态成员查找**。
 
-With that dynamic smorgasbord, you can clearly see helpful information, have more readable code and hook into some powerful runtime capabilities for your app or general purpose framework and library.
+通过学习动态的功能，你可以清楚地看到有用的信息，拥有更易读的代码，并为你的应用程序，通用框架或者是库提供一些强大的运行时功能。
 
-Sniffing around [Apple’s documentation about Mirror](https://developer.apple.com/documentation/swift/mirror) and related items is a worthy endeavor. For more about _Key-Value Observing_, have a look at [Design Patterns on iOS using Swift](https://www.raywenderlich.com/160651/design-patterns-ios-using-swift-part-12). Be sure to check out the [What’s New in Swift 4.2?](https://www.raywenderlich.com/194066/whats-new-in-swift-4-2) to see more of what’s in Swift 4.2.
+深入 Mirror 的 [官方文档](https://developer.apple.com/documentation/swift/mirror) 和相关项目进行探索是值得的。有关 **键值监听 ** 的更多信息，请看使用 [Swift 的 iOS 设计模式](https://www.raywenderlich.com/160651/design-patterns-ios-using-swift-part-12)。想了解更多 Swift 4.2 新特性，请看[What’s New in Swift 4.2?](https://www.raywenderlich.com/194066/whats-new-in-swift-4-2)。
 
-In regards to the _Dynamic Member Lookup_ Swift 4.2 feature, it doesn’t hurt to look at the Swift proposal [SE-0195: “Introduce User-defined ‘Dynamic Member Lookup’ Types”](https://github.com/apple/swift-evolution/blob/master/proposals/0195-dynamic-member-lookup.md) that introduces the `dynamicMemberLookup` type attribute and potential use cases. On a related note, a Swift proposal to keep an eye on is the close cousin of _Dynamic Member Lookup_ called [SE-216: “Introduce User-defined Dynamically ‘callable’ Types](https://github.com/apple/swift-evolution/blob/master/proposals/0216-dynamic-callable.md) that introduces the `dynamicCallable` type attribute.
+关于 Swift 4.2 里 **动态成员查找** 功能，查看 Swift 提案 [SE-0195: “Introduce User-defined ‘Dynamic Member Lookup’ Types”](https://github.com/apple/swift-evolution/blob/master/proposals/0195-dynamic-member-lookup.md)，其中介绍了 `dynamicMemberLookup` 注解和潜在用例。在一个相关的说明中，一个值得关注的 Swift 提案 [SE-216: “Introduce User-defined Dynamically ‘callable’ Types](https://github.com/apple/swift-evolution/blob/master/proposals/0216-dynamic-callable.md) 是 **动态成员查找** 的近亲，其中介绍了  `dynamicCallable` 注解。
 
-Have more to say or ask about the dynamic power of Swift? Join in on the forum discussion below!
+
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
