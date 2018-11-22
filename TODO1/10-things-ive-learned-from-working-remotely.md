@@ -1,7 +1,7 @@
 > * 原文地址：[10 things I've learned from working remotely](https://dev.to/lkopacz/10-things-ive-learned-from-working-remotely-240h)
 > * 原文作者：[Lindsey Kopacz](https://dev.to/lkopacz)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/10-things-ive-learned-from-working-remote.，ly.md](https://github.com/xitu/gold-miner/blob/master/TODO1/10-things-ive-learned-from-working-remotely.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/10-things-ive-learned-from-working-remotely.md](https://github.com/xitu/gold-miner/blob/master/TODO1/10-things-ive-learned-from-working-remotely.md)
 > * 译者：[Starrier](https://github.com/Starriers)
 > * 校对者：[smallfatS](https://github.com/smallfatS)
 
