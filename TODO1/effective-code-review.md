@@ -2,191 +2,191 @@
 > * 原文作者：[Bryan Liu](https://engineering.linecorp.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/effective-code-review.md](https://github.com/xitu/gold-miner/blob/master/TODO1/effective-code-review.md)
-> * 译者：
+> * 译者：[子非](https://www.github.com/CoolRice)
 > * 校对者：
 
 # Effective code review
+# 怎样使高效的代码评审成为一种文化
 
-Now and then, code quality becomes an issue in a team and everyone starts to talk about how we can improve unit test and code coverage, but not for long. Eventually, it’s not a hot topic anymore as people get busy. But then, you will experience déjà vu probably within a year, because the same idea comes back the next year. My name is Bryan Liu, a quality engineer working on test automation of LINE NOW, and I’d like to share what I did to facilitate unit test and code review process in LINE Taiwan.
+有时，代码质量会成为团队要面对的问题，每个人都会开始讨论我们该怎样改进单元测试和代码覆盖率，但都不能长久。最终，随着人们的忙碌，这不再是热门话题。但是，随后的一年内你的体验又会似曾相识，因为雷同的观点在下一年又回来了。我的名字叫 Bryan Liu，目前是在 LINE 从事自动化测试的一名质量工程师，我想分享在 LINE Taiwan 我是如何帮助改进单元测试和代码评审进程的。
 
-## Unit test and code review
+## 单元测试和代码评审
 
-Peer code review is part of LINE’s engineer culture, as our CTO explained to us during OJT. Facebook states the most three important things in development as code review, code review and code review. Yes, the only way to address unit test and improve code quality is to make unit test part of our engineer culture, and code review is here to help.
+正如在职培训上 CTO 在向我们解释的一样，同行代码评审是 LINE 工程师文化的一部分。Facebook 指出开发过程中最重要的三件事 —— 代码评审、代码评审和代码评审。是的，解决单元测试和改进代码质量的唯一方法是使单元测试成为我们工程师文化的一部分，而这就是代码评审帮到我们的地方。
 
 ![boyscout_rule](https://engineering.linecorp.com/wp-content/uploads/2018/10/24/1540351340897.png)
 
-Boy scout rule for coding, from [{codemotion}](https://codemotionworld.com/)
+针对代码的童子军规，来自 [{codemotion}](https://codemotionworld.com/)
 
-Follow this boy scout rule which recommends reviewers to check if unit tests supplement new code and bug fixes during a review, and by continuously doing this, code coverage should expand or at least remain the same. For example, if code coverage drops, a reviewee should explain to the team the difficulties he/she is having and the reasons for not adding more tests. If all agree upon the explanation and has no issues, he/she can proceed. Otherwise, the reviewee shall fix it!
+请遵循这个童子军规，该规则建议评审人检查单元测试是否支持在评审期间补充新代码和修复 bug，通过持续执行此操作，代码覆盖率应该扩展或至少维持不变。举个例子，如果代码覆盖率下降，则评审人应向团队解释他/她遇到的困难以及不添加更多测试的原因。如果所有人都认可该解释并而没问题，他/她可以继续。否则，评审人应解决它！
 
-## Tips for effective code review
+## 有效的代码评审小贴士
 
-The most efficient way to do code review is through pair programming, but using PRs (Pull Request) on Github is okay, if this suits your team better. To get code review done, I mean really done, we should first try to increase the efficiency of code review processes; the idea is to treat reviewer as a rare resource, because none of our major responsibility is code reviewing, right?!
+最高效的代码评审方式是通过结对编程，不过如果使用 GitHub 的 PR（Pull Request）适用于你的团队同样可行。为了搞定代码评审，我指的是完全搞定，我们应该尝试首先增加代码评审流程的效率；我们的想法是把评审人当做稀缺的资源，因为我们的主要职责并不是代码评审，对不对？！
 
-And here are some tips for effective and efficient code review:
+以下是有效并高效的代码评审的一些提示：
 
-*   [Keep changes small](#keep-changes-small)
-*   [Review often and shorten sessions](#review-often)
-*   [Send pull request for review as early as possible](#send-pull-request-early)
-*   [Provide enough context for creating meaningful pull request](#provide-enough-context)
-*   [Linting and code style check](#linting-code-style-check)
+*   [保持小的变化](#keep-changes-small)
+*   [经常评审并缩短评审时间](#review-often)
+*   [尽早发送 Pull Request 以供评审](#send-pull-request-early)
+*   [提供足够的背景来创建有意义的 Pull Request](#provide-enough-context)
+*   [Linting 和代码风格检查](#linting-code-style-check)
 
-### Keep changes small
+### 保持小的改变
 
-A study by a Cisco System programming team has shown that 60 to 90 minute long review over 200 to 400 LoC (Line of Code) yields 70–90% defect discovery. Treat each PR as a releasable unit (feature, bug fix) or a cohesive idea which is meaningful to the PR. To learn why a large pull request hurts and what the optimal size for pull requests is, check [here](https://smallbusinessprogramming.com/optimal-pull-request-size/).
+Cisco System 编程团队的一项研究表明，对 200 到 400 LoC（代码行）进行 60 到 90 分钟的长时间评审可以发现 70 — 90% 的缺陷。把每个 PR 视为可释放单元（功能，修复 bug）或有意义的相关性强的想法。要了解大型 Pull Request 为什么会有害以及 Pull Request 的最佳大小，请看[此处](https://smallbusinessprogramming.com/optimal-pull-request-size/)。
 
 ![](https://engineering.linecorp.com/wp-content/uploads/2018/10/24/1540351568447.png)
 
 ![](https://engineering.linecorp.com/wp-content/uploads/2018/10/24/1540351612913.png)
 
-Code reviews, from [@iamdeveloper](https://twitter.com/iamdevloper) on Twitter & Defect density vs LoC, from [Cisco study case](https://smartbear.com/learn/code-review/best-practices-for-peer-code-review/)
+代码评审, 来自于 Twitter [@iamdeveloper](https://twitter.com/iamdevloper) 与 缺陷密度 vs LoC, 来自于 [Cisco 研究案例](https://smartbear.com/learn/code-review/best-practices-for-peer-code-review/)
 
-### Review often and shorten sessions
+### 经常评审并缩短评审时间
 
-Code reviews in reasonable quantity, at a slower pace, for a limited amount of time result in the most effective code review. Beyond 400 LoC, the ability to find defects diminishes. Inspection rates under 300 LoC/hr is the best.
+以合理的量级，较平稳的速度及利用有限的时间内进行代码评审，可以得到最有效的评审结果。超过 400 LoC，发现缺陷的能力会降低。低于 300 LoC/hr 的检验率是最好的。
 
 ![](https://engineering.linecorp.com/wp-content/uploads/2018/10/24/1540351632935.png)
 
-Defect density vs inspection rate, from [Cisco study case](https://smartbear.com/learn/code-review/best-practices-for-peer-code-review/)
+缺陷密度与检验率, 来自于 [Cisco 研究案例](https://smartbear.com/learn/code-review/best-practices-for-peer-code-review/)
 
-### Send pull request to review as early as possible
+### 尽早发送 Pull Request 以供评审
 
-To get a valuable code review, start a discussion before implementing details and try not to send big chunks of diffs. Separate different ideas into different PRs and assign different reviewers if needed, by dividing large problems into smaller problems and solving the small problems one at a time.
+为了获得有价值的代码评审，实现细节前发起讨论并且尽量不要发送大块的 diff。将不同的想法分成不同的 PR，并且根据需要分配给不同的评审人，将大问题分成较小的问题并一次解决一个小问题。
 
 ![](https://engineering.linecorp.com/wp-content/uploads/2018/10/24/1540351658308.png)
 
-How workaround gets applied, if architectural/design problems found in the last minute PR during code review, from [@isoiphone on Twitter](https://twitter.com/isoiphone/status/824771226585296896)
+如果在代码评审的最后一分钟发现架构/设计问题该如何应用应急办法，来自于[Twitter @isoiphone](https://twitter.com/isoiphone/status/824771226585296896)
 
-### Provide enough context for creating meaningful pull request
+### 提供足够的背景来创建有意义的 Pull Request
 
-> Reviewer resource is very limited, treat it wisely!
+> 评审人资源能做的十分有限，请明智地对待。
 
-To help a reviewer get into the context quickly, providing sufficient information is important, such as why and how the change is being made, as well as any risks or concerns observed. Such information is a good catalyst for generating good discussions later. As an added benefit, the author will often find additional errors before the review even begins. Though not every PR is worthy writing such detail, but you can briefly annotate what’s been done and tested or which part should a reviewer pay more attention to!
+为了帮助评审人快速进入问题背景，提供足够的信息非常重要，例如为什么以及如何进行更改，还有观察到的任何风险或顾虑。这些信息是后面产生良好讨论的强力催化剂。作为额外的好处，作者通常会在评审开始之前发现其他错误。虽然不是每个 PR 都值得写出这样的细节，但是你可以简单地注释已经完成和测试的内容或者评审人应该更加关注哪个部分！
 
-[Github issue and pull request templates](https://blog.github.com/2016-02-17-issue-and-pull-request-templates/) might do some help. Also, attaching a screenshot to describe what you are up to is a good idea! Here are a couple of examples on using PR templates to provide meaningful context for code review and further QA verification.
+[GitHub Issue 和 Pull Request 模板](https://blog.github.com/2016-02-17-issue-and-pull-request-templates/)可能会有所帮助。另外，附上截图来描述您达成的效果是一个好主意！以下几个示例使用 PR 模板为代码评审和进一步的 QA 验证提供有意义背景。
 
 ![](https://engineering.linecorp.com/wp-content/uploads/2018/10/24/1540363289472.png)
 
 ![](https://engineering.linecorp.com/wp-content/uploads/2018/10/24/1540351906927.png)
 
-Examples of Github PR template
+Github PR 模板示例
 
-### Linting and Code Style Check
+### Linting 和编码风格检查
 
-Leave static code analysis and coding style check to machines with tools like [SonarQube](https://www.sonarqube.org/) and [ESLint](https://eslint.org/), and spare human eyes for important parts like business logics and algorithms. These code scanning tools, type checking tools and linting tools can report bugs, [code smells](https://en.wikipedia.org/wiki/Code_smell) and vulnerabilities, along with a good test suite can certainly increase the confidence level.
+让机器使用 [SonarQube](https://www.sonarqube.org/) 和 [ESLint](https://eslint.org/) 等工具进行静态代码分析和编码风格检查，为业务逻辑和算法等重要环节节省注意力。这些代码扫描工具、类型检查工具和 linting 工具可以报告错误，[code smells](https://en.wikipedia.org/wiki/Code_smell) 和漏洞，使用好的测试套件肯定可以提高代码可靠度。
 
 ![](https://engineering.linecorp.com/wp-content/uploads/2018/10/24/1540351983588.png)
 
-Detected issues in SonarQube from SonarQube website
+在 SonarQube 中发现问题，图片来自于 SonarQube 站点
 
-One of the most important part of code reviews is to reward developers for growth and effort, so try to offer as many compliment as possible.
+代码评审中最重要的部分之一是奖励开发人员的成长和努力，因此请提供尽可能多的赞美。
 
-Lastly, you can’t give a proper review if you can’t understand parts of the code. If your discussion seems to go back and forth, picking it up and finalizing the discussion in person would be more efficient.
+最后，如果你无法理解部分代码，则无法进行适当的评审。如果你们的讨论要来回往复，那么面对面结束讨论会更加高效。
 
-## Make this part of our engineer culture
+## 使之融入我们的工程师文化
 
-Someone said that “culture is what people do while no one is looking”. Will you still write adequate tests for your code when code review process is skipped? Not easy right? But it’s still worth trying! If your project has employed Agile, consider the following factors to make your team culture self-directed, continuously improving and learning:
+一些人说“文化就是人们在没有人看的时候所做的事”。在跳过代码评审过程时，你是否仍会为代码编写足够的测试？不容易吧？但它仍然值得尝试！如果您的项目采用了敏捷开发模式，请考虑以下因素，以使您的团队文化能自我导向，不断改进和学习：
 
-*   Autonomy: Team members take their responsibilities and work in the ways they prefer (Example: Scrum, pair programming)
-*   Mastery: Continuously performing good coding practices and learning from each other through code review can eventually enhance personal coding skills
-*   Purpose: Code quality is our ultimate goal, find bugs at an early stage instead of putting fire off in production
+*   自治：团队成员以他们喜欢的方式承担责任和工作（例如：Scrum，结对编程）
+*   掌握：持续执行良好的编码实践并通过代码评审相互学习，最终可以提高个人编码技能
+*   目标：代码质量是我们的最终目标，应该在早期发现错误而不是在生产中灭火
 
-Thus to facilitate team culture building, I started my efforts with following two items:
+因此，为了促进团队文化建设，我开始尝试以下两个项目：
 
-*   [Enhance Skill](#enhance-skill)
-*   [Measure the progress](#measure-progress)
+*   [增强技能](#enhance-skill)
+*   [评估进度](#measure-progress)
 
-### Enhance Skill
+### 增强技能
 
-Yes, to get to the bottom of making this work, developers still need to have a sound concept and complete knowledge to reach the growing consensus(practices) of their team in their daily work. To help developers, we leverage local consultancy to give workshops on unit test, refactoring and TDD (Test-Driven Development).
+是的，为了深入开展这项工作，开发人员还需要有全面的概念和完整的知识，才能在日常工作中达到团队不断增长的共识（实践）。为了帮助开发人员，我们借助内部的顾问构举办有关单元测试，重构和 TDD（测试驱动开发）的研讨会。
 
-We address the following topics in the workshop (listed but not limited):
+我们在研讨会上讨论了以下主题（列出但不限于此）：
 
-1.  Unit test
-    *   Design test cases to reveal intention rather than to test code implementation
-    *   Identify and isolate dependency
-    *   Introduce extract & overwrite and dependency injection methods
-    *   Explain stub & mock framework and assertion libraries
-    *   Practice refactoring skills like extract method, inline variables, and many others.
-2.  [Kata](https://en.wikipedia.org/wiki/Kata_) (programming) hands on
-    
-    *   Requirement analysis, refine scenarios and find key examples
-    *   Code design and implementation
-3.  TDD and refactoring
-    
-    *   Demo refactoring, identifying code smells and associated methods to remove them
-    *   Live coding with the TDD approach (Example: baby steps, red light green light)
-    *   Hands on practice
+1.  单元测试
+    *   设计测试用例用来展示目的，而不是测试代码的实现
+    *   需要识别并隔离依赖
+    *   引入抽取和覆盖以及依赖注入方法
+    *   解释 stub 和 mock 框架及断言库
+    *   练习重构技巧，如抽取方法，内联变量等等。
+2.  [Kata](https://en.wikipedia.org/wiki/Kata_)（编程）着手于
+    *   需求分析、优化方案并找出关键示例
+    *   编码设计和实现
+3.  TDD 和重构
+    *   Demo 重构，标识 code smells 及移除相关方法
+    *   使用 TDD 方法进行实时编码（例如：婴儿台阶，红绿灯）
+    *   着手实践
 
 ![](https://engineering.linecorp.com/wp-content/uploads/2018/10/24/1540352042625.png)
 
 ![](https://engineering.linecorp.com/wp-content/uploads/2018/10/24/1540352054720.png)
 
-Snapshots during workshop
+研讨会期间的照片
 
-### Measure the progress
+### 评估进度
 
-If you can’t see it, you can’t measure it, you can’t improve it!
+如果你无法看到进度，你就不能评估，也不能改进。
 
-By leveraging visual impact with public dashboards, message notification to continuously remind everyone in pursuit our goals, we have the following dashboards displayed in rotation on a big screen by the entrance gate.
+通过利用公开 dashboard 的视觉效果，消息通知不断提醒每个人去追求我们的目标，我们在入口的大屏幕上循环显示以下 dashboard。
 
-*   [SonarQube project dashboard](#sonarqube-project-dashboard)
-*   [Team-based code coverage](#team-based-code-coverage)
-*   [PR size and resolution time](#pr-size-resolution-time)
-*   [PR comment notification](#pr-comment-notification)
+*   [SonarQube 项目 dashboard](#sonarqube-project-dashboard)
+*   [基于团队的代码覆盖率](#team-based-code-coverage)
+*   [PR 的大小与解决时间](#pr-size-resolution-time)
+*   [PR 评论通知](#pr-comment-notification)
 
-#### SonarQube project dashboard
+#### SonarQube 项目 dashboard
 
-All stats of static code analysis come from SonarQube, code repos directly link to production services should publish reports here.
+所有的静态代码分析数据来自于 SonarQube，直接链接到生产服务的代码仓库应该在这里发布报告。
 
 ![](https://engineering.linecorp.com/wp-content/uploads/2018/10/24/1540352094755.png)  
 
-#### Team based code coverage
+#### 基于团队的代码覆盖率
 
-Team based code coverage chart shows the coverage trend of each repository of a team, so you don’t have to navigate into each SonarQube project page. By putting this type of charts side by side, it’s easy to compare how different teams are doing.
+基于团队的代码覆盖率图表显示了团队中每个仓库的覆盖趋势，因此无需导航到每个 SonarQube 项目页面。通过将这种类型的图表并排放置，可以很容易地比较不同团队的表现。
 
 ![](https://engineering.linecorp.com/wp-content/uploads/2018/10/24/1540352210111.png)  
 
-#### PR size and resolution time
+#### PR 的大小与解决时间
 
-The core idea of DevOps is how to release software changes into production frequently but also with good quality. Making each deployment unit small is the trick here. Large PRs not only make good code review impossible but also costs in code quality and release cycle, so making a task/change small is a valid skill in DevOps. We try to promote this idea with the following “Resolution time vs. PR size” chart:
+DevOps 的核心思想是如何将软件变更频繁地发布到生产中，同时又具有良好的质量。使每个部署单元变小是这里的诀窍。大型 PR 不仅无法进行良好的代码评审，而且还会增加在代码质量和发布周期成本，因此对于 DevOps 将任务/变更做小是行之有效的技能。我们尝试使用以下“分辨率时间与PR大小”图表来推进这一理念：
 
 ![](https://engineering.linecorp.com/wp-content/uploads/2018/10/24/1540352229137.png)  
 
-*   Bubble size: Change set size (line of code)
-*   Resolution time: PR creation time to PR merge time
-*   #n: PR number
+*   气泡大小：更改设置大小（代码行）
+*   解决时间：PR 创建时间到 PR 合并时间
+*   #n：PR 号
 
-These charts continuously create awareness to remind everyone the progresses of adopting good practices and goals we pursue. These are just some examples we made here. Think of your own which can visually show your intention to others. By the way, these are also useful to give a summary of progress during monthly meetings.
+这些图表持续提醒每个人采用良好实践和追求目标的进度。这些只是我们在这里做的一些例子。想想你自己可以直观地向别人展示你的意图。顺便说一下，这些对于月度会议期间总结进展也很有用。
 
-#### PR Comment Notification
 
-Each commit submitted to PR triggers a webhook to post a github comment as below. This is to remind the PR creator to add tests and fix new vulnerabilities found right inside this PR, because this is more efficient than making these up after two weeks later when changes are released to production. To make the quality index better, reviewers should also help to find out why the reviewee is having a problem.
+#### PR 评论通知
+
+提交到 PR 的每次提交都会触发 webhook 发布如下的 github 评论。这是为了提醒 PR 创建者添加测试并修复在此 PR 内部发现的新漏洞，这比在两周后把更改发布到生产中更为有效。为了提高质量指标，评审人还应该帮助找出被评审人遇到问题的原因。
 
 ![](https://engineering.linecorp.com/wp-content/uploads/2018/10/25/1540439109739.png)  
 
-*   Last n Avg.: Shows the trend of each metric
-*   xxx_violations: The number of bug, vulnerability and code smell found
-*   line_coverage: The percentage of LoC which are executed by unit tests
+*   最新 n 次提交的平均值: 展示每种指标的趋势
+*   xxx 次问题: 发现的 bug，漏洞和 code smells 的数量
+*   代码覆盖率: 执行单元测试的 LoC 百分比
 
-## Summary & Future plans
+## 总结与未来计划
 
-How to write clean code and how to identify code smells and remove them provide a great context for code review discussion, and when team really spend time addressing these common issues, the culture is fostered along the way.
+为了给代码评审讨论提供很好的环境，该如何编写整洁的代码以及如何识别 code small 并删除，当团队真正花时间解决这些常见问题时，而文化也正在潜移默化地培养着。
 
-From the other side, metrics that do not get tracked are not useful; showing data trends over time is important, which gives context to allowing us to make corresponding actions. Looking at the trend lines shown in the charts above, things are moving with progress. Also we are going to consider adding more dashboards for the following:
+另一方面，没用的指标不需要跟踪；显示数据随时间变化的趋势很重要，它提供给我们做出相应措施的背景。看看上图中显示的趋势线随着进展而变化。此外，我们还将考虑为以下内容添加更多 dashboard：
 
-*   Quality: bug open / close count with severities, defect density
-*   Velocity: deployment frequency, lead time to production, change failure rate and MTTR
+*   质量：开启/关闭的 bug 数，同时展示严重性和缺陷密度
+*   速度：部署频率，生产前导时间，修改失败率和平均恢复时间（MTTR）
 
-## References
+## 参考
 
-*   [Gerrit] [Code Review – Contributing](https://gerritcodereview-test.gsrc.io/dev-contributing.html#code-organization)
-*   [Phabricator] [Writing Reviewable Code](https://secure.phabricator.com/book/phabflavor/article/writing_reviewable_code/)
-*   [Phabricator] [Differential User Guide: Test Plans](https://secure.phabricator.com/book/phabricator/article/differential_test_plans/)
-*   [MSFT] [Code Reviews and SW quality, Empirical Research Results](https://www.linkedin.com/pulse/code-reviews-software-quality-empirical-research-results-avteniev/)
-*   [Cisco] [Best Practice for Code Review](https://smartbear.com/learn/code-review/best-practices-for-peer-code-review/)
-*   [Book] [Accelerate: The Science of Lean Software and DevOps](https://www.amazon.com/Accelerate-Software-Performing-Technology-Organizations-ebook/dp/B07B9F83WM)
-*   [Drive] [The Surprising Truth About Motivating Others](https://www.danpink.com/books/drive)
+*   [Gerrit] [代码评审 — 贡献](https://gerritcodereview-test.gsrc.io/dev-contributing.html#code-organization)
+*   [Phabricator] [编写可评审的代码](https://secure.phabricator.com/book/phabflavor/article/writing_reviewable_code/)
+*   [Phabricator] [差异用户指南：测试计划](https://secure.phabricator.com/book/phabricator/article/differential_test_plans/)
+*   [MSFT] [代码评审和软件质量，实践研究成果](https://www.linkedin.com/pulse/code-reviews-software-quality-empirical-research-results-avteniev/)
+*   [Cisco] [代码评审的最佳实践](https://smartbear.com/learn/code-review/best-practices-for-peer-code-review/)
+*   [Book] [加速：依靠软件和 DevOps 的科学](https://www.amazon.com/Accelerate-Software-Performing-Technology-Organizations-ebook/dp/B07B9F83WM)
+*   [驱动力] [关于激励他人的惊人事实](https://www.danpink.com/books/drive)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
