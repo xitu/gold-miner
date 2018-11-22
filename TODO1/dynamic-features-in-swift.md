@@ -424,6 +424,7 @@ Dog's speed is 12.
 为了换取动态运行时的特性，你无法获得依赖于 `subscript（dynamicMember :)` 功能属性的编译时检查的好处。此外，Xcode 的代码自动补全功能也无法帮助你。但好消息是专业 iOS 开发者能阅读到比他们编写的还要多的代码。
 
 **动态成员查询** 给你的语法糖只是扔掉了。这是一个很好的功能，使 Swift 的某些特定用例和语言互操作性可以让人看到并且令人愉快。
+
 ### 友好的捕狗者
 
 **动态成员查询** 的原始提案解决了语言互操作性问题，尤其是对于 Python。但是，这并不是唯一有用的情况。
@@ -485,10 +486,6 @@ print("Dog's speed is \(dogSpeed).")
 Owner's name is Ms. Simpson.
 Dog's speed is 12.
 ```
-
-Now that you have the owner’s name, the dog catcher can contact the owner and let her know her dog has been found!
-
-What a happy ending! The dog and its owner are together again and the code looks cleaner. Through the power of dynamic Swift, this dynamic dog can go back to chasing bunnies in the backyard.
 
 现在你得到了主人的名字，狗捕手可以联系主人来让他知道他的狗被找到了！
 
