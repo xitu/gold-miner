@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/10-things-ive-learned-from-working-remotely.md](https://github.com/xitu/gold-miner/blob/master/TODO1/10-things-ive-learned-from-working-remotely.md)
 > * 译者：[Starrier](https://github.com/Starriers)
-> * 校对者：[smallfatS](https://github.com/smallfatS)[KarthusLorin](https://github.com/KarthusLorin)
+> * 校对者：[smallfatS](https://github.com/smallfatS)、[KarthusLorin](https://github.com/KarthusLorin)
 
 # 在远程工作中领悟到的 10 件事
 
