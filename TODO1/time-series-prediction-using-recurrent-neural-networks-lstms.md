@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/time-series-prediction-using-recurrent-neural-networks-lstms.md](https://github.com/xitu/gold-miner/blob/master/TODO1/time-series-prediction-using-recurrent-neural-networks-lstms.md)
 > * 译者：[haiyang-tju](https://github.com/haiyang-tju)
-> * 校对者：[TrWestdoor](https://github.com/TrWestdoor) 
+> * 校对者：[TrWestdoor](https://github.com/TrWestdoor), [yzrds](https://github.com/yzrds)
 
 # 使用递归神经网络（LSTMs）对时序数据进行预测
 
@@ -11,7 +11,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*aFXm8OFmNq1sTItCQP-xUw.png)
 
-[**Statsbot**](http://statsbot.co?utm_source=blog&utm_medium=article&utm_campaign=timeseries_lstm)  **团队已经发表了一篇关于**[ **使用时间序列分析进行异常检测** ](https://blog.statsbot.co/time-series-anomaly-detection-algorithms-1cef5519aef2)**的文章。今天，我们将讨论使用长短时记忆模型（LSTMs）进行时间序列的预测。我们请数据科学家 Neelabh Pant 向大家来讲述他使用循环神经网络预测汇率变化的经验。**
+**[Statsbot](http://statsbot.co?utm_source=blog&utm_medium=article&utm_campaign=timeseries_lstm) 团队已经发表了一篇关于[使用时间序列分析进行异常检测](https://blog.statsbot.co/time-series-anomaly-detection-algorithms-1cef5519aef2)的文章。今天，我们将讨论使用长短时记忆模型（LSTMs）进行时间序列的预测。我们请数据科学家 Neelabh Pant 向大家来讲述他使用循环神经网络预测汇率变化的经验。**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*MvLugAVHIv0uPX0A1RyGTw.jpeg)
 
@@ -23,7 +23,7 @@
 
 *   **购买力平价（PPP）**，它将通货膨胀考虑在内并计算通胀的差异。
 *   **相对经济实力方法**，它考虑了各国经济增长，以此对汇率的走势进行预测。
-*   **计量经济模式** 是另一种常用的汇率预测技术，可以根据预测者认为重要的因素或属性进行定制。这样的因素或属性可能是不同国家之间存在的利率差异、GDP 的增长率、收入增长率等特征。
+*   **计量经济模式** 是另一种常用的汇率预测技术，可以根据预测者认为重要的因素或属性进行定制。这样的因素或属性可能是不同国家之间存在的利率差异、GDP 的增长率和收入增长率等特征。
 *   **时间序列模型** 则是纯粹取决于过去的变化行为和价格模式来预测未来的汇率对应价格。
 
 在本文中，我们将告诉你如何使用机器学习进行时间序列分析来预测未来的汇率变化。
@@ -52,7 +52,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/0*ni39BJU15z96HtxW.)
 
-在这种单变量情况下，只涉及到两个权重。权重 **u** 乘以当前的输入 **xt**，而另一个权重 **w** 乘以前一次的输出 **yt-1**。这个公式类似于指数加权移动平均方法（EWMA），它将过去的输出值与当前的输入值结合起来。
+在这种单变量情况下，只涉及到两个权重。权重 _u_ 乘以当前的输入 _xt_，而另一个权重 _w_ 乘以前一次的输出 _yt-1_ 。这个公式类似于指数加权移动平均方法（EWMA），它将过去的输出值与当前的输入值结合起来。
 
 可以通过简单堆叠神经网络单元来建立一个深层的循环神经网络。一个简单的循环神经网络只对短期记忆有效。如果我们有长期记忆的需求，就会发现它对此有根本上的不足。
 
@@ -72,7 +72,7 @@ LSTM 网络结构
 
 ![](https://cdn-images-1.medium.com/max/800/0*YK0duxOW-Jly8DZk.)
 
-使用一个 sigmoid 层来接收前一个时间节点 **t-1** 的输出和当前时间节点 **t** 的输入，将其合并成为一个张量（tensor），然后在其后应用一个线性变换。经过 sigmoid 激活函数后，遗忘门的输出为 0 到 1 之间的数值。这个数值将会与内部状态相乘，这也就是为什么它会被称为遗忘门的原因。如果 **ft=0**，则完全忘记之前的内部状态，如果 **ft=1**，则会没有任何改变地通过。
+使用一个 sigmoid 层来接收前一个时间节点 _t-1_ 的输出和当前时间节点 _t_ 的输入，将其合并成为一个张量（tensor），然后在其后应用一个线性变换。经过 sigmoid 激活函数后，遗忘门的输出为 0 到 1 之间的数值。这个数值将会与内部状态相乘，这也就是为什么它会被称为遗忘门的原因。如果 _ft=0_，则完全忘记之前的内部状态，如果 _ft=1_ ，则会没有任何改变地通过。
 
 2. **输入门**
 
@@ -186,13 +186,13 @@ LSTM 预测
 
 ### 有用的资源
 
-我个人关注了一些喜欢的数据科学家，比如 [Kirill Eremenko](https://www.superdatascience.com)， [Jose Portilla](https://www.udemy.com/user/joseporitlla/)， [Dan Van Boxel](https://www.youtube.com/user/dvbuntu) （即著名的 Dan Does Data），等等。他们中的大多数人都可以在不同的博客站点上找到，他们的博客中有很多不同的主题，比如 RNN，卷积神经网络， LSTM，甚至最新的[神经图灵机](https://en.wikipedia.org/wiki/Neural_Turing_machine)技术。
+我个人关注了一些喜欢的数据科学家，比如 [Kirill Eremenko](https://www.superdatascience.com)、[Jose Portilla](https://www.udemy.com/user/joseporitlla/) 和 [Dan Van Boxel](https://www.youtube.com/user/dvbuntu)（即著名的 Dan Does Data）等等。他们中的大多数人都可以在不同的博客站点上找到，他们的博客中有很多不同的主题，比如 RNN、卷积神经网络和 LSTM，甚至最新的[神经图灵机](https://en.wikipedia.org/wiki/Neural_Turing_machine)技术。
 
-保持更新各种[人工智能会议](http://www.aaai.org)的新闻。顺便说一下，如果你感兴趣的话， Kirill Eremenko 将会[在今年的 11 月份](https://www.datasciencego.com/?utm_source=Email&utm_medium=AllLess_ID1&utm_content=EM2_EarlyBirds_ImageLogo&utm_campaign=event)来到圣地亚哥和他的团队一起做关于机器学习、神经网络和数据科学的演讲。
+保持更新各种[人工智能会议](http://www.aaai.org)的新闻。顺便说一下，如果你感兴趣的话，Kirill Eremenko 将会[在今年的 11 月份](https://www.datasciencego.com/?utm_source=Email&utm_medium=AllLess_ID1&utm_content=EM2_EarlyBirds_ImageLogo&utm_campaign=event)来到圣地亚哥和他的团队一起做关于机器学习、神经网络和数据科学的演讲。
 
 ### 结论
 
-LSTM 模型足够强大，可以学习到最重要的过去行为，并理解这些过去的行为是否是进行未来预测的重要特征。在许多应用程序中，LSTM 的使用率都很高。一些应用比如如语音识别、音乐合成、手写识别，甚至是在我目前的人口流动和旅游预测等的研究中。
+LSTM 模型足够强大，可以学习到最重要的过去行为，并理解这些过去的行为是否是进行未来预测的重要特征。在许多应用程序中，LSTM 的使用率都很高。一些应用比如语音识别、音乐合成和手写识别，甚至是在我目前的人口流动和旅游预测等的研究中。
 
 在我看来，LSTM 就像是一个拥有自己记忆的模型，在做决定时可以表现得像一个聪明的人。
 
