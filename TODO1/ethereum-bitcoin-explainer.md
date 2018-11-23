@@ -2,86 +2,86 @@
 > * 原文作者：[EMMA HINCHLIFFE](https://mashable.com/author/emmahinchliffe/)
 > * 译文出自：[掘金翻译计划 — 区块链分舵](https://github.com/xitu/blockchain-miner)
 > * 本文永久链接：[https://github.com/xitu/blockchain-miner/tree/master/article/0001/ethereum-bitcoin-explainer.md](https://github.com/xitu/blockchain-miner/tree/master/article/0001/ethereum-bitcoin-explainer.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Noah Gao](https://noahgao.net)
+> * 校对者：[haiyang-tju](https://github.com/haiyang-tju), [7Ethan](https://github.com/7Ethan)
 
-# Ethereum: The not-Bitcoin cryptocurrency that could help replace Uber
+# 以太坊：能帮我们把 Uber 换掉的非比特币加密货币
 
 ![](https://i.amz.mshcdn.com/GKd0az4kW5ADnn02y_0yWdZ1PNQ=/950x534/filters:quality(90)/https%3A%2F%2Fblueprint-api-production.s3.amazonaws.com%2Fuploads%2Fcard%2Fimage%2F423288%2Fae2d8151-8fd7-4271-9459-ca3027da88ef.jpg)
 
-2017 has been a big year for Bitcoin: its [highest price ever](https://mashable.com/2017/02/24/bitcoin-record-high-sec/), a [major disappointment from the SEC](https://mashable.com/2017/03/11/bitcoin-etf-sec-winklevoss/) for No. 1 Bitcoin fans the Winkelvoss twins, and, for a moment, a [value higher than gold](https://mashable.com/2017/03/03/bitcoin-gold-price/).
+2017 年是比特币的重要一年，[它的价格达到了峰值](https://mashable.com/2017/02/24/bitcoin-record-high-sec/)，令人失望的是，[美国证券交易委员会打击了排名第一的比特币粉丝 —— Winkelvoss 双胞胎兄弟](https://mashable.com/2017/03/11/bitcoin-etf-sec-winklevoss/)，即便如此，[它的价值比黄金还要高](https://mashable.com/2017/03/03/bitcoin-gold-price/)。
 
-But another cryptocurrency has been quietly growing in volume while everyone was focused on Bitcoin. Ethereum, which is kind of like Bitcoin but slightly nerdier and more complicated, edged up against Bitcoin in its daily volume earlier this month. In plain english, Bitcoin is much bigger in terms of monetary value, but Ethereum is being used so much that it's facilitating nearly as much business.
+但是，就在大家都关注着比特币的时候，另一种加密货币的数量正在悄然增长。以太坊，一种有点像比特币，但有点神秘，更复杂的加密货币。它在本月早些时候的日常交易量较比特币有所上涨。简单来说，比特币的货币价值很大，但以太坊的应用范围更广，以至于它几乎推动了业务的发展。
 
-Even people who don't care about digital currencies at all have heard of Bitcoin. But according to a brief unscientific survey of the _Mashable_ offices, it appears that approximately no one outside the cryptocurrency loop knows what Ethereum is.
+甚至那些不关心数字货币的人都听说过比特币。但是根据对 **Mashable** 办公室的一个简短而且不太科学的调查，币圈之外却几乎没有人知道以太坊是什么。
 
-## So what is Ethereum?
+## 所以，以太坊到底是什么？
 
-Ethereum is a decentralized application that supports a cryptocurrency, or digital currency, just like Bitcoin. You can pay for things online, trade money, and buy and sell anywhere that accepts it.
+以太坊是一个去中心化的应用，支持加密货币或数字货币，就像比特币一样。你可以用它进行线上付款、货币交换、或着是在任何可以接受它的地方买卖东西。
 
-But there's more to Ethereum than there is to Bitcoin. The cryptocurrency, called ether, runs on a "smart contract." The smart contract is a blockchain technology and "if:then" system that allows Ethereum to be traded _if_ a certain condition is met.
+但以太坊超过比特币的地方在于。这种被称为 ether 的加密货币，运行在一种“智能合约”上。智能合约是一种区块链技术和 "if:then" 系统，**当**满足了一定的条件时，它允许以太坊进行交易。
 
-Bitcoin runs on the blockchain (a distributed, decentralized ledger of transactions) too, but it doesn't involve the extra step of a smart contract.
+比特币虽然也运行在区块链（一种分布式的、去中心化的交易帐本）之上，但它不会涉及智能合约的这些额外步骤。
 
-## What is the blockchain again?
+## 区块链又是什么？
 
-Blockchain is a distributed ledger where all of Bitcoin's — and Ethereum's — transactions are recorded. It's totally decentralized, which means it's not run by any one person or company. Its decentralization gives it a ton of other applications besides Bitcoin — [distributing music rights](https://mashable.com/2016/09/01/revelator-blockchain-music-rights/), powering components of [traditional financial institutions](https://mashable.com/2016/08/12/bitcoin-blockchain-world-economic-forum/) — and it's integral to digital currencies.
+区块链是一个分布式的大账本，所有的比特币的、以太坊的交易，都会记录在上面。它完全是去中心化的，这意味着他不会是由任何一个人或一家公司运营的。除了比特币，它的去中心化特性也可以提供给很多其他应用，比如 [分发音乐版权](https://mashable.com/2016/09/01/revelator-blockchain-music-rights/)，或是为 [传统金融机构](https://mashable.com/2016/08/12/bitcoin-blockchain-world-economic-forum/) 提供助力，并且它还是数字货币的组成部分。
 
-## What can Ethereum do that Bitcoin can't?
+## 以太坊能做什么比特币做不到的？
 
-Ethereum's cryptocurrency is like Bitcoin with a few extra features.
+以太坊的加密货币就像是比特币，但它有一些额外的功能。
 
-The smart contract means that you can use Ethereum to do more than just pay for something. If you want to place a bet on the Super Bowl, for example, you could use Ethereum to pay _only if_ the Patriots win.
+智能合约意味着你可以使用以太坊做更多的事情，而不仅仅是为买东西付款。例如，如果你想在超级碗比赛上赌一把，你可以使用以太坊来为爱国者队下注来**赌**他们胜利。
 
-An if:then tool has bigger applications that just gambling. You could set up a crowdfunding campaign using Ethereum, as the _Huffington Post_ [pointed out](http://www.huffingtonpost.com/ameer-rosic-/ethereum-vs-bitcoin-whats_b_13735404.html), that would only take your money if a project's goal was met — without the fees charged by Kickstarter or GoFundMe.
+一个 if:then 工具还有很多更大的应用，不仅仅是赌博。你可以用以太坊来设立一个众筹活动，就像**赫芬顿邮报**所 [指出的那样](http://www.huffingtonpost.com/ameer-rosic-/ethereum-vs-bitcoin-whats_b_13735404.html)，这样如果你能满足项目的目标，就能拿到你的钱 —— 而且没有像 Kickstarter 或 GoFundMe 那样收费。
 
-> "Things are possible with Ethereum that aren't imaginable with any other technology today."
+> "在今天，能使用以太坊实现的任何其他技术都是无法想象的。"
 
-The smart contract could even replace lawyers, CEOs and companies.
+智能合约甚至能够代替律师、CEO 和公司。
 
-"You don't need to have Uber, the company, anymore," said Benedikt Bunz, a Ph.D. student at Stanford who studies cryptocurrencies. "You could have the Uber contract handle the money and do the payouts."
+研究加密货币的斯坦福大学博士生 Benedikt Bunz 说：“你不需要 Uber 这家或者别的类似公司了。”你可以让 Uber 合约来处理这笔钱完成支付。
 
-## Who's using Ethereum now?
+## 现在谁在用以太坊？
 
-Ethereum, perhaps unsurprisingly, has similar clientele to Bitcoin. But Ethereum is in an earlier, more experimental stage. Investors and speculators are still focused on building new applications — not on introducing Ethereum ATMs.
+不出我们所料，以太坊与比特币有着相似的客户。但以太坊仍处于较早的实验性阶段。投资者和投机者都还专注于建构新的应用 — 而不是引入以太坊的 ATM 机。
 
-## How can I buy Ethereum?
+## 我该怎么买到以太坊？
 
-Getting started with cryptocurrencies is a whole thing — you need an account, for instance, but a good place to start is [Coinbase](https://www.coinbase.com/buy-ethereum?locale=en).
+首先，你需要一个帐户，推荐你在 [Coinbase](https://www.coinbase.com/buy-ethereum?locale=en) 注册。
 
-## What's the price of Ethereum?
+## 以太坊的价格怎么样？
 
-A single Bitcoin is really expensive: on Thursday morning, it was valued at $1,050. Ethereum isn't nearly as pricy by unit. Its value hovered around $41 on Thursday.
+一个比特币真的很贵：周四早上，它价值 1050 美元。以太坊每单位没有那么昂贵。周四的时候它的价值徘徊在 41 美元左右。（译者注：本文写于 2017 年 3 月，现在的数据已经有所不同。2018 年 11 月 16日 4:00 UTC，比特币约 5572 美元，以太坊单位约 178 美元。）
 
-## What has Ethereum already done?
+## 以太坊已经做了什么？
 
-Developers can use Ethereum to build apps that take advantage of its smart contract technology. [A few cool ones](http://www.coindesk.com/7-cool-decentralized-apps-built-ethereum/) support microfinance, build virtual worlds and prevent identity theft.
+开发者们可以用以太坊来构建利用其智能合约技术的一些应用程序。[其中的一些应用](http://www.coindesk.com/7-cool-decentralized-apps-built-ethereum/) 非常酷，它们可以支持小额信贷、建立虚拟世界、防止身份盗用等等。
 
-## Is Ethereum the only alternative to Bitcoin?
+## 以太坊是比特币的唯一替代品吗？
 
-No, but it's the best one. Most other cryptocurrencies provide an alternative to Bitcoin without adding any real reason to switch. Ethereum is the only one that comes with a totally different set of advantages because of its smart contract.
+不是，但它是最好的一个。大多数其他加密货币可以作为比特币的替代品，而没有为切换到他们提供任何真实的理由。由于智能合约，以太坊是唯一一个具有完全不同优势的产品。
 
-The cryptocurrency Zerocash is the most persuasive alternative besides Ethereum, Bunz said. Its innovation is improving the privacy of transactions, since Bitcoin transactions are public on the blockchain ledger.
+Bunz 说，除了以太坊之外，加密货币 Zerocash 是最有说服力的选择了。它的创新点是改善了交易隐私，因为比特币交易在区块链账本上是公开的。
 
-Besides that, everything else is pretty much just like Bitcoin.
+除此之外，其他一切都像比特币一样。
 
-## What are the risks of Ethereum?
+## 以太坊有哪些风险？
 
-If something were to go wrong with Ethereum's smart contract, it could be really bad. The program wouldn't just crash — it could wipe away money with no way to get it back, since an if:then command could go through and would be irreversible, Bunz said.
+如果以太坊的智能合约出现问题，可能会非常麻烦。Bunz 说，程序不仅会崩溃 —— 它可能会消除金钱而且无法将其取回，因为 if:then 命令可以被直接通过且不可逆转。
 
-The chance of that happening is pretty low, but it's still a scary prospect.
+发生这种情况的可能性非常低，但它仍然是未来的一个大麻烦。
 
-There's also the general volatility of Ethereum, Bitcoin and other cryptocurrencies. During a recent three-day stretch in March, [the price of Ether doubled](http://www.coindesk.com/new-highs-ethereum-returns-rangebound-trading/) and has been all over the place since.
+还有就是，以太坊、比特币和其他加密货币都存在的波动性。在三月份的，最近一次为期三天的延长期中，[以太坊的价格翻了一倍](http://www.coindesk.com/new-highs-ethereum-returns-rangebound-trading/) 并且从那以后一直都会有这种可能。
 
 ![](https://i.amz.mshcdn.com/cdexu-hJicRNp0GFxbxHAlAwOBM=/fit-in/1200x9600/https%3A%2F%2Fblueprint-api-production.s3.amazonaws.com%2Fuploads%2Fcard%2Fimage%2F425307%2Fd2371fbb-a09f-4f05-8eea-0801141faf11.jpg)
 
-Image: [worldcoinindex.com](http://worldcoinindex.com)
+图片来源：[worldcoinindex.com](http://worldcoinindex.com)
 
-## How important could Ethereum actually be?
+## 以太坊实际上有多重要？
 
-Ethereum's main quality at the moment is its potential. Cryptocurrency believers say that the technology could, well, replace Uber and, theoretically, a variety of other services.
+以太坊目前的主要价值是它的潜力。加密货币的信徒们表示，该技术可以取代 Uber，理论上它还可以取代各种其他服务。
 
-"There are things that are absolutely possible that aren't possible with mainstream currency and are not even possible with Bitcoin today," Bunz said. "Things are possible with Ethereum that aren't imaginable with any other technology today."
+“有些事情在主流货币上是绝对可能做到的，但是在今天的比特币上却是不可能的。”Bunz 说。“在今天，能使用以太坊实现的任何其他技术都是无法想象的。”
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划 — 区块链分舵](https://github.com/xitu/blockchain-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
