@@ -11,7 +11,7 @@
 
 Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)
 
-> 备注：本篇本章是“组合式软件编程”中的一部分，从底层开始学习 JavaScript ES6+ 的函数式编程和组合软件技术。更多的内容请保持关注我们。
+> 备注：本篇本章是“组合式软件编程”中的一部分，从基础开始学习 JavaScript ES6+ 的函数式编程和组合软件技术。更多的内容请保持关注我们。
 > [< 上一章节](https://github.com/xitu/gold-miner/blob/master/TODO/nested-ternaries-are-great.md) | [<< 返回第一章节](https://github.com/xitu/gold-miner/blob/master/TODO1/composing-software-an-introduction.md) | [下一章节 >](https://github.com/xitu/gold-miner/blob/master/TODO1/the-forgotten-history-of-oop.md)
 
 随着我在程序开发中愈加成熟，我愈加重视底层的原理 —— 这是在我还是个初学者时所被我所忽视的，但现在随着开发经验越来越丰富，这些基础的原理也具有了深厚的意义。
@@ -104,7 +104,7 @@ h: A -> C
 const add = (a, b) => a + b;
 ```
 
-但如果你要实现递增这样的功能，你就需要合理地固定其中一个数字之后频繁地使用这个函数：
+但是你经常将它用于递增，因此固定其中一个数字是合理的：
 
 ```
 const a = add(1, 1);
