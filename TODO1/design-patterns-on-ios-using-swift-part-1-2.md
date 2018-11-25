@@ -37,8 +37,8 @@
 
 请注意项目中的以下内容：
 
-1.  在storyboard 里，`ViewController` 有三个 `IBOutlet` 连接了 TableView，还有撤消和删除按钮按钮。
-2.  Storyboard 有3个组件，为方便起见我们设置了约束。顶部组件是用来显示专辑封面的。专辑封面下方是一个 TableView，其中列出了与专辑封面相关的信息。 最后，工具栏有两个按钮，一个用于撤消操作，另一个用于删除你选择的专辑。 Storyboard 如下所示：
+1.  在 storyboard 里，`ViewController` 有三个 `IBOutlet` 连接了 TableView，还有撤消和删除按钮按钮。
+2.  Storyboard 有3个组件，为方便起见我们设置了约束。顶部组件是用来显示专辑封面的。专辑封面下方是一个 TableView，其中列出了与专辑封面相关的信息。 最后，工具栏有两个按钮，一个用于撤消操作，另一个用于删除你选择的专辑。Storyboard 如下所示：
 
 [![swiftDesignPatternStoryboard](https://koenig-media.raywenderlich.com/uploads/2017/05/design-patterns-part1-storyboard-1-411x320.png)](https://koenig-media.raywenderlich.com/uploads/2017/05/design-patterns-part1-storyboard-1-411x320.png)
 
@@ -76,19 +76,19 @@
 
 首先，你需要确保项目中的每个类都是Controller，Model或View，不要在一个类中组合两个角色的功能。
 
-其次，为了确保你符合这种工作方法，您应该创建三个项目组来保存您的代码，每个类别一个。
+其次，为了确保你符合这种工作方法，你应该创建三个项目组来保存你的代码，每个类别一个。
 
-导航到 **File\New\Group（或者按 Command + Option + N）**并把改组名为 Model。重复相同的过程以创建 View 和 Controller 组。
+点击 **File\New\Group（或者按 Command + Option + N）**并把改组名为 Model。重复相同的过程以创建 View 和 Controller 组。
 
-现在将 **Album.swift** 拖拽到 Model 组。 将 **AlbumView.swift** 拖拽到 View 组，最后将 **ViewController.swift** 拖拽到 Controller 组。
+现在将 **Album.swift** 拖拽到 Model 组。将 **AlbumView.swift** 拖拽到 View 组，最后将 **ViewController.swift** 拖拽到 Controller 组。
 
 此时项目结构应如下所示：
 
 [![](https://koenig-media.raywenderlich.com/uploads/2017/05/design-patterns-part1-mvc-1-230x320.png)](https://koenig-media.raywenderlich.com/uploads/2017/05/design-patterns-part1-mvc-1.png)
 
-如果没有所有这些文件，你的项目看起来会好很多。显然，您可以拥有其他组和类，但应用程序的核心将包含在这三个类别中。
+如果没有所有这些文件夹，你的项目看起来会好很多。显然，你可以拥有其他组和类，但应用程序的核心将包含在这三个类别中。
 
-现在您的组件已组织完毕，您需要从某个位置获取相册数据。您将创建一个 API 类，在整个代码中使用它来管理数据，这提供了讨论下一个设计模式的机会 — 单例（Singleton）。
+现在你的组件已组织完毕，你需要从某个位置获取相册数据。你将创建一个 API 类，在整个代码中使用它来管理数据，这提供了讨论下一个设计模式的机会 — 单例（Singleton）。
 
 ## 单例模式
 
@@ -98,7 +98,7 @@
 
 你可能想知道为什么你关心的是一个类有不只一个实例。代码和内存真的都很廉价吗？
 
-在某些情况下，只有一个实例的类才有意义。例如，您的应用程序只有一个实例，设备也只有一个主屏幕，因此您只需要一个实例。 再者，采用全局配置处理程序类，他更容易实现对单个共享资源（例如配置文件）的线程安全访问，而不是让许多类可能同时修改配置文件。
+在某些情况下，只有一个实例的类才有意义。例如，你的应用程序只有一个实例，设备也只有一个主屏幕，因此你只需要一个实例。 再者，采用全局配置处理程序类，他更容易实现对单个共享资源（例如配置文件）的线程安全访问，而不是让许多类可能同时修改配置文件。
 
 ## 你应该注意什么？
 
@@ -106,27 +106,27 @@
 
 单例模式很容易被滥用。
 
-如果您遇到一种想要使用单例的情况，请首先考虑是否还有其他的方法来完成您的任务。
+如果你遇到一种想要使用单例的情况，请首先考虑是否还有其他的方法来完成你的任务。
 
-例如，如果您只是尝试将信息从一个视图控制器传递到另一个视图控制器，则不适合使用单例。但是你可以考虑通过初始化程序或属性传递改模型。
+例如，如果你只是尝试将信息从一个视图控制器传递到另一个视图控制器，则不适合使用单例。但是你可以考虑通过初始化程序或属性传递改模型。
 
 如果你确定你确实需要一个单例，那么考虑拓展单例是否会更有意义。
 
 有多个实例会导致问题吗？自定义实例会有用吗？你的答案将决定你是否更好地使用真正的单例或其拓展。
 
-用单例时遇到问题的最常见的原因是测试。如果您将状态存储在像单例这样的全局对象中，则测试顺序可能很重要，并且模拟它们会很烦人。这两个原因都会使测试成为一种痛苦。
+用单例时遇到问题的最常见的原因是测试。如果你将状态存储在像单例这样的全局对象中，则测试顺序可能很重要，并且模拟它们会很烦人。这两个原因都会使测试成为一种痛苦。
 
-最后，要注意“代码的味道”，它表明你的用例根本不适合使用单例。例如，如果您经常需要许多自定义实例，那么您的用例可能会更好地作为常规对象。
+最后，要注意“代码的味道”，它表明你的用例根本不适合使用单例。例如，如果你经常需要许多自定义实例，那么你的用例可能会更好地作为常规对象。
 
 [![](https://koenig-media.raywenderlich.com/uploads/2017/08/Screen-Shot-2018-05-05-at-1.33.43-PM-650x429.png)](https://koenig-media.raywenderlich.com/uploads/2017/08/Screen-Shot-2018-05-05-at-1.33.43-PM.png)
 
 ## 如何使用单例模式
 
-为了确保您的单例只有一个实例，您必须让其他任何人都无法创建实例。Swift 允许您通过将初始化方法标记为私有来完成此操作，然后你可以为共享实例添加静态属性，该属性在类中初始化。
+为了确保你的单例只有一个实例，你必须让其他任何人都无法创建实例。Swift 允许你通过将初始化方法标记为私有来完成此操作，然后你可以为共享实例添加静态属性，该属性在类中初始化。
 
-您将通过创建一个单例来管理所有专辑数据从而实现此模式。
+你将通过创建一个单例来管理所有专辑数据从而实现此模式。
 
-您会注意到项目中有一个名为 **API** 的组，这是您将所有将为您的应用程序提供服务的类的地方。右键单击该组并选择 **New File**，在该组中创建一个新文件，选择 **iOS > Swift File**。将文件名设置为 **LibraryAPI.swift**，然后单击 **Create**。
+你会注意到项目中有一个名为 **API** 的组，这是你将所有将为你的应用程序提供服务的类的地方。右键单击该组并选择 **New File**，在该组中创建一个新文件，选择 **iOS > Swift File**。将文件名设置为 **LibraryAPI.swift**，然后单击 **Create**。
 
 现在打开 **LibraryAPI.swift** 并插入代码：
 
@@ -146,7 +146,7 @@ final class LibraryAPI {
 1.  其中 `shared` 声明的常量使得其他对象可以访问到单例对象 `LibraryAPI`。
 2.  私有的初始化方法防止从外部创建 `LibraryAPI` 的新实例。
 
-您现在有一个单例对象作为管理专辑的入口。接下来创建一个类来持久化库里的数据。
+你现在有一个单例对象作为管理专辑的入口。接下来创建一个类来持久化库里的数据。
 
 现在在 **API** 组里创建一个新文件。 选择 **iOS > Swift File**。将类名设置为 **PersistencyManager.swift**，然后单击 **Create**。
 
@@ -164,7 +164,7 @@ final class PersistencyManager {
 private var albums = [Album]()
 ```
 
-在这里，您声明一个私有属性来保存专辑数据。该数组将是可变的，因此您可以轻松添加和删除专辑。
+在这里，你声明一个私有属性来保存专辑数据。该数组将是可变的，因此你可以轻松添加和删除专辑。
 
 现在将以下初始化方法添加到类中：
 
@@ -205,7 +205,7 @@ init() {
 }
 ```
 
-在初始化程序中，您将使用五个示例专辑填充数组。如果上述专辑不符合您的喜好，可以随便使用您喜欢的音乐替换它们。
+在初始化程序中，你将使用五个示例专辑填充数组。如果上述专辑不符合你的喜好，可以随便使用你喜欢的音乐替换它们。
 
 现在将以下函数添加到类中：
 
@@ -215,7 +215,7 @@ func getAlbums() -> [Album] {
 }
   
 func addAlbum(_ album: Album, at index: Int) {
-  if (albums.count >= index) {
+  if albums.count >= index {
     albums.insert(album, at: index)
   } else {
     albums.append(album)
@@ -227,17 +227,17 @@ func deleteAlbum(at index: Int) {
 }
 ```
 
-这些方法允许您获取，添加和删除专辑。
+这些方法允许你获取，添加和删除专辑。
 
-编译您的项目，确保所有内容能正确地通过编译。
+编译你的项目，确保所有内容能正确地通过编译。
 
-此时，您可能想知道 `PersistencyManager` 类的位置，因为它不是单例。您将在下一节中看到 `LibraryAPI` 和 `PersistencyManager` 之间的关系，您将在其中查看**外观（Facade）**设计模式。
+此时，你可能想知道 `PersistencyManager` 类的位置，因为它不是单例。你将在下一节中看到 `LibraryAPI` 和 `PersistencyManager` 之间的关系，你将在其中查看**外观（Facade）**设计模式。
 
 ## 外观模式
 
 [![](https://koenig-media.raywenderlich.com/uploads/2017/07/swift-sunglasses-1-320x320.png)](https://koenig-media.raywenderlich.com/uploads/2017/07/swift-sunglasses-1.png)
 
-外观设计模式为复杂子系统提供了单一界面。您只需公开一个简单的统一 API，而不是将用户暴露给一组类及其 API。
+外观设计模式为复杂子系统提供了单一界面。你只需公开一个简单的统一 API，而不是将用户暴露给一组类及其 API。
 
 下图说明了这个概念：
 
@@ -245,13 +245,13 @@ func deleteAlbum(at index: Int) {
 
 API 的用户完全不知道它其中的复杂性。这种模式在大量使用比较复杂或难理解的类时是比较理想的。
 
-外观模式将使用系统接口的代码与您隐藏的类的实现进行解耦，它还减少了外部代码对子系统内部工作的依赖性。 如果外观下的类可能会更改，那这仍然很有用，因为外观类可以在幕后发生更改时保留相同的 API。
+外观模式将使用系统接口的代码与你隐藏的类的实现进行解耦，它还减少了外部代码对子系统内部工作的依赖性。 如果外观下的类可能会更改，那这仍然很有用，因为外观类可以在幕后发生更改时保留相同的 API。
 
-举个例子，如果您想要替换后端服务，那么您不必更改使用 API 的代码，只需更改外观类中的代码即可。
+举个例子，如果你想要替换后端服务，那么你不必更改使用 API 的代码，只需更改外观类中的代码即可。
 
 ## 如何使用外观模式
 
-目前，您拥有 `PersistencyManager` 在本地保存专辑数据，并使用 `HTTPClient` 来处理远程通信。项目中的其他类不应该涉及这个逻辑，因为它们将隐藏在 `LibraryAPI` 的外观后面。
+目前，你拥有 `PersistencyManager` 在本地保存专辑数据，并使用 `HTTPClient` 来处理远程通信。项目中的其他类不应该涉及这个逻辑，因为它们将隐藏在 `LibraryAPI` 的外观后面。
 
 要实现此模式，只有 `LibraryAPI` 应该包含 `PersistencyManager` 和 `HTTPClient` 的实例。其次，`LibraryAPI` 将公开一个简单的 API 来供访问这些服务。
 
@@ -295,9 +295,9 @@ func deleteAlbum(at index: Int) {
 
 我们来看看 `addAlbum(_:at:)`。该类首先在本地更新数据，然后如果网络有连接，则更新远程服务器。这是外观的真正实力，当你系统之外的某个类添加一个新专辑时，它不知道，也不需要知道类背后的复杂性。
 
-> **注意**：在为子系统中的类设计外观时，请记住，除非您正在构建单独的模块并使用访问控制，否则不会阻止客户端直接访问这些“隐藏”的类。不要吝啬访问控制的代码，也不要假设所有客户端都必须使用那些与外观使用它们方法相同的类。
+> **注意**：在为子系统中的类设计外观时，请记住，除非你正在构建单独的模块并使用访问控制，否则不会阻止客户端直接访问这些“隐藏”的类。不要吝啬访问控制的代码，也不要假设所有客户端都必须使用那些与外观使用它们方法相同的类。
 
-编译并运行您的应用程序。您将看到两个空视图和一个工具栏。顶部的 View 将用于显示您的专辑封面，底部 View 将用于显示与该专辑相关的信息列表。
+编译并运行你的应用程序。你将看到两个空视图和一个工具栏。顶部的 View 将用于显示你的专辑封面，底部 View 将用于显示与该专辑相关的信息列表。
 
 ![Album app in starting state with no data displayed](https://koenig-media.raywenderlich.com/uploads/2017/07/startingapp-180x320.png)
 
@@ -311,19 +311,19 @@ func deleteAlbum(at index: Int) {
 
 ### 拓展
 
-添加扩展是一种非常强大的机制，允许您向现有类，结构体或枚举类型添加新功能，而无需子类化。你可以扩展你无法访问的代码并增强他们的功能也非常棒。这意味着你可以将自己的方法添加到 Cocoa 类，如 `UIView` 和 `UIImage`。
+添加扩展是一种非常强大的机制，允许你向现有类，结构体或枚举类型添加新功能，而无需子类化。你可以扩展你无法访问的代码并增强他们的功能也非常棒。这意味着你可以将自己的方法添加到 Cocoa 类，如 `UIView` 和 `UIImage`。
 
 Swift 扩展与装饰模式的经典定义略有不同，因为扩展不包含它扩展的类的实例。
 
 ### 如何使用拓展
 
-想象一下，您希望在 TableView 中显示 `Album` 实例的情况：
+想象一下，你希望在 TableView 中显示 `Album` 实例的情况：
 
 [![swiftDesignPattern3](https://koenig-media.raywenderlich.com/uploads/2014/11/swiftDesignPattern3-480x262.png)](https://koenig-media.raywenderlich.com/uploads/2014/11/swiftDesignPattern3.png)
 
-专辑的标题来自哪里？`Album` 是一个模型，因此它不关心您将如何呈现数据。您需要一些外部代码才能将此功能添加到 `Album` 结构体中。
+专辑的标题来自哪里？`Album` 是一个模型，因此它不关心你将如何呈现数据。你需要一些外部代码才能将此功能添加到 `Album` 结构体中。
 
-您将创建 `Album` 结构体的扩展，它将定义一个返回可以在 `UITableView` 中容易使用的数据结构的新方法。
+你将创建 `Album` 结构体的扩展，它将定义一个返回可以在 `UITableView` 中容易使用的数据结构的新方法。
 
 打开 **Album.swift** 并在文件末尾添加以下代码：
 
@@ -352,15 +352,15 @@ extension Album {
 
 考虑一下这个模式有多强大：
 
-*   You’re using properties directly from .您直接在 `Album` 中使用属性。
-*   You have added to the  struct but you haven’t modified it.您已添加到 `Album` 结构体但并未修改它。
-*   This simple addition lets you return a –_ish_ representation of an .这个简单的添加允许您返回一个类似 `UITableView` 的 `Album`。
+*   你可以直接在 `Album` 中使用属性。
+*   你已添加到 `Album` 结构体并且不用修改它。
+*   此次简单的操作将允许你返回一个类似 `UITableView` 的 `Album`。
 
 ### 代理
 
 外观设计模式的另一个实现是代理，它是一种让一个对象代表或协同另外一个对象工作的机制。`UITableView` 很贪婪，它有两个代理类型属性，一个叫做数据源，另一个叫代理。它们做的事情略有不同，例如 TableView 将询问其数据源在特定部分中应该有多少行，但它会询问其代理在行被点击时要执行的操作。
 
-您不能指望 `UITableView` 知道您希望在每个 section 中有多少行，因为这是特定于应用程序的。因此，计算每个 section 中的行数的任务会被传递到数据源。这允许 `UITableView` 的类独立于它显示的数据。
+你不能指望 `UITableView` 知道你希望在每个 section 中有多少行，因为这是特定于应用程序的。因此，计算每个 section 中的行数的任务会被传递到数据源。这允许 `UITableView` 的类独立于它显示的数据。
 
 以下是你创建新 `UITableView` 时所发生的事情的伪解释：
 
@@ -390,9 +390,9 @@ private var currentAlbumData: [AlbumData]?
 private var allAlbums = [Album]()
 ```
 
-从 Swift 4 开始，标记为 `private` 的变量可以在类型和所述类型的任何扩展之间共享相同的访问控制范围。如果您想浏览 Swift 4 引入的新功能，请查看 [What’s New in Swift 4?](https://www.raywenderlich.com/163857/whats-new-swift-4)
+从 Swift 4 开始，标记为 `private` 的变量可以在类型和所述类型的任何扩展之间共享相同的访问控制范围。如果你想浏览 Swift 4 引入的新功能，请查看 [What’s New in Swift 4?](https://www.raywenderlich.com/163857/whats-new-swift-4)
 
-您将使 `ViewController` 成为 TableView 的数据源。在类定义的右大括号之后，将此扩展添加到 **ViewController.swift** 的末尾：
+你将使 `ViewController` 成为 TableView 的数据源。在类定义的右大括号之后，将此扩展添加到 **ViewController.swift** 的末尾：
 
 ```swift
 extension ViewController: UITableViewDataSource {
@@ -414,8 +414,8 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
   let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
   if let albumData = currentAlbumData {
     let row = indexPath.row
-    cell.textLabel!.text = albumData[row].title
-    cell.detailTextLabel!.text = albumData[row].value
+    cell.textLabel?.text = albumData[row].title
+    cell.detailTextLabel?.text = albumData[row].value
   }
   return cell
 }
@@ -425,7 +425,7 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 
 `tableView(_:cellForRowAtIndexPath:)` 创建并返回一个带有 title 和 value 的 cell。
 
-> **注意**：您实际上可以将方法添加到主类声明或扩展中，编译器并不关心数据源方法实际上存在于 `UITableViewDataSource` 扩展中。对于阅读代码的人来说，这种组织确实有助于提高可读性。
+> **注意**：你实际上可以将方法添加到主类声明或扩展中，编译器并不关心数据源方法实际上存在于 `UITableViewDataSource` 扩展中。对于阅读代码的人来说，这种组织确实有助于提高可读性。
 
 接下来，使用以下代码替换 `viewDidLoad()`：
 
@@ -444,7 +444,7 @@ override func viewDidLoad() {
 以下是上述代码的解析：
 
 1. 通过 API 获取所有专辑的列表。请记住，我们的计划是直接使用 `LibraryAPI` 的外观而不是直接用 `PersistencyManager`！
-2. 这是您设置 `UITableView` 的地方。您声明 ViewController 是 `UITableView` 数据源，因此，`UITableView` 所需的所有信息都将由 ViewController 提供。请注意，如果在那里创建了 TableView，您实际上可以在 storyboard 中设置代理和数据源。
+2. 这是你设置 `UITableView` 的地方。你声明 ViewController 是 `UITableView` 数据源，因此，`UITableView` 所需的所有信息都将由 ViewController 提供。请注意，如果在那里创建了 TableView，你实际上可以在 storyboard 中设置代理和数据源。
 
 现在，将以下方法添加到 ViewController 里：
 
@@ -452,7 +452,7 @@ override func viewDidLoad() {
 private func showDataForAlbum(at index: Int) {
     
   // defensive code: make sure the requested index is lower than the amount of albums
-  if (index < allAlbums.count && index > -1) {
+  if index < allAlbums.count && index > -1 {
     // fetch the album
     let album = allAlbums[index]
     // save the albums data to present it later in the tableview
@@ -465,7 +465,7 @@ private func showDataForAlbum(at index: Int) {
 }
 ```
 
-`showDataForAlbum(at:)` 从专辑数组中获取所需的专辑数据。当您想要呈现新数据时，您只需要在 `UITableView` 里调用 `reloadData`。这会导致 TableView 询问其数据源，例如 TableView 中应显示的 section 个数，每个 section 中的行数以及每个 cell 的外观等等。
+`showDataForAlbum(at:)` 从专辑数组中获取所需的专辑数据。当你想要刷新数据时，你只需要在 `UITableView` 里调用 `reloadData`。这会导致 TableView 再次调用其数据源方法，例如重新加载 TableView 中应显示的 section 个数，每个 section 中的行数以及每个 cell 的外观等等。
 
 将以下行添加到 `viewDidLoad()` 的末尾：
 
@@ -475,7 +475,7 @@ showDataForAlbum(at: currentAlbumIndex)
 
 这会在应用启动时加载当前专辑。由于 `currentAlbumIndex` 设置为 `0`，因此显示该集合中的第一张专辑。
 
-编译并运行您的项目，您的应用启动后屏幕上应该会显示如下图：
+编译并运行你的项目，你的应用启动后屏幕上应该会显示如下图：
 
 ![Album app showing populated table view](https://koenig-media.raywenderlich.com/uploads/2017/07/appwithtableviewpopulated-180x320.png)
 
@@ -491,7 +491,7 @@ private enum Constants {
 }
 ```
 
-在这里，您将创建一个枚举充当常量的容器。
+在这里，你将创建一个枚举充当常量的容器。
 
 > **注意**：使用不带 case 的枚举的优点是它不会被意外地实例化并只作为一个纯命名空间。
 
@@ -499,9 +499,9 @@ private enum Constants {
 
 ## 接下来该干嘛？
 
-到目前为止，事情看起来进展很顺利！你知道了 MVC 模式，还有单例，外观和装饰模式。您可以看到 Apple 在 Cocoa 中如何使用它们以及如何将模式应用于您自己的代码。
+到目前为止，事情看起来进展很顺利！你知道了 MVC 模式，还有单例，外观和装饰模式。你可以看到 Apple 在 Cocoa 中如何使用它们以及如何将模式应用于你自己的代码。
 
-如果您想要查看或比较，那请看 [最终项目](https://koenig-media.raywenderlich.com/uploads/2017/07/RWBlueLibrary-Part1-Final.zip)。
+如果你想要查看或比较，那请看 [最终项目](https://koenig-media.raywenderlich.com/uploads/2017/07/RWBlueLibrary-Part1-Final.zip)。
 
 库存里还有很多：本教程的第二部分还有适配器，观察者和备忘录模式。如果这还不够，我们会有一个后续教程，在你重构一个简单的 iOS 游戏时会涉及更多的设计模式。
 
