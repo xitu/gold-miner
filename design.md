@@ -1,3 +1,5 @@
+* [设计师的决策树](https://juejin.im/post/5befd61ee51d4557fe34e944) ([zhmhhu](https://github.com/zhmhhu) 翻译)
+* [动效设计可以很简单](https://juejin.im/post/5bd11a176fb9a05d101423c0) ([rydensun](https://github.com/rydensun) 翻译)
 * [白雪公主如何帮助 Airbnb 证明在设计中最重要的技能是讲故事](https://juejin.im/post/5bb22bc1f265da0a9e53200b) ([CoolRice](https://github.com/CoolRice) 翻译)
 * [如何创建一个设计体系来赋能团队 —— 关注人，而非像素](https://juejin.im/post/5bac2a2fe51d450e942f4853) ([pmwangyang](https://github.com/pmwangyang) 翻译)
 * [另外 5 种关于视觉和认知间差异的绘画练习](https://juejin.im/post/5baa5b45f265da0ab915cb7f) ([Ruixi](https://github.com/Ruixi) 翻译)

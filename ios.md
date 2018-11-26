@@ -1,3 +1,4 @@
+* [从现有的代码库创建 Swift 包管理器](https://juejin.im/post/5bec2b735188253b6e5c132a) ([iWeslie](https://github.com/iWeslie) 翻译)
 * [Swift 中的惰性序列及其原理](https://juejin.im/post/5bc13f036fb9a05d28736f79) ([RickeyBoy](https://github.com/RickeyBoy) 翻译)
 * [Swift 中强大的模式匹配](https://juejin.im/post/5bbc096ce51d450e9162fd9d) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
 * [在 iOS 中使用 UITests 测试 Facebook 登录功能](https://juejin.im/post/5b90e3ae6fb9a05d00458ad8) ([LoneyIsError](https://github.com/LoneyIsError) 翻译)

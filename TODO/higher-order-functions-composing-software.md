@@ -4,7 +4,7 @@
 > *   译者：[reid3290](https://github.com/reid3290)
 > *   校对者：[Aladdin-ADD](https://github.com/Aladdin-ADD)、[avocadowang](https://github.com/avocadowang)
 
-# 高阶函数（软件编写）（第四部分） #
+# [第四篇] 高阶函数（软件编写）
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg">
 

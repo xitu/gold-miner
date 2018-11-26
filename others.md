@@ -1,3 +1,8 @@
+* [职业成长的内部指南](https://juejin.im/post/5bd722a65188252dd11662af) ([yuwhuawang](https://github.com/yuwhuawang) 翻译)
+* [6 个最令人满意的和编程相关的工作（和参与这些工作的人们的类型）](https://juejin.im/post/5be271f0e51d450556196864) ([Augustwuli](https://github.com/Augustwuli) 翻译)
+* [作为自由开发者，7 个步骤让你获得更多的客户](https://juejin.im/post/5bd660c26fb9a05ce576e9b7) ([rydensun](https://github.com/rydensun) 翻译)
+* [C++ 协程：理解运算符 co_await](https://juejin.im/post/5bee59a1e51d4545453dc558) ([7Ethan](https://github.com/7Ethan) 翻译)
+* [代码评审的 8 点建议](https://juejin.im/post/5bd1e6696fb9a05d096597c6) ([xiaoxi666](https://github.com/xiaoxi666) 翻译)
 * [如何组织 Hacktoberfest 主题聚会](https://juejin.im/post/5bbc150be51d450e6867be7a) ([jianboy](https://github.com/jianboy) 翻译)
 * [下一代包管理工具](https://juejin.im/post/5ba9830fe51d450e4d2fe208) ([diliburong](https://github.com/diliburong) 翻译)
 * [新手开发者须知](https://juejin.im/post/5bade6a76fb9a05d32515cf0) ([ssshooter](https://github.com/ssshooter) 翻译)
