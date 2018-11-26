@@ -2,51 +2,51 @@
 > * 原文作者：[Errata](https://blog.erratasec.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/some-notes-about-http3.md](https://github.com/xitu/gold-miner/blob/master/TODO1/some-notes-about-http3.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[HarderChen](https://github.com/HarderChen), [Xekin-FE](https://github.com/Xekin-FE)
 
-# Some notes about HTTP/3
+# 关于 HTTP/3 的一些心得
 
-HTTP/3 is going to be standardized. As an old protocol guy, I thought I'd write up some comments.  
+HTTP/3 即将成为以后的标准。作为协议的老用户，我觉得自己应该写点什么。
   
-Google (pbuh) has both the most popular web browser (Chrome) and the two most popular websites (#1 Google.com #2 Youtube.com). Therefore, they are in control of future web protocol development. Their first upgrade they called SPDY (pronounced "speedy"), which was eventually standardized as the second version of HTTP, or HTTP/2. Their second upgrade they called QUIC (pronounced "quick"), which is being standardized as HTTP/3.  
+Google (pbuh) 拥有最受欢迎的浏览器（Chrome）和两个最受欢迎的网站（#1 Google.com #2 Youtube.com）。因此，谷歌手握未来 Web 协议的开发权。他们把第一次升级的协议称为 SPDY（发音同 "speedy"），也就是之后被标准化的 HTTP 的第二个版本，即 HTTP/2。他们将第二次升级的协议称为 QUIC（发音同 "quick"），也就是即将被标准化的 HTTP/3。
   
   
-SPDY (HTTP/2) is already supported by the major web browser (Chrome, Firefox, Edge, Safari) and major web servers (Apache, Nginx, IIS, CloudFlare). Many of the most popular websites support it (even non-Google ones), though you are unlikely to ever see it on the wire (sniffing with Wireshark or tcpdump), because it's always encrypted with SSL. While the standard allows for HTTP/2 to run raw over TCP, all the implementations only use it over SSL.  
+目前主流的 Web 浏览器（chrome、Firefox、Edge、safari）和主流的 Web 服务器（Apache、Nginx、IIS、CloudFlare）都已经对 SPDY（HTTP/2）进行了支持。许多受欢迎的网站也对其进行了支持（甚至是非谷歌站点），尽管你不太可能在网上看到它（用 wireshark 或者 tcpdump 进行检测），因为它一直是用 SSL 进行加密的。尽管该标准允许 HTTP/2 在 TCP 上运行，但实际上所有的应用都是 SSL 进行的。
   
-There is a good lesson here about **standards**. Outside the Internet, standards are often _de jure_, run by government, driven by getting all major stakeholders in a room and hashing it out, then using rules to force people to adopt it. On the Internet, people implement things first, and then if others like it, they'll start using it, too. Standards are often _de facto_, with RFCs being written for what is already working well on the Internet, documenting what people are already using. SPDY was adopted by browsers/servers not because it was standardized, but because the major players simply started adding it. The same is happening with QUIC: the fact that it's being standardized as HTTP/3 is a reflection that it's already being used, rather than some milestone that now that it's standardized that people can start using it.  
+这里有一个关于**标准**的知识点。在互联网范围以外，标准通常都是依附于法律之上，由政府进行管理。所有的主要利益相关人员在一个会议室进行制定，然后用法律强迫人们认可并使用它。然而在互联网上则有所不同，人们首先会实现标准，然后由用户的认可度决定是否开始使用。标准通常都是事实，RFC 文档是为了在互联网上已经正常工作的内容所编写的，用于记录人们已经在使用的内容。SPDY 被浏览器/服务器采用的原因不仅仅是因为它被标准化，还因为互联网的主要厂商都开始添加对它的支持。QUIC 也是如此：它正在被标准化为 HTTP/3 则反映了它正在被使用，这不仅仅是一个里程碑，因为大多数人都已经开始在实践中开始应用这一协议。
   
-QUIC is really more of a new version of TCP (TCP/2???) than a new version of HTTP (HTTP/3). It doesn't really change what HTTP/2 does so much as change how the transport works. Therefore, my comments below are focused on transport issues rather than HTTP issues.  
+QUIC 实际上更像是 TCP（TCP/2）的新版本，而不是 HTTP（HTTP/3）的新版本。因为它并没有真正改变 HTTP/2 所做的事情，而是改变了传输所做的工作方式。因此，我下面的评论重点是传输问题，而不是 HTTP 问题。
   
-The major headline feature is faster connection setup and **latency**. TCP requires a number of packets being sent back-and-forth before the connection is established. SSL again requires a number of packets sent back-and-forth before encryption is established. If there is a lot of network delay, such as when people use satellite Internet with half-second ping times, it can take quite a long time for a connection to be established. By reducing round-trips, connections get setup faster, so that when you click on a link, the linked resource pops up immediately  
+主要的重点特性是更快的连接设置和更短的**延迟**。TCP 需要在连接建立之前来回发送多个数据包。SSL 会在加密建立之间请求来回发送多个数据包。如果有大量网络延迟，比如人们使用半秒每次的卫星互联网 ping 通信，它可能需要很长的时间来建立一个连接。通过减少往返次数，连接可以更快地建立，因此当你点击一个链接时，链接资源就会立刻响应并反馈。 
   
-The next headline feature is **bandwidth**. There is always a bandwidth limitation between source and destination of a network connection, which is almost always due to congestion. Both sides need to discover this speed so that they can send packets at just the right rate. Sending packets too fast, so that they'll get dropped, causes even more congestion for others without improving transfer rate. Sending packets too slowly means unoptimal use of the network.  
+下一个重点特性是**带宽**。由于带宽限制这样的存在，在网络通信中双方如果处于带宽限制不对等的情况下，数据包接收慢的一方会因为来不及接收而产生丢包，导致发送方数据重发从而耗费了更多的网络资源，所以只有在双方带宽对等时才能到达网络最大利用率。
   
-How HTTP traditionally does this is bad. Using a single TCP connection didn't work for HTTP because interactions with websites require multiple things to be transferred simultaneously, so browsers opened multiple connections to the web server ([typically 6](https://twitter.com/tunetheweb/status/1064422216262213633)). However, this breaks the bandwidth estimation, because each of your TCP connections is trying to do it independently as if the other connections don't exist. SPDY addressed this by its **multiplexing** feature that combined multiple interactions between browser/server with a single bandwidth calculation.  
+为什么传统的 HTTP 在这方面会表现得如此差强人意。与网站的交互需要同时传输多种内容，而 HTTP 使用单独的 TCP 无法达到这一目的，因此浏览器会和 Web 服务器进行多个连接（[一般为 6](https://twitter.com/tunetheweb/status/1064422216262213633)）。可这又破坏了对带宽的估计，因此每个 TCP 连接都试图独立地执行，就好像其他连接不存在一样。SPDY 通过**多路复用**的特性解决了这一问题，它将浏览器/服务器之间的多个交互与单个带宽计算结合在一起。
   
-QUIC extends this multiplexing, making it even easier to handle multiple interactions between the browser/server, without any one interaction blocking another, but with a common bandwidth estimation. This will make interactions smoother from a user's perspective, while at the same time reduce congestion that routers experience.  
+QUIC 扩展了这种多路复用方式，促使在浏览器/服务器之间的多个交互处理变得更加简单，这不会导致交互之间彼此阻塞，这需要通用的带宽估算。从用户的角度来看，这将使交互更加顺畅，同时减少路由拥塞的用户体验。
   
-Now let's talk **user-mode stacks**. The problem with TCP, especially on the server, is that TCP connections are handled by the operating system _kernel_, while the service itself runs in _usermode_. Moving things across the kernel/usermode boundary causes performance issues. Tracking a large number of TCP connections causes scalability issues. Some people have tried putting the services into the kernel, to avoid the transitions, which is a bad because it destabilizes the operating system. My own solution, with the BlackICE IPS and masscan, was to use a _usermode driver_ for the hardware, getting packets from the network chip directly to the usermode process, bypassing the kernel (see PoC||GTFO #15), using my own custom TCP stack. This has become popular in recent years with the _DPDK_ kit.  
+现在我们讨论一下 **user-mode stacks**。这是来自于 TCP 的问题，尤其是在服务器上的表现，TCP 连接由操作系统**内核**处理，而服务本身运行在**用户模式**。跨内核/用户模式边界操作资源会导致性能问题。追踪大量 TCP 连接会导致可伸缩性问题。有些人尝试将服务器放入内核来避免过度使用的情况，这显然不是好主意。因为它会破坏操作系统的稳定性。我的解决方案是使用 BlackICE IPS 和 masscan，这是一个**用户模式驱动**的硬件。从网络芯片中直接获取数据包到用户模式进程，绕过内核 （参阅 PoC||GTFO #15），使用自定义的 TCP 堆栈。这几年在 **DPDK** kit 中开始流行起来。
   
-But moving from TCP to UDP can get you much the same performance without usermode drivers. Instead of calling the well-known _recv()_ function to receive a single packet at a time, you can call _recvmmsg()_ to receive a bunch of UDP packets at once. It's still a kernel/usermode transition, but one amortized across a hundred packets received at once, rather a transition per packet.  
+但在没有用户模式驱动的情况下，将 TCP 迁移到 UDP 也会带来相同的性能提升。与调用熟悉的 **recv()** 函数一次接收单个数据包不同，你可以调用 **recvmmsg()** 来同时接收一组 UDP 数据包。它仍然是一个内核/用户模式转换的情况，但在同时收到一百个包进行分摊比对每个包进行转换要好得多。
   
-In my own tests, you are limited to about 500,000 UDP packets/second using the typical _recv()_ function, but with _recvmmsg()_ and some other optimizations (multicore using RSS), you can get to 5,000,000 UDP packets/second on a low-end quad-core server. Since this scales well per core, moving to the beefy servers with 64 cores should improve things even further.  
+在我的测试中，使用典型的 **recv()** 函数限制每秒为 5 十万个 UDP 数据包，但使用 **recvmmsg()** 和其他一些优化手段（使用 RSS 的多核），在低端四核服务器上每秒可以获取 5 百万个 UDP 数据包。这是由于每个核都带有良好的可伸缩性，移动到有 64 个核的强大服务器应该会进一步改善结果。
   
-BTW, "RSS" is a feature of network hardware that splits incoming packets into multiple receive queues. The biggest problem with multi-core scalability is whenever two CPU cores need to read/modify the same thing at the same time, so sharing the same UDP queue of packets becomes the biggest bottleneck. Therefore, first Intel and then other Ethernet vendors added RSS giving each core it's own non-shared packet queue. Linux and then other operating systems upgraded UDP to support multiple file descriptors for a single socket (SO_REUSEPORT) to handle the multiple queues. Now QUIC uses those advances allowing each core to manage it's own stream of UDP packets without the scalability problems of sharing things with other CPU cores. I mention this because I personally had discussions with Intel hardware engineers about having multiple packet queues back in 2000. It's a common problem and an obvious solution, and it's been fun watching it progress over the last two decades until it appears on the top end as HTTP/3. Without RSS in the network hardware, it's unlikely QUIC would become a standard.  
+顺便说一句，“RSS” 是网络硬件的一个特性，它将传入的数据包分成多个接收队列。多核可伸缩性的最大问题是当两个 CPU 内核需要同时读取/修改同一件事时，共享相同的 UDP 数据包队列会变成最大的瓶颈。因此，Intel 首先和其他以太网供应商增加了 RSS，使每个核都有自己的非共享数据包队列。Linux 和其他操作系统升级了 UDP，以支持单个套接字（SO_REUSEPORT）的多个文件描述符来处理多个队列。现在，QUIC 利用这些进步，允许每个核管理自己的 UDP 数据包流，而不存在与其他 CPU 核共享东西的可伸缩性问题。我之所以提及，是因为我曾在 2000 年时，与 Intel 硬件工程师讨论过建立多个分组队列的问题。这是一个常见的问题，也是一个显而易见的解决方案，在过去的二十年里，看到它的进展一直很有趣，知道它以 HTTP/3 的形式出现在顶层。如果没有网络硬件中的 RSS，QUIC 也不太可能会成为标准。 
   
-Another cool solution in QUIC is **mobile** support. As you move around with your notebook computer to different WiFI networks, or move around with your mobile phone, your IP address can change. The operating system and protocols don't gracefully close the old connections and open new ones. With QUIC, however, the identifier for a connection is not the traditional concept of a "socket" (the source/destination port/address protocol combination), but a 64-bit identifier assigned to the connection.  
+QUIC 另一个很酷的解决方案是**移动**支持。你的电脑或者手机会随着你移动到不同的 WIFI 网络环境而改变自身的 IP 地址。操作系统和协议没有优雅地关闭旧连接并打开新的连接。然后在 QUIC 协议下，连接的标识符不再是“套接字”（源/目的端口/地址协议组合）的传统概念，而是分配给连接的 64 位标识符。
   
-This means that as you move around, you can continue with a constant stream uninterrupted from YouTube even as your IP address changes, or continue with a video phone call without it being dropped. Internet engineers have been struggling with "mobile IP" for decades, trying to come up with a workable solution. They've focused on the end-to-end principle of somehow keeping a constant IP address as you moved around, which isn't a practical solution. It's fun to see QUIC/HTTP/3 finally solve this, with a working solution in the real world.  
+这意味着，当你移动时，你可以在 IP 地址不断变化的情况下，持续地从 YouTube 获取一个数据流，或者继续进行视频电话呼叫，而不会被中断。几十年来，互联网工程师一直在与“移动 IP” 作斗争，试图想出一个可行的解决方案。他们关注的是端到端的原则，即在你移动的时候，以某种方式保持一个固定的 IP 地址，但这不是一个实际的解决方案。很荣幸可以看到在现实世界中有 QUIC/HTTP/3 这样一个可行的方案，最终解决了这个问题。
   
-How can use use this new transport? For decades, the standard for network programing has been the **transport layer API** known as "sockets". That where you call functions like _recv()_ to receive packets in your code. With QUIC/HTTP/3, we no longer have an operating-system transport-layer API. Instead, it's a higher layer feature that you use in something like the _go_ programming language, or using Lua in the OpenResty nginx web server.  
+如何使用这些新的传输工具？几十年来，网络编程的标准一直是**传输层 API**，即“套接字”。也就是调用像 **recv()** 这样的函数来接收代码中的数据包。在 QUIC/HTTP/3，我们不再有操作系统传输层 API。取而代之的是一个更高层次的特性，你刻意在类似 **GO** 编程语言中使用它，或者在 OpenResty Nginx Web 服务器中使用 Lua。
   
-I mention this because one of the things that's missing from your education about the OSI Model is that it originally envisioned everyone writing to application layer (7) APIs instead of transport layer (4) APIs. There was supposed to be things like _application service elements_ that would handling things like file transfer and messaging in a standard way for different applications. I think people are increasingly moving to that model, especially driven by Google with _go_, _QUIC_, _protobufs_, and so on.  
+我之所以会提及，是因为你在 OSI 模型的教育学习中错过了一件事，那就是它最初设想的是每个人都会编写到应用层（7）API，而不是传输层（4）API。应该有像**应用程序服务元素**之类的能以标准方式为不同的应用程序处理像文件传输和消息传递之类的操作。尤其是包括 **Go、QUIC、protobufs** 等在 Google 的驱动下，人们会越来越倾向于这种模式。
   
-I mention this because of the contrast between Google and Microsoft. Microsoft owns a popular operating system, so it's innovations are driven by what it can do within that operating system. Google's innovations are driven by what it can put on top of the operating system. Then there is Facebook and Amazon themselves which must innovate on top of (or outside of) the stack that Google provides them. The top 5 corporations in the world are, in order, Apple-Google-Microsoft-Amazon-Facebook, so where each one drives innovation is important.  
+我之所以会提到这一点，是因为 Google 和 微软之间形成了鲜明的对比。微软拥有一个流行的操作系统，所以它的创新是有它在该操作系统内所能做的事情驱动的。Google 的创新是由它能在操作系统上安装的东西所驱动的。还有 Facebook 和 Amazon 本身，它们必须在谷歌所提供给他们的堆栈之上（或者外部）进行创新。世界上排名前五位的公司依次是 Apple、Google、Microsoft、Amazon 和 Facebook，因此每个公司推动创新的位置都很重要。
   
-**Conclusion**  
+**结论**
   
-When TCP was created in the 1970s, it was sublime. It handled things, like congestion, vastly better than competing protocols. For all that people claim IPv4 didn't anticipate things like having more than 4-billion addresses, it anticipated the modern Internet vastly better than competing designs throughout the 70s and 80s. The upgrade from IPv4 to IPv6 largely maintains what makes IP great. The upgrade from TCP to QUIC is similarly based on what makes TCP great, but extending it to modern needs. It's actually surprising TCP has lasted this long, and this well, without an upgrade.
+当 TCP 在 20 世纪 70 年代被创建时，它是伟大的。它所处理的操作，诸如拥塞，远远好过相互竞争的协议。尽管人们声称 IPv4 没有预料到超过 40 亿个地址的事情，但它比 70 年代和 80 年代的竞争设计要好得多。IPv4 升级到 IPv6 很大程度上维持了 IP 的发展。类似的，TCP 升级到 QUIC 也延续了 TCP 的发展，不同的是在于它是为了满足现代需求而进行的扩展。而令人惊讶的，TCP 竟然可以在一直未升级的状态下维持了这么长时间还仍在被使用着。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
