@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/abstraction-composition.md](https://github.com/xitu/gold-miner/blob/master/TODO1/abstraction-composition.md)
 > * 译者：Xekin-FE(https://github.com/Xekin-FE)
-> * 校对者：[weibinzhu](https://github.com/weibinzhu) [Junkai Liu](https://github.com/Moonliujk)
+> * 校对者：[weibinzhu](https://github.com/weibinzhu), [Junkai Liu](https://github.com/Moonliujk)
 
 # 函数式编程：抽象与组合
 
@@ -22,7 +22,7 @@ Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)
 
 抽象的词源来自中世纪拉丁语 **abstractus**，意为“拽开、抽离”。我喜欢这样的解读。抽象意味着移除某些东西 —— 但到底我们移除掉了什么，又为了什么目的呢？
 
-有时我喜欢将词汇翻译成其他语言然后再把它们翻译回英文，站在不同的角度去思考我们在英语中没有想到过的其他联想。当我把“抽象”一词翻译为意第绪语再翻译回英语时，结果意思是“心不在焉的”，我也喜欢这样的答案。一个心不在焉的人在使用自动驾驶仪的时候，不会去主动思考驾驶仪在做什么……只是这样做。
+有时我喜欢将词汇翻译成其他语言然后再把它们翻译回英文，站在不同的角度去思考我们在英语中没有想到过的其他联想。当我把“抽象”一词翻译为意第绪语再翻译回英语时，结果意思是“心不在焉的”，我也喜欢这样的答案。一个心不在焉的人在使用自动驾驶仪的时候，不会去主动思考驾驶仪在做什么...只是这样做。
 
 抽象让我们得以安全的使用自动驾驶仪。所有软件都是自动化的。如果你有足够的时间，你在电脑上做的任何事情也都可以用纸，墨水，再加上信鸽来做。软件就只是把这些手动做起来十分耗时的所有细节自动化处理了。
 
@@ -68,7 +68,7 @@ Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)
 函数具有很好的抽象性，因为它们本身具有良好抽象所具备的特性：
 
 *   **标识性** — 为其分配名称并在不同的上下文当中重复使用。
-*   **可组合性** — 可以让简单的功能组合成更复杂的功能。
+*   **可组合性** — 可以将简单的函数组合成更复杂的函数。
 
 ### 组合抽象
 
@@ -113,7 +113,7 @@ const c = add(b, 1);
 // ...
 ```
 
-我们可以柯里化这个方法
+我们可以柯里化这个方法：
 
 ```
 const add = a => b => a + b;
@@ -158,7 +158,7 @@ const doubled = doubleAll([1, 2, 3]);
 
 软件开发人员花费它们的整个职业生涯来创建抽象和组合抽象 —— 但仍有许多人对抽象或者组合它们没有一个良好的基本掌握。
 
-每当你创建抽象时，你都应该仔细地去考虑它，而且你也应该要意识到有很多已经为你提供地良好抽象（例如常用的 `map`，`filter`，和 `reduce`）。我们应该要学会识别抽象的特征：
+每当你创建抽象时，你都应该仔细地去考虑它，而且你也应该要意识到有很多已经为你提供地良好抽象（例如常用的 `map`、`filter` 和 `reduce`）。我们应该要学会识别抽象的特征：
 
 *   Simple（简单）
 *   Concise（明了）
@@ -175,7 +175,7 @@ const doubled = doubleAll([1, 2, 3]);
 
 * * *
 
-Eric Elliott 是 “Programming JavaScript Applications”（O'Reilly）的作者，也是软件导师平台 DevAnywhere.io 的联合创始人。他为 Adobe Systems，Zumba Fitness，华尔街日报，ESPN，BBC 以及包括 Usher，Frank Oc 等在内的顶级录音艺术家的软件体验做出了贡献。
+Eric Elliott 是 “Programming JavaScript Applications”（O'Reilly）的作者，也是软件导师平台 DevAnywhere.io 的联合创始人。他为 Adobe Systems、Zumba Fitness、华尔街日报、ESPN、BBC 以及包括 Usher 和 Frank Oc 等在内的顶级录音艺术家的软件体验做出了贡献。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
