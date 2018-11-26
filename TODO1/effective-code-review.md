@@ -26,21 +26,21 @@
 
 以下是有效并高效的代码评审的一些提示：
 
-*   [每次提交的改动尽量小](#keep-changes-small)
-*   [经常评审并缩短评审时间](#review-often)
-*   [尽早发送 Pull Request 以供评审](#send-pull-request-early)
-*   [提供足够的背景信息使 Pull Request 旨意更明确](#provide-enough-context)
-*   [Linting 和代码风格检查](#linting-code-style-check)
+*   [每次提交的改动尽量小](#每次提交的改动尽量小)
+*   [经常评审并缩短评审时间](#经常评审并缩短评审时间)
+*   [尽早发送 Pull Request 以供评审](#尽早发送-pull-request-以供评审)
+*   [提供足够的背景信息使 Pull Request 旨意更明确](#提供足够的背景信息使-pull-request-旨意更明确)
+*   [Linting 和代码风格检查](#linting-和编码风格检查)
 
 ### 每次提交的改动尽量小
 
-Cisco System 编程团队的一项研究表明，对 200 到 400 LoC（代码行）进行 60 到 90 分钟的长时间评审可以发现 70 — 90% 的缺陷。把每次 PR 的内容当做一个独立单元处理（功能，bug 修复）或有意义的相关性强的想法。想了解为什么单次 Pull Request 提交大量代码弊病繁多以及 Pull Request 的最佳量级，请看[此处](https://smallbusinessprogramming.com/optimal-pull-request-size/)。
+Cisco System 编程团队的一项研究表明，对 200 到 400 LoC（代码行）进行 60 到 90 分钟的长时间评审可以发现 70—90% 的缺陷。把每次 PR 的内容当做一个独立单元处理（功能，bug 修复）或有意义的相关性强的想法。想了解为什么单次 Pull Request 提交大量代码弊病繁多以及 Pull Request 的最佳量级，请看[此处](https://smallbusinessprogramming.com/optimal-pull-request-size/)。
 
 ![](https://engineering.linecorp.com/wp-content/uploads/2018/10/24/1540351568447.png)
 
 ![](https://engineering.linecorp.com/wp-content/uploads/2018/10/24/1540351612913.png)
 
-代码评审, 来自于 Twitter [@iamdeveloper](https://twitter.com/iamdevloper) 与 缺陷密度 vs LoC, 来自于 [Cisco 研究案例](https://smartbear.com/learn/code-review/best-practices-for-peer-code-review/)
+代码评审，来自于 Twitter [@iamdeveloper](https://twitter.com/iamdevloper) 与 缺陷密度 vs LoC，来自于 [Cisco 研究案例](https://smartbear.com/learn/code-review/best-practices-for-peer-code-review/)。
 
 ### 经常评审并缩短评审时间
 
@@ -48,7 +48,7 @@ Cisco System 编程团队的一项研究表明，对 200 到 400 LoC（代码行
 
 ![](https://engineering.linecorp.com/wp-content/uploads/2018/10/24/1540351632935.png)
 
-缺陷密度与检验效率, 来自于 [Cisco 研究案例](https://smartbear.com/learn/code-review/best-practices-for-peer-code-review/)
+缺陷密度与检验效率，来自于 [Cisco 研究案例](https://smartbear.com/learn/code-review/best-practices-for-peer-code-review/)。
 
 ### 尽早发送 Pull Request 以供评审
 
@@ -56,7 +56,7 @@ Cisco System 编程团队的一项研究表明，对 200 到 400 LoC（代码行
 
 ![](https://engineering.linecorp.com/wp-content/uploads/2018/10/24/1540351658308.png)
 
-如果在代码评审的最后一分钟发现架构/设计问题，该如何应用应急办法，来自于[Twitter @isoiphone](https://twitter.com/isoiphone/status/824771226585296896)
+如果在代码评审的最后一分钟发现架构/设计问题，该如何应用应急办法，来自于 [Twitter @isoiphone](https://twitter.com/isoiphone/status/824771226585296896)。
 
 ### 提供足够的背景信息使 Pull Request 旨意更明确
 
@@ -94,8 +94,8 @@ Github PR 模板示例
 
 因此，为了促进团队文化建设，我开始尝试以下两个项目：
 
-*   [增强技能](#enhance-skill)
-*   [评估进度](#measure-progress)
+*   [增强技能](#增强技能)
+*   [评估进度](#评估进度)
 
 ### 增强技能
 
@@ -125,14 +125,14 @@ Github PR 模板示例
 
 ### 评估进度
 
-如果你不了解进度，你就无从评估进度，更无法提升进度
+如果你不了解进度，你就无从评估进度，更无法提升进度！
 
 我们运用公示屏展示分析结果并通过消息通知持续推送最新进度，强大的视觉效果增加了大家的参与度，为了同一个目标我们共同努力。位于门口的大型公示屏会循环展示如下信息。
 
-*   [SonarQube 项目公示板（dashboard）](#sonarqube-project-dashboard)
-*   [基于团队的代码覆盖率](#team-based-code-coverage)
-*   [PR 的大小与解决时间](#pr-size-resolution-time)
-*   [PR 评论通知](#pr-comment-notification)
+*   [SonarQube 项目公示板（dashboard）](#sonarqube-项目公示板)
+*   [基于团队的代码覆盖率](#基于团队的代码覆盖率)
+*   [PR 的大小与解决时间](#pr-的大小与解决时间)
+*   [PR 评论通知](#pr-评论通知)
 
 #### SonarQube 项目公示板
 
@@ -166,8 +166,8 @@ DevOps 的核心思想是如何将软件变更频繁地发布到生产中，同�
 ![](https://engineering.linecorp.com/wp-content/uploads/2018/10/25/1540439109739.png)  
 
 *   最新 n 次提交的平均值: 展示每种指标的趋势
-*   xxx 次问题: 发现的 bug，漏洞和 code smells 的数量
-*   代码覆盖率: 执行单元测试的 LoC 百分比
+*   xxx 次问题：发现的 bug，漏洞和 code smells 的数量
+*   代码覆盖率：执行单元测试的 LoC 百分比
 
 ## 总结与未来计划
 
