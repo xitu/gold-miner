@@ -3,24 +3,24 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/graphql-server-design-medium.md](https://github.com/xitu/gold-miner/blob/master/TODO1/graphql-server-design-medium.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[KarthusLorin](https://github.com/KarthusLorin)
 
-# GraphQL 服务设计 @ 中级
+# Medium 的 GraphQL 服务设计
 
 ![](https://cdn-images-1.medium.com/max/1600/1*LxzBwQmETizo-ZA_jiBLiQ.png)
 
-前一段时间，我们[已经介绍了](https://medium.engineering/2-fast-2-furious-migrating-mediums-codebase-without-slowing-down-84b1e33d81f4)如何使用 [GraphQL](https://graphql.org/) 将项目迁移为 [React.js](https://reactjs.org/) 和面向服务的结构。现在，我们想要介绍 GraphQL 服务结构是如何帮助我们更加平滑顺利的完成迁移的。
+前一段时间，我们[已经介绍了](https://medium.engineering/2-fast-2-furious-migrating-mediums-codebase-without-slowing-down-84b1e33d81f4)如何使用 [GraphQL](https://graphql.org/) 将项目迁移为 [React.js](https://reactjs.org/) 和面向服务的结构。现在，我们想要介绍 GraphQL 服务结构是如何帮助我们更加平滑顺利地完成迁移的。
 
 在开始设计 GraphQL 服务之前，我们必须要牢记三件事情：
 
-**变换数据格式应当很简单**
+**方便修改数据格式**
 目前我们使用[协议缓冲区 protocol buffers](https://en.wikipedia.org/wiki/Protocol_Buffers) 来作为来自后端的数据模型。但是，我们使用数据的方式会变化，而协议缓冲却没有跟进。这就意味着我们的数据格式并不总是客户端需要的那样。
 
-**什么数据是来自客户端的应当很清楚**
+**清楚地区分哪些数据来自客户端**
 在 GraphQL 服务中，被传递的数据都处于客户端的“准备就绪”的不同阶段。我们应当让每个准备就绪的状态更加清晰，而不是把它们混合起来，这样我们就能确切的知道那些数据是用于客户端的。
 
-**添加新的数据源应当很容易**
-既然我们要转型为面向服务的结构，我们就希望确保为 GraphQL 服务添加新的数据源是很容一的，同时明确数据来源。
+**方便添加新的数据源**
+既然我们要转型为面向服务的结构，我们就希望确保为 GraphQL 服务添加新的数据源是很容易的，同时明确数据来源。
 
 牢记这些，我们就可以根据上面三个不同的规则构造出服务框架：
 
@@ -30,7 +30,7 @@
 
 责任分层块
 
-每一层都有自己的职责，并且只与它上面的层交互。让我们来谈谈每一层都具体做了什么。
+每一层都有自己的职责，并且只与它的上层交互。让我们来谈谈每一层都具体做了什么。
 
 ### 获取器 Fetchers
 
@@ -48,11 +48,11 @@
 
 根据客户端需要设计数据
 
-GraphQL 模型用存储库来做数据仓库。存储库“存储”了来自数据源的整理过的数据。
+GraphQL 模型用存储库来做数据仓库。存储库“存储”了来自数据源的已处理过的数据。
 
 在这一步，我们可以打包或展开字段和对象、移动数据，等等，将数据转化为客户端需要的格式。
 
-从遗留的系统的转型，这一步是必须的，因为它给了我们为客户端更新数据格式的自由，同时不用更新或者添加接口和相应的协议缓冲区。
+从遗留的系统转型，这一步是必须的，因为它给了我们为客户端更新数据格式的自由，同时不用更新或者添加接口和相应的协议缓冲区。
 
 存储库仅从获取器获取数据，实际上从不自己请求外界数据。换句话说，存储库只创建我们需要的数据**格式**，但是它们并不“知道”数据是从哪里获取的。
 
