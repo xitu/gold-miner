@@ -2,7 +2,7 @@
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/abstraction-composition.md](https://github.com/xitu/gold-miner/blob/master/TODO1/abstraction-composition.md)
-> * 译者：Xekin-FE(https://github.com/Xekin-FE)
+> * 译者：[Xekin-FE](https://github.com/Xekin-FE)
 > * 校对者：[weibinzhu](https://github.com/weibinzhu), [Junkai Liu](https://github.com/Moonliujk)
 
 # 函数式编程：抽象与组合
