@@ -25,7 +25,7 @@
 
 本教程需要 Swift 4.2 或更高版本。你必须下载最新的 [Xcode 10](https://developer.apple.com/download/) 或安装最新的 [Swift 4.2](https://swift.org/download/#snapshots)。
 
-此外，你必须了解基本的 Swift 类型。Swift 入门教程（[原文链接](https://www.raywenderlich.com/119881/enums-structs-and-classes-in-swift)）中的[枚举](https://www.cnswift.org/enumerations)，[类和结构体](https://www.cnswift.org/classes-and-structures)是一个很好的起点。 虽然不是严格要求，但你也可以查看在 Swift 中实现[自定义下标](https://www.cnswift.org/subscripts)（[原文链接](https://www.raywenderlich.com/123102/implementing-custom-subscripts-swift)）。
+此外，你必须了解基本的 Swift 类型。Swift 入门教程（[原文链接](https://www.raywenderlich.com/119881/enums-structs-and-classes-in-swift)）中的[枚举](https://www.cnswift.org/enumerations)，[类和结构体](https://www.cnswift.org/classes-and-structures)是一个很好的起点。虽然不是严格要求，但你也可以查看在 Swift 中实现[自定义下标](https://www.cnswift.org/subscripts)（[原文链接](https://www.raywenderlich.com/123102/implementing-custom-subscripts-swift)）。
 
 ## 入门
 
@@ -186,7 +186,7 @@ for case let (label?, value) in mirror.children {
 
 这将访问镜像的 `children` 属性，获取每个标签值对，然后将它们打印到控制台。标签值对的类型别名为 `Mirror.Child`。对于 `DogCatcherNet` 实例，代码迭代捕狗网对象的属性。
 
-澄清一点，被检查实例的子级与父类或子类层次结构无关。 通过镜像访问的孩子只是被检查实例的一部分。
+澄清一点，被检查实例的子级与父类或子类层次结构无关。通过镜像访问的孩子只是被检查实例的一部分。
 
 现在，是时候调用新的日志方法了。在 **☆ Log out the net and a Date object here** 添加以下代码：
 
