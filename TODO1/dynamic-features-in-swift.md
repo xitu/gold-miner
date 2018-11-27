@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/dynamic-features-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/dynamic-features-in-swift.md)
 > * 译者：[iWeslie](https://github.com/iWeslie)
-> * 校对者：
+> * 校对者：[atuooo](https://github.com/atuooo)
 
 # Swift 中的动态特性
 
@@ -11,7 +11,7 @@
 
 作为一名忙碌的 Swift 开发人员，你的需求对你来说是特定的，但对所有人来说都是共同的。你希望编写整洁的代码，一目了然地了解代码中的内容并快速解决无法预料的问题。
 
-本教程将 Swift 的动态性和灵活性结合在一起来满足那些需求。 通过使用最新的 Swift 技术，你将学习如何自定义输出到控制台，挂钩第三方对象状态更改，并使用一些甜蜜的语法糖来编写更清晰的代码。
+本教程将 Swift 的动态性和灵活性结合在一起来满足那些需求。通过使用最新的 Swift 技术，你将学习如何自定义输出到控制台，挂钩第三方对象状态更改，并使用一些甜蜜的语法糖来编写更清晰的代码。
 
 具体来说，你将学习以下内容：
 
@@ -35,25 +35,25 @@
 
 ![](https://koenig-media.raywenderlich.com/uploads/2018/06/smiling_dog_small.jpg)
 
-​			快乐的狗狗
+快乐的狗狗
 
-在名为 **DynamicFeaturesInSwift-Starter** 的入门项目代码目录中，你将看到三个 Playground 页面：**DogMirror**，**DogCatcher** 和 **KennelsKeyPath**。Playground 在macOS上运行。本教程与平台无关，仅侧重于 Swift 语言。
+在名为 *DynamicFeaturesInSwift-Starter* 的入门项目代码目录中，你将看到三个 Playground 页面：*DogMirror*、*DogCatcher* 和 *KennelsKeyPath*。Playground 在macOS上运行。本教程与平台无关，仅侧重于 Swift 语言。
 
 ## 使用 Mirror 的反射机制与调试输出
 
-无论你是断点调试追踪问题还是只探索正在运行的代码，控制台中的信息是否整洁都会产生比较大的影响。 Swift 提供了许多自定义控制台输出和捕获关键事件的方法。 对于自定义输出，它没有 Mirror 深入。 Swift 提供比最强大的雪橇犬还要强大的力量，能把你从冰冷的雪地拉出来！
+无论你是断点调试追踪问题还是只探索正在运行的代码，控制台中的信息是否整洁都会产生比较大的影响。Swift 提供了许多自定义控制台输出和捕获关键事件的方法。对于自定义输出，它没有 Mirror 深入。Swift 提供比最强大的雪橇犬还要强大的力量，能把你从冰冷的雪地拉出来！
 
 ![](https://koenig-media.raywenderlich.com/uploads/2018/06/siberian_husky_small.jpg)
 
-​			西伯利亚雪橇犬
+西伯利亚雪橇犬
 
-在了解有关 `Mirror` 的更多信息之前，你首先要为一个类型编写一些自定义的控制台输出。 这将有助于你更清楚地了解目前正在发生的事情。
+在了解有关 `Mirror` 的更多信息之前，你首先要为一个类型编写一些自定义的控制台输出。这将有助于你更清楚地了解目前正在发生的事情。
 
 ### CustomDebugStringConvertible
 
-用 Xcode 打开 **DynamicFeaturesInSwift.playground** 并前往 **DogMirror** 页面。
+用 Xcode 打开 *DynamicFeaturesInSwift.playground* 并前往 *DogMirror* 页面。
 
-为了纪念那些迷路的可爱的小狗，它们被捕手抓住然后与它们的主人团聚，这个页面有 Dog 类和 DogCatcherNet 类。 首先我们看一下 DogCatcherNet 类。
+为了纪念那些迷路的可爱的小狗，它们被捕手抓住然后与它们的主人团聚，这个页面有 Dog 类和 DogCatcherNet 类。首先我们看一下 DogCatcherNet 类。
 
 由于丢失的小狗必须被捕获并与其主人团聚，所以我们必须支持捕狗者。你在以下项目中编写的代码将帮助捕狗者评估捕狗网的质量。
 
@@ -85,7 +85,7 @@ print()
 
 ```
 
-`DogCatcherNet` 有两个属性：`customerReviewStars` 和 `weightInPounds`。客户评论的星星数量反映了客户对净产品的感受。 以磅为单位的重量告诉狗捕捉者他们将经历拖拽网的负担。
+`DogCatcherNet` 有两个属性：`customerReviewStars` 和 `weightInPounds`。客户评论的星星数量反映了客户对净产品的感受。以磅为单位的重量告诉狗捕捉者他们将经历拖拽网的负担。
 
 运行 Playground。你应该看到的内容前两行与下面类似：
 
@@ -94,7 +94,7 @@ print()
 "Printing a date: 2018-06-19 22:11:29 +0000"
 ```
 
-正如你所见，控制台中的调试输出会打印与网络和日期相关的内容。保佑它吧！代码的输出看起来像是由机器宠物制作的。这只宠物已经尽力了，但它需要我们人类的帮助。正如您所看到的，它打印出了诸如 “__lldb_expr_” 之类的额外信息。打印出的日期可以提供更有用的功能，但是这是否足以帮助你追踪一直困扰着你的问题还尚不清楚。
+正如你所见，控制台中的调试输出会打印与网络和日期相关的内容。保佑它吧！代码的输出看起来像是由机器宠物制作的。这只宠物已经尽力了，但它需要我们人类的帮助。正如您所看到的，它打印出了诸如 `“__lldb_expr_”` 之类的额外信息。打印出的日期可以提供更有用的功能，但是这是否足以帮助你追踪一直困扰着你的问题还尚不清楚。
 
 为了增加成功的机会，你需要用到 **CustomDebugStringConvertible** 的魔力来基础自定义制台输出。在 Playground 上，在 **DogCatcherNet **里的 **☆ Add Conformance to CustomDebugStringConvertible** 下面添加以下代码：
 
@@ -116,7 +116,7 @@ extension DogCatcherNet: CustomDebugStringConvertible {
 "Printing a date: 2018-06-19 22:10:31 +0000"
 ```
 
-对于具有许多属性的较大类型，此方法需要显式样板的类型。 对于有决心的人来说，这不是问题。 如果时间不够，还有其他选项，例如 `dump`。
+对于具有许多属性的较大类型，此方法需要显式样板的类型。对于有决心的人来说，这不是问题。如果时间不够，还有其他选项，例如 `dump`。
 
 ### Dump
 
@@ -143,7 +143,7 @@ print()
   - timeIntervalSinceReferenceDate: 551727346.52924
 ```
 
-由于你目前使用 `CustomDebugStringConvertible` 完成的工作，`DogCatcherNet` 看起来比其他方式更好。 输出包含：
+由于你目前使用 `CustomDebugStringConvertible` 完成的工作，`DogCatcherNet` 看起来比其他方式更好。输出包含：
 
 ```swift
 DogCatcherNet(Review Stars: two, Weight: 2.6)
@@ -155,9 +155,9 @@ DogCatcherNet(Review Stars: two, Weight: 2.6)
 
 ![](https://koenig-media.raywenderlich.com/uploads/2018/06/mirror_dog_small.jpg)
 
-​			魔镜魔镜，告诉我，谁才是世界上最棒的狗？
+魔镜魔镜，告诉我，谁才是世界上最棒的狗？
 
-`Mirror` 允许你在运行时通过 playground 或调试器显示任何类型实例的值。简而言之，`Mirror` 的强大在于内省。内省是 [反射 ](https://developer.apple.com/documentation/swift/swift_standard_library/debugging_and_reflection)的一个子集。
+`Mirror` 允许你在运行时通过 playground 或调试器显示任何类型实例的值。简而言之，`Mirror` 的强大在于内省。内省是[反射 ](https://developer.apple.com/documentation/swift/swift_standard_library/debugging_and_reflection)的一个子集。
 
 ### 创建一个 Mirror 驱动的狗狗日志
 
@@ -176,7 +176,7 @@ func log(itemToMirror: Any) {
 
 这将为传入的对象创建镜像，镜像允许你迭代实例的各个部分。
 
-将以下代码添加到 `log(itemToMirror:)` 的末尾:
+将以下代码添加到 `log(itemToMirror:)` 的末尾：
 
 ```swift
 for case let (label?, value) in mirror.children {
@@ -184,7 +184,7 @@ for case let (label?, value) in mirror.children {
 }
 ```
 
-这将访问镜像的 `children` 属性，获取每个标签值对，然后将它们打印到控制台。标签值对的类型别名为 `Mirror.Child`。 对于 `DogCatcherNet` 实例，代码迭代捕狗网对象的属性。
+这将访问镜像的 `children` 属性，获取每个标签值对，然后将它们打印到控制台。标签值对的类型别名为 `Mirror.Child`。对于 `DogCatcherNet` 实例，代码迭代捕狗网对象的属性。
 
 澄清一点，被检查实例的子级与父类或子类层次结构无关。 通过镜像访问的孩子只是被检查实例的一部分。
 
@@ -212,7 +212,9 @@ log(itemToMirror: Date())
 如果你想要让更多的狗或者小马也能更清楚地显示其中的属性名称应该怎么办呢？如果你又不想显示某些属性要怎么办呢？如果你希望在技术上显示的不属于该类型的每一项，又该怎么办呢？这时你可以使用 `CustomReflectable`。
 
 `CustomReflectable` 提供了一个接口，你可以使用自定义的 `Mirror` 来指定需要显示类型实例的哪些部分。要遵循 `CustomReflectable` 协议，这个类必须定义 `customMirror` 属性。
+
 在与几位捕手程序员交谈后，你发现打印捕狗网的 `weightInPounds` 属性并没有帮助于调试。但是 `customerReviewStars` 的信息非常有用，他们希望`customerReviewStars` 的标签显示为 “Customer Review Stars”。现在，是时候让 `DogCatcherNet` 遵循 `CustomReflectable` 了。
+
 在 **☆ Add Conformance to CustomReflectable for DogCatcherNet here** 后面添加以下代码：
 
 ```swift
@@ -242,7 +244,7 @@ Playground 的页面已经有一个 `Dog` 类。是时候将 `Dog` 与 `DogCatch
 var dog: Dog?
 ```
 
-随着狗的属性添加到了 `DogCatcherNet`，是时候再将狗添加到`DogCatcherNet` 的 `customMirror` 了。在 `children：[“Customer Review Stars”：customerReviewStars，` 这一行下添加以下的一个字典：
+随着狗的属性添加到了 `DogCatcherNet`，是时候再将狗添加到`DogCatcherNet` 的 `customMirror` 了。在 `children: ["Customer Review Stars": customerReviewStars,` 这一行下添加以下的一个字典：
 
 ```swift
 "dog": dog ?? "",
@@ -252,6 +254,7 @@ var dog: Dog?
 这将使用其默认调试描述和狗的名称输出狗的属性。
 
 是时候轻轻地把狗放进网里了。现在把 **☆ Uncomment assigning the dog** 那一行取消注释，可爱的小狗就可以被放到网里了。
+
 ```swift
 net.dog = Dog() // ☆ Uncomment out assigning the dog
 ```
@@ -287,7 +290,7 @@ The age of the dog is 2
 
 ### 封装 Mirror 调试输出
 
-有很多方法可以追踪程序中发生了什么，例如猎犬。`CustomDebugStringConvertible` ，`dump` 和 `Mirror` 能让你更清楚地看到你在寻找什么。Swift 的内省功能非常有用，特别是当你开始构建更庞大更复杂的应用程序时！
+有很多方法可以追踪程序中发生了什么，例如猎犬。`CustomDebugStringConvertible`、`dump` 和 `Mirror` 能让你更清楚地看到你在寻找什么。Swift 的内省功能非常有用，特别是当你开始构建更庞大更复杂的应用程序时！
 
 ## KeyPath
 
@@ -295,7 +298,7 @@ The age of the dog is 2
 
 在 Swift 中，keyPath 是强类型的路径，其类型在编译时被检查。在 Objective-C 中，它们只是字符串。教程 [Swift 4 新特性](https://knightcai.github.io/2017/09/11/Swift-4-新特性/) 在键值编码部分的概念方面做得很好。
 
-有几种不同类型的 `KeyPath`。常见的类型包括 [KeyPath](https://developer.apple.com/documentation/swift/keypath)，[WritableKeyPath](https://developer.apple.com/documentation/swift/writablekeypath) 和 [ReferenceWritableKeyPath](https://developer.apple.com/documentation/swift/referencewritablekeypath)。以下是它们的摘要：
+有几种不同类型的 `KeyPath`。常见的类型包括 [KeyPath](https://developer.apple.com/documentation/swift/keypath)、[WritableKeyPath](https://developer.apple.com/documentation/swift/writablekeypath) 和 [ReferenceWritableKeyPath](https://developer.apple.com/documentation/swift/referencewritablekeypath)。以下是它们的摘要：
 
 *   `KeyPath`：指定特定值类型的根类型。
 *   `WritableKeyPath`：可写入的 KeyPath，它不能用于类。
@@ -303,7 +306,7 @@ The age of the dog is 2
 
 使用 KeyPath 的一个例子是在对象的值发生更改后观察或捕获。
 
-当你遇到涉及第三方对象的 bug 时，知道该对象的状态何时发生变化就显得尤为重要。除了调试之外，有时在第三方对象（例如Apple的UIImageView对象）中的值发生更改时，调用自定义代码进行响应是有意义的。在[Design Patterns on iOS using Swift – Part 2/2](https://www.raywenderlich.com/160653/design-patterns-ios-using-swift-part-22)中，你可以了解有关观察者模式的更多信息。
+当你遇到涉及第三方对象的 bug 时，知道该对象的状态何时发生变化就显得尤为重要。除了调试之外，有时在第三方对象（例如 Apple 的 UIImageView 对象）中的值发生更改时，调用自定义代码进行响应是有意义的。在 [Design Patterns on iOS using Swift – Part 2/2](https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-ios-using-swift-part-2-2.md) 中，你可以了解有关观察者模式的更多信息。
 
 
 然而，这里有一个与狗窝相关的用例，它适合我们的狗狗世界。如果没有强大的键值监听，捕狗者如何轻易地知道什么时候狗窝可以放入更多的狗呢？虽然许多捕狗者只是喜欢把他们发现的每只丢失的狗带回家，但这是不切实际的。
@@ -341,13 +344,13 @@ Kennels are available.
 
 **动态成员查询** 使编码人员能够对编译时不存在的属性使用点语法，而不是使用混乱的方式。简而言之，你将拥有那些属性运行时必存在的信念来编写代码，从而获得易于阅读的代码。
 
-正如 [proposal for this feature](https://github.com/apple/swift-evolution/blob/master/proposals/0195-dynamic-member-lookup.md)  和  [associated conversations in the Swift community](https://forums.swift.org/t/se-0195-introduce-user-defined-dynamic-member-lookup-types/8658/10) 中提到，这个功能为和其他语言的互操作性提供了极大的支持，例如 Python，数据库实现者和围绕 “基于字符串的” API（如CoreImage）创建无样板包装器等。
+正如 [proposal for this feature](https://github.com/apple/swift-evolution/blob/master/proposals/0195-dynamic-member-lookup.md) 和  [associated conversations in the Swift community](https://forums.swift.org/t/se-0195-introduce-user-defined-dynamic-member-lookup-types/8658/10) 中提到的，这个功能为和其他语言的互操作性提供了极大的支持，例如 Python，数据库实现者和围绕“基于字符串的” API（如 CoreImage）创建无样板包装器等。
 
 ### @dynamicMemberLookup 简介
 
 打开 **DogCatcher** 页面并查看代码。在 Playground 里，`狗` 表示狗的运行有一个 `方向`。
 
-使用 `dynamicMemberLookup` 的功能，即使这些属性没有明确存在，也可以访问 `directionOfMovement` 和 `moving` 。现在是时候让 ` Dog`  变的动态了。
+使用 `dynamicMemberLookup` 的功能，即使这些属性没有明确存在，也可以访问 `directionOfMovement` 和 `moving`。现在是时候让 ` Dog` 变的动态了。
 
 ### 把 dynamicMemberLookup 添加到 Dog
 
@@ -387,7 +390,7 @@ Dog is moving left.
 
 ### 重载下标 (dynamicMember:)
 
-Swift 支持用不同的返回值 [重载下标声明](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Declarations.html#//apple_ref/doc/uid/TP40014097-CH34-ID379) 。在 **☆ Add subscript method that returns an Int here** 下面尝试添加返回一个  `Int` 的 `subscript` ：
+Swift 支持用不同的返回值[重载下标声明](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Declarations.html#//apple_ref/doc/uid/TP40014097-CH34-ID379)。在 **☆ Add subscript method that returns an Int here** 下面尝试添加返回一个 `Int` 的 `subscript`：
 
 ```swift
 subscript(dynamicMember member: String) -> Int {
@@ -413,15 +416,15 @@ print("Dog's speed is \(speed).")
 Dog's speed is 12.
 ```
 
-是不是太棒了。即使你需要访问其他编程语言（如Python），这也是一个强大的功能，可以使代码保持良好状态。如前所述，有一个问题......
+是不是太棒了。即使你需要访问其他编程语言（如Python），这也是一个强大的功能，可以使代码保持良好状态。如前所述，有一个问题...
 
 ![](https://koenig-media.raywenderlich.com/uploads/2018/06/dog_ears_perk_up2_small.jpg)
 
-​			“想抓我？”我全听到了。
+“想抓我？”我全听到了。
 
 ### 给狗编译并完成代码
 
-为了换取动态运行时的特性，你无法获得依赖于 `subscript（dynamicMember :)` 功能属性的编译时检查的好处。此外，Xcode 的代码自动补全功能也无法帮助你。但好消息是专业 iOS 开发者能阅读到比他们编写的还要多的代码。
+为了换取动态运行时的特性，你无法获得依赖于 `subscript(dynamicMember:)` 功能属性的编译时检查的好处。此外，Xcode 的代码自动补全功能也无法帮助你。但好消息是专业 iOS 开发者能阅读到比他们编写的还要多的代码。
 
 **动态成员查询** 给你的语法糖只是扔掉了。这是一个很好的功能，使 Swift 的某些特定用例和语言互操作性可以让人看到并且令人愉快。
 
@@ -429,8 +432,10 @@ Dog's speed is 12.
 
 **动态成员查询** 的原始提案解决了语言互操作性问题，尤其是对于 Python。但是，这并不是唯一有用的情况。
 
-为了演示纯粹的 Swift 用例，你将使用 **DogCatcher.xcplaygroundpage** 中的 `JSONDogCatcher` 代码。它是一个简单的结构，具有一些属性，用于处理`String`，`Int`和 JSON 字典。使用这样的结构，你可以创建一个 `JSONDogCatcher` 并最终搜索特定的 `String` 或 `Int` 值。
+为了演示纯粹的 Swift 用例，你将使用 **DogCatcher.xcplaygroundpage** 中的 `JSONDogCatcher` 代码。它是一个简单的结构，具有一些属性，用于处理`String`、`Int` 和 JSON 字典。使用这样的结构，你可以创建一个 `JSONDogCatcher` 并最终搜索特定的 `String` 或 `Int` 值。
+
 **传统下标方法**
+
 实现类似遍历 JSON 字典的传统方法是使用 `下标` 方法。Playground 已经包含传统的 `下标` 实现。使用 `subscript` 方法访问 `String` 或 `Int` 值通常如下所示，并且也在 Playground 中：
 
 ```swift
@@ -463,14 +468,14 @@ subscript(dynamicMember member: String) -> JSONDogCatcher? {
 }
 ```
 
-下标方法  `subscript(dynamicMember:)` 调用已存在的 `下标` 方法，但删除了使用括号和 `String` 作为键的样板代码。 现在，取消在 `JSONDogCatcher` 上 标有 **☆ Uncomment this line**  的注释：
+下标方法 `subscript(dynamicMember:)` 调用已存在的 `下标` 方法，但删除了使用括号和 `String` 作为键的样板代码。现在，取消在 `JSONDogCatcher` 上 标有 **☆ Uncomment this line** 的注释：
 
 ```swift
 @dynamicMemberLookup
 struct JSONDogCatcher {
 ```
 
-有了这个之后，你就可以使用点语法来获得狗的速度和它主人的名字。 尝试在 **☆ Use dot notation to get the owner’s name and speed through the catcher** 下添加以下代码：
+有了这个之后，你就可以使用点语法来获得狗的速度和它主人的名字。尝试在 **☆ Use dot notation to get the owner’s name and speed through the catcher** 下添加以下代码：
 
 ```swift
 let ownerName: String = catcher.owner?.name?.value() ?? ""
@@ -489,27 +494,26 @@ Dog's speed is 12.
 
 现在你得到了主人的名字，狗捕手可以联系主人来让他知道他的狗被找到了！
 
-多么幸福的结局！ 狗和它的主人再次团聚，而且代码也看起来更整洁。 通过 Swift 的动态的力量，这条活泼的狗可以回到后院去追兔子了。
+多么幸福的结局！狗和它的主人再次团聚，而且代码也看起来更整洁。通过 Swift 的动态的力量，这条活泼的狗可以回到后院去追兔子了。
 
 ![](https://koenig-media.raywenderlich.com/uploads/2018/06/bunny_small.jpg)
 
-​			辛普森的狗喜欢追逐而不是追赶
+辛普森的狗喜欢追逐而不是追赶
 
 ## 后记
 
 你可以使用本教程顶部的 **下载材料** 链接下载到项目的完整版本。
 
-在本教程中，你利用了 Swift 4.2 中提供的动态功能。了解了 Swift 的内省反射功能（例如 `Mirror` ）自定义控制台输出，使用 KeyPath 进行 **键值监听 ** 和 **动态成员查找**。
+在本教程中，你利用了 Swift 4.2 中提供的动态功能。了解了 Swift 的内省反射功能（例如 `Mirror`）自定义控制台输出，使用 KeyPath 进行 **键值监听** 和 **动态成员查找**。
 
 通过学习动态的功能，你可以清楚地看到有用的信息，拥有更易读的代码，并为你的应用程序，通用框架或者是库提供一些强大的运行时功能。
 
-深入 Mirror 的 [官方文档](https://developer.apple.com/documentation/swift/mirror) 和相关项目进行探索是值得的。有关 **键值监听 ** 的更多信息，请看使用 [Swift 的 iOS 设计模式](https://www.raywenderlich.com/160651/design-patterns-ios-using-swift-part-12)。想了解更多 Swift 4.2 新特性，请看[What’s New in Swift 4.2?](https://www.raywenderlich.com/194066/whats-new-in-swift-4-2)。
+深入 Mirror 的[官方文档](https://developer.apple.com/documentation/swift/mirror)和相关项目进行探索是值得的。有关 **键值监听 ** 的更多信息，请看使用 [Swift 的 iOS 设计模式](https://www.raywenderlich.com/160651/design-patterns-ios-using-swift-part-12)。想了解更多 Swift 4.2 新特性，请看 [What’s New in Swift 4.2?](https://www.raywenderlich.com/194066/whats-new-in-swift-4-2)。
 
 关于 Swift 4.2 里 **动态成员查找** 功能，查看 Swift 提案 [SE-0195: “Introduce User-defined ‘Dynamic Member Lookup’ Types”](https://github.com/apple/swift-evolution/blob/master/proposals/0195-dynamic-member-lookup.md)，其中介绍了 `dynamicMemberLookup` 注解和潜在用例。在一个相关的说明中，一个值得关注的 Swift 提案 [SE-216: “Introduce User-defined Dynamically ‘callable’ Types](https://github.com/apple/swift-evolution/blob/master/proposals/0216-dynamic-callable.md) 是 **动态成员查找** 的近亲，其中介绍了  `dynamicCallable` 注解。
 
-
-
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
 
 ---
 
