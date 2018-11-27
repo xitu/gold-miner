@@ -2,74 +2,74 @@
 > * 原文作者：[Phil Sarin](https://medium.com/@philsarin?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/moving-to-three-person-engineering-teams.md](https://github.com/xitu/gold-miner/blob/master/TODO1/moving-to-three-person-engineering-teams.md)
-> * 译者：
+> * 译者：[yuwhuawang](https://github.com/yuwhuawang)
 > * 校对者：
 
-# Moving to three-person engineering teams
+# 转向三人工程小组
 
-Three-person engineering teams just work better. Everyone on a three-person team is more motivated because they feel like they **own** their work. They also deal with less overhead and nonsense. Yet three-person teams aren’t too small. They have just enough people to handle vacations or to swarm on complicated problems.
+三人工程小组就是更好一些。三人小组里的每一个人都会更有动力，因为他们觉得能够**主宰**他们的工作。他们也能更少的面对来自上边的无理要求。三人小组也不会太小。万一有人休假或者大量复杂问题，三个人也能够处理。
 
-But three-person teams aren’t as frequent as they should be because they can be hard to pull off. It can be hard to find enough team leaders. It’s also tempting to build larger teams to handle bigger mandates. At Managed by Q, three-person teams were commonplace when we had fewer than ten engineers who were cranking out the foundation of our technology platform. But as we grew to close to 25 people, our teams swelled in size to five or six people. Everyone gradually became a little less motivated. And everything slowed down.
+但是三人小组并不常见。因为很难建立起来。要找到足够的小组领导太难了。为了完成更大的任务，我们通常会尝试组建更大的团队。在Q的管理下，在技术平台初创阶段，工程师数量少于10个，这时三人小组很常见。但是当人数上涨到25个人时，我们的小组就壮大到五到六个人。每个人的驱动力都变得更少，事情都变得慢了了下来。
 
-A few months ago we decided to break up our larger teams and to return to three-person teams as our default size. As we’d hoped, the three-person teams were more motivated and they delivered more. In our post-reorg survey, team members praised higher speed and greater ownership:
+几个月前，我们觉得打破我们的更大的小组，回归我们的三人小组。和我们期待的一样，三人小组更有驱动力，成果也更多。根据我们重组后的调查，小组成员赞扬了更快的速度和更好的自主权：
 
-> Small size = very fast development. Able to have total mental model of the code we’re working on. Nobody is able to be left out or lag behind in understanding.
+> 小规模=快速研发。能够拥有我们正在处理的代码的全部心智模型。没人在理解力上出问题。
 
-> Smaller teams make it easier to plan and sequence work. This has enabled us to move quickly on a number of projects.
+> 小团队让计划和安排工作更容易。这使我们能够在一系列项目中快速转换。
 
-> There’s much more ownership, opportunities to lead, and flexibility.
+> 自主权更多，领导的机会更多，也更灵活。
 
-> It’s easier to feel proud of the work we are doing since there is more accountability and each person has a more direct impact on the successes of the team.
+> 更容易对自己的工作产生自豪，因为每个人都有责任感，而且每个人的工作都直接对团队的成功产生影响。
 
-But the switch to three-person teams forced us to make several changes to how we operated.
+但是切换到三人小组也迫使我们改变了一些运作方式。
 
-#### We needed to learn to trust more easily
+#### 我们需要学会更容易相信
 
-We decided to move to three-person teams after one of our long-time engineers told me that I was holding us back by not giving new people leadership responsibility. Other engineers believed that only a small number of favored people would ever get to lead anything.
+一个长期在我们这里工作的工程师告诉我，我在拖我们团队的后腿。因为我不给新人领导的机会。因此我们决定转向三人小组。其它的工程师认为只有很少的被喜欢的人才能去领导团队。
 
-This engineer forced me to confront a bias that was holding me back. I leaned on trusting people who had repeatedly proven that they could deliver. But everyone on the team wanted to prove they could do something they hadn’t done before. I wouldn’t get my team’s best work without learning to trust more.
+这个工程师迫使我面对一直阻碍我的偏见。我倾向了信任那些能够持续交付的工程师。但是团队里的每个人都想证明他们也能做到之前没有做过的事情。如果我不学着更多的信任他们，我的团队就永远达不到最佳状态。 
 
-The larger team size was also a bad fit for the people we’d hired. We pride ourselves on hiring engineers who handle ambiguity well and who focus on solving problems rather than simply churning through tasks.
+更大的团队规模也不适合我们雇佣的工程师。我们很自豪的是我们招的工程师都是那种能够很好地处理歧义，并且专注于解决问题而不是只是完成任务。
 
-To become more trusting we redefined what leads were responsible for. Our new leads would only need to be able to coordinate the work of two other people, and not four or five. Our leads would not need to manage people. Their roles were also explicitly temporary. That made it easy for our leads to return to non-lead roles for any reason.
+为了更多的信任，我们重新定义了领导的职责。我们新的领导应该只是协调另两个人的工作，而不是4，5个人。我们的领导不需要管人。领导也是很明确的临时角色。这也让我们的领导更容易回到非领导岗位，无论什么原因。
 
-#### We needed to train our leads
+#### 我们需要培训领导
 
-When we added several leads we decided to train them in their new roles. John Lucas, one of our managers, developed an orientation for leads. He asked new leads to assess themselves along several dimensions including setting goals, recognizing problems, managing projects, managing risk, giving feedback, and creating psychological safety.
+在我们增加一些领导之后，我们决定培训他们，让他们适应新角色。我们一个管理者，Josh Lucas，为我们的新领导者准备了一个迎新课程。他要求新的领导从不同的维度评估自己。包括目标设立，认识问题，管理项目，管理分享，给与反馈，创建心理安全。
 
-John’s orientation asked each lead to write a self assessment along these dimensions. He wrote his own assessment of each lead. They discussed the differences during their 1–1s. Our new leads were introspective and candid in their self-assessments. For example:
+John 的迎新课程要求每一个领导根据这些维度写一份自我评估。他会给每一个领导写一份评估。在1对1的面谈中，他们会讨论其中的不同。我们的新领导在自我评估中非常内省和坦白。例如：
 
-> I often feel hypocritical about feedback. I seek out and crave feedback from everyone around me, but often times have trouble giving high quality feedback back. Kim Scott would diagnose me with ruinous empathy. I care deeply about those I work with, but try to avoid confrontation and hurting others feelings. I do this despite knowing that it is best for everyone if I am direct and honest. This is the competency I want to improve in most.
+> 我经常觉得我的反馈都太虚伪了。我寻找并渴望每个人对我的反馈。但是我很难给出对别人反馈。Kim Scott 诊断我是毁灭性同理心。我非常关心和我一起工作的人，但是尽量避免和他们对抗并且伤害他们的感情。虽然我知道如果我对人更加直接和诚实，这样对他们更好。但是我依然这么做。这是我最想提高的能力。
 
-The best thing about the orientation is that it helped our new leads understand what new responsibilities they’d face day to day. When many of our experienced leads first stepped into leadership positions, they were surprised by how much they were suddenly responsible for. Talking openly about the challenges of leadership positions helped our leads know what to expect and to feel comfortable asking for help.
+迎新活动最好的一点就是帮助我们的新领导理解他们每天要面对的新职责。在一些实验性领导第一次踏上领导的位置时，他们会被他们的责任惊到。公开交流领导位置的挑战让我们的领导明白会遇到什么，也会在寻求帮助的时候更加舒适。 
 
-#### The role of our managers changed
+#### 管理者的角色改变了
 
-Because our leads handled more responsibilities we needed fewer managers. Some managers moved into different roles. Those that remained had new responsibilities.
+由于我们的领导担起了更多的职责，我们也就不再需要那么多管理者。很多管理者转向其他角色。留下的管理者也有了新的职责。
 
-Our managers evolved into rovers. Each manager now had multiple three-person teams reporting to them and had a larger number of direct reports. Managers were no longer responsible for directly managing projects. They had to learn how to stay in touch with the detailed goings on of each of their three-person teams and to offer managerial or technical support when they were needed.
+我们的管理者演化成巡游者。每个管理者现在有多个三人小组向其汇报，也多了直接报告。管理者不在直接对项目负责。他们要学会如何了解每个三人小组的细节，并且在需要的时候提供管理和技术的帮助。
 
-#### Technical ownership was less stable
+#### 技术自主权更不稳定
 
-Though we’d love to say that every three-person team fully owns small systems that are fully decoupled from those of other teams, there are plenty of shared systems today. Multiple three-person teams share on-call rotations. As a disciple of Amazon’s two-pizza teams, where each team exclusively owns a mandate and the systems that deliver the mandate, I was uncomfortable with the idea of shared ownership. I worried that our teams would have a diminished sense of ownership and wouldn’t invest in making their systems better.
+尽管我们很乐意说每一个三人小组都完全拥有与其他小组完全解耦的小系统，但是现如今还是有很多共享的系统。多个三人小组可以不间断的轮换同一个系统。作为亚马逊双披萨团队的追随者，也就是，每一个小组独有一个授权和系统，我对于共享所有权感到很不舒服。我担心我们的小组会减少拥有感并且不再投入让系统变得更好。
 
-In truth we’ve never been better at investing in technical improvements. I think the reason is that ownership is psychologically complex. Though sharing systems may create a diminished sense of ownership, the narrower and deeper mandates of the three-person teams hugely increased the sense of ownership that our engineers felt.
+事实上我们并没有在投入科技进步上变得更好。我认为是因为拥有在心理学上太复杂了，三人小组更狭窄和深度的授权更够增加我们工程师感受到的拥有感。
 
-I owe credit to Kris Gale and Kellan Elliott-McCrea, who encouraged me to think of different ways of designing team responsibilities and ownership.
+我得感谢 Kris Gale 和 Kellan Elliott-McCrea，他们在我设计团队责任和所有权的时候给了我很多不同的想法。
 
-#### Our engineers were less connected to each other’s work
+#### 我们的工程师和其它人的工作关联的更少
 
-Though our team was happy with three-person teams, they started to report that they wanted to know more about what their colleagues were working on. Our teams would sometimes discover overlapping or complementary work. We haven’t totally solved this problem, but are experimenting with having each team send a very short (paragraph-length) summary of what they did each week.
+尽管我们团队对三人小组很满意，他们也开始报告说他们想更多的了解同事。我们的团队有时候会有些重叠或者互补的工作。我们还没完全解决这个问题，但是也在实验每个小组每周用一小段话来介绍他们做了什么。
 
-#### We created more work for product managers and designers
+#### 我们为产品经理和设计师创造了更多工作
 
-In one sense our three-person teams weren’t really three people. Each team also had an associated product manager and a designer. They had to juggle more teams. Our product management team is well-staffed and could handle the larger number of teams. Increased output and increased parallelism sometimes put a strain on our design team.
+在某种意义上来说，三人小组并不真的只是三个人。每一个小组都有一个助理产品经理和设计师。他们在各个小组之间平衡。我们配备了很好的产品管理团队，可以处理很多小组的任务。增长的输出和平行有时候给我们设计团队很大压力。
 
 * * *
 
-Our experience with three-person teams has been positive. We’ve delivered faster, we’ve had more fun, and we’ve improved at developing talent. Scaling the number of three-person teams will be a challenge. We’ll have to identify and train more project leads, and we’ll have to scale engineering management, design, and product management to keep pace with the number of teams.
+我们的三人小组实验是成功的。我们发版更快乐，我们也有了更多乐趣，我们研发技能也增长了。增加三人小组的数量是一个挑战。我们得找到和培训更多的项目领导，我们也要增加工程管理，设计和产品管理的规模来跟上三人小组扩张的速度。
 
-Thanks to [Yann Gregoire](https://medium.com/@yann.gregoire?source=post_page), [Beccah Erickson](https://medium.com/@beccaherickson?source=post_page), and [Sam Herbert](https://medium.com/@sherb?source=post_page).
+感谢 [Yann Gregoire](https://medium.com/@yann.gregoire?source=post_page), [Beccah Erickson](https://medium.com/@beccaherickson?source=post_page), 和 [Sam Herbert](https://medium.com/@sherb?source=post_page).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
