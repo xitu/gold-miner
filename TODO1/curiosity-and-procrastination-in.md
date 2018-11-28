@@ -17,7 +17,7 @@
 我们的方法中的关键想法是把代理对环境的观察储存在情景记忆中，同时当代理获得了在记忆中还没有表现出来的观察时给予奖励，从而避免原地打转，并最终向目标摸索前行。“不在记忆中”是我们方法中比较创新的定义 —— 寻找这样的观察内容即寻找不熟悉的事物。这样一种寻找不熟悉事物的驱动条件可以将人工代理引导至一个新的位置，从而避免了它在已知圈子中徘徊，并最终帮助它摸索到目标点。正如我们稍后将讨论的，我们的方法可以使代理避免一些其它方法中容易出现的不良结果。令我们惊讶的是，这些行为与外行人口中所谓的“拖延症”有一些相似之处。 
   
 **以前的好奇心形式**  
-尽管过去曾经有很多对好奇心进行制定的尝试\[1\]\[2\]\[3\]\[4\]，但在本文中，我们专注于一种自然且非常流行的方法：通过基于预测的惊讶来探索好奇心（通常称为 ICM 方法），该方法在最近的论文“[通过自我监督预测的好奇心驱动探索](https://pathak22.github.io/noreward-rl/)”中进行了探讨。为了说明惊讶是如何引起好奇心的，再次考虑我们在超市寻找奶酪的例子。 
+尽管过去曾经有很多对好奇心进行制定的尝试[1][2][3][4]，但在本文中，我们专注于一种自然且非常流行的方法：通过基于预测的惊讶来探索好奇心（通常称为 ICM 方法），该方法在最近的论文“[通过自我监督预测的好奇心驱动探索](https://pathak22.github.io/noreward-rl/)”中进行了探讨。为了说明惊讶是如何引起好奇心的，再次考虑我们在超市寻找奶酪的例子。 
 
 [![](https://3.bp.blogspot.com/-mmkoFCNHjZo/W9ChEkHbAoI/AAAAAAAADb4/iFJYE7IRKRIg-CTxSa-ndRvmHHq5EfDUgCLcBGAs/s400/image1.jpg)](https://3.bp.blogspot.com/-mmkoFCNHjZo/W9ChEkHbAoI/AAAAAAAADb4/iFJYE7IRKRIg-CTxSa-ndRvmHHq5EfDUgCLcBGAs/s1600/image1.jpg)
 
@@ -29,7 +29,7 @@
 
 [![](https://4.bp.blogspot.com/-1-g1VrGbUpY/W8-MI2HcI1I/AAAAAAAADbg/O65BaNTc6fEcJjSouw-QG1g7JkeIXpGLACLcBGAs/s1600/image5.gif)](https://4.bp.blogspot.com/-1-g1VrGbUpY/W8-MI2HcI1I/AAAAAAAADbg/O65BaNTc6fEcJjSouw-QG1g7JkeIXpGLACLcBGAs/s1600/image5.gif)
 
-基于惊讶的好奇心的代理在遇到电视画面时会被卡住。GIF 采用了来自© [Deepak Pathak](https://youtu.be/C3yKgCzvE_E) 的视频，在 [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) 许可下使用。
+基于惊讶的好奇心的代理在遇到电视画面时会被卡住。GIF 采用了来自 © [Deepak Pathak](https://youtu.be/C3yKgCzvE_E) 的视频，在 [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) 许可下使用。
 
 **“拖延症”的威胁**  
 在论文“[大规模好奇心驱动学习研究](https://pathak22.github.io/large-scale-curiosity/resources/largeScaleCuriosity2018.pdf)”中，ICM 方法作者以及 [OpenAI](https://openai.com/) 研究人员揭示了最大化惊讶的潜在危险：代理可能会放纵这种拖延行为，而不是为当前的任务做一些有用的事情。为了找出原因，让我们考虑一个常见思维实验，该实验被作者称为“嘈杂电视问题”，在这个实验中，一个代理被置于迷宫中，它的任务是找到一个高回报的物体（这类似于我们之前提到的超市例子中的“奶酪”）。该环境中还包含了一个电视装置，代理可以远程操控。电视装置的频道数量有限（每个频道都有不同的节目），并且每次按遥控器都会切换到一个随机频道。那么该代理会如何在这样的环境中执行呢？
@@ -78,7 +78,7 @@
 **该项目是 Google Brain 团队、DeepMind 和 ETH Zürich 之间合作的成果。核心团队包括 Nikolay Savinov、Anton Raichuk、Raphaël Marinier、Damien Vincent、Marc Pollefeys、Timothy Lillicrap 和 Sylvain Gelly。感谢 Olivier Pietquin、Carlos Riquelme、Charles Blundell 和 Sergey Levine 关于该论文的讨论。感谢 Indira Pasko 对插图的帮助。**
   
 **参考文献：**  
-\[1\] "[Count-Based Exploration with Neural Density Models](https://arxiv.org/abs/1703.01310)", _Georg Ostrovski, Marc G. Bellemare, Aaron van den Oord, Remi Munos_  
-\[2\] "[#Exploration: A Study of Count-Based Exploration for Deep Reinforcement Learning](https://arxiv.org/abs/1611.04717)", _Haoran Tang, Rein Houthooft, Davis Foote, Adam Stooke, Xi Chen, Yan Duan, John Schulman, Filip De Turck, Pieter Abbeel_  
-\[3\] "[Unsupervised Learning of Goal Spaces for Intrinsically Motivated Goal Exploration](https://arxiv.org/abs/1803.00781)", _Alexandre Péré, Sébastien Forestier, Olivier Sigaud, Pierre-Yves Oudeyer_  
-\[4\] "[VIME: Variational Information Maximizing Exploration](https://arxiv.org/abs/1605.09674)", _Rein Houthooft, Xi Chen, Yan Duan, John Schulman, Filip De Turck, Pieter Abbeel_
+[1] "[Count-Based Exploration with Neural Density Models](https://arxiv.org/abs/1703.01310)", _Georg Ostrovski, Marc G. Bellemare, Aaron van den Oord, Remi Munos_  
+[2] "[#Exploration: A Study of Count-Based Exploration for Deep Reinforcement Learning](https://arxiv.org/abs/1611.04717)", _Haoran Tang, Rein Houthooft, Davis Foote, Adam Stooke, Xi Chen, Yan Duan, John Schulman, Filip De Turck, Pieter Abbeel_  
+[3] "[Unsupervised Learning of Goal Spaces for Intrinsically Motivated Goal Exploration](https://arxiv.org/abs/1803.00781)", _Alexandre Péré, Sébastien Forestier, Olivier Sigaud, Pierre-Yves Oudeyer_  
+[4] "[VIME: Variational Information Maximizing Exploration](https://arxiv.org/abs/1605.09674)", _Rein Houthooft, Xi Chen, Yan Duan, John Schulman, Filip De Turck, Pieter Abbeel_
