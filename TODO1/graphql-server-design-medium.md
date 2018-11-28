@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/graphql-server-design-medium.md](https://github.com/xitu/gold-miner/blob/master/TODO1/graphql-server-design-medium.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：[KarthusLorin](https://github.com/KarthusLorin)
+> * 校对者：[KarthusLorin](https://github.com/KarthusLorin)，[weibinzhu](https://github.com/weibinzhu)
 
 # Medium 的 GraphQL 服务设计
 
@@ -14,15 +14,15 @@
 在开始设计 GraphQL 服务之前，我们必须要牢记三件事情：
 
 **方便修改数据格式**
-目前我们使用[协议缓冲区 protocol buffers](https://en.wikipedia.org/wiki/Protocol_Buffers) 来作为来自后端的数据模型。但是，我们使用数据的方式会变化，而协议缓冲却没有跟进。这就意味着我们的数据格式并不总是客户端需要的那样。
+目前我们使用[协议缓冲区 protocol buffers](https://en.wikipedia.org/wiki/Protocol_Buffers) 来作为来自后端的数据模型 schema。但是，我们使用数据的方式会变化，而协议缓冲却没有跟进。这就意味着我们的数据格式并不总是客户端需要的那样。
 
-**清楚地区分哪些数据来自客户端**
+**清楚地区分哪些数据是用于客户端的**
 在 GraphQL 服务中，被传递的数据都处于客户端的“准备就绪”的不同阶段。我们应当让每个准备就绪的状态更加清晰，而不是把它们混合起来，这样我们就能确切的知道那些数据是用于客户端的。
 
 **方便添加新的数据源**
 既然我们要转型为面向服务的结构，我们就希望确保为 GraphQL 服务添加新的数据源是很容易的，同时明确数据来源。
 
-牢记这些，我们就可以根据上面三个不同的规则构造出服务框架：
+牢记这些，我们就可以构造出一个有三种不同角色的服务框架：
 
 获取器 Fetchers、存储库（Repos）和 GraphQL 模式。
 
