@@ -2,111 +2,111 @@
 > * 原文作者：[CHARLES PETERS](https://css-tricks.com/author/charlespeters/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-guide-to-custom-elements-for-react-developers.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-guide-to-custom-elements-for-react-developers.md)
-> * 译者：
+> * 译者：[子非](https://www.github.com/CoolRice)
 > * 校对者：
 
-# A Guide to Custom Elements for React Developers
+# 写给 React 开发者的自定义元素指南
 
-I had to build a UI recently and (for the first time in a long while) I didn't have the option of using React.js, which is my preferred solution for UI these days. So, I looked at what the built-in browser APIs had to offer and saw that using [custom elements](https://css-tricks.com/modular-future-web-components/) (aka Web Components) may just be the remedy that this React developer needed.
+最近我需要构建 UI 界面，虽然现在 React.js 是我首选的 UI 解决方案，不过长时间以来第一次我没有选择用它。然后我看了浏览器内置的 API 发现使用[自定义元素](https://css-tricks.com/modular-future-web-components/)（也就是 Web Components）可能正是 React 开发者需要的方案。
 
-Custom elements can offer the same general benefits of React components without being tied to a specific framework implementation. A custom element gives us a new HTML tag that we can programmatically control through a native browser API.
+自定义元素可以提供与 React 组件大致相同的优点，而且实现起来无需绑定特定的框架。自定义元素能提供新的 HTML 标签，我们可以使用原生浏览器 API 来以编程的方式操控它。
 
-Let's talk about the benefits of component-based UI:
+让我们说说基于组件的 UI 优点：
 
-*   **Encapsulation** — concerns scoped to that component remain in that component's implementation
-*   **Reusability** — when the UI is separated into more generic pieces, they're easier to break into patterns that you're more likely to repeat
-*   **Isolation** — because components are designed to be encapsulated and with that, you get the added benefit of isolation, which allows you scope bugs and changes to a particular part of your application easier
+*  **封装** — 把专注点放在组件的内部实现上
+*  **复用** — 当把 UI 分割成更通用的小块时，它们更容易分解为你更想要的模式
+*  **隔离** — 因为组件是被封装过的，你能获得隔离的额外好处，即让你更轻松地定位错误和更易修改应用中的特定部分
 
-### Use cases
+### 用例
 
-You might be wondering who is using custom elements in production. Notably:
+你可能有疑问谁在生产环境中使用自定义元素。比较出名的有：
 
-*   [GitHub](https://githubengineering.com/removing-jquery-from-github-frontend/#custom-elements) is using custom elements for their modal dialogs, autocomplete and display time.
-*   YouTube's [new web app](https://youtube.googleblog.com/2017/05/a-sneak-peek-at-youtubes-new-look-and.html) is built with [Polymer](https://www.polymer-project.org/) and web components.
+*   [GitHub](https://githubengineering.com/removing-jquery-from-github-frontend/#custom-elements) 使用自定义元素在模态对话框、自动补全和显示时间上。
+*   YouTube 的[新应用](https://youtube.googleblog.com/2017/05/a-sneak-peek-at-youtubes-new-look-and.html)使用了 [Polymer](https://www.polymer-project.org/) 和自定义元素。
 
-### Similarities to the Component API
+### 和组件 API 的相似点
 
-When trying to compare React Components versus custom elements, I found the APIs really similar:
+当试图比较 React 组件和自定义组件时，我发现它们的 API 非常相似：
 
-*   They're both classes that aren't "new" and are able that extend a base class
-*   They both inherit a mounting or rendering lifecycle
-*   They both take static or dynamic input via props or attributes
+*   它们都是基于类的，可以扩展基类
+*   它们都继承挂载或渲染生命周期
+*   它们都需要通过 props 或 attributes 来静态或动态传入数据
 
-### Demo
+### 演示
 
-So, let's build a tiny application that lists details about a GitHub repository.
+那么，让我们来构建一个小型应用，列出关于 GitHub 仓库的详细信息。
 
-![Screenshot of end result](https://css-tricks.com/wp-content/uploads/2018/10/screenshot-demo.png)
+![结果截图](https://css-tricks.com/wp-content/uploads/2018/10/screenshot-demo.png)
 
-If I were going to approach this with React, I would define a simple component like this:
+如果我要用 React 来实现，我会定义一个如下的简单组件：
 
 ```
 <Repository name="charliewilco/obsidian" />
 ```
 
-This component takes a single prop — the name of the repository — and we implement it like this:
+这个组件需要一个 props —— 仓库名，我们要这么实现它：
 
 ```
 class Repository extends React.Component {
-    state = {
+  state = {
     repo: null
-    };
+  };
 
-    async getDetails(name) {
+  async getDetails(name) {
     return await fetch(`https://api.github.com/repos/${name}`, {
-        mode: 'cors'
+      mode: 'cors'
     }).then(res => res.json());
-    }
+  }
 
-    async componentDidMount() {
+  async componentDidMount() {
     const { name } = this.props;
     const repo = await this.getDetails(name);
     this.setState({ repo });
-    }
+  }
 
-    render() {
+  render() {
     const { repo } = this.state;
 
     if (!repo) {
-        return <h1>Loading</h1>;
+      return <h1>Loading</h1>;
     }
 
     if (repo.message) {
-        return <div className="Card Card--error">Error: {repo.message}</div>;
+      return <div className="Card Card--error">Error: {repo.message}</div>;
     }
 
     return (
-        <div class="Card">
+      <div class="Card">
         <aside>
-            <img
+          <img
             width="48"
             height="48"
             class="Avatar"
             src={repo.owner.avatar_url}
             alt="Profile picture for ${repo.owner.login}"
-            />
+          />
         </aside>
         <header>
-            <h2 class="Card__title">{repo.full_name}</h2>
-            <span class="Card__meta">{repo.description}</span>
+          <h2 class="Card__title">{repo.full_name}</h2>
+          <span class="Card__meta">{repo.description}</span>
         </header>
-        </div>
+      </div>
     );
-    }
+  }
 }
 ```
 
-See the Pen [React Demo - GitHub](https://codepen.io/charliewilco/pen/jeVMvK/) by Charles ([@charliewilco](https://codepen.io/charliewilco)) on [CodePen](https://codepen.io).
+请看 [React 演示 — GitHub](https://codepen.io/charliewilco/pen/jeVMvK/)，来自于 [CodePen](https://codepen.io) 上的 Charles ([@charliewilco](https://codepen.io/charliewilco))。
 
-To break this down further, we have a component that has its own state, which is the repo details. Initially, we set it to be `null` because we don't have any of that data yet, so we'll have a loading indicator while the data is fetched.
+来深入看一下，我们有一个组件，这个组件有它自己的状态，即仓库的详细信息。开始时，我们把它设为 `null`，因为此时还没有其它的数据，所以在加载数据时会有一个加载提示。
 
-During the React lifecycle, we'll use fetch to go get the data from GitHub, set up the card, and trigger a re-render with `setState()` after we get the data back. All of these different states the UI takes are represented in the `render()` method.
+在 React 的生命周期中，我们使用 fetch 从 GitHub 获得数据，创建选项卡，然后在我们拿到返回数据时使用 `setState()` 触发一次重新渲染。所有 UI 使用的不同状态都会在 `render()` 方法里表现出来。
 
-### Defining / Using a Custom Element
+### 定义/使用自定义组件
 
-Doing this with custom elements is a little different. Like the React component, our custom element will take a single attribute — again, the name of the repository — and manage its own state.
+使用自定义组件实现起来稍有不同。和 React 组件一样，我们的自定义元素也需要一个属性 —— 仓库名，它的状态也是自己管理的。
 
-Our element will look like this:
+如下就是我们的元素：
 
 ```
 <github-repo name="charliewilco/obsidian"></github-repo>
@@ -116,34 +116,34 @@ Our element will look like this:
 <github-repo name="charliewilco/dotfiles"></github-repo>
 ```
 
-See the Pen [Custom Elements Demo - GitHub](https://codepen.io/charliewilco/pen/MPbeBv/) by Charles ([@charliewilco](https://codepen.io/charliewilco)) on [CodePen](https://codepen.io).
+请看 [自定义元素演示 — GitHub](https://codepen.io/charliewilco/pen/MPbeBv/)，来自于 [CodePen](https://codepen.io) 上的 Charles ([@charliewilco](https://codepen.io/charliewilco))。
 
-To start, all we need to do to define and register a custom element is create a class that extends the `HTMLElement` class and then register the name of the element with `customElements.define()`.
+现在，我们所需要做的就是定义和注册自定义元素，创建一个类，它继承自 `HTMLElement` 类，然后用 `customElements.define()` 注册元素的名字。
 
 ```
 class OurCustomElement extends HTMLElement {}
 window.customElements.define('our-element', OurCustomElement);
 ```
 
-And we can call it:
+它是这样调用的：
 
 ```
 <our-element></our-element>
 ```
 
-This new element isn't very useful, but with custom elements, we get three methods to expand the functionality of this element. These are almost analogous to React’s [lifecycle methods](https://reactjs.org/docs/state-and-lifecycle.html#adding-lifecycle-methods-to-a-class) for their Component API. The two lifecycle-like methods most relevant to us are the `disconnectedCallBack` and the `connectedCallback` and since this is a class, it comes with a constructor.
+这个新元素现在还不是很有用，但是有它之后，我们能用三个方法来扩展这个元素的功能。这些方法类似于 React 组件的 [生命周期](https://reactjs.org/docs/state-and-lifecycle.html#adding-lifecycle-methods-to-a-class) API。两个和我们最相关的类生命周期函数是 `disconnectedCallBack` 和 `connectedCallback`，并且因为它是一个类，所以它具有构造器。
 
-| Name | Called when |
+| 名字 | 何时调用 |
 | ---- | ----------- |
-| `constructor` | An instance of the element is created or upgraded. Useful for initializing state, settings up event listeners, or creating Shadow DOM. See the spec for restrictions on what you can do in the `constructor`. |
-| `connectedCallback` | The element is inserted into the DOM. Useful for running setup code, such as fetching resources or rendering UI. Generally, you should try to delay work until this time. |
-| `disconnectedCallback` | When the element is removed from the DOM. Useful for running clean-up code. |
+| `constructor` | 用来创建或更新元素的实例。初始化状态、设置事件监听或创建 Shadow DOM。如果你想知道在 `constructor` 可以做什么，请查看设计规范 |
+| `connectedCallback` | 在元素被插入 DOM 时调用。用来运行创建任务的代码，例如获取资源或渲染 UI。总体上说，你应该这里尝试异步任务。 |
+| `disconnectedCallback` | 在元素被移出 DOM 时调用。用来运行做清理任务的代码 |
 
-To implement our custom element, we'll create the class and set up some attributes related to that UI:
+为了实现我们的自定义元素，我们创建了如下类并设置了和 UI 相关的属性：
 
 ```
 class Repository extends HTMLElement {
-    constructor() {
+  constructor() {
     super();
 
     this.repoDetails = null;
@@ -151,29 +151,29 @@ class Repository extends HTMLElement {
     this.name = this.getAttribute("name");
     this.endpoint = `https://api.github.com/repos/${this.name}`    
     this.innerHTML = `<h1>Loading</h1>`
-    }
+  }
 }
 ```
 
-By calling `super()` in our constructor, the context of this is the element itself and all the DOM manipulation APIs can be used. So far, we've set the default repository details to `null`, gotten the repo name from element's attribute, created an endpoint to call so we don't have to define it later and, most importantly, set the initial HTML to be a loading indicator.
+通过在我们的构造器中调用 `super()`，元素自己的上下文和 DOM 操作 API 就可以使用了。目前，我们已经设置了默认的仓库详情为 `null`，从元素属性取得仓库名，创建一个用来调用的 endpoint，这样我们不用在后面定义，最重要的是设置初始 HTML 显示加载提示。
 
-In order to get the details about that element’s repository, we’re going to need to make a request to GitHub’s API. We’ll use `fetch` and, [since that's Promise-based](https://css-tricks.com/using-data-in-react-with-the-fetch-api-and-axios/), we'll use `async` and `await` to make our code more readable. You can learn more about the `async`/`await` keywords [here](https://davidwalsh.name/async-await) and more about the browser's fetch API [here](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). You can also [tweet at me](https://twitter.com/charlespeters) to find out whether I prefer it to the [Axios](https://www.axios.com/) library. (Hint, it depends if I had tea or coffee with my breakfast.)
+为了获取关于元素仓库的详情，我们将需要向 GitHub 的 API 发送请求。我们使用 `fetch`，[由于它是基于 Promise 的](https://css-tricks.com/using-data-in-react-with-the-fetch-api-and-axios/)，我们使用 `async` 和 `await` 来使我们的代码可读性更佳。你可以[在这里](https://davidwalsh.name/async-await)了解更多关于 `async`/`await` 关键字和[在这里](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)了解更多浏览器的 fetch API。你还可以[在 tweet 跟我讨论](https://twitter.com/charlespeters)，了解我是否更喜欢 [Axios](https://www.axios.com/) 库。（提示，这取决于我早餐时喝了茶还是咖啡。）
 
-Now, let's add a method to this class to ask GitHub for details about the repository.
+现在，让我们给这个类添加方一个方法来向 GitHub 查询仓库详情。
 
 ```
 class Repository extends HTMLElement {
-    constructor() {
-    // ...
-    }
+  constructor() {
+  // ...
+  }
 
-    async getDetails() {
+  async getDetails() {
     return await fetch(this.endpoint, { mode: "cors" }).then(res => res.json());
-    }
+  }
 }
 ```
 
-Next, let's use the `connectedCallback` method and the Shadow DOM to use the return value from this method. Using this method will do something similar as when we called `Repository.componentDidMount()` in the React example. Instead, we'll override the `null` value we initially gave `this.repoDetails` — we'll use this later when we start to call the template to create the HTML.
+下面，让我们使用 `connectedCallback` 方法和 Shadow DOM 使用这个方法返回的值。使用这个方法和我们在 React 示例中调用 `Repository.componentDidMount()` 做的任务类似。我们将开始时赋给`this.repoDetails` 的 `null` 替换掉 —— 并将在后面调用模板创建 HTML 时使用它。
 
 ```
 class Repository extends HTMLElement {
@@ -198,16 +198,16 @@ class Repository extends HTMLElement {
 }
 ```
 
-You'll notice that we're calling methods related to the Shadow DOM. Besides being a rejected title for a Marvel movie, the Shadow DOM has its own [rich API](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) worth looking into. For our purposes, though, it's going to abstract the implementation of adding `innerHTML` to the element.
+你会注意到我们正在调用与 Shadow DOM 相关的方法。 除了作为漫威电影的被拒绝的标题之外，Shadow DOM 还有自己[丰富的 API](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) 值得研究。 但是，为了我们的目标，它将抽象出将 `innerHTML` 添加到元素的实现。
 
-Now we're assigning the `innerHTML` to be equal to the value of `this.template`. Let's define that now:
+现在我们将 `this.template` 赋值给 `innerHTML`。现在来定义 `template`：
 
 ```
 class Repository extends HTMLElement {
   get template() {
     const repo = this.repoDetails;
-  
-    // if we get an error message let's show that back to the user
+
+    // 如果获取错误信息，向用户显示友好的提示信息
     if (repo.message) {
       return `<div class="Card Card--error">Error: ${repo.message}</div>`
     } else {
@@ -227,18 +227,18 @@ class Repository extends HTMLElement {
 }
 ```
 
-That's pretty much it. We've defined a custom element that manages its own state, fetches its own data, and reflects that state back to the user while giving us an HTML element to use in our application.
+自定义元素差不多就是这样。我们定义可以管理自己状态的自定义元素、获取它自己的数据及向用户反应状态，同时为我们得到可在应用中使用的 HTML 元素。
 
-After going through this exercise, I found that the only required dependency for custom elements is the browser's native APIs rather than a framework to additionally parse and execute. This makes for a more portable and reusable solution with similar APIs to the frameworks you already love and use to make your living.
+在完成本次练习之后，我发现自定义元素唯一需要的依赖是浏览器的原生 API 而不是另外需要解析和执行的框架。这使得更具可移植性和可复用性的解决方案具有和（那些你已经喜欢并用之谋生的）框架类似的 API。
 
-There are drawbacks of using this approach, of course. We're talking about various browser support issues and some lack of consistency. Plus, working with DOM manipulation APIs can be very confusing. Sometimes they are assignments. Sometimes they are functions. Sometimes those functions take a callback and sometimes they don't. If you don't believe me, take a look at adding a class to an HTML element created via `document.createElement()`, which is one of the top five reasons to use React. The basic implementation isn’t that complicated but it is inconsistent with other similar `document` methods.
+当然，这种方法也有缺点，我们说的是不同浏览器的问题和缺乏一致性。此外，DOM 操作 API 可能会十分混乱。有时它们是赋值。有时它们是函数。有时这些方法需要回调函数而有时又不需要。如果你不相信，那就去看一下添加类到 HTML 元素使用的方法 `document.createElement()`，这是使用 React 的五大理由之一。基本实现其实并不复杂，但它与其他类似的 `document` 方法不一致。
 
-The real question is: does it even out in the wash? Maybe. React is still pretty good at the things it's designed to be very very good at: the virtual DOM, managing application state, encapsulation, and passing data down the tree. There's next to no incentive to use custom elements inside that framework. Custom elements, on the other hand, are simply available by virtue of building an application for the browser.
+现实的问题是：它是否会被淘汰？也许会。React 仍然在它该擅长的东西上表现良好：虚拟 DOM、管理应用状态、封装和在树中向下传递数据。现在还没有在该框架中使用自定义元素的动力。另一方面，为制作浏览器应用使用自定义元素非常简单实用。
 
-### Learn more
+### 了解更多
 
-*   [Custom Elements v1: Reusable Web Components](https://developers.google.com/web/fundamentals/web-components/customelements)
-*   [Make a Native Web Component with Custom Elements v1 and Shadow DOM v1](https://bendyworks.com/blog/native-web-components)
+*   [Custom Elements v1 : 可重用的 Web Components](https://developers.google.com/web/fundamentals/web-components/customelements)
+*   [使用 Custom Elements v1 和 Shadow Dom v1 制作原生 Web Components](https://bendyworks.com/blog/native-web-components)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
