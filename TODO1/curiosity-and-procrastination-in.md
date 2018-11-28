@@ -1,3 +1,9 @@
+> * 原文出自：[Google AI Blog](https://ai.googleblog.com/2018/10/curiosity-and-procrastination-in.html)
+ > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+ > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/curiosity-and-procrastination-in.md](https://github.com/xitu/gold-miner/blob/master/TODO1/curiosity-and-procrastination-in.md)
+ > * 译者：[haiyang-tju](https://github.com/haiyang-tju)
+ > * 校对者：[Mcskiller](https://github.com/Mcskiller)
+ 
 [强化学习](https://en.wikipedia.org/wiki/Reinforcement_learning)（RL）是机器学习中最活跃的研究技术之一，其中当一个人工代理（artificial agent）做了正确的事情时会得到积极的奖励，反之则会受到消极的奖励。这种[胡萝卜加大棒](https://en.wikipedia.org/wiki/Carrot_and_stick)的方法简单而通用，比如 DeepMind 教授的 [DQN](https://deepmind.com/research/dqn/) 算法可以让它去玩老式的雅达利（Atari）游戏，可以让 [AlphaGoZero](https://deepmind.com/blog/alphago-zero-learning-scratch/) 玩古老的围棋游戏。这也是 OpenAI 如何教会它 [OpenAI-Five](https://blog.openai.com/openai-five/) 算法去玩现代电子游戏 Dota，以及谷歌如何教会机器人手臂来[抓取新物体](https://ai.googleblog.com/2018/06/scalable-deep-reinforcement-learning.html)。然而，尽管 RL 取得了成功，但要使其成为一种有效的技术仍面临许多的挑战。
   
 标准的 RL 算法 [struggle](https://pathak22.github.io/noreward-rl/) 适用于对代理反馈稀疏的环境 —— 关键的是，这种环境在现实世界中很常见。举个例子，想象一下如何在一个迷宫般的大型超市里找到你最喜欢的奶酪。你搜索了一遍又一遍，但没有找到奶酪区域。如果你每走一步都没有得到“胡萝卜”和“大棒”，那么你就无法判断自己是否在朝着正确的方向前进。在没有回报的情况下，有什么能阻止你在圈子里徘徊呢？没有，也许除了你的好奇心激发了你进入一个不熟悉的产品区域去追求梦寐以求的奶酪。
