@@ -2,81 +2,81 @@
 > * 原文作者：[Sasha Solomon](https://medium.engineering/@sachee?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/graphql-server-design-medium.md](https://github.com/xitu/gold-miner/blob/master/TODO1/graphql-server-design-medium.md)
-> * 译者：
-> * 校对者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
+> * 校对者：[KarthusLorin](https://github.com/KarthusLorin)，[weibinzhu](https://github.com/weibinzhu)
 
-# GraphQL Server Design @ Medium
+# Medium 的 GraphQL 服务设计
 
 ![](https://cdn-images-1.medium.com/max/1600/1*LxzBwQmETizo-ZA_jiBLiQ.png)
 
-A while ago, [we told the story](https://medium.engineering/2-fast-2-furious-migrating-mediums-codebase-without-slowing-down-84b1e33d81f4) of how we are migrating to [React.js](https://reactjs.org/) and a service oriented architecture with the help of [GraphQL](https://graphql.org/). Now, we want to tell the story of how the structure of our GraphQL server helped make our migration much smoother.
+前一段时间，我们[已经介绍了](https://medium.engineering/2-fast-2-furious-migrating-mediums-codebase-without-slowing-down-84b1e33d81f4)如何使用 [GraphQL](https://graphql.org/) 将项目迁移为 [React.js](https://reactjs.org/) 和面向服务的结构。现在，我们想要介绍 GraphQL 服务结构是如何帮助我们更加平滑顺利地完成迁移的。
 
-We had three things in mind when we began designing our GraphQL server:
+在开始设计 GraphQL 服务之前，我们必须要牢记三件事情：
 
-**It should be easy to alter the shape of the data  
-**We currently use [protocol buffers](https://en.wikipedia.org/wiki/Protocol_Buffers) as a schema for data that comes from our backend. However, the way we use our data has changed over time, but our protobufs haven’t caught up. This means that our data isn’t always the shape that the clients need.
+**方便修改数据格式**
+目前我们使用[协议缓冲区 protocol buffers](https://en.wikipedia.org/wiki/Protocol_Buffers) 来作为来自后端的数据模型 schema。但是，我们使用数据的方式会变化，而协议缓冲却没有跟进。这就意味着我们的数据格式并不总是客户端需要的那样。
 
-**It should be clear what data is for the client  
-**Within our GraphQL server, data is being passed around and exists in different stages of “readiness” for the client. Instead of mixing the stages together, we wanted to make the stages of readiness explicit so we know exactly what data is meant for the client.
+**清楚地区分哪些数据是用于客户端的**
+在 GraphQL 服务中，被传递的数据都处于客户端的“准备就绪”的不同阶段。我们应当让每个准备就绪的状态更加清晰，而不是把它们混合起来，这样我们就能确切的知道那些数据是用于客户端的。
 
-**It should be easy to add new data sources  
-**Since we are moving to a service oriented architecture, we wanted to make sure it was easy to add new data sources to our GraphQL server, and make it explicit where data comes from.
+**方便添加新的数据源**
+既然我们要转型为面向服务的结构，我们就希望确保为 GraphQL 服务添加新的数据源是很容易的，同时明确数据来源。
 
-With these things in mind, we came up with a server structure that had three distinct roles:
+牢记这些，我们就可以构造出一个有三种不同角色的服务框架：
 
-Fetchers, Repositories (Repos), and the GraphQL Schema.
+获取器 Fetchers、存储库（Repos）和 GraphQL 模式。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*HcISBhsiC8gaLbfanw4L1A.png)
 
-a layer cake of responsibility
+责任分层块
 
-Each layer has it’s own responsibilities, and only interacts with the layer above it. Let’s talk about what each layer does specifically.
+每一层都有自己的职责，并且只与它的上层交互。让我们来谈谈每一层都具体做了什么。
 
-### Fetchers
+### 获取器 Fetchers
 
 ![](https://cdn-images-1.medium.com/max/1600/1*BmEv_S_KuHP2NJJbcU1qzw.png)
 
-fetch the data from any number of sources
+从任意数量的源获取数据
 
-Fetchers are for fetching data from data sources. The data that is fetched by the GraphQL server should already have gone through any business logic additions or changes.
+获取器的目的是为了从数据源获取数据。GraphQL 服务获取的数据应该已经完成了业务逻辑的添加或更改。
 
-Fetchers should correspond to a REST or preferably a gRPC endpoint. Fetchers require a protobuf. This means that any data that is being fetched by a Fetcher must follow the schema defined by the protobuf.
+获取器应该与 REST 或 gRPC 端口相对应。获取器需要一个协议缓冲区 protobuf。这意味着由获取器获取的任何数据都必须遵循协议缓冲区定义的模式。
 
-### Repositories
+### 存储库
 
 ![](https://cdn-images-1.medium.com/max/1600/1*KDWPV1Q40zj6QFlAKgwpmw.png)
 
-shape the data for what the client needs
+根据客户端需要设计数据
 
-Repos are what the GraphQL schemas will use as a data representation. The repo “stores” the cleaned-up data that originally came from our data sources.
+GraphQL 模型用存储库来做数据仓库。存储库“存储”了来自数据源的已处理过的数据。
 
-In this step, we hoist up and flatten fields and objects, move data around, etc. to change the data shape to be what the client actually needs.
+在这一步，我们可以打包或展开字段和对象、移动数据，等等，将数据转化为客户端需要的格式。
 
-This step is necessary for moving from a legacy system because it gives us the freedom to update the data shape for the client without having to update or add endpoints or their corresponding protobufs.
+从遗留的系统转型，这一步是必须的，因为它给了我们为客户端更新数据格式的自由，同时不用更新或者添加接口和相应的协议缓冲区。
 
-Repos only access data retrieved from Fetchers and never actually fetch the data themselves. To put it another way, Repos only create the _shape_ of the data we want, but they don’t “know” where we get the data from.
+存储库仅从获取器获取数据，实际上从不自己请求外界数据。换句话说，存储库只创建我们需要的数据**格式**，但是它们并不“知道”数据是从哪里获取的。
 
-### GraphQL Schema
+### GraphQL 模型
 
 ![](https://cdn-images-1.medium.com/max/1600/1*B0nY7N8wYNlWOCEJba7CwQ.png)
 
-derive the schema for the client from our repo objects
+从存储库对象派生出客户端模型
 
-The GraphQL Schema is the form our data will take when it gets sent to the clients.
+GraphQL 模型是是数据发送到客户端的时候选取的格式。
 
-The GraphQL schema only uses data from Repos and will never access Fetchers directly. This keeps our separation of concerns clear.
+GraphQL 模型仅使用存储库的数据，从不会直接和获取器交互。这使得我们能够清楚地将关注点分离开。
 
-In addition, our GraphQL schema is completely derived from our Repo objects. The schema doesn’t alter the data at all, nor does it need to: the Repo has already changed the shape of the data to be what we need, so the schema just needs to use it and that’s it. In this way, there isn’t confusion about what the data shape is or where we can manipulate the shape.
+另外，GraphQL 模型是完全从存储库模型派生出来的。模型完全不会改变数据，它也并不需要：存储库已经将数据转化为我们需要的格式，所以模型只需要使用数据即可。这样，关于数据格式是什么样的或者是我们可以在哪里操作数据格式，就没有可混淆的了。
 
-### GraphQL Server Data Flow
+### GraphQL 服务数据流
 
 ![](https://cdn-images-1.medium.com/max/1600/1*VCs9aXb1RdBFYMhoFJsjjw.png)
 
-how data flows through our GraphQL server
+数据是如何在 GraphQL 服务中流动的
 
-The data’s shape becomes more like what the client needs as it passes through each of the distinct layers. It’s clear where the data comes from at each step and we know what each piece of the server is responsible for.
+当数据通过不同的层时，它的格式都会变得更像客户端所需要的。每一步的数据来自哪里是很清楚的，我们也知道服务的每一部分都负责什么。
 
-These abstraction boundaries mean that we can incrementally migrate our legacy system by replacing different data sources, but without rewriting our entire system. This has made our migration path clear and easy to follow and makes it easy to work towards our service oriented architecture without changing everything at once.
+这些抽象边界意味着，我们可以通过替换不同的数据源增量地迁移遗留系统，但无需重写整个系统。这使我们的迁移方法清晰且易于遵循，同时在不立即更改所有内容的情况下，可以轻松地朝着面向服务的体系结构完成工作。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
