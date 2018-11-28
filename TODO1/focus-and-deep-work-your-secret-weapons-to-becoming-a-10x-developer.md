@@ -1,216 +1,215 @@
-> * 原文地址：[Focus and Deep Work — Your Secret Weapons to Becoming a 10X Developer](https://medium.freecodecamp.org/focus-and-deep-work-your-secret-weapons-to-becoming-a-10x-developer-8e203a6ad291)
-> * 原文作者：[Bar Franek](https://medium.freecodecamp.org/@barmang?source=post_header_lockup)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/focus-and-deep-work-your-secret-weapons-to-becoming-a-10x-developer.md](https://github.com/xitu/gold-miner/blob/master/TODO1/focus-and-deep-work-your-secret-weapons-to-becoming-a-10x-developer.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[Focus and Deep Work — Your Secret Weapons to Becoming a 10X Developer](https://medium.freecodecamp.org/focus-and-deep-work-your-secret-weapons-to-becoming-a-10x-developer-8e203a6ad291)
+> - 原文作者：[Bar Franek](https://medium.freecodecamp.org/@barmang?source=post_header_lockup)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/focus-and-deep-work-your-secret-weapons-to-becoming-a-10x-developer.md](https://github.com/xitu/gold-miner/blob/master/TODO1/focus-and-deep-work-your-secret-weapons-to-becoming-a-10x-developer.md)
+> - 译者：[临书](https://github.com/tmpbook)
+> - 校对者：[Moonliujk](https://github.com/Moonliujk)，[weibinzhu](https://github.com/weibinzhu)
 
-# Focus and Deep Work — Your Secret Weapons to Becoming a 10X Developer
+# 深度专注的工作 —— 成为 10 倍效率的开发者的秘密武器
 
 ![](https://cdn-images-1.medium.com/max/2000/0*N7TFrhs4o3rXgLPL)
 
-“Woman getting s done” by [rawpixel](https://unsplash.com/@rawpixel?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
+『工作中的女人』—— 由 [rawpixel](https://unsplash.com/@rawpixel?utm_source=medium&utm_medium=referral) 发布在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
 
-**Or how to become one of those highly-paid “10x Rockstar Ninja” developers companies love to hire.**
+**或者如何成为高收入，公司喜欢雇佣的『10 倍效率的摇滚巨星忍者』级别的开发者。**
 
-It doesn’t matter if you’re working on a side hustle or if you’re a junior developer wanting to get noticed and promoted. It doesn’t matter if you’re a lead developer looking for a change of pace, from a corporate gig to a start-up or the other way around. It doesn’t matter if you’re jobless out of college.
+如果你正努力工作，或者你是一个需要关注和提升的初级开发者，或者你是一位寻求节奏升华的首席开发人员，再或者你甚至才刚刚大学毕业，无论你的公司属于初创还是成熟，这些都不重要。
 
-As long as you’re a programmer, no skill is more important to your success than focused, deep work.
+只要你是一名程序员，就没有什么技能比专注和深度工作对你的成功更重要了。
 
-From Cal Newport’s book [Deep Work](https://amzn.to/2NXMePw):
+出自 Cal Newport 的书《[Deep Work](https://amzn.to/2NXMePw)》：
 
-> **“The Deep Work Hypothesis:** The ability to perform deep work is becoming increasingly rare and at the exact same time it is becoming increasingly valuable in our economy. … the few who cultivate this skill, and then make it the core of their working life, will thrive.”
+> 『**关于深度工作的假设：**进行深度工作的能力将变得越来越罕见，同时，在经济方面它将变得越来越有价值。培养这种能力并将其作为工作生活的核心的少数人，将会在未来发展的很好。』
 
-> — [Deep Work](https://amzn.to/2NXMePw) p.14
+> - [Deep Work](https://amzn.to/2NXMePw) p.14
 
-I’m going to use some points from Deep Work to tie together my thoughts on becoming a successful, in-demand developer. I highly recommend reading it if you’re in the technology field in any capacity.
+我将使用《Deep Work》中的一些观点再结合我如何成为成功的经得起需求考验的开发者的想法来阐述本文。如果你正好处于技术领域，无论什么等级，我强烈建议你阅读下去。
 
-### From Fear of Code to Lead Developer.
+### 从惧怕编码到领导开发者
 
-I’m a self-taught programmer. But I didn’t start programming until my late 20s. I’ve always considered myself an artistic person and figured I’d end up in a creative field.
+我是一名自学成才的程序员。但是我快 30 岁才开始编程的。我一直认为自己是一个艺术家，并认为自己最终会进入创作领域。
 
-And I did. After college I started a company that did graphics and web design for small, local businesses. I was a pro at Photoshop and knew enough HTML and CSS to be dangerous.
+我做到了。大学毕业后，我创办了一家为小型本地企业提供图形和网页设计的公司。我是 PhotoShop 专家，并且熟知 HTML 和 CSS。
 
-But anything more complicated, requiring even a line of PHP, I had to outsource.
+不过令人讽刺的是，甚至是一行的 PHP 代码，我也不得不外包出去。
 
-I was petrified of code for a very long time and left it to the folks with Computer Science degrees.
+很长一段时间我都被代码吓呆了，并把它留给了拥有计算机学位的人。
 
-“One wrong keystroke and the client’s business could go up in flames…” I thought. I wasn’t too far off honestly (in the days before version control, there was no turning back with FTP).
+『一个错误的点击，和用户的业务关系可能不保』—— 我之前想过。老实说这想法并不是很离谱（因为在使用版本控制之前，FTP 的提交方式无法回滚）。
 
-Now I’m a lead developer for a Fortune 50 company working on a product that entertains millions of people every month.
+现在，我是一家财富 50 强公司的首席研发，致力于为数百万人开发提供娱乐的产品。
 
-How’d I get here in a few short years? 🤔
+我是怎么在短短几年内爬到这个位置的呢？🤔
 
-My “secret” is getting good at focus and deep work. There’s nothing special about me. I took the time to train myself how to focus on one specific thing, without distraction, for an extended period of time.
+我的『秘密』是善于专注和深度工作。我并没有什么特别的。我花了很多时间训练自己如何专注于一个特定的事情，而长时间不分心。
 
-### Code is Art.
+### 编码是一种艺术
 
-Programming is very much a creative pursuit.
+编程是一种创造性的追求。
 
-It may seem technical and dry to a regular person, but you _are_ a creator. You’re creating something out of nothing. That “nothing” can be an idea in your head for an app or a feature request from a product manager.
+对普通人来说，它看似很有技术性并很枯燥，但你**是**一个创造者。你是在从无到有创造东西。那个『无』可以是您脑袋中的一个关于某 App 的想法或者是一个来自产品经理的功能需求。
 
-That thing doesn’t exist yet, but you’re going to bring it to life. Not with paint or words, but with code (OK, _some_ words, as long as they’re not reserved words).
+那个东西还不存在，但是你将把它变为现实。不是用油漆或文字，而是代码（好吧，代码也是**一些**单词，只是它们不是保留字）。
 
-If you have any desire to produce at a high level, then you have to practice.
+如果你有任何想要提高生产力的渴望，那么你必须多练习。
 
-The quantity and quality of your output increases when you get better at being able to stay focused for longer, intentional periods.
+当你能够更好地有意识的保持更长时间的专注时，你的输出的质和量都会增加。
 
-Art, music, and writing all require long periods of uninterrupted time where the [myelin](https://en.wikipedia.org/wiki/Myelin) thickens on those synapses between your brain cells. Programming is no different.
+艺术，音乐还有写作都需要长时间不间断的注意力，这会使脑细胞之间的突触上的[髓鞘](https://en.wikipedia.org/wiki/Myelin)变厚。编程也不例外。
 
-You get better with practice and time. And you can get a lot better, in less time, when you make your practice more effective.
+随着练习和时间流逝，你会变得更好，并且如果你能让你的练习更加高效，你会在更短的时间内变得更好。
 
-### Yes, You Can Be a 10x Developer (But 5x, 2x and 1x Are Great Too)
+### 是的，你可以成为一个 10 倍效率的的开发者（不过 5 倍，2 倍还有 1 倍也很强）
 
-Let me preface this by saying that I hate buzzwords like “rockstar” “ninja” and “10x developer.” Every developer does, but companies and recruiters love to use them.
+先让我说明一下，我讨厌像『摇滚明星』，『忍者』还有『10 倍效率的开发者』这样的流行语。每个开发者都不喜欢，但公司和招聘人员喜欢使用它们。
 
-Despite the cheesiness, there is a lot of truth behind the “10x Developer” idea.
+尽管有些俗气，但是『10 倍效率的开发者』理念背后确实有很多真理。
 
-It doesn’t mean that one person can replace ten. It means that some developers get more done, with better quality, and in less time. They do it consistently over the long run without working any harder than anyone else.
+它并不代表一个人可以代替 10 个。它意味着一些开发者可以在更少的时间内更有质量的完成更多的工作。在不需要比其他人更加努力工作的同时，能长时间始终如一的做到这一点。
 
-This ability is **not** a natural gift. You aren’t born with it and it’s not something you can “turn on.” It’s a skill that **you can, and must, practice and train**.
+能力**不是**上天赐予的礼物，你并不是天生就具有它，它也不是你可以『开启』的东西。它是一种技能，**你可以，而且必须练习和训练它**。
 
-I’ve been on the hiring side dozens of times and I will tell you any company would love to have an entire team of 10x developers. But that’s not reality.
+我已经在招聘方做了几十次了，我会告诉你，任何公司都希望有一个 10 倍效率的开发者组成的完整团队，但那是不现实的。
 
-There are more open developer jobs than there are qualified developers to fill them. Businesses are having trouble filling positions with _any_ qualified developers, let alone (some multiplier)x developers.
+空缺的开放职位比合格的开发人员更多。企业找一个合格的开发人员来填补空缺已经很难了，更不用说是多倍效率的开发人员了。
 
-> “Senior executives believe that the lack of quality developer talent is one of the biggest potential threats to their growth.” - [The Developer Coefficient](https://stripe.com/reports/developer-coefficient-2018)
+> 『高级管理人员相信，缺乏高质量的开发人才是他们成长的最大潜在威胁之一』—— [开发人员系数](https://stripe.com/reports/developer-coefficient-2018)
 
-It’s **hard** to find good talent.
+找到优秀的人才真的很**难**。
 
-Most companies will knock down the door for a 10x developer but they’re happy hiring 5x, 2x, and even 1x developers.
+大多数公司会为了 10 倍效率的开发人员抢破头，但是 5 倍，2 倍，甚至 1 倍的开发人员他们也非常乐意雇佣。
 
-A 1x developer (yes, I made this up) is a developer who can do the job they’re hired to do. Nothing more, nothing less. Seriously. Any company will be delighted with that. Plenty has been written about the [astronomical cost of a bad hire](https://www.google.com/search?q=how+much+does+a+bad+hire+cost).
+1 倍效率开发者（是的，我发明的）是那种可以刚刚满足招聘需求的人，没有更多，也没有更少。讲真，任何公司已经很高兴了。关于[糟糕的雇佣产生天文数字的花费](https://www.google.com/search?q=how+much+does+a+bad+hire+cost)的文章已经有非常多了。
 
-### The 2 Steps You Need to Multiply Your Programming Skills with Focus and Deep Work
+### 让专注与深度工作去倍增你的编程技能分两步
 
-It’s time to step up your career. There’s so much opportunity for you to get hired and thrive in a career you love.
+是时候提高你的职业生涯等级了。在你所爱的事业中，你有很多机会被雇佣并且茁壮成长。
 
-If you’re the entrepreneurial type, the same lessons apply. More so because your livelihood depends on being effective with your time.
+如果你是创业型的人，它同样适用。因为更重要的是你生活中的时间是否被高效利用。
 
-This is how you go from junior to senior developer. This is how you go from 0.5x developer to 5x developer. This is how you get your side project off the ground when you only have a 10 hours a week to work on it.
+这是你从初级开发人员到高级开发人员的方式。这是你从 0.5 倍效率的开发人员到 5 倍开发人员的方式。当你每周只有 10 个小时的工作时间时如何保证项目的顺利实施呢？
 
-Hell, this is how you _survive._
+见鬼，这就是你的**生存方式**。
 
-> “To remain valuable in our economy, therefore, you must master the art of quickly learning complicated things. This task requires deep work. If you don’t cultivate this ability, you’re likely to fall behind as technology advances.”
+> 『因此，要保持自己的身价，你必须快速掌握快速学习复杂事物这门艺术。这项任务需要深度工作。如果你没有培养这种能力，那么随着技术界的进步，你可能会落后。』
 
-> — [Deep Work](https://amzn.to/2NXMePw) p.13
+> - [深度工作](https://amzn.to/2NXMePw) p.13
 
-#### Learning to Focus is HARD.
+#### 学会专注很难。
 
-The first thing to realize is that learning to focus isn’t easy. You’re not going to be able to start producing novels of quality code from the start. Especially if you’ve never dealt with the reality of how easily distracted you are.
+首先你要意识到的是学习专注不是那么简单的。你无法从一开始就能产出高质量的代码。特别是你从未清楚的知道人很容易分心的事实。
 
-Learning to focus requires practice. Anything that requires practice means its difficult. If it wasn’t, you’d be good at it by default.
+专注需要练习。任何需要练习的都很难。如果不需要练习，那你可能本来就很擅长了。
 
-You’re going to struggle and that’s OK. We’ll start small.
+你会挣扎，那没关系，我们从小做起。
 
-#### **Don’t Confuse Busyness with Productivity.**
+#### **不要将忙碌与生产力混为一谈。**
 
-Deep work is not locking yourself in a dark room and forcing yourself to aimlessly navigate code for 14 hours at a time. Just because you’re doing _something_ doesn’t mean it’s worth doing.
+深度工作不是把自己锁在一个黑暗的房间里然后迫使你漫无目的的在代码逻辑中遨游 14 个小时。仅仅是因为你在做某些事，并不意味着它就值得你去做。
 
-You need to figure out what’s important and what’s not. That’s beyond the scope of this post. If you’re going to spend the time learning how to focus, then do it on something that has a high return for the effort involved.
+你需要琢磨一下什么是重要的什么不是。有些偏题了。如果你打算花时间去学习如何专注，那就去做一些付出有高回报的事情。
 
-It’s like the sun and a magnifying glass.
+它就像太阳和放大镜。
 
-Distracted work is your energy going in every direction like the sun. You can stand outside in the sun and you’re not going to get hurt.
+分心的工作就像太阳一样，能量朝向不同方向发散。你可以站在太阳下，也不会晒伤。
 
-Learn to concentrate that scattered energy with a magnifying glass and your ability to destroy goes from 0 to 10. We want to preserve that limited power for important things (the sun goes down eventually).
+学会用放大镜集中散射的能量，你的破坏力可以从 0 到 10。我们希望使用有限的力量来尽可能做重要的事情（太阳终会落山）。
 
-### Step 1 — Removing Distraction
+### 第一步 — 避免分心
 
-Multitasking is a lie. You’re fooling yourself if you think you can write quality code while checking Slack messages or reading news in another window.
+多任务并行是个谎言。如果你认为在查看 Slack 消息或在另一个窗口阅读新闻时也可以编写出高质量的代码，那你就是在欺骗自己。
 
-We live in a world of distraction. The technology we work on is a double-edged sword. There’s nothing like that sweet, sweet dopamine hit from a new notification.
+我们生活在一个分心的世界。我们所研究的技术是一把双刃剑。新通知中没有任何令人愉悦的多巴胺。
 
-“Cool, someone liked that I saw Hamilton.” But that’s poison to your ability to focus.
+『Cool，我发的看到 Hamilton 那条状态被点了赞。』—— 这对你的专注能力有害。
 
-**Removing distraction is the foundation of focused, deep work.**
+**消除分心是专注深入的工作的基础。**
 
-*   **Put your phone on silent** or turn it off if you’re not in a position that has to be on-call. I use the [Forest app](https://www.forestapp.cc/en/) to prevent me from going on my phone. Face down, somewhere out of arm’s reach is good too.
-*   **Close Slack.** This is a huge one for me because I have this OCD where I need to clear my queue of unread messages. Most of these messages are noise so its better for me to close Slack when working.
-*   **Close any other apps** that are going to distract you with notifications, like Outlook.
-*   This is the hardest one of all — **close any browser windows** not relevant to your task. Now **block all your favorite websites**. I love the [HeyFocus app](https://heyfocus.com) ($20) but there are a bunch of free extensions out there.
-*   **Headphones on** — This keeps people from bothering you _(hopefully),_ but also listening to the same album over and over is a great focusing tool. It might be a priming thing (signaling to your brain that its time to work) or a flow thing (the music puts you in a good mood). Either way, a lot of developers swear by this technique.
+- 如果你不在 oncall 的位置，请**将手机调至静音**或者关掉它。我使用 [Forest app](https://www.forestapp.cc/en/) 来阻止我使用手机。将手机正面朝下放到手够不到的地方也可以。
+- **关闭 Slack.** 这个对我非常有效，因为我有强迫症，我老是想清空自己的未读消息。其实大多消息其实都是噪音，所以关闭它是很好的。
+- **关闭其他应用** 就是那些总是弹出通知打扰你的，比如 Outlook。
+- 这条最难 —— 关闭任何与你任务无关的浏览器窗口。就现在，**关闭所有喜爱的网站**。我很喜欢 [HeyFocus app](https://heyfocus.com)(\$20) 不过也有很多免费的扩展程序。
+- **带上耳机** —— 可以让你不被打扰（**希望如此**），而且重复的听同一张专辑是一个很好的聚焦方式。它可以作为一个启动的仪式（向你的大脑发出信号，是工作时间了）或者顺其自然（音乐可以让你有个好心情）。无论哪种方式，都有很多开发人员都坚信有用。
 
-### Step 2 — Pomodoro Technique (The Secret Weapon)
+### 第二步 —— 番茄工作法（秘密武器）
 
 ![](https://cdn-images-1.medium.com/max/800/0*Bv9KMDpzDURETOwh)
 
-“A Hefty Bowl of Productivity” by [Roychan Kruawan](https://unsplash.com/@mmoddk?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
+[Roychan Kruawan](https://unsplash.com/@mmoddk?utm_source=medium&utm_medium=referral) 发表在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral) 的作品：『一堆生产力』
 
-Before you have a panic attack thinking that you can’t go 8 hours without any distractions, don’t worry. We’ll be using the Pomodoro Technique to break up our day.
+当你惊恐的发现你不可能连续 8 个小时没有任何干扰时，不用担心。我们将使用番茄工作法来打散这一天。
 
-There are a lot of productivity techniques out there, but my favorite has been the Pomodoro. I’m going to paraphrase it below to get you started.
+有很多提高生产力的技巧，但是我最喜欢的是番茄工作法，我将介绍一下它作为你的一个起点。
 
-If you want the official rundown, check out [The Pomodoro Technique](https://amzn.to/2DhkHob) book, which gets more detailed and rule-oriented.
+你过你想要官方的资料，请查看 [The Pomodoro Technique](https://amzn.to/2DhkHob) 这本书，你可以获取更详细的更有条理的内容。
 
-#### Work for a 25 Minute Block (a Pomodoro)
+#### 工作 25 分钟（一个番茄钟）
 
-You’ll work for 25 minutes, undistracted, on one thing. That chunk of work is a one “Pomodoro.”
+我们将工作 25 分钟，不受打扰的只做一件事。这一段的工作就是一个『番茄钟』。
 
-Use a Timer. I’ve used an [old school hourglass](https://amzn.to/2Dj7vPo) before. If you want to be a true Pomodoro aficionado, then use a [tomato timer](https://amzn.to/2pr6X09).
+使用计时器。我以前用过一个[老式沙漏](https://amzn.to/2Dj7vPo)。如果你想成为一个真正的番茄钟爱好者，那么使用专业的番茄计时器。
 
-#### Then Take a 5 Minute Break
+#### 然后休息 5 分钟
 
-It is imperative that you walk away when its break time. Grab some water. Browse Hacker News. Go to the bathroom. Whatever it is, work is over. Disconnect from work completely.
+你必须在休息时间离开，拿一些水，浏览一下黑客新闻，去去洗手间等。无论做什么，工作都结束了，完全不工作。
 
-#### One Task Only in a Pomodoro
+#### 一个番茄钟只做一件事
 
-This can be fixing a bug, planning out a new feature, or starting a video series to learn a new framework.
+可以修复一个 bug，计划一个新的特性，或者开始看一个学习新框架的系列视频。
 
-If the task is too big (like “make an app”) then you have to break it down into smaller chunks that take roughly 25 minutes.
+如果任务太大（比如『制作一个应用程序』），那么你必须把任务分解成大约需要 25 分钟的小块。
 
-Some tasks need several Pomodoros to complete. It might take three Pomodoros to code a feature and two more to write the tests.
+一些任务需要很多番茄钟去完成。可能需要三个番茄钟来写一个特性，两个番茄钟来写一个测试。
 
-Or you might need to batch similar, small tasks into a Pomodoro (ex — reply on 5 JIRA tickets).
+或者你可能需要将很多类似的小任务批量分配到一个番茄钟中（比如完成前五条 JIRA 中的回复）。
 
-The point is that the task, or tasks, have to be one “type” of work.
+关键的任务必须是同一类型的。
 
-As an aside, the main reason we procrastinate is because we get overwhelmed by huge, insurmountable tasks. If your goal is to “Write a Book” you’ll never do it. When you break it out into smaller chunks like “Write an outline” or “Write 300 words” then the path becomes clearer. Starting is easier, and doable.
+顺便说一句，我们拖延的主要原因是我们被巨大的，无法克服的任务所淹没。如果你的目标是『写一本书』，你将永远不知道怎么开始。当你把它分解成较小的块，比如『写一个大纲』或『写 300 个单词』时，任务路径会变得更清晰更可行。会更容易开始。
 
-While this post has been about becoming a better developer, not procrastination, the truth is that many times they are the same thing.
+虽然这篇文章一直是关于如何成一个更好的开发者，而不是拖延的，但事实上，很多时候它们是同一件事。
 
-#### Work Without Distraction
+#### 没有分心的工作
 
-See Step 1. If you get distracted, the Pomodoro doesn’t count and you have to start over.
+看第一步。如果你分心了，这次番茄钟作废，你必须重新开始计时。
 
-#### Work Your Way Up to 25 Minutes
+#### 工作时间提高到 25 分钟
 
-25 minutes might be hard for you if you’ve never done this before. Start with 10 minutes and work your way up from there. Next one would be 15, then 20, then 25.
+如果之前从来没这么做过，那 25 分钟可能很难。从 10 分钟开始然后慢慢提高。下次是 15 分钟，然后 20 分钟，最后 25 分钟。
 
-You can work your way up to 55-minute blocks when you really get good at this.
+你可以把时间提高的 55 分钟，如果你已经很熟悉这一套了。
 
-#### Work Your Way Up to Multiple Pomodoros Per Day
+#### 慢慢提高每天能完成的番茄种的个数
 
-The first time you try distraction-free work, 25 minutes in a day might be all you can handle. That’s fine. Keep working your way up by adding a little each day.
+第一次尝试无干扰工作时，一天一共 25 分钟可能就是你的极限了。没关系。每天增加一点，继续努力。
 
-### How Does This Make Me a Better Developer?
+### 这如何让我成为一个更优秀的开发者呢？
 
-Let’s be real. You’re not helping your career by jumping from your code editor to a chatroom to an email to a real-life conversation.
+让我们现实点。通过从代码编辑器跳转到聊天室，再到电子邮件，再到现实生活中的对话，这对你的职业生涯没有帮助。
 
-You _might look and feel_ busy, and you might even ship some code once in a while.
+你可能看起来很忙，甚至可能偶尔会提交一些代码。
 
-But the fact is that a few hours of undistracted, deep work produces more quantity and quality than a full day of scattered, distracted work.
+但事实是，和一整天的分散注意力的工作相比，几个小时的不受干扰的深度工作反而会有高质量的产出。
 
-Start with one Pomodoro. Eventually you’ll be able to chain a few Pomodoros together.
+从一个番茄钟开始。一直到你可以将几个番茄钟连在一起。
 
-Then you’ll chain a few days of Pomodoros together.
+然后你可以将几天的番茄钟串联在一起。
 
-Then weeks and months.
+然后到周到月。
 
-You’ll find its easier to get into a flow state, and it will happen more often.
+你会发现你可以更容易的，更频繁的进入状态。
 
-This is **gold**. This is when you have those “eureka” moments and breakthroughs.
+这很**珍贵**。这是你进入『醍醐灌顶』的时刻，是突破的时刻。
 
-This is when the hard thing that’s been kicking your ass becomes easy.
+就是之前缠着你的困难变得容易的时刻。
 
-**This is when your coding skills level up exponentially.**
+**这是你的编程技能呈指数级增长的时候。**
 
-The demand for good, qualified programmers is higher than ever. The surest path to success is getting into the ritual of deep, focused work.
+对优秀，合格程序员的需求比以往的任何时间都高。成功的最可靠途径是进入深入，专注的工作状态。
 
-Try it out and let me know what you think. If you have other productivity techniques, post them below!
+尝试一下，让我知道你的想法。如果你有其他提高生产力的技术，请将其发布在下方！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
