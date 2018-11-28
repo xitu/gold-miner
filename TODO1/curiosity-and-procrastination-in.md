@@ -1,8 +1,8 @@
 > * 原文出自：[Google AI Blog](https://ai.googleblog.com/2018/10/curiosity-and-procrastination-in.html)
- > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
- > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/curiosity-and-procrastination-in.md](https://github.com/xitu/gold-miner/blob/master/TODO1/curiosity-and-procrastination-in.md)
- > * 译者：[haiyang-tju](https://github.com/haiyang-tju)
- > * 校对者：[Mcskiller](https://github.com/Mcskiller)，[Wangalan30](https://github.com/Wangalan30)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/curiosity-and-procrastination-in.md](https://github.com/xitu/gold-miner/blob/master/TODO1/curiosity-and-procrastination-in.md)
+> * 译者：[haiyang-tju](https://github.com/haiyang-tju)
+> * 校对者：[Mcskiller](https://github.com/Mcskiller)，[Wangalan30](https://github.com/Wangalan30)
  
 [强化学习](https://en.wikipedia.org/wiki/Reinforcement_learning)（RL）是机器学习中最活跃的研究技术之一，在这项技术中，当一个人工代理（artificial agent）做了正确的事情时会得到积极的奖励，反之则会受到消极的奖励。这种[胡萝卜加大棒](https://en.wikipedia.org/wiki/Carrot_and_stick)的方法简单而通用，比如 DeepMind 教授的 [DQN](https://deepmind.com/research/dqn/) 算法可以让它去玩老式的雅达利（Atari）游戏，可以让 [AlphaGoZero](https://deepmind.com/blog/alphago-zero-learning-scratch/) 玩古老的围棋游戏。这也是 OpenAI 如何教会它 [OpenAI-Five](https://blog.openai.com/openai-five/) 算法去玩现代电子游戏 Dota，以及 Google 如何教会机器人手臂来[抓取新物体](https://ai.googleblog.com/2018/06/scalable-deep-reinforcement-learning.html)。然而，尽管 RL 取得了成功，但要使其成为一种有效的技术仍面临许多的挑战。
   
