@@ -521,7 +521,7 @@ It’s interesting that React calls the `**componentWillUnmount**`  method as pa
 
 We’re finally done. Let me know what you think about the article or ask questions in the comments. I have many more articles in the works providing in-depth explanation for scheduler, children reconciliation process and how effects list is built. I also have plans to create a video where I’ll show how to debug the application using this article as a basis.
 
-**For more insights follow me on [Twitter](https://twitter.com/maxim_koretskyi) and on [Medium](https://medium.com/@maxim.koretskyi).** Thanks for reading! If you liked this article, hit that clap button below 👏. It means a lot to me and it helps other people see the story.
+**For more insights follow me on [Twitter](https://twitter.com/maxim_koretskyi) and on [Medium](https://medium.com/@maxim.koretskyi).** Thanks for reading! If you liked this article, hit that clap button below 👍. It means a lot to me and it helps other people see the story.
 
 Thanks to [Dan Abramov](https://medium.com/@dan_abramov?source=post_page).
 
