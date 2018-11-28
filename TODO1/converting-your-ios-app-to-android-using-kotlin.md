@@ -5,48 +5,48 @@
 > * 译者：[iWeslie](https://github.com/iWeslie)
 > * 校对者：
 
-# 使用 Kotlin 将你的 iOS 应用程序转换为 Android
+# 使用 Kotlin 将你的应用程序从 iOS 转换成 Android
 
-## 在本教程中，你将目睹这些语言的相似之处以及通过 iOS 应用程序移植到 Android 时让 Swift 转换为 Kotlin 是多么容易。
+## 通过本教程，你将亲眼看到语言的相似之处，以及通过 iOS 应用程序移植到 Android 上了解将 Swift 转换为 Kotlin 是多么容易。
 
 移动设备是你的日常伴侣，无论你走到哪里，都可以将它们放入背包和口袋。技术将不断适应你的移动设备，使移动开发作为一个人的业余爱好或是专业都将越来越普遍。
 
-通常开发人员会选择一个开发平台，最常见的是 Android 或 iOS。 这种选择一般由一个人的所能得到的资源（例如，她或他的个人设备）或环境引导。许多开发人员倾向于坚持专门为他们选择的平台构建应用程序。Android 和 iOS 工程师历来都使用完全不同的语言和 IDE ，尽管两个移动平台之间存在太多相似之处，但在杂糅两个平台的开发是令人生畏并且很罕见的。
+通常开发人员会选择一个开发平台，最常见的是 Android 或 iOS。这种选择一般基于个人所能得到的资源（例如，她或他的个人设备）或当前市场环境。许多开发人员倾向于只为他们选择的平台构建应用程序。Android 和 iOS 工程师历来都使用完全不同的语言和 IDE ，尽管两个移动平台之间存在太多相似之处，但在两个平台之间的跨平台开发是令人生畏并且十分罕见的。
 
-但是 Android 和 iOS 开发的语言和工具在过去几年中得到了极大的改善，主要是 **Kotlin** 和 **Swift** 的诞生，这两种表达语言缓解了跨平台学习之间的障碍。掌握了语言基础知识后，代码可以很容易地从 Swift 转换为 Kotlin。
+但是 Android 和 iOS 开发的语言和工具在过去几年中得到了极大的改善，主要是 **Kotlin** 和 **Swift** 的诞生，这两种语言缓解了跨平台学习之间的障碍。掌握了语言基础知识后，你可以很容易地把代码可以从 Swift 转换为 Kotlin。
 
 ![](https://koenig-media.raywenderlich.com/uploads/2018/10/ktswift-480x310.png)
 
-在本教程中，你将亲眼看到这些语言的相似之处，以及将 Swift 转换为 Kotlin 是多么容易。 首先使用 Xcode ，你将探索用 Swift 编写的 iOS 应用程序，然后你将使用 Kotlin 在 Android Studio 中重新编写相同的应用程序。
+在本教程中，你将亲眼看到这些语言的相似之处，以及将 Swift 转换为 Kotlin 是多么容易。首先打开 Xcode，你将探索使用 Swift 来编写一个 iOS 应用程序，然后你将在 Android Studio 中使用 Kotlin 重新编写这个相同的应用程序。
 
-> **注意**：熟悉 Swift 和 iOS 的基础知识或 Kotlin 和 Android 的基础知识有助于完成本教程。你可以在[这些教程](https://www.raywenderlich.com/5993-your-first-ios-app)里了解适用于 iOS 的 Swift 或 [这些教程](https://www.raywenderlich.com/291-beginning-android-development-with-kotlin-part-one-installing-android-studio)了解 Android 上的 Kotlin。
+> **注意**：熟悉 Swift 和 iOS 的基础知识或 Kotlin 和 Android 的基础知识有助于更好的完成本教程。你可以通过 [这些教程](https://www.raywenderlich.com/5993-your-first-ios-app) 了解适用于 iOS 的 Swift 或 [这些教程](https://www.raywenderlich.com/291-beginning-android-development-with-kotlin-part-one-installing-android-studio)了解 Android 上的 Kotlin。
 
-## 入门
+## 开始
 
-使用**[此链接](https://koenig-media.raywenderlich.com/uploads/2018/10/PokeTheBear.zip)**下载本教程的入门项目。
+下载 **[测试项目](https://koenig-media.raywenderlich.com/uploads/2018/10/PokeTheBear.zip)** 来开始本教程的学习。
 
-### iOS 应用程序架构
+### iOS APP 架构
 
-在 Xcode 中打开 iOS 示例应用程序的 **Finished **项目并在 iPhone 模拟器上运行它，该应用程序将提示你登录。使用任意至少六个字符长的用户名和密码登录该应用程序，密码应至少包含一个数字字符。
+在 Xcode 中打开 iOS-Finished 示例应用程序并在模拟器上运行它，该应用程序将提示你登录。输入用户名和任意至少六个字符长的和密码来登录该应用程序，密码还至少包含一个数字字符。
 
 [![Screenshot of login screen](https://koenig-media.raywenderlich.com/uploads/2018/08/ios_1-180x320.png)](https://koenig-media.raywenderlich.com/uploads/2018/08/ios_1.png)
 
-通过用户名和密码登录应用程序将带你到主要功能模块：有一头熊在这里！捅它几次看看会发生什么……但你要小心
+通过用户名和密码登入 APP，进入项目主页面：有一头熊在这里！捅它几次看看会发生什么……但你要小心
 
 [![Screenshot of app with image of bear and Poke button](https://koenig-media.raywenderlich.com/uploads/2018/08/ios_2-180x320.png)](https://koenig-media.raywenderlich.com/uploads/2018/08/ios_2.png)
 
-现在你将专注于这个简单应用程序架构的两个 `ViewController`，每个交互式屏幕都有一个。
+现在你可以关注在这个简单应用程序架构中的两个 `ViewController`，每个交互页面都有一个。
 
 1.  `LoginViewController` 和
 2.  `BearViewController`
 
-在项目中找到这些控制器，该应用程序首先启动 `LoginViewController`，它包含了 **Main.storyboard** 中定义的 `TextField` 和 `Button` 的 UI 组件。另外请注意，`LoginViewController` 包含了两个用于验证密码的辅助函数，以及两个用于显示无效密码错误的辅助函数，这些是你将在 Kotlin 中重写的两个 Swift 函数。
+在项目中找到这些控制器，该应用程序首先加载 `LoginViewController`，它持有了 **Main.storyboard** 中定义的 `TextField` 和 `Button` 的 UI 组件。另外请注意，`LoginViewController` 包含了两个用于验证密码的辅助函数，以及两个用于显示无效密码错误的辅助函数，这些是你将在 Kotlin 中重写的两个 Swift 函数。
 
-`BearViewController` 还引用 **Main.storyboard** 中定义的 UI 组件。通常在 iOS 开发中，每个 `ViewController` 都有单独的 storyboard。在本教程中你将专注于 `ViewController` 逻辑组件而不是 UI。在 `BearViewController` 中，你保持对一个名为 `tapCount`的变量的引用，每次你点击你的 `tapCount` 时它都会更新，从而触发不同的熊的状态。
+`BearViewController` 中也持有了 **Main.storyboard** 中的 UI 组件。通常在 iOS 开发中，每个 `ViewController` 都有其单独的 storyboard 页面。在本教程中你将专注于 `ViewController` 逻辑组件而不是 UI。在 `BearViewController` 中，你保持对一个名为 `tapCount`的变量的引用，每次你点击 `pokeButton` 时 `tapCount` 值都会更新，从而触发熊的不同状态。
 
 ## Swift 到 Kotlin：基础部分
 
-现在你已经对该应用程序有了个大体的了解，现在可以进行技术改造并使用 playground 深入了解一些语言方面的细节了。对于 Swift，在 Xcode 里点击 **File ▸ New ▸ Playground** 来创建一个新的 **Blank** 的 playground，然后就可以候编写一些代码了！
+现在你已经对该应用程序有了个大体的了解，现在可以通过 playground 进行技术改造，深入了解一些语言方面的细节。对于 Swift，在 Xcode 里点击 **File ▸ New ▸ Playground** 来创建一个新的 **Blank** 的 playground，然后就可以候编写一些代码了！
 
 [![Menu File ▸ New ▸ Playground](https://koenig-media.raywenderlich.com/uploads/2018/08/ios_3-480x191.png)](https://koenig-media.raywenderlich.com/uploads/2018/08/ios_3.png)
 
@@ -54,7 +54,7 @@
 
 ### 变量和可选项
 
-在 Swift 中有一个称为可选值的概念。可选值包含一个值或为 `nil`。将此代码粘贴到 Swift playground：
+在 Swift 中有一个称为 **可选项** 的概念。可选值包含一个值或为 `nil`。将此代码粘贴到 Swift playground：
 
 ```swift
 var hello = "world"
@@ -64,11 +64,11 @@ let hey = "world"
 hey = "no"
 ```
 
-Swift 使用 `var` 和 `let` 来定义变量，两个前缀定义了可变性。`let ` 声明变量之后不可修改，这就是为什么编译器会报错，而 `var` 变量可以在运行时更改。
+Swift 使用 `var` 和 `let` 来定义变量，两个前缀定义了可变性。`let` 声明变量之后不可修改，这就是为什么编译器会报错，而 `var` 变量可以在运行时更改。
 
 [![Cannot assign value compiler error](https://koenig-media.raywenderlich.com/uploads/2018/09/Screen-Shot-2018-09-17-at-11.04.18-AM-480x52.png)](https://koenig-media.raywenderlich.com/uploads/2018/09/Screen-Shot-2018-09-17-at-11.04.18-AM.png)
 
-在 playground 中的代码添加类型声明，现在它看起来会像这样：
+在 playground 中为代码添加类型声明，现在它看起来会像这样：
 
 ```swift
 var hello: String? = "world"
@@ -78,7 +78,7 @@ let hey: String = "world"
 hey = "no"
 ```
 
-通过将这些类型的签名添加到两个变量中，你已经将 `hello` 设置为 **可为空** 的String，由 `String?` 中的 `?` 表示，而 `hey` 是一个 **非空** 的 String。 可为空的变量在 Swift 中称为 **Optional**。
+通过为这两个变量增加类型标注，你已经将 `hello` 设置为 **可为空** 的String，由 `String?` 中的 `?` 表示，而 `hey` 是一个 **非空** 的 String。 可为空的变量在 Swift 中称为 **Optional**。
 
 为什么这个细节很重要？空值通常会导致应用程序中出现令人讨厌的崩溃，尤其是当你的数据源并不是始终在客户端中进行定义时（例如，如果你希望服务器获得某个值而且它并没有返回）。使用 `let` 和 `var` 之类的简单前缀允许你进行内置的动态检查以防止程序在值为空时进行编译。有关更多信息，请参阅有关 Swift 中函数编程的 [相关教程](https://www.raywenderlich.com/693-an-introduction-to-functional-programming-in-swift)。
 
@@ -88,7 +88,7 @@ hey = "no"
 
 [![Kotlin playground with main function body replaced](https://koenig-media.raywenderlich.com/uploads/2018/09/Screen-Shot-2018-09-17-at-11.20.37-AM-480x176.png)](https://koenig-media.raywenderlich.com/uploads/2018/09/Screen-Shot-2018-09-17-at-11.20.37-AM.png)
 
-太棒了对吧？你可以将代码从一个 playground 复制到另一个 playground，即使 playground 使用不同的语言。 当然，语法并不完全相同。Kotlin 使用 `val` 代替 `let`，所以现在将该关键词更改为 Kotlin 中声明不可变变量的方式，如下所示：
+太棒了对吧？你可以将代码从一个 playground 复制到另一个 playground，即使这两个 playground 使用不同的语言。 当然，语法并不完全相同。Kotlin 使用 `val` 代替 `let`，所以现在将该关键词更改为 Kotlin 中声明不可变变量的方式，如下所示：
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -100,7 +100,7 @@ fun main(args: Array<String>) {
 }
 ```
 
-既然你做出了改变，让我们从 `let` 转向 `val`，你就得到了 Kotlin 代码！
+既然你做出了改变，现在你将 `let` 转向 `val`，然后你就得到了 Kotlin 代码！
 
 点击右上角的 **Run**，你会看到一个错误：
 
@@ -236,7 +236,7 @@ private func showInvalidError() {
 }
 ```
 
-现在，你必须在 Android 应用中将新复制的函数的代码并从 Swift 转换为 Kotlin。你的新 `showError` 函数需要重新引入 Android 的 API。你现在将使用 `AlertDialog.Builder` 实现 `UIAlertController` 相似的功能。你可以在[本教程](https://www.raywenderlich.com/470-common-design-patterns-for-android-with-kotlin)中查看有关常见设计模式的更多信息，例如 AlertDialog。对话框的标题，消息和正按钮字符串已包含在 `strings.xml` 中，因此请继续使用它们！用以下代码替换 `showLengthError`：
+现在，你必须在 Android 应用中将新复制的函数的代码并从 Swift 转换为 Kotlin。你的新 `showError` 函数需要重新引入 Android 的 API。你现在将使用 `AlertDialog.Builder` 来实现 `UIAlertController` 相似的功能。你可以在 [本教程](https://www.raywenderlich.com/470-common-design-patterns-for-android-with-kotlin) 中查看有关常见设计模式的更多信息，例如 AlertDialog。对话框的标题，消息和正按钮字符串已包含在 `strings.xml` 中，因此请继续使用它们！用以下代码替换 `showLengthError`：
 
 ```kotlin
 private fun showLengthError() {
@@ -248,7 +248,7 @@ private fun showLengthError() {
 }
 ```
 
-使用相同的格式创建含有 `showInvalidError` 的 AlertDialog。用以下内容替换复制的方法：
+使用相同的格式创建展示 `showInvalidError` 的 AlertDialog。用以下内容替换复制的方法：
 
 ```kotlin
 private fun showInvalidError() {
@@ -279,7 +279,7 @@ private fun showInvalidError() {
 }
 ```
 
-将 iOS 项目中 `loginButtonTapped` 函数的主体部分复制并粘贴到 Android 项目中 `loginButtonClicked` 函数的主体中，并进行你现在已经掌握的小改动，将语法从 Swift 更改为 Kotlin。
+将 iOS 项目中 `loginButtonTapped` 函数的主体部分复制并粘贴到 Android 项目中 `loginButtonClicked` 函数的主体中，并根据你掌握的执行对代码进行一些小改动，将语法从 Swift 更改为 Kotlin。
 
 ```kotlin
 val passwordInput = this.password_edit_text.text.toString()
@@ -302,7 +302,7 @@ if (passwordIsValid(passwordInput = passwordInput)) {
 
 ### 实现熊的活动
 
-打开 **app ▸ java ▸ com.raywenderlich.pokethebear ▸ BearActivity.kt**，你的 BearViewController.swift 文件即将变成 Kotlin 的版本。你将通过实现辅助函数 `bearAttack` 和 `reset` 来开始修改此 Activity。你将在 Swift 文件中看到 `bearAttack` 负责设置UI状态，隐藏Poke按钮五秒钟，然后重置屏幕：
+打开 **app ▸ java ▸ com.raywenderlich.pokethebear ▸ BearActivity.kt**，你的 BearViewController.swift 文件即将变成 Kotlin 的版本。你将通过实现辅助函数 `bearAttack` 和 `reset` 来开始修改此 Activity。你将在 Swift 文件中看到 `bearAttack` 负责设置 UI 状态，隐藏 Poke 按钮五秒钟，然后重置屏幕：
 
 ```swift
 private func bearAttack() {
@@ -325,7 +325,7 @@ private fun bearAttack() {
 }
 ```
 
-你做出的修改包括：
+你需要做出以下修改：
 
 1.  调用 `setImageDrawable` 函数将 `bear_image_view` 的图像资源设置为 **bear5.png** 可绘制的资源，该资源已包含在 **app ▸ res ▸ drawable** 目录下。
 2.  然后调用 `setBackgroundColor` 函数将 `bear_container` 视图的背景设置为预先定义的颜色 `R.color.red`。
@@ -365,7 +365,7 @@ if (this.tapCount == 3) {
 }
 ```
 
-> **额外声明**：这个if / else 阶梯语句可以很容易地用更具表现力的[控制流语句](https://kotlinlang.org/docs/reference/control-flow.html)替换，比如在Kotlin中的 `switch` 或者 `when`。
+> **额外声明**：这个if / else 阶梯语句可以很容易地用更具表现力的 [控制流语句](https://kotlinlang.org/docs/reference/control-flow.html) 替换，比如在 Kotlin 中的 `switch` 或者 `when`。
 
 如果你想简化逻辑，请尝试一下。
 
@@ -373,17 +373,17 @@ if (this.tapCount == 3) {
 
 [![Android screen with bear and poke button](https://koenig-media.raywenderlich.com/uploads/2018/08/kotlin_7-180x320.png)](https://koenig-media.raywenderlich.com/uploads/2018/08/kotlin_7.png)
 
-恭喜你，你已将 Swift 转换为 Kotlin，将 iOS 应用程序转换为全新的 Android 应用程序。你已经通过将 Swift 代码从 Xcode 中的 iOS 项目移动到 Android Studio 中的 Android 应用程序，将 Swift 转换为 Kotlin 来实现跨平台！没有多少人和开发人员会说，而且这也非常简洁。
+恭喜你，你已将 Swift 转换为 Kotlin，将 iOS 应用程序转换为全新的 Android 应用程序。你已经通过将 Swift 代码从 Xcode 中的 iOS 项目移动到 Android Studio 中的 Android 应用程序，将 Swift 转换为 Kotlin 来实现跨平台！没有多少人和开发人员会说什么，而且实现方式也非常简洁。。
 
 ### 接下来该干嘛？
 
-使用本教程顶部的 **链接** 下载已经完成的项目来看看它是如何进行的。
+使用本教程顶部的 **[链接](https://koenig-media.raywenderlich.com/uploads/2018/10/PokeTheBear.zip)** 下载已经完成的项目来看看它是如何进行的。
 
-如果你是一名 Swift 开发人员，或者是 Android 中的 Kotlin 新手，请查看[Kotlin 官方文档](https://kotlinlang.org/docs/reference/)以更深入地了解这些语言。你已经知道如何运行 Kotlin playground 来尝试用代码片段，并且可以在文档中编写可运行的代码小部件。 如果你已经是 Kotlin 开发人员，请尝试在 Swift 中编写应用程序。
+如果你是一名 Swift 开发人员，或者是 Kotlin 新手，请查看[Kotlin 官方文档](https://kotlinlang.org/docs/reference/)以更深入地了解这些语言。你已经知道如何运行 Kotlin playground 来尝试用代码片段，并且可以在文档中编写可运行的代码小部件。 如果你已经是 Kotlin 开发人员，请尝试在 Swift 中编写应用程序。
 
-如果你喜欢 Swift 和 Kotlin 的并排比较，请在[本文](http://nilhcem.com/swift-is-like-kotlin/)中查看更多内容。你忠实的作者还与 UIConf 的 iOS 同事就 Swift 和 Kotlin 进行了一个快速的讨论，你可以在[这里](https://www.youtube.com/watch?v=_DuGaAkQSnM)观看到。
+如果你喜欢 Swift 和 Kotlin 的并排比较，请在[本文](http://nilhcem.com/swift-is-like-kotlin/)中查看更多内容。你可信赖的作者还与 UIConf 的 iOS 同事就 Swift 和 Kotlin 进行了一次快速的讨论，你可以在[这里](https://www.youtube.com/watch?v=_DuGaAkQSnM)观看到。
 
-我们希望你喜欢本教程，了解如何把 Swift 编写的 iOS 应用程序转换为 Kotlin 以及创建一个全新的 Android 应用程序。我们也希望你继续探索这两种语言和两种平台。
+我们希望你喜欢本教程，了解如何把 Swift 编写的 iOS 应用程序变成用 Kotlin 创建一个全新的 Android 应用程序。我们也希望你继续探索这两种语言和两种平台。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
