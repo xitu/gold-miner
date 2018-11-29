@@ -31,7 +31,7 @@
 
 [![Screenshot of login screen](https://koenig-media.raywenderlich.com/uploads/2018/08/ios_1-180x320.png)](https://koenig-media.raywenderlich.com/uploads/2018/08/ios_1.png)
 
-通过用户名和密码登入 APP，进入项目主页面：有一头熊在这里！捅它几次看看会发生什么……但你要小心
+通过用户名和密码登入 APP，进入项目主页面：熊出没，注意！戳一戳它看看会发生什么……
 
 [![Screenshot of app with image of bear and Poke button](https://koenig-media.raywenderlich.com/uploads/2018/08/ios_2-180x320.png)](https://koenig-media.raywenderlich.com/uploads/2018/08/ios_2.png)
 
@@ -64,7 +64,7 @@ let hey = "world"
 hey = "no"
 ```
 
-Swift 使用 `var` 和 `let` 来定义变量，两个前缀定义了可变性。`let` 声明变量之后不可修改，这就是为什么编译器会报错，而 `var` 变量可以在运行时更改。
+Swift 使用 `var` 和 `let` 来定义变量，两个前缀定义了可变性。`let` 声明变量之后不可修改，这就是编译器报错的原因，而 `var` 变量可以在运行时更改。
 
 [![Cannot assign value compiler error](https://koenig-media.raywenderlich.com/uploads/2018/09/Screen-Shot-2018-09-17-at-11.04.18-AM-480x52.png)](https://koenig-media.raywenderlich.com/uploads/2018/09/Screen-Shot-2018-09-17-at-11.04.18-AM.png)
 
@@ -78,7 +78,7 @@ let hey: String = "world"
 hey = "no"
 ```
 
-通过为这两个变量增加类型标注，你已经将 `hello` 设置为 **可为空** 的String，由 `String?` 中的 `?` 表示，而 `hey` 是一个 **非空** 的 String。 可为空的变量在 Swift 中称为 **Optional**。
+通过为这两个变量增加类型标注，你已经将 `hello` 设置为 **可为空** 的String，由 `String?` 中的 `?` 表示，而 `hey` 是一个 **非空** 的 String。 可为空的变量在 Swift 中称为 **可选项**。
 
 为什么这个细节很重要？空值通常会导致应用程序中出现令人讨厌的崩溃，尤其是当你的数据源并不是始终在客户端中进行定义时（例如，如果你希望服务器获得某个值而且它并没有返回）。使用 `let` 和 `var` 之类的简单前缀允许你进行内置的动态检查以防止程序在值为空时进行编译。有关更多信息，请参阅有关 Swift 中函数编程的 [相关教程](https://www.raywenderlich.com/693-an-introduction-to-functional-programming-in-swift)。
 
@@ -102,7 +102,7 @@ fun main(args: Array<String>) {
 
 既然你做出了改变，现在你将 `let` 转向 `val`，然后你就得到了 Kotlin 代码！
 
-点击右上角的 **Run**，你会看到一个错误：
+点击右上角的 **Run**，你会看到一个有意义的错误：
 
 [![Kotlin compiler error](https://koenig-media.raywenderlich.com/uploads/2018/08/kotlin_5-480x41.png)](https://koenig-media.raywenderlich.com/uploads/2018/08/kotlin_5.png)
 
@@ -203,9 +203,9 @@ private fun passwordIsValid(passwordInput: String): Boolean {
 2.  用 `this` 而不是 `self`
 3.  用 `string =` 而不是 `string:`
 
-请注意，在此教程中 Kotlin 中不需要用 `string =`，它有助于保持本教程中两种语言之间的相似性。 在其他实践里的标签是 Kotlin 为了使 Java 代码可以访问默认函数参数而包含的更多细节。 阅读有关 `@JvmOverloads` 函数的[更多信息](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html)以了解有关默认参数的更多信息！
+请注意，在Kotlin 中不需要 `string =` 方法，它有助于保持本教程中两种语言之间的相似性。 在其他实践里的标签是 Kotlin 为了使 Java 代码可以访问默认函数参数而包含的更多细节。 阅读有关 `@JvmOverloads` 函数的 [更多信息](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html) 以了解有关默认参数的更多信息！
 
-**显示错误**
+**错误展示**
 
 将 `showLengthError` 和 `showInvalidError` 函数从 iOS 项目中的 `LoginViewController` 复制到 Android 项目中 `LoginActivity` 类里。
 
@@ -223,7 +223,7 @@ private func showLengthError() {
 }
 ```
 
-`showInvalidError` 函数确定用户输入的密码是否包含至少一个数字字符，如果不是，则显示相应的警告消息：
+`showInvalidError` 函数用来判断用户输入的密码是否包含至少一个数字字符，如果不是，则弹出相应的警告消息：
 
 ```swift
 private func showInvalidError() {
@@ -236,7 +236,7 @@ private func showInvalidError() {
 }
 ```
 
-现在，你必须在 Android 应用中将新复制的函数的代码并从 Swift 转换为 Kotlin。你的新 `showError` 函数需要重新引入 Android 的 API。你现在将使用 `AlertDialog.Builder` 来实现 `UIAlertController` 相似的功能。你可以在 [本教程](https://www.raywenderlich.com/470-common-design-patterns-for-android-with-kotlin) 中查看有关常见设计模式的更多信息，例如 AlertDialog。对话框的标题，消息和正按钮字符串已包含在 `strings.xml` 中，因此请继续使用它们！用以下代码替换 `showLengthError`：
+现在，你必须在 Android 应用中将新复制的函数的代码并从 Swift 转换为 Kotlin。你的新 `showError` 函数需要重新引入 Android 的 API。你现在将使用 `AlertDialog.Builder` 来实现 `UIAlertController` 相似的功能。你可以在 [本教程](https://www.raywenderlich.com/470-common-design-patterns-for-android-with-kotlin) 中查看有关常见设计模式的更多信息，比如 AlertDialog。对话框的标题，消息和确定按钮字符串已包含在 `strings.xml` 中，因此请继续使用它们！用以下代码替换 `showLengthError`：
 
 ```kotlin
 private fun showLengthError() {
@@ -260,7 +260,7 @@ private fun showInvalidError() {
 }
 ```
 
-**处理按钮点击实践**
+**处理按钮点击事件**
 
 现在你已经完成了验证和错误显示功能，通过实现 `loginButtonClicked` 函数可以把它们放在一起。Android 和 iOS 之间需要注意的一个很有趣的区别是，你的 Android 视图是在第一个生命周期回调 `onCreate()` 中显式创建和设置的，而 iOS 应用中的 **Main.storyboard** 是在 Swift 中隐式链接的。你可以在 [此处](https://www.raywenderlich.com/500-introduction-to-android-activities-with-kotlin) 详细了解本教程中的 Android 生命周期。
 
@@ -279,7 +279,7 @@ private fun showInvalidError() {
 }
 ```
 
-将 iOS 项目中 `loginButtonTapped` 函数的主体部分复制并粘贴到 Android 项目中 `loginButtonClicked` 函数的主体中，并根据你掌握的执行对代码进行一些小改动，将语法从 Swift 更改为 Kotlin。
+将 iOS 项目中 `loginButtonTapped` 函数的主体部分复制并粘贴到 Android 项目中 `loginButtonClicked` 函数的主体中，并根据你掌握的方法对代码进行一些小改动，将语法从 Swift 更改为 Kotlin。
 
 ```kotlin
 val passwordInput = this.password_edit_text.text.toString()
@@ -292,7 +292,7 @@ if (passwordIsValid(passwordInput = passwordInput)) {
 }
 ```
 
-这里有两个不同之处，分别是从 EditText 中提取字符串的方法以及显示新 activity 的方法。你可以使用语句 `this.password_edit_text.text.toString()` 从 `passwordInput` 视图中获取文本。 然后，调用 `startActivity` 函数传入 `Intent` 以启动 `BearActivity` 活动。其余的都应该非常简单。
+这里有两个不同之处，分别是从 EditText 中提取字符串的方法以及显示新 activity 的方法。你可以使用语句 `this.password_edit_text.text.toString()` 从 `passwordInput` 视图中获取文本。 然后，调用 `startActivity` 函数传入 `Intent` 以启动 `BearActivity` 活动。剩下的都应该非常简单。
 
 你的 `LoginActivity` 现已完成。现在 Android Studio 中编译并运行应用程序，查看你的设备或自带模拟器中显示的第一个已实现的活动。输入用户名的任何字符串值，并使用有效和无效的密码组合，以确保你的错误对话框显示达到了预期。
 
@@ -365,7 +365,7 @@ if (this.tapCount == 3) {
 }
 ```
 
-> **额外声明**：这个if / else 阶梯语句可以很容易地用更具表现力的 [控制流语句](https://kotlinlang.org/docs/reference/control-flow.html) 替换，比如在 Kotlin 中的 `switch` 或者 `when`。
+> **额外声明**：这个if / else 阶梯语句可以很容易地用更具表现力的 [控制流语句](https://kotlinlang.org/docs/reference/control-flow.html) 替换，比如 `switch`，也就是在 Kotlin 中的 `when`。
 
 如果你想简化逻辑，请尝试一下。
 
@@ -373,7 +373,7 @@ if (this.tapCount == 3) {
 
 [![Android screen with bear and poke button](https://koenig-media.raywenderlich.com/uploads/2018/08/kotlin_7-180x320.png)](https://koenig-media.raywenderlich.com/uploads/2018/08/kotlin_7.png)
 
-恭喜你，你已将 Swift 转换为 Kotlin，将 iOS 应用程序转换为全新的 Android 应用程序。你已经通过将 Swift 代码从 Xcode 中的 iOS 项目移动到 Android Studio 中的 Android 应用程序，将 Swift 转换为 Kotlin 来实现跨平台！没有多少人和开发人员会说什么，而且实现方式也非常简洁。。
+恭喜你，你已将 Swift 转换为 Kotlin，将 iOS 应用程序转换为全新的 Android 应用程序。你已经通过将 Swift 代码从 Xcode 中的 iOS 项目移动到 Android Studio 中的 Android 应用程序，将 Swift 转换为 Kotlin 来实现跨平台！没有多少人和开发人员会说什么，而且实现方式也非常简洁。
 
 ### 接下来该干嘛？
 
