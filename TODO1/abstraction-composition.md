@@ -5,7 +5,7 @@
 > * 译者：[Xekin-FE](https://github.com/Xekin-FE)
 > * 校对者：[weibinzhu](https://github.com/weibinzhu), [Junkai Liu](https://github.com/Moonliujk)
 
-# 函数式编程：抽象与组合
+# 函数式编程：抽象与组合（第十五部分）
 
 ![](https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg)
 
