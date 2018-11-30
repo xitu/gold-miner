@@ -302,7 +302,9 @@ device_lib.list_local_devices()
 
 ```
 import os
-os.chdir("drive/app")
+os.chdir("drive/app") 
+# 译者注：挂载网盘目录后，前面没有切换过目录，这里应该输入
+# os.chdir("drive/My Drive/app")
 ```
 
 运行上述代码后，如果你再次运行
