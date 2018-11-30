@@ -373,7 +373,7 @@ if (this.tapCount == 3) {
 
 [![Android screen with bear and poke button](https://koenig-media.raywenderlich.com/uploads/2018/08/kotlin_7-180x320.png)](https://koenig-media.raywenderlich.com/uploads/2018/08/kotlin_7.png)
 
-恭喜你，你已将 Swift 转换为 Kotlin，将 iOS 应用程序转换为全新的 Android 应用程序。你已经通过将 Swift 代码从 Xcode 中的 iOS 项目移动到 Android Studio 中的 Android 应用程序，将 Swift 转换为 Kotlin 来实现跨平台！没有多少人和开发人员会说什么，而且实现方式也非常简洁。
+恭喜你，你已将 Swift 转换为 Kotlin，将 iOS 应用程序转换为全新的 Android 应用程序。你已经通过将 Swift 代码从 Xcode 中的 iOS 项目移动到 Android Studio 中的 Android 应用程序，将 Swift 转换为 Kotlin 来实现跨平台！没有多少人和开发人员会说什么，而且实现它真的非常简单。
 
 ### 接下来该干嘛？
 
