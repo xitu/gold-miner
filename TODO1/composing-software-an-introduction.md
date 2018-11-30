@@ -2,48 +2,48 @@
 > * 原文作者：[Eric Elliott](Eric Elliott)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/composing-software-an-introduction.md](https://github.com/xitu/gold-miner/blob/master/TODO1/composing-software-an-introduction.md)
-> * 译者：
+> * 译者：[Sam](https://github.com/xutaogit)
 > * 校对者：
 
-# Composing Software: An Introduction
+# 构建软件：简介
 
 ![](https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg)
 
 Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)
 
-> Note: This is the introduction to the “Composing Software” series on learning functional programming and compositional software techniques in JavaScript ES6+ from the ground up. Stay tuned. There’s a lot more of this to come!  
-> [_Next >_](https://github.com/xitu/gold-miner/blob/master/TODO1/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md)
+> 注意：这是关于从头开始使用 JavaScript ES6+ 学习函数式编程和组合软件技术的 “Composing Software” 系列介绍。还有更多关于这方面的内容！
+> [_下一步 >_](https://github.com/xitu/gold-miner/blob/master/TODO1/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md)
 
-> Composition: “The act of combining parts or elements to form a whole.” ~ Dictionary.com
+> 组合：“将部分或元素结合成整体的行为。” —— Dictionary.com
 
-In my first high school programming class, I was told that software development is “the act of breaking a complex problem down into smaller problems, and composing simple solutions to form a complete solution to the complex problem.”
+在我的高中第一堂编程课中，我被告知软件开发是“把复杂问题分解成更小的问题，然后构建简单的解决方案以得出复杂问题最终的解决方案的行为。”
 
-One of my biggest regrets in life is that I failed to understand the significance of that lesson early on. I learned the essence of software design far too late in life.
+我一生中最大的遗憾之一就是没能很早认识到这堂课的重要性。我太晚才了解到软件设计的本质。
 
-I have interviewed hundreds of developers. What I’ve learned from those sessions is that I’m not alone. Very few working software developers have a good grasp on the essence of software development. They aren’t aware of the most important tools we have at our disposal, or how to put them to good use. 100% have struggled to answer one or both of the most important questions in the field of software development:
+我面试过数百名开发者。从这些对话中我了解到自己不是唯一(处于这种情况)的。极少工作软件开发者能很好地抓住软件开发的本质。他们不了解我们在使用的最重要工具，或者不知道如何充分利用它们。所有人都一直在努力回答软件开发领域中这一个或两个最重要的问题：
 
-*   What is function composition?
-*   What is object composition?
+*   什么是功能组合？
+*   什么是对象组合？
 
-The problem is that you can’t avoid composition just because you’re not aware of it. You still do it — but you do it badly. You write code with more bugs, and make it harder for other developers to understand. This is a big problem. The effects are very costly. We spend more time maintaining software than we do creating it from scratch, and our bugs impact billions of people all over the world.
+问题是你不能因为仅仅没有意识它就躲避构建。你依然需要这样做 —— 虽然你做的很糟糕。你编写了带有更多 bug 的代码，让其他开发者很难理解。这是很大的问题，代价也很大。我们花费更多时间来维护软件而不是从头开始创建软件，我们的这些 bug 会影响全球数十亿人。
 
-The entire world runs on software today. Every new car is a mini super-computer on wheels, and problems with software design cause real accidents and cost real human lives. In 2013, a jury found Toyota’s software development team [guilty of “reckless disregard”](http://www.safetyresearch.net/blog/articles/toyota-unintended-acceleration-and-big-bowl-%E2%80%9Cspaghetti%E2%80%9D-code) after an accident investigation revealed spaghetti code with 10,000 global variables.
+现今整个世界都运行在软件上。每一辆新车都是一台在车轮上的小型超级计算机，软件设计的问题会导致真正的事故并且造成真正的生命损失。2013 年，一个陪审团发现 Toyota 的软件团队犯了[“全然无视”的罪名](http://www.safetyresearch.net/blog/articles/toyota-unintended-acceleration-and-big-bowl-%E2%80%9Cspaghetti%E2%80%9D-code)，因为事故调查显示它们有着 10,000 个全局变量的面条代码。
 
-[Hackers and governments stockpile bugs](https://www.technologyreview.com/s/607875/should-the-government-keep-stockpiling-software-bugs/) in order to spy on people, steal credit cards, harness computing resources to launch Distributed Denial of Service (DDoS) attacks, crack passwords, and even [manipulate elections](https://www.technologyreview.com/s/604138/the-fbi-shut-down-a-huge-botnet-but-there-are-plenty-more-left/).
+[黑客和政府存储漏洞](https://www.technologyreview.com/s/607875/should-the-government-keep-stockpiling-software-bugs/)为了监视人民，盗取信用卡，利用计算资源做分布式拒绝服务(DDoS)攻击，破解密码，甚至[操纵选举](https://www.technologyreview.com/s/604138/the-fbi-shut-down-a-huge-botnet-but-there-are-plenty-more-left/)。
 
-We must do better.
+我们必须做得更好才行。
 
-### You Compose Software Every Day
+### 你每天都在构建软件
 
-If you’re a software developer, you compose functions and data structures every day, whether you know it or not. You can do it consciously (and better), or you can do it accidentally, with duct-tape and crazy glue.
+如果你是一个软件开发者，不管你知不知道，你每天都会编写函数和数据结构。你可以有意识地(并且更好地)做到这一点，或者你可能疯狂的复制粘贴意外地做到这一点。
 
-The process of software development is breaking down large problems into smaller problems, building components that solve those smaller problems, then composing those components together to form a complete application.
+软件开发的过程是把大问题拆分成更小的问题，构建解决这些小问题的组件，然后把这些组件组合在一起形成完整的应用程序。
 
-### Composing Functions
+### 组合功能
 
-Function composition is the process of applying a function to the output of another function. In algebra, given two functions, `f`and `g`, `(f ∘ g)(x) = f(g(x))`. The circle is the composition operator. It's commonly pronounced "composed with" or "after". You can say that out-loud as "`f` _composed with_ `g` equals `f` of `g` of `x`", or "`f` _after_ `g` equals `f` of `g` of `x`". We say `f` _after_ `g` because `g` is evaluated first, then its output is passed as an argument to `f`.
+函数组合是将一个函数应用于另一个函数输出结果的过程。在代数中，给出了两个函数，`f` 和 `g`，`(f ∘ g)(x) = f(g(x))`。圆圈是组合运算符。它通常发音为“复合(composed with)”或者“跟随(after)”。你可以像这样大声的念出来：“`f`复合 `g` 等价于 `f` 是 `g` 关于 `x` 的函数”或者“`f` 跟随 `g` 等价于 `f` 是 `g` 关于 `x` 的函数”。我们说 `f` 跟随 `g` 是因为先求解 `g` ，然后它的输出作为 `f` 的执行参数。
 
-Every time you write code like this, you’re composing functions:
+每次你像这样编写代码时，你都在组合函数：
 
 
 ```
@@ -59,7 +59,7 @@ const doStuff = x => {
 doStuff(20); // 42
 ```
 
-Every time you write a promise chain, you’re composing functions:
+每次你编写一个 Promise 链，你都在组合函数：
 
 ```
 const g = n => n + 1;
@@ -80,13 +80,13 @@ wait(300)
 ;
 ```
 
-Likewise, every time you chain array method calls, lodash methods, observables (RxJS, etc…) you’re composing functions. If you’re chaining, you’re composing. If you’re passing return values into other functions, you’re composing. If you call two methods in a sequence, you’re composing using `this` as input data.
+同样，每次你进行链式数组方法调用，lodash 方法，observables(RxJS 等等)时，你在组合函数。如果你进行链式调用，你都在进行组合。如果你把函数返回值传递到另一个函数中，你在进行组合。如果你顺序的调用两个方法，你使用 `this` 作为输入数据进行组合。
 
-> If you’re chaining, you’re composing.
+> 如果你在进行链式（调用），你在进行组合。
 
-When you compose functions intentionally, you’ll do it better.
+当你有意识地组合函数时，你会做得更好。
 
-Composing functions intentionally, we can improve our `doStuff()` function to a simple one-liner:
+有意识地的组合使用函数，我们可以把 `daStuff()` 函数改进成简单的一行（代码）：
 
 ```
 const g = n => n + 1;
@@ -97,7 +97,7 @@ const doStuffBetter = x => f(g(x));
 doStuffBetter(20); // 42
 ```
 
-A common objection to this form is that it’s harder to debug. For example, how would we write this using function composition?
+这种形式的一个常见异议是调试起来比较困难。举个例子，使用函数组合我们该如何编写这些内容？
 
 ```
 const doStuff = x => {
@@ -115,7 +115,7 @@ doStuff(20); // =>
 */
 ```
 
-First, let’s abstract that “after f”, “after g” logging into a little utility called `trace()`:
+首先，让我们抽象出 “after f”，“after g” 登录到一个名为 `trace()` 的小功能：
 
 ```
 const trace = label => value => {
@@ -124,7 +124,7 @@ const trace = label => value => {
 };
 ```
 
-Now we can use it like this:
+现在我们可以像这样使用它：
 
 ```
 const doStuff = x => {
@@ -142,7 +142,7 @@ doStuff(20); // =>
 */
 ```
 
-Popular functional programming libraries like Lodash and Ramda include utilities to make function composition easier. You can rewrite the above function like this:
+像 Lodash 和 Ramda 这些流行的函数式编程库里包含了更容易使用函数组合的实用程序。你可以像这样重写上面的函数：
 
 ```
 import pipe from 'lodash/fp/flow';
@@ -161,53 +161,53 @@ doStuffBetter(20); // =>
 */
 ```
 
-If you want to try this code without importing something, you can define pipe like this:
+如果你想在不导入内容的情况下尝试这些代码，你可以像这样定义 pipe：
 
 ```
 // pipe(...fns: [...Function]) => x => y
 const pipe = (...fns) => x => fns.reduce((y, f) => f(y), x);
 ```
 
-Don’t worry if you’re not following how that works, yet. Later on we’ll explore function composition in a lot more detail. In fact, it’s so essential, you’ll see it defined and demonstrated many times throughout this text. The point is to help you become so familiar with it that its definition and usage becomes automatic. Be one with the composition.
+如果你不理解它是怎么工作的也别担心。稍后我们将会更详尽的探索函数组合。事实上，它是如此的重要，你会在整个文档中看到它多次被定义和显示。目的是帮助你熟悉它，知道它的定义和用法是自动的。让你成为组合家族的一份子。
 
-`pipe()` creates a pipeline of functions, passing the output of one function to the input of another. When you use `pipe()` (and its twin, `compose()`) You don't need intermediary variables. Writing functions without mention of the arguments is called **point-free style.** To do it, you'll call a function that returns the new function, rather than declaring the function explicitly. That means you won't need the `function` keyword or the arrow syntax (`=>`).
+`pipe()` 创建一个函数的管道（pepeline），把一个函数的输出作为另一个函数的输入。当你使用 `pipe()`（和它的孪生方法 `compose()`）时，你不需要中间变量。在不提及参数的情况下编写的函数成为**无值风格。**为此，你将调用一个返回新函数的函数，而不是显示的声明该函数。这意味着你不需要`function`关键字或者箭头语法（`=>`）。
 
-Point-free style can be taken too far, but a little bit here and there is great because those intermediary variables add unnecessary complexity to your functions.
+无值风格可能会占用太多，但很好的一点是，那些中间变量给你的函数增加了不必要的复杂性。
 
-There are several benefits to reduced complexity:
+降低复杂度有几个好处：
 
-#### Working Memory
+#### 工作记忆
 
-The average human brain has only a few shared resources for discrete quanta in [working memory](http://www.nature.com/neuro/journal/v17/n3/fig_tab/nn.3655_F2.html), and each variable potentially consumes one of those quanta. As you add more variables, our ability to accurately recall the meaning of each variable is diminished. Working memory models typically involve 4–7 discrete quanta. Above those numbers, error rates dramatically increase.
+在人类大脑[工作记忆](http://www.nature.com/neuro/journal/v17/n3/fig_tab/nn.3655_F2.html)里平均只有很少共享资源用于离散量子，并且每个变量可能消耗其中一个量子。随着你添加更多的变量，我们准确回忆起每个变量含义的能力会降低。工作记忆模型通常涵盖 4-7 个离散量子。超过这些数字的话，（处理问题的）错误率急剧增加。
 
-Using the pipe form, we eliminated 3 variables — freeing up almost half of our available working memory for other things. That reduces our cognitive load significantly. Software developers tend to be better at chunking data into working memory than the average person, but not so much more as to weaken the importance of conservation.
+使用管道（pipe）模式，我们消除了三个变量 —— 为处理其他事情释放了将近一半可用的工作记忆。这显著降低了我们的认知负担。相比于一般人，软件开发者更倾向于将数据分块到工作记忆中，但更不会说削弱保护的重要性。
 
-#### Signal to Noise Ratio
+#### 信噪比
 
-Concise code also improves the signal-to-noise ratio of your code. It’s like listening to a radio — when the radio is not tuned properly to the station, you get a lot of interfering noise, and it’s harder to hear the music. When you tune it to the correct station, the noise goes away, and you get a stronger musical signal.
+简洁的代码也可以提高你的代码信噪比。这就像收听收音机 —— 当收音机没有调到正确的电台时，会有很多干扰的噪音，并且很难听到音乐。当你调到正确的电台，噪音没有了，然后你得到更强的音乐信号。
 
-Code is the same way. More concise code expression leads to enhanced comprehension. Some code gives us useful information, and some code just takes up space. If you can reduce the amount of code you use without reducing the meaning that gets transmitted, you’ll make the code easier to parse and understand for other people who need to read it.
+代码也是一样的。更简洁的代码表达式可以增强理解力。有些代码给我们提供有用的信息，而有些代码只是占用空间。如果你可以减少使用代码的量而不减少传输的含义，那么你将使代码更易于解析并且对于要阅读代码的其他人来说也更好理解。
 
-#### Surface Area for Bugs
+#### 错误的表面积
 
-Take a look at the before and after functions. It looks like the function went on a diet and lost a ton of weight. That’s important because extra code means extra surface area for bugs to hide in, which means more bugs will hide in it.
+看看之前和之后的功能。看起来函数做了缩减并且减轻了很多代码量。这很重要，因为额外的代码意味着 bug 有额外的表面区域隐藏，这意味着更多的 bug 会隐藏其中。
 
-> _Less code = less surface area for bugs = fewer bugs._
+> 更少的代码 = 更少的错误表面区域 = 更少的 bug
 
-### Composing Objects
+### 组合对象
 
-> “Favor object composition over class inheritance” the Gang of Four, [“Design Patterns: Elements of Reusable Object Oriented Software”](https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/ref=as_li_ss_tl?ie=UTF8&qid=1494993475&sr=8-1&keywords=design+patterns&linkCode=ll1&tag=eejs-20&linkId=6c553f16325f3939e5abadd4ee04e8b4)
+> “在类继承上支持对象组合”，Gang of Four 说，“[设计模式：可重用面向对象软件的元素](https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/ref=as_li_ss_tl?ie=UTF8&qid=1494993475&sr=8-1&keywords=design+patterns&linkCode=ll1&tag=eejs-20&linkId=6c553f16325f3939e5abadd4ee04e8b4)。”
 
-> “In computer science, a composite data type or compound data type is any data type which can be constructed in a program using the programming language’s primitive data types and other composite types. \[…\] The act of constructing a composite type is known as composition.” ~ Wikipedia
+> “在计算机科学中，复合数据类型或组合数据类型是可以使用编程语言原始数据类型和其他复合类型构建的任何数据类型。 \[…\] 构建复合类型的行为称为组合。“ —— 维基百科
 
-These are primitives:
+这些是原始的：
 
 ```
 const firstName = 'Claude';
 const lastName = 'Debussy';
 ```
 
-And this is a composite:
+这是一个复合：
 
 ```
 const fullName = {
@@ -216,31 +216,31 @@ const fullName = {
 };
 ```
 
-Likewise, all Arrays, Sets, Maps, WeakMaps, TypedArrays, etc… are composite datatypes. Any time you build any non-primitive data structure, you’re performing some kind of object composition.
+同样，所有 Arrays，Sets，Maps，WeakMaps，TypedArrays 等都是复合数据类型。每次你构建任何非原始数据结构的时候，你都在执行某种对象组合。
 
-Note that the Gang of Four defines a pattern called the **composite pattern** which is a specific type of recursive object composition which allows you to treat individual components and aggregated composites identically. Some developers get confused, thinking that the composite pattern is _the only form of object composition._ Don’t get confused. There are many different kinds of object composition.
+请注意，Gang of Four 定义了一种称为**复合模式**的模式，它是一种特定类型的递归对象组合，允许你以相同的方式处理单个组件和聚合组合。有些开发者可能会感到困惑，认为复合模式是对象组合的唯一形式。不要混淆。有很多不同种类的对象组合。
 
-The Gang of Four continues, “you’ll see object composition applied again and again in design patterns”, and then they catalog three kinds of object compositional relationships, including **delegation** (as used in the state, strategy, and visitor patterns), **acquaintance** (when an object knows about another object by reference, usually passed as a parameter: a uses-a relationship, e.g., a network request handler might be passed a reference to a logger to log the request — the request handler _uses_ a logger), and **aggregation** (when child objects form part of a parent object: a has-a relationship, e.g., DOM children are component elements in a DOM node — A DOM node _has_ children).
+Gang of Four 继续说道，“你将会看到对象组合在设计模式中一次又一次地被应用”，然后他们列出了三种对象组合关系，包括**委托**（在状态，策略和观察者模式中使用），**结识**（当一个对象通过引用知道另一个对象时，通常是作为一个参数传递：一个 uses-a 关系，例如，一个网络请求处理程序可能会传递一个对记录器的引用来记录请求 —— 请求处理程序_使用_一个记录器），和**聚合**（当子对象形成父对象一部分时：一个 has-a 关系，例如，DOM 子节点是 DOM 节点中的组件元素 —— DOM 节点_拥有_子节点）。
 
-Class inheritance can be used to construct composite objects, but it’s a restrictive and brittle way to do it. When the Gang of Four says “favor object composition over class inheritance”, they’re advising you to use flexible approaches to composite object building, rather than the rigid, tightly-coupled approach of class inheritance.
+类继承可以用在构建复合对象，但这是一种限制性和脆弱性的方法。当 Gang of Four 说“在类继承上支持对象组合”时，他们建议你使用灵活的方式来构建复合对象，而不是使用刚性的，紧密耦合的类继承方法。
 
-We’ll use a more general definition of object composition from [“Categorical Methods in Computer Science: With Aspects from Topology”](https://www.amazon.com/Categorical-Methods-Computer-Science-Topology/dp/0387517227/ref=as_li_ss_tl?ie=UTF8&qid=1495077930&sr=8-3&keywords=Categorical+Methods+in+Computer+Science:+With+Aspects+from+Topology&linkCode=ll1&tag=eejs-20&linkId=095afed5272832b74357f63b41410cb7) (1989):
+我们将使用“[计算机科学中的分类方法：与拓扑相关的方面](https://www.amazon.com/Categorical-Methods-Computer-Science-Topology/dp/0387517227/ref=as_li_ss_tl?ie=UTF8&qid=1495077930&sr=8-3&keywords=Categorical+Methods+in+Computer+Science:+With+Aspects+from+Topology&linkCode=ll1&tag=eejs-20&linkId=095afed5272832b74357f63b41410cb7)”（1989）中对象组成更一般的定义：
 
-> “Composite objects are formed by putting objects together such that each of the latter is ‘part of’ the former.”
+> ”通过将对象放在一起形成复合对象，使得后者中的每一个都是‘前者’的一部分。“
 
-Another good reference is “Reliable Software Through Composite Design”, Glenford J Myers, 1975. Both books are long out of print, but you can still find sellers on Amazon or eBay if you’d like to explore the subject of object composition in more technical depth.
+另一个很好的参考是“通过复合设计可靠的软件”，Glenford J Myers，1975年。这两本书都已经绝版了，但如果你想在对象组成的主题上探索更多的技术深度，你仍然可以在亚马逊或者 eBay 上找到卖家。
 
-_Class inheritance is just one kind of composite object construction._ All classes produce composite objects, but not all composite objects are produced by classes or class inheritance. “Favor object composition over class inheritance” means that you should form composite objects from small component parts, rather than inheriting all properties from an ancestor in a class hierarchy. The latter causes a large variety of well-known problems in object oriented design:
+_类继承只是一种复合对象结构。_所有类生成复合对象，但不是所有的复合对象都是由类或者类继承生成的。“在类继承上支持对象组合”意味着你应该从小组件部分构建复合对象，而不是在类层次上从祖先继承所有属性。后者在面向对象设计中引起大量众所周知的问题：
 
-*   **The tight coupling problem:** Because child classes are dependent on the implementation of the parent class, class inheritance is the tightest coupling available in object oriented design.
-*   **The fragile base class problem:** Due to tight coupling, changes to the base class can potentially break a large number of descendant classes — potentially in code managed by third parties. The author could break code they’re not aware of.
-*   **The inflexible hierarchy problem:** With single ancestor taxonomies, given enough time and evolution, all class taxonomies are eventually wrong for new use-cases.
-*   **The duplication by necessity problem:** Due to inflexible hierarchies, new use cases are often implemented by duplication, rather than extension, leading to similar classes which are unexpectedly divergent. Once duplication sets in, it’s not obvious which class new classes should descend from, or why.
-*   **The gorilla/banana problem:** “…the problem with object-oriented languages is they’ve got all this implicit environment that they carry around with them. You wanted a banana but what you got was a gorilla holding the banana and the entire jungle.” ~ Joe Armstrong, [“Coders at Work”](http://www.amazon.com/gp/product/1430219483?ie=UTF8&camp=213733&creative=393185&creativeASIN=1430219483&linkCode=shr&tag=eejs-20&linkId=3MNWRRZU3C4Q4BDN)
+* **强耦合问题：**因为子类依赖于父类的实现，类继承是面向对象设计中最紧密的耦合。
+* **脆弱的基类问题：**由于强耦合，对基类的更改可能会破坏大量的后代类 —— 可能在第三方管理的代码中。作者可能会破坏掉他们不知道的代码。
+* **不灵活的层次结构问题：**对于单一的祖先分类法，给定足够的时间和改进，所有的类分类法最终都是错误的新用例。
+* **必要性重复问题：**由于层次结构不灵活，新的用例通常是通过复制而不是扩展来实现，从而导致类似的类意外地的发散。一旦复制开始，就不清楚或者为什么哪个新类应该从哪个类开始。
+* **大猩猩/香蕉问题：**”......面向对象语言的问题在于它们自身带有所有隐含的环境。你想要的是一根香蕉，但你得到的是拿着香蕉的大猩猩和整个丛林。“ —— Joe Armstrong，["工作中的编码员"](http://www.amazon.com/gp/product/1430219483?ie=UTF8&camp=213733&creative=393185&creativeASIN=1430219483&linkCode=shr&tag=eejs-20&linkId=3MNWRRZU3C4Q4BDN)
 
-The most common form of object composition in JavaScript is known as **object concatenation** (aka mixin composition). It works like ice-cream. You start with an object (like vanilla ice-cream), and then mix in the features you want. Add some nuts, caramel, chocolate swirl, and you wind up with nutty caramel chocolate swirl ice cream.
+JavaScript 中最常见的对象组合形式称为**对象链接**（又称混合组合）。它像冰淇淋一样。你从一个对象（如香草冰淇淋）开始，然后混合你想要的功能。加入一些坚果，焦糖，巧克力漩涡，然后你会结出坚果焦糖巧克力漩涡冰淇淋。
 
-Building composites with class inheritance:
+使用类继承构建复合：
 
 ```
 class Foo {
@@ -259,7 +259,7 @@ class Bar extends Foo {
 const myBar = new Bar(); // {a: 'a', b: 'b'}
 ```
 
-Building composites with mixin composition:
+使用混合组合构建复合：
 
 ```
 const a = {
@@ -273,50 +273,49 @@ const b = {
 const c = {...a, ...b}; // {a: 'a', b: 'b'}
 ```
 
-We’ll explore other styles of object composition in more depth later. For now, your understanding should be:
+我们稍后将更加深入的探索其他对象组合风格。目前，你的理解应该是：
 
-1.  There’s more than one way to do it.
-2.  Some ways are better than others.
-3.  You want to select the simplest, most flexible solution for the task at hand.
+1.  有很多种方法可以做到这一点（复合）。
+2.  有些方法比其他方式更好。
+3.  你希望选择为手头的任务选择最简单，最灵活的解决方案。
 
-### Conclusion
+### 总结
 
-This isn’t about functional programming (FP) vs object-oriented programming (OOP), or one language vs another. Components can take the form of functions, data structures, classes, etc… Different programming languages tend to afford different atomic elements for components. Java affords classes, Haskell affords functions, etc… But no matter what language and what paradigm you favor, you can’t get away from composing functions and data structures. In the end, that’s what it all boils down to.
+这不是关于功能编程（FP）和面向对象编程（OOP）的比较，或者一种语言和另一种语言的对比。组件可以采用函数，数据结构，类等形式......不同的编程语言为组件提供不同的原子元素。Java 提供类，Haskell 提供函数等等......但无论你喜欢什么语言和范式，归结到底，你都无法摆脱编写函数和数据结构。
 
-We’ll talk a lot about functional programming, because functions are the simplest things to compose in JavaScript, and the functional programming community has invested a lot of time and effort formalizing function composition techniques.
+我们将讨论很多关于函数编程的知识，因为函数是用 JavaScript 编写的最简单的东西，并且函数式编程社区投入了大量时间和精力来形式化函数组合技术。
 
-What we won’t do is say that functional programming is better than object-oriented programming, or that you must choose one over the other. OOP vs FP is a false dichotomy. Every real Javascript application I’ve seen in recent years mixes FP and OOP extensively.
+我们不会做的是说功能编程比面向对象编程更好，或者你必须择其一。OOP 比较 FP 是一个错误的二分法。就我近些年看到的每个真正的 JavaScript 应用都广泛混合使用 FP 和 OOP。
 
-We’ll use object composition to produce datatypes for functional programming, and functional programming to produce objects for OOP.
+我们将使用对象组合来生成用于函数编程的数据类型，以及用于为 OOP 生成对象的函数式编程。
 
-_No matter how you write software, you should compose it well._
+_无论你如何编写软件，都应该把它写得更好。_
 
-> The essence of software development is composition.
+> 软件开发的本质是组合。
 
-A software developer who doesn’t understand composition is like a home builder who doesn’t know about bolts or nails. Building software without awareness of composition is like a home builder putting walls together with duct tape and crazy glue.
+不了解组合的软件开发人员就像不知道螺栓和钉子的房屋建筑师。在没有组合意识的情况下构建软件就像一个房屋建筑师把墙壁用胶带和强力胶水捆绑在一起。
 
-It’s time to simplify, and the best way to simplify is to get to the essence. The trouble is, almost nobody in the industry has a good handle on the essentials. We as an industry have failed you, the software developer. It’s our responsibility as an industry to train developers better. We must improve. We need to take responsibility. Everything runs on software today, from the economy to medical equipment. There is literally no corner of human life on this planet that is not impacted by the quality of our software. We need to know what we’re doing.
+是时候简化了，简化的最好方法就是了解本质。问题是，业内几乎没有人能够很好的掌握到最本质元素。就软件行业来说，作为一个开发者这算失败的。但从行业的角度来看我们有责任更好的培训开发人员。我们必须改进。我们需要承担责任。从经济到医疗设备，今天所有的一切都运行在软件上。在我们星球上没有人类生活的角落不受到软件质量影响的。我们需要知道我们在做什么。
 
-It’s time to learn how to compose software.
+是时候学习如何编写软件了。
 
-[Continued in “The Rise and Fall and Rise of Functional Programming”](https://medium.com/javascript-scene/the-rise-and-fall-and-rise-of-functional-programming-composable-software-c2d91b424c8c)
+[继续“函数式编程的兴衰与崛起”](https://medium.com/javascript-scene/the-rise-and-fall-and-rise-of-functional-programming-composable-software-c2d91b424c8c)
 
-### Learn More at EricElliottJS.com
+### 在 EricElliottJS.com 上了解更多信息
 
-[Video lessons on function & object composition](https://ericelliottjs.com/premium-content/) are available for members of EricElliottJS.com. If you’re not a member, [sign up today](https://ericelliottjs.com/).
+[有关函数和对象组成的视频课程](https://ericelliottjs.com/premium-content/)可供 EricElliottJS.com 的成员使用。如果你不是成员，[请立即注册](https://ericelliottjs.com/)。
 
 [![](https://cdn-images-1.medium.com/max/800/1*3njisYUeHOdyLCGZ8czt_w.jpeg)](https://ericelliottjs.com/product/lifetime-access-pass/)
 
 * * *
 
-**_Eric Elliott_** _is the author of_ [_“Programming JavaScript Applications”_](http://pjabook.com) _(O’Reilly), and_ [_“Learn JavaScript with Eric Elliott”_](http://ericelliottjs.com/product/lifetime-access-pass/)_. He has contributed to software experiences for_ **_Adobe Systems_**_,_ **_Zumba Fitness_**_,_ **_The Wall Street Journal_**_,_ **_ESPN_**_,_ **_BBC_**_, and top recording artists including_ **_Usher_**_,_ **_Frank Ocean_**_,_ **_Metallica_**_, and many more._
+**_Eric Elliott_** _是 “[JavaScript 应用程序编程](http://pjabook.com)” （O'Reilly）和 “[和 Eric Elliott 一起学习 JavaScript](http://ericelliottjs.com/product/lifetime-access-pass/)”的作者。他为 Adobe Systems， Zumba Fitness， 华尔街日报， ESPN， BBC 以及包括 Usher， Frank Ocean， Metallica 等在内的很多顶级录音艺术家的软件体验做出了贡献_。
 
-_He works remote from anywhere with the most beautiful woman in the world._
+_他与世界上最美丽的女人在任何地方远程工作。_
 
-Thanks to [JS_Cheerleader](https://medium.com/@JS_Cheerleader?source=post_page).
+感谢 [JS_Cheerleader](https://medium.com/@JS_Cheerleader?source=post_page).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
