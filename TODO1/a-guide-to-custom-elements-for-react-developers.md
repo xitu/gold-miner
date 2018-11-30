@@ -7,22 +7,22 @@
 
 # 写给 React 开发者的自定义元素指南
 
-最近我需要构建 UI 界面，虽然现在 React.js 是我首选的 UI 解决方案，不过长时间以来第一次我没有选择用它。然后我看了浏览器内置的 API 发现使用[自定义元素](https://css-tricks.com/modular-future-web-components/)（也就是 Web Components）可能正是 React 开发者需要的方案。
+最近我需要构建 UI 界面，虽然现在 React.js 是我更为青睐的 UI 解决方案，不过长时间以来第一次我没有选择用它。然后我看了浏览器内置的 API 发现使用[自定义元素](https://css-tricks.com/modular-future-web-components/)（也就是 Web 组件）可能正是 React 开发者需要的方案。
 
-自定义元素可以提供与 React 组件大致相同的优点，而且实现起来无需绑定特定的框架。自定义元素能提供新的 HTML 标签，我们可以使用原生浏览器 API 来以编程的方式操控它。
+自定义元素可以提供与 React 组件大致相同的优点，而且实现起来无需绑定特定的框架。自定义元素能提供新的 HTML 标签，我们可以使用原生浏览器的 API 来以编程的方式操控它。
 
 让我们说说基于组件的 UI 优点：
 
 *  **封装** — 把专注点放在组件的内部实现上
-*  **复用** — 当把 UI 分割成更通用的小块时，它们更容易分解为你更想要的模式
+*  **复用** — 当把 UI 分割成更通用的小块时，它们更容易分解为你可以复用的形态
 *  **隔离** — 因为组件是被封装过的，你能获得隔离的额外好处，即让你更轻松地定位错误和更易修改应用中的特定部分
 
 ### 用例
 
-你可能有疑问谁在生产环境中使用自定义元素。比较出名的有：
+你可能想知道有谁在生产环境中使用自定义元素。比较出名的有：
 
 *   [GitHub](https://githubengineering.com/removing-jquery-from-github-frontend/#custom-elements) 使用自定义元素在模态对话框、自动补全和显示时间上。
-*   YouTube 的[新应用](https://youtube.googleblog.com/2017/05/a-sneak-peek-at-youtubes-new-look-and.html)使用了 [Polymer](https://www.polymer-project.org/) 和自定义元素。
+*   YouTube 的[新应用](https://youtube.googleblog.com/2017/05/a-sneak-peek-at-youtubes-new-look-and.html)使用了 [Polymer](https://www.polymer-project.org/) 和 Web 组件。
 
 ### 和组件 API 的相似点
 
@@ -34,7 +34,7 @@
 
 ### 演示
 
-那么，让我们来构建一个小型应用，列出关于 GitHub 仓库的详细信息。
+那么，让我们来构建一个小型应用，提供 GitHub 仓库的详细信息列表。
 
 ![结果截图](https://css-tricks.com/wp-content/uploads/2018/10/screenshot-demo.png)
 
@@ -44,7 +44,7 @@
 <Repository name="charliewilco/obsidian" />
 ```
 
-这个组件需要一个 props —— 仓库名，我们要这么实现它：
+这个组件需要一个 prop —— 仓库名，我们要这么实现它：
 
 ```
 class Repository extends React.Component {
@@ -98,13 +98,13 @@ class Repository extends React.Component {
 
 请看 [React 演示 — GitHub](https://codepen.io/charliewilco/pen/jeVMvK/)，来自于 [CodePen](https://codepen.io) 上的 Charles ([@charliewilco](https://codepen.io/charliewilco))。
 
-来深入看一下，我们有一个组件，这个组件有它自己的状态，即仓库的详细信息。开始时，我们把它设为 `null`，因为此时还没有其它的数据，所以在加载数据时会有一个加载提示。
+来深入看一下，我们有一个组件，这个组件有它自己的状态，即仓库的详细信息。开始时，我们把它设为 `null`，因为此时还没有任何数据，所以在加载数据时会有一个加载提示。
 
 在 React 的生命周期中，我们使用 fetch 从 GitHub 获得数据，创建选项卡，然后在我们拿到返回数据时使用 `setState()` 触发一次重新渲染。所有 UI 使用的不同状态都会在 `render()` 方法里表现出来。
 
-### 定义/使用自定义组件
+### 定义/使用自定义元素
 
-使用自定义组件实现起来稍有不同。和 React 组件一样，我们的自定义元素也需要一个属性 —— 仓库名，它的状态也是自己管理的。
+使用自定义元素实现起来稍有不同。和 React 组件一样，我们的自定义元素也需要一个属性 —— 仓库名，它的状态也是自己管理的。
 
 如下就是我们的元素：
 
@@ -135,7 +135,7 @@ window.customElements.define('our-element', OurCustomElement);
 
 | 名字 | 何时调用 |
 | ---- | ----------- |
-| `constructor` | 用来创建或更新元素的实例。初始化状态、设置事件监听或创建 Shadow DOM。如果你想知道在 `constructor` 可以做什么，请查看设计规范 |
+| `constructor` | 用来创建或更新元素的实例。常用来初始化状态、、设置事件监听或创建 Shadow DOM。如果你想知道在 `constructor` 可以做什么，请查看设计规范 |
 | `connectedCallback` | 在元素被插入 DOM 时调用。用来运行创建任务的代码，例如获取资源或渲染 UI。总体上说，你应该这里尝试异步任务。 |
 | `disconnectedCallback` | 在元素被移出 DOM 时调用。用来运行做清理任务的代码 |
 
@@ -173,7 +173,7 @@ class Repository extends HTMLElement {
 }
 ```
 
-下面，让我们使用 `connectedCallback` 方法和 Shadow DOM 使用这个方法返回的值。使用这个方法和我们在 React 示例中调用 `Repository.componentDidMount()` 做的任务类似。我们将开始时赋给`this.repoDetails` 的 `null` 替换掉 —— 并将在后面调用模板创建 HTML 时使用它。
+下面，让我们使用 `connectedCallback` 方法和 Shadow DOM 来使用这个方法的返回值。使用这个方法的效果和我们在 React 示例中调用 `Repository.componentDidMount()` 类似。我们将开始时赋给`this.repoDetails` 的 `null` 替换掉 —— 并将在后面调用模板创建 HTML 时使用它。
 
 ```
 class Repository extends HTMLElement {
@@ -198,7 +198,7 @@ class Repository extends HTMLElement {
 }
 ```
 
-你会注意到我们正在调用与 Shadow DOM 相关的方法。 除了作为漫威电影的被拒绝的标题之外，Shadow DOM 还有自己[丰富的 API](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) 值得研究。 但是，为了我们的目标，它将抽象出将 `innerHTML` 添加到元素的实现。
+你会注意到我们正在调用与 Shadow DOM 相关的方法。 除了作为被漫威电影拒绝的标题之外，Shadow DOM 还有自己[丰富的 API](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) 值得研究。 为了我们的目标，它将抽象出一种将 `innerHTML` 添加到元素的实现。。
 
 现在我们将 `this.template` 赋值给 `innerHTML`。现在来定义 `template`：
 
@@ -207,7 +207,7 @@ class Repository extends HTMLElement {
   get template() {
     const repo = this.repoDetails;
 
-    // 如果获取错误信息，向用户显示友好的提示信息
+    // 如果获取错误信息，向用户显示提示信息
     if (repo.message) {
       return `<div class="Card Card--error">Error: ${repo.message}</div>`
     } else {
@@ -229,11 +229,11 @@ class Repository extends HTMLElement {
 
 自定义元素差不多就是这样。我们定义可以管理自己状态的自定义元素、获取它自己的数据及向用户反应状态，同时为我们得到可在应用中使用的 HTML 元素。
 
-在完成本次练习之后，我发现自定义元素唯一需要的依赖是浏览器的原生 API 而不是另外需要解析和执行的框架。这使得更具可移植性和可复用性的解决方案具有和（那些你已经喜欢并用之谋生的）框架类似的 API。
+在完成本次练习之后，我发现自定义元素唯一需要的依赖是浏览器的原生 API 而不是另外需要解析和执行的框架。这提供了更具可移植性和可复用性并且有和（那些你已经喜欢并用之谋生的）框架类似的 API 的解决方案。
 
 当然，这种方法也有缺点，我们说的是不同浏览器的问题和缺乏一致性。此外，DOM 操作 API 可能会十分混乱。有时它们是赋值。有时它们是函数。有时这些方法需要回调函数而有时又不需要。如果你不相信，那就去看一下添加类到 HTML 元素使用的方法 `document.createElement()`，这是使用 React 的五大理由之一。基本实现其实并不复杂，但它与其他类似的 `document` 方法不一致。
 
-现实的问题是：它是否会被淘汰？也许会。React 仍然在它该擅长的东西上表现良好：虚拟 DOM、管理应用状态、封装和在树中向下传递数据。现在还没有在该框架中使用自定义元素的动力。另一方面，为制作浏览器应用使用自定义元素非常简单实用。
+现实的问题是：它是否会被淘汰？也许会。React 仍然在它该擅长的东西上表现良好：虚拟 DOM、管理应用状态、封装和在树中向下传递数据。现在还没有在该框架中使用自定义元素的动力。另一方面，自定义元素在制作浏览器应用上非常简单实用。
 
 ### 了解更多
 
