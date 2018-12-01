@@ -253,6 +253,7 @@ npm init -y
 # 安装需要的依赖
 npm install --save graphql apollo-server-express express
 ```
+
 让我们简要了解下这些依赖的作用。
 
 * `graphql` 是一个支持库，并且在我们这里是一个必要的模块
