@@ -53,7 +53,6 @@ https://swapi.co/api/people/
 
 REST API 的响应格式未必会是 JSON，但是这是目前大多数 API 的首选方法。**除了 REST，还出现了另一种处理网络请求的方法：GraphQL。它于2015年开源，正在改变着开发人员在服务器端编写API以及在客户端处理API的方式。** 并由 Facebook 开发并积极维护。
 
-
 ### REST 的弊端
 
 GraphQL 是一种用于开发 API 的查询语言。和 REST（一种架构或者“一种做事方式”）相比，GraphQL 的开发基于一个理念：客户端每次仅从服务端请求所需要的项目集合。
@@ -62,7 +61,7 @@ GraphQL 是一种用于开发 API 的查询语言。和 REST（一种架构或�
 
 使用 GraphQL，就可以将其解析为单个网络请求。转到 API 网址：`https://graphql.github.io/swapi-graphql/`，查看运行以下查询（query）看看。
 
-*注意：在下面的例子中，你可以不必理会 GraphQL API 幕后的工作方式。我将在本教程后面逐步构建你自己的（可能是第一个）GraphQL API。*
+**注意：在下面的例子中，你可以不必理会 GraphQL API 幕后的工作方式。我将在本教程后面逐步构建你自己的（可能是第一个）GraphQL API。**
 
 ```graphql
 {
@@ -193,7 +192,6 @@ GraphQL 是一种用于开发 API 的查询语言。和 REST（一种架构或�
 ### GraphQL 简述
 
 简而言之，**GraphQL** 是一种用于阐述如何请求 *data* 的语法，通常用于从客户端检索数据（也称为 *query*）或者对其进行更改（也称为 *mutation*）。
-
 
 GraphQL 几乎没有什么定义特征：
 
