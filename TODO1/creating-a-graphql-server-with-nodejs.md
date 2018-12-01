@@ -310,7 +310,7 @@ Apollo Server 为你设置了 GraphQL Playground，供你快速开始运行 quer
 
 ![](https://cdn-images-1.medium.com/max/800/1*3v_Uh_k2gjC-XueD9PhWvQ.png)
 
-*瞧！*你刚创建了第一个 GraphQL 服务器。现在让我们拓展下我们对现实世界的认知。
+**瞧**！你刚创建了第一个 GraphQL 服务器。现在让我们拓展下我们对现实世界的认知。
 
 ### 使用 GraphQL 构建 API
 
