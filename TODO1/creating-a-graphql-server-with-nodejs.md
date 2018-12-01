@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-graphql-server-with-nodejs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-graphql-server-with-nodejs.md)
 > * 译者：[Raoul1996](https://github.com/Raoul1996)
-> * 校对者：[KarthusLorin](https://github.com/KarthusLorin)、[weibinzhu](https://github.com/weibinzhu)
+> * 校对者：[KarthusLorin](https://github.com/KarthusLorin), [weibinzhu](https://github.com/weibinzhu)
 
 # 使用 NodeJS 创建一个 GraphQL 服务器
 
@@ -11,7 +11,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*mbwU_n49CU8SEJyLPaTAUw.png)
 
-当谈到客户端和应用程序服务器之间的网络请求时，REST（*[表现层状态转换](https://zh.wikipedia.org/wiki/%E8%A1%A8%E7%8E%B0%E5%B1%82%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2)*的代表）是连接二者最常用的选择之一。在 [REST API](https://medium.com/crowdbotics/building-a-rest-api-with-koajs-417c276929e2) 的世界中，一切都围绕着如何把资源作为可访问的 URL。然后我们会进行 CURD 操作（新建、读取、更新、删除），这些操作是 HTTP 的基本方法，如 GET、POST、PUT 和 DELETE，来与数据进行交互。
+当谈到客户端和应用程序服务器之间的网络请求时，REST（[**表现层状态转换**](https://zh.wikipedia.org/wiki/%E8%A1%A8%E7%8E%B0%E5%B1%82%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2)的代表）是连接二者最常用的选择之一。在 [REST API](https://medium.com/crowdbotics/building-a-rest-api-with-koajs-417c276929e2) 的世界中，一切都围绕着如何把资源作为可访问的 URL。然后我们会进行 CURD 操作（新建、读取、更新、删除），这些操作是 HTTP 的基本方法，如 GET、POST、PUT 和 DELETE，来与数据进行交互。
 
 这是一个典型的 REST 请求的例子：
 
@@ -51,7 +51,7 @@ https://swapi.co/api/people/
 }
 ```
 
-REST API 的响应格式未必会是 JSON，但是这是目前大多数 API 的首选方法。**除了 REST，还出现了另一种处理网络请求的方法：GraphQL。它于2015年开源，正在改变着开发人员在服务器端编写API以及在客户端处理API的方式。** 并由 Facebook 开发并积极维护。
+REST API 的响应格式未必会是 JSON，但是这是目前大多数 API 的首选方法。**除了 REST，还出现了另一种处理网络请求的方法：GraphQL。它于 2015 年开源，正在改变着开发人员在服务器端编写API以及在客户端处理API的方式**。并由 Facebook 开发并积极维护。
 
 ### REST 的弊端
 
@@ -218,9 +218,10 @@ type User {
 	age: Int
 }
 ```
+
 上面的 schema 定义了一个用户对象的样子。其中必需的字段 `id` 用 `!` 符号标识。还包含其他字段，例如 *string* 类型的 `name` 和 *integer* 类型的 `age`。这也会在查询数据的时候对 `schema` 进行验证。
 
-**Queries** 是你用来向 GraphQL API 发出请求的方法。例如，在我们上面的示例中，就像我们获取 Star Wars 相关的数据时那样。让我们简化一下，如果在 GraphQL 中查询，就是在查询对象的特定字段。例如，使用上面相同的 API，我们能获取 Star Wars 中所有角色的名称。下面你可以看到差异，在图片的左侧是查询，右侧是结果。（译者注： 原文是 on the right-hand side is the image，译者认为不是很合适）
+**Queries** 是你用来向 GraphQL API 发出请求的方法。例如，在我们上面的示例中，就像我们获取 Star Wars 相关的数据时那样。让我们简化一下，如果在 GraphQL 中查询，就是在查询对象的特定字段。例如，使用上面相同的 API，我们能获取 Star Wars 中所有角色的名称。下面你可以看到差异，在图片的左侧是查询，右侧是结果。（译者注：原文是 on the right-hand side is the image，译者认为不是很合适）
 
 ![](https://cdn-images-1.medium.com/max/1000/1*L-Z_EF1tNkq4jUhsopHasw.png)
 
@@ -234,9 +235,9 @@ type User {
 
 **Resolvers** 是 schema 和 data 之间的纽带。它们提供可用于通过不同操作与数据库交互的功能。
 
-*在这个教程中，你将学习用我们刚刚学到的构件，来使用 [_Nodejs_](https://www.crowdbotics.com/build/node-js?utm_source=medium&utm_campaign=nodeh&utm_medium=node&utm_content=koa-rest-api) 构建 GraphQL 服务器。*
+**在这个教程中，你将学习用我们刚刚学到的构件，来使用 [_Nodejs_](https://www.crowdbotics.com/build/node-js?utm_source=medium&utm_campaign=nodeh&utm_medium=node&utm_content=koa-rest-api) 构建 GraphQL 服务器。**
 
-### Hello World! 使用 GraphQL
+### Hello World！使用 GraphQL
 
 现在我们来写我们第一个 GraphQL 服务器。本教程中，我们将使用 [Apollo Server](https://www.apollographql.com/docs/apollo-server/)。我们需要为 Apollo Server 安装三个包才能使用现有的 Express 应用程序作为中间件。Apollo Server 的优点在于它可以与 Node.js 的几个流行框架一起使用：Express、[Koa](https://medium.com/crowdbotics/building-a-rest-api-with-koajs-417c276929e2) 和 [Hapi](https://medium.com/crowdbotics/setting-up-nodejs-backend-for-a-react-app-fe2219f26ea4)。Apollo 本身和库无关，因此在客户端和服务器应用程序中，它可以和许多第三方库连接。
 
@@ -262,7 +263,7 @@ npm install --save graphql apollo-server-express express
 
 ![](https://cdn-images-1.medium.com/max/800/1*gCozaTuzY6DHaPG4Ya43zA.png)
 
-在你项目的根路径下，新建一个名字为 `index.js` 、包含以下代码的文件。
+在你项目的根路径下，新建一个名字为 `index.js`，包含以下代码的文件。
 
 ```js
 const express = require('express');
@@ -289,6 +290,7 @@ app.listen({ port: 4000 }, () =>
 	console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
 );
 ```
+
 这是我们服务器文件的起点。开始我们仅仅只需要 `express` 模块。`gql` 是一个模板文字标记，用于将 GraphQL schema 编写为类型。schema 由类型定义组成，并且强制包含一个用于读取数据的 Query 类型，用于读取数据。它还可以包含表示其他数据字段的字段和嵌套字段。在我们上面的例子中，我们定义了 `typeDefs` 来编写 graphQL 的 schema。
 
 然后 `resolvers` 映入眼帘。Resolver 用于从 schema 中返回字段的数据。在我们的示例中，我们定义了一个 resolver，它将函数 `hello()` 映射到我们的 schema 上的实现。接下来，我们创建一个 `server`，它使用 `ApolloServer` 类来实例化并启动服务器。由于我们使用了 Express，所以我们需要集成 `ApolloServer` 类。通过 `applyMiddleware()` 作为 `app` 来传递它，来添加 Apollo Server 的中间件。这里的 `app` 是 Express 的一个实例，代表了现有的应用程序。
