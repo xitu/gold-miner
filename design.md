@@ -1,3 +1,4 @@
+* [我是如何在谷歌找到 UX 设计的工作的](https://juejin.im/post/5bea544ff265da6112048e3c) ([rydensun](https://github.com/rydensun) 翻译)
 * [设计师的决策树](https://juejin.im/post/5befd61ee51d4557fe34e944) ([zhmhhu](https://github.com/zhmhhu) 翻译)
 * [动效设计可以很简单](https://juejin.im/post/5bd11a176fb9a05d101423c0) ([rydensun](https://github.com/rydensun) 翻译)
 * [白雪公主如何帮助 Airbnb 证明在设计中最重要的技能是讲故事](https://juejin.im/post/5bb22bc1f265da0a9e53200b) ([CoolRice](https://github.com/CoolRice) 翻译)
