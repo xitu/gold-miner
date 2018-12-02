@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划 — 区块链分舵](https://github.com/xitu/blockchain-miner)
 > * 本文永久链接：[https://github.com/xitu/blockchain-miner/tree/master/article/0001/introduction-to-ethereum-the-internets-government.md](https://github.com/xitu/blockchain-miner/tree/master/article/0001/introduction-to-ethereum-the-internets-government.md)
 > * 译者：[newraina](https://github.com/newraina)
-> * 校对者：
+> * 校对者：[7Ethan](https://github.com/7Ethan)
 
 # 以太坊入门：互联网政府
 
@@ -66,9 +66,9 @@ Uber 就是一个用法律鼓励合作行为的例子。司机会遵守能保护
 
 * * *
 
-**本文是 Consensys 公司开发人员 Carl Froesc 撰写的一篇文章，2016年12月8日首发于**[_karl.tech_](https://karl.tech/intro-to-ethereum/)。
+**本文是 Consensys 公司开发人员 Carl Froesc 撰写的一篇文章，2016年12月8日首发于** [_karl.tech_](https://karl.tech/intro-to-ethereum/)。
 
-> **免责声明：上述作者表达的观点不一定代表 Consensus Systems LLC DBA Consensys 的观点。ConsenSys 是一个分布式社区，ConsenSys 媒体是一个成员可以自由表达各种不同想法和观点的平台。要了解有关 ConsenSys 和以太坊的更多信息，**[**请访问我们的网站**](https://consensys.net/)**。如果您喜欢这篇文章，请在**[**此处**](http://consensys.us11.list-manage.com/subscribe?u=947c9b18fc27e0b00fc2ad055&id=257df01285)**注册我们的每周通讯。**
+> **免责声明：上述作者表达的观点不一定代表 Consensus Systems LLC DBA Consensys 的观点。ConsenSys 是一个分布式社区，ConsenSys 媒体是一个成员可以自由表达各种不同想法和观点的平台。要了解有关 ConsenSys 和以太坊的更多信息，[请访问我们的网站](https://consensys.net/)。如果您喜欢这篇文章，请在[此处](http://consensys.us11.list-manage.com/subscribe?u=947c9b18fc27e0b00fc2ad055&id=257df01285)注册我们的每周通讯。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划 — 区块链分舵](https://github.com/xitu/blockchain-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
