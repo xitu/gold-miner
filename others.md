@@ -1,3 +1,6 @@
+* [深度专注的工作 — 成为 10 倍效率的开发者的秘密武器](https://juejin.im/post/5bffb3f5f265da613a53bd4b) ([tmpbook](https://github.com/tmpbook) 翻译)
+* [如何让高效的代码评审成为一种文化](https://juejin.im/post/5bfc9ff9e51d454b6c371f5d) ([CoolRice](https://github.com/CoolRice) 翻译)
+* [在远程工作中领悟到的 10 件事](https://juejin.im/post/5bf7a79f51882511a8528cf0) ([Starriers](https://github.com/Starriers) 翻译)
 * [职业成长的内部指南](https://juejin.im/post/5bd722a65188252dd11662af) ([yuwhuawang](https://github.com/yuwhuawang) 翻译)
 * [6 个最令人满意的和编程相关的工作（和参与这些工作的人们的类型）](https://juejin.im/post/5be271f0e51d450556196864) ([Augustwuli](https://github.com/Augustwuli) 翻译)
 * [作为自由开发者，7 个步骤让你获得更多的客户](https://juejin.im/post/5bd660c26fb9a05ce576e9b7) ([rydensun](https://github.com/rydensun) 翻译)
