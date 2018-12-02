@@ -503,11 +503,10 @@ private enum Constants {
 
 如果你想要查看或比较，那请看 [最终项目](https://koenig-media.raywenderlich.com/uploads/2017/07/RWBlueLibrary-Part1-Final.zip)。
 
-库存里还有很多：本教程的第二部分还有适配器，观察者和备忘录模式。如果这还不够，我们会有一个后续教程，在你重构一个简单的 iOS 游戏时会涉及更多的设计模式。
-
-
+库存里还有很多：[本教程的第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-on-ios-using-swift-part-2-2.md)还有适配器，观察者和备忘录模式。如果这还不够，我们会有一个后续教程，在你重构一个简单的 iOS 游戏时会涉及更多的设计模式。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
 
 ---
 
