@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/converting-your-ios-app-to-android-using-kotlin.md](https://github.com/xitu/gold-miner/blob/master/TODO1/converting-your-ios-app-to-android-using-kotlin.md)
 > * 译者：[iWeslie](https://github.com/iWeslie)
-> * 校对者：
+> * 校对者：[LoneyIsError](https://github.com/LoneyIsError), [phxnirvana](https://github.com/phxnirvana)
 
 # 使用 Kotlin 将你的应用程序从 iOS 转换成 Android
 
@@ -13,7 +13,7 @@
 
 通常开发人员会选择一个开发平台，最常见的是 Android 或 iOS。这种选择一般基于个人所能得到的资源（例如，她或他的个人设备）或当前市场环境。许多开发人员倾向于只为他们选择的平台构建应用程序。Android 和 iOS 工程师历来都使用完全不同的语言和 IDE ，尽管两个移动平台之间存在太多相似之处，但在两个平台之间的跨平台开发是令人生畏并且十分罕见的。
 
-但是 Android 和 iOS 开发的语言和工具在过去几年中得到了极大的改善，主要是 **Kotlin** 和 **Swift** 的诞生，这两种语言缓解了跨平台学习之间的障碍。掌握了语言基础知识后，你可以很容易地把代码可以从 Swift 转换为 Kotlin。
+但是 Android 和 iOS 开发的语言和工具在过去几年中得到了极大的改善，主要是 *Kotlin* 和 *Swift* 的诞生，这两种语言缓解了跨平台学习之间的障碍。掌握了语言基础知识后，你可以很容易地把代码可以从 Swift 转换为 Kotlin。
 
 ![](https://koenig-media.raywenderlich.com/uploads/2018/10/ktswift-480x310.png)
 
@@ -40,13 +40,13 @@
 1.  `LoginViewController` 和
 2.  `BearViewController`
 
-在项目中找到这些控制器，该应用程序首先加载 `LoginViewController`，它持有了 **Main.storyboard** 中定义的 `TextField` 和 `Button` 的 UI 组件。另外请注意，`LoginViewController` 包含了两个用于验证密码的辅助函数，以及两个用于显示无效密码错误的辅助函数，这些是你将在 Kotlin 中重写的两个 Swift 函数。
+在项目中找到这些控制器，该应用程序首先加载 `LoginViewController`，它持有了 *Main.storyboard* 中定义的 `TextField` 和 `Button` 的 UI 组件。另外请注意，`LoginViewController` 包含了两个用于验证密码的辅助函数，以及两个用于显示无效密码错误的辅助函数，这些是你将在 Kotlin 中重写的两个 Swift 函数。
 
 `BearViewController` 中也持有了 **Main.storyboard** 中的 UI 组件。通常在 iOS 开发中，每个 `ViewController` 都有其单独的 storyboard 页面。在本教程中你将专注于 `ViewController` 逻辑组件而不是 UI。在 `BearViewController` 中，你保持对一个名为 `tapCount`的变量的引用，每次你点击 `pokeButton` 时 `tapCount` 值都会更新，从而触发熊的不同状态。
 
 ## Swift 到 Kotlin：基础部分
 
-现在你已经对该应用程序有了个大体的了解，现在可以通过 playground 进行技术改造，深入了解一些语言方面的细节。对于 Swift，在 Xcode 里点击 **File ▸ New ▸ Playground** 来创建一个新的 **Blank** 的 playground，然后就可以候编写一些代码了！
+现在你已经对该应用程序有了个大体的了解，现在可以通过 playground 进行技术改造，深入了解一些语言方面的细节。对于 Swift，在 Xcode 里点击 *File ▸ New ▸ Playground* 来创建一个新的 *Blank* 的 playground，然后就可以候编写一些代码了！
 
 [![Menu File ▸ New ▸ Playground](https://koenig-media.raywenderlich.com/uploads/2018/08/ios_3-480x191.png)](https://koenig-media.raywenderlich.com/uploads/2018/08/ios_3.png)
 
@@ -78,17 +78,17 @@ let hey: String = "world"
 hey = "no"
 ```
 
-通过为这两个变量增加类型标注，你已经将 `hello` 设置为 **可为空** 的String，由 `String?` 中的 `?` 表示，而 `hey` 是一个 **非空** 的 String。 可为空的变量在 Swift 中称为 **可选项**。
+通过为这两个变量增加类型标注，你已经将 `hello` 设置为 **可为空** 的String，由 `String?` 中的 `?` 表示，而 `hey` 是一个 **非空** 的 String。可为空的变量在 Swift 中称为 **可选项**。
 
 为什么这个细节很重要？空值通常会导致应用程序中出现令人讨厌的崩溃，尤其是当你的数据源并不是始终在客户端中进行定义时（例如，如果你希望服务器获得某个值而且它并没有返回）。使用 `let` 和 `var` 之类的简单前缀允许你进行内置的动态检查以防止程序在值为空时进行编译。有关更多信息，请参阅有关 Swift 中函数编程的 [相关教程](https://www.raywenderlich.com/693-an-introduction-to-functional-programming-in-swift)。
 
-但是 Android 又会是怎样呢？可空性通常被认为是 Java 开发中最大的痛点之一。NPE（或空指针异常）通常是由于空值处理不当导致程序崩溃的原因。 在Java中，你可以做的最有效的事是使用 `@NonNull` 或 `@Nullable` 注解来警告该值是否可为空。但是这些警告不会阻止你编译和运行应用程序。幸运的是，Kotlin 拯救了它！有关更多信息，请参阅 [Kotlin 的介绍](https://www.raywenderlich.com/331-kotlin-for-android-an-introduction)。
+但是 Android 又会是怎样呢？可空性通常被认为是 Java 开发中最大的痛点之一。NPE（或空指针异常）通常是由于空值处理不当导致程序崩溃的原因。在 Java 中，你可以做的最有效的事是使用 `@NonNull` 或 `@Nullable` 注解来警告该值是否可为空。但是这些警告不会阻止你编译和运行应用程序。幸运的是，Kotlin 拯救了它！有关更多信息，请参阅 [Kotlin 的介绍](https://www.raywenderlich.com/331-kotlin-for-android-an-introduction)。
 
 在 [try.kotlinlang.org](https://try.kotlinlang.org/) 打开 Kotlin playground 并粘贴刚刚在 Swift playground 中编写的代码来替换 `main` 函数的主体：
 
 [![Kotlin playground with main function body replaced](https://koenig-media.raywenderlich.com/uploads/2018/09/Screen-Shot-2018-09-17-at-11.20.37-AM-480x176.png)](https://koenig-media.raywenderlich.com/uploads/2018/09/Screen-Shot-2018-09-17-at-11.20.37-AM.png)
 
-太棒了对吧？你可以将代码从一个 playground 复制到另一个 playground，即使这两个 playground 使用不同的语言。 当然，语法并不完全相同。Kotlin 使用 `val` 代替 `let`，所以现在将该关键词更改为 Kotlin 中声明不可变变量的方式，如下所示：
+太棒了对吧？你可以将代码从一个 playground 复制到另一个 playground，即使这两个 playground 使用不同的语言。当然，语法并不完全相同。Kotlin 使用 `val` 代替 `let`，所以现在将该关键词更改为 Kotlin 中声明不可变变量的方式，如下所示：
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -102,7 +102,7 @@ fun main(args: Array<String>) {
 
 既然你做出了改变，现在你将 `let` 转向 `val`，然后你就得到了 Kotlin 代码！
 
-点击右上角的 **Run**，你会看到一个有意义的错误：
+点击右上角的 *Run*，你会看到一个有意义的错误：
 
 [![Kotlin compiler error](https://koenig-media.raywenderlich.com/uploads/2018/08/kotlin_5-480x41.png)](https://koenig-media.raywenderlich.com/uploads/2018/08/kotlin_5.png)
 
@@ -126,7 +126,7 @@ print(xs.map { it * 2 })
 
 为了到这一步，你需要：
 
-1.  像上一个示例中那样，再次把 `let` 改为 `val` 。
+1.  像上一个示例中那样，再次把 `let` 改为 `val`。
 2.  使用 `listOf()` 而不是方括号来更改声明整数数组的方式。
 3.  在 map 函数里把 `$0` 改为 `it` 以引用其中的值。`$0` 表示 Swift 中闭包的第一个元素，而在 Kotlin 中你要在 lambda 表达式中使用保留关键字。
 
@@ -143,17 +143,17 @@ print(xs.flatMap { it.map { it * 2 }})
 
 ## 编写 Android 应用程序
 
-在 Android Studio 3.1.4 或更高版本中打开 Android Starter 应用。你可以点击 **File ▸ New ▸ Import Project** 来导入项目，然后选择 Kotlin-Starter 项目的根文件夹来打开项目。这个项目比之前完成的 iOS 应用程序更加简单，但不要害怕！本教程将指导你构建 Android 版本的应用程序！
+在 Android Studio 3.1.4 或更高版本中打开 Android Starter 应用。你可以点击 *File ▸ New ▸ Import Project* 来导入项目，然后选择 Kotlin-Starter 项目的根文件夹来打开项目。这个项目比之前完成的 iOS 应用程序更加简单，但不要害怕！本教程将指导你构建 Android 版本的应用程序！
 
 ### 实现 LoginActivity
 
-打开 **app ▸ java ▸ com.raywenderlich.pokethebear ▸ LoginActivity.kt**  文件。这和了 iOS 项目中的  `LoginViewController` 类似。 Android 入门项目有一个与此 activity 相对应的 XML 布局文件，请打开 **app ▸ res ▸ layout ▸ activity_login.xml** 以引用你将在此处使用的视图，即 `login_button` 和 `password_edit_text`。
+打开 *app ▸ java ▸ com.raywenderlich.pokethebear ▸ LoginActivity.kt* 文件。这和了 iOS 项目中的 `LoginViewController` 类似。Android 入门项目有一个与此 activity 相对应的 XML 布局文件，请打开 *app ▸ res ▸ layout ▸ activity_login.xml* 以引用你将在此处使用的视图，即 `login_button` 和 `password_edit_text`。
 
 [![Android login screen](https://koenig-media.raywenderlich.com/uploads/2018/09/activity_login_xml-192x320.png)](https://koenig-media.raywenderlich.com/uploads/2018/09/activity_login_xml.png)
 
 **输入验证**
 
-现在你将从 Swift 项目文件 **LoginViewController.swift** 复制的第一个名为 `containsNumbers` 的函数：￼
+现在你将从 Swift 项目文件 *LoginViewController.swift* 复制的第一个名为 `containsNumbers` 的函数：￼
 
 ```swift
 private func containsNumbers(string: String) -> Bool {
@@ -162,7 +162,7 @@ private func containsNumbers(string: String) -> Bool {
 }
 ```
 
-再一次地，你可以使用你激进的跨平台复制粘贴方法，复制该函数并将其粘贴到 Android Studio 中**LoginActivity.kt** 文件中的 `LoginActivity` 类中。做了一些更改之后，以下是你现在的 Kotlin 代码：
+再一次地，你可以使用你激进的跨平台复制粘贴方法，复制该函数并将其粘贴到 Android Studio 中 *LoginActivity.kt* 文件中的 `LoginActivity` 类中。做了一些更改之后，以下是你现在的 Kotlin 代码：
 
 ```kotlin
 private fun containsNumbers(string: String): Boolean {
@@ -176,7 +176,7 @@ private fun containsNumbers(string: String): Boolean {
 3.  Kotlin 中函数的返回值用冒号 `:` 表示而不是 lambda 符号 `->`。
 4.  此外，在 Kotlin 中，布尔值被称为 `Boolean` 而不是 `Bool`。
 5.  要在 Kotlin 中有声明一个闭区间 `Range`，你需要使用两个点而不是三个，所以 `"0"..."9"` 要改为 `"0".."9"`。
-6.  就像你在 playground 中使用 `map` 一样，你还必须将 `$0 ` 转换为 `it`。此外，在 Kotlin 中调用 `contain` 来比较需要将 `it` 转换为 String。
+6.  就像你在 playground 中使用 `map` 一样，你还必须将 `$0` 转换为 `it`。此外，在 Kotlin 中调用 `contain` 来比较需要将 `it` 转换为 String。
 7.  最后，你使用 return 语句在 Kotlin 中进行一些清理。你只需使用 Kotlin 里 `String` 的函数 `isNotEmpty` 来检查是否为空，而不是用 `!`。
 
 现在，代码语句从 Swift 更改为了 Kotlin。
@@ -203,7 +203,7 @@ private fun passwordIsValid(passwordInput: String): Boolean {
 2.  用 `this` 而不是 `self`
 3.  用 `string =` 而不是 `string:`
 
-请注意，在Kotlin 中不需要 `string =` 方法，它有助于保持本教程中两种语言之间的相似性。 在其他实践里的标签是 Kotlin 为了使 Java 代码可以访问默认函数参数而包含的更多细节。 阅读有关 `@JvmOverloads` 函数的 [更多信息](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html) 以了解有关默认参数的更多信息！
+请注意，在Kotlin 中不需要 `string =` 方法，它有助于保持本教程中两种语言之间的相似性。在其他实践里的标签是 Kotlin 为了使 Java 代码可以访问默认函数参数而包含的更多细节。阅读有关 `@JvmOverloads` 函数的 [更多信息](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html) 以了解有关默认参数的更多信息！
 
 **错误展示**
 
@@ -262,7 +262,7 @@ private fun showInvalidError() {
 
 **处理按钮点击事件**
 
-现在你已经完成了验证和错误显示功能，通过实现 `loginButtonClicked` 函数可以把它们放在一起。Android 和 iOS 之间需要注意的一个很有趣的区别是，你的 Android 视图是在第一个生命周期回调 `onCreate()` 中显式创建和设置的，而 iOS 应用中的 **Main.storyboard** 是在 Swift 中隐式链接的。你可以在 [此处](https://www.raywenderlich.com/500-introduction-to-android-activities-with-kotlin) 详细了解本教程中的 Android 生命周期。
+现在你已经完成了验证和错误显示功能，通过实现 `loginButtonClicked` 函数可以把它们放在一起。Android 和 iOS 之间需要注意的一个很有趣的区别是，你的 Android 视图是在第一个生命周期回调 `onCreate()` 中显式创建和设置的，而 iOS 应用中的 *Main.storyboard* 是在 Swift 中隐式链接的。你可以在 [此处](https://www.raywenderlich.com/500-introduction-to-android-activities-with-kotlin) 详细了解本教程中的 Android 生命周期。
 
 这是 iOS 项目中的 `loginButtonTapped` 函数。
 
@@ -292,7 +292,7 @@ if (passwordIsValid(passwordInput = passwordInput)) {
 }
 ```
 
-这里有两个不同之处，分别是从 EditText 中提取字符串的方法以及显示新 activity 的方法。你可以使用语句 `this.password_edit_text.text.toString()` 从 `passwordInput` 视图中获取文本。 然后，调用 `startActivity` 函数传入 `Intent` 以启动 `BearActivity` 活动。剩下的都应该非常简单。
+这里有两个不同之处，分别是从 EditText 中提取字符串的方法以及显示新 activity 的方法。你可以使用语句 `this.password_edit_text.text.toString()` 从 `passwordInput` 视图中获取文本。然后，调用 `startActivity` 函数传入 `Intent` 以启动 `BearActivity` 活动。剩下的都应该非常简单。
 
 你的 `LoginActivity` 现已完成。现在 Android Studio 中编译并运行应用程序，查看你的设备或自带模拟器中显示的第一个已实现的活动。输入用户名的任何字符串值，并使用有效和无效的密码组合，以确保你的错误对话框显示达到了预期。
 
@@ -302,7 +302,7 @@ if (passwordIsValid(passwordInput = passwordInput)) {
 
 ### 实现熊的活动
 
-打开 **app ▸ java ▸ com.raywenderlich.pokethebear ▸ BearActivity.kt**，你的 BearViewController.swift 文件即将变成 Kotlin 的版本。你将通过实现辅助函数 `bearAttack` 和 `reset` 来开始修改此 Activity。你将在 Swift 文件中看到 `bearAttack` 负责设置 UI 状态，隐藏 Poke 按钮五秒钟，然后重置屏幕：
+打开 *app ▸ java ▸ com.raywenderlich.pokethebear ▸ BearActivity.kt*，你的 BearViewController.swift 文件即将变成 Kotlin 的版本。你将通过实现辅助函数 `bearAttack` 和 `reset` 来开始修改此 Activity。你将在 Swift 文件中看到 `bearAttack` 负责设置 UI 状态，隐藏 Poke 按钮五秒钟，然后重置屏幕：
 
 ```swift
 private func bearAttack() {
@@ -314,7 +314,7 @@ private func bearAttack() {
 }
 ```
 
-从 iOS 项目中复制该函数并将其粘贴到 Android 项目中的`bearAttack` 函数体中，然后进行一些小的语法修改让 Kotlin 中的 `bearAttack` 函数的主体如下所示：
+从 iOS 项目中复制该函数并将其粘贴到 Android 项目中的 `bearAttack` 函数体中，然后进行一些小的语法修改让 Kotlin 中的 `bearAttack` 函数的主体如下所示：
 
 ```kotlin
 private fun bearAttack() {
@@ -327,7 +327,7 @@ private fun bearAttack() {
 
 你需要做出以下修改：
 
-1.  调用 `setImageDrawable` 函数将 `bear_image_view` 的图像资源设置为 **bear5.png** 可绘制的资源，该资源已包含在 **app ▸ res ▸ drawable** 目录下。
+1.  调用 `setImageDrawable` 函数将 `bear_image_view` 的图像资源设置为 *bear5.png* 可绘制的资源，该资源已包含在 *app ▸ res ▸ drawable* 目录下。
 2.  然后调用 `setBackgroundColor` 函数将 `bear_container` 视图的背景设置为预先定义的颜色 `R.color.red`。
 3.  将 `isHidden` 属性更改为 `visibility`，而不是将按钮的可见性切换为 `View.INVISIBLE`。
 4.  也许你对代码的最不直观的改变是重写 `DispatchQueue`，但不要害怕！Android的 `asyncAfter` 是一个简单的 `postDelayed` 动作，你在 `bear_container` 视图上设置。
@@ -365,7 +365,7 @@ if (this.tapCount == 3) {
 }
 ```
 
-> **额外声明**：这个if / else 阶梯语句可以很容易地用更具表现力的 [控制流语句](https://kotlinlang.org/docs/reference/control-flow.html) 替换，比如 `switch`，也就是在 Kotlin 中的 `when`。
+> **额外声明**：这个if/else 阶梯语句可以很容易地用更具表现力的 [控制流语句](https://kotlinlang.org/docs/reference/control-flow.html) 替换，比如 `switch`，也就是在 Kotlin 中的 `when`。
 
 如果你想简化逻辑，请尝试一下。
 
@@ -379,13 +379,14 @@ if (this.tapCount == 3) {
 
 使用本教程顶部的 **[链接](https://koenig-media.raywenderlich.com/uploads/2018/10/PokeTheBear.zip)** 下载已经完成的项目来看看它是如何进行的。
 
-如果你是一名 Swift 开发人员，或者是 Kotlin 新手，请查看[Kotlin 官方文档](https://kotlinlang.org/docs/reference/)以更深入地了解这些语言。你已经知道如何运行 Kotlin playground 来尝试用代码片段，并且可以在文档中编写可运行的代码小部件。 如果你已经是 Kotlin 开发人员，请尝试在 Swift 中编写应用程序。
+如果你是一名 Swift 开发人员，或者是 Kotlin 新手，请查看 [Kotlin 官方文档](https://kotlinlang.org/docs/reference/) 以更深入地了解这些语言。你已经知道如何运行 Kotlin playground 来尝试用代码片段，并且可以在文档中编写可运行的代码小部件。如果你已经是 Kotlin 开发人员，请尝试在 Swift 中编写应用程序。
 
-如果你喜欢 Swift 和 Kotlin 的并排比较，请在[本文](http://nilhcem.com/swift-is-like-kotlin/)中查看更多内容。你可信赖的作者还与 UIConf 的 iOS 同事就 Swift 和 Kotlin 进行了一次快速的讨论，你可以在[这里](https://www.youtube.com/watch?v=_DuGaAkQSnM)观看到。
+如果你喜欢 Swift 和 Kotlin 的并排比较，请在 [本文](http://nilhcem.com/swift-is-like-kotlin/) 中查看更多内容。你可信赖的作者还与 UIConf 的 iOS 同事就 Swift 和 Kotlin 进行了一次快速的讨论，你可以在 [这里](https://www.youtube.com/watch?v=_DuGaAkQSnM) 观看到。
 
 我们希望你喜欢本教程，了解如何把 Swift 编写的 iOS 应用程序变成用 Kotlin 创建一个全新的 Android 应用程序。我们也希望你继续探索这两种语言和两种平台。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
 
 ---
 
