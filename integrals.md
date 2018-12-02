@@ -3792,10 +3792,11 @@
 |[AI 能解决你的 UX 设计问题吗？](https://juejin.im/post/5992aa306fb9a03c445df727)|校对|1|
 |[REST API 已死，GraphQL 长存](https://juejin.im/post/5991667b518825485d28dfb1)|校对|2|
 
-## 译者：[calpa](https://github.com/calpa) 历史贡献积分：28 当前积分：28 年度积分：23
+## 译者：[calpa](https://github.com/calpa) 历史贡献积分：30 当前积分：30 年度积分：25
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐优秀英文文章两篇|奖励|2|
 |[Rust 开发完整的 Web 应用程序](https://juejin.im/post/5bd66dee6fb9a05cdb1081ca)|校对|2|
 |[设计师的决策树](https://juejin.im/post/5befd61ee51d4557fe34e944)|校对|1|
 |[源代码映射（Source Map）简介](https://juejin.im/post/5bd65e1ae51d457aa071feaa)|校对|1.5|
@@ -6262,11 +6263,12 @@
 |------|-------|-------|
 |[Vue.js 还是 React？你会选择哪一个？为什么?](https://juejin.im/post/5b25b3a16fb9a00e70686180)|校对|0.5|
 
-## 译者：[geniusq1981](https://github.com/geniusq1981) 历史贡献积分：69.5 当前积分：24.5 年度积分：69.5
+## 译者：[geniusq1981](https://github.com/geniusq1981) 历史贡献积分：69.5 当前积分：9.5 年度积分：69.5
 
 |文章|类型|积分|
 |------|-------|-------|
-|2018 年 9 月兑树莓派套餐 1 套|减区积分|45|
+|2018 年 11 月兑掘金鼠标垫 1 个|减去积分|15|
+|2018 年 9 月兑树莓派套餐 1 套|减去积分|45|
 |[如何优化企业级规模的 Node.js 应用程序](https://juejin.im/post/5b83c639f265da436d7e4c5e)|校对|1.5|
 |[2018 年七个通过脑电图分析实现“读心术”的 Javascript 库](https://juejin.im/post/5b7f63e651882542c20f22f0)|翻译|4|
 |[用 Flutter 写一个待办事项应用](https://juejin.im/post/5b4f52275188251b11096a28)|校对|2|
@@ -6702,10 +6704,11 @@
 |[ECMAScript 修饰器微指南](https://juejin.im/post/5b543d8af265da0f4a4e711f)|校对|2|
 |[让我们一起解决“this”难题  —  第二部分](https://juejin.im/post/5b6915cce51d4519962f0ca7)|校对|1|
 
-## 译者：[Gavin-Gong](https://github.com/Gavin-Gong) 历史贡献积分：13 当前积分：13 年度积分：13
+## 译者：[Gavin-Gong](https://github.com/Gavin-Gong) 历史贡献积分：14 当前积分：14 年度积分：14
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐优秀英文文章一篇|奖励|1|
 |[如何使用纯函数式 JavaScript 处理脏副作用](https://juejin.im/post/5b82bdb351882542e241ed32)|翻译|8.5|
 |[关于 React Motion 的简要介绍](https://juejin.im/post/5b48061551882519790c77f3)|校对|1.5|
 |[设计 React 组件 API](https://juejin.im/post/5b545f0b6fb9a04fc93748ba)|翻译|3|
@@ -6732,10 +6735,11 @@
 |------|-------|-------|
 |[Slidable：一个 Flutter 的故事](https://juejin.im/post/5b5e84b86fb9a04fa91bfeb6)|校对|1.5|
 
-## 译者：[CoolRice](https://github.com/CoolRice) 历史贡献积分：73 当前积分：73 年度积分：73
+## 译者：[CoolRice](https://github.com/CoolRice) 历史贡献积分：75 当前积分：75 年度积分：75
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐优秀英文文章两篇|奖励|2|
 |[GitHub Actions 介绍，了解一下？](https://juejin.im/post/5be191736fb9a049de6cd463)|翻译|7|
 |[Netflix 的 Web 性能案例研究](https://juejin.im/post/5bf0c5d56fb9a049ec6aa902)|翻译|5|
 |推荐优秀英文文章|奖励|1|
@@ -7095,10 +7099,11 @@
 |------|-------|-------|
 |[深入理解 React 高阶组件](https://juejin.im/entry/5bdd226cf265da616f6f6cce)|校对|4|
 
-## 译者：[iWeslie](https://github.com/iWeslie) 历史贡献积分：4 当前积分：4 年度积分：4
+## 译者：[iWeslie](https://github.com/iWeslie) 历史贡献积分：6 当前积分：6 年度积分：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐优秀英文文章两篇|奖励|2|
 |[从现有的代码库创建 Swift 包管理器](https://juejin.im/post/5bec2b735188253b6e5c132a)|翻译|4|
 
 ## 译者：[Mcskiller](https://github.com/Mcskiller) 历史贡献积分：2 当前积分：2 年度积分：2
@@ -7106,3 +7111,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[用 Flask 输出视频流](https://juejin.im/post/5bea86fc518825158c531e9c)|校对|2|
+
+## 译者：[KaronAmI](https://github.com/KaronAmI) 历史贡献积分：2 当前积分：2 年度积分：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|修订文章 https://github.com/xitu/gold-miner/pull/4753|奖励|2|
