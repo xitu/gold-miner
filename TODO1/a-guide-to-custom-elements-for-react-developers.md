@@ -15,7 +15,7 @@
 
 *  **封装** — 把专注点放在组件的内部实现上
 *  **复用** — 当把 UI 分割成更通用的小块时，它们更容易分解为你可以复用的形态
-*  **隔离** — 因为组件是被封装过的，你能获得隔离的额外好处，即让你更轻松地定位错误和更易修改应用中的特定部分
+*  **隔离** — 因为组件是被封装过的，你能获得隔离带来的额外好处，即让你更轻松地定位错误和更易修改应用中的特定部分
 
 ### 用例
 
@@ -157,7 +157,7 @@ class Repository extends HTMLElement {
 
 通过在我们的构造器中调用 `super()`，元素自己的上下文和 DOM 操作 API 就可以使用了。目前，我们已经设置了默认的仓库详情为 `null`，从元素属性取得仓库名，创建一个用来调用的 endpoint，这样我们不用在后面定义，最重要的是，将初始的 HTML 设置成了加载提示。
 
-为了获取关于元素仓库的详情，我们将需要向 GitHub 的 API 发送请求。我们使用 `fetch`，[由于它是基于 Promise 的](https://css-tricks.com/using-data-in-react-with-the-fetch-api-and-axios/)，我们使用 `async` 和 `await` 来使我们的代码更易阅读。你可以[在这里](https://davidwalsh.name/async-await)了解更多关于 `async`/`await` 关键字，并且可以[在这里](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)了解更多浏览器的 fetch API 的内容。你还可以[在 Tweet 上和我讨论](https://twitter.com/charlespeters)，了解我是否更喜欢 [Axios](https://www.axios.com/) 库。（提示，这取决于我早餐时喝了茶还是咖啡。）
+为了获取关于元素仓库的详情，我们将需要向 GitHub 的 API 发送请求。我们使用 `fetch`，[由于它是基于 Promise 的](https://css-tricks.com/using-data-in-react-with-the-fetch-api-and-axios/)，我们使用 `async` 和 `await` 来使我们的代码更易阅读。你可以[在这里](https://davidwalsh.name/async-await)了解更多关于 `async`/`await` 关键字，并且可以[在这里](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)了解更多浏览器的 fetch API 的内容。你还可以[在 Twitter 上和我讨论](https://twitter.com/charlespeters)，了解我是否更喜欢 [Axios](https://www.axios.com/) 库。（提示，这取决于我早餐时喝了茶还是咖啡。）
 
 现在，让我们给这个类添加方一个方法来向 GitHub 查询仓库详情。
 
