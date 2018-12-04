@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/python-libraries-for-data-science-other-than-pandas-and-numpy.md](https://github.com/xitu/gold-miner/blob/master/TODO1/python-libraries-for-data-science-other-than-pandas-and-numpy.md)
 > * 译者：[haiyang-tju](https://github.com/haiyang-tju)
-> * 校对者：
+> * 校对者：[TrWestdoor](https://github.com/TrWestdoor)
 
 # 鲜为人知的数据科学 Python 库
 
@@ -11,7 +11,7 @@
 
 PC：[Hitesh Choudhary](https://unsplash.com/@hiteshchoudhary?utm_source=medium&utm_medium=referral) 来自于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
 
-Python 是一个很棒的语言。它是世界上发展最快的编程语言之一。它一次又一次地证明了在开发人员职位中和跨行业的数据科学职位中的实用性。 整个 Python 及其库的生态系统使它成为全世界用户（初学者和高级用户）的合适选择。它的成功和流行的原因之一是它强大的第三方库的集合，这些库使得它是如此动态和快速。
+Python 是一个很棒的语言。它是世界上发展最快的编程语言之一。它一次又一次地证明了在开发人员职位中和跨行业的数据科学职位中的实用性。 整个 Python 及其库的生态系统使它成为全世界用户（初学者和高级用户）的合适选择。它的成功和流行的原因之一是它强大的第三方库的集合，这些库使它可以保持活力和高效。
 
 在本文中，我们会研究一些用于数据科学任务的 Python 库，而不是常见的比如 **panda、scikit-learn 和 matplotlib 等**的库。尽管像 **panda 和 scikit-learn** 这样的库，是在机器学习任务中经常出现的，但是了解这个领域中的其它 Python 产品总是很有好处的。
 
@@ -42,7 +42,7 @@ filename
 
 ### [Pendulum](https://github.com/sdispater/pendulum)
 
-对于那些在 python 中处理日期时间时会感到沮丧的人来说，Pendulum 很适合你。它是一个简化的**日期时间**操作 Python 包。它是 Python 原生类的简易替代。请参阅[文档](https://pendulum.eustace.io/docs/#installation)深入学习。
+对于那些在 python 中处理日期时间时会感到沮丧的人来说，Pendulum 很适合你。它是一个简化**日期时间**操作的 Python 包。它是 Python 原生类的简易替代。请参阅[文档](https://pendulum.eustace.io/docs/#installation)深入学习。
 
 #### 安装:
 
@@ -83,7 +83,7 @@ conda install -c conda-forge imbalanced-learn
 
 ### [FlashText](https://github.com/vi3k6i5/flashtext)
 
-在 NLP 任务中，清理文本数据往往需要替换句子中的关键字或从句子中提取关键字。通常，这种操作可以使用正则表达式来完成，但是如果要搜索的术语数量达到数千个，者就会变得很麻烦。Python 的 **FlashText** 模块是基于 [FlashText 算法](https://arxiv.org/abs/1711.00046)的，为这种情况提供了一个合适的替代方案。FlashText 最棒的一点是，不管搜索词的数量如何，运行时都是相同的。你可以在[这里](https://flashtext.readthedocs.io/en/latest/#)了解更多内容。
+在 NLP 任务中，清理文本数据往往需要替换句子中的关键字或从句子中提取关键字。通常，这种操作可以使用正则表达式来完成，但是如果要搜索的术语数量达到数千个，这就会变得很麻烦。Python 的 **FlashText** 模块是基于 [FlashText 算法](https://arxiv.org/abs/1711.00046)为这种情况提供了一个合适的替代方案。FlashText 最棒的一点是，不管搜索词的数量如何，运行时间都是相同的。你可以在[这里](https://flashtext.readthedocs.io/en/latest/#)了解更多内容。
 
 #### 安装:
 
@@ -166,7 +166,7 @@ pip install pyflux
 
 ### [Ipyvolume](https://github.com/maartenbreddels/ipyvolume)
 
-结果展示也是数据科学中的一个重要方面。能够将结果进行可视化将具有很大优势。IPyvolume 是一个可以在 Jupyter notebook 中可视化三维体和图形（例如三维散点图等）的 Python 库，只需少量配置即可。但它目前还是 1.0 之前的版本阶段。一个很好的类比是这样的：IPyvolume 的 **_volshow_** 对于三维数组就像 matplotlib 的 **_imshow_** 对于二维数组一样好用。 可以在[这里](https://ipyvolume.readthedocs.io/en/latest/?badge=latest)获取更多。
+结果展示也是数据科学中的一个重要方面。能够将结果进行可视化将具有很大优势。IPyvolume 是一个可以在 Jupyter notebook 中可视化三维体和图形（例如三维散点图等）的 Python 库，并且只需要少量配置。但它目前还是 1.0 之前的版本阶段。用一个比较恰当的比喻来解释就是：IPyvolume 的 **_volshow_** 对于三维数组就像 matplotlib 的 **_imshow_** 对于二维数组一样好用。 可以在[这里](https://ipyvolume.readthedocs.io/en/latest/?badge=latest)获取更多。
 
 ```
 使用 pip
