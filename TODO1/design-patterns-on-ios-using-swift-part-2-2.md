@@ -209,22 +209,22 @@ func reload() {
 }
 ```
 
-The `reload` method is modeled after `reloadData` in `UITableView`; it reloads all the data used to construct the horizontal scroller.
+`UITableView`中的 `reload` 方法会在 `reloadData` 之后建模，它将重新加载用于构造水平滚动器的所有数据。
 
-Stepping through the code comment-by-comment:
+每条注释对应的详细解释如下：
 
-1.  Checks to see if there is a data source before we perform any reload.
-2.  Since you're clearing the album covers, you also need to remove any existing views.
-3.  All the views are positioned starting from the given offset. Currently it's 100, but it can be easily tweaked by changing the constant `ViewConstants.Offset` at the top of the file.
-4.  You ask the data source for the number of views and then use this to create the new content views array.
-5.  The `HorizontalScrollerView` asks its data source for the views one at a time and it lays them next to each another horizontally with the previously defined padding.
-6.  Once all the views are in place, set the content offset for the scroll view to allow the user to scroll through all the albums covers.
+1. 在执行任何 reload 之前检查是否有数据源。
+2. 由于您要清除专辑封面，因此您还需要移除所有存在的 View。
+3. 所有 View 都从给定的偏移量开始定位。目前它是 100，但可以通过更改文件顶部的常量 `ViewConstants.Offset` 来轻松地做出调整。
+4. 向数据源请求 View 的个数，然后使用它来创建新的 contentView 数组。
+5. `HorizontalScrollerView` 一次向一个 View 请求其数据源，并使用先前定义的填充将它们水平挨个布局。
+6. 所有 View 布局好之后，设置 scrollView 的偏移量来允许用户滚动浏览所有专辑封面。
 
-You execute `reload` when your data has changed.
+当你的数据发生改变时调用 `reload` 方法。
 
-The last piece of the `HorizontalScrollerView` puzzle is to make sure the album you're viewing is always centered inside the scroll view. To do this, you'll need to perform some calculations when the user drags the scroll view with their finger.
+`HorizontalScrollerView` 需要实现的最后一个功能是确保您正在查看的专辑始终位于 scrollView 的中心。为此，当用户用手指拖动 scrollView 时，您需要执行一些计算。
 
-Add the following method:
+下面添加以下方法：
 
 ```swift
 private func centerCurrentView() {
@@ -244,60 +244,60 @@ private func centerCurrentView() {
 }
 ```
 
-The above code takes into account the current offset of the scroll view and the dimensions and the padding of the views in order to calculate the distance of the current view from the center. The last line is important: once the view is centered, you then inform the delegate that the selected view has changed.
+上面的代码考虑了 scrollView 的当前偏移量以及 View 的尺寸和填充以便计算当前 View 与中心的距离。最后一行很重要：一旦 View 居中，就通知代理所选的 View 已变更。
 
-To detect that the user finished dragging inside the scroll view, you'll need to implement some `UIScrollViewDelegate` methods. Add the following class extension to the bottom of the file; remember, this must be added **after** the curly braces of the main class declaration!
+要检测用户是否在 scrollView 内完成了拖动，您需要实现一些 `UIScrollViewDelegate` 的方法，将以下类扩展添加到文件的底部。记住一定要在主类声明的花括号 **下面** 添加！
 
 ```swift
 extension HorizontalScrollerView: UIScrollViewDelegate {
-  func scrollViewDidEndDragging(** scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+  func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
     if !decelerate {
       centerCurrentView()
     }
   }
 
-  func scrollViewDidEndDecelerating(** scrollView: UIScrollView) {
+  func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
     centerCurrentView()
   }
 }
 ```
 
-`scrollViewDidEndDragging(**:willDecelerate:)` informs the delegate when the user finishes dragging. The `decelerate` parameter is true if the scroll view hasn't come to a complete stop yet. When the scroll action ends, the the system calls `scrollViewDidEndDecelerating(**:)`. In both cases you should call the new method to center the current view since the current view probably has changed after the user dragged the scroll view.
+`scrollViewDidEndDragging(_:willDecelerate:)` 在用户完成拖拽时通知代理，如果 scrollView 尚未完全停止，则 `decelerate` 为 true。当滚动结束时，系统调用`scrollViewDidEndDecelerating(_:)`。在这两种情况下，您都应该调用新方法使当前视图居中，因为当用户拖动滚动视图后当前视图可能已更改。
 
-Lastly don't forget to set the delegate. Add the following line to the very beginning of `initializeScrollView()`:
+最后不要忘记设置代理，将以下代码添加到 `initializeScrollView()` 的最开头：
 
 ```swift
 scroller.delegate = self
 ```
 
-Your `HorizontalScrollerView` is ready for use! Browse through the code you've just written; you'll see there's not one single mention of the `Album` or `AlbumView` classes. That's excellent, because this means that the new scroller is truly independent and reusable.
+您的 `HorizontalScrollerView` 已准备就绪！看一下您刚刚编写的代码，你会看到没有任何地方有出现 `Album` 或 `AlbumView` 类。这非常棒，因为这意味着新的滚动器真正实现了独立并且可复用。
 
-Build your project to make sure everything compiles properly.
+编译项目确保可以正常通过编译。
 
-Now that `HorizontalScrollerView` is complete, it's time to use it in your app. First, open **Main.storyboard**. Click on the top gray rectangular view and click on the **Identity Inspector**. Change the class name to `HorizontalScrollerView` as shown below:
+现在 `HorizontalScrollerView` 已经完成，是时候在你的应用程序中使用它了。首先打开 **Main.storyboard**。单击顶部的灰色矩形视图，然后单击 **Identity Inspector**。将类名更改为 `HorizontalScrollerView`，如下图所示：
 
 [![](https://koenig-media.raywenderlich.com/uploads/2017/06/design-patterns-part2-scroller-480x270.png)](https://koenig-media.raywenderlich.com/uploads/2017/06/design-patterns-part2-scroller.png)
 
-Next, open the **Assistant Editor** and control drag from the gray rectangular view to **ViewController.swift** to create an outlet. Name the name the outlet **horizontalScrollerView**, as shown below:
+接下来打开 **Assistant Editor** 并从灰色矩形 View 拖线到 **ViewController.swift** 来创建一个 IBOutlet，并命名为 **horizontalScrollerView**，如下图所示：
 
 [![](https://koenig-media.raywenderlich.com/uploads/2017/06/design-patterns-part2-scroller-outlet-480x270.png)](https://koenig-media.raywenderlich.com/uploads/2017/06/design-patterns-part2-scroller-outlet.png)
 
-Next, open **ViewController.swift**. It's time to start implementing some of the `HorizontalScrollerViewDelegate` methods!
+接下来打开 **ViewController.swift**，是时候开始实现一些 `HorizontalScrollerViewDelegate` 方法了！
 
-Add the following extension to the bottom of the file:
+把下面的拓展添加到该文件的最底部：
 
 ```swift
 extension ViewController: HorizontalScrollerViewDelegate {
   func horizontalScrollerView(** horizontalScrollerView: HorizontalScrollerView, didSelectViewAt index: Int) {
-    //1
+    // 1
     let previousAlbumView = horizontalScrollerView.view(at: currentAlbumIndex) as! AlbumView
     previousAlbumView.highlightAlbum(false)
-    //2
+    // 2
     currentAlbumIndex = index
-    //3
+    // 3
     let albumView = horizontalScrollerView.view(at: currentAlbumIndex) as! AlbumView
     albumView.highlightAlbum(true)
-    //4
+    // 4
     showDataForAlbum(at: index)
   }
 }
