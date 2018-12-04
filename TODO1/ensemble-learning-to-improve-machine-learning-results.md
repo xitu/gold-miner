@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ensemble-learning-to-improve-machine-learning-results.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ensemble-learning-to-improve-machine-learning-results.md)
 > * 译者：[Starrier](https://github.com/Starriers)
-> * 校对者：[haiyang-tju](https://github.com/haiyang-tju)、[TrWestdoor](https://github.com/TrWestdoor)
+> * 校对者：[haiyang-tju](https://github.com/haiyang-tju), [TrWestdoor](https://github.com/TrWestdoor)
 
 # 通过集成学习**提高机器学习结果**
 
@@ -11,13 +11,13 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*-XBxuOgB5j0irQiB9dRubA.jpeg)
 
-**集成学习可以通过组合多种模型来提高机器学习的结果。这种方法相对于单个模型，可以为结果带来更好的性能预测。这也是集成方法在诸多久负盛名的机器学习竞赛（如 NetFlix 竞赛，KDD 2009 和 Kaggle）中位居第一的原因。***。
+**集成学习可以通过组合多种模型来提高机器学习的结果。这种方法相对于单个模型，可以为结果带来更好的性能预测。这也是集成方法在诸多久负盛名的机器学习竞赛（如 NetFlix 竞赛、KDD 2009 和 Kaggle）中位居第一的原因。***。
 
 [**Statsbot**](http://statsbot.co?utm_source=blog&utm_medium=article&utm_campaign=ensemble) 团队为了让你了解这种方法的优点，邀请了数据科学家 Vadim Smolyakov 来带你一起深入研究三种基本的集成学习技术。
 
 * * *
 
-集成方法是将多个机器学习技术组合成一个预测模型的元算法，它可以进行 **decrease** **variance** (bagging), **bias** (boosting),或者 **改进预测** (stacking).
+集成方法是将多个机器学习技术组合成一个预测模型的元算法，它可以进行 **decrease** **variance** (bagging)、**bias** (boosting) 或者 **改进预测** (stacking)。
 
 集成学习可以分成两组：
 
@@ -129,7 +129,7 @@ Stacking 是赢取 Kaggle 数据科学竞赛的常用技术。例如，Otto 组�
 ### 推荐阅读
 
 *   Zhi-Hua Zhou，“集成方法：基础与算法”，CRC Press, 2012
-*   L. Kuncheva，“组合模式分类器：方法与算法”， Wiley, 2004
+*   L. Kuncheva，“组合模式分类器：方法与算法”，Wiley, 2004
 *   [Kaggle 集成指南](https://mlwave.com/kaggle-ensembling-guide/)
 *   [Scikit 集成学习指南](http://scikit-learn.org/stable/modules/ensemble.html)
 *   [S. Rachka, MLxtend library](http://rasbt.github.io/mlxtend/)
