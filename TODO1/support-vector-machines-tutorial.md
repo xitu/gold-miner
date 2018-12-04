@@ -64,7 +64,7 @@ SVM 试图找到这第二种线。我们通过视觉选择了更好的分类器�
 1.找到能够正确分类训练数据的直线
 2.在所有这些直线中，选择与它最近的点距离最远的直线。
 
-距离这条直线的最近那些点称为**支持向量（support vectors）**。他们围绕这条线定义的区域称为**边距（margin）** 。
+距离这条直线的最近那些点称为**支持向量（support vectors）**。他们围绕这条线定义的区域称为**边距（margin）**。
 
 下面显示的是第二天直线的支持向量：带有黑色边缘的点（有两个）和边距（阴影区域）。
 
@@ -183,11 +183,11 @@ SVM 如何处理这个问题？ 它们允许您指定您愿意接受的错误数
 2. 对于几乎可线性分离的数据，通过使用正确的 C 值，SVM 仍然可以很好地运行。
 3. 对于不能线性分离的数据，我们可以将数据投影到完全/几乎可线性分离的空间，从而将问题降至第1步或第2步，我们又重新开始处理数据。
 
-看起来，将 SVM 普遍适用与各种情况的一件重要操作是是将它投射到更高的维度。这就是核函数的用处。
+看起来，将 SVM 普遍适用于各种情况的一件重要操作是是将它投射到更高的维度。这就是核函数的用处。
 
-首先，略有离题。
+首先，说点题外话。
 
-SVM 的一个非常令人惊讶的方面是，在它使用的所有数学运算中，精确投影，甚至维数的数量都没有显示出来。你可以根据各种数据点之间的**点积（dot products）**（表示为向量）来表达所有内容。对于**p**维向量的**i**和**j**，其中维度上的第一个下标标识点，第二个下标表示维度编号：
+SVM 的一个非常令人惊讶的地方是，在它使用的所有数学运算中，精确投影，甚至维数的数量都没有显现。你可以根据各种数据点之间的**点积（dot products）**（表示为向量）来表达所有内容。对于**p**维向量的**i**和**j**，其中维度的第一个下标标识点，第二个下标表示维度编号：
 
 ![](https://cdn-images-1.medium.com/max/800/0*Tt3zlDQhIpCro8Wa.)
 
@@ -195,11 +195,11 @@ SVM 的一个非常令人惊讶的方面是，在它使用的所有数学运算�
 
 ![](https://cdn-images-1.medium.com/max/800/0*CKlEmrYPIEHqlq_G.)
 
-如果我们的数据集中有**n**个点，则 SVM **仅仅**需要每对点的点积来找到分类器。仅此而已。当我们想要将数据投影到更高维度时，也是如此。我们不需要为 SVM 提供精确的投影; 我们需要在投影空间中的所有点对之间给出点积。
+如果我们的数据集中有**n**个点，则 SVM **仅仅**需要通过每对点的点积来构建分类器。仅此而已。当我们想要将数据投影到更高维度时，也是如此。我们不需要为 SVM 提供精确的投影; 我们需要在投影空间中的所有点对之间计算点积。
 
-这是相关的，因为这正是核函数所做的。 核函数（**kernel function**的缩写）在原始空间中将两个点作为输入，并直接在投影空间中给出点积。
+这是有重大意义的，因为这正是核函数所做的。 核函数（**kernel function**的缩写）在原始空间中将两个点作为输入，并直接在投影空间中给出点积。
 
-让我们重新审视之前做过的投影，看看我们是否可以提出相应的核函数。我们还将跟踪我们需要为投影执行的计算次数，然后找到点积——看看如何使用核函数进行比较。
+让我们重新审视之前做过的投影，看看我们是否可以提出相应的核函数。我们还将留意为投影执行的计算次数，然后计算点积——看看如何使用核函数进行比较。
 
 对于点**i**：
 
@@ -228,7 +228,7 @@ SVM 的一个非常令人惊讶的方面是，在它使用的所有数学运算�
 *   乘积: 8 (投影) + 3 (点积) = 11 次乘积
 *   加法: 2 (点积)
 
-总工室 11 + 2 = **13 次运算**.
+总共是 11 + 2 = **13 次运算**.
 
 我声明这个核函数的结果是一样的：
 
@@ -236,85 +236,85 @@ SVM 的一个非常令人惊讶的方面是，在它使用的所有数学运算�
 
 我们在原始**第一**空间中取矢量的点积，然后对结果进行平方运算。
 
-Let expand it out and check whether my claim is indeed true:
+让我们展开它并检查我的说法是否正确：
 
 ![](https://cdn-images-1.medium.com/max/800/0*YfCqANgzKT_4vOYW.)
 
-It is. How many operations does this need? Look at step (2) above. To compute the dot product in two dimensions I need 2 multiplications and 1 addition. Squaring it is another multiplication.
+确实如此。这需要多少次运算？看看上面的第（2）步。要计算二维的点积，我需要2次乘法和1次加法。平方是另一种乘法。
 
-So, in all:
+所以，总共是：
 
-*   Multiplications: 2 (for the dot product in the original space) + 1 (for squaring the result) = 3 multiplications
-*   Additions: 1 (for the dot product in the original space)
+*  乘法：2（原始空间中的点积）+ 1（对于平方结果）= 3 次乘法
+*  加法：1（原始空间中的点积）
 
-A total of 3 + 1 = **4 operations.** This is only **31% of the operations** we needed before.
+共计 3 + 1 = **4 次运算**。这**只是**我们之前需要的进行的 31％ 的运算量。
 
-It looks like it is faster to use a kernel function to compute the dot products we need. It might not seem like a big deal here: we’re looking at 4 vs 13 operations, but with input points with a lot more dimensions, and with the projected space having an even higher number of dimensions, the computational savings for a large dataset add up incredibly fast. So that’s one huge advantage of using kernels.
+看起来使用核函数来计算我们需要的点积更快。这可能看起来不是什么大问题：我们正在对比 4 次运算和 13 次运算，但是随着输入点的维度越来越多，并且投影空间的维度越来越高，大型数据集的计算节省的时间就越来越多。这就是使用核函数的一个巨大优势。
 
-Most SVM libraries already come pre-packaged with some popular kernels like _Polynomial, Radial Basis Function (RBF)_, and _Sigmoid_. When we don’t use a projection (as in our first example in this article), we compute the dot products in the original space — this we refer to as using the _linear kernel_.
+大多数 SVM 库已经预先打包了一些流行的核函数，如 **多项式、径向基函数（RBF） **和**Sigmoid函数**。 当我们不使用投影时（如本文的第一个例子），我们在原始空间中计算点积——我们把这个称之为**线性核函数**。
 
-Many of these kernels give you additional levers to further tune it for your data. For example, the polynomial kernel:
+其中许多核函数为您提供了额外的手段，可以根据您的数据进一步调整它。 例如，多项式核函数：
 
 ![](https://cdn-images-1.medium.com/max/800/0*oec3aJvor3nt1h3i.)
 
-allows you to pick the value of _c_ and _d_ (the degree of the polynomial). For the 3D projection above, I had used a polynomial kernel with _c=0_ and _d=2_.
+允许您选择**c**和**d**的值（多项式的次数）。 对于上面的 3D 投影，我使用了**c = 0**和**d = 2**的多项式核函数。
 
-But we are not done with the awesomeness of kernels yet!
+但是我们还没有完成核函数的强大功能！
 
-Remember I mentioned projecting to infinite dimensions a while back? If you haven’t already guessed, the way to make it work is to have the right kernel function. That way, we really don’t have to project the input data, or worry about storing infinite dimensions.
+还记得我之前提到过的投射到无限维度吗？如果您还没有猜到，那么让它工作的方法就是拥有正确的核函数。这样，我们真的不必对输入数据进行投影，也不用担心存储无限维数据的问题。
 
-> _A kernel function computes what the dot product would be if you had actually projected the data._
+> **如果你有准确的投影数据，核函数将会计算点积。**
 
-The RBF kernel is commonly used for a _specific_ infinite-dimensional projection. We won’t go into the math of it here, but look at the references at the end of this article.
+RBF 核函数通常用于**特定的**无限维投影。我们将不在这里进行数学计算，请查看本文末尾的参考资料。
 
-How can we have infinite dimensions, but can still compute the dot product? If you find this question confusing, think about how we compute sums of infinite series. This is similar. There are infinite terms in the dot product, but there happens to exist a formula to calculate their sum.
+我们怎样才能在无限维度的情况下仍然可以计算点积？如果您发现这个问题令人困惑，请考虑我们如何计算无穷级数的和。类似的，点积中有无限项，但恰好存在计算其总和的公式。
 
-This answers the questions we had asked in the previous section. Let’s summarize:
+这回答了我们在上一节中提出的问题。 总结一下：
 
-1.  We typically don’t define a specific projection for our data. Instead, we pick from available kernels, tweaking them in some cases, to find one best suited to the data.
-2.  Of course, nothing stops us from defining our own kernels, or performing the projection ourselves, but in many cases we don’t need to. Or we at least start by trying out what’s already available.
-3.  If there is a kernel available for the projection we want, we prefer to use the kernel, because that’s often faster.
-4.  RBF kernels can project points to infinite dimensions.
+1. 我们通常不会为我们的数据定义具体的投影。 相反，我们从可用核函数中挑选，在某些情况下调整它们，以找到最适合数据的核函数。
+2. 当然，没有什么能阻止我们定义自己的核函数，或者自己执行投影，但在很多情况下我们并不需要这么做。 或者我们至少从我们能做的事情开始。
+3. 如果有可用于我们想要的投影的核函数，我们更偏爱使用它，因为这通常更快。
+4. RBF 核函数可以将点投影到无限维度。
 
-### SVM libraries to get started
+### 开始使用 SVM 库
 
-There are quite a few SVM libraries you could start practicing with:  
+有很多 SVM 库供你开始练习：
+
 • [libSVM  
-](https://www.csie.ntu.edu.tw/~cjlin/libsvm/)• [SVM-Light](http://svmlight.joachims.org/)  
-• [SVMTorch](http://bengio.abracadoudou.com/SVMTorch.html)
+](https://www.csie.ntu.edu.tw/~cjlin/libsvm/)• [SVM-Light](http://svmlight.joachims.org/) • [SVMTorch](http://bengio.abracadoudou.com/SVMTorch.html)
 
-Many general ML libraries like [scikit-learn](http://scikit-learn.org/stable/) also offer SVM modules, which are often wrappers around dedicated SVM libraries. My recommendation is to start out with the tried and tested [_libSVM_](https://www.csie.ntu.edu.tw/~cjlin/libsvm/).
+像 [scikit-learn](http://scikit-learn.org/stable/) 这样的许多通用 ML 库也提供 SVM 模块，这些模块通常是专用 SVM 库的包装器。我的建议是从经过试验测试的 **libSVM** 开始。
 
-libSVM is available as a commandline tool, but the download also bundles Python, Java, and Matlab wrappers. As long as you have a file with your data in a format libSVM understands (the README that’s part of the download explains this, along with other available options) you are good to go.
+libSVM 可用作命令行工具，但下载文件也捆绑了 Python、Java 和 Matlab 包装器。只要你有一个包含 libSVM 能够理解的格式的数据文件（下载的 README 文件解释了这个，以及其他可用的选项）你就能够使用它。
 
-In fact, if you need a _really quick_ feel of how different kernels, the value of C, etc., influence finding the separating boundary, try out the “Graphical Interface” on their [home page](https://www.csie.ntu.edu.tw/~cjlin/libsvm/). Mark your points for different classes, pick the SVM parameters, and hit Run!
+事实上，如果你需要**非常快速**地了解不同的核函数和不同的 C 值等等是如何影响寻找分离边界的，请在其[主页](https://www.csie.ntu.edu.tw/~cjlin/libsvm/)上尝试使用“图形界面”。 标记属于不同类的数据点，选择SVM参数，然后点击 Run！
 
-I couldn’t resist and quickly marked a few points:
+我迫不及待地迅速标出几个点：
 
 ![](https://cdn-images-1.medium.com/max/800/0*DsXxpsNZE_1_iPlp.)
 
-Yep, I’m not making it easy for the SVM.
+是的，我不是让 SVM 变得容易。
 
-Then I tried out a couple of kernels:
+然后我尝试了几个核函数：
 
 ![](https://cdn-images-1.medium.com/max/800/1*xwoC4Nrk_nqScuJKoDN1Ug.jpeg)
 
-The interface doesn’t show you the separating boundary, but shows you the regions that the SVM learns as belonging to a specific label. As you can see, the linear kernel completely ignores the red points. It thinks of the whole space as yellow (-ish green). But the RBF kernel neatly carves out a ring for the red label!
+界面不显示分离边界，但显示 SVM 学习属于特定标签的区域。 如你所见，线性核函数完全忽略了红点。它认为整个空间为黄色（一说绿色）。但是 RBF 核函数巧妙地使用了戒指形状的区域覆盖了红色标记！
 
-### Helpful resources
+### 有用的资源
 
-We have been primarily relying on visual intuitions here. While that’s a great way to gain an initial understanding, I’d strongly encourage you to dig deeper. An example of where visual intuition might prove to be insufficient is in understanding margin width and support vectors for non-linearly separable cases.
+我们一直主要依靠视觉直觉。虽然这是获得初步理解的好方法，但我强烈建议您深入挖掘。视觉直觉的例子可能不足以理解边距宽度以及用于非线性可分离情况的支持向量。
 
-> _Remember that these quantities are decided by optimizing a trade-off_. _Unless you look at the math, some of the results may seem counter-intuitive._
+> **请记住，这些数量是通过优化权衡来决定的。除非你去看数学原理，否则一些结果可能看似违反直觉。**
 
-Another area where getting to know the math helps is in understanding kernel functions. Consider the RBF kernel, which I’ve barely introduced in this short article. I hope the “mystique” surrounding it — its relation to an infinite-dimensional projection coupled with the fantastic results on the last dataset (the “ring”) — has convinced you to take a closer look at it.
+数学有用的另一个方面是理解核函数。我在这篇短文中几乎没有介绍过 RBF 核函数。我希望它的“神秘”感——它与无限维投影的关系再加上最后一个数据集（“环”）上的奇妙结果——已经说服你去仔细研究它。
 
-**Resources I would recommend:**
+**我推荐的资源：**
 
-1.  [Video Lectures: Learning from Data](https://www.youtube.com/watch?v=MEG35RDD7RA&list=PLCA2C1469EA777F9A) by Yaser Abu-Mostafa. Lectures from 14 to 16 talk about SVMs and kernels. I’d also highly recommend the whole series if you’re looking for an introduction to ML, it maintains an excellent balance between math and intuition.
-2.  [Book: The Elements of Statistical Learning](http://web.stanford.edu/~hastie/ElemStatLearn/printings/ESLII_print12.pdf) — Trevor Hastie, Robert Tibshirani, Jerome Friedman.Chapter 4 introduces the basic idea behind SVMs, while Chapter 12 deals with it comprehensively.
+1.  [视频讲座：从数据中学习](https://www.youtube.com/watch?v=MEG35RDD7RA&list=PLCA2C1469EA777F9A)。作者是 Yaser Abu-Mostafa。讲座从 14 到 16 部分讨论了 SVM 和核函数。如果你正在寻找 ML 的简介，我也强烈推荐整个系列，它在数学和直觉之间保持着良好的平衡。
+2.  [书：统计学习的要素](http://web.stanford.edu/~hastie/ElemStatLearn/printings/ESLII_print12.pdf)。作者是 Trevor Hastie、Robert Tibshirani、Jerome Friedman。第4章介绍了 SVM 背后的基本思想，第 12 章则全面论述了它。
 
-Happy (Machine) Learning!
+好好学习，天天向上！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
