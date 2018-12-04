@@ -2,123 +2,123 @@
 > * 原文作者：[Lorenzo Boaro](https://www.raywenderlich.com/u/lorenzoboaro)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-on-ios-using-swift-part-2-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-on-ios-using-swift-part-2-2.md)
-> * 译者：
+> * 译者：[iWeslie](https://github.com/iWeslie)
 > * 校对者：
 
-# Design Patterns on iOS using Swift – Part 2/2
+# 使用 Swift 的 iOS 设计模式（第二部分）
 
-Learn about common design patterns when building iOS apps, and how you can apply these patterns in your own apps, in this 2-part tutorial.
+在这个由两部分组成的教程中，你将了解构建 iOS 应用程序的常见设计模式，以及如何在自己的应用程序中应用这些模式。
 
-> **Update note**: This tutorial was updated for iOS 11, Xcode 9 and Swift 4 by Lorenzo Boaro. Original post by Tutorial team member Eli Ganem.
+> **更新说明**：本教程已由译者针对 iOS 12，Xcode 10 和 Swift 4.2 进行了更新。原帖由教程团队成员 Eli Ganem发布。
 
-Welcome back to part two of this introductory tutorial on design patterns on iOS! In [the first part](http://www.raywenderlich.com/86477/introducing-ios-design-patterns-in-swift-part-1), you learned about some fundamental patterns in Cocoa such as MVC, singletons, and decorator.
+欢迎回到 iOS 设计模式的入门教程第二部分！在 [第一部分](https://juejin.im/post/5c05d4ee5188250ab14e62d6) 中, 你已经了解了 Cocoa 中的一些基本模式，比如 MVC、单例和装饰模式。
 
-In this final part, you’ll learn about the other basic design patterns that come up a lot in iOS and OS X development: adapter, observer, and memento. Let’s get right into it!
+在最后一部分中，您将了解 iOS 和 OS X 开发中出现的其他基本设计模式：适配器、观察者和备忘录。让我们快开始吧！
 
-## Getting Started
+## 入门
 
-You can download [the project source from the end of part 1](https://koenig-media.raywenderlich.com/uploads/2017/07/RWBlueLibrary-Part1-Final.zip) to get started.
+你可以下载 [第一部分最结尾处的项目](https://koenig-media.raywenderlich.com/uploads/2017/07/RWBlueLibrary-Part1-Final.zip) 来开始.
 
-Here’s where you left off the sample music library app at the end of the first part:
+这是您在第一部分结尾处留下的音乐库应用程序：
 
 ![Album app showing populated table view](https://koenig-media.raywenderlich.com/uploads/2017/07/appwithtableviewpopulated-180x320.png)
 
-The original plan for the app included a horizontal scroller at the top of the screen to switch between albums. Instead of coding a single-purpose horizontal scroller, why not make it reusable for any view?
+该应用程序的原计划包括了屏幕顶部用来在专辑之间切换的水平滚动条。与其编写一个只有单个用途水平滚动条，为何不让它变得可以让其他任何 View 复用呢？
 
-To make this view reusable, all decisions about its content should be left to other two objects: a data source and a delegate. The horizontal scroller should declare methods that its data source and delegate implement in order to work with the scroller, similar to how the `UITableView` delegate methods work. You’ll implement this when we discuss the next design pattern.
+要使此滚动条可复用，有关其内容的所有决策都应留给其他两个对象：数据源和代理。为了使用水平滚动条，应该给它声明数据源和代理实现的方法，这就类似于 `UITableView` 的代理方法工作方式。当我们讨论下一个设计模式时，您将来实现它。
 
-## The Adapter Pattern
+## 适配器模式
 
-An Adapter allows classes with incompatible interfaces to work together. It wraps itself around an object and exposes a standard interface to interact with that object.
+适配器允许和具有不兼容接口的类一起工作，它将自身包裹在一个对象周围，并公开一个标准接口以与该对象进行交互。
 
-If you’re familiar with the Adapter pattern then you’ll notice that Apple implements it in a slightly different manner – Apple uses protocols to do the job. You may be familiar with protocols like `UITableViewDelegate`, `UIScrollViewDelegate`, `NSCoding` and `NSCopying`. As an example, with the `NSCopying` protocol, any class can provide a standard `copy` method.
+如果您熟悉适配器模式，那么您会注意到 Apple 以一种稍微不同的方式实现它 -- 使用协议。您可能熟悉 `UITableViewDelegate`，`UIScrollViewDelegate`，`NSCoding`和 `NSCopying` 等协议。例如使用 `NSCopying` 协议，任何类都可以提供一个标准的 `copy` 方法。
 
-## How to Use the Adapter Pattern
+## 如何使用适配器模式
 
-The horizontal scroller mentioned before will look like this:
+之前提到的水平滚动条如下所示：
 
 [![swiftDesignPattern7](https://koenig-media.raywenderlich.com/uploads/2014/11/swiftDesignPattern7-480x153.png)](https://koenig-media.raywenderlich.com/uploads/2014/11/swiftDesignPattern7.png)
 
-To begin implementing it, right click on the View group in the Project Navigator, select _New File…_ and select, _iOS > Cocoa Touch class_ and then click _Next_. Set the class name to `HorizontalScrollerView` and make it a subclass of `UIView`.
+我们现在来实现它，右击项目导航栏中的 View 组，选择 **New File > iOS > Cocoa Touch Class**，然后单击 **Next**，将类名设置为 `HorizontalScrollerView` 并继承自 `UIView`。
 
-Open _HorizontalScrollerView.swift_ and insert the following code _above_ the class `HorizontalScroller` line:
+打开 **HorizontalScrollerView.swift** 并在 `HorizontalScroller` 类声明的 **上方** 插入以下代码：
 
-```
+```swift
 protocol HorizontalScrollerViewDataSource: class {
-  // Ask the data source how many views it wants to present inside the horizontal scroller
+  // 询问数据源它想要在水平滚动条中显示多少个 View
   func numberOfViews(in horizontalScrollerView: HorizontalScrollerView) -> Int
-  // Ask the data source to return the view that should appear at <index>
+  // 请求数据源返回应该出现在第 index 个的 View
   func horizontalScrollerView(_ horizontalScrollerView: HorizontalScrollerView, viewAt index: Int) -> UIView
 }
 ```
 
-This defines a protocol named `HorizontalScrollerViewDataSource` that performs two operations: it asks for the number of views to display inside the horizontal scroller and the view that should appear for a specific index.
+这定义了一个名为 `HorizontalScrollerViewDataSource` 的协议，它执行两个操作：请求在水平滚动器内显示 View 的个数以及应为特定索引显示的 View。
 
-Just below this protocol definition add another protocol named `HorizontalScrollerViewDelegate`.
+在此协议定义的下方添加另一个名为 `HorizontalScrollerViewDelegate` 的协议。
 
-```
+```swift
 protocol HorizontalScrollerViewDelegate: class {
-  // inform the delegate that the view at <index> has been selected
+  // 通知代理第 index 个 View 已经被选择
   func horizontalScrollerView(_ horizontalScrollerView: HorizontalScrollerView, didSelectViewAt index: Int)
 }
 ```
 
-This will let the horizontal scroller inform some other object that a view has been selected.
+这将使水平滚动器通知某个其他对象已选择一个 View。
 
-_Note:_ Dividing areas of concern into separate protocols makes things a lot more clear. In this way you can decide to conform to specific protocols and avoid using the `@objc` marker to declare optional methods.
+**注意：**将关注的区域划分为不同的协议会使代码看起来更加清晰。通过这种方式，您可以决定遵循特定的协议，并避免使用 `@objc` 来声明可选的协议方法。
 
-In _HorizontalScrollerView.swift_, add the following code to the `HorizontalScrollerView` class definition:
+在 **HorizontalScrollerView.swift** 中，将以下代码添加到 `HorizontalScrollerView` 类的定义里：
 
-```
+```swift
 weak var dataSource: HorizontalScrollerViewDataSource?
 weak var delegate: HorizontalScrollerViewDelegate?
 ```
 
-The delegate and data source are optionals, so you don’t have to provide them, but any object that you do set here must conform to the appropriate protocol.
+代理和数据源都是可选项，因此您不一定要给他们赋值，但您在此处设置的任何对象都必须遵循相应的协议。
 
-Add some more code to the class:
+在类里继续添加以下代码：
 
-```
+```swift
 // 1
 private enum ViewConstants {
   static let Padding: CGFloat = 10
   static let Dimensions: CGFloat = 100
   static let Offset: CGFloat = 100
 }
-  
+
 // 2
 private let scroller = UIScrollView()
-  
+
 // 3
 private var contentViews = [UIView]()
 ```
 
-Taking each comment block in turn:
+每条注释对应的详细解释如下：
 
-1.  Define a private `enum` to make it easy to modify the layout at design time. The view’s dimensions inside the scroller will be 100 x 100 with a 10 point margin from its enclosing rectangle.
-2.  Create the scroll view containing the views.
-3.  Create an array that holds all the album covers.
+1. 定义一个私有的 `enum` 来使代码布局在设计时更易修改。滚动器的内的 View 尺寸为 100 x 100，padding 为 10
+2. 创建包含多个 View 的 scrollView
+3. 创建一个包含所有专辑封面的数组
 
-Next you need to implement the initializers. Add the following methods:
+接下来您需要实现初始化器。添加以下方法：
 
-```
+```swift
 override init(frame: CGRect) {
   super.init(frame: frame)
   initializeScrollView()
 }
-  
+
 required init?(coder aDecoder: NSCoder) {
   super.init(coder: aDecoder)
   initializeScrollView()
 }
-  
+
 func initializeScrollView() {
   //1
   addSubview(scroller)
-    
+
   //2
   scroller.translatesAutoresizingMaskIntoConstraints = false
-    
+
   //3
   NSLayoutConstraint.activate([
     scroller.leadingAnchor.constraint(equalTo: self.leadingAnchor),
@@ -126,23 +126,23 @@ func initializeScrollView() {
     scroller.topAnchor.constraint(equalTo: self.topAnchor),
     scroller.bottomAnchor.constraint(equalTo: self.bottomAnchor)
   ])
-    
+
   //4
   let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(scrollerTapped(gesture:)))
   scroller.addGestureRecognizer(tapRecognizer)
 }
 ```
 
-The work is done in `initializeScrollView()`. Here’s what’s going on in that method:
+这项工作是在 `initializeScrollView()` 中完成的。以下是该详细分析：
 
-1.  Adds the `UIScrollView` instance to the parent view.
-2.  Turn off autoresizing masks. This is so you can apply your own constraints
-3.  Apply constraints to the scrollview. You want the scroll view to completely fill the `HorizontalScrollerView`
-4.  Create a tap gesture recognizer. The tap gesture recognizer detects touches on the scroll view and checks if an album cover has been tapped. If so, it will notify the `HorizontalScrollerView` delegate. You’ll have a compiler error here because the tap method isn’t implemented yet, you’ll be doing that shortly.
+1. 将 `UIScrollView` 实例添加到 superView
+2. 关闭自动调整遮罩（autoresizing mask），这样您就可以使用自定义约束
+3. 将约束应用于 scrollview，您希望 scrollview 完全填充 `HorizontalScrollerView`
+4. 创建轻击手势识别器（tap gesture recognizer）。它会检测 scrollView 上的触摸事件并检查是否已经轻击了专辑封面。如果是，它将通知 `HorizontalScrollerView` 的代理。在这里你会遇到编译错误，因为 scrollerTapped(gesture:) 方法尚未实现，你接下来就要实现了。
 
-Now add this method:
+现在添加下面的方法：
 
-```
+```swift
 func scrollToView(at index: Int, animated: Bool = true) {
   let centralView = contentViews[index]
   let targetCenter = centralView.center
@@ -151,52 +151,52 @@ func scrollToView(at index: Int, animated: Bool = true) {
 }
 ```
 
-This method retrieves the view for a specific index and centers it. It is used by the following method (add this to the class as well):
+此方法检索特定索引的 View 并使其居中。它将由以下方法调用（也需要你将此方法添加到类中）：
 
-```
+```swift
 @objc func scrollerTapped(gesture: UITapGestureRecognizer) {
   let location = gesture.location(in: scroller)
   guard
     let index = contentViews.index(where: { $0.frame.contains(location)})
     else { return }
-  
+
   delegate?.horizontalScrollerView(self, didSelectViewAt: index)
   scrollToView(at: index)
 }
 ```
 
-This method finds the location of the tap in the scroll view, then the index of the first content view that contains that location, if any.
+此方法在 scrollView 中查找点击的位置，如果存在的话它会查找包含该位置的第一个 contentView 的索引。
 
-If a content view was hit, the delegate is informed and the view is scrolled to the center.
+如果点击了 contentView，则通知代理并将此 View 滚动到中心位置。
 
-Next add the following to access an album cover from the scroller:
+接下来添加以下内容以从滚动器访问专辑封面：
 
-```
+```swift
 func view(at index :Int) -> UIView {
   return contentViews[index]
 }
 ```
 
-`view(at:)` simply returns the view at a particular index. You will be using this method later to highlight the album cover you have tapped on.
+`view(at:)` 只返回特定索引处的 View，稍后您将使用此方法突出显示您已点击的专辑封面。
 
-Now add the following code to reload the scroller:
+现在添加以下代码来重新加载滚动器：
 
-```
+```swift
 func reload() {
-  // 1 - Check if there is a data source, if not there is nothing to load.
+  // 1 - 检查是否有数据源，如果没有则返回。
   guard let dataSource = dataSource else {
     return
   }
-  
-  //2 - Remove the old content views
+
+  //2 - 删除所有旧的 contentView
   contentViews.forEach { $0.removeFromSuperview() }
-  
-  // 3 - xValue is the starting point of each view inside the scroller
+
+  // 3 - xValue 是滚动器内每个 View 的起点
   var xValue = ViewConstants.Offset
-  // 4 - Fetch and add the new views
+  // 4 - 获取并添加新的 View
   contentViews = (0..<dataSource.numberOfViews(in: self)).map {
     index in
-    // 5 - add a view at the right position
+    // 5 - 在正确的位置添加 View
     xValue += ViewConstants.Padding
     let view = dataSource.horizontalScrollerView(self, viewAt: index)
     view.frame = CGRect(x: CGFloat(xValue), y: ViewConstants.Padding, width: ViewConstants.Dimensions, height: ViewConstants.Dimensions)
@@ -226,19 +226,19 @@ The last piece of the `HorizontalScrollerView` puzzle is to make sure the album 
 
 Add the following method:
 
-```
+```swift
 private func centerCurrentView() {
   let centerRect = CGRect(
     origin: CGPoint(x: scroller.bounds.midX - ViewConstants.Padding, y: 0),
     size: CGSize(width: ViewConstants.Padding, height: bounds.height)
   )
-  
+
   guard let selectedIndex = contentViews.index(where: { $0.frame.intersects(centerRect) })
     else { return }
   let centralView = contentViews[selectedIndex]
   let targetCenter = centralView.center
   let targetOffsetX = targetCenter.x - (scroller.bounds.width / 2)
-  
+
   scroller.setContentOffset(CGPoint(x: targetOffsetX, y: 0), animated: true)
   delegate?.horizontalScrollerView(self, didSelectViewAt: selectedIndex)
 }
@@ -246,27 +246,27 @@ private func centerCurrentView() {
 
 The above code takes into account the current offset of the scroll view and the dimensions and the padding of the views in order to calculate the distance of the current view from the center. The last line is important: once the view is centered, you then inform the delegate that the selected view has changed.
 
-To detect that the user finished dragging inside the scroll view, you'll need to implement some `UIScrollViewDelegate` methods. Add the following class extension to the bottom of the file; remember, this must be added _after_ the curly braces of the main class declaration!
+To detect that the user finished dragging inside the scroll view, you'll need to implement some `UIScrollViewDelegate` methods. Add the following class extension to the bottom of the file; remember, this must be added **after** the curly braces of the main class declaration!
 
-```
+```swift
 extension HorizontalScrollerView: UIScrollViewDelegate {
-  func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+  func scrollViewDidEndDragging(** scrollView: UIScrollView, willDecelerate decelerate: Bool) {
     if !decelerate {
       centerCurrentView()
     }
   }
-  
-  func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+
+  func scrollViewDidEndDecelerating(** scrollView: UIScrollView) {
     centerCurrentView()
   }
 }
 ```
 
-`scrollViewDidEndDragging(_:willDecelerate:)` informs the delegate when the user finishes dragging. The `decelerate` parameter is true if the scroll view hasn't come to a complete stop yet. When the scroll action ends, the the system calls `scrollViewDidEndDecelerating(_:)`. In both cases you should call the new method to center the current view since the current view probably has changed after the user dragged the scroll view.
+`scrollViewDidEndDragging(**:willDecelerate:)` informs the delegate when the user finishes dragging. The `decelerate` parameter is true if the scroll view hasn't come to a complete stop yet. When the scroll action ends, the the system calls `scrollViewDidEndDecelerating(**:)`. In both cases you should call the new method to center the current view since the current view probably has changed after the user dragged the scroll view.
 
 Lastly don't forget to set the delegate. Add the following line to the very beginning of `initializeScrollView()`:
 
-```
+```swift
 scroller.delegate = self
 ```
 
@@ -274,21 +274,21 @@ Your `HorizontalScrollerView` is ready for use! Browse through the code you've j
 
 Build your project to make sure everything compiles properly.
 
-Now that `HorizontalScrollerView` is complete, it's time to use it in your app. First, open _Main.storyboard_. Click on the top gray rectangular view and click on the _Identity Inspector_. Change the class name to `HorizontalScrollerView` as shown below:
+Now that `HorizontalScrollerView` is complete, it's time to use it in your app. First, open **Main.storyboard**. Click on the top gray rectangular view and click on the **Identity Inspector**. Change the class name to `HorizontalScrollerView` as shown below:
 
 [![](https://koenig-media.raywenderlich.com/uploads/2017/06/design-patterns-part2-scroller-480x270.png)](https://koenig-media.raywenderlich.com/uploads/2017/06/design-patterns-part2-scroller.png)
 
-Next, open the _Assistant Editor_ and control drag from the gray rectangular view to _ViewController.swift_ to create an outlet. Name the name the outlet _horizontalScrollerView_, as shown below:
+Next, open the **Assistant Editor** and control drag from the gray rectangular view to **ViewController.swift** to create an outlet. Name the name the outlet **horizontalScrollerView**, as shown below:
 
 [![](https://koenig-media.raywenderlich.com/uploads/2017/06/design-patterns-part2-scroller-outlet-480x270.png)](https://koenig-media.raywenderlich.com/uploads/2017/06/design-patterns-part2-scroller-outlet.png)
 
-Next, open _ViewController.swift_. It's time to start implementing some of the `HorizontalScrollerViewDelegate` methods!
+Next, open **ViewController.swift**. It's time to start implementing some of the `HorizontalScrollerViewDelegate` methods!
 
 Add the following extension to the bottom of the file:
 
-```
+```swift
 extension ViewController: HorizontalScrollerViewDelegate {
-  func horizontalScrollerView(_ horizontalScrollerView: HorizontalScrollerView, didSelectViewAt index: Int) {
+  func horizontalScrollerView(** horizontalScrollerView: HorizontalScrollerView, didSelectViewAt index: Int) {
     //1
     let previousAlbumView = horizontalScrollerView.view(at: currentAlbumIndex) as! AlbumView
     previousAlbumView.highlightAlbum(false)
@@ -312,13 +312,13 @@ This is what happens when this delegate method is invoked:
 
 Next, it's time to implement `HorizontalScrollerViewDataSource`. Add the following code at the end of file:
 
-```
+```swift
 extension ViewController: HorizontalScrollerViewDataSource {
   func numberOfViews(in horizontalScrollerView: HorizontalScrollerView) -> Int {
     return allAlbums.count
   }
-  
-  func horizontalScrollerView(_ horizontalScrollerView: HorizontalScrollerView, viewAt index: Int) -> UIView {
+
+  func horizontalScrollerView(** horizontalScrollerView: HorizontalScrollerView, viewAt index: Int) -> UIView {
     let album = allAlbums[index]
     let albumView = AlbumView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), coverUrl: album.coverUrl)
     if currentAlbumIndex == index {
@@ -331,11 +331,11 @@ extension ViewController: HorizontalScrollerViewDataSource {
 }
 ```
 
-`numberOfViews(in:)`, as you'll recognize, is the protocol method returning the number of views for the scroll view. Since the scroll view will display covers for all the album data, the count is the number of album records. In `horizontalScrollerView(_:viewAt:)` you create a new `AlbumView`, highlight it if it's the selected album, then pass it to the `HorizontalScrollerView`.
+`numberOfViews(in:)`, as you'll recognize, is the protocol method returning the number of views for the scroll view. Since the scroll view will display covers for all the album data, the count is the number of album records. In `horizontalScrollerView(**:viewAt:)` you create a new `AlbumView`, highlight it if it's the selected album, then pass it to the `HorizontalScrollerView`.
 
 That's it! Only three short methods to display a nice looking horizontal scroller. You now need to connect up the datasource and delegate. Add the following code before `showDataForAlbum(at:)` in `viewDidLoad`:
 
-```
+```swift
 horizontalScrollerView.dataSource = self
 horizontalScrollerView.delegate = self
 horizontalScrollerView.reload()
@@ -353,7 +353,7 @@ Ah, that's right — you didn't implement the code to download the covers yet. T
 2.  For the same reason, `LibraryAPI` shouldn't know about `AlbumView`.
 3.  `LibraryAPI` needs to inform `AlbumView` once the covers are downloaded since the `AlbumView` has to display the covers.
 
-Sounds like a conundrum? Don't despair, you'll learn how to do this using the _Observer_ pattern!
+Sounds like a conundrum? Don't despair, you'll learn how to do this using the **Observer** pattern!
 
 ## The Observer Pattern
 
@@ -363,7 +363,7 @@ The usual implementation requires that an observer registers interest in the sta
 
 If you want to stick to the MVC concept (hint: you do), you need to allow Model objects to communicate with View objects, but without direct references between them. And that's where the Observer pattern comes in.
 
-Cocoa implements the observer pattern in two ways: _Notifications_ and _Key-Value Observing (KVO)_.
+Cocoa implements the observer pattern in two ways: **Notifications** and **Key-Value Observing (KVO)**.
 
 ### Notifications
 
@@ -373,11 +373,11 @@ Notifications are heavily used by Apple. For example, when the keyboard is shown
 
 ### How to Use Notifications
 
-Right click on _RWBlueLibrary_ and select _New Group_. Rename it _Extension_. Right click again on that group and select _New File..._. Select _iOS > Swift File_ and set the file name to _NotificationExtension.swift_.
+Right click on **RWBlueLibrary** and select **New Group**. Rename it **Extension**. Right click again on that group and select **New File...**. Select **iOS > Swift File** and set the file name to **NotificationExtension.swift**.
 
 Copy the following code inside the file:
 
-```
+```swift
 extension Notification.Name {
   static let BLDownloadImage = Notification.Name("BLDownloadImageNotification")
 }
@@ -385,17 +385,17 @@ extension Notification.Name {
 
 You are extending `Notification.Name` with your custom notification. From now on, the new notification can be accessed as `.BLDownloadImage`, just as you would a system notification.
 
-Go to _AlbumView.swift_ and insert the following code to the end of the `init(frame:coverUrl:)` method:
+Go to **AlbumView.swift** and insert the following code to the end of the `init(frame:coverUrl:)` method:
 
-```
+```swift
 NotificationCenter.default.post(name: .BLDownloadImage, object: self, userInfo: ["imageView": coverImageView, "coverUrl" : coverUrl])
 ```
 
 This line sends a notification through the `NotificationCenter` singleton. The notification info contains the `UIImageView` to populate and the URL of the cover image to be downloaded. That's all the information you need to perform the cover download task.
 
-Add the following line to `init` in _LibraryAPI.swift_, as the implementation of the currently empty `init`:
+Add the following line to `init` in **LibraryAPI.swift**, as the implementation of the currently empty `init`:
 
-```
+```swift
 NotificationCenter.default.addObserver(self, selector: #selector(downloadImage(with:)), name: .BLDownloadImage, object: nil)
 ```
 
@@ -403,9 +403,9 @@ This is the other side of the equation: the observer. Every time an `AlbumView` 
 
 Before you implement `downloadImage(with:)` there's one more thing to do. It would probably be a good idea to save the downloaded covers locally so the app won't need to download the same covers over and over again.
 
-Open _PersistencyManager.swift_. After the `import Foundation`, add the following line:
+Open **PersistencyManager.swift**. After the `import Foundation`, add the following line:
 
-```
+```swift
 import UIKit
 ```
 
@@ -413,7 +413,7 @@ This import is important because you will deal with `UI` objects, like `UIImage`
 
 Add this computed property to the end of the class:
 
-```
+```swift
 private var cache: URL {
   return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
 }
@@ -423,8 +423,8 @@ This variable returns the URL of the cache directory, which is a good place to s
 
 Now add these two methods:
 
-```
-func saveImage(_ image: UIImage, filename: String) {
+```swift
+func saveImage(** image: UIImage, filename: String) {
   let url = cache.appendingPathComponent(filename)
   guard let data = UIImagePNGRepresentation(image) else {
     return
@@ -443,11 +443,11 @@ func getImage(with filename: String) -> UIImage? {
 
 This code is pretty straightforward. The downloaded images will be saved in the Cache directory, and `getImage(with:)` will return `nil` if a matching file is not found in the Cache directory.
 
-Now open _LibraryAPI.swift_ and add `import UIKit` after the first available import.
+Now open **LibraryAPI.swift** and add `import UIKit` after the first available import.
 
 At the end of the class add the following method:
 
-```
+```swift
 @objc func downloadImage(with notification: Notification) {
   guard let userInfo = notification.userInfo,
     let imageView = userInfo["imageView"] as? UIImageView,
@@ -455,12 +455,12 @@ At the end of the class add the following method:
     let filename = URL(string: coverUrl)?.lastPathComponent else {
       return
   }
-  
+
   if let savedImage = persistencyManager.getImage(with: filename) {
     imageView.image = savedImage
     return
   }
-  
+
   DispatchQueue.global().async {
     let downloadedImage = self.httpClient.downloadImage(coverUrl) ?? UIImage()
     DispatchQueue.main.async {
@@ -486,7 +486,7 @@ Build and run your app and check out the beautiful covers inside your collection
 
 Stop your app and run it again. Notice that there's no delay in loading the covers because they've been saved locally. You can even disconnect from the Internet and your app will work flawlessly. However, there's one odd bit here: the spinner never stops spinning! What's going on?
 
-You started the spinner when downloading the image, but you haven't implemented the logic to stop the spinner once the image is downloaded. You _could_ send out a notification every time an image has been downloaded, but instead, you'll do that using the other Observer pattern, KVO.
+You started the spinner when downloading the image, but you haven't implemented the logic to stop the spinner once the image is downloaded. You **could** send out a notification every time an image has been downloaded, but instead, you'll do that using the other Observer pattern, KVO.
 
 ### Key-Value Observing (KVO)
 
@@ -496,15 +496,15 @@ In KVO, an object can ask to be notified of any changes to a specific property; 
 
 As mentioned above, the KVO mechanism allows an object to observe changes to a property. In your case, you can use KVO to observe changes to the `image` property of the `UIImageView` that holds the image.
 
-Open _AlbumView.swift_ and add the following property just below the `private var indicatorView: UIActivityIndicatorView!` declaration:
+Open **AlbumView.swift** and add the following property just below the `private var indicatorView: UIActivityIndicatorView!` declaration:
 
-```
+```swift
 private var valueObservation: NSKeyValueObservation!
 ```
 
 Now add the following code to `commonInit`, just before you add the cover image view as a subview:
 
-```
+```swift
 valueObservation = coverImageView.observe(\.image, options: [.new]) { [unowned self] observed, change in
   if change.newValue is UIImage {
       self.indicatorView.stopAnimating()
@@ -520,7 +520,7 @@ In Swift 4, a key path expression has the following form:
 \<type>.<property>.<subproperty>
 ```
 
-The _type_ can often be inferred by the compiler, but at least 1 _property_ needs to be provided. In some cases, it might make sense to use properties of properties. In your case, the property name, `image` has been specified, while the type name `UIImageView` has been omitted.
+The **type** can often be inferred by the compiler, but at least 1 **property** needs to be provided. In some cases, it might make sense to use properties of properties. In your case, the property name, `image` has been specified, while the type name `UIImageView` has been omitted.
 
 The trailing closure specifies the closure that is executed every time an observed property changes. In the above code, you stop the spinner when the `image` property changes. This way, when an image is loaded, the spinner will stop spinning.
 
@@ -528,11 +528,11 @@ Build and run your project. The spinner should disappear:
 
 ![How the album app will look when the design patterns tutorial is complete](https://koenig-media.raywenderlich.com/uploads/2017/07/FinalApp-180x320.png)
 
-_Note:_ Always remember to remove your observers when they're deinited, or else your app will crash when the subject tries to send messages to these non-existent observers! In this case the `valueObservation` will be deinited when the album view is, so the observing will stop then.
+**Note:** Always remember to remove your observers when they're deinited, or else your app will crash when the subject tries to send messages to these non-existent observers! In this case the `valueObservation` will be deinited when the album view is, so the observing will stop then.
 
 If you play around with your app a bit and terminate it, you'll notice that the state of your app isn't saved. The last album you viewed won't be the default album when the app launches.
 
-To correct this, you can make use of the next pattern on the list: _Memento_.
+To correct this, you can make use of the next pattern on the list: **Memento**.
 
 ## The Memento Pattern
 
@@ -540,33 +540,33 @@ The memento pattern captures and externalizes an object's internal state. In oth
 
 ## How to Use the Memento Pattern
 
-iOS uses the Memento pattern as part of _State Restoration_. You can find out more about it by reading our [tutorial](https://www.raywenderlich.com/117471/state-restoration-tutorial), but essentially it stores and re-applies your application's state so the user is back where they left things.
+iOS uses the Memento pattern as part of **State Restoration**. You can find out more about it by reading our [tutorial](https://www.raywenderlich.com/117471/state-restoration-tutorial), but essentially it stores and re-applies your application's state so the user is back where they left things.
 
-To activate state restoration in the app, open _Main.storyboard_. Select the _Navigation Controller_ and, in the _Identity Inspector_, find the _Restoration ID_ field and type _NavigationController_.
+To activate state restoration in the app, open **Main.storyboard**. Select the **Navigation Controller** and, in the **Identity Inspector**, find the **Restoration ID** field and type **NavigationController**.
 
-Select the _Pop Music_ scene and enter _ViewController_ for the same field. These IDs tell iOS that you're interested in restoring state for those view controllers when the app restarts.
+Select the **Pop Music** scene and enter **ViewController** for the same field. These IDs tell iOS that you're interested in restoring state for those view controllers when the app restarts.
 
-Add the following code to _AppDelegate.swift_:
+Add the following code to **AppDelegate.swift**:
 
-```
-func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
+```swift
+func application(** application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
   return true
 }
 
-func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
+func application(** application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
   return true
 }
 ```
 
-This code turns on state restoration for your app as a whole. Now, add the following code to the `Constants` enum in _ViewController.swift_:
+This code turns on state restoration for your app as a whole. Now, add the following code to the `Constants` enum in **ViewController.swift**:
 
-```
+```swift
 static let IndexRestorationKey = "currentAlbumIndex"
 ```
 
 This key will be used to save and restore the current album index. Add the following code:
 
-```
+```swift
 override func encodeRestorableState(with coder: NSCoder) {
   coder.encode(currentAlbumIndex, forKey: Constants.IndexRestorationKey)
   super.encodeRestorableState(with: coder)
@@ -582,14 +582,14 @@ override func decodeRestorableState(with coder: NSCoder) {
 
 Here you are saving the index (this will happen when your app enters the background) and restoring it (this will happen when the app is launched, after the view of your view controller is loaded). After you restore the index, you update the table and scroller to reflect the updated selection. There's one more thing to be done - you need to move the scroller to the right position. It won't look right if you move the scroller here, because the views haven't yet been laid out. Add the following code to move the scroller at the right point:
 
-```
-override func viewDidAppear(_ animated: Bool) {
+```swift
+override func viewDidAppear(** animated: Bool) {
   super.viewDidAppear(animated)
   horizontalScrollerView.scrollToView(at: currentAlbumIndex, animated: false)
 }
 ```
 
-Build and run your app. Navigate to one of the albums, send the app to the background with the Home button (_Command+Shift+H_ if you are on the simulator) and then shut down your app from Xcode. Relaunch, and check that the previously selected album is the one centered:
+Build and run your app. Navigate to one of the albums, send the app to the background with the Home button (**Command+Shift+H** if you are on the simulator) and then shut down your app from Xcode. Relaunch, and check that the previously selected album is the one centered:
 
 ![How the album app will look when the design patterns tutorial is complete](https://koenig-media.raywenderlich.com/uploads/2017/07/FinalApp-180x320.png)
 
@@ -597,7 +597,7 @@ If you look at `PersistencyManager`'s `init`, you'll notice the album data is ha
 
 One option is to iterate through `Album`'s properties, save them to a plist file and then recreate the `Album` instances when they're needed. This isn't the best option, as it requires you to write specific code depending on what data/properties are there in each class. For example, if you later created a `Movie` class with different properties, the saving and loading of that data would require new code.
 
-Additionally, you won't be able to save the private variables for each class instance since they are not accessible to an external class. That's exactly why Apple created _archiving and serialization_ mechanisms.
+Additionally, you won't be able to save the private variables for each class instance since they are not accessible to an external class. That's exactly why Apple created **archiving and serialization** mechanisms.
 
 ### Archiving and Serialization
 
@@ -609,11 +609,11 @@ Swift 4 resolves this issue for all these three types: `class`, `struct` and `en
 
 ### How to Use Archiving and Serialization
 
-Open _Album.swift_ and declare that `Album` implements `Codable`. This protocol is the only thing required to make a Swift type `Encodable` and `Decodable`. If all properties are `Codable`, the protocol implementation is automatically generated by the compiler.
+Open **Album.swift** and declare that `Album` implements `Codable`. This protocol is the only thing required to make a Swift type `Encodable` and `Decodable`. If all properties are `Codable`, the protocol implementation is automatically generated by the compiler.
 
 Now your code should look like this:
 
-```
+```swift
 struct Album: Codable {
   let title : String
   let artist : String
@@ -623,9 +623,9 @@ struct Album: Codable {
 }
 ```
 
-To actually encode the object, you'll need to use an encoder. Open _PersistencyManager.swift_ and add the following code:
+To actually encode the object, you'll need to use an encoder. Open **PersistencyManager.swift** and add the following code:
 
-```
+```swift
 private var documents: URL {
   return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 }
@@ -646,11 +646,11 @@ func saveAlbums() {
 
 Here, you're defining a URL where you'll save the file (like you did with `caches`), a constant for the filename, then a method which writes your albums out to the file. And you didn't have to write much code!
 
-The other part of the process is decode back the data into a concrete object. You're going to replace that long method where you make the albums and load them from a file instead. Download and unzip [this JSON file](https://koenig-media.raywenderlich.com/uploads/2017/07/albums.json_.zip) and add it to your project.
+The other part of the process is decode back the data into a concrete object. You're going to replace that long method where you make the albums and load them from a file instead. Download and unzip [this JSON file](https://koenig-media.raywenderlich.com/uploads/2017/07/albums.json**.zip) and add it to your project.
 
-Now replace `init` in _PersistencyManager.swift_ with the following:
+Now replace `init` in **PersistencyManager.swift** with the following:
 
-```
+```swift
 let savedURL = documents.appendingPathComponent(Filenames.Albums)
 var data = try? Data(contentsOf: savedURL)
 if data == nil, let bundleURL = Bundle.main.url(forResource: Filenames.Albums, withExtension: nil) {
