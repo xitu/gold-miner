@@ -234,109 +234,115 @@ function Greeting() {
 
 * * *
 
-第一个理由是 why always using `new` wouldn’t work is that for native arrow functions (not the ones compiled by Babel), calling with `new` throws an error:
+关于为什么总是使用 `new` 是没用的的第一个理由是，对于原生的箭头函数（不是那些被 Babel 编译过的），用 `new` 调用会抛出一个错误：
 
 ```
 const Greeting = () => <p>Hello</p>;
 new Greeting(); // 🔴 Greeting is not a constructor
 ```
 
-This behavior is intentional and follows from the design of arrow functions. One of the main perks of arrow functions is that they _don’t_ have their own `this` value — instead, `this` is resolved from the closest regular function:
+这个行为是遵循箭头函数的设计而刻意为之的。箭头函数的一个附带作用是 _没有_ 自己的 `this` 值，相反的，`this` 解析自离得最近的常规函数：
 
 ```
 class Friends extends React.Component {
-    render() {    const friends = this.props.friends;
+  render() {
+    const friends = this.props.friends;
     return friends.map(friend =>
-        <Friend
-        // `this` is resolved from the `render` method        size={this.props.size}        name={friend.name}
+      <Friend
+        // `this` is resolved from the `render` method
+        size={this.props.size}
+        name={friend.name}
         key={friend.id}
-        />
+      />
     );
-    }
+  }
 }
 ```
 
-Okay, so **arrow functions don’t have their own `this`.** But that means they would be entirely useless as constructors!
+OK，所以 **箭头函数没有自己的 `this`.**，但这意味着它作为构造函数是完全无用的！
 
 ```
 const Person = (name) => {
-    // 🔴 This wouldn’t make sense!
-    this.name = name;
+  // 🔴 这么写是没有意义的！
+  this.name = name;
 }
 ```
 
-Therefore, **JavaScript disallows calling an arrow function with `new`.** If you do it, you probably made a mistake anyway, and it’s best to tell you early. This is similar to how JavaScript doesn’t let you call a class _without_ `new`.
+因此，**JavaScript 不允许用 `new` 调用箭头函数。**如果你这么做，你或许已经犯了错，最好早点告诉你。这和 JavaScript 不让你 _不用_ `new` 去调用一个类是类似的。
 
-This is nice but it also foils our plan. React can’t just call `new` on everything because it would break arrow functions! We could try detecting arrow functions specifically by their lack of `prototype`, and not `new` just them:
+这样很不错，但这也让我们的计划失败了。React 不能简单对所有东西都使用 `new`，因为会破坏箭头函数！我们可以利用箭头函数没有 `prototype` 的特点来检测箭头函数，不对它们使用 `new`：
 
 ```
 (() => {}).prototype // undefined
 (function() {}).prototype // {constructor: f}
 ```
 
-But this [wouldn’t work](https://github.com/facebook/react/issues/4599#issuecomment-136562930) for functions compiled with Babel. This might not be a big deal, but there is another reason that makes this approach a dead end.
+但这对于被 Babel 编译过的函数是[没用](https://github.com/facebook/react/issues/4599#issuecomment-136562930)的。这或许没什么大不了，但还有另一个原因使得这个途径不会有结果。
 
 * * *
 
-Another reason we can’t always use `new` is that it would preclude React from supporting components that return strings or other primitive types.
+另一个我们不能总是使用 `new` 的原因是它会阻止 React 支持返回字符串或其它原始类型的组件。
 
 ```
 function Greeting() {
-    return 'Hello';
+  return 'Hello';
 }
 
 Greeting(); // ✅ 'Hello'
 new Greeting(); // 😳 Greeting {}
 ```
 
-This, again, has to do with the quirks of the [`new` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new) design. As we saw earlier, `new` tells the JavaScript engine to create an object, make that object `this` inside the function, and later give us that object as a result of `new`.
+这，再一次，和 [`new` 操作符](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new)的怪异设计有关。如我们之前所看到的，`new` 告诉 JavaScript 引擎去创建一个对象，让这个对象成为函数内部的 `this`，然后把这个对象作为 `new` 的结果给到我们。
 
-However, JavaScript also allows a function called with `new` to _override_ the return value of `new` by returning some other object. Presumably, this was considered useful for patterns like pooling where we want to reuse instances:
+然而，JavaScript 也允许一个使用 `new` 调用的函数返回另一个对象以 _覆盖_ `new` 的返回值。或许，这在我们利用诸如“池”模式来对组件进行复用时是被认为有用的：
 
 ```
-// Created lazilyvar zeroVector = null;
+// 创建了一个懒变量 zeroVector = null;
 function Vector(x, y) {
-    if (x === 0 && y === 0) {
+  if (x === 0 && y === 0) {
     if (zeroVector !== null) {
-        // Reuse the same instance      return zeroVector;    }
-    zeroVector = this;
+      // 复用同一个实例
+      return zeroVector;
     }
-    this.x = x;
-    this.y = y;
+    zeroVector = this;
+  }
+  this.x = x;
+  this.y = y;
 }
 
 var a = new Vector(1, 1);
-var b = new Vector(0, 0);var c = new Vector(0, 0); // 😲 b === c
+var b = new Vector(0, 0);
+var c = new Vector(0, 0); // 😲 b === c
 ```
 
-However, `new` also _completely ignores_ a function’s return value if it’s _not_ an object. If you return a string or a number, it’s like there was no `return` at all.
+然而，如果一个函数的返回值 _不是_ 一个对象，它会被 `new` _完全忽略_。如果你返回了一个字符串或数字，就好像完全没有 `return` 一样。
 
 ```
 function Answer() {
-    return 42;
+  return 42;
 }
 
 Answer(); // ✅ 42
 new Answer(); // 😳 Answer {}
 ```
 
-There is just no way to read a primitive return value (like a number or a string) from a function when calling it with `new`. So if React always used `new`, it would be unable to add support components that return strings!
+当使用 `new` 调用函数时，是没办法读取原始类型（例如一个数字或字符串）的返回值的。因此如果 React 总是使用 `new`，就没办法增加对返回字符串的组件的支持！
 
-That’s unacceptable so we need to compromise.
-
-* * *
-
-What did we learn so far? React needs to call classes (including Babel output) _with_ `new` but it needs to call regular functions or arrow functions (including Babel output) _without_ `new`. And there is no reliable way to distinguish them.
-
-**If we can’t solve a general problem, can we solve a more specific one?**
-
-When you define a component as a class, you’ll likely want to extend `React.Component` for built-in methods like `this.setState()`. **Rather than try to detect all classes, can we detect only `React.Component` descendants?**
-
-Spoiler: this is exactly what React does.
+这是不可接受的，因此我们必须妥协。
 
 * * *
 
-Perhaps, the idiomatic way to check if `Greeting` is a React component class is by testing if `Greeting.prototype instanceof React.Component`:
+至此我们学到了什么？React 在调用类（包括 Babel 输出的）时 _需要用_ `new`，但在调用常规函数虎或箭头函数时（包括 Babel 输出的）_不需要用_ `new`，并且没有可靠的方法来区分这些情况。
+
+**如果我们没法解决一个笼统的问题，我们能解决一个具体的吗？**
+
+当你把一个组件定义为类，你很可能会集成 `React.Component` 以便获取内置的方法，比如 `this.setState()`。 **与其试图检测所有的类，我们能否只检测 `React.Component` 的后代呢？**
+
+剧透：React 就是这么干的。
+
+* * *
+
+或许，检查 `Greeting` 是否是一个 React 组件类的最符合语言习惯的方式是测试 `Greeting.prototype instanceof React.Component`：
 
 ```
 class A {}
@@ -345,35 +351,35 @@ class B extends A {}
 console.log(B.prototype instanceof A); // true
 ```
 
-I know what you’re thinking. What just happened here?! To answer this, we need to understand JavaScript prototypes.
+我知道你在想什么。刚才发生了什么？！为了回答这个问题，我们需要理解 JavaScript 原型。
 
-You might be familiar with the “prototype chain”. Every object in JavaScript might have a “prototype”. When we write `fred.sayHi()` but `fred` object has no `sayHi` property, we look for `sayHi` property on `fred`’s prototype. If we don’t find it there, we look at the next prototype in the chain — `fred`’s prototype’s prototype. And so on.
+你或许对“原型链”很熟悉。JavaScript 中的每一个对象都有一个“原型”。当我们写 `fred.sayHi()` 但 `fred` 对象没有 `sayHi` 属性，我们尝试到 `fred` 的原型上去找 `sayHi` 属性。要是我们在这儿找不到，就去找原型链的下一个原型 — `fred` 的原型的原型，以此类推。
 
-**Confusingly, the `prototype` property of a class or a function _does not_ point to the prototype of that value.** I’m not kidding.
+**费解的是，一个雷火函数的 `prototype` 属性 _并不_ 指向那个值的原型。**我没开玩笑。
 
 ```
 function Person() {}
 
-console.log(Person.prototype); // 🤪 Not Person's prototype
-console.log(Person.__proto__); // 😳 Person's prototype
+console.log(Person.prototype); // 🤪 不是 Person 的原型
+console.log(Person.__proto__); // 😳 Person 的原型
 ```
 
-So the “prototype chain” is more like `__proto__.__proto__.__proto__` than `prototype.prototype.prototype`. This took me years to get.
+因此“原型链”更像是 `__proto__.__proto__.__proto__` 而不是 `prototype.prototype.prototype`，我花了好几年才搞懂这一点。
 
-What’s the `prototype` property on a function or a class, then? **It’s the `__proto__` given to all objects `new`ed with that class or a function!**
+那么函数和类的 `prototype` 属性又是什么？**是用 `new` 调用那个类或函数生成的所有对象的 `__proto__` ！**
 
 ```
 function Person(name) {
-    this.name = name;
+  this.name = name;
 }
 Person.prototype.sayHi = function() {
-    alert('Hi, I am ' + this.name);
+  alert('Hi, I am ' + this.name);
 }
 
 var fred = new Person('Fred'); // Sets `fred.__proto__` to `Person.prototype`
 ```
 
-And that `__proto__` chain is how JavaScript looks up properties:
+那个 `__proto__` 链才是 JavaScript 用来查找属性的：
 
 ```
 fred.sayHi();
@@ -386,158 +392,163 @@ fred.toString();
 // 3. Does fred.__proto__.__proto__ have a toString property? Yes. Call it!
 ```
 
-In practice, you should almost never need to touch `__proto__` from the code directly unless you’re debugging something related to the prototype chain. If you want to make stuff available on `fred.__proto__`, you’re supposed to put it on `Person.prototype`. At least that’s how it was originally designed.
+在实战中，你应该几乎永远不需要直接在代码里动到 `__proto__` 除非你在调试和原型链相关的问题。如果你想让某样东西在 `fred.__proto__` 上可用，你应该把它放在 `Person.prototype`，至少它最初是这么设计的。
 
-The `__proto__` property wasn’t even supposed to be exposed by browsers at first because the prototype chain was considered an internal concept. But some browsers added `__proto__` and eventually it was begrudgingly standardized (but deprecated in favor of `Object.getPrototypeOf()`).
+`__proto__` 属性甚至一开始就不应该被浏览器暴露出来，因为原型链应该被视为一个内部概念，然而某些浏览器增加了 `__proto__` 并最终勉强被标准化（但被废弃并推荐使用 `Object.getPrototypeOf()`）。
 
-**And yet I still find it very confusing that a property called `prototype` does not give you a value’s prototype** (for example, `fred.prototype` is undefined because `fred` is not a function). Personally, I think this is the biggest reason even experienced developers tend to misunderstand JavaScript prototypes.
+**然而一个名叫“原型”的属性却给不了我一个值的“原型”这一点还是很让我困惑**（例如， `fred.prototype` 是未定义的，因为 `fred` 不是一个函数）。个人观点，我觉得这是即便有经验的开发者也容易误解 JavaScript 原型链的最大原因。
 
 * * *
 
-This is a long post, eh? I’d say we’re 80% there. Hang on.
+这篇博客很长，是吧？已经到 80% 了，坚持住。
 
-We know that when say `obj.foo`, JavaScript actually looks for `foo` in `obj`, `obj.__proto__`, `obj.__proto__.__proto__`, and so on.
+我们知道当说 `obj.foo` 的时候，JavaScript 事实上沿着 `obj`, `obj.__proto__`, `obj.__proto__.__proto__` 等等一路寻找 `foo`。
 
-With classes, you’re not exposed directly to this mechanism, but `extends` also works on top of the good old prototype chain. That’s how our React class instance gets access to methods like `setState`:
+在使用类时，你并非直接面对这一机制，但 `extends` 的原理依然是基于这项老旧但有效的原型链机制。这也是的我们的 React 类实例能够访问如 `setState` 这样方法的原因：
 
 ```
-class Greeting extends React.Component {  render() {
+class Greeting extends React.Component {
+  render() {
     return <p>Hello</p>;
-    }
+  }
 }
 
 let c = new Greeting();
 console.log(c.__proto__); // Greeting.prototype
-console.log(c.__proto__.__proto__); // React.Component.prototypeconsole.log(c.__proto__.__proto__.__proto__); // Object.prototype
+console.log(c.__proto__.__proto__); // React.Component.prototype
+console.log(c.__proto__.__proto__.__proto__); // Object.prototype
 
-c.render();      // Found on c.__proto__ (Greeting.prototype)
-c.setState();    // Found on c.__proto__.__proto__ (React.Component.prototype)c.toString();    // Found on c.__proto__.__proto__.__proto__ (Object.prototype)
+c.render();      // 在 c.__proto__ (Greeting.prototype) 上找到
+c.setState();    // 在 c.__proto__.__proto__ (React.Component.prototype) 上找到
+c.toString();    // 在 c.__proto__.__proto__.__proto__ (Object.prototype) 上找到
 ```
 
-In other words, **when you use classes, an instance’s `__proto__` chain “mirrors” the class hierarchy:**
+换句话说， **当你在使用类的时候，实例的 `__proto__` 链“镜像”了类的层级结构：**
 
 ```
-// `extends` chain
+// `extends` 链
 Greeting
-    → React.Component
-    → Object (implicitly)
+  → React.Component
+    → Object (间接的)
 
-// `__proto__` chain
+// `__proto__` 链
 new Greeting()
-    → Greeting.prototype
+  → Greeting.prototype
     → React.Component.prototype
-        → Object.prototype
+      → Object.prototype
 ```
 
-2 Chainz.
+2 条链。
 
 * * *
 
-Since the `__proto__` chain mirrors the class hierarchy, we can check whether a `Greeting` extends `React.Component` by starting with `Greeting.prototype`, and then following down its `__proto__` chain:
+既然 `__proto__` 链镜像了类的层级结构，我们可以检查一个 `Greeting` 是否扩展了 `React.Component`，我们从 `Greeting.prototype` 开始，一路沿着 `__proto__` 链：
 
 ```
 // `__proto__` chain
 new Greeting()
-    → Greeting.prototype // 🕵️ We start here    → React.Component.prototype // ✅ Found it!      → Object.prototype
+  → Greeting.prototype // 🕵️ 我们从这儿开始
+    → React.Component.prototype // ✅ 找到了！
+      → Object.prototype
 ```
 
-Conveniently, `x instanceof Y` does exactly this kind of search. It follows the `x.__proto__` chain looking for `Y.prototype` there.
+方便的是，`x instanceof Y` 做的就是这类搜索。它沿着 `x.__proto__` 链寻找 `Y.prototype` 是否在那儿。
 
-Normally, it’s used to determine whether something is an instance of a class:
+通常，这被用来判断某样东西是否是一个类的实例：
 
 ```
 let greeting = new Greeting();
 
 console.log(greeting instanceof Greeting); // true
-// greeting (🕵️‍ We start here)
-//   .__proto__ → Greeting.prototype (✅ Found it!)
+// greeting (🕵️‍ 我们从这儿开始)
+//   .__proto__ → Greeting.prototype (✅ 找到了！)
 //     .__proto__ → React.Component.prototype
 //       .__proto__ → Object.prototype
 
 console.log(greeting instanceof React.Component); // true
-// greeting (🕵️‍ We start here)
+// greeting (🕵️‍ 我们从这儿开始)
 //   .__proto__ → Greeting.prototype
-//     .__proto__ → React.Component.prototype (✅ Found it!)
+//     .__proto__ → React.Component.prototype (✅ 找到了！)
 //       .__proto__ → Object.prototype
 
 console.log(greeting instanceof Object); // true
-// greeting (🕵️‍ We start here)
+// greeting (🕵️‍ 我们从这儿开始)
 //   .__proto__ → Greeting.prototype
 //     .__proto__ → React.Component.prototype
-//       .__proto__ → Object.prototype (✅ Found it!)
+//       .__proto__ → Object.prototype (✅ 找到了！)
 
 console.log(greeting instanceof Banana); // false
-// greeting (🕵️‍ We start here)
+// greeting (🕵️‍ 我们从这儿开始)
 //   .__proto__ → Greeting.prototype
 //     .__proto__ → React.Component.prototype
-//       .__proto__ → Object.prototype (🙅‍ Did not find it!)
+//       .__proto__ → Object.prototype (🙅‍ 没找到！)
 ```
 
-But it would work just as fine to determine if a class extends another class:
+但这用来判断一个类是否扩展了另一个类还是有效的
 
 ```
 console.log(Greeting.prototype instanceof React.Component);
 // greeting
-//   .__proto__ → Greeting.prototype (🕵️‍ We start here)
-//     .__proto__ → React.Component.prototype (✅ Found it!)
+//   .__proto__ → Greeting.prototype (🕵️‍ 我们从这儿开始)
+//     .__proto__ → React.Component.prototype (✅ 找到了！)
 //       .__proto__ → Object.prototype
 ```
 
-And that check is how we could determine if something is a React component class or a regular function.
+这种检查方式就是我们判断某样东西是一个 React 组件类还是一个常会函数的方式。
 
 * * *
 
-That’s not what React does though. 😳
+然而 React 并不是这么做的 😳
 
-One caveat to the `instanceof` solution is that it doesn’t work when there are multiple copies of React on the page, and the component we’re checking inherits from _another_ React copy’s `React.Component`. Mixing multiple copies of React in a single project is bad for several reasons but historically we’ve tried to avoid issues when possible. (With Hooks, we [might need to](https://github.com/facebook/react/issues/13991) force deduplication though.)
+关于 `instanceof` 解决方案有一点附加说明，当页面上有多个 React 副本，并且我们要检查的组件继承自 _另一个_ React 副本的 `React.Component` 时，这种方法是无效的。在一个项目里混合多个 React 副本是不好的，原因有很多，但站在历史角度来看，我们试图尽可能避免问题。（有了 Hooks，我们[或许得](https://github.com/facebook/react/issues/13991)强制避免重复）
 
-One other possible heuristic could be to check for presence of a `render` method on the prototype. However, at the time it [wasn’t clear](https://github.com/facebook/react/issues/4599#issuecomment-129714112) how the component API would evolve. Every check has a cost so we wouldn’t want to add more than one. This would also not work if `render` was defined as an instance method, such as with the class property syntax.
+另一点启发可以是检查原型链上的 `render` 方法。然而，当时还[不确定](https://github.com/facebook/react/issues/4599#issuecomment-129714112)组件的 API 会如何变化。每一次检查都伴随着成本所以我们不想再多加了。如果 `render` 被定义为一个实例方法，例如使用类属性语言，这个方法也会失效。
 
-So instead, React [added](https://github.com/facebook/react/pull/4663) a special flag to the base component. React checks for the presence of that flag, and that’s how it knows whether something is a React component class or not.
+因此, React 为基类[增加了](https://github.com/facebook/react/pull/4663)一个特别的标记。React 检查是否有这个标记，以此知道某样东西是否是一个 React 组件类。
 
-Originally the flag was on the base `React.Component` class itself:
+最初这个标记是在 `React.Component` 这个基类自己身上
 
 ```
-// Inside React
+// React 内部
 class Component {}
 Component.isReactClass = {};
 
-// We can check it like this
+// 我们可以像这样检查它
 class Greeting extends Component {}
-console.log(Greeting.isReactClass); // ✅ Yes
+console.log(Greeting.isReactClass); // ✅ 是的
 ```
 
-However, some class implementations we wanted to target [did not](https://github.com/scala-js/scala-js/issues/1900) copy static properties (or set the non-standard `__proto__`), so the flag was getting lost.
+然而，有些我们希望作为目标的类实现[并没有](https://github.com/scala-js/scala-js/issues/1900)复制静态属性（或设置非标准的 `__proto__`，标记也因此丢失。
 
-This is why React [moved](https://github.com/facebook/react/pull/5021) this flag to `React.Component.prototype`:
+这也是为什么 React 把这个标记[移动到了](https://github.com/facebook/react/pull/5021) `React.Component.prototype`：
 
 ```
-// Inside React
+// React 内部
 class Component {}
 Component.prototype.isReactComponent = {};
 
-// We can check it like this
+// 我们可以像这样检查它
 class Greeting extends Component {}
-console.log(Greeting.prototype.isReactComponent); // ✅ Yes
+console.log(Greeting.prototype.isReactComponent); // ✅ 是的
 ```
 
-**And this is literally all there is to it.**
+**到这儿就是全部了。**
 
-You might be wondering why it’s an object and not just a boolean. It doesn’t matter much in practice but early versions of Jest (before Jest was Good™️) had automocking turned on by default. The generated mocks omitted primitive properties, [breaking the check](https://github.com/facebook/react/pull/4663#issuecomment-136533373). Thanks, Jest.
+你或许奇怪为什么是一个对象而不是一个布尔值。实战中这并不重要，但早期版本的 Jest (在 Jest 商品化之前) 是默认开始自动模拟功能的，生成的模拟数据省略掉了原始类型属性，[破坏了检查](https://github.com/facebook/react/pull/4663#issuecomment-136533373)。谢了，Jest。
 
-The `isReactComponent` check is [used in React](https://github.com/facebook/react/blob/769b1f270e1251d9dbdce0fcbd9e92e502d059b8/packages/react-reconciler/src/ReactFiber.js#L297-L300) to this day.
+一直到今天，[React 都在用](https://github.com/facebook/react/blob/769b1f270e1251d9dbdce0fcbd9e92e502d059b8/packages/react-reconciler/src/ReactFiber.js#L297-L300) `isReactComponent` 进行检查。
 
-If you don’t extend `React.Component`, React won’t find `isReactComponent` on the prototype, and won’t treat component as a class. Now you know why [the most upvoted answer](https://stackoverflow.com/a/42680526/458193) for `Cannot call a class as a function` error is to add `extends React.Component`. Finally, a [warning was added](https://github.com/facebook/react/pull/11168) that warns when `prototype.render` exists but `prototype.isReactComponent` doesn’t.
+如果你不扩展 `React.Component`，React 不会再原型上找到 `isReactComponent`，因此不会把组件当做类处理。现在你知道为什么关于解决 `Cannot call a class as a function` 的错误的[得票数最高的答案](https://stackoverflow.com/a/42680526/458193) 是增加 `extends React.Component`。最后，我们还[增加了一项警告](https://github.com/facebook/react/pull/11168)，当 `prototype.render` 存在但 `prototype.isReactComponent` 不存在是会发出警告。
 
 * * *
 
-You might say this story is a bit of a bait-and-switch. **The actual solution is really simple, but I went on a huge tangent to explain _why_ React ended up with this solution, and what the alternatives were.**
+你或许会觉得这个故事有一点“吸引上钩后调包”的嫌疑。 **实际的解决方案其实真的很简单，但我花了大量的篇幅在转折上来解释 _为什么_ React 最终选择了这套方案，以及还有哪些候选方案。**
 
-In my experience, that’s often the case with library APIs. For an API to be simple to use, you often need to consider the language semantics (possibly, for several languages, including future directions), runtime performance, ergonomics with and without compile-time steps, the state of the ecosystem and packaging solutions, early warnings, and many other things. The end result might not always be the most elegant, but it must be practical.
+以我的经验来看，设计一个库的 API 也经常会遇到这种情况。为了一个 API 能够简单易用，你经常需要考虑语义化（可能的话，为多种语言考虑，包括未来的发展方向）、运行时性能、有或没有编译时步骤的工程效能、生态的状态以及打包方案、早期的警告，以及很多其它问题。最终的结果未必总是最优雅的，但必须要是可用的。
 
-**If the final API is successful, _its users_ never have to think about this process.** Instead they can focus on creating apps.
+**如果最终的 API 成功的话, _它的用户_ 永远不必思考这一过程.** 他们只需要专心创建应用就好了。
 
-But if you’re also curious… it’s nice to know how it works.
+但如果你同时也很好奇...知道它是怎么工作的也是极好的。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
