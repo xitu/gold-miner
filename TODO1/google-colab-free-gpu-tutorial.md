@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/google-colab-free-gpu-tutorial.md](https://github.com/xitu/gold-miner/blob/master/TODO1/google-colab-free-gpu-tutorial.md)
 > * 译者：[haiyang-tju](https://github.com/haiyang-tju)
-> * 校对者：
+> * 校对者：[DevMcryYu](https://github.com/DevMcryYu)
 
 # Google Colab 免费 GPU 使用教程
 
@@ -11,7 +11,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*Kbta9F_ZiRQmvETa-JkOSA.png)
 
-Hello! I will show you how to use **Google Colab**, _Google’s free cloud service_ for **AI developers**. With Colab, you can develop deep learning applications on the **GPU for free**.大家好！我将向大家展示如何使用 **Google 面向 AI 开发者的免费云服务 —— Google Colab**。在 Colab 上，你可以使用**免费的 GPU** 来开发深度学习应用程序。
+大家好！我将向大家展示如何使用 **Google 面向 AI 开发者的免费云服务 —— Google Colab**。在 Colab 上，你可以使用**免费的 GPU** 来开发深度学习应用程序。
 
 ### 感谢 KDnuggets！
 
@@ -38,7 +38,7 @@ Colab 与其它免费的云服务最重要的区别在于：**Colab** 提供完�
 
 ![](https://cdn-images-1.medium.com/max/600/1*9x6GVBOwbAEsx7h8k5ruBw.jpeg)
 
-由于 **Colab** 是在 **Google Drive** 上工作的，所以我们需要首先指定工作文件夹。我在 **Google Drive** 上创建了一个名为 “**app**” 的文件夹。当然，你可以使用不同的名称或选择默认的 **Colab notebook** 文件夹，而不是 **app 文件夹**。
+由于 **Colab** 是在 **Google Drive** 上工作的，所以我们需要首先指定工作文件夹。我在 **Google Drive** 上创建了一个名为 “**app**” 的文件夹。当然，你可以使用不同的名称或选择默认的 **Colab Notebooks** 文件夹，而不是 **app 文件夹**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*vtTvpFVdCcsmEXtQA6k2Kw.png)
 
@@ -68,7 +68,7 @@ Colab 与其它免费的云服务最重要的区别在于：**Colab** 提供完�
 
 ![](https://cdn-images-1.medium.com/max/800/1*lb2htyPfbC5Y9VF8IZGqdQ.png)
 
-我会运行一些来自于 [Python Numpy 教程](http://cs231n.github.io/python-numpy-tutorial/)中的一些**关于基本数据类型**的代码。
+我会运行一些 [Python Numpy 教程](http://cs231n.github.io/python-numpy-tutorial/)中**关于基本数据类型**的代码。
 
 ![](https://cdn-images-1.medium.com/max/800/1*02ylPr7JIn_qiJkc4iprpw.png)
 
@@ -111,7 +111,7 @@ drive.mount('/content/drive/')
 
 **mnist_cnn.py** 文件内容
 
-运行下面的代码在 [MNIST 数据集](http://yann.lecun.com/exdb/mnist/)上训练一个简单的卷积网络（convnet）。
+在 [MNIST 数据集](http://yann.lecun.com/exdb/mnist/)上运行下面的代码来训练一个简单的卷积网络（convnet）。
 
 ```
 !python3 "/content/drive/My Drive/app/mnist_cnn.py"
@@ -371,7 +371,7 @@ Warning: apt-key output should not be parsed (stdout is not a terminal) #警告�
 
 #### 13. 如何查看方法的参数？
 
-在 TensorFlow、Keras 等框架中查看方法的参数，可以在方法名称后面**添加问号标识符（?）**即可:
+在 TensorFlow、Keras 等框架中查看方法的参数，可以在方法名称后面**添加问号标识符（?）**:
 
 ![](https://cdn-images-1.medium.com/max/800/1*cIrmYPaA5HHR1yLj2UPgAQ.png)
 
@@ -518,7 +518,7 @@ Tensorboard :)
 
 我认为 **Colab** 会给全世界的深度学习和 AI 研究带来新的气息。
 
-如果你发现了这篇文章很有用，如果你能给它一些掌声👏，并与他人分享，这将会非常有意义。欢迎在下面留言。
+如果你发现了这篇文章很有帮助，那么请给它一些掌声👏，并与他人分享，这将会非常有意义。欢迎在下面留言。
 
 你可以在 [Twitter](https://twitter.com/fuatbeser) 上找到我。
 
