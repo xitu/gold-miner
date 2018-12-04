@@ -9,7 +9,7 @@
 
 最近我需要构建 UI 界面，虽然现在 React.js 是我更为青睐的 UI 解决方案，不过长时间以来我第一次没有选择用它。然后我看了浏览器内置的 API 发现使用[自定义元素](https://css-tricks.com/modular-future-web-components/)（也就是 Web 组件）可能正是 React 开发者需要的方案。
 
-自定义元素可以具有与 React 组件大致相同的优点，而且实现起来无需绑定特定的框架。自定义元素能提供新的 HTML 标签，我们可以使用原生浏览器的 API ，用编程的方式操控它。
+自定义元素可以具有与 React 组件大致相同的优点，而且实现起来无需绑定特定的框架。自定义元素能提供新的 HTML 标签，我们可以使用原生浏览器的 API，用编程的方式操控它。
 
 让我们说说基于组件的 UI 优点：
 
@@ -198,7 +198,7 @@ class Repository extends HTMLElement {
 }
 ```
 
-你会注意到我们正在调用与 Shadow DOM 相关的方法。 除了作为被漫威电影拒绝的标题之外，Shadow DOM 还有自己[丰富的 API](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) 值得研究。 为了我们的目标，它将抽象出一种将 `innerHTML` 添加到元素的实现。
+你会注意到我们正在调用与 Shadow DOM 相关的方法。除了作为被漫威电影拒绝的标题之外，Shadow DOM 还有自己[丰富的 API](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) 值得研究。为了我们的目标，它将抽象出一种将 `innerHTML` 添加到元素的实现。
 
 现在我们将 `this.template` 赋值给 `innerHTML`。现在来定义 `template`：
 
@@ -237,7 +237,7 @@ class Repository extends HTMLElement {
 
 ### 了解更多
 
-*   [Custom Elements v1 : 可重用的 Web Components](https://developers.google.com/web/fundamentals/web-components/customelements)
+*   [Custom Elements v1：可重用的 Web Components](https://developers.google.com/web/fundamentals/web-components/customelements)
 *   [使用 Custom Elements v1 和 Shadow Dom v1 制作原生 Web Components](https://bendyworks.com/blog/native-web-components)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
