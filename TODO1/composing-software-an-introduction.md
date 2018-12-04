@@ -3,16 +3,16 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/composing-software-an-introduction.md](https://github.com/xitu/gold-miner/blob/master/TODO1/composing-software-an-introduction.md)
 > * 译者：[Sam](https://github.com/xutaogit)
-> * 校对者：
+> * 校对者：[Mcskiller](https://github.com/Mcskiller), [CoderMing](https://github.com/CoderMing)
 
-# 构建软件：简介
+# 程序构建系列教程简介
 
 ![](https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg)
 
 Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)
 
 > 注意：这是关于从头开始使用 JavaScript ES6+ 学习函数式编程和组合软件技术的 “Composing Software” 系列介绍。还有更多关于这方面的内容！
-> [_下一篇 >_](https://github.com/xitu/gold-miner/blob/master/TODO1/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md)
+> [**下一篇 >**](https://github.com/xitu/gold-miner/blob/master/TODO1/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md)
 
 > 组合：“将部分或元素结合成整体的行为。” —— Dictionary.com
 
@@ -35,13 +35,13 @@ Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)
 
 ### 你每天都在构建软件
 
-如果你是一个软件开发者，不管你知不知道，你每天都会编写函数和数据结构。你可以有意识地(并且更好地)做到这一点，或者你可能疯狂的复制粘贴意外地做到这一点。
+如果你是一个软件开发者，不管你知不知道，你每天都会编写函数和数据结构。你可以有意识地（并且更好地）做到这一点，或者你可能疯狂的复制粘贴意外地做到这一点。
 
 软件开发的过程是把大问题拆分成更小的问题，构建解决这些小问题的组件，然后把这些组件组合在一起形成完整的应用程序。
 
 ### 函数组合
 
-函数组合是将一个函数应用于另一个函数输出结果的过程。在代数中，给出了两个函数，`f` 和 `g`，`(f ∘ g)(x) = f(g(x))`。圆圈是组合运算符。它通常发音为“复合(composed with)”或者“跟随(after)”。你可以像这样大声的念出来：“`f`复合 `g` 等价于 `f` 是 `g` 关于 `x` 的函数”或者“`f` 跟随 `g` 等价于 `f` 是 `g` 关于 `x` 的函数”。我们说 `f` 跟随 `g` 是因为先求解 `g` ，然后它的输出作为 `f` 的执行参数。
+函数组合是将一个函数应用于另一个函数输出结果的过程。在代数中，给出了两个函数，`f` 和 `g`，`(f ∘ g)(x) = f(g(x))`。圆圈是组合运算符。它通常发音为“复合（composed with）”或者“跟随（after）”。你可以像这样大声的念出来：“`f`复合 `g` 等价于 `f` 是 `g` 关于 `x` 的函数”或者“`f` 跟随 `g` 等价于 `f` 是 `g` 关于 `x` 的函数”。我们说 `f` 跟随 `g` 是因为先求解 `g`，然后它的输出作为 `f` 的执行参数。
 
 每次你像这样编写代码时，你都在组合函数：
 
@@ -192,13 +192,13 @@ const pipe = (...fns) => x => fns.reduce((y, f) => f(y), x);
 
 看看之前和之后的功能。看起来函数做了缩减并且减轻了很多代码量。这很重要，因为额外的代码意味着 bug 有额外的覆盖面区域隐藏，这意味着更多的 bug 会隐藏其中。
 
-> _更少的代码 = 更少的错误覆盖面积 = 更少的 bug。_
+> **更少的代码 = 更少的错误覆盖面积 = 更少的 bug。**
 
 ### 组合对象
 
 > “在类继承上支持对象组合”，Gang of Four 说，“[设计模式：可重用面向对象软件的元素](https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/ref=as_li_ss_tl?ie=UTF8&qid=1494993475&sr=8-1&keywords=design+patterns&linkCode=ll1&tag=eejs-20&linkId=6c553f16325f3939e5abadd4ee04e8b4)。”
 
-> “在计算机科学中，复合数据类型或组合数据类型是可以使用编程语言原始数据类型和其他复合类型构建的任何数据类型。 \[…\] 构建复合类型的行为称为组合。“ —— 维基百科
+> “在计算机科学中，复合数据类型或组合数据类型是可以使用编程语言原始数据类型和其他复合类型构建的任何数据类型。[…] 构建复合类型的行为称为组合。“ —— 维基百科
 
 这些是原始值：
 
@@ -216,7 +216,7 @@ const fullName = {
 };
 ```
 
-同样，所有 Arrays，Sets，Maps，WeakMaps，TypedArrays 等都是复合数据类型。每次你构建任何非原始数据结构的时候，你都在执行某种对象组合。
+同样，所有 Arrays、Sets、Maps、WeakMaps 和 TypedArrays 等都是复合数据类型。每次你构建任何非原始数据结构的时候，你都在执行某种对象组合。
 
 请注意，Gang of Four 定义了一种称为**复合模式**的模式，它是一种特定类型的递归对象组合，允许你以相同的方式处理单个组件和聚合组合。有些开发者可能会感到困惑，认为复合模式是对象组合的唯一形式。不要混淆。有很多不同种类的对象组合。
 
@@ -236,7 +236,7 @@ Gang of Four 继续说道，“你将会看到对象组合在设计模式中一�
 * **脆弱的基类问题：**由于强耦合，对基类的更改可能会破坏大量的后代类 —— 可能在第三方管理的代码中。作者可能会破坏掉他们不知道的代码。
 * **不灵活的层次结构问题：**对于单一的祖先分类法，给定足够的时间和改进，所有的类分类法最终都是错误的新用例。
 * **必要性重复问题：**由于层次结构不灵活，新的用例通常是通过复制而不是扩展来实现，从而导致类似的类意外地的发散。一旦复制开始，就不清楚或者为什么哪个新类应该从哪个类开始。
-* **大猩猩/香蕉问题：**”......面向对象语言的问题在于它们自身带有所有隐含的环境。你想要的是一根香蕉，但你得到的是拿着香蕉的大猩猩和整个丛林。“ —— Joe Armstrong，["工作中的编码员"](http://www.amazon.com/gp/product/1430219483?ie=UTF8&camp=213733&creative=393185&creativeASIN=1430219483&linkCode=shr&tag=eejs-20&linkId=3MNWRRZU3C4Q4BDN)
+* **大猩猩/香蕉问题：**”...面向对象语言的问题在于它们自身带有所有隐含的环境。你想要的是一根香蕉，但你得到的是拿着香蕉的大猩猩和整个丛林。“ —— Joe Armstrong，["工作中的编码员"](http://www.amazon.com/gp/product/1430219483?ie=UTF8&camp=213733&creative=393185&creativeASIN=1430219483&linkCode=shr&tag=eejs-20&linkId=3MNWRRZU3C4Q4BDN)。
 
 JavaScript 中最常见的对象组合形式称为**对象链接**（又称混合组合）。它像冰淇淋一样。你从一个对象（如香草冰淇淋）开始，然后混合你想要的功能。加入一些坚果，焦糖，巧克力漩涡，然后你会结出坚果焦糖巧克力漩涡冰淇淋。
 
@@ -281,13 +281,13 @@ const c = {...a, ...b}; // {a: 'a', b: 'b'}
 
 ### 总结
 
-这不是关于函数式编程（FP）和面向对象编程（OOP）的比较，或者一种语言和另一种语言的对比。组件可以采用函数，数据结构，类等形式......不同的编程语言为组件提供不同的原子元素。Java 提供类，Haskell 提供函数等等......但无论你喜欢什么语言和范式，归结到底，你都无法摆脱编写函数和数据结构。
+这不是关于函数式编程（FP）和面向对象编程（OOP）的比较，或者一种语言和另一种语言的对比。组件可以采用函数，数据结构，类等形式...不同的编程语言为组件提供不同的原子元素。Java 提供类，Haskell 提供函数等等...但无论你喜欢什么语言和范式，归结到底，你都无法摆脱编写函数和数据结构。
 
 我们将讨论很多关于函数式编程的知识，因为函数是用 JavaScript 编写的最简单的东西，并且函数式编程社区投入了大量时间和精力来形式化函数组合技术。
 
 我们不会做的是说函数式编程比面向对象编程更好，或者你必须择其一。把 OOP 和 FP 做比较是一个错误的想法。就我近些年看到的每个真正的 JavaScript 应用都广泛混合使用 FP 和 OOP。
 
-我们将使用对象组合来生成用于函数编程的数据类型，以及用于为 OOP 生成对象的函数式编程。
+我们将使用对象组合来生成用于函数式编程的数据类型，以及用于为 OOP 生成对象的函数式编程。
 
 **无论你如何编写软件，都应该把它写得更好。**
 
@@ -309,11 +309,11 @@ const c = {...a, ...b}; // {a: 'a', b: 'b'}
 
 * * *
 
-**_Eric Elliott_** **是 “[JavaScript 应用程序编程](http://pjabook.com)” （O'Reilly）和 “[和 Eric Elliott 一起学习 JavaScript](http://ericelliottjs.com/product/lifetime-access-pass/)”的作者。他为 Adobe Systems， Zumba Fitness， 华尔街日报， ESPN， BBC 以及包括 Usher， Frank Ocean， Metallica 等在内的很多顶级录音艺术家的软件体验做出了贡献**。
+**_Eric Elliott_ 是 “[JavaScript 应用程序编程](http://pjabook.com)”（O'Reilly）和“[和 Eric Elliott 一起学习 JavaScript](http://ericelliottjs.com/product/lifetime-access-pass/)”的作者。他为 Adobe Systems、Zumba Fitness、华尔街日报、ESPN、BBC 以及包括 Usher、Frank Ocean 和 Metallica 等在内的很多顶级录音艺术家的软件体验做出了贡献**。
 
 **他与世界上最美丽的女人在任何地方远程工作。**
 
-感谢 [JS_Cheerleader](https://medium.com/@JS_Cheerleader?source=post_page).
+感谢 [JS_Cheerleader](https://medium.com/@JS_Cheerleader?source=post_page)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
