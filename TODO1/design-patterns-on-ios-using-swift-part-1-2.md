@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-on-ios-using-swift-part-1-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-on-ios-using-swift-part-1-2.md)
 > * 译者：[iWeslie](https://github.com/iWeslie)
-> * 校对者：[swants](https://github.com/swants) [Chunk49](https://github.com/Chunk49)
+> * 校对者：[swants](https://github.com/swants), [Chunk49](https://github.com/Chunk49)
 
 # 使用 Swift 的 iOS 设计模式（第一部分）
 
@@ -15,15 +15,15 @@
 
 设计模式是软件设计中常见问题的可重用解决方案。它们的模板旨在帮助你编写易于理解和重用的代码。它们还可以帮助你创建低耦合度的代码，以便你能更改或替换代码中的组件而避免很多麻烦。
 
-如果你对设计模式不熟悉，那么我有个好消息要告诉你！首先，由于 Cocoa 的架构方式以及它鼓励你使用的最佳实践，你已经使用过了大量的 iOS 设计模式。其次，本教程将快速帮助你理解 Cocoa 中常用的所有重要（还有不那么重要）的iOS设计模式。
+如果你对设计模式不熟悉，那么我有个好消息要告诉你！首先，由于 Cocoa 的架构方式以及它鼓励你使用的最佳实践，你已经使用过了大量的 iOS 设计模式。其次，本教程将快速帮助你理解 Cocoa 中常用的所有重要（还有不那么重要）的 iOS 设计模式。
 
 在这个由两部分组成的教程中，你将创建一个音乐应用程序，用于显示你的专辑及其相关信息。
 
 在开发此应用程序的过程中，你将熟悉最常见的 Cocoa 设计模式：
 
 *   **创建型**：单例。
-*   **结构型**：MVC，装饰，适配器，外观。
-*   **行为型**：观察者，备忘录。
+*   **结构型**：MVC、装饰、适配器和外观。
+*   **行为型**：观察者和备忘录。
 
 不要误以为这是一篇关于理论的文章，你将在音乐应用中使用大多数这些设计模式。在本教程结束时，你的应用将如下所示：
 
@@ -33,18 +33,18 @@
 
 ## 入门
 
-下载 [入门项目](https://koenig-media.raywenderlich.com/uploads/2017/07/RWBlueLibrary-Part1-Starter.zip)，解压缩 ZIP 文件的内容，并在 Xcode 中打开 **RWBlueLibrary.xcodeproj**。
+下载 [入门项目](https://koenig-media.raywenderlich.com/uploads/2017/07/RWBlueLibrary-Part1-Starter.zip)，解压缩 ZIP 文件的内容，并在 Xcode 中打开 *RWBlueLibrary.xcodeproj*。
 
 请注意项目中的以下内容：
 
 1.  在 storyboard 里，`ViewController` 有三个 `IBOutlet` 连接了 TableView，还有撤消和删除按钮按钮。
-2.  Storyboard 有3个组件，为方便起见我们设置了约束。顶部组件是用来显示专辑封面的。专辑封面下方是一个 TableView，其中列出了与专辑封面相关的信息。 最后，工具栏有两个按钮，一个用于撤消操作，另一个用于删除你选择的专辑。Storyboard 如下所示：
+2.  Storyboard 有 3 个组件，为方便起见我们设置了约束。顶部组件是用来显示专辑封面的。专辑封面下方是一个 TableView，其中列出了与专辑封面相关的信息。 最后，工具栏有两个按钮，一个用于撤消操作，另一个用于删除你选择的专辑。Storyboard 如下所示：
 
 [![swiftDesignPatternStoryboard](https://koenig-media.raywenderlich.com/uploads/2017/05/design-patterns-part1-storyboard-1-411x320.png)](https://koenig-media.raywenderlich.com/uploads/2017/05/design-patterns-part1-storyboard-1-411x320.png)
 
 3. 有一个没有实现的初始 HTTP 客户端类（`HTTPClient`），供你稍后填写。
 
-> **注意**：你知道吗，只要你创建新的 Xcode 项目，就已经充满了设计模式了嘛？模型 - 视图 - 控制器，代理，协议，单例 — 这些设计模式都是现成的！
+> **注意**：你知道吗，只要你创建新的 Xcode 项目，就已经充满了设计模式了嘛？模型-视图-控制器，代理，协议，单例 — 这些设计模式都是现成的！
 
 ## MVC – 设计模式之王
 
@@ -55,7 +55,7 @@
 这三个角色是：
 
 *   **模型（Model）**：Model 是你的应用中持有并定义如何操作数据的对象。例如，在你的应用程序中，模型是 `Album` 结构体，你可以在 **Album.swift** 中找到它。大多数应用程序将具有多个类型作为其模型的一部分。
-*   **视图（View）**：View 是用来展示 model 的数据并管理可与用户交互的控件的对象，基本上可以说是所有 `UIView` 派生的对象。 在你的应用程序中，视图是 `AlbumView` ，你可以在 **AlbumView.swift** 中找到它。
+*   **视图（View）**：View 是用来展示 model 的数据并管理可与用户交互的控件的对象，基本上可以说是所有 `UIView` 派生的对象。 在你的应用程序中，视图是 `AlbumView`，你可以在 *AlbumView.swift* 中找到它。
 *   **控制器（Controller）**：控制器是协调所有工作的中介。它访问模型中的数据并将其与视图一起显示，监听事件并根据需要操作数据。你能猜出哪个类是你的控制器吗？没错，就是 `ViewController`。
 
 你的 App 要想规范地使用 MVC 设计模式，就意味着你 App 中每个对象都可以划分为这三个角色其中的某一个。
@@ -64,7 +64,7 @@
 
 [![mvc0](https://koenig-media.raywenderlich.com/uploads/2013/07/mvc0.png)](https://koenig-media.raywenderlich.com/uploads/2013/07/mvc0.png)
 
-模型通知控制器任何数据更改，反过来，控制器更新视图中的数据。 然后，视图可以向控制器通知用户执行的操作，控制器将在必要时更新模型或检索任何请求的数据。
+模型通知控制器任何数据更改，反过来，控制器更新视图中的数据。然后，视图可以向控制器通知用户执行的操作，控制器将在必要时更新模型或检索任何请求的数据。
 
 你可能想知道为什么你不能抛弃控制器，并在同一个类中实现视图和模型，因为这看起来会容易得多。
 
@@ -74,13 +74,13 @@
 
 ## 如何使用 MVC 设计模式
 
-首先，你需要确保项目中的每个类都是Controller，Model 或 View，不要在一个类中组合两个角色的功能。
+首先，你需要确保项目中的每个类都是Controller、Model 或 View，不要在一个类中组合两个角色的功能。
 
 其次，为了确保你符合这种工作方法，你应该创建三个文件夹来保存你的代码，每个角色一个。
 
-点击 **File\New\Group（或者按 Command + Option + N）** 并把改组名为 Model。重复相同的过程以创建 View 和 Controller 组。
+点击 **File\New\Group（或者按 Command + Option + N）**并把改组名为 Model。重复相同的过程以创建 View 和 Controller 组。
 
-现在将 **Album.swift** 拖拽到 Model 组。将 **AlbumView.swift** 拖拽到 View 组，最后将 **ViewController.swift** 拖拽到 Controller 组。
+现在将 *Album.swift* 拖拽到 Model 组。将 *AlbumView.swift* 拖拽到 View 组，最后将 *ViewController.swift* 拖拽到 Controller 组。
 
 此时项目结构应如下所示：
 
@@ -94,11 +94,11 @@
 
 单例设计模式确保给定类只会存在一个实例，并且该实例有一个全局的访问点。它通常使用延迟加载来在第一次需要时创建单个实例。
 
-> **注意**：Apple 使用了很多这个方法。 例如：`UserDefaults.standard`， `UIApplication.shared`，`UIScreen.main`， `FileManager.default` 都返回一个单例对象。
+> **注意**：Apple 使用了很多这个方法。例如：`UserDefaults.standard`、`UIApplication.shared`、`UIScreen.main` 和 `FileManager.default` 都返回一个单例对象。
 
 你可能想知道为什么你关心的是一个类有不只一个实例。代码和内存不是都很廉价吗？
 
-在某些情况下，只有一个实例的类才有意义。例如，你的应用程序只有一个实例，设备也只有一个主屏幕，因此你只需要一个实例。 再者，采用全局配置处理程序类，他更容易实现对单个共享资源（例如配置文件）的线程安全访问，而不是让许多类可能同时修改配置文件。
+在某些情况下，只有一个实例的类才有意义。例如，你的应用程序只有一个实例，设备也只有一个主屏幕，因此你只需要一个实例。再者，采用全局配置处理程序类，他更容易实现对单个共享资源（例如配置文件）的线程安全访问，而不是让许多类可能同时修改配置文件。
 
 ## 你应该注意什么？
 
@@ -126,9 +126,9 @@
 
 你将通过创建一个单例来管理所有专辑数据从而实现此模式。
 
-你会注意到项目中有一个名为 **API** 的组，这是你将所有将为你的应用程序提供服务的类的地方。右键单击该组并选择 **New File**，在该组中创建一个新文件，选择 **iOS > Swift File**。将文件名设置为 **LibraryAPI.swift**，然后单击 **Create**。
+你会注意到项目中有一个名为 *API* 的组，这是你将所有将为你的应用程序提供服务的类的地方。右键单击该组并选择 *New File*，在该组中创建一个新文件，选择 *iOS > Swift File*。将文件名设置为 *LibraryAPI.swift*，然后单击 *Create*。
 
-现在打开 **LibraryAPI.swift** 并插入代码：
+现在打开 *LibraryAPI.swift* 并插入代码：
 
 ```swift
 final class LibraryAPI {
@@ -148,9 +148,9 @@ final class LibraryAPI {
 
 你现在有一个单例对象作为管理专辑的入口。接下来创建一个类来持久化库里的数据。
 
-现在在 **API** 组里创建一个新文件。 选择 **iOS > Swift File**。将类名设置为 **PersistencyManager.swift**，然后单击 **Create**。
+现在在 *API* 组里创建一个新文件。 选择 *iOS > Swift File*。将类名设置为 *PersistencyManager.swift*，然后单击 *Create*。
 
-打开 **PersistencyManager.swift** 并添加以下代码：
+打开 *PersistencyManager.swift* 并添加以下代码：
 
 ```swift
 final class PersistencyManager {
@@ -261,7 +261,7 @@ API 的用户完全不知道它其中的复杂性。这种模式在大量使用�
 
 `LibraryAPI` 将暴露给其他代码，但会隐藏应用程序其余部分的 `HTTPClient` 和 `PersistencyManager` 复杂性。
 
-打开 **LibraryAPI.swift** 并将以下常量属性添加到类中：
+打开 *LibraryAPI.swift* 并将以下常量属性添加到类中：
 
 ```swift
 private let persistencyManager = PersistencyManager()
@@ -271,7 +271,7 @@ private let isOnline = false
 
 `isOnline` 决定了是否应使用对专辑列表所做的任何更改来更新服务器，例如添加或删除专辑。实际上 HTTP 客户端并不是与真实服务器工作，仅用于演示外观模式的用法，因此 `isOnline` 将始终为 `false`。
 
-接下来，将以下三个方法添加到 **LibraryAPI.swift**：
+接下来，将以下三个方法添加到 *LibraryAPI.swift*：
 
 ```swift
 func getAlbums() -> [Album] {
@@ -307,7 +307,7 @@ func deleteAlbum(at index: Int) {
 
 装饰模式动态地向对象添加行为和职责而无需修改其中代码。它是子类化的替代方法，通过用另一个对象包装它来修改类的行为。
 
-在 Swift 中，这种模式有两种非常常见的实现：**扩展**和 **代理**。
+在 Swift 中，这种模式有两种非常常见的实现：**扩展**和**代理**。
 
 ### 拓展
 
@@ -390,9 +390,9 @@ private var currentAlbumData: [AlbumData]?
 private var allAlbums = [Album]()
 ```
 
-从 Swift 4 开始，标记为 `private` 的变量可以在类型和所述类型的任何扩展之间共享相同的访问控制范围。如果你想浏览 Swift 4 引入的新功能，请查看 [What’s New in Swift 4?](https://www.raywenderlich.com/163857/whats-new-swift-4)
+从 Swift 4 开始，标记为 `private` 的变量可以在类型和所述类型的任何扩展之间共享相同的访问控制范围。如果你想浏览 Swift 4 引入的新功能，请查看 [What’s New in Swift 4](https://www.raywenderlich.com/163857/whats-new-swift-4)。
 
-你将使 `ViewController` 成为 TableView 的数据源。在类定义的右大括号之后，将此扩展添加到 **ViewController.swift** 的末尾：
+你将使 `ViewController` 成为 TableView 的数据源。在类定义的右大括号之后，将此扩展添加到 *ViewController.swift* 的末尾：
 
 ```swift
 extension ViewController: UITableViewDataSource {
@@ -495,7 +495,7 @@ private enum Constants {
 
 > **注意**：使用不带 case 的枚举的优点是它不会被意外地实例化并只作为一个纯命名空间。
 
-现在只需用 `Constants.CellIdentifier` 替换 `"Cell"` 
+现在只需用 `Constants.CellIdentifier` 替换 `"Cell"`。
 
 ## 接下来该干嘛？
 
