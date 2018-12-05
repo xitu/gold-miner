@@ -303,14 +303,14 @@ extension ViewController: HorizontalScrollerViewDelegate {
 }
 ```
 
-This is what happens when this delegate method is invoked:
+这是在调用此代理方法时发生的事情：
 
-1.  First you grab the previously selected album, and deselect the album cover.
-2.  Store the current album cover index you just clicked
-3.  Grab the album cover that is currently selected and highlight the selection.
-4.  Display the data for the new album within the table view.
+1. 首先您取到之前选择的专辑，然后取消选择专辑封面。
+2. 存储刚刚点击的当前专辑封面的索引
+3. 取得当前所选的专辑封面并显示高亮状态。
+4. 在 tableView 中显示新专辑的数据
 
-Next, it's time to implement `HorizontalScrollerViewDataSource`. Add the following code at the end of file:
+接下来，是时候实现 `HorizontalScrollerViewDataSource` 了。在当前文件末尾添加以下代码：
 
 ```swift
 extension ViewController: HorizontalScrollerViewDataSource {
@@ -318,7 +318,7 @@ extension ViewController: HorizontalScrollerViewDataSource {
     return allAlbums.count
   }
 
-  func horizontalScrollerView(** horizontalScrollerView: HorizontalScrollerView, viewAt index: Int) -> UIView {
+  func horizontalScrollerView(_ horizontalScrollerView: HorizontalScrollerView, viewAt index: Int) -> UIView {
     let album = allAlbums[index]
     let albumView = AlbumView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), coverUrl: album.coverUrl)
     if currentAlbumIndex == index {
@@ -331,9 +331,9 @@ extension ViewController: HorizontalScrollerViewDataSource {
 }
 ```
 
-`numberOfViews(in:)`, as you'll recognize, is the protocol method returning the number of views for the scroll view. Since the scroll view will display covers for all the album data, the count is the number of album records. In `horizontalScrollerView(**:viewAt:)` you create a new `AlbumView`, highlight it if it's the selected album, then pass it to the `HorizontalScrollerView`.
+正如您所看到的，`numberOfViews(in:)` 是返回 scrollView 中 View 的个数的协议方法。由于 scrollView 将显示所有专辑数据的封面，因此 count 就是专辑记录的数量。在 `horizontalScrollerView(_:viewAt:)` 里你创建一个新的 `AlbumView`，如果它是所选的专辑，则高亮显示它，再将它传递给 `HorizontalScrollerView`。
 
-That's it! Only three short methods to display a nice looking horizontal scroller. You now need to connect up the datasource and delegate. Add the following code before `showDataForAlbum(at:)` in `viewDidLoad`:
+基本完成了！只用三个简短的方法就能显示出一个漂亮的 scrollView。您现在需要设置数据源和代理。在 `viewDidLoad` 中的 `showDataForAlbum(at:)` 之前添加以下代码：
 
 ```swift
 horizontalScrollerView.dataSource = self
@@ -341,41 +341,41 @@ horizontalScrollerView.delegate = self
 horizontalScrollerView.reload()
 ```
 
-Build and run your project and take a look at your awesome new horizontal scroller:
+编译并运行您的项目，就可以看到漂亮的水平滚动视图：
 
 ![Album cover scroller ](https://koenig-media.raywenderlich.com/uploads/2017/07/ScrollerNoImages-180x320.png)
 
-Uh, wait. The horizontal scroller is in place, but where are the covers?
+呃，等一下！水平滚动视图已就位，但专辑的封面在哪里呢？
 
-Ah, that's right — you didn't implement the code to download the covers yet. To do that, you'll need to add a way to download images. Since all your access to services goes through `LibraryAPI`, that's where this new method would have to go. However, there are a few things to consider first:
+啊，没错，你还没有实现下载封面的代码。为此，您需要添加下载图像的方法，而且您对服务的所有访问都通过一个所有新方法必经的一层 `LibraryAPI`。但是，首先要考虑以下几点：
 
-1.  `AlbumView` shouldn't work directly with `LibraryAPI`. You don't want to mix view logic with communication logic.
-2.  For the same reason, `LibraryAPI` shouldn't know about `AlbumView`.
-3.  `LibraryAPI` needs to inform `AlbumView` once the covers are downloaded since the `AlbumView` has to display the covers.
+1. `AlbumView` 不应直接与 `LibraryAPI` 一起使用，您不会希望将 View 里的逻辑与通信逻辑混合在一起的。
+2. 出于同样的原因，`LibraryAPI` 不应该牵连 `AlbumView`。
+3. 当封面被下载完成，`LibraryAPI` 需要通知 `AlbumView` 因为 `AlbumView` 得显示封面。
 
-Sounds like a conundrum? Don't despair, you'll learn how to do this using the **Observer** pattern!
+Sounds like a conundrum? Don't despair, you'll learn how to do this using the **Observer** pattern!是不是感觉听起来好像很难的样子？不要绝望，你将学习如何使用 **观察者** 模式来做到这点！
 
-## The Observer Pattern
+## 观察者模式
 
-In the Observer pattern, one object notifies other objects of any state changes. The objects involved don't need to know about one another - thus encouraging a decoupled design. This pattern's most often used to notify interested objects when a property has changed.
+在观察者模式中，一个对象通知其他对象任何状态的更改，但是通知的涉及对象不需要相互关联，我们鼓励这种解耦的设计方式。这种模式最常用于在一个对象的属性发生更改时通知其他相关对象。
 
-The usual implementation requires that an observer registers interest in the state of another object. When the state changes, all the observing objects are notified of the change.
+通常的实现是需要观察者监听另一个对象的状态。当状态发生改变时，所有观察对象都被会通知此次更改。
 
-If you want to stick to the MVC concept (hint: you do), you need to allow Model objects to communicate with View objects, but without direct references between them. And that's where the Observer pattern comes in.
+如果你坚持 MVC 的概念（也确实需要坚持），你需要允许 Model 对象与 View 对象进行通信，但是它们之间没有直接引用，这就是观察者模式的用武之地。
 
-Cocoa implements the observer pattern in two ways: **Notifications** and **Key-Value Observing (KVO)**.
+Cocoa 以两种方式实现了观察者模式：**通知** 和 **键值监听（KVO）**。
 
-### Notifications
+### 通知
 
-Not be be confused with Push or Local notifications, Notifications are based on a subscribe-and-publish model that allows an object (the publisher) to send messages to other objects (subscribers/listeners). The publisher never needs to know anything about the subscribers.
+不要与推送通知或本地通知混淆，观察者模式的通知基于订阅和发布模型，该模型允许对象（发布者）将消息发送到其他对象（订阅者或监听者），而且发布者永远不需要了解有关订阅者的任何信息。
 
-Notifications are heavily used by Apple. For example, when the keyboard is shown/hidden the system sends a `UIKeyboardWillShow`/`UIKeyboardWillHide`, respectively. When your app goes to the background, the system sends a `UIApplicationDidEnterBackground` notification.
+Apple 会大量使用通知。例如，当显示或隐藏键盘时，系统分别发送 `UIKeyboardWillShow` 和 `UIKeyboardWillHide` 通知。当您的应用程序转入后台运行时，系统会发送一个 `UIApplicationDidEnterBackground` 通知。
 
-### How to Use Notifications
+### 如何使用通知
 
-Right click on **RWBlueLibrary** and select **New Group**. Rename it **Extension**. Right click again on that group and select **New File...**. Select **iOS > Swift File** and set the file name to **NotificationExtension.swift**.
+右击 **RWBlueLibrary** 并选择 **New Group**，然后命名为 **Extension**。再次右击该组，然后选择**New File > iOS > Swift File**，并将文件名设置为 **NotificationExtension.swift**。
 
-Copy the following code inside the file:
+把下面的代码拷贝到该文件中：
 
 ```swift
 extension Notification.Name {
@@ -383,35 +383,35 @@ extension Notification.Name {
 }
 ```
 
-You are extending `Notification.Name` with your custom notification. From now on, the new notification can be accessed as `.BLDownloadImage`, just as you would a system notification.
+您正在使用自定义通知扩展的 `Notification.Name`，从现在开始，新的通知可以像系统通知一样用 `.BLDownloadImage` 访问。
 
-Go to **AlbumView.swift** and insert the following code to the end of the `init(frame:coverUrl:)` method:
+打开 **AlbumView.swift** 并将以下代码插入到 `init(frame:coverUrl:)` 方法的最后：
 
 ```swift
 NotificationCenter.default.post(name: .BLDownloadImage, object: self, userInfo: ["imageView": coverImageView, "coverUrl" : coverUrl])
 ```
 
-This line sends a notification through the `NotificationCenter` singleton. The notification info contains the `UIImageView` to populate and the URL of the cover image to be downloaded. That's all the information you need to perform the cover download task.
+该行代码通过 `NotificationCenter` 的单例发送通知，通知信息包含要填充的 `UIImageView` 和要下载的封面图像的 URL，这些是执行封面下载任务所需的所有信息。
 
-Add the following line to `init` in **LibraryAPI.swift**, as the implementation of the currently empty `init`:
+将以下代码添加到 **LibraryAPI.swift**中的 `init` 方法来作为当前为空的初始化方法的实现：
 
 ```swift
 NotificationCenter.default.addObserver(self, selector: #selector(downloadImage(with:)), name: .BLDownloadImage, object: nil)
 ```
 
-This is the other side of the equation: the observer. Every time an `AlbumView` posts a `BLDownloadImage` notification, since `LibraryAPI` has registered as an observer for the same notification, the system notifies `LibraryAPI`. Then `LibraryAPI` calls `downloadImage(with:)` in response.
+这是通知这个等式的另一边--观察者，每次 `AlbumView` 发送 `BLDownloadImage` 通知时，由于 `LibraryAPI` 已注册成为该通知的观察者，系统会通知 `LibraryAPI`，然后 `LibraryAPI` 响应并调用 `downloadImage(with:)`。
 
-Before you implement `downloadImage(with:)` there's one more thing to do. It would probably be a good idea to save the downloaded covers locally so the app won't need to download the same covers over and over again.
+在实现 `downloadImage(with:)` 之前，还有一件事要做。在本地保存下载的封面可能是个好主意，这样应用程序就不需要一遍又一遍地下载相同的封面了。
 
-Open **PersistencyManager.swift**. After the `import Foundation`, add the following line:
+打开 **PersistencyManager.swift**，把 `import Foundation` 换成下面的代码：
 
 ```swift
 import UIKit
 ```
 
-This import is important because you will deal with `UI` objects, like `UIImage`.
+此次 import 很重要，因为你将处理 `UI` 对象，比如`UIImage`。
 
-Add this computed property to the end of the class:
+把这个计算属性添加到该类的最后：
 
 ```swift
 private var cache: URL {
@@ -419,9 +419,9 @@ private var cache: URL {
 }
 ```
 
-This variable returns the URL of the cache directory, which is a good place to store files that you can re-download at any time.
+此变量返回缓存目录的 URL，它是一个存储了您可以随时重新下载的文件的好地方。
 
-Now add these two methods:
+现在添加以下两个方法：
 
 ```swift
 func saveImage(** image: UIImage, filename: String) {
@@ -441,11 +441,11 @@ func getImage(with filename: String) -> UIImage? {
 }
 ```
 
-This code is pretty straightforward. The downloaded images will be saved in the Cache directory, and `getImage(with:)` will return `nil` if a matching file is not found in the Cache directory.
+这段代码非常简单，下载的图像将保存在 Cache 目录中，如果在 Cache 目录中找不到匹配的文件，`getImage(with:)` 将返回 `nil`。
 
-Now open **LibraryAPI.swift** and add `import UIKit` after the first available import.
+现在打开 **LibraryAPI.swift** 并且将 `import Foundation` 改为 `import UIKit`。
 
-At the end of the class add the following method:
+在类的最后添加以下方法：
 
 ```swift
 @objc func downloadImage(with notification: Notification) {
@@ -471,24 +471,24 @@ At the end of the class add the following method:
 }
 ```
 
-Here's a breakdown of the above code:
+以下是上面两个方法的详解：
 
-1.  `downloadImage` is executed via notifications and so the method receives the notification object as a parameter. The `UIImageView` and image URL are retrieved from the notification.
-2.  Retrieve the image from the `PersistencyManager` if it's been downloaded previously.
-3.  If the image hasn't already been downloaded, then retrieve it using `HTTPClient`.
-4.  When the download is complete, display the image in the image view and use the `PersistencyManager` to save it locally.
+1. `downloadImage` 是通过通知触发调用的，因此该方法接收通知对象作为参数。从通知传递来的对象取出 `UIImageView` 和 image 的 URL。
+2. 如果先前已下载过，则从 `PersistencyManager` 中检索 image。
+3. 如果尚未下载图像，则使用 `HTTPClient` 检索。
+4. 下载完成后，在 imageView 中显示图像，并使用 `PersistencyManager` 将其保存在本地。
 
-Again, you're using the Facade pattern to hide the complexity of downloading an image from the other classes. The notification sender doesn't care if the image came from the web or from the file system.
+再一次的，您使用外观模式隐藏了从其他类下载图像这一复杂的过程。通知发送者并不关心图像是来自网络下载还是来自本地的存储。
 
-Build and run your app and check out the beautiful covers inside your collection view:
+编译并运行您的应用程序，现在能看到 collectionView 中漂亮的封面：
 
 ![Album app showing cover art but still with spinners](https://koenig-media.raywenderlich.com/uploads/2017/07/CoversAndSpinners-180x320.png)
 
-Stop your app and run it again. Notice that there's no delay in loading the covers because they've been saved locally. You can even disconnect from the Internet and your app will work flawlessly. However, there's one odd bit here: the spinner never stops spinning! What's going on?
+停止您的应用并再次运行它。请注意加载封面没有延迟，这是因为它们已在本地保存了。您甚至可以断开与互联网的连接，应用程序仍将完美运行。然而这里有一个奇怪的地方，旋转加载的动画永远不会停止！这是怎么回事？
 
-You started the spinner when downloading the image, but you haven't implemented the logic to stop the spinner once the image is downloaded. You **could** send out a notification every time an image has been downloaded, but instead, you'll do that using the other Observer pattern, KVO.
+您在下载图像时开始了旋转动画，但是在下载图像后，您并没有实现停止加载动画的逻辑。您 **本来应该** 在每次下载图像时发送通知，但是下面您将使用键值监听（KVO）来执行此操作。
 
-### Key-Value Observing (KVO)
+### 键值监听（KVO）
 
 In KVO, an object can ask to be notified of any changes to a specific property; either its own or that of another object. If you're interested, you can read more about this on [Apple's KVO Programming Guide](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html).
 
