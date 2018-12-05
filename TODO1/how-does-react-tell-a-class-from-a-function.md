@@ -5,7 +5,7 @@
 > * 译者：[Washington Hua](https://tonghuashuo.github.io)
 > * 校对者：
 
-# React 是如何区分 Class 和 Function 的 ?
+# React 是如何区分 Class 和 Function 的？
 
 让我们来看一下这个以函数形式定义的 `Greeting` 组件：
 
