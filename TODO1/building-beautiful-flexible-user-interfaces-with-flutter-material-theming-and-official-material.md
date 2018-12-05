@@ -24,7 +24,7 @@
 
 #### Material Components 对 Flutter 的官方支持
 
-Flutter 的核心原则之一即是为创建富有表现力的灵活的移动 UI 提供一流的支持。为了这个目标，我们很高兴的宣布 Flutter 被采用为 Material 的最佳平台！Flutter 将包含到设计和工程讨论、文档、官方支持、Google Design 内容，以及 Android、iOS 和 Web 的教学中。Material 甚至创建了一个专门的 Flutter 工程团队来与 Flutter 的 Material 库工程师们携手合作。这种伙伴关系将使 Flutter 在 Material Design 持续发展并增加像 Material Theming 等功能时保证自身的更新。您可以在 [material.io/develop/flutter](http://material.io/develop/flutter) 找到更多的相关信息。
+Flutter 的核心原则之一即是为创建富有表现力的灵活的移动 UI 提供一流的支持。为了这个目标，我们很高兴的宣布 Flutter 被采用为 Material 的最佳平台！Flutter 将包含到设计和工程讨论、文档、官方支持、Google Design 内容，以及 Android、iOS 和 Web 的教学中。Material 甚至创建了一个专门的 Flutter 工程团队来与 Flutter 的 Material 库工程师们携手合作。这种伙伴关系将使 Flutter 在 Material Design 持续发展并增加像 Material Theming 等功能时保证自身的更新。你可以在 [material.io/develop/flutter](http://material.io/develop/flutter) 找到更多的相关信息。
 
 #### 在 Flutter 中使用 Material Theming 和 Material Components
 
@@ -49,14 +49,14 @@ Flutter 的核心原则之一即是为创建富有表现力的灵活的移动 UI
 了解如何在 Flutter 中使用 Material 结构和布局，添加导航、结构和数据。
 
 3.  [**MDC 103 Flutter：Material Theming 的颜色、形状、高度和类型**](https://codelabs.developers.google.com/codelabs/mdc-103-flutter/)  
-使用 Flutter 中的 Material Components 来区分您的产品并通过设计表达您的品牌理念。
+使用 Flutter 中的 Material Components 来区分你的产品并通过设计表达你的品牌理念。
 
 4.  [**MDC 104 Flutter：Material 高级组件**](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/)  
-改进您的设计并学习使用我们的高级组件背景菜单。
+改进你的设计并学习使用我们的高级组件背景菜单。
 
 #### 下一步
 
-Flutter 将继续与 Material 合作发布新的功能。在 GitHub 上的 [Material Components Roadmap](https://github.com/material-components/material-components/blob/develop/ROADMAP.md) 中了解有关 Material Components 发布计划的更多信息。我们期待看到您用 Flutter 和 Material Theming 创造出的精彩设计！
+Flutter 将继续与 Material 合作发布新的功能。在 GitHub 上的 [Material Components Roadmap](https://github.com/material-components/material-components/blob/develop/ROADMAP.md) 中了解有关 Material Components 发布计划的更多信息。我们期待看到你用 Flutter 和 Material Theming 创造出的精彩设计！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
