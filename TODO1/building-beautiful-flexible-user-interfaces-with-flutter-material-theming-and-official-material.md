@@ -2,7 +2,7 @@
 > * 原文作者：[Michael Thomsen](https://medium.com/@mit.mit?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/building-beautiful-flexible-user-interfaces-with-flutter-material-theming-and-official-material.md](https://github.com/xitu/gold-miner/blob/master/TODO1/building-beautiful-flexible-user-interfaces-with-flutter-material-theming-and-official-material.md)
-> * 译者：
+> * 译者：[DevMcryYu](https://github.com/devmcryyu)
 > * 校对者：
 
 # 使用 Flutter，Material Theming 和官方材质组件（MDC）构建美观，灵活的用户界面
