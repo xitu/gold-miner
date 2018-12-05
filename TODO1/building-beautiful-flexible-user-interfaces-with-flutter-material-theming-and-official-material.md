@@ -9,13 +9,13 @@
 
 在 [Google I/O 2018](https://events.google.com/io/) 上，Material 团队[宣布](https://design.google/library/making-more-with-material/)对 Material Design 进行重要更新，其重点是通过系统地应用品牌特定设计，从而使移动应用程序从其他应用中脱颖而出。这就是 [Material Theming](https://material.io/design/material-theming/) 工具。以下研究显示了通过组合不同定制的 Material Components，来为“Shrine” —— 一个销售服装和家居用品的电子商务应用程序，创建一个品牌特定的设计。[Flutter](http://flutter.io) 简直是实现这种设计的完美框架！
 
-_“我非常高兴能够欢迎 Flutter 加入官方的 Material Design 组件集合中，成为我们 Android、iOS 和 Web 产品完全成熟的伙伴。Flutter 灵活和适应性的 widget 非常适合 Material Theming，而 Flutter 实时 UI 迭代的能力改变了我们改进设计的方式。”_
+**我非常高兴能够欢迎 Flutter 加入官方的 Material Design 组件集合中，成为我们 Android、iOS 和 Web 产品完全成熟的伙伴。Flutter 灵活和适应性的 widget 非常适合 Material Theming，而 Flutter 实时 UI 迭代的能力改变了我们改进设计的方式。”**
 
 - Matías Duarte，Material Design 副总裁
 
 ![](https://cdn-images-1.medium.com/max/1000/1*cyTGpzWuHqvYFGTV7uQyXA.png)
 
-采用 Material Theming 和 Material Components 设计的“Shrine 品牌特定”UI 元素
+采用 Material Theming 和 Material Components 设计的 “Shrine 品牌特定” UI 元素
 
 
 ![](https://cdn-images-1.medium.com/max/800/1*L2vOm-w6u4c-WRU6qZ9W_A.png)
@@ -42,16 +42,16 @@ Flutter 的核心原则之一即是为创建富有表现力的灵活的移动 UI
 
 最后，我们很高兴地展示四份教程来教授使用 Flutter 和 Material Components 创建美观灵活的用户界面所需的核心理念：
 
-1.  [**MDC 101 Flutter: Material Components 基础**](https://codelabs.developers.google.com/codelabs/mdc-101-flutter/)  
+1.  [**MDC 101 Flutter：Material Components 基础**](https://codelabs.developers.google.com/codelabs/mdc-101-flutter/)  
 通过构建包含核心组件的简单应用程序，了解使用 Material Components 的基础知识。
 
-2.  [**MDC 102 Flutter: Material 结构和布局**](https://codelabs.developers.google.com/codelabs/mdc-102-flutter/)  
+2.  [**MDC 102 Flutter：Material 结构和布局**](https://codelabs.developers.google.com/codelabs/mdc-102-flutter/)  
 了解如何在 Flutter 中使用 Material 结构和布局，添加导航、结构和数据。
 
-3.  [**MDC 103 Flutter: Material Theming 的颜色、形状、高度和类型**](https://codelabs.developers.google.com/codelabs/mdc-103-flutter/)  
+3.  [**MDC 103 Flutter：Material Theming 的颜色、形状、高度和类型**](https://codelabs.developers.google.com/codelabs/mdc-103-flutter/)  
 使用 Flutter 中的 Material Components 来区分您的产品并通过设计表达您的品牌理念。
 
-4.  [**MDC 104 Flutter: Material 高级组件**](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/)  
+4.  [**MDC 104 Flutter：Material 高级组件**](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/)  
 改进您的设计并学习使用我们的高级组件背景菜单。
 
 #### 下一步
