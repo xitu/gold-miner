@@ -5,7 +5,7 @@
 > * 译者：[Washington Hua](https://tonghuashuo.github.io)
 > * 校对者：
 
-# React 是如何区分 Class 和 Function 的 ?
+# React 如何区分 Class 和 Function ?
 
 让我们来看一下这个以函数形式定义的 `Greeting` 组件：
 
@@ -27,10 +27,10 @@ class Greeting extends React.Component {
 
 （直到 [最近](https://reactjs.org/docs/hooks-intro.html)，这是使用 state 特性的唯一方式）
 
-当你想要渲染一个 `<Greeting />` 组件时，你并不关心它是如何定义的：
+当你要渲染一个 `<Greeting />` 组件时，你并不需要关心它是如何定义的：
 
 ```
-// 是类还是函数 - 无所谓
+// 是类还是函数 —— 无所谓
 <Greeting />
 ```
 
@@ -48,7 +48,7 @@ function Greeting() {
 const result = Greeting(props); // <p>Hello</p>
 ```
 
-但如果 `Greeting` 是一个类，React 需要先用 `new` 操作符将其实例化，**然后** 调用刚才生成的实例的 `render` 方法：
+但如果 `Greeting` 是一个类，React 需要先用 `new` 操作符将其实例化，**然后** 调用刚才生成实例的 `render` 方法：
 
 ```
 // 你的代码
@@ -67,9 +67,9 @@ const result = instance.render(); // <p>Hello</p>
 
 **所以 React 是怎么知道某样东西是 class 还是 function 的呢？**
 
-就像我 [上一篇博客](https://overreacted.io/why-do-we-write-super-props/) 中提到的，**你并不 _需要_ 知道这个才能高效使用 React。** 我好几年都不知道这个。请不要把这变成一道面试题。事实上，这篇博客更多的是关于 JavaScript 而不是 React。
+就像我 [上一篇博客](https://overreacted.io/why-do-we-write-super-props/) 中提到的，**你并不 _需要_ 知道这个才能高效使用 React。** 我几年来都不知道这个。请不要把这变成一道面试题。事实上，这篇博客更多的是关于 JavaScript 而不是 React。
 
-这篇博客是写给想知道 React 具体是 **如何** 工作的好奇读者的。你是那样的人吗？那我们开始吧。
+这篇博客是写给那些对 React 具体是 **如何** 工作的表示好奇的读者的。你是那样的人吗？那我们一起深入探讨一下吧。
 
 **这将是一段漫长的旅程，系好安全带。这篇文章并没有多少关于 React 本身的信息，但我们会涉及到 `new`、`this`、`class`、箭头函数、`prototype`、`__proto__`、`instanceof` 等方面，以及这些东西是如何在 JavaScript 中一起工作的。幸运的是，你并不需要在 _使用_ React 时一直想着这些，除非你正在实现 React ...**
 
@@ -106,7 +106,7 @@ var george = Person('George'); // 🔴 没用的
 
 现在你依然可以这样写！在 DevTools 里试试吧。
 
-如果你调用 `Person('Fred')` 时 **没有** 加 `new`，其中的 `this` 会指向某个全局且无用的东西（比如说，`window` 或者 `undefined`），因此我们的代码会崩溃，或者做一些像设置 `window.name` 一样的傻事。
+如果你调用 `Person('Fred')` 时 **没有** 加 `new`，其中的 `this` 会指向某个全局且无用的东西（比如，`window` 或者 `undefined`），因此我们的代码会崩溃，或者做一些像设置 `window.name` 之类的傻事。
 
 通过在调用前增加 `new`， 我们说：“嘿 JavaScript，我知道 `Person` 只是个函数，但让我们假装它是个构造函数吧。 **创建一个 `{}` 对象并把 `Person` 中的 `this` 指向那个对象，以便我可以通过类似 `this.name` 的形式去设置一些东西，然后把这个对象返回给我。**”
 
@@ -182,9 +182,9 @@ const instance = Counter(props);
 
 * * *
 
-在我们看到 React 如何处理这个问题之前，很重要的一点就是要记得大部分 React 的用户会使用 Babel 等编译器来把类等现代化的特性编译走以便能在老旧的浏览器上运行。因此我们需要在我们的设计中考虑编译器。
+在我们看到 React 如何处理这个问题之前，很重要的一点就是要记得大部分 React 的用户会使用 Babel 等编译器来编译类等现代化的特性以便能在老旧的浏览器上运行。因此我们需要在我们的设计中考虑编译器。
 
-在 Babel 的早期版本中，类不加 `new` 也可以被调用。但这个问题已经被修复了 —— 通过生成外的代码的方式。
+在 Babel 的早期版本中，类不加 `new` 也可以被调用。但这个问题已经被修复了 —— 通过生成额外的代码的方式。
 
 ```
 function Person(name) {
@@ -200,7 +200,7 @@ new Person('Fred'); // ✅ OK
 Person('George');   // 🔴 无法把类当做函数来调用
 ```
 
-你或许已经在你构建出来的包中见过类似的代码，这就是那些 `_classCallCheck` 函数做的事。（你可以通过启用“loose mode”来关闭检查以减小打出来的包的尺寸，但这或许会使你最终转向真正的原生类时变得复杂）
+你或许已经在你构建出来的包中见过类似的代码，这就是那些 `_classCallCheck` 函数做的事。（你可以通过启用“loose mode”来关闭检查以减小构建包的尺寸，但这或许会使你最终转向真正的原生类时变得复杂）
 
 * * *
 
@@ -211,7 +211,7 @@ Person('George');   // 🔴 无法把类当做函数来调用
 | `class`    | ✅ `this` 是一个 `Person` 实例 | 🔴 `TypeError`                      |
 | `function` | ✅ `this` 是一个 `Person` 实例 | 😳 `this` 是 `window` 或 `undefined` |
 
-这就是为什么让 React 正确调用你的组件是这么的重要。 **如果你的组件被定义为一个类，React 需要使用 `new` 来调用它**
+这就是 React 正确调用你的组件很重要的原因。 **如果你的组件被定义为一个类，React 需要使用 `new` 来调用它**
 
 所以 React 能检查出某样东西是否是类吗？
 
@@ -249,7 +249,7 @@ class Friends extends React.Component {
     const friends = this.props.friends;
     return friends.map(friend =>
       <Friend
-        // `this` is resolved from the `render` method
+        // `this` 解析自 `render` 方法
         size={this.props.size}
         name={friend.name}
         key={friend.id}
@@ -259,7 +259,7 @@ class Friends extends React.Component {
 }
 ```
 
-OK，所以 **箭头函数没有自己的 `this`。**，但这意味着它作为构造函数是完全无用的！
+OK，所以 **箭头函数没有自己的 `this`。**但这意味着它作为构造函数是完全无用的！
 
 ```
 const Person = (name) => {
@@ -268,7 +268,7 @@ const Person = (name) => {
 }
 ```
 
-因此，**JavaScript 不允许用 `new` 调用箭头函数。**如果你这么做，你或许已经犯了错，最好早点告诉你。这和 JavaScript 不让你 **不加** `new` 去调用一个类是类似的。
+因此，**JavaScript 不允许用 `new` 调用箭头函数。** 如果你这么做，你或许已经犯了错，最好早点告诉你。这和 JavaScript 不让你 **不加** `new` 去调用一个类是类似的。
 
 这样很不错，但这也让我们的计划受阻。React 不能简单对所有东西都使用 `new`，因为会破坏箭头函数！我们可以利用箭头函数没有 `prototype` 的特点来检测箭头函数，不对它们使用 `new`：
 
@@ -277,11 +277,11 @@ const Person = (name) => {
 (function() {}).prototype // {constructor: f}
 ```
 
-但这对于被 Babel 编译过的函数是 [没用](https://github.com/facebook/react/issues/4599#issuecomment-136562930)的。这或许没什么大不了，但还有另一个原因使得这条路不会有结果。
+但这对于被 Babel 编译过的函数是 [没用](https://github.com/facebook/react/issues/4599#issuecomment-136562930) 的。这或许没什么大不了，但还有另一个原因使得这条路不会有结果。
 
 * * *
 
-另一个我们不能总是使用 `new` 的原因是它会阻止 React 支持返回字符串或其它原始类型的组件。
+另一个我们不能总是使用 `new` 的原因是它会妨碍 React 支持返回字符串或其它原始类型的组件。
 
 ```
 function Greeting() {
@@ -294,7 +294,7 @@ new Greeting(); // 😳 Greeting {}
 
 这，再一次，和 [`new` 操作符](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new) 的怪异设计有关。如我们之前所看到的，`new` 告诉 JavaScript 引擎去创建一个对象，让这个对象成为函数内部的 `this`，然后把这个对象作为 `new` 的结果给我们。
 
-然而，JavaScript 也允许一个使用 `new` 调用的函数返回另一个对象以 **覆盖** `new` 的返回值。或许，这在我们利用诸如“池”模式来对组件进行复用时是被认为有用的：
+然而，JavaScript 也允许一个使用 `new` 调用的函数返回另一个对象以 **覆盖** `new` 的返回值。或许，这在我们利用诸如“对象池模式”来对组件进行复用时是被认为有用的：
 
 ```
 // 创建了一个懒变量 zeroVector = null;
@@ -394,7 +394,7 @@ fred.toString();
 
 在实战中，你应该几乎永远不需要直接在代码里动到 `__proto__` 除非你在调试和原型链相关的问题。如果你想让某样东西在 `fred.__proto__` 上可用，你应该把它放在 `Person.prototype`，至少它最初是这么设计的。
 
-`__proto__` 属性甚至一开始就不应该被浏览器暴露出来，因为原型链应该被视为一个内部概念，然而某些浏览器增加了 `__proto__` 并最终勉强被标准化（但被废弃并推荐使用 `Object.getPrototypeOf()`）。
+`__proto__` 属性甚至一开始就不应该被浏览器暴露出来，因为原型链应该被视为一个内部概念，然而某些浏览器增加了 `__proto__` 并最终勉强被标准化（但已被废弃并推荐使用 `Object.getPrototypeOf()`）。
 
 **然而一个名叫“原型”的属性却给不了我一个值的“原型”这一点还是很让我困惑**（例如，`fred.prototype` 是未定义的，因为 `fred` 不是一个函数）。个人观点，我觉得这是即便有经验的开发者也容易误解 JavaScript 原型链的最大原因。
 
