@@ -4245,10 +4245,11 @@
 |------|-------|-------|
 |[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|校对|2|
 
-## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：82 当前积分：54 年度积分：51.5
+## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：88 当前积分：60 年度积分：57.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 NodeJS 创建一个 GraphQL 服务器](https://juejin.im/post/5c015a5af265da612577d89a)|翻译|6|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|3|
 |[Rust 开发完整的 Web 应用程序](https://juejin.im/post/5bd66dee6fb9a05cdb1081ca)|翻译|5|
 |[源代码映射（Source Map）简介](https://juejin.im/post/5bd65e1ae51d457aa071feaa)|校对|1.5|
@@ -4972,10 +4973,11 @@
 |[JavaScript 自动化爬虫入门指北（Chrome + Puppeteer + Node JS）](https://juejin.im/post/5a4e1038f265da3e591e1247)|翻译|7|
 |[智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7)|翻译|5|
 
-## 译者：[Wangalan30](https://github.com/Wangalan30) 历史贡献积分：23 当前积分：23 年度积分：21.5
+## 译者：[Wangalan30](https://github.com/Wangalan30) 历史贡献积分：23.5 当前积分：23.5 年度积分：22
 
 |文章|类型|积分|
 |------|-------|-------|
+|[为用户提供安全可靠的体验](https://juejin.im/post/5bf66114e51d45229468d659)|校对|0.5|
 |[强化学习中的好奇心与拖延症](https://juejin.im/post/5bff316651882548e937ef20)|校对|2|
 |[设计师的决策树](https://juejin.im/post/5befd61ee51d4557fe34e944)|校对|1|
 |[苹果公司如何颠覆瑞士制表业](https://juejin.im/post/5bdc1f3c6fb9a049a9792211)|校对|2.5|
@@ -5389,10 +5391,11 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：403 当前积分：373 年度积分：403
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：408 当前积分：378 年度积分：408
 
 |文章|类型|积分|
 |------|-------|-------|
+|[关于 HTTP/3 的一些心得](https://juejin.im/post/5bfb519ef265da610f636596)|翻译|5|
 |[在远程工作中领悟到的 10 件事](https://juejin.im/post/5bf7a79f51882511a8528cf0)|翻译|4|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|17|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|35|
@@ -5597,10 +5600,11 @@
 |[iOS App 上一种灵活的路由方式](https://juejin.im/post/5aafc278f265da23805973e3)|翻译|3|
 |[避免 Swift 单元测试中的强制解析](https://juejin.im/post/5a9ce4ac6fb9a028b547602e)|校对|1.5|
 
-## 译者：[Xekin-FE](https://github.com/Xekin-FE) 历史贡献积分：26 当前积分：26 年度积分：26
+## 译者：[Xekin-FE](https://github.com/Xekin-FE) 历史贡献积分：27.5 当前积分：27.5 年度积分：27.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[关于 HTTP/3 的一些心得](https://juejin.im/post/5bfb519ef265da610f636596)|校对|1.5|
 |[Google 工程师提升网页性能的新策略：空闲到紧急](https://juejin.im/post/5bdec712e51d4505525b0fba)|校对|3|
 |[揭开 React Hooks 的神秘面纱:数组解构融成魔法](https://juejin.im/post/5bebd1bbe51d4561ce39a23b)|翻译|4.5|
 |[[1] + [2] - [3] === 9!? 类型转换深入研究](https://juejin.im/post/5ad5af7251882555894a5054)|校对|1|
@@ -5714,10 +5718,11 @@
 |[让 Apache Cassandra 尾部延迟减小 10 倍（已开源）](https://juejin.im/post/5ac31083f265da239a5fff0c)|翻译|4|
 |[让我们来简化 UserDefaults 的使用](https://juejin.im/post/5abde324f265da23826e1723)|校对|0.5|
 
-## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：60 当前积分：40 年度积分：60
+## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：63 当前积分：43 年度积分：63
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Medium 的 GraphQL 服务设计](https://juejin.im/post/5c00dad3f265da617006db4e)|翻译|3|
 |2018 年 12 月兑掘金鼠标垫和 GitHub 贴纸各 1 份|减去积分|20|
 |[源代码映射（Source Map）简介](https://juejin.im/post/5bd65e1ae51d457aa071feaa)|翻译|4.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|5|
@@ -6732,10 +6737,12 @@
 |[一行 JavaScript 代码竟然让 FT.com 网站慢了十倍](https://juejin.im/post/5b7bb6dfe51d4538bf55aa5f)|校对|1|
 |[使用 Web Beacon API 记录活动](https://juejin.im/post/5b694b5de51d4519700fa56a)|校对|1|
 
-## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：14 当前积分：14 年度积分：14
+## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：23 当前积分：23 年度积分：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|[在 Android 上实现 Google Inbox 的样式动画](https://juejin.im/post/5bee3a45e51d451dca475a43)|翻译|6.5|
+|[为用户提供安全可靠的体验](https://juejin.im/post/5bf66114e51d45229468d659)|翻译|2.5|
 |[回答有关 Flutter App 开发的问题](https://juejin.im/post/5be98784518825170200254e)|翻译|5|
 |[Flutter 挑战之 WhatsApp](https://juejin.im/post/5b70f42851882560ec4b190d)|翻译|2.5|
 |[Flutter 系列入门教程五：网格](https://juejin.im/post/5b6915636fb9a04fd73a6ecf)|翻译|3.5|
@@ -6967,10 +6974,12 @@
 |------|-------|-------|
 |[为 APP 设计通知提醒](https://juejin.im/post/5ba31ee3e51d450e4115500b)|校对|1.5|
 
-## 译者：[zx-Zhu](https://github.com/zx-Zhu) 历史贡献积分：17 当前积分：17 年度积分：17
+## 译者：[zx-Zhu](https://github.com/zx-Zhu) 历史贡献积分：19.5 当前积分：19.5 年度积分：19.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[在 Android 上实现 Google Inbox 的样式动画](https://juejin.im/post/5bee3a45e51d451dca475a43)|校对|2|
+|[为用户提供安全可靠的体验](https://juejin.im/post/5bf66114e51d45229468d659)|校对|0.5|
 |[回答有关 Flutter App 开发的问题](https://juejin.im/post/5be98784518825170200254e)|校对|2|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|9|
 |[为什么我们需要 Web 3.0](https://juejin.im/post/5bb9ace16fb9a05cdf30a9a2)|翻译|3.5|
@@ -7149,10 +7158,12 @@
 |------|-------|-------|
 |[使用递归神经网络（LSTMs）对时序数据进行预测](https://juejin.im/post/5bf8a70cf265da61776ba1dc)|校对|2|
 
-## 译者：[weibinzhu](https://github.com/weibinzhu) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
+## 译者：[weibinzhu](https://github.com/weibinzhu) 历史贡献积分：3.5 当前积分：3.5 年度积分：3.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 NodeJS 创建一个 GraphQL 服务器](https://juejin.im/post/5c015a5af265da612577d89a)|校对|2|
+|[Medium 的 GraphQL 服务设计](https://juejin.im/post/5c00dad3f265da617006db4e)|校对|1|
 |[深度专注的工作 — 成为 10 倍效率的开发者的秘密武器](https://juejin.im/post/5bffb3f5f265da613a53bd4b)|校对|1.5|
 
 ## 译者：[smallfatS](https://github.com/smallfatS) 历史贡献积分：5 当前积分：5 年度积分：5
@@ -7162,8 +7173,16 @@
 |[在远程工作中领悟到的 10 件事](https://juejin.im/post/5bf7a79f51882511a8528cf0)|校对|2|
 |[如何让高效的代码评审成为一种文化](https://juejin.im/post/5bfc9ff9e51d454b6c371f5d)|校对|3|
 
-## 译者：[KarthusLorin](https://github.com/KarthusLorin) 历史贡献积分：2 当前积分：2 年度积分：2
+## 译者：[KarthusLorin](https://github.com/KarthusLorin) 历史贡献积分：5 当前积分：5 年度积分：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 NodeJS 创建一个 GraphQL 服务器](https://juejin.im/post/5c015a5af265da612577d89a)|校对|2|
+|[Medium 的 GraphQL 服务设计](https://juejin.im/post/5c00dad3f265da617006db4e)|校对|1|
 |[在远程工作中领悟到的 10 件事](https://juejin.im/post/5bf7a79f51882511a8528cf0)|校对|2|
+
+## 译者：[HarderChen](https://github.com/HarderChen) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[关于 HTTP/3 的一些心得](https://juejin.im/post/5bfb519ef265da610f636596)|校对|1.5|
