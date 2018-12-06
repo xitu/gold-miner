@@ -61,8 +61,6 @@
 * [由 CSS 网格系统的创造者们所讲述的故事](https://juejin.im/post/5b503d9ef265da0f504a518e) ([Tivcrmn](https://github.com/Tivcrmn) 翻译)
 * [Javascript（ES6）Generator 入门](https://juejin.im/post/5b4c22aa6fb9a04faf479be1) ([ssshooter](https://github.com/ssshooter) 翻译)
 * [论 Rust 和 WebAssembly 对源码地址索引的极限优化](https://juejin.im/post/5b51948a5188251ac771c064) ([D-kylin](https://github.com/D-kylin) 翻译)
-
-
 * [单元素组件模式简介](https://juejin.im/post/5b445d79e51d4519596b5f87) ([jonjia](https://github.com/jonjia) 翻译)
 * [React 实现条件渲染的多种方式和性能考量](https://juejin.im/post/5b3e34905188251b1f223ad3) ([IveHD](https://github.com/IveHD) 翻译)
 * [2018 年，如何选择最好的静态站点生成器](https://juejin.im/post/5b47079bf265da0faa3655be) ([ssshooter](https://github.com/ssshooter) 翻译)
