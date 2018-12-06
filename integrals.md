@@ -802,10 +802,13 @@
 |[在网站 Logo 上右击时提示下载网站的 Logo 素材下载](https://github.com/rainyear/gold-miner/blob/fabff8780118b24c61c57b13577cf971757c84d5/TODO/right-click-logo-show-logo-download-options.md)|校对|1|
 |[给产品经理的简易优先级法则](http://gold.xitu.io/entry/572ad1cc1532bc0065d5e36b)|翻译|7|
 
-## 译者：[loneyiserror](https://github.com/LoneyIsError) 历史贡献积分：13.5 当前积分：13.5 年度积分：4.5
+## 译者：[loneyiserror](https://github.com/LoneyIsError) 历史贡献积分：26 当前积分：26 年度积分：17
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Kotlin 将你的 iOS 应用程序转换为 Android](https://juejin.im/post/5c03f64ce51d454af013d076)|校对|5|
+|[iOS 12 占有率超过 50%，超过了 iOS 11](https://juejin.im/post/5bf64ad851882579117f74ae)|翻译|2.5|
+|[介绍适用于 iOS 的 AloeStackView](https://juejin.im/post/5bf22a05f265da61783106de)|翻译|5|
 |[从现有的代码库创建 Swift 包管理器](https://juejin.im/post/5bec2b735188253b6e5c132a)|校对|1.5|
 |[在 iOS 中使用 UITests 测试 Facebook 登录功能](https://juejin.im/post/5b90e3ae6fb9a05d00458ad8)|翻译|3|
 |[使用 Xcode 的 Scheme 来跑不同的测试集合](http://gold.xitu.io/entry/5723223f71cfe400575f4528)|校对|1|
@@ -2135,10 +2138,11 @@
 |[成为一个编译器之「使用 JavaScript 来制作编译器」](http://gold.xitu.io/entry/582343555bbb500059056d4b/)|校对|1|
 |[给 iOS App 开发者的 39 个开源的 Swift UI 库](http://gold.xitu.io/entry/58209322570c350060b73588)|校对|1|
 
-## 译者：[phxnirvana](https://github.com/phxnirvana) 历史贡献积分：80 当前积分：45
+## 译者：[phxnirvana](https://github.com/phxnirvana) 历史贡献积分：83 当前积分：48 年度积分：3
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Kotlin 将你的 iOS 应用程序转换为 Android](https://juejin.im/post/5c03f64ce51d454af013d076)|校对|3|
 |[管中窥豹：RxJava 与 Kotlin 协程的对比](https://juejin.im/post/5a0ab91451882533d0229556)|翻译|3|
 |[2017 年 8 月 16 日兑换杯子一个]()|减去积分|5|
 |[将 Android 项目迁移到 Kotlin 语言](https://juejin.im/post/599b8cd9f265da24874d0226)|校对|1|
@@ -2654,10 +2658,11 @@
 |[再谈 CSS 中的代码味道](https://juejin.im/post/58c2034dac502e0062cf8e2a/)|校对|1|
 |[Google 是如何构建 web 框架的](https://gold.xitu.io/entry/58bcdda4128fe1007e5b44db/)|校对|1|
 
-## 译者：[atuooo](https://github.com/atuooo) 历史贡献积分：53 当前积分：38 年度积分：12.5
+## 译者：[atuooo](https://github.com/atuooo) 历史贡献积分：56 当前积分：41 年度积分：15.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Swift 中的动态特性](https://juejin.im/post/5bfd087be51d457a013940e8)|校对|3|
 |[我是如何在谷歌找到 UX 设计的工作的](https://juejin.im/post/5bea544ff265da6112048e3c)|校对|1.5|
 |[构建流畅的交互界面](https://juejin.im/post/5b7e2b34e51d4538843612cc)|校对|3|
 |[写一个完整的 Flutter App 是什么感觉](https://juejin.im/post/5b7e18c4e51d4538cf53d1f8)|校对|1|
@@ -3535,10 +3540,11 @@
 |------|-------|-------|
 |[如何在无损的情况下让图片变的更小](https://juejin.im/post/5959fbe0f265da6c2518d740)|校对|2|
 
-## 译者：[swants](https://github.com/swants) 历史贡献积分：62 当前积分：2 年度积分：23
+## 译者：[swants](https://github.com/swants) 历史贡献积分：65.5 当前积分：5.5 年度积分：26.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Swift 的 iOS 设计模式（第一部分）](https://juejin.im/post/5c05d4ee5188250ab14e62d6)|校对|3.5|
 |2018 年 9 月兑套头衫（秋冬款）1 个|减去积分|20|
 |[为什么你需要关注一下 Flutter](https://juejin.im/post/5b508c7cf265da0f955ccb09)|校对|1.5|
 |[Flutter 实用指南：给初学者的 6 个小帖士](https://juejin.im/post/5b5534126fb9a04fcc449f4c)|校对|1.5|
@@ -6622,10 +6628,11 @@
 |[在 Sketch 中使用一个设计体系创作: 第二部分 [教程]](https://juejin.im/post/5b5d2a456fb9a04fc80b8f4b)|翻译|2.5|
 |[在 Sketch 中使用一个设计体系创作：第一部分 [教程]](https://juejin.im/post/5b591a655188257bca290b24)|校对|0.5|
 
-## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：41.5 当前积分：41.5 年度积分：41.5
+## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：42 当前积分：42 年度积分：42
 
 |文章|类型|积分|
 |------|-------|-------|
+|[iOS 12 占有率超过 50%，超过了 iOS 11](https://juejin.im/post/5bf64ad851882579117f74ae)|校对|0.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1.5|
 |[用 Flask 输出视频流](https://juejin.im/post/5bea86fc518825158c531e9c)|校对|2|
 |[动效设计可以很简单](https://juejin.im/post/5bd11a176fb9a05d101423c0)|校对|1.5|
@@ -6804,10 +6811,11 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|8|
 |[用 Scikit-Learn 实现 SVM 和 Kernel SVM](https://juejin.im/post/5b7fd39af265da43831fa136)|校对|2|
 
-## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：7 当前积分：7 年度积分：7
+## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：8 当前积分：8 年度积分：8
 
 |文章|类型|积分|
 |------|-------|-------|
+|[鲜为人知的数据科学 Python 库](https://juejin.im/post/5c075e09518825159512715f)|校对|1|
 |[使用递归神经网络（LSTMs）对时序数据进行预测](https://juejin.im/post/5bf8a70cf265da61776ba1dc)|校对|2.5|
 |[使用 Pandas 在 Python 中创建一个简单的推荐系统](https://juejin.im/post/5be958416fb9a049af6cc969)|校对|2.5|
 |[用 Scikit-Learn 实现 SVM 和 Kernel SVM](https://juejin.im/post/5b7fd39af265da43831fa136)|校对|2|
@@ -7015,10 +7023,12 @@
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|7|
 |[我在阅读 MDN 时发现的 3 个 Input 元素属性](https://juejin.im/post/5bbc6f035188255c5d56b160)|校对|1|
 
-## 译者：[haiyang-tju](https://github.com/haiyang-tju) 历史贡献积分：45 当前积分：45 年度积分：45
+## 译者：[haiyang-tju](https://github.com/haiyang-tju) 历史贡献积分：52 当前积分：52 年度积分：52
 
 |文章|类型|积分|
 |------|-------|-------|
+|[鲜为人知的数据科学 Python 库](https://juejin.im/post/5c075e09518825159512715f)|翻译|3|
+|[Google Colab 免费 GPU 使用教程](https://juejin.im/post/5c05e1bc518825689f1b4948)|翻译|4|
 |[使用递归神经网络（LSTMs）对时序数据进行预测](https://juejin.im/post/5bf8a70cf265da61776ba1dc)|翻译|8|
 |[强化学习中的好奇心与拖延症](https://juejin.im/post/5bff316651882548e937ef20)|翻译|6.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
@@ -7126,10 +7136,14 @@
 |------|-------|-------|
 |[深入理解 React 高阶组件](https://juejin.im/entry/5bdd226cf265da616f6f6cce)|校对|4|
 
-## 译者：[iWeslie](https://github.com/iWeslie) 历史贡献积分：6 当前积分：6 年度积分：6
+## 译者：[iWeslie](https://github.com/iWeslie) 历史贡献积分：33 当前积分：33 年度积分：33
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Kotlin 将你的 iOS 应用程序转换为 Android](https://juejin.im/post/5c03f64ce51d454af013d076)|翻译|5|
+|[使用 Swift 的 iOS 设计模式（第一部分）](https://juejin.im/post/5c05d4ee5188250ab14e62d6)|翻译|11|
+|[介绍适用于 iOS 的 AloeStackView](https://juejin.im/post/5bf22a05f265da61783106de)|校对|2|
+|[Swift 中的动态特性](https://juejin.im/post/5bfd087be51d457a013940e8)|翻译|9|
 |推荐优秀英文文章两篇|奖励|2|
 |[从现有的代码库创建 Swift 包管理器](https://juejin.im/post/5bec2b735188253b6e5c132a)|翻译|4|
 
@@ -7158,10 +7172,11 @@
 |------|-------|-------|
 |[使用递归神经网络（LSTMs）对时序数据进行预测](https://juejin.im/post/5bf8a70cf265da61776ba1dc)|校对|2|
 
-## 译者：[weibinzhu](https://github.com/weibinzhu) 历史贡献积分：4.5 当前积分：4.5 年度积分：4.5
+## 译者：[weibinzhu](https://github.com/weibinzhu) 历史贡献积分：6 当前积分：6 年度积分：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[iOS 12 占有率超过 50%，超过了 iOS 11](https://juejin.im/post/5bf64ad851882579117f74ae)|校对|1.5|
 |[使用 NodeJS 创建一个 GraphQL 服务器](https://juejin.im/post/5c015a5af265da612577d89a)|校对|2|
 |[Medium 的 GraphQL 服务设计](https://juejin.im/post/5c00dad3f265da617006db4e)|校对|1|
 |[深度专注的工作 — 成为 10 倍效率的开发者的秘密武器](https://juejin.im/post/5bffb3f5f265da613a53bd4b)|校对|1.5|
@@ -7186,3 +7201,15 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[关于 HTTP/3 的一些心得](https://juejin.im/post/5bfb519ef265da610f636596)|校对|1.5|
+
+## 译者：[Chunk49](https://github.com/Chunk49) 历史贡献积分：3.5 当前积分：3.5 年度积分：3.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[使用 Swift 的 iOS 设计模式（第一部分）](https://juejin.im/post/5c05d4ee5188250ab14e62d6)|校对|3.5|
+
+## 译者：[DevMcryYu](https://github.com/DevMcryYu) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Google Colab 免费 GPU 使用教程](https://juejin.im/post/5c05e1bc518825689f1b4948)|校对|1.5|
