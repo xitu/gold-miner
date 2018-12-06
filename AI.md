@@ -1,3 +1,5 @@
+* [Google Colab 免费 GPU 使用教程](https://juejin.im/post/5c05e1bc518825689f1b4948) ([haiyang-tju](https://github.com/haiyang-tju) 翻译)
+* [鲜为人知的数据科学 Python 库](https://juejin.im/post/5c075e09518825159512715f) ([haiyang-tju](https://github.com/haiyang-tju) 翻译)
 * [强化学习中的好奇心与拖延症](https://juejin.im/post/5bff316651882548e937ef20) ([haiyang-tju](https://github.com/haiyang-tju) 翻译)
 * [使用递归神经网络（LSTMs）对时序数据进行预测](https://juejin.im/post/5bf8a70cf265da61776ba1dc) ([haiyang-tju](https://github.com/haiyang-tju) 翻译)
 * [深度学习将会给我们所有人的生活一个教训：工作是为了机器准备的](https://juejin.im/post/5bd71fd6f265da0aa94a5bce) ([yuwhuawang](https://github.com/yuwhuawang) 翻译)
