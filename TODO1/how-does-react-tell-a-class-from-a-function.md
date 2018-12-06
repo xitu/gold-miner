@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-does-react-tell-a-class-from-a-function.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-does-react-tell-a-class-from-a-function.md)
 > * 译者：[Washington Hua](https://tonghuashuo.github.io)
-> * 校对者：
+> * 校对者：[nanjingboy](https://github.com/nanjingboy), [sunui](https://github.com/sunui)
 
-# React 如何区分 Class 和 Function ?
+# React 如何区分 Class 和 Function？
 
 让我们来看一下这个以函数形式定义的 `Greeting` 组件：
 
@@ -67,13 +67,13 @@ const result = instance.render(); // <p>Hello</p>
 
 **所以 React 是怎么知道某样东西是 class 还是 function 的呢？**
 
-就像我 [上一篇博客](https://overreacted.io/why-do-we-write-super-props/) 中提到的，**你并不 _需要_ 知道这个才能高效使用 React。** 我几年来都不知道这个。请不要把这变成一道面试题。事实上，这篇博客更多的是关于 JavaScript 而不是 React。
+就像我 [上一篇博客](https://overreacted.io/why-do-we-write-super-props/) 中提到的，**你并不需要知道这个才能高效使用 React。** 我几年来都不知道这个。请不要把这变成一道面试题。事实上，这篇博客更多的是关于 JavaScript 而不是 React。
 
 这篇博客是写给那些对 React 具体是 **如何** 工作的表示好奇的读者的。你是那样的人吗？那我们一起深入探讨一下吧。
 
-**这将是一段漫长的旅程，系好安全带。这篇文章并没有多少关于 React 本身的信息，但我们会涉及到 `new`、`this`、`class`、箭头函数、`prototype`、`__proto__`、`instanceof` 等方面，以及这些东西是如何在 JavaScript 中一起工作的。幸运的是，你并不需要在 _使用_ React 时一直想着这些，除非你正在实现 React ...**
+**这将是一段漫长的旅程，系好安全带。这篇文章并没有多少关于 React 本身的信息，但我们会涉及到 `new`、`this`、`class`、箭头函数、`prototype`、`__proto__`、`instanceof` 等方面，以及这些东西是如何在 JavaScript 中一起工作的。幸运的是，你并不需要在使用 React 时一直想着这些，除非你正在实现 React...**
 
-（如果你真的很想知道答案，直接翻到最下面）
+（如果你真的很想知道答案，直接翻到最下面。）
 
 * * *
 
@@ -92,7 +92,7 @@ const result = instance.render(); // <p>Hello</p>
 
 * * *
 
-在过去，JavaScript 还没有类。但是，你可以使用普通函数来模拟。**具体来讲，只要在函数调用前加上 `new` 操作符，你就可以把 _任何_ 函数当做一个类的构造函数来用：**
+在过去，JavaScript 还没有类。但是，你可以使用普通函数来模拟。**具体来讲，只要在函数调用前加上 `new` 操作符，你就可以把任何函数当做一个类的构造函数来用：**
 
 ```
 // 只是一个函数
@@ -108,7 +108,7 @@ var george = Person('George'); // 🔴 没用的
 
 如果你调用 `Person('Fred')` 时 **没有** 加 `new`，其中的 `this` 会指向某个全局且无用的东西（比如，`window` 或者 `undefined`），因此我们的代码会崩溃，或者做一些像设置 `window.name` 之类的傻事。
 
-通过在调用前增加 `new`， 我们说：“嘿 JavaScript，我知道 `Person` 只是个函数，但让我们假装它是个构造函数吧。 **创建一个 `{}` 对象并把 `Person` 中的 `this` 指向那个对象，以便我可以通过类似 `this.name` 的形式去设置一些东西，然后把这个对象返回给我。**”
+通过在调用前增加 `new`，我们说：“嘿 JavaScript，我知道 `Person` 只是个函数，但让我们假装它是个构造函数吧。**创建一个 `{}` 对象并把 `Person` 中的 `this` 指向那个对象，以便我可以通过类似 `this.name` 的形式去设置一些东西，然后把这个对象返回给我。**”
 
 这就是 `new` 操作符所做的事。
 
@@ -151,7 +151,7 @@ fred.sayHi();
 
 如果你写了一个函数，JavaScript 没办法判断它应该像 `alert()` 一样被调用，还是应该被视作像 `new Person()` 一样的构造函数。忘记给像 `Person` 这样的函数指定 `new` 会导致令人费解的行为。
 
-**类语法允许我们说：“这不仅仅是个函数 —— 这是个类并且它有构造函数”。** 如果你在调用它时忘了加 `new`， JavaScript 会报错：
+**类语法允许我们说：“这不仅仅是个函数 —— 这是个类并且它有构造函数”。** 如果你在调用它时忘了加 `new`，JavaScript 会报错：
 
 ```
 let fred = new Person('Fred');
@@ -174,7 +174,7 @@ class Counter extends React.Component {
   }
 }
 
-// 🔴 React 不能简单这么做:
+// 🔴 React 不能简单这么做：
 const instance = Counter(props);
 ```
 
@@ -387,8 +387,8 @@ fred.sayHi();
 // 2. fred.__proto__ 有 sayHi 属性吗？是的，调用它！
 
 fred.toString();
-// 1. fred 有 toString 属性吗？ 不。
-// 2. fred.__proto__ 有 toString 属性吗？ 不。
+// 1. fred 有 toString 属性吗？不。
+// 2. fred.__proto__ 有 toString 属性吗？不。
 // 3. fred.__proto__.__proto__ 有 toString 属性吗？是的，调用它！
 ```
 
@@ -534,7 +534,7 @@ console.log(Greeting.prototype.isReactComponent); // ✅ 是的
 
 **说真的这就是全部了。**
 
-你或许奇怪为什么是一个对象而不是一个布尔值。实战中这并不重要，但早期版本的 Jest (在 Jest 商品化之前) 是默认开始自动模拟功能的，生成的模拟数据省略掉了原始类型属性，[破坏了检查](https://github.com/facebook/react/pull/4663#issuecomment-136533373)。谢了，Jest。
+你或许奇怪为什么是一个对象而不是一个布尔值。实战中这并不重要，但早期版本的 Jest（在 Jest 商品化之前）是默认开始自动模拟功能的，生成的模拟数据省略掉了原始类型属性，[破坏了检查](https://github.com/facebook/react/pull/4663#issuecomment-136533373)。谢了，Jest。
 
 一直到今天，[React 都在用](https://github.com/facebook/react/blob/769b1f270e1251d9dbdce0fcbd9e92e502d059b8/packages/react-reconciler/src/ReactFiber.js#L297-L300) `isReactComponent` 进行检查。
 
@@ -542,15 +542,16 @@ console.log(Greeting.prototype.isReactComponent); // ✅ 是的
 
 * * *
 
-你或许会觉得这个故事有一点“标题党”。 **实际的解决方案其实真的很简单，但我花了大量的篇幅在转折上来解释 _为什么_ React 最终选择了这套方案，以及还有哪些候选方案。**
+你或许会觉得这个故事有一点“标题党”。 **实际的解决方案其实真的很简单，但我花了大量的篇幅在转折上来解释为什么 React 最终选择了这套方案，以及还有哪些候选方案。**
 
 以我的经验来看，设计一个库的 API 也经常会遇到这种情况。为了一个 API 能够简单易用，你经常需要考虑语义化（可能的话，为多种语言考虑，包括未来的发展方向）、运行时性能、有或没有编译时步骤的工程效能、生态的状态以及打包方案、早期的警告，以及很多其它问题。最终的结果未必总是最优雅的，但必须要是可用的。
 
-**如果最终的 API 成功的话, _它的用户_ 永远不必思考这一过程.** 他们只需要专心创建应用就好了。
+**如果最终的 API 成功的话, _它的用户_ 永远不必思考这一过程**。他们只需要专心创建应用就好了。
 
 但如果你同时也很好奇...知道它是怎么工作的也是极好的。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
 
 ---
 
