@@ -7158,7 +7158,7 @@
 |------|-------|-------|
 |[使用递归神经网络（LSTMs）对时序数据进行预测](https://juejin.im/post/5bf8a70cf265da61776ba1dc)|校对|2|
 
-## 译者：[weibinzhu](https://github.com/weibinzhu) 历史贡献积分：3.5 当前积分：3.5 年度积分：3.5
+## 译者：[weibinzhu](https://github.com/weibinzhu) 历史贡献积分：4.5 当前积分：4.5 年度积分：4.5
 
 |文章|类型|积分|
 |------|-------|-------|
