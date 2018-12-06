@@ -13,25 +13,25 @@
 
 欢迎回到 iOS 设计模式的入门教程第二部分！在 [第一部分](https://juejin.im/post/5c05d4ee5188250ab14e62d6) 中, 你已经了解了 Cocoa 中的一些基本模式，比如 MVC、单例和装饰模式。
 
-在最后一部分中，您将了解 iOS 和 OS X 开发中出现的其他基本设计模式：适配器、观察者和备忘录。让我们快开始吧！
+在最后一部分中，你将了解 iOS 和 OS X 开发中出现的其他基本设计模式：适配器、观察者和备忘录。让我们快开始吧！
 
 ## 入门
 
 你可以下载 [第一部分最结尾处的项目](https://koenig-media.raywenderlich.com/uploads/2017/07/RWBlueLibrary-Part1-Final.zip) 来开始.
 
-这是您在第一部分结尾处留下的音乐库应用程序：
+这是你在第一部分结尾处留下的音乐库应用程序：
 
 ![Album app showing populated table view](https://koenig-media.raywenderlich.com/uploads/2017/07/appwithtableviewpopulated-180x320.png)
 
 该应用程序的原计划包括了屏幕顶部用来在专辑之间切换的水平滚动条。与其编写一个只有单个用途水平滚动条，为何不让它变得可以让其他任何 View 复用呢？
 
-要使此滚动条可复用，有关其内容的所有决策都应留给其他两个对象：数据源和代理。为了使用水平滚动条，应该给它声明数据源和代理实现的方法，这就类似于 `UITableView` 的代理方法工作方式。当我们讨论下一个设计模式时，您将来实现它。
+要使此滚动条可复用，有关其内容的所有决策都应留给其他两个对象：数据源和代理。为了使用水平滚动条，应该给它声明数据源和代理实现的方法，这就类似于 `UITableView` 的代理方法工作方式。当我们讨论下一个设计模式时，你将来实现它。
 
 ## 适配器模式
 
 适配器允许和具有不兼容接口的类一起工作，它将自身包裹在一个对象周围，并公开一个标准接口以与该对象进行交互。
 
-如果您熟悉适配器模式，那么您会注意到 Apple 以一种稍微不同的方式实现它 -- 使用协议。您可能熟悉 `UITableViewDelegate`，`UIScrollViewDelegate`，`NSCoding`和 `NSCopying` 等协议。例如使用 `NSCopying` 协议，任何类都可以提供一个标准的 `copy` 方法。
+如果你熟悉适配器模式，那么你会注意到 Apple 以一种稍微不同的方式实现它 -- 使用协议。你可能熟悉 `UITableViewDelegate`，`UIScrollViewDelegate`，`NSCoding`和 `NSCopying` 等协议。例如使用 `NSCopying` 协议，任何类都可以提供一个标准的 `copy` 方法。
 
 ## 如何使用适配器模式
 
@@ -65,7 +65,7 @@ protocol HorizontalScrollerViewDelegate: class {
 
 这将使水平滚动器通知某个其他对象已选择一个 View。
 
-**注意：**将关注的区域划分为不同的协议会使代码看起来更加清晰。通过这种方式，您可以决定遵循特定的协议，并避免使用 `@objc` 来声明可选的协议方法。
+**注意：**将关注的区域划分为不同的协议会使代码看起来更加清晰。通过这种方式，你可以决定遵循特定的协议，并避免使用 `@objc` 来声明可选的协议方法。
 
 在 **HorizontalScrollerView.swift** 中，将以下代码添加到 `HorizontalScrollerView` 类的定义里：
 
@@ -74,7 +74,7 @@ weak var dataSource: HorizontalScrollerViewDataSource?
 weak var delegate: HorizontalScrollerViewDelegate?
 ```
 
-代理和数据源都是可选项，因此您不一定要给他们赋值，但您在此处设置的任何对象都必须遵循相应的协议。
+代理和数据源都是可选项，因此你不一定要给他们赋值，但你在此处设置的任何对象都必须遵循相应的协议。
 
 在类里继续添加以下代码：
 
@@ -99,7 +99,7 @@ private var contentViews = [UIView]()
 2. 创建包含多个 View 的 scrollView
 3. 创建一个包含所有专辑封面的数组
 
-接下来您需要实现初始化器。添加以下方法：
+接下来你需要实现初始化器。添加以下方法：
 
 ```swift
 override init(frame: CGRect) {
@@ -136,8 +136,8 @@ func initializeScrollView() {
 这项工作是在 `initializeScrollView()` 中完成的。以下是该详细分析：
 
 1. 将 `UIScrollView` 实例添加到 superView
-2. 关闭自动调整遮罩（autoresizing mask），这样您就可以使用自定义约束
-3. 将约束应用于 scrollview，您希望 scrollview 完全填充 `HorizontalScrollerView`
+2. 关闭自动调整遮罩（autoresizing mask），这样你就可以使用自定义约束
+3. 将约束应用于 scrollview，你希望 scrollview 完全填充 `HorizontalScrollerView`
 4. 创建轻击手势识别器（tap gesture recognizer）。它会检测 scrollView 上的触摸事件并检查是否已经轻击了专辑封面。如果是，它将通知 `HorizontalScrollerView` 的代理。在这里你会遇到编译错误，因为 scrollerTapped(gesture:) 方法尚未实现，你接下来就要实现了。
 
 现在添加下面的方法：
@@ -177,7 +177,7 @@ func view(at index :Int) -> UIView {
 }
 ```
 
-`view(at:)` 只返回特定索引处的 View，稍后您将使用此方法突出显示您已点击的专辑封面。
+`view(at:)` 只返回特定索引处的 View，稍后你将使用此方法突出显示你已点击的专辑封面。
 
 现在添加以下代码来重新加载滚动器：
 
@@ -214,7 +214,7 @@ func reload() {
 每条注释对应的详细解释如下：
 
 1. 在执行任何 reload 之前检查是否有数据源。
-2. 由于您要清除专辑封面，因此您还需要移除所有存在的 View。
+2. 由于你要清除专辑封面，因此你还需要移除所有存在的 View。
 3. 所有 View 都从给定的偏移量开始定位。目前它是 100，但可以通过更改文件顶部的常量 `ViewConstants.Offset` 来轻松地做出调整。
 4. 向数据源请求 View 的个数，然后使用它来创建新的 contentView 数组。
 5. `HorizontalScrollerView` 一次向一个 View 请求其数据源，并使用先前定义的填充将它们水平挨个布局。
@@ -222,7 +222,7 @@ func reload() {
 
 当你的数据发生改变时调用 `reload` 方法。
 
-`HorizontalScrollerView` 需要实现的最后一个功能是确保您正在查看的专辑始终位于 scrollView 的中心。为此，当用户用手指拖动 scrollView 时，您需要执行一些计算。
+`HorizontalScrollerView` 需要实现的最后一个功能是确保你正在查看的专辑始终位于 scrollView 的中心。为此，当用户用手指拖动 scrollView 时，你需要执行一些计算。
 
 下面添加以下方法：
 
@@ -246,7 +246,7 @@ private func centerCurrentView() {
 
 上面的代码考虑了 scrollView 的当前偏移量以及 View 的尺寸和填充以便计算当前 View 与中心的距离。最后一行很重要：一旦 View 居中，就通知代理所选的 View 已变更。
 
-要检测用户是否在 scrollView 内完成了拖动，您需要实现一些 `UIScrollViewDelegate` 的方法，将以下类扩展添加到文件的底部。记住一定要在主类声明的花括号 **下面** 添加！
+要检测用户是否在 scrollView 内完成了拖动，你需要实现一些 `UIScrollViewDelegate` 的方法，将以下类扩展添加到文件的底部。记住一定要在主类声明的花括号 **下面** 添加！
 
 ```swift
 extension HorizontalScrollerView: UIScrollViewDelegate {
@@ -262,7 +262,7 @@ extension HorizontalScrollerView: UIScrollViewDelegate {
 }
 ```
 
-`scrollViewDidEndDragging(_:willDecelerate:)` 在用户完成拖拽时通知代理，如果 scrollView 尚未完全停止，则 `decelerate` 为 true。当滚动结束时，系统调用`scrollViewDidEndDecelerating(_:)`。在这两种情况下，您都应该调用新方法使当前视图居中，因为当用户拖动滚动视图后当前视图可能已更改。
+`scrollViewDidEndDragging(_:willDecelerate:)` 在用户完成拖拽时通知代理，如果 scrollView 尚未完全停止，则 `decelerate` 为 true。当滚动结束时，系统调用`scrollViewDidEndDecelerating(_:)`。在这两种情况下，你都应该调用新方法使当前视图居中，因为当用户拖动滚动视图后当前视图可能已更改。
 
 最后不要忘记设置代理，将以下代码添加到 `initializeScrollView()` 的最开头：
 
@@ -270,7 +270,7 @@ extension HorizontalScrollerView: UIScrollViewDelegate {
 scroller.delegate = self
 ```
 
-您的 `HorizontalScrollerView` 已准备就绪！看一下您刚刚编写的代码，你会看到没有任何地方有出现 `Album` 或 `AlbumView` 类。这非常棒，因为这意味着新的滚动器真正实现了独立并且可复用。
+你的 `HorizontalScrollerView` 已准备就绪！看一下你刚刚编写的代码，你会看到没有任何地方有出现 `Album` 或 `AlbumView` 类。这非常棒，因为这意味着新的滚动器真正实现了独立并且可复用。
 
 编译项目确保可以正常通过编译。
 
@@ -305,7 +305,7 @@ extension ViewController: HorizontalScrollerViewDelegate {
 
 这是在调用此代理方法时发生的事情：
 
-1. 首先您取到之前选择的专辑，然后取消选择专辑封面。
+1. 首先你取到之前选择的专辑，然后取消选择专辑封面。
 2. 存储刚刚点击的当前专辑封面的索引
 3. 取得当前所选的专辑封面并显示高亮状态。
 4. 在 tableView 中显示新专辑的数据
@@ -331,9 +331,9 @@ extension ViewController: HorizontalScrollerViewDataSource {
 }
 ```
 
-正如您所看到的，`numberOfViews(in:)` 是返回 scrollView 中 View 的个数的协议方法。由于 scrollView 将显示所有专辑数据的封面，因此 count 就是专辑记录的数量。在 `horizontalScrollerView(_:viewAt:)` 里你创建一个新的 `AlbumView`，如果它是所选的专辑，则高亮显示它，再将它传递给 `HorizontalScrollerView`。
+正如你所看到的，`numberOfViews(in:)` 是返回 scrollView 中 View 的个数的协议方法。由于 scrollView 将显示所有专辑数据的封面，因此 count 就是专辑记录的数量。在 `horizontalScrollerView(_:viewAt:)` 里你创建一个新的 `AlbumView`，如果它是所选的专辑，则高亮显示它，再将它传递给 `HorizontalScrollerView`。
 
-基本完成了！只用三个简短的方法就能显示出一个漂亮的 scrollView。您现在需要设置数据源和代理。在 `viewDidLoad` 中的 `showDataForAlbum(at:)` 之前添加以下代码：
+基本完成了！只用三个简短的方法就能显示出一个漂亮的 scrollView。你现在需要设置数据源和代理。在 `viewDidLoad` 中的 `showDataForAlbum(at:)` 之前添加以下代码：
 
 ```swift
 horizontalScrollerView.dataSource = self
@@ -341,15 +341,15 @@ horizontalScrollerView.delegate = self
 horizontalScrollerView.reload()
 ```
 
-编译并运行您的项目，就可以看到漂亮的水平滚动视图：
+编译并运行你的项目，就可以看到漂亮的水平滚动视图：
 
 ![Album cover scroller ](https://koenig-media.raywenderlich.com/uploads/2017/07/ScrollerNoImages-180x320.png)
 
 呃，等一下！水平滚动视图已就位，但专辑的封面在哪里呢？
 
-啊，没错，你还没有实现下载封面的代码。为此，您需要添加下载图像的方法，而且您对服务的所有访问都通过一个所有新方法必经的一层 `LibraryAPI`。但是，首先要考虑以下几点：
+啊，没错，你还没有实现下载封面的代码。为此，你需要添加下载图像的方法，而且你对服务的所有访问都通过一个所有新方法必经的一层 `LibraryAPI`。但是，首先要考虑以下几点：
 
-1. `AlbumView` 不应直接与 `LibraryAPI` 一起使用，您不会希望将 View 里的逻辑与通信逻辑混合在一起的。
+1. `AlbumView` 不应直接与 `LibraryAPI` 一起使用，你不会希望将 View 里的逻辑与通信逻辑混合在一起的。
 2. 出于同样的原因，`LibraryAPI` 不应该牵连 `AlbumView`。
 3. 当封面被下载完成，`LibraryAPI` 需要通知 `AlbumView` 因为 `AlbumView` 得显示封面。
 
@@ -369,7 +369,7 @@ Cocoa 以两种方式实现了观察者模式：**通知** 和 **键值监听（
 
 不要与推送通知或本地通知混淆，观察者模式的通知基于订阅和发布模型，该模型允许对象（发布者）将消息发送到其他对象（订阅者或监听者），而且发布者永远不需要了解有关订阅者的任何信息。
 
-Apple 会大量使用通知。例如，当显示或隐藏键盘时，系统分别发送 `UIKeyboardWillShow` 和 `UIKeyboardWillHide` 通知。当您的应用程序转入后台运行时，系统会发送一个 `UIApplicationDidEnterBackground` 通知。
+Apple 会大量使用通知。例如，当显示或隐藏键盘时，系统分别发送 `UIKeyboardWillShow` 和 `UIKeyboardWillHide` 通知。当你的应用程序转入后台运行时，系统会发送一个 `UIApplicationDidEnterBackground` 通知。
 
 ### 如何使用通知
 
@@ -383,7 +383,7 @@ extension Notification.Name {
 }
 ```
 
-您正在使用自定义通知扩展的 `Notification.Name`，从现在开始，新的通知可以像系统通知一样用 `.BLDownloadImage` 访问。
+你正在使用自定义通知扩展的 `Notification.Name`，从现在开始，新的通知可以像系统通知一样用 `.BLDownloadImage` 访问。
 
 打开 **AlbumView.swift** 并将以下代码插入到 `init(frame:coverUrl:)` 方法的最后：
 
@@ -419,7 +419,7 @@ private var cache: URL {
 }
 ```
 
-此变量返回缓存目录的 URL，它是一个存储了您可以随时重新下载的文件的好地方。
+此变量返回缓存目录的 URL，它是一个存储了你可以随时重新下载的文件的好地方。
 
 现在添加以下两个方法：
 
@@ -478,31 +478,31 @@ func getImage(with filename: String) -> UIImage? {
 3. 如果尚未下载图像，则使用 `HTTPClient` 检索。
 4. 下载完成后，在 imageView 中显示图像，并使用 `PersistencyManager` 将其保存在本地。
 
-再一次的，您使用外观模式隐藏了从其他类下载图像这一复杂的过程。通知发送者并不关心图像是来自网络下载还是来自本地的存储。
+再一次的，你使用外观模式隐藏了从其他类下载图像这一复杂的过程。通知发送者并不关心图像是来自网络下载还是来自本地的存储。
 
-编译并运行您的应用程序，现在能看到 collectionView 中漂亮的封面：
+编译并运行你的应用程序，现在能看到 collectionView 中漂亮的封面：
 
 ![Album app showing cover art but still with spinners](https://koenig-media.raywenderlich.com/uploads/2017/07/CoversAndSpinners-180x320.png)
 
-停止您的应用并再次运行它。请注意加载封面没有延迟，这是因为它们已在本地保存了。您甚至可以断开与互联网的连接，应用程序仍将完美运行。然而这里有一个奇怪的地方，旋转加载的动画永远不会停止！这是怎么回事？
+停止你的应用并再次运行它。请注意加载封面没有延迟，这是因为它们已在本地保存了。你甚至可以断开与互联网的连接，应用程序仍将完美运行。然而这里有一个奇怪的地方，旋转加载的动画永远不会停止！这是怎么回事？
 
-您在下载图像时开始了旋转动画，但是在下载图像后，您并没有实现停止加载动画的逻辑。您 **本来应该** 在每次下载图像时发送通知，但是下面您将使用键值监听（KVO）来执行此操作。
+你在下载图像时开始了旋转动画，但是在下载图像后，你并没有实现停止加载动画的逻辑。你 **本来应该** 在每次下载图像时发送通知，但是下面你将使用键值监听（KVO）来执行此操作。
 
 ### 键值监听（KVO）
 
-In KVO, an object can ask to be notified of any changes to a specific property; either its own or that of another object. If you're interested, you can read more about this on [Apple's KVO Programming Guide](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html).
+在 KVO 中，对象可以监听一个特定属性的任何更改，要么是自己的属性，要么就是另一个对象的。如果你有兴趣，可以阅读 [KVO 开发文档](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html) 中的更多关信息。
 
-### How to Use the KVO Pattern
+### 如何使用键值监听
 
-As mentioned above, the KVO mechanism allows an object to observe changes to a property. In your case, you can use KVO to observe changes to the `image` property of the `UIImageView` that holds the image.
+如上所述，键值监听机制允许对象观察属性的变化。在你的案例中，你可以使用键值监听来监听显示图片的 `UIImageView` 里 `image` 属性的更改。
 
-Open **AlbumView.swift** and add the following property just below the `private var indicatorView: UIActivityIndicatorView!` declaration:
+打开 **AlbumView.swift** 并在 `private var indicatorView: UIActivityIndicatorView!` 的声明下面添加以下属性：
 
 ```swift
 private var valueObservation: NSKeyValueObservation!
 ```
 
-Now add the following code to `commonInit`, just before you add the cover image view as a subview:
+在添加封面的 imageView 做为子视图之前，将以下代码添加到`commonInit`：
 
 ```swift
 valueObservation = coverImageView.observe(\.image, options: [.new]) { [unowned self] observed, change in
@@ -512,59 +512,59 @@ valueObservation = coverImageView.observe(\.image, options: [.new]) { [unowned s
 }
 ```
 
-This snippet of code adds the image view as an observer for the `image` property of the cover image. `\.image` is the key path expression that enables this mechanism.
+这段代码将 imageView 做为封面图片的 `image` 属性的观察者。`\.image` 是一个启用此功能的 keyPath 表达式。
 
-In Swift 4, a key path expression has the following form:
+在 Swift 4 中，keyPath 表达式具有以下形式：
 
 ```
 \<type>.<property>.<subproperty>
 ```
 
-The **type** can often be inferred by the compiler, but at least 1 **property** needs to be provided. In some cases, it might make sense to use properties of properties. In your case, the property name, `image` has been specified, while the type name `UIImageView` has been omitted.
+**type** 通常可以由编译器推断，但至少需要提供一个 **property**。在某些情况下，使用属性的属性可能是有意义的。在你现在的情况下，我们已指定属性名称 `image`，而省略了类型名称 `UIImageView`。
 
-The trailing closure specifies the closure that is executed every time an observed property changes. In the above code, you stop the spinner when the `image` property changes. This way, when an image is loaded, the spinner will stop spinning.
+尾随闭包指定了在每次观察到的属性更改时执行的闭包。在上面的代码中，当 `image` 属性更改时，你要停止加载的旋转动画。这样做了之后，当图片加载完成，旋转动画就会停止。
 
-Build and run your project. The spinner should disappear:
+编译并运行你的项目，加载中的旋转动画将会消失：
 
 ![How the album app will look when the design patterns tutorial is complete](https://koenig-media.raywenderlich.com/uploads/2017/07/FinalApp-180x320.png)
 
-**Note:** Always remember to remove your observers when they're deinited, or else your app will crash when the subject tries to send messages to these non-existent observers! In this case the `valueObservation` will be deinited when the album view is, so the observing will stop then.
+**注意：** 要始终记得在它们被销毁时删除你的观察者，否则当对象试图向这些不存在的观察者发送消息时，你的应用程序将崩溃！在这种情况下，当相册视图被移除，`valueObservation` 将被销毁，因此监听将会停止。
 
-If you play around with your app a bit and terminate it, you'll notice that the state of your app isn't saved. The last album you viewed won't be the default album when the app launches.
+如果你稍微使用一下你的应用然后就终止它，你会注意到你的应用状态并未保存。应用程序启动时，你查看的最后一张专辑将不是默认专辑。
 
-To correct this, you can make use of the next pattern on the list: **Memento**.
+要更正此问题，你可以使用之前列表中接下来的一个模式：**备忘录**。
 
-## The Memento Pattern
+## 备忘录模式
 
-The memento pattern captures and externalizes an object's internal state. In other words, it saves your stuff somewhere. Later on, this externalized state can be restored without violating encapsulation; that is, private data remains private.
+备忘录模式捕获并使对象的内部状态暴露出来。换句话讲，它可以在某处保存你的东西，稍后在不违反封装的原则下恢复此对外暴露的状态。也就是说，私有数据仍然是私有的。
 
-## How to Use the Memento Pattern
+## 如何使用备忘录模式
 
-iOS uses the Memento pattern as part of **State Restoration**. You can find out more about it by reading our [tutorial](https://www.raywenderlich.com/117471/state-restoration-tutorial), but essentially it stores and re-applies your application's state so the user is back where they left things.
+iOS 使用备忘录模式作为 **状态恢复** 的一部分。你可以通过阅读我们的 [教程]（https://www.raywenderlich.com/117471/state-restoration-tutorial）来了解更多信息，但实质上它会存储并重新应用你的应用程序状态，以便用户回到上次操作的状态。
 
-To activate state restoration in the app, open **Main.storyboard**. Select the **Navigation Controller** and, in the **Identity Inspector**, find the **Restoration ID** field and type **NavigationController**.
+要在应用程序中激活状态恢复，请打开 **Main.storyboard**，选择 **Navigation Controller**，然后在 **Identity Inspector** 中找到 **Restoration ID** 字段并输入 **NavigationController**。
 
-Select the **Pop Music** scene and enter **ViewController** for the same field. These IDs tell iOS that you're interested in restoring state for those view controllers when the app restarts.
+选择 **Pop Music** scene 并在刚才的位置输入 **ViewController**。这些 ID 会告诉系统，当应用重新启动时，你想要恢复这些 viewController 的状态。
 
-Add the following code to **AppDelegate.swift**:
+在 **AppDelegate.swift** 中添加以下代码：
 
 ```swift
-func application(** application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
+func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
   return true
 }
 
-func application(** application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
+func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
   return true
 }
 ```
 
-This code turns on state restoration for your app as a whole. Now, add the following code to the `Constants` enum in **ViewController.swift**:
+以下的代码会为你的应用程序打开状态作为一个整体来还原。现在，将以下代码添加到 **ViewController.swift** 中的 `Constants` 枚举中：
 
 ```swift
 static let IndexRestorationKey = "currentAlbumIndex"
 ```
 
-This key will be used to save and restore the current album index. Add the following code:
+这个静态常量将用于保存和恢复当前专辑的索引，现在添加以下代码：
 
 ```swift
 override func encodeRestorableState(with coder: NSCoder) {
@@ -580,38 +580,38 @@ override func decodeRestorableState(with coder: NSCoder) {
 }
 ```
 
-Here you are saving the index (this will happen when your app enters the background) and restoring it (this will happen when the app is launched, after the view of your view controller is loaded). After you restore the index, you update the table and scroller to reflect the updated selection. There's one more thing to be done - you need to move the scroller to the right position. It won't look right if you move the scroller here, because the views haven't yet been laid out. Add the following code to move the scroller at the right point:
+你将在这里保存索引（该操作在应用程序进入后台时进行）并恢复它（该操作在应用程序启动时加载完成 controller 中的 view 后进行）。还原索引后，更新 tableView 和 scrollView 以显示更新之后的选中状态。还有一件事要做，那就是你需要将 scrollView 滚动到正确的位置。如果你在此处移动 scrollView，这样是行不通的，因为 view 尚未布局完毕。下面请在正确的地方添加代码让 scrollView 滚动到对应的 view：
 
 ```swift
-override func viewDidAppear(** animated: Bool) {
+override func viewDidAppear(_ animated: Bool) {
   super.viewDidAppear(animated)
   horizontalScrollerView.scrollToView(at: currentAlbumIndex, animated: false)
 }
 ```
 
-Build and run your app. Navigate to one of the albums, send the app to the background with the Home button (**Command+Shift+H** if you are on the simulator) and then shut down your app from Xcode. Relaunch, and check that the previously selected album is the one centered:
+编译并运行你的应用程序，点击其中一个专辑，然后按一下 Home 键使应用程序进入后台（如果你在模拟器上运行，则也可以按下 **Command+Shift+H**），再从 Xcode 上停止运行你的应用程序并重新启动，看一下之前选择的专辑是否到了中间的位置：
 
 ![How the album app will look when the design patterns tutorial is complete](https://koenig-media.raywenderlich.com/uploads/2017/07/FinalApp-180x320.png)
 
-If you look at `PersistencyManager`'s `init`, you'll notice the album data is hardcoded and recreated every time `PersistencyManager` is created. But it's better to create the list of albums once and store them in a file. How would you save the `Album` data to a file?
+请看一下 `PersistencyManager` 中的 `init` 方法，你会注意到每次创建 `PersistencyManager` 时都会对专辑数据进行硬编码并重新创建。但其实更好的解决方案是一次性创建好专辑列表并将其存储在文件中。那你该如何将 `Album` 的数据保存到文件中呢？
 
-One option is to iterate through `Album`'s properties, save them to a plist file and then recreate the `Album` instances when they're needed. This isn't the best option, as it requires you to write specific code depending on what data/properties are there in each class. For example, if you later created a `Movie` class with different properties, the saving and loading of that data would require new code.
+方案之一是遍历 `Album` 的属性并将它们保存到 plist 文件，然后在需要时重新创建 `Album` 实例，但这并不是最佳的，因为它要求你根据每个类中的数据或属性编写特定代码，如果你以后创建了具有不同属性的 `Movie` 类，则保存和加载该数据都将需要重写新的代码。
 
-Additionally, you won't be able to save the private variables for each class instance since they are not accessible to an external class. That's exactly why Apple created **archiving and serialization** mechanisms.
+此外，你将无法为每个类实例保存私有变量，因为外部类并不难访问它们，这就是为什么 Apple 要创建 **归档和序列化** 机制。
 
-### Archiving and Serialization
+### 归档和序列化
 
-One of Apple's specialized implementations of the Memento pattern can be achieved through archiving and serialization. Before Swift 4, to serialize and archive your custom types you'd have to jump through a number of steps. For class types you'd need to subclass `NSObject` and conform to `NSCoding` protocol.
+Apple 的备忘录模式的一个专门实现方法是通过归档和序列化。在 Swift 4 之前，为了序列化和保存你的自定义类型，你必须经过许多步骤。对于 `类` 来说，你需要继承自 `NSObject` 并遵行 `NSCoding` 协议。
 
-Value types like `struct` and `enum` required a sub object that can extend `NSObject` and conform to `NSCoding`.
+但是像 `结构体` 和 `枚举` 这样的值类型就需要一个可以扩展 `NSObject` 并遵行 `NSCoding` 的子对象了。
 
-Swift 4 resolves this issue for all these three types: `class`, `struct` and `enum` [[SE-0166]](https://github.com/apple/swift-evolution/blob/master/proposals/0166-swift-archival-serialization.md).
+Swift 4 为 `类`，`结构体` 和 `枚举` 这三种类型解决了这个问题：[[SE-0166]](https://github.com/apple/swift-evolution/blob/master/proposals/0166-swift-archival-serialization.md)。
 
-### How to Use Archiving and Serialization
+### 如何使用归档和序列化
 
-Open **Album.swift** and declare that `Album` implements `Codable`. This protocol is the only thing required to make a Swift type `Encodable` and `Decodable`. If all properties are `Codable`, the protocol implementation is automatically generated by the compiler.
+打开 **Album.swift** 并让 `Album` 遵行 `Codable`。这个协议可以让 Swift 中的类同时遵行 `Encodable` 和 `Decodable`。 如果所有属性都是可 `Codable` 的，则协议的实现由编译器自动生成。
 
-Now your code should look like this:
+你的代码现在看起来会像这样：
 
 ```swift
 struct Album: Codable {
@@ -623,10 +623,10 @@ struct Album: Codable {
 }
 ```
 
-To actually encode the object, you'll need to use an encoder. Open **PersistencyManager.swift** and add the following code:
+要对对象进行编码，你需要使用 encoder。打开 **PersistencyManager.swift** 并添加以下代码：
 
 ```swift
-private var documents: URL {
+private let documents: URL {
   return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 }
 
@@ -644,11 +644,11 @@ func saveAlbums() {
 }
 ```
 
-Here, you're defining a URL where you'll save the file (like you did with `caches`), a constant for the filename, then a method which writes your albums out to the file. And you didn't have to write much code!
+就像使用 `caches` 一样，你将在此定义一个 URL 用来保存文件目录，它是一个存储文件名路径的常量，然后就是将你的专辑数据写入文件的方法，事实上你并不用编写很多的代码！
 
-The other part of the process is decode back the data into a concrete object. You're going to replace that long method where you make the albums and load them from a file instead. Download and unzip [this JSON file](https://koenig-media.raywenderlich.com/uploads/2017/07/albums.json**.zip) and add it to your project.
+该方案的另一部分是将数据解码回具体对象。你现在需要替换掉创建专辑并从文件中加载它们的很长一段的那个方法。下载并解压 [此JSON文件]（https://koenig-media.raywenderlich.com/uploads/2017/07/albums.json_.zip）并将其添加到你的项目中。
 
-Now replace `init` in **PersistencyManager.swift** with the following:
+现在用以下代码替换 **PersistencyManager.swift** 中的 `init` 方法体：
 
 ```swift
 let savedURL = documents.appendingPathComponent(Filenames.Albums)
@@ -664,25 +664,25 @@ if let albumData = data,
 }
 ```
 
-Now, you're loading the album data from the file in the documents directory, if it exists. If it doesn't exist, you load it from the starter file you added earlier, then immediately save it so that it's there in the documents directory next time you launch. `JSONDecoder` is pretty clever - you tell it the type you're expecting the file to contain and it does all the rest of the work for you!
+现在你正在从 documents 目录下的文件中加载专辑数据（如果存在的话）。如果它不存在，则从先前添加的启动文件中加载它，然后就立即保存，那么下次启动时它将会位于文档目录中。`JSONDecoder` 非常智能，你只需告诉它你希望文件包含的类型，它就会为你完成剩下的所有工作！
 
-You may also want to save the album data every time the app goes into the background. I'm going to leave this part as a challenge for you to figure out - some of the patterns and techniques you've learned in these two tutorials will come in handy!
+你可能还希望每次应用进入后台时保存专辑数据，我将把这一部分作为一个挑战让你亲自弄明白其中的原理，你在这两个教程中学到的一些模式还有技术将会派上用场！
 
-## Where to go from here?
+## 接下来该干嘛？
 
-You can download the finished project [here](https://koenig-media.raywenderlich.com/uploads/2017/07/RWBlueLibrary-Part2-Final.zip).
+你可以 [在此](https://koenig-media.raywenderlich.com/uploads/2017/07/RWBlueLibrary-Part2-Final.zip) 下载最终项目。
 
-In this tutorial you saw how to harness the power of iOS design patterns to perform complicated tasks in a straightforward manner. You've learned a lot of iOS design patterns and concepts: Singleton, MVC, Delegation, Protocols, Facade, Observer, and Memento.
+在本教程中你了解了如何利用 iOS 设计模式的强大功能来以很直接的方式执行复杂的任务。你已经学习了很多 iOS 设计模式和概念：单例，MVC，代理，协议，外观，观察者和备忘录。
 
-Your final code is loosely coupled, reusable, and readable. If another developer looks at your code, they'll easily be able to understand what's going on and what each class does in your app.
+你的最终代码将会是耦合度低、可重用并且易读的。如果其他开发者阅读你的代码，他们将能够很轻松地了解每行代码的功能以及每个类在你的应用中的作用。
 
-The point isn't to use a design pattern for every line of code you write. Instead, be aware of design patterns when you consider how to solve a particular problem, especially in the early stages of designing your app. They'll make your life as a developer much easier and your code a lot better!
+其中的关键点是不要为你了使用设计模式而使用它。然而在考虑如何解决特定问题时，请留意设计模式，尤其是在设计应用程序的早期阶段。它们将使作为开发者的你生活变得更加轻松，代码同时也会更好！
 
-The long-standing classic book on the topic is [Design Patterns: Elements of Reusable Object-Oriented Software](http://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/). For code samples, check out the awesome project [Design Patterns implemented in Swift](https://github.com/ochococo/Design-Patterns-In-Swift) on GitHub for many more design patters coded up in Swift.
+关于该文章主题的一本经典书籍是 [Design Patterns: Elements of Reusable Object-Oriented Software](http://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/)。有关代码示例，请查看 GitHub 上一个非常棒的项目 [Design Patterns: Elements of Reusable Object-Oriented Software]（https://github.com/ochococo/Design-Patterns-In-Swift）来取更多在 Swift 中编程中的设计模式。
 
-Finally, be sure to check out [Intermediate Design Patterns in Swift](http://www.raywenderlich.com/86053/intermediate-design-patterns-in-swift "Intermediate Design Patterns in Swift") and our video course [iOS Design Patterns](https://videos.raywenderlich.com/courses/72-ios-design-patterns/lessons/1) for even more design patterns!
+最后请务必查看 [Swift 设计模式进阶]（http://www.raywenderlich.com/86053/intermediate-design-patterns-in-swift) 和我们的视频课程 [iOS Design Patterns]（https://videos.raywenderlich.com/courses/72-ios-design-patterns/lessons/1）来了解更多设计模式！
 
-Have more to say or ask about design patterns? Join in on the forum discussion below!
+
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
