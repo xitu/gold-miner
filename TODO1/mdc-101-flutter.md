@@ -394,7 +394,7 @@ TextField(
 
 ### 编辑 onPressed
 
-添加命令以清除 FlatButton 中 `onPressed:` 函数的每个控制器：
+添加命令以清除 FlatButton 的 `onPressed:` 函数中的每个控制器：
 
 ```
 // TODO：清除文本框（101）
@@ -402,13 +402,13 @@ _usernameController.clear();
 _passwordController.clear();
 ```
 
-保存你的项目。现在当你在文本字段中键入内容后，按下取消按钮将会清空每个文本框。
+保存你的项目。现在当你在文本框中键入内容后，按下取消按钮将会清空每个文本框。
 
-此登陆表单状态良好！让我们将用户带入 Shrine 应用的其余部分。
+此登陆页面状态良好！让我们将用户带入 Shrine 应用的其余部分。
 
 ### 弹出
 
-要忽略此视图，我们希望从导航栈中**弹出**（或者删除）此页面（在 Flutter 中称为**路由**）。
+要取消此视图，我们希望从导航栈中**弹出**（或者删除）此页面（在 Flutter 中称为**路由**）。
 
 > **Navigator** 负责维护一个路由栈，就像 iOS 上的 UINavigationController 一样。_入栈_ 一个路由会将其放置在堆栈的顶部。 _出栈_ 会删除最近添加的路由。在我们程序的 `app.dart` 中，调用 `initialRoute: '/login',` 将登陆屏幕添加到 Navigator ，放到进入到 `home:` 的内容之上。
 >
@@ -451,7 +451,7 @@ _passwordController.clear();
 
 文本框和按钮是 Material 系统中的两个核心组件，但是还有更多！你可以在 Flutter 的 [Material Components 库](https://flutter.io/widgets/material/)中浏览其余小部件。
 
-另外，转到 [MDC 102 Flutter：Material 结构和布局 ](https://codelabs.developers.google.com/codelabs/mdc-102-flutter)了解 MDC-102 所涵盖的 Flutter 组件。
+另外，转到 [MDC 102 Flutter：Material 结构和布局](https://codelabs.developers.google.com/codelabs/mdc-102-flutter)了解 MDC-102 所涵盖的 Flutter 组件。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
