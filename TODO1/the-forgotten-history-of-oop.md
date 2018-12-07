@@ -2,243 +2,243 @@
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-forgotten-history-of-oop.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-forgotten-history-of-oop.md)
-> * 译者：
+> * 译者：[geniusq1981](https://github.com/geniusq1981)
 > * 校对者：
 
-# The Forgotten History of OOP
+# 被遗忘的面向对象编程史
 
-![](https://cdn-images-1.medium.com/max/2000/1*uVpU7iruzXafhU2VLeH4lw.jpeg)
+![](https://user-gold-cdn.xitu.io/2018/12/4/16778a1832d9facc?w=2000&h=910&f=jpeg&s=120724)
 
-Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)
+Smoke Art Cubes to Smoke—MattysFlicks—(CC BY 2.0)
 
-> Note: This is part of the “Composing Software” series on learning functional programming and compositional software techniques in JavaScript ES6+ from the ground up. Stay tuned. There’s a lot more of this to come!  
-> [< Previous](https://github.com/xitu/gold-miner/blob/a9a689ee3df732ea0c9e88207ad6cf0a10ad7d4b/TODO1/abstraction-composition.md) | [<< Start over at Part 1](https://github.com/xitu/gold-miner/blob/a9a689ee3df732ea0c9e88207ad6cf0a10ad7d4b/TODO1/composing-software-an-introduction.md)
+> 注: 这是 "组合软件" 系列的一部分，旨在从头开始学习 Javascript ES6+ 中的函数式编程和组合软件技术。更多内容即将推出，敬请关注！
+> [< 上一篇](https://github.com/xitu/gold-miner/blob/a9a689ee3df732ea0c9e88207ad6cf0a10ad7d4b/TODO1/abstraction-composition.md) | [<< Start over at Part 1](https://github.com/xitu/gold-miner/blob/a9a689ee3df732ea0c9e88207ad6cf0a10ad7d4b/TODO1/composing-software-an-introduction.md)
 
-The functional and imperative programming paradigms we use today were first explored mathematically in the 1930s with lambda calculus and the Turing machine, which are alternative formulations of universal computation (formalized systems which can perform general computation). The Church Turing Thesis showed that lambda calculus and Turing machines are functionally equivalent — that anything that can be computed using a Turing machine can be computed using lambda calculus, and vice versa.
+我们今天使用的函数式和命令式编程范例最早出现于 20 世纪 30 年代，当时使用 Lambda 演算和图灵机进行数学探索，它们是通用计算（可执行通用计算的形式化系统）的替代公式。Church Turing 理论表明，lambda 演算和图灵机是等价的，任何使用图灵机可以做的计算都可以使用 lambda 演算来计算，反之亦然。
 
-> Note: There is a common misconception that Turing machines can compute anything computable. There are classes of problems (e.g., [the halting problem](https://en.wikipedia.org/wiki/Halting_problem)) that can be computable for some cases, but are not generally computable for all cases using Turing machines. When I use the word “computable” in this text, I mean “computable by a Turing machine”.
+> 注：有一个普遍的误解，认为图灵机可以计算任何可计算的问题。但是有一些问题（例如，[停机问题](https://en.wikipedia.org/wiki/Halting_problem)） 在某些情况下是可计算的，但有些情况却是使用图灵机无法计算的。当我在本文中使用“可计算”一词时，我的意思是“可以由图灵机计算”。
 
-Lambda calculus represents a top-down, function application approach to computation, while the ticker tape/register machine formulation of the Turing machine represents a bottom-up, imperative (step-by-step) approach to computation.
+Lambda 演算代表一种自上而下的函数式应用计算方法，而图灵机的纸带/寄存器式的机器公式则代表一种自下而上的、命令式（步进式）计算方法。
 
-Low level languages like machine code and assembly appeared in the 1940s, and by the end of the 1950s, the first popular high-level languages appeared. Lisp dialects are still in common use today, including Clojure, Scheme, AutoLISP, etc. FORTRAN and COBOL both appeared in the 1950s and are examples of imperative high-level languages still in use today, though C-family languages have replaced both COBOL and FORTRAN for most applications.
+从 20 世纪 40 年代，开始出现像机器码和汇编语言这样的低级语言，直到 20 世纪 50 年代末，出现了第一个流行的高级语言。Lisp 语言，当然还包括 Clojure，Scheme，AutoLISP 等语言，直到今天还在被广泛使用。FORTRAN 和 COBOL 都出现在 20 世纪 50 年代，但直到今天还在被当作命令式高级语言的范例在使用，尽管对于大多数应用程序来说，C 族语言已经取代了 COBOL 和 FORTRAN。
 
-Both imperative programming and functional programming have their roots in the mathematics of computation theory, predating digital computers. “Object-Oriented Programming” (OOP) was coined by Alan Kay circa 1966 or 1967 while he was at grad school.
+命令式编程和函数式编程都起源于计算数学理论，它们比数字计算机还要早。“面向对象编程”（OOP）是艾伦·凯（Alan Kay）在 1966 年或 1967 年读研究生时创造的。
 
-Ivan Sutherland’s seminal Sketchpad application was an early inspiration for OOP. It was created between 1961 and 1962 and published in his [Sketchpad Thesis](https://dspace.mit.edu/handle/1721.1/14979) in 1963. The objects were data structures representing graphical images displayed on an oscilloscope screen, and featured inheritance via dynamic delegates, which Ivan Sutherland called “masters” in his thesis. Any object could become a “master”, and additional instances of the objects were called “occurrences”. Sketchpad’s masters share a lot in common with JavaScript’s prototypal inheritance.
+Ivan Sutherland 创新的 Sketchpad 应用程序是 OOP 的早期灵感。它开发于 1961 年至 1962 年，并于 1963 年发表在他的 [Sketchpad 论文](https://dspace.mit.edu/./1721.1/14979) 中。其中对象是表示在示波器屏幕上显示的图像的数据结构，并且通过动态表示具有继承特性，Ivan Sutherland 在他的论文中称之为“masters”。任何对象都可以成为“master”，而对象的其他实例称为“occurrences”。Sketchpad 的 masters 和 JavaScript 的原型链继承有很多共同之处。
 
-> **Note:** The TX-2 at MIT Lincoln Laboratory was one of the early uses of a graphical computer monitor employing direct screen interaction using a light pen. The EDSAC, which was operational between 1948–1958 could display graphics on a screen. The Whirlwind at MIT had a working oscilloscope display in 1949. The project’s motivation was to create a general flight simulator capable of simulating instrument feedback for multiple aircraft. That led to the development of the SAGE computing system. [The TX-2 was a test computer for SAGE](http://www.computerhistory.org/revolution/real-time-computing/6/123).
+> **注意：** 麻省理工学院林肯实验室的 TX-2 是使用激光笔直接进行屏幕交互的图形计算机显示器的早期用途之一。1948-1958 运行的 EDSAC，可以在屏幕上显示图形。1949 年，麻省理工学院的“旋风”项目使用了一个示波器。该项目的动机是创建一个能够模拟多架飞机仪器反馈的通用飞行模拟器。这引领了 SAGE 计算系统的发展。[TX-2 是 SAGE 的测试计算机](http://www.computerhistory.org/revolution/real-time-computing/6/123)。
 
-The first programming language widely recognized as “object oriented” was Simula, specified in 1965. Like Sketchpad, Simula featured objects, and eventually introduced classes, class inheritance, subclasses, and virtual methods.
+提出于 1965 年的 simula 语言，是第一个被广泛认可的“面向对象”的编程语言。与 Sketchpad 一样，Simula 使用了对象，甚至还引入了类，类继承，子类和虚方法。
 
-> Note: A **virtual method** is a method defined on a class which is designed to be overridden by subclasses. Virtual methods allow a program to call methods that may not exist at the moment the code is compiled by employing dynamic dispatch to determine what concrete method to invoke at runtime. JavaScript features dynamic types and uses the delegation chain to determine which methods to invoke, so does not need to expose the concept of virtual methods to programmers. Put another way, all methods in JavaScript use runtime method dispatch, so methods in JavaScript don’t need to be declared “virtual” to support the feature.
+> 注意：**虚方法**是定义在类上的方法，它被设计为可以被子类重写。虚方法允许程序动态指定在编译代码时可能不存在的方法，以此确定在运行时调用哪个具体方法。JavaScript 具有动态类型，并使用委托链来确定要调用的方法，因此不需要向开发者再提供虚方法的概念。换句话说，JavaScript 中的所有方法都是运行时进行动态调度，因此 JavaScript 中的方法不需要声明为“虚方法”。
 
-### The Big Idea
+ ### 伟大的想法
 
-> _“I made up the term ‘object-oriented’, and I can tell you I didn’t have C++ in mind.” ~ Alan Kay, OOPSLA ‘97_
+> “我使用'面向对象'这个术语，我告诉你我并没有考虑到 C++。” Alan Kay，OOPSLA '97
 
-Alan Kay coined the term “object oriented programming” at grad school in 1966 or 1967. The big idea was to use encapsulated mini-computers in software which communicated via message passing rather than direct data sharing — to stop breaking down programs into separate “data structures” and “procedures”.
+Alan Kay 在 1966 或 1967 年间在研究生院创造了“面向对象编程”一词。这个伟大的想法是想在软件中使用封装好的微型计算机，通过消息传递而不是直接的数据共享， 以此来防止将程序分裂为单独的“数据结构“和“程序”。
 
-“The basic principal of recursive design is to make the parts have the same power as the whole.” ~ Bob Barton, the main designer of the B5000, a mainframe optimized to run Algol-60.
+“递归设计的基本原理是使局部具有与整体相同的能力。”BB Barton，B5000 的主要设计者，这是一个经过优化来运行 Algol-60 的主机。
 
-Smalltalk was developed by Alan Kay, Dan Ingalls, Adele Goldberg, and others at Xerox PARC. Smalltalk was more object-oriented than Simula — everything in Smalltalk is an object, including classes, integers, and blocks (closures). The original Smalltalk-72 did not feature subclassing. [That was introduced in Smalltalk-76 by Dan Ingalls](http://worrydream.com/EarlyHistoryOfSmalltalk).
+Smalltalk 由 Alan Kay，Dan Ingalls，Adele Goldberg 和 Xerox PARC 的其他人一起开发。Smalltalk 比 Simula 更加面向对象 - Smalltalk 中的所有东西都是对象，包括类，整数和块(闭包)。最初的 Smalltalk-72 不支持创建子类。[创建子类是由 Dan Ingalls 在 Smalltalk-76 中引入的](http://worrydream.com/EarlyHistoryOfSmalltalk)。
 
-While Smalltalk supported classes and eventually subclassing, Smalltalk was not about classes or subclassing things. It was a functional language inspired by Lisp as well as Simula. Alan Kay considers the industry’s focus on subclassing to be a distraction from the true benefits of object oriented programming.
+尽管 Smalltalk 支持类并最终支持创建子类，但 Smalltalk 不只是关于类或创建子类的。它是受到 Lisp 和 Simula 启发的功能语言。Alan Kay 认为业界对子类过度关注而由此忽略了面向对象编程带来的真正好处。
 
-> “I’m sorry that I long ago coined the term “objects” for this topic because it gets many people to focus on the lesser idea. The big idea is messaging.”  
-> ~ Alan Kay
+>“我很抱歉，我很久以前为这个话题创造了“对象“一词，而因为它让很多人专注于细枝末节。实际上真正重要的是消息传递。”
+> ~Alan Kay
 
-In [a 2003 email exchange](http://www.purl.org/stefan_ram/pub/doc_kay_oop_en), Alan Kay clarified what he meant when he called Smalltalk “object-oriented”:
+在 [2003 年的电子邮件](http://www.purl.org/stefan_ram/pub/doc_kay_oop_en) 中，Alan Kay 阐明了他为什么称 Smalltalk 为“面向对象”：
 
-> “OOP to me means only messaging, local retention and protection and hiding of state-process, and extreme late-binding of all things.”  
-> ~ Alan Kay
+> “OOP 对我来说意味着消息传递，对状态进程的本地保留保护和隐藏，以及对所有事物的动态绑定。”
+> ~Alan Kay
 
-In other words, according to Alan Kay, the essential ingredients of OOP are:
+换句话说，根据 Alan Kay 的说法，OOP 的基本要素是：
 
-*   Message passing
-*   Encapsulation
-*   Dynamic binding
+ * 消息传递
+ * 封装
+ * 动态绑定
 
-Notably, inheritance and subclass polymorphism were NOT considered essential ingredients of OOP by Alan Kay, the man who coined the term and brought OOP to the masses.
+显然，创造了这个术语，并为我们带来 OOP 的 Alan Kay 并不认为继承和子类多态性是 OOP 的必要组成部分。
 
-### The Essence of OOP
+ ### OOP 的本质
 
-The combination of message passing and encapsulation serve some important purposes:
+消息传递和封装的结合有一些重要的目的：
 
-*   **Avoiding shared mutable state** by encapsulating state and isolating other objects from local state changes. The only way to affect another object’s state is to ask (not command) that object to change it by sending a message. State changes are controlled at a local, cellular level rather than exposed to shared access.
-*   **Decoupling** objects from each other — the message sender is only loosely coupled to the message receiver, through the messaging API.
-*   **Adaptability and resilience to changes** at runtime via late binding. Runtime adaptability provides many great benefits that Alan Kay considered essential to OOP.
+* **避免共享可变状态**，通过封装状态并将其他对象与本地状态更改隔离开来。影响另一个对象状态的唯一方法是通过发送消息来请求(而不是命令)该对象来更改它。状态变化由局部控制，蜂窝级别，而不是暴露于共享访问。
+ * **解耦** - 通过消息传递 API，消息发送者与消息接收者松散耦合。
+ * **适应变化**，通过动态绑定在运行时适应变化。Alan Kay 认为运行的时适应性给 OOP 带来很多至关重要的好处。
 
-These ideas were inspired by biological cells and/or individual computers on a network via Alan Kay’s background in biology and influence from the design of Arpanet (an early version of the internet). Even that early on, Alan Kay imagined software running on a giant, distributed computer (the internet), where individual computers acted like biological cells, operating independently on their own isolated state, and communicating via message passing.
+这些想法的灵感来自于生物细胞和/或网络上的个人计算机，受到 Alan Kay 的生物学背景和 Arpanet(早期版本的互联网)的设计影响。在想法提出之前，Alan Kay 就想象软件运行在巨大的分布式计算机(互联网)上，个人计算机就像生物细胞一样，在自己的孤立状态下独立运行，并通过消息传递进行通信。
 
-> “I realized that the cell/whole-computer metaphor would get rid of data\[…\]”  
-> ~ Alan Kay
+> “我意识到细胞与整个计算机类比会脱离数据\ [... \]”
+>  ~Alan Kay
 
-By “get rid of data”, Alan Kay was surely aware of shared mutable state problems and tight coupling caused by shared data — common themes today.
+通过“脱离数据”，Alan Kay 意识到共享可变状态的问题和由共享数据引起的耦合问题 - 这些都是今天的普遍问题。
 
-But in the late 1960s, [ARPA programmers were frustrated by the need to choose a data model representation](https://www.rand.org/content/dam/rand/pubs/research_memoranda/2007/RM5290.pdf) for their programs in advance of building software. Procedures that were too tightly coupled to particular data structures were not resilient to change. They wanted a more homogenous treatment of data.
+但是在 20 世纪 60 年代后期，[ARPA 程序员对在程序编写之前选择数据模型的需求感到沮丧](https://www.rand.org/content/dam/rand/pubs/research_memoranda/2007/RM5290.pdf)。程序与特定数据结构过度耦合使得程序无法适应变化。他们希望对数据进行更加统一的处理。
 
-> “[…] the whole point of OOP is not to have to worry about what is inside an object. Objects made on different machines and with different languages should be able to talk to each other […]” ~ Alan Kay
+>“[...] OOP 的核心是不需要再关心对象内部的内容。使用不同机器和不同语言开发的对象应该可以互相交通信[...]” ~ Alan Kay
 
-Objects can abstract away and hide data structure implementations. The internal implementation of an object could change without breaking other parts of the software system. In fact, with extreme late binding, an entirely different computer system could take over the responsibilities of an object, and the software could keep working. Objects, meanwhile, could expose a standard interface that works with whatever data structure the object happened to use internally. The same interface could work with a linked list, a tree, a stream, and so on.
+对象可以被抽象出来并隐藏数据结构的实现方法。对象的内部实现可以在不破坏软件系统其他部分的情况下进行更改。实际上，通过迟约束，完全不同的计算机系统可以接管对象的功能，并且软件可以继续工作。与此同时，对象可以公开一个标准接口，该接口可以处理对象在内部使用的任何数据结构。相同的接口可以使用链表，树，流等。
 
-Alan Kay also saw objects as algebraic structures, which make certain mathematically provable guarantees about their behaviors:
+Alan Kay 还将对象视为代数结构，这些结构可以通过数学来证明它们的行为：
 
-> “My math background made me realize that each object could have several algebras associated with it, and there could be families of these, and that these would be very very useful.”  
-> ~ Alan Kay
+> “我的数学背景使我意识到每个对象可能有几个与之相关的代数式，可能有代数式族，而这些将会非常有用。”
+> ~Alan Kay
 
-This has proven to be true, and forms the basis for objects such as promises and lenses, both inspired by category theory.
+这已经被证明是对的，并且构成了 promises 和 lenses 等对象的基础，这两个对象都受到类别理论的启发。
 
-The algebraic nature of Alan Kay’s vision for objects would allow objects to afford formal verifications, deterministic behavior, and improved testability, because algebras are essentially operations which obey a few rules in the form of equations.
+Alan Kay 对于对象具有代数性质的观点将允许对象提供公式化验证，确定性行为和改进的可测试性，因为代数本质上是遵循方程式规则的操作。
 
-In programmer lingo, algebras are like abstractions made up of functions (operations) accompanied by specific laws enforced by unit tests those functions must pass (axioms/equations).
+在程序员术语中，代数就像是由函数(操作)组成的抽象，这些函数必须通过单元测试强制执行的特定规则(公理/方程式)。
 
-Those ideas were forgotten for decades in most C-family OO languages, including C++, Java, C#, etc., but they’re beginning to find their way back into recent versions of most widely used OO languages.
+这样的想法在大多数 C 族面向对象语言中被遗忘了几十年，包括 C++，Java，C# 等，但现在在它们的最新版本中正在逐渐找回这样的特性。
 
-You might say the programming world is rediscovering the benefits of functional programming and reasoned thought in the context of OO languages.
+你可能会说编程世界正在重新发现面向对象语言环境中的函数式编程和理性思维带来的优势。
 
-Like JavaScript and Smalltalk before it, most modern OO languages are becoming more and more “multi-paradigm languages”. There is no reason to choose between functional programming and OOP. When we look at the historical essence of each, they are not only compatible, but complementary ideas.
+就像之前的 JavaScript 和 Smalltalk 一样，大多数的现代面向对象语言正变得越来越“多范式”。已经没有理由在函数式编程和面向对象编程之间进行选择。当我们追溯它们各自的历史本源时，它们是既相互兼容，又相互互补的。
 
-Because they share so many features in common, I like to say that JavaScript is Smalltalk’s revenge on the world’s misunderstanding of OOP. Both Smalltalk and JavaScript support:
+因为它们有如此多共通的特性，我想说 JavaScript 是针对世界对面向对象编程的误解的一种反击。Smalltalk 和 JavaScript 都支持：
 
-*   Objects
-*   First-class functions and closures
-*   Dynamic types
-*   Late binding (functions/methods changeable at runtime)
-*   OOP without class inheritance
+ * 对象
+ * 主类函数和闭包
+ * 动态类型
+ * 迟绑定(函数/方法在运行时可更改)
+ * 不支持类继承的面向对象语言
 
-What is essential to OOP (according to Alan Kay)?
+什么是面向对象编程的必要特性(根据 Alan Kay 的说法)？
 
-*   Encapsulation
-*   Message passing
-*   Dynamic binding (the ability for the program to evolve/adapt at runtime)
+ * 封装
+ * 消息传递
+ * 动态绑定(程序在运行时进化/适应的能力)
 
-What is non-essential?
+什么是非必要的特性？
 
-*   Classes
-*   Class inheritance
-*   Special treatment for objects/functions/data
-*   The `new` keyword
-*   Polymorphism
-*   Static types
-*   Recognizing a class as a “type”
+ * 类
+ * 类继承
+ * 对象/函数/数据的特殊处理
+ * `new`关键字
+ * 多态性
+ * 静态类型
+ * 将类识别为“类型”
 
-If your background is Java or C#, you may be thinking static types and Polymorphism are essential ingredients, but Alan Kay preferred dealing with generic behaviors in algebraic form. For example, from Haskell:
+如果您是 Java 或 C# 的开发者，您可能会认为静态类型和多态性是必不可少的成分，但Alan Kay 倾向于以代数形式处理共性行为。例如，来自 Haskell：
 
 ```
-fmap :: (a -> b) -> f a -> f b
+fmap ::(a  - > * b) - > * f a  - > * f b
 ```
 
-This is the functor map signature, which acts generically over unspecified types `a` and `b`, applying a function from `a` to `b` in the context of a functor of `a` to produce a functor of `b`. Functor is math jargon that essentially means “supporting the map operation”. If you're familiar with `[].map()` in JavaScript, you already know what that means.
+这是仿函数映射签名，它通常用于未指定类型`a`和`b`，在`a`的仿函数的上下文中应用从`a`到`b`的函数来生成`b 的仿函数`。仿函数是数学术语，含义是“支持映射操作”。如果您熟悉 JavaScript 中的`[] .map()`，那么您已经知道它的含义是什么。
 
-Here are two examples in JavaScript:
+这是 JavaScript 中的两个例子：
 
 ```
 // isEven = Number => Boolean
 const isEven = n => n % 2 === 0;
 
-const nums = [1, 2, 3, 4, 5, 6];
+const nums = [1， 2， 3， 4， 5， 6];
 
 // map takes a function `a => b` and an array of `a`s (via `this`)
-// and returns an array of `b`s.
-// in this case, `a` is `Number` and `b` is `Boolean`
-const results = nums.map(isEven);
+// and returns an array of `b`s。
+// in this case， `a` is `Number` and `b` is `Boolean`
+const results = nums。map(isEven);
 
 console.log(results);
-// [false, true, false, true, false, true]
+// [false， true， false， true， false， true]
 ```
 
-The `.map()` method is generic in the sense that `a` and `b` can be any type, and `.map()` handles it just fine because arrays are data structures that implement the algebraic `functor` laws. The types don't matter to `.map()` because it doesn't try to manipulate them directly, instead applying a function that expects and returns the correct types for the application.
+`.map()`方法是通用的，因为 `a` 和 `b` 可以是任何类型，而 `.map()` 处理它刚刚好，因为数组是代数上实现 `functor` 规则的数据结构。类型与 `.map()` 无关，因为它不会尝试直接操作它们，而是通过一个函数来返回正确的期望类型。
 
 ```
 // matches = a => Boolean
-// here, `a` can be any comparable type
+// here， `a` can be any comparable type
 const matches = control => input => input === control;
 
-const strings = ['foo', 'bar', 'baz'];
+const strings = ['foo'， 'bar'， 'baz'];
 
-const results = strings.map(matches('bar'));
+const results = strings。map(matches('bar'));
 
 console.log(results);
-// [false, true, false]
+// [false， true， false]
 ```
 
-This generic type relationship is difficult to express correctly and thoroughly in a language like TypeScript, but was pretty easy to express in Haskell’s Hindley Milner types with support for higher kinded types (types of types).
+泛型类型关系很难在 TypeScript 这样的语言中完全正确地表达，但在 Haskell 的 Hindley Milner 类型中很容易表达，因为它支持更高级的类型(类型的类型)。
 
-Most type systems have been too restrictive to allow for free expression of dynamic and functional ideas, such as function composition, free object composition, runtime object extension, combinators, lenses, etc. In other words, static types frequently make it harder to write composable software.
+大多数类型系统有太多的限制，不允许自由表达动态和函数的想法，例如函数组合，自由对象组合，运行时对象扩展，组合器，镜头等。换句话说，静态类型经常会使得组合软件的编写更加困难。
 
-If your type system is too restrictive (e.g., TypeScript, Java), you’re forced to write more convoluted code to accomplish the same goals. That doesn’t mean static types are a bad idea, or that all static type implementations are equally restrictive. I have encountered far fewer problems with Haskell’s type system.
+如果类型系统限制太多(例如 TypeScript，Java)，您将不得不为了实现相同的目标编写更加复杂的代码。这并不是说静态类型是一个糟糕的主意，或者说所有静态类型的实现都具有同样的限制性。我使用 Haskell 类型系统遇到的问题就很少。
 
-If you’re a fan of static types and you don’t mind the restrictions, more power to you, but if you find some of the advice in this text difficult because it’s hard to type composed functions and composite algebraic structures, blame the type system, not the ideas. People love the comfort of their SUVs, but nobody complains that they don’t let you fly. For that, you need a vehicle with more degrees of freedom.
+如果你热衷静态类型，你不会介意这些限制，这会是你更加有掌控力，但是如果你发现一些本文中建议中提到的那些困难，比如很难输入组合函数和复合代数结构，因此就归咎于类型系统，这样并不是可取的想法。人们喜欢 SUV 能给你带来舒适性，但不会有人抱怨 SUV 不能让你飞起来。如果为了追求那样的体验，您需要一辆拥有更多自由度的车辆。
 
-If restrictions make your code simpler, great! But if restrictions force you to write more complicated code, perhaps the restrictions are wrong.
+如果这样的限制能使您的代码更简单，那就太棒了!但是如果这些限制迫使你编写更复杂的代码，那么这样的限制可能就是错误的。
 
-### What is an Object?
+ ### 什么是对象？
 
-Objects have clearly taken on a lot of connotations over the years. What we call “objects” in JavaScript are simply composite data types, with none of the implications from either class-based programming or Alan Kay’s message-passing.
+多年来，对象已经被赋予大量的含义。我们在 JavaScript 中称之为“对象”的只是复合数据类型，没有任何基于类的编程或 Alan Kay 所说的消息传递的含义。
 
-In JavaScript, those objects can and frequently do support encapsulation, message passing, behavior sharing via methods, even subclass polymorphism (albeit using a delegation chain rather than type-based dispatch). You can assign any function to any property. You can build object behaviors dynamically, and change the meaning of an object at runtime. JavaScript also supports encapsulation using closures for implementation privacy. But all of that is opt-in behavior.
+在 JavaScript 中，对象可以并且通常必须支持封装，消息传递，通过方法进行行为共享，甚至子类多态(尽管使用委托链而不是基于类型的调度)。您可以将任何函数赋给任何属性。您可以动态创建对象行为，并在运行时更改对象的含义。JavaScript 还支持使用闭包进行封装以实现隐私。但所有这些都是选择加入的行为。
 
-Our current idea of an object is simply a composite data structure, and does not require anything more to be considered an object. But programming using these kinds of objects does not make your code “object-oriented” any more than programming with functions makes your code “functional”.
+我们现在认为对象只是一个复合数据结构，并不需要其他更多的含义。但是使用这样的对象                     进行编程并不会使您的代码比使用函数编程更加的“面向对象”。
 
-#### OOP is not Real OOP Anymore
+ #### 面向对象不再是真正的面向对象
 
-Because “object” in modern programming languages means much less than it did to Alan Kay, I’m using “component” instead of “object” to describe the rules of _real OOP._ Many _objects_ are owned and manipulated directly by other code in JavaScript, but **components** should encapsulate and control their own state.
+因为现代编程语言中的“对象”意味的比 Alan Kay 设想的要少得多，所以我使用“组件”而不是“对象”来描述真正的面向对象的规则。在 JavaScript 中，许多_objects_可以由其他代码直接拥有和操作，但是**组件**应该封装和控制它们自己的状态。
 
-Real OOP means:
+真正的面向对象的含义：
 
-*   Programming with **components** (Alan Kay’s “object”)
-*   Component state must be encapsulated
-*   Using message passing for inter-object communication
-*   Components can be added/changed/replaced at runtime
+ * 使用**组件**编程(就是 Alan Kay 所说的“对象”)
+ * 必须封装组件状态
+ * 使用消息传递进行对象间通信
+ * 组件可以在运行时被创建/更改/替换
 
-Most component behaviors can be specified generically using algebraic data structures. Inheritance is not needed here. Components can reuse behaviors from shared functions and modular imports without sharing their data.
+大多数组件行为可以使用代数型数据结构进行定义。不需要继承。组件可以通过共用函数和模块化导入来进行重用，而无需共享数据。
 
-Manipulating _objects_ or using _class inheritance_ in JavaScript does not mean that you’re “doing OOP”. Using components in this way _does._ But popular usage is how words get defined, so perhaps we should abandon OOP and call this “Message Oriented Programming (MOP)” instead of “Object Oriented Programming (OOP)”?
+在 JavaScript 中操作_objects_或使用_class inheritance_并不意味着你在“面向对象”。但是这样使用组件就意味着“面向对象”。但流行的用法是如何定义单词，所以也许我们应该放弃面向对象并将其称为“面向消息的编程(MOP)”而不是“面向对象的编程(OOP)”？
 
-Is it coincidence that mops are used to clean up messes?
+拖把被用来清理垃圾是一种巧合吗？
 
-### What Good MOP Looks Like
+ ### 什么是好的面向消息的编程（MOP）
 
-In most modern software, there is some UI responsible for managing user interactions, some code managing application state (user data), and code managing system or network I/O.
+在大多数现代软件中，有一些负责管理用户交互的界面，还有管理应用程序状态(用户数据)，代码管理系统或者网络 I/O 的代码。
 
-Each of those systems may require long-lived processes, such as event listeners, state to keep track of things like the network connection, ui element status, and the application state itself.
+每个系统可能都需要长期驻留的进程，例如事件监听器，跟踪网络连接状态，界面元素状态和应用程序状态等。
 
-Good MOP means that instead of all of these systems reaching out and directly manipulating each other’s state, the system communicates with other components via message dispatch. When the user clicks on a save button, a `"SAVE"` message might get dispatched, which an application state component might interpret and relay to a state update handler (such as a pure reducer function). Perhaps after the state has been updated, the state component might dispatch a `"STATE_UPDATED"` message to a UI component, which in turn will interpret the state, reconcile what parts of the UI need to be updated, and relay the updated state to the subcomponents that handle those parts of the UI.
+好的 MOP 意味着系统是通过消息调度与其他组件通信，不是各个系统去直接操纵彼此的状态。当用户单击保存按钮时，可能会调度“保存”消息，应用程序状态组件可能会将其解析并转发到状态更新处理程序(例如纯缩减器函数)。也许在状态更新之后，状态组件可能会向界面组件发送一个“状态更新”的消息，而界面组件又将解析状态，协调界面的哪些部分需要更新，并将更新后的状态转发给处理界面的子组件。
 
-Meanwhile, the network connection component might be monitoring the user’s connection to another machine on the network, listening for messages, and dispatching updated state representations to save data on a remote machine. It’s internally keeping track of a network heartbeat timer, whether the connection is currently online or offline, and so on.
+同时，网络连接组件可能正在监视用户与网络上另一台计算机的连接，侦听消息以及调度更新状态以便在远程计算机上保存数据。它在内部保持网络心跳计时器，无论当前连接是在线还是离线。
 
-These systems don’t need to know about the details of the other parts of the system. Only about their individual, modular concerns. The system components are decomposable and recomposable. They implement standardized interfaces so that they are able to interoperate. As long as the interface is satisfied, you could substitute replacements which may do the same thing in different ways, or completely different things with the same messages. You may even do so at runtime, and everything would keep working properly.
+这些系统不需要知道系统其他部分的细节。只需要关注自身的模块化问题。系统组件是可分解和可重新组合的。它们实现标准化接口，以便它们能够相互操作。只要接口满足，您就可以用使用其他实现方式来替换当前的方式，或在不同的事物之间使用相同的消息通信。你甚至可以在运行时进行切换，一切都会照常工作。
 
-Components of the same software system may not even need to be located on the same machine. The system could be decentralized. The network storage might shard the data across a decentralized storage system like [IPFS](https://en.wikipedia.org/wiki/InterPlanetary_File_System), so that the user is not reliant on the health of any particular machine to ensure their data is safely backed up, and safe from hackers who might want to steal it.
+同一个软件系统的组件甚至都不需要位于同一台机器上。系统可以是分布式的。网络存储可能会在分布式存储系统中共享数据，比如[IPFS](https://en。wikipedia。org/wiki/InterPlanetary_File_System)，因此用户不会依赖任何特定计算机的运行状况来确保其数据的安全，以免遭受来自黑客的安全威胁。
 
-OOP was partially inspired by Arpanet, and one of the goals of Arpanet was to build a decentralized network that could be resilient to attacks like atomic bombs. According to director of DARPA during Arpanet development, Stephen J. Lukasik ([“Why the Arpanet Was Built”](https://ieeexplore.ieee.org/document/5432117)):
+面向对象部分受到 Arpanet 的启发，Arpanet 的目标之一是构建一个分布式网络，可以抵御像原子弹那样的攻击。根据 DARPA 总监 Stephen J. Lukasik 在 Arpanet 开发期间所说([“为什么建立 Arpanet”](https://ieeexplore。ieee。org/document/5432117))：
 
-> “The goal was to exploit new computer technologies to meet the needs of military command and control against nuclear threats, achieve survivable control of US nuclear forces, and improve military tactical and management decision making.”
+> “我们的目标是开发新的计算机技术，以满足军事上抵抗核威胁的需要，实现对美国核力量的控制，并改善军事战术和管理决策。”
 
-**_Note:_** _The primary impetus of Arpanet was convenience rather than nuclear threat, and its obvious defense advantages emerged later. ARPA was using three separate computer terminals to communicate with three separate computer research projects. Bob Taylor wanted a single computer network to connect each project with the others._
+> **注** Arpanet 的主要推动力是方便而不是核威胁，其明显的防御优势是后来提出的。ARPA 使用三个独立的计算机终端与三个独立的计算机研究项目进行通信。Bob Taylor 想要一个单独的计算机网络将每个项目与其他项目连接起来。
 
-A good MOP system might share the internet’s robustness using components that are hot-swappable while the application is running. It could continue to work if the user is on a cell phone and they go offline because they entered a tunnel. It could continue to function if a hurricane knocks out the power to one of the data centers where servers are located.
+一个好的 MOP 系统可以在应用程序运行时使用可热插拔的组件来共享互联网的健壮性。如果用户在使用手机时因为进入一条隧道而发生离线，它可以继续工作。如果飓风将其中一个数据中心的电源摧毁，它仍然可以继续运行。
 
-It’s time for the software world to let go of the failed class inheritance experiment, and embrace the math and science principles that originally defined the spirit of OOP.
+现在是时候让软件世界放弃失败的类继承实验了，转而接受最初定义面向对象时所秉承的数学和科学精髓。
 
-It’s time for us to start building more flexible, more resilient, better-composed software, with MOP and functional programming working in harmony.
+现在是时候开始构建更灵活，更具弹性，更容易组合的软件了，让 MOP 和函数编程协调工作。
 
-> Note: The MOP acronym is already used to describe “monitoring-oriented programming” and its unlikely OOP is going to go away quietly.
+> 注意：MOP 的首字母缩略词已被用于描述“面向监视的编程”，OOP 不太可能的会悄无声息的消失。
 
-> Don’t be upset if MOP doesn’t catch on as programming lingo.  
-> Do MOP up your OOPs.
+> 如果 MOP 没有成为编程术语，请不要沮丧。
+> 在你的 OOP 基础上开始 MOP。
 
-### Learn More at EricElliottJS.com
+### 通过 EricElliottJS.com 了解更多信息
 
-Video lessons on functional programming are available for members of EricElliottJS.com. If you’re not a member, [sign up today](https://ericelliottjs.com/).
+EricElliottJS.com 的会员可以观看函数编程的相关视频。如果您还不是会员，请[今天注册](https://ericelliottjs.com/)。
 
-* * *
+ * * *
 
-**_Eric Elliott_** _is the author of_ [_“Programming JavaScript Applications”_](http://pjabook.com) _(O’Reilly), and cofounder of the software mentorship platform,_ [_DevAnywhere.io_](https://devanywhere.io/)_. He has contributed to software experiences for_ **_Adobe Systems_**_,_ **_Zumba Fitness_**_,_ **_The Wall Street Journal_**_,_ **_ESPN_**_,_ **_BBC_**_, and top recording artists including_ **_Usher_**_,_ **_Frank Ocean_**_,_ **_Met_**
+ **_Eric Elliott_** _是_ [_“编程 JavaScript 应用程序”_](http://pjabook.com)_(O'Reilly)的作者，软件导师平台_[_DevAnywhere.io_](https://devanywhere。io/) _的联合创始人_ 。_他是很多软件的贡献者_， **_Adobe Systems_** ，**_Zumba Fitness_**，**_华尔街日报_**，**_ESPN_**，**_BBC_**， _还和顶级的唱片艺人合作，包括_**_Usher, Frank Ocean, Met_**。
 
-> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到[掘金翻译计划](https://github.com/xitu/gold-miner)对译文进行修改并 PR，也可获得相应奖励积分。文章开头的**本文永久链接**即为本文在 GitHub 上 的 MarkDown 链接。
 
 
----
+ ......
 
-> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+> [Nuggets Translation Program] (https://github.com/xitu/gold-miner) is a community that translates high-quality Internet technology articles from [Nuggets] (https://juejin。im)Share articles in English。Content coverage [Android] (https://github.com/xitu/gold-miner#android)， [iOS] (https://github.com/xitu/gold-miner#ios)， [front end] (https://github.com/xitu/gold-miner# frontend)， [backend] (https://github.com/xitu/gold-miner#backend)， [blockchain] (https://github.com/xitu/gold-miner# blockchain)， [product] (https://github.com/xitu/gold-miner# product)， [design] (https://github.com/xitu/gold-Miner# design)， [artificial intelligence] (https://github.com/xitu/gold-miner# artificial intelligence)， etc。， if you want to view more high-quality translations， please keep an eye on [Nuggets translation plan] (https://github.com/xitu/gold-miner)， [Official Weibo] (http://weibo.com/juejinfanyi)， [Knowledge Column] (https://zhuanlan。zhihu.com/juejinfanyi)。
