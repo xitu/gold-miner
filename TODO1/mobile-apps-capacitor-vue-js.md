@@ -2,85 +2,85 @@
 > * 原文作者：[Ahmed](https://www.smashingmagazine.com/author/ahmed-bouchefra)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mobile-apps-capacitor-vue-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mobile-apps-capacitor-vue-js.md)
-> * 译者：
+> * 译者：[nanjingboy](https://github.com/nanjingboy)
 > * 校对者：
 
-# Building Mobile Apps With Capacitor And Vue.js
+# 使用Capacitor 和 Vue.js 构建移动应用
 
-> In this tutorial, you’ll learn how to use Capacitor and cutting-edge web technologies such as Vue.js and Ionic 4 web components to build cross-platform mobile applications for Android and iOS. You can also take advantage of Capacitor to target other platforms such as desktop and the web using the same code base.
+> 通过本教程，你将学到如何使用 Capacitor 以及如Vue.js、Ionic 4 web 组件等前沿 web 技术来为 Android 和 iOS 构建跨平台移动应用。你还可以利用 Capacitor 使用相同的代码来构建其他平台，比如桌面和 web。
 
-Recently, the Ionic team announced an open-source spiritual successor to Apache Cordova and Adobe PhoneGap, called [Capacitor](https://capacitor.ionicframework.com/). Capacitor allows you to build an application with modern web technologies and run it everywhere, from web browsers to native mobile devices (Android and iOS) and even desktop platforms via Electron — the popular GitHub platform for building cross-platform desktop apps with Node.js and front-end web technologies.
+最近，Ionic 团队发布了一项名叫 [Capacitor](https://capacitor.ionicframework.com/) 且继承了 Apache Cordova 和 Adobe PhoneGap 核心思想的开源项目。 Capacitor 允许你使用现代 web 技术来构建可在任意平台中运行的应用，从 web 浏览器到移动设备（Android 和 iOS），甚至是通过 Electron（Github 上比较流行的使用 Node.js 和前端 web 技术构建跨平台桌面应用的技术） 构建的桌面应用平台。
 
-Ionic — the most popular hybrid mobile framework — currently runs on top of Cordova, but in future versions, Capacitor will be the default option for Ionic apps. Capacitor also provides a compatibility layer that permits the use of existing Cordova plugins in Capacitor projects.
+Ionic - 最流行的混合移动应用开发框架 - 目前运行在 Cordova 之上，但在未来版本中，Capacitor 将成为 Ionic 应用的默认选择。Capacitor 也提供了兼容层从而允许在 Capacitor 项目中使用已有的 Cordova 插件。
 
-Aside from using Capacitor in Ionic applications, you can also use it without Ionic with your preferred front-end framework or UI library, such as Vue, React, Angular with Material, Bootstrap, etc.
+除了在 Ionic 应用中使用 Capacitor，你也可以使用除 Ionic 之外的任何你喜欢的前端框架或 UI 库，比如 Vue、React、 Angular with Material、Bootstrap等。
 
-In this tutorial, we’ll see how to use Capacitor and Vue to build a simple mobile application for Android. In fact, as mentioned, your application can also run as a progressive web application (PWA) or as a desktop application in major operating systems with just a few commands.
+在本教程中，我们将看到如何使用 Capacitor 和 Vue 来构建一个简单的 Android 移动应用。实际上，如上所述，你的应用也可以作为渐进式 web 应用（PWA）或作为主要操作系统中的桌面应用来运行，这只需要几个命令。
 
-We’ll also be using some Ionic 4 UI components to style our demo mobile application.
+我们还将使用一些 Ionic 4 UI 组件来设计我们的演示移动应用。
 
-### Capacitor Features
+### Capacitor 特性
 
-Capacitor has many features that make it a good alternative to other solutions such as Cordova. Let’s see some of the features of Capacitor:
+Capacitor 拥有很多特性，以使其成为 Cordova 等其他解决方案的良好替代品。让我们看看一些 Capacitor 特性：
 
-*   **Open-source and free**: Capacitor is an open-source project, licensed under the permissive MIT license and maintained by [Ionic](http://ionicframework.com/) and the community.
-*   **Cross-platform**: You can use Capacitor to build apps with one code base and to target multiple platforms. You can run a few more command line interface (CLI) commands to support another platform.
-*   **Native access to platform SDKs**: Capacitor doesn’t get in the way when you need access to native SDKs.
-*   **Standard web and browser technologies**: An app built with Capacitor uses standard web APIs, so your application will also be cross-browser and will run well in all modern browsers that follow the standards.
-*   **Extensible**: You can access native features of the underlying platforms by adding plugins or, if you can’t find a plugin that fits your needs, by creating a custom plugin via a simple API.
+*   **开源并且免费**: Capacitor 是一个开源项目，根据 MIT 许可证授权，并由 [Ionic](http://ionicframework.com/) 和社区维护。
+*   **跨平台**: 你可以使用 Capacitor 通过一份代码来定位多个平台。你可以通过命令行界面（CLI）运行一些命令来支持另外一个平台。
+*   **访问平台 SDK**: 当你需要访问原生 SDK 时，Capacitor 不会妨碍你。
+*   **标准 web 和浏览器技术**: 通过 Capacitor 构建的应用使用 web 标准 API，因此你的应用也将是跨浏览器，并将在遵循标准的所有现代浏览器中运行良好。
+*   **可扩展**: 可以通过添加插件的形式来访问底层平台的原生功能，或者，如果你找不到符合你需求的插件，可以通过简单的 API 来创建一个自定义插件。
 
-### Requirements
+### 依赖
 
-To complete this tutorial, you’ll need a development machine with the following requirements:
+为了完成本教程，你的开发机器需要满足以下要求：
 
-*   You’ll need Node _v8.6+_ and npm _v5.6+_ installed on your machine. Just head to the [official website](http://nodejs.org) and download the version for your operating system.
-*   To build an iOS app, you’ll need a Mac with Xcode.
-*   To build an Android app, you’ll need to install the Java 8 JDK and Android Studio with the Android SDK.
+*   你需要在你的机器上安装 Node _v8.6+_ 和 npm _v5.6+_ 。只需访问 [官网](http://nodejs.org) 并且下载适用于你的操作系统的版本即可。
+*   要构建 iOS 应用，你需要一台安装了 Xcode 的 Mac。
+*   要构建 Android 应用，你需要安装 Java 8 JDK、Android Studio 和 Android SDK。
 
-### Creating A Vue Project
+### 创建一个 Vue 项目
 
-In this section, we’ll install the Vue CLI and generate a new Vue project. Then, we’ll add navigation to our application using the Vue router. Finally, we’ll build a simple UI using Ionic 4 components.
+在这一节，我们将安装 Vue CLI 并且生成一个新的 Vue 项目。然后，我们将使用 Vue router 为我们的应用程序添加导航。最后我们将使用 Ionic 4 组件构建一个简单的 UI。
 
-#### Installing The Vue CLI v3
+#### 安装 Vue CLI v3
 
-Let’s start by installing the Vue CLI v3 from npm by running the following from the command line:
+让我们首先通过命令行运行以下命令以便从 npm 安装 Vue CLI v3：
 
 ```
 $ npm install -g @vue/cli
 ```
 
-You might need to add `sudo` to install the package globally, depending on your npm configuration.
+你可能需要添加 `sudo` 来全局安装软件包，具体取决于你的 npm 配置。
 
-#### Generating a New Vue Project
+#### 生成一个新的 Vue 项目
 
-After installing the Vue CLI, let’s use it to generate a new Vue project by running the following from the CLI:
+安装完 Vue CLI，让我们通过命令行运行以下命令用它来生成一下新的 Vue 项目：
 
 ```
 $ vue create vuecapacitordemo
 ```
 
-You can start a development server by navigating within the project’s root folder and running the following command:
+你可以进入项目的根目录并运行以下命令来启动开发服务器：
 
 ```
  $ cd vuecapacitordemo
  $ npm run serve
 ```
 
-Your front-end application will be running from `http://localhost:8080/`.
+你的前端应用将在 `http://localhost:8080/` 下运行。
 
-If you visit `http://localhost:8080/` in your web browser, you should see the following page:
+如果你通过 web 浏览器访问 `http://localhost:8080/`，你应该看到一下页面：
 
-[![A Vue application](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/57960337-f55a-4b60-818d-a96a9b0b6605/welcome-vue-js-app.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/57960337-f55a-4b60-818d-a96a9b0b6605/welcome-vue-js-app.png) 
+[![一个 Vue 应用](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/57960337-f55a-4b60-818d-a96a9b0b6605/welcome-vue-js-app.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/57960337-f55a-4b60-818d-a96a9b0b6605/welcome-vue-js-app.png)
 
-A Vue application ([View large version](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/57960337-f55a-4b60-818d-a96a9b0b6605/welcome-vue-js-app.png))
+一个 Vue 应用 ([查看大版本](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/57960337-f55a-4b60-818d-a96a9b0b6605/welcome-vue-js-app.png))
 
-### Adding Ionic 4
+### 添加 Ionic 4
 
-To be able to use Ionic 4 components in your application, you’ll need to use the core Ionic 4 package from npm.
+为了在你的应用中使用 Ionic 4 组件，你需要通过 npm 使用 Ionic 4 核心软件包。
 
-So, go ahead and open the `index.html` file, which sits in the `public` folder of your Vue project, and add the following `&lt;script src='https://unpkg.com/@ionic/core@4.0.0-alpha.7/dist/ionic.js'&gt;&lt;/script&gt;` tag in the head of the file.
+所以，继续打开 `index.html` 文件，它位于你的 Vue 项目中的 `public` 目录，然后在文件头部添加以下标签 `&lt;script src='https://unpkg.com/@ionic/core@4.0.0-alpha.7/dist/ionic.js'&gt;&lt;/script&gt;` 。
 
-This is the contents of `public/index.html`:
+以下是 `public/index.html` 的内容:
 
 ```
 <!DOCTYPE html>
@@ -103,9 +103,9 @@ This is the contents of `public/index.html`:
 </html>
 ```
 
-You can get the current version of the Ionic core package from [npm](https://www.npmjs.com/package/@ionic/core).
+你可以通过 [npm](https://www.npmjs.com/package/@ionic/core) 得到 Ionic 核心软件包的当前版本。
 
-Now, open `src/App.vue`, and add the following content within the `template` tag after deleting what’s in there:
+现在，打开 `src/App.vue`，删除其中的内容后，在 `template` 标签内添加以下内容：
 
 ```
 <template>
@@ -115,11 +115,11 @@ Now, open `src/App.vue`, and add the following content within the `template` tag
 </template>
 ```
 
-`ion-app` is an Ionic component. It should be the top-level component that wraps other components.
+`ion-app` 是一个 Ionic 组件。它应该是包装其他组件的顶级组件。
 
-`router-view` is the Vue router outlet. A component matching a path will be rendered here by the Vue router.
+`router-view` 是 Vue 的路由插槽。Vue router 将在此处呈现与路径匹配的组件。
 
-After adding Ionic components to your Vue application, you are going to start getting warnings in the browser console similar to the following:
+将 Ionic 组件添加到你的 Vue 应用后，你将开始在浏览器控制台中收到类似以下内容的警告：
 
 ```
 [Vue warn]: Unknown custom element: <ion-content> - did you register the component correctly? For recursive components, make sure to provide the "name" option.
@@ -131,19 +131,19 @@ found in
          <Root>
 ```
 
-This is because Ionic 4 components are actually web components, so you’ll need to tell Vue that components starting with the `ion` prefix are not Vue components. You can do that in the `src/main.js` file by adding the following line:
+这是因为 Ionic 4 组件实际上是 web 组件，所以你需要告诉 Vue 以 `ion` 前缀开头的组件不是 Vue 组件。你可以在 `src/main.js` 文件中添加以下内容进行设置：
 
 ```
 Vue.config.ignoredElements = [/^ion-/]
 ```
 
-Those warnings should now be eliminated.
+现在这些警告应该消失了。
 
-#### Adding Vue Components
+#### 添加 Vue 组件
 
-Let’s add two components. First, remove any file in the `src/components` folder (also, remove any import for the `HelloWorld.vue` component in `App.vue`), and add the `Home.vue` and `About.vue` files.
+让我们添加两个组件。首先，删除 `src/components` 目录下的所有文件（并且删除 `App.vue` 中有关 `HelloWorld.vue` 组件的任何导入）。
 
-Open `src/components/Home.vue` and add the following template:
+打开 `src/components/Home.vue` 并添加以下模板:
 
 ```
 <template>
@@ -164,7 +164,7 @@ Open `src/components/Home.vue` and add the following template:
 </template>
 ```
 
-Next, in the same file, add the following code:
+接下来，在同一个文件中，添加以下代码：
 
 ```
 <script>
@@ -174,7 +174,7 @@ export default {
 </script>
 ```
 
-Now, open `src/components/About.vue` and add the following template:
+现在，打开 `src/components/About.vue` 并添加以下模板：
 
 ```
 <template>
@@ -193,7 +193,7 @@ This is the About page.
 </template>
 ```
 
-Also, in the same file, add the following code:
+同样的，在同一个文件中，添加以下代码：
 
 ```
 <script>
@@ -203,15 +203,15 @@ export default {
 </script>
 ```
 
-#### Adding Navigation With Vue Router
+#### 使用 Vue Router 添加导航
 
-Start by installing the Vue router, if it’s not already installed, by running the following command from the root folder of your project:
+如果尚未安装 Vue router，需要首先安装，方法是在项目的根目录中执行以下命令：
 
 ```
 npm install --save vue-router
 ```
 
-Next, in `src/main.js`, add the following imports:
+然后，在 `src/main.js` 文件中, 导入以下内容:
 
 ```
 import  Router  from  'vue-router'
@@ -219,15 +219,15 @@ import  Home  from  './components/Home.vue'
 import  About  from  './components/About.vue'
 ```
 
-This imports the Vue router and the “Home” and “About” components.
+这将导入 Vue router、 Home 和 About 组件。
 
-Add this:
+添加以下内容:
 
 ```
 Vue.use(Router)
 ```
 
-Create a `Router` instance with an array of routes:
+创建一个包含路由数组的 `Router` 实例：
 
 ```
 const  router  =  new  Router({
@@ -246,7 +246,7 @@ component:  About
 })
 ```
 
-Finally, tell Vue about the `Router` instance:
+最后，告诉 Vue `Router` 实例：
 
 ```
 new  Vue({router,
@@ -254,9 +254,9 @@ render:  h  =>  h(App)
 }).$mount('#app')
 ```
 
-Now that we’ve set up routing, let’s add some buttons and methods to navigate between our two “Home” and “About” components.
+现在我们已经设置了路由，让我们添加一些按钮和方法以便在 Home 和 About 两个组件之间进行导航。
 
-Open `src/components/Home.vue` and add the following `goToAbout()` method:
+打开 `src/components/Home.vue` 并添加 `goToAbout()` 方法：
 
 ```
 ...
@@ -268,15 +268,15 @@ export default {
     },
 ```
 
-In the `template` block, add a button to trigger the `goToAbout()` method:
+在 `template` 块中，添加一个按钮用来触发 `goToAbout()` 方法：
 
 ```
 <ion-button @click="goToAbout" full>Go to About</ion-button>
 ```
 
-Now we need to add a button to go back to home when we are in the “About” component.
+现在，当我们进入 About 组件时，我们需要添加一个按钮返回到主页。
 
-Open `src/components/About.vue` and add the `goBackHome()` method:
+打开 `src/components/About.vue` 并添加 `goBackHome()` 方法：
 
 ```
 <script>
@@ -286,20 +286,20 @@ export default {
     goBackHome () {
       this.$router.push('/')
     }
-  }  
+  }
 }
 </script>
 ```
 
-And, in the `template` block, add a button to trigger the `goBackHome()` method:
+并且，在 `template` 块中，添加一个按钮用来触发 `goBackHome()` 方法：
 
 ```
 <ion-button @click="goBackHome()" full>Go Back!</ion-button>
 ```
 
-When running the application on a real mobile device or emulator, you will notice a scaling issue. To solve this, we need to simply add some `meta` tags that correctly set the viewport.
+在真实的移动设备或模拟器上运行该应用时，你会注意到缩放问题。要解决这个问题，我们需要简单地添加一些正确设置 viewport 的 `meta` 标签。
 
-In `public/index.html`, add the following code to the `head` of the page:
+打开 `public/index.html`，将以下代码添加到页面的 `head` 中：
 
 ```
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -307,57 +307,57 @@ In `public/index.html`, add the following code to the `head` of the page:
 <meta name="msapplication-tap-highlight" content="no">
 ```
 
-### Adding Capacitor
+### 添加 Capacitor
 
-You can use Capacitor in two ways:
+你可以通过两种方式使用 Capacitor：
 
-*   Create a new Capacitor project from scratch.
-*   Add Capacitor to an existing front-end project.
+*   从头开始创建一个新的 Capacitor 项目。
+*   将 Capacitor 添加到已有的前端项目中。
 
-In this tutorial, we’ll take the second approach, because we created a Vue project first, and now we’ll add Capacitor to our Vue project.
+在这篇教程中，我们将采用第二种方式，因为首先我们已经创建了一个 Vue 项目，现在我们将要把 Capacitor 添加到我们的 Vue 项目中。
 
-#### Integrating Capacitor With Vue
+#### 集成 Capacitor 与 Vue
 
-Capacitor is designed to be dropped into any modern JavaScript application. To add Capacitor to your Vue web application, you’ll need to follow a few steps.
+Capacitor 旨在融入任何现代 JavaScript 应用。要将 Capacitor 添加到 Vue web 中，你需要执行以下几个步骤。
 
-First, install the Capacitor CLI and core packages from npm. Make sure you are in your Vue project, and run the following command:
+首先，通过 npm 安装 Capacitor CLI 和核心软件包。确保你在你的 Vue 项目中，并执行以下命令：
 
 ```
 $ cd vuecapacitordemo
 $ npm install --save @capacitor/core @capacitor/cli
 ```
 
-Next, initialize Capacitor with your app’s information by running the following command:
+接下来，运行以下命令，使用你的应用信息初始化 Capacitor：
 
 ```
 $ npx cap init
 ```
 
-We are using `npx` to run Capacitor commands. `npx` is an utility that comes with [npm v5.2.0](https://github.com/npm/npm/releases/tag/v5.2.0) and that is designed to make it easy to run CLI utilities and executables hosted in the npm registry. For example, it allows developers to use locally installed executables without having to use the npm run scripts.
+我们使用 `npx` 运行 Capacitor 命令。`npx` 是 [npm v5.2.0](https://github.com/npm/npm/releases/tag/v5.2.0) 附带的实用程序，它用来简化托管在 npm 中的 CLI 程序和可执行文件的运行。比如，它允许开发人员使用本地安装的可执行文件，而无需 npm 运行脚本。
 
-The `init` command of Capacitor CLI will also add the default native platforms for Capacitor, such as Android and iOS.
+Capacitor CLI 的 `init` 命令还将为 Capacitor 添加默认的本地原生平台，比如 Android 和 iOS。
 
-You will also get prompted to enter information about your application, such as the name, the application’s ID (which will be mainly used as a package name for the Android application) and the directory of your application.
+系统还会提示你输入有关应用的信息，比如名字、应用 ID（将主要用作 Android 程序的包名）和你的应用程序的目录。
 
-After you’ve inputted the required details, Capacitor will be added to your Vue project.
+输入所需的详细信息后，Capacitor 将被添加到你的 Vue 项目中。
 
-You can also provide the application’s details in the command line:
+你也可以通过以下命令来提供应用详情：
 
 ```
 $ npx cap init vuecapacitordemo com.example.vuecapacitordemo
 ```
 
-The application’s name is `vuecapacitordemo`, and its ID is `com.example.vuecapacitordemo`. The package name must be a valid Java package name.
+应用名为 `vuecapacitordemo`，ID 为 `com.example.vuecapacitordemo`。包名必须是有效的 Java 包名称。
 
-You should see a message saying, “Your Capacitor project is ready to go!”
+你应该会看到一条消息， “Your Capacitor project is ready to go!”
 
-You might also notice that a file named `capacitor.config.json` has been added to the root folder of your Vue project.
+你可能还注意到一个名为 `capacitor.config.json` 的文件被添加到了你的 Vue 项目的根目录中。
 
-Just like the CLI suggests when we’ve initialized Capacitor in our Vue project, we can now add native platforms that we want to target. This will turn our web application into a native application for each platform that we add.
+就像 CLI 在我们的 Vue 项目中初始化 Capacitor 时所建议的那样，我们现在可以添加我们想要适配的本地平台。这将把我们的 web 应用转换成我们添加的每个平台的原生应用。
 
-But just before adding a platform, we need to tell Capacitor where to look for the built files — that is, the `dist` folder of our Vue project. This folder will be created when you run the `build` command of the Vue application for the first time (`npm run build`), and it is located in the root folder of our Vue project.
+但是在添加平台之前，我们需要告诉 Capacitor 在哪里查找构建文件 — 也就是我们的 Vue 项目的 `dist` 目录。当你第一次运行 Vue 应用的 `build`（`npm run build`） 命令时，将创建此目录，它位于 Vue 应用的根目录。
 
-We can do that by changing `webDir` in `capacitor.config.json`, which is the configuration file for Capacitor. So, simply replace `www` with `dist`. Here is the content of `capacitor.config.json`:
+我们可以通过修改 `capacitor.config.json` 中的 `webDir` 来做到这一点，它是 Capacitor 的配置文件。所以，只需用 `dist` 替换 `www` 即可。以下是 `capacitor.config.json` 的内容：
 
 ```
 {
@@ -368,45 +368,45 @@ We can do that by changing `webDir` in `capacitor.config.json`, which is the con
 }
 ```
 
-Now, let’s create the `dist` folder and build our Vue project by running the following command:
+现在，让我们创建 `dist` 目录并运行以下命令来构建我们的 Vue 项目：
 
 ```
 $ npm run build
 ```
 
-After that, we can add the Android platform using the following:
+之后，我们可以使用以下命令添加 Android 平台：
 
 ```
 npx cap add android
 ```
 
-If you look in your project, you’ll find that an `android` native project has been added.
+如果你查看你的项目，你会发现已经添加了一个 `android` 原生项目。
 
-That’s all we need to integrate Capacitor and target Android. If you would like to target iOS or Electron, simply run `npx cap add ios` or `npx cap add electron`, respectively.
+这就是整合 Capacitor 和 Android 的全部内容。如果你想要适配 iOS 或 Electron，只需分别运行 `npx cap add ios` 或 `npx cap add electron`。
 
-### Using Capacitor Plugins
+### 使用 Capacitor 插件
 
-Capacitor provides a runtime that enables developers to use the three pillars of the web — HTML, CSS and JavaScript — to build applications that run natively on the web and on major desktop and mobile platforms. But it also provides a set of plugins to access native features of devices, such as the camera, without having to use the specific low-level code for each platform; the plugin does it for you and provides a normalized high-level API, for that matter.
+Capacitor 提供了一个运行时以便开发人员能够使用 web 的三大支柱 - HTML、CSS和JavaScript - 来构建在 web 上以及主要桌面和移动平台上运行的应用程序。另外它还提供了一组插件用来访问设备的底层功能，例如相机，无需针对每个平台使用特定的低级代码；该插件将为你完成，并为此提供了统一规范的高级 API。
 
-Capacitor also provides an API that you can use to build custom plugins for the native features not covered by the set of official plugins provided by the Ionic team. You can learn [how to create a plugin](https://capacitor.ionicframework.com/docs/plugins/) in the docs.
+Capacitor 还提供了 API 以便你可以使用该 API 创建 Ionic 团队提供的官方插件未覆盖的自定义插件。你可以在 [如何创建插件](https://capacitor.ionicframework.com/docs/plugins/) 中学习。
 
-You can also find more details about available [APIs and core plugins](https://capacitor.ionicframework.com/docs/apis/) in the docs.
+你也可以在文档中找到有关 [API 和核心插件](https://capacitor.ionicframework.com/docs/apis/) 的更多详细信息。
 
-#### Example: Adding a Capacitor Plugin
+#### 例子：添加一个 Capacitor 插件
 
-Let’s see an example of using a Capacitor plugin in our application.
+让我们看一个在我们的应用中使用 Capacitor 插件的例子。
 
-We’ll use the “Modals” plugin, which is used to show native modal windows for alerts, confirmations and input prompts, as well as action sheets.
+我们将使用 “Modals” 插件，该插件用于显示 alerts、confirmations、input prompts 和 action sheets 的原生模态窗口。
 
-Open `src/components/Home.vue`, and add the following import at the beginning of the `script` block:
+打开 `src/components/Home.vue`， 并在 `script` 块的开头添加以下内容：
 
 ```
 import { Plugins } from '@capacitor/core';
 ```
 
-This code imports the `Plugins` class from `@capacitor/core`.
+此代码从 `@capacitor/core` 中导入 `Plugins` 类。
 
-Next, add the following method to show a dialog box:
+接下来，添加以下方法来显示对话框：
 
 ```
 …
@@ -420,63 +420,64 @@ Next, add the following method to show a dialog box:
     }
 ```
 
-Finally, add a button in the `template` block to trigger this method:
+最后，在 `template` 块里添加一个按钮用来触发这个方法：
 
 ```
 <ion-button @click="showDialogAlert" full>Show Alert Box</ion-button>
 ```
 
-Here is a screenshot of the dialog box:
+以下是该对话框的屏幕截图：
 
-[![Capacitor native modal box](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/1c9a76fc-9f6c-405a-b3b5-f39af7c07eda/capacitor-modal-box.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/1c9a76fc-9f6c-405a-b3b5-f39af7c07eda/capacitor-modal-box.png) 
+[![Capacitor 原生模态框](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/1c9a76fc-9f6c-405a-b3b5-f39af7c07eda/capacitor-modal-box.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/1c9a76fc-9f6c-405a-b3b5-f39af7c07eda/capacitor-modal-box.png)
 
-A native modal box ([View large version](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/1c9a76fc-9f6c-405a-b3b5-f39af7c07eda/capacitor-modal-box.png))
+原生模态框 ([查看大版本](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/1c9a76fc-9f6c-405a-b3b5-f39af7c07eda/capacitor-modal-box.png))
 
-You can find more details [in the docs](https://capacitor.ionicframework.com/docs/apis/modals).
+你可以在 [文档](https://capacitor.ionicframework.com/docs/apis/modals) 找到更多详细信息。
 
-#### Building the App for Target Platforms
+#### 为目标平台构建应用
 
-In order to build your project and generate a native binary for your target platform, you’ll need to follow a few steps. Let’s first see them in a nutshell:
+为了构建项目并为目标平台生成相关二进制文件，你需要执行几个步骤。让我们首先看一下它们：
 
-1.  Generate a production build of your Vue application.
-2.  Copy all web assets into the native project (Android, in our example) generated by Capacitor.
-3.  Open your Android project in Android Studio (or Xcode for iOS), and use the native integrated development environment (IDE) to build and run your application on a real device (if attached) or an emulator.
+1.  构建 Vue 应用的生产版本。
+2.  将所有 web 资源复制到 Capacitor 生成的原生项目中（在我们的示例中为 Android）。
+3.  在 Android Studio （或者 Xcode for iOS）中打开你的 Android 项目，并使用本地集成开发环境（IDE）在真实设备（如果已连接）或模拟器上构建和运行你的应用。
 
-So, run the following command to create a production build:
+所以，运行以下命令来创建生产版本：
 
 ```
 $ npm run build
 ```
 
-Next, use the `copy` command of the Capacitor CLI to copy the web assets to the native project:
+接下来，使用 Capacitor CLI 的 `copy` 命令将 web 资源复制到原生项目：
 
 ```
 $ npx cap copy
 ```
 
-Finally, you can open your native project (Android, in our case) in the native IDE (Android Studio, in our case) using the `open` command of the Capacitor CLI:
+最后，你可以使用 Capacitor CLI 的 `open` 命令在本地 IDE（在我们的示例中为Android Studio）中打开你的原生项目（在我们的示例中为Android）：
 
 ```
 $ npx cap open android
 ```
 
-Either Android Studio will be opened with your project, or the folder that contains the native project files will be opened.
+Android Studio 将与您的项目一起打开，或将打开包含原生项目文件的目录。
 
-[![Android Studio project](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/d74af403-7ae3-4c55-a216-10eac8f29ee6/android-studio-project.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/d74af403-7ae3-4c55-a216-10eac8f29ee6/android-studio-project.png) 
+[![Android Studio 项目](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/d74af403-7ae3-4c55-a216-10eac8f29ee6/android-studio-project.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/d74af403-7ae3-4c55-a216-10eac8f29ee6/android-studio-project.png)
 
-Capacitor project opened in Android Studio ([View large version](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/d74af403-7ae3-4c55-a216-10eac8f29ee6/android-studio-project.png))
+在 Android Studio 中打开 Capacitor 项目 ([查看大版本](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/d74af403-7ae3-4c55-a216-10eac8f29ee6/android-studio-project.png))
 
-If that doesn’t open Android Studio, then simply open your IDE manually, go to “File” → “Open…”, then navigate to your project and open the `android` folder from within the IDE.
+如果不能打开 Android Studio，那么只需手动打开你的 IDE，转到 ”File“ → ”Open…“，然后导航到你的项目并从 IDE 中打开 `android` 目录。
 
-You can now use Android Studio to launch your app using an emulator or a real device.
+你现在可以使用 Android Studio 通过模拟器或真实设备来启动你的应用。
 
-[![Capacitor demo project](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/578d5e2e-a2e2-4b47-a758-a9a9946d489f/capacitor-demo.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/578d5e2e-a2e2-4b47-a758-a9a9946d489f/capacitor-demo.png) 
+[![Capacitor demo 项目](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/578d5e2e-a2e2-4b47-a758-a9a9946d489f/capacitor-demo.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/578d5e2e-a2e2-4b47-a758-a9a9946d489f/capacitor-demo.png)
 
-Capacitor demo project ([View large version](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/578d5e2e-a2e2-4b47-a758-a9a9946d489f/capacitor-demo.png))
+Capacitor demo 项目 ([查看大版本](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/578d5e2e-a2e2-4b47-a758-a9a9946d489f/capacitor-demo.png))
 
-### Conclusion
+### 结论
 
-In this tutorial, we’ve used Ionic Capacitor with Vue and Ionic 4 web components to create a mobile Android application with web technologies. You can find the source code of the demo application we’ve created throughout this tutorial in the [GitHub repository](https://github.com/techiediaries/vue-capacitor-ionic-app/tree/master).
+在本教程中，我们使用了带有 Vue 和 Ionic 4 web 组件的 Ionic Capacitor 创建了一个使用 web 技术的移动 Android 应用。你可以在 [GitHub repository](https://github.com/techiediaries/vue-capacitor-ionic-app/tree/master) 中找到该演示应用的源代码。
+
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
