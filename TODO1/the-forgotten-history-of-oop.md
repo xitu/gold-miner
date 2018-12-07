@@ -5,7 +5,7 @@
 > * 译者：[geniusq1981](https://github.com/geniusq1981)
 > * 校对者：
 
-# 被遗忘的面向对象编程史
+# 被遗忘的面向对象编程史（软件编写）（第十六部分）
 
 ![](https://user-gold-cdn.xitu.io/2018/12/4/16778a1832d9facc?w=2000&h=910&f=jpeg&s=120724)
 
