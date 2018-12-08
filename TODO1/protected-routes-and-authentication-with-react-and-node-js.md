@@ -5,23 +5,23 @@
 > * 译者：
 > * 校对者：
 
-# Protected routes and Authentication with React and Node.js
+# 受保护的路由和使用React和Node.js进行身份验证
 
-Well, last weekend I wanted to dig into some good old [React](https://reactjs.org/) without fancy stuffs like [Redux-Saga](https://github.com/redux-saga/redux-saga).
+好吧，上周末我想挖掘一些好的单纯React而没有像Redux-Saga这样的花哨的东西。 [React](https://reactjs.org/) without fancy stuffs like [Redux-Saga](https://github.com/redux-saga/redux-saga).
 
-So I started a side project to create a tiny boilerplate with nothing more than **[Create React App](https://github.com/facebook/create-react-app) to implement the authentication flow with [Strapi](https://strapi.io)**, a Node.js framework with an extensible admin panel and built-in features (authentication, upload, permissions...).
+所以我开始了这个项目来创建一个简单的例子，其中只有Create React App，用Strapi实现身份验证流程，这是一个Node.js框架，具有可扩展的管理面板和内置功能（身份验证，上传，权限...... ）。**[Create React App](https://github.com/facebook/create-react-app) to implement the authentication flow with [Strapi](https://strapi.io)**, a Node.js framework with an extensible admin panel and built-in features (authentication, upload, permissions...).
 
 ![React Nodejs](https://blog.strapi.io/content/images/2018/02/Screen-Shot-2018-02-21-at-10.42.51.png)
 
-In this tutorial we'll quickly implement the **basic authentication flow using [JSON Web Tokens](https://jwt.io/)** that a [Strapi](https://strapi.io) API provides but also, (which might be more interesting) how to use **authentication providers (Facebook, GitHub, Google...) with Strapi** to authenticate your users.
+在本教程中，我们将使用 **我们将快速实现基本身份验证流程[JSON Web Tokens](https://jwt.io/)** 这是由 [Strapi](https://strapi.io) API 提供的。 **如何使用身份验证提供程序（Facebook，GitHub，Google ...)。** Strapi进行身份验证你的用户.
 
 ![Strapi authentication](https://blog.strapi.io/content/content/images/2018/02/2018-02-20-19.41.11.gif)
 
-_Note: the source code of this article is [available on GitHub](https://github.com/strapi/strapi-examples/tree/master/good-old-react-authentication-flow)._
+_Note:本文的源代码可以在GitHub上找到。(https://github.com/strapi/strapi-examples/tree/master/good-old-react-authentication-flow)._
 
-## Creating the project
+## 创建项目
 
-Before all, you need to create a Strapi API:
+首先，您需要创建一个Strapi API:
 
 ```
 $ npm install strapi@alpha -g
@@ -29,18 +29,18 @@ $ strapi new my-app
 $ cd my-app && strapi start
 ```
 
-And also, your front-end application:
+而且，创建前端应用程序：
 
 ```
 $ npm install create-react-app -g
 $ create-react-app good-old-react-authentication-flow
 ```
 
-**You need to [register your first user](http://localhost:1337/admin) and then you're ready to go!**
+**您需要注册您的第一个用户，然后您就可以开始了！http://localhost:1337/admin) **
 
-## Front-end App Architecture
+## 前端应用程序架构
 
-I'm a huge fan of the [React Boilerplate](https://github.com/react-boilerplate/react-boilerplate) architecture so I created something similar to organize my code:
+我是[React Boilerplate]架构的忠实粉丝所以我创建了类似于组织我的代码的东西：(https://github.com/react-boilerplate/react-boilerplate) 
 
 ```
 /src
@@ -59,10 +59,10 @@ I'm a huge fan of the [React Boilerplate](https://github.com/react-boilerplate/r
      └─── request // Request helper using fetch
 ```
 
-### Router Setup and PrivateRoute
+### 路由器设置和PrivateRoute
 
-To implement the authentication views, we first need to create a **HoC**: _Higher Order Component_ that will check if a user can access a specific URL.  
-To do so, we just need to follow [the official documentation](https://reacttraining.com/react-router/web/example/auth-workflow) and modify the `fakeAuth` example and use our `auth.js` helper:
+要实现身份验证视图，我们首先需要创建一个HoC：Higher Order Component，它将检查用户是否可以访问特定的URL。  
+为此，我们只需要遵循官方文档[the official documentation]并修改 `fakeAuth`示例并使用我们的 `auth.js`帮助器：
 
 ```
 import React from 'react';  
@@ -88,7 +88,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 export default PrivateRoute;  
 ```
 
-**Let's create the routing:**
+**让我们创建路由:**
 
 ```
 import React, { Component } from 'react';  
@@ -127,19 +127,19 @@ class App extends Component {
 export default App;
 ```
 
-### Creating the Authentication Views
+### 创建验证视图
 
-Now that all our routes are implemented we need the create our views.  
-The way we declared our routes allows us to have one component that is responsible for creating the correct form according to the `location`.
+现在我们所有的路线都已实现，我们需要创建我们的视图。
+我们声明路线的方式允许我们有一个组件负责根据创建正确的形式`location`.
 
-First of all, let's create a `forms.json` file that will handle the creation of the form on each auth view:
+首先，让我们创建一个`forms.json`文件来处理在每个auth视图上创建表单:
 
-*   forgot-password
-*   login
-*   register
-*   reset-password
+*   忘记密码
+*   登录
+*   注册
+*   重置密码
 
-This structure of the `JSON` will be like the following (_you can see a `customBootstrapClass` key that is needed in the `Input` component_):
+这个结构`JSON`将如下所示（您可以看到组件中`customBootstrapClass`需要的键`Input`：
 
 ```
 {
@@ -176,9 +176,9 @@ This structure of the `JSON` will be like the following (_you can see a `customB
 }
 ```
 
-**Setting the state on location change**
+**在位置更改时设置状态**
 
-To set the form when the user navigates from `auth/login` to `auth/register` we need to use the following lifecycles:
+要在用户导航时设置表单  `auth/login` ，`auth/register`我们需要使用以下生命周期：
 
 ```
 componentDidMount() {  
@@ -198,11 +198,11 @@ componentWillReceiveProps(nextProps) {
 }
 ```
 
-The `generateForm` method is in charge of getting the data from the `forms.json` file above.
+该`generateForm` 方法负责从`forms.json`上面的文件中获取数据。
 
-**Creating the view**
+**创建视图**
 
-To create the form we just need to map over the data retrieve in the `forms.json` file.
+要创建表单，我们只需要映射`forms.json`文件中的数据检索。 
 
 ```
 handleChange = ({ target }) => this.setState({ value: { ...this.state.value, [target.name]: target.value } });
@@ -232,11 +232,11 @@ render() {
 
 ![Strapi login view](https://blog.strapi.io/content/images/2018/02/Screen-Shot-2018-02-21-at-10.43.01.png)
 
-Well, at this point all the views needed for authenticating your users should be created! We just need to make the API call to access the app.
+那么，此时应该创建验证用户所需的所有视图！我们只需要进行API调用即可访问该应用。
 
-**Posting data to the API**
+**将数据发布到API**
 
-To make the API call, I have a `request` helper ([that you can get in the demo app](https://github.com/strapi/strapi-examples/tree/add-providers/good-old-react-authentication-flow/src/utils)) so we just need to use it in our `handleSubmit` function:
+要进行API调用，我有一个`request`帮助器（你可以进入演示应用程序），所以我们只需要在我们的 `handleSubmit` 函数中使用它： (https://github.com/strapi/strapi-examples/tree/add-providers/good-old-react-authentication-flow/src/utils)) 
 
 ```
 handleSubmit = (e) => {  
@@ -259,24 +259,24 @@ redirectUser = () => {
 }
 ```
 
-Nothing fancy here, once we get the response from the API we just store the needed informations in either the `localStorage` or the `sessionStorage` and we redirect the user to the HomePage.
+没有什么花哨这里，一旦我们得到我们只是存储所需的信息无论是在该API的响应`sessionStorage`或者`sessionStorage`，我们把用户重定向到主页。
 
-**Well we just achieved the most difficult part because using a custom provider like Facebook is easy as pie!**
+**好吧，我们刚刚实现了最困难的部分，因为使用像Facebook这样的自定义提供商很容易！**
 
-## Using a Authentication Provider
+## 使用身份验证提供程序
 
-Whatever you choose Facebook, GitHub or even Google, using a provider for authenticating your users with Strapi is **_again_** really easy 🙈. In this example, I will show you how to use it with Facebook.
+无论你选择的Facebook，GitHub上，甚至谷歌，使用供应商与Strapi验证你的用户是再次很容易🙈。在这个例子中，我将向您展示如何在Facebook上使用它
 
-Since Strapi doesn't provide (**yet**) a Javascript SDK to bridge the gap between the Strapi API and the Facebook API.
+由于Strapi没有提供（还）一个Javascript SDK来弥补Strapi API和Facebook API之间的差距。
 
-**Here is the flow**:
+**流程如下**:
 
-*   The user clicks on login with Facebook
-*   It redirects him to another page so he can authorize the app
-*   Once authorized, Facebook redirects the user to your app with a code in the URL
-*   Send this code to Strapi
+*   用户点击登录Facebook
+*   它将他重定向到另一个页面，以便他可以授权该应用程序
+*   获得授权后，Facebook会使用URL中的代码将用户重定向到您的应用
+*   将此代码发送给Strapi
 
-At this point, we need to implement only one lifecycle `componentDidMount` which makes the API call and redirects the user depending on the response in the `ConnectPage` container:
+此时，我们只需要实现一个生命周期`componentDidMount`，该生命周期使API调用并根据`ConnectPage`容器中的响应重定向用户：
 
 ```
 componentDidMount() {  
@@ -299,9 +299,9 @@ redirectUser = (path) => {
 }
 ```
 
-**Displaying the Providers in the AuthPage**
+**在AuthPage中显示提供程序**
 
-To do so, we need a `SocialLink`component like the following:
+为此，我们需要一个`SocialLink`如下组件 :
 
 ```
 /**
@@ -333,7 +333,7 @@ SocialLink.propTypes = {
 export default SocialLink;
 ```
 
-And we need to add it to the `AuthPage`:
+我们需要将它添加到`AuthPage`:
 
 ```
 render() {  
@@ -350,45 +350,47 @@ render() {
 
 ![Login page](https://blog.strapi.io/content/images/2018/02/Screen-Shot-2018-02-21-at-10.42.51.png)
 
-**Well that's pretty much what we need to do for the front-end application now just need to setup Strapi to enable custom providers 😎**
+**那么这就是我们需要为前端应用程序做的事情，现在只需要设置Strapi来启用自定义提供商😎**
 
-### Setting up Facebook so we can register our users
+### 设置Facebook，以便我们注册我们的用户
 
-Go to [Facebook developers](https://developers.facebook.com/) and create an app called `test`.
+转到[Facebook developers](https://developers.facebook.com/)开发人员并创建一个名为的应用程序`test`。 
 
-*   In the product section add `Facebook login`
-*   Select `Web`
-*   Set `http://localhost:3000` as your website URL
+*   在产品部分添加 `Facebook login`
+*   选择 `Web`
+*   设置 `http://localhost:3000` 为您的网站网址
 
 ![Facebook setup](https://blog.strapi.io/content/images/2018/02/Screen-Shot-2018-02-20-at-18.08.35.png)
 
-*   Copy for App Id and App Secret from the Dashboard page of your app
+*   从应用程序的仪表板页面复制App Id和App Secret
 
 ![Facebook setup](https://blog.strapi.io/content/images/2018/02/Screen-Shot-2018-02-20-at-18.10.39.png)
 
-*   In the `Facebook login` > `Advanced settings` add: `http://localhost:1337/connect/facebook/callback` in the `Valid OAuth redirect URIs` field.
+*   在 `Facebook login` > `Advanced settings` 页面中添加: `http://localhost:1337/connect/facebook/callback`其中`Valid OAuth redirect URIs` 区域.
 
 ![Facebook setup](https://blog.strapi.io/content/images/2018/02/fb_settings.png)
 
-### Setting up Strapi
+### 设置Strapi
 
-Now that you have created your app on Facebook you need to configure the Facebook provider in your project.
+现在您已经在Facebook上创建了应用程序，您需要在项目中配置Facebook提供程序。
 
-Go to [Providers tab of the Users & Permissions section](http://localhost:1337/admin/plugins/users-permissions/providers) and fill the form like the following:
-
+转到 [Providers tab of the Users & Permissions section](http://localhost:1337/admin/plugins/users-permissions/providers) “用户和权限”部分的“提供者”选项卡，并填写如下表单：
 ![Admin FB setup](https://blog.strapi.io/content/images/2018/02/Screen-Shot-2018-02-20-at-18.54.48.png)
 
-_Don't forget to save your modifications._
+_不要忘记保存您的修改。_
 
-## Conclusion
+## 结论
 
-> With the **hope that this small tutorial helped you authenticating your users** with [React](https://reactjs.org/) and [Strapi](https://strapi.io).
+> 随着 **希望这个小教程帮助您验证** with [React](https://reactjs.org/) and [Strapi](https://strapi.io).
 
-In my opinion, there is not much to do and it is very easy! Anyway [here you can find the boilerplate](https://github.com/strapi/strapi-examples/tree/add-providers/good-old-react-authentication-flow) which was created with Create React App from this weekend.
+在我看来，没什么可做的，而且很容易！无论如何 [here you can find the boilerplate](https://github.com/strapi/strapi-examples/tree/add-providers/good-old-react-authentication-flow)这个周末找到使用Create React App创建的样板文件。
 
-Also another full example using the [React Boilerplate](https://github.com/react-boilerplate/react-boilerplate) available [here](https://github.com/strapi/strapi-examples/tree/master/login-react) which also has the authentication flow already implemented. This second example uses React, Redux-Saga and is also the boilerplate we used to build the admin on [Strapi](https://strapi.io).
+另一个完整的例子是使用这里提供的[React Boilerplate](https://github.com/react-boilerplate/react-boilerplate) 它也已经实现了认证流程[here](https://github.com/strapi/strapi-examples/tree/master/login-react)。第二个例子使用了React，Redux-Saga，也是我们用来在Strapi上构建管理员的样板。
 
-Feel free to share it and give you your feedback in the comments!
+
+Also another full example using the which also has the authentication flow already implemented. This second example uses React, Redux-Saga and is also the boilerplate we used to build the admin on [Strapi](https://strapi.io).
+
+随意分享，并在评论中给你反馈！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
