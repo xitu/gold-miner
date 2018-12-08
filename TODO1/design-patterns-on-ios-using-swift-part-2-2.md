@@ -9,11 +9,11 @@
 
 在这个由两部分组成的教程中，你将了解构建 iOS 应用程序的常见设计模式，以及如何在自己的应用程序中应用这些模式。
 
-> **更新说明**：本教程已由译者针对 iOS 12，Xcode 10 和 Swift 4.2 进行了更新。原帖由教程团队成员 Eli Ganem发布。
+> **更新说明**：本教程已由译者针对 iOS 12，Xcode 10 和 Swift 4.2 进行了更新。原帖由教程团队成员 Eli Ganem 发布。
 
 欢迎回到 iOS 设计模式的入门教程第二部分！在 [第一部分](https://juejin.im/post/5c05d4ee5188250ab14e62d6) 中, 你已经了解了 Cocoa 中的一些基本模式，比如 MVC、单例和装饰模式。
 
-在最后一部分中，你将了解 iOS 和 OS X 开发中出现的其他基本设计模式：适配器、观察者和备忘录。让我们快开始吧！
+在最后一部分中，你将了解 iOS 和 OS X 开发中出现的其他基本设计模式：适配器、观察者和备忘录。让我们现在就开始吧！
 
 ## 入门
 
@@ -23,49 +23,49 @@
 
 ![Album app showing populated table view](https://koenig-media.raywenderlich.com/uploads/2017/07/appwithtableviewpopulated-180x320.png)
 
-该应用程序的原计划包括了屏幕顶部用来在专辑之间切换的水平滚动条。与其编写一个只有单个用途水平滚动条，为何不让它变得可以让其他任何 View 复用呢？
+该应用程序的原计划包括了屏幕顶部用来在专辑之间切换的 scrollView。但是与其编写一个只有单个用途的 scrollView，为何不让它变得可以给其他任何 view 复用呢？
 
-要使此滚动条可复用，有关其内容的所有决策都应留给其他两个对象：数据源和代理。为了使用水平滚动条，应该给它声明数据源和代理实现的方法，这就类似于 `UITableView` 的代理方法工作方式。当我们讨论下一个设计模式时，你将来实现它。
+要使此 scrollView 可复用，跟其内容有关的所有决策都应留给其他两个对象：它的数据源和代理。为了使用 scrollView，应该给它声明数据源和代理实现的方法，这就类似于 `UITableView` 的代理方法工作方式。当我们接下来一边讨论下一个设计模式时，你也将一边着手实现它。
 
 ## 适配器模式
 
-适配器允许和具有不兼容接口的类一起工作，它将自身包裹在一个对象周围，并公开一个标准接口以与该对象进行交互。
+适配器允许和具有不兼容接口的类一起工作，它将自身包裹在一个对象周围，并公开一个标准接口来与该对象进行交互。
 
-如果你熟悉适配器模式，那么你会注意到 Apple 以一种稍微不同的方式实现它 -- 使用协议。你可能熟悉 `UITableViewDelegate`，`UIScrollViewDelegate`，`NSCoding`和 `NSCopying` 等协议。例如使用 `NSCopying` 协议，任何类都可以提供一个标准的 `copy` 方法。
+如果你熟悉适配器模式，那么你会注意到 Apple 以一种稍微不同的方式实现它，那就是协议。你可能熟悉 `UITableViewDelegate`，`UIScrollViewDelegate`，`NSCoding` 和 `NSCopying` 等协议。例如使用 `NSCopying` 协议，任何类都可以提供一个标准的 `copy` 方法。
 
 ## 如何使用适配器模式
 
-之前提到的水平滚动条如下所示：
+之前提到的 scrollView 如下图所示：
 
 [![swiftDesignPattern7](https://koenig-media.raywenderlich.com/uploads/2014/11/swiftDesignPattern7-480x153.png)](https://koenig-media.raywenderlich.com/uploads/2014/11/swiftDesignPattern7.png)
 
-我们现在来实现它，右击项目导航栏中的 View 组，选择 **New File > iOS > Cocoa Touch Class**，然后单击 **Next**，将类名设置为 `HorizontalScrollerView` 并继承自 `UIView`。
+我们现在来实现它吧，右击项目导航栏中的 View 组，选择 **New File > iOS > Cocoa Touch Class**，然后单击 **Next**，将类名设置为 `HorizontalScrollerView` 并继承自 `UIView`。
 
 打开 **HorizontalScrollerView.swift** 并在 `HorizontalScroller` 类声明的 **上方** 插入以下代码：
 
 ```swift
 protocol HorizontalScrollerViewDataSource: class {
-  // 询问数据源它想要在水平滚动条中显示多少个 View
+  // 询问数据源它想要在 scrollView 中显示多少个 view
   func numberOfViews(in horizontalScrollerView: HorizontalScrollerView) -> Int
-  // 请求数据源返回应该出现在第 index 个的 View
+  // 请求数据源返回应该出现在第 index 个的 view
   func horizontalScrollerView(_ horizontalScrollerView: HorizontalScrollerView, viewAt index: Int) -> UIView
 }
 ```
 
-这定义了一个名为 `HorizontalScrollerViewDataSource` 的协议，它执行两个操作：请求在水平滚动器内显示 View 的个数以及应为特定索引显示的 View。
+这定义了一个名为 `HorizontalScrollerViewDataSource` 的协议，它执行两个操作：请求在 scrollView 内显示 view 的个数以及应为特定索引显示的 view。
 
-在此协议定义的下方添加另一个名为 `HorizontalScrollerViewDelegate` 的协议。
+在此协议定义的下方再添加另一个名为 `HorizontalScrollerViewDelegate` 的协议。
 
 ```swift
 protocol HorizontalScrollerViewDelegate: class {
-  // 通知代理第 index 个 View 已经被选择
+  // 通知代理第 index 个 view 已经被选择
   func horizontalScrollerView(_ horizontalScrollerView: HorizontalScrollerView, didSelectViewAt index: Int)
 }
 ```
 
-这将使水平滚动器通知某个其他对象已选择一个 View。
+这将使 scrollView 通知某个其他对象它内部的一个 view 已经被选中。
 
-**注意：**将关注的区域划分为不同的协议会使代码看起来更加清晰。通过这种方式，你可以决定遵循特定的协议，并避免使用 `@objc` 来声明可选的协议方法。
+**注意：**将关注区域划分为不同的协议会使代码看起来更加清晰。通过这种方式你可以决定遵循特定的协议，并避免使用 `@objc` 来声明可选的协议方法。
 
 在 **HorizontalScrollerView.swift** 中，将以下代码添加到 `HorizontalScrollerView` 类的定义里：
 
@@ -87,16 +87,16 @@ private enum ViewConstants {
 }
 
 // 2
-private let scroller = UIScrollView()
+private let scroller = UIScrollView()0o
 
 // 3
 private var contentViews = [UIView]()
 ```
 
-每条注释对应的详细解释如下：
+每条注释的详解如下：
 
-1. 定义一个私有的 `enum` 来使代码布局在设计时更易修改。滚动器的内的 View 尺寸为 100 x 100，padding 为 10
-2. 创建包含多个 View 的 scrollView
+1. 定义一个私有的 `enum` 来使代码布局在设计时更易修改。scrollView 的内的 view 尺寸为 100 x 100，padding 为 10
+2. 创建包含多个 view 的 scrollView
 3. 创建一个包含所有专辑封面的数组
 
 接下来你需要实现初始化器。添加以下方法：
@@ -113,13 +113,13 @@ required init?(coder aDecoder: NSCoder) {
 }
 
 func initializeScrollView() {
-  //1
+  // 1
   addSubview(scroller)
 
-  //2
+  // 2
   scroller.translatesAutoresizingMaskIntoConstraints = false
 
-  //3
+  // 3
   NSLayoutConstraint.activate([
     scroller.leadingAnchor.constraint(equalTo: self.leadingAnchor),
     scroller.trailingAnchor.constraint(equalTo: self.trailingAnchor),
@@ -127,18 +127,18 @@ func initializeScrollView() {
     scroller.bottomAnchor.constraint(equalTo: self.bottomAnchor)
   ])
 
-  //4
+  // 4
   let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(scrollerTapped(gesture:)))
   scroller.addGestureRecognizer(tapRecognizer)
 }
 ```
 
-这项工作是在 `initializeScrollView()` 中完成的。以下是该详细分析：
+这项工作是在 `initializeScrollView()` 中完成的。以下是详细分析：
 
 1. 将 `UIScrollView` 实例添加到 superView
-2. 关闭自动调整遮罩（autoresizing mask），这样你就可以使用自定义约束
-3. 将约束应用于 scrollview，你希望 scrollview 完全填充 `HorizontalScrollerView`
-4. 创建轻击手势识别器（tap gesture recognizer）。它会检测 scrollView 上的触摸事件并检查是否已经轻击了专辑封面。如果是，它将通知 `HorizontalScrollerView` 的代理。在这里你会遇到编译错误，因为 scrollerTapped(gesture:) 方法尚未实现，你接下来就要实现了。
+2. 关闭自动调整遮罩（autoresizing mask），这样你就可以使用自定义约束了
+3. 将约束应用于 scrollView，你希望 scrollView 完全填充 `HorizontalScrollerView`
+4. 创建轻击手势识别器（tap gesture recognizer）。它会检测 scrollView 上的触摸事件并检查是否已经点击了专辑封面。如果是，它将通知 `HorizontalScrollerView` 的代理。在这里会有一个编译错误，因为 scrollerTapped(gesture:) 方法尚未实现，你接下来就要实现它了。
 
 现在添加下面的方法：
 
@@ -151,7 +151,7 @@ func scrollToView(at index: Int, animated: Bool = true) {
 }
 ```
 
-此方法检索特定索引的 View 并使其居中。它将由以下方法调用（也需要你将此方法添加到类中）：
+此方法检索特定索引的 view 并使其居中。它将由以下方法调用（你也需要将此方法添加到类中）：
 
 ```swift
 @objc func scrollerTapped(gesture: UITapGestureRecognizer) {
@@ -165,9 +165,9 @@ func scrollToView(at index: Int, animated: Bool = true) {
 }
 ```
 
-此方法在 scrollView 中查找点击的位置，如果存在的话它会查找包含该位置的第一个 contentView 的索引。
+此方法在 scrollView 中寻找点击的位置，如果存在的话它会查找包含该位置的第一个 contentView 的索引。
 
-如果点击了 contentView，则通知代理并将此 View 滚动到中心位置。
+如果点击了 contentView，则通知代理并将此 view 滚动到中心位置。
 
 接下来添加以下内容以从滚动器访问专辑封面：
 
@@ -177,48 +177,48 @@ func view(at index :Int) -> UIView {
 }
 ```
 
-`view(at:)` 只返回特定索引处的 View，稍后你将使用此方法突出显示你已点击的专辑封面。
+`view(at:)` 只返回特定索引处的 view，稍后你将使用此方法突出显示你已点击的专辑封面。
 
-现在添加以下代码来重新加载滚动器：
+现在添加以下代码来刷新 scrollView：
 
 ```swift
 func reload() {
-  // 1 - 检查是否有数据源，如果没有则返回。
+  // 1. 检查是否有数据源，如果没有则返回。
   guard let dataSource = dataSource else {
     return
   }
 
-  //2 - 删除所有旧的 contentView
+  // 2. 删除所有旧的 contentView
   contentViews.forEach { $0.removeFromSuperview() }
 
-  // 3 - xValue 是滚动器内每个 View 的起点
+  // 3. xValue 是 scrollView 内每个 view 的起点 x 坐标
   var xValue = ViewConstants.Offset
-  // 4 - 获取并添加新的 View
+  // 4. 获取并添加新的 View
   contentViews = (0..<dataSource.numberOfViews(in: self)).map {
     index in
-    // 5 - 在正确的位置添加 View
+    // 5. 在正确的位置添加 View
     xValue += ViewConstants.Padding
     let view = dataSource.horizontalScrollerView(self, viewAt: index)
-    view.frame = CGRect(x: CGFloat(xValue), y: ViewConstants.Padding, width: ViewConstants.Dimensions, height: ViewConstants.Dimensions)
+    view.frame = CGRect(x: xValue, y: ViewConstants.Padding, width: ViewConstants.Dimensions, height: ViewConstants.Dimensions)
     scroller.addSubview(view)
     xValue += ViewConstants.Dimensions + ViewConstants.Padding
     return view
   }
   // 6
-  scroller.contentSize = CGSize(width: CGFloat(xValue + ViewConstants.Offset), height: frame.size.height)
+  scroller.contentSize = CGSize(width: xValue + ViewConstants.Offset, height: frame.size.height)
 }
 ```
 
-`UITableView`中的 `reload` 方法会在 `reloadData` 之后建模，它将重新加载用于构造水平滚动器的所有数据。
+`UITableView`中的 `reload` 方法会在 `reloadData` 之后建模，它将重新加载用于构造 scrollView 的所有数据。
 
-每条注释对应的详细解释如下：
+每条注释对应的详解如下：
 
-1. 在执行任何 reload 之前检查是否有数据源。
-2. 由于你要清除专辑封面，因此你还需要移除所有存在的 View。
-3. 所有 View 都从给定的偏移量开始定位。目前它是 100，但可以通过更改文件顶部的常量 `ViewConstants.Offset` 来轻松地做出调整。
-4. 向数据源请求 View 的个数，然后使用它来创建新的 contentView 数组。
-5. `HorizontalScrollerView` 一次向一个 View 请求其数据源，并使用先前定义的填充将它们水平挨个布局。
-6. 所有 View 布局好之后，设置 scrollView 的偏移量来允许用户滚动浏览所有专辑封面。
+1. 在执行任何 reload 之前检查数据源是否存在。
+2. 由于你要清除专辑封面，因此你还需要移除所有存在的 view。
+3. 所有 view 都从给定的偏移量开始定位。目前它是 100，但可以通过更改文件顶部的常量 `ViewConstants.Offset` 来轻松地做出调整。
+4. 向数据源请求 view 的个数，然后使用它来创建新的 contentView 数组。
+5. `HorizontalScrollerView` 一次向一个 view 请求其数据源，并使用先前定义的填充将它们水平挨个布局。
+6. 所有 view 布局好之后，设置 scrollView 的偏移量来允许用户滚动浏览所有专辑封面。
 
 当你的数据发生改变时调用 `reload` 方法。
 
@@ -244,7 +244,7 @@ private func centerCurrentView() {
 }
 ```
 
-上面的代码考虑了 scrollView 的当前偏移量以及 View 的尺寸和填充以便计算当前 View 与中心的距离。最后一行很重要：一旦 View 居中，就通知代理所选的 View 已变更。
+上面的代码考虑了 scrollView 的当前偏移量以及 view 的尺寸和填充以便计算当前view 与中心的距离。最后一行很重要：一旦 view 居中，就通知代理所选的 view 已变更。
 
 要检测用户是否在 scrollView 内完成了拖动，你需要实现一些 `UIScrollViewDelegate` 的方法，将以下类扩展添加到文件的底部。记住一定要在主类声明的花括号 **下面** 添加！
 
@@ -270,7 +270,7 @@ extension HorizontalScrollerView: UIScrollViewDelegate {
 scroller.delegate = self
 ```
 
-你的 `HorizontalScrollerView` 已准备就绪！看一下你刚刚编写的代码，你会看到没有任何地方有出现 `Album` 或 `AlbumView` 类。这非常棒，因为这意味着新的滚动器真正实现了独立并且可复用。
+你的 `HorizontalScrollerView` 已准备就绪！看一下你刚刚编写的代码，你会看到没有任何地方有出现 `Album` 或 `AlbumView` 类。这非常棒，因为这意味着新的 scrollView 真正实现了解耦并且可复用。
 
 编译项目确保可以正常通过编译。
 
@@ -278,7 +278,7 @@ scroller.delegate = self
 
 [![](https://koenig-media.raywenderlich.com/uploads/2017/06/design-patterns-part2-scroller-480x270.png)](https://koenig-media.raywenderlich.com/uploads/2017/06/design-patterns-part2-scroller.png)
 
-接下来打开 **Assistant Editor** 并从灰色矩形 View 拖线到 **ViewController.swift** 来创建一个 IBOutlet，并命名为 **horizontalScrollerView**，如下图所示：
+接下来打开 **Assistant Editor** 并从灰色矩形 view 拖线到 **ViewController.swift** 来创建一个 IBOutlet，并命名为 **horizontalScrollerView**，如下图所示：
 
 [![](https://koenig-media.raywenderlich.com/uploads/2017/06/design-patterns-part2-scroller-outlet-480x270.png)](https://koenig-media.raywenderlich.com/uploads/2017/06/design-patterns-part2-scroller-outlet.png)
 
@@ -305,9 +305,9 @@ extension ViewController: HorizontalScrollerViewDelegate {
 
 这是在调用此代理方法时发生的事情：
 
-1. 首先你取到之前选择的专辑，然后取消选择专辑封面。
+1. 首先你取到之前选择的专辑，然后取消选择专辑封面
 2. 存储刚刚点击的当前专辑封面的索引
-3. 取得当前所选的专辑封面并显示高亮状态。
+3. 取得当前所选的专辑封面并显示高亮状态
 4. 在 tableView 中显示新专辑的数据
 
 接下来，是时候实现 `HorizontalScrollerViewDataSource` 了。在当前文件末尾添加以下代码：
@@ -331,7 +331,7 @@ extension ViewController: HorizontalScrollerViewDataSource {
 }
 ```
 
-正如你所看到的，`numberOfViews(in:)` 是返回 scrollView 中 View 的个数的协议方法。由于 scrollView 将显示所有专辑数据的封面，因此 count 就是专辑记录的数量。在 `horizontalScrollerView(_:viewAt:)` 里你创建一个新的 `AlbumView`，如果它是所选的专辑，则高亮显示它，再将它传递给 `HorizontalScrollerView`。
+正如你所看到的，`numberOfViews(in:)` 是返回 scrollView 中 view 的个数的协议方法。由于 scrollView 将显示所有专辑数据的封面，因此 count 就是专辑记录的数量。在 `horizontalScrollerView(_:viewAt:)` 里你创建一个新的 `AlbumView`，如果它是所选的专辑，则高亮显示它，再将它传递给 `HorizontalScrollerView`。
 
 基本完成了！只用三个简短的方法就能显示出一个漂亮的 scrollView。你现在需要设置数据源和代理。在 `viewDidLoad` 中的 `showDataForAlbum(at:)` 之前添加以下代码：
 
@@ -347,13 +347,13 @@ horizontalScrollerView.reload()
 
 呃，等一下！水平滚动视图已就位，但专辑的封面在哪里呢？
 
-啊，没错，你还没有实现下载封面的代码。为此，你需要添加下载图像的方法，而且你对服务的所有访问都通过一个所有新方法必经的一层 `LibraryAPI`。但是，首先要考虑以下几点：
+啊，没错，你还没有实现下载封面的代码。为此，你需要添加下载图像的方法，而且你对服务器的全部访问请求都要通过一个所有新方法必经的一层 `LibraryAPI`。但是，首先要考虑以下几点：
 
-1. `AlbumView` 不应直接与 `LibraryAPI` 一起使用，你不会希望将 View 里的逻辑与通信逻辑混合在一起的。
+1. `AlbumView` 不应直接与 `LibraryAPI` 一起使用，你不会希望将 view 里的逻辑与网络请求混合在一起的。
 2. 出于同样的原因，`LibraryAPI` 不应该牵连 `AlbumView`。
-3. 当封面被下载完成，`LibraryAPI` 需要通知 `AlbumView` 因为 `AlbumView` 得显示封面。
+3. 当封面被下载完成，`LibraryAPI` 需要通知 `AlbumView` 来显示专辑。
 
-Sounds like a conundrum? Don't despair, you'll learn how to do this using the **Observer** pattern!是不是感觉听起来好像很难的样子？不要绝望，你将学习如何使用 **观察者** 模式来做到这点！
+是不是感觉听起来好像很难的样子？不要绝望，你将学习如何使用 **观察者** 模式来做到这点！
 
 ## 观察者模式
 
@@ -391,7 +391,7 @@ extension Notification.Name {
 NotificationCenter.default.post(name: .BLDownloadImage, object: self, userInfo: ["imageView": coverImageView, "coverUrl" : coverUrl])
 ```
 
-该行代码通过 `NotificationCenter` 的单例发送通知，通知信息包含要填充的 `UIImageView` 和要下载的封面图像的 URL，这些是执行封面下载任务所需的所有信息。
+该行代码通过 `NotificationCenter` 的单例发送通知，通知信息包含要填充的 `UIImageView` 和要下载的专辑图像的 URL，这些是执行封面下载任务所需的所有信息。
 
 将以下代码添加到 **LibraryAPI.swift**中的 `init` 方法来作为当前为空的初始化方法的实现：
 
@@ -424,7 +424,7 @@ private var cache: URL {
 现在添加以下两个方法：
 
 ```swift
-func saveImage(** image: UIImage, filename: String) {
+func saveImage(_ image: UIImage, filename: String) {
   let url = cache.appendingPathComponent(filename)
   guard let data = UIImagePNGRepresentation(image) else {
     return
@@ -486,7 +486,7 @@ func getImage(with filename: String) -> UIImage? {
 
 停止你的应用并再次运行它。请注意加载封面没有延迟，这是因为它们已在本地保存了。你甚至可以断开与互联网的连接，应用程序仍将完美运行。然而这里有一个奇怪的地方，旋转加载的动画永远不会停止！这是怎么回事？
 
-你在下载图像时开始了旋转动画，但是在下载图像后，你并没有实现停止加载动画的逻辑。你 **本来应该** 在每次下载图像时发送通知，但是下面你将使用键值监听（KVO）来执行此操作。
+你在下载图像时开始了旋转动画，但是在下载图像后，你并没有实现停止加载动画的逻辑。你 **本应该** 在每次下载图像时发送通知，但是下面你将使用键值监听（KVO）来执行此操作。
 
 ### 键值监听（KVO）
 
@@ -528,7 +528,7 @@ valueObservation = coverImageView.observe(\.image, options: [.new]) { [unowned s
 
 ![How the album app will look when the design patterns tutorial is complete](https://koenig-media.raywenderlich.com/uploads/2017/07/FinalApp-180x320.png)
 
-**注意：** 要始终记得在它们被销毁时删除你的观察者，否则当对象试图向这些不存在的观察者发送消息时，你的应用程序将崩溃！在这种情况下，当相册视图被移除，`valueObservation` 将被销毁，因此监听将会停止。
+**注意：** 要始终记得在它们被销毁时删除你的观察者，否则当对象试图向这些不存在的观察者发送消息时，你的应用程序将崩溃！在这种情况下，当专辑视图被移除，`valueObservation` 将被销毁，因此监听将会停止。
 
 如果你稍微使用一下你的应用然后就终止它，你会注意到你的应用状态并未保存。应用程序启动时，你查看的最后一张专辑将不是默认专辑。
 
@@ -540,7 +540,7 @@ valueObservation = coverImageView.observe(\.image, options: [.new]) { [unowned s
 
 ## 如何使用备忘录模式
 
-iOS 使用备忘录模式作为 **状态恢复** 的一部分。你可以通过阅读我们的 [教程]（https://www.raywenderlich.com/117471/state-restoration-tutorial）来了解更多信息，但实质上它会存储并重新应用你的应用程序状态，以便用户回到上次操作的状态。
+iOS 使用备忘录模式作为 **状态恢复** 的一部分。你可以通过阅读我们的 [教程](https://www.raywenderlich.com/117471/state-restoration-tutorial) 来了解更多信息，但实质上它会存储并重新应用你的应用程序状态，以便用户回到上次操作的状态。
 
 要在应用程序中激活状态恢复，请打开 **Main.storyboard**，选择 **Navigation Controller**，然后在 **Identity Inspector** 中找到 **Restoration ID** 字段并输入 **NavigationController**。
 
@@ -580,7 +580,7 @@ override func decodeRestorableState(with coder: NSCoder) {
 }
 ```
 
-你将在这里保存索引（该操作在应用程序进入后台时进行）并恢复它（该操作在应用程序启动时加载完成 controller 中的 view 后进行）。还原索引后，更新 tableView 和 scrollView 以显示更新之后的选中状态。还有一件事要做，那就是你需要将 scrollView 滚动到正确的位置。如果你在此处移动 scrollView，这样是行不通的，因为 view 尚未布局完毕。下面请在正确的地方添加代码让 scrollView 滚动到对应的 view：
+你将在这里保存索引（该操作在应用程序进入后台时进行）并恢复它（该操作在应用程序启动时加载完成 controller 中的 view 后进行）。还原索引后，更新 tableView 和 scrollView 以显示更新之后的选中状态。还有一件事要做，那就是你需要将 scrollView 滚动到正确的位置。如果你在此处滚动 scrollView，这样是行不通的，因为 view 尚未布局完毕。下面请在正确的地方添加代码让 scrollView 滚动到对应的 view：
 
 ```swift
 override func viewDidAppear(_ animated: Bool) {
@@ -626,7 +626,7 @@ struct Album: Codable {
 要对对象进行编码，你需要使用 encoder。打开 **PersistencyManager.swift** 并添加以下代码：
 
 ```swift
-private let documents: URL {
+private var documents: URL {
   return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 }
 
@@ -646,7 +646,7 @@ func saveAlbums() {
 
 就像使用 `caches` 一样，你将在此定义一个 URL 用来保存文件目录，它是一个存储文件名路径的常量，然后就是将你的专辑数据写入文件的方法，事实上你并不用编写很多的代码！
 
-该方案的另一部分是将数据解码回具体对象。你现在需要替换掉创建专辑并从文件中加载它们的很长一段的那个方法。下载并解压 [此JSON文件]（https://koenig-media.raywenderlich.com/uploads/2017/07/albums.json_.zip）并将其添加到你的项目中。
+该方案的另一部分是将数据解码回具体对象。你现在需要替换掉创建专辑并从文件中加载它们的很长一段的那个方法。下载并解压 [此JSON文件](https://koenig-media.raywenderlich.com/uploads/2017/07/albums.json_.zip) 并将其添加到你的项目中。
 
 现在用以下代码替换 **PersistencyManager.swift** 中的 `init` 方法体：
 
@@ -678,9 +678,9 @@ if let albumData = data,
 
 其中的关键点是不要为你了使用设计模式而使用它。然而在考虑如何解决特定问题时，请留意设计模式，尤其是在设计应用程序的早期阶段。它们将使作为开发者的你生活变得更加轻松，代码同时也会更好！
 
-关于该文章主题的一本经典书籍是 [Design Patterns: Elements of Reusable Object-Oriented Software](http://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/)。有关代码示例，请查看 GitHub 上一个非常棒的项目 [Design Patterns: Elements of Reusable Object-Oriented Software]（https://github.com/ochococo/Design-Patterns-In-Swift）来取更多在 Swift 中编程中的设计模式。
+关于该文章主题的一本经典书籍是 [Design Patterns: Elements of Reusable Object-Oriented Software](http://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/)。有关代码示例，请查看 GitHub 上一个非常棒的项目 [Design Patterns: Elements of Reusable Object-Oriented Software](https://github.com/ochococo/Design-Patterns-In-Swift) 来取更多在 Swift 中编程中的设计模式。
 
-最后请务必查看 [Swift 设计模式进阶]（http://www.raywenderlich.com/86053/intermediate-design-patterns-in-swift) 和我们的视频课程 [iOS Design Patterns]（https://videos.raywenderlich.com/courses/72-ios-design-patterns/lessons/1）来了解更多设计模式！
+最后请务必查看 [Swift 设计模式进阶](http://www.raywenderlich.com/86053/intermediate-design-patterns-in-swift) 和我们的视频课程 [iOS Design Patterns](https://videos.raywenderlich.com/courses/72-ios-design-patterns/lessons/1) 来了解更多设计模式！
 
 
 
