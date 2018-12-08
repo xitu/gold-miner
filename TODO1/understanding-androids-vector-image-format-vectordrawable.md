@@ -264,10 +264,10 @@ _(大写命令使用绝对路径&小写命令使用相对路径)_
 
 所以希望这篇文章可以让您了解矢量资源是什么，它们的好处和权衡取舍。Android的矢量格式能够并且已经得到广泛的支持。鉴于市场上的设备种类繁多，使用矢量资产应该是您的默认选择，仅在特殊情况下使用栅格。加入我们的下一篇文章，了解更多信息：
 
-_即将到来：绘制路径 
-_即将到来：创建Android矢量资源 
-_即将到来: 在Android应用中使用矢量资源  
-_即将到来: 分析Android的`VectorDrawable`_
+_即将到来: 绘制路径  
+即将到来: 创建Android矢量资源  
+即将到来: 在Android应用中使用矢量资源  
+即将到来: 分析Android的`VectorDrawable`_
 
 感谢[Ben Weiss](https://medium.com/@keyboardsurfer?source=post_page), [Jose Alcérreca](https://medium.com/@JoseAlcerreca?source=post_page), and [Chris Banes](https://medium.com/@chrisbanes?source=post_page).
 
