@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*C9YTPhelGjw4AoXlHeuqig.png)
 
-Android设备有不同的尺寸、形状和屏幕密度。这正是我为什么喜欢使用与分辨率无关的 vector assets。但它们究竟是什么呢？它们有什么益处呢？它们需要什么成本呢？什么时候我应该使用它们呢？你是怎么创建和使用它们的呢？在这一系列文章中，我将会探索这些问题并解释在你的应用中大量的 assets 应该是矢量的原因以及怎样最大限度的使用它们。
+Android 设备有不同的尺寸、形状和屏幕密度。这正是我为什么喜欢使用与分辨率无关的 vector assets。但它们究竟是什么呢？它们有什么益处呢？它们需要什么成本呢？什么时候我应该使用它们呢？你是怎么创建和使用它们的呢？在这一系列文章中，我将会探索这些问题并解释在你的应用中大量的 assets 应该是矢量的原因以及怎样最大限度的使用它们。
 
 ### 光栅 vs 矢量
 
@@ -48,7 +48,7 @@ Android 选择最接近的较大密度并将其缩小（如果需要）。随着
 
 例如 [这里是一个改变](https://github.com/google/iosched/commit/78c5d25dfbb4bf8193c46c3fb8b73c9871c44ad6) [Google I/O app](https://play.google.com/store/apps/details?id=com.google.samples.apps.iosched) 通过将一些PNG图标从栅格转换成矢量节约了 482 KB。尽管听上去不是很多，但这仅仅是对小图像而言；更大的图片 (如插图) 会节省更多。
 
-这张[插图](https://github.com/google/iosched/blob/71f0c4cc20c5d75bc7b211e99fcf5205330109a0/android/src/main/res/drawable-nodpi/attending_in_person.png) 来自于上一年的 Google I/O 示例APP的上线流程：
+这张 [插图](https://github.com/google/iosched/blob/71f0c4cc20c5d75bc7b211e99fcf5205330109a0/android/src/main/res/drawable-nodpi/attending_in_person.png) 来自于上一年的 Google I/O 示例 APP 的上线流程：
 
 ![](https://cdn-images-1.medium.com/max/800/1*tzT8u-ungCXb_CHGAyAiPA.png)
 
@@ -87,11 +87,11 @@ Android 选择最接近的较大密度并将其缩小（如果需要）。随着
 1.  **Inflation**. 你的矢量文件必须被读取和解析成为  `[VectorDrawable](https://developer.android.com/reference/android/graphics/drawable/VectorDrawable)` 对你声明的 [paths](https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev/graphics/drawable/static/src/main/java/androidx/vectordrawable/graphics/drawable/VectorDrawableCompat.java#1809), [groups](https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev/graphics/drawable/static/src/main/java/androidx/vectordrawable/graphics/drawable/VectorDrawableCompat.java#1440) 进行建模。
 2.  **Drawing**. 然后必须通过执行 `Canvas` 绘制命令来绘制这些模型对象。
 
-这两个步骤都与矢量的复杂性和你执行的操作类型成正比。 如果你使用非常复杂的形状，将之解析成为 `[Path](https://developer.android.com/reference/android/graphics/Path)`将会花费更长的时间。类似地，更多的绘制操作将花费更长的时间来执行（还有一些更耗费时间的，例如剪辑操作）。
+这两个步骤都与矢量的复杂性和你执行的操作类型成正比。 如果你使用非常复杂的形状，将之解析成为 `[Path](https://developer.android.com/reference/android/graphics/Path)` 将会花费更长的时间。类似地，更多的绘制操作将花费更长的时间来执行（还有一些更耗费时间的，例如剪辑操作）。
 
 对于静态矢量，绘图阶段只需执行一次，然后可以缓存为 `Bitmap`。 对于动画矢量，就无法进行此优化，因为它们的属性必然会发生变化，需要重新绘制。
 
-将其与像PNG这样只需要解码文件内容的栅格资源进行比较，这些资源随着时间的推移已经经过高度优化。
+将其与像 PNG 这样只需要解码文件内容的栅格资源进行比较，这些资源随着时间的推移已经经过高度优化。
 
 这是栅格与矢量的基本权衡。矢量提供上诉好处，但代价是渲染更加昂贵。在 Android 早期, 设备性能差一点，屏幕密度差别不大。现在，Android 设备性能差一点，屏幕密度也各不相同。这就是为什么我认为现在是所以 APP 转移到矢量资源的时候了。
 
@@ -107,15 +107,15 @@ Android 选择最接近的较大密度并将其缩小（如果需要）。随着
 
 ### 为什么不用 SVG？
 
-如果你曾经使用矢量图像格式，你可能会遇到网络上的行业标准SVG格式（可缩放矢量图形）。它具有成熟的工具能力和成熟，但它也是一个巨大的标准。它包括许多复杂的功能，如执行任意javascript，模糊和滤镜效果或嵌入其他图像，甚至GIF动画。 Android 在受限制的移动设备上运行，因此支持整个 SVG 规范并不是一个现实的目标。
+如果你曾经使用矢量图像格式，你可能会遇到网络上的行业标准 SVG 格式（可缩放矢量图形）。它具有成熟的工具能力和成熟，但它也是一个巨大的标准。它包括许多复杂的功能，如执行任意 javascript，模糊和滤镜效果或嵌入其他图像，甚至 GIF 动画。 Android 在受限制的移动设备上运行，因此支持整个 SVG 规范并不是一个现实的目标。
 
-然而，SVG 包含一个[路径规范](https://www.w3.org/TR/SVG/paths.html)，它定义了如何描述和绘制形状。使用此 API，您可以表达大多数矢量形状。这基本上是  Android 支持的：SVG 的路径规范（加上一些补充）。
+然而，SVG 包含一个 [路径规范](https://www.w3.org/TR/SVG/paths.html)，它定义了如何描述和绘制形状。使用此 API，您可以表达大多数矢量形状。这基本上是  Android 支持的：SVG 的路径规范（加上一些补充）。
 
 此外，通过定义自己的格式，VectorDrawable 可以与 Android 平台功能集成。例如，使用 Android 资源系统引用 @colors、@dimens 或 @strings，使用标准  Animators 处理主题属性或 AnimatedVectorDrawable。
 
 ### `VectorDrawable` 的功能
 
-如上所述，VectorDrawable 支持[SVG 路径规范](https://www.w3.org/TR/SVG/paths.html)，允许您指定要绘制的一个或多个形状。它是作为 XML 文档创作的，如下所示：
+如上所述，VectorDrawable 支持 [SVG 路径规范](https://www.w3.org/TR/SVG/paths.html)，允许您指定要绘制的一个或多个形状。它是作为 XML 文档创作的，如下所示：
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -144,16 +144,16 @@ Android 选择最接近的较大密度并将其缩小（如果需要）。随着
 
 可视化路径操作
 
-上面的命令移动虚拟笔，然后画一条线到另一个点，抬起并移动笔，然后绘制另一条线。 只有4个最常用的命令，我们可以描述几乎任何形状（有更多的命令参见[规范](https://www.w3.org/TR/SVG/paths.html#PathData)）：
+上面的命令移动虚拟笔，然后画一条线到另一个点，抬起并移动笔，然后绘制另一条线。 只有 4 个最常用的命令，我们可以描述几乎任何形状（有更多的命令参见 [规范](https://www.w3.org/TR/SVG/paths.html#PathData)）：
 
 *   `M` move to
 *   `L` line to
 *   `C` (cubic bezier) curve to
 *   `Z` close (line to first point)
 
-_(大写命令使用绝对路径&小写命令使用相对路径)_
+_(大写命令使用绝对路径 & 小写命令使用相对路径)_
 
-你可能想知道是否需要关注此级别的详细信息 — 你是否只是从SVG文件中获取这些内容？虽然您不需要能够阅读路径并了解它将绘制什么，但基本了解`VectorDrawable` 正在做什么对于理解我们稍后将要获得的一些高级功能非常有用和必要。
+你可能想知道是否需要关注此级别的详细信息 — 你是否只是从 SVG 文件中获取这些内容？虽然您不需要能够阅读路径并了解它将绘制什么，但基本了解`VectorDrawable` 正在做什么对于理解我们稍后将要获得的一些高级功能非常有用和必要。
 
 路径本身不会绘制任何东西，它们需要被 stroked 或 filled。
 
@@ -262,14 +262,14 @@ _(大写命令使用绝对路径&小写命令使用相对路径)_
 
 ### 宣布独立
 
-所以希望这篇文章可以让您了解矢量资源是什么，它们的好处和权衡取舍。Android的矢量格式能够并且已经得到广泛的支持。鉴于市场上的设备种类繁多，使用矢量资产应该是您的默认选择，仅在特殊情况下使用栅格。加入我们的下一篇文章，了解更多信息：
+所以希望这篇文章可以让您了解矢量资源是什么，它们的好处和权衡取舍。Android 的矢量格式能够并且已经得到广泛的支持。鉴于市场上的设备种类繁多，使用矢量资产应该是您的默认选择，仅在特殊情况下使用栅格。加入我们的下一篇文章，了解更多信息：
 
 _即将到来: 绘制路径  
 即将到来: 创建 Android 矢量资源  
 即将到来: 在 Android 应用中使用矢量资源  
 即将到来: 分析 Android 的 `VectorDrawable`_
 
-感谢 [Ben Weiss](https://medium.com/@keyboardsurfer?source=post_page), [Jose Alcérreca](https://medium.com/@JoseAlcerreca?source=post_page), and [Chris Banes](https://medium.com/@chrisbanes?source=post_page).
+感谢 [Ben Weiss](https://medium.com/@keyboardsurfer?source=post_page), [Jose Alcérreca](https://medium.com/@JoseAlcerreca?source=post_page), 和 [Chris Banes](https://medium.com/@chrisbanes?source=post_page).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
