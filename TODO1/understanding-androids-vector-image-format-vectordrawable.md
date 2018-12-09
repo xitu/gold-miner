@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# 了解Android的矢量图片格式： `VectorDrawable`
+# 了解 Android 的矢量图片格式：`VectorDrawable`
 
 ![](https://cdn-images-1.medium.com/max/2000/1*C9YTPhelGjw4AoXlHeuqig.png)
 
