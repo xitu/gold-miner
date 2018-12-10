@@ -19,7 +19,7 @@
 
 ### 取消 + 阻塞操作 = 😈
 
-没有办法绕过它：在某些时候，你不得不用纯 Java 流。这里的问题（很多情况下 😉）是使用流将会堵塞当前线程。这在协程中是一个坏消息。现在，如果你想要取消一个协程，在能够继续执行之前，你不得不等待读写操作完成。
+没有办法绕过它：在某些时候，你不得不用原生 Java 流。这里的问题（很多情况下 😉）是使用流将会堵塞当前线程。这在协程中是一个坏消息。现在，如果你想要取消一个协程，在能够继续执行之前，你不得不等待读写操作完成。
 
 作为一个简单可重复的例子，让我们打开 `ServerSocket` 并且等待 1 秒的超时连接：
 
@@ -34,7 +34,7 @@ runBlocking(Dispatchers.IO) {
 }
 ```
 
-应该工作，对吗？不。
+应该可以运行，对吗？不。
 
 现在你的感受有点像：😖。 那么我们如何解决呢？
 
@@ -42,7 +42,7 @@ runBlocking(Dispatchers.IO) {
 
 > 注意：通常情况下，JDK 中的 APIs 遵循了这些最佳实践，但需注意第三方 `Closeable` APIs 可能并没有遵循。 你被提醒过了。
 
-感谢 `suspendCancellableCoroutine` 函数，当一个协程被取消时我们可以关闭任何流：
+幸亏 `suspendCancellableCoroutine` 函数，当一个协程被取消时我们可以关闭任何流：
 
 ```
 public suspend inline fun <T : Closeable?, R> T.useCancellably(
@@ -123,9 +123,9 @@ runBlocking(Dispatchers.IO) {
 *   [将处理程序添加为服务](https://gist.github.com/SUPERCILEX/f4b01ccf6fd4ef7ec0a85dbd59c89d6c) 当使用 `launch` 的任何协程崩溃时都会调用它（hacky）。
 *   使用你自己的自定义域与附加的处理程序来替换 `GlobalScope`，或将处理程序添加到你使用的每个作用域，但这很烦人并使日志记录由默认变成了可选。
 
-最后一个是首选解决方案，因为它具有灵活性并且需要最少的代码和hacks。
+最后一个方案是所推荐的，因为它具有灵活性并且需要最少的代码和技巧。
 
-对于应用程序范围内的作业，你将使用带有日志记录处理程序的 `AppScope`。对于其他作业，你可以在日志记录崩溃的适当位置添加处理程序。
+对于应用程序范围内的作业，你将使用带有日志记录处理程序的 `AppScope`。对于其他业务，你可以在日志记录崩溃的适当位置添加处理程序。
 
 ```
 val LoggingExceptionHandler = CoroutineExceptionHandler { _, t ->
