@@ -7,31 +7,31 @@
 
 # 怎么做：React Native 网页应用。 一场开心的挣扎
 
-## 一个关于制作通用应用的短小却细致的教程
+## 一个关于制作通用应用的简短而详细的教程
 
 ![](https://cdn-images-1.medium.com/max/2000/1*RiQRKKQ2ndxD6ddo8hXNLg.png)
-你醒来。太阳在闪耀，鸟儿在歌唱。没有战争，没有饥饿，代码可以轻易地被原生和网页环境共享。是不是很赞？但很不幸，仅仅是后者，希望虽已经在地平线上，但仍然有一些事情需要我们去完成。
+你醒来。阳光灿烂，鸟儿在歌唱。没有战争，没有饥饿，代码可以轻易地被原生和 web 环境共享。是不是很赞？但很不幸，仅仅是后者，希望虽已经在地平线上，但仍然有一些事情需要我们去完成。
 
 ### 为什么你需要关心？
 
-如今在技术缩写的海洋里面，PWA ([Progressive Web App](https://en.wikipedia.org/wiki/Progressive_Web_Apps))是一个重要的三字词语,但是它仍然有[缺点](https://clutch.co/app-developers/resources/pros-cons-progressive-web-apps)。有很多被迫在开发原生应用以外还要开发网页版的案例，其中也有很多技术难题。[Ian Naylor 写了一篇很棒的关于这个的文章](https://appinstitute.com/pwa-vs-native-apps/)。
+如今在技术缩写的海洋里面，PWA ([渐进式 Web 应用程序](https://en.wikipedia.org/wiki/Progressive_Web_Apps))是一个重要的三字词语,但是它仍然有[缺点](https://clutch.co/app-developers/resources/pros-cons-progressive-web-apps)。有很多被迫在开发原生应用以外还要开发 web 版的案例，其中也有很多技术难题。[Ian Naylor 写了一篇很棒的关于这个的文章](https://appinstitute.com/pwa-vs-native-apps/)。
 
 但是，对于你的电子商务生意，仅仅开发一个原生应用也是一个大错误。因此制作一个能够在所有地方工作的软件似乎是一个合乎逻辑的操作。你可以减少工作时间，以及生产、维护的费用。这就是为什么我开始了这个小小的实验。
 
-这是一个简单的用于在线订餐的电子商务通用应用例子。在此之上，我创建了一个文件范例，用于将来的项目以及更深入的实验。
+这是一个简单的用于在线订餐的电子商务通用应用例子。在此之上，我创建了一个样板，用于将来的项目以及更深入的实验。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*hSTFw1TNjeqLZHq_DTBVRg.png)
 
-Papu — 一个可用于安卓、iOS、网页的食物 APP
+Papu — 一个可用于安卓、iOS、web 的食物 APP
 
 ### 检查一下你的基元
 
-我们使用 React 来开展我们的工作，因此我们应该将应用逻辑与 UI 分离。使用类似 Redux/MobX/other 这样的状态管理系统是最好的选择。 这样的操作使得我们的业务逻辑在整个平台内得到复用。 
+我们使用 React 来开展我们的工作，因此我们应该将应用逻辑与 UI 分离。使用类似 Redux/MobX/other 这样的状态管理系统是最好的选择。这将使得我们的业务逻辑能在多个平台之间复用。
 
-视觉部分则是另外一个难题。为了构建你的应用的界面，你需要有一套通用的基本模块。他们需要能同时在网页与原生环境下使用。不幸的是，网页上有着一套不一样的东西。
+视图部分则是另外一个难题。为了构建你的应用的界面，你需要有一套通用的基本模块。他们需要能同时在 web 与原生环境下使用。不幸的是，web 上有着一套不一样的东西。
 
 ```
-<div>这是一个标准的网页上的容器</div>
+<div>这是一个标准的 web 上的容器</div>
 ```
 
 而在原生上
@@ -40,11 +40,11 @@ Papu — 一个可用于安卓、iOS、网页的食物 APP
 <View>你好！我是 React Native 里面的一个基础容器</View>
 ```
 
-有些聪明的人想到了如何解决这个问题。我最喜欢的解决方案之一就是由[Nicolas Gallagher](http://nicolasgallagher.com/)制作的伟大的[React Native Web](https://github.com/necolas/react-native-web)库。不仅仅是因为它通过让你能够在网页上使用 React Native 的组件（不是全部组件！）来解决基本模块的问题。而且是因为它暴露了一些 React Native 的 API, 像是Geolocation, Platform, Animated,AsyncStorage. 快来[RNW guides](https://github.com/necolas/react-native-web/tree/master/docs/guides)这里看一些很棒的示例。
+有些聪明的人想到了如何解决这个问题。我最喜欢的解决方案之一就是由[Nicolas Gallagher](http://nicolasgallagher.com/)制作的伟大的[React Native Web](https://github.com/necolas/react-native-web)库。不仅仅是因为通过它能够让你在 web 上使用 React Native 组件（不是全部组件！）来解决基本模块的问题。它还暴露了一些 React Native 的 API，比如 Geolocation，Platform，Animated，AsyncStorage 等。 快来[RNW guides](https://github.com/necolas/react-native-web/tree/master/docs/guides)这里看一些很棒的示例。
 
-### 首先是一个文件范例
+### 首先是一个样板
 
-我们已经知道如何解决基本模块的问题了。但是我们仍然要试着将网页与原生的生产环境『粘』在一起，让『奇迹』发生。在我的项目中，我使用了[RN](https://facebook.github.io/react-native/docs/getting-started)的初始化脚本（没有展示在这里），并且对于网页部分我使用了[create-react-app](https://github.com/facebook/create-react-app)。首先我创建了一个叫`create-react-app rnw_web`的项目以及一个叫`react-native init raw_native`的项目。然后我在一个新的项目文件夹里面，『科学怪人式』地将他们的`package.json`合并成一个，并在上面应用 yarn. 最终的 package 文件长这样：
+我们已经知道如何解决基本模块的问题了。但是我们仍然要试着将 web 页与原生的生产环境『粘』在一起，让『奇迹』发生。在我的项目中，我使用了[RN](https://facebook.github.io/react-native/docs/getting-started)的初始化脚本（没有展示在这里），并且对于 web 部分我使用了[create-react-app](https://github.com/facebook/create-react-app)。首先我创建了一个叫`create-react-app rnw_web`的项目以及一个叫`react-native init raw_native`的项目。然后我在一个新的项目文件夹里面，『科学怪人式』地将他们的`package.json`合并成一个，并在上面应用 yarn. 最终的 package 文件长这样：
 
 ```
 {
@@ -80,15 +80,15 @@ Papu — 一个可用于安卓、iOS、网页的食物 APP
 }
 ```
 
-React Native Web 文件范例的 package.json 文件（在这个版本里面没有导航）
+React Native Web 样板的 package.json 文件（在这个版本里面没有导航）
 
- 你需要将所有在 web 和 native 文件夹里面的源文件文件夹拷贝到你新的统一的项目文件夹中。
+ 你需要将所有在 web 和 native 目录里的源代码文件复制到新的统一项目目录中。
  
 ![](https://cdn-images-1.medium.com/max/800/1*jBJPol8evebkL96FXEAFew.png)
 
-需要被拷贝到新项目的文件夹
+需要复制到新项目的文件夹
 
-下一步，我们将两个文件 App.js 与 App.native.js 放到我们新创建的 src 文件夹中。感谢 [webpack](https://webpack.js.org/) 我们可以通过文件拓展名来告诉打包器哪些文件用在哪些地方。这对于使用分离的 App 文件至关重要，因为我们准备使用不同的方式进行应用导航。
+下一步，我们将 App.js 与 App.native.js 放到我们新创建的 src 文件夹中。感谢 [webpack](https://webpack.js.org/) 我们可以通过文件拓展名来告诉打包器哪些文件用在哪些地方。这对于使用分离的 App 文件至关重要，因为我们准备使用不同的方式进行应用导航。
 
 ```
 // App.js - WEB
@@ -139,7 +139,7 @@ class App extends Component {
 export default App;
 ```
 
-给网页的 App.js. 这里使用 react-router 进行导航。
+给 web 的 App.js. 这里使用 react-router 进行导航。
 
 ```
 // App.js - React Native
@@ -190,9 +190,9 @@ export default App;
 
 给 React Native 的 App.js. 这里使用了 react-navigation.
 
-我就是这样制作了一个简单的文件范例以及给应用构造了一个框架。你可以通过克隆我的 github 仓库来试一下我那个干净的文件范例。
+我就是这样制作了一个简单的样板以及给应用构造了一个框架。你可以通过克隆我的 github 仓库来试一下我那个干净的样板。
 
-* [**inspmoore/rnw_boilerplate**: 一个基于 React Native Web 库的，用于实现 React Native 与 ReactDOM 之间代码共享的文件范例](https://github.com/inspmoore/rnw_boilerplate "https://github.com/inspmoore/rnw_boilerplate")
+* [**inspmoore/rnw_boilerplate**: 一个基于 React Native Web 库的，用于实现 React Native 与 ReactDOM 之间代码共享的样板](https://github.com/inspmoore/rnw_boilerplate "https://github.com/inspmoore/rnw_boilerplate")
 
 下一步我们将通过加入路由/导航系统来让它弄复杂一些。
 
@@ -290,7 +290,7 @@ render() {
 
 ### 结果
 
-如果你想试一下这个想法，我制作了两个文件范例。
+如果你想试一下这个想法，我制作了两个样板。
 
 第一个只是一个给 web 与原生的通用生产环境。你可以在[这里](https://github.com/inspmoore/rnw_boilerplate)找到。
 
