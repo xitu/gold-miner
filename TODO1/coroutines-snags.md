@@ -2,47 +2,47 @@
 > * 原文作者：[Alex Saveau](https://proandroiddev.com/@SUPERCILEX?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/coroutines-snags.md](https://github.com/xitu/gold-miner/blob/master/TODO1/coroutines-snags.md)
-> * 译者：
-> * 校对者：
+> * 译者：[nanjingboy](https://github.com/nanjingboy)
+> * 校对者：[zx-Zhu](https://github.com/zx-Zhu)
 
-# Advanced Kotlin Coroutines tips and tricks
+# Kotlin 协程高级使用技巧
 
-## Learn about a few snags and how to get around them
+## 学习一些障碍以及如何绕过它们
 
 ![](https://cdn-images-1.medium.com/max/800/1*xGP1VG9jCjZN1VqFKgrL9A.png)
 
-Coroutines are stable as of 1.3!
+协程从 1.3 开始成为稳定版！
 
-Kotlin Coroutines starts off incredibly simple: just put some long running operation in `launch` and you’re good, right? For simple cases, sure. But pretty soon, the complexity inherent to concurrency and parallelism starts piling up.
+开始 Kotlin 协程非常简单：只需将一些耗时操作放在 `launch` 中即可，你做到了，对不？当然，这是针对简单的情况。但很快，并发与并行的复杂性会慢慢堆积起来。
 
-Here’s what you need to know when you’re knee deep in the coroutine trenches.
+当你深入研究协程时，以下是一些你需要知道的事情。
 
-### Cancellation + blocking work = 😈
+### 取消 + 阻塞操作 = 😈
 
-There’s no way to get around it: you’ll have to use good ol’ Java streams at some point or another. One problem (of many 😉) with streams is that they block the current thread. That’s bad news in the coroutines world. Now, if you want to cancel a coroutine, you’ll have to wait for the read or write to complete before you can continue.
+没有办法绕过它：在某些时候，你不得不用原生 Java 流。这里的问题（很多情况下 😉）是使用流将会堵塞当前线程。这在协程中是一个坏消息。现在，如果你想要取消一个协程，在能够继续执行之前，你不得不等待读写操作完成。
 
-As a simple reproducible example, let’s say you open a `ServerSocket` and wait for a connection with a 1 second timeout:
+作为一个简单可重复的例子，让我们打开 `ServerSocket` 并且等待 1 秒的超时连接：
 
 ```
 runBlocking(Dispatchers.IO) {
     withTimeout(1000) {
         val socket = ServerSocket(42)
-        
-         // We're stuck here forever until someone accepts. Don't you want to know the answer? 😜
+
+         // 我们将卡在这里直到有人接收该连接。难道你不想知道为什么吗？😜
         socket.accept()
     }
 }
 ```
 
-Should work, right? Nope.
+应该可以运行，对吗？不。
 
-Now you’re feeling a bit like this: 😖. So how do we fix it?
+现在你的感受有点像：😖。 那么我们如何解决呢？
 
-When `Closeable` APIs are well built, they support closing the stream from any thread and will fail appropriately.
+当 `Closeable` APIs 构建良好时，它们支持从任何线程关闭流并适当地失败。
 
-> Note: in general, APIs from the JDK follow those best practices, but beware of any third party `Closeable` APIs that may not. You’ve been warned.
+> 注意：通常情况下，JDK 中的 APIs 遵循了这些最佳实践，但需注意第三方 `Closeable` APIs 可能并没有遵循。 你被提醒过了。
 
-Thanks to the `suspendCancellableCoroutine` function, we can close any stream when a coroutine is cancelled:
+幸亏 `suspendCancellableCoroutine` 函数，当一个协程被取消时我们可以关闭任何流：
 
 ```
 public suspend inline fun <T : Closeable?, R> T.useCancellably(
@@ -53,79 +53,79 @@ public suspend inline fun <T : Closeable?, R> T.useCancellably(
 }
 ```
 
-Be sure this works with the API you are using!
+确保这适用于你正在使用的 API ！
 
-Now that our blocking `accept` call is wrapped in `useCancellably`, the coroutine will fail when the timeout occurs.
+现在阻塞的 `accept` 调用被 `useCancellably` 包裹，该协程会在超时触发的时候失败。
 
 ```
 runBlocking(Dispatchers.IO) {
     withTimeout(1000) {
         val socket = ServerSocket(42)
 
-        // Blows up with `SocketException: socket closed`. Yay!
+        // 抛出 `SocketException: socket closed` 异常。好极了！
         socket.useCancellably { it.accept() }
     }
 }
 ```
 
-Success!
+成功！
 
-But what if you can’t support cancellation at all? Here’s what you need to watch out for:
+如果你不支持取消怎么办？以下是你需要注意的事项：
 
-*   If you use any instance properties/functions from your coroutine’s enclosing class, it will be leaked even if you cancel the coroutine. This is especially relevant if you think you’re cleaning up resources in `onDestroy`. **Workaround:** move the coroutine to a `ViewModel` or other non-context class and subscribe to its result.
-*   Make sure to use `Dispatchers.IO` for blocking work since that allows Kotlin to set aside some threads that it expects to be waiting indefinitely.
-*   Use `suspendCancellableCoroutine` over `suspendCoroutine` wherever possible.
+*   如果你使用协程封装类中的任何属性或方法，即使取消了协程也会存在泄漏。如果你认为你正在 `onDestroy` 中清理资源，这尤其重要。**解决方法:** 将协同程序移动到 `ViewModel` 或其他上下文无关的类中并订阅它的处理结果。
+*   确保使用 `Dispatchers.IO` 来处理阻塞操作，因为这可以让 Kotlin 留出一些线程来进行无限等待。
+*   尽可能使用 `suspendCancellableCoroutine` 替换 `suspendCoroutine`。
 
 ### `launch` vs. `async`
 
-Since the top SO answers about these two builders are out-of-date, I thought I’d touch upon their differences again.
+由于上面关于这两个特性的回答已经过时，我想我会再次分析它们的差异。
 
-#### `launch` bubbles up exceptions
+#### `launch` 异常冒泡
 
-When a coroutines crashes, its parent is cancelled which in turn cancels all the parent’s children. Once coroutines throughout the tree have finished cancelling, the exception is sent to the current context’s exception handler. On Android, that means _your app will crash_, regardless of what dispatcher you were using.
+当一个协程崩溃时，它的父节点将被取消，从而取消所有父节点的子节点。一旦整个树节点中的协程完成取消操作，异常将会发送到当前上线文的异常处理程序。在 Android 中，这意味着 **你的** 程序将会 **崩溃**，而不管你使用什么来进行调度。
 
-#### `async` holds on to its exceptions
+#### `async` 持有自己的异常
 
-That means `await()` explicitly handles all exceptions and installing a `CoroutineExceptionHandler` will have no effect.
+这意味着 `await()` 显式处理所有异常，安装 `CoroutineExceptionHandler` 将无任何效果。
 
-#### `launch` “blocks” the parent scope
+#### `launch` “blocks” 父作用域
 
-While the function will return immediately, its parent scope will _not_ finish until all coroutines built with `launch` have completed one way or another. This makes calling `join()` for all your child jobs at the end of the parent unnecessary if you simply want to wait for those coroutines to finish.
+虽然该函数会立即返回，但其父作用域将 **不会** 结束，直到使用 `launch` 构建的所有协程以某种方式完成。因此如果你只是想等待所有协程完成，在父作用域末尾调用所有子作业的 `join()` 就没有必要了。
 
-Unlike what you might expect, the outer scope will still wait for `async` coroutines to complete even if `await()` is not called.
+与你期望的可能不同，即使未调用 `await（）`，外部作用域仍将等待`async`协程完成。
 
-#### `async` returns a result
+#### `async` 返回值
 
-This one’s pretty simple: if you need a result out of your coroutine, `async` is your only option. If you don’t need a result, use `launch` to create side effects. And only if you need those side effects to complete before moving on do you need to use `join()`.
+这一部分相当简单：如果你需要协程的返回值，`async` 是唯一的选择。如果你不需要返回值，使用 `launch` 来创建副作用。并且在继续执行之前需要完成这些副作用才需要使用 `join()`。
 
 #### `join()` vs. `await()`
 
-`join()` does _not_ rethrow exceptions while `await()` will. However, `join()` cancels your coroutine if an error occurred, meaning any code after the suspending call to `join()` is not invoked.
+`join()` 在 `await()` 时 **不会** 重新抛出异常。但如果发生错误，`join()` 会取消你的协程，这意味着在 `join()` 挂起后调用任何代码都不会起作用。
 
-### Logging exceptions
+### 记录异常
 
-Now that you understand how differently exceptions are handled depending on which builder you use, you’re left with a dilemma: you want to log exceptions without crashing (so we can’t use `launch`), but you don’t want to manually `try`/`catch` them all (so we can’t use `async`). So that leaves us with… nothing? Thankfully not.
+现在你了解了你所使用不同构造器异常处理机制的差异，你会陷入两难境地：你想记录异常而不崩溃（所以我们不能使用 `launch`），但是你不想手动调用 `try`/`catch` （所以我们不能使用 `async`）。所以这让我们无所适从？谢天谢地。
 
-Logging exceptions is where the `CoroutineExceptionHandler` comes in handy. But first, let’s take a moment to understand what actually happens when an exception is thrown in a coroutine:
+记录异常是  `CoroutineExceptionHandler` 派上用场的地方。但首先，让我们花点时间了解在协程中抛出异常时究竟发生了什么：
 
-1.  The exception is caught and then resumed through a `Continuation`.
-2.  If your code doesn’t handle the exception and it isn’t a `CancellationException`, the first `CoroutineExceptionHandler` is requested through the current `CoroutineContext`.
-3.  If a handler isn’t found or it errors, the exception is sent to platform specific code.
-4.  On the JVM, a `ServiceLoader` is used to locate global handlers.
-5.  Once all handlers have been invoked or one of them errors, the current thread’s exception handler gets invoked.
-6.  If the current thread doesn’t handle the exception, it bubbles up to the thread group and then finally to the default exception handler.
-7.  Crash!
+1.  捕获异常，然后通过 `Continuation` 恢复。
+2.  如果你的代码没有处理异常并且该异常不是 `CancellationException`，那么将通过当前的 `CoroutineContext` 请求第一个 `CoroutineExceptionHandler`。
+3.  如果未找到处理程序或处理程序有错误，那么异常将发送到平台中的特定代码。
+4.  在 JVM 上，`ServiceLoader` 用于定位全局处理程序。
+5.  一旦调用了所有处理程序或有一个处理程序出现错误，就会调用当前线程的异常处理程序。
+6.  如果当前线程没有处理该异常，它会冒泡到线程组并最终到达默认异常处理程序。
+7.  崩溃！
 
-With that in mind, we have a few options:
+考虑到这一点，我们有以下几个选择：
 
-*   Install a handler per thread, but that’s not realistic.
-*   Install the default handler, but then errors from the main thread won’t crash your app and you’ll be left in a potentially bad state.
-*   [Add the handler as a service](https://gist.github.com/SUPERCILEX/f4b01ccf6fd4ef7ec0a85dbd59c89d6c) which will be invoked when any coroutine built with `launch` crashes (hacky).
-*   Use your own custom scope with a handler attached instead of `GlobalScope` or add the handler to every scope you use, but that’s annoying and makes logging optional instead of the default.
+*   为每个线程安装一个处理程序，但这是不现实的。
+*   安装默认处理程序，但主线程中的错误不会让你的应用崩溃，并且你将处于潜在的不良状态。
+*   [将处理程序添加为服务](https://gist.github.com/SUPERCILEX/f4b01ccf6fd4ef7ec0a85dbd59c89d6c) 当使用 `launch` 的任何协程崩溃时都会调用它（hacky）。
+*   使用你自己的自定义域与附加的处理程序来替换 `GlobalScope`，或将处理程序添加到你使用的每个作用域，但这很烦人并使日志记录由默认变成了可选。
 
-That last solution is preferred because it is flexible while requiring minimal code and hacks.
+最后一个方案是所推荐的，因为它具有灵活性并且需要最少的代码和技巧。
 
-For app wide jobs, you’ll use an `AppScope` with a logging handler. For any other jobs, you can add the handler when logging is appropriate over crashing.
+对于应用程序范围内的作业，你将使用带有日志记录处理程序的 `AppScope`。对于其他业务，你可以在日志记录崩溃的适当位置添加处理程序。
 
 ```
 val LoggingExceptionHandler = CoroutineExceptionHandler { _, t ->
@@ -142,11 +142,11 @@ class ViewModelBase : ViewModel(), CoroutineScope {
 }
 ```
 
-Not too shabby
+不是很糟糕
 
-### Closing thoughts
+### 最后的思考
 
-Anytime we have to deal with edge cases, things get messy pretty fast. I hope this article helped you understand the variety of problems you can run into given subpar conditions and what potential solutions you can apply.
+任何时候我们必须处理边缘情况，事情往往会很快变得混乱。我希望这篇文章能够帮助你了解在非标准条件下可能遇到的各种问题，以及你可以使用的解决方案。
 
 Happy Kotlining!
 
