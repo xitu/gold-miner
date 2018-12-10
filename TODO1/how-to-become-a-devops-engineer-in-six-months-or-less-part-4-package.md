@@ -124,47 +124,47 @@ Docker 不仅允许完全**进程隔离**，还允许完全的**依赖隔离**�
 
 ### 选择 Lambda
 
-As great as Docker is, it has downsides.
+伴随着 Docker 的伟大，它也有缺点。
 
-First, running Docker is still running servers. Servers are brittle and flaky. They must be managed, patched and otherwise cared for.
+首先，Docker 仍在运行服务器上。服务器很脆弱，必须对它们进行管理，修补和其他方面的保护。
 
-Second, nobody really runs Docker as is. Instead, it is almost always deployed as part of a complex container orchestration fabric, such as Kubernetes, ECS, _docker-swarm_ or Nomad. These are fairly complex platforms that require dedicated personnel to operate (more on these solutions later).
+其次，没有人按照原样运行 Docker（译者注：这里的意思应该指的是并没有完全像前面提到的完全进程隔离，不相互影响之意）。相反，它几乎总是作为复杂容器编排结构的一部分进行部署。例如 Kubernetes、ECS、**docker-swarm** 或者 Nomad。这些是相当复杂的平台，需要专门的人员来操作（稍后将详细介绍这些解决方案）。
 
-However, if I’m a developer, I just want to write code and have somebody else run it for me. Docker, Kubernetes and all that jazz are not simple things to learn — do I really have to?!
+但是，如果我是开发人员，我只想编写代码并让其他人为我运行它。Docker、Kubernetes 和所有的这些”爵士乐“都不是简单易学的东西 —— 我真的需要吗？
 
-Short answer is, it depends!
+简而言之，这取决于！
 
-For people who just want somebody else run their code, [AWS Lambda](https://aws.amazon.com/lambda/) (and other solutions like it) are the answer:
+对于那些只是想让其他人运行他们的代码的人，[AWS Lambda](https://aws.amazon.com/lambda/) （或者类似的解决方案）是问题的答案：
 
-> AWS Lambda lets you run code without provisioning or managing servers. You pay only for the compute time you consume — there is no charge when your code is not running.
+> AWS Lambda 允许你在不配置或者管理服务器的情况下运行代码。你只需要为你消耗的计算时间付费 —— 当你的代码未运行时不收取任何费用。
 
-If you have heard of the whole “serverless” movement, this is it! No more servers to run or containers to manage. Just write your code, package it up in to a zip file, upload to Amazon and let them deal with the headache!
+如果你听说过整个 ”serverless“ 运动，那就是它。不再需要运行着的服务器或者要管理的容器。只需要编写代码，将其打包成 zip 文件，上传到 Amazon 并且让他们处理头痛（的运维）！
 
-Moreover, since Lambdas are short lived there is nothing to hack — Lambdas are pretty secure by design.
+此外，由于 Lambda 非常短暂，没有什么可以破解的 —— Lambda 在设计上非常安全。
 
-Great, isn’t it?
+太棒了，不是吗？
 
-It is but (surprise!) there are caveats.
+但是（惊不惊喜！）有警告。
 
-First, Lambdas can only run for a max of 15 minutes (as of November 2018). This implies that long running processes, like Kafka consumers or number crunching apps cannot run in Lambda.
+首先，Lambda 最多只能运行 15 分钟（截止 2018 年 11 月）。这意味着长时间运行的进程，如 Kafka consumers 或者数字运算应用程序无法在 Lambda 中运行。
 
-Second, Lambdas are Functions-as-a-Service, which means your application must be fully decomposed into microservices and orchestrated with other complex PaaS services like [AWS Step Functions](https://aws.amazon.com/step-functions/). Not every enterprise is at this level of microservice architecture.
+其次，Lambda 是功能即服务（Function-as-a-Service），这意味着你的应用程序必须完全分解成微服务，并且和其他复杂的 PaaS 服务协调，如 [AWS Step Functions](https://aws.amazon.com/step-functions/)。并非每个企业都处于这种微服务架构的水平。
 
-Third, troubleshooting Lambdas are difficult. They are cloud-native runtimes and all bug fixing takes place within Amazon ecosystem. This is oftentimes challenging and non-intuitive.
+第三，对于 Lambda 进行故障排除很困难。他们是在云原生（cloud-native）运行时，所有的错误修复都发生在 Amazon 生态系统中。这通常具有挑战性且不直观。
 
-In short, there is no free lunch.
+简言之，没有免费的午餐。
 
-NOTE: There are now “serverless” cloud container solutions as well. [AWS Fargate](https://aws.amazon.com/fargate/) is one such approach. However, I’m ignoring that for now since these tend to be fairly expensive and are still sparingly used.
+注意：现在还有 ”serverless“ 的云容器解决方案。[AWS Fargate](https://aws.amazon.com/fargate/) 就是这样的方法。但是，我忽略了这一点。因为这些往往相当昂贵并且使用要小心。
 
 ### 总结
 
-Docker and Lambda are two of the most popular modern, cloud-native approaches to packaging, running and managing production applications.
+Docker 和 Lambda 是打包、运行和管理生产应用程序的两种最流行的现代云原生方法。
 
-They are often complimentary, each suited for slightly different use cases and applications.
+他们通常是互补的，每种都适用于略有不同的场景和应用程序。
 
-Regardless, a modern DevOps engineer must be well versed in both. Therefore, learning Docker and Lambda are good short- and medium-term goals.
+无论如何，现代 DevOps 工程师必须精通两者。因此，学习 Docker 和 Lambda 是很好的短期和中期目标。
 
-NOTE: Thus far in our series we have dealt with topics that Junior to Mid-Level DevOps Engineers are expected to know. In subsequent sections, we will start discussing techniques that are more suited for Mid-Level to Senior DevOps Engineers. As always, however, there are no shortcuts to experience!
+注意：到目前为止，在我们的系列中，我们已经涉及了初级到中级 DevOps 工程师都应该知道的主题。在后续章节中，我们将讨论更适合中级到高级 DevOps 工程师的技术。但是，和往常一样，没有捷径可言！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
