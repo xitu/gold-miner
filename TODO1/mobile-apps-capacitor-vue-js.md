@@ -9,11 +9,11 @@
 
 > 通过本教程，你将学到如何使用 Capacitor 以及如 Vue.js、Ionic 4 web 组件等前沿 web 技术来为 Android 和 iOS 构建跨平台移动应用。你还可以利用 Capacitor 的优势，用相同的代码来构建其他平台，比如桌面和 web。
 
-最近，Ionic 团队发布了一项名叫 [Capacitor](https://capacitor.ionicframework.com/) 且继承了 Apache Cordova 和 Adobe PhoneGap 核心思想的开源项目。 Capacitor 允许你使用现代 web 技术来构建可在任意平台中运行的应用，从 web 浏览器到移动设备（Android 和 iOS），甚至是通过 Electron（Github 上比较流行的使用 Node.js 和前端 web 技术构建跨平台桌面应用的技术） 构建的桌面应用平台。
+最近，Ionic 团队发布了一项名叫 [Capacitor](https://capacitor.ionicframework.com/) 且继承了 Apache Cordova 和 Adobe PhoneGap 核心思想的开源项目。 Capacitor 允许你使用现代 web 技术来构建可在任意平台中运行的应用，从 web 浏览器到移动设备（Android 和 iOS），甚至是通过 Electron（Github 上比较流行的使用 Node.js 和前端 web 技术构建跨平台桌面应用的技术）构建的桌面应用平台。
 
 Ionic - 最流行的混合移动应用开发框架 - 目前运行在 Cordova 之上，但在未来版本中，Capacitor 将成为 Ionic 应用的默认选择。Capacitor 也提供了兼容层从而允许在 Capacitor 项目中使用已有的 Cordova 插件。
 
-除了在 Ionic 应用中使用 Capacitor，你也可以使用任何你喜欢的前端框架或 UI 库，比如 Vue、React、Angular with Material、Bootstrap等。
+除了在 Ionic 应用中使用 Capacitor，你也可以使用任何你喜欢的前端框架或 UI 库，比如 Vue、React、Angular with Material、Bootstrap 等。
 
 在本教程中，我们将看到如何使用 Capacitor 和 Vue 来构建一个简单的 Android 移动应用。实际上，如上所述，你的应用也可以作为渐进式 web 应用（PWA）或作为主要操作系统中的桌面应用来运行，这只需要几个命令。
 
@@ -78,9 +78,9 @@ $ vue create vuecapacitordemo
 
 为了在你的应用中使用 Ionic 4 组件，你需要通过 npm 安装 Ionic 4 核心软件包。
 
-所以，继续打开 `index.html` 文件，它位于你的 Vue 项目中的 `public` 目录，然后在文件头部添加以下标签 `<script src='https://unpkg.com/@ionic/core@4.0.0-alpha.7/dist/ionic.js'></script>` 。
+所以，继续打开 `index.html` 文件，它位于你的 Vue 项目中的 `public` 目录，然后在文件头部添加以下标签 `<script src='https://unpkg.com/@ionic/core@4.0.0-alpha.7/dist/ionic.js'></script>`。
 
-以下是 `public/index.html` 的内容:
+以下是 `public/index.html` 的内容：
 
 ```
 <!DOCTYPE html>
@@ -143,7 +143,7 @@ Vue.config.ignoredElements = [/^ion-/]
 
 让我们添加两个组件。首先，删除 `src/components` 目录下的所有文件（并且删除 `App.vue` 中有关 `HelloWorld.vue` 组件的任何导入），然后添加 `Home.vue` 和 `About.vue` 文件。
 
-打开 `src/components/Home.vue` 并添加以下模板:
+打开 `src/components/Home.vue` 并添加以下模板：
 
 ```
 <template>
@@ -211,7 +211,7 @@ export default {
 npm install --save vue-router
 ```
 
-然后，在 `src/main.js` 文件中, 导入以下内容:
+然后，在 `src/main.js` 文件中，导入以下内容：
 
 ```
 import  Router  from  'vue-router'
@@ -219,9 +219,9 @@ import  Home  from  './components/Home.vue'
 import  About  from  './components/About.vue'
 ```
 
-这将导入 Vue router、 Home 和 About 组件。
+这将导入 Vue router、Home 和 About 组件。
 
-添加以下内容:
+添加以下内容：
 
 ```
 Vue.use(Router)
@@ -386,7 +386,7 @@ npx cap add android
 
 ### 使用 Capacitor 插件
 
-Capacitor 提供了一个运行时以便开发人员能够使用 web 的三大支柱 - HTML、CSS和JavaScript - 来构建在 web 上以及主要桌面和移动平台上运行的应用程序。另外它还提供了一组插件用来访问设备的底层功能，例如相机，无需针对每个平台使用特定的低级代码；该插件将为你完成，并为此提供了统一规范的高级 API。
+Capacitor 提供了一个运行时以便开发人员能够使用 web 的三大支柱 - HTML、CSS 和 JavaScript - 来构建在 web 上以及主要桌面和移动平台上运行的应用程序。另外它还提供了一组插件用来访问设备的底层功能，例如相机，无需针对每个平台使用特定的低级代码；该插件将为你完成，并为此提供了统一规范的高级 API。
 
 Capacitor 还提供了 API 以便你可以使用该 API 创建 Ionic 团队提供的官方插件未覆盖的自定义插件。你可以在 [如何创建插件](https://capacitor.ionicframework.com/docs/plugins/) 中学习。
 
@@ -477,7 +477,6 @@ Capacitor demo 项目 ([查看大版本](https://cloud.netlifyusercontent.com/as
 ### 结论
 
 在本教程中，我们使用了带有 Vue 和 Ionic 4 web 组件的 Ionic Capacitor 创建了一个使用 web 技术的移动 Android 应用。你可以在 [GitHub repository](https://github.com/techiediaries/vue-capacitor-ionic-app/tree/master) 中找到该演示应用的源代码。
-
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
