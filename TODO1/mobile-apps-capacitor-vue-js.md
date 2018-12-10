@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mobile-apps-capacitor-vue-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mobile-apps-capacitor-vue-js.md)
 > * 译者：[nanjingboy](https://github.com/nanjingboy)
-> * 校对者：
+> * 校对者：[Mcskiller](https://github.com/Mcskiller), [GpingFeng](https://github.com/GpingFeng)
 
 # 使用 Capacitor 和 Vue.js 构建移动应用
 
