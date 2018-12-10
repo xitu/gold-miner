@@ -2,72 +2,69 @@
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/transducers-efficient-data-processing-pipelines-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/transducers-efficient-data-processing-pipelines-in-javascript.md)
-> * 译者：
+> * 译者：[Raoul1996](https://github.com/Raoul1996)
 > * 校对者：
 
-# Transducers: Efficient Data Processing Pipelines in JavaScript
+# Transducers: JavaScript 中高效的数据处理 pipeline
 
 ![](https://cdn-images-1.medium.com/max/2000/1*uVpU7iruzXafhU2VLeH4lw.jpeg)
 
 Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)
 
-section-inner sectionLayout--insetColumn">
+> 注意：这是从头开始学 JavaScript ES6+ 中的函数式编程和组合软件技术中 “撰写软件” 系列的一部分。敬请关注，我们会讲述大量关于这方面的知识！ 
+> [< 上一篇](https://github.com/xitu/gold-miner/blob/master/TODO1/curry-and-function-composition.md) | [<< Start over at Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/composing-software-an-introduction.md)
 
-> Note: This is part of the “Composing Software” series on learning functional programming and compositional software techniques in JavaScript ES6+ from the ground up. Stay tuned. There’s a lot more of this to come!  
-> [< Previous](https://github.com/xitu/gold-miner/blob/master/TODO1/curry-and-function-composition.md) | [<< Start over at Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/composing-software-an-introduction.md)
+在使用 transducer 之前, 你首先要完全搞懂[**复合函数（function composition）**](https://juejin.im/post/5c0dd214518825444758453a)和 [**reducers**](https://github.com/xitu/gold-miner/blob/master/TODO1/reduce-composing-software.md) 是什么**。**
 
-Prior to taking on transducers, you should first have a strong understanding of both [**function composition**](https://github.com/xitu/gold-miner/blob/master/TODO1/composing-software-an-introduction.md) and [**reducers**](https://github.com/xitu/gold-miner/blob/master/TODO1/reduce-composing-software.md)**.**
+> Transduce：源于 17 世纪的科学术语（latin name 一般指学名）“transductionem”，意为“改变、转换”。它更早衍生自“transducere/traducere”，意思是“引导或者跨越、转移”。
 
-> Transduce: Derived from the 17th century scientific latin, “transductionem” means “to change over, convert”. It is further derived from “transducere/traducere”, which means “to lead along or across, transfer”.
+一个 transduer 是一个可组合的高阶 reducer。以一个 reducer 作为输入，返回另外一个 reducer。
 
-A transducer is a composable higher-order reducer. It takes a reducer as input, and returns another reducer.
+Transducers 是：
 
-Transducers are:
+* 可组合使用的简单功能集合
+* 对大型集合或者无限流有效：不管管道中的操作数量有多少，都只对单一元素进行一次枚举。
+* 能够转换任何可枚举的源（例如，数组、树、流、图等……）
+* 无需更换 transducer pipeline，即可用于惰性或热切求值（译者注：[求值策略](https://zh.wikipedia.org/wiki/%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5)）。
 
-*   Composable using simple function composition
-*   Efficient for large collections or infinite streams: Only enumerates over the elements once, regardless of the number of operations in the pipeline
-*   Able to transduce over any enumerable source (e.g., arrays, trees, streams, graphs, etc…)
-*   Usable for either lazy or eager evaluation with no changes to the transducer pipeline
+Reducer 将多个输入**折叠（fold）**成单个输出，其中“折叠”可以用几乎任何产生单个输出的二进制操作替换，例如：
 
-Reducers _fold_ multiple inputs into single outputs, where “fold” can be replaced with virtually any binary operation that produces a single output, such as:
-
-```
-// Sums: (1, 2) = 3  
+```js
+// 求和: (1, 2) = 3  
 const add = (a, c) => a + c;
 
-// Products: (2, 4) = 8  
+// 求乘积: (2, 4) = 8  
 const multiply = (a, c) => a * c;
 
-// String concatenation: ('abc', '123') = 'abc123'  
+// 字符串拼接: ('abc', '123') = 'abc123'  
 const concatString = (a, c) => a + c;
 
-// Array concatenation: ([1,2], [3,4]) = [1, 2, 3, 4]  
+// 数组拼接: ([1,2], [3,4]) = [1, 2, 3, 4]  
 const concatArray = (a, c) => [...a, ...c];
 ```
+Transducer 做了很多相同的事情，但是和普通的 reducer 不同，transducer 可以使用正常地组合函数组合。换句话说，你可以组合任意数量的 tranducer，组成一个将每个 transducer 组件串联在一起的新 transducer。
 
-Transducers do much the same thing, but unlike ordinary reducers, transducers are composable using normal function composition. In other words, you can combine any number of transducers to form a new transducer which links each component transducer together in series.
+普通的 reducer 不能这样（组合）。因为它需要两个参数，只返回一个输出值。所以你不能简单地将输出连接到串联中下一个 reducer 的输入。类型不符合：
 
-Normal reducers can’t compose, because they expect two arguments, and only return a single output value, so you can’t simply connect the output to the input of the next reducer in the series. The types don’t line up:
-
-```
+```js
 f: (a, c) => a
 g:          (a, c) => a
 h: ???
 ```
 
-Transducers have a different signature:
+Transducers 有着不同的签名：
 
-```
+```js
 f: reducer => reducer
 g:            reducer => reducer
 h: reducer    =>         reducer
 ```
 
-### Why Transducers?
+### 为什么选择 Transducer？
 
-Often, when we process data, it’s useful to break up the processing into multiple independent, composable stages. For example, it’s very common to select some data from a larger set, and then process that data. You may be tempted to do something like this:
+通常，处理数据时，将处理分解成多个独立的可组合阶段很有用。例如，从较大的集合中选择一些数据然后处理该数据非常常见。你可能会这么做：
 
-```
+```js
 const friends = [
   { id: 1, name: 'Sting', nearMe: true },
   { id: 2, name: 'Radiohead', nearMe: true },
@@ -88,17 +85,17 @@ console.log(results);
 // => ["Sting", "Radiohead", "Echo"]
 ```
 
-This is fine for small lists like this, but there are some potential problems:
+这对于像这样的小型列表来说很好，但是存在一些潜在的问题：
 
-1.  This only works for arrays. What about potentially infinite streams of data coming in from a network subscription, or a social graph with friends-of-friends?
+1. 这仅仅只适用于数组。对于那些些来自网络订阅的潜在无限数据流，或者朋友的朋友的社交图如何处理呢？
 
-2.  Each time you use the dot chaining syntax on an array, JavaScript builds up a whole new intermediate array before moving onto the next operation in the chain. If you have a list of 2,000,000 “friends” to wade through, that could slow things down by an order of magnitude or two. With transducers, you can stream each friend through the complete pipeline without building up intermediate collections between them, saving lots of time and memory churn.
+2. 每次在数组上使用点链语法（dot chaining syntax）时，JavaScript 都会构建一个全新的中间数组，然后再转到链中的下一个操作。如果你有一个 2,000,000 名“朋友”的名单，这可能会使数据处理减慢一两个数量级。使用 transducer，你可以通过完整的 pipeline 流式传输每个朋友，而无需在它们之间建立中间集合，从而节省大量时间和内存。
 
-3.  With dot chaining, you have to build different implementations of standard operations, like `.filter()`, `.map()`, `.reduce()`, `.concat()`, and so on. The array methods are built into JavaScript, but what if you want to build a custom data type and support a bunch of standard operations without writing them all from scratch? Transducers can potentially work with any transport data type: Write an operator once, use it anywhere that supports transducers.
+3. 使用点链，你必须构建标准操作的不同实现。如 `.filter()`、 `.map()`、`.reduce()`、`.concat()` 等。数组方法内置在 JavaScript 中，但是如果你想构建自定义数据类型并支持一堆标准操作而且还不需要重头进行编写，改怎么办？Transducer 可以使用任何传输数据类型：编写一次操作符，在支持 transducer 的任何地方使用它。
 
-Let’s see what this would look like with transducers. This code won’t work yet, but follow along, and you’ll be able to build every piece of this transducer pipeline yourself:
+让我们看看 transducer。这段代码还不能工作，但是还请继续，你将能够自己构建这个 transducer pipeline 的每一部分：
 
-```
+```js
 const friends = [  
   { id: 1, name: 'Sting', nearMe: true },  
   { id: 2, name: 'Radiohead', nearMe: true },  
@@ -119,80 +116,80 @@ const getFriendsNearMe = compose(
 const results2 = toArray(getFriendsNearMe, friends);
 ```
 
-Transducers don’t do anything until you tell them to start and feed them some data to process, which is why we need `toArray()`. It supplies the transducible process and tells the transducer to transduce the results into a new array. You could tell it to transduce to a stream, or an observable, or anything you like, instead of calling `toArray()`.
+在你告诉他们开始并向他们提供一些数据进行处理之前，transducer 不会做任何事情。这就是我们为什么需要使用 `toArray()`。他提供传导过程并告诉 transducer 将结果转换成新数组。你可以告诉它转换一个流、一个 observable，或者任何你喜欢的东西，而不仅仅只是调用 `toArray()`。
 
-A transducer could map numbers to strings, or objects to arrays, or arrays to smaller arrays, or not change anything at all, mapping `{ x, y, z } -> { x, y, z }`. Transducers may also filter parts of the signal out of the stream `{ x, y, z } -> { x, y }`, or even generate new values to insert into the output stream, `{ x, y, z } -> { x, xx, y, yy, z, zz }`.
+Transducer 可以将数字映射（mapping）成字符串，或者将对象映射到数组，或者将数组映射成更小的数组，或者根本不做任何改变，映射 `{ x, y, z } -> { x, y, z }`。传感器可以过滤流中的部分信号 `{ x, y, z } -> { x, y }`，甚至可以生成新值插入到输出流中，`{ x, y, z } -> { x, xx, y, yy, z, zz }`。
 
-I will use the words “signal” and “stream” somewhat interchangeably in this section. Keep in mind when I say “stream”, I’m not referring to any specific data type: simply a sequence of zero or more values, or _a list of values expressed over time._
+我将在本节中使用“信号（signal）”和“流（stream）”等词语。请记住，当我说“流”时，我并不是指任何特定的数据类型：只是一个有零个或者多个值的序列，或者**随时间表达的值列表。**
 
-### Background and Etymology
+### 背景和词源
 
-In hardware signal processing systems, a transducer is a device which converts one form of energy to another, e.g., audio waves to electrical, as in a microphone transducer. In other words, it transforms one kind of signal into another kind of signal. Likewise, a transducer in code converts from one signal to another signal.
+在硬件信号处理系统中，transducer（换能器）是将一种形式的能量转换成另一种形式的装置。例如，麦克风换能器将音频波转换为电能。换句话说，它将一种信号转换成为另一种信号。同样，代码中的 transducer 将一个信号转换成另一个信号。
 
-Use of the word “transducers” and the general concept of composable pipelines of data transformations in software date back at least to the 1960s, but our ideas about how they should work have changed from one language and context to the next. Many software engineers in the early days of computer science were also electrical engineers. The general study of computer science in those days often dealt both with hardware and software design. Hence, thinking of computational processes as “transducers” was not particularly novel. It’s possible to encounter the term in early computer science literature — particularly in the context of Digital Signal Processing (DSP) and **data flow programming.**
+软件找那个使用 “transducer” 一词和数据转换的可组合 pipeline 的通用概念至少可以追溯到 20 世纪 60 年代，但是我们对于他们应该如何工作的想法已经从一种语言和上下文转变为下一种语言。在计算机科学的早期，许多软件工程师也是电气工程师。当时对计算机科学的一般研究经常涉及到硬件和软件设计。因此，将计算过程视为 “transducer” 并不是特别新颖。在早期的计算机科学文献中可能会遇到这个术语 —— 特别是在数字信号处理（DSP）和**数据流编程**的背景下。
 
-In the 1960s, groundbreaking work was happening in graphical computing in MIT’s Lincoln Laboratory using the TX-2 computer system, a precursor to the US Air Force SAGE defense system. Ivan Sutherland’s famous [Sketchpad](https://dspace.mit.edu/handle/1721.1/14979), developed in 1961–1962, was an early example of object prototype delegation and graphical programming using a light pen.
+在 20 世纪 60 年代，麻省理工学院林肯实验室的图形计算开始使用TX-2计算机系统，这是美国空军SAGE防御系统的前身。 Ivan Sutherland 著名的 [Sketchpad](https://dspace.mit.edu/handle/1721.1/14979)，于 1961 年至 1962 年开发，是使用光笔进行对象原型委派和图形编程的早期例子。
 
-Ivan’s brother, William Robert “Bert” Sutherland was one of several pioneers in data flow programming. He built a data flow programming environment on top of Sketchpad, which described software “procedures” as directed graphs of operator nodes with outputs linked to the inputs of other nodes. He wrote about the experience in his 1966 paper, [“The On-Line Graphical Specification of Computer Procedures”](https://dspace.mit.edu/handle/1721.1/13474). Instead of arrays and array processing, everything is represented as a stream of values in a continuously running, interactive program loop. Each value is processed by each node as it arrives at the parameter input. You can find similar systems today in [Unreal Engine’s Blueprints Visual Scripting Environment](https://docs.unrealengine.com/en-us/Engine/Blueprints) or [Native Instruments’ Reaktor](https://www.native-instruments.com/en/products/komplete/synths/reaktor-6/), a visual programming environment used by musicians to build custom audio synthesizers.
+Ivan 的兄弟 William Robert “Bert” Sutherland 是数据流编程的几个先驱之一。他在 Sketchpad 上构建了一个数据流编程环境。它将软件“过程”描述为操作员节点的有向图，其输出连接到其他节点的输入。他在 1966 年的论文 [“The On-Line Graphical Specification of Computer Procedures”](https://dspace.mit.edu/handle/1721.1/13474) 中写下了这段经历。在连续运行的交互式程序循环中，所有内容都表示为值的流，而不是数组和处理中的数组。每个节点在到达参数输入时处理每个值。你现在可以在[虚拟蓝图引擎 Visual Scripting Environment](https://docs.unrealengine.com/en-us/Engine/Blueprints) 或 [Native Instruments’ Reaktor](https://www.native-instruments.com/en/products/komplete/synths/reaktor-6/) 找到类似的系统，这是一种音乐家用来构建自定义音频合成器的可视化编程环境。
 
 ![](https://cdn-images-1.medium.com/max/800/1*nAe0WLXecnMGNalPclnFfw.png)
 
-Composed graph of operators from Bert Sutherland’s paper
+ Bert Sutherland 撰写的运营商组成图
 
-As far as I’m aware, the first book to popularize the term “transducer” in the context of general purpose software-based stream processing was the 1985 MIT text book for a computer science course called [“Structure and Interpretation of Computer Programs”](https://www.amazon.com/Structure-Interpretation-Computer-Programs-Engineering/dp/0262510871/ref=as_li_ss_tl?ie=UTF8&qid=1507159222&sr=8-1&keywords=sicp&linkCode=ll1&tag=eejs-20&linkId=44b40411506b45f32abf1b70b44574d2) (SICP) by Harold Abelson and Gerald Jay Sussman, with Julie Sussman. However, the use of the term “transducer” in the context of digital signal processing predates SICP.
+据我所知，第一本在基于通用软件的流处理环境中推广 “transducer” 一词的书是 1985 年 MIT 计算机科学课程 [“Structure and Interpretation of Computer Programs”](https://www.amazon.com/Structure-Interpretation-Computer-Programs-Engineering/dp/0262510871/ref=as_li_ss_tl?ie=UTF8&qid=1507159222&sr=8-1&keywords=sicp&linkCode=ll1&tag=eejs-20&linkId=44b40411506b45f32abf1b70b44574d2) 的教科书 (SICP) 。该书由 Harold Abelson、Gerald Jay Sussman、Julie Sussman 和撰。然而在数字信号处理中使用术语 “transducer” 早于 SICP。 
 
-> **Note:** SICP is still an excellent introduction to computer science coming from a functional programming perspective. It remains my favorite book on the topic.
+> **注:** 从函数式编程的角度来看，SICP 仍然是对计算机科学出色的介绍。它仍然是这个主题中我最喜欢的书。
 
-More recently, transducers have been independently rediscovered and a _different protocol_ developed for Clojure by **Rich Hickey** (circa 2014), who is famous for carefully selecting words for concepts based on etymology. In this case, I’d say he nailed it, because Clojure transducers fill almost exactly the same niche as transducers in SICP, and they share many common characteristics. However, they are _not strictly the same thing._
+最近，transducer 已经重新被独立发现。并且 **Rich Hickey**（大约 2014 年）为 Clojure 开发了一个**不同的协议**，他以精心选择基于词源的概念词而闻名。这时，我就会说他说的太棒了，因为 Clojure 的 transducer 的内在基本和 SICP 中的相同，并且他们也具有了很多共性。但是，他们**并非严格相同。**
 
-Transducers as a general concept (not specifically Hickey’s protocol specification) have had considerable impact on important branches of computer science including data flow programming, signal processing for scientific and media applications, networking, artificial intelligence, etc. As we develop better tools and techniques to express transducers in our application code, they are beginning to help us make better sense of every kind of software composition, including user interface behaviors in web and mobile apps, and in the future, could also serve us well to help manage the complexity of augmented reality, autonomous devices and vehicles, etc.
+Transducer 作为一般概念（不是 Hickey 的协议规范）来讲，对计算机科学的重要分支产生了相当大的影响，包括数据流编程、科学和媒体应用的信号处理、网络、人工智能等等。随着我们开发更好的工具和技术在我们打应用代码中阐释 transducer，它们开始帮助我们更好的理解各种软件组合，包括 Web 和 易用应用程序中的用户界面行为，并且在将来，还可以很好地帮助我们管理复杂的 AR（augmented reality），自主设备和车辆等。
 
-For the purpose of this discussion, when I say “transducer”, I’m not referring to SICP transducers, though it may sound like I’m describing them if you’re already familiar with transducers from SICP. I’m also not referring _specifically_ to Clojure’s transducers, or the transducer protocol that has become a de facto standard in JavaScript (supported by Ramda, Transducers-JS, RxJS, etc…). I’m referring to the _general concept of a higher-order reducer — _a transformation of a transformation.
+为了讨论起见，当我说 “transducer” 时，我并不是指 SICP transducer，尽管如果你已经熟悉了 SICP transducer，可能听起来像是在讲述它们。我也没有**具体**提到 Clojure 的 transducer，或者已经成为 JavaScript 事实标准的 transducer 协议（由 Ramda、Transducer-JS、RxJS等支持……）。我指的是**高阶 reducer**的一般概念 —— 变幻的转换。
 
-In my view, the particular details of the transducer protocols matter a whole lot less than the general principles and underlying mathematical properties of transducers, however, if you want to use transducers in production, my current recommendation is to use an existing library which implements the transducers protocol for interoperability reasons.
+在我看来，transducer 协议的特定细节比 transducer 的一般原理和基本数学特性重要的多，但是如果你想在生产中使用 transducer，为了满足互操作性，我目前的建议是使用现有的库来实现 transducer 协议。
 
-The transducers that I will describe here should be considered pseudo-code to express the concepts. They are _not compatible with the transducer protocol_, and _should not be used in production._ If you want to learn how to use a particular library’s transducers, refer to the library documentation. I’m writing them this way to lift up the hood and let you see how they work without forcing you to learn the protocol at the same time.
+我将在这里描述的 transducer 应该是用伪代码来演示概念。它们**与 transducer 协议不兼容，不应该在生产中使用**。如果你想要学习如何使用特定库的 transducer，请参阅库文档。我这样写他们是为了引你入门，让你看看它们是如何工作的，而不是强迫你同时学习协议。
 
-When we’re done, you should have a better understanding of transducers in general, and how you might apply them in any context, with any library, in any language that supports closures and higher-order functions.
+当我们完成后，你应该更好的理解 transducer，以及如何在任何代码找那个使用任意库，以任何能支持闭包和高阶函数的语言来使用它们。
 
-### A Musical Analogy for Transducers
+### Transducer 的音乐类比
 
-If you’re among the large number of software developers who are also musicians, a music analogy may be useful: You can think of transducers like signal processing gear (e.g., guitar distortion pedals, EQ, volume knobs, echo, reverb, and audio mixers).
+如果你是众多同为音乐家的软件的开发者之一，音乐类比可能会很有用：你可以想到信号处理装置等传感器（如吉他失真踏板，均衡器，音量旋钮，回声，混响和音频混频器）。
 
-To record a song using musical instruments, we need some sort of physical transducer (i.e., a microphone) to convert the sound waves in the air into electricity on the wire. Then we need to route that wire to whatever signal processing units we’d like to use. For example, adding distortion to an electric guitar, or reverb to a voice track. Eventually this collection of different sounds must be aggregated together and mixed to form a single signal (or collection of channels) representing the final recording.
+要使用乐器录制歌曲，我们需要某种物理传感器（即麦克风）来讲空气中的声波转换为电线上的电流。然后我们需要将该线路连接到我们想要使用的信号处理单元。例如，为电吉他加失真，或者对音轨进行混响。最终，这些不同声音的集合必须聚合在一起，混合来想成最终记录的单个信号（或者通道集合）。
 
-In other words, the signal flow might look something like this. Imagine the arrows are wires between transducers:
+换句话说，信号流看起来可能是这样。把箭头想像成传感器之间的导线：
 
 ```
 [ Source ] -> [ Mic ] -> [ Filter ] -> [ Mixer ] -> [ Recording ]
 ```
 
-In more general terms, you could express it like this:
+更一般地说，你可以这么表达：
 
 ```
 [ Enumerator ]->[ Transducer ]->[ Transducer ]->[ Accumulator ]
 ```
 
-If you’ve ever used music production software, this might remind you of a chain of audio effects. That’s a good intuition to have when you’re thinking about transducers, but they can be applied much more generally to numbers, objects, animation frames, 3d models, or anything else you can represent in software.
+如果你曾经使用过音乐制作软件，这可能会让您想起一系列的音频效果。当你考虑 transducer 时，这是一个很好的直觉。但他们还可以更广泛的应用于数字、对象、动画帧、3D 模型或者任何你可以在软件中表示的其他内容。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*UBYaMsshNvLIn4mIHIlw-g.png)
 
-Screenshot: Renoise audio effects channel
+屏幕截图：Renoise 音频效果频道。
 
-You may be experienced with something that behaves a little bit like a transducer if you’ve ever used the map method on arrays. For example, to double a series of numbers:
+如果你曾在数组上使用 map 方法，你可能会对某些行为有点像 transducer 的东西熟悉。例如，要将一系列数字加倍：
 
-```
+```js
 const double = x => x * 2;  
 const arr = [1, 2, 3];
 
 const result = arr.map(double);
 ```
 
-In this example, the array is an enumerable object. The map method enumerates over the original array, and passes its elements through the processing stage, `double`, which multiplies each element by 2, then accumulates the results into a new array.
+在这个示例中，数组是可枚举对象。map 方法枚举原始数组，并将其元素传递给处理阶段 `double`，它将每个元素乘以 2，然后将结果累积到一个新数组中。
 
-You can even compose effects like this:
+你甚至可以像这样构成效果：
 
-```
+```js
 const double = x => x * 2;  
 const isEven = x => x % 2 === 0;
 
@@ -206,16 +203,15 @@ const result = arr
 console.log(result);  
 // [4, 8, 12]
 ```
+但是，如果你想过滤和加倍的可能是无限数字流，比如无人机的遥测数据呢？
 
-But what if you want to filter and double a potentially infinite stream of numbers, such as a drone’s telemetry data?
+数组不能是无限的，并且数组处理过程中的每个阶段都要求你在单个值可以流经 pipeline 的下一个阶段之前处理整个数组。同样的问题意味着使用数组方法的合成会降低性能，因为需要创建一个新数组，并且合成中的每个阶段迭代一个新的集合。
 
-Arrays can’t be infinite, and each stage in the array processing requires you to process the entire array before a single value can flow through the next stage in the pipeline. That same limitation means that composition using array methods will have degraded performance because a new array will need to be created and a new collection iterated over for each stage in the composition.
+想象一下，你有两段管道，每段都代表一个应用于数据流的转换，以及一个表示流的字符串。第一个转换表示 `isEven` 过滤器，下一个转换表示 `double` 映射。为了从数组中生成单个完全变换的值，你必须首先通过第一个管道运行整个字符串，从而产生一个全新的过滤数组，**然后**才能通过 `double` 管处理单个值。当你最终将第一个值 `double`，必须等待整个数组加倍才能读取单个结果。
 
-Imagine you have two sections of tubing, each of which represents a transformation to be applied to the data stream, and a string representing the stream. The first transformation represents the `isEven` filter, and the next represents the `double` map. In order to produce a single fully transformed value from an array, you'd have to run the entire string through the first tube first, resulting in a completely new, filtered array _before_ you can process even a single value through the `double` tube. When you finally do get to `double` your first value, you have to wait for the entire array to be doubled before you can read a single result.
+所以，上面的代码相当于：
 
-So, the code above is equivalent to this:
-
-```
+```js
 const double = x => x * 2;  
 const isEven = x => x % 2 === 0;
 
@@ -227,53 +223,52 @@ const result = tempResult.map(double);
 console.log(result);  
 // [4, 8, 12]
 ```
+另一种方法是将值直接从过滤后的输出流式传输到 mapping 转换，而无需在其间创建和迭代临时数组。将值一次一个地流过，无需在转换过程中对每个阶段迭代相同的集合，并且 transducer 可以随时发出停止信号，这意味着你不需要在集合中更深入地计算每个阶段。需要产生所需的值。
 
-The alternative is to flow a value directly from the filtered output to the mapping transformation without creating and iterating over a new, temporary array in between. Flowing the values through one at a time removes the need to iterate over the same collection for each stage in the transducing process, and transducers can signal a stop at any time, meaning you don’t need to enumerate each stage deeper over the collection than required to produce the desired values.
+有两种方法可以做到这一点：
 
-There are two ways to do that:
+*   Pull: 惰性求值，或者
+*   Push: 热切求值
 
-*   Pull: lazy evaluation, or
-*   Push: eager evaluation
+Pull API 等待 consumer 请求下一个值。JavaScript 中一个很好的例子是 `Iterable`。例如生成器函数生成的对象。在通过它在返回的迭代器对象上调用 `.next()` 来请求下一个值之前，生成器函数什么事情都不做。
 
-A pull API waits until a consumer asks for the next value. A good example in JavaScript is an `Iterable`, such as the object produced by a generator function. Nothing happens in the generator function until you ask for the next value by calling `.next()`on the iterator object it returns.
+Push API 枚举源值并尽可能快地将它们推送到管中。对于 `aray.reduce()` 调用是 push API 的一个很好的例子。`array.reduce()` 从数组中一次获取一个值并将其推送到 reducer，从而在另一端产生一个新值。对于像 array reduce 这样的热切进程，会立即对数组中的每个元素重复该过程，直到处理完整个数组。在此期间，阻止进一步的程序执行。
 
-A push API enumerates over the source values and pushes them through the tubes as fast as it can. A call to `array.reduce()` is a good example of a push API. `array.reduce()` takes one value at a time from the array and pushes it through the reducer, resulting in a new value at the other end. For eager processes like array reduce, the process is immediately repeated for each element in the array until the entire array has been processed, blocking further program execution in the meantime.
+Transducers 不关心你是 pull 还是 push。Transducers 不了解他们所采取的数据结构。他们只需调用你传递给它们的 reducer 来积累新值。
 
-Transducers don’t care whether you pull or push. Transducers have no awareness of the data structure they’re acting on. They simply call the reducer you pass into them to accumulate new values.
+Transducers 是高阶 reducer： Reducer 函数采用 reducer 返回新的 reducer。Rich Hickey 将 transducer 描述为过程变换，这意味着 transducer 没有简单地改变流经的值，而是改变了作用这些值的过程。
 
-Transducers are higher order reducers: Reducer functions that take a reducer and return a new reducer. Rich Hickey describes transducers as process transformations, meaning that as opposed to simply changing the values flowing through transducers, transducers change the processes that act on those values.
+签名应该是这样的：
 
-The signatures look like this:
-
-```
+```js
 reducer = (accumulator, current) => accumulator
 
 transducer = reducer => reducer
 ```
 
-Or, to spell it out:
+或者，拼出来：
 
-```
+```js
 transducer = ((accumulator, current) => accumulator) => ((accumulator, current) => accumulator)
 ```
 
-Generally speaking though, most transducers will need to be partially applied to some arguments to specialize them. For example, a map transducer might look like this:
+一般来说，大多数 transducer 需要部分应用于某些参数来专门化它们。例如，map transducer 可能如下所示：
 
-```
+```js
 map = transform => reducer => reducer
 ```
 
-Or more specifically:
+或者更具体地说：
 
-```
+```js
 map = (a => b) => step => reducer
 ```
 
-In other words, a map transducer takes a mapping function (called a transform) and a reducer (called the `step` function), and returns a new reducer. The `step` function is a reducer to call when we've produced a new value to add to the accumulator in the next step.
+换句话说，map transducer 采用 mapping 函数（称为变换）和 reducer（称为 `step` 函数 ），返回新的 reducer。`Step` 函数是一个 reducer，当我们生成一个新值以下一步中添加到累加器时调用。
 
-Let’s look at some naive examples:
+让我们看一些不成熟的例子：
 
-```
+```js
 const compose = (...fns) => x => fns.reduceRight((y, f) => f(y), x);
 
 const map = f => step =>  
@@ -298,17 +293,16 @@ const result = [1,2,3,4,5,6].reduce(xform, []); // [4, 8, 12]
 
 console.log(result);
 ```
+吸收很多东西。让我们分解一下。`map` 将函数应用于某些上下文的值。在这种情况下，上下文是 transducer pipeline。看起来大致如下：
 
-That’s a lot to absorb. Let’s break it down. `map` applies a function to the values inside some context. In this case, the context is the transducer pipeline. It looks roughly like this:
-
-```
+```js
 const map = f => step =>  
   (a, c) => step(a, f(c));
 ```
 
-You can use it like this:
+你可以像这样使用它：
 
-```
+```js
 const double = x => x * 2;
 
 const doubleMap = map(double);
@@ -318,20 +312,20 @@ const step = (a, c) => console.log(c);
 doubleMap(step)(0, 4);  // 8doubleMap(step)(0, 21); // 42
 ```
 
-The zeros in the function calls at the end represent the initial values for the reducers. Note that the step function is supposed to be a reducer, but for demonstration purposes, we can hijack it and log to the console. You can use the same trick in your unit tests if you need to make assertions about how the step function gets used.
+函数调用末尾的零表示 reducer 的初始值。请注意，step 函数应该是 reducer，但出于演示目的，我们可以劫持它并打开控制台。如果需要对 step 函数的使用方式进行断言，则可以在单元测试中使用相同的技巧。
 
-Transducers get interesting when we compose them together. Let’s implement a simplified filter transducer:
+当我们将它们组合在一起的时候，transducer 将会变得很有意思。让我们实现一个简化的 filter transducer：
 
-```
+```js
 const filter = predicate => step =>  
   (a, c) => predicate(c) ? step(a, c) : a;
 ```
 
-Filter takes a predicate function and only passes through the values that match the predicate. Otherwise, the returned reducer returns the accumulator, unchanged.
+Filter 采用 predicate 函数，只传递与 predicate 匹配的值。否则，返回的 reducer 返回累加器，不变。
 
-Since both of these functions take a reducer and return a reducer, we can compose them with simple function composition:
+由于这两个函数都使用 reducer 并且返回了 reducer，因此我们可以使用简单的函数组合来组合它们：
 
-```
+```js
 const compose = (...fns) => x => fns.reduceRight((y, f) => f(y), x);
 
 const isEven = n => n % 2 === 0;  
@@ -342,24 +336,22 @@ const doubleEvens = compose(
   map(double)  
 );
 ```
+这也将返回一个 transducer，需要我们必须提供最后一个 step 函数，以告诉 transducer 如何累积结果：
 
-This will also return a transducer, which means we must supply a final step function in order to tell the transducer how to accumulate the result:
-
-```
+```js
 const arrayConcat = (a, c) => a.concat([c]);
 
 const xform = doubleEvens(arrayConcat);
 ```
+此调用结果是标准的 reducer，我们可以直接传递给任何兼容的 reduce API。第二个参数表示 reduction 的初始值。这种情况下是一个空数组：
 
-The result of this call is a standard reducer that we can pass directly to any compatible reduce API. The second argument represents the initial value of the reduction. In this case, an empty array:
-
-```
+```js
 const result = [1,2,3,4,5,6].reduce(xform, []); // [4, 8, 12]
 ```
 
-If this seems like a lot of work, keep in mind there are already functional programming libraries that supply common transducers along with utilities such as `compose`, which handles function composition, and `into`, which transduces a value into the given empty value, e.g.:
+如果这看起来像是做了很多，请记住，已经有函数编程库提供常见的 transducer 以及诸如 `compose` 工具程序，他们处理函数组合，并将值转换为给定的空值。例如：
 
-```
+```js
 const xform = compose(
   map(inc),
   filter(isEven)
@@ -368,51 +360,50 @@ const xform = compose(
 into([], xform, [1, 2, 3, 4]); // [2, 4]
 ```
 
-With most of the required tools already in the tool belt, programming with transducers is really intuitive.
+由于工具带中已经有了大多数所需的工具，因此使用 transducer 进行编程非常直观。
 
-Some popular libraries which support transducers include Ramda, RxJS, and Mori.
+一些支持 transducer 的流行库包括 Ramda、RxJS 和 Mori。
 
-### Transducers Compose Top-to-Bottom
+### 由上至下组合 transducers
 
-Transducers under standard function composition (`f(g(x))`) apply top to bottom/left-to-right rather than bottom-to-top/right-to-left. In other words, using normal function composition, `compose(f, g)` means "compose `f` _after_ `g`". Transducers wrap around other transducers under composition. In other words, a transducer says "I'm going to do my thing, and _then_ call the next transducer in the pipeline", which has the effect of turning the execution stack inside out.
+标准函数组成下的 transducer 从上到下/从左到右而非从下到上/从右到左应用。也就是说，使用正常函数组合，`compose(f, g)` 表示“在 `g` **之后**复合 `f`”。Transducer 在组成下纠缠其他 transducer。换言之，transducer 说“我要做我的事情，**然后**调用管道中下一个 transducer”，这会将执行堆栈内部转出。
 
-Imagine you have a stack of papers, the top labeled, `f`, the next, `g`, and the next `h`. For each sheet, take the sheet off the top of the stack and place it onto the top of a new adjacent stack. When you're done, you'll have a stack whose sheets are labeled `h`, then `g`, then `f`.
+想象一下，你有一沓纸，顶部的一个标有 `f`，下一个是 `g`，再下面是 `h`。对于每张纸，将纸张从纸沓的顶部取出，然后将其放到相邻的新的一沓纸的顶部。当你这样做之后，你将获得一个栈，其内容标记为 `h`，然后是 `g`，然后是 `f`。
 
-### Transducer Rules
+### Transducer 规则
 
-The examples above are naive because they ignore the rules that transducers must follow for interoperability.
+上面的例子不太成熟，因为他们忽略了 transducer 必须遵循的互操作性（interoperability）规则
 
-As with most things in software, transducers and transducing processes need to obey some rules:
+和软件中的大部分内容一样，transducer 和转换过程需要遵循一些规则：
 
-1.  Initialization: Given no initial accumulator value, a transducer must call the step function to produce a valid initial value to act on. The value should represent the empty state. For example, an accumulator that accumulates an array should supply an empty array when its step function is called with no arguments.
+1. 初始化：如果没有初始的累加器值，transducer 必须调用 step 函数来产生有效的初始值进行操作。该值应该表示空状态。例如，累积数组的累加器应该在没有参数的情况下调用其 step 函数时提供空数组。
 
-2.  Early termination: A process that uses transducers must check for and stop when it receives a reduced accumulator value. Additionally, a transducer step function that uses a nested reduce must check for and convey reduced values when they are encountered.
+2. 提前终止：使用 transducer 的进程必须在收到 reduce 过的累加器值时检查并停止。此外，对于嵌套 reduce 的 transducer，使用其 step 函数时必须在遇到时检查并传递 reduce 过的值。
 
-3.  Completion (optional): Some transducing processes never complete, but those that do should call the completion function to produce a final value and/or flush state, and stateful transducers should supply a completion operation that cleans up any accumulated resources and potentially produces one final value.
+3. 完成（可选）：某些转换过程永远不会完成，但那些转换过程应调用完成函数（completion function）来产生最终值/或刷新（flush）状态，并且状态 transducer 应提供完成的操作以清除任何积累的资源和可能产生最终的资源值。
 
-### Initialization
+### 初始化
 
-Let’s go back to the `map` operation and make sure that it obeys the initialization (empty) law. Of course, we don't need to do anything special, just pass the request down the pipeline using the step function to create a default value:
+让我们回到 `map` 操作并确保它遵守初始化（空）法则。当然，我们不需要做任何特殊的事情，只需要使用 step 函数在 pipeline 中传递请求来创建默认值：
 
-```
+```js
 const map = f => step => (a = step(), c) => (
   step(a, f(c))
 );
 ```
+我们关心的部分是函数签名中的 `a = step()`。如果 `a`（累加器）没有值，我们将通过链中的下一个 reducer 来生成它。最终，它将到达 pipeline 的末端，并（但愿）为我们创建有效的初始值。
 
-The part we care about is `a = step()` in the function signature. If there is no value for `a` (the accumulator), we'll create one by asking the next reducer in the chain to produce it. Eventually, it will reach the end of the pipeline and (hopefully) create a valid initial value for us.
+记住这条规则：当没有参数调用时，reducer 应该总是为减少返回一个有效的初始（空）值。对于任何 reducer 函数，包括 React 或 Redux 的 Reducer，遵守此规则通常是个好主意。 
 
-Remember this rule: When called with no arguments, a reducer should always return a valid initial (empty) value for the reduction. It’s generally a good idea to obey this rule for any reducer function, including reducers for React or Redux.
+### 提前终止
 
-### Early Termination
+可以向 pipeline 中的其他 transducer 发出信号，表明我们已经完成了 reduce，并且他们不应该期望再处理任何值。在看到 `reduced` 值时，其他 transducer 可以决定停止添加到集合，并且转换过程（由最终 `step()` 函数控制）可以决定停止枚举值。由于接收到 `reduced` 值，转换过程可以再调用一次：完成上述调用。我们可以通过特殊的 reduce 过的累加器来表示这个意图。
 
-It’s possible to signal to other transducers in the pipeline that we’re done reducing, and they should not expect to process any more values. Upon seeing a `reduced` value, other transducers may decide to stop adding to the collection, and the transducing process (as controlled by the final `step()` function) may decide to stop enumerating over values. The transducing process may make one more call as a result of receiving a `reduced` value: The completion call mentioned above. We can signal that intention with a special reduced accumulator value.
+什么是 reduced 值？它可能像将累加器值包装在一个名为 `reduced` 的特殊类型中一样简单。可以把它想象包装盒子并用 "Express" 或 "Fragile" 这样的消息标记盒子。像这样的元数据包装器（metadata wrapper）在计算中很常见。例如：http 消息包含在名为 “request” 或 “response” 的容器中，这些容器类型提供了状态码、预期消息长度、授权参数等信息的表头……
 
-What is a reduced value? It could be as simple as wrapping the accumulator value in a special type called `reduced`. Think of it like wrapping a package in a box and labelling the box with messages like "Express" or "Fragile". Metadata wrappers like this are common in computing. For example: http messages are wrapped in containers called "request" or "response", and those container types have headers that supply information like status codes, expected message length, authorization parameters, etc...
+基本上，它是一种发送多条信息的方式，其中只需要一个值。`reduced()` 类型提升的最小（非标准）示例可能如下所示：
 
-Basically, it’s a way of sending multiple messages where only a single value is expected. A minimal (non-standard) example of a `reduced()` type lift might look like this:
-
-```
+```js
 const reduced = v => ({
   get isReduced () {
     return true;
@@ -422,30 +413,30 @@ const reduced = v => ({
 });
 ```
 
-The only parts that are strictly required are:
+唯一严格要求的部分是：
 
-*   The type lift: A way to get the value inside the type (e.g., the `reduced` function, in this case)
-*   Type identification: A way to test the value to see if it is a value of `reduced` (e.g., the `isReduced` getter)
-*   Value extraction: A way to get the value back out of the type (e.g., `valueOf()`)
+* 类型提升：获取类型内部值的方法（例如，这种情况下的 `reduced` 函数）
+* 类型识别：一种测试值以查看它是否为 `reduced` 值的方法（例如，`isReduced` getter）
+* 值提取：一种从值中取出值的方法（例如，`valueOf()`）
 
-`toString()` is included here strictly for debugging convenience. It lets you introspect both the type and the value at the same time in the console.
+此处包含 `toString()` 以便于调试。它允许您在 console 中同时内省类型和值。
 
-### Completion
+### 完成
 
-> “In the completion step, a transducer with reduction state should flush state prior to calling the nested transformer’s completion function, unless it has previously seen a reduced value from the nested step in which case pending state should be discarded.” ~ Clojure transducers documentation
+> “在完成步骤中，具有刷新状态（flush state）的 transducer 应该在调用嵌套 transducer 的完成函数之前刷新状态，除非之前已经看到嵌套步骤中的 reduced 值，在这种情况下应该丢弃 pending 状态。” ~ Clojure transducer 文档
 
-In other words, if you have more state to flush after the previous function has signaled that it’s finished reducing, the completion step is the time to handle it. At this stage, you can optionally:
+换句话说，如果在前一个函数表示已完成 reducing 后有更多状态需要刷新，则完成函数是处理它的时间。在此阶段，你可以选择：
 
-*   Send one more value (flush your pending state)
-*   Discard your pending state
-*   Perform any required state cleanup
+* 再发送一个值（刷新待处理状态）
+* 丢弃 pending 状态
+* 执行任何所需的状态清理
 
 ### Transducing
 
-It’s possible to transduce over lots of different types of data, but the process can be generalized:
+可以转换大量不同类型的数据，但是这个过程可以推广：
 
-```
-// import a standard curry, or use this magic spell:
+```js
+// 导入标准 curry，或者使用这个魔术：
 const curry = (
   f, arr = []
 ) => (...args) => (
@@ -459,52 +450,52 @@ const transduce = curry((step, initial, xform, foldable) =>
 );
 ```
 
-The `transduce()` function takes a step function (the final step in the transducer pipeline), an initial value for the accumulator, a transducer, and a foldable. A foldable is any object that supplies a `.reduce()` method.
+`transduce()` 函数采用 step 函数（transducer pipeline 的最后一步），累加器的初始值，transducer 并且可折叠。可折叠是提供 `.reduce()` 方法的任何对象。
 
-With `transduce()` defined, we can easily create a function that transduces to an array. First, we need a reducer that reduces to an array:
+通过定义 `transduce()`，我们可以轻松创建一个转换为数组的函数。首先，我们需要一个 reduce 数组的 reducer：
 
-```
+```js
 const concatArray = (a, c) => a.concat([c]);
 ```
 
-Now we can use the curried `transduce()` to create a partial application that transduces to arrays:
+现在我们可以使用 curried 的 `transduce()` 创建一个转换为数组的部分应用程序：
 
-```
+```js
 const toArray = transduce(concatArray, []);
 ```
 
-With `toArray()` we can replace two lines of code with one, and reuse it in a lot of other situations, besides:
+使用 `toArray()` 我们可以用一行替代两行代码，并在很多其他情况下复用它，除此之外：
 
-```
-// Manual transduce:
+```js
+// 手动 transduce:
 const xform = doubleEvens(arrayConcat);
 const result = [1,2,3,4,5,6].reduce(xform, []);
 // => [4, 8, 12]
 
-// Automatic transduce:
+// 自动 transduce:
 const result2 = toArray(doubleEvens, [1,2,3,4,5,6]);
 console.log(result2); // [4, 8, 12]
 ```
 
-### The Transducer Protocol
+### Transducer 协议
 
-Up to this point, I’ve been hiding some details behind a curtain, but it’s time to take a look at them now. Transducers are not really a single function. They’re made from 3 different functions. Clojure switches between them using pattern matching on the function’s arity.
+到目前为止，我们一直在隐藏幕后一些细节，但现在是时候看看它们了。Transducer 并非真正的单一函数。他们由 3 种不同的函数组成。Clojure 使用函数的 arity 上的模式匹配并在它们之间切换。
 
-In computer science, the arity of a function is the number of arguments a function takes. In the case of transducers, there are two arguments to the reducer function, the accumulator and the current value. In Clojure, Both are _optional_, and the behavior changes based on whether or not the arguments get passed. If a parameter is not passed, the type of that parameter inside the function is `undefined`.
+在计算机科学中，函数的 arity 是函数所采用参数的数量。在 transducer 的情况下，reducer 函数有两个参数，累加器和当前值。在 Clojure 中，两者都是**可选的**，并且函数的行为会根据参数是否通过而更改。如果没有传递参数，则函数中该参数的类型是 `undefined`。
 
-The JavaScript transducer protocol handles things a little differently. Instead of using function arity, JavaScript transducers are a function that take a transducer and return a transducer. The transducer is an object with three methods:
+JavaScript transducer 协议处理的方式略有不同。JavaScript transducer 不是使用函数 arity，而是采用 transducer 并返回 transducer 的函数。Transducer 是一个有三种方法的对象：
 
-*   `init` Return a valid initial value for the accumulator (usually, just call the next `step()`).
-*   `step` Apply the transform, e.g., for `map(f)`: `step(accumulator, f(current))`.
-*   `result` If a transducer is called without a new value, it should handle its completion step (usually `step(a)`, unless the transducer is stateful).
+* `init` 返回累加器的有效初始值（通常，只需要调用下一步 `step()`）。
+* `step` 应用变换，例如，对于 `map(f)`：`step(accumulator, f(current))`。
+* `result` 如果在没有新值的情况下调用 transducer，它应该处理其完成步骤（通常是 `step(a)`，除非 transducer 是有状态的）。
 
-> **Note:** The transducer protocol in JavaScript uses `@@transducer/init`, `_@@transducer/step_`_, and_ `_@@transducer/result_`_, respectively._
+> **注意：** JavaScript 中的 transducer 协议分别使用 `@@transducer/init`、`@@transducer/step` 和 `@@transducer/result`。
 
-Some libraries provide a `transducer()` utility that will automatically wrap your transducer for you.
+有些库提供一个 `tranducer()` 工具程序，可以自动为你包装 transducer。
 
-Here is a less naive implementation of the map transducer:
+这是一个不那么不成熟的 transducer 实现：
 
-```
+```js
 const map = f => next => transducer({
   init: () => next.init(),
   result: a => next.result(a),
@@ -512,24 +503,24 @@ const map = f => next => transducer({
 });
 ```
 
-By default, most transducers should pass the `init()` call to the next transducer in the pipeline, because we don't know the transport data type, so we can't produce a valid initial value for it.
+默认情况下，大多数 transducer 应该将 `init()` 调用传递给 pipeline 中的下一个 transducer，因为我们不知道传输数据类型，因此我们无法为它生成有效的初始值。
 
-Additionally, the special `reduced` object uses these properties (also namespaced `@@transducer/<name>` in the transducer protocol:
+此外，特殊的 `reduced` 对象使用这些属性（在 transducer 协议中也命名为 `@@transducer/<name>`）：
 
-*   `reduced` A boolean value that is always `true` for reduced values.
-*   `value` The reduced value.
+*   `reduced` 一个布尔值，对于 reduced 的值，该值始终为 `true`。
+*   `value` reduced 的值。
 
-### Conclusion
+### 结论
 
-**Transducers** are composable higher order reducers which can reduce over any underlying data type.
+**Transducers** 是可组合的高阶 reducer，可以 reduce 任何基础数据类型。
 
-Transducers produce code that can be orders of magnitude more efficient than dot chaining with arrays, and handle potentially infinite data sets without creating intermediate aggregations.
+Transducers 产生的代码比使用数组进行点链接的效率高几个数量级，并且可以处理潜在的无需数据集而无需创建中间聚合。
 
-> **Note:** Transducers aren’t always faster than built-in array methods. The performance benefits tend to kick in when the data set is very large (hundreds of thousands of items), or pipelines are quite large (adding significantly to the number of iterations required using method chains). If you’re after the performance benefits, remember to profile.
+> **注意：** Transducers 并不是总是比内置数组方法更快。当数据集非常大（数十万个项目）或 pipeline 非常大（显著增加使用方法链所需的迭代次数）时，性能优势往往会有所提升。如果你追求性能优势，请记住简介。
 
-Take another look at the example from the introduction. You should be able to build `filter()`, `map()`, and `toArray()` using the example code as a reference and make this code work:
+再看看介绍中的例子。你应该能使用示例代码作为参考构建 `filter()`、 `map()` 和 `toArray()`，并使此代码工作：
 
-```
+```js
 const friends = [  
   { id: 1, name: 'Sting', nearMe: true },  
   { id: 2, name: 'Radiohead', nearMe: true },  
@@ -550,13 +541,13 @@ const getFriendsNearMe = compose(
 const results2 = toArray(getFriendsNearMe, friends);
 ```
 
-In production, you can use transducers from [Ramda](http://ramdajs.com/), [RxJS](https://github.com/ReactiveX/rxjs), [transducers-js](https://github.com/cognitect-labs/transducers-js), or [Mori](https://github.com/swannodette/mori).
+在生产中，你可以使用 [Ramda](http://ramdajs.com/)、[RxJS](https://github.com/ReactiveX/rxjs)、[transducers-js](https://github.com/cognitect-labs/transducers-js) 或者 [Mori](https://github.com/swannodette/mori)。
 
-All of those work a little differently than the example code here, but follow all the same fundamental principles.
+所有上面的这些都与这里的示例代码略有不同，但遵循所有相同的基本原则。
 
-Here’s an example from Ramda:
+一下是 Ramda 的一个例子：
 
-```
+```js
 import {  
   compose,  
   filter,  
@@ -583,19 +574,23 @@ const result = into([], doubleEvens, arr);
 console.log(result); // [4, 8, 12]
 ```
 
-Whenever I need to combine a number of operations, such as `map`, `filter`, `chunk`, `take`, and so on, I reach for transducers to optimize the process and keep the code readable and clean. Give them a try.
+每当我们需要组个一些操作时，例如 `map`、`filter`、`chunk`、`take` 等，我会深入 transducer 以优化处理过程并保持代码的可读性和清爽。来试试吧。
 
-### Learn More at EricElliottJS.com
 
-Video lessons on functional programming are available for members of EricElliottJS.com. If you’re not a member, [sign up today](https://ericelliottjs.com/).
+### 在 EricElliottJS.com 上可以了解到更多
+
+视频课程和函数式编程已经为  EricElliottJS.com 的网站成员准备好了。如果你还不是当中的一员，[现在就注册吧](https://ericelliottjs.com/)。
+
+[![](https://cdn-images-1.medium.com/max/800/1*3njisYUeHOdyLCGZ8czt_w.jpeg)](https://ericelliottjs.com/product/lifetime-access-pass/)
 
 * * *
 
-**_Eric Elliott_ is the author of [“Programming JavaScript Applications”](http://pjabook.com) (O’Reilly), and cofounder of the software mentorship platform, [DevAnywhere.io](https://devanywhere.io/). He has contributed to software experiences for _Adobe Systems, Zumba Fitness, The Wall Street Journal, ESPN, BBC_, and top recording artists including _Usher, Frank Ocean, Metallica_, and many more.**
+**Eric Elliott** 是  [**“编写 JavaScript 应用”**](http://pjabook.com) （O’Reilly） 以及 [**“跟着 Eric Elliott 学 Javascript”**](http://ericelliottjs.com/product/lifetime-access-pass/) 两书的作者。他为许多公司和组织作过贡献，例如 **Adobe Systems**、**Zumba Fitness**、**The Wall Street Journal**、**ESPN** 和 **BBC** 等 , 也是很多机构的顶级艺术家，包括但不限于 **Usher**、**Frank Ocean** 以及 **Metallica**。
 
-_He works remote from anywhere with the most beautiful woman in the world._
+大多数时间，他都在 San Francisco Bay Area，同这世上最美丽的女子在一起。
 
-Thanks to [JS_Cheerleader](https://medium.com/@JS_Cheerleader?source=post_page).
+
+感谢 [JS_Cheerleader](https://medium.com/@JS_Cheerleader?source=post_page)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
