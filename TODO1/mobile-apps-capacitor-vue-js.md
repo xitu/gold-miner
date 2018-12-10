@@ -5,15 +5,15 @@
 > * 译者：[nanjingboy](https://github.com/nanjingboy)
 > * 校对者：
 
-# 使用Capacitor 和 Vue.js 构建移动应用
+# 使用 Capacitor 和 Vue.js 构建移动应用
 
-> 通过本教程，你将学到如何使用 Capacitor 以及如Vue.js、Ionic 4 web 组件等前沿 web 技术来为 Android 和 iOS 构建跨平台移动应用。你还可以利用 Capacitor 使用相同的代码来构建其他平台，比如桌面和 web。
+> 通过本教程，你将学到如何使用 Capacitor 以及如 Vue.js、Ionic 4 web 组件等前沿 web 技术来为 Android 和 iOS 构建跨平台移动应用。你还可以利用 Capacitor 的优势，用相同的代码来构建其他平台，比如桌面和 web。
 
 最近，Ionic 团队发布了一项名叫 [Capacitor](https://capacitor.ionicframework.com/) 且继承了 Apache Cordova 和 Adobe PhoneGap 核心思想的开源项目。 Capacitor 允许你使用现代 web 技术来构建可在任意平台中运行的应用，从 web 浏览器到移动设备（Android 和 iOS），甚至是通过 Electron（Github 上比较流行的使用 Node.js 和前端 web 技术构建跨平台桌面应用的技术） 构建的桌面应用平台。
 
 Ionic - 最流行的混合移动应用开发框架 - 目前运行在 Cordova 之上，但在未来版本中，Capacitor 将成为 Ionic 应用的默认选择。Capacitor 也提供了兼容层从而允许在 Capacitor 项目中使用已有的 Cordova 插件。
 
-除了在 Ionic 应用中使用 Capacitor，你也可以使用除 Ionic 之外的任何你喜欢的前端框架或 UI 库，比如 Vue、React、 Angular with Material、Bootstrap等。
+除了在 Ionic 应用中使用 Capacitor，你也可以使用任何你喜欢的前端框架或 UI 库，比如 Vue、React、Angular with Material、Bootstrap等。
 
 在本教程中，我们将看到如何使用 Capacitor 和 Vue 来构建一个简单的 Android 移动应用。实际上，如上所述，你的应用也可以作为渐进式 web 应用（PWA）或作为主要操作系统中的桌面应用来运行，这只需要几个命令。
 
@@ -24,7 +24,7 @@ Ionic - 最流行的混合移动应用开发框架 - 目前运行在 Cordova 之
 Capacitor 拥有很多特性，以使其成为 Cordova 等其他解决方案的良好替代品。让我们看看一些 Capacitor 特性：
 
 *   **开源并且免费**: Capacitor 是一个开源项目，根据 MIT 许可证授权，并由 [Ionic](http://ionicframework.com/) 和社区维护。
-*   **跨平台**: 你可以使用 Capacitor 通过一份代码来定位多个平台。你可以通过命令行界面（CLI）运行一些命令来支持另外一个平台。
+*   **跨平台**: 你可以使用 Capacitor 通过一份代码来构建多个平台。你可以通过命令行界面（CLI）运行一些命令来支持另外一个平台。
 *   **访问平台 SDK**: 当你需要访问原生 SDK 时，Capacitor 不会妨碍你。
 *   **标准 web 和浏览器技术**: 通过 Capacitor 构建的应用使用 web 标准 API，因此你的应用也将是跨浏览器，并将在遵循标准的所有现代浏览器中运行良好。
 *   **可扩展**: 可以通过添加插件的形式来访问底层平台的原生功能，或者，如果你找不到符合你需求的插件，可以通过简单的 API 来创建一个自定义插件。
@@ -35,7 +35,7 @@ Capacitor 拥有很多特性，以使其成为 Cordova 等其他解决方案的�
 
 *   你需要在你的机器上安装 Node _v8.6+_ 和 npm _v5.6+_ 。只需访问 [官网](http://nodejs.org) 并且下载适用于你的操作系统的版本即可。
 *   要构建 iOS 应用，你需要一台安装了 Xcode 的 Mac。
-*   要构建 Android 应用，你需要安装 Java 8 JDK、Android Studio 和 Android SDK。
+*   要构建 Android 应用，你需要安装 Java 8 JDK 和带有 Android SDK 的 Android Studio。
 
 ### 创建一个 Vue 项目
 
@@ -76,9 +76,9 @@ $ vue create vuecapacitordemo
 
 ### 添加 Ionic 4
 
-为了在你的应用中使用 Ionic 4 组件，你需要通过 npm 使用 Ionic 4 核心软件包。
+为了在你的应用中使用 Ionic 4 组件，你需要通过 npm 安装 Ionic 4 核心软件包。
 
-所以，继续打开 `index.html` 文件，它位于你的 Vue 项目中的 `public` 目录，然后在文件头部添加以下标签 `&lt;script src='https://unpkg.com/@ionic/core@4.0.0-alpha.7/dist/ionic.js'&gt;&lt;/script&gt;` 。
+所以，继续打开 `index.html` 文件，它位于你的 Vue 项目中的 `public` 目录，然后在文件头部添加以下标签 `<script src='https://unpkg.com/@ionic/core@4.0.0-alpha.7/dist/ionic.js'></script>` 。
 
 以下是 `public/index.html` 的内容:
 
@@ -141,7 +141,7 @@ Vue.config.ignoredElements = [/^ion-/]
 
 #### 添加 Vue 组件
 
-让我们添加两个组件。首先，删除 `src/components` 目录下的所有文件（并且删除 `App.vue` 中有关 `HelloWorld.vue` 组件的任何导入）。
+让我们添加两个组件。首先，删除 `src/components` 目录下的所有文件（并且删除 `App.vue` 中有关 `HelloWorld.vue` 组件的任何导入），然后添加 `Home.vue` 和 `About.vue` 文件。
 
 打开 `src/components/Home.vue` 并添加以下模板:
 
@@ -318,7 +318,7 @@ export default {
 
 #### 集成 Capacitor 与 Vue
 
-Capacitor 旨在融入任何现代 JavaScript 应用。要将 Capacitor 添加到 Vue web 中，你需要执行以下几个步骤。
+Capacitor 旨在融入任何现代 JavaScript 应用。要将 Capacitor 添加到 Vue web 应用中，你需要执行以下几个步骤。
 
 首先，通过 npm 安装 Capacitor CLI 和核心软件包。确保你在你的 Vue 项目中，并执行以下命令：
 
@@ -337,7 +337,7 @@ $ npx cap init
 
 Capacitor CLI 的 `init` 命令还将为 Capacitor 添加默认的本地原生平台，比如 Android 和 iOS。
 
-系统还会提示你输入有关应用的信息，比如名字、应用 ID（将主要用作 Android 程序的包名）和你的应用程序的目录。
+系统还会提示你输入有关应用的信息，比如名字、应用 ID（将主要用作 Android 应用的包名）和你的应用程序的目录。
 
 输入所需的详细信息后，Capacitor 将被添加到你的 Vue 项目中。
 
@@ -353,7 +353,7 @@ $ npx cap init vuecapacitordemo com.example.vuecapacitordemo
 
 你可能还注意到一个名为 `capacitor.config.json` 的文件被添加到了你的 Vue 项目的根目录中。
 
-就像 CLI 在我们的 Vue 项目中初始化 Capacitor 时所建议的那样，我们现在可以添加我们想要适配的本地平台。这将把我们的 web 应用转换成我们添加的每个平台的原生应用。
+就像 CLI 在我们的 Vue 项目中初始化 Capacitor 时所建议的那样，我们现在可以添加我们想要构建的本地平台。这将把我们的 web 应用转换成我们添加的每个平台的原生应用。
 
 但是在添加平台之前，我们需要告诉 Capacitor 在哪里查找构建文件 — 也就是我们的 Vue 项目的 `dist` 目录。当你第一次运行 Vue 应用的 `build`（`npm run build`） 命令时，将创建此目录，它位于 Vue 应用的根目录。
 
@@ -398,7 +398,7 @@ Capacitor 还提供了 API 以便你可以使用该 API 创建 Ionic 团队提�
 
 我们将使用 “Modals” 插件，该插件用于显示 alerts、confirmations、input prompts 和 action sheets 的原生模态窗口。
 
-打开 `src/components/Home.vue`， 并在 `script` 块的开头添加以下内容：
+打开 `src/components/Home.vue`，并在 `script` 块的开头添加以下内容：
 
 ```
 import { Plugins } from '@capacitor/core';
