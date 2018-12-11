@@ -11,19 +11,19 @@
 
 ### 多个相机流的使用场景
 
-一个相机应用可能希望同时使用多个帧流，在某些情况下不同的流甚至需要不同的帧分辨率或像素格式；以下是一些使用场景：
+一个相机应用可能希望同时使用多个帧流，在某些情况下不同的流甚至需要不同的帧分辨率或像素格式；以下是一些典型使用场景：
 
-*   录像：一个流用于预览，另一个用于解码并保存成文件
-*   扫描条形码：一个流用于预览，另一个用于条形码识别
-*   计算摄影学：一个流用于预览，另一个用于人脸或场景的识别
+*   录像：一个流用于预览，另一个用于并编码保存成文件
+*   扫描条形码：一个流用于预览，另一个用于条形码检测
+*   计算摄影学：一个流用于预览，另一个用于人脸或场景的检测
 
-正如我们在[之前的文章](https://medium.com/androiddevelopers/understanding-android-camera-capture-sessions-and-requests-4e54d9150295)中讨论的那样，当我们处理帧时，存在较大的性能成本，并且这些成本在并行流 / 流水线处理中还会加倍。
+正如我们在[之前的文章](https://medium.com/androiddevelopers/understanding-android-camera-capture-sessions-and-requests-4e54d9150295)中讨论的那样，当我们处理帧时，存在较大的性能成本，并且这些成本在并行流 / 流水线处理中还会成倍增长。
 
  CPU、GPU 和 DSP 这样的资源可以利用框架的[重新处理](https://developer.android.com/reference/android/hardware/camera2/CameraDevice#createReprocessCaptureRequest%28android.hardware.camera2.TotalCaptureResult%29)能力，但是像内存这样的资源需求将线性增长。
 
 ### 每次请求对应多个目标
 
-通过执行某种官方程序，多相机流可以整合成一个 [CaptureRequest](https://developer.android.com/reference/android/hardware/camera2/CaptureRequest)，此代码段表明了如何使用一个流开启相机会话并使用另一个流进行图像处理：
+通过执行某种官方程序，多相机流可以整合成一个 [CaptureRequest](https://developer.android.com/reference/android/hardware/camera2/CaptureRequest)，此代码段表明了如何使用一个流开启相机会话进行相机预览并使用另一个流进行图像处理：
 
 ```
 val session: CameraCaptureSession = ...  // from CameraCaptureSession.StateCallback
@@ -39,8 +39,8 @@ val combinedRequest = session.device.createCaptureRequest(requestTemplate)
 combinedRequest.addTarget(previewSurface)
 combinedRequest.addTarget(imReaderSurface)
 
-// 在我们样例的情况下，SurfaceView 会自动更新。
-// 有自己的回调，我们必须监听，以检索帧
+// 在我们的样例中，SurfaceView 会自动更新。
+// ImageReader 有自己的回调，我们必须监听，以检索帧
 // 所以不需要为捕获请求设置回调
 session.setRepeatingRequest(combinedRequest.build(), null, null)
 ```
@@ -49,7 +49,7 @@ session.setRepeatingRequest(combinedRequest.build(), null, null)
 
 ### 输出类型
 
-**输出类型**指的是帧编码格式，文档描述中支持的类型有 PRIV、YUV、JEPG 和 RAW。文档很好的描述了他们：
+**输出类型**指的是帧编码格式，文档描述中支持的类型有 PRIV、YUV、JEPG 和 RAW。文档很好的解释了他们：
 
 > PRIV 指的是使用了 [StreamConfigurationMap.getOutputSizes(Class)](https://developer.android.com/reference/android/hardware/camera2/params/StreamConfigurationMap#getOutputSizes%28java.lang.Class%3CT%3E%29) 获取可用尺寸的任何目标，没有直接的应用程序可见格式
 
@@ -83,7 +83,7 @@ val sizes = characteristics.get(
         .getOutputSizes(outputFormat)
 ```
 
-在相机预览和录像的使用场景中，我们应该使用目标类来确定支持的大小，因为文件格式将由相机框架本身处理：
+在相机预览和录像的使用场景中，我们应该使用目标类来确定支持的大小，因为文件格式将由相机框架自身处理：
 
 ```
 val characteristics: CameraCharacteristics = ...
@@ -155,9 +155,9 @@ fun <T>getPreviewOutputSize(
 
 ### 硬件层次
 
-要决定运行时可用能力，相机应用需要的最重要的信息是支持的**硬件级别**。再一次，[文档](https://developer.android.com/reference/android/hardware/camera2/CameraCharacteristics#INFO_SUPPORTED_HARDWARE_LEVEL)向我们做出了解释：
+要决定运行时可用能力，相机应用需要的最重要的信息是支持的**硬件级别**。再一次，我们可以从此[文档](https://developer.android.com/reference/android/hardware/camera2/CameraCharacteristics#INFO_SUPPORTED_HARDWARE_LEVEL)学习：
 
-> 支持的硬件级别是摄像机设备功能的上层描述，汇总出多种能力到一个字段中。每一等级相比前一等级都新增了一些功能，并且始终是上一级别的超集。等级的顺序是 LEGACY < LIMITED < FULL < LEVEL_3。
+> 支持的硬件级别是摄像机设备功能的上层描述，汇总出多种功能到一个字段中。每一等级相比前一等级都新增了一些功能，并且始终是上一级别的超集。等级的顺序是 LEGACY < LIMITED < FULL < LEVEL_3。
 
 使用 [CameraCharacteristics](https://developer.android.com/reference/android/hardware/camera2/CameraCharacteristics) 对象，我们可以使用单个语句检索硬件级别：
 
@@ -174,7 +174,7 @@ val hardwareLevel = characteristics.get(
         CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL)
 ```
 
-### 把多有部分拼合起来
+### 把所有部分拼合起来
 
 一旦我们了解了输出类型、输出尺寸和硬件级别，我们就可以确定哪些视频流组合是有效的。举个例子，有一个具有 [LEGACY](https://developer.android.com/reference/android/hardware/camera2/CameraMetadata#INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY) 硬件级别的 `CameraDevice` 支持的配置的快照.照来自 [createCaptureSession](https://developer.android.com/reference/android/hardware/camera2/CameraDevice.html#createCaptureSession%28android.hardware.camera2.params.SessionConfiguration%29) 方法的文档：
 
