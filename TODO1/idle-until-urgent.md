@@ -471,7 +471,7 @@ queue.pushTask(() => ga('send', 'pageview'));
 
 因为所有任务都不超过 50 毫秒，所以没有任何一个任务影响我的交互时间（TTI），这对我的 lighthouse 得分很有帮助：
 
-[![使用了“空闲执行，紧急优先”策略后，我的 lighthouse 报告 — 一共 100 分钟！](https://philipwalton.com/static/lighthouse-report-4721b091da.png)](https://philipwalton.com/static/lighthouse-report-1400w-1136c250ac.png)
+[![使用了“空闲执行，紧急优先”策略后，我的 lighthouse 报告 — 一共 100 分！](https://philipwalton.com/static/lighthouse-report-4721b091da.png)](https://philipwalton.com/static/lighthouse-report-1400w-1136c250ac.png)
 
 使用了“空闲执行，紧急优先”策略后，我的 lighthouse 报告。
 
