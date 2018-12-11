@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-compilers-for-humans-version-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-compilers-for-humans-version-2.md)
 > * 译者：[Starrier](https://github.com/Starriers)
-> * 校对者：[Raoul1996](https://github.com/Raoul1996)、[](https://github.com/Gavin-Gong)
+> * 校对者：[Raoul1996](https://github.com/Raoul1996)、[Gavin-Gong](https://github.com/Gavin-Gong)
 
 # 理解编译器 —— 从人类的角度（版本 2）
 
