@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/using-multiple-camera-streams-simultaneously.md](https://github.com/xitu/gold-miner/blob/master/TODO1/using-multiple-camera-streams-simultaneously.md)
 > * 译者：[zx-Zhu](https://github.com/zx-Zhu)
-> * 校对者：
+> * 校对者：[nanjingboy](https://github.com/nanjingboy), [gs666](https://github.com/gs666)
 
 # 同时使用多个相机流
 
@@ -45,7 +45,7 @@ combinedRequest.addTarget(imReaderSurface)
 session.setRepeatingRequest(combinedRequest.build(), null, null)
 ```
 
-如果你正确配置了目标 surfaces，则此代码将仅生成满足  [StreamComfigurationMap.GetOutputMinFrameDuration(int, Size)](https://developer.android.com/reference/android/hardware/camera2/params/StreamConfigurationMap#getOutputMinFrameDuration%28int,%20android.util.Size%29) 和 [StreamComfigurationMap.GetOutputStallDuration(int, Size)](https://developer.android.com/reference/android/hardware/camera2/params/StreamConfigurationMap.html#getOutputStallDuration%28int,%20android.util.Size%29) 确定的最小 FPS 流。实际表现还会因机型而异，Android 给了我们一些保证，可以根据**输出类型**，**输出大小**和**硬件级别**三个变量来支持特定组合。使用不支持的参数组合可能会以低帧率工作，甚至不能工作，触发其中一个故障回调。[文档](https://developer.android.com/reference/android/hardware/camera2/CameraDevice#createCaptureSession%28java.util.List%3Candroid.view.Surface%3E,%20android.hardware.camera2.CameraCaptureSession.StateCallback,%20android.os.Handler%29)非常详细地描述了保证工作的内容，强烈推荐完整阅读，我们在此将介绍基础知识。
+如果你正确配置了目标 surfaces，则此代码将仅生成满足 [StreamComfigurationMap.GetOutputMinFrameDuration(int, Size)](https://developer.android.com/reference/android/hardware/camera2/params/StreamConfigurationMap#getOutputMinFrameDuration%28int,%20android.util.Size%29) 和 [StreamComfigurationMap.GetOutputStallDuration(int, Size)](https://developer.android.com/reference/android/hardware/camera2/params/StreamConfigurationMap.html#getOutputStallDuration%28int,%20android.util.Size%29) 确定的最小 FPS 流。实际表现还会因机型而异，Android 给了我们一些保证，可以根据**输出类型**，**输出大小**和**硬件级别**三个变量来支持特定组合。使用不支持的参数组合可能会以低帧率工作，甚至不能工作，触发其中一个故障回调。[文档](https://developer.android.com/reference/android/hardware/camera2/CameraDevice#createCaptureSession%28java.util.List%3Candroid.view.Surface%3E,%20android.hardware.camera2.CameraCaptureSession.StateCallback,%20android.os.Handler%29)非常详细地描述了保证工作的内容，强烈推荐完整阅读，我们在此将介绍基础知识。
 
 ### 输出类型
 
@@ -53,13 +53,13 @@ session.setRepeatingRequest(combinedRequest.build(), null, null)
 
 > PRIV 指的是使用了 [StreamConfigurationMap.getOutputSizes(Class)](https://developer.android.com/reference/android/hardware/camera2/params/StreamConfigurationMap#getOutputSizes%28java.lang.Class%3CT%3E%29) 获取可用尺寸的任何目标，没有直接的应用程序可见格式
 
-> YUV 指的是目标 surface 使用了[ImageFormat.YUV_420_888](https://developer.android.com/reference/android/graphics/ImageFormat#YUV_420_888) 编码格式
+> YUV 指的是目标 surface 使用了 [ImageFormat.YUV_420_888](https://developer.android.com/reference/android/graphics/ImageFormat#YUV_420_888) 编码格式
 
 > JPEG 指的是 [ImageFormat.JPEG](https://developer.android.com/reference/android/graphics/ImageFormat#JPEG) 格式
 
 > RAW 指的是 [ImageFormat.RAW_SENSOR](https://developer.android.com/reference/android/graphics/ImageFormat#RAW_SENSOR) 格式
 
-当选择应用程序的输出类型时，如果目标是使兼容性最大化，推荐使用 [ImageFormat.YUV_420_888](https://developer.android.com/reference/android/graphics/ImageFormat#YUV_420_888) 做帧分析并使用 [ImageFormat.JPEG](https://developer.android.com/reference/android/graphics/ImageFormat#JPEG) 保存图像。对于预览和录像传感器来说，你可能会用一个 `SurfaceView`, `TextureView`, `MediaRecorder`, `MediaCodec` 或者 `RenderScript.Allocation` 。在这些情况下，不指定图像格式，出于兼容性目的，它将被计为 [ImageFormat.PRIVATE](https://developer.android.com/reference/android/graphics/ImageFormat#PRIVATE) （不管它的实际格式是什么）。去查看设备支持的格式可以使用如下代码：
+当选择应用程序的输出类型时，如果目标是使兼容性最大化，推荐使用 [ImageFormat.YUV_420_888](https://developer.android.com/reference/android/graphics/ImageFormat#YUV_420_888) 做帧分析并使用 [ImageFormat.JPEG](https://developer.android.com/reference/android/graphics/ImageFormat#JPEG) 保存图像。对于预览和录像传感器来说，你可能会用一个 `SurfaceView`、`TextureView`、`MediaRecorder`、`MediaCodec` 或者 `RenderScript.Allocation`。在这些情况下，不指定图像格式，出于兼容性目的，它将被计为 [ImageFormat.PRIVATE](https://developer.android.com/reference/android/graphics/ImageFormat#PRIVATE)（不管它的实际格式是什么）。去查看设备支持的格式可以使用如下代码：
 
 ```
 val characteristics: CameraCharacteristics = ...
@@ -73,7 +73,7 @@ val supportedFormats = characteristics.get(
 
 > 对于尺寸最大的列，PREVIEW 意味着适配屏幕的最佳尺寸，或 1080p（1920x1080）,以较小者为准。RECORD 指的是相机支持的最大分辨率由 [CamcorderProfile](https://developer.android.com/reference/android/media/CamcorderProfile.html) 确定。MAXIMUM 还指 StreamConfigurationMap.getOutputSizes(int)中相机设备对该格式或目标的最大输出分辨率。
 
-注意，可用的输出尺寸取决于选择的格式。给定 [CameraCharacteristics](https://developer.android.com/reference/android/hardware/camera2/CameraCharacteristics) ，我们可以像这样查询可用的输出尺寸：
+注意，可用的输出尺寸取决于选择的格式。给定 [CameraCharacteristics](https://developer.android.com/reference/android/hardware/camera2/CameraCharacteristics)，我们可以像这样查询可用的输出尺寸：
 
 ```
 val characteristics: CameraCharacteristics = ...
@@ -102,7 +102,7 @@ fun <T>getMaximumOutputSize(
     val config = characteristics.get(
             CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
 
-    // 如果提供图像格式，请使用它来确定支持的大小; 否则使用目标类
+    // 如果提供图像格式，请使用它来确定支持的大小；否则使用目标类
     val allSizes = if (format == null)
         config.getOutputSizes(targetClass) else config.getOutputSizes(format)
     return allSizes.sortedWith(compareBy { it.height * it.width }).reversed()[0]
@@ -136,7 +136,7 @@ fun <T>getPreviewOutputSize(
     val hdScreen = screenSize.long >= hdSize.long || screenSize.short >= hdSize.short
     val maxSize = if (hdScreen) screenSize else hdSize
 
-    // 如果提供图像格式，请使用它来确定支持的大小; 否则使用目标类
+    // 如果提供图像格式，请使用它来确定支持的大小；否则使用目标类
     val config = characteristics.get(
             CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
     val allSizes = if (format == null)
@@ -207,7 +207,7 @@ surfaceView.holder.addCallback(object : SurfaceHolder.Callback {
 })
 ```
 
-我们甚至可以调用 [SurfaceHolder.setFixedSize()](https://developer.android.com/reference/android/view/SurfaceHolder#setFixedSize%28int,%20int%29) 强制 `SurfaceView` 适配输出流的大小，但在 UI 方面更好的做法是采取类似于[GitHub 上 HDR 取景器](https://github.com/googlesamples/android-HdrViewfinder) 中 [FixedAspectSurfaceView](https://github.com/googlesamples/android-HdrViewfinder/blob/9cd7531ea34b4515b3f300a354149dded9d99332/Application/src/main/java/com/example/android/hdrviewfinder/FixedAspectSurfaceView.java) 的方法，这样可以同时在宽高比和可用空间上使用绝对大小，同时可在 Activity 改变时自动调整。
+我们甚至可以调用 [SurfaceHolder.setFixedSize()](https://developer.android.com/reference/android/view/SurfaceHolder#setFixedSize%28int,%20int%29) 强制 `SurfaceView` 适配输出流的大小，但在 UI 方面更好的做法是采取类似于 [GitHub 上 HDR 取景器](https://github.com/googlesamples/android-HdrViewfinder) 中 [FixedAspectSurfaceView](https://github.com/googlesamples/android-HdrViewfinder/blob/9cd7531ea34b4515b3f300a354149dded9d99332/Application/src/main/java/com/example/android/hdrviewfinder/FixedAspectSurfaceView.java) 的方法，这样可以同时在宽高比和可用空间上使用绝对大小，同时可在 Activity 改变时自动调整。
 
 使用所需格式从 `ImageReader` 中设置另一个表面更加容易，因为无需等待回调：
 
@@ -237,7 +237,7 @@ imageReader.setOnImageAvailableListener({
 1.  用单镜头的设备同时输出多个流
 2.  在单次拍照中组合不同的目标规则
 3.  查询并选择合适的输出格式，输出尺寸和硬件等级
-4.  设置并使用 `SurfaceView` 和 `ImageReader` 提供的 `Surface` 
+4.  设置并使用 `SurfaceView` 和 `ImageReader` 提供的 `Surface`
 
 有了这些知识，现在我们可以创作一个相机 APP，可以显示和预览流，同时在单独的流中对传入帧进行异步分析。
 
