@@ -30,7 +30,7 @@ val session: CameraCaptureSession = ...  // from CameraCaptureSession.StateCallb
 
 // 我们将使用预览捕获模板来组合流，因为
 // 它针对低延迟进行了优化; 用于高质量的图像时使用
-// TEMPLATE_STILL_CAPTURE 用于高速和稳定的帧速率时使用
+// TEMPLATE_STILL_CAPTURE，用于高速和稳定的帧速率时使用
 // TEMPLATE_RECORD
 val requestTemplate = CameraDevice.TEMPLATE_PREVIEW
 val combinedRequest = session.device.createCaptureRequest(requestTemplate)
@@ -45,11 +45,11 @@ combinedRequest.addTarget(imReaderSurface)
 session.setRepeatingRequest(combinedRequest.build(), null, null)
 ```
 
-如果你正确的配置了目标 surfaces，则此代码将仅生成满足  [StreamComfigurationMap.GetOutputMinFrameDuration(int, Size)](https://developer.android.com/reference/android/hardware/camera2/params/StreamConfigurationMap#getOutputMinFrameDuration%28int,%20android.util.Size%29) 和 [StreamComfigurationMap.GetOutputStallDuration(int, Size)](https://developer.android.com/reference/android/hardware/camera2/params/StreamConfigurationMap.html#getOutputStallDuration%28int,%20android.util.Size%29) 确定的最小 FPS 的流。实际表现还会因机型而异，Android 给了我们一些保证，可以根据**输出类型**，**输出大小**和**硬件级别**三个变量来支持特定组合。使用不支持的参数组合可能会以低帧率工作，甚至不能工作，触发其中一个故障回调。[文档](https://developer.android.com/reference/android/hardware/camera2/CameraDevice#createCaptureSession%28java.util.List%3Candroid.view.Surface%3E,%20android.hardware.camera2.CameraCaptureSession.StateCallback,%20android.os.Handler%29)非常详细地描述了保证工作的内容，强烈推荐完整阅读，我们在此将介绍基础知识。
+如果你正确配置了目标 surfaces，则此代码将仅生成满足  [StreamComfigurationMap.GetOutputMinFrameDuration(int, Size)](https://developer.android.com/reference/android/hardware/camera2/params/StreamConfigurationMap#getOutputMinFrameDuration%28int,%20android.util.Size%29) 和 [StreamComfigurationMap.GetOutputStallDuration(int, Size)](https://developer.android.com/reference/android/hardware/camera2/params/StreamConfigurationMap.html#getOutputStallDuration%28int,%20android.util.Size%29) 确定的最小 FPS 流。实际表现还会因机型而异，Android 给了我们一些保证，可以根据**输出类型**，**输出大小**和**硬件级别**三个变量来支持特定组合。使用不支持的参数组合可能会以低帧率工作，甚至不能工作，触发其中一个故障回调。[文档](https://developer.android.com/reference/android/hardware/camera2/CameraDevice#createCaptureSession%28java.util.List%3Candroid.view.Surface%3E,%20android.hardware.camera2.CameraCaptureSession.StateCallback,%20android.os.Handler%29)非常详细地描述了保证工作的内容，强烈推荐完整阅读，我们在此将介绍基础知识。
 
 ### 输出类型
 
-**输出类型**指的是帧编码格式，文档描述中支持的类型有 PRIV、YUV、JEPG 和 RAW。文档很好的解释了他们：
+**输出类型**指的是帧编码格式，文档描述中支持的类型有 PRIV、YUV、JEPG 和 RAW。文档很好的解释了它们：
 
 > PRIV 指的是使用了 [StreamConfigurationMap.getOutputSizes(Class)](https://developer.android.com/reference/android/hardware/camera2/params/StreamConfigurationMap#getOutputSizes%28java.lang.Class%3CT%3E%29) 获取可用尺寸的任何目标，没有直接的应用程序可见格式
 
@@ -59,7 +59,7 @@ session.setRepeatingRequest(combinedRequest.build(), null, null)
 
 > RAW 指的是 [ImageFormat.RAW_SENSOR](https://developer.android.com/reference/android/graphics/ImageFormat#RAW_SENSOR) 格式
 
-当选择应用程序的输出类型时，如果目标是使兼容性最大化，推荐使用 [ImageFormat.YUV_420_888](https://developer.android.com/reference/android/graphics/ImageFormat#YUV_420_888) 做帧分析并使用 [ImageFormat.JPEG](https://developer.android.com/reference/android/graphics/ImageFormat#JPEG) 保存图像。对于预览和录像传感器来说，你可能会用一个 `SurfaceView`, `TextureView`, `MediaRecorder`, `MediaCodec` 或者 `RenderScript.Allocation` 。在这些情况下，不指定图像格式，出于兼容性目的，他将被计为 [ImageFormat.PRIVATE](https://developer.android.com/reference/android/graphics/ImageFormat#PRIVATE) （不管它的实际格式是什么）。去查看设备支持的格式可以使用如下代码：
+当选择应用程序的输出类型时，如果目标是使兼容性最大化，推荐使用 [ImageFormat.YUV_420_888](https://developer.android.com/reference/android/graphics/ImageFormat#YUV_420_888) 做帧分析并使用 [ImageFormat.JPEG](https://developer.android.com/reference/android/graphics/ImageFormat#JPEG) 保存图像。对于预览和录像传感器来说，你可能会用一个 `SurfaceView`, `TextureView`, `MediaRecorder`, `MediaCodec` 或者 `RenderScript.Allocation` 。在这些情况下，不指定图像格式，出于兼容性目的，它将被计为 [ImageFormat.PRIVATE](https://developer.android.com/reference/android/graphics/ImageFormat#PRIVATE) （不管它的实际格式是什么）。去查看设备支持的格式可以使用如下代码：
 
 ```
 val characteristics: CameraCharacteristics = ...
