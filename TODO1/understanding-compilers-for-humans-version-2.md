@@ -114,7 +114,7 @@ Operator(Assignment), Integer(4), Symbol(Semicolon), Keyword(Return), Id("a"), O
 
 在解析器中，词组 `int a = 3` 和 `a: int = 3` 之间的区别。解析器决定了语法的外观。它确保括号和大括号的平衡性，每个语句都以分号结尾，而且每个函数都有一个名称。当代码不符合顺序，标记与预期模式不符，解析器都会知道。
 
-**有几种不同的[类型解析器](https://en.wikipedia.org/wiki/Parsing#Types_of_parsers)可以编写。其中最常见的一种是自顶向下的*[_recursive-descent 解析器_](https://en.wikipedia.org/wiki/Recursive_descent_parser)。 _Recursive-descent_ 解析器使用和理解起来都是最简单的方法。我创建的所有解析器示例都是基于 _recursive-descent_。**
+**有几种不同的[类型解析器](https://en.wikipedia.org/wiki/Parsing#Types_of_parsers)可以编写。其中最常见的一种是自顶向下的 [_recursive-descent 解析器_](https://en.wikipedia.org/wiki/Recursive_descent_parser)。_Recursive-descent_ 解析器使用和理解起来都是最简单的方法。我创建的所有解析器示例都是基于 _recursive-descent_。**
 
 解析器解析的语法可以使用[语法](https://en.wikipedia.org/wiki/Formal_grammar)进行概括。像 [EBNF](https://en.wikipedia.org/wiki/Extended_Backus-Naur_form) 这样的语法可以描述像 `12+3` 这样简单数字操作的解析器：
 
