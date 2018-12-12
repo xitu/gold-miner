@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/support-vector-machines-tutorial.md](https://github.com/xitu/gold-miner/blob/master/TODO1/support-vector-machines-tutorial.md)
 > * 译者：[zhmhhu](https://github.com/zhmhhu)
-> * 校对者：
+> * 校对者：[TrWestdoor](https://github.com/TrWestdoor),[1992chenlu](https://github.com/1992chenlu)
 
 # 支持向量机（SVM） 教程
 
@@ -234,7 +234,7 @@ SVM 的一个非常令人惊讶的地方是，在它使用的所有数学运算�
 
 ![](https://cdn-images-1.medium.com/max/800/0*w0ZM62E9CCizAKZw.)
 
-我们在原始**第一**空间中取矢量的点积，然后对结果进行平方运算。
+我们**首先**在原始空间中取矢量的点积，然后对结果进行平方运算。
 
 让我们展开它并检查我的说法是否正确：
 
