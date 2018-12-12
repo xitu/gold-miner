@@ -40,11 +40,11 @@ Papu — 一个可用于安卓、iOS、web 的食物 APP
 <View>你好！我是 React Native 里面的一个基础容器</View>
 ```
 
-有些聪明的人想到了如何解决这个问题。我最喜欢的解决方案之一就是由[Nicolas Gallagher](http://nicolasgallagher.com/)制作的伟大的[React Native Web](https://github.com/necolas/react-native-web)库。不仅仅是因为通过它能够让你在 web 上使用 React Native 组件（不是全部组件！）来解决基本模块的问题。它还暴露了一些 React Native 的 API，比如 Geolocation，Platform，Animated，AsyncStorage 等。 快来[RNW guides](https://github.com/necolas/react-native-web/tree/master/docs/guides)这里看一些很棒的示例。
+有些聪明的人想到了如何解决这个问题。我最喜欢的解决方案之一就是由 [Nicolas Gallagher](http://nicolasgallagher.com/) 制作的伟大的 [React Native Web](https://github.com/necolas/react-native-web) 库。不仅仅是因为通过它能够让你在 web 上使用 React Native 组件（不是全部组件！）来解决基本模块的问题。它还暴露了一些 React Native 的 API，比如 Geolocation，Platform，Animated，AsyncStorage 等。 快来 [RNW guides](https://github.com/necolas/react-native-web/tree/master/docs/guides) 这里看一些很棒的示例。
 
 ### 首先是一个样板
 
-我们已经知道如何解决基本模块的问题了，但是我们仍然要试着将 web 页与原生的生产环境『粘』在一起。在我的项目中，我使用了[RN](https://facebook.github.io/react-native/docs/getting-started)的初始化脚本（没有展示在这里），并且对于 web 部分我使用了[create-react-app](https://github.com/facebook/create-react-app)。首先我通过`create-react-app rnw_web`创建了一个项目，然后通过`react-native init raw_native`创建了另一个。接着我在一个新的项目文件夹里面，『科学怪人式』地将他们的`package.json`合并成一个，并在上面运行 yarn. 最终的 package 文件长这样：
+我们已经知道如何解决基本模块的问题了，但是我们仍然要试着将 web 页与原生的生产环境『粘』在一起。在我的项目中，我使用了 [RN](https://facebook.github.io/react-native/docs/getting-started) 的初始化脚本（没有展示在这里），并且对于 web 部分我使用了 [create-react-app](https://github.com/facebook/create-react-app)。首先我通过 `create-react-app rnw_web` 创建了一个项目，然后通过 `react-native init raw_native` 创建了另一个。接着我在一个新的项目文件夹里面，『科学怪人式』地将他们的 `package.json` 合并成一个，并在上面运行 yarn. 最终的 package 文件长这样：
 
 ```
 {
