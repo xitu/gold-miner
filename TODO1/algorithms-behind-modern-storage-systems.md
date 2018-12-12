@@ -1,226 +1,226 @@
 > * 原文地址：[Algorithms Behind Modern Storage Systems](https://queue.acm.org/detail.cfm?id=3220266)
-> * 原文作者：[acmqueue](https://queue.acm.org/)
+> * 原文作者：[Alex Petrov](http://coffeenco.de/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/algorithms-behind-modern-storage-systems.md](https://github.com/xitu/gold-miner/blob/master/TODO1/algorithms-behind-modern-storage-systems.md)
-> * 译者：
-> * 校对者：
+> * 译者：[LeopPro](https://github.com/LeopPro)
+> * 校对者：[zephyrJS](https://github.com/zephyrJS) [FesonX](https://github.com/FesonX)
 
-# Algorithms Behind Modern Storage Systems
+# 支撑现代存储系统的算法
 
-## Different uses for read-optimized B-trees and write-optimized LSM-trees
+## 读优化 B-Tree 和写优化 LSM-Tree 的不同用途
 
-### Alex Petrov
+### 作者：Alex Petrov
 
-The amounts of data processed by applications are constantly growing. With this growth, scaling storage becomes more challenging. Every database system has its own tradeoffs. Understanding them is crucial, as it helps in selecting the right one from so many available choices.
+随着应用程序处理的数据量不断增长，扩展存储变得愈发具有挑战性。每个数据库系统都有自己的方案。为了从这些方案中做出正确的选择，了解它们是至关重要的。
 
-Every application is different in terms of read/write workload balance, consistency requirements, latencies, and access patterns. Familiarizing yourself with database and storage internals facilitates architectural decisions, helps explain why a system behaves a certain way, helps troubleshoot problems when they arise, and fine-tunes the database for your workload.
+每个应用程序在读写负载平衡、一致性、延迟和访问模式方面各不相同。熟悉数据库和底层存储能帮助你进行架构决策、解释系统行为、排除故障以及根据具体情况调优。
 
-It's impossible to optimize a system in all directions. In an ideal world there would be data structures guaranteeing the best read and write performance with no storage overhead but, of course, in practice that's not possible.
+优化一个系统不可能做到面面俱到。我们当然希望有一个数据结构既能保证最佳的读写性能，又不需要任何存储开销，但显然，这是不存在的。
 
-This article takes a closer look at two storage system design approaches used in a majority of modern databases—read-optimized [B-trees](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.96.6637&rep=rep1&type=pdf)<sup>1</sup> and write-optimized [LSM (log-structured merge)-trees](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.44.2782&rep=rep1&type=pdf)<sup>5</sup>—and describes their use cases and tradeoffs.
+本文深入讨论了大多数现代数据库中使用的两种存储系统设计 —— 读优化 [B-Tree](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.96.6637&rep=rep1&type=pdf) <sup><a href="#note1">[1]</a></sup> 和写优化 [LSM(log-structured merge)-Tree](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.44.2782&rep=rep1&type=pdf) <sup><a href="#note5">[5]</a></sup> —— 并描述了它们的用例和优缺权衡。
 
-### B-Trees
+### B-Tree
 
-B-trees are a popular read-optimized indexing data structure and generalization of binary trees. They come in many variations and are used in many databases (including [MySQL InnoDB](https://dev.mysql.com/doc/refman/5.7/en/innodb-physical-structure.html)<sup>4</sup> and [PostgreSQL](http://www.interdb.jp/pg/pgsql01.html)<sup>7</sup>) and even [file systems](https://en.wikipedia.org/wiki/HTree) (HFS+<sup>8</sup>, HTrees in ext4<sup>9</sup>). The _B_ in _B_-tree stands for _Bayer_, the author of the original data structure, or _Boeing_, where he worked at that time.
+B-Tree 是一种流行的读优化索引数据结构，是二叉树的泛化。它有许多变种，并且被用于多种数据库（包括 [MySQL InnoDB](https://dev.mysql.com/doc/refman/5.7/en/innodb-physical-structure.html) <sup><a href="#note4">[4]</a></sup>、[PostgreSQL](http://www.interdb.jp/pg/pgsql01.html) <sup><a href="#note7">[7]</a></sup>）甚至[文件系统](https://en.wikipedia.org/wiki/HTree)（HFS+ <sup><a href="#note8">[8]</a></sup>、HTrees ext4 <sup><a href="#note9">[9]</a></sup>）。B-Tree 中的 _B_ 代表原始数据结构的作者 _Bayer_，或是他当时就职的公司 _Boeing_。
 
-In a [binary tree](https://en.wikipedia.org/wiki/Binary_tree) every node has two children (referred as a left and a right child). Left and right subtrees hold the keys that are less than and greater than the current node key, respectively. To keep the tree depth to a minimum, a binary tree has to be balanced: when randomly ordered keys are being added to the tree, it is natural that one side of the tree will eventually get deeper than the other.
+在[搜索二叉树](https://en.wikipedia.org/wiki/Binary_tree)中，每个节点都有两个孩子（称为左右孩子）。左子树的节点值小于当前节点值，右子树反之。为了保持树的深度最小，搜索二叉树必须是平衡的：当随机顺序的值被添加到树中时，如果不加调整，终会导致树的倾斜。
 
-One way to rebalance a binary tree is to use so-called rotation: rearrange nodes, pushing the parent node of the longer subtree down below its child and pulling this child up, effectively placing it in its parent's position. Figure 1 is an example of rotation used for balancing in a binary tree. On the left, a binary tree is unbalanced after adding node 2 to it. In order to balance the tree, node 3 is used as a pivot (the tree is rotated around it). Then node 5, previously a root node and a parent node for 3, becomes its child node. After the rotation step is done, the height of the left subtree decreases by one and the height of the right subtree increases by one. The maximum depth of the tree has decreased.
+一种平衡二叉树的方法是所谓的旋转：重新排列节点，将较深子树的父节点向下推到其子节点下方，并将该子节点拉上来，将其放在原父节点的位置。图 1 是平衡二叉树中的旋转示例。在左侧添加节点 2 后，二叉树失去平衡。为了使该树平衡，将其以节点 3 为轴旋转（树围绕它旋转）。然后节点 5（旋转前是根节点和节点 3 的父节点）成为其子节点。旋转完成后，左侧子树的深度减少 1，右侧子树的深度增加 1。树的最大深度已经减小。
 
-![Algorithms Behind Modern Storage Systems](http://deliveryimages.acm.org/10.1145/3230000/3220266/petrov1.png)
+![支撑现代存储系统的算法](https://s1.ax1x.com/2018/05/18/C6yZiF.png)
 
-Binary trees are most useful as in-memory data structures. Because of balancing (the need to keep the depth of all subtrees to a minimum) and low fanout (a maximum of two pointers per node), they don't work well on disk. B-trees allow for storing more than two pointers per node and work well with block devices by matching the node size to the page size (e.g., 4 KB). Some implementations today use larger node sizes, spanning across multiple pages in size.
+二叉树是最有用的内存数据结构。然而由于平衡（保持所有子树的深度最小）和低出度（每个节点最多两个子节点），它们在磁盘上水土不服。B-Tree 允许每个节点存储两个以上的指针，并通过将节点大小与页面大小（例如，4 KB）进行匹配来与块设备协同工作。今天的一些实现将使用更大的节点大小，跨越多个页面。
 
-B-trees have the following properties:
+B-Tree 有以下几个性质：
 
-• Sorted. This allows sequential scans and simplifies lookups.
+• 有序。这允许顺序扫描并简化查找。
 
-• Self-balancing. There's no need to balance the tree during insertion and deletion: when a B-tree node is full, it is split in two, and when the occupancy of the neighboring nodes falls below a certain threshold, the nodes are merged. This also means that leaves are equally distant from the root and can be located using the same amount of steps during lookup.
+• 自平衡。在插入和删除时不需要平衡树：当 B-Tree 节点已满时，它被分成两部分，并且当相邻节点的利用率低于某个阈值时，合并这两个节点。这也意味着各叶子节点与根节点的距离相等，并且在查找过程中定位的步数是相同的。
 
-• Guarantee of logarithmic lookup time. This makes B-trees a good choice for database indexes, where lookup times are important.
+• 对数级查找时间复杂度。查找时间是非常重要的，这使得 B-Tree 成为数据库索引的理想选择。
 
-• Mutable. Inserts, updates, and deletes (also, subsequent splits and merges) are performed on disk in place. To make in-place updates possible, a certain amount of space overhead is required. A B-tree can be organized as a clustered index, where actual data is stored on the leaf nodes or as a heap file with an unclustered B-tree index.
+• 易变。插入、更新、删除（包括因此导致的拆分和合并）过程在磁盘上进行。为了使就地更新成为可能，需要一定的空间开销。B-Tree 可以作为聚集索引，实际数据存储在叶子节点上，也可以作为非聚集索引，称为一个堆文件。
 
-This article discusses the B+tree,<sup>3</sup> a modern variant of the B-tree often used for database storage. The B+tree is different from the original B-tree<sup>1</sup> in that (a) it has an additional level of linked leaf nodes holding the values, and (b) these values cannot be stored on internal nodes.
+本文讨论的 B+Tree <sup><a href="#note3">[3]</a></sup> 是一种经常用于数据库存储的 B-Tree 现代变种。B+Tree 与原始 B-Tree <sup><a href="#note1">[1]</a></sup> 的不同之处在于：(1)它采用额外链接的叶节点存储值；(2)值不能存储在内部节点上。
 
-#### Anatomy of the B-tree
+#### 剖析 B-Tree
 
-Let's first take a closer look at the B-tree building blocks, illustrated in figure 2. B-trees have several node types: root, internal, and leaf. Root (top) is the node that has no parents (i.e., it is not a child of any other node). Internal nodes (middle) have both a parent and children; they connect a root node with leaf nodes. Leaf nodes (bottom) carry the data and have no children. Figure 2 depicts a B-tree with a branching factor of four (four pointers, three keys in internal nodes, and four key/value pairs on leaves).
+我们先来仔细看看 B-Tree 的结构，如图 2 所示。B-Tree 的节点有几种类型：根节点，内部节点和叶子节点。根节点（顶部）是没有双亲的节点（即，它不是任何节点的子节点）。内部节点（中间）有双亲和孩子节点；他们将根节点和叶子节点连接起来。叶子节点（底部）持有数据并且没有孩子节点。图 2 描绘了分支因子为 4（4 个指针，内部节点中有 3 个键，叶上有 4 个键/值对）的 B-Tree。
 
-![Algorithms Behind Modern Storage Systems](http://deliveryimages.acm.org/10.1145/3230000/3220266/petrov2.png)
+![支撑现代存储系统的算法](https://s1.ax1x.com/2018/05/18/C6qgs0.png)
 
-B-trees are characterized by the following:
+B-Tree 的特性如下：
 
-• Branching factor-the number (_N_) of pointers to the child nodes. Along with the pointers, root and internal nodes hold up to _N-1_ keys.
+• 分支因子 —— 指向子节点的指针数(_N_)。除指针外，根节点和内部节点还持有 N-1 个键。
 
-• Occupancy-how many pointers to child items the node is currently holding, out of the maximum available. For example, if the tree-branching factor is _N_, and the node is currently holding _N/2_ pointers, occupancy is 50 percent.
+• 利用率 —— 节点当前持有的指向子节点的指针数量与可用最大值之比。例如，若某树分支因子是 _N_，且其中某节点当前持有 _N/2_ 个指针，则该节点利用率为 50%。
 
-• Height-the number of B-tree levels, signifying how many pointers have to be followed during lookup.
+• 高度 —— B-Tree 的数量级，表示在查找过程中必须经过多少指针。
 
-Every nonleaf node in the tree holds up to _N_ keys (index entries), separating the tree into _N+1_ subtrees that can be located by following a corresponding pointer. Pointer _i_ from an entry _K<sub>i</sub>_ points to a subtree in which all the index entries are such that _K<sub>i-1</sub> <= K<sub>searched</sub> < K<sub>i</sub>_ (where _K_ is a set of keys). The first and last pointers are special cases, pointing to subtrees in which all the entries are less than or equal to _K<sub>0</sub>_ in the case of the leftmost child, or greater than _K<sub>N-1</sub>_ in the case of the rightmost child. A leaf node may also hold a pointer to the previous and next nodes on the same level, forming a doubly linked list of sibling nodes. Keys in all the nodes are always sorted.
+树中的每个非叶节点最多可持有 _N_ 个键（索引条目），这些键将树分为 _N+1_ 个子树，这些子树可以通过相应的指针定位。项 _K<sub>i</sub>_ 中的指针 _i_ 指向某子树，该子树中包含所有 _K<sub>i-1</sub> <= K<sub>目标</sub> < K<sub>i</sub>_（其中 _K_ 是一组键）的索引项。首尾指针是特殊的，它们指向的子树中所有的项都小于等于最左子节点的 _K<sub>0</sub>_ 或大于最右子节点的 _K<sub>N-1</sub>_。叶子节点同时持有其同级前后节点的指针，形成兄弟节点间的双向链表。所有节点中的键总是有序的。
 
-#### Lookups
+#### 查找
 
-When performing lookups, the search starts at the root node and follows internal nodes recursively down to the leaf level. On each level, the search space is reduced to the child subtree (the range of this subtree includes the searched value) by following the child pointer. Figure 3 shows a lookup in a B-tree making a single root-to-leaf pass, following the pointers “between” the two keys, one of which is greater than (or equal to) the searched term, and the other of which is less than the searched term. When a point query is performed, the search is complete after locating the leaf node. During the range scan, the keys and values of the found leaf, and then the sibling leaf's nodes, are traversed, until the end of the range is reached.
+进行查找时，将从根节点开始搜索，并经过内部节点递归向下到叶子节点层。在每层中，通过指向子节点的指针将搜索范围缩小到某子树（包含搜索目标值的子树）。图 3 展示了 B-Tree 的一次从根到叶的搜索过程，指针在两个键之间，其中一个大于（或等于）搜索目标，另一个小于搜索目标。进行点查询时，搜索将在定位到叶子节点后完成。进行范围扫描时，遍历所找到的叶子节点的键和值，然后遍历范围内的兄弟叶子节点。
 
-![Algorithms Behind Modern Storage Systems](http://deliveryimages.acm.org/10.1145/3230000/3220266/petrov3.png)
+![支撑现代存储系统的算法](https://s1.ax1x.com/2018/05/19/Cc6dRe.png)
 
-In terms of complexity, B-trees guarantee _log(n)_ lookup, because finding a key within the node is performed using binary search, shown in figure 4. Binary search is easily explained in terms of searching for words beginning with a certain letter in the dictionary, where all words are sorted alphabetically. First you open the dictionary exactly in the middle. If the searched letter is alphabetically “less than” (appears earlier than) the one opened, you continue your search in the left half of the dictionary; otherwise, you continue in the right half. You keep reducing the remaining page range by half and picking the side to follow until you find the desired letter. Every step halves the search space, making the lookup time logarithmic. Searches in B-trees have logarithmic complexity, since on the node level keys are sorted, and the binary search is performed in order to find a match. This is also why it's important to keep the occupancy high and uniform across the tree.
+在复杂度方面，B-Tree 保证查询的时间复杂度为 _log(n)_，因为查找一个节点中的键使用二分查找，如图 4 所示。二进制搜索可以通俗的解释为在字典中查找以某字母开头的单词，字典中所有单词都按字母顺序排序。首先你翻开正好在字典中间的一页。如果要查找的单词字母顺序小于（在前面）当前页，你继续在字典的左半边查找；否则就继续在右半边查找。你继续像这样将剩余的页码范围分为一半，选择一边，直到找到期望的字母。每一步都将搜索范围减半，因此查找的时间复杂度为对数级。 B-Tree 节点上的键是有序的，且使用二分查找算法进行匹配，因此 B-Tree 的搜索复杂度是对数级的。这也说明了保持树的高利用率和统一访问的重要性。
 
-![Algorithms Behind Modern Storage Systems](http://deliveryimages.acm.org/10.1145/3230000/3220266/petrov4.png)
+![支撑现代存储系统的算法](https://s1.ax1x.com/2018/05/19/CcRZy4.png)
 
-#### Insertions, updates, and deletions
+#### 插入、更新、删除
 
-When performing insertions, the first step is to locate the target leaf. For that, the aforementioned search algorithm is used. After the target leaf is located, key and value are appended to it. If the leaf does not have enough free space, this situation is called overflow, and the leaf has to be split in two. This is done by allocating a new leaf, moving half the elements to it and appending a pointer to this newly allocated leaf to the parent. If the parent doesn't have free space either, a split is performed on the parent level as well. The operation continues until the root is reached. When the root overflows, its contents are split between the newly allocated nodes, and the root node itself is overwritten in order to avoid relocation. This also implies that the tree (and its height) always grows by splitting the root node.
+进行插入时，第一步是定位目标叶子节点。此过程使用前序搜索算法。在定位目标叶子节点后，键和值将被添加至该节点。如果该节点没有足够的可用空间，这种情况称为溢出，则将叶子节点分割成两部分。这是通过分配一个新的叶子节点，将一半元素移动到新节点并将一个指向这个新节点的指针添加到父节点来完成的。如果父节点没有足够的空间，则也会在父节点上进行分割。操作一直持续到根节点为止。当根节点溢出时，其内容在新分配的节点之间被分割，根节点本身被覆盖以避免重定位。这也意味着树（及其高度）总是通过分裂根节点而增长。
 
-### LSM-Trees
+### LSM-Tree
 
-The log-structured merge-tree is an immutable disk-resident write-optimized data structure. It is most useful in systems where writes are more frequent than lookups that retrieve the records. LSM-trees have been getting more attention because they can eliminate random insertions, updates, and deletions.
+结构化日志合并树是一个不可变的基于磁盘的写优化数据结构。它适用于写入比查询操作更频繁的场景。LSM-Tree 已经获得了更多的关注，因为它可以避免随机插入，更新和删除。
 
-#### Anatomy of the LSM-tree
+#### 剖析 LSM-Tree
 
-To allow sequential writes, LSM-trees batch writes and updates in a memory-resident table (often implemented using a data structure allowing logarithmic time lookups, such as a [binary search tree](https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree) or [skip list](https://en.wikipedia.org/wiki/Skip_list)) until its size reaches a threshold, at which point it is written on disk (this operation is called a _flush_). Retrieving the data requires searching all disk-resident parts of the tree, checking the in-memory table, and merging their contents before returning the result. Figure 5 shows the structure of an LSM-tree: a memory-resident table used for writes. Whenever the memory table is large enough, its sorted contents are written on disk. Reads are served, hitting both disk- and memory-resident tables, requiring a merge process to reconcile the data.
+为了允许连续写入，LSM-Tree 在内存中的表（通常使用支持查找的时间复杂度为对数级的数据结构，例如二叉搜索树或跳跃表）中批量写入和更新，当其大小达到阈值时将它写在磁盘上（这个操作称为刷新）。检索数据时需要搜索树所有磁盘中的部分，检查内存中的表，合并它们的内容，然后再返回结果。图 5 展示了 LSM-Tree 的结构：用于写入的基于内存的表。只要内存表体积达到一定程度，内存表就会被写入磁盘。进行读取时，同时读取磁盘和内存表，通过一个合并操作来整合数据。
 
-![Algorithms Behind Modern Storage Systems](http://deliveryimages.acm.org/10.1145/3230000/3220266/petrov5.png)
+![支撑现代存储系统的算法](https://s1.ax1x.com/2018/05/20/CgQ3cQ.png)
 
-#### Sorted String Tables
+#### 有序串行表
 
-Many modern LSM-tree implementations (such as [RocksDB](https://en.wikipedia.org/wiki/RocksDB) and [Apache Cassandra](https://en.wikipedia.org/wiki/Apache_Cassandra)) implement disk-resident tables as SSTables (Sorted String Tables), because of their simplicity (easy to write, search, and read) and merge properties (during the merge, source SSTable scans and merged result writes are sequential).
+因为 SSTable（有序串行表）的简单性（易于写入，搜索和读取）与合并性能（合并期间，扫描源 SSTable，合并结果的写入是顺序的），多数现代的 LSM-Tree 实现（例如 [RocksDB](https://en.wikipedia.org/wiki/RocksDB) 和 [Apache Cassandra](https://en.wikipedia.org/wiki/Apache_Cassandra)）都选用 SSTable 作为硬盘表。
 
-An SSTable is a disk-resident ordered immutable data structure. Structurally, an SSTable is split into two parts: data and index blocks, as shown in figure 6. A data blocks consists of sequentially written unique key/value pairs, ordered by key. An index block contains keys mapped to data-block pointers, pointing to where the actual record is located. An index is often implemented using a format optimized for quick searches, such as a B-tree, or using a hash table for a point-query. Every value item in an SSTable has a timestamp associated with it. This specifies the write time for inserts and updates (which are often indistinguishable) and removal time for deletes.
+SSTable 是一种基于硬盘的有序不可变的数据结构。从结构上来看，SSTable 可以分为两部分：数据块和索引块，如图 6 所示。数据块包含以键为顺序写入的唯一键值对。索引块包含映射到数据块指针的键，指针指向实际记录的位置。为了快速搜索，索引一般使用优化的结构实现，例如 B-Tree 或用于点查询的哈希表。SSTable 中的每一个值都有一个时间戳与之对应。时间戳记录了插入、更新（这两者一般不做区分）和删除时间。
 
-![Algorithms Behind Modern Storage Systems](http://deliveryimages.acm.org/10.1145/3230000/3220266/petrov6.png)
+![支撑现代存储系统的算法](https://s1.ax1x.com/2018/05/22/C2vwlD.png)
 
-SSTables have some nice properties:
+SSTable 具有以下优点：
 
-• Point-queries (i.e., finding a value by key) can be done quickly by looking up the primary index.
+• 通过查询主键索引可以实现快速的点查询（例如，通过键寻找值）。
 
-• Scans (i.e., iterating over all key/value pairs in a specified key range) can be done efficiently simply by reading key/value pairs sequentially from the data block.
+• 只需要顺序读取数据块上的键值对就可以实现扫描（例如，遍历制定范围内的键值对）。
 
-An SSTable represents a snapshot of all database operations over a period of time, as the SSTable is created by the _flush_ process from the memory-resident table that served as a buffer for operations against the database state for this period.
+SSTable 代表一段时间内所有数据库操作的快照，因为 SSTable 是通过对内存表的**刷新**操作创建的，该表充当此时段内对数据库状态的缓冲区。
 
-#### Lookups
+#### 查询
 
-Retrieving data requires searching all SSTables on disk, checking the memory-resident tables, and merging their contents before returning the result. The merge step during the read is required since the searched data can reside in multiple SSTables.
+检索数据需要搜索硬盘上的所有 SSTable，检查内存表，并且合并它们的内容后返回结果。要搜索的数据可以存储在多个 SSTable 中，因此合并步骤是必须的。
 
-The merge step is also necessary to ensure that the deletes and updates work. Deletes in an LSM-tree insert placeholders (often called _tombstones_), specifying which key was marked for deletion. Similarly, an update is just a record with a later timestamp. During the read, the records that get shadowed by deletes are skipped and not returned to the client. A similar thing happens with the updates: out of two records with the same key, only the one with the later timestamp is returned. Figure 7 shows a merge step reconciling the data stored in separate tables for the same key: as shown here, the record for Alex was written with timestamp 100 and updated with a new phone and timestamp 200; the record for John was deleted. The other two entries are taken as is, as they're not shadowed.
+合并步骤也是确保删除和更新正常工作所必需的。在 LSM-Tree 中，通过插入占位符（通常称为**墓碑**）来指定哪个键被标记为删除。同样的，更新操作只是提交一个带较晚时间戳的记录。在读取期间，被标记删除的记录被跳过，不会返回给客户端。更新操作与之类似：在具有相同键的两个记录中，只返回具有较晚时间戳的记录。图 7 展示了一次合并操作，用于对在不同表中存储的同一个键的数据进行整合：如图，Alex 记录中时间戳是 100，随后更新了新的电话，时间戳为 200；John 记录被删除。另外两项没有改变，因为它们没有被覆盖。
 
-![Algorithms Behind Modern Storage Systems](http://deliveryimages.acm.org/10.1145/3230000/3220266/petrov7.png)
+![支撑现代存储系统的算法](https://s1.ax1x.com/2018/05/23/CRyDYV.png)
 
-To reduce the number of searched SSTables and to avoid checking every SSTable for the searched key, many storage systems employ a data structure known as a [Bloom filter](https://en.wikipedia.org/wiki/Bloom_filter)<sup>10</sup>. This is a probabilistic data structure that can be used to test whether an element is a member of the set. It can produce false-positive matches (i.e., state that the element is a member of set, while it is not, in fact, present there) but cannot produce false negatives (i.e., if a negative match is returned, the element is guaranteed not to be a member of the set). In other words, a Bloom filter is used to tell if the key “might be in an SSTable” or “is definitely not in an SSTable.” SSTables for which a Bloom filter has returned a negative match are skipped during the query.
+为了减少搜索 SSTable ，防止为了查找某个键而搜索每个 SSTable，许多存储系统采用一个被称为[布隆过滤器](https://en.wikipedia.org/wiki/Bloom_filter) <sup><a href="#note10">[10]</a></sup> 的数据结构。这是一个概率数据结构，可用于测试某个元素是否属于某集合。它有可能产生错误的肯定（即，判断元素是集合的成员，但实际上并不是），但不能产生错误的否定（即，如果返回否定结果，则元素一定不是集合的成员）。换句话说，布隆过滤器用于判断键“可能在 SSTable 中”或“绝对不在 SSTable 中”。在搜索过程中，将会跳过布隆过滤器返回否定结果的 SSTable。
 
-#### LSM-tree maintenance
+#### LSM-Tree 的维护
 
-Since SSTables are _immutable_, they are written sequentially and hold no reserved empty space for in-place modifications. This means insert, update, or delete operations would require rewriting the whole file. All operations modifying the database state are “batched” in the memory-resident table. Over time, the number of disk-resident tables will grow (data for the same key located in several files, multiple versions of the same record, redundant records that got shadowed by deletes), and the reads will continue getting more expensive.
+由于 SSTable 是**不可变**的，因此它们会按顺序写入，并且不存在用于修改的预留空白空间。这就意味着插入、更新或删除操作将需要重写整个文件。所有修改数据库状态的操作都在内存表中“批处理”。随着时间的推移，磁盘表的数量将增加（同一个键的数据位于几个不同文件，同一记录有多个不同的版本，被删除的冗余记录），读取操作的开销将变得越来越大。
 
-To reduce the cost of reads, reconcile space occupied by shadowed records, and reduce the number of disk-resident tables, LSM-trees require a _compaction_ process that reads complete SSTables from disk and merges them. Because SSTables are sorted by key and compaction works like merge-sort, this operation is very efficient: records are read from several sources sequentially, and merged output can be appended to the results file right away, also sequentially. One of the advantages of merge-sort is that it can work efficiently even for merging large files that don't fit in memory. The resulting table preserves the order of the original SSTables.
+为了降低读取开销，整合被删除记录占用的空间并减少磁盘表的数量，LSM-Tree 需要一个**压缩**操作，从磁盘读取完整的 SSTable 并合并它们。由于 SSTable 是以键排序的，因此其压缩工作和归并排序类似，是非常高效的操作：从多个源有序序列中读取记录，进行合并后的输出马上追加到结果文件中，则结果文件也是有序的。归并排序的一个优点是，即使合并内存吃不消的大文件，它依旧可以高效地工作。结果表保留了原始 SSTable 的顺序。
 
-During this process, merged SSTables are discarded and replaced with their “compacted” versions, as shown in figure 8. Compaction takes multiple SSTables and merges them into one. Some database systems logically group the tables of the same size to the same “level” and start the merge process whenever enough tables are on a particular level. After compaction, the number of SSTables that have to be addressed is reduced, making queries more efficient.
+在此过程中，被合并的 SSTable 被丢弃并替换为其“压缩”后的版本，如图 8 所示。压缩多个 SSTable 并将它们合并为一个。某些数据库系统在逻辑层面上按大小把不同的表分为不同级别，分组到相同的“级别”，并在特定级别的表足够多时开始合并操作。压缩后，SSTable 的数量减少，提高查询效率。
 
-![Algorithms Behind Modern Storage Systems](http://deliveryimages.acm.org/10.1145/3230000/3220266/petrov8.png)
+![支撑现代存储系统的算法](https://s1.ax1x.com/2018/05/27/Ch4JKI.png)
 
-### Atomicity and Durability
+### 原子性与持久性
 
-To reduce the number of I/O operations and make them sequential, both B-trees and LSM-trees batch operations in memory before making an actual update. This means that data integrity is not guaranteed during failure scenarios and _atomicity_ (applying a series of changes atomically, as if they were a single operation, or not applying them at all) and _durability_ (ensuring that in the face of a process crash or power loss, data has reached persistent storage) properties are not ensured.
+为了减少 I/O 操作并使它们顺序执行，无论是 B-Tree 还是 LSM-Tree 都在实际更新之前，先在内存中进行批量操作。这意味着，在故障情况时，数据完整性、**原子性**（将一系列操作赋予原子性，将它们视为一个操作，要么全部执行要么全不执行）、**持久性**（当进程崩溃或电源失效时，可以确保数据已经到达持久性存储设备）得不到保证。
 
-To solve that problem, most modern storage systems employ WAL (write-ahead logging). The key idea behind WAL is that all the database state modifications are first durably persisted in the append-only log on disk. If the process crashes in the middle of an operation, the log is replayed, ensuring that no data is lost and all changes appear atomically.
+为了解决这个问题，大多数现代存储系统采用 WAL（预写日志）。WAL 的核心思想是，所有数据库状态改变都先持久化进硬盘中的只追加日志中。如果进程在工作中崩溃，将会重映日志以确保没有数据丢失且所有更改都满足原子性。
 
-In B-trees, using WAL can be understood as writing changes to data files only after they have been logged. Usually log sizes for B-tree storage systems are relatively small: as soon as changes are applied to the persisted storage, they can be discarded. WAL serves as a backup for the in-flight operations: any changes that were not applied to data pages can be redone from the log records.
+在 B-Tree 中，使用 WAL 可以理解为仅在写入操作被记录后才将其写入数据文件。通常，B-Tree 存储系统的日志尺寸相对较小：只要将更改应用于持久存储，它们就可以被弃用。WAL 还可以作为运行时操作的备份：任何未应用于数据页的更改都可以根据日志记录重做。
 
-In LSM-trees, WAL is used to persist changes that have reached the memtables but have not yet been fully flushed on disk. As soon as a memtable is fully flushed and switched so that read operations can be served from the newly created SSTable, the WAL segment holding the data for the flushed memtable can be discarded.
+在 LSM-Tree 中，WAL 用于保存处于内存表但尚未完全刷新到磁盘上的更改。只要内存表被刷新完毕并置换，便可以在新创建的 SSTable 中进行读取操作，则 WAL 中从内存表刷新到硬盘上的那部分更改就可以丢弃了。
 
-### Summarizing
+### 总结
 
-One of the biggest differences between the B-tree and LSM-tree data structures is what they optimize for and what implications these optimizations have.
+B-Tree 和 LSM-Tree 数据结构最大的差异之一是，它们优化的目的以及优化的效果。
 
-Let's compare the properties of B-trees with LSM-trees. In summary, B-trees have the following properties:
+我们来对比一下 B-Tree 和 LSM-Tree 之间的特性。总的来说，B-Tree 具有以下特性：
 
-• They are mutable, which allows for in-place updates by introducing some space overhead and a more involved write path, although it does not require complete file rewrites or multisource merges.
+• 它是可变的，它允许通过一些空间开销和更多的写入路径来进行就地更新，因而它不需要文件重写或多源合并。
 
-• They are read-optimized, meaning they do not require reading from (and subsequently merging) multiple sources, thus simplifying the read path.
+• 它是读优化的，这意味着它不需要从多个源数据中读取（也不需要合并），因而简化了读取路径。
 
-• Writes might trigger a cascade of node splits, making some write operations more expensive.
+• 写操作可能引起级联节点分裂，这使得写操作开销较高。
 
-• They are optimized for paged environments (block storage), where byte addressing is not possible.
+• 它针对分页环境（块存储）进行了优化，杜绝了字节定位操作。
 
-• Fragmentation, caused by frequent updates, might require additional maintenance and block rewrites. B-trees, however, usually require less maintenance than LSM-tree storage.
+• 碎片化, 由频繁更新造成的碎片化可能需要额外的维护和块重写。然而对 B-Tree 的维护一般要比 LSM-Tree 要少。
 
-• Concurrent access requires reader/writer isolation and involves chains of locks and latches.
+• 并发访问读写隔离，这涉及锁存器与锁链。
 
-LSM-trees have these properties:
+LSM-Tree 具有以下特性：
 
-• They are immutable. SSTables are written on disk once and never updated. Compaction is used to reconcile space occupied by removed items and merge same-key data from multiple data files. Merged SSTables are discarded and removed after a successful merge as part of the compaction process. Another useful property coming from immutability is that flushed tables can be accessed concurrently.
+• 它是不可变的。SSTable 一旦被写入硬盘就不会再改变。压缩操作被用于整合占用空间，删除条目，合并在不同数据文件中的同键数据。作为压缩操作的一部分，在成功合并后，源 SSTable 将被弃用并删除。这种不可变性给我们带来了另一个有用的特性，刷新后的表可以被并发访问。
 
-• They are write optimized, meaning that writes are buffered and flushed on disk sequentially, potentially allowing for spatial locality on the disk.
+• 它是写优化的，这意味着写入操作将进入缓冲，随后顺序刷新到硬盘上，可能支持基于硬盘的空间局部性。
 
-• Reads might require accessing data from multiple sources, since data for the same key, written during different times, might land in different data files. Records have to go through the merge process before being returned to the client.
+• 读取操作可能需要访问多个数据源，因为在不同时间写入的同一个键的数据有可能位于不同的数据文件中。必须经过合并过程才能将记录返回给客户端。
 
-• Maintenance/compaction is required, as buffered writes are flushed on disk.
+• 需要维护 / 压缩，因为缓冲中的写入操作被刷新到硬盘上。
 
-### Evaluating Storage Systems
+### 评估存储系统
 
-Developing storage systems always presents the same challenges and factors to consider. Deciding what to optimize for has a substantial influence on the result. You can spend more time during write in order to lay out structures for more efficient reads, reserve extra space for in-place updates, facilitate faster writes, and buffer data in memory to ensure sequential write operations. It is impossible, however, to do this all at once. An ideal storage system would have the lowest read cost, lowest write cost, and no overhead. In practice, data structures compromise among multiple factors. Understanding these compromises is important.
+开发存储系统总要面对类似的挑战，考虑类似的因素。决定优化方向会对结果产生很大影响。你可以在写入过程中花费更多时间来布局结构以实现更高效的读取，为就地更新预留空间，也可以缓冲数据确保顺序写入以提高写入速度。但是，一次完成这一切是不可能的。理想中的存储系统应该具有最低的读取成本，最低的写入成本，并且没有额外开销。但实际上，数据结构只能在多个因素之间权衡。理解这些取舍是重要的。
 
-Researchers from Harvard's DASlab (Data System Laboratory) summarized the three key parameters database systems are optimized for: read overhead, update overhead, and memory overhead, or RUM. Understanding which of these parameters are most important for your use-case influences the choice of data structures, access methods, and even suitability for certain workloads, as the algorithms are tailored having a specific use-case in mind.
+来自哈佛 DASlab（数据系统实验室）的研究人员总结了数据库系统优化方向的关键三点：读取开销、更新开销和内存开销（或简称为 RUM）。对于数据结构、访问方法、甚至适用于某些工作负载的选择应该了解哪些参数对你的用例最为重要，因为算法是针对特定用例量身定制的。
 
-The [RUM Conjecture](http://daslab.seas.harvard.edu/rum-conjecture/)<sup>2</sup> states that setting an upper bound for two of the mentioned overheads also sets a lower bound for the third one. For example, B-trees are read-optimized at the cost of write overhead as well as having to reserve empty space for the (thereby resulting in memory overhead). LSM-trees have less space overhead at a cost of read overhead brought on by having to access multiple disk-resident tables during the read. These three parameters form a competing triangle, and improvement on one side may imply compromise on the other. Figure 9 illustrates the RUM Conjecture.
+[RUM 假说](http://daslab.seas.harvard.edu/rum-conjecture/) <sup><a href="#note2">[2]</a></sup> 为上述的两种开销设置了上限，同时为第三种设置了下限。例如，B-Tree 以提高写入开销、预留空间（同时也造成了内存开销）为代价进行读优化。LSM-Tree 以读取时必须进行多硬盘表访问的高读取开销换取低写入开销。在处于竞争三角形的三个参数中，一方面的改进可能就意味着另一方面的让步。图 9 对 RUM 假说进行了说明。
 
-![Algorithms Behind Modern Storage Systems](http://deliveryimages.acm.org/10.1145/3230000/3220266/petrov9.png)
+![支撑现代存储系统的算法](https://s1.ax1x.com/2018/05/29/C4OA5n.png)
 
-B-trees optimize for read performance: the index is laid out in a way that minimizes the disk accesses required to traverse the tree. Only a single index file has to be accessed to locate the data. This is achieved by keeping this index file mutable, which also increases write amplification resulting from node splits and merges, relocation, and fragmentation/imbalance-related maintenance. To amortize update costs and reduce the number of splits, B-trees reserve extra free space in nodes on all levels. This helps to postpone write amplification until the node is full. In short, B-trees trade update and memory overhead for better read performance.
+B-Tree 优化读取性能：索引的布局方式可以最小化遍历树的磁盘访问需求。通过访问一个索引文件就可以定位数据。这是通过持续更新索引文件来实现的，但这也增加了由于节点拆分和合并，重定位以及碎片、不平衡相关的维护造成的额外写入开销。为了平稳更新成本并减少分割次数，B-Tree 在所有级别的节点上都预留有额外的空间。这有助于在节点饱和之前延迟写入开销的增长。简而言之，B-Tree 牺牲更新和内存性能以获得更好的读取性能。
 
-LSM-trees optimize for write performance. Neither updates nor deletes require locating data on disk (which B-trees do), and they guarantee sequential writes by buffering all insert, update, and delete operations in memory-resident tables. This comes at the price of higher maintenance costs and a need for compaction (which is just a way of mitigating the ever-growing price of reads and reducing the number of disk-resident tables) and more expensive reads (as the data has to be read from multiple sources and merged). At the same time, LSM-trees eliminate memory overhead by not reserving any empty space (unlike B-tree nodes, which have an average occupancy of 70 percent, an overhead required for in-place updates) and allowing block compression because of the better occupancy and immutability of the end file. In short, LSM-trees trade read performance and maintenance for better write performance and lower memory overhead.
+LSM-Tree 优化写入性能。无论是更新还是删除都需要在磁盘上定位数据（B-Tree 也一样），并且它通过在内存表中缓存所有插入，更新和删除操作来保证顺序写入。这是以较高的维护成本和压缩需求（这是唯一的缓解不断增长的读取开销和减少磁盘表的数量的方式）和更高的读取成本（因为数据必须从多个源读取并合并）为代价的。同时，LSM-Tree 通过不保留任何预留空间来减少内存开销（不同于 B-Tree 节点，其平均利用率为 70％，包含就地更新所需的开销），因为更高的利用率和最终文件的不变性，LSM-Tree 支持块压缩。简而言之，LSM-Tree 牺牲读取性能，提高维护成本来获得更好的写入性能和更低的内存占用。
 
-There are data structures that optimize for each desired property. Using adaptive data structures allows for better read performance at the price of higher maintenance costs. Adding metadata facilitating traversals (such as [fractional cascading](https://en.wikipedia.org/wiki/Fractional_cascading)) will have an impact on write time and take space, but can improve the read time. Optimizing for memory efficiency using compression (for example, algorithms such as [Gorilla compression](http://www.vldb.org/pvldb/vol8/p1816-teller.pdf),<sup>6</sup> [delta encoding](https://en.wikipedia.org/wiki/Delta_encoding), and many others) will add some overhead for packing the data on writes and unpacking it on reads. Sometimes, you can trade functionality for efficiency. For example, [heap files and hash indexes](https://en.wikipedia.org/wiki/Database_storage_structures) can provide great performance guarantees and smaller space overhead because of the file format simplicity, for the price of not being able to perform anything but point queries. You can also trade precision for space and efficiency by using approximate data structures, such as the Bloom filter, [HyperLogLog](https://en.wikipedia.org/wiki/HyperLogLog), [Count-Min sketch](https://en.wikipedia.org/wiki/Count%E2%80%93min_sketch), and many others.
+有的数据结构可针对每个期望的属性进行优化。使用自适应数据结构可以以更高维护成本获得更好的读取性能。添加有助于遍历的元数据（如[分散层叠](https://en.wikipedia.org/wiki/Fractional_cascading)）将会影响写入时间并占用更多空间，但可以提高读取性能。使用压缩优化内存使用率（例如，[Gorilla 压缩](http://www.vldb.org/pvldb/vol8/p1816-teller.pdf) <sup><a href="#note6">[6]</a></sup> 、[delta 编码](https://en.wikipedia.org/wiki/Delta_encoding)等诸多算法）会增加一些开销，用于在写入时压缩数据并在读取时解压缩数据。有时候，你可以牺牲功能来提高效率。例如，[堆文件和散列索引](https://en.wikipedia.org/wiki/Database_storage_structures)由于文件格式简单，可以保证很好的性能和较小的空间开销，而作为代价，它们不支持除点查询以外的其他功能。你还可以通过使用近似数据结构（如布隆过滤器、[HyperLogLog](https://en.wikipedia.org/wiki/HyperLogLog)、[Count-Min sketch](https://en.wikipedia.org/wiki/Count%E2%80%93min_sketch) 等）来为了空间与效率牺牲精度。
 
-The three tunables—read, update, and memory overheads—can help you evaluate the database and gain a deeper understanding of the workloads for which it is best suited. All of them are quite intuitive, and it's often easy to sort the storage system into one of the buckets and guess how it's going to perform, then validate your hypothesis through extensive testing.
+三种可变参数 —— 读取，更新和内存开销 —— 可以帮助你评估数据库并深入了解最适合的工作负载。它们都非常直观，将存储系统按其分类很容易，猜测它是如何执行的，然后通过大量测试验证你的假设。
 
-Of course, there are other important factors to consider when evaluating a storage system, such as maintenance overhead, operational simplicity, system requirements, suitability for frequent updates and deletes, access patterns, and so on. The RUM Conjecture is just a rule of thumb that helps to develop an intuition and provide an initial direction. Understanding your workload is the first step on the way to building a scalable back end.
+当然，评估存储系统时还有一些其他重要因素需要考虑，例如维护开销，易用性，系统要求，频繁增删的适应性，访问模式等。RUM 假说只是帮助发展直观感觉并提供初始方向的一条经验法则。了解你的工作部件是构建可扩展后端的第一步。
 
-Some factors may vary from implementation to implementation, and even two databases that use similar storage-design principles may end up performing differently. Databases are complex systems with many moving parts and are an important and integral part of many applications. This information will help you peek under the hood of a database and, knowing the difference between the underlying data structures and their inner doings, decide what's best for you.
+一些因素可能因实施而异，甚至两个使用类似存储设计原则的数据库可能会有不同表现。数据库是包含许多可插拔模块的复杂系统，是许多应用程序的重要组成部分。这些信息将帮助你窥探数据库的底层，并且了解底层数据结构和其内部行为之间的差异，从而决定哪个是最适合你的。
 
-#### References
+#### 参考文献
 
-1. Comer, D. 1979. The ubiquitous B-tree. _Computing Surveys_ 11(2); 121-137; [http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.96.6637](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.96.6637&rep=rep1&type=pdf).
+<a name="note1"></a>1. Comer, D. 1979. The ubiquitous B-tree. _Computing Surveys_ 11(2); 121-137; [http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.96.6637](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.96.6637&rep=rep1&type=pdf).
 
-2. Data Systems Laboratory at Harvard. The RUM Conjecture; [http://daslab.seas.harvard.edu/rum-conjecture/](http://daslab.seas.harvard.edu/rum-conjecture/).
+<a name="note2"></a>2. Data Systems Laboratory at Harvard. The RUM Conjecture; [http://daslab.seas.harvard.edu/rum-conjecture/](http://daslab.seas.harvard.edu/rum-conjecture/).
 
-3. Graefe, G. 2011. Modern B-tree techniques. _Foundations and Trends in Databases_ 3(4): 203-402; [http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.219.7269&rep=rep1&type=pdf](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.219.7269&rep=rep1&type=pdf).
+<a name="note3"></a>3. Graefe, G. 2011. Modern B-tree techniques. _Foundations and Trends in Databases_ 3(4): 203-402; [http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.219.7269&rep=rep1&type=pdf](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.219.7269&rep=rep1&type=pdf).
 
-4. MySQL 5.7 Reference Manual. The physical structure of an InnoDB index; [https://dev.mysql.com/doc/refman/5.7/en/innodb-physical-structure.html](https://dev.mysql.com/doc/refman/5.7/en/innodb-physical-structure.html).
+<a name="note4"></a>4. MySQL 5.7 Reference Manual. The physical structure of an InnoDB index; [https://dev.mysql.com/doc/refman/5.7/en/innodb-physical-structure.html](https://dev.mysql.com/doc/refman/5.7/en/innodb-physical-structure.html).
 
-5. O'Neil, P., Cheng, E., Gawlick, D., O'Neil, E. 1996. The log-structured merge-tree. _Acta Informatica_ 33(4): 351-385; [http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.44.2782](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.44.2782&rep=rep1&type=pdf).
+<a name="note5"></a>5. O'Neil, P., Cheng, E., Gawlick, D., O'Neil, E. 1996. The log-structured merge-tree. _Acta Informatica_ 33(4): 351-385; [http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.44.2782](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.44.2782&rep=rep1&type=pdf).
 
-6. Pelkonen, T., Franklin, S., Teller, J., Cavallaro, P., Huang, Q., Meza, J., Veeraraghavan, K. 2015. Gorilla: a fast, scalable, in-memory time series database. _Proceedings of the VLDB Endowment_ 8(12): 1816-1827; [http://www.vldb.org/pvldb/vol8/p1816-teller.pdf](http://www.vldb.org/pvldb/vol8/p1816-teller.pdf).
+<a name="note6"></a>6. Pelkonen, T., Franklin, S., Teller, J., Cavallaro, P., Huang, Q., Meza, J., Veeraraghavan, K. 2015. Gorilla: a fast, scalable, in-memory time series database. _Proceedings of the VLDB Endowment_ 8(12): 1816-1827; [http://www.vldb.org/pvldb/vol8/p1816-teller.pdf](http://www.vldb.org/pvldb/vol8/p1816-teller.pdf).
 
-7. Suzuki, H. 2015-2018. The internals of PostreSQL; [http://www.interdb.jp/pg/pgsql01.html](http://www.interdb.jp/pg/pgsql01.html).
+<a name="note7"></a>7. Suzuki, H. 2015-2018. The internals of PostreSQL; [http://www.interdb.jp/pg/pgsql01.html](http://www.interdb.jp/pg/pgsql01.html).
 
-8. Apple HFS Plus Volume Format; [https://developer.apple.com/legacy/library/technotes/tn/tn1150.html#BTrees](https://developer.apple.com/legacy/library/technotes/tn/tn1150.html#BTrees)
+<a name="note8"></a>8. Apple HFS Plus Volume Format; [https://developer.apple.com/legacy/library/technotes/tn/tn1150.html#BTrees](https://developer.apple.com/legacy/library/technotes/tn/tn1150.html#BTrees)
 
-9. Mathur, A., Cao, M., Bhattacharya, S., Dilger, A., Tomas, A., Vivier, L. (2007). [The new ext4 filesystem: current status and future plans](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.111.798&rep=rep1&type=pdf). _Proceedings of the Linux Symposium_. Ottawa, Canada: Red Hat.
+<a name="note9"></a>9. Mathur, A., Cao, M., Bhattacharya, S., Dilger, A., Tomas, A., Vivier, L. (2007). [The new ext4 filesystem: current status and future plans](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.111.798&rep=rep1&type=pdf). _Proceedings of the Linux Symposium_. Ottawa, Canada: Red Hat.
 
-10. Bloom, B. H. (1970), [Space/time trade-offs in hash coding with allowable errors](https://dl.acm.org/citation.cfm?doid=362686.362692),_Communications of the ACM_, 13 (7): 422-426
+<a name="note10"></a>10. Bloom, B. H. (1970), [Space/time trade-offs in hash coding with allowable errors](https://dl.acm.org/citation.cfm?doid=362686.362692),_Communications of the ACM_, 13 (7): 422-426
 
-#### Related articles
+#### 相关文章
 
-**[The Five-minute Rule: 20 Years Later and How Flash Memory Changes the Rules](https://queue.acm.org/detail.cfm?id=1413264)**
-Goetz Graefe, Hewlett-Packard Laboratories
-The old rule continues to evolve, while flash memory adds two new rules.
+**[五分钟法则：20 年后闪存将如何改写游戏规则](https://queue.acm.org/detail.cfm?id=1413264)**  
+Goetz Graefe, Hewlett-Packard 实验室  
+旧规则继续发展，而闪存增加了两条新规则。  
 [https://queue.acm.org/detail.cfm?id=1413264](https://queue.acm.org/detail.cfm?id=1413264)
 
-**[Disambiguating Databases](https://queue.acm.org/detail.cfm?id=2696453)**
-Rick Richardson
-Use the database built for your access model.
+**[Disambiguating Databases](https://queue.acm.org/detail.cfm?id=2696453)**  
+Rick Richardson  
+根据你的访问模型构建数据库。  
 [https://queue.acm.org/detail.cfm?id=2696453](https://queue.acm.org/detail.cfm?id=2696453)
 
-**[You're Doing It Wrong](https://queue.acm.org/detail.cfm?id=1814327)**
-Poul-Henning Kamp
-Think you've mastered the art of server performance? Think again.
+**[你做错了！](https://queue.acm.org/detail.cfm?id=1814327)**  
+Poul-Henning Kamp  
+你以为自己已经掌握了服务器性能的艺术了么？再想一想。  
 [https://queue.acm.org/detail.cfm?id=1814327](https://queue.acm.org/detail.cfm?id=1814327)
 
-**Alex Petrov** ([http://coffeenco.de/](http://coffeenco.de/), [@ifesdjeen (GitHub)](https://github.com/ifesdjeen) [@ifesdjeen (Twitter)](https://twitter.com/ifesdjeen)) is an Apache Cassandra committer and storage-systems enthusiast. Over the past several years, he has worked on databases, building distributed systems and data-processing pipelines for various companies.
+**Alex Petrov** ([http://coffeenco.de/](http://coffeenco.de/), [@ifesdjeen (GitHub)](https://github.com/ifesdjeen) [@ifesdjeen (Twitter)](https://twitter.com/ifesdjeen))，一位 Apache Cassandra 贡献者、存储系统爱好者。在过去的几年，他一直致力于数据库，为各个公司建立分布式系统和数据处理管道。
 
-> 本文英文原文 PDF 文件下载地址：https://dl.acm.org/ft_gateway.cfm?id=3220266&ftid=1967080&dwn=1
+> 本文英文原文 PDF 文件：[下载地址](https://dl.acm.org/ft_gateway.cfm?id=3220266&ftid=1967080&dwn=1)
 
 Copyright © 2018 held by owner/author. Publication rights licensed to ACM.
 
