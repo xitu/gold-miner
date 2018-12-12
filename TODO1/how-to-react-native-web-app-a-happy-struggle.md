@@ -3,18 +3,19 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-react-native-web-app-a-happy-struggle.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-react-native-web-app-a-happy-struggle.md)
 > * 译者：[weibinzhu](https://github.com/weibinzhu)
-> * 校对者：
+> * 校对者：[Moonliujk](https://github.com/Moonliujk), [nanjingboy](https://github.com/nanjingboy)
 
-# 怎么做：React Native 网页应用。 一场开心的挣扎
+# 怎么做：React Native 网页应用。一场开心的挣扎
 
 ## 一个关于制作通用应用的简短而详细的教程
 
 ![](https://cdn-images-1.medium.com/max/2000/1*RiQRKKQ2ndxD6ddo8hXNLg.png)
+
 你醒来。阳光灿烂，鸟儿在歌唱。没有战争，没有饥饿，代码可以轻易地被原生和 web 环境共享。是不是很赞？但很不幸，仅仅是后者，希望虽已经在地平线上，但仍然有一些事情需要我们去完成。
 
 ### 为什么你需要关心？
 
-如今在技术缩写的海洋里面，PWA ([渐进式 Web 应用程序](https://en.wikipedia.org/wiki/Progressive_Web_Apps))是一个重要的三字词语,但是它仍然有[缺点](https://clutch.co/app-developers/resources/pros-cons-progressive-web-apps)。有很多被迫在开发原生应用以外还要开发 web 版的案例，其中也有很多技术难题。[Ian Naylor 写了一篇很棒的关于这个的文章](https://appinstitute.com/pwa-vs-native-apps/)。
+如今在技术缩写的海洋里面，PWA（[渐进式 Web 应用程序](https://en.wikipedia.org/wiki/Progressive_Web_Apps)）是一个重要的三字词语,但是它仍然有[缺点](https://clutch.co/app-developers/resources/pros-cons-progressive-web-apps)。有很多被迫在开发原生应用以外还要开发 web 版的案例，其中也有很多技术难题。[Ian Naylor 写了一篇很棒的关于这个的文章](https://appinstitute.com/pwa-vs-native-apps/)。
 
 但是，对于你的电子商务生意，仅仅开发一个原生应用也是一个大错误。因此制作一个能够在所有地方工作的软件似乎是一个合乎逻辑的操作。你可以减少工作时间，以及生产、维护的费用。这就是为什么我开始了这个小小的实验。
 
@@ -40,7 +41,7 @@ Papu — 一个可用于安卓、iOS、web 的食物 APP
 <View>你好！我是 React Native 里面的一个基础容器</View>
 ```
 
-有些聪明的人想到了如何解决这个问题。我最喜欢的解决方案之一就是由 [Nicolas Gallagher](http://nicolasgallagher.com/) 制作的伟大的 [React Native Web](https://github.com/necolas/react-native-web) 库。不仅仅是因为通过它能够让你在 web 上使用 React Native 组件（不是全部组件！）来解决基本模块的问题。它还暴露了一些 React Native 的 API，比如 Geolocation，Platform，Animated，AsyncStorage 等。 快来 [RNW guides](https://github.com/necolas/react-native-web/tree/master/docs/guides) 这里看一些很棒的示例。
+有些聪明的人想到了如何解决这个问题。我最喜欢的解决方案之一就是由 [Nicolas Gallagher](http://nicolasgallagher.com/) 制作的伟大的 [React Native Web](https://github.com/necolas/react-native-web) 库。不仅仅是因为通过它能够让你在 web 上使用 React Native 组件（不是全部组件！）来解决基本模块的问题。它还暴露了一些 React Native 的 API，比如 Geolocation，Platform，Animated，AsyncStorage 等。快来 [RNW guides](https://github.com/necolas/react-native-web/tree/master/docs/guides) 这里看一些很棒的示例。
 
 ### 首先是一个样板
 
@@ -82,7 +83,7 @@ Papu — 一个可用于安卓、iOS、web 的食物 APP
 
 React Native Web 样板的 package.json 文件（在这个版本里面没有导航）
 
- 你需要将所有在 web 和 native 目录里的源代码文件复制到新的统一项目目录中。
+你需要将所有在 web 和 native 目录里的源代码文件复制到新的统一项目目录中。
  
 ![](https://cdn-images-1.medium.com/max/800/1*jBJPol8evebkL96FXEAFew.png)
 
@@ -188,11 +189,11 @@ class App extends Component {
 export default App;
 ```
 
-给 React Native 的 App.js. 这里使用了 react-navigation.
+给 React Native 的 App.js. 这里使用了 react-navigation。
 
 我就是这样制作了一个简单的样板以及给应用构造了一个框架。你可以通过克隆我的 github 仓库来试一下我那个干净的样板。
 
-* [**inspmoore/rnw_boilerplate**: 一个基于 React Native Web 库的，用于实现 React Native 与 ReactDOM 之间代码共享的样板](https://github.com/inspmoore/rnw_boilerplate "https://github.com/inspmoore/rnw_boilerplate")
+* [**inspmoore/rnw_boilerplate**：一个基于 React Native Web 库的，用于实现 React Native 与 ReactDOM 之间代码共享的样板](https://github.com/inspmoore/rnw_boilerplate "https://github.com/inspmoore/rnw_boilerplate")
 
 下一步我们将通过加入路由/导航系统来让它复杂一些。
 
@@ -204,7 +205,7 @@ React Router Native 缺少页面过渡动画，对后退按钮的支持（安卓
 
 我把它用在了我的项目中，但是你可以用其他的。于是我把 React Router 用在 web 端，把 React Navigation 用在原生。但这又导致了一个新问题。导航，以及传参，在这两个导航库中有着很大不同。
 
-为了保持在所有地方都有着更多的原生体验这个 React Native Web 的精神，我通过制作网页路由并将它们包裹在一个 HOC 里面来解决这个问题。这样能暴露出类似 React Navigation 的 API.
+为了保持在所有地方都有着更多的原生体验这个 React Native Web 的精神，我通过制作网页路由并将它们包裹在一个 HOC 里面来解决这个问题。这样能暴露出类似 React Navigation 的 API。
 
 这使得我们无需给两个『世界』分别制作组件即可实现在页面之间导航。
 第一步是创建一个用于 web 路由的路径 map 对象：
@@ -252,7 +253,7 @@ const routeMap = {
 
 #### 页面之间导航
 
-感谢我们自定义的 HOC （暂时称之为 NativeWebRouteWrapper， 话说这真是一个糟糕的名字），我们可以使用一套跟 React Navigation 中的几乎一样的函数来实现在 web 端进行页面切换：
+感谢我们自定义的 HOC（暂时称之为 NativeWebRouteWrapper，话说这真是一个糟糕的名字），我们可以使用一套跟 React Navigation 中的几乎一样的函数来实现在 web 端进行页面切换：
 
 ```
 const { product, navigation } = this.props
@@ -284,9 +285,9 @@ render() {
 }
 ```
 
-`screen`——页面名字（在 web 端给 React Router 使用的）
-`n`——需要返回多少个页面(给 React Navigation 使用的)  
-`navigation`——导航对象
+`screen` —— 页面名字（在 web 端给 React Router 使用的）
+`n` —— 需要返回多少个页面（给 React Navigation 使用的）
+`navigation` —— 导航对象
 
 ### 结果
 
@@ -300,9 +301,9 @@ render() {
 
 ### 下一步
 
-我们真的很需要一个通用的导航库来使我们更容易地制作类似项目。让 React Navigation 也能用在 web 环境会是很赞的事情（事实上今天你就可以做到，不过这会是一次坎坷的旅途——[可以到这里了解一下](https://pickering.org/using-react-native-react-native-web-and-react-navigation-in-a-single-project-cfd4bcca16d0)）
+我们真的很需要一个通用的导航库来使我们更容易地制作类似项目。让 React Navigation 也能用在 web 环境会是很赞的事情（事实上今天你就可以做到，不过这会是一次坎坷的旅途 —— [可以到这里了解一下](https://pickering.org/using-react-native-react-native-web-and-react-navigation-in-a-single-project-cfd4bcca16d0)）
 
-**感谢你花时间阅读！如果你喜欢这篇文章，希望你能分享出去。**[**这是我的推特**](https://twitter.com/pirx__) **有什么问题请在下方评论 😃**
+**感谢你花时间阅读！如果你喜欢这篇文章，希望你能分享出去。[这是我的推特](https://twitter.com/pirx__) 有什么问题请在下方评论 😃**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
