@@ -24,7 +24,7 @@
 
 Papu — 一个可用于安卓、iOS、web 的食物 APP
 
-### 检查一下你的基元
+### 检查一下你的基本模块
 
 我们使用 React 来开展我们的工作，因此我们应该将应用逻辑与 UI 分离。使用类似 Redux/MobX/other 这样的状态管理系统是最好的选择。这将使得我们的业务逻辑能在多个平台之间复用。
 
@@ -44,7 +44,7 @@ Papu — 一个可用于安卓、iOS、web 的食物 APP
 
 ### 首先是一个样板
 
-我们已经知道如何解决基本模块的问题了。但是我们仍然要试着将 web 页与原生的生产环境『粘』在一起，让『奇迹』发生。在我的项目中，我使用了[RN](https://facebook.github.io/react-native/docs/getting-started)的初始化脚本（没有展示在这里），并且对于 web 部分我使用了[create-react-app](https://github.com/facebook/create-react-app)。首先我创建了一个叫`create-react-app rnw_web`的项目以及一个叫`react-native init raw_native`的项目。然后我在一个新的项目文件夹里面，『科学怪人式』地将他们的`package.json`合并成一个，并在上面应用 yarn. 最终的 package 文件长这样：
+我们已经知道如何解决基本模块的问题了，但是我们仍然要试着将 web 页与原生的生产环境『粘』在一起。在我的项目中，我使用了[RN](https://facebook.github.io/react-native/docs/getting-started)的初始化脚本（没有展示在这里），并且对于 web 部分我使用了[create-react-app](https://github.com/facebook/create-react-app)。首先我通过`create-react-app rnw_web`创建了一个项目，然后通过`react-native init raw_native`创建了另一个。接着我在一个新的项目文件夹里面，『科学怪人式』地将他们的`package.json`合并成一个，并在上面运行 yarn. 最终的 package 文件长这样：
 
 ```
 {
@@ -194,7 +194,7 @@ export default App;
 
 * [**inspmoore/rnw_boilerplate**: 一个基于 React Native Web 库的，用于实现 React Native 与 ReactDOM 之间代码共享的样板](https://github.com/inspmoore/rnw_boilerplate "https://github.com/inspmoore/rnw_boilerplate")
 
-下一步我们将通过加入路由/导航系统来让它弄复杂一些。
+下一步我们将通过加入路由/导航系统来让它复杂一些。
 
 ### 导航的问题与解决方案
 
@@ -232,11 +232,11 @@ const routeMap = {
 </View>
 ```
 
-这个语法与 React Navigation 的 navigator 构造函数的一样，除了多了一个 React Router 特定的选项。然后，通过我的辅助函数，我创建了一个 `react-router` 路径。并将其包裹在一个 HOC 中。这回将页面组件拷贝一份，并在其 props 中添加一个 `navigation` 属性。这模拟了 React Navigation 并暴露出一些方法，像是 `navigate()`, `goBack()`, `getParam()`.
+这个语法与 React Navigation 的 navigator 构造函数的一样，除了多了一个 React Router 特定的选项。然后，通过我的辅助函数，我创建了一个 `react-router` 路径。并将其包裹在一个 HOC 中。这回将页面组件拷贝一份，并在其 props 中添加一个 `navigation` 属性。这模拟了 React Navigation 并暴露出一些方法，像是 `navigate()`, `goBack()`, `getParam()`。
 
 #### 模态框
 
-通过它的 `createStackNavigator` React Navigation 提供了一个选项，让页面像一个模态框一样从底部滑出。为了在 web 端实现这个，我使用了由 [Dave Foley](https://github.com/davidmfoley) 写的 [React Router Modal](https://github.com/davidmfoley/react-router-modal) 库。为了将某个页面用作模态框，首先你需啊哟在路径 map 中添加一个模态框选项：
+通过它的 `createStackNavigator` React Navigation 提供了一个选项，让页面像一个模态框一样从底部滑出。为了在 web 端实现这个，我使用了由 [Dave Foley](https://github.com/davidmfoley) 写的 [React Router Modal](https://github.com/davidmfoley/react-router-modal) 库。为了将某个页面用作模态框，首先你需要在路径 map 中添加一个模态框选项：
 
 ```
 const routeMap = {
@@ -248,11 +248,11 @@ const routeMap = {
 }
 ```
 
-此外你还需要添加一个 `react-router-modal` 库中的 `<ModalContainer />` 组件到你的应用中。 这是模态框将会被渲染的地方。
+此外你还需要添加一个 `react-router-modal` 库中的 `<ModalContainer />` 组件到你的应用中。这是模态框将会被渲染的地方。
 
 #### 页面之间导航
 
-感谢我们自定义的 HOC （暂时称之为 NativeWebRouteWrapper, 话说这真是一个糟糕的名字），我们可以使用一套跟 React Navigation 中的几乎一样的函数来实现在 web 端进行页面切换：
+感谢我们自定义的 HOC （暂时称之为 NativeWebRouteWrapper， 话说这真是一个糟糕的名字），我们可以使用一套跟 React Navigation 中的几乎一样的函数来实现在 web 端进行页面切换：
 
 ```
 const { product, navigation } = this.props
@@ -284,9 +284,9 @@ render() {
 }
 ```
 
-`screen`-页面名字（在 web 端给 React Router 使用的）
-`n`-需要返回多少个页面(给 React Navigation 使用的)  
-`navigation`-导航对象
+`screen`——页面名字（在 web 端给 React Router 使用的）
+`n`——需要返回多少个页面(给 React Navigation 使用的)  
+`navigation`——导航对象
 
 ### 结果
 
@@ -300,7 +300,7 @@ render() {
 
 ### 下一步
 
-我们真的很需要一个通用的导航库来使我们更容易地制作类似项目。让 React Navigation 也能用在 web 环境会是很赞的事情（事实上今天你就可以做到，不过这会是一次坎坷的旅途 - [可以到这里了解一下](https://pickering.org/using-react-native-react-native-web-and-react-navigation-in-a-single-project-cfd4bcca16d0)）
+我们真的很需要一个通用的导航库来使我们更容易地制作类似项目。让 React Navigation 也能用在 web 环境会是很赞的事情（事实上今天你就可以做到，不过这会是一次坎坷的旅途——[可以到这里了解一下](https://pickering.org/using-react-native-react-native-web-and-react-navigation-in-a-single-project-cfd4bcca16d0)）
 
 **感谢你花时间阅读！如果你喜欢这篇文章，希望你能分享出去。**[**这是我的推特**](https://twitter.com/pirx__) **有什么问题请在下方评论 😃**
 
