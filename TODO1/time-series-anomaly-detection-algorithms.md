@@ -2,137 +2,137 @@
 > * 原文作者：[Pavel Tiunov](https://blog.statsbot.co/@pavel_61844?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/time-series-anomaly-detection-algorithms.md](https://github.com/xitu/gold-miner/blob/master/TODO1/time-series-anomaly-detection-algorithms.md)
-> * 译者：
+> * 译者：[haiyang-tju](https://github.com/haiyang-tju)
 > * 校对者：
 > 
-# Time Series Anomaly Detection Algorithms
+# 时间序列异常检测算法
 
-## The current state of anomaly detection techniques in plain language
+## 通俗易懂的异常检测技术现状
 
 ![](https://cdn-images-1.medium.com/max/2000/1*qEzJ59vRB2ZcweOmb_wUEQ.png)
 
-At [Statsbot](https://statsbot.co/product/predictions?utm_source=blog&utm_medium=article&utm_campaign=anomaly), we’re constantly reviewing the landscape of anomaly detection approaches and refinishing our models based on this research.
+在 [Statsbot](https://statsbot.co/product/predictions?utm_source=blog&utm_medium=article&utm_campaign=anomaly) 中， 我们不断回顾了异常检测方法的发展，并在此基础上重新完善了我们的模型。
 
-**This article is an overview of the most popular anomaly detection algorithms for time series and their pros and cons.**
+**本文概述了最常用的时间序列异常检测算法及其优缺点。**
 
-This post is dedicated to non-experienced readers who just want to get a sense of the current state of anomaly detection techniques. Not wanting to scare you with mathematical models, we hid all the math under referral links.
+本文针对的是只想了解一下异常检测技术现状的无经验读者。我们不想用复杂的数学模型来唬人，所以我们把所有的数学原理推导都放在下面的推荐链接里面了。
 
-### Important Types of Anomalies
+### 重要的异常类型
 
-Anomaly detection problem for time series is usually formulated as _finding outlier data points relative to some standard or usual signal_. While there are plenty of anomaly types, we’ll focus only on the most important ones from a business perspective, such as unexpected spikes, drops, trend changes and level shifts.
+时间序列的异常检测问题通常表示为**相对于某些标准信号或常见信号的离群点**。虽然有很多的异常类型，但是我们只关注业务角度中最重要的类型，比如意外的峰值、下降、趋势变化以及等级转换。
 
-Imagine you track users at your website and see an unexpected growth of users in a short period of time that looks like a spike. These types of anomalies are usually called **additive outliers**.
+想象一下，你在自己的网站上跟踪用户数量，发现用户在短时间内出现了意想不到的增长，看起来就像一个峰值。这些类型的异常通常称为**附加异常**。
 
-Another example with the website is when your server goes down and you see zero or a really low number of users for some short period of time. These types of anomalies are usually classified as **temporal changes**.
+关于网站的另一个例子是，当你的服务器宕机时，你会看到在短时间内有零个或者非常少的用户访问。这些类型的异常通常被分类为**时间变化异常**。
 
-In the case that you deal with some conversion funnel, there could be a drop in a conversion rate. If this happens, the target metric usually doesn’t change the shape of a signal, but rather its total value for a period. These types of changes are usually called **level shifts or seasonal level shifts** depending on the character of the change.
+在你处理一些关于转化率问题时，转化率可能会下降。如果发生这种情况，目标度量通常不会改变信号的形状，而是改变在一段时间内它的总价值。根据变化的性质，这些类型的变化通常被称为**水平位移或季节性水平位移异常**。
 
-Basically, an anomaly detection algorithm should either label each time point with _anomaly/not anomaly_, or forecast a signal for some point and test if this point value varies from the forecasted enough to deem it as an anomaly.
+通常，异常检测算法应该将每个时间点标记为**异常/非异常**，或者预测某个点的信号，并衡量这个点的真实值是否与预测值相差足够大，从而将其视为异常。
 
-Using the second approach, you would be able to visualize a confidence interval, which will help a lot in understanding why an anomaly occurs and validate it.
+使用后面的方法，你将能够得到一个可视化的置信区间，这有助于理解为什么会出现异常并进行验证。
 
 ![](https://cdn-images-1.medium.com/max/800/0*fqbaGrJPO3r4oxPp.)
 
-_Statsbot’s anomaly report. Actual time series, predicted time series and confidence interval help understand why anomaly occurs._
+**Statsbot 的异常报告显示，实际的时间序列、预测的时间序列和置信区间有助于理解异常发生的原因。**
 
-Let’s review both algorithm types from the perspective of appliance to finding various types of outliers.
+让我们从应用的角度来回顾一下这两种算法类型，以及找到各类型的异常值。
 
-### STL decomposition
+### STL 分解
 
-[STL](http://www.wessa.net/download/stl.pdf) stands for seasonal-trend decomposition procedure based on Loess. This technique gives you an ability to split your time series signal into three parts: **seasonal, trend and residue**.
+[STL](http://www.wessa.net/download/stl.pdf)  表示基于损失的季节性分解的过程。该技术能够将时间序列信号分解为三个部分：**季节性变化（seasonal）、趋势变化（trend）和剩余部分（residue）**。
 
 ![](https://cdn-images-1.medium.com/max/800/0*iQLAfspSh9nC8QDG.)
 
-_From top to bottom: original time series, seasonal, trend and residue parts retrieved using STL decomposition._
+**由上到下依次为：原始时间序列和使用 STL 分解得到的季节变化部分、趋势变化部分以及残差部分。**
 
-As the name states, it is suitable for seasonal time series, which is the most popular case.
+顾名思义，这种方法适用于季节性的时间序列，这是比较常见的情况。
 
-> If you analyze deviation of residue and introduce some threshold for it, you’ll get an anomaly detection algorithm.
+> 分析残差的偏差，然后引入残差阈值，这样就能得到一种异常检测得算法。
 
-The not obvious part here is that you should use **median absolute deviation** to get a more robust detection of anomalies. The leading implementation of this approach is [Twitter’s Anomaly Detection library](https://github.com/twitter/AnomalyDetection). It uses [Generalized Extreme Student Deviation test](http://www.itl.nist.gov/div898/handbook/eda/section3/eda35h3.htm) to check if a residual point is an outlier.
+这里不太明显的地方是，我们为了得到更可靠的异常检测结果，使用了**绝对中位偏差**。该方法目前最好的实现是 [Twitter 的异常检测库](https://github.com/twitter/AnomalyDetection)，它使用了 [Generalized Extreme Student Deviation](http://www.itl.nist.gov/div898/handbook/eda/section3/eda35h3.htm) （广义的ESD算法）测试残差点是否是一个离群点。
 
-#### Pros
+#### 优点
 
-Pros of this approach are in its simplicity and how robust it is. It can handle a lot of different situations and all anomalies can still be intuitively interpreted.
+该方法的优点在于其简单性和健壮性。它可以处理很多不同的情况，并且所有的异常情况仍然可以直观解释。
 
-It’s good mostly for detecting additive outliers. To detect level changes you can analyze some rolling average signal instead of the original one.
+它主要擅长于附加的异常值检测。如果想要检测一些水平变化，则可以对移动平均信号进行分析。
 
-#### Cons
+#### 缺点
 
-The cons of this approach are in its rigidity regarding tweaking options. All you can tweak is your confidence interval using the significance level.
+该方法的缺点是在调整选项方面过于死板。你所能做的只有通过显著性水平来调整置信区间。
 
-The typical scenario in which is doesn’t work well is when characteristics of your signal have changed dramatically. For example, you’re tracking users on your website that was closed to the public, and then was suddenly opened. In this case, you should track anomalies that occur before and after launch periods separately.
+当信号特征发生了剧烈变化时，该方法就失效了。例如，跟踪原本是关闭状态，突然对公众开放的网站用户数量。在这种情况下，就应该分别跟踪在启动开放之前和开放之后发生的异常。
 
-### Classification and Regression Trees
+### 分类回归树
 
-Classification and regression trees is one of the most robust and most effective machine learning techniques. It may also be applied to anomaly detection problems in several ways.
+分类回归树（CART）是目前最稳健、最有效的机器学习技术之一。它也可以应用于异常检测问题。
 
-*   First, you can use supervised learning to teach trees to classify anomaly and non-anomaly data points. In order to do that you’d need to have labeled anomaly data points.
-*   The second approach is to use unsupervised learning to teach CART to predict the next data point in your series and have some confidence interval or prediction error as in the case of the STL decomposition approach. You can check if your data point lies inside or outside the confidence interval using Generalized ESD test, or [Grubbs’ test](https://en.wikipedia.org/wiki/Grubbs%27_test_for_outliers).
+*   首先，可以使用监督学习来训练分类树对异常和非异常数据点进行分类。这里需要标记好的异常数据点。
+*   第二种方法，可以使用无监督学习算法来训练 CART 来预测时序数据的下一个数据点，得到和 STL 分解方法类似的置信区间或预测误差。然后使用广义的 ESD 算法来测试或者使用 [Grubbs 检验算法](https://en.wikipedia.org/wiki/Grubbs%27_test_for_outliers)来检查数据点是否位于置信区间之内。
 
 ![](https://cdn-images-1.medium.com/max/800/0*iBR-rqL2_o2EkhAs.)
 
-_Actual time series (Green), predicted time series made using CART model (Blue), and anomalies detected as deviation from forecasted time series._
+**实际的时序数据（绿色），CART 模型预测的时序数据（蓝色），异常检测算法检测到的异常。**
 
-The most popular implementation to perform learning for trees is [the xgboost library](https://github.com/dmlc/xgboost).
+分类树学习的最流行实现是[ xgboost 库](https://github.com/dmlc/xgboost)。
 
-#### Pros
+#### 优点
 
-The strength of this approach is that it’s not bound in any sense to the structure of your signal, and you can introduce many feature parameters to perform the learning and get sophisticated models.
+这种方法的优点是它不受信号结构的任何约束，而且可以引入许多的特征参数进行学习，以获得更为复杂的模型。
 
-#### Cons
+#### 缺点
 
-The weakness is a growing number of features can start to impact your computational performance fairly quickly. In this case, you should select features consciously.
+该方法的缺点是会出现越来越多的特征，这很快会影响到整体的计算性能。在这种情况下，你应该有意识地选择有效特征。
 
-### ARIMA
+### ARIMA 模型
 
-ARIMA is  a very simple method by design, but still powerful enough to forecast signals and to find anomalies in it.
+自回归移动平均模型（ARIMA）是一种设计上非常简单的方法，但其效果足够强大，可以预测信号并发现其中的异常。
 
-It’s based on an approach that several points from the past generate a forecast of the next point with the addition of some random variable, which is usually white noise. As you can imagine, forecasted points in the future will generate new points and so on. Its obvious effect on the forecast horizon: the signal gets smoother.
+该方法的思路是从过去的几个数据点来生成下一个数据点的预测，在过程中添加一些随机变量（通常是添加白噪声）。以此类推，预测得到的数据点可以用来生成新的预测。很明显：它会使得后续预测信号数据更平滑。
 
-The difficult part in appliance of this method is that you should [select](https://en.wikipedia.org/wiki/Box%E2%80%93Jenkins_method) the number of differences, number of autoregressions, and forecast error coefficients.
+使用这种方法最困难的部分是[选择](https://en.wikipedia.org/wiki/Box%E2%80%93Jenkins_method)差异数量、自动回归数量和预测误差系数。
 
-> _Each time you work with a new signal you should build a new ARIMA model._
+> **每次使用新信号时，你都应该构建一个新的 ARIMA 模型。**
 
-Another obstacle is that your signal should be stationary after differencing. In simple words, it means your signal shouldn’t be dependent on time, which is a significant constraint.
+该方法的另一个障碍是信号经过差分后应该是固定的。也就是说，这意味着信号不应该依赖于时间，这是一个比较显著的限制。
 
-Anomaly detection is done by building an adjusted model of a signal by using outlier points and checking if it’s a better fit than the original model by utilizing [t-statistics](https://en.wikipedia.org/wiki/T-statistic).
+异常检测是利用离群点来建立一个经过调整的信号模型，然后利用 [t-统计量](https://en.wikipedia.org/wiki/T-statistic)来检验该模型是否比原模型能更好的拟合数据。
 
 ![](https://cdn-images-1.medium.com/max/800/0*ObqneGx8Dcla8biC.)
 
-_Two time series built using original ARIMA model and adjusted for outliers ARIMA model._
+**利用原始 ARIMA 模型和对异常值进行调整的 ARIMA 模型构建的两个时间序列。**
 
-The favored implementation of this approach is [tsoutliers](https://cran.r-project.org/web/packages/tsoutliers/tsoutliers.pdf) R package. It’s suitable to detect all types of anomalies in the case that you can find a suitable ARIMA model for your signal.
+该方法最受欢迎的实现是 R 语言中的 [tsoutliers](https://cran.r-project.org/web/packages/tsoutliers/tsoutliers.pdf) 包。在这种情况下，你可以找到适合信号的 ARIMA 模型，它可以检测出所有类型的异常。
 
-### Exponential Smoothing
+### 指数平滑方法
 
-Exponential smoothing techniques are very similar to the ARIMA approach. The basic exponential model is equivalent to the ARIMA (0, 1, 1) model.
+指数平滑方法与 ARIMA 方法非常相似。基本的指数模型等价于 ARIMA (0, 1, 1) 模型。
 
-The most interesting method from the anomaly detection perspective is [Holt-Winters seasonal method](https://www.otexts.org/fpp/7/5). You should define your seasonal period which can equal to a week, month, year, etc.
+从异常检测的角度来看，最有趣的方法是  [Holt-Winters 季节性方法](https://www.otexts.org/fpp/7/5)。该方法需要定义季节性周期，比如周、月、年等等。
 
-In the case you need to track several seasonal periods, such as having both week and year dependencies, you should select only one. Usually, it’ll be the shortest one: a week in this example.
+如果需要跟踪多个季节周期，比如同时跟踪周和年周期，那么应该只选择一个。通常是选择最短的那个：所以这里我们就应该选择周季节。
 
-This is clearly a drawback of this approach, which affects the forecasting horizon a lot.
+这显然是该方法的一个缺点，它会大大影响整体的预测范围。
 
-Anomaly detection can be done using the same statistical tests for an outlier, as in the case of STL or CARTs.
+和使用 STL 或 CARTs 方法一样，我们可以通过统计学方法对离群值进行统计来实现异常检测。
 
-### Neural Networks
+### 神经网络
 
-As in the case of CART, you have two ways to apply [**neural networks**](https://blog.statsbot.co/neural-networks-for-beginners-d99f2235efca): supervised and unsupervised learning.
+与 CART 方法一样，[**神经网络**](https://blog.statsbot.co/neuralnetworks-forbeginners-d99f2235efca)有两种应用方式：监督学习和无监督学习。
 
-As we’re working with time series, the most suitable type of neural network is **LSTM**. This type of Recurrent Neural Network, if properly built, will allow you to model the most sophisticated dependencies in your time series as well as advanced seasonality dependencies.
+我们处理的数据是时间序列，所以最适合的神经网络类型是 **LSTM**。如果构建得当，这种循环神经网络将可以建模实现时间序列中最复杂的依赖关系，包括高级的季节性依赖关系。
 
-This approach can also be very [helpful](https://arxiv.org/pdf/1602.07109.pdf) if you have multiple time series coupled with each other.
+如果存在多个时间序列相互耦合，该方法也非常[有用](https://arxiv.org/pdf/1602.07109.pdf)。
 
-This area is still [on-going research](https://www.elen.ucl.ac.be/Proceedings/esann/esannpdf/es2015-56.pdf), and it requires a lot of work to build the model for your time series. Should you succeed, you may achieve outstanding performance results in terms of accuracy.
+该领域还在研究中，[可以参考这里](https://www.elen.ucl.ac.be/edings/esann/esannpdf/es2015-56.pdf)，构建时序模型需要大量的工作。构建成功完成后，就可能在精确度方面取得优异的成绩。
 
-### 💡To Keep in Mind 💡
+### 💡 谨记 💡
 
-1.  Try the simplest model and algorithm that fit your problem the best.
-2.  Switch to more advanced techniques if it doesn’t work out.
-3.  Starting with more general solutions that cover all the cases is a tempting option, but it’s not always the best.
+1.  尝试最简单的模型和最适合待解决问题的算法。
+2.  如果无效，则改用更高级的技术。
+3.  从包含所有情况的通用性解决方案开始是一个诱人的选择，但并不总是最好的。
 
-At Statsbot, to detect anomalies at scale we use different combinations of techniques starting with STL and ending with CART and LSTM models.
+在 Statsbot 中，为了进行大规模的异常检测，我们开始使用了 STL，然后使用到 CART 和 LSTM 模型的不同技术组合。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
