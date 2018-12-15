@@ -38,15 +38,15 @@
 *   res/drawable-xhdpi/foo.png
 *   …
 
-在需要的时候，Android 会选择最接近的较大密度并将其缩小。随着设备具有越来越高的屏幕密度,应用开发者对相同的资源必须不断创建、囊括、转换更多的版本。需要注意的是，许多现代设备的屏幕密度并不是精确的（例如，Piexl 3 XL 是 552 dpi，介于 xxhdpi 和 xxxhdpi 之间），所以资源通常会被缩放。
+在需要的时候，Android 会选择最接近的较大密度并将其缩小。随着设备具有越来越高的屏幕密度，应用开发者对相同的资源必须不断创建、囊括、转换更多的版本。需要注意的是，许多现代设备的屏幕密度并不是精确的（例如，Piexl 3 XL 是 552 dpi，介于 xxhdpi 和 xxxhdpi 之间），所以资源通常会被缩放。
 
-因为矢量资源可以优雅的调整大小, 你只需包含单个资源，它就会在任何屏幕密度的设备上安全运行。
+因为矢量资源可以优雅的调整大小, 你只需包含单个资源，它就能在具有任何屏幕密度的设备上呈现。
 
 #### 占用资源少
 
 矢量资源通常会比位图资源占用资源更少，因为你只需要提供一个版本，而且矢量资源很好被压缩。
 
-例如 [Google I/O app](https://play.google.com/store/apps/details?id=com.google.samples.apps.iosched) [做的改变](https://github.com/google/iosched/commit/78c5d25dfbb4bf8193c46c3fb8b73c9871c44ad6) 通过将一些 PNG 图标从位图转换成矢量图，节约了 482 KB。尽管听上去不是很多，但这仅仅是对小图像而言；更大的图片 (如插图) 会节省更多。
+例如， [Google I/O app](https://play.google.com/store/apps/details?id=com.google.samples.apps.iosched) 在 [这次提交](https://github.com/google/iosched/commit/78c5d25dfbb4bf8193c46c3fb8b73c9871c44ad6) 中通过将一些 PNG 图标从位图转换成矢量图，节约了 482 KB。尽管听上去不是很多，但这仅仅是对小图像而言；更大的图片 (如插图) 会节省更多。
 
 这张 [插图](https://github.com/google/iosched/blob/71f0c4cc20c5d75bc7b211e99fcf5205330109a0/android/src/main/res/drawable-nodpi/attending_in_person.png) 来自于上一年的 Google I/O 示例 APP 流程：
 
@@ -59,7 +59,7 @@
 *   Raster: Download Size = 53.9KB (Raw file size = 54.8KB)
 *   Vector: Download Size = 3.7KB (Raw file size = 15.8KB)
 
-> 请注意，虽然 [Android App Bundle](https://developer.android.com/platform/technology/app-bundle/) 是通过向设备提供所需的密度资源而带来相同的好处，但 VectorDrawable 通常会更小，并且无需创建更大的位图资源。
+> 请注意，虽然 [Android App Bundle](https://developer.android.com/platform/technology/app-bundle/) 通过向不同设备提供其所需的密度资源带来相同的好处，但 VectorDrawable 通常会更小，并且无需创建更大的位图资源。
 
 
 #### 动态
@@ -68,7 +68,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*rJQEzHNMyBrZxjzpPDb84w.gif)
 
-矢量会保持图像结构，所以单个元素可以是主题或动画。
+矢量会保持图像结构，所以里面的单个元素的属性可以发生改变而被用来制作主题或动画。
 
 ### 权衡
 
@@ -103,7 +103,7 @@
 
 #### 转变
 
-据我所知，没有设计工具能够直接创建 `VectorDrawable' ，这意味着有一个来自其他格式的转换步骤。 这会使设计人员和开发人员之间的工作流程复杂化 我们将在以后的文章中深入讨论这个主题。
+据我所知，没有设计工具能够直接创建 `VectorDrawable' ，这意味着有一个来自其他格式的转换步骤。 这会使设计人员和开发人员之间的工作流程复杂化。我们将在以后的文章中深入讨论这个主题。
 
 ### 为什么不用 SVG？
 
@@ -115,7 +115,7 @@
 
 ### `VectorDrawable` 的功能
 
-如上所述，VectorDrawable 支持 [SVG路径规范](https://www.w3.org/TR/SVG/paths.html)，允许您指定要绘制的一个或多个形状。它是通过 XML 文件实现的，如下所示：
+如上所述，VectorDrawable 支持 [SVG 路径规范](https://www.w3.org/TR/SVG/paths.html)，允许您指定要绘制的一个或多个形状。它是通过 XML 文件实现的，如下所示：
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -153,7 +153,7 @@
 
 _(大写命令使用绝对路径 & 小写命令使用相对路径)_
 
-你可能想知道是否需要关注这些细节 — 你可能直接从 SVG 文件中获取这些内容？虽然你不需要能够阅读路径并了解它将绘制什么，但大概了解`VectorDrawable` 正在做什么对于理解我们稍后将要学习的一些高级功能非常有用和必要。
+你可能想知道是否需要关注这些细节 — 你可能直接从 SVG 文件中获取这些内容？你虽然不需要通过阅读路径来了解它将绘制什么，但大概了解`VectorDrawable` 正在做什么对于理解我们稍后将要学习的一些高级功能非常有用和必要。
 
 路径本身不会绘制任何东西，它们需要被 stroke 或 fill。
 
@@ -260,9 +260,9 @@ _(大写命令使用绝对路径 & 小写命令使用相对路径)_
 </vector>
 ```
 
-### 宣布独立
+### 后续工作
 
-所以希望这篇文章可以让您了解什么是矢量资源、使用矢量资料的好处以及使用时的权衡取舍。Android 的矢量格式已经得到广泛的支持。鉴于市场上的设备种类繁多，你应该将矢量资源作为默认选择，仅在特殊情况下使用位图资源。阅读我们的下一篇文章，了解更多信息：
+所以希望这篇文章可以让您了解什么是矢量资源、使用矢量资源的好处以及使用时的权衡取舍。Android 的矢量格式已经得到广泛的支持。鉴于市场上的设备种类繁多，你应该将矢量资源作为默认选择，仅在特殊情况下使用位图资源。阅读我们的下一篇文章，了解更多信息：
 
 _即将到来: 绘制路径  
 即将到来: 创建Android矢量资源  
