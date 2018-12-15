@@ -29,7 +29,7 @@
 
 ## 适配器模式
 
-适配器允许和具有不兼容接口的类一起工作，它将自身包裹在一个对象周围，并公开一个标准接口来与该对象进行交互。
+适配器允许和具有不兼容接口的类一起工作，它将自身包裹在一个对象内，并公开一个标准接口来与该对象进行交互。
 
 如果你熟悉适配器模式，那么你会注意到 Apple 以一种稍微不同的方式实现它，那就是协议。你可能熟悉 `UITableViewDelegate`，`UIScrollViewDelegate`，`NSCoding` 和 `NSCopying` 等协议。例如使用 `NSCopying` 协议，任何类都可以提供一个标准的 `copy` 方法。
 
@@ -135,10 +135,10 @@ func initializeScrollView() {
 
 这项工作是在 `initializeScrollView()` 中完成的。以下是详细分析：
 
-1. 将 `UIScrollView` 实例添加到 superView
-2. 关闭自动调整遮罩（autoresizing mask），这样你就可以使用自定义约束了
+1. 添加子视图 `UIScrollView` 实例
+2. 关闭 autoresizingMask，这样你就可以使用自定义约束了
 3. 将约束应用于 scrollView，你希望 scrollView 完全填充 `HorizontalScrollerView`
-4. 创建轻击手势识别器（tap gesture recognizer）。它会检测 scrollView 上的触摸事件并检查是否已经点击了专辑封面。如果是，它将通知 `HorizontalScrollerView` 的代理。在这里会有一个编译错误，因为 scrollerTapped(gesture:) 方法尚未实现，你接下来就要实现它了。
+4. 创建 tap 手势。它会检测 scrollView 上的触摸事件并检查是否已经点击了专辑封面。如果是，它将通知 `HorizontalScrollerView` 的代理。在这里会有一个编译错误，因为 scrollerTapped(gesture:) 方法尚未实现，你接下来就要实现它了。
 
 现在添加下面的方法：
 
@@ -347,10 +347,10 @@ horizontalScrollerView.reload()
 
 呃，等一下！水平滚动视图已就位，但专辑的封面在哪里呢？
 
-啊，没错，你还没有实现下载封面的代码。为此，你需要添加下载图像的方法，而且你对服务器的全部访问请求都要通过一个所有新方法必经的一层 `LibraryAPI`。但是，首先要考虑以下几点：
+噢，对了，你还没有实现下载封面的代码。为此，你需要添加下载图像的方法，而且你对服务器的全部访问请求都要通过一个所有新方法必经的一层 `LibraryAPI`。但是，首先要考虑以下几点：
 
-1. `AlbumView` 不应直接与 `LibraryAPI` 一起使用，你不会希望将 view 里的逻辑与网络请求混合在一起的。
-2. 出于同样的原因，`LibraryAPI` 不应该牵连 `AlbumView`。
+1. `AlbumView` 不应直接与 `LibraryAPI` 产生联系，你不会希望将 view 里的逻辑与网络请求混合在一起的。
+2. 出于同样的原因，`LibraryAPI` 也不应该知道 `AlbumView` 的存在。
 3. 当封面被下载完成，`LibraryAPI` 需要通知 `AlbumView` 来显示专辑。
 
 是不是感觉听起来好像很难的样子？不要绝望，你将学习如何使用 **观察者** 模式来做到这点！
@@ -359,7 +359,7 @@ horizontalScrollerView.reload()
 
 在观察者模式中，一个对象通知其他对象任何状态的更改，但是通知的涉及对象不需要相互关联，我们鼓励这种解耦的设计方式。这种模式最常用于在一个对象的属性发生更改时通知其他相关对象。
 
-通常的实现是需要观察者监听另一个对象的状态。当状态发生改变时，所有观察对象都被会通知此次更改。
+通常的实现是需要观察者监听另一个对象的状态。当状态发生改变时，所有观察对象都会被通知此次更改。
 
 如果你坚持 MVC 的概念（也确实需要坚持），你需要允许 Model 对象与 View 对象进行通信，但是它们之间没有直接引用，这就是观察者模式的用武之地。
 
