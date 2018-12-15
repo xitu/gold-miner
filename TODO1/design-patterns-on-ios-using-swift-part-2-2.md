@@ -217,7 +217,7 @@ func reload() {
 2. 由于你要清除专辑封面，因此你还需要移除所有存在的 view。
 3. 所有 view 都从给定的偏移量开始定位。目前它是 100，但可以通过更改文件顶部的常量 `ViewConstants.Offset` 来轻松地做出调整。
 4. 向数据源请求 view 的个数，然后使用它来创建新的 contentView 数组。
-5. `HorizontalScrollerView` 一次向一个 view 请求其数据源，并使用先前定义的填充将它们水平挨个布局。
+5. `HorizontalScrollerView` 一次向一个 view 请求其数据源，并使用先前定义的填充将它们水平依次布局。
 6. 所有 view 布局好之后，设置 scrollView 的偏移量来允许用户滚动浏览所有专辑封面。
 
 当你的数据发生改变时调用 `reload` 方法。
