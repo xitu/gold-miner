@@ -14,7 +14,7 @@
 
 ## 1. 介绍
 
-### 什么是 Material Design 和  Material Components for Flutter？
+### 什么是 Material Design 和 Material Components for Flutter？
 
 **Material Design** 是一个用于构建醒目、美观的数字产品的系统。通过在一套统一的原则和组件下将风格、品牌、交互和动作结合起来，产品团队得以释放其极大的设计潜能。
 
@@ -150,17 +150,17 @@ git checkout 101-starter
 
 ![](https://lh4.googleusercontent.com/tbOkXg3PBYapj_J0CpdwQTt-sqnf7s3bqi7E3Dd__z_aC5XANKphvuoMvmiOFfBR6oDeZixE0Ww2jTzskt1sDNgEXjAJjwHr7m242tkZ7VvXGaFMObmSIZ06oC7UQusGgCL7DpHr)
 
-5. 如果出现提示，安装所有平台和插件更新或  FlutterRunConfigurationType，然后重新启动 Android Studio。
+5. 如果出现提示，安装所有平台和插件更新或 FlutterRunConfigurationType，然后重新启动 Android Studio。
 
 ![](https://lh5.googleusercontent.com/MVD7YGuMneCprDEam1Vy8NusO9BPmOZTyrH4jvO8RmsfTeu8q-t0AfHU3kzXk1F8EUgHaFbqeORdXc7iOcz5ZLM4qbXsv_tMiVnAi0i68p0t957RThrZ56Udf-F292JgRV3iKs7T)
 
-> **提示：** 确保你已安装 [ Flutter 和 Dart 插件](https://flutter.io/get-started/editor/#androidstudio).
+> **提示：** 确保你已安装 [Flutter 和 Dart 插件](https://flutter.io/get-started/editor/#androidstudio)。
 
 ### 运行初始程序
 
 以下步骤默认你在 Android 模拟器或设备上进行测试。你也可以在 iOS 模拟器或设备上进行，只要你安装了 Xcode。
 
-1. 选择设备或模拟器
+1. 选择设备或模拟器。
 
 如果 Android 模拟器尚未运行，请选择 **Tools -> Android -> AVD Manager** 来[创建您设备并启动模拟器](https://developer.android.com/studio/run/managing-avds.html)。 如果 AVD 已存在，你可以直接在 IntelliJ 的设备选择器中启动模拟器，如下一步所示。
 
@@ -171,19 +171,19 @@ git checkout 101-starter
 2. 启动 Flutter 应用：
 
 *   在你的编辑器窗口顶部寻找 Flutter Device Selection 下拉菜单，然后选择设备（例如，iPhone SE / Android SDK built for <version>）。
-*   点击**运行**图标 （![](https://lh6.googleusercontent.com/Zu8-cWRMCfIrBGIjj4kSW-j8KBiIqVe33PX8Mht5lSKq00kRB7Na3X0kC4aaiG-G7hqqqLPpgtbxTz-1DdYbq2RiNvc2ZaJzfiu_vVYAh1oOc4TZu85pa42nFqqxmMQWySzLWeU1)）。
+*   点击**运行**图标（![](https://lh6.googleusercontent.com/Zu8-cWRMCfIrBGIjj4kSW-j8KBiIqVe33PX8Mht5lSKq00kRB7Na3X0kC4aaiG-G7hqqqLPpgtbxTz-1DdYbq2RiNvc2ZaJzfiu_vVYAh1oOc4TZu85pa42nFqqxmMQWySzLWeU1)）。
 
 ![](https://lh4.googleusercontent.com/NLXK-hHFYnHBPeQ6NYrKGnXpj9X2es9her6Y14CotXlR-OdSQBXHyRFv1nvhC1AFCmWx7jIG2Ulb7-OmLV_Pru_-kd-3gArn8OKEGTIOInDJlqIUJ7dxTQUsvLVa0CJwEO5EGjeu)
 
-> 如果你无法成功运行此应用程序，停下来解决你的开发环境问题。尝试导航到  `material-components-flutter-codelabs`；如果你在终端中下载 .zip 文件，导航到 `material-components-flutter-codelabs-...` 然后运行 `flutter create mdc_100_series`。
+> 如果你无法成功运行此应用程序，停下来解决你的开发环境问题。尝试导航到 `material-components-flutter-codelabs`；如果你在终端中下载 .zip 文件，导航到 `material-components-flutter-codelabs-...` 然后运行 `flutter create mdc_100_series`。
 
-成功！Shrine 的初始登陆代码应该在你的模拟器中运行了。你可以看到 Shrine  的 logo 和它下面的名称 "Shrine"。
+成功！Shrine 的初始登陆代码应该在你的模拟器中运行了。你可以看到 Shrine 的 logo 和它下面的名称 "Shrine"。
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-101-flutter/img/e8f2476968468376.png)
 
 > 如果你看到任何有关 `pubspec` 已被编辑的警告（提示获取依赖项），不要管他 。当你按下运行按钮时，它会为你运行 `flutter packages get`！
 >
-> `flutter packages get` 会安装你在 `pubspec.yaml` 文件中列出的依赖项。 你可以编写你自己的包以在 [Pub](https://pub.dartlang.org/) 上发布。本系列教程使用 `shrine_images` 自定义包来显示你将在  [MDC-102](http://go/mdc-102-flutter) 看到的产品图像。
+> `flutter packages get` 会安装你在 `pubspec.yaml` 文件中列出的依赖项。 你可以编写你自己的包以在 [Pub](https://pub.dartlang.org/) 上发布。本系列教程使用 `shrine_images` 自定义包来显示你将在 [MDC-102](http://go/mdc-102-flutter) 看到的产品图像。
 >
 > `flutter packages get` 调用底层 Dart pub 包管理器来安装 Flutter 应用程序的所有依赖项。本系列教程的产品图像使用自定义 `shrine_images` 包。
 >
@@ -242,7 +242,7 @@ class _LoginPageState extends State<LoginPage> {
 *   `LoginPage` 类代表模拟器中显示的整个页面。
 *   `_LoginPageState` 类的 `build()` 函数控制如何创建 UI 中的所有小部件。
 
-> 了解更多有关 Flutter UI 的基础以及什么是 widget 的内容，你可以参观 [ Flutter Widget 框架](https://flutter.io/widgets-intro/) 或者尝试 [编写你的第一个 Flutter 应用程序，第一部分](https://codelabs.developers.google.com/codelabs/first-flutter-app-pt1)。
+> 了解更多有关 Flutter UI 的基础以及什么是 widget 的内容，你可以参观 [Flutter Widget 框架](https://flutter.io/widgets-intro/) 或者尝试 [编写你的第一个 Flutter 应用程序，第一部分](https://codelabs.developers.google.com/codelabs/first-flutter-app-pt1)。
 
 ## 4. 添加文本框小部件
 
@@ -250,7 +250,7 @@ class _LoginPageState extends State<LoginPage> {
 
 > Material 的文本框已得到极大增强，以提高品牌灵活性；在广泛的用户体验（UX）研究的支持下进行改进，从而实现更好的视觉设计，提高可用性。
 >
-> 在 Material Guidelines 的[文章](https://material.io/design/components/text-fields.html)中了解更多有关新 TextField 的信息。
+> 在 Material Guidelines 的 [文章](https://material.io/design/components/text-fields.html) 中了解更多有关新 TextField 的信息。
 
 此页面主要由 **ListView** 构成，它将其子项排列在一个可滚动的列中。让我们将文本框放在底部。
 
@@ -259,7 +259,7 @@ class _LoginPageState extends State<LoginPage> {
 在 `SizedBox(height: 120.0)` 之后添加两个新的文本框和一个间隔（spacer）。
 
 ```
-// TODO: 添加文本框小部件（101）
+// TODO：添加文本框小部件（101）
 // [用户名]
 TextField(
   decoration: InputDecoration(
@@ -279,7 +279,7 @@ TextField(
 ),
 ```
 
-每个文本框都有一个 `decoration:`，它带有一个 **InputDecoration**  小部件。`filled: true` 意味着文本框的背景被浅色填充以帮助人们识别文本框的点击或触摸区域。第二个文本框的 `obscureText: true`值会自动将用户的输入替换为圆点形式，这适用于输入密码的地方。
+每个文本框都有一个 `decoration:`，它带有一个 **InputDecoration** 小部件。`filled: true` 意味着文本框的背景被浅色填充以帮助人们识别文本框的点击或触摸区域。第二个文本框的 `obscureText: true`值会自动将用户的输入替换为圆点形式，这适用于输入密码的地方。
 
 保存你的项目（使用快捷键：command / ctrl + s）执行热重载。
 
@@ -291,7 +291,7 @@ TextField(
 
 > 文本框的功能包括：
 >
-> *   可以轻松改变 TextField 小部件的外观。在要修饰的区域，指定  InputDecoration 的值。
+> *   可以轻松改变 TextField 小部件的外观。在要修饰的区域，指定 InputDecoration 的值。
 > *   MDC 文本框默认显示触摸反馈（称为 MDC 波纹或“墨水”）。
 > *   FormField 是一个类似的小部件，具有在 Forms 中嵌入字段的特殊功能。
 > *   [TextField 类文档](https://docs.flutter.io/flutter/material/TextField-class.html)
@@ -310,7 +310,7 @@ TextField(
 >
 > 我们最不喜欢用户采取的操作是取消登陆。因为 Contained Button 以凸起的样式吸引眼球，所以它应该用于更重要的操作。相比之下左侧的纯文本按钮看起来不那么显眼。
 >
-> 在 Material Guidelines 的[按钮](https://material.io/design/components/buttons.html)一文中了解更多有关按钮层级的信息。
+> 在 Material Guidelines 的 [按钮](https://material.io/design/components/buttons.html) 一文中了解更多有关按钮层级的信息。
 
 ### 添加按钮栏
 
@@ -410,7 +410,7 @@ _passwordController.clear();
 
 要取消此视图，我们希望从导航栈中**弹出**（或者删除）此页面（在 Flutter 中称为**路由**）。
 
-> **Navigator** 负责维护一个路由栈，就像 iOS 上的 UINavigationController 一样。_入栈_ 一个路由会将其放置在堆栈的顶部。 _出栈_ 会删除最近添加的路由。在我们程序的 `app.dart` 中，调用 `initialRoute: '/login',` 将登陆屏幕添加到 Navigator ，放到进入到 `home:` 的内容之上。
+> **Navigator** 负责维护一个路由栈，就像 iOS 上的 UINavigationController 一样。**入栈** 一个路由会将其放置在堆栈的顶部。**出栈** 会删除最近添加的路由。在我们程序的 `app.dart` 中，调用 `initialRoute: '/login',` 将登陆屏幕添加到 Navigator ，放到进入到 `home:` 的内容之上。
 >
 > 在[导航基础](https://flutter.io/cookbook/navigation/navigation-basics/)中详细了解路由和导航。
 
@@ -436,7 +436,7 @@ _passwordController.clear();
 
 > 有关按钮：
 >
-> *   除了 FlatButton 和 RaisedButton 以外，还有 OutlineButton、 FloatingActionButton、IconButton 等。
+> *   除了 FlatButton 和 RaisedButton 以外，还有 OutlineButton、FloatingActionButton、IconButton 等。
 > *   在 [MDC Widgets 目录](https://flutter.io/widgets/material)中浏览按钮及其文档。
 
 ## 6. 全部完成
@@ -451,7 +451,7 @@ _passwordController.clear();
 
 文本框和按钮是 Material 系统中的两个核心组件，但是还有更多！你可以在 Flutter 的 [Material Components 库](https://flutter.io/widgets/material/)中浏览其余小部件。
 
-另外，转到 [MDC 102 Flutter：Material 结构和布局](https://codelabs.developers.google.com/codelabs/mdc-102-flutter)了解 MDC-102 所涵盖的 Flutter 组件。
+另外，转到 [MDC-102 Flutter：Material 结构和布局](https://codelabs.developers.google.com/codelabs/mdc-102-flutter)了解 MDC-102 所涵盖的 Flutter 组件。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
