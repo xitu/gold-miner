@@ -2,22 +2,20 @@
 > * 原文作者：[Antonio Leiva](https://antonioleiva.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/listeners-several-functions-kotlin.md](https://github.com/xitu/gold-miner/blob/master/TODO1/listeners-several-functions-kotlin.md)
-> * 译者：
+> * 译者：[Moosphon]([Moosphan (Moos)](https://github.com/Moosphan))
 > * 校对者：
 
-# Listeners with several functions in Kotlin. How to make them shine?
+# 当 Kotlin 中的监听器包含多个方法时，如何让它 “巧夺天工”？
 
 ![](https://antonioleiva.com/wp-content/uploads/2017/12/listener-several-functions.jpg)
 
-One question I get often is how to simplify the interaction with listeners that have several functions on Kotlin. For listeners (or any interfaces) with a single function is simple: it automatically lets you replace it by a lambda. But that’s not the case for listeners with several functions.
+我经常遇到的一个问题是如何简化与 Kotlin 上具有多个功能的监听器的交互。 对于具有单个函数的侦听器（或任何接口）很简单：它会自动让您用 lambda 替换它。 但对于具有多种功能的听众来说，情况并非如此。
 
-So in this article I want to show you different ways to deal with the problem, and you may even learn some [new Kotlin tricks](https://antonioleiva.com/kotlin-awesome-tricks-for-android/) on the way!
+因此，在本文中，我想向您展示处理问题的不同方法，您甚至可以在途中学习一些[新的Kotlin技巧](https://antonioleiva.com/kotlin-awesome-tricks-for-android/) ！
 
 ## The problem
 
-When we’re dealing with listeners, let’s say the `OnclickListener` for views, thanks to optimizations that Kotlin do over Java libraries, we can turn this:
-
-view.setOnClickListener(object : View.OnClickListener { override fun onClick(v: View?) { toast("View clicked!") } })
+当我们处理监听器时，我们知道 `OnclickListener` 作用于视图，归功于 Kotlin 对 Java 库的优化，我们可以将以下代码：
 
 ```
 view.setOnClickListener(object : View.OnClickListener {
@@ -27,15 +25,15 @@ view.setOnClickListener(object : View.OnClickListener {
 })
 ```
 
-into this:
+转化为这样：
 
 ```
 view.setOnClickListener { toast("View clicked!") }
 ```
 
-The problem is that when we get used to it, we want it everywhere. But this doesn’t escalate when the interface has several functions.
+问题在于，当我们习惯它时，我们希望它能够无处不在。然而当接口存在多个方法时，这并不会升级。
 
-For instance, if we want to set a listener to a view animation, we end up with this “nice” code:
+例如，如果我们想为视图动画设置一个监听器，我们最终得到以下“漂亮”的代码：
 
 ```
 view.animate()
@@ -59,7 +57,7 @@ view.animate()
         })
 ```
 
-You may argue that the Android framework already gives a solution for it: the adapters. For almost any interface that has several methods, they provide an abstract class that implements all methods as empty. In the case above, you could have:
+你可能会反驳说 Android framework 已经为它提供了一个解决方案：适配器。 对于几乎任何具有多个方法的接口，它们都提供了一个抽象类，将所有方法实现为空。 在上述例子中，您可以这样：
 
 ```
 view.animate()
@@ -71,16 +69,16 @@ view.animate()
         })
 ```
 
-Ok, a little better, but this have a couple of issues:
+好的，是改善了一些， 但这存在几个问题：
 
-*   The adapters are classes, which means that if we want a class to act as an implementation of this adapter, it cannot extend anything else.
-*   We get back to the old school days, where we need an anonymous object and a function to represent something that it’s clearer with a lambda.
+*   适配器是类，这意味着如果我们想要一个类作为此适配器的实现，它不能扩展其他任何东西。
+*   在过去，我们需要一个匿名对象和函数来表示一个比用 lambda 表达式更清晰直观的事物。
 
-What options do we have?
+我们有什么选择？
 
-## Interfaces in Kotlin: they can contain code
+## Kotlin 中的接口：它们可以包含代码
 
-Remember when we talked about [interfaces in Kotlin](https://antonioleiva.com/interfaces-kotlin/)? They can have code, and as such, you can declare adapters that can be implemented instead of extended (you can do the same with Java 8 and default methods in interfaces, in case you’re using it for Android now):
+还记得我们谈到 Kotlin 中的接口吗？ 它们内部可以包含代码，因此，您可以声明可以实现而不是继承适配器（您可以使用 Java 8 和接口中的默认方法执行相同的操作，以防您现在将其用于 Android）：
 
 ```
 interface MyAnimatorListenerAdapter : Animator.AnimatorListener {
@@ -91,7 +89,7 @@ interface MyAnimatorListenerAdapter : Animator.AnimatorListener {
 }
 ```
 
-With this, all functions will do nothing by default, and this means that a class can implement this interface and only declare the ones it needs:
+有了这个，默认情况下所有方法都不会执行任何操作，这意味着一个类可以实现此接口并仅声明它所需的方法：
 
 ```
 class MainActivity : AppCompatActivity(), MyAnimatorListenerAdapter {
@@ -102,7 +100,7 @@ class MainActivity : AppCompatActivity(), MyAnimatorListenerAdapter {
 }
 ```
 
-After that, you can just use it as the argument for the listener:
+之后，您可以将它作为监听器的参数：
 
 ```
 view.animate()
@@ -110,15 +108,15 @@ view.animate()
         .setListener(this)
 ```
 
-This solution eliminates one of the problems I explained at the beginning, but it forces us to still declare explicit functions for it. Missing lambdas here?
+这个解决方案消除了我在开始时解释的一个问题，但它迫使我们仍然为它声明显式的函数。 在这里是否怀念 lambda 表达式了？
 
-Besides, though this may save from using inheritance from time to time, for most cases you’ll still be using the anonymous objects, which is exactly the same as using the framework adapters.
+此外，虽然这可能会不时地使用继承，但在大多数情况下，您仍将使用匿名对象，这与使用 framework 适配器并无不同。
 
-But hey! This is an interesting idea: if you need an adapter for listeners with several functions, **better use interfaces rather than abstract classes**. [Composition over inheritance FTW](https://en.wikipedia.org/wiki/Composition_over_inheritance).
+但是啊！ 这是一个有趣的想法：如果你需要一个适配器用于具有多个方法的监听器，**那么最好使用接口而不是抽象类**。[继承FTW的构成](https://en.wikipedia.org/wiki/Composition_over_inheritance)
 
-## Extension functions for common cases
+## 一般情况下的扩展功能
 
-Let’s move to cleaner solutions. It may happen (as in the case above) that most times you just need the same function, and not much interested in the other. For `AnimatorListener`, the most used one is usually `onAnimationEnd`. So why not creating an [extension function](https://antonioleiva.com/extension-functions-kotlin/) covering just that case?
+让我们转向更加简洁的解决方案。 可能会碰到这种情况（如上所述）：大多数时候你只需要相同的功能，而对另一个功能则不太感兴趣。 对于 `AnimatorListener`，最常用的一个方法通常是 `onAnimationEnd`。 那么为什么不创建一个涵盖这种情况的[扩展方法](https://antonioleiva.com/extension-functions-kotlin/) 呢？
 
 ```
 view.animate()
@@ -126,7 +124,7 @@ view.animate()
         .onAnimationEnd { toast("Animation End") }
 ```
 
-That’s nice! The extension function is applied to `ViewPropertyAnimator`, which is what `animate()`, `alpha`, and all other animation functions return.
+真棒！ 扩展函数应用于 `ViewPropertyAnimator`，这是 `animate()`，`alpha` 和所有其他动画方法返回的内容。
 
 ```
 inline fun ViewPropertyAnimator.onAnimationEnd(crossinline continuation: (Animator) -> Unit) {
@@ -138,19 +136,19 @@ inline fun ViewPropertyAnimator.onAnimationEnd(crossinline continuation: (Animat
 }
 ```
 
-> I’ve [talked about `inline` before](https://antonioleiva.com/lambdas-kotlin/), but if you still have some doubts, I recommend you to take a look at the [official reference](https://kotlinlang.org/docs/reference/inline-functions.html).
+> 我[之前已经谈过`内联`](https://antonioleiva.com/lambdas-kotlin/)，但如果你还有一些疑问，我建议你看一下[官方的参考](https://kotlinlang.org/docs/reference/inline-functions.html)。
 
-As you see, the function just receives a lambda that is called when the animation ends. The extension does the nasty work for us: it creates the adapter and calls `setListener`.
+如您所见，该函数只接收在动画结束时调用的lambda。 扩展为我们做了令人讨厌的工作：它创建适配器并调用 `setListener`。
 
-That’s much better! We could create one extension function per function in the listener. But in this particular case, **we have the problem that the animator only accepts one listener**. So we can only use one at a time.
+这样就好多了！ 我们可以在监听器中为每个方法创建一个扩展方法。 但在这种特殊情况下，我们遇到动画只接受一个监听器的问题。因此我们一次只能使用一个。
 
-In any case, for the most repeating cases (like this one), it doesn’t hurt having a function like this. It’s the simpler solution, very easy to read and to understand.
+在任何情况下，对于几乎重复的情况（像上面那样），它并不会损害到像如上提到的 `Animator` 本身的方法。 这是更简单的解决方案，非常易于阅读和理解。
 
-## Using named arguments and default values
+## 使用命名参数和默认值
 
-But one of the reasons why you and I love Kotlin is that it has lots of amazing features to clean up our code! So you may imagine we still have some alternatives. Next one would be to make use of named arguments: this lets us define lambdas and explicitly say what they are being used for, which will highly improve readability.
+但是你和我喜欢 Kotlin 的原因之一是它有很多令人惊奇的功能来简化我们的代码！ 所以你可以想象我们还有一些选择的余地。 接下来我们将使用命名参数：这允许我们定义 lambda 表达式并明确说明它们的用途，这将极大地提高代码的可读性。
 
-We can have a function similar to the one above, but covering all the cases:
+我们会有类似于上面的功能，但涵盖所有方法的情况：
 
 ```
 inline fun ViewPropertyAnimator.setListener(
@@ -179,7 +177,7 @@ inline fun ViewPropertyAnimator.setListener(
 }
 ```
 
-The function itself is not very nice, but that will usually be the case with extension functions. They’re hiding the dirty parts of the framework, so someone has to do the hard work. Now you can use it like this:
+方法本身不是很好，但通常是伴随扩展方法的情况。 他们隐藏了 framework 不好的部分，所以有人必须做艰苦的工作。 现在您可以像这样使用它：
 
 ```
 view.animate()
@@ -192,9 +190,9 @@ view.animate()
         )
 ```
 
-Thanks to the named arguments, it’s clear what’s happening here.
+感谢命名参数，让我们可以很清楚这里发生了什么。
 
-You will need to make sure that nobody uses this without named arguments, otherwise it becomes a little mess:
+你需要确保没有命名参数的时候就不要使用它，否则它会变得有点乱：
 
 ```
 view.animate()
@@ -207,7 +205,7 @@ view.animate()
         )
 ```
 
-Anyway, this solution still forces us to implement all functions. But it’s easy to solve: just use [default values for the arguments](https://antonioleiva.com/kotlin-android-extension-functions/). Empty lambdas will make it:
+无论如何，这个解决方案仍然迫使我们实现所有方法。 但它很容易解决：只需使用[参数的默认值](https://antonioleiva.com/kotlin-android-extension-functions/)。 空的 lambda 表达式将上面的代码演变成：
 
 ```
 inline fun ViewPropertyAnimator.setListener(
@@ -220,7 +218,7 @@ inline fun ViewPropertyAnimator.setListener(
 }
 ```
 
-And now you can do:
+现在你可以这样做：
 
 ```
 view.animate()
@@ -230,13 +228,13 @@ view.animate()
         )
 ```
 
-Not bad, right? A little more complex than the previous option, but much more flexible.
+还不错，对吧？虽然比之前的做法要稍微复杂一点，但却更加灵活了。
 
-## The killer option: DSLs
+## 选项杀手：DSL
 
-So far, I’ve been explaining simple solutions, which honestly may cover most cases. But if you want to go crazy, you can even create a small DSL that makes things even more explicit.
+到目前为止，我一直在解释简单的解决方案，诚实地说可能涵盖大多数情况。 但如果你想发疯，你甚至可以创建一个让事情变得更加明确的小型 DSL。
 
-The idea, which is [taken from how Anko implements some listeners](https://github.com/Kotlin/anko/blob/master/anko/library/generated/sdk23-listeners/src/Listeners.kt), is to create a helper which implements a set of functions that receive a lambda. This lambda will be called in the corresponding implementation of the interface. I want to show you the result first, and then explain the code that makes it real:
+这个想法 [来自Anko如何实现一些侦听器](https://github.com/Kotlin/anko/blob/master/anko/library/generated/sdk23-listeners/src/Listeners.kt)，它是创建一个实现了一组接收 lambda 表达式的方法帮助器。 这个 lambda 将在接口的相应实现中被调用。 我想首先向您展示结果，然后解释使其实现的代码：
 
 ```
 view.animate()
@@ -251,7 +249,7 @@ view.animate()
         }
 ```
 
-See? This is using a small DSL to define animation listeners, and we just call the functions that we need. For simple behaviours, those functions can be one-liners:
+看到了吗？ 这里使用了一个小型的 DSL 来定义动画监听器，我们只需调用我们需要的功能即可。 对于简单的行为，这些方法可以是单行的：
 
 ```
 view.animate()
@@ -262,14 +260,14 @@ view.animate()
         }
 ```
 
-This has two pros over the previous solution:
+这相比于之前的解决方案有两个优点：
 
-*   **It’s a little cleaner**: you save some characters here, though honestly not worth the effort only because of that
-*   **It’s more explicit**: it forces the developer say which action they’re overriding. In the previous option, it was up to the developer to set the named argument. Here there’s no option but to call the function.
+*   **它更加简洁**：您在这里保存了一些特性，但老实说，仅仅因为这个还不值得努力。
+*   **它更加明确**：它迫使开发人员说出他们所重写的功能。 在前一个选择中，由开发人员设置命名参数。 这里没有选择，只能调用该方法。
 
-So it’s essentially a less-prone-to-error solution.
+所以它本质上是一个不太容易出错的解决方案。
 
-Now to the implementation. First, you still need an extension function:
+现在来实现它。 首先，您仍需要一个扩展方法：
 
 ```
 fun ViewPropertyAnimator.setListener(init: AnimListenerHelper.() -> Unit) {
@@ -279,7 +277,7 @@ fun ViewPropertyAnimator.setListener(init: AnimListenerHelper.() -> Unit) {
 }
 ```
 
-This function just gets a [lambda with receiver](https://tech.io/playgrounds/6973/kotlin-function-literal-with-receiver) applied to a new class called `AnimListenerHelper`. It creates an instance of this class, makes it call the lambda, and sets the instance as the listener, as it’s implementing the corresponding interface. Let’s see how `AnimeListenerHelper` is implemented:
+这个方法只获取一个[带有接收器的 lambda 表达式](https://tech.io/playgrounds/6973/kotlin-function-literal-with-receiver)，它应用于一个名为 `AnimListenerHelper` 的新类。 它创建了这个类的一个实例，使它调用 lambda 表达式，并将实例设置为监听器，因为它正在实现相应的接口。 让我们看看如何实现 `AnimeListenerHelper`：
 
 ```
 class AnimListenerHelper : Animator.AnimatorListener {
@@ -287,11 +285,11 @@ class AnimListenerHelper : Animator.AnimatorListener {
 }
 ```
 
-Then, for each function, it needs:
+然后对于每个方法，它需要：
 
-*   A property that saves the lambda
-*   The function for the DSL, that receives the lambda executed when the function of the original interface is called
-*   The overriden function from the original interface
+*   保存 lambda 表达式的属性
+*   DSL方法，它接收在调用原始接口的方法时执行的 lambda 表达式
+*   在原有接口基础上重写方法
 
 ```
 private var animationStart: AnimListener? = null
@@ -305,13 +303,13 @@ override fun onAnimationStart(animation: Animator) {
 }
 ```
 
-Here I’m using a [type alias](https://kotlinlang.org/docs/reference/type-aliases.html) for `AnimListener`:
+这里我使用的是 `AnimListener ` 的一个 [类型别名](https://kotlinlang.org/docs/reference/type-aliases.html)：
 
 ```
 private typealias AnimListener = (Animator) -> Unit
 ```
 
-This would be the complete code:
+这里是完整的代码：
 
 ```
 fun ViewPropertyAnimator.setListener(init: AnimListenerHelper.() -> Unit) {
@@ -366,21 +364,21 @@ class AnimListenerHelper : Animator.AnimatorListener {
 }
 ```
 
-The resulting code looks great, but at the cost of doing much more work.
+最终的代码看起来很棒，但代价是做了很多工作。
 
-## What solution should I use?
+## 我该使用哪种方案？
 
-As usual, it depends. **If you’re not using it very often in your code, I would say that none of them**. Be pragmatic in these situations, if you’re going to write a listener once, just use an anonymous object that implements the interface and keep writing code that matters.
+像往常一样，这要看情况。**如果您不在代码中经常使用它，我会说哪种方案都不要使用**。在这些情况下要根据实际情况而定，如果你要编写一次监听器，只需使用一个实现接口的匿名对象，并继续编写重要的代码。
 
-If you see that you need it more times, do a refactor with one of these solutions. I would usually go for the simple extension that just uses the function we are interested in that moment. If you need more than one, then evaluate which one of the two latest alternatives works better for you. As usual, it depends on how extensively you’re going to use it.
+如果您发现需要使用更多次监听器，请使用其中一种解决方案进行重构。 我通常会选择只使用我们感兴趣的功能进行简单的扩展。 如果您需要多个监听器，请评估两种最新替代方案中的哪一种更适合您。 像往常一样，这取决于你将要如何广泛地使用它。
 
-Hope this lines help you next time you find yourself in a situation like this. **If you solve this differently, please let me know in the comments!**
+希望这字里行间能够在您下一次处于这种情况下时帮助到您。 **如果您以不同方式解决此问题，请在评论中告诉我们！**
 
-Thanks for reading 🙂
+感谢您的阅读 🙂
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
