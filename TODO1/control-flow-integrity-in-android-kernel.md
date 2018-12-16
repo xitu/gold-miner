@@ -7,7 +7,7 @@
 
 # Android 内核控制流完整性
 
-_由 Android 安全研究工程师 Sami Tolvanen 发布_
+**由 Android 安全研究工程师 Sami Tolvanen 发布**
 
 Android 的安全模型由 Linux 内核强制执行，这将诱使攻击者将其视为攻击目标。我们在已发布的 Android 版本和 Android 9 上为[加强内核](https://android-developers.googleblog.com/2017/08/hardening-kernel-in-android-oreo.html)投入了大量精力，我们将继续这项工作，通过将关注点放在[基于编译器的安全缓解措施](https://android-developers.googleblog.com/2018/06/compiler-based-security-mitigations-in.html)上以防止代码重用攻击。
 
@@ -17,7 +17,7 @@ Google 的 Pixel 3 将是第一款在内核中实施 LLVM 前端[控制流完整
 
 利用内核的常用方法是使用错误来覆盖存储在内存中的函数指针，例如存储了回调函数的指针，或已被推送到堆栈的返回地址。这允许攻击者执行任意内核代码来完成利用，即使他们不能注入自己的可执行代码。这种获取代码执行能力的方法在内核中特别受欢迎，因为它使用了大量的函数指针，以及使代码注入更具挑战性的现有内存保护机制。
 
-CFI 尝试通过添加额外的检查，来确认内核控制流停留在预先设计的版图中，以便缓解这类攻击。尽管这无法阻止攻击者利用一个已存在的 bug 获取写入权限，从而更改函数指针，但它会严格限制可被其有效调用的目标，这使得攻击者在实践中利用漏洞的过程变得更加困难。
+CFI 尝试通过添加额外的检查来确认内核控制流停留在预先设计的版图中，以便缓解这类攻击。尽管这无法阻止攻击者利用一个已存在的 bug 获取写入权限，从而更改函数指针，但它会严格限制可被其有效调用的目标，这使得攻击者在实践中利用漏洞的过程变得更加困难。
 
 [![](https://1.bp.blogspot.com/-SAbAK7FpTNw/W700bhOfGuI/AAAAAAAAFz4/N6PNS6LDxN0-yRl-xwWdRQW4pyqKAcRwACLcBGAs/s1600/figure_cfi_effectivenessimage1.png)](https://1.bp.blogspot.com/-SAbAK7FpTNw/W700bhOfGuI/AAAAAAAAFz4/N6PNS6LDxN0-yRl-xwWdRQW4pyqKAcRwACLcBGAs/s1600/figure_cfi_effectivenessimage1.png)
 
