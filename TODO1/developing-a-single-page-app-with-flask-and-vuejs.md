@@ -2,20 +2,20 @@
 > * 原文作者：[Michael Herman](https://testdriven.io/authors/herman)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/developing-a-single-page-app-with-flask-and-vuejs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/developing-a-single-page-app-with-flask-and-vuejs.md)
-> * 译者：
+> * 译者：[Mcskiller](https://github.com/Mcskiller)
 > * 校对者：
 
-# Developing a Single Page App with Flask and Vue.js
+# 用 Flask 和 Vue.js 开发一个单页面应用
 
 ![](https://testdriven.io/assets/img/blog/flask-vue/developing_spa_flask_vue.png)
 
-The following is a step-by-step walkthrough of how to set up a basic CRUD app with Vue and Flask. We’ll start by scaffolding a new Vue application, using the Vue CLI, and then move on to performing the basic CRUD operations through a back-end RESTful API powered by Python and Flask.
+这篇文章会一步一步的教会你如何用 VUE 和 Flask 创建一个基础的 CRUD 应用。我们将从使用 Vue CLI 创建一个新的 Vue 应用开始，接着我们会使用 Python 和 Flask 提供的后端接口 RESTful API 执行基础的 CRUD 操作。
 
-_Final app_:
+**最终效果：**
 
 ![final app](https://testdriven.io/assets/img/blog/flask-vue/final.gif)
 
-_Main dependencies:_
+**主要依赖：**
 
 *   Vue v2.5.2
 *   Vue CLI v2.9.3
@@ -24,82 +24,82 @@ _Main dependencies:_
 *   Flask v1.0.2
 *   Python v3.6.5
     
-## Contents
+## 目录
 
-*   [Objectives](#objectives)
-*   [What is Flask?](#what-is-flask)
-*   [What is Vue?](#what-is-vue)
-*   [Flask Setup](#flask-setup)
-*   [Vue Setup](#vue-setup)
-*   [Bootstrap Setup](#bootstrap-setup)
-*   [What are we building?](#what-are-we-building)
-*   [GET Route](#get-route)
-*   [Bootstrap Vue](#bootstrap-vue)
-*   [POST Route](#post-route)
-*   [Alert Component](#alert-component)
-*   [PUT Route](#put-route)
-*   [DELETE Route](#delete-route)
-*   [Conclusion](#conclusion)
+*   [目的](#目的)
+*   [什么是 Flask？](#什么是-Flask？)
+*   [什么是 Vue？](#什么是-Vue？)
+*   [安装 Flask](#安装-Flask)
+*   [安装 Vue](#安装-Vue)
+*   [安装 Bootstrap](#安装-Bootstrap)
+*   [我们的目的是什么？](#我们的目的是什么？)
+*   [获取路由](#获取路由)
+*   [Bootstrap Vue](#Bootstrap-Vue)
+*   [POST 路由](#POST-路由)
+*   [Alert 组件](#Alert-组件)
+*   [PUT 路由](#PUT-路由)
+*   [DELETE 路由](#DELETE-路由)
+*   [总结](#总结)
 
-## Objectives
+## 目的
 
-By the end of this tutorial, you should be able to…
+在本教程结束的时候，你能够...
 
-1.  Explain what Flask is
-2.  Explain what Vue is and how it compares to other UI libraries and front-end frameworks like Angular and React
-3.  Scaffold a Vue project using the Vue CLI
-4.  Create and render Vue components in the browser
-5.  Create a Single Page Application (SPA) with Vue components
-6.  Connect a Vue application to a Flask back-end
-7.  Develop a RESTful API with Flask
-8.  Style Vue Components with Bootstrap
-9.  Use the Vue Router to create routes and render components
+1.  解释什么是 Flask
+2.  解释什么是 Vue 并且它和其他 UI 库以及 Angular、React 等前端框架相比又如何
+3.  使用 Vue CLI 搭建一个 Vue 项目
+4.  在浏览器中创建并渲染 Vue 组件
+5.  使用 Vue 组件创建一个单页面应用（SPA）
+6.  将一个 Vue 应用与后端的 Flask 连接
+7.  使用 Flask 开发一个 RESTful API
+8.  在 Vue 组件中使用 Bootstrap 样式
+9.  使用 Vue Router 去创建路由和渲染组件
 
-## What is Flask?
+## 什么是 Flask？
 
-[Flask](http://flask.pocoo.org/) is a simple, yet powerful micro web framework for Python, perfect for building RESTful APIs. Like [Sinatra](http://sinatrarb.com/) (Ruby) and [Express](https://expressjs.com/) (Node), it’s minimal and flexible, so you can start small and build up to a more complex app as needed.
+[Flask](http://flask.pocoo.org/) 是一个用 Python 编写的简单，但是及其强大的轻量级 Web 框架，非常适合用来构建 RESTful API。就像 [Sinatra](http://sinatrarb.com/) (Ruby) 和 [Express](https://expressjs.com/) (Node) 一样，它也十分简便，所以你可以从小处开始，根据需求构建一个十分复杂的应用。
 
-First time with Flask? Check out the following two resources:
+第一次使用 Flask？看看这下面两个教程吧：
 
 1.  [Flaskr TDD](https://github.com/mjhea0/flaskr-tdd)
 2.  [Flask for Node Developers](http://mherman.org/blog/2017/04/26/flask-for-node-developers)
 
-## What is Vue?
+## 什么是 Vue？
 
-[Vue](https://vuejs.org/) is an open-source JavaScript framework used for building user interfaces. It adopted some of the best concepts of React and Angular. That said, compared to React and Angular, it’s much more approachable, so beginners can get up and running quickly. It’s also just as powerful, so it provides all the features you’ll need to create modern front-end applications.
+[Vue](https://vuejs.org/) 是一个用于构建用户界面的开源 JavaScript 框架。它综合了一些 React 和 Angular 的优点。也就是说，与 React 和 Angular 相比，它更加友好，所以初学者额能够很快的学习并掌握。它也同样强大，因此它能够提供所有你需要用来创建一个前端应用所需要的功能。
 
-For more on Vue, along with the pros and cons of using it vs. both Angular and React, review the following articles:
+有关 Vue 的更多信息，以及使用它与 Angular 和 React 的利弊，请查看以下文章：
 
 1.  [Vue: Comparison with Other Frameworks](https://vuejs.org/v2/guide/comparison.html)
 2.  [Angular vs. React vs. Vue: A 2017 comparison](https://medium.com/unicorn-supplies/angular-vs-react-vs-vue-a-2017-comparison-c5c52d620176)
 
-First time with Vue? Take a moment to read through the [Introduction](https://vuejs.org/v2/guide/index.html) from the official Vue guide.
+第一次使用 Vue？不妨花点时间阅读官方指南中的 [介绍](https://vuejs.org/v2/guide/index.html)
 
-## Flask Setup
+## 安装 Flask
 
-Begin by creating a new project directory:
+首先创建一个新项目文件夹：
 
 ```
 $ mkdir flask-vue-crud
 $ cd flask-vue-crud
 ```
 
-Within “flask-vue-crud”, create a new directory called “server”. Then, create and activate a virtual environment inside the “server” directory:
+在 "flask-vue-crud" 文件夹中，创建一个新文件夹并取名为 “server”。然后，在 “server” 文件夹中创建并运行一个虚拟环境：
 
 ```
 $ python3.6 -m venv env
 $ source env/bin/activate
 ```
 
-> The above commands may differ depending on your environment.
+> 以上命令因环境而异。
 
-Install Flask along with the [Flask-CORS](http://flask-cors.readthedocs.io/en/3.0.4/) extension:
+安装 Flask 和 [Flask-CORS](http://flask-cors.readthedocs.io/en/3.0.4/) 扩展：
 
 ```
 (env)$ pip install Flask==1.0.2 Flask-Cors==3.0.4
 ```
 
-Add an _app.py_ file to that newly created directory:
+在新创建的文件夹中添加一个 **app.py** 文件
 
 ```
 from flask import Flask, jsonify
@@ -127,55 +127,55 @@ if __name__ == '__main__':
     app.run()
 ```
 
-Why do we need Flask-CORS? In order to make cross-origin requests - e.g., requests that originate from a different protocol, IP address, domain name, or port - you need to enable [Cross Origin Resource Sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS). Flask-CORS handles this for us.
+为什么我们需要 Flask-CORS？为了进行跨域请求 —— e.g., 来自不同协议，IP 地址，域名或端口的请求 —— 你需要允许 [跨域资源共享](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS)。而这正是 Flask-CORS 能为我们提供的。
 
-> It’s worth noting that the above setup allows cross-origin requests on _all_ routes, from _any_ domain, protocol, or port. In a production environment, you should _only_ allow cross-origin requests from the domain where the front-end application is hosted. Refer to the [Flask-CORS documentation](http://flask-cors.readthedocs.io/) for more info on this.
+> 值得注意的是上述安装允许跨域请求在全部路由无论**任何**域，协议或者端口都可用。在生产环境中，你应该**只**允许跨域请求成功在前端应用托管的域上。参考 [Flask-CORS 文档](http://flask-cors.readthedocs.io/) 获得更多信息。
 
-Run the app:
+运行应用：
 
 ```
 (env)$ python app.py
 ```
 
-To test, point your browser at [http://localhost:5000/ping](http://localhost:5000/ping). You should see:
+开始测试，将你的浏览器指向到 [http://localhost:5000/ping](http://localhost:5000/ping)。你将会看到：
 
 ```
 "pong!"
 ```
 
-Back in the terminal, press Ctrl+C to kill the server and then navigate back to the project root. With that, let’s turn our attention to the front-end and get Vue set up.
+返回终端，按下 Ctrl+C 来终止服务端然后退回到项目根目录。接下来，让我们把注意力转到前端进行 Vue 的安装。
 
-## Vue Setup
+## 安装 Vue
 
-We’ll be using the powerful [Vue CLI](https://github.com/vuejs/vue-cli) to generate a customized project boilerplate.
+我们将会使用强力的 [Vue CLI](https://github.com/vuejs/vue-cli) 来生成一个自定义项目模板。
 
-Install it globally:
+全局安装：
 
 ```
 $ npm install -g vue-cli@2.9.3
 ```
 
-> First time with npm? Review the official [What is npm?](https://docs.npmjs.com/getting-started/what-is-npm) guide.
+> 第一次使用 npm？浏览一下 [什么是 npm?](https://docs.npmjs.com/getting-started/what-is-npm) 官方指南吧
 
-Then, within “flask-vue-crud”, run the following command to initialize a new Vue project called `client` with the [webpack](https://github.com/vuejs-templates/webpack) config:
+然后，在 “flask-vue-crud” 中，运行以下命令初始化一个叫做 `client` 的新 Vue 项目并包含 [webpack](https://github.com/vuejs-templates/webpack) 配置：
 
 ```
 $ vue init webpack client
 ```
 
-> webpack is a module bundler and build tool, used to build, minify, and bundle JavaScript files and other client-side resources.
+> webpack 是一个模块打包构建工具，用于构建，压缩以及打包 JavaScript 文件和其他客户端资源。
 
-This will require you to answer a few questions about the project. Press enter to accept the defaults for the first three questions, and then use the following answers for the remaining questions:
+它会请求你对这个项目进行一些配置。按下回车键去选择前三个为默认设置，然后使用以下的设置去完成后续的配置：
 
 1.  Vue build: `Runtime + Compiler`
-2.  Install vue-router?: `Yes`
-3.  Use ESLint to lint your code?: `Yes`
-4.  Pick an ESLint preset: `Airbnb`
-5.  Set up unit tests: `No`
-6.  Setup e2e tests with Nightwatch: `No`
+2.  Install vue-router?: `Yes`
+3.  Use ESLint to lint your code?: `Yes`
+4.  Pick an ESLint preset: `Airbnb`
+5.  Set up unit tests: `No`
+6.  Setup e2e tests with Nightwatch: `No`
 7.  Should we run npm install for you after the project has been created: `Yes, use NPM`
 
-You should see something similar to:
+你会看到一些配置请求比如：
 
 ```
 ? Project name client
@@ -190,9 +190,9 @@ You should see something similar to:
 ? Should we run `npm install` for you after the project has been created? (recommended) npm
 ```
 
-Take a quick look at the generated project structure. It may seem like a lot, but we’ll _only_ be dealing with the files and folders in the “src” folder along with the _index.html_ file.
+快速浏览一下生成的项目架构。看起来好像特别多，但是我们**只**会用到那些在 “src” 中的文件和 **index.html** 文件。
 
-The _index.html_ file is the starting point of our Vue application.
+**index.html** 文件是我们 Vue 应用的起点。
 
 ```
 <!DOCTYPE html>
@@ -209,9 +209,9 @@ The _index.html_ file is the starting point of our Vue application.
 </html>
 ```
 
-Take note of the `<div>` element with an `id` of `app`. This is a placeholder that Vue will use to attach the generated HTML and CSS to produce the UI.
+注意那个 `id` 是 `app` 的 `<div>` 元素。那是一个占位符， Vue 将会用来连接生成的 HTML 和 CSS 构建 UI。
 
-Turn your attention to the folders inside the “src” folder:
+注意那些在 “src” 文件夹中的文件夹：
 
 ```
 ├── App.vue
@@ -224,34 +224,34 @@ Turn your attention to the folders inside the “src” folder:
     └── index.js
 ```
 
-Breakdown:
+分解：
 
-| Name | Purpose |
+| 名字 | 作用 |
 | ---- | ------- |
-| _main.js_ | app entry point, which loads and initializes Vue along with the root component |
-| _App.vue_ | Root component - starting point from which all other components will be rendered |
-| “assets” | where static assets, like images and fonts, are stored |
-| “components” | where UI components are stored |
-| “router” | where URLS are defined and mapped to components |
+| _main.js_ | app 接入点，将会和根组件一起加载并初始化 Vue |
+| _App.vue_ | 根组件 —— 起点，所有其他组件都将从此处开始渲染 |
+| “assets” | 储存图像和字体等静态资源 |
+| “components” | 储存 UI 组件 |
+| “router” | 定义 URL 地址并映射到组件 |
 
-Review the _client/src/components/HelloWorld.vue_ file. This is a [Single File](https://vuejs.org/v2/guide/single-file-components.html) component, which is broken up into three different sections:
+查看 **client/src/components/HelloWorld.vue** 文件。这是一个 [单文件组件](https://vuejs.org/v2/guide/single-file-components.html)，它分为三个不同的部分：
 
-1.  _template_: for component-specific HTML
-2.  _script_: where the component logic is implemented via JavaScript
-3.  _style_: for CSS styles
+1.  **template**：特定组件的 HTML
+2.  **script**：通过 JavaScript 实现组件逻辑
+3.  **style**：CSS 样式
 
-Fire up the development server:
+运行开发服务端：
 
 ```
 $ cd client
 $ npm run dev
 ```
 
-Navigate to [http://localhost:8080](http://localhost:8080) in the browser of your choice. You should see the following:
+在你的浏览器中导航到 [http://localhost:8080](http://localhost:8080)。你将会看到：
 
 ![default vue app](https://testdriven.io/assets/img/blog/flask-vue/default-vue-app.png)
 
-Add a new component to the “client/src/components” folder called _Ping.vue_:
+添加一个新组件在 “client/src/components” 文件夹中，并取名为 **Ping.vue**：
 
 ```
 <template>
@@ -272,7 +272,7 @@ export default {
 </script>
 ```
 
-Update _client/src/router/index.js_ to map ‘/’ to the `Ping` component like so:
+更新 **client/src/router/index.js** 使 ‘/’ 映射到 `Ping` 组件：
 
 ```
 import Vue from 'vue';
@@ -292,7 +292,7 @@ export default new Router({
 });
 ```
 
-Finally, within _client/src/App.vue_, remove the image from the template:
+最后，在 **client/src/App.vue** 中，从 template 里删除掉图片：
 
 ```
 <template>
@@ -302,17 +302,17 @@ Finally, within _client/src/App.vue_, remove the image from the template:
 </template>
 ```
 
-You should now see `Hello!` in the browser.
+你现在应该能在浏览器中看见一个 `Hello!`。
 
-To connect the client-side Vue app with the back-end Flask app, we can use the [axios](https://github.com/axios/axios) library to send AJAX requests.
+为了更好地使客户端 Vue 应用和后端 Flask 应用连接，我们可以使用 [axios](https://github.com/axios/axios) 库来发送 AJAX 请求。
 
-Start by installing it:
+那么我们开始安装它：
 
 ```
 $ npm install axios@0.18.0 --save
 ```
 
-Update the `script` section of the component, in _Ping.vue_, like so:
+然后在 **Ping.vue** 中更新组件的 `script` 部分，就像这样：
 
 ```
 <script>
@@ -345,21 +345,21 @@ export default {
 </script>
 ```
 
-Fire up the Flask app in a new terminal window. You should see `pong!` in the browser at [http://localhost:8080](http://localhost:8080). Essentially, after we get back a response from the back-end, we set `msg` to the value of `data` from the response object.
+在新的终端窗口启动 Flask 应用。在浏览器中打开 [http://localhost:8080](http://localhost:8080) 你会看到 `pong!`。基本上，当我们从后端得到回复的时候，我们会将 `msg` 设置为响应对象的 `data` 的值。
 
-## Bootstrap Setup
+## 安装 Bootstrap
 
-Next, let’s add Bootstrap, a popular CSS framework, to the app so we can quickly add some style.
+接下来，让我们引入一个热门 CSS 框架 Bootstrap 到应用中以方便我们快速添加一些样式。
 
-Install:
+安装：
 
 ```
 $ npm install bootstrap@4.1.1 --save
 ```
 
-> Ignore the warnings for `jquery` and `popper.js`. Do NOT add either to your project. More on this later.
+> 忽略 `jquery` 和 `popper.js` 的警告。不要把它们添加到你的项目中。稍后会告诉你为什么。
 
-Import the Bootstrap styles to _client/src/main.js_:
+插入 Bootstrap 样式到 **client/src/main.js** 中：
 
 ```
 import 'bootstrap/dist/css/bootstrap.css';
@@ -378,7 +378,7 @@ new Vue({
 });
 ```
 
-Update the `style` section in _client/src/App.vue_:
+更新 **client/src/App.vue** 中的 `style`：
 
 ```
 <style>
@@ -388,7 +388,7 @@ Update the `style` section in _client/src/App.vue_:
 </style>
 ```
 
-Ensure Bootstrap is wired up correctly by using a [Button](https://getbootstrap.com/docs/4.0/components/buttons/) and [Container](https://getbootstrap.com/docs/4.0/layout/overview/#containers) in the `Ping` component:
+通过使用 [Button](https://getbootstrap.com/docs/4.0/components/buttons/) 和 [Container](https://getbootstrap.com/docs/4.0/layout/overview/#containers) 确保 Bootstrap 在 `Ping` 组件中正确连接：
 
 ```
 <template>
@@ -398,17 +398,17 @@ Ensure Bootstrap is wired up correctly by using a [Button](https://getbootstrap.
 </template>
 ```
 
-Run the dev server:
+运行开发服务端：
 
 ```
 $ npm run dev
 ```
 
-You should see:
+你应该会看到：
 
-![vue with bootstrap](/assets/img/blog/flask-vue/bootstrap.png)
+![vue with bootstrap](https://testdriven.io/assets/img/blog/flask-vue/bootstrap.png)
 
-Next, add a new component called `Books` in a new file called _Books.vue_:
+然后，添加一个叫做 `Books` 的新组件到新文件 **Books.vue** 中：
 
     <template>
       <div class="container">
@@ -417,7 +417,7 @@ Next, add a new component called `Books` in a new file called _Books.vue_:
     </template>
     
 
-Update the router:
+更新路由：
 
 ```
 import Vue from 'vue';
@@ -444,12 +444,12 @@ export default new Router({
 });
 ```
 
-Test:
+测试：
 
 1.  [http://localhost:8080](http://localhost:8080)
 2.  [http://localhost:8080/#/ping](http://localhost:8080/#/ping)
 
-> Want to get rid of the hash in the URL? Change the `mode` to `history` to utilize the browser’s [history API](https://developer.mozilla.org/en-US/docs/Web/API/History_API) for navigation:
+> 想要摆脱掉 URL 中的哈希值吗？更改 `mode` 到 `history` 以使用浏览器的 [history API](https://developer.mozilla.org/en-US/docs/Web/API/History_API) 来导航：
 
 ```
 export default new Router({
@@ -469,9 +469,9 @@ export default new Router({
 });
 ```
 
-> Review the docs for more [info](https://router.vuejs.org/guide/essentials/history-mode.html) on the router.
+> 查看文档以获得更多路由 [信息](https://router.vuejs.org/guide/essentials/history-mode.html)。
 
-Finally, let’s add a quick, Bootstrap-styled table to the `Books` component:
+最后，让我们添加一个高效的 Bootstrap 风格表格到 `Books` 组件中：
 
 ```
 <template>
@@ -509,27 +509,27 @@ Finally, let’s add a quick, Bootstrap-styled table to the `Books` component:
 </template>
 ```
 
-You should now see:
+你现在应该会看到：
 
 ![books component](https://testdriven.io/assets/img/blog/flask-vue/books-component-1.png)
 
-Now we can start building out the functionality of our CRUD app.
+现在我们可以开始构建我们的 CRUD 应用的功能。
 
-## What are we building?
+## 我们的目的是什么？
 
-Our goal is to design a back-end RESTful API, powered by Python and Flask, for a single resource - books. The API itself should follow RESTful design principles, using the basic HTTP verbs: GET, POST, PUT, and DELETE.
+我们的目标是设计一个后端 RESTful API，由 Python 和 Flask 驱动，对应一个单一资源 —— books。这个 API 应当遵守 RESTful 设计原则，使用基本的 HTTP 动词：GET，POST，PUT 和 DELETE。
 
-We’ll also set up a front-end application with Vue that consumes the back-end API:
+我们还会使用 Vue 搭建一个前端应用来使用这个后端 API：
 
 ![final app](https://testdriven.io/assets/img/blog/flask-vue/final.gif)
 
-> This tutorial only deals with the happy path. Handling errors is a separate exercise for the reader (you!!). Check your understanding and add proper error handling on both the front and back-end.
+> 本教程只设计简单步骤。处理错误是读者（就是你！）的额外练习。通过你的理解解决前后端出现的问题吧。
 
-## GET Route
+## 获取路由
 
-### Server
+### 服务端
 
-Add a list of books to _server/app.py_:
+添加一个书单到 **server/app.py** 中：
 
 ```
 BOOKS = [
@@ -551,7 +551,7 @@ BOOKS = [
 ]
 ```
 
-Add the route handler:
+添加路由接口：
 
 ```
 @app.route('/books', methods=['GET'])
@@ -562,13 +562,13 @@ def all_books():
     })
 ```
 
-Run the Flask app, if it’s not already running, and then manually test out the route at [http://localhost:5000/books](http://localhost:5000/books).
+运行 Flask 应用，如果它并没有运行，尝试在 [http://localhost:5000/books](http://localhost:5000/books) 手动测试路由。
 
-> Looking for an extra challenge? Write an automated test for this. Review [this](https://github.com/mjhea0/flaskr-tdd) resource for more info on testing a Flask app.
+> 想更有挑战性？写一个自动化测试吧。查看 [这个](https://github.com/mjhea0/flaskr-tdd) 资源可以了解更多关于测试 Flask 应用的信息。
 
-### Client
+### 客户端
 
-Update the component:
+更新组件：
 
 ```
 <template>
@@ -637,27 +637,27 @@ export default {
 </script>
 ```
 
-After the component is initialized, the `getBooks()` method is called via the [created](https://vuejs.org/v2/api/#created) lifecycle hook, which fetches the books from the back-end endpoint we just set up.
+当组件初始化完成后，通过 [created](https://vuejs.org/v2/api/#created) 生命周期钩子调用 `getBooks()` 方法，它从我们刚刚设置的后端接口获取书籍。
 
-> Review [Instance Lifecycle Hooks](https://vuejs.org/v2/guide/instance.html#Instance-Lifecycle-Hooks) for more on the component lifecycle and the available methods.
+> 查阅 [实例生命周期钩子](https://vuejs.org/v2/guide/instance.html#Instance-Lifecycle-Hooks) 了解更多有关组件生命周期和可用方法的信息。
 
-In the template, we iterated through the list of books via the [v-for](https://vuejs.org/v2/guide/list.html) directive, creating a new table row on each iteration. The index value is used as the [key](https://vuejs.org/v2/guide/list.html#key). Finally, [v-if](https://vuejs.org/v2/guide/conditional.html#v-if) is then used to render either `Yes` or `No`, indicating whether the user has read the book or not.
+在模板中，我们通过 [v-for](https://vuejs.org/v2/guide/list.html) 指令遍历书籍列表，每次遍历创建一个新表格行。索引值用作 [key](https://vuejs.org/v2/guide/list.html#key)。最后，使用 [v-if](https://vuejs.org/v2/guide/conditional.html#v-if) 的 `Yes` 或 `No`，来表现用户已读或未读这本书。
 
 ![books component](https://testdriven.io/assets/img/blog/flask-vue/books-component-2.png)
 
 ## Bootstrap Vue
 
-In the next section, we’ll use a modal to add a new book. We’ll add on the [Bootstrap Vue](https://bootstrap-vue.js.org/) library in this section for this, which provides a set of Vue components styled with Bootstrap-based HTML and CSS.
+在下一节中，我们将会使用一个模态去添加新书。为此，我们在本节会加入 [Bootstrap Vue](https://bootstrap-vue.js.org/) 库到项目中，它提供了一组基于 Bootstrap 的 HTML 和 CSS 设计的 Vue 组件。
 
-> Why Bootstrap Vue? Bootstrap’s [Modal](http://getbootstrap.com/docs/4.1/components/modal/) component uses [jQuery](https://jquery.com/), which you should avoid using with Vue together in the same project since Vue uses the [Virtual Dom](https://vuejs.org/v2/guide/render-function.html#Nodes-Trees-and-the-Virtual-DOM) to update the DOM. In other words, if you did use jQuery to manipulate the DOM, Vue would not know about it. At the very least, if you absolutely need to use jQuery, do not use Vue and jQuery together on the same DOM elements.
+> 为什么选择 Bootstrap Vue？Bootstrap 的 [模态](http://getbootstrap.com/docs/4.1/components/modal/) 组件使用 [jQuery](https://jquery.com/)，但你应该避免把它和 Vue 在同一项目中一起使用，因为 Vue 使用 [虚拟 DOM](https://vuejs.org/v2/guide/render-function.html#Nodes-Trees-and-the-Virtual-DOM) 来更新 DOM。换句话来说，如果你用 jQuery 来操作 DOM，Vue 不会有任何反应。至少，如果你一定要使用 jQuery，不要在同一个 DOM 元素上同时使用 jQuery 和 Vue。
 
-Install:
+安装：
 
 ```
 $ npm install bootstrap-vue@2.0.0-rc.11 --save
 ```
 
-Enable the Bootstrap Vue library in _client/src/main.js_:
+在 **client/src/main.js** 中启用 Bootstrap Vue 库：
 
 ```
 import 'bootstrap/dist/css/bootstrap.css';
@@ -679,11 +679,11 @@ new Vue({
 });
 ```
 
-## POST Route
+## POST 路由
 
-### Server
+### 服务端
 
-Update the existing route handler to handle POST requests for adding a new book:
+更新现有路由以处理添加新书的 POST 请求：
 
 ```
 @app.route('/books', methods=['GET', 'POST'])
@@ -702,13 +702,13 @@ def all_books():
     return jsonify(response_object)
 ```
 
-Update the imports:
+更新 imports：
 
 ```
 from flask import Flask, jsonify, request
 ```
 
-With the Flask server running, you can test the POST route in a new terminal tab:
+运行 Flask 服务端后，你可以在新的终端里测试 POST 路由：
 
 ```
 $ curl -X POST http://localhost:5000/books -d \
@@ -716,7 +716,7 @@ $ curl -X POST http://localhost:5000/books -d \
   -H 'Content-Type: application/json'
 ```
 
-You should see:
+你应该会看到：
 
 ```
 {
@@ -725,13 +725,13 @@ You should see:
 }
 ```
 
-You should also see the new book in the response from the [http://localhost:5000/books](http://localhost:5000/books) endpoint.
+你应该会在 [http://localhost:5000/books](http://localhost:5000/books) 的末尾看到新书。
 
-> What if the title already exists? Or what if a title has more than one author? Check your understanding by handling these edge cases. Also, how would you handle an invalid payload where the `title`, `author`, and/or `read` is missing?
+> 如果书名已经存在了呢？如果一个书名对应了几个作者呢？通过处理这些小问题可以加深你的理解，另外，如何处理 `书名`，`作者`，以及 `阅览状态` 都缺失的无效负载情况。
 
-### Client
+### 客户端
 
-On the client-side, let’s add that modal now for adding a new book, starting with the HTML:
+在客户端上，让我们添加那个模态以添加一本新书，从 HTML 开始：
 
 ```
 <b-modal ref="addBookModal"
@@ -770,11 +770,11 @@ On the client-side, let’s add that modal now for adding a new book, starting w
 </b-modal>
 ```
 
-Add this just before the closing `div` tag. Take a quick look at the code. `v-model` is a directive used to [bind](https://vuejs.org/v2/guide/forms.html) input values back to the state. You’ll see this in action shortly.
+在 `div` 标签中添加这段代码。然后简单阅览一下。`v-model` 是一个用于 [表单输入绑定](https://vuejs.org/v2/guide/forms.html) 的指令。你马上就会看到。
 
-> What does `hide-footer` do? Review this on your own in the Bootstrap Vue [docs](https://bootstrap-vue.js.org/docs/components/modal/).
+> `hide-footer` 具体干了什么？在 Bootstrap Vue 的 [文档](https://bootstrap-vue.js.org/docs/components/modal/) 中了解更多
 
-Update the `script` section:
+更新 `script` 部分：
 
 ```
 <script>
@@ -846,25 +846,25 @@ export default {
 </script>
 ```
 
-What’s happening here?
+实现了什么？
 
-1.  `addBookForm` is [bound](https://vuejs.org/v2/guide/forms.html#Basic-Usage) to the form inputs via, again, `v-model`. When one is updated, the other will be updated as well, in other words. This is called two-way binding. Take a moment to read about it [here](https://stackoverflow.com/questions/13504906/what-is-two-way-binding). Think about the ramifications of this. Do you think this makes state management easier or harder? How do React and Angular handle this? In my opinion, two-way binding (along with mutability) makes Vue much more approachable than React, but less scaleable in the long run.
+1. `addBookForm` 的值被 [表单输入绑定](https://vuejs.org/v2/guide/forms.html#Basic-Usage) 到，没错，`v-model`。当数据更新时，另一个也会跟着更新。这被称之为双向绑定。花点时间从 [这里](https://stackoverflow.com/questions/13504906/what-is-two-way-binding) 了解一下吧。想想这个带来的结果。你认为这会使状态管理更简单还是更复杂？React 和 Angular 又会如何做到这点？在我看来，双向数据绑定（可变性）使得 Vue 和 React 相比更加友好，但是从长远看扩展性不足。
 
-2.  `onSubmit` is fired when the user submits the form successfully. On submit, we prevent the normal browser behavior (`evt.preventDefault()`), close the modal (`this.$refs.addBookModal.hide()`), fire the `addBook` method, and clear the form (`initForm()`).
+2.  `onSubmit` 会在用户提交表单成功时被触发。在提交时，我们会阻止浏览器的正常行为（`evt.preventDefault()`），关闭模态框（`this.$refs.addBookModal.hide()`），触发 `addBook` 方法，然后清空表单（`initForm()`）。
 
-3.  `addBook` sends a POST request to `/books` to add a new book.
+3.  `addBook` 发送一个 POST 请求到 `/books` 去添加一本新书。
 
-4.  Review the rest of the changes on your own, referencing the Vue [docs](https://vuejs.org/v2/guide/) as necessary.
+4.  根据自己的需要查看其他更改，并根据需要参考 Vue 的 [文档](https://vuejs.org/v2/guide/)。
 
-> Can you think of any potential errors on the client or server? Handle these on your own to improve the users’ experience.
+> 你能想到客户端或者服务端还有什么潜在的问题吗？思考这些问题去试着加强用户体验吧。
 
-Finally, update the “Add Book” button in the template so that the modal is displayed when the button is clicked:
+最后，更新 template 中的 “Add Book” 按钮，这样一来我们点击按钮就会显示出模态框：
 
 ```
 <button type="button" class="btn btn-success btn-sm" v-b-modal.book-modal>Add Book</button>
 ```
 
-The component should now look like this:
+那么组件应该是这样子的：
 
     <template>
       <div class="container">
@@ -1006,15 +1006,15 @@ The component should now look like this:
     </script>
     
 
-Test it out! Try adding a book:
+赶紧测试一下！试着添加一本书：
 
 ![add new book](https://testdriven.io/assets/img/blog/flask-vue/add-new-book.gif)
 
-## Alert Component
+## alert 组件
 
-Next, let’s add an [Alert](https://bootstrap-vue.js.org/docs/components/alert/) component to display a message to the end user after a new book is added. We’ll create a new component for this since it’s likely that you’ll use the functionality in a number of components.
+接下来，让我们添加一个 [Alert](https://bootstrap-vue.js.org/docs/components/alert/) 组件，当添加一本新书后，它会显示一个信息给当前用户。我们将为此创建一个新组件，因为你以后可能会在很多组件中经常用到这个功能。
 
-Add a new file called _Alert.vue_ to “client/src/components”:
+添加一个新文件 **Alert.vue** 到 “client/src/components” 中：
 
 ```
 <template>
@@ -1022,7 +1022,7 @@ Add a new file called _Alert.vue_ to “client/src/components”:
 </template>
 ```
 
-Then, import it into the `script` section of the `Books` component and register the component:
+然后，在 `Books` 组件的 `script` 中引入它并注册这个组件：
 
 ```
 <script>
@@ -1052,7 +1052,7 @@ export default {
 </script>
 ```
 
-Now, we can reference the new component in the `template` section:
+现在，我们可以在 `template` 中引用这个新组件：
 
 ```
 <template>
@@ -1072,13 +1072,13 @@ Now, we can reference the new component in the `template` section:
 </template>
 ```
 
-Refresh the browser. You should now see:
+刷新浏览器，你会看到：
 
 ![bootstrap alert](https://testdriven.io/assets/img/blog/flask-vue/alert.png)
 
-> Review [Composing with Components](https://vuejs.org/v2/guide/index.html#Composing-with-Components) from the official Vue docs for more info on working with components in other components.
+> 从 Vue 官方文档的 [组件化应用构建](https://vuejs.org/v2/guide/index.html#Composing-with-Components) 中获得更多有关组件化应用构建的信息。
 
-Next, let’s add the actual [b-alert](https://bootstrap-vue.js.org/docs/components/alert/) component to the template:
+接下来，让我们加入 [b-alert](https://bootstrap-vue.js.org/docs/components/alert/) 组件到 template 中：
 
 ```
 <template>
@@ -1095,25 +1095,25 @@ export default {
 </script>
 ```
 
-Take note of the [props](https://vuejs.org/v2/guide/components-props.html) option in the `script` section. We can pass a message down from the parent component (`Books`) like so:
+记住 `script` 中的 [props](https://vuejs.org/v2/guide/components-props.html) 选项。我们可以从父组件（`Books`）传递信息，就像这样：
 
 ```
 <alert message="hi"></alert>
 ```
 
-Try this out:
+试试这个：
 
 ![bootstrap alert](https://testdriven.io/assets/img/blog/flask-vue/alert-2.png)
 
-> Review the [docs](https://vuejs.org/v2/guide/components.html#Passing-Data-to-Child-Components-with-Props) for more info on props.
+> 从 [文档](https://vuejs.org/v2/guide/components.html#Passing-Data-to-Child-Components-with-Props) 中获取更多 props 相关信息。
 
-To make it dynamic, so that a custom message is passed down, use a [binding expression](https://vuejs.org/v2/guide/syntax.html#v-bind-Shorthand) in _Books.vue_:
+为了方便我们动态传递自定义消息，我们需要在 **Books.vue** 中使用 [bind](https://vuejs.org/v2/guide/syntax.html#v-bind-Shorthand) 绑定数据。
 
 ```
 <alert :message="message"></alert>
 ```
 
-Add the `message` to the `data` options, in _Books.vue_ as well:
+将 `message` 添加到 **Books.vue** 中的 `data` 中：
 
 ```
 data() {
@@ -1129,7 +1129,7 @@ data() {
 },
 ```
 
-Then, within `addBook`, update the message:
+接下来，在 `addBook` 中，更新 message 内容。
 
 ```
 addBook(payload) {
@@ -1147,13 +1147,13 @@ addBook(payload) {
 },
 ```
 
-Finally, add a `v-if`, so the alert is only displayed if `showMessage` is true:
+最后，添加一个 `v-if`，以保证只有 `showMessage` 值为 true 的时候警告才会显示。
 
 ```
 <alert :message=message v-if="showMessage"></alert>
 ```
 
-Add `showMessage` to the `data`:
+添加 `showMessage` 到 `data` 中：
 
 ```
 data() {
@@ -1170,7 +1170,7 @@ data() {
 },
 ```
 
-Update `addBook` again, setting `showMessage` to `true`:
+再次更新 `addBook`，设定 `showMessage` 的值为 `true`：
 
 ```
 addBook(payload) {
@@ -1189,23 +1189,23 @@ addBook(payload) {
 },
 ```
 
-Test it out!
+赶快测试一下吧！
 
 ![add new book](https://testdriven.io/assets/img/blog/flask-vue/add-new-book-2.gif)
 
-> Challenges:
+> 挑战：
 >
-> 1.  Think about where `showMessage` should be set to `false`. Update your code.
-> 2.  Try using the Alert component to display errors.
-> 3.  Refactor the alert to be [dismissible](https://bootstrap-vue.js.org/docs/components/alert/#dismissible-alerts).
+> 1.  想想什么情况下 `showMessage` 应该被设定为 `false`。更新你的代码。
+> 2.  试着用 Alert 组件去显示错误信息。
+> 3.  修改 Alert 为 [可取消](https://bootstrap-vue.js.org/docs/components/alert/#dismissible-alerts) 的样式。
 
-## PUT Route
+## PUT 路由
 
-### Server
+### 服务端
 
-For updates, we’ll need to use a unique identifier since we can’t depend on the title to be unique. We can use `uuid` from the Python [standard library](https://docs.python.org/3/library/uuid.html).
+对于更新，我们需要使用唯一标识符，因为我们不能依靠标题作为唯一。我们可以使用 Python [基本库](https://docs.python.org/3/library/uuid.html) 提供的 `uuid` 作为唯一。
 
-Update `BOOKS` in _server/app.py_:
+在 **server/app.py** 中更新 `BOOKS`：
 
 ```
 BOOKS = [
@@ -1230,13 +1230,13 @@ BOOKS = [
 ]
 ```
 
-Don’t forget the import:
+不要忘了引入：
 
 ```
 import uuid
 ```
 
-Refactor `all_books` to account for the unique id when a new book is added:
+我们需要重构 `all_books` 来保证每一本添加的书都有它的唯一 ID：
 
 ```
 @app.route('/books', methods=['GET', 'POST'])
@@ -1256,7 +1256,7 @@ def all_books():
     return jsonify(response_object)
 ```
 
-Add a new route handler:
+添加一个新的路由：
 
 ```
 @app.route('/books/<book_id>', methods=['PUT'])
@@ -1275,7 +1275,7 @@ def single_book(book_id):
     return jsonify(response_object)
 ```
 
-Add the helper:
+添加辅助方法：
 
 ```
 def remove_book(book_id):
@@ -1286,21 +1286,21 @@ def remove_book(book_id):
     return False
 ```
 
-> Take a moment to think about how you would handle the case of an `id` not existing. What if the payload is not correct? Refactor the for loop in the helper as well so that it’s more Pythonic.
+> 想想看如果你没有 `id` 标识符你会怎么办？如果有效载荷不正确怎么办？重构辅助方法中的 for 循环，让他更加 pythonic。
 
-### Client
+### 客户端
 
-Steps:
+步骤：
 
-1.  Add modal and form
-2.  Handle update button click
-3.  Wire up AJAX request
-4.  Alert user
-5.  Handle cancel button click
+1.  添加模态和表单
+2.  处理更新按钮点击事件
+3.  发送 AJAX 请求
+4.  通知用户
+5.  处理取消按钮点击事件
 
-#### (1) Add modal and form
+#### (1) 添加模态和表单
 
-First, add a new modal to the template, just below the first modal:
+首先，加入一个新的模态到 template 中，就在第一个模态下面：
 
 ```
 <b-modal ref="editBookModal"
@@ -1339,7 +1339,7 @@ First, add a new modal to the template, just below the first modal:
 </b-modal>
 ```
 
-Add the form state to the `data` part of the `script` section:
+添加表单状态到 `script` 中的 `data` 部分：
 
 ```
 editForm: {
@@ -1350,11 +1350,11 @@ editForm: {
 },
 ```
 
-> Challenge: Instead of using a new modal, try using the same modal for handling both POST and PUT requests.
+> 挑战：不使用新的模态，使用一个模态框处理 POST 和 PUT 请求。
 
-#### (2) Handle update button click
+#### (2) 处理更新按钮点击事件
 
-Update the “update” button in the table:
+更新表格中的“更新”按钮：
 
 ```
 <button
@@ -1366,7 +1366,7 @@ Update the “update” button in the table:
 </button>
 ```
 
-Add a new method to update the values in `editForm`:
+添加一个新方法去更新 `editForm` 中的值：
 
 ```
 editBook(book) {
@@ -1374,7 +1374,7 @@ editBook(book) {
 },
 ```
 
-Then, add a method to handle the form submit:
+然后，添加一个方法去处理表单提交：
 
 ```
 onSubmitUpdate(evt) {
@@ -1391,7 +1391,7 @@ onSubmitUpdate(evt) {
 },
 ```
 
-#### (3) Wire up AJAX request
+#### (3) 发送 AJAX 请求
 
 ```
 updateBook(payload, bookID) {
@@ -1408,9 +1408,9 @@ updateBook(payload, bookID) {
 },
 ```
 
-#### (4) Alert user
+#### (4) 通知用户
 
-Update `updateBook`:
+更新 `updateBook`：
 
 ```
 updateBook(payload, bookID) {
@@ -1429,9 +1429,9 @@ updateBook(payload, bookID) {
 },
 ```
 
-#### (5) Handle cancel button click
+#### (5) 处理取消按钮点击事件
 
-Add method:
+添加方法：
 
 ```
 onResetUpdate(evt) {
@@ -1442,7 +1442,7 @@ onResetUpdate(evt) {
 },
 ```
 
-Update `initForm`:
+更新 `initForm`：
 
 ```
 initForm() {
@@ -1456,15 +1456,15 @@ initForm() {
 },
 ```
 
-Make sure to review the code before moving on. Once done, test out the application. Ensure the modal is displayed on the button click and that the input values are populated correctly.
+在继续下一步之前先检查一下代码。检查结束后，测试一下应用。确保按钮按下后显示模态框，并正确显示输入值。
 
 ![update book](https://testdriven.io/assets/img/blog/flask-vue/update-book.gif)
 
-## DELETE Route
+## DELETE 路由
 
-### Server
+### 服务端
 
-Update the route handler:
+更新路由操作：
 
 ```
 @app.route('/books/<book_id>', methods=['PUT', 'DELETE'])
@@ -1486,9 +1486,9 @@ def single_book(book_id):
     return jsonify(response_object)
 ```
 
-### Client
+### 客户端
 
-Update the “delete” button like so:
+更新“删除”按钮：
 
 ```
 <button
@@ -1499,7 +1499,7 @@ Update the “delete” button like so:
 </button>
 ```
 
-Add the methods to handle the button click and then remove the book:
+添加方法来处理按钮点击然后删除书籍：
 
 ```
 removeBook(bookID) {
@@ -1521,24 +1521,24 @@ onDeleteBook(book) {
 },
 ```
 
-Now, when the user clicks the delete button, the `onDeleteBook` method is fired, which, in turn, fires the `removeBook` method. This method sends the DELETE request to the back-end. When the response comes back, the alert message is displayed and `getBooks` is ran.
+现在，当用户点击删除按钮时，将会触发 `onDeleteBook` 方法。同时，`removeBook` 方法会被调用。这个方法会发送删除请求到后端。当返回响应后，通知消息会显示出来然后 `getBooks` 会被调用。
 
-> Challenges:
+> 挑战：
 > 
-> 1.  Instead of deleting on the button click, add a confirmation alert.
-> 2.  Display a message saying, like “No books! Please add one.”, when no books are present.
+> 1.  在删除按钮点击时加入一个确认提示。
+> 2.  当没有书的时候，显示一个“没有书籍，请添加”消息。
 
 ![delete book](https://testdriven.io/assets/img/blog/flask-vue/delete-book.gif)
 
-## Conclusion
+## 总结
 
-This post covered the basics of setting up a CRUD app with Vue and Flask.
+这篇文章介绍了使用 Vue 和 Flask 设置 CRUD 应用程序的基础知识。
 
-Check your understanding by reviewing the objectives from the beginning of this post and going through each of the challenges.
+从头回顾这篇文章以及其中的挑战来加深你的理解。
 
-You can find the source code from the [v1](https://github.com/testdrivenio/flask-vue-crud/releases/tag/v1) tag of the the [flask-vue-crud](https://github.com/testdrivenio/flask-vue-crud) repo. Thanks for reading.
+你可以在 [flask-vue-crud](https://github.com/testdrivenio/flask-vue-crud) 仓库 中的 [v1](https://github.com/testdrivenio/flask-vue-crud/releases/tag/v1) 标签里找到源码。感谢你的阅读。
 
-> **Looking for more?** Check out the [Accepting Payments with Stripe, Vue.js, and Flask](https://testdriven.io/accepting-payments-with-stripe-vuejs-and-flask) blog post, which starts from where this post finished.
+> **想知道更多？** 看看这篇文章的续作 [Accepting Payments with Stripe, Vue.js, and Flask](https://testdriven.io/accepting-payments-with-stripe-vuejs-and-flask)
 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
