@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-101-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-101-flutter.md)
 > * 译者：[DevMcryYu](https://github.com/devmcryyu)
-> * 校对者：
 
 # MDC-101 Flutter：Material Components（MDC）基础（Flutter）
 
