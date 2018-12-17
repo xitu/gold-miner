@@ -2,168 +2,168 @@
 > * 原文作者：[Igor Kantor](https://medium.com/@devfire?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-4-package.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-4-package.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Raoul1996](https://github.com/Raoul1996)
+> * 校对者：[7Ethan](https://github.com/7Ethan)
 
-# How To Become a DevOps Engineer In Six Months or Less, Part 4: Package
+# 如何在六个月或更短的时间内成为 DevOps 工程师，第四部分：打包
 
 ![](https://cdn-images-1.medium.com/max/1000/0*dUiEaJN0gcR_ZFd5)
 
-“Packages” by [chuttersnap](https://unsplash.com/@chuttersnap?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
+“Packages” 由 [chuttersnap](https://unsplash.com/@chuttersnap?utm_source=medium&utm_medium=referral) 拍摄并发表在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral) 上
 
-### Quick Recap
+### 快速回顾
 
-In Part 1, we talked about the DevOps culture and the foundations required:
+在第 1 部分，我们聊了聊 DevOps 的文化和所需要的基础：
 
 * **[[译] 如何在六个月或更短的时间内成为 DevOps 工程师（系列文章第一篇）](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less.md)**
 
-In Part 2, we discussed how to properly lay the foundation for future code deployments:
+在第 2 部分，我们讨论了如何为部署将来的代码奠定基础：
 
 * **[[译] 如何在六个月或更短的时间内成为 DevOps 工程师，第二部分：配置](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-2-configure.md)**
 
-In Part 3, we talked about how to keep your deployed code organized:
+在第 3 部分，我们探讨了如何组织部署代码：
 
 * **[[译] 如何在六个月或更短的时间内成为 DevOps 工程师，第三部分：版本控制](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-3-version.md)**
 
-Here, we’ll talk about how to package your code for easy deployment and subsequent execution.
+这个部分，我们将说一说怎么打包你的代码以便于部署和后续执行。
 
-For reference, we are here in our journey:
+作为参考，这里是我们的旅程：
 
 ![](https://cdn-images-1.medium.com/max/800/1*uTJj1toNrJRl9f6qxR73rQ.png)
 
-Package
+<center>打包</center>
 
-NOTE: You can see how every part builds on the previous part and lays the foundation for the subsequent part. This is important and is done on purpose.
+注意：你可以看到每一部分如何前一部分之上，并为后续部分奠定基础。这很重要并且是有目的的。
 
-The reason is, whether you are talking to your current or future employers, you have to be able to articulate what DevOps is and why it’s important.
+原因是，无论你与现在的老板还是以后的老板交谈，你都得能清楚表达出什么是 DevOps 并且为何它这么重要。
 
-And you do so by telling a coherent story — a story of how best to quickly efficiently ship code from a developer’s laptop to a money-making prod deployment.
+你通过讲述一个连贯的故事来做到这一点 —— 这个故事讲述了如何既好又快地把代码从开发者的笔记本电脑上发送到能赚钱的生产环境（prod）部署。
 
-Therefore, we are not after learning a bunch of disconnected, trendy DevOps tools. We are after learning a set of skills, driven by business needs, backed by technical tools.
+因此，我们正在学习的并不是一堆割裂的、时髦的 DevOps 工具，我们正在学习的是是一系列受业务需求驱动，由技术工具支持的技能。
 
-OK, enough chatter, let’s get to it!
+好了，哔哔够了，让我们开始吧！
 
-### Primer on Virtualization
+### 虚拟化入门
 
-Remember physical servers? The ones you had to wait weeks to be PO-approved, shipped, data center accepted, racked, networked, OS-installed and patched?
+还记得物理服务器吗？你必须等待几周才能获得 PO 批准，发货，数据中心接收，上架，联网，安装操作系统以及打补丁。
 
-Yeah, those. They came first.
+是的，那些都是以前的方式。
 
-Essentially, imagine if the only way to have a place to live is to build a brand new house. Need a place to live? Wait for however long it takes! Kind of cool since everybody gets a house but also not really because it takes a long time to build a house. In this analogy, a physical server is like a house.
+设想一下，假如获得住所的唯一方式是建造一座全新的房子。当我们需要一个住的地方的时候，那不是要等很长时间么？有点意思。然而每个人都有房子，但也不是真的因为建造房子需要很长时间。在这个类比中，物理服务器就像一个房子。
 
-Then people got annoyed about how long everything took and some really smart people came up with the idea of _virtualization_: how to run a bunch of pretend “machines” on a single physical machine and have each fake machine pretend to be a real machine. Genius!
+然后人们对花了这么长的时间去做这堆事情感到恼火，有些非常聪明的人提出了 **虚拟化** 的想法：如何在一台单独的物理机上运行一堆伪装的“机器”，并让每台假机器伪装成一台真机。天才！
 
-So, if you really wanted a house, you could build your own and wait six weeks. Or you could go and live in an apartment building and share the resources with other tenants. Maybe not as awesome but good enough! And most importantly, there is no wait!
+所以，如果你真的想要一套房子，你可以建造你自己的并等待 6 周。或者你可以住在公寓楼里和其他租户共享资源。或许不是很棒但是足够好了。但是更重要的是，不需要等待！
 
-This went on for a while and companies (i.e. VMWare) made an absolute killing on this.
+这种情况持续了一段时间，并且 VMWare 公司在这方面拥有了霸主地位。
 
-Until other smart people decided that stuffing a bunch of virtual machines into a physical machine is not good enough: we need **more** compact packing of **more** processes into **fewer** resources.
+直到其他聪明的人认为将一堆虚拟机填充到物理机还不够好：我们需要压缩**更多**的程序以**更紧凑**的方式打包到**更少**的资源中。
 
-At this point, a house is too expensive and an apartment is still too expensive. What if I just need a room to rent, temporarily? That’s amazing, I can move in and out at a moment’s notice!
+在这一点上，房子太贵了，公寓也太贵了。如果我们只需要暂时租用一间屋子呢？这太棒了，我可以随时出入！
 
-Essentially, that’s Docker.
+于是，Docker 应运而生。
 
-### Birth of Docker
+### Docker 的诞生
 
-Docker is new but the _idea_ behind Docker is very old. An operating system called FreeBSD had a concept of [jails](https://en.wikipedia.org/wiki/FreeBSD_jail) that dates back to 2000! Truly everything new is old.
+Dokcer 是新的但是 Docker 背后的**思想**是很古老的。一个叫 FreeBSD 的系统有一个 [jails](https://en.wikipedia.org/wiki/FreeBSD_jail) 的概念，其可回溯到 2000 年！诚然一切新的都是旧的。
 
-The idea then and now was to isolate individual processes within the same operating system, in what is known as “operating system level virtualization.”
+当时和现在的想法都是在同一个操作系统中隔离单个进程，即所谓的“操作系统级虚拟化”。
 
-NOTE: This is not the same thing as “full virtualization”, which is running virtual machines side by side on the same physical host.
+注意：这和“完全虚拟化”不同，后者是在同一物理主机上并行运行虚拟机。
 
-What does this mean in practice?
+这实际上意味着什么？
 
-In practice, this means that the rise of Docker’s popularity neatly mirrors the rise of microservices — a software engineering approach where software is broken into many individual components.
+实际上，这意味着 Docker 的兴起巧妙地反映着微服务的兴起 —— 一种软件工程的方法，其中软件被分解成多个独立的组件。
 
-And these components need a home. Deploying them individually, as stand-alone Java applications or binary executables is a huge pain: how you manage a Java app is different from how you manage a C++ app and that’s different from you manage a Golang app.
+并且这些组件需要一个家。单独部署他们，部署独立的 Java 应用程序或者二进制可执行文件非常痛苦：你管理 Java 应用程序的方式和管理 C++ 应用程序的方式不同，这和管理 Golang 应用程序的方式也是不同的。
 
-Instead, Docker provides a single management interface that allows software engineers to package (!), deploy and run various applications in a consistent way.
+相反，Docker 提供单一的管理界面，让软件工程师以一致的方式打包（！）、部署、运行各种各样的应用程序。
 
-That is a huge win!
+这是一个里程碑！
 
-OK, let’s talk more about the benefits of Docker.
+OK，我们一起来聊聊 Docker 更多的好处。
 
-### Benefits of Docker
+### Docker 的好处
 
-#### Process Isolation
+#### 进程隔离
 
-Docker allows every service to have full **process isolation**. Service A lives in its own little container, with all of its dependencies. Service B lives in its container, with all its dependencies. And the two are not in conflict!
+Docker 允许每个服务有完全的**进程隔离**。服务 A 和自己所有的依赖一起存在于自己的小容器之中，服务 B 也和自己的依赖存在于自己的容器中，而且二者没有冲突！
 
-Moreover, if one container crashes, only that container is affected. The rest will (should!) continue running happily.
+此外，如果一个容器挂了，只有该容器会被影响。其余的（应该）将会继续愉快地运行着。
 
-This benefits security as well. If a container is compromised, it is extremely difficult (but not impossible!) to get out of that container and hack the base OS.
+这对于安全的好处也是显而易见的。如果容器被泄露，那么离开容器并破解宿主系统是非常困难的（并非不可能！）。
 
-Finally, if a container is misbehaving (consuming too much CPU or memory) it is possible to “contain” the blast radius to that container only, without impacting the rest of the system.
+最后，如果容器发生了故障（占用了太多的 CPU 或者内存），则可以仅仅将爆炸半径”包含“到该容器，而不会影响系统其它部分。
 
-#### Deployment
+#### 部署
 
-Think about how the various applications are built in practice.
+想想实际上如何构建不同的应用程序。
 
-If it’s a Python app, it will have a slew of various Python packages. Some will be installed as _pip_ modules, others are _rpm_ or _deb_ packages, and others are simple _git clone_ installs. Or, if done with _virtualenv_, it will be a zip file of all the dependencies in the _virtualenv_ directory.
+如果它是一个 Python 应用程序，它会有各种各样的 Python 包。一些作为 **pip** 模块安装，另一些是 **rpm** 或者 **deb** 包，其它则是简单的 **git clone** 安装。或者使用 **virtualenv**，它将是 **virtualenv** 目录中所有的 zip 文件。
 
-On the other hand, if it’s a Java app, it will have a gradle build, with all of its dependencies pulled and sprinkled into appropriate places.
+另一方面，如果它是一个 Java 应用程序，他将用 gradle 构建，其所有依赖关系被拉取并放到适当的位置。
 
-You get the point. Various apps, build with different languages and different runtimes pose a challenge when it comes to deploying these apps to prod.
+你抓住了关键点。在将这些应用程序部署到 prod 环境中时，各种应用程序，使用不同语言和不同运行时（runtime）构建都是一项挑战。
 
-How can we possibly keep all of the dependencies satisfied?
+我们怎么样才能保持所有的依赖关系都满足呢？
 
-Plus, the problem is worse if there are conflicts. What if service A depends on Python library v1 but service B depends on Python library v2? Now there is a conflict since both v1 and v2 cannot co-exist on the same machine.
+另外，如果存在冲突，问题会更加严重。如果服务 A 依赖于 Python 库 v1，但是服务 B 依赖 Python 库 v2 怎么办？现在存在冲突，因为 v1 和 v2 不能再同一台机器上共存。
 
-Enter Docker.
+选择 Docker。
 
-Docker allows not only for full process isolation but also for full **dependency isolation.** It is entirely possible and common to have multiple containers running side by side, on the same OS, each with its own and conflicting libraries and packages.
+Docker 不仅允许完全**进程隔离**，还允许完全的**依赖隔离**。在同一个操作系统上并排运行多个容器是完全可行并常见的，每个容器都有自己冲突着的库和包。
 
-#### Runtime Management
+#### 运行时管理
 
-Again, how we manage disparate applications differs between applications. Java code logs differently, is started differently and monitored differently from Python. And Python is different from Golang, etc.
+同样，我们管理不同应用程序的方式因应用程序而异。Java 代码的日志记录方式不同，启动方式不同，监控方式和 Python 不同，Python 和 GoLang 等也不同。
 
-With Docker, we gain a single, unified management interface that allows us to start, monitor, centralize logs, stop, and restart many different kinds of applications.
+通过 Docker，我们得到了一个统一的管理界面，允许我们启动、监控、收集日志、停止和重启多种不同类型的应用程序。
 
-This is a huge win and greatly reduces operational overhead of running production systems.
+这是一个里程碑，并大大降低了运行生产系统的运营开销。
 
-### Enter Lambda
+### 选择 Lambda
 
-As great as Docker is, it has downsides.
+伴随着 Docker 的伟大，它也有缺点。
 
-First, running Docker is still running servers. Servers are brittle and flaky. They must be managed, patched and otherwise cared for.
+首先，Docker 仍在运行服务器上。服务器很脆弱，必须对它们进行管理，修补和其他方面的保护。
 
-Second, nobody really runs Docker as is. Instead, it is almost always deployed as part of a complex container orchestration fabric, such as Kubernetes, ECS, _docker-swarm_ or Nomad. These are fairly complex platforms that require dedicated personnel to operate (more on these solutions later).
+其次，没有人按照原样运行 Docker（译者注：这里的意思应该指的是并没有完全像前面提到的完全进程隔离，不相互影响之意）。相反，它几乎总是作为复杂容器编排结构的一部分进行部署。例如 Kubernetes、ECS、**docker-swarm** 或者 Nomad。这些是相当复杂的平台，需要专门的人员来操作（稍后将详细介绍这些解决方案）。
 
-However, if I’m a developer, I just want to write code and have somebody else run it for me. Docker, Kubernetes and all that jazz are not simple things to learn — do I really have to?!
+但是，如果我是开发人员，我只想编写代码并让其他人为我运行它。Docker、Kubernetes 和所有的这些”爵士乐“都不是简单易学的东西 —— 我真的需要吗？
 
-Short answer is, it depends!
+简而言之，这取决于！
 
-For people who just want somebody else run their code, [AWS Lambda](https://aws.amazon.com/lambda/) (and other solutions like it) are the answer:
+对于那些只是想让其他人运行他们的代码的人，[AWS Lambda](https://aws.amazon.com/lambda/)（或者类似的解决方案）是问题的答案：
 
-> AWS Lambda lets you run code without provisioning or managing servers. You pay only for the compute time you consume — there is no charge when your code is not running.
+> AWS Lambda 允许你在不配置或者管理服务器的情况下运行代码。你只需要为你消耗的计算时间付费 —— 当你的代码未运行时不收取任何费用。
 
-If you have heard of the whole “serverless” movement, this is it! No more servers to run or containers to manage. Just write your code, package it up in to a zip file, upload to Amazon and let them deal with the headache!
+如果你听说过整个 ”serverless“ 运动，那就是它。不再需要运行着的服务器或者要管理的容器。只需要编写代码，将其打包成 zip 文件，上传到 Amazon 并且让他们处理头痛（的运维）！
 
-Moreover, since Lambdas are short lived there is nothing to hack — Lambdas are pretty secure by design.
+此外，由于 Lambda 非常短暂，没有什么可以破解的 —— Lambda 在设计上非常安全。
 
-Great, isn’t it?
+太棒了，不是吗？
 
-It is but (surprise!) there are caveats.
+但是（惊不惊喜！）有警告。
 
-First, Lambdas can only run for a max of 15 minutes (as of November 2018). This implies that long running processes, like Kafka consumers or number crunching apps cannot run in Lambda.
+首先，Lambda 最多只能运行 15 分钟（截止 2018 年 11 月）。这意味着长时间运行的进程，如 Kafka consumers 或者数字运算应用程序无法在 Lambda 中运行。
 
-Second, Lambdas are Functions-as-a-Service, which means your application must be fully decomposed into microservices and orchestrated with other complex PaaS services like [AWS Step Functions](https://aws.amazon.com/step-functions/). Not every enterprise is at this level of microservice architecture.
+其次，Lambda 是功能即服务（Function-as-a-Service），这意味着你的应用程序必须完全分解成微服务，并且和其他复杂的 PaaS 服务协调，如 [AWS Step Functions](https://aws.amazon.com/step-functions/)。并非每个企业都处于这种微服务架构的水平。
 
-Third, troubleshooting Lambdas are difficult. They are cloud-native runtimes and all bug fixing takes place within Amazon ecosystem. This is oftentimes challenging and non-intuitive.
+第三，对于 Lambda 进行故障排除很困难。他们是在云原生（cloud-native）运行时，所有的错误修复都发生在 Amazon 生态系统中。这通常具有挑战性且不直观。
 
-In short, there is no free lunch.
+简言之，没有免费的午餐。
 
-NOTE: There are now “serverless” cloud container solutions as well. [AWS Fargate](https://aws.amazon.com/fargate/) is one such approach. However, I’m ignoring that for now since these tend to be fairly expensive and are still sparingly used.
+注意：现在还有 ”serverless“ 的云容器解决方案。[AWS Fargate](https://aws.amazon.com/fargate/) 就是这样的方法。但是，我忽略了这一点。因为这些往往相当昂贵并且使用要小心。
 
-### Summary
+### 总结
 
-Docker and Lambda are two of the most popular modern, cloud-native approaches to packaging, running and managing production applications.
+Docker 和 Lambda 是打包、运行和管理生产应用程序的两种最流行的现代云原生方法。
 
-They are often complimentary, each suited for slightly different use cases and applications.
+他们通常是互补的，每种都适用于略有不同的场景和应用程序。
 
-Regardless, a modern DevOps engineer must be well versed in both. Therefore, learning Docker and Lambda are good short- and medium-term goals.
+无论如何，现代 DevOps 工程师必须精通两者。因此，学习 Docker 和 Lambda 是很好的短期和中期目标。
 
-NOTE: Thus far in our series we have dealt with topics that Junior to Mid-Level DevOps Engineers are expected to know. In subsequent sections, we will start discussing techniques that are more suited for Mid-Level to Senior DevOps Engineers. As always, however, there are no shortcuts to experience!
+注意：到目前为止，在我们的系列中，我们已经涉及了初级到中级 DevOps 工程师都应该知道的主题。在后续章节中，我们将讨论更适合中级到高级 DevOps 工程师的技术。但是，和往常一样，没有捷径可言！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
