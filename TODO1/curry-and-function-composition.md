@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/curry-and-function-composition.md](https://github.com/xitu/gold-miner/blob/master/TODO1/curry-and-function-composition.md)
 > * 译者：[子非](https://www.github.com/CoolRice)
-> * 校对者：
+> * 校对者：[wuzhengyan2015](https://github.com/wuzhengyan2015), [TTtuntuntutu](https://github.com/TTtuntuntutu)
 
 # 柯里化与函数组合
 
