@@ -13,7 +13,7 @@
 
 因此，在本文中，我想向您展示处理问题的不同方法，您甚至可以在途中学习一些[新的Kotlin技巧](https://antonioleiva.com/kotlin-awesome-tricks-for-android/) ！
 
-## The problem
+## 问题所在
 
 当我们处理监听器时，我们知道 `OnclickListener` 作用于视图，归功于 Kotlin 对 Java 库的优化，我们可以将以下代码：
 
