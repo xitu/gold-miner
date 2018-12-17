@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-4-package.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-become-a-devops-engineer-in-six-months-or-less-part-4-package.md)
 > * 译者：[Raoul1996](https://github.com/Raoul1996)
-> * 校对者：
+> * 校对者：[7Ethan](https://github.com/7Ethan)
 
 # 如何在六个月或更短的时间内成为 DevOps 工程师，第四部分：打包
 
@@ -133,7 +133,7 @@ Docker 不仅允许完全**进程隔离**，还允许完全的**依赖隔离**�
 
 简而言之，这取决于！
 
-对于那些只是想让其他人运行他们的代码的人，[AWS Lambda](https://aws.amazon.com/lambda/) （或者类似的解决方案）是问题的答案：
+对于那些只是想让其他人运行他们的代码的人，[AWS Lambda](https://aws.amazon.com/lambda/)（或者类似的解决方案）是问题的答案：
 
 > AWS Lambda 允许你在不配置或者管理服务器的情况下运行代码。你只需要为你消耗的计算时间付费 —— 当你的代码未运行时不收取任何费用。
 
