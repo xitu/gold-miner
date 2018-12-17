@@ -1,4 +1,4 @@
-> * 原文地址：[MDC-102 Flutter: Material Structure and Layout (Flutter)](https://codelabs.developers.google.com/codelabs/mdc-102-flutter/#0)
+> * 原文地址：[MDC-102 Flutter: Material Structure and Layout (Flutter)](https://codelabs.developers.google.com/codelabs/mdc-102-flutter)
 > * 原文作者：[codelabs.developers.google.com](https://codelabs.developers.google.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-102-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-102-flutter.md)
