@@ -9,9 +9,7 @@
 
 ## 1. Introduction
 
-|    |    |
-| -- | -- |
-| ![](https://lh4.googleusercontent.com/yzZPYGHe5CrFE-84MXhqwb_y7YjCKLWQJHI7W7zqbT9_qdK8qufFjx51kepr3ITvZtF7vD3d72nurt-HPBARmQ6RF74PD1FwGZMNbXphLap4LqIEBCKWP5OxK2Vjeo-YEY3-oeIP) | Material Components (MDC) help developers implement Material Design. Created by a team of engineers and UX designers at Google, MDC features dozens of beautiful and functional UI components and is available for Android, iOS, web and Flutter. |
+![](https://lh4.googleusercontent.com/yzZPYGHe5CrFE-84MXhqwb_y7YjCKLWQJHI7W7zqbT9_qdK8qufFjx51kepr3ITvZtF7vD3d72nurt-HPBARmQ6RF74PD1FwGZMNbXphLap4LqIEBCKWP5OxK2Vjeo-YEY3-oeIP)Material Components (MDC) help developers implement Material Design. Created by a team of engineers and UX designers at Google, MDC features dozens of beautiful and functional UI components and is available for Android, iOS, web and Flutter.
 
 material.io/develop
 
