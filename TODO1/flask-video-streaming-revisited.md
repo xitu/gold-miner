@@ -1,5 +1,5 @@
 > * 原文地址：[Flask Video Streaming Revisited](https://blog.miguelgrinberg.com/post/flask-video-streaming-revisited)
-> * 原文作者：[Miguel Grinberg](Miguel Grinberg)
+> * 原文作者：[Miguel Grinberg](https://blog.miguelgrinberg.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flask-video-streaming-revisited.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flask-video-streaming-revisited.md)
 > * 译者：
