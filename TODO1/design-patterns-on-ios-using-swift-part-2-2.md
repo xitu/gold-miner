@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-on-ios-using-swift-part-2-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-on-ios-using-swift-part-2-2.md)
 > * 译者：[iWeslie](https://github.com/iWeslie)
-> * 校对者：
+> * 校对者：[swants](https://github.com/swants)
 
 # 使用 Swift 的 iOS 设计模式（第二部分）
 
@@ -11,13 +11,13 @@
 
 > **更新说明**：本教程已由译者针对 iOS 12，Xcode 10 和 Swift 4.2 进行了更新。原帖由教程团队成员 Eli Ganem 发布。
 
-欢迎回到 iOS 设计模式的入门教程第二部分！在 [第一部分](https://juejin.im/post/5c05d4ee5188250ab14e62d6) 中, 你已经了解了 Cocoa 中的一些基本模式，比如 MVC、单例和装饰模式。
+欢迎回到 iOS 设计模式的入门教程第二部分！在 [第一部分](https://juejin.im/post/5c05d4ee5188250ab14e62d6) 中，你已经了解了 Cocoa 中的一些基本模式，比如 MVC、单例和装饰模式。
 
 在最后一部分中，你将了解 iOS 和 OS X 开发中出现的其他基本设计模式：适配器、观察者和备忘录。让我们现在就开始吧！
 
 ## 入门
 
-你可以下载 [第一部分最结尾处的项目](https://koenig-media.raywenderlich.com/uploads/2017/07/RWBlueLibrary-Part1-Final.zip) 来开始.
+你可以下载 [第一部分最结尾处的项目](https://koenig-media.raywenderlich.com/uploads/2017/07/RWBlueLibrary-Part1-Final.zip) 来开始。
 
 这是你在第一部分结尾处留下的音乐库应用程序：
 
@@ -87,7 +87,7 @@ private enum ViewConstants {
 }
 
 // 2
-private let scroller = UIScrollView()0o
+private let scroller = UIScrollView()
 
 // 3
 private var contentViews = [UIView]()
@@ -209,7 +209,7 @@ func reload() {
 }
 ```
 
-`UITableView`中的 `reload` 方法会在 `reloadData` 之后建模，它将重新加载用于构造 scrollView 的所有数据。
+`UITableView` 中的 `reload` 方法会在 `reloadData` 之后建模，它将重新加载用于构造 scrollView 的所有数据。
 
 每条注释对应的详解如下：
 
@@ -409,7 +409,7 @@ NotificationCenter.default.addObserver(self, selector: #selector(downloadImage(w
 import UIKit
 ```
 
-此次 import 很重要，因为你将处理 `UI` 对象，比如`UIImage`。
+此次 import 很重要，因为你将处理 `UI` 对象，比如 `UIImage`。
 
 把这个计算属性添加到该类的最后：
 
@@ -609,7 +609,7 @@ Swift 4 为 `类`，`结构体` 和 `枚举` 这三种类型解决了这个问�
 
 ### 如何使用归档和序列化
 
-打开 **Album.swift** 并让 `Album` 遵行 `Codable`。这个协议可以让 Swift 中的类同时遵行 `Encodable` 和 `Decodable`。 如果所有属性都是可 `Codable` 的，则协议的实现由编译器自动生成。
+打开 **Album.swift** 并让 `Album` 遵行 `Codable`。这个协议可以让 Swift 中的类同时遵行 `Encodable` 和 `Decodable`。如果所有属性都是可 `Codable` 的，则协议的实现由编译器自动生成。
 
 你的代码现在看起来会像这样：
 
@@ -681,8 +681,6 @@ if let albumData = data,
 关于该文章主题的一本经典书籍是 [Design Patterns: Elements of Reusable Object-Oriented Software](http://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/)。有关代码示例，请查看 GitHub 上一个非常棒的项目 [Design Patterns: Elements of Reusable Object-Oriented Software](https://github.com/ochococo/Design-Patterns-In-Swift) 来取更多在 Swift 中编程中的设计模式。
 
 最后请务必查看 [Swift 设计模式进阶](http://www.raywenderlich.com/86053/intermediate-design-patterns-in-swift) 和我们的视频课程 [iOS Design Patterns](https://videos.raywenderlich.com/courses/72-ios-design-patterns/lessons/1) 来了解更多设计模式！
-
-
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
