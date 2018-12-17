@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/native-web-components.md](https://github.com/xitu/gold-miner/blob/master/TODO1/native-web-components.md)
 > * 译者：[newraina](https://github.com/newraina)
-> * 校对者：
+> * 校对者：[CoderMing](https://github.com/CoderMing)
 
 # 用 Shadow DOM v1 和 Custom Elements v1 实现一个原生 Web Component
 
@@ -40,14 +40,14 @@ constructor 里，对 `super()` 不带参数的调用必须放在第一行。它
 
 新建文件的时候，还要创建：一个 `index.html`，用来实际引用组件；一个 `mini-form-test.html`，用来写测试用例，因为组件是你写的。先在这两个文件里写上基本的 HTML5 样板代码。
 
-你还需要一些 polyfills。我们使用的 web 标准非常新，[还没被所有浏览器支持](https://caniuse.com/#search=custom%20elements%20v1)，至少到目前为止，polyfills 是必须的。对于我们这个简单的组件，只需要两个 polyfills：[custom elements](https://github.com/webcomponents/custom-elements) 和 [shadydom](https://github.com/webcomponents/shadydom)，可以用 Bower 安装：
+你还需要一些 polyfill。我们使用的 web 标准非常新，[还没被所有浏览器支持](https://caniuse.com/#search=custom%20elements%20v1)，至少到目前为止，polyfill 是必须的。对于我们这个简单的组件，只需要两个 polyfill：[custom elements](https://github.com/webcomponents/custom-elements) 和 [shadydom](https://github.com/webcomponents/shadydom)，可以用 Bower 安装：
 
 ```
 bower install --save webcomponents/custom-elements
 bower install --save webcomponents/shadydom
 ```
 
-把这两个 polyfills 放在 `index.html` 和 `mini-form-test.html` 的 head 里， （或者用你习惯的构建工具打包在一起，都行，无所谓。）同时，也要把 `mini-form.js` 引用进每一个 HTML 文件里。`index.html` 现在差不多是下面的样子：
+把这两个 polyfills 放在 `index.html` 和 `mini-form-test.html` 的 head 里，（或者用你习惯的构建工具打包在一起，都行，无所谓。）同时，也要把 `mini-form.js` 引用进每一个 HTML 文件里。`index.html` 现在差不多是下面的样子：
 
 ```
 <!doctype html>
@@ -67,7 +67,7 @@ bower install --save webcomponents/shadydom
 
 ## 编写测试用例
 
-在真的开始写组件之前，我们先写一些测试。我们要测试这个组件能不能在 DOM 中渲染出一个 `div` ，现在它还通不过测试，毕竟我们的组件还几乎不存在。不过，一旦我们渲染出了一个 `div` 元素，我们就能体会到目睹测试通过的乐趣。
+在真的开始写组件之前，我们先写一些测试。我们要测试这个组件能不能在 DOM 中渲染出一个 `div`，现在它还通不过测试，毕竟我们的组件还几乎不存在。不过，一旦我们渲染出了一个 `div` 元素，我们就能体会到目睹测试通过的乐趣。
 
 测试差不多是这个样子：
 
@@ -80,7 +80,7 @@ suite('<mini-form>', () => {
 });
 ```
 
-为了运行测试，我们要用到 [Polymer Project](https://www.polymer-project.org/) 创建的 [web component tester](https://github.com/Polymer/web-component-tester) 工具。用 NPM 安装好 web-component-tester 之后，在 `mini-form-test.html` head 里加上 `node_modules/web-component-tester/browser.js`，polyfills 和 `mini-form.js` 也应该在页面上了。
+为了运行测试，我们要用到 [Polymer Project](https://www.polymer-project.org/) 创建的 [web component tester](https://github.com/Polymer/web-component-tester) 工具。用 NPM 安装好 web-component-tester 之后，在 `mini-form-test.html` 文件的 head 标签里加上 `node_modules/web-component-tester/browser.js`，polyfills 和 `mini-form.js` 也应该在页面上了。
 
 你还要在 body 里加上 mini-form 的实例，就像这样：
 
@@ -224,7 +224,7 @@ test('render button', () => {
 
 在浏览器里打开组件的 `index.html` 看一下，页面虽然还需要打磨，但是已经有一个好看的输入框和一个漂亮的粉色按钮了。
 
-(没看到粉色按钮？可以来[这里](https://github.com/pearlbea/mini-form/tree/step-3)看下到这一步，代码应该是什么样子。)
+（没看到粉色按钮？可以来[这里](https://github.com/pearlbea/mini-form/tree/step-3)看下到这一步，代码应该是什么样子。）
 
 ## 在内部 DOM 中创建 <slot>
 
@@ -436,16 +436,16 @@ displayErrorMessage() {
 
 ## 相关链接
 
-*   [webcomponents.org](https://www.webcomponents.org/), 关于 web components 最重要的信息来源
-*   [Web Components v1 - the next generation](https://developers.google.com/web/updates/2017/01/webcomponents-org) Google 的 Web 更新动向，Taylor Savage 编写
+*   [webcomponents.org](https://www.webcomponents.org/)，关于 web components 最重要的信息来源
+*   [Web Components v1 — the next generation](https://developers.google.com/web/updates/2017/01/webcomponents-org) Google 的 Web 更新动向，Taylor Savage 编写
 *   [Custom Elements v1: Reusable Web Components](https://developers.google.com/web/fundamentals/getting-started/primers/customelements) Google 的 Web 基础知识，Eric Bidelman 编写
 *   [Shadow DOM v1: Self-Contained Web Components](https://developers.google.com/web/fundamentals/getting-started/primers/shadowdom) Google 的 Web 基础知识，Eric Bidelman 编写
-*   [Custom Elements That Work Anywhere](https://medium.com/dev-channel/custom-elements-that-work-anywhere-898e1dd2bc48) Rob Dodson 编写, 来自 Medium
-*   [Polymer](https://www.polymer-project.org/), 一个 web component 库
-*   [Skate](https://www.gitbook.com/book/skatejs/skatejs/details), 也是一个 web component 库
-*   [web-component-tester](https://github.com/Polymer/web-component-tester), 一个测试 web components 的工具
+*   [Custom Elements That Work Anywhere](https://medium.com/dev-channel/custom-elements-that-work-anywhere-898e1dd2bc48) Rob Dodson 编写
+*   [Polymer](https://www.polymer-project.org/)，一个 web component 库
+*   [Skate](https://www.gitbook.com/book/skatejs/skatejs/details)，也是一个 web component 库
+*   [web-component-tester](https://github.com/Polymer/web-component-tester)，一个测试 web components 的工具
 
-##### 有任何问题或想法，都可以在 twitter [@bendyworks](https://twitter.com/bendyworks) 或者 [Facebook.](https://www.facebook.com/bendyworks) 上联系我们。
+##### 有任何问题或想法，都可以在 twitter [@bendyworks](https://twitter.com/bendyworks) 或者 [Facebook](https://www.facebook.com/bendyworks) 上联系我们。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
