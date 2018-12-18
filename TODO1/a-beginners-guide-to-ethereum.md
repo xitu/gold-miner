@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-beginners-guide-to-ethereum.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-beginners-guide-to-ethereum.md)
 > * 译者：[Rickon](https://github.com/gs666)
-> * 校对者：
+> * 校对者：[Qiuk17](https://github.com/Qiuk17), [ZyGan1999](https://github.com/ZyGan1999)
 
 # 以太坊入门指南
 
 ## 什么是以太坊？
 
-按照[以太坊官网](https://www.ethereum.org/)的说法，“以太坊是一个运行智能合约的去中心化平台。”  这是一个准确的总结，但是根据我的经验，当我首次向我的亲朋好友或者陌生人解释以太坊的时候把以太坊和比特币作比较会让人更容易理解，因为很多人之前至少听说过比特币。这份入门指南应该有助于刚接触以太坊的人们理解两者之间的高层差异。
+按照[以太坊官网](https://www.ethereum.org/)的说法，“以太坊是一个运行智能合约的去中心化平台。”这是一个准确的总结，但是根据我的经验，当我首次向我的亲朋好友或者陌生人解释以太坊的时候把以太坊和比特币作比较会让人更容易理解，因为很多人之前至少听说过比特币。这份入门指南应该有助于刚接触以太坊的人们理解两者之间的高层差异。
 
 ![](https://user-gold-cdn.xitu.io/2018/12/12/167a289c995aea29?w=800&h=478&f=png&s=128690)
 
@@ -31,15 +31,15 @@
 
 考虑到一个普通人在电脑上可能拥有多余的计算能力和存储空间。如果它没有被使用，那么为什么不把它提供给其他人呢？这与在 Airbnb 出租一间空着的卧室的概念类似。使用去中心化应用的另一个好处是没有了容易受到审查的集中式服务器。
 
-有几个正在开发中的项目允许人们从别人那里获得多余的计算能力和存储空间。[Filecoin](http://filecoin.io/)允许人们出租他们的电脑存储空间给别人并获得报酬。类似的还有 [Golem](https://golem.network/)允许人们出租他们的计算能力。像这样的点子并不新鲜了。自从 2000 年起,[Folding@home](https://folding.stanford.edu/)就已经允许志愿者为斯坦福大学的科学研究贡献多余的计算能力。现在，这个概念可以货币化并应用于其他行业，可能会降低成本。
+有几个正在开发中的项目允许人们从别人那里获得多余的计算能力和存储空间。[Filecoin](http://filecoin.io/)允许人们出租他们的电脑存储空间给别人并获得报酬。类似的还有 [Golem](https://golem.network/)允许人们出租他们的计算能力。像这样的点子并不新鲜了。自从 2000 年起，[Folding@home](https://folding.stanford.edu/) 就已经允许志愿者为斯坦福大学的科学研究贡献多余的计算能力。现在，这个概念可以货币化并应用于其他行业，可能会降低成本。
 
 ## 社交媒体
 
-[Akasha](http://akasha.world/) 是一个去中心化的社交媒体平台。没有集中式服务器，因此没有任何一方可以完全控制内容。这意味着该平台可以抵御审查。在以太坊上构建去中心化的社交媒体应用的另一个好处是，人们可以创建一个在财务上奖励高质量内容的系统。这就像[Reddit](https://www.reddit.com/)一样，但是你可以向帖子打赏少量的钱，而不是点赞。
+[Akasha](http://akasha.world/) 是一个去中心化的社交媒体平台。没有集中式服务器，因此没有任何一方可以完全控制内容。这意味着该平台可以抵御审查。在以太坊上构建去中心化的社交媒体应用的另一个好处是，人们可以创建一个在财务上奖励高质量内容的系统。这就像 [Reddit](https://www.reddit.com/) 一样，但是你可以向帖子打赏少量的钱，而不是点赞。
 
 ## 权利管理
 
-去中心化的应用程序可被用来为多个行业带来透明度。 例如 [SingularDTV](https://singulardtv.com/) 提供娱乐圈权利管理平台，它允许向创作者、投资者、工作人员、演员和项目中涉及的其他人透明地分配资金。没有集中方可以阻止某个组获取他们的资金，因为这些条款是由代码强制执行的。每个人都会按照前面提到的条款获得报酬，并且不需要第三方介入。
+去中心化的应用程序可被用来为多个行业带来透明度。例如 [SingularDTV](https://singulardtv.com/) 提供娱乐圈权利管理平台，它允许向创作者、投资者、工作人员、演员和项目中涉及的其他人透明地分配资金。没有集中方可以阻止某个组获取他们的资金，因为这些条款是由代码强制执行的。每个人都会按照前面提到的条款获得报酬，并且不需要第三方介入。
 
 ## 管理公司
 
@@ -53,7 +53,7 @@
 
 在众筹时筹集的金额（非隐含估值）
 
-想获取有关这些代币如何运行的更多信息，请参阅[ 如何使用代币在区块链上融资](https://blog.gdax.com/how-to-raise-money-on-a-blockchain-with-a-token-510562c9cdfa#.rw9pz8i7p), [ 区块链代币证券法律框架](https://blog.coinbase.com/2016-12-07-blockchain-token-securities-law-a66ef03c383f#.lowvjw5i8), 和[App Coins 和协议代币之间的区别](https://medium.com/@willwarren89/the-difference-between-app-coins-and-protocol-tokens-7281a428348c#.pzk5vjfxd)。
+想获取有关这些代币如何运行的更多信息，请参阅[ 如何使用代币在区块链上融资](https://blog.gdax.com/how-to-raise-money-on-a-blockchain-with-a-token-510562c9cdfa#.rw9pz8i7p)，[ 区块链代币证券法律框架](https://blog.coinbase.com/2016-12-07-blockchain-token-securities-law-a66ef03c383f#.lowvjw5i8)，和 [App Coins 和协议代币之间的区别](https://medium.com/@willwarren89/the-difference-between-app-coins-and-protocol-tokens-7281a428348c#.pzk5vjfxd)。
 
 ## 资料
 
@@ -74,9 +74,9 @@
 *   [The Control](https://thecontrol.co/)
 *   [Smith + Crown](https://www.smithandcrown.com/)
 *   [The Dapp Daily](https://dappdaily.com/)
-*   [Silicon Valley Ethereum Meetup](https://www.meetup.com/EthereumSiliconValley/) （查看你当地的聚会）
+*   [Silicon Valley Ethereum Meetup](https://www.meetup.com/EthereumSiliconValley/)（查看你当地的聚会）
 
-感谢 [Will Warren](https://medium.com/@willwarren89), [Fred Ehrsam](https://medium.com/@FEhrsam), 和很多 [Coinbase](https://www.coinbase.com/) 员工，尤其是 [Jordan Clifford](https://medium.com/@jcliff), [Reuben Bramanathan](https://medium.com/@bramanathan), [Ankur Nandwani](https://medium.com/u/62401673b186), [Dan Romero](https://medium.com/@dwr), 和 [Jeremy Henrickson](https://medium.com/@jeremyhenrickson).
+感谢 [Will Warren](https://medium.com/@willwarren89)、[Fred Ehrsam](https://medium.com/@FEhrsam) 和很多 [Coinbase](https://www.coinbase.com/) 员工，尤其是 [Jordan Clifford](https://medium.com/@jcliff)、[Reuben Bramanathan](https://medium.com/@bramanathan)、[Ankur Nandwani](https://medium.com/u/62401673b186)、[Dan Romero](https://medium.com/@dwr) 和 [Jeremy Henrickson](https://medium.com/@jeremyhenrickson)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
