@@ -35,7 +35,7 @@ const result = add(2)(3); // => 5
 
 首先，函数接受参数 `a` 并**返回一个新的函数**，新函数接受 `b` 返回 `a` 与 `b` 之和。**一次接受一个参数**。如果函数有更多参数，它会简单地继续返回新函数直到所有的参数都被提供，这时应用完成。
 
-`add` 函数接受一个参数，然后返回自己的 **偏函数应用**，`a` 固定在偏函数应用的闭包作用域中 。**闭包**指函数绑定其语法作用域。闭包在创建函数运行时被创建。固定意味着在闭包绑定的作用域内变量被赋值。
+`add` 函数接受一个参数，然后返回自己的 **偏函数应用**，`a` 固定在偏函数应用的闭包作用域中。**闭包**指函数绑定其语法作用域。闭包在创建函数运行时被创建。固定意味着在闭包绑定的作用域内变量被赋值。
 
 上例中的括号代表的函数调用过程：使用 `2` 做参数调用 `add`，返回偏函数应用并且 `a` 的值固定为 `2`。我们不会将返回值赋值给变量或以其他方式使用它，而是通过在括号中将 `3` 传递给它来立即调用返回函数，从而完成应用并返回 `5`。
 
@@ -97,7 +97,7 @@ inc(3) // 4
 
 当我们调用 `add(1)` 来创建 `inc()` 时，`add()` 中的 `a` 参数在返回的函数中固定为 `1`，这个返回的函数赋值给`inc`。
 
-当我们调用 `inc(3)` 时， `add()` 中的 `b` 参数被参数 `3` 替换，函数结束，返回 `1` 与 `3` 之和。
+当我们调用 `inc(3)` 时，`add()` 中的 `b` 参数被参数 `3` 替换，函数结束，返回 `1` 与 `3` 之和。
 
 所有的柯里化函数都是高阶形式函数，它允许你为了专门用途创建原函数的专用版本。
 
@@ -158,7 +158,7 @@ g . f . h
 const compose = (...fns) => x => fns.reduceRight((y, f) => f(y), x);
 ```
 
-此版本使用任意多个函数并返回一个需要初始值的函数，然后使用 `reduceRight()` 从右到左遍历每一个函数， 即 `fns` 中的 `f`，并把它变成累积值 `y`。函数中累加器的计算值 `y` 就是函数 `compose()` 的返回值。
+此版本使用任意多个函数并返回一个需要初始值的函数，然后使用 `reduceRight()` 从右到左遍历每一个函数，即 `fns` 中的 `f`，并把它变成累积值 `y`。函数中累加器的计算值 `y` 就是函数 `compose()` 的返回值。
 
 现在我们可以这样组合：
 
@@ -166,7 +166,7 @@ const compose = (...fns) => x => fns.reduceRight((y, f) => f(y), x);
 const g = n => n + 1;
 const f = n => n * 2;
 
-// 使用 `compose(f, g) 替换 `x => f(g(x))` `
+// 使用 `compose(f, g)` 替换 `x => f(g(x))` `
 const h = compose(f, g);
 
 h(20); //=> 42
@@ -284,7 +284,7 @@ g:      b => c
 h: a    =>   c
 ```
 
-如果上面的函数  `g`  期望两个参数，`f` 的输出就会和 `g` 的输入不一致：
+如果上面的函数 `g` 期望两个参数，`f` 的输出就会和 `g` 的输入不一致：
 
 ```
 f: a => b
@@ -427,7 +427,7 @@ const trace = label => value => {
 const traceAfterG = trace('after g');
 ```
 
-……等同于：
+...等同于：
 
 ```
 const traceAfterG = value => {
@@ -447,7 +447,7 @@ const trace = label => value => {
   return value;
 };
 
-// 柯里化版本的 trace() 能让我们避免这种代码……
+// 柯里化版本的 trace() 能让我们避免这种代码...
 const traceAfterG = value => {
   const label = 'after g';
   console.log(`${ label }: ${ value }`);
@@ -485,7 +485,7 @@ h(20);
 
 * * *
 
-**Eric Elliott** 是 [**Programming JavaScript Applications(O’Reilly)**](http://pjabook.com) 的作者，**并且是软件导师制平台 [DevAnywhere.io](https://devanywhere.io/) 的合作创始人。他拥有为 Adobe Systems、Zumba Fitness、The Wall Street Journal、ESPN、BBC 和顶尖音乐艺术家包括 Usher、Frank Ocean、Metallica 等工作的经验。**
+**Eric Elliott 是 [Programming JavaScript Applications(O’Reilly)](http://pjabook.com) 的作者，并且是软件导师制平台 [DevAnywhere.io](https://devanywhere.io/) 的合作创始人。他拥有为 Adobe Systems、Zumba Fitness、The Wall Street Journal、ESPN、BBC 和顶尖音乐艺术家包括 Usher、Frank Ocean、Metallica 等工作的经验。**
 
 **他有着世界上最漂亮的女人陪着他在世界各地远程工作。**
 
