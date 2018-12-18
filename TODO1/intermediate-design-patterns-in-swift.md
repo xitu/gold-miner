@@ -2,29 +2,29 @@
 > * 原文作者：[raywenderlich.com](https://www.raywenderlich.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/intermediate-design-patterns-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/intermediate-design-patterns-in-swift.md)
-> * 译者：
+> * 译者：[iWeslie](https://github.com/iWeslie)
 > * 校对者：
 
-# Intermediate Design Patterns in Swift
+# iOS 设计模式进阶
 
-Design patterns are incredibly useful for making code maintainable and readable. Learn design patterns in Swift with this hands on tutorial.
+设计模式对于代码的维护和提高可读性非常有用，通过本教程你讲学习 Swift 中的其他设计模式。
 
-_Update 5/12/2015:_ Updated for Xcode 6.3 / Swift 1.2.
+**更新说明**：本教程已由译者针对 iOS 12，Xcode 10 和 Swift 4.2 进行了更新
 
-_Beginner’s note:_ New to design patterns? Check out our two-part tutorial, [Introducing iOS Design Patterns in Swift](https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-on-ios-using-swift-part-1-2.md) for the basics before reading on!
+**新手教程**：没了解过设计模式？来看看设计模式的 [入门教程](https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-on-ios-using-swift-part-1-2.md) 来阅读之前的基础知识吧。
 
-In this tutorial, you’ll learn to use design patterns in Swift to refactor a game called _Tap the Larger Shape_.
+在本教程中，您将学习如何使用 Swift 中的设计模式来重构一个名为 **Tap the Larger Shape** 的游戏。
 
 Having knowledge of design patterns is crucial to writing apps that are maintainable and bug free. Knowing when to employ each design pattern is a skill that you can only learn with practice. Where better to learn than this tutorial!
 
 But what exactly is a design pattern? It’s a formally documented solution to a common problem. For example, consider the common problem of looping over a collection of items — the design pattern you use here is the _Iterator_ design pattern:
 
-```
+```swift
 var collection = ...
 
 // The for loop condition uses the Iterator design pattern
 for item in collection {
-  println("Item is: \(item)")
+  print("Item is: \(item)")
 }
 ```
 
@@ -62,8 +62,7 @@ Tap the smaller shape and lose points.
 
 Before getting into the details of design patterns, take a look at the game as it’s currently written. Open _Shape.swift_ take a look around and find the following code. You don’t need to make any changes, just look:
 
-```
-import Foundation
+```swift
 import UIKit
 
 class Shape {
@@ -78,8 +77,7 @@ The `Shape` class is the basic model for tappable shapes in the game. The concre
 
 Next, open _ShapeView.swift_ and take a look at the code for `ShapeView`:
 
-```
-import Foundation
+```swift
 import UIKit
 
 class ShapeView: UIView {
@@ -147,7 +145,7 @@ class ShapeView: UIView {
 
 Now scroll down and examine `SquareShapeView`:
 
-```
+```swift
 class SquareShapeView: ShapeView {
   override func drawRect(rect: CGRect) {
     super.drawRect(rect)
@@ -182,7 +180,7 @@ Here’s how `SquareShapeView` draws itself:
 
 Excellent, now that you understand how the game draws its shapes, open _GameViewController.swift_ and have a look at the game logic:
 
-```
+```swift
 import UIKit
 
 class GameViewController: UIViewController {
@@ -288,8 +286,7 @@ Your first task is to decouple and simplify your `GameViewController` using the 
 
 Click File\New\File… and then select iOS\Source\Swift File. Call the file _ShapeViewFactory.swift_, save it and then replace its contents with the code below:
 
-```
-import Foundation
+```swift
 import UIKit
 
 // 1
@@ -311,7 +308,7 @@ Here’s how your new factory works:
 
 Add the following code to end of _ShapeViewFactory.swift_:
 
-```
+```swift
 class SquareShapeViewFactory: ShapeViewFactory {
   var size: CGSize
 
@@ -323,7 +320,7 @@ class SquareShapeViewFactory: ShapeViewFactory {
   func makeShapeViewsForShapes(shapes: (Shape, Shape)) -> (ShapeView, ShapeView) {
     // 2
     let squareShape1 = shapes.0 as! SquareShape
-    let shapeView1 = 
+    let shapeView1 =
       SquareShapeView(frame: CGRect(x: 0,
                                     y: 0,
                                     width: squareShape1.sideLength * size.width,
@@ -357,7 +354,7 @@ Your `SquareShapeViewFactory` produces `SquareShapeView` instances as follows:
 
 Finally, it’s time to put `SquareShapeViewFactory` to use. Open _GameViewController.swift_, and replace its contents with the following:
 
-```
+```swift
 import UIKit
 
 class GameViewController: UIViewController {
@@ -427,8 +424,7 @@ If you were to replace `SquareShapeView` with `SomeOtherShapeView`, then the ben
 
 Now that you’ve simplified the creation of shape views, you’re going to simplify the creation of shapes. Create a new Swift file like before, called _ShapeFactory.swift_, and paste in the following code:
 
-```
-import Foundation
+```swift
 import UIKit
 
 // 1
@@ -475,19 +471,19 @@ Your new `ShapeFactory` produces shapes as follows:
 
 Now open _GameViewController.swift_ and insert the following line at the bottom just before the closing curly brace:
 
-```
+```swift
 private var shapeFactory: ShapeFactory!
 ```
 
 Then insert the following line near the bottom of `viewDidLoad`, just above the invocation of `beginNextTurn`:
 
-```
+```swift
 shapeFactory = SquareShapeFactory(minProportion: 0.3, maxProportion: 0.8)
 ```
 
 Finally, replace `beginNextTurn` with this code:
 
-```
+```swift
 private func beginNextTurn() {
   // 1
   let shapes = shapeFactory.createShapes()
@@ -527,7 +523,7 @@ Once again, using the _Abstract Factory_ design pattern simplified your code by 
 
 At this point you can _almost_ add a second shape, for example, a circle. Your only hard-coded dependence on squares is in the score calculation in `beginNextTurn` in code like the following:
 
-```
+```swift
 shapeViews.1.tapHandler = {
   tappedView in
   // 1
@@ -545,13 +541,13 @@ The solution is to use the _Servant_ design pattern, which provides a behavior l
 
 Open _Shape.swift_ and add the following line to the bottom of the `Shape` class:
 
-```
+```swift
 var area: CGFloat { return 0 }
 ```
 
 Then add the following line to the bottom of the `SquareShape` class:
 
-```
+```swift
 override var area: CGFloat { return sideLength * sideLength }
 ```
 
@@ -559,7 +555,7 @@ You can see where this is going — you can calculate which shape is larger base
 
 Open _GameViewController.swift_ and replace `beginNextTurn` with the following:
 
-```
+```swift
 private func beginNextTurn() {
   let shapes = shapeFactory.createShapes()
 
@@ -600,7 +596,7 @@ Congratulations, you’ve completely removed dependencies on squares from your g
 
 You need to introduce some smooth “circley goodness.” Open _Shape.swift_, and then add the following code at the bottom of the file:
 
-```
+```swift
 class CircleShape: Shape {
     var diameter: CGFloat!
     override var area: CGFloat { return CGFloat(M_PI) * diameter * diameter / 4.0 }
@@ -611,7 +607,7 @@ Your circle only needs to know the `diameter` from which it can compute its area
 
 Next, build `CircleShape` objects by adding a `CircleShapeFactory`. Open _ShapeFactory.swift_, and add the following code at the bottom of the file:
 
-```
+```swift
 class CircleShapeFactory: ShapeFactory {
   var minProportion: CGFloat
   var maxProportion: CGFloat
@@ -643,7 +639,7 @@ It’s easy to please your constituents; all you need to is _represent_ your new
 
 Open `ShapeView.swift` and add the following at the bottom of the file:
 
-```
+```swift
 class CircleShapeView: ShapeView {
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -696,7 +692,7 @@ Now you’ll create `CircleShapeView` objects in a `CircleShapeViewFactory`.
 
 Open _ShapeViewFactory.swift_ and add the following code at the bottom of the file:
 
-```
+```swift
 class CircleShapeViewFactory: ShapeViewFactory {
   var size: CGSize
 
@@ -732,14 +728,14 @@ This is the factory that will create circles instead of squares. _Section 1_ and
 
 Finally, open _GameViewController.swift_ and replace the lines in `viewDidLoad` that assign the shape and view factories with the following:
 
-```
+```swift
 shapeViewFactory = CircleShapeViewFactory(size: gameView.sizeAvailableForShapes())
 shapeFactory = CircleShapeFactory(minProportion: 0.3, maxProportion: 0.8)
 ```
 
 Now build and run and you should see something like the following screenshot.
 
-[![Screenshot7](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot7-180x320.png)](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot7.png)  
+[![Screenshot7](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot7-180x320.png)](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot7.png)
 Lookee there. You made circles!
 
 Notice how you were able to add a new shape without much impact on your game’s logic in `GameViewController`? The Abstract Factory and Servant design patterns made this possible.
@@ -758,8 +754,7 @@ Builder solves this problem rather elegantly because it creates a class with a s
 
 Create a new file _ShapeViewBuilder.swift_ and replace its contents with the following code:
 
-```
-import Foundation
+```swift
 import UIKit
 
 class ShapeViewBuilder {
@@ -810,13 +805,13 @@ Here’s how your new `ShapeViewBuilder` works:
 
 Deploying your spiffy new `ShapeViewBuilder` is as easy as opening _GameViewController.swift_ and adding the following code to the bottom of the class, just before the closing curly brace:
 
-```
+```swift
 private var shapeViewBuilder: ShapeViewBuilder!
 ```
 
 Now, populate your new property by adding the following code to `viewDidLoad` just above the line that invokes `beginNextTurn`:
 
-```
+```swift
 shapeViewBuilder = ShapeViewBuilder(shapeViewFactory: shapeViewFactory)
 shapeViewBuilder.fillColor = UIColor.brownColor()
 shapeViewBuilder.outlineColor = UIColor.orangeColor()
@@ -824,7 +819,7 @@ shapeViewBuilder.outlineColor = UIColor.orangeColor()
 
 Finally replace the line that creates `shapeViews` in `beginNextTurn` with the following:
 
-```
+```swift
 let shapeViews = shapeViewBuilder.buildShapeViewsForShapes(shapes)
 ```
 
@@ -836,7 +831,7 @@ Notice how your circles are now a pleasant brown with orange outlines — I know
 
 Now to reinforce the power of the Builder pattern. With `GameViewController.swift` still open, change your `viewDidLoad` to use square factories:
 
-```
+```swift
 shapeViewFactory = SquareShapeViewFactory(size: gameView.sizeAvailableForShapes())
 shapeFactory = SquareShapeFactory(minProportion: 0.3, maxProportion: 0.8)
 ```
@@ -857,8 +852,7 @@ Wouldn’t it be helpful if your game could track all the turns, stats and award
 
 Create a new file called _Turn.swift_, and replace its contents with the following code:
 
-```
-import Foundation
+```swift
 
 class Turn {
   // 1
@@ -885,8 +879,7 @@ Your new `Turn` class does the following:
 
 To control the sequence of turns your players play, create a new file named _TurnController.swift_, and replace its contents with the following code:
 
-```
-import Foundation
+```swift
 
 class TurnController {
   // 1
@@ -934,19 +927,19 @@ Your `TurnController` works as follows:
 
 Now open _GameViewController.swift_, and add the following code at the bottom, just above the closing curly brace:
 
-```
+```swift
 private var turnController: TurnController!
 ```
 
 Scroll up to `viewDidLoad`, and just before the line invoking `beginNewTurn`, insert the following code:
 
-```
+```swift
 turnController = TurnController(shapeFactory: shapeFactory, shapeViewBuilder: shapeViewBuilder)
 ```
 
 Replace `beginNextTurn` with the following:
 
-```
+```swift
 private func beginNextTurn() {
   // 1
   let shapeViews = turnController.beginNewTurn()
@@ -1005,8 +998,7 @@ If you guessed that you’re going to implement the Strategy as a Swift `protoco
 
 Create a new file named _TurnStrategy.swift_, and replace its contents with the following code:
 
-```
-import Foundation
+```swift
 
 // 1
 protocol TurnStrategy {
@@ -1061,8 +1053,7 @@ Here's what your new `TurnStrategy` does line-by-line:
 
 Now you need to use your strategies. Open _TurnController.swift_, and replace its contents with the following:
 
-```
-import Foundation
+```swift
 
 class TurnController {
   var currentTurn: Turn?
@@ -1105,7 +1096,7 @@ Your last step to use the _Strategy_ design pattern is to adapt your `GameViewCo
 
 Open _GameViewController.swift_ and replace its contents with the following:
 
-```
+```swift
 import UIKit
 
 class GameViewController: UIViewController {
@@ -1183,12 +1174,12 @@ Notice how your game randomly alternates between square shapes and circle shapes
 
 Think about the example at the beginning of this tutorial:
 
-```
+```swift
 var collection = ...
 
 // The for loop condition uses the Iterator design pattern
 for item in collection {
-  println("Item is: \(item)")
+  print("Item is: \(item)")
 }
 ```
 
@@ -1204,8 +1195,7 @@ For this tutorial, you'll use _Command_ to determine if a `Turn` was a match, an
 
 Create a new file named _Scorer.swift_, and replace its contents with the following code:
 
-```
-import Foundation
+```swift
 
 // 1
 protocol Scorer {
@@ -1242,19 +1232,19 @@ Taking each section in turn:
 
 Now open _TurnController.swift_ and add the following line near the end, just before the closing brace:
 
-```
+```swift
 private let scorer: Scorer
 ```
 
 Then add the following line to the end of the initializer `init(turnStrategy:)`:
 
-```
+```swift
 self.scorer = MatchScorer()
 ```
 
 Finally, replace the line in `endTurnWithTappedShape` that declares and sets `scoreIncrement` with the following:
 
-```
+```swift
 var scoreIncrement = scorer.computeScoreIncrement(pastTurns.reverse())=
 ```
 
@@ -1270,13 +1260,13 @@ For example, not only will you award +1 or -1 for matches or mismatches, but you
 
 Open _Scorer.swift_ and add the following line to the top of `MatchScorer`
 
-```
+```swift
 var nextScorer: Scorer? = nil
 ```
 
 Then add the following line to the end of the `Scorer` protocol:
 
-```
+```swift
 var nextScorer: Scorer? { get set }
 ```
 
@@ -1284,7 +1274,7 @@ Now both `MatchScorer` and any other `Scorer` implementations declare that they 
 
 Replace the `return` statement in `computeScoreIncrement` with the following:
 
-```
+```swift
 return (scoreIncrement ?? 0) + (nextScorer?.computeScoreIncrement(pastTurnsReversed) ?? 0)
 ```
 
@@ -1294,7 +1284,7 @@ Now you can add another `Scorer` to the chain after `MatchScorer`, and its score
 
 To demonstrate this, open _Scorer.swift_ and add the following code to the end of the file:
 
-```
+```swift
 class StreakScorer: Scorer {
   var nextScorer: Scorer? = nil
 
@@ -1330,7 +1320,7 @@ Your nifty new `StreakScorer` works as follows:
 
 To complete the _Chain of Responsibility_ open _TurnController.swift_ and add the following line to the end of the initializer `init(turnStrategy:)`:
 
-```
+```swift
 self.scorer.nextScorer = StreakScorer()
 ```
 
@@ -1352,25 +1342,25 @@ Most remarkably, even though the final project has many more features, its code 
 
 Why not use these design patterns to extend your game even further? Some ideas follow.
 
-_Add more shapes like triangle, parallelogram, star, etc_  
+_Add more shapes like triangle, parallelogram, star, etc_
 Hint: Think back to how you added circles, and follow a similar sequence of steps to add new shapes. If you come up with some really cool shapes, please post screenshots of them in the comments at the bottom of this tutorial!
 
-_Add an animation whenever the score changes_  
+_Add an animation whenever the score changes_
 Hint: Use the `didSet` property observer on `GameView.score`.
 
-_Add controls so that players can choose which types of shapes the game uses_  
+_Add controls so that players can choose which types of shapes the game uses_
 Hint: Add three `UIButton` or a `UISegmentedControl` with three choices (Square, Circle, Mixed) in `GameView`, which should forward any target actions from the controls on to an _Observer_ (Swift closure). `GameViewController` can use these closures to adjust which `TurnStrategy` it uses.
 
-_Persist shape settings to preferences that you can restore_  
+_Persist shape settings to preferences that you can restore_
 Hint: Store the player's choice of shape type in `NSUserDefaults`. Try to use the _Facade_ design pattern ([Facade details](http://en.wikipedia.org/wiki/Facade_pattern)) to hide your choice of persistence mechanism for this preference from the rest of your code.
 
-_Allow players to select the color scheme for the game_  
+_Allow players to select the color scheme for the game_
 Hint: Use `NSUserDefaults` to persist the player's choice. Create a `ShapeViewBuilder` that can accept the persisted choice and adjust the app's UI accordingly. Could you use `NSNotificationCenter` to inform all interested views that the color scheme changed so that they can immediately update themselves?
 
-_Have your game play a happy sound when a match occurs and a sad sound when a match fails_  
+_Have your game play a happy sound when a match occurs and a sad sound when a match fails_
 Hint: Extend the _Observer_ pattern used between `GameView` and `GameViewController`.
 
-_Use Dependency Injection to pass in the Scorer to TurnController_  
+_Use Dependency Injection to pass in the Scorer to TurnController_
 Hint: Remove the hard-coded dependency on `MatchScorer` and `StreakScorer` from the initializer.
 
 Thank you for working through this tutorial! Please join the discussion below and share your questions, ideas and cool ways you kicked the game up a few notches.
