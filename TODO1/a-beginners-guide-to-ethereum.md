@@ -2,81 +2,81 @@
 > * 原文作者：[Linda Xie](https://blog.coinbase.com/@linda.xie?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-beginners-guide-to-ethereum.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-beginners-guide-to-ethereum.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Rickon](https://github.com/gs666)
+> * 校对者：[Qiuk17](https://github.com/Qiuk17), [ZyGan1999](https://github.com/ZyGan1999)
 
-# A beginner’s guide to Ethereum
+# 以太坊入门指南
 
-## What is Ethereum?
+## 什么是以太坊？
 
-According to the [Ethereum website](https://www.ethereum.org/), “Ethereum is a decentralized platform that runs smart contracts.” This is an accurate summary but in my experience when first explaining Ethereum to friends, family, and strangers it helps to compare Ethereum to Bitcoin since a lot of people have at least heard about Bitcoin before. This beginner’s guide should help those who are new to Ethereum to understand the high level differences between the two.
+按照[以太坊官网](https://www.ethereum.org/)的说法，“以太坊是一个运行智能合约的去中心化平台。”这是一个准确的总结，但是根据我的经验，当我首次向我的亲朋好友或者陌生人解释以太坊的时候把以太坊和比特币作比较会让人更容易理解，因为很多人之前至少听说过比特币。这份入门指南应该有助于刚接触以太坊的人们理解两者之间的高层差异。
 
-![](https://cdn-images-1.medium.com/max/800/1*M87BjTgkwOhKNtSWRu2uLA.png)
+![](https://user-gold-cdn.xitu.io/2018/12/12/167a289c995aea29?w=800&h=478&f=png&s=128690)
 
-## Comparison
+## 比较
 
-Simply put, Bitcoin can be described as digital money. Bitcoin has been around for eight years and is used to transfer money from one person to another. It is commonly used as a store of value and has been a critical way for the public to understand the concept of a decentralized digital currency.
+ 简而言之，比特币可以被描述为数字货币。比特币已经存在 8 年了，它被人用来向另一个人转账。它通常被用作一种价值储存手段，同时也成为了公众理解去中心化数字货币概念的重要途径。
 
-Ethereum is different than Bitcoin in that it allows for smart contracts which can be described as highly programmable digital money. Imagine automatically sending money from one person to another but only when a certain set of conditions are met. For example an individual wants to purchase a home from another person. Traditionally there are multiple third parties involved in the exchange including lawyers and escrow agents which makes the process unnecessarily slow and expensive. With Ethereum, a piece of code could automatically transfer the home ownership to the buyer and the funds to the seller after a deal is agreed upon without needing a third party to execute on their behalf.
+以太坊与比特币的不同之处在于它允许智能合约，可以称之为高度可编程的数字货币。想象一下，只要满足一系列条件，货币就能从一个人自动发送给另一个人。举个例子，一个人想要从另一个人手里买房子。传统上，交易会涉及多个第三方机构，包括律师和托管代理，这会让过程变得不必要地缓慢且昂贵。有了以太坊，一段代码就可以在交易达成后自动将房屋所属权转给买家，而卖家会在交易完成后收到卖房资金，无需第三方代表他们运作。
 
-The potential for this is incredible! Think of the numerous applications that act as a third party to connect you with others based on some set logic (e.g. Uber, Airbnb, eBay). Many of the centralized systems we use today could be built in a decentralized manner on Ethereum. With Ethereum you can make these transactions trustless which opens up an entire world of decentralized applications. [Decentralization is important](https://medium.com/@VitalikButerin/the-meaning-of-decentralization-a0c92b76a274#.4hl67650f) because it eliminates single points of failure or control. This makes internal collusion and external attacks impractical. Decentralized platforms cut out the middlemen which ultimately leads to lower costs for the user. There are a few decentralized applications I am particularly excited about.
+这种潜力是不可思议的！想想众多基于某种逻辑集合作为第三方组织连接你和其他人的应用（例如 Uber，Airbnb，eBay）。我们今天使用的许多集中式系统都可以在以太坊上用去中心化的方式构建。有了以太坊，您可以使这些交易变得无法信任，从而打开了去中心化应用的整个世界。[去中心化是重要的](https://medium.com/@VitalikButerin/the-meaning-of-decentralization-a0c92b76a274#.4hl67650f)因为它消除了单点故障或控制。这使得内部勾结和外部攻击变得不切实际。去中心化的平台去除了中间商，最终为用户降低了成本。有一些应用让我尤其为之振奋。
 
-## Identity
+## 身份识别
 
-There are many websites a person can create a digital identity on (e.g. Facebook, Twitter, LinkedIn). This is cumbersome to manage and at the end of the day you are not in full control of your information as it is still owned by a centralized entity. With Ethereum you can have a decentralized identity management system like [uPort](https://www.uport.me/) that allows you to be in full control of your data. There is no centralized server that has access to your private data, can get hacked, edit your information, or get shut down.
+一个人可以在许多网站上创建数字身份（例如 Facebook，Twitter，LinkedIn）。这样管理起来很麻烦，并且在一天结束时，你无法完全掌控你的信息，因为它仍然被一个中心实体拥有。使用以太坊，你可以拥有像 [uPort](https://www.uport.me/) 这样的去中心化身份管理系统，让你可以完全掌控数据。没有任何集中式服务器可以访问、编辑或关闭你的私人数据，或者使你的数据被黑客攻击。
 
-Right now in the US we have credit bureaus (e.g. Experian, TransUnion, Equifax) that other institutions like banks rely on to tell them your credit. Credit bureaus can put certain groups such as international and young people at a disadvantage. [Lending Club](https://www.lendingclub.com/), a peer to peer lending platform, addresses the problem of traditional financial services relying solely on FICO scores by offering additional data points like home ownership, income, and length of employment. Ethereum applications like uPort can go one step further by allowing you to control your own data, identity, and reputation.
+现在在美国，我们有信用机构（例如Experian，TransUnion，Equifax），银行等其他机构依赖它来获取你的信用评价。信用机构会使外国人和年轻人等特定群体处于不利地位。[Lending Club](https://www.lendingclub.com/)，一个 P2P 借贷平台，解决传统金融服务的问题完全依赖 FICO 分数提供额外的数据点，如住房所有权、收入和工作时间。像 uPort 这样的以太坊应用程序可以更进一步地允许你掌控自己的数据，身份和声誉。
 
-## Computing Power / Storage
+## 计算能力 / 存储空间
 
-Consider all of the spare computing power and storage a regular person might have on their computer. If it is not being used, then why not make it available to someone else? It is a similar concept to renting out a spare bedroom on Airbnb. An added benefit to using a decentralized application is that there are no centralized servers that are prone to censorship.
+考虑到一个普通人在电脑上可能拥有多余的计算能力和存储空间。如果它没有被使用，那么为什么不把它提供给其他人呢？这与在 Airbnb 出租一间空着的卧室的概念类似。使用去中心化应用的另一个好处是没有了容易受到审查的集中式服务器。
 
-There are several projects in development to allow people to rent spare computing power and storage from those that have it. [Filecoin](http://filecoin.io/) allows people to rent out their computer storage to others and get paid for it. Similarly, [Golem](https://golem.network/) allows people to rent out their computing power. Ideas like these are not completely new. Since 2000, [Folding@home](https://folding.stanford.edu/) has allowed volunteers to contribute spare computing power for scientific research at Stanford University. Now this concept can be monetized and applied to other industries, potentially lowering costs.
+有几个正在开发中的项目允许人们从别人那里获得多余的计算能力和存储空间。[Filecoin](http://filecoin.io/)允许人们出租他们的电脑存储空间给别人并获得报酬。类似的还有 [Golem](https://golem.network/)允许人们出租他们的计算能力。像这样的点子并不新鲜了。自从 2000 年起，[Folding@home](https://folding.stanford.edu/) 就已经允许志愿者为斯坦福大学的科学研究贡献多余的计算能力。现在，这个概念可以货币化并应用于其他行业，可能会降低成本。
 
-## Social Media
+## 社交媒体
 
-[Akasha](http://akasha.world/) is a decentralized social media platform. There are no centralized servers so no single party has complete control over the content. This means that the platform is resistant to censorship. An added benefit of building a decentralized application for social media on Ethereum is that one can create a system that financially rewards high quality content. This is like [Reddit](https://www.reddit.com/) but you can send small amounts of money to the poster instead of upvotes.
+[Akasha](http://akasha.world/) 是一个去中心化的社交媒体平台。没有集中式服务器，因此没有任何一方可以完全控制内容。这意味着该平台可以抵御审查。在以太坊上构建去中心化的社交媒体应用的另一个好处是，人们可以创建一个在财务上奖励高质量内容的系统。这就像 [Reddit](https://www.reddit.com/) 一样，但是你可以向帖子打赏少量的钱，而不是点赞。
 
-## Rights Management
+## 权利管理
 
-Decentralized applications may be used to bring transparency to multiple industries. For example [SingularDTV](https://singulardtv.com/) offers an entertainment rights management platform which allows transparent distribution of funds to the creators, investors, crew, actors, and others involved in a project. There is no centralized party which can prevent a certain group from getting access to their funds because the terms are enforced by code. Everyone will get paid according to the terms discussed up front and no third party is needed to mediate.
+去中心化的应用程序可被用来为多个行业带来透明度。例如 [SingularDTV](https://singulardtv.com/) 提供娱乐圈权利管理平台，它允许向创作者、投资者、工作人员、演员和项目中涉及的其他人透明地分配资金。没有集中方可以阻止某个组获取他们的资金，因为这些条款是由代码强制执行的。每个人都会按照前面提到的条款获得报酬，并且不需要第三方介入。
 
-## Managing Companies
+## 管理公司
 
-A time consuming and often expensive aspect of starting a new company is allocating and managing shares. As companies grow and raise more funds they eventually need to issue and move shares around. [Aragon](https://aragon.one/) is an example of a promising project that has an easy to use interface for managing the company’s cap table and raising capital.
+创建新公司的一个耗时且通常代价昂贵的问题是分配和管理股票。随着公司的发展和更多的融资，他们最终需要发行和转移股票。[Aragon](https://aragon.one/) 就是一个有前景项目的例子，它有一个易于使用的界面来管理公司的上限表和融资。
 
-## Raising Capital
+## 融资
 
-Lastly, one of the major use cases for Ethereum is decentralized fundraising from a global network of investors. Crowdsales lower the barrier to entry for developers working on high risk projects. Since Ethereum launched in July 2015 we have seen unprecedented amounts of funds raised for decentralized applications through crowdsales. Ethereum itself was funded through a crowdsale that raised $18 million in bitcoin and a project called The DAO raised $160 million. Some other notable crowdsales are shown below:
+最后，以太坊的一个主要使用案例是来自全球网络的投资者的去中心化融资。众筹降低了从事高风险项目的开发人员的准入门槛。自从以太坊于 2015 年 7 月推出以来，我们已经看到去中心化式应用通过众筹融资到前所未有的资金。以太坊本身是通过一个筹集了价值1800万美元比特币的众筹来创建的，一个名为 The DAO 的项目筹集了 1.6 亿美元。其他一些著名的众筹如下所示：
 
-![](https://cdn-images-1.medium.com/max/800/1*IiYVmHe9WnPHnQnh98hKzA.png)
+![](https://user-gold-cdn.xitu.io/2018/12/12/167a077c6dde9978?w=800&h=429&f=png&s=28880)
 
-Amount raised at time of crowdsale (not implied valuation)
+在众筹时筹集的金额（非隐含估值）
 
-For more information about how these tokens work, refer to [How to Raise Money on a Blockchain with a Token](https://blog.gdax.com/how-to-raise-money-on-a-blockchain-with-a-token-510562c9cdfa#.rw9pz8i7p), [Blockchain Token Securities Law Framework](https://blog.coinbase.com/2016-12-07-blockchain-token-securities-law-a66ef03c383f#.lowvjw5i8), and [The difference between App Coins and Protocol Tokens](https://medium.com/@willwarren89/the-difference-between-app-coins-and-protocol-tokens-7281a428348c#.pzk5vjfxd).
+想获取有关这些代币如何运行的更多信息，请参阅[ 如何使用代币在区块链上融资](https://blog.gdax.com/how-to-raise-money-on-a-blockchain-with-a-token-510562c9cdfa#.rw9pz8i7p)，[ 区块链代币证券法律框架](https://blog.coinbase.com/2016-12-07-blockchain-token-securities-law-a66ef03c383f#.lowvjw5i8)，和 [App Coins 和协议代币之间的区别](https://medium.com/@willwarren89/the-difference-between-app-coins-and-protocol-tokens-7281a428348c#.pzk5vjfxd)。
 
-## Resources
+## 资料
 
-This post only covered a handful of Ethereum’s countless use cases. The space is constantly growing and innovating. Below are some links that may help you understand Ethereum further and keep up with the exciting news.
+这篇文章仅涉及到无数以太坊使用案例中的几个。这个领域正在不断地发展和创新。以下是一些链接，可以帮助你进一步了解以太坊并及时了解最新的消息。
 
-_Understanding Ethereum_
+**了解以太坊**
 
-*   [Ethereum is the Forefront of Digital Currency](https://blog.coinbase.com/ethereum-is-the-forefront-of-digital-currency-5300298f6c75#.kz1pj8bfv)
-*   [App Coins and the Dawn of the Decentralized Business Model](https://medium.com/the-coinbase-blog/app-coins-and-the-dawn-of-the-decentralized-business-model-8b8c951e734f#.hboxfmq6d)
-*   [Ethereum whitepaper](https://github.com/ethereum/wiki/wiki/White-Paper)
-*   [Bits on Block Gentle Introduction Series](https://bitsonblocks.net/)
-*   [Proof of Stake FAQ](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ)
+*   [以太坊是数字货币的最前沿](https://blog.coinbase.com/ethereum-is-the-forefront-of-digital-currency-5300298f6c75#.kz1pj8bfv)
+*   [App Coins 和去中心化商业模式的曙光](https://medium.com/the-coinbase-blog/app-coins-and-the-dawn-of-the-decentralized-business-model-8b8c951e734f#.hboxfmq6d)
+*   [以太坊白皮书](https://github.com/ethereum/wiki/wiki/White-Paper)
+*   [Bits on Block 的简单介绍](https://bitsonblocks.net/)
+*   [权益证明常见问题解答](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ)
 
-_Keeping up with Ethereum_
+**跟上以太坊的步伐**
 
 *   [Ethereum Subreddit](https://www.reddit.com/r/ethereum/)
 *   [Week in Ethereum News](http://www.weekinethereum.com/)
 *   [The Control](https://thecontrol.co/)
 *   [Smith + Crown](https://www.smithandcrown.com/)
 *   [The Dapp Daily](https://dappdaily.com/)
-*   [Silicon Valley Ethereum Meetup](https://www.meetup.com/EthereumSiliconValley/) (check out your local meetup)
+*   [Silicon Valley Ethereum Meetup](https://www.meetup.com/EthereumSiliconValley/)（查看你当地的聚会）
 
-Thank you to [Will Warren](https://medium.com/@willwarren89), [Fred Ehrsam](https://medium.com/@FEhrsam), and many [Coinbase](https://www.coinbase.com/) employees especially [Jordan Clifford](https://medium.com/@jcliff), [Reuben Bramanathan](https://medium.com/@bramanathan), [Ankur Nandwani](https://medium.com/u/62401673b186), [Dan Romero](https://medium.com/@dwr), and [Jeremy Henrickson](https://medium.com/@jeremyhenrickson).
+感谢 [Will Warren](https://medium.com/@willwarren89)、[Fred Ehrsam](https://medium.com/@FEhrsam) 和很多 [Coinbase](https://www.coinbase.com/) 员工，尤其是 [Jordan Clifford](https://medium.com/@jcliff)、[Reuben Bramanathan](https://medium.com/@bramanathan)、[Ankur Nandwani](https://medium.com/u/62401673b186)、[Dan Romero](https://medium.com/@dwr) 和 [Jeremy Henrickson](https://medium.com/@jeremyhenrickson)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

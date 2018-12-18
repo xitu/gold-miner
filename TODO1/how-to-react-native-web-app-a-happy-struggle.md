@@ -2,50 +2,50 @@
 > * 原文作者：[Lucas Mórawski](https://blog.bitsrc.io/@lucasmorawski?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-react-native-web-app-a-happy-struggle.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-react-native-web-app-a-happy-struggle.md)
-> * 译者：
-> * 校对者：
+> * 译者：[weibinzhu](https://github.com/weibinzhu)
+> * 校对者：[Moonliujk](https://github.com/Moonliujk), [nanjingboy](https://github.com/nanjingboy)
 
-# How to: React Native Web app. A Happy Struggle.
+# 怎么做：React Native 网页应用。一场开心的挣扎
 
-## A short yet detailed tutorial to building a universal application.
+## 一个关于制作通用应用的简短而详细的教程
 
 ![](https://cdn-images-1.medium.com/max/2000/1*RiQRKKQ2ndxD6ddo8hXNLg.png)
 
-You wake up. Sun is shining, birds are singing. There are no wars, no hunger and code can be easily shared between native and web environment. Wouldn’t that be nice? Unfortunately, only in the latter one, hope is on the horizon, but there are still some caveats on the way.
+你醒来。阳光灿烂，鸟儿在歌唱。没有战争，没有饥饿，代码可以轻易地被原生和 web 环境共享。是不是很赞？但很不幸，仅仅是后者，希望虽已经在地平线上，但仍然有一些事情需要我们去完成。
 
-### Why should you care?
+### 为什么你需要关心？
 
-PWA ([Progressive Web App](https://en.wikipedia.org/wiki/Progressive_Web_Apps)) is now a big three-letter word in the sea of tech acronyms, but this approach still has it’s [drawbacks](https://clutch.co/app-developers/resources/pros-cons-progressive-web-apps). There are tons of technological difficulties and use cases where you’re forced to build a native app alongside a web variety. [There’s a great article by Ian Naylor about that](https://appinstitute.com/pwa-vs-native-apps/).
+如今在技术缩写的海洋里面，PWA（[渐进式 Web 应用程序](https://en.wikipedia.org/wiki/Progressive_Web_Apps)）是一个重要的三字词语,但是它仍然有[缺点](https://clutch.co/app-developers/resources/pros-cons-progressive-web-apps)。有很多被迫在开发原生应用以外还要开发 web 版的案例，其中也有很多技术难题。[Ian Naylor 写了一篇很棒的关于这个的文章](https://appinstitute.com/pwa-vs-native-apps/)。
 
-But, building only a native app for your e-commerce business is also a big mistake. So making one piece of software working everywhere seems like a logical step. You cut working hours, production and maintenance costs. That is why I started this little experiment.
+但是，对于你的电子商务生意，仅仅开发一个原生应用也是一个大错误。因此制作一个能够在所有地方工作的软件似乎是一个合乎逻辑的操作。你可以减少工作时间，以及生产、维护的费用。这就是为什么我开始了这个小小的实验。
 
-A simple e-commerce universal example app for online food order. Upon that I created a boilerplate for future projects and further experimentation.
+这是一个简单的用于在线订餐的电子商务通用应用例子。在此之上，我创建了一个样板，用于将来的项目以及更深入的实验。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*hSTFw1TNjeqLZHq_DTBVRg.png)
 
-Papu — food app on Android/iOS/Web
+Papu — 一个可用于安卓、iOS、web 的食物 APP
 
-### Check your primitives
+### 检查一下你的基本模块
 
-We’re working here with React, so we should separate the app logic from the UI. Using some state managing system like Redux/MobX/other is the best choice. That move already makes business logic universal and shareable among the platforms.
+我们使用 React 来开展我们的工作，因此我们应该将应用逻辑与 UI 分离。使用类似 Redux/MobX/other 这样的状态管理系统是最好的选择。这将使得我们的业务逻辑能在多个平台之间复用。
 
-The visual part is yet a different beast. To construct your app’s interface you need to have a common set of primitive building blocks. They need to work on the web, as well as in the native environment. Unfortunately web speaks a different dialect
-
-```
-<div>Aye there Cap! Standard web container at your service!</div>
-```
-
-than native
+视图部分则是另外一个难题。为了构建你的应用的界面，你需要有一套通用的基本模块。他们需要能同时在 web 与原生环境下使用。不幸的是，web 上有着一套不一样的东西。
 
 ```
-<View>Hi! I'm a basic container in React Native</View>
+<div>这是一个标准的 web 上的容器</div>
 ```
 
-Some smart people figured this out. One of my favorite solutions is the grand [React Native Web](https://github.com/necolas/react-native-web) library made by [Nicolas Gallagher](http://nicolasgallagher.com/). Not only it takes care of the primitives by letting you use the React Native components on the web (not all of them!). It also exposes some of React Native’s APIs like Geolocation, Platform, Animated, AsyncStorage and more! Check out some great examples in the [RNW guides](https://github.com/necolas/react-native-web/tree/master/docs/guides).
+而在原生上
 
-### A boilerplate to begin with
+```
+<View>你好！我是 React Native 里面的一个基础容器</View>
+```
 
-So we figured out how to deal with the primitives. We still need to glue the web and native production environments together and make the magic happen. For my project I used [create-react-app](https://github.com/facebook/create-react-app) for the web part and [RN](https://facebook.github.io/react-native/docs/getting-started)’s init script (no Expo here). First I created a project with `create-react-app rnw_web`. Then another one with `react-native init raw_native`. Then I “frankensteined” their respective `package.json` files into one and run yarn on it, in a new project folder. The final package file looks like so:
+有些聪明的人想到了如何解决这个问题。我最喜欢的解决方案之一就是由 [Nicolas Gallagher](http://nicolasgallagher.com/) 制作的伟大的 [React Native Web](https://github.com/necolas/react-native-web) 库。不仅仅是因为通过它能够让你在 web 上使用 React Native 组件（不是全部组件！）来解决基本模块的问题。它还暴露了一些 React Native 的 API，比如 Geolocation，Platform，Animated，AsyncStorage 等。快来 [RNW guides](https://github.com/necolas/react-native-web/tree/master/docs/guides) 这里看一些很棒的示例。
+
+### 首先是一个样板
+
+我们已经知道如何解决基本模块的问题了，但是我们仍然要试着将 web 页与原生的生产环境『粘』在一起。在我的项目中，我使用了 [RN](https://facebook.github.io/react-native/docs/getting-started) 的初始化脚本（没有展示在这里），并且对于 web 部分我使用了 [create-react-app](https://github.com/facebook/create-react-app)。首先我通过 `create-react-app rnw_web` 创建了一个项目，然后通过 `react-native init raw_native` 创建了另一个。接着我在一个新的项目文件夹里面，『科学怪人式』地将他们的 `package.json` 合并成一个，并在上面运行 yarn. 最终的 package 文件长这样：
 
 ```
 {
@@ -81,15 +81,15 @@ So we figured out how to deal with the primitives. We still need to glue the web
 }
 ```
 
-package.json for React Native Web boilerplate (no navigation in this version)
+React Native Web 样板的 package.json 文件（在这个版本里面没有导航）
 
-You need to copy all the source folders from the web and native folders to your new unified project folder.
-
+你需要将所有在 web 和 native 目录里的源代码文件复制到新的统一项目目录中。
+ 
 ![](https://cdn-images-1.medium.com/max/800/1*jBJPol8evebkL96FXEAFew.png)
 
-Folders that need to be copied to a new project
+需要复制到新项目的文件夹
 
-Next in our newly created src folder we put two files App.js and App.native.js. Thanks to [webpack](https://webpack.js.org/) we can use file name extensions to tell the bundler which files to use where. It is vital to use separate App files, since we’re going to use different approaches to app navigation.
+下一步，我们将 App.js 与 App.native.js 放到我们新创建的 src 文件夹中。感谢 [webpack](https://webpack.js.org/) 我们可以通过文件拓展名来告诉打包器哪些文件用在哪些地方。这对于使用分离的 App 文件至关重要，因为我们准备使用不同的方式进行应用导航。
 
 ```
 // App.js - WEB
@@ -140,7 +140,7 @@ class App extends Component {
 export default App;
 ```
 
-App.js for Web. Here with react-router for navigation.
+给 web 的 App.js. 这里使用 react-router 进行导航。
 
 ```
 // App.js - React Native
@@ -189,31 +189,31 @@ class App extends Component {
 export default App;
 ```
 
-App.js for React Native with react-navigation.
+给 React Native 的 App.js. 这里使用了 react-navigation。
 
-That’s how I built a simple boilerplate and constructed a frame for the app. You can try out my clean boilerplate by cloning my github repo.
+我就是这样制作了一个简单的样板以及给应用构造了一个框架。你可以通过克隆我的 github 仓库来试一下我那个干净的样板。
 
-* [**inspmoore/rnw_boilerplate**: A simple boilerplate for code sharing between React Native and ReactDOM using React Native Web lib.](https://github.com/inspmoore/rnw_boilerplate "https://github.com/inspmoore/rnw_boilerplate")
+* [**inspmoore/rnw_boilerplate**：一个基于 React Native Web 库的，用于实现 React Native 与 ReactDOM 之间代码共享的样板](https://github.com/inspmoore/rnw_boilerplate "https://github.com/inspmoore/rnw_boilerplate")
 
-Next we’re going to a complicate it just a little bit, by adding routing/navigation system.
+下一步我们将通过加入路由/导航系统来让它复杂一些。
 
-### Navigation problems and solutions
+### 导航的问题与解决方案
 
-Unless your app consists of only one screen you need some sort of navigation. Right now (Sep 2018) there is only one ready universal web/native formula — [React Router](https://reacttraining.com/react-router/). It’s a goto solution for web but not exactly for RN.
+除非你的应用只有一个页面，否则你需要一些导航。现在（2018 年 9 月）只有一种能够在 web 与原生中都能用的方法：[React Router](https://reacttraining.com/react-router/)。在 web 中这是一个导航方法，但对于 React Native 来说不完全是。
 
-React Router Native lacks screen transitions, back-button support (android), modals, navbars, others. Other navigators provide this functionality, like [React Navigation](https://reactnavigation.org/).
+React Router Native 缺少页面过渡动画，对后退按钮的支持（安卓），模态框，导航条等等。而其他的库则提供这些功能，例如 [React Navigation](https://reactnavigation.org/).
 
-That’s the one I used in my project but you could use others. So it’s React Router for web and React Navigation for native. This yet creates a new problem. Navigating, as well as passing parameters, in both of those navigators dramatically differs.
+我把它用在了我的项目中，但是你可以用其他的。于是我把 React Router 用在 web 端，把 React Navigation 用在原生。但这又导致了一个新问题。导航，以及传参，在这两个导航库中有着很大不同。
 
-To keep the React Native Web spirit of using the more native-like experience everywhere, I approached this problem by building web routes and wrapping them in a HOC. That exposed a React Navigation like API.
+为了保持在所有地方都有着更多的原生体验这个 React Native Web 的精神，我通过制作网页路由并将它们包裹在一个 HOC 里面来解决这个问题。这样能暴露出类似 React Navigation 的 API。
 
-This allows to navigate between the screens on the web, without the need to create separate components for both worlds.  
-First step is to create a route map object for web routes:
+这使得我们无需给两个『世界』分别制作组件即可实现在页面之间导航。
+第一步是创建一个用于 web 路由的路径 map 对象：
 
-import WebRoutesGenerator from "./NativeWebRouteWrapper"; //custom function that generates React Router routes and wraps them in a HOC
+import WebRoutesGenerator from "./NativeWebRouteWrapper"; //用于生成 React Router 路径并将其包裹在一个 HOC 中的自定义函数
 
 ```
-import WebRoutesGenerator from "./NativeWebRouteWrapper"; //custom function that generates React Router routes and wraps them in a HOC
+import WebRoutesGenerator from "./NativeWebRouteWrapper"; //用于生成 React Router 路径并将其包裹在一个 HOC 中的自定义函数
 
 const routeMap = {
   Home: {
@@ -227,33 +227,33 @@ const routeMap = {
   }
 }
 
-//in the render method
+//在 render 方法中
 <View>
   {WebRoutesGenerator({ routeMap })}
 </View>
 ```
 
-The syntax is a copy of React Navigation navigator creation functions with an addition of React Router specific options. Then, with my helper function, I create `react-router` routes. Wrap them in a HOC. That clones the screen component and adds `navigation` property to it’s props. This mimics React Navigation and exposes methods like `navigate()`, `goBack()`, `getParam()`.
+这个语法与 React Navigation 的 navigator 构造函数的一样，除了多了一个 React Router 特定的选项。然后，通过我的辅助函数，我创建了一个 `react-router` 路径。并将其包裹在一个 HOC 中。这回将页面组件拷贝一份，并在其 props 中添加一个 `navigation` 属性。这模拟了 React Navigation 并暴露出一些方法，像是 `navigate()`, `goBack()`, `getParam()`。
 
-#### Modals
+#### 模态框
 
-React Navigation with it’s `createStackNavigator` gives an option to make the screen slide from the bottom as a modal. To achieve this on the web I have used [React Router Modal](https://github.com/davidmfoley/react-router-modal) library by [Dave Foley](https://github.com/davidmfoley). To use a screen as a modal, first you have to add a modal option to the route map:
+通过它的 `createStackNavigator` React Navigation 提供了一个选项，让页面像一个模态框一样从底部滑出。为了在 web 端实现这个，我使用了由 [Dave Foley](https://github.com/davidmfoley) 写的 [React Router Modal](https://github.com/davidmfoley/react-router-modal) 库。为了将某个页面用作模态框，首先你需要在路径 map 中添加一个模态框选项：
 
 ```
 const routeMap = {
   Modal: {
     screen: ModalScreen,
     path: '*/modal',
-    modal: true //the router will use ModalRoute component to render this route
+    modal: true //路由会用 ModalRoute 组件来渲染这个路径
   }
 }
 ```
 
-You also need to add a `<ModalContainer />` component from the `react-router-modal` library to your app’s layout. This is where it’ll be rendered.
+此外你还需要添加一个 `react-router-modal` 库中的 `<ModalContainer />` 组件到你的应用中。这是模态框将会被渲染的地方。
 
-#### Navigating between the screens
+#### 页面之间导航
 
-Thanks to our custom HOC (called temporarily NativeWebRouteWrapper — that’s a terrible name btw) we can use almost the same set of functions as in React Navigation to move between the screens on the web:
+感谢我们自定义的 HOC（暂时称之为 NativeWebRouteWrapper，话说这真是一个糟糕的名字），我们可以使用一套跟 React Navigation 中的几乎一样的函数来实现在 web 端进行页面切换：
 
 ```
 const { product, navigation } = this.props
@@ -267,9 +267,9 @@ const { product, navigation } = this.props
 />
 ```
 
-#### Getting back to a previous screen in the stack
+#### 回到栈中的上一个页面
 
-In React Navigation you can go back n-number of screens in your navigation stack. There’s no such thing in React Router, since there are no stacks. To solve this problem you need to import the custom pop function and pass few parameters:
+在 React Navigation 中，你可以回到导航栈中的前 n 个页面。然而在 React Router 中则做不到，因为这里没有栈。为了解决这个问题，你需要引入一个自定义的 pop 函数，以及传一些参数进去。
 
 ```
 import pop from '/NativeWebRouteWrapper/pop'
@@ -285,25 +285,25 @@ render() {
 }
 ```
 
-`screen`-screen name (used on the web by React Router)  
-`n`-number of screens to go back in the stack (used by React Navigation)  
-`navigation`-navigation object
+`screen` —— 页面名字（在 web 端给 React Router 使用的）
+`n` —— 需要返回多少个页面（给 React Navigation 使用的）
+`navigation` —— 导航对象
 
-### End results
+### 结果
 
-If you want play with this idea, I’ve created two boilerplates.
+如果你想试一下这个想法，我制作了两个样板。
 
-First one is just a clean universal production environment for web and native. You can find it [here](https://github.com/inspmoore/rnw_boilerplate).
+第一个只是一个给 web 与原生的通用生产环境。你可以在[这里](https://github.com/inspmoore/rnw_boilerplate)找到。
 
-Second one is the first one enhanced with my navigation solutions. Check it out [here](https://github.com/inspmoore/rnw_boilerplate_nav).
+第二个则是第一个的加强版，添加了导航的解决方案。放到了[这里](https://github.com/inspmoore/rnw_boilerplate_nav)。
 
-There’s also a [demo app based on that idea called papu](https://github.com/inspmoore/papu). It’s full of bugs and blind alleys but you can build it yourself and launch in your browser and mobile to get a taste of how it all works.
+另外还有一个[基于这个想法的叫做 papu 的 demo 应用](https://github.com/inspmoore/papu)。它有很多 bug 以及死胡同，不过你可以制作你自己的版本并在你的浏览器和手机上查看，感受一下是怎么工作的。
 
-### Next step
+### 下一步
 
-We trully need some universal navigation library to make projects like this easier to build. Making React Navigation to function also in the web environment would be awesome (actually you can do it today, but it’s a very bumpy ride — [check it out here](https://pickering.org/using-react-native-react-native-web-and-react-navigation-in-a-single-project-cfd4bcca16d0))
+我们真的很需要一个通用的导航库来使我们更容易地制作类似项目。让 React Navigation 也能用在 web 环境会是很赞的事情（事实上今天你就可以做到，不过这会是一次坎坷的旅途 —— [可以到这里了解一下](https://pickering.org/using-react-native-react-native-web-and-react-navigation-in-a-single-project-cfd4bcca16d0)）
 
-**Thanks for your time! Please recommend and share if you like it.** [**Hit me on twitter**](https://twitter.com/pirx__) **should you have any questions or comment below 😃**
+**感谢你花时间阅读！如果你喜欢这篇文章，希望你能分享出去。[这是我的推特](https://twitter.com/pirx__) 有什么问题请在下方评论 😃**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
