@@ -5,121 +5,121 @@
 > * 译者：
 > * 校对者：
 
-# Git aliases I can't live without
+# 我无法想象没有 Git 别名的的场景
 
-People are often surprised and curious at the same time when they see how I work with Git:
+大家看到我的 Git 工作流时，总是充满了惊讶与好奇：
 
-![My Git workflow](http://mjk.space/images/blog/git-aliases/workflow.gif) _My Git workflow_
+![我的 Git 工作流](http://mjk.space/images/blog/git-aliases/workflow.gif)**我的 Git** 工作流
 
-My love for aliases started when I installed _zsh_ and its addon suite _[oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)_ for the first time. It contains a big set of predefined aliases and helper functions for different command line programs. I immediately liked the concept of typing just few letters instead of regular, long, parametrized invocations. The tool that I work with most often is Git, so it was a natural candidate for the alias revolution. Now, few years later, I can’t imagine using Git with the `git` command itself.
+我对别名的热爱，始于我初次下载 **zsh** 和它的 **[oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)** 套件。它包含大量针对不同命令行程序的预定义别名和函数助手。我立刻便喜欢上了这种取代常规的那些很长的参数化调用的输入概念。因为我最常使用的工具是 Git，所以它是我开始别名变革的首选目标。几年之后的现在，我无法想象使用 Git 自带的那些原始 `git` 命令。
 
-Of course, Git has its own [system for defining aliases](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases), which is perfectly fine. Personally I just don’t like that space between `git` and the alias. Shell aliases are also more flexible and can be used for other commands too, e.g. `docker`.
+当然，Git 本身就拥有完美的[别名自定义系统](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases)。对我来说，我只是不喜欢 `git` 和别名之间的空白。Shell 别名也很灵活，别名也可以用于其他地方，例如 `docker`。
 
-Below you’ll find the list of aliases that I use the most. Some of them come directly from _oh-my-zsh_ and some were created by me. I hope you’ll find at least some of them useful! If you want to try all them on your own - just go and grab them from [my repository](https://github.com/mjkonarski/oh-my-git-aliases).
+下面你会找到我使用最多的别名列表。其中一些直接源自于我的 **oh-my-zsh**，其他一些是我自己创造的。我喜欢你们至少可以找到一些有用的！如果你想亲自尝试所有的这些方法，可以从[我的仓库](https://github.com/mjkonarski/oh-my-git-aliases)下载。
 
-### 1. Let’s start working with this repo!
+### 1. 我们从这个库开始吧！
 
 `alias gcl = git clone`
 
-This is maybe not the most frequent Git command programmers use, but I personally like to get my hands on this _awesome-github-project-I-have-just-seen_ as soon as possible.
+这可能不是 Git 用户最常使用的命令，但我个人希望尽可能让你们最快掌握这些**令人生畏的 GitHub 项目**，就像我所希望的那样。
 
-### 2. Download the latest state from the remote
+### 2. 从远程仓库获取分支最新动态
 
 `alias gf = git fetch`
 
-I usually use fetch to get the newest changes from the remote repository because it doesn’t affect working directory and _HEAD_ in any way. Later I can use other commands to modify local files explicitly.
+我通常使用 fetch 来获取远程仓库的最新更改，因为它不会以任何形式影响工作目录的 **HEAD**。之后我会使用其他命令来显式修改本地文件。
 
-### 3. Let’s see some other branch!
+### 3. 我们查看一下其他分支！
 
 `alias gco = git checkout`
 
-This is definitely one of the most useful commands on the daily basis. One of the reasons I had decided to write this article is that I still see people writing `git checkout` everytime they want to switch to other branch.
+对于日常开发来说，这无疑是最有用的命令之一。我决定写这篇文章的原因之一就是，我发现大家每次在他们想要切换分支时，仍然需要使用 `git checkout`。
 
-### 4. Get back to the previous branch!
+### 4. 回退到之前的分支状态！
 
 `gco -`
 
-This dash is a little trick that means “the previous branch”. I know that strictly speaking this is not an alias, but it’s just too useful not to mention. Also I’ve got the impression that not many people know about it.
+这个破折号是一个小把戏，意思是“以前的分支”。我知道严格意义上，它不算是别名，但这不影响它的用处。而且，我记得好像没有多少人知道这些事情。
 
-`checkout` is not the only option that accepts a dash - you can use it also with e.g. `merge`, `cherry-pick` and `rebase`.
+`checkout` 不是接受破折号的唯一选项 —— 你也可以在其他地方使用，比如 `merge`、`cherry-pick` 和 `rebase`。
 
-### 5. Get me to master quickly!
+### 5. 快速切换至 master 分支
 
 `alias gcm = git checkout master`
 
-If we switch often between some well defined branches, why don’t make it as simple as possible? Depending on your workflow you can also find other similar aliases useful: `gcd` (_develop_), `gcu` (_uat_), `gcs` (_stable_).
+如果我们经常在一些定义良好的分支之间进行切换，那么我们为什么不使其尽可能简单一些呢？根据你的工作流，你也可以找出其他相似的有用别名：`gcd` (**develop**)、`gcu` (**uat**)、`gcs` (**stable**)。
 
-### 6. Where am I and what’s going on?
+### 6. 我在哪？发生了什么？
 
 `alias gst = git status`
 
-Simple and self explanatory.
+简单明了。
 
-### 7. I don’t care about the current working changes, just give me the latest state from origin!
+### 7. 我不在意当前工作变化，只要从源分支给我最新的状态就行！
 
 `alias ggrh = git reset --hard origin/$(current_branch)`
 
-My personal favourite. How many times have you made such a terrible mess that you just wanted to get both staging area and working directory back to their original state? Now it’s only four keystrokes away.
+我的个人最爱。有多少次你制造了如此严重的混乱，以至于你只想让暂存区和工作目录恢复到原来的状态？现在只剩下四个按键了。
 
-Please note that this particular command resets the current branch to the latest commit from _origin_. This is exactly what _I_ usually need, but may not be the thing that _you_ need. I use it every time I don’t care about local changes and I simply want my current branch to reflect its remote counterpart. You may say that `git pull` can be used instead, but I just don’t like the fact that it tries to merge remote branch instead of just reset the current one to it.
+请注意，这个特定的命令将当前分支重置为来源于 **origin** 分支的最新提交。这正是**我**通常最需要的，但可能不是**你**需要的东西。每当我不关心本地更改时，我都会使用它，我只希望我的当前分支能够反映对应的远程分支。你可能会说你可以使用 `git pull` 替带，但我只是不喜欢它会试图合并远程分支，而不只是将当前分支重置为远程分支。
 
-Note that `current_branch` is a custom function (made by the author of _oh-my-zsh_). You can see it e.g. [here](https://github.com/mjkonarski/oh-my-git-aliases/blob/master/oh-my-git-aliases.sh#L71).
+注意 `current_branch` 是一个自定义函数（由 **oh-my-zsh** 作者创建）。你可以看到它，比如[这里](https://github.com/mjkonarski/oh-my-git-aliases/blob/master/oh-my-git-aliases.sh#L71)。
 
-### 8. What are the current changes?
+### 8. 当前的更改是什么？
 
 `alias gd = git diff`
 
-Another classic. It simply shows all changes made but not yet staged. If you want to see what changes had been already staged, use this version:
+有一个典型示例。它只是显示了所有的改变，但并没有分阶段。如果要查看已经进行的更改，请使用此版本：
 
 `alias gdc = git diff --cached`
 
-### 9. Let’s commit these changed files!
+### 9. 让我们提交哪些更改的文件！
 
 `alias gca = git commit -a`
 
-This commits all changed files, so you don’t need to add them manually. However, if there are some new files, that had not been committed yet, obviously you need to point to them explicitly:
+这会提交所有的更改文件，因此你不需要手动添加它们。但是，如果有一些尚未提交的新文件，显然需要显式地说明它们：
 
 `alias ga = git add`
 
-### 10. I have some changes that I’d like to add to the previous commit!
+### 10. 我想在先前的提交中添加一些更改！
 
 `alias gca! = git commit -a --amend`
 
-I use this one very often, as I like to keep my Git history clean and tidy (no “pull request fixes” or “forgot to add this file” type of commit messages). It simply takes all changes and adds them to the previous commit.
+我经常使用它，因为我喜欢保持 Git 历史记录的整洁（没有 “pull request fixs” 或者 “forgot to add this file” 类型的提交信息）。它只需简单接受所有的更改并将他们添加到上一次提交中。
 
-### 11. I did the previous one too quick, how to “uncommit” a file?
+### 11. 我之前的分支做的太快，那么怎么撤销一个文件？
 
 ```
-gfr() { 
-    git reset @~ "$@" && git commit --amend --no-edit 
+gfr() {
+    git reset @~ "$@" && git commit --amend --no-edit
 }
 ```
 
-This one is a function, not an alias, and may seem a bit complicated at the first glance. It takes a name of a file you want to “uncommit”, removes all changes made to this file from the _HEAD_ commit, but leaves it untouched in the working directory. Then it’s ready to be staged again, maybe as a separate commit. This is how it works in practice:
+这是一个函数，不是别名，乍看好像有些复杂。它获取要“取消提交”的文件名称，从 **HEAD** 提交中删除对该文件所做的所有更改，但将其保留在工作目录中。然后，它会准备分阶段提交，也许是作为一个独立提交。这就是它在实践中的工作方式：
 
-![grf example](http://mjk.space/images/blog/git-aliases/grf.gif)
+![grf 示例](http://mjk.space/images/blog/git-aliases/grf.gif)
 
-### 12. Ok, ready to push!
+### 12. 好的，准备推送！
 
 `alias ggpush = git push origin $(current_branch)`
 
-I use this one every time I want to do a push. Because it implicitly passes the remote branch argument I can be sure that only one branch is pushed, regardless of the `push.default` [setting](https://git-scm.com/docs/git-config#git-config-pushdefault). Starting with Git 2.0 this is the default behaviour anyway, but the alias gives me extra safety in case I’d work with some legacy Git version.
+我每次想推送的时候，都会使用这个。因为它是隐式传递远程分支参数，所以我可以确保只推送一个分支，而无须在意 `push.default` [设置](https://git-scm.com/docs/git-config#git-config-pushdefault)。从 Git 2.0 开始，它会成为默认行为，但是别名为我提供了额外的安全保证，以防我使用一些 Git 遗留的版本问题。
 
-This is maybe not that critical with a normal push, but critical as hell with the next command.
+对于正常的推送，这可能并不那么重要，但对于下一个命令来说，这非常关键。
 
-### 13. I’m ready to push and I know what I’m doing
+### 13. 我已经准备推送了，而且我知道我在做什么
 
 `alias ggpushf = git push --force-with-lease origin $(current_branch)`
 
-Pushing with force is clearly a controversial habit and many people will say that you should never ever do that. I agree, but only when it comes to critical, shared branches like _master_.
+强制推送显然是一个有争议的习惯，许多人会说你永远不应该这样做。我同意，但只有涉及到想 **master** 这样的关键、共享分支才会有问题。
 
-As I’ve already mentioned, I like to keep my git history clean. That sometimes involves changing already pushed commits. The `--force-with-lease` switch is particularly useful here, as it rejects the push when your local repository doesn’t have the latest state of the remote branch. Therefore it’s not possible to discard someone else’s modifications. At least not unintentionally.
+正如我提及的，我喜欢保持我的 git 历史干净。这有时涉及更改已经被推送的提交。这时，`--force-with-lease` 就会特别有用，因为当你的本地仓库没有远程分支的最新状态时，它会拒绝推送。因此，不可能抛弃别人的修改，至少不应该是无意的。
 
-I started using this alias with remote branch name part set to `$(current_branch)` after my colleague had once mistakenly invoked `git commit -f` (with `push.default` set to `matching`) and force-pushed all local branches to the _origin_. Including an old version of _master_. I still remember the panic in his eyes after he realised what had happened.
+在我的同事有一次错误地调用了 `git commit -f` (将 `push.default` 设置为 `matching`)之后，我开始使用这个别名， 将远程分支部分名称设置为 `$(current_branch)`，并强制推送所有的本地分支到 **origin** 分支。包括一个旧版本的 **master**，当我意识到发生了什么之后，我仍然记得他眼中的恐慌。
 
-### 14. Oh no, the push has been rejected! Somebody has been touching my branch!
+### 14. 哇，推送被拒绝了！有人已经污染了我的分支！
 
-You tried to push your branch to the remote repository, but got the following message:
+你试图将你的分支推送到远程仓库，但得到了一下信息：
 
 ```
 To gitlab.com:mjkonarski/my-repo.git
@@ -130,23 +130,23 @@ hint: its remote counterpart. Integrate the remote changes (e.g.
 hint: 'git pull ...') before pushing again. 
 ```
 
-This happens when more that one person works on the same branch. Maybe your colleague had pushed a change when you were not looking? Or you used two computers, not syncing the branch before? Here’s a simple solution:
+当多个人同时在一个分支上工作时，就会发生这种情况。也许你的同事在你不知情的情况下，又推送了一个修改？或者你用了两台电脑，同步了之前的分支？一下是一个简单的解决方案：
 
 `alias glr = git pull --rebase`
 
-It pulls the latests changes and rebases your commits on the top of them automatically. If you’re lucky enough (and the remote changes were made to different files) you may even avoid resolving conflicts. Voilà, ready to push again!
+它会自动拉取最新的修改，然后将你的提交 rebase 到他们的顶部。如果你足够幸运（并且对不同的文件进行了远程修改），你甚至可以避免解决冲突。哇，又要重新推送！
 
-### 15. I want my branch to reflect the latest changes from master!
+### 15. 我想用自己的分支来映射主分支的最新变化！
 
-Let’s say that you have a branch you’ve created from _master_ some time ago. You’ve pushed some changed, but in the meantime _master_ itself had also been updated. Now you’d like your branch to reflect those latests commits. I strongly prefer rebasing over merging in that case - your commit history stays short and clean. It’s as easy as typing:
+假设你有一个分支是不久之前从 **master** 分支创建的。你已经推送了一些改变，但同时也更新了 **master** 本身。现在，你希望你的分支可以反映那些最新的提交内容。在这种情况下，相比 merge，我更喜欢 rebase —— 你的提交历史保持保持简短和清晰。就像打字一样简单：
 
 `alias grbiom = git rebase --interactive origin/master`
 
-I use this command so often that this alias was one of the first I’ve started using. The `--interactive` switch spins up your favourite editor and lets you quickly check the list of commits that are about to be rebased on master. You can also use this opportunity to _squash_, _reword_ or _reorder_ commits. So many options with that simple alias!
+我经常使用这个命令，因此这个别名是我最开始使用的第一批命令之一。`--interactive` 启用了你最爱的编辑器，并允许你快速检查即将基于 master 提交的提交列表。你也可以利用这个机会来 **squash**、**reword** 或者 **reorder** 提交。因此有许多简单别名可以选择！
 
-### 16. Damn, I tried to rebase, but wild conflicts appeared! Get me the hell out of here!
+### 16. emmm，我尝试了 rebase，但出现了严重的冲突！救命啊！
 
-Nobody likes getting this message:
+没有人喜欢这些信息：
 
 ```
 CONFLICT (content): Merge conflict in my_file.md
@@ -157,35 +157,35 @@ You can instead skip this commit: run "git rebase --skip".
 To abort and get back to the state before "git rebase", run "git rebase --abort".
 ```
 
-Sometimes you may want just to abort the whole process and leave resolving the conflict for later. The above message gives a clue how to do it, but why in so many keystrokes?
+有时，你可能只想中止整个进程，之后再解决冲突。以上信息是如何处理的线索，但为什么以上的解决线索会出现那么多按键呢？
 
 `alias grba = git rebase --abort`
 
-And we’re safe again. When you finally find the courage to do the merge again and resolve these conflicts, after `git add`-ing them you can simply carry on with the rebase typing:
+我们又安全了。但你终于鼓起勇气再次进行合并解决这些冲突时，在 `git add` 之后，你只需继续进行 rebase 输入即可：
 
 `alias grbc = git rebase --continue`
 
-### 17. Put these changes away for a second, please!
+### 17. 请把这些变化暂时搁浅！
 
-Let’s say you had made some changes, but haven’t committed them yet. Now you want to quickly switch to a different branch and do some unrelated work:
+假设你已经做了一些改变，但还没有提交它们。现在你想快速切换到另一个分支，并执行一些无关的工作：
 
 `alias gsta = git stash`
 
-This commit puts your modifications aside and reverts the clean state of _HEAD_.
+这个提交将你的修改放在一边，并恢复至 **HEAD** 的干净状态。
 
-### 18. Now, give them back!
+### 18. 现在，开始回退！
 
-When you’re done with your unrelated work you may bring back your changes with a quick:
+当你完成了与你无关的工作时，你可能会快速回退你的修改：
 
 `alias gstp = git stash pop`
 
-### 19. This one little commit looks nice, let’s put it on my branch!
+### 19. 这个小提交，看起来很棒，让我们把它放到自己的分支上！
 
-Git has a nice feature called _cherry-pick_. You can use it to add any existing commit to the top of your current branch. It’s as simple as using this alias:
+Git 有一个叫做 **cherry-pick** 的优秀特性。你可以使用它来将任何现有提交添加到当前分支的顶部。它就像使用这个别名一样简单：
 
 `alias gcp = git cherry-pick`
 
-This can of course lead to a conflict, depending on a content of this commit. Resolving this conflict is exactly the same as resolving rebase conflicts. Therefore we’ve got similar options to abort and continue cherry picking as well:
+这当然会导致冲突，当然这也取决于你提交的内容。解决这个冲突与解决 rebase 冲突的方法完全一样。因此，我们也有类似的选择来中止以及继续选择分支：
 
 `alias gcpa = git cherry-pick --abort`
 
@@ -193,7 +193,7 @@ This can of course lead to a conflict, depending on a content of this commit. Re
 
 * * *
 
-The above list for sure doesn’t cover all possible git use cases. I’d like to encourage you to take it as a good start for building your own suite of aliases. It’s always a good idea to seek for possible improvements in your daily workflow.
+以上列表肯定没有涵盖所有 git 用例。我想鼓励你把它看作是建立你自己的化名套件的良好开端。在日常工作流程中寻求可能的改进是一个好主意。
 
 You can find all these aliases (and more!) in [my Github repository](https://github.com/mjkonarski/oh-my-git-aliases).
 
