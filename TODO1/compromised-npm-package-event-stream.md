@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/compromised-npm-package-event-stream.md](https://github.com/xitu/gold-miner/blob/master/TODO1/compromised-npm-package-event-stream.md)
 > * 译者：[CoderMing](https://github.com/coderming)
-> * 校对者：
+> * 校对者：[格子熊](https://github.com/KarthusLorin)，[caoyi](https://github.com/caoyi0905)
  # 被污染的 npm 包：event-stream
  ![](https://cdn-images-1.medium.com/max/800/1*OB_BwZtUSGuM15X6xFsrWw.png)
 一个著名的 npm 包 [`event-stream`](https://github.com/dominictarr/event-stream) 的作者，将其转让给了一个恶意用户 [right9ctrl](https://github.com/right9ctrl)。这个包每个月有超过 [150万](https://www.npmjs.com/package/event-stream) 次下载，同时其被 1,600 个其它的 npm 包依赖。恶意用户通过持续地向这个包贡献代码来获得了其原作者的信任。这个 npm 包由恶意用户发布的第一个版本时间是 2018 年 9 月 4 日。
