@@ -49,7 +49,7 @@
 
 > 分析残差的偏差，然后引入残差阈值，这样就能得到一种异常检测得算法。
 
-这里不太明显的地方是，我们为了得到更可靠的异常检测结果，使用了**绝对中位偏差**。该方法目前最好的实现是 [Twitter 的异常检测库](https://github.com/twitter/AnomalyDetection)，它使用了 [Generalized Extreme Student Deviation](http://www.itl.nist.gov/div898/handbook/eda/section3/eda35h3.htm) （广义的ESD算法）测试残差点是否是一个离群点。
+这里不太明显的地方是，我们为了得到更可靠的异常检测结果，使用了**绝对中位偏差**。该方法目前最好的实现是 [Twitter 的异常检测库](https://github.com/twitter/AnomalyDetection)，它使用了 [Generalized Extreme Student Deviation](http://www.itl.nist.gov/div898/handbook/eda/section3/eda35h3.htm)（广义的 ESD 算法）测试残差点是否是一个离群点。
 
 #### 优点
 
@@ -74,7 +74,7 @@
 
 **实际的时序数据（绿色），CART 模型预测的时序数据（蓝色），异常检测算法检测到的异常。**
 
-分类树学习的最流行实现是[ xgboost 库](https://github.com/dmlc/xgboost)。
+分类树学习的最流行实现是 [xgboost 库](https://github.com/dmlc/xgboost)。
 
 #### 优点
 
@@ -108,7 +108,7 @@
 
 指数平滑方法与 ARIMA 方法非常相似。基本的指数模型等价于 ARIMA (0, 1, 1) 模型。
 
-从异常检测的角度来看，最有趣的方法是  [Holt-Winters 季节性方法](https://www.otexts.org/fpp/7/5)。该方法需要定义季节性周期，比如周、月、年等等。
+从异常检测的角度来看，最有趣的方法是 [Holt-Winters 季节性方法](https://www.otexts.org/fpp/7/5)。该方法需要定义季节性周期，比如周、月、年等等。
 
 如果需要跟踪多个季节周期，比如同时跟踪周和年周期，那么应该只选择一个。通常是选择最短的那个：所以这里我们就应该选择周季节。
 
