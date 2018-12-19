@@ -2,7 +2,7 @@
 > * 原文作者：[Antonio Leiva](https://antonioleiva.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mvp-for-android.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mvp-for-android.md)
-> * 译者：[Moosphon]([Moosphan (Moos)](https://github.com/Moosphan))
+> * 译者：[Moosphon](https://github.com/Moosphan)
 > * 校对者：
 
 # Android 中的 MVP： 如何使 Presenter 层系统化？
