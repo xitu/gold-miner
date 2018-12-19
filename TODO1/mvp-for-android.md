@@ -2,52 +2,52 @@
 > * 原文作者：[Antonio Leiva](https://antonioleiva.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mvp-for-android.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mvp-for-android.md)
-> * 译者：
+> * 译者：[Moosphon]([Moosphan (Moos)](https://github.com/Moosphan))
 > * 校对者：
 
-# MVP for Android: how to organize the presentation layer
+# Android 中的 MVP： 如何使 Presenter 层系统化？
 
 ![](https://antonioleiva.com/wp-content/uploads/2014/04/mvp-android.jpg)
 
-MVP (Model View Presenter) pattern is a **derivative from the well known MVC** (Model View Controller), and one of the most popular patterns to organize the presentation layer in Android Applications.
+MVP （Model View Presenter） 模式是**众所周知的 MVC（Model View Controller）的衍生物 **，并且是 Android 应用程序中管理表示层的最流行的模式之一。
 
-This article was first published in April 2014, and been the most popular since then. So I’ve decided to update it solving most of the doubts people had, and also convert the code to [Kotlin](https://antonioleiva.com/kotlin).
+这篇文章首次发表于 2014 年 4 月，从那以后就一直备受欢迎。 所以我决定更新它来解决人们心中的大部分疑虑，并将代码转换为 [Kotlin](https://antonioleiva.com/kotlin) 语言形式。
 
-There have been breaking changes about architectural patterns since then, such as [MVVM with architecture components](https://antonioleiva.com/architecture-components-kotlin/), but MVP is still valid and an option to take into account.
+自那时起，架构模式发生了重大变化，例如[带有架构组件的 MVVM](https://antonioleiva.com/architecture-components-kotlin/)，但 MVP 仍然有效并且是一个值得考虑的选择。
 
-## What is MVP?
+## 什么是 MVP 模式？
 
-The MVP pattern allows **separating the presentation layer from the logic** so that everything about how the UI works is agnostic from how we represent it on screen. Ideally, the MVP pattern would achieve that the same logic might have completely different and interchangeable views.
+MVP 模式允许把 **Presenter 层从逻辑中分离出来** ，这样一来，就把所有关于 UI 如何工作与我们在屏幕上如何表示它分离了开来。理想情况下，MVP 模式将实现相同的逻辑可能具有完全不同且可交替的界面。
 
-The first thing to clarify is that MVP **is not an architecture by itself**, it’s only responsible for the presentation layer. This has been a controversial assessment, so I want to explain it a bit deeper.
+要澄清的第一件事是 MVP **本身不是一个架构**，它只负责表示层。 这是一个有争议的评定，所以我想更深入地解释一下。
 
-You may find that MVP is defined as an architectural pattern because it can become part of the architecture of your App, but don’t consider that just because you are using MVP, your architecture is complete. **MVP only models the presentation layer**, but the rest of layers will still require a good architecture if you want a flexible and scalable App.
+您可能会发现 MVP 被定义为架构模式，因为它可以成为您的应用程序架构的一部分，但不考虑仅仅因为您使用的是 MVP，您的架构是完整的。**MVP 仅仅塑造表示层**，但如果您需要灵活且可扩展的应用程序，那么其余层仍需要良好的体系架构。
 
-An example of a complete architecture could be [Clean Architecture](https://fernandocejas.com/2015/07/18/architecting-android-the-evolution/), though there are many other options.
+完整架构体系的一个示例可能是 [Clean Architecture](https://fernandocejas.com/2015/07/18/architecting-android-the-evolution/)，但还有许多其他选择。
 
-In any case, it is always better to use it for your architecture that not using it at all.
+在任何情况下，在您从未使用 MVP 的架构中去使用它总是件好事。
 
-## Why use MVP?
+## 为什么要使用 MVP？
 
-In Android, we have a problem arising from the fact that Android activities are closely coupled to both UI and data access mechanisms. We can find extreme examples such as CursorAdapter, which mixes adapters, which are part of the view, with cursors, something that should be relegated to the depths of data access layer.
+在 Android 开发中，我们遇到一个严峻的问题：Activity 高度耦合了用户界面和数据存取机制。我们可以找到像  CursorAdapter 这样的极端例子，它将作为视图层一部分的 Adapter 和 属于数据访问层级的 Cursor 混合到了一起。
 
-**For an application to be easily extensible and maintainable, we need to define well-separated layers**. What do we do tomorrow if, instead of retrieving the same data from a database, we need to do it from a web service? We would have to redo our entire view.
+**为了能够轻松地扩展和维护一个应用，我们需要定义分离良好的体系架构**。 如果我们不再从数据库获取数据，而是从 web 服务器获取，那么我接下来该怎么办呢？我们可能就要重新编写整个视图层了。
 
-MVP makes views independent from our data source. We divide the application into at least three different layers, which lets us test them independently. With MVP **we take most of the logic out from the activities so that we can test it** without using instrumentation tests.
+MVP 使视图独立于我们的数据源而存在。 我们需要将应用程序划分为至少三个不同的层次，以便我们可以独立地测试它们。 通过 MVP，我们可以将大部分有关业务逻辑的处理从 Activity 中移除，以便我们可以在不使用 Instrumentation Test 的情况下对其进行测试。
 
-## How to implement MVP for Android
+## 如何实现 Android 当中的 MVP？
 
-Well, this is where it all starts to become more diffuse. There are many variations of MVP and everyone can adjust the pattern to their needs and the way they feel more comfortable. It varies depending basically on the number of responsibilities that we delegate to the presenter.
+好吧，这就是它开始变得更加分散的地方。 MVP 有很多变种，每个人都可以根据自己的需求和自己感觉更加舒适的方式来调整模式。 这主要取决于我们委托给 Presenter 的任务数量。
 
-Is the view responsible to enable or disable a progress bar, or should it be done by the presenter? And who decides which actions should be shown in the Action Bar? That’s where the tough decisions begin. I will show how I usually work, but I want this article to be more a place for discussion rather than strict guidelines on how to apply MVP, because up to there is no “standard” way to implement it.
+到底是该由 View 层来负责启用或禁用一个进度条，还是该由 Presenter 来负责呢？又该由谁来决定 Action Bar 应该做出什么行为呢？这就是艰难决定开始的地方。我将展示我通常情况下是如何处理这种情况的，但我希望这篇文章更是一个适合讨论的地方，而不是严格的约束 MVP 该如何应用，因为根本没有“标准”的方式来实现它。
 
-For this article, I’ve implemented a very simple example that [you may find on my Github](https://github.com/antoniolg/androidmvp) with a login screen and a main screen. For simplicity purposes, the code in the article is in Kotlin, but you can also check the code in Java 8 in [the repository](https://github.com/antoniolg/androidmvp).
+对于本文，我已经实现了一个非常简单的示例， [您可以在我的Github找到](https://github.com/antoniolg/androidmvp) 一个登录页面和主页面。 为了简单起见，本文中的代码是使用 Kotlin 实现的，但您也可以在 [仓库](https://github.com/antoniolg/androidmvp)中查看通过 Java 8 编写的代码。
 
-### The model
+### Model 层
 
-In an application with a complete layered architecture, this model would only be the gateway to the domain layer or business logic. If we were using [Uncle Bob’s clean architecture](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html "New Window to Clean Architecture"), the model would probably be an interactor that implements a use case. But for the purpose of this article, it is enough to see it as the provider of the data we want to display in the view.
+在具有完整分层体系结构的应用程序中，这里的 Model 仅仅是通往领域层或业务逻辑层的大门。 如果我们使用 [鲍勃大叔的 clean architecture 架构](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html "New Window to Clean Architecture") ，这里的 Model 可能是一个实现了一个用例的 Interactor （交互器）。但就本文而言，将 Model 看做是一个给 View 层显示数据的提供者就足够了。
 
-If you check the code, you will see that I’ve created two mock interactors with artificial delays to simulate requests to a server. The structure of one of this interactors:
+如果您检查代码，您将看到我创建了两个带有人为延迟操作的 Interactor 来模拟对服务器的请求情况。 其中一个    Interactor 的结构：
 
 ```
 class LoginInteractor {
@@ -67,13 +67,13 @@ class LoginInteractor {
 }
 ```
 
-It’s a simple function that receives the username and the password, and does some validation.
+这是一个简单的方法，它接收用户名和密码，并进行一些验证操作。
 
-### The View
+### View 层
 
-The view, usually implemented by an Activity (it may be a Fragment, a View… depending on how the app is structured), will contain a reference to the presenter. The presenter will be ideally provided by a dependency injector such as [Dagger](http://square.github.io/dagger/ "New window Dagger"), but in case you don’t use something like this, it will be responsible for creating the presenter object. The only thing that the view will do is **calling a presenter method every time there is a user action** (a button click for example).
+View 层通常是由一个 Activity（也可以是一个 Fragment，一个 View，这取决于 App 的结构），它包含了一个对 Presenter 的引用。理想情况下，Presenter 是通过依赖注入的方式提供的（比如 [Dagger](http://square.github.io/dagger/ "New window Dagger")），但如果你没有使用这类工具，也可以直接创建一个 Presenter 对象。 View 需要做的唯一一件事就是：当有用户操作发生时（比如一个按钮被点击了），就调用 Presenter 中的相应方法。
 
-As the presenter must be view agnostic, it uses an interface that needs to be implemented. Here’s the interface that the example uses:
+由于 View 必须与 Presenter 层无关，因此它就需要实现一个接口。下面是示例中使用到的接口：
 
 ```
 interface LoginView {
@@ -85,9 +85,9 @@ interface LoginView {
 }
 ```
 
-It has some utility methods to show and hide progress, show errors, navigate to the next screen… As mentioned above, there are many ways to do this, but I prefer to show the simplest one.
+接口中有一些有效的方法来显示或隐藏进度条，显示错误信息，跳转到下一个页面等等。正如上面所提到的，有很多方式去实现这些功能，但我更喜欢罗列出最简单直观的方法。
 
-Then, the activity can implement those methods. Here I show you some, so that you get an idea:
+然后，Activity 可以实现这些方法。这里我向您展示了一些用法，以便您对其用法有所了解：
 
 ```
 class LoginActivity : AppCompatActivity(), LoginView {
@@ -107,7 +107,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
 }
 ```
 
-But if you remember, I also told you that the view uses the presenter to notify about user interactions. This is how it’s used:
+但是如果您还记得，我还告诉您，View 层使用 Presenter 来通知用户交互操作。 下面就是它的用法：
 
 ```
 class LoginActivity : AppCompatActivity(), LoginView {
@@ -133,15 +133,15 @@ class LoginActivity : AppCompatActivity(), LoginView {
 }
 ```
 
-The presenter is defined as a property for the activity, and when the button is clicked, it calls `validateCredentials()`, which will notify the presenter.
+Presenter 被定义为 Activity 的属性，当点击按钮时，它会调用 `validateCredentials()`方法， 该方法将会通知 Presenter。
 
-Same happens with `onDestroy()`. We’ll see later why it needs to notify in that case.
+ `onDestroy()` 方法亦是如此。我们稍后将会看到为什么在这种情况下需要通知 Presenter。
 
-### The presenter
+### Presenter 层
 
-The presenter is responsible to act as **the middleman between view and model**. It retrieves data from the model and returns it formatted to the view
+Presenter 充当着 **View 层和 Model 层的中间人**。它从 Model 层获取收据并将格式化后数据返回给 View 层。
 
-Also, unlike the typical MVC, it decides what happens when you interact with the view. So it will have a method for each possible action the user can do. We saw it in the view, but here’s the implementation:
+此外，与典型的 MVC 模式不同的是，Presenter 决定了当您在与 View 层交互时会做何响应。 因此，它将为用户每个可执行的操作提供一种方法。 我们在 View 层中看到了它，这里是代码实现：
 
 ```
 class LoginPresenter(var loginView: LoginView?, val loginInteractor: LoginInteractor) :
@@ -155,16 +155,16 @@ class LoginPresenter(var loginView: LoginView?, val loginInteractor: LoginIntera
 }
 ```
 
-**MVP has some risks**, and the most important we use to forget is that the presenter is attached to the view forever. And the view is an activity, which means that:
+**MVP 模式存在一些风险**，常常被我们忽略的最重要的问题是 Presenter 永远依附在 View 上面。并且 View 层一般为 Activity，这就意味着：
 
-*   We can leak the activity with long-running tasks
-*   We can try to update activities that have already died
+*   我们可能会由于长时间的运行的任务而导致 Activity 的泄漏
+*   我们可能会在 Activity 已经被销毁的情况下去更新视图
 
-For the first point, if you can ensure that your background tasks finish in a reasonable amount of time, I wouldn’t worry much. Leaking an activity 5-10 seconds won’t make your App much worse, and the solutions to this are usually complex.
+首先，倘若你能够保证能够在合理的时间内完成你的后台任务，我将不会过于担心。将您的 Activity 泄漏 5-10 秒会让您的 App变得很糟糕，并且解决方案通常很复杂。
 
-The second point is more worrying. Imagine you send a request to a server that takes 10 seconds, but the user closes the activity after 5 seconds. By the time the callback is called and the **UI is updated, it will crash because the activity is finishing**.
+第二点反而更让人担心。想象一下，您花费 10 秒钟时间向服务器发送一个请求，但用户却在 5 秒钟后关闭了  Activity 。当回调方法正在被调用并且 **UI 被更新时，App 将会崩溃，因为 Activity 正在销毁中**。
 
-To solve this, we call the `onDestroy()` method that cleans the view:
+为了解决这个问题，我们可以在 Activity 中调用  `onDestroy()` 方法并清除 View：
 
 ```
 fun onDestroy() {
@@ -172,20 +172,19 @@ fun onDestroy() {
 }
 ```
 
-That way we avoid calling the activity in an inconsistent state.
+这样我们就可以避免在任务结束时间与活动销毁时间不一致的情况下调用 Activity 了。
 
-## Conclusion
+## 总结
 
-Separating interface from logic in Android is not easy, but the MVP pattern makes it easier to prevent our activities end up degrading into very coupled classes consisting of hundreds or even thousands of lines. In large Apps, it is essential to organize our code well. Otherwise, it becomes impossible to maintain and extend.
+在 Android 中将用户界面层与逻辑层分离并不简单，但 MVP 模式可以更加轻易地防止我们的 Activity 最终沦为高度耦合的、包含了成百上千行代码的类。
 
-Nowadays, there are other alternatives like MVVM, and I will create new articles comparing them and helping with the migration. So keep tuned!
+如今，还有其他的代替方案比如 MVVM，我将会创作新的文章来对 MVVM 和 MVP 做比较，并帮助开发者迁移。所以请继续关注我的博客！
 
-Remember [you have the repository](https://github.com/antoniolg/androidmvp), where you can take a look at the code in both Kotlin and Java
+请记住 [这个仓库](https://github.com/antoniolg/androidmvp)，你可以在这查看 MVP 在 Kotlin 和 Java 中的代码示例。
 
-And if you want to learn more about Kotlin, check the [sample App](https://github.com/antoniolg/Kotlin-for-Android-Developers) of my [Kotlin for Android Developers book](https://antonioleiva.com/book), or take a look at the [online course](https://antonioleiva.com/online-course).
+如果您想要了解更多关于 Kotlin 方面的内容，可以查看我的 [Kotlin for Android Developers 这本书](https://antonioleiva.com/book) 中的 [sample 应用](https://github.com/antoniolg/Kotlin-for-Android-Developers)，或者观看 [在线课程](https://antonioleiva.com/online-course)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
