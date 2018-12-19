@@ -13,11 +13,11 @@
 
 在 [2015 年 10 月 29 号](http://babeljs.io/blog/2015/10/29/6.0.0/)，[Sebastian McKenzie](https://medium.com/@sebmck)、[James Kyle](https://medium.com/@thejameskyle) 以及 Babel 团队的其他成员，放弃了一个面向各地前端开发者的大型版本：Babel 6.0.0。太棒了，因为它不再是一个转发器，而是一个可插拔的 JavaScript 工具平台。作为一个社区，我们只触及了它能力的表面，我对 JavaScript 工具的未来感到兴奋（谨慎乐观态度）。
 
-所有这些，All of that said, Babel 6.0.0 was an enormous breaking change. It had a bit of a rocky start. It’s not entirely straightforward to upgrade and takes some learning. This post isn’t going to talk about how you upgrade Babel, necessarily. I’m just going to touch on what I learned about my own code when Babel fixed a bug I relied on heavily… Here are some resources I recommend you check out before you try to upgrade your stuff from Babel 5 to Babel 6:
+所有这些都说明了，Babel 6.0.0 是一个非常重大的变革版本。一开始可能有点不稳定。因此升级也并不容易，需要学习。这篇文章不一定会讨论如何 Babel。我只想讨论我从自己代码中学会的内容 —— 当 Babel 修复了我的严重依赖问题时。。。这里有一些我希望你在尝试将 Babel 5 升级到 Babel 6 之前，可以去阅读一下的资源：
 
 * [**清理 Babel 6 生态系统**：随着 Babel 6 的近期发布，与旧版本相比，每一个版本都发生了戏剧性的变化。。。](https://medium.com/p/c7678a314bf3 "https://medium.com/p/c7678a314bf3")
 
-* [**快速指南：如何将 Babel 5.x 更新至 6.x：最近 Babel 6 将会发布。](https://medium.com/p/d828c230ec53 "https://medium.com/p/d828c230ec53")
+* [**快速指南：如何将 Babel 5.x 更新至 6.x：最近 Babel 6 将会发布**。](https://medium.com/p/d828c230ec53 "https://medium.com/p/d828c230ec53")
 
 #### ES6 模块
 
@@ -31,7 +31,7 @@
 > 
 > — [@kentcdodds](https://twitter.com/kentcdodds/status/671817302430515200)
 
-[Tyler McGinnis](https://medium.com/@tylermcginnis)，Josh Manders](https://medium.com/@joshmanders)和我在这个线程上测试了一下。这可能很难理解，但我意识到问题不是将对象默认导出，而是如何像预期那样可以导入该对象。
+[Tyler McGinnis](https://medium.com/@tylermcginnis)，[Josh Manders](https://medium.com/@joshmanders) 和我在这个线程上测试了一下。这可能很难理解，但我意识到问题不是将对象默认导出，而是如何像预期那样可以导入该对象。
 
 我总是假设我可以导出一个对象作为缺省值，然后我需要的对象中重新构造碎片，如下所示：
 
@@ -46,9 +46,9 @@ import {baz} from './foo'
 
 因为 Babel 5 的转换是到处默认语句，所以它允许我们这样做。然而，根据规范，这在技术上是不正确的，这也是为什么 Babel 6（正确地）删除了该功能，因为它的能力实际上是在破坏我在工作中应用程序的 200 多个模块。
 
-当我回顾 [Nicolás Bevacqua’s](https://twitter.com/nzgb) [博客](https://ponyfoo.com/articles/es6)时，我终于明白了它的工作原理。
+当我回顾 [Nicolás Bevacqua 的](https://twitter.com/nzgb)[博客](https://ponyfoo.com/articles/es6)时，我终于明白了它的工作原理。
 
-> 当然，也要感谢 [@nzgb](http://twitter.com/nzgb) 在 ES6 上的 350 个令人惊讶的要点，因为它非常清晰[https://ponyfoo.com/articles/es6#modules](https://ponyfoo.com/articles/es6#modules)。。。[@rauschma](http://twitter.com/rauschma)
+> 当然，也要感谢 [@nzgb](http://twitter.com/nzgb) 在 ES6 上的 350 个令人惊讶的要点，因为它非常清晰[https://ponyfoo.com/articles/es6#modules](https://ponyfoo.com/articles/es6#modules)[@rauschma](http://twitter.com/rauschma)。
 >
 > — [@kentcdodds](https://twitter.com/kentcdodds/status/671831027787038721)
 
@@ -151,7 +151,7 @@ const three = require('./add')(1, 2)
 
 * [**babel-预置-es2015-node5**：NPM 是 JavaScript 的包管理器](https://www.npmjs.com/package/babel-preset-es2015-node5 "https://www.npmjs.com/package/babel-preset-es2015-node5")
 
-* [**babel-插件 —— 添加模块导出*：NPM 是 JavaScript 的包管理器](https://www.npmjs.com/package/babel-plugin-add-module-exports "https://www.npmjs.com/package/babel-plugin-add-module-exports")
+* [**babel-插件 —— 添加模块导出**：NPM 是 JavaScript 的包管理器](https://www.npmjs.com/package/babel-plugin-add-module-exports "https://www.npmjs.com/package/babel-plugin-add-module-exports")
 
 * * *
 
