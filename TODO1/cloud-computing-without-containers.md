@@ -7,7 +7,7 @@
 
 # 无容器下的云计算
 
-Cloudflare 有一个云计算平台称为 [Workers](https://www.cloudflare.com/products/cloudflare-workers/)。**不像据我所知的其它云计算平台所必须的那样，它无需容器或虚拟机。**我们相信这将是无服务器和云计算的未来，并且我将努力说服你这是为什么。
+Cloudflare 有一个云计算平台称为 [Workers](https://www.cloudflare.com/products/cloudflare-workers/)。**你运行的内容比我所知的任何其他云计算更靠近裸金属** **不像据我所知的其它云计算平台所必须的那样，它无需容器或虚拟机。**我们相信这将是无服务器和云计算的未来，并且我将努力说服你这是为什么。
 
 ### Isolate
 
