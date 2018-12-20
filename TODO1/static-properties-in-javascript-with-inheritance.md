@@ -74,7 +74,7 @@ console.log(Base.foo, Sub.foo);
 console.log(Base.foo === Sub.foo); // true
 ```
 
-所以 JavaScript 支持静态的 getter 和 setter，但是在数组和对象的情况下使用它们将是一杆步枪。事实证明，你可以在 [JavaScript 内置的 `hasOwnProperty()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty) 函数的帮助实现它。
+所以 JavaScript 支持静态的 getter 和 setter，但是在数组和对象的情况下使用它们将会是搬起石头砸自己脚。事实证明，你可以在 [JavaScript 内置的 `hasOwnProperty()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty) 函数的帮助实现它。
 
 ## 继承静态属性
 
