@@ -2,16 +2,16 @@
 > * 原文作者：[Luciano Strika](https://towardsdatascience.com/@StrikingLoo?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/trying-out-dask-dataframes-in-python-for-fast-data-analysis-in-parallel.md](https://github.com/xitu/gold-miner/blob/master/TODO1/trying-out-dask-dataframes-in-python-for-fast-data-analysis-in-parallel.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starriers](https://github.com/Starriers)
+> * 校对者：[snpmyn](https://github.com/snpmyn)
 
-# 如何使用 Dask Dataframes 在 Python 中运行并行数据分析
+# 在 Python 中，如何运用 Dask 数据进行并行数据分析
 
 ![](https://cdn-images-1.medium.com/max/800/1*SQtRhdtx46Lq1LLvFwbc0Q.jpeg)
 
 多维度思维。来源：[Pixabay](https://pixabay.com/en/universe-star-space-cosmos-sky-1351865/)
 
-有时你用 [Python’s Pandas](https://towardsdatascience.com/exploratory-data-analysis-with-pandas-and-jupyter-notebooks-36008090d813) 打开一个大数据集，试着获取一些指标，然后整哥事件都可能会停滞。
+有时你通过 [Python’s Pandas](https://towardsdatascience.com/exploratory-data-analysis-with-pandas-and-jupyter-notebooks-36008090d813) 打开一个大的数据集，然后试着去获取一些度量标准，但这时整个过程可能会突然停止。
 如果你使用 Pandas 处理大数据，可能一个简单的序列平均值都需要你等待一分钟，我们甚至不会去调用 **apply**。这还只是百万级别的行数！当你的数据达到亿级别时，你最好使用 Spark 或者其他方式。
 
 我在不久之前发现了这个工具：不需要更好的基础架构或转换语言，就可以在 Python 中加速数据分析的方法。但是如果数据集太大，它的最终优化结果会一定的限制，但是它仍然比常规的 Pandas 扩展性好，可能也更符合你的问题场景 —— 尤其是不进行大量的重写索引时。
@@ -31,14 +31,14 @@
 我首先阅读了官方文档，看看在 Dask 的文档中的精确推荐，而不是常规 Dataframse。以下是[官方文档](http://dask.pydata.org/en/latest/dataframe.html)的部分内容：
 
 *   操作大型数据集，即使这些数据不适用于内存
-*   使用多核来加速长时间计算
-*   具有标准 Pandas 操作（如集群、链接和时间序列计算）的大型数据集上的分布式计算
+*   使用尽可能多的内核来加速长时间计算
+*   在大的数据集上，通过标准的 Pandas 操作，如集群、连接、还有时间序列计算，来对计算做分布式处理。
 
-在其下面，它列出了如果你使用 DASK Datafrmes 会非常快的一些情况：
+接下来，它列出了一些很快的场景，但前提是你在使用 Dask 数据：
 
 *   算术运算（对序列进行乘或加）
 *   常用聚合（均值、最小值、最大值、和等）
-*   调用 **apply（只要它是索引 —— 即，不在 ‘y’ 是索引的 groupby(‘y’) 中）**
+*   调用 **apply（只要它是索引，而非 groupby(‘y’)，其中 y 并非索引）**
 *   调用 value_counts()、drop_duplicates() 或 corr()
 *   用 **Loc**、**isin** 和逐行选择进行过滤
 
@@ -63,11 +63,11 @@ dd = ddf.from_pandas(df, npartitions=N)
 
 **ddf** 是你使用 DASK Dataframes 导入的名称，而 **nparitions** 是一个参数，它告诉 Dataframe 你期望如何对它进行分区。
 
- StackOverflow，建议将 Dataframe 划分到你计算机内核数目相同的分区中，或是这个数字的几倍，因为每个分区都会运行在不同的线程上，如果有太多线程，它们之间将变得过于昂贵。
+StackOverflow，建议将 Dataframe 划分到你计算机内核数目相同的分区中，或是这个数字的几倍，因为每个分区都会运行在不同的线程上，如果有太多线程，它们之间将变得过于昂贵。
 
 #### 开始：进行基准测试！
 
-我开发了一个 Jupyter 笔记来尝试使用这个框架，为了让你可以查看具体信息甚至是亲自运行它，我尽量让它在 [Github 上可用](https://github.com/StrikingLoo/dask-dataframe-benchmarking)。
+我开发了一个 Jupyter 笔记来尝试使用这个框架，并且发布在 [Github](https://github.com/StrikingLoo/dask-dataframe-benchmarking) 上，这样你可以查看具体信息甚至是亲自运行它。
 
 我运行的基准测试可以在 GitHub 上获取，这里列举了主要内容：
 
@@ -99,7 +99,7 @@ def filter_df_old():
 
 #### 第一批次的结果：不太乐观
 
-首先，我尝试用 3 个分区进行测试，因为我只有 4 个内核，所以不想过度使用我的 PC。我用 Dask 的结果不是很理想，而且还必须等待很长时间才能获取结果，我担心这可能是因为我做的分区太少了：、
+首先，我尝试用 3 个分区进行测试，因为我只有 4 个内核，所以不想过度使用我的 PC。我用 Dask 的结果不是很理想，而且还必须等待很长时间才能获取结果，我担心这可能是因为我做的分区太少了：
 
 ```
 204.313940048 seconds for get_big_mean
@@ -162,7 +162,7 @@ def apply_random():
 
 我希望你觉得这盘文章有用或者有趣！编写他所花费的时间超过我的预期，因为一些基准测试花费的时间**太长了**。记得告诉我在阅读之前你是否了解过 Dask，或者你是否在工作或项目中使用过它。另外，如果有其他更棒的功能，记得告诉我，我并没有检测我是否做错了什么内容！你的回馈和评论是我写作的重要原因之一，因为我们都在从中成长。
 
-**如果你喜欢这篇文章，可以继续支持我。**[**可以继续支持我的写作**](http://buymeacoffee.com/strikingloo)。**同时你还可以在我这里了解更多 Python 教程、提示和技巧！**
+**如果你喜欢这篇文章，可以继续支持我。[可以继续支持我的写作](http://buymeacoffee.com/strikingloo)。同时你还可以在我这里了解更多 Python 教程、提示和技巧！**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
