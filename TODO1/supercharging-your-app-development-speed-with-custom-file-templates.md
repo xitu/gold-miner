@@ -2,30 +2,30 @@
 > * 原文作者：[Rajdeep Singh](https://android.jlelse.eu/@rajdeepsingh?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/supercharging-your-app-development-speed-with-custom-file-templates.md](https://github.com/xitu/gold-miner/blob/master/TODO1/supercharging-your-app-development-speed-with-custom-file-templates.md)
-> * 译者：
+> * 译者：[nanjingboy](https://github.com/nanjingboy)
 > * 校对者：
 
-# Supercharging your app development speed with custom file templates
+# 使用自定义文件模板加快你的应用开发速度
 
 ![](https://cdn-images-1.medium.com/max/800/1*HAbuqnwz3oOVnoC18pAbQQ.png)
 
-Credits : Google Inc. , via Wikimedia Commons and [Vexels](https://www.vexels.com/vectors/preview/143495/yellow-lightning-bolt-icon)
+感谢：Google Inc.，维基共享资源和 [Vexels](https://www.vexels.com/vectors/preview/143495/yellow-lightning-bolt-icon)
 
-While working on the android app at [Wishfie](https://wishfie.com/), we often had to write a lot of boilerplate code for creation of each of our new Activity and Fragment. I’ll give you an example of what i mean:
+在 [Wishfie](https://wishfie.com/) 开发 Android 应用时，我们不得不经常编写大量的样板代码来构建我们的每个新 Activity 和 Fragment。我会举一个例子来说明我的意思：
 
-As we were following MVP architecture, each of our new Activity or Fragment required a Contract class, a Presenter class, a Dagger module and the Activity class itself and that was a lot of boilerplate code to be written every time.
+当我们遵循 MVP 架构时，我们的每个新 Activity 或 Fragment 都需要一个 Contract 类，一个 Presenter 类，一个 Dagger 模板和 Activity 类，并且每次都要编写很多样板代码。
 
-This is what our Activity, Module, Contract and Presenter looked like:
+下面便是我们的 Activity，Module，Contract 和 Presenter：
 
 ```
 public class DemoActivity extends DemoBaseActivity<DemoContract.Presenter> implements DemoContract.View {
-  
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
     }
-  
+
 }
 ```
 
@@ -45,11 +45,11 @@ public abstract class DemoActivityModule {
 ```
 public interface DemoContract {
     interface View extends DemoBaseContract.ActivityView {
-      
+
     }
 
     interface Presenter extends DemoBaseContract.Presenter {
-    
+
     }
 }
 ```
@@ -74,21 +74,21 @@ public class DemoPresenter extends DemoBasePresenter<DemoContract.View> implemen
 }
 ```
 
-That’s a common pattern in android and many of you might be using the same. So that was the problem statement we had and the solution came from reading about this awesome feature of Android Studio known as Custom template.
+这是 android 中常见的模式，很多人可能都在使用它。这就是我们所遇到的问题，它的解决方案来自阅读 Android Studio 中一个被称为自定义模板的很棒的功能。
 
-By the end of this article, we will create a template to create all of these files in just one click every time with different suffixes. So, let’s begin:
+在本文的最后，我们将创建一个模板，以便每次根据不同的后缀一次创建所有这些文件。那么，让我们开始吧：
 
-#### What are templates in Android Studio?
+#### Android Studio 中的模板是什么？
 
 ![](https://cdn-images-1.medium.com/max/800/1*mhuRtb7tc-omJhG21orBtg.png)
 
-Android Studio activity creation template
+Android Studio activity 创建模板
 
-According to IntelliJ:
+根据 IntelliJ 描述:
 
-> File templates are specifications of the default contents to be generated when creating a new file. Depending on the type of file you are creating, templates provide initial code and formatting that is expected to be in all files of that type (according to industry standards, your corporate policy, or for other reasons).
+> 文件模板是创建新文件时要生成的默认内容规范。根据你创建的文件类型，模板提供了在该类型文件中所预期的初始化代码和格式（根据行业标准，你的公司政策或其他内容）。
 
-In short, templates are used to create files that already contains some boilerplate code for you. Most of the time when you create an Activity, Fragment, Service, etc from the set of pre defined options, a lot of boilerplate code is already written for you, which basically is created from a set of prewritten templates created by the Android Studio team. For example, an empty activity created from above shown menu consists of the following boilerplate code by default along with an XML file and an entry into manifest file.
+简单来说，模板用于创建包含一些样板代码的文件。大多数情况下，当你从预定义选项集中创建 Activity，Fragment，Service 等文件时，它已经为你编写了许多样板代码，这些代码基本上都是由 Android Studio 团队创建的一组预先编写好的模板创建的。例如，从上图显示菜单创建的 empty activity 默认包含以下样板代码，XML 文件以及 manifest 文件的入口配置。
 
 ```
 import android.support.v7.app.AppCompatActivity;
@@ -104,35 +104,35 @@ public class EmptyActivity extends AppCompatActivity {
 }
 ```
 
-#### What type of templates can you create?
+#### 你能创建什么类型的模板？
 
-1.  You can create **.java**, **.xml**, **.cpp**, etc type file templates.
+1.  你可以创建 **.java**, **.xml**, **.cpp** 等类型的文件模板。
 
-2.  You can create your own live templates. If you’ve ever used **Toast** template or **psfi** for **public static final int**, those are known as live templates.
+2.  你可以创建你自己的实时模板。如果你曾经用过 **Toast** 模板或用于定义 **public static final int** 的 **psfi**，这些被称为实时模板。
 
-3.  You can create a group of file templates. For example, see how the Android Studio creates and **.xml** and **.java** file for Activity as well as enter the details of that created activity in our manifest file.
+3.  你可以创建一组文件模板。比如，查看 Android Studio 如何为 Activity 创建 **.xml** 和 **.java** 文件，并且在 manifest 文件中添加该 activity 的详细信息。
 
-#### What language is used for template creation?
+#### 用什么语言创建模板？
 
-Apache [Velocity Template Language](http://velocity.apache.org) is used for creating these templates.
+使用 Apache [Velocity Template Language](http://velocity.apache.org) 创建这些模板。
 
-#### Pitstops in this tutorial:
+#### 本文章节：
 
-1.  We’ll begin with creating a basic file template that will create a RecyclerView Adapter along with an inner ViewHolder class, as it is one of the most frequently used class.
+1.  我们将首先创建一个基本文件模板，该模板将创建一个 RecyclerView Adapter 以及一个内部 ViewHolder 类，因为它是最常用的类之一。
 
-2.  We will create our own live template.
+2.  我们将创建我们自己的实时模板。
 
-3.  We will end this by writing a template for creation of above mentioned 4 files to follow mvp pattern in our app.
+3.  我们将通过编写用于创建上述 4 个文件的模板来结束此操作，以便在我们的应用中遵循 mvp 架构。
 
-### Pitstop 1:
+### 章节 1：
 
-*   Right click on any of the package folder, and then **New** -> **Edit File Templates.**
+*   右键单击任何包目录，然后选择 **New** -> **Edit File Templates.**
 
 ![](https://cdn-images-1.medium.com/max/800/1*wNZih86oMFetOcKFTNzbdA.png)
 
-*   Click on the **+** button to create a new template and name it anything you want. I am going to name it RecyclerViewAdapter.
+*   单击 **+** 按钮创建一个新模板，并将其命名为你想要的任何名称。我将它命名为 RecyclerViewAdapter。
 
-*   Paste the following template code in the area below Name field. I’ll go step by step and explain what is going on in code:
+*   将下面的模板代码粘贴到名称字段下方的区域中。我会一步一步解释代码中发生了什么：
 
 ```
 #if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
@@ -148,7 +148,7 @@ import java.util.List;
 public class ${NAME} extends RecyclerView.Adapter<${VIEWHOLDER_CLASS}> {
     private final Context context;
     private List<${ITEM_CLASS}> items;
-   
+
     public ${NAME}(List<${ITEM_CLASS}> items, Context context) {
         this.items = items;
         this.context = context;
@@ -175,7 +175,7 @@ public class ${NAME} extends RecyclerView.Adapter<${VIEWHOLDER_CLASS}> {
         }
         return items.size();
     }
-    
+
     public class ${VIEWHOLDER_CLASS} extends RecyclerView.ViewHolder {
 
         public ${VIEWHOLDER_CLASS}(View itemView) {
@@ -189,25 +189,25 @@ public class ${NAME} extends RecyclerView.Adapter<${VIEWHOLDER_CLASS}> {
  }
 ```
 
-*   If you give a quick read to the **Description** panel below the code input field in android studio, most of the above code will be easy to understand.
+*   如果你快速阅读 android studio 中代码输入字段下面的 **Description** 面板，上面的大部分代码都很容易理解。
 
-*   ${<VARIABLE_NAME>} is used to create variables which are used throughout the template and you are prompted to enter values for them when you use the template to create code. There are also some predefined variables such as ${PACKAGE_NAME}, ${DATE}, etc.
+*   ${<VARIABLE_NAME>} 用于创建在整个模板中使用的变量，并且当你使用模板创建代码时，系统会提示你为它们输入值。这还有一些预定义的变量，比如 ${PACKAGE_NAME}，${DATE}等。
 
-*   The `#if` directive is used to check whether the package name is not empty, and if so, add the name to the package statement passed as the `${PACKAGE_NAME}` variable.
+*   `#if` 指令用来检查包名是否为空，如果不为空，则将名称添加到作为 `$ {PACKAGE_NAME}` 变量传递的包语句中。
 
-*   The `#parse` directive is used to insert the contents of another template named `File Header.java` which you can find under includes tab in the same window. Yours might look like:
+*   `#parse`  指令用于插入另一个名为 `File Header.java` 模板的内容，你可以在同一窗口的 includes 选项卡下找到该模板。看起来像这样：
 
 ![](https://cdn-images-1.medium.com/max/800/1*vfDxhq_L1UyLgBcaA1G1cw.png)
 
-*   The rest of the code uses these variables and static text, code and comments to create the file.
+*   其余代码使用这些变量和静态文本，代码和注释来创建文件。
 
-*   Now right click any folder, then click **New** and you will find your template right there. Clicking on that will open up a prompt box to enter the value for placeholders we had defined earlier.
+*   现在右键单击任何目录，然后单击 **New**，你将在那里找到你的模板。单击它将打开一个提示框，输入我们之前定义的占位符的值。
 
 ![](https://cdn-images-1.medium.com/max/800/1*I1grsNn29tB8FDyK9wwIGg.png)
 
 ![](https://cdn-images-1.medium.com/max/800/1*7wqct-BknCZ9WME6HP8p7Q.png)
 
-*   This is what our generated template looks like:
+*   以下是我们生成的模板：
 
 ```
 package io.github.rajdeep1008.templatedemo;
@@ -264,53 +264,53 @@ public class SchoolData extends RecyclerView.Adapter<SchoolData> {
 }
 ```
 
-File generated using our Android Studio template.
+使用我们的 Android Studio 模板生成文件
 
-### Pitstop 2:
+### 章节 2：
 
-*   This pitstop has nothing much to do with our end goal of creating template for mvp source files, but it’s nice to know about each of the option Android Studio provides us with.
+*   这个章节与我们为 mvp 源文件创建模板的最终目的没什么关系，但知道 Android Studio 为我们提供的每个选项是有好处的。
 
-*   Live templates are shortcuts that you can use in your code to quickly get code snippets. You can also add arguments to quickly tab through them.
+*   实时模板是你在代码中快速获取代码段的快捷方式。你还可以添加参数来快速标记它们。
 
 ![](https://cdn-images-1.medium.com/max/800/1*xW6JeRcXOtmACPgJzZnsJA.gif)
 
-Toast live templates in Android Studio
+在 Android Studio 中播放实时模板。
 
-*   For mac users, go to **Android Studio -> Preferences -> Editor -> Live Templates.** Here, you’ll see a box containing all the existing live templates, like fbc for findViewById cast, foreach for loop creation, etc.
+*   对于 mac 用户，导航到 **Android Studio -> Preferences -> Editor -> Live Templates.**，在这里你将看到一个包含已有实时模板的列表框，比如 fbc 用于 findViewById 映射， foreach 用于创建 loop 等。
 
-*   Now, click on **Android -> + ->LiveTemplate.** You’ll get an option to add an abbreviation to use the template, a description about what your template does and the template text for your template.
+*   现在点击 **Android -> + ->LiveTemplate.**，你可以选择添加缩写来使用模板，说明模板的功能以及模板的模板文本。
 
-*   Select the type of files your template will be available in by selecting the **Define** option and select XML for now.
+*   通过选择 **Define** 选项并选择 XML 来选择模板可用的文件类型。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ADiN8bCoe1F1vaXWq2xuYg.png)
 
-Live template creation wizard in Android Studio
+Android Studio 中实时模版创建向导
 
-*   Click ok to save it and start using it. Open your layout XML file and start typing rv and press tab to use your newly created template.
+*   单击确定保存并开始使用它。打开 XML 布局文件并开始输入 rv 并按 Tab 以适用新创建的模板。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kYNihMp3L84Uq8nPEyA0gg.gif)
 
-Our newly created live template in action
+我们新创建的实时模板
 
-### Pitstop 3:
+### 章节 3：
 
-Pheww!! We have covered a lot of things and now it’s time to start with creating our mvp template. We need to create an Activity, DaggerModule, Contract and Presenter. The prefix will be taken as user input and rest will be in format as described during the beginning of this article.
+Pheww ！！我们已经介绍了很多东西，现在是时候开始创建我们的 mvp 模板了。我们需要创建一个 Activity，DaggerModule，Contract 和 Presenter。前缀将作为用户输入，剩下的将采用本文开头所述的格式。
 
-*   Navigate to Android Studio folder in your Windows/Linux/Mac file system and go to **plugins -> android -> lib -> templates -> other. C**reate an empty folder with name that you’d like to see in the menu. I’ll name it MVP Template.
+*   导航到你的 Windows/Linux/Mac 文件系统中的 Android Studio 目录，然后转到 **plugins -> android -> lib -> templates -> other**，用你希望在菜单中看到的名称创建一个空目录，我将其命名为 MVP Template。
 
-*   In mac, the location for folder should be **/Applications/Android/Studio.app/Contents/plugins/android/lib/templates/other/** and for windows or linux, you can find it at **{ANDROID_STUDIO_LOCATION}/plugins/android/lib/templates/other/**
+*   在 mac 中，目录的位置应该为 **/Applications/Android/Studio.app/Contents/plugins/android/lib/templates/other/**，对于 windows 或 linux，你可以在 **{ANDROID_STUDIO_LOCATION}/plugins/android/lib/templates/other/** 中找到它。
 
-*   Be sure to checkout the activities folder in templates to see how EmptyActivity, BasicActivity and others are created through templates, it will help a lot in writing your own templates.
+*   确保检查模板中的 activities 目录，看看如何模板创建 EmptyActivity，BasicActivity 以及其他文件，这将有助于编写自己的模板。
 
-*   Now, in the newly created MVP Template folder, create **template.xml, recipe.xml.ftl** and **globals.xml.ftl**. Also, create a folder named **root** which will hold our actual template files. I’ll explain what each of these files do one by one:
+*   现在，在新创建的 MVP Template 目录中，创建 **template.xml, recipe.xml.ftl** 和 **globals.xml.ftl**。并且创建一个名为 **root** 的目录，它将保存我们创建的实际模板文件。我将逐一解释每个文件的作用：
 
-1.  **template.xml **— This handles the UI part of the configuration screen. It defines the user input fields, checkboxes, dropdowns, etc that the user see while using template to create files.
+1.  **template.xml** — 它用来处理屏幕配置的 UI 部分。 它定义了用户在使用模板创建文件时看到的用户输入字段，复选框，下拉列表等。
 
-2.  **recipe.xml.ftl **— This is the file using which, your templates from root folder are converted to actual java files in Android Studio. It contains information about what files are to be created and from what templates and so on.
+2.  **recipe.xml.ftl** — 这是使用的文件，你的根目录中的模板将转换为 Android Studio 中真实的 java 文件。它包含有关要创建哪些文件以及从哪些模板创建等信息。
 
-3.  **globals.xml.ftl** — This contain all the global variables. Its a good practice to define variables for src and res directory path in here.
+3.  **globals.xml.ftl** — 这包含所有全局变量。在这里为 src 和 res 定义目录路径是一个很好的做法。
 
-*   In template.xml, paste the following code:
+*   在 template.xml 文件中，粘贴以下代码：
 
 ```
 <template format="4"
@@ -333,15 +333,15 @@ Pheww!! We have covered a lot of things and now it’s time to start with creati
 </template>
 ```
 
-**template.xml** describes the parameters that should be asked from the user :
+**template.xml** 描述了应该从用户那里获得的参数：
 
-1.  **id** is the unique id for that element.
-2.  **name** is nothing but a hint (just like hint in EditText) that is shown to user.
-3.  **type** defines whether user should be shown a text input or spinner in case of enum or a checkbox in case of boolean.
-4.  **default** is the default value in case user leaves the input empty.
-5.  **globals** and **execute** attributes links our globals and recipe files.
+1.  **id** 是该元素的唯一 id。
+2.  **name** 只是向用户显示的提示（就像在 EditText 中的提示一样）。
+3.  **type** 定义用户应该显示文本输入还是下拉控件中的枚举值，或在布尔值的情况下显示复选框。
+4.  **default** 用户输入为空时的默认值。
+5.  **globals** 和 **execute** 属性链接我们的全局变量和配置文件.
 
-*   In recipe.xml.ftl, paste this:
+*   在 recipe.xml.ftl 文件中，粘贴以下代码：
 
 ```
 <?xml version="1.0"?>
@@ -364,11 +364,11 @@ Pheww!! We have covered a lot of things and now it’s time to start with creati
 </recipe>
 ```
 
-**recipe.xml.ftl** defines what files should be created from which template and what files should be opened after the creation. It can also copy code from our templates to existing files like manifest.xml or string.xml and so on. Be sure to checkout the default template examples for creating activities.
+**recipe.xml.ftl** 定义从哪个模板创建哪些文件以及创建后打开哪些文件。它还可以将代码从我们的模板复制到 manifest.xml 或 string.xml 等文件中。请务必查看用于创建 activities 的默认模板示例。
 
-**className** variable is the id of input we took from the user, the code for that is written in template.xml and **srcOut** is defined in globals.xml.ftl. The rest of file is pretty self explanatory.
+**className** 变量是我们从用户那里获取的输入的 id，其代码用 template.xml 编写，**srcOut** 在 globals.xml.ftl 中定义。文件的其他部分具有很好的自我解释能力。
 
-*   In globals.xml.ftl :
+*   在 globals.xml.ftl 中：
 
 ```
 <?xml version="1.0"?>
@@ -378,13 +378,13 @@ Pheww!! We have covered a lot of things and now it’s time to start with creati
 </globals>
 ```
 
-*   Now, in root folder, create **src/app_package/** folder and paste these four files in it :
+*   现在，在根目录中，创建 **src/app_package/** 目录并将以下四个文件复制到该目录中：
 
 ```
 package ${packageName};
 
 public class ${className}Activity extends DemoBaseActivity<${className}Contract.Presenter> implements ${className}Contract.View {
-    
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -413,7 +413,7 @@ public abstract class ${className}ActivityModule {
 package ${packageName};
 
 public interface ${className}Contract{
-    
+
     interface View extends DemoBaseContract.ActivityView {
 
     }
@@ -432,7 +432,7 @@ public class ${className}Presenter extends DemoBasePresenter<${className}Contrac
     @Inject
     public ${className}Presenter(${className}Contract.View view){
         super(view);
-    } 
+    }
 
     @Override
     public void subscribe() {
@@ -446,34 +446,34 @@ public class ${className}Presenter extends DemoBasePresenter<${className}Contrac
 }
 ```
 
-These files contain the templates which will be converted exactly to java or xml codes and the arguments will be replaced by their actual values.
+这些文件包含将完全转换为 java 或 xml 代码的模板，参数将被实际值替换。
 
-And we’re finally done with all the steps. Just restart the Android Studio for this template to come into action and become available in the menu.
+我们终于完成了所有步骤。只需要重启 Android Studio 即可启用此模板，并显示在菜单中。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZHFpf63w9bJV-UUoluzb3w.png)
 
-Our newly created MVP template
+我们新创建的 MVP 模板
 
 ![](https://cdn-images-1.medium.com/max/800/1*DufMHGSGcj1XUdAhza7jhw.png)
 
-If used properly, Android Studio templating is a powerful feature to speed up the app development process. These templates can be spread across your whole android team to ease the boilerplate code creation.
+如果使用得当，Android Studio 模板是加快应用开发速度的强大功能。这些模板可以分布在整个 Android 团队中，以便简化样板代码的创建。
 
-That’s all folks. If you liked the article and found it useful, don’t forget to clap and share this article with other android devs. Happy coding 💗.
+以上便是本文的所有内容。如果你喜欢这篇文章并发现它有用，请不要忘记点赞并与其他 Android 开发者分享它。Happy coding 💗。
 
-**By the way**, **i am starting with a weekly newsletter** [**thedevweekly**](https://www.thedevweekly.com/) **where i will handpick articles across web, mobile and systems and will balance out articles about learning new technologies as well as learning insides of the tech stack from some of the biggest tech companies.**
+**顺便说一句**，**我开通了每周简报** [**thedevweekly**](https://www.thedevweekly.com/)。 **我将通过网站、移动设备和系统上精心挑选文章，并在有关新技术学习及一些大科技公司内部学习文章之间取得平衡。**
 
-So, if you are a beginner dev or an experienced one and looking for a weekly digest of nicely curated tech articles, sign up [**here**](https://www.thedevweekly.com/)**.**
+因此，无论你是初学者还是专家，如果你正在寻找精心策划的科技文章的每周摘要，请在 [**这里**](https://www.thedevweekly.com/) 注册 **.**
 
 * * *
 
-### References:
+### 参考资料：
 
 *   [https://www.jetbrains.com/help/idea/using-file-and-code-templates.html](https://www.jetbrains.com/help/idea/using-file-and-code-templates.html)
 *   [https://medium.com/google-developers/writing-more-code-by-writing-less-code-with-android-studio-live-templates-244f648d17c7](https://medium.com/google-developers/writing-more-code-by-writing-less-code-with-android-studio-live-templates-244f648d17c7)
 *   [https://medium.com/androidstarters/mastering-android-studio-templates-ed8fdd98cb78](https://medium.com/androidstarters/mastering-android-studio-templates-ed8fdd98cb78)
 *   [https://riggaroo.co.za/custom-file-templates-android-studio/](https://riggaroo.co.za/custom-file-templates-android-studio/)
 
-*   [Android App Developmen](https://android.jlelse.eu/tagged/android-app-development?source=post)
+*   [Android 应用开发](https://android.jlelse.eu/tagged/android-app-development?source=post)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
