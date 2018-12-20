@@ -2,98 +2,98 @@
 > * 原文作者：[Zack Bloom](https://blog.cloudflare.com/author/zack-bloom/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/cloud-computing-without-containers.md](https://github.com/xitu/gold-miner/blob/master/TODO1/cloud-computing-without-containers.md)
-> * 译者：
+> * 译者：[TrWestdoor](https://github.com/TrWestdoor)
 > * 校对者：
 
-# Cloud Computing without Containers
+# 无容器下的云计算
 
-Cloudflare has a cloud computing platform called [Workers](https://www.cloudflare.com/products/cloudflare-workers/). **Unlike essentially every other cloud computing platform I know of, it doesn’t use containers or virtual machines.** We believe that is the future of Serverless and cloud computing in general, and I’ll try to convince you why.
+Cloudflare 有一个云计算平台称为 [Workers](https://www.cloudflare.com/products/cloudflare-workers/)。**不像据我所知的其它云计算平台所必须的那样，它无需容器或虚拟机。**我们相信这将是无服务器和云计算的未来，并且我将努力说服你这是为什么。
 
-### Isolates
+### Isolate
 
 ![](https://blog.cloudflare.com/content/images/2018/10/Artboard-42@3x.png)
 
-Two years ago we had a problem. We were limited in how many features and options we could build in-house, we needed a way for customers to be able to build for themselves. We set out to find a way to let people write code on our servers deployed around the world (we had a little over a hundred data centers then, 155 as of this writing). Our system needed to run untrusted code securely, with low overhead. We sit in front of ten million sites and process millions and millions of requests per second, it also had to run very very quickly.
+两年前我们面临一个问题。我们受限于应当在内部建立多少特征和选项，我们需要为用户找到一个方法来使得他们自己完成构建。因此我们着手寻找一个方法可以让人们在我们部署在全球各地的服务器上（我们有一百多个数据中心，截止本文写作时这个数字为155）写自己的代码。我们的系统需要可以安全且低开销的运行不可信的代码。我们坐在上千万的站点前，每秒执行数百万个请求，同时还要求必须非常快的执行。
 
-The Lua we had used previously didn’t run in a sandbox; customers couldn’t write their own code without our supervision. Traditional virtualization and container technologies like Kubernetes would have been exceptionally expensive for everyone involved. Running thousands of Kubernetes pods in a single location would be resource intensive, doing it in 155 locations would be even worse. Scaling them would be easier than without a management system, but far from trivial.
+我们以前使用 Lua 不能运行在沙盒中，用户不能在没有我们监督的情况下写他们自己的代码。像 Kubernetes 这种传统的虚拟化和容器技术对每个相关用户来说都非常昂贵。在单一位置运行数千个 Kubernetes pods 将会是资源密集型的，但在155处来运行会显得更糟。相比于没有管理系统，扩展他们会更容易些，但也绝非易事。
 
-What we ended up settling on was a technology built by the Google Chrome team to power the Javascript engine in that browser, V8: Isolates.
+我们最终解决的是一个由 Google Chrome 构建的技术问题，为该浏览器 V8：Isolates 中的 Javascript 引擎提供动力。
 
-Isolates are lightweight contexts that group variables with the code allowed to mutate them. Most importantly, a single process can run hundreds or thousands of Isolates, seamlessly switching between them. They make it possible to run untrusted code from many different customers within a single operating system process. They’re designed to start very quickly (several had to start in your web browser just for you to load this web page), and to not allow one Isolate to access the memory of another.
+Isolates 是一个轻量级的允许一组变量对它们进行修改的背景。更重要的一点是，一个单一的进程可以运行成百上千个 Isolates，并且在它们之间无缝切换。这使得在一个操作系统进程上运行来自不同用户的不可信代码成为可能。它们被设计的可以快速启动（有几个不得不在你的浏览器中启动，这仅仅是为你加载这个网页），并且不允许一个 Isolate 访问其它 Isolate 的内存。
 
-We pay the overhead of a Javascript runtime once, and then are able to run essentially limitless scripts with almost no individual overhead. Any given Isolate can start around a hundred times faster than I can get a Node process to start on my machine. Even more importantly, they consume an order of magnitude less memory than that process.
+我们承担一次 Javascript 的运行开销，然后基本上可以无限执行这个脚本，并且几乎无需再单独承担某次的开销。启动任何给定的 Isolate 都比在我的机器上启动 Node 进程快一百倍。更重要的是，它们比该进程所需的内存消耗要少一个数量级。
 
-They have all the lovely function-as-a-service ergonomics of getting to just write code and not worry how it runs or scales. Simultaneously, they don’t use a virtual machine or a container,  which means **you are actually running _closer_ to the metal than any other form of cloud computing I’m aware of**. I believe it’s possible with this model to get close to the economics of running code on bare metal, but in an entirely Serverless environment.
+它们具有所有友善的人体功能学的服务，可以让用户仅仅考虑写代码而无需担心它是如何运行或缩放的。与此同时，它们无需使用虚拟机或容器，这意味着 **你运行的内容比我所知的任何其他云计算更靠近裸金属**。我相信这个模型可以更接近在裸金属上运行代码的经济型，但却运行在完全无服务器的环境中。
 
-This is not meant to be an ad for Workers, but I do want to show you a chart to reflect just how stark the difference is, to showcase why I believe this is not iterative improvement but an actual paradigm shift:
+本文并不是 Workers 的一个软广，但是我想要展示一个图表来反映差别有多么明显，以展示为什么我认为这不是一个迭代的提高，而是一个实际的模式转换：
 
 ![](https://blog.cloudflare.com/content/images/2018/10/image-2.png)
 
-This data reflects actual requests (including network latency) made from a data center near where all the functions were deployed, performing a CPU intensive workload. [Source](https://blog.cloudflare.com/serverless-performance-with-cpu-bound-tasks/)
+这个数据反映了从最近的数据中心执行请求的反应时间（包括网络延迟），这个数据中心部署了所有的功能，按照 CPU 密集型执行。[资源](https://blog.cloudflare.com/serverless-performance-with-cpu-bound-tasks/)
 
-### Cold Starts
+### 冷启动
 
 ![](https://blog.cloudflare.com/content/images/2018/10/Cold-start@3x.png)
 
-Not everyone fully understands how a traditional Serverless platform like Lambda works. It spins up a containerized process for your code. It isn’t running your code in any environment more lightweight than running Node on your own machines. What it does do is auto-scale those processes (somewhat clumsily). That auto-scaling creates cold-starts.
+并非所有人都充分理解类似于 Lambda 这样的传统无服务器平台是如何工作的。它给你的代码构建一个容器进程。相比于在你自己的机器上运行 Node，它不会在一个更轻量级的环境中运行你的代码。它所做的是自动缩放这些进程（稍显笨拙）。这个自动缩放过程则会导致冷启动。
 
-A cold-start is what happens when a new copy of your code has to be started on a machine. In the Lambda world this amounts to spinning up a new containerized process which can take between 500 milliseconds and 10 seconds. Any requests you get will be left hanging for as much as ten seconds, a terrible user experience. As a Lambda can only process a single request at a time, a new Lambda must be cold-started every time you get an additional concurrent request. This means that laggy request can happen over and over. If your Lambda doesn’t get a request soon enough, it will be shut down and it all starts again. Whenever you deploy new code it all happens again as every Lambda has to be redeployed. This has been correctly cited as a reason Serverless is not all it’s cracked up to be.
+冷启动是指你的代码的新副本必须在一个机器上启动时而发生的事情。在 Lambda 的世界中，这相当于构建一个新的容器进程，这大概会花费500毫秒到10秒的时间。任何来自于你的请求都会被挂起十秒之多，相当糟糕的用户体验。一个 Lambda 在某一时刻只能处理一个请求，当你同时收到一个并发请求时新 Lambda 必须进行冷启动。这意味着延迟请求可能会一再发生。如果你的 Lambda 没有及时收到请求，它将被关闭然后再重头开始。无论何时你部署新代码这都会重新发生，因为每个 Lambda 必须被重新部署。这常被认为是无服务器化并非吹嘘的那么好的原因。
 
-Because Workers don’t have to start a process, Isolates start in 5 milliseconds, a duration which is imperceptible. Isolates similarly scale and deploy just as quickly, entirely eliminating this issue with existing Serverless technologies.
+因为 Workers 无需开始一个进程，Isolates 在5毫秒内启动，这个时间是令人难以察觉的。同样的，Isolates 测量和部署的非常快，完全消除了现有无服务器技术面临的问题。
 
-### Context Switching
+### 上下文切换
 
 ![](https://blog.cloudflare.com/content/images/2018/10/multitasking-bars@3x.png)
 
-One key feature of an operating system is it gives you the ability to run many processes at once. It transparently switches between the various processes which would like to run code at any given time. To accomplish that it does what’s called a ‘context switch’: moving all of the memory required for one process out, and the memory required for the next in.
+操作系统的一个关键特性是允许你一次执行多个进程。它在任何时刻你想运行的代码的进程上透明地切换。为了实现这一点而将其称之为‘上下文切换’：将一个进程所需的内存全部移出，并将下一个进程所需的内存加载进来。
 
-That context switch can take as much as 100 microseconds. When multiplied by all the Node, Python or Go processes running on your average Lambda server this creates a heavy overhead which means not all of the CPUs power can actually be devoted to running the customer’s code; it’s spent switching between them.
+上下文切换大概需要花费100多毫秒。当运行在你的 Lambda 服务器上的所有 Node，Python 或 Go 进程相乘时，这会导致繁重的开销，这意味着 CPU 们的算力并没有全部应用到用户的代码执行上来，因为它被花费在了上下文切换中。
 
-An Isolate-based system runs all of the code in a single process and uses its own mechanisms to ensure safe memory access. This means there are no expensive context switches, the machine spends virtually all of its time running your code.
+基于 Isolate 的系统会在一个进程中执行完所有代码，并且使用自己的机制来保证安全的内存访问。这意味着无需在上下文切换中花费过多，机器实际上将几乎所有时间都用来执行你的代码。
 
-### Memory
+### 内存
 
-**The Node or Python runtimes were meant to be run by individual people on their own servers. They were never intended to be run in a multi-tenant environment with thousands of other people’s code and strict memory requirements.** A basic Node Lambda running no real code consumes 35 MB of memory. When you can share the runtime between all of the Isolates as we do, that drops to around 3 MB.
+**Node 或 Python 运行在他们每个人的自己的服务器上。这些代码从来没有被考虑过将其运行在多租户环境中，这种环境有成千上万个其他用户代码和严格的内存要求。** 一个基本的 Node Lambda 运行的内存消耗大约是 35 MB。当你像我们这样在所有 Isolates 之间共享运行时间的时候，这个数字会降到大约 3 MB。
 
-Memory is often the highest cost of running a customer’s code (even higher than the CPU), lowering it by an order of magnitude dramatically changes the economics.
+内存是运行用户代码时最大的成本消耗（甚至高过 CPU），降低它一个数量级可以极大程度节约经济。
 
-Fundamentally V8 was designed to be multi-tenant. It was designed to run the code from the many tabs in your browser in isolated environments within a single process. Node and similar runtimes were not, and it shows in the multi-tenant systems which are built atop it.
+基本的 V8 被设计成多租户模式。它被设计成在单个进程的隔离环境中，在你的浏览器的多个标签里运行代码。节点和类似的运行时间并非如此，它显示在构建在其上的多租户系统中。 
 
-### Security
+### 安全性
 
-Running multiple customers' code within the same process obviously requires paying careful attention to security. It wouldn’t have been productive or efficient for Cloudflare to build that isolation layer ourselves. It takes an astronomical amount of testing, fuzzing, penetration testing, and bounties required to build a truly secure system of that complexity.
+在同一个进程里面运行多个用户的代码显然需要仔细注意安全性。对于 Cloudflare 来说，自己构建这个隔离层既没有生产力也没有效率。它需要大量的测试，模糊，渗透测试和建立一个真正安全且如此复杂的系统所需要的资源
 
-The only reason this was possible at all is the open-source nature of V8, and its standing as perhaps the most well security tested piece of software on earth. We also have a few layers of security built on our end, including various protections against timing attacks, but V8 is the real wonder that makes this compute model possible.
+使得这一切可行的唯一原因就是 V8 的开源性，以及它作为或许是世界上最好的安全测试软件的地位。在我们依然构建了少量的安全层，包括对定时攻击的各种保护，但是 V8 才是确保这个计算模型可行的奇迹。
 
-### Billing
+### 计费
 
-This is not meant to be a referendum on AWS billing, but it’s worth a quick mention as the economics are interesting. Lambdas are billed based on how long they run for. That billing is rounded up to the nearest 100 milliseconds, meaning people are overpaying for an average of 50 milliseconds every execution. Worse, they bill you for the entire time the Lambda is running, even if it’s just waiting for an external request to complete. As external requests can take hundreds or thousands of ms, you can end up paying ridiculous amounts at scale.
+这并不意味着要对 AWS 的计费进行公投，但是却有一个很有趣的经济现象值得简单提一下。Lambda 的计费是按照它们的运行时间来计算的。该计费被四舍五入到最近的 100 毫秒，这意味着人们每次平均执行达到 50 毫秒就要多付钱。更糟的是，他们给你开的账单是整个 Lambda 的运行时间，即使时间是花费在等待外部请求的完成。由于外部请求的时间一般都是数百上千毫秒，你最终可能会支付一个很荒谬的价钱。
 
-Isolates have such a small memory footprint that we, at least, can afford to only bill you while your code is actually executing.
+Isolates 只占有非常少量的内存空间，这样至少我们仅仅会为你的代码的实际执行时间开具账单。
 
-In our case, due to the lower overhead, Workers end up being around 3x cheaper per CPU-cycle. A Worker offering 50 milliseconds of CPU is $0.50 per million requests, the equivalent Lambda is $1.84 per million. I believe lowering costs by 3x is a strong enough motivator that it alone will motivate companies to make the switch to Isolate-based providers.
+在我们的例子中，由于更低的开销，Workers 最终在每个 CPU 周期上可以便宜 3 倍。一个 Worker 对每百万请求提供 50 毫秒 CPU 的价钱是 0.50 美元，同样的 Lambda 对每百万请求的价钱是 1.84 美元。我相信降低 3 倍的成本可以有效的推动公司们转向基于 Isolate 的提供商。
 
-### The Network is the Computer
+### 网络就是电脑
 
-Amazon has a product called Lambda@Edge which is deployed to their CDN data centers. Unfortunately, it’s three times more expensive than traditional Lambda, and it takes 30 minutes to deploy initially. It also doesn't allow arbitrary requests, limiting its usefulness to CDN-like-purposes.
+亚马逊有一个名为 Lambda@Edge 的产品，它被部署在他们的 CDN 数据中心。不幸的是，它比传统的 Lambda 要贵三倍，并且它需要在初次部署时花费大约 30 分钟。它还不允许任意请求，将其用途限制为与 CDN 类似的用途。
 
-Conversely, as I mentioned, with Isolates we are able to deploy every source file to 155 data centers at better economics than Amazon can do it to one. It might actually be cheaper to run 155 Isolates than a single container, or perhaps Amazon is charging what the market will bear and it’s much higher than their costs. I don’t know Amazon’s economics, I do know we’re very comfortable with ours.
+相反，正如我提到的，使用 Isolate 我们可以将源文件部署到 155 个数据中心，并且在经济性上比亚马逊做的更好。实际上在 155 个 Isolates 上运行比在一个容器中运行要更加便宜，也或许是亚马逊在向市场收取一个大家能承受但是比他们的成本高得多的费用。我不知道亚马逊的经济状况，我只知道我们对我们自己的很满意。
 
-Long-ago it became clear that to have a truly reliable system it must be deployed to more than one place on earth. A Lambda runs in a single availability zone, in a single region, in a single data center.
+很久以前人们就确定，要有一个真实可靠的系统那它必须部署在地球上的多个地方。但 Lambda 运行在一个单一的有效区，单一的区域和一个单一的数据中心。
 
-### Disadvantages
+### 缺陷
 
-No technology is magical, every transition comes with disadvantages. An Isolate-based system can’t run arbitrary compiled code. Process-level isolation allows your Lambda to spin up any binary it might need. In an Isolate universe you have to either write your code in Javascript (we use a lot of TypeScript), or a language which targets WebAssembly like Go or Rust.
+没有技术是完美无瑕的，每一次转变都会存在一些缺陷。基于 Isolate 的系统不能任意编译代码。进程级隔离允许你的 Lambda 拥有任何它需要的二进制文件。在一个 Isolate 空间中，你必须使用 Javascript 来编写你的代码（我们使用了大量的 TypeScript），或者使用像 Go 或 Rust 这种针对 WebAssembly 的语言。
 
-If you can’t recompile your processes, you can’t run them in an Isolate. This might mean Isolate-based Serverless is only for newer, more modern, applications in the immediate future. It also might mean legacy applications get only their most latency-sensitive components moved into an Isolate initially. The community may also find new and better ways to transpile existing applications into WebAssembly, rendering the issue moot.
+如果你不能重新编译进程，你就不能在一个 Isolate 中运行它们。这或许意味着基于 Isolate 的无服务器化只能用于更新，更现代化，在不久的将来的应用程序。它也可能意味着遗留的应用程序仅仅能将最敏感的部件移动到 Isolate 的初始化中。社区也在寻找更好的方法来将现有的应用程序转到 WebAssembly，使得这些问题还有讨论的余地。
 
-### Your Help
+### 我们需要你
 
 ![](https://blog.cloudflare.com/content/images/2018/10/no-VM-@3x-3.png)
 
-I would love for you to [try Workers](https://developers.cloudflare.com/workers/about/) and let us and the community know about your experience. There is still a lot for us to build, we could use your feedback.
+我希望你可以[尝试一下 Workers](https://developers.cloudflare.com/workers/about/)并且让我们和社区知道你的经历。仍然有很多需要我们去完善建立的内容，我们可以利用你的反馈来做这些。
 
-We also need engineers and product managers who think this is interesting and want to take it in new directions. If you’re in San Francisco, Austin, or London, please reach out.
+我们同样需要一些对这感兴趣并想将其应用到新方向的工程师和产品经理。如果你是在旧金山，奥斯丁或者伦敦，请加入我们吧。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
