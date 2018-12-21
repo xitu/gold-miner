@@ -17,17 +17,31 @@ Illustrated by [Virginia Poltrack](https://twitter.com/VPoltrack)
 
 #### _How and why we modularized Plaid and what’s to come_
 
+我们为什么以及如何进行模块化，接下来要做什么？
+
 _This article dives deeper into the modularization portion of_ [_Restitching Plaid_](https://medium.com/@crafty/restitching-plaid-9ca5588d3b0a)_._
 
+这篇文章深入探讨了 [_Restitching Plaid_](https://medium.com/@crafty/restitching-plaid-9ca5588d3b0a) 的模块化部分。
+
 In this post I’ll cover how we refactored Plaid away from a monolithic universal application to a modularized app bundle. These are some of the benefits we achieved:
+
+在这篇文章中，我将全面介绍如何将一个整体的、庞大的、普通的应用转化为一个模块化的应用束。以下是我们已经取得的成果：
 
 *   more than 60% reduction in install size
 *   greatly increased code hygiene
 *   potential for dynamic delivery, shipping code on demand
 
+* 整体体积减少超过60%
+* 极大地增强了代码的健壮性
+* 支持动态交付，以及按照需求打包代码
+
 During all of this we did not make changes to the user experience.
 
+我们所做的所有事情，都不会对用户的体验造影响。
+
 ### A first glance at Plaid
+
+
 
 ![](https://cdn-images-1.medium.com/max/800/1*vVUYtBjOkcvcX13SsMdqnA.gif)
 
