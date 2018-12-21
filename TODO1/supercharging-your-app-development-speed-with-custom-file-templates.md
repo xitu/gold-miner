@@ -11,9 +11,9 @@
 
 感谢：Google Inc.，维基共享资源和 [Vexels](https://www.vexels.com/vectors/preview/143495/yellow-lightning-bolt-icon)
 
-在 [Wishfie](https://wishfie.com/) 开发 Android 应用时，我们不得不经常编写大量的样板代码来构建我们的每个新 Activity 和 Fragment。我会举一个例子来说明我的意思：
+在 [Wishfie](https://wishfie.com/) 开发 Android 应用时，我们经常需要编写大量的样板代码以用于创建新的 Activity 和 Fragment。我会举一个例子来说明我的意思：
 
-当我们遵循 MVP 架构时，我们的每个新 Activity 或 Fragment 都需要一个 Contract 类，一个 Presenter 类，一个 Dagger 模板和 Activity 类，并且每次都要编写很多样板代码。
+当我们遵循 MVP 架构时，每个新增的 Activity 或 Fragment 都需要一个 Contract 类，一个 Presenter 类，一个 Dagger 模板及 Activity 类自身，这将导致每次都要编写大量样板代码。
 
 下面便是我们的 Activity，Module，Contract 和 Presenter：
 
@@ -74,9 +74,9 @@ public class DemoPresenter extends DemoBasePresenter<DemoContract.View> implemen
 }
 ```
 
-这是 android 中常见的模式，很多人可能都在使用它。这就是我们所遇到的问题，它的解决方案来自阅读 Android Studio 中一个被称为自定义模板的很棒的功能。
+这是 android 中常见的模式，很多人可能都在使用它。这就是我们所遇到的问题，它的解决方案来源于 Android Studio 中一个很棒的功能（自定义模板）。
 
-在本文的最后，我们将创建一个模板，以便每次根据不同的后缀一次创建所有这些文件。那么，让我们开始吧：
+在本文的最后，我们将创建一个根据不同后缀一次创建所有必须文件的模板。那么，让我们开始吧：
 
 #### Android Studio 中的模板是什么？
 
@@ -84,7 +84,7 @@ public class DemoPresenter extends DemoBasePresenter<DemoContract.View> implemen
 
 Android Studio activity 创建模板
 
-根据 IntelliJ 描述:
+IntelliJ 描述如下:
 
 > 文件模板是创建新文件时要生成的默认内容规范。根据你创建的文件类型，模板提供了在该类型文件中所预期的初始化代码和格式（根据行业标准，你的公司政策或其他内容）。
 
@@ -280,7 +280,7 @@ public class SchoolData extends RecyclerView.Adapter<SchoolData> {
 
 *   现在点击 **Android -> + ->LiveTemplate.**，你可以选择添加缩写来使用模板，说明模板的功能以及模板的模板文本。
 
-*   通过选择 **Define** 选项并选择 XML 来选择模板可用的文件类型。
+*   现在通过选择 **Define** 选项中的 XML 选项来选择模板可用的文件类型。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ADiN8bCoe1F1vaXWq2xuYg.png)
 
