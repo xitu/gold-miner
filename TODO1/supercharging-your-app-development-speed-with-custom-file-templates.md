@@ -280,7 +280,7 @@ public class SchoolData extends RecyclerView.Adapter<SchoolData> {
 
 *   现在点击 **Android -> + ->LiveTemplate.**，你可以选择添加缩写来使用模板，说明模板的功能以及模板的模板文本。
 
-*   现在通过选择 **Define** 选项中的 XML 选项来选择模板可用的文件类型。
+*   现在点击 **Define** 并选择弹框中的 XML 选项来选择模板可用的文件类型。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ADiN8bCoe1F1vaXWq2xuYg.png)
 
