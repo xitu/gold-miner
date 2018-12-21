@@ -9,9 +9,9 @@
 
 ![](https://antonioleiva.com/wp-content/uploads/2017/12/listener-several-functions.jpg)
 
-我经常遇到的一个问题是如何简化与 Kotlin 上具有多个功能的监听器的交互。 对于具有单个函数的侦听器（或任何接口）很简单：它会自动让您用 lambda 替换它。 但对于具有多种功能的听众来说，情况并非如此。
+我经常遇到的一个问题是在使用 Kotlin 时如何简化具有多个方法的监听器的交互。对于具有只具有一个方法的监听器（或任何接口）很简单：Kotlin 会自动让您用 lambda 替换它。但对于具有多个方法的监听器来说，情况并非如此。
 
-因此，在本文中，我想向您展示处理问题的不同方法，您甚至可以在途中学习一些[新的Kotlin技巧](https://antonioleiva.com/kotlin-awesome-tricks-for-android/) ！
+因此，在本文中，我想向您展示处理问题的不同方法，您甚至可以在途中学习一些[新的 Kotlin 技巧](https://antonioleiva.com/kotlin-awesome-tricks-for-android/) ！
 
 ## 问题所在
 
@@ -31,7 +31,7 @@ view.setOnClickListener(object : View.OnClickListener {
 view.setOnClickListener { toast("View clicked!") }
 ```
 
-问题在于，当我们习惯它时，我们希望它能够无处不在。然而当接口存在多个方法时，这并不会升级。
+问题在于，当我们习惯它时，我们希望它能够无处不在。然而当接口存在多个方法时，这种做法将不再适用。
 
 例如，如果我们想为视图动画设置一个监听器，我们最终得到以下“漂亮”的代码：
 
@@ -57,7 +57,7 @@ view.animate()
         })
 ```
 
-你可能会反驳说 Android framework 已经为它提供了一个解决方案：适配器。 对于几乎任何具有多个方法的接口，它们都提供了一个抽象类，将所有方法实现为空。 在上述例子中，您可以这样：
+你可能会反驳说 Android framework 已经为它提供了一个解决方案：适配器。对于几乎任何具有多个方法的接口，它们都提供了一个抽象类，将所有方法实现为空。在上述例子中，您可以这样：
 
 ```
 view.animate()
@@ -69,16 +69,16 @@ view.animate()
         })
 ```
 
-好的，是改善了一些， 但这存在几个问题：
+好的，是改善了一些，但这存在几个问题：
 
 *   适配器是类，这意味着如果我们想要一个类作为此适配器的实现，它不能扩展其他任何东西。
-*   在过去，我们需要一个匿名对象和函数来表示一个比用 lambda 表达式更清晰直观的事物。
+*   我们把一个本可以用 lambda 清晰表达的事物，变成了一个具有一个方法的匿名对象。
 
 我们有什么选择？
 
 ## Kotlin 中的接口：它们可以包含代码
 
-还记得我们谈到 Kotlin 中的接口吗？ 它们内部可以包含代码，因此，您可以声明可以实现而不是继承适配器（您可以使用 Java 8 和接口中的默认方法执行相同的操作，以防您现在将其用于 Android）：
+还记得我们谈到 Kotlin 中的接口吗？ 它们内部可以包含代码，因此，您能够声明可以实现而不是继承适配器（以防您现在将其用于 Android 开发中，您可以使用 Java 8 和接口中的默认方法执行相同的操作）：
 
 ```
 interface MyAnimatorListenerAdapter : Animator.AnimatorListener {
@@ -108,11 +108,11 @@ view.animate()
         .setListener(this)
 ```
 
-这个解决方案消除了我在开始时解释的一个问题，但它迫使我们仍然为它声明显式的函数。 在这里是否怀念 lambda 表达式了？
+这个方案解决了开始时提出的一个问题，但是我们仍然要显式地声明它。如果我想使用 lambda 表达式呢？
 
 此外，虽然这可能会不时地使用继承，但在大多数情况下，您仍将使用匿名对象，这与使用 framework 适配器并无不同。
 
-但是啊！ 这是一个有趣的想法：如果你需要一个适配器用于具有多个方法的监听器，**那么最好使用接口而不是抽象类**。[继承FTW的构成](https://en.wikipedia.org/wiki/Composition_over_inheritance)
+但是，这是一个有趣的想法：如果你需要为具有多个方法的监听器定义一种适配器，**那么最好使用接口而不是抽象类**。[继承FTW的构成](https://en.wikipedia.org/wiki/Composition_over_inheritance)
 
 ## 一般情况下的扩展功能
 
@@ -124,7 +124,7 @@ view.animate()
         .onAnimationEnd { toast("Animation End") }
 ```
 
-真棒！ 扩展函数应用于 `ViewPropertyAnimator`，这是 `animate()`，`alpha` 和所有其他动画方法返回的内容。
+真棒！ 扩展函数应用于 `ViewPropertyAnimator`，这是 `animate()`、`alpha` 和所有其他动画方法返回的内容。
 
 ```
 inline fun ViewPropertyAnimator.onAnimationEnd(crossinline continuation: (Animator) -> Unit) {
@@ -136,13 +136,13 @@ inline fun ViewPropertyAnimator.onAnimationEnd(crossinline continuation: (Animat
 }
 ```
 
-> 我[之前已经谈过`内联`](https://antonioleiva.com/lambdas-kotlin/)，但如果你还有一些疑问，我建议你看一下[官方的参考](https://kotlinlang.org/docs/reference/inline-functions.html)。
+> 我[之前已经谈过`内联`](https://antonioleiva.com/lambdas-kotlin/)，但如果你还有一些疑问，我建议你看一下[官方的文档](https://kotlinlang.org/docs/reference/inline-functions.html)。
 
-如您所见，该函数只接收在动画结束时调用的lambda。 扩展为我们做了令人讨厌的工作：它创建适配器并调用 `setListener`。
+如您所见，该函数只接收在动画结束时调用的 lambda。 这个扩展函数为我们完成了创建适配器并调用 setListener 这种不友好的工作。
 
-这样就好多了！ 我们可以在监听器中为每个方法创建一个扩展方法。 但在这种特殊情况下，我们遇到动画只接受一个监听器的问题。因此我们一次只能使用一个。
+这样就好多了！ 我们可以在监听器中为每个方法创建一个扩展方法。 但在这种特殊情况下，我们遇到了动画只接受一个监听器的问题。因此我们一次只能使用一个。
 
-在任何情况下，对于几乎重复的情况（像上面那样），它并不会损害到像如上提到的 `Animator` 本身的方法。 这是更简单的解决方案，非常易于阅读和理解。
+在任何情况下，对于大多数重复的情况（像上面那样），它并不会损害到像如上提到的 `Animator` 本身的方法。 这是更简单的解决方案，非常易于阅读和理解。
 
 ## 使用命名参数和默认值
 
@@ -230,7 +230,7 @@ view.animate()
 
 还不错，对吧？虽然比之前的做法要稍微复杂一点，但却更加灵活了。
 
-## 选项杀手：DSL
+## 杀手锏操作：DSL
 
 到目前为止，我一直在解释简单的解决方案，诚实地说可能涵盖大多数情况。 但如果你想发疯，你甚至可以创建一个让事情变得更加明确的小型 DSL。
 
@@ -372,7 +372,7 @@ class AnimListenerHelper : Animator.AnimatorListener {
 
 如果您发现需要使用更多次监听器，请使用其中一种解决方案进行重构。 我通常会选择只使用我们感兴趣的功能进行简单的扩展。 如果您需要多个监听器，请评估两种最新替代方案中的哪一种更适合您。 像往常一样，这取决于你将要如何广泛地使用它。
 
-希望这字里行间能够在您下一次处于这种情况下时帮助到您。 **如果您以不同方式解决此问题，请在评论中告诉我们！**
+希望这篇文章能够在您下一次处于这种情况下时帮助到您。 **如果您以不同方式解决此问题，请在评论中告诉我们！**
 
 感谢您的阅读 🙂
 
