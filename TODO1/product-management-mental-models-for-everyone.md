@@ -2,280 +2,280 @@
 > * 原文作者：[Brandon Chu](https://blackboxofpm.com/@brandonmchu?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/product-management-mental-models-for-everyone.md](https://github.com/xitu/gold-miner/blob/master/TODO1/product-management-mental-models-for-everyone.md)
-> * 译者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
 > * 校对者：
 
-# Product Management Mental Models for Everyone
+# 产品管理思维模式适合每一个人
 
 ![](https://cdn-images-1.medium.com/max/1600/1*b61UVOBxXM0yEyzLME0tuw.gif)
 
-Mental models are simple expressions of complex processes or relationships. These models are accumulated over time by an individual and used to make faster and better decisions.
+思维模式是对复杂的过程和关系的简单表达。这些模式会随着时间的推移由个人逐渐积累，并能让人作出更快更好的决策。
 
-Here’s an example: _the_ **_Pareto Principle_** _states that roughly 80% of all outputs comes from 20% of the effort._
+一个例子是：帕累托原理（Pareto Principle）指出，大约 80% 的产出来自 20% 的努力。
 
-In the context of product management, the model suggests that instead of trying to create 100% of the customer opportunity, you may want to look for how to do 20% of the effort and solve 80% of the opportunity. Product teams make this trade off all the time, and the results often looks like feature launches where 20% of customers with more complicated use cases aren’t supported.
+在产品管理的语境中，模型建议你应该更希望寻找如何付出 20% 的努力解决 80% 机会的方法，而不是去试图创造 100% 的客户机会。产品团队在一直权衡这一点，结果通常看起来像是特性发布后，20% 有更复杂应用用例的用户没有被支持。
 
-Mental models are powerful, but their utility is limited to the contexts they were extrapolated from. To combat this, you shouldn’t rely on one or even a few mental models, you should instead be continuously building a _latticework_ of mental models that you can draw from to make better decisions.
+尽管思维模式非常强大，但它们的效用被限制于它们被推断出来的背景中。为了对抗这种现状，你应该不仅仅依赖一个或几个模型，而是应该持续的建造一个思维模型的**框架**，你可以从中吸取教训，做出更好的决定。
 
-This concept was popularized by Charlie Munger, the famed Berkshire Hathaway vice chairman, in a [speech](https://old.ycombinator.com/munger.html) where he reflected on how to gain wisdom:
+查理·芒格（Charlie Munger）普及了这个概念，他是著名的伯克希尔哈撒韦公司副董事长，他在一次[演讲](https://old.ycombinator.com/munger.html)中提到了如何获取智慧：
 
-> What is elementary, worldly wisdom? Well, the first rule is that you can’t really know anything if you just remember isolated facts and try and bang ’em back. If the facts don’t hang together on a latticework of theory, you don’t have them in a usable form.
+> 什么是基础的、世间通用的智慧呢？第一条规则是，如果你只是记住孤立的事实，然后进行尝试和重复，你就什么都不知道。如果这些事实在理论的框架上不一致的话，它们就没有可用的形式。
 
-> You’ve got to have models in your head. And you’ve got to array your experience — both vicarious and direct — on this latticework of models. You may have noticed students who just try to remember and pound back what is remembered. Well, they fail in school and in life. You’ve got to hang experience on a latticework of models in your head.
+> 你的脑海中已经有很多模型了。你必须要整理你的经验 -- 间接的或者直接的都要 -- 整理到这个模型框架中。你可能已经注意到有些学生只是试图记住并重复已经记住的东西。好吧，这样他们在学习和生活中都会失败的。你必须要将经验和脑海中的思维模式连接起来。
 >
-> What are the models? Well, the first rule is that you’ve got to have multiple models — because if you just have one or two that you’re using, the nature of human psychology is such that you’ll torture reality so that it fits your models, or at least you’ll think it does. You become the equivalent of a chiropractor who, of course, is the great boob in medicine.
+> 什么是模型呢？第一个规则就是你必须拥有很多模型 -- 因为如果你只有一个或两个使用着的思维模型，人类心理自然就会让你将现实世界折射得符合你的模型，或者至少你认为是符合的。你会成为脊椎按摩师的对等物，当然，它是医学界的大蠢货。
 >
-> It’s like the old saying, “To the man with only a hammer, every problem looks like a nail.” And of course, that’s the way the chiropractor goes about practicing medicine. But that’s a perfectly disastrous way to think and a perfectly disastrous way to operate in the world. So you’ve got to have multiple models.
+> 就像老话说的，“对于一个只有一把锤子的人来说，每一个问题都像一颗钉子。”当然，这也就是脊椎指压治疗者对医学的处理方式。但这是一种极其灾难性的思维方式，也是一种在世界上运作的极其灾难性的方式。所以你必须有多个模型。
 
-**This post outlines some of the most useful mental models that I’ve accumulated in my career in Product Management.** As I learn new models, I’ll continually update the post.
+**这篇博客概述了一些在我职业生涯中积累下的最有用的思维模型。**如果我又学到了新的，我将会持续更新博客。
 
-This is also **not** a post for just product managers, it’s for everyone that works on products.  Product thinking is not sacred to the role of a PM, in fact, it’s even _more useful_ in the hands of the builders than PMs.
+这篇博客也**不**仅仅适用于产品经理，而是所有为产品作出工作的人们。产品思维对于产品经理的作用并不是神圣的，事实上，它被构建者掌握可能更**有用**。
 
-#### The mental models we’ll cover are structured into the following categories:
+#### 我们将会提及的思维模型被分为如下几类：
 
-1.  Figuring out Where to Invest
-2.  Designing and Scoping
-3.  Shipping and Iterating
+1.  找到投资点
+2.  设计与范围
+3.  运输与迭代
 
 * * *
 
-**_Figuring out Where to Invest_ — **the next set of mental models are useful for deciding what your team should build, or “invest in”, next.
+**找到投资点 -- **接下来的这一组思维模型对于决策团队应该构建或“投入”什么非常有用。
 
-### 1. Return on Investment
+### 1. 投资回报
 
-A finance concept: for every dollar you invest, how much are you getting back? In product, think of the resources you have (time, money, people) as what you’re “investing”, and the return as impact to customers.
+一个财务概念：你投资的每一元，获取到了多少回报？在产品中，把你拥有的资源（时间，财力，人员）想做你的投资，把对客户的影响想做回报。
 
 ![](https://cdn-images-1.medium.com/max/800/1*WzqwU7lp6E5nRgART7XJxw.png)
 
-#### How it’s useful
+#### 如何应用
 
-The resources available to a product team are time, money, and [the number and skill of] people. When you’re comparing possible projects you could take on, you should always choose the one that _maximizes impact to customers for every unit of resources you have._
+对于一个产品团队来说，可用的资源包括时间，金钱以及人力的数量和能力。当你比对你可能可以接受的项目时，你应当选择那个能够**最大化你拥有的每个单位资源对客户的影响的项目。**
 
-### 2. Time value of shipping
+### 2. 运输的时间价值
 
-Product shipped earlier is worth more to customers than product shipped at a later time.
+对于客户而言，产品提前交运要比延后交运更加有价值。
 
 ![](https://cdn-images-1.medium.com/max/800/1*JVAnPRwoPhnVSKWN2oQRDw.png)
 
-#### How it’s useful
+#### 如何应用
 
-When deciding between problems/opportunities to invest in, you can’t just compare the benefits of different features you could build (if you did, you would always choose the biggest feature).
+当在困难或者机会中抉择如何投入的时候，你应该不仅仅权衡你构建的不同功能所能获取的收益（当然如果你这样做了，你一定会选择收益最大的那个功能）。
 
-Instead, to make good investment decisions, you also have to consider how quickly those features will ship, and place more value on features that will ship faster.
+相反的，为了作出最好的投资决策，你也要考虑这些功能的交运速度，并对那些能够更快交运的功能多加关注。
 
-### 3. Time Horizon
+### 3. 时间范围
 
-Related to the _Time Value of Shipping,_ the  right investment decision changes based on the time period you are optimizing for.
+和**运输的时间价值**相关，最佳决策会根据优化的时间段而变化。
 
 ![](https://cdn-images-1.medium.com/max/800/1*lD889xYiJSidoYfrzDO5SA.gif)
 
-Given a long enough time horizon, the cost of a 3 month vs. 9 month build is insignificant.
+考虑到足够长的时间范围，3 个月与 9 个月构建的成本都是微不足道的。
 
-#### **How it’s useful**
+#### **如何应用**
 
-Choosing to ask _“How can we create the most impact in the next 3 months?”_ or _“How can we create the most impact in the next 3 years?”_ will  result  in dramatically different decisions for your team.
+选择追问 **“你在接下来三个月中如何能够获取最大影响”**或者 **“你在接下来三年中如何能够获取最大影响”**所能够导致的结果将会非常不同。
 
-It follows then that aligning with your team and stakeholders about what time horizon to optimize for is often the first discussion to have.
+接下来，通常情况下团队和股东的第一次讨论通常都是协调关于在哪个时间范围上进行优化。
 
-### 4. Expected Value
+### 4. 期望值
 
-Predicting the future is imperfect. Instead, all decisions create probabilities of multiple future outcomes. The probability-weighted sum of these outcomes is the _expected value_ of a decision.
+预测未来是不准确的。相反，所有的决策都会给未来带来多种可能的结果。这些结果的概率加权和就是决策的**期望值**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*_QclBIKqkgEehi61jVu7xQ.png)
 
-#### How it’s useful
+#### 如何应用
 
-When considering impact of a project, map out all possible outcomes and assign probabilities. Outcome variability typically includes the probability it takes longer than expected and the probability that it fails to solve the customer problem.
+当考虑项目的影响时，找出所有的可能结果并分配概率。结果的可变范围通常包括它可能会需要比期望更长的时间，以及它可能并没有解决用户提出的问题。
 
-Once you lay out all the outcomes, do a probability-weighted sum of the value of the outcomes and you’ll have a better picture on the return you will get on the investment.
+一旦你列出了所有的结果，并对所有结果的价值进行概率加权求和，你就能更好地了解投资的收益。
 
 * * *
 
-**_Designing and Scoping _— **the next set of mental models are useful for scoping and designing a product after you’ve chosen where to invest.
+**设计和范围 --** 在选好了投资目标后，下一组心理模型对于确定产品的范围和设计非常有用。
 
-### 5. Working Backwards (Inversion)
+### 5. 反向工作（反转）
 
-Instead of starting at a problem and then exploring towards a solution, start at a perfect solution and work backwards to today in order to figure out where to start.
+为了找出应该从哪里入手，应该从一个完美的解决方案开始，然后反向工作，而不是从一个有问题的部分开始，然后寻找解决方案。
 
 ![](https://cdn-images-1.medium.com/max/800/1*v-dFL3r4rPFo6xPjr0VQ8w.png)
 
-Note that working backwards isn’t universally better, it just creates a different perspective.
+注意，反向工作并不总是更好的方法，它仅仅是创造出了一个不同的视角。
 
-#### How it’s useful
+#### 如何应用
 
-Most teams tend to _work_ _forwards,_ which optimizes for what is practical at the cost of what’s ultimately impactful.
+大多数团队更倾向于**正向工作**，它优化了实用性，但是代价却是最终的影响力。
 
-Working backwards helps you ensure that you focus on the most impactful, long term work for the customer because you’re always reverse-engineering from a perfect solution for them.
+反向工作则帮助你确保你将专注于对用户最有影响力的长期工作上，因为你总是在一个完美的方案上逆向开展工程。
 
-Note that working backwards isn’t universally better, it just creates a different perspective. It’s healthy to plan using both perspectives.
+注意，反向工作并不总是更好的方法，它仅仅是创造出了一个不同的视角。同时采用两种不同视角进行规划也是很不错的。
 
-### 6. Confidence determines Speed vs. Quality
+### 6. 对产品的信心决定速度与质量
 
-The confidence you have in i) the importance of the problem your solving, and ii) the correctness of the solution you’re building, should determine how much you’re willing to trade off speed and quality in a product build.
+你所拥有的信心 i) 对于解决问题非常重要，并且 ii) 你正在构建的解决方案的正确性，应该会决定你在产品构建中，多大程度上愿意去权衡速度和质量。
 
 ![](https://cdn-images-1.medium.com/max/800/1*rqE-5eVKXLmkVLFux92d0g.png)
 
-#### How it’s useful
+#### 如何应用
 
-This mental model helps you to build a barometer to smartly trade off speed and quality. It’s easiest to explain this by looking at the extreme ends of the spectrum above.
+这个思维模型可以帮助你建立一个晴雨表，用来更巧妙地权衡速度和质量。通过观察上面频谱的两端，解释这一点是很容易的。
 
-**On the right side:** you have confidence (validated through customers) that the problem you’re focused on is really important to customers, _and_ you know exactly what to build to solve it. In that case, you shouldn’t take any shortcuts because you know customers will need this important feature forever, so it better be really high quality (e.g. scalable, delightful).
+**在最右侧：**对于用户来说，你正在专注的问题时分重要，对于这点你十分自信（经过用户验证，你的自信还会巩固），**并且**你十分肯定解决问题需要构建什么。在这种情况下，你不应该接受任何缺陷，因为你知道用户将来将会十分需要它，所以最好是高质量的（例如：可扩展性，用户友好）。
 
-**Now let’s look at the left side:** you haven’t even validated that the problem is important to customers. In this scenario, the longer you invest in building, the more you risk creating something for a problem that doesn’t even exist. Therefore, you should err on launching something _fast_ and getting customer validation that it’s worth actually building out well. For example, these are the types of situations where you may put up a landing page for a feature that doesn’t even exist to gauge customer interest.
+**现在我们再看看左侧：**你甚至还没能确定这个问题对用户是否重要。在这种场景下，你投入项目构建的时间越长，就有大风险会生成某些之前不存在的问题。因此，你应该推出某些能**快速**迭代的产品来试错，并获得用户的认可，证实它确实值得最终高质量的构建。例如，在这些情况下，你可以为一个甚至是现在还不存在功能配置落地页面，来衡量客户的兴趣。
 
-### 7. Solve the Whole Customer Experience
+### 7. 全面解决用户体验问题
 
-Customer experiences don’t end at the interface. What happens before and after using the product are just as important to design for.
+用户体验不止于界面。在用户使用产品之前和之后会如何，也是很重要的设计点。
 
 ![](https://cdn-images-1.medium.com/max/800/1*D_JfpzBPTU906raJzZVNPA.png)
 
-#### How it’s useful
+#### 如何应用
 
-When designing a product, we tend to over focus on the in-product experience (e.g. the user interface, in software).
+在设计产品时，我们趋向于过度关注产品内的用户体验（比如软件内部的用户界面）。
 
-It’s just as important to design the marketing experience (how you acquire customers and set their expectations for the product before they use it), and the support/distress experience (how your company handles the product failing).
+但是市场体验的设计（如何获取用户，以及如何在他们使用产品之前设定他们对产品的期望），还有产品支持/事故的用户体验（公司如何应对产品失误）也是同等重要的。
 
-Creating great distress experiences, in particular, are amazing opportunities to earn long term customer trust. For example, Amazon earns the most trust from you as a customer _when you have to return something._
+特别的，产生较大产品事故时的体验，是获取用户长期信任的大好机会。例如，**当作为客户的你不得不退回某些东西的时候，**亚马逊赢得了你很大部分的信任。
 
-### 8. Experiment, Feature, Platform
+### 8. 实验，特征，平台
 
-There are three types of product development: Experiments, Features, and Platforms. Each have their own goal and optimal way to trade-off speed and quality.
+产品开发有三种类型：实验，特征和平台。每个都有他们自己的目标，以及最佳方式来权衡速度和质量。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ilzmNU-5V1n8w4FLen4nVA.png)
 
-#### How it’s useful
+#### 如何应用
 
-By recognizing the type of product development your project is, you will define more appropriate goals for each type, and you will right-size the speed and quality trade off that you make.
+认清项目的产品开发类型，你将能够为每个类别定义更合适的目标，并且为速度和质量与产品之间的权衡找到合适点。
 
-Experiments are meant to output _learning_, so that you can invest in new features or platforms with customer validation. If you optimize for learning, you will consider doing things that otherwise wouldn’t be palatable: for example using hacky code that you intend to throw away, and faking sophisticated software when it’s just humans doing it behind the scenes.
+实验意味着要给出**经验**，因此你可以投入新的功能或者用户认可的平台。如果你是为了获取经验而作出的优化，你要考虑那些不经过实验就不合适的事情：比如使用你打算丢弃的 hacky 代码，以及伪造复杂的软件，它们只是人们仅在幕后会做的事情。
 
-In contrast to experiments, platforms are forever. Other people will build features on top of them, and as such making changes to the platform after it’s live is extremely disruptive.
+和实验相反，平台则是永久性的。其他人会在它们之上建立新的特性，因此，在平台生效后对平台进行更改是非常具有破坏性的。
 
-Therefore, platform projects need to be very high quality (stability, performance, scalability, etc.) and they need to actually enable useful features to be built. A good rule of thumb when building platform is to build it with your first consumer, i.e. have another team simultaneously building a feature on your platform while you’re developing it — this way, you guarantee the platform actually enables useful features.
+因此，平台项目需要高质量（稳定，性能良好，可扩展，等等），并且它们需要实际构建有用的功能。构建平台最好的法则就是和你的第一个客户一起构建它，即和一个在平台之上创建功能的团队同步开发 -- 这样，你就能确保平台实际上启用了可用的功能。
 
-### 9. Feedback Loops
+### 9. 反馈循环
 
-Cause and effect in products are the result of systems connected by positive and negative feedback loops.
+产品中的因果关系，是由正面和负面反馈回路所连接的系统产生的结果。
 
 ![](https://cdn-images-1.medium.com/max/800/1*eIrnHqDy24SmYTM5VT9uBw.png)
 
-#### How it’s useful
+#### 如何应用
 
-Feedback loops help us remember that some of the biggest drivers of growth or decline for a product may be from other parts of the system.
+反馈循环帮助我们记住，一个产品增长和下降的最大驱动因素可能来自系统的其他部分。
 
-For example, say you’re the payments team and your KPI is to grow total credit card payments processed. You have a positive feedback loop with the user acquisition team because as they grow users, you have more potential users that will pay with credit cards. However, you have a negative feedback loop with the cash payments team, who are trying to help users more easily to transact through cash.
+例如，比如你是支付团队，你的 KPI 就是增加信用卡支付总额。你和用户获取的团队之间存在一个正向反馈循环，因为当他们增长了用户，你就有更多将会用信用卡支付的潜在用户。但是，你和现金支付团队之间有一个负向反馈循环，他们的目标是帮助用户更方便的使用现金交易。
 
-Knowing these feedback loops can help you change strategy (e.g. you may choose to work on general user acquisition as the best way to grow payment volume), or understand negative changes in your metrics (e.g. credit card payment volume is down, but it’s because the cash payments team is doing really well, not because the credit card products suck).
+知道了这些反馈循环，可以帮助你调整方案（例如，你可以选择将获取一般用户作为增加支付量的最佳方式），或者了解指标的负面变化（例如，信用卡支付量下降，但是是因为现金支付团队做得很好，而不是信用卡产品糟糕）。
 
-### 10. Flywheel (recursive feedback loop)
+### 10. 飞轮（递归反馈循环）
 
-A state where a positive or negative feedback loop is feeding on itself and accelerating from it’s own momentum.
+这是一个正向或逆向反馈回路能够以自身的动量为动力并加速的状态。
 
 ![](https://cdn-images-1.medium.com/max/800/1*dQZTwGbDzYxyehti9NdUNg.png)
 
-#### How it’s useful
+#### 如何应用
 
-Flywheels are a related concept to feedback loops, but are important for managing platforms and marketplaces. For example, imagine you run Apple’s iOS app platform. You have two users: app developers, and app users.
+飞轮和反馈循环是相关的概念，但是对于管理平台和交易市场非常重要。例如，假设你在运行苹果 iOS 应用平台。你有两种用户：应用开发者，和应用使用者。
 
-The flywheel is the phenomenon where more app users attract more app developers (because there is more opportunity to sell), which in turn attract more app users (because there are more apps to buy), which in turn attract more app developers, and so on. As long as you nurture the flywheel, not only will you grow, but you’ll grow at an accelerating rate.
+飞轮就是更多应用用户吸引到更多应用开发者（因为有更多的机会可以售卖应用），然后反过来又会吸引更多的应用使用者（因为有更多的应用可以买），反过来又继续吸引更多的开发者，这样循环的现象。只要你培育好这个飞轮，就不仅是普通的增长，增长的速度也会提高。
 
-If you’re managing a flywheel, you have to do everything you can to keep it spinning in the positive direction, because it’s just as powerful the other way. For example, if there are so many apps on the platform that new apps can’t get discovered anymore, app developer growth will slow and break the flywheel — you need to solve that.
+如果你正在管理一个飞轮，你就要倾尽全力来确保它向正向旋转，因为它逆向旋转的时候力量同样很大。例如，如果平台上的应用过多，新的应用无法被发现，应用开发者的增长速度就会下降，这将打破飞轮 -- 你需要解决类似这样的问题。
 
 * * *
 
-**_Building & Iterating _— **the next set of mental models are useful for when you’re building, operating, and iterating an existing product.
+**构建和迭代 --** 当你在构建、操作和迭代已有产品的时候买，下一个系列的思维模型就非常有用。
 
-### 11. Diminishing Returns
+### 11. 收益递减
 
-When you focus on improving the same product area, the amount of customer value created over time will diminish for every unit of effort.
+当你专注于改进相同的产品领域时，随着时间的推移，每个单位的努力创造的客户价值也将随之减少。
 
 ![](https://cdn-images-1.medium.com/max/800/1*4Mk9GlI3Wze0M80vwdIpqA.png)
 
-#### How it’s useful
+#### 如何应用
 
-Assuming you are effectively iterating the product based on customer feedback and research, you will eventually hit a point where there’s just not that much you can do to make it better. It’s time for your team to move on and invest in something new.
+假设你正在基于用户反馈和调研有效的迭代产品，你最终都会达到那个为了使产品更好，你没有太多可做的了的那个程度。 那就是您的团队继续前进并投资新事物的时候了。
 
-### 12. Local Maxima
+### 12. 本地最大
 
-Related to _diminishing returns_, the local maxima is the point where incremental improvements creates no customer value at all, forcing you to make a step change in product capabilities.
+和收益递减相关，本地最大指的是增加优化但根本不产生用户价值，它迫使你在产品功能上作出改进。
 
 ![](https://cdn-images-1.medium.com/max/800/1*G5jRnVstTrkTKcFVLozunw.png)
 
-#### How it’s useful
+#### 如何应用
 
-This mental model is tightly related to diminishing returns, with the addition of hitting a limit where it literally makes no material difference to keep improving something. _Iteration_ now serves no purpose, and and the only way to progress is to _innovate._
+这个思维模型与收益递减紧密相关，增加了一个限制，继续维持改进实际上将没有任何实质性的差异。**迭代**现在已经毫无意义，唯一继续的方法是**革新**。
 
-This concept was recently popularized by Eugene Wei’s viral post [Invisible Asymptotes](http://www.eugenewei.com/blog/2018/5/21/invisible-asymptotes), which covers an example like this that Amazon foresaw which led them to create Prime.
+最近，由于 Eugene Wei 的病毒帖 [Invisible Asymptotes](http://www.eugenewei.com/blog/2018/5/21/invisible-asymptotes)，这个概念很流行，帖子中包含这样一个例子：亚马逊的预见引领他们创造了 Prime。
 
-### 13. Version two is a lie
+### 13. 第二版是谎言
 
-When building a product, don’t bank on a second version ever shipping. Make sure the first version is a complete product because it may be out there forever.
+在构建产品时，请不要依赖版本二的产品。确保版本一是一个完整的产品，因为它可能永远存在。
 
 ![](https://cdn-images-1.medium.com/max/800/1*m2032S9-aWtyxgLnKwBCdg.png)
 
-When software was sold on shelves, teams had to live with version 1 forever.
+当软件在货架上出售时，团队必须永远使用版本一。
 
-#### How it’s useful
+#### 如何应用
 
-When you’re defining the first version of your product, you will accumulate all sorts of amazing features that you dream of adding on later in future versions. Recognize that these may never ship, because you never know what can happen: company strategy changes, your lead engineer quits, or the whole team gets reallocated to other projects.
+当你定义你的产品的版本一时，你将聚集所有你希望在以后的版本中添加的令人惊叹的功能。你要认识到，一些功能可能永远也不会发布，因为你不知道将会发生什么：公司政策调整，你的工程师总监辞职，或者你的团队被重新分配到了其他项目中。
 
-To hedge against these scenarios, make sure that whatever you ship is a “complete product” which, if it was never improved again, would still be useful to customers for the foreseeable future. Don’t ship a feature that relies on future improvements in order to actually solve the problem well.
+为了避开这样的场景，确保你发布的是一个“完整的产品”，就算它再也不升级，在可预见的未来里，它对于用户来说也依旧是可用的。不要发布一个依赖于未来改进的功能，以便真正解决这个问题。
 
-### 14. Freeroll
+### 14. 免费锦标赛
 
-A situation where there is little to lose and lots of gain by shipping something fast.
+指的是通过快速发布，损失很少而收益很大的场景。
 
 ![](https://cdn-images-1.medium.com/max/800/1*eSuVg7xMVDoUCXtCEmrsrA.jpeg)
 
-#### How it’s useful
+#### 如何应用
 
-_Freerolls_ typically emerge in product when the current user experience is so bad that by making any reasonable change based on intuition is likely to make it much better. They are different than fixing bugs because bugs refer to something that’s not working as designed.
+**免费锦标赛**通常在这样的产品中出现：当前的用户体验非常差，以至于作出任何一点基于直觉的合理的改变都很有可能带来很大改善。它们与修复错误不同，因为错误指的是没有按照设计工作的东西。
 
-If you’re in a situation where your team is thinking, _“Let’s just do something… we can’t really make it any worse”_, you likely have a freeroll in front of you.
+如果你正在这样一种情境下：你的团队正在考虑，**“我们就这么做吧...反正也不能更糟了”**，也许你面前就正有一个免费锦标赛的机会。
 
-([r/CrappyDesign](https://www.reddit.com/r/CrappyDesign/) on Reddit is a treasure trove of such situations)
+（Reddit 上的 [r/CrappyDesign](https://www.reddit.com/r/CrappyDesign/) 是一个上述情况的宝库）
 
-### 15. Most value is created after version one
+### 15. 大部分价值在版本一后被创造出来
 
-You will learn the most about the customer after you launch the product, don’t waste the opportunity to build on those learnings.
+在你发布了产品之后，你将会从用户那里学到很多，不要浪费了在这些经验之上构建产品的机会。
 
 ![](https://cdn-images-1.medium.com/max/800/1*20d6A7nktJGqINckdVSelQ.png)
 
-#### How it’s useful
+#### 如何应用
 
-Everything is a hypothesis until customers are using the product at scale. While what your team invests in “pre-launch learning” — the customer interviews, prototype testing, quantitative analysis, beta testing, etc. — can give you a massive leg up on the probability of being right, there are always behaviours and edge cases that emerge once you ship the feature to 100% of customers.
+在用户成规模的使用产品之前，一切都是假说。你的团队在发布前所投入的 -- 用户访问，原型测试，定量分析，测试，等等 -- 都能大幅度支持你成功的可能性，一旦你将功能发布给所有的用户，总会出现产品行为（异常）和边缘情况。
 
-As a percentage of customer insight learned, you will gain the majority of learning _after_ launch. To not investing accordingly by iterating the product (sometimes drastically), doesn’t make sense with that in mind.
+学习一部分客户的审美价值后，你将会在产品发布**后**获取很多知识经验。如果不通过迭代产品（有时是大幅度的修改）进行相应的投入，那么学到了这些也是毫无意义的。
 
-### 16. Key Failure Indicator (KFI)
+### 16. 失败的关键指标（KFI）
 
-Pairing your Key Performance Indicators (KPIs) with metrics you _don’t_ want to see go in a certain direction, to ensure you’re focused on healthy growth.
+将关键绩效指标（KPIs）与你**不希望**看到的指标走向配对，以确保你专注于产品的健康成长。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ks8KCX4L9LVP88fiJzb_xQ.png)
 
-#### How it’s useful
+#### 如何应用
 
-Teams often choose KPIs that directly reflect the positive outcomes they’re looking for, without considering the negative ways that those outcomes could be achieved. Once they start optimizing for those KPIs, they actually create output that is net bad for the company.
+团队经常选择能够直接反应他们正在寻求的正面结果的 KPIs，而不考虑实现这些结果的负面影响。一旦他们开始为这些 KPIs 优化，对于公司，他们实际上创造的是很糟糕的产出。
 
-A classic example is a team thinking they’re successful when doubling sign-up conversion on the landing page, only to observe (far too late) that the number of total customers isn’t growing because the conversion rate dropped by 60% due to the same change.
+一个经典的例子是，当登陆页面上注册转换翻倍了的时候，一个团队认为他们取得了成功，但是却发现（为时已晚）总用户量并没有增长，因为由于相同的变化，转换率下降了 60%。
 
-KFIs keep your team’s performance in check, and make sure that you only create net-healthy outputs for the company.
+KFIs 能控制团队绩效，并确保您只为公司创建净健康产出。
 
-**Examples of popular KPI <> KFI pairings are:**
+**流行的 KPI <> KFI 配对的例子包括：**
 
-1.  Grow revenue while maintaining gross margin
-2.  Grow adoption of feature A without taking away adoption of feature B
-3.  Grow adoption of feature A without increasing support load
+1.  维持毛利率的同时增加收入
+2.  在不取消采用功能 B 的情况下，逐步采用功能 A
+3.  在不增加支持负载的情况下，逐步采用功能 A
 
 * * *
 
-### A latticework, not a checklist
+### 使用框架，而不是清单
 
-It may be unsatisfactory to many readers, but as far as I can tell there is no methodology for using these mental models. If you try and use them as a checklist — going through each and seeing if they apply them — you will end up doing to mental gymnastics that will confuse and frustrate you and those around you.
+对于读者来说，它可能并不让人很满意，但是据我所知，并没有使用这些思维模型的方法论。如果你试图将他们作为一个清单来使用 -- 逐个尝试每个，看看是否合适 -- 你最终会...(这里实在不知道怎么翻译，求校对的大神帮助)，这会让你和周围的人都感到困惑和沮丧。
 
-Instead, they simply become part of your latticework, helping you make better decisions about product, and giving you the language to communicate the why behind complex decisions to your team.
+相反，它们成为了你的思维框架的一部分，帮助你做出更好的产品决策，并且给你提供了与团队沟通，以传达复杂决策背后原因的语言。
 
-As you accumulate more models, ideally through experience, the better you will get.
+当你累积了更多的模型，同时模型随着经验的累计变得更理想，你将会更加优秀。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
