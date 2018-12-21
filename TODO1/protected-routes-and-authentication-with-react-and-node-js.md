@@ -2,14 +2,14 @@
 > * 原文作者：[Strapi](https://blog.strapi.io/tag/strapi/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/protected-routes-and-authentication-with-react-and-node-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/protected-routes-and-authentication-with-react-and-node-js.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ElizurHz](https://github.com/ElizurHz)
+> * 校对者：[LeviDing](https://leviding.com)
 
 # 用 React 和 Node.js 实现受保护的路由和权限验证
 
 上周末我想挖掘一些没有 [Redux-Saga](https://github.com/redux-saga/redux-saga) 这种花里胡哨的东西的纯粹的 [React](https://reactjs.org/)。
 
-所以我创建了一个小项目，在 [Strapi](https://strapi.io) - 一个包括了可扩展的管理后台面板和一些内置功能（授权，上传，权限控制...）的 Node.js 框架的配合下，仅使用 [Create React App](https://github.com/facebook/create-react-app) 创建一个小模板来实现授权流程。
+所以我创建了一个小项目，在 [Strapi](https://strapi.io) — 一个包括了可扩展的管理后台面板和一些内置功能（授权，上传，权限控制...）的 Node.js 框架的配合下，仅使用 [Create React App](https://github.com/facebook/create-react-app) 创建一个小模板来实现授权流程。
 
 ![React Nodejs](https://blog.strapi.io/content/images/2018/02/Screen-Shot-2018-02-21-at-10.42.51.png)
 
@@ -17,7 +17,7 @@
 
 ![Strapi authentication](https://blog.strapi.io/content/content/images/2018/02/2018-02-20-19.41.11.gif)
 
-_注: 本文的源代码可以在 [GitHub](https://github.com/strapi/strapi-examples/tree/master/good-old-react-authentication-flow) 上找到。_
+**注: 本文的源代码可以在 [GitHub](https://github.com/strapi/strapi-examples/tree/master/good-old-react-authentication-flow) 上找到。**
 
 ## 创建项目
 
@@ -61,7 +61,7 @@ $ create-react-app good-old-react-authentication-flow
 
 ### 设置路由和 PrivateRoute
 
-为了实现身份验证的视图，我们需要先创建一个 **HoC**: _高阶组件_ 来检查是否用户可以访问一个特定的 URL。为此，我们只需要遵循 [官方文档](https://reacttraining.com/react-router/web/example/auth-workflow)，修改 `fakeAuth` 示例，并使用我们的 `auth.js` 辅助文件：
+为了实现身份验证的视图，我们需要先创建一个 **HoC**：**高阶组件** 来检查是否用户可以访问一个特定的 URL。为此，我们只需要遵循 [官方文档](https://reacttraining.com/react-router/web/example/auth-workflow)，修改 `fakeAuth` 示例，并使用我们的 `auth.js` 辅助文件：
 
 ```
 import React from 'react';  
@@ -138,7 +138,7 @@ export default App;
 *   register
 *   reset-password
 
-`JSON` 结构如下所示（_你可以发现在 `Input` 组件中 `customBootstrapClass` 这个熟悉是必需的_）：
+`JSON` 结构如下所示（**你可以发现在 `Input` 组件中 `customBootstrapClass` 这个熟悉是必需的**）：
 
 ```
 {
@@ -231,7 +231,7 @@ render() {
 
 ![Strapi login view](https://blog.strapi.io/content/images/2018/02/Screen-Shot-2018-02-21-at-10.43.01.png)
 
-那么此时，所有授权用户需要的视图都应该已经创建好了！我们只需要进行API调用即可访问该应用。
+那么此时，所有授权用户需要的视图都应该已经创建好了！我们只需要进行 API 调用即可访问该应用。
 
 **将数据发布到 API**
 
@@ -266,11 +266,11 @@ redirectUser = () => {
 
 无论你选择 Facebook、GitHub 还是 Google，在 Strapi 使用第三方授权提供器来授权你的用户登陆是非常简单的 🙈。在这个例子中，我将为大家展示怎样使用 Facebook 的第三方授权提供器。
 
-因为 Strapi （**还**）没有提供 Javascript SDK 来对接 Strapi 的 API 和 Facebook 的 API。
+因为 Strapi（**还**）没有提供 Javascript SDK 来对接 Strapi 的 API 和 Facebook 的 API。
 
 **具体流程如下**:
 
-*   用户点击 ”使用 Facebook 登录“ 
+*   用户“点击使用 Facebook 登录”
 *   将用户重定向至另一个页面，在那里他可以进行授权
 *   授权之后，Facebook 会将用户重定向到你的应用里，并带在 URL 中附带一个 code
 *   把这个 code 发送给 Strapi
@@ -365,7 +365,7 @@ render() {
 
 ![Facebook setup](https://blog.strapi.io/content/images/2018/02/Screen-Shot-2018-02-20-at-18.10.39.png)
 
-*   在 `Facebook login` > `Advanced settings` 中，添加: `http://localhost:1337/connect/facebook/callback` 到 `Valid OAuth redirect URIs` 字段.
+*   在 `Facebook login` > `Advanced settings` 中，添加：`http://localhost:1337/connect/facebook/callback` 到 `Valid OAuth redirect URIs` 字段。
 
 ![Facebook setup](https://blog.strapi.io/content/images/2018/02/fb_settings.png)
 
@@ -373,11 +373,11 @@ render() {
 
 现在你已经在 Facebook 上创建了一个可以用于配置你项目中 Facebook 提供器的应用。
 
-到 [Users & Permissions 区域的 Providers 标签页](http://localhost:1337/admin/plugins/users-permissions/providers)，按照如下所示填写表单:
+到 [Users & Permissions 区域的 Providers 标签页](http://localhost:1337/admin/plugins/users-permissions/providers)，按照如下所示填写表单：
 
 ![Admin FB setup](https://blog.strapi.io/content/images/2018/02/Screen-Shot-2018-02-20-at-18.54.48.png)
 
-_不要忘记保存修改。_
+**不要忘记保存修改。**
 
 ## 结论
 
@@ -395,5 +395,3 @@ _不要忘记保存修改。_
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-
-
