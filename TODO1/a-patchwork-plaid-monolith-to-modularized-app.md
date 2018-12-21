@@ -13,6 +13,8 @@
 
 Illustrated by [Virginia Poltrack](https://twitter.com/VPoltrack)
 
+插图来自 [Virginia Poltrack](https://twitter.com/VPoltrack)
+
 #### _How and why we modularized Plaid and what’s to come_
 
 _This article dives deeper into the modularization portion of_ [_Restitching Plaid_](https://medium.com/@crafty/restitching-plaid-9ca5588d3b0a)_._
