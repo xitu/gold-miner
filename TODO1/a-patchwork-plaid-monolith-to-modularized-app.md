@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/0*7f6VI2TLc-P5iokR)
 
-拼贴格子 —— 一个与模块化有关的故事
+拼贴格子 — 一个与模块化有关的故事
 
 Illustrated by [Virginia Poltrack](https://twitter.com/VPoltrack)
 
