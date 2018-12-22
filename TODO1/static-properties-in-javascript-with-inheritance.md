@@ -83,7 +83,7 @@ console.log(Base.foo === Sub.foo); // true
 ```javascript
 class Base {
   static get foo() {
-    // 如果“_foo” 被继承了，或者不存在的时候将它当做 “undefined”
+    // 如果 “_foo” 被继承了，或者不存在的时候将它当做 “undefined”
     return this.hasOwnProperty('_foo') ? this._foo : void 0;
   }
   static set foo(v) { this._foo = v; }
