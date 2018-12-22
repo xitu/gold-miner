@@ -49,7 +49,7 @@ console.log(Base.foo, Sub.foo);
 
 Sub.foo = 43;
 
-// 打印 "43, 43"。 在上面会覆盖“Base.foo”和“Sub.foo”的值
+// 打印 "43, 43"。 在上面会覆盖 “Base.foo” 和 “Sub.foo” 的值
 console.log(Base.foo, Sub.foo);
 ```
 
