@@ -9,7 +9,7 @@
 
 ![](https://antonioleiva.com/wp-content/uploads/2014/04/mvp-android.jpg)
 
-MVP （Model View Presenter） 模式是**众所周知的 MVC（Model View Controller）的衍生物 **，并且是 Android 应用程序中管理表示层的最流行的模式之一。
+MVP （Model View Presenter） 模式是**著名的 MVC（Model View Controller）的衍生物 **，并且是 Android 应用程序中管理表示层的最流行的模式之一。
 
 这篇文章首次发表于 2014 年 4 月，从那以后就一直备受欢迎。 所以我决定更新它来解决人们心中的大部分疑虑，并将代码转换为 [Kotlin](https://antonioleiva.com/kotlin) 语言形式。
 
@@ -17,37 +17,37 @@ MVP （Model View Presenter） 模式是**众所周知的 MVC（Model View Contr
 
 ## 什么是 MVP 模式？
 
-MVP 模式允许把 **Presenter 层从逻辑中分离出来** ，这样一来，就把所有关于 UI 如何工作与我们在屏幕上如何表示它分离了开来。理想情况下，MVP 模式将实现相同的逻辑可能具有完全不同且可交替的界面。
+MVP 模式将 **Presenter 层从逻辑中分离出来** ，这样一来，就把所有关于 UI 如何工作与我们在屏幕上如何表示它分离了开来。理想情况下，MVP 模式将实现相同的逻辑可能具有完全不同且可交替的界面。
 
-要澄清的第一件事是 MVP **本身不是一个架构**，它只负责表示层。 这是一个有争议的评定，所以我想更深入地解释一下。
+要明确的第一件事是 MVP **本身不是一个架构**，它只负责表示层。 这是一个有争议的说法，所以我想更深入地解释一下。
 
-您可能会发现 MVP 被定义为架构模式，因为它可以成为您的应用程序架构的一部分，但不考虑仅仅因为您使用的是 MVP，您的架构是完整的。**MVP 仅仅塑造表示层**，但如果您需要灵活且可扩展的应用程序，那么其余层仍需要良好的体系架构。
+您可能会发现 MVP 被定义为架构模式，因为它可以成为您的应用程序架构的一部分。但你不应当这样认为，因为去掉 MVP 之后，您的架构依旧是完整的。**MVP 仅仅塑造表示层**，但如果您需要灵活且可扩展的应用程序，那么其余层仍需要良好的体系架构。
 
-完整架构体系的一个示例可能是 [Clean Architecture](https://fernandocejas.com/2015/07/18/architecting-android-the-evolution/)，但还有许多其他选择。
+完整架构体系的一个示例可以是 [Clean Architecture](https://fernandocejas.com/2015/07/18/architecting-android-the-evolution/)，但还有许多其他选择。
 
 在任何情况下，在您从未使用 MVP 的架构中去使用它总是件好事。
 
 ## 为什么要使用 MVP？
 
-在 Android 开发中，我们遇到一个严峻的问题：Activity 高度耦合了用户界面和数据存取机制。我们可以找到像  CursorAdapter 这样的极端例子，它将作为视图层一部分的 Adapter 和 属于数据访问层级的 Cursor 混合到了一起。
+在 Android 开发中，我们遇到一个严峻的问题：Activity 高度耦合了用户界面和数据存取机制。我们可以找到像 CursorAdapter 这样的极端例子，它将作为视图层一部分的 Adapter 和 属于数据访问层级的 Cursor 混合到了一起。
 
-**为了能够轻松地扩展和维护一个应用，我们需要定义分离良好的体系架构**。 如果我们不再从数据库获取数据，而是从 web 服务器获取，那么我接下来该怎么办呢？我们可能就要重新编写整个视图层了。
+**为了能够轻松地扩展和维护一个应用，我们需要使用可以相互分离的体系架构**。 如果我们不再从数据库获取数据，而是从 web 服务器获取，那么我接下来该怎么办呢？我们可能就要重新编写整个视图层了。
 
 MVP 使视图独立于我们的数据源而存在。 我们需要将应用程序划分为至少三个不同的层次，以便我们可以独立地测试它们。 通过 MVP，我们可以将大部分有关业务逻辑的处理从 Activity 中移除，以便我们可以在不使用 Instrumentation Test 的情况下对其进行测试。
 
 ## 如何实现 Android 当中的 MVP？
 
-好吧，这就是它开始变得更加分散的地方。 MVP 有很多变种，每个人都可以根据自己的需求和自己感觉更加舒适的方式来调整模式。 这主要取决于我们委托给 Presenter 的任务数量。
+好吧，这就是它开始产生分歧的地方。MVP 有很多变种，每个人都可以根据自己的需求和自己感觉更加舒适的方式来调整模式。 这主要取决于我们委托给 Presenter 的任务数量。
 
-到底是该由 View 层来负责启用或禁用一个进度条，还是该由 Presenter 来负责呢？又该由谁来决定 Action Bar 应该做出什么行为呢？这就是艰难决定开始的地方。我将展示我通常情况下是如何处理这种情况的，但我希望这篇文章更是一个适合讨论的地方，而不是严格的约束 MVP 该如何应用，因为根本没有“标准”的方式来实现它。
+到底是该由 View 层来负责启用或禁用一个进度条，还是该由 Presenter 来负责呢？又该由谁来决定 Action Bar 应该做出什么行为呢？这就是艰难决定的开始。我将展示我通常情况下是如何处理这种情况的，但我希望这篇文章更是一个适合讨论的地方，而不是严格的约束 MVP 该如何应用，因为根本没有“标准”的方式来实现它。
 
-对于本文，我已经实现了一个非常简单的示例， [您可以在我的Github找到](https://github.com/antoniolg/androidmvp) 一个登录页面和主页面。 为了简单起见，本文中的代码是使用 Kotlin 实现的，但您也可以在 [仓库](https://github.com/antoniolg/androidmvp)中查看通过 Java 8 编写的代码。
+对于本文，我已经实现了一个非常简单的示例，[您可以在我的Github找到](https://github.com/antoniolg/androidmvp) 一个登录页面和主页面。为了简单起见，本文中的代码是使用 Kotlin 实现的，但您也可以在 [仓库](https://github.com/antoniolg/androidmvp)中查看使用 Java 8 编写的代码。
 
 ### Model 层
 
 在具有完整分层体系结构的应用程序中，这里的 Model 仅仅是通往领域层或业务逻辑层的大门。 如果我们使用 [鲍勃大叔的 clean architecture 架构](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html "New Window to Clean Architecture") ，这里的 Model 可能是一个实现了一个用例的 Interactor （交互器）。但就本文而言，将 Model 看做是一个给 View 层显示数据的提供者就足够了。
 
-如果您检查代码，您将看到我创建了两个带有人为延迟操作的 Interactor 来模拟对服务器的请求情况。 其中一个    Interactor 的结构：
+如果您检查代码，您将看到我创建了两个带有人为延迟操作的 Interactor 来模拟对服务器的请求情况。 其中一个 Interactor 的结构：
 
 ```
 class LoginInteractor {
@@ -107,7 +107,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
 }
 ```
 
-但是如果您还记得，我还告诉您，View 层使用 Presenter 来通知用户交互操作。 下面就是它的用法：
+但是如果您还记得，我还告诉过您，View 层使用 Presenter 来通知用户交互操作。 下面就是它的用法：
 
 ```
 class LoginActivity : AppCompatActivity(), LoginView {
@@ -176,7 +176,7 @@ fun onDestroy() {
 
 ## 总结
 
-在 Android 中将用户界面层与逻辑层分离并不简单，但 MVP 模式可以更加轻易地防止我们的 Activity 最终沦为高度耦合的、包含了成百上千行代码的类。
+在 Android 中将用户界面层与逻辑层分离并不简单，但 MVP 模式可以更加轻易地防止我们的 Activity 最终沦为高度耦合的、包含了成百上千行代码的类。在大型应用开发过程中，将代码管理好是很有必要的。否则，对代码的维护和扩展都会变得很困难。
 
 如今，还有其他的代替方案比如 MVVM，我将会创作新的文章来对 MVVM 和 MVP 做比较，并帮助开发者迁移。所以请继续关注我的博客！
 
