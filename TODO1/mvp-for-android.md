@@ -9,7 +9,7 @@
 
 ![](https://antonioleiva.com/wp-content/uploads/2014/04/mvp-android.jpg)
 
-MVP（Model View Presenter）模式是**著名的 MVC（Model View Controller）的衍生物**，并且是 Android 应用程序中管理表示层的最流行的模式之一。
+MVP（Model View Presenter）模式是 **著名的 MVC（Model View Controller）的衍生物**，并且是 Android 应用程序中管理表示层的最流行的模式之一。
 
 这篇文章首次发表于 2014 年 4 月，从那以后就一直备受欢迎。所以我决定更新它来解决人们心中的大部分疑虑，并将代码转换为 [Kotlin](https://antonioleiva.com/kotlin) 语言形式。
 
