@@ -97,7 +97,7 @@ searchIconMagic: function() {
 };
 ​```
 
-“一个小时后…… 在检查一下看看”.
+“一个小时后…… 在检查一下看看”
 
 `测试团队`: “ 在Chrome和Safari中可以了，但是Mozilla FireFox中又不行了...啊啊啊 !!!!!”
 
