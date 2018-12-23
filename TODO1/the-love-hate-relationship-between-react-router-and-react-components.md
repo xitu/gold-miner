@@ -17,7 +17,7 @@
 
 *   与 React 完美结合并且遵循相同的原则
 *   路由的导航方面非常容易理解
-*   [组件组合、声明性 UI、状态管理](https://tylermcginnis.com/react-router-programmatically-navigate/) 并且它紧密地追随着 React 的工作流**（事件 => 状态变化 => 重新渲染）**
+*   [组件组合、声明性 UI、状态管理](https://tylermcginnis.com/react-router-programmatically-navigate/) 并且它紧密地追随着 React 的工作流 **（事件 => 状态变化 => 重新渲染）**
 *   可靠的 [浏览历史特征](https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/history.md) 允许用户在追踪视图状态的同时在应用中导航。
 
 然而在使用 React 路由的时候，如果你的应用程序特定需求变得比你在 web 上的每个教程中看到的常规用法稍微复杂一些，你将面对一些困难。
@@ -28,7 +28,7 @@
 
 ### 相爱关系
 
-React 路由和 React 组件之间有很多的联系。这主要是因为它们都遵循上面提到的相同的事件循环**（事件 => 状态变化 => 重新渲染）**。现在记住这个流程，我们将解决在应用程序中导航的一个常见问题；**当路由更改的时候滚动到页面的顶部**。
+React 路由和 React 组件之间有很多的联系。这主要是因为它们都遵循上面提到的相同的事件循环 **（事件 => 状态变化 => 重新渲染）**。现在记住这个流程，我们将解决在应用程序中导航的一个常见问题；**当路由更改的时候滚动到页面的顶部**。
 
 假设你有一组名为 **Home**、**About** 和 **Search** 的组件
 
