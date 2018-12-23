@@ -12,7 +12,7 @@
 
 **最终效果：**
 
-![final app](https://testdriven.io/assets/img/blog/flask-vue/final.gif)
+![final app](https://testdriven.io/static/images/blog/flask-vue/final.gif)
 
 **主要依赖：**
 
@@ -248,7 +248,7 @@ $ npm run dev
 
 在你的浏览器中导航到 [http://localhost:8080](http://localhost:8080)。你将会看到：
 
-![default vue app](https://testdriven.io/assets/img/blog/flask-vue/default-vue-app.png)
+![default vue app](https://testdriven.io/static/images/blog/flask-vue/default-vue-app.png)
 
 添加一个新组件在 “client/src/components” 文件夹中，并取名为 **Ping.vue**：
 
@@ -405,7 +405,7 @@ $ npm run dev
 
 你应该会看到：
 
-![vue with bootstrap](https://testdriven.io/assets/img/blog/flask-vue/bootstrap.png)
+![vue with bootstrap](https://testdriven.io/static/images/blog/flask-vue/bootstrap.png)
 
 然后，添加一个叫做 `Books` 的新组件到新文件 **Books.vue** 中：
 
@@ -510,7 +510,7 @@ export default new Router({
 
 你现在应该会看到：
 
-![books component](https://testdriven.io/assets/img/blog/flask-vue/books-component-1.png)
+![books component](https://testdriven.io/static/images/blog/flask-vue/books-component-1.png)
 
 现在我们可以开始构建我们的 CRUD 应用的功能。
 
@@ -520,7 +520,7 @@ export default new Router({
 
 我们还会使用 Vue 搭建一个前端应用来使用这个后端 API：
 
-![final app](https://testdriven.io/assets/img/blog/flask-vue/final.gif)
+![final app](https://testdriven.io/static/images/blog/flask-vue/final.gif)
 
 > 本教程只设计简单步骤。处理错误是读者（就是你！）的额外练习。通过你的理解解决前后端出现的问题吧。
 
@@ -642,7 +642,7 @@ export default {
 
 在模板中，我们通过 [v-for](https://vuejs.org/v2/guide/list.html) 指令遍历书籍列表，每次遍历创建一个新表格行。索引值用作 [key](https://vuejs.org/v2/guide/list.html#key)。最后，使用 [v-if](https://vuejs.org/v2/guide/conditional.html#v-if) 的 `Yes` 或 `No`，来表现用户已读或未读这本书。
 
-![books component](https://testdriven.io/assets/img/blog/flask-vue/books-component-2.png)
+![books component](https://testdriven.io/static/images/blog/flask-vue/books-component-2.png)
 
 ## Bootstrap Vue
 
@@ -1007,7 +1007,7 @@ export default {
 
 赶紧测试一下！试着添加一本书：
 
-![add new book](https://testdriven.io/assets/img/blog/flask-vue/add-new-book.gif)
+![add new book](https://testdriven.io/static/images/blog/flask-vue/add-new-book.gif)
 
 ## alert 组件
 
@@ -1073,7 +1073,7 @@ export default {
 
 刷新浏览器，你会看到：
 
-![bootstrap alert](https://testdriven.io/assets/img/blog/flask-vue/alert.png)
+![bootstrap alert](https://testdriven.io/static/images/blog/flask-vue/alert.png)
 
 > 从 Vue 官方文档的 [组件化应用构建](https://vuejs.org/v2/guide/index.html#Composing-with-Components) 中获得更多有关组件化应用构建的信息。
 
@@ -1102,7 +1102,7 @@ export default {
 
 试试这个：
 
-![bootstrap alert](https://testdriven.io/assets/img/blog/flask-vue/alert-2.png)
+![bootstrap alert](https://testdriven.io/static/images/blog/flask-vue/alert-2.png)
 
 > 从 [文档](https://vuejs.org/v2/guide/components.html#Passing-Data-to-Child-Components-with-Props) 中获取更多 props 相关信息。
 
@@ -1190,7 +1190,7 @@ addBook(payload) {
 
 赶快测试一下吧！
 
-![add new book](https://testdriven.io/assets/img/blog/flask-vue/add-new-book-2.gif)
+![add new book](https://testdriven.io/static/images/blog/flask-vue/add-new-book-2.gif)
 
 > 挑战：
 >
@@ -1457,7 +1457,7 @@ initForm() {
 
 在继续下一步之前先检查一下代码。检查结束后，测试一下应用。确保按钮按下后显示模态框，并正确显示输入值。
 
-![update book](https://testdriven.io/assets/img/blog/flask-vue/update-book.gif)
+![update book](https://testdriven.io/static/images/blog/flask-vue/update-book.gif)
 
 ## DELETE 路由
 
@@ -1527,7 +1527,7 @@ onDeleteBook(book) {
 > 1.  在删除按钮点击时加入一个确认提示。
 > 2.  当没有书的时候，显示一个“没有书籍，请添加”消息。
 
-![delete book](https://testdriven.io/assets/img/blog/flask-vue/delete-book.gif)
+![delete book](https://testdriven.io/static/images/blog/flask-vue/delete-book.gif)
 
 ## 总结
 
