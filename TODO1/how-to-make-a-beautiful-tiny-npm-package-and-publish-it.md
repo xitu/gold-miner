@@ -19,7 +19,7 @@ Photo by [Chen Hu](https://unsplash.com/@huchenme?utm_source=medium&utm_medium=r
 
 一个 npm 模块 **只** 需要包含一个带有 **name** 和 **version** 属性的 package.json 文件。
 
-### Hey!
+### Hey！
 
 看看你。
 
@@ -65,15 +65,15 @@ _你当然想过。_ 一个幼年大象被叫做 [小牛](https://www.reference.
 
 …不过我确实做了。
 
-没这么糟糕啦. 总有一天你会原谅我的。
+没这么糟糕啦。总有一天你会原谅我的。
 
-#### 步骤 1： npm 账户
+#### 步骤 1：npm 账户
 
-你需要一个账号。 这是流程的一部分。
+你需要一个账号。这是流程的一部分。
 
 [在这注册](https://www.npmjs.com/signup)。
 
-#### Step 2： 登录
+#### 步骤 2：登录
 
 有没注册一个 npm 账户呀？
 
@@ -81,7 +81,7 @@ _你当然想过。_ 一个幼年大象被叫做 [小牛](https://www.reference.
 
 真棒。
 
-我同时建议你使用 [命令行 / 控制台](https://www.davidbaumgold.com/tutorials/command-line/) 等等。 从现在起我统一叫它们终端。 这里可以看下它们的区别 [很明显](https://superuser.com/questions/144666/what-is-the-difference-between-shell-console-and-terminal)。
+我同时建议你使用 [命令行 / 控制台](https://www.davidbaumgold.com/tutorials/command-line/) 等等。从现在起我统一叫它们终端。这里可以看下它们的区别 [很明显](https://superuser.com/questions/144666/what-is-the-difference-between-shell-console-and-terminal)。
 
 打开终端然后输入：
 
@@ -107,11 +107,11 @@ npm login
 
 ### 开始开发一个包
 
-首先我们需要一个文件夹来装我们的代码。 用一个你喜欢的方式随便建一个。 我把我新建的包叫做 **tiny** 因为它真的很小。 我为那些不熟悉命令行的人提供些新建相关的终端命令。
+首先我们需要一个文件夹来装我们的代码。用一个你喜欢的方式随便建一个。我把我新建的包叫做 **tiny** 因为它真的很小。我为那些不熟悉命令行的人提供些新建相关的终端命令。
 
 > [md](https://en.wikipedia.org/wiki/Mkdir) tiny
 
-在新建的文件夹中，我们需要 [**package.json**](https://docs.npmjs.com/files/package.json) 文件。 如果你用过 [Node.js](https://en.wikipedia.org/wiki/Node.js) — 那你肯定见过这个文件。这是一个 [JSON](https://en.wikipedia.org/wiki/JSON) 文件，它包含了你的项目信息以及众多的配置项。在本文中，我们只需关注其中的两项。
+在新建的文件夹中，我们需要 [**package.json**](https://docs.npmjs.com/files/package.json) 文件。如果你用过 [Node.js](https://en.wikipedia.org/wiki/Node.js) — 那你肯定见过这个文件。这是一个 [JSON](https://en.wikipedia.org/wiki/JSON) 文件，它包含了你的项目信息以及众多的配置项。在本文中，我们只需关注其中的两项。
 
 > [cd](https://en.wikipedia.org/wiki/Cd_%28command%29) tiny && [touch](https://superuser.com/questions/502374/equivalent-of-linux-touch-to-create-an-empty-file-with-powershell) package.json
 
@@ -169,7 +169,7 @@ npm 可不喜欢报这么多错。
 
 通过使用 **@bamblehorse/tiny** 代替 **tiny**，我们会创建一个在我们用户名 **scope** 下的一个包。这个叫做 [**scoped package**](https://docs.npmjs.com/misc/scope)。它允许我们将已经被其他包使用的名称作为包名，比如说，[**tiny** 包](https://www.npmjs.com/package/tiny) 已经在 npm 中存在。
 
-你可能在一些著名的包中见过这种命名方法，比如来自 Google 的 [Angular](https://angular.io/)。 它们有几个 scoped packages ，比如 [@angular/core](https://www.npmjs.com/package/@angular/core) 和 [@angular/http](https://www.npmjs.com/package/@angular/http)。
+你可能在一些著名的包中见过这种命名方法，比如来自 Google 的 [Angular](https://angular.io/)。 它们有几个 scoped packages，比如 [@angular/core](https://www.npmjs.com/package/@angular/core) 和 [@angular/http](https://www.npmjs.com/package/@angular/http)。
 
 超级酷，对吧?
 
@@ -292,7 +292,7 @@ GitHub 就是一个放代码的好地方。 先建一个 [新的仓库](https://
 
 **npm (scoped)**
 
-下一个徽章更有趣。 它表示警告，因为我们还没有任何代码。 
+下一个徽章更有趣。它表示警告，因为我们还没有任何代码。 
 
 我们真该写些代码…
 
