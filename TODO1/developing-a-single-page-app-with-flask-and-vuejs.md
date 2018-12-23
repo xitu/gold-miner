@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/developing-a-single-page-app-with-flask-and-vuejs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/developing-a-single-page-app-with-flask-and-vuejs.md)
 > * 译者：[Mcskiller](https://github.com/Mcskiller)
-> * 校对者：
 
 # 用 Flask 和 Vue.js 开发一个单页面应用
 
@@ -57,7 +56,7 @@
 
 ## 什么是 Flask？
 
-[Flask](http://flask.pocoo.org/) 是一个用 Python 编写的简单，但是及其强大的轻量级 Web 框架，非常适合用来构建 RESTful API。就像 [Sinatra](http://sinatrarb.com/) (Ruby) 和 [Express](https://expressjs.com/) (Node) 一样，它也十分简便，所以你可以从小处开始，根据需求构建一个十分复杂的应用。
+[Flask](http://flask.pocoo.org/) 是一个用 Python 编写的简单，但是及其强大的轻量级 Web 框架，非常适合用来构建 RESTful API。就像 [Sinatra](http://sinatrarb.com/)（Ruby）和 [Express](https://expressjs.com/)（Node）一样，它也十分简便，所以你可以从小处开始，根据需求构建一个十分复杂的应用。
 
 第一次使用 Flask？看看这下面两个教程吧：
 
@@ -73,7 +72,7 @@
 1.  [Vue: Comparison with Other Frameworks](https://vuejs.org/v2/guide/comparison.html)
 2.  [Angular vs. React vs. Vue: A 2017 comparison](https://medium.com/unicorn-supplies/angular-vs-react-vs-vue-a-2017-comparison-c5c52d620176)
 
-第一次使用 Vue？不妨花点时间阅读官方指南中的 [介绍](https://vuejs.org/v2/guide/index.html)
+第一次使用 Vue？不妨花点时间阅读官方指南中的 [介绍](https://vuejs.org/v2/guide/index.html)。
 
 ## 安装 Flask
 
@@ -84,7 +83,7 @@ $ mkdir flask-vue-crud
 $ cd flask-vue-crud
 ```
 
-在 "flask-vue-crud" 文件夹中，创建一个新文件夹并取名为 “server”。然后，在 “server” 文件夹中创建并运行一个虚拟环境：
+在 “flask-vue-crud” 文件夹中，创建一个新文件夹并取名为 “server”。然后，在 “server” 文件夹中创建并运行一个虚拟环境：
 
 ```
 $ python3.6 -m venv env
@@ -127,7 +126,7 @@ if __name__ == '__main__':
     app.run()
 ```
 
-为什么我们需要 Flask-CORS？为了进行跨域请求 —— e.g., 来自不同协议，IP 地址，域名或端口的请求 —— 你需要允许 [跨域资源共享](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (CORS)。而这正是 Flask-CORS 能为我们提供的。
+为什么我们需要 Flask-CORS？为了进行跨域请求 — e.g.，来自不同协议，IP 地址，域名或端口的请求 — 你需要允许 [跨域资源共享](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)（CORS）。而这正是 Flask-CORS 能为我们提供的。
 
 > 值得注意的是上述安装允许跨域请求在全部路由无论**任何**域，协议或者端口都可用。在生产环境中，你应该**只**允许跨域请求成功在前端应用托管的域上。参考 [Flask-CORS 文档](http://flask-cors.readthedocs.io/) 获得更多信息。
 
@@ -209,7 +208,7 @@ $ vue init webpack client
 </html>
 ```
 
-注意那个 `id` 是 `app` 的 `<div>` 元素。那是一个占位符， Vue 将会用来连接生成的 HTML 和 CSS 构建 UI。
+注意那个 `id` 是 `app` 的 `<div>` 元素。那是一个占位符，Vue 将会用来连接生成的 HTML 和 CSS 构建 UI。
 
 注意那些在 “src” 文件夹中的文件夹：
 
@@ -517,7 +516,7 @@ export default new Router({
 
 ## 我们的目的是什么？
 
-我们的目标是设计一个后端 RESTful API，由 Python 和 Flask 驱动，对应一个单一资源 —— books。这个 API 应当遵守 RESTful 设计原则，使用基本的 HTTP 动词：GET，POST，PUT 和 DELETE。
+我们的目标是设计一个后端 RESTful API，由 Python 和 Flask 驱动，对应一个单一资源 — books。这个 API 应当遵守 RESTful 设计原则，使用基本的 HTTP 动词：GET、POST、PUT 和 DELETE。
 
 我们还会使用 Vue 搭建一个前端应用来使用这个后端 API：
 
@@ -1298,7 +1297,7 @@ def remove_book(book_id):
 4.  通知用户
 5.  处理取消按钮点击事件
 
-#### (1) 添加模态和表单
+#### （1）添加模态和表单
 
 首先，加入一个新的模态到 template 中，就在第一个模态下面：
 
@@ -1352,7 +1351,7 @@ editForm: {
 
 > 挑战：不使用新的模态，使用一个模态框处理 POST 和 PUT 请求。
 
-#### (2) 处理更新按钮点击事件
+#### （2）处理更新按钮点击事件
 
 更新表格中的“更新”按钮：
 
@@ -1391,7 +1390,7 @@ onSubmitUpdate(evt) {
 },
 ```
 
-#### (3) 发送 AJAX 请求
+#### （3）发送 AJAX 请求
 
 ```
 updateBook(payload, bookID) {
@@ -1408,7 +1407,7 @@ updateBook(payload, bookID) {
 },
 ```
 
-#### (4) 通知用户
+#### （4）通知用户
 
 更新 `updateBook`：
 
@@ -1429,7 +1428,7 @@ updateBook(payload, bookID) {
 },
 ```
 
-#### (5) 处理取消按钮点击事件
+#### （5）处理取消按钮点击事件
 
 添加方法：
 
@@ -1538,7 +1537,7 @@ onDeleteBook(book) {
 
 你可以在 [flask-vue-crud](https://github.com/testdrivenio/flask-vue-crud) 仓库 中的 [v1](https://github.com/testdrivenio/flask-vue-crud/releases/tag/v1) 标签里找到源码。感谢你的阅读。
 
-> **想知道更多？** 看看这篇文章的续作 [Accepting Payments with Stripe, Vue.js, and Flask](https://testdriven.io/accepting-payments-with-stripe-vuejs-and-flask)
+> **想知道更多？** 看看这篇文章的续作 [Accepting Payments with Stripe, Vue.js, and Flask](https://testdriven.io/accepting-payments-with-stripe-vuejs-and-flask)。
 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
