@@ -2,8 +2,8 @@
 > * 原文作者：[Valeri Karpov](http://www.twitter.com/code_barbarian)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/static-properties-in-javascript-with-inheritance.md](https://github.com/xitu/gold-miner/blob/master/TODO1/static-properties-in-javascript-with-inheritance.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Augustwuli](https://github.com/Augustwuli)
+> * 校对者：[RicardoCao-Biker](https://github.com/RicardoCao-Biker), [Mcskiller](https://github.com/Mcskiller)
 
 # 继承 JavaScript 类中的静态属性
 
@@ -40,7 +40,7 @@ class Base {
 }
 ```
 
-不幸的是，在继承 `Base` 的时候，这个模式就行不通了。如果你设置子类 `foo` 的值，它将会覆盖 `Base` 和所有其他的子类的 `foo` 。
+不幸的是，在继承 `Base` 的时候，这个模式就行不通了。如果你设置子类 `foo` 的值，它将会覆盖 `Base` 和所有其他的子类的 `foo`。
 
 ```javascript
 class Sub extends Base {}
@@ -49,7 +49,7 @@ console.log(Base.foo, Sub.foo);
 
 Sub.foo = 43;
 
-// 打印 "43, 43"。 在上面会覆盖 “Base.foo” 和 “Sub.foo” 的值
+// 打印 "43, 43"。在上面会覆盖 “Base.foo” 和 “Sub.foo” 的值
 console.log(Base.foo, Sub.foo);
 ```
 
@@ -69,7 +69,7 @@ console.log(Base.foo, Sub.foo);
 
 Sub.foo.push('foo');
 
-// 现在这两个数组都包含 “foo”，因为它们都是同一个数组
+// 现在这两个数组都包含 “foo”，因为它们都是同一个数组！
 console.log(Base.foo, Sub.foo);
 console.log(Base.foo === Sub.foo); // true
 ```
@@ -93,13 +93,13 @@ Base.foo = [];
 
 class Sub extends Base {}
 
-// 打印 “[] undefined”
+// 打印 "[] undefined"
 console.log(Base.foo, Sub.foo);
 console.log(Base.foo === Sub.foo); // false
 
 Base.foo.push('foo');
 
-// 打印 “['foo'] undefined”
+// 打印 "['foo'] undefined"
 console.log(Base.foo, Sub.foo);
 console.log(Base.foo === Sub.foo); // false
 ```
@@ -125,24 +125,25 @@ Object.defineProperty(Sub1, 'foo', Object.getOwnPropertyDescriptor(Base, 'foo'))
 // ES6 的继承
 class Sub2 extends Base {}
 
-// 打印 “[] undefined”
+// 打印 "[] undefined"
 console.log(Base.foo, Sub1.foo);
-// 打印 “[] undefined”
+// 打印 "[] undefined"
 console.log(Base.foo, Sub2.foo);
 
 Base.foo.push('foo');
 
-// 打印 “['foo'] undefined”
+// 打印 "['foo'] undefined"
 console.log(Base.foo, Sub1.foo);
-// 打印 “['foo'] undefined”
+// 打印 "['foo'] undefined"
 console.log(Base.foo, Sub2.foo);
 ```
 
 ## 继续前进
 
-ES6 类相对于老的 `Sub.prototype = Object.create(Base.prototype)` 有一个主要的优势，因为它 `extends` 了静态属性和函数的副本。使用 [`Object.hasOwnProperty()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty)  做一些额外的工作，就可以创建正确处理继承的静态 getter 和 setter。在 JavaScript 中使用静态属性要非常地小心：`extends` 在底层仍然使用典型的继承。这意味着，除非你使用本篇文章提到的 `hasOwnProperty()` 模式，否则静态的对象和数组在所有的子类中被共享。
+ES6 类相对于老的 `Sub.prototype = Object.create(Base.prototype)` 有一个主要的优势，因为它 `extends` 了静态属性和函数的副本。使用 [`Object.hasOwnProperty()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty) 做一些额外的工作，就可以创建正确处理继承的静态 getter 和 setter。在 JavaScript 中使用静态属性要非常地小心：`extends` 在底层仍然使用典型的继承。这意味着，除非你使用本篇文章提到的 `hasOwnProperty()` 模式，否则静态的对象和数组在所有的子类中被共享。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
 
 ---
 
