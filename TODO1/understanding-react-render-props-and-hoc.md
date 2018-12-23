@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-react-render-props-and-hoc.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-react-render-props-and-hoc.md)
 > * 译者：[wuzhengyan2015](https://github.com/wuzhengyan2015)
-> * 校对者：
+> * 校对者：[Ivocin](https://github.com/Ivocin), [Moonliujk](https://github.com/Moonliujk)
 
 # 理解 React Render Props 和 HOC
 
@@ -21,7 +21,7 @@ React 提供了一种简单的代码复用方式，即**组件**。组件封装�
 
 提示：使用 [**Bit** (Github)](https://github.com/teambit/bit)，你可以组织和分享**可复用的组件**，这些组件可以从不同的项目和应用中被发现，分享和开发。这比重写组件或者维护一个大型库要快得多。试试看 :)
 
-- [**Bit —— 分享和构建组件代码**： Bit 帮助你从不同的项目和应用中分享，发现和使用组件代码，以此来构建新特性和...](https://bitsrc.io "https://bitsrc.io")
+- [**Bit — 分享和构建组件代码**：Bit 帮助你从不同的项目和应用中分享，发现和使用组件代码，以此来构建新特性和...](https://bitsrc.io "https://bitsrc.io")
 
 #### 例子
 
@@ -62,7 +62,7 @@ React 提供了一种简单的代码复用方式，即**组件**。组件封装�
 
 ProductList.js ([代码链接](https://carbon.now.sh/?bg=rgba%28171%2C184%2C195%2C0%29&t=material&wt=none&l=jsx&ds=true&dsyoff=20px&dsblur=68px&wc=true&wa=false&pv=48px&ph=32px&ln=false&fm=Hack&fs=14px&lh=133%25&si=false&code=import%2520React%2520from%2520%2522react%2522%253B%250A%250Aconst%2520ProductList%2520%253D%2520%28%257B%2520products%2520%257D%29%2520%253D%253E%2520%257B%250A%2520%2520return%2520%28%250A%2520%2520%2520%2520%253Cul%253E%250A%2520%2520%2520%2520%2520%2520%257Bproducts.map%28product%2520%253D%253E%2520%28%250A%2520%2520%2520%2520%2520%2520%2520%2520%253Cli%2520key%253D%257Bproduct.id%257D%253E%250A%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%253Cspan%253E%257Bproduct.name%257D%253C%252Fspan%253E%250A%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%253Ca%2520href%253D%2522%2523%2522%253EAdd%2520to%2520Cart%253C%252Fa%253E%250A%2520%2520%2520%2520%2520%2520%2520%2520%253C%252Fli%253E%250A%2520%2520%2520%2520%2520%2520%29%29%257D%250A%2520%2520%2520%2520%253C%252Ful%253E%250A%2520%2520%29%253B%250A%257D%253B%250A%250Aexport%2520%257B%2520ProductList%2520%257D%253B&es=2x&wm=false&ts=false))
 
-就像 `ProductList` , `ProductTable` 会是一个函数组件，它接收产品数据为属性，并把数据渲染到表的行中去。
+就像 `ProductList` 和 `ProductTable` 会是一个函数组件，它接收产品数据为属性，并把数据渲染到表的行中去。
 
 现在让我们创建一个名为 `ProductsData` 的组件。它从 API 获取产品数据。数据的获取和状态的更新将和原先的 `ProductList` 组件一样。但是我们应该在这个组件的 render 方法中放入什么呢？
 
@@ -146,15 +146,15 @@ ProductData.js ([代码链接](https://carbon.now.sh/?bg=rgba%28171%2C184%2C195%
 
 还有一个问题：如何在 Render Props 和 HOCs 中进行选择？关于这个话题的文章已经有很多了，所以我现在不讨论这个话题。也许在我的下一篇文章中 :)
 
-[什么时候不要使用 Render Props](https://blog.kentcdodds.com/when-to-not-use-render-props-5397bbeff746) —— Kent C. Dodds
+[什么时候不要使用 Render Props](https://blog.kentcdodds.com/when-to-not-use-render-props-5397bbeff746) — Kent C. Dodds
 
-[HOCs vs Render Props](https://www.richardkotze.com/coding/hoc-vs-render-props-react) —— Richard Kotze
+[HOCs vs Render Props](https://www.richardkotze.com/coding/hoc-vs-render-props-react) — Richard Kotze
 
 ### 结论
 
 在本文中，我们了解了为什么需要这些模式，每个模式的本质和如何利用这些模式来构建高度可复用的组件。以上就是全部内容，希望你喜欢，请随意**评论和提问**。我很乐意交流 👏
 
-> 2018年10月更新： React hooks 已经在 alpha 版本中中发布。它们将消除编写类组件、HOCs 和 Render Props 的痛苦。我很快就会写一篇来解释，关注我的 [Twitter](https://twitter.com/dev__adi) 和 [Medium](https://medium.com/@adityaa803) 或者订阅 [我的时事通讯](https://buttondown.email/itaditya) 来获取最新消息。
+> 2018 年 10 月更新：React hooks 已经在 alpha 版本中中发布。它们将消除编写类组件、HOCs 和 Render Props 的痛苦。我很快就会写一篇来解释，关注我的 [Twitter](https://twitter.com/dev__adi) 和 [Medium](https://medium.com/@adityaa803) 或者订阅 [我的时事通讯](https://buttondown.email/itaditya) 来获取最新消息。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
