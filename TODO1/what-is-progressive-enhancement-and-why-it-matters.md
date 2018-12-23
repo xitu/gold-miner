@@ -85,7 +85,7 @@ let PE = "Progressive Enhancement";
 
 `开发团队` : “ 我们什么时候开始兼容Safari了 ? 等等…. 修复中………”
 
-​```
+```
 if(getBrowsers() == 'safari') {
 Patch.magicHelpers.searchIconMagic()
 }
@@ -95,9 +95,9 @@ searchIconMagic: function() {
 // Can't share magic, doing something
    }
 };
-​```
+```
 
-“一个小时后…… 在检查一下看看”
+“一个小时后…… 再检查一下看看”
 
 `测试团队`: “ 在Chrome和Safari中可以了，但是Mozilla FireFox中又不行了...啊啊啊 !!!!!”
 
