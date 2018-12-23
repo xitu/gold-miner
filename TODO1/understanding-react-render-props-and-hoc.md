@@ -13,7 +13,7 @@
 
 reactjs.org
 
-如果你最近有在做 [React 开发](https://blog.bitsrc.io/how-to-write-better-code-in-react-best-practices-b8ca87d462b0)，你肯定有遇到像 HOCs 和 Render Props 这样的术语。在本文中，我们将深入探讨这两种模式，以便了解我们为什么需要它们，以及如何正确的使用它们来构建更好的 React 应用。
+如果你最近有在做 [React 开发](https://blog.bitsrc.io/how-to-write-better-code-in-react-best-practices-b8ca87d462b0)，你肯定有遇到像 HOCs 和 Render Props 这样的术语。在本文中，我们将深入探讨这两种模式，以便了解我们为什么需要它们，以及如何正确地使用它们来构建更好的 React 应用。
 
 ### 为什么我们需要这些模式？
 
