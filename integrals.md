@@ -4257,10 +4257,11 @@
 |------|-------|-------|
 |[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|校对|2|
 
-## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：88 当前积分：60 年度积分：57.5
+## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：88 当前积分：5 年度积分：57.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 12 月兑树莓派套餐 1 个|减去积分|55|
 |[使用 NodeJS 创建一个 GraphQL 服务器](https://juejin.im/post/5c015a5af265da612577d89a)|翻译|6|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|3|
 |[Rust 开发完整的 Web 应用程序](https://juejin.im/post/5bd66dee6fb9a05cdb1081ca)|翻译|5|
@@ -4364,10 +4365,11 @@
 |[JavaScript 如何工作：在 V8 引擎里 5 个优化代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)|校对|2|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|4|
 
-## 译者：[caoyi0905](https://github.com/caoyi0905) 历史贡献积分：30.5 当前积分：20.5 年度积分：5
+## 译者：[caoyi0905](https://github.com/caoyi0905) 历史贡献积分：30.5 当前积分：15.5 年度积分：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 12 月兑 GitHub 贴纸 1 包|减去积分|5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|2|
 |[使用 Python 实现接缝裁剪算法](https://juejin.im/post/5b46ee8e6fb9a04fc436ad60)|翻译|3|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|8|
@@ -5500,10 +5502,11 @@
 |[json — JavaScript 对象表示法](https://juejin.im/post/5a9432ae5188257a5c6092b0)|校对|1|
 |[嵌套三元表达式棒极了（软件编写）（第十四部分）](https://juejin.im/post/5a7d6769f265da4e7e10ad82)|校对|1|
 
-## 译者：[zhmhhu](https://github.com/zhmhhu) 历史贡献积分：90 当前积分：45 年度积分：90
+## 译者：[zhmhhu](https://github.com/zhmhhu) 历史贡献积分：90 当前积分：-10 年度积分：90
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 12 月兑树莓派套餐 1 个|减去积分|55|
 |[设计师的决策树](https://juejin.im/post/5befd61ee51d4557fe34e944)|翻译|2.5|
 |[6 个最令人满意的和编程相关的工作（和参与这些工作的人们的类型）](https://juejin.im/post/5be271f0e51d450556196864)|校对|1.5|
 |[Python 中的无监督学习算法](https://juejin.im/post/5bab10ed6fb9a05d1f2211b6)|翻译|5|
@@ -6576,10 +6579,11 @@
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1|
 
-## 译者：[Moonliujk](https://github.com/Moonliujk) 历史贡献积分：59 当前积分：59 年度积分：59
+## 译者：[Moonliujk](https://github.com/Moonliujk) 历史贡献积分：59 当前积分：4 年度积分：59
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 12 月兑树莓派套餐 1 个|减去积分|55|
 |[我们是怎样把 Carousell 的移动 Web 体验搞快了 3 倍的？](https://juejin.im/post/5bee858ae51d45710c6a5500)|校对|1.5|
 |[理解 JavaScript 中的 undefined](https://juejin.im/post/5bf57e8ef265da612c5d8439)|校对|3|
 |[函数式编程：抽象与组合](https://juejin.im/post/5bfb989be51d45033627989a)|校对|2.5|
@@ -7240,10 +7244,11 @@
 |------|-------|-------|
 |[Google Colab 免费 GPU 使用教程](https://juejin.im/post/5c05e1bc518825689f1b4948)|校对|1.5|
 
-## 译者：[Pomelo1213](https://github.com/Pomelo1213) 历史贡献积分：6 当前积分：6 年度积分：6
+## 译者：[Pomelo1213](https://github.com/Pomelo1213) 历史贡献积分：6 当前积分：-2 年度积分：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 12 月兑掘金笔记本 1 个|减去积分|8|
 |[你不知道的 console 命令](https://juejin.im/post/5bf64218e51d45194266acb7)|翻译|6|
 
 ## 译者：[RicardoCao-Biker ](https://github.com/RicardoCao-Biker ) 历史贡献积分：2 当前积分：2 年度积分：2
