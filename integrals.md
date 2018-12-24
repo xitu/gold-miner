@@ -3546,10 +3546,11 @@
 |------|-------|-------|
 |[如何在无损的情况下让图片变的更小](https://juejin.im/post/5959fbe0f265da6c2518d740)|校对|2|
 
-## 译者：[swants](https://github.com/swants) 历史贡献积分：65.5 当前积分：5.5 年度积分：26.5
+## 译者：[swants](https://github.com/swants) 历史贡献积分：68.5 当前积分：8.5 年度积分：29.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Swift 的 iOS 设计模式（第二部分）](https://juejin.im/post/5c1786576fb9a049f06a2c4a)|校对|3|
 |[使用 Swift 的 iOS 设计模式（第一部分）](https://juejin.im/post/5c05d4ee5188250ab14e62d6)|校对|3.5|
 |2018 年 9 月兑套头衫（秋冬款）1 个|减去积分|20|
 |[为什么你需要关注一下 Flutter](https://juejin.im/post/5b508c7cf265da0f955ccb09)|校对|1.5|
@@ -4259,10 +4260,11 @@
 |------|-------|-------|
 |[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|校对|2|
 
-## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：92 当前积分：9 年度积分：61.5
+## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：97.5 当前积分：14.5 年度积分：67
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何在六个月或更短的时间内成为 DevOps 工程师，第四部分：打包](https://juejin.im/post/5c19d6255188252ea66b33b3)|翻译|5.5|
 |[理解编译器 — 从人类的角度（版本 2）](https://juejin.im/post/5c10b2f6e51d452ad958631f)|校对|4|
 |2018 年 12 月兑树莓派套餐 1 个|减去积分|55|
 |[使用 NodeJS 创建一个 GraphQL 服务器](https://juejin.im/post/5c015a5af265da612577d89a)|翻译|6|
@@ -6371,10 +6373,11 @@
 |[自然语言处理真是有趣](https://juejin.im/post/5b6d08e2f265da0f9c67cf0b)|校对|3|
 |[支撑现代存储系统的算法](https://juejin.im/post/5b10f80b5188257d92206851)|校对|1.5|
 
-## 译者：[7Ethan](https://github.com/7Ethan) 历史贡献积分：61 当前积分：61 年度积分：61
+## 译者：[7Ethan](https://github.com/7Ethan) 历史贡献积分：62.5 当前积分：62.5 年度积分：62.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何在六个月或更短的时间内成为 DevOps 工程师，第四部分：打包](https://juejin.im/post/5c19d6255188252ea66b33b3)|校对|1.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
 |[以太坊入门：互联网政府](https://juejin.im/post/5c03c68851882551236eaa82)|校对|1|
 |[以太坊: 能帮我们把 Uber 换掉的非比特币加密货币](https://juejin.im/post/5bf3e32ee51d4532ff07a7de)|校对|1.5|
@@ -7205,10 +7208,11 @@
 |------|-------|-------|
 |[深入理解 React 高阶组件](https://juejin.im/entry/5bdd226cf265da616f6f6cce)|校对|4|
 
-## 译者：[iWeslie](https://github.com/iWeslie) 历史贡献积分：33 当前积分：33 年度积分：33
+## 译者：[iWeslie](https://github.com/iWeslie) 历史贡献积分：44 当前积分：44 年度积分：44
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Swift 的 iOS 设计模式（第二部分）](https://juejin.im/post/5c1786576fb9a049f06a2c4a)|翻译|11|
 |[使用 Kotlin 将你的 iOS 应用程序转换为 Android](https://juejin.im/post/5c03f64ce51d454af013d076)|翻译|5|
 |[使用 Swift 的 iOS 设计模式（第一部分）](https://juejin.im/post/5c05d4ee5188250ab14e62d6)|翻译|11|
 |[介绍适用于 iOS 的 AloeStackView](https://juejin.im/post/5bf22a05f265da61783106de)|校对|2|
@@ -7366,17 +7370,19 @@
 |------|-------|-------|
 |[使用自定义文件模板加快你的应用开发速度](https://juejin.im/post/5c204bcdf265da611b585bcd)|校对|1.5|
 
-## 译者：[Qiuk17](https://github.com/Qiuk17) 历史贡献积分：4 当前积分：4 年度积分：4
+## 译者：[Qiuk17](https://github.com/Qiuk17) 历史贡献积分：5.5 当前积分：5.5 年度积分：5.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[以太坊入门指南](https://juejin.im/post/5c1080fbe51d452b307969a3)|校对|1.5|
 |[了解 Android 的矢量图片格式：`VectorDrawable`](https://juejin.im/post/5c1a21ff5188252eb759600e)|校对|2.5|
 |[当 Kotlin 中的监听器包含多个方法时，如何让它 “巧夺天工”？](https://juejin.im/post/5c1e43646fb9a04a102f45ab)|校对|1.5|
 
-## 译者：[gs666](https://github.com/gs666) 历史贡献积分：5 当前积分：5 年度积分：5
+## 译者：[gs666](https://github.com/gs666) 历史贡献积分：9 当前积分：9 年度积分：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|[以太坊入门指南](https://juejin.im/post/5c1080fbe51d452b307969a3)|翻译|4|
 |[同时使用多个相机流](https://juejin.im/post/5c1071ece51d4570b57af8c8)|校对|2|
 |[Android 内核控制流完整性](https://juejin.im/post/5c1740dcf265da614a3a66c1)|校对|1.5|
 |[了解 Android 的矢量图片格式：`VectorDrawable`](https://juejin.im/post/5c1a21ff5188252eb759600e)|校对|1.5|
@@ -7386,3 +7392,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[如何使用 Dask Dataframes 在 Python 中运行并行数据分析](https://juejin.im/post/5c1feeaf5188257f9242b65c)|校对|1.5|
+
+## 译者：[ZyGan1999](https://github.com/ZyGan1999) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[以太坊入门指南](https://juejin.im/post/5c1080fbe51d452b307969a3)|校对|1.5|
