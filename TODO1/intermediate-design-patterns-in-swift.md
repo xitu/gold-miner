@@ -24,7 +24,7 @@ var collection = ...
 
 // for 循环使用迭代器设计模式
 for item in collection {
-  print("Item is: \(item)")
+    print("Item is: \(item)")
 }
 ```
 
@@ -48,476 +48,462 @@ Tap the Larger Shape 是一个有趣但简单的游戏，你会看到一对相�
 
 此入门项目包含完整游戏，您将在本教程中对改项目进行重构并利用一些设计模式来使您的游戏更易于维护并且更加有趣。
 
-Build and run the project on the iPhone 5 simulator, and tap a few shapes to understand how the game plays. You should see something like the image below:
+使用 iPhone 8 模拟器，编译并运行项目，随意点击几个图形来了解这个游戏的规则。您会看到如下图所示的内容：
 
 [![Tap the larger shape and gain points.](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot2-180x320.png)](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot2.png)
 
-Tap the larger shape and gain points.
+点击较大的图形就能得分。
 
 [![Tap the smaller shape and lose points.](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot3-180x320.png)](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot3.png)
 
-Tap the smaller shape and lose points.
+点击较小的图形则会扣分。
 
-## Understanding the Game
+## 理解这款游戏
 
-Before getting into the details of design patterns, take a look at the game as it’s currently written. Open **Shape.swift** take a look around and find the following code. You don’t need to make any changes, just look:
+Before getting into the details of design patterns, take a look at the game as it’s currently written. Open **Shape.swift** take a look around and find the following code. You don’t need to make any changes, just look:在深入了解设计模式的细节之前，先看一下目前编写的游戏。打开 **Shape.swift** 看一看并找到以下代码，您无需进行任何更改，只需要看看就行：
 
 ```swift
 import UIKit
 
 class Shape {
+
 }
 
 class SquareShape: Shape {
-  var sideLength: CGFloat!
+	var sideLength: CGFloat!
 }
 ```
 
-The `Shape` class is the basic model for tappable shapes in the game. The concrete subclass `SquareShape` represents a square: a polygon with four equal-length sides.
+`Shape` 类是游戏中可点击图形的基本模型。具体的一个子类 `SquareShape` 表示一个正方形：一个具有四条等长边的多边形。
 
-Next, open **ShapeView.swift** and take a look at the code for `ShapeView`:
+接下来打开 **ShapeView.swift** 并查看 `ShapeView` 的代码：
 
 ```swift
 import UIKit
 
 class ShapeView: UIView {
-  var shape: Shape!
+	var shape: Shape!
 
-  // 1
-  var showFill: Bool = true {
-    didSet {
-      setNeedsDisplay()
-    }
-  }
-  var fillColor: UIColor = UIColor.orangeColor() {
-    didSet {
-      setNeedsDisplay()
-    }
-  }
+	// 1
+	var showFill: Bool = true {
+		didSet {
+			setNeedsDisplay()
+		}
+	}
+	var fillColor: UIColor = UIColor.orange {
+		didSet {
+			setNeedsDisplay()
+		}
+	}
 
-  // 2
-  var showOutline: Bool = true {
-    didSet {
-      setNeedsDisplay()
-    }
-  }
-  var outlineColor: UIColor = UIColor.grayColor() {
-    didSet {
-      setNeedsDisplay()
-    }
-  }
+	// 2
+	var showOutline: Bool = true {
+		didSet {
+			setNeedsDisplay()
+		}
+	}
+	var outlineColor: UIColor = UIColor.gray {
+		didSet {
+			setNeedsDisplay()
+		}
+	}
 
-  // 3
-  var tapHandler: ((ShapeView) -> ())?
+	// 3
+	var tapHandler: ((ShapeView) -> ())?
 
-  override init(frame: CGRect) {
-    super.init(frame: frame)
+	override init(frame: CGRect) {
+		super.init(frame: frame)
 
-    // 4
-    let tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleTap"))
-    addGestureRecognizer(tapRecognizer)
-  }
+		// 4
+		let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+		addGestureRecognizer(tapRecognizer)
+	}
 
-  required init(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+	required init(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
-  func handleTap() {
-  	// 5
-    tapHandler?(self)
-  }
+	@objc func handleTap() {
+		// 5
+		tapHandler?(self)
+	}
 
-  let halfLineWidth: CGFloat = 3.0
+	let halfLineWidth: CGFloat = 3.0
 }
 ```
 
-`ShapeView` is the view that renders a generic `Shape` model. Line by line, here’s what’s happening in that block:
+`ShapeView` 是呈现通用 `Shape` 模型的 view。以下是其中代码的逐行解析：
 
-1.  Indicate if the app should fill the shape with a color, and if so, which color. This is the solid interior color of the shape.
+1. 指明应用程序是否使用，并使用哪种颜色来填充图形，这是图形内部的颜色。
 
-2.  Indicate if the app should stroke the shape’s outline with a color, and if so, which color. This is the color of the shape’s border.
+2. 指明应用程序是否使用，并使用哪种颜色来给图形描边，这是图形边框的颜色。
 
-3.  A closure that handles taps (e.g. to adjust the score). If you’re not familiar with Swift closures, you can review them in this [Swift Functional Programming Tutorial](http://www.raywenderlich.com/82599/swift-functional-programming-tutorial), but keep in mind they’re similar to Objective C blocks.
+3. 一个处理点击事件的闭包（例如更新得分）。如果您不熟悉 Swift 闭包，可以在 [Swift 闭包](https://www.cnswift.org/closures) 中查看它们，但请记住它们与 Objective-C 里的 block 类似。
 
-4.  Set up a tap gesture recognizer that invokes `handleTap` when the player taps the view.
+4. 设置一个 tap gesture recognizer，当玩家点击 view 时调用 `handleTap`。
 
-5.  Invoke the `tapHandler` when the gesture recognizer recognizes a tap gesture.
+5. 当检测到点击手势时调用 `tapHandler`。
 
-Now scroll down and examine `SquareShapeView`:
+现在向下滚动并且查看 `SquareShapeView`：
 
 ```swift
 class SquareShapeView: ShapeView {
-  override func drawRect(rect: CGRect) {
-    super.drawRect(rect)
+	override func draw(_ rect: CGRect) {
+		super.draw(rect)
 
-    // 1
-    if showFill {
-      fillColor.setFill()
-      let fillPath = UIBezierPath(rect: bounds)
-      fillPath.fill()
-    }
+        // 1
+		if showFill {
+			fillColor.setFill()
+			let fillPath = UIBezierPath(rect: bounds)
+			fillPath.fill()
+		}
 
-    // 2
-    if showOutline {
-      outlineColor.setStroke()
+        // 2
+		if showOutline {
+			outlineColor.setStroke()
 
-      // 3
-      let outlinePath = UIBezierPath(rect: CGRect(x: halfLineWidth, y: halfLineWidth, width: bounds.size.width - 2 * halfLineWidth, height: bounds.size.height - 2 * halfLineWidth))
-      outlinePath.lineWidth = 2.0 * halfLineWidth
-      outlinePath.stroke()
-    }
-  }
+            // 3
+			let outlinePath = UIBezierPath(rect: CGRect(x: halfLineWidth, y: halfLineWidth, width: bounds.size.width - 2 * halfLineWidth, height: bounds.size.height - 2 * halfLineWidth))
+			outlinePath.lineWidth = 2.0 * halfLineWidth
+			outlinePath.stroke()
+		}
+	}
 }
 ```
 
-Here’s how `SquareShapeView` draws itself:
+以下是 `SquareShapeView` 如何进行绘制的：
 
-1.  If configured to show fill, then fill in the view with the fill color.
+1. 如果配置为显示填充，则使用填充颜色填充 view。
 
-2.  If configured to show an outline, then outline the view with the outline color.
+2. 如果配置为显示轮廓，则使用轮廓颜色给 view 描边。
 
-3.  Since iOS draws lines that are centered over their position, you need to inset the view bounds by `halfLineWidth` when stroking the path.
+3. 由于 iOS 是以 position 为中心绘制线条的，因此我们在描边路径时需要将从 view 的 bounds 里减去 `halfLineWidth`。
 
-Excellent, now that you understand how the game draws its shapes, open **GameViewController.swift** and have a look at the game logic:
+很棒！现在您已经了解了这个游戏里的图形是如绘制的，打开 **GameViewController.swift** 并查看其中的逻辑：
 
 ```swift
 import UIKit
 
 class GameViewController: UIViewController {
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    // 1
-    beginNextTurn()
-  }
+	override func viewDidLoad() {
+		super.viewDidLoad()
+        // 1
+		beginNextTurn()
+	}
 
-  override func prefersStatusBarHidden() -> Bool {
-    return true
-  }
+	override var prefersStatusBarHidden: Bool {
+		return true
+	}
 
-  private func beginNextTurn() {
-    // 2
-    let shape1 = SquareShape()
-    shape1.sideLength = Utils.randomBetweenLower(0.3, andUpper: 0.8)
-    let shape2 = SquareShape()
-    shape2.sideLength = Utils.randomBetweenLower(0.3, andUpper: 0.8)
+	private func beginNextTurn() {
+        // 2
+		let shape1 = SquareShape()
+		shape1.sideLength = Utils.randomBetweenLower(lower: 0.3, andUpper: 0.8)
+		let shape2 = SquareShape()
+		shape2.sideLength = Utils.randomBetweenLower(lower: 0.3, andUpper: 0.8)
 
-    // 3
-    let availSize = gameView.sizeAvailableForShapes()
+        // 3
+		let availSize = gameView.sizeAvailableForShapes()
 
-    // 4
-    let shapeView1: ShapeView =
-      SquareShapeView(frame: CGRect(x: 0,
-                                    y: 0,
-                                    width: availSize.width * shape1.sideLength,
-                                    height: availSize.height * shape1.sideLength))
-    shapeView1.shape = shape1
-    let shapeView2: ShapeView =
-      SquareShapeView(frame: CGRect(x: 0,
-                                    y: 0,
-                                    width: availSize.width * shape2.sideLength,
-                                    height: availSize.height * shape2.sideLength))
-    shapeView2.shape = shape2
+        // 4
+		let shapeView1: ShapeView = SquareShapeView(frame: CGRect(x: 0, y: 0, width: availSize.width * shape1.sideLength, height: availSize.height * shape1.sideLength))
+		shapeView1.shape = shape1
+		let shapeView2: ShapeView = SquareShapeView(frame: CGRect(x: 0, y: 0, width: availSize.width * shape2.sideLength, height: availSize.height * shape2.sideLength))
+		shapeView2.shape = shape2
 
-    // 5
-    let shapeViews = (shapeView1, shapeView2)
+        // 5
+		let shapeViews = (shapeView1, shapeView2)
 
-    // 6
-    shapeViews.0.tapHandler = {
-      tappedView in
-      self.gameView.score += shape1.sideLength >= shape2.sideLength ? 1 : -1
-      self.beginNextTurn()
-    }
-    shapeViews.1.tapHandler = {
-      tappedView in
-      self.gameView.score += shape2.sideLength >= shape1.sideLength ? 1 : -1
-      self.beginNextTurn()
-    }
+        // 6
+		shapeViews.0.tapHandler = { tappedView in
+			self.gameView.score += shape1.sideLength >= shape2.sideLength ? 1 : -1
+			self.beginNextTurn()
+		}
+		shapeViews.1.tapHandler = { tappedView in
+			self.gameView.score += shape2.sideLength >= shape1.sideLength ? 1 : -1
+			self.beginNextTurn()
+		}
 
-    // 7
-    gameView.addShapeViews(shapeViews)
-  }
+        // 7
+		gameView.addShapeViews(newShapeViews: shapeViews)
+	}
 
-  private var gameView: GameView { return view as! GameView }
+	private var gameView: GameView { return view as! GameView }
 }
 ```
 
-Here’s how the game logic works:
+以下是游戏逻辑的工作原理：
 
-1.  Begin a turn as soon as the `GameView` loads.
+1. 当 `GameView` 加载后开始新的一局。
 
-2.  Create a pair of square shapes with random side lengths drawn as proportions in the range `[0.3, 0.8]`. The shapes will also scale to any screen size.
+2. 在 `[0.3, 0.8]` 区间内取边长绘制正方形，绘制的图形也可以在任何屏幕尺寸下缩放。
 
-3.  Ask the `GameView` what size is available for each shape based on the current screen size.
+3. 由 `GameView` 确定哪种尺寸的图形适合当前屏幕。
 
-4.  Create a `SquareShapeView` for each shape, and size the shape by multiplying the shape’s `sideLength` proportion by the appropriate `availSize` dimension of the current screen.
+4. 为每个形状创建一个 `SquareShapeView`，并通过将图形的 `sideLength` 比例乘以当前屏幕的相应 `availSize` 来调整形状的大小。
 
-5.  Store the shapes in a tuple for easier manipulation.
+5. 将形状存储在元组中以便于操作。
 
-6.  Set the tap handler on each shape view to adjust the score based on whether the player tapped the larger view or not.
+6. 在每个 shape view 上设置点击事件并根据玩家是否点击较大的 view 来计算分数。
 
-7.  Add the shapes to the `GameView` so it can lay out the shapes and display them.
+7. 将形状添加到 `GameView` 以便布局显示。
 
-That’s it. That’s the complete game logic. Pretty simple, right? :\]
+以上就是游戏的完整逻辑。是不是很简单？:\]
 
-## Why Use Design Patterns?
+## 为什么要使用设计模式？
 
-You’re probably wondering to yourself, “Hmmm, so why do I need design patterns when I have a working game?” Well, what if you want to support shapes other than just squares?
+你可能想问自己：“嗯，所以当我有一个工作游戏时，为什么我需要设计模式呢？”那么如果你想支持除了正方形以外的形状又要怎么办呢？
 
-You **could** add code to create a second shape in `beginNextTurn`, but as you add a third, fourth or even fifth type of shape the code would become unmanageable.
+您 **本可以** 在 `beginNextTurn` 中添加代码来创建第二个形状，但是当您添加第三种、第四种甚至第五种形状时，代码将变得难以管理。
 
-And what if you want the player to be able to select the shape she plays?
+如果你希望玩家能够选择别人的形状又要怎么办呢？
 
-If you lump all of that code together in `GameViewController` you’ll end up with tightly-coupled code containing hard-coded dependencies that will be difficult to manage.
+如果你把所有代码放在 `GameViewController` 中，你最终会得到难以管理的包含硬编码依赖的耦合度很高的代码。
 
-Here’s the answer to your question: design patterns help decouple your code into nicely-separated bits.
+以下是您的问题的答案：设计模式有助于将您的代码解耦成分离地很开的单位。
 
-Before moving on, I have a confession; I already snuck in a design pattern.
+在进行下一步之前，我坦白，我已经偷偷地进入了一个设计模式。
 
 [![ragecomic1](https://koenig-media.raywenderlich.com/uploads/2014/10/ragecomic1-e1415029446968-480x268.png)](https://koenig-media.raywenderlich.com/uploads/2014/10/ragecomic1-e1415029446968.png)
 
-Now, on to the design patterns. Each section from here on describes a different design pattern. Let’s get going!
+现在，关于设计模式，以下的每个部分都描述了不同的设计模式。我们开始吧！
 
-## Design Pattern: Abstract Factory
+## 设计模式：抽象工厂
 
-`GameViewController` is tightly coupled with the `SquareShapeView`, and that doesn’t allow much room to later use a different view to represent squares or introduce a second shape.
+`GameViewController` 与 `SquareShapeView` 紧密耦合，这将不能为以后使用不同的视图来表示正方形或引入第二个形状留出余地。
 
-Your first task is to decouple and simplify your `GameViewController` using the **Abstract Factory** design pattern. You’re going to use this pattern in code that establishes an API for constructing a group of related objects, like the shape views you’ll work with momentarily, without hard-coding specific classes.
+您的第一个任务是使用 **抽象工厂** 设计模式给您的`GameViewController` 进行简化和解耦。您将要在代码中使用此模式，该代码建立用于构造一组相关对象的API，例如您将暂时使用的 shape view，而无需对特定类进行硬编码。
 
-Click File\New\File… and then select iOS\Source\Swift File. Call the file **ShapeViewFactory.swift**, save it and then replace its contents with the code below:
+新建一个 Swift 文件，命名为 **ShapeViewFactory.swift** 并保存，然后添加以下代码：
 
 ```swift
 import UIKit
 
 // 1
 protocol ShapeViewFactory {
-  // 2
-  var size: CGSize { get set }
-  // 3
-  func makeShapeViewsForShapes(shapes: (Shape, Shape)) -> (ShapeView, ShapeView)
+    // 2
+    var size: CGSize { get set }
+    // 3
+    func makeShapeViewsForShapes(shapes: (Shape, Shape)) -> (ShapeView, ShapeView)
 }
 ```
 
-Here’s how your new factory works:
+以下是您新的工厂的工作原理：
 
-1.  Define `ShapeViewFactory` as a Swift protocol. There’s no reason for it to be a class or struct since it only describes an interface and has no functionality itself.
+1. 将 `ShapeViewFactory` 定义为 Swift 协议，它没有理由成为一个类或结构体，因为它只描述了一个接口而本身并没有功能。
 
-2.  Each factory should have a size that defines the bounding box of the shapes it creates. This is essential to layout code using the factory-produced views.
+2. 每个工厂应当有一个定义了创建形状的边界的尺寸，这对使用工厂生成的 view 布局代码至关重要。
 
-3.  Define the method that produces shape views. This is the “meat” of the factory. It takes a tuple of two Shape objects and returns a tuple of two ShapeView objects. This essentially manufactures views from its raw materials — the models.
+3. 定义生成形状视图的方法。这是工厂的“肉”，它需要两个 Shape 对象的元组，并返回两个 ShapeView 对象的元组。这基本上是从其原材料 -- 模型中制造 view。
 
-Add the following code to end of **ShapeViewFactory.swift**:
+在 **ShapeViewFactory.swift** 的最后添加以下代码：
 
 ```swift
 class SquareShapeViewFactory: ShapeViewFactory {
-  var size: CGSize
+    var size: CGSize
 
-  // 1
-  init(size: CGSize) {
-    self.size = size
-  }
+    // 1
+    init(size: CGSize) {
+        self.size = size
+    }
 
-  func makeShapeViewsForShapes(shapes: (Shape, Shape)) -> (ShapeView, ShapeView) {
-    // 2
-    let squareShape1 = shapes.0 as! SquareShape
-    let shapeView1 =
-      SquareShapeView(frame: CGRect(x: 0,
-                                    y: 0,
-                                    width: squareShape1.sideLength * size.width,
-                                    height: squareShape1.sideLength * size.height))
-    shapeView1.shape = squareShape1
+    func makeShapeViewsForShapes(shapes: (Shape, Shape)) -> (ShapeView, ShapeView) {
+        // 2
+        let squareShape1 = shapes.0 as! SquareShape
+        let shapeView1 = SquareShapeView(frame: CGRect(x: 0,
+                                         y: 0,
+                                         width: squareShape1.sideLength * size.width,
+                                         height: squareShape1.sideLength * size.height))
+        shapeView1.shape = squareShape1
 
-    // 3
-    let squareShape2 = shapes.1 as! SquareShape
-    let shapeView2 =
-      SquareShapeView(frame: CGRect(x: 0,
-                                    y: 0,
-                                    width: squareShape2.sideLength * size.width,
-                                    height: squareShape2.sideLength * size.height))
-    shapeView2.shape = squareShape2
+        // 3
+        let squareShape2 = shapes.1 as! SquareShape
+        let shapeView2 = SquareShapeView(frame: CGRect(x: 0,
+                                         y: 0,
+                                         width: squareShape2.sideLength * size.width,
+                                         height: squareShape2.sideLength * size.height))
+        shapeView2.shape = squareShape2
 
-    // 4
-    return (shapeView1, shapeView2)
-  }
+        // 4
+        return (shapeView1, shapeView2)
+    }
 }
 ```
 
-Your `SquareShapeViewFactory` produces `SquareShapeView` instances as follows:
+您的 `SquareShapeViewFactory` 建造了 `SquareShapeView` 实例，如下所示：
 
-1.  Initialize the factory to use a consistent maximum size.
+1. 使用一致的最大尺寸来初始化工厂。
 
-2.  Construct the first shape view from the first passed shape.
+2. 从第一个传递的形状构造第一个 shape view。
 
-3.  Construct the second shape view from the second passed shape.
+3. 从第二个传递的形状构造第二个 shape view。
 
-4.  Return a tuple containing the two created shape views.
+4. 返回包含两个刚创建的 shape view 的元组。
 
-Finally, it’s time to put `SquareShapeViewFactory` to use. Open **GameViewController.swift**, and replace its contents with the following:
+最后，是时候使用 `SquareShapeViewFactory` 了。打开 **GameViewController.swift**，并全部替换为以下内容：
 
 ```swift
 import UIKit
 
 class GameViewController: UIViewController {
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
+	override func viewDidLoad() {
+		super.viewDidLoad()
+        // 1 ***** 附加
+        shapeViewFactory = SquareShapeViewFactory(size: gameView.sizeAvailableForShapes())
 
-    // 1 ***** ADDITION
-    shapeViewFactory = SquareShapeViewFactory(size: gameView.sizeAvailableForShapes())
+		beginNextTurn()
+	}
 
-    beginNextTurn()
-  }
+	override var prefersStatusBarHidden: Bool {
+		return true
+	}
 
-  override func prefersStatusBarHidden() -> Bool {
-    return true
-  }
+	private func beginNextTurn() {
+		let shape1 = SquareShape()
+		shape1.sideLength = Utils.randomBetweenLower(lower: 0.3, andUpper: 0.8)
+		let shape2 = SquareShape()
+		shape2.sideLength = Utils.randomBetweenLower(lower: 0.3, andUpper: 0.8)
 
-  private func beginNextTurn() {
-    let shape1 = SquareShape()
-    shape1.sideLength = Utils.randomBetweenLower(0.3, andUpper: 0.8)
-    let shape2 = SquareShape()
-    shape2.sideLength = Utils.randomBetweenLower(0.3, andUpper: 0.8)
+        // 2 ***** 附加
+        let shapeViews = shapeViewFactory.makeShapeViewsForShapes(shapes: (shape1, shape2))
 
-    // 2 ***** ADDITION
-    let shapeViews = shapeViewFactory.makeShapeViewsForShapes((shape1, shape2))
+        shapeViews.0.tapHandler = {
+            tappedView in
+            self.gameView.score += shape1.sideLength >= shape2.sideLength ? 1 : -1
+            self.beginNextTurn()
+        }
+        shapeViews.1.tapHandler = {
+            tappedView in
+            self.gameView.score += shape2.sideLength >= shape1.sideLength ? 1 : -1
+            self.beginNextTurn()
+        }
 
-    shapeViews.0.tapHandler = {
-      tappedView in
-      self.gameView.score += shape1.sideLength >= shape2.sideLength ? 1 : -1
-      self.beginNextTurn()
-    }
-    shapeViews.1.tapHandler = {
-      tappedView in
-      self.gameView.score += shape2.sideLength >= shape1.sideLength ? 1 : -1
-      self.beginNextTurn()
-    }
+        gameView.addShapeViews(newShapeViews: shapeViews)
+	}
 
-    gameView.addShapeViews(shapeViews)
-  }
+	private var gameView: GameView { return view as! GameView }
 
-  private var gameView: GameView { return view as! GameView }
-
-  // 3 ***** ADDITION
-  private var shapeViewFactory: ShapeViewFactory!
+    // 3 ***** 附加
+    private var shapeViewFactory: ShapeViewFactory!
 }
 ```
 
-There are three new lines of code:
+这里有三行新代码：
 
-1.  Initialize and store a `SquareShapeViewFactory`.
+1. 初始化并存储一个 `SquareShapeViewFactory`。
 
-2.  Use this new factory to create your shape views.
+2. 使用此新工厂创建你的 shape view。
 
-3.  Store your new shape view factory as an instance property.
+3. 将新的 shape view 工厂存储为实例属性。
 
-The key benefits are in section two, where you replaced six lines of code with one. Better yet, you moved the complex shape view creation code out of `GameViewController` to make the class smaller and easier to follow.
+主要的好处在于第二部分，其中您用一行替换了六行代码。更好的是，您将复杂的 shape view 的创建代码移出了 `GameViewController` 从而使类更小也更容易理解。
 
-It’s helpful to move view creation code out of your view controller since `GameViewController` acts as a view controller and coordinates between model and view.
+将 view 创建代码移出 controller 是很有帮助的，因为 `GameViewController` 充当 Controller 在 Model 和 View 之间进行协调。
 
-Build and run, and then you should see something like the following:
+编译并运行，然后您应该看到类似以下内容：
 
 [![Screenshot4](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot4-180x320.png)](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot4.png)
 
-Nothing about your game’s visuals changed, but you did simplify your code.
+您游戏的视觉效果没有任何改变，但您确实简化了代码。
 
-If you were to replace `SquareShapeView` with `SomeOtherShapeView`, then the benefits of the `SquareShapeViewFactory` would shine. Specifically, you wouldn’t need to alter `GameViewController`, and you could isolate all the changes to `SquareShapeViewFactory`.
+如果你用 `SomeOtherShapeView` 替换 `SquareShapeView`，那么 `SquareShapeViewFactory` 的好处就会大放异彩。具体来说，您不需要更改 `GameViewController`，您可以将所有更改分离到 `SquareShapeViewFactory`。
 
-Now that you’ve simplified the creation of shape views, you’re going to simplify the creation of shapes. Create a new Swift file like before, called **ShapeFactory.swift**, and paste in the following code:
+既然您已经简化了 shape view 的创建，那么您也同时可以简化 shape 的创建。像之前那样创建一个新的 Swift 文件，命名为 **ShapeFactory.swift**，并把以下代码粘贴进去：
 
 ```swift
 import UIKit
 
 // 1
 protocol ShapeFactory {
-  func createShapes() -> (Shape, Shape)
+    func createShapes() -> (Shape, Shape)
 }
 
 class SquareShapeFactory: ShapeFactory {
-  // 2
-  var minProportion: CGFloat
-  var maxProportion: CGFloat
+    // 2
+    var minProportion: CGFloat
+    var maxProportion: CGFloat
 
-  init(minProportion: CGFloat, maxProportion: CGFloat) {
-    self.minProportion = minProportion
-    self.maxProportion = maxProportion
-  }
+    init(minProportion: CGFloat, maxProportion: CGFloat) {
+        self.minProportion = minProportion
+        self.maxProportion = maxProportion
+    }
 
-  func createShapes() -> (Shape, Shape) {
-    // 3
-    let shape1 = SquareShape()
-    shape1.sideLength = Utils.randomBetweenLower(minProportion, andUpper: maxProportion)
+    func createShapes() -> (Shape, Shape) {
+        // 3
+        let shape1 = SquareShape()
+        shape1.sideLength = Utils.randomBetweenLower(lower: minProportion, andUpper: maxProportion)
 
-    // 4
-    let shape2 = SquareShape()
-    shape2.sideLength = Utils.randomBetweenLower(minProportion, andUpper: maxProportion)
+        // 4
+        let shape2 = SquareShape()
+        shape2.sideLength = Utils.randomBetweenLower(lower: minProportion, andUpper: maxProportion)
 
-    // 5
-    return (shape1, shape2)
-  }
+        // 5
+        return (shape1, shape2)
+    }
 }
 ```
 
-Your new `ShapeFactory` produces shapes as follows:
+你的新 `ShapeFactory` 生产 shape 的具体步骤如下：
 
-1.  Again, you’ve declared the `ShapeFactory` as a protocol to build in maximum flexibility, just like you did for `ShapeViewFactory`.
+1. 再一次地，就像你对 `ShapeViewFactory` 所做的那样，将 `ShapeFactory` 声明为一个协议来获得最大的灵活性。
 
-2.  You want your shape factory to produce shapes that have dimensions in unit terms, for instance, in a range like `[0, 1]` — so you store this range.
+2. 您希望您的 shape 工厂生成具有单位尺寸的形状，例如，在 `[0, 1]` 的范围内，因此您要存储这个范围。
 
-3.  Create the first square shape with random dimensions.
+3. 创建具有随机尺寸的第一个方形。
 
-4.  Create the second square shape with random dimensions.
+4. 创建具有随机尺寸的第二个方形。
 
-5.  Return the pair of square shapes as a tuple.
+5. 将这对方形形状作为元组返回。
 
-Now open **GameViewController.swift** and insert the following line at the bottom just before the closing curly brace:
+现在打开 **GameViewController.swift** 并在底部大括号结束之前的插入以下代码：
 
 ```swift
 private var shapeFactory: ShapeFactory!
 ```
 
-Then insert the following line near the bottom of `viewDidLoad`, just above the invocation of `beginNextTurn`:
+然后在 `viewDidLoad` 的底部 `beginNextTurn` 的调用之上插入以下代码：
 
 ```swift
 shapeFactory = SquareShapeFactory(minProportion: 0.3, maxProportion: 0.8)
 ```
 
-Finally, replace `beginNextTurn` with this code:
+最后把 `beginNextTurn` 替换为以下代码:
 
 ```swift
 private func beginNextTurn() {
-  // 1
-  let shapes = shapeFactory.createShapes()
+    // 1
+    let shapes = shapeFactory.createShapes()
 
-  let shapeViews = shapeViewFactory.makeShapeViewsForShapes(shapes)
+    let shapeViews = shapeViewFactory.makeShapeViewsForShapes(shapes: shapes)
 
-  shapeViews.0.tapHandler = {
-    tappedView in
-    // 2
-    let square1 = shapes.0 as! SquareShape, square2 = shapes.1 as! SquareShape
-    // 3
-    self.gameView.score += square1.sideLength >= square2.sideLength ? 1 : -1
-    self.beginNextTurn()
-  }
-  shapeViews.1.tapHandler = {
-    tappedView in
-    let square1 = shapes.0 as! SquareShape, square2 = shapes.1 as! SquareShape
-    self.gameView.score += square2.sideLength >= square1.sideLength ? 1 : -1
-    self.beginNextTurn()
-  }
+    shapeViews.0.tapHandler = { tappedView in
+        // 2
+        let square1 = shapes.0 as! SquareShape, square2 = shapes.1 as! SquareShape
+        // 3
+        self.gameView.score += square1.sideLength >= square2.sideLength ? 1 : -1
+        self.beginNextTurn()
+    }
+    shapeViews.1.tapHandler = { tappedView in
+        let square1 = shapes.0 as! SquareShape, square2 = shapes.1 as! SquareShape
+        self.gameView.score += square2.sideLength >= square1.sideLength ? 1 : -1
+        self.beginNextTurn()
+    }
 
-  gameView.addShapeViews(shapeViews)
+    gameView.addShapeViews(newShapeViews: shapeViews)
 }
 ```
 
-Section by section, here’s what that does.
+以下是上面代码的解析：
 
-1.  Use your new shape factory to create a tuple of shapes.
+1. 使用新的 shape 工厂创建一个形状元组。
 
-2.  Extract the shapes from the tuple…
+2. 从元组中提取形状。
 
-3.  …so that you can compare them here.
+3. 这样你就可以在这里比较它们了。
 
-Once again, using the **Abstract Factory** design pattern simplified your code by moving shape generation out of `GameViewController`.
+Once again, using the **Abstract Factory** design pattern simplified your code by moving shape generation out of `GameViewController`.再一次使用 **抽象工厂** 设计模式，通过将创建形状的部分移出 `GameViewController` 来简化代码。
 
 ## Design Pattern: Servant
 
