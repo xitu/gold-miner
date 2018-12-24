@@ -1,3 +1,7 @@
+* [如何使用 Dask Dataframes 在 Python 中运行并行数据分析](https://juejin.im/post/5c1feeaf5188257f9242b65c) ([Starriers](https://github.com/Starriers) 翻译)
+* [时间序列异常检测算法](https://juejin.im/post/5c19f4cb518825678a7bad4c) ([haiyang-tju](https://github.com/haiyang-tju) 翻译)
+* [支持向量机（SVM） 教程](http://5a77c24cf265da4e747f92e8/) ([zhmhhu](https://github.com/zhmhhu) 翻译)
+* [通过集成学习提高机器学习效果](https://juejin.im/post/5c0909d951882548e93806e0) ([Starriers](https://github.com/Starriers) 翻译)
 * [Google Colab 免费 GPU 使用教程](https://juejin.im/post/5c05e1bc518825689f1b4948) ([haiyang-tju](https://github.com/haiyang-tju) 翻译)
 * [鲜为人知的数据科学 Python 库](https://juejin.im/post/5c075e09518825159512715f) ([haiyang-tju](https://github.com/haiyang-tju) 翻译)
 * [强化学习中的好奇心与拖延症](https://juejin.im/post/5bff316651882548e937ef20) ([haiyang-tju](https://github.com/haiyang-tju) 翻译)
