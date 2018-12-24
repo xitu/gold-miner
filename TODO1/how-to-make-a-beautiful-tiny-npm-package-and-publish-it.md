@@ -2,10 +2,10 @@
 > * 原文作者：[Jonathan Wood](https://medium.freecodecamp.org/@Bamblehorse?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-make-a-beautiful-tiny-npm-package-and-publish-it.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-make-a-beautiful-tiny-npm-package-and-publish-it.md)
-> * 译者：
-> * 校对者：
+> * 译者：[snowyYU](https://github.com/snowyYU)
+> * 校对者：[ElizurHz](https://github.com/ElizurHz), [Park-ma](https://github.com/Park-ma)
 
-# 创建并发布一个小而美的 npm 包 #
+# 创建并发布一个小而美的 npm 包
 
 你肯定想不到这有多简单！
 
@@ -13,7 +13,7 @@
 
 Photo by [Chen Hu](https://unsplash.com/@huchenme?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
 
-如果你已经写过很多 npm 模块，你就可以跳过这部分。如果没有的话，我们先看下简介
+如果你已经写过很多 npm 模块，你就可以跳过这部分。如果没有的话，我们先看下简介。
 
 #### TL;DR
 
@@ -43,7 +43,7 @@ Photo by [Chen Hu](https://unsplash.com/@huchenme?utm_source=medium&utm_medium=r
 
 想过幼年大象被叫做什么吗？
 
-_你当然想过。_ 一个幼年大象被叫做 [小牛](https://www.reference.com/pets-animals/baby-elephant-called-a3893188e0a63095)。
+**你当然想过**。一个幼年大象被叫做 [小牛](https://www.reference.com/pets-animals/baby-elephant-called-a3893188e0a63095)。
 
 #### 我相信你
 
@@ -61,9 +61,9 @@ _你当然想过。_ 一个幼年大象被叫做 [小牛](https://www.reference.
 
 ### 复杂的指令
 
-我保证过不会有…
+我保证过不会有...
 
-…不过我确实做了。
+...不过我确实做了。
 
 没这么糟糕啦。总有一天你会原谅我的。
 
@@ -97,11 +97,11 @@ npm login
 
 这两个选一个跟着你混到死吧。
 
-你会得到一个让你输入**username**，**password** 和 **email**的提示。把它们填在相应的位置吧！
+你会得到一个让你输入**username**、**password** 和 **email**的提示。把它们填在相应的位置吧！
 
 你会得到类似下面的提示：
 
-> Logged in as bamblehorse to scope [@username](http://twitter.com/username "Twitter profile for @username") on [https://registry.npmjs.org/](https://registry.npmjs.org/)。
+> Logged in as bamblehorse to scope [@username](http://twitter.com/username "Twitter profile for @username") on [https://registry.npmjs.org/](https://registry.npmjs.org/).
 
 棒极啦！
 
@@ -119,13 +119,13 @@ npm login
 
 真的很小。
 
-包括官方文档在内的创建npm包的教程，都在让你在 package.json 中输入某些字段。在不影响它正常工作和发布的前提下，我们尽量试着精简下我们的包。这是 [TDD](https://en.wikipedia.org/wiki/Test-driven_development) 的一种，我们把它用在一个很小的 npm 包上。
+包括官方文档在内的创建 npm 包的教程，都在让你在 package.json 中输入某些字段。在不影响它正常工作和发布的前提下，我们尽量试着精简下我们的包。这是 [TDD](https://en.wikipedia.org/wiki/Test-driven_development) 的一种，我们把它用在一个很小的 npm 包上。
 
-**请注意：** 我给你讲这些就是想说明不是所有的npm包都很复杂。 想让我们开发的包为社区作出贡献的话，一般还需要很多别的模块，随后我们会讲到。
+**请注意**：我给你讲这些就是想说明不是所有的npm包都很复杂。想让我们开发的包为社区作出贡献的话，一般还需要很多别的模块，随后我们会讲到。
 
-#### 发布： 第一次尝试
+#### 发布：第一次尝试
 
-为了发布你的 npm 包，你需要执行规定好的命令: **npm publish**。
+为了发布你的 npm 包，你需要执行规定好的命令：**npm publish**。
 
 所以我们在创建好的包含空 package.json 的文件夹中试一下：
 
@@ -169,9 +169,9 @@ npm 可不喜欢报这么多错。
 
 通过使用 **@bamblehorse/tiny** 代替 **tiny**，我们会创建一个在我们用户名 **scope** 下的一个包。这个叫做 [**scoped package**](https://docs.npmjs.com/misc/scope)。它允许我们将已经被其他包使用的名称作为包名，比如说，[**tiny** 包](https://www.npmjs.com/package/tiny) 已经在 npm 中存在。
 
-你可能在一些著名的包中见过这种命名方法，比如来自 Google 的 [Angular](https://angular.io/)。 它们有几个 scoped packages，比如 [@angular/core](https://www.npmjs.com/package/@angular/core) 和 [@angular/http](https://www.npmjs.com/package/@angular/http)。
+你可能在一些著名的包中见过这种命名方法，比如来自 Google 的 [Angular](https://angular.io/)。它们有几个 scoped packages，比如 [@angular/core](https://www.npmjs.com/package/@angular/core) 和 [@angular/http](https://www.npmjs.com/package/@angular/http)。
 
-超级酷，对吧?
+超级酷，对吧？
 
 我们试着第二次发布我们的包：
 
@@ -185,11 +185,11 @@ npm publish
 npm ERR! package.json requires a valid “version” field
 ```
 
-每个 npm 包都需要一个版本，以便开发人员在安全地更新包版本的同时不会破坏其余的代码。npm 使用的版本系统被叫做 [**SemVer**](https://semver.org/)， 是 **Semantic Versioning** 的缩写。
+每个 npm 包都需要一个版本，以便开发人员在安全地更新包版本的同时不会破坏其余的代码。npm 使用的版本系统被叫做 [**SemVer**](https://semver.org/)，是 **Semantic Versioning** 的缩写。
 
 不要过分担心理解不了相较复杂的版本名称，下面是他们对基本版本命名的总结：
 
-> 给定版本号 MAJOR.MINOR.PATCH, 增量规则如下：
+> 给定版本号 MAJOR.MINOR.PATCH，增量规则如下：
 >
 > 1. MAJOR 版本号的变更说明新版本产生了不兼容低版本的 API 等，
 >
@@ -218,7 +218,7 @@ npm ERR! package.json requires a valid “version” field
 npm publish
 ```
 
-哎呀，
+哎呀。
 
 ```
 npm ERR! publish Failed PUT 402
@@ -230,7 +230,7 @@ npm ERR! You must sign up for private packages : @bamblehorse/tiny
 
 Scoped packages 会被自动发布为私有包，因为这样不但对我们这样的独立用户有用，而且它们也被公司用于在项目之间共享代码。如果我们就发布这样一个包的话，那我们的旅程可能就要在此结束了。
 
-我们只需改变下指令来告诉 npm 我们想让每个人都可以使用这个模块 —— 不要把它锁进 npm 的保险库中。 所以我们执行如下指令：
+我们只需改变下指令来告诉 npm 我们想让每个人都可以使用这个模块 —— 不要把它锁进 npm 的保险库中。所以我们执行如下指令：
 
 ```
 npm publish --access=public
@@ -248,7 +248,7 @@ Boom！
 
 好激动。
 
-_你也肯定很激动。_
+**你也肯定很激动。**
 
 ![](https://cdn-images-1.medium.com/max/800/1*oBaHFxAXy-BWtzyAKeMGBQ.png)
 
@@ -260,7 +260,7 @@ _你也肯定很激动。_
 
 真可爱！
 
-[版本1](https://www.npmjs.com/package/@bamblehorse/tiny/v/1.0.0) 就躺在那呢！
+[版本 1](https://www.npmjs.com/package/@bamblehorse/tiny/v/1.0.0) 就躺在那呢！
 
 ### 重构一下
 
@@ -294,7 +294,7 @@ GitHub 就是一个放代码的好地方。 先建一个 [新的仓库](https://
 
 下一个徽章更有趣。它表示警告，因为我们还没有任何代码。 
 
-我们真该写些代码…
+我们真该写些代码...
 
 ![](https://cdn-images-1.medium.com/max/800/1*mxZkgckYLK16mhkRte1Bqw.png)
 
@@ -345,7 +345,7 @@ module.exports = function tiny(string) {
 
 所有 npm 包都需要一个 **index.js** 文件。这是包的入口文件。随着复杂度升高，你可以采用不同的方式来实现它。
 
-不过如今这样对我们来说就足够了
+不过如今这样对我们来说就足够了。
 
 ### 我们已经到达目的地了吗？
 
@@ -381,7 +381,7 @@ module.exports = function tiny(string) {
 *   [description](https://docs.npmjs.com/files/package.json#description-1)：包的简介
 *   [repository](https://docs.npmjs.com/files/package.json#repository)：适合写上 GitHub 地址 —— 所以你可以写成这种格式 **username/repo**
 *   [license](https://docs.npmjs.com/files/package.json#license)：这里是 MIT 认证
-*   [main](https://docs.npmjs.com/files/package.json#main): 包的入口文件，位置在文件夹的根目录
+*   [main](https://docs.npmjs.com/files/package.json#main)：包的入口文件，位置在文件夹的根目录
 *   [keywords](https://docs.npmjs.com/files/package.json#keywords)：添加一些关键词更容易使你的包被搜索到
 
 #### readme.md
@@ -446,7 +446,7 @@ npm publish
 
 “大半个身子浸在水中的大象。” 由 [Jakob Owens](https://unsplash.com/@jakobowens1?utm_source=medium&utm_medium=referral) 拍摄，来自 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
 
-请关注我～ [Twitter](https://twitter.com/Bamblehorse)，[Medium](https://medium.com/@Bamblehorse) or [GitHub](https://github.com/Bamblehorse)。
+请关注我 [Twitter](https://twitter.com/Bamblehorse)、[Medium](https://medium.com/@Bamblehorse) 或 [GitHub](https://github.com/Bamblehorse)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
