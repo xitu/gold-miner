@@ -1,3 +1,4 @@
+* [使用 Swift 的 iOS 设计模式（第二部分）](https://juejin.im/post/5c1786576fb9a049f06a2c4a) ([iWeslie](https://github.com/iWeslie) 翻译)
 * [使用 Swift 的 iOS 设计模式（第一部分）](https://juejin.im/post/5c05d4ee5188250ab14e62d6) ([iWeslie](https://github.com/iWeslie) 翻译)
 * [使用 Kotlin 将你的 iOS 应用程序转换为 Android](https://juejin.im/post/5c03f64ce51d454af013d076) ([iWeslie](https://github.com/iWeslie) 翻译)
 * [Swift 中的动态特性](https://juejin.im/post/5bfd087be51d457a013940e8) ([iWeslie](https://github.com/iWeslie) 翻译)

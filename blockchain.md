@@ -1,5 +1,6 @@
 **更多区块链相关译文，请到 [掘金翻译计划 — 区块链分舵](https://github.com/xitu/blockchain-miner)**
 
+* [以太坊入门指南](https://juejin.im/post/5c1080fbe51d452b307969a3) ([gs666](https://github.com/gs666) 翻译)
 * [以太坊入门：互联网政府](https://juejin.im/post/5c03c68851882551236eaa82) ([newraina](https://github.com/newraina) 翻译)
 * [以太坊: 能帮我们把 Uber 换掉的非比特币加密货币](https://juejin.im/post/5bf3e32ee51d4532ff07a7de) ([noahziheng](https://github.com/noahziheng) 翻译)
 * [如何区分支付型代币，实用型代币，证券化代币](https://juejin.im/post/5bf53b8f51882517172700c8) ([mingxing47](https://github.com/mingxing47) 翻译)
