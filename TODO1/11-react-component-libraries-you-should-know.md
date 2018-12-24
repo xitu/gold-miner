@@ -5,23 +5,23 @@
 > * 译者：
 > * 校对者：
 
-# 11 React UI Component Libraries you Should Know in 2019
+# 2019 年你应该要知道的 11 个 React UI 组件库
 
-Although still behind Angular in the [sheer numbers](https://insights.stackoverflow.com/survey/2017#technology) of users, React is leading in popularity in Stack overflow’s most loved component libraries:
+虽然 React 的用户量落后于 Angular [很多](https://insights.stackoverflow.com/survey/2017#technology) ，但它在 Stack overflow 的最受喜爱的组件库中排名领先:
 
 ![](https://cdn-images-1.medium.com/max/800/1*2nIak4DHSE3NtpxljcLfqQ.png)
 
-React is rising in popularity in 2017
+React 在 2017 年的受欢迎程度上升
 
-React’s virtual DOM, the ability to declaratively describe a user interface and model the state of that interface, low barriers to entry for a decent Javascript developer, all make React a great [go-to library](https://medium.freecodecamp.org/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76) for building UI’s.
+React 的虚拟 DOM、声明式地描绘用户界面与构建界面相应的 state 的能力、对 JavaScript 开发者的入门门槛低等等，这些都使 React 成为了非常棒的构建 UI 的 [go-to library](https://medium.freecodecamp.org/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76) 。
 
-Another great reason for working with React is components. Components let you split the UI into independent, reusable pieces. To help kickstart your work with React components, here are 11 great React component libraries to use.
+另一个使用 React 的很棒的理由是它的组件。组件能够让你把 UI 分割成独立的、可复用的块。这里有 11 个很棒的 React 组件库可以帮助你开始使用 React 的组件。
 
-You can also combine these components with [Bit](https://bitsrc.io) to turn your components into building blocks which can be organized and synced in multiple projects.
+你可以使用 [Bit](https://bitsrc.io) 将你的组件转化成能够统一管理并在多个项目间同步的模块。
 
-- [**Bit - Share and build with code components**: Bit makes it fun and simple to build software with smaller components, share them with your team and sync them in your...](https://bitsrc.io "https://bitsrc.io")
+- [**Bit - 共享和构建组件**: Bit 让使用更小的组件开发软件、团队间共享和在你的...同步变得有趣且容易](https://bitsrc.io "https://bitsrc.io")
 
-With Bit, you can easily share, develop and sync components from multiple projects and applications, organize them for your team and improve your workflow for React components with 2–way code changes, creating a distributed dev workflow. Here is [an example](https://bitsrc.io/bit/movie-app).
+有了 Bit，你可以轻松地在多个项目和应用间共享、开发和同步组件，为你的团队管理组件，和改进你有双向代码变更的 React 组件工作流并创建一个分布式开发工作流。这里有 [一个例子](https://bitsrc.io/bit/movie-app) 。
 
 ![](https://cdn-images-1.medium.com/max/800/1*EW7hjct1RduBrJj43xHO5g.png)
 
@@ -29,75 +29,75 @@ React [Hero UI component](https://bitsrc.io/bit/movie-app/components/hero) with 
 
 #### 1. React Material-UI
 
-[React Material-UI](http://www.material-ui.com/) is a set of React components that implements Google’s Material Design. With over [30k stars](https://github.com/mui-org/material-ui) on GitHub, it is probably the most popular React component library. The library’s v1 is coming up.
+[React Material-UI](http://www.material-ui.com/) 是一套实现了 Google 的 Material Design 的 React 组件。它在 GitHub 上有 [30k stars](https://github.com/mui-org/material-ui) ，大概是目前最受欢迎的 React 组件库了。它的 v1 版本快要推出了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*tbpaxLVm76qcI0S9s_h_rw.png)
 
 #### 2. React-Bootstrap
 
-[React-Bootstrap](https://github.com/react-bootstrap/react-bootstrap) is a React component library with the look-and-feel of Twitter’s popular Bootstrap. At over 11k stars, its simplicity receives wide popularity in the community.
+[React-Bootstrap](https://github.com/react-bootstrap/react-bootstrap) 是一个具有 Twitter 的 Bootstrap 的观感的 React 组件库。它的极简风格在社区中有很高的热度，有超过 11k 的 stars。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Z8iv-H53lE0yiEonO7v1vA.png)
 
 #### 3. React toolbox
 
-[React Toolbox](http://react-toolbox.io/#/) is a set of React components that implements Google Material Design specification. It’s built on top of some the trendiest proposals like CSS Modules (written in SASS), Webpack and ES6. The library’s website provides a live component playground.
+[React Toolbox](http://react-toolbox.io/#/) 是一套实现了 Google Material Design 规范的 React 组件。它的是基于如 CSS Modules（基于 SASS）、webpack 和 ES6 这样的最新提案构建的。它的网站提供了一个在线的组件 playground。
 
 ![](https://cdn-images-1.medium.com/max/800/1*3MDbsOlWKBwtLesdEucWeA.png)
 
 #### 4. React Belle
 
-[React Belle](https://github.com/nikgraf/belle) is a set of React components optimized to work both on mobile & desktop devices. The styles are highly customizable so you can configure the base styles of all the components as well as modify each one of them individually. Here is also a [nice example](https://gideonshils.github.io/Belle-With-Bit/).
+[React Belle](https://github.com/nikgraf/belle) 是一套针对移动端和桌面端都有优化的 React 组件。它的样式可以高度定制，因此你可以配置所有组件通用的基础样式，也可以在每个组件中单独修改样式。这里也有一个 [不错的例子](https://gideonshils.github.io/Belle-With-Bit/) 。
 
 ![](https://cdn-images-1.medium.com/max/800/1*pypcfwkxe8omGQpX7YFsIw.png)
 
 #### 5. React Grommet
 
-[React Grommet](http://grommet.io/) provides a rich selection of components grouped by usage classifications, and all components are accessible, cross-browser compatible and support theme customization.
+[React Grommet](http://grommet.io/) 提供了按使用方式分类的丰富的组件选择，所有的组件都是易用的、跨浏览器兼容的、支持主题定制的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*70XQ6onrhXheDfMcCHY6uA.png)
 
 #### 6. React Components by Khan Academy
 
-Khan Academy’s [React components](http://khan.github.io/react-components/) are released as a component library, with inline CSS and comments. Individual components can also be installed from [this Bit Scope](https://bitsrc.io/khan/react-components#components) created by adding Bit the library.
+Khan Academy 的 [React 组件](http://khan.github.io/react-components/) 是以有行内 CSS 和注释的组件库的形式发布的。单独的组件也可以通过向 Bit 添加这个库创建的 [这个 Bit Scope](https://bitsrc.io/khan/react-components#components) 安装。
 
 ![](https://cdn-images-1.medium.com/max/800/1*0ioHWySqvLlW4J5HPhN1wA.png)
 
 #### 7. Material Components Web
 
-[Material Components Web](https://material.io/components/web/) is developed by a core team of engineers and UX designers at Google, and its components enable a reliable development workflow to build beautiful and functional web projects. It has replaced react-mdl (which is now deprecated), already reaching nearly 7k stars.
+[Material Components Web](https://material.io/components/web/) 是由 Google 的一个核心团队的工程师和 UX 设计师开发的，它的组件支持可靠的开发工作流以构建美观且实用的 Web 项目。它取代了 react-mdl（现在已经废弃了），已经有接近 7k 的 stars 了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*XhhTfN5l25iIP5lL6RIhKA.png)
 
 #### 8. Ant Design React
 
-Following the Ant Design specification, [React Ant Design](https://ant.design/docs/react/introduce) is a React UI library that contains a set of components and demos. It’s written in TypeScript with complete defined types, and provides an NPM+ webpack + [dva](https://github.com/dvajs/dva) front-end development workflow.
+根据 Ant Design 的规范，[React Ant Design](https://ant.design/docs/react/introduce) 是一个包含了组件和 demo 的 React UI 库。它是用 TypeScript 写的，并有完整的类型定义，也提供了一个 npm + webpack + [dva](https://github.com/dvajs/dva) 的前端开发流程。
 
 ![](https://cdn-images-1.medium.com/max/800/1*m20KzN0Yo1Mn_TBzCCs1JA.png)
 
 #### 9. Semantic UI React
 
-[Semantic UI React](https://react.semantic-ui.com/) is the official Semantic-UI-React integration. With nearly 5k stars and used by Netflix and Amazon, these components provide an interesting and flexible arsenal.
+[Semantic UI React](https://react.semantic-ui.com/) 是 Semantic-UI-React 的官方整合库。它有大概 5k 的 stars，并被 Netflix 和 Amazon 所采用，提供了有趣而灵活的“武器库”。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ifnxZvzp3gVZOj1pTlGl7w.png)
 
 #### 10. Onsen UI
 
-[Onsen UI React Components](https://onsen.io/react/) made available with Onsen UI React bindings and provide hybrid mobile apps with React and Onsen UI Framework. With 81 contributors and over 5.6k stars it’s an interesting library to consider.
+[Onsen UI React Components](https://onsen.io/react/) 可以与 Onsen UI 的 React bindings 一起使用，并提供了使用 React 和 Onsen UI 框架的混合开发移动应用。它有 81 个贡献者和超过 5.6k 的 stars，是个可以考虑的有意思的库。
 
 ![](https://cdn-images-1.medium.com/max/800/1*wUCqvq-3Sp2Vbx0TmTdzdg.png)
 
 #### 11. React Virtualized
 
-At nearly 8k stars, [React Virtualized](https://github.com/bvaughn/react-virtualized) provides React components for efficiently rendering large lists and tabular data.
+[React Virtualized](https://github.com/bvaughn/react-virtualized) 有大概 8k 的 stars，它提供了可以高效渲染长列表和扁平数据的 React 组件。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Go5Bue8KJGIdBMUt7fvfVQ.png)
 
-### Individual components
+### 单独的组件
 
-Individual components can be found in the popular [awesome-react](https://github.com/enaqx/awesome-react) and [awesome-react-components](https://github.com/brillout/awesome-react-components) projects. You can also add [Bit](https://bitsrc.io/) to any repository or library to track and isolate components within it. Then, these components can be exported directly from any path in the repo in seconds and any developer can then install them with NPM/Yarn and make changes from any project.
+每个单独的组件都可以再 [awesome-react](https://github.com/enaqx/awesome-react) 和 [awesome-react-components](https://github.com/brillout/awesome-react-components) 这两个项目中找到。你也可以将 [Bit](https://bitsrc.io/) 添加到任意一个仓库或者库来追踪与隔离仓库或者库里的组件。然后，这些组件可以很快地直接从仓库中的任何路径中导出，开发者就可以使用 npm 或者 yarn 来安装它们，并在任意的项目中进行修改。
 
-As it seems, in 2018 the popularity of React will continue to rise and its components will grow to become the modular building blocks of more of the apps we use every day.
+似乎在 2018 年，React 的热度会持续上升，并且 React 组件会逐渐成为更多的我们日常使用的应用的组成模块。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
