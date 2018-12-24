@@ -5502,10 +5502,11 @@
 |[json — JavaScript 对象表示法](https://juejin.im/post/5a9432ae5188257a5c6092b0)|校对|1|
 |[嵌套三元表达式棒极了（软件编写）（第十四部分）](https://juejin.im/post/5a7d6769f265da4e7e10ad82)|校对|1|
 
-## 译者：[zhmhhu](https://github.com/zhmhhu) 历史贡献积分：90 当前积分：-10 年度积分：90
+## 译者：[zhmhhu](https://github.com/zhmhhu) 历史贡献积分：91 当前积分：-9 年度积分：91
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐优秀英文文章一篇|奖励|1|
 |2018 年 12 月兑树莓派套餐 1 个|减去积分|55|
 |[设计师的决策树](https://juejin.im/post/5befd61ee51d4557fe34e944)|翻译|2.5|
 |[6 个最令人满意的和编程相关的工作（和参与这些工作的人们的类型）](https://juejin.im/post/5be271f0e51d450556196864)|校对|1.5|
@@ -6203,10 +6204,11 @@
 |[怎样更好地使用 Vue：我在新工作中遇到的一些问题清单](https://juejin.im/post/5b0a36366fb9a07a9c04aca2)|校对1|
 |[可微可塑性：一种学会学习的新方法](https://juejin.im/post/5b055308f265da0ba063879d)|校对|1.5|
 
-## 译者：[zhongdeming428](https://github.com/zhongdeming428) 历史贡献积分：22 当前积分：7 年度积分：22
+## 译者：[zhongdeming428](https://github.com/zhongdeming428) 历史贡献积分：23 当前积分：8 年度积分：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐优秀英文文章一篇|奖励|1|
 |2018 年 8 月兑掘金桌垫和集智马克杯各一个|减去积分|15|
 |[将项目迁移到 Yarn 然后又迁回到 npm](https://juejin.im/post/5b3b5735f265da0f894b443d)|翻译|3|
 |[怎样使用简单的三角函数来创建更好的加载动画](https://juejin.im/post/5b33055f518825748871c590)|翻译|6|
@@ -6381,10 +6383,11 @@
 |[用不到 200 行的 GO 语言编写您自己的区块链](https://juejin.im/post/5ad95b056fb9a07aa349cd41)|校对|2|
 |[GAN 的 Keras 实现：构建图像去模糊应用](https://juejin.im/post/5ad6e358f265da237b229bb2)|校对|1|
 
-## 译者：[Moosphan](https://github.com/Moosphan) 历史贡献积分：3 当前积分：3 年度积分：3
+## 译者：[Moosphan](https://github.com/Moosphan) 历史贡献积分：5 当前积分：5 年度积分：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐优秀英文文章两篇|奖励|2|
 |[带你领略 ConstraintLayout 1.1 的新功能](https://juejin.im/post/5b013e6f51882542c760dc7b)|翻译|3|
 
 ## 译者：[yingye](https://github.com/yingye) 历史贡献积分：0.5 当前积分：0.5 年度积分：0.5
