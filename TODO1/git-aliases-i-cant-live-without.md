@@ -2,26 +2,27 @@
 > * 原文作者：[MICHAŁ KONARSKI](http://mjk.space)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/git-aliases-i-cant-live-without.md](https://github.com/xitu/gold-miner/blob/master/TODO1/git-aliases-i-cant-live-without.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[TrWestdoor](https://github.com/TrWestdoor)，[CoolRice](https://github.com/CoolRice)
 
 # 我无法想象没有 Git 别名的的场景
 
 大家看到我的 Git 工作流时，总是充满了惊讶与好奇：
 
-![我的 Git 工作流](http://mjk.space/images/blog/git-aliases/workflow.gif)**我的 Git** 工作流
+![我的 Git 工作流](http://mjk.space/images/blog/git-aliases/workflow.gif)
+> **我的 Git 工作流**
 
-我对别名的热爱，始于我初次下载 **zsh** 和它的 **[oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)** 套件。它包含大量针对不同命令行程序的预定义别名和函数助手。我立刻便喜欢上了这种取代常规的那些很长的参数化调用的输入概念。因为我最常使用的工具是 Git，所以它是我开始别名变革的首选目标。几年之后的现在，我无法想象使用 Git 自带的那些原始 `git` 命令。
+我对别名的热爱，始于我初次下载 **zsh** 和它的 **[oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)** 套件。它包含大量针对不同命令行程序的预定义别名和帮助函数。我立刻便喜欢上了这种取代常规的那些很长的参数化调用的输入概念。因为我最常使用的工具是 Git，所以它是我开始别名变革的首选目标。几年之后的现在，我无法想象使用 Git 自带的那些原始 `git` 命令。
 
-当然，Git 本身就拥有完美的[别名自定义系统](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases)。对我来说，我只是不喜欢 `git` 和别名之间的空白。Shell 别名也很灵活，别名也可以用于其他地方，例如 `docker`。
+当然，Git 本身就拥有完美的[别名自定义系统](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases)。对我来说，我只是不喜欢 `git` 和别名之间的空白。Shell 别名也很灵活并且还可以用于其他命令行，例如 `docker`。
 
-下面你会找到我使用最多的别名列表。其中一些直接源自于我的 **oh-my-zsh**，其他一些是我自己创造的。我喜欢你们至少可以找到一些有用的！如果你想亲自尝试所有的这些方法，可以从[我的仓库](https://github.com/mjkonarski/oh-my-git-aliases)下载。
+下面你会找到我使用最多的别名列表。其中一些直接源自于 **oh-my-zsh**，其他一些是我自己创造的。我喜欢你们至少可以找到一些有用的！如果你想亲自尝试所有的这些方法，可以从[我的仓库](https://github.com/mjkonarski/oh-my-git-aliases)下载。
 
 ### 1. 我们从这个库开始吧！
 
 `alias gcl = git clone`
 
-这可能不是 Git 用户最常使用的命令，但我个人希望尽可能让你们最快掌握这些**令人生畏的 GitHub 项目**，就像我所希望的那样。
+这可能不是 Git 用户最常使用的命令，但我个人希望尽快让你们掌握这些**令人生畏的 GitHub 项目**，就像我所希望的那样。
 
 ### 2. 从远程仓库获取分支最新动态
 
@@ -33,13 +34,13 @@
 
 `alias gco = git checkout`
 
-对于日常开发来说，这无疑是最有用的命令之一。我决定写这篇文章的原因之一就是，我发现大家每次在他们想要切换分支时，仍然需要使用 `git checkout`。
+对于日常开发来说，这无疑是最有用的命令之一。我决定写这篇文章的原因之一就是发现大家每次在他们想要切换分支时，仍然需要使用 `git checkout`。
 
 ### 4. 回退到之前的分支状态！
 
 `gco -`
 
-这个破折号是一个小把戏，意思是“以前的分支”。我知道严格意义上，它不算是别名，但这不影响它的用处。而且，我记得好像没有多少人知道这些事情。
+这个破折号是一个小把戏，意思是“以前的分支”。我知道严格意义上，它不算是别名，但它太过有用以至于不得不提。而且，我印象中没有多少人知道它。
 
 `checkout` 不是接受破折号的唯一选项 —— 你也可以在其他地方使用，比如 `merge`、`cherry-pick` 和 `rebase`。
 
@@ -47,7 +48,7 @@
 
 `alias gcm = git checkout master`
 
-如果我们经常在一些定义良好的分支之间进行切换，那么我们为什么不使其尽可能简单一些呢？根据你的工作流，你也可以找出其他相似的有用别名：`gcd` (**develop**)、`gcu` (**uat**)、`gcs` (**stable**)。
+如果我们经常在一些有明确定义的的分支之间进行切换，那么我们为什么不使其尽可能简单一些呢？根据你的工作流，你也可以找出其他相似的有用别名：`gcd` (**develop**)、`gcu` (**uat**)、`gcs` (**stable**)。
 
 ### 6. 我在哪？发生了什么？
 
@@ -63,7 +64,7 @@
 
 请注意，这个特定的命令将当前分支重置为来源于 **origin** 分支的最新提交。这正是**我**通常最需要的，但可能不是**你**需要的东西。每当我不关心本地更改时，我都会使用它，我只希望我的当前分支能够反映对应的远程分支。你可能会说你可以使用 `git pull` 替带，但我只是不喜欢它会试图合并远程分支，而不只是将当前分支重置为远程分支。
 
-注意 `current_branch` 是一个自定义函数（由 **oh-my-zsh** 作者创建）。你可以看到它，比如[这里](https://github.com/mjkonarski/oh-my-git-aliases/blob/master/oh-my-git-aliases.sh#L71)。
+注意 `current_branch` 是一个自定义函数（由 **oh-my-zsh** 作者创建）。你可以在[这里](https://github.com/mjkonarski/oh-my-git-aliases/blob/master/oh-my-git-aliases.sh#L71)看到它。
 
 ### 8. 当前的更改是什么？
 
@@ -73,7 +74,7 @@
 
 `alias gdc = git diff --cached`
 
-### 9. 让我们提交哪些更改的文件！
+### 9. 让我们提交那些更改的文件！
 
 `alias gca = git commit -a`
 
@@ -87,7 +88,7 @@
 
 我经常使用它，因为我喜欢保持 Git 历史记录的整洁（没有 “pull request fixs” 或者 “forgot to add this file” 类型的提交信息）。它只需简单接受所有的更改并将他们添加到上一次提交中。
 
-### 11. 我之前的分支做的太快，那么怎么撤销一个文件？
+### 11. 我之前的分支做的太快，那么怎么“撤销”一个文件？
 
 ```
 gfr() {
@@ -111,13 +112,13 @@ gfr() {
 
 `alias ggpushf = git push --force-with-lease origin $(current_branch)`
 
-强制推送显然是一个有争议的习惯，许多人会说你永远不应该这样做。我同意，但只有涉及到想 **master** 这样的关键、共享分支才会有问题。
+强制推送显然是一个有争议的习惯，许多人会说你永远不应该这样做。我同意，但只有涉及到分享像 **master** 这样的分支时才会有问题。
 
-正如我提及的，我喜欢保持我的 git 历史干净。这有时涉及更改已经被推送的提交。这时，`--force-with-lease` 就会特别有用，因为当你的本地仓库没有远程分支的最新状态时，它会拒绝推送。因此，不可能抛弃别人的修改，至少不应该是无意的。
+正如我提及的，我喜欢保持我的 git 历史干净。这有时涉及更改已经被推送的提交。这时，`--force-with-lease` 就会特别有用，因为当你的本地仓库没有更新到远程分支的最新状态时，它会拒绝推送。因此，它不可能抛弃别人的修改，至少不会在无意中抛弃。
 
-在我的同事有一次错误地调用了 `git commit -f` (将 `push.default` 设置为 `matching`)之后，我开始使用这个别名， 将远程分支部分名称设置为 `$(current_branch)`，并强制推送所有的本地分支到 **origin** 分支。包括一个旧版本的 **master**，当我意识到发生了什么之后，我仍然记得他眼中的恐慌。
+在我的同事有一次错误地调用了 `git commit -f` (将 `push.default` 设置为 `matching`)之后，我开始使用这个别名， 将远程分支部分名称设置为 `$(current_branch)`，并强制推送所有的本地分支到 **origin** 分支。包括一个旧版本的 **master**，当他意识到发生了什么之后，我仍然记得他眼中的恐慌。
 
-### 14. 哇，推送被拒绝了！有人已经污染了我的分支！
+### 14. 哇，推送被拒绝了！有人动了我的分支！
 
 你试图将你的分支推送到远程仓库，但得到了一下信息：
 
@@ -157,11 +158,11 @@ You can instead skip this commit: run "git rebase --skip".
 To abort and get back to the state before "git rebase", run "git rebase --abort".
 ```
 
-有时，你可能只想中止整个进程，之后再解决冲突。以上信息是如何处理的线索，但为什么以上的解决线索会出现那么多按键呢？
+有时，你可能只想中止整个进程，之后再解决冲突。以上信息是如何处理的线索，但为什么需要这么多按键呢？
 
 `alias grba = git rebase --abort`
 
-我们又安全了。但你终于鼓起勇气再次进行合并解决这些冲突时，在 `git add` 之后，你只需继续进行 rebase 输入即可：
+我们又安全了。当你终于鼓起勇气再次进行合并解决这些冲突时，在 `git add` 之后，你只需继续进行 rebase 输入即可：
 
 `alias grbc = git rebase --continue`
 
@@ -181,7 +182,7 @@ To abort and get back to the state before "git rebase", run "git rebase --abort"
 
 ### 19. 这个小提交，看起来很棒，让我们把它放到自己的分支上！
 
-Git 有一个叫做 **cherry-pick** 的优秀特性。你可以使用它来将任何现有提交添加到当前分支的顶部。它就像使用这个别名一样简单：
+Git 有一个叫做 **cherry-pick** 的优秀功能。你可以使用它来将任何现有提交添加到当前分支的顶部。它就像使用这个别名一样简单：
 
 `alias gcp = git cherry-pick`
 
@@ -195,7 +196,7 @@ Git 有一个叫做 **cherry-pick** 的优秀特性。你可以使用它来将�
 
 以上列表肯定没有涵盖所有 git 用例。我想鼓励你把它看作是建立你自己的化名套件的良好开端。在日常工作流程中寻求可能的改进是一个好主意。
 
-You can find all these aliases (and more!) in [my Github repository](https://github.com/mjkonarski/oh-my-git-aliases).
+你可以在[我的 Github 仓库](https://github.com/mjkonarski/oh-my-git-aliases)看到这些别名（甚至更多）。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
