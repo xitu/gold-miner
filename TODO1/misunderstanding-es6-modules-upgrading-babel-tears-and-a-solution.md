@@ -2,8 +2,8 @@
 > * 原文作者：[Kent C. Dodds](https://blog.kentcdodds.com/@kentcdodds?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/misunderstanding-es6-modules-upgrading-babel-tears-and-a-solution.md](https://github.com/xitu/gold-miner/blob/master/TODO1/misunderstanding-es6-modules-upgrading-babel-tears-and-a-solution.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[SinanJS](https://github.com/SinanJS)，[caoyi0905](https://github.com/caoyi0905)
 
 # 误解 ES6 模块，升级 Babel 的一个解决方案（泪奔）
 
@@ -11,9 +11,9 @@
 
 说多了都是泪。。。
 
-在 [2015 年 10 月 29 号](http://babeljs.io/blog/2015/10/29/6.0.0/)，[Sebastian McKenzie](https://medium.com/@sebmck)、[James Kyle](https://medium.com/@thejameskyle) 以及 Babel 团队的其他成员，放弃了一个面向各地前端开发者的大型版本：Babel 6.0.0。太棒了，因为它不再是一个转发器，而是一个可插拔的 JavaScript 工具平台。作为一个社区，我们只触及了它能力的表面，我对 JavaScript 工具的未来感到兴奋（谨慎乐观态度）。
+在 [2015 年 10 月 29 号](http://babeljs.io/blog/2015/10/29/6.0.0/)，[Sebastian McKenzie](https://medium.com/@sebmck)、[James Kyle](https://medium.com/@thejameskyle) 以及 Babel 团队的其他成员，发布了一个面向各地前端开发者的大型版本：Babel 6.0.0。太棒了，因为它不再是一个转译器，而是一个可插拔的 JavaScript 工具平台。作为一个社区，我们只触及了它能力的表面，我对 JavaScript 工具的未来感到兴奋（谨慎乐观态度）。
 
-所有这些都说明了，Babel 6.0.0 是一个非常重大的变革版本。一开始可能有点不稳定。因此升级也并不容易，需要学习。这篇文章不一定会讨论如何 Babel。我只想讨论我从自己代码中学会的内容 —— 当 Babel 修复了我的严重依赖问题时。。。这里有一些我希望你在尝试将 Babel 5 升级到 Babel 6 之前，可以去阅读一下的资源：
+所有这些都说明了，Babel 6.0.0 是一个非常重大的变革版本。一开始可能有点不稳定。因此升级也并不容易，需要学习。这篇文章不一定会讨论如何 Babel。我只想讨论我从自己代码中学会的内容 —— 当 Babel 修复了我的严重依赖问题时。。。在尝试将 Babel 5 升级到 Babel 6 之前，希望你可以去阅读以下内容：
 
 * [**清理 Babel 6 生态系统**：随着 Babel 6 的近期发布，与旧版本相比，每一个版本都发生了戏剧性的变化。。。](https://medium.com/p/c7678a314bf3 "https://medium.com/p/c7678a314bf3")
 
@@ -27,13 +27,13 @@
 
 起初，我不太明白 Logan 的意思，但当我有时间全身心投入我的应用升级时，发生了这些事情：
 
-> 我疯了么？这是无效的 ES6 么？导出默认值 { foo: 'foo', bar: 'bar', }
+> 我疯了么？这是无效的 ES6 么？export default { foo: 'foo', bar: 'bar', }
 > 
 > — [@kentcdodds](https://twitter.com/kentcdodds/status/671817302430515200)
 
 [Tyler McGinnis](https://medium.com/@tylermcginnis)，[Josh Manders](https://medium.com/@joshmanders) 和我在这个线程上测试了一下。这可能很难理解，但我意识到问题不是将对象默认导出，而是如何像预期那样可以导入该对象。
 
-我总是假设我可以导出一个对象作为缺省值，然后我需要的对象中重新构造碎片，如下所示：
+我总是可以导出一个对象作为默认值，然后从该对象中通过解构的方式获得我所需要的部分（字段），如下所示：
 
 ```
 // foo.js
@@ -44,7 +44,7 @@ export default foo
 import {baz} from './foo'
 ```
 
-因为 Babel 5 的转换是到处默认语句，所以它允许我们这样做。然而，根据规范，这在技术上是不正确的，这也是为什么 Babel 6（正确地）删除了该功能，因为它的能力实际上是在破坏我在工作中应用程序的 200 多个模块。
+因为 Babel 5 的转换是导出默认语句，所以它允许我们这样做。然而，根据规范，这在技术上是不正确的，这也是为什么 Babel 6（正确地）删除了该功能，因为它的能力实际上是在破坏我在工作中应用程序的 200 多个模块。
 
 当我回顾 [Nicolás Bevacqua 的](https://twitter.com/nzgb)[博客](https://ponyfoo.com/articles/es6)时，我终于明白了它的工作原理。
 
@@ -70,7 +70,7 @@ somethingAsync().then(result => foo[result.key] = result.value)
 import {foobar} from './foo'
 ```
 
-我们将假设 **result.key** 是 ‘foobar’。在 CommonJS 中这很好，因为 request 语句发生在运行时（当它们是必须的时）：
+我们将假设 **result.key** 是 ‘foobar’。在 CommonJS 中这很好，因为 require 语句发生在运行时（在模块被需要的时候）：
 
 ```
 // foo.js
@@ -84,11 +84,11 @@ const {foobar} = require('./foo')
 
 > 可是，因为 ES6 规范规定导入和导出必须是静态可分析的，所以你不可能在 ES6 中完成这种动态行为。
 
-这也是 Babel 做出改变的**原因**。
+这也是 Babel 做出改变的**原因**。这样做是不太可能的，但这也是件好事。
 
 #### 这意味着什么？
 
-**想出一种用文字来描述这个问题的好方法已经证明是很困难的，因此我希望一些示例代码和内容比较是有指导意义的**。
+**用文字来描述这个问题确实比较困难，所以我希望一些代码的示例与对比会有指导意义**。
 
 我遇到的问题是，我将 ES6 **exports** 与 CommonsJS **require** 组合在一起。我会这样做：
 
@@ -137,27 +137,27 @@ const three = require('./add')(1, 2)
 
 几小时后我开始运行构建并通过了测试。不同的场景，我有两种不同的方法：
 
-1.  我将导出更改为 CommonJS（**module.exports**）,而不是 ES6（**默认导出**），这样我就可以像一直做的那样继续 require。
+1.  我将导出更改为 CommonJS（**module.exports**）,而不是 ES6（**export default**），这样我就可以像一直做的那样继续 require。
 
 2.  我写了一个复杂的正则表达式来查找并替换（应该使用一个 codemod）那些将其他 require 语句从 **require(‘./thing’)** 转向 require(‘./thing’).default** 的改变。
 
-它工作的很完美，最大的挑战就是理解 ES6 模块规范是如何工作的，Babel 如何将其转换到 CommonJS，从而实现交互操作。我发现这就像 monkey 一样为了更新我的代码而遵循这一惯例。
+它工作的很完美，最大的挑战就是理解 ES6 模块规范是如何工作的，Babel 如何将其转换到 CommonJS，从而实现交互操作。一旦我把问题弄清楚了，遵循这一规则来升级我的代码就变成了超简单的工作。
 
-#### 推荐
+#### 建议
 
-尽量避免混合 ES6 模块和 CommonsJS。我个人而言，会尽量使用 ES6。首先，我将它们混合在一起的原因之一是我可以执行单行的 require，并立即使用所需的模块（比如 **require(‘./add’)(1, 2)**）。但这真的不是一个足够大的好处 IMO。
+尽量避免混合 ES6 模块和 CommonsJS。我个人而言，会尽量使用 ES6。首先，我将它们混合在一起的原因之一是我可以执行单行的 require，并立即使用所需的模块（比如 **require(‘./add’)(1, 2)**）。但这真的不是一个足够大的好处（就我个人看来）。
 
 如果你觉得必须将它们组合起来，可以考虑使用以下 Babel 插件/预置之一：
 
-* [**babel-预置-es2015-node5**：NPM 是 JavaScript 的包管理器](https://www.npmjs.com/package/babel-preset-es2015-node5 "https://www.npmjs.com/package/babel-preset-es2015-node5")
+* [**babel-preset-es2015-node5**：NPM 是 JavaScript 的包管理器](https://www.npmjs.com/package/babel-preset-es2015-node5 "https://www.npmjs.com/package/babel-preset-es2015-node5")
 
-* [**babel-插件 —— 添加模块导出**：NPM 是 JavaScript 的包管理器](https://www.npmjs.com/package/babel-plugin-add-module-exports "https://www.npmjs.com/package/babel-plugin-add-module-exports")
+* [**babel-plugin-add-module-exports**：NPM 是 JavaScript 的包管理器](https://www.npmjs.com/package/babel-plugin-add-module-exports "https://www.npmjs.com/package/babel-plugin-add-module-exports")
 
 * * *
 
 #### 结论
 
-所有这些真实的教训是，我们应该明白事情是如何运作的。如果我理解 ES6 模块规范实际上是如何运作的，我就可以节省大量时间。
+所有这些真正的教训是，我们应该明白事情是如何运作的。如果我理解 ES6 模块规范实际上是如何运作的，我就可以节省大量时间。
 
 你可能会受益于这个 Egghead.io 课程，我演示了如何从 Babel 5 升级到 Babel 6：
 
@@ -180,14 +180,14 @@ import add from './add'
 const three = add(1, 2)
 ```
 
-但在 Babel 发生变化之后，Required 语句现在变得就像这样：
+但在 Babel 发生变化之后，Require 语句现在变得就像这样：
 
 ```
 import * as add from './add'
 const three = add.default(1, 2)
 ```
 
-我想，导致这个问题的原因是，add 变量不再是默认导出，而是一个拥有所有命名导出以及默认导出的对象（在默认键下）。
+我想，导致这个问题的原因是，add 变量不再是默认导出，而是一个拥有所有命名导出以及 default export 的对象（在默认键下）。
 
 **命名导出：**
 
@@ -206,7 +206,7 @@ import {subtract, multiply} from './math'
 
 在 [tree shaking](http://www.2ality.com/2015/12/webpack-tree-shaking.html) 的情况下，这令人兴奋，还很棒。
 
-个人而言，我通常建议对于组件（像 React 组件或 Angular 服务）实用默认导出（你知道自己要导入的待定内容，单文件，单组件 😀）。但对于工具模块，通常有各种可以独立实用的纯函数。这是命名导出的一个很好的用例。
+个人而言，我通常建议对于组件（像 React 组件或 Angular 服务）使用 default export（你知道自己要导入的待定内容，单文件，单组件 😀）。但对于工具模块，通常有各种可以独立使用的纯函数。这是命名导出的一个很好的用例。
 
 #### 还有一件事
 
