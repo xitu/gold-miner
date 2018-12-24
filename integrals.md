@@ -5603,9 +5603,10 @@
 |[斐波那契数列中的偶数（Python vs. JavaScript）](https://juejin.im/post/5aaa61f8f265da237b21d258)|翻译|2|
 |[测试 React & Redux 应用真实引导](https://juejin.im/post/5a9cc812518825556f54e3b6)|校对|1.5|
 
-## 译者：[razertory](https://github.com/razertory) 历史贡献积分：18 当前积分：18 年度积分：18
+## 译者：[razertory](https://github.com/razertory) 历史贡献积分：18 当前积分：3 年度积分：18
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 12 月兑掘金水杯 2 个和 GitHub 贴纸 1 包|减去积分|15|
 |[C++ 协程：理解运算符 co_await](https://juejin.im/post/5bee59a1e51d4545453dc558)|校对|3|
 |[开源项目之 Nginx](https://juejin.im/post/5bc55a25f265da0ae8014147)|翻译|11|
 |[GopherCon 2018：揭秘二叉查找树算法](https://juejin.im/post/5b94de9c5188255c5047076c)|校对|2|
@@ -6971,10 +6972,11 @@
 |[理解 JavaScript 中的执行上下文和执行栈](https://juejin.im/post/5ba32171f265da0ab719a6d7)|校对|2.5|
 |[以申请大学流程来解释 JavaScript 的 filter](https://juejin.im/post/5b9f09685188255c5e66d60c)|校对|1.5|
 
-## 译者：[jianboy](https://github.com/jianboy) 历史贡献积分：42 当前积分：42 年度积分：42
+## 译者：[jianboy](https://github.com/jianboy) 历史贡献积分：42 当前积分：17 年度积分：42
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 12 月兑 Google 开发者账号 1 个|减去积分|25|
 |[Node.js 高性能和可扩展应用程序的最佳实践 [第 2/3 部分]](https://juejin.im/post/5bca9208f265da0ade1ceffb)|翻译|4|
 |[如何在东南亚拓展您的应用业务](https://juejin.im/post/5bb84c0cf265da0af775305b)|翻译|5.5|
 |[更好的数据，更明智的决策](https://juejin.im/post/5bb9af906fb9a05cf2300f6a)|校对|2|
