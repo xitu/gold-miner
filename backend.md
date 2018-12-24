@@ -1,3 +1,4 @@
+* [如何在六个月或更短的时间内成为 DevOps 工程师，第四部分：打包](https://juejin.im/post/5c19d6255188252ea66b33b3) ([Raoul1996](https://github.com/Raoul1996) 翻译)
 * [使用 NodeJS 创建一个 GraphQL 服务器](https://juejin.im/post/5c015a5af265da612577d89a) ([Raoul1996](https://github.com/Raoul1996) 翻译)
 * [Medium 的 GraphQL 服务设计](https://juejin.im/post/5c00dad3f265da617006db4e) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
 * [关于 HTTP/3 的一些心得](https://juejin.im/post/5bfb519ef265da610f636596) ([Starriers](https://github.com/Starriers) 翻译)
