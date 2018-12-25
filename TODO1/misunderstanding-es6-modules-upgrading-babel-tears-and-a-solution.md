@@ -102,7 +102,7 @@ const three = require('./add')(1, 2)
 
 Babel 改变后，我有三个选择：
 
-**选择 1：** 默认 require
+**选择 1**：默认 require
 
 ```
 // add.js
@@ -112,7 +112,7 @@ export default (x, y) => x + y
 const three = require('./add').default(1, 2)
 ```
 
-**选择 2：**100% 的 ES6 模块
+**选择 2**：100% 的 ES6 模块
 
 ```
 // add.js
@@ -123,7 +123,7 @@ import add from './add'
 const three = add(1, 2)
 ```
 
-**选择 3：**100% 的 CommonJS 
+**选择 3**：100% 的 CommonJS 
 
 ```
 // add.js
