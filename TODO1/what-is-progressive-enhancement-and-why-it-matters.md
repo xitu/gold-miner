@@ -6,7 +6,7 @@
 > * 译者：[RicardoCao-Biker](https://github.com/RicardoCao-Biker)
 > * 校对者：
 
-# 渐进增强的含义及意义
+# 一文教你什么是渐进增强，为什么它很重要？
 
 ![](https://cdn-images-1.medium.com/max/2000/0*cs42aEkypTZorYk6)
 
