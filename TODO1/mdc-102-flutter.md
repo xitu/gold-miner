@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-102-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-102-flutter.md)
 > * 译者：[DevMcryYu](https://github.com/devmcryyu)
-> * 校对者：
+> * 校对者：[Rickon](https://github.com/gs666)
 
 # MDC-102 Flutter：Material 结构和布局（Flutter）
 
@@ -53,7 +53,7 @@ material.io/develop
 #### 要在 iOS 上构建和运行 Flutter 应用程序，你需要满足以下要求：
 
 *   运行 macOS 的计算机
-*   Xcode 9 或更新
+*   Xcode 9 或更新版本
 *   iOS 模拟器，或者 iOS 物理设备
 
 #### 要在 Android 上构建和运行 Flutter 应用程序，你需要满足以下要求：
@@ -626,7 +626,7 @@ body: GridView.count(
 
 通过顶部应用栏、卡片、文本框和按钮，我们已经使用了 MDC-Flutter 库中的四个核心组件！你可以访问 [Flutter 部件目录](https://flutter.io/widgets/)来探索更多组件。
 
-虽然它完全正常运行，我们的应用尚未表达任何特殊的品牌特点。在 [MDC-103: Material Design Theming 的颜色、形状、高度和类型](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-103-flutter.md)中，我们将定制这些组件的样式，来表达一个充满活力的、现代的品牌。
+虽然它完全正常运行，我们的应用尚未表达任何特殊的品牌特点。在 [MDC-103: Material Design Theming 的颜色、形状、高度和类型](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-103-flutter.md)中，我们将定制这些组件的样式，来诠释一个充满活力的、现代的品牌。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
