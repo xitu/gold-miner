@@ -9,13 +9,13 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*2WG0tvoYhuwTt25y5B8IlA.png)
 
-说多了都是泪。。。
+说多了都是泪...
 
 在 [2015 年 10 月 29 号](http://babeljs.io/blog/2015/10/29/6.0.0/)，[Sebastian McKenzie](https://medium.com/@sebmck)、[James Kyle](https://medium.com/@thejameskyle) 以及 Babel 团队的其他成员，发布了一个面向各地前端开发者的大型版本：Babel 6.0.0。太棒了，因为它不再是一个转译器，而是一个可插拔的 JavaScript 工具平台。作为一个社区，我们只触及了它能力的表面，我对 JavaScript 工具的未来感到兴奋（谨慎乐观态度）。
 
-所有这些都说明了，Babel 6.0.0 是一个非常重大的变革版本。一开始可能有点不稳定。因此升级也并不容易，需要学习。这篇文章不一定会讨论如何 Babel。我只想讨论我从自己代码中学会的内容 —— 当 Babel 修复了我的严重依赖问题时。。。在尝试将 Babel 5 升级到 Babel 6 之前，希望你可以去阅读以下内容：
+所有这些都说明了，Babel 6.0.0 是一个非常重大的变革版本。一开始可能有点不稳定。因此升级也并不容易，需要学习。这篇文章不一定会讨论如何 Babel。我只想讨论我从自己代码中学会的内容 —— 当 Babel 修复了我的严重依赖问题时... 在尝试将 Babel 5 升级到 Babel 6 之前，希望你可以去阅读以下内容：
 
-* [**清理 Babel 6 生态系统**：随着 Babel 6 的近期发布，与旧版本相比，每一个版本都发生了戏剧性的变化。。。](https://medium.com/p/c7678a314bf3 "https://medium.com/p/c7678a314bf3")
+* [**清理 Babel 6 生态系统**：随着 Babel 6 的近期发布，与旧版本相比，每一个版本都发生了戏剧性的变化...](https://medium.com/p/c7678a314bf3 "https://medium.com/p/c7678a314bf3")
 
 * [**快速指南：如何将 Babel 5.x 更新至 6.x：最近 Babel 6 将会发布**。](https://medium.com/p/d828c230ec53 "https://medium.com/p/d828c230ec53")
 
@@ -31,7 +31,7 @@
 > 
 > — [@kentcdodds](https://twitter.com/kentcdodds/status/671817302430515200)
 
-[Tyler McGinnis](https://medium.com/@tylermcginnis)，[Josh Manders](https://medium.com/@joshmanders) 和我在这个线程上测试了一下。这可能很难理解，但我意识到问题不是将对象默认导出，而是如何像预期那样可以导入该对象。
+[Tyler McGinnis](https://medium.com/@tylermcginnis)、[Josh Manders](https://medium.com/@joshmanders) 和我在这个线程上测试了一下。这可能很难理解，但我意识到问题不是将对象默认导出，而是如何像预期那样可以导入该对象。
 
 我总是可以导出一个对象作为默认值，然后从该对象中通过解构的方式获得我所需要的部分（字段），如下所示：
 
@@ -137,7 +137,7 @@ const three = require('./add')(1, 2)
 
 几小时后我开始运行构建并通过了测试。不同的场景，我有两种不同的方法：
 
-1.  我将导出更改为 CommonJS（**module.exports**）,而不是 ES6（**export default**），这样我就可以像一直做的那样继续 require。
+1.  我将导出更改为 CommonJS（**module.exports**），而不是 ES6（**export default**），这样我就可以像一直做的那样继续 require。
 
 2.  我写了一个复杂的正则表达式来查找并替换（应该使用一个 codemod）那些将其他 require 语句从 **require(‘./thing’)** 转向 require(‘./thing’).default** 的改变。
 
@@ -163,7 +163,7 @@ const three = require('./add')(1, 2)
 
 [https://egghead.io/lessons/angularjs-updating-babel-5-to-6](https://egghead.io/lessons/angularjs-updating-babel-5-to-6)
 
-另外，记住，没有任何人是完美的，我们都在这里学习 :-) 可以在 [Twitter](https://twitter.com) 上了解更多！
+另外，记住，没有任何人是完美的，我们都在这里学习 :-) [Twitter](https://twitter.com) 上见
 
 ![](https://cdn-images-1.medium.com/max/800/1*Sa8ryLk8EgpsePcRkPfd6w.png)
 
