@@ -1,5 +1,5 @@
 > * 原文地址：[Data Streaming](http://tutorials.jenkov.com/data-streaming/index.html)
-> * 原文作者：[]()
+> * 原文作者：[jenkov.com](http://jenkov.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/java-data-streaming.md](https://github.com/xitu/gold-miner/blob/master/TODO1/java-data-streaming.md)
 > * 译者：
