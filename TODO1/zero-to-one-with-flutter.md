@@ -12,33 +12,34 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*2t8GffL0BcNoGLU-IgHT9w.jpeg)
 
-**TL;DR** Discovering the strength of Flutter’s widget and tween concepts by writing chart animations in Dart for an Android/iOS app.
+**长话短说** 在使用Dart开发Android/iOS应用程序的图标动画时，我发现Flutter的widget和tween的优势。
 
-Updated on August 7, 2018 to use Dart 2 syntax. [GitHub repo](https://github.com/mravn/charts) added on October 17, 2018. Each step described below is a separate commit.
+2018年8月7日更新，适配Dart 2语法. [GitHub repo](https://github.com/mravn/charts)在2018年10月17日添加。 下面描述的每个步骤都是单独的提交。
 
 * * *
 
-Moving to a new development stack makes you aware of your priorities. Near the top of my list are these three:
+迁移到新的开发栈可以让您了解自己对技术的优先级。在我的清单上排在前三位的是：
 
-*   **Strong concepts** deal effectively with complexity by providing simple, relevant ways of structuring thoughts, logic, or data.
-*   **Clear code** lets us express those concepts cleanly, without being distracted by language pitfalls, excessive boilerplate, or auxiliary detail.
-*   **Fast iteration** is key to experimentation and learning — and software development teams learn for a living: what the requirements really are, and how best to fulfill them with concepts expressed in code.
+* **强大的概念**通过简单的，相关的构思思想，逻辑或数据的方式，有效地处理复杂性。
+* **清晰的代码**让我们可以清晰地表达概念，不被语言陷阱、过多的引用或者辅助细节所干扰。。
+* **快速迭代**是实验和学习的关键 - 软件开发团队以学习为生：实际需求是什么，以及如何通过最优的代码实现它。
 
-Flutter is a new platform for developing Android and iOS apps from a single codebase, written in Dart. Since our requirements spoke of a fairly complex UI including animated charts, the idea of building it only once seemed very attractive. My tasks involved exercising Flutter’s CLI tools, some pre-built widgets, and its 2D rendering engine — in addition to writing a lot of plain Dart code to model and animate charts. I’ll share below some conceptual highlights of my learning experience, and provide a starting point for your own evaluation of the Flutter/Dart stack.
+
+Flutter是用Dart实现，可以用一套代码同时构建Android和iOS应用的新平台。由于我们的需求涉及到一个相当复杂的UI，包括动画图表，所以只构建一次的想法似乎非常有吸引力。我的任务包括使用Flutter的CLI工具，一些预先构建的Widgets及其它的2D渲染引擎。除了编写大量Dart代码来构建模型和动画图表外。我将在下面分享一些重点概念，并为您自己评估Flutter / Dart栈提供一个参考。
 
 ![](https://cdn-images-1.medium.com/max/800/1*OKV3RzTg89W3VxXnpAH3Eg.gif)
 
-A simple animated bar chart, captured from an iOS simulator during development
+一个简单的动画条形图，在开发过程中从iOS模拟器获取
 
-This is part one of a [two-part](https://medium.com/dartlang/zero-to-one-with-flutter-part-two-5aa2f06655cb) introduction to Flutter and its ‘widget’ and ‘tween’ concepts. I’ll illustrate the strength of these concepts by using them to display and animate charts like the one shown above. Full code samples should provide an impression of the level of code clarity achievable with Dart. And I’ll include enough detail that you should be able to follow along on your own laptop (and emulator or device), and experience the length of the Flutter development cycle.
+全文包括两部分[]（https://medium.com/dartlang/zero-to-one-with-flutter-part-two-5aa2f06655cb）对Flutter及其“widgets”和“tween”的介绍的第一部分概念。 我将通过使用它们来显示和动画图表来说明这些概念的强度，如上所示。 完整的代码示例应该提供Dart可实现的代码清晰度的印象。 我将包含足够的细节，您应该能够在自己的笔记本电脑（以及模拟器或设备）上进行操作，并体验Flutter开发周期的长度。
 
-The starting point is a fresh [installation of Flutter](https://flutter.io/setup). Run
+起点，[Flutter的安装]（https://flutter.io/setup）。在终端运行
 
 ```
 $ flutter doctor
 ```
 
-to check the setup:
+检查设置：
 
 ```
 $ flutter doctor
@@ -55,13 +56,13 @@ Doctor summary (to see all details, run flutter doctor -v):
 • No issues found!
 ```
 
-With enough check marks, you can create a Flutter app. Let’s call it `charts`:
+以上复选框都满足了，您就可以创建一个Flutter应用程序。我们命名它为charts ：
 
 ```
 $ flutter create charts
 ```
 
-That should give you a directory of the same name:
+目录结构：
 
 ```
 charts
@@ -71,19 +72,18 @@ charts
     main.dart
 ```
 
-About sixty files have been generated, making up a complete sample app that can be installed on both Android and iOS. We’ll do all our coding in `main.dart` and sibling files, with no pressing need to touch any of the other files or directories.
+大约生成60个文件，组成一个可以安装在Android和iOS上的完整示例程序。 我们将在`main.dart`和它的同级文件中完成所有编码，而不需要触及任何其他文件或目录。
 
-You should verify that you can launch the sample app. Start an emulator or plug in a device, then execute
+您应该验证是否可以启动示例程序。 启动模拟器或插入设备，然后执行
 
 ```
 $ flutter run
 ```
-
-in the `charts` directory. You should then see a simple counting app on your emulator or device. It uses Material Design widgets, which is nice, but optional. As the top-most layer of the Flutter architecture, those widgets are completely replaceable.
+在`charts`目录中。 您应该在模拟器或设备上看到一个简单的计数应用程序。 它默认使用MD风格的widgets，但这是可选的。作为Flutter架构的最顶层，这些widgets是完全可替换的。
 
 * * *
 
-Let’s start by replacing the contents of `main.dart` with the code below, a simple starting point for playing with chart animations.
+让我们首先用下面的代码替换`main.dart`的内容，开始我们的图表动画。
 
 ```
 import 'dart:math';
@@ -124,7 +124,7 @@ class ChartPageState extends State<ChartPage> {
 }
 ```
 
-Save the changes, then restart the app. You can do that from the terminal, by pressing `R`. This ‘full restart’ operation throws away the application state, then rebuilds the UI. For situations where the existing application state still makes sense after the code change, one can press `r` to do a ‘hot reload’, which only rebuilds the UI. There is also a Flutter plugin for IntelliJ IDEA providing the same functionality integrated with a Dart editor:
+保存更改，然后重新启动应用程序。 您可以通过按“R”从终端执行此操作。 这种“完全重启”操作会重置应用程序状态，然后重建UI。 对于在代码更改后现有应用程序状态仍然有效的情况，可以按“r”执行“热加载”，这只会重建UI。 IntelliJ IDEA安装Flutter插件，提供与Dart编辑器集成的相同功能：
 
 ![](https://cdn-images-1.medium.com/max/800/1*soCdZ19Qugtv1YJewMQZGg.png)
 
