@@ -2,122 +2,122 @@
 > * 原文作者：[codelabs.developers.google.com](https://codelabs.developers.google.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-102-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-102-flutter.md)
-> * 译者：
-> * 校对者：
+> * 译者：[DevMcryYu](https://github.com/devmcryyu)
+> * 校对者：[Rickon](https://github.com/gs666)
 
-# MDC-102 Flutter: Material Structure and Layout (Flutter)
+# MDC-102 Flutter：Material 结构和布局（Flutter）
 
-## 1. Introduction
+## 1. 介绍
 
-![](https://lh4.googleusercontent.com/yzZPYGHe5CrFE-84MXhqwb_y7YjCKLWQJHI7W7zqbT9_qdK8qufFjx51kepr3ITvZtF7vD3d72nurt-HPBARmQ6RF74PD1FwGZMNbXphLap4LqIEBCKWP5OxK2Vjeo-YEY3-oeIP)Material Components (MDC) help developers implement Material Design. Created by a team of engineers and UX designers at Google, MDC features dozens of beautiful and functional UI components and is available for Android, iOS, web and Flutter.
+![](https://lh4.googleusercontent.com/yzZPYGHe5CrFE-84MXhqwb_y7YjCKLWQJHI7W7zqbT9_qdK8qufFjx51kepr3ITvZtF7vD3d72nurt-HPBARmQ6RF74PD1FwGZMNbXphLap4LqIEBCKWP5OxK2Vjeo-YEY3-oeIP)Material Components（MDC）帮助开发者实现 Material Design。MDC 由谷歌团队的工程师和 UX 设计师创造，为 Android、iOS、Web 和 Flutter 提供很多美观实用的 UI 组件。
 
 material.io/develop
 
-In codelab [MDC-101](https://codelabs.developers.google.com/codelabs/mdc-101-flutter), you used two Material Components to build a login page: text fields and buttons with ink ripples. Now let's expand upon this foundation by adding navigation, structure, and data.
+在教程 [MDC-101](https://codelabs.developers.google.com/codelabs/mdc-101-flutter) 中，你使用了两个 Material 组件：文本框和墨水波纹效果的按钮来构建一个登陆页面。现在让我们通过添加导航、结构和数据来拓展应用。
 
-### What you'll build
+### 你将要构建
 
-In this codelab, you'll build a home screen for an app called **Shrine**, an e-commerce app that sells clothing and home goods. It will contain:
+在本教程中,你将为 **Shrine** ——  一个销售服装和家居用品的电子商务应用程序构建一个主页面。它将含有：
 
-*   A top app bar
-*   A grid list full of products
+*   一个位于顶部的应用栏
+*   一个由产品填充的网格列表
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-102-flutter/img/532fe80b3fa3db74.png)
 
-This is the second of 4 codelabs that will guide you through building an app for a product called Shrine. We recommend that you do all of the codelabs in order as they progress through tasks step-by-step.
-
-The related codelabs can be found at:
-
-> *   [MDC-101: Material Components (MDC) Basics](https://codelabs.developers.google.com/codelabs/mdc-101-flutter)
-> *   [MDC-103: Material Design Theming with Color, Shape, Elevation and Type](https://codelabs.developers.google.com/codelabs/mdc-103-flutter)
-> *   [MDC-104: Material Design Advanced Components](https://codelabs.developers.google.com/codelabs/mdc-104-flutter).
+> 这是四篇教程里的第二篇，它将引导你为 Shrine 的产品构建应用程序。我们建议你按照教程的顺序一步一步地编写你的代码。
 >
-> By the end of MDC-104, you'll build an app that looks like this:
+> 相关的教程可以在以下位置找到：
+>
+> *   [MDC-101: Material Components（MDC）基础](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-101-flutter.md)
+> *   [MDC-103: Material Design Theming 的颜色、形状、高度和类型](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-103-flutter.md)
+> *   [MDC-104: Material Design 高级组件](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-104-flutter.md)。
+>
+> 到 MDC-104 的最后，你将会构建一个像这样的应用：
 >
 > ![](https://codelabs.developers.google.com/codelabs/mdc-102-flutter/img/e23a024b60357e32.png)
 
-### MDC components in this codelab
+### 将要用到的 MDC 组件
 
-*   Top app bar
-*   Grids
-*   Cards
+*   顶部应用栏（Top app bar）
+*   网格（Grid）
+*   卡片（Card）
 
-> In this codelab, you'll use the default components provided by MDC-Flutter. You'll learn to customize them in [MDC-103: Material Design Theming with Color, Shape, Elevation and Type](https://codelabs.developers.google.com/codelabs/mdc-103-flutter).
+> 本教程中，你将使用 MDC-Flutter 提供的默认组件。你将会在 [MDC-103: Material Design Theming 的颜色、形状、高度和类型](https://codelabs.developers.google.com/codelabs/mdc-103-flutter)中学习如何定制它们。
 
-### What you'll need
+### 你将需要
 
-*   The [Flutter SDK](https://flutter.io/setup/)
-*   Android Studio with Flutter plugins, or your favorite code editor
-*   The sample code
+*   [Flutter SDK](https://flutter.io/setup/)
+*   安装好 Flutter 插件的 Android Studio，或者你喜欢的代码编辑器
+*   示例代码
 
-#### To build and run Flutter apps on iOS:
+#### 要在 iOS 上构建和运行 Flutter 应用程序，你需要满足以下要求：
 
-*   A computer running macOS
-*   Xcode 9 or newer
-*   iOS Simulator, or a physical iOS device
+*   运行 macOS 的计算机
+*   Xcode 9 或更新版本
+*   iOS 模拟器，或者 iOS 物理设备
 
-#### To build and run Flutter apps on Android:
+#### 要在 Android 上构建和运行 Flutter 应用程序，你需要满足以下要求：
 
-*   A computer running macOS, Windows, or Linux
+*   运行 macOS、Windows 或 Linux 的计算机
 *   Android Studio
-*   Android Emulator (comes with Android Studio), or a physical Android device
+*   Android 模拟器（随 Android Studio 一起提供）或 Android 物理设备
 
-## 2. Set up your Flutter environment
+## 2. 安装 Flutter 环境
 
-### Prerequisites
+### 前提条件
 
-To start developing mobile apps with Flutter you need:
+要开始使用 Flutter 开发移动应用程序，你需要：
 
-*   the [Flutter SDK](https://flutter.io/setup/)
-*   an IntelliJ IDE with Flutter plugins, or your favorite code editor
+*   [Flutter SDK](https://flutter.io/setup/)
+*   装有 Flutter 插件的 IntelliJ IDE，或者你喜欢的代码编辑器
 
-Flutter's IDE tools are available for [Android Studio](https://developer.android.com/studio/index.html), [IntelliJ IDEA Community (free), and IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/download/).
+Flutter 的 IDE 工具适用于 [Android Studio](https://developer.android.com/studio/index.html)、[IntelliJ IDEA Community（免费）和 IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/download/)。
 
-![](https://lh6.googleusercontent.com/ol-teJ4O7B69JJRkTfRVQ0a2afiPmL60r-KxNGD26R0KreGtbem_U05Js7HNw3FQu7rIaDVDBQozSFWUB7QVgyfoYpPCPVjKh1knJQGvtbAvLtDbdBmB7XaVbBvth3WOwBAIFDS7)To build and run Flutter apps on iOS:
+![](https://lh6.googleusercontent.com/ol-teJ4O7B69JJRkTfRVQ0a2afiPmL60r-KxNGD26R0KreGtbem_U05Js7HNw3FQu7rIaDVDBQozSFWUB7QVgyfoYpPCPVjKh1knJQGvtbAvLtDbdBmB7XaVbBvth3WOwBAIFDS7)要在 iOS 上构建和运行 Flutter 应用程序，你需要满足以下要求：
 
-*   a computer running macOS
-*   Xcode 9 or newer
-*   iOS Simulator, or a physical iOS device
+*   运行 macOS 的计算机
+*   Xcode 9 或更新版本
+*   iOS 模拟器，或者 iOS 物理设备
 
-![](https://lh3.googleusercontent.com/Si2NN00ySyOEkNilzmWrhGLWwaCfGZME_01PwA1sSWu66Prw15UijYovXa-y3csDBg4NP_nhxBc_oqjparZ5Cme0zKuf0RRK1KiaN_n0Kn3AQ0zdkACXUhJJHAXdWK2WFshbxQLt)To build and run Flutter apps on Android:
+![](https://lh3.googleusercontent.com/Si2NN00ySyOEkNilzmWrhGLWwaCfGZME_01PwA1sSWu66Prw15UijYovXa-y3csDBg4NP_nhxBc_oqjparZ5Cme0zKuf0RRK1KiaN_n0Kn3AQ0zdkACXUhJJHAXdWK2WFshbxQLt)要在 Android 上构建和运行 Flutter 应用程序，你需要满足以下要求：
 
-*   a computer running macOS, Windows, or Linux
+*   运行 macOS、Windows 或者 Linux 的计算机
 *   Android Studio
-*   Android Emulator (comes with Android Studio), or a physical Android device
+*   Android 模拟器（随 Android Studio 一起提供）或 Android 物理设备
 
-[Get detailed Flutter setup information](https://flutter.io/setup/)
+[获取详细的 Flutter 安装信息](https://flutter.io/setup/)
 
-> **Important:** If an Allow USB debugging dialog appears on the Android phone connected to the codelab machine, enable the **Always allow from this computer** option and click **OK**.
+> **重要提示**：如果连接到计算机的 Android 手机上出现“允许 USB 调试”对话框，请启用**始终允许从此计算机**选项，然后单击**确定**。
 
-Before proceeding with this codelab, make sure that your SDK is in the right state. If the flutter SDK was installed previously, then use `flutter upgrade` to ensure that the SDK is at the latest state.
+在继续本教程之前，请确保你的 SDK 处于正确的状态。如果之前安装过 Flutter，则使用 `flutter upgrade` 来确保 SDK 处于最新版本。
 
 ```
 flutter upgrade
 ```
 
-Running `flutter upgrade` will automatically run `flutter doctor.` If this a fresh flutter install and no upgrade was necessary, then run `flutter doctor` manually. See that all the check marks are showing; this will download any missing SDK files you need and ensure that your codelab machine is set up correctly for Flutter development.
+运行 `flutter upgrade` 将自动运行 `flutter doctor`。如果这是首次安装 Flutter 且不需升级，那么请手动运行 `flutter doctor`。查看显示的所有检查标记；这将会下载你需要的任何缺少的 SDK 文件，并确保你的计算机配置无误以进行 Flutter 的开发。
 
 ```
 flutter doctor
 ```
 
-## 3. Download the codelab starter app
+## 3. 下载教程初始应用程序
 
-### Continuing from MDC-101?
+### 从 MDC-101 继续？
 
-If you completed MDC-101, your code should be prepared for this codelab. Skip to step: _Add a top app bar_.
+如果你完成了 MDC-101，那么本教程所需代码应该已经准备就绪，跳转到 **添加应用栏** 步骤。
 
-### Starting from scratch?
+### 从头开始？
 
-### Download the starter codelab app
+### 下载初始应用程序
 
-[Download starter app](https://github.com/material-components/material-components-flutter-codelabs/archive/102-starter_and_101-complete.zip)
+[下载初始程序](https://github.com/material-components/material-components-flutter-codelabs/archive/102-starter_and_101-complete.zip)
 
-The starter app is located in the `material-components-flutter-codelabs-102-starter_and_101-complete/mdc_100_series` directory.
+此入门程序位于 `material-components-flutter-codelabs-102-starter_and_101-complete/mdc_100_series` 目录中。
 
-### ...or clone it from GitHub
+### ...或者从 GitHub 克隆它
 
-To clone this codelab from GitHub, run the following commands:
+要从 GitHub 克隆此项目，请运行以下命令：
 
 ```
 git clone https://github.com/material-components/material-components-flutter-codelabs.git
@@ -125,150 +125,150 @@ cd material-components-flutter-codelabs
 git checkout 102-starter_and_101-complete
 ```
 
-> For more help: [Cloning a repository from GitHub](https://help.github.com/articles/cloning-a-repository/)
+> 更多帮助：[从 GitHub 上克隆存储库](https://help.github.com/articles/cloning-a-repository/)
 
-> ### The right branch
+> ### 正确的分支
 >
-> Codelabs MDC-101 through 104 consecutively build upon each other. So when you finish the code for 102, it becomes the starter code for 103! The code is divided across different branches, and you can list them all with this command:
+> 教程 MDC-101 到 104 连续构建。所以当你完成 102 的代码后，它将变成 103 教程的初始代码！代码被分成不同的分支，你可以使用以下命令将它们全部列出：
 >
 > `git branch --list`
-> 
-> To see the completed code, checkout the `103-starter_and_102-complete` branch.
+>
+> 要查看完整代码，请切换到 `103-starter_and_102-complete` 分支。
 
-Set up your project
+建立你的项目
 
-The following instructions assume you're using Android Studio (IntelliJ).
+以下步骤默认你使用的是 Android Studio (IntelliJ)。
 
-### Create the project
+### 创建项目
 
-1. In Terminal, navigate to `material-components-flutter-codelabs`
+1. 在终端中，导航到 `material-components-flutter-codelabs`
 
-2. Run `flutter create mdc_100_series`
+2. 运行 `flutter create mdc_100_series`
 
 ![](https://lh5.googleusercontent.com/J9CQ2xQy4PCirtParnKTrQbjo5tdy0LEh__NVXEjkSYdwSl96QWiwyX2fAdQcW5jTCUzVSzpAqF9-f5mfvyg9BE299XA5nNawKXkAKAO9KIJWawpJtEucLXwqi9buzCX3D7UJixV)
 
-### Open the project
+### 打开项目
 
-1. Open Android Studio.
+1. 打开 Android Studio。
 
-2. If you see the welcome screen, click **Open an existing Android Studio project**.
+2. 如果你看到欢迎页面，单击 **打开已有的 Android Studio 项目**。
 
 ![](https://lh5.googleusercontent.com/q3QrMqM5NUKXvHdNL4f-OPx1WQJCiXZuq0XJzExqbMK6NrSEigfggRFuJ9C9zpqOCsl0uWfywG1_6W1B45xrafR2EGTP68B0Yr0QtGAu3NWCdnylzYHWEp-as7AkYj8S5oNwFzr-)
 
-3. Navigate to the `material-components-flutter-codelabs/mdc_100_series` directory and click Open. The project should open.
+3. 导航到 `material-components-flutter-codelabs/mdc_100_series` 目录并单击打开，这将打开此项目。
 
-**You can ignore any errors you see in analysis until you've built the project once.**
+**在构建项目一次之前，你可以忽略在分析中见到的任何错误。**
 
 ![](https://lh4.googleusercontent.com/eohV4ysnGI7n1WXZEpvDocqGoj2yBijhLPxkGovkL85mil0HSvbQxgJ4VlduNj1ypfOdVd1fyTxR5QnS31iu0HFaqjWcOY2GqWs2hHFNO4-zqQzj-S8rGGH0VqrOEtAFEbzUuCxB)
 
-4. In the project panel on the left, delete the testing file `../test/widget_test.dart`
+4. 在左侧的项目面板中，删除测试文件 `../test/widget_test.dart`
 
 ![](https://lh4.googleusercontent.com/tbOkXg3PBYapj_J0CpdwQTt-sqnf7s3bqi7E3Dd__z_aC5XANKphvuoMvmiOFfBR6oDeZixE0Ww2jTzskt1sDNgEXjAJjwHr7m242tkZ7VvXGaFMObmSIZ06oC7UQusGgCL7DpHr)
 
-5. If prompted, install any platform and plugin updates or FlutterRunConfigurationType, then restart Android Studio.
+5. 如果出现提示，安装所有平台和插件更新或  FlutterRunConfigurationType，然后重新启动 Android Studio。
 
 ![](https://lh5.googleusercontent.com/MVD7YGuMneCprDEam1Vy8NusO9BPmOZTyrH4jvO8RmsfTeu8q-t0AfHU3kzXk1F8EUgHaFbqeORdXc7iOcz5ZLM4qbXsv_tMiVnAi0i68p0t957RThrZ56Udf-F292JgRV3iKs7T)
 
-> **Tip:** Make sure you have the [plugins installed for Flutter and Dart](https://flutter.io/get-started/editor/#androidstudio).
+> **提示**：确保你已安装 [Flutter 和 Dart 插件](https://flutter.io/get-started/editor/#androidstudio)。
 
-### Run the starter app
+### 运行初始程序
 
-The following instructions assume you're testing on an Android emulator or device but you can also test on an iOS Simulator or device if you have Xcode installed.
+以下步骤默认你在 Android 模拟器或设备上进行测试。你也可以在 iOS 模拟器或设备上进行，只要你安装了 Xcode。
 
-1. Select the device or emulator.
+1. 选择设备或模拟器
 
-If the Android emulator is not already running, select **Tools -> Android -> AVD Manager** to [create a virtual device and start the emulator](https://developer.android.com/studio/run/managing-avds.html). If an AVD already exists, you can start the emulator directly from the device selector in IntelliJ, as shown in the next step.
+如果 Android 模拟器尚未运行，请选择 **Tools -> Android -> AVD Manager** 来[创建您设备并启动模拟器](https://developer.android.com/studio/run/managing-avds.html)。如果 AVD 已存在，你可以直接在 IntelliJ 的设备选择器中启动模拟器，如下一步所示。
 
-(For the iOS Simulator, if it is not already running, launch the simulator on your development machine by selecting **Flutter Device Selection -> Open iOS Simulator**.)
+（对于 iOS 模拟器，如果它尚未运行，通过选择 **Flutter Device Selection -> Open iOS Simulator** 来在你的开发设备上启动它。）
 
 ![](https://lh5.googleusercontent.com/mmcO6QRlA96Sc1AZhL8NqvaTE9DZL5q3QQJsrx-2U4ptShFUcrmYoEuVLB6uyAxL4F80dFaxiotLmWjtTYUYYJu-Rf9TtoKDcJLlzuyWezQIz0BiIIBsgy7mPNS8bO5VbqcMb1Qt)
 
-2. Start your Flutter app:
+2. 启动 Flutter 应用：
 
-*   Look for the Flutter Device Selection dropdown menu at the top of your editor screen, and select the device (for example, iPhone SE or Android SDK built for `<version>`).
-*   Press the **Play** icon (![](https://lh6.googleusercontent.com/Zu8-cWRMCfIrBGIjj4kSW-j8KBiIqVe33PX8Mht5lSKq00kRB7Na3X0kC4aaiG-G7hqqqLPpgtbxTz-1DdYbq2RiNvc2ZaJzfiu_vVYAh1oOc4TZu85pa42nFqqxmMQWySzLWeU1)).
+*   在你的编辑器窗口顶部寻找 Flutter Device Selection 下拉菜单，然后选择设备（例如，iPhone SE / Android SDK built for <version>）。
+*   点击**运行**图标（![](https://lh6.googleusercontent.com/Zu8-cWRMCfIrBGIjj4kSW-j8KBiIqVe33PX8Mht5lSKq00kRB7Na3X0kC4aaiG-G7hqqqLPpgtbxTz-1DdYbq2RiNvc2ZaJzfiu_vVYAh1oOc4TZu85pa42nFqqxmMQWySzLWeU1)）。
 
 ![](https://lh4.googleusercontent.com/NLXK-hHFYnHBPeQ6NYrKGnXpj9X2es9her6Y14CotXlR-OdSQBXHyRFv1nvhC1AFCmWx7jIG2Ulb7-OmLV_Pru_-kd-3gArn8OKEGTIOInDJlqIUJ7dxTQUsvLVa0CJwEO5EGjeu)
 
-> If you were unable to run the app successfully, stop and troubleshoot your developer environment. Try navigating to `material-components-flutter-codelabs` or if you downloaded the .zip file `material-components-flutter-codelabs-...`) in the terminal and running `flutter create mdc_100_series`.
+> 如果你无法成功运行此应用程序，停下来解决你的开发环境问题。尝试导航到  `material-components-flutter-codelabs`；如果你在终端中下载 .zip 文件，导航到 `material-components-flutter-codelabs-...` 然后运行 `flutter create mdc_100_series`。
 
-Success! You should see the Shrine login page from the MDC-101 codelab in the simulator or emulator.
+成功！Shrine 的初始登陆代码应该在你的模拟器中运行了。你可以看到 Shrine 的 logo 和它下面的名称 "Shrine"。
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-102-flutter/img/db3def4f18a58eed.png)
 
-Now that the login screen looks good, let's populate the app with some products.
+现在登录页面看起来不错，让我们用一些产品来填充应用。
 
-## 4. Add a top app bar
+## 4. 添加顶部应用栏
 
-The home screen is revealed when the login page is dismissed, with a screen that says "You did it!". That's great! But now our user has no actions to take, or any sense of where they are in the app. To help with that, it's time to add navigation.
+当登陆页面消失时主页面将出现并显示“你做到了！”。这很棒！但是我们的用户不知道能做什么操作，也不知道现在位于应用何处，为了解决这个问题，是时候添加导航了。
 
-> **Navigation** refers to the components, interactions, visual cues, and information architecture that enable users to move through an app. It helps make content and features discoverable, so that tasks are easy to complete.
+> **导航** 是指允许用户在应用中移动的组件、交互、视觉提示和信息结构。它使得内容和功能更加注目，任务也因此易于完成。
 >
-> Learn more in the [Navigation article](https://material.io/design/navigation/) in the Material Guidelines.
+> 在 Material 指南中了解更多有关[导航](https://material.io/design/navigation/)的信息。
 
-Material Design offers navigation patterns that ensure a high degree of usability. One of the most visible components is a top app bar.
+Material Design 提供确保高度可用性的导航模式，其中最注目的组件就是顶部应用栏。
 
-> You may know the top app bar as a "Navigation Bar" in iOS, or as simply an "App Bar" or "Header."
+> 你可以将顶部应用栏当作 iOS 中的“导航栏”，或者简单看成一个 “App Bar” 或 “Header”。
 
-To provide navigation and give users quick access to other actions, let's add a top app bar.
+要提供导航并让用户快速访问其他操作，让我们添加一个顶部应用栏。
 
-### Add an AppBar widget
+### 添加应用栏部件
 
-In `home.dart`, add an AppBar to the Scaffold:
+在 `home.dart` 中，将应用栏添加到 Scaffold 中：
 
 ```
 return Scaffold(
-  // TODO: Add app bar (102)
+  // TODO: 添加应用栏（102）
   appBar: AppBar(
-    // TODO: Add buttons and title (102)
+    // TODO: 添加按钮和标题（102）
   ),
 ```
 
-Adding the **AppBar** to the Scaffold's `appBar:` field, gives us perfect layout for free, keeping the AppBar at the top of the page and the body underneath.
+将 **AppBar** 添加到 Scaffold 的 `appBar:` 字段位置，为了我们完美的布局，让应用栏保持在页面的顶部或底部。
 
-> **Scaffold** is an important widget in MaterialApps. It provides convenient APIs for displaying all sorts or common Material Components like drawers, snack bars, and bottom sheets. It can even help layout a Floating Action Button.
+> **Scaffold** 在中是一个重要的部件。它为像抽屉、snack bar 和 bottom sheet 等各种常见 Material 组件提供方便的 API。它甚至可以帮助布置一个 Floating Action Button。
 >
-> Learn more about Scaffold in its [Flutter documentation](https://docs.flutter.io/flutter/material/Scaffold-class.html).
+> 在 [Flutter 文档](https://docs.flutter.io/flutter/material/Scaffold-class.html)中了解更多有关 Scaffold 的信息。
 
-Save the project. When the Shrine app updates, click **Next** to see the home screen.
+保存项目，当 Shrine 应用更新后，单击 **Next** 来查看主屏幕。
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-102-flutter/img/431c9976adc79f2.png)
 
-AppBar looks great but it needs a title.
+应用栏看起来不错，但它还需要一个标题。
 
-> If the app doesn't update, click the "Play" button again, or click "Stop" followed by "Play."
+> 如果应用没有更新，再次单击 “Play” 按钮，或者点击 “Play” 后的 “Stop”。
 
-### Add a Text widget
+### 添加文本部件
 
-In `home.dart`, add a title to the AppBar:
+在 `home.dart` 中，给应用栏添加一个标题：
 
 ```
-// TODO: Add app bar (102)  
+// TODO: 添加应用栏（102）  
   appBar: AppBar(
-    // TODO: Add buttons and title (102)
+    // TODO: 添加按钮和标题（102）
 
     title: Text('SHRINE'),
-        // TODO: Add trailing buttons (102)
+        // TODO:添加后续按钮（102）
 ```
 
-Save the project.
+保存项目。
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-102-flutter/img/a858ee63d25880f2.png)
 
-> By now, you might have noticed what we call a 'platform variance'. Material knows that each platform, Android, iOS, Web, is different. And that users have different expectations for them. For example, on iOS, titles are almost always centered and that is the default behavior supplied by UIKit. On Android, it's left aligned. So if you're using an Android emulator or device, your title should be aligned to the left. For an iOS simulator or device, it should be centered.
+> 到目前为止，你应该已经注意到我们所说的“平台差异”了。Material 明白 Android、iOS、Web 各平台都有差异。用户对他们有不同的期望。举例来说，在 iOS 里标题几乎总是居中的，这是 UIKit 提供的默认配置。在 Android 上标题是左对齐的。所以如果你使用的是 Android 模拟器或设备，那么标题应该位于左侧，对于 iOS 模拟器和设备而言，它应该是居中的。
 >
-> See the Material [article](https://material.io/design/platform-guidance/cross-platform-adaptation.html#cross-platform-guidelines) on Cross-platform Adaptation for more information.
+> 了解更多信息，请查参阅有关跨平台适配的 [Material 文章](https://material.io/design/platform-guidance/cross-platform-adaptation.html#cross-platform-guidelines)。
 
-Many app bars have a button next to the title. Let's add a menu icon in our app.
+许多应用栏在标题旁边都设有按钮，让我们在应用中添加一个菜单图标。
 
-### Add a leading IconButton
+### 添加位于首部的图标按钮
 
-While still in `home.dart`, set an IconButton for the AppBar's `leading`: field. (Put it before the `title:` field to mimic the leading-to-trailing order):
+还是在 `home.dart` 中，在 AppBar 的 `leading` 字段设置一个图标按钮：（放在 `title:` 字段前，按照部件从首到尾的顺序）：
 
 ```
 return Scaffold(
   appBar: AppBar(
-    // TODO: Add buttons and title (102)
+    // TODO: 添加按钮和标题（102）
     leading: IconButton(
       icon: Icon(
         Icons.menu,
@@ -280,30 +280,30 @@ return Scaffold(
     ),
 ```
 
-Save the project.
+保存项目。
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-102-flutter/img/d03789520253636.png)
 
-The menu icon (also known as the "hamburger") shows up right where you'd expect it.
+菜单图标（也被称作“汉堡包”）会在你期望的位置显示出来。
 
-> The [**IconButton**](https://docs.flutter.io/flutter/material/IconButton-class.html) class is a convenient way to incorporate [Material Icons](http://material.io/icons) in your app. It takes an **Icon** widget. Flutter has a whole collection of icons in the **Icons** class. It automatically imports the icons based on a mapping of const strings.
+> [**IconButton**](https://docs.flutter.io/flutter/material/IconButton-class.html) 类是在你的应用里引入 [Material 图标](http://material.io/icons)的快捷方式。它有一个 **Icon** 部件。 Flutter 在 **Icons** 类里有整套的图标。它会根据字符串常量的映射自动导入图标。
 >
-> Learn more about the Icons class in its [Flutter documentation](https://docs.flutter.io/flutter/material/Icons-class.html). And learn more about the Icon widget in its [Flutter documentation](https://docs.flutter.io/flutter/widgets/Icon-class.html).
+> 在 [Flutter 文档](https://docs.flutter.io/flutter/material/Icons-class.html)中了解更多有关 Icons 类的信息。有关 Icon 部件的信息请阅读这个 [Flutter 文档](https://docs.flutter.io/flutter/widgets/Icon-class.html)。
 
-You can also add buttons to the trailing side of the title. In Flutter, these are called "actions".
+你也可以在标题尾部添加按钮。在 Flutter 中，它们被称为 "action"。
 
-> **Leading** and **trailing** are terms that express direction, referring to the beginning and ending of text lines in a language-agnostic way. When working in an LTR (left-to-right) language like English, _leading_ means _left_ and _trailing_ means _right_. In an RTL (right-to-left) language like Arabic, _leading_ means _right_ and _trailing_ means _left_.
+> **Leading（首部）** 和 **trailing（尾部）** 是表达方向的术语，指的是与语言无关的文本行的开头和结尾。当使用一个像英语这样的 LTR（左到右）语言时， _leading_ 意味着 **左侧** 而 _trailing_ 代表着 **右侧**。在像阿拉伯语这样的 RTL（右到左）语言时， _leading_ 意味着 **右侧** 而 _trailing_ 代表着 **左侧**。
 >
-> For more information on UI Mirroring, see the Material Design guidelines on [Bidirectionality](https://material.io/guidelines/usability/bidirectionality.html).
+> 了解 UI 镜像的更多信息，请参阅 [双向性](https://material.io/guidelines/usability/bidirectionality.html) Material Design 准则。
 
-### Add actions
+### 添加 action
 
-There's room for two more IconButtons.
+还有两个 IconButton 的空间。
 
-Add them to the AppBar instance after the title:
+在 AppBar 实例中的标题后面添加它们：
 
 ```
-// TODO: Add trailing buttons (102)
+// TODO: 添加尾部按钮（102）
 actions: <Widget>[
   IconButton(
     icon: Icon(
@@ -326,73 +326,73 @@ actions: <Widget>[
 ],
 ```
 
-Save your project. Your home screen should look like this:
+保存你的项目。你的主屏幕看起来应该像这样：
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-102-flutter/img/a7020aee9da061dc.png)
 
-Now the app has a leading button, a title, and two actions on the right side. The app bar also displays **elevation** using a subtle shadow that shows it's on a different layer than the content.
+现在这个应用在左侧有一个按钮、一个标题，右侧还有两个 action。应用栏还利用阴影显示**高度**，表示它与内容处于不同的层级。
 
-> On an Icon class, the **SemanticLabel** field is a common way to add accessibility information in Flutter. It's a lot like [Android's Content Labels](https://support.google.com/accessibility/android/answer/7158690?hl=en) and [iOS' UIAccessibility `accessibilityLabel`](https://developer.apple.com/documentation/uikit/accessibility/uiaccessibility?language=objc). You'll find it on many classes.
+> 在 Icon 类中，**SemanticLabel** 字段是在 Flutter 中添加辅助功能信息的常用方法。这很像 Android 的 [Content Label](https://support.google.com/accessibility/android/answer/7158690?hl=en) 或 iOS 的 [UIAccessibility `accessibilityLabel`](https://developer.apple.com/documentation/uikit/accessibility/uiaccessibility?language=objc)。你会在很多类中见到它。
 >
-> The information in this field better explains what this button does to people who use screen readers
+> 这个字段的信息很好地向使用屏幕阅读器的人说明了该按钮的作用。
 >
-> For a Widget that doesn't have a `semanticLabel:` field, you can wrap it in a **Semantics** widget. Learn more about the Semantics widget in its [Flutter documentation](https://docs.flutter.io/flutter/widgets/Semantics-class.html).
+> 对于没有 `semanticLabel:` 字段的部件，你可以将其包装在 **Semantics** 部件中，在其 [Flutter 文档](https://docs.flutter.io/flutter/widgets/Semantics-class.html)中了解更多有关的信息。
 
-## 5. Add a card in a grid
+## 5. 在网格中添加卡片
 
-Now that our app has some structure, let's organize the content by placing it into cards.
+现在我们的应用像点样子了，让我们接着放置一些卡片来组织内容。
 
-> **Cards** are independent elements that display content and actions on a single subject. They're a flexible way to present similar content as a collection.
+> **卡片** 是显示单体内容和动作的独立的元素。它们是一种可以灵活地呈现近似内容集合的方式。
 >
-> Learn more about cards in the [Cards article](https://material.io/guidelines/components/cards.html) of the Material Guidelines.
+> 在 Material 指南有关[卡片](https://material.io/guidelines/components/cards.html)的文章中了解更多信息。
 >
-> Learn more about the Card widget in [Building Layouts in Flutter](https://flutter.io/tutorials/layout/).
+> 要了解卡片部件，请参阅[在 Flutter 中构建布局](https://flutter.io/tutorials/layout/)。
 
-### Add a GridView
+### 添加网格视图
 
-Let's start by adding one card underneath the top app bar. The **Card** widget alone doesn't have enough information to lay itself out where we could see it, so we'll want to encapsulate it in a **GridView** widget.
+让我们从应用栏底部添加一个卡片开始。单一的 **卡片** 部件不足以让我们将它放到我们想要的位置，所以我们需要将它封装在一个 **网格视图** 中。
 
-Replace the Center in the body of the Scaffold with a GridView:
+用 GridView 替换 Scaffold 中 body 字段的 Center：
 
 ```
-// TODO: Add a grid view (102)
+// TODO: 添加网格视图（102）
 body: GridView.count(
   crossAxisCount: 2,
   padding: EdgeInsets.all(16.0),
   childAspectRatio: 8.0 / 9.0,
-  // TODO: Build a grid of cards (102)
+  // TODO: 构建一组卡片（102）
   children: <Widget>[Card()],
 ),
 ```
 
-Let's unpack that code. The GridView invokes the `count()` constructor since the number of items it displays is countable and not infinite. But it needs some information to define its layout.
+让我们分析这段代码。网格视图调用 `count()` 构造函数，因要添加的项目数是可数的而不是无限的。但它需要更多信息来定义其布局。
 
-The `crossAxisCount:` specifies how many items across. We want 2 columns.
+`crossAxisCount:` 指定横向显示数目，我们设置成 2 行。
 
-> **Cross axis** in Flutter means the non-scrolling axis. The scrolling direction is called the **main axis**. So, if you have vertical scrolling, like GridView does by default, then the cross axis is horizontal.
+> Flutter 中的 **Cross axis（横轴）** 表示非滚动轴。可滚动的方向称为 **主轴**。所以如果你的应用像网格视图默认的那样垂直滚动，那么横轴就是水平方向。
 >
-> Learn more in [Building Layouts](https://flutter.io/tutorials/layout/).
+> 详情请参阅[构建布局](https://flutter.io/tutorials/layout/)。
 
-The `padding:` field provides space on all 4 sides of the GridView. Of course you can't see the padding on the trailing or bottom sides because there's no GridView children next to them yet.
+`padding:` 字段为网格视图的 4 条边设置填充。当然你现在看不到首尾的填充，因为网格视图内还没有其他子项。
 
-The `childAspectRatio:` field identifies the size of the items based on an aspect ratio (width over height).
+`childAspectRatio:` 字段依据宽高比确定其大小。
 
-By default, GridView makes tiles that are all the same size.
+默认地，网格视图中的项目尺寸相同。
 
-Adding that all together, the GridView calculates each child's width as follows: `([width of the entire grid] - [left padding] - [right padding]) / number of columns`. Using the values we have: `([width of the entire grid] - 16 - 16) / 2`.
+将这些加在一起，网格视图按照如下方式计算每个子项的宽度：`([整个网格宽度] - [左填充] - [右填充]) / 列数`。在这里就是：`([整个网格宽度] - 16 - 16) / 2`。
 
-The height is calculated from the width, by applying the aspect ratio:: `([width of the entire grid] - 16 - 16) / 2 * 9 / 8`. We flipped 8 and 9 because we are starting with the width and calculating the height and not the other way around.
+高度是根据宽度计算得来的，通过应用宽高比：`([整个网格宽度] - 16 - 16) / 2 * 9 / 8`。我们翻转了 8 和 9，因为我们是用宽度来计算高度。
 
-We have one card but it's empty. Let's add child widgets to our card.
+我们已经有了一个空的卡片了，让我们添加一些子部件到卡片中。
 
-### Layout the contents
+### 布局内容
 
-Cards should have regions for an image, a title, and secondary text.
+卡片内应该包含一张图片、一个标题和一个次级文本。
 
-Update the children of the GridView:
+更新网格视图的子项：
 
 ```
-// TODO: Build a grid of cards (102)
+// TODO: 构建一组卡片（102）
 children: <Widget>[
   Card(
     child: Column(
@@ -419,40 +419,39 @@ children: <Widget>[
 ],
 ```
 
-This code adds a Column widget used to lay out the child widgets vertically.
+这段代码添加了一个列部件，用来垂直地布局子部件。
 
-The `crossAxisAlignment: field` specifies `CrossAxisAlignment.start`, which means "align the text to the leading edge."
+`crossAxisAlignment:` 字段指定 `CrossAxisAlignment.start` 属性，这意味着“文本与前沿对齐”。
 
-The **AspectRatio** widget decides what shape the image takes no matter what kind of image is supplied.
+**AspectRatio** 部件决定图像的形状，无论提供的是何种图像。
 
-The **Padding** brings the text in from the side a little.
+**Padding** 使得文本与边框保持一定距离。
 
-The two **Text** widgets are stacked vertically with 8 points of empty space between them (**SizedBox**). We make another **Column** to house them inside the Padding.
+两个 **Text** 部件垂直堆叠，在其间保持 8 个单位的间隔（**SizedBox**）。我们使用另一个 **Column** 来把它们放到 Padding 中。
 
-Save your project:
+保存你的项目：
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-102-flutter/img/781ef3ac46a65be3.png)
 
-In this preview, you can see the card is inset from the edge, with rounded corners, and a shadow (that expresses the card's elevation). The entire shape is called the "container" in Material. (Not to be confused with the actual widget class called [Container](https://docs.flutter.io/flutter/widgets/Container-class.html).)
+在这个预览里，你可以看到卡片从边缘置入，并带有圆角和阴影（这代表着卡片的高度）。整个形状在 Material 中被称为 “container（容器）”。（不要与名为 [Container](https://docs.flutter.io/flutter/widgets/Container-class.html) 的实际部件类混淆。）
 
-> Aside from the container, all of the elements within cards are actually optional in Material. You can add header text, a thumbnail or avatar, subhead text, dividers, and even buttons and icons.
+> 除了容器以外，在 Material 中卡片内所有的元素实际上都是可选的。你可以添加标题文本、缩略图、头像或者小标题文本、分隔符甚至是按钮和图标。
 >
-> To learn more about cards' contents, see the [Cards article](https://material.io/guidelines/components/cards.html) of the Material Guidelines.
+> 了解更多消息，请参阅 Material 指南上有关[卡片](https://material.io/guidelines/components/cards.html)的文章。
 
-Cards are usually shown in a collection with other cards. Let's lay them out as a collection in a grid.
+卡片经常以集合的形式和其他卡片一起出现，让我们在网格视图中给它们布局。
 
-## 6. Make a card collection
+## 6. 生成卡片集合
 
-Whenever multiple cards are present in a screen, they are grouped together into one or more collections. Cards in a collection are coplanar, meaning cards share the same resting elevation as one another (unless the cards are picked up or dragged, but we won't be doing that here).
+每当屏幕上出现多张卡片时，它们就会组成一个或多个集合。集合中的卡片是共面的，这意味着卡片共享相同的静止高度。（除了卡片被拾起或拖动，但在这里我们不会这么做。）
 
-### Multiply the card into a collection
+### 将卡片添加到集合
 
-Right now our Card is constructed inline of the `children:` field of the GridView. That's a lot of nested code that can be hard to read. Let's extract it into a function that can generate as many empty cards as we want, and returns a list of Cards..
+现在我们的卡片是网格视图内的 `children:` 字段子项。这有一大段难以阅读的嵌套代码。让我们将它提取到一个函数中来生成任意数量的空卡片，然后返回给我们。
 
-Make a new private function after the `build()` function (remember that functions starting with an underscore are private API):
 
 ```
-// TODO: Make a collection of cards (102)
+// TODO: 生成卡片集合（102）
 List<Card> _buildGridCards(int count) {
   List<Card> cards = List.generate(
     count,
@@ -484,27 +483,27 @@ List<Card> _buildGridCards(int count) {
 }
 ```
 
-Assign the generated cards to GridView's `children` field. Remember to replace everything contained in the GridView with this new code:
+将生成的卡片分配给网格视图的 `children` 字段。记得用新代码替换网格视图中的所有内容。
 
 ```
-// TODO: Add a grid view (102)
+// TODO: 添加网格视图（102）
 body: GridView.count(
   crossAxisCount: 2,
   padding: EdgeInsets.all(16.0),
   childAspectRatio: 8.0 / 9.0,
-  children: _buildGridCards(10) // Replace
+  children: _buildGridCards(10) // 替换所有内容
 ),
 ```
 
-Save the project:
+保存你的项目：
 
-The cards are there, but they don't show anything yet. Now's the time to add some product data.
+卡片已经在这了，但它们什么都没有显示。现在是时候添加一些产品数据了。
 
-### Add product data
+###添加产品数据
 
-The app has some products with images, names, and prices. Let's add that to the widgets we have in the card already
+这个应用中的产品有着图像、名称和价格。让我们把这些添加到已有的卡片部件中。
 
-Then, in `home.dart`, import a new package and some files we supplied for a data model:
+然后，在 `home.dart` 中，导入数据模型需要的新包和文件：
 
 ```
 import 'package:flutter/material.dart';
@@ -514,12 +513,12 @@ import 'model/products_repository.dart';
 import 'model/product.dart';
 ```
 
-Finally, change `_buildGridCards()` to fetch the product info, and use that data in the cards:
+最后，更改 `_buildGridCards()` 来获取产品信息，并将数据应用到卡片中：
 
 ```
-// TODO: Make a collection of cards (102)
+// TODO: 生成卡片集合（102）
 
-// Replace this entire method
+// 替换整个方法
 List<Card> _buildGridCards(BuildContext context) {
   List<Product> products = ProductsRepository.loadProducts(Category.all);
 
@@ -533,9 +532,9 @@ List<Card> _buildGridCards(BuildContext context) {
 
   return products.map((product) {
     return Card(
-      // TODO: Adjust card heights (103)
+      // TODO: 调整卡片高度（103）
       child: Column(
-        // TODO: Center items on the card (103)
+        // TODO: 卡片的内容设置居中（103）
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           AspectRatio(
@@ -543,18 +542,18 @@ List<Card> _buildGridCards(BuildContext context) {
             child: Image.asset(
               product.assetName,
               package: product.assetPackage,
-             // TODO: Adjust the box size (102)
+             // TODO: 调整盒子尺寸（102）
             ),
           ),
           Expanded(
             child: Padding(
               padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
               child: Column(
-               // TODO: Align labels to the bottom and center (103)
+               // TODO: 标签底部对齐并居中（103）
                crossAxisAlignment: CrossAxisAlignment.start,
-                // TODO: Change innermost Column (103)
+                // TODO: 更改最内部的列（103）
                 children: <Widget>[
-                 // TODO: Handle overflowing labels (103)
+                 // TODO: 处理溢出的标签（103）
                  Text(
                     product.name,
                     style: theme.textTheme.title,
@@ -576,13 +575,13 @@ List<Card> _buildGridCards(BuildContext context) {
 }
 ```
 
-**NOTE:** Won't compile and run yet. We have one more change.
+**注意**：应用现在无法编译和运行，我们还需要进行修改。
 
-> To style the Text, we use the **ThemeData** from the current **BuildContext**.
+> 要设置文本的样式，我们使用当前 **BuildContext** 中的 **ThemeData**。
 >
-> To learn more about text styling, see the [Typography article](https://material.io/design/typography/) of the Material Guidelines. To learn more about Theming, continue after this codelab with [MDC-103: Material Theming with Color, Shape, Elevation and Type](http://go/mdc-103-flutter).
+> 了解有关文本样式的更多信息，请参阅 Material 指南中的[排版](https://material.io/design/typography/)一文。了解有关主题的更多信息，请参考教程下一章 [MDC-103: Material Design Theming 的颜色、形状、高度和类型](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-103-flutter.md)。
 
-Also, change the `build()` function to pass the **BuildContext** to `_buildGridCards()` before you try to compile:
+在尝试编译之前，将 **BuildContext** 传入 `build()` 方法中的 `_buildGridCards()`：
 
 ```
 // TODO: Add a grid view (102)
@@ -596,36 +595,36 @@ body: GridView.count(
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-102-flutter/img/7874b38e020afc1d.png)
 
-You may notice we don't add any vertical space between the cards. That's because they have, by default, 4 points of padding on their top and bottom.
+你可能注意到了我们没有在卡片间添加任何垂直的间隔，这是因为在其顶部与底部默认有 4 个单位的填充。
 
-Save your project:
+保存你的项目：
 
-The product data shows up, but the images have extra space around them. The images are drawn with a **BoxFit** of `.scaleDown` by default (in this case.) Let's change that to `.fitWidth` so they zoom in a little and remove the extra whitespace.
+产品的数据显示出来了，但是图像四周有额外的空间。图像默认依据 `.scaleDown` 的 **BoxFit** 绘制（在这个情况下）。让我们将其更改为 `.fitWidth` 来让它们放大一点，删除多余的空间。
 
-Change the image's `fit:` field:
+修改图像的 `fit:` 字段：
 
 ```
-  // TODO: Adjust the box size (102)
+  // TODO: 调整盒子尺寸（102）
   fit: BoxFit.fitWidth,
 ```
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-102-flutter/img/532fe80b3fa3db74.png)
 
-Our products are now showing up in the app perfectly!
+现在我们的产品完美的展现在应用中了！
 
-## 7. Recap
+## 7. 总结
 
-Our app has a basic flow that takes the user from the login screen to a home screen, where products can be viewed. In just a few lines of code, we added a top app bar (with a title and three buttons) and cards (to present our app's content). Our home screen is now simple and functional, with a basic structure and actionable content.
+我们的应用已经有了基本的流程，将用户从登陆屏幕带到可以查看产品的主屏幕。通过几行代码，我们添加了一个顶部应用栏（带有标题和三个按钮）以及卡片（用于显示我们应用的内容）。我们的主屏幕简洁实用，具有基本的结构和可操作的内容。
 
-> The completed MDC-102 app is available in the `103-starter_and_102-complete` branch.
+> 完成的 MDC-102 应用可以在 `103-starter_and_102-complete` 分支中找到。
 >
-> You can test your version of the page against the app in that branch.
+> 你可以用此分支下的应用来对照验证你的版本。
 
-### Next steps
+### 下一步
 
-With the top app bar, card, text field, and button, we've now used four core components from the MDC-Flutter library! You can explore even more components by visiting the [Flutter Widgets Catalog](https://flutter.io/widgets/).
+通过顶部应用栏、卡片、文本框和按钮，我们已经使用了 MDC-Flutter 库中的四个核心组件！你可以访问 [Flutter 部件目录](https://flutter.io/widgets/)来探索更多组件。
 
-While it's fully functioning, our app doesn't yet express any particular brand or point of view. In [MDC-103: Material Design Theming with Color, Shape, Elevation and Type](https://codelabs.developers.google.com/codelabs/mdc-103-flutter), we'll customize the style of these components to express a vibrant, modern brand.
+虽然它完全正常运行，我们的应用尚未表达任何特殊的品牌特点。在 [MDC-103: Material Design Theming 的颜色、形状、高度和类型](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-103-flutter.md)中，我们将定制这些组件的样式，来诠释一个充满活力的、现代的品牌。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
