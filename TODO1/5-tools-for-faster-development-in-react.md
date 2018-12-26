@@ -17,7 +17,7 @@ React 非常适合快速开发具有出色的交互式 UI 的应用程序。Reac
 
 ### 1. [Bit](https://bitsrc.io)
 
-- [**Bit —— 分享和构建组件代码**：Bit 帮助你在不同的项目和应用程序中共享、发现和使用代码组件，以构建新功能和 ... ](https://bitsrc.io "https://bitsrc.io")
+- [**Bit — 分享和构建组件代码**：Bit 帮助你在不同的项目和应用程序中共享、发现和使用代码组件，以构建新功能和...](https://bitsrc.io "https://bitsrc.io")
 
 [Bit](https://bitsrc.io) 是一个开源平台，用于使用组件构建应用程序。
 
@@ -25,7 +25,7 @@ React 非常适合快速开发具有出色的交互式 UI 的应用程序。Reac
 
 - YouTube 视频链接：https://youtu.be/P4Mk_hqR8dU
 
-Bit 上共享的组件可自动地通过 NPM / Yarn 安装，或与 Bit 本身一起使用。后者使你能够同时开发来自不同项目的组件，并轻松更新（并合并）它们之间的更改。
+Bit 上共享的组件可自动地通过 NPM/Yarn 安装，或与 Bit 本身一起使用。后者使你能够同时开发来自不同项目的组件，并轻松更新（并合并）它们之间的更改。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*1aWFQBNr5aEQ1OnquZrIxw.png)
 
@@ -55,7 +55,7 @@ Storybook 和 Styleguidist 是在 React 中快速开发 UI 的环境。两者都
 
 StoryBook 可帮助你独立于应用程序开发组件，这也有助于提高组件的可重用性和可测试性。
 
-你可以浏览库中的组件，修改其属性，并通过热加载在网页上获得组件的即时效果。可以在这里找到一些流行的[例子](https://storybook.js.org/examples/).
+你可以浏览库中的组件，修改其属性，并通过热加载在网页上获得组件的即时效果。可以在这里找到一些流行的[例子](https://storybook.js.org/examples/)。
 
 不同的插件可以帮助你更快地开发，从而缩短代码调整到视觉输出之间的周期。StoryBook 还支持 [React Native](https://facebook.github.io/react-native/) 和 [Vue.js](https://vuejs.org/)。
 
@@ -89,7 +89,7 @@ React [Styleguidist](https://github.com/styleguidist/react-styleguidist) 是一�
 
 ![](https://cdn-images-1.medium.com/max/800/1*RESAzFvlkgBlU4IgRGQjaA.gif)
 
-此 [Chrome 扩展程序](https://github.com/zalmoxisus/redux-devtools-extension)（和 [FireFox附加组件](https://addons.mozilla.org/en-US/firefox/addon/remotedev/)）是一个开发时间程序包，是 Redux 开发工作流程的利器。它允许你检查每个 state 和 action payload，重新计算“分阶段”的 actions。
+此 [Chrome 扩展程序](https://github.com/zalmoxisus/redux-devtools-extension)（和 [FireFox 附加组件](https://addons.mozilla.org/en-US/firefox/addon/remotedev/)）是一个开发时间程序包，是 Redux 开发工作流程的利器。它允许你检查每个 state 和 action payload，重新计算“分阶段”的 actions。
 
 你可以将 [Redux DevTools 扩展程序 ](https://github.com/zalmoxisus/redux-devtools-extension)与任何处理状态的体系结构集成。每个 React 组件的本地状态可以有多个存储或不同的实例。你甚至可以通过“时间旅行”来取消 actions（可以观看 [Dan Abramov 的](https://medium.com/@dan_abramov) [视频](https://www.youtube.com/watch?v=xsSnOQynTHs)）。日志记录 UI 本身甚至可以自定义为 React 组件。
 
