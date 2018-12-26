@@ -58,7 +58,7 @@ material.io/develop
 
 #### 要在 Android 上构建和运行 Flutter 应用程序，你需要满足以下要求：
 
-*   运行 macOS、 Windows 或 Linux 的计算机
+*   运行 macOS、Windows 或 Linux 的计算机
 *   Android Studio
 *   Android 模拟器（随 Android Studio 一起提供）或 Android 物理设备
 
@@ -73,23 +73,21 @@ material.io/develop
 
 Flutter 的 IDE 工具适用于 [Android Studio](https://developer.android.com/studio/index.html)、[IntelliJ IDEA Community（免费）和 IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/download/)。
 
-![](https://lh6.googleusercontent.com/ol-teJ4O7B69JJRkTfRVQ0a2afiPmL60r-KxNGD26R0KreGtbem_U05Js7HNw3FQu7rIaDVDBQozSFWUB7QVgyfoYpPCPVjKh1knJQGvtbAvLtDbdBmB7XaVbBvth3WOwBAIFDS7)  
-要在 iOS 上构建和运行 Flutter 应用程序，你需要满足以下要求：
+![](https://lh6.googleusercontent.com/ol-teJ4O7B69JJRkTfRVQ0a2afiPmL60r-KxNGD26R0KreGtbem_U05Js7HNw3FQu7rIaDVDBQozSFWUB7QVgyfoYpPCPVjKh1knJQGvtbAvLtDbdBmB7XaVbBvth3WOwBAIFDS7)要在 iOS 上构建和运行 Flutter 应用程序，你需要满足以下要求：
 
 *   运行 macOS 的计算机
 *   Xcode 9 或更新版本
 *   iOS 模拟器，或者 iOS 物理设备
 
-![](https://lh3.googleusercontent.com/Si2NN00ySyOEkNilzmWrhGLWwaCfGZME_01PwA1sSWu66Prw15UijYovXa-y3csDBg4NP_nhxBc_oqjparZ5Cme0zKuf0RRK1KiaN_n0Kn3AQ0zdkACXUhJJHAXdWK2WFshbxQLt)  
-要在 Android 上构建和运行 Flutter 应用程序，你需要满足以下要求：
+![](https://lh3.googleusercontent.com/Si2NN00ySyOEkNilzmWrhGLWwaCfGZME_01PwA1sSWu66Prw15UijYovXa-y3csDBg4NP_nhxBc_oqjparZ5Cme0zKuf0RRK1KiaN_n0Kn3AQ0zdkACXUhJJHAXdWK2WFshbxQLt)要在 Android 上构建和运行 Flutter 应用程序，你需要满足以下要求：
 
-*   运行 macOS，Windows 或者 Linux 的计算机
+*   运行 macOS、Windows 或者 Linux 的计算机
 *   Android Studio
 *   Android 模拟器（随 Android Studio 一起提供）或 Android 物理设备
 
 [获取详细的 Flutter 安装信息](https://flutter.io/setup/)
 
-> **重要提示：** 如果连接到计算机的 Android 手机上出现“允许 USB 调试”对话框，请启用**始终允许从此计算机**选项，然后单击**确定**。
+> **重要提示**：如果连接到计算机的 Android 手机上出现“允许 USB 调试”对话框，请启用**始终允许从此计算机**选项，然后单击**确定**。
 
 在继续本教程之前，请确保你的 SDK 处于正确的状态。如果之前安装过 Flutter，则使用 `flutter upgrade` 来确保 SDK 处于最新版本。
 
@@ -107,7 +105,7 @@ flutter doctor
 
 ### 从 MDC-101 继续？
 
-如果你完成了 MDC-101，那么本教程所需代码应该已经准备就绪，跳转到 _添加应用栏_ 步骤。
+如果你完成了 MDC-101，那么本教程所需代码应该已经准备就绪，跳转到 **添加应用栏** 步骤。
 
 ### 从头开始？
 
@@ -163,7 +161,6 @@ git checkout 102-starter_and_101-complete
 
 ![](https://lh4.googleusercontent.com/eohV4ysnGI7n1WXZEpvDocqGoj2yBijhLPxkGovkL85mil0HSvbQxgJ4VlduNj1ypfOdVd1fyTxR5QnS31iu0HFaqjWcOY2GqWs2hHFNO4-zqQzj-S8rGGH0VqrOEtAFEbzUuCxB)
 
-
 4. 在左侧的项目面板中，删除测试文件 `../test/widget_test.dart`
 
 ![](https://lh4.googleusercontent.com/tbOkXg3PBYapj_J0CpdwQTt-sqnf7s3bqi7E3Dd__z_aC5XANKphvuoMvmiOFfBR6oDeZixE0Ww2jTzskt1sDNgEXjAJjwHr7m242tkZ7VvXGaFMObmSIZ06oC7UQusGgCL7DpHr)
@@ -172,7 +169,7 @@ git checkout 102-starter_and_101-complete
 
 ![](https://lh5.googleusercontent.com/MVD7YGuMneCprDEam1Vy8NusO9BPmOZTyrH4jvO8RmsfTeu8q-t0AfHU3kzXk1F8EUgHaFbqeORdXc7iOcz5ZLM4qbXsv_tMiVnAi0i68p0t957RThrZ56Udf-F292JgRV3iKs7T)
 
-> **提示：** 确保你已安装 [ Flutter 和 Dart 插件](https://flutter.io/get-started/editor/#androidstudio)。
+> **提示**：确保你已安装 [Flutter 和 Dart 插件](https://flutter.io/get-started/editor/#androidstudio)。
 
 ### 运行初始程序
 
@@ -180,7 +177,7 @@ git checkout 102-starter_and_101-complete
 
 1. 选择设备或模拟器
 
-如果 Android 模拟器尚未运行，请选择 **Tools -> Android -> AVD Manager** 来[创建您设备并启动模拟器](https://developer.android.com/studio/run/managing-avds.html)。 如果 AVD 已存在，你可以直接在 IntelliJ 的设备选择器中启动模拟器，如下一步所示。
+如果 Android 模拟器尚未运行，请选择 **Tools -> Android -> AVD Manager** 来[创建您设备并启动模拟器](https://developer.android.com/studio/run/managing-avds.html)。如果 AVD 已存在，你可以直接在 IntelliJ 的设备选择器中启动模拟器，如下一步所示。
 
 （对于 iOS 模拟器，如果它尚未运行，通过选择 **Flutter Device Selection -> Open iOS Simulator** 来在你的开发设备上启动它。）
 
@@ -189,7 +186,7 @@ git checkout 102-starter_and_101-complete
 2. 启动 Flutter 应用：
 
 *   在你的编辑器窗口顶部寻找 Flutter Device Selection 下拉菜单，然后选择设备（例如，iPhone SE / Android SDK built for <version>）。
-*   点击**运行**图标 （![](https://lh6.googleusercontent.com/Zu8-cWRMCfIrBGIjj4kSW-j8KBiIqVe33PX8Mht5lSKq00kRB7Na3X0kC4aaiG-G7hqqqLPpgtbxTz-1DdYbq2RiNvc2ZaJzfiu_vVYAh1oOc4TZu85pa42nFqqxmMQWySzLWeU1)）。
+*   点击**运行**图标（![](https://lh6.googleusercontent.com/Zu8-cWRMCfIrBGIjj4kSW-j8KBiIqVe33PX8Mht5lSKq00kRB7Na3X0kC4aaiG-G7hqqqLPpgtbxTz-1DdYbq2RiNvc2ZaJzfiu_vVYAh1oOc4TZu85pa42nFqqxmMQWySzLWeU1)）。
 
 ![](https://lh4.googleusercontent.com/NLXK-hHFYnHBPeQ6NYrKGnXpj9X2es9her6Y14CotXlR-OdSQBXHyRFv1nvhC1AFCmWx7jIG2Ulb7-OmLV_Pru_-kd-3gArn8OKEGTIOInDJlqIUJ7dxTQUsvLVa0CJwEO5EGjeu)
 
@@ -211,7 +208,7 @@ git checkout 102-starter_and_101-complete
 
 Material Design 提供确保高度可用性的导航模式，其中最注目的组件就是顶部应用栏。
 
-> 你可以将顶部应用栏当作 iOS 中的“导航栏”，或者简单看成一个“App Bar”或 “Header”。
+> 你可以将顶部应用栏当作 iOS 中的“导航栏”，或者简单看成一个 “App Bar” 或 “Header”。
 
 要提供导航并让用户快速访问其他操作，让我们添加一个顶部应用栏。
 
@@ -228,7 +225,8 @@ return Scaffold(
 ```
 
 将 **AppBar** 添加到 Scaffold 的 `appBar:` 字段位置，为了我们完美的布局，让应用栏保持在页面的顶部或底部。
-> **Scaffold** 在中是一个重要的部件。它为像抽屉、snack bar 和 bottom sheet等各种常见 Material 组件提供方便的 API。它甚至可以帮助布置一个 Floating Action Button。
+
+> **Scaffold** 在中是一个重要的部件。它为像抽屉、snack bar 和 bottom sheet 等各种常见 Material 组件提供方便的 API。它甚至可以帮助布置一个 Floating Action Button。
 >
 > 在 [Flutter 文档](https://docs.flutter.io/flutter/material/Scaffold-class.html)中了解更多有关 Scaffold 的信息。
 
@@ -238,7 +236,7 @@ return Scaffold(
 
 应用栏看起来不错，但它还需要一个标题。
 
-> 如果应用没有更新，再次单击“Play”按钮，或者点击“Play”后的“Stop”。
+> 如果应用没有更新，再次单击 “Play” 按钮，或者点击 “Play” 后的 “Stop”。
 
 ### 添加文本部件
 
@@ -290,13 +288,13 @@ return Scaffold(
 
 > [**IconButton**](https://docs.flutter.io/flutter/material/IconButton-class.html) 类是在你的应用里引入 [Material 图标](http://material.io/icons)的快捷方式。它有一个 **Icon** 部件。 Flutter 在 **Icons** 类里有整套的图标。它会根据字符串常量的映射自动导入图标。
 >
-> 在 [Flutter 文档](https://docs.flutter.io/flutter/material/Icons-class.html)中了解更多有关 Icons 类的信息。有关 Icon  部件的信息请阅读这个 [Flutter 文档](https://docs.flutter.io/flutter/widgets/Icon-class.html)。
+> 在 [Flutter 文档](https://docs.flutter.io/flutter/material/Icons-class.html)中了解更多有关 Icons 类的信息。有关 Icon 部件的信息请阅读这个 [Flutter 文档](https://docs.flutter.io/flutter/widgets/Icon-class.html)。
 
 你也可以在标题尾部添加按钮。在 Flutter 中，它们被称为 "action"。
 
-> **Leading（首部）** 和 **trailing（尾部）** 是表达方向的术语，指的是与语言无关的文本行的开头和结尾。当使用一个像英语这样的 LTR（左到右）语言时，_leading_ 意味着 _左侧_ 而 _trailing_ 代表着 _右侧_ 。在像阿拉伯语这样的 RTL（右到左）语言时，_leading_ 意味着 _右侧_ 而 _trailing_ 代表着 _左侧_ 。
+> **Leading（首部）** 和 **trailing（尾部）** 是表达方向的术语，指的是与语言无关的文本行的开头和结尾。当使用一个像英语这样的 LTR（左到右）语言时， _leading_ 意味着 **左侧** 而 _trailing_ 代表着 **右侧**。在像阿拉伯语这样的 RTL（右到左）语言时， _leading_ 意味着 **右侧** 而 _trailing_ 代表着 **左侧**。
 >
-> 了解 UI 镜像的更多信息，请参阅 [ 双向性](https://material.io/guidelines/usability/bidirectionality.html) Material Design 准则。
+> 了解 UI 镜像的更多信息，请参阅 [双向性](https://material.io/guidelines/usability/bidirectionality.html) Material Design 准则。
 
 ### 添加 action
 
@@ -334,7 +332,7 @@ actions: <Widget>[
 
 现在这个应用在左侧有一个按钮、一个标题，右侧还有两个 action。应用栏还利用阴影显示**高度**，表示它与内容处于不同的层级。
 
-> 在 Icon 类中，**SemanticLabel** 字段是在 Flutter 中添加辅助功能信息的常用方法。这很像Android 的 [ Content Label](https://support.google.com/accessibility/android/answer/7158690?hl=en) 或 iOS 的 [ UIAccessibility `accessibilityLabel`](https://developer.apple.com/documentation/uikit/accessibility/uiaccessibility?language=objc)。你会在很多类中见到它。
+> 在 Icon 类中，**SemanticLabel** 字段是在 Flutter 中添加辅助功能信息的常用方法。这很像 Android 的 [Content Label](https://support.google.com/accessibility/android/answer/7158690?hl=en) 或 iOS 的 [UIAccessibility `accessibilityLabel`](https://developer.apple.com/documentation/uikit/accessibility/uiaccessibility?language=objc)。你会在很多类中见到它。
 >
 > 这个字段的信息很好地向使用屏幕阅读器的人说明了该按钮的作用。
 >
@@ -381,9 +379,9 @@ body: GridView.count(
 
 默认地，网格视图中的项目尺寸相同。
 
-将这些加在一起，网格视图按照如下方式计算每个子项的宽度：`([整个网格宽度] - [左填充] - [右填充]) / 列数`。 在这里就是：`([整个网格宽度] - 16 - 16) / 2`。
+将这些加在一起，网格视图按照如下方式计算每个子项的宽度：`([整个网格宽度] - [左填充] - [右填充]) / 列数`。在这里就是：`([整个网格宽度] - 16 - 16) / 2`。
 
-高度是根据宽度计算得来的，通过应用宽高比：`([整个网格宽度] - 16 - 16) / 2 * 9 / 8`。我们翻转了 8 和 9 ，因为我们是用宽度来计算高度。
+高度是根据宽度计算得来的，通过应用宽高比：`([整个网格宽度] - 16 - 16) / 2 * 9 / 8`。我们翻转了 8 和 9，因为我们是用宽度来计算高度。
 
 我们已经有了一个空的卡片了，让我们添加一些子部件到卡片中。
 
@@ -429,7 +427,7 @@ children: <Widget>[
 
 **Padding** 使得文本与边框保持一定距离。
 
-两个 **Text** 部件垂直堆叠，在其间保持 8 个单位的间隔（**SizedBox**）。我们使用另一个 **Column** 来把它们放到  Padding 中。
+两个 **Text** 部件垂直堆叠，在其间保持 8 个单位的间隔（**SizedBox**）。我们使用另一个 **Column** 来把它们放到 Padding 中。
 
 保存你的项目：
 
@@ -439,7 +437,7 @@ children: <Widget>[
 
 > 除了容器以外，在 Material 中卡片内所有的元素实际上都是可选的。你可以添加标题文本、缩略图、头像或者小标题文本、分隔符甚至是按钮和图标。
 >
-> 了解更多消息，请参阅 Material 指南上有关[卡片](https://material.io/guidelines/components/cards.html) 的文章。
+> 了解更多消息，请参阅 Material 指南上有关[卡片](https://material.io/guidelines/components/cards.html)的文章。
 
 卡片经常以集合的形式和其他卡片一起出现，让我们在网格视图中给它们布局。
 
@@ -577,11 +575,11 @@ List<Card> _buildGridCards(BuildContext context) {
 }
 ```
 
-**注意：** 应用现在无法编译和运行，我们还需要进行修改。
+**注意**：应用现在无法编译和运行，我们还需要进行修改。
 
-> 要设置文本的样式，我们使用当前 **BuildContext** 中的 **ThemeData** 。
+> 要设置文本的样式，我们使用当前 **BuildContext** 中的 **ThemeData**。
 >
-> 了解有关文本样式的更多信息，请参阅 Material 指南中的[排版](https://material.io/design/typography/)一文。 了解有关主题的更多信息，请参考教程下一章 [MDC-103: Material Design Theming 的颜色、形状、高度和类型](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-103-flutter.md)。
+> 了解有关文本样式的更多信息，请参阅 Material 指南中的[排版](https://material.io/design/typography/)一文。了解有关主题的更多信息，请参考教程下一章 [MDC-103: Material Design Theming 的颜色、形状、高度和类型](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-103-flutter.md)。
 
 在尝试编译之前，将 **BuildContext** 传入 `build()` 方法中的 `_buildGridCards()`：
 
