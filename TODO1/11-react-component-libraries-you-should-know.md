@@ -13,15 +13,15 @@
 
 React 在 2017 年的受欢迎程度上升
 
-React 的虚拟 DOM、声明式地描绘用户界面与构建界面相应的 state 的能力、对 JavaScript 开发者的入门门槛低等等，这些都使 React 成为了非常棒的构建 UI 的 [go-to library](https://medium.freecodecamp.org/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76) 。
+React 的虚拟 DOM、声明式地描述用户界面并为界面构建相应状态的能力、对有一定水平的 JavaScript 开发者来说入门门槛低，这些都使 React 成为了一个非常棒的构建 UI 的 [专业库](https://medium.freecodecamp.org/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76) 。
 
-另一个使用 React 的很棒的理由是它的组件。组件能够让你把 UI 分割成独立的、可复用的块。这里有 11 个很棒的 React 组件库可以帮助你开始使用 React 的组件。
+使用 React 的另一个重要原因是它的组件。组件能够让你把 UI 分割成独立的、可复用的块。这里有 11 个很棒的 React 组件库可以帮助你开始使用 React 的组件。
 
-你可以使用 [Bit](https://bitsrc.io) 将你的组件转化成能够统一管理并在多个项目间同步的模块。
+你还可以使用 [Bit](https://bitsrc.io) 把这些组件结合起来，并将你的组件转化成能够统一管理并在多个项目间同步的模块。
 
-- [**Bit - 共享和构建组件**: Bit 让使用更小的组件开发软件、团队间共享和在你的...同步变得有趣且容易](https://bitsrc.io "https://bitsrc.io")
+- [**Bit - 共享和构建组件**: Bit 让使用更小的组件开发软件、团队间共享和在你的所有项目中同步变得有趣且容易](https://bitsrc.io "https://bitsrc.io")
 
-有了 Bit，你可以轻松地在多个项目和应用间共享、开发和同步组件，为你的团队管理组件，和改进你有双向代码变更的 React 组件工作流并创建一个分布式开发工作流。这里有 [一个例子](https://bitsrc.io/bit/movie-app) 。
+有了 Bit，你可以轻松地在多个项目和应用间共享、开发和同步组件，为你的团队管理组件，以及改进具有双向代码变更的 React 的组件的工作流。这里有 [一个例子](https://bitsrc.io/bit/movie-app) 。
 
 ![](https://cdn-images-1.medium.com/max/800/1*EW7hjct1RduBrJj43xHO5g.png)
 
@@ -29,7 +29,7 @@ React [Hero UI component](https://bitsrc.io/bit/movie-app/components/hero) with 
 
 #### 1. React Material-UI
 
-[React Material-UI](http://www.material-ui.com/) 是一套实现了 Google 的 Material Design 的 React 组件。它在 GitHub 上有 [30k stars](https://github.com/mui-org/material-ui) ，大概是目前最受欢迎的 React 组件库了。它的 v1 版本快要推出了。
+[React Material-UI](http://www.material-ui.com/) 是一套实现了 Google 的 Material Design 的 React 组件。它在 GitHub 上有 [30k+ stars](https://github.com/mui-org/material-ui) ，大概是目前最受欢迎的 React 组件库了。它的 v1 版本快要推出了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*tbpaxLVm76qcI0S9s_h_rw.png)
 
@@ -41,7 +41,7 @@ React [Hero UI component](https://bitsrc.io/bit/movie-app/components/hero) with 
 
 #### 3. React toolbox
 
-[React Toolbox](http://react-toolbox.io/#/) 是一套实现了 Google Material Design 规范的 React 组件。它的是基于如 CSS Modules（基于 SASS）、webpack 和 ES6 这样的最新提案构建的。它的网站提供了一个在线的组件 playground。
+[React Toolbox](http://react-toolbox.io/#/) 是一套实现了 Google Material Design 规范的 React 组件。它是基于如 CSS Modules（基于 SASS）、webpack 和 ES6 这样的最新提案构建的。它的网站提供了一个在线的组件 playground。
 
 ![](https://cdn-images-1.medium.com/max/800/1*3MDbsOlWKBwtLesdEucWeA.png)
 
@@ -95,9 +95,9 @@ Khan Academy 的 [React 组件](http://khan.github.io/react-components/) 是以�
 
 ### 单独的组件
 
-每个单独的组件都可以再 [awesome-react](https://github.com/enaqx/awesome-react) 和 [awesome-react-components](https://github.com/brillout/awesome-react-components) 这两个项目中找到。你也可以将 [Bit](https://bitsrc.io/) 添加到任意一个仓库或者库来追踪与隔离仓库或者库里的组件。然后，这些组件可以很快地直接从仓库中的任何路径中导出，开发者就可以使用 npm 或者 yarn 来安装它们，并在任意的项目中进行修改。
+每个单独的组件都可以在 [awesome-react](https://github.com/enaqx/awesome-react) 和 [awesome-react-components](https://github.com/brillout/awesome-react-components) 这两个项目中找到。你也可以将 [Bit](https://bitsrc.io/) 添加到任意一个仓库或者库来追踪与隔离仓库或者库里的组件。然后，这些组件可以很快地直接从仓库中的任何路径中导出，开发者就可以使用 npm 或者 yarn 来安装它们，并在任意的项目中进行修改。
 
-似乎在 2018 年，React 的热度会持续上升，并且 React 组件会逐渐成为更多的我们日常使用的应用的组成模块。
+似乎在 2018 年，React 的热度会持续上升，并且 React 组件会逐渐成为更多日常使用的应用的组成模块。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
