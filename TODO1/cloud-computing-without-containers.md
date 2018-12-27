@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/cloud-computing-without-containers.md](https://github.com/xitu/gold-miner/blob/master/TODO1/cloud-computing-without-containers.md)
 > * 译者：[TrWestdoor](https://github.com/TrWestdoor)
-> * 校对者：
+> * 校对者：[tonylua](https://github.com/tonylua)
 
 # 无容器下的云计算
 
@@ -17,7 +17,7 @@ Cloudflare 有一个云计算平台称为 [Workers](https://www.cloudflare.com/p
 
 之前我们使用的 Lua 并不在沙盒中运行；用户不能在没有我们监督的情况下写他们自己的代码。像 Kubernetes 这种传统的虚拟化和容器技术对每个相关用户来说都格外昂贵。在单一位置运行数千个 Kubernetes pods 将会是资源密集型的，在 155 个地方运行则将更糟。相比于没有管理系统，扩展他们会更容易些，但也绝非易事。
 
-最后我们用上了由 Google Chrome 团队构建的一项为其浏览器中的 Javascript 引擎提供动力的技术 -- V8: Isolates。
+最后我们用上了由 Google Chrome 团队构建的一项为其浏览器中的 Javascript 引擎提供动力的技术 — V8: Isolates。
 
 Isolates 是一个轻量的上下文，包含了被分组过的若干变量及用来改变它们的代码。更重要的是，一个单一的进程可以运行成百上千个 Isolates，并且在它们之间无缝切换。这使得在一个操作系统进程上运行来自不同用户的不可信代码成为可能。它们被设计的可以快速启动（有几个不得不在你的浏览器中启动，这仅仅是为你加载这个网页），并且不允许一个 Isolate 访问其它 Isolate 的内存。
 
@@ -53,7 +53,7 @@ Isolates 是一个轻量的上下文，包含了被分组过的若干变量及�
 
 ### 内存
 
-**Node 或 Python 的运行时旨在运行于独立用户的自有服务器上。这些代码从来没有被考虑过将其运行在多租户环境中，这种环境有成千上万个其他用户代码和严格的内存要求。** 一个基本的 Node Lambda 运行的内存消耗大约是 35 MB。当你像我们这样在所有 Isolates 之间共享运行时的时候，这个数字会降到大约 3 MB。
+**Node 或 Python 的运行时旨在运行于独立用户的自有服务器上。这些代码从来没有被考虑过将其运行在多租户环境中，这种环境有成千上万个其他用户代码和严格的内存要求**。一个基本的 Node Lambda 运行的内存消耗大约是 35 MB。当你像我们这样在所有 Isolates 之间共享运行时的时候，这个数字会降到大约 3 MB。
 
 内存常常是运行用户代码时最大的成本消耗（甚至高过 CPU），降低它一个数量级可以极大程度改善经济性。
 
