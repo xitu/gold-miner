@@ -97,7 +97,7 @@ A cross device view on market share is even more shocking:
 
 ![](https://cdn-images-1.medium.com/max/1000/0*UKH_lV5-RXgDUAFm.png)
 
-Source: [https://en.wikipedia.org/wiki/Usage\_share\_of\_web\_browsers](https://en.wikipedia.org/wiki/Usage_share_of_web_browsers)
+Source: [https://en.wikipedia.org/wiki/Usage_share_of_web_browsers](https://en.wikipedia.org/wiki/Usage_share_of_web_browsers)
 
 From over a 30% market share as a peak to almost complete irrelevance, in 8 years. The chart is clear about the mobile revolution being a primary reason, given the rise of both Chrome and mobile Safari. Yet as we saw in the desktop chart too, there they are moving fast to join the gang of irrelevant browsers.
 
