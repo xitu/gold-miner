@@ -2,60 +2,60 @@
 > * 原文作者：[Luke Parham](https://www.raywenderlich.com/1395-state-restoration-tutorial-getting-started)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/state-restoration-tutorial-getting-started.md](https://github.com/xitu/gold-miner/blob/master/TODO1/state-restoration-tutorial-getting-started.md)
-> * 译者：
+> * 译者：[nanjingboy](https://github.com/nanjingboy)
 > * 校对者：
 
-# State Restoration Tutorial: Getting Started
+# 状态恢复入门教程
 
-In this state restoration tutorial, learn how to use Apple’s State Restoration APIs to enhance a user’s experience of your app.
+在这篇状态恢复教程中，我们将了解如何使用 Apple 的状态恢复接口来提升用户的应用体验。
 
-_Note_: Updated for Xcode 7.3, iOS 9.3, and Swift 2.2 on 04-03-2016
+**注意**：Xcode 7.3、iOS 9.3 和 Swift 2.2 已于 2016-04-03 更新。
 
-State restoration is an often-overlooked feature in iOS that lets a user return to their app in the exact state in which they left it – regardless of what’s happened behind the scenes.
+状态恢复是 iOS 中经常被忽视的功能，它能够让用户以之前离开时的状态再次打开他们的应用 - 而不用关心背后发生了什么。
 
-At some point, the operating system may need to remove your app from memory; this could significantly interrupt your user’s workflow. Your user also shouldn’t have to worry about switching to another app and losing all their work. This is where state restoration saves the day.
+某些时候，操作系统可能需要从内存中删除你的应用；这可能会严重中断用户的工作流。正是状态恢复解决了这一问题，你的用户再也不必担心切换到另一个应用后会丢失所有工作。
 
-In this state restoration tutorial, you’ll update an existing app to add preservation and restoration functionalities and enhance the user experience for scenarios where their workflow is likely to be interrupted.
+在这篇恢复教程中，你将更新现有应用以添加保留和恢复功能，并在其工作流可能被中断的情况下提升用户体验。
 
-## Getting Started
+## 入门
 
-Download the [starter project](https://koenig-media.raywenderlich.com/uploads/2016/01/PetFinder-Starter.zip) for this tutorial. The app is named _Pet Finder_; it’s a handy app for people who happen to be seeking the companionship of a furry feline friend.
+下载本教程的 [入门项目](https://koenig-media.raywenderlich.com/uploads/2016/01/PetFinder-Starter.zip)。该应用名为 **Pet Finder**；对于那些碰巧在寻找毛茸茸猫科动物陪伴的人来说，这是一款方便的应用。
 
-Run the app in the simulator; you’ll be presented with an image of a cat that’s eligible for adoption:
+在模拟器中运行该应用，你会看到一张有资格被领养的猫的照片：
 
 [![Pet Finder](https://koenig-media.raywenderlich.com/uploads/2015/11/petfinder_intro_1-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2015/11/petfinder_intro_1.png)
 
-Swipe right to be paired up with your new furry friend; swipe left to indicate you’d rather pass on this ball of fluff. You can view a list of all your current matches from the _Matches_ tab bar:
+向右滑动即可与新的毛茸茸的朋友配对；向左滑动表示你想要继续传递这个绒毛球小猫。你可以从**匹配**选项卡栏中查看当前所有的匹配列表：
 
 [![Matches](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_matches_1-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_matches_1.png)
 
-Tap to view more details about a selected friend:
+点击查看所选朋友的详细信息：
 
 [![Details](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_details_1-282x500.png)](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_details_1.png)
 
-You can even edit your new friend’s name (or age, if you’re into bending the truth):
+你甚至可以编辑你新朋友的名字（或年龄，如果你是在扭曲事实）：
 
 [![Edit](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_edit_2-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_edit_2.png)
 
-You’d hope that when you leave this app annd return to it later, you’d be brought back to the same furry friend you were last viewing. But is this truly the case with this app? The only way to tell is to test it.
+你希望当你离开该应用然后返回时，你会被带回到上一次查看的同一个毛茸茸朋友。但真的是这样吗？要知道答案的唯一方法就是测试它。
 
-## Testing State Restoration
+## 状态恢复测试
 
-Run the app, swipe right on at least one cat, view your matches, then select one cat to view his or her details. Press _Cmd+Shift+H_ to return to the home screen. Any state preservation logic, should it exist, would run at this point.
+运行应用，向右滑动至少一只猫，查看你的匹配项，然后选择一只猫并查看他或她的详细信息。按住组合键 **Cmd + Shift + H** 返回主屏幕。如果存在任何状态保存逻辑，它都将在此时允许。
 
-Next, stop the app from Xcode:
+接下来，通过 Xcode 停止应用：
 
 [![Stop App](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_stop_app-480x41.png)](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_stop_app.png)
 
-The state restoration framework intentionally discards any state information when the user manually kills an app, or when the state restoration process fails. These checks exist so that your app doesn’t get stuck in an infinite loop of bad states and restoration crashes. Thanks, Apple! :\]
+当用户手动杀死应用或状态恢复失败时，状态恢复框架将丢弃任何状态信息。之所以存在这些检查，以避免你的应用不会陷入无线循环的错误状态以及恢复崩溃。谢谢，Apple！:\]
 
-_Note:_ You _cannot_ kill the app yourself via the app switcher, otherwise state restoration simply won’t work.
+**注意：** 你**无法**通过应用切换器自行终止应用，否则状态恢复将无法正常工作。
 
-Launch the app again; instead of returning you to the pet detail view, you’re back at the home screen. Looks like you’ll need to add some state restoration logic yourself.
+再次启动应用；你将回到主屏幕，而不是宠物详情视图。看起来你需要自己添加一些状态恢复逻辑。
 
-## Enabling State Restoration
+## 实现状态恢复
 
-The first step in setting up state restoration is to enable it in your app delegate. Open _AppDelegate.swift_ and add the following code:
+设置状态恢复的第一步是在你的应用代理中启用它，打开 **AppDelegate.swift** 并添加以下代码：
 
 ```
 func application(application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
@@ -67,65 +67,65 @@ func application(application: UIApplication, shouldRestoreApplicationState coder
 }
 ```
 
-There are five app delegate methods that manage state restoration. Returning `true` in `application(_:shouldSaveApplicationState:)` instructs the system to save the state of your views and view controllers whenever the app is backgrounded. Returning `true` in `application(_:shouldRestoreApplicationState:)` tells the system to attempt to restore the original state when the app restarts.
+应用代理中有五个方法来管理状态恢复。返回 `true` 的 `application(_:shouldSaveApplicationState:)`，告诉系统保存 view 的状态，并在应用处于后台运行状态时查看 view controller。返回 `true` 的 `application(_:shouldRestoreApplicationState:)`，告诉系统在应用重新启动时尝试恢复原始状态。
 
-You can make these delegate methods return `false` in certain scenarios, such as while testing or when the user’s running an older version of your app that can’t be restored.
+你可以在某些情况下让这些代理方法返回 `false`，例如在测试时或用户运行的应用的旧版本无法恢复时。
 
-Build and run your app, and navigate to a cat’s detail view. Press _Cmd+Shift+H_ to background your app, then stop the app from Xcode. You’ll see the following:
+构建并运行你的应用，然后导航到猫的详情页。按住组合键 **Cmd + Shift + H** 让你的应用进入后台，然后通过 Xcode 停止应用。你将看到以下内容：
 
 [![Pet Finder](https://koenig-media.raywenderlich.com/uploads/2015/11/petfinder_intro_1-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2015/11/petfinder_intro_1.png)
 
 [![confused](https://koenig-media.raywenderlich.com/uploads/2015/10/confused-365x320.png)](https://koenig-media.raywenderlich.com/uploads/2015/10/confused.png)
 
-It’s the exact same thing you saw before! Just opting-in to state restoration isn’t quite enough. You’ve enabled preservation and restoration in your app, but the view controllers aren’t yet participating. To remedy this, you’ll need to give each of these scenes a _restoration identifier_.
+与你之前看到的完全相同！只选择进行状态恢复还不够。虽然你已在应用中启用了保存和恢复，但 view controller 尚未参与。要解决这个问题，你需要为每个场景提供一个**恢复标识符**。
 
-## Setting Restoration Identifiers
+## 设置恢复标识符
 
-A restoration identifier is simply a string property of views and view controllers that UIKit uses to restore those objects to their former glory. The actual content of those properties isn’t critical, as long as it’s unique. It’s the presence of a value that communicates to UIKit your desire to preserve this object.
+恢复标识符只是一个 view 和 view controller 的字符串属性，UIKit 使用它来将这些对象恢复到之前的状态。它存在一个 UIKit 与你希望保留的对象通讯的值。只要这些属性的值是唯一的，它们的实际内容并不重要。
 
-Open _Main.storyboard_ and you’ll see a tab bar controller, a navigation controller, and three custom view controllers:
+打开 **Main.storyboard**，你将看到一个 tab bar controller、一个 navigation controller 和三个自定义 view controller：
 
 [![cinder_storyboard](https://koenig-media.raywenderlich.com/uploads/2015/10/cinder_storyboard-700x350.png)](https://koenig-media.raywenderlich.com/uploads/2015/10/cinder_storyboard.png)
 
-Restoration identifiers can either be set in code or in Interface Builder. To make things easy, in this tutorial you’ll set them in Interface Builder. You _could_ go in and think up a unique name for each view controller, but Interface Builder has a handy option named _Use Storyboard ID_ that lets you use your Storyboard IDs for restoration identifiers as well.
+恢复标识符可以在代码中或在 Interface Builder 中设置。简单起见，在本教程中你将在 Interface Builder 中进行设置。你**可以**进入并为每一个 view controller 设置一个唯一的名称，但 Interface Builder 有一个 **Use Storyboard ID** 的快捷选项，它允许你将 Storyboard ID 用于恢复标识符。
 
-In _Main.storyboard_, click on the tab bar controller and open the Identity Inspector. Enable the _Use Storyboard ID_ option as shown below:
+在 **Main.storyboard** 中，单击 tab bar controller 并打开 Identity Inspector。启用 **Use Storyboard ID** 选项，如下所示：
 
 [![Use Storyboard ID](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_enable_restoration_id-480x320.png)](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_enable_restoration_id.png)
 
-This will archive the view controller and restore it during the state restoration process.
+这将归档 view controller 并在状态恢复过程中恢复它。
 
-Repeat the process for the navigation controller and the three view controllers. Make sure you’ve checked Use Storyboard ID for each of the view controllers, or your app may not restore its state properly.
+对 navigation controller 和其它三个 view controller 重复此过程。确保你已经为每个 view controller 选中了 Use Storyboard ID。否则你的应用可能无法正常恢复其状态。
 
-Note that all the controllers already have a _Storyboard ID_ and the checkbox simply uses the same string that you already have as _Storyboard ID_. If you are not using _Storyboard ID_s, you need to manually enter a unique _Restoration ID_.
+请注意，所有 controller 都已经具有 **Storyboard ID**，并且该复选框仅使用已作为 **Storyboard ID** 的相同字符串。如果你未使用 **Storyboard ID**，你需要手动输入一个唯一的 **Storyboard ID**。
 
-Restoration identifiers come together to make _restoration paths_ that form a unique path to any view controller in your app; it’s analagous to URIs in an API, where a unique path identifies a unique path to each resource.
+恢复标识符汇集在一起，通过应用中任何 view controller 的唯一路径形成**恢复路径**；它与 API 中的 URI 类似，其中唯一路径标识每个资源的唯一路径。
 
-For example, the following path represents _MatchedPetsCollectionViewController_:
+比如，以下路径代表 **MatchedPetsCollectionViewController**：
 
-_RootTabBarController/NavigationController/MatchedPetsCollectionViewController_
+**RootTabBarController/NavigationController/MatchedPetsCollectionViewController**
 
-With this bit of functionality, the app will remember which view controller you left off on (for the most part), and any UIKit views will retain their previous state.
+通过这些设置，应用将记住你停止使用时的 view controller（大多数情况下），并且任何 UIKit view 都将保留其先前的状态。
 
-Build and run your app; test the flow for restoration back to the pet details view. Once you pause and restore your app, you should see the following:
+构建并运行你的应用；返回宠物详情页测试恢复流程。暂停和恢复应用后，你应该看到以下内容：
 
 [![No Data](https://koenig-media.raywenderlich.com/uploads/2015/10/restoredNoData1-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2015/10/restoredNoData1.png)
 
-Although the system restores the correct view controller, it appears to be missing the cat object that’s needed to populate the view. How do you restore the view controller _and_ the objects it needs?
+虽然系统恢复了正确的 view controller，但它似乎缺少填充 view 所需的猫对象。如何恢复 view controller 及其所需的对象呢？
 
-## The UIStateRestoring Protocol
+## UIStateRestoring 协议
 
-When it comes to implementing state restoration, UIKit does a lot for you, but your app is responsible for a few things on its own:
+在实现状态恢复方面，UIKit 为你做了很多工作，但是你的应用需要负责自行处理一些事情：
 
-1.  Telling UIKit it wants to participate in state restoration, which you did in your app delegate.
-2.  Telling UIKit which view controllers and views should be preserved and restored. You took care of this by assigning restoration identifiers to your view controllers.
-3.  Encoding and decoding any relevant data necessary to reconstruct the view controller to its previous state. You haven’t done this yet, but that’s where the `UIStateRestoring` protocol comes in.
+1.  告诉 UIKit 它想参与状态恢复，就是你在应用代理中所做的那些。
+2.  告诉 UIKit 应该保留和恢复哪些 view controller 和 view。你通过为 view controller 分配恢复标识符来解决此问题。
+3.  编码和解码任何需要重建 view controller 之前状态的相关数据。你还没有这样做，但这是 `UIStateRestoring` 协议需要解决的问题。
 
-Every view controller with a restoration identifier will receive a call to `encodeRestorableStateWithCoder(_:)` of the `UIStateRestoring` protocol when the app is saved. Additionally, the view controller will receive a call to `decodeRestorableStateWithCoder(_:)` when the app is restored.
+每个具有恢复标识符的 view controller 都将在保存应用时接收 `UIStateRestoring` 协议对 `encodeRestorableStateWithCoder(_:)` 的调用。另外，view controller 将在应用恢复时接收 `decodeRestorableStateWithCoder(_:)` 的调用。
 
-To complete the restoration flow, you need to add logic to encode and decode your view controllers. While this part of the process is probably the most time-consuming, the concepts are relatively straightforward. You’d usually write an extension to add conformance to a protocol, but UIKit automatically registers view controllers to conform to `UIStateRestoring` — you merely need to override the appropriate methods.
+要完成恢复流程，你需要添加对 view controller 进行编码和解码的逻辑。虽然该过程可能是最耗时的，但概念相对简单。你通常会编写一个扩展来增加协议的一致性，但是 UIKit 会自动关注册 view controller 以符合 `UIStateRestoring` - 你只需要覆盖适当的方法。
 
-Open _PetDetailsViewController.swift_ and add the following code to the end of the class:
+打开 **PetDetailsViewController.swift**，并在类的末尾添加以下代码：
 
 ```
 override func encodeRestorableStateWithCoder(coder: NSCoder) {
@@ -133,36 +133,36 @@ override func encodeRestorableStateWithCoder(coder: NSCoder) {
   if let petId = petId {
     coder.encodeInteger(petId, forKey: "petId")
   }
-  
+
   //2
   super.encodeRestorableStateWithCoder(coder)
 }
 ```
 
-Here’s what’s going on in the code above:
+以下是上述代码要做的事：
 
-1.  If an ID exists for your current cat, save it using the provided encoder so you can retrieve it later.
-2.  Make sure to call `super` so the rest of the inherited state restoration functionality will happen as expected.
+1.  如果当前猫对象存在 ID，使用提供的编码器进行保存以便稍后检索。
+2.  确保调用 `super` 以便继承的状态恢复功能的其它部分能够按照预期发生。
 
-With these few changes, your app now saves the current cat’s information. Note that you didn’t actually save the cat model object, but rather the ID you can use later to get the cat object. You use this same concept when saving your selected cats in `MatchedPetsCollectionViewController`.
+通过少量的修改，现在你的应用可以保存当前猫的信息。但请注意，你实际上并未保存猫的模型对象，而是稍后可用于获取猫对象的ID，当你保存通过 `MatchedPetsCollectionViewController` 选择的猫时，可以使用相同的概念。
 
-Apple is quite clear that state restoration is _only_ for archiving information needed to create view hierarchies and return the app to its original state. It’s tempting to use the provided coders to save and restore simple model data whenever the app goes into the background, but iOS discards all archived data any time state restoration fails or the user kills the app. Since your user won’t be terribly happy to start back at square one each time they restart the app, it’s best to follow Apple’s advice and only save state restoration using this tactic.
+Apple 非常清楚，状态恢复**仅**用于存档创建 view 层次结构所需并将应用恢复到其原始状态的信息。每当应用进入后台时，使用提供的编码器来保存和恢复简单模型数据是很诱人的，但是只要状态恢复失败或用户杀死应用，iOS 将会丢弃所有存档数据。由于你的用户每次重新启动应用时都不会非常乐意回到起始页，所以最好遵循 Apple 的建议并仅使用此策略保存状态恢复。
 
-Now that you’ve implemented encoding in _PetDetailsViewController.swift_, you can add the corresponding decoding method below:
+现在你已经在 **PetDetailsViewController.swift** 中实现了编码，你可以在下面添加相应的解码方法：
 
 ```
 override func decodeRestorableStateWithCoder(coder: NSCoder) {
   petId = coder.decodeIntegerForKey("petId")
-  
+
   super.decodeRestorableStateWithCoder(coder)
 }
 ```
 
-Here you decode the ID and set it back to the view controller’s `petId` property.
+解密 ID 并将其设置回 view controller 的 `petId` 属性。
 
-The `UIStateRestoring` protocol provides `applicationFinishedRestoringState()` for additional configuration steps once you’ve decoded your view controller’s objects.
+一旦解码了 view controller 的对象，该 `UIStateRestoring` 协议就会提供 `applicationFinishedRestoringState()` 的其他配置步骤。
 
-Add the following code to _PetDetailsViewController.swift_:
+在 **PetDetailsViewController.swift** 中添加以下代码：
 
 ```
 override func applicationFinishedRestoringState() {
@@ -171,49 +171,49 @@ override func applicationFinishedRestoringState() {
 }
 ```
 
-This sets up the current pet based on the decoded pet ID and completes the restoration of the view controller. You could, of course, do this in `decodeRestorableStateWithCoder(_:)`, but it’s best to keep the logic separate since it can get unwieldy when it’s all bundled together.
+上面是基于解码后的宠物 ID 设置当前宠物，并完成 view controller 的恢复。当然，你可以在 `decodeRestorableStateWithCoder(_:)` 执行此操作，但最好保持逻辑分离，因为当它们全部捆绑在一起时它将变得笨拙。
 
-Build and run your app; navigate to a pet’s detail view and trigger the save sequence by backgrounding the app then killing it via Xcode. Re-launch the app and verify that your same furry friend appears as expected:
+构建并运行你的应用；导航到宠物的详情页并让应用置于后台，然后通过 Xcode 杀死该应用以触发保存序列。重启应用并验证你的毛茸茸玩具是否按预期显示：
 
 [![Details](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_details_1-282x500.png)](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_details_1.png)
 
-You’ve learned how to restore view controllers created via storyboards. But what about view controllers that you create in code? To restore storyboard-created views at run-time, all UIKit has to do is find them in the main storyboard. Fortunately, it’s almost as easy to restore code-based view controllers.
+你已经学习了如何恢复通过 storyboard 创建的 view controller。但你在代码中创建的 view controller 应该如何处理呢？要在运行时恢复基于 storyboard 创建的 view controller，UIKit 要做的是在 main storyboard 中找到它们。幸运的是，恢复基于代码创建的 view controller 几乎一样容易。
 
-## Restoring Code-based View Controllers
+## 恢复基于代码创建的 view controller
 
-The view controller `PetEditViewController` is created entirely from code; it’s used to edit a cat’s name and age. You’ll use this to learn how to restore code-created controllers.
+视图控制器 `PetEditViewController` 完全由代码创建；它用于编辑猫的名字和年龄。你将使用它来学习如何恢复基于代码创建的 view controller。
 
-Build and run your app; navigate to a cat’s detail view then click _Edit_. Modify the cat’s name but don’t save your change, like so:
+构建并运行你的应用；导航到猫的详情页，然后点击编辑。修改猫的名字，但不保存你的更改，如下所示：
 
 [![Edit](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_edit_2-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_edit_2.png)
 
-Now background the app and kill it via Xcode to trigger the save sequence. Re-launch the app, and iOS will return you to the pet detail view instead of the edit view:
+现在将应用置于后台并通过 Xcode 杀死它以触发保存序列。重启应用，iOS 将返回宠详情页而不是编辑页：
 
 [![Details](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_details_1-282x500.png)](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_details_1.png)
 
-Just as you did for the view controllers built in Interface Builder, you’ll need to provide a restoration ID for the view controller and add the encode and decode `UIStateRestoring` protocol methods to properly restore the state.
+正如你在 Interface Builder 中构建的 view controller 所做的那样，你需要为 view controller 提供恢复 ID，并添加 `UIStateRestoring` 协议中的编码和解码方法以便正确恢复状态。
 
-Take a look at _PetEditViewController.swift_; you’ll notice the encode and decode methods already exist. The logic is similar to the encode and decode methods you implemented in the last section, but with a few extra properties.
+查看 **PetEditViewController.swift**；你会注意到编码和解码的方法已经存在。逻辑类似于你在上一节中实现的编码和解码方法，但它还具有一些额外的属性。
 
-It’s a straightforward process to assign the restoration identifier manually. Add the following to `viewDidLoad()` right after the call to `super`:
+手动分配恢复标识符是一个简单的过程。在 `viewDidLoad()` 中调用 `super` 后立即添加以下内容：
 
 ```
 restorationIdentifier = "PetEditViewController"
 ```
 
-This assigns a unique ID to the `restorationIdentifier` view controller property.
+这会为 `restorationIdentifier` 视图控制器分配唯一 ID。
 
-During the state restoration process, UIKit needs to know where to get the view controller reference. Add the following code just below the point where you assign `restorationIdentifier`:
+在状态恢复过程中，UIKit 需要知道从何处获得 view controller 引用。在你设置 `restorationIdentifier` 的下面添加以下代码：
 
 ```
 restorationClass = PetEditViewController.self
 ```
 
-This sets up `PetEditViewController` as the restoration class responsible for instantiating the view controller. Restoration classes must adopt the `UIViewControllerRestoration` protocol and implement the required restoration method. To that end, add the following extension to the end of _PetEditViewController.swift_:
+这将设置 `PetEditViewController` 为负责实例化 view controller 的恢复类。恢复类必须采用 UIViewControllerRestoration 协议并实现所需的恢复方法。为此，将以下扩展代码添加到 **PetEditViewController.swift** 的末尾：
 
 ```
 extension PetEditViewController: UIViewControllerRestoration {
-  static func viewControllerWithRestorationIdentifierPath(identifierComponents: [AnyObject], 
+  static func viewControllerWithRestorationIdentifierPath(identifierComponents: [AnyObject],
       coder: NSCoder) -> UIViewController? {
     let vc = PetEditViewController()
     return vc
@@ -221,19 +221,23 @@ extension PetEditViewController: UIViewControllerRestoration {
 }
 ```
 
-This implements the required `UIViewControllerRestoration` protocol method to return an instance of the class. Now that UIKit has a copy of the object it’s looking for, iOS can call the encode and decode methods and restore the state.
+这实现了返回类实例所需的 `UIViewControllerRestoration` 协议方法。现在 UIKit 有了它正在寻找的对象的副本，iOS 可以调用编码和解码方法并恢复状态。
 
-Build and run your app; navigate to a cat’s edit view. Change the cat’s name as you did before, but don’t save your change, then background the app and kill it via Xcode. Re-launch your app and verify all the work you did to come up with a great unique name for your furry friend was not all in vain!
+构建并运行你的应用；导航到猫的编辑页。像之前一样更改猫的名字，但不保存更改，然后将应用置于后台并通过 Xcode 将其删除。重启你的应用，并验证你所做的所有工作，为你的毛茸茸朋友提出一个伟大的独特名称并非都是徒劳的！
 
 [![Edit](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_edit_2-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_edit_2.png)
 
-## Where to Go From Here?
+## 接下来去哪儿？
 
-You can [download the completed project here](https://koenig-media.raywenderlich.com/uploads/2016/01/PetFinder-Completed-1.zip). The state restoration framework is an extremely useful tool in any iOS developers toolkit; you now have the knowledge to add basic restoration code to any app and improve your user experience just a little more.
+你可以 [在此处现在已完成的项目](https://koenig-media.raywenderlich.com/uploads/2016/01/PetFinder-Completed-1.zip)。状态恢复框架是任何 iOS 开发人员工具包中非常有用的工具；你现在可以将基本恢复代码添加到任何应用，并以此提高你的用户体验。
 
-For further information on what’s possible with this framework, check out the [WWDC videos from 2012](https://developer.apple.com/videos/play/wwdc2012-208/) and [2013](https://developer.apple.com/videos/play/wwdc2013-222/). The 2013 presentation is especially useful since it covers restoration concepts introduced in iOS 7 such as `UIObjectRestoration` for saving and restoring arbitrary objects and `UIDataSourceModelAssociation` for restoring table and collection views in apps with more complicated needs.
+有关使用该框架可能实现的更多信息，请查看 [2012年](https://developer.apple.com/videos/play/wwdc2012-208/) 和 [2013年](https://developer.apple.com/videos/play/wwdc2013-222/)
+ 的 WWDC 视频。2013年的演示文稿特别有用，因为它涵盖了 iOS 7 中引入的恢复概念，比如用于保存和恢复任意对象的 `UIObjectRestoration` 和在需求更复杂的应用中恢复表和集合视图的 `UIDataSourceModelAssociation`。
 
-If you have any questions or comments about this tutorial, please join the forum discussion below!
+如果你对本教程有任何疑问或建议，请加入以下论坛讨论！
+
+* [其他核心 API](https://www.raywenderlich.com/library?domain_ids%5B%5D=1&category_ids%5B%5D=152&sort_order=released_at)
+* [iOS 和 Swift 手册](https://www.raywenderlich.com/library?domain_ids%5B%5D=1&sort_order=released_at)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
