@@ -2,26 +2,26 @@
 > * 原文作者：[Jonathan Saring](https://blog.bitsrc.io/@JonathanSaring?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/11-react-component-libraries-you-should-know.md](https://github.com/xitu/gold-miner/blob/master/TODO1/11-react-component-libraries-you-should-know.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ElizurHz](https://github.com/ElizurHz)
+> * 校对者：[wuzhengyan2015](https://github.com/wuzhengyan2015), [xiaxiayang](https://github.com/xiaxiayang)
 
 # 2019 年你应该要知道的 11 个 React UI 组件库
 
-虽然 React 的用户量落后于 Angular [很多](https://insights.stackoverflow.com/survey/2017#technology) ，但它在 Stack overflow 的最受喜爱的组件库中排名领先:
+虽然 React 的用户量落后于 Angular [很多](https://insights.stackoverflow.com/survey/2017#technology)，但它在 Stack overflow 的最受喜爱的组件库中排名领先:
 
 ![](https://cdn-images-1.medium.com/max/800/1*2nIak4DHSE3NtpxljcLfqQ.png)
 
 React 在 2017 年的受欢迎程度上升
 
-React 的虚拟 DOM、声明式地描述用户界面并为界面构建相应状态的能力、对有一定水平的 JavaScript 开发者来说入门门槛低，这些都使 React 成为了一个非常棒的构建 UI 的 [专业库](https://medium.freecodecamp.org/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76) 。
+React 的虚拟 DOM、声明式地描述用户界面并为界面构建相应状态的能力、对有一定水平的 JavaScript 开发者来说入门门槛低，这些都使 React 成为了一个非常棒的构建 UI 的 [专业库](https://medium.freecodecamp.org/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76)。
 
 使用 React 的另一个重要原因是它的组件。组件能够让你把 UI 分割成独立的、可复用的块。这里有 11 个很棒的 React 组件库可以帮助你开始使用 React 的组件。
 
 你还可以使用 [Bit](https://bitsrc.io) 把这些组件结合起来，并将你的组件转化成能够统一管理并在多个项目间同步的模块。
 
-- [**Bit - 共享和构建组件**: Bit 让使用更小的组件开发软件、团队间共享和在你的所有项目中同步变得有趣且容易](https://bitsrc.io "https://bitsrc.io")
+- [**Bit — 共享和构建组件**：Bit 让使用更小的组件开发软件、团队间共享和在你的所有项目中同步变得有趣且容易](https://bitsrc.io "https://bitsrc.io")
 
-有了 Bit，你可以轻松地在多个项目和应用间共享、开发和同步组件，为你的团队管理组件，以及改进具有双向代码变更的 React 的组件的工作流。这里有 [一个例子](https://bitsrc.io/bit/movie-app) 。
+有了 Bit，你可以轻松地在多个项目和应用间共享、开发和同步组件，为你的团队管理组件，以及改进具有双向代码变更的 React 的组件的工作流。这里有 [一个例子](https://bitsrc.io/bit/movie-app)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*EW7hjct1RduBrJj43xHO5g.png)
 
@@ -29,7 +29,7 @@ React [Hero UI component](https://bitsrc.io/bit/movie-app/components/hero) with 
 
 #### 1. React Material-UI
 
-[React Material-UI](http://www.material-ui.com/) 是一套实现了 Google 的 Material Design 的 React 组件。它在 GitHub 上有 [30k+ stars](https://github.com/mui-org/material-ui) ，大概是目前最受欢迎的 React 组件库了。它的 v1 版本快要推出了。
+[React Material-UI](http://www.material-ui.com/) 是一套实现了 Google 的 Material Design 的 React 组件。它在 GitHub 上有 [30k+ stars](https://github.com/mui-org/material-ui)，大概是目前最受欢迎的 React 组件库了。它的 v1 版本快要推出了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*tbpaxLVm76qcI0S9s_h_rw.png)
 
@@ -47,13 +47,13 @@ React [Hero UI component](https://bitsrc.io/bit/movie-app/components/hero) with 
 
 #### 4. React Belle
 
-[React Belle](https://github.com/nikgraf/belle) 是一套针对移动端和桌面端都有优化的 React 组件。它的样式可以高度定制，因此你可以配置所有组件通用的基础样式，也可以在每个组件中单独修改样式。这里也有一个 [不错的例子](https://gideonshils.github.io/Belle-With-Bit/) 。
+[React Belle](https://github.com/nikgraf/belle) 是一套针对移动端和桌面端都有优化的 React 组件。它的样式可以高度定制，因此你可以配置所有组件通用的基础样式，也可以在每个组件中单独修改样式。这里也有一个 [不错的例子](https://gideonshils.github.io/Belle-With-Bit/)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*pypcfwkxe8omGQpX7YFsIw.png)
 
 #### 5. React Grommet
 
-[React Grommet](http://grommet.io/) 提供了按使用方式分类的丰富的组件选择，所有的组件都是易用的、跨浏览器兼容的、支持主题定制的。
+[React Grommet](http://grommet.io/) 提供了相当丰富的组件，这些组件按使用方式分类，所有的组件都是易用的、跨浏览器兼容的、支持主题定制的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*70XQ6onrhXheDfMcCHY6uA.png)
 
