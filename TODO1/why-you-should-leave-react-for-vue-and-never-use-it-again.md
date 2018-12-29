@@ -2,78 +2,78 @@
 > * 原文作者：[Gwenael P](https://blog.sourcerer.io/@gwenael.pluchon?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-you-should-leave-react-for-vue-and-never-use-it-again.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-you-should-leave-react-for-vue-and-never-use-it-again.md)
-> * 译者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
 > * 校对者：
 
-# Why I left React for Vue.
+# 为什么我放弃了 React 而转向 Vue。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*QIg6vEjZmT5YMVKU5Rxr2A.png)
 
-[Today’s random Sourcerer profile: https://sourcerer.io/posva]
+[今日份随机的开源者个人简介：https://sourcerer.io/posva]
 
-Recently, Vue.js gained more stars that React on Github. The popularity of this framework is soaring these days, and as it is not backed by a company like Facebook (React) or Google (Angular), it is surprising to see it rising out of nowhere.
+最近，Vue.js 在 Github 上获取了比 React 获取的更多的 star。使用这个框架的人近期激增，并且由于它并没有像 Facebook（React）或者 Google（Angular）这样的公司支持，看到它从不知名的地方崛起，着实让人惊讶。
 
-### Evolution of web development
+### 网页研发的进化
 
-Back in the old good days, in the 90’s, when we wrote a website, it was pure HTML, with some poor CSS styling. What was good is that it was pretty easy. What was bad is that we were lacking a lot of features.
+在过去的日子里，在 90 年代，我们写网页的时候，就是纯 HTML，以及一些简单的 CSS 样式。好处就是非常简单。但是缺点是大量的功能匮乏。
 
-Then came PHP, and we were happy to write things like :
+然后有了 PHP，能写像这样的代码，我们很开心了：
 
 ![](https://cdn-images-1.medium.com/max/800/1*0QbOoPYacDrJjETxbhHMmw.jpeg)
 
-source : [https://www.webplanex.com/blog/php-good-bad-ugly-wonderful/](https://www.webplanex.com/blog/php-good-bad-ugly-wonderful/)
+来源：[https://www.webplanex.com/blog/php-good-bad-ugly-wonderful/](https://www.webplanex.com/blog/php-good-bad-ugly-wonderful/)
 
-This nowadays looks terrible, but at that time it was an amazing improvement. This is what it’s all about : using new languages, frameworks, and tools, that we are a fan, until the day a competitor does something much better.
+这些在现在看来简直可怕，但是在那个时候，已经是很惊人的进步了。这是它的全部意义所在：使用新的语言，框架，还有工具，我们热衷于此，直到竞争对手做得远远更好的那一天。
 
-Before React became popular I used Ember. I then switched to React and I felt enlightened by its wonderful way of making us develop everything as web components, its virtual DOM and its efficiency in rendering. Not everything was perfect for me but it was a huge improvement in the way I was coding.
+在 React 如此流行之前，我使用的是 Ember。然后我转到了 React，它将我们所需要的开发抽象为网页组件，它使用虚拟 DOM 并且高效渲染，这些非常棒的方法都让我觉得眼前一亮。虽然对于我来说并不是十全十美的，但是相比于之前我写代码的方式，它已经有了巨大的进步。
 
-**Then I decided to give Vue.js a try and I won’t go back to React.**
+**之后，我决定尝试 Vue.js，再之后我将不会回头使用 React 了。**
 
-React does not completely suck, but I found it cumbersome, hard to master, and at some point the code I was writing did not look logical to me at all. It was such a relief to discover Vue and how it solves some of its older brother’s problems.
+虽然 React 不是糟糕透了，但我发现它很笨重，难以管理，并且有时候我写的代码对于我来说看上去简直毫无逻辑可言。发现了 Vue 并知道了它是如何解决了它老哥 React 的一些问题，对我来说真是一种解脱。
 
-Let me explain why.
+让我来解释一下原因吧。
 
-### Performance
+### 性能
 
-First, let’s talk about size.
+首先，我们来讨论一下体积。
 
-As every web developer is working according to limited network bandwidth, It is very important to limit the size of our webpages. The smaller the web page, the better. This is even more important now than it was a few years ago, with the rise of mobile browsing.
+由于所有 web 开发者的工作都需要考虑网络带宽，所以限制网页资源的大小就很重要。网页资源体积越小越好。现在，移动端浏览量快速上升，这一点甚至比在之前几年要更加重要。
 
-It is really difficult to evaluate and compare the sizes of React and Vue. If you want to build a website with React, you will need React-dom. Also, they come with different sets of features. But Vue is famous by its lightweight size and you will probably result having way less dependancy weight to carry with Vue.
+事实上很难评估和比较 React 和 Vue 的体积大小。如果你想要使用 React 构建网站，你也将会使用 React-dom。同样，它们有一系列不同的功能。但是 Vue 以轻量闻名，同时你也可能会因为使用了 Vue 而减少依赖包的体积。
 
-On raw performance, here are some figures:
+关于原生性能，这里有一些数据：
 
 ![](https://cdn-images-1.medium.com/max/800/1*8apjMq6HAKJzu5mkeryLmA.png)
 
-source : [https://www.stefankrause.net/js-frameworks-benchmark6/webdriver-ts-results/table.html](https://www.stefankrause.net/js-frameworks-benchmark6/webdriver-ts-results/table.html)
+数据来源：[https://www.stefankrause.net/js-frameworks-benchmark6/webdriver-ts-results/table.html](https://www.stefankrause.net/js-frameworks-benchmark6/webdriver-ts-results/table.html)
 
 ![](https://cdn-images-1.medium.com/max/800/1*LahiEV9jeiJDNj3AXcSvyg.png)
 
-source : [https://www.stefankrause.net/js-frameworks-benchmark6/webdriver-ts-results/table.html](https://www.stefankrause.net/js-frameworks-benchmark6/webdriver-ts-results/table.html)
+数据来源：[https://www.stefankrause.net/js-frameworks-benchmark6/webdriver-ts-results/table.html](https://www.stefankrause.net/js-frameworks-benchmark6/webdriver-ts-results/table.html)
 
-As you can see, this benchmark details that a Vue.js web app will take less memory and run faster than one made with React.
+如你所见，这个基准测试详细的说明了，相比于使用 React，使用 Vue.js 的网页应用程序占用的内存更少，运行速度也更快。
 
-Vue will provide you a faster rendering pipeline which will help you build complex webapps. You will feel less concerned about optimising code as your projects will render more efficiently, letting you spend time on features that matter for your project. Mobile performance is here as well and you will rarely have to adapt an algorithm to make it render smoothly on phones.
+Vue 将会提供给你更快的渲染流，这将帮助你构建复杂的网页应用。由于你的项目能被更高效的渲染，你就不用那么顾虑代码优化，这能够让你能腾出时间用于项目的更重要的功能上。移动端性能也是如此，你将不怎么需要调整算法来保证手机上的平滑渲染。
 
-> You don’t have to compromise between size and performance when choosing Vue.js over React. You have both of them.
+> 当你放弃 React 而选择了 Vue.js，你就不需要在应用大小和性能之间折中。你将能兼顾应用大小和性能。
 
-### Learning curve
+### 学习曲线
 
-Learning React was quite OK. It was good to see a library built entirely around web components. React core is pretty well done and stable, but I had a lot of problems dealing with the advanced router configuration. What’s the actual thing with all those router versions ? There is 4 until now ( + React-router-dom), and I ended up using v3. It is pretty easy to deal with version selection once you are used to the stack, but when you’re learning, it is a pain.
+学习 React 是可以的。了解一个完全围绕网页组件而构建的库是很好的事情。React 的核心是完美且稳固的，但是在我处理高级路由配置的时候我遇到了很多问题。所有这些路由版本的实际情况是什么？目前已经到了第四版（+ React-router-dom），我最终使用的是第三版。只要你习惯了这个技术栈，选择版本其实很容易，但是学习的过程却很痛苦。
 
-#### Third party libraries
+#### 第三方库
 
-Most of the recent frameworks share a common design philosophy : A simple core, without a lot of features, and you can enrich them by setting up other libraries on top of it. Building a stack can be really straighforward, with the condition that additional libraries can be integrated without difficulties, and in the same way for each one of them. It is very important for me that this step should be as straighforward as possible.
+大多数近代框架都普遍遵从一个原理：内核简单，没有太多功能，你可以通过在它们之上配置其他的库，来丰富它们。构建一个技术栈可以非常简单，条件是可以毫不费力的集成其他库，并用相同的方式为每个库集成。对我来说至关重要是，这一步应该尽可能的简单明了。
 
-Both React and Vue have a tool that helps you to kickstart projects configured with additional tools. Available libraries can be pretty hard to master in the React ecosystem, as there are sometimes several libraries to solve the same problem.
+React 和 Vue 都有用来帮助你使用附加的工具开启项目配置的工具。在 React 生态圈中很难掌握可用的库，因为有时候很多个库解决的是同一个问题。
 
-On this part, React and Vue did pretty well.
+在这部分，React 和 Vue 都很出色。
 
-#### Code clarity
+#### 代码清晰度
 
-In my opinion, React is pretty bad. JSX, the built-in syntax to write html code, is an abomination in terms of clarity.
+我的观点是，React 糟糕透了。JSX，写 html 代码的内建语法，在清晰度方面是很让人头疼的。
 
-This is one of the common way to write a “if” condition in JSX :
+这是一个使用 JSX 写 “if” 条件句的常规方法：
 
 ```
 (
@@ -87,7 +87,7 @@ This is one of the common way to write a “if” condition in JSX :
 );
 ```
 
-And this is in vue :
+这则是vue 的写法：
 
 ```
 <template>
@@ -99,59 +99,59 @@ And this is in vue :
 </template>
 ```
 
-You’ll run into other problems. Trying to call methods from component templates will often result having no access to “this”, resulting in that you have to bind them manually : `<div onClick={this.someFunction.bind(this, listItem)} />` .
+你将会遇到其他问题。在组件模版中调用方法经常会遇到无法获取“this”的问题，结果是你需要手动绑定：`<div onClick={this.someFunction.bind(this, listItem)} />`。
 
 ![](https://cdn-images-1.medium.com/max/800/1*AmMOMOzb_rAfA7MOUPWSfA.gif)
 
-At some point things are getting so illogic with React…
+在某些时候，使用 React 让事情变得非常不合逻辑...
 
-Assuming that you’re probably going to write a lot of conditionals in your app, the JSX way is terrible. That way of writing loops looks like a joke to me. Sure you can change the templating system, remove JSX from a React stack, or use JSX with Vue, but as it’s not the first thing you are going to do when learning a framework, it’s not the point.
+假设你可能需要在应用中写很多条件判断的句子，用 JSX 的方法就很不好。而用这个方法来写循环的话，对我来说简直像看笑话。当然你可以改变模版系统，把 JSX 从 React 技术栈中移除，或者和 Vue 一起使用 JSX，但是当你学习一个框架的时候，这不是首先要做的事情，这不是解决问题的重点。
 
-Another point, you won’t have to use **setState** or any equivalent with Vue. You will still have to define all the state properties in a “data” method, but if you forget, you will see a notice in the console. The rest is automatically handled internally, just change the value in your component as you do in a regular Javascript object.
+另一方面，使用 Vue 你不需要使用 **setState** 或者其他类似的东西。你仍然需要在一个“data”方法中定义所有状态属性，如果你忘了，你将会在控制台看到提示。余下的部分将会自动的在内部被处理，你只需要像操作常规 Javascript 对象那样，在组件中修改属性的值。
 
-You are going to run into a lot of code errors with React. It will make your learning process slow even if the underlying principles are actually simple.
+使用 React 你将会遇到很多代码错误。所以尽管潜在的规则其实非常简单，你的学习进程还是会非常慢。
 
-Concerning conciseness, a code written with Vue is way smaller than one written with other frameworks. This is actually the best part of the framework. Everything is simple, and you will find yourself writing complex features with only few understandable lines, while with other frameworks, it will take you 10%, 20%, sometimes 50% more lines.
+考虑到简明性，使用 Vue 写的代码要比使用其他框架更加轻量。这其实是 Vue 框架最棒的部分。所有的东西都很简单，你将会发现你能够仅使用几行易懂的代码，就写出很复杂的功能，而使用其他框架，将会多使用 10%，20%，有时候会是 50% 更多的代码量。
 
-You don’t need to learn a lot either. Everything is pretty straightforward. Writing Vue.js code gets you pretty close to the conceivable minimal way of implementing your thoughts.
+你也不需要额外学习什么。所有的内容都很简明直接。写 Vue.js 代码可以让你非常靠近实现你想法的最简路径。
 
-This ease of use makes Vue, a really good tool if you want to adapt and communicate. Either you want to change other parts of your stack, enroll more people in your team for an emergency situation, or do some experimentations on your products, it will definitely take less time, and thus money.
+这样易用性使得 Vue 成为了一个很好的帮助你适应和交流的工具。不管是你想要修改你项目技术栈的其他部分，由于紧急情况为团队招募更多的人，还是在产品上施展实验，它都绝对能让你花销更少的时间和金钱。
 
-Time estimations are made pretty easy because implementing a feature does not require much more than what the developers estimate, leading to a small number of possible confusions, mistakes or oversights. And the small number of concepts to understand makes communicating with project managers easier.
+时间预算也非常容易，因为实现一个功能的时间不需要比开发者估计的多很多，结果就是更少可能的引起的冲突，错误或疏忽。要理解的概念很少，这使得与项目经理的沟通变得更加容易。
 
-### Conclusion
+### 总结
 
-Whether speaking on size, performance, simplicity, or a learning curve; embracing Vue.js definitely looks like a good bet nowadays, making you save both time and money.
+不管是体积，性能，简易性，或者时间曲线哪个方面，拥抱 Vue.js 吧，这绝对是当前非常好的选择，让你能够节省时间和金钱。
 
-Its weight and performance also allows you to have a web project with 2 frameworks at the same time (Angular and Vue for instance), and this will allow you an easy transition to Vue.
+它的重量和性能也让你能够有一个同时使用两个框架（比如 Angular 和 Vue）的网络项目，这将能让你轻松的转型到 Vue。
 
-Concerning the community and the popularity, even if Vue has more stargazers now, we can’t say that it has reached React’s popularity yet. But the fact that a framework became so popular without it being backed by a huge IT company is definitely good to see. Its market share has quickly grown from an unknown project to one of the biggest competitors in front-end development.
+考虑到社区和用户量，现在即使是 Vue 也有了更多人给的 star，但我们也不能说它已经赶上了 React。但是事实上一个框架没有 IT 巨头公司在后面支持却如此流行，它也是绝对足够好而值得一看的。在前端开发的领域，它的市场占比已经很快的从一个不知名的项目成长为一个很强的竞争者。
 
-The number of modules built on top of Vue is soaring and if you don’t find a specific one to suit your needs, you will not spend a long time developing what you need.
+建立在 Vue 基础上的模块正在激增，而如果你没有找到你个能够满足你需求的，你也不会花太长的时间去开发出你所需要的那个。
 
-This framework makes understanding, sharing, and editing easy. Not only will you feel comfortable digging into other’s code, but you will also be able to edit their implementations easily. In a matter of months, Vue made me feel way more confident when dealing with sub-projects and external contributions to projects. It made me save time, focus on what I really wanted to design.
+这个框架让理解，分享和编辑都变得容易。你在研究其他人的代码的时候不仅会觉得很舒适，而且还能很容易的修改他们的实现方法。几个月的时间，Vue 让我在处理项目的子项目和外部贡献者的时候自信了很多。它为我节省了时间，让我能专注于我真正想要设计的事物。
 
-React was designed to be used with helpers such as setState, and you **will** forget to use them. You will struggle writing templates, and the way you write them will make your project hard to understand and maintain.
+React 被设计为需要使用像 setState 这样的帮助方法，你**将会**忘记去用他们。你在写模版的时候会很痛苦，这样写将会让你的项目很难被理解，很难维护。
 
-Concerning the use of those frameworks in a large scale project, with React you will need to master other libraries and to train your team to use them. With all the related problems (X does not like this lib, Y don’t understand that). Vue stacks are simpler for the greater good of your team.
+关于在大型项目中使用这些框架，如果使用 React 你将会需要管理其他库并且训练你的团队也去使用。这会导致很多连带的问题（X 不喜欢这个库，Y 不懂那个库）。Vue 技术栈则简单很多，对团队大有好处。
 
-> As a developer, I feel happy, confident and free. As a project manager, I can plan and communicate with my teams more easily. And as a freelancer, I save time and money.
+> 作为开发者，我感到愉悦自信和自由。作为项目经理，我能和我的团队更加轻松的计划和交流。作为自由职业者，我节省了时间和金钱。
 
-There are still some needs that are not yet covered by Vue (especially if you want to build native applications). React performs pretty well in that field, but Evan You and the Vue team is already working hard on that.
+Vue 依旧有很多没有覆盖到的需求（特别是如果你想要构建原生应用）。在这个领域 React 的性能很好，但是 Vue 团队也已经在这方面作出努力了。
 
-> React is popular because of some good concepts and the way these are implemented. But looking back, it looks like a bunch of ideas in an ocean of mess.
+> React 很流行，因为它的一些很好的观念以及观念实现的方法。但是回头看看，它却看起来像在一个混乱海洋里的一堆点子。
 
-Writing React code is about dealing with workarounds all day long (cf “code clarity” part), struggling on code that actually make sense, to finally hack it and produce a really unclear solution. This solution will be hard to read when you come back to it a few months later. You will work harder to release your project, and it will be hard to maintain, have errors and need a lot of training to be modified.
+写 React 代码就是整天在寻找解决办法（可以比照“代码清晰度”那部分），在已经有意义的代码上挣扎，最后破解了它并产生了一个真的很不明确的方案。这个方案在你几个月后回头重新看它的时候将会非常难以阅读。为了发布项目你需要更努力的工作，并且它还会很难维护，会出错，并且需要很多的学习才能修改。
 
-These are negative aspects nobody wants in their projects. Why would you still run into these troubles? Community and third party libraries? So much pain that could be avoided for few points that are becoming less problematic everyday.
+没人想要这些缺点在自己的项目里出现。为什么你还要继续面对这些问题呢？社区和第三方库？每天都变得不那么成问题的几点，却可以让你避免这么多痛苦。
 
-After years of dealing with frameworks that in some cases made my life easier, but in some others, complicates a lot the way of implementing a feature, Vue is a relief to me. Implementations are very close to how I plan to develop features, and while developing, there is nearly nothing particular to think about, apart of what you really want to implement. It looks very close to the native Javascript logic (no more **setState**, special ways to implement conditionnals or pieces of algorithms). You just code as you want. It is fast, safe, and it makes you happy :D. I am glad to see Vue being adopted more and more by frontend developers and companies, and I hope it will soon be the end of React.
+这么多年一直和框架打交道，它们有时候让我的生活更轻松，有时候实现一个功能却复杂很多，这之后 Vue 对我来说是一种解脱。实现方法和我计划如何开发功能很接近，然后开发过程中，除了你真正想要实现的东西，几乎没有什么特别需要思考的。它和原生的 Javascript 逻辑非常相近（不会有 **setState**，实现条件语句的特别方式以及算法）。你只需要随心所欲的写代码。它快速，安全，让你愉快 :D。我很高兴看到 Vue 正在被更多的前端开发者和公司接纳，我希望它能够很快终结 React。
 
-_Disclaimer : This article is opinionated and shows my point of view at the moment. As technologies evolve, they will be subject to change (for the better or the worse)._
+**免责声明：这篇文章仅代表我个人此刻的看法。随着科技的进步，它们也将会改变（更好或者更坏）。**
 
-[EDIT] Changed the title, according to a suggestion of [James Y Rauhut](https://medium.com/@seejamescode?source=post_header_lockup).
+[编辑] 根据 [James Y Rauhut](https://medium.com/@seejamescode?source=post_header_lockup) 的意见，修改了题目。
 
-[EDIT] Changed the paragraph speaking about framework size comparison. As pointed out, it is really difficult to evaluate and will always end up creating arguments between people and their architectures, based on their needs.
+[编辑] 修改了谈论关于比较框架大小的段落。正如文章支出的，评估很困难，并且基于需求不同，也经常会在人和框架之间引起争论。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
