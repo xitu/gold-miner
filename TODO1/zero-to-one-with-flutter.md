@@ -124,7 +124,7 @@ class ChartPageState extends State<ChartPage> {
 }
 ```
 
-保存更改，然后重新启动应用程序。 您可以通过按“R”从终端执行此操作。 这种“完全重启”操作会重置应用程序状态，然后重建UI。 对于在代码更改后，现有应用程序状态仍然有效的情况，可以按“r”执行“热重载”，这只会重建UI。 IntelliJ IDEA安装Flutter插件，它提供了Dart编辑器集成相同的功能：
+保存更改，然后重新启动应用程序。 您可以通过按“R”从终端执行此操作。 这种“完全重启”操作会重置应用程序状态，然后重建UI。 对于在代码更改后，现有应用程序状态仍然有效的情况，可以按“r”执行“热重载”，这只会重建UI。 IntelliJ IDEA安装Flutter插件，它提供了集成Dart编辑器相同的功能：
 
 ![](https://cdn-images-1.medium.com/max/800/1*soCdZ19Qugtv1YJewMQZGg.png)
 
@@ -135,7 +135,7 @@ class ChartPageState extends State<ChartPage> {
 
 我们简单的应用程序显示了Flutter Widget两个核心方面：
 
-*   用户界面由**不可变的widgets**树定义，它是通过调用构造函数（你可以在其中配置widgets）和`build`方法构建的（其中widget可以决定子树的外观））。 我们的应用程序生成的树结构如下所示，每个widget的主要内容都在括号中。 正如您所看到的，虽然widget概念非常广泛，但每个具体widget类型通常都具有非常集中的职责。
+*   用户界面由**不可变的widgets**树定义，它是通过调用构造函数（你可以在其中配置widgets）和`build`方法构建的（其中widget可以决定子树的外观）。我们的应用程序生成的树结构如下所示，每个widget的主要内容都在括号中。 正如您所看到的，虽然widget概念非常广泛，但每个具体widget类型通常都具有非常集中的职责。
 ```
 MaterialApp                    (navigation)
   ChartPage                    (state management)
@@ -223,11 +223,11 @@ class BarChartPainter extends CustomPainter {
 }
 ```
 
-`CustomPaint`是一个widget，它将绘画委托给`CustomPainter`， 执行后只画出一个柱状图。
+`CustomPaint`是一个widget，它将绘画委托给`CustomPainter`， 执行后只画出一个条形图。
 
-下一步是添加动画。 每当数据集发生变化时，我们都希望柱状图形平滑而不是突然地改变高度。 Flutter有一个用于编排动画的`AnimationController`概念，通过注册一个监听器，我们被告知动画值(从0到1的double值)何时发生变化。 每当发生这种情况时，我们可以像以前一样调用`setState`并更新`ChartPageState`。
+下一步是添加动画。 每当数据集发生变化时，我们都希望条图形平滑而不是突然地改变高度。 Flutter有一个用于编排动画的`AnimationController`类，通过注册一个监听器，我们被告知动画值(从0到1的double值)何时发生变化。 每当发生这种情况时，我们可以像以前一样调用`setState`并更新`ChartPageState`。
 
-出于解释的原因，我们首先要做的就是简单：
+出于解释的原因，我们首先做一个简单的事例：
 
 ```
 import 'dart:math';
@@ -334,13 +334,13 @@ class BarChartPainter extends CustomPainter {
 }
 ```
 
-复杂性已经让人头疼，尽管我们的数据集仍然只是一个数字！ 设置动画控件所需的代码是一个次要问题，因为当我们获得更多图表数据时，它不会产生分支。真正的问题是变量`startHeight`，`currentHeight`和`endHeight`，它们反映了对数据集和动画值所做的更改，并在三个不同的地方进行了更新。
+复杂性已经让人头疼，尽管我们的数据集只是一个数字！ 设置动画控件所需的代码是一个次要问题，因为当我们获得更多图表数据时，它不会产生分支。真正的问题是变量`startHeight`，`currentHeight`和`endHeight`，它们反映了对数据集和动画值所做的更改，并在三个不同的地方进行了更新。
 
 我们需要一个概念来处理这个烂摊子。
 
 * * *
 
-输入**tweens**。 虽然远非Flutter独有，但它们是构造动画代码的一个非常简单的概念。 他们的主要贡献是用函数试方法取代上面的命令式方法。 tween是一个值。 它描述了在其他值的空间中的两个点之间的路径，如条形图一样，动画值从0到1运行。
+**tweens**。 虽然远非Flutter独有，但它们是构造动画代码的一个非常简单的概念。 他们的主要贡献是用函数试方法取代上面的命令式方法。 tween是一个值。 它描述了空间中的两个点之间的路径，如条形图一样，动画值从0到1运行。
 
 ![](https://cdn-images-1.medium.com/max/800/1*3KpUQjhZLrvwvjF0daKg9g.jpeg)
 
@@ -359,9 +359,9 @@ abstract class Tween<T> {
 
 专业术语`lerp`来自计算机图形学领域，是linear interpolation（作为名词）和linearly interpolate（作为动词）的缩写。 参数`t`是动画值，tween应该从`begin`（当`t`为零时）到`end`（当`t`为1时）。
 
-Flutter SDK的`[Tween <T>]（https://docs.flutter.io/flutter/animation/Tween-class.html）`类与上面相似，但它支持`begin`和`end`突变。 我不完全确定为什么会做出这样的选择，但是在SDK动画支持方面可能有很好的理由，这是我还没探索的。在下面，我将使用Flutter`Tween <T>`，假装它是不可变的。
+Flutter SDK的`[Tween <T>]（https://docs.flutter.io/flutter/animation/Tween-class.html）`类与上面相似，但它支持`begin`和`end`突变。 我不完全确定为什么会做出这样的选择，但是在SDK动画支持方面可能有很好的理由，这里我还没深入探索。在下面，我将使用Flutter`Tween <T>`，假装它是不可变的。
 
-我们可以使用“Tween<double>”来清理代码中的柱状图高度：
+我们可以使用“Tween<double>”来代替代码中的条形图高度barHeight：
 
 ```
 import 'dart:math';
@@ -460,13 +460,13 @@ class BarChartPainter extends CustomPainter {
 }
 ```
 
-我们使用`Tween`将柱状图高度动画端点打包在一个值中。 它与`AnimationController`和`CustomPainter`灵活的交换，避免了动画期间的widgets树重建。由于Flutter基础架构现在标记`CustomPaint`用于在每个动画刻度处重绘，而不是标记整个`ChartPage`子树用于重建，重新布局和重绘。 这些都是明确的改进。 但tween概念还有更多内容; 它提供_structure_来组织我们的想法和代码，但我们不用特意关注这些。 补间概念说，
+我们使用`Tween`将条形图高度动画端点打包在一个值中。 它与`AnimationController`和`CustomPainter`灵活的交换，避免了动画期间的widgets树重建。Flutter基础架构现在标记`CustomPaint`用于在每个动画刻度处重绘，而不是标记整个`ChartPage`子树用于重建，重新布局和重绘。 这些都是明确的改进。 但tween概念还有更多内容; 它提供_structure_来组织我们的想法和代码，但我们不用特意关注这些。 Tween动画描述，
 
 动画值从0到1运动时，通过遍历空间路径中所有` _T_`的路径进行动画。用` _Tween <T> _` 对路径建模。
 
-在上面的代码中，`T`是一个`double`，但我们不想动画是`double`，我们想要制作柱状图的动画！ 嗯，好的，现在是单独的柱状图，但概念很强，如果我们让它，它会扩展。
+在上面的代码中，`T`是一个`double`，但我们不想动画是`double`，我们想要制作条形图的动画！ 嗯，好的，现在是单独条形图，但概念很强，如果我们有需要，可以扩展它。
 
-（你可能想知道为什么我们不进一步采用这个论点并且坚持动画数据集而不是它们的表示作为条形图。这是因为数据集 - 与条形图是图形对象 - 通常不会占据空间 存在平滑路径的情况。条形图的数据集通常涉及根据离散数据类别映射的数字数据。但如果没有条形图的空间表示，则涉及不同类别的两个数据集之间没有合理的平滑路径概念。）
+（你可能想知道，为什么我们不进一步讨论这个问题，并且坚持数据集动画化，而不是将其表示为条形图。这是因为数据集与条形图不同，条形图是图形对象。通常不会占据平滑路径存在的空间。条形图的数据集通常涉及映射到离散数据类的数字数据。但如果没有条形图的空间表示，则涉及不同类别的两个数据集之间没有合理的平滑路径概念。）
 
 回到我们的代码，我们需要一个`Bar`类型和一个`BarTween`来为它设置动画。 让我们将与bar相关的类提取到`main.dart`旁边的`bar.dart`文件中：
 
