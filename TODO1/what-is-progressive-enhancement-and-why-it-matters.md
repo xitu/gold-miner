@@ -1,4 +1,3 @@
-
 > * 原文地址：[What is Progressive Enhancement, and why it matters](https://medium.freecodecamp.org/what-is-progressive-enhancement-and-why-it-matters-e80c7aaf834a)
 > * 原文作者：[Praveen Dubey](https://medium.freecodecamp.org/@edubey?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
