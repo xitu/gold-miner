@@ -7,22 +7,22 @@
 
 # Flutter 从 0 到 1 
 
-2016年夏末,丹麦奥古斯谷歌办公室。 我接到来谷歌的第一个任务，使用[_Flutter_](https://flutter.io) 和 [_Dart_](https://www.dartlang.org) 在Android/iOS应用程序中实现动画图表。 除了是一个谷歌新人之外， 我对Flutter，Dart，动画都不熟悉。事实上，我之前从未做过移动应用程序。我的第一部智能手机只有几个月的历史——我是在一阵恐慌中买的，因为担心使用我的老诺基亚可能会导致电话面试失败……
+2016年夏末,丹麦奥古斯谷歌办公室。 我来谷歌的第一个任务，是使用[_Flutter_](https://flutter.io) 和 [_Dart_](https://www.dartlang.org) 在Android/iOS应用程序中实现动画图表。 除了是一个谷歌新人之外， 我对Flutter，Dart，动画都不熟悉。事实上，我之前从未做过移动应用程序。我的第一部智能手机也只有几个月的历史——我是在一阵恐慌中买的，因为担心使用我的老诺基亚可能会导致电话面试失败……
 我确实对桌面Java中的图表有过一些经验，但哪些图表并不是动画的。 我感到......惊奇。 部分是恐龙，部分重生.
 
 ![](https://cdn-images-1.medium.com/max/800/1*2t8GffL0BcNoGLU-IgHT9w.jpeg)
 
-**长话短说** 在使用Dart开发Android/iOS应用程序的图标动画时，我发现Flutter的widget和tween的优势。
+**长话短说** 在使用Dart开发Android/iOS应用程序的图表动画时，我发现Flutter的widget和tween的优点。
 
-2018年8月7日更新，适配Dart 2语法. [GitHub repo](https://github.com/mravn/charts)在2018年10月17日添加。 下面描述的每个步骤都是单独的提交。
+2018年8月7日更新，适配Dart 2语法. [GitHub repo](https://github.com/mravn/charts)在2018年10月17日添加。 下面描述的每个步骤都是单独提交的。
 
 * * *
 
 迁移到新的开发栈可以让您了解自己对技术的优先级。在我的清单上排在前三位的是：
 
-* **强大的概念**通过简单的，相关的构思思想，逻辑或数据的方式，有效地处理复杂性。
+* **强大的概念**通过提供简单的，相关的构造方法，逻辑或数据，从而有效地处理复杂度。
 * **清晰的代码**让我们可以清晰地表达概念，不被语言陷阱、过多的引用或者辅助细节所干扰。。
-* **快速迭代**是实验和学习的关键 - 软件开发团队以学习为生：实际需求是什么，以及如何通过最优的代码实现它。
+* **快速迭代**是实验和学习的关键 - 软件开发团队以学习为生：需求到底是什么，以及如何通过最优的代码实现它。
 
 
 Flutter是用Dart实现，可以用一套代码同时构建Android和iOS应用的新平台。由于我们的需求涉及到一个相当复杂的UI，包括动画图表，所以只构建一次的想法似乎非常有吸引力。我的任务包括使用Flutter的CLI工具，一些预先构建的Widgets及其它的2D渲染引擎。除了编写大量Dart代码来构建模型和动画图表外。我将在下面分享一些重点概念，并为您自己评估Flutter / Dart栈提供一个参考。
@@ -31,9 +31,9 @@ Flutter是用Dart实现，可以用一套代码同时构建Android和iOS应用�
 
 一个简单的动画条形图，在开发过程中从iOS模拟器获取
 
-全文包括两部分[]（https://medium.com/dartlang/zero-to-one-with-flutter-part-two-5aa2f06655cb）对Flutter及其“widgets”和“tween”的介绍的第一部分概念。 我将通过使用它们来显示和动画图表来说明这些概念的强度，如上所示。 完整的代码示例应该提供Dart可实现的代码清晰度的印象。 我将包含足够的细节，您应该能够在自己的笔记本电脑（以及模拟器或设备）上进行操作，并体验Flutter开发周期的长度。
+这是Flutter及其“widgets”和“tween”概念介绍的[两部分]（https://medium.com/dartlang/zero-to-one-with-flutter-part-two-5aa2f06655cb）中的第一部分。 我将通过使用它们实现显示和动画，如上图所示的图表，来说明这些概念的强大之处。 完整的代码示例将给你Dart代码能清晰表达问题的印象。 我将包含足够的细节，您应该能够在自己的笔记本电脑（以及模拟器或设备）上进行操作，并体验Flutter开发周期的长度。
 
-起点，[Flutter的安装]（https://flutter.io/setup）。在终端运行
+开始，[Flutter安装]（https://flutter.io/setup）。在终端运行
 
 ```
 $ flutter doctor
@@ -56,7 +56,7 @@ Doctor summary (to see all details, run flutter doctor -v):
 • No issues found!
 ```
 
-以上复选框都满足了，您就可以创建一个Flutter应用程序。我们命名它为charts ：
+以上复选框都满足了，您将可以创建一个Flutter应用程序了。我们命名它为charts ：
 
 ```
 $ flutter create charts
@@ -74,16 +74,16 @@ charts
 
 大约生成60个文件，组成一个可以安装在Android和iOS上的完整示例程序。 我们将在`main.dart`和它的同级文件中完成所有编码，而不需要触及任何其他文件或目录。
 
-您应该验证是否可以启动示例程序。 启动模拟器或插入设备，然后执行
+您应该验证是否可以启动示例程序。 启动模拟器或插入设备，然后在`charts`目录中，执行
 
 ```
 $ flutter run
 ```
-在`charts`目录中。 您应该在模拟器或设备上看到一个简单的计数应用程序。 它默认使用MD风格的widgets，但这是可选的。作为Flutter架构的最顶层，这些widgets是完全可替换的。
+您应该在模拟器或设备上看到一个简单的计数应用程序。 它默认使用MD风格的widgets，但这是可选的。作为Flutter架构的最顶层，这些widgets是完全可替换的。
 
 * * *
 
-让我们首先用下面的代码替换`main.dart`的内容，开始我们的图表动画。
+让我们首先用下面的代码替换`main.dart`的内容，作为玩转图表动画的简单起点。
 
 ```
 import 'dart:math';
@@ -124,20 +124,18 @@ class ChartPageState extends State<ChartPage> {
 }
 ```
 
-保存更改，然后重新启动应用程序。 您可以通过按“R”从终端执行此操作。 这种“完全重启”操作会重置应用程序状态，然后重建UI。 对于在代码更改后现有应用程序状态仍然有效的情况，可以按“r”执行“热加载”，这只会重建UI。 IntelliJ IDEA安装Flutter插件，提供与Dart编辑器集成的相同功能：
+保存更改，然后重新启动应用程序。 您可以通过按“R”从终端执行此操作。 这种“完全重启”操作会重置应用程序状态，然后重建UI。 对于在代码更改后，现有应用程序状态仍然有效的情况，可以按“r”执行“热重载”，这只会重建UI。 IntelliJ IDEA安装Flutter插件，它提供了Dart编辑器集成相同的功能：
 
 ![](https://cdn-images-1.medium.com/max/800/1*soCdZ19Qugtv1YJewMQZGg.png)
 
-Screen shot from IntelliJ IDEA with an older version of the Flutter plug-in, showing the reload and restart buttons in the top-right corner. These buttons are enabled, if the app has been started from within the IDE. Newer versions of the plugin do hot reload on save.
+屏幕截图来自IntelliJ IDEA，带有旧版本的Flutter插件，显示右上角的重新加载和重启按钮。 如果已在IDE中启动应用程序，则启用这些按钮。 较新版本的插件会在保存时进行热重载。
 
-Once restarted, the app shows a centered text label saying `Data set: null` and a floating action button to refresh the data. Yes, humble beginnings.
+重新启动后，应用程序会显示一个居中的文本标签，上面写着“Data set：null”和一个浮动操作按钮来刷新数据。
+要了解热重载和完全重启之间的区别，请尝试以下操作：按几次浮动操作按钮后，记下当前数据集编号，然后将代码中的Icons.refresh改为Icons.add，保存并执行热重载。观察按钮已经改变，但程序的状态仍然保留; 我们仍然在文本上显示获取的随机数。现在撤消Icon更改，保存并完全重新启动。 应用程序状态已重置，文本标签显示最初状态“Data set：null”。
 
-To get a feel for the difference between hot reload and full restart, try the following: After you’ve pressed the floating action button a few times, make a note of the current data set number, then replace `Icons.refresh` with `Icons.add` in the code, save, and do a hot reload. Observe that the button changes, but that the application state is retained; we’re still at the same place in the random stream of numbers. Now undo the icon change, save, and do a full restart. The application state has been reset, and we’re back to `Data set: null`.
+我们简单的应用程序显示了Flutter Widget两个核心方面：
 
-Our simple app shows two central aspects of the Flutter widget concept in action:
-
-*   The user interface is defined by a tree of **immutable widgets** which is built via a foxtrot of constructor calls (where you get to configure widgets) and `build` methods (where widget implementations get to decide how their sub-trees look). The resulting tree structure for our app is shown below, with the main role of each widget in parentheses. As you can see, while the widget concept is quite broad, each concrete widget type typically has a very focused responsibility.
-
+*   用户界面由**不可变的widgets**树定义，它是通过调用构造函数（你可以在其中配置widgets）和`build`方法构建的（其中widget可以决定子树的外观））。 我们的应用程序生成的树结构如下所示，每个widget的主要内容都在括号中。 正如您所看到的，虽然widget概念非常广泛，但每个具体widget类型通常都具有非常集中的职责。
 ```
 MaterialApp                    (navigation)
   ChartPage                    (state management)
@@ -148,13 +146,13 @@ MaterialApp                    (navigation)
         Icon                   (graphics)
 ```
 
-*   With an immutable tree of immutable widgets defining the user interface, the only way to change that interface is to rebuild the tree. Flutter takes care of that, when the next frame is due. All we have to do is tell Flutter that some state on which a subtree depends has changed. The root of such a **state-dependent subtree** must be a `StatefulWidget`. Like any decent widget, a `StatefulWidget` is not mutable, but its subtree is built by a `State` object which is. Flutter retains `State` objects across tree rebuilds and attaches each to their respective widget in the new tree during building. They then determine how that widget’s subtree is built. In our app, `ChartPage` is a `StatefulWidget` with `ChartPageState` as its `State`. Whenever the user presses the button, we execute some code to change `ChartPageState.` We’ve demarcated the change with `setState` so that Flutter can do its housekeeping and schedule the widget tree for rebuilding. When that happens, `ChartPageState` will build a slightly different subtree rooted at the new instance of `ChartPage`.
+*   使用定义用户界面的不可变widget的不可变树，更改该界面的唯一方法是重建树。当下一帧到期时，Flutter会处理这个问题。我们所要做的就是告诉Flutter一个子树所依赖的状态已经改变了。这种**状态依赖子树**的根必须是`StatefulWidget`。像任何像样的widget一样，`StatefulWidget`不是可变的，但是它的子树是由`State`对象构建的。 Flutter在树重建期间保留“State”对象，并在构建期间将每个对象附加到新树中的各自widget。然后，他们确定该widget的子树是如何构建的。在我们的应用程序中，`ChartPage`是一个`StatefulWidget`，`ChartPageState`为``State`。每当用户按下按钮时，我们执行一些代码来改变`ChartPageState。我们用`setState`划分了变化，以便Flutter可以进行内务处理并安排widget树进行重建。当发生这种情况时，`ChartPageState`将构建一个稍微不同的子树，该子树以新的`ChartPage`实例为根。
 
-Immutable widgets and state-dependent subtrees are the main tools that Flutter puts at our disposal to address the complexities of state management in elaborate UIs responding to asynchronous events such as button presses, timer ticks, or incoming data. From my desktop experience I’d say this complexity is _very_ real. Assessing the strength of Flutter’s approach is — and should be — an exercise for the reader: try it out on something non-trivial.
+不可变widget和状态相关子树是Flutter为解决复杂UI中状态管理的复杂性而应对的主要工具，这些UI响应异步事件，如按钮按下，计时器滴答或传入数据。 从我的桌面体验来看，我会说这种复杂性是非常真实的。 评估Flutter方法的力量是 - 而且应该 - 是读者的练习：尝试一些非平凡的事情。
 
 * * *
 
-Our charts app will stay simple in terms of widget structure, but we’ll do a bit of animated custom graphics. First step is to replace the textual representation of each data set with a very simple chart. Since a data set currently involves only a single number in the interval `0..100`, the chart will be a bar chart with a single bar, whose height is determined by that number. We’ll use an initial value of `50` to avoid a `null` height:
+我们的图表应用程序将在widget结构方面保持简单，但我们会做一些动画自定义图形。 第一步是用非常简单的图表替换每个数据集的文本表示。 由于数据集当前只涉及区间“0..100”中的单个数字，因此图表将是带有单个条形的条形图，其高度由该数字决定。 我们将使用初始值“50”来避免“null”高度：
 
 ```
 import 'dart:math';
@@ -225,11 +223,11 @@ class BarChartPainter extends CustomPainter {
 }
 ```
 
-`CustomPaint` is a widget that delegates painting to a `CustomPainter` strategy. Our implementation of that strategy draws a single bar.
+`CustomPaint`是一个widget，它将绘画委托给`CustomPainter`策略。 我们对该战略的实施只能形成一个障碍。
 
-Next step is to add animation. Whenever the data set changes, we want the bar to change height smoothly rather than abruptly. Flutter has an `AnimationController` concept for orchestrating animations, and by registering a listener, we’re told when the animation value — a double running from zero to one — changes. Whenever that happens, we can call `setState` as before and update `ChartPageState`.
+下一步是添加动画。 每当数据集发生变化时，我们都希望条形平滑而不是突然地改变高度。 Flutter有一个用于编排动画的`AnimationController`概念，通过注册一个监听器，我们被告知动画值 - 从零到一的双重运算 - 何时发生变化。 每当发生这种情况时，我们可以像以前一样调用`setState`并更新`ChartPageState`。
 
-For reasons of exposition, our first go at this will be ugly:
+出于解释的原因，我们首先要做的就是丑陋：
 
 ```
 import 'dart:math';
@@ -336,17 +334,17 @@ class BarChartPainter extends CustomPainter {
 }
 ```
 
-Ouch. Complexity already rears its ugly head, and our data set is still just a single number! The code needed to set up animation control is a minor concern, as it doesn’t ramify when we get more chart data. The real problem is the variables `startHeight`, `currentHeight`, and `endHeight` which reflect the changes made to the data set and the animation value, and are updated in three different places.
+哎哟。 复杂性已经让人头疼，我们的数据集仍然只是一个数字！ 设置动画控件所需的代码是一个小问题，因为当我们获得更多图表数据时它不会分支。 真正的问题是变量`startHeight`，`currentHeight`和`endHeight`，它们反映了对数据集和动画值所做的更改，并在三个不同的地方进行了更新。
 
-We are in need of a concept to deal with this mess.
+我们需要一个概念来处理这个烂摊子。
 
 * * *
 
-Enter **tweens**. While far from unique to Flutter, they are a delightfully simple concept for structuring animation code. Their main contribution is to replace the imperative approach above with a functional one. A tween is a _value_. It describes the path taken between two points in a space of other values, like bar charts, as the animation value runs from zero to one.
+输入**tweens**。 虽然远非Flutter独有，但它们是构造动画代码的一个令人愉快的简单概念。 他们的主要贡献是用功能性方法取代上面的命令式方法。 补间是_value_。 它描述了在其他值的空间中的两个点之间的路径，如条形图，因为动画值从零到一个。
 
 ![](https://cdn-images-1.medium.com/max/800/1*3KpUQjhZLrvwvjF0daKg9g.jpeg)
 
-Tweens are generic in the type of these other values, and can be expressed in Dart as objects of the type `Tween<T>`:
+补间在这些其他值的类型中是通用的，并且可以在Dart中表示为“Tween <T>”类型的对象：
 
 ```
 abstract class Tween<T> {
@@ -359,11 +357,11 @@ abstract class Tween<T> {
 }
 ```
 
-The jargon `lerp` comes from the field of computer graphics and is short for both _linear interpolation_ (as a noun) and _linearly interpolate_ (as a verb). The parameter `t` is the animation value, and a tween should thus lerp from `begin` (when `t` is zero) to `end` (when `t` is one).
+行话`lerp`来自计算机图形学领域，是_linear interpolation_（作为名词）和_linearly interpolate_（作为动词）的缩写。 参数`t`是动画值，因此补间应该从`begin`（当`t`为零时）到`end`（当`t`为1时）。
 
-The Flutter SDK’s `[Tween<T>](https://docs.flutter.io/flutter/animation/Tween-class.html)` class is very similar to the above, but is a concrete class that supports mutating `begin` and `end`. I’m not entirely sure why that choice was made, but there are probably good reasons for it in areas of the SDK’s animation support that I have yet to explore. In the following, I’ll use the Flutter `Tween<T>`, but pretend it is immutable.
+Flutter SDK的`[Tween <T>]（https://docs.flutter.io/flutter/animation/Tween-class.html）`类与上面的类很相似，但它是一个支持变异`begin的具体类 `和`结束`。 我不完全确定为什么会做出这样的选择，但是在我尚未探索的SDK动画支持方面可能有很好的理由。 在下面，我将使用Flutter`Tween <T>`，但假装它是不可变的。
 
-We can clean up our code using a single `Tween<double>` for the bar height:
+我们可以使用单个“Twin <double>”来清理代码：
 
 ```
 import 'dart:math';
@@ -462,15 +460,15 @@ class BarChartPainter extends CustomPainter {
 }
 ```
 
-We’re using `Tween` for packaging the bar height animation end-points in a single value. It interfaces neatly with the `AnimationController` and `CustomPainter`, avoiding widget tree rebuilds during animation as the Flutter infrastructure now marks `CustomPaint` for repaint at each animation tick, rather than marking the whole `ChartPage` subtree for rebuild, relayout, and repaint. These are definite improvements. But there’s more to the tween concept; it offers _structure_ to organize our thoughts and code, and we haven’t really taken that seriously. The tween concept says,
+我们使用`Tween`将条形高度动画端点打包在一个值中。 它与`AnimationController`和`CustomPainter`整齐地接口，避免了动画期间的widgets树重建，因为Flutter基础设施现在标记`CustomPaint`用于在每个动画刻度处重绘，而不是标记整个`ChartPage`子树用于重建，重新布局和重绘。 这些都是明确的改进。 但补间概念还有更多内容; 它提供_structure_来组织我们的想法和代码，我们并没有真正认真对待。 补间概念说，
 
-_Animate_ `_T_`_s by tracing out a path in the space of all_ `_T_`_s as the animation value runs from zero to one. Model the path with a_ `_Tween<T>_`_._
+_Animate_` _T_`_s通过遍历all_`_T_`_s空间中的路径，因为动画值从零运行到1。 用a_` _Tween <T> _` _._建模路径
 
-In the code above, `T` is a `double`, but we do not want to animate `double`s, we want to animate bar charts! Well, OK, single bars for now, but the concept is strong, and it scales, if we let it.
+在上面的代码中，`T`是一个`double`，但我们不想动画`double`s，我们想要制作条形图的动画！ 嗯，好的，现在是单杠，但概念很强，如果我们让它，它会扩展。
 
-(You may be wondering why we don’t take that argument a step further and insist on animating data sets rather than their representations as bar charts. That’s because data sets — in contrast to bar charts which are graphical objects — generally do not inhabit spaces where smooth paths exist. Data sets for bar charts typically involve numerical data mapped against discrete data categories. But without the spatial representation as bar charts, there is no reasonable notion of a smooth path between two data sets involving different categories.)
+（你可能想知道为什么我们不进一步采用这个论点并且坚持动画数据集而不是它们的表示作为条形图。这是因为数据集 - 与条形图是图形对象 - 通常不会占据空间 存在平滑路径的情况。条形图的数据集通常涉及根据离散数据类别映射的数字数据。但如果没有条形图的空间表示，则涉及不同类别的两个数据集之间没有合理的平滑路径概念。）
 
-Returning to our code, we’ll need a `Bar` type and a `BarTween` to animate it. Let’s extract the bar-related classes into their own `bar.dart` file next to `main.dart`:
+回到我们的代码，我们需要一个`Bar`类型和一个`BarTween`来为它设置动画。 让我们将与bar相关的类提取到`main.dart`旁边的`bar.dart`文件中：
 
 ```
 import 'dart:ui' show lerpDouble;
@@ -526,9 +524,9 @@ class BarChartPainter extends CustomPainter {
 }
 ```
 
-I’m following a Flutter SDK convention here in defining `BarTween.lerp` in terms of a static method on the `Bar` class. This works well for simple types like `Bar`, `Color`, `Rect` and many others, but we’ll need to reconsider the approach for more involved chart types. There is no `double.lerp` in the Dart SDK, so we’re using the function `lerpDouble` from the `dart:ui` package to the same effect.
+我在遵循一个Flutter SDK约定，在`Bar`类的静态方法中定义`BarTween.lerp`。 这适用于简单类型，如“Bar”，“Color”，“Rect”等等，但我们需要重新考虑更多涉及图表类型的方法。 Dart SDK中没有`double.lerp`，所以我们使用`dart：ui`包中的`lerpDouble`函数来达到同样的效果。
 
-Our app can now be re-expressed in terms of bars as shown in the code below; I’ve taken the opportunity to dispense of the `dataSet` field.
+我们的应用程序现在可以用条形重新表达，如下面的代码所示; 我借此机会分发了`dataSet`字段。
 
 ```
 import 'dart:math';
@@ -597,11 +595,11 @@ class ChartPageState extends State<ChartPage> with TickerProviderStateMixin {
 }
 ```
 
-The new version is longer, and the extra code should carry its weight. It will, as we tackle increased chart complexity in [part two](https://medium.com/@mravn/zero-to-one-with-flutter-part-two-5aa2f06655cb). Our requirements speak of colored bars, multiple bars, partial data, stacked bars, grouped bars, stacked and grouped bars, … all of it animated. Stay tuned.
+新版本更长，额外的代码应该承担其重量。 当我们在[第二部分]（https://medium.com/@mravn/zero-to-one-with-flutter-part-two-5aa2f06655cb）中解决增加的图表复杂性时，它将会出现。 我们的要求涉及彩条，多条，部分数据，堆叠条，分组条，堆叠和分组条，......所有这些都是动画的。 敬请关注。
 
 ![](https://cdn-images-1.medium.com/max/800/1*n76TpChNv8Q25WrfBiuWpw.gif)
 
-A preview of one of the animations we’ll do in part two.
+我们将在第二部分中对其中一个动画进行预览。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
