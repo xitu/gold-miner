@@ -31,9 +31,9 @@ Flutter是用Dart实现，可以用一套代码同时构建Android和iOS应用�
 
 一个简单的动画条形图，在开发过程中从iOS模拟器获取
 
-这是Flutter及其“widgets”和“tween”概念介绍的[两部分]（https://medium.com/dartlang/zero-to-one-with-flutter-part-two-5aa2f06655cb）中的第一部分。 我将通过使用它们实现显示和动画，如上图所示的图表，来说明这些概念的强大之处。 完整的代码示例将给你Dart代码能清晰表达问题的印象。 我将包含足够的细节，您应该能够在自己的笔记本电脑（以及模拟器或设备）上进行操作，并体验Flutter开发周期的长度。
+这是Flutter及其“widgets”和“tween”概念介绍的[两部分](https://medium.com/dartlang/zero-to-one-with-flutter-part-two-5aa2f06655cb)中的第一部分。 我将通过使用它们实现显示和动画，如上图所示的图表，来说明这些概念的强大之处。 完整的代码示例将给你Dart代码能清晰表达问题的印象。 我将包含足够的细节，您应该能够在自己的笔记本电脑（以及模拟器或设备）上进行操作，并体验Flutter开发周期的长度。
 
-开始，[Flutter安装]（https://flutter.io/setup）。在终端运行
+首先，[安装Flutter](https://flutter.io/setup)，完成之后在终端运行
 
 ```
 $ flutter doctor
@@ -595,7 +595,7 @@ class ChartPageState extends State<ChartPage> with TickerProviderStateMixin {
 }
 ```
 
-新版本更长，额外的代码应该承担其重量。 当我们在[第二部分]（https://medium.com/@mravn/zero-to-one-with-flutter-part-two-5aa2f06655cb）中解决增加的图表复杂性时，它将会出现。 我们的要求涉及彩条，多条，部分数据，堆叠条，分组条，堆叠和分组条，......所有这些都是动画的。 敬请关注。
+新版本更长，额外的代码应该承担其重量。 当我们在[第二部分](https://medium.com/@mravn/zero-to-one-with-flutter-part-two-5aa2f06655cb)中解决增加的图表复杂性时，它将会出现。 我们的要求涉及彩条，多条，部分数据，堆叠条，分组条，堆叠和分组条，......所有这些都是动画的。 敬请关注。
 
 ![](https://cdn-images-1.medium.com/max/800/1*n76TpChNv8Q25WrfBiuWpw.gif)
 
