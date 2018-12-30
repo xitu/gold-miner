@@ -298,7 +298,7 @@ This means that many imports had to be changed.
 
 Modularizing resources caused some issues as we had to use the fully qualified name to disambiguate the generated `R` class. For example, importing a feature local layout’s views results in a call to `R.id.library_image` while using a drawable from `:core` in the same file resulted in calls to
 
-
+对资源进行模块化会产生一些问题，因为我们必须使用限定的名称来消除生成的 `R` 类歧义。例如，导入本地布局视图会导致调用 `R.id.library_image`，而在核心模块相同文件中使用一个 drawable 会导致
 
 ```
 io.plaidapp.core.R.drawable.avatar_placeholder
@@ -306,11 +306,15 @@ io.plaidapp.core.R.drawable.avatar_placeholder
 
 We mitigated this using Kotlin’s import aliasing feature allowing us to import core’s `R` file like this:
 
+我们使用 Kotlin 的导入别名特性减轻了这一点，它允许我们如下导入核心 `R` 文件：
+
 ```
 import io.plaidapp.core.R as coreR
 ```
 
 That allowed to shorten the call site to
+
+允许将呼叫站点缩短为
 
 ```
 coreR.drawable.avatar_placeholder
@@ -318,32 +322,72 @@ coreR.drawable.avatar_placeholder
 
 This makes reading the code much more concise and resilient than having to go through the full package name every time.
 
+相较于每次都必须查看完整的报名，这使得阅读代码变得简洁和灵活得多。
+
 #### Preparing the resource move
+
+资源移动准备
 
 Resources, unlike code, don’t have a package structure. This makes it trickier to align them by feature. But by following some conventions in your code, this is not impossible either.
 
+资源不同于代码，没有一个包结构。这使得通过功能划分它们变得异常困难。但是通过在你的代码中遵循一些约定，这也未尝不可能。
+
 Within Plaid, files are prefixed to reflect where they are being used. For example, resources which are only used in `:dribbble` are prefixed with `dribbble_`.
 
+通过 Plaid，文件在被用到的地方作为前缀。例如，资源仅用于以 `dribbble_` 为前缀的 `:dribbble`。
+
 Further, files that contain resources for multiple modules, such as styles.xml are structurally grouped by module and each of the attributes prefixed as well.
+
+将来，一些包含多个模块资源的文件，例如 styles.xml 将在模块基础上进行结构化分组，并且每一个属性同时也作为前缀。
 
 To give an example: Within a monolithic app, `strings.xml` holds most strings used throughout.  
 In a modularized app, each feature module holds on to its own strings.  
 It’s easier to break up the file when the strings are grouped by feature before modularizing.
 
+举个例子：在单块APP中，`strings.xml` 包含了整体所用的大部分字符串。
+在一个模块化APP中，每一个功能模块仅包含对应模块本身的字符串资源。
+字符串在模块化之前进行分组将更容易拆分文件。
+
 Adhering to a convention like this makes moving the resources to the right place faster and easier. It also helps to avoid compile errors and runtime crashes.
+
+像这样遵循约定，可以更快地、更容易地价格资源转移至正确的地方。这同样也帮助避免编译错误和运行时序错误。
 
 ### Challenges along the way
 
+过程挑战
+
 To make a major refactoring task like this more manageable it’s important to have good communication within the team. Communicating planned changes and making them step by step helped us to keep merge conflicts and blocking changes to a minimum.
+
+同团队良好的沟通，对使得一个重要的重构任务像这样易于管理，是十分重要的。传递计划变更并逐步实现这些变更将帮助我们合并冲突，并且将阻塞降到最低。
 
 #### Good intentions
 
+善意提醒
+
 The dependency graph from earlier in this post shows, that dynamic feature modules know about the app module. The app module on the other hand can’t easily access code from dynamic feature modules. But they contain code which has to be executed at some point.
+
+本文前面的依赖关系图表显示，动态功能模块了解 APP 模块。另一方面，APP 模块不能轻易地从动态功能模块访问代码。但是他们包含必须在某一时间定执行的代码。
 
 Without the app knowing enough about feature modules to access their code, there is no way to launch activities via their class name in the `Intent(ACTION_VIEW, ActivityName::class.java)` way.  
 There are multiple other ways to launch activities though. We decided to explicitly specify the component name.
 
+APP 对功能模块没足够的了解时访问代码，这将没办法在 `Intent(ACTION_VIEW, ActivityName::class.java)` 方法中通过它们的类名启动 activities。
+
 To do this we created an `AddressableActivity` interface within core.
+
+```
+/**
+ * An [android.app.Activity] that can be addressed by an intent.
+ */
+interface AddressableActivity {
+    /**
+     * The activity class name.
+     */
+    val className: String
+}
+```
+
+为实现它，我们在核心模块开发了 `AddressableActivity` 接口。
 
 ```
 /**
@@ -370,25 +414,54 @@ fun intentTo(addressableActivity: AddressableActivity): Intent {
 }
 ```
 
+使用这种方式，我们创建了一个函数来统一活动启动意图创建：
+
+```
+/**
+ * Create an Intent with [Intent.ACTION_VIEW] to an [AddressableActivity].
+ */
+fun intentTo(addressableActivity: AddressableActivity): Intent {
+    return Intent(Intent.ACTION_VIEW).setClassName(
+            PACKAGE_NAME,
+            addressableActivity.className)
+}
+```
+
 In its simplest implementation an `AddressableActivity` only needs an explicit class name as a String. Throughout Plaid, each `Activity` is launched through this mechanism. Some contain intent extras which also have to be passed through to the activity from various components of the app.
 
+最简单的实现 `AddressableActivity` 方式为仅需一个显示类名作为一个字符串。通过 Plaid，每一个 `Activity` 都通过该机制启动。对一些包含意图附加部分，必须通过 APP 各个组件传递到活动中。
+
 You can see how we did this in the whole file here:
+
+如下文件查看我们的实现过程：
 
 - [**AddressableActivity.kt**: Helpers to start activities in a modularized world._github.com](https://github.com/nickbutcher/plaid/blob/master/core/src/main/java/io/plaidapp/core/util/ActivityHelper.kt "https://github.com/nickbutcher/plaid/blob/master/core/src/main/java/io/plaidapp/core/util/ActivityHelper.kt")
 
 #### Styling issues
 
+Styleing 问题
+
 Instead of a single `AndroidManifest` for the whole app, there are now separate `AndroidManifests` for each of the dynamic feature modules.  
 These manifests mainly contain information relevant to their component instantiation and some information concerning their delivery type, reflected by the `dist:` tag.  
 This means activities and services have to be declared inside the feature module that also holds the relevant code for this component.
 
+相较于整个 APP 单一清单文件而言，现在对每一个动态功能模块，对清单文件进行了分离。
+这些清单文件主要包含与它们组件实例化相关的一些信息，以及通过 `dist:` 标签反应的一些与它们交付类型相关的一些信息。
+这意味着活动和服务都必须声明在包含有与组件对应的相关代码的功能模块中。
+
 We encountered an issue with modularizing our styles; we extracted styles only used by one feature out into their relevant module, but often they built upon `:core` styles using implicit inheritance.
+
+我们遇到了一个将样式模块化的问题；我们仅将一个功能使用的样式提取到与该功能相关的模块中，但是它们经常是通过隐式构建在核心模块之上。
 
 ![](https://cdn-images-1.medium.com/max/800/1*YJRNNNgg5JbRoe20l14Ffw.png)
 
 Parts of Plaid’s style hierarchy
 
+PLaid 的样式结构部分
+
 These styles are used to provide corresponding activities with themes through the module’s `AndroidManifest`.
+
+这些样式通过模块的清单文件以主题形式被提供给组件的活动使用。
 
 Once we finished moving them, we encountered compile time issues like this:
 
@@ -402,7 +475,21 @@ error: resource style/Plaid.Translucent.About (aka io.plaidapp:style/Plaid.Trans
 error: failed processing manifest.
 ```
 
+一旦我们将它们移动完毕，我们会遇到像这样的编译时问题：
+
+```
+* What went wrong:
+
+Execution failed for task ‘:app:processDebugResources’.
+> Android resource linking failed
+~/plaid/app/build/intermediates/merged_manifests/debug/AndroidManifest.xml:177: AAPT:
+error: resource style/Plaid.Translucent.About (aka io.plaidapp:style/Plaid.Translucent.About) not found.
+error: failed processing manifest.
+```
+
 The manifest merger tries to merge manifests from all the feature modules into the app’s module. That fails due to the feature module’s `styles.xml` files not being available to the app module at this point.
+
+清单文件合并视图将所有功能模块中的清单文件合并到 APP 模块中。合并失败将导致功能模块的样式文件在指定时间点对 APP 模块不可用。
 
 We worked around this by creating an empty declaration for each style within `:core`’s `styles.xml` like this:
 
@@ -418,31 +505,71 @@ We worked around this by creating an empty declaration for each style within `:c
 <style name=”Plaid.Translucent.Search” />
 ```
 
+为此，我们在核心模块的样式文件中，为每一样式如下创建了一份空的声明：
+
+```
+<! — Placeholders. Implementations in feature modules. →
+
+<style name=”Plaid.Translucent.About” />
+<style name=”Plaid.Translucent.DesignerNewsStory” />
+<style name=”Plaid.Translucent.DesignerNewsLogin” />
+<style name=”Plaid.Translucent.PostDesignerNewsStory” />
+<style name=”Plaid.Translucent.Dribbble” />
+<style name=”Plaid.Translucent.Dribbble.Shot” />
+<style name=”Plaid.Translucent.Search” />
+```
+
 Now the manifest merger picks up the styles during merging, even though the actual implementation of the style is being introduced through the feature module’s styles.
+
+现在清单文件合并在合并过程中抓取样式，尽管样式的实际实现是通过功能模块的样式引入的。
 
 Another way to avoid this is to keep style declarations in the core module. But this only works if all resources referenced are in the core module as well. That’s why we decided to go with the above approach.
 
+另一种避免如上问题的做法是保持样式文件声明在核心模块中。但这仅作用于所有资源引用同时也在核心模块当中的情况。这就是我们为何决定通上述方式的原因。
+
 #### Instrumentation test of dynamic features
+
+动态功仪器测试
 
 Along the modularization we found that instrumentation tests currently can’t reside within the dynamic feature module but have to be included within the application module. We’ll expand on this in an upcoming blog post on our testing efforts.
 
+通过模块化，我们发现测试工具目前不能驻留在动态功能模块当中，而是必须包含在应用模块当中。对此，我们将在即将发布的有关测试工作的博客文章中进行详细介绍。
+
 ### What is yet to come?
+
+还会发生什么？
 
 #### Dynamic code loading
 
+动态代码加载
+
 We make use of dynamic delivery through app bundles, but don’t yet download these after initial installation through the [Play Core Library](https://developer.android.com/guide/app-bundle/playcore). This would for example allow us to mark news sources that are not enabled by default (Product Hunt) to only be installed once the user enables this source.
+
+我们通过 APP 束使用动态交付，但是在初次安装后不要通过 [Play Core Library](https://developer.android.com/guide/app-bundle/playcore) 下载这些文件。例如这将允许我们将默认未启用的新闻源（产品搜索）标记为仅在用户允许该新闻源后安装。
 
 #### Adding further news sources
 
+进一步增加新闻源
+
 Throughout the modularization process, we kept in mind the possibility of adding further news sources. The work to cleanly separate modules and the possibility of delivering them on demand makes this more compelling.
+
+通过模块化过程，我们保持考虑进一步增加新闻源可能性。分离清洁模块的工作以及实现按需交付的可能性使得这一点更加重要。
 
 #### Finish modularization
 
+模块精细化
+
 We made a lot of progress to modularize Plaid. But there’s still work to do. Product Hunt is a news source which we haven’t put into a dynamic feature module at this point. Also some of the functionality of already extracted feature modules can be evicted from core and integrated into the respective features directly.
+
+我们在对模块化 Plaid 方面取得了很大进展。但是仍有工作要做。产品搜索是一个新的新闻源，现在我们并未放到动态功能模块当中。同时，一些已经提取的功能模块中的功能可以从核心模块当中移除，然后直接集成到各自功能中。
 
 ### So, why did we decide to modularize Plaid?
 
+为何我决定模块化 Plaid？
+
 Going through this process, Plaid is now a heavily modularized app. All without making changes to the user experience. We did reap several benefits in our day to day development from this effort:
+
+
 
 #### Install size
 
