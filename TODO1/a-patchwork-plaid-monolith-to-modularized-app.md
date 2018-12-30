@@ -569,35 +569,63 @@ We made a lot of progress to modularize Plaid. But there’s still work to do. P
 
 Going through this process, Plaid is now a heavily modularized app. All without making changes to the user experience. We did reap several benefits in our day to day development from this effort:
 
-
+通过这个过程，Plaid 现在是一个高度模块化的应用。所有这些都不会改变用户体验。我们在日常开发中确实从这些努力中获得了一些益处。
 
 #### Install size
+
+安装体积
 
 Plaid is now on average more than 60 % smaller on a user’s device.  
 This makes installation faster and saves on precious network allowance.
 
+PLaid 现在在用户设备上平均减少60%的体积。
+这使得安装更快，并且节省了宝贵的网络开销。
+
 #### Compile time
+
+编译时间
 
 A clean debug build without caches now takes **32 instead of 48 seconds**.*  
 All the while increasing from ~50 to over 250 tasks.
 
+一个没有缓存的调试构建现在需要**32秒而不是48秒**。
+同时任务从50项增长到250项。
+
 This time saving is mainly due to increased parallel builds and compilation avoidance thanks to modularization.
+
+这样的时间节省，主要是由于增加了并行构建以及由于模块化而避免编译。
 
 Further, changes in single modules don’t require recompilation of every single module and make consecutive compilation a lot faster.
 
+将来，单个模块变化不需要对所有的单个模块进行编译，并且使得连续编译速度更快。
+
 *For reference, these are the commits I built for [before](https://github.com/nickbutcher/plaid/commit/9ae92ab39f631a75023b38c77a5cdcaa4b2489c5) and [after](https://github.com/nickbutcher/plaid/tree/f7ab6499c0ae35ae063d7fbb155027443d458b3a) timing.
+
+* 作为引用，这些是我构建 [before](https://github.com/nickbutcher/plaid/commit/9ae92ab39f631a75023b38c77a5cdcaa4b2489c5) 和 [after](https://github.com/nickbutcher/plaid/tree/f7ab6499c0ae35ae063d7fbb155027443d458b3a) timing 的一些提交。
 
 #### Maintainability
 
+可维护性
+
 We have detangled all sorts of dependencies throughout the process, which makes the code a lot cleaner. Also, side effects have become rarer. Each of our feature modules can be worked on separately with few interactions between them. The main benefit here is that we have to resolve a lot less merge conflicts.
+
+我们在过程中分离可各种依赖项，这使得代码更加简洁。同时，副作用越来越小。我们的每个功能模块都可以在越来越少的交互下独立工作。这样的主要益处是我们必须解决越来越少的冲突合并。
 
 ### In conclusion
 
+结语
+
 We’ve made the app **more than 60% smaller**, improved on code structure and modularized Plaid into dynamic feature modules, which add potential for on demand delivery.
+
+我们使得应用体积减少**超过60%**，完善了代码结构并且将 PLaid 模块化成动态功能模块以及增加了按需交付潜力。
 
 Throughout the process we always maintained the app in a state that could be shipped to our users. You can switch your app to emit an Android App Bundle today and save install size straight away. Modularization can take some time but is a worthwhile effort (see above benefits), especially with dynamic delivery in mind.
 
+整个过程中，我们总是将应用保持在一个可以随时发送给用户的状态。您今天可以直接切换你的应用发出一个应用束以节省安装体积。模块化需一些时间，但鉴于上文看到的好处，这是值得付出努力的，特别是考虑到动态交付。
+
 **Go check out** [**Plaid’s source code**](https://github.com/nickbutcher/plaid) **to see the full extent of our changes and happy modularizing!**
+
+**去查看** [**Plaid’s source code**](https://github.com/nickbutcher/plaid) **了解我们所有的变化和快乐模块化过程！**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
