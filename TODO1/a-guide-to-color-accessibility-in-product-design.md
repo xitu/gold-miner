@@ -5,7 +5,7 @@
 > * 译者：[Hopsken](https://hopsken.com)
 > * 校对者：
 
-# A guide to color accessibility in product design
+# 一份关于色彩无障碍性产品设计的指南
 
 ## 关于无障碍设计的讨论有很多，但你是否想过色彩的无障碍设计？
 
