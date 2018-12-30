@@ -164,13 +164,23 @@ The overall approach we chose for modularizing is this:
 
 green: dynamic features | dark grey: application module | light grey: libraries
 
+绿色：动态功能 | 深灰色：应用模块 | 浅灰色：库
+
 The above graph shows the current state of Plaid’s modularization:
+
+上面图表向我们展示了Plaid模块化的现状：
 
 *   `:bypass` and external `shared dependencies` are included in core
 *   `:app` depends on `:core`
 *   dynamic feature modules depend on `:app`
 
+* `:bypass`和外部`shared dependencies`包含在核心模块当中
+* `:app`依赖`:core`
+* 动态功能模块依附于`:app`
+
 #### Application module
+
+应用模块
 
 The `:app` module basically is the already existing `[com.android.application](https://developer.android.com/studio/build/)`, which is needed to create our app bundle and keep shipping Plaid to our users. Most code used to run Plaid doesn’t have to be in this module and can be moved elsewhere.
 
