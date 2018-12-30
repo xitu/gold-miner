@@ -41,19 +41,19 @@ During all of this we did not make changes to the user experience.
 
 ### A first glance at Plaid
 
-Plaid初印象
+Plaid 初印象
 
 ![](https://cdn-images-1.medium.com/max/800/1*vVUYtBjOkcvcX13SsMdqnA.gif)
 
 Navigating Plaid
 
-导航Plaid
+导航 Plaid
 
 Plaid is an application with a delightful UI. Its home screen displays a stream of news items from several sources.  
 News items can be accessed in more detail, leading to separate screens.  
 The app also contains “search” functionality and an “about” screen. Based on these existing features we selected several for modularization.
 
-Plaid是一个具有令人感到愉悦的UI的应用。它的主屏幕显示的新闻来自于多个来源。这些新闻可被点击后展示详情，从而出现分屏效果。该应用同时具有搜索功能和
+Plaid 是一个具有令人感到愉悦的 UI 的应用。它的主屏幕显示的新闻来自于多个来源。这些新闻可被点击后展示详情，从而出现分屏效果。该应用同时具有搜索功能和
 一个关于模块。基于这些已经存在的特征，我们选择一些来进行模块化。
 
 The news sources, (Designer News and Dribbble), became their own dynamic feature module. The `about` and `search` features also were modularized into dynamic features.
@@ -62,15 +62,15 @@ The news sources, (Designer News and Dribbble), became their own dynamic feature
 
 [Dynamic features](https://developer.android.com/studio/projects/dynamic-delivery) allow code to be shipped without directly including it in the base apk. In consecutive steps this enables feature downloads on demand.
 
-[动态功能](https://developer.android.com/studio/projects/dynamic-delivery)允许在不直接于基础APK中包含代码的情况下提供代码。正因为如此，通过连续步骤可实现按需下载功能。
+[动态功能](https://developer.android.com/studio/projects/dynamic-delivery)允许在不直接于基础 APK 中包含代码的情况下提供代码。正因为如此，通过连续步骤可实现按需下载功能。
 
 ### What’s in the box — Plaid’s construction
 
-接下来介绍Plaid的结构
+接下来介绍 Plaid 的结构
 
 Like most Android apps, Plaid started out as a single monolithic module built as a universal apk. The install size was just under 7 MB. Much of this data however was never actually used at runtime.
 
-如许多安卓应用一样，Plaid最初是作为普通APK构建的单一模块。它的安装体积仅在7MB一下。然而许多数据并未在运行的时候使用到。
+如许多安卓应用一样，Plaid 最初是作为普通 APK 构建的单一模块。它的安装体积仅在7MB一下。然而许多数据并未在运行的时候使用到。
 
 #### Code structure
 
@@ -78,7 +78,7 @@ Like most Android apps, Plaid started out as a single monolithic module built as
 
 From a code point of view Plaid had clear boundary definitions through packages. But as it happens with a lot of codebases these boundaries were sometimes crossed and dependencies snuck in. Modularization forces us to be much stricter with these boundaries, improving the separation.
 
-从代码角度来看，Plaid基于包从而有明确的边界定义。但是随着大量代码库的出现，这些边界会被跨越并且依赖会潜入其中。模块化要求我们更加严格地限定这些边界，从而提高和改善代码分离。
+从代码角度来看，Plaid 基于包从而有明确的边界定义。但是随着大量代码库的出现，这些边界会被跨越并且依赖会潜入其中。模块化要求我们更加严格地限定这些边界，从而提高和改善代码分离。
 
 #### Native libraries
 
@@ -86,7 +86,7 @@ From a code point of view Plaid had clear boundary definitions through packages.
 
 The biggest chunk of unused data originates in [Bypass](https://github.com/Uncodin/bypass), a library we use to render markdown in Plaid. It includes native libraries for multiple CPU architectures which all end up in the universal apk taking up around 4MB. App bundles enable delivering only the library needed for the device architecture, reducing the required size to around 1MB.
 
-最大的未用到的数据块来自 [Bypass](https://github.com/Uncodin/bypass)，一个我们用来在Plaid中呈现标记的库。它包括用于多核CPU体系架构的本地库，这些本地库最终在普通APK中占用大约4MB左右。APP束允许仅交付设备架构所需的库，将所需体积减少1MB左右。
+最大的未用到的数据块来自 [Bypass](https://github.com/Uncodin/bypass)，一个我们用来在 Plaid 中呈现标记的库。它包括用于多核 CPU 体系架构的本地库，这些本地库最终在普通 APK 中占用大约4MB左右。APP 束允许仅交付设备架构所需的库，将所需体积减少1MB左右。
 
 #### Drawable resources
 
@@ -94,11 +94,11 @@ The biggest chunk of unused data originates in [Bypass](https://github.com/Uncod
 
 Many apps use rasterized assets. These are density dependent and commonly account for a huge chunk of an app’s file size. Apps can massively benefit from configuration apks, where each display density is put in a separate apk, allowing for a device tailored installation, also drastically reducing download and size.
 
-许多应用使用栅格化资产。它们与密度有关，且通常占应用文件体积很大一部分。应用可从配置APK中受益匪浅，在配置APK中，每个显示密度都被放在一个独立APK中，允许设备定制安装，也大大减少下载和体积。
+许多应用使用栅格化资产。它们与密度有关，且通常占应用文件体积很大一部分。应用可从配置 APK 中受益匪浅，在配置 APK 中，每个显示密度都被放在一个独立 APK 中，允许设备定制安装，也大大减少下载和体积。
 
 Plaid relies heavily on [vector drawables](https://developer.android.com/guide/topics/graphics/vector-drawable-resources) to display graphical assets. Since these are density agnostic and save a lot of file size already the data savings here were not too impactful for us.
 
-Plaid显示图形资源时，很大程度上依赖于 [vector drawables](https://developer.android.com/guide/topics/graphics/vector-drawable-resources)。 因为这些与密度无关且已经保存了许多文件，所以此处数据节省对我们并不是太有影响。
+Plaid 显示图形资源时，很大程度上依赖于 [vector drawables](https://developer.android.com/guide/topics/graphics/vector-drawable-resources)。 因为这些与密度无关且已经保存了许多文件，所以此处数据节省对我们并不是太有影响。
 
 ### Stitching everything together
 
@@ -106,7 +106,7 @@ Plaid显示图形资源时，很大程度上依赖于 [vector drawables](https:/
 
 During the modularization task, we initially replaced `./gradlew assemble` with `./gradlew bundle`. Instead of producing an Android PacKage (apk), Gradle would now produce an [Android App Bundle](http://g.co/androidappbundle) (aab). An Android App Bundle is required for using the dynamic-feature Gradle plugin, which we’ll cover later on.
 
-在模块化中，我们最初把 `./gradlew assemble` 替换为 `./gradlew bundle` 。Gradle现在将生成一个 [Android App Bundle](http://g.co/androidappbundle) (aab) ，替换生成APK。一个安卓应用束需要用到动态功能Gradle插件，我们稍后会介绍到。
+在模块化中，我们最初把 `./gradlew assemble` 替换为 `./gradlew bundle` 。Gradle 现在将生成一个 [Android App Bundle](http://g.co/androidappbundle) (aab) ，替换生成 APK。一个安卓应用束需要用到动态功能 Gradle 插件，我们稍后会介绍到。
 
 #### Android App Bundles
 
@@ -114,11 +114,11 @@ During the modularization task, we initially replaced `./gradlew assemble` with 
 
 Instead of a single apk, AABs generate a number of smaller configuration apks. These apks can then be tailored to the user’s device, saving data during delivery and on disk. App bundles are also a prerequisite for dynamic feature modules.
 
-相对于单个APK，安卓应用束生成许多小的配置APK。这些APK可以根据用户的设备进行定制，从而在发送过程和磁盘上保存数据。应用束也是动态功能模块的先决条件。
+相对于单个 APK，安卓应用束生成许多小的配置 APK。这些 APK 可以根据用户的设备进行定制，从而在发送过程和磁盘上保存数据。应用束也是动态功能模块的先决条件。
 
 Configuration apks are generated by Google Play after the Android App Bundle is uploaded. With [app bundles](http://g.co/androidappbundle) being an [open spec](https://developer.android.com/guide/app-bundle#aab_format) and Open Source [tooling available](https://github.com/google/bundletool), other app stores can implement this delivery mechanism too. In order for the Google Play Store to generate and sign the apks the app also has to be enrolled to [App Signing by Google Play](https://developer.android.com/studio/publish/app-signing).
 
-在Google Play上传应用束后，可以生成配置APK。随着 [应用束](http://g.co/androidappbundle) 成为 [开放规范](https://developer.android.com/guide/app-bundle#aab_format)，其它应用商店也可以实现这种交付机制。为了Google Play生成并签署APK，应用必须注册到 [由Google Play签名的应用程序](https://developer.android.com/studio/publish/app-signing)。
+在 Google Play 上传应用束后，可以生成配置 APK。随着 [应用束](http://g.co/androidappbundle) 成为 [开放规范](https://developer.android.com/guide/app-bundle#aab_format)，其它应用商店也可以实现这种交付机制。为了 Google Play 生成并签署 APK，应用必须注册到 [由Google Play签名的应用程序](https://developer.android.com/studio/publish/app-signing)。
 
 #### Benefits
 
@@ -130,7 +130,7 @@ What did this change of packaging do for us?
 
 **Plaid is now is now more than 60 % smaller on device, which equals about 4 MB of data.**
 
-**Plaid现在比设备减少60%以上，等同大约4MB数据。**
+**Plaid 现在比设备减少60%以上，等同大约4MB数据。**
 
 This means that each user has some more space for other apps.  
 Also download time has improved due to decreased file size.
@@ -172,11 +172,11 @@ The above graph shows the current state of Plaid’s modularization:
 *   `:app` depends on `:core`
 *   dynamic feature modules depend on `:app`
 
-上面图表向我们展示了Plaid模块化的现状：
+上面图表向我们展示了 Plaid 模块化的现状：
 
-* `:bypass`和外部`shared dependencies`包含在核心模块当中
-* `:app`依赖`:core`
-* 动态功能模块依附于`:app`
+* `边缘性部分`和外部`分享依赖`包含在核心模块当中
+* `APP` 依赖于`核心模块`
+* 动态功能模块依赖于 `APP`
 
 #### Application module
 
@@ -184,7 +184,11 @@ The above graph shows the current state of Plaid’s modularization:
 
 The `:app` module basically is the already existing `[com.android.application](https://developer.android.com/studio/build/)`, which is needed to create our app bundle and keep shipping Plaid to our users. Most code used to run Plaid doesn’t have to be in this module and can be moved elsewhere.
 
+`APP` 模块基本上是现存的[应用](https://developer.android.com/studio/build/)，被用来创建 APP 束并且向我们展示 Plaid。许多用来运行 Plaid 的代码没必要必须包含在该模块当中，而是可以移至其它的任何地方。
+
 #### Plaid’s `core module`
+
+Plaid 的`核心模块`。
 
 To get started with our refactoring, we moved all code and resources into a `[com.android.library](https://developer.android.com/studio/projects/android-library)` module. After further refactoring, our `:core` module only contains code and resources which are shared between feature modules. This allows for a much cleaner separation of dependencies.
 
