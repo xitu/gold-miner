@@ -168,11 +168,11 @@ green: dynamic features | dark grey: application module | light grey: libraries
 
 The above graph shows the current state of Plaid’s modularization:
 
-上面图表向我们展示了Plaid模块化的现状：
-
 *   `:bypass` and external `shared dependencies` are included in core
 *   `:app` depends on `:core`
 *   dynamic feature modules depend on `:app`
+
+上面图表向我们展示了Plaid模块化的现状：
 
 * `:bypass`和外部`shared dependencies`包含在核心模块当中
 * `:app`依赖`:core`
