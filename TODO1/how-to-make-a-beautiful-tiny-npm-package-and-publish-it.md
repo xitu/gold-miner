@@ -2,140 +2,140 @@
 > * 原文作者：[Jonathan Wood](https://medium.freecodecamp.org/@Bamblehorse?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-make-a-beautiful-tiny-npm-package-and-publish-it.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-make-a-beautiful-tiny-npm-package-and-publish-it.md)
-> * 译者：
-> * 校对者：
+> * 译者：[snowyYU](https://github.com/snowyYU)
+> * 校对者：[ElizurHz](https://github.com/ElizurHz), [Park-ma](https://github.com/Park-ma)
 
-# How to make a beautiful, tiny npm package and publish it
+# 创建并发布一个小而美的 npm 包
 
-You won’t believe how easy it is!
+你肯定想不到这有多简单！
 
 ![](https://cdn-images-1.medium.com/max/800/0*7m8mTkj_Fp916sdm)
 
 Photo by [Chen Hu](https://unsplash.com/@huchenme?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
 
-If you’ve created lots of npm modules, you can skip ahead. Otherwise, we’ll go through a quick intro.
+如果你已经写过很多 npm 模块，你就可以跳过这部分。如果没有的话，我们先看下简介。
 
 #### TL;DR
 
-An npm module **only** requires a package.json file with **name** and **version** properties.
+一个 npm 模块 **只** 需要包含一个带有 **name** 和 **version** 属性的 package.json 文件。
 
-### Hey!
+### Hey！
 
-There you are.
+看看你。
 
-Just a tiny elephant with your whole life ahead of you.
+就像一只懵懂无知的小象。
 
-You’re no expert in making npm packages, but you’d love to learn how.
+你不是制作 npm 包的专家，但你很想学习它。
 
-All the big elephants stomp around with their giant feet, making package after package, and you’re all like:
+所有的大象跺跺脚就能制作一个又一个的包，然后你会想：
 
-> “I can’t compete with that.”
+> “我没法与它们竞争啊。”
 
-Well I’m here to tell that you you can!
+好吧，其实你是可以的！
 
-No more self doubt.
+不要再怀疑自己啦。
 
-Let’s begin!
+开始吧！
 
-#### You’re not an Elephant
+#### 你不是大象
 
-I meant that [metaphorically](https://www.merriam-webster.com/dictionary/metaphorical).
+这是个 [比喻](https://www.merriam-webster.com/dictionary/metaphorical)。
 
-Ever wondered what baby elephants are called?
+想过幼年大象被叫做什么吗？
 
-_Of course you have._ A baby elephant is called a [calf](https://www.reference.com/pets-animals/baby-elephant-called-a3893188e0a63095).
+**你当然想过**。一个幼年大象被叫做 [小牛](https://www.reference.com/pets-animals/baby-elephant-called-a3893188e0a63095)。
 
-#### I believe in you
+#### 我相信你
 
-[Self doubt](https://en.wikipedia.org/wiki/Impostor_syndrome) is real.
+[怀疑自己](https://en.wikipedia.org/wiki/Impostor_syndrome) 是存在的。
 
-That’s why no one ever does anything cool.
+这导致了很多人做不出很酷的东西。
 
-You think you won’t succeed, so instead you do nothing. But then you glorify the people doing all the awesome stuff.
+你觉得你做不出来，所以你啥都不做。 但是，你又会转头崇拜那些有着很高成就的牛人。
 
-Super ironic.
+太讽刺啦。
 
-That’s why I’m going to show you the tiniest possible npm module.
+所以我将要展示给你一个可能是最小的 npm 模块。
 
-Soon you’ll have hoards of npm modules flying out of your finger tips. Reusable code as far as the eye can see. No tricks — no complex instructions.
+很快就会有 npm 模块从你的指尖飞出来。随处可见的高复用代码。没有耍什么把戏 —— 也没有复杂的指令。
 
-### The Complex Instructions
+### 复杂的指令
 
-I promised I wouldn’t…
+我保证过不会有...
 
-…but I totally did.
+...不过我确实做了。
 
-They’re not that bad. You’ll forgive me one day.
+没这么糟糕啦。总有一天你会原谅我的。
 
-#### Step 1: npm account
+#### 步骤 1：npm 账户
 
-You need one. It’s just part of the deal.
+你需要一个账号。这是流程的一部分。
 
-[Signup here](https://www.npmjs.com/signup).
+[在这注册](https://www.npmjs.com/signup)。
 
-#### Step 2: login
+#### 步骤 2：登录
 
-Did you make an npm account?
+有没注册一个 npm 账户呀？
 
-Yeah you did.
+是啊，你已经创建啦。
 
-Cool.
+真棒。
 
-I’m also assuming you can use the [command line / console](https://www.davidbaumgold.com/tutorials/command-line/) etc. I’m going to be calling it the terminal from now on. There’s a difference [apparently](https://superuser.com/questions/144666/what-is-the-difference-between-shell-console-and-terminal).
+我同时建议你使用 [命令行 / 控制台](https://www.davidbaumgold.com/tutorials/command-line/) 等等。从现在起我统一叫它们终端。这里可以看下它们的区别 [很明显](https://superuser.com/questions/144666/what-is-the-difference-between-shell-console-and-terminal)。
 
-Go to your terminal and type:
+打开终端然后输入：
 
 ```
 npm adduser
 ```
 
-You can also use the command:
+你也可以使用下面的命令：
 
 ```
 npm login
 ```
 
-Pick whichever command jives with you.
+这两个选一个跟着你混到死吧。
 
-You’ll get a prompt for your **username**, **password** and **email**. Stick them in there!
+你会得到一个让你输入**username**、**password** 和 **email**的提示。把它们填在相应的位置吧！
 
-You should get a message akin to this one:
+你会得到类似下面的提示：
 
 > Logged in as bamblehorse to scope [@username](http://twitter.com/username "Twitter profile for @username") on [https://registry.npmjs.org/](https://registry.npmjs.org/).
 
-Nice!
+棒极啦！
 
-### Let’s make a package
+### 开始开发一个包
 
-First we need a folder to hold our code. Create one in whichever way is comfortable for you. I’m calling my package **tiny** because it really is very small. I’ve added some terminal commands for those who aren’t familiar with them.
+首先我们需要一个文件夹来装我们的代码。用一个你喜欢的方式随便建一个。我把我新建的包叫做 **tiny** 因为它真的很小。我为那些不熟悉命令行的人提供些新建相关的终端命令。
 
 > [md](https://en.wikipedia.org/wiki/Mkdir) tiny
 
-In that folder we need a [**package.json**](https://docs.npmjs.com/files/package.json) file. If you already use [Node.js](https://en.wikipedia.org/wiki/Node.js) — you’ve met this file before. It’s a [JSON](https://en.wikipedia.org/wiki/JSON) file which includes information about your project and has a plethora of different options. In this tutorial, we are only going to focus on two of them.
+在新建的文件夹中，我们需要 [**package.json**](https://docs.npmjs.com/files/package.json) 文件。如果你用过 [Node.js](https://en.wikipedia.org/wiki/Node.js) — 那你肯定见过这个文件。这是一个 [JSON](https://en.wikipedia.org/wiki/JSON) 文件，它包含了你的项目信息以及众多的配置项。在本文中，我们只需关注其中的两项。
 
 > [cd](https://en.wikipedia.org/wiki/Cd_%28command%29) tiny && [touch](https://superuser.com/questions/502374/equivalent-of-linux-touch-to-create-an-empty-file-with-powershell) package.json
 
-#### How small can it really be, though?
+#### 它能有多小呢？
 
-Really small.
+真的很小。
 
-All tutorials about making an npm package, including the official documentation, tell you to enter certain fields in your package.json. We’re going to keep trying to publish our package with as little as possible until it works. It’s a kind of [TDD](https://en.wikipedia.org/wiki/Test-driven_development) for a minimal npm package.
+包括官方文档在内的创建 npm 包的教程，都在让你在 package.json 中输入某些字段。在不影响它正常工作和发布的前提下，我们尽量试着精简下我们的包。这是 [TDD](https://en.wikipedia.org/wiki/Test-driven_development) 的一种，我们把它用在一个很小的 npm 包上。
 
-**Please note:** I’m showing you this to demonstrate that making an npm package doesn’t have to be complicated. To be useful to the community at large, a package needs a few extras, and we’ll cover that later in the article.
+**请注意**：我给你讲这些就是想说明不是所有的npm包都很复杂。想让我们开发的包为社区作出贡献的话，一般还需要很多别的模块，随后我们会讲到。
 
-#### Publishing: First attempt
+#### 发布：第一次尝试
 
-To publish your npm package, you run the well-named command: **npm publish.**
+为了发布你的 npm 包，你需要执行规定好的命令：**npm publish**。
 
-So we have an empty package.json in our folder and we’ll give it a try:
+所以我们在创建好的包含空 package.json 的文件夹中试一下：
 
 ```
 npm publish
 ```
 
-Whoops!
+啊哦！
 
-We got an error:
+报错：
 
 ```
 npm ERR! file package.json
@@ -149,13 +149,13 @@ npm ERR!
 npm ERR! Tell the package author to fix their package.json file. JSON.parse
 ```
 
-npm doesn’t like that much.
+npm 可不喜欢报这么多错。
 
-Fair enough.
+有道理。
 
-#### Publishing: Strike two
+#### 发布：第二次挣扎
 
-Let’s give our package a name in the package.json file:
+我们先在 package.json 文件中给我们的包起个名字吧：
 
 ```
 {
@@ -163,47 +163,47 @@ Let’s give our package a name in the package.json file:
 }
 ```
 
-You might have noticed that I added my npm username onto the beginning.
+你可能注意到了，我把我的 npm 用户名加到了开头。
 
-What’s that about?
+这样做的意义是什么呢？
 
-By using the name **@bamblehorse/tiny** instead of just **tiny**, we create a package under the **scope** of our username. It’s called a [**scoped package**](https://docs.npmjs.com/misc/scope). It allows us to use short names that might already be taken, for example the [**tiny** package](https://www.npmjs.com/package/tiny) already exists in npm.
+通过使用 **@bamblehorse/tiny** 代替 **tiny**，我们会创建一个在我们用户名 **scope** 下的一个包。这个叫做 [**scoped package**](https://docs.npmjs.com/misc/scope)。它允许我们将已经被其他包使用的名称作为包名，比如说，[**tiny** 包](https://www.npmjs.com/package/tiny) 已经在 npm 中存在。
 
-You might have seen this with popular libraries such as the [Angular framework](https://angular.io/) from Google. They have a few scoped packages such as [@angular/core](https://www.npmjs.com/package/@angular/core) and [@angular/http](https://www.npmjs.com/package/@angular/http).
+你可能在一些著名的包中见过这种命名方法，比如来自 Google 的 [Angular](https://angular.io/)。它们有几个 scoped packages，比如 [@angular/core](https://www.npmjs.com/package/@angular/core) 和 [@angular/http](https://www.npmjs.com/package/@angular/http)。
 
-Pretty cool, huh?
+超级酷，对吧？
 
-We’ll try and publish a second time:
+我们试着第二次发布我们的包：
 
 ```
 npm publish
 ```
 
-The error is smaller this time — progress.
+这次的报错信息少多了 —— 有进步。
 
 ```
 npm ERR! package.json requires a valid “version” field
 ```
 
-Each npm package needs a version so that developers know if they can safely update to a new release of your package without breaking the rest of their code. The versioning system npm using is called [**SemVer**](https://semver.org/), which stands for **Semantic Versioning**.
+每个 npm 包都需要一个版本，以便开发人员在安全地更新包版本的同时不会破坏其余的代码。npm 使用的版本系统被叫做 [**SemVer**](https://semver.org/)，是 **Semantic Versioning** 的缩写。
 
-Dont worry too much about understanding the more complex version names but here’s their summary of how the basic ones work:
+不要过分担心理解不了相较复杂的版本名称，下面是他们对基本版本命名的总结：
 
-> Given a version number MAJOR.MINOR.PATCH, increment the:
+> 给定版本号 MAJOR.MINOR.PATCH，增量规则如下：
 >
-> 1. MAJOR version when you make incompatible API changes,
+> 1. MAJOR 版本号的变更说明新版本产生了不兼容低版本的 API 等，
 >
-> 2. MINOR version when you add functionality in a backwards-compatible manner, and
+> 2. MINOR 版本号的变更说明你在以向后兼容的方式添加功能，接下来
 >
-> 3. PATCH version when you make backwards-compatible bug fixes.
+> 3. PATCH 版本号的变更说明你在新版本中做了向后兼容的 bug 修复。
 >
-> Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format.
+> 表示预发布和构建元数据的附加标签可作为 MAJOR.MINOR.PATCH 格式的扩展。
 >
 > [https://semver.org](https://semver.org/)
 
-#### **Publishing: The third try**
+#### **发布：第三次尝试**
 
-We’ll give our package.json the version: **1.0.0** — the first major release.
+我们将要定义我们 package.json 中包的版本号：**1.0.0** —— 第一个主要版本。
 
 ```
 {
@@ -212,13 +212,13 @@ We’ll give our package.json the version: **1.0.0** — the first major rel
 }
 ```
 
-Let’s publish!
+开始发布吧！
 
 ```
 npm publish
 ```
 
-Aw shucks.
+哎呀。
 
 ```
 npm ERR! publish Failed PUT 402
@@ -226,75 +226,75 @@ npm ERR! code E402
 npm ERR! You must sign up for private packages : @bamblehorse/tiny
 ```
 
-Allow me to explain.
+我来解释一下。
 
-Scoped packages are automatically published privately because, as well as being useful for single users like us, they are also utilized by companies to share code between projects. If we had published a normal package, then our journey would end here.
+Scoped packages 会被自动发布为私有包，因为这样不但对我们这样的独立用户有用，而且它们也被公司用于在项目之间共享代码。如果我们就发布这样一个包的话，那我们的旅程可能就要在此结束了。
 
-All we need to change is to tell npm that actually we want everyone to use this module — not keep it locked away in their vaults. So instead we run:
+我们只需改变下指令来告诉 npm 我们想让每个人都可以使用这个模块 —— 不要把它锁进 npm 的保险库中。所以我们执行如下指令：
 
 ```
 npm publish --access=public
 ```
 
-Boom!
+Boom！
 
 ```
 + @bamblehorse/tiny@1.0.0
 ```
 
-We receive a plus sign, the name of our package and the version.
+我们收到一个 + 号，我们包的名称和版本号。
 
-We did it — we’re in the npm club.
+我们做到啦 —— 我们已经走进 npm 俱乐部啦。
 
-I’m excited.
+好激动。
 
-_You must be excited._
+**你也肯定很激动。**
 
 ![](https://cdn-images-1.medium.com/max/800/1*oBaHFxAXy-BWtzyAKeMGBQ.png)
 
-redacted in a friendly blue
+用友好的蓝色盖住敏感信息
 
-#### Did you catch that?
+#### 发现没？
 
-> npm loves you
+> npm 爱你呦
 
-Cute!
+真可爱！
 
-[Version one](https://www.npmjs.com/package/@bamblehorse/tiny/v/1.0.0) is out there!
+[版本 1](https://www.npmjs.com/package/@bamblehorse/tiny/v/1.0.0) 就躺在那呢！
 
-### Let’s regroup
+### 重构一下
 
-If we want to be taken seriously as a developer, and we want our package to be used, we need to show people the code and tell them how to use it. Generally we do that by putting our code somewhere public and adding a readme file.
+如果我们想成为一个严谨的开发者，并且让我们的包得以广泛使用，那我们就需要向别人展示我们的代码同时也要让他们明白怎样使用我们的包。一般我们通过将代码放在公共平台并添加描述文件来实现。
 
-We also need some code.
+我们也需要一些代码来实现。
 
-Seriously.
+实话说。
 
-We have no code yet.
+我们至今还没有写任何代码呢。
 
-GitHub is a great place to put your code. Let’s make a [new repository](https://github.com/new).
+GitHub 就是一个放代码的好地方。 先建一个 [新的仓库](https://github.com/new)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*NGHjzcMgnzBtmSFfQuqVow.png)
 
-#### README!
+#### README！
 
-I got used to typing **README** instead of **readme.**
+我之前通过在  **README** 编辑文字来 **描述**。
 
-You don’t have to do that anymore.
+你不必再那样做了。
 
-It’s a funny convention.
+接下来会很有趣。
 
-We’re going to add some funky badges from [shields.io](https://shields.io/) to let people know we are super cool and professional.
+我们将添加一些来自 [shields.io](https://shields.io/) 的时髦徽章，让人们知道我们又酷又专业。
 
-Here’s one that let’s people know the current version of our package:
+如下可以让别人知道我们当前的包版本：
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZbzgGAfTeBlqNH2gtLy-GQ.png)
 
 **npm (scoped)**
 
-This next badge is interesting. It failed because we don’t actually have any code.
+下一个徽章更有趣。它表示警告，因为我们还没有任何代码。 
 
-We should really write some code…
+我们真该写些代码...
 
 ![](https://cdn-images-1.medium.com/max/800/1*mxZkgckYLK16mhkRte1Bqw.png)
 
@@ -302,33 +302,33 @@ We should really write some code…
 
 ![](https://cdn-images-1.medium.com/max/800/1*gY_-15Q4rLU129dXLg5ibQ.png)
 
-Our tiny readme
+我们简短的简介
 
-#### License to code
+#### 代码许可
 
-That title is definitely a [James Bond reference](https://www.imdb.com/title/tt0097742/).
+这个名称肯定参考了 [James Bond](https://www.imdb.com/title/tt0097742/)。
 
-I actually forgot to add a license.
+我实际上忘了添加许可证。
 
-A license just let’s people know in what situations they can use your code. There are [lots of different ones](https://choosealicense.com/).
+代码许可其实就是让别人知道在什么情况下才能使用你的代码。这里有 [许多选项](https://choosealicense.com/) 供你选择。
 
-There’s a cool page called insights in every GitHub repository where you can check various stats — including the community standards for a project. I’m going to add my license from there.
+每个 GitHub 仓库中都有一个名为 insights 的酷页面，你可以在其中查看各种统计信息 —— 包括社区定下的项目标准。我将要从那里添加我的许可。
 
 ![](https://cdn-images-1.medium.com/max/800/1*hkUyteXGLLTDt0WwKEpZ6A.png)
 
-**Community recommendations**
+**社区意见**
 
-Then you hit this page:
+然后你点出这个页面：
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZWgFtTjkB8RpBDfRsCsLUQ.png)
 
-Github gives you a helpful summary of each license
+Github 为你提供了每个许可证简介
 
-#### The Code
+#### 代码
 
-We still don’t have any code. This is slightly embarrassing.
+我们还是没有任何代码。有点尴尬。
 
-Let’s add some now before we lose all credibility.
+在我们完全失去可信度之前加点代码吧。
 
 ```
 module.exports = function tiny(string) {
@@ -337,23 +337,23 @@ module.exports = function tiny(string) {
 };
 ```
 
-Useless — but beautiful
+虽然没用 —— 但是看着舒服多了
 
-There it is.
+就是这样。
 
-A **tiny** function that removes all spaces from a string.
+一个 **简易** 的方法，用来移除字符串中的空格。
 
-So all an npm package requires is an **index.js** file. This is the entry point to your package. You can do it in different ways as your package becomes more complex.
+所有 npm 包都需要一个 **index.js** 文件。这是包的入口文件。随着复杂度升高，你可以采用不同的方式来实现它。
 
-But for now this is all we need.
+不过如今这样对我们来说就足够了。
 
-### Are we there yet?
+### 我们已经到达目的地了吗？
 
-We’re so close.
+我们很接近了。
 
-We should probably update our minimal **package.json** and add some instructions to our **readme.md**.
+我们应该更新我们的迷你 **package.json** 文件并在 **readme.md** 文件中添加一些指令。
 
-Otherwise nobody will know how to use our beautiful code.
+不然就没人知道怎样使用我们漂亮的代码啦。
 
 #### package.json
 
@@ -374,79 +374,79 @@ Otherwise nobody will know how to use our beautiful code.
 }
 ```
 
-Descriptive!
+解释一下！
 
-We’ve added:
+我们添加了如下属性：
 
-*   [description](https://docs.npmjs.com/files/package.json#description-1): a short description of the package
-*   [repository](https://docs.npmjs.com/files/package.json#repository): GitHub friendly — so you can write **username/repo**
-*   [license](https://docs.npmjs.com/files/package.json#license): MIT in this case
-*   [main](https://docs.npmjs.com/files/package.json#main): the entry point to your package, relative to the root of the folder
-*   [keywords](https://docs.npmjs.com/files/package.json#keywords): a list of keywords used to discover your package in npm search
+*   [description](https://docs.npmjs.com/files/package.json#description-1)：包的简介
+*   [repository](https://docs.npmjs.com/files/package.json#repository)：适合写上 GitHub 地址 —— 所以你可以写成这种格式 **username/repo**
+*   [license](https://docs.npmjs.com/files/package.json#license)：这里是 MIT 认证
+*   [main](https://docs.npmjs.com/files/package.json#main)：包的入口文件，位置在文件夹的根目录
+*   [keywords](https://docs.npmjs.com/files/package.json#keywords)：添加一些关键词更容易使你的包被搜索到
 
 #### readme.md
 
 ![Informative!](https://i.loli.net/2018/11/26/5bfbdd88d4ac8.png)
 
-Informative!
+非常丰富！
 
-We’ve added instructions on how to install and use the package. Nice!
+我们已经添加了有关如何安装和使用该包的说明。棒极啦！
 
-If you want a good template for your readme, just check out popular packages in the open source community and use their format to get you started.
+如果您想优化下 readme 的格式，只需查看开源社区中的热门软件包，并使用它们的格式来帮助你快速入门。
 
-### Done
+### 完成
 
-Let’s publish our spectacular package.
+开始发布我们的棒棒的包吧。
 
-#### Version
+#### 版本
 
-First we’ll update the version with the [npm version](https://docs.npmjs.com/cli/version) command.
+首先，我们用 [npm version](https://docs.npmjs.com/cli/version) 命令来升级下包的版本。
 
-This is a major release so we type:
+这是一个主版本，因此我们输入：
 
 ```
 npm version major
 ```
 
-Which outputs:
+它会输出：
 
 ```
 v2.0.0
 ```
 
-#### Publish!
+#### 发布！
 
-Let’s run our new favorite command:
+让我们运行我们最喜欢的命令吧：
 
 ```
 npm publish
 ```
 
-It is done:
+完成：
 
 ```
 + @bamblehorse/tiny@2.0.0
 ```
 
-### Cool stuff
+### 一个酷酷的东西
 
-[Package Phobia](https://packagephobia.now.sh/result?p=%40bamblehorse%2Ftiny) gives you a great summary of your npm package. You can check out each file on sites like [Unpkg](https://unpkg.com/@bamblehorse/tiny@2.0.0/) too.
+[Package Phobia](https://packagephobia.now.sh/result?p=%40bamblehorse%2Ftiny) 可以为你的包提供一个很棒的摘要。您也可以在 [Unpkg](https://unpkg.com/@bamblehorse/tiny@2.0.0/) 等网站上查看包内的文件。
 
-### Thank you
+### 感谢你的阅读
 
-That was a wonderful journey we just took. I hope you enjoyed it as much as I did.
+我们刚刚经历了一场美妙的旅行。我希望你会像我一样享受喜爱它。
 
-Please let me know what you thought!
+请让我知道你在想什么！
 
-Star the package we just created here:
+给我们刚刚创建的包来颗 star 吧：
 
 #### ★ [Github.com/Bamblehorse/tiny](https://github.com/Bamblehorse/tiny)
 
 ![](https://cdn-images-1.medium.com/max/800/0*qmkE3zw9beF6fP_0)
 
-“An elephant partially submerged in water.” by [Jakob Owens](https://unsplash.com/@jakobowens1?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
+“大半个身子浸在水中的大象。” 由 [Jakob Owens](https://unsplash.com/@jakobowens1?utm_source=medium&utm_medium=referral) 拍摄，来自 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
 
-Follow me on [Twitter](https://twitter.com/Bamblehorse), [Medium](https://medium.com/@Bamblehorse) or [GitHub](https://github.com/Bamblehorse).
+请关注我 [Twitter](https://twitter.com/Bamblehorse)、[Medium](https://medium.com/@Bamblehorse) 或 [GitHub](https://github.com/Bamblehorse)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

@@ -2,319 +2,320 @@
 > * 原文作者：[Abhishek Ghose](https://blog.statsbot.co/@AbhishekGhose?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/support-vector-machines-tutorial.md](https://github.com/xitu/gold-miner/blob/master/TODO1/support-vector-machines-tutorial.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zhmhhu](https://github.com/zhmhhu)
+> * 校对者：[TrWestdoor](https://github.com/TrWestdoor), [1992chenlu](https://github.com/1992chenlu)
 
-# Support Vector Machine (SVM) Tutorial
+# 支持向量机（SVM）教程
 
-## Learning SVMs from examples
+## 从例子中学习 SVM
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Z3Ymb1e3sjDJr-6h0s4TwQ.jpeg)
 
-_After the_ [_Statsbot_](http://statsbot.co?utm_source=blog&utm_medium=article&utm_campaign=svm) _team published the post about_ [_time series anomaly detection_](https://blog.statsbot.co/time-series-anomaly-detection-algorithms-1cef5519aef2)_, many readers asked us to tell them about the Support Vector Machines approach. It’s time to catch up and introduce you to SVM without hard math and share useful libraries and resources to get you started._
+在 [Statsbot](http://statsbot.co?utm_source=blog&utm_medium=article&utm_campaign=svm) 团队发布关于[时间序列异常检测](https://blog.statsbot.co/time-series-anomaly-detection-algorithms-1cef5519aef2)的帖子之后，许多读者要求我们告诉他们有关支持向量机的方法。现在是时候在不涉及复杂数学知识的情况下向您介绍SVM，并分享有用的库和资源以帮助您入门了。
 
 * * *
 
-If you have used machine learning to perform classification, you might have heard about _Support Vector Machines (SVM)_. Introduced a little more than 50 years ago, they have evolved over time and have also been adapted to various other problems like _regression, outlier analysis,_ and _ranking_.
+如果您已经使用机器学习来执行分类，您可能听说过**支持向量机（SVM）**。50 多年前被引入，它们随着时间的推移而发展，并且已经适应了各种其他问题，如**回归分析、异常值分析**和**排名**。
 
-SVMs are a favorite tool in the arsenal of many machine learning practitioners. At [[24]7](https://www.247-inc.com/), we too use them to solve a variety of problems.
+SVM 是许多机器学习从业者的最佳工具。在[[24]7](https://www.247-inc.com/)，我们也使用它们来解决各种问题。
 
-In this post, we will try to gain a high-level understanding of how SVMs work. I’ll focus on developing intuition rather than rigor. What that essentially means is we will skip as much of the math as possible and develop a strong intuition of the working principle.
+在这篇文章中，我们将尝试深入了解 SVM 的工作原理。我会专注于建立直觉而并不追求严谨。这基本上意味着我们将尽可能多地跳过数学并建立起对工作原理的直觉理解。
 
-### The Problem of Classification
+### 分类问题
 
-Say there is a machine learning (ML) course offered at your university. The course instructors have observed that students get the most out of it if they are good at Math or Stats. Over time, they have recorded the scores of the enrolled students in these subjects. Also, for each of these students, they have a label depicting their performance in the ML course: “Good” or “Bad.”
+假设您的大学提供机器学习（ML）课程。课程导师观察到，如果学生擅长数学或统计学，他们将获得最大的收益。随着时间的推移，他们记录了这些科目的入学学生的分数。此外，对于其中的每一个学生，他们都有一个描述他们在 ML 课程中表现“好”或“差”的标签。
 
-Now they want to determine the relationship between Math and Stats scores and the performance in the ML course. Perhaps, based on what they find, they want to specify a prerequisite for enrolling in the course.
+现在，他们想要确定数学和统计学分数与 ML 课程中的表现之间的关系。也许，根据他们发现的内容，他们希望指定入学课程的先决条件。
 
-How would they go about it? Let’s start with representing the data they have. We could draw a two-dimensional plot, where one axis represents scores in Math, while the other represents scores in Stats. A student with certain scores is shown as a point on the graph.
+情况会怎么样呢？ 让我们从表示他们拥有的数据开始。我们可以绘制一个二维图，其中一个轴代表数学分数，而另一个代表统计分数。具有特定分数的学生在图表上显示为一个点。
 
-The color of the point — green or red — represents how he did on the ML course: “Good” or “Bad” respectively.
+点的颜色——绿色或红色——代表他在 ML 课程中的表现：分别为“好”或“差”。
 
-This is what such a plot might look like:
+绘出来的图有可能是这样的：
 
 ![](https://cdn-images-1.medium.com/max/800/0*Jd9M5GLoD2qHsCEz.)
 
-When a student requests enrollment, our instructors would ask her to supply her Math and Stats scores. Based on the data they already have, they would make an informed guess about her performance in the ML course.
+当学生要求报名时，我们的教师会要求她提供她的数学和统计学分数。根据他们已有的数据，他们会对 ML 课程中的表现做出有根据的的猜测。
 
-What we essentially want is some kind of an “algorithm,” to which you feed in the “score tuple” of the form _(math_score, stats_score)_. It tells you whether the student is a red or green point on the plot (red/green is alternatively known as a _class_ or _label_). And of course, this algorithm embodies, in some manner, the patterns present in the data we already have, also known as the _training data_.
+我们本质上想要的是某种“算法”，你可以在其中输入表格的“得分元组”（*math_score，stats_score*）。它会告诉你某个学生是图形上的红点还是绿点（红色/绿色也可称为**类**或**标签**）。当然，该算法以某种方式体现了我们已经拥有的数据中存在的模式，也称为**训练数据**。
 
-In this case, finding a line that passes between the red and green clusters, and then determining which side of this line a score tuple lies on, is a good algorithm. We take a side — the green side or the red side — as being a good indicator of her most likely performance in the course.
+在这种情况下，找到穿过红点即和绿点集之间的直线，然后确定得分元组落在该线的哪一侧，是一个很好的算法。我们采取一方——绿色方面或红色方面——作为她在课程中最有可能表现的一个指标。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*Z7Pb5_KhQkqoQkoqjLC-Rg.jpeg)
 
-The line here is our _separating boundary_ (because it separates out the labels)  or _classifier_ (we use it classify points). The figure shows two possible classifiers for our problem.
+这里的直线就是我们的**分割边界（separating boundary）**（因为它分隔了标签）或**分类器**（我们用它来对点进行分类）。该图展示了在我们的问题中两种都有可能的产生的分类器。
 
-### Good vs Bad Classifiers
+### 好的 vs 坏的分类器
 
-Here’s an interesting question: both lines above separate the red and green clusters. Is there a good reason to choose one over another?
+这是一个有趣的问题：上面的两条线都可以将红色和绿色的数据集分开。我们是否有充分的理由选择其中一个而不是另一个？
 
-Remember that the worth of a classifier is not in how well it separates the training data. We eventually want it to classify yet-unseen data points (known as _test data_). Given that, we want to choose a line that captures the _general pattern_ in the training data, so there is a good chance it does well on the test data.
+请记住，分类器的价值不在于它如何区分训练数据。我们最终希望它对尚未看到的数据点进行分类（称为**测试数据**）。鉴于此，我们希望选择一条线来捕获训练数据中的**基本模式**，因此很有可能它在测试数据上表现良好。
 
-The first line above seems a bit “skewed.” Near its lower half it seems to run too close to the red cluster, and in its upper half it runs too close to the green cluster. Sure, it separates the training data perfectly, but if it sees a test point that’s a little farther out from the clusters, there is a good chance it would get the label wrong.
+上面的第一条直线看起来有点“倾斜”。在它的下半部分附近，它似乎太靠近红点色数据集了，而在它的上半部分它太靠近绿色数据集了。当然，它可以完美地分离训练数据，但是如果测试点离数据集稍远一点，那么它很可能会得到一个错误的标签。
 
-The second line doesn’t have this problem. For example, look at the test points shown as squares and the labels assigned by the classifiers in the figure below.
+第二条直线没有这个问题。例如，看看下图中已正方形显示的测试点以及分类器指定的标签。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*gYZ1orikXka5H9zOko8Iwg.jpeg)
 
-The second line stays as far away as possible from both the clusters while getting the training data separation right. By being right in the middle of the two clusters, it is less “risky,” gives the data distributions for each class some wiggle room so to speak, and thus generalizes well on test data.
+第二条直线尽可能远离两个数据集，同时使训练数据正确分离。它通过两个数据集的中间部分，它不那么“冒险”，可以为每个类提供一些空间来布置数据分布，从而很好的适用于测试数据。
 
-SVMs try to find the second kind of line. We selected the better classifier visually, but we need to define the underlying philosophy a bit more precisely to apply it in the general case. Here’s a simplified version of what SVMs do:
+SVM 试图找到这第二种线。我们通过视觉选择了更好的分类器，但我们需要更精确地定义基础原理以便在一般情况下应用它。这是 SVM 的简化版本：
 
-1.  Find lines that correctly classify the training data
-2.  Among all such lines, pick the one that has the greatest distance to the points closest to it.
+1. 找到能够正确分类训练数据的直线。
+2. 在所有这些直线中，选择与它最近的点距离最远的直线。
 
-The closest points that identify this line are known as _support vectors_. And the region they define around the line is known as the _margin_.
+距离这条直线的最近那些点称为**支持向量（support vectors）**。他们围绕这条线定义的区域称为**间隔（margin）**。
 
-Here’s the second line shown with the support vectors: points with black edges (there are two of them) and the margin (the shaded region).
+下面显示的是第二条直线的支持向量：带有黑色边缘的点（有两个）和间隔（阴影区域）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*csqbt5-K4GVi4i4Lrcx_eA.png)
 
-Support Vector Machines give you a way to pick between many possible classifiers in a way that guarantees a higher chance of correctly labeling your test data. Pretty neat, right?
+支持向量机为您提供了一种在许多可能的分类器之间进行选择的方法，以确保以更高的正确率标记测试数据。这种方法很简洁吧？
 
-While the above plot shows a line and data in two dimensions, it must be noted that SVMs work in any number of dimensions; and in these dimensions, they find the analogue of the two-dimensional line.
+虽然上图显示了在二维空间中的直线和数据，但必须注意 SVM 在任意数量的维度上都可以运行; 在这些维度中，他们找到了二维直线的类比。
 
-For example, in three dimensions they find a _plane_ (we will see an example of this shortly), and in higher dimensions they find a _hyperplane_ — a generalization of the two-dimensional line and three-dimensional plane to an arbitrary number of dimensions.
+例如，在三维空间中，他们寻找**平面（plane）**（我们将很快看到这个例子），并且在更高的维度中，他们寻找**超平面（hyperplane）** ——二维直线和三维平面到任意数量的维度的推广。
 
-Data that can be separated by a line (or in general, a hyperplane) is known as _linearly separable_ data. The hyperplane acts as a _linear classifier._
+可由直线（或通常为超平面）分隔的数据称为**线性可分（linearly separaterable）** 数据。超平面充当**线性分类器（linear classifier）**。
 
-### Allowing for Errors
+### 容错
 
-We looked at the easy case of perfectly linearly separable data in the last section. Real-world data is, however, typically messy. You will almost always have a few instances that a linear classifier can’t get right.
+我们在最后一节中查看了完全线性可分离数据的简单情况。然而，真实世界的数据通常是混乱的。你几乎总会遇到一些线性分类器无法正确分隔的实例。
 
-Here’s an example of such data:
+以下是此类数据的示例：
 
 ![](https://cdn-images-1.medium.com/max/800/0*LOhi9HK-AzwZlh1q.)
 
-Clearly, if we are using a linear classifier, we are never going to be able to perfectly separate the labels. We also don’t want to discard the linear classifier altogether because it does seem like a good fit for the problem except for a few errant points.
+显然，如果我们使用线性分类器，我们永远无法完全分离标签。我们也不想完全抛弃线性分类器，因为除了一些错误的点之外，它看起来似乎很适合这个问题。
 
-How do SVMs deal with this? They allow you to specify how many errors you are willing to accept.
+SVM 如何处理这个问题？它们允许您指定您愿意接受的错误数量。
 
-You can provide a parameter called “C” to your SVM; this allows you to dictate the tradeoff between:
+您可以为 SVM 提供一个名为“C”的参数；这允许你决定以下两者之间的权衡：
 
-1.  Having a wide margin.
-2.  Correctly classifying **training** data. A higher value of C implies you want lesser errors on the training data.
+1. 有很大的间隔。
+2. 正确分类**训练**数据。较高的 C 值意味着您希望训练数据上的错误较少。
 
-It bears repeating that this is a **tradeoff**. You get better classification of training data at the _expense_ of a wide margin.
+值得重申的是，这是一个 **权衡（tradeoff）** 办法。您可以在 **代价（expense）** 范围内为训练数据选择更好地分类器。
 
-The following plots show how the classifier and the margin vary as we increase the value of C (support vectors not shown):
+下面的图显示了当我们增加 C 的值时，分类器和间隔是如何变化的（支持向量未显示）：
 
 ![](https://cdn-images-1.medium.com/max/800/0*-_oXIrD3FQUA4YpW.)
 
-Note how the line “tilts” as we increase the value of C. At high values, it tries to accommodate the labels of most of the red points present at the bottom right of the plots. This is probably not what we want for test data. The first plot with C=0.01 seems to capture the general trend better, although it suffers from a lower accuracy on the training data compared to higher values for C.
+注意当我们增加 C 的值时，直线如何“倾斜”。在高值时，它会尝试容纳图表右下方存在的大多数红点。这可能不是我们想要的测试数据。C=0.01 的第一个图似乎更好地捕捉了总体趋势，尽管与 较高 C 值的结果相比，训练数据的准确度较低。
 
-> _And since this is a trade-off, note how the width of the margin shrinks as we increase the value of C._
+> **由于这是一个权衡办法，请注意当我们增加 C 的值时，间隔的宽度会缩小。**
 
-In the previous example, the margin was a “no man’s land” for points. Here, we see it’s not possible anymore to have _both_ a good separating boundary _and_ an associated point-free margin. Some points creep into the margin.
+在前面的例子中，间隔是数据点的“无人之地”。在这里，我们看到不可能有这样一种状况，既有一个良好的分割边界，又在间隔中不存在任何点。实际上一些点进入到了间隔里面。
 
-An important practical problem is to decide on a good value of C. Since real-world data is almost never cleanly separable, this need comes up often. We typically use a technique like _cross-validation_ to pick a good value for C.
+一个重要的实际问题是为 C 确定一个好的值。由于现实世界的数据几乎从不可分离，因此这种需求经常出现。我们通常使用像 **交叉验证（cross-validation）** 这样的技术为 C 选择一个好的值。
 
-### Non-linearly Separable Data
+### 非线性可分离数据
 
-We have seen how Support Vector Machines systematically handle perfectly/almost linearly separable data. How does it handle the cases where the data is absolutely not linearly separable? Afterall, a lot of real-world data falls in this category. Surely, finding a hyperplane can’t work anymore. This seems unfortunate given that SVMs excel at this task.
+我们已经看到支持向量机如何系统地处理完美/几乎线性可分离的数据。它如何处理绝对不可线性分离的数据的情况呢？毕竟，很多现实世界的数据属于这一类。当然，寻找超平面已不再适用。鉴于 SVM 在这项任务上表现出色，这似乎很不幸。
 
-Here’s an example of non-linearly separable data (this is a variant of the famous [XOR dataset](http://www.ece.utep.edu/research/webfuzzy/docs/kk-thesis/kk-thesis-html/node19.html)), shown with the linear classifier SVMs find:
+以下是非线性可分数据的示例（这是着名的 [XOR 数据集](http://www.ece.utep.edu/research/webfuzzy/docs/kk-thesis/kk-thesis-html/node19.html)的变体），与线性分类器 SVM 一起显示：
 
 ![](https://cdn-images-1.medium.com/max/800/0*P0ZmbVFYDZZIZ0cg.)
 
-You’d agree this doesn’t look great. We have only 75% accuracy on the training data — the best possible with a line. And more so, the line passes very close to some of the data. The best accuracy is not great, and to get even there, the line nearly straddles a few points.
+你一定会认为这看起来不太好。我们在训练集上的准确率只有 75％ ——这是只用一条直线进行分隔所能达到的最优性能。更重要的是，这条直线非常靠近一些数据。最优的准确度也并不是很好，而且为了达到平衡，这条线几乎完全跨过了一些点。
 
-We need to do better.
+我们需要做得更好
 
-This is where one of my favorite bits about SVMs come in. Here’s what we have so far: we have a technique that is really good at finding hyperplanes. But then we also have data that is not linearly separable. So what do we do? Project the data into a space where it _is_ linearly separable and find a hyperplane in this space!
+这就是我对 SVM 最喜欢的一点。这是我们到目前为止所拥有的：我们有一种非常擅长寻找超平面的技术。但是，我们也有不可线性分离的数据。那么我们该怎么办？将数据投影到一个**可以**线性分离的空间，并在这个空间中找到一个超平面！
 
-I’ll illustrate this idea one step at a time.
+我将一步一步地讲解这个想法。
 
-We start with the dataset in the above figure, and project it into a three-dimensional space where the new coordinates are:
+我们从上图中的数据集开始，并将其投影到三维空间中，其中新坐标为：
 
 ![](https://cdn-images-1.medium.com/max/800/0*PvZxA_odLsawXG1u.)
 
-This is what the projected data looks like. Do you see a place where we just might be able to slip in a plane?
+这就是投影数据的样子。你看到我们可以在平面上滑动的平面吗？
 
 ![](https://cdn-images-1.medium.com/max/800/0*_8gKP1fgfOa7JLxO.)
 
-Let’s run our SVM on it:
+让我们运行 SVM 吧：
 
 ![](https://cdn-images-1.medium.com/max/800/0*Ojchw_Exefs4qiok.)
 
-Bingo! We have perfect label separation! Lets project the plane back to the original two-dimensional space and see what the separation boundary looks like:
+好啦！我们完美地将标签分离！让我们将平面投射回原始的二维空间，看看分割边界是什么样的：
 
 ![](https://cdn-images-1.medium.com/max/800/1*PO7m4cZeP7p96gOJK3WDTQ.png)
 
-100% accuracy on the training data _and_ a separating boundary that doesn’t run too close to the data! Yay!
+在训练数据集上有 100% 的精度**并且**分隔边界不会太靠近数据！好极了！
 
-The shape of the separating boundary in the original space depends on the projection. In the projected space, this is _always_ a hyperplane.
+原始空间中分割边界的形状取决于投影。在投影空间中，这**往往**是一个超平面。
 
-> _Remember the primary goal of projecting the data was to put the hyperplane-finding superpowers of SVMs to use._
+> **请记住，投影数据的主要目的是为了利用 SVM 发现分隔超平面的能力。**
 
-When you map it back to the original space, the separating boundary is not a line anymore. This is also true for the margin and support vectors. As far as our visual intuition goes, they make sense in the projected space.
+将其映射回原始空间时，分割边界不再是直线。对于间隔和支持向量也是如此。就我们的视觉直觉而言，它们在投射空间中是有意义的。
 
-Take a look at what they look like in the projected space, and then in the original space. The 3D margin is the region (not shaded to avoid visual clutter) between the planes above and below the separating hyperplane.
+看看它们在投影空间中的样子，然后是原始空间。3D 间隔是分离超平面上方和下方的平面之间的区域（没有阴影以避免视觉混乱）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*qYg3y4_Qaj00U7sMU_XlaQ.gif)
 
-There are 4 support vectors in the projected space, which seems reasonable. They sit on the two planes that identify the margin. In the original space, they are still on the margin, but there doesn’t seem to be enough of them.
+在投影空间中有 4 个支持向量，这似乎是合理的。它们位于定义间隔的两个平面上。在原始空间中，它们仍然处在间隔上，但到这一步似乎还不够。
 
-Let’s step back and analyze what happened:
+让我们退一步分析发生的事情：
 
-#### 1. How did I know what space to project the data onto?
+#### 1.我怎么知道将数据投射到哪个空间？
 
-It seems I was being utterly specific — there is a square root of 2 in there somewhere!
+看起来我完全明确该怎么做——在那里放置一个 2 的平方根！
 
-In this case, I wanted to show how projections to higher dimensions work, so I picked a very specific projection. In general, this is hard to know. However, what we do know is data is more _likely_ to be linearly separable when projected onto higher dimensions, thanks to [Cover’s theorem](https://en.wikipedia.org/wiki/Cover%27s_theorem).
+在这个例子中，我想展示的是向高维的投影是如何工作的，所以我选择了一个非常具体的投影。一般来说，这一点是很难知道的。然而，我们所知道的是，由于 [Cover 定理](https://en.wikipedia.org/wiki/Cover%27s_theorem)，当投影到更高维度时，数据更**可能**是线性可分的。
 
-In practice, we try out a few high-dimensional projections to see what works. In fact, we can project data onto _infinite_ dimensions and that often works pretty well. This deserves going into some detail and that’s what the next section is about.
+在实践中，我们尝试一些高维投影，看看哪些有效。实际上，我们可以将数据投影到**无限**维度，并且通常效果还不错。这值得详细讨论，也就是下一节的内容。
 
-#### 2. So I project the data first and then run the SVM?
+#### 2. 我应该首先投影数据，然后运行 SVM 吗？
 
-No. To make the above example easy to grasp I made it sound like we need to project the data first. The fact is you ask the SVM to do the projection for you. This has some benefits. For one, SVMs use something called _kernels_ to do these projections, and these are pretty fast (for reasons we shall soon see).
+不。为了使上面的例子易于掌握，我的做法看起来好像我们需要首先投影数据。事实上，你要求 SVM 为你进行投影。这有一些好处。首先，SVM 使用一些名为**核函数（kernel）**的东西进行这些投影，这些投影非常快（我们很快就会看到）。
 
-Also, remember I mentioned projecting to infinite dimensions in the previous point? If you project the data yourself, how do you represent or store infinite dimensions? It turns out SVMs are very clever about this, courtesy of kernels again.
+另外，还记得我在前一节提到的投射到无限维度吗？如果你自己投影数据，你如何表示或存储无限维度？事实证明，SVM 对此非常聪明，同样得益于核函数。
 
-It’s about time we looked at kernels.
+现在是时候来看看核函数了。
 
-### Kernels
+### 核函数
 
-Finally, the secret sauce that makes SVMs tick. This is where we need to look at a bit of math.
+最后，让SVM 有效工作是有秘诀的。这也是我们需要学习数学知识的地方。
 
-Let’s take stock of what we have seen so far:
+让我们来看看到目前为止我们所看到的情况：
 
-1.  For linearly separable data SVMs work amazingly well.
-2.  For data that’s almost linearly separable, SVMs can still be made to work pretty well by using the right value of C.
-3.  For data that’s not linearly separable, we can project data to a space where it is perfectly/almost linearly separable, which reduces the problem to 1 or 2 and we are back in business.
+1. 对于线性可分的数据，SVM 表现得非常好。
+2. 对于几乎可线性分离的数据，通过使用正确的 C 值，SVM 仍然可以很好地运行。
+3. 对于不能线性分离的数据，我们可以将数据投影到完全/几乎可线性分离的空间，从而将问题降至第 1 步或第 2 步，我们又重新开始处理数据。
 
-It looks like a big part of what makes SVMs universally applicable is projecting it to higher dimensions. And this is where kernels come in.
+看起来，将 SVM 普遍适用于各种情况的一件重要操作是是将它投射到更高的维度。这就是核函数的用处。
 
-First, a slight digression.
+首先，说点题外话。
 
-A very surprising aspect of SVMs is that in all of the mathematical machinery it uses, the exact projection, or even the number of dimensions, doesn’t show up. You could write all of it in terms of the _dot products_ between various data points (represented as vectors). For _p_-dimensional vectors _i_ and _j_ where the first subscript on a dimension  identifies the point and the second indicates the dimension number:
+SVM 的一个非常令人惊讶的地方是，在它使用的所有数学运算中，精确投影，甚至维数的数量都没有显现。你可以根据各种数据点（表示为向量）之间的**点积（dot products）** 来表达所有内容。对于 *p* 维向量的 *i* 和 *j*，其中第一个下标表示某一个点，第二个下标表示维度编号：
 
 ![](https://cdn-images-1.medium.com/max/800/0*Tt3zlDQhIpCro8Wa.)
 
-The dot product is defined as:
+点积是这样定义的：
 
 ![](https://cdn-images-1.medium.com/max/800/0*CKlEmrYPIEHqlq_G.)
 
-If we have _n_ points in our dataset, the SVM needs _only_ the dot product of each pair of points to find a classifier. Just that. This is also true when we want to project data to higher dimensions. We don’t need to provide the SVM with exact projections; we need to give it the dot product between all pairs of points in the projected space.
+如果我们的数据集中有 *n* 个点，则 SVM **仅仅**需要通过每对点的点积来构建分类器。仅此而已。当我们想要将数据投影到更高维度时，也是如此。我们不需要为 SVM 提供精确的投影；我们需要在投影空间中的所有点的组合之间计算点积。
 
-This is relevant because this is exactly what kernels do. A kernel, short for _kernel function_, takes as input two points in the original space, and directly gives us the dot product in the projected space.
+这是有重大意义的，因为这正是核函数所做的。核函数（**kernel function**的缩写）在原始空间中将两个点作为输入，并直接在投影空间中给出点积。
 
-Let’s revisit the projection we did before, and see if we can come up with a corresponding kernel. We will also track the number of computations we need to perform for the projection and then finding the dot products — to see how using a kernel compares.
+让我们重新审视之前做过的投影，看看我们是否可以提出相应的核函数。我们还将留意为投影执行的计算次数，然后计算点积——看看如何使用核函数进行比较。
 
-For a point _i_:
+对于点 *i*：
 
 ![](https://cdn-images-1.medium.com/max/800/0*tDDv9tNvHFA9pFt9.)
 
-Our corresponding projected point was:
+我们相应的投影点是：
 
 ![](https://cdn-images-1.medium.com/max/800/0*hJHzdWhxKIJIUYcG.)
 
-To compute this projection we need to perform the following operations:
+要计算此投影，我们需要执行以下操作：
 
-*   To get the new first dimension: 1 multiplication
-*   Second dimension: 1 multiplication
-*   Third dimension: 2 multiplications
+*  获得新的第一维数据：1 次乘积
+*  第二维数据：1 次乘积
+*  第三维数据：2 次乘积
 
-In all, 1+1+2 = **4 multiplications**.
+总共，1+1+2 = **4 次乘积**。
 
-The dot product in the new dimension is:
+新维度中的点积是：
 
 ![](https://cdn-images-1.medium.com/max/800/0*J14DWk3PnCax_3DH.)
 
-To compute this dot product for two points _i_ and _j_, we need to compute their projections first. So that’s 4+4 = 8 multiplications, and then the dot product itself requires 3 multiplications and 2 additions.
+要计算两个点 *i* 和 *j* 的点积，我们需要先计算它们的投影。因此，4 + 4 = 8 次乘积，然后点积本身需要 3 次乘法和 2 次加法。
 
-In all, that’s:
+总之，就是：
 
-*   Multiplications: 8 (for the projections) + 3 (in the dot product) = 11 multiplications
-*   Additions: 2 (in the dot product)
+*   乘积：8（投影）+ 3（点积）= 11 次乘积
+*   加法：2（点积）
 
-Which is total of 11 + 2 = **13 operations**.
+总共是 11 + 2 = **13 次运算**。
 
-I claim this kernel function gives me the same result:
+我声明这个核函数的结果是一样的：
 
 ![](https://cdn-images-1.medium.com/max/800/0*w0ZM62E9CCizAKZw.)
 
-We take the dot product of the vectors in the original space _first_, and then square the result.
+我们**首先**在原始空间中取矢量的点积，然后对结果进行平方运算。
 
-Let expand it out and check whether my claim is indeed true:
+让我们展开它并检查我的说法是否正确：
 
 ![](https://cdn-images-1.medium.com/max/800/0*YfCqANgzKT_4vOYW.)
 
-It is. How many operations does this need? Look at step (2) above. To compute the dot product in two dimensions I need 2 multiplications and 1 addition. Squaring it is another multiplication.
+确实如此。这需要多少次运算？看看上面的第（2）步。要计算二维的点积，我需要 2 次乘法和 1 次加法。平方是另一种乘法。
 
-So, in all:
+所以，总共是：
 
-*   Multiplications: 2 (for the dot product in the original space) + 1 (for squaring the result) = 3 multiplications
-*   Additions: 1 (for the dot product in the original space)
+*  乘法：2（原始空间中的点积）+ 1（对于平方结果）= 3 次乘法
+*  加法：1（原始空间中的点积）
 
-A total of 3 + 1 = **4 operations.** This is only **31% of the operations** we needed before.
+共计 3 + 1 = **4 次运算**。这**只是**我们之前需要的进行的 31％ 的运算量。
 
-It looks like it is faster to use a kernel function to compute the dot products we need. It might not seem like a big deal here: we’re looking at 4 vs 13 operations, but with input points with a lot more dimensions, and with the projected space having an even higher number of dimensions, the computational savings for a large dataset add up incredibly fast. So that’s one huge advantage of using kernels.
+看起来使用核函数来计算我们需要的点积更快。这可能看起来不是什么大问题：我们正在对比 4 次运算和 13 次运算，但是随着输入点的维度越来越多，并且投影空间的维度越来越高，大型数据集的计算节省的时间就越来越多。这就是使用核函数的一个巨大优势。
 
-Most SVM libraries already come pre-packaged with some popular kernels like _Polynomial, Radial Basis Function (RBF)_, and _Sigmoid_. When we don’t use a projection (as in our first example in this article), we compute the dot products in the original space — this we refer to as using the _linear kernel_.
+大多数 SVM 库已经预先打包了一些流行的核函数，如 **多项式、径向基函数（RBF）**和**Sigmoid函数**。当我们不使用投影时（如本文的第一个例子），我们在原始空间中计算点积——我们把这个称之为**线性核函数**。
 
-Many of these kernels give you additional levers to further tune it for your data. For example, the polynomial kernel:
+其中许多核函数为您提供了额外的手段，可以根据您的数据进一步调整它。例如，多项式核函数：
 
 ![](https://cdn-images-1.medium.com/max/800/0*oec3aJvor3nt1h3i.)
 
-allows you to pick the value of _c_ and _d_ (the degree of the polynomial). For the 3D projection above, I had used a polynomial kernel with _c=0_ and _d=2_.
+允许您选择 **c** 和 **d** 的值（多项式的次数）。对于上面的 3D 投影，我使用了 **c = 0** 和 **d = 2** 的多项式核函数。
 
-But we are not done with the awesomeness of kernels yet!
+但是我们还没有完成核函数的强大功能！
 
-Remember I mentioned projecting to infinite dimensions a while back? If you haven’t already guessed, the way to make it work is to have the right kernel function. That way, we really don’t have to project the input data, or worry about storing infinite dimensions.
+还记得我之前提到过的投射到无限维度吗？如果您还没有猜到，其实让它工作的方法就是拥有合适的核函数。这样，我们就不必对输入数据进行投影，也不用担心存储无限维数据的问题。
 
-> _A kernel function computes what the dot product would be if you had actually projected the data._
+> **如果你有准确的投影数据，核函数将会计算点积。**
 
-The RBF kernel is commonly used for a _specific_ infinite-dimensional projection. We won’t go into the math of it here, but look at the references at the end of this article.
+RBF 核函数通常用于**特定的**无限维投影。我们将不在这里进行数学计算，请查看本文末尾的参考资料。
 
-How can we have infinite dimensions, but can still compute the dot product? If you find this question confusing, think about how we compute sums of infinite series. This is similar. There are infinite terms in the dot product, but there happens to exist a formula to calculate their sum.
+我们怎样才能在无限维度的情况下仍然可以计算点积？如果您发现这个问题令人困惑，请考虑我们如何计算无穷级数的和。类似的，点积中有无限项，但恰好存在计算其总和的公式。
 
-This answers the questions we had asked in the previous section. Let’s summarize:
+这回答了我们在上一节中提出的问题。总结一下：
 
-1.  We typically don’t define a specific projection for our data. Instead, we pick from available kernels, tweaking them in some cases, to find one best suited to the data.
-2.  Of course, nothing stops us from defining our own kernels, or performing the projection ourselves, but in many cases we don’t need to. Or we at least start by trying out what’s already available.
-3.  If there is a kernel available for the projection we want, we prefer to use the kernel, because that’s often faster.
-4.  RBF kernels can project points to infinite dimensions.
+1. 我们通常不会为我们的数据定义具体的投影。相反，我们从可用核函数中挑选，在某些情况下调整它们，以找到最适合数据的核函数。
+2. 当然，没有什么能阻止我们定义自己的核函数，或者自己执行投影，但在很多情况下我们并不需要这么做。或者我们至少从我们能做的事情开始。
+3. 如果有可用于我们想要的投影的核函数，我们一般选择使用核函数，因为它通常计算更快
+4. RBF 核函数可以将点投影到无限维度。
 
-### SVM libraries to get started
+### 开始使用 SVM 库
 
-There are quite a few SVM libraries you could start practicing with:  
-• [libSVM  
-](https://www.csie.ntu.edu.tw/~cjlin/libsvm/)• [SVM-Light](http://svmlight.joachims.org/)  
-• [SVMTorch](http://bengio.abracadoudou.com/SVMTorch.html)
+有很多 SVM 库供你开始练习：
 
-Many general ML libraries like [scikit-learn](http://scikit-learn.org/stable/) also offer SVM modules, which are often wrappers around dedicated SVM libraries. My recommendation is to start out with the tried and tested [_libSVM_](https://www.csie.ntu.edu.tw/~cjlin/libsvm/).
+- [libSVM  ](https://www.csie.ntu.edu.tw/~cjlin/libsvm/)
+- [SVM-Light](http://svmlight.joachims.org/) 
+- [SVMTorch](http://bengio.abracadoudou.com/SVMTorch.html)
 
-libSVM is available as a commandline tool, but the download also bundles Python, Java, and Matlab wrappers. As long as you have a file with your data in a format libSVM understands (the README that’s part of the download explains this, along with other available options) you are good to go.
+像 [scikit-learn](http://scikit-learn.org/stable/) 这样的许多通用 ML 库也提供 SVM 模块，这些模块通常是专用 SVM 库的包装器。我的建议是从经过试验测试的 *libSVM* 开始。
 
-In fact, if you need a _really quick_ feel of how different kernels, the value of C, etc., influence finding the separating boundary, try out the “Graphical Interface” on their [home page](https://www.csie.ntu.edu.tw/~cjlin/libsvm/). Mark your points for different classes, pick the SVM parameters, and hit Run!
+libSVM 可用作命令行工具，但下载文件也捆绑了 Python、Java 和 Matlab 包装器。只要你有一个包含 libSVM 能够理解的格式的数据文件（下载的 README 文件解释了这个，以及其他可用的选项）你就能够使用它。
 
-I couldn’t resist and quickly marked a few points:
+事实上，如果你需要**非常快速**地了解不同的核函数和不同的 C 值等等是如何影响寻找分割边界的，请在其[主页](https://www.csie.ntu.edu.tw/~cjlin/libsvm/)上尝试使用“图形界面”。标记属于不同类的数据点，选择 SVM 参数，然后点击 Run！
+
+我迫不及待地迅速标出几个点：
 
 ![](https://cdn-images-1.medium.com/max/800/0*DsXxpsNZE_1_iPlp.)
 
-Yep, I’m not making it easy for the SVM.
+是的，我不是让 SVM 变得容易。
 
-Then I tried out a couple of kernels:
+然后我尝试了几个核函数：
 
 ![](https://cdn-images-1.medium.com/max/800/1*xwoC4Nrk_nqScuJKoDN1Ug.jpeg)
 
-The interface doesn’t show you the separating boundary, but shows you the regions that the SVM learns as belonging to a specific label. As you can see, the linear kernel completely ignores the red points. It thinks of the whole space as yellow (-ish green). But the RBF kernel neatly carves out a ring for the red label!
+界面不显示分割边界，但显示 SVM 学习属于特定标签的区域。如你所见，线性核函数完全忽略了红点。它认为整个空间为黄色（一说绿色）。但是 RBF 核函数巧妙地使用了戒指形状的区域覆盖了红色标记！
 
-### Helpful resources
+### 有用的资源
 
-We have been primarily relying on visual intuitions here. While that’s a great way to gain an initial understanding, I’d strongly encourage you to dig deeper. An example of where visual intuition might prove to be insufficient is in understanding margin width and support vectors for non-linearly separable cases.
+我们一直主要依靠视觉上的直观理解。虽然这是获得初步理解的好方法，但我强烈建议您深入挖掘。视觉上的直观理解的例子可能不足以理解间隔宽度以及用于非线性可分离情况的支持向量。
 
-> _Remember that these quantities are decided by optimizing a trade-off_. _Unless you look at the math, some of the results may seem counter-intuitive._
+> **请记住，这些数量是通过优化权衡来决定的。除非你去看数学原理，否则一些结果可能看似违反直觉。**
 
-Another area where getting to know the math helps is in understanding kernel functions. Consider the RBF kernel, which I’ve barely introduced in this short article. I hope the “mystique” surrounding it — its relation to an infinite-dimensional projection coupled with the fantastic results on the last dataset (the “ring”) — has convinced you to take a closer look at it.
+数学有用的另一个方面是理解核函数。我在这篇短文中几乎没有介绍过 RBF 核函数。我希望它的“神秘”感——它与无限维投影的关系再加上最后一个数据集（“环”）上的奇妙结果——已经说服你去仔细研究它。
 
-**Resources I would recommend:**
+**我推荐的资源：**
 
-1.  [Video Lectures: Learning from Data](https://www.youtube.com/watch?v=MEG35RDD7RA&list=PLCA2C1469EA777F9A) by Yaser Abu-Mostafa. Lectures from 14 to 16 talk about SVMs and kernels. I’d also highly recommend the whole series if you’re looking for an introduction to ML, it maintains an excellent balance between math and intuition.
-2.  [Book: The Elements of Statistical Learning](http://web.stanford.edu/~hastie/ElemStatLearn/printings/ESLII_print12.pdf) — Trevor Hastie, Robert Tibshirani, Jerome Friedman.Chapter 4 introduces the basic idea behind SVMs, while Chapter 12 deals with it comprehensively.
+1.  [视频讲座：从数据中学习](https://www.youtube.com/watch?v=MEG35RDD7RA&list=PLCA2C1469EA777F9A)。作者是 Yaser Abu-Mostafa。讲座从 14 到 16 部分讨论了 SVM 和核函数。如果你正在寻找 ML 的简介，我也强烈推荐整个系列，它在数学和直觉之间保持着良好的平衡。
+2.  [书：统计学习的要素](http://web.stanford.edu/~hastie/ElemStatLearn/printings/ESLII_print12.pdf)。作者是 Trevor Hastie、Robert Tibshirani 和 Jerome Friedman。第 4 章介绍了 SVM 背后的基本思想，第 12 章则全面论述了它。
 
-Happy (Machine) Learning!
+好好学习，天天向上！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
