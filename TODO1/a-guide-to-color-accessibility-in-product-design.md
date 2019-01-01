@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-guide-to-color-accessibility-in-product-design.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-guide-to-color-accessibility-in-product-design.md)
 > * 译者：[Hopsken](https://hopsken.com)
-> * 校对者：
+> * 校对者：[Ivocin](https://github.com/Ivocin)
 
-# 一份关于色彩无障碍性产品设计的指南
+# 色彩无障碍性产品设计指南
 
 ## 关于无障碍设计的讨论有很多，但你是否想过色彩的无障碍设计？
 
@@ -19,13 +19,13 @@
 
 ### 为什么无障碍性如此重要？
 
-数字产品的[无障碍设计](https://invisionapp.com/inside-design/accessibility-for-developers/)旨在为所有人提供精致的使用体验，这包括我们中有视觉、语言、听觉、身体或者认知障碍的人。作为设计师、开发者以及所有科技行业从业人员，我们有能力去创造一个我们所有人都为之骄傲的网络 —— 一个为所有人创造，服务于所有人，不排斥任何群体的网络。
+数字产品的[无障碍设计](https://invisionapp.com/inside-design/accessibility-for-developers/)旨在为所有人提供精致的使用体验，这些人包括有视觉、语言、听觉、身体或者认知障碍的人。作为设计师、开发者以及所有科技行业从业人员，我们有能力去创造一个我们所有人都为之骄傲的网络 —— 一个为所有人创造，服务于所有人，不排斥任何群体的网络。
 
 而且，做出不具备无障碍性的产品是种很粗鲁的行为。所以，请保持礼貌。
 
 [色彩无障碍设计](https://invisionapp.com/inside-design/guide-web-content-accessibility/)使得有视力障碍或者色觉缺陷的人能够获得与正常人同样的数字体验。2017年，[WHO（世界卫生组织）](http://www.who.int/en/news-room/fact-sheets/detail/blindness-and-visual-impairment)估计，大约有 2.17 亿人患有某种形式的中度至重度视力障碍。仅凭这个数据，我们就有足够的理由去做无障碍设计。
 
-> _“做出不具备无障碍性的产品是种很粗鲁的行为。所以，请保持礼貌。”_
+> **“做出不具备无障碍性的产品是种很粗鲁的行为。所以，请保持礼貌。”**
 
 无障碍设计不仅仅只是道德上的最佳实践，如果不服从关于无障碍性的监管要求，还会有潜在的法律隐患。在 2017 年，联邦法院收到过至少[ 814 条](https://www.adatitleiii.com/2018/01/2017-website-accessibility-lawsuit-recap-a-tough-year-for-businesses/)关于网站涉嫌未提供无障碍访问的诉讼，包括为数不少的集体诉讼。各个组织都在努力建立无障碍性标准，其中最著名的是美国无障碍委员会（United States Access Board，Section 508）和 W3C 组织（World Wide Web Consortium）。以下是这些规范的概述:
 
@@ -44,7 +44,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*PZXhnoxM0Sza0AJWp8G1BA.png)
 
-有很多工具可以帮助你检查色彩组合的无障碍性，我个人认为最好用的是 [Colorable](https://colorable.jxnblk.com/ffffff/6b757b) 和 [Colorsafe](http://colorsafe.co/)。我之所以喜欢 Colorable 是因为你可以通过使用滑动条来调整色相、饱和度和明度，它会实时显示出你的调整将如何影响特定颜色组合的无障碍性。
+有很多工具可以帮助你检查色彩组合的无障碍性，我个人认为最好用的是 [Colorable](https://colorable.jxnblk.com/ffffff/6b757b) 和 [Colorsafe](http://colorsafe.co/)。我之所以喜欢 Colorable 是因为你可以通过使用滑动条来调整色相、饱和度和明度，它会实时显示出你的调整将如何影响特定颜色组合的无障碍性评分。
 
 #### 不要单纯依赖颜色
 
