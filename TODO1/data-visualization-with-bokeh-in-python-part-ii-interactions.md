@@ -9,19 +9,19 @@
 
 **超越静态图的图解**
 
-本系列的[第一部分](https://towardsdatascience.com/data-visualization-with-bokeh-in-python-part-one-getting-started-a11655a467d4) 中，我们介绍了在 [Bokeh](https://bokeh.pydata.org/en/latest/)（Python 中一个强大的可视化库）中创建的一个基本的柱状图。最后的结果显示了 2013 年从纽约市起飞的航班延迟到达的分布情况，如下所示（有一个非常好的工具提示）：
+本系列的[第一部分](https://towardsdatascience.com/data-visualization-with-bokeh-in-python-part-one-getting-started-a11655a467d4) 中，我们介绍了在 [Bokeh](https://bokeh.pydata.org/en/latest/)（Python 中一个强大的可视化库）中创建的一个基本柱状图。最后的结果显示了 2013 年从纽约市起飞的航班延迟到达的分布情况，如下所示（有一个非常好的工具提示）：
 
 ![](https://cdn-images-1.medium.com/max/800/1*rNBU4zoqIk_iEzMGufiRhg.png)
 
 这张表完成了任务，但并不是很吸引人！用户可以看到航班延迟的几乎是正常的（有轻微的斜率），但他们没有理由在这个数字上花几秒钟以上的时间。
 
-如果我们想创建更吸引人的可视化数据，我们可以允许用户通过交互方式来获取他们想要的数据。比如，在这个柱状图中，一个有价值的特性是能够选择指定航空公司进行比较，或者选择更改容器的宽度来更详细地检查数据。辛运的是，我们可以使用 Bokeh 在现有的绘图基础上添加这两个特性。柱状图的最初开发似乎只涉及到了一个简单的图，但我们现在即将体验到像 Bokeh 这样的强大的库的所带来的好处！
+如果我们想创建更吸引人的可视化数据，可以允许用户通过交互方式来获取他们想要的数据。比如，在这个柱状图中，一个有价值的特性是能够选择指定航空公司进行比较，或者选择更改容器的宽度来更详细地检查数据。辛运的是，我们可以使用 Bokeh 在现有的绘图基础上添加这两个特性。柱状图的最初开发似乎只涉及到了一个简单的图，但我们现在即将体验到像 Bokeh 这样的强大的库的所带来的好处！
 
 本系列的所有代码[皆可用，并托管在 GitHub 上](https://github.com/WillKoehrsen/Bokeh-Python-Visualization/tree/master/interactive)。任何感兴趣的人都可以查看所有的数据清洗细节（数据科学中一个不那么鼓舞人心但又必不可少的部分），也可以亲自运行它们！（对于交互式 Bokeh 图，我们仍然可以使用 Jupyter Notebook 来显示结果，我们也可以编写 Python 脚本，并运行 Bokeh 服务器。我通常使用 Jupyter Notebook 进行开发，因为它可以在不重启服务器的情况下，就可以很容易的快速迭代和更改绘图。然后我将它们迁移到服务器中来显示最终结果。你可以在 GitHub 上看到一个独立的脚本和完整的笔记）。
 
 ### 主动的交互
 
-在 Bokeh 中，有两类交互：被动的和主动的。第一部分所描述的被动交互也称为 inspectors,因为它们允许用户更详细地检查一个图，但不允许更改显示的信息。比如，当用户悬停在数据点上时出现的工具提示：
+在 Bokeh 中，有两类交互：被动的和主动的。第一部分所描述的被动交互也称为 inspectors，因为它们允许用户更详细地检查一个图，但不允许更改显示的信息。比如，当用户悬停在数据点上时出现的工具提示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*3A33DOx2NL0h53SfsgPrzg.png)
 
@@ -33,9 +33,9 @@
 
 ![](https://cdn-images-1.medium.com/max/600/1*1lcSC9fMxSd2nqul_twj2Q.png)
 
-小部件示例 (dropdown button and radio button group)
+小部件示例（下拉按钮和单选按钮组）
 
-当我查看图时，我喜欢主动的交互([比如那些在 FlowingData 上的交互](http://flowingdata.com/2018/01/23/the-demographics-of-others/))因为它们允许我自己去研究数据。我发现让人印象更深刻的是从我自己的数据中发现的结论（从设计者那里获取的一些研究方向），而不是从一个完全静态的图表中发现的结论。此外，给予用户一定程度的自由，可以让他们对数据集提出更有用的讨论，从而产生不同的解释。
+当我查看图时，我喜欢主动的交互（[比如那些在 FlowingData 上的交互](http://flowingdata.com/2018/01/23/the-demographics-of-others/)）因为它们允许我自己去研究数据。我发现让人印象更深刻的是从我自己的数据中发现的结论（从设计者那里获取的一些研究方向），而不是从一个完全静态的图表中发现的结论。此外，给予用户一定程度的自由，可以让他们对数据集提出更有用的讨论，从而产生不同的解释。
 
 ### 交互概述
 
@@ -49,7 +49,7 @@
 
 在我们绘制这个图之前，我们需要规划将要显示的数据。对于我们的交互柱状图，我们将为用户提供三个可控参数：
 
-1.  航班显示（在代码中称为 carriers）
+1.  航班显示（在代码中称为运营商）
 2.  绘图中的时间延迟范围，例如：-60 到 120 分钟
 3.  默认情况下，柱状图的容器宽度是 5 分钟
 
@@ -61,9 +61,9 @@
 
 在此数据集中，每一行都是一个单独的航班。 `arr_delay` 列是航班到达延误数分钟（负数表示航班提前到达）。在第一部分中，我们做了一些数据探索，知道有 327，236 次航班，最小延误时间为 - 86 分钟，最大延误时间为 1272 分钟。在 `make_dataset` 函数中，我们想基于 dataframe 中的 `name` 列来选择公司，并用 `arr_delay` 列来限制航班。
 
-为了生成柱状图的数据，我们使用 numpy 函数 `histogram` 来统计每个 bin 中的数据点数。在我们的示例中，这是每个指定延迟间隔中的航班数。对于第一部分，我们做了一个包含所有航班的柱状图，但现在我们会每一个运营商都提供一个柱状图。由于每个航空公司的航班数目有很大差异，我们可以显示延迟而不是按原始数目显示，可以按比例显示。也就是说，图上的高度对应于特定航空公司的所有航班比例，该航班在相应的 bin 中有延迟。从计数到比例，我们除以航空公司的总数。
+为了生成柱状图的数据，我们使用 numpy 函数 `histogram` 来统计每个容器中的数据点数。在我们的示例中，这是每个指定延迟间隔中的航班数。对于第一部分，我们做了一个包含所有航班的柱状图，但现在我们会每一个运营商都提供一个柱状图。由于每个航空公司的航班数目有很大差异，我们可以显示延迟而不是按原始数目显示，可以按比例显示。也就是说，图上的高度对应于特定航空公司的所有航班比例，该航班在相应的容器中有延迟。从计数到比例，我们除以航空公司的总数。
 
-下面是生成数据集的完整代码。函数接受我们希望包含的运营商列表，要绘制的最小和最大延迟，以及制定的 bin 宽度（以分钟为单位）。
+下面是生成数据集的完整代码。函数接受我们希望包含的运营商列表，要绘制的最小和最大延迟，以及制定的容器宽度（以分钟为单位）。
 
 ``` Python
 def make_dataset(carrier_list, range_start = -60, range_end = 120, bin_width = 5):
@@ -82,7 +82,7 @@ def make_dataset(carrier_list, range_start = -60, range_end = 120, bin_width = 5
         # 运营商子集
         subset = flights[flights['name'] == carrier_name]
 
-        # 创建具有指定 bin 和范围的柱状图
+        # 创建具有指定容器和范围的柱状图
         arr_hist, edges = np.histogram(subset['arr_delay'], 
                                        bins = int(range_extent / bin_width), 
                                        range = [range_start, range_end])
@@ -120,7 +120,7 @@ def make_dataset(carrier_list, range_start = -60, range_end = 120, bin_width = 5
 
 ![](https://cdn-images-1.medium.com/max/800/1*yKvJztYW6m6k07FxaqdadQ.png)
 
-作为提醒，我们使用 Bokeh `quad` glyphs 来制作柱状图，因此我们需要提供 glyph 的左、右和顶部（底部将固定为 0）。它们分别在罗列在 `left`、`right` 以及 `proportion`。颜色列为每个运营商提供了唯一的颜色，`f_` 列为工具提供了格式化文本的功能。
+作为提醒，我们使用 Bokeh `quad` 表来制作柱状图，因此我们需要提供表的左、右和顶部（底部将固定为 0）。它们分别在罗列在 `left`、`right` 以及 `proportion`。颜色列为每个运营商提供了唯一的颜色，`f_` 列为工具提供了格式化文本的功能。
 
 下一个要实现的函数是 `make_plot`。函数应该接受 ColumnDataSource [(Bokeh 中用于绘图的一种特定类型对象)](https://bokeh.pydata.org/en/latest/docs/reference/models/sources.html)并返回绘图对象：
 
@@ -204,7 +204,7 @@ def update(attr, old, new):
 
 这里，我们从 CheckboxGroup 中检索要基于选定航空公司显示的航空公司列表。这个列表被传递给 `make_dataset` 函数，它返回一个新的列数据源。我们通过调用 `src.data.update` 以及传入来自新源的数据更新图表中使用的源数据。最后，为了将 `carrier_selection` 小部件中的更改链接到 `update` 函数，我们必须使用 `.on_change` 方法（称为[事件处理器](https://bokeh.pydata.org/en/latest/docs/user_guide/interaction/widgets.html)）。
 
-```
+``` Python
 # 将选定按钮中的更改链接到更新函数
 carrier_selection.on_change('active', update)
 ```
@@ -213,9 +213,9 @@ carrier_selection.on_change('active', update)
 
 ![](https://cdn-images-1.medium.com/max/800/1*z36QoTv4AnbJqHLmKkLTZQ.gif)
 
-#### 更多控制
+#### 更多控件
 
-现在我们已经知道了创建控件的基本工作流程，我们可以添加更多元素。我们每次创建小部件时，编写更新函数来更改显示在绘图上的数据，通过事件处理器来将更新函数链接到小部件。我们甚至可以通过重写函数来从多个元素中使用相同的更新函数来从小部件中提取我们所需的值。在实践过程中，我们将添加两个额外的控件：一个用于选择柱状图 bin 宽度的 Slider，另一个是用于设置最小和最大延迟的 RangeSlider。下面是生成这些小部件和更新函数的代码：
+现在我们已经知道了创建控件的基本工作流程，我们可以添加更多元素。我们每次创建小部件时，编写更新函数来更改显示在绘图上的数据，通过事件处理器来将更新函数链接到小部件。我们甚至可以通过重写函数来从多个元素中使用相同的更新函数来从小部件中提取我们所需的值。在实践过程中，我们将添加两个额外的控件：一个用于选择柱状图容器宽度的 Slider，另一个是用于设置最小和最大延迟的 RangeSlider。下面是生成这些小部件和更新函数的代码：
 
 ``` Python
 # 滑动 bindwidth，对应的值就会被选中
@@ -260,7 +260,7 @@ def update(attr, old, new):
 
 ![](https://cdn-images-1.medium.com/max/800/1*QlrjWBxnHcBjHp24Xq2M3Q.png)
 
-只要我们想，出了使用 update 函数显示数据之外，我们也可以修改其他的绘图功能。例如，为了将标题文本与 bin 宽度匹配，我们可以这样做：
+只要我们想，出了使用 update 函数显示数据之外，我们也可以修改其他的绘图功能。例如，为了将标题文本与容器宽度匹配，我们可以这样做：
 
 ``` Python
 # 将绘图标题修改为匹配选择
@@ -294,15 +294,15 @@ tabs = Tabs(tabs=[tab])
 
 ![](https://cdn-images-1.medium.com/max/800/1*5xN0M2CT1yAvpnzWM-bMhg.gif)
 
-可以在 [GitHub](https://github.com/WillKoehrsen/Bokeh-Python-Visualization/tree/master/interactive/exploration) 上查看相关代码，绘制自己的绘图。
+可以在 [GitHub](https://github.com/WillKoehrsen/Bokeh-Python-Visualization/tree/master/interactive/exploration) 上查看相关代码，并绘制自己的绘图。
 
 ### 下一步和内容
 
 本系列的下一部分将讨论如何使用多个绘图来制作一个完整的应用程序。我们将通过服务器来展示我们的工作结果，可以通过浏览器对其进行访问，并创建一个完整的仪表盘来探究数据集。
 
-我们可以看到，最终的互动绘图比原来的有用的多！我们现在可以比较航空公司之间的延迟，并更改 bin 的宽度/范围，来了解这些分布是如何被影响的。增加的交互性提高了绘图的价值，因为它增加了对数据的支持，并允许用户通过自己的探索得出结论。尽管设置了初始化的绘图，我们可以看道如何轻松地将元素和控件添加到现有的图形中。与像 matplotlib 这样快速简单的绘图库相比，使用更重的会图库（比如 bokeh）,可以定制化绘图和交互。不同的可视化库有不同的优点和用例，但当我们想要增加交互的额外维度时，Bokeh 是一个很好的选择。希望在这一点上，你有足够的信心来开发你自己的可视化，也希望看到你分享自己的创作。
+我们可以看到，最终的互动绘图比原来的有用的多！我们现在可以比较航空公司之间的延迟，并更改容器的宽度/范围，来了解这些分布是如何被影响的。增加的交互性提高了绘图的价值，因为它增加了对数据的支持，并允许用户通过自己的探索得出结论。尽管设置了初始化的绘图，但我们仍然可以看到如何轻松地将元素和控件添加到现有的图形中。与像 matplotlib 这样快速简单的绘图库相比，使用更重的绘图库（比如 bokeh）可以定制化绘图和交互。不同的可视化库有不同的优点和用例，但当我们想要增加交互的额外维度时，Bokeh 是一个很好的选择。希望在这一点上，你有足够的信心来开发你自己的可视化绘图，也希望看到你可以分享自己的创作。
 
-欢迎向我反馈一级建设性的批评，可以在 Twitter [@koehrsen_will](https://twitter.com/koehrsen_will) 上和我联系。
+欢迎向我反馈以及建设性的批评，可以在 Twitter [@koehrsen_will](https://twitter.com/koehrsen_will) 上和我联系。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
