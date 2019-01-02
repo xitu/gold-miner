@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/value-oriented-programming.md](https://github.com/xitu/gold-miner/blob/master/TODO1/value-oriented-programming.md)
 > * 译者：[nanjingboy](https://github.com/nanjingboy)
-> * 校对者：
+> * 校对者：[Bruce-pac](https://github.com/Bruce-pac)
 
 # 值类型导向编程
 
@@ -130,7 +130,7 @@ extension Renderer {
 
 我认为这种方法非常棒，它具有更好的可测试性。它还允许我们通过提供不同的渲染器，从而使用不同的方式解释数据。并且值类型巧妙地回避了面对对象版本中可能遇到的许多问题。
 
-虽然有所改进，但逻辑和副作用仍然在面向协议的版本中强度耦合。`Polygon.draw` 做了两件事：它将多边形转换为多条线，然后渲染这些线。因此，当需要测试这些逻辑时，我们需要使用 `TestRenderer` - 尽管 WWDC 暗示它只是一个模拟。
+虽然有所改进，但逻辑和副作用仍然在面向协议的版本中强度耦合。`Polygon.draw` 做了两件事：它将多边形转换为多条线，然后渲染这些线。因此，当需要测试这些逻辑时，我们需要使用 `TestRenderer` — 尽管 WWDC 暗示它只是一个模拟。
 
 ```
 extension Polygon : Drawable {
@@ -242,7 +242,7 @@ extension Path {
 
 1.  没有模拟测试
 
-    我们不再需要 `TestRenderer` 了，我们可以通过测试从`paths`属性返回的值来验证 `Drawable` 是否可以正确绘制。 `Path` 是`可进行相等比较`的，所以这是一个简单的测试。
+    我们不再需要 `TestRenderer` 了，我们可以通过测试从 `paths` 属性返回的值来验证 `Drawable` 是否可以正确绘制。`Path` 是 `可进行相等比较` 的，所以这是一个简单的测试。
 
 ```
 let polygon = Polygon(corners: [(x: 0, y: 0), (x: 6, y: 0), (x: 3, y: 6)])
@@ -264,7 +264,7 @@ XCTAssertEqual(polygon.paths, paths)
 
 3.  在调试时轻松检查数据
 
-    假设你有一个没有正确绘制的复杂  `Diagram`。你进入调试器并找到绘制 `Diagram` 的位置。你如何定位这个问题？
+    假设你有一个没有正确绘制的复杂 `Diagram`。你进入调试器并找到绘制 `Diagram` 的位置。你如何定位这个问题？
 
     如果你正在使用面向协议的方法，你需要创建一个 `TestRenderer`（如果它在测试之外可用），或者你需要使用真实的渲染器并实际渲染某一部分。数据检查将变得很困难。
 
