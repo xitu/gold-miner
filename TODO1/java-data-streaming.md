@@ -3,27 +3,27 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/java-data-streaming.md](https://github.com/xitu/gold-miner/blob/master/TODO1/java-data-streaming.md)
 > * 译者：[Starrier](https://github.com/Starriers)
-> * 校对者：[DeadLion](https://github.com/DeadLion)、[kezhenxu94](https://github.com/kezhenxu94)
+> * 校对者：[DeadLion](https://github.com/DeadLion), [kezhenxu94](https://github.com/kezhenxu94)
 
 # 数据流
 
-- [数据流](#data-streaming)
-  - [数据流可以有很多变量](#data-streaming-comes-in-many-variations)
-  - [数据流将生产者和消费者解耦](#data-streams-decouple-producers-and-consumers)
-  - [数据流作为数据共享机制](#data-streaming-as-data-sharing-mechanism)
-  - [持久化数据流](#persistent-data-streams)
-  - [数据流的用例](#data-streaming-use-cases)
-    - [用于事件驱动架构的数据流](#data-streaming-for-event-driven-architecture)
-    - [用于智能城市和物联网的数据流](#data-streaming-for-smart-cities-and-internet-of-things)
-    - [用于常规数据抽样的数据流](#data-streaming-for-regularly-sampled-data)
+- [数据流](#数据流)
+  - [数据流可以有很多变量](#数据流可以有很多变量)
+  - [数据流可以解耦生产者和消费者](#数据流可以解耦生产者和消费者)
+  - [数据流作为数据共享机制](#据流作为数据共享机制)
+  - [持久化数据流](#持久化数据流)
+  - [数据流的用例](#数据流的用例)
+    - [用于事件驱动架构的数据流](#用于事件驱动架构的数据流)
+    - [用于智能城市和物联网的数据流](#用于智能城市和物联网的数据流)
+    - [用于常规数据抽样的数据流](#用于常规数据抽样的数据流)
     - [用于数据点的数据流](#data-streaming-for-data-points)
-  - [记录、消息、事件、抽样等。](#records-messages-events-samples-etc)
+  - [记录、消息、事件和抽样等](#记录、消息、事件和抽样等)
 
 **数据流**是一种数据分发技术，数据生产者将数据记录写入有序数据流，数据消费者可以从该数据流中以相同的顺序读取数据。这是一张用于说明数据生产者，数据流和数据消费者的简单数据流图：
 
 ![数据生产者和消费者的数据流记录](http://tutorials.jenkov.com/images/data-streaming/data-streaming-introduction-1.png) 
 
-## 数据流可以有很多变种
+## 数据流可以有很多变量
 
 从“表面”上看，数据流是一种很简单的概念。数据生产者将记录存储到数据流中，随后消费者可以从中读取。不过，透过这层表面，我们可以看到还是存在一些细节操作会影响数据流系统的“外观”，这会进而影响它的行为以及你可以进行的动作。
 
@@ -67,7 +67,7 @@
 
 在民调支持率的事例中，你可以决定每个独立答案将要流向的民意投票流中，而不用流向定期抽样的总数。由独立数据点（如投票）组成总数有时会比计算总数来得更有意义。这取决于具体的用例和其他因素，例如单个数据点是匿名的还是包含不应该共享的私有的个人信息。
 
-## 记录、消息、事件、抽样等。
+## 记录、消息、事件和抽样等。
 
 数据流记录有时被称为消息、事件、样本和其他术语。使用哪个术语取决于数据流的具体用例，以及生产者和消费者对数据的处理和响应方式。通常情况，从用例中可以比较清楚地知道用例引用记录的具体意义。
 
