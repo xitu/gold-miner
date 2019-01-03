@@ -5,64 +5,64 @@
 > * 译者：
 > * 校对者：
 
-# Data Visualization with Bokeh in Python, Part I: Getting Started
+# 用 Python 中的 Bokeh 实现可视化数据，第一部分：入门
 
-**Elevate your visualization game**
+**提升你的可视化游数据**
 
-The most sophisticated statistical analysis can be meaningless without an effective means for communicating the results. This point was driven home by a recent experience I had on my research project, where we use [data science to improve building energy efficiency](https://arpa-e.energy.gov/?q=slick-sheet-project/virtual-building-energy-audits). For the past several months, one of my team members has been working on a technique called [wavelet transforms](http://disp.ee.ntu.edu.tw/tutorial/WaveletTutorial.pdf) which is used to analyze the frequency components of a time-series. The method achieves positive results, but she was having trouble explaining it without getting lost in the technical details.
+如果没有有效的方法来传达结果，那么再复杂的统计分析也毫无意义。这一点我在最近的研究项目中深有体会，我们使用[数据科学来提高建筑能效](https://arpa-e.energy.gov/?q=slick-sheet-project/virtual-building-energy-audits)。在过去的几个月里，我团队成员中的一个人一直致力于研究一种叫做 [wavelet transforms](http://disp.ee.ntu.edu.tw/tutorial/WaveletTutorial.pdf)，用于分析时间序列频率成分的技术。该方法取得了积极的效果，但她在解释过程中遇到了困难，所幸的是，她没有迷失在技术细节中。
 
-Exasperated, she asked me if I could make a visual showing the transformation. In a couple minutes using an R package called `gganimate`, I made a simple animation showing how the method transforms a time-series. Now, instead of struggling to explain wavelets, my team member can show the clip to provide an intuitive idea of how the technique works. My conclusion was we can do the most rigorous analysis, but at the end of the day, all people want to see is a gif! While this statement is meant to be humorous, it has an element of truth: results will have little impact if they cannot be clearly communicated, and often the best way for presenting the results of an analysis is with visualizations.
+她很愤怒，问我能否用视觉表达来说明这种变换。我使用了叫做 `gganimate` 的 R 包，在几分钟之内制作了一个简单的动画，展示了该方法是如何转换时间序列的。现在，我的团队成员可以用这个让人直观地了解技术是如何工作的东西来取代费劲的语言描述。我的结论是，我们可以做最严格的分析，但在一天结束时，所有人都想看到的是一个 gif！虽然说这话是开玩笑，但它蕴含着一个道理：不能清楚地表达结果，就会对结果产生影响，而数据可视化通常是展示分析结果的最佳方法。
 
-The resources available for data science are advancing rapidly which is especially pronounced in the [realm of visualization](https://codeburst.io/overview-of-python-data-visualization-tools-e32e1f716d10) where it seems there is another option to try every week. With all these advances there is one common trend: increased interactivity. People like to see data in static graphs but what they enjoy even more is playing with the data to see how changing parameters affects the results. With regards to my research, a report telling a building owner how much electricity they can save by changing their AC schedule is nice, but it’s more effective to give them an interactive graph where they can choose different schedules and see how their choice affects electricity consumption. Recently, inspired by the trend towards interactive plots and a desire to keep learning new tools, I have been working with [Bokeh](https://bokeh.pydata.org/en/latest/), a Python library. An example of the interactive capabilities of Bokeh are shown in this dashboard I built for my research project:
+可用于数据科学的资源正在迅速增加，在[可视化领域](https://codeburst.io/overview-of-python-data-visualization-tools-e32e1f716d10)中尤为明显，似乎每周都有一种新的尝试。随着这些技术的进步，它们逐渐出现了一个共同的趋势：增加交互性。人们喜欢在静态图中查看数据，但他们更喜欢的是使用数据，并利用这些数据来查看参数的变化对结果的影响。在我的研究中，有一份报告是用来告诉业主通过改变他们的空调使用时间可以节省下多少度电，但如果给他们一个可以交互的表，他们就可以自己选择不同的时间表，来观察不用时间是如何影响用电的，这种方式更加有效。最近，受交互式绘图趋势的启发，以及对不断学习新工具的渴望，我一直在学习使用一个叫做 [Bokeh](https://bokeh.pydata.org/en/latest/) 的 Python 库。我为我的研究项目构建的仪表盘中显示了 Bokeh 交互功能的一个示例：
 
 ![](https://cdn-images-1.medium.com/max/800/1*nN5-hITqzDlhelSJ2W9x5g.gif)
 
-While I can’t share the code behind this project, I can walk through an example of building a fully-interactive Bokeh application using publicly available data. This series of articles will cover the entire process of creating an application using Bokeh. For this first post, we’ll cover the basic elements of Bokeh, which we’ll build upon in subsequent posts. Throughout this series, we’ll be working with the [nycflights13 dataset](https://cran.r-project.org/web/packages/nycflights13/nycflights13.pdf), which has records of over 300,000 flights from 2013. We will first concentrate on visualizing a single variable, in this case the arrival delay of flights in minutes and we’ll start by constructing a basic histogram, a classic method for display the spread and location of one continuous variable. The [full code is accessible on GitHub](https://github.com/WillKoehrsen/Bokeh-Python-Visualization) and the first Jupyter notebook can be found [here](https://github.com/WillKoehrsen/Bokeh-Python-Visualization/blob/master/intro/exploration/first_histogram.ipynb). This post focuses on the visuals so I encourage anyone to check out the code if they want to see the unglamorous, but necessary steps of data cleaning and formatting!
+尽管我无法共享这个项目的整个代码，但我可以通过使用公开可用数据构建完全交互的 Bokeh 应用程序的示例。本系列文章将介绍使用 Bokeh 创建应用程序的整个过程。对于第一篇文章，我们将介绍 Bokeh 的基本元素，我们将在以后的文章中对其进行构建，在本系列文章中，我们将使用 [nycflights13 数据集](https://cran.r-project.org/web/packages/nycflights13/nycflights13.pdf)，该数据集有 2013 年以来超过 30 万次航班的记录。我们首先将重点放在可视化单个变量上，在这种情况下，航班的延迟到达以分钟为单位，我们将从构造一个基本的柱状图开始，这是显示一个连续变量的扩展和位置的经典方法。[完整的代码可以在 GitHub 查看](https://github.com/WillKoehrsen/Bokeh-Python-Visualization)，第一个 Jupyter notebook 可以在[这里](https://github.com/WillKoehrsen/Bokeh-Python-Visualization/blob/master/intro/exploration/first_histogram.ipynb)看到。这篇文章关注的是视觉效果，所以我鼓励任何人查看代码，如果他们想看到无聊但又必不可少数据清洗和格式化的步骤！
 
-### Basics of Bokeh
+### Bokeh 基础
 
-The major concept of Bokeh is that graphs are built up one layer at a time. We start out by creating a figure, and then we add elements, called [glyphs](https://bokeh.pydata.org/en/latest/docs/user_guide/plotting.html), to the figure. (For those who have used ggplot, the idea of glyphs is essentially the same as that of geoms which are added to a graph one ‘layer’ at a time.) Glyphs can take on many shapes depending on the desired use: circles, lines, patches, bars, arcs, and so on. Let’s illustrate the idea of glyphs by making a basic chart with squares and circles. First, we make a plot using the `figure` method and then we append our glyphs to the plot by calling the appropriate method and passing in data. Finally, we show our plot (I’m using a Jupyter Notebook which lets you see the plots right below the code if you use the `output_notebook` call).
+Bokeh 的主要概念是一次建立一个图层。我们首先创建一个图，然后向图中添加名为 [glyphs](https://bokeh.pydata.org/en/latest/docs/user_guide/plotting.html) 的元素。（对于那些使用 ggplot 的人来说，glyphs 的概念与地理符号的想法本质上是一样的，他们一次添加到一个“图层”中。）根据所需的用途，glyphs 可以呈现多种形状：圆形、线条、补丁、条形、弧形等。让我们用正方形和圆形制作一个基本的图来说明 glyphs 的概念。首先，我们使用 `figure` 方法绘制一个图，然后通过调用适当的方法传入数据，将我们的 glyphs 添加到绘图中。最后，我们展示绘图（我使用的是 Jupyter Notebook，如果你使用时调用的是 `output_notebook`，就会看到对应的绘图）。
 
-```
-# bokeh basics
+``` Python
+# bokeh 基础
 from bokeh.plotting import figure
 from bokeh.io import show, output_notebook
 
-# Create a blank figure with labels
+# 创建带标签的空白图
 p = figure(plot_width = 600, plot_height = 600, 
            title = 'Example Glyphs',
            x_axis_label = 'X', y_axis_label = 'Y')
 
-# Example data
+# 示例数据
 squares_x = [1, 3, 4, 5, 8]
 squares_y = [8, 7, 3, 1, 10]
 circles_x = [9, 12, 4, 3, 15]
 circles_y = [8, 4, 11, 6, 10]
 
-# Add squares glyph
+# 添加方形 glyph
 p.square(squares_x, squares_y, size = 12, color = 'navy', alpha = 0.6)
-# Add circle glyph
+# 添加圆形 glyph
 p.circle(circles_x, circles_y, size = 12, color = 'red')
 
-# Set to output the plot in the notebook
+# 设置为在笔记本中输出情节
 output_notebook()
-# Show the plot
+# 显示绘图
 show(p)
 ```
 
-This generates the slightly uninspiring plot below:
+这就形成了下面略显平淡的绘图：
 
 ![](https://cdn-images-1.medium.com/max/800/1*fGSBddMUbg_N--xbBOdUOg.png)
 
-While we could have easily made this chart in any plotting library, we get a few tools for free with any Bokeh plot which are on the right side and include panning, zooming, selection, and plot saving abilities. These tools are configurable and will come in handy when we want to investigate our data.
+尽管在任何绘制图库中，我们都可以很容易地制作这个图表，但我们可以免费获取一些工具，其中包含位于右侧的 Bokeh 绘图，包括 panning，缩放和绘图保存功能。这些工具是可配置的，当我们想研究我们的数据时，这些工具会派上用场。
 
-Let’s now get to work on showing our flight delay data. Before we can jump right into the graph, we should load in the data and give it a brief inspection (**bold** is code output):
+我们现在开始展示我们的航班延迟数据。在跳转到图形之前，我们应该加载数据并对其进行简短的检查（**粗体** 为输出代码）：
 
-```
-# Read the data from a csv into a dataframe
+``` Python
+# 将 CSV 中的数据读入
 flights = pd.read_csv('../data/flights.csv', index_col=0)
 
-# Summary stats for the column of interest
+# 兴趣栏的统计数据汇总
 flights['arr_delay'].describe()
 
 count    327346.000000
@@ -75,13 +75,13 @@ min         -86.000000
 max        1272.000000
 ```
 
-The summary stats give us information to inform our plotting decisions: we have 327,346 flights, with a minimum delay of -86 minutes (meaning the flight was early by 86 minutes) and a maximum delay of 1272 minutes, an astounding 21 hours! The 75% quantile is only at 14 minutes, so we can assume that numbers over 1000 minutes are likely outliers (which does not mean they are illegitimate, just extreme). I will focus on delays between -60 minutes and +120 minutes for our histogram.
+摘要统计数据为我们作出决策提供了信息：我们有 327、346 次航班，最小延迟事件为 -86 分钟，最大延迟事件为 1272 分钟，令人震惊的 21 小时！ 75% 的分位数只有 14 分钟，所以我们可以假设 1000 分钟以上的数字可能是异常值（这并不意味着它们是非法的，只是极端的）。我会集中讨论 -60 到 120 分钟的延迟柱状图。
 
-A [histogram](https://www.moresteam.com/toolbox/histogram.cfm) is a common choice for an initial visualization of a single variable because it shows the distribution of the data. The x-position is the value of the variable grouped into intervals called bins, and the height of each bar represents the count (number) of data points in each interval. In our case, the x-position will represent the arrival delay in minutes and the height is the number of flights in the corresponding bin. Bokeh does not have a built-in histogram glyph, but we can make our own using the `quad` glyph which allows us to specify the bottom, top, left, and right edges of each bar.
+[柱状图](https://www.moresteam.com/toolbox/histogram.cfm)是单个变量初始可视化的常见选择，因为它显示了分布式数据。x 位置是将变量分组成成为 bin 的间隔的值，每个条形的高度表示每个间隔数据点的计数（数目）。在我们的例子中，x 位置将代表以分钟为单位的延迟到达，高度是对应的 bin 中的航班数。Bokeh 没有内置的柱状图，但我们可以使用 `quad` glyph 来指定每个条形的底部、上、下、和右边距。
 
-To create the data for the bars, we will use the [numpy](https://docs.scipy.org/doc/numpy-1.14.0/reference/generated/numpy.histogram.html) `[histogram](https://docs.scipy.org/doc/numpy-1.14.0/reference/generated/numpy.histogram.html)` [function](https://docs.scipy.org/doc/numpy-1.14.0/reference/generated/numpy.histogram.html) which calculates the number of data points in each specified bin. We will use bins of 5 minute length which means the function will count the number of flights in each five minute delay interval. After generating the data, we put it in a [pandas dataframe to keep all the data in one object.](https://pandas.pydata.org/pandas-docs/stable/dsintro.html) The code here is not crucial for understanding Bokeh, but it’s useful nonetheless because of the prevalence of numpy and pandas in data science!
+要创建条形图的数据，我们要使用 [numpy](https://docs.scipy.org/doc/numpy-1.14.0/reference/generated/numpy.histogram.html)、`[histogram](https://docs.scipy.org/doc/numpy-1.14.0/reference/generated/numpy.histogram.html)`、[function](https://docs.scipy.org/doc/numpy-1.14.0/reference/generated/numpy.histogram.html)，它计算每个指定 bin 数据点的数值。我们使用 5 分钟的长度作为函数将计算航班数在每五分钟所花费的时间延误。在生成数据之后，我们将其放入一个 [pandas dataframe 来将所有的数据保存在一个对象中。](https://pandas.pydata.org/pandas-docs/stable/dsintro.html)这里的代码对于理解 Bokeh 并不是很重要，但鉴于 Numpy 和 pandas 在数据科学中的流行度，所以它还是有些用处的。
 
-```
+``` Python
 """Bins will be five minutes in width, so the number of bins 
 is (length of interval / 5). Limit delays to [-60, +120] minutes using the range."""
 
@@ -89,150 +89,150 @@ arr_hist, edges = np.histogram(flights['arr_delay'],
                                bins = int(180/5), 
                                range = [-60, 120])
 
-# Put the information in a dataframe
+# 将信息放入 dataframe
 delays = pd.DataFrame({'arr_delay': arr_hist, 
                        'left': edges[:-1], 
                        'right': edges[1:]})
 ```
 
-Our data looks like this:
+我们的数据看起来像这样：
 
 ![](https://cdn-images-1.medium.com/max/800/1*JSiAY3RSGOhur9agdzgEYQ.png)
 
-The `flights`column is the count of the number of flights within each delay interval from `left`to `right`. From here, we can make a new Bokeh figure and add a quad glpyh specifying the appropriate parameters:
+`flights` 列是从 `left` 到 `right` 的每个延迟间隔内飞行次数的计数。在这里，我们可以生成一个新的 Bokeh 图，并添加一个指定适当参数的 quad glpyh：
 
-```
-# Create the blank plot
+``` Python
+# 创建空白绘图
 p = figure(plot_height = 600, plot_width = 600, 
            title = 'Histogram of Arrival Delays',
           x_axis_label = 'Delay (min)]', 
            y_axis_label = 'Number of Flights')
 
-# Add a quad glyph
+# 添加一个 quad glphy
 p.quad(bottom=0, top=delays['flights'], 
        left=delays['left'], right=delays['right'], 
        fill_color='red', line_color='black')
 
-# Show the plot
+# 显示绘图
 show(p)
 ```
 
 ![](https://cdn-images-1.medium.com/max/800/1*afCD1sc8mNPYrZ2kh2jfxg.png)
 
-Most of the work in producing this graph comes in the data formatting which is not an unusual occurrence in data science! From our plot, we see that arrival delays are nearly normally distributed with a [slight positive skew or heavy tail on the right side.](http://www.statisticshowto.com/probability-and-statistics/skewed-distribution/)
+生成此图的大部分工作都是在数据格式化过程中进行的，这在数据科学中并不常见！从我们的绘图中可以看出，延迟到达几乎是正态分布的，[右侧有一个轻微的正斜度或重尾巴](http://www.statisticshowto.com/probability-and-statistics/skewed-distribution/)。
 
-There are easier ways to create a basic histogram in Python, and the same result could be done using a few lines of `[matplotlib](https://en.wikipedia.org/wiki/Matplotlib)`. However, the payoff in the development required for a Bokeh plot comes in the tools and ways to interact with the data that we can now easily add to the graph.
+有更简单的方法可以在 Python 中创建柱状图，也可以使用几行 `[matplotlib](https://en.wikipedia.org/wiki/Matplotlib)` 来获取相同的结果。但是，Bokeh 绘图所带来的的开发的好处在于，它可以提供将数据交互轻松地添加到图形中的工具和方法。
 
-### Adding Interactivity
+### 添加交互性
 
-The first type of interactivity we will cover in this series is passive interactions. These are actions the viewer can take which do not alter the data displayed. These are referred to as [inspectors](https://bokeh.pydata.org/en/latest/docs/reference/models/tools.html) because they allow viewers to “investigate” the data in more detail . A useful inspector is the tooltip which appears when a user mouses over data points and is called the [HoverTool in Bokeh](https://bokeh.pydata.org/en/latest/docs/user_guide/tools.html).
+我们将在本系列中讨论的第一类交互是被动交互。这些是拥护可以采取的不改变显示数据的操作。它们被称为 [inspectors](https://bokeh.pydata.org/en/latest/docs/reference/models/tools.html)，因为他们允许用户查看更详细的“调查”数据。有用的 inspector 是当用户鼠标在数据点上移动并调用 [Bokeh 中的悬停工具](https://bokeh.pydata.org/en/latest/docs/user_guide/tools.html)时，会出现工具提示。
 
 ![](https://cdn-images-1.medium.com/max/800/1*3A33DOx2NL0h53SfsgPrzg.png)
 
-A basic Hover tooltip
+基础的悬停工具提示
 
-In order to add tooltips, we need to change our data source from a dataframe to a [ColumnDataSource, a key concept in Bokeh.](https://bokeh.pydata.org/en/latest/docs/reference/models/sources.html) This is an object specifically used for plotting that includes data along with several methods and attributes. The ColumnDataSource allows us to add annotations and interactivity to our graphs, and can be constructed from a pandas dataframe. The actual data itself is held in a dictionary accessible through the data attribute of the ColumnDataSource. Here, we create the source from our dataframe and look at the keys of the data dictionary which correspond to the columns of our dataframe.
+为了添加工具提示，我们需要将数据源从 dataframe 中更改为来自 [ColumnDataSource，Bokeh 中的一个关键概念。](https://bokeh.pydata.org/en/latest/docs/reference/models/sources.html)这是一个专门用于绘图的对象，它包含数据以及方法和属性。ColumnDataSource 允许我们在图中添加注解和交互，也可以从 pandas dataframe 中进行构建。真实数据被保存在字典中，可以通过 ColumnDataSource 的 data 属性访问。这里，我们从数据源进行创建源，并查看数据字典中与 dataframe 列对应的键。
 
-```
-# Import the ColumnDataSource class
+``` Python
+# 导入 ColumnDataSource 类
 from bokeh.models import ColumnDataSource
 
-# Convert dataframe to column data source
+# 将 dataframe 转换为 列数据源
 src = ColumnDataSource(delays)
 src.data.keys()
 
 dict_keys(['flights', 'left', 'right', 'index'])
 ```
 
-When we add glyphs using a ColumnDataSource, we pass in the ColumnDataSource as the `source` parameter and refer to the column names using strings:
+我们使用 CloumDataSource 添加 glyphs 时，我们将 CloumnDataSource 作为 `source` 参数传入，并使用字符串引用列名：
 
-```
-# Add a quad glyph with source this time
+``` Python
+# 这次添加一个带有源的 quad glyph
 p.quad(source = src, bottom=0, top='flights', 
        left='left', right='right', 
        fill_color='red', line_color='black')
 ```
 
-Notice how the code refers to the specific data columns, such as ‘flights’, ‘left’, and ‘right’ by a single string instead of the `df['column']` format as before.
+请注意，代码如何引用特定的数据列，比如 ‘flights’、‘left’ 和 ‘right’，而不是像以前那样使用  `df['column']` 格式。
 
-#### HoverTool in Bokeh
+#### Bokeh 中的 HoverTool
 
-The syntax of a HoverTool may seem a little convoluted at first, but with practice they are quite easy to create. We pass our `HoverTool`instance a list of `tooltips` as [Python tuples](https://www.tutorialspoint.com/python/python_tuples.htm) where the first element is the label for the data and the second references the specific data we want to highlight. We can reference either attributes of the graph, such as x or y position using ‘$’ or specific fields in our source using ‘@’. That probably sounds a little confusing so here’s an example of a HoverTool where we do both:
+一开始，HoverTool 的语法看上去会有些复杂，但经过实践后，就会发现它们很容易创建。我们将 `HoverTool` 实例作为 `tooltips` 作为 [Python 元组](https://www.tutorialspoint.com/python/python_tuples.htm)传递给它，其中第一个元素是数据的标签，第二个元素引出我们要高亮显示的特定数据。我们可以使用 ‘$’ 引用图中任何属性，例如 x 或 y 的位置，也可以使用 ‘@’ 引用源中特定字段。这听起来可能有点令人困惑，所以这里有一个 HoverTool 的例子，我们在这两方面都可以这么做：
 
-```
-# Hover tool referring to our own data field using @ and
-# a position on the graph using $
+``` Python
+# 使用 @ 引用我们自己的数据字段
+# 使用 $ 在图上的位置悬停工具
 h = HoverTool(tooltips = [('Delay Interval Left ', '@left'),
                           ('(x,y)', '($x, $y)')])
 ```
 
-Here, we reference the `left` data field in the ColumnDataSource (which corresponds to the ‘left’ column of the original dataframe) using ‘@’ and we reference the (x,y) position of the cursor using ‘$’. The result is below:
+这里，我们使用 ‘@’ 引用 ColumnDataSource（它对应于原始 dataframe 的 ‘left’ 列）中的 `left` 数据字段，并使用 ‘$’ 引用光标的 (x,y) 位置。结果如下：
 
 ![](https://cdn-images-1.medium.com/max/800/1*fLiHCLkN15ZhCH9fk7GMXg.png)
 
-Hover tooltip showing different data references
+显示不同数据引用的悬停工具提示
 
-The (x,y) position is that of the mouse on the graph and is not very helpful for our histogram, because we to find the find the number of flights in a given bar which corresponds to the top of the bar. To fix that we will alter our tooltip instance to refer to the correct column. Formatting the data shown in a tooltip can be frustrating, so I usually create another column in my dataframe with the correct formatting. For example, if I want my tooltip to show the entire interval for a given bar, I create a formatted column in my dataframe:
+(x,y) 位置上是鼠标的位置，对我们的柱状图没有太大的帮助，因为我们要找到给定条形中对应于条形顶部的飞行术。为了修复这个问题，我们将要修改我们的工具提示实例来引用正确的列。格式化工具提示中的数据显示可能会让人沮丧，因此我通常在 dataframe 中使用正确的格式创建另一列。例如，如果我希望我的工具提示显示给定条的整个隔间，我会在数据框中创建一个格式化列：
 
-```
-# Add a column showing the extent of each interval
+``` Python
+# 添加一个列，显示每个间隔的范围
 delays['f_interval'] = ['%d to %d minutes' % (left, right) for left, right in zip(delays['left'], delays['right'])]
 ```
 
-Then I convert this dataframe into a ColumnDataSource and access this column in my HoverTool call. The following code creates the plot with a hover tool referring to two formatted columns and adds the tool to the plot:
+然后，我将 dataframe 转换为 CloumnDataSource，并在 HoverTool 调用中访问该列。下面的代码使用引用两个格式化列的悬停工具创建绘图，把那个将该工具添加到绘图中。
 
-```
-# Create the blank plot
+``` Python
+# 创建一个空白绘图
 p = figure(plot_height = 600, plot_width = 600, 
            title = 'Histogram of Arrival Delays',
           x_axis_label = 'Delay (min)]', 
            y_axis_label = 'Number of Flights')
 
-# Add a quad glyph with source this time
+# 这次，添加带有源的 quad glyph  
 p.quad(bottom=0, top='flights', left='left', right='right', source=src,
        fill_color='red', line_color='black', fill_alpha = 0.75,
        hover_fill_alpha = 1.0, hover_fill_color = 'navy')
 
-# Add a hover tool referring to the formatted columns
+# 添加引用格式化列的悬停工具
 hover = HoverTool(tooltips = [('Delay', '@f_interval'),
                              ('Num of Flights', '@f_flights')])
 
-# Style the plot
+# 绘图样式
 p = style(p)
 
-# Add the hover tool to the graph
+# 将悬停工具添加到图中
 p.add_tools(hover)
 
-# Show the plot
+# 显示绘图
 show(p)
 ```
 
-In the Bokeh style, we include elements in our chart by adding them to the original figure. Notice in the `p.quad` glyph call, there are a few additional parameters, `hover_fill_alpha` and `hover_fill_color`, that change the look of the glyph when we mouse over the bar. I also added in styling using a `style` function (see the notebook for the code). Aesthetics are tedious to type, so I usually write a function that I can apply to any plot. When I use styling, I keep things simple and focus on readability of labels. The main point of a plot is to show the data, and adding unnecessary elements only [detracts from the usefulness of a figure](https://en.wikipedia.org/wiki/Chartjunk)! The final plot is presented below:
+在 Bokeh 样式中，我们以添加元素至原始的图中来将元素添加到表中。请注意，在 `p.quad` glyph 调用中，有几个额外的参数 `hover_fill_alpha` 和 `hover_fill_color`，当我们的鼠标移动到条图形时，这些参数会改变 glyph 的样式。我还添加了 `style` 函数（可在笔记中查看相关代码）。审美过程很无聊，所以通常我会写一个应用于任何绘图的函数。当我使用样式时，我会保持简单并专注于标签的可读性。绘图的主要目的是显示数据，添加不必要的元素只会[降低绘图的可用性](https://en.wikipedia.org/wiki/Chartjunk)！最后的绘图如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*3r9Ti_GFbByXTwamtq6jwA.png)
 
-As we mouse over different bars, we get the precise statistics for that bar showing the interval and the number of flights within that interval. If we are proud of our plot, we can save it to an html file to share:
+当我们的鼠标滑过不同的词条时，会得到该词条精确的统计数据，它表示间隔以及在该间隔内飞行的次数。如果对绘图比较满意，可以将其保存到 html 文件中进行共享：
 
-```
-# Import savings function
+``` Python
+# 导入保存函数
 from bokeh.io import output_file
 
-# Specify the output file and save
+# 指定输出文件并保存
 output_file('hist.html')
 show(p)
 ```
 
-### Further Steps and Conclusions
+### 展望与总结
 
-It took me more than one plot to get the basic workflow of Bokeh so don’t worry if it seems there is a lot to learn. We’ll get plenty more practice over the course of this series! While it might seem like Bokeh is a lot of work, the benefits come when we want to extend our visuals beyond simple static figures. Once we have a basic chart, we can increase the effectiveness of the visual by adding more elements. For example, if we want to look at the arrival delay by airline, we can make an interactive chart allowing users to select and compare airlines. We will leave active interactions, those that change the data displayed, to the next post, but here’s a look at what we can do:
+为了获取 Bokeh 的工作流程，我制作了很多次绘图，所以如果这看起来有很多东西要学的时候，不要担心。在本系列教程中，我们将得到更多的练习！虽然Bokeh 看起来似乎有很多工作要做，但是当我们想要将我们的视觉效果扩展到简单的静态图像之外的时候，它的好处就不言而喻了。一旦我们有了基本的图，我们就可以通过增加更多的元素来提高视觉效果。例如，如果我们想查看航空公司的延迟到达，我们可以制作一个交互式图，让用户选择和比较航空公司。我们将把主动交互（那些更改显示数据的交互）留到下一篇文章中，但下面是我们目前可以做的事情：
 
 ![](https://cdn-images-1.medium.com/max/800/1*avjUF5lUF-eYGs-N7OBPOg.gif)
 
-Active interactions require a bit more involved scripting, but that gives us a chance to work on our Python! (If anyone wants to have a look at the code for this plot before the next article, [here it is](https://github.com/WillKoehrsen/Bokeh-Python-Visualization/blob/master/interactive/histogram.py).)
+主动交互需要编写更多的脚本，但这给了我们可以使用 Python 的机会！（如果有人想在下一篇文章之前看一下绘图的代码[可以在这里进行查看](https://github.com/WillKoehrsen/Bokeh-Python-Visualization/blob/master/interactive/histogram.py)。)
 
-Throughout this series, I want to emphasize that Bokeh or any one library tool will never be a one stop tool for all your plotting needs. Bokeh is great for allowing users to explore graphs, but for other uses, like simple [exploratory data analysis,](https://en.wikipedia.org/wiki/Exploratory_data_analysis) a lightweight library such as`matplotlib`likely will be more efficient. This series is meant to show the capabilities of Bokeh to give you another plotting tool you can rely on as needed. The more libraries you know, the better equipped you will be to use the right visualization tool for the task.
+在本系列文章中，我想强调的是，Boken 或者任何一个库工具永远都不会是满足所有绘图需求的一站式解决工具。Bokeh 允许用户研究绘图，但对于其他应用，像简单的[探索性数据分析](https://en.wikipedia.org/wiki/Exploratory_data_analysis)，`matplotlib` 这样的轻量级库可能会更高效。本系列旨在为你提供绘图工具的另一种选择，这需要更加需求来进行抉择。你知道的库越多，就越能高效地使用可视化工具完成任务。
 
-As always, I welcome constructive criticism and feedback. I can be reached on Twitter [@koehrsen_will](http://twitter.com/@koehrsen_will).
+我一直以来都非常欢迎那些具有建设性的批评和反馈。你们可以在 Twitter [@koehrsen_will](http://twitter.com/@koehrsen_will) 上联系到我。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
