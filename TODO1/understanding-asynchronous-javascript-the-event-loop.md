@@ -57,7 +57,7 @@ JavaScript 有一个单独的调用栈，因为它是一种单线程编程语言
 
 让我们回到上面的代码片段以便尝试理解代码在 JavaScript 引擎中的执行方式。
 
-```js
+```JavaScript
 const second = () => {
   console.log('Hello there!');
 }
@@ -93,7 +93,7 @@ first();
 
  假设我们正在以同步方式进行图像处理或网络请求。例如：
 
- ```js
+ ```JavaScript
 const processImage = (image) => {
   /**
   * 对图像进行一些操作
@@ -126,7 +126,7 @@ greeting();
 
 最简单的解决办法是异步回调，我们通常使用异步回调来让代码无阻塞。例如：
 
-```js
+```JavaScript
 const networkRequest = () => {
   setTimeout(() => {
     console.log('Async Code');
@@ -147,7 +147,7 @@ networkRequest();
 
  现在让我们回过头看看上面的代码，看看它是如何以异步方式执行的。
 
- ```js
+ ```JavaScript
 const networkRequest = () => {
   setTimeout(() => {
     console.log('Async Code');
@@ -183,7 +183,7 @@ console.log('The End');
 
 例如：
 
-```js
+```JavaScript
 document.querySelector('.btn').addEventListener('click',(event) => {
   console.log('Button Clicked');
 });
@@ -200,7 +200,7 @@ ES6 引入了 Promises 在 JavaScript 中使用的工作队列/微任务队列�
 
 例如：
 
-```js
+```JavaScript
 console.log('Script start');
 setTimeout(() => {
   console.log('setTimeout');
@@ -225,7 +225,7 @@ setTimeout
 
 让我们再看一个例子，这次有两个 promise 和两个 setTimeout。例如：
 
-```js
+```JavaScript
 console.log('Script start');
 setTimeout(() => {
   console.log('setTimeout 1');
@@ -261,7 +261,7 @@ setTimeout 2
 
 例如：
 
-```js
+```JavaScript
 console.log('Script start');
 setTimeout(() => {
   console.log('setTimeout');
