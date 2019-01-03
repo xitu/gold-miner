@@ -2,22 +2,34 @@
 > * 原文作者：[Tania Rascia](https://tympanus.net/codrops/author/taniarascia/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/an-introduction-to-css-shapes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/an-introduction-to-css-shapes.md)
-> * 译者：
+> * 译者：[xilihuasi](https://github.com/xilihuasi)
 > * 校对者：
 
 # An Introduction to CSS Shapes
 
+# CSS Shapes 简介
+
 CSS Shapes allow us to make interesting and unique layouts by defining geometric shapes, images, and gradients that text content can flow around. Learn how to use them in this tutorial.
+
+CSS Shapes 允许我们通过定义文本内容可以环绕的几何形状、图像和渐变，来创建有趣且独特的布局。
 
 ![cssshapes_featured](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2018/11/cssshapes_featured-1.jpg)
 
 Until the introduction of [CSS Shapes](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Shapes), it was nearly impossible to design a magazine-esque layout with free flowing text for the web. On the contrary, web design layouts have traditionally been shaped with grids, boxes, and straight lines.
 
+在 [CSS Shapes](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Shapes) 问世之前，为网页设计文本自由环绕的杂志式布局几乎是不可能的。相反，网页设计布局传统上用网格、盒子和直线构造。
+
 CSS Shapes allow us to define geometric shapes that text can flow around. These shapes can be circles, ellipses, simple or complex polygons, and even images and gradients. A few practical design applications of Shapes might be displaying circular text around a circular avatar, displaying text over the simple part of a full-width background image, and displaying text flowing around drop caps in an article.
+
+CSS Shaptes 允许我们定义文本环绕的几何形状。这些形状可以是圆、椭圆、简单或复杂的多边形，甚至图像和渐变。Shapes 的一些实际设计应用可能是圆形头像周围显示圆形环绕文本，全屏背景图片的简单部分上面展示文本，以及在文章的下沉部分显示环绕文本。
 
 Now that CSS Shapes have gained widespread support across modern browsers, it’s worth taking a look into the flexibility and functionality they provide to see if they might make sense in your next design project.
 
+目前为止，CSS Shapes 已经在现代浏览器中得到了广泛支持，它的灵活性和提供的功能，值得你去看看它们是否能在你的下一个设计项目中使用。
+
 > **Attention**: At the time of writing this article, [CSS Shapes](https://caniuse.com/#feat=css-shapes) have support in Firefox, Chrome, Safari, and Opera, as well as mobile browsers such as iOS Safari and Chrome for Android. Shapes do not have IE support, and are [under consideration](https://developer.microsoft.com/en-us/microsoft-edge/platform/status/shapes/) for Microsoft Edge.
+
+> **注意**：在攥写本文时，[CSS Shapes](https://caniuse.com/#feat=css-shapes) 支持 Firefox，Chrome，Safari 和 Opera，以及 iOS Safari 和 Chrome for Android 等移动浏览器。Shapes 不支持 IE，对 Microsoft Edge 的支持[正在考虑中](https://developer.microsoft.com/en-us/microsoft-edge/platform/status/shapes/)。
 
 ## First Look at CSS Shapes
 
