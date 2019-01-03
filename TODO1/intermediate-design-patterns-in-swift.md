@@ -60,7 +60,7 @@ Tap the Larger Shape 是一个有趣但简单的游戏，你会看到一对相�
 
 ## 理解这款游戏
 
-Before getting into the details of design patterns, take a look at the game as it’s currently written. Open **Shape.swift** take a look around and find the following code. You don’t need to make any changes, just look:在深入了解设计模式的细节之前，先看一下目前编写的游戏。打开 **Shape.swift** 看一看并找到以下代码，您无需进行任何更改，只需要看看就行：
+在深入了解设计模式的细节之前，先看一下目前编写的游戏。打开 **Shape.swift** 看一看并找到以下代码，您无需进行任何更改，只需要看看就行：
 
 ```swift
 import UIKit
@@ -269,7 +269,7 @@ class GameViewController: UIViewController {
 
 现在，关于设计模式，以下的每个部分都描述了不同的设计模式。我们开始吧！
 
-## 设计模式：抽象工厂
+## 抽象工厂模式
 
 `GameViewController` 与 `SquareShapeView` 紧密耦合，这将不能为以后使用不同的视图来表示正方形或引入第二个形状留出余地。
 
@@ -311,18 +311,20 @@ class SquareShapeViewFactory: ShapeViewFactory {
     func makeShapeViewsForShapes(shapes: (Shape, Shape)) -> (ShapeView, ShapeView) {
         // 2
         let squareShape1 = shapes.0 as! SquareShape
-        let shapeView1 = SquareShapeView(frame: CGRect(x: 0,
-                                         y: 0,
-                                         width: squareShape1.sideLength * size.width,
-                                         height: squareShape1.sideLength * size.height))
+        let shapeView1 = SquareShapeView(frame: CGRect(
+            x: 0,
+            y: 0,
+            width: squareShape1.sideLength * size.width,
+            height: squareShape1.sideLength * size.height))
         shapeView1.shape = squareShape1
 
         // 3
         let squareShape2 = shapes.1 as! SquareShape
-        let shapeView2 = SquareShapeView(frame: CGRect(x: 0,
-                                         y: 0,
-                                         width: squareShape2.sideLength * size.width,
-                                         height: squareShape2.sideLength * size.height))
+        let shapeView2 = SquareShapeView(frame: CGRect(
+            x: 0,
+            y: 0,
+            width: squareShape2.sideLength * size.width,
+            height: squareShape2.sideLength * size.height))
         shapeView2.shape = squareShape2
 
         // 4
@@ -505,226 +507,225 @@ private func beginNextTurn() {
 
 Once again, using the **Abstract Factory** design pattern simplified your code by moving shape generation out of `GameViewController`.再一次使用 **抽象工厂** 设计模式，通过将创建形状的部分移出 `GameViewController` 来简化代码。
 
-## Design Pattern: Servant
+## 雇工模式
 
-At this point you can **almost** add a second shape, for example, a circle. Your only hard-coded dependence on squares is in the score calculation in `beginNextTurn` in code like the following:
+现在你甚至可以添加第二个形状，例如圆圈。您对正方形的唯一硬性依赖是下面 `beginNextTurn` 中的得分计算：
 
 ```swift
-shapeViews.1.tapHandler = {
-  tappedView in
-  // 1
-  let square1 = shapes.0 as! SquareShape, square2 = shapes.1 as! SquareShape
+shapeViews.1.tapHandler = { tappedView in
+    // 1
+    let square1 = shapes.0 as! SquareShape, square2 = shapes.1 as! SquareShape
 
-  // 2
-  self.gameView.score += square2.sideLength >= square1.sideLength ? 1 : -1
-  self.beginNextTurn()
+    // 2
+    self.gameView.score += square2.sideLength >= square1.sideLength ? 1 : -1
+    self.beginNextTurn()
 }
 ```
 
-Here you cast the shapes to `SquareShape` so that you can access their `sideLength`. Circles don’t have a `sideLength`, instead they have a `diameter`.
+在这里您把形状转换为 `SquareShape` 以便您可以访问它们的 `sideLength`，圆没有 `sideLength`，而是“直径”。
 
-The solution is to use the **Servant** design pattern, which provides a behavior like score calculation to a group of classes like shapes, via a common interface. In your case, the score calculation will be the servant, the shapes will be the serviced classes, and an `area` property plays the role of the common interface.
+解决方案是使用 **雇工** 设计模式，它通过一个通用接口为一组类（如形状类）提供分数计算等方法。在您现在的情况下，分数计算是雇工，形状类作为服务对象，并且 `area` 属性扮演公共接口的角色。
 
-Open **Shape.swift** and add the following line to the bottom of the `Shape` class:
+打开 **Shape.swift** 并在 `Shape` 类的底部添加以下代码：
 
 ```swift
 var area: CGFloat { return 0 }
 ```
 
-Then add the following line to the bottom of the `SquareShape` class:
+然后在 `SquareShape` 类的底部添加以下代码:
 
 ```swift
 override var area: CGFloat { return sideLength * sideLength }
 ```
 
-You can see where this is going — you can calculate which shape is larger based on its area.
+现在您可以根据其面积来判断哪个形状更大。
 
-Open **GameViewController.swift** and replace `beginNextTurn` with the following:
+打开 **GameViewController.swift** 并把 `beginNextTurn` 替换成以下内容：
 
 ```swift
 private func beginNextTurn() {
-  let shapes = shapeFactory.createShapes()
+    let shapes = shapeFactory.createShapes()
 
-  let shapeViews = shapeViewFactory.makeShapeViewsForShapes(shapes)
+    let shapeViews = shapeViewFactory.makeShapeViewsForShapes(shapes: shapes)
 
-  shapeViews.0.tapHandler = {
-    tappedView in
-    // 1
-    self.gameView.score += shapes.0.area >= shapes.1.area ? 1 : -1
-    self.beginNextTurn()
-  }
-  shapeViews.1.tapHandler = {
-    tappedView in
-    // 2
-    self.gameView.score += shapes.1.area >= shapes.0.area ? 1 : -1
-    self.beginNextTurn()
-  }
+    shapeViews.0.tapHandler = {
+        tappedView in
+        // 1
+        self.gameView.score += shapes.0.area >= shapes.1.area ? 1 : -1
+        self.beginNextTurn()
+    }
+    shapeViews.1.tapHandler = {
+        tappedView in
+        // 2
+        self.gameView.score += shapes.1.area >= shapes.0.area ? 1 : -1
+        self.beginNextTurn()
+    }
 
-  gameView.addShapeViews(shapeViews)
+    gameView.addShapeViews(newShapeViews: shapeViews)
 }
 ```
 
-1.  Determines the larger shape based on the shape area.
+1. 根据形状区域确定较大的形状。
 
-2.  Also determines the larger shape based on the shape area.
+2. 还是根据形状区域确定较大的形状。
 
-Build and run, and you should see something like the following — the game looks the same, but the code is now more flexible.
+编译并运行，您应该看到类似下面的内容，虽然游戏看起来相同，但代码现在更灵活了。
 
 [![Screenshot6](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot6-180x320.png)](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot6.png)
 
-Congratulations, you’ve completely removed dependencies on squares from your game logic. If you were to create and use some circle factories, your game would become more…well-rounded.
+恭喜，您已经从游戏逻辑中完全解除了对正方形的依赖关系，如果您要创建和使用一些圆形的工厂，您的游戏将变得更加完善。
 
 [![ragecomic2](https://koenig-media.raywenderlich.com/uploads/2014/10/ragecomic2.png)](https://koenig-media.raywenderlich.com/uploads/2014/10/ragecomic2.png)
 
-## Leveraging Abstract Factory for Gameplay Versatility
+## 利用抽象工厂实现游戏的多功能性
 
-“Don’t be a square!” can be an insult in real life, and your game feels like it’s been boxed in to one shape — it aspires to smoother lines and more aerodynamic shapes
+“不要做一个正块！”在现实生活中可能是一种侮辱，你的游戏感觉它被装在一个形状中，它渴望更流畅的线条和更多的符合空气动力学的形状。
 
-You need to introduce some smooth “circley goodness.” Open **Shape.swift**, and then add the following code at the bottom of the file:
+你需要引入一些流畅的“善良的圆”，现在打开 **Shape.swift** 并在文件底部添加以下代码：
 
 ```swift
 class CircleShape: Shape {
     var diameter: CGFloat!
-    override var area: CGFloat { return CGFloat(M**PI) * diameter * diameter / 4.0 }
+    override var area: CGFloat { return CGFloat.pi * diameter * diameter / 4.0 }
 }
 ```
 
-Your circle only needs to know the `diameter` from which it can compute its area, and thus support the **Servant** pattern.
+你的圆只需要知道它可以计算自身面积的“直径”就可以支持 **雇工** 模式。
 
-Next, build `CircleShape` objects by adding a `CircleShapeFactory`. Open **ShapeFactory.swift**, and add the following code at the bottom of the file:
+接下来通过添加 `CircleShapeFactory` 来构建 `CircleShape` 对象。打开 **ShapeFactory.swift** 并在文件底部添加以下代码：
 
 ```swift
 class CircleShapeFactory: ShapeFactory {
-  var minProportion: CGFloat
-  var maxProportion: CGFloat
+	var minProportion: CGFloat
+	var maxProportion: CGFloat
 
-  init(minProportion: CGFloat, maxProportion: CGFloat) {
-    self.minProportion = minProportion
-    self.maxProportion = maxProportion
-  }
+	init(minProportion: CGFloat, maxProportion: CGFloat) {
+		self.minProportion = minProportion
+		self.maxProportion = maxProportion
+	}
 
-  func createShapes() -> (Shape, Shape) {
-    // 1
-    let shape1 = CircleShape()
-    shape1.diameter = Utils.randomBetweenLower(minProportion, andUpper: maxProportion)
+	func createShapes() -> (Shape, Shape) {
+		// 1
+		let shape1 = CircleShape()
+		shape1.diameter = Utils.randomBetweenLower(lower: minProportion, andUpper: maxProportion)
 
-    // 2
-    let shape2 = CircleShape()
-    shape2.diameter = Utils.randomBetweenLower(minProportion, andUpper: maxProportion)
+		// 2
+		let shape2 = CircleShape()
+		shape2.diameter = Utils.randomBetweenLower(lower: minProportion, andUpper: maxProportion)
 
-    return (shape1, shape2)
-  }
+		return (shape1, shape2)
+	}
 }
 ```
 
-This code follows a familiar pattern: **Section 1** and **Section 2** create a `CircleShape` and assign it a random `diameter`.
+这段代码遵循一个熟悉的模式：**第1部分** 和 **第2部分** 创建了一个 `CircleShape` 并为其指定一个随机的 `diameter`。
 
-You need to solve another problem, and doing so might just prevent a messy Geometry Revolution. See, what you have right now is “Geometry Without Representation,” and you know how wound up shapes can get when they feel underrepresented. (haha!)
+你需要解决另一个问题，这样做可能会防止一个混乱的几何图形的革命。看吧，你现在拥有的是 “没有代表性的几何图形”，你知道当形状不足时，形状会变得多么干净哈！
 
-It’s easy to please your constituents; all you need to is **represent** your new `CircleShape` objects on the screen with a `CircleShapeView`. :\]
+取悦你的玩家很容易，你需要的只是用 `CircleShapeView` 在屏幕上 **代表** 你的新 `CircleShape` 对象。:\]
 
-Open `ShapeView.swift` and add the following at the bottom of the file:
+打开 `ShapeView.swift` 并在文件底部添加以下内容：
 
 ```swift
 class CircleShapeView: ShapeView {
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    // 1
-    self.opaque = false
-    // 2
-    self.contentMode = UIViewContentMode.Redraw
-  }
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		// 1
+		self.isOpaque = false
+		// 2
+		self.contentMode = UIView.ContentMode.redraw
+	}
 
-  required init(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+	required init(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
-  override func drawRect(rect: CGRect) {
-    super.drawRect(rect)
+	override func draw(_ rect: CGRect) {
+		super.draw(rect)
 
-    if showFill {
-      fillColor.setFill()
-      // 3
-      let fillPath = UIBezierPath(ovalInRect: self.bounds)
-      fillPath.fill()
-    }
+		if showFill {
+			fillColor.setFill()
+			// 3
+			let fillPath = UIBezierPath(ovalIn: self.bounds)
+			fillPath.fill()
+		}
 
-    if showOutline {
-      outlineColor.setStroke()
-      // 4
-      let outlinePath = UIBezierPath(ovalInRect: CGRect(
-        x: halfLineWidth,
-        y: halfLineWidth,
-        width: self.bounds.size.width - 2 * halfLineWidth,
-        height: self.bounds.size.height - 2 * halfLineWidth))
-      outlinePath.lineWidth = 2.0 * halfLineWidth
-      outlinePath.stroke()
-    }
-  }
+		if showOutline {
+			outlineColor.setStroke()
+			// 4
+			let outlinePath = UIBezierPath(ovalIn: CGRect(
+				x: halfLineWidth,
+				y: halfLineWidth,
+				width: self.bounds.size.width - 2 * halfLineWidth,
+				height: self.bounds.size.height - 2 * halfLineWidth))
+			outlinePath.lineWidth = 2.0 * halfLineWidth
+			outlinePath.stroke()
+		}
+	}
 }
 ```
 
-Explanations of the above that take each section in turn:
+对上述内容的解释依次为以下几个部分：
 
-1.  Since a circle cannot fill the rectangular bounds of its view, you need to tell **UIKit** that the view is not opaque, meaning content behind it may poke through. If you miss this, then the circles will have an ugly black background.
+1. 由于圆无法填充其 view 的 bounds，因此您需要告诉 **UIKit** 该 view 是透明的，这意味着能透过它看到背后的东西。如果你没有意识到这点，那么这个圆将会有一个丑陋的黑色背景。
 
-2.  Because the view is not opaque, you should redraw the view when its bounds change.
+2. 由于视图是透明的，因此应在 bounds 更改时进行重绘。
 
-3.  Draw a circle filled with the `fillColor`. In a moment, you’ll create `CircleShapeViewFactory`, which will ensurethat `CircleView` has equal width and height so the shape will be a circle and not an ellipse.
+3. 画一个用 `fillColor` 填充的圆圈。稍后，您将创建 `CircleShapeViewFactory`，它会确保 `CircleView` 具有相等的宽度和高度，因此画出来的形状将是圆形而不是椭圆形。
 
-4.  Stroke the outline border of the circle and inset to account for line width.
+4. 给圆用 lineWidth 进行描边。
 
-Now you’ll create `CircleShapeView` objects in a `CircleShapeViewFactory`.
+现在您将在 `CircleShapeViewFactory` 中创建` CircleShapeView` 对象。
 
-Open **ShapeViewFactory.swift** and add the following code at the bottom of the file:
+打开 **ShapeViewFactory.swift** 并在文件的底部添加以下代码：
 
 ```swift
 class CircleShapeViewFactory: ShapeViewFactory {
-  var size: CGSize
+	var size: CGSize
 
-  init(size: CGSize) {
-    self.size = size
-  }
+	init(size: CGSize) {
+		self.size = size
+	}
 
-  func makeShapeViewsForShapes(shapes: (Shape, Shape)) -> (ShapeView, ShapeView) {
-    let circleShape1 = shapes.0 as! CircleShape
-    // 1
-    let shapeView1 = CircleShapeView(frame: CGRect(
-      x: 0,
-      y: 0,
-      width: circleShape1.diameter * size.width,
-      height: circleShape1.diameter * size.height))
-    shapeView1.shape = circleShape1
+	func makeShapeViewsForShapes(shapes: (Shape, Shape)) -> (ShapeView, ShapeView) {
+		let circleShape1 = shapes.0 as! CircleShape
+		// 1
+		let shapeView1 = CircleShapeView(frame: CGRect(
+			x: 0,
+			y: 0,
+			width: circleShape1.diameter * size.width,
+			height: circleShape1.diameter * size.height))
+		shapeView1.shape = circleShape1
 
-    let circleShape2 = shapes.1 as! CircleShape
-    // 2
-    let shapeView2 = CircleShapeView(frame: CGRect(
-      x: 0,
-      y: 0,
-      width: circleShape2.diameter * size.width,
-      height: circleShape2.diameter * size.height))
-    shapeView2.shape = circleShape2
+		let circleShape2 = shapes.1 as! CircleShape
+		// 2
+		let shapeView2 = CircleShapeView(frame: CGRect(
+			x: 0,
+			y: 0,
+			width: circleShape2.diameter * size.width,
+			height: circleShape2.diameter * size.height))
+		shapeView2.shape = circleShape2
 
-    return (shapeView1, shapeView2)
-  }
+		return (shapeView1, shapeView2)
+	}
 }
 ```
 
-This is the factory that will create circles instead of squares. **Section 1** and **Section 2** are creating `CircleShapeView` instances by using the passed in shapes. Notice how your code is makes sure the circles have equal width and height so they render as perfect circles and not ellipses.
+这是将创建圆而不是正方形的工厂。**第1部分** 和 **第2部分** 使用传入的形状创建 `CircleShapeView` 实例。请注意你的代码是如何确保圆圈具有相同的宽度和高度，因此它们呈现为完美的圆形而不是椭圆形。
 
-Finally, open **GameViewController.swift** and replace the lines in `viewDidLoad` that assign the shape and view factories with the following:
+Finally, open **GameViewController.swift** and replace the lines in `viewDidLoad` that assign the shape and view factories with the following:最后，打开 **GameViewController.swift** 并替换 `viewDidLoad` 中对应的两行，用以下内容分配形状和视图工厂：
 
 ```swift
 shapeViewFactory = CircleShapeViewFactory(size: gameView.sizeAvailableForShapes())
 shapeFactory = CircleShapeFactory(minProportion: 0.3, maxProportion: 0.8)
 ```
 
-Now build and run and you should see something like the following screenshot.
+现在编译并运行项目，你应该看到类似下面的截图。
 
 [![Screenshot7](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot7-180x320.png)](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot7.png)
-Lookee there. You made circles!
+瞧，你造出了圆形！
 
-Notice how you were able to add a new shape without much impact on your game’s logic in `GameViewController`? The Abstract Factory and Servant design patterns made this possible.
+请注意你是如何在 `GameViewController` 中添加新形状而不会对游戏逻辑产生太大影响的，抽象工厂和雇工设计模式使之成为可能。
 
 ## Design Pattern: Builder
 
