@@ -86,7 +86,7 @@
 
 另一方面，标题不应该过长：太多的信息使得无法集中注意力。将所有内容放入页面顶部的尝试会将布局变得混乱不堪。因此，在每个特定情况下，必须分析核心目标受众的目标，他们如何与网站背后的业务目标交叉，并以此为基础 —— 哪些信息或导航应该作为最重要头部内容。例如，如果是大型电商网站，搜索功能必须立即可见，并且通常可以在头部找到，并能从任何交互点访问到。对于小型企业网站而言，搜索功能根本不需要，但是直接看到的投资组合的链接是至关重要的。
 
-![](https://cdn-images-1.medium.com/max/1600/0*3w2BkBHrjlTYVgTw.gif)
+![](https://cdn-images-1.medium.com/max/800/0*3w2BkBHrjlTYVgTw.gif)
 
 [**Gourmet 网站**](https://dribbble.com/shots/3858039-The-Gourmet-Website-Interactions)
 
@@ -114,7 +114,7 @@
 
 在可扫描性方面处理副本内容，尽量不要使文本的内容太长。简短的段落看起来更容易消化，如果信息对读者没有价值，可以更容易跳过。因此，当你在一个段落中提出一个想法并为另一个段落开始另一个想法时，请遵循该规则。
 
-![](https://cdn-images-1.medium.com/max/1600/0*fuMEd3aJ3gviUZZP.gif)
+![](https://cdn-images-1.medium.com/max/800/0*fuMEd3aJ3gviUZZP.gif)
 
 [**Bjorn 设计工作室网站**](https://dribbble.com/shots/2680255-Tubik-Studio-Bjo-rn)
 
@@ -138,7 +138,7 @@
 
 * * *
 
-**最初为 [**_tubikstudio.com_**](https://tubikstudio.com/) 而写**
+**最初为 [**tubikstudio.com**](https://tubikstudio.com/) 而写**
 
 **欢迎到 [**Dribbbl**](https://dribbble.com/Tubik) 和 [**Behance**](https://www.behance.net/Tubik) 观看 Tubik Studio 的设计。**
 
