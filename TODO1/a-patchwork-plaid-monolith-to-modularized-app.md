@@ -15,13 +15,13 @@
 
 这篇文章深入探讨了 [ Restitching Plaid ](https://medium.com/@crafty/restitching-plaid-9ca5588d3b0a) 模块化部分。
 
-这篇文章我将全面介绍如何将一个整体的、庞大的、普通的应用转化为一个模块化应用束。以下是我们已取得的成果：
+在这篇文章中，我将全面介绍如何将一个整体的、庞大的、普通的应用转化为一个模块化应用束。以下是我们已取得的成果：
 
 * 整体体积减少超过60%
 * 极大地增强代码健壮性
 * 支持动态交付、按需打包代码
 
-我们所做的所有事情，都不会影响用户体验。
+我们做的所有事情，都不会影响用户体验。
 
 ### Plaid 初印象
 
@@ -55,7 +55,7 @@ Plaid 是一个具有令人感到愉悦的 UI 的应用。它的主屏幕显示�
 
 Plaid 显示图形资源时，很大程度依赖于 [vector drawables](https://developer.android.com/guide/topics/graphics/vector-drawable-resources)。因这些与密度无关且已保存许多文件，故此处数据节省对我们并非太有影响。
 
-### 贴在一起
+### 拼贴起来
 
 在模块化中，我们最初把 `./gradlew assemble` 替换为 `./gradlew bundle`。Gradle 现在将生成一个 [Android App Bundle](http://g.co/androidappbundle) (aab)，替换生成应用。一个安卓应用束需用到动态功能 Gradle 插件，我们稍后介绍。
 
@@ -67,7 +67,7 @@ Plaid 显示图形资源时，很大程度依赖于 [vector drawables](https://d
 
 #### 优势
 
-这种封装改变带给我们什么？
+这种封装改变给我们带来了什么？
 
 **Plaid 现在设备减少60%以上体积，等同大约4MB数据。**
 
@@ -284,7 +284,7 @@ error: failed processing manifest.
 
 通过模块化，我们发现测试工具目前不能驻留在动态功能模块中，而是必须包含在应用模块中。对此我们将在即将发布的有关测试工作博客文章中进行详细介绍。
 
-### 还会发生什么？
+### 接下来还会发生什么？
 
 #### 动态代码加载
 
