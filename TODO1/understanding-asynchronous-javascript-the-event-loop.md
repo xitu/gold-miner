@@ -87,7 +87,7 @@ first();
 
  ### 异步JavaScript如何工作？
 
- 现在我们已经了解了相关调用栈的基本概念，以及同步JavaScript的工作原理，现在让我们回到异步JavaScript。
+ 现在我们已经了解了相关调用栈的基本概念，以及同步 JavaScript 的工作原理，现在让我们回到异步 JavaScript。
 
  #### 什么是阻塞？
 
@@ -118,7 +118,7 @@ greeting();
 
 当 `processImage()` 函数完成时，它将从调用栈中删除。之后调用`networkRequest()` 函数并将其推送到执行栈。同样，它还需要一些时间才能完成执行。
 
-最后，当 `networkRequest()` 函数完成时，调用 `greeting()` 函数，因为它只包含 `console.log` 语句，而console.log语句通常很快，所以 `greeting()` 函数会立即执行并返回。
+最后，当 `networkRequest()` 函数完成时，调用 `greeting()` 函数，因为它只包含 `console.log` 语句，而 `console.log` 语句通常很快，所以 `greeting()` 函数会立即执行并返回。
 
 所以你可以看到，我们必须等到函数（例如 `processImage()` 或 `networkRequest()` ）完成。这也就意味着这些函数阻塞了调用栈或主线程。因此，在执行上述代码时，我们无法执行任何其他操作，这是不理想的。
 
@@ -136,14 +136,14 @@ console.log('Hello World');
 networkRequest();
 ```
 
-这里我使用了 `setTimeout` 方法来模拟网络请求。请记住， `setTimeout` 不是 JavaScript 引擎的一部分，它是 Web APIs（在浏览器中）和 C/C++ APIs（在node.js中）的一部分。
+这里我使用了 `setTimeout` 方法来模拟网络请求。请记住， `setTimeout` 不是 JavaScript 引擎的一部分，它是 Web APIs（在浏览器中）和 C/C++ APIs（在 node.js 中）的一部分。
 
 要了解如何执行此代码，我们必须了解一些其他概念，例如事件循环和回调队列（也称为任务队列或消息队列）。
 
 ![image](https://cdn-images-1.medium.com/max/992/1*O_H6XRaDX9FaC4Q9viiRAA.png)
  <p align="center">JavaScript 运行时环境概述</p>
 
- **事件循环**，**Web APIs** 和 **消息队列/任务队列** 不是JavaScript 引擎的一部分，它是浏览器的 JavaScript 运行所处环境或Nodejs JavaScript运行所处环境中的一部分（在 Nodejs 的环境下）。在Nodejs 中，Web APIs 被C / C ++ APIs 取代。
+ **事件循环**，**Web APIs** 和 **消息队列/任务队列** 不是JavaScript 引擎的一部分，它是浏览器的 JavaScript 运行所处环境或 Nodejs JavaScrip t运行所处环境中的一部分（在 Nodejs 的环境下）。在 Nodejs 中，Web APIs 被 C/C++ APIs 取代。
 
  现在让我们回过头看看上面的代码，看看它是如何以异步方式执行的。
 
@@ -161,13 +161,13 @@ console.log('The End');
 ![image](https://cdn-images-1.medium.com/max/992/1*sOz5cj-_Jjv23njWg_-uGA.gif))
  <p align="center">Event Loop（事件循环）</p>
 
- 当上面的代码在浏览器中运行时，`console.log('Hello World')` 被推送到栈，在执行完成后从栈中弹出。紧接着，遇到 `networkRequest() `的执行，因此将其推送到栈顶部。
+ 当上面的代码在浏览器中运行时，`console.log('Hello World')` 被推送到栈，在执行完成后从栈中弹出。紧接着，遇到 `networkRequest()` 的执行，因此将其推送到栈顶部。
 
  接下来调用 `setTimeout()` 函数，因此将其推送到栈顶部。`setTimeout()` 有两个参数：1) 回调和 2) 以毫秒（ms）为单位的时间。
  
- `setTimeout()` 方法在 Web APIs 环境中启动 2s 的计时器。此时，`setTimeout()` 已完成，并从调用栈中弹出。在它之后，`console.log('The End')` 被推送到栈，在执行完成后从调用栈中删除。
+ `setTimeout()` 方法在 Web APIs 环境中启动 `2s` 的计时器。此时，`setTimeout()` 已完成，并从调用栈中弹出。在它之后，`console.log('The End')` 被推送到栈，在执行完成后从调用栈中删除。
  
- 同时，计时器已到期，现在回调函数被推送到消息队列。但回调函数并没有立即执行，而这就是形成了一个事件循环（Event Loop）。
+ 同时，计时器已到期，现在回调函数被推送到**消息队列**。但回调函数并没有立即执行，而这就是形成了一个事件循环（Event Loop）。
 
  #### 事件循环
 
@@ -192,11 +192,11 @@ document.querySelector('.btn').addEventListener('click',(event) => {
 
 事件循环再次检查调用栈是否为空，如果它为空并且执行了回调，则将事件回调推送到调用栈。
 
-我们已经知道了如何执行异步回调和DOM事件，它们使用消息队列来存储等待执行的所有回调。
+我们已经知道了如何执行异步回调和 DOM 事件，它们使用消息队列来存储等待执行的所有回调。
 
 #### ES6 工作队列/微任务队列（Job Queue/ Micro-Task queue）
 
-ES6引入了 Promises 在 JavaScript 中使用的工作队列/微任务队列的概念。消息队列和微任务队列之间的区别在于工作队列的优先级高于消息队列，这意味着 工作队列/微任务队列中的 promise 工作将在消息队列内的回调之前执行。
+ES6 引入了 Promises 在 JavaScript 中使用的工作队列/微任务队列的概念。消息队列和微任务队列之间的区别在于工作队列的优先级高于消息队列，这意味着 工作队列/微任务队列中的 promise 工作将在消息队列内的回调之前执行。
 
 例如：
 
