@@ -11,7 +11,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/0*wO-kYdN93deiT0U9)
 
-Photo by [Sean Lim](https://unsplash.com/@sean1188?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
+照片来自 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral) 的作者 [Sean Lim](https://unsplash.com/@sean1188?utm_source=medium&utm_medium=referral) 
 
 JavaScript 是一种单线程编程语言，这意味着同一时间只能完成一件事情。也就是说，JavaScript 引擎只能在单一线程中处理一次语句。
 
