@@ -2,239 +2,217 @@
 > * 原文作者：[Sukhjinder Arora](https://blog.bitsrc.io/@Sukhjinder?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-asynchronous-javascript-the-event-loop.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-asynchronous-javascript-the-event-loop.md)
-> * 译者：
+> * 译者：[H246802](https://github.com/H246802)
 > * 校对者：
 
-# Understanding Asynchronous JavaScript
+# 理解异步 JavaScript
 
-Learn How JavaScript Works
+学习 JavaScript 是怎么工作的
 
 ![](https://cdn-images-1.medium.com/max/2000/0*wO-kYdN93deiT0U9)
 
 Photo by [Sean Lim](https://unsplash.com/@sean1188?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
 
-JavaScript is a single-threaded programming language which means only one thing can happen at a time. That is, the JavaScript engine can only process one statement at a time in a single thread.
+JavaScript 是一种单线程编程语言，这意味着同一时间只能完成一件事情。也就是说，JavaScript引擎只能在单一线程中处理一次语句。
 
-While the single-threaded languages simplify writing code because you don’t have to worry about the concurrency issues, this also means you can’t perform long operations such as network access without blocking the main thread.
+单线程语言简化了代码编写。因为你不必担心并发问题，但这也意味着你无法在不阻塞主线程的情况下执行网络请求等长时间操作。
 
-Imagine requesting some data from an API. Depending upon the situation the server might take some time to process the request while blocking the main thread making the web page unresponsive.
+想象一下从 API 中请求一些数据。根据情况，服务器可能需要一些时间来处理请求，同时堵塞主线程，让网页无法响应。
 
-That’s where asynchronous JavaScript comes into play. Using asynchronous JavaScript (such as callbacks, promises, and async/await), you can perform long network requests without blocking the main thread.
+这也就是异步 JavaScript 的美妙之处了。使用异步 JavaScript （例如回调，Promise 或者 await/async ），你可以执行长时间网络请求同时不会堵塞主线程。
 
-While it’s not necessary that you learn all these concepts to be an awesome JavaScript developer, it’s helpful to know :)
+虽然您没有必要将所有这些概念都学会成为一名出色的JavaScript开发人员，但了解这些对你会很有帮助
 
-So without further ado, Let’s get started :)
+所以不用多说了，让我们开始吧！
 
-**Tip**: Using [**Bit**](https://github.com/teambit/bit) you can turn any JS code into an API you can share, use and sync across projects and apps to build faster and reuse more code. Give it a try.
+### 同步 JavaScript 如何工作？
 
-- [**Bit - Share and build with code components**: Bit helps you share, discover and use code components between projects and applications to build new features and...](https://bitsrc.io "https://bitsrc.io")
+在深入研究异步 JavaScript 之前，让我们首先了解同步 JavaScript 代码在 JavaScript 引擎中的执行情况。例如：
 
-* * *
-
-### How Does Synchronous JavaScript Work?
-
-Before we dive into asynchronous JavaScript, let’s first understand how the synchronous JavaScript code executes inside the JavaScript engine. For example:
-
-```
+```js
 const second = () => {
   console.log('Hello there!');
 }
-
 const first = () => {
   console.log('Hi there!');
   second();
   console.log('The End');
 }
-
 first();
 ```
 
-To understand how the above code executes inside the JavaScript engine, we have to understand the concept of the execution context and the call stack (also known as execution stack).
+要理解上述代码在 JavaScript 引擎中的执行方式，我们必须理解执行上下文和调用栈（也称为执行栈）的概念。
 
-#### Execution Context
+#### 执行上下文
 
-An Execution Context is an abstract concept of an environment where the JavaScript code is evaluated and executed. Whenever any code is run in JavaScript, it’s run inside an execution context.
+执行上下文是评估和执行 JavaScript 代码的环境的抽象概念。每当在 JavaScript 中运行任何代码时，它都在执行上下文中运行。
 
-The function code executes inside the function execution context, and the global code executes inside the global execution context. Each function has its own execution context.
+函数代码在函数执行上下文中执行，全局代码在全局执行上下文中执行。每个函数都有自己的执行上下文。
 
-#### Call Stack
+#### 调用栈
 
-The call stack as its name implies is a stack with a LIFO (Last in, First out) structure, which is used to store all the execution context created during the code execution.
+顾名思义，调用栈是一个具有 LIFO（后进先出）结构的栈，用于存储代码执行期间创建的所有执行上下文。
 
-JavaScript has a single call stack because it’s a single-threaded programming language. The call stack has a LIFO structure which means that the items can be added or removed from the top of the stack only.
+JavaScript 有一个单独的调用栈，因为它是一种单线程编程语言。调用栈具有 LIFO 结构，这意味着只能从调用栈顶部添加或删除项目。
 
-Let’s get back to the above code snippet and try to understand how the code executes inside the JavaScript engine.
+让我们回到上面的代码片段以便尝试理解代码在 JavaScript 引擎中的执行方式。
 
-```
+```js
 const second = () => {
   console.log('Hello there!');
 }
-
 const first = () => {
   console.log('Hi there!');
   second();
   console.log('The End');
 }
-
 first();
 ```
 
-![](https://cdn-images-1.medium.com/max/1000/1*DkG1a8f7rdl0GxM0ly4P7w.png)
 
-Call Stack for the above code
+![image](https://cdn-images-1.medium.com/max/1240/1*DkG1a8f7rdl0GxM0ly4P7w.png)
+ <p align="center">上述代码的调用栈工作情况</p>
 
-#### So What’s Happening Here?
+ #### 这过程发生了什么呢？
 
-When this code is executed, a global execution context is created (represented by `main()`) and pushed to the top of the call stack. When a call to `first()` is encountered, it’s pushed to the top of the stack.
+ 当代码执行的时候，会创建一个全局执行上下文（由 `main()` 表示）并将其推到执行栈的顶部。当对 `first()` 函数调用时，它会被推送的栈的顶部。
 
-Next, `console.log('Hi there!')` is pushed to the top of the stack, when it finishes, it’s popped off from the stack. After it, we call `second()`, so the `second()` function is pushed to the top of the stack.
+ 接下来，console.log('Hi there!') 被推到调用栈的顶部，当它执行完成后，它会从调用栈中弹出。在它之后，我们调用 second() ，因此 second() 函数被推送到调用栈的顶部。
 
-`console.log('Hello there!')` is pushed to the top of the stack and popped off the stack when it finishes. The `second()` function finishes, so it’s popped off the stack.
+ console.log('Hello there!') 被推到调用栈顶部并在完成后从调用栈中弹出。second() 函数执行完成，接着它从调用栈中弹出。
 
-`console.log(‘The End’)` is pushed to the top of the stack and removed when it finishes. After it, the `first()` function completes, so it’s removed from the stack.
+ console.log('The End') 被推到调用栈顶部并在完成后被删除。之后，first() 函数执行完成，因此它从调用栈中删除。
 
-The program completes its execution at this point, so the global execution context(`main()`) is popped off from the stack.
+ 程序此时完成其执行，因此从调用栈中弹出全局执行上下文 (main())。
 
-### How Does Asynchronous JavaScript Work?
+ ### 异步JavaScript如何工作？
 
-Now that we have a basic idea about the call stack, and how the synchronous JavaScript works, let’s get back to the asynchronous JavaScript.
+ 现在我们已经了解了相关调用栈的基本概念，以及同步JavaScript的工作原理，现在让我们回到异步JavaScript。
 
-#### What is Blocking?
+ #### 什么是阻塞？
 
-Let’s suppose we are doing an image processing or a network request in a synchronous way. For example:
+ 假设我们正在以同步方式进行图像处理或网络请求。例如：
 
-```
+ ```js
 const processImage = (image) => {
   /**
-  * doing some operations on image
+  * 对图像进行一些操作
   **/
   console.log('Image processed');
 }
-
 const networkRequest = (url) => {
   /**
-  * requesting network resource
+  * 请求网络资源
   **/
   return someData;
 }
-
 const greeting = () => {
   console.log('Hello World');
 }
-
 processImage(logo.jpg);
 networkRequest('www.somerandomurl.com');
 greeting();
-```
+ ```
 
-Doing image processing and network request takes time. So when `processImage()` function is called, it’s going to take some time depending on the size of the image.
+进行图像处理和网络请求都需要时间。因此，当 `processImage()` 函数调用时需要一些时间，具体多少时间根据图像的大小决定。
 
-When the `processImage()` function completes, it’s removed from the stack. After that the `networkRequest()` function is called and pushed to the stack. Again it’s also going to take some time to finish execution.
+当 `processImage()` 函数完成时，它将从调用栈中删除。之后调用`networkRequest()` 函数并将其推送到执行栈。同样，它还需要一些时间才能完成执行。
 
-At last when the `networkRequest()` function completes, `greeting()` function is called and since it contains only a `console.log` statement and `console.log` statements are generally fast, so the `greeting()` function is immediately executed and returned.
+最后，当 `networkRequest()` 函数完成时，调用 `greeting()` 函数，因为它只包含 `console.log` 语句，而console.log语句通常很快，所以 `greeting()` 函数会立即执行并返回。
 
-So you see, we have to wait until the function (such as `processImage()` or `networkRequest()`) has finished. This means these functions are blocking the call stack or main thread. So we can’t perform any other operation while the above code is executing which is not ideal.
+所以你可以看到，我们必须等到函数（例如 `processImage()` 或 `networkRequest()` ）完成。这也就意味着这些函数阻塞了调用栈或主线程。因此，在执行上述代码时，我们无法执行任何其他操作，这是不理想的。
 
-#### So what’s the solution?
+#### 那么解决方案是什么？
 
-The simplest solution is asynchronous callbacks. We use asynchronous callbacks to make our code non-blocking. For example:
+最简单的解决办法是异步回调，我们通常使用异步回调来让代码无阻塞。例如：
 
-```
+```js
 const networkRequest = () => {
   setTimeout(() => {
     console.log('Async Code');
   }, 2000);
 };
-
 console.log('Hello World');
-
 networkRequest();
 ```
 
-Here I have used `setTimeout` method to simulate the network request. Please keep in mind that the `setTimeout` is not a part of the JavaScript engine, it’s a part of something known as web APIs (in browsers) and C/C++ APIs (in node.js).
+这里我使用了 `setTimeout` 方法来模拟网络请求。请记住， `setTimeout` 不是 JavaScript 引擎的一部分，它是 Web APIs（在浏览器中）和 C/C++ APIs（在node.js中）的一部分。
 
-To understand how this code is executed we have to understand a few more concepts such event loop and the callback queue (also known as task queue or the message queue).
+要了解如何执行此代码，我们必须了解一些其他概念，例如事件循环和回调队列（也称为任务队列或消息队列）。
 
-![](https://cdn-images-1.medium.com/max/800/1*O_H6XRaDX9FaC4Q9viiRAA.png)
+![image](https://cdn-images-1.medium.com/max/992/1*O_H6XRaDX9FaC4Q9viiRAA.png)
+ <p align="center">JavaScript 运行时环境概述</p>
 
-An Overview of JavaScript Runtime Environment
+ **事件循环**，**Web APIs** 和 **消息队列/任务队列** 不是JavaScript 引擎的一部分，它是浏览器的 JavaScript 运行所处环境或Nodejs JavaScript运行所处环境中的一部分（在 Nodejs 的环境下）。在Nodejs 中，Web APIs 被C / C ++ APIs 取代。
 
-The **event loop**, the **web APIs** and the **message queue**/**task queue** are not part of the JavaScript engine, it’s a part of browser’s JavaScript runtime environment or Nodejs JavaScript runtime environment (in case of Nodejs). In Nodejs, the web APIs are replaced by the C/C++ APIs.
+ 现在让我们回过头看看上面的代码，看看它是如何以异步方式执行的。
 
-Now let’s get back to the above code and see how it’s executed in an asynchronous way.
-
-```
+ ```js
 const networkRequest = () => {
   setTimeout(() => {
     console.log('Async Code');
   }, 2000);
 };
-
 console.log('Hello World');
-
 networkRequest();
-
 console.log('The End');
-```
+ ```
 
-![](https://cdn-images-1.medium.com/max/800/1*sOz5cj-_Jjv23njWg_-uGA.gif)
+![image](https://cdn-images-1.medium.com/max/992/1*sOz5cj-_Jjv23njWg_-uGA.gif))
+ <p align="center">Event Loop（事件循环）</p>
 
-Event Loop
+ 当上面的代码在浏览器中运行时，`console.log('Hello World')` 被推送到栈，在执行完成后从栈中弹出。紧接着，遇到 `networkRequest() `的执行，因此将其推送到栈顶部。
 
-When the above code loads in the browser, the `console.log(‘Hello World’)` is pushed to the stack and popped off the stack after it’s finished. Next, a call to `networkRequest()` is encountered, so it’s pushed to the top of the stack.
+ 接下来调用 `setTimeout()` 函数，因此将其推送到栈顶部。`setTimeout()` 有两个参数：1) 回调和 2) 以毫秒（ms）为单位的时间。
+ 
+ `setTimeout()` 方法在 Web APIs 环境中启动 2s 的计时器。此时，`setTimeout()` 已完成，并从调用栈中弹出。在它之后，`console.log('The End')` 被推送到栈，在执行完成后从调用栈中删除。
+ 
+ 同时，计时器已到期，现在回调函数被推送到消息队列。但回调函数并没有立即执行，而这就是事件循环（Event Loop）的起点。
 
-Next `setTimeout()` function is called, so it’s pushed to the top of the stack. The `setTimeout()` has two arguments: 1) callback and 2) time in milliseconds (ms).
+ #### 事件循环
 
-The `setTimeout()` method starts a timer of `2s` in the web APIs environment. At this point, the `setTimeout()` has finished and it’s popped off from the stack. After it, `console.log('The End')` is pushed to the stack, executed and removed from the stack after its completion.
+事件循环的作用是查看调用栈并确定调用栈是否为空。如果调用栈为空，它会查看消息队列以查看是否有任何挂起的回调等待执行。
 
-Meanwhile, the timer has expired, now the callback is pushed to the **message queue**. But the callback is not immediately executed, and that’s where the event loop kicks in.
+在这个例子中，消息队列包含一个回调，此时调用栈为空。因此，事件循环（Event Loop） 将回调推送到调用栈顶部。
 
-#### The Event Loop
+再之后，`console.log('Async Code')` 被推到栈顶部，执行并从调用栈中弹出。此时，回调函数已完成，因此将其从调用栈中删除，程序最终完成。
 
-The job of the Event loop is to look into the call stack and determine if the call stack is empty or not. If the call stack is empty, it looks into the message queue to see if there’s any pending callback waiting to be executed.
+#### DOM 事件
 
-In this case, the message queue contains one callback, and the call stack is empty at this point. So the Event loop pushes the callback to the top of the stack.
+**消息队列**还包含来自 DOM 事件的回调，例如单击事件和键盘事件。
 
-After that the `console.log(‘Async Code’)` is pushed to the top of the stack, executed and popped off from the stack. At this point, the callback has finished so it’s removed from the stack and the program finally finishes.
+例如：
 
-#### DOM Events
-
-The **Message queue** also contains the callbacks from the DOM events such as click events and keyboard events. For example:
-
-```
+```js
 document.querySelector('.btn').addEventListener('click',(event) => {
   console.log('Button Clicked');
 });
 ```
+在DOM事件的情况下，事件监听器位于 Web APIs 环境中等待某个事件（在这种情况下是点击事件）发生，并且当该事件发生时，则回调函数被放置在等待执行的消息队列中。
 
-In case of DOM events, the event listener sits in the web APIs environment waiting for a certain event (click event in this case) to happen, and when that event happens, then the callback function is placed in the message queue waiting to be executed.
+事件循环再次检查调用栈是否为空，如果它为空并且执行了回调，则将事件回调推送到调用栈。
 
-Again the event loop checks if the call stack is empty and pushes the event callback to the stack if it’s empty and the callback is executed.
+我们已经知道了如何执行异步回调和DOM事件，它们使用消息队列来存储等待执行的所有回调。
 
-We have learned how the asynchronous callbacks and DOM events are executed which uses the message queue to store all the callbacks waiting to be executed.
+#### ES6 工作队列/微任务队列（Job Queue/ Micro-Task queue）
 
-#### ES6 Job Queue/ Micro-Task queue
+ES6引入了 Promises 在 JavaScript 中使用的工作队列/微任务队列的概念。消息队列和微任务队列之间的区别在于工作队列的优先级高于消息队列，这意味着 工作队列/微任务队列中的 promise 工作将在消息队列内的回调之前执行。
 
-ES6 introduced the concept of job queue/micro-task queue which is used by Promises in JavaScript. The difference between the message queue and the job queue is that the job queue has a higher priority than the message queue, which means that promise jobs inside the job queue/ micro-task queue will be executed before the callbacks inside the message queue.
+例如：
 
-For example:
-
-```
+```js
 console.log('Script start');
-
 setTimeout(() => {
   console.log('setTimeout');
 }, 0);
-
 new Promise((resolve, reject) => {
     resolve('Promise resolved');
   }).then(res => console.log(res))
     .catch(err => console.log(err));
-
 console.log('Script End');
 ```
 
-Output:
+输出：
 
 ```
 Script start
@@ -243,92 +221,84 @@ Promise resolved
 setTimeout
 ```
 
-We can see that the promise is executed before the `setTimeout`, because promise response are stored inside the micro-task queue which has a higher priority than the message queue.
+我们可以看到 `promise` 在 `setTimeout` 之前执行，因为 `promise` 响应存储在微任务队列中，其优先级高于消息队列。
 
-Let’s take another example, this time with two promises and two setTimeout. For example:
+让我们再看一个例子，这次有两个 `promise` 和两个 `setTimeout` 。例如：
 
-```
+```js
 console.log('Script start');
-
-setTimeout(() => {  
-  console.log('setTimeout 1');  
+setTimeout(() => {
+  console.log('setTimeout 1');
 }, 0);
-
-setTimeout(() => {  
-  console.log('setTimeout 2');  
+setTimeout(() => {
+  console.log('setTimeout 2');
 }, 0);
-
-new Promise((resolve, reject) => {  
-    resolve('Promise 1 resolved');  
-  }).then(res => console.log(res))  
+new Promise((resolve, reject) => {
+    resolve('Promise 1 resolved');
+  }).then(res => console.log(res))
     .catch(err => console.log(err));
-
-new Promise((resolve, reject) => {  
-    resolve('Promise 2 resolved');  
-  }).then(res => console.log(res))  
+new Promise((resolve, reject) => {
+    resolve('Promise 2 resolved');
+  }).then(res => console.log(res))
     .catch(err => console.log(err));
-
 console.log('Script End');
 ```
 
-This prints:
+输出：
 
 ```
-Script start  
-Script End  
-Promise 1 resolved  
-Promise 2 resolved  
-setTimeout 1  
+Script start
+Script End
+Promise 1 resolved
+Promise 2 resolved
+setTimeout 1
 setTimeout 2
 ```
 
-We can see that the two promises are executed before the callbacks in the `setTimeout` because the event loop prioritizes the tasks in micro-task queue over the tasks in message queue/task queue.
+我们可以看到两个 `promise` 都在 `setTimeout` 中的回调之前执行，因为事件循环将微任务队列中的任务优先于消息队列/任务队列中的任务。
 
-While the event loop is executing the tasks in the micro-task queue and in that time if another promise is resolved, it will be added to the end of the same micro-task queue, and it will be executed before the callbacks inside the message queue no matter for how much time the callback is waiting to be executed.
+当事件循环正在执行微任务队列中的任务时，如果另一个 `promise` 执行 `resolve` 方法，那么它将被添加到同一个微任务队列的末尾，并且它将在消息队列的所有回调之前执行，无论消息队列回调等待执行花费了多少时间。
 
-For example:
+例如：
 
-```
+```js
 console.log('Script start');
-
-setTimeout(() => {  
-  console.log('setTimeout');  
+setTimeout(() => {
+  console.log('setTimeout');
 }, 0);
-
-new Promise((resolve, reject) => {  
-    resolve('Promise 1 resolved');  
+new Promise((resolve, reject) => {
+    resolve('Promise 1 resolved');
   }).then(res => console.log(res));
-
-new Promise((resolve, reject) => {  
-  resolve('Promise 2 resolved');  
-  }).then(res => {  
-       console.log(res);  
-       return new Promise((resolve, reject) => {  
-         resolve('Promise 3 resolved');  
-       })  
+new Promise((resolve, reject) => {
+  resolve('Promise 2 resolved');
+  }).then(res => {
+       console.log(res);
+       return new Promise((resolve, reject) => {
+         resolve('Promise 3 resolved');
+       })
      }).then(res => console.log(res));
-
 console.log('Script End');
 ```
 
-This prints:
+输出：
 
 ```
-Script start  
-Script End  
-Promise 1 resolved  
-Promise 2 resolved  
-Promise 3 resolved  
+Script start
+Script End
+Promise 1 resolved
+Promise 2 resolved
+Promise 3 resolved
 setTimeout
 ```
 
-So all the tasks in micro-task queue will be executed before the tasks in message queue. That is, the event loop will first empty the micro-task queue before executing any callback in the message queue.
+因此，微任务队列中的所有任务都将在消息队列中的任务之前执行。也就是说，事件循环将首先在执行消息队列中的任何回调之前清空微任务队列。
 
-### Conclusion
+### 总结
 
-So we have learned how asynchronous JavaScript works and other concepts such as call stack, event loop, message queue/task queue and job queue/micro-task queue which together make the JavaScript runtime environment. While it’s not necessary that you learn all these concepts to be an awesome JavaScript developer, but it’s helpful to know these concepts :)
+因此，我们已经了解了异步 JavaScript 如何工作以及其他概念，例如调用栈，事件循环，消息队列/任务队列和工作队列/微任务队列，它们共同构成了 JavaScript 运行时环境。虽然您没有必要将所有这些概念都学习成为一名出色的 JavaScript 开发人员，但了解这些概念会很有帮助:)
 
-That’s it and if you found this article helpful, please click the clap 👏button, you can also follow me on [Medium](https://medium.com/@Sukhjinder) and [Twitter](https://twitter.com/sukhjinder_95), and if you have any doubt, feel free to comment! I’d be happy to help :)
+**译者注：**
+- 文中工作队列（Job Queue）也就是微任务队列，而消息队列则是指我们通常聊得宏任务队列。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
