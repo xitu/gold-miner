@@ -2,8 +2,7 @@
 > * 原文作者：[Ben Weiss](https://medium.com/@keyboardsurfer?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-patchwork-plaid-monolith-to-modularized-app.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-patchwork-plaid-monolith-to-modularized-app.md)
-> * 译者：
-> * 校对者：
+> * 译者：[snpmyn](https://github.com/snpmyn)
 
 # 格子拼贴 — 关于模块化的故事
 
@@ -13,11 +12,11 @@
 
 #### 我们为什么以及如何进行模块化，模块化后会发生什么？
 
-这篇文章深入探讨了 [ Restitching Plaid ](https://medium.com/@crafty/restitching-plaid-9ca5588d3b0a) 模块化部分。
+这篇文章深入探讨了 [Restitching Plaid](https://medium.com/@crafty/restitching-plaid-9ca5588d3b0a) 模块化部分。
 
 在这篇文章中，我将全面介绍如何将一个整体的、庞大的、普通的应用转化为一个模块化应用束。以下是我们已取得的成果：
 
-* 整体体积减少超过60%
+* 整体体积减少超过 60%
 * 极大地增强代码健壮性
 * 支持动态交付、按需打包代码
 
@@ -39,7 +38,7 @@ Plaid 是一个具有令人感到愉悦的 UI 的应用。它的主屏幕显示�
 
 ### 接下来介绍 Plaid 结构
 
-如许多安卓应用一样，Plaid 最初是作为普通应用构建的单一模块。它的安装体积仅7MB一下。然而许多数据并未在运行时用到。
+如许多安卓应用一样，Plaid 最初是作为普通应用构建的单一模块。它的安装体积仅 7MB 一下。然而许多数据并未在运行时用到。
 
 #### 代码结构
 
@@ -47,7 +46,7 @@ Plaid 是一个具有令人感到愉悦的 UI 的应用。它的主屏幕显示�
 
 #### 本地库
 
-最大未用到的数据块来自 [Bypass](https://github.com/Uncodin/bypass)，一个我们用来在 Plaid 呈现标记的库。它包括用于多核 CPU 体系架构的本地库，这些本地库最终在普通应用占大约4MB左右。应用束允许仅交付设备架构所需的库，将所需体积减少1MB左右。
+最大未用到的数据块来自 [Bypass](https://github.com/Uncodin/bypass)，一个我们用来在 Plaid 呈现标记的库。它包括用于多核 CPU 体系架构的本地库，这些本地库最终在普通应用占大约 4MB 左右。应用束允许仅交付设备架构所需的库，将所需体积减少1MB左右。
 
 #### 可提取资源
 
@@ -57,19 +56,19 @@ Plaid 显示图形资源时，很大程度依赖于 [vector drawables](https://d
 
 ### 拼贴起来
 
-在模块化中，我们最初把 `./gradlew assemble` 替换为 `./gradlew bundle`。Gradle 现在将生成一个 [Android App Bundle](http://g.co/androidappbundle) (aab)，替换生成应用。一个安卓应用束需用到动态功能 Gradle 插件，我们稍后介绍。
+在模块化中，我们最初把 `./gradlew assemble` 替换为 `./gradlew bundle`。Gradle 现在将生成一个 [Android App Bundle](http://g.co/androidappbundle)（aab），替换生成应用。一个安卓应用束需用到动态功能 Gradle 插件，我们稍后介绍。
 
 #### 安卓应用束
 
 相对单个应用，安卓应用束生成许多小的配置应用。这些应用可根据用户设备定制，从而在发送过程和磁盘上保存数据。应用束也是动态功能模块先决条件。
 
-在 Google Play 上传应用束后，可生成配置应用。随着[应用束](http://g.co/androidappbundle)成为[开放规范](https://developer.android.com/guide/app-bundle#aab_format)，其它应用商店也可实现该交付机制。为 Google Play 生成并签署应用，应用必须注册到[由Google Play签名的应用程序](https://developer.android.com/studio/publish/app-signing)。
+在 Google Play 上传应用束后，可生成配置应用。随着[应用束](http://g.co/androidappbundle)成为[开放规范](https://developer.android.com/guide/app-bundle#aab_format)，其它应用商店也可实现该交付机制。为 Google Play 生成并签署应用，应用必须注册到[由 Google Play 签名的应用程序](https://developer.android.com/studio/publish/app-signing)。
 
 #### 优势
 
 这种封装改变给我们带来了什么？
 
-**Plaid 现在设备减少60%以上体积，等同大约4MB数据。**
+**Plaid 现在设备减少 60% 以上体积，等同大约 4MB 数据。**
 
 这意味每一位用户都能为其它应用预留更多空间。
 同时下载时间也因文件大小缩小而改善。
@@ -92,25 +91,25 @@ Plaid 显示图形资源时，很大程度依赖于 [vector drawables](https://d
 
 上面图表向我们展示了 Plaid 模块化现状：
 
-* `旁路模块`和外部`分享依赖`包含在核心模块当中
-* `应用`依赖于`核心模块`
-* 动态功能模块依赖于`应用`
+* `旁路模块` 和外部 `分享依赖` 包含在核心模块当中
+* `应用` 依赖于 `核心模块`
+* 动态功能模块依赖于 `应用`
 
 #### 应用模块
 
-`应用`模块基本上是现存的[应用](https://developer.android.com/studio/build/)，被用来创建应用束且向我们展示 Plaid。许多用来运行 Plaid 的代码没必要必须包含在该模块中，而是可移至其它任何地方。
+`应用` 模块基本上是现存的[应用](https://developer.android.com/studio/build/)，被用来创建应用束且向我们展示 Plaid。许多用来运行 Plaid 的代码没必要必须包含在该模块中，而是可移至其它任何地方。
 
-#### Plaid 的`核心模块`
+#### Plaid 的 `核心模块`
 
 为开始重构，我们将所有代码和资源都移动至一个 [com.android.library](https://developer.android.com/studio/projects/android-library) 模块。进一步重构后，我们的`核心模块`仅包含各个功能模块间共享所需要代码和资源。这将使得更加清晰地分离依赖项。
 
 #### 外部库
 
-通过`旁路模块`将一个第三方依赖库包含在核心模块中。此外通过 gradle `api` 依赖关键字，将所有其它 gradle 依赖从`应用`移动至`核心模块`。
+通过`旁路模块`将一个第三方依赖库包含在核心模块中。此外通过 gradle `api` 依赖关键字，将所有其它 gradle 依赖从 `应用` 移动至 `核心模块`。
 
 Gradle 依赖声明：api vs implementation_
 
-通过 `api` 代替 `implementation` 可在整个程序中共享依赖项。这将减少每一个功能模块体积大小，因本例`核心模块`中依赖项仅需包含在单一模块中。此外还使我们的依赖关系更加易于维护，因为它们被声明在一个单一文件而非在多个 `build.gradle` 文件间传播。
+通过 `api` 代替 `implementation` 可在整个程序中共享依赖项。这将减少每一个功能模块体积大小，因本例 `核心模块` 中依赖项仅需包含在单一模块中。此外还使我们的依赖关系更加易于维护，因为它们被声明在一个单一文件而非在多个 `build.gradle` 文件间传播。
 
 #### 动态功能模块
 
@@ -129,11 +128,11 @@ Gradle 依赖声明：api vs implementation_
 
 ### 伟大的功能改革
 
-将所有东西都移动至核心模块后，我们将“关于”页面标记为具有最少依赖项的功能，故我们将其重构为一个新的`关于`模块。这包括 Activties、Views、代码仅用于该功能的内容。同样，我们把所有资源例如 drawables、strings 和动画移动至一个新模块。
+将所有东西都移动至核心模块后，我们将“关于”页面标记为具有最少依赖项的功能，故我们将其重构为一个新的 `关于` 模块。这包括 Activties、Views、代码仅用于该功能的内容。同样，我们把所有资源例如 drawables、strings 和动画移动至一个新模块。
 
 我们对每个功能模块进行重复操作，有时需要分解依赖项。
 
-最后，核心模块包含大部分共享代码和主要功能。由于主要功能仅显示于应用模块中，我们把相关代码和资源移回`应用`。
+最后，核心模块包含大部分共享代码和主要功能。由于主要功能仅显示于应用模块中，我们把相关代码和资源移回 `应用`。
 
 #### 功能结构剖析
 
@@ -228,7 +227,7 @@ fun intentTo(addressableActivity: AddressableActivity): Intent {
 }
 ```
 
-最简单实现 `AddressableActivity` 方式为仅需一个显示类名作为一个字符串。通过 Plaid，每一个`活动`都通过该机制启动。对一些包含意图附加部分，必须通过应用各个组件传递到活动中。
+最简单实现 `AddressableActivity` 方式为仅需一个显示类名作为一个字符串。通过 Plaid，每一个 `活动` 都通过该机制启动。对一些包含意图附加部分，必须通过应用各个组件传递到活动中。
 
 如下文件查看我们的实现过程：
 
@@ -304,13 +303,13 @@ error: failed processing manifest.
 
 #### 安装体积
 
-PLaid 现在用户设备平均减少60%体积。
+PLaid 现在用户设备平均减少 60% 体积。
 这使得安装更快，并且节省宝贵网络开销。
 
 #### 编译时间
 
-一个没有缓存的调试构建现在需**32秒而不是48秒**。
-同时任务从50项增长到250项。
+一个没有缓存的调试构建现在需 **32 秒而不是 48 秒**。
+同时任务从 50 项增长到 250 项。
 
 这样的时间节省，主要是由于增加并行构建以及由于模块化而避免编译。
 
@@ -324,11 +323,11 @@ PLaid 现在用户设备平均减少60%体积。
 
 ### 结语
 
-我们使得应用体积减少**超过60%**，完善了代码结构并且将 PLaid 模块化成动态功能模块以及增加了按需交付潜力。
+我们使得应用体积减少**超过 60%**，完善了代码结构并且将 PLaid 模块化成动态功能模块以及增加了按需交付潜力。
 
 整个过程，我们总是将应用保持在一个可随时发送给用户状态。您今天可直接切换你的应用发出一个应用束以节省安装体积。模块化需要一些时间，但鉴于上文所见好处，这是值得付出努力的，特别是考虑到动态交付。
 
-**去查看** [**Plaid’s source code**](https://github.com/nickbutcher/plaid) **了解我们所有的变化和快乐模块化过程！**
+**去查看 [Plaid’s source code](https://github.com/nickbutcher/plaid) 了解我们所有的变化和快乐模块化过程！**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
