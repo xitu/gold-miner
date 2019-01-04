@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/write-once-run-everywhere-tests-on-android.md](https://github.com/xitu/gold-miner/blob/master/TODO1/write-once-run-everywhere-tests-on-android.md)
 > * 译者：[Rickon](https://github.com/gs666)
-> * 校对者：
+> * 校对者：[xiaxiayang](https://github.com/xiaxiayang)
 
 # Android 上一次编写，随处测试
 
@@ -11,7 +11,7 @@
 
 在今年的 Google I/O 大会上，我们推出了 AndroidX Test，作为 [Jetpack](https://developer.android.com/jetpack/) 的一部分。今天，我们很高兴地宣布 [v1.0.0](https://developer.android.com/training/testing/release-notes) 最终版本和 Robolectric v4.0 一起发布。作为 1.0.0 版本的一部分，所有 AndroidX Test 现在都是[开源的](https://github.com/android/android-test)。
 
-AndroidX Test 提供了跨测试环境的通用测试 APIs，包括仪器测试和 Robolectric 测试。它包括现有的 Android JUnit 4 支持，Espresso 视图交互库和几个新的密钥测试 APIs。这些 APIs可用于在真实和虚拟设备上进行仪器测试。从 Robolectric 4.0 开始，它们也可用于本地 JVM 测试。
+AndroidX Test 提供了跨测试环境的通用测试 APIs，包括仪器测试和 Robolectric 测试。它包括现有的 Android JUnit 4 支持，Espresso 视图交互库和几个新的密钥测试 APIs。这些 APIs 可用于在真实和虚拟设备上进行仪器测试。从 Robolectric 4.0 开始，它们也可用于本地 JVM 测试。
 
 考虑以下使用情形，我们启动登录页面，输入正确的用户名和密码，并确保进入主屏幕。
 
@@ -47,7 +47,7 @@ class LoginActivityTest {
 
 这个测试可以在使用 Robolectric 或任何真实或虚拟设备的本地 JVM 上运行。
 
-要在Android设备上运行它，请将它与以下依赖项一起放在“androidTest”资源根目录中： 
+要在 Android 设备上运行它，请将它与以下依赖项一起放在 “androidTest” 资源根目录中： 
 
 ```
 androidTestImplementation(“androidx.test:runner:1.1.0”)
@@ -59,7 +59,7 @@ androidTestImplementation(“androidx.test.ext:truth:1.0.0”)
 
 在真实或虚拟设备上运行可让你确信你的代码可以正确地与 Android 系统进行交互。但是，随着测试用例数量的增加，你开始牺牲测试执行时间。你可能决定只在真机上运行一些较大的测试，同时在模拟器上运行大量较小的单元测试，比如 Robolectric，它可以在本地 JVM 上更快地运行测试。
 
-要使用 Robolectric 模拟器在本地 JVM 上运行测试用例，请将测试用例放在“test”资源根目录中，将以下代码添加到 gradle.build：
+要使用 Robolectric 模拟器在本地 JVM 上运行测试用例，请将测试用例放在 “test” 资源根目录中，将以下代码添加到 gradle.build：
 
 ```
 testImplementation(“androidx.test:runner:1.1.0”)
@@ -74,7 +74,7 @@ android {
 }
 ```
 
-模拟器和仪器之间测试 apis 的统一提供了许多令人兴奋的可能性！我们在 Google I / O 上发布的Nitrogen 项目将允许你在运行时环境之间无缝地切换测试。这意味着你将能够采用针对新的 AndroidX Test APIs 编写的测试用例，并在本地JVM、真实或虚拟设备、甚至基于云的测试平台（如 Firebase 测试实验室）上运行它们。我们非常高兴有机会为开发人员提供有关其应用程序质量的快速、准确和可操作的反馈。
+模拟器和仪器之间测试 apis 的统一提供了许多令人兴奋的可能性！我们在 Google I / O 上发布的 Nitrogen 项目将允许你在运行时环境之间无缝地切换测试。这意味着你将能够采用针对新的 AndroidX Test APIs 编写的测试用例，并在本地 JVM、真实或虚拟设备、甚至基于云的测试平台（如 Firebase 测试实验室）上运行它们。我们非常高兴有机会为开发人员提供有关其应用程序质量的快速、准确和可操作的反馈。
 
 最后，我们很高兴的宣布所有的 AndroidX 组件是完全 [开源](https://github.com/android/android-test) 的，我们期待着你的贡献。
 
