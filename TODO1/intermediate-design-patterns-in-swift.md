@@ -713,7 +713,7 @@ class CircleShapeViewFactory: ShapeViewFactory {
 
 这是将创建圆而不是正方形的工厂。**第1部分** 和 **第2部分** 使用传入的形状创建 `CircleShapeView` 实例。请注意你的代码是如何确保圆圈具有相同的宽度和高度，因此它们呈现为完美的圆形而不是椭圆形。
 
-Finally, open **GameViewController.swift** and replace the lines in `viewDidLoad` that assign the shape and view factories with the following:最后，打开 **GameViewController.swift** 并替换 `viewDidLoad` 中对应的两行，用以下内容分配形状和视图工厂：
+最后，打开 **GameViewController.swift** 并替换 `viewDidLoad` 中对应的两行，用以下内容分配形状和视图工厂：
 
 ```swift
 shapeViewFactory = CircleShapeViewFactory(size: gameView.sizeAvailableForShapes())
@@ -727,109 +727,109 @@ shapeFactory = CircleShapeFactory(minProportion: 0.3, maxProportion: 0.8)
 
 请注意你是如何在 `GameViewController` 中添加新形状而不会对游戏逻辑产生太大影响的，抽象工厂和雇工设计模式使之成为可能。
 
-## Design Pattern: Builder
+## 建造者模式模式
 
-Now it’s time to examine a third design pattern: **Builder**.
+现在是时候来看看第三种设计模式了：**建造者**。
 
-Suppose you want to vary the appearance of your `ShapeView` instances — whether they should show fill and outline colors and what colors to use. The **Builder** design pattern makes such object configuration easier and more flexible.
+假设您想要改变 `ShapeView` 实例的外观 - 例如它们是否应显示，以及用什么颜色来填充和描边。 **建造者** 设计模式使这种对象的配置变得更加容易和灵活。
 
-One approach to solve this configuration problem would be to add a variety of constructors, either class convenience methods like `CircleShapeView.redFilledCircleWithBlueOutline()` or initializers with a variety of arguments and default values.
+解决此配置问题的一种方法是添加各种构造函数，可以使用诸如 `CircleShapeView.redFilledCircleWithBlueOutline()` 之类的类便利初始化方法，也可以添加具有各种参数和默认值的初始化方法。
 
-Unfortunately, it’s not a scalable technique as you’d need to write a new method or initializer for every combination.
+然而不幸的是，它不是一种可扩展的技术，因为您需要为每种组合编写新方法或初始化程序。
 
-Builder solves this problem rather elegantly because it creates a class with a single purpose — configure an already initialized object. If you set up your builder to build red circles and then later blue circles, it’ll do so without need to alter `CircleShapeView`.
+建造者非常优雅地解决了这个问题，因为它创建了一个具有单一用途的类来配置已经初始化的对象。如果您将让建造者来构建红色的圆，然后再构建蓝色的圆，则无需更改 `CircleShapeView` 就可达到目的。
 
-Create a new file **ShapeViewBuilder.swift** and replace its contents with the following code:
+创建一个新文件 **ShapeViewBuilder.swift** 并添加以下代码：
 
 ```swift
 import UIKit
 
 class ShapeViewBuilder {
-  // 1
-  var showFill  = true
-  var fillColor = UIColor.orangeColor()
+	// 1
+	var showFill  = true
+	var fillColor = UIColor.orange
 
-  // 2
-  var showOutline  = true
-  var outlineColor = UIColor.grayColor()
+	// 2
+	var showOutline  = true
+	var outlineColor = UIColor.gray
 
-  // 3
-  init(shapeViewFactory: ShapeViewFactory) {
-    self.shapeViewFactory = shapeViewFactory
-  }
+	// 3
+	init(shapeViewFactory: ShapeViewFactory) {
+		self.shapeViewFactory = shapeViewFactory
+	}
 
-  // 4
-  func buildShapeViewsForShapes(shapes: (Shape, Shape)) -> (ShapeView, ShapeView) {
-    let shapeViews = shapeViewFactory.makeShapeViewsForShapes(shapes)
-    configureShapeView(shapeViews.0)
-    configureShapeView(shapeViews.1)
-    return shapeViews
-  }
+	// 4
+	func buildShapeViewsForShapes(shapes: (Shape, Shape)) -> (ShapeView, ShapeView) {
+		let shapeViews = shapeViewFactory.makeShapeViewsForShapes(shapes: shapes)
+		configureShapeView(shapeView: shapeViews.0)
+		configureShapeView(shapeView: shapeViews.1)
+		return shapeViews
+	}
 
-  // 5
-  private func configureShapeView(shapeView: ShapeView) {
-    shapeView.showFill  = showFill
-    shapeView.fillColor = fillColor
-    shapeView.showOutline  = showOutline
-    shapeView.outlineColor = outlineColor
-  }
+	// 5
+	private func configureShapeView(shapeView: ShapeView) {
+		shapeView.showFill  = showFill
+		shapeView.fillColor = fillColor
+		shapeView.showOutline  = showOutline
+		shapeView.outlineColor = outlineColor
+	}
 
-  private var shapeViewFactory: ShapeViewFactory
+	private var shapeViewFactory: ShapeViewFactory
 }
 ```
 
-Here’s how your new `ShapeViewBuilder` works:
+以下是您的新的 `ShapeViewBuilder` 的工作原理：
 
-1.  Store configuration to set `ShapeView` fill properties.
+1. 存储配置 `ShapeView` 的填充属性。
 
-2.  Store configuration to set `ShapeView` outline properties.
+2. 存储配置 `ShapeView` 的描边属性。
 
-3.  Initialize the builder to hold a `ShapeViewFactory` to construct the views. This means the builder doesn’t need to know if it’s building `SquareShapeView` or `CircleShapeView` or even some other kind of shape view.
+3. 初始化建造者来保存 `ShapeViewFactory` 从而构造 view。这意味着建造者并不需要知道它是来建造 `SquareShapeView` 还是 `CircleShapeView` 抑或是其他形状的 view。
 
-4.  This is the public API; it creates and initializes a pair of `ShapeView` when there’s a pair of `Shape`.
+4. 这是公共 API，当有一对 `Shape` 时，它会创建并初始化一对 `ShapeView`。
 
-5.  Do the actual configuration of a `ShapeView` based on the builder’s stored configuration.
+5. 根据建造者的存储了的配置来对 `ShapeView` 进行配置。
 
-Deploying your spiffy new `ShapeViewBuilder` is as easy as opening **GameViewController.swift** and adding the following code to the bottom of the class, just before the closing curly brace:
+现在来部署你新的 `ShapeViewBuilder`，打开 **GameViewController.swift**，在大括号结束之前将以下代码添加到类的底部：
 
 ```swift
 private var shapeViewBuilder: ShapeViewBuilder!
 ```
 
-Now, populate your new property by adding the following code to `viewDidLoad` just above the line that invokes `beginNextTurn`:
+现在在 `viewDidLoad` 里 `beginNextTurn` 调用的上方添加以下代码来填充新属性：
 
 ```swift
 shapeViewBuilder = ShapeViewBuilder(shapeViewFactory: shapeViewFactory)
-shapeViewBuilder.fillColor = UIColor.brownColor()
-shapeViewBuilder.outlineColor = UIColor.orangeColor()
+shapeViewBuilder.fillColor = UIColor.brown
+shapeViewBuilder.outlineColor = UIColor.orange
 ```
 
-Finally replace the line that creates `shapeViews` in `beginNextTurn` with the following:
+最后用以下代码替换 `beginNextTurn` 中创建 `shapeViews` 的那一行：
 
 ```swift
-let shapeViews = shapeViewBuilder.buildShapeViewsForShapes(shapes)
+let shapeViews = shapeViewBuilder.buildShapeViewsForShapes(shapes: shapes)
 ```
 
-Build and run, and you should see something like this:
+编译并运行，你将看到以下内容：
 
 [![Screenshot8](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot8-180x320.png)](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot8.png)
 
-Notice how your circles are now a pleasant brown with orange outlines — I know you must be amazed by the stunning design here, but please don’t try to hire me to be your interior decorator.
+说实话我也觉得填充颜色很丑，但是先别吐槽，毕竟我们目前关注点不在于它是有多么好看。
 
-Now to reinforce the power of the Builder pattern. With `GameViewController.swift` still open, change your `viewDidLoad` to use square factories:
+现在来强化建造者的力量。还是在 `GameViewController.swift` 里，将 `viewDidLoad` 对应的两行更改为使用方形工厂：
 
 ```swift
 shapeViewFactory = SquareShapeViewFactory(size: gameView.sizeAvailableForShapes())
 shapeFactory = SquareShapeFactory(minProportion: 0.3, maxProportion: 0.8)
 ```
 
-Build and run, and you should see this.
+编译并运行，你将看到以下内容：
 
 [![Screenshot9](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot9-180x320.png)](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot9.png)
 
-Notice how the Builder pattern made it easy to apply a new color scheme to squares as well as to circles. Without it, you’d need color configuration code in both `CircleShapeViewFactory` and `SquareShapeViewFactory`.
+注意建造者模式是如何使新的颜色方案来应用到正方形和圆形上的。没有它的话你需要在 `CircleShapeViewFactory` 和 `SquareShapeViewFactory` 中来单独设置颜色。
 
-Furthermore, changing to another color scheme would involve widespread code changes. By restricting `ShapeView` color configuration to a single `ShapeViewBuilder`, you also isolate color changes to a single class.
+此外，更改为另一种配色方案将涉及大量代码的修改。通过将 `ShapeView` 颜色配置限制为单个 `ShapeViewBuilder`，您还可以将颜色更改隔离到单个类。
 
 ## Design Pattern: Dependency Injection
 
