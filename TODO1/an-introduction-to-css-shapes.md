@@ -33,11 +33,19 @@ Now that CSS Shapes have gained widespread support across modern browsers, it’
 
 ## First Look at CSS Shapes
 
+## CSS Shapes 概览
+
 The current implementation of CSS Shapes is [CSS Shapes Module Level 1](https://drafts.csswg.org/css-shapes/), which mostly revolves around the `[shape-outside](https://tympanus.net/codrops/css_reference/shape-outside/)` property. `shape-outside` defines a shape that text can flow around.
+
+CSS Shapes 的当前实现是 [CSS Shapes 模块 1 级](https://drafts.csswg.org/css-shapes/)，它主要包含 `[shape-outside](https://tympanus.net/codrops/css_reference/shape-outside/)` 属性。`shape-outside` 定义了文本环绕的形状。
 
 Considering there is a `shape-outside` property, you might assume there is a corresponding `shape-inside` property that would contain text within a shape. A `shape-inside` property might become a reality in the future, but it is currently a draft in [CSS Shapes Module Level 2](https://drafts.csswg.org/css-shapes-2/), and is not implemented by any browser.
 
+考虑到有 `shape-outside` 属性，你可能会想到还有一个相应的 `shape-inside` 属性，它包含形状内的文本。`shape-inside` 属性可能会在将来实现，目前它只是 [CSS Shapes 模块 2 级](https://drafts.csswg.org/css-shapes-2/)里面的一个草案，并没有被任何浏览器实现。
+
 In this article, we’re going to demonstrate how to use the [<basic-shape>](https://tympanus.net/codrops/css_reference/basic-shape/) data type and set it with shape function values, as well as setting a shape using a semi-transparent URL or gradient.
+
+在本文中，我们将演示如何使用 [<basic-shape>](https://tympanus.net/codrops/css_reference/basic-shape/) 数据类型，使用形状函数值设置它，以及使用半透明URL或渐变设置形状。
 
 ## Basic Shape Functions
 
