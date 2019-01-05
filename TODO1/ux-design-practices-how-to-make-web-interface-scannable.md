@@ -41,7 +41,7 @@
 
 ### 流行的扫描模式
 
-界面设计师必须考虑的重要事项是眼睛扫描模式，它表明用户在最初的几秒内与网页交互的方式。当你了解了人们如何扫描页面或屏幕时，就可以将内容进行优先级排序，并将用户需要的内容放入最明显的区域。这个[用户研究](https://uxplanet.org/user-research-empathy-is-the-best-ux-policy-5f966ba5bbdc)领域得到了[Nielsen Norman 集团](https://www.nngroup.com/articles/eyetracking-study-of-web-readers/)的支持，帮助设计师和可用性专家更好地理解用户行为和交互。
+界面设计师必须考虑的重要事项是眼睛扫描模式，它表明用户在最初的几秒内与网页交互的方式。当你了解了人们如何扫描页面或屏幕时，就可以将内容进行优先级排序，并将用户需要的内容放入最明显的区域。这个[用户研究](https://uxplanet.org/user-research-empathy-is-the-best-ux-policy-5f966ba5bbdc)领域得到了 [Nielsen Norman 集团](https://www.nngroup.com/articles/eyetracking-study-of-web-readers/)的支持，帮助设计师和可用性专家更好地理解用户行为和交互。
 
 收集用户眼动追踪数据的不同实验表明，通常访客扫描网站会使用几种典型的模型。
 
