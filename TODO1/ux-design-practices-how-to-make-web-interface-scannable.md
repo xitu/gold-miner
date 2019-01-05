@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ux-design-practices-how-to-make-web-interface-scannable.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ux-design-practices-how-to-make-web-interface-scannable.md)
 > * 译者：[Ivocin](https://github.com/Ivocin)
-> * 校对者：
+> * 校对者：[生糸](https://github.com/Mcskiller), [Junkai Liu](https://github.com/Moonliujk)
 
 # UX 设计实践：如何设计可扫描的 Web 界面
 
