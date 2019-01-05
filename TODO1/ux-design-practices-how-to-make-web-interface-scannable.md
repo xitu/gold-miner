@@ -140,7 +140,7 @@
 
 **最初为 [**tubikstudio.com**](https://tubikstudio.com/) 而写**
 
-**欢迎到 [**Dribbbl**](https://dribbble.com/Tubik) 和 [**Behance**](https://www.behance.net/Tubik) 观看 Tubik Studio 的设计。**
+** 欢迎到 [**Dribbble**](https://dribbble.com/Tubik) 和 [**Behance**](https://www.behance.net/Tubik) 观看 Tubik Studio 的设计。**
 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
