@@ -92,7 +92,7 @@
 
 #### 3.保持负空间的平衡
 
-负空间 —— 或者通常称为空白区域 —— 是布局里的空白区域，不仅在布局中的对象周围，而且在它们之间和内部。[负空间](https://tubikstudio.com/negative-space-in-design-tips-and-best-practices/)是页面或屏幕上所有对象的一种呼吸空间。 它定义了对象的界限，根据[Gestalt 原则](https://uxplanet.org/gestalt-theory-for-ux-design-principle-of-proximity-e56b136d52d1)在它们之间创造了必要的联系，并建立了有效的视觉表现。在网站和移动应用程序的 UI 设计中，负空间是界面高[可导航性](https://uxplanet.org/ui-ux-design-glossary-navigation-elements-b552130711c8)的一个重要因素：没有足够的空气，布局元素没有被正确看到，因此用户可能会错过他们真正需要的东西。这可能是眼睛和大脑紧张的一个强有力的原因，尽管许多用户将无法明确表述这个问题。适量的负空间，特别是微空间，解决它，使过程更自然。
+负空间 —— 或者通常称为空白区域 —— 是布局里的空白区域，不仅在布局中的对象周围，而且在它们之间和内部。[负空间](https://tubikstudio.com/negative-space-in-design-tips-and-best-practices/)是页面或屏幕上所有对象的一种呼吸空间。 它定义了对象的界限，根据 [Gestalt 原则](https://uxplanet.org/gestalt-theory-for-ux-design-principle-of-proximity-e56b136d52d1)在它们之间创造了必要的联系，并建立了有效的视觉表现。在网站和移动应用程序的 UI 设计中，负空间是界面高[可导航性](https://uxplanet.org/ui-ux-design-glossary-navigation-elements-b552130711c8)的一个重要因素：没有足够的空气，布局元素没有被正确看到，因此用户可能会错过他们真正需要的东西。这可能是眼睛和大脑紧张的一个强有力的原因，尽管许多用户将无法明确表述这个问题。适量的负空间，特别是微空间，解决它，使过程更自然。
 
 #### 4.检查能否立即看到 CTA
 
