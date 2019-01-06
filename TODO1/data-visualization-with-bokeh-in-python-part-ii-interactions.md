@@ -2,10 +2,10 @@
 > * 原文作者：[Will Koehrsen](https://towardsdatascience.com/@williamkoehrsen?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/data-visualization-with-bokeh-in-python-part-ii-interactions.md](https://github.com/xitu/gold-miner/blob/master/TODO1/data-visualization-with-bokeh-in-python-part-ii-interactions.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starrier)
+> * 校对者：[TrWestdoor](https://github.com/TrWestdoor)
 
-# Python 中 Bokeh 的数据可视化，第二部分：交互
+# 利用 Python 中 Bokeh 实现数据可视化，第二部分：交互
 
 **超越静态图的图解**
 
@@ -17,7 +17,7 @@
 
 如果我们想创建更吸引人的可视化数据，可以允许用户通过交互方式来获取他们想要的数据。比如，在这个柱状图中，一个有价值的特性是能够选择指定航空公司进行比较，或者选择更改容器的宽度来更详细地检查数据。辛运的是，我们可以使用 Bokeh 在现有的绘图基础上添加这两个特性。柱状图的最初开发似乎只涉及到了一个简单的图，但我们现在即将体验到像 Bokeh 这样的强大的库的所带来的好处！
 
-本系列的所有代码[皆可用，并托管在 GitHub 上](https://github.com/WillKoehrsen/Bokeh-Python-Visualization/tree/master/interactive)。任何感兴趣的人都可以查看所有的数据清洗细节（数据科学中一个不那么鼓舞人心但又必不可少的部分），也可以亲自运行它们！（对于交互式 Bokeh 图，我们仍然可以使用 Jupyter Notebook 来显示结果，我们也可以编写 Python 脚本，并运行 Bokeh 服务器。我通常使用 Jupyter Notebook 进行开发，因为它可以在不重启服务器的情况下，就可以很容易的快速迭代和更改绘图。然后我将它们迁移到服务器中来显示最终结果。你可以在 GitHub 上看到一个独立的脚本和完整的笔记）。
+本系列的所有代码[都可在 GitHub 上获得](https://github.com/WillKoehrsen/Bokeh-Python-Visualization/tree/master/interactive)。任何感兴趣的人都可以查看所有的数据清洗细节（数据科学中一个不那么鼓舞人心但又必不可少的部分），也可以亲自运行它们！（对于交互式 Bokeh 图，我们仍然可以使用 Jupyter Notebook 来显示结果，我们也可以编写 Python 脚本，并运行 Bokeh 服务器。我通常使用 Jupyter Notebook 进行开发，因为它可以在不重启服务器的情况下，就可以很容易的快速迭代和更改绘图。然后我将它们迁移到服务器中来显示最终结果。你可以在 GitHub 上看到一个独立的脚本和完整的笔记）。
 
 ### 主动的交互
 
@@ -35,7 +35,7 @@
 
 小部件示例（下拉按钮和单选按钮组）
 
-当我查看图时，我喜欢主动的交互（[比如那些在 FlowingData 上的交互](http://flowingdata.com/2018/01/23/the-demographics-of-others/)）因为它们允许我自己去研究数据。我发现让人印象更深刻的是从我自己的数据中发现的结论（从设计者那里获取的一些研究方向），而不是从一个完全静态的图表中发现的结论。此外，给予用户一定程度的自由，可以让他们对数据集提出更有用的讨论，从而产生不同的解释。
+当我查看图时，我喜欢主动的交互（[比如那些在 FlowingData 上的交互](http://flowingdata.com/2018/01/23/the-demographics-of-others/)），因为它们允许我自己去研究数据。我发现让人印象更深刻的是从我自己的数据中发现的结论（从设计者那里获取的一些研究方向），而不是从一个完全静态的图表中发现的结论。此外，给予用户一定程度的自由，可以让他们对数据集提出更有用的讨论，从而产生不同的解释。
 
 ### 交互概述
 
@@ -43,7 +43,7 @@
 
 *   `make_dataset()` 格式化想要显示的特定数据
 *   `make_plot()` 用指定的数据进行绘图
-*   `update()` 基于用于选择来更新绘图
+*   `update()` 基于用户选择来更新绘图
 
 #### 格式化数据
 
@@ -61,14 +61,14 @@
 
 在此数据集中，每一行都是一个单独的航班。 `arr_delay` 列是航班到达延误数分钟（负数表示航班提前到达）。在第一部分中，我们做了一些数据探索，知道有 327，236 次航班，最小延误时间为 - 86 分钟，最大延误时间为 1272 分钟。在 `make_dataset` 函数中，我们想基于 dataframe 中的 `name` 列来选择公司，并用 `arr_delay` 列来限制航班。
 
-为了生成柱状图的数据，我们使用 numpy 函数 `histogram` 来统计每个容器中的数据点数。在我们的示例中，这是每个指定延迟间隔中的航班数。对于第一部分，我们做了一个包含所有航班的柱状图，但现在我们会每一个运营商都提供一个柱状图。由于每个航空公司的航班数目有很大差异，我们可以显示延迟而不是按原始数目显示，可以按比例显示。也就是说，图上的高度对应于特定航空公司的所有航班比例，该航班在相应的容器中有延迟。从计数到比例，我们除以航空公司的总数。
+为了生成柱状图的数据，我们使用 numpy 函数 `histogram` 来统计每个容器中的数据点数。在我们的示例中，这是每个指定延迟间隔中的航班数。对于第一部分，我们做了一个包含所有航班的柱状图，但现在我们会为每一个运营商都提供一个柱状图。由于每个航空公司的航班数目有很大差异，我们可以显示延迟而不是按原始数目显示，可以按比例显示。也就是说，图上的高度对应于特定航空公司的所有航班比例，该航班在相应的容器中有延迟。从计数到比例，我们除以航空公司的总数。
 
 下面是生成数据集的完整代码。函数接受我们希望包含的运营商列表，要绘制的最小和最大延迟，以及制定的容器宽度（以分钟为单位）。
 
 ``` Python
 def make_dataset(carrier_list, range_start = -60, range_end = 120, bin_width = 5):
 
-    # 为了确保开始小于结束而进行检查
+    # 为了确保起始点小于终点而进行检查
     assert range_start < range_end, "Start must be less than end!"
     
     by_carrier = pd.DataFrame(columns=['proportion', 'left', 'right', 
@@ -114,7 +114,7 @@ def make_dataset(carrier_list, range_start = -60, range_end = 120, bin_width = 5
     return ColumnDataSource(by_carrier)
 ```
 
-(我知道这是一篇关于 Bokeh 的博客，但在没有格式化数据的情况下，无法生成图，因此它包括了代码来我的演示方法！)
+(我知道这是一篇关于 Bokeh 的博客，但在你不能在没有格式化数据的情况下来生成图表，因此我使用了相应的代码来演示我的方法！)
 
 运行带有所需运营商的函数结果如下：
 
@@ -182,10 +182,10 @@ Bokeh 复选框中的标签必须是字符串，但激活值需要的是整型�
 ['AirTran Airways Corporation', 'Alaska Airlines Inc.']
 ```
 
-在制作完小部件后，我们现在需要将选中的航空公司复选框链接到图表上显示的信息中。这是使用 CheckboxGroup 的 `.on_change` 方法和我们定义的 `update` 函数完成的。更新函数总是具有三个参数：`attr、old、new`，并基于选择控件来更新绘图。改变图形上显示的数据的方式是改变我们传递给 `make_plot` 函数中的图形的数据源。这听起来可能有点抽象，因此下面是一个 `update` 函数的示例，该函数通过更改柱状图来显示选定的航空公司：
+在制作完小部件后，我们现在需要将选中的航空公司复选框链接到图表上显示的信息中。这是使用 CheckboxGroup 的 `.on_change` 方法和我们定义的 `update` 函数完成的。update 函数总是具有三个参数：`attr、old、new`，并基于选择控件来更新绘图。改变图形上显示的数据的方式是改变我们传递给 `make_plot` 函数中的图形的数据源。这听起来可能有点抽象，因此下面是一个 `update` 函数的示例，该函数通过更改柱状图来显示选定的航空公司：
 
 ``` Python
-# 更新函数有三个默认参数
+# update 函数有三个默认参数
 def update(attr, old, new):
     # Get the list of carriers for the graph
     carriers_to_plot = [carrier_selection.labels[i] for i in
@@ -198,14 +198,14 @@ def update(attr, old, new):
                            range_end = 120,
                            bin_width = 5)
 
-    # 更新在 quad glpyhs 中使用的源
+    # update 在 quad glpyhs 中使用的源
     src.data.update(new_src.data)
 ```
 
 这里，我们从 CheckboxGroup 中检索要基于选定航空公司显示的航空公司列表。这个列表被传递给 `make_dataset` 函数，它返回一个新的列数据源。我们通过调用 `src.data.update` 以及传入来自新源的数据更新图表中使用的源数据。最后，为了将 `carrier_selection` 小部件中的更改链接到 `update` 函数，我们必须使用 `.on_change` 方法（称为[事件处理器](https://bokeh.pydata.org/en/latest/docs/user_guide/interaction/widgets.html)）。
 
 ``` Python
-# 将选定按钮中的更改链接到更新函数
+# 将选定按钮中的更改链接到 update 函数
 carrier_selection.on_change('active', update)
 ```
 
@@ -215,7 +215,7 @@ carrier_selection.on_change('active', update)
 
 #### 更多控件
 
-现在我们已经知道了创建控件的基本工作流程，我们可以添加更多元素。我们每次创建小部件时，编写更新函数来更改显示在绘图上的数据，通过事件处理器来将更新函数链接到小部件。我们甚至可以通过重写函数来从多个元素中使用相同的更新函数来从小部件中提取我们所需的值。在实践过程中，我们将添加两个额外的控件：一个用于选择柱状图容器宽度的 Slider，另一个是用于设置最小和最大延迟的 RangeSlider。下面是生成这些小部件和更新函数的代码：
+现在我们已经知道了创建控件的基本工作流程，我们可以添加更多元素。我们每次创建小部件时，编写 update 函数来更改显示在绘图上的数据，通过事件处理器来将 update 函数链接到小部件。我们甚至可以通过重写函数来从多个元素中使用相同的 update 函数来从小部件中提取我们所需的值。在实践过程中，我们将添加两个额外的控件：一个用于选择柱状图容器宽度的 Slider，另一个是用于设置最小和最大延迟的 RangeSlider。下面是生成这些小部件和 update 函数的代码：
 
 ``` Python
 # 滑动 bindwidth，对应的值就会被选中
@@ -233,7 +233,7 @@ range_select = RangeSlider(start = -60, end = 180, value = (-60, 120),
 range_select.on_change('value', update)
 
 
-# 用于 3 个控件的更新函数
+# 用于 3 个控件的 update 函数
 def update(attr, old, new):
     
     # 查找选定的运营商
