@@ -49,7 +49,11 @@ In this article, we’re going to demonstrate how to use the [<basic-shape>](htt
 
 ## Basic Shape Functions
 
+## 基本的形状函数
+
 We can define all sorts of Basic Shapes in CSS by applying the following function values to the `shape-outside` property:
+
+我们可以通过将下列函数值应用于 `shape-outside` 属性来定义 CSS 中的各种基本形状：
 
 *   `circle()`
 *   `ellipse()`
@@ -58,13 +62,23 @@ We can define all sorts of Basic Shapes in CSS by applying the following functio
 
 In order to apply the `shape-outside` property to an element, the element must be floated, and have a defined height and width. Let’s go through each of the four basic shapes and demonstrate how they can be used.
 
+要给元素设定 `shape-outside` 属性，该元素必须是浮动并且已设定宽高。让我们逐个来看四个基本形状，并演示它们的使用方法。
+
 ### Circle
+
+### 圆
 
 We’ll start with the `circle()` function. Imagine a situation in which we have a circular avatar of an author that we want to float left, and we want the author’s description text to flow around it. Simply using a `border-radius: 50%` on the avatar element won’t be enough to get the text to make a circular shape; the text will still treat the avatar as a rectangular element.
 
+我们将从 `circle()` 函数开始。设想如下场景，有一个作者的圆形头像，我们想让头像左浮动并且作者的描述文本环绕它。仅对头像元素使用 `border-radius: 50%` 不足以使文本呈圆形；文本仍将把头像当成矩形元素。
+
 With the circle shape, we can demonstrate how text can flow around a circle.
 
+通过圆形，我们可以演示文本如何按圆环绕。
+
 We’ll start by creating a `circle` class on a regular `div`, and making some paragraphs. (I used Bob Ross quotes as Lorem Ipsum text.)
+
+首先我们在一个普通的 `div` 上创建一个 `circle` 样式，并且写一些句子。（我使用 Bob Ross 语录作为 Lorem Ipsum 文本）
 
 ```
 <div class="circle"></div>
@@ -72,6 +86,8 @@ We’ll start by creating a `circle` class on a regular `div`, and making some p
 ```
 
 In our `circle` class, we float the element left, give it an equal `height` and `width`, and set the `shape-outside` to `circle()`.
+
+在 `circle` 样式里，我们设置元素左浮动，设定等值的 `height` 和 `width`，并且设置 `shape-outside` 为 `circle()`。
 
 ```
 .circle {
@@ -84,13 +100,19 @@ In our `circle` class, we float the element left, give it an equal `height` and 
 
 If we view the page, it will look like this.
 
+如果我们访问页面，会看到如下场景。
+
 ![](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2018/11/cssshapes_circle1.jpg)
 
 As you can see, the text flows around the circle shape, but we don’t actually see any shape. Hovering over the element in Developer Tools will show us the actual shape that is being set.
 
+如你所见，文本围绕圆形环绕，但是我们并没有看到任何形状。使用开发工具审查元素，我们可以看到已经设置好的实际形状。
+
 ![](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2018/11/cssshapes_circle2.jpg)
 
 At this point, you might assume that you can set a `background` color or image to the element, and you’ll see the shape. Let’s try that out.
+
+此时，你可能会认为，给元素 `background` 设置颜色或者图片就能看到形状了。我们来试一下。
 
 ```
 .circle {
@@ -104,9 +126,13 @@ At this point, you might assume that you can set a `background` color or image t
 
 Frustratingly, setting a `background` to the `circle` just gives us a rectangle, the very thing we’ve been trying to avoid.
 
+不幸的是，给 `circle` 设置 `background` 后会显示一个矩形，这是我们一直试图避免的事情。
+
 ![](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2018/11/cssshapes_circle3.jpg)
 
 We can clearly see the text flowing around it, yet the element itself doesn’t have a shape. If we want to actually display our shape functions, we’ll have to use the [`clip-path`](https://tympanus.net/codrops/css_reference/clip-path/) property. `clip-path` takes many of the same values as `shape-outside`, so we can give it the same `circle()` value.
+
+我们可以清晰地看到文本在它周围环绕，但元素本身没有形状。如果我们想要实际显示形状函数，需要使用 [`clip-path`](https://tympanus.net/codrops/css_reference/clip-path/) 属性。`clip-path` 采用许多和 `shape-outside` 相同的值，因此我们可以给它同样的 `circle()` 值。
 
 ```
 .circle {
@@ -123,8 +149,14 @@ We can clearly see the text flowing around it, yet the element itself doesn’t 
 
 > For the rest of the article, I’ll use `clip-path` to help us identify the shapes.
 
+> 在本文剩下的部分，我将使用 `clip-path` 帮助我们辨认形状。
+
 The `circle()` function takes an optional parameter of radius. In our case, the default radius (_r_) is `50%`, or `100px`. Using `circle(50%)` or `circle(100px)` would produce the same result as what we’ve already done.  
 You might notice the text is right up against the shape. We can use the [`shape-margin`](https://tympanus.net/codrops/css_reference/shape-margin/) property to add a margin to the shape, which can be set in `px`, `em`, `%`, and any other standard CSS unit of measurement.
+
+`circle()` 函数接收可选的 radius 参数。在本例中，默认 radius 是 `50%` 或者 `100px`。使用 `circle(50%)` 或者 `circle(100px)` 都将产生和我们已经完成样例的同样结果。
+
+你可能注意到文本刚好和形状贴合。我们可以使用 [`shape-margin`](https://tympanus.net/codrops/css_reference/shape-margin/) 属性给形状添加 margin，单位可以是 `px`、`em`、`%` 和其他标准的CSS测量单位。
 
 ```
 .circle {
@@ -140,11 +172,17 @@ You might notice the text is right up against the shape. We can use the [`shape-
 
 Here is an example of a `25%` `circle()` radius with a `shape-margin` applied.
 
+这里有个 `circle` radius 设置 `25%` 并且使用 `shape-margin` 的例子。
+
 ![](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2018/11/cssshapes_circle5.jpg)
 
 In addition to the radius, a shape function can take a position using `at`. The default position is the center of the circle, so `circle()` would explicitly be written as `circle(50% at 50% 50%)` or `circle(100px at 100px 100px)`, with the two values being the horizontal and vertical positions, respectively.
 
+除了 radius，形状函数可以使用 `at` 定位。默认位置是圆心，因此 `circle()` 也可以被显式设置为 `circle(50% at 50% 50%)` 或 `circle(100px at 100px 100px)`，两个值分别是水平和垂直位置。
+
 To make it obvious how the positioning works, we could set the horizontal position value to `0` to make a perfect semi-circle.
+
+为了搞清楚 position 的作用，我们可以设置水平位置值为 `0` 来创造一个完美的半圆。
 
 ```
 circle(50% at 0 50%);
@@ -152,13 +190,21 @@ circle(50% at 0 50%);
 
 This coordinate positioning system is known as the reference box.
 
+该坐标定位系统称为引用框。
+
 ![](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2018/11/cssshapes_circle6.jpg)
 
 Later on, we’ll learn how to use an image instead of a shape or gradient. For now, we’ll move on the to the next shape function.
 
+稍后，我们将学习如何使用图像代替形状或者渐变。现在，我们将继续进行下一个形状函数。
+
 ### Ellipse
 
+### 椭圆
+
 Similar to the `circle()` function is the `ellipse()`, which creates an oval. To demonstrate, we can create an `ellipse` element and class.
+
+`ellipse()` 和 `circle()` 函数类似，只是它会创造椭圆。为了演示，我们创建一个 `ellipse` 元素和样式。
 
 ```
 <div class="ellipse"></div>
@@ -178,9 +224,13 @@ Similar to the `circle()` function is the `ellipse()`, which creates an oval. To
 
 This time, we set a different `height` and `width` to make a vertically elongated oval.
 
+这次，我们设置不同的 `height` 和 `width` 创建一个垂直拉长的椭圆。
+
 ![](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2018/11/cssshapes_ellipse1.jpg)
 
 The difference between an `ellipse()` and a `circle()` is that an ellipse has two radii – _r_x and _r_y, or the X-axis radius and Y-axis radius. Therefore, the above example can also be written as:
+
+`ellipse()` 和 `circle()` 的区别在于椭圆有两个 radii —— _r_x 和 ——r_y，或者 X-axis radius 和 Y-axis radius。因此，上面的例子也可以写成：
 
 ```
 ellipse(75px 150px);
@@ -188,9 +238,15 @@ ellipse(75px 150px);
 
 The position parameters are the same for circles and ellipses. The radii, in addition to being a unit of measurement, also include the options of `farthest-side` and `closest-side`.
 
+circles 和 ellipses 的位置参数是一样的。除了是测量单位，radii 也包括 `farthest-side` 和 `closest-side` 的选项。
+
 `closest-side` refers to the length from the center to closest side of the reference box, and conversely, `farthest-side` refers to the length from the center to the farthest side of the reference box. This means that these two values have no effect if a position other than default isn’t set.
 
+`closest-side` 代表引用框的中心到最近测的长度，相反，`farthest-side` 代表引用框中心到最远测的长度。这意味着如果未设置默认值以外的位置，则这两个值无效
+
 Here is a demonstration of the difference of flipping `closest-side` and `farthest-side` on an `ellipse()` with a `25%` offset on the X and Y axes.
+
+这里演示了在 `ellipse()` 上翻转 `closest-side` 和 `farthest-side` 的区别，它的 X 和 Y 轴的偏移量是 `25%`。
 
 ```
 ellipse(farthest-side closest-side at 25% 25%)
@@ -206,7 +262,11 @@ ellipse(farthest-side closest-side at 25% 25%)
 
 ### Inset
 
+### 插入
+
 So far we’ve been only been dealing with round shapes, but we can define inset rectangles with the `inset()` function.
+
+目前为止我们只处理了圆形，但是我们可以使用 `inset()` 函数定义插入矩形。
 
 ```
 <div class="inset"></div>
@@ -226,13 +286,19 @@ So far we’ve been only been dealing with round shapes, but we can define inset
 
 In this example, we’ll create a `300px` by `300px` rectangle, and inset it by `75px` on all sides. This will leave us with a `150px` by `150px` with `75px` of space around it.
 
+在本例中，我们创造了一个 `300px` 的正方形，每条边插入 `75px`。这将给我们留下 `150px` 周围有 `75px` 空间。
+
 ![](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2018/11/cssshapes_inset1.jpg)
 
 We can see that the rectangle is inset, and the text ignores the inset area.
 
+我们可以看到矩形是插入的，文本忽略了插入区域。
+
 ![](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2018/11/cssshapes_inset2.jpg)
 
 An `inset()` shape can also take a `border-radius` with the `round` parameter, and the text will respect the rounded corners, such as this example with a `25px` on all sides and `75px` rounding.
+
+`inset()` 形状也可以使用 `round` 参数获取 `border-radius`，并且文本会识别圆角，就像本例中所有边都是 `25px` 及 `75px` 圆角。
 
 ```
 inset(25px round 75px)
@@ -241,6 +307,8 @@ inset(25px round 75px)
 ![](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2018/11/cssshapes_inset3.jpg)
 
 Like `padding` or `margin` shorthand, the inset value will accept `top` `right` `bottom` `left` values in clockwise order (`inset(25px 25px 25px 25px)`), and only using a single value will make all four sides the same (`inset(25px)`).
+
+像 `padding` 或 `margin` 简写，inset 值以顺时针方式（`inset(25px 25px 25px 25px)`）接收 `top` `right` `bottom` `left`，并且只传一个值将使四条边都相同（`inset(25px)`）。
 
 ### Polygon
 
