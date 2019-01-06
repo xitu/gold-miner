@@ -312,9 +312,15 @@ Like `padding` or `margin` shorthand, the inset value will accept `top` `right` 
 
 ### Polygon
 
+### 多边形
+
 The most interesting and flexible of the shape functions is the `polygon()`, which can take an array of `x` and `y` points to make any complex shape. Each item in the array represents _x_i _y_i, and would be written as `polygon(x1 y1, x2 y2, x3 y3...)` and so on.
 
+形状函数最有趣和灵活的是 `polygon()`，它可以采用一系列 `x` 和 `y` 点来制作任何复杂形状。数组里的每个元素代表 _x_i _y_i，将被写成 `polygon(x1 y1, x2 y2, x3 y3...)` 等等。
+
 The fewest amount of point sets we can apply to a polygon is three, which will create a triangle.
+
+我们可以为多边形设置的点集数量最少为 3，这将创建一个三角形。
 
 ```
 <div class="polygon"></div>
@@ -334,9 +340,13 @@ The fewest amount of point sets we can apply to a polygon is three, which will c
 
 In this shape, the first point is `0 0`, the top left most point in the `div`. The second point is `0 300px`, which is the bottom left most point in the `div`. The third and final point is `200px 300px`, which is 2/3rd across the X axis and still at the bottom. The resulting shape looks like this:
 
+在这个形状中，第一个点是 `0 0`，`div` 中最左上角的点。第二个点是 `0 300px`，它是 `div` 中最左下角的点。第三个也就是最后一个点是 `200px 300px`，它在 X 轴的 2/3 处并且也在底部。最终的形状是这样：
+
 ![](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2018/11/cssshapes_polygon1.jpg)
 
 An interesting usage of the `polygon()` shape function is that text content can flow between two or more shapes. Since the `polygon()` shape is so flexible and dynamic, this is one of the biggest opportunities to make truly unique, magazine-esque layouts. In this example, we’ll put some text between two polygon shapes.
+
+`polygon()` 形状函数的一个有趣用法是文本内容可以在两个或以上形状中环绕。因为 `polygon()` 形状是如此灵活和动态，这是制作真正独特的杂志式布局的最大机会之一。在本例中，我们将把文本放在两个多边形中。
 
 ```
 <div class="left"></div>
@@ -368,11 +378,17 @@ An interesting usage of the `polygon()` shape function is that text content can 
 
 Obviously, it would be very difficult to try to create your own complex shapes manually. Fortunately, there are several tools you can use to create polygons. Firefox has a built in editor for shapes, which you can use by clicking on the polygon shape in the Inspector.
 
+显然，想要手动创造你自己的复杂形状是非常困难的。幸运的是，你可以用一些工具来创建多边形。Firefox 有一个内置的形状编辑器，你可以在 Inspector 中通过点击多边形使用。
+
 ![](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2018/11/cssshapes_polygon3.jpg)
 
 And for now, Chrome has some extensions you can use, such as [CSS Shapes Editor](https://chrome.google.com/webstore/detail/css-shapes-editor/nenndldnbcncjmeacmnondmkkfedmgmp?hl=en-US).
 
+而就目前而言，Chrome 有一些你可以使用的插件，比如 [CSS Shapes Editor](https://chrome.google.com/webstore/detail/css-shapes-editor/nenndldnbcncjmeacmnondmkkfedmgmp?hl=en-US)。
+
 Polygons can be used to cut out shapes around images or other elements. In another example, we can create a drop cap by drawing a polygon around a large letter.
+
+多边形可以用来剪切图像或其他元素周围的形状。在另一个例子中，我们可以通过围绕大字母绘制多边形来创建首字下沉。
 
 ```
 <div class="letter">R</div>
@@ -396,9 +412,15 @@ Polygons can be used to cut out shapes around images or other elements. In anoth
 
 ## URLs
 
+## URLs
+
 An exciting feature of CSS Shapes is that you don’t always have to explicitly define the shape with a shape function; you can also use a url of a semi-transparent image to define a shape, and the text will automatically flow around it.
 
+CSS Shapes 一个令人激动的特性是你不必每次都通过形状函数明确定义；你也可以使用半透明图像的 url 来定义形状，这样文本就会自动环绕它。
+
 It’s important to note that the image used must be [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) compatible, otherwise you’ll get an error like one below.
+
+重要的是要注意图像使用必须要兼容 [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)，否则你将会得到如下错误。
 
 ```
 Access to image at 'file:///users/tania/star.png' from origin 'null' 
@@ -407,7 +429,11 @@ has been blocked by CORS policy: The response is invalid.
 
 Serving an image on a server from the same server will ensure you don’t get that error.
 
+在同一个服务器上提供图像将会保证你不会遇到上面的错误。
+
 Unlike in the other examples, we’re going to use an `img` tag instead of a `div`. This time the CSS is simple – just put the `url()` into the `shape-outside` property, like you would with `background-image`.
+
+与其他例子不同，我们将使用 `img` 代替 `div`。这次的 CSS 很简单——只用把 `url()` 放进 `shape-outside` 属性，就像 `background-image` 一样。
 
 ```
 <img src="./star.png" class="star">
@@ -427,13 +453,23 @@ Unlike in the other examples, we’re going to use an `img` tag instead of a `di
 
 Since the image I used was a star with a transparent background, the text knew which areas were transparent and which were opaque, and aligned itself accordingly.
 
+因为我使用了透明背景的星星图像，文本知道哪些区域是透明的哪些是不透明的，并相应地调整自己。
+
 ## Gradients
+
+## 渐变
 
 Finally, a gradient can also be used as a shape. Gradients are the same as images, and just like the image example we used above, the text will know to flow around the transparent part.
 
+最后，渐变也可以用来当成形状。渐变和图像一样，就像我们上面用到的图像例子，文本也将知道在透明部分环绕。
+
 We’re going to use one new property with gradients – the [`shape-image-threshold`](https://tympanus.net/codrops/css_reference/shape-image-threshold/). The `shape-image-threshold` defines the alpha channel threshold of a shape, or what percent of the image can be transparent vs. opaque.
 
+我们将使用渐变的一个新属性——[`shape-image-threshold`](https://tympanus.net/codrops/css_reference/shape-image-threshold/)。 `shape-image-threshold` 定义形状的 alpha 通道阈值，或者图像透明的百分比值。
+
 I’m going to make a gradient example that’s a 50%/50% split of a color and transparent, and set a `shape-image-threshold` of `.5`, meaning all pixels that are over 50% opaque should be considered part of the image.
+
+我们将制作一个渐变例子，它是 50％/50％ 的颜色和透明分割，并且设置 `shape-image-threshold` 为 `.5`，意味着超过 50％ 不透明的所有像素都应被视为图像的一部分。
 
 ```
 <div class="gradient"></div>
@@ -455,11 +491,19 @@ I’m going to make a gradient example that’s a 50%/50% split of a color and t
 
 We can see the gradient is perfectly split diagonally at the center of opaque and transparent.
 
+我们可以看到渐变在不透明和透明的中心对角线完美分割
+
 ## Conclusion
+
+## 结论
 
 In this article, we learned about `shape-outside`, `shape-margin`, and `shape-image-threshold`, three properties of CSS Shapes. We also learned how to use the function values to create circles, ellipses, inset rectangles, and complex polygons that text can flow around, and demonstrated how shapes can detect the transparent parts of images and gradients.
 
+在本文中，我们学习了 CSS Shapes 的三个属性 `shape-outside`, `shape-margin`, 和 `shape-image-threshold`。我们也了解到如何使用函数值创建可供文本环绕的圆、椭圆、内嵌矩形以及复杂的多边形，并且演示了形状如何检测图像和渐变的透明部分。
+
 **You can find all examples of this article in the following [demo](http://tympanus.net/Tutorials/CSSShapes/). You can also [download the source files](http://tympanus.net/Tutorials/CSSShapes/CSSShapes.zip).**
+
+**你可以在如下 [demo](http://tympanus.net/Tutorials/CSSShapes/) 中找到本文中用到的所有例子。你也可以[下载源文件](http://tympanus.net/Tutorials/CSSShapes/CSSShapes.zip)。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
