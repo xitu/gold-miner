@@ -19,9 +19,9 @@
 
 ## 入门
 
-下载本教程的 [入门项目](https://koenig-media.raywenderlich.com/uploads/2016/01/PetFinder-Starter.zip)。该应用名为 「**Pet Finder**」；对于那些碰巧在寻找毛茸茸猫科动物陪伴的人来说，这是一款方便的应用。
+下载本教程的 [入门项目](https://koenig-media.raywenderlich.com/uploads/2016/01/PetFinder-Starter.zip)。该应用名为「**Pet Finder**」；对于那些碰巧在寻找毛茸茸猫科动物陪伴的人来说，这是一款方便的应用。
 
-运行该应用; 你将会看到一张关于猫的图片，这代表你有机会可以领养它：
+运行该应用；你将会看到一张关于猫的图片，这代表你有机会可以领养它：
 
 [![Pet Finder](https://koenig-media.raywenderlich.com/uploads/2015/11/petfinder_intro_1-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2015/11/petfinder_intro_1.png)
 
@@ -49,7 +49,7 @@
 
 当用户手动杀死应用或状态恢复失败时，状态恢复框架将丢弃任何状态信息。之所以存在这些检查，以避免你的应用不会陷入无线循环的错误状态以及恢复崩溃。谢谢，Apple！:\]
 
-**注意：** 你**无法**通过应用切换器自行终止应用，否则状态恢复将无法正常工作。
+**注意**：你**无法**通过应用切换器自行终止应用，否则状态恢复将无法正常工作。
 
 再次启动应用；你将回到主屏幕，而不是宠物详情视图。看起来你需要自己添加一些状态恢复逻辑。
 
@@ -144,7 +144,7 @@ override func encodeRestorableStateWithCoder(coder: NSCoder) {
 1.  如果当前猫对象存在 ID，使用提供的编码器进行保存以便稍后检索。
 2.  确保调用 `super` 以便继承的状态恢复功能的其它部分能够按照预期发生。
 
-通过少量的修改，现在你的应用可以保存当前猫的信息。但请注意，你实际上并未保存猫的模型对象，而是稍后可用于获取猫对象的ID，当你保存通过 `MatchedPetsCollectionViewController` 选择的猫时，可以使用相同的概念。
+通过少量的修改，现在你的应用可以保存当前猫的信息。但请注意，你实际上并未保存猫的模型对象，而是稍后可用于获取猫对象的 ID，当你保存通过 `MatchedPetsCollectionViewController` 选择的猫时，可以使用相同的概念。
 
 Apple 非常清楚，状态恢复**仅**用于存档创建 view 层次结构所需并将应用恢复到其原始状态的信息。每当应用进入后台时，使用提供的编码器来保存和恢复简单模型数据是很诱人的，但是只要状态恢复失败或用户杀死应用，iOS 将会丢弃所有存档数据。由于你的用户每次重新启动应用时都不会非常乐意回到起始页，所以最好遵循 Apple 的建议并仅使用此策略保存状态恢复。
 
@@ -231,8 +231,7 @@ extension PetEditViewController: UIViewControllerRestoration {
 
 你可以 [在此处现在已完成的项目](https://koenig-media.raywenderlich.com/uploads/2016/01/PetFinder-Completed-1.zip)。状态恢复框架是任何 iOS 开发人员工具包中非常有用的工具；你现在可以将基本恢复代码添加到任何应用，并以此提高你的用户体验。
 
-有关使用该框架可能实现的更多信息，请查看 [2012年](https://developer.apple.com/videos/play/wwdc2012-208/) 和 [2013年](https://developer.apple.com/videos/play/wwdc2013-222/)
- 的 WWDC 视频。2013年的演示文稿特别有用，因为它涵盖了 iOS 7 中引入的恢复概念，比如用于保存和恢复任意对象的 `UIObjectRestoration` 和在需求更复杂的应用中恢复表和集合视图的 `UIDataSourceModelAssociation`。
+有关使用该框架可能实现的更多信息，请查看 [2012 年](https://developer.apple.com/videos/play/wwdc2012-208/) 和 [2013 年](https://developer.apple.com/videos/play/wwdc2013-222/)的 WWDC 视频。2013年的演示文稿特别有用，因为它涵盖了 iOS 7 中引入的恢复概念，比如用于保存和恢复任意对象的 `UIObjectRestoration` 和在需求更复杂的应用中恢复表和集合视图的 `UIDataSourceModelAssociation`。
 
 如果你对本教程有任何疑问或建议，请加入以下论坛讨论！
 
