@@ -9,7 +9,7 @@
 
 ![](https://blog.miguelgrinberg.com/static/images/video-streaming-revisited.jpg)
 
-大约三年前，我在这个名为 [Video Streaming with Flask](https://juejin.im/post/5bea86fc518825158c531e9c) 的博客上写了一篇文章，其中我提出了一个非常实用的流媒体服务器，它使用 Flask 生成器视图函数将 [Motion-JPEG](https://en.wikipedia.org/wiki/Motion_JPEG)  流传输到 Web 浏览器。在那片文章中，我的意图是展示简单而实用的[流式响应](http://flask.pocoo.org/docs/0.12/patterns/streaming/)，这是 Flask 中一个不为人知的特性。
+大约三年前，我在这个名为 [Video Streaming with Flask](https://juejin.im/post/5bea86fc518825158c531e9c) 的博客上写了一篇文章，其中我提出了一个非常实用的流媒体服务器，它使用 Flask 生成器视图函数将 [Motion-JPEG](https://en.wikipedia.org/wiki/Motion_JPEG)  流传输到 Web 浏览器。在那片文章中，我的意图是展示简单而实用的[流式响应](http://flask.pocoo.org/docs/0.12/patterns/streaming/)，这是 Flask 中一个不为人知的特性。
 
 那篇文章非常受欢迎，倒并不是因为它教会了读者如何实现流式响应，而是因为很多人都希望实现流媒体视频服务器。不幸的是，当我撰写文章时，我的重点不在于创建一个强大的视频服务器所以我经常收到读者的提问及寻求建议的请求，他们想要将视频服务器用于实际应用程序，但很快发现了它的局限性。
 
@@ -43,7 +43,7 @@ class Camera(object):
             for foo in camera.capture_continuous(stream, 'jpeg', use_video_port=True):
                 # ...
                 # 如果没有任何客户端访问视屏帧
-                # 10 秒钟之后停止线程
+                # 10 秒钟之后停止线程
                 if time.time() - cls.last_access > 10:
                     break
         cls.thread = None
@@ -229,7 +229,7 @@ class BaseCamera(object):
             # ...
 ```
 
-在 `CameraEvent` 类中完成的魔法操作使多个客户端能够单独等待新的帧。`wait()` 方法使用当前线程 id 为每个客户端分配单独的事件对象并等待它。`clear()` 方法将重置与调用者的线程 id 相关联的事件，以便每个生成器线程可以以它自己的速度运行。相机线程调用的 `set()` 方法向分配给所有客户端的事件对象发送信号，并且还将删除未提供服务的任何事件，因为这意味着与这些事件关联的客户端已关闭，客户端本身也不存在了。您可以在 [GitHub 仓库](https://github.com/miguelgrinberg/flask-video-streaming/blob/master/base_camera.py)中看到 `CameraEvent` 类的实现。
+在 `CameraEvent` 类中完成的魔法操作使多个客户端能够单独等待新的帧。`wait()` 方法使用当前线程 id 为每个客户端分配单独的事件对象并等待它。`clear()` 方法将重置与调用者的线程 id 相关联的事件，以便每个生成器线程可以以它自己的速度运行。相机线程调用的 `set()` 方法向分配给所有客户端的事件对象发送信号，并且还将删除未提供服务的任何事件，因为这意味着与这些事件关联的客户端已关闭，客户端本身也不存在了。您可以在 [GitHub 仓库](https://github.com/miguelgrinberg/flask-video-streaming/blob/master/base_camera.py)中看到 `CameraEvent` 类的实现。
 
 为了让您了解性能改进的程度，请看一下，模拟相机驱动程序在此更改之前消耗了大约 96％ 的 CPU，因为它始终以远高于每秒生成一帧的速率发送重复帧。在这些更改之后，相同的流消耗大约 3％ 的CPU。在这两种情况下，都只有一个客户端查看视频流。OpenCV 驱动程序从单个客户端的大约 45％ CPU 降低到 12％，每个新客户端增加约 3％。
 
