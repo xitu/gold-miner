@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flask-video-streaming-revisited.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flask-video-streaming-revisited.md)
 > * 译者：[zhmhhu](https://github.com/zhmhhu)
-> * 校对者：
+> * 校对者：[1992chenlu](https://github.com/1992chenlu)
 
 # 再看 Flask 视频流
 
@@ -101,7 +101,7 @@ class Camera(BaseCamera):
             yield Camera.imgs[int(time.time()) % 3]
 ```
 
-注意在这个版本中，`frames()`生成器如何通过简单地在帧之间休眠来形成每秒一帧的速率。
+注意在这个版本中，`frames()` 生成器如何通过简单地在帧之间休眠来形成每秒一帧的速率。
 
 通过重新设计，树莓派相机的相机子类也变得更加简单：
 
@@ -161,7 +161,7 @@ $ pip install opencv-python
 
 该项目现在支持三种不同的摄像头驱动程序：模拟、树莓派和 OpenCV。为了更容易选择使用哪个驱动程序而不必编辑代码，Flask 服务器查找 `CAMERA` 环境变量以了解要导入的类。此变量可以设置为 `pi` 或 `opencv`，如果未设置，则默认使用模拟摄像机。
 
-实现它的方式非常通用。无论 `CAMERA` 环境变量的值是什么，服务器都希望驱动程序位于名为 `camera_ $ CAMERA.py` 的模块中。服务器将导入该模块，然后在其中查找 `Camera`类。逻辑实际上非常简单：
+实现它的方式非常通用。无论 `CAMERA` 环境变量的值是什么，服务器都希望驱动程序位于名为 `camera_$CAMERA.py` 的模块中。服务器将导入该模块，然后在其中查找 `Camera`类。逻辑实际上非常简单：
 
 ```
 from importlib import import_module
@@ -233,7 +233,7 @@ class BaseCamera(object):
 
 为了让您了解性能改进的程度，请看一下，模拟相机驱动程序在此更改之前消耗了大约 96％ 的 CPU，因为它始终以远高于每秒生成一帧的速率发送重复帧。在这些更改之后，相同的流消耗大约 3％ 的CPU。在这两种情况下，都只有一个客户端查看视频流。OpenCV 驱动程序从单个客户端的大约 45％ CPU 降低到 12％，每个新客户端增加约 3％。
 
-## 部署 Web 服务器
+## 部署 Web 服务器
 
 最后，我认为如果您打算真正使用此服务器，您应该使用比 Flask 附带的服务器更强大的 Web服务器。一个很好的选择是使用 Gunicorn：
 
@@ -264,7 +264,7 @@ class BaseCamera(object):
             # ...
 ```
 
-这里唯一的变化是在摄像头捕获循环中添加了 `sleep（0）`。这对于 eventlet 和 gevent ß都是必需的，因为它们使用协作式多任务处理。这些框架实现并发的方式是让每个任务通过调用执行网络 I/O 的函数或显式执行以释放 CPU。由于此处没有 I/O，因此执行 sleep 函数以实现释放 CPU 的目的。
+这里唯一的变化是在摄像头捕获循环中添加了 `sleep(0)`。这对于 eventlet 和 gevent 都是必需的，因为它们使用协作式多任务处理。这些框架实现并发的方式是让每个任务通过调用执行网络 I/O 的函数或显式执行以释放 CPU。由于此处没有 I/O，因此执行 sleep 函数以实现释放 CPU 的目的。
 
 现在您可以使用 gevent 或 eventlet worker 运行 Gunicorn，如下所示：
 
@@ -272,11 +272,11 @@ class BaseCamera(object):
 $ CAMERA=opencv gunicorn --worker-class gevent --workers 1 --bind 0.0.0.0:5000 app:app
 ```
 
-这里的 `--worker-class gevent ` 选项配置 Gunicorn 使用 gevent 框架（你必须用`pip install gevent`安装它）。如果你愿意，也可以使用 `--worker-class eventlet`。如上所述，`--workers 1` 限制为单个处理过程。Gunicorn 中的 eventlet 和 gevent workers 默认分配了一千个并发客户端，所以这应该超过了这种服务器能够支持的客户端数量。
+这里的 `--worker-class gevent` 选项配置 Gunicorn 使用 gevent 框架（你必须用`pip install gevent`安装它）。如果你愿意，也可以使用 `--worker-class eventlet`。如上所述，`--workers 1` 限制为单个处理过程。Gunicorn 中的 eventlet 和 gevent workers 默认分配了一千个并发客户端，所以这应该超过了这种服务器能够支持的客户端数量。
 
 ## 结论
 
-上述所有更改都包含在 [GitHub仓库](https://github.com/miguelgrinberg/flask-video-streaming) 中。我希望你通过这些改进以获得更好的体验。
+上述所有更改都包含在 [GitHub 仓库](https://github.com/miguelgrinberg/flask-video-streaming) 中。我希望你通过这些改进以获得更好的体验。
 
 在结束之前，我想提供有关此服务器的其他问题的快速解答：
 
@@ -284,11 +284,11 @@ $ CAMERA=opencv gunicorn --worker-class gevent --workers 1 --bind 0.0.0.0:5000 a
 
 *  如何提高帧速率？我在此描述的服务器，以尽可能快的速率提供视频帧。如果您需要更好的帧速率，可以尝试将相机配置成更小的视频帧。
 
-如何添加声音？那真的很难。Motion JPEG 格式不支持音频。你将需要使用单独的流传输音频，然后将音频播放器添加到HTML页面。即使你设法完成了所有的操作，音频和视频之间的同步也不会非常准确。
+如何添加声音？那真的很难。Motion JPEG 格式不支持音频。你将需要使用单独的流传输音频，然后将音频播放器添加到 HTML 页面。即使你设法完成了所有的操作，音频和视频之间的同步也不会非常准确。
 
 如何将流保存到服务器上的磁盘中？只需将 JPEG 文件的序列保存在相机线程中即可。为此，你可能希望移除在没有查看器时结束后台线程的自动机制。
 
-如何将播放控件添加到视频播放器？ Motion JPEG 不允许用户进行交互式操作，但如果你想要这个功能，只需要一点点技巧就可以实现播放控制。如果服务器保存所有 jpeg 图像，则可以通过让服务器一遍又一遍地传送相同的帧来实现暂停。当用户恢复播放时，服务器将必须提供从磁盘加载的“旧”图像，因为现在用户处于 DVR 模式而不是实时观看流。这可能是一个非常有趣的项目！
+如何将播放控件添加到视频播放器？Motion JPEG 不允许用户进行交互式操作，但如果你想要这个功能，只需要一点点技巧就可以实现播放控制。如果服务器保存所有 jpeg 图像，则可以通过让服务器一遍又一遍地传送相同的帧来实现暂停。当用户恢复播放时，服务器将必须提供从磁盘加载的“旧”图像，因为现在用户处于 DVR 模式而不是实时观看流。这可能是一个非常有趣的项目！
 
 以上就是本文的所有内容。如果你有其他问题，请告诉我们！
 
