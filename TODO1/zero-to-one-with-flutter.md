@@ -3,12 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/zero-to-one-with-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/zero-to-one-with-flutter.md)
 > * 译者：[hongruqi](https://github.com/hongruqi)
-> * 校对者：
 
 # Flutter 从 0 到 1 
 
-2016 年夏末,丹麦奥古斯谷歌办公室。我来谷歌的第一个任务，是使用 [_Flutter_](https://flutter.io) 和 [_Dart_](https://www.dartlang.org) 在 Android/iOS 应用程序中实现动画图表。除了是一个谷歌新人之外，我对 Flutter，Dart，动画都不熟悉。事实上，我之前从未做过移动应用程序。我的第一部智能手机也只有几个月的历史——我是在一阵恐慌中买的，因为担心使用我的老诺基亚可能会导致电话面试失败...
-我确实对桌面Java中的图表有过一些经验，但哪些图表并不是动画的。我感到...不可思议。部分是恐龙，部分重生.
+2016 年夏末，丹麦奥古斯谷歌办公室。我来谷歌的第一个任务，是使用 [_Flutter_](https://flutter.io) 和 [_Dart_](https://www.dartlang.org) 在 Android/iOS 应用程序中实现动画图表。除了是一个谷歌新人之外，我对 Flutter，Dart，动画都不熟悉。事实上，我之前从未做过移动应用程序。我的第一部智能手机也只有几个月的历史——我是在一阵恐慌中买的，因为担心使用我的老诺基亚可能会导致电话面试失败...
+我确实对桌面Java中的图表有过一些经验，但哪些图表并不是动画的。我感到...不可思议。部分是恐龙，部分重生。
 
 ![](https://cdn-images-1.medium.com/max/800/1*2t8GffL0BcNoGLU-IgHT9w.jpeg)
 
