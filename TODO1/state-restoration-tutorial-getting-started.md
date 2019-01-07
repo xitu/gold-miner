@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/state-restoration-tutorial-getting-started.md](https://github.com/xitu/gold-miner/blob/master/TODO1/state-restoration-tutorial-getting-started.md)
 > * 译者：[nanjingboy](https://github.com/nanjingboy)
-> * 校对者：
+> * 校对者：[chausson](https://github.com/chausson)
 
 # 状态恢复入门教程
 
@@ -11,17 +11,17 @@
 
 **注意**：Xcode 7.3、iOS 9.3 和 Swift 2.2 已于 2016-04-03 更新。
 
-状态恢复是 iOS 中经常被忽视的功能，它能够让用户以之前离开时的状态再次打开他们的应用 - 而不用关心背后发生了什么。
+在 iOS 系统中，状态恢复机制是一个经常被忽略的特性，当用户再次打开 app 的时候，它能够精确的恢复到退出之前的状态 - 而不用关心发生了什么。
 
-某些时候，操作系统可能需要从内存中删除你的应用；这可能会严重中断用户的工作流。正是状态恢复解决了这一问题，你的用户再也不必担心切换到另一个应用后会丢失所有工作。
+某些时候，操作系统可能需要从内存中删除你的应用；这可能会严重中断用户的工作流。你的用户再也不必担心因为切换到另一个应用而影响到工作的事情了。这就是状态恢复机制所起到的作用。
 
 在这篇恢复教程中，你将更新现有应用以添加保留和恢复功能，并在其工作流可能被中断的情况下提升用户体验。
 
 ## 入门
 
-下载本教程的 [入门项目](https://koenig-media.raywenderlich.com/uploads/2016/01/PetFinder-Starter.zip)。该应用名为 **Pet Finder**；对于那些碰巧在寻找毛茸茸猫科动物陪伴的人来说，这是一款方便的应用。
+下载本教程的 [入门项目](https://koenig-media.raywenderlich.com/uploads/2016/01/PetFinder-Starter.zip)。该应用名为 「**Pet Finder**」；对于那些碰巧在寻找毛茸茸猫科动物陪伴的人来说，这是一款方便的应用。
 
-在模拟器中运行该应用，你会看到一张有资格被领养的猫的照片：
+运行该应用; 你将会看到一张关于猫的图片，这代表你有机会可以领养它：
 
 [![Pet Finder](https://koenig-media.raywenderlich.com/uploads/2015/11/petfinder_intro_1-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2015/11/petfinder_intro_1.png)
 
@@ -29,7 +29,7 @@
 
 [![Matches](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_matches_1-281x500.png)](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_matches_1.png)
 
-点击查看所选朋友的详细信息：
+点击来查看所选中朋友的更多详细信息：
 
 [![Details](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_details_1-282x500.png)](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_details_1.png)
 
@@ -41,7 +41,7 @@
 
 ## 状态恢复测试
 
-运行应用，向右滑动至少一只猫，查看你的匹配项，然后选择一只猫并查看他或她的详细信息。按住组合键 **Cmd + Shift + H** 返回主屏幕。如果存在任何状态保存逻辑，它都将在此时允许。
+运行应用，向右滑动至少一只猫，查看你的匹配项，然后选择一只猫并查看他或她的详细信息。按组合键 **Cmd + Shift + H** 返回主页面。如果存在任何逻辑上的状态，它都会被保存并且都将在此时运行。
 
 接下来，通过 Xcode 停止应用：
 
@@ -57,7 +57,7 @@
 
 设置状态恢复的第一步是在你的应用代理中启用它，打开 **AppDelegate.swift** 并添加以下代码：
 
-```
+```swift
 func application(application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
   return true
 }
@@ -93,7 +93,7 @@ func application(application: UIApplication, shouldRestoreApplicationState coder
 
 [![Use Storyboard ID](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_enable_restoration_id-480x320.png)](https://koenig-media.raywenderlich.com/uploads/2015/10/petfinder_enable_restoration_id.png)
 
-这将归档 view controller 并在状态恢复过程中恢复它。
+这样会把 view controller 行存档记录，并且在状态恢复过程中进行还原。
 
 对 navigation controller 和其它三个 view controller 重复此过程。确保你已经为每个 view controller 选中了 Use Storyboard ID。否则你的应用可能无法正常恢复其状态。
 
@@ -127,7 +127,7 @@ func application(application: UIApplication, shouldRestoreApplicationState coder
 
 打开 **PetDetailsViewController.swift**，并在类的末尾添加以下代码：
 
-```
+```swift
 override func encodeRestorableStateWithCoder(coder: NSCoder) {
   //1
   if let petId = petId {
@@ -150,7 +150,7 @@ Apple 非常清楚，状态恢复**仅**用于存档创建 view 层次结构所�
 
 现在你已经在 **PetDetailsViewController.swift** 中实现了编码，你可以在下面添加相应的解码方法：
 
-```
+```swift
 override func decodeRestorableStateWithCoder(coder: NSCoder) {
   petId = coder.decodeIntegerForKey("petId")
 
@@ -164,7 +164,7 @@ override func decodeRestorableStateWithCoder(coder: NSCoder) {
 
 在 **PetDetailsViewController.swift** 中添加以下代码：
 
-```
+```swift
 override func applicationFinishedRestoringState() {
   guard let petId = petId else { return }
   currentPet = MatchedPetsManager.sharedManager.petForId(petId)
@@ -197,7 +197,7 @@ override func applicationFinishedRestoringState() {
 
 手动分配恢复标识符是一个简单的过程。在 `viewDidLoad()` 中调用 `super` 后立即添加以下内容：
 
-```
+```swift
 restorationIdentifier = "PetEditViewController"
 ```
 
@@ -205,13 +205,13 @@ restorationIdentifier = "PetEditViewController"
 
 在状态恢复过程中，UIKit 需要知道从何处获得 view controller 引用。在你设置 `restorationIdentifier` 的下面添加以下代码：
 
-```
+```swift
 restorationClass = PetEditViewController.self
 ```
 
 这将设置 `PetEditViewController` 为负责实例化 view controller 的恢复类。恢复类必须采用 UIViewControllerRestoration 协议并实现所需的恢复方法。为此，将以下扩展代码添加到 **PetEditViewController.swift** 的末尾：
 
-```
+```swift
 extension PetEditViewController: UIViewControllerRestoration {
   static func viewControllerWithRestorationIdentifierPath(identifierComponents: [AnyObject],
       coder: NSCoder) -> UIViewController? {
