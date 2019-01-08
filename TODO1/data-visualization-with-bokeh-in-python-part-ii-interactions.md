@@ -9,7 +9,7 @@
 
 **超越静态图的图解**
 
-本系列的[第一部分](https://towardsdatascience.com/data-visualization-with-bokeh-in-python-part-one-getting-started-a11655a467d4) 中，我们介绍了在 [Bokeh](https://bokeh.pydata.org/en/latest/)（Python 中一个强大的可视化库）中创建的一个基本柱状图。最后的结果显示了 2013 年从纽约市起飞的航班延迟到达的分布情况，如下所示（有一个非常好的工具提示）：
+本系列的[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/data-visualization-with-bokeh-in-python-part-one-getting-started.md) 中，我们介绍了在 [Bokeh](https://bokeh.pydata.org/en/latest/)（Python 中一个强大的可视化库）中创建的一个基本柱状图。最后的结果显示了 2013 年从纽约市起飞的航班延迟到达的分布情况，如下所示（有一个非常好的工具提示）：
 
 ![](https://cdn-images-1.medium.com/max/800/1*rNBU4zoqIk_iEzMGufiRhg.png)
 
@@ -59,13 +59,13 @@
 
 柱状图数据
 
-在此数据集中，每一行都是一个单独的航班。 `arr_delay` 列是航班到达延误数分钟（负数表示航班提前到达）。在第一部分中，我们做了一些数据探索，知道有 327，236 次航班，最小延误时间为 - 86 分钟，最大延误时间为 1272 分钟。在 `make_dataset` 函数中，我们想基于 dataframe 中的 `name` 列来选择公司，并用 `arr_delay` 列来限制航班。
+在此数据集中，每一行都是一个单独的航班。`arr_delay` 列是航班到达延误数分钟（负数表示航班提前到达）。在第一部分中，我们做了一些数据探索，知道有 327，236 次航班，最小延误时间为 -86 分钟，最大延误时间为 1272 分钟。在 `make_dataset` 函数中，我们想基于 dataframe 中的 `name` 列来选择公司，并用 `arr_delay` 列来限制航班。
 
 为了生成柱状图的数据，我们使用 numpy 函数 `histogram` 来统计每个容器中的数据点数。在我们的示例中，这是每个指定延迟间隔中的航班数。对于第一部分，我们做了一个包含所有航班的柱状图，但现在我们会为每一个运营商都提供一个柱状图。由于每个航空公司的航班数目有很大差异，我们可以显示延迟而不是按原始数目显示，可以按比例显示。也就是说，图上的高度对应于特定航空公司的所有航班比例，该航班在相应的容器中有延迟。从计数到比例，我们除以航空公司的总数。
 
 下面是生成数据集的完整代码。函数接受我们希望包含的运营商列表，要绘制的最小和最大延迟，以及制定的容器宽度（以分钟为单位）。
 
-``` Python
+```Python
 def make_dataset(carrier_list, range_start = -60, range_end = 120, bin_width = 5):
 
     # 为了确保起始点小于终点而进行检查
@@ -114,7 +114,7 @@ def make_dataset(carrier_list, range_start = -60, range_end = 120, bin_width = 5
     return ColumnDataSource(by_carrier)
 ```
 
-(我知道这是一篇关于 Bokeh 的博客，但在你不能在没有格式化数据的情况下来生成图表，因此我使用了相应的代码来演示我的方法！)
+（我知道这是一篇关于 Bokeh 的博客，但在你不能在没有格式化数据的情况下来生成图表，因此我使用了相应的代码来演示我的方法！）
 
 运行带有所需运营商的函数结果如下：
 
@@ -124,7 +124,7 @@ def make_dataset(carrier_list, range_start = -60, range_end = 120, bin_width = 5
 
 下一个要实现的函数是 `make_plot`。函数应该接受 ColumnDataSource [(Bokeh 中用于绘图的一种特定类型对象)](https://bokeh.pydata.org/en/latest/docs/reference/models/sources.html)并返回绘图对象：
 
-``` Python
+```Python
 def make_plot(src):
         # 带有正确标签的空白图
         p = figure(plot_width = 700, plot_height = 700, 
@@ -160,7 +160,7 @@ def make_plot(src):
 
 一旦我们在 Bokeh 中创建一个基础图形，通过小部件添加交互就相对简单了。我们需要的第一个小部件是允许用户选择要显示的航空公司的选择框。这是一个允许根据需要进行尽可能多的选择的复选框控件，在 Bokeh 中称为T `CheckboxGroup.`。为了制作这个可选工具，我们需要导入 `CheckboxGroup` 类来创建带有两个参数的实例，`labels`：我们希望显示每个框旁边的值以及 `active`：检查选中的初始框。以下创建的 `CheckboxGroup` 代码中附有所需的运营商。
 
-``` Python
+```Python
 from bokeh.models.widgets import CheckboxGroup
 
 # 创建复选框可选元素，可用的载体是
@@ -175,7 +175,7 @@ CheckboxGroup 部件
 
 Bokeh 复选框中的标签必须是字符串，但激活值需要的是整型。这意味着在在图像 ‘AirTran Airways Corporation’ 中，激活值为 0，而 ‘Alaska Airlines Inc.’ 激活值为 1。当我们想要将选中的复选框与 airlines 想匹配时，我们需要确保所选的**整型**激活值能匹配与之对应的**字符串**。我们可以使用部件的 `.labels` 和 `.active` 属性来实现。
 
-``` Python
+```Python
 # 从选择值中选择航空公司的名称
 [carrier_selection.labels[i] for i in carrier_selection.active]
 
@@ -184,7 +184,7 @@ Bokeh 复选框中的标签必须是字符串，但激活值需要的是整型�
 
 在制作完小部件后，我们现在需要将选中的航空公司复选框链接到图表上显示的信息中。这是使用 CheckboxGroup 的 `.on_change` 方法和我们定义的 `update` 函数完成的。update 函数总是具有三个参数：`attr、old、new`，并基于选择控件来更新绘图。改变图形上显示的数据的方式是改变我们传递给 `make_plot` 函数中的图形的数据源。这听起来可能有点抽象，因此下面是一个 `update` 函数的示例，该函数通过更改柱状图来显示选定的航空公司：
 
-``` Python
+```Python
 # update 函数有三个默认参数
 def update(attr, old, new):
     # Get the list of carriers for the graph
@@ -204,7 +204,7 @@ def update(attr, old, new):
 
 这里，我们从 CheckboxGroup 中检索要基于选定航空公司显示的航空公司列表。这个列表被传递给 `make_dataset` 函数，它返回一个新的列数据源。我们通过调用 `src.data.update` 以及传入来自新源的数据更新图表中使用的源数据。最后，为了将 `carrier_selection` 小部件中的更改链接到 `update` 函数，我们必须使用 `.on_change` 方法（称为[事件处理器](https://bokeh.pydata.org/en/latest/docs/user_guide/interaction/widgets.html)）。
 
-``` Python
+```Python
 # 将选定按钮中的更改链接到 update 函数
 carrier_selection.on_change('active', update)
 ```
@@ -217,7 +217,7 @@ carrier_selection.on_change('active', update)
 
 现在我们已经知道了创建控件的基本工作流程，我们可以添加更多元素。我们每次创建小部件时，编写 update 函数来更改显示在绘图上的数据，通过事件处理器来将 update 函数链接到小部件。我们甚至可以通过重写函数来从多个元素中使用相同的 update 函数来从小部件中提取我们所需的值。在实践过程中，我们将添加两个额外的控件：一个用于选择柱状图容器宽度的 Slider，另一个是用于设置最小和最大延迟的 RangeSlider。下面是生成这些小部件和 update 函数的代码：
 
-``` Python
+```Python
 # 滑动 bindwidth，对应的值就会被选中
 binwidth_select = Slider(start = 1, end = 30, 
                      step = 1, value = 5,
@@ -262,7 +262,7 @@ def update(attr, old, new):
 
 只要我们想，出了使用 update 函数显示数据之外，我们也可以修改其他的绘图功能。例如，为了将标题文本与容器宽度匹配，我们可以这样做：
 
-``` Python
+```Python
 # 将绘图标题修改为匹配选择
 bin_width = binwidth_select.value
 p.title.text = 'Delays with %d Minute Bin Width' % bin_width
@@ -274,7 +274,7 @@ p.title.text = 'Delays with %d Minute Bin Width' % bin_width
 
 我们的所有交互式绘图元素都已经说完了。我们有三个必要的函数：`make_dataset`、`make_plot` 和 `update`，基于控件和系哦啊不见自身来更改绘图。我们通过定义布局将所有这些元素连接到一个页面上。
 
-``` Python
+```Python
 from bokeh.layouts import column, row, WidgetBox
 from bokeh.models import Panel
 from bokeh.models.widgets import Tabs
