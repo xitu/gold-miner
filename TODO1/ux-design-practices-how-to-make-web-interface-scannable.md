@@ -2,145 +2,145 @@
 > * 原文作者：[Tubik Studio](https://uxplanet.org/@tubikstudio?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ux-design-practices-how-to-make-web-interface-scannable.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ux-design-practices-how-to-make-web-interface-scannable.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Ivocin](https://github.com/Ivocin)
+> * 校对者：[生糸](https://github.com/Mcskiller), [Junkai Liu](https://github.com/Moonliujk)
 
-# UX Design Practices: How to Make Web Interface Scannable
+# UX 设计实践：如何设计可扫描的 Web 界面
 
 ![](https://cdn-images-1.medium.com/max/1000/1*F6I_CHGUZzQ6mekt2H2C8A.png)
 
-Day by day we are overwhelmed with massive information flow both offline and online. Due to new technologies and fast internet connection, people can produce more content than they are physically able to consume. Dealing with numerous websites and apps, users don’t read everything they see word by word — they first scan the page to find out why and how it’s useful for them. So, scannability is one of the essential factors of website usability today. Today’s article explores the phenomenon and gives tips on how to make the digital product scannable.
+我们每天被大量的线上或线下的信息流压的不堪重负。由于新技术的发展和快速的互联网连接，人们生成的内容比他们能够接受的更多。面对众多网站和应用程序时，用户不会逐字逐句地阅读所有内容 —— 他们会首先扫描页面，看一下这些内容对他们是否有用。因此，可扫描性是当今网站可用性的重要因素之一。本文探究了这一现象，并且提供了如何使数字产品可扫描的技巧。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*93f_FurS9JjwZS6lXwJDow.png)
 
-### What Is Scannability?
+### 什么是可扫描性？
 
-Applied to a page or screen, the verb “scan” means to glance at/over or read hastily. So, scannability is the way to present the content and navigation elements as the layout that can be scanned easily. Interacting with a website, especially the first time, users quickly look through the content to analyze whether it’s what they need. Any piece of the content may become a hook in this process: words, sentences, images, or animations.
+对于页面或屏幕，动词“扫描”意味着匆匆一瞥或匆匆阅读。因此，可扫描性是将内容和导航元素呈现为可被轻松扫描的布局的方式。尤其是首次与网站交互时，用户一般都是快速查看内容，然后分析这些内容是不是他们所需要的。任何以下内容都可能成为这个过程的一个障碍：单词、句子、图像或动画。
 
-By the way, this behavior is nothing new: for many decades, people often do the same with a new magazine or newspaper looking through them before they start attentive reading of the articles. What’s more, reading from the screen is much more tiring than on paper, so users are more selective when and where they are ready to bother.
+顺便说一句，这种行为并不是什么新鲜事。几十年来，人们经常在新的杂志或报纸上做着相同的事情：在开始仔细阅读文章之前先浏览一遍。另外，从屏幕上阅读比在纸上阅读更累，因此用户会更具选择性地阅读，当他们开始厌烦的时候就会放弃阅读。
 
-Why is that important? About a decade ago [Jacob Nielsen](https://www.nngroup.com/articles/how-users-read-on-the-web/) answered the question “How people read on the Web?” simply: “They don’t. People rarely read Web pages word by word; instead, they scan the page, picking out individual words and sentences”. Since then it hasn’t changed much: we aren’t ready to invest our time and effort into exploring the website if we aren’t sure it corresponds to our needs. So, if an eye has nothing to be caught with at the first minutes of introduction, the risk is high that the user will go away. Whatever is the type of a website, scannability is one of the significant factors of its user-friendly nature.
+为什么可扫描性很重要？大约十年前，[Jacob Nielsen](https://www.nngroup.com/articles/how-users-read-on-the-web/) 回答了“人们如何在网上阅读？”的问题。他的回答非常简单：“他们没有。人们很少逐字阅读网页；相反，他们扫描页面，挑选个别的单词和句子阅读”。从那时起没有太大变化的是：当我们不确定一个网站是否满足我们的需求时，我们不太会花时间和精力去浏览它。因此，如果没有在第一分钟抓住用户的眼球，那么用户离开网页的风险会很高。无论网站的类型是什么，可扫描性都是其用户友好性的重要因素之一。
 
-How can you check if the webpage is scannable? Try to look at it as a first-time user and answer two questions:
+如何检查网页是否可扫描？可以尝试将自己视为首次使用者并回答如下两个问题：
 
-_– Does what you see in the first couple of minutes correspond to what target audience expects from this page?_
+ - **你在前几分钟看到的内容是否符合目标受众对此页面的期望？**
 
-_– Can you understand what kind of information is on the page for the first minute or two?_
+- **你能在前两分钟了解页面上的信息类型吗？**
 
-If you aren’t sure that both answers are positive, perhaps it’s time to think how to strengthen the website scannability. It’s worth investing time because well-scanned pages become much more efficient in the following aspects:
+如果这两个答案不都是正面的，也许是时候考虑如何加强网站的可扫描性了。加强网站可扫描性是值得投入时间的，因为扫描性好的页面在以下方面会变得更加高效：
 
-*   users complete their tasks and achieve their goals quicker
-*   users make fewer mistakes in the search of content they need
-*   users understand the structure and navigation of the website faster
-*   the bounce rate is reduced
-*   the level of retaining users gets higher
-*   the website looks and feels more credible
-*   the SEO rates are affected positively.
+* 用户更快速地完成任务并实现目标
+* 用户在搜索他们需要的内容时会更少出错
+* 用户可以更快地了解网站的结构和导航
+* 跳出率降低
+* 保留用户的水平越来越高
+* 网站看起来更可信
+* SEO 率受到积极影响
 
 ![](https://cdn-images-1.medium.com/max/1000/1*jUY-rctiYdE64lhAmouZlw.png)
 
-### Popular Scanning Patterns
+### 流行的扫描模式
 
-The vital thing which interface designer has to consider is eye-scanning patterns that show how users interact with a webpage in the first seconds. When you understand HOW people scan the page or screen, you may prioritize the content and put WHAT users need into the most visible zones. This domain of [user research](https://uxplanet.org/user-research-empathy-is-the-best-ux-policy-5f966ba5bbdc) is supported by [Nielsen Norman Group](https://www.nngroup.com/articles/eyetracking-study-of-web-readers/) and provides designers and usability specialists with the better understanding of user behavior and interactions.
+界面设计师必须考虑的重要事项是眼睛扫描模式，它表明用户在最初的几秒内与网页交互的方式。当你了解了人们如何扫描页面或屏幕时，就可以将内容进行优先级排序，并将用户需要的内容放入最明显的区域。这个[用户研究](https://uxplanet.org/user-research-empathy-is-the-best-ux-policy-5f966ba5bbdc)领域得到了 [Nielsen Norman 集团](https://www.nngroup.com/articles/eyetracking-study-of-web-readers/)的支持，帮助设计师和可用性专家更好地理解用户行为和交互。
 
-Different experiments collecting data on user eye-tracking have shown that there are several typical models along which visitors usually scan the website.
+收集用户眼动追踪数据的不同实验表明，通常访客扫描网站会使用几种典型的模型。
 
 ![](https://cdn-images-1.medium.com/max/800/0*XhTRNfV97UzNppny.png)
 
-**Z-Pattern** is quite typical for the web pages with the uniform presentation of information and weak visual hierarchy.
+**Z 模式** 对于具有统一信息呈现和弱视觉层次的网页而言是非常典型的。
 
 ![](https://cdn-images-1.medium.com/max/800/0*hLPvt_yft0P_ZT_2.png)
 
-Another scheme features **zig-zag pattern** typical for pages with visually divided content blocks. Again, the reader’s eyes go left to right starting from the upper left corner and moving across all the page to the upper right corner scanning the information in this initial zone of interaction.
+另一种模式具有 **Z 字形图案**，该模式通常用于具有视觉上分割内容块的页面。同样，读者的眼睛从左上角开始从左到右移动，并在整个页面上移动到右上角，扫描这个初始交互区域中的信息。
 
 ![](https://cdn-images-1.medium.com/max/800/0*wNMOr8uiYFLMGAb_.jpg)
 
-One more model is **F-pattern** presented in the explorations by [Nielsen Norman Group](https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content/) and showing that users often demonstrate the following flow of interaction:
+另一个模型是 [Nielsen Norman 集团](https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content/)探索发现的 **F 模式**，表明用户经常会经历以下交互流程：
 
-*   Users first read in a horizontal movement, usually across the upper part of the content area. This initial element forms the F’s top bar.
-*   Next, users move down the page a bit and then read across in a second horizontal movement that typically covers a shorter area than the previous movement. This additional element forms the F’s lower bar.
-*   Finally, users scan the content’s left side in a vertical movement. Sometimes this is a fairly slow and systematic scan that appears as a solid stripe on an eye-tracking heatmap. Other times users move faster, creating a spottier heatmap. This last element forms the F’s stem.
+* 用户首先水平移动阅读，通常跨越内容区域的上部。这个初始元素构成了 F 的顶部栏。
+* 接下来，用户稍微向下移动页面，然后在第二个水平移动中读取，该移动通常覆盖比先前移动更短的区域。这个额外的元素形成了 F 的下栏。
+* 最后，用户以垂直移动扫描内容的左侧。有时这是一个相当缓慢和系统的过程，在眼动追踪热图上显示为实心条纹。有时用户扫描得更快，会创建一个带有斑点的热力图。最后构成了字母 F 的主干。
 
-### Tips on Improving Scannability
+### 提高可扫描性的技巧
 
-#### 1. Prioritize the content with visual hierarchy
+#### 1. 使用视觉层次对内容进行优先级排序
 
-Basically, [visual hierarchy](https://tubikstudio.com/9-effective-tips-on-visual-hierarchy/) is the way to arrange and organize the content on the page in the way which is the most natural for human perception. The main goal behind it is to let users understand the importance level of each piece of content. So, if the visual hierarchy is applied, the users will see the key content first.
+基本上，[视觉层次](https://tubikstudio.com/9-effective-tips-on-visual-hierarchy/)是按照人类感知最自然的方式，在页面上排列和组织内容的方式。其背后的主要目标是让用户了解每块内容的重要性级别。因此，如果应用了视觉层次，用户将会首先看到关键内容。
 
-For example, when we see the article in the blog, we’ll get the headline first, then subheadings and only then copy blocks. Does it mean that the information in the copy blocks has the low level of importance? Well, no, but this way users will be able to scan the headline and subheadings to understand if the article is useful and interesting for them instead of trying to read all the text. And if the headline and subheadings are done properly and inform the user about the structure and contents of the article, this will be the factor convincing to read more. On the other hand, if users see the huge and long sheet of text not separated into chunks, they will be literally scared, not able to understand how long it will take to read this article and if it is worth investing their time and effort.
+例如，当我们在博客中阅读文章时，我们首先会看到标题，然后是副标题，然后才是副本块。这是否意味着副本块中的信息不重要？其实不是这样，但通过这种方式用户就可以扫描标题和副标题，以了解文章是否对他们有吸引力，而不用阅读全文。如果标题和副标题起的恰当，它们能够告知用户文章的结构和内容，这会是说服用户去阅读更多的因素。另一方面，如果用户看到又大又长的没有分块的文本，他们会感到很害怕，因为无法得知阅读这篇文章需要多长时间，以及是否值得投入时间和精力。
 
-There are several main factors helping to build up the visual hierarchy:
+有助于建立视觉层次的几个主要因素：
 
-*   size
-*   color
-*   contrast
-*   proximity
-*   negative space
-*   repetition.
+* 尺寸
+* 颜色
+* 对比
+* 相近性
+* 负空间
+* 重复
 
-All of them help designers transform the set of elements, links, images and copy into the harmonic scannable system of the page layout.
+所有这些都有助于设计人员将元素、链接、图像和副本集转换为由该页面布局组成的可扫描系统。
 
-#### 2. Put the core navigation into the website header
+#### 2. 将核心导航放入网站头部
 
-All the mentioned eye-scanning patterns show that whichever of them a particular user follows, the scanning process will start in the top horizontal area of the webpage. Using it for showing the key zones of interaction and branding is a strategy supporting both sides. That is the basic reason why [website header design](https://uxplanet.org/best-practices-for-website-header-design-e0d55bf5f1e2) is considered as an essential issue by not only UI/UX designers but also content managers and marketing specialists.
+所有上文提到的眼动扫描模式都显示，无论特定用户遵循哪种模式，扫描过程都会从网页的顶部水平区域开始。用它来展示交互和品牌的关键区域效果非常好。这也是 UI / UX 设计师、内容管理者和营销专家都认为[网站头部设计](https://uxplanet.org/best-practices-for-website-header-design-e0d55bf5f1e2)是一个关键点的原因。
 
-On the other hand, the header shouldn’t be overloaded: too much information makes it impossible to focus. The attempt to put everything into the top part of the page can transform the layout into the mess. So, in every particular case, it’s a must to analyze the goals of the core target audience, how they cross with the business goals behind the website and based on that — what information or navigation should be put into header as the most important. For example, if it’s a big e-commerce website, search functionality has to be instantly visible and is often found in the header to be accessible from any point of interaction. Whereas for the small corporate website, search functionality can be unnecessary at all but the immediately seen link to the portfolio will be crucial.
+另一方面，标题不应该过长：太多的信息使得无法集中注意力。将所有内容放入页面顶部的尝试会将布局变得混乱不堪。因此，在每个特定情况下，必须分析核心目标受众的目标，他们如何与网站背后的业务目标交叉，并以此为基础 —— 哪些信息或导航应该作为最重要头部内容。例如，如果是大型电商网站，搜索功能必须立即可见，并且通常可以在头部找到，并能从任何交互点访问到。对于小型企业网站而言，搜索功能根本不需要，但是直接看到的投资组合的链接是至关重要的。
 
 ![](https://cdn-images-1.medium.com/max/800/0*3w2BkBHrjlTYVgTw.gif)
 
-[**The Gourmet Website**](https://dribbble.com/shots/3858039-The-Gourmet-Website-Interactions)
+[**Gourmet 网站**](https://dribbble.com/shots/3858039-The-Gourmet-Website-Interactions)
 
-#### 3. Keep the balance of negative space
+#### 3. 保持负空间的平衡
 
-Negative space — or white space, as it’s often called — is the area of the layout which is left empty, not only around the objects in the layout but also between and inside them. [Negative space](https://tubikstudio.com/negative-space-in-design-tips-and-best-practices/) is a kind of breathing room for all the objects on the page or screen. It defines the limits of objects, creates the necessary bonds between them according to [Gestalt principles](https://uxplanet.org/gestalt-theory-for-ux-design-principle-of-proximity-e56b136d52d1) and builds up effective visual performance. In UI design for websites and mobile apps, negative space is a big factor of high [navigability](https://uxplanet.org/ui-ux-design-glossary-navigation-elements-b552130711c8) of the interface: without enough air, layout elements aren’t properly seen so users risk missing what they really need. It may be a strong reason for eye and brain tense although many users won’t be able to formulate the problem. A proper amount of negative space, especially micro space, solves it and makes the process more natural.
+负空间 —— 或者通常称为空白区域 —— 是布局里的空白区域，不仅在布局中的对象周围，而且在它们之间和内部。[负空间](https://tubikstudio.com/negative-space-in-design-tips-and-best-practices/)是页面或屏幕上所有对象的一种呼吸空间。它定义了对象的界限，根据 [Gestalt 原则](https://uxplanet.org/gestalt-theory-for-ux-design-principle-of-proximity-e56b136d52d1)在它们之间创造了必要的联系，并建立了有效的视觉表现。在网站和移动应用程序的 UI 设计中，负空间是界面高[可导航性](https://uxplanet.org/ui-ux-design-glossary-navigation-elements-b552130711c8)的一个重要因素：没有足够的空气，布局元素没有被正确看到，因此用户可能会错过他们真正需要的东西。这可能是眼睛和大脑紧张的一个强有力的原因，尽管许多用户将无法明确表述这个问题。适量的负空间，特别是微空间，解决这个问题，并且使过程更自然。
 
-#### 4. Check that CTA is seen at once
+#### 4. 检查能否立即看到 CTA
 
-Obviously, the vast majority of web pages are aimed at particular actions which users have to complete. The elements that contain the call to action (CTA), usually [buttons](https://uxplanet.org/ux-practices-8-handy-tips-on-cta-button-design-682fdb9c65bc), should be seen in split seconds to let users understand what actions they can do on this page. Among the good tests is checking the page in the black-and-white and blurred modes. If in both cases you can distinguish CTA elements quickly, they are done well. For example, on the webpage of the [bakery website](https://uxplanet.org/case-study-vinnys-bakery-ui-design-for-e-commerce-2ffe7fae3600)  shown below the CTA button of adding the item to the list is easily seen among the other elements.
+显然，绝大多数网页目的在于用户必须完成的特定操作。包含号召性用语（CTA）的元素（通常是[按钮](https://uxplanet.org/ux-practices-8-handy-tips-on-cta-button-design-682fdb9c65bc)）应在几秒钟内显示，以便用户了解他们可以在此页面上执行的操作。 在黑白和模糊模式下检查页面可以很好地测试这一点。如果在这两种情况下都可以快速区分 CTA 元素，说明这一点做的不错。例如，在下面显示的[面包店网站](https://uxplanet.org/case-study-vinnys-bakery-ui-design-for-e-commerce-2ffe7fae3600)的网页上，可以很容易地在其他元素中看到将物品添加到列表中的 CTA 按钮。
 
 ![](https://cdn-images-1.medium.com/max/800/0*RI-R_E56dkdJ1DeN.png)
 
-[**Vinny’s Bakery Website**](https://uxplanet.org/case-study-vinnys-bakery-ui-design-for-e-commerce-2ffe7fae3600)
+[**Vinny’s 的面包店网站**](https://uxplanet.org/case-study-vinnys-bakery-ui-design-for-e-commerce-2ffe7fae3600)
 
-#### 5. Test the readability of copy content
+#### 5. 测试副本内容的可读性
 
-Readability defines how easy people can read words, phrases, and blocks of copy. Legibility measures how quickly and intuitively users can distinguish the letters in a particular typeface. These characteristics should be carefully considered, especially for the interfaces filled with a lot of text. The [color of the background](https://uxplanet.org/light-or-dark-ui-tips-to-choose-a-proper-color-scheme-for-user-interface-9a12004bb79e), amount of space around copy blocks, kerning, leading, type of font and font pairing — all these factors influence the ability to quickly scan the text and catch the content convincing users to stay. To prevent the problem, designers have to check if the [typography](https://uxplanet.org/typography-in-ui-guide-for-beginners-7ee9bdbc4833) laws are followed and whether the chosen fonts support general visual hierarchy and readability. [User testing](https://uxplanet.org/tests-go-first-usability-testing-in-design-574ffa18d81)  will help to check how quickly and easily users are able to perceive the text.
+可读性定义了人们阅读单词，短语和副本块的容易程度。易读性衡量用户如何快速直观地区分特定字体中的字母。应该仔细考虑这些特性，尤其是对于填充了大量文本的界面。[背景色](https://uxplanet.org/light-or-dark-ui-tips-to-choose-a-proper-color-scheme-for-user-interface-9a12004bb79e)、副本块周围的空间量、字距，行距、字体类型和字体配对 —— 所有这些因素都会影响快速扫描文本和捕获令用户留下的内容的能力。为了防止这个问题，设计人员必须检查是否遵循[排版](https://uxplanet.org/typography-in-ui-guide-for-beginners-7ee9bdbc4833)规则以及所选字体是否支持一般的视觉层次和可读性。[用户测试](https://uxplanet.org/tests-go-first-usability-testing-in-design-574ffa18d81)将有助于检查用户能够快速轻松地感知文本。
 
-#### 6. Apply numbers, not words
+#### 6. 使用数字，而不是单词
 
-This piece of advice is based on another investigation by [Nielsen Norman Group](https://www.nngroup.com/articles/web-writing-show-numbers-as-numerals/). They shared an important finding: eye-tracking studies showed that in the process of scanning web pages, numerals often stop the wandering user’s eye and attract fixations, even embedded in a mass of words that would be ignored without numbers. We subconsciously associate numbers with facts, stats, sizes and distance — data which is potentially useful. So numbers included in copy catch reader’s attention while words representing numerals can be missed in the bulk of copy. What’s more, numbers are more compact than the textual numeral, so it makes the content more concise and time-saving for scanning.
+这条建议是基于 [Nielsen Norman 集团](https://www.nngroup.com/articles/web-writing-show-numbers-as-numerals/)的另一项调查。他们分享了一个重要的发现：眼动追踪研究表明，在扫描网页的过程中，数字通常会阻止用户徘徊并吸引注视，相反大量可以没有数字的单词会被用户忽略。我们潜意识地将数字与事实、统计数据、大小和距离相关联 —— 这些数据可能是有用的。因此，副本中的数字可以吸引用户注意，而代表数字的单词可能在大量副本中被遗漏。更重要的是，数字比文本数字更紧凑，因此它使内容更简洁，更省时。
 
-#### 7. Place one idea in one paragraph
+#### 7. 一个段落，一个想法
 
-Processing the copy content in the aspect of scannability, try not to make the bulks of text too long. Short paragraphs look more digestible and can be easier skipped in case the information is not valuable for the reader. So, follow the rule when you present one idea in one paragraph and start another one for a new thought.
+在可扫描性方面处理副本内容，尽量不要使文本的内容太长。简短的段落看起来更容易消化，如果信息对读者没有价值，可以更容易跳过。因此，当你在一个段落中提出一个想法并为另一个段落开始另一个想法时，请遵循该规则。
 
 ![](https://cdn-images-1.medium.com/max/800/0*fuMEd3aJ3gviUZZP.gif)
 
-[**Bjorn Design Studio Website**](https://dribbble.com/shots/2680255-Tubik-Studio-Bjo-rn)
+[**Bjorn 设计工作室网站**](https://dribbble.com/shots/2680255-Tubik-Studio-Bjo-rn)
 
-#### 8. Use numbered and bulleted lists
+#### 8. 使用编号和项目符号列表
 
-One more good trick to make the text more scannable is using lists with numbers or bullets. They help to organize data clearly. Also, they catch user’s eye so the information won’t get lost in the general body of text.
+使文本更易于扫描的另一个好方法是使用带有数字或项目符号的列表。它们有助于清晰地组织数据。此外，它们会引起用户的注意，因此信息不会在文本主体中丢失。
 
-#### 9. Highlight the key information in the text
+#### 9. 突出显示文本中的关键信息
 
-Good old bold, italics and color highlighting are old school but they still work successfully. This way you may attract attention to the significant idea, definition, quote or other type of specific data included right into the paragraph. What’s more, the **clickable part of the text (links to other pages) must be visually marked**. We are used to seeing them underlined, still highlighting them additionally with color or bolder font is even more effective.
+加粗、斜体和颜色高亮显示虽然老派，但仍然有效。通过这种方式，你可以将注意力集中在段落中包含的重要想法、定义、引用或其他类型的特定数据上。更重要的是，**文本的可点击部分（链接）必须在视觉上标注出来**。我们习惯于看到它们加下划线、但使用颜色高亮或加粗字体会更有效。
 
-#### 10. Use images and illustrations
+#### 10. 使用图像和插图
 
-In web user interface design, [images](https://uxplanet.org/3c-of-interface-design-color-contrast-content-235b68fbd9a1) are highly supportive in setting the mood or transferring the message. They are the content which is both informative and emotionally appealing. Original illustration, prominent hero banners, engaging photos can easily catch users’ attention and support the general stylistic concept. What’s more, they play a big role in building visual hierarchy and make the copy content more digestible in combination with illustrations or photos. People perceive images faster than words which is an important factor for increased scannability.
+在 Web 用户界面设计中，[图像](https://uxplanet.org/3c-of-interface-design-color-contrast-content-235b68fbd9a1)在表达情绪或传递消息方面是非常有帮助的，它们饱含信息和吸引力。原始插图，突出的英雄横幅，引人入胜的照片可以很容易地吸引用户的注意力，并支持一般的风格概念。更重要的是，它们在构建视觉层次方面发挥了重要作用，并使副本内容与插图或照片相结合，更容易消化。人们感知图像比理解文字更快，这是提高可扫描性的重要因素。
 
 ![](https://cdn-images-1.medium.com/max/800/0*cTIMfaqYBRGeppEn.png)
 
-[**Financial Service Website**](https://dribbble.com/shots/3905908-Financial-Service-Website)
+[**金融服务网站**](https://dribbble.com/shots/3905908-Financial-Service-Website)
 
-Improving scannability of the web pages, designers and content creators show real respect to website users. This way we save users’ time and effort providing them with organized, harmonic, valuable and attractive content.
+提高网页的可扫描性，是设计人员和内容创建者对网站用户的真正尊重。这样我们就可以节省用户的时间和精力，为他们提供有组织，和谐的，有价值和有吸引力的内容。
 
 * * *
 
-**_Originally written for_** [**_tubikstudio.com_**](https://tubikstudio.com/)
+**最初为 [tubikstudio.com](https://tubikstudio.com/) 而写**
 
-_Welcome to see the designs by Tubik Studio on_ [**_Dribbbl_**](https://dribbble.com/Tubik) and [**_Behance_**](https://www.behance.net/Tubik)
+**欢迎到 [Dribbble](https://dribbble.com/Tubik) 和 [Behance](https://www.behance.net/Tubik) 观看 Tubik Studio 的设计。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
