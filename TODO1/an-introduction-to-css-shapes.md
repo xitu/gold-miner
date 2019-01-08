@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/an-introduction-to-css-shapes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/an-introduction-to-css-shapes.md)
 > * 译者：[xilihuasi](https://github.com/xilihuasi)
-> * 校对者：
+> * 校对者：[ElizurHz](https://github.com/ElizurHz),[Moonliujk](https://github.com/Moonliujk)
 
 # CSS Shapes 简介
 
@@ -13,17 +13,17 @@ CSS Shapes 允许我们通过定义文本内容可以环绕的几何形状、图
 
 在 [CSS Shapes](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Shapes) 问世之前，为网页设计文本自由环绕的杂志式布局几乎是不可能的。相反，网页设计布局传统上一直用网格、盒子和直线构造。
 
-CSS Shaptes 允许我们定义文本环绕的几何形状。这些形状可以是圆、椭圆、简单或复杂的多边形，甚至图像和渐变。Shapes 的一些实际设计应用可能是圆形头像周围显示圆形环绕文本，全屏背景图片的简单部位上面展示文本，以及在文章中显示首字下沉。
+CSS Shapes 允许我们定义文本环绕的几何形状。这些形状可以是圆、椭圆、简单或复杂的多边形，甚至图像和渐变。Shapes 的一些实际设计应用可能是圆形头像周围显示圆形环绕文本，全屏背景图片的简单部位上面展示文本，以及在文章中显示首字下沉。
 
-现在 CSS Shapes 已经获得了现代浏览器的广泛支持，值得一看的是它们提供的灵活性和功能，以确定它们在您的下一个设计项目中是否有意义。
+现在 CSS Shapes 已经获得了现代浏览器的广泛支持，值得一看的是它们提供的灵活性和功能，以确定它们在你的下一个设计项目中是否有意义。
 
 > **注意**：截至攥写本文时，[CSS Shapes](https://caniuse.com/#feat=css-shapes) 支持 Firefox、Chrome、Safari 和 Opera，以及 iOS Safari 和 Chrome for Android 等移动浏览器。Shapes 不支持 IE，对 Microsoft Edge 的支持[正在考虑中](https://developer.microsoft.com/en-us/microsoft-edge/platform/status/shapes/)。
 
 ## CSS Shapes 初探
 
-CSS Shapes 的当前实现是 [CSS Shapes 模块 1 级](https://drafts.csswg.org/css-shapes/)，它主要包含 `[shape-outside](https://tympanus.net/codrops/css_reference/shape-outside/)` 属性。`shape-outside` 定义了文本环绕的形状。
+CSS Shapes 的当前实现是 [CSS Shapes Module Level 1](https://drafts.csswg.org/css-shapes/)，它主要包含 `[shape-outside](https://tympanus.net/codrops/css_reference/shape-outside/)` 属性。`shape-outside` 定义了文本环绕的形状。
 
-考虑到有 `shape-outside` 属性，你可能会想到还有一个相应的 `shape-inside` 属性，它包含形状内的文本。`shape-inside` 属性可能会在将来实现，目前它只是 [CSS Shapes 模块 2 级](https://drafts.csswg.org/css-shapes-2/)里面的一个草案，并没有被任何浏览器实现。
+考虑到有 `shape-outside` 属性，你可能会想到还有一个相应的 `shape-inside` 属性，它包含形状内的文本。`shape-inside` 属性可能会在将来实现，目前它只是 [CSS Shapes Module Level 2](https://drafts.csswg.org/css-shapes-2/)里面的一个草案，并没有被任何浏览器实现。
 
 在本文中，我们将演示如何使用 [<basic-shape>](https://tympanus.net/codrops/css_reference/basic-shape/) 数据类型，并使用形状函数值设置它，以及使用半透明 URL 或渐变设置形状。
 
@@ -105,7 +105,7 @@ CSS Shapes 的当前实现是 [CSS Shapes 模块 1 级](https://drafts.csswg.org
 
 `circle()` 函数接收可选的 radius 参数。在本例中，默认 radius 是 `50%` 或者 `100px`。使用 `circle(50%)` 或者 `circle(100px)` 都将产生和我们已经完成样例的同样结果。
 
-你可能注意到文本刚好和形状贴合。我们可以使用 [`shape-margin`](https://tympanus.net/codrops/css_reference/shape-margin/) 属性给形状添加 margin，单位可以是 `px`、`em`、`%` 和其他标准的CSS测量单位。
+你可能注意到文本刚好和形状贴合。我们可以使用 [`shape-margin`](https://tympanus.net/codrops/css_reference/shape-margin/) 属性给形状添加 margin，单位可以是 `px`、`em`、`%` 和其他标准的 CSS 测量单位。
 
 ```
 .circle {
@@ -161,13 +161,13 @@ circle(50% at 0 50%);
 
 ![](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2018/11/cssshapes_ellipse1.jpg)
 
-`ellipse()` 和 `circle()` 的区别在于椭圆有两个 radii —— _r_x 和 _r_y，或者 X-axis radius 和 Y-axis radius。因此，上面的例子也可以写成：
+`ellipse()` 和 `circle()` 的区别在于椭圆有两个半径 —— _r_x 和 _r_y，或者 X 轴半径和 Y 轴半径。因此，上面的例子也可以写成：
 
 ```
 ellipse(75px 150px);
 ```
 
-circles 和 ellipses 的位置参数是一样的。除了是测量单位，radii 也包括 `farthest-side` 和 `closest-side` 的选项。
+circles 和 ellipses 的位置参数是一样的。除了是测量单位，半径也包括 `farthest-side` 和 `closest-side` 的选项。
 
 `closest-side` 代表引用框的中心到最近侧的长度，相反，`farthest-side` 代表引用框中心到最远侧的长度。这意味着如果未设置默认值以外的位置，则这两个值无效。
 
@@ -185,7 +185,7 @@ ellipse(farthest-side closest-side at 25% 25%)
 
 ![](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2018/11/cssshapes_ellipse3.jpg)
 
-### 插入
+### 内嵌
 
 目前为止我们只处理了圆形，但是我们可以使用 `inset()` 函数定义内嵌矩形。
 
@@ -338,7 +338,7 @@ has been blocked by CORS policy: The response is invalid.
 
 ![](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2018/11/cssshapes_image1.jpg)
 
-因为我使用了透明背景的星星图像，文本知道哪些区域是透明的哪些是不透明的，并相应地调整自己。
+因为我使用了透明背景的星星图像，文本知道哪些区域是透明的哪些是不透明的，并进行自适应布局。
 
 ## 渐变
 
@@ -366,7 +366,7 @@ has been blocked by CORS policy: The response is invalid.
 
 ![](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2018/11/cssshapes_gradient1.jpg)
 
-我们可以看到渐变在不透明和透明的中心对角线完美分割
+我们可以看到渐变在不透明和透明的中心对角线完美分割。
 
 ## 结论
 
