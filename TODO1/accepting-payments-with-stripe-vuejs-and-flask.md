@@ -90,7 +90,7 @@ $ npm run dev
 
 Navigate to [http://localhost:8080](http://localhost:8080). Make sure the basic CRUD functionality works as expected:
 
-![v1 app](/static/images/blog/flask-vue-stripe/v1.gif)
+![v1 app](https://testdriven.io/static/images/blog/flask-vue-stripe/v1.gif)
 
 > Want to learn how to build this project? Check out the [Developing a Single Page App with Flask and Vue.js](https://testdriven.io/developing-a-single-page-app-with-flask-and-vuejs) blog post.
 
