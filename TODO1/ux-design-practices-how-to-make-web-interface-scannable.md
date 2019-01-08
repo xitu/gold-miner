@@ -63,7 +63,7 @@
 
 ### 提高可扫描性的技巧
 
-#### 1.使用视觉层次对内容进行优先级排序
+#### 1. 使用视觉层次对内容进行优先级排序
 
 基本上，[视觉层次](https://tubikstudio.com/9-effective-tips-on-visual-hierarchy/)是按照人类感知最自然的方式，在页面上排列和组织内容的方式。其背后的主要目标是让用户了解每块内容的重要性级别。因此，如果应用了视觉层次，用户将会首先看到关键内容。
 
@@ -80,7 +80,7 @@
 
 所有这些都有助于设计人员将元素、链接、图像和副本集转换为由该页面布局组成的可扫描系统。
 
-#### 2.将核心导航放入网站头部
+#### 2. 将核心导航放入网站头部
 
 所有上文提到的眼动扫描模式都显示，无论特定用户遵循哪种模式，扫描过程都会从网页的顶部水平区域开始。用它来展示交互和品牌的关键区域效果非常好。这也是 UI / UX 设计师、内容管理者和营销专家都认为[网站头部设计](https://uxplanet.org/best-practices-for-website-header-design-e0d55bf5f1e2)是一个关键点的原因。
 
@@ -90,11 +90,11 @@
 
 [**Gourmet 网站**](https://dribbble.com/shots/3858039-The-Gourmet-Website-Interactions)
 
-#### 3.保持负空间的平衡
+#### 3. 保持负空间的平衡
 
-负空间 —— 或者通常称为空白区域 —— 是布局里的空白区域，不仅在布局中的对象周围，而且在它们之间和内部。[负空间](https://tubikstudio.com/negative-space-in-design-tips-and-best-practices/)是页面或屏幕上所有对象的一种呼吸空间。 它定义了对象的界限，根据 [Gestalt 原则](https://uxplanet.org/gestalt-theory-for-ux-design-principle-of-proximity-e56b136d52d1)在它们之间创造了必要的联系，并建立了有效的视觉表现。在网站和移动应用程序的 UI 设计中，负空间是界面高[可导航性](https://uxplanet.org/ui-ux-design-glossary-navigation-elements-b552130711c8)的一个重要因素：没有足够的空气，布局元素没有被正确看到，因此用户可能会错过他们真正需要的东西。这可能是眼睛和大脑紧张的一个强有力的原因，尽管许多用户将无法明确表述这个问题。适量的负空间，特别是微空间，解决这个问题，并且使过程更自然。
+负空间 —— 或者通常称为空白区域 —— 是布局里的空白区域，不仅在布局中的对象周围，而且在它们之间和内部。[负空间](https://tubikstudio.com/negative-space-in-design-tips-and-best-practices/)是页面或屏幕上所有对象的一种呼吸空间。它定义了对象的界限，根据 [Gestalt 原则](https://uxplanet.org/gestalt-theory-for-ux-design-principle-of-proximity-e56b136d52d1)在它们之间创造了必要的联系，并建立了有效的视觉表现。在网站和移动应用程序的 UI 设计中，负空间是界面高[可导航性](https://uxplanet.org/ui-ux-design-glossary-navigation-elements-b552130711c8)的一个重要因素：没有足够的空气，布局元素没有被正确看到，因此用户可能会错过他们真正需要的东西。这可能是眼睛和大脑紧张的一个强有力的原因，尽管许多用户将无法明确表述这个问题。适量的负空间，特别是微空间，解决这个问题，并且使过程更自然。
 
-#### 4.检查能否立即看到 CTA
+#### 4. 检查能否立即看到 CTA
 
 显然，绝大多数网页目的在于用户必须完成的特定操作。包含号召性用语（CTA）的元素（通常是[按钮](https://uxplanet.org/ux-practices-8-handy-tips-on-cta-button-design-682fdb9c65bc)）应在几秒钟内显示，以便用户了解他们可以在此页面上执行的操作。 在黑白和模糊模式下检查页面可以很好地测试这一点。如果在这两种情况下都可以快速区分 CTA 元素，说明这一点做的不错。例如，在下面显示的[面包店网站](https://uxplanet.org/case-study-vinnys-bakery-ui-design-for-e-commerce-2ffe7fae3600)的网页上，可以很容易地在其他元素中看到将物品添加到列表中的 CTA 按钮。
 
@@ -102,15 +102,15 @@
 
 [**Vinny’s 的面包店网站**](https://uxplanet.org/case-study-vinnys-bakery-ui-design-for-e-commerce-2ffe7fae3600)
 
-#### 5.测试副本内容的可读性
+#### 5. 测试副本内容的可读性
 
 可读性定义了人们阅读单词，短语和副本块的容易程度。易读性衡量用户如何快速直观地区分特定字体中的字母。应该仔细考虑这些特性，尤其是对于填充了大量文本的界面。[背景色](https://uxplanet.org/light-or-dark-ui-tips-to-choose-a-proper-color-scheme-for-user-interface-9a12004bb79e)、副本块周围的空间量、字距，行距、字体类型和字体配对 —— 所有这些因素都会影响快速扫描文本和捕获令用户留下的内容的能力。为了防止这个问题，设计人员必须检查是否遵循[排版](https://uxplanet.org/typography-in-ui-guide-for-beginners-7ee9bdbc4833)规则以及所选字体是否支持一般的视觉层次和可读性。[用户测试](https://uxplanet.org/tests-go-first-usability-testing-in-design-574ffa18d81)将有助于检查用户能够快速轻松地感知文本。
 
-#### 6.使用数字，而不是单词
+#### 6. 使用数字，而不是单词
 
-这条建议是基于[Nielsen Norman 集团](https://www.nngroup.com/articles/web-writing-show-numbers-as-numerals/)的另一项调查。他们分享了一个重要的发现：眼动追踪研究表明，在扫描网页的过程中，数字通常会阻止用户徘徊并吸引注视，相反大量可以没有数字的单词会被用户忽略。我们潜意识地将数字与事实、统计数据、大小和距离相关联 —— 这些数据可能是有用的。因此，副本中的数字可以吸引用户注意，而代表数字的单词可能在大量副本中被遗漏。更重要的是，数字比文本数字更紧凑，因此它使内容更简洁，更省时。
+这条建议是基于 [Nielsen Norman 集团](https://www.nngroup.com/articles/web-writing-show-numbers-as-numerals/)的另一项调查。他们分享了一个重要的发现：眼动追踪研究表明，在扫描网页的过程中，数字通常会阻止用户徘徊并吸引注视，相反大量可以没有数字的单词会被用户忽略。我们潜意识地将数字与事实、统计数据、大小和距离相关联 —— 这些数据可能是有用的。因此，副本中的数字可以吸引用户注意，而代表数字的单词可能在大量副本中被遗漏。更重要的是，数字比文本数字更紧凑，因此它使内容更简洁，更省时。
 
-#### 7.一个段落，一个想法
+#### 7. 一个段落，一个想法
 
 在可扫描性方面处理副本内容，尽量不要使文本的内容太长。简短的段落看起来更容易消化，如果信息对读者没有价值，可以更容易跳过。因此，当你在一个段落中提出一个想法并为另一个段落开始另一个想法时，请遵循该规则。
 
@@ -118,11 +118,11 @@
 
 [**Bjorn 设计工作室网站**](https://dribbble.com/shots/2680255-Tubik-Studio-Bjo-rn)
 
-#### 8.使用编号和项目符号列表
+#### 8. 使用编号和项目符号列表
 
 使文本更易于扫描的另一个好方法是使用带有数字或项目符号的列表。它们有助于清晰地组织数据。此外，它们会引起用户的注意，因此信息不会在文本主体中丢失。
 
-#### 9.突出显示文本中的关键信息
+#### 9. 突出显示文本中的关键信息
 
 加粗、斜体和颜色高亮显示虽然老派，但仍然有效。通过这种方式，你可以将注意力集中在段落中包含的重要想法、定义、引用或其他类型的特定数据上。更重要的是，**文本的可点击部分（链接）必须在视觉上标注出来**。我们习惯于看到它们加下划线、但使用颜色高亮或加粗字体会更有效。
 
@@ -141,7 +141,6 @@
 **最初为 [**tubikstudio.com**](https://tubikstudio.com/) 而写**
 
 ** 欢迎到 [**Dribbble**](https://dribbble.com/Tubik) 和 [**Behance**](https://www.behance.net/Tubik) 观看 Tubik Studio 的设计。**
-
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
