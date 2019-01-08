@@ -3,18 +3,18 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/transducers-efficient-data-processing-pipelines-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/transducers-efficient-data-processing-pipelines-in-javascript.md)
 > * 译者：[Raoul1996](https://github.com/Raoul1996)
-> * 校对者：[ElizurHz](https://github.com/ElizurHz)、[Yangfan2016](https://github.com/Yangfan2016)
+> * 校对者：[ElizurHz](https://github.com/ElizurHz), [Yangfan2016](https://github.com/Yangfan2016)
 
-## Transducers: JavaScript 中高效的数据处理 Pipeline
+# Transducers：JavaScript 中高效的数据处理 Pipeline
 
 ![Smoke Art Cubes to Smoke](https://user-gold-cdn.xitu.io/2019/1/8/1682919845dd2203?w=2000&h=910&f=jpeg&s=120724)
 
 Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)
 
 > 注意：这是从头开始学 JavaScript ES6+ 中的函数式编程和组合软件技术中 “撰写软件” 系列的一部分。敬请关注，我们会讲述大量关于这方面的知识！ 
-> [< 上一篇](https://github.com/xitu/gold-miner/blob/master/TODO1/curry-and-function-composition.md) | [<< Start over at Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/composing-software-an-introduction.md)
+> [< 上一篇](https://github.com/xitu/gold-miner/blob/master/TODO1/curry-and-function-composition.md) | [<< 从第一篇开始](https://github.com/xitu/gold-miner/blob/master/TODO1/composing-software-an-introduction.md)
 
-在使用 transducer 之前, 你首先要完全搞懂[**复合函数（function composition）**](https://juejin.im/post/5c0dd214518825444758453a)和 [**reducers**](https://github.com/xitu/gold-miner/blob/master/TODO1/reduce-composing-software.md) 是什么。
+在使用 transducer 之前，你首先要完全搞懂[**复合函数（function composition）**](https://juejin.im/post/5c0dd214518825444758453a)和 [**reducers**](https://github.com/xitu/gold-miner/blob/master/TODO1/reduce-composing-software.md) 是什么。
 
 > Transduce：源于 17 世纪的科学术语（latin name 一般指学名）“transductionem”，意为“改变、转换”。它更早衍生自“transducere/traducere”，意思是“引导或者跨越、转移”。
 
@@ -24,10 +24,10 @@ Transducers 是：
 
 * 可组合使用的简单功能集合
 * 对大型集合或者无限流有效：不管 pipeline 中的操作数量有多少，都只对单一元素进行一次枚举。
-* 能够转换任何可枚举的源（例如，数组、树、流、图等……）
+* 能够转换任何可枚举的源（例如，数组、树、流、图等...）
 * 无需更换 transducer pipeline，即可用于惰性或热切求值（译者注：[求值策略](https://zh.wikipedia.org/wiki/%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5)）。
 
-Reducer 将多个输入**折叠（fold）**成单个输出，其中“折叠”可以用几乎任何产生单个输出的二进制操作替换，例如：
+Reducer 将多个输入 **折叠（fold）** 成单个输出，其中“折叠”可以用几乎任何产生单个输出的二进制操作替换，例如：
 
 ```js
 // 求和: (1, 2) = 3  
@@ -91,7 +91,7 @@ console.log(results);
 
 2. 每次在数组上使用点链语法（dot chaining syntax）时，JavaScript 都会构建一个全新的中间数组，然后再转到链中的下一个操作。如果你有一个 2,000,000 名“朋友”的名单，这可能会使数据处理减慢一两个数量级。使用 transducer，你可以通过完整的 pipeline 流式传输每个朋友，而无需在它们之间建立中间集合，从而节省大量时间和内存。
 
-3. 使用点链，你必须构建标准操作的不同实现。如 `.filter()`、 `.map()`、`.reduce()`、`.concat()` 等。数组方法内置在 JavaScript 中，但是如果你想构建自定义数据类型并支持一堆标准操作而且还不需要重头进行编写，改怎么办？Transducer 可以使用任何传输数据类型：编写一次操作符，在支持 transducer 的任何地方使用它。
+3. 使用点链，你必须构建标准操作的不同实现。如 `.filter()`、`.map()`、`.reduce()`、`.concat()` 等。数组方法内置在 JavaScript 中，但是如果你想构建自定义数据类型并支持一堆标准操作而且还不需要重头进行编写，改怎么办？Transducer 可以使用任何传输数据类型：编写一次操作符，在支持 transducer 的任何地方使用它。
 
 让我们看看 transducer。这段代码还不能工作，但是还请继续，你将能够自己构建这个 transducer pipeline 的每一部分：
 
@@ -128,23 +128,23 @@ Transducer 可以将数字映射（mapping）成字符串，或者将对象映�
 
 软件找那个使用 “transducer” 一词和数据转换的可组合 pipeline 的通用概念至少可以追溯到 20 世纪 60 年代，但是我们对于他们应该如何工作的想法已经从一种语言和上下文转变为下一种语言。在计算机科学的早期，许多软件工程师也是电气工程师。当时对计算机科学的一般研究经常涉及到硬件和软件设计。因此，将计算过程视为 “transducer” 并不是特别新颖。在早期的计算机科学文献中可能会遇到这个术语 —— 特别是在数字信号处理（DSP）和**数据流编程**的背景下。
 
-在 20 世纪 60 年代，麻省理工学院林肯实验室的图形计算开始使用 TX-2 计算机系统，这是美国空军 SAGE 防御系统的前身。 Ivan Sutherland 著名的 [Sketchpad](https://dspace.mit.edu/handle/1721.1/14979)，于 1961 年至 1962 年开发，是使用光笔进行对象原型委派和图形编程的早期例子。
+在 20 世纪 60 年代，麻省理工学院林肯实验室的图形计算开始使用 TX-2 计算机系统，这是美国空军 SAGE 防御系统的前身。Ivan Sutherland 著名的 [Sketchpad](https://dspace.mit.edu/handle/1721.1/14979)，于 1961 年至 1962 年开发，是使用光笔进行对象原型委派和图形编程的早期例子。
 
 Ivan 的兄弟 William Robert “Bert” Sutherland 是数据流编程的几个先驱之一。他在 Sketchpad 上构建了一个数据流编程环境。它将软件“过程”描述为操作员节点的有向图，其输出连接到其他节点的输入。他在 1966 年的论文 [“The On-Line Graphical Specification of Computer Procedures”](https://dspace.mit.edu/handle/1721.1/13474) 中写下了这段经历。在连续运行的交互式程序循环中，所有内容都表示为值的流，而不是数组和处理中的数组。每个节点在到达参数输入时处理每个值。你现在可以在[虚拟蓝图引擎 Visual Scripting Environment](https://docs.unrealengine.com/en-us/Engine/Blueprints) 或 [Native Instruments’ Reaktor](https://www.native-instruments.com/en/products/komplete/synths/reaktor-6/) 找到类似的系统，这是一种音乐家用来构建自定义音频合成器的可视化编程环境。
 
 ![ Bert Sutherland 撰写的运营商组成图](https://user-gold-cdn.xitu.io/2019/1/8/168291981b06d06c?w=800&h=707&f=png&s=63423)
 
- Bert Sutherland 撰写的运营商组成图
+Bert Sutherland 撰写的运营商组成图
 
-据我所知，第一本在基于通用软件的流处理环境中推广“transducer”一词的书是 1985 年 MIT 计算机科学课程 [“Structure and Interpretation of Computer Programs”](https://www.amazon.com/Structure-Interpretation-Computer-Programs-Engineering/dp/0262510871/ref=as_li_ss_tl?ie=UTF8&qid=1507159222&sr=8-1&keywords=sicp&linkCode=ll1&tag=eejs-20&linkId=44b40411506b45f32abf1b70b44574d2) 的教科书 (SICP) 。该书由 Harold Abelson、Gerald Jay Sussman、Julie Sussman 和撰。然而在数字信号处理中使用术语“transducer”早于 SICP。 
+据我所知，第一本在基于通用软件的流处理环境中推广 “transducer” 一词的书是 1985 年 MIT 计算机科学课程 [“Structure and Interpretation of Computer Programs”](https://www.amazon.com/Structure-Interpretation-Computer-Programs-Engineering/dp/0262510871/ref=as_li_ss_tl?ie=UTF8&qid=1507159222&sr=8-1&keywords=sicp&linkCode=ll1&tag=eejs-20&linkId=44b40411506b45f32abf1b70b44574d2) 的教科书（SICP）。该书由 Harold Abelson、Gerald Jay Sussman、Julie Sussman 和撰写。然而在数字信号处理中使用术语 “transducer” 早于 SICP。 
 
-> **注:** 从函数式编程的角度来看，SICP 仍然是对计算机科学出色的介绍。它仍然是这个主题中我最喜欢的书。
+> **注**：从函数式编程的角度来看，SICP 仍然是对计算机科学出色的介绍。它仍然是这个主题中我最喜欢的书。
 
 最近，transducer 已经重新被独立发掘。并且 **Rich Hickey**（大约 2014 年）为 Clojure 开发了一个**不同的协议**，他以精心选择基于词源的概念词而闻名。这时，我就会说他说的太棒了，因为 Clojure 的 transducer 的内在基本和 SICP 中的相同，并且他们也具有了很多共性。但是，他们**并非严格相同。**
 
 Transducer 作为一般概念（不是 Hickey 的协议规范）来讲，对计算机科学的重要分支产生了相当大的影响，包括数据流编程、科学和媒体应用的信号处理、网络、人工智能等等。随着我们开发更好的工具和技术在我们打应用代码中阐释 transducer，它们开始帮助我们更好的理解各种软件组合，包括 Web 和 易用应用程序中的用户界面行为，并且在将来，还可以很好地帮助我们管理复杂的 AR（augmented reality），自主设备和车辆等。
 
-为了讨论起见，当我说 “transducer” 时，我并不是指 SICP transducer，尽管如果你已经熟悉了 SICP transducer，可能听起来像是在讲述它们。我也没有**具体**提到 Clojure 的 transducer，或者已经成为 JavaScript 事实标准的 transducer 协议（由 Ramda、Transducer-JS、RxJS等支持……）。我指的是**高阶 reducer**的一般概念 —— 变幻的转换。
+为了讨论起见，当我说 “transducer” 时，我并不是指 SICP transducer，尽管如果你已经熟悉了 SICP transducer，可能听起来像是在讲述它们。我也没有**具体**提到 Clojure 的 transducer，或者已经成为 JavaScript 事实标准的 transducer 协议（由 Ramda、Transducer-JS、RxJS等支持...）。我指的是**高阶 reducer**的一般概念 —— 变幻的转换。
 
 在我看来，transducer 协议的特定细节比 transducer 的一般原理和基本数学特性重要的多，但是如果你想在生产中使用 transducer，为了满足互操作性，我目前的建议是使用现有的库来实现 transducer 协议。
 
@@ -203,6 +203,7 @@ const result = arr
 console.log(result);  
 // [4, 8, 12]
 ```
+
 但是，如果你想过滤和加倍的可能是无限数字流，比如无人机的遥测数据呢？
 
 数组不能是无限的，并且数组处理过程中的每个阶段都要求你在单个值可以流经 pipeline 的下一个阶段之前处理整个数组。同样的问题意味着使用数组方法的合成会降低性能，因为需要创建一个新数组，并且合成中的每个阶段迭代一个新的集合。
@@ -227,8 +228,8 @@ console.log(result);
 
 有两种方法可以做到这一点：
 
-*   Pull: 惰性求值，或者
-*   Push: 及早求值
+*   Pull：惰性求值，或者
+*   Push：及早求值
 
 Pull API 等待 consumer 请求下一个值。JavaScript 中一个很好的例子是 `Iterable`。例如生成器函数生成的对象。在通过它在返回的迭代器对象上调用 `.next()` 来请求下一个值之前，生成器函数什么事情都不做。
 
@@ -391,6 +392,7 @@ const map = f => step => (a = step(), c) => (
   step(a, f(c))
 );
 ```
+
 我们关心的部分是函数签名中的 `a = step()`。如果 `a`（累加器）没有值，我们将通过链中的下一个 reducer 来生成它。最终，它将到达 pipeline 的末端，并（但愿）为我们创建有效的初始值。
 
 记住这条规则：当没有参数调用时，reducer 的操作应该总是为 reducer 返回一个有效的初始（空）值。对于任何 reducer 函数，包括 React 或 Redux 的 Reducer，遵守此规则通常是个好主意。 
@@ -399,7 +401,7 @@ const map = f => step => (a = step(), c) => (
 
 可以向 pipeline 中的其他 transducer 发出信号，表明我们已经完成了 reduce，并且他们不应该期望再处理任何值。在看到 `reduced` 值时，其他 transducer 可以决定停止添加到集合，并且转换过程（由最终 `step()` 函数控制）可以决定停止枚举值。由于接收到 `reduced` 值，转换过程可以再调用一次：完成上述调用。我们可以通过特殊的 reduce 过的累加器来表示这个意图。
 
-什么是 reduced 值？它可能像将累加器值包装在一个名为 `reduced` 的特殊类型中一样简单。可以把它想象包装盒子并用 "Express" 或 "Fragile" 这样的消息标记盒子。像这样的元数据包装器（metadata wrapper）在计算中很常见。例如：http 消息包含在名为 “request” 或 “response” 的容器中，这些容器类型提供了状态码、预期消息长度、授权参数等信息的表头……
+什么是 reduced 值？它可能像将累加器值包装在一个名为 `reduced` 的特殊类型中一样简单。可以把它想象包装盒子并用 "Express" 或 "Fragile" 这样的消息标记盒子。像这样的元数据包装器（metadata wrapper）在计算中很常见。例如：http 消息包含在名为 “request” 或 “response” 的容器中，这些容器类型提供了状态码、预期消息长度、授权参数等信息的表头...
 
 基本上，它是一种发送多条信息的方式，其中只需要一个值。`reduced()` 类型提升的最小（非标准）示例可能如下所示：
 
@@ -516,9 +518,9 @@ const map = f => next => transducer({
 
 Transducers 产生的代码比使用数组进行点链接的效率高几个数量级，并且可以处理潜在的无需数据集而无需创建中间聚合。
 
-> **注意：** Transducers 并不是总是比内置数组方法更快。当数据集非常大（数十万个项目）或 pipeline 非常大（显著增加使用方法链所需的迭代次数）时，性能优势往往会有所提升。如果你追求性能优势，请记住简介。
+> **注意**：Transducers 并不是总是比内置数组方法更快。当数据集非常大（数十万个项目）或 pipeline 非常大（显著增加使用方法链所需的迭代次数）时，性能优势往往会有所提升。如果你追求性能优势，请记住简介。
 
-再看看介绍中的例子。你应该能使用示例代码作为参考构建 `filter()`、 `map()` 和 `toArray()`，并使此代码工作：
+再看看介绍中的例子。你应该能使用示例代码作为参考构建 `filter()`、`map()` 和 `toArray()`，并使此代码工作：
 
 ```js
 const friends = [  
@@ -576,7 +578,6 @@ console.log(result); // [4, 8, 12]
 
 每当我们需要组个一些操作时，例如 `map`、`filter`、`chunk`、`take` 等，我会深入 transducer 以优化处理过程并保持代码的可读性和清爽。来试试吧。
 
-
 ### 在 EricElliottJS.com 上可以了解到更多
 
 视频课程和函数式编程已经为  EricElliottJS.com 的网站成员准备好了。如果你还不是当中的一员，[现在就注册吧](https://ericelliottjs.com/)。
@@ -585,7 +586,7 @@ console.log(result); // [4, 8, 12]
 
 * * *
 
-**Eric Elliott** 是  [**“编写 JavaScript 应用”**](http://pjabook.com) （O’Reilly） 以及 [**“跟着 Eric Elliott 学 Javascript”**](http://ericelliottjs.com/product/lifetime-access-pass/) 两书的作者。他为许多公司和组织作过贡献，例如 **Adobe Systems**、**Zumba Fitness**、**The Wall Street Journal**、**ESPN** 和 **BBC** 等 , 也是很多机构的顶级艺术家，包括但不限于 **Usher**、**Frank Ocean** 以及 **Metallica**。
+**_Eric Elliott_ 是 [“编写 JavaScript 应用”](http://pjabook.com)（O’Reilly）以及[“跟着 Eric Elliott 学 Javascript”](http://ericelliottjs.com/product/lifetime-access-pass/) 两书的作者。他为许多公司和组织作过贡献，例如 *Adobe Systems*、*Zumba Fitness*、*The Wall Street Journal*、*ESPN* 和 *BBC* 等，也是很多机构的顶级艺术家，包括但不限于 *Usher*、*Frank Ocean* 以及 *Metallica*。**
 
 大多数时间，他都在 San Francisco Bay Area，同这世上最美丽的女子在一起。
 
