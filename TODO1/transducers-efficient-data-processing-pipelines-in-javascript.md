@@ -590,7 +590,6 @@ console.log(result); // [4, 8, 12]
 
 大多数时间，他都在 San Francisco Bay Area，同这世上最美丽的女子在一起。
 
-
 感谢 [JS_Cheerleader](https://medium.com/@JS_Cheerleader?source=post_page)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
