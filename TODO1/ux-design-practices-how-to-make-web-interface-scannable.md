@@ -138,7 +138,7 @@
 
 * * *
 
-**最初为 [**tubikstudio.com**](https://tubikstudio.com/) 而写**
+**最初为 [tubikstudio.com](https://tubikstudio.com/) 而写**
 
 ** 欢迎到 [**Dribbble**](https://dribbble.com/Tubik) 和 [**Behance**](https://www.behance.net/Tubik) 观看 Tubik Studio 的设计。**
 
