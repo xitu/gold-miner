@@ -2,73 +2,73 @@
 > * 原文作者：[Will Koehrsen](https://towardsdatascience.com/@williamkoehrsen?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/data-visualization-with-bokeh-in-python-part-ii-interactions.md](https://github.com/xitu/gold-miner/blob/master/TODO1/data-visualization-with-bokeh-in-python-part-ii-interactions.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starrier)
+> * 校对者：[TrWestdoor](https://github.com/TrWestdoor)
 
-# Data Visualization with Bokeh in Python, Part II: Interactions
+# 利用 Python 中 Bokeh 实现数据可视化，第二部分：交互
 
-**Moving beyond static plots**
+**超越静态图的图解**
 
-In the [first part](https://towardsdatascience.com/data-visualization-with-bokeh-in-python-part-one-getting-started-a11655a467d4) of this series, we walked through creating a basic histogram in [Bokeh](https://bokeh.pydata.org/en/latest/), a powerful Python visualization library. The final result, which shows the distribution of arrival delays of flights departing New York City in 2013 is shown below (with a nice tooltip!):
+本系列的[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/data-visualization-with-bokeh-in-python-part-one-getting-started.md) 中，我们介绍了在 [Bokeh](https://bokeh.pydata.org/en/latest/)（Python 中一个强大的可视化库）中创建的一个基本柱状图。最后的结果显示了 2013 年从纽约市起飞的航班延迟到达的分布情况，如下所示（有一个非常好的工具提示）：
 
 ![](https://cdn-images-1.medium.com/max/800/1*rNBU4zoqIk_iEzMGufiRhg.png)
 
-This chart gets the job done, but it’s not very engaging! Viewers can see the distribution of flight delays is nearly normal (with a slight positive skew), but there’s no reason for them to spend more than a few seconds with the figure.
+这张表完成了任务，但并不是很吸引人！用户可以看到航班延迟的几乎是正常的（有轻微的斜率），但他们没有理由在这个数字上花几秒钟以上的时间。
 
-If we want to create more engaging visualization, we can allow users to explore the data on their own through interactions. For example, in this histogram, one valuable feature would be the ability to select specific airlines to make comparisons or the option to change the width of the bins to examine the data in finer detail. Fortunately, these are both features we can add on top of our existing plot using Bokeh. The initial development of the histogram may have seemed involved for a simple plot, but now we get to see the payoff of using a powerful library like Bokeh!
+如果我们想创建更吸引人的可视化数据，可以允许用户通过交互方式来获取他们想要的数据。比如，在这个柱状图中，一个有价值的特性是能够选择指定航空公司进行比较，或者选择更改容器的宽度来更详细地检查数据。辛运的是，我们可以使用 Bokeh 在现有的绘图基础上添加这两个特性。柱状图的最初开发似乎只涉及到了一个简单的图，但我们现在即将体验到像 Bokeh 这样的强大的库的所带来的好处！
 
-All the code for this series is [available on GitHub](https://github.com/WillKoehrsen/Bokeh-Python-Visualization/tree/master/interactive). I encourage anyone to check it out for all the data cleaning details (an uninspiring but necessary part of data science) and to experiment with the code!(For interactive Bokeh plots, we can still use a Jupyter Notebook to show the results or we can write Python scripts and run a Bokeh server. For development, I usually work in a Jupyter Notebook because it is easier to rapidly iterate and change plots without having to restart the server. I then move to a server to display the final results. You can see both a standalone script and the full notebook on GitHub.)
+本系列的所有代码[都可在 GitHub 上获得](https://github.com/WillKoehrsen/Bokeh-Python-Visualization/tree/master/interactive)。任何感兴趣的人都可以查看所有的数据清洗细节（数据科学中一个不那么鼓舞人心但又必不可少的部分），也可以亲自运行它们！（对于交互式 Bokeh 图，我们仍然可以使用 Jupyter Notebook 来显示结果，我们也可以编写 Python 脚本，并运行 Bokeh 服务器。我通常使用 Jupyter Notebook 进行开发，因为它可以在不重启服务器的情况下，就可以很容易的快速迭代和更改绘图。然后我将它们迁移到服务器中来显示最终结果。你可以在 GitHub 上看到一个独立的脚本和完整的笔记）。
 
-### Active Interactions
+### 主动的交互
 
-There are two classes of interactions in Bokeh: passive and active. Passive interactions, covered in Part I, are also known as inspectors because they allow users to examine a plot in more detail but do not change the information displayed. One example is a tooltip that appears when a user hovers over a data point:
+在 Bokeh 中，有两类交互：被动的和主动的。第一部分所描述的被动交互也称为 inspectors，因为它们允许用户更详细地检查一个图，但不允许更改显示的信息。比如，当用户悬停在数据点上时出现的工具提示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*3A33DOx2NL0h53SfsgPrzg.png)
 
-Tooltip, a passive interactor
+工具提示，被动交互器
 
-The second class of interaction is called active because it changes the actual data displayed on the plot. This can be anything from selecting a subset of the data (such as specific airlines) to changing the degree of a polynomial regression fit. There are multiple types of [active interactions in Bokeh](https://bokeh.pydata.org/en/latest/docs/user_guide/interaction.html), but here we will focus on what are called “widgets”, elements that can be clicked on and that give the user control over some aspect of the plot.
+第二类交互被称为 active，因为它更改了显示在绘图上的实际数据。这可以是从选择数据的子集（例如指定的航空公司）到改变匹配多项式回归拟合程度中的任何数据。在 Bokeh 中有多种类型的 [active 交互](https://bokeh.pydata.org/en/latest/docs/user_guide/interaction.html)，但这里我们将重点讨论“小部件”，可以被单击，而且用户能够控制某些绘图方面的元素。
 
 ![](https://cdn-images-1.medium.com/max/600/1*3DV5TiCbiSSmEck5BhOjnQ.png)
 
 ![](https://cdn-images-1.medium.com/max/600/1*1lcSC9fMxSd2nqul_twj2Q.png)
 
-Example of Widgets (dropdown button and radio button group)
+小部件示例（下拉按钮和单选按钮组）
 
-When I view graphs, I enjoy playing with active interactions ([such as those on FlowingData](http://flowingdata.com/2018/01/23/the-demographics-of-others/)) because they allow me to do my own exploration of the data. I find it more insightful to discover conclusions from the data on my own (with some direction from the designer) rather than from a completely static chart. Moreover, giving users some amount of freedom allows them to come away with slightly different interpretations that can generate beneficial discussion about the dataset.
+当我查看图时，我喜欢主动的交互（[比如那些在 FlowingData 上的交互](http://flowingdata.com/2018/01/23/the-demographics-of-others/)），因为它们允许我自己去研究数据。我发现让人印象更深刻的是从我自己的数据中发现的结论（从设计者那里获取的一些研究方向），而不是从一个完全静态的图表中发现的结论。此外，给予用户一定程度的自由，可以让他们对数据集提出更有用的讨论，从而产生不同的解释。
 
-### Interaction Outline
+### 交互概述
 
-Once we start adding active interactions, we need to move beyond single lines of code and into functions that encapsulate specific actions. For a Bokeh widget interaction, there are three main functions that to implement:
+一旦我们开始添加主动交互，我们就需要越过单行代码，深入封装特定操作的函数。对于 Bokeh 小部件的交互，有三个主要函数可以实现：
 
-*   `make_dataset()` Format the specific data to be displayed
-*   `make_plot()`Draw the plot with the specified data
-*   `update()` Update the plot based on user selections
+*   `make_dataset()` 格式化想要显示的特定数据
+*   `make_plot()` 用指定的数据进行绘图
+*   `update()` 基于用户选择来更新绘图
 
-#### Formatting the Data
+#### 格式化数据
 
-Before we can make the plot, we need to plan out the data that will be displayed. For our interactive histogram, we will offer users three controllable parameters:
+在我们绘制这个图之前，我们需要规划将要显示的数据。对于我们的交互柱状图，我们将为用户提供三个可控参数：
 
-1.  Airlines displayed (called carriers in the code)
-2.  Range of delays on the plot, for example: -60 to +120 minutes
-3.  Width of histogram bin, 5 minutes by default
+1.  航班显示（在代码中称为运营商）
+2.  绘图中的时间延迟范围，例如：-60 到 120 分钟
+3.  默认情况下，柱状图的容器宽度是 5 分钟
 
-For the function that makes the dataset for the plot, we need to allow each of these parameters to be specified. To inform how we will transform the data in our `make_dataset` function, lets load in all the relevant data and inspect.
+对于生成绘图数据集的函数，我们需要允许指定每个参数。为了告诉我们如何转换 `make_dataset` 函数中的数据，我们需要加载所有相关数据进行检查。
 
 ![](https://cdn-images-1.medium.com/max/800/1*oGphn8rw5GEmy9-tnHanuA.png)
 
-Data for histogram
+柱状图数据
 
-In this dataset, each row is one separate flight. The `arr_delay`column is the arrival delay of the flight in minutes (negative numbers means the flight was early). In part I, we did some data exploration and know there are 327,236 flights with a minimum delay of -86 minutes and a maximum delay of +1272 minutes. In the `make_dataset`function, we will want to select airlines based on the `name` column in the dataframe and limit the flights by the `arr_delay` column.
+在此数据集中，每一行都是一个单独的航班。`arr_delay` 列是航班到达延误数分钟（负数表示航班提前到达）。在第一部分中，我们做了一些数据探索，知道有 327，236 次航班，最小延误时间为 -86 分钟，最大延误时间为 1272 分钟。在 `make_dataset` 函数中，我们想基于 dataframe 中的 `name` 列来选择公司，并用 `arr_delay` 列来限制航班。
 
-To make the data for the histogram, we use the numpy function `histogram` which counts the number of data points in each bin. In our case, this is the number of flights in each specified delay interval. For part I, we made a histogram for all flights, but now we will do it by each carrier. As the number of flights for each carrier varies significantly, we can display the delays not in raw counts but in proportions. That is, the height on the plot corresponds to the fraction of all flights for a specific airline with a delay in the corresponding bin. To go from counts to a proportion, we divide the count by the total count for the airline.
+为了生成柱状图的数据，我们使用 numpy 函数 `histogram` 来统计每个容器中的数据点数。在我们的示例中，这是每个指定延迟间隔中的航班数。对于第一部分，我们做了一个包含所有航班的柱状图，但现在我们会为每一个运营商都提供一个柱状图。由于每个航空公司的航班数目有很大差异，我们可以显示延迟而不是按原始数目显示，可以按比例显示。也就是说，图上的高度对应于特定航空公司的所有航班比例，该航班在相应的容器中有延迟。从计数到比例，我们除以航空公司的总数。
 
-Below is the full code for making the dataset. The function takes in a list of carriers that we want to include, the minimum and maximum delays to be plotted, and the specified bin width in minutes.
+下面是生成数据集的完整代码。函数接受我们希望包含的运营商列表，要绘制的最小和最大延迟，以及制定的容器宽度（以分钟为单位）。
 
-```
+```Python
 def make_dataset(carrier_list, range_start = -60, range_end = 120, bin_width = 5):
 
-    # Check to make sure the start is less than the end!
+    # 为了确保起始点小于终点而进行检查
     assert range_start < range_end, "Start must be less than end!"
     
     by_carrier = pd.DataFrame(columns=['proportion', 'left', 'right', 
@@ -76,67 +76,67 @@ def make_dataset(carrier_list, range_start = -60, range_end = 120, bin_width = 5
                                        'name', 'color'])
     range_extent = range_end - range_start
     
-    # Iterate through all the carriers
+    # 遍历所有运营商
     for i, carrier_name in enumerate(carrier_list):
 
-        # Subset to the carrier
+        # 运营商子集
         subset = flights[flights['name'] == carrier_name]
 
-        # Create a histogram with specified bins and range
+        # 创建具有指定容器和范围的柱状图
         arr_hist, edges = np.histogram(subset['arr_delay'], 
                                        bins = int(range_extent / bin_width), 
                                        range = [range_start, range_end])
 
-        # Divide the counts by the total to get a proportion and create df
+        # 将极速除以总数，得到一个比例，并创建 df
         arr_df = pd.DataFrame({'proportion': arr_hist / np.sum(arr_hist), 
                                'left': edges[:-1], 'right': edges[1:] })
 
-        # Format the proportion 
+        # 格式化比例
         arr_df['f_proportion'] = ['%0.5f' % proportion for proportion in arr_df['proportion']]
 
-        # Format the interval
+        # 格式化间隔
         arr_df['f_interval'] = ['%d to %d minutes' % (left, right) for left, 
                                 right in zip(arr_df['left'], arr_df['right'])]
 
-        # Assign the carrier for labels
+        # 为标签指定运营商
         arr_df['name'] = carrier_name
 
-        # Color each carrier differently
+        # 不同颜色的运营商
         arr_df['color'] = Category20_16[i]
 
-        # Add to the overall dataframe
+        # 添加到整个 dataframe 中
         by_carrier = by_carrier.append(arr_df)
 
-    # Overall dataframe
+    # 总体 dataframe
     by_carrier = by_carrier.sort_values(['name', 'left'])
     
-    # Convert dataframe to column data source
+    # 将 dataframe 转换为列数据源
     return ColumnDataSource(by_carrier)
 ```
 
-(I know this is a post about Bokeh, but you can’t make a graph without formatted data, so I included the code to demonstrate my methods!)
+（我知道这是一篇关于 Bokeh 的博客，但在你不能在没有格式化数据的情况下来生成图表，因此我使用了相应的代码来演示我的方法！）
 
-The results of running the function with all of the carriers is below:
+运行带有所需运营商的函数结果如下：
 
 ![](https://cdn-images-1.medium.com/max/800/1*yKvJztYW6m6k07FxaqdadQ.png)
 
-As a reminder, we are using the Bokeh `quad` glyphs to make the histogram and so we need to provide the left, right, and top of the glyph (the bottom will be fixed at 0). These are in the `left`, `right`, and `proportion` columns respectively. The color column gives each carrier a unique color and the `f_` columns provide formatted text for the tooltips.
+作为提醒，我们使用 Bokeh `quad` 表来制作柱状图，因此我们需要提供表的左、右和顶部（底部将固定为 0）。它们分别在罗列在 `left`、`right` 以及 `proportion`。颜色列为每个运营商提供了唯一的颜色，`f_` 列为工具提供了格式化文本的功能。
 
-The next function to implement is `make_plot`. The function should take in a ColumnDataSource [(a specific type of object used in Bokeh for plotting)](https://bokeh.pydata.org/en/latest/docs/reference/models/sources.html) and return the plot object:
+下一个要实现的函数是 `make_plot`。函数应该接受 ColumnDataSource [(Bokeh 中用于绘图的一种特定类型对象)](https://bokeh.pydata.org/en/latest/docs/reference/models/sources.html)并返回绘图对象：
 
-```
+```Python
 def make_plot(src):
-        # Blank plot with correct labels
+        # 带有正确标签的空白图
         p = figure(plot_width = 700, plot_height = 700, 
                   title = 'Histogram of Arrival Delays by Carrier',
                   x_axis_label = 'Delay (min)', y_axis_label = 'Proportion')
 
-        # Quad glyphs to create a histogram
+        # 创建柱状图的四种符号
         p.quad(source = src, bottom = 0, top = 'proportion', left = 'left', right = 'right',
                color = 'color', fill_alpha = 0.7, hover_fill_color = 'color', legend = 'name',
                hover_fill_alpha = 1.0, line_color = 'black')
 
-        # Hover tool with vline mode
+        # vline 模式下的悬停工具
         hover = HoverTool(tooltips=[('Carrier', '@name'), 
                                     ('Delay', '@f_interval'),
                                     ('Proportion', '@f_proportion')],
@@ -150,159 +150,159 @@ def make_plot(src):
         return p 
 ```
 
-If we pass in a source with all airlines, this code gives us the following plot:
+如果我们向所有航空公司传递一个源，此代码将给出以下绘图：
 
 ![](https://cdn-images-1.medium.com/max/800/1*-IcPPBWctsiOuh870pRbJg.png)
 
-This histogram is very cluttered because there are 16 airlines plotted on the same graph! If we want to compare airlines, it’s nearly impossible because of the overlapping information. Luckily, we can add widgets to make the plot clearer and enable quick comparisons.
+这个柱状图非常混乱，因为 16 家航空公司都绘制在同一张图上！因为信息被重叠了，所以如果我们想比较航空公司就显得不太现实。辛运的是，我们可以添加小部件来使绘制的图更清晰，也能够进行快速地比较。
 
-#### Creating Widget Interactions
+#### 创建可交互的小部件
 
-Once we create a basic figure in Bokeh adding in interactions via widgets is relatively straightforward. The first widget we want is a selection box that allows viewers to select airlines to display. This control will be a check box which allows as many selections as desired and is known in Bokeh as a `CheckboxGroup.` To make the selection tool, we import the `CheckboxGroup` class and create an instance with two parameters, `labels`: the values we want displayed next to each box and `active`: the initial boxes which are checked. Here is the code to create a `CheckboxGroup` with all carriers.
+一旦我们在 Bokeh 中创建一个基础图形，通过小部件添加交互就相对简单了。我们需要的第一个小部件是允许用户选择要显示的航空公司的选择框。这是一个允许根据需要进行尽可能多的选择的复选框控件，在 Bokeh 中称为T `CheckboxGroup.`。为了制作这个可选工具，我们需要导入 `CheckboxGroup` 类来创建带有两个参数的实例，`labels`：我们希望显示每个框旁边的值以及 `active`：检查选中的初始框。以下创建的 `CheckboxGroup` 代码中附有所需的运营商。
 
-```
+```Python
 from bokeh.models.widgets import CheckboxGroup
 
-# Create the checkbox selection element, available carriers is a  
-# list of all airlines in the data
+# 创建复选框可选元素，可用的载体是
+# 数据中所有航空公司组成的列表
 carrier_selection = CheckboxGroup(labels=available_carriers, 
                                   active = [0, 1])
 ```
 
 ![](https://cdn-images-1.medium.com/max/600/1*XpJfjyKacHR2VwdCIed-wA.png)
 
-CheckboxGroup widget
+CheckboxGroup 部件
 
-The labels in a Bokeh checkbox must be strings, while the active values are integers. This means that in the image ‘AirTran Airways Corporation’ maps to the active value of 0 and ‘Alaska Airlines Inc.’ maps to the active value of 1. When we want to match the selected checkboxes to the airlines, we need to make sure to find the _string_ names associated with the selected _integer_ active values. We can do this using the `.labels` and `.active` attributes of the widget:
+Bokeh 复选框中的标签必须是字符串，但激活值需要的是整型。这意味着在在图像 ‘AirTran Airways Corporation’ 中，激活值为 0，而 ‘Alaska Airlines Inc.’ 激活值为 1。当我们想要将选中的复选框与 airlines 想匹配时，我们需要确保所选的**整型**激活值能匹配与之对应的**字符串**。我们可以使用部件的 `.labels` 和 `.active` 属性来实现。
 
-```
-# Select the airlines names from the selection values
+```Python
+# 从选择值中选择航空公司的名称
 [carrier_selection.labels[i] for i in carrier_selection.active]
 
 ['AirTran Airways Corporation', 'Alaska Airlines Inc.']
 ```
 
-After making the selection widget, we now need to link the selected airline checkboxes to the information displayed on the graph. This is accomplished using the `.on_change` method of the CheckboxGroup and an `update` function that we define. The update function always takes three arguments: `attr, old, new` and updates the plot based on the selection controls. The way we change the data displayed on the graph is by altering the data source that we passed to the glyph(s) in the `make_plot` function. That might sound a little abstract, so here’s an example of an `update` function that changes the histogram to display the selected airlines:
+在制作完小部件后，我们现在需要将选中的航空公司复选框链接到图表上显示的信息中。这是使用 CheckboxGroup 的 `.on_change` 方法和我们定义的 `update` 函数完成的。update 函数总是具有三个参数：`attr、old、new`，并基于选择控件来更新绘图。改变图形上显示的数据的方式是改变我们传递给 `make_plot` 函数中的图形的数据源。这听起来可能有点抽象，因此下面是一个 `update` 函数的示例，该函数通过更改柱状图来显示选定的航空公司：
 
-```
-# Update function takes three default parameters
+```Python
+# update 函数有三个默认参数
 def update(attr, old, new):
     # Get the list of carriers for the graph
-    carriers_to_plot = [carrier_selection.labels[i] for i in 
+    carriers_to_plot = [carrier_selection.labels[i] for i in
                         carrier_selection.active]
 
-    # Make a new dataset based on the selected carriers and the 
-    # make_dataset function defined earlier
+    # 根据被选中的运营商和
+    # 先前定义的 make_dataset 函数来创建一个新的数据集
     new_src = make_dataset(carriers_to_plot,
                            range_start = -60,
                            range_end = 120,
                            bin_width = 5)
 
-    # Update the source used in the quad glpyhs
+    # update 在 quad glpyhs 中使用的源
     src.data.update(new_src.data)
 ```
 
-Here, we are retrieving the list of airlines to display based on the selected airlines from the CheckboxGroup. This list is passed to the `make_dataset`function which returns a new column data source. We update the data of the source used in the glyphs by calling `src.data.update` and passing in the data from the new source. Finally, in order to link changes in the `carrier_selection` widget to the `update` function, we have to use the `.on_change` method (called an [event handler](https://bokeh.pydata.org/en/latest/docs/user_guide/interaction/widgets.html)).
+这里，我们从 CheckboxGroup 中检索要基于选定航空公司显示的航空公司列表。这个列表被传递给 `make_dataset` 函数，它返回一个新的列数据源。我们通过调用 `src.data.update` 以及传入来自新源的数据更新图表中使用的源数据。最后，为了将 `carrier_selection` 小部件中的更改链接到 `update` 函数，我们必须使用 `.on_change` 方法（称为[事件处理器](https://bokeh.pydata.org/en/latest/docs/user_guide/interaction/widgets.html)）。
 
-```
-# Link a change in selected buttons to the update function
+```Python
+# 将选定按钮中的更改链接到 update 函数
 carrier_selection.on_change('active', update)
 ```
 
-This calls the update function any time a different airline is selected or unselected. The end result is that only glyphs corresponding to the selected airlines are drawn on the histogram, which can be seen below:
+在选择或取消其他航班的时会调用 update 函数。最终结果是在柱状图中只绘制了与选定航空公司相对应的符号，如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*z36QoTv4AnbJqHLmKkLTZQ.gif)
 
-#### More Controls
+#### 更多控件
 
-Now that we know the basic workflow for creating a control we can add in more elements. Each time, we create the widget, write an update function to change the data displayed on the plot, and link the update function to the widget with an event handler. We can even use the same update function for multiple elements by rewriting the function to extract the values we need from the widgets. To practice, we will add two additional controls: a Slider which selects the bin width for the histogram, and a RangeSlider that sets the minimum and maximum delays to display. Here’s the code to make both of these widgets and the new update function:
+现在我们已经知道了创建控件的基本工作流程，我们可以添加更多元素。我们每次创建小部件时，编写 update 函数来更改显示在绘图上的数据，通过事件处理器来将 update 函数链接到小部件。我们甚至可以通过重写函数来从多个元素中使用相同的 update 函数来从小部件中提取我们所需的值。在实践过程中，我们将添加两个额外的控件：一个用于选择柱状图容器宽度的 Slider，另一个是用于设置最小和最大延迟的 RangeSlider。下面是生成这些小部件和 update 函数的代码：
 
-```
-# Slider to select the binwidth, value is selected number
+```Python
+# 滑动 bindwidth，对应的值就会被选中
 binwidth_select = Slider(start = 1, end = 30, 
                      step = 1, value = 5,
                      title = 'Delay Width (min)')
-# Update the plot when the value is changed
+# 当值被修改时，更新绘图
 binwidth_select.on_change('value', update)
 
-# RangeSlider to change the maximum and minimum values on histogram
+# RangeSlider 用于修改柱状图上的最小最大值
 range_select = RangeSlider(start = -60, end = 180, value = (-60, 120),
                            step = 5, title = 'Delay Range (min)')
 
-# Update the plot when the value is changed
+# 当值被修改时，更新绘图
 range_select.on_change('value', update)
 
 
-# Update function that accounts for all 3 controls
+# 用于 3 个控件的 update 函数
 def update(attr, old, new):
     
-    # Find the selected carriers
+    # 查找选定的运营商
     carriers_to_plot = [carrier_selection.labels[i] for i in carrier_selection.active]
     
-    # Change binwidth to selected value
+    # 修改 binwidth 为选定的值
     bin_width = binwidth_select.value
 
-    # Value for the range slider is a tuple (start, end)
+    # 范围滑块的值是一个元组（开始，结束）
     range_start = range_select.value[0]
     range_end = range_select.value[1]
     
-    # Create new ColumnDataSource
+    # 创建新的列数据
     new_src = make_dataset(carriers_to_plot,
                            range_start = range_start,
                            range_end = range_end,
                            bin_width = bin_width)
 
-    # Update the data on the plot
+    # 在绘图上更新数据
     src.data.update(new_src.data)
 ```
 
-The standard slider and the range slider are shown here:
+标准滑块和范围滑块如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*QlrjWBxnHcBjHp24Xq2M3Q.png)
 
-If we want, we can also change other aspects of the plot besides the data displayed using the update function. For example, to change the title text to match the bin width we can do:
+只要我们想，出了使用 update 函数显示数据之外，我们也可以修改其他的绘图功能。例如，为了将标题文本与容器宽度匹配，我们可以这样做：
 
-```
-# Change plot title to match selection
+```Python
+# 将绘图标题修改为匹配选择
 bin_width = binwidth_select.value
 p.title.text = 'Delays with %d Minute Bin Width' % bin_width
 ```
 
-There are many other types of interactions in Bokeh, but for now, our three controls allow users plenty to “play” with on the chart!
+在 Bokeh 中海油许多其他类型的交互，但现在，我们的三个控件允许运行在图标上“运行”！
 
-### Putting it all together
+### 把所有内容放在一起
 
-All the elements for our interactive plot are in place. We have the three necessary functions: `make_dataset`, `make_plot`, and `update` to change the plot based on the controls and the widgets themselves. We join all of these elements onto one page by defining a layout.
+我们的所有交互式绘图元素都已经说完了。我们有三个必要的函数：`make_dataset`、`make_plot` 和 `update`，基于控件和系哦啊不见自身来更改绘图。我们通过定义布局将所有这些元素连接到一个页面上。
 
-```
+```Python
 from bokeh.layouts import column, row, WidgetBox
 from bokeh.models import Panel
 from bokeh.models.widgets import Tabs
 
-# Put controls in a single element
+# 将控件放在单个元素中
 controls = WidgetBox(carrier_selection, binwidth_select, range_select)
     
-# Create a row layout
+# 创建行布局
 layout = row(controls, p)
     
-# Make a tab with the layout 
+# 使用布局来创建一个选项卡
 tab = Panel(child=layout, title = 'Delay Histogram')
 tabs = Tabs(tabs=[tab])
 ```
 
-I put the entire layout onto a tab, and when we make a full application, we can put each plot on a separate tab. The final result of all this work is below:
+我将整个布局放在一个选项卡上，当我们创建一个完整的应用程序时，我们可以为每个绘图都创建一个单独的选项卡。最后的工作结果如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*5xN0M2CT1yAvpnzWM-bMhg.gif)
 
-Feel free to check out the code and plot for yourself on [GitHub](https://github.com/WillKoehrsen/Bokeh-Python-Visualization/tree/master/interactive/exploration).
+可以在 [GitHub](https://github.com/WillKoehrsen/Bokeh-Python-Visualization/tree/master/interactive/exploration) 上查看相关代码，并绘制自己的绘图。
 
-### Next Steps and Conclusions
+### 下一步和内容
 
-The next part of this series will look at how we can make a complete application with multiple plots. We will be able to show our work on a server and access it in a browser, creating a full dashboard to explore the dataset.
+本系列的下一部分将讨论如何使用多个绘图来制作一个完整的应用程序。我们将通过服务器来展示我们的工作结果，可以通过浏览器对其进行访问，并创建一个完整的仪表盘来探究数据集。
 
-We can see that the final interactive plot is much more useful than the original! We can now compare delays between airlines and change the bin widths/ranges to see how the distribution is affected. Adding interactivity raises the value of a plot because it increases engagement with the data and allows users to arrive at conclusions through their own explorations. Although setting up the initial plot was involved, we saw how we could easily add elements and control widgets to an existing figure. The customizability of plots and interactions are the benefits of using a heavier plotting library like Bokeh compared to something quick and simple like matplotlib. Different visualization libraries have different advantages and use-cases, but when we want to add the extra dimension of interaction, Bokeh is a great choice. Hopefully at this point you are confident enough to start developing your own visualizations, and please share anything you create!
+我们可以看到，最终的互动绘图比原来的有用的多！我们现在可以比较航空公司之间的延迟，并更改容器的宽度/范围，来了解这些分布是如何被影响的。增加的交互性提高了绘图的价值，因为它增加了对数据的支持，并允许用户通过自己的探索得出结论。尽管设置了初始化的绘图，但我们仍然可以看到如何轻松地将元素和控件添加到现有的图形中。与像 matplotlib 这样快速简单的绘图库相比，使用更重的绘图库（比如 bokeh）可以定制化绘图和交互。不同的可视化库有不同的优点和用例，但当我们想要增加交互的额外维度时，Bokeh 是一个很好的选择。希望在这一点上，你有足够的信心来开发你自己的可视化绘图，也希望看到你可以分享自己的创作。
 
-I welcome feedback and constructive criticism and can be reached on Twitter [@koehrsen_will](https://twitter.com/koehrsen_will).
+欢迎向我反馈以及建设性的批评，可以在 Twitter [@koehrsen_will](https://twitter.com/koehrsen_will) 上和我联系。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

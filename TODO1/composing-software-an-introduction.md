@@ -1,5 +1,5 @@
 > * 原文地址：[Composing Software: An Introduction](https://medium.com/javascript-scene/composing-software-an-introduction-27b72500d6ea)
-> * 原文作者：[Eric Elliott](Eric Elliott)
+> * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/composing-software-an-introduction.md](https://github.com/xitu/gold-miner/blob/master/TODO1/composing-software-an-introduction.md)
 > * 译者：[Sam](https://github.com/xutaogit)
