@@ -5,211 +5,211 @@
 > * 译者：
 > * 校对者：
 
-# The State of Web Browsers: Late 2018 edition
+# 浏览器之争:最新进展
 
 ![](https://cdn-images-1.medium.com/max/800/1*ysSQaD2xD85QT2Zz2kFxZw.png)
 
-**Update (Dec 6, 2018):** Microsoft has [confirmed](https://blogs.windows.com/windowsexperience/2018/12/06/microsoft-edge-making-the-web-better-through-more-open-source-collaboration/) the rumor to be true. We now have one less browser engine, and a last man standing (Firefox) in deep trouble (reasons below). If you agree that this sucks, [install Firefox](https://www.mozilla.org/en-US/firefox/). Also on mobile. Here’s instructions on how to [switch from Chrome](https://www.mozilla.org/en-US/firefox/switch/).
+**截至2018年12月6日:** 微软宣布放弃自家引擎,证实此前的流言为真. 浏览器大战中只剩下最后一个巨人——Firefox(原因见下文)如果你想支持火狐, [安装 Firefox](https://www.mozilla.org/en-US/firefox/).该安装包同时支持移动端.这里是指导 [如何从Chrome转移到Firefox](https://www.mozilla.org/en-US/firefox/switch/).
 
-**Update (Dec 8, 2018):** The below article is a truthful but depressing read. I’ve published a follow-up article that radiates hope for what is to come in 2019 [here](https://ferdychristant.com/the-state-of-web-browsers-88224d55b4e6).
+**截至2018年12月8日:** 下文可能会让人感到沮丧.但同时我也发布了一系列后续文章,包含2019年振奋人心的新技术[点击这里](https://ferdychristant.com/the-state-of-web-browsers-88224d55b4e6).
 
-### Introduction
+### 序言
 
-_Warning: this article contains several words_.
+_警告: 这篇文章包含了几个预测_.
 
-Yesterday, [Windows Central](https://www.windowscentral.com/microsoft-building-chromium-powered-web-browser-windows-10) published a rumour that Microsoft is ditching its Edge browser, or more accurately put, to relaunch a new browser using the Chromium engine. The rumour has been picked up by mainstream media and as far as I know, not denied by Microsoft, therefore I assume it to be factual. A good reason as any for me to share some thoughts on the current landscape of web browsers.
+昨天, [Windows Central](https://www.windowscentral.com/microsoft-building-chromium-powered-web-browser-windows-10)发布了一则流言: Microsoft打算放弃自家Edge浏览器, 或更确切的说,准备利用 Chromium 引擎开发一款新的浏览器. 这则消息很快被主流媒体传开,据我所知微软并未否认,因此我认为这是真的. 借此机会,我想分享一下我对该问题的想法.
 
-If you’re new to my blog, I’ll add the background that I’ve been in the web game since 1996, and have seen every iteration of the browser wars up close. In terms of mindset, I’m from the Zeldman school of thought: a deep believer and proponent of the open web, web standards, a shared web.
+如果你从未看过我的博客也没关系,我会从1996年开始介绍历史背景. 从立场上讲, 我是Zeldman那派: 一名坚定的开放化、标准化、共享式web支持者.
 
-I’ll also warn you that I am direct, frank, cynical, love dark humour, and don’t take many things serious, including myself. With that in mind, let’s go.
+同时我也要提醒你,我相当直接,有点古怪,喜欢黑暗冷笑话,并且还有些玩世不恭.牢记这一点,让我们出发吧. 
 
-#### Microsoft Edge: doomed to fail
+#### Microsoft Edge: 注定失败
 
-Let’s first establish the market share failure that Edge is after 3 years of existence. Depending on the source to use, it is listed at around 4–5%. This is from a company still running a desktop semi-monopoly and having the ability to push it down our throats in subtle, or not so subtle ways. It is from the same company who once had a 80–90% market share, an almost complete monopoly.
+首先看下Edge推出3年后的市场份额. 根据最近的资料, 它大概占市场份额的 4–5%. 微软公司曾经在桌面系统拥有80%-90%市场,基本处于垄断地位.时至今日也依然占据半壁江山,鉴于此,它可以用直接或间接的方式将edge推广给我们.
 
-It gets worse, combined with mobile, market share plummets to about 2%. In the range of 2–5%, Edge joins a long list of browsers nobody really cares about. Like Opera, or Vivaldi, or Samsung Internet. Sure, each may have a loyal following and they may even be great browsers in their niche, but they are not major players, nor would any developer care explicitly about them.
+但随着移动端的发展,市场份额下跌到2%.就像Opera, Vivaldi, 或Samsung浏览器一样. Edge正变得无人问津.  诚然,每个浏览器都有自己的忠实追随者,在他们的眼中这些浏览器足够棒.然而他们不是主流用户,开发者也不会关心.
 
-The situation for Edge is in fact worse compared to small browsers like Opera. At least those browsers are compatible with the web. Websites will work in them because websites are built to work in Chromium. Edge doesn’t have that luxury, because they have their own engine to maintain, playing constant catch up in an effort to get the modern web to work in an engine of their own making.
+Edge的处境比那些小众浏览器例如Opera更糟.至少它们与web标准是兼容的. 由于内置引擎是Chromium,网站可以很顺畅的运行其中.Edge享受不到这种便利,因为它需要维护自己的引擎, 玩一场努力跟上现代web标准的追赶游戏.
 
-Having virtually no presence on mobile and failing to gain traction on a market you control, desktop, can be considered a failure. Here’s some thoughts on how Edge could have done better. These are mere opinions, and we all know hindsight is 20/20:
+移动端无人问津,桌面端也节节败退,Edge彻底失败.以下有一些Edge如何自救的方法. 但仅仅只是个人看法,而且都是一些后见之明:
 
-*  The biggest opportunity for market share was missed during launch. No matter how much you hate Internet Explorer, you have to acknowledge that hundreds of millions of users have been trained to consider it “the internet” out of sheer muscle memory. Some because they’re forced to use it, some because they don’t know any better, and it works for them. This large audience was not captured when Edge launched. There’s no guidance from IE to Edge. Edge is as alien to an IE user as any other new browser they have failed to switch to in all those years. Hell, Microsoft could have even kept the icon the same, and switch rendering engines behind the scenes to capture this audience. But they didn’t, so nobody switched, not in great numbers. All of this happened during a larger move, the deeply confusing Windows 8 era. Here finally the word clusterfuck would be accurate, as it really was a cluster of several failings at once.
+* 争取市场的最佳时机从开始就已经错失了.无论你多么讨厌Internet Explorer, 也必须承认,依然有数千万用户就像肌肉记忆一样认为Internet Explorer就是“互联网” 的入口.其中一些是不得不使用IE, 还有一些没找到更好的选择, Internet Explorer足以满足他们.然而当 Edge问世时这一大部分用户并未被挽留住. 从IE切换到Edge没有任何指引.对那些年尝试使用新浏览器但却失败的IE用户来说,Edge和那些新浏览器没任何区别,仿佛一个外星人. 见鬼,微软至少可以保留相同的图标, 然后偷偷换掉渲染引擎来保留用户.但是他们没有,所以老用户都不愿使用Edge.这一切都发生在巨变的Windows 8时代.这是胡搞,也是一次彻头彻尾的失败.
 
-*  To those IE users who are aware of what a browser is, and that there are competing browsers, it’s not clear how Edge is better compared to that other new default, Chrome. It doesn’t seem to be better at anything, and quite a lot worse in some things. And to alienate traditional desktop users even further, Edge has a touch-first design. Everything is giant, tucked away, flat. Basic expectations of desktop usability is broken exactly for that audience most promising to Edge: IE users.
+*  对那些熟悉各种浏览器的IE用户, Edge相比其他浏览器例如Chrome没有任何优势.Edge反而在某些方面有明显劣势. Edge的触碰式,扁平化设计破坏了与桌面端用户的联结. 对那些最有希望使用Edge的IE用户来说,深根于脑海里的桌面端操作概念模型被彻底破坏.
 
-*  To developers, Edge is just another IE. Another pain. It’s better than IE, but it remains the browser lagging behind in features and web standards, the browser in which things don’t work or render differently. It’s not due to the Edge team itself. In my interactions with them, I found them to be awesome. Great engineers, proponents of an open web. It seems to me the team is rather small, and perhaps doesn’t have enough resources. Also, Microsoft once again insisted on the fail strategy to ship browser updates as part of OS updates, whilst the competition ships every 6 weeks. A losing proposition. The best possible outcome in these conditions is shipping a browser that is slightly worse than the competition, so why bother at all.
+*  对于开发者来说,Edge只是披着皮的IE.它比IE好一些,但依然落后于现代web标准和特性,与其他浏览器的工作原理和渲染机制也不同,完全是个新麻烦.这并不是Edge研发团队造成的.通过我和他们的交谈, 我发现他们都是伟大的工程师，同时也是开放web的拥护者.但他们只是一个极小的团队,并没有很多的资源支持. 同时,当Edge的竞争对手每6周就更新一次时, 微软依然坚持系统更新时顺带更新浏览器这个失败策略. 所以最好的结果也就是发布比竞争对手略差的浏览器,开发者何必为此费心呢.
 
-*  A lack of marketing. Sometimes Microsoft is stuck in its old ways. They ship something and believe just shipping it triggers mass adoption. Like it always did in their decades-long dominance. Those days are over, you need to compete, market, win hearts and minds and do so aggressively for a long time. Has this been done for Edge? I don’t think so. Years after launch, still Edge has no significant mind share.
+* 缺乏营销.微软有时会被过去的经验困住:认为只要发布产品,用户就会使用. 就像他们在数十年的垄断期做的那样. 然而辉煌已经过去, 微软需要持续不断地竞争和营销以此来获取用户忠诚度.Edge显然没有做到. 自发布以来,Edge的品牌知名度一直不高.
 
-All of the above said, I don’t think these reasons matter much at all. Had all these things be handled better, perhaps 4% would be 6%. It most certainly would not make Edge truly significant in terms of market share, nor would there be any hope of ever achieving good old dominant market share.
+但以上原因都不是根本原因.即使以上问题全部解决,也只能提高4%-6%的市场份额. 这些方法不能让Edge广泛传播,也很难帮它重回主导地位.
 
-The reasons for that, in short, are: mobile. If a typical website gets 50–60% mobile traffic these days, and if billions of people are joining the web with mobile as their only device, it’s safe to say that you lost the browser game if you have no (meaningful) presence there.
+简而言之,根本原因在于移动端的出现.一个网站50%-60%的流量来自移动端, 数亿的用户只用手机上网, 如果你未在移动端投入任何精力,那么可以宣布你在这场游戏中出局了.
 
-Desktop still is a sizable and interesting market though, and here Microsoft finds itself stacked up against Google. Who owns the world’s most important web services and can easily push Chrome to its billions of users. Users that Microsoft does not have, as it doesn’t operate a single meaningful web service. Google will even go as far as making their services only work in Chrome, or actively hamper the operation of a service to users of other browsers (allegedly). They force Android manufacturers to ship Chrome and countless other Google apps as defaults towards billions of users.
+桌面端依然是一个相当大且有趣的市场, 在这里微软需要和谷歌竞争. 谷歌拥有全球最大的web服务并且可以轻松的将Chrome推给数亿使用者.微软没有做到,所以失去了这批使用者.谷歌可以只允许他们的服务在Chrome上运行, 或者拒绝向使用其他浏览器的用户提供服务（据称）. 他迫使Android制造商将Chrome和无数其他Google应用程序作为默认项捆绑给数亿用户.
 
-It’s hard to miss the historical karma game going on here. Microsoft had previously acquired dominant browser market share using deeply unethical and anti-competitive ways. Now their competitor is doing the exact same thing, and they are at the losing end.
+不得不提一下曾经在该领域发生过的角逐游戏.微软曾使用不道德和反竞争的方式获取了浏览器领域的绝对垄断地位(IE). 现在他的竞争对手正在做同样的事,而他成为了失败的一方.
 
-So I conclude that Edge is doomed. It was doomed and its next version will be equally doomed from the start. For the simple reason that Microsoft has close to no say in how browsers get installed: on mobile as a default app, and on desktop via web services under the control of Google. Switching to Chromium makes no difference in market share, as the only way to compete now is through the browser’s UI, not via the engine. Which isn’t a competition at all, since browser UI is a commodity.
+所以我认为,Edge注定失败.毋庸置疑,它的全新版本还是会失败.原因很简单,微软对浏览器的安装方式没有任何发言权:在移动端谷歌是默认浏览器, 在桌面端谷歌可以通过web服务来控制用户.所以微软切换到Chromium 引擎对于市场份额不会有任何改变, 现在唯一的竞争方式是通过浏览器UI,而不是引擎. 但这没有触及到根本,因为UI只是一种消费品(此处指容易模仿).
 
-#### Microsoft Edge on Chromium
+#### 运行在Chromium上的微软Edge
 
-Assuming the rumor to be true, what would it mean if Edge switched to Chromium as a render engine?
+假设传言是真的,Edge使用Chromium作为渲染引擎意味着什么?
 
-For market share, not much, see the previous section. Potentially, it could mean a tiny bump up, as Edge would become more compatible with the Chromium-dominated web and therefore attract more users as a browser in which the web “works”. I don’t think that would make a serious dent though, because it’s not a unique capability.
+上文已经提到,市场占有率不会有根本改变. 由于Edge和Chromium主导的web服务更兼容,可以吸引一小批用户,所以市场会有小额提升.但我并不认为这会带来显著改善,因为不是特有优势.
 
-For developers, it’s one less browser engine to worry about, if they were worrying about it in the first place (unlikely). Less testing effort, less browser-specific bug fixing, a slight productivity boost.
+对于开发者来说,少了一个浏览器需要兼容,如果这是他们首要操心的事情 (不太可能).更少的测试工作,更少的浏览器bug, 都可以轻微提高生产力.
 
-For the open web: it’s complicated. If I were to put on the hat of a pragmatic developer, I fail to see the big gain in having competing browser engines. Pragmatically speaking, if I enter code and run it, I want the output to be the same, no matter the engine. Getting different results or even bugs in this output is not a gain, it is a pain. Having feature disparity between engines sucks, it means building multiple versions of the same thing. You can give it nice names like “progressive enhancement” but that doesn’t change the fact that it sucks, from a purely pragmatic productivity point of view.
+对于开放web来说,事情就变得复杂. 如果我是一个务实的开发者,我很难从浏览器引擎竞争中看到巨大收益.实际上, 如果我输入代码并运行, 无论浏览器引擎是什么,我希望获得同样的输出. 如果得到不同输出甚至是Bug只会让人觉得痛苦. 不同的引擎拥有各自的特性,这意味着实现同样的功能需要几份代码.从生产的实用性角度看,你可以取一个漂亮名字例如"渐进增强",但这不会改变恼人的本质.
 
-So what is the whole point of having different engines? Speed could be an argument, but I hardly consider it a strong point these days. The speed of each engine currently out there seems superficially similar.
+所以为什么我们需要不同引擎? 速度可能是一个原因,但这没有说服力.时至今日,几乎所有的引擎速度都相同.
 
-Which leaves innovation coming from engines as the sole benefit of having multiple engines. Whereas in practice different engines primarily create lots of pain, they do at times provide benefits to the open web as a whole. There are countless examples of browser vendors inventing new features that ultimately become useful web standards. Yet even in that case, a counterpoint is easy to make: that new feature could also have been built into a shared, open source engine. Like Chromium. If that engine is truly open source in the democratic sense, that is.
+保留不同引擎唯一的好处就是它可以激励创新. 尽管实践中不同引擎引发了大量麻烦, 但他们确实能为开放web带来好处. 无数的浏览器制造商研发出新特性,并且最终被纳入web标准.针对这种情况, 我们应该:这些特性能被集成进开源引擎.就像Chromium.只要这个浏览器是真正意义上的开源.
 
-My take on this is that when it comes to the open web, it’s not browser engines being the driving force of keeping the web open. If that would be true, the open web is already lost, given the Chromium dominance. Instead, I opt for diversity, competition and collaboration in the decision making process regarding web standards. Less engines could be acceptable for as long as ownership and the standards process regarding those fewer engines are diverse, and not controlled by one organization.
+我的看法是,浏览器引擎不应该是维护开放式网络的驱动力.如果这样,那么在Chromium占主导地位的情况下,开放式网络已经不存在了. 相反,在web标准决策过程中应该保持多样性,既有竞争也有合作. 只要在标准化决策过程中保持多样性,不被一个组织垄断,减少引擎数量也是可以接受的.
 
-To make that a whole lot more explicit: At a W3C meeting or standards discussion, the room should not be 60–70% Googlers. Likewise, Google should not have veto power over an “open source” project like Chromium. Microsoft, Mozilla, Adobe and the like should get equal representation there so that even with less engines, we have shared ownership and decision making on what will be in that engine.
+更直白地说: 在W3C的会议或标准讨论中,房间内不应该有60-70％的谷歌员工.同样,谷歌 也不应该拥有Chromium这样“开源”项目的否决权. 微软,火狐, Adobe等都应该在那里获得一席之地,这样即使引擎数量很少, 我们也能拥自我决策权.
 
-The other aspect of browser innovation is outside the engine, it’s in the UI itself. I can be rather quick about this one: I am totally indifferent to it. They’re all the same to me.
+另一个浏览器创新方式与引擎无关,它是UI层面的.我会很快聊完这个话题: 因为我对此完全没有兴趣. 在我看来他们都一样.
 
-As for Microsoft’s perspective on the switch to Chromium, one can only speculate, so let’s. I think they realize they can’t win significant market share with Edge, and as such, find themselves having a money drain with no light at the end of the tunnel. It’s costly and painful to develop a browser engine and with zero business benefits, they might as well adopt to the “standard”. An admission of defeat. Since they lost mobile and are increasingly a service company, they’re forced to make all their products 100% compatible with Chromium anyway, so why have a home grown engine that is less capable? Even within Microsoft itself, Chromium is the first-class citizen, not Edge.
+让我们从微软的角度推测一下为何投奔Chromium. 我认为他们已经意识到Edge在市场中毫无竞争力, 因此, 继续在Edge中投入也只是绝望的空耗金钱. 开发一个没有任何商业利润的引擎代价非常高昂,所以他们不得不承认自己的失败,并加入"标准化"大家庭. 由于他们已经失去了移动市场并且逐渐转型为服务公司,他们必须使产品与Chromium100%兼容, 所以为什么要自己研发一个不兼容的引擎呢? 即使在微软内部, Chromium才是一等公民, 而不是Edge.
 
-One could wonder why they would launch another browser at all. Surely the new browser will not outperform Edge in market share, so why have one at all? Practical reasons, I suppose. They can plug and integrate a few features exclusive to some Windows devices into the browser, for example drawing on a web page. Plus, it’s embarrassing to ship an OS without a first party browser. People would have no way to download Chrome.
+有人疑惑,既然新的浏览器份额也不会超过Edge,为何还需要一个新的呢?我猜测实际原因可能是,他们想集成一些桌面端特有的功能进去,例如在web页面上绘画.但是当你发布操作系统却没有自带的浏览器会相当尴尬.用户也不会自行下载Chrome.
 
-#### Firefox: the long road to irrelevance
+#### 火狐: 逐步走向衰落
 
-If you think Edge’s situation was and is dire, things are about to get even more grim. Let me first show my true colors: I root for Firefox’s success. I have been doing so since they made the first crack in Microsoft’s IE dominance and have been doing ever since. Not because I think they have the best browser, instead because of sentimental reasons: they are the only independent browser, guardians of an open, shared web. They have superior, human values compared to the rest. I want them to do well.
+如果你认为Edge的处境已经很惨,事情还可以更糟.让我说些真实想法: 我希望火狐能够成功.从他们打破微软IE的垄断那刻起,我就成为他们的粉丝,今后也会一直支持他们.我支持火狐的原因略显感性:尽管不是最好的浏览器,但他是唯一的独立浏览器, 开放共享式网络的守护者.比起其他浏览器,他更具人文价值.
 
-But they’re not doing well. They’ve already lost, and keep losing some more. First, their Firefox OS initiative failed and just like Microsoft, they now find themselves without meaningful presence on mobile. Mobile market share barely registers at around 1%, even worse than Edge.
+然而他们把事情弄砸了.他们已逐步走向衰落.他们自己的系统没有成功也没有抢占到移动端市场,占比仅为1%,比Edge还少.
 
-We can reiterate the simple conclusion here that without mobile presence, you lost. The majority of web traffic is mobile, it’s that simple.
+我再重申一遍,失去移动端市场就意味着失败.大部分的网络流量来自手机,就这么简单.
 
-But again, desktop is not totally irrelevant. Yet here too Firefox is failing hard, and has been failing for a long time, in spectacular ways:
+不过,桌面端依然有意义.但火狐早就在这里失败了:
 
 ![](https://cdn-images-1.medium.com/max/1000/1*a0-r-zbZqI0PnCcYSjUCuA.png)
 
-The above desktop-only view of browser market share is telling. There’s Chrome, and there’s everybody else. Everybody else can be split into two groups: Firefox and the pit of despair: a larger group of small browsers with no meaningful market share.
+从上图可以看到,桌面端浏览器只分为两款:Chrome和其他.其中其他浏览器又可以分为两类:火狐和其他一堆没有任何存在感的浏览器.
 
-Firefox stands above that lowest group by having more market share, which used to be enough to be considered a major browser, a serious player. A weighty means of resistance against one browser monopolizing the game. Not as a dominant player, yet still as a major player.
+火狐虽然占据市场份额不多,但依然是有价值的主流浏览器. 它在阻止谷歌垄断市场的过程中扮演了重要角色.不是主角,但依然重要.
 
-Well, no more. According to most sources, Firefox has dipped below 10% market share. On desktop. Cross device it would be far lower still. And the trend is negative. Hard to see in the above chart, but they lost a whopping 3% in the last year. Despite their marketing efforts and emphasis on making Firefox competitive again, it’s clearly not working. Or not yet.
+根据资料,火狐在桌面端的市场份额已经低于10%,在其余设备上占比更低, 并且呈下降趋势.上图没提到的是,他们去年一年就丢失了3%的市场. 如果不重视市场营销而仅仅关注技术,显然是行不通的.
 
-A cross device view on market share is even more shocking:
+跨设备的市场份额更加令人震惊:
 
 ![](https://cdn-images-1.medium.com/max/1000/0*UKH_lV5-RXgDUAFm.png)
 
-Source: [https://en.wikipedia.org/wiki/Usage_share_of_web_browsers](https://en.wikipedia.org/wiki/Usage_share_of_web_browsers)
+来源: [https://en.wikipedia.org/wiki/Usage_share_of_web_browsers](https://en.wikipedia.org/wiki/Usage_share_of_web_browsers)
 
-From over a 30% market share as a peak to almost complete irrelevance, in 8 years. The chart is clear about the mobile revolution being a primary reason, given the rise of both Chrome and mobile Safari. Yet as we saw in the desktop chart too, there they are moving fast to join the gang of irrelevant browsers.
+火狐仅仅8年就从30%的市场份额跌到无人问津.可以明显看到随着移动端的发展,Chrome和 Safari崛起了.就像我们在桌面端图表看到的那样火狐越来越不重要.
 
-Firefox is now an irrelevant browser in total market share, and well on its way to become irrelevant on desktop as well, if it isn’t already. The first signs of it are already visible. In the past decade, no web developer would ever launch anything that doesn’t work in Firefox. You’d be ridiculed. It was a developer-default browser, a starting point.
+火狐在移动市场中无足轻重,在桌面端也逐步衰落.警报已经拉响.在过去的十年,如果你开发一个在火狐里不能运行的程序,你会被同伴嘲笑.它是开发者心中的标杆.
 
-Well, no more. Increasingly I’m seeing sites, code experiments, all kinds of things not working well or not working at all in Firefox. And nobody cares. The behavior of seeing Firefox as an unimportant browser is slowly normalized. The question of whether Firefox is relevant is already answered: it isn’t. The only question is how irrelevant it will become.
+现在越来越多的网站或者代码测试已经不在火狐中运行.人们慢慢意识到火狐不再重要. 它已经衰落了,但会衰落到何种地步呢?
 
-Mozilla has two weapons to combat the decline, both of which will horribly fail, I’m pained to say. Not because I want them to fail, or to be overly negative or pessimistic. They will fail because both weapons do not address the root cause of the decline.
+火狐有两种方式阻止颓势,但我要遗憾宣布,这两种方法都难以奏效.并不是我危言耸听或想让他们失败,而是他们难以解决根本问题.
 
-Weapon 1 is technology. Mozilla is doing fantastic things in rewriting their browser, from an engineering perspective that is. There’s Servo, Rust, WebRenderer which all look highly innovative, and will ultimately produce a better browser. They may soon have a little peak in delivering the world’s best desktop browser, from a technical point of view.
+第一个武器是技术.从工程角度看,火狐在重写浏览器方面做的非常出色.无论是Rust写的Servo内核浏览器, 还是纯java写的WebRenderer内核浏览器都极具创造性,我相信他们最终能够开发出更好的浏览器. 从技术角度看,他们发布世界上最优秀的浏览器指日可待.
 
-Firefox loyalists (like me) will love it, and 3 new people will agree it’s awesome. And that’s the end of it. The enormous market shifts in browser market share are not caused by browser features or performance. They are caused by the mobile-first revolution and dominant parties being able to ship default browsers to billions of users. Non-technical users do not consciously pick a browser based on features or speed, and even if they did, modern browsers are all fast. I honestly can’t tell the difference between any of them, not even on mediocre hardware. Firefox’s decline and the sharp rise of competitors is not due to engineering, therefore the solution also does not lie in engineering. And even if you did believe engineering is the solution, let’s establish that you can’t out engineer Google. You can win a battle, but not the war.
+火狐的忠实用户(比如我)会非常爱它,当然了,还会有3个新用户觉得它很棒.但仅此而已. 浏览器市场份额的巨大变化不是由浏览器功能或性能引发的. 随着移动浪潮到来,这些移动系统的主导方可以向数十亿用户推广内置浏览器.非技术用户不会根据功能或速度有意识地选择浏览器,实际上现代浏览器都很快.老实说,即使在很普通的硬件上运行,也难以感觉到区别. 火狐的衰落和竞争对手的迅速崛起并非出于技术原因,所以技术不是解决之道.我们都必须使用谷歌的服务. 火狐即使赢得一场战役也无法赢得全局战争.
 
-Weapon 2 is mind share. Firefox as the good guy, guardian of your privacy, an independent force for good. I care, and I’m on board with these sentimental reasons, but we have to be honest that most people don’t care. When choosing between convenience and principles, most people pick convenience. Or, they don’t even spend a second thinking about it because they don’t hear you preaching, or know you even exist (reach). Most certainly there are people who do care, but there’s not enough of us to save Firefox, I’m afraid. A telling example is when Facebook acquired WhatsApp, triggering mainstream discussions on how vast groups would ditch it because of privacy concerns. Nobody did. Whatsapp grew a lot in users that year.
+第二个武器是传道.火狐作为隐私守护者,扮演的是一名正义角色.我很在意这点,但诚实地说,大多数人并不在意. 当便利和原则出现冲突时,人们总是选择便利.当讨论到这个问题时, 他们要么不愿意倾听你的想法,要么根本不觉得这是一个问题. 诚然,有许多人关心这个问题,但恐怕他们的数量并不足以挽救火狐.一个类似的例子是当Facebook收购WhatsApp时, 引发了一场用户是否会因为隐私问题而放弃使用WhatsApp的讨论.实际情况是,那一年的用户增加了许多.
 
-Ugh, a bleak picture of Firefox’s state and its future. What is to become of it? Not much. The best outcome would be that they stop the decline and settle at the current level. Even if they did so, their market share would still decline in total as mobile keeps growing and Firefox has nothing significant there. Desktop market share could become a steady line yet are unlikely to rise significantly because there’s not a single reason I could think of why that would happen.
+火狐未来的景象似乎非常惨淡.最后的结局会怎样?最好的结果是维持当前水平.即便如此,他们的市场份额仍然会随着移动市场的增长而下降,因为火狐在移动端几乎没有存在感.而桌面端市场应该会比较稳定,不会有爆发式的增长.
 
-The worst scenario is that on desktop they too keep declining into the territory of 5% browsers or less. When this happens, they have become totally irrelevant. And not just that: they would be an irrelevant browser with a different browser engine. Like Edge.
+最坏情况是,在桌面端他们跌到5%以下.此时,它就彻底边缘化了,并最终沦落到和Edge一样.
 
-Note that when I say irrelevant, I don’t mean dead or meaningless or without future. As a 5% browser, you can still provide meaning and relevance to perhaps a 100 million users. That’s a lot of people. Most of us work on products several scales below that. With irrelevant I mean irrelevant to the browser wars at a worldwide scale.
+请注意,当我说边缘化时,我并不是说彻底消失或等死. 作为一个拥有5%市场份额的浏览器,依然可以为一亿用户提供价值.这是一批庞大的用户.我们中的大部分不会在如此高的产品层面工作. 当我提到边缘化时,指的是世界范围内的浏览器战争.
 
-Our cup of poison isn’t empty yet. Microsoft, in their abandonment of Edge and their own rendering engine, could have done the right thing. Which is to collaborate with Mozilla. It would make for a powerful alliance against Chromium/Chrome dominance. At least on desktop, it could have made a meaningful difference.
+有毒的不仅仅是这些.微软, 在放弃Edge和自家渲染引擎过程中做出了错误决策. 他们本可以和Mozilla联手,结成强大的同盟共同对抗谷歌Chromium的垄断.至少在客户端,此举意义非凡.
 
-But they didn’t, they didn’t choose the right path, they chose the easy short term path. Because doing right is for losers, like Firefox. Nice guys finish last, at least in this round of the wars.
+但是他们没有,他们选择了一条简单却短视的路.在这一轮战争中,好人输给了蠢人,火狐虽然失败了但至少做了正确的事.
 
-#### Chrome, also called “the web”
+#### Chrome, 也称“网络”
 
-A lot has been said about Chrome already, and my opinion on it is complex, you could say it has “layers”.
+关于Chrome的讨论已经很多,我对它的感觉很复杂,你可以认为我的态度是“有层次的”.
 
-First, strictly speaking regarding personal usage, I think Chrome is the best browser out there. It’s fast, has a pretty good UI, extension support is great, and the developer tools are out of this world. Which is not to say other browsers are crap. They are good too, Chrome is just slightly better.
+首先, 就个人用途而言,我认为Chrome是目前最好的浏览器.它速度快,有漂亮的UI,扩展支持良好,开发者工具更是无与伦比. 但并不是说其他浏览器都是垃圾.它们也不错,但Chrome要更好一些.
 
-From a developer point of view, as said, best dev tools. More importantly, Chrome is that browser typically first to ship new web features. As a developer, I pretty much never face the situation where something doesn’t work in Chrome, yet does work in competing browsers. The opposite happens to me daily.
+从开发者角度看,Chrome有非常吸引人的开发者工具.除此之外,Chrome通常第一时间发布新功能. 作为一名开发者,我几乎从未遇到某些功能在Chrome中无法运行但在其他浏览器可以运行的情况.反过来的状况倒是很常见.
 
-So yes, Chrome makes me happy as a user and a developer. It’s a great browser. And let’s continue the cheering: there is no organization in the history of the web who has done more for the betterment of the web platform than Google.
+所以无论作为使用者还是开发者,Chrome都让我很舒心.它是一款优秀的浏览器.更加令人称赞的是:谷歌为改善网络平台质量做出的努力比历史上任何一个组织都多.
 
-Yes they have the resources to do so. So has Microsoft, who for the largest part of their history, actively sabotaged the web. Big difference. Yes, improving the web may serve Google’s own interests. But they’re doing it. Without Google’s weight and pace in improving the web, we would be in darker times, technically speaking.
+他们有能力这样做.微软也有,但他们有巨大区别.从历史角度看,微软总在积极地破坏网络. 谷歌也许为了自己的利益才改善网络,但假若没有谷歌的这些努力,我们也许还处在黑暗时期.
 
-If you’ve never lived through those darker times yourself, I can sum it up: browsers never ship anything, and it takes 5 years for even the simplest new feature to become widely available. And then it still wouldn’t work. Google made the web a first-class citizen and in recent years is almost solely responsible for making it a sustainable app platform, or at least is the biggest driver in doing so.
+你可以稍微感受一下黑暗时期:浏览器从不发布新功能,即使最简单的功能被广泛使用也需要5年,然后该功能也许还不能正常使用.谷歌作为改善网络的最大驱动力,在近几年以一己之力扛起了可持续应用平台的大旗,使网络成为了一等公民.
 
-And now the stabbing can begin. Sure enough, Chrome as a browser is good and a good browser can grow market share organically, simply for being good. Part of the rise of Chrome in market share can be explained by the quality of the browser itself. For it being a user preferred browser.
+但谷歌也有缺点.Chrome作为一款优秀的浏览器,使市场充满生机.它的高质量吸引了一批用户,顺利抢占到部分市场.
 
-It would be naive to think though that out of the blue, billions of users collectively decided to use Chrome as a default, out of pure awesomeness. Word of mouth does not work that fast, nor do people select browsers on rational and technical grounds.
+但你要是认为数十亿用户仅仅因为好用就一起选择谷歌浏览器,那你实在天真.口碑传播速度不可能如此快, 人们也不会仅仅因为理性或者技术原因选择浏览器.
 
-Clearly, the drastic upward rise in market share is realized in other ways, by means of Google’s dominance in other markets:
+显然,谷歌在其他市场的主导地位造成了这部分市场的急剧上升:
 
-*  If you want to include the Playstore on your Android device, you’re forced to put Google’s suite of apps on the device, which includes Chrome. If you don’t want the Playstore, you might as well not launch the device at all, so it’s not really an option. It comes down to this simple equation: if you’re not Apple and launching a mobile device, you **will** ship Chrome. You may now mention niches of Android where no Playstore is used, it doesn’t change the overall point for the vast majority of devices.
+*  如果您想在Android设备上加入Playstore,则必须将Google的应用套件放在设备上,其中包括Chrome.如果您不想要Playstore,您可能根本启动不了设备,因此你没有选择.这里有个简单的等式: 如果你不是苹果用户然后启动移动设备, 你 **将会** 转移到Chrome.你也许会提到现在有些安卓设备不需要Playstore, 但这不会撼动根本.
 
-*  Besides the ability to force-ship Chrome to billions of users, Google also owns some of the world’s most widely used web services. Search, Maps, Gmail, Youtube and the like. Which all work better on Chrome, or contains ads to install Chrome. Another example of a method where their dominance in one market, allows an advantage in another. Here the advantage is not a brute force install as with Android, yet it’s still an aggressive push.
+* 谷歌不仅可以让数亿用户转投到Chrome,还拥有世界上最广泛的网络服务.谷歌搜索,谷歌地图, Gmail, Youtube 都在Chrome运行更好,并且这些服务还会为Chrome做广告. 再次印证了在一个领域的垄断可以给另一个领域带来优势.这种方式不同于安卓系统的捆绑式安装, 它更加温和,但依然是一种强有力的营销手段.
 
-*  There are various other ways in which Chrome is shipped to the user without an actual user-triggered action. Shipping it as part of some other bundle of software is an example.
+*  用户经常无意识地就安装了Chrome.和其他软件捆绑在一起是一个很好的例子.
 
-I believe capturing market B via your dominance in market A, is anti-competitive behavior. “Dominance” is the keyword here. It’s business as usual for a company to do this at small scale, and generally allowed. Ford may ship a Ford car radio (I know, not the best example) and nobody cares. Nor is it illegal, as it doesn’t really disturb a secondary market.
+我认为通过在市场A的垄断去侵占市场B是一种反竞争行为. “垄断”是这里的关键词. 从商业角度看,一家公司小范围这样做是正常的也是被广泛许可的.福特可能会发布一辆带有汽车收音机的新车(据我所知),但没有人会害怕.这样做完全合法,也没有扰乱二级市场.
 
-At a monopoly scale, it becomes a different matter. It’s the same behavior Microsoft was convicted of (without any meaningful consequence).
+但当规模扩大后,事情就变了.这与微软反垄断案异曲同工(该案子最后无疾而终).
 
-You can disagree and go all neoliberal to say that any company can do whatever they want on their own OS or web service. It’s an opinion you can have. I would disagree, for the record. In any case, it doesn’t change the outcome. Google is the only entity in the world with the power to ship a (default) browser to so many users, by means of their mobile dominance, and their web service dominance.
+你可以反对我并且赞同新自由主义者的主张,公司有权在他们自己的系统或网络服务中做任何事.你可以有自己的想法.但无论持哪种想法,事实不会改变. 由于在移动端和网络服务的垄断地位,谷歌是目前世界上唯一有能力让如此多的用户安装(默认)浏览器的公司.
 
-Chrome, once pushed to these billions of users, turns out to be quite a great browser. It really is a good browser. And important Google services work so well in it. So it sticks, and becomes the new default. Chrome being a really good browser, combined with unique capabilities to push it to billions of users is how we got to a market share of 60–70%. It then becomes a developer default and all kinds of side projects (like Electron and various Chromium clones) pop up to strengthen the dominance even further.
+Chrome, 数十亿用户使用的选择, 确实是一款优秀的浏览器.谷歌公司一直在优化,所以它会一直成为用户首选. Chrome结合其特有的功能,俘获了数十亿用户,占领了60-70%的市场.开发人员和代码实验项目将其作为首选(例如 Electron和各种Chromium复制版) 进一步加强了其主导地位.
 
-Mozilla nor Microsoft can win back lost market share for the obvious reasons mentioned above. They are near-absent on mobile, and they don’t operate a single meaningful web service. Microsoft kind of had the ability to push a browser via Windows, but they screwed up. Now, it doesn’t matter how good they make their browser. They can’t ship or push it at scale.
+由于上文提到的原因,火狐和微软都很难重新赢回市场.他们在移动端毫无存在感,也没有广泛使用的网络服务. 微软本可以通过Windows推送浏览器,但他搞砸了.现在,无论他们把浏览器做得多好都没用,因为他们无法大范围推广.
 
-And so we live in a Chromium/Chrome world now, or have been living in it for some time. It seems a return to Microsoft’s past dominance with IE, yet the situation is significantly different.
+我们现在生活在Chromium/Chrome的世界.这似乎回归了微软用IE统治世界的日子,但现在谷歌才是垄断者.
 
-Microsoft had a browser that sucked (IE6). Google does not. Chrome is great. Microsoft’s browser was non-standard, intentionally and openly so. Chrome is largely standards-based (even if Google has a large say in those standards). Microsoft didn’t invest a penny in bettering the web, and didn’t touch IE for years, sabotaging the web, bleeding it to death. Google does the opposite, they aggressively invest in bettering the web.
+微软曾经用糟糕的的浏览器统治世界(IE6).相反,谷歌一直做的很好,Chrome十分优秀.IE一直不遵循标准, Chrome则是基于标准开发的(即使Google在这些标准决策中有很大的发言权).微软并未在改善网络质量方面进行过投资, 也不重视IE，任其自生自灭.谷歌正好相反,他们积极改善网络服务.
 
-It’s a better kind of dominance. Like a friendlier dictator. But still a dictator. The practical consequence for a developer in the short run is likely to be received as a positive. A great browser, a great browser engine, and most of the world making use of it. The day-to-day concern of a developer is to ship things, which is easier in a monoculture, like it or not.
+这是一种温和的垄断,像一个友好的独裁者,但没有改变独裁本质.短期来说有利于开发者, 优秀的浏览器,高效的引擎,大众的拥护都使开发者无需担心兼容问题. 在这种单一文化中,开发人员只需关注软件发布.
 
-The longer term faith of the open web, it hangs in the balance. I don’t believe implementers can break the dominance anytime soon via an actual browser or browser engine, which is why I’ll reiterate what I already said: there must be equal representation in the process where web standards get created, as well as in the decision making process where priorities for implementation get set. We’d then have less engines, basically only one, yet what gets build for it in which order would be shared. An open decision making process, followed by implementation in a single engine. It would be a kind-of open web.
+从长期看,它将会打破开放式网络的平衡.仅仅发布一款新的浏览器或引擎无法打破垄断,正如我之前所说:在制定web标准的决策过程中必须要有多方代表,保证他们都同样重要.我们可以有更少的引擎, 甚至只有一个,然而这个引擎的构建过程必须是共享,开放的.这是另一种形式的开放网络.
 
-No, not even that is ideal, I know. I’m keeping it real. A kind-of open web is superior to the situation of having a single engine with a single private organization calling the shots. The idealistic scenario of a multi-engine open web is dead or dying, as discussed above.
+虽然这不是最理想的状态,但至少比较现实.开放式网络比一家独大好.我们已经无法回到百花齐放的时期.
 
 #### Safari
 
-I believe we have now moved past the peak and essence of this article, yet I’ll give some thoughts on browser players of lesser significance. Furthermore, I have to finish my tour of bashing every single tech giant, to ensure to never receive a job offer from any of them, ever. I don’t like loose ends.
+重点都已经说完,但我还想继续谈谈一些小众浏览器. 我会对每一个科技巨头都一视同仁,以确保不用收到他们其中任何一个的邀请信,而且我也不喜欢虎头蛇尾.
 
-Safari, of course, has reached significant market share thanks to Apple’s mobile success, combined with a complete lock-down on which browsers users can install (or more accurately said, which browser engine they can use). Whilst not a force as dominant as Google, it’s a sizable force.
+由于苹果手机的成功,Safari获得了不小的市场份额,用户必须用Safari(或更准确地说,他们可以使用这种浏览器引擎). 虽然不像谷歌那样占主导地位,但也不容忽视.
 
-We can once again go back to the simple observation that Microsoft and Mozilla can’t do such a push or lock-down, since they basically don’t exist on mobile. And this proves that the quality or features of a web browser hardly matter. Because if it did matter, Safari would be dead.
+在移动设备阵地的沦陷,微软和火狐不可能做这样的推广. 这再次证明浏览器的特性或功能并不是用户首要关注的,如果是,Safari不可能成功.
 
-Mobile Safari most certainly would not be a browser with 15% market share (much higher if you include mobile only) because it is so awesome. It’s not awesome. It’s a reasonably capable browser that lags behind Chrome, Firefox, and even Edge in terms of features and web standards support. Take any Chromium clone that has near zero market share and it is functionally and technically better than mobile Safari.
+Safari占据15%的市场份额,但显然不是因为它好用(如果只算移动端比例更高).它很普通. 和Chrome,Edge,火狐比,它在web标准和功能支持方面远远落后. 甚至没有任何市场的Chromium克隆浏览器,都比Safari优秀.
 
-Surely, Safari lagging behind has to be intentional. If you want to have an underwhelming experience, have a look at Safari’s release notes. Bugs are open for years and when a new web feature is shipped, it’s often incomplete, buggy, and unusable. If you’re in the game of trying to ship web apps at the quality level of a native app, your number one enemy will be mobile Safari.
+Safari是故意不遵循web标准的.Safari的发布说明一定会让你印象深刻:当一个web新功能发布时,它通常漏洞百出且可用性极差. 如果你希望在web app上获得和本地app同样的体验, 那么你将成为Safari的头号敌人.
 
-Apple, being a trillion dollar company, could out engineer Google just by having even deeper pockets. Or at least try to. They could also apply their much praised quality mindset to their browser. They don’t. They seem fine in it slugging along, in it being buggy. To invest just enough to not let it bleed to death, yet not enough to actually make it a powerful app platform. Because any platform that is powerful that is not owned by Apple itself, is not a priority, or even a threat.
+苹果公司,作为一个拥有数万亿美元资产的科技公司,完全有能力和谷歌在技术上一较高下.至少可以试着这么做. 他们本可以将他们的品牌价值加诸到Safari,但是他们没有.他们完全沉迷于自娱自乐. 投资的钱让Safari不至于无人问津,但又不足以多到使其成为一款优秀的app平台. 因为任何不属于Apple本身的强大平台都是一种威胁.
 
-Once again I will say that the actual team behind the browser is not at fault, it never is. They mean well. They do support an open web. They are amazing engineers. It’s just that the mother ship holds them back, because interests don’t align. It happens in big corporations. I know, I work for one.
+最后强调一下,背后的技术团队没有错. 他们都是很优秀的工程师,支持开放式网络.但是他们的雇主需要平衡商业利益. 这在大公司很常见,因为我曾经为其中一家服务过.
 
 #### Internet Explorer
 
-What is left to be said about Internet Explorer? Not much, other than it being the slowest death of a browser in history. Even Microsoft’s burial of their own browser does not kill it. At this point in time, many developers are in a position where they finally can ignore old IE as a whole, or have been doing so for a few years.
+关于Internet Explorer还有什么可说的?除了它是历史上死亡时间最慢的浏览器,没有特别需要提的.即使微软自己宣布放弃都没有彻底杀死它.但是现在,众多开发者终于可以忽略旧IE,也许他们早就这么做了.
 
-But don’t underestimate the rest of us. For example, I work for a healthcare company, where customers seemingly love IE. I’m talking a 10% market share, which is too big to ignore. And the number doesn’t seem to be going down that much, which is highly depressing. Building a modern web experience with old IE in mind is like adding a square wooden wheel to a Tesla.
+依然有不少人喜欢IE. 我曾经为一家医疗保健公司工作, 客户似乎就很喜欢IE.大概有10%的用户依然选择它. 令人沮丧的是,时至今日,这个市场占有率依然没下降太多.但是在老IE里开发一款现代web应用就好比在特斯拉汽车上装上正方形车轮,令人痛苦.
 
-And then there’s corporate internal. Which has shitty age-old IE-only applications. That everybody hates yet somehow have to keep running. I always wonder what the owners of these systems expect to happen exactly. They want to keep the system up yet not invest a dime in it. As if complete inaction will ultimately solve it. The system is dead. It has no future. It has to be replaced, waiting does not solve the problem.
+还有一批只兼容老式IE的企业.他们虽然厌烦却不得不维护这些程序.我经常困惑这些系统的拥有者到底想做什么. 他们想一直运行系统,但不想投入一分钱.看起来什么都不做就刚好. 但等待不能解决问题,只会让这些系统在绝望中走向死亡.
 
-#### Everybody else
+#### 其他
 
-To finish our round of browsers, there’s everybody else. Mostly Chromium-based browsers. They compete via their UI, not their engine. I don’t have much to say about these browsers. They can each attract their niche audience, but they hardly matter in the bigger picture. They can win or lose a percentage or two, yet never rise above the 10% threshold that I’ve arbitrarily set as an important browser.
+还有一些其他小众浏览器.主要是基于Chromium内核的浏览器.关于这些浏览器我并没有太多想法. 它们通过独特的UI吸引一些特定用户,但注定难以有大的发展. 他们可以赢得或失去1-2个百分比的市场份额,但永远不会超过10%的市场份额.
 
-### Wrapping up
+### 总结
 
-I had not expected to do such a long write-up, nor did I plan to make it so sour and bitter. I’ve tried to call things for what they are even if those things are ugly. And ugly things are:
+我没有料到文章会变得又长又涩.无论事情多么丑陋,我希望努力还原真相.可怕的真相是:
 
-The web now runs on a single engine. There is not a single browser with a non-Chromium engine on mobile of any significance other than Safari. Which runs webkit, kind of the same engine as Chromium, which is based on webkit.
+web现在运行在一个单一引擎上. 除了Safari之外,没有一个浏览器在移动设备上使用非Chromium引擎.其中运行webkit,与Chromium相同的引擎,它基于webkit.
 
-On desktop, Edge’s departure from running their own engine, means there’s only one last man standing to counter the Chromium dominance: Firefox. Which is falling from a cliff, on its way to join the “everybody else” gang of insignificant browsers. With no serious way to truly counter it due to their near-absence on mobile, and their lack of control in pushing browser installs.
+在桌面端, Edg放弃自家引擎意味着只剩最后一个巨人抗衡Chromium的垄断:火狐. 它是曾经的王者, 但现在已经逐渐式微,进入小众浏览器阵营.由于他们在移动端的缺失,他们很难推广自己的浏览器,没法真正和谷歌抗衡.
 
-So Chromium it is. If you’re now waiting for a message of hope or a happy ending, I have none. Just like the IE era, the new monopoly was not created by means of a level playing field where the best browser has won, the world is a lot messier than that. The new monopoly was created by control over markets, and the ability to push a browser to billions of users in ways subtle and not so subtle. In this round, it was done via a capable browser (Chrome) unlike the previous round (IE6).
+所以Chromium主宰世界. 我没法给你带来你希望的消息或快乐结局. 就像IE之前统治世界一样,浏览器不仅仅依靠质量取胜,真实世界要复杂得多.新一轮垄断是通过市场营销,利用各种方式向数十亿用户推广来完成的. 在这轮竞赛中,一款足够好的浏览器(Chrome)胜出,不像之前的IE(IE6).
 
-The victor is clear, and balance will not be restored unless these market dynamics change in radical ways. Until that day, enjoy Chromium.
+赢家不言而喻, 除非市场以激烈方式变革,否则平衡很难被打破.但在那天到来之前,享受Chromium吧.
 
-**Update:** To compensate for the depressing ending of the above story, I’ve written a follow-up article aiming to give people caring about the web some much needed reasons to be optimistic, despite all of the above. Check it out [here](https://ferdychristant.com/the-state-of-web-browsers-88224d55b4e6).
+**更新:** 为了弥补上述故事令人沮丧的结局,我写了一篇后续文章,旨在让人们更加关心网络.看看[这里](https://ferdychristant.com/the-state-of-web-browsers-88224d55b4e6).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
