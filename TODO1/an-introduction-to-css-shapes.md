@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/an-introduction-to-css-shapes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/an-introduction-to-css-shapes.md)
 > * 译者：[xilihuasi](https://github.com/xilihuasi)
-> * 校对者：[ElizurHz](https://github.com/ElizurHz),[Moonliujk](https://github.com/Moonliujk)
+> * 校对者：[ElizurHz](https://github.com/ElizurHz), [Moonliujk](https://github.com/Moonliujk)
 
 # CSS Shapes 简介
 
@@ -161,7 +161,7 @@ circle(50% at 0 50%);
 
 ![](https://codropspz-tympanus.netdna-ssl.com/codrops/wp-content/uploads/2018/11/cssshapes_ellipse1.jpg)
 
-`ellipse()` 和 `circle()` 的区别在于椭圆有两个半径 —— _r_x 和 _r_y，或者 X 轴半径和 Y 轴半径。因此，上面的例子也可以写成：
+`ellipse()` 和 `circle()` 的区别在于椭圆有两个半径 —— `_r_x` 和 `_r_y`，或者 X 轴半径和 Y 轴半径。因此，上面的例子也可以写成：
 
 ```
 ellipse(75px 150px);
@@ -344,7 +344,7 @@ has been blocked by CORS policy: The response is invalid.
 
 最后，渐变也可以用来当成形状。渐变和图像一样，就像我们上面用到的图像例子，文本也将知道在透明部分环绕。
 
-我们将使用渐变的一个新属性——[`shape-image-threshold`](https://tympanus.net/codrops/css_reference/shape-image-threshold/)。`shape-image-threshold` 定义形状的 alpha 通道阈值，或者图像透明的百分比值。
+我们将使用渐变的一个新属性 —— [`shape-image-threshold`](https://tympanus.net/codrops/css_reference/shape-image-threshold/)。`shape-image-threshold` 定义形状的 alpha 通道阈值，或者图像透明的百分比值。
 
 我们将制作一个渐变例子，它是 50％/50％ 的颜色和透明分割，并且设置 `shape-image-threshold` 为 `.5`，意味着超过 50％ 不透明的所有像素都应被视为图像的一部分。
 
@@ -370,7 +370,7 @@ has been blocked by CORS policy: The response is invalid.
 
 ## 结论
 
-在本文中，我们学习了 CSS Shapes 的三个属性 `shape-outside`、 `shape-margin` 和 `shape-image-threshold`。我们也了解到如何使用函数值创建可供文本环绕的圆、椭圆、内嵌矩形以及复杂的多边形，并且演示了形状如何检测图像和渐变的透明部分。
+在本文中，我们学习了 CSS Shapes 的三个属性 `shape-outside`、`shape-margin` 和 `shape-image-threshold`。我们也了解到如何使用函数值创建可供文本环绕的圆、椭圆、内嵌矩形以及复杂的多边形，并且演示了形状如何检测图像和渐变的透明部分。
 
 **你可以在如下 [demo](http://tympanus.net/Tutorials/CSSShapes/) 中找到本文中用到的所有例子，也可以[下载源文件](http://tympanus.net/Tutorials/CSSShapes/CSSShapes.zip)。**
 
