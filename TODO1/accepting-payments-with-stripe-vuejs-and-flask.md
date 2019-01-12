@@ -2,26 +2,26 @@
 > * 原文作者：[Michael Herman](https://testdriven.io/authors/herman/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/accepting-payments-with-stripe-vuejs-and-flask.md](https://github.com/xitu/gold-miner/blob/master/TODO1/accepting-payments-with-stripe-vuejs-and-flask.md)
-> * 译者：
+> * 译者：[Mcskiller](https://github.com/Mcskiller)
 > * 校对者：
 
-# Accepting Payments with Stripe, Vue.js, and Flask
+# 使用 Stripe, Vue.js 和 Flask 接受付款
 
 ![](https://testdriven.io/static/images/blog/flask-vue-stripe/payments_vue_flask.png)
 
-In this tutorial, we'll develop a web app for selling books using [Stripe](https://stripe.com/) (for payment processing), [Vue.js](https://vuejs.org/) (the client-side app), and [Flask](http://flask.pocoo.org/) (the server-side API).
+在本教程中，我们将会开发一个使用 [Stripe](https://stripe.com/)（处理付款订单），[Vue.js](https://vuejs.org/)（客户端应用）以及 [Flask](http://flask.pocoo.org/)（服务端 API）的 web 应用来售卖书籍。
 
-> This is an intermediate-level tutorial. It assumes that you a have basic working knowledge of Vue and Flask. Review the following resources for more info:
+> 这是一个进阶教程。我们默认您已经基本掌握了 Vue.js 和 Flask。如果你还没有了解过它们，请查看下面的链接以了解更多：
 > 
 > 1.  [Introduction to Vue](https://vuejs.org/v2/guide/index.html)
 > 2.  [Flaskr: Intro to Flask, Test-Driven Development (TDD), and JavaScript](https://github.com/mjhea0/flaskr-tdd)
 > 3.  [Developing a Single Page App with Flask and Vue.js](https://testdriven.io/developing-a-single-page-app-with-flask-and-vuejs)
 
-_Final app_:
+**最终效果**：
 
 ![final app](https://testdriven.io/static/images/blog/flask-vue-stripe/final.gif)
 
-_Main dependencies:_
+**主要依赖**
 
 *   Vue v2.5.2
 *   Vue CLI v2.9.3
@@ -30,31 +30,31 @@ _Main dependencies:_
 *   Flask v1.0.2
 *   Python v3.6.5
 
-## Contents
+## 目录
 
-*   [Objectives](#objectives)
-*   [Project Setup](#project-setup)
-*   [What are we building?](#what-are-we-building)
-*   [Books CRUD](#books-crud)
-*   [Order Page](#order-page)
-*   [Form Validation](#form-validation)
+*   [目的](#目的)
+*   [项目安装](#项目安装)
+*   [我们要做什么？](#我们要做什么？)
+*   [CRUD 书籍](#CRUD-书籍)
+*   [订单页面](#订单页面)
+*   [表单验证](#表单验证)
 *   [Stripe](#stripe)
-*   [Order Complete Page](#order-complete-page)
-*   [Conclusion](#conclusion)
+*   [订单完成页面](#订单完成页面)
+*   [总结](#总结)
 
-## Objectives
+## 目的
 
-By the end of this tutorial, you should be able to...
+在本教程结束的时候，你能够...
 
-1.  Work with an existing CRUD app, powered by Vue and Flask
-2.  Create an order checkout component
-3.  Validate a form with vanilla JavaScript
-4.  Use Stripe to validate credit card information
-5.  Process payments using the Stripe API
+1.  获得一个现有的 CRUD 应用，由 Vue 和 Flask 驱动
+2.  创建一个订单结算组件
+3.  使用原生 JavaScript 验证一个表单
+4.  使用 Stripe 验证信用卡信息
+5.  通过 Stripe API 处理付款
 
-## Project Setup
+## 项目安装
 
-Clone the [flask-vue-crud](https://github.com/testdrivenio/flask-vue-crud) repo, and then check out the [v1](https://github.com/testdrivenio/flask-vue-crud/releases/tag/v1) tag to the master branch:
+Clone [flask-vue-crud](https://github.com/testdrivenio/flask-vue-crud) 仓库，然后在 master 分支找到 [v1](https://github.com/testdrivenio/flask-vue-crud/releases/tag/v1) 标签：
 
 ```
 $ git clone https://github.com/testdrivenio/flask-vue-crud --branch v1 --single-branch
@@ -62,7 +62,7 @@ $ cd flask-vue-crud
 $ git checkout tags/v1 -b master
 ```
 
-Create and activate a virtual environment, and then spin up the Flask app:
+搭建一个虚拟环境，然后运行 Flask 应用：
 
 ```
 $ cd server
@@ -72,15 +72,15 @@ $ source env/bin/activate
 (env)$ python app.py
 ```
 
-> The above commands, for creating and activating a virtual environment, may differ depending on your environment and operating system.
+> 上述搭建环境的命令可能因操作系统和运行环境而异。
 
-Point your browser of choice at [http://localhost:5000/ping](http://localhost:5000/ping). You should see:
+用浏览器访问 [http://localhost:5000/ping](http://localhost:5000/ping)。你会看到：
 
 ```
 "pong!"
 ```
 
-Then, install the dependencies and run the Vue app in a different terminal tab:
+然后，安装依赖并在另一个终端中运行 Vue 应用：
 
 ```
 $ cd client
@@ -88,33 +88,33 @@ $ npm install
 $ npm run dev
 ```
 
-Navigate to [http://localhost:8080](http://localhost:8080). Make sure the basic CRUD functionality works as expected:
+转到 [http://localhost:8080](http://localhost:8080)。确保 CRUD 基本功能正常工作：
 
 ![v1 app](https://testdriven.io/static/images/blog/flask-vue-stripe/v1.gif)
 
-> Want to learn how to build this project? Check out the [Developing a Single Page App with Flask and Vue.js](https://testdriven.io/developing-a-single-page-app-with-flask-and-vuejs) blog post.
+> 想学习如何构建这个项目？查看 [Developing a Single Page App with Flask and Vue.js](https://testdriven.io/developing-a-single-page-app-with-flask-and-vuejs) 文章。
 
-## What are we building?
+## 我们要做什么？
 
-Our goal is to build a web app that allows end users to purchase books.
+我们的目标是构建一个允许用户购买书籍的 web 应用。
 
-The client-side Vue app will display the books available for purchase, collect payment information, obtain a token from Stripe, and send that token along with the payment info to the server-side.
+客户端 Vue 应用将会显示出可供购买的书籍并记录付款信息，然后从 Stripe 获得 token，最后发送 token 和付款信息到服务端。
 
-The Flask app then takes that info, packages it together, and sends it to Stripe to process charges.
+然后 Flask 应用获取到这些信息，并把它们都打包发送到 Stripe 去处理。
 
-Finally, we'll use a client-side Stripe library, [Stripe.js](https://stripe.com/docs/stripe-js/v2), to generate a unique token for creating a charge and a server-side Python [library](https://github.com/stripe/stripe-python) for interacting with the Stripe API.
+最后，我们会用到一个客户端 Stripe 库 [Stripe.js](https://stripe.com/docs/stripe-js/v2)，它会生成一个专有 token 来创建账单，然后使用服务端 Python [Stripe 库](https://github.com/stripe/stripe-python)和 Stripe API 交互。
 
 ![final app](https://testdriven.io/static/images/blog/flask-vue-stripe/final.gif)
 
-> Like the previous [tutorial](https://testdriven.io/developing-a-single-page-app-with-flask-and-vuejs), we'll only be dealing with the happy path through the app. Check your understanding by incorporating proper error-handling on your own.
+> 和之前的 [教程](https://testdriven.io/developing-a-single-page-app-with-flask-and-vuejs) 一样，我们会简化步骤，你应该自己处理产生的其他问题，这样也会加强你的理解。
 
-## Books CRUD
+## CRUD 书籍
 
-First, let's add a purchase price to the existing list of books on the server-side and update the appropriate CRUD functions on the client - GET, POST, and PUT.
+首先，让我们将购买价格添加到服务器端的现有书籍列表中，然后在客户端上更新相应的 CRUD 函数 GET，POST 和 PUT。
 
 ### GET
 
-Start by adding the `price` to each dict in the `BOOKS` list in _server/app.py_:
+首先在 **server/app.py** 中添加 `price` 到 `BOOKS` 列表的每一个字典元素中：
 
 ```
 BOOKS = [
@@ -142,7 +142,7 @@ BOOKS = [
 ]
 ```
 
-Then, update the table in the `Books` component, _client/src/components/Books.vue_, to display the purchase price:
+然后，在 `Books` 组件 **client/src/components/Books.vue** 中更新表格以显示购买价格。
 
 ```
 <table class="table table-hover">
@@ -182,13 +182,13 @@ Then, update the table in the `Books` component, _client/src/components/Books.vu
 </table>
 ```
 
-You should now see:
+你现在应该会看到：
 
 ![default vue app](https://testdriven.io/static/images/blog/flask-vue-stripe/price.png)
 
 ### POST
 
-Add a new `b-form-group` to the `addBookModal`, between the author and read `b-form-group`s:
+添加一个新 `b-form-group` 到 `addBookModal` 中，在 Author 和 read 的 `b-form-group` 类之间：
 
 ```
 <b-form-group id="form-price-group"
@@ -203,7 +203,7 @@ Add a new `b-form-group` to the `addBookModal`, between the author and read `b-f
 </b-form-group>
 ```
 
-The modal should now look like:
+这个模态现在看起来应该是这样：
 
 ```
 <!-- add book modal -->
@@ -253,7 +253,7 @@ The modal should now look like:
 </b-modal>
 ```
 
-Then, add `price` to the state:
+然后，添加 `price` 到 `addBookForm` 属性中：
 
 ```
 addBookForm: {
@@ -264,11 +264,11 @@ addBookForm: {
 },
 ```
 
-The state is now bound to the form's input value. Think about what this means. When the state is updated, the form input will be updated as well - and vice versa. Here's an example of this in action with the [vue-devtools](https://github.com/vuejs/vue-devtools) browser extension:
+`addBookForm` 现在和表单的输入值进行了绑定。想想这意味着什么。当 `addBookForm` 被更新时，表单的输入值也会被更新，反之亦然。以下是 [vue-devtools](https://github.com/vuejs/vue-devtools) 浏览器扩展的示例。
 
 ![state model bind](https://testdriven.io/static/images/blog/flask-vue-stripe/state-model-bind.gif)
 
-Add the `price` to the `payload` in the `onSubmit` method like so:
+添加 `price` 到 `onSubmit` 方法的 `payload` 中，像这样：
 
 ```
 onSubmit(evt) {
@@ -287,7 +287,7 @@ onSubmit(evt) {
 },
 ```
 
-Update `initForm` to clear out the value after the end user submits the form or clicks the "reset" button:
+更新 `initForm` 来保证用户提交表单或者“重置”表单后清除值：
 
 ```
 initForm() {
@@ -302,7 +302,7 @@ initForm() {
 },
 ```
 
-Finally, update the route in _server/app.py_:
+最后，更新 **server/app.py** 中的路由：
 
 ```
 @app.route('/books', methods=['GET', 'POST'])
@@ -323,35 +323,35 @@ def all_books():
     return jsonify(response_object)
 ```
 
-Test it out!
+赶紧测试一下吧！
 
 ![add book](https://testdriven.io/static/images/blog/flask-vue-stripe/add-book.gif)
 
-> Don't forget to handle errors on both the client and server!
+> 不要忘了处理客户端和服务端的错误！
 
 ### PUT
 
-Do the same, on your own, for editing a book:
+同样的操作，不过这次是编辑书籍，该你自己动手了：
 
-1.  Add a new form input to the modal
-2.  Update `editForm` in the state
-3.  Add the `price` to the `payload` in the `onSubmitUpdate` method
-4.  Update `initForm`
-5.  Update the server-side route
+1.  添加一个新输入表单到模态中
+2.  更新属性中的 `editForm` 部分
+3.  添加 `price` 到 `onSubmitUpdate` 方法的 `payload` 中
+4.  更新 `initForm`
+5.  更新服务端路由
 
-> Need help? Review the previous section again. You can also grab the final code from the [flask-vue-crud](https://github.com/testdrivenio/flask-vue-crud) repo.
+> 需要帮助吗？重新看看前面的章节。或者你可以从 [flask-vue-crud](https://github.com/testdrivenio/flask-vue-crud) 仓库获得源码。
 
 ![edit book](https://testdriven.io/static/images/blog/flask-vue-stripe/edit-book.gif)
 
-## Order Page
+## 订单页面
 
-Next, let's add an order page where users will be able to enter their credit card information to purchase a book.
+接下来，让我们添加一个订单页面，用户可以在其中输入信用卡信息来购买图书。
 
-TODO: add image
+TODO: 添加图片
 
-### Add a purchase button
+### 添加一个购买按钮
 
-Start by adding a "purchase" button to the `Books` component, just below the "delete" button:
+首先给 `Books` 组件添加一个“购买”按钮，就在“删除”按钮的下方：
 
 ```
 <td>
@@ -373,13 +373,13 @@ Start by adding a "purchase" button to the `Books` component, just below the "de
 </td>
 ```
 
-Here, we used the [router-link](https://router.vuejs.org/api/#router-link) component to generate an anchor tag that links back to a route in _client/src/router/index.js_, which we'll set up shortly.
+这里，我们使用了 [router-link](https://router.vuejs.org/api/#router-link) 组件来生成一个连接到 **client/src/router/index.js** 中的路由的锚点，我们马上就会用到它。
 
 ![default vue app](https://testdriven.io/static/images/blog/flask-vue-stripe/purchase-button.png)
 
-### Create the template
+### 创建模板
 
-Add a new component file called _Order.vue_ to "client/src/components":
+添加一个叫做 **Order.vue** 的新组件文件到 **client/src/components**：
 
 ```
 <template>
@@ -444,11 +444,11 @@ Add a new component file called _Order.vue_ to "client/src/components":
 </template>
 ```
 
-> You'll probably want to collect the buyer's contact details, like first and last name, email address, shipping address, and so on. Do this on your own.
+> 你可能会想收集买家的联系信息，比如姓名，邮件地址，送货地址等等。这就得靠你自己了。
 
-### Add the route
+### 添加路由
 
-_client/src/router/index.js_:
+**client/src/router/index.js**:
 
 ```
 import Vue from 'vue';
@@ -481,17 +481,17 @@ export default new Router({
 });
 ```
 
-Test it out.
+测试一下。
 
 ![order page](https://testdriven.io/static/images/blog/flask-vue-stripe/order-page.gif)
 
-### Get the product info
+### 获取产品信息
 
-Next, let's update the placeholders for the book title and amount on the order page:
+接下来，让我们在订单页面 上更新书名和金额的占位符：
 
 ![order page](https://testdriven.io/static/images/blog/flask-vue-stripe/order-page-placeholders.png)
 
-Hop back over to the server-side and update the following route handler:
+回到服务端并更新以下路由接口：
 
 ```
 @app.route('/books/<book_id>', methods=['GET', 'PUT', 'DELETE'])
@@ -521,7 +521,7 @@ def single_book(book_id):
     return jsonify(response_object)
 ```
 
-Now, we can hit this route to add the book information to the order page within the `script` section of the component:
+现在，我们可以使用这个路由在组件的 `script` 中添加书籍信息到订单页面：
 
 ```
 <script>
@@ -558,9 +558,9 @@ export default {
 </script>
 ```
 
-> Shipping to production? You will want to use an environment variable to dynamically set the base server-side URL (which is currently `http://localhost:5000`). Review the [docs](https://vuejs-templates.github.io/webpack/env.html) for more info.
+> 转到生产环境？你将需要使用环境变量来动态设置基本服务器端 URL （现在 URL 为 `http://localhost:5000`）。查看 [文档](https://vuejs-templates.github.io/webpack/env.html) 获取更多信息。
 
-Then, update the first `ul` in the template:
+然后，更新 template 中的第一个 `ul`：
 
 ```
 <ul>
@@ -569,15 +569,15 @@ Then, update the first `ul` in the template:
 </ul>
 ```
 
-You should now see:
+你现在会看到：
 
 ![order page](https://testdriven.io/static/images/blog/flask-vue-stripe/order-page-sans-placeholders.png)
 
-## Form Validation
+## 表单验证
 
-Let's set up some basic form validation.
+让我们设置一些基本的表单验证。
 
-Use the `v-model` directive to [bind](https://vuejs.org/v2/guide/forms.html) form input values back to the state:
+使用 `v-model` 指令去 [绑定](https://vuejs.org/v2/guide/forms.html) 表单输入值到属性中：
 
 ```
 <form>
@@ -608,7 +608,7 @@ Use the `v-model` directive to [bind](https://vuejs.org/v2/guide/forms.html) for
 </form>
 ```
 
-Add the card to the state like so:
+添加 card 属性，就像这样：
 
 ```
 card: {
@@ -618,13 +618,13 @@ card: {
 },
 ```
 
-Next, update the "submit" button so that when the button is clicked, the normal browser behavior is [ignored](https://vuejs.org/v2/guide/events.html#Event-Modifiers) and a `validate` method is called instead:
+接下来，更新“提交”按钮，以便在单击按钮时忽略正常的浏览器行为，并调用 `validate` 方法：
 
 ```
 <button class="btn btn-primary btn-block" @click.prevent="validate">Submit</button>
 ```
 
-Add an array to the state to hold any validation errors:
+将数组添加到属性中以保存验证错误信息：
 
 ```
 data() {
@@ -645,7 +645,7 @@ data() {
 },
 ```
 
-Just below the form, we can iterate and display the errors:
+就添加在表单的下方，让我们能够反复显示错误：
 
 ```
 <div v-show="errors">
@@ -658,7 +658,7 @@ Just below the form, we can iterate and display the errors:
 </div>
 ```
 
-Add the `validate` method:
+添加 `validate` 方法：
 
 ```
 validate() {
@@ -682,9 +682,9 @@ validate() {
 },
 ```
 
-Since all fields are required, we are simply validating that each field has a value. Keep in mind that Stripe will validate the actual credit card info, which you'll see in the next section, so you don't need to go overboard with form validation. That said, be sure to validate any additional fields that you may have added on your own.
+由于所有字段都是必须填入的，而我们只是验证了每一个字段是否都有一个值。Stripe 将会验证下一节你看到的信用卡信息，所以你不必过度验证表单信息。也就是说，只需要保证你自己添加的其他字段通过验证。
 
-Finally, add a `createToken` method:
+最后，添加 `createToken` 方法：
 
 ```
 createToken() {
@@ -693,19 +693,19 @@ createToken() {
 },
 ```
 
-Test this out.
+测试一下。
 
 ![form validation](https://testdriven.io/static/images/blog/flask-vue-stripe/form-validation.gif)
 
 ## Stripe
 
-Sign up for a [Stripe](https://stripe.com) account, if you don't already have one, and grab the _test mode_ [API Publishable key](https://stripe.com/docs/keys).
+注册一个 [Stripe](https://stripe.com) 账号，如果你没有注册的话，然后在 [API Publishable key](https://stripe.com/docs/keys) 得到你的 **测试模式** API。
 
 ![stripe dashboard](https://testdriven.io/static/images/blog/flask-vue-stripe/stripe-dashboard-keys-publishable.png)
 
-### Client-side
+### 客户端
 
-Add the key to the state along with `stripeCheck` (which will be used to disable the submit button):
+添加 stripePublishableKey 和 `stripeCheck` （用来禁用提交按钮）到 data 中：
 
 ```
 data() {
@@ -728,9 +728,9 @@ data() {
 },
 ```
 
-> Make sure to add your own Stripe key to the above code.
+> 确保添加你自己的 Stripe key 到上述代码中。
 
-Again, if the form is valid, the `createToken` method is triggered, which validates the credit card info (via [Stripe.js](https://stripe.com/docs/stripe-js/v2)) and then either returns an error (if invalid) or a unique token (if valid):
+同样，如果表单有效，触发 `createToken` 方法（通过 [Stripe.js](https://stripe.com/docs/stripe-js/v2)）验证信用卡信息然后返回一个错误信息（如果无效）或者返回一个 token（如果有效）：
 
 ```
 createToken() {
@@ -749,7 +749,7 @@ createToken() {
 },
 ```
 
-If there are no errors, we send the token to the server, where we'll charge the card, and then send the user back to the main page:
+如果没有错误的话，我们就发送 token 到服务器，在那里我们会完成扣费并把用户转回主页：
 
 ```
 createToken() {
@@ -780,7 +780,7 @@ createToken() {
 },
 ```
 
-Update `createToken()` with the above code, and then add [Stripe.js](https://stripe.com/docs/stripe-js/v2) to _client/index.html_:
+按照上述代码更新 `createToken()`，然后添加 [Stripe.js](https://stripe.com/docs/stripe-js/v2) 到 **client/index.html** 中：
 
 ```
 <!DOCTYPE html>
@@ -798,9 +798,9 @@ Update `createToken()` with the above code, and then add [Stripe.js](https://str
 </html>
 ```
 
-> Stripe supports v2 and v3 ([Stripe Elements](https://stripe.com/elements)) of Stripe.js. If you're curious about Stripe Elements and how you can integrate it into Vue, refer to the following resources: 1. [Stripe Elements Migration Guide](https://stripe.com/docs/stripe-js/elements/migrating) 1\. [Integrating Stripe Elements and Vue.js to Set Up a Custom Payment Form](https://alligator.io/vuejs/stripe-elements-vue-integration/)
+> Stripe 支持 v2 和 v3（[Stripe Elements](https://stripe.com/elements)）版本的 Stripe.js。如果你对 Stripe Elements 和如何把它集成到 Vue 中感兴趣，参阅以下资源：1. [Stripe Elements 迁移指南](https://stripe.com/docs/stripe-js/elements/migrating) 2. [整合 Stripe Elements 和 Vue.js 来创建一个自定义付款表单](https://alligator.io/vuejs/stripe-elements-vue-integration/)
 
-Now, when `createToken` is triggered, `stripeCheck` is set to `true`. To prevent duplicate charges, let's disable the "submit" button when `stripeCheck` is `true`:
+现在，当 `createToken` 被触发是，`stripeCheck` 值被更改为 `true`，为了防止重复收费，我们在 `stripeCheck` 值为 `true` 时禁用“提交”按钮：
 
 ```
 <button class="btn btn-primary btn-block"
@@ -810,25 +810,25 @@ Now, when `createToken` is triggered, `stripeCheck` is set to `true`. To prevent
 </button>
 ```
 
-Test out the Stripe validation for invalid:
+测试一下 Stripe 验证的无效反馈：
 
-1.  Credit card numbers
-2.  Security codes
-3.  Expiration dates
+1.  信用卡卡号
+2.  安全码
+3.  有效日期
 
 ![stripe-form validation](https://testdriven.io/static/images/blog/flask-vue-stripe/stripe-form-validation.gif)
 
-Now, let's get the server-side route set up.
+现在，让我们开始设置服务端路由。
 
-### Server-side
+### 服务端
 
-Install the [Stripe](https://pypi.org/project/stripe/) library:
+安装 [Stripe](https://pypi.org/project/stripe/) 库：
 
 ```
 $ pip install stripe==1.82.1
 ```
 
-Add the route handler:
+添加路由接口：
 
 ```
 @app.route('/charge', methods=['POST'])
@@ -849,9 +849,9 @@ def create_charge():
     return jsonify(response_object), 200
 ```
 
-Here, given the book price (which we converted to cents), the unique token (from the `createToken` method on the client), and the book title, we generated a new Stripe charge with the [API Secret key](https://stripe.com/docs/keys).
+在这里设定书籍价格（转换为美分），专有 token（来自客户端的 `createToken` 方法），以及书名，然后我们利用 [API Secret key](https://stripe.com/docs/keys) 生成一个新的 Stripe 账单。
 
-> For more on creating a charge, refer to the official API [docs](https://stripe.com/docs/api#create_charge).
+> 了解更多创建账单的信息，参考官方 API [文档](https://stripe.com/docs/api#create_charge)。
 
 Update the imports:
 
@@ -864,33 +864,33 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 ```
 
-Grab the _test-mode_ [API Secret key](https://stripe.com/docs/keys):
+获取 **测试模式** [API Secret key](https://stripe.com/docs/keys)：
 
 ![stripe dashboard](https://testdriven.io/static/images/blog/flask-vue-stripe/stripe-dashboard-keys-secret.png)
 
-Set it as an environment variable:
+把它设置成一个环境变量：
 
 ```
 $ export STRIPE_SECRET_KEY=sk_test_io02FXL17hrn2TNvffanlMSy
 ```
 
-> Make sure to use your own Stripe key!
+> 确保使用的是你自己的 Stripe key！
 
-Test it out!
+测试一下吧！
 
 ![purchase a book](https://testdriven.io/static/images/blog/flask-vue-stripe/purchase.gif)
 
-You should see the purchase back in the [Stripe Dashboard](https://dashboard.stripe.com/):
+在 [Stripe Dashboard](https://dashboard.stripe.com/) 中你应该会看到购买记录：
 
 ![stripe dashboard](https://testdriven.io/static/images/blog/flask-vue-stripe/stripe-dashboard-payments.png)
 
-Instead of just creating a charge, you may want to also create a [customer](https://stripe.com/docs/api#customers). This has many advantages. You can charge multiple items to the same customer, making it easier to track customer purchase history. You could offer deals to customers that purchase frequently or reach out to customers that haven't purchased in a while, just to name a few. It also helps to prevent fraud. Refer to the following Flask [example](https://stripe.com/docs/checkout/flask) to see how to add customer creation.
+你可能还想创建 [顾客](https://stripe.com/docs/api#customers)，而不仅仅是创建账单。这样一来有诸多优点。你能同时购买多个物品，以便跟踪客户购买记录。你可以向经常购买的用户提供优惠，或者向许久未购买的用户联系，还有许多用处这里就不做介绍了。它还可以用来防止欺诈。参考以下 Flask [项目](https://stripe.com/docs/checkout/flask) 来看看如何添加客户。
 
-## Order Complete Page
+## 订单完成页面
 
-Rather than sending the buyer back to the main page, let's redirect them to an order complete page, thanking them for making a purchase.
+比起把买家直接转回主页，我们更应该把他们重定向到一个订单完成页面，以感谢他们的购买。
 
-Add a new component file called _OrderComplete.vue_ to "client/src/components":
+添加一个叫 **OrderComplete.vue** 的新组件文件到 “client/src/components” 中：
 
 ```
 <template>
@@ -906,7 +906,7 @@ Add a new component file called _OrderComplete.vue_ to "client/src/components":
 </template>
 ```
 
-Update the router:
+更新路由：
 
 ```
 import Vue from 'vue';
@@ -945,7 +945,7 @@ export default new Router({
 });
 ```
 
-Update the redirect in the `createToken` method:
+在 `createToken` 方法中更新重定向：
 
 ```
 createToken() {
@@ -978,9 +978,9 @@ createToken() {
 
 ![final app](https://testdriven.io/static/images/blog/flask-vue-stripe/final.gif)
 
-Finally, you could also display info about the book (title, amount, etc.) the customer just purchased on the order complete page.
+最后，你还可以在订单完成页面显示客户刚刚购买的书籍的（标题，金额，等等）。
 
-Grab the unique charge id and pass it into the `path`:
+获取唯一的账单 ID 然后传递给 `path`：
 
 ```
 createToken() {
@@ -1012,7 +1012,7 @@ createToken() {
 },
 ```
 
-Update the client-side route:
+更新客户端路由：
 
 ```
 {
@@ -1022,7 +1022,7 @@ Update the client-side route:
 },
 ```
 
-Then, in _OrderComplete.vue_, grab the charge id for the URL and send it to the server-side:
+然后，在 **OrderComplete.vue** 中，从 URL 中获取账单 ID 并发送到服务端：
 
 ```
 <script>
@@ -1054,7 +1054,7 @@ export default {
 </script>
 ```
 
-Configure the new route on the server to [retrieve](https://stripe.com/docs/api#retrieve_charge) the charge:
+在服务器上配置新路由来 [检索](https://stripe.com/docs/api#retrieve_charge) 账单：
 
 ```
 @app.route('/charge/<charge_id>')
@@ -1067,29 +1067,29 @@ def get_charge(charge_id):
     return jsonify(response_object), 200
 ```
 
-Finally, update the `<h1></h1>` in the template:
+最后，在 template 中更新 `<h1></h1>`：
 
 ```
 <h1>Thanks for purchasing - {{ this.book }}!</h1>
 ```
 
-Test it out one last time.
+最后一次测试。
 
-## Conclusion
+## 总结
 
-That's it! Be sure to review the objectives from the top. You can find the final code in the [flask-vue-crud](https://github.com/testdrivenio/flask-vue-crud) repo on GitHub.
+完成了！一定要从最开始进行阅读。你可以在 GitHub 中的 [flask-vue-crud](https://github.com/testdrivenio/flask-vue-crud) 仓库找到源码。
 
-Looking for more?
+想知道更多？
 
-1.  Add client and server-side unit and integration tests.
-2.  Create a shopping cart so customers can purchase more than one book at a time.
-3.  Add Postgres to store the books and the orders.
-4.  Containerize Vue and Flask (and Postgres, if you add it) with Docker to simplify the development workflow.
-5.  Add images to the books and create a more robust product page.
-6.  Capture emails and send email confirmations (review [Sending Confirmation Emails with Flask, Redis Queue, and Amazon SES](https://testdriven.io/sending-confirmation-emails-with-flask-rq-and-ses)).
-7.  Deploy the client-side static files to AWS S3 and the server-side app to an EC2 instance.
-8.  Going into production? Think about the best way to update the Stripe keys so they are dynamic based on the environment.
-9.  Create a separate component for checking out.
+1.  添加客户端和服务端的单元和集成测试。
+2.  创建一个购物车以方便顾客能够一次购买多本书。
+3.  使用 Postgres 来储存书籍和订单。
+4.  使用 Docker 整合 Vue 和 Flask（以及 Postgres，如果你加入了的话）来简化开发工作流程。
+5.  给书籍添加图片来创建一个更好的产品页面。
+6.  获取 email 然后发送 email 确认邮件（查阅 [使用 Flask，Redis Queue 和 Amazon SES 发送确认电子邮件](https://testdriven.io/sending-confirmation-emails-with-flask-rq-and-ses)）。
+7.  部署客户端静态文件到 AWS S3 然后部署服务端应用到一台 EC2 实例。
+8.  投入生产环境？思考一个最好的更新 Stripe key 的方法，让它们基于环境动态更新。
+9.  创建一个分离组件来退订。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
