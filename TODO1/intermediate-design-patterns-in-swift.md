@@ -831,331 +831,328 @@ shapeFactory = SquareShapeFactory(minProportion: 0.3, maxProportion: 0.8)
 
 此外，更改为另一种配色方案将涉及大量代码的修改。通过将 `ShapeView` 颜色配置限制为单个 `ShapeViewBuilder`，您还可以将颜色更改隔离到单个类。
 
-## Design Pattern: Dependency Injection
+## 依赖注入模式
 
-Every time you tap a shape, you’re taking a turn in your game, and each turn can be a match or not a match.
+每次点击一个形状，你都会进行一个回合，每回合的结果可以是得分或者减分。
 
-Wouldn’t it be helpful if your game could track all the turns, stats and award point bonuses for hot streaks?
+如果你的游戏可以自动跟踪所有回合，统计数据和得分，那会不会有帮助呢？
 
-Create a new file called **Turn.swift**, and replace its contents with the following code:
+创建一个名为 **Turn.swift** 的新文件，并使用以下代码替换其内容：
 
 ```swift
-
 class Turn {
-  // 1
-  let shapes: [Shape]
-  var matched: Bool?
+    // 1
+    let shapes: [Shape]
+    var matched: Bool?
 
-  init(shapes: [Shape]) {
-    self.shapes = shapes
-  }
+    init(shapes: [Shape]) {
+        self.shapes = shapes
+    }
 
-  // 2
-  func turnCompletedWithTappedShape(tappedShape: Shape) {
-    var maxArea = shapes.reduce(0) { $0 > $1.area ? $0 : $1.area }
-    matched = tappedShape.area >= maxArea
-  }
+    // 2
+    func turnCompletedWithTappedShape(tappedShape: Shape) {
+        let maxArea = shapes.reduce(0) { $0 > $1.area ? $0 : $1.area }
+        matched = tappedShape.area >= maxArea
+    }
 }
 ```
 
-Your new `Turn` class does the following:
+你的新 `Turn` 类做了以下事情：
 
-1.  Store the shapes that the player saw during the turn, and also whether the turn was a match or not.
+1. 存储玩家每一回合看到的形状，以及是否点击了较大的形状。
 
-2.  Records the completion of a turn after a player taps a shape.
+2. 在玩家点击形状后记录该回合已经结束。
 
-To control the sequence of turns your players play, create a new file named **TurnController.swift**, and replace its contents with the following code:
+要控制玩家玩的回合顺序，请创建一个名为 **TurnController.swift** 的新文件，并使用以下代码替换其内容：
 
 ```swift
-
 class TurnController {
-  // 1
-  var currentTurn: Turn?
-  var pastTurns: [Turn] = [Turn]()
+    // 1
+    var currentTurn: Turn?
+    var pastTurns: [Turn] = [Turn]()
 
-  // 2
-  init(shapeFactory: ShapeFactory, shapeViewBuilder: ShapeViewBuilder) {
-    self.shapeFactory = shapeFactory
-    self.shapeViewBuilder = shapeViewBuilder
-  }
+    // 2
+    init(shapeFactory: ShapeFactory, shapeViewBuilder: ShapeViewBuilder) {
+        self.shapeFactory = shapeFactory
+        self.shapeViewBuilder = shapeViewBuilder
+    }
 
-  // 3
-  func beginNewTurn() -> (ShapeView, ShapeView) {
-    let shapes = shapeFactory.createShapes()
-    let shapeViews = shapeViewBuilder.buildShapeViewsForShapes(shapes)
-    currentTurn = Turn(shapes: [shapeViews.0.shape, shapeViews.1.shape])
-    return shapeViews
-  }
+    // 3
+    func beginNewTurn() -> (ShapeView, ShapeView) {
+        let shapes = shapeFactory.createShapes()
+        let shapeViews = shapeViewBuilder.buildShapeViewsForShapes(shapes: shapes)
+        currentTurn = Turn(shapes: [shapeViews.0.shape, shapeViews.1.shape])
+        return shapeViews
+    }
 
-  // 4
-  func endTurnWithTappedShape(tappedShape: Shape) -> Int {
-    currentTurn!.turnCompletedWithTappedShape(tappedShape)
-    pastTurns.append(currentTurn!)
+    // 4
+    func endTurnWithTappedShape(tappedShape: Shape) -> Int {
+        currentTurn!.turnCompletedWithTappedShape(tappedShape: tappedShape)
+        pastTurns.append(currentTurn!)
 
-    var scoreIncrement = currentTurn!.matched! ? 1 : -1
+        let scoreIncrement = currentTurn!.matched! ? 1 : -1
 
-    return scoreIncrement
-  }
+        return scoreIncrement
+    }
 
-  private let shapeFactory: ShapeFactory
-  private var shapeViewBuilder: ShapeViewBuilder
+    private let shapeFactory: ShapeFactory
+    private var shapeViewBuilder: ShapeViewBuilder
 }
 ```
 
-Your `TurnController` works as follows:
+你的 `TurnController` 工作原理如下：
 
-1.  Stores both the current turn and past turns.
+1. 存储当前和过去的回合。
 
-2.  Accepts a `ShapeFactory` and `ShapeViewBuilder`.
+2. 接收一个 `ShapeFactory` 和一个 `ShapeViewBuilder`。
 
-3.  Uses this factory and builder to create shapes and views for each new turn and records the current turn.
+3. 使用此工厂和建造者为每个新的回合创建形状和视图，并记录当前回合。
 
-4.  Records the end of a turn after the player taps a shape, and returns the computed score based on whether the turn was a match or not.
+4. 在玩家点击形状后记录回合结束，并根据该回合玩家点击的形状计算得分。
 
-Now open **GameViewController.swift**, and add the following code at the bottom, just above the closing curly brace:
+现在打开 **GameViewController.swift**，并在底部大括号上方添加以下代码：
 
 ```swift
 private var turnController: TurnController!
 ```
 
-Scroll up to `viewDidLoad`, and just before the line invoking `beginNewTurn`, insert the following code:
+向上滚动到 `viewDidLoad`，在调用 `beginNewTurn` 的行之前，插入以下代码：
 
 ```swift
 turnController = TurnController(shapeFactory: shapeFactory, shapeViewBuilder: shapeViewBuilder)
 ```
 
-Replace `beginNextTurn` with the following:
+用以下代码替换 `beginNextTurn`：
 
 ```swift
 private func beginNextTurn() {
-  // 1
-  let shapeViews = turnController.beginNewTurn()
+    // 1
+    let shapeViews = turnController.beginNewTurn()
 
-  shapeViews.0.tapHandler = {
-    tappedView in
-    // 2
-    self.gameView.score += self.turnController.endTurnWithTappedShape(tappedView.shape)
-    self.beginNextTurn()
-  }
+    shapeViews.0.tapHandler = {
+        tappedView in
+        // 2
+        self.gameView.score += self.turnController.endTurnWithTappedShape(tappedShape: tappedView.shape)
+        self.beginNextTurn()
+    }
 
-  // 3
-  shapeViews.1.tapHandler = shapeViews.0.tapHandler
+    // 3
+    shapeViews.1.tapHandler = shapeViews.0.tapHandler
 
-  gameView.addShapeViews(shapeViews)
+    gameView.addShapeViews(newShapeViews: shapeViews)
 }
 ```
 
-Your new code works as follows:
+您的新代码的工作原理如下：
 
-1.  Asks the `TurnController` to begin a new turn and return a tuple of `ShapeView` to use for the turn.
+1. 让 `TurnController` 开始一个新的回合并返回一个 `ShapeView` 元组用于回合。
 
-2.  Informs the turn controller that the turn is over when the player taps a `ShapeView`, and then it increments the score. Notice how `TurnController` abstracts score calculation away, further simplifying `GameViewController`.
+2. 当玩家点击 `ShapeView` 时，通知控制器回合结束，然后计算得分。请注意 `TurnController` 是如何把得分计算的过程抽象出来并进一步简化 `GameViewController`。
 
-3.  Since you removed explicit references to specific shapes, the second shape view can share the same `tapHandler` closure as the first shape view.
+3. 由于您移除了对特定形状的显式引用，因此第二个形状视图可以与第一个形状视图共享相同的 `tapHandler` 闭包。
 
-An example of the **Dependency Injection** design pattern is that it passes in its dependencies to the `TurnController` initializer. The initializer parameters essentially inject the shape and shape view factory dependencies.
+**依赖注入** 设计模式的一个实例应用是它将其依赖项传递给 `TurnController` 初始化器，初始化器的参数主要是要注入的形状和工厂的依赖项。
 
-Since `TurnController` makes no assumptions about which type of factories to use, you’re free to swap in different factories.
+由于 `TurnController` 没有假定使用哪种类型的工厂，因此您可以自由地在不同的工厂间进行交换。
 
-Not only does this make your game more flexible, but it makes automated testing easier since it allows you to pass in special `TestShapeFactory` and `TestShapeViewFactory` classes if you desire. These could be special stubs or mocks that would make testing easier, more reliable or faster.
+这不仅使您的游戏更加灵活，还让自动化测试变得更容易了，因为它允许您向特殊的 `TestShapeFactory` 和 `TestShapeViewFactory` 类传递如果你想的话。这些可能是特殊的存根或模拟，可以使测试更容易、更可靠并且更快速。
 
-Build and run and check that it looks like this:
+Build and run and check that it looks like this:编译并运行，你会看到如下图：
 
 [![Screenshot10](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot10-180x320.png)](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot10.png)
 
-There are no visual differences, but `TurnController` has opened up your code so it can use more sophisticated turn strategies: calculating scores based on streaks of turns, alternating shape type between turns, or even adjusting the difficulty of play based on the player’s performance.
+界面好像没什么变化，但是 `TurnController` 已经开放了你的代码，所以它可以使用更复杂的回合机制：根据回合计算得分然后在每一回合之间选择性的改变形状，甚至根据玩家的表现调整比赛难度。
 
-## Design Pattern: Strategy
+## 策略模式
 
-I’m happy because I’m eating a piece of pie while writing this tutorial. Perhaps that’s why it was imperative to add circles to the game. :\]
+我现在特别高兴因为我在写这个教程时正在吃一块派，也许这就是为什么我们在游戏中要添加圆形了哈。:\]
 
-You should be happy because you’ve done a great job using design patterns to refactor your game code so that it’s easy to expand and maintain.
+你应该感到高兴，因为你在使用设计模式重构游戏代码方面做得很好，游戏因此变得很容易扩展和维护。
 
 [![ragecomic3](https://koenig-media.raywenderlich.com/uploads/2014/10/ragecomic3.png)](https://koenig-media.raywenderlich.com/uploads/2014/10/ragecomic3.png)
 
-Speaking of pie, err, Pi, how do you get those circles back in your game? Right now your `GameViewController` can use **either** circles or squares, but only one or the other. It doesn’t have to be all restrictive like that.
+说到派，呃，Pi，你要怎么把这些圆形放回游戏中呢？现在你的 `GameViewController` 可以使用 **圆或正方形**，但只能使用其中一个。并不一定都要限制的死死的。
 
-Next, you’ll use the **Strategy** design pattern to manage which shapes your game produces.
+接下来您将使用 **策略** 模式来管理游戏里的形状。
 
-The **Strategy** design pattern allows you to design algorithm behaviors based on what your program determines at runtime. In this case, the algorithm will choose which shapes to present to the player.
+**策略** 设计模式允许您根据程序在运行时确定的内容来设计算法。在这种情况下，算法将选择向玩家呈现什么样的形状。
 
-You can design many different algorithms: one that picks shapes randomly, one that picks shapes to challenge the player or help him be more successful, and so on. **Strategy** works by defining a family of algorithms through abstract declarations of the behavior that each strategy must implement. This makes the algorithms within the family interchangeable.
+您可以设计许多不同的算法：一种是随机选择形状，一种是挑选形状来给玩家一点挑战或者帮助他获胜更多，等等！**策略** 通过对每个策略必须实现的行为的抽象声明来定义一系列算法，这使得该族内的算法可以互换。
 
-If you guessed that you’re going to implement the Strategy as a Swift `protocol`, you guessed correctly!
+如果你猜想你将将会把策略作为一个 Swift `protocol` 来实现，那你就猜对了！
 
-Create a new file named **TurnStrategy.swift**, and replace its contents with the following code:
+Create a new file named **TurnStrategy.swift**, and replace its contents with the following code:创建一个名为 **TurnStrategy.swift** 的新文件，并使用以下代码替换其内容：
 
 ```swift
-
 // 1
 protocol TurnStrategy {
-  func makeShapeViewsForNextTurnGivenPastTurns(pastTurns: [Turn]) -> (ShapeView, ShapeView)
+    func makeShapeViewsForNextTurnGivenPastTurns(pastTurns: [Turn]) -> (ShapeView, ShapeView)
 }
 
 // 2
 class BasicTurnStrategy: TurnStrategy {
-  let shapeFactory: ShapeFactory
-  let shapeViewBuilder: ShapeViewBuilder
+    let shapeFactory: ShapeFactory
+    let shapeViewBuilder: ShapeViewBuilder
 
-  init(shapeFactory: ShapeFactory, shapeViewBuilder: ShapeViewBuilder) {
-    self.shapeFactory = shapeFactory
-    self.shapeViewBuilder = shapeViewBuilder
-  }
+    init(shapeFactory: ShapeFactory, shapeViewBuilder: ShapeViewBuilder) {
+        self.shapeFactory = shapeFactory
+        self.shapeViewBuilder = shapeViewBuilder
+    }
 
-  func makeShapeViewsForNextTurnGivenPastTurns(pastTurns: [Turn]) -> (ShapeView, ShapeView) {
-    return shapeViewBuilder.buildShapeViewsForShapes(shapeFactory.createShapes())
-  }
+    func makeShapeViewsForNextTurnGivenPastTurns(pastTurns: [Turn]) -> (ShapeView, ShapeView) {
+        return shapeViewBuilder.buildShapeViewsForShapes(shapes: shapeFactory.createShapes())
+    }
 }
 
 class RandomTurnStrategy: TurnStrategy {
-  // 3
-  let firstStrategy: TurnStrategy
-  let secondStrategy: TurnStrategy
+    // 3
+    let firstStrategy: TurnStrategy
+    let secondStrategy: TurnStrategy
 
-  init(firstStrategy: TurnStrategy, secondStrategy: TurnStrategy) {
-    self.firstStrategy = firstStrategy
-    self.secondStrategy = secondStrategy
-  }
-
-  // 4
-  func makeShapeViewsForNextTurnGivenPastTurns(pastTurns: [Turn]) -> (ShapeView, ShapeView) {
-    if Utils.randomBetweenLower(0.0, andUpper: 100.0) < 50.0 {
-      return firstStrategy.makeShapeViewsForNextTurnGivenPastTurns(pastTurns)
-    } else {
-      return secondStrategy.makeShapeViewsForNextTurnGivenPastTurns(pastTurns)
+    init(firstStrategy: TurnStrategy, secondStrategy: TurnStrategy) {
+        self.firstStrategy = firstStrategy
+        self.secondStrategy = secondStrategy
     }
-  }
+
+    // 4
+    func makeShapeViewsForNextTurnGivenPastTurns(pastTurns: [Turn]) -> (ShapeView, ShapeView) {
+        if Utils.randomBetweenLower(lower: 0.0, andUpper: 100.0) < 50.0 {
+            return firstStrategy.makeShapeViewsForNextTurnGivenPastTurns(pastTurns: pastTurns)
+        } else {
+            return secondStrategy.makeShapeViewsForNextTurnGivenPastTurns(pastTurns: pastTurns)
+        }
+    }
 }
 ```
 
-Here's what your new `TurnStrategy` does line-by-line:
+以下是您的新的 `TurnStrategy` 进行的操作：
 
-1.  Declare the behavior of the algorithm. This is defined in a protocol, with one method. The method takes an array of the past turns in the game, and returns the shape views to display for the next turn.
+1. 这是在一个协议中定义的一个抽象方法，该方法获取游戏中上一个回合的数组，并返回形状视图来显示下一回合。
 
-2.  Implement a basic strategy that uses a `ShapeFactory` and `ShapeViewBuilder`. This strategy implements the existing behavior, where the shape views just come from the single factory and builder as before. Notice how you're using **Dependency Injection** again here, and that means this strategy doesn't care which factory or builder it's using.
+2. 实现一个使用 `ShapeFactory` 和 `ShapeViewBuilder` 的基本策略，此策略实现了现有行为，其中形状视图与以前一样来自单个工厂和建造者。请注意您在此处再次使用 **依赖注入**，这意味着此策略不关心它使用的是哪一个工厂或建造者。
 
-3.  Implement a random strategy which randomly uses one of two other strategies. You've used composition here so that `RandomTurnStrategy` can behave like two potentially different strategies. However, since it's a `Strategy`, that composition is hidden from whatever code uses `RandomTurnStrategy`.
+3. 随机使用其他两种策略之一来实施随机策略。你在这里使用了组合，因此 `RandomTurnStrategy` 可以表现得像两个可能不同的策略。但是由于它是一个 `策略`，所以任何使用 `RandomTurnStrategy` 的代码都隐藏了该组合。
 
-4.  This is the meat of the random strategy. It randomly selects either the first or second strategy with a 50 percent chance.
+4. 这是随机策略的核心。它以 50％ 的概率随机选择第一种或第二种策略。
 
-Now you need to use your strategies. Open **TurnController.swift**, and replace its contents with the following:
+现在你需要使用你的策略。打开 **TurnController.swift** 并用以下内容替换：
 
 ```swift
 
 class TurnController {
-  var currentTurn: Turn?
-  var pastTurns: [Turn] = [Turn]()
+    var currentTurn: Turn?
+    var pastTurns: [Turn] = [Turn]()
 
-  // 1
-  init(turnStrategy: TurnStrategy) {
-    self.turnStrategy = turnStrategy
-  }
+    // 1
+    init(turnStrategy: TurnStrategy) {
+        self.turnStrategy = turnStrategy
+    }
 
-  func beginNewTurn() -> (ShapeView, ShapeView) {
-    // 2
-    let shapeViews = turnStrategy.makeShapeViewsForNextTurnGivenPastTurns(pastTurns)
-    currentTurn = Turn(shapes: [shapeViews.0.shape, shapeViews.1.shape])
-    return shapeViews
-  }
+    func beginNewTurn() -> (ShapeView, ShapeView) {
+        // 2
+        let shapeViews = turnStrategy.makeShapeViewsForNextTurnGivenPastTurns(pastTurns: pastTurns)
+        currentTurn = Turn(shapes: [shapeViews.0.shape, shapeViews.1.shape])
+        return shapeViews
+    }
 
-  func endTurnWithTappedShape(tappedShape: Shape) -> Int {
-    currentTurn!.turnCompletedWithTappedShape(tappedShape)
-    pastTurns.append(currentTurn!)
+    func endTurnWithTappedShape(tappedShape: Shape) -> Int {
+        currentTurn!.turnCompletedWithTappedShape(tappedShape: tappedShape)
+        pastTurns.append(currentTurn!)
 
-    var scoreIncrement = currentTurn!.matched! ? 1 : -1
+        let scoreIncrement = currentTurn!.matched! ? 1 : -1
 
-    return scoreIncrement
-  }
+        return scoreIncrement
+    }
 
-  private let turnStrategy: TurnStrategy
+    private let turnStrategy: TurnStrategy
 }
 ```
 
-Here's what's happening, section by section:
+以下是详细步骤：
 
-1.  Accepts a passed strategy and stores it on the `TurnController` instance.
+1. 接收传递的策略并将其存储在 `TurnController` 实例中。
 
-2.  Uses the strategy to generate the `ShapeView` objects so the player can begin a new turn.
+2. 使用策略生成 `ShapeView` 对象，以便玩家可以开始新的回合。
 
-> **Note:** This will cause a syntax error in **GameViewController.swift**. Don't worry, it's only temporary. You're going to fix the error in the very next step.
+> **注意：** 这将会导致 **GameViewController.swift** 中出现语法错误。但是别担心，这只是暂时的，您将在下一步中修复错误。
 
-Your last step to use the **Strategy** design pattern is to adapt your `GameViewController` to use your `TurnStrategy`.
+使用 **策略** 设计模式的最后一步是调整你的 `GameViewController` 从而来使用你的 `TurnStrategy`。
 
-Open **GameViewController.swift** and replace its contents with the following:
+打开 **GameViewController.swift** 并用以下内容替换：
 
 ```swift
 import UIKit
 
 class GameViewController: UIViewController {
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-    // 1
-    let squareShapeViewFactory = SquareShapeViewFactory(size: gameView.sizeAvailableForShapes())
-    let squareShapeFactory = SquareShapeFactory(minProportion: 0.3, maxProportion: 0.8)
-    let squareShapeViewBuilder = shapeViewBuilderForFactory(squareShapeViewFactory)
-    let squareTurnStrategy = BasicTurnStrategy(shapeFactory: squareShapeFactory, shapeViewBuilder: squareShapeViewBuilder)
+        // 1
+        let squareShapeViewFactory = SquareShapeViewFactory(size: gameView.sizeAvailableForShapes())
+        let squareShapeFactory = SquareShapeFactory(minProportion: 0.3, maxProportion: 0.8)
+        let squareShapeViewBuilder = shapeViewBuilderForFactory(shapeViewFactory: squareShapeViewFactory)
+        let squareTurnStrategy = BasicTurnStrategy(shapeFactory: squareShapeFactory, shapeViewBuilder: squareShapeViewBuilder)
 
-    // 2
-    let circleShapeViewFactory = CircleShapeViewFactory(size: gameView.sizeAvailableForShapes())
-    let circleShapeFactory = CircleShapeFactory(minProportion: 0.3, maxProportion: 0.8)
-    let circleShapeViewBuilder = shapeViewBuilderForFactory(circleShapeViewFactory)
-    let circleTurnStrategy = BasicTurnStrategy(shapeFactory: circleShapeFactory, shapeViewBuilder: circleShapeViewBuilder)
+        // 2
+        let circleShapeViewFactory = CircleShapeViewFactory(size: gameView.sizeAvailableForShapes())
+        let circleShapeFactory = CircleShapeFactory(minProportion: 0.3, maxProportion: 0.8)
+        let circleShapeViewBuilder = shapeViewBuilderForFactory(shapeViewFactory: circleShapeViewFactory)
+        let circleTurnStrategy = BasicTurnStrategy(shapeFactory: circleShapeFactory, shapeViewBuilder: circleShapeViewBuilder)
 
-    // 3
-    let randomTurnStrategy = RandomTurnStrategy(firstStrategy: squareTurnStrategy, secondStrategy: circleTurnStrategy)
+        // 3
+        let randomTurnStrategy = RandomTurnStrategy(firstStrategy: squareTurnStrategy, secondStrategy: circleTurnStrategy)
 
-    // 4
-    turnController = TurnController(turnStrategy: randomTurnStrategy)
+        // 4
+        turnController = TurnController(turnStrategy: randomTurnStrategy)
 
-    beginNextTurn()
-  }
-
-  override func prefersStatusBarHidden() -> Bool {
-    return true
-  }
-
-  private func shapeViewBuilderForFactory(shapeViewFactory: ShapeViewFactory) -> ShapeViewBuilder {
-    let shapeViewBuilder = ShapeViewBuilder(shapeViewFactory: shapeViewFactory)
-    shapeViewBuilder.fillColor = UIColor.brownColor()
-    shapeViewBuilder.outlineColor = UIColor.orangeColor()
-    return shapeViewBuilder
-  }
-
-  private func beginNextTurn() {
-    let shapeViews = turnController.beginNewTurn()
-
-    shapeViews.0.tapHandler = {
-      tappedView in
-      self.gameView.score += self.turnController.endTurnWithTappedShape(tappedView.shape)
-      self.beginNextTurn()
+        beginNextTurn()
     }
-    shapeViews.1.tapHandler = shapeViews.0.tapHandler
 
-    gameView.addShapeViews(shapeViews)
-  }
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
 
-  private var gameView: GameView { return view as! GameView }
-  private var turnController: TurnController!
+    private func shapeViewBuilderForFactory(shapeViewFactory: ShapeViewFactory) -> ShapeViewBuilder {
+        let shapeViewBuilder = ShapeViewBuilder(shapeViewFactory: shapeViewFactory)
+        shapeViewBuilder.fillColor = UIColor.brown
+        shapeViewBuilder.outlineColor = UIColor.orange
+        return shapeViewBuilder
+    }
+
+    private func beginNextTurn() {
+        let shapeViews = turnController.beginNewTurn()
+
+        shapeViews.0.tapHandler = {
+            tappedView in
+            self.gameView.score += self.turnController.endTurnWithTappedShape(tappedShape: tappedView.shape)
+            self.beginNextTurn()
+        }
+        shapeViews.1.tapHandler = shapeViews.0.tapHandler
+
+        gameView.addShapeViews(newShapeViews: shapeViews)
+    }
+
+    private var gameView: GameView { return view as! GameView }
+    private var turnController: TurnController!
 }
 ```
 
-Your revised `GameViewController` uses `TurnStrategy` as follows:
+您修改后的 `GameViewController` 使用 `TurnStrategy` 的详细步骤如下：
 
-1.  Create a strategy to create squares.
+1. 创建一个策略来创建正方形。
 
-2.  Create a strategy to create circles.
+2. 创建一个策略来创建圆形。
 
-3.  Create a strategy to randomly select either your square or circle strategy.
+3. 创建策略来随机选择是使用正方形还是圆形策略。
 
-4.  Create your turn controller to use the random strategy.
+4. 创建回合控制器来使用随机策略。
 
-Build and run, then go ahead and play five or six turns. You should see something similar to the following screenshots.
+编译并运行，然后玩五到六轮，您应该看到类似于以下的内容。
 
 [![Screenshot111213**Animatedv2](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot111213**Animatedv2.gif)](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot111213**Animatedv2.gif)
 
-Notice how your game randomly alternates between square shapes and circle shapes. At this point, you could easily add a third shape like triangle or parallelogram and your `GameViewController` could use it simply by switching up the strategy.
+请注意你的游戏是如何在正方形和圆形之间随机交替的。此时您可以轻松地添加第三个形状来，如三角形或平行四边形，您的 `GameViewController` 可以通过切换策略来使用它。
 
 ## Design Patterns: Chain of Responsibility, Command and 迭代器
 
