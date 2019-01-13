@@ -2,8 +2,7 @@
 > * 原文作者：[Will Koehrsen](https://towardsdatascience.com/@williamkoehrsen?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/data-visualization-with-bokeh-in-python-part-one-getting-started.md](https://github.com/xitu/gold-miner/blob/master/TODO1/data-visualization-with-bokeh-in-python-part-one-getting-started.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starriers](https://github.com/Starriers)
 
 # 用 Python 中的 Bokeh 实现可视化数据，第一部分：入门
 
@@ -23,7 +22,7 @@
 
 Bokeh 的主要概念是一次建立一个图层。我们首先创建一个图，然后向图中添加名为 [glyphs](https://bokeh.pydata.org/en/latest/docs/user_guide/plotting.html) 的元素。（对于那些使用 ggplot 的人来说，glyphs 的概念与地理符号的想法本质上是一样的，他们一次添加到一个“图层”中。）根据所需的用途，glyphs 可以呈现多种形状：圆形、线条、补丁、条形、弧形等。让我们用正方形和圆形制作一个基本的图来说明 glyphs 的概念。首先，我们使用 `figure` 方法绘制一个图，然后通过调用适当的方法传入数据，将我们的 glyphs 添加到绘图中。最后，我们展示绘图（我使用的是 Jupyter Notebook，如果你使用时调用的是 `output_notebook`，就会看到对应的绘图）。
 
-``` Python
+```Python
 # bokeh 基础
 from bokeh.plotting import figure
 from bokeh.io import show, output_notebook
@@ -58,7 +57,7 @@ show(p)
 
 我们现在开始展示我们的航班延迟数据。在跳转到图形之前，我们应该加载数据并对其进行简短的检查（**粗体** 为输出代码）：
 
-``` Python
+```Python
 # 将 CSV 中的数据读入
 flights = pd.read_csv('../data/flights.csv', index_col=0)
 
@@ -75,13 +74,13 @@ min         -86.000000
 max        1272.000000
 ```
 
-摘要统计数据为我们作出决策提供了信息：我们有 327、346 次航班，最小延迟事件为 -86 分钟，最大延迟事件为 1272 分钟，令人震惊的 21 小时！ 75% 的分位数只有 14 分钟，所以我们可以假设 1000 分钟以上的数字可能是异常值（这并不意味着它们是非法的，只是极端的）。我会集中讨论 -60 到 120 分钟的延迟柱状图。
+摘要统计数据为我们作出决策提供了信息：我们有 327、346 次航班，最小延迟事件为 -86 分钟，最大延迟事件为 1272 分钟，令人震惊的 21 小时！75% 的分位数只有 14 分钟，所以我们可以假设 1000 分钟以上的数字可能是异常值（这并不意味着它们是非法的，只是极端的）。我会集中讨论 -60 到 120 分钟的延迟柱状图。
 
 [柱状图](https://www.moresteam.com/toolbox/histogram.cfm)是单个变量初始可视化的常见选择，因为它显示了分布式数据。x 位置是将变量分组成成为 bin 的间隔的值，每个条形的高度表示每个间隔数据点的计数（数目）。在我们的例子中，x 位置将代表以分钟为单位的延迟到达，高度是对应的 bin 中的航班数。Bokeh 没有内置的柱状图，但我们可以使用 `quad` glyph 来指定每个条形的底部、上、下、和右边距。
 
-要创建条形图的数据，我们要使用 [numpy](https://docs.scipy.org/doc/numpy-1.14.0/reference/generated/numpy.histogram.html)、`[histogram](https://docs.scipy.org/doc/numpy-1.14.0/reference/generated/numpy.histogram.html)`、[function](https://docs.scipy.org/doc/numpy-1.14.0/reference/generated/numpy.histogram.html)，它计算每个指定 bin 数据点的数值。我们使用 5 分钟的长度作为函数将计算航班数在每五分钟所花费的时间延误。在生成数据之后，我们将其放入一个 [pandas dataframe 来将所有的数据保存在一个对象中。](https://pandas.pydata.org/pandas-docs/stable/dsintro.html)这里的代码对于理解 Bokeh 并不是很重要，但鉴于 Numpy 和 pandas 在数据科学中的流行度，所以它还是有些用处的。
+要创建条形图的数据，我们要使用 [numpy](https://docs.scipy.org/doc/numpy-1.14.0/reference/generated/numpy.histogram.html)、`[histogram](https://docs.scipy.org/doc/numpy-1.14.0/reference/generated/numpy.histogram.html)`、[function](https://docs.scipy.org/doc/numpy-1.14.0/reference/generated/numpy.histogram.html)，它计算每个指定 bin 数据点的数值。我们使用 5 分钟的长度作为函数将计算航班数在每五分钟所花费的时间延误。在生成数据之后，我们将其放入一个 [pandas dataframe 来将所有的数据保存在一个对象中](https://pandas.pydata.org/pandas-docs/stable/dsintro.html)。这里的代码对于理解 Bokeh 并不是很重要，但鉴于 Numpy 和 pandas 在数据科学中的流行度，所以它还是有些用处的。
 
-``` Python
+```Python
 """Bins will be five minutes in width, so the number of bins 
 is (length of interval / 5). Limit delays to [-60, +120] minutes using the range."""
 
@@ -101,7 +100,7 @@ delays = pd.DataFrame({'arr_delay': arr_hist,
 
 `flights` 列是从 `left` 到 `right` 的每个延迟间隔内飞行次数的计数。在这里，我们可以生成一个新的 Bokeh 图，并添加一个指定适当参数的 quad glpyh：
 
-``` Python
+```Python
 # 创建空白绘图
 p = figure(plot_height = 600, plot_width = 600, 
            title = 'Histogram of Arrival Delays',
@@ -133,7 +132,7 @@ show(p)
 
 为了添加工具提示，我们需要将数据源从 dataframe 中更改为来自 [ColumnDataSource，Bokeh 中的一个关键概念。](https://bokeh.pydata.org/en/latest/docs/reference/models/sources.html)这是一个专门用于绘图的对象，它包含数据以及方法和属性。ColumnDataSource 允许我们在图中添加注解和交互，也可以从 pandas dataframe 中进行构建。真实数据被保存在字典中，可以通过 ColumnDataSource 的 data 属性访问。这里，我们从数据源进行创建源，并查看数据字典中与 dataframe 列对应的键。
 
-``` Python
+```Python
 # 导入 ColumnDataSource 类
 from bokeh.models import ColumnDataSource
 
@@ -146,20 +145,20 @@ dict_keys(['flights', 'left', 'right', 'index'])
 
 我们使用 CloumDataSource 添加 glyphs 时，我们将 CloumnDataSource 作为 `source` 参数传入，并使用字符串引用列名：
 
-``` Python
+```Python
 # 这次添加一个带有源的 quad glyph
 p.quad(source = src, bottom=0, top='flights', 
        left='left', right='right', 
        fill_color='red', line_color='black')
 ```
 
-请注意，代码如何引用特定的数据列，比如 ‘flights’、‘left’ 和 ‘right’，而不是像以前那样使用  `df['column']` 格式。
+请注意，代码如何引用特定的数据列，比如 ‘flights’、‘left’ 和 ‘right’，而不是像以前那样使用 `df['column']` 格式。
 
 #### Bokeh 中的 HoverTool
 
 一开始，HoverTool 的语法看上去会有些复杂，但经过实践后，就会发现它们很容易创建。我们将 `HoverTool` 实例作为 `tooltips` 作为 [Python 元组](https://www.tutorialspoint.com/python/python_tuples.htm)传递给它，其中第一个元素是数据的标签，第二个元素引出我们要高亮显示的特定数据。我们可以使用 ‘$’ 引用图中任何属性，例如 x 或 y 的位置，也可以使用 ‘@’ 引用源中特定字段。这听起来可能有点令人困惑，所以这里有一个 HoverTool 的例子，我们在这两方面都可以这么做：
 
-``` Python
+```Python
 # 使用 @ 引用我们自己的数据字段
 # 使用 $ 在图上的位置悬停工具
 h = HoverTool(tooltips = [('Delay Interval Left ', '@left'),
@@ -174,21 +173,21 @@ h = HoverTool(tooltips = [('Delay Interval Left ', '@left'),
 
 (x,y) 位置上是鼠标的位置，对我们的柱状图没有太大的帮助，因为我们要找到给定条形中对应于条形顶部的飞行术。为了修复这个问题，我们将要修改我们的工具提示实例来引用正确的列。格式化工具提示中的数据显示可能会让人沮丧，因此我通常在 dataframe 中使用正确的格式创建另一列。例如，如果我希望我的工具提示显示给定条的整个隔间，我会在数据框中创建一个格式化列：
 
-``` Python
+```Python
 # 添加一个列，显示每个间隔的范围
 delays['f_interval'] = ['%d to %d minutes' % (left, right) for left, right in zip(delays['left'], delays['right'])]
 ```
 
 然后，我将 dataframe 转换为 CloumnDataSource，并在 HoverTool 调用中访问该列。下面的代码使用引用两个格式化列的悬停工具创建绘图，把那个将该工具添加到绘图中。
 
-``` Python
+```Python
 # 创建一个空白绘图
 p = figure(plot_height = 600, plot_width = 600, 
            title = 'Histogram of Arrival Delays',
           x_axis_label = 'Delay (min)]', 
            y_axis_label = 'Number of Flights')
 
-# 这次，添加带有源的 quad glyph  
+# 这次，添加带有源的 quad glyph
 p.quad(bottom=0, top='flights', left='left', right='right', source=src,
        fill_color='red', line_color='black', fill_alpha = 0.75,
        hover_fill_alpha = 1.0, hover_fill_color = 'navy')
@@ -213,7 +212,7 @@ show(p)
 
 当我们的鼠标滑过不同的词条时，会得到该词条精确的统计数据，它表示间隔以及在该间隔内飞行的次数。如果对绘图比较满意，可以将其保存到 html 文件中进行共享：
 
-``` Python
+```Python
 # 导入保存函数
 from bokeh.io import output_file
 
