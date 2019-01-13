@@ -2,33 +2,33 @@
 > * 原文作者：[Miguel Grinberg](https://blog.miguelgrinberg.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flask-video-streaming-revisited.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flask-video-streaming-revisited.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zhmhhu](https://github.com/zhmhhu)
+> * 校对者：[1992chenlu](https://github.com/1992chenlu)
 
-# Flask Video Streaming Revisited
+# 再看 Flask 视频流
 
 ![](https://blog.miguelgrinberg.com/static/images/video-streaming-revisited.jpg)
 
-Almost three years ago I wrote an article on this blog titled [Video Streaming with Flask](https://juejin.im/post/5bea86fc518825158c531e9c), in which I presented a very modest streaming server that used a Flask generator view function to stream a [Motion-JPEG](https://en.wikipedia.org/wiki/Motion_JPEG) stream to web browsers. My intention with that article was to show a simple, yet practical use of [streaming responses](http://flask.pocoo.org/docs/0.12/patterns/streaming/), a not very well known feature in Flask.
+大约三年前，我在这个名为 [Video Streaming with Flask](https://juejin.im/post/5bea86fc518825158c531e9c) 的博客上写了一篇文章，其中我提出了一个非常实用的流媒体服务器，它使用 Flask 生成器视图函数将 [Motion-JPEG](https://en.wikipedia.org/wiki/Motion_JPEG)  流传输到 Web 浏览器。在那片文章中，我的意图是展示简单而实用的[流式响应](http://flask.pocoo.org/docs/0.12/patterns/streaming/)，这是 Flask 中一个不为人知的特性。
 
-That article is extremely popular, but not because it teaches how to implement streaming responses, but because a lot of people want to implement streaming video servers. Unfortunately, my focus when I wrote the article was not on creating a robust video server, so I frequently get questions and requests for advice from those who want to use the video server for a real application and quickly find its limitations. So today I'm going to revisit my streaming video server and describe a few improvements I've made to it.
+那篇文章非常受欢迎，倒并不是因为它教会了读者如何实现流式响应，而是因为很多人都希望实现流媒体视频服务器。不幸的是，当我撰写文章时，我的重点不在于创建一个强大的视频服务器所以我经常收到读者的提问及寻求建议的请求，他们想要将视频服务器用于实际应用程序，但很快发现了它的局限性。
 
-## Recap: Using Flask's Streaming for Video
+## 回顾：使用 Flask 的视频流
 
-I recommend you read the [original article](https://blog.miguelgrinberg.com/post/video-streaming-with-flask) to familiarize yourself with my project. In short, this is a Flask server that uses a streaming response to provide a stream of video frames captured from a camera in Motion JPEG format. This format is very simple and not the most efficient, but has the advantage that all browsers support it natively and without any client-side scripting required. It is a fairly common format used by security cameras for that reason. To demonstrate the server, I implemented a camera driver for a Raspberry Pi with its camera module. For those that didn't have a Pi with a camera at hand, I also wrote an emulated camera driver that streams a sequence of jpeg images stored on disk.
+我建议您阅读[原始文章](https://blog.miguelgrinberg.com/post/video-streaming-with-flask)以熟悉我的项目。简而言之，这是一个 Flask 服务器，它使用流式响应来提供从 Motion JPEG 格式的摄像机捕获的视频帧流。这种格式非常简单，虽然并不是最有效的，它具有以下优点：所有浏览器都原生支持它，无需任何客户端脚本。出于这个原因，它是安防摄像机使用的一种相当常见的格式。为了演示服务器，我使用相机模块为树莓派编写了一个相机驱动程序。对于那些没有没有树莓派，只有手持相机的人，我还写了一个模拟的相机驱动程序，它可以传输存储在磁盘上的一系列 jpeg 图像。
 
-## Running the Camera Only When There Are Viewers
+## 仅在有观看者时运行相机
 
-One aspect of the original streaming server that people did not like is that the background thread that captures video frames from the Raspberry Pi camera starts when the first client connects to the stream, but then it never stops. A more efficient way to handle this background thread is to only have it running while there are viewers, so that the camera can be turned off when nobody is connected.
+人们不喜欢的原始流媒体服务器的一个原因是，当第一个客户端连接到流时，从树莓派的摄像头捕获视频帧的后台线程就开始了，但之后它永远不会停止。处理此后台线程的一种更有效的方法是仅在有查看者的情况下使其运行，以便在没有人连接时可以关闭相机。
 
-I implemented this improvement a while ago. The idea is that every time a frame is accessed by a client the current time of that access is recorded. The camera thread checks this timestamp and if it finds it is more than ten seconds old it exits. With this change, when the server runs for ten seconds without any clients it will shut its camera off and stop all background activity. As soon as a client connects again the thread is restarted.
+我刚刚实施了这项改进。这个想法是，每次客户端访问视频帧时，都会记录该访问的当前时间。相机线程检查此时间戳，如果发现它超过十秒，则退出。通过此更改，当服务器在没有任何客户端的情况下运行十秒钟时，它将关闭其相机并停止所有后台活动。一旦客户端再次连接，线程就会重新启动。
 
-Here is a brief description of the changes:
+以下是对这项改进的简要说明：
 
 ```
 class Camera(object):
     # ...
-    last_access = 0  # time of last client access to the camera
+    last_access = 0  # 最后一个客户端访问相机的时间
 
     # ...
 
@@ -42,24 +42,24 @@ class Camera(object):
             # ...
             for foo in camera.capture_continuous(stream, 'jpeg', use_video_port=True):
                 # ...
-                # if there hasn't been any clients asking for frames in
-                # the last 10 seconds stop the thread
+                # 如果没有任何客户端访问视屏帧
+                # 10 秒钟之后停止线程
                 if time.time() - cls.last_access > 10:
                     break
         cls.thread = None
 ```
 
-## Simplifying the Camera Class
+## 简化相机类
 
-A common problem that a lot of people mentioned to me is that it is hard to add support for other cameras. The `Camera` class that I implemented for the Raspberry Pi is fairly complex because it uses a background capture thread to talk to the camera hardware.
+很多人向我提到的一个常见问题是很难添加对其他相机的支持。我为树莓派实现的 `Camera` 类相当复杂，因为它使用后台捕获线程与相机硬件通信。
 
-To make this easier, I decided to move the generic functionality that does all the background processing of frames to a base class, leaving only the task of getting the frames from the camera to implement in subclasses. The new `BaseCamera` class in module `base_camera.py` implements this base class. Here is what this generic thread looks like:
+为了使它更容易，我决定将对于帧的所有后台处理的通用功能移动到基类，只留下从相机获取帧以在子类中实现的任务。模块 `base_camera.py` 中的新 `BaseCamera` 类实现了这个基类。以下是这个通用线程的样子：
 
 ```
 class BaseCamera(object):
-    thread = None  # background thread that reads frames from camera
-    frame = None  # current frame is stored here by background thread
-    last_access = 0  # time of last client access to the camera
+    thread = None  # 从摄像机读取帧的后台线程
+    frame = None  # 后台线程将当前帧存储在此
+    last_access = 0  # 最后一个客户端访问摄像机的时间
     # ...
 
     @staticmethod
@@ -75,8 +75,8 @@ class BaseCamera(object):
         for frame in frames_iterator:
             BaseCamera.frame = frame
 
-            # if there hasn't been any clients asking for frames in
-            # the last 10 seconds then stop the thread
+            # 如果没有任何客户端访问视屏帧
+            # 10 秒钟之后停止线程
             if time.time() - BaseCamera.last_access > 10:
                 frames_iterator.close()
                 print('Stopping camera thread due to inactivity.')
@@ -84,14 +84,14 @@ class BaseCamera(object):
         BaseCamera.thread = None
 ```
 
-This new version of the Raspberry Pi's camera thread has been made generic with the use of yet another generator. The thread expects the `frames()` method (which is a static method) to be a generator implemented in subclasses that are specific to different cameras. Each item returned by the iterator must be a video frame, in jpeg format.
+这个新版本的树莓派的相机线程使用了另一个生成器而变得通用了。线程期望 `frames()` 方法（这是一个静态方法）成为一个生成器，这个生成器在特定的不同摄像机的子类中实现。迭代器返回的每个项目必须是 jpeg 格式的视频帧。
 
-Here is how the emulated camera that returns static images can be adapted to work with this base class:
+以下展示的是返回静态图像的模拟摄像机如何适应此基类：
 
 ```
 class Camera(BaseCamera):
-    """An emulated camera implementation that streams a repeated sequence of
-    files 1.jpg, 2.jpg and 3.jpg at a rate of one frame per second."""
+    """模拟相机的实现过程，将
+     文件1.jpg，2.jpg和3.jpg形成的重复序列以每秒一帧的速度以流式文件的形式传输。"""
     imgs = [open(f + '.jpg', 'rb').read() for f in ['1', '2', '3']]
 
     @staticmethod
@@ -101,9 +101,9 @@ class Camera(BaseCamera):
             yield Camera.imgs[int(time.time()) % 3]
 ```
 
-Note how in this version the `frames()` generator forces a frame rate of one frame per second by simply sleeping that amount between frames.
+注意在这个版本中，`frames()` 生成器如何通过简单地在帧之间休眠来形成每秒一帧的速率。
 
-The camera subclass for the Raspberry Pi camera also becomes much simpler with this redesign:
+通过重新设计，树莓派相机的相机子类也变得更加简单：
 
 ```
 import io
@@ -128,9 +128,9 @@ class Camera(BaseCamera):
                 stream.truncate()
 ```
 
-## OpenCV Camera Driver
+## OpenCV 相机驱动
 
-A fair number of users complained that they did not have access to a Raspberry Pi equipped with a camera module, so they could not try this server with anything other than the emulated camera. Now that adding camera drivers is much easier, I wanted to also have a camera based on [OpenCV](http://opencv.org/), which supports most USB webcams and laptop cameras. Here is a simple camera driver for it:
+很多用户抱怨他们无法访问配备相机模块的树莓派，因此除了模拟相机之外，他们无法尝试使用此服务器。现在添加相机驱动程序要容易得多，我想要一个基于 [OpenCV](http://opencv.org/) 的相机，它支持大多数 USB 网络摄像头和笔记本电脑相机。这是一个简单的相机驱动程序：
 
 ```
 import cv2
@@ -144,24 +144,24 @@ class Camera(BaseCamera):
             raise RuntimeError('Could not start camera.')
 
         while True:
-            # read current frame
+            # 读取当前帧
             _, img = camera.read()
 
-            # encode as a jpeg image and return it
+            # 编码成一个 jpeg 图片并且返回
             yield cv2.imencode('.jpg', img)[1].tobytes()
 ```
 
-With this class, the first video camera reported by your system will be used. If you are using a laptop, this is likely your internal camera. If you are going to use this driver, you need to install the OpenCV bindings for Python:
+使用此类，将使用您系统检测到的第一台摄像机。如果您使用的是笔记本电脑，这可能是您的内置摄像头。如果要使用此驱动程序，则需要为 Python 安装 OpenCV 绑定：
 
 ```
 $ pip install opencv-python
 ```
 
-## Camera Selection
+## 相机选择
 
-The project now supports three different camera drivers: emulated, Raspberry Pi and OpenCV. To make it easier to select which driver to use without having to edit the code, the Flask server looks for a `CAMERA` environment variable to know which class to import. This variable can be set to `pi` or `opencv`, and if it isn't set, then the emulated camera is used by default.
+该项目现在支持三种不同的摄像头驱动程序：模拟、树莓派和 OpenCV。为了更容易选择使用哪个驱动程序而不必编辑代码，Flask 服务器查找 `CAMERA` 环境变量以了解要导入的类。此变量可以设置为 `pi` 或 `opencv`，如果未设置，则默认使用模拟摄像机。
 
-The way this is implemented is fairly generic. Whatever the value of the `CAMERA` environment variable is, the server will expect the driver to be in a module named `camera_$CAMERA.py`. The server will import this module and then look for a `Camera` class in it. The logic is actually quite simple:
+实现它的方式非常通用。无论 `CAMERA` 环境变量的值是什么，服务器都希望驱动程序位于名为 `camera_$CAMERA.py` 的模块中。服务器将导入该模块，然后在其中查找 `Camera`类。逻辑实际上非常简单：
 
 ```
 from importlib import import_module
@@ -174,30 +174,30 @@ else:
     from camera import Camera
 ```
 
-For example, to start an OpenCV session from bash, you can do this:
+例如，要从 bash 启动 OpenCV 会话，你可以执行以下操作：
 
 ```
 $ CAMERA=opencv python app.py
 ```
 
-From a Windows command prompt you can do the same as follows:
+使用 Windows 命令提示符，你可以执行以下操作：
 
 ```
 $ set CAMERA=opencv
 $ python app.py
 ```
 
-## Performance Improvements
+## 性能优化
 
-Another observation that was made a few times is that the server consumes a lot of CPU. The reason for this is that there is no synchronization between the background thread capturing frames and the generator feeding those frames to the client. Both run as fast as they can, without regards for the speed of the other.
+在另外几次观察中，我们发现服务器消耗了大量的 CPU。其原因在于后台线程捕获帧与将这些帧回送到客户端的生成器之间没有同步。两者都尽可能快地运行，而不考虑另一方的速度。
 
-In general it makes sense for the background thread to run as fast as possible, because you want the frame rate to be as high as possible for each client. But you definitely do not want the generator that delivers frames to a client to ever run at a faster rate than the camera is producing frames, because that would mean duplicate frames will be sent to the client. While these duplicates do not cause any problems, they increase CPU and network usage without any benefit.
+通常，后台线程尽可能快地运行是有道理的，因为你希望每个客户端的帧速率尽可能高。但是你绝对不希望向客户端提供帧的生成器以比生成帧的相机更快的速度运行，因为这意味着将重复的帧发送到客户端。虽然这些重复项不会导致任何问题，但它们除了增加 CPU 和网络负载之外没有任何好处。
 
-So there needs to be a mechanism by which the generator only delivers original frames to the client, and if the delivery loop inside the generator is faster than the frame rate of the camera thread, then the generator should wait until a new frame is available, so that it paces itself to match the camera rate. On the other side, if the delivery loop runs at a slower rate than the camera thread, then it should never get behind when processing frames, and instead it should skip frames to always deliver the most current frame. Sounds complicated, right?
+因此需要一种机制，通过该机制，生成器仅将原始帧传递给客户端，并且如果生成器内的传送回路比相机线程的帧速率快，则生成器应该等待直到新帧可用，所以它应该自行调整以匹配相机速率。另一方面，如果传送回路以比相机线程更慢的速率运行，那么它在处理帧时永远不应该落后，而应该跳过某些帧以始终传递最新的帧。听起来很复杂吧？
 
-What I wanted as a solution here is to have the camera thread signal the generators that are running when a new frame is available. The generators can then block while they wait for the signal before they deliver the next frame. In looking through synchronization primitives, I've found that [threading.Event](https://docs.python.org/3.6/library/threading.html#event-objects) is the one that matches this behavior. So basically, each generator should have an event object, and then the camera thread should signal all the active event objects to inform all the running generators when a new frame is available. The generators deliver the frame and reset their event objects, and then go back to wait on them again for the next frame.
+我想要的解决方案是，当新帧可用时，让相机线程信号通知生成器运行。然后，生成器可以在它们传送下一帧之前等待信号时阻塞。在查看同步单元时，我发现 [threading.Event](https://docs.python.org/3.6/library/threading.html#event-objects) 是匹配此行为的函数。所以，基本上每个生成器都应该有一个事件对象，然后摄像机线程应该发出信号通知所有活动事件对象，以便在新帧可用时通知所有正在运行的生成器。生成器传递帧并重置其事件对象，然后等待它们再次进行下一帧。
 
-To avoid having to add event handling logic in the generator, I decided to implement a customized event class that uses the thread id of the caller to automatically create and manage a separate event for each client thread. This is somewhat complex, to be honest, but the idea came from how Flask's context local variables are implemented. The new event class is called `CameraEvent`, and has `wait()`, `set()`, and `clear()` methods. With the support of this class, the rate control mechanism can be added to the `BaseCamera` class:
+为了避免在生成器中添加事件处理逻辑，我决定实现一个自定义事件类，该事件类使用调用者的线程 id 为每个客户端线程自动创建和管理单独的事件。说实话，这有点复杂，但这个想法来自于 Flask 的上下文局部变量是如何实现的。新的事件类称为 `CameraEvent`，并具有 `wait()`、`set()` 和 `clear()` 方法。在此类的支持下，可以将速率控制机制添加到 `BaseCamera` 类：
 
 ```
 class CameraEvent(object):
@@ -210,7 +210,7 @@ class BaseCamera(object):
     # ...
 
     def get_frame(self):
-        """Return the current camera frame."""
+        """返回相机的当前帧."""
         BaseCamera.last_access = time.time()
 
         # wait for a signal from the camera thread
@@ -229,27 +229,27 @@ class BaseCamera(object):
             # ...
 ```
 
-The magic that is done in the `CameraEvent` class enables multiple clients to be able to wait individually for a new frame. The `wait()` method uses the current thread id to allocate an individual event object for each client and wait on it. The `clear()` method will reset the event associated with the caller's thread id, so that each generator thread can run at its own speed. The `set()` method called by the camera thread sends a signal to the event objects allocated for all clients, and will also remove any events that aren't being serviced by their owners, because that means that the clients associated with those events have closed the connection and are gone. You can see the implementation of the `CameraEvent` class in the [GitHub repository](https://github.com/miguelgrinberg/flask-video-streaming/blob/master/base_camera.py).
+在 `CameraEvent` 类中完成的魔法操作使多个客户端能够单独等待新的帧。`wait()` 方法使用当前线程 id 为每个客户端分配单独的事件对象并等待它。`clear()` 方法将重置与调用者的线程 id 相关联的事件，以便每个生成器线程可以以它自己的速度运行。相机线程调用的 `set()` 方法向分配给所有客户端的事件对象发送信号，并且还将删除未提供服务的任何事件，因为这意味着与这些事件关联的客户端已关闭，客户端本身也不存在了。您可以在 [GitHub 仓库](https://github.com/miguelgrinberg/flask-video-streaming/blob/master/base_camera.py)中看到 `CameraEvent` 类的实现。
 
-To give you an idea of the magnitude of the performance improvement, consider that the emulated camera driver consumed about 96% CPU before this change because it was constantly sending duplicate frames at a rate much higher than the one frame per second being produced. After these changes, the same stream consumes about 3% CPU. In both cases there was a single client viewing the stream. The OpenCV driver went from about 45% CPU down to 12% for a single client, with each new client adding about 3%.
+为了让您了解性能改进的程度，请看一下，模拟相机驱动程序在此更改之前消耗了大约 96％ 的 CPU，因为它始终以远高于每秒生成一帧的速率发送重复帧。在这些更改之后，相同的流消耗大约 3％ 的CPU。在这两种情况下，都只有一个客户端查看视频流。OpenCV 驱动程序从单个客户端的大约 45％ CPU 降低到 12％，每个新客户端增加约 3％。
 
-## Production Web Server
+## 部署 Web 服务器
 
-Lastly, I think if you plan to use this server for real, you should use a more robust web server than the one that comes with Flask. A very good choice is to use Gunicorn:
+最后，我认为如果您打算真正使用此服务器，您应该使用比 Flask 附带的服务器更强大的 Web服务器。一个很好的选择是使用 Gunicorn：
 
 ```
 $ pip install gunicorn
 ```
 
-With Gunicorn, you can run the server as follows (remember to set the `CAMERA` environment variable to the selected camera driver first):
+有了 Gunicorn，您可以按如下方式运行服务器（请记住首先将 `CAMERA` 环境变量设置为所选的摄像头驱动程序）：
 
 ```
 $ gunicorn --threads 5 --workers 1 --bind 0.0.0.0:5000 app:app
 ```
 
-The `--threads 5` option tells Gunicorn to handle at most five concurrent requests. That means that with this number you can get up to five clients to watch the stream simultaneously. The `--workers 1` options limits the server to a single process. This is required because only one process can connect to a camera to capture frames.
+`--threads 5` 选项告诉 Gunicorn 最多处理五个并发请求。这意味着设置了这个值之后，您最多可以同时拥有五个客户端来观看视频流。`--workers 1` 选项将服务器限制为单个进程。这是必需的，因为只有一个进程可以连接到摄像头以捕获帧。
 
-You can increase the number of threads some, but if you find that you need a large number, it will probably be more efficient to use an asynchronous framework instead of threads. Gunicorn can be configured to work with the two frameworks that are compatible with Flask: gevent and eventlet. To make the video streaming server work with these frameworks, there is one small addition to the camera background thread:
+您可以增加一些线程数，但如果您发现需要大量线程，则使用异步框架比使用线程可能会更有效。可以将 Gunicorn 配置为使用与 Flask 兼容的两个框架：gevent 和 eventlet。为了使视频流服务器能够使用这些框架，相机后台线程还有一个小的补充：
 
 ```
 class BaseCamera(object):
@@ -264,33 +264,33 @@ class BaseCamera(object):
             # ...
 ```
 
-The only change here is the addition of a `sleep(0)` in the camera capture loop. This is required for both eventlet and gevent, because they use cooperative multitasking. The way these frameworks achieve concurrency is by having each task release the CPU either by calling a function that does network I/O or explicitly. Since there is no I/O here, the sleep call is what achieves the CPU release.
+这里唯一的变化是在摄像头捕获循环中添加了 `sleep(0)`。这对于 eventlet 和 gevent 都是必需的，因为它们使用协作式多任务处理。这些框架实现并发的方式是让每个任务通过调用执行网络 I/O 的函数或显式执行以释放 CPU。由于此处没有 I/O，因此执行 sleep 函数以实现释放 CPU 的目的。
 
-Now you can run Gunicorn with the gevent or eventlet workers as follows:
+现在您可以使用 gevent 或 eventlet worker 运行 Gunicorn，如下所示：
 
 ```
 $ CAMERA=opencv gunicorn --worker-class gevent --workers 1 --bind 0.0.0.0:5000 app:app
 ```
 
-Here the `--worker-class gevent` option configures Gunicorn to use the gevent framework (you must install it with `pip install gevent`). If you prefer, `--worker-class eventlet` is also available. The `--workers 1` limits to a single process as above. The eventlet and gevent workers in Gunicorn allocate a thousand concurrent clients by default, so that should be much more than what a server of this kind is able to support anyway.
+这里的 `--worker-class gevent` 选项配置 Gunicorn 使用 gevent 框架（你必须用`pip install gevent`安装它）。如果你愿意，也可以使用 `--worker-class eventlet`。如上所述，`--workers 1` 限制为单个处理过程。Gunicorn 中的 eventlet 和 gevent workers 默认分配了一千个并发客户端，所以这应该超过了这种服务器能够支持的客户端数量。
 
-## Conclusion
+## 结论
 
-All the changes described above are incorporated in the [GitHub repository](https://github.com/miguelgrinberg/flask-video-streaming). I hope you get a better experience with these improvements.
+上述所有更改都包含在 [GitHub 仓库](https://github.com/miguelgrinberg/flask-video-streaming) 中。我希望你通过这些改进以获得更好的体验。
 
-Before concluding, I want to provide quick answers to other questions I have received about this server:
+在结束之前，我想提供有关此服务器的其他问题的快速解答：
 
-*   How to force the server to run at a fixed frame rate? Configure your camera to deliver frames at that rate, then sleep enough time during each iteration of the camera capture loop to also run at that rate.
+*  如何设定服务器以固定的帧速率运行？配置您的相机以该速率传送帧，然后在相机传送回路的每次迭代期间休眠足够的时间以便以该速率运行。
 
-*   How to increase the frame rate? The server as described here delivers frames as fast as possible. If you need better frame rates, you can try configuring your camera for a smaller frame size.
+*  如何提高帧速率？我在此描述的服务器，以尽可能快的速率提供视频帧。如果您需要更好的帧速率，可以尝试将相机配置成更小的视频帧。
 
-*   How to add sound? That's really difficult. The Motion JPEG format does not support audio. You are going to need to stream the audio separately, and then add an audio player to the HTML page. Even if you manage to do all this, synchronization between audio and video is not going to be very accurate.
+如何添加声音？那真的很难。Motion JPEG 格式不支持音频。你将需要使用单独的流传输音频，然后将音频播放器添加到 HTML 页面。即使你设法完成了所有的操作，音频和视频之间的同步也不会非常准确。
 
-*   How to save the stream to disk on the server? Just save the sequence of JPEG files in the camera thread. For this you may want to remove the automatic mechanism that ends the background thread when there are no viewers.
+如何将流保存到服务器上的磁盘中？只需将 JPEG 文件的序列保存在相机线程中即可。为此，你可能希望移除在没有查看器时结束后台线程的自动机制。
 
-*   How to add playback controls to the video player? Motion JPEG was not made for interactive operation by the user, but if you are set on doing this, with a little bit of trickery it may be possible to implement playback controls. If the server saves all jpeg images, then a pause can be implemented by having the server deliver the same frame over and over. When the user resumes playback, the server will have to deliver "old" images that are loaded from disk, since now the user would be in DVR mode instead of watching the stream live. This could be a very interesting project!
+如何将播放控件添加到视频播放器？Motion JPEG 不允许用户进行交互式操作，但如果你想要这个功能，只需要一点点技巧就可以实现播放控制。如果服务器保存所有 jpeg 图像，则可以通过让服务器一遍又一遍地传送相同的帧来实现暂停。当用户恢复播放时，服务器将必须提供从磁盘加载的“旧”图像，因为现在用户处于 DVR 模式而不是实时观看流。这可能是一个非常有趣的项目！
 
-That is all for now. If you have other questions please let me know!
+以上就是本文的所有内容。如果你有其他问题，请告诉我们！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
