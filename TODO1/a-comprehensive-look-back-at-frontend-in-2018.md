@@ -5,7 +5,7 @@
 > * 译者：[Ivocin](https://github.com/Ivocin)
 > * 校对者：
 
-2018 前端全面回顾
+# 2018 前端全面回顾
 
 拿一杯咖啡，坐下来，慢慢品读。我们的回顾不会错过太多。
 
@@ -15,13 +15,13 @@ Web 开发一直是一个快速发展的领域 —— 我们很难跟上在过�
 
 前端行业每年都在增长，这使得普通开发者很难跟上。因此让我们退后一步，回顾一下 2018 年 Web 开发社区发生了哪些变化。
 
-我们目睹了过去几年 Javascript 爆炸式的发展。随着互联网对全球经济变得更加重要，谷歌和微软等巨头意识到他们需要更好的工具来创建下一代 web 应用程序。
+我们目睹了过去几年 JavaScript 爆炸式的发展。随着互联网对全球经济变得更加重要，谷歌和微软等巨头意识到他们需要更好的工具来创建下一代 Web 应用程序。
 
-这导致了 Javascript 自创造以来最大的变革浪潮，起自 ECMAScript 2015（又名 ES6）。 现在 JavaScript 每年发布的版本都为我们带来了令人兴奋的新特性：如类、生成器、迭代器、promise、全新的模块系统等等。
+这导致了 JavaScript 自创造以来最大的变革浪潮，起自 ECMAScript 2015（又名 ES6）。 现在 JavaScript 每年发布的版本都为我们带来了令人兴奋的新特性：如类、生成器、迭代器、promise、全新的模块系统等等。
 
-这开启了 web 发展的黄金时代。许多最流行的工具、函数库和框架在 ES2015 发布后立即流行了起来。 在主流浏览器厂商对新标准的支持实现了一半之前，[Babel](https://babeljs.io/) 编译器项目就让成千上万的开发人员抢先一步尝试新功能。
+这开启了 Web 发展的黄金时代。许多最流行的工具、函数库和框架在 ES2015 发布后立即流行了起来。 在主流浏览器厂商对新标准的支持实现了一半之前，[Babel](https://babeljs.io/) 编译器项目就让成千上万的开发人员抢先一步尝试新功能。
 
-前端开发者首次不需要被他们公司需要支持的最古老的浏览器限制，可以按照自己的节奏自由创新。三年和三个 ECMAScript 版本之后，这个 web 发展的新时代并没有放缓的迹象。
+前端开发者首次不需要被他们公司需要支持的最古老的浏览器限制，可以按照自己的节奏自由创新。三年和三个 ECMAScript 版本之后，这个 Web 发展的新时代并没有放缓的迹象。
 
 ### JS 语言的新特性
 
@@ -29,40 +29,40 @@ Web 开发一直是一个快速发展的领域 —— 我们很难跟上在过�
 
 ### 新的正则表达式特性
 
-Javascript 一直缺乏像 Python 这样语言的一些更高级的正则表达式功能 —— 直到现在才推出类似的特性。 ES2018 增加了四个新特性：
+JavaScript 一直缺乏像 Python 这样语言的一些更高级的正则表达式功能 —— 直到现在才推出类似的特性。 ES2018 增加了四个新特性：
 
 * [后行断言（lookbehind assertions）](https://github.com/tc39/proposal-regexp-lookbehind)，为自 1999 年以来一直使用该语言的先行断言（ lookahead assertions） 提供了缺失的补充。
 * [s（dotAll）标志](https://github.com/tc39/proposal-regexp-dotall-flag)，它匹配除行终止符之外的任何单个字符。
 * [命名捕获组](https://github.com/tc39/proposal-regexp-named-groups)，通过基于属性的捕获组查找，可以更轻松地使用正则表达式。
-* [Unicode 属性转义](https://github.com/tc39/proposal-regexp-unicode-property-escapes)，可以编写能够识别 unicode 编码的正则表达式了。
+* [Unicode 属性转义](https://github.com/tc39/proposal-regexp-unicode-property-escapes)，可以编写能够识别 Unicode 编码的正则表达式了。
 
 虽然这些新特性中的许多功能多年来都有解决方法和替代库，但它们都没有原生实现的速度快。
 
 ### 新的浏览器特性
 
-今年发布了相当多的新的 Javascript 浏览器 API。几乎所有内容都有所改进 —— 网络安全、高性能计算和动画等等。让我们按领域划分它们以更好地了解它们带来的影响。
+今年发布了相当多的新的 JavaScript 浏览器 API。几乎所有内容都有所改进 —— 网络安全、高性能计算和动画等等。让我们按领域划分它们以更好地了解它们带来的影响。
 
 ### WebAssembly
 
 尽管去年 WebAssembly v1 支持被添加到了主流浏览器中，但它尚未被开发者社区广泛采用。WebAssembly Group 针对[垃圾回收](https://github.com/WebAssembly/gc)、ECMAScript 模块集成和[线程](https://developers.google.com/web/updates/2018/10/wasm-threads)等功能提供了[宏大的功能路线图](https://webassembly.org/docs/future-features/)。也许有了这些功能，我们才会看到 WebAssembly 在 Web 应用程序中被广泛采用。
 
-有一部分问题是 WebAssembly 需要大量的步骤才能开始使用，而许多习惯于使用 Javascript 的开发人员并不熟悉使用传统的编译语言。Firefox 推出了一个名为 [WebAssembly Studio](https://hacks.mozilla.org/2018/04/sneak-peek-at-webassembly-studio/) 的在线 IDE，可以让使用 WebAssembly 变得简单。如果你希望将其集成到现有的应用程序中，现在有很多工具可供选择。Webpack v4 为 WebAssembly 模块添加了实验性[内置支持](https://github.com/webpack/webpack/releases/tag/v4.0.0)，这些模块紧密集成到构建和模块系统中，并提供 source map 支持。
+有一部分问题是 WebAssembly 需要大量的步骤才能开始使用，而许多习惯于使用 JavaScript 的开发人员并不熟悉使用传统的编译语言。Firefox 推出了一个名为 [WebAssembly Studio](https://hacks.mozilla.org/2018/04/sneak-peek-at-webassembly-studio/) 的在线 IDE，可以让使用 WebAssembly 变得简单。如果你希望将其集成到现有的应用程序中，现在有很多工具可供选择。Webpack v4 为 WebAssembly 模块添加了实验性[内置支持](https://github.com/webpack/webpack/releases/tag/v4.0.0)，这些模块紧密集成到构建和模块系统中，并提供 source map 支持。
 
 Rust 已成为编译 WebAssembly 的最佳语言。它提供了一个健壮的包生态系统，具有[cargo](https://github.com/rust-lang/cargo)，可靠的性能和[易于学习](https://doc.rust-lang.org/book/)的语法。现在已经有一个新兴的工具生态系统将 Rust 与 Javascript 集成在一起。 你可以使用 [wasm-pack](https://github.com/rustwasm/wasm-pack) 将 Rust WebAssembly 包发布到 NPM 上。如果你使用了 Webpack，现在可以使用 [rust-native-wasm-loader](https://github.com/dflemstr/rust-native-wasm-loader) 在应用程序中无缝集成 Rust 代码。
 
-如果你不想放弃 Javascript 来使用 WebAssembly，你很幸运 —— 现在有几种选择。如果你熟悉 Typescript，可以使用 [AssemblyScript](https://github.com/AssemblyScript/assemblyscript) 项目，该项目使用官方 [Binaryen](https://github.com/WebAssembly/binaryen) 编译器和Typescript。
+如果你不想放弃 JavaScript 来使用 WebAssembly，你很幸运 —— 现在有几种选择。如果你熟悉 Typescript，可以使用 [AssemblyScript](https://github.com/AssemblyScript/assemblyscript) 项目，该项目使用官方 [Binaryen](https://github.com/WebAssembly/binaryen) 编译器和Typescript。
 
-因此，它适用于现有的 Typescript 和 WebAssembly 工具。[Walt](https://github.com/ballercat/walt) 是另一个坚持 Javascript 语法的编译器（使用类似于 Typescript 的类型提示），并直接编译为WebAssembly 文本格式。它是零依赖的，具有非常快的编译速度，并可以与 Webpack 集成。这两个项目都在积极开发中，根据你的标准，它们可能会不适用于生产环境。无论如何，它们都值得一试。
+因此，它适用于现有的 Typescript 和 WebAssembly 工具。[Walt](https://github.com/ballercat/walt) 是另一个坚持 JavaScript 语法的编译器（使用类似于 Typescript 的类型提示），并直接编译为WebAssembly 文本格式。它是零依赖的，具有非常快的编译速度，并可以与 Webpack 集成。这两个项目都在积极开发中，根据你的标准，它们可能会不适用于生产环境。无论如何，它们都值得一试。
 
 ### 共享内存
 
-现代 Javascript 应用程序经常把大量的计算放在 [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker) 中，以避免其阻塞主线程并中断浏览体验。虽然 workers 已经推出几年了，但它的局限性使他们无法更广泛地采用。Workers 可以使用 [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Worker/postMessage) 方法在其他线程之间传输数据，该方法克隆发送的数据（较慢）或使用[可传输的对象](https://developer.mozilla.org/en-US/docs/Web/API/Transferable)（更快）。 因此，线程之间的通信要么是慢速的，要么是单向的。对于简单的应用程序没有太大问题，但它限制了使用 worker 构建更复杂的架构。
+现代 JavaScript 应用程序经常把大量的计算放在 [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker) 中，以避免其阻塞主线程并中断浏览体验。虽然 workers 已经推出几年了，但它的局限性使他们无法更广泛地采用。Workers 可以使用 [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Worker/postMessage) 方法在其他线程之间传输数据，该方法克隆发送的数据（较慢）或使用[可传输的对象](https://developer.mozilla.org/en-US/docs/Web/API/Transferable)（更快）。 因此，线程之间的通信要么是慢速的，要么是单向的。对于简单的应用程序没有太大问题，但它限制了使用 Worker 构建更复杂的架构。
 
-[SharedArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) 和 [Atomics](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics)是允许 Javascript 应用程序在上下文之间共享固定内存缓冲区并对它们执行原子操作的新功能。但是，在发现共享内存使浏览器容易受到以前未知的被称为 [Spectre](https://meltdownattack.com/) 的定时攻击后，浏览器对该特性的支持被暂时删除了。Chrome 在 7 月发布了一项[新的安全功能](https://www.techrepublic.com/article/google-enabled-site-isolation-in-chrome-67-heres-why-and-how-it-affects-users/)，可以缓解该漏洞，从而重新启用了 SharedArrayBuffers 功能。在 Firefox 中，该功能默认情况下是禁用的，但可以[重新启用](https://blog.mozilla.org/security/2018/01/03/mitigations-landing-new-class-timing-attack/)。Edge [完全取消了对SharedArrayBuffers 的支持](https://blogs.windows.com/msedgedev/2018/01/03/speculative-execution-mitigations-microsoft-edge-internet-explorer/#Yr2pGlOHTmaRJrLl.97)，微软尚未表示何时会重新启用。希望到明年所有浏览器都会采用缓解策略，以便可以使用这个关键的缺失功能。
+[SharedArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) 和 [Atomics](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics)是允许 JavaScript 应用程序在上下文之间共享固定内存缓冲区并对它们执行原子操作的新功能。但是，在发现共享内存使浏览器容易受到以前未知的被称为 [Spectre](https://meltdownattack.com/) 的定时攻击后，浏览器对该特性的支持被暂时删除了。Chrome 在 7 月发布了一项[新的安全功能](https://www.techrepublic.com/article/google-enabled-site-isolation-in-chrome-67-heres-why-and-how-it-affects-users/)，可以缓解该漏洞，从而重新启用了 SharedArrayBuffers 功能。在 Firefox 中，该功能默认情况下是禁用的，但可以[重新启用](https://blog.mozilla.org/security/2018/01/03/mitigations-landing-new-class-timing-attack/)。Edge [完全取消了对SharedArrayBuffers 的支持](https://blogs.windows.com/msedgedev/2018/01/03/speculative-execution-mitigations-microsoft-edge-internet-explorer/#Yr2pGlOHTmaRJrLl.97)，微软尚未表示何时会重新启用。希望到明年所有浏览器都会采用缓解策略，以便可以使用这个关键的缺失功能。
 
 ### Canvas
 
-Canvas 和 WebGL 等图形 API 已经推出几年了，但它们一直被限于在主线程中进行渲染。 因此，渲染可能会阻塞主线程。这会导致糟糕的用户体验。[OffscreenCanvas](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas#Asynchronous_display_of_frames_produced_by_an_OffscreenCanvas) API 允许你将 canvas 上下文（2D或 WebGL）的控制权转移给 Web worker，从而解决了这个问题。在 worker 使用 Canvas API 和平时没有区别，而且不会阻塞主线程，并可以无缝渲染。 
+Canvas 和 WebGL 等图形 API 已经推出几年了，但它们一直被限于在主线程中进行渲染。 因此，渲染可能会阻塞主线程。这会导致糟糕的用户体验。[OffscreenCanvas](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas#Asynchronous_display_of_frames_produced_by_an_OffscreenCanvas) API 允许你将 canvas 上下文（2D或 WebGL）的控制权转移给 Web Worker，从而解决了这个问题。在 Worker 使用 Canvas API 和平时没有区别，而且不会阻塞主线程，并可以无缝渲染。 
 
 鉴于显著的性能提升，可以期待可以期待图表和绘图库会很快支持它。目前[浏览器支持](https://caniuse.com/#feat=offscreencanvas)仅限于 Chrome 和 Firefox，而Edge 团队尚未公开表示支持。你可以期望它能和 SharedArrayBuffers 以及 WebAssembly 很好地配对，允许 Worker 基于任何线程中存在的数据，使用任何语言编写的代码进行渲染，所有这些都不会造成糟糕的用户体验。这可能使网络上实现高端游戏的梦想成为现实，而且可以在 Web 应用程序中使用更复杂的图形。
 
@@ -70,11 +70,11 @@ Canvas 和 WebGL 等图形 API 已经推出几年了，但它们一直被限于�
 
 [CSS Paint API](https://developers.google.com/web/updates/2018/01/paintapi) 是其中最早登陆浏览器的新 CSS API ，它在 1 月份登陆 Chrome 65。它允许开发人员使用类似 context 的 API 绘制图像，可以在 CSS 中调用图像的任何地方使用它。它使用新的 [Worklet](https://drafts.css-houdini.org/worklets) 接口，这些接口基本上是轻量级，高性能的类似 [Worker](https://developer.mozilla.org/en-US/docs/Web/API/Worker) 的构造，用于专门的任务处理。 和 Worker 一样，它们在自己的执行上下文中运行，但与 Worker 不同的是，它们是线程不可感知的（浏览器选择它们运行的线程），并且它们可以访问渲染引擎。
 
-使用 Paint Worklet，你可以创建一个背景图像，当其中包含的元素发生更改时，该图像会自动重绘。使用CSS属性，你可以添加在更改时触发重新绘制的参数，并可通过 Javascript 进行控制。[所有浏览器](https://ishoudinireadyyet.com/)都承诺支持该 API，除了 Edge，但是现在有一个 [polyfill](https://github.com/GoogleChromeLabs/css-paint-polyfill) 可以使用。有了这个API，我们将开始看到组件化图像的使用方式，这与我们现在看到的组件类似。
+使用 Paint Worklet，你可以创建一个背景图像，当其中包含的元素发生更改时，该图像会自动重绘。使用CSS属性，你可以添加在更改时触发重新绘制的参数，并可通过 JavaScript 进行控制。[所有浏览器](https://ishoudinireadyyet.com/)都承诺支持该 API，除了 Edge，但是现在有一个 [polyfill](https://github.com/GoogleChromeLabs/css-paint-polyfill) 可以使用。有了这个API，我们将开始看到组件化图像的使用方式，这与我们现在看到的组件类似。
 
 ### 动画
 
-大多数现代 Web 应用程序使用动画作为用户体验的重要部分。像 Google 的 Material Design 这样的框架把动画作为其[设计语言](https://material.io/design/motion/understanding-motion.html#principles)的重要组成部分，并认为它们对于创造富有表现力和易于理解的用户体验至关重要。鉴于它们的重要性的提高，最近推出了一个更强大的 JavaScript 动画 API，这导就是  Web Animations API (WAAPI)。
+大多数现代 Web 应用程序使用动画作为用户体验的重要部分。像 Google 的 Material Design 这样的框架把动画作为其[设计语言](https://material.io/design/motion/understanding-motion.html#principles)的重要组成部分，并认为它们对于创造富有表现力和易于理解的用户体验至关重要。鉴于它们的重要性的提高，最近推出了一个更强大的 JavaScript 动画 API，这导就是  Web Animations API（WAAPI）。
 
 正如 [CSS-Tricks 所说](https://css-tricks.com/css-animations-vs-web-animations-api/)，WAAPI 提供了比 CSS 动画更好的开发人员体验，你可以轻松地记录和操作 JS 或 CSS 中定义的动画状态。目前[浏览器支持](https://caniuse.com/#feat=web-animation)主要限于 Chrome 和 Firefox，但有一个[官方的 polyfill](https://github.com/web-animations/web-animations-js/tree/master) 可以满足你的需求。
 
@@ -103,19 +103,19 @@ NPM [意识到社区的安全问题](https://blog.npmjs.org/post/172774747080/at
 
 ### CSS
 
-虽然 Javascript 得到了所有人的关注，但几个有趣的 CSS 新功能在今年登陆了浏览器。
+虽然 JavaScript 得到了所有人的关注，但几个有趣的 CSS 新功能在今年登陆了浏览器。
 
-对于那些不知道的人，没有统一的类似于 ECMAScript 的 CSS3 规范。最后一个官方统一标准是 CSS2.1，而 CSS3 引用了在其之后发布的内容。相反，每个部分都单独标准化为“CSS模块”。 MDN 对每个模块标准及其状态有一个[很好的概述](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS3)。
+对于那些不知道的人，没有统一的类似于 ECMAScript 的 CSS3 规范。最后一个官方统一标准是 CSS2.1，而 CSS3 适用于在其之后发布的内容。与 CSS2 不同的是，CSS3 的每个部分都单独标准化为 “CSS 模块”。 MDN 对每个模块标准及其状态有一个[很好的概述](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS3)。
 
 截至 2018 年，现在所有主流浏览器都完全支持一些较新的功能（这是 2018 年，IE 不是主流浏览器）。这包括 [flexbox](https://blog.logrocket.com/flexing-with-css-flexbox-b7940b329a8a)、[自定义属性](https://caniuse.com/#feat=css-variables)（变量）和[网格布局](https://blog.logrocket.com/the-simpletons-guide-to-css-grid-1767565b3cf7)。
 
-虽然[过去一直在讨论](https://tabatkins.github.io/specs/css-nesting/)如何向 CSS 添加对嵌套规则的支持（如 LESS 和 SASS ），但这些提案并未随意出现。在 7 月，W3C 的 CSS 工作组[决定](https://github.com/w3c/csswg-drafts/issues/2701#issuecomment-402392212)再次审视该提案，但目前还不清楚它是否是一个优先事项。
+虽然[过去一直在讨论](https://tabatkins.github.io/specs/css-nesting/)如何向 CSS 添加对嵌套规则的支持（如 LESS 和 SASS ），但这些提案被搁置了。在 7 月，W3C 的 CSS 工作组[决定](https://github.com/w3c/csswg-drafts/issues/2701#issuecomment-402392212)再次审视该提案，但目前还不清楚它是否是一个优先事项。
 
 ### Node.js
 
-Node 继续在遵循 ECMAScript 标准方面取得良好进展，截至 12 月，它们[支持了所有 ES2018 标准](https://node.green/)。但另一方面，他们采用 ECMAScript 模块系统的速度很慢，因此缺少一项与浏览器比肩的关键功能，浏览器已经支持 ES 模块一年多了。Node 实际上在 v11.4.0 版本标志后面添加了一项[实验支持](https://nodejs.org/api/esm.html)，但是这需要文件使用新的 .mjs 后缀，这使得它们开始[担忧](https://github.com/nodejs/modules/issues/57)：用户的接受可能会十分缓慢，以及其对 Node 的丰富包生态系统的影响。
+Node 继续在遵循 ECMAScript 标准方面取得良好进展，截至 12 月，它们[支持了所有 ES2018 标准](https://node.green/)。但另一方面，他们采用 ECMAScript 模块系统的速度很慢，因此缺少一项与浏览器比肩的关键功能，浏览器已经支持 ES 模块一年多了。Node 实际上在 v11.4.0 版本标志后面添加了一项[实验支持](https://nodejs.org/api/esm.html)，但是这需要文件使用新的 .mjs 后缀，这使得它们开始[担忧](https://github.com/nodejs/modules/issues/57)：用户的接受速度可能会十分缓慢，以及其对 Node 的丰富包生态系统的影响。
 
-如果你希望获得一个快速启动并且您不想使用实验性内置支持，可以尝试使用被 Lodash 的创建者称为 [esm](https://medium.com/web-on-the-edge/tomorrows-es-modules-today-c53d29ac448c) 的一个有趣的项目，它为 Node ES 模块支持提供了比官方解决方案更好的互操作性和性能。
+如果你希望获得一个快速启动，并且不想使用实验性内置支持，可以尝试使用被 Lodash 的创建者称为 [esm](https://medium.com/web-on-the-edge/tomorrows-es-modules-today-c53d29ac448c) 的一个有趣的项目，它为 Node ES 模块支持提供了比官方解决方案更好的互操作性和性能。
 
 ### 框架和工具
 
@@ -141,7 +141,7 @@ Babel 现在也[支持 Typescript 语法](https://blogs.msdn.microsoft.com/types
 
 #### Electron
 
-[Electron](https://electronjs.org/) 仍然是最常用的桌面 Javascript 应用程序打包方式，尽管这是否是一件好事还是有争议的。现在一些最流行的桌面应用程序使用了 Electron，可以使跨平台开发应用程序更加简单，从而降低开发成本。
+[Electron](https://electronjs.org/) 仍然是最常用的桌面 JavaScript 应用程序打包方式，尽管这是否是一件好事还是有争议的。现在一些最流行的桌面应用程序使用了 Electron，可以使跨平台开发应用程序更加简单，从而降低开发成本。
 
 一个[常见的抱怨](https://www.theverge.com/circuitbreaker/2018/5/16/17361696/chrome-os-electron-desktop-applications-apple-microsoft-google)是，使用 Electron 的应用程序会使用太多内存，因为每个应用程序都打包整个 Chrome 实例（这会非常占用内存）。[Carlo](https://github.com/GoogleChromeLabs/carlo) 是来自 Google 的 Electron 替代品，它使用本地安装的 Chrome 版本（需要在本地安装），从而减少了内存消耗大的问题。Electron 本身在提高性能方面没有取得多大进展，[近期的更新](https://electronjs.org/blog/electron-3-0)主要集中在更新 Chrome 依赖项和小的 API 改动上面。
 
@@ -151,7 +151,7 @@ Babel 现在也[支持 Typescript 语法](https://blogs.msdn.microsoft.com/types
 
 最近的版本增加了更多开发人员友好的[错误格式](https://blogs.msdn.microsoft.com/typescript/2018/07/30/announcing-typescript-3-0/#improved-errors-and-ux)和强大的重构功能，如[自动导入更新](https://blogs.msdn.microsoft.com/typescript/2018/05/31/announcing-typescript-2-9/#rename-move-file)和[导入组织](https://blogs.msdn.microsoft.com/typescript/2018/03/27/announcing-typescript-2-8/#organize-imports)等。与此同时，TypeScript 继续在提升类型系统上发力，如近期的[条件类型](https://blogs.msdn.microsoft.com/typescript/2018/03/27/announcing-typescript-2-8/#conditional-types)和[未知类型](https://blogs.msdn.microsoft.com/typescript/2018/07/30/announcing-typescript-3-0/#the-unknown-type)两个新功能。
 
-JavaScript 2018 趋势报告指出，[近一半的受访者](https://2018.stateofjs.com/javascript-flavors/typescript/)使用 TypeScript，和过去两年相比具有强劲的上升趋势。相比之下，它的主要竞争对手 Flow 已经[停滞不前](https://2018.stateofjs.com/javascript-flavors/flow/)，大多数开发者表示他们不喜欢 Flow 缺乏工具和流行势头。Typescript 受到赞赏，因为开发人员可以通过使用强大的编辑器轻松编写健壮且强大的代码。开发者注意到了，TypeScript 的发起者微软似乎更愿意支持它，而 Facebook 对 Flow 的支持就差了一截。
+JavaScript 2018 趋势报告指出，[近一半的受访者](https://2018.stateofjs.com/javascript-flavors/typescript/)使用 TypeScript，和过去两年相比具有强劲的上升趋势。相比之下，它的主要竞争对手 Flow 已经[停滞不前](https://2018.stateofjs.com/javascript-flavors/flow/)，大多数开发者表示他们不喜欢 Flow 缺乏工具，并且流行势头降低。Typescript 受到赞赏，因为开发人员可以通过使用强大的编辑器轻松编写健壮且强大的代码。开发者注意到了，TypeScript 的发起者微软似乎更愿意支持它，而 Facebook 对 Flow 的支持就差了一截。
 
 * * *
 
