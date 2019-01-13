@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/accepting-payments-with-stripe-vuejs-and-flask.md](https://github.com/xitu/gold-miner/blob/master/TODO1/accepting-payments-with-stripe-vuejs-and-flask.md)
 > * 译者：[Mcskiller](https://github.com/Mcskiller)
-> * 校对者：
+> * 校对者：[kasheemlew](https://github.com/kasheemlew)
 
 # 使用 Stripe, Vue.js 和 Flask 接受付款
 
@@ -15,7 +15,7 @@
 > 
 > 1.  [Introduction to Vue](https://vuejs.org/v2/guide/index.html)
 > 2.  [Flaskr: Intro to Flask, Test-Driven Development (TDD), and JavaScript](https://github.com/mjhea0/flaskr-tdd)
-> 3.  [Developing a Single Page App with Flask and Vue.js](https://testdriven.io/developing-a-single-page-app-with-flask-and-vuejs)
+> 3.  [用 Flask 和 Vue.js 开发一个单页面应用](https://juejin.im/post/5c1f7289f265da612e28a214)
 
 **最终效果**：
 
@@ -62,7 +62,7 @@ $ cd flask-vue-crud
 $ git checkout tags/v1 -b master
 ```
 
-搭建一个虚拟环境，然后运行 Flask 应用：
+搭建并激活一个虚拟环境，然后运行 Flask 应用：
 
 ```
 $ cd server
@@ -92,11 +92,11 @@ $ npm run dev
 
 ![v1 app](https://testdriven.io/static/images/blog/flask-vue-stripe/v1.gif)
 
-> 想学习如何构建这个项目？查看 [Developing a Single Page App with Flask and Vue.js](https://testdriven.io/developing-a-single-page-app-with-flask-and-vuejs) 文章。
+> 想学习如何构建这个项目？查看 [用 Flask 和 Vue.js 开发一个单页面应用](https://juejin.im/post/5c1f7289f265da612e28a214) 文章。
 
 ## 我们要做什么？
 
-我们的目标是构建一个允许用户购买书籍的 web 应用。
+我们的目标是构建一个允许终端用户购买书籍的 web 应用。
 
 客户端 Vue 应用将会显示出可供购买的书籍并记录付款信息，然后从 Stripe 获得 token，最后发送 token 和付款信息到服务端。
 
@@ -268,7 +268,7 @@ addBookForm: {
 
 ![state model bind](https://testdriven.io/static/images/blog/flask-vue-stripe/state-model-bind.gif)
 
-添加 `price` 到 `onSubmit` 方法的 `payload` 中，像这样：
+将 `price` 添加到 `onSubmit` 方法的 `payload` 中，像这样：
 
 ```
 onSubmit(evt) {
@@ -287,7 +287,7 @@ onSubmit(evt) {
 },
 ```
 
-更新 `initForm` 来保证用户提交表单或者“重置”表单后清除值：
+更新 `initForm` 函数，在用户提交表单点击 "重置" 按钮后清除已有的值：
 
 ```
 initForm() {
@@ -521,7 +521,7 @@ def single_book(book_id):
     return jsonify(response_object)
 ```
 
-现在，我们可以使用这个路由在组件的 `script` 中添加书籍信息到订单页面：
+我们可以在 `script` 中使用这个路由向订单页面添加书籍信息：
 
 ```
 <script>
@@ -645,7 +645,7 @@ data() {
 },
 ```
 
-就添加在表单的下方，让我们能够反复显示错误：
+就添加在表单的下方，我们能够依次显示所有错误：
 
 ```
 <div v-show="errors">
@@ -798,7 +798,7 @@ createToken() {
 </html>
 ```
 
-> Stripe 支持 v2 和 v3（[Stripe Elements](https://stripe.com/elements)）版本的 Stripe.js。如果你对 Stripe Elements 和如何把它集成到 Vue 中感兴趣，参阅以下资源：1. [Stripe Elements 迁移指南](https://stripe.com/docs/stripe-js/elements/migrating) 2. [整合 Stripe Elements 和 Vue.js 来创建一个自定义付款表单](https://alligator.io/vuejs/stripe-elements-vue-integration/)
+> Stripe 支持 v2 和 v3（[Stripe Elements](https://stripe.com/elements)）版本的 Stripe.js。如果你对 Stripe Elements 和如何把它集成到 Vue 中感兴趣，参阅以下资源：1. [Stripe Elements 迁移指南](https://stripe.com/docs/stripe-js/elements/migrating) 2. [集成 Stripe Elements 和 Vue.js 来创建一个自定义付款表单](https://alligator.io/vuejs/stripe-elements-vue-integration/)
 
 现在，当 `createToken` 被触发是，`stripeCheck` 值被更改为 `true`，为了防止重复收费，我们在 `stripeCheck` 值为 `true` 时禁用“提交”按钮：
 
