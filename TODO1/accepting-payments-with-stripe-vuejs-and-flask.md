@@ -21,7 +21,7 @@
 
 ![final app](https://testdriven.io/static/images/blog/flask-vue-stripe/final.gif)
 
-**主要依赖**
+**主要依赖**：
 
 *   Vue v2.5.2
 *   Vue CLI v2.9.3
@@ -347,7 +347,7 @@ def all_books():
 
 接下来，让我们添加一个订单页面，用户可以在其中输入信用卡信息来购买图书。
 
-TODO: 添加图片
+TODO：添加图片
 
 ### 添加一个购买按钮
 
@@ -448,7 +448,7 @@ TODO: 添加图片
 
 ### 添加路由
 
-**client/src/router/index.js**:
+**client/src/router/index.js**：
 
 ```
 import Vue from 'vue';
@@ -558,7 +558,7 @@ export default {
 </script>
 ```
 
-> 转到生产环境？你将需要使用环境变量来动态设置基本服务器端 URL （现在 URL 为 `http://localhost:5000`）。查看 [文档](https://vuejs-templates.github.io/webpack/env.html) 获取更多信息。
+> 转到生产环境？你将需要使用环境变量来动态设置基本服务器端 URL（现在 URL 为 `http://localhost:5000`）。查看 [文档](https://vuejs-templates.github.io/webpack/env.html) 获取更多信息。
 
 然后，更新 template 中的第一个 `ul`：
 
@@ -699,13 +699,13 @@ createToken() {
 
 ## Stripe
 
-注册一个 [Stripe](https://stripe.com) 账号，如果你没有注册的话，然后在 [API Publishable key](https://stripe.com/docs/keys) 得到你的 **测试模式** API。
+如果你没有 [Stripe](https://stripe.com) 账号的话需要先注册一个，然后再去获取你的 测试模式 [API Publishable key](https://stripe.com/docs/keys)。
 
 ![stripe dashboard](https://testdriven.io/static/images/blog/flask-vue-stripe/stripe-dashboard-keys-publishable.png)
 
 ### 客户端
 
-添加 stripePublishableKey 和 `stripeCheck` （用来禁用提交按钮）到 data 中：
+添加 stripePublishableKey 和 `stripeCheck`（用来禁用提交按钮）到 data 中：
 
 ```
 data() {
@@ -1086,7 +1086,7 @@ def get_charge(charge_id):
 3.  使用 Postgres 来储存书籍和订单。
 4.  使用 Docker 整合 Vue 和 Flask（以及 Postgres，如果你加入了的话）来简化开发工作流程。
 5.  给书籍添加图片来创建一个更好的产品页面。
-6.  获取 email 然后发送 email 确认邮件（查阅 [使用 Flask，Redis Queue 和 Amazon SES 发送确认电子邮件](https://testdriven.io/sending-confirmation-emails-with-flask-rq-and-ses)）。
+6.  获取 email 然后发送 email 确认邮件（查阅 [使用 Flask、Redis Queue 和 Amazon SES 发送确认电子邮件](https://testdriven.io/sending-confirmation-emails-with-flask-rq-and-ses)）。
 7.  部署客户端静态文件到 AWS S3 然后部署服务端应用到一台 EC2 实例。
 8.  投入生产环境？思考一个最好的更新 Stripe key 的方法，让它们基于环境动态更新。
 9.  创建一个分离组件来退订。
