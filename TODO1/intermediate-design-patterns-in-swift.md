@@ -13,11 +13,11 @@
 
 **新手教程**：没了解过设计模式？来看看设计模式的 [入门教程](https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-on-ios-using-swift-part-1-2.md) 来阅读之前的基础知识吧。
 
-在本教程中，您将学习如何使用 Swift 中的设计模式来重构一个名为 **Tap the Larger Shape** 的游戏。
+在本教程中，你将学习如何使用 Swift 中的设计模式来重构一个名为 **Tap the Larger Shape** 的游戏。
 
 了解设计模式对于编写可维护且无错误的应用程序至关重要，了解何时采用何种设计模式是一项只能通过实践学习的技能。这本教程再好不过了！
 
-但究竟什么是设计模式呢？这是一个针对常见问题的正式文档型解决方案。例如，考虑一下遍历一个集合，您在此处使用 **迭代器** 设计模式：
+但究竟什么是设计模式呢？这是一个针对常见问题的正式文档型解决方案。例如，考虑一下遍历一个集合，你在此处使用 **迭代器** 设计模式：
 
 ```swift
 var collection = ...
@@ -28,13 +28,13 @@ for item in collection {
 }
 ```
 
-**迭代器** 设计模式的价值在于它抽象出了访问集合中每一项的实际底层机制。无论 `集合` 是数组，字典还是其他类型，您的代码都可以用相同的方式访问它们中的每一项。
+**迭代器** 设计模式的价值在于它抽象出了访问集合中每一项的实际底层机制。无论 `集合` 是数组，字典还是其他类型，你的代码都可以用相同的方式访问它们中的每一项。
 
 不仅如此，设计模式也是开发者文化的一部分，因此维护或扩展代码的另一个开发人员可能会理解迭代器设计模式，它们是用于推理出软件架构的语言。
 
 在 iOS 编程中有很多设计模式频繁出现，例如 **MVC** 出现在几乎每个应用程序中，**代理** 是一个强大的，通常未被充分利用的模式，比如说你曾用过的 tableView，本教程讨论了一些鲜为人知但非常有用的设计模式。
 
-如果您不熟悉设计模式的概念，此篇文章可能不适合现在的你，不妨先看一下 [使用 Swift 的 iOS 设计模式](https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-on-ios-using-swift-part-1-2.md) 来开始吧。
+如果你不熟悉设计模式的概念，此篇文章可能不适合现在的你，不妨先看一下 [使用 Swift 的 iOS 设计模式](https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-on-ios-using-swift-part-1-2.md) 来开始吧。
 
 ## 入门
 
@@ -44,11 +44,11 @@ Tap the Larger Shape 是一个有趣但简单的游戏，你会看到一对相�
 
 下载 [入门项目](https://github.com/iWeslie/SwiftDesignPatterns) 并在 Xcode 中打开。
 
-> **注意**：您需要使用 Xcode 10 和 Swift 4.2 及以上版本从而获得最大的兼容性和稳定性。
+> **注意**：你需要使用 Xcode 10 和 Swift 4.2 及以上版本从而获得最大的兼容性和稳定性。
 
-此入门项目包含完整游戏，您将在本教程中对改项目进行重构并利用一些设计模式来使您的游戏更易于维护并且更加有趣。
+此入门项目包含完整游戏，你将在本教程中对改项目进行重构并利用一些设计模式来使你的游戏更易于维护并且更加有趣。
 
-使用 iPhone 8 模拟器，编译并运行项目，随意点击几个图形来了解这个游戏的规则。您会看到如下图所示的内容：
+使用 iPhone 8 模拟器，编译并运行项目，随意点击几个图形来了解这个游戏的规则。你会看到如下图所示的内容：
 
 [![Tap the larger shape and gain points.](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot2-180x320.png)](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot2.png)
 
@@ -60,7 +60,7 @@ Tap the Larger Shape 是一个有趣但简单的游戏，你会看到一对相�
 
 ## 理解这款游戏
 
-在深入了解设计模式的细节之前，先看一下目前编写的游戏。打开 **Shape.swift** 看一看并找到以下代码，您无需进行任何更改，只需要看看就行：
+在深入了解设计模式的细节之前，先看一下目前编写的游戏。打开 **Shape.swift** 看一看并找到以下代码，你无需进行任何更改，只需要看看就行：
 
 ```swift
 import UIKit
@@ -138,7 +138,7 @@ class ShapeView: UIView {
 
 2. 指明应用程序是否使用，并使用哪种颜色来给图形描边，这是图形边框的颜色。
 
-3. 一个处理点击事件的闭包（例如更新得分）。如果您不熟悉 Swift 闭包，可以在 [Swift 闭包](https://www.cnswift.org/closures) 中查看它们，但请记住它们与 Objective-C 里的 block 类似。
+3. 一个处理点击事件的闭包（例如更新得分）。如果你不熟悉 Swift 闭包，可以在 [Swift 闭包](https://www.cnswift.org/closures) 中查看它们，但请记住它们与 Objective-C 里的 block 类似。
 
 4. 设置一个 tap gesture recognizer，当玩家点击 view 时调用 `handleTap`。
 
@@ -179,7 +179,7 @@ class SquareShapeView: ShapeView {
 
 3. 由于 iOS 是以 position 为中心绘制线条的，因此我们在描边路径时需要将从 view 的 bounds 里减去 `halfLineWidth`。
 
-很棒！现在您已经了解了这个游戏里的图形是如绘制的，打开 **GameViewController.swift** 并查看其中的逻辑：
+很棒！现在你已经了解了这个游戏里的图形是如绘制的，打开 **GameViewController.swift** 并查看其中的逻辑：
 
 ```swift
 import UIKit
@@ -255,13 +255,13 @@ class GameViewController: UIViewController {
 
 你可能想问自己：“嗯，所以当我有一个工作游戏时，为什么我需要设计模式呢？”那么如果你想支持除了正方形以外的形状又要怎么办呢？
 
-您 **本可以** 在 `beginNextTurn` 中添加代码来创建第二个形状，但是当您添加第三种、第四种甚至第五种形状时，代码将变得难以管理。
+你 **本可以** 在 `beginNextTurn` 中添加代码来创建第二个形状，但是当你添加第三种、第四种甚至第五种形状时，代码将变得难以管理。
 
 如果你希望玩家能够选择别人的形状又要怎么办呢？
 
 如果你把所有代码放在 `GameViewController` 中，你最终会得到难以管理的包含硬编码依赖的耦合度很高的代码。
 
-以下是您的问题的答案：设计模式有助于将您的代码解耦成分离地很开的单位。
+以下是你的问题的答案：设计模式有助于将你的代码解耦成分离地很开的单位。
 
 在进行下一步之前，我坦白，我已经偷偷地进入了一个设计模式。
 
@@ -273,7 +273,7 @@ class GameViewController: UIViewController {
 
 `GameViewController` 与 `SquareShapeView` 紧密耦合，这将不能为以后使用不同的视图来表示正方形或引入第二个形状留出余地。
 
-您的第一个任务是使用 **抽象工厂** 设计模式给您的`GameViewController` 进行简化和解耦。您将要在代码中使用此模式，该代码建立用于构造一组相关对象的API，例如您将暂时使用的 shape view，而无需对特定类进行硬编码。
+你的第一个任务是使用 **抽象工厂** 设计模式给你的`GameViewController` 进行简化和解耦。你将要在代码中使用此模式，该代码建立用于构造一组相关对象的API，例如你将暂时使用的 shape view，而无需对特定类进行硬编码。
 
 新建一个 Swift 文件，命名为 **ShapeViewFactory.swift** 并保存，然后添加以下代码：
 
@@ -289,7 +289,7 @@ protocol ShapeViewFactory {
 }
 ```
 
-以下是您新的工厂的工作原理：
+以下是你新的工厂的工作原理：
 
 1. 将 `ShapeViewFactory` 定义为 Swift 协议，它没有理由成为一个类或结构体，因为它只描述了一个接口而本身并没有功能。
 
@@ -333,7 +333,7 @@ class SquareShapeViewFactory: ShapeViewFactory {
 }
 ```
 
-您的 `SquareShapeViewFactory` 建造了 `SquareShapeView` 实例，如下所示：
+你的 `SquareShapeViewFactory` 建造了 `SquareShapeView` 实例，如下所示：
 
 1. 使用一致的最大尺寸来初始化工厂。
 
@@ -400,19 +400,19 @@ class GameViewController: UIViewController {
 
 3. 将新的 shape view 工厂存储为实例属性。
 
-主要的好处在于第二部分，其中您用一行替换了六行代码。更好的是，您将复杂的 shape view 的创建代码移出了 `GameViewController` 从而使类更小也更容易理解。
+主要的好处在于第二部分，其中你用一行替换了六行代码。更好的是，你将复杂的 shape view 的创建代码移出了 `GameViewController` 从而使类更小也更容易理解。
 
 将 view 创建代码移出 controller 是很有帮助的，因为 `GameViewController` 充当 Controller 在 Model 和 View 之间进行协调。
 
-编译并运行，然后您应该看到类似以下内容：
+编译并运行，然后你应该看到类似以下内容：
 
 [![Screenshot4](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot4-180x320.png)](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot4.png)
 
-您游戏的视觉效果没有任何改变，但您确实简化了代码。
+你游戏的视觉效果没有任何改变，但你确实简化了代码。
 
-如果你用 `SomeOtherShapeView` 替换 `SquareShapeView`，那么 `SquareShapeViewFactory` 的好处就会大放异彩。具体来说，您不需要更改 `GameViewController`，您可以将所有更改分离到 `SquareShapeViewFactory`。
+如果你用 `SomeOtherShapeView` 替换 `SquareShapeView`，那么 `SquareShapeViewFactory` 的好处就会大放异彩。具体来说，你不需要更改 `GameViewController`，你可以将所有更改分离到 `SquareShapeViewFactory`。
 
-既然您已经简化了 shape view 的创建，那么您也同时可以简化 shape 的创建。像之前那样创建一个新的 Swift 文件，命名为 **ShapeFactory.swift**，并把以下代码粘贴进去：
+既然你已经简化了 shape view 的创建，那么你也同时可以简化 shape 的创建。像之前那样创建一个新的 Swift 文件，命名为 **ShapeFactory.swift**，并把以下代码粘贴进去：
 
 ```swift
 import UIKit
@@ -451,7 +451,7 @@ class SquareShapeFactory: ShapeFactory {
 
 1. 再一次地，就像你对 `ShapeViewFactory` 所做的那样，将 `ShapeFactory` 声明为一个协议来获得最大的灵活性。
 
-2. 您希望您的 shape 工厂生成具有单位尺寸的形状，例如，在 `[0, 1]` 的范围内，因此您要存储这个范围。
+2. 你希望你的 shape 工厂生成具有单位尺寸的形状，例如，在 `[0, 1]` 的范围内，因此你要存储这个范围。
 
 3. 创建具有随机尺寸的第一个方形。
 
@@ -505,11 +505,11 @@ private func beginNextTurn() {
 
 3. 这样你就可以在这里比较它们了。
 
-Once again, using the **Abstract Factory** design pattern simplified your code by moving shape generation out of `GameViewController`.再一次使用 **抽象工厂** 设计模式，通过将创建形状的部分移出 `GameViewController` 来简化代码。
+再一次使用 **抽象工厂** 设计模式，通过将创建形状的部分移出 `GameViewController` 来简化代码。
 
 ## 雇工模式
 
-现在你甚至可以添加第二个形状，例如圆圈。您对正方形的唯一硬性依赖是下面 `beginNextTurn` 中的得分计算：
+现在你甚至可以添加第二个形状，例如圆圈。你对正方形的唯一硬性依赖是下面 `beginNextTurn` 中的得分计算：
 
 ```swift
 shapeViews.1.tapHandler = { tappedView in
@@ -522,9 +522,9 @@ shapeViews.1.tapHandler = { tappedView in
 }
 ```
 
-在这里您把形状转换为 `SquareShape` 以便您可以访问它们的 `sideLength`，圆没有 `sideLength`，而是“直径”。
+在这里你把形状转换为 `SquareShape` 以便你可以访问它们的 `sideLength`，圆没有 `sideLength`，而是“直径”。
 
-解决方案是使用 **雇工** 设计模式，它通过一个通用接口为一组类（如形状类）提供分数计算等方法。在您现在的情况下，分数计算是雇工，形状类作为服务对象，并且 `area` 属性扮演公共接口的角色。
+解决方案是使用 **雇工** 设计模式，它通过一个通用接口为一组类（如形状类）提供分数计算等方法。在你现在的情况下，分数计算是雇工，形状类作为服务对象，并且 `area` 属性扮演公共接口的角色。
 
 打开 **Shape.swift** 并在 `Shape` 类的底部添加以下代码：
 
@@ -538,7 +538,7 @@ var area: CGFloat { return 0 }
 override var area: CGFloat { return sideLength * sideLength }
 ```
 
-现在您可以根据其面积来判断哪个形状更大。
+现在你可以根据其面积来判断哪个形状更大。
 
 打开 **GameViewController.swift** 并把 `beginNextTurn` 替换成以下内容：
 
@@ -569,11 +569,11 @@ private func beginNextTurn() {
 
 2. 还是根据形状区域确定较大的形状。
 
-编译并运行，您应该看到类似下面的内容，虽然游戏看起来相同，但代码现在更灵活了。
+编译并运行，你应该看到类似下面的内容，虽然游戏看起来相同，但代码现在更灵活了。
 
 [![Screenshot6](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot6-180x320.png)](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot6.png)
 
-恭喜，您已经从游戏逻辑中完全解除了对正方形的依赖关系，如果您要创建和使用一些圆形的工厂，您的游戏将变得更加完善。
+恭喜，你已经从游戏逻辑中完全解除了对正方形的依赖关系，如果你要创建和使用一些圆形的工厂，你的游戏将变得更加完善。
 
 [![ragecomic2](https://koenig-media.raywenderlich.com/uploads/2014/10/ragecomic2.png)](https://koenig-media.raywenderlich.com/uploads/2014/10/ragecomic2.png)
 
@@ -667,15 +667,15 @@ class CircleShapeView: ShapeView {
 
 对上述内容的解释依次为以下几个部分：
 
-1. 由于圆无法填充其 view 的 bounds，因此您需要告诉 **UIKit** 该 view 是透明的，这意味着能透过它看到背后的东西。如果你没有意识到这点，那么这个圆将会有一个丑陋的黑色背景。
+1. 由于圆无法填充其 view 的 bounds，因此你需要告诉 **UIKit** 该 view 是透明的，这意味着能透过它看到背后的东西。如果你没有意识到这点，那么这个圆将会有一个丑陋的黑色背景。
 
 2. 由于视图是透明的，因此应在 bounds 更改时进行重绘。
 
-3. 画一个用 `fillColor` 填充的圆圈。稍后，您将创建 `CircleShapeViewFactory`，它会确保 `CircleView` 具有相等的宽度和高度，因此画出来的形状将是圆形而不是椭圆形。
+3. 画一个用 `fillColor` 填充的圆圈。稍后，你将创建 `CircleShapeViewFactory`，它会确保 `CircleView` 具有相等的宽度和高度，因此画出来的形状将是圆形而不是椭圆形。
 
 4. 给圆用 lineWidth 进行描边。
 
-现在您将在 `CircleShapeViewFactory` 中创建` CircleShapeView` 对象。
+现在你将在 `CircleShapeViewFactory` 中创建` CircleShapeView` 对象。
 
 打开 **ShapeViewFactory.swift** 并在文件的底部添加以下代码：
 
@@ -731,13 +731,13 @@ shapeFactory = CircleShapeFactory(minProportion: 0.3, maxProportion: 0.8)
 
 现在是时候来看看第三种设计模式了：**建造者**。
 
-假设您想要改变 `ShapeView` 实例的外观 - 例如它们是否应显示，以及用什么颜色来填充和描边。 **建造者** 设计模式使这种对象的配置变得更加容易和灵活。
+假设你想要改变 `ShapeView` 实例的外观 - 例如它们是否应显示，以及用什么颜色来填充和描边。 **建造者** 设计模式使这种对象的配置变得更加容易和灵活。
 
 解决此配置问题的一种方法是添加各种构造函数，可以使用诸如 `CircleShapeView.redFilledCircleWithBlueOutline()` 之类的类便利初始化方法，也可以添加具有各种参数和默认值的初始化方法。
 
-然而不幸的是，它不是一种可扩展的技术，因为您需要为每种组合编写新方法或初始化程序。
+然而不幸的是，它不是一种可扩展的技术，因为你需要为每种组合编写新方法或初始化程序。
 
-建造者非常优雅地解决了这个问题，因为它创建了一个具有单一用途的类来配置已经初始化的对象。如果您将让建造者来构建红色的圆，然后再构建蓝色的圆，则无需更改 `CircleShapeView` 就可达到目的。
+建造者非常优雅地解决了这个问题，因为它创建了一个具有单一用途的类来配置已经初始化的对象。如果你将让建造者来构建红色的圆，然后再构建蓝色的圆，则无需更改 `CircleShapeView` 就可达到目的。
 
 创建一个新文件 **ShapeViewBuilder.swift** 并添加以下代码：
 
@@ -778,7 +778,7 @@ class ShapeViewBuilder {
 }
 ```
 
-以下是您的新的 `ShapeViewBuilder` 的工作原理：
+以下是你的新的 `ShapeViewBuilder` 的工作原理：
 
 1. 存储配置 `ShapeView` 的填充属性。
 
@@ -829,7 +829,7 @@ shapeFactory = SquareShapeFactory(minProportion: 0.3, maxProportion: 0.8)
 
 注意建造者模式是如何使新的颜色方案来应用到正方形和圆形上的。没有它的话你需要在 `CircleShapeViewFactory` 和 `SquareShapeViewFactory` 中来单独设置颜色。
 
-此外，更改为另一种配色方案将涉及大量代码的修改。通过将 `ShapeView` 颜色配置限制为单个 `ShapeViewBuilder`，您还可以将颜色更改隔离到单个类。
+此外，更改为另一种配色方案将涉及大量代码的修改。通过将 `ShapeView` 颜色配置限制为单个 `ShapeViewBuilder`，你还可以将颜色更改隔离到单个类。
 
 ## 依赖注入模式
 
@@ -943,19 +943,19 @@ private func beginNextTurn() {
 }
 ```
 
-您的新代码的工作原理如下：
+你的新代码的工作原理如下：
 
 1. 让 `TurnController` 开始一个新的回合并返回一个 `ShapeView` 元组用于回合。
 
 2. 当玩家点击 `ShapeView` 时，通知控制器回合结束，然后计算得分。请注意 `TurnController` 是如何把得分计算的过程抽象出来并进一步简化 `GameViewController`。
 
-3. 由于您移除了对特定形状的显式引用，因此第二个形状视图可以与第一个形状视图共享相同的 `tapHandler` 闭包。
+3. 由于你移除了对特定形状的显式引用，因此第二个形状视图可以与第一个形状视图共享相同的 `tapHandler` 闭包。
 
 **依赖注入** 设计模式的一个实例应用是它将其依赖项传递给 `TurnController` 初始化器，初始化器的参数主要是要注入的形状和工厂的依赖项。
 
-由于 `TurnController` 没有假定使用哪种类型的工厂，因此您可以自由地在不同的工厂间进行交换。
+由于 `TurnController` 没有假定使用哪种类型的工厂，因此你可以自由地在不同的工厂间进行交换。
 
-这不仅使您的游戏更加灵活，还让自动化测试变得更容易了，因为它允许您向特殊的 `TestShapeFactory` 和 `TestShapeViewFactory` 类传递如果你想的话。这些可能是特殊的存根或模拟，可以使测试更容易、更可靠并且更快速。
+这不仅使你的游戏更加灵活，还让自动化测试变得更容易了，因为它允许你向特殊的 `TestShapeFactory` 和 `TestShapeViewFactory` 类传递如果你想的话。这些可能是特殊的存根或模拟，可以使测试更容易、更可靠并且更快速。
 
 Build and run and check that it looks like this:编译并运行，你会看到如下图：
 
@@ -973,11 +973,11 @@ Build and run and check that it looks like this:编译并运行，你会看到�
 
 说到派，呃，Pi，你要怎么把这些圆形放回游戏中呢？现在你的 `GameViewController` 可以使用 **圆或正方形**，但只能使用其中一个。并不一定都要限制的死死的。
 
-接下来您将使用 **策略** 模式来管理游戏里的形状。
+接下来你将使用 **策略** 模式来管理游戏里的形状。
 
-**策略** 设计模式允许您根据程序在运行时确定的内容来设计算法。在这种情况下，算法将选择向玩家呈现什么样的形状。
+**策略** 设计模式允许你根据程序在运行时确定的内容来设计算法。在这种情况下，算法将选择向玩家呈现什么样的形状。
 
-您可以设计许多不同的算法：一种是随机选择形状，一种是挑选形状来给玩家一点挑战或者帮助他获胜更多，等等！**策略** 通过对每个策略必须实现的行为的抽象声明来定义一系列算法，这使得该族内的算法可以互换。
+你可以设计许多不同的算法：一种是随机选择形状，一种是挑选形状来给玩家一点挑战或者帮助他获胜更多，等等！**策略** 通过对每个策略必须实现的行为的抽象声明来定义一系列算法，这使得该族内的算法可以互换。
 
 如果你猜想你将将会把策略作为一个 Swift `protocol` 来实现，那你就猜对了！
 
@@ -1025,11 +1025,11 @@ class RandomTurnStrategy: TurnStrategy {
 }
 ```
 
-以下是您的新的 `TurnStrategy` 进行的操作：
+以下是你的新的 `TurnStrategy` 进行的操作：
 
 1. 这是在一个协议中定义的一个抽象方法，该方法获取游戏中上一个回合的数组，并返回形状视图来显示下一回合。
 
-2. 实现一个使用 `ShapeFactory` 和 `ShapeViewBuilder` 的基本策略，此策略实现了现有行为，其中形状视图与以前一样来自单个工厂和建造者。请注意您在此处再次使用 **依赖注入**，这意味着此策略不关心它使用的是哪一个工厂或建造者。
+2. 实现一个使用 `ShapeFactory` 和 `ShapeViewBuilder` 的基本策略，此策略实现了现有行为，其中形状视图与以前一样来自单个工厂和建造者。请注意你在此处再次使用 **依赖注入**，这意味着此策略不关心它使用的是哪一个工厂或建造者。
 
 3. 随机使用其他两种策略之一来实施随机策略。你在这里使用了组合，因此 `RandomTurnStrategy` 可以表现得像两个可能不同的策略。但是由于它是一个 `策略`，所以任何使用 `RandomTurnStrategy` 的代码都隐藏了该组合。
 
@@ -1074,7 +1074,7 @@ class TurnController {
 
 2. 使用策略生成 `ShapeView` 对象，以便玩家可以开始新的回合。
 
-> **注意：** 这将会导致 **GameViewController.swift** 中出现语法错误。但是别担心，这只是暂时的，您将在下一步中修复错误。
+> **注意：** 这将会导致 **GameViewController.swift** 中出现语法错误。但是别担心，这只是暂时的，你将在下一步中修复错误。
 
 使用 **策略** 设计模式的最后一步是调整你的 `GameViewController` 从而来使用你的 `TurnStrategy`。
 
@@ -1138,7 +1138,7 @@ class GameViewController: UIViewController {
 }
 ```
 
-您修改后的 `GameViewController` 使用 `TurnStrategy` 的详细步骤如下：
+你修改后的 `GameViewController` 使用 `TurnStrategy` 的详细步骤如下：
 
 1. 创建一个策略来创建正方形。
 
@@ -1148,206 +1148,205 @@ class GameViewController: UIViewController {
 
 4. 创建回合控制器来使用随机策略。
 
-编译并运行，然后玩五到六轮，您应该看到类似于以下的内容。
+编译并运行，然后玩五到六轮，你应该看到类似于以下的内容。
 
-[![Screenshot111213**Animatedv2](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot111213**Animatedv2.gif)](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot111213**Animatedv2.gif)
+[![Screenshot111213**Animatedv2](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot111213_Animatedv2.gif)](https://koenig-media.raywenderlich.com/uploads/2014/10/Screenshot111213_Animatedv2.gif)
 
-请注意你的游戏是如何在正方形和圆形之间随机交替的。此时您可以轻松地添加第三个形状来，如三角形或平行四边形，您的 `GameViewController` 可以通过切换策略来使用它。
+请注意你的游戏是如何在正方形和圆形之间随机交替的。此时你可以轻松地添加第三个形状来，如三角形或平行四边形，你的 `GameViewController` 可以通过切换策略来使用它。
 
-## Design Patterns: Chain of Responsibility, Command and 迭代器
+## 责任链，命令和迭代器模式
 
-Think about the example at the beginning of this tutorial:
+考虑一下本教程开头的示例：
 
 ```swift
 var collection = ...
 
-// The for loop condition uses the 迭代器 design pattern
+// for 循环使用迭代器设计模式
 for item in collection {
-  print("Item is: \(item)")
+    print("Item is: \(item)")
 }
 ```
 
-What is it that makes the `for item in collection` loop work? The answer is Swift's `SequenceType`.
+是什么使得 `for item in collection` 这个循环工作的呢？答案是 Swift 的 `SequenceType`。
 
-By using the **迭代器** pattern in a `for ... in` loop, you can iterate over any type that conforms to the `SequenceType` protocol.
+通过在 `for ... in` 循环中使用 **迭代器** 模式，你可以迭代任何遵循 `SequenceType` 协议的类型。
 
-The built-in collection types `Array` and `Dictionary` already conform to `SequenceType`, so you generally don't need to think about `SequenceType` unless you code your own collections. Still, it's nice to know. :\]
+内置的集合类型 `Array` 和 `Dictionary` 是遵循 `SequenceType` 的，因此除非你要编写自己的集合，否则通常不需要考虑 `SequenceType` 。不过我仍然很高兴了解这个模式。:\]
 
-Another design pattern that you'll often see used in conjunction with **迭代器** is the **Command** design pattern, which captures the notion of invoking a specific behavior on a target when asked.
+你经常看到的与 **迭代器** 结合使用的另一种设计模式是 **命令** 模式，它会捕获在被询问时在目标上调用特定行为的概念。
 
-For this tutorial, you'll use **Command** to determine if a `Turn` was a match, and compute your game's score from that.
+在本教程中你将使用 **命令** 来确定一个 `回合` 的胜负并计算游戏的分数。
 
-Create a new file named **Scorer.swift**, and replace its contents with the following code:
+创建一个名为 **Scorer.swift** 的新文件，并使用以下代码替换：
 
 ```swift
-
 // 1
 protocol Scorer {
-  func computeScoreIncrement<S: SequenceType where Turn == S.Generator.Element>(pastTurnsReversed: S) -> Int
+    func computeScoreIncrement<S>(_ pastTurnsReversed: S) -> Int where S : Sequence, Turn == S.Iterator.Element
 }
 
 // 2
 class MatchScorer: Scorer {
-  func computeScoreIncrement<S : SequenceType where Turn == S.Generator.Element>(pastTurnsReversed: S) -> Int {
-    var scoreIncrement: Int?
-    // 3
-    for turn in pastTurnsReversed {
-      if scoreIncrement == nil {
-      	// 4
-        scoreIncrement = turn.matched! ? 1 : -1
-        break
-      }
-    }
+    func computeScoreIncrement<S>(_ pastTurnsReversed: S) -> Int where S : Sequence, S.Element == Turn {
+        var scoreIncrement: Int?
+        // 3
+        for turn in pastTurnsReversed {
+            if scoreIncrement == nil {
+                // 4
+                scoreIncrement = turn.matched! ? 1 : -1
+                break
+            }
+        }
 
-    return scoreIncrement ?? 0
-  }
+        return scoreIncrement ?? 0
+    }
 }
 ```
 
-Taking each section in turn:
+依次来看看每一步：
 
-1.  Define your **Command** type, and declare its behavior to accept a collection of past turns that you can iterate over using the **迭代器** design pattern.
+1. 定义你的 **命令** 类型并声明它的行为让它接收一个你可以用 **迭代器** 来迭代的过去所有回合的集合。
 
-2.  Declare a concrete implementation of `Scorer` that will score turns based on whether they matched or not.
+2. 一个 `Scorer` 的具体实现，根据它们是否获胜来计算得分。
 
-3.  Use the **迭代器** design pattern to iterate over past turns.
+3. 使用 **迭代器** 迭代过去的回合。
 
-4.  Compute the score as +1 for a matched turn and -1 for a non-matched turn.
+4. 将获胜回合的得分计为 +1，输掉的回合得分为 -1。
 
-Now open **TurnController.swift** and add the following line near the end, just before the closing brace:
+现在打开 **TurnController.swift** 并在类的最底部添加以下代码：
 
 ```swift
-private let scorer: Scorer
+private var scorer: Scorer
 ```
 
-Then add the following line to the end of the initializer `init(turnStrategy:)`:
+然后将以下代码添加到初始化器 `init(turnStrategy:)` 的末尾：
 
 ```swift
 self.scorer = MatchScorer()
 ```
 
-Finally, replace the line in `endTurnWithTappedShape` that declares and sets `scoreIncrement` with the following:
+Finally, replace the line in `endTurnWithTappedShape` that declares and sets `scoreIncrement` with the following:最后把 `endTurnWithTappedShape` 里 `scoreIncrement` 的声明替换为：
 
 ```swift
-var scoreIncrement = scorer.computeScoreIncrement(pastTurns.reverse())=
+let scoreIncrement = scorer.computeScoreIncrement(pastTurns.reversed())
 ```
 
-Take note of how how you reverse `pastTurns` before passing it to the scorer because the scorer expects turns in reverse order (newest first), whereas `pastTurns` stores oldest-first (In other words, it appends newer turns to the end of the array).
+注意你将在计算得分之前反转 `pastTurns`，因为计算得分的顺序和回合进行的顺序相反，而 `pastTurns` 存储着最开始的回合，换句话说就是我们将在数组的最后 append 最新的回合。
 
-Build and run your code. Did you notice something strange? I bet your scoring didn't change for some reason.
+编译并运行项目，你注意到一些奇怪的事了吗？我打赌你的得分因某种原因没有改变。
 
-You need to make your scoring change by using the **Chain of Responsibility** design pattern.
+你需要使用 **责任链** 模式来改变你的得分。
 
-The **Chain of Responsibility** design pattern captures the notion of dispatching multiple commands across a set of data. For this exercise, you'll dispatch different `Scorer` commands to compute your player's score in multiple additive ways.
+**责任链** 模式会捕获跨一组数据​​调度多个命令的概念。在本练习中，你将发送不同的 `Scorer` 命令来以多种附加方式计算你的玩家得分。
 
-For example, not only will you award +1 or -1 for matches or mismatches, but you'll also award bonus points for streaks of consecutive matches. **Chain of Responsibility** allows you add a second `Scorer` implementation in a manner that doesn't interrupt your existing scorer.
+例如你不仅会为比赛的胜负加或减一分，而且还会为连续比赛的连胜获得奖励分。**责任链** 允许你以不会打断现有记分员的方式添加第二个 `Scorer` 的实现。
 
-Open **Scorer.swift** and add the following line to the top of `MatchScorer`
+打开 **Scorer.swift** 并在 `MatchScorer` 里的最上方添加以下代码：
 
 ```swift
 var nextScorer: Scorer? = nil
 ```
 
-Then add the following line to the end of the `Scorer` protocol:
+然后在 `Scorer` 协议的最后添加:
 
 ```swift
 var nextScorer: Scorer? { get set }
 ```
 
-Now both `MatchScorer` and any other `Scorer` implementations declare that they implement the **Chain of Responsibility** pattern through their `nextScorer` property.
+现在 `MatchScorer` 和其他所有的 `Scorer` 都表明它们通过 `nextScorer` 属性实现了 **责任链** 模式。
 
-Replace the `return` statement in `computeScoreIncrement` with the following:
+在 `computeScoreIncrement` 里用以下代码替换 `return` 语句:
 
 ```swift
 return (scoreIncrement ?? 0) + (nextScorer?.computeScoreIncrement(pastTurnsReversed) ?? 0)
 ```
 
-Now you can add another `Scorer` to the chain after `MatchScorer`, and its score gets automatically added to the score computed by `MatchScorer`.
+现在你可以在 `MatchScorer` 之后向链中添加另一个 `Scorer` 并将其得分自动添加到 `MatchScorer` 计算的分数中。
 
-> **Note:** The `??` operator is Swift's **nil coalescing operator**. It unwraps an optional to its value if non-nil, else returns the other value if the optional is nil. Effectively, `a ?? b` is the same as `a != nil ? a! : b`. It's a nice shorthand and I encourage you to use it in your code.
+> **注意：**`??` 运算符是 Swift 的 **合并空值运算符**。如果可选值非 nil 则将其值展开，如果可选值为 nil 则返回 ?? 后的另一个值。实际上 `a ?? b` 与 `a != nil ? a! : b` 一样。这是一个很好的速记，我们鼓励你在你的代码中使用它。
 
-To demonstrate this, open **Scorer.swift** and add the following code to the end of the file:
+要来演示这一点，请打开 **Scorer.swift** 并将以下代码添加到文件末尾：
 
 ```swift
 class StreakScorer: Scorer {
-  var nextScorer: Scorer? = nil
+    var nextScorer: Scorer? = nil
 
-  func computeScoreIncrement<S : SequenceType where Turn == S.Generator.Element>(pastTurnsReversed: S) -> Int {
-    // 1
-    var streakLength = 0
-    for turn in pastTurnsReversed {
-      if turn.matched! {
-        // 2
-        ++streakLength
-      } else {
-        // 3
-        break
-      }
+    func computeScoreIncrement<S>(_ pastTurnsReversed: S) -> Int where S : Sequence, S.Element == Turn {
+        // 1
+        var streakLength = 0
+        for turn in pastTurnsReversed {
+            if turn.matched! {
+                // 2
+                streakLength += 1
+            } else {
+                // 3
+                break
+            }
+        }
+
+        // 4
+        let streakBonus = streakLength >= 5 ? 10 : 0
+        return streakBonus + (nextScorer?.computeScoreIncrement(pastTurnsReversed) ?? 0)
     }
-
-    // 4
-    let streakBonus = streakLength >= 5 ? 10 : 0
-    return streakBonus + (nextScorer?.computeScoreIncrement(pastTurnsReversed) ?? 0)
-  }
 }
 ```
 
-Your nifty new `StreakScorer` works as follows:
+你漂亮的新的 `StreakScorer` 工作原理如下：
 
-1.  Track streak length as the number of consecutive turns with successful matches.
+1. 连续获胜的次数。
 
-2.  If a turn is a match, the streak continues.
+2. 如果该回合获胜，则连续次数加一。
 
-3.  If a turn is not a match, the streak is broken.
+3. 如果该回合输了，则连续获胜次数清零。
 
-4.  Compute the streak bonus: 10 points for a streak of five or more consecutive matches!
+4. 计算连胜奖励，连胜 5 场或更多场奖励 10 分！
 
-To complete the **Chain of Responsibility** open **TurnController.swift** and add the following line to the end of the initializer `init(turnStrategy:)`:
+要完成 **责任链** 模式，打开 **TurnController.swift** 并将以下行添加到初始化器 `init(turnStrategy:)` 的末尾：
 
 ```swift
 self.scorer.nextScorer = StreakScorer()
 ```
 
-Excellent, you're using **Chain of Responsibility**.
+很好，现在你正在使用 **责任链**。
 
-Build and run. After five successful matches in the first five turns you should see something like the following screenshot.
+编译并运行，在前五个回合都获胜的情况下，你应该看到如下截图。
 
 [![ScreenshotStreakAnimated](https://koenig-media.raywenderlich.com/uploads/2014/10/ScreenshotStreakAnimated.gif)](https://koenig-media.raywenderlich.com/uploads/2014/10/ScreenshotStreakAnimated.gif)
 
-Notice how the score hits 15 after only 5 turns since 15 = 5 points for successful 5 matches + 10 points streak bonus.
+请注意分数是如何从 5 一下子变成 16 的，因为连胜五局，计算奖励分 10 分和第六局获得的 1 分所以一共是 16 分。
 
-## Where To Go From Here?
+## 接下来该干嘛？
 
-Here is the [final completed project](https://koenig-media.raywenderlich.com/uploads/2014/12/DesignPatternsInSwift**FinalCompleted.zip) for this tutorial.
+这里是本次教程的 [最终项目](http://iweslie.com/code/SwiftDesignPatterns.zip)。
 
-You've taken a fun game, **Tap the Larger Shape** and used design patterns to add even more shapes and enhance their styling. You've also used design patterns to add more elaborate scoring.
+你玩了一个有趣的游戏 **Tap the Larger Shape** 并使用设计模式来添加更多的形状以及增强其样式，你还使用了设计模式来更精确地计算得分。
 
-Most remarkably, even though the final project has many more features, its code is actually simpler and more maintainable than what you started with.
+最值得注意的是，即使最终项目具有更多功能，其代码实际上比你开始时更简单且更易于维护。
 
-Why not use these design patterns to extend your game even further? Some ideas follow.
+为什么不使用这些设计模式进来一步扩展你的游戏呢？可以尝试一下下面的想法。
 
-**Add more shapes like triangle, parallelogram, star, etc**
-Hint: Think back to how you added circles, and follow a similar sequence of steps to add new shapes. If you come up with some really cool shapes, please post screenshots of them in the comments at the bottom of this tutorial!
+**添加更多形状，如三角形、平行四边形、星形等**
+提示：回想一下如何添加圆形，并按照类似的步骤顺序添加新形状。如果你想出一些非常酷的形状，你也可以自己尝试一下！
 
-**Add an animation whenever the score changes**
-Hint: Use the `didSet` property observer on `GameView.score`.
+**添加分数变化时的动画**
+提示：在 `GameView.score` 上使用 `didSet`。
 
-**Add controls so that players can choose which types of shapes the game uses**
-Hint: Add three `UIButton` or a `UISegmentedControl` with three choices (Square, Circle, Mixed) in `GameView`, which should forward any target actions from the controls on to an **Observer** (Swift closure). `GameViewController` can use these closures to adjust which `TurnStrategy` it uses.
+**添加控件来让玩家选择游戏使用的形状类型**
+提示：在 `GameView` 中添加三个 `UIButton` 或一个带有 Square、Circle 和 Mixed 三个选项的 `UISegmentedControl`，它们应该将控件上的任何点击事件通过闭包转发给 **观察者**。`GameViewController` 可以使用这些闭包来调整它使用的 `TurnStrategy`。
 
-**Persist shape settings to preferences that you can restore**
-Hint: Store the player's choice of shape type in `NSUserDefaults`. Try to use the **Facade** design pattern ([Facade details](http://en.wikipedia.org/wiki/Facade**pattern)) to hide your choice of persistence mechanism for this preference from the rest of your code.
+**将形状设置保留为可以恢复的首选项**
+提示：将玩家选择的形状类型存储在 `UserDefaults` 中。尝试使用一下 **外观** 模式（[详细说明](http://en.wikipedia.org/wiki/Facade_pattern)）来隐藏你对其他人的持久性机制的选择。
 
-**Allow players to select the color scheme for the game**
-Hint: Use `NSUserDefaults` to persist the player's choice. Create a `ShapeViewBuilder` that can accept the persisted choice and adjust the app's UI accordingly. Could you use `NSNotificationCenter` to inform all interested views that the color scheme changed so that they can immediately update themselves?
+**允许玩家选择游戏的配色方案**
+提示：使用 `UserDefaults` 来持久化存储玩家的选择。创建一个可以接受持久选择并相应地调整应用程序的 UI 的 `ShapeViewBuilder`。当配色方案更改时，你是否可以使用 `NotificationCenter` 来通知所有相关的 view 来作出相应的更新呢？
 
-**Have your game play a happy sound when a match occurs and a sad sound when a match fails**
-Hint: Extend the **Observer** pattern used between `GameView` and `GameViewController`.
+**每当玩家获胜时发出庆祝的铃声，失败时发出悲伤的铃声**
+提示：扩展 `GameView` 和 `GameViewController` 之间使用的 **观察者** 模式。
 
-**Use Dependency Injection to pass in the Scorer to TurnController**
-Hint: Remove the hard-coded dependency on `MatchScorer` and `StreakScorer` from the initializer.
+**使用依赖注入将 Scorer 传递给 TurnController**
+提示：从初始化器中移除对 `MatchScorer` 和 `StreakScorer` 的引用。
 
-Thank you for working through this tutorial! Please join the discussion below and share your questions, ideas and cool ways you kicked the game up a few notches.
+感谢你完成本教程！你可以在评论区分享你的问题和想法以及提升游戏逼格的方法。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
