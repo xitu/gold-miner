@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-comprehensive-look-back-at-frontend-in-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-comprehensive-look-back-at-frontend-in-2018.md)
 > * 译者：[Ivocin](https://github.com/Ivocin)
-> * 校对者：
+> * 校对者：[Junkai Liu](https://github.com/Moonliujk), [wuzhe](https://github.com/wznonstop)
 
 # 2018 前端全面回顾
 
@@ -88,7 +88,7 @@ Spectre 定时攻击并不是今年唯一的网络安全恐慌。npm 固有的�
 
 考虑到 npm 的运行方式，社区成员倾向于安装看似有用的随机 npm 包，这种攻击只会变得更加普遍。社区对包所有者非常信任，现在信任受到了极大的质疑。npm 用户应该知道他们正在安装的每个软件包（包括依赖项的依赖关系），使用锁定文件来锁定版本并注册 [Github 提供的](https://blog.github.com/2017-11-16-introducing-security-alerts-on-github/)安全警报。
 
-npm [意识到社区的安全问题](https://blog.npmjs.org/post/172774747080/attitudes-to-security-in-the-javascript-community)，他们在过去的一年里已经采取措施去改进它。你现在可以使用[双因素身份验证](https://blog.npmjs.org/post/166039777883/protect-your-npm-account-with-two-factor)来保护你的 npm 帐户，并且 npm v6 现在包含了[安全审核](https://docs.npmjs.com/auditing-package-dependencies-for-security-vulnerabilities)命令。 
+Npm [意识到社区的安全问题](https://blog.npmjs.org/post/172774747080/attitudes-to-security-in-the-javascript-community)，他们在过去的一年里已经采取措施去改进它。你现在可以使用[双因素身份验证](https://blog.npmjs.org/post/166039777883/protect-your-npm-account-with-two-factor)来保护你的 npm 帐户，并且 npm v6 现在包含了[安全审核](https://docs.npmjs.com/auditing-package-dependencies-for-security-vulnerabilities)命令。 
 
 ### 监控
 
@@ -129,9 +129,9 @@ Node 继续在遵循 ECMAScript 标准方面取得良好进展，截至 12 月�
 
 React 流行度继续增长，[根据 JavaScript 2018 趋势报告](https://2018.stateofjs.com/front-end-frameworks/react/)显示，64％ 的受访者选择使用 React 并将再次使用它（比去年增加了 7.1％），相比之下 [Vue 为 28％](https://2018.stateofjs.com/front-end-frameworks/vuejs/)（增长了 9.2％），[Angular 为 23%](https://2018.stateofjs.com/front-end-frameworks/angular/)（增长了 5.1％）。
 
-#### webpack
+#### Webpack
 
-[webpack](https://webpack.js.org) 4 [于 2 月发布](https://github.com/webpack/webpack/releases/tag/v4.0.0-beta.0)，带来了巨大的性能改进，内置生产和开发模式，做了如代码分割和压缩的易于使用的优化，实验性的 WebAssembly 支持和 ECMAScript 模块支持。webpack 现在比以前的版本更容易使用，以前如代码分割和代码优化等复杂的功能，现在设置起来非常简单。结合使用 Typescript 或 Babel，webpack 仍然是 Web 开发人员的基础工具，竞争对手似乎不太可能在不久的将来出现并取而代之。
+[Webpack](https://webpack.js.org) 4 [于 2 月发布](https://github.com/webpack/webpack/releases/tag/v4.0.0-beta.0)，带来了巨大的性能改进，内置生产和开发模式，做了如代码分割和压缩的易于使用的优化，实验性的 WebAssembly 支持和 ECMAScript 模块支持。Webpack 现在比以前的版本更容易使用，以前如代码分割和代码优化等复杂的功能，现在设置起来非常简单。结合使用 Typescript 或 Babel，webpack 仍然是 Web 开发人员的基础工具，竞争对手似乎不太可能在不久的将来出现并取而代之。
 
 #### Babel
 
