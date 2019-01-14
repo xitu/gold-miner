@@ -48,55 +48,55 @@ JavaScript 一直缺乏像 Python 这样语言的一些更高级的正则表达�
 
 有一部分问题是 WebAssembly 需要大量的步骤才能开始使用，而许多习惯于使用 JavaScript 的开发人员并不熟悉使用传统的编译语言。Firefox 推出了一个名为 [WebAssembly Studio](https://hacks.mozilla.org/2018/04/sneak-peek-at-webassembly-studio/) 的在线 IDE，可以让使用 WebAssembly 变得简单。如果你希望将其集成到现有的应用程序中，现在有很多工具可供选择。Webpack v4 为 WebAssembly 模块添加了实验性[内置支持](https://github.com/webpack/webpack/releases/tag/v4.0.0)，这些模块紧密集成到构建和模块系统中，并提供 source map 支持。
 
-Rust 已成为编译 WebAssembly 的最佳语言。它提供了一个健壮的包生态系统，具有[cargo](https://github.com/rust-lang/cargo)，可靠的性能和[易于学习](https://doc.rust-lang.org/book/)的语法。现在已经有一个新兴的工具生态系统将 Rust 与 Javascript 集成在一起。 你可以使用 [wasm-pack](https://github.com/rustwasm/wasm-pack) 将 Rust WebAssembly 包发布到 NPM 上。如果你使用了 Webpack，现在可以使用 [rust-native-wasm-loader](https://github.com/dflemstr/rust-native-wasm-loader) 在应用程序中无缝集成 Rust 代码。
+Rust 已成为编译 WebAssembly 的最佳语言。它提供了一个健壮的包生态系统，具有 [cargo](https://github.com/rust-lang/cargo)，可靠的性能和[易于学习](https://doc.rust-lang.org/book/)的语法。现在已经有一个新兴的工具生态系统将 Rust 与 Javascript 集成在一起。 你可以使用 [wasm-pack](https://github.com/rustwasm/wasm-pack) 将 Rust WebAssembly 包发布到 npm 上。如果你使用了 webpack，现在可以使用 [rust-native-wasm-loader](https://github.com/dflemstr/rust-native-wasm-loader) 在应用程序中无缝集成 Rust 代码。
 
-如果你不想放弃 JavaScript 来使用 WebAssembly，你很幸运 —— 现在有几种选择。如果你熟悉 Typescript，可以使用 [AssemblyScript](https://github.com/AssemblyScript/assemblyscript) 项目，该项目使用官方 [Binaryen](https://github.com/WebAssembly/binaryen) 编译器和Typescript。
+如果你不想放弃 JavaScript 来使用 WebAssembly，你很幸运 —— 现在有几种选择。如果你熟悉 Typescript，可以使用 [AssemblyScript](https://github.com/AssemblyScript/assemblyscript) 项目，该项目使用官方 [Binaryen](https://github.com/WebAssembly/binaryen) 编译器和 Typescript。
 
-因此，它适用于现有的 Typescript 和 WebAssembly 工具。[Walt](https://github.com/ballercat/walt) 是另一个坚持 JavaScript 语法的编译器（使用类似于 Typescript 的类型提示），并直接编译为WebAssembly 文本格式。它是零依赖的，具有非常快的编译速度，并可以与 Webpack 集成。这两个项目都在积极开发中，根据你的标准，它们可能会不适用于生产环境。无论如何，它们都值得一试。
+因此，它适用于现有的 Typescript 和 WebAssembly 工具。[Walt](https://github.com/ballercat/walt) 是另一个坚持 JavaScript 语法的编译器（使用类似于 Typescript 的类型提示），并直接编译为 WebAssembly 文本格式。它是零依赖的，具有非常快的编译速度，并可以与 webpack 集成。这两个项目都在积极开发中，根据你的标准，它们可能会不适用于生产环境。无论如何，它们都值得一试。
 
 ### 共享内存
 
-现代 JavaScript 应用程序经常把大量的计算放在 [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker) 中，以避免其阻塞主线程并中断浏览体验。虽然 workers 已经推出几年了，但它的局限性使他们无法更广泛地采用。Workers 可以使用 [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Worker/postMessage) 方法在其他线程之间传输数据，该方法克隆发送的数据（较慢）或使用[可传输的对象](https://developer.mozilla.org/en-US/docs/Web/API/Transferable)（更快）。 因此，线程之间的通信要么是慢速的，要么是单向的。对于简单的应用程序没有太大问题，但它限制了使用 Worker 构建更复杂的架构。
+现代 JavaScript 应用程序经常把大量的计算放在 [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker) 中，以避免其阻塞主线程并中断浏览体验。虽然 Worker 已经推出几年了，但它的局限性使他们无法更广泛地采用。Worker 可以使用 [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Worker/postMessage) 方法在其他线程之间传输数据，该方法克隆发送的数据（较慢）或使用[可传输的对象](https://developer.mozilla.org/en-US/docs/Web/API/Transferable)（更快）。 因此，线程之间的通信要么是慢速的，要么是单向的。对于简单的应用程序没有太大问题，但它限制了使用 Worker 构建更复杂的架构。
 
-[SharedArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) 和 [Atomics](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics)是允许 JavaScript 应用程序在上下文之间共享固定内存缓冲区并对它们执行原子操作的新功能。但是，在发现共享内存使浏览器容易受到以前未知的被称为 [Spectre](https://meltdownattack.com/) 的定时攻击后，浏览器对该特性的支持被暂时删除了。Chrome 在 7 月发布了一项[新的安全功能](https://www.techrepublic.com/article/google-enabled-site-isolation-in-chrome-67-heres-why-and-how-it-affects-users/)，可以缓解该漏洞，从而重新启用了 SharedArrayBuffers 功能。在 Firefox 中，该功能默认情况下是禁用的，但可以[重新启用](https://blog.mozilla.org/security/2018/01/03/mitigations-landing-new-class-timing-attack/)。Edge [完全取消了对SharedArrayBuffers 的支持](https://blogs.windows.com/msedgedev/2018/01/03/speculative-execution-mitigations-microsoft-edge-internet-explorer/#Yr2pGlOHTmaRJrLl.97)，微软尚未表示何时会重新启用。希望到明年所有浏览器都会采用缓解策略，以便可以使用这个关键的缺失功能。
+[SharedArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) 和 [Atomics](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics) 是允许 JavaScript 应用程序在上下文之间共享固定内存缓冲区并对它们执行原子操作的新功能。但是，在发现共享内存使浏览器容易受到以前未知的被称为 [Spectre](https://meltdownattack.com/) 的定时攻击后，浏览器对该特性的支持被暂时删除了。Chrome 在 7 月发布了一项[新的安全功能](https://www.techrepublic.com/article/google-enabled-site-isolation-in-chrome-67-heres-why-and-how-it-affects-users/)，可以缓解该漏洞，从而重新启用了 SharedArrayBuffers 功能。在 Firefox 中，该功能默认情况下是禁用的，但可以[重新启用](https://blog.mozilla.org/security/2018/01/03/mitigations-landing-new-class-timing-attack/)。Edge [完全取消了对SharedArrayBuffers 的支持](https://blogs.windows.com/msedgedev/2018/01/03/speculative-execution-mitigations-microsoft-edge-internet-explorer/#Yr2pGlOHTmaRJrLl.97)，微软尚未表示何时会重新启用。希望到明年所有浏览器都会采用缓解策略，以便可以使用这个关键的缺失功能。
 
 ### Canvas
 
 Canvas 和 WebGL 等图形 API 已经推出几年了，但它们一直被限于在主线程中进行渲染。 因此，渲染可能会阻塞主线程。这会导致糟糕的用户体验。[OffscreenCanvas](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas#Asynchronous_display_of_frames_produced_by_an_OffscreenCanvas) API 允许你将 canvas 上下文（2D或 WebGL）的控制权转移给 Web Worker，从而解决了这个问题。在 Worker 使用 Canvas API 和平时没有区别，而且不会阻塞主线程，并可以无缝渲染。 
 
-鉴于显著的性能提升，可以期待可以期待图表和绘图库会很快支持它。目前[浏览器支持](https://caniuse.com/#feat=offscreencanvas)仅限于 Chrome 和 Firefox，而Edge 团队尚未公开表示支持。你可以期望它能和 SharedArrayBuffers 以及 WebAssembly 很好地配对，允许 Worker 基于任何线程中存在的数据，使用任何语言编写的代码进行渲染，所有这些都不会造成糟糕的用户体验。这可能使网络上实现高端游戏的梦想成为现实，而且可以在 Web 应用程序中使用更复杂的图形。
+鉴于显著的性能提升，可以期待可以期待图表和绘图库会很快支持它。目前[浏览器支持](https://caniuse.com/#feat=offscreencanvas)仅限于 Chrome 和 Firefox，而 Edge 团队尚未公开表示支持。你可以期望它能和 SharedArrayBuffers 以及 WebAssembly 很好地配对，允许 Worker 基于任何线程中存在的数据，使用任何语言编写的代码进行渲染，所有这些都不会造成糟糕的用户体验。这可能使网络上实现高端游戏的梦想成为现实，而且可以在 Web 应用程序中使用更复杂的图形。
 
 新的绘图和布局 API 正努力被引入 CSS。目标是向 Web 开发人员公开 CSS 引擎的部分内容，以揭开 CSS 的一些“神奇”神秘面纱。 W3C 的 [CSS Houdini 工作组](https://github.com/w3c/css-houdini-drafts/wiki)由主要浏览器供应商的工程师组成，在过去两年中一直在努力发布[几个规范草案](https://drafts.css-houdini.org/)，这些规范目前正处于设计的最后阶段。
 
 [CSS Paint API](https://developers.google.com/web/updates/2018/01/paintapi) 是其中最早登陆浏览器的新 CSS API ，它在 1 月份登陆 Chrome 65。它允许开发人员使用类似 context 的 API 绘制图像，可以在 CSS 中调用图像的任何地方使用它。它使用新的 [Worklet](https://drafts.css-houdini.org/worklets) 接口，这些接口基本上是轻量级，高性能的类似 [Worker](https://developer.mozilla.org/en-US/docs/Web/API/Worker) 的构造，用于专门的任务处理。 和 Worker 一样，它们在自己的执行上下文中运行，但与 Worker 不同的是，它们是线程不可感知的（浏览器选择它们运行的线程），并且它们可以访问渲染引擎。
 
-使用 Paint Worklet，你可以创建一个背景图像，当其中包含的元素发生更改时，该图像会自动重绘。使用CSS属性，你可以添加在更改时触发重新绘制的参数，并可通过 JavaScript 进行控制。[所有浏览器](https://ishoudinireadyyet.com/)都承诺支持该 API，除了 Edge，但是现在有一个 [polyfill](https://github.com/GoogleChromeLabs/css-paint-polyfill) 可以使用。有了这个API，我们将开始看到组件化图像的使用方式，这与我们现在看到的组件类似。
+使用 Paint Worklet，你可以创建一个背景图像，当其中包含的元素发生更改时，该图像会自动重绘。使用 CSS 属性，你可以添加在更改时触发重新绘制的参数，并可通过 JavaScript 进行控制。[所有浏览器](https://ishoudinireadyyet.com/)都承诺支持该 API，除了 Edge，但是现在有一个 [polyfill](https://github.com/GoogleChromeLabs/css-paint-polyfill) 可以使用。有了这个 API，我们将开始看到组件化图像的使用方式，这与我们现在看到的组件类似。
 
 ### 动画
 
-大多数现代 Web 应用程序使用动画作为用户体验的重要部分。像 Google 的 Material Design 这样的框架把动画作为其[设计语言](https://material.io/design/motion/understanding-motion.html#principles)的重要组成部分，并认为它们对于创造富有表现力和易于理解的用户体验至关重要。鉴于它们的重要性的提高，最近推出了一个更强大的 JavaScript 动画 API，这导就是  Web Animations API（WAAPI）。
+大多数现代 Web 应用程序使用动画作为用户体验的重要部分。像 Google 的 Material Design 这样的框架把动画作为其[设计语言](https://material.io/design/motion/understanding-motion.html#principles)的重要组成部分，并认为它们对于创造富有表现力和易于理解的用户体验至关重要。鉴于它们的重要性的提高，最近推出了一个更强大的 JavaScript 动画 API，这个就是 Web Animations API（WAAPI）。
 
 正如 [CSS-Tricks 所说](https://css-tricks.com/css-animations-vs-web-animations-api/)，WAAPI 提供了比 CSS 动画更好的开发人员体验，你可以轻松地记录和操作 JS 或 CSS 中定义的动画状态。目前[浏览器支持](https://caniuse.com/#feat=web-animation)主要限于 Chrome 和 Firefox，但有一个[官方的 polyfill](https://github.com/web-animations/web-animations-js/tree/master) 可以满足你的需求。
 
-性能一直是 Web 动画的一个问题，[Animation Worklet](https://wicg.github.io/animation-worklet/) 解决了这个问题。这个新的 API 允许复杂的动画并行运行 —— 这意味着更高的帧速率动画不受主线程卡顿的影响。动画工作台遵循与 Web Animations API 相同的接口，但在 Worklet 执行上下文中。
+性能一直是 Web 动画的一个问题，[Animation Worklet](https://wicg.github.io/animation-worklet/) 解决了这个问题。这个新的 API 允许复杂的动画并行运行 —— 这意味着更高的帧速率动画不受主线程卡顿的影响。Animation Worklet 遵循与 Web Animations API 相同的接口，但在 Worklet 执行上下文中。
 
-它将在 Chrome 71（截至撰写本文时的下一个版本）[发布](https://www.chromestatus.com/features/5762982487261184)，而其他浏览器可能会在明年某个时候发布。如果想今天就试试，可以在 GitHub 上找到官方的[polyfill 和示例仓库](https://github.com/GoogleChromeLabs/houdini-samples/tree/master/animation-worklet)。
+它将在 Chrome 71（截至撰写本文时的下一个版本）[发布](https://www.chromestatus.com/features/5762982487261184)，而其他浏览器可能会在明年某个时候发布。如果想今天就试试，可以在 GitHub 上找到官方的 [polyfill 和示例仓库](https://github.com/GoogleChromeLabs/houdini-samples/tree/master/animation-worklet)。
 
 ### 安全
 
-Spectre 定时攻击并不是今年唯一的网络安全恐慌。NPM 固有的脆弱性在[过去已经写了很多](https://hackernoon.com/im-harvesting-credit-card-numbers-and-passwords-from-your-site-here-s-how-9a8cb347c5b5)，上个月我们得到了一个[告警提醒](https://blog.logrocket.com/the-latest-npm-breach-or-is-it-a427617a4185)。这不是 NPM 本身的安全漏洞，而是一个名为 [event-stream](https://www.npmjs.com/package/event-stream) 的包，被许多流行软件包使用。NPM 允许包作者将所有权转让给任何其他成员，黑客说服所有者将其转让给他们。然后，黑客发布了一个新版本，它依赖于他们创建的名为 [flatmap-stream](https://www.npmjs.com/package/flatmap-stream) 的软件包，其代码可以窃取[比特币钱包](https://copay.io/)，如果该恶意软件和 [copay-dash](https://www.npmjs.com/package/copay-dash) 一起安装，就会窃取用户的比特币钱包。
+Spectre 定时攻击并不是今年唯一的网络安全恐慌。npm 固有的脆弱性在[过去已经写了很多](https://hackernoon.com/im-harvesting-credit-card-numbers-and-passwords-from-your-site-here-s-how-9a8cb347c5b5)，上个月我们得到了一个[告警提醒](https://blog.logrocket.com/the-latest-npm-breach-or-is-it-a427617a4185)。这不是 npm 本身的安全漏洞，而是一个名为 [event-stream](https://www.npmjs.com/package/event-stream) 的包，被许多流行软件包使用。npm 允许包作者将所有权转让给任何其他成员，黑客说服所有者将其转让给他们。然后，黑客发布了一个新版本，它依赖于他们创建的名为 [flatmap-stream](https://www.npmjs.com/package/flatmap-stream) 的软件包，其代码可以窃取[比特币钱包](https://copay.io/)，如果该恶意软件和 [copay-dash](https://www.npmjs.com/package/copay-dash) 一起安装，就会窃取用户的比特币钱包。
 
-考虑到 NPM 的运行方式，社区成员倾向于安装看似有用的随机 NPM 包，这种攻击只会变得更加普遍。社区对包所有者非常信任，现在信任受到了极大的质疑。NPM 用户应该知道他们正在安装的每个软件包（包括依赖项的依赖关系），使用锁定文件来锁定版本并注册 [Github 提供的](https://blog.github.com/2017-11-16-introducing-security-alerts-on-github/)安全警报。
+考虑到 npm 的运行方式，社区成员倾向于安装看似有用的随机 npm 包，这种攻击只会变得更加普遍。社区对包所有者非常信任，现在信任受到了极大的质疑。npm 用户应该知道他们正在安装的每个软件包（包括依赖项的依赖关系），使用锁定文件来锁定版本并注册 [Github 提供的](https://blog.github.com/2017-11-16-introducing-security-alerts-on-github/)安全警报。
 
-NPM [意识到社区的安全问题](https://blog.npmjs.org/post/172774747080/attitudes-to-security-in-the-javascript-community)，他们在过去的一年里已经采取措施去改进它。你现在可以使用[双因素身份验证](https://blog.npmjs.org/post/166039777883/protect-your-npm-account-with-two-factor)来保护你的 NPM帐户，并且 NPM v6 现在包含了[安全审核](https://docs.npmjs.com/auditing-package-dependencies-for-security-vulnerabilities)命令。 
+npm [意识到社区的安全问题](https://blog.npmjs.org/post/172774747080/attitudes-to-security-in-the-javascript-community)，他们在过去的一年里已经采取措施去改进它。你现在可以使用[双因素身份验证](https://blog.npmjs.org/post/166039777883/protect-your-npm-account-with-two-factor)来保护你的 npm 帐户，并且 npm v6 现在包含了[安全审核](https://docs.npmjs.com/auditing-package-dependencies-for-security-vulnerabilities)命令。 
 
 ### 监控
 
-[Reporting API](https://developers.google.com/web/updates/2018/09/reportingapi)是一种新标准，旨在通过在发生问题时发出警报，使开发人员更容易发现应用程序的问题。如果您在过去几年中使用过 Chrome DevTools 控制台，你可能已经看到了 **\[intervention\]** 警告消息，用来提示使用过时的 API 或执行可能不安全的操作。这些消息仅限于客户端，但现在您可以使用新的[ReportingObserver](https://developers.google.com/web/updates/2018/07/reportingobserver) 将其报告给分析工具。
+[Reporting API](https://developers.google.com/web/updates/2018/09/reportingapi) 是一种新标准，旨在通过在发生问题时发出警报，使开发人员更容易发现应用程序的问题。如果你在过去几年中使用过 Chrome DevTools 控制台，你可能已经看到了 **\[intervention\]** 警告消息，用来提示使用过时的 API 或执行可能不安全的操作。这些消息仅限于客户端，但现在你可以使用新的 [ReportingObserver](https://developers.google.com/web/updates/2018/07/reportingobserver) 将其报告给分析工具。
 
 有两种报告：
 
-* [废弃](https://developers.google.com/web/updates/tags/deprecations)，当你使用过时的API时会发出警告，并通知你何时删除它。它还会告诉你使用它的文件名和行号。
+* [废弃](https://developers.google.com/web/updates/tags/deprecations)，当你使用过时的 API 时会发出警告，并通知你何时删除它。它还会告诉你使用它的文件名和行号。
 * [干预](https://www.chromestatus.com/features#intervention)，当你以无意识的、危险或不安全的方式使用 API 时，它会发出警告。
 
 而像 [LogRocket](https://logrocket.com/) 这样的工具可以让开发人员深入了解应用程序中的错误。到目前为止，第三方工具还没有任何可靠的方法来记录这些警告。这意味着问题要么被忽视，要么表现为难以调试的错误消息。Chrome 目前支持了 ReportingObserver API，其他浏览器很快就会支持它。
@@ -123,15 +123,15 @@ Node 继续在遵循 ECMAScript 标准方面取得良好进展，截至 12 月�
 
 [React](https://reactjs.org/) 今年发布了两个值得注意的版本。React 16.3 附带了一组新的[生命周期方法](https://reactjs.org/blog/2018/03/29/react-v-16-3.html#component-lifecycle-changes)和一个新的官方 [Context API](https://reactjs.org/blog/2018/03/29/react-v-16-3.html#official-context-api)。React 16.6 添加了一个名为 “Suspense” 的新功能，它使 React 能够在组件等待如数据获取或[代码分割](https://reactjs.org/docs/code-splitting.html#reactlazy)等任务完成时暂停渲染。
 
-今年最受关注的 React 话题是引入了 [React Hooks](https://reactjs.org/docs/hooks-intro.html)。该提案为了让编写更小的组件更简单，并且不会牺牲迄今为止仅限于类组件的有用功能。React 将附带两个内置钩子，State Hook（允许功能组件使用状态）和 [Effect Hook](https://reactjs.org/docs/hooks-effect.html#tip-use-multiple-effects-to-separate-concerns)（可以让你在功能组件中执行副作用）。虽然没有计划从 React 中删除类，但 React 团队显然希望 Hooks 成为 React 未来的核心。提案宣布之后，社区有了积极的反应（[有些人可能会说过度夸大了](https://twitter.com/dan_abramov/status/1057027428827193344)）。如果您有兴趣了解更多信息，请查看 [Dan Abramov的博文](https://medium.com/@dan_abramov/making-sense-of-react-hooks-fdbde8803889)里面的全面概述。
+今年最受关注的 React 话题是引入了 [React Hooks](https://reactjs.org/docs/hooks-intro.html)。该提案为了让编写更小的组件更简单，并且不会牺牲迄今为止仅限于类组件的有用功能。React 将附带两个内置钩子，State Hook（允许函数式组件使用状态）和 [Effect Hook](https://reactjs.org/docs/hooks-effect.html#tip-use-multiple-effects-to-separate-concerns)（可以让你在函数式组件中执行副作用）。虽然没有计划从 React 中删除类，但 React 团队显然希望 Hooks 成为 React 未来的核心。提案宣布之后，社区有了积极的反应（[有些人可能会说过度夸大了](https://twitter.com/dan_abramov/status/1057027428827193344)）。如果你有兴趣了解更多信息，请查看 [Dan Abramov 的博文](https://medium.com/@dan_abramov/making-sense-of-react-hooks-fdbde8803889)里面的全面概述。
 
 明年，React 计划发布一项名为 [Concurrent mode](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-q2-2019-the-one-with-concurrent-mode)（以前称为 “async mode” 或 “async rendering”）的新功能。这将使 React 在不阻塞主线程的情况下渲染大型组件树。对于具有深度组件树的大型应用程序，性能的节省可能非常显着。目前还不清楚该 API 究竟是什么样子，但 React 团队的目标是很快完成它并在明年某个时候发布。如果你对采用此功能感兴趣，请通过采用 React 16.3 中发布的新生命周期方法确保你的代码能够兼容该功能。
 
 React 流行度继续增长，[根据 JavaScript 2018 趋势报告](https://2018.stateofjs.com/front-end-frameworks/react/)显示，64％ 的受访者选择使用 React 并将再次使用它（比去年增加了 7.1％），相比之下 [Vue 为 28％](https://2018.stateofjs.com/front-end-frameworks/vuejs/)（增长了 9.2％），[Angular 为 23%](https://2018.stateofjs.com/front-end-frameworks/angular/)（增长了 5.1％）。
 
-#### Webpack
+#### webpack
 
-[Webpack](https://webpack.js.org) 4 [于 2 月发布](https://github.com/webpack/webpack/releases/tag/v4.0.0-beta.0)，带来了巨大的性能改进，内置生产和开发模式，做了如代码分割和压缩的易于使用的优化，实验性的 WebAssembly 支持和 ECMAScript 模块支持。Webpack 现在比以前的版本更容易使用，以前如代码分割和代码优化等复杂的功能，现在设置起来非常简单。结合使用 Typescript 或 Babel，webpack 仍然是 Web 开发人员的基础工具，竞争对手似乎不太可能在不久的将来出现并取而代之。
+[webpack](https://webpack.js.org) 4 [于 2 月发布](https://github.com/webpack/webpack/releases/tag/v4.0.0-beta.0)，带来了巨大的性能改进，内置生产和开发模式，做了如代码分割和压缩的易于使用的优化，实验性的 WebAssembly 支持和 ECMAScript 模块支持。webpack 现在比以前的版本更容易使用，以前如代码分割和代码优化等复杂的功能，现在设置起来非常简单。结合使用 Typescript 或 Babel，webpack 仍然是 Web 开发人员的基础工具，竞争对手似乎不太可能在不久的将来出现并取而代之。
 
 #### Babel
 
@@ -151,7 +151,7 @@ Babel 现在也[支持 Typescript 语法](https://blogs.msdn.microsoft.com/types
 
 最近的版本增加了更多开发人员友好的[错误格式](https://blogs.msdn.microsoft.com/typescript/2018/07/30/announcing-typescript-3-0/#improved-errors-and-ux)和强大的重构功能，如[自动导入更新](https://blogs.msdn.microsoft.com/typescript/2018/05/31/announcing-typescript-2-9/#rename-move-file)和[导入组织](https://blogs.msdn.microsoft.com/typescript/2018/03/27/announcing-typescript-2-8/#organize-imports)等。与此同时，TypeScript 继续在提升类型系统上发力，如近期的[条件类型](https://blogs.msdn.microsoft.com/typescript/2018/03/27/announcing-typescript-2-8/#conditional-types)和[未知类型](https://blogs.msdn.microsoft.com/typescript/2018/07/30/announcing-typescript-3-0/#the-unknown-type)两个新功能。
 
-JavaScript 2018 趋势报告指出，[近一半的受访者](https://2018.stateofjs.com/javascript-flavors/typescript/)使用 TypeScript，和过去两年相比具有强劲的上升趋势。相比之下，它的主要竞争对手 Flow 已经[停滞不前](https://2018.stateofjs.com/javascript-flavors/flow/)，大多数开发者表示他们不喜欢 Flow 缺乏工具，并且流行势头降低。Typescript 受到赞赏，因为开发人员可以通过使用强大的编辑器轻松编写健壮且强大的代码。开发者注意到了，TypeScript 的发起者微软似乎更愿意支持它，而 Facebook 对 Flow 的支持就差了一截。
+JavaScript 2018 趋势报告指出，[近一半的受访者](https://2018.stateofjs.com/javascript-flavors/typescript/)使用 TypeScript，和过去两年相比具有强劲的上升趋势。相比之下，它的主要竞争对手 Flow 已经[停滞不前](https://2018.stateofjs.com/javascript-flavors/flow/)，大多数开发者表示他们不喜欢 Flow 缺乏工具，并且流行势头降低。Typescript 受到赞赏，因为开发人员可以通过使用强大的编辑器轻松编写健壮且优雅的代码。开发者注意到了，TypeScript 的发起者微软似乎更愿意支持它，而 Facebook 对 Flow 的支持就差了一截。
 
 * * *
 
@@ -159,7 +159,7 @@ JavaScript 2018 趋势报告指出，[近一半的受访者](https://2018.stateo
 
 [![](https://cdn-images-1.medium.com/max/1000/1*s_rMyo6NbrAsP-XtvBaXFg.png)](https://logrocket.com/signup/)
 
-[LogRocket](https://logrocket.com/signup/) 是一个前端日志记录工具，可让你像在自己的浏览器中一样重现问题。LogRocket 不是猜测错误发生的原因，也不是要求用户提供屏幕截图和日志转储，而是让你重播会话以快速了解出现了什么问题。它适用于任何应用程序，与框架无关，并且具有从Redux，Vuex 和 @ngrx / store 记录上下文的日志插件。
+[LogRocket](https://logrocket.com/signup/) 是一个前端日志记录工具，可让你像在自己的浏览器中一样重现问题。LogRocket 不是猜测错误发生的原因，也不是要求用户提供屏幕截图和日志转储，而是让你重播会话以快速了解出现了什么问题。它适用于任何应用程序，与框架无关，并且具有从 Redux，Vuex 和 @ngrx / store 记录上下文的日志插件。
 
 除了记录 Redux 操作和状态之外，LogRocket 还会记录控制台日志、JavaScript 错误、堆栈跟踪、带有 header 和 body 的网络请求/响应、浏览器元数据和自定义日志。它还使用 DOM 来记录页面上的 HTML 和 CSS，能够重新创建即使是最复杂的单页应用程序的像素级完美视频。
 
