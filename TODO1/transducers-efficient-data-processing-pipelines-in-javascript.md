@@ -5,9 +5,9 @@
 > * 译者：[Raoul1996](https://github.com/Raoul1996)
 > * 校对者：[ElizurHz](https://github.com/ElizurHz), [Yangfan2016](https://github.com/Yangfan2016)
 
-# Transducers：JavaScript 中高效的数据处理 Pipeline
+# Transducers：JavaScript 中高效的数据处理 Pipeline（第十八部分）
 
-![Smoke Art Cubes to Smoke](https://user-gold-cdn.xitu.io/2019/1/8/1682919845dd2203?w=2000&h=910&f=jpeg&s=120724)
+![Smoke Art Cubes to Smoke](https://cdn-images-1.medium.com/max/2560/1*uVpU7iruzXafhU2VLeH4lw.jpeg)
 
 Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)
 
