@@ -2,18 +2,17 @@
 > * 原文作者：[Jon Markoff](https://medium.com/@jmarkoff)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/publishing-private-apps-just-got-easier.md](https://github.com/xitu/gold-miner/blob/master/TODO1/publishing-private-apps-just-got-easier.md)
-> * 译者：
+> * 译者：[Qiuk17](https://github.com/Qiuk17)
 > * 校对者：
 
-# Publishing private apps just got easier
-
+# 轻松发布私有 App
 ![](https://cdn-images-1.medium.com/max/800/1*pMcEGyuowOHWqtbwVs74-g.png)
 
-Illustration by [Virginia Poltrack](https://twitter.com/VPoltrack)
+来自 [Virginia Poltrack](https://twitter.com/VPoltrack) 的插图
 
-Whether your organization has 5 apps or 100, there are tools available to help automate the process of managing all of the Play Store listings. [Google Play](https://developers.google.com/android-publisher/) has a developer API which enables management of Play store listings, APKs, and more. In January 2017 Google acquired the developer tool suite [Fabric](http://fabric.io/blog/fabric-joins-google/) from Twitter, as part of this acquisition was [_fastlane_](https://fastlane.tools/), a suite of app automation tools. _fastlane_ can automate screenshots, manage beta deployments, and sign/push apps to the Play store.
+不论你的公司拥有 5 个还是 100 个 App，你总能找到帮你管理 Play Store 列表的自动化工具。[Google Play](https://developers.google.com/android-publisher/) 允许你通过其开发者 API 来管理你的 Play Store 列表、打包好的 APK 等。2017 年 1 月的时候，Google 从 Twitter 收购了名为 [Fabric](http://fabric.io/blog/fabric-joins-google/) 的开发者套件，其中包含了可以自动化截图、管理测试版部署、签名并将 App 推送到 Play Store 的  [_fastlane_](https://fastlane.tools/)。
 
-Additionally, the [Custom App Publishing API](https://developers.google.com/android/work/play/custom-app-api/get-started) enables Managed Google Play users to create private hosted apps without a [minimum version check](https://developer.android.com/distribute/best-practices/develop/target-sdk). [Managed Google Play](https://support.google.com/googleplay/work/answer/6137711?hl=en) is a marketplace for Android Enterprise that adds support for private apps. [Private apps](https://support.google.com/a/answer/2494992?hl=en) are Android apps that are distributed only to internal users and not publicly available. Private app deployments are available within minutes of creation. A _fastlane_ [pull request](https://github.com/fastlane/fastlane/pull/13421), built by [Jan Piotrowski](https://github.com/janpio), a core contributor was built to allow for a code-free method of deployment. History on the feature request is in this github issue [here](https://github.com/fastlane/fastlane/issues/13122). For more background on Managed Google Play and Google Play Protect, please see this [blog post](https://www.blog.google/products/android-enterprise/safely-and-quickly-distribute-private-enterprise-apps-google-play/).
+除此之外，[自定义的发布 API](https://developers.google.com/android/work/play/custom-app-api/get-started) 允许拥有管理权限的 Google Play 用户在跳过[最低版本检查](https://developer.android.com/distribute/best-practices/develop/target-sdk)的情况下创建并发布私有的 App。[Managed Google Play](https://support.google.com/googleplay/work/answer/6137711?hl=en) 是为企业版 Android 用户提供私有应用程序支持的应用商店。[私有 App](https://support.google.com/a/answer/2494992?hl=en) 只会被分发给内部用户而不会被大众获取。私有 App 的部署可以在被创建后的几分钟内完成。[Jan Piotrowski](https://github.com/janpio) 向 _fastlane_ 提出的这个 [pull request](https://github.com/fastlane/fastlane/pull/13421), 让无代码部署 App 成为可能。对此特性的请求历史可以在[这里](https://github.com/fastlane/fastlane/issues/13122)看到。如果想要更多了解 Managed Google Play 和 Google Play 项目，请看看这篇[博客](https://www.blog.google/products/android-enterprise/safely-and-quickly-distribute-private-enterprise-apps-google-play/)。
 
 **Why this is important:** The Custom App Publishing API or _fastlane_ greatly simplifies and reduces the friction of migrating to Managed Google Play and integrates into continuous integration tools and processes.
 
