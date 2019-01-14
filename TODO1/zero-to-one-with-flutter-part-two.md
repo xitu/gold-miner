@@ -5,38 +5,38 @@
 > * 译者：
 > * 校对者：
 
-# Zero to One with Flutter, Part Two
+# Flutter 从 0 到 1, 第二部分
 
 > [Flutter 从 0 到 1（第一部分）](https://github.com/xitu/gold-miner/blob/master/TODO1/zero-to-one-with-flutter.md)
 
-Discovering how to animate composite graphical objects in the context of a cross-platform mobile app. Join an avid concept miner in learning how to apply the tween concept to animation of structured values, exemplified by bar charts. Full code samples, batteries included.
+了解如何在跨平台移动应用程序的上下文中为复合图形对象设置动画。引入一个新的概念，如何将 tween 应用于结构化值动画中，例如条形图。 实例代码如下。
 
-Edit: updated for Dart 2 on August 8, 2018. [GitHub repo](https://github.com/mravn/charts) and diff links added on October 17, 2018.
+编辑: 2018年8月8日适配 Dart 2。[GitHub repo](https://github.com/mravn/charts) 并且差异链接于2018年10月17日添加。
 
 ![](https://cdn-images-1.medium.com/max/800/1*OSc2sFHg8KH4ZQR2ymytKg.png)
 
 * * *
 
-How do you enter into a new field of programming? Experimentation is obviously key, as is studying and emulating programs written by more experienced peers. I personally like to complement these approaches with concept mining: Trying to work from first principles, identifying concepts, exploring their strength, deliberately seeking their guidance. It is a rationalistic approach which cannot stand on its own, but one that is intellectually stimulating and may lead you to deeper insights faster.
+如何进入一个新的编程领域？实践是关键，同时学习和模仿更有经验同行的代码也至关重要。我个人喜欢用挖掘概念的方式来处理：试着从最基本的原则出发，识别各种概念，探索它们的优势，有意识地寻求它们的指导。这是一种理性主义的方法，它不能独立存在，而是一种智力刺激的方法，可以更快地引导您获得更深入的见解。
 
-This is the second and final part of an introduction to Flutter and its widget and tween concepts. At the end of [part one](https://medium.com/dartlang/zero-to-one-with-flutter-43b13fd7b354), we [arrived](https://github.com/mravn/charts/tree/992e11e9cdec5a9fb626d6e4c7b62c0d6c558a9d) at a widget tree containing, among various layout and state-handling widgets,
+这是 Flutter 及其 widget 和 tween 概念介绍的第二部分也是最后一部分。在 [part one](https://medium.com/dartlang/zero-to-one-with-flutter-43b13fd7b354) 最后, 我们[得到](https://github.com/mravn/charts/tree/992e11e9cdec5a9fb626d6e4c7b62c0d6c558a9d) 一个 widget 树, 其包含布局和状态处理 widgets,
 
-*   a widget for painting a single `Bar` using custom, animation-aware drawing code,
-*   a floating action button widget for initiating an animated change of the bar’s height.
+*   一个 widget，使用自定义动画绘制代码, 绘制单一 _Bar_ 。
+*   一个浮动按钮 widget，控制 _Bar_ 高度动画显示。
 
 ![](https://cdn-images-1.medium.com/max/800/1*5ggIsPDAwb8sAgPw8vZkyw.gif)
 
-Animating bar height.
+高度动画 _Bar_ 。
 
-The animation was implemented using a `BarTween`, and I claimed that the tween concept would scale to handle more complex situations. Here in part two, I’ll fulfill that claim by generalizing the design to bars with more properties, and to bar charts containing multiple bars in various configurations.
+使用`BarTween`实现动画，tween 可以扩展处理更复杂的情况。 在第二部分中，我将通过将设计概括为具有更多属性的条形以及包含各种配置中的多个条形的条形图来实现该声明。
 
 * * *
 
-Let’s start by adding color to our single bar. We add a `color` field next to the `height` field of the `Bar` class, and update `Bar.lerp` to lerp both of them. This pattern is typical:
+首先我们为单个条形图添加颜色。在 `Bar` 类的 `height` 字段旁边添加一个 `color` 字段，并更新 `Bar.lerp` 对它们进行 lerp。 这种模式很典型:
 
 _Lerp between composite values by lerping corresponding components._
 
-Recall from part one that “lerp” is a short form of “linearly interpolate” or “linear interpolation”.
+回想一下第一部分，“lerp” 是“线性插值”的缩写。
 
 ```
 import 'dart:ui' show lerpDouble;
@@ -66,13 +66,13 @@ class BarTween extends Tween<Bar> {
 }
 ```
 
-Notice the utility of the static `lerp` method idiom here. Without `Bar.lerp`, `lerpDouble` (morally `double.lerp`), and `Color.lerp` we’d have to implement `BarTween` by creating a `Tween<double>` for the height and a `Tween<Color>` for the color. Those tweens would be instance fields of `BarTween`, initialized by its constructor, and used in its `lerp` method. We’d be duplicating knowledge about the properties of `Bar` several times over, outside the `Bar` class. Maintainers of our code would likely find that less than ideal.
+注意静态 `lerp` 方法，习惯用法产生的效果。 如果没有 `Bar.lerp`，`lerpDouble`（`double.lerp`）和 `Color.lerp`，我们必须实现 `BarTween` 来创建一个 `Tween <double>` 属性表示高度，和 `Tween <Color>` 属性表示颜色。 那些 tweens 将是 `BarTween` 的实例字段，由构造函数初始化，并在其 `lerp` 方法中使用。 我们将在 “Bar” 类之外多次重复 “Bar” 的属性。 代码维护者可能会发现这并不是一个好主意。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kCvpZWFivphnjDnOiIoaIw.gif)
 
-Animating bar height and color.
+条形图动画显示高度和颜色.
 
-To make use of colored bars in our app, we’ll update `BarChartPainter` to get the bar color from the `Bar`. In `main.dart`, we need to be able to create an empty `Bar` and a random `Bar`. We’ll use a fully transparent color for the former, and a random color for the latter. Colors will be taken from a simple `ColorPalette` which we quickly introduce in a file of its own. We’ll make both `Bar.empty` and `Bar.random` factory constructors on `Bar` ([code listing](https://gist.github.com/mravn-google/90bda9c82df356338b3fe3f733066f6c), [diff](https://github.com/mravn/charts/commit/91c800e7e69f2208afb20535aeeacce5a83b8f01)).
+为了在应用程序中使用彩色条，我们将更新 `BarChartPainter` 从 “Bar” 获得条形颜色。 在 `main.dart` 中，我们需要创建一个空的 “Bar” 和一个随机的 “Bar ”。 我们将为前者使用完全透明的颜色，为后者使用随机颜色。 颜色将从一个简单的 `ColorPalette` 中获取，我们会在它自己的文件中快速引入。 我们将在 `Bar` 中创建 `Bar.empty` 和 `Bar.random` 工厂构造函数 ([code listing](https://gist.github.com/mravn-google/90bda9c82df356338b3fe3f733066f6c), [diff](https://github.com/mravn/charts/commit/91c800e7e69f2208afb20535aeeacce5a83b8f01)).
 
 * * *
 
