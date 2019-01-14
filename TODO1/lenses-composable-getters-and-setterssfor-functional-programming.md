@@ -70,7 +70,7 @@ Lenses 让你能够把状态的结构抽象，让它隐藏在 getters 和 setter
 
 Lenses 把 getter 和 setter 对做得更加通用，更有可组合性，从而更加延伸了这个概念。在 Edward Kmett 发布了为 Haskell 写的 Lens 库后，它们更加普及。他是受到了推论出了遍历表达了迭代模式的 Jeremy Gibbons 和 Bruno C. d. S. Oliveira，Luke Palmer 的 “accessors”，Twan van Laarhoven 以及 Russell O’Connor 的影响。
 
-> **注意：**一个很容易犯的错误是，将函数式 lens 的现代观念和 Anamorphisms 等同，Anamorphisms 基于 Erik Meijer，Maarten Fokkinga 和 Ross Paterson 1991 年发表的 [“使用 Bananas，Lenses，Envelopes 和 Barbed Wire 的函数式编程”](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.41.125)。“函数意义上的术语 ‘lens’ 指的是它看起来是整体的一部分。在递归结构意义上的术语 ‘lens’ 指的是 `[(` and `)]`，它在语法上看起来有些像凹透镜。**太长，请不用读**。它们之间并没有任何关系。” ~ [Edward Kmett on Stack Overflow](https://stackoverflow.com/questions/17198072/how-is-anamorphism-related-to-lens)
+> **注意**：一个很容易犯的错误是，将函数式 lens 的现代观念和 Anamorphisms 等同，Anamorphisms 基于 Erik Meijer，Maarten Fokkinga 和 Ross Paterson 1991 年发表的 [“使用 Bananas，Lenses，Envelopes 和 Barbed Wire 的函数式编程”](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.41.125)。“函数意义上的术语 ‘lens’ 指的是它看起来是整体的一部分。在递归结构意义上的术语 ‘lens’ 指的是 `[(` and `)]`，它在语法上看起来有些像凹透镜。**太长，请不用读**。它们之间并没有任何关系。” ~ [Edward Kmett on Stack Overflow](https://stackoverflow.com/questions/17198072/how-is-anamorphism-related-to-lens)
 
 ### Lens 法则
 
