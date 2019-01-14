@@ -3,16 +3,16 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lenses-composable-getters-and-setterssfor-functional-programming.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lenses-composable-getters-and-setterssfor-functional-programming.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[Moonliujk](https://github.com/Moonliujk)
 
-# Lenses：可组合函数式编程的 Getter 和 Setter
+# Lenses：可组合函数式编程的 Getter 和 Setter（第十九部分）
 
 ![](https://cdn-images-1.medium.com/max/2000/1*uVpU7iruzXafhU2VLeH4lw.jpeg)
 
-烟雾艺术立方 -- MattysFlicks --（CC BY 2.0）
+烟雾艺术立方 — MattysFlicks —（CC BY 2.0）
 
-> **注意：**本篇是[**“Composing Software” 这本书**](https://leanpub.com/composingsoftware)的一部分，它将以系列博客的形式展开新生。它涵盖了 JavaScript（ES6+）函数式编程和可组合软件技术的最基础的知识。
-> [_< 前情回顾_](https://github.com/xitu/gold-miner/blob/master/TODO1/transducers-efficient-data-processing-pipelines-in-javascript.md) _|_ [_<< 从第一部分开始_](https://juejin.im/post/5c0dd214518825444758453a)
+> **注意：本篇是[“撰写软件”这本书](https://leanpub.com/composingsoftware)** 的一部分，它将以系列博客的形式展开新生。它涵盖了 JavaScript（ES6+）函数式编程和可组合软件技术的最基础的知识。
+> [< 上一篇](https://github.com/xitu/gold-miner/blob/master/TODO1/transducers-efficient-data-processing-pipelines-in-javascript.md) _|_ [<< 从第一部分开始](https://juejin.im/post/5c0dd214518825444758453a)
 
 lens 是一对可组合的 getter 和 setter 纯函数，它会关注对象内部的一个特殊字段，并且会遵从一系列名为 lens 法则的公理。将对象视为**整体**，字段视为**局部**。getter 以对象整体作为参数，然后返回 lens 所关注的对象的一部分。
 
