@@ -6,6 +6,7 @@
 > * 校对者：
 
 # 轻松发布私有 App
+
 ![](https://cdn-images-1.medium.com/max/800/1*pMcEGyuowOHWqtbwVs74-g.png)
 
 来自 [Virginia Poltrack](https://twitter.com/VPoltrack) 的插图
