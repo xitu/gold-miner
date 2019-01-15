@@ -17,37 +17,37 @@
 
 **这为什么很重要：** 自定义的发布 API 或者 _fastlane_ 大大简化了迁移到 Managed Google Play 的流程，并且可以方便地被集成到 CI 工具中。
 
-### Setup
+### 配置私有 App 功能
 
-**重要:** 在创建用于调试或产品的 Keystore 时，请确保使用最佳的 [app 签名方式](https://developer.android.com/studio/publish/app-signing)。千万别把它们弄丢了！Once it has been used with an application id on Google Play (including private apps), you cannot change the keystore without creating a new application listing and modifying the application id.
+**重要:** 在创建用于调试或产品的 Keystore 时，请确保使用最佳的 [app 签名方式](https://developer.android.com/studio/publish/app-signing)。千万别把它们弄丢了！因为一旦你将它应用于 Google Play 上的某一个 App ID（包括私有 App），你将永远不能在不创建新的应用程序列表及修改其 App ID 的情况下更换 Keystore。
 
-**Recommended:** Utilize [Google Play App Signing](https://developer.android.com/studio/publish/app-signing#google-play-app-signing) to sign your APKs. This is a safe option to make sure that your keystore will not be lost. Please see the implementation details [here](https://support.google.com/googleplay/android-developer/answer/7384423?hl=en).
+**推荐：** 利用 [Google Play App Signing](https://developer.android.com/studio/publish/app-signing#google-play-app-signing) 来为你的 APK 文件签名。这是让你不弄丢的 Keystore 的好方法。你可以在[这里](https://support.google.com/googleplay/android-developer/answer/7384423?hl=en)看到此方法的细节。
 
-**Important:** All apps (including private apps) on Google Play must have a unique application id and cannot be reused.
+**重要：** 在 Google Play 上的所有 App (包括私有 App) 必须具有一个第一无二的且不可重用的 App ID。
 
-When publishing private apps, there are 3 steps you need to take before this is available.
+在发布你的私有 App 之前，你只需要三步。
 
-Please follow the [Setup Instructions](https://developers.google.com/android/work/play/custom-app-api/get-started) which will guide you through the following steps:
+跟着这篇[指导说明](https://developers.google.com/android/work/play/custom-app-api/get-started)做如下三步：
 
-1.  Enable the Google Play Custom App Publishing API in the Cloud API Console
-2.  Create a service account, download a new private key in JSON format.
-3.  Enable Private Apps, instructions to follow.
+1. 在 Cloud API 命令行中启用自定义的 Google Play 发布 API；
+2. 创建一个服务账户，并下载其 JSON 格式的私钥；
+3. 启用私有 App 功能。
 
-### fastlane setup
+### 配置 fastlane
 
-*   Please see this [doc](https://docs.fastlane.tools/getting-started/android/setup/) to install _fastlane._ Managed google play support is included with fastlane.
+*   请阅读这篇[文档](https://docs.fastlane.tools/getting-started/android/setup/)来安装 _fastlane_ 。其中包含了 Managed Google Play 支持。
 
-### Enable Private Apps — Get the Developer Account Id
+### 启用私有 App — 获取你的开发者账户 ID
 
-This [guide](https://developers.google.com/android/work/play/custom-app-api/get-started) shows the steps to create private apps which requires creating an OAuth callback to receive the developerAccount id. There are two methods for enabling private apps: using fastlane or using the API. Here’s how to use each and their level of difficulty:
+这篇[指导](https://developers.google.com/android/work/play/custom-app-api/get-started)将告诉你如何创建一个需要通过 OAuth 回调来获取开发者账户 ID 的私有 App。有两种方法来启用私有 App 功能：使用 fastlane 或者使用 API。下面将向你展示如何使用这两种方法并比较其复杂程度：
 
-#### Use fastlane — Easy
+#### 使用 fastlane  —  非常简单
 
 ```
 > fastlane run get_managed_play_store_publishing_rights
 ```
 
-**Example Output:**
+**样例输出：**
 
 ```
 [13:20:46]: To obtain publishing rights for custom apps on Managed Play Store, open the following URL and log in:
@@ -59,15 +59,15 @@ This [guide](https://developers.google.com/android/work/play/custom-app-api/get-
 [13:20:46]: After successful login you will be redirected to a page which outputs some information that is required for usage of the `create_app_on_managed_play_store` action.
 ```
 
-Pasting the link into a web browser and authenticating with your account owner of the managed play account will send forward
+把这个链接粘贴到你的浏览器中你就可以向这个 Managed Google Play 的账户所有者发起授权请求了。
 
-#### Use the API — Moderate
+#### 使用 API  —  有点复杂
 
-**If** you don’t plan to build a web user interface for managing your apps, you can use this basic node script below and launch with Firebase functions to quickly and easily get the developerAccountId. If you don’t care, you can set the continueUrl to [https://foo.bar](https://foo.bar) (or another fake url) to get the developerAccountId although this is not recommended for security purposes.
+**如果** 你不打算为了管理你的 App 做一个基于 Web 的前端页面，你可以使用下面的 node 脚本以及 Firebase 的功能来快速获取你的开发者账户 ID。如果你不在意跳转的 URL（continueUrl）的话，你可以把它设置成类似于 [https://foo.bar](https://foo.bar) 这样的假 URL。但是出于安全的考虑，这么做是不被推荐的。
 
-**Cloud Functions for Firebase setup**
+**配置 Firebase 的云功能**
 
-This [guide](https://firebase.google.com/docs/functions/get-started) shows how to set up cloud functions. The following code can be used for the endpoint.
+这篇[指导](https://firebase.google.com/docs/functions/get-started) 告诉你怎样去配置 Firebase 的云功能。下面的代码可被用于你的终端。
 
 ```
 const functions = require('firebase-functions');
@@ -79,9 +79,9 @@ exports.oauthcallback = functions.https.onRequest((request, response) => {
 
 functions/index.js
 
-### Create Private App Listing
+### 创建私有 App 列表
 
-#### Use fastlane — Easy
+#### 使用 fastlane  —  非常简单
 
 ```
   ENV['SUPPLY_JSON_KEY'] = 'key.json'
@@ -107,19 +107,19 @@ functions/index.js
     end
 ```
 
-Example Fastfile
+样例 Fastfile
 
 ```
 > fastlane create_private_app
 ```
 
-#### Use the API — Moderate
+#### 使用 API  —  有点复杂
 
-API [documentation](https://developers.google.com/android/work/play/custom-app-api/publish). Client libraries are available in [Java](https://developers.google.com/api-client-library/java/apis/playcustomapp/v1), [Python](https://developers.google.com/api-client-library/python/apis/playcustomapp/v1), [C#](https://developers.google.com/api-client-library/dotnet/apis/playcustomapp/v1), and [Ruby](https://developers.google.com/api-client-library/ruby/apis/playcustomapp/v1).
+或许你应当先读读 [API 文档](https://developers.google.com/android/work/play/custom-app-api/publish)。Google 提供了 [Java](https://developers.google.com/api-client-library/java/apis/playcustomapp/v1)、[Python](https://developers.google.com/api-client-library/python/apis/playcustomapp/v1)、[C#](https://developers.google.com/api-client-library/dotnet/apis/playcustomapp/v1) 和 [Ruby](https://developers.google.com/api-client-library/ruby/apis/playcustomapp/v1) 的用户端库文件。
 
-#### API Example
+#### API 样例
 
-Written in Ruby, this sample code authenticates with a [Google service account](https://developers.google.com/android/work/play/custom-app-api/get-started#create_a_service_account) json keyfile and then calls the Play Custom App Service to create and upload the first version of a private APK. This code is only used for the first time an app is created, and subsequent updates should use the upload apk functionality in the Play Publishing API.
+下面这段 Ruby 代码在使用[ Google 服务账户](https://developers.google.com/android/work/play/custom-app-api/get-started#create_a_service_account)的 JSON 格式密钥文件认证之后，通过调用 Play Custom App 服务创建了一个私有 App 并上传了其第一版 APK 文件。这段代码只应当在第一次创建 App 时使用，后续更新应使用 Google Play 的发布 API 中的上传 APK 功能。
 
 ```
 require "google/apis/playcustomapp_v1"
@@ -161,17 +161,17 @@ play_custom_apps.create_account_custom_app(
 end
 ```
 
-### Updating Private Apps
+### 更新私有 App
 
-Once a private app has been created, the [Google Play Publishing API](https://developers.google.com/android-publisher/) can push new APKs after the initial creation of the Play store listing. _fastlane_ supports this feature to upload new APKs to Play, and more info can be found [here](https://docs.fastlane.tools/getting-started/android/release-deployment/).
+创建 Play Store 列表之后，一旦你创建了一个私有 App，你就可以使用 [Google Play 发布 API](https://developers.google.com/android-publisher/) 来推送你的新 APK 文件。_fastlane_ 支持这个功能。 你可以在[这里](https://docs.fastlane.tools/getting-started/android/release-deployment/)找到更多信息。
 
-### Deployment to users
+### 部署到用户
 
-Managed Google Play requires an EMM (Enterprise Mobility Management) system to distribute apps to users. More information [here](https://support.google.com/googleplay/work/answer/6145139?hl=en).
+Managed Google Play 需要 EMM （Enterprise Mobility Management，企业移动管理） 系统将 App 分发给用户。[了解更多请戳这里](https://support.google.com/googleplay/work/answer/6145139?hl=en)。
 
-It has never been easier to deploy and manage your private enterprise apps. Both methods of deploying apps through Managed Google Play are viable, it all comes down to you your CI system and if you want to write any code. Give [fastlane](https://fastlane.tools) a shot, and it should save you tons of time.
+部署和管理企业私有 App 从未变得如此容易。这两种使用 Managed Google Play 来部署 App 的方法都是可行的。使用哪一种取决于你的持续集成系统以及你是否想要写代码。试试 [fastlane](https://fastlane.tools) 吧，你会省下很多时间的。
 
-If you run into any issues, bugs can be filed against fastlane on [github](https://github.com/fastlane/fastlane/issues).
+如果你在使用 fastlane 的时候遇到任何问题或者 bug，请在 [github](https://github.com/fastlane/fastlane/issues) 上给我们提 issue。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
