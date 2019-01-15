@@ -167,7 +167,7 @@ end
 
 ### 部署到用户
 
-Managed Google Play 需要 EMM （Enterprise Mobility Management，企业移动管理） 系统将 App 分发给用户。[了解更多请戳这里](https://support.google.com/googleplay/work/answer/6145139?hl=en)。
+Managed Google Play 需要 EMM （Enterprise Mobility Management，企业移动管理）系统将 App 分发给用户。[了解更多请戳这里](https://support.google.com/googleplay/work/answer/6145139?hl=en)。
 
 部署和管理企业私有 App 从未变得如此容易。这两种使用 Managed Google Play 来部署 App 的方法都是可行的。使用哪一种取决于你的持续集成系统以及你是否想要写代码。试试 [fastlane](https://fastlane.tools) 吧，你会省下很多时间的。
 
