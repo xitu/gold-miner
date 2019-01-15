@@ -15,11 +15,11 @@
 
 除此之外，[自定义的发布 API](https://developers.google.com/android/work/play/custom-app-api/get-started) 允许拥有管理权限的 Google Play 用户在跳过[最低版本检查](https://developer.android.com/distribute/best-practices/develop/target-sdk)的情况下创建并发布私有的 App。[Managed Google Play](https://support.google.com/googleplay/work/answer/6137711?hl=en) 是为企业版 Android 用户提供私有应用程序支持的应用商店。[私有 App](https://support.google.com/a/answer/2494992?hl=en) 只会被分发给内部用户而不会被大众获取。私有 App 的部署可以在被创建后的几分钟内完成。[Jan Piotrowski](https://github.com/janpio) 向 _fastlane_ 提出的这个 [pull request](https://github.com/fastlane/fastlane/pull/13421)，让无代码部署 App 成为可能。对此特性的请求历史可以在[这里](https://github.com/fastlane/fastlane/issues/13122)看到。如果想要更多了解 Managed Google Play 和 Google Play 项目，请看看这篇[博客](https://www.blog.google/products/android-enterprise/safely-and-quickly-distribute-private-enterprise-apps-google-play/)。
 
-**Why this is important:** The Custom App Publishing API or _fastlane_ greatly simplifies and reduces the friction of migrating to Managed Google Play and integrates into continuous integration tools and processes.
+**这为什么很重要：** 自定义的发布 API 或者 _fastlane_ 大大简化了迁移到 Managed Google Play 的流程，并且可以方便地被集成到 CI 工具中。
 
 ### Setup
 
-**Important:** Make sure to use the following best practices for [app signing](https://developer.android.com/studio/publish/app-signing) when creating debug and production keystores. Do not lose your production keystore! Once it has been used with an application id on Google Play (including private apps), you cannot change the keystore without creating a new application listing and modifying the application id.
+**重要:** 在创建用于调试或产品的 Keystore 时，请确保使用最佳的 [app 签名方式](https://developer.android.com/studio/publish/app-signing)。千万别把它们弄丢了！Once it has been used with an application id on Google Play (including private apps), you cannot change the keystore without creating a new application listing and modifying the application id.
 
 **Recommended:** Utilize [Google Play App Signing](https://developer.android.com/studio/publish/app-signing#google-play-app-signing) to sign your APKs. This is a safe option to make sure that your keystore will not be lost. Please see the implementation details [here](https://support.google.com/googleplay/android-developer/answer/7384423?hl=en).
 
