@@ -2,12 +2,11 @@
 > * 原文作者：[Oscar Wahltinez](https://medium.com/@owahltinez?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/getting-the-most-from-the-new-multi-camera-api.md](https://github.com/xitu/gold-miner/blob/master/TODO1/getting-the-most-from-the-new-multi-camera-api.md)
-> * 译者：
-> * 校对者：
+> * 译者：[xiaxiayang](https://github.com/xiaxiayang)
 
 # 充分利用多摄像头 API
 
-这篇博客是对我们的 [Android 开发者峰会 2018 演讲](https://youtu.be/u38wOv2a_dA) 的补充，是与来自合作伙伴开发者团队中的 Vinit Modi、Android Camera PM 和 Emilie Roberts 合作完成的。查看我们之前在该系列中的文章，包括 [相机枚举](https://medium.com/androiddevelopers/camera-enumeration-on-android-9a053b910cb5), [相机拍摄会话和请求](https://medium.com/androiddevelopers/understanding-android-camera-capture-sessions-and-requests-4e54d9150295) 和 [同时使用多个摄像机流](https://medium.com/androiddevelopers/using-multiple-camera-streams-simultaneously-bf9488a29482)。
+这篇博客是对我们的 [Android 开发者峰会 2018 演讲](https://youtu.be/u38wOv2a_dA) 的补充，是与来自合作伙伴开发者团队中的 Vinit Modi、Android Camera PM 和 Emilie Roberts 合作完成的。查看我们之前在该系列中的文章，包括 [相机枚举](https://medium.com/androiddevelopers/camera-enumeration-on-android-9a053b910cb5)、[相机拍摄会话和请求](https://medium.com/androiddevelopers/understanding-android-camera-capture-sessions-and-requests-4e54d9150295) 和 [同时使用多个摄像机流](https://medium.com/androiddevelopers/using-multiple-camera-streams-simultaneously-bf9488a29482)。
 
 ### 多摄像头用例
 
@@ -21,7 +20,7 @@
 
 要了解多摄像头 API，我们必须首先了解逻辑摄像头和物理摄像头之间的区别；这个概念最好用一个例子来说明。例如，我们可以想像一个有三个后置摄像头而没有前置摄像头的设备作为参考。在本例中，三个后置摄像头中的每一个都被认为是一个物理摄像头。然后逻辑摄像头就是两个或更多这些物理摄像头的分组。逻辑摄像头的输出可以是来自其中一个底层物理摄像机的一个流，也可以是同时来自多个底层物理摄像机的融合流；这两种方式都是由相机的 HAL 来处理的。
 
-许多手机制造商也开发了他们自身的相机应用程序（通常预先安装在他们的设备上）。为了利用所有硬件的功能，他们有时会使用私有或隐藏的 API，或者从驱动程序实现中获得其他应用程序没有特权访问的特殊处理。有些设备甚至通过提供来自不同物理双摄像头的融合流来实现逻辑摄像头的概念，但同样，这只对某些特权应用程序可用。通常，框架只会暴露一个物理摄像头。 Android Pie 之前第三方开发者的情况如下图所示：
+许多手机制造商也开发了他们自身的相机应用程序（通常预先安装在他们的设备上）。为了利用所有硬件的功能，他们有时会使用私有或隐藏的 API，或者从驱动程序实现中获得其他应用程序没有特权访问的特殊处理。有些设备甚至通过提供来自不同物理双摄像头的融合流来实现逻辑摄像头的概念，但同样，这只对某些特权应用程序可用。通常，框架只会暴露一个物理摄像头。Android Pie 之前第三方开发者的情况如下图所示：
 
 ![](https://cdn-images-1.medium.com/max/800/0*jHgc12zW0MnFXf8V)
 
@@ -37,8 +36,7 @@
 
 ### 多摄像头 API
 
-新 API 包含了以下新的常量、类和方法:
-
+新 API 包含了以下新的常量、类和方法：
 
 *   `CameraMetadata.REQUEST_AVAILABLE_CAPABILITIES_LOGICAL_MULTI_CAMERA`
 *   `CameraCharacteristics.getPhysicalCameraIds()`
@@ -47,7 +45,7 @@
 *   `CameraCharactersitics.LOGICAL_MULTI_CAMERA_SENSOR_SYNC_TYPE`
 *   `OutputConfiguration` & `SessionConfiguration`
 
-由于 [Android CDD](https://source.android.com/compatibility/android-cdd#7_5_4_camera_api_behavior) 的更改, 多摄像头 API 也满足了开发人员的某些期望。双摄像头设备在 Android Pie 之前就已经存在，但同时打开多个摄像头需要反复试验；Android 上的多摄像头 API 现在给了我们一组规则，告诉我们什么时候可以打开一对物理摄像头，只要它们是同一逻辑摄像头的一部分。
+由于 [Android CDD](https://source.android.com/compatibility/android-cdd#7_5_4_camera_api_behavior) 的更改，多摄像头 API 也满足了开发人员的某些期望。双摄像头设备在 Android Pie 之前就已经存在，但同时打开多个摄像头需要反复试验；Android 上的多摄像头 API 现在给了我们一组规则，告诉我们什么时候可以打开一对物理摄像头，只要它们是同一逻辑摄像头的一部分。
 
 如上所述，我们可以预期，在大多数情况下，使用 Android Pie 发布的新设备将公开所有物理摄像头(除了更奇特的传感器类型，如红外线)，以及更容易使用的逻辑摄像头。此外，非常关键的是，我们可以预期，对于每个保证有效的融合流，属于逻辑摄像头的一个流可以被来自底层物理摄像头的**两个**流替换。让我们通过一个例子更详细地介绍它。
 
@@ -59,12 +57,12 @@
 
 换句话说，YUV 或 RAW 类型的每个流可以用相同类型和大小的两个流替换。例如，我们可以从单摄像头设备的摄像头视频流开始，配置如下:
 
-*   流 1: YUV 类型，' id = 0 ' 的逻辑摄像机的最大尺寸
+*   流 1：YUV 类型，`id = 0` 的逻辑摄像机的最大尺寸
 
 然后，一个支持多摄像头的设备将允许我们创建一个会话，用两个物理流替换逻辑 YUV 流：
 
-*   流 1: YUV 类型，' id = 1 ' 的物理摄像头的最大尺寸
-*   流 2: YUV 类型，' id = 2 ' 的物理摄像头的最大尺寸
+*   流 1：YUV 类型，`id = 1` 的物理摄像头的最大尺寸
+*   流 2：YUV 类型，`id = 2` 的物理摄像头的最大尺寸
 
 诀窍是，当且仅当这两个摄像头是一个逻辑摄像头分组的一部分时，我们可以用两个等效的流替换 YUV 或原始流 — 即被列在 [CameraCharacteristics.getPhysicalCameraIds()](https://developer.android.com/reference/android/hardware/camera2/CameraCharacteristics#getPhysicalCameraIds%28%29) 中的。
 
@@ -72,17 +70,18 @@
 
 ### 使用多个物理摄像头创建会话
 
-当我们在一个支持多摄像头的设备中与物理摄像头交互时，我们应该打开一个 [CameraDevice](https://developer.android.com/reference/android/hardware/camera2/CameraDevice) (逻辑相机)，并在一个会话中与它交互，这个会话必须使用 API  [CameraDevice.createCaptureSession(SessionConfiguration config)](https://developer.android.com/reference/android/hardware/camera2/CameraDevice#createCaptureSession%28android.hardware.camera2.params.SessionConfiguration%29) 创建，这个 API 自 SDK 级别 28 起可用。 然后, 这个 [会话参数](https://developer.android.com/reference/android/hardware/camera2/params/SessionConfiguration) 将有很多 [输出配置](https://developer.android.com/reference/android/hardware/camera2/params/OutputConfiguration), 其中每个输出配置将具有一组输出目标，以及(可选的)所需的物理摄像头 ID。
+当我们在一个支持多摄像头的设备中与物理摄像头交互时，我们应该打开一个 [CameraDevice](https://developer.android.com/reference/android/hardware/camera2/CameraDevice)（逻辑相机），并在一个会话中与它交互，这个会话必须使用 API  [CameraDevice.createCaptureSession(SessionConfiguration config)](https://developer.android.com/reference/android/hardware/camera2/CameraDevice#createCaptureSession%28android.hardware.camera2.params.SessionConfiguration%29) 创建，这个 API 自 SDK 级别 28 起可用。然后，这个 [会话参数](https://developer.android.com/reference/android/hardware/camera2/params/SessionConfiguration) 将有很多 [输出配置](https://developer.android.com/reference/android/hardware/camera2/params/OutputConfiguration)，其中每个输出配置将具有一组输出目标，以及（可选的）所需的物理摄像头 ID。
 
 ![](https://cdn-images-1.medium.com/max/800/0*OY88erAolXSr5bA9)
 
-会话参数 和 输出配置模型
+会话参数和输出配置模型
 
-稍后，当我们分派拍摄请求时，该请求将具有与其关联的输出目标。框架将根据附加到请求的输出目标来决定将请求发送到哪个物理(或逻辑)摄像头。如果输出目标对应于作为 [输出配置](https://developer.android.com/reference/android/hardware/camera2/params/OutputConfiguration) 的输出目标之一和物理摄像头 ID 一起发送， 那么该物理摄像头将接收并处理该请求。
+稍后，当我们分派拍摄请求时，该请求将具有与其关联的输出目标。框架将根据附加到请求的输出目标来决定将请求发送到哪个物理（或逻辑）摄像头。如果输出目标对应于作为 [输出配置](https://developer.android.com/reference/android/hardware/camera2/params/OutputConfiguration) 的输出目标之一和物理摄像头 ID 一起发送，那么该物理摄像头将接收并处理该请求。
 
 ### 使用一对物理摄像头
 
-面向开发人员的多摄像头 API 中最重要的一个新增功能是识别逻辑摄像头并找到它们背后的物理摄像头。现在我们明白,我们可以同时打开多个物理摄像头(再次,通过打开逻辑摄像头和作为同一会话的一部分)，并且有明确的融合流的规则，我们可以定义一个函数来帮助我们识别潜在的可以用来替换一个逻辑摄像机视频流的一对物理摄像头：
+面向开发人员的多摄像头 API 中最重要的一个新增功能是识别逻辑摄像头并找到它们背后的物理摄像头。现在我们明白,我们可以同时打开多个物理摄像头（再次，通过打开逻辑摄像头和作为同一会话的一部分），并且有明确的融合流的规则，我们可以定义一个函数来帮助我们识别潜在的可以用来替换一个逻辑摄像机视频流的一对物理摄像头：
+
 ```
 /**
 * 帮助类，用于封装逻辑摄像头和两个底层
@@ -119,7 +118,7 @@ fun findDualCameras(manager: CameraManager, facing: Int? = null): Array<DualCame
 }
 ```
 
-物理摄像头的状态处理由逻辑摄像头控制。因此，要打开我们的“双摄像头”，我们只需要打开与我们感兴趣的物理摄像头相对应的逻辑摄像头:
+物理摄像头的状态处理由逻辑摄像头控制。因此，要打开我们的“双摄像头”，我们只需要打开与我们感兴趣的物理摄像头相对应的逻辑摄像头：
 
 ```
 fun openDualCamera(cameraManager: CameraManager,
@@ -130,14 +129,14 @@ fun openDualCamera(cameraManager: CameraManager,
     cameraManager.openCamera(
             dualCamera.logicalId, executor, object : CameraDevice.StateCallback() {
         override fun onOpened(device: CameraDevice) = callback(device)
-        // 为了简便起见,我们省略……
+        // 为了简便起见，我们省略...
         override fun onError(device: CameraDevice, error: Int) = onDisconnected(device)
         override fun onDisconnected(device: CameraDevice) = device.close()
     })
 }
 ```
 
-在此之前，除了选择打开哪台摄像头之外，没有什么不同于我们过去打开任何其他摄像头所做的事情。现在是时候使用新的 [会话参数](https://developer.android.com/reference/android/hardware/camera2/params/SessionConfiguration) API 创建一个拍摄会话了，这样我们就可以告诉框架将某些目标与特定的物理摄像机 ID 关联起来:
+在此之前，除了选择打开哪台摄像头之外，没有什么不同于我们过去打开任何其他摄像头所做的事情。现在是时候使用新的 [会话参数](https://developer.android.com/reference/android/hardware/camera2/params/SessionConfiguration) API 创建一个拍摄会话了，这样我们就可以告诉框架将某些目标与特定的物理摄像机 ID 关联起来：
 
 ```
 /**
@@ -156,7 +155,7 @@ fun createDualCameraSession(cameraManager: CameraManager,
                             executor: Executor = AsyncTask.SERIAL_EXECUTOR,
                             callback: (CameraCaptureSession) -> Unit) {
 
-    // 创建三组输出配置:一组用于逻辑摄像头，
+    // 创建三组输出配置：一组用于逻辑摄像头，
     // 另一组用于逻辑摄像头。
     val outputConfigsLogical = targets.first?.map { OutputConfiguration(it) }
     val outputConfigsPhysical1 = targets.second?.map {
@@ -188,7 +187,7 @@ fun createDualCameraSession(cameraManager: CameraManager,
 
 现在，我们可以参考 [文档](https://developer.android.com/reference/android/hardware/camera2/CameraDevice.html#createCaptureSession%28android.hardware.camera2.params.SessionConfiguration%29) 或 [以前的博客文章](https://medium.com/androiddevelopers/using-multiple-camera-streams-simultaneously-bf9488a29482) 来了解支持哪些流的融合。我们只需要记住这些是针对单个逻辑摄像头上的多个流的，并且兼容使用相同的配置的并将其中一个流替换为来自同一逻辑摄像头的两个物理摄像头的两个流。
 
-在 [摄像头会话](https://developer.android.com/reference/android/hardware/camera2/CameraCaptureSession) 就绪后，剩下要做的就是发送我们想要的 [拍摄请求](https://developer.android.com/reference/android/hardware/camera2/CaptureRequest). 拍摄请求的每个目标将从相关的物理摄像头(如果有的话)接收数据，或者返回到逻辑摄像头。
+在 [摄像头会话](https://developer.android.com/reference/android/hardware/camera2/CameraCaptureSession) 就绪后，剩下要做的就是发送我们想要的 [拍摄请求](https://developer.android.com/reference/android/hardware/camera2/CaptureRequest)。拍摄请求的每个目标将从相关的物理摄像头（如果有的话）接收数据，或者返回到逻辑摄像头。
 
 ### 缩放示例用例
 
@@ -196,7 +195,7 @@ fun createDualCameraSession(cameraManager: CameraManager,
 
 ![](https://cdn-images-1.medium.com/max/800/0*WaZN9bicOXI4mpUp)
 
-将相机转换为缩放级别用例的示例 (来自 [Pixel 3 Ad](https://www.youtube.com/watch?v=gJtJFEH1Cis))
+将相机转换为缩放级别用例的示例（来自 [Pixel 3 Ad](https://www.youtube.com/watch?v=gJtJFEH1Cis)）
 
 首先，我们必须选择我们想允许用户在其中进行切换的一对物理摄像机。为了获得最大的效果，我们可以分别搜索提供最小焦距和最大焦距的一对摄像机。通过这种方式，我们选择一种可以在尽可能短的距离上对焦的摄像设备，另一种可以在尽可能远的点上对焦：
 
@@ -229,7 +228,7 @@ fun findShortLongCameraPair(manager: CameraManager, facing: Int? = null): DualCa
 }
 ```
 
-一个合理的架构应该是有两个 [SurfaceViews](https://developer.android.com/reference/android/view/SurfaceView), 每个流一个，在用户交互时交换，因此在任何给定的时间只有一个是可见的。在下面的代码片段中，我们将演示如何打开逻辑摄像头、配置摄像头输出、创建摄像头会话和启动两个预览流；利用前面定义的功能:
+一个合理的架构应该是有两个 [SurfaceViews](https://developer.android.com/reference/android/view/SurfaceView)，每个流一个，在用户交互时交换，因此在任何给定的时间只有一个是可见的。在下面的代码片段中，我们将演示如何打开逻辑摄像头、配置摄像头输出、创建摄像头会话和启动两个预览流；利用前面定义的功能:
 
 ```
 val cameraManager: CameraManager = ...
@@ -246,7 +245,7 @@ val outputTargets = DualCameraOutputs(
 createDualCameraSession(manager, dualCamera, targets = outputTargets) { session ->
 
     // 为每个物理相头创建一个目标的单一请求
-    // 注意:每个目标只会从它相关的物理相头接收帧
+    // 注意：每个目标只会从它相关的物理相头接收帧
     val requestTemplate = CameraDevice.TEMPLATE_PREVIEW
     val captureRequest = session.device.createCaptureRequest(requestTemplate).apply {
         arrayOf(surface1, surface2).forEach { addTarget(it) }
@@ -257,17 +256,18 @@ createDualCameraSession(manager, dualCamera, targets = outputTargets) { session 
 }
 ```
 
-现在我们需要做的就是为用户提供一个在两个界面之间切换的 UI，比如一个按钮或者双击 “SurfaceView”; 如果我们想变得更有趣，我们可以尝试执行某种形式的场景分析，并在两个流之间自动切换。
+现在我们需要做的就是为用户提供一个在两个界面之间切换的 UI，比如一个按钮或者双击 “SurfaceView”；如果我们想变得更有趣，我们可以尝试执行某种形式的场景分析，并在两个流之间自动切换。
 
 ### 镜头失真
 
-所有的镜头都会产生一定的失真。在 Android 中，我们可以使用 [CameraCharacteristics.LENS_DISTORTION](https://developer.android.com/reference/android/hardware/camera2/CameraCharacteristics#LENS_DISTORTION) (它替换了现在已经废弃的 [CameraCharacteristics.LENS_RADIAL_DISTORTION](https://developer.android.com/reference/android/hardware/camera2/CameraCharacteristics#LENS_RADIAL_DISTORTION)) 查询镜头创建的失真。可以合理地预期，对于逻辑摄像头，失真将是最小的，我们的应用程序可以使用或多或少的框架，因为他们来自这个摄像头。然而，对于物理摄像头，我们应该期待潜在的非常不同的镜头配置——特别是在广角镜头上。
+所有的镜头都会产生一定的失真。在 Android 中，我们可以使用 [CameraCharacteristics.LENS_DISTORTION](https://developer.android.com/reference/android/hardware/camera2/CameraCharacteristics#LENS_DISTORTION)（它替换了现在已经废弃的 [CameraCharacteristics.LENS_RADIAL_DISTORTION](https://developer.android.com/reference/android/hardware/camera2/CameraCharacteristics#LENS_RADIAL_DISTORTION)）查询镜头创建的失真。可以合理地预期，对于逻辑摄像头，失真将是最小的，我们的应用程序可以使用或多或少的框架，因为他们来自这个摄像头。然而，对于物理摄像头，我们应该期待潜在的非常不同的镜头配置——特别是在广角镜头上。
 
 一些设备可以通过 [CaptureRequest.DISTORTION_CORRECTION_MODE](https://developer.android.com/reference/android/hardware/camera2/CaptureRequest#DISTORTION_CORRECTION_MODE) 实现自动失真校正。很高兴知道大多数设备的失真校正默认为开启。文档中有一些更详细的信息：
 
-> FAST/HIGH_QUALITY 均表示将应用相机设备确定的失真校正。 HIGH_QUALITY 模式表示相机设备将使用最高质量的校正算法，即使它会降低捕获率。快速意味着相机设备在应用校正时不会降低捕获率。如果任何校正都会降低捕获速率，则 FAST 可能与 OFF 相同[...] 校正仅适用于 YUV、JPEG 或 DEPTH16 等已处理的输出[...] 默认情况下，此控件将在支持此功能的设备上启用控制。
+> FAST/HIGH_QUALITY 均表示将应用相机设备确定的失真校正。HIGH_QUALITY 模式表示相机设备将使用最高质量的校正算法，即使它会降低捕获率。快速意味着相机设备在应用校正时不会降低捕获率。如果任何校正都会降低捕获速率，则 FAST 可能与 OFF 相同 [...] 校正仅适用于 YUV、JPEG 或 DEPTH16 等已处理的输出 [...] 默认情况下，此控件将在支持此功能的设备上启用控制。
 
 如果我们想用最高质量的物理摄像头拍摄一张照片，那么我们应该尝试将校正模式设置为 HIGH_QUALITY（如果可用）。下面是我们应该如何设置拍摄请求：
+
 ```
 val cameraSession: CameraCaptureSession = ...
 
@@ -287,7 +287,7 @@ if (supportsDistortionCorrection) {
             CameraMetadata.DISTORTION_CORRECTION_MODE_HIGH_QUALITY)
 }
 
-// 添加输出目标，设置其他拍摄请求参数…
+// 添加输出目标，设置其他拍摄请求参数...
 
 // 发送拍摄请求
 cameraSession.capture(captureRequest.build(), ...)
