@@ -297,7 +297,7 @@ cameraSession.capture(captureRequest.build(), ...)
 
 ### 未完待续
 
-唷! 我们介绍了很多与新的多摄像头 API 相关的东西:
+唷！我们介绍了很多与新的多摄像头 API 相关的东西:
 
 *   潜在的用例
 *   逻辑摄像头 vs 物理摄像头
