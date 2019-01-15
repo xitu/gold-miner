@@ -3,6 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/getting-the-most-from-the-new-multi-camera-api.md](https://github.com/xitu/gold-miner/blob/master/TODO1/getting-the-most-from-the-new-multi-camera-api.md)
 > * 译者：[xiaxiayang](https://github.com/xiaxiayang)
+> * 校对者：[PrinceChou](https://github.com/PrinceChou)
 
 # 充分利用多摄像头 API
 
@@ -10,15 +11,15 @@
 
 ### 多摄像头用例
 
-多摄像头是在 [Android Pie](https://developer.android.com/about/versions/pie/android-9.0#camera) 中引入的，自几个月前发布以来，现在我们看到支持该 API 的设备进入了市场，比如谷歌 Pixel 3 和华为 Mate 20 系列。许多多摄像头用例与特定的硬件配置紧密结合；换句话说，并非所有的用例都适配每台设备 — 这使得多摄像头功能成为模块 [动态传输](https://developer.android.com/studio/projects/dynamic-delivery) 的一个理想选择。一些典型的用例包括：
+多摄像头是在 [Android Pie](https://developer.android.com/about/versions/pie/android-9.0#camera) 中引入的，自几个月前发布以来，现现在已有多个支持该 API 的设备进入了市场，比如谷歌 Pixel 3 和华为 Mate 20 系列。许多多摄像头用例与特定的硬件配置紧密结合；换句话说，并非所有的用例都适配每台设备 — 这使得多摄像头功能成为模块 [动态传输](https://developer.android.com/studio/projects/dynamic-delivery) 的一个理想选择。一些典型的用例包括：
 
 *   缩放：根据裁剪区域或所需焦距在相机之间切换
 *   深度：使用多个摄像头构建深度图
-*   背景虚化：使用推论的深度信息来模拟类似 DSLR 的窄焦距范围
+*   背景虚化：使用推论的深度信息来模拟类似 DSLR（digital single-lens reflex camera）的窄焦距范围
 
 ### 逻辑和物理摄像头
 
-要了解多摄像头 API，我们必须首先了解逻辑摄像头和物理摄像头之间的区别；这个概念最好用一个例子来说明。例如，我们可以想像一个有三个后置摄像头而没有前置摄像头的设备作为参考。在本例中，三个后置摄像头中的每一个都被认为是一个物理摄像头。然后逻辑摄像头就是两个或更多这些物理摄像头的分组。逻辑摄像头的输出可以是来自其中一个底层物理摄像机的一个流，也可以是同时来自多个底层物理摄像机的融合流；这两种方式都是由相机的 HAL 来处理的。
+要了解多摄像头 API，我们必须首先了解逻辑摄像头和物理摄像头之间的区别；这个概念最好用一个例子来说明。例如，我我们可以想像一个有三个后置摄像头而没有前置摄像头的设备。在本例中，三个后置摄像头中的每一个都被认为是一个物理摄像头。然后逻辑摄像头就是两个或更多这些物理摄像头的分组。逻辑摄像头的输出可以是来自其中一个底层物理摄像机的一个流，也可以是同时来自多个底层物理摄像机的融合流；这两种方式都是由相机的 HAL（Hardware Abstraction Layer）来处理的。
 
 许多手机制造商也开发了他们自身的相机应用程序（通常预先安装在他们的设备上）。为了利用所有硬件的功能，他们有时会使用私有或隐藏的 API，或者从驱动程序实现中获得其他应用程序没有特权访问的特殊处理。有些设备甚至通过提供来自不同物理双摄像头的融合流来实现逻辑摄像头的概念，但同样，这只对某些特权应用程序可用。通常，框架只会暴露一个物理摄像头。Android Pie 之前第三方开发者的情况如下图所示：
 
@@ -32,7 +33,7 @@
 
 开发人员可完全访问从 Android P 开始的所有摄像头设备
 
-值得注意的是，逻辑摄像头提供的功能完全依赖于相机 HAL 的 OEM 实现。例如，像 Pixel 3 这样的设备以这样一种方式实现其逻辑相机，即它将根据请求的焦距和裁剪区域选择其中一个物理摄像头。
+值得注意的是，逻辑摄像头提供的功能完全依赖于相机 HAL 的 OEM 实现。例如，像 Pixel 3 是根据请求的焦距和裁剪区域选择其中一个物理摄像头，用于实现其逻辑相机。
 
 ### 多摄像头 API
 
@@ -66,7 +67,7 @@
 
 诀窍是，当且仅当这两个摄像头是一个逻辑摄像头分组的一部分时，我们可以用两个等效的流替换 YUV 或原始流 — 即被列在 [CameraCharacteristics.getPhysicalCameraIds()](https://developer.android.com/reference/android/hardware/camera2/CameraCharacteristics#getPhysicalCameraIds%28%29) 中的。
 
-另一件需要考虑的事情是，框架提供的保证仅仅是同时从多个物理摄像头获取帧的最低要求。我们可以期望在大多数设备中支持额外的流，有时甚至允许我们独立地打开多个物理摄像头设备。不幸的是，由于这不是框架的硬保证，因此需要我们通过反复试验来执行每个设备的测试和调优。
+另一件需要考虑的事情是，框架提供的保证仅仅是同时从多个物理摄像头获取帧的最低要求。我们可以期望在大多数设备中支持额外的流，有时甚至允许我们独立地打开多个物理摄像头设备。不幸的是，由于这不是框架的硬性保证，因此需要我们通过反复试验来执行每个设备的测试和调优。
 
 ### 使用多个物理摄像头创建会话
 
