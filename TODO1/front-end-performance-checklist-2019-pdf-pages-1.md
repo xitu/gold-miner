@@ -26,13 +26,13 @@
 
 #### 目录
 
-- [起步：计划与指标](#getting-ready-planning-and-metrics)
-  - [1. 建立性能评估文化](#1-establish-a-performance-culture)
-  - [2. 目标：比你最快的竞争对手快至少 20%](#2-goal-be-at-least-20-faster-than-your-fastest-competitor)
-  - [3. 选择合适的指标](#3-choose-the-right-metrics)
-  - [4. 在典型用户设备上收集数据](#4-gather-data-on-a-device-representative-of-your-audience)
-  - [5. 为测试设立『干净』、『接近真实用户』的浏览器账户](#5-set-up-%22clean%22-and-%22customer%22-profiles-for-testing)
-  - [6. 与团队其他成员分享这份清单](#6-share-the-checklist-with-your-colleagues)
+- [起步：计划与指标](#起步计划与指标)
+  - [1. 建立性能评估文化](#1-建立性能评估文化)
+  - [2. 目标：比你最快的竞争对手快至少 20%](#2-目标比你最快的竞争对手快至少-20)
+  - [3. 选择合适的指标](#3-选择合适的指标)
+  - [4. 在典型用户设备上收集数据](#4-在典型用户设备上收集数据)
+  - [5. 为测试设立『干净』、『接近真实用户』的浏览器账户](#5-为测试设立干净接近真实用户的浏览器账户)
+  - [6. 与团队其他成员分享这份清单](#6-与团队其他成员分享这份清单)
 
 ### 起步：计划与指标
 
