@@ -2,20 +2,20 @@
 > * 原文作者：[Vitaly Friedman](https://www.smashingmagazine.com/author/vitaly-friedman)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
-> * 译者：
+> * 译者：[Hopsken](https://juejin.im/user/57e766e42e958a00543d99ae)
 > * 校对者：
 
-# Front-End Performance Checklist 2019 — 1
+# 2019 前端性能优化年度总结 — 第一部分
 
-Let’s make 2019... fast! An annual front-end performance checklist, with everything you need to know to create fast experiences today. Updated since 2016.
+让 2019 来得更迅速吧~您现在收看的是 2019 年前端性能优化年度总结，始于 2016 。
 
-![](https://d33wubrfki0l68.cloudfront.net/07bab6a876338626943c46d654f45aabe7e0e807/47054/images/drop-caps/w.svg) ![](https://d33wubrfki0l68.cloudfront.net/af7798a3ff2553a4ee42f928f6cb9addbfc6de6f/0f7b2/images/drop-caps/character-15.svg) **Web performance is a tricky beast, isn’t it? How do we actually** know where we stand in terms of performance, and what our performance bottlenecks _exactly_ are? Is it expensive JavaScript, slow web font delivery, heavy images, or sluggish rendering? Is it worth exploring tree-shaking, scope hoisting, code-splitting, and all the fancy loading patterns with intersection observer, server push, clients hints, HTTP/2, service workers and — oh my — edge workers? And, most importantly, **where do we even start improving performance** and how do we establish a performance culture long-term?
+![](https://d33wubrfki0l68.cloudfront.net/07bab6a876338626943c46d654f45aabe7e0e807/47054/images/drop-caps/w.svg) ![](https://d33wubrfki0l68.cloudfront.net/af7798a3ff2553a4ee42f928f6cb9addbfc6de6f/0f7b2/images/drop-caps/character-15.svg) **当我们在讨论前端性能时我们在谈些什么？**性能的瓶颈又**到底**在哪儿？是昂贵的 JavaScript 开销，耗时的网络字体下载，超大的图片还是迟钝的页面渲染？摇树（tree-shaking）、作用域提升（scope hoisting）、代码分割（code-splitting），以及各种酷炫的加载模式，包括交叉观察者模式（intersection observer）、服务端推送（server push）、客户端提示（clients hints）、HTTP/2、service worker 以及 edge worker，研究这些真的有用吗？还有，最重要的，当我们着手处理前端性能的时候，**我们该从哪里开始**，该如何去建立一个长期的性能优化体系？
 
-Back in the day, performance was often a mere _afterthought_. Often deferred till the very end of the project, it would boil down to minification, concatenation, asset optimization and potentially a few fine adjustments on the server’s `config` file. Looking back now, things seem to have changed quite significantly.
+早些时候，性能都是所谓的**『后顾之忧』**。直到项目快结束的时候，它会被归结为代码压缩（minification）、拼接（concatenation）、静态资源优化（asset optimization）以及几行服务器配置的调整。现在回想一下，事情似乎已经发生了很多变化。
 
-Performance isn’t just a technical concern: it matters, and when baking it into the workflow, design decisions have to be informed by their performance implications. **Performance has to be measured, monitored and refined continually**, and the growing complexity of the web poses new challenges that make it hard to keep track of metrics, because metrics will vary significantly depending on the device, browser, protocol, network type and latency (CDNs, ISPs, caches, proxies, firewalls, load balancers and servers all play a role in performance).
+性能问题不仅仅是技术上的考量，当它被整合进工作流时，设计的决策也需要参考性能评估。**性能需要持续地被检测、监控和优化。**同时，网络在变得越来越复杂，这带来了新的挑战，简单的指标追踪变得不再可行，因为不同的设备、浏览器、协议、网络类型和延迟都会使指标发生明显变化。（CDN、ISP、缓存、代理、防火墙、负载均衡和服务器，这些都得考虑进去。） 
 
-So, if we created an overview of all the things we have to keep in mind when improving performance — from the very start of the process until the final release of the website — what would that list look like? Below you’ll find a (hopefully unbiased and objective) **front-end performance checklist for 2019** — an updated overview of the issues you might need to consider to ensure that your response times are fast, user interaction is smooth and your sites don’t drain user’s bandwidth.
+因此，如果我们想囊括关于性能提升的所有点 —— 从一开始到网站最后发布，那么最终这个清单应该长啥样呢？以下是一份（但愿是无偏见的、客观的）**2019 前端性能优化年度总结**，『介是你没有看过的船新版本』，它几乎包括所有你需要考虑的点，来确保你的网站响应时间够短、用户体验够流畅、同时不会榨干用户的带宽。
 
 > **[译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)**
 > [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
@@ -24,162 +24,162 @@ So, if we created an overview of all the things we have to keep in mind when imp
 > [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
 > [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
 
-#### Table Of Contents
+#### 目录
 
-- [Getting Ready: Planning And Metrics](#getting-ready-planning-and-metrics)
-  - [1. Establish a performance culture](#1-establish-a-performance-culture)
-  - [2. Goal: Be at least 20% faster than your fastest competitor](#2-goal-be-at-least-20-faster-than-your-fastest-competitor)
-  - [3. Choose the right metrics](#3-choose-the-right-metrics)
-  - [4. Gather data on a device representative of your audience](#4-gather-data-on-a-device-representative-of-your-audience)
-  - [5. Set up "clean" and "customer" profiles for testing](#5-set-up-%22clean%22-and-%22customer%22-profiles-for-testing)
-  - [6. Share the checklist with your colleagues.](#6-share-the-checklist-with-your-colleagues)
+- [起步：计划与指标](#getting-ready-planning-and-metrics)
+  - [1. 建立性能评估文化](#1-establish-a-performance-culture)
+  - [2. 目标：比你最快的竞争对手快至少 20%](#2-goal-be-at-least-20-faster-than-your-fastest-competitor)
+  - [3. 选择合适的指标](#3-choose-the-right-metrics)
+  - [4. 在典型用户设备上收集数据](#4-gather-data-on-a-device-representative-of-your-audience)
+  - [5. 为测试设立『干净』、『接近真实用户』的浏览器账户](#5-set-up-%22clean%22-and-%22customer%22-profiles-for-testing)
+  - [6. 与团队其他成员分享这份清单](#6-share-the-checklist-with-your-colleagues)
 
-### Getting Ready: Planning And Metrics
+### 起步：计划与指标
 
-Micro-optimizations are great for keeping performance on track, but it’s critical to have clearly defined targets in mind — _measurable_ goals that would influence any decisions made throughout the process. There are a couple of different models, and the ones discussed below are quite opinionated — just make sure to set your own priorities early on.
+对于持续跟踪性能，『微优化』（micro-optimization）是个不错的主意，但是在脑子里有个明晰的目标也是很必要的 —— **可测量的**目标会影响过程中采取的所有决策。有许多不同的模型可以参考，以下讨论的都基于我个人主观偏好，请根据个人情况自行调整。
 
-#### 1. Establish a performance culture
+#### 1. 建立性能评估文化
 
-In many organizations, front-end developers know exactly what common underlying problems are and what loading patterns should be used to fix them. However, as long as there is no established endorsement of the performance culture, each decision will turn into a battlefield of departments, breaking up the organization into silos. You need a business stakeholder buy-in, and to get it, you need to establish a case study on how speed benefits metrics and Key Performance Indicators (_KPIs_) they care about.
+在很多组织里面，前端开发者都确切地知道哪有最有可能出现问题，以及应该使用何种模式来修正这些问题。然而，由于性能评估文化的缺失，导致部门之间相互『踢皮球』。要想获得业务利益相关者的支持，你需要通过案例研究来说明：页面速度会如何影响业务指标和他们所关心的 **KPI**。
 
-Without a strong alignment between dev/design and business/marketing teams, performance isn’t going to sustain long-term. Study common complaints coming into customer service and see how improving performance can help relieve some of these common problems.
+没有开发、设计与业务、市场团队的通力合作，性能优化是走不远的。研究用户抱怨的常见问题，再看看如何通过性能优化来缓解这些问题。
 
-Run performance experiments and measure outcomes — both on mobile and on desktop. It will help you build up a company-tailored case study with real data. Furthermore, using data from case studies and experiments published on [WPO Stats](https://wpostats.com/) will help increase sensitivity for business about why performance matters, and what impact it has on user experience and business metrics. Stating that performance matters alone isn’t enough though — you also need to establish some measurable and trackable goals and observe them.
+同时在移动和桌面设备上运行性能基准测试，由你的公司真实数据来生成个性化的案例样本。除此以外，你还可以使用 [WPO Stats](https://wpostats.com/) 公开的案例研究和实验过程来提升自己对性能优化的敏感性，了解为什么性能表现如此重要，它对用户体验和业务指标会产生哪些影响。光是明白性能表现很重要还不够，你还得设立量化的、可追溯的目标，时刻关注它们。
 
-How to get there? In her talk on [Building Performance for the Long Term](https://vimeo.com/album/4970467/video/254947097), Allison McKnight shares a comprehensive case-study of how she helped establish a performance culture at Etsy ([slides](https://speakerdeck.com/aemcknig/building-performance-for-the-long-term)).
+那么到底该怎么做呢？在 Allison McKnight 名为 [Building Performance for the Long Term](https://vimeo.com/album/4970467/video/254947097) 的演讲中，她分享了自己如何在 Etsy 建立性能评估文化的[案例](https://speakerdeck.com/aemcknig/building-performance-for-the-long-term)。
 
 [![Brad Frost and Jonathan Fielding’s Performance Budget Calculator](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7191d628-f0a1-490c-afca-c8abcdfd4823/brad-perf-budget-builder.png)](http://bradfrost.com/blog/post/performance-budget-builder/) 
 
-[Performance budget builder](http://bradfrost.com/blog/post/performance-budget-builder/) by Brad Frost and Jonathan Fielding’s [Performance Budget Calculator](http://www.performancebudget.io/) can help you set up your performance budget and visualize it. ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7191d628-f0a1-490c-afca-c8abcdfd4823/brad-perf-budget-builder.png))
+Brad Frost 的 [Performance budget builder](http://bradfrost.com/blog/post/performance-budget-builder/) 和 Jonathan Fielding 的 [Performance Budget Calculator](http://www.performancebudget.io/) 可以帮助你建立性能预算并将其可视化表示出来。（[预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/7191d628-f0a1-490c-afca-c8abcdfd4823/brad-perf-budget-builder.png)）
 
-#### 2. Goal: Be at least 20% faster than your fastest competitor
+#### 2. 目标：比你最快的竞争对手快至少 20%
 
-According to [psychological research](https://www.smashingmagazine.com/2015/09/why-performance-matters-the-perception-of-time/#the-need-for-performance-optimization-the-20-rule), if you want users to feel that your website is faster than your competitor’s website, you need to be _at least_ 20% faster. Study your main competitors, collect metrics on how they perform on mobile and desktop and set thresholds that would help you outpace them. To get accurate results and goals though, first study your analytics to see what your users are on. You can then mimic the 90th percentile’s experience for testing.
+根据[一项心理学研究](https://www.smashingmagazine.com/2015/09/why-performance-matters-the-perception-of-time/#the-need-for-performance-optimization-the-20-rule)，如果你希望你的用户感觉到你们的网站用起来比竞争对手快，那么你需要比他们快**至少** 20%。研究你的主要对手，收集他们的网站在移动和桌面设备上的性能指标，确定超越他们的最低要求。为了得到准确的结果和目标，首先去研究你们产品的用户行为，之后模仿 90% 用户的行为来进行测试。
     
-To get a good first impression of how your competitors perform, you can [use Chrome UX Report](https://web.dev/fast/chrome-ux-report) (_CrUX_, a ready-made RUM data set, [video introduction](https://vimeo.com/254834890) by Ilya Grigorik), [Speed Scorecard](https://www.thinkwithgoogle.com/feature/mobile/) (also provides a revenue impact estimator), [Real User Experience Test Comparison](https://ruxt.dexecure.com/compare) or [SiteSpeed CI](https://www.sitespeed.io/) (based on synthetic testing).
+为了更好地了解你的对手的性能表现，你可以使用 [Chrome UX Report](https://web.dev/fast/chrome-ux-report) （**CrUX**，一组现成的 RUM 数据集，[Ilya Grigorik 的视频介绍](https://vimeo.com/254834890))，[Speed Scorecard](https://www.thinkwithgoogle.com/feature/mobile/) (可同时估算性能优化将如何影响收入)，[真实用户体验测试比较（Real User Experience Test Comparison）](https://ruxt.dexecure.com/compare)或者 [SiteSpeed CI](https://www.sitespeed.io/)（基于集成测试）。
 
-**Note**: If you use [Page Speed Insights](https://developers.google.com/speed/pagespeed/insights/) (no, it isn’t deprecated), you can get CrUX performance data for specific pages instead of just the aggregates. This data can be much more useful for setting performance targets for assets like “landing page” or “product listing”. And if you are using CI to test the budgets, you need to make sure your tested environment matches CrUX if you used CrUX for setting the target (_thanks Patrick Meenan!_).
+**注意**：如果你使用 [Page Speed Insights](https://developers.google.com/speed/pagespeed/insights/)（是的，它还没被抛弃），你可以得到具体页面的 CrUX 性能数据。在为具体页面（如『首页』、『产品列表页面』）设立性能目标时，这些数据会非常有用。另外，如果你正在使用 CI 来监测性能预算，当使用 CrUX 来确立目标时，你需要确保测试环境与 CrUX 一致。（**感谢 Patrick Meenan！**)
 
-Collect data, set up a [spreadsheet](http://danielmall.com/articles/how-to-make-a-performance-budget/), shave off 20%, and set up your goals (_performance budgets_) this way. Now you have something measurable to test against. If you’re keeping the budget in mind and trying to ship down just the minimal script to get a quick time-to-interactive, then you’re on a reasonable path.
+收集数据，建立一个[表格](http://danielmall.com/articles/how-to-make-a-performance-budget/)，削减掉 20%，以此建立你目标的**性能预算**。那么现在你有了可测量的对照组样本。事情正逐步走向正轨，只要你时刻把这份预算记在心里，并且每次都交付尽可能少的代码以缩短可交互时间。
 
-Need resources to get started?
+需要些资料来上手？
 
-*   Addy Osmani has written a very detailed write-up on [how to start performance budgeting](https://medium.com/@addyosmani/start-performance-budgeting-dabde04cf6a3), how to quantify the impact of new features and where to start when you are over budget.
+*   Addy Osmani 写了一篇非常详细的文章解释[如何开始做性能预算](https://medium.com/@addyosmani/start-performance-budgeting-dabde04cf6a3)，如何量化新特性带来的影响，以及当超出预算时，你应该怎么做。
 
-*   Lara Hogan’s [guide on how to approach designs with a performance budget](http://designingforperformance.com/weighing-aesthetics-and-performance/#approach-new-designs-with-a-performance-budget) can provide helpful pointers to designers.
+*   Lara Hogan 有[一份指南解释面对性能预算时如何进行产品设计](http://designingforperformance.com/weighing-aesthetics-and-performance/#approach-new-designs-with-a-performance-budget)，可以对设计师们提供一些有用的提示。
 
-*   Jonathan Fielding’s [Performance Budget Calculator](http://www.performancebudget.io/), Brad Frost’s [Performance Budget Builder](https://codepen.io/bradfrost/full/EPQVBp/) and [Browser Calories](https://browserdiet.com/calories/) can aid in creating budgets (thanks to [Karolina Szczur](https://medium.com/@fox/talk-the-state-of-the-web-3e12f8e413b3) for the heads up).
+*   Jonathan Fielding 的 [Performance Budget Calculator](http://www.performancebudget.io/)，Brad Frost 的 [Performance Budget Builder](https://codepen.io/bradfrost/full/EPQVBp/) 和 [Browser Calories](https://browserdiet.com/calories/) 可以在建立预算上提供帮助。（感谢 [Karolina Szczur](https://medium.com/@fox/talk-the-state-of-the-web-3e12f8e413b3) 的提醒）
 
-*   Also, make both performance budget and current performance _visible_ by setting up dashboards with graphs reporting build sizes. There are many tools allowing you to achieve that: [SiteSpeed.io dashboard](https://www.peterhedenskog.com/blog/2015/04/open-source-performance-dashboard/) (open source), [SpeedCurve](http://speedcurve.com/) and [Calibre](https://calibreapp.com/) are just a few of them, and you can find more tools on [perf.rocks](http://perf.rocks/tools/).
+*   另外，通过图表报告打包体积来**可视化**展示性能预算和当前的性能指标。有很多工具可以帮你做到这一点，[SiteSpeed.io dashboard](https://www.peterhedenskog.com/blog/2015/04/open-source-performance-dashboard/)（开源），[SpeedCurve](http://speedcurve.com/) 和 [Calibre](https://calibreapp.com/) 只是其中几个，你可以在 [perf.rocks](http://perf.rocks/tools/) 找到更多工具。
 
-Once you have a budget in place, incorporate them into your build process [with Webpack Performance Hints and Bundlesize](https://web.dev/fast/incorporate-performance-budgets-into-your-build-tools), [Lightouse CI](https://web.dev/fast/using-lighthouse-ci-to-set-a-performance-budget), [PWMetrics](https://github.com/paulirish/pwmetrics) or [Sitespeed CI](https://www.sitespeed.io/) to enforce budgets on pull requests and provide a score history in PR comments. If you need something custom, you can use [webpagetest-charts-api](https://github.com/trulia/webpagetest-charts-api), an API of endpoints to build charts from WebPagetest results.
+一旦确立好了性能预算，你就可以借助 [Webpack Performance Hints and Bundlesize](https://web.dev/fast/incorporate-performance-budgets-into-your-build-tools)、[Lightouse CI](https://web.dev/fast/using-lighthouse-ci-to-set-a-performance-budget), [PWMetrics](https://github.com/paulirish/pwmetrics)、[Sitespeed CI](https://www.sitespeed.io/) 把它们整合进打包流程中，或者在请求合并时强制检测性能预算，并在 PR 备注中注明得分记录。如果你需要个性化定制，你可以使用 [webpagetest-charts-api](https://github.com/trulia/webpagetest-charts-api)，它提供了一系列 API 从 WebPagetest 的结果生成图表。
 
-For instance, just like [Pinterest](https://medium.com/@Pinterest_Engineering/a-one-year-pwa-retrospective-f4a2f4129e05), you could create a custom _eslint_ rule that disallows importing from files and directories that are known to be dependency-heavy and would bloat the bundle. Set up a listing of “safe” packages that can be shared across the entire team.
+举个例子，正如 [Pinterest](https://medium.com/@Pinterest_Engineering/a-one-year-pwa-retrospective-f4a2f4129e05) 一样，你可以创建一个自定义的 **eslint** 规则，禁止导入重依赖（dependency-heavy）的文件和目录，从而避免打包文件变得臃肿。设定一个团队内共享的『安全』依赖包列表。
 
-Beyond performance budgets, think about critical customer tasks that are most beneficial to your business. Set and discuss acceptable **time thresholds for critical actions** and establish "UX ready" user timing marks that the entire organization has agreed on. In many cases, user journeys will touch on the work of many different departments, so alignment in terms of acceptable timings will help support or prevent performance discussions down the road. Make sure that additional costs of added resources and features are visible and understood.
+除了性能预算外，好好想想那些对你们业务价值最大的关键用户操作。规定并讨论可接受的**关键操作响应时间阈值**，并就『UX 就绪』耗时评分在团队内达成共识。大多数情况下，用户的操作流程会涉及到许多不同的公司部门，因此，就『时间阈值』达成共识可以为以后的沟通提供支持，避免不必要的讨论。确保由新增资源和功能带来的资源开销是可视化的，易于理解的。
 
-Also, as Patrick Meenan suggested, it’s worth to **plan out a loading sequence and trade-offs** during the design process. If you prioritize early on which parts are more critical, and define the order in which they should appear, you will also know what can be delayed. Ideally, that order will also reflect the sequence of your CSS and JavaScript imports, so handling them during the build process will be easier. Also, consider what the visual experience should be in "in-between"-states, while the page is being loaded (e.g. when web fonts aren’t loaded yet).
+另外，正如 Patrick Meenan 提议的，在设计过程中，**规划好加载顺序和权衡**是绝对值得的。如果你预先规划好哪部分更重要，并确定每部分出现的顺序，那么同时你也会知道哪些部分可以延迟加载。理想情况下，这个顺序也会反映出 CSS 和 JavaScript 文件的导入顺序，因此在打包阶段处理它们会变得更容易些。除此以外，还得考虑页面加载时中间态的视觉效果（比方说，当网络字体还没有加载完全时）。
 
-_Planning, planning, planning._ It might be tempting to get into quick "low-hanging-fruits"-optimizations early on — and eventually it might be a good strategy for quick wins — but it will be very hard to keep performance a priority without planning and setting realistic, company-tailored performance goals.
+**规划，规划，规划。**尽管速战速决的优化听起来很吸引人 —— 对于需要快速取胜的项目而言这可能是个不错的策略，但是如果没有详细的规划和具体的、定制的性能目标，很难保证性能优先能一直受到重视。
 
-The difference between First Paint, First Contentful Paint, First Meaningful Paint, Visual Complete and Time To Interactive. [Large view](https://docs.google.com/presentation/d/1D4foHkE0VQdhcA5_hiesl8JhEGeTDRrQR4gipfJ8z7Y/present?slide=id.g21f3ab9dd6_0_33). Credit: [@denar90](https://docs.google.com/presentation/d/1D4foHkE0VQdhcA5_hiesl8JhEGeTDRrQR4gipfJ8z7Y/present?slide=id.g21f3ab9dd6_0_33)
+首次绘制（First Paint）、首次有内容绘制（First Contentful Paint）、首次有意义绘制（First Meaningful Paint）、视觉完备（Visual Complete）、首次可交互时间（Time To Interactive）的区别。[完整文档](https://docs.google.com/presentation/d/1D4foHkE0VQdhcA5_hiesl8JhEGeTDRrQR4gipfJ8z7Y/present?slide=id.g21f3ab9dd6_0_33)。版权：[@denar90](https://docs.google.com/presentation/d/1D4foHkE0VQdhcA5_hiesl8JhEGeTDRrQR4gipfJ8z7Y/present?slide=id.g21f3ab9dd6_0_33)
 
-#### 3. Choose the right metrics
+#### 3. 选择合适的指标
 
-[Not all metrics are equally important](https://speedcurve.com/blog/rendering-metrics/). Study what metrics matter most to your application: usually it will be related to how fast you can start render _most important pixels of your product_ and how quickly you can provide input responsiveness for these rendered pixels. This knowledge will give you the best optimization target for ongoing efforts.
+[并不是所有的指标都同等重要](https://speedcurve.com/blog/rendering-metrics/)。研究哪个指标对你的应用最重要，通常来说它应该与渲染产品中**大多数重要像素**以及提供输入响应所需的时间相关。这个为你指明最佳的优化目标，提供努力的方向。
 
-One way or another, rather than focusing on full page loading time (via _onLoad_ and _DOMContentLoaded_ timings, for example), prioritize page loading as perceived by your customers. That means focusing on a slightly different set of metrics. In fact, choosing the right metric is a process without obvious winners.
+不管怎样，不要总是盯着页面完整载入的时间（比方说 `onload` 和 `DOMContentLoaded`），要站在用户的角度去看待页面加载。也就是说，需要关注一组稍微不同的指标。事实上，这事儿啊，并没有哪种选择最好这一说。
 
-Based on Tim Kadlec’s research and Marcos Iglesias’ notes in [his talk](https://docs.google.com/presentation/d/e/2PACX-1vTk8geAszRTDisSIplT02CacJybNtrr6kIYUCjW3-Y_7U9kYSjn_6TbabEQDnk9Ao8DX9IttL-RD_p7/pub?start=false&loop=false&delayms=10000&slide=id.g3ccc19d32d_0_98), traditional metrics could be grouped into a few sets. Usually, we’ll need all of them to get a complete picture of performance, and in your particular case some of them might be more important than others.
+根据 Tim Kadlec 的研究和 Marcos Iglesias 在[他的演讲](https://docs.google.com/presentation/d/e/2PACX-1vTk8geAszRTDisSIplT02CacJybNtrr6kIYUCjW3-Y_7U9kYSjn_6TbabEQDnk9Ao8DX9IttL-RD_p7/pub?start=false&loop=false&delayms=10000&slide=id.g3ccc19d32d_0_98)中提到的，传统的指标可以归为几种类型。通常，我们需要所有的指标来构建完整的性能图像，但是在特定项目中，某些指标可能比其他的更重要些。
 
-*   _Quantity-based metrics_ measure the number of requests, weight and a performance score. Good for raising alarms and monitoring changes over time, not so good for understanding user experience.
+*   **基于数量的指标**包括请求数量、请求体积和性能评分等。对于告警和监控长期变化很有用，但对理解用户体验帮助不大。
 
-*   _Milestone metrics_ use states in the lifetime of the loading process, e.g. _Time To First Byte_ and _Time To Interactive_. Good for describing the user experience and monitoring, not so good for knowing what happens between the milestones.
+*   **里程碑式指标**使用加载过程中的各个状态来标记，比如：**首位字节时间（Time To First Byte）**和**首次可交互时间（Time To Interactive）**。对于描述用户体验和监控很有用，但对了解加载过程中的情况帮助不大。
 
-*   _Rendering metrics_ provide an estimate of how fast content renders (e.g. _Start Render_ time, _Speed Index_). Good for measuring and tweaking rendering performance, but not so good for measuring when _important_ content appears and can be interacted with.
+*   **渲染指标**可以估计内容渲染的时间，例如**渲染开始时间（Start Render）**和**速度指数（Speed Index）**。对于检测和调整渲染性能很有用，但对检测**重要**内容何时出现、何时可交互帮助不大。
 
-*   _Custom metrics_ measure a particular, custom event for the user, e.g. Twitter’s [Time To First Tweet](https://blog.alexmaccaw.com/time-to-first-tweet) and Pinterest’s [PinnerWaitTime](https://medium.com/@Pinterest_Engineering/driving-user-growth-with-performance-improvements-cfc50dafadd7). Good for describing the user experience precisely, not so good for scaling the metrics and comparing with with competitors.
+*   **自定义指标**检测某个特定的、个性化的用户事件，比如 Twitter 的[首次发推时间（Time To First Tweet）](https://blog.alexmaccaw.com/time-to-first-tweet)，Pinterest 的 [收藏等待时间（PinnerWaitTime）](https://medium.com/@Pinterest_Engineering/driving-user-growth-with-performance-improvements-cfc50dafadd7)。对准确描述用户体验很有用，但不方便规模化以及与竞争者比较。
 
-To complete the picture, we’d usually look out for useful metrics among all of these groups. Usually, the most specific and relevant ones are:
+为了使画像更加完整，我们通常会在所有类型中都选择一些有用的指标。一般来说，最重要的是以下几个：
 
-*   [First Meaningful Paint](https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint) _(FMP)_  
+*   [首次有效绘制（First Meaningful Paint，FMP）](https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint)
     
-    Provides the timing when primary content appears on the page, providing an insight into how quickly the server outputs _any_ data. Long FMP usually indicates JavaScript blocking the main thread, but could be related to back-end/server issues as well.
+    提供主要内容出现在页面上的时间，反映了服务器输出**任何**数据的速度。FMP 时间过长一般意味着 JavaScript 阻塞了主线程，也有可能是后端/服务器的问题。
 
-*   [Time to Interactive](https://calibreapp.com/blog/time-to-interactive/) _(TTI)_  
+*   [首次可交互时间（Time to Interactive，TTI）](https://calibreapp.com/blog/time-to-interactive/)
     
-    The point at which layout has stabilized, key webfonts are visible, and the main thread is available enough to handle user input — basically the time mark when a user can interact with the UI. The key metrics for understanding how much _wait_ a user has to experience to use the site without a lag.
+    在此时间点，页面布局已经稳定，主要的网络字体已经可见，主线程已可以响应用户输入 —— 基本上意味着只是用户可以与 UI 进行交互。是描述『网站可正常使用前，用户所需要**等待**的时长』的关键因素。
 
-*   [First Input Delay](https://developers.google.com/web/updates/2018/05/first-input-delay) _(FID)_, or _Input responsiveness_  
+*   [首次输入延迟（First Input Delay，FID 或 Input responsiveness）](https://developers.google.com/web/updates/2018/05/first-input-delay)
     
-    The time from when a user first interacts with your site to the time when the browser is actually able to respond to that interaction. Complements TTI very well as it describes the missing part of the picture: what happens when a user actually interacts with the site. Intended as a RUM metric only. There is a [JavaScript library](https://github.com/GoogleChromeLabs/first-input-delay) for measuring FID in the browser.
+    从用户首次与页面交互，到网站能够响应该互动的时间。与 TTI 相辅相成，补全了画像中缺少的一块：在用户切实与网站交互后发生了什么。标准的 RUM 指标。有一个 [JavaScript 库](https://github.com/GoogleChromeLabs/first-input-delay) 可以在浏览器中测量 FID 耗时。
 
-*   [Speed Index](https://dev.to/borisschapira/web-performance-fundamentals-what-is-the-speed-index-2m5i)  
+*   [速度指数（Speed Index）](https://dev.to/borisschapira/web-performance-fundamentals-what-is-the-speed-index-2m5i)  
     
-    Measures how quickly the page contents are visually populated; the lower the score, the better. The Speed Index score is computed based on the speed of visual progress, but it’s merely a computed value. It’s also sensitive to the viewport size, so you need to define a range of testing configurations that match your target audience (_thanks, [Boris](https://twitter.com/borisschapira)!_).
+    描述视觉上页面被内容充满的速度，得分越低越好。速度指数由视觉上的加载速度计算而得，只是一个计算值。同时对视口尺寸也很敏感，因此你需要根据目标用户设定测试配置的范围。（感谢 [Boris](https://twitter.com/borisschapira)！）
 
-*   CPU time spent  
+*   CPU 耗时
     
-    A metric that indicates how busy is the main thread with the processing of the payload. It shows how often and how long the main thread is blocked, working on painting, rendering, scripting and loading. High CPU time is a clear indicator of a _janky_ experience, i.e. when the user experiences a noticeable lag between their action and a response. With WebPageTest, you can [select "Capture Dev Tools Timeline" on the "Chrome" tab](https://deanhume.com/ten-things-you-didnt-know-about-webpagetest-org/) to expose the breakdown of the main thread as it runs on any device using WebPageTest.
+    描述主线程处理有效负载时繁忙程度的指标，显示在绘制、渲染、运行脚本和加载时，主线程被阻塞的频次和时长。高的 CPU 耗时明显地意味着**卡顿的**用户体验。利用 WebPageTest，你可以[在『Chrome』标签页上选择『Capture Dev Tools Timeline』选项](https://deanhume.com/ten-things-you-didnt-know-about-webpagetest-org/)来暴露出可能的主线程崩溃（得益于 WebPageTest 可以在任何设备上运行）。
 
-*   [Ad Weight Impact](https://calendar.perfplanet.com/2017/measuring-adweight/)  
+*   [广告的影响（Ad Weight Impact）](https://calendar.perfplanet.com/2017/measuring-adweight/)  
     
-    If your site depends on the revenue generated by advertising, it’s useful to track the weight of ad related code. Paddy Ganti’s [script](https://calendar.perfplanet.com/2017/measuring-adweight/) constructs two URLs (one normal and one blocking the ads), prompts the generation of a video comparison via WebPageTest and reports a delta.
+    如果你的站点的利润主要来源于广告，那么追踪广告相关代码的体积就很有用了。Paddy Ganti 的[脚本](https://calendar.perfplanet.com/2017/measuring-adweight/)可以构筑两天 URL（一条有广告，一条没有），并且利用 WebPageTest 生成一个比较视频，并显示区别。
 
-*   Deviation metrics  
+*   偏差指标（Deviation metrics）
     
-    As [noted by Wikipedia engineers](https://phabricator.wikimedia.org/phame/live/7/post/117/performance_testing_in_a_controlled_lab_environment_-_the_metrics/), data of how much variance exists in your results could inform you how reliable your instruments are, and how much attention you should pay to deviations and outlers. Large variance is an indicator of adjustments needed in the setup. It also helps understand if certain pages are more difficult to measure reliably, e.g. due to third-party scripts causing significant variation. It might also be a good idea to track browser version to understand bumps in performance when a new browser version is rolled out.
+    正如 [Wikipedia 的工程师所指出的](https://phabricator.wikimedia.org/phame/live/7/post/117/performance_testing_in_a_controlled_lab_environment_-_the_metrics/)，你的结果中数据的变化在一定程度上可以反映出设施的准确性，以及你该花多少精力来关注这些偏差。过大的变化意味着你很可能需要对目前的设施做一些调整，同时它也可以帮助了解哪些页面因为第三方脚本的缘故是难以准确评估的。另外，追踪浏览器版本也是个不错的主意，它可能帮助你获悉新版浏览器可以带来的性能变化。
 
-*   [Custom metrics](https://speedcurve.com/blog/user-timing-and-custom-metrics/)  
+*   [自定义指标（Custom metrics ](https://speedcurve.com/blog/user-timing-and-custom-metrics/)  
     
-    Custom metrics are defined by your business needs and customer experience. It requires you to identify _important_ pixels, _critical_ scripts, _necessary_ CSS and _relevant_ assets and measure how quickly they get delivered to the user. For that one, you can monitor [Hero Rendering Times](https://speedcurve.com/blog/web-performance-monitoring-hero-times/), or use [Performance API](https://css-tricks.com/breaking-performance-api/), marking particular timestaps for events that are important for your business. Also, you can [collect custom metrics with WebPagetest](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/custom-metrics) by executing arbitrary JavaScript at the end of a test.
+    自定义指标可由具体业务和用户体验的需要专门设置。它需要你对**重要**像素、**关键**脚本、**必要** CSS 样式和**相关**静态资源有个清晰的概念，知道用户需要多长时间来下载它们。关于这点，你可以使用 [Hero Rendering Times](https://speedcurve.com/blog/web-performance-monitoring-hero-times/) 或 [Performance API](https://css-tricks.com/breaking-performance-api/)，为关键业务事件创建时间戳。另外，你也可以通过在 WebPageTest 测试完成后运行任何脚本来[收集自定义的指标](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/custom-metrics)。
 
-Steve Souders has a [detailed explanation of each metric](https://speedcurve.com/blog/rendering-metrics/). It’s important to notice that while Time-To-Interactive is measured by running automated audits in the so-called _lab environment_, First Input Delay represents the _actual_ user experience, with _actual_ users experiencing a noticeable lag. In general, it’s probably a good idea to always measure and track both of them.
+Steve Souders 写了[一篇文章](https://speedcurve.com/blog/rendering-metrics/)详细地介绍了各个指标。需要注意的是：首次交互时间是在**实验环境**下通过自动化审查得到的，而首次输入延迟则表示**真实**用户在使用中感受到的**实际**延迟。总而言之，始终观测和追踪这两个指标会是个好主意。
 
-Depending on the context of your application, preferred metrics might differ: e.g. for Netflix TV UI, [key input responsiveness, memory usage and TTI](https://medium.com/netflix-techblog/crafting-a-high-performance-tv-user-interface-using-react-3350e5a6ad3b) are more critical, and for Wikipedia, [first/last visual changes and CPU time spent metrics](https://phabricator.wikimedia.org/phame/live/7/post/117/performance_testing_in_a_controlled_lab_environment_-_the_metrics/) are more important.
+不同的应用，偏好的指标可能会不同。举个例子，对于 Netflix TV 的 UI 界面而言，[关键输入响应、内存使用和首次可交互时间]((https://medium.com/netflix-techblog/crafting-a-high-performance-tv-user-interface-using-react-3350e5a6ad3b))会更重要些，而对于 Wikipedia，[首末视觉变化和 CPU 耗时指标](https://phabricator.wikimedia.org/phame/live/7/post/117/performance_testing_in_a_controlled_lab_environment_-_the_metrics/)会显得更重要些。
 
-**Note**: both FID and TTI do not account for scrolling behavior; scrolling can happen independently since it’s off-main-thread, so for many content consumption sites these metrics might be much less important (_thanks, Patrick!_).
+**注意**: FID 和 TTI 都不关心滚动表现。因为滚动事件是属于主线程外的，因此可能独立产生。因此，对于许多内容为主的站点而言，这些指标可能并不是很重要。(**感谢 Patrick！**).
 
 [![](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/5d80f91c-9807-4565-b616-a4735fcd4949/network-requests-first-input-delay.png)](https://twitter.com/__treo/status/1068163152783835136) 
 
-User-centric performance metrics provide a better insight into the actual user experience. [First Input Delay](https://developers.google.com/web/updates/2018/05/first-input-delay) (FID) is a new metric that tries to achieve just that. ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/5d80f91c-9807-4565-b616-a4735fcd4949/network-requests-first-input-delay.png))
+以用户为中心的性能指标可以帮助更好地了解真实用户体验。[首次输入延迟（FID）](https://developers.google.com/web/updates/2018/05/first-input-delay)是一个尝试去实现这一目标的新指标。([戳此了解详情](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/5d80f91c-9807-4565-b616-a4735fcd4949/network-requests-first-input-delay.png))
 
-#### 4. Gather data on a device representative of your audience
+#### 4. 在典型用户设备上收集数据
 
-To gather accurate data, we need to thoroughly choose devices to test on. It’s a good option to [choose a Moto G4](https://twitter.com/katiehempenius/statuses/1067969800205422593), a mid-range Samsung device, a good middle-of-the-road device like a Nexus 5X and a slow device like Alcatel 1X, perhaps in an [open device lab](https://www.smashingmagazine.com/2016/11/worlds-best-open-device-labs/). For testing on slower thermal-throttled devices, you could also get a Nexus 2, which costs just around $100.
+为了得到准确的数据，我们需要选择合适的测试设备。[Moto G4](https://twitter.com/katiehempenius/statuses/1067969800205422593)会是一个不错的选择，或者是 Samsung 的一款中端产品，又或者是一款如 Nexus 5X 一样中庸的设备，以及 Alcatel 1X 这样的低端设备。你可以在 [open device lab](https://www.smashingmagazine.com/2016/11/worlds-best-open-device-labs/) 找到这些。如果想在更慢的设备上测试，你可以花差不多 $100 买一台 Nexus 2。
 
-If you don’t have a device at hand, emulate mobile experience on desktop by testing on a throttled network (e.g. 150ms RTT, 1.5 Mbps down, 0.7 Mbps up) with a throttled CPU (5× slowdown). Eventually switch over to regular 3G, 4G and Wi-Fi. To make the performance impact more visible, you could even introduce [2G Tuesdays](https://www.theverge.com/2015/10/28/9625062/facebook-2g-tuesdays-slow-internet-developing-world) or set up a [throttled 3G network in your office](https://twitter.com/thommaskelly/status/938127039403610112) for faster testing.
+如果你手上没有合适的设备，你可以在电脑上模拟移动端体验，使用网络限速（比如：150ms RTT，下行 1.5Mbps，上行 0.7Mbps）以及 CPU 限速（慢 5 倍）。然后，再切换到普通 3G、4G 和 WIFI 网络进行测试。为了是性能影响更加明显，你甚至可以引入 [2G 星期二](https://www.theverge.com/2015/10/28/9625062/facebook-2g-tuesdays-slow-internet-developing-world)，或者为了更方便测试，在办公室[限制 3G 网络](https://twitter.com/thommaskelly/status/938127039403610112)。
 
-Keep in mind that on a mobile device, you should be expecting a 4×–5× slowdown compared to desktop machines. Mobile devices have different GPUs, CPU, different memory, different battery characteristics. While download times are critical for low-end networks, parse times are critical for phones with slow CPUs. In fact, parse times on mobile [are 36% higher than on desktop](https://github.com/GoogleChromeLabs/discovery/issues/1). So always [test on an average device](https://www.webpagetest.org/easy) — a device that is most representative of your audience.
+时刻记着，移动设备的运行能力要比桌面设备慢 4~5 倍。移动设备具有不同的 GPU、CPU、内存、电池特性。如果说慢速网络制约了下载时间的话，那么手机上的慢速 CPU 则制约了解析时间。事实上，移动设备上的解析时间通常要比桌面设备[慢 36%](https://github.com/GoogleChromeLabs/discovery/issues/1)。因此，一定要[在用户的典型设备上进行测试](https://www.webpagetest.org/easy)。
 
 [![Introducing the slowest day of the week](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/dfe1a4ec-2088-4e39-8a39-9f2010380a53/tuesday-2g-opt.png)](https://www.theverge.com/2015/10/28/9625062/facebook-2g-tuesdays-slow-internet-developing-world)
 
-Introducing the slowest day of the week. Facebook has introduced [2G Tuesdays](https://www.theverge.com/2015/10/28/9625062/facebook-2g-tuesdays-slow-internet-developing-world) to increase visibility and sensitivity of slow connections. ([Image source](http://www.businessinsider.com/facebook-2g-tuesdays-to-slow-employee-internet-speeds-down-2015-10?IR=T))
+在一周中选择一天让网速变慢。Facebook 就有 [2G 星期二](https://www.theverge.com/2015/10/28/9625062/facebook-2g-tuesdays-slow-internet-developing-world)来提高对低速网络的关注。([图片来源](http://www.businessinsider.com/facebook-2g-tuesdays-to-slow-employee-internet-speeds-down-2015-10?IR=T))
 
-Luckily, there are many great options that help you automate the collection of data and measure how your website performs over time according to these metrics. Keep in mind that a good performance picture covers a set of performance metrics, [lab data and field data](https://developers.google.com/web/fundamentals/performance/speed-tools/):
+幸运的是，有很多工具可以帮你自动化完成数据收集、评估性能指标随时间变化趋势。记住，一个好的性能图像应该包括一套完整的性能指标、[实验数据和实际数据](https://developers.google.com/web/fundamentals/performance/speed-tools/)。
 
-*   **Synthetic testing tools** collect _lab data_ in a reproducible environment with predefined device and network settings (e.g. _Lighthouse_, _WebPageTest_) and
-*   **Real User Monitoring** (_RUM_) tools evaluate user interactions continuously and collect _field data_ (e.g. _SpeedCurve_, _New Relic_ — both tools provide synthetic testing, too).
+*   **集成测试工具**可以在预先规定了设备和网络配置的可复制环境中收集**实验数据**。例如：**Lighthouse**、**WebPageTest**
+*   **真实用户监测（RUM）**工具可以持续评估用户交互，收集实际数据。例如，**SpeedCurve**、**New Relic** ，两者也都提供集成测试工具。
 
-The former is particularly useful during _development_ as it will help you identify, isolate and fix performance issues while working on the product. The latter is useful for long-term _maintenance_ as it will help you understand your performance bottlenecks as they are happening live — when users actually access the site.
+前者在**开发阶段**会非常有用，它可以帮助你在开发过程中发现、隔离、修复性能问题。后者在**维护阶段**会很有用，它可以帮助你了解性能瓶颈在哪儿，因为这都是真实用户产生的数据。
 
-By tapping into built-in RUM APIs such as [Navigation Timing](https://developer.mozilla.org/en-US/docs/Web/API/Navigation_timing_API), [Resource Timing](https://developer.mozilla.org/en-US/docs/Web/API/Resource_Timing_API), [Paint Timing](https://css-tricks.com/paint-timing-api/), [Long Tasks](https://w3c.github.io/longtasks/), etc., synthetic testing tools and RUM together provide a complete picture of performance in your application. You could use [PWMetrics](https://github.com/paulirish/pwmetrics), [Calibre](https://calibreapp.com), [SpeedCurve](https://speedcurve.com/), [mPulse](https://www.soasta.com/performance-monitoring/) and [Boomerang](https://github.com/yahoo/boomerang), [Sitespeed.io](https://www.sitespeed.io/), which all are great options for performance monitoring. Furthermore, with [Server Timing header](https://www.smashingmagazine.com/2018/10/performance-server-timing/), you could even monitor back-end and front-end performance all in one place.
+通过深入了解浏览器内置的 RUM API，如 [Navigation Timing](https://developer.mozilla.org/en-US/docs/Web/API/Navigation_timing_API)、[Resource Timing](https://developer.mozilla.org/en-US/docs/Web/API/Resource_Timing_API)、[Paint Timing](https://css-tricks.com/paint-timing-api/)、[Long Tasks](https://w3c.github.io/longtasks/) 等，集成测试和 RUM 两者搭配构建出完整的性能图像。你可以使用 [PWMetrics](https://github.com/paulirish/pwmetrics)、[Calibre](https://calibreapp.com), [SpeedCurve](https://speedcurve.com/)、[mPulse](https://www.soasta.com/performance-monitoring/) 和 [Boomerang](https://github.com/yahoo/boomerang)、[Sitespeed.io](https://www.sitespeed.io/) 来进行性能监测，它们都是不错的选择。另外，利用 [Server Timing header](https://www.smashingmagazine.com/2018/10/performance-server-timing/)，你甚至可以同时监测后端和前端性能。
 
-**Note**: It’s always a safer bet to choose [network-level throttlers](https://calendar.perfplanet.com/2016/testing-with-realistic-networking-conditions/), external to the browser, as, for example, DevTools has issues interacting with HTTP/2 push, due to the way it’s implemented (thanks, Yoav, Patrick!). For Mac OS, we can use [Network Link Conditioner](https://nshipster.com/network-link-conditioner/), for Windows [Windows Traffic Shaper](https://github.com/WPO-Foundation/win-shaper/releases), for Linux [netem](https://wiki.linuxfoundation.org/networking/netem), and for FreeBSD [dummynet](http://info.iet.unipi.it/~luigi/dummynet/).
+**注意**: 建议使用浏览器外部的[网络节流器](https://calendar.perfplanet.com/2016/testing-with-realistic-networking-conditions/)，因为浏览器的 DevTools 可能会存在一些问题，比如：由于实现方法的原因，HTTP/2 push 可能会有问题。（感谢 Yoav 和 Patrick！）对于 Mac OS，我们可以用 [Network Link Conditioner](https://nshipster.com/network-link-conditioner/)；对于 Windows，可以用 [Windows Traffic Shaper](https://github.com/WPO-Foundation/win-shaper/releases)；对于 Linux，可以用 [netem](https://wiki.linuxfoundation.org/networking/netem)；对于 FreeBSD，可以用[dummynet](http://info.iet.unipi.it/~luigi/dummynet/)。
 
 [![Lighthouse](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/a85a91a7-fb37-4596-8658-a40c1900a0d6/lighthouse-screenshot.png)](https://developers.google.com/web/tools/lighthouse/) 
 
-[Lighthouse](https://developers.google.com/web/tools/lighthouse/), a performance auditing tool integrated into DevTools. ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/a85a91a7-fb37-4596-8658-a40c1900a0d6/lighthouse-screenshot.png))
+[Lighthouse](https://developers.google.com/web/tools/lighthouse/) —— DevTools 自带的性能审查工具。
 
-#### 5. Set up "clean" and "customer" profiles for testing
+#### 5. 为测试设立『干净』、『接近真实用户』的浏览器账户
 
-While running tests in passive monitoring tools, it’s a common strategy to turn off anti-virus and background CPU tasks, remove background bandwidth transfers and test with a clean user profile without browser extensions to avoid skewed results ([Firefox](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Multiple_profiles), [Chrome](https://support.google.com/chrome/answer/2364824?hl=en&co=GENIE.Platform=Desktop)).
+使用被动监控工具进行测试时，一个常见的做法是：关闭反病毒软件和 CPU 后台任务，关闭后台网络连接，使用没有安装任何插件的『干净的』浏览器用账户，以避免结果被歪曲。（[Firefox](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Multiple_profiles)、[Chrome](https://support.google.com/chrome/answer/2364824?hl=en&co=GENIE.Platform=Desktop))。
 
-However, it’s also a good idea to study which extensions your customers are using frequently, and test with a dedicated _"customer" profile_ as well. In fact, some extensions might have a [profound performance impact](https://twitter.com/denar90_/statuses/1065712688037277696) on your application, and if your users use them a lot, you might want to account for it up front. "Clean" profile results alone are overly optimistic and can be crushed in real-life scenarios.
+然而，了解你的用户通常会使用哪些插件也是个不错的主意，然后使用精心设计的『**接近真实用户的**』浏览器账户进行测试。事实上，某些插件可能会给你的应用带来[显著的性能影响](https://twitter.com/denar90_/statuses/1065712688037277696)。如果你有很多用户在使用这些插件，你可能需要考虑这些影响。『干净的』浏览器账户可能有些过于理想化了，可能会与实际情况大相径庭。
 
-#### 6. Share the checklist with your colleagues.
+#### 6. 与团队其他成员分享这份清单
 
-Make sure that the checklist is familiar to every member of your team to avoid misunderstandings down the line. Every decision has performance implications, and the project would hugely benefit from front-end developers properly communicating performance values to the whole team, so that everybody would feel responsible for it, not just front-end developers. Map design decisions against performance budget and the priorities defined in the checklist.
+确保你的每一位同事都充分熟悉这份清单，从而避免在以后出现误解。每一个决策都会带来性能影响，整个项目会从前端工程师正确地对待性能问题而获益良多，从而使得团队中的每一个人都负起责任来，而不仅仅只是前端。根据性能预算和清单中定义的优先级来制定设计决策。
 
 > **[译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)**
 > [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
