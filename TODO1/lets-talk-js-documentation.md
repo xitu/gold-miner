@@ -2,12 +2,12 @@
 > * 原文作者：[Arek Nawo](https://areknawo.com/author/areknawo/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lets-talk-js-documentation.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lets-talk-js-documentation.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[wznonstop](https://github.com/wznonstop)
 
 # 讨论 JS ⚡：文档
 
-如果你曾做过任何类型的开源项目，或者任何这样的项目，因为它太大，需要一个适当的文档，那么你可能知道正确地制作它是多么的重要。此外，文档需要始终是最新的，并且应该涵盖整个公共 API。因此，如何制作**完美的文档呢？**本文的目标就是用 JS 的风格来解决这个问题！ ⚡  
+如果你曾做过任何类型的开源项目，或者任何这样的项目，因为它太大，需要一份靠谱的文档，那么你可能就知道妥当地制作一份文档是多么的重要。此外，文档需要始终是最新的，并且应该涵盖整个公共 API。因此，如何制作**完美的文档呢？**本文的目标就是用 JS 的风格来解决这个问题！ ⚡  
 
 ![two person holding ceramic mugs](https://images.unsplash.com/photo-1521798552185-ee955b1b91fa?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ)
 
@@ -15,15 +15,15 @@ Photo by [rawpixel](https://unsplash.com/@rawpixel?utm_source=ghost&utm_medium=r
 
 ## 而且只有两种方法。。。
 
-只有两种方法可以为你的项目编写翁当。即：**自己写**或者**自动生成**。这里没有黑魔法，也别无他法
+为你的项目编写文档的方法只有两种。即：**自己写**或者**自动生成**。这里没有黑魔法，也别无他法
 
-那么，我们先开始研究“自己写文档”。在这个场景中，你可以轻松地创建漂亮的文档站点。当然，这将需要你做更多的工作，但如果你任务这是值得的，那就去做吧。 👍 当然，你需要考虑保持你的文档的实时性，这会造成额外的时间花费。可定制化是最大的优势。你的文档可能会使用 **markdown** (最常见的 **[GFM](https://guides.github.com/features/mastering-markdown)**) 编写的 —— 它只是一种标准。你可以让它看起来很漂亮，如果你正在创建 OSS 的话，这一点很重要。有一些库可以帮助你完成这项任务，之后我们会深入了解它们。
+那么，我们先开始研究“自己写文档”。在这个场景中，你可以轻松地创建漂亮的文档站点。当然，这将需要你做更多的工作，但如果你认为这是值得的，那就去做吧。 👍 当然，你需要考虑保持你的文档的实时性，这会造成额外的时间花费。可定制化是最大的优势。你的文档可能会使用 **markdown** (最常见的 **[GFM](https://guides.github.com/features/mastering-markdown)**) 编写的 —— 它只是一种标准。你可以让它看起来很漂亮，如果你正在创建 OSS 的话，这一点很重要。有一些库可以帮助你完成这项任务，之后我们会深入了解它们。
 
-接下来，我们可以选择从代码本身生成文档。很明显，这也不是那么直截了当的事情。首先，你必须使用像 [**JSDoc**](http://usejsdoc.org) 这样的工具，以 **JavaDoc-like** 注释的形式编写文档。所以，你不能凭空生成它们。现在 **JSDoc** 已经很优秀了。我的意思是，看看它的官方文档，看看你能使用多少标记。此外，现代代码编辑器将获取你的类型定义和其他描述，在开发过程中帮助你使用自动完成和弹出文档的功能。在你写简单的 markdown 时，是不会实现这种效果的。当然，你必须写注入 **README** 这样的文件，而生成的文档则会有些过程性，但我不认为这将会是更大的问题。
+接下来，我们可以选择从代码本身生成文档。很明显，这也不是那么直截了当的事情。首先，你必须使用像 [**JSDoc**](http://usejsdoc.org) 这样的工具，以 **JavaDoc-like** 注释的形式编写文档。所以，并不是说可以直接就生成文档。现在 **JSDoc** 已经很优秀了。我的意思是，看看它的官方文档，看看你能使用多少标记。此外，现代代码编辑器将获取你的类型定义和其他描述，在开发过程中帮助你使用自动完成和弹出文档的功能。在你写简单的 markdown 时，是不会实现这种效果的。当然，你必须单独编写像 **README** 这样的东西，生成的文档会有点程序化，但我不认为这是个大问题。
 
 ## 选择正确的工具。。。
 
-因此，假设你已经决定手动创建文档（或者应该说是用键盘），而且是使用 markdown（或者你只是从其他地方了解到了 markdown）。现在，你可能需要一个称为 **render**，它将把你的 MD（markdown）转换成 HTML、CSS 等漂亮的组合。这是在你不仅仅想把它发布到 GitHub 的 wiki 上时的方案。或者你想让 MD 附加一个额外的 **reader**（[就像这样](https://typora.io)）。现在，为了解决这个任务（IMHO），我将为你列出一些最好的工具 😉
+因此，假设你已经决定手动创建文档（或者应该说是用键盘），而且是使用 markdown（或者你只是从其他地方了解到了 markdown）。现在，你可能需要一个称为 **render** 的工具，它将把你的 MD（markdown）转换成 HTML、CSS 等漂亮的组合。这是在你不仅仅想把它发布到 GitHub 的 wiki 上时的方案。或者你想让 MD 附加一个额外的 **reader**（[就像这样](https://typora.io)）。现在，为了解决这个任务（IMHO），我将为你列出一些最好的工具 😉
 
 ### [Docsify](https://docsify.js.org)
 
@@ -39,7 +39,7 @@ Docsify 登录界面
 
 Docute v4 文档
 
-**Docute** 是一个类似于 Docsify 的工具，但它有一个**可爱的名字**。最新的版本（v4）相比[上一个版本](https://v3.docute.org)要少一些文档化，也进行了相关内容的简化。生成的文档看起来简约。简单和优雅。可以使用 **CSS 变量** 定制主题。Docute 不像 Docsify 那样拥有强大的插件系统，但它有着自己的优势。它建立在 Vue.js 之上，这导致包的大小相比于 Docsify 要大写，但允许用于很多的扩展性。比如，在你的 MD 文件总，你可以使用一些内置的 Vue 组件，甚至你自己的组件。
+**Docute** 是一个类似于 Docsify 的工具，但它有一个**可爱的名字**。最新的版本（v4）相比[上一个版本](https://v3.docute.org)要少一些文档化，也进行了相关内容的简化。生成的文档看起来简单而优雅。。可以使用 **CSS 变量** 定制主题。Docute 不像 Docsify 那样拥有强大的插件系统，但它有着自己的优势。它建立在 Vue.js 之上，这导致包的大小相比于 Docsify 要大些，但扩展性好了很多。比如，在你的 MD 文件中，你可以使用一些内置的 Vue 组件，甚至你自己的组件。
 
 ### [Slate](https://github.com/lord/slate)
 
@@ -47,7 +47,7 @@ Docute v4 文档
 
 Slate 文档
 
-**Slate** 可能是在 GitHub 上记录你的项目以及小星星数量的领头羊（**~25,000**）。它的文档清晰可读语法，拥有**everything-on-one-page** 功能。还具有非常健壮的 GH wiki 文档。它允许[深度主题化](https://github.com/lord/slate/wiki/Custom-Slate-Themes) ，当因为文档提供的信息不多，所以需要你自己开发。遗憾的是，它的可扩展性很差，但功能丰富，对于那些需要 **REST** API 文档的人来说，这似乎是一个特别好的选择。请记住，Slate 会生成静态 HTML 文件的过程不是在运行完成的。
+**Slate** 可能是在 GitHub 上记录你的项目以及小星星数量的领头羊（**~25,000**）。它的文档具有清晰可读的语法，并且所有内容都在同一页面上。还具有非常健壮的 GH wiki 文档。它允许[深度主题化](https://github.com/lord/slate/wiki/Custom-Slate-Themes) ，但因为文档提供的信息不多，所以需要你自己去探索。遗憾的是，它的可扩展性很差，但功能丰富，对于那些需要 **REST** API 文档的人来说，这似乎是一个特别好的选择。请记住，Slate 生成的是静态 HTML 文件，而不是在运行中动态生成文件
 
 ![](https://areknawo.com/content/images/2018/12/Screenshot-from-2018-12-14-20-35-03.png)
 
@@ -55,7 +55,7 @@ Docusaurus 登录界面
 
 ### [Docusaurus](https://docusaurus.io)
 
-**Docusaurus** 是一个**易于维护开源文档网站**的工具。它是由 Facebook 创建的，使用的是 —— 你可以猜到 —— React。它允许轻松地转换和集成 Reaction 组件和库作为一个整体来创建自定义页面。它还能设置额外的 **blog** 直接与你的文档网站进行集成，甚至只有自己！它可以与 [Algolia DocSearch](https://community.algolia.com/docsearch) 很好地集成，是你的文档易于导航。就像 Slate 一样，它会生成静态 HTML 文件。
+**Docusaurus** 是一个**易于维护开源文档网站**的工具。它是由 Facebook 创建的，使用的是 —— 你可以猜到 —— React。它允许轻松地转换和集成 Reaction 组件和库作为一个整体来创建自定义页面。无需其他工具，它还能设置额外的 **blog** 直接与你的文档网站进行集成！它可以与 [Algolia DocSearch](https://community.algolia.com/docsearch) 很好地集成，使你的文档易于导航。就像 Slate 一样，它会生成静态 HTML 文件。
 
 ![](https://areknawo.com/content/images/2018/12/Screenshot-from-2018-12-14-21-27-48.png)
 
@@ -71,7 +71,7 @@ GitBook 登录界面
 
 ### [GitBook](https://www.gitbook.com)
 
-**GitBook** 是用于编写 MD 文档和文本的服务。它为你提供了一个在线编辑器和免费 **.gitbook.io** 域名体验。在显编辑器很棒 —— 这毫无疑问，但在设计到布局的时候，没有太多的定制化选择。该编辑器还有它的遗留桌面版本。除非你正在做一个开源项目，否则你必须为此付出一些代价。
+**GitBook** 是用于编写 MD 文档和文本的服务。它为你提供了一个在线编辑器和免费 **.gitbook.io** 域名体验。在线编辑器很棒 —— 这毫无疑问，但在设计到布局的时候，没有太多的定制化选择。该编辑器还有它的遗留桌面版本。除非你正在做一个开源项目，否则你必须为此付出一些代价。
 
 ## 生成器！
 
@@ -91,7 +91,7 @@ TypeDoc 登录页面
 
 ### [TypeDoc](https://typedoc.org)
 
-**TypeDoc** 可视为 [TypeScript](https://www.typescriptlang.org) 的文档 JSdoc。它值得在此列表中被包含在内，主要作为支持 TS 类型的不那么多（或者任何）文档生成器之一。通过使用该工具，你可以基于 TypeScript 类型系统来生成文档，包括接口和枚举等结构。遗憾的是，它只支持一小部分 JSDoc 标记，没有 JSDoc 这样的大社区。因此，它没有太多的主题，文档匮乏。IMO 有效使用该工具的最佳方法是使用 **markdown** 主题插件，并使用其中一个文档工具。 
+它榜上有名的主要原因是，支持 TS 类型的文档生成器很少（或者说没有）。通过使用该工具，你可以基于 TypeScript 类型系统来生成文档，包括接口和枚举等结构。遗憾的是，它只支持一小部分 JSDoc 标记，没有 JSDoc 这样的大社区。因此，它没有太多的主题，文档匮乏。IMO 有效使用该工具的最佳方法是使用 **markdown** 主题插件，并使用其中一个文档工具。 
 
 ![](https://areknawo.com/content/images/2018/12/Screenshot-from-2018-12-15-09-44-43.png)
 
@@ -99,13 +99,13 @@ ESDoc 登录界面
 
 ### [ESDoc](https://esdoc.org)
 
-**ESDoc** 在功能上虞 JSDoc 相似。它支持一组类似 JSDoc 的标记。它对文档 linting 和覆盖提供了可选的支持。它有大量的插件集合。此外，还有一些针对 TypeScript、Flow 和 markdown 输出的概念验证插件。
+**ESDoc** 在功能上与 JSDoc 相似。它支持一组类似 JSDoc 的标记。它对文档 linting 和覆盖提供了可选的支持。它有大量的插件集合。此外，还有一些针对 TypeScript、Flow 和 markdown 输出的概念验证插件。
 
 ![](https://areknawo.com/content/images/2018/12/Screenshot-from-2018-12-15-09-54-29.png)
 
 ### [Documentation.js](https://documentation.js.org)
 
-**Documentation.js** 是现代文档生成器，它可以输出 HTML、JSON 或 markdown，具有极大的灵活性。它支持 ES 2017、JSX、Vue 模版和 Flow 类型。他还能进行**类型推断**以及原生 —— JSDoc 标记。它有基于下划线模版的胜读主题选项。遗憾的是，（对我来说）它不支持 TypScript。😕
+**Documentation.js** 是现代文档生成器，它可以输出 HTML、JSON 或 markdown，具有极大的灵活性。它支持 ES 2017、JSX、Vue 模版和 Flow 类型。他还能进行**类型推断**以及原生 —— JSDoc 标记。它有基于underscore模版的深度主题选项。遗憾的是，（对我来说）它不支持 TypScript。😕
 
 ![](https://areknawo.com/content/images/2018/12/Screenshot-from-2018-12-15-10-14-11.png)
 
@@ -113,11 +113,11 @@ DocumentJS 登录界面
 
 ### [DocumentJS](https://documentjs.com)
 
-**DocumentJS** 不像上面的竞争对手那么受欢迎，这是文档生成的解决方案。它支持大多数 JSDoc 和 Google 闭包编译器标记，并添加你的附加功能。它默认只生成可主题化的 HTML，但具有很强的扩展性。
+**DocumentJS** 另一个文档生成的解决方案，它不像上面的竞争对手那么受欢迎。支持大多数 JSDoc 和 Google 闭包编译器标记，并能够添加自定义的附加功能。它默认只生成可主题化的 HTML，但具有很强的扩展性。
 
 ## 不一样的内容。。。
 
-因此，上面我列出了一些标准文档工具和生成器。当然，它们可以一起用来创建好的文档。但是我想再给你推荐一个工具。你听说过 **literate programming** 么？一般来说，这意味着你将通过**使用 markdown 语法**编写注释来记录代码。它真的把你的代码变成了诗。
+上面我列出了一些标准文档工具和生成器。当然，它们可以一起用来创建好的文档。但是我想再给你推荐一个工具。你听说过 **literate programming** 么？一般来说，这意味着你将通过**使用 markdown 语法**编写注释来记录代码。它真的把你的代码变成了诗。
 
 ![](https://areknawo.com/content/images/2018/12/Screenshot-from-2018-12-15-10-33-58.png)
 
