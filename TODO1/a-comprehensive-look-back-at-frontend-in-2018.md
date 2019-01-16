@@ -29,7 +29,7 @@ Web 开发一直是一个快速发展的领域 —— 我们很难跟上在过�
 
 ### 新的正则表达式特性
 
-JavaScript 一直缺乏像 Python 这样语言的一些更高级的正则表达式功能 —— 直到现在才推出类似的特性。 ES2018 增加了四个新特性：
+JavaScript 一直缺乏像 Python 这样语言的一些更高级的正则表达式功能 —— 直到现在才推出类似的特性。ES2018 增加了四个新特性：
 
 * [后行断言（lookbehind assertions）](https://github.com/tc39/proposal-regexp-lookbehind)，为自 1999 年以来一直使用该语言的先行断言（ lookahead assertions） 提供了缺失的补充。
 * [s（dotAll）标志](https://github.com/tc39/proposal-regexp-dotall-flag)，它匹配除行终止符之外的任何单个字符。
@@ -48,7 +48,7 @@ JavaScript 一直缺乏像 Python 这样语言的一些更高级的正则表达�
 
 有一部分问题是 WebAssembly 需要大量的步骤才能开始使用，而许多习惯于使用 JavaScript 的开发人员并不熟悉使用传统的编译语言。Firefox 推出了一个名为 [WebAssembly Studio](https://hacks.mozilla.org/2018/04/sneak-peek-at-webassembly-studio/) 的在线 IDE，可以让使用 WebAssembly 变得简单。如果你希望将其集成到现有的应用程序中，现在有很多工具可供选择。Webpack v4 为 WebAssembly 模块添加了实验性[内置支持](https://github.com/webpack/webpack/releases/tag/v4.0.0)，这些模块紧密集成到构建和模块系统中，并提供 source map 支持。
 
-Rust 已成为编译 WebAssembly 的最佳语言。它提供了一个健壮的包生态系统，具有 [cargo](https://github.com/rust-lang/cargo)，可靠的性能和[易于学习](https://doc.rust-lang.org/book/)的语法。现在已经有一个新兴的工具生态系统将 Rust 与 Javascript 集成在一起。 你可以使用 [wasm-pack](https://github.com/rustwasm/wasm-pack) 将 Rust WebAssembly 包发布到 npm 上。如果你使用了 webpack，现在可以使用 [rust-native-wasm-loader](https://github.com/dflemstr/rust-native-wasm-loader) 在应用程序中无缝集成 Rust 代码。
+Rust 已成为编译 WebAssembly 的最佳语言。它提供了一个健壮的包生态系统，具有 [cargo](https://github.com/rust-lang/cargo)，可靠的性能和[易于学习](https://doc.rust-lang.org/book/)的语法。现在已经有一个新兴的工具生态系统将 Rust 与 Javascript 集成在一起。你可以使用 [wasm-pack](https://github.com/rustwasm/wasm-pack) 将 Rust WebAssembly 包发布到 npm 上。如果你使用了 webpack，现在可以使用 [rust-native-wasm-loader](https://github.com/dflemstr/rust-native-wasm-loader) 在应用程序中无缝集成 Rust 代码。
 
 如果你不想放弃 JavaScript 来使用 WebAssembly，你很幸运 —— 现在有几种选择。如果你熟悉 Typescript，可以使用 [AssemblyScript](https://github.com/AssemblyScript/assemblyscript) 项目，该项目使用官方 [Binaryen](https://github.com/WebAssembly/binaryen) 编译器和 Typescript。
 
@@ -56,19 +56,19 @@ Rust 已成为编译 WebAssembly 的最佳语言。它提供了一个健壮的�
 
 ### 共享内存
 
-现代 JavaScript 应用程序经常把大量的计算放在 [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker) 中，以避免其阻塞主线程并中断浏览体验。虽然 Worker 已经推出几年了，但它的局限性使他们无法更广泛地采用。Worker 可以使用 [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Worker/postMessage) 方法在其他线程之间传输数据，该方法克隆发送的数据（较慢）或使用[可传输的对象](https://developer.mozilla.org/en-US/docs/Web/API/Transferable)（更快）。 因此，线程之间的通信要么是慢速的，要么是单向的。对于简单的应用程序没有太大问题，但它限制了使用 Worker 构建更复杂的架构。
+现代 JavaScript 应用程序经常把大量的计算放在 [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker) 中，以避免其阻塞主线程并中断浏览体验。虽然 Worker 已经推出几年了，但它的局限性使他们无法更广泛地采用。Worker 可以使用 [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Worker/postMessage) 方法在其他线程之间传输数据，该方法克隆发送的数据（较慢）或使用[可传输的对象](https://developer.mozilla.org/en-US/docs/Web/API/Transferable)（更快）。因此，线程之间的通信要么是慢速的，要么是单向的。对于简单的应用程序没有太大问题，但它限制了使用 Worker 构建更复杂的架构。
 
 [SharedArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) 和 [Atomics](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics) 是允许 JavaScript 应用程序在上下文之间共享固定内存缓冲区并对它们执行原子操作的新功能。但是，在发现共享内存使浏览器容易受到以前未知的被称为 [Spectre](https://meltdownattack.com/) 的定时攻击后，浏览器对该特性的支持被暂时删除了。Chrome 在 7 月发布了一项[新的安全功能](https://www.techrepublic.com/article/google-enabled-site-isolation-in-chrome-67-heres-why-and-how-it-affects-users/)，可以缓解该漏洞，从而重新启用了 SharedArrayBuffers 功能。在 Firefox 中，该功能默认情况下是禁用的，但可以[重新启用](https://blog.mozilla.org/security/2018/01/03/mitigations-landing-new-class-timing-attack/)。Edge [完全取消了对SharedArrayBuffers 的支持](https://blogs.windows.com/msedgedev/2018/01/03/speculative-execution-mitigations-microsoft-edge-internet-explorer/#Yr2pGlOHTmaRJrLl.97)，微软尚未表示何时会重新启用。希望到明年所有浏览器都会采用缓解策略，以便可以使用这个关键的缺失功能。
 
 ### Canvas
 
-Canvas 和 WebGL 等图形 API 已经推出几年了，但它们一直被限于在主线程中进行渲染。 因此，渲染可能会阻塞主线程。这会导致糟糕的用户体验。[OffscreenCanvas](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas#Asynchronous_display_of_frames_produced_by_an_OffscreenCanvas) API 允许你将 canvas 上下文（2D或 WebGL）的控制权转移给 Web Worker，从而解决了这个问题。在 Worker 使用 Canvas API 和平时没有区别，而且不会阻塞主线程，并可以无缝渲染。 
+Canvas 和 WebGL 等图形 API 已经推出几年了，但它们一直被限于在主线程中进行渲染。因此，渲染可能会阻塞主线程。这会导致糟糕的用户体验。[OffscreenCanvas](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas#Asynchronous_display_of_frames_produced_by_an_OffscreenCanvas) API 允许你将 canvas 上下文（2D 或 WebGL）的控制权转移给 Web Worker，从而解决了这个问题。在 Worker 使用 Canvas API 和平时没有区别，而且不会阻塞主线程，并可以无缝渲染。 
 
 鉴于显著的性能提升，可以期待图表和绘图库会很快支持它。目前[浏览器支持](https://caniuse.com/#feat=offscreencanvas)仅限于 Chrome 和 Firefox，而 Edge 团队尚未公开表示支持。你可以期望它能和 SharedArrayBuffers 以及 WebAssembly 很好地配对，允许 Worker 基于任何线程中存在的数据，使用任何语言编写的代码进行渲染，所有这些都不会造成糟糕的用户体验。这可能使网络上实现高端游戏的梦想成为现实，而且可以在 Web 应用程序中使用更复杂的图形。
 
-新的绘图和布局 API 正努力被引入 CSS。目标是向 Web 开发人员公开 CSS 引擎的部分内容，以揭开 CSS 的一些“神奇”神秘面纱。 W3C 的 [CSS Houdini 工作组](https://github.com/w3c/css-houdini-drafts/wiki)由主要浏览器供应商的工程师组成，在过去两年中一直在努力发布[几个规范草案](https://drafts.css-houdini.org/)，这些规范目前正处于设计的最后阶段。
+新的绘图和布局 API 正努力被引入 CSS。目标是向 Web 开发人员公开 CSS 引擎的部分内容，以揭开 CSS 的一些“神奇”神秘面纱。W3C 的 [CSS Houdini 工作组](https://github.com/w3c/css-houdini-drafts/wiki)由主要浏览器供应商的工程师组成，在过去两年中一直在努力发布[几个规范草案](https://drafts.css-houdini.org/)，这些规范目前正处于设计的最后阶段。
 
-[CSS Paint API](https://developers.google.com/web/updates/2018/01/paintapi) 是其中最早登陆浏览器的新 CSS API ，它在 1 月份登陆 Chrome 65。它允许开发人员使用类似 context 的 API 绘制图像，可以在 CSS 中调用图像的任何地方使用它。它使用新的 [Worklet](https://drafts.css-houdini.org/worklets) 接口，这些接口基本上是轻量级，高性能的类似 [Worker](https://developer.mozilla.org/en-US/docs/Web/API/Worker) 的构造，用于专门的任务处理。 和 Worker 一样，它们在自己的执行上下文中运行，但与 Worker 不同的是，它们是线程不可感知的（浏览器选择它们运行的线程），并且它们可以访问渲染引擎。
+[CSS Paint API](https://developers.google.com/web/updates/2018/01/paintapi) 是其中最早登陆浏览器的新 CSS API ，它在 1 月份登陆 Chrome 65。它允许开发人员使用类似 context 的 API 绘制图像，可以在 CSS 中调用图像的任何地方使用它。它使用新的 [Worklet](https://drafts.css-houdini.org/worklets) 接口，这些接口基本上是轻量级，高性能的类似 [Worker](https://developer.mozilla.org/en-US/docs/Web/API/Worker) 的构造，用于专门的任务处理。和 Worker 一样，它们在自己的执行上下文中运行，但与 Worker 不同的是，它们是线程不可感知的（浏览器选择它们运行的线程），并且它们可以访问渲染引擎。
 
 使用 Paint Worklet，你可以创建一个背景图像，当其中包含的元素发生更改时，该图像会自动重绘。使用 CSS 属性，你可以添加在更改时触发重新绘制的参数，并可通过 JavaScript 进行控制。[所有浏览器](https://ishoudinireadyyet.com/)都承诺支持该 API，除了 Edge，但是现在有一个 [polyfill](https://github.com/GoogleChromeLabs/css-paint-polyfill) 可以使用。有了这个 API，我们将开始看到组件化图像的使用方式，这与我们现在看到的组件类似。
 
@@ -92,7 +92,7 @@ Npm [意识到社区的安全问题](https://blog.npmjs.org/post/172774747080/at
 
 ### 监控
 
-[Reporting API](https://developers.google.com/web/updates/2018/09/reportingapi) 是一种新标准，旨在通过在发生问题时发出警报，使开发人员更容易发现应用程序的问题。如果你在过去几年中使用过 Chrome DevTools 控制台，你可能已经看到了 **\[intervention\]** 警告消息，用来提醒用户使用了过时的 API 或执行了可能不安全的操作。这些消息仅限于客户端，但现在你可以使用新的 [ReportingObserver](https://developers.google.com/web/updates/2018/07/reportingobserver) 将其报告给分析工具。
+[Reporting API](https://developers.google.com/web/updates/2018/09/reportingapi) 是一种新标准，旨在通过在发生问题时发出警报，使开发人员更容易发现应用程序的问题。如果你在过去几年中使用过 Chrome DevTools 控制台，你可能已经看到了 **[intervention]** 警告消息，用来提醒用户使用了过时的 API 或执行了可能不安全的操作。这些消息仅限于客户端，但现在你可以使用新的 [ReportingObserver](https://developers.google.com/web/updates/2018/07/reportingobserver) 将其报告给分析工具。
 
 有两种报告：
 
@@ -159,7 +159,7 @@ JavaScript 2018 趋势报告指出，[近一半的受访者](https://2018.stateo
 
 [![](https://cdn-images-1.medium.com/max/1000/1*s_rMyo6NbrAsP-XtvBaXFg.png)](https://logrocket.com/signup/)
 
-[LogRocket](https://logrocket.com/signup/) 是一个前端日志记录工具，可让你像在自己的浏览器中一样重现问题。LogRocket 不是猜测错误发生的原因，也不是要求用户提供屏幕截图和日志转储，而是让你重播会话以快速了解出现了什么问题。它适用于任何应用程序，与框架无关，并且具有从 Redux，Vuex 和 @ngrx / store 记录上下文的日志插件。
+[LogRocket](https://logrocket.com/signup/) 是一个前端日志记录工具，可让你像在自己的浏览器中一样重现问题。LogRocket 不是猜测错误发生的原因，也不是要求用户提供屏幕截图和日志转储，而是让你重播会话以快速了解出现了什么问题。它适用于任何应用程序，与框架无关，并且具有从 Redux、Vuex 和 @ngrx / store 记录上下文的日志插件。
 
 除了记录 Redux 操作和状态之外，LogRocket 还会记录控制台日志、JavaScript 错误、堆栈跟踪、带有 header 和 body 的网络请求/响应、浏览器元数据和自定义日志。它还使用 DOM 来记录页面上的 HTML 和 CSS，能够重新创建即使是最复杂的单页应用程序的像素级完美视频。
 
