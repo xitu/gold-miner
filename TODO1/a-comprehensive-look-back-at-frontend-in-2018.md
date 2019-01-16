@@ -7,7 +7,7 @@
 
 # 2018 前端全面回顾
 
-拿一杯咖啡，坐下来，慢慢品读。我们的回顾不会错过太多。
+拿一杯咖啡，坐下来，慢慢品读。我们的回顾不容错过。
 
 ![](https://cdn-images-1.medium.com/max/800/1*h4mMvgiilV-JPS1Ytpndyg.png)
 
@@ -17,15 +17,15 @@ Web 开发一直是一个快速发展的领域 —— 我们很难跟上在过�
 
 我们目睹了过去几年 JavaScript 爆炸式的发展。随着互联网对全球经济变得更加重要，谷歌和微软等巨头意识到他们需要更好的工具来创建下一代 Web 应用程序。
 
-这导致了 JavaScript 自创造以来最大的变革浪潮，起自 ECMAScript 2015（又名 ES6）。 现在 JavaScript 每年发布的版本都为我们带来了令人兴奋的新特性：如类、生成器、迭代器、promise、全新的模块系统等等。
+在这种环境下，以 ECMAScript 2015（又名 ES6）为开端，JavaScript 被引领出自创造以来最大的变革浪潮。现在 JavaScript 每年发布的版本都为我们带来了令人兴奋的新特性：如类、生成器、迭代器、promise、全新的模块系统等等。
 
-这开启了 Web 发展的黄金时代。许多最流行的工具、函数库和框架在 ES2015 发布后立即流行了起来。 在主流浏览器厂商对新标准的支持实现了一半之前，[Babel](https://babeljs.io/) 编译器项目就让成千上万的开发人员抢先一步尝试新功能。
+这开启了 Web 发展的黄金时代。许多最流行的工具、函数库和框架在 ES2015 发布后立即流行了起来。即使主流浏览器厂商对新标准的支持还未过半，[Babel](https://babeljs.io/) 编译器项目就让成千上万的开发人员抢先一步尝试新功能。
 
-前端开发者首次不需要被他们公司需要支持的最古老的浏览器限制，可以按照自己的节奏自由创新。三年和三个 ECMAScript 版本之后，这个 Web 发展的新时代并没有放缓的迹象。
+前端开发者首次不需要被他们公司需要支持的最古老的浏览器限制，可以按照自己的节奏自由创新。三年和三个 ECMAScript 版本之后，这个 Web 开发的新时代并没有放缓前进的脚步。
 
 ### JS 语言的新特性
 
-与之前的版本相比，ECMAScript 2018 的功能相当简单，只添加了[对象 rest/spread 属性](https://github.com/tc39/proposal-object-rest-spread)，[异步迭代](https://github.com/tc39/proposal-async-iteration)和 [Promise.finally](https://github.com/tc39/proposal-promise-finally)，Babel 和 [core-js](https://github.com/zloirock/core-js#stage-3-proposals) 现在已经支持了所有这些新特性。[大多数浏览器](http://kangax.github.io/compat-table/es2016plus/#test-Asynchronous_Iterators)和 [Node.js](https://node.green/) 全部都支持了ES2018，除了 Edge，它只支持 Promise.finally。对于许多开发人员来说，这意味着他们所需的所有语言特性都被他们需要兼容的浏览器支持了 —— 甚至有人怀疑 Babel 是否真的是必须的了。
+与之前的版本相比，ECMAScript 2018 的功能相当简单，只添加了[对象 rest/spread 属性](https://github.com/tc39/proposal-object-rest-spread)，[异步 iteration](https://github.com/tc39/proposal-async-iteration) 和 [Promise.finally](https://github.com/tc39/proposal-promise-finally)，Babel 和 [core-js](https://github.com/zloirock/core-js#stage-3-proposals) 现在已经支持了所有这些新特性。[大多数浏览器](http://kangax.github.io/compat-table/es2016plus/#test-Asynchronous_Iterators)和 [Node.js](https://node.green/) 全部都支持了ES2018，除了 Edge，它只支持 Promise.finally。对于许多开发人员来说，这意味着他们所需的所有语言特性都被他们需要兼容的浏览器支持了 —— 甚至有人怀疑 Babel 是否真的是必需的了。
 
 ### 新的正则表达式特性
 
@@ -44,7 +44,7 @@ JavaScript 一直缺乏像 Python 这样语言的一些更高级的正则表达�
 
 ### WebAssembly
 
-尽管去年 WebAssembly v1 支持被添加到了主流浏览器中，但它尚未被开发者社区广泛采用。WebAssembly Group 针对[垃圾回收](https://github.com/WebAssembly/gc)、ECMAScript 模块集成和[线程](https://developers.google.com/web/updates/2018/10/wasm-threads)等功能提供了[宏大的功能路线图](https://webassembly.org/docs/future-features/)。也许有了这些功能，我们才会看到 WebAssembly 在 Web 应用程序中被广泛采用。
+尽管去年对 WebAssembly v1 的支持被添加到了主流浏览器中，但它尚未被开发者社区广泛采用。WebAssembly Group 针对[垃圾回收](https://github.com/WebAssembly/gc)、ECMAScript 模块集成和[线程](https://developers.google.com/web/updates/2018/10/wasm-threads)等功能提供了[宏大的功能路线图](https://webassembly.org/docs/future-features/)。也许有了这些功能，我们才会看到 WebAssembly 在 Web 应用程序中被广泛采用。
 
 有一部分问题是 WebAssembly 需要大量的步骤才能开始使用，而许多习惯于使用 JavaScript 的开发人员并不熟悉使用传统的编译语言。Firefox 推出了一个名为 [WebAssembly Studio](https://hacks.mozilla.org/2018/04/sneak-peek-at-webassembly-studio/) 的在线 IDE，可以让使用 WebAssembly 变得简单。如果你希望将其集成到现有的应用程序中，现在有很多工具可供选择。Webpack v4 为 WebAssembly 模块添加了实验性[内置支持](https://github.com/webpack/webpack/releases/tag/v4.0.0)，这些模块紧密集成到构建和模块系统中，并提供 source map 支持。
 
@@ -64,7 +64,7 @@ Rust 已成为编译 WebAssembly 的最佳语言。它提供了一个健壮的�
 
 Canvas 和 WebGL 等图形 API 已经推出几年了，但它们一直被限于在主线程中进行渲染。 因此，渲染可能会阻塞主线程。这会导致糟糕的用户体验。[OffscreenCanvas](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas#Asynchronous_display_of_frames_produced_by_an_OffscreenCanvas) API 允许你将 canvas 上下文（2D或 WebGL）的控制权转移给 Web Worker，从而解决了这个问题。在 Worker 使用 Canvas API 和平时没有区别，而且不会阻塞主线程，并可以无缝渲染。 
 
-鉴于显著的性能提升，可以期待可以期待图表和绘图库会很快支持它。目前[浏览器支持](https://caniuse.com/#feat=offscreencanvas)仅限于 Chrome 和 Firefox，而 Edge 团队尚未公开表示支持。你可以期望它能和 SharedArrayBuffers 以及 WebAssembly 很好地配对，允许 Worker 基于任何线程中存在的数据，使用任何语言编写的代码进行渲染，所有这些都不会造成糟糕的用户体验。这可能使网络上实现高端游戏的梦想成为现实，而且可以在 Web 应用程序中使用更复杂的图形。
+鉴于显著的性能提升，可以期待图表和绘图库会很快支持它。目前[浏览器支持](https://caniuse.com/#feat=offscreencanvas)仅限于 Chrome 和 Firefox，而 Edge 团队尚未公开表示支持。你可以期望它能和 SharedArrayBuffers 以及 WebAssembly 很好地配对，允许 Worker 基于任何线程中存在的数据，使用任何语言编写的代码进行渲染，所有这些都不会造成糟糕的用户体验。这可能使网络上实现高端游戏的梦想成为现实，而且可以在 Web 应用程序中使用更复杂的图形。
 
 新的绘图和布局 API 正努力被引入 CSS。目标是向 Web 开发人员公开 CSS 引擎的部分内容，以揭开 CSS 的一些“神奇”神秘面纱。 W3C 的 [CSS Houdini 工作组](https://github.com/w3c/css-houdini-drafts/wiki)由主要浏览器供应商的工程师组成，在过去两年中一直在努力发布[几个规范草案](https://drafts.css-houdini.org/)，这些规范目前正处于设计的最后阶段。
 
@@ -92,7 +92,7 @@ Npm [意识到社区的安全问题](https://blog.npmjs.org/post/172774747080/at
 
 ### 监控
 
-[Reporting API](https://developers.google.com/web/updates/2018/09/reportingapi) 是一种新标准，旨在通过在发生问题时发出警报，使开发人员更容易发现应用程序的问题。如果你在过去几年中使用过 Chrome DevTools 控制台，你可能已经看到了 **\[intervention\]** 警告消息，用来提示使用过时的 API 或执行可能不安全的操作。这些消息仅限于客户端，但现在你可以使用新的 [ReportingObserver](https://developers.google.com/web/updates/2018/07/reportingobserver) 将其报告给分析工具。
+[Reporting API](https://developers.google.com/web/updates/2018/09/reportingapi) 是一种新标准，旨在通过在发生问题时发出警报，使开发人员更容易发现应用程序的问题。如果你在过去几年中使用过 Chrome DevTools 控制台，你可能已经看到了 **\[intervention\]** 警告消息，用来提醒用户使用了过时的 API 或执行了可能不安全的操作。这些消息仅限于客户端，但现在你可以使用新的 [ReportingObserver](https://developers.google.com/web/updates/2018/07/reportingobserver) 将其报告给分析工具。
 
 有两种报告：
 
@@ -105,17 +105,17 @@ Npm [意识到社区的安全问题](https://blog.npmjs.org/post/172774747080/at
 
 虽然 JavaScript 得到了所有人的关注，但几个有趣的 CSS 新功能在今年登陆了浏览器。
 
-对于那些不知道的人，没有统一的类似于 ECMAScript 的 CSS3 规范。最后一个官方统一标准是 CSS2.1，而 CSS3 适用于在其之后发布的内容。与 CSS2 不同的是，CSS3 的每个部分都单独标准化为 “CSS 模块”。 MDN 对每个模块标准及其状态有一个[很好的概述](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS3)。
+很多人不知道，其实并没有统一的类似于 ECMAScript 的 CSS3 规范。最后一个官方统一标准是 CSS2.1，而 CSS3 适用于在其之后发布的内容。与 CSS2 不同的是，CSS3 的每个部分都单独标准化为 “CSS 模块”。 MDN 对每个模块标准及其状态有一个[很好的概述](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS3)。
 
 截至 2018 年，现在所有主流浏览器都完全支持一些较新的功能（这是 2018 年，IE 不是主流浏览器）。这包括 [flexbox](https://blog.logrocket.com/flexing-with-css-flexbox-b7940b329a8a)、[自定义属性](https://caniuse.com/#feat=css-variables)（变量）和[网格布局](https://blog.logrocket.com/the-simpletons-guide-to-css-grid-1767565b3cf7)。
 
-虽然[过去一直在讨论](https://tabatkins.github.io/specs/css-nesting/)如何向 CSS 添加对嵌套规则的支持（如 LESS 和 SASS ），但这些提案被搁置了。在 7 月，W3C 的 CSS 工作组[决定](https://github.com/w3c/csswg-drafts/issues/2701#issuecomment-402392212)再次审视该提案，但目前还不清楚它是否是一个优先事项。
+虽然[过去一直在讨论](https://tabatkins.github.io/specs/css-nesting/)如何向 CSS 添加对嵌套规则的支持（就像 LESS 和 SASS 那样），但这些提案被搁置了。在 7 月，W3C 的 CSS 工作组[决定](https://github.com/w3c/csswg-drafts/issues/2701#issuecomment-402392212)再次审视该提案，但目前还不清楚它是否是一个优先事项。
 
 ### Node.js
 
-Node 继续在遵循 ECMAScript 标准方面取得良好进展，截至 12 月，它们[支持了所有 ES2018 标准](https://node.green/)。但另一方面，他们采用 ECMAScript 模块系统的速度很慢，因此缺少一项与浏览器比肩的关键功能，浏览器已经支持 ES 模块一年多了。Node 实际上在 v11.4.0 版本标志后面添加了一项[实验支持](https://nodejs.org/api/esm.html)，但是这需要文件使用新的 .mjs 后缀，这使得它们开始[担忧](https://github.com/nodejs/modules/issues/57)：用户的接受速度可能会十分缓慢，以及其对 Node 的丰富包生态系统的影响。
+Node 继续在遵循 ECMAScript 标准方面取得良好进展，截至 12 月，它们[支持了所有 ES2018 标准](https://node.green/)。但另一方面，他们采用 ECMAScript 模块系统的速度很慢，因此缺少一项与浏览器比肩的关键功能，浏览器已经支持 ES 模块一年多了。Node 实际上在 v11.4.0 版本标志后面添加了一项[实验支持](https://nodejs.org/api/esm.html)，但是这需要文件使用新的 .mjs 后缀，这使得他们开始[担忧](https://github.com/nodejs/modules/issues/57)：用户的接受速度可能会十分缓慢，以及其对 Node 的丰富包生态系统的影响。
 
-如果你希望获得一个快速启动，并且不想使用实验性内置支持，可以尝试使用被 Lodash 的创建者称为 [esm](https://medium.com/web-on-the-edge/tomorrows-es-modules-today-c53d29ac448c) 的一个有趣的项目，它为 Node ES 模块支持提供了比官方解决方案更好的互操作性和性能。
+如果你希望快速开始，并且不想使用实验性内置支持，可以尝试使用被 Lodash 的创建者称为 [esm](https://medium.com/web-on-the-edge/tomorrows-es-modules-today-c53d29ac448c) 的一个有趣的项目，它为 Node ES 模块支持提供了比官方解决方案更好的互操作性和性能。
 
 ### 框架和工具
 
