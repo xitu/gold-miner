@@ -5,129 +5,129 @@
 > * 译者：
 > * 校对者：
 
-# Let's talk JS ⚡: documentation
+# 讨论 JS ⚡：文档
 
-If you were ever making any kind of open source project or any for that matter that's so big that it needs a proper documentation, you might know how important it is to make it properly. Also, documentation needs to be always up-to-date and should cover the whole public API. So, how to make **the perfect docs**? That's the question, this post aims to answer in JS style! ⚡  
+如果你曾做过任何类型的开源项目，或者任何这样的项目，因为它太大，需要一个适当的文档，那么你可能知道正确地制作它是多么的重要。此外，文档需要始终是最新的，并且应该涵盖整个公共 API。因此，如何制作**完美的文档呢？**本文的目标就是用 JS 的风格来解决这个问题！ ⚡  
 
 ![two person holding ceramic mugs](https://images.unsplash.com/photo-1521798552185-ee955b1b91fa?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ)
 
 Photo by [rawpixel](https://unsplash.com/@rawpixel?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
 
-## And then there were two...
+## 而且只有两种方法。。。
 
-There are only two ways of doing documentation for your project. These are **writing it yourself** and **generating it**. No black magic here, there's just no other way.
+只有两种方法可以为你的项目编写翁当。即：**自己写**或者**自动生成**。这里没有黑魔法，也别无他法
 
-So, let's investigate “writing docs yourself” option first. In, this scenario you can easily create beautiful docs site. Of course, it will require a bit more work for you to do, but if you think it's worth it, then go for it. 👍 Also, you need to consider that keeping your docs updated will also create an additional overhead. On the side of pros, customizability is the biggest player. Your docs will probably be written using **markdown** (most commonly **[GFM](https://guides.github.com/features/mastering-markdown)**) - it's just kind of standard. You can make it look beautiful, which is especially important if you're creating OSS. There are some libraries to aid you in this task and I'll dig into that a bit later.
+那么，我们先开始研究“自己写文档”。在这个场景中，你可以轻松地创建漂亮的文档站点。当然，这将需要你做更多的工作，但如果你任务这是值得的，那就去做吧。 👍 当然，你需要考虑保持你的文档的实时性，这会造成额外的时间花费。可定制化是最大的优势。你的文档可能会使用 **markdown** (最常见的 **[GFM](https://guides.github.com/features/mastering-markdown)**) 编写的 —— 它只是一种标准。你可以让它看起来很漂亮，如果你正在创建 OSS 的话，这一点很重要。有一些库可以帮助你完成这项任务，之后我们会深入了解它们。
 
-Next, we've got an option to generate docs from the code itself. Obviously, it isn't as straight-forward either. First, you have to use a tool like [**JSDoc**](http://usejsdoc.org) to write your documentation in form of **JavaDoc-like** comments. So, you're not going to just generate your docs from nothing. Now, **JSDoc** is quite great. I mean, just look at its official docs and see how many tags you can use. In addition, modern code editors will pick up your type definitions and other descriptions and will aid you later in the process of development with autocompletion and pop-up documentation functionality. You won't achieve the same effect when writing plain markdown. Naturally, you'll have to write things like **README** separately and generated docs will fell a bit procedural, but I don't think that this would be any bigger problem.
+接下来，我们可以选择从代码本身生成文档。很明显，这也不是那么直截了当的事情。首先，你必须使用像 [**JSDoc**](http://usejsdoc.org) 这样的工具，以 **JavaDoc-like** 注释的形式编写文档。所以，你不能凭空生成它们。现在 **JSDoc** 已经很优秀了。我的意思是，看看它的官方文档，看看你能使用多少标记。此外，现代代码编辑器将获取你的类型定义和其他描述，在开发过程中帮助你使用自动完成和弹出文档的功能。在你写简单的 markdown 时，是不会实现这种效果的。当然，你必须写注入 **README** 这样的文件，而生成的文档则会有些过程性，但我不认为这将会是更大的问题。
 
-## Choose the right tool...
+## 选择正确的工具。。。
 
-So, let's say that you've decided to create your documentation by hand (or should I say keyboard) and used markdown (or you've just got markdown from some other source). Now you'll most likely need a so-called **renderer** which will turn your MD (markdown) into a beautiful combination of HTML, CSS etc. Of course, that's only when you don't want to just publish MD to GitHub, GitHub's wiki etc. or to just have plain MD with an additional **reader** ([like this](https://typora.io)). Now, let me help you decide and list some of the best tools for that job (IMHO). 😉
+因此，假设你已经决定手动创建文档（或者应该说是用键盘），而且是使用 markdown（或者你只是从其他地方了解到了 markdown）。现在，你可能需要一个称为 **render**，它将把你的 MD（markdown）转换成 HTML、CSS 等漂亮的组合。这是在你不仅仅想把它发布到 GitHub 的 wiki 上时的方案。或者你想让 MD 附加一个额外的 **reader**（[就像这样](https://typora.io)）。现在，为了解决这个任务（IMHO），我将为你列出一些最好的工具 😉
 
 ### [Docsify](https://docsify.js.org)
 
 ![](https://areknawo.com/content/images/2018/12/Screenshot-from-2018-12-14-19-27-21.png)
 
-Docsify landing page
+Docsify 登录界面
 
-**Docsify** is being showcased as _A magical documentation site generator._ and well... it does its job quite nicely. What's important is that it renders your documentation **on the fly**, which means that you don't have to parse your MD to HTML - just put your files, where they should be and you're good to go! Also, Docsify has a great number of plugins and some themes to choose from. It's also well-documented (like a documentation generator should be). I might be a little biased as [my own project's documentation](https://areknawo.github.io/Rex) is using this tool. The only problems with it (at least for me) is that's its compatibility with IE10+ (as written on its page) is not really good (but they're working on it) and it **lacks support for relative links**.
+**Docsify** 是**一个神奇的文档站点生成器**。它很优秀。重要的是，它可以**动态地**呈现你的文档，这意味着你无需将 MD 解析为 HTML —— 只需要将你的文件放在正确的位置即可！除此以外，Docsify 有大量插件和一些主题可供选择。它也有很好的文档记录（就像文档生成器一样）。当[我自己的项目文档](https://areknawo.github.io/Rex)使用这个工具时，我可能会有些偏见。它唯一的问题是（至少对我来说）与 IE 10（写在它的页面上的说明）的兼容性不是很好（但是他们正在尝试进行兼容），而且它对**相关链接缺少必要的支持**。
 
 ### [Docute](https://docute.org)
 
 ![](https://areknawo.com/content/images/2018/12/Screenshot-from-2018-12-14-19-49-19.png)
 
-Docute v4 documentation
+Docute v4 文档
 
-**Docute** is a similar tool to Docsify with _a cute name_. The newest version (v4) feels a bit less documented than [the previous one](https://v3.docute.org) but it also simplifies things a little bit. Generated docs look minimalistic, simple and elegant. The theme can be customized using **CSS variables**. Docute doesn't have so robust plugin system as Docsify, but it has its own advantages. It's built on Vue.js, which result in slightly bigger bundle size than that of Docsify but also allows for a lot of extendability. For example, in your MD files, you can use some of the built-in Vue components or even your own ones.
+**Docute** 是一个类似于 Docsify 的工具，但它有一个**可爱的名字**。最新的版本（v4）相比[上一个版本](https://v3.docute.org)要少一些文档化，也进行了相关内容的简化。生成的文档看起来简约。简单和优雅。可以使用 **CSS 变量** 定制主题。Docute 不像 Docsify 那样拥有强大的插件系统，但它有着自己的优势。它建立在 Vue.js 之上，这导致包的大小相比于 Docsify 要大写，但允许用于很多的扩展性。比如，在你的 MD 文件总，你可以使用一些内置的 Vue 组件，甚至你自己的组件。
 
 ### [Slate](https://github.com/lord/slate)
 
 ![](https://areknawo.com/content/images/2018/12/Screenshot-from-2018-12-14-20-19-16.png)
 
-Slate documentation
+Slate 文档
 
-**Slate** is probably the leader when it comes to documenting your projects and its stars on GitHub (**~25,000**). Its docs feature clean and readable syntax with the _everything-on-one-page_ feature. It comes with pretty solid GH wiki documentation. It allows for [vast theming](https://github.com/lord/slate/wiki/Custom-Slate-Themes) but you'll have to do digging yourself as the documentation doesn't provide much info. Sadly, it isn't much extendable, but quite feature-packed. It seems like especially good option for those who need nice docs for **REST** API. Keep in mind that Slate generates static HTML files instead of doing this at runtime.
+**Slate** 可能是在 GitHub 上记录你的项目以及小星星数量的领头羊（**~25,000**）。它的文档清晰可读语法，拥有**everything-on-one-page** 功能。还具有非常健壮的 GH wiki 文档。它允许[深度主题化](https://github.com/lord/slate/wiki/Custom-Slate-Themes) ，当因为文档提供的信息不多，所以需要你自己开发。遗憾的是，它的可扩展性很差，但功能丰富，对于那些需要 **REST** API 文档的人来说，这似乎是一个特别好的选择。请记住，Slate 会生成静态 HTML 文件的过程不是在运行完成的。
 
 ![](https://areknawo.com/content/images/2018/12/Screenshot-from-2018-12-14-20-35-03.png)
 
-Docusaurus landing page
+Docusaurus 登录界面
 
 ### [Docusaurus](https://docusaurus.io)
 
-**Docusaurus** is a tool for _easy to maintain open source documentation websites_. It's built by Facebook using - you guessed it - React. It allows for easy translation and integration with React component and library as a whole for creating custom pages. It also features an ability to set up additional **blog** straightly integrated with your docs website or even only by itself! It can be well-integrated with [Algolia DocSearch](https://community.algolia.com/docsearch) for making your docs easy to navigate. Just like Slate, it generates static HTML files.
+**Docusaurus** 是一个**易于维护开源文档网站**的工具。它是由 Facebook 创建的，使用的是 —— 你可以猜到 —— React。它允许轻松地转换和集成 Reaction 组件和库作为一个整体来创建自定义页面。它还能设置额外的 **blog** 直接与你的文档网站进行集成，甚至只有自己！它可以与 [Algolia DocSearch](https://community.algolia.com/docsearch) 很好地集成，是你的文档易于导航。就像 Slate 一样，它会生成静态 HTML 文件。
 
 ![](https://areknawo.com/content/images/2018/12/Screenshot-from-2018-12-14-21-27-48.png)
 
-VuePress landing page
+VuePress 登录界面
 
 ### [VuePress](https://vuepress.vuejs.org)
 
-**VuePress** is a _Vue-powered static site generator_ made by the same guys who created Vue.js. It's the power behind Vue.js documentation. As a generator, it has really great documentation. It also features a robust plugin and theming system and, naturally, great Vue.js integration. VuePress is advertised as SEO-friendly because of the fact that it generates static HTML files as an output.
+**VuePress** 是一个 **Vue 驱动的静态站点生成器**，由 Vue.js 的创始人开发。这是 Vue.js 文档背后的坚实力量。作为一个生成器，它有非常友好的文档。它还具有一个强大的插件和主题系统，当然也继承了优秀的 Vue.js。VuePress 宣传时，有强调它对 SEO 很友好，因为它生成并输出静态 HTML 文件。
 
 ![](https://areknawo.com/content/images/2018/12/Screenshot-from-2018-12-14-21-39-29.png)
 
-GitBook landing page
+GitBook 登录界面
 
 ### [GitBook](https://www.gitbook.com)
 
-**GitBook** is a service for writing MD documentations & texts. It gives you AiO experience with an online editor and free **.gitbook.io** domain. The online editor is great - no doubt about that, but there aren't many customizability options when it comes to layout. The editor also has its legacy desktop version. But, unless you're doing an open source project, you'll most likely have to pay for it.
+**GitBook** 是用于编写 MD 文档和文本的服务。它为你提供了一个在线编辑器和免费 **.gitbook.io** 域名体验。在显编辑器很棒 —— 这毫无疑问，但在设计到布局的时候，没有太多的定制化选择。该编辑器还有它的遗留桌面版本。除非你正在做一个开源项目，否则你必须为此付出一些代价。
 
-## ...and generator!
+## 生成器！
 
-Now that we've covered the best of the best documentation-making tools, let's get to the generators, shall we? Generators mainly allow you to create documentation from your annotated code.
+既然我们已经介绍了最好的文档制作工具，那我们接下来开始使用生成器，好不？生成器主要允许你从带注释的代码中创建文档。
 
 ![](https://areknawo.com/content/images/2018/12/Screenshot-from-2018-12-14-21-54-31.png)
 
-JSDoc landing page
+JSDoc 登录页面
 
 ### [JSDoc](http://usejsdoc.org)
 
-**JSDoc** is probably the most obvious and well-known docs generator for JS. It has support for many, many tags and is welcomed in almost all editors and IDEs with autocompletion support. Its output can be customized in many various ways using themes. Believe me, or not - there's plethora of them. What's even more interesting that with this and many other generators, you can output **markdown** for later use with any of documentation tools listed above.
+**JSDoc** 可能是 JS 最明显和最有名的文档生成器。它支持许多许多的标签，非常受欢迎，几乎所有的编辑器和 IDE 的自动完成都支持。它的输出可以通过多种方式使用主题进行定制。信不信由你 —— 它们太多了。更有意思的是，使用这个和其他生成器，你可以输出 **markdown**，以便之后与上面所列的任何文档工具一起使用。
 
 ![](https://areknawo.com/content/images/2018/12/Screenshot-from-2018-12-14-22-01-26.png)
 
-TypeDoc landing page
+TypeDoc 登录页面
 
 ### [TypeDoc](https://typedoc.org)
 
-**TypeDoc** can be considered as JSDoc for [TypeScript](https://www.typescriptlang.org). It's worth including in this list mainly as one of not-so-many (or any) documentation generators that support TS types. By utilizing this tool, you can generate your documentation based on TypeScript type system including structures like interfaces and enums. Sadly, it supports only a small subset of JSDoc tags and doesn't have as big community as JSDoc does. Thus, it doesn't have many themes either and its documentation is lacking. The best way IMO to use this tool effectively is to use the **markdown** theme plugin and use one of the documentation tools with that.
+**TypeDoc** 可视为 [TypeScript](https://www.typescriptlang.org) 的文档 JSdoc。它值得在此列表中被包含在内，主要作为支持 TS 类型的不那么多（或者任何）文档生成器之一。通过使用该工具，你可以基于 TypeScript 类型系统来生成文档，包括接口和枚举等结构。遗憾的是，它只支持一小部分 JSDoc 标记，没有 JSDoc 这样的大社区。因此，它没有太多的主题，文档匮乏。IMO 有效使用该工具的最佳方法是使用 **markdown** 主题插件，并使用其中一个文档工具。 
 
 ![](https://areknawo.com/content/images/2018/12/Screenshot-from-2018-12-15-09-44-43.png)
 
-ESDoc landing page
+ESDoc 登录界面
 
 ### [ESDoc](https://esdoc.org)
 
-**ESDoc** is similar in its functionality to JSDoc. It supports a set of tags similar to the one of JSDoc. It has optional support for documentation linting and coverage. It has really vast plugin collection. Also, there are some proof-of-concept plugins for likes of TypeScript, Flow and markdown output.
+**ESDoc** 在功能上虞 JSDoc 相似。它支持一组类似 JSDoc 的标记。它对文档 linting 和覆盖提供了可选的支持。它有大量的插件集合。此外，还有一些针对 TypeScript、Flow 和 markdown 输出的概念验证插件。
 
 ![](https://areknawo.com/content/images/2018/12/Screenshot-from-2018-12-15-09-54-29.png)
 
 ### [Documentation.js](https://documentation.js.org)
 
-**Documentation.js** is modern documentation generator, which can output HTML, JSON or markdown for great flexibility. It has support for features like ES2017, JSX, Vue templates, and Flow types. It is also capable of **type inference** and naturally - JSDoc tags. It has deep theming options based on underscore templates. Sadly, (for me) it doesn't support TypeScript. 😕
+**Documentation.js** 是现代文档生成器，它可以输出 HTML、JSON 或 markdown，具有极大的灵活性。它支持 ES 2017、JSX、Vue 模版和 Flow 类型。他还能进行**类型推断**以及原生 —— JSDoc 标记。它有基于下划线模版的胜读主题选项。遗憾的是，（对我来说）它不支持 TypScript。😕
 
 ![](https://areknawo.com/content/images/2018/12/Screenshot-from-2018-12-15-10-14-11.png)
 
-DocumentJS landing page
+DocumentJS 登录界面
 
 ### [DocumentJS](https://documentjs.com)
 
-**DocumentJS** is a bit less popular than its competitors above, solution for documentation generation. It supports most of JSDoc and Google Closure Compiler tags with the additional functionality of adding yours. By default, it can only generate themeable HTML but it has vast extending capabilities.
+**DocumentJS** 不像上面的竞争对手那么受欢迎，这是文档生成的解决方案。它支持大多数 JSDoc 和 Google 闭包编译器标记，并添加你的附加功能。它默认只生成可主题化的 HTML，但具有很强的扩展性。
 
-## Something different...
+## 不一样的内容。。。
 
-So, above I've listed some of standard documentation tools and generators. Naturally, they can be used together to create nice docs. But I'd like to present you with yet one more tool. Have you ever heard about **literate programming**? In general, it means that you'll be documenting your code by writing comments **with markdown syntax**. It literally turns your code into poetry.
+因此，上面我列出了一些标准文档工具和生成器。当然，它们可以一起用来创建好的文档。但是我想再给你推荐一个工具。你听说过 **literate programming** 么？一般来说，这意味着你将通过**使用 markdown 语法**编写注释来记录代码。它真的把你的代码变成了诗。
 
 ![](https://areknawo.com/content/images/2018/12/Screenshot-from-2018-12-15-10-33-58.png)
 
-Docco landing page
+Docco 登录界面
 
-Then, you use a tool like **[Docco](http://ashkenas.com/docco)** to turn your markdown-commented code into markdown with code snippets. I can say that this is something new to try. 😁
+然后，你使用像 **[Docco](http://ashkenas.com/docco)** 这样的工具将你的 markdown 注释代码转换为带有代码片段的 markdown。我可以说这是新的尝试。😁
 
-## There you have it 😉
+## 你都知道了 😉
 
-I hope that this article has at least made your life a little easier when it comes to creating docs. The list above consist of only the best and (for now) mostly well-maintained project. If you like this article, consider sharing it, following me on Twitter or subscribing to the mailing list below for more nice content. 🦄
+我希望这篇文章至少能让你在创建文档时轻松一点。上面个的清单只包括最好的（目前为止）、大部分维护良好的项目。如果你喜欢这篇文章，请考虑分享它，你可以在 Twitter 上关注我，或者订阅下面的邮件列表来获取更多优秀的文章。🦄
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
