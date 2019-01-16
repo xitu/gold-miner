@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/asynchronous-tasks-with-flask-and-redis-queue.md](https://github.com/xitu/gold-miner/blob/master/TODO1/asynchronous-tasks-with-flask-and-redis-queue.md)
 > * 译者：[刘嘉一](https://github.com/lcx-seima)
-> * 校对者：
+> * 校对者：[kasheemlew](https://github.com/kasheemlew)
 
 # 在 Flask 中使用 Redis Queue 实现异步任务
 
@@ -13,7 +13,7 @@
 
 可能你的 web 应用会要求用户在注册时上传头像（图片可能需要被裁剪）和进行邮箱验证。如果你直接在请求处理函数中去加工图片和发送验证邮件，那么终端用户不得不等待这些执行的完成。相反，你更希望把这些任务放到任务队列中，并由一个 worker 线程来处理，这种情况下应用就能立刻响应客户端的请求了。由此一来，终端用户可以在客户端继续其他的操作，你的应用也能被释放去响应其他用户的请求。
 
-这篇[文章](http://python-rq.org/)讲了如何在 Flask 应用中配置 Redis Queue（RQ）来处理长执行任务。
+这篇文章讲了如何在 Flask 应用中配置 [Redis Queue](http://python-rq.org/)（RQ）来处理长执行任务。
 
 > 当然 Celery 也是一个不错的解决方案。不过相比于 Redis Queue，它会稍显复杂并引入更多的依赖项。
 
@@ -38,7 +38,7 @@
 2.  使用 Docker 镜像化包含 Flask 和 Redis 的应用。
 3.  使用独立的 worker 线程在后台处理长执行任务。
 4.  配置[RQ Dashboard](https://github.com/eoranged/rq-dashboard)用于监控任务队列、作业和 worker 线程。
-5.  使用 Docker 扩容 worker 线程的数量。
+5.  使用 Docker 扩展 worker 线程的数量。
 
 ## 工作流程
 
@@ -95,7 +95,7 @@ $('.btn').on('click', function() {
 });
 ```
 
-在服务端侧，**project/server/main/views.py** 会负责处理客户端发来的请求：
+在服务端，**project/server/main/views.py** 会负责处理客户端发来的请求：
 
 ```
 @main_blueprint.route('/tasks', methods=['POST'])
@@ -416,7 +416,7 @@ $ docker-compose up -d --build
 
 ![rq dashboard](https://testdriven.io/static/images/blog/flask-rq/rq_dashboard.png)
 
-可以尝试结束一些任务来试试控制台功能：
+可以尝试启动一些任务来试试控制台功能：
 
 ![rq dashboard](https://testdriven.io/static/images/blog/flask-rq/rq_dashboard_in_action.png)
 
@@ -428,7 +428,7 @@ $ docker-compose up -d --build --scale worker=3
 
 ## 结语
 
-这是一篇在 Flask 中配置 Redis Queue 用于处理长执行任务的基础指南。你可以利用该队列来执行任何可能阻塞或拖慢用户体验的代码。
+这是一篇在 Flask 中配置 Redis Queue 用于处理长执行任务的基础指南。你可以利用该队列来执行任何可能阻塞或拖慢用户体验的进程。
 
 还想继续挑战自己？
 
