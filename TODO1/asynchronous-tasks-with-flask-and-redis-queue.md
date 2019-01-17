@@ -20,15 +20,15 @@
 ## 目录
 
 - [在 Flask 中使用 Redis Queue 实现异步任务](#asynchronous-tasks-with-flask-and-redis-queue)
-  - [目录](#contents)
-  - [本文目标](#objectives)
-  - [工作流程](#workflow)
-  - [项目配置](#project-setup)
-  - [任务触发](#trigger-a-task)
+  - [目录](#目录)
+  - [本文目标](#本文目标)
+  - [工作流程](#工作流程)
+  - [项目配置](#项目配置)
+  - [任务触发](#任务触发)
   - [Redis Queue](#redis-queue)
-  - [任务状态](#task-status)
-  - [任务控制台](#dashboard)
-  - [结语](#conclusion)
+  - [任务状态](#任务状态)
+  - [任务控制台](#任务控制台)
+  - [结语](#结语)
 
 ## 本文目标
 
@@ -37,7 +37,7 @@
 1.  在 Flask 应用中集成 Redis Queue 并创建相应任务。
 2.  使用 Docker 镜像化包含 Flask 和 Redis 的应用。
 3.  使用独立的 worker 线程在后台处理长执行任务。
-4.  配置[RQ Dashboard](https://github.com/eoranged/rq-dashboard)用于监控任务队列、作业和 worker 线程。
+4.  配置 [RQ Dashboard](https://github.com/eoranged/rq-dashboard) 用于监控任务队列、作业和 worker 线程。
 5.  使用 Docker 扩展 worker 线程的数量。
 
 ## 工作流程
@@ -73,11 +73,11 @@ $ docker-compose up -d --build
 
 使用你的浏览器访问 [http://localhost:5004](http://localhost:5004)，你应该能看到如下页面：
 
-![flask，redis queue，docker](https://testdriven.io/static/images/blog/flask-rq/flask_redis_queue.png)
+![flask、redis queue 和 docker](https://testdriven.io/static/images/blog/flask-rq/flask_redis_queue.png)
 
 ## 任务触发
 
-当 **project/client/static/main.js** 里的监听器监听到按键的点击后，它会获取按键对应的任务类型 —— `1`、`2` 或 `3`，并把得到的任务类型当作参数通过 AJAX POST 请求发到服务端。
+当 *project/client/static/main.js* 里的监听器监听到按键的点击后，它会获取按键对应的任务类型 — `1`、`2` 或 `3`，并把得到的任务类型当作参数通过 AJAX POST 请求发到服务端。
 
 ```
 $('.btn').on('click', function() {
@@ -95,7 +95,7 @@ $('.btn').on('click', function() {
 });
 ```
 
-在服务端，**project/server/main/views.py** 会负责处理客户端发来的请求：
+在服务端，*project/server/main/views.py* 会负责处理客户端发来的请求：
 
 ```
 @main_blueprint.route('/tasks', methods=['POST'])
@@ -108,7 +108,7 @@ def run_task():
 
 ## Redis Queue
 
-首先我们需要在 **docker-compose.yml** 中添加配置以启动两个新的进程 —— Redis 和 worker：
+首先我们需要在 *docker-compose.yml* 中添加配置以启动两个新的进程 — Redis 和 worker：
 
 ```
 version: '3.7'
@@ -195,7 +195,7 @@ class BaseConfig(object):
     QUEUES = ['default']
 ```
 
-细心的读者可能发现了，我们在引用 `redis` 服务（在 **docker-compose.yml** 中引入的）的地址时，使用了 `REDIS_URL` 而非 `localhost` 或是某个特定 IP。在 Docker 中如何通过 hostname 连接其他服务，可以在 Docker Compose [官方文档](https://docs.docker.com/compose/networking/) 中找到答案。
+细心的读者可能发现了，我们在引用 `redis` 服务（在 *docker-compose.yml* 中引入的）的地址时，使用了 `REDIS_URL` 而非 `localhost` 或是某个特定 IP。在 Docker 中如何通过 hostname 连接其他服务，可以在 Docker Compose [官方文档](https://docs.docker.com/compose/networking/) 中找到答案。
 
 最终，我们便可以使用 Redis Queue 的 [worker](http://python-rq.org/docs/workers/) 来处理放在队首的任务了。
 
@@ -211,7 +211,7 @@ def run_worker():
 
 在这里，我们通过自定义的 CLI 命令来启动 worker。
 
-需要注意的是，通过装饰器 `@cli.command()` 启动的代码可以访问到应用的上下文，以及访问到在 **project/server/config.py** 中定义的配置变量。
+需要注意的是，通过装饰器 `@cli.command()` 启动的代码可以访问到应用的上下文，以及访问到在 *project/server/config.py* 中定义的配置变量。
 
 同样需要引入正确的库：
 
@@ -362,7 +362,7 @@ EXPOSE 9181
 CMD ["rq-dashboard"]
 ```
 
-接着把上面的模块作为 service 添加到 **docker-compose.yml** 中：
+接着把上面的模块作为 service 添加到 *docker-compose.yml* 中：
 
 ```
 version: '3.7'
@@ -439,6 +439,7 @@ $ docker-compose up -d --build --scale worker=3
 可以在 [此仓库](https://github.com/mjhea0/flask-redis-queue) 找到本文代码。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
 
 ---
 
