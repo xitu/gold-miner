@@ -7,7 +7,7 @@
 
 # 提高营销效率的工程（第一部分）
 
-作者 —— [Subir Parulekar](https://www.linkedin.com/in/subir-parulekar-19ab403/)、[Gopal Krishnan](https://www.linkedin.com/in/gopal-krishnan-9057a7/)
+作者 — [Subir Parulekar](https://www.linkedin.com/in/subir-parulekar-19ab403/)、[Gopal Krishnan](https://www.linkedin.com/in/gopal-krishnan-9057a7/)
 
 **“让大家对我们的内容感兴趣，这样他们就会注册并进行观看”**
 
