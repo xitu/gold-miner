@@ -3,25 +3,25 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lets-talk-js-documentation.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lets-talk-js-documentation.md)
 > * 译者：[Starrier](https://github.com/Starriers)
-> * 校对者：[wznonstop](https://github.com/wznonstop)，[SHERlocked93](https://github.com/SHERlocked93)
+> * 校对者：[wznonstop](https://github.com/wznonstop), [SHERlocked93](https://github.com/SHERlocked93)
 
 # 讨论 JS ⚡：文档
 
-如果你曾经参与过开源项目，或大到需要文档的项目，那么你应该知道编写一个合格的文档是多么的重要。 此外，文档需要始终保持最新，并且应包含所有公共 API。因此，如何制作**完美的文档呢？**本文的目标就是用 JS 的风格来解决这个问题！ ⚡  
+如果你曾经参与过开源项目，或大到需要文档的项目，那么你应该知道编写一个合格的文档是多么的重要。此外，文档需要始终保持最新，并且应包含所有公共 API。因此，如何制作**完美的文档呢**？本文的目标就是用 JS 的风格来解决这个问题！⚡  
 
 ![two person holding ceramic mugs](https://images.unsplash.com/photo-1521798552185-ee955b1b91fa?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ)
 
 Photo by [rawpixel](https://unsplash.com/@rawpixel?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
 
-## 而且只有两种方法。。。
+## 而且只有两种方法...
 
 为你的项目编写文档的方法只有两种。即：**自己写**或者**自动生成**。这里没有黑魔法，也别无他法.
 
-那么，我们先开始研究“自己写文档”。在这个场景中，你可以轻松地创建漂亮的文档站点。当然，这将需要你做更多的工作，但如果你认为这是值得的，那就去做吧。 👍 当然，你需要考虑保持你的文档的实时性，这也会造成额外的时间花费。可定制化是最大的优势。你的文档可能会使用 **markdown** (最常见的 **[GFM](https://guides.github.com/features/mastering-markdown)**) 编写的 —— 它只是一种标准。你可以让它看起来很漂亮，如果你正在创建 OSS 的话，这一点很重要。有一些库可以帮助你完成这项任务，之后我们将会深入了解它们。
+那么，我们先开始研究“自己写文档”。在这个场景中，你可以轻松地创建漂亮的文档站点。当然，这将需要你做更多的工作，但如果你认为这是值得的，那就去做吧。👍当然，你需要考虑保持你的文档的实时性，这也会造成额外的时间花费。可定制化是最大的优势。你的文档可能会使用 **markdown**（最常见的 [**GFM**](https://guides.github.com/features/mastering-markdown)）编写的 — 它只是一种标准。你可以让它看起来很漂亮，如果你正在创建 OSS 的话，这一点很重要。有一些库可以帮助你完成这项任务，之后我们将会深入了解它们。
 
 接下来，我们可以选择从代码本身生成文档。很明显，这也不是那么直截了当的事情。首先，你必须使用像 [**JSDoc**](http://usejsdoc.org) 这样的工具，以 **JavaDoc-like** 注释的形式编写文档。所以，并不是说可以直接就生成文档。现在 **JSDoc** 已经很优秀了。我的意思是，看看它的官方文档，看看你能使用多少标签。此外，现代代码编辑器将获取你的类型定义和其他描述，在开发过程中帮助你使用自动完成和弹出文档的功能。在你写简单的 markdown 时，是不会实现这种效果的。当然，你需要单独写诸如 **README** 这样的文件，而生成的文档则会有些程序化，但我认为这不是什么大问题。
 
-## 选择正确的工具。。。
+## 选择正确的工具...
 
 因此，假设你已经决定手动创建文档（或者应该说是用键盘），而且是使用 markdown（或者你只是从其他地方了解到了 markdown）。现在，你可能需要一个称为 **renderer** 的工具，它将把你的 MD（markdown）转换成 HTML、CSS 等漂亮的组合。这是在你不仅仅想把它发布到 GitHub、GitHub 的 wiki 上时的方案。或者你想让 MD 附加一个额外的 **reader**（[就像这样](https://typora.io)）。现在，为了解决这个任务（IMHO），我将为你列出一些最好的工具。😉
 
@@ -31,7 +31,7 @@ Photo by [rawpixel](https://unsplash.com/@rawpixel?utm_source=ghost&utm_medium=r
 
 Docsify 登录界面
 
-**Docsify** 是**一个神奇的文档站点生成器**。它很好地完成了文档生成的任务。重要的是，它可以**动态地**呈现你的文档，这意味着你无需将 MD 解析为 HTML —— 只需要将你的文件放在正确的位置即可！除此以外，Docsify 有大量插件和一些主题可供选择。它也有很好的文档记录（就像文档生成器一样）。当[我自己项目的文档](https://areknawo.github.io/Rex)使用这个工具时，我可能会有些偏见。它唯一的问题是（至少对我来说）与 IE 10（正如其在主页上所说）的兼容性不是很好（但是他们正在尝试进行兼容），而且它对**相关链接缺少必要的支持**。
+**Docsify** 是**一个神奇的文档站点生成器**。它很好地完成了文档生成的任务。重要的是，它可以**动态地**呈现你的文档，这意味着你无需将 MD 解析为 HTML — 只需要将你的文件放在正确的位置即可！除此以外，Docsify 有大量插件和一些主题可供选择。它也有很好的文档记录（就像文档生成器一样）。当[我自己项目的文档](https://areknawo.github.io/Rex)使用这个工具时，我可能会有些偏见。它唯一的问题是（至少对我来说）与 IE 10（正如其在主页上所说）的兼容性不是很好（但是他们正在尝试进行兼容），而且它对**相关链接缺少必要的支持**。
 
 ### [Docute](https://docute.org)
 
@@ -55,7 +55,7 @@ Docusaurus 登录界面
 
 ### [Docusaurus](https://docusaurus.io)
 
-**Docusaurus** 是一个**易于维护开源文档生成网站**的工具。它是由 Facebook 创建的，使用的是 —— 没错，就是它 —— React。它可以将 React 组件和库轻松地转换或集成为一个整体来创建自定义页面。无需其他工具，它还可以建立额外的 **blog** 直接整合到你的文档网站，甚至无需其他工具！它可以与 [Algolia DocSearch](https://community.algolia.com/docsearch) 很好地集成，使你的文档易于导航。就像 Slate 一样，它会生成静态 HTML 文件。
+**Docusaurus** 是一个**易于维护开源文档生成网站**的工具。它是由 Facebook 创建的，使用的是 — 没错，就是它 — React。它可以将 React 组件和库轻松地转换或集成为一个整体来创建自定义页面。无需其他工具，它还可以建立额外的 **blog** 直接整合到你的文档网站，甚至无需其他工具！它可以与 [Algolia DocSearch](https://community.algolia.com/docsearch) 很好地集成，使你的文档易于导航。就像 Slate 一样，它会生成静态 HTML 文件。
 
 ![](https://areknawo.com/content/images/2018/12/Screenshot-from-2018-12-14-21-27-48.png)
 
@@ -105,7 +105,7 @@ ESDoc 登录界面
 
 ### [Documentation.js](https://documentation.js.org)
 
-**Documentation.js** 是现代文档生成器，它可以输出 HTML、JSON 或 markdown，具有极大的灵活性。它支持 ES 2017、JSX、Vue 模版和 Flow 类型。他还能进行**类型推断**以及原生 —— JSDoc 标记。它有基于underscore模版的深度主题选项。遗憾的是，（对我来说）它不支持 TypScript。😕
+**Documentation.js** 是现代文档生成器，它可以输出 HTML、JSON 或 markdown，具有极大的灵活性。它支持 ES 2017、JSX、Vue 模版和 Flow 类型。他还能进行**类型推断**以及原生 — JSDoc 标记。它有基于 underscore 模版的深度主题选项。遗憾的是，（对我来说）它不支持 TypScript。😕
 
 ![](https://areknawo.com/content/images/2018/12/Screenshot-from-2018-12-15-10-14-11.png)
 
