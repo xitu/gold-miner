@@ -1,21 +1,21 @@
-> * 原文地址：[The State of Web Browsers: Late 2018 edition](https://ferdychristant。com/the-state-of-web-browsers-f5a83a41c1cb)
-> * 原文作者：[Ferdy Christant](https://ferdychristant。com/@ferdychristant?source=post_header_lockup)
-> * 译文出自：[掘金翻译计划](https://github。com/xitu/gold-miner)
-> * 本文永久链接：[https://github。com/xitu/gold-miner/blob/master/TODO1/the-state-of-web-browsers。md](https://github。com/xitu/gold-miner/blob/master/TODO1/the-state-of-web-browsers。md)
-> * 译者：
-> * 校对者：
+> * 原文地址：[The State of Web Browsers: Late 2018 edition](https://ferdychristant.com/the-state-of-web-browsers-f5a83a41c1cb)
+> * 原文作者：[Ferdy Christant](https://ferdychristant.com/@ferdychristant?source=post_header_lockup)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-state-of-web-browsers.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-state-of-web-browsers.md)
+> * 译者：[HumesFork](https://github.com/HumesFork)
+> * 校对者：[connie610](https://github.com/connie610), [Wangalan30](https://github.com/Wangalan30)
 
 # 浏览器之争:最新进展
 
-![](https://cdn-images-1。medium。com/max/800/1*ysSQaD2xD85QT2Zz2kFxZw。png)
+![](https://cdn-images-1.medium.com/max/800/1*ysSQaD2xD85QT2Zz2kFxZw.png)
 
-**截至2018年12月6日:** 微软宣布放弃自家引擎,证实此前的流言为真。 浏览器大战中只剩下最后一个巨人——Firefox(原因见下文)如果你想支持火狐, [安装 Firefox](https://www。mozilla。org/en-US/firefox/)。该安装包同时支持移动端。这里是指导 [如何从Chrome转移到Firefox](https://www。mozilla。org/en-US/firefox/switch/)。
+**截至2018年12月6日**：微软宣布放弃自家引擎，证实此前的流言为真。浏览器大战中只剩下最后一个巨人 —— Firefox（原因见下文）如果你想支持火狐，[安装 Firefox](https://www.mozilla.org/en-US/firefox/)。该安装包同时支持移动端。这里是指导 [如何从 Chrome 转移到 Firefox](https://www。mozilla。org/en-US/firefox/switch/)。
 
-**截至2018年12月8日:** 下文可能会让人感到沮丧。但同时我也发布了一系列后续文章,包含2019年振奋人心的新技术[点击这里](https://ferdychristant。com/the-state-of-web-browsers-88224d55b4e6)。
+**截至2018年12月8日**：下文可能会让人感到沮丧。但同时我也发布了一系列后续文章，包含 2019 年振奋人心的新技术[点击这里](https://ferdychristant.com/the-state-of-web-browsers-88224d55b4e6)。
 
 ### 序言
 
-_警告: 这篇文章包含了几个预测_。
+**警告：这篇文章包含了几个预测。**
 
 昨天, [Windows Central](https://www。windowscentral。com/microsoft-building-chromium-powered-web-browser-windows-10)发布了一则流言: Microsoft打算放弃自家Edge浏览器, 或更确切的说,准备利用 Chromium 引擎开发一款新的浏览器。 这则消息很快被主流媒体传开,据我所知微软并未否认,因此我认为这是真的。 借此机会,我想分享一下我对该问题的想法。
 
