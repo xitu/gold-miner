@@ -28,7 +28,7 @@
 
 高度动画 _Bar_ 。
 
-使用`BarTween`实现动画，tween 可以扩展处理更复杂的情况。 在第二部分中，我将通过将设计概括为具有更多属性的条形以及包含各种配置中的多个条形的条形图来实现该声明。
+使用 `BarTween` 实现动画，tween 可以扩展处理更复杂的情况。 在第二部分中，我将通过将设计概括为具有更多属性的条形以及包含各种配置中的多个条形的条形图来实现该声明。
 
 * * *
 
@@ -72,15 +72,15 @@ class BarTween extends Tween<Bar> {
 
 条形图动画显示高度和颜色.
 
-为了在应用程序中使用彩色条，我们将更新 `BarChartPainter` 从 “Bar” 获得条形颜色。 在 `main.dart` 中，我们需要创建一个空的 “Bar” 和一个随机的 “Bar ”。 我们将为前者使用完全透明的颜色，为后者使用随机颜色。 颜色将从一个简单的 `ColorPalette` 中获取，我们会在它自己的文件中快速引入。 我们将在 `Bar` 中创建 `Bar.empty` 和 `Bar.random` 工厂构造函数 ([code listing](https://gist.github.com/mravn-google/90bda9c82df356338b3fe3f733066f6c), [diff](https://github.com/mravn/charts/commit/91c800e7e69f2208afb20535aeeacce5a83b8f01)).
+为了在应用程序中使用彩色条，我们将更新 `BarChartPainter` 从 `Bar` 获得条形颜色。 在 `main.dart` 中，我们需要创建一个空的 `Bar` 和一个随机的 `Bar`。 我们将为前者使用完全透明的颜色，为后者使用随机颜色。 颜色将从一个简单的 `ColorPalette` 中获取，我们会在它自己的文件中快速引入。 我们将在 `Bar` 中创建 `Bar.empty` 和 `Bar.random` 工厂构造函数 ([code listing](https://gist.github.com/mravn-google/90bda9c82df356338b3fe3f733066f6c), [diff](https://github.com/mravn/charts/commit/91c800e7e69f2208afb20535aeeacce5a83b8f01)).
 
 * * *
 
-Bar charts involve multiple bars in various configurations. To introduce complexity slowly, our first implementation will be suitable for bar charts displaying numeric quantities for a fixed set of categories. Examples include visitors per weekday or sales per quarter. For such charts, changing the data set to another week or another year does not change the categories used, only the bar shown for each category.
+条形图涉及各种配置的多种形式。 为了缓慢地引入复杂性，我们的第一个实现将适用于显示固定类别的条形图。 示例包括每个工作日的访问者或每季度的销售额。 对于此类图表，将数据集更改为另一周或另一年不会更改使用的类别，只会更改每个类别显示的栏。
 
-We’ll update `main.dart` first this time, replacing `Bar` by `BarChart` and `BarTween` by `BarChartTween` ([code listing](https://gist.github.com/mravn-google/029930ddb613b00b6f5df7179d76fdc4), [diff](https://github.com/mravn/charts/commit/17cb4074be0f8267121ae36d865d9a13393e9e39#diff-fe53fad46868a294b309fc85ed138997)).
+我们首先更新 `main.dart`，用 `BarChart` 替换 `Bar`，用 `BarChartTween` 替换 `BarTween` ([code listing](https://gist.github.com/mravn-google/029930ddb613b00b6f5df7179d76fdc4), [diff](https://github.com/mravn/charts/commit/17cb4074be0f8267121ae36d865d9a13393e9e39#diff-fe53fad46868a294b309fc85ed138997)).
 
-To make the Dart analyzer happy, we create the `BarChart` class in `bar.dart` and implement it using a fixed-length list of `Bar` instances. We’ll use five bars, one for each day of the workweek. We then need to move the responsibility for creating empty and random instances from `Bar` to `BarChart`. With fixed categories, an empty bar chart is reasonably taken to be a collection of empty bars. On the other hand, letting a random bar chart be a collection of random bars would make our charts rather kaleidoscopic. Instead, we’ll choose a random color for the chart and let each bar, still of random height, inherit that.
+为了更好体现 Dart 语言优势，我们在 `bar.dart` 中创建 `BarChart` 类，并使用固定长度的 `Bar` 实例列表来实现它。 我们将使用五个条形图，表示一周中的工作日。 然后，我们需要将创建空条和随机条的函数从 `Bar` 转移到 `BarChart`。 对于固定类别，空条形图合理地被视为空条的集合。 另一方面，让随机条形图成为随机条形图的集合会使我们的图表变得万花筒般。 相反，我们将为图表选择一种随机颜色，让每个仍然具有随机高度的条形继承该图形。
 
 ```
 import 'dart:math';
@@ -186,35 +186,34 @@ class BarChartPainter extends CustomPainter {
 }
 ```
 
-The `BarChartPainter` distributes available width evenly among the bars and makes each bar take up 75% of the width available to it.
+`BarChartPainter` 在条形图中均匀分布可用宽度，使每个条形占据可用宽度的75％。
 
 ![](https://cdn-images-1.medium.com/max/800/1*aiUQNf70oukpvNf6sVw3GA.gif)
 
-Fixed-category bar chart.
+固定类别条形图。
 
-Notice how `BarChart.lerp` is implemented in terms of `Bar.lerp`, regenerating the list structure on the fly. Fixed-category bar charts are composite values for which straightforward component-wise lerping makes sense, precisely as for single bars with multiple properties ([diff](https://github.com/mravn/charts/commit/17cb4074be0f8267121ae36d865d9a13393e9e39)).
+注意 `BarChart.lerp` 是如何用 `Bar.lerp` 实现的，即时重新生成列表结构。 固定类别条形图是复合值，对于这些复合值，直接使用 `lerp` 进行有意义的组合，正如具有多个属性的单个条形图一样 ([diff](https://github.com/mravn/charts/commit/17cb4074be0f8267121ae36d865d9a13393e9e39))。
 
 * * *
 
 There is a pattern at play here. When a Dart class’s constructor takes multiple parameters, you can often lerp each parameter separately and the combination will look good, too. And you can nest this pattern arbitrarily: dashboards would be lerped by lerping their constituent bar charts, which are lerped by lerping their bars, which are lerped by lerping their height and color. And colors are lerped by lerping their RGB and alpha components. At the leaves of this recursion, we lerp numbers.
 
-The mathematically inclined might express this by saying that lerping commutes with structure in the sense that for composite values `_C_(_x_, _y_)` we have
-
+在数学上倾向于用`_C_(_x_, _y_)`来表达复合的线性插值结构，而编程实践中我们用
 `_lerp_(_C_(_x_1, _y_1), _C_(_x_2, _y_2), _t_) == _C_(_lerp_(_x_1, _x_2, _t_), _lerp_(_y_1, _y_2, _t_))`
 
-As we have seen, this generalizes nicely from two components (height and color of a bar) to arbitrarily many components (the _n_ bars of a fixed-category bar chart).
+正如我们所看到的，这很好地概括了两个组件（条形图的高度和颜色）到任意多个组件（固定类别 _n_ 条条形图）。
+ 
+然而，有一些情况会让这张漂亮的照片损坏。 我们希望在两个不以完全相同的方式组成的值之间进行动画处理。 举个简单的例子，考虑动画图表处理从包含工作日，到包括周末的情况。
 
-There are, however, situations in which this pretty picture breaks down. We may wish to animate between two values that are not composed in quite the same way. As a simple example, consider animating from a bar chart with data for the five days of the workweek to a chart including also the weekend.
+您可能很容易想出这个问题的几种不同的临时解决方案，然后可能会要求您的UX设计师在它们之间进行选择。 这是一种有效的方法，但我认为在讨论过程中要记住这些不同解决方案共有的基本结构：`tween`。 回忆第一部分：
 
-You might readily come up with several different ad-hoc solutions to this problem, and might then go ask your UX designer to choose between them. That’s a valid approach, though I believe it pays to keep in mind during your discussion the fundamental structure common to those different solutions: The tween. Recall from part one:
+动画值从0到1运动时，通过遍历空间路径中所有 _T_ 的路径进行动画。用 _Tween <T> _ 对路径建模。
 
-_Animate_ `_T_`_s by tracing out a path in the space of all_ `_T_`_s as the animation value runs from zero to one. Model the path with a_ `_Tween<T>_`_._
-
-The central question to answer with the UX designer is this: What are the intermediate values between a chart with five bars and one with seven? An obvious choice is to have six bars, but we need more intermediate values than that to animate smoothly. We need to draw bars differently, stepping outside the realm of equal-width, uniformly spaced bars, fitted to 200 pixels. In other words, the space of `T` values must be generalized.
+用户体验设计师要回答的核心问题是：图表有五个条形图和一个有七个条形图的中间值是多少？ 显而易见的选择是六个条形图，但我们需要比平滑动画更多的中间值。 我们需要以不同方式绘制条形图，放弃等宽，均匀间隔，适合的200像素设置。 换句话说，`T` 的值必须是通用的。
 
 _Lerp between values with different structure by embedding them into a space of more general values, encompassing as special cases both animation end points and all intermediate values needed._
 
-We can do this in two steps. First, we generalize `Bar` to include its _x_ coordinate and width as attributes:
+我们可以分两步完成。 首先，`Bar` 包含 _x_ 坐标属性和宽度属性：
 
 ```
 class Bar {
@@ -236,7 +235,7 @@ class Bar {
 }
 ```
 
-Second, we make `BarChart` support charts with different bar counts. Our new charts will be suitable for data sets where bar _i_ represents the _i_th value in some series like sales on day _i_ after a product launch. [Counting as programmers](https://www.cs.utexas.edu/users/EWD/transcriptions/EWD08xx/EWD831.html), any such chart involves a bar for each integer value 0.._n_, but the bar count _n_ may be different from one chart to the next.
+其次，我们使 `BarChart` 支持具有不同条形数的图表。我们的新图表将适用于数据集，其中条形图 _i_ 代表某些系列中的_i_th值，例如产品发布后的第_i_天的销售额。[Counting as programmers](https://www.cs.utexas.edu/users/EWD/transcriptions/EWD08xx/EWD831.html), any such chart involves a bar for each integer value 0.._n_, but the bar count _n_ may be different from one chart to the next.
 
 Consider two charts with five and seven bars, respectively. The bars for their five common categories, 0..5, can be animated compositionally as we’ve seen above. The bars with index 5 and 6 have no counterpart in the other animation end point, but as we are now free to give each bar its own position and width, we can introduce two invisible bars to play that role. The visual effect is that bars 5 and 6 grow into their final appearance as the animation proceeds. Animating in the other direction, bars 5 and 6 would diminish or fade into invisibility.
 
@@ -537,18 +536,18 @@ class MergeTween<T extends MergeTweenable<T>> extends Tween<List<T>> {
 }
 ```
 
-The `MergeTweenable<T>` interface captures precisely what is needed to be able to create a tween of two sorted lists of `T`s by merging. We’ll instantiate the type parameter `T` with `Bar`, `BarStack`, and `BarGroup`, and make all these types implement `MergeTweenable<T>` ([diff](https://github.com/mravn/charts/commit/e7ec4c94bf560e483a267e60ee2b11c68932d4e0)).
+`MergeTweenable <T>` 接口精确获得合并两个有序的 `T` 列表的所需的 `tween` 内容。 我们将使用 `Bar`，`BarStack` 和 `BarGroup` 实例化泛型参数 `T`，并且实现 `MergeTweenable <T>` ([diff](https://github.com/mravn/charts/commit/e7ec4c94bf560e483a267e60ee2b11c68932d4e0)).
 
-The [stacked](https://gist.github.com/mravn-google/78326296c59f0544d280a987d9ba39e2) ([diff](https://github.com/mravn/charts/commit/912b5eafd5296a549c6fbb6090bbcd3cb4bb4342)), [grouped](https://gist.github.com/mravn-google/d3f0f2a93cb478ab3a50dab03437a5d5) ([diff](https://github.com/mravn/charts/commit/b0b3af8115f3632971b33a4b74204dd8943db53e)), and [stacked+grouped](https://gist.github.com/mravn-google/cbd4a89e7b9e5431898a16727f7642b6) ([diff](https://github.com/mravn/charts/commit/44b0e5d07633edcf7770f5719ec1d1aa082a853c)) implementations have been written to be directly comparable. I encourage you to play around with the code:
+[stacked](https://gist.github.com/mravn-google/78326296c59f0544d280a987d9ba39e2) ([diff](https://github.com/mravn/charts/commit/912b5eafd5296a549c6fbb6090bbcd3cb4bb4342)), [grouped](https://gist.github.com/mravn-google/d3f0f2a93cb478ab3a50dab03437a5d5) ([diff](https://github.com/mravn/charts/commit/b0b3af8115f3632971b33a4b74204dd8943db53e)), 和 [stacked+grouped](https://gist.github.com/mravn-google/cbd4a89e7b9e5431898a16727f7642b6) ([diff](https://github.com/mravn/charts/commit/44b0e5d07633edcf7770f5719ec1d1aa082a853c)) 已经完成实现. 我建议您自己实践一下:
 
-*   Change the number of groups, stacks, and bars created by `BarChart.random`.
-*   Change the color palettes. For stacked+grouped bars I’ve used a monochrome palette, because I think that looks nicer. You and your UX designer may disagree.
-*   Replace `BarChart.random` and the floating action button with a year selector and create `BarChart` instances from realistic data sets.
-*   Implement horizontal bar charts.
-*   Implement other chart types (pie, line, stacked area). Animate them using `MergeTweenable<T>` or similar.
-*   Add chart legends and/or labels and axes, then animate those too.
+*   更改 `BarChart.random`创建的 groups, stacks, 和 bars 的数量。
+*   更改调色板。 对于 `stacked+grouped`	，我使用了单色调色板，因为我觉得它看起来更好。 您和您的UX设计师可能并不认同。
+*   将 `BarChart.random` 和浮动操作按钮替换为年份选择器，并以实际数据集创建 `BarChart` 实例。
+*   实现水平条形图。
+*   实现其他图表类型（饼图，线条，堆积区域）。 使用 `MergeTweenable <T>` 或类似方法为它们设置动画。
+*   添加图表图例，标签，坐标轴，然后为它们设置动画。
 
-The tasks of the last two bullets are quite challenging. Have fun.
+最后两个任务非常具有挑战性。不妨试试。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
