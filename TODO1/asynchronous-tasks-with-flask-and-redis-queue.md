@@ -2,82 +2,82 @@
 > * 原文作者：[Michael Herman](https://testdriven.io/authors/herman/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/asynchronous-tasks-with-flask-and-redis-queue.md](https://github.com/xitu/gold-miner/blob/master/TODO1/asynchronous-tasks-with-flask-and-redis-queue.md)
-> * 译者：
-> * 校对者：
+> * 译者：[刘嘉一](https://github.com/lcx-seima)
+> * 校对者：[kasheemlew](https://github.com/kasheemlew)
 
-# Asynchronous Tasks with Flask and Redis Queue
+# 在 Flask 中使用 Redis Queue 实现异步任务
 
 ![](https://testdriven.io/static/images/blog/flask-rq/aysnc_python_redis.png)
 
-If a long-running task is part of your application's workflow you should handle it in the background, outside the normal flow.
+如果你的应用中存在长执行任务，你应当把它们从普通流程中剥离并置于后台执行。
 
-Perhaps your web application requires users to submit a thumbnail (which will probably need to be re-sized) and confirm their email when they register. If your application processed the image and sent a confirmation email directly in the request handler, then the end user would have to wait for them both to finish. Instead, you'll want to pass these tasks off to a task queue and let a separate worker process deal with it, so you can immediately send a response back to the client. The end user can do other things on the client-side and your application is free to respond to requests from other users.
+可能你的 web 应用会要求用户在注册时上传头像（图片可能需要被裁剪）和进行邮箱验证。如果你直接在请求处理函数中去加工图片和发送验证邮件，那么终端用户不得不等待这些执行的完成。相反，你更希望把这些任务放到任务队列中，并由一个 worker 线程来处理，这种情况下应用就能立刻响应客户端的请求了。由此一来，终端用户可以在客户端继续其他的操作，你的应用也能被释放去响应其他用户的请求。
 
-This post looks at how to configure [Redis Queue](http://python-rq.org/) (RQ) to handle long-running tasks in a Flask app.
+这篇文章讲了如何在 Flask 应用中配置 [Redis Queue](http://python-rq.org/)（RQ）来处理长执行任务。
 
-> Celery is a viable solution as well. It's quite a bit more complex and brings in more dependencies than Redis Queue, though.
+> 当然 Celery 也是一个不错的解决方案。不过相比于 Redis Queue，它会稍显复杂并引入更多的依赖项。
 
-## Contents
+## 目录
 
-- [Asynchronous Tasks with Flask and Redis Queue](#asynchronous-tasks-with-flask-and-redis-queue)
-  - [Contents](#contents)
-  - [Objectives](#objectives)
-  - [Workflow](#workflow)
-  - [Project Setup](#project-setup)
-  - [Trigger a Task](#trigger-a-task)
+- [在 Flask 中使用 Redis Queue 实现异步任务](#asynchronous-tasks-with-flask-and-redis-queue)
+  - [目录](#目录)
+  - [本文目标](#本文目标)
+  - [工作流程](#工作流程)
+  - [项目配置](#项目配置)
+  - [任务触发](#任务触发)
   - [Redis Queue](#redis-queue)
-  - [Task Status](#task-status)
-  - [Dashboard](#dashboard)
-  - [Conclusion](#conclusion)
+  - [任务状态](#任务状态)
+  - [任务控制台](#任务控制台)
+  - [结语](#结语)
 
-## Objectives
+## 本文目标
 
-By the end of this post you should be able to:
+阅读完本文后，你应当学会：
 
-1.  Integrate Redis Queue into a Flask app and create tasks.
-2.  Containerize Flask and Redis with Docker.
-3.  Run long-running tasks in the background with a separate worker process.
-4.  Set up [RQ Dashboard](https://github.com/eoranged/rq-dashboard) to monitor queues, jobs, and workers.
-5.  Scale the worker count with Docker.
+1.  在 Flask 应用中集成 Redis Queue 并创建相应任务。
+2.  使用 Docker 镜像化包含 Flask 和 Redis 的应用。
+3.  使用独立的 worker 线程在后台处理长执行任务。
+4.  配置 [RQ Dashboard](https://github.com/eoranged/rq-dashboard) 用于监控任务队列、作业和 worker 线程。
+5.  使用 Docker 扩展 worker 线程的数量。
 
-## Workflow
+## 工作流程
 
-Our goal is to develop a Flask application that works in conjunction with Redis Queue to handle long-running processes outside the normal request/response cycle.
+在本文中，我们的目标是借助 Redis Queue 的能力开发一个能处理长执行任务的 Flask 应用，其中长执行任务的执行独立于普通请求、响应的执行。
 
-1.  The end user kicks off a new task via a POST request to the server-side
-2.  Within the view, a task is added to the queue and the task id is sent back to the client-side
-3.  Using AJAX, the client continues to poll the server to check the status of the task while the task itself is being ran in the background
+1.  终端用户通过 POST 请求服务端创建一个新任务
+2.  如图所示，任务队列会增加一个新任务，之后服务端再把任务 id 返回给客户端
+3.  创建好的任务会在服务端后台执行，客户端只需使用 AJAX 不断轮询任务状态即可
 
-![flask and redis queue user flow](https://testdriven.io/static/images/blog/flask-rq/flask-rq-flow.png)
+![Flask 集成 Redis Queue 的调用时序图](https://testdriven.io/static/images/blog/flask-rq/flask-rq-flow.png)
 
-In the end, the app will look like this:
+最终我们将实现一个如下所示的应用：
 
-![final app](https://testdriven.io/static/images/blog/flask-rq/app.gif)
+![开发完成](https://testdriven.io/static/images/blog/flask-rq/app.gif)
 
-## Project Setup
+## 项目配置
 
-Want to follow along? Clone down the base project, and then review the code and project structure:
+想要继续看下去吗？clone 下面的仓库来看看里面的代码和结构吧：
 
 ```
 $ git clone https://github.com/mjhea0/flask-redis-queue --branch base --single-branch
 $ cd flask-redis-queue
 ```
 
-Since we'll need to manage three processes in total (Flask, Redis, worker), we'll use Docker to simplify our workflow by wiring them altogether to run in one terminal window.
+因为我们一共需要管理三个进程（Flask、Redis 和 worker），为了简化这一系列工作流，这里我们选择了使用 Docker 来部署，最终我们仅需在一个终端里就可以运行整个应用了。
 
-To test, run:
+像这样就能将应用跑起来：
 
 ```
 $ docker-compose up -d --build
 ```
 
-Open your browser to [http://localhost:5004](http://localhost:5004). You should see:
+使用你的浏览器访问 [http://localhost:5004](http://localhost:5004)，你应该能看到如下页面：
 
-![flask, redis queue, docker](https://testdriven.io/static/images/blog/flask-rq/flask_redis_queue.png)
+![flask、redis queue 和 docker](https://testdriven.io/static/images/blog/flask-rq/flask_redis_queue.png)
 
-## Trigger a Task
+## 任务触发
 
-An event handler in _project/client/static/main.js_ is set up that listens for a button click and sends an AJAX POST request to the server with the appropriate task type - `1`, `2`, or `3`.
+当 *project/client/static/main.js* 里的监听器监听到按键的点击后，它会获取按键对应的任务类型 — `1`、`2` 或 `3`，并把得到的任务类型当作参数通过 AJAX POST 请求发到服务端。
 
 ```
 $('.btn').on('click', function() {
@@ -95,7 +95,7 @@ $('.btn').on('click', function() {
 });
 ```
 
-On the server-side, a view is already configured to handle the request in _project/server/main/views.py_:
+在服务端，*project/server/main/views.py* 会负责处理客户端发来的请求：
 
 ```
 @main_blueprint.route('/tasks', methods=['POST'])
@@ -104,11 +104,11 @@ def run_task():
     return jsonify(task_type), 202
 ```
 
-We just need to wire up Redis Queue.
+下面我们来装配 Redis Queue。
 
 ## Redis Queue
 
-So, we need to spin up two new processes - Redis and a worker. Add them to the _docker-compose.yml_ file:
+首先我们需要在 *docker-compose.yml* 中添加配置以启动两个新的进程 — Redis 和 worker：
 
 ```
 version: '3.7'
@@ -144,7 +144,7 @@ services:
     image: redis:4.0.11-alpine
 ```
 
-Add the task to a new file called _tasks.py_ in "project/server/main":
+在 "project/server/main" 目录中添加一个新的任务 **tasks.py**：
 
 ```
 # project/server/main/tasks.py
@@ -156,7 +156,7 @@ def create_task(task_type):
     return True
 ```
 
-Update the view to connect to Redis, enqueue the task, and respond with the id:
+更新我们的视图代码，让它能连接 Redis 并把任务放入队列，最后再把任务的 id 返回给客户端：
 
 ```
 @main_blueprint.route('/tasks', methods=['POST'])
@@ -174,7 +174,7 @@ def run_task():
     return jsonify(response_object), 202
 ```
 
-Don't forget the imports:
+别忘了正确地引入上面用到的库：
 
 ```
 import redis
@@ -185,19 +185,19 @@ from flask import render_template, Blueprint, jsonify, \
 from project.server.main.tasks import create_task
 ```
 
-Update `BaseConfig`:
+更新 `BaseConfig` 文件：
 
 ```
 class BaseConfig(object):
-    """Base configuration."""
+    """基础配置"""
     WTF_CSRF_ENABLED = True
     REDIS_URL = 'redis://redis:6379/0'
     QUEUES = ['default']
 ```
 
-Did you notice that we referenced the `redis` service (from _docker-compose.yml_) in the `REDIS_URL` rather than `localhost` or some other IP? Review the Docker Compose [docs](https://docs.docker.com/compose/networking/) for more info on connecting to other services via the hostname.
+细心的读者可能发现了，我们在引用 `redis` 服务（在 *docker-compose.yml* 中引入的）的地址时，使用了 `REDIS_URL` 而非 `localhost` 或是某个特定 IP。在 Docker 中如何通过 hostname 连接其他服务，可以在 Docker Compose [官方文档](https://docs.docker.com/compose/networking/) 中找到答案。
 
-Finally, we can use a Redis Queue [worker](http://python-rq.org/docs/workers/), to process tasks at the top of the queue.
+最终，我们便可以使用 Redis Queue 的 [worker](http://python-rq.org/docs/workers/) 来处理放在队首的任务了。
 
 ```
 @cli.command('run_worker')
@@ -209,37 +209,37 @@ def run_worker():
         worker.work()
 ```
 
-Here, we set up a custom CLI command to fire the worker.
+在这里，我们通过自定义的 CLI 命令来启动 worker。
 
-It's important to note that the `@cli.command()` decorator will provide access to the application context along with the associated config variables from _project/server/config.py_ when the command is executed.
+需要注意的是，通过装饰器 `@cli.command()` 启动的代码可以访问到应用的上下文，以及访问到在 *project/server/config.py* 中定义的配置变量。
 
-Add the imports as well:
+同样需要引入正确的库：
 
 ```
 import redis
 from rq import Connection, Worker
 ```
 
-Add the dependencies to the requirements file:
+在 requirements 文件中添加应用的依赖信息：
 
 ```
 redis==2.10.6
 rq==0.12.0
 ```
 
-Build and spin up the new containers:
+构建并启动新的 Docker 容器：
 
 ```
 $ docker-compose up -d --build
 ```
 
-To trigger a new task, run:
+让我们试试触发一个任务：
 
 ```
 $ curl -F type=0 http://localhost:5004/tasks
 ```
 
-You should see something like:
+你应该会得到类似的返回：
 
 ```
 {
@@ -248,12 +248,12 @@ You should see something like:
   },
   "status": "success"
 }
-Ta
+
 ```
 
-## Task Status
+## 任务状态
 
-Turn back to the event handler on the client-side:
+让我们回头看看客户端的按键监听器：
 
 ```
 $('.btn').on('click', function() {
@@ -271,7 +271,7 @@ $('.btn').on('click', function() {
 });
 ```
 
-Once the response comes back from the original AJAX request, we then continue to call `getStatus()` with the task id every second. If the response is successful, a new row is added to the table on the DOM.
+每当创建任务的 AJAX 请求返回后，我们便会取出其中的任务 id 继续调用 `getStatus()`。若 `getStatus()` 也成功返回，那么我们便在表格 DOM 中新增一行记录。
 
 ```
 function getStatus(taskID) {
@@ -299,7 +299,7 @@ function getStatus(taskID) {
 }
 ```
 
-Update the view:
+更新视图层代码：
 
 ```
 @main_blueprint.route('/tasks/<task_id>', methods=['GET'])
@@ -321,13 +321,13 @@ def get_status(task_id):
     return jsonify(response_object)
 ```
 
-Add a new task to the queue:
+调用下面命令在队列中新增一个任务：
 
 ```
 $ curl -F type=1 http://localhost:5004/tasks
 ```
 
-Then, grab the `task_id` from the response and call the updated endpoint to view the status:
+然后再用上面返回体中的 `task_id` 来请求新增的任务详情接口：
 
 ```
 $ curl http://localhost:5004/tasks/5819789f-ebd7-4e67-afc3-5621c28acf02
@@ -342,15 +342,15 @@ $ curl http://localhost:5004/tasks/5819789f-ebd7-4e67-afc3-5621c28acf02
 }
 ```
 
-Test it out in the browser as well:
+同样让我们在浏览器中试试效果：
 
 ![flask, redis queue, docker](https://testdriven.io/static/images/blog/flask-rq/flask_redis_queue_updated.png)
 
-## Dashboard
+## 任务控制台
 
-[RQ Dashboard](https://github.com/eoranged/rq-dashboard) is a lightweight, web-based monitoring system for Redis Queue.
+[RQ Dashboard](https://github.com/eoranged/rq-dashboard) 是一个 Redis Queue 的轻量级 web 端监控系统。
 
-To set up, first add a new directory to the "project" directory called "dashboard". Then, add a new _Dockerfile_ to that newly created directory:
+为了集成 RQ Dashboard，首先你需要在 "project" 下新建一个 "dashboard" 文件夹，然后再在其中新建一个 **Dockerfile**：
 
 ```
 FROM python:3.7.0-alpine
@@ -362,7 +362,7 @@ EXPOSE 9181
 CMD ["rq-dashboard"]
 ```
 
-Simply add the service to the _docker-compose.yml_ file like so:
+接着把上面的模块作为 service 添加到 *docker-compose.yml* 中：
 
 ```
 version: '3.7'
@@ -406,37 +406,37 @@ services:
     command: rq-dashboard -H redis
 ```
 
-Build the image and spin up the container:
+构建并启动新的容器：
 
 ```
 $ docker-compose up -d --build
 ```
 
-Navigate to [http://localhost:9181](http://localhost:9181) to view the dashboard:
+打开 [http://localhost:9181](http://localhost:9181) 来看看整个控制台：
 
 ![rq dashboard](https://testdriven.io/static/images/blog/flask-rq/rq_dashboard.png)
 
-Kick off a few jobs to fully test the dashboard:
+可以尝试启动一些任务来试试控制台功能：
 
 ![rq dashboard](https://testdriven.io/static/images/blog/flask-rq/rq_dashboard_in_action.png)
 
-Try adding a few more workers to see how that affects things:
+你也可以通过增加 worker 的数量来观察应用的变化：
 
 ```
 $ docker-compose up -d --build --scale worker=3
 ```
 
-## Conclusion
+## 结语
 
-This has been a basic guide on how to configure Redis Queue to run long-running tasks in a Flask app. You should let the queue handle any processes that could block or slow down the user-facing code.
+这是一篇在 Flask 中配置 Redis Queue 用于处理长执行任务的基础指南。你可以利用该队列来执行任何可能阻塞或拖慢用户体验的进程。
 
-Looking for some challenges?
+还想继续挑战自己？
 
-1.  Spin up [Digital Ocean](https://m.do.co/c/d8f211a4b4c2) and deploy this application across a number of droplets using Docker Swarm.
-2.  Write unit tests for the new endpoints. (Mock out the Redis instance with [fakeredis](https://github.com/jamesls/fakeredis))
-3.  Instead of polling the server, try using [Flask-SocketIO](https://flask-socketio.readthedocs.io) to open up a websocket connection.
+1.  注册 [Digital Ocean](https://m.do.co/c/d8f211a4b4c2) 并利用 Docker Swarm 把这个应用部署到多个节点。
+2.  为接口增加单元测试。（可以使用 [fakeredis](https://github.com/jamesls/fakeredis) 来模拟 Redis 实例）
+3.  利用 [Flask-SocketIO](https://flask-socketio.readthedocs.io) 把客户端的轮询改为 websocket 连接。
 
-Grab the code from the [repo](https://github.com/mjhea0/flask-redis-queue).
+可以在 [此仓库](https://github.com/mjhea0/flask-redis-queue) 找到本文代码。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

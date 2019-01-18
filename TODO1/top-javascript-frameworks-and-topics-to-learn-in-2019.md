@@ -2,182 +2,182 @@
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/top-javascript-frameworks-and-topics-to-learn-in-2019.md](https://github.com/xitu/gold-miner/blob/master/TODO1/top-javascript-frameworks-and-topics-to-learn-in-2019.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ElizurHz](https://github.com/ElizurHz)
+> * 校对者：[KarthusLorin](https://github.com/KarthusLorin), [wuzhengyan2015](https://github.com/wuzhengyan2015)
 
-# Top JavaScript Frameworks and Topics to Learn in 2019
+# 2019 年值得学习的顶级 JavaScript 框架与主题
 
 ![](https://cdn-images-1.medium.com/max/2560/1*RFPEzZmTByjDmScp1sY8Jw.png)
 
-Image: Jon Glittenberg Happy New Year 2019 (CC BY 2.0)
+图：Jon Glittenberg Happy New Year 2019 (CC BY 2.0)
 
-It’s that time of year again: The annual overview of the JavaScript tech ecosystem. Our aim is to highlight the learning topics and technologies with the highest potential job ROI. What are people using in the workforce? What do the trends look like? We’re not attempting to pick what’s best, but instead using a data-driven approach to help you focus on what might actually help you land a job when the interviewer asks you, “do you know __(fill in the blank)__?”
+又到了一年的这个时候：JavaScript 年度技术生态回顾。我们的目标是找出最有职业投资回报率的主题和技术。在实际生产中大家都在用什么呢？现在的趋势是什么样的呢？我们不会试图去找出最佳，但是会使用数据驱动的方法，来帮助大家着重关注那些能帮助你在求职面试中回答“你知道 ____ 吗？”的主题与技术。
 
-We’re not going to look at which ones are the fastest, or which ones have the best code quality. We’ll assume they’re all speed demons and they’re all good enough to get the job done. The focus is on one thing: What’s actually being used at scale?
+我们不会去分析哪些是最快的，哪个有最好的代码质量。我们会假设它们都是速度恶魔（speed demons），并且它们都很棒，足以完成你的工作。而主要的关注点在于：什么是被大规模使用的？
 
-### Component Frameworks
+### 组件框架
 
-The big question we’ll look at is the current state of component frameworks, and we’re going to focus primarily on the big three: React, Angular, and Vue.js, primarily because they have all broken far ahead of the rest of the pack in terms of workplace adoption.
+我们要关注的大问题是当前组件框架的状况。我们会主要关注三巨头：React、Angular 和 Vue.js，主要因为在工作中，它们的使用远远超过了其他的框架。
 
-Last year I noted how fast Vue.js was growing and mentioned it might catch Angular in 2018. That didn’t happen, but it’s still growing very quickly. I also predicted it would have a much harder time converting React users because React has a much stronger user satisfaction rate than Angular — React users simply don’t have a compelling reason to switch. That played out as expected in 2018. React kept a firm grip on its lead in 2018.
+去年，我注意到了 Vue.js 的（使用量）增长并提到了它可能在 2018 年赶上 Angular。事实上它没有发生，但 Vue.js 的增长仍然非常快。我也预测了将 React 用户转化为其他框架用户将会更加困难，因为 React 比 Angular 有更高的用户满意度 — React 用户并不会有充分的理由去切换框架。与我对 2018年的预期一致。React 在 2018 年牢牢占据了头把交椅。
 
-Interestingly, all three frameworks are still growing exponentially, year over year.
+但有趣的是，三个框架每年仍持续着指数级的增长。
 
-#### Prediction: React Continues to Dominate in 2019
+#### 预测：React 在 2019 将继续领先
 
-React still has [much higher satisfaction ratings than Angular](https://2018.stateofjs.com/front-end-frameworks/overview/) for the third year we’ve been tracking it, and it’s not giving up any ground to challengers. I don’t currently see anything that could challenge it in 2019. Unless something crazy big comes along and disrupts it, React will be the framework to beat again at the end of 2019.
+在我们关注 React 的第三年，它 [相比 Angular 仍有更高的满意度](https://2018.stateofjs.com/front-end-frameworks/overview/)，而且对于挑战者，它不会放弃任何优势。目前看来我认为在 2019 没有能够挑战它地位的框架。除非有超级强大的东西出现并且扰乱了 React（社区），React 将会在 2019 年底继续领先。
 
-Speaking of React, it just keeps getting better. The new [React hooks API](https://reactjs.org/docs/hooks-reference.html) replaced the `class` API I’ve been merely tolerating since React 0.14. (The `class` API still works, but the hooks API is really _much better_). React’s great API improvements, like better support for code splitting and concurrent rendering (see [details](https://reactjs.org/blog/2018/11/13/react-conf-recap.html)), are going to make it really hard to beat in 2019. React is now without a doubt, the most developer friendly front-end framework in the space. I couldn’t recommend it more.
+说到 React，它一直在变得更好。最新的 [React hooks API](https://reactjs.org/docs/hooks-reference.html) 取代了我从 0.14 版本开始就几乎不能忍受的 `class` API。（`class` API 仍然可以继续使用，但是 hooks API 真的 **更好**）。React 的 API 改进如更好的代码分割和并发渲染（[详情](https://reactjs.org/blog/2018/11/13/react-conf-recap.html)）将使它在 2019 年更难被打败。不用怀疑，React 现在是目前对开发者最友好的前端框架。我没有理由不推荐它。
 
-#### Data Sources
+#### 数据来源
 
-We’ll look at a handful of key pieces of data to gauge interest and use in the industry:
+我们会关注一些关键点来评估在（这些框架）实际生产中的兴趣和使用情况：
 
-1.  **Google Search trends.** Not my favorite indicator, but good for a big picture view.
-2.  **Package Downloads.** The aim here is to catch real users in the act of using the framework.
-3.  **Job board postings from Indeed.com.** Using the same methodology from previous years for consistency.
+1.  **Google 搜索的趋势**。这并不是我最喜欢的指标，但是它是个不错的宏观视角。
+2.  **包下载量**。这里的目的是获取使用框架的真实用户（数据）。
+3.  **Indeed.com 上的招聘广告**。用和去年相同的方法论来保持结果的一致性。
 
-#### Google Search Trends
+#### Google 搜索趋势
 
 ![](https://cdn-images-1.medium.com/max/800/1*DPlan5kEE81FW0eUA3Y3oQ.png)
 
-Framework search trends: Jan 2014 — Dec 2018
+框架搜索趋势：2014 年 1 月 — 2018 年 12 月
 
-React overtook Angular in the search trends in January 2018, and held its lead through the end of the year. Vue.js now holds a visible position on the graph, but still small factor in the search trends. For comparison: last year’s graph:
+在搜索趋势上，React 在 2018 年 1 月超越了 Angular，并且在这一整年剩余的时间里保持了领先的位置。Vue.js 在图里保持了一个可见的位置，但是仍然是搜索趋势中的一个小因子。对比：去年的趋势图：
 
 ![](https://cdn-images-1.medium.com/max/800/1*q0MyFu6pldf-guTIQweTSQ.png)
 
-Framework search trends: Jan 2014 — Dec 2017
+框架搜索趋势：2014 年 1 月 — 2017 年 12 月
 
-#### Package Downloads
+#### 包下载量
 
-Package downloads give us a fair indication of what’s actually being used, because developers frequently download the packages they need while they’re working.
+包下载量是一个衡量实际使用情况的公平指标，因为开发者在工作是会频繁地下载那些他们需要的包。
 
-Overly-clever readers will note that sometimes they download these things from their internal corporate package repos, to which I answer, “why yes, that does happen — to all three frameworks.” All of them have established a foothold in the enterprise, and I’m confident in the averaging power of this data at scale.
+睿智的读者会发现有时候他们从他们公司内部源的下载包，对于这种情况，我的回答是：“那确实会发生 — 对于这三个框架来说。”它们都可以在企业中立足，而我对这个大规模的数据的平均能力有信心。
 
-**React Monthly Downloads: 2014–2018**
+**React 每月下载量：2014–2018**
 
 ![](https://cdn-images-1.medium.com/max/800/1*IV9KdeP1hOwxSVZdwoKKcQ.png)
 
-**Angular Monthly Downloads: 2014–2018**
+**Angular 每月下载量：2014–2018**
 
 ![](https://cdn-images-1.medium.com/max/800/1*IxS8G-0oixLWL0F2NDIYng.png)
 
-**Vue Monthly Downloads: 2014–2018**
+**Vue 每月下载量：2014–2018**
 
 ![](https://cdn-images-1.medium.com/max/800/1*uvg4_D5NyuIiyUI_H72S2w.png)
 
-Let’s look at a quick visual comparison of the share of downloads:
+让我们看一下下载份额的快速可视化比较：
 
 ![](https://cdn-images-1.medium.com/max/800/1*THtgoY-LQTvIm8ezl3SGiQ.png)
 
-_“But you’re forgetting all about Angular 1.0! It’s still huge in the enterprise.”_
+**“但你忘记了 Angular 1.0！它在企业中仍然很重要。”**
 
-No, I’m not. Angular 1.0 is still used a lot in the enterprise in the same way that Windows XP is still used a lot in the enterprise. It’s definitely out there in enough numbers to notice, but the new versions have long since dwarfed it to the point that it’s now less significant than the other frameworks.
+不，我没有。Angular 1.0 仍然在企业中被广泛使用，这和 Windows XP 在企业中仍被广泛使用是相似的。这个数量绝对足够引起注意，但是新版本的 Angular 早已使 Angular 1.0 相形见绌，Angular 1.0 的重要性已经不如其他的框架了。
 
-Why? Because the software industry at large, and over-all use of JavaScript _across all sectors (including the enterprise)_ is growing so fast that new installs quickly dwarf old installs, even if the legacy apps _never upgrade._
+为什么？因为整个软件行业和 **所有部门（包括企业）** 的 JavaScript 的使用增长得很快，新的框架会使旧的框架变得很渺小，即使它是 **永不升级** 的遗产应用。
 
-For evidence, just take another look at those download charts. More downloads in 2018 than in the previous years _combined._
+证据就是，看看这些下载量统计图。2018 年单年的下载量就比之前几年的 **总和** 都要多。
 
-#### Job Board Postings
+#### 招聘广告投放数
 
-Indeed.com aggregates job postings from a variety of job boards. Every year, _we tally the job postings¹_ mentioning each framework to give you a better idea of what people are hiring for. Here’s what it looks like this year:
+Indeed.com 集合了许多招聘部门的招聘广告。每年 **我们都会统计提到每个框架的招聘广告¹** 来给大家提供关于企业在招什么样的人的更好的观点。这是今年的形势：
 
 ![](https://cdn-images-1.medium.com/max/800/1*GkJY82i3ryEZW1akwUSQoA.png)
 
-Dec 2018 Job Board Postings Per Framework
+2018 年 12 月有关每个框架的招聘广告统计
 
-*   React: 24,640
-*   Angular: 19,032
-*   jQuery: 14,272
-*   Vue: 2,816
-*   Ember (not pictured): 2,397
+*   React：24,640
+*   Angular：19,032
+*   jQuery：14,272
+*   Vue：2,816
+*   Ember（不在图中）：2,397
 
-Again, a lot more total jobs this year than the previous year. I dropped Ember because it’s clearly not growing at the rate that everything else is. I wouldn’t recommend learning it to prepare for a future job placement. jQuery and Ember jobs didn’t change much, but everything else grew a lot.
+再说一次，今年投放的职位总数比去年要多。我把 Ember 剔除了，因为它显然没有像其他框架一样按比例增长。我不推荐为了未来找工作而去学它。jQuery 和 Ember 相关的岗位并没有多大的变化，但其他的岗位都有很大的增长。
 
-Thankfully, the number of new people joining the software engineering field has grown a lot as well in 2018, but we need to continue to hire and train junior developers (meaning we need [qualified senior developers to mentor them](https://devanywhere.io)), or we won’t keep pace with the explosive job growth. For comparison, here’s last year’s chart:
+令人感激的是，加入软件工程领域的新人在 2018 年也增长了很多，但这也意味着我们也需要持续聘用并培训初级开发者（意味着我们需要 [合格的高级开发者来指导他们](https://devanywhere.io)），否则我们将无法跟上爆炸性的就业增长。作为对比，这里有去年的图表：
 
 ![](https://cdn-images-1.medium.com/max/800/1*zO-KgLZ5kDbv2sug6js9ug.png)
 
-Average salary climbed again in 2018, from $110k/year to $111k/year. Anecdotally, the salary listings are lagging new hire expectations, and hiring managers will struggle to hire and retain developers if they don’t adjust for the developer’s market and offer larger pay increases. Retention and poaching continues to be a huge problem in 2018 as employees jump ship for higher paying jobs, elsewhere.
+平均薪资在 2018 年也攀升了，从每年 $110k 到每年 $111k。有传闻说，薪资列表落后于新员工的预期，并且如果招聘经理不去适应开发者的市场，不给出更多的加薪，他们会更难雇佣和留住开发者。留人和物色人才在 2018 仍然会是一个巨大的问题，因为雇员们会跳槽到别处有更高工资的职位。
 
-1.  **_Methodology:_** _Job searches were conducted on Indeed.com. To weed out false positives, I paired searches with the keyword “software” to strengthen the chance of relevance, and then multiplied by ~1.5 (roughly the difference between programming job listings that use the word “software” and those that don’t.) All SERPS were sorted by date and spot checked for relevance. The resulting figures aren’t 100% accurate, but they’re good enough for the relative approximations used in this article._
+1.  **方法论：职位搜索是在 Indeed.com 上进行的。为了去除误报，我把它们和搜索词 “software” 组合在一起来加强相关度，然后乘以 1.5（粗略地说，就是使用关键词 “software” 和不用这个关键词搜索到的编程岗位列表的区别）。所有 SERPS 都按照日期排序并检查相关性。结果数据并不是 100% 准确的，但它们对于在本文中使用的相对近似值足够好了。**
 
-### JavaScript Fundamentals
+### JavaScript 基础
 
-I say it every year: Focus on the fundamentals. This year you’re getting some extra help. All software development is composition: The act of breaking down complex problems into smaller problems, and composing solutions to those smaller problems to form your application.
+我每年都在说：关注基础。今年你会得到更多的帮助。所有的软件开发都是这样组合的过程：把复杂的问题拆解成多个小问题，并将那些小问题组合起来，组成你的应用。
 
-But when I ask JavaScript interviewees the most fundamental questions in software engineering, “what is function composition?” and “what is object composition?” they almost invariably can’t answer the questions, even though they do them every day.
+但当我问 JavaScript 的面试者那些软件工程最基本的问题，如“什么是函数组合”和“什么是对象组合”，他们几乎总是回答不出这些问题，尽管他们每天都在做这些事。
 
-I have long thought this was a very serious problem that needs to be addressed, so I wrote a book on the topic: [**“Composing Software”**](https://leanpub.com/composingsoftware).
+我一直认为这是一个需要解决的严重问题，所以我写了这个主题：[**“Composing Software”**](https://leanpub.com/composingsoftware)。
 
-> If you learn nothing else in 2019, learn how to compose software well.
+> 如果你在 2019 年没有要学的了，那么就去学组合式编程吧。
 
 #### On TypeScript
 
-TypeScript continued to grow in 2018, and it continues to be overrated because [type safety does not appear to be a real thing](https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3) (does not appear to reduce production bug density by much), and [type inference](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b) in JavaScript without TypeScript’s help is really quite good. You can even use the TypeScript engine to get type inference in normal JavaScript using Visual Studio Code. Or install the Tern.js plugins for your favorite editor.
+TypeScript 在 2018 年持续增长，并且它会被持续高估，因为 [类型安全并不是什么大问题](https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3)（并没有很好地减少产品的 bug 密度），并且在 JavaScript 中，[类型推断](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b) 不需要 TypeScript 的帮助也可以做得很好。你甚至可以在使用 Visual Studio Code 时，通过 TypeScript 引擎在普通的 JavaScript 中进行类型推断。或者为你喜爱的编辑器安装 Tern.js 插件。
 
-TypeScript continues to fall flat on its face for most higher order functions. Maybe I just don’t know how to use it correctly (after years living with it on a regular basis — in which case, they really need to improve usability, documentation, or both), but I still don’t know how to properly type the map operation in TypeScript, and it seems to be oblivious to anything going on in a [transducer](https://medium.com/javascript-scene/transducers-efficient-data-processing-pipelines-in-javascript-7985330fe73d). It fails to catch errors, and frequently complains about errors that aren’t really errors at all.
+对于大部分高阶函数而言，TypeScript 会继续一败涂地。大概是因为我不知道怎样正确使用它（在与它日常相伴多年后 — 在这种情况下，他们真的需要提高可用性或者文档，或者两者都要），但我仍然不知道在 TypeScript 中如何定义 map 操作的类型，而它似乎在 [transducer](https://medium.com/javascript-scene/transducers-efficient-data-processing-pipelines-in-javascript-7985330fe73d) 中很清晰明了。捕获错误经常失败，并且经常报明明不是错误的错误。
 
-It just isn’t flexible or full featured enough to support how I think about software. But I’m still holding out hope that one day it will add the features we need, because as much as its shortcomings frustrate me while trying to use it for real projects, I also love the potential of being able to properly (and selectively) type things when it’s really useful.
+可能对于支持我所认为的软件，它仅仅是不够灵活或者功能不够完善。但我仍然对有一天它会加入我们需要的功能抱有希望，因为它的缺点在我尝试在真实项目中使用它时令我失望，但我仍然喜欢它在有用的时候能够合适地（并且可选择地）定义类型的潜力。
 
-My current rating: Very cool in very select, restricted use-cases, but overrated, clumsy, and very low ROI for large production apps. Which is ironic, because TypeScript bills itself as “JavaScript that scales”. Perhaps they should add a word: “JavaScript that scales awkwardly.”
+我目前的评价：非常酷的选择，有限的使用场景，但被高估了，笨拙，并且在大型生产应用中的投资回报率很低。这非常讽刺，因为 TypeScript 自称是 “JavaScript 的超集”。可能他们要加入一个词：“笨拙的 JavaScript 超集”。
 
-What we need for JavaScript is a type system modeled more after Haskell’s, and less after Java’s.
+在 JavaScript 里我们需要的是一个比 Haskell 更强大但是比 Java 更轻量的类型系统。（PS：这句翻译不确定，麻烦校对看下）
 
-#### Other JavaScript Tech to Learn
+#### 其他值得学习的 JavaScript 技术
 
-*   [GraphQL](https://graphql.org/) to query services
-*   [Redux](https://redux.js.org/) to manage app state
-*   [redux-saga](https://github.com/redux-saga/redux-saga) to isolate side-effects
-*   [react-feature-toggles](https://github.com/paralleldrive/react-feature-toggles) to ease continuous delivery and testing
-*   [RITEway](https://github.com/ericelliott/riteway) for beautifully readable unit tests
+*   用于请求服务端的 [GraphQL](https://graphql.org/)
+*   用于管理应用状态的 [Redux](https://redux.js.org/)
+*   用于独立管理副作用的 [redux-saga](https://github.com/redux-saga/redux-saga)
+*   [react-feature-toggles](https://github.com/paralleldrive/react-feature-toggles) 来简化持续交付和测试
+*   [RITEway](https://github.com/ericelliott/riteway) 来编写美观、可阅读的单元测试
 
-### The Rise of the Crypto Industry
+### 加密行业的崛起
 
-Last year I predicted that blockchain and fin-tech would be big technologies to watch in 2018. That prediction was spot on. One of the major themes of 2017–2018 was the rise of crypto and building the foundations of **the internet of value.** Remember that phrase. You’re going to hear it a lot, soon.
+去年我预测区块链和金融会计将会成为 2018 年值得观察的重要技术。这个预测是正确的。2017 - 2018 的一个主要的主题是加密行业的崛起和构建**价值网络**的基础。记住这个阶段。你很快将会多次听到它。
 
-If you’re like me and you’ve been following decentralized apps since the P2P explosion, this has been a long time coming. Now that Bitcoin lit the fuse and showed how decentralized apps can be self-sustaining using cryptocurrencies, the explosion is unstoppable.
+如果你和我一样自从 P2P 爆炸性增长后关注那些去中心化应用，这已经持续很久了。由于比特币点燃了导火索，并展示了去中心化应用通过加密货币自我维持的方式，这种爆炸性增长是不可阻挡的了。
 
-Bitcoin has grown several orders of magnitude in just a few years. You may have heard that 2018 was a “crypto winter”, and got the idea that the crypto industry is in some sort of trouble. That’s complete nonsense. What really happened was at the end of 2017, Bitcoin hit another 10x multiple in an epic exponential growth curve, and the market pulled back a bit, which happens every time the Bitcoin market cap grows another 10x.
+比特币在几年内增长了若干个量级。你可能听说过 2018 年是“加密寒冬”，并且有“加密行业处于挣扎中”的想法。这完全是无稽之谈。实际的情况是，在 2017 年底，比特币以史诗般的指数增长曲线增长到之前的 10 倍，但市场有所回落，这种回落会发生在每次比特币增长到之前的 10 倍。
 
 ![](https://cdn-images-1.medium.com/max/800/1*2nlit12SUIYN93RdmBNoHQ.png)
 
-Bitcoin 10x Inflection Points
+比特币 10 倍拐点
 
-In this chart, each arrow starts at another 10x point, and points to the low point on the price correction.
+在这个图表中，每个箭头始于 10 倍点，指向价格修正后的最低点。
 
-Fundraising for crypto ICOs (Initial Coin Offerings) peaked in early 2018, and the 2017–2018 funding bubble brought a rush of new job openings into the ecosystem, peaking at over 10k open jobs in January 2018. It has since settled back to about 2,400 (according to Indeed.com), but we’re still very early and this party is just getting started.
+加密货币的 ICO（首次代币发行）的资金募集在 2018 年初达到顶峰。2017-2018 的资金泡沫带来了生态系统中大量新的职位空缺，在 2018 年 1 月达到了顶峰，有超过 10k 的职位空缺。这种趋势已经回落到大概 2400 个职位空缺了（根究 Indeed.com 的数据），但是我们现在仍处于（这个行业的）早期阶段，这场派对才刚开始。
 
 ![](https://cdn-images-1.medium.com/max/800/1*FUZjNmtKuVNSAK-DnoGtoQ.png)
 
-There is a lot more to say about the burgeoning crypto industry, but that’s a whole other blog post. If you’re interested, read [“Blockchain Platforms and Tech to Watch in 2019”](https://medium.com/the-challenge/blockchain-platforms-tech-to-watch-in-2019-f2bfefc5c23).
+关于迅猛增长的加密行业有很多可以讨论的地方，但是这可以另写一篇博文了。如果你感兴趣的话，可以阅读：[“Blockchain Platforms and Tech to Watch in 2019”](https://medium.com/the-challenge/blockchain-platforms-tech-to-watch-in-2019-f2bfefc5c23)。
 
-#### Other Tech to Watch
+#### 其他值得观察的技术
 
-As predicted last year, these technologies continued to explode in 2018:
+和去年预测的一样，这些技术在 2018 持续爆炸性增长：
 
-**AI/Machine Learning** is in full swing with 30k open jobs at the close of 2018, deep fakes, incredible generative art, amazing video editing capabilities from the research teams at companies like Adobe — there has never been a more exciting time to explore AI.
+**人工智能/机器学习** 正如火如荼，在 2018 年末有 30k 的职位空缺。deep fakes，令人难以置信的生成艺术，来自 Adobe 这样的公司的研究团队研发的令人惊讶的视频编辑能力 — 从来没有更激动人心的去探索人工智能时刻。
 
-**Progressive Web Applications** are quickly just becoming how modern web apps are properly built — added features and support from Google, Apple, Microsoft, Amazon, etc. It’s incredible how quickly I’m taking the PWAs on my phone for granted. For example, I don’t have the Twitter Android app installed on my phone anymore. I exclusively use [the Twitter PWA instead](https://mobile.twitter.com/home).
+**渐进式 Web 应用（PWA）** 迅速成为了构建现代应用的方式 — 增加的新特性与有 Google、Apple、Microsoft、Amazon 等公司的支持。令我难以置信的是，我将手机上的 PWA 视为理所当然。例如，我在我的手机上不再需要安装 Twitter 的原生应用。我仅仅使用 [Twitter 的 PWA](https://mobile.twitter.com/home) 来替代它。
 
-**AR** (Augmented Reality) **VR** (Virtual Reality) **MR** (Mixed Reality) all got together and joined forces like Voltron to become **XR** (eXtended Realty). The future of full-time XR immersion is coming. I’m predicting within 5–10 years for mass adoption of consumer XR glasses. Contact lenses within 20. Thousands of new jobs opened up in 2018, and this industry will continue to explode in 2019.
+**AR（增强现实）、VR（虚拟现实）、MR（混合现实）像战神金刚一样合体成 XR（eXtended Realty）**。未来的全时 XR 沉浸即将到来。我预测在 5-10 年内会出现大规模的消费级 XR 眼镜产品。隐形眼镜会在 20 年内推出。这个行业在 2018 年有数以千计的新职位空缺，并且在 2019 仍会持续爆炸性增长。
 
 - YouTube 视频链接：https://youtu.be/JaiLJSyKQHk
 
-**Robotics, Drones, and Autonomous Vehicles** Autonomous flying drones are already here, autonomous robots continue to improve, and more autonomous vehicles are sharing the road with us at the end of 2018. These technologies will continue to grow and reshape the world around us through 2019 and into the next 20 years.
+**机器人、无人机和自动驾驶汽车**：在 2018 年末，自动飞行的无人机已经被研发出来了，自动机器人仍在持续优化中，并且有更多自动驾驶汽车上路了。2019 年，以及未来的 20 年，这些技术会持续增长并重塑我们周围的世界。
 
-**Quantum Computing** progressed admirably in 2018, as predicted, and as predicted, it did not go mainstream, yet. In fact, my prediction, “it may be 2019 or later before the disruption really starts” was likely very optimistic.
+**量子计算** 和预期的一样在 2018 发展得极好，并且和预期的一样，它仍然没有成为主流。事实上，我的预测“它会在 2019 或者在真正中断之前成为主流”可能太乐观了。
 
-Researchers in the crypto space have paid extra attention to quantum-safe encryption algorithms (quantum computing will invalidate lots of today’s assumptions about what is expensive to compute, and crypto relies on things being expensive to compute), but in spite of a constant flood of interesting research progress in 2018, a recent report [puts things into perspective](https://www.theregister.co.uk/2018/12/06/quantum_computing_slow/):
+加密领域的研究者已经集中更多的注意力在量子安全加密算法上（量子计算会打破今天的计算成本昂贵的假设，而加密正是依赖于这些成本昂贵的计算），但尽管在 2018 年不断涌现出有趣的研究进展，最近有一篇报道 [换了个角度看待这个问题](https://www.theregister.co.uk/2018/12/06/quantum_computing_slow/)：
 
-> “Quantum computing has been on Gartner’s hype list 11 times between 2000 and 2017, each time listed in the earliest stage of the hype cycle and each time said to be more than a decade away.”
+> “在 2000 到 2017 年间，量子计算已经 11 次上了 Gartner 的 hype list，每次都在 hype cycle 的最早阶段就被列出，并且每次都说已经距离我们有十年之遥。”
 
-This reminds me of early AI efforts, which began to heat up in the 1950’s, had limited but interesting success in the 1980’s and 1990’s, but only just started getting really mind-blowing circa 2010.
+这让我想起了早期人工智能的努力，它在 1950 年代开始升温，在 1980 和 1990 年代有了有限的但是有趣的成果，但是在 2010 年左右的成果才开始变得令人兴奋。
 
 * * *
 
-> We’re BUIDLing the future of celebrity digital collectables: [cryptobling](https://docs.google.com/forms/d/e/1FAIpQLScrRX9bHdIYbQFI5L3hEgwQaDEdjo8t8glqlyObZexWjssxNQ/viewform).
+> 我们正在构建未来的名人数字藏品：[cryptobling](https://docs.google.com/forms/d/e/1FAIpQLScrRX9bHdIYbQFI5L3hEgwQaDEdjo8t8glqlyObZexWjssxNQ/viewform)。
 
 * * *
 
