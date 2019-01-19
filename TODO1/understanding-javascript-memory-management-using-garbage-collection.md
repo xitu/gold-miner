@@ -2,27 +2,27 @@
 > * 原文作者：[Kewal Kothari](https://medium.com/@kewal.kothari)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-javascript-memory-management-using-garbage-collection.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-javascript-memory-management-using-garbage-collection.md)
-> * 译者：
+> * 译者：[wuzhengyan2015](https://github.com/wuzhengyan2015)
 > * 校对者：
 
-# Understanding JavaScript Memory Management using Garbage Collection
+# 通过垃圾回收机制理解 JavaScript 内存管理
 
 ![](https://cdn-images-1.medium.com/max/800/0*US4yPDoZAq8_44_H)
 
-Photo by [Dlanor S](https://unsplash.com/@dlanor_s?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=medium&utm_medium=referral)
+照片来自 [Unsplash](https://unsplash.com/?utm_source=medium&utm_medium=referral) 上的 [Dlanor S](https://unsplash.com/@dlanor_s?utm_source=medium&utm_medium=referral)
 
-The primary goal of memory management is to offer the system dynamically allocated memory when requested for and later free that memory containing objects that are no longer in use. Languages like C, C++ have primitive functions for memory allocation like `malloc()` where some high level language computer architectures ( like JavaScript ) include garbage collector to do this job. It tracks the memory allocation and identifies if the allocated memory is no longer used, it is then freed automatically. But such algorithms cannot completely decide if the memory is required or not. Therefore, it is very important for the programmer to understand and decide if a particular piece of code needs memory or not. Let’s understand how does the garbage collection works in JavaScript:
+内存管理的主要目标是在请求时为系统动态地分配内存，然后释放那些不再使用的对象的内存。像 C、C++ 这样的语言有基本的内存分配函数，如 ``malloc()``， 而一些高级语言计算机体系结构（如JavaScript）包含垃圾回收器来完成这项工作。它跟踪内存分配并识别这些分配的内存是否不再使用，如果是就自动释放。但是这种算法不能完全决定内存是否仍被需要。因此，对于程序员来说，理解并决定一段特定的代码是否需要内存是非常重要的。让我们了解一下 JavaScript 中的垃圾收集是如何工作的：
 
-#### Garbage Collection
+#### 垃圾回收
 
-The JavaScript Engine’s Garbage collector basically looks out for unreachable objects which are removed from the memory. There are two garbage collection algorithms that I would like to explain which are as follows:
+JavaScript 引擎的垃圾回收器基本上是寻找从内存中删除的无法访问的对象。这里我想解释两种垃圾回收算法，如下所示：
 
-*   Reference-counting garbage collection
-*   Mark-and-sweep algorithm
+*   引用计数垃圾回收
+*   标记清除算法
 
-#### Reference-counting garbage collection
+#### 引用计数垃圾回收
 
-This is a naïve garbage collection algorithm. This algorithm looks out for those objects which have no references left. An object becomes eligible for garbage collection if it has no references attached to it.
+这是一个简单的垃圾回收算法。这个算法寻找那些没有被引用的对象。如果一个对象没有被引用，那么该对象就可以被垃圾回收。
 
 ```
 var obj1 = {
@@ -32,7 +32,7 @@ var obj1 = {
 };
 ```
 
-Let’s create an object as shown in the above example to understand this algorithm. Here `obj1` has an object in which its `property1` holds further one object. As the `obj1` has the reference to the object, nothing is eligible for garbage collection.
+如上例所示，让我们创建一个对象以理解这个算法。这里 `obj1` 引用了一个对象，其中的 `property1` 属性也引用了一个对象。由于 `obj1` 具有对象的引用，因此这个对象不会被垃圾回收。
 
 ```
 var obj2 = obj1;
@@ -40,30 +40,30 @@ var obj2 = obj1;
 obj1 = "some random text"
 ```
 
-Now, `obj2` also has the reference to the same object that was referred by `obj1` but later `obj1` was updated with `"some random text"` which lead to `obj2` having the unique reference to that object.
+现在，`obj2` 也引用了被 `obj1` 引用的同一个对象，但后来 `obj1` 被更新为了 `"some random text"`，这导致 `obj2` 具有对该对象的唯一引用。
 
 ```
 var obj_property1 = obj2.property1;
 ```
 
-Now `obj_property1` refers to `obj2.property1` which also holds an object. Therefore that object has two references which are as follows:
+现在 `obj_property1` 指向 `obj2.property1`，它引用了一个对象。因此该对象有两个引用，如下所示：
 
-1.  As a property of `obj2`
-2.  In the variable `obj_property1`
+1.  作为 `obj2` 的属性
+2.  在变量 `obj_property1` 中
 
 ```
 obj2 = "some random text"
 ```
 
-`obj2` has been unreferenced by updating `"some random text"`. Therefore it might seem that the object it held before has no references to it and can be garbage collected. But that might be wrong to say as `obj_property1`has the reference of `obj2.property1`. Therefore it won’t be garbage collected.
+通过更新为 `"some random text"` 来取消 `obj2` 对对象的引用。因此，之前拥有的这个对象似乎没有引用了，并且可以被垃圾回收了。但是，由于 `obj_property1` 具有 `obj2.property1` 的引用，所以这可能是错误的。
 
 ```
 obj_property1 = null;
 ```
 
-Now the object which was originally in `obj1` has no references left as we removed the reference from `obj_property1`. So now it can be garbage collected.
+当我们把 `obj_property1` 引用删除，现在最初 `obj1` 指向的对象没有引用了。所以现在它可以被垃圾回收。
 
-#### Where does this algorithm fail?
+#### 这个算法在哪里失败了?
 
 ```
 function example() {
@@ -80,13 +80,13 @@ function example() {
 example();
 ```
 
-Here the reference counting algorithm does not remove `obj1` and `obj2` from the memory after the function call, since both the objects are referenced by each other.
+这里引用计数算法在函数调用之后不会从内存中删除 `obj1` 和 `obj2` ，因为两个对象都是相互引用的。
 
 * * *
 
-#### Mark-and-Sweep Algorithm
+#### 标记清除算法
 
-This algorithm looks out for objects which are unreachable from the root which is the JavaScript’s global object. This algorithm overcomes the limitations of Reference-counting algorithm. As an object with no references would be unreachable but not vice-versa.
+这个算法查找从根开始无法访问的对象，这个根是 JavaScript 的全局对象。该算法克服了引用计数算法的局限性。没有引用的对象是不可访问的，反之亦然。
 
 ```
 var obj1 = {
@@ -96,7 +96,7 @@ var obj1 = {
 
 ![](https://cdn-images-1.medium.com/max/800/1*d-1V74jWR6gqkBxHhlom4A.png)
 
-As shown above, we can see how the created object `obj1` becomes reachable from the ROOT.
+如上所示，我们可以看到创建的对象 `obj1` 如何从 ROOT 中访问到的。
 
 ```
 obj1 = null
@@ -104,39 +104,39 @@ obj1 = null
 
 ![](https://cdn-images-1.medium.com/max/800/1*Qc2ts7uiKU69rxLF5mYWcw.png)
 
-Now when we set the value of `obj1`to `null` the object is no more reachable from the ROOT and hence it is garbage collected.
+现在，当我们将 `obj1` 的值设置为 `null` 时，该对象从根开始无法被访问，因此它可以被垃圾回收。
 
-This algorithm starts from the root and traverses down to all other objects while marking them . It further traverses through the traversed objects and marks them. This process continues till the algorithm has no child nodes or any path left to traverse while marking all the nodes that have been traversed. Now the garbage collector ignores all the reachable objects as they were marked while traversing. So all the objects that were not marked were clearly unreachable to the root which makes them eligible for garbage collection and later the memory is freed by removing those objects. Let’s try and understand by looking at the following instance:
+该算法从根开始，遍历所有其他对象，同时标记它们。它进一步遍历被遍历的对象并标记它们。这个过程一直持续到算法在标记所有已遍历的节点时没有子节点或任何可遍历的路径。现在垃圾回收器会忽略所有可访问对象，因为它们在遍历时被标记。因此，所有未标记的对象显然都是从根节点开始无法访问的，这使得它们可以被垃圾回收，稍后通过删除这些对象释放内存。让我们通过下面的例子来试着理解一下：
 
 ![](https://cdn-images-1.medium.com/max/800/1*xndeuwtgCays2lrx2OKoMQ.png)
 
-As shown above, this is how an object structure would look like. We can notice the objects which are not reachable from the root but let’s try to understand how would Mark-and-Sweep algorithm work in this case.
+如上所示，这就是对象结构的样子。我们可以注意到无法从根目录访问的对象，但是让我们尝试了解在这种情况下标记清除算法是如何工作的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*TRr31SbiGWjPHnOwC1oB3w.png)
 
-Algorithm starts marking the objects which it traverses starting from the root. In the above image we can notice the green circles which are marked on the objects. So that it identifies the objects as reachable from the root.
+算法开始标记那些从根开始遍历到的对象。上面的图片中，我们可以注意到在对象上标记的绿色圆圈。这样它就可以将对象标识为可从根开始可以访问到。
 
 ![](https://cdn-images-1.medium.com/max/800/1*oRCgCwBeCTfS457p43_hPg.png)
 
-The objects which are not marked are unreachable from the root. Therefore, they are garbage collected.
+那些未标记的对象事无法从根开始被访问到。因此，他们利用被垃圾回收。
 
-#### Limitation
+#### 局限性
 
-Objects have to be made explicitly unreachable.
+对象必须显式地设置为不可访问。
 
-> Since 2012, JavaScript Engine’s have adapted this algorithm over Reference-counting garbage collection.
+> 自 2012 年以来，JavaScript 引擎已经使用此算法来代替引用计数垃圾回收。
 
-Thanks for reading.
+谢谢阅读。
 
 * * *
 
-#### Further Readings:
+#### 进一步阅读：
 
-- [**A tour of V8: Garbage Collection**: In the last few articles, we dived deep into the implementation of the V8 JavaScript engine. We discussed the...](http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection "http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection")
+- [**V8 之旅: 垃圾回收**： 在前几篇文章中，我们深入研究了 V8 JavaScript 引擎的实现。我们讨论了...](http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection "http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection")
 
-- [**thlorenz/v8-perf**: ⏱️ Notes and resources related to v8 and thus Node.js performance - thlorenz/v8-perf](https://github.com/thlorenz/v8-perf/blob/master/gc.md "https://github.com/thlorenz/v8-perf/blob/master/gc.md")
+- [**thlorenz/v8-perf**: ⏱️ v8 相关的注释和资源以及Node.js性能 - thlorenz/v8-perf](https://github.com/thlorenz/v8-perf/blob/master/gc.md "https://github.com/thlorenz/v8-perf/blob/master/gc.md")
 
-- [**Memory Management**: Low-level languages like C, have manual memory management primitives such as malloc() and free(). In contrast...](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management")
+- [**内存管理**：像 C 这样的底层语言具有手动内存管理基础，如 malloc() 和 free()。 相反...](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management")
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
