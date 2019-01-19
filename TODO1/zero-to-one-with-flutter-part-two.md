@@ -34,9 +34,9 @@
 
 首先我们为单个条形图添加颜色。在 `Bar` 类的 `height` 字段旁边添加一个 `color` 字段，并更新 `Bar.lerp` 对它们进行 lerp。 这种模式很典型:
 
-_Lerp between composite values by lerping corresponding components._
+_`Lerp`间通过线性插值相应的组件方式组合值._
 
-回想一下第一部分，“lerp” 是“线性插值”的缩写。
+回想一下第一部分，`lerp` 是 `线性插值` 的缩写。
 
 ```
 import 'dart:ui' show lerpDouble;
@@ -196,7 +196,7 @@ class BarChartPainter extends CustomPainter {
 
 * * *
 
-There is a pattern at play here. When a Dart class’s constructor takes multiple parameters, you can often lerp each parameter separately and the combination will look good, too. And you can nest this pattern arbitrarily: dashboards would be lerped by lerping their constituent bar charts, which are lerped by lerping their bars, which are lerped by lerping their height and color. And colors are lerped by lerping their RGB and alpha components. At the leaves of this recursion, we lerp numbers.
+这里有一种模式。 当Dart类的构造函数采用多个参数时，您通常可以线性插值单个参数或多个。 你可以任意地嵌套这种模式：仪表板将会线性插值条形图表，线性插值条形图，线性插值条形图高度和颜色。 颜色RGB 和 alpha 通过线性插值来组合。 在这个递归的叶节点上，进行线性插值。
 
 在数学上倾向于用`_C_(_x_, _y_)`来表达复合的线性插值结构，而编程实践中我们用
 `_lerp_(_C_(_x_1, _y_1), _C_(_x_2, _y_2), _t_) == _C_(_lerp_(_x_1, _x_2, _t_), _lerp_(_y_1, _y_2, _t_))`
@@ -211,7 +211,7 @@ There is a pattern at play here. When a Dart class’s constructor takes multipl
 
 用户体验设计师要回答的核心问题是：图表有五个条形图和一个有七个条形图的中间值是多少？ 显而易见的选择是六个条形图，但我们需要比平滑动画更多的中间值。 我们需要以不同方式绘制条形图，放弃等宽，均匀间隔，适合的200像素设置。 换句话说，`T` 的值必须是通用的。
 
-_Lerp between values with different structure by embedding them into a space of more general values, encompassing as special cases both animation end points and all intermediate values needed._
+_通过将值嵌入到更一般数据中，在具有不同结构的值之间进行线性插值，包括动画端点和所有中间值所需的特殊情况。_
 
 我们可以分两步完成。 首先，`Bar` 包含 _x_ 坐标属性和宽度属性：
 
@@ -235,13 +235,13 @@ class Bar {
 }
 ```
 
-其次，我们使 `BarChart` 支持具有不同条形数的图表。我们的新图表将适用于数据集，其中条形图 _i_ 代表某些系列中的_i_th值，例如产品发布后的第_i_天的销售额。[Counting as programmers](https://www.cs.utexas.edu/users/EWD/transcriptions/EWD08xx/EWD831.html), any such chart involves a bar for each integer value 0.._n_, but the bar count _n_ may be different from one chart to the next.
+其次，我们使 `BarChart` 支持具有不同条形数的图表。我们的新图表将适用于数据集，其中条形图 _i_ 代表某些系列中的_i_th 值，例如产品发布后的第 _i_ 天的销售额。[Counting as programmers](https://www.cs.utexas.edu/users/EWD/transcriptions/EWD08xx/EWD831.html), 任何这样的图表都涉及每个整数值 0 .. _n_ 的条形图，但条形图数 _n_ 可能不同于一个图表到下一个图表。.
 
-Consider two charts with five and seven bars, respectively. The bars for their five common categories, 0..5, can be animated compositionally as we’ve seen above. The bars with index 5 and 6 have no counterpart in the other animation end point, but as we are now free to give each bar its own position and width, we can introduce two invisible bars to play that role. The visual effect is that bars 5 and 6 grow into their final appearance as the animation proceeds. Animating in the other direction, bars 5 and 6 would diminish or fade into invisibility.
+考虑两个图表分别有五个和七个条形图。 五个常见类别的条形图 0..5 像上面我们看到的那样进行动画。 索引为5和6的条形在另一个动画终点没有对应条，但由于我们现在可以自由地给每个条形图位置和宽度，我们可以引入两个不可见的条形来扮演这个角色。 视觉效果是当动画进行时，条5和6变成它们的最终外观。在另一个方向上动画，第5和第6条会减弱或淡化为隐形。
 
-_Lerp between composite values by lerping corresponding components. Where a component is missing in one end point, use an invisible component in its place._
+_通过线性插值相应的组件在复合值之间进行线性插值。如果某个端点缺少组件，在其位置使用不可见组件。_
 
-There are often several ways to choose invisible components. Let’s say our friendly UX designer has decided to use zero-width, zero-height bars with _x_ coordinate and color inherited from their visible counterpart. We’ll add a method to `Bar` for creating such a collapsed version of a given instance.
+通常有几种方法可以选择隐形组件。假设我们友好的用户体验设计师决定使用零宽度，零高度的条形图，其中_x_坐标和颜色从它们的可见组件继承而来。 我们将为 `Bar` 添加一个方法，用于处理这样的实例。
 
 ```
 class BarChart {
@@ -293,7 +293,7 @@ class Bar {
 }
 ```
 
-Integrating the above code into our app involves redefining `BarChart.empty` and `BarChart.random` for this new setting. An empty bar chart can now reasonable be taken to contain zero bars, while a random one might contain a random number of bars all of the same randomly chosen color, and each having a randomly chosen height. But since position and width are now part of the definition of `Bar`, we need `BarChart.random` to specify those attributes too. It seems reasonable to provide `BarChart.random` with the chart `Size` parameter, and then relieve `BarChartPainter.paint` of most of its calculations ([code listing](https://gist.github.com/mravn-google/cac095296074b8b1b7ad6c91a21a5f1a), [diff](https://github.com/mravn/charts/commit/50585bd40160c336e80f3ec867bad01d08d8e0ec)).
+将上述代码集成到我们的应用程序中涉及为此新设置重新定义 `BarChart.empty` 和 `BarChart.random` 。 现在可以合理地将空条形图用于包含零条，而随机条形图可以包含随机数量的条，所有条都具有相同的随机选择颜色，并且每个条具有随机选择的高度。 但由于位置和宽度现在是 `Bar` 定义的一部分，我们需要 `BarChart.random` 来指定这些属性。 用图表 `Size` 参数提供 `BarChart.random` 似乎是合理的，然后解除大部分计算的 `BarChartPainter.paint` ([code listing](https://gist.github.com/mravn-google/cac095296074b8b1b7ad6c91a21a5f1a), [diff](https://github.com/mravn/charts/commit/50585bd40160c336e80f3ec867bad01d08d8e0ec)).
 
 ![](https://cdn-images-1.medium.com/max/800/1*dN9og1kRYpRsL-cFIgO23w.gif)
 
@@ -301,15 +301,15 @@ Lerping to/from invisible bars.
 
 * * *
 
-The astute reader may have noticed a potential inefficiency in our definition of `BarChart.lerp` above. We are creating collapsed `Bar` instances only to be given as arguments to `Bar.lerp`, and that happens repeatedly, for every value of the animation parameter `t`. At 60 frames per second, that could mean a lot of `Bar` instances being fed to the garbage collector, even for a relatively short animation. There are alternatives:
+大多数读者可能已经注意 `BarChart.lerp` 有潜在的效率问题。 我们创建折叠的 `Bar` 实例只是作为参数提供给 `Bar.lerp`，并且对于动画参数 `t` 的每个值重复发生。 每秒60帧，这可能意味着很多 `Bar` 实例被送到垃圾收集器，即使是相对较短的动画。 还有其他选择：
 
 *   Collapsed `Bar` instances can be reused by being created only once in the `Bar` class rather than on each call to `collapsed`. This approach works here, but is not generally applicable.
 
-*   The reuse can be handled by `BarChartTween` instead, by having its constructor create a list `_tween` of `BarTween` instances used during the creation of the lerped bar chart: `(i) => _tweens[i].lerp(t)`. This approach breaks with the convention of using static `lerp` methods throughout. There is no object involved in the static `BarChart.lerp` in which to store the tween list for the duration of the animation. The `BarChartTween` object, by contrast, is perfectly suited for this.
+*   可以用 `BarChartTween` 来处理重用问题，方法是让 `BarChartTween` 的构造函数创建条形图列表时使用的 `BarTween` 实例的列表`_tween`：`（i）=> _tweens [i] .lerp（t ）`。这种方法打破了整个使用静态`lerp`方法的惯例。静态`BarChart.lerp`中没有涉及在动画持续时间内存储补间列表的对象。相比之下，`BarChartTween` 对象非常适合这种情况。
 
-*   A `null` bar can be used to represent a collapsed bar, assuming suitable conditional logic in `Bar.lerp`. This approach is slick and efficient, but does require some care to avoid dereferencing or misinterpreting `null`. It is commonly used in the Flutter SDK where static `lerp` methods tend to accept `null` as an animation end point, typically interpreting it as some sort of invisible element, like a completely transparent color or a zero-size graphical element. As the most basic example, `lerpDouble` treats `null` as zero, unless both animation end-points are `null`.
+*   假设处理逻辑在 `Bar.lerp` 中，`null` 条可用于表示折叠条。这种方法既灵活又高效，但需要注意避免引用或误解 `null`。在 Flutter SDK 中，静态 `lerp` 方法倾向于接受 `null` 作为动画终点，通常将其解释为某种不可见元素，如完全透明的颜色或零大小的图形元素。作为最基本的例子，除非两个动画端点都是 `null` 之外 `lerpDouble` 将 `null` 视为 0。
 
-The snippet below shows the code we would write following the `null` approach:
+下面的代码段显示了我们如何处理 `null`：
 
 ```
 class BarChart {
@@ -357,11 +357,11 @@ class Bar {
 }
 ```
 
-I think it’s fair to say that Dart’s `?` syntax is well suited to the task. But notice how the decision to use collapsed (rather than, say, transparent) bars as invisible elements is now buried in the conditional logic in `Bar.lerp`. That is the main reason I chose the seemingly less efficient solution earlier. As always in questions of performance vs maintainability, your choice should be based on measurements.
+我认为公正的说 Dart 的 `？` 语法非常适合这项任务。但请注意，使用折叠（而不是透明）条形图作为不可见元素的决定现在隐藏在 `Bar.lerp` 中。 这是我之前选择看似效率较低的解决方案的主要原因。与性能与可维护性一样，您的选择应基于实践。
 
 * * *
 
-We have one more step to take before we can tackle bar chart animation in full generality. Consider an app using a bar chart to show sales by product category for a given year. The user can select another year, and the app should then animate to the bar chart for that year. If the product categories were the same for the two years, or happened to be the same except for some additional categories shown to the right in one of the charts, we could use our existing code above. But what if the company had product categories A, B, C, and X in 2016, but had discontinued B and introduced D in 2017? Our existing code would animate as follows:
+在完整地处理条形图动画之前，我们还有一个步要做。 考虑使用条形图的应用程序，按给定年份的产品类别显示销售额。 用户可以选择另一年，然后应用应该为该年的条形图设置动画。 如果两年的产品类别相同，或者恰好相同，除了其中一个图表右侧显示的其他类别，我们可以使用上面的现有代码。 但是，如果公司在2016年拥有A，B，C和X类产品，但是已经停产B并在2017年引入了D，那该怎么办？ 我们现有的代码动画如下：
 
 ```
 2016  2017
@@ -371,11 +371,11 @@ We have one more step to take before we can tackle bar chart animation in full g
   X -> X
 ```
 
-The animation might be beautiful and silky-smooth, but it would still be confusing to the user. Why? Because it doesn’t preserve semantics. It transforms a graphical element representing product category B into one representing category C, while the one for C goes elsewhere. Just because 2016 B happens to be drawn in the same position where 2017 C later appears doesn’t imply that the former should morph into the latter. Instead, 2016 B should disappear, 2016 C should move left and morph into 2017 C, and 2017 D should appear on its right. We can implement this mingling using one of the oldest algorithms in the book: merging sorted lists.
+动画可能是美丽而流畅的，但它仍然会让用户感到困惑。 为什么？ 因为它不保留语义。 它将表示产品类别 B 的图形元素转换为表示类别 C 的图形元素，而将 C 表示元素转移到其他地方。 仅仅因为 2016 B 恰好被绘制在 2017 C 后来出现的相同位置，并不意味着前者应该变成后者。 相反，2016 B 应该消失，2016 C 应该向左移动并变为 2017 C，2017 D 应该出现在右边。我们可以使用书中最古老的算法之一来实现这种融合：合并排序列表。
 
-_Lerp between composite values by lerping semantically corresponding components. When components form sorted lists, the merge algorithm can bring such components on a par, using invisible components as needed to deal with one-sided merges._
+_通过线性插值对应的组件合成 `Lerp` 值。 当组件形成排序列表时，合并算法可以使这些组件处于同等水平，根据需要使用不可见组件来处理单侧合并。_
 
-All we need is to make `Bar` instances mutually comparable in a linear order. Then we can merge them as follows:
+我们所需要的只是使 `Bar` 实例按线性顺序相互比较。 然后我们可以合并它们，如下：
 
 ```
   static BarChart lerp(BarChart begin, BarChart end, double t) {
@@ -401,15 +401,15 @@ All we need is to make `Bar` instances mutually comparable in a linear order. Th
   }
 ```
 
-Concretely, we’ll assign each bar a sort key in the form of an integer `rank` attribute. The rank can then be conveniently used also to assign each bar a color from the palette, allowing us to follow the movement of individual bars in the animation demo.
+具体地说，我们将为 _bar_ 添加 `rank` 属性作一个排序键。 `rank` 也可以方便地用于为每个栏分配调色板中的颜色，从而允许我们跟踪动画演示中各个小节的移动。
 
-A random bar chart will now be based on a random selection of ranks to include ([code listing](https://gist.github.com/mravn-google/4f7194e8c1f875eba189856eb40e6b1e), [diff](https://github.com/mravn/charts/commit/5a41b26279fb5ba334c219bf4f6d74cd33daf01b)).
+随机条形图现在将基于随机选择的 `rank` 来包括 ([代码列表](https://gist.github.com/mravn-google/4f7194e8c1f875eba189856eb40e6b1e), [diff](https://github.com/mravn/charts/commit/5a41b26279fb5ba334c219bf4f6d74cd33daf01b)).
 
 ![](https://cdn-images-1.medium.com/max/800/1*MuSAOLktwY8bTJdPGuoNqA.gif)
 
-Arbitrary categories. Merge-based lerping.
+任意类别。合并基础，线性插值。
 
-This works nicely, but is perhaps not the most efficient solution. We are repeatedly executing the merge algorithm in `BarChart.lerp`, once for every value of `t`. To fix that, we’ll implement the idea mentioned earlier to store reusable information in `BarChartTween`.
+干的不错，但也许不是最有效的解决方案。 我们在 `BarChart.lerp` 中重复执行合并算法，对于 `t` 的每个值都执行一次。 为了解决这个问题，我们将实现前面提到的想法，将可重用信息存储在 `BarChartTween` 中。
 
 ```
 class BarChartTween extends Tween<BarChart> {
@@ -445,53 +445,57 @@ class BarChartTween extends Tween<BarChart> {
 }
 ```
 
-We can now remove the static `BarChart.lerp` method ([diff](https://github.com/mravn/charts/commit/bb3b46f9384b8b90d50be1db59ce44ed83c61b2c)).
+我们现在可以删除静态方法 `BarChart.lerp` ([diff](https://github.com/mravn/charts/commit/bb3b46f9384b8b90d50be1db59ce44ed83c61b2c)).
 
 * * *
 
-Let’s summarize what we’ve learned about the tween concept so far:
+让我们总结一下到目前为止我们对 `tween` 概念的理解：
 
-_Animate_ `_T_`_s by tracing out a path in the space of all_ `_T_`_s as the animation value runs from zero to one. Model the path with a_ `_Tween<T>_`_._
+_动画_ _T_ _通过在所有_ _T_ _的空间中描绘出一条路径作为动画值,在0到1之间运行。 使用 `_Tween <T> _` 路径建模。_
 
 _Generalize the_ `_T_` _concept as needed until it encompasses all animation end points and intermediate values._
 
-_Lerp between composite values by lerping corresponding components._
+_根据需要概括_ `_T_` _的概念_，_直到它包含所有动画端点和中间值。_
+
+_通过线性插值对应的组件合成 `Lerp` 值_
 
 *   _The correspondence should be based on semantics, not on accidental graphical co-location._
-*   _Where a component is missing in one animation end point, use an invisible component in its place, possibly derived from the other end point._
-*   _Where components form sorted lists, use the merge algorithm to bring semantically corresponding components on a par, introducing invisible components as needed to deal with one-sided merges._
+*   _通信应该基于语义，而不是偶然的图形位置。_
+*   _如果某个动画终点中缺少某个组件，在其位置使用不可见的组件，这个组件可能是从另一个端点派生出来的。_
+*   _在组件形成排序列表的位置，使用合并算法将语义上相应的组件放在一起，根据需要使用不可见组件来处理单侧合并。_
 
-_Consider implementing tweens using static_ `_Xxx.lerp_` _methods to facilitate reuse in composite tween implementations. Where significant recomputation happens across calls to_ `_Xxx.lerp_` _for a single animation path, consider moving the computation to the constructor of the_ `_XxxTween_` _class, and let its instances host the computation outcome._
+_考虑使用静态方法 `_Xxx.lerp_` 实现 `tweens`，以便在合成 `tween` 实现时重用。 对单个动画路径调用 `_Xxx.lerp_` 进行重要的重新计算，请考虑将计算移动到 `_XxxTween_` 类的构造函数，并让其实例承载计算结果
+。_
 
 * * *
 
-Armed with these insights, we are finally in position to animate more complex charts. We’ll do stacked bars, grouped bars, and stacked+grouped bars in quick succession:
+有了这些见解，我们终于有能力制作更复杂的图表。 我们将快速连续地实现堆叠条形图，分组条形图和堆叠+分组条形图：
 
-*   Stacked bars are used for data sets where categories are two-dimensional and it makes sense to add up the numerical quantity represented by bar heights. An example might be revenue per product and geographical region. Stacking by product makes it easy to compare product performance in the global market. Stacking by region shows which regions are important.
+*   堆叠条形用于二维类别数据集，并且条形高度的数量加起来是有意义的。 一个典型的例子是产品和地理区域的收入。 按产品堆叠可以轻松比较全球市场中的产品的表现。 按区域堆叠显示哪些区域重要。
 
 ![](https://cdn-images-1.medium.com/max/800/1*qKUFM56S-ZonH1amVDDXTw.gif)
 
-Stacked bars.
+堆叠条形图。
 
-*   Grouped bars are also used for data sets with two-dimensional categories, but where it is not meaningful or desirable to stack the bars. For instance, if the numeric quantity is market share in percent per product and region, stacking by product makes no sense. Even where stacking does makes sense, grouping can be preferable as it makes it easier to do quantitative comparisons across both category dimensions at the same time.
+*   分组条也用于具有二维类别的数据集，这种情况使用堆叠条形图没有意义或不合适。 例如，如果数据是每个产品和区域的市场份额百分比，则按产品堆叠是没有意义的。 即使堆叠确实有意义，分组也是可取的，因为它可以更容易地同时对两个类别维度进行定量比较。
 
 ![](https://cdn-images-1.medium.com/max/800/1*YiojxPiaWY7lB5v9iZVgDg.gif)
 
-Grouped bars.
+分组条形图。
 
-*   Stacked+grouped bars support three-dimensional categories, like revenue per product, geographical region, and sales channel.
+*   堆叠+分组条形图支持三维类别，好比产品的收入，地理区域和销售渠道。
 
 ![](https://cdn-images-1.medium.com/max/800/1*9ObVOKbos4DoQsmsqbMnRQ.gif)
 
-Stacked+grouped bars.
+堆叠+分组条形图。
 
-In all three variants, animation can be used to visualize data set changes, thus introducing an additional dimension (typically time) without cluttering the charts.
+在所有三种变体中，动画可用于可视化数据集更改，从而引入额外的维度（通常是时间）而不会使图表混乱。
 
-For the animation to be useful and not just pretty, we need to make sure that we lerp only between semantically corresponding components. So the bar segment used to represent the revenue for a particular product/region/channel in 2016 should be morphed into one representing revenue for the same product/region/channel in 2017 (if present).
+为了使动画有用而不仅仅是漂亮，我们需要确保我们只在语义相应的组件之间进 `lerp`。 因此，用于表示2016年特定产品/地区/渠道收入的条形段,应变为2017年相同产品/区域/渠道（如果存在）的收入。
 
-The merge algorithm can be used to ensure this. As you may have guessed from the preceding discussion, merge will be put to work at multiple levels, reflecting the dimensionality of the categories. We’ll merge stacks and bars in stacked charts, groups and bars in grouped charts, and all three in stacked+grouped charts.
+合并算法可用于确保这一点。 正如您在前面的讨论中所猜测的那样，合并将在多个层面上发挥作用，反映出类别的维度。 我们将在堆积图表中组合堆和条形图，在分组图表中合并组和条形图，以及堆叠+分组图表中组合上面三个。
 
-To accomplish that without a lot of code duplication, we’ll abstract the merge algorithm into a general utility, and put it in a file of its own, `tween.dart`:
+为了减少重复代码，我们将合并算法抽象为通用接口，并将其放在自己的文件`tween.dart`中：
 
 ```
 import 'package:flutter/animation.dart';
