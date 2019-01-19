@@ -11,11 +11,11 @@
 
 ![](https://d33wubrfki0l68.cloudfront.net/07bab6a876338626943c46d654f45aabe7e0e807/47054/images/drop-caps/w.svg) ![](https://d33wubrfki0l68.cloudfront.net/af7798a3ff2553a4ee42f928f6cb9addbfc6de6f/0f7b2/images/drop-caps/character-15.svg) **当我们在讨论前端性能时我们在谈些什么？**性能的瓶颈又**到底**在哪儿？是昂贵的 JavaScript 开销，耗时的网络字体下载，超大的图片还是迟钝的页面渲染？摇树（tree-shaking）、作用域提升（scope hoisting）、代码分割（code-splitting），以及各种酷炫的加载模式，包括交叉观察者模式（intersection observer）、服务端推送（server push）、客户端提示（clients hints）、HTTP/2、service worker 以及 edge worker，研究这些真的有用吗？还有，最重要的，当我们着手处理前端性能的时候，**我们该从哪里开始**，该如何去建立一个长期的性能优化体系？
 
-早些时候，性能都是所谓的**“后顾之忧”**。直到项目快结束的时候，它会被归结为代码压缩（minification）、拼接（concatenation）、静态资源优化（asset optimization）以及几行服务器配置的调整。现在回想一下，事情似乎已经发生了很多变化。
+早些时候，性能都是所谓的**“后顾之忧”**。直到项目快结束的时候，它会被归结为代码压缩（minification）、拼接（concatenation）、静态资源优化（asset optimization）以及几行服务器配置的调整。现在回想一下，情况似乎已经全然不同了。
 
-性能问题不仅仅是技术上的考量，当它被整合进工作流时，设计的决策也需要参考性能评估。**性能需要持续地被检测、监控和优化。**同时，网络在变得越来越复杂，这带来了新的挑战，简单的指标追踪变得不再可行，因为不同的设备、浏览器、协议、网络类型和延迟都会使指标发生明显变化。（CDN、ISP、缓存、代理、防火墙、负载均衡和服务器，这些都得考虑进去。） 
+性能问题不仅仅是技术上的考量，当它被整合进工作流时，在设计的决策中也需要考量性能的因素。**性能需要持续地被检测、监控和优化。**同时，网络在变得越来越复杂，这带来了新的挑战，简单的指标追踪变得不再可行，因为不同的设备、浏览器、协议、网络类型和延迟都会使指标发生明显变化。（CDN、ISP、缓存、代理、防火墙、负载均衡和服务器，这些都得考虑进去。） 
 
-因此，如果我们想囊括关于性能提升的所有点 —— 从一开始到网站最后发布，那么最终这个清单应该长啥样呢？以下是一份（但愿是无偏见的、客观的）**2019 前端性能优化年度总结**，“介是你没有看过的船新版本”，它几乎包括所有你需要考虑的点，来确保你的网站响应时间够短、用户体验够流畅、同时不会榨干用户的带宽。
+因此，如果我们想囊括关于性能提升的所有要点 —— 从一开始到网站最后发布，那么最终这个清单应该长啥样呢？以下是一份（但愿是无偏见的、客观的）**2019 前端性能优化年度总结**，“介是你没有看过的船新版本”，它几乎包括所有你需要考虑的要点，来确保你的网站响应时间够短、用户体验够流畅、同时不会榨干用户的带宽。
 
 > **[译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)**
 > [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
@@ -27,24 +27,24 @@
 #### 目录
 
 - [起步：计划与指标](#起步计划与指标)
-  - [1. 建立性能评估文化](#1-建立性能评估文化)
+  - [1. 建立性能评估规范](#1-建立性能评估规范)
   - [2. 目标：比你最快的竞争对手快至少 20%](#2-目标比你最快的竞争对手快至少-20)
   - [3. 选择合适的指标](#3-选择合适的指标)
-  - [4. 在典型用户设备上收集数据](#4-在典型用户设备上收集数据)
-  - [5. 为测试设立“干净”、“接近真实用户”的浏览器账户](#5-为测试设立干净接近真实用户的浏览器账户)
+  - [4. 在目标用户的典型设备上收集数据](#4-在目标用户的典型设备上收集数据)
+  - [5. 为测试设立“纯净”、“接近真实用户”的浏览器账户](#5-为测试设立纯净接近真实用户的浏览器账户)
   - [6. 与团队其他成员分享这份清单](#6-与团队其他成员分享这份清单)
 
 ### 起步：计划与指标
 
-对于持续跟踪性能，“微优化”（micro-optimization）是个不错的主意，但是在脑子里有个明晰的目标也是很必要的 —— **可测量的**目标会影响过程中采取的所有决策。有许多不同的模型可以参考，以下讨论的都基于我个人主观偏好，请根据个人情况自行调整。
+对于持续跟踪性能，“微优化”（micro-optimization）是个不错的主意，但是在脑子里有个明晰的目标也是很必要的 —— **量化的**目标会影响过程中采取的所有决策。有许多不同的模型可以参考，以下讨论的都基于我个人主观偏好，请根据个人情况自行调整。
 
-#### 1. 建立性能评估文化
+#### 1. 建立性能评估规范
 
-在很多组织里面，前端开发者都确切地知道哪有最有可能出现问题，以及应该使用何种模式来修正这些问题。然而，由于性能评估文化的缺失，每个决定都会成为部门间的战场，使组织分裂成孤岛。要想获得业务利益相关者的支持，你需要通过案例研究来说明：页面速度会如何影响业务指标和他们所关心的 **KPI**。
+在很多组织里面，前端开发者都确切地知道哪有最有可能出现问题，以及应该使用何种模式来修正这些问题。然而，由于性能评估文化的缺失，每个决定都会成为部门间的战场，使组织分裂成孤岛。要想获得业务利益相关者的支持，你需要通过具体案例来说明：页面速度会如何影响业务指标和他们所关心的 **KPI**。
 
 没有开发、设计与业务、市场团队的通力合作，性能优化是走不远的。研究用户抱怨的常见问题，再看看如何通过性能优化来缓解这些问题。
 
-同时在移动和桌面设备上运行性能基准测试，由公司真实数据得到定制化的案例研究（case study）。除此以外，你还可以使用 [WPO Stats](https://wpostats.com/) 公开的案例研究和实验过程来提升自己对性能优化的敏感性，了解为什么性能表现如此重要，它对用户体验和业务指标会产生哪些影响。光是明白性能表现很重要还不够，你还得设立量化的、可追溯的目标，时刻关注它们。
+同时在移动和桌面设备上运行性能基准测试，由公司真实数据得到定制化的案例研究（case study）。除此以外，你还可以参考 [WPO Stats](https://wpostats.com/) 上展示的性能优化案例研究及其实验数据来提升自己对性能优化的敏感性，了解为什么性能表现如此重要，它对用户体验和业务指标会产生哪些影响。光是明白性能表现很重要还不够，你还得设立量化的、可追溯的目标，时刻关注它们。
 
 那么到底该怎么做呢？在 Allison McKnight 名为 [Building Performance for the Long Term](https://vimeo.com/album/4970467/video/254947097) 的演讲中，她详细地分享了自己如何在 Etsy 建立性能评估文化的[案例](https://speakerdeck.com/aemcknig/building-performance-for-the-long-term)。
 
@@ -58,25 +58,25 @@ Brad Frost 的 [Performance budget builder](http://bradfrost.com/blog/post/perfo
     
 为了更好地了解你的对手的性能表现，你可以使用 [Chrome UX Report](https://web.dev/fast/chrome-ux-report) （**CrUX**，一组现成的 RUM 数据集，[Ilya Grigorik 的视频介绍](https://vimeo.com/254834890))，[Speed Scorecard](https://www.thinkwithgoogle.com/feature/mobile/) (可同时估算性能优化将如何影响收入)，[真实用户体验测试比较（Real User Experience Test Comparison）](https://ruxt.dexecure.com/compare)或者 [SiteSpeed CI](https://www.sitespeed.io/)（基于集成测试）。
 
-**注意**：如果你使用 [Page Speed Insights](https://developers.google.com/speed/pagespeed/insights/)（是的，它还没被抛弃），你可以得到具体页面的 CrUX 性能数据。在为具体页面（如“首页”、“产品列表页面”）设立性能目标时，这些数据会非常有用。另外，如果你正在使用 CI 来监测性能预算，当使用 CrUX 来确立目标时，你需要确保测试环境与 CrUX 一致。（**感谢 Patrick Meenan！**)
+**注意**：如果你使用 [Page Speed Insights](https://developers.google.com/speed/pagespeed/insights/)（是的，它还没被抛弃），你可以得到指定页面详细的 CrUX 性能数据，而不是只有一些粗略的综合数据。在为具体页面（如“首页”、“产品列表页面”）设立性能目标时，这些数据会非常有用。另外，如果你正在使用 CI 来监测性能预算，当使用 CrUX 来确立目标时，你需要确保测试环境与 CrUX 一致。（**感谢 Patrick Meenan！**)
 
-收集数据，建立一个[表格](http://danielmall.com/articles/how-to-make-a-performance-budget/)，削减掉 20%，以此建立你目标的**性能预算**。那么现在你有了可测量的对照组样本。事情正逐步走向正轨，只要你时刻把这份预算记在心里，并且每次都交付尽可能少的代码以缩短可交互时间。
+收集数据，建立一个[表格](http://danielmall.com/articles/how-to-make-a-performance-budget/)，削减掉 20%，以此建立你的目标**性能预算**。那么现在你有了量化的对照组样本。事情正逐步走向正轨，只要你时刻把这份预算记在心里，并且每次都交付尽可能少的代码以缩短可交互时间。
 
 需要些资料来上手？
 
 *   Addy Osmani 写了一篇非常详细的文章解释[如何开始做性能预算](https://medium.com/@addyosmani/start-performance-budgeting-dabde04cf6a3)，如何量化新特性带来的影响，以及当超出预算时，你应该怎么做。
 
-*   Lara Hogan 有[一份指南解释面对性能预算时如何进行产品设计](http://designingforperformance.com/weighing-aesthetics-and-performance/#approach-new-designs-with-a-performance-budget)，可以对设计师们提供一些有用的提示。
+*   Lara Hogan 有[一份考虑到性能预算时的产品设计指南](http://designingforperformance.com/weighing-aesthetics-and-performance/#approach-new-designs-with-a-performance-budget)，可以对设计师们提供一些有用的提示。
 
 *   Jonathan Fielding 的 [Performance Budget Calculator](http://www.performancebudget.io/)，Brad Frost 的 [Performance Budget Builder](https://codepen.io/bradfrost/full/EPQVBp/) 和 [Browser Calories](https://browserdiet.com/calories/) 可以在建立预算上提供帮助。（感谢 [Karolina Szczur](https://medium.com/@fox/talk-the-state-of-the-web-3e12f8e413b3) 的提醒）
 
-*   另外，通过图表报告打包体积来**可视化**展示性能预算和当前的性能指标。有很多工具可以帮你做到这一点，[SiteSpeed.io dashboard](https://www.peterhedenskog.com/blog/2015/04/open-source-performance-dashboard/)（开源），[SpeedCurve](http://speedcurve.com/) 和 [Calibre](https://calibreapp.com/) 只是其中几个，你可以在 [perf.rocks](http://perf.rocks/tools/) 找到更多工具。
+*   另外，通过建立带有报告打包体积图表的仪表盘，来**可视化**展示性能预算和当前的性能指标。有很多工具可以帮你做到这一点，[SiteSpeed.io dashboard](https://www.peterhedenskog.com/blog/2015/04/open-source-performance-dashboard/)（开源），[SpeedCurve](http://speedcurve.com/) 和 [Calibre](https://calibreapp.com/) 只是其中几个，你可以在 [perf.rocks](http://perf.rocks/tools/) 找到更多工具。
 
-一旦确立好了性能预算，你就可以借助 [Webpack Performance Hints and Bundlesize](https://web.dev/fast/incorporate-performance-budgets-into-your-build-tools)、[Lightouse CI](https://web.dev/fast/using-lighthouse-ci-to-set-a-performance-budget), [PWMetrics](https://github.com/paulirish/pwmetrics)、[Sitespeed CI](https://www.sitespeed.io/) 把它们整合进打包流程中，或者在请求合并时强制检测性能预算，并在 PR 备注中注明得分记录。如果你需要个性化定制，你可以使用 [webpagetest-charts-api](https://github.com/trulia/webpagetest-charts-api)，它提供了一系列 API 从 WebPagetest 的结果生成图表。
+一旦确立好合适的性能预算，你就可以借助 [Webpack Performance Hints and Bundlesize](https://web.dev/fast/incorporate-performance-budgets-into-your-build-tools)、[Lightouse CI](https://web.dev/fast/using-lighthouse-ci-to-set-a-performance-budget), [PWMetrics](https://github.com/paulirish/pwmetrics)、[Sitespeed CI](https://www.sitespeed.io/) 把它们整合进打包流程中，在请求合并时强制检测性能预算，并在 PR 备注中注明得分记录。如果你需要个性化定制，你可以使用 [webpagetest-charts-api](https://github.com/trulia/webpagetest-charts-api)，它提供了一系列可以从 WebPagetest 的结果生成图表的 API。
 
 举个例子，正如 [Pinterest](https://medium.com/@Pinterest_Engineering/a-one-year-pwa-retrospective-f4a2f4129e05) 一样，你可以创建一个自定义的 **eslint** 规则，禁止导入重依赖（dependency-heavy）的文件和目录，从而避免打包文件变得臃肿。设定一个团队内共享的“安全”依赖包列表。
 
-除了性能预算外，好好想想那些对你们业务价值最大的关键用户操作。规定并讨论可接受的**关键操作响应时间阈值**，并就“UX 就绪”耗时评分在团队内达成共识。大多数情况下，用户的操作流程会涉及到许多不同的公司部门，因此，就“时间阈值”达成共识可以为今后关于性能的沟通提供支持，避免不必要的讨论。确保由新增资源和功能带来的资源开销是可视化的，易于理解的。
+除了性能预算外，仔细考虑那些对你们业务价值最大的关键用户操作。规定并讨论可接受的**关键操作响应时间阈值**，并就“UX 就绪”耗时评分在团队内达成共识。大多数情况下，用户的操作流程会涉及到许多不同公司部门的工作，因此，就“时间阈值”达成共识可以为今后关于性能的沟通提供支持，避免不必要的讨论。确保对新增资源和功能带来的资源开销了如指掌。
 
 另外，正如 Patrick Meenan 提议的，在设计过程中，**规划好加载的顺序和取舍**是绝对值得的。如果你预先规划好哪部分更重要，并确定每部分出现的顺序，那么同时你也会知道哪些部分可以延迟加载。理想情况下，这个顺序也会反映出 CSS 和 JavaScript 文件的导入顺序，因此在打包阶段处理它们会变得更容易些。除此以外，还得考虑页面加载时中间态的视觉效果（比方说，当网络字体还没有加载完全时）。
 
@@ -144,7 +144,7 @@ Steve Souders 写了[一篇文章](https://speedcurve.com/blog/rendering-metrics
 
 以用户为中心的性能指标可以帮助更好地了解真实用户体验。[首次输入延迟（FID）](https://developers.google.com/web/updates/2018/05/first-input-delay)是一个尝试去实现这一目标的新指标。([戳此了解详情](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/5d80f91c-9807-4565-b616-a4735fcd4949/network-requests-first-input-delay.png))
 
-#### 4. 在典型用户设备上收集数据
+#### 4. 在目标用户的典型设备上收集数据
 
 为了得到准确的数据，我们需要选择合适的测试设备。[Moto G4](https://twitter.com/katiehempenius/statuses/1067969800205422593)会是一个不错的选择，或者是 Samsung 的一款中端产品，又或者是一款如 Nexus 5X 一样中庸的设备，以及 Alcatel 1X 这样的低端设备。你可以在 [open device lab](https://www.smashingmagazine.com/2016/11/worlds-best-open-device-labs/) 找到这些。如果想在更慢的设备上测试，你可以花差不多 $100 买一台 Nexus 2。
 
@@ -171,7 +171,7 @@ Steve Souders 写了[一篇文章](https://speedcurve.com/blog/rendering-metrics
 
 [Lighthouse](https://developers.google.com/web/tools/lighthouse/) —— DevTools 自带的性能审查工具。
 
-#### 5. 为测试设立“干净”、“接近真实用户”的浏览器账户（Profile）
+#### 5. 为测试设立“纯净”、“接近真实用户”的浏览器账户（Profile）
 
 使用被动监控工具进行测试时，一个常见的做法是：关闭反病毒软件和 CPU 后台任务，关闭后台网络连接，使用没有安装任何插件的“干净的”浏览器用账户，以避免结果被歪曲。（[Firefox](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Multiple_profiles)、[Chrome](https://support.google.com/chrome/answer/2364824?hl=en&co=GENIE.Platform=Desktop))。
 
