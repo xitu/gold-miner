@@ -9,17 +9,17 @@
 
 > [Flutter 从 0 到 1（第一部分）](https://github.com/xitu/gold-miner/blob/master/TODO1/zero-to-one-with-flutter.md)
 
-了解如何在跨平台移动应用程序的上下文中为复合图形对象设置动画。引入一个新的概念，如何将 tween 应用于结构化值动画中，例如条形图。 实例代码如下。
+探索如何在跨平台移动应用程序的上下文中为复合图形对象设置动画。引入一个新的概念，如何将 tween 动画应用于结构化值中，例如条形图表。全部代码，按步骤实现。
 
-编辑: 2018年8月8日适配 Dart 2。[GitHub repo](https://github.com/mravn/charts) 并且差异链接于2018年10月17日添加。
+校订: 2018年8月8日适配 Dart 2。[GitHub repo](https://github.com/mravn/charts) 并且差异链接于2018年10月17日添加。
 
 ![](https://cdn-images-1.medium.com/max/800/1*OSc2sFHg8KH4ZQR2ymytKg.png)
 
 * * *
 
-如何进入一个新的编程领域？实践是关键，同时学习和模仿更有经验同行的代码也至关重要。我个人喜欢用挖掘概念的方式来处理：试着从最基本的原则出发，识别各种概念，探索它们的优势，有意识地寻求它们的指导。这是一种理性主义的方法，它不能独立存在，而是一种智力刺激的方法，可以更快地引导您获得更深入的见解。
+如何进入一个新的编程领域 ？实践是至关重要的，同时学习和模仿更有经验同行的代码也是关键。我个人喜欢挖掘概念：试着从最基本的原则出发，识别各种概念，探索它们的优势，有意识地寻求它们的本质。这是一种理性主义的方法，它不能独立存在，而是一种智力刺激的方法，可以更快地引导您获得更深入的见解。
 
-这是 Flutter 及其 widget 和 tween 概念介绍的第二部分也是最后一部分。在 [part one](https://medium.com/dartlang/zero-to-one-with-flutter-43b13fd7b354) 最后, 我们[得到](https://github.com/mravn/charts/tree/992e11e9cdec5a9fb626d6e4c7b62c0d6c558a9d) 一个 widget 树, 其包含布局和状态处理 widgets,
+这是 Flutter 及其 widget 和 tween 概念介绍的第二部分也是最后一部分。在 [Flutter 从 0 到 1 第一部分](https://medium.com/dartlang/zero-to-one-with-flutter-43b13fd7b354) 最后, 我们[得到](https://github.com/mravn/charts/tree/992e11e9cdec5a9fb626d6e4c7b62c0d6c558a9d) 一个 widget 树, 其包含布局和状态处理 widgets,
 
 *   一个 widget，使用自定义动画绘制代码, 绘制单一 _Bar_ 。
 *   一个浮动按钮 widget，控制 _Bar_ 高度动画显示。
@@ -28,13 +28,13 @@
 
 高度动画 _Bar_ 。
 
-使用 `BarTween` 实现动画，tween 可以扩展处理更复杂的情况。 在第二部分中，我将通过将设计概括为具有更多属性的条形以及包含各种配置中的多个条形的条形图来实现该声明。
+使用 `BarTween` 实现动画，我保证 tween 可以扩展处理更复杂的情况。 在第二部分中，我将设计条形图包含更多属性，对应不同设置包含多个条形图。
 
 * * *
 
-首先我们为单个条形图添加颜色。在 `Bar` 类的 `height` 字段旁边添加一个 `color` 字段，并更新 `Bar.lerp` 对它们进行 lerp。 这种模式很典型:
+首先我们为单个条形图添加颜色属性。在 `Bar` 类的 `height` 字段旁边添加一个 `color` 字段，并更新 `Bar.lerp` 对它们进行线性插值。这种模式很典型:
 
-_`Lerp`间通过线性插值相应的组件方式组合值._
+_通过线性插值对应的元素，生成合成值之间的线性插值。_
 
 回想一下第一部分，`lerp` 是 `线性插值` 的缩写。
 
@@ -66,21 +66,21 @@ class BarTween extends Tween<Bar> {
 }
 ```
 
-注意静态 `lerp` 方法，习惯用法产生的效果。 如果没有 `Bar.lerp`，`lerpDouble`（`double.lerp`）和 `Color.lerp`，我们必须实现 `BarTween` 来创建一个 `Tween <double>` 属性表示高度，和 `Tween <Color>` 属性表示颜色。 那些 tweens 将是 `BarTween` 的实例字段，由构造函数初始化，并在其 `lerp` 方法中使用。 我们将在 “Bar” 类之外多次重复 “Bar” 的属性。 代码维护者可能会发现这并不是一个好主意。
+注意静态方法 `lerp` 产生的效果。 如果没有 `Bar.lerp`，`lerpDouble`（ `double.lerp` ）和 `Color.lerp`，我们必须实现 `BarTween` 来创建一个 `Tween <double>` 属性表示高度，和 `Tween <Color>` 属性表示颜色。 这些 tweens 将是 `BarTween` 的实例字段，由构造函数初始化，并在其 `lerp` 方法中使用。 我们将在 `Bar` 类之外多次重复访问 `Bar` 的属性。 代码维护者可能会发现这并不是一个好主意。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kCvpZWFivphnjDnOiIoaIw.gif)
 
 条形图动画显示高度和颜色.
 
-为了在应用程序中使用彩色条，我们将更新 `BarChartPainter` 从 `Bar` 获得条形颜色。 在 `main.dart` 中，我们需要创建一个空的 `Bar` 和一个随机的 `Bar`。 我们将为前者使用完全透明的颜色，为后者使用随机颜色。 颜色将从一个简单的 `ColorPalette` 中获取，我们会在它自己的文件中快速引入。 我们将在 `Bar` 中创建 `Bar.empty` 和 `Bar.random` 工厂构造函数 ([code listing](https://gist.github.com/mravn-google/90bda9c82df356338b3fe3f733066f6c), [diff](https://github.com/mravn/charts/commit/91c800e7e69f2208afb20535aeeacce5a83b8f01)).
+为了在应用程序中使用彩色条，我们将更新 `BarChartPainter` 从 `Bar` 获得条形图颜色。 在 `main.dart` 中，我们需要创建一个空的 `Bar` 和一个随机的 `Bar`。 我们将为前者使用完全透明的颜色，为后者使用随机颜色。 颜色将从一个简单的 `ColorPalette` 类中获取，我们会在它自己的文件中快速实现它。 我们将在 `Bar` 类中创建 `Bar.empty` 和 `Bar.random` 两个工厂构造函数 ([code listing](https://gist.github.com/mravn-google/90bda9c82df356338b3fe3f733066f6c), [diff](https://github.com/mravn/charts/commit/91c800e7e69f2208afb20535aeeacce5a83b8f01)).
 
 * * *
 
 条形图涉及各种配置的多种形式。 为了缓慢地引入复杂性，我们的第一个实现将适用于显示固定类别的条形图。 示例包括每个工作日的访问者或每季度的销售额。 对于此类图表，将数据集更改为另一周或另一年不会更改使用的类别，只会更改每个类别显示的栏。
 
-我们首先更新 `main.dart`，用 `BarChart` 替换 `Bar`，用 `BarChartTween` 替换 `BarTween` ([code listing](https://gist.github.com/mravn-google/029930ddb613b00b6f5df7179d76fdc4), [diff](https://github.com/mravn/charts/commit/17cb4074be0f8267121ae36d865d9a13393e9e39#diff-fe53fad46868a294b309fc85ed138997)).
+我们首先更新 `main.dart`，用 `BarChart` 替换 `Bar`，用 `BarChartTween` 替换 `BarTween` ([代码列表](https://gist.github.com/mravn-google/029930ddb613b00b6f5df7179d76fdc4), [差分](https://github.com/mravn/charts/commit/17cb4074be0f8267121ae36d865d9a13393e9e39#diff-fe53fad46868a294b309fc85ed138997)).
 
-为了更好体现 Dart 语言优势，我们在 `bar.dart` 中创建 `BarChart` 类，并使用固定长度的 `Bar` 实例列表来实现它。 我们将使用五个条形图，表示一周中的工作日。 然后，我们需要将创建空条和随机条的函数从 `Bar` 转移到 `BarChart`。 对于固定类别，空条形图合理地被视为空条的集合。 另一方面，让随机条形图成为随机条形图的集合会使我们的图表变得万花筒般。 相反，我们将为图表选择一种随机颜色，让每个仍然具有随机高度的条形继承该图形。
+为了更好体现 Dart 语言优势，我们在 `bar.dart` 中创建 `BarChart` 类，并使用固定数目的 `Bar` 实例列表来实现它。 我们将使用五个条形图，表示一周中的工作日。 然后，我们需要将创建空条和随机条的函数从 `Bar` 类中转移到 `BarChart` 类中。 对于固定类别，空条形图合理地被视为空条的集合。 另一方面，让随机条形图成为随机条形图的集合会使我们的图表变得多种多样。 相反，我们将为图表选择一种随机颜色，让每个仍然具有随机高度的条形继承该图形。
 
 ```
 import 'dart:math';
@@ -186,34 +186,33 @@ class BarChartPainter extends CustomPainter {
 }
 ```
 
-`BarChartPainter` 在条形图中均匀分布可用宽度，使每个条形占据可用宽度的75％。
+`BarChartPainter` 在条形图中宽度均匀分布，使每个条形占据可用宽度的75％。
 
 ![](https://cdn-images-1.medium.com/max/800/1*aiUQNf70oukpvNf6sVw3GA.gif)
 
 固定类别条形图。
 
-注意 `BarChart.lerp` 是如何用 `Bar.lerp` 实现的，即时重新生成列表结构。 固定类别条形图是复合值，对于这些复合值，直接使用 `lerp` 进行有意义的组合，正如具有多个属性的单个条形图一样 ([diff](https://github.com/mravn/charts/commit/17cb4074be0f8267121ae36d865d9a13393e9e39))。
+注意 `BarChart.lerp` 是如何调用 `Bar.lerp` 实现的，使用 `List.generate` 生产列表结构。 固定类别条形图是复合值，对于这些复合值，直接使用 `lerp` 进行有意义的组合，正如具有多个属性的单个条形图一样 ([diff](https://github.com/mravn/charts/commit/17cb4074be0f8267121ae36d865d9a13393e9e39))。
 
 * * *
 
-这里有一种模式。 当Dart类的构造函数采用多个参数时，您通常可以线性插值单个参数或多个。 你可以任意地嵌套这种模式：仪表板将会线性插值条形图表，线性插值条形图，线性插值条形图高度和颜色。 颜色RGB 和 alpha 通过线性插值来组合。 在这个递归的叶节点上，进行线性插值。
+这里有一种模式。 当Dart类的构造函数采用多个参数时，您通常可以线性插值单个参数或多个。 你可以任意地嵌套这种模式：仪表板将会线性插值条形图表，线性插值条形图，线性插值条形图高度和颜色。 颜色RGB 和 alpha 通过线性插值来组合。 整个过程，就是递归叶节点上的值，进行线性插值。
 
-在数学上倾向于用`_C_(_x_, _y_)`来表达复合的线性插值结构，而编程实践中我们用
-`_lerp_(_C_(_x_1, _y_1), _C_(_x_2, _y_2), _t_) == _C_(_lerp_(_x_1, _x_2, _t_), _lerp_(_y_1, _y_2, _t_))`
+在数学上倾向于用 `_C_(_x_, _y_)` 来表达复合的线性插值结构，而编程实践中我们用 `_lerp_(_C_(_x_1, _y_1), _C_(_x_2, _y_2), _t_) == _C_(_lerp_(_x_1, _x_2, _t_), _lerp_(_y_1, _y_2, _t_))`
 
-正如我们所看到的，这很好地概括了两个组件（条形图的高度和颜色）到任意多个组件（固定类别 _n_ 条条形图）。
+正如我们所看到的，这很好地概括了两个元素（条形图的高度和颜色）到任意多个元素（固定类别 _n_ 条条形图）。
  
 然而，有一些情况会让这张漂亮的照片损坏。 我们希望在两个不以完全相同的方式组成的值之间进行动画处理。 举个简单的例子，考虑动画图表处理从包含工作日，到包括周末的情况。
 
 您可能很容易想出这个问题的几种不同的临时解决方案，然后可能会要求您的UX设计师在它们之间进行选择。 这是一种有效的方法，但我认为在讨论过程中要记住这些不同解决方案共有的基本结构：`tween`。 回忆第一部分：
 
-动画值从0到1运动时，通过遍历空间路径中所有 _T_ 的路径进行动画。用 _Tween <T> _ 对路径建模。
+_动画值从0到1运动时，通过遍历空间路径中所有 `_T_` 的路径进行动画。用 `Tween_ _<T>_` 对路径建模。_
 
 用户体验设计师要回答的核心问题是：图表有五个条形图和一个有七个条形图的中间值是多少？ 显而易见的选择是六个条形图，但我们需要比平滑动画更多的中间值。 我们需要以不同方式绘制条形图，放弃等宽，均匀间隔，适合的200像素设置。 换句话说，`T` 的值必须是通用的。
 
-_通过将值嵌入到更一般数据中，在具有不同结构的值之间进行线性插值，包括动画端点和所有中间值所需的特殊情况。_
+_通过将值嵌入到通用数据中，在具有不同结构的值之间进行线性插值，包括动画端点和所有中间值所需的特殊情况。_
 
-我们可以分两步完成。 首先，`Bar` 包含 _x_ 坐标属性和宽度属性：
+我们可以分两步完成。 第一步，在 `Bar` 类中包含 _x_ 坐标属性和宽度属性：
 
 ```
 class Bar {
@@ -235,13 +234,13 @@ class Bar {
 }
 ```
 
-其次，我们使 `BarChart` 支持具有不同条形数的图表。我们的新图表将适用于数据集，其中条形图 _i_ 代表某些系列中的_i_th 值，例如产品发布后的第 _i_ 天的销售额。[Counting as programmers](https://www.cs.utexas.edu/users/EWD/transcriptions/EWD08xx/EWD831.html), 任何这样的图表都涉及每个整数值 0 .. _n_ 的条形图，但条形图数 _n_ 可能不同于一个图表到下一个图表。.
+第二步，我们使 `BarChart` 支持具有不同条形数的图表。我们的新图表将适用于数据集，其中条形图 _i_ 代表某些系列中的第 _i_ 个值，例如产品发布后的第 _i_ 天的销售额。[Counting as programmers](https://www.cs.utexas.edu/users/EWD/transcriptions/EWD08xx/EWD831.html), 任何这样的图表都涉及每个整数值 0 .. _n_ 的条形图，但条形图数 _n_ 可能在各个图表中表示的意义不同。
 
-考虑两个图表分别有五个和七个条形图。 五个常见类别的条形图 0..5 像上面我们看到的那样进行动画。 索引为5和6的条形在另一个动画终点没有对应条，但由于我们现在可以自由地给每个条形图位置和宽度，我们可以引入两个不可见的条形来扮演这个角色。 视觉效果是当动画进行时，条5和6变成它们的最终外观。在另一个方向上动画，第5和第6条会减弱或淡化为隐形。
+考虑两个图表分别有五个和七个条形图。 五个常见类别的条形图 0..5 像上面我们看到的那样进行动画。 索引为5和6的条形在另一个动画终点没有对应条，但由于我们现在可以自由地给每个条形图设置位置和宽度，我们可以引入两个不可见的条形来扮演这个角色。视觉效果是当动画进行时，第5和第6条会减弱或淡化为隐形的。
 
-_通过线性插值相应的组件在复合值之间进行线性插值。如果某个端点缺少组件，在其位置使用不可见组件。_
+_通过线性插值对应的元素，生成合成值之间的线性插值。如果某个端点缺少元素，在其位置使用不可见元素。_
 
-通常有几种方法可以选择隐形组件。假设我们友好的用户体验设计师决定使用零宽度，零高度的条形图，其中_x_坐标和颜色从它们的可见组件继承而来。 我们将为 `Bar` 添加一个方法，用于处理这样的实例。
+通常有几种方法可以选择隐形元素。假设我们友好的用户体验设计师决定使用零宽度，零高度的条形图，其中 _x_ 坐标和颜色从它们的可见组件继承而来。 我们将为 `Bar` 类添加一个方法，用于处理这样的实例。
 
 ```
 class BarChart {
@@ -293,11 +292,11 @@ class Bar {
 }
 ```
 
-将上述代码集成到我们的应用程序中涉及为此新设置重新定义 `BarChart.empty` 和 `BarChart.random` 。 现在可以合理地将空条形图用于包含零条，而随机条形图可以包含随机数量的条，所有条都具有相同的随机选择颜色，并且每个条具有随机选择的高度。 但由于位置和宽度现在是 `Bar` 定义的一部分，我们需要 `BarChart.random` 来指定这些属性。 用图表 `Size` 参数提供 `BarChart.random` 似乎是合理的，然后解除大部分计算的 `BarChartPainter.paint` ([code listing](https://gist.github.com/mravn-google/cac095296074b8b1b7ad6c91a21a5f1a), [diff](https://github.com/mravn/charts/commit/50585bd40160c336e80f3ec867bad01d08d8e0ec)).
+将上述代码集成到我们的应用程序中，涉及重新定义 `BarChart.empty` 和 `BarChart.random` 。现在可以合理地将空条形图设置包含零条，而随机条形图可以包含随机数量的条，所有条都具有相同的随机选择颜色，并且每个条具有随机选择的高度。 但由于位置和宽度现在是 `Bar`类定义的，我们需要 `BarChart.random` 来指定这些属性。 用图表 `Size` 作为`BarChart.random` 的参数似乎是合理的，这样可以解除 `BarChartPainter.paint` 大部分计算 ([代码列表](https://gist.github.com/mravn-google/cac095296074b8b1b7ad6c91a21a5f1a), [差分](https://github.com/mravn/charts/commit/50585bd40160c336e80f3ec867bad01d08d8e0ec)).
 
 ![](https://cdn-images-1.medium.com/max/800/1*dN9og1kRYpRsL-cFIgO23w.gif)
 
-Lerping to/from invisible bars.
+隐藏条形图线性插值.
 
 * * *
 
