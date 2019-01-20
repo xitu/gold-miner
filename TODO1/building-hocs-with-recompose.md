@@ -137,7 +137,7 @@ export default compose(
 )(Presentation);
 ```
 
-什么是 Recompose 中的 compose？它相当于 Lodash 中的 flowRight 函数。
+什么是 Recompose 中的 compose？它相当于 `Lodash` 中的 `flowRight` 函数。
 
 我们可以使用 compose 来将多个高阶组件转化为一个高阶组件。
 
