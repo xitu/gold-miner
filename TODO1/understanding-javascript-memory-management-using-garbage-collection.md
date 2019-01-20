@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-javascript-memory-management-using-garbage-collection.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-javascript-memory-management-using-garbage-collection.md)
 > * 译者：[wuzhengyan2015](https://github.com/wuzhengyan2015)
-> * 校对者：[GpingFeng](https://github.com/GpingFeng)、[Qiuk17](https://github.com/xitu/gold-miner/pull/5020)
+> * 校对者：[GpingFeng](https://github.com/GpingFeng), [Qiuk17](https://github.com/xitu/gold-miner/pull/5020)
 
 # 通过垃圾回收机制理解 JavaScript 内存管理
 
@@ -11,7 +11,7 @@
 
 照片来自 [Unsplash](https://unsplash.com/?utm_source=medium&utm_medium=referral) 上的 [Dlanor S](https://unsplash.com/@dlanor_s?utm_source=medium&utm_medium=referral)
 
-内存管理的主要目标是在需要的时候为系统动态地分配内存，然后释放那些不再使用的对象的内存。像 C、C++ 这样的语言有基本的内存分配函数，如 `malloc()`，而一些高级语言计算机体系结构（如 JavaScript）包含垃圾回收器来完成这项工作。它跟踪内存分配并识别这些分配的内存是否不再使用，如果是就自动释放。但是这种算法不能完全决定内存是否仍被需要。因此，对于程序员来说，理解并决定一段特定的代码是否需要内存是非常重要的。让我们了解一下 JavaScript 中的垃圾收集是如何工作的：
+内存管理的主要目标是在需要的时候为系统动态地分配内存，然后释放那些不再使用的对象的内存。像 C 和 C++ 这样的语言有基本的内存分配函数，如 `malloc()`，而一些高级语言计算机体系结构（如 JavaScript）包含垃圾回收器来完成这项工作。它跟踪内存分配并识别这些分配的内存是否不再使用，如果是就自动释放。但是这种算法不能完全决定内存是否仍被需要。因此，对于程序员来说，理解并决定一段特定的代码是否需要内存是非常重要的。让我们了解一下 JavaScript 中的垃圾收集是如何工作的：
 
 #### 垃圾回收
 
@@ -132,11 +132,11 @@ obj1 = null
 
 #### 进一步阅读：
 
-- [**V8 之旅: 垃圾回收**： 在前几篇文章中，我们深入研究了 V8 JavaScript 引擎的实现。我们讨论了...](http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection "http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection")
+- [**V8 之旅：垃圾回收**：在前几篇文章中，我们深入研究了 V8 JavaScript 引擎的实现。我们讨论了...](http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection "http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection")
 
-- [**thlorenz/v8-perf**: ⏱️ v8 相关的注释和资源以及Node.js性能 - thlorenz/v8-perf](https://github.com/thlorenz/v8-perf/blob/master/gc.md "https://github.com/thlorenz/v8-perf/blob/master/gc.md")
+- [**thlorenz/v8-perf**：⏱️ v8 相关的注释和资源以及 Node.js 性能 — thlorenz/v8-perf](https://github.com/thlorenz/v8-perf/blob/master/gc.md "https://github.com/thlorenz/v8-perf/blob/master/gc.md")
 
-- [**内存管理**：像 C 这样的底层语言具有手动内存管理基础，如 malloc() 和 free()。 相反...](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management")
+- [**内存管理**：像 C 这样的底层语言具有手动内存管理基础，如 malloc() 和 free()。相反...](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management")
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
