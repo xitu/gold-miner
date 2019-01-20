@@ -59,76 +59,86 @@
 
 总结一下，这种方法的最大的问题是 **时间**。唯一完全解决的问题是仓库的大小。CI 编译时间非常长，并且会随着依赖项的数量成比例增加。正如你所看到的，还有很多需要改进的地方。让我们尝试不同的解决方案吧！
 
-## Git LFS
+## Git 里的 LFS
 
-Some day one of the developers - John - found that github allows storing large files in their LFS (large file system). He noticed that this might be great oportunity to start including pre-compiled frameworks in git repo, but still keep it small. He modified Tony’s rules a little:
+有一天一个开发者 John 发现了 GitHub 允许在它们的 LFS（大文件存储系统）下存储很大的文件。他意识到这可能是一个很好的机会，来把预编译的框架放到 git 仓库里下，同时保证了仓库还是比较小的。他把 Tony 的规则做了一点店修改：
 
-*   Add **both** `Carthage/Build` **and** `Carthage/Checkouts` to `.gitignore`,
-*   When cloning repository for the first time - you **don’t** need to run `carthage bootstrap` (rebuild all dependencies), but you need to extract frameworks from LFS,
-*   When updating framework please only update one framework like `carthage update ReactiveSwift`, **some extra work is needed** \- you need to archive those frameworks, zip them and upload to git-lfs (add to `.gitattributes`),
-*   **All team members** must have the same Swift compiler version (Xcode version).
+* **同时** 把 `Carthage/Build` **和** `Carthage/Checkouts` 添加到 `.gitignore`，
+* 当第一次克隆仓库的时候，你 **不必** 运行 `carthage bootstrap` 来重新编译所有依赖，但是你需要从 LFS 里抽取框架，
+* 当更新框架时，请使用例如 `carthage update ReactiveSwift` 来更新, **还有一些工作需要做**，你需要把那些框架归档，添加至 `.gitattributes`，压缩并上传到 LFS，
+* **所有的项目组成员** 必须保持 Xcode 和 Swit 的版本一致。
 
-This solution is much more complicated especially because of extra steps with zipping and uploading frameworks. There is a [great article](https://medium.com/@rajatvig/speeding-up-carthage-for-ios-applications-50e8d0a197e1) that describes this and offers some simple `Makefile` to automate this step.
+这个解决方案更加复杂，因为需要额外的压缩和上传框架的操作。这里有一篇 [很好的文章](https://medium.com/@rajatvig/speeding-up-carthage-for-ios-applications-50e8d0a197e1)，它提供了详细的操作讲解并给了一个简单的 `Makefile`，可以让这些操作自动进行。
 
-### Pros:
+### 优点；
 
-*   Repository size still not growing
-*   After cloning and extracting you’re ready to go
+* 仓库的大小仍然没有增加
+* 只需要克隆仓库后在提取框架
 
-### Cons:
+### 缺点：
 
-*   In most cases not free (costs `5$` per month after reaching 1GB on LFS)
-*   Each developer must work with the same Xcode version
-*   No mechanism for speeding up update of frameworks
+* 大部分情况下不免费（1 GB 的 LFS 每月需要 5 美元）
+* 所有的开发者 Xcode 版本必须相同
+* 没有更新框架的机制
 
-Let’s compare this solution to problems defined at the begining of the article:
+让我们把这个解决方案用于文章开始的提出的问题：
 
-![LFS approach](https://www.dropbox.com/s/wddhmpli1yyiqgv/naive-table.png?raw=1)
+|     问题     | 已经解决？ |                      还缺少什么？                      |
+| :----------: | :--------: | :----------------------------------------------------: |
+| 不同的编译器 |  部分解决  |   如果两个开发者使用相同的 Xcode，他们都需要重新编译   |
+| 清理编译时间 |     否     | 编译将持续很长时间，每次都会把 CI 上的所有依赖重新编译 |
+|   仓库大小   |     是     |                           -                            |
+|   更新框架   |     否     |    没有改善，开发者需要在升级时重新编译框架和依赖库    |
 
-After all I think that this looks much better! Having fast clean builds is much more important for most teams than possibility to use different Xcodes between developers. They are still able to have differen versions installed and only switch between them for specific projects. I believe `5$` per month for LFS is not a big deal. So it’s much a better (and difficult) solution, but there is still some room for improvement …
+毕竟我认为这看起来好多了！对于大多数团队而言，快速清理构建相比于在开发者之间可能使用不同 Xcode 来说更为重要。他们仍然可以安装不同的版本，只在特定项目之间切换。我相信每月 5 美元的 LFS 并不算贵。所以这是一个更好，同时也更难的解决方案，但仍有一些改进空间......
 
 ## Rome
 
-So, time for Keith to show up. He appreciate other developers’ research, but Keith cares a lot about team work. He thought that maybe it’s possible to share different versions of pre-compiled frameworks compiled by different versions of swift compiler between different projects? That’s a lot of variety, but fortunately there is a tool for that! It’s called `Rome`. I highly encourage you to take a look at documentation on [github](https://github.com/blender/Rome). In general this tool shares frameworks using Amazon S3 Bucket. Again, Keith changed the rules:
+现在 Keith 又出现了，他很欣赏其他开发者的研究，但 Keith 非常在意团队合作。他认为也许可以在不同项目之间共享由不同版本的 Swift 编译器预编译的不同版本的框架，这种情况很多，但幸运的是有这样一个工具！它被称为 `Rome`。我强烈建议您查看 [相关文档](https://github.com/blender/Rome)。 通常此工具使用 Amazon S3 Bucket 来共享框架，Keith 再一次地改变了规则：
 
-*   Add **both** `Carthage/Build` **and** `Carthage/Checkouts` to `.gitignore`,
-*   When cloning repository for the first time - you **don’t** need to run `carthage bootstrap` (rebuild all dependencies) but you need download them from Amazon S3,
-*   When updating framework please only update one framework **version** like `carthage update ReactiveSwift --no-build` and then try to download it from Amazon and if it does not exist build it and upload,
-*   You need to define `RepositoryMap` which tells Rome which dependencies compiled by Carthage you use.
+* 把 `Carthage/Build` **和** `Carthage/Checkouts` **都** 添加到 `.gitignore`，
+* 当第一次克隆仓库的时候，当第一次克隆仓库的时候，你 **不必** 运行 `carthage bootstrap` 来重新编译所有依赖，但是你需要从 Amazon S3 上下载它们，
+* 当更新框架时，请使用例如 `carthage update ReactiveSwift --no-build` 仅仅更新一个框架 **版本**，尝试从 Amazon 下载它，并且如果它不存在的话就把它编译并上传，
+* 你需要定义 `RepositoryMap` 来告诉 Rome 你使用了哪一个由 Carthage 编译的依赖。
 
-By using some **very simple** helper script those rules seem to be almost as simple as the one from `Naive approach` section. I’m very impressed by this tool especially by the relation between amount of required setup work and given benefits. Let’s see what are pros and cons of this solution:
+通过使用一些 **非常简单的** 的辅助脚本，这些规则几乎与一开始 `天真的方法` 中的规则一样简单。我对此工具的印象非常深刻，尤其是仅限的一些步骤带来了显著的成效，下面来让我们看看这个解决方案的优缺点：
 
-### Pros:
+### 优点：
 
-*   Repository size still not growing
-*   After cloning and downloading you’re ready to go
-*   Share frameworks between all company developers (very simple framework update because someone possibly already compiled proper version for you)
-*   Feel free to use different versions of Xcode
-*   Better knowlage of dependencies that you use because of `RepositoryMap`
-*   Ability to schedule building dependencies on CI and then using them locally
+* 仓库的大小仍然没有增加
+* 只需要克隆仓库和下载资源
+* 在所有公司的开发者间共享框架，由于其他人可能已经为你编译好了适当版本的框架，你更新框架起来就非常容易
+* 可以使用不同版本的 Xcode
+* 由于 `RepositoryMap` 的使用你更加了解依赖的相关知识
+* 在 CI 上可计划编译依赖并在本地使用
 
-### Cons:
+### 缺点：
 
-*   Not free, but it’s still cheaper than **LFS** (`$0.023 / GB`)
+* 不免费，但是仍然比 **LFS** (`$0.023 / GB`) 便宜
 
-And comparison with an obvious result:
+和上一个解决方案相比：
 
-![Rome approach](https://www.dropbox.com/s/9ffe5v1gxkvo7nx/rome-table.png?raw=1)
+|     问题     | 已经解决？ | 还缺少什么？ |
+| :----------: | :--------: | :----------: |
+| 不同的编译器 |     是     |      -       |
+| 清理编译时间 |     是     |      -       |
+|   仓库大小   |     是     |      -       |
+|   更新框架   |     是     |      -       |
 
-In my opinion this solution is the one that saves you a lot of hours spent on dependency management. Of course sometimes you’ll need to build on your machine / CI but you have to guarantee that this job will be reused.
+在我看来这个解决方案将为你在依赖管理上节省大量时间，当然有时你将需要在你自己的电脑或是 CI 上编译，但是你需要保证此工作会被重用。
 
-## Recap
+## 回顾
 
-So you already noticed that I believe Rome is the best solution for now and I highly encourage you to use this, but the story shows that there is always something we can improve. You should experiment with different approaches and pick the one that solves your problems. I believe that during reading a story of Tony, John and Keith, you noticed more than just the best friend of Carthage (Rome). It’s about team work and improving team workflow. Those guys tried all the time to solve the problem of working together (with CI as a virtual fourth team member) and finally one of them found a solution that fits ideally to their needs!
+所以你应该已经意到我相信 Rome 才是目前最好的解决方案，我强烈建议你使用它，但以上的故事表明总有一些东西是可以进行改进的。你应该尝试不同的方法并选择最佳解决方案。我相信在阅读 Tony，John 和 Keith 的故事时，你注意到的不仅仅是 Rome 是 Carthage 的最佳搭档，还应该联系到团队工作和工作流程的改进。CI 做为虚拟的第四位团队成员，其他几个人一直试图解协作开发的问题，最后他们中的一个找到了一个理想的解决方案来满足他们的需求。
 
-### Useful links:
+### 几个有用的链接：
 
-*   [Carthage github](https://github.com/Carthage/Carthage)
+*   [Github 上的 Carthage](https://github.com/Carthage/Carthage)
 *   [Git LFS](https://git-lfs.github.com)
-*   [Medium article about Carthage + LFS](https://medium.com/@rajatvig/speeding-up-carthage-for-ios-applications-50e8d0a197e1)
-*   [BFG - tool for migrating to LFS](https://github.com/rtyley/bfg-repo-cleaner/releases/tag/v1.12.5)
-*   [Rome github](https://github.com/blender/Rome)
-*   [AWS credentials](https://aws.amazon.com/blogs/security/a-new-and-standardized-way-to-manage-credentials-in-the-aws-sdks)
+*   [Medium 上关于 Carthage 和 LFS 的文章](https://medium.com/@rajatvig/speeding-up-carthage-for-ios-applications-50e8d0a197e1)
+*   [BFG - 向 LFS 合并的工具](https://github.com/rtyley/bfg-repo-cleaner/releases/tag/v1.12.5)
+*   [Github 上的 Rome](https://github.com/blender/Rome)
+*   [AWS 简介](https://aws.amazon.com/blogs/security/a-new-and-standardized-way-to-manage-credentials-in-the-aws-sdks)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
