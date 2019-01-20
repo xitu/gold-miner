@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/https-medium-com-netflixtechblog-engineering-to-improve-marketing-effectiveness-part-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/https-medium-com-netflixtechblog-engineering-to-improve-marketing-effectiveness-part-2.md)
 > * 译者：[Starrier](https://github.com/Starriers)
-> * 校对者：[kuangbao9](https://github.com/kuangbao9)，[Jingyuan0000](https://github.com/Jingyuan0000)
+> * 校对者：[kuangbao9](https://github.com/kuangbao9), [Jingyuan0000](https://github.com/Jingyuan0000)
 
 # 提高营销效率的工程（二）—— 广告制作和管理的规模化
 
-[Ravi Srinivas Ranganathan](https://www.linkedin.com/in/rravisrinivas)，[Gopal Krishnan](https://www.linkedin.com/in/gopal-krishnan-9057a7/) 编写
+[Ravi Srinivas Ranganathan](https://www.linkedin.com/in/rravisrinivas) 和 [Gopal Krishnan](https://www.linkedin.com/in/gopal-krishnan-9057a7/) 编写。
 
 > 在本系列的[第一篇](https://medium.com/netflix-techblog/engineering-to-improve-marketing-effectiveness-part-1-a6dd5d02bab7)博客中，我们描述了如何把广告科技融入市场营销的理念，动机和方法。除此之外，为了大规模地解决创意开发和本地化的问题，我们还制定了一些管理计划。
 
@@ -15,15 +15,15 @@
 
 ### 问题的表象
 
-我们的世界级营销团队的独特任务是为我们展示不断增长的原创电影和电视节目，以及每一部电影和电视剧背后的独特故事。他们的工作不仅仅是提高我们制作的内容的认知度，更困难的是 —— 共同地为一部分非会员(受到营销)和会员量身定制合适的内容，这些数十亿的用户都是我们线上广告的受众。这些广告必须在各种网站和发布商、Facebook、YouTube 和其他广告平台上送达至互联网用户。
+我们的世界级营销团队的独特任务是为我们展示不断增长的原创电影和电视节目，以及每一部电影和电视剧背后的独特故事。他们的工作不仅仅是提高我们制作的内容的认知度，更困难的是 —— 共同地为一部分非会员（受到营销）和会员量身定制合适的内容，这些数十亿的用户都是我们线上广告的受众。这些广告必须在各种网站和发布商、Facebook、YouTube 和其他广告平台上送达至互联网用户。
 
 想象一下，如果你要为下一部大片电影或必须看的电视节目发起数字营销活动。你需要为各种创意概念、A/B 测试、广告格式和本地化创建广告，然后为技术和内容错误创建 QC（质量控制）。在考虑到这些变化后，你需要将它们传输到这些广告将要投放的对应平台上。现在，想象一下，每天发布多重标题，同时仍然确保这些广告中的每一个都能传达给它们想要与之交谈的人。最后，你需要在广告发布后继续管理你的广告组合，来确保他们是最新的（比如，音乐授权和权限到期），并继续支持推出后的各个阶段。
 
 问题可以分为三类：
 
-*  **Ad Assembly**: 一种可扩展的广告制作和构建自动化工作流的方法
-*  **Creative QC**: 一组可以轻松地对成千上万的广告单元的功能和语义正确性进行质量控制的工具和服务。
-*  **Ad Catalog Management**: 基于 ML 的自动化管理使管理规模性广告活动成为可能
+*  **Ad Assembly**：一种可扩展的广告制作和构建自动化工作流的方法
+*  **Creative QC**：一组可以轻松地对成千上万的广告单元的功能和语义正确性进行质量控制的工具和服务。
+*  **Ad Catalog Management**：基于 ML 的自动化管理使管理规模性广告活动成为可能
 
 ### 什么是 Ad Assembly？
 
@@ -75,7 +75,7 @@ _Titles in Catalog_ **x** _Ad Platforms_ **x** _Concepts_ **x** _Formats_ **x** 
 
 ![](https://cdn-images-1.medium.com/max/800/0*htbGIBapUv-gh_S1)
 
-**来自一个显示广告的样本自动扫描**
+**一个来自陈列广告的自动扫描的样本**
 
 最近，我们开始利用机器视觉来处理一些 QC 任务。比如，根据广告的投放位置，可能需要添加特定的评级图像。为了验证在视频创建过程中应用了正确的评级图像，我们现在使用由我们的云媒体系统团队开发的图像检测算法。随着以 AV 为中心的广告素材的数量不断扩大以及时间的推移，我们将在整体工作流中添加更多这样的解决方案。
 
@@ -129,7 +129,7 @@ _Titles in Catalog_ **x** _Ad Platforms_ **x** _Concepts_ **x** _Formats_ **x** 
 
 ### 展望未来
 
-尽管过去的这些年中，我们利用机会创建了大量的技术，但现实是，我们所需要完成的工作仍有很多。、
+尽管过去的这些年中，我们利用机会创建了大量的技术，但现实是，我们所需要完成的工作仍有很多。
 
 我们已经在一些广告平台上取得了巨大的进步，在有些平台上却才刚起步，而还有一些平台，我们还未纳入考虑范围。在有些平台中，我们已经完成了广告创作，组装和管理以及 QC 等流程，而在其他平台中，我们甚至还未触及广告中简单的组装内容。
 
@@ -141,7 +141,7 @@ _Titles in Catalog_ **x** _Ad Platforms_ **x** _Concepts_ **x** _Formats_ **x** 
 
 为了进一步推进我们的营销技术之旅，我们很快就会有下一个博客，它将故事推进到我们如何支持来自各种平台的营销分析，并使不可能的事情成为可能，以及用它来优化营销支出。
 
-如果你对加入我们有兴趣，想要参与 Netflix 的营销团队的机会，可以关注我们现在的[**招聘**](https://sites.google.com/netflix.com/adtechjobs/ad-tech-engineering)**！** :)
+如果你对加入我们有兴趣，想要参与 Netflix 的营销团队的机会，可以关注我们现在的[**招聘**](https://sites.google.com/netflix.com/adtechjobs/ad-tech-engineering)！:)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
