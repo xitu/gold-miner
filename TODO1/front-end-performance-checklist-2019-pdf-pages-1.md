@@ -13,16 +13,16 @@
 
 早些时候，性能都是所谓的“**后顾之忧**”。直到项目快结束的时候，它会被归结为代码压缩（minification）、拼接（concatenation）、静态资源优化（asset optimization）以及几行服务器配置的调整。现在回想一下，情况似乎已经全然不同了。
 
-性能问题不仅仅是技术上的考量，当它被整合进工作流时，在设计的决策中也需要考量性能的因素。**性能需要持续地被检测、监控和优化。**同时，网络在变得越来越复杂，这带来了新的挑战，简单的指标追踪变得不再可行，因为不同的设备、浏览器、协议、网络类型和延迟都会使指标发生明显变化。（CDN、ISP、缓存、代理、防火墙、负载均衡和服务器，这些都得考虑进去。） 
+性能问题不仅仅是技术上的考量，当它被整合进工作流时，在设计的决策中也需要考量性能的因素。**性能需要持续地被检测、监控和优化**。同时，网络在变得越来越复杂，这带来了新的挑战，简单的指标追踪变得不再可行，因为不同的设备、浏览器、协议、网络类型和延迟都会使指标发生明显变化。（CDN、ISP、缓存、代理、防火墙、负载均衡和服务器，这些都得考虑进去。） 
 
 因此，如果我们想囊括关于性能提升的所有要点 — 从一开始到网站最后发布，那么最终这个清单应该长啥样呢？以下是一份（但愿是无偏见的、客观的）**2019 前端性能优化年度总结**，“介是你没有看过的船新版本”，它几乎包括所有你需要考虑的要点，来确保你的网站响应时间够短、用户体验够流畅、同时不会榨干用户的带宽。
 
-> **[译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)**
-> [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
-> [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
-> [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
-> [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
-> [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
+> - **[译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)**
+> - [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
+> - [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
+> - [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
+> - [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
+> - [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
 
 #### 目录
 
@@ -80,7 +80,7 @@ Brad Frost 的 [Performance budget builder](http://bradfrost.com/blog/post/perfo
 
 另外，正如 Patrick Meenan 提议的，在设计过程中，**规划好加载的顺序和取舍**是绝对值得的。如果你预先规划好哪部分更重要，并确定每部分出现的顺序，那么同时你也会知道哪些部分可以延迟加载。理想情况下，这个顺序也会反映出 CSS 和 JavaScript 文件的导入顺序，因此在打包阶段处理它们会变得更容易些。除此以外，还得考虑页面加载时中间态的视觉效果（比方说，当网络字体还没有加载完全时）。
 
-**规划，规划，规划。**尽管在早期就投入那些能起到立竿见影效果的优化似乎相当有吸引力 — 这对需要快速决胜的项目而言可能是个不错的策略，但是如果没有务实的规划和因地制宜的性能指标，很难保证性能优先能一直受到重视。
+**规划，规划，规划**。尽管在早期就投入那些能起到立竿见影效果的优化似乎相当有吸引力 — 这对需要快速决胜的项目而言可能是个不错的策略，但是如果没有务实的规划和因地制宜的性能指标，很难保证性能优先能一直受到重视。
 
 首次绘制（First Paint）、首次有内容绘制（First Contentful Paint）、首次有意义绘制（First Meaningful Paint）、视觉完备（Visual Complete）、首次可交互时间（Time To Interactive）的区别。[完整文档](https://docs.google.com/presentation/d/1D4foHkE0VQdhcA5_hiesl8JhEGeTDRrQR4gipfJ8z7Y/present?slide=id.g21f3ab9dd6_0_33)。版权：[@denar90](https://docs.google.com/presentation/d/1D4foHkE0VQdhcA5_hiesl8JhEGeTDRrQR4gipfJ8z7Y/present?slide=id.g21f3ab9dd6_0_33)
 
@@ -159,7 +159,7 @@ Steve Souders 写了[一篇文章](https://speedcurve.com/blog/rendering-metrics
 幸运的是，有很多工具可以帮你自动化完成数据收集、评估上述性能指标随时间变化趋势。记住，一个好的性能画像应该包括一套完整的性能指标、[实验数据和实际数据](https://developers.google.com/web/fundamentals/performance/speed-tools/)。
 
 *   **集成测试工具**可以在预先规定了设备和网络配置的可复制环境中收集**实验数据**。例如：**Lighthouse**、**WebPageTest**
-*   **真实用户监测（RUM）**工具可以持续评估用户交互，收集实际数据。例如，**SpeedCurve**、**New Relic**，两者也都提供集成测试工具。
+*   **真实用户监测（RUM）** 工具可以持续评估用户交互，收集实际数据。例如，**SpeedCurve**、**New Relic**，两者也都提供集成测试工具。
 
 前者在**开发阶段**会非常有用，它可以帮助你在开发过程中发现、隔离、修复性能问题。后者在**维护阶段**会很有用，它可以帮助你了解性能瓶颈在哪儿，因为这都是真实用户产生的数据。
 
@@ -181,12 +181,12 @@ Steve Souders 写了[一篇文章](https://speedcurve.com/blog/rendering-metrics
 
 确保你的每一位同事都充分熟悉这份清单，从而避免在以后出现误解。每一个决策都会带来性能影响，整个项目会从前端开发者正确地对待性能问题而获益良多，从而使得团队中的每一个人都负起责任来，而不仅仅只是前端。根据性能预算和清单中定义的优先级来制定设计决策。
 
-> **[译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)**
-> [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
-> [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
-> [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
-> [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
-> [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
+> - **[译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)**
+> - [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
+> - [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
+> - [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
+> - [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
+> - [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
