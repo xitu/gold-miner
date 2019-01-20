@@ -2,20 +2,22 @@
 > * 原文作者：[Abhi Aiyer](https://medium.com/@abhiaiyer)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/building-hocs-with-recompose.md](https://github.com/xitu/gold-miner/blob/master/TODO1/building-hocs-with-recompose.md)
-> * 译者：
+> * 译者：[SHERlocked93](https://github.com/SHERlocked93)
 > * 校对者：
 
-# Building HOCs with Recompose
+# 使用 Recompose 来构建高阶组件
 
-At [Workpop](http://www.workpop.com/careers), we are constantly iterating through different Component design patterns to navigate the opinion-less sea that is the React ecosystem. Early on, we started finding solace in the “Higher Order” Component pattern.
+**译者按：** [Recompose](https://github.com/acdlite/recompose) 是一个 React 库。
 
-#### What is a Higher Order Component?
+在 [Workpop](http://www.workpop.com/careers) 公司，我们不断使用不同的组件设计模式来迭代我们的产品，以适应瞬息万变的 React 生态系统。早些时候，我们从试用高阶组件设计模式（HOC）中尝到一点甜头。
 
-_A Higher Order Component is just a function that returns a function used to render React Components._
+#### 什么是高阶组件？
 
-Here’s an example:
+**高阶组件只是一个函数，只不过它返回的是用来渲染 React 组件的函数。**
 
-```
+这里有个例子：
+
+```jsx
 import { Component } from 'React';
 
 export function enhancer() {
@@ -35,12 +37,12 @@ export function enhancer() {
 }
 ```
 
-As you can see here, we just have a function that gives functionality to a component of your choosing. In this case, we added some state to control visibility.
+正如你看到的这个例子，我们只有一个给你的组件提供功能的函数。在本例中，我们添加了一些 `state` 来控制可见性。
 
-We can see it’s use here:
+我们可以看看它的使用方式：
 
-```
-// Presentational component
+```jsx
+// 展示型组件
 
 function Sample({ visible }) {
  return visible ? <div> I am Visible </div> : <div> I am not Visible </div>
@@ -49,64 +51,62 @@ function Sample({ visible }) {
 export default enhance()(Sample);
 ```
 
-#### What’s the point of this pattern?
+#### 高阶组件模式的意义何在？
 
-When architecting your components, I strongly advocate a split between Presentational Components and “Enhancers”/HOCs. I like the term “enhancer” for a HOC because it allows us to understand what they are trying to achieve.
+当构建组件时，我强烈建议将展示型组件和增强型组件(高阶组件)进行分离。我喜欢使用术语**增强型组件**来描述高阶组件，是因为这个词从字面上可以让我们更好的理解它的用途。
 
-An **Enhancer’s** job is to:
+增强型组件的用途：
 
-*   Allow you to reuse the same enhancement to another Presentational Component.
-*   Clean up bloated components that may be hard to read.
-*   Can manipulate the rendering of the component to your choosing.
-*   Can add “state” to any component which means you don’t have to rely Redux for everything (if you are doing so now)
-*   Manipulate the props you send down to the Presentational Component (map, reduce, w/e you want!)
+*   可以给其他的展示型组件进行相同的代码复用；
+*   简化可读性较差的臃肿的组件；
+*   可以自定义组件的渲染；
+*   可以给任何组件增加 `state`，这意味着你不再需要依赖 Redux 或者其他类似的库（如果你正这样做）；
+*   操作你传给展示型组件的 `props` （map，reduce 等任何你喜欢的方法）。
 
-#### Why not use classes and be done with it?
+#### 为什么不使用类来实现它呢？
 
-Use Es6 Classes if you want!! I personally prefer composing my application’s UI from many functional stateless components.
+如果你想用 ES6 的类语法来实现也可以。我个人倾向于使用函数式无状态的组件来构建应用的 UI。
 
-```
+```jsx
 function HellWorld({ message = 'Hello World' }) {
   return <h1>{message}</h1>;
 }
 ```
 
-By using Functional components you encourage:
+使用函数式组件的优点：
 
-*   Modular code — Reusable pieces that can plug in across your site
-*   Reliance on a props-only interface — Stateless interface by default
-*   Easily Unit Tested — Easily test interface with enzyme/jest
-*   Easily Mocked — Easily mock props for different situations
+*   模块化代码 - 可以在整个项目范围内复用你的代码段；
+*   只依赖于 props - 默认没有 state；
+*   更便于单元测试 - 对 enzyme/jest 更友好的测试接口；
+*   更便于 Mock 数据 - 可以对不同场景方便的进行数据 Mock。
 
-#### The path we traveled
+#### 我们走过的旅程
 
-And there we were, digging the pattern, and off to the races. We hit a couple problems along the way. It became super tedious to constantly write the same HOC syntax for simple things, we didn’t have patterns for combining multiple enhancers together, and we couldn’t prevent the development of duplicate enhancers (this annoys me the most, but I know happens). It was getting hard to prove the value of this pattern as people were getting bogged down in the syntax and the ideas of HOCs (much like engineers do).
+然后我们开始在生产环境中深度使用高阶组件了，并在使用过程中遇到了几个问题。比如为简单的场景不断地编写简单地高阶组件就很无聊，没有将多个高阶组件进行合成的方法，也无法避免开发出冗余的高阶组件（这个最麻烦，但我清楚这有时确实会发生）。人们逐渐陷入高阶组件的语法和观念中寸步难行，这种模式似乎也已渐渐失去了价值。
 
-We needed something that
+我们真正需要的解决方案是这样的：
 
-*   Enforced Patterns
-*   Easily composed
-*   Easy to use
+*   强制模式
+*   易于组合
+*   易于使用
 
-That’s when we turned to [**Recompose**](https://github.com/acdlite/recompose)
+这就是我们为何引入 [**Recompose**](https://github.com/acdlite/recompose)。
 
-#### Enter Recompose
+#### 开始使用 Recompose
 
-> Recompose is a React utility belt for function components and higher-order components. Think of it like lodash for React.
+> Recompose 是一个为函数式组件和高阶组件开发的 React 工具库。可以把它当做 React 的 Lodash.
 
-Yes. Exactly what we need. Our team loves lodash, and now explaining to them that building HOC will be the same developer experience as lodash. Promising.
+这正是我们所需要的。我们的同事们都喜欢用 Lodash，现在跟他们说开发高阶组件将和使用 Lodash 有相似的开发体验。恩，有戏。
 
-Let’s write a quick example:
+我们来写个简单地 DEMO 看看，假如我们有这样一个组件约束：
 
-Suppose we have a component spec:
+*   需要 `state` 来控制可见性；
+*   需要将改变可见性的函数放到我们的组件中；
+*   需要在组件中添加一些 props。
 
-*   Need state to represent visibility
-*   Need to attach handlers to our component to toggle visibility
-*   Need to add some props to the component
+#### 步骤1 - 编写展示型组件
 
-#### Step 1 — Write Presentational Component
-
-```
+```jsx
 export default function Presentation({ title, message, toggleVisibility, isVisible }) {
  return  (
    <div>
@@ -119,35 +119,35 @@ export default function Presentation({ title, message, toggleVisibility, isVisib
 }
 ```
 
-Okay so now we know what we need to do to enhance this component.
+现在我们需要去提取这个组件的增强型组件了。
 
-#### Step 2 — Setup your container
+#### 步骤2 - 编写容器
 
-I usually compose many Recompose enhancers together. So my step here is to setup your composition:
+我通常会把一些 Recompose 的增强型组件合成在一起，所以这个步骤是建立你的 compose：
 
-```
+```jsx
 import { compose } from 'recompose';
 
 export default compose(
   /*********************************** 
    *
-   * We will be adding enhancers here 
+   * 我们将把增强型组件放在这里
    *
    ***********************************/
 )(Presentation);
 ```
 
-What is compose? Compose literally is the same thing as `flowRight` from `lodash`
+什么是 Recompose 中的 compose？它相当于 Lodash 中的 flowRight 函数。
 
-We use compose to turn multiple higher-order components into a single higher-order component.
+我们可以使用 compose 来将多个高阶组件转化为一个高阶组件。
 
-#### Step 3 — Get your state right
+#### 步骤3 - 正确
 
-Okay now we need to get the state setup for this component
+好了，我们现在需要从这个组件中正确获取 `state`。
 
-In Recompose we can use the `withState` enhancer to setup internal Component state and the `withHandlers` enhancer to setup event handlers for the component.
+在 Recompose 中，我们可以使用 `withState` 增强型组件来设置组件内的 `state`，并且使用 `withHandlers` 增强型组件来设置组件的事件处理函数。
 
-```
+```jsx
 import { compose, withState, withHandlers } from 'recompose';
 
 export default compose(
@@ -162,15 +162,15 @@ export default compose(
 )(Presentation);
 ```
 
-Here we setup the state key `isVisible` , we setup a method to `toggleVis` and an initial state of false.
+这里我们设置了状态属性 `isVisible`，一个控制可见性的方法 `toggleVis`，和一个初始值 false。
 
-`withHandlers` create higher-order functions that accept a set of props and return a function handler, in this case responsible for toggling visibility state. The `toggleVisibility` function will be available to our Presentation component as a prop.
+`withHandlers` 创建了一个高阶组件，它接受一系列 `props` 并返回一个处理函数，在这个例子中是处理可见性 `state` 的函数。`toggleVisibility` 这个函数将作为 `Presentation` 组件的一个 `prop`。
 
-#### Step 4 — Wrap it up with some props
+#### 步骤4 - 添加 props
 
-Last thing we need to do is attach some props to our Component.
+最后的要做的是给我们的组件附加一些 `props`。
 
-```
+```jsx
 import { compose, withState, withHandlers, withProps } from 'recompose';
 
 export default compose(
@@ -191,16 +191,15 @@ export default compose(
 )(Presentation);
 ```
 
-The cool thing about this pattern is we can now manipulate props for the Component. Here, based on our visibility state, we show different titles and messages. In my opinion, this is A LOT more clean in this enhancer than right in your render function.
+这个模式最酷的地方在于我们现在就可以操作组件的 `props` 了，在这里，通过操作控制可见性的 `state`，我们可以展示不同的 title 和 message。依我看，这个增强型组件**远比**原来全写在 render 函数中的方式简洁。
 
-#### Conclusion
+#### 总结
 
-There you have it! Now we have a reusable HOC that we could potentially apply to other presentational components. Also, we can see that we’ve removed a lot of boilerplate in HOC construction.
+现在你看到了，我们有了一个可复用的高阶组件，它可以被用在其他的展示性组件上。同时可以看到我们移除了原来高阶组件写法中的很多样板语法。
 
-There is so many more useful APIs in Recompose, check them out [here](https://github.com/acdlite/recompose/blob/master/docs/API.md)! It really is like `lodash`, just open up the docs and start coding!
+在 Recompose 中还有很多有用的 API，[了解更多](https://github.com/acdlite/recompose/blob/master/docs/API.md)！它真的非常像 `Lodash`，现在就打开文档开始写代码吧！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
