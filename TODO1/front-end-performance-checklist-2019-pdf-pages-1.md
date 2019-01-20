@@ -31,7 +31,7 @@
   - [2. 目标：比你最快的竞争对手快至少 20%](#2-目标比你最快的竞争对手快至少-20)
   - [3. 选择合适的指标](#3-选择合适的指标)
   - [4. 在目标用户的典型设备上收集数据](#4-在目标用户的典型设备上收集数据)
-  - [5. 为测试设立“纯净”、“接近真实用户”的浏览器账户](#5-为测试设立纯净接近真实用户的浏览器账户profile)
+  - [5. 为测试设立“纯净”、“接近真实用户”的浏览器配置](#5-为测试设立纯净接近真实用户的浏览器配置profile)
   - [6. 与团队其他成员分享这份清单](#6-与团队其他成员分享这份清单)
 
 ### 起步：计划与指标
@@ -80,31 +80,31 @@ Brad Frost 的 [Performance budget builder](http://bradfrost.com/blog/post/perfo
 
 另外，正如 Patrick Meenan 提议的，在设计过程中，**规划好加载的顺序和取舍**是绝对值得的。如果你预先规划好哪部分更重要，并确定每部分出现的顺序，那么同时你也会知道哪些部分可以延迟加载。理想情况下，这个顺序也会反映出 CSS 和 JavaScript 文件的导入顺序，因此在打包阶段处理它们会变得更容易些。除此以外，还得考虑页面加载时中间态的视觉效果（比方说，当网络字体还没有加载完全时）。
 
-**规划，规划，规划。**尽管在早期就投入那些能起到立竿见影效果的优化看起来很诱人 —— 这对需要快速决胜的项目而言可能是个不错的策略，但是如果没有详细的规划和具体的、定制的性能目标，很难保证性能优先能一直受到重视。
+**规划，规划，规划。**尽管在早期就投入那些能起到立竿见影效果的优化似乎相当有吸引力 —— 这对需要快速决胜的项目而言可能是个不错的策略，但是如果没有务实的规划和因地制宜的性能指标，很难保证性能优先能一直受到重视。
 
 首次绘制（First Paint）、首次有内容绘制（First Contentful Paint）、首次有意义绘制（First Meaningful Paint）、视觉完备（Visual Complete）、首次可交互时间（Time To Interactive）的区别。[完整文档](https://docs.google.com/presentation/d/1D4foHkE0VQdhcA5_hiesl8JhEGeTDRrQR4gipfJ8z7Y/present?slide=id.g21f3ab9dd6_0_33)。版权：[@denar90](https://docs.google.com/presentation/d/1D4foHkE0VQdhcA5_hiesl8JhEGeTDRrQR4gipfJ8z7Y/present?slide=id.g21f3ab9dd6_0_33)
 
 #### 3. 选择合适的指标
 
-[并不是所有的指标都同等重要](https://speedcurve.com/blog/rendering-metrics/)。研究哪个指标对你的应用最重要，通常来说它应该与渲染**你的产品中最重要的那些像素**的速度以及提供输入响应所需的时间相关。这个为你指明最佳的优化目标，提供努力的方向。
+[并不是所有的指标都同等重要](https://speedcurve.com/blog/rendering-metrics/)。研究哪个指标对你的应用最重要，通常来说它应该与开始渲染**你的产品中最重要的那些像素**的速度以及提供输入响应所需的时间相关。这个要点将为你指明最佳的优化目标，提供努力的方向。
 
 不管怎样，不要总是盯着页面完整载入的时间（比方说 `onload` 和 `DOMContentLoaded`），要站在用户的角度去看待页面加载。也就是说，需要关注一组稍微不同的指标。事实上，“选择正确的指标”是没有绝对完美方案的。
 
-根据 Tim Kadlec 的研究和 Marcos Iglesias 在[他的演讲](https://docs.google.com/presentation/d/e/2PACX-1vTk8geAszRTDisSIplT02CacJybNtrr6kIYUCjW3-Y_7U9kYSjn_6TbabEQDnk9Ao8DX9IttL-RD_p7/pub?start=false&loop=false&delayms=10000&slide=id.g3ccc19d32d_0_98)中提到的，传统的指标可以归为几种类型。通常，我们需要所有的指标来构建完整的性能画像，但是在特定项目中，某些指标可能比其他的更重要些。
+根据 Tim Kadlec 的研究和 Marcos Iglesias 在[他的演讲](https://docs.google.com/presentation/d/e/2PACX-1vTk8geAszRTDisSIplT02CacJybNtrr6kIYUCjW3-Y_7U9kYSjn_6TbabEQDnk9Ao8DX9IttL-RD_p7/pub?start=false&loop=false&delayms=10000&slide=id.g3ccc19d32d_0_98)中提到的，传统的指标可以归为几种类型。通常，我们需要所有的指标来构建完整的性能画像，但是在特定场景中，某些指标可能比其他的更重要些。
 
 *   **基于数量的指标**衡量请求数量、权重和性能评分等。对于告警和监控长期变化很有用，但对理解用户体验帮助不大。
 
-*   **里程碑式指标**使用加载过程中的各个状态来标记，比如：**首位字节时间（Time To First Byte）**和**首次可交互时间（Time To Interactive）**。对于描述用户体验和监控很有用，但对了解加载过程中的情况帮助不大。
+*   **里程碑式指标**使用加载过程中的各个状态来标记，比如：**首位字节时间（Time To First Byte）**和**首次可交互时间（Time To Interactive）**。对于描述用户体验和指标很有用，但对了解加载过程中的情况帮助不大。
 
 *   **渲染指标**可以估计内容渲染的时间，例如**渲染开始时间（Start Render）**和**速度指数（Speed Index）**。对于检测和调整渲染性能很有用，但对检测**重要**内容何时出现、何时可交互帮助不大。
 
-*   **自定义指标**衡量某个特定的、个性化的用户事件，比如 Twitter 的[首次发推时间（Time To First Tweet）](https://blog.alexmaccaw.com/time-to-first-tweet)，Pinterest 的 [收藏等待时间（PinnerWaitTime）](https://medium.com/@Pinterest_Engineering/driving-user-growth-with-performance-improvements-cfc50dafadd7)。对准确描述用户体验很有用，但不方便规模化以及与竞争者比较。
+*   **自定义指标**衡量某个特定的、个性化的用户事件，比如 Twitter 的[首次发推时间（Time To First Tweet）](https://blog.alexmaccaw.com/time-to-first-tweet)，Pinterest 的 [收藏等待时间（PinnerWaitTime）](https://medium.com/@Pinterest_Engineering/driving-user-growth-with-performance-improvements-cfc50dafadd7)。对准确描述用户体验很有用，但不方便规模化以及与竞品比较。
 
-为了使画像更加完整，我们通常会在所有类型中都选择一些有用的指标。一般来说，最重要的是以下几个：
+为了使性能画像更加完整，我们通常会在所有类型中都选择一些有用的指标。一般来说，最重要的是以下几个：
 
 *   [首次有效绘制（First Meaningful Paint，FMP）](https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint)
     
-    提供主要内容出现在页面上的时间，反映了服务器输出**任意**数据的速度。FMP 时间过长一般意味着 JavaScript 阻塞了主线程，也有可能是后端/服务器的问题。
+    反映主要内容出现在页面上的所需时间，也侧面反映了服务器输出**任意**数据的速度。FMP 时间过长一般意味着 JavaScript 阻塞了主线程，也有可能是后端/服务器的问题。
 
 *   [首次可交互时间（Time to Interactive，TTI）](https://calibreapp.com/blog/time-to-interactive/)
     
@@ -116,7 +116,7 @@ Brad Frost 的 [Performance budget builder](http://bradfrost.com/blog/post/perfo
 
 *   [速度指数（Speed Index）](https://dev.to/borisschapira/web-performance-fundamentals-what-is-the-speed-index-2m5i)  
     
-    衡量视觉上页面被内容充满的速度，得分越低越好。速度指数由视觉上的加载速度计算而得，只是一个计算值。同时对视口尺寸也很敏感，因此你需要根据目标用户设定测试配置的范围。（感谢 [Boris](https://twitter.com/borisschapira)！）
+    衡量视觉上页面被内容充满的速度，数值越低越好。速度指数由视觉上的加载速度计算而得，只是一个计算值。同时对视口尺寸也很敏感，因此你需要根据目标用户设定测试配置的范围。（感谢 [Boris](https://twitter.com/borisschapira)！）
 
 *   CPU 耗时
     
@@ -126,13 +126,13 @@ Brad Frost 的 [Performance budget builder](http://bradfrost.com/blog/post/perfo
     
     如果你的站点的利润主要来源于广告，那么追踪广告相关代码的体积就很有用了。Paddy Ganti 的[脚本](https://calendar.perfplanet.com/2017/measuring-adweight/)可以构筑两条 URL（一条有广告，一条没有），并且利用 WebPageTest 生成一个比较视频，并显示区别。
 
-*   偏差指标（Deviation metrics）
+*   偏离度指标（Deviation metrics）
     
-    正如 [Wikipedia 的工程师所指出的](https://phabricator.wikimedia.org/phame/live/7/post/117/performance_testing_in_a_controlled_lab_environment_-_the_metrics/)，你的结果中数据的变化在一定程度上可以反映出设施的可靠性，以及你该花多少精力来关注这些偏差和极端值。过大的变化意味着你很可能需要对目前设施的配置做一些调整，它也能帮助我们了解有某些页面是难以可靠地用指标衡量的，例如因为第三方脚本而导致的明显变化。另外，追踪浏览器版本也是个不错的主意，它可能帮助你获悉新版浏览器可以带来的性能变化。
+    正如 [Wikipedia 的工程师所指出的](https://phabricator.wikimedia.org/phame/live/7/post/117/performance_testing_in_a_controlled_lab_environment_-_the_metrics/)，你的结果中数据的变化在一定程度上可以反映出设施的可靠性，以及你该花多少精力来关注这些偏离度和极端值。过大的变化意味着你很可能需要对目前设施的配置做一些调整，它也能帮助我们了解有某些页面是难以可靠地用指标衡量的，例如因为第三方脚本而导致的明显变化。另外，追踪浏览器版本也是个不错的主意，它可能帮助你获悉新版浏览器可以带来的性能变化。
 
 *   [自定义指标（Custom metrics ](https://speedcurve.com/blog/user-timing-and-custom-metrics/)  
     
-    自定义指标可由具体业务和用户体验的需要专门设置。它需要你对**重要**像素、**关键**脚本、**必要** CSS 样式和**相关**静态资源有个清晰的概念，并能够测算用户需要多长时间来下载它们。关于这点，你可以使用 [Hero Rendering Times](https://speedcurve.com/blog/web-performance-monitoring-hero-times/) 或 [Performance API](https://css-tricks.com/breaking-performance-api/)，为重要业务事件创建时间戳。另外，你也可以通过在 WebPageTest 测试完成后运行任何脚本来[收集自定义的指标](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/custom-metrics)。
+    自定义指标可由具体业务和用户体验的需要专门设置。它需要你对**重要**像素、**关键**脚本、**必要** CSS 样式和**相关**静态资源有个清晰的概念，并能够测算用户需要多长时间来下载它们。关于这点，你可以使用 [Hero Rendering Times](https://speedcurve.com/blog/web-performance-monitoring-hero-times/) 或 [Performance API](https://css-tricks.com/breaking-performance-api/)，为重要业务事件创建时间戳。另外，你也可以通过在 WebPageTest 测试完成后运行自定义的脚本来[收集自定义的指标](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/custom-metrics)。
 
 Steve Souders 写了[一篇文章](https://speedcurve.com/blog/rendering-metrics/)详细地介绍了各个指标。需要注意的是：首次交互时间是在**实验环境**下通过自动化审查得到的，而首次输入延迟则表示**真实**用户在使用中感受到的**实际**延迟。总而言之，始终观测和追踪这两个指标会是个好主意。
 
@@ -148,7 +148,7 @@ Steve Souders 写了[一篇文章](https://speedcurve.com/blog/rendering-metrics
 
 为了得到准确的数据，我们需要选择合适的测试设备。[Moto G4](https://twitter.com/katiehempenius/statuses/1067969800205422593)会是一个不错的选择，或者是 Samsung 的一款中端产品，又或者是一款如 Nexus 5X 一样中庸的设备，以及 Alcatel 1X 这样的低端设备。你可以在 [open device lab](https://www.smashingmagazine.com/2016/11/worlds-best-open-device-labs/) 找到这些。如果想在更慢的设备上测试，你可以花差不多 $100 买一台 Nexus 2。
 
-如果你手上没有合适的设备，你可以通过网络限速（比如：150ms RTT，下行 1.5Mbps，上行 0.7Mbps）以及 CPU 限速（慢 5 倍）在电脑上模拟移动端体验。然后，再切换到普通 3G、4G 和 WIFI 网络进行测试。为了是性能影响更加明显，你甚至可以引入 [2G 星期二](https://www.theverge.com/2015/10/28/9625062/facebook-2g-tuesdays-slow-internet-developing-world)，或者为了更方便测试，在办公室[限制 3G 网络](https://twitter.com/thommaskelly/status/938127039403610112)。
+如果你手上没有合适的设备，你可以通过网络限速（比如：150ms RTT，下行 1.5Mbps，上行 0.7Mbps）以及 CPU 限速（慢 5 倍）在电脑上模拟移动端体验。然后，再切换到普通 3G、4G 和 WIFI 网络进行测试。为了使性能影响更加明显，你甚至可以引入 [2G 星期二](https://www.theverge.com/2015/10/28/9625062/facebook-2g-tuesdays-slow-internet-developing-world)，或者为了更方便测试，在办公室[限制 3G 网络](https://twitter.com/thommaskelly/status/938127039403610112)。
 
 时刻记着：在移动设备上，运行速度应该会比在桌面设备上慢 4-5 倍。移动设备具有不同的 GPU、CPU、内存、电池特性。如果说慢速网络制约了下载时间的话，那么手机较为慢速的 CPU 则制约了解析时间。事实上，移动设备上的解析时间通常要比桌面设备[长 36%](https://github.com/GoogleChromeLabs/discovery/issues/1)。因此，一定要[在一部平均水准的设备上进行测试](https://www.webpagetest.org/easy) —— 一部你的用户中最具代表性的设备。
 
@@ -171,11 +171,11 @@ Steve Souders 写了[一篇文章](https://speedcurve.com/blog/rendering-metrics
 
 [Lighthouse](https://developers.google.com/web/tools/lighthouse/) —— DevTools 自带的性能审查工具。
 
-#### 5. 为测试设立“纯净”、“接近真实用户”的浏览器账户（Profile）
+#### 5. 为测试设立“纯净”、“接近真实用户”的浏览器配置（Profile）
 
-使用被动监控工具进行测试时，一个常见的做法是：关闭反病毒软件和 CPU 后台任务，关闭后台网络连接，使用没有安装任何插件的“干净的”浏览器用账户，以避免结果被歪曲。（[Firefox](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Multiple_profiles)、[Chrome](https://support.google.com/chrome/answer/2364824?hl=en&co=GENIE.Platform=Desktop))。
+使用被动监控工具进行测试时，一个常见的做法是：关闭反病毒软件和 CPU 后台任务，关闭后台网络连接，使用没有安装任何插件的“干净的”浏览器配置，以避免结果失真。（[Firefox](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Multiple_profiles)、[Chrome](https://support.google.com/chrome/answer/2364824?hl=en&co=GENIE.Platform=Desktop))。
 
-然而，了解你的用户通常会使用哪些插件也是个不错的主意，然后使用精心设计的“**接近真实用户的**”浏览器账户进行测试。事实上，某些插件可能会给你的应用带来[显著的性能影响](https://twitter.com/denar90_/statuses/1065712688037277696)。如果你有很多用户在使用这些插件，你可能需要考虑这些影响。“干净的”浏览器账户可能有些过于理想化了，可能会与实际情况大相径庭。
+然而，了解你的用户通常会使用哪些插件也是个不错的主意，然后使用精心设计的“**接近真实用户的**”浏览器配置进行测试。事实上，某些插件可能会给你的应用带来[显著的性能影响](https://twitter.com/denar90_/statuses/1065712688037277696)。如果你有很多用户在使用这些插件，你可能需要考虑这些影响。“干净的”用户浏览器配置可能有些过于理想化了，可能会与实际情况大相径庭。
 
 #### 6. 与团队其他成员分享这份清单
 
