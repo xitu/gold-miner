@@ -7,7 +7,7 @@
 
 # 2019 前端性能优化年度总结 — 第一部分
 
-让 2019 来得更迅速吧~您现在收看的是 2019 年前端性能优化年度总结，始于 2016 。
+让 2019 来得更迅速吧~你正在阅读的是 2019 年前端性能优化年度总结，始于 2016 。
 
 ![](https://d33wubrfki0l68.cloudfront.net/07bab6a876338626943c46d654f45aabe7e0e807/47054/images/drop-caps/w.svg) ![](https://d33wubrfki0l68.cloudfront.net/af7798a3ff2553a4ee42f928f6cb9addbfc6de6f/0f7b2/images/drop-caps/character-15.svg) **当我们在讨论前端性能时我们在谈些什么？**性能的瓶颈又**到底**在哪儿？是昂贵的 JavaScript 开销，耗时的网络字体下载，超大的图片还是迟钝的页面渲染？摇树（tree-shaking）、作用域提升（scope hoisting）、代码分割（code-splitting），以及各种酷炫的加载模式，包括交叉观察者模式（intersection observer）、服务端推送（server push）、客户端提示（clients hints）、HTTP/2、service worker 以及 edge worker，研究这些真的有用吗？还有，最重要的，当我们着手处理前端性能的时候，**我们该从哪里开始**，该如何去建立一个长期的性能优化体系？
 
