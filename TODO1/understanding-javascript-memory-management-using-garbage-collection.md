@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-javascript-memory-management-using-garbage-collection.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-javascript-memory-management-using-garbage-collection.md)
 > * 译者：[wuzhengyan2015](https://github.com/wuzhengyan2015)
-> * 校对者：
+> * 校对者：[GpingFeng](https://github.com/GpingFeng)、[Qiuk17](https://github.com/xitu/gold-miner/pull/5020)
 
 # 通过垃圾回收机制理解 JavaScript 内存管理
 
