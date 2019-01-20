@@ -104,7 +104,7 @@ Brad Frost 的 [Performance budget builder](http://bradfrost.com/blog/post/perfo
 
 *   [首次有效绘制（First Meaningful Paint，FMP）](https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint)
     
-    反映主要内容出现在页面上的所需时间，也侧面反映了服务器输出**任意**数据的速度。FMP 时间过长一般意味着 JavaScript 阻塞了主线程，也有可能是后端/服务器的问题。
+    反映主要内容出现在页面上所需的时间，也侧面反映了服务器输出**任意**数据的速度。FMP 时间过长一般意味着 JavaScript 阻塞了主线程，也有可能是后端/服务器的问题。
 
 *   [首次可交互时间（Time to Interactive，TTI）](https://calibreapp.com/blog/time-to-interactive/)
     
