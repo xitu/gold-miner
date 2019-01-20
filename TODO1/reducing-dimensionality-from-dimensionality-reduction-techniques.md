@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/reducing-dimensionality-from-dimensionality-reduction-techniques.md](https://github.com/xitu/gold-miner/blob/master/TODO1/reducing-dimensionality-from-dimensionality-reduction-techniques.md)
 > * 译者：[haiyang-tju](https://github.com/haiyang-tju)
-> * 校对者：[TrWestdoor](https://github.com/TrWestdoor) [kasheemlew](https://github.com/kasheemlew)
+> * 校对者：[TrWestdoor](https://github.com/TrWestdoor), [kasheemlew](https://github.com/kasheemlew)
 
 # 降维技术中常用的几种降维方法
 
@@ -41,9 +41,9 @@
 
 * * *
 
-### **PCA 方法**
+### PCA 方法
 
-PCA（**P**rincipal **C**omponent **A**nalysis）方法大概是书本中最古老的降维技术了。
+PCA（Principal Component Analysis）方法大概是书本中最古老的降维技术了。
 
 因此 PCA 已经得到了很好的研究，并且很多的方法也可以得到相同的解，我们将在这里讨论其中的两种方法，即特征分解和奇异值分解（SVD），然后我们将在 TensorFlow 中实现 SVD 方法。
 
