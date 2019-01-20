@@ -7,8 +7,6 @@
 
 # 使用 Recompose 来构建高阶组件
 
-**译者按：** [Recompose](https://github.com/acdlite/recompose) 是一个 React 库。
-
 在 [Workpop](http://www.workpop.com/careers) 公司，我们不断使用不同的组件设计模式来迭代我们的产品，以适应瞬息万变的 React 生态系统。早些时候，我们从试用高阶组件设计模式（HOC）中尝到一点甜头。
 
 #### 什么是高阶组件？
