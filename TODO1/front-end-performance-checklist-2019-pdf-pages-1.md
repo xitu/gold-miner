@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
 > * 译者：[Hopsken](https://juejin.im/user/57e766e42e958a00543d99ae)
-> * 校对者：[SHERlocked93](https://github.com/SHERlocked93) [ElizurHz](https://github.com/ElizurHz)
+> * 校对者：[SHERlocked93](https://github.com/SHERlocked93), [ElizurHz](https://github.com/ElizurHz)
 
 # 2019 前端性能优化年度总结 — 第一部分
 
-让 2019 来得更迅速吧~你正在阅读的是 2019 年前端性能优化年度总结，始于 2016 。
+让 2019 来得更迅速吧~你正在阅读的是 2019 年前端性能优化年度总结，始于 2016。
 
 ![](https://d33wubrfki0l68.cloudfront.net/07bab6a876338626943c46d654f45aabe7e0e807/47054/images/drop-caps/w.svg) ![](https://d33wubrfki0l68.cloudfront.net/af7798a3ff2553a4ee42f928f6cb9addbfc6de6f/0f7b2/images/drop-caps/character-15.svg) **当我们在讨论前端性能时我们在谈些什么？**性能的瓶颈又**到底**在哪儿？是昂贵的 JavaScript 开销，耗时的网络字体下载，超大的图片还是迟钝的页面渲染？摇树（tree-shaking）、作用域提升（scope hoisting）、代码分割（code-splitting），以及各种酷炫的加载模式，包括交叉观察者模式（intersection observer）、服务端推送（server push）、客户端提示（clients hints）、HTTP/2、service worker 以及 edge worker，研究这些真的有用吗？还有，最重要的，当我们着手处理前端性能的时候，**我们该从哪里开始**，该如何去建立一个长期的性能优化体系？
 
@@ -15,7 +15,7 @@
 
 性能问题不仅仅是技术上的考量，当它被整合进工作流时，在设计的决策中也需要考量性能的因素。**性能需要持续地被检测、监控和优化。**同时，网络在变得越来越复杂，这带来了新的挑战，简单的指标追踪变得不再可行，因为不同的设备、浏览器、协议、网络类型和延迟都会使指标发生明显变化。（CDN、ISP、缓存、代理、防火墙、负载均衡和服务器，这些都得考虑进去。） 
 
-因此，如果我们想囊括关于性能提升的所有要点 —— 从一开始到网站最后发布，那么最终这个清单应该长啥样呢？以下是一份（但愿是无偏见的、客观的）**2019 前端性能优化年度总结**，“介是你没有看过的船新版本”，它几乎包括所有你需要考虑的要点，来确保你的网站响应时间够短、用户体验够流畅、同时不会榨干用户的带宽。
+因此，如果我们想囊括关于性能提升的所有要点 — 从一开始到网站最后发布，那么最终这个清单应该长啥样呢？以下是一份（但愿是无偏见的、客观的）**2019 前端性能优化年度总结**，“介是你没有看过的船新版本”，它几乎包括所有你需要考虑的要点，来确保你的网站响应时间够短、用户体验够流畅、同时不会榨干用户的带宽。
 
 > **[译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)**
 > [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
@@ -36,7 +36,7 @@
 
 ### 起步：计划与指标
 
-对于持续跟踪性能，“微优化”（micro-optimization）是个不错的主意，但是在脑子里有个明晰的目标也是很必要的 —— **量化的**目标会影响过程中采取的所有决策。有许多不同的模型可以参考，以下讨论的都基于我个人主观偏好，请根据个人情况自行调整。
+对于持续跟踪性能，“微优化”（micro-optimization）是个不错的主意，但是在脑子里有个明晰的目标也是很必要的 — **量化的**目标会影响过程中采取的所有决策。有许多不同的模型可以参考，以下讨论的都基于我个人主观偏好，请根据个人情况自行调整。
 
 #### 1. 建立性能评估规范
 
@@ -56,7 +56,7 @@ Brad Frost 的 [Performance budget builder](http://bradfrost.com/blog/post/perfo
 
 根据[一项心理学研究](https://www.smashingmagazine.com/2015/09/why-performance-matters-the-perception-of-time/#the-need-for-performance-optimization-the-20-rule)，如果你希望你的用户感觉到你们的网站用起来比竞争对手快，那么你需要比他们快**至少** 20%。研究你的主要对手，收集他们的网站在移动和桌面设备上的性能指标，确定超越他们的最低要求。为了得到准确的结果和目标，首先去研究你们产品的用户行为，之后模仿 90% 用户的行为来进行测试。
     
-为了更好地了解你的对手的性能表现，你可以使用 [Chrome UX Report](https://web.dev/fast/chrome-ux-report) （**CrUX**，一组现成的 RUM 数据集，[Ilya Grigorik 的视频介绍](https://vimeo.com/254834890))，[Speed Scorecard](https://www.thinkwithgoogle.com/feature/mobile/) (可同时估算性能优化将如何影响收入)，[真实用户体验测试比较（Real User Experience Test Comparison）](https://ruxt.dexecure.com/compare)或者 [SiteSpeed CI](https://www.sitespeed.io/)（基于集成测试）。
+为了更好地了解你的对手的性能表现，你可以使用 [Chrome UX Report](https://web.dev/fast/chrome-ux-report)（**CrUX**，一组现成的 RUM 数据集，[Ilya Grigorik 的视频介绍](https://vimeo.com/254834890))，[Speed Scorecard](https://www.thinkwithgoogle.com/feature/mobile/)（可同时估算性能优化将如何影响收入），[真实用户体验测试比较（Real User Experience Test Comparison）](https://ruxt.dexecure.com/compare)或者 [SiteSpeed CI](https://www.sitespeed.io/)（基于集成测试）。
 
 **注意**：如果你使用 [Page Speed Insights](https://developers.google.com/speed/pagespeed/insights/)（是的，它还没被抛弃），你可以得到指定页面详细的 CrUX 性能数据，而不是只有一些粗略的综合数据。在为具体页面（如“首页”、“产品列表页面”）设立性能目标时，这些数据会非常有用。另外，如果你正在使用 CI 来监测性能预算，当使用 CrUX 来确立目标时，你需要确保测试环境与 CrUX 一致。（**感谢 Patrick Meenan！**)
 
@@ -80,7 +80,7 @@ Brad Frost 的 [Performance budget builder](http://bradfrost.com/blog/post/perfo
 
 另外，正如 Patrick Meenan 提议的，在设计过程中，**规划好加载的顺序和取舍**是绝对值得的。如果你预先规划好哪部分更重要，并确定每部分出现的顺序，那么同时你也会知道哪些部分可以延迟加载。理想情况下，这个顺序也会反映出 CSS 和 JavaScript 文件的导入顺序，因此在打包阶段处理它们会变得更容易些。除此以外，还得考虑页面加载时中间态的视觉效果（比方说，当网络字体还没有加载完全时）。
 
-**规划，规划，规划。**尽管在早期就投入那些能起到立竿见影效果的优化似乎相当有吸引力 —— 这对需要快速决胜的项目而言可能是个不错的策略，但是如果没有务实的规划和因地制宜的性能指标，很难保证性能优先能一直受到重视。
+**规划，规划，规划。**尽管在早期就投入那些能起到立竿见影效果的优化似乎相当有吸引力 — 这对需要快速决胜的项目而言可能是个不错的策略，但是如果没有务实的规划和因地制宜的性能指标，很难保证性能优先能一直受到重视。
 
 首次绘制（First Paint）、首次有内容绘制（First Contentful Paint）、首次有意义绘制（First Meaningful Paint）、视觉完备（Visual Complete）、首次可交互时间（Time To Interactive）的区别。[完整文档](https://docs.google.com/presentation/d/1D4foHkE0VQdhcA5_hiesl8JhEGeTDRrQR4gipfJ8z7Y/present?slide=id.g21f3ab9dd6_0_33)。版权：[@denar90](https://docs.google.com/presentation/d/1D4foHkE0VQdhcA5_hiesl8JhEGeTDRrQR4gipfJ8z7Y/present?slide=id.g21f3ab9dd6_0_33)
 
@@ -108,7 +108,7 @@ Brad Frost 的 [Performance budget builder](http://bradfrost.com/blog/post/perfo
 
 *   [首次可交互时间（Time to Interactive，TTI）](https://calibreapp.com/blog/time-to-interactive/)
     
-    在此时间点，页面布局已经稳定，主要的网络字体已经可见，主线程已可以响应用户输入 —— 基本上意味着只是用户可以与 UI 进行交互。是描述“网站可正常使用前，用户所需要**等待**的时长”的关键因素。
+    在此时间点，页面布局已经稳定，主要的网络字体已经可见，主线程已可以响应用户输入 — 基本上意味着只是用户可以与 UI 进行交互。是描述“网站可正常使用前，用户所需要**等待**的时长”的关键因素。
 
 *   [首次输入延迟（First Input Delay，FID 或 Input responsiveness）](https://developers.google.com/web/updates/2018/05/first-input-delay)
     
@@ -120,7 +120,7 @@ Brad Frost 的 [Performance budget builder](http://bradfrost.com/blog/post/perfo
 
 *   CPU 耗时
     
-    描述主线程处理有效负载时繁忙程度的指标，显示在绘制、渲染、运行脚本和加载时，主线程被阻塞的频次和时长。高的 CPU 耗时明显地意味着**卡顿的**用户体验。利用 WebPageTest，你可以[在“Chrome”标签页上选择“Capture Dev Tools Timeline”选项](https://deanhume.com/ten-things-you-didnt-know-about-webpagetest-org/)来暴露出可能的主线程崩溃（得益于 WebPageTest 可以在任何设备上运行）。
+    描述主线程处理有效负载时繁忙程度的指标，显示在绘制、渲染、运行脚本和加载时，主线程被阻塞的频次和时长。高的 CPU 耗时明显地意味着**卡顿的**用户体验。利用 WebPageTest，你可以[在 “Chrome” 标签页上选择 “Capture Dev Tools Timeline” 选项](https://deanhume.com/ten-things-you-didnt-know-about-webpagetest-org/)来暴露出可能的主线程崩溃（得益于 WebPageTest 可以在任何设备上运行）。
 
 *   [广告的影响（Ad Weight Impact）](https://calendar.perfplanet.com/2017/measuring-adweight/)  
     
@@ -130,7 +130,7 @@ Brad Frost 的 [Performance budget builder](http://bradfrost.com/blog/post/perfo
     
     正如 [Wikipedia 的工程师所指出的](https://phabricator.wikimedia.org/phame/live/7/post/117/performance_testing_in_a_controlled_lab_environment_-_the_metrics/)，你的结果中数据的变化在一定程度上可以反映出设施的可靠性，以及你该花多少精力来关注这些偏离度和极端值。过大的变化意味着你很可能需要对目前设施的配置做一些调整，它也能帮助我们了解有某些页面是难以可靠地用指标衡量的，例如因为第三方脚本而导致的明显变化。另外，追踪浏览器版本也是个不错的主意，它可能帮助你获悉新版浏览器可以带来的性能变化。
 
-*   [自定义指标（Custom metrics ](https://speedcurve.com/blog/user-timing-and-custom-metrics/)  
+*   [自定义指标（Custom metrics）](https://speedcurve.com/blog/user-timing-and-custom-metrics/)  
     
     自定义指标可由具体业务和用户体验的需要专门设置。它需要你对**重要**像素、**关键**脚本、**必要** CSS 样式和**相关**静态资源有个清晰的概念，并能够测算用户需要多长时间来下载它们。关于这点，你可以使用 [Hero Rendering Times](https://speedcurve.com/blog/web-performance-monitoring-hero-times/) 或 [Performance API](https://css-tricks.com/breaking-performance-api/)，为重要业务事件创建时间戳。另外，你也可以通过在 WebPageTest 测试完成后运行自定义的脚本来[收集自定义的指标](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/custom-metrics)。
 
@@ -138,28 +138,28 @@ Steve Souders 写了[一篇文章](https://speedcurve.com/blog/rendering-metrics
 
 不同的应用，偏好的指标可能会不同。举个例子，对于 Netflix TV 的 UI 界面而言，[关键输入响应、内存使用和首次可交互时间]((https://medium.com/netflix-techblog/crafting-a-high-performance-tv-user-interface-using-react-3350e5a6ad3b))会更重要些，而对于 Wikipedia，[首末视觉变化和 CPU 耗时指标](https://phabricator.wikimedia.org/phame/live/7/post/117/performance_testing_in_a_controlled_lab_environment_-_the_metrics/)会显得更重要些。
 
-**注意**: FID 和 TTI 都不关心滚动表现。滚动事件可以独立发生，因为它是主线程外的。因此，对于许多内容为主的站点而言，这些指标可能并不是很重要。(**感谢 Patrick！**).
+**注意**：FID 和 TTI 都不关心滚动表现。滚动事件可以独立发生，因为它是主线程外的。因此，对于许多内容为主的站点而言，这些指标可能并不是很重要。（**感谢 Patrick！**）。
 
 [![](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/5d80f91c-9807-4565-b616-a4735fcd4949/network-requests-first-input-delay.png)](https://twitter.com/__treo/status/1068163152783835136) 
 
-以用户为中心的性能指标可以帮助更好地了解真实用户体验。[首次输入延迟（FID）](https://developers.google.com/web/updates/2018/05/first-input-delay)是一个尝试去实现这一目标的新指标。([戳此了解详情](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/5d80f91c-9807-4565-b616-a4735fcd4949/network-requests-first-input-delay.png))
+以用户为中心的性能指标可以帮助更好地了解真实用户体验。[首次输入延迟（FID）](https://developers.google.com/web/updates/2018/05/first-input-delay)是一个尝试去实现这一目标的新指标。（[戳此了解详情](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/5d80f91c-9807-4565-b616-a4735fcd4949/network-requests-first-input-delay.png)）
 
 #### 4. 在目标用户的典型设备上收集数据
 
-为了得到准确的数据，我们需要选择合适的测试设备。[Moto G4](https://twitter.com/katiehempenius/statuses/1067969800205422593)会是一个不错的选择，或者是 Samsung 的一款中端产品，又或者是一款如 Nexus 5X 一样中庸的设备，以及 Alcatel 1X 这样的低端设备。你可以在 [open device lab](https://www.smashingmagazine.com/2016/11/worlds-best-open-device-labs/) 找到这些。如果想在更慢的设备上测试，你可以花差不多 $100 买一台 Nexus 2。
+为了得到准确的数据，我们需要选择合适的测试设备。[Moto G4](https://twitter.com/katiehempenius/statuses/1067969800205422593) 会是一个不错的选择，或者是 Samsung 的一款中端产品，又或者是一款如 Nexus 5X 一样中庸的设备，以及 Alcatel 1X 这样的低端设备。你可以在 [open device lab](https://www.smashingmagazine.com/2016/11/worlds-best-open-device-labs/) 找到这些。如果想在更慢的设备上测试，你可以花差不多 $100 买一台 Nexus 2。
 
 如果你手上没有合适的设备，你可以通过网络限速（比如：150ms RTT，下行 1.5Mbps，上行 0.7Mbps）以及 CPU 限速（慢 5 倍）在电脑上模拟移动端体验。然后，再切换到普通 3G、4G 和 WIFI 网络进行测试。为了使性能影响更加明显，你甚至可以引入 [2G 星期二](https://www.theverge.com/2015/10/28/9625062/facebook-2g-tuesdays-slow-internet-developing-world)，或者为了更方便测试，在办公室[限制 3G 网络](https://twitter.com/thommaskelly/status/938127039403610112)。
 
-时刻记着：在移动设备上，运行速度应该会比在桌面设备上慢 4-5 倍。移动设备具有不同的 GPU、CPU、内存、电池特性。如果说慢速网络制约了下载时间的话，那么手机较为慢速的 CPU 则制约了解析时间。事实上，移动设备上的解析时间通常要比桌面设备[长 36%](https://github.com/GoogleChromeLabs/discovery/issues/1)。因此，一定要[在一部平均水准的设备上进行测试](https://www.webpagetest.org/easy) —— 一部你的用户中最具代表性的设备。
+时刻记着：在移动设备上，运行速度应该会比在桌面设备上慢 4-5 倍。移动设备具有不同的 GPU、CPU、内存、电池特性。如果说慢速网络制约了下载时间的话，那么手机较为慢速的 CPU 则制约了解析时间。事实上，移动设备上的解析时间通常要比桌面设备[长 36%](https://github.com/GoogleChromeLabs/discovery/issues/1)。因此，一定要[在一部平均水准的设备上进行测试](https://www.webpagetest.org/easy) — 一部你的用户中最具代表性的设备。
 
 [![Introducing the slowest day of the week](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/dfe1a4ec-2088-4e39-8a39-9f2010380a53/tuesday-2g-opt.png)](https://www.theverge.com/2015/10/28/9625062/facebook-2g-tuesdays-slow-internet-developing-world)
 
-在一周中选择一天让网速变慢。Facebook 就有 [2G 星期二](https://www.theverge.com/2015/10/28/9625062/facebook-2g-tuesdays-slow-internet-developing-world)来提高对低速网络的关注。([图片来源](http://www.businessinsider.com/facebook-2g-tuesdays-to-slow-employee-internet-speeds-down-2015-10?IR=T))
+在一周中选择一天让网速变慢。Facebook 就有 [2G 星期二](https://www.theverge.com/2015/10/28/9625062/facebook-2g-tuesdays-slow-internet-developing-world)来提高对低速网络的关注。（[图片来源](http://www.businessinsider.com/facebook-2g-tuesdays-to-slow-employee-internet-speeds-down-2015-10?IR=T)）
 
 幸运的是，有很多工具可以帮你自动化完成数据收集、评估上述性能指标随时间变化趋势。记住，一个好的性能画像应该包括一套完整的性能指标、[实验数据和实际数据](https://developers.google.com/web/fundamentals/performance/speed-tools/)。
 
 *   **集成测试工具**可以在预先规定了设备和网络配置的可复制环境中收集**实验数据**。例如：**Lighthouse**、**WebPageTest**
-*   **真实用户监测（RUM）**工具可以持续评估用户交互，收集实际数据。例如，**SpeedCurve**、**New Relic** ，两者也都提供集成测试工具。
+*   **真实用户监测（RUM）**工具可以持续评估用户交互，收集实际数据。例如，**SpeedCurve**、**New Relic**，两者也都提供集成测试工具。
 
 前者在**开发阶段**会非常有用，它可以帮助你在开发过程中发现、隔离、修复性能问题。后者在**维护阶段**会很有用，它可以帮助你了解性能瓶颈在哪儿，因为这都是真实用户产生的数据。
 
@@ -169,7 +169,7 @@ Steve Souders 写了[一篇文章](https://speedcurve.com/blog/rendering-metrics
 
 [![Lighthouse](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/a85a91a7-fb37-4596-8658-a40c1900a0d6/lighthouse-screenshot.png)](https://developers.google.com/web/tools/lighthouse/) 
 
-[Lighthouse](https://developers.google.com/web/tools/lighthouse/) —— DevTools 自带的性能审查工具。
+[Lighthouse](https://developers.google.com/web/tools/lighthouse/) — DevTools 自带的性能审查工具。
 
 #### 5. 为测试设立“纯净”、“接近真实用户”的浏览器配置（Profile）
 
