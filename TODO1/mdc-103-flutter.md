@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-103-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-103-flutter.md)
 > * 译者：[DevMcryYu](https://github.com/devmcryyu)
-> * 校对者：
+> * 校对者：[PrinceChou](https://github.com/PrinceChou) [Fengziyin1234](https://github.com/Fengziyin1234)
 
 # MDC-103 Flutter: Material Theming 的颜色、形状、高度和类型（Flutter）
 
@@ -21,11 +21,11 @@ material.io/develop
 
 在本教程中，你将会使用以下属性来定制 Shrine 应用：
 
-*   Color
-*   Typography
-*   Elevation
-*   Shape
-*   Layout
+*   颜色（Color）
+*   排版（Typography）
+*   高度（Elevation）
+*   形状（Shape）
+*   布局（Layout）
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-103-flutter/img/7f521db8a762f5ee.png)
 
@@ -45,10 +45,10 @@ material.io/develop
 
 ## 本教程中使用到的 MDC-Flutter 组件和子系统
 
-*   Themes
-*   Typography
-*   Elevation
-*   Image list
+*   主题（Theme）
+*   排版（Typography）
+*   高度（Elevation）
+*   图片列表（Image list）
 
 ### 你将需要
 
@@ -95,13 +95,13 @@ Flutter 的 IDE 工具适用于 [Android Studio](https://developer.android.com/s
 
 > **重要提示：** 如果连接到计算机的 Android 手机上出现“允许 USB 调试”对话框，请启用**始终允许从此计算机**选项，然后单击**确定**。
 
-在继续本教程之前，请确保你的 SDK 处于正确的状态。如果之前安装过 Flutter，则使用 `flutter upgrade` 来确保 SDK 处于最新版本。
+在继续本教程之前，请确保你的 SDK 处于正确的状态。如果之前安装过 Flutter SDK，则使用 `flutter upgrade` 来确保 SDK 处于最新版本。
 
 ```
 flutter upgrade
 ```
 
-运行 `flutter upgrade` 将自动运行 `flutter doctor`。如果这是首次安装 Flutter 且不需升级，那么请手动运行 `flutter doctor`。查看显示的所有检查标记；这将会下载你需要的任何缺少的 SDK 文件，并确保你的计算机配置无误以进行 Flutter 的开发。
+运行 `flutter upgrade` 将自动运行 `flutter doctor`。如果这是首次安装 Flutter 且不需升级，那么请手动运行 `flutter doctor`。查看显示的所有 ✓ 标记；这将会下载你需要的任何缺少的 SDK 文件，并确保你的计算机配置无误以进行 Flutter 的开发。
 
 ```
 flutter doctor
@@ -208,7 +208,7 @@ git checkout 103-starter_and_102-complete
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-103-flutter/img/532fe80b3fa3db74.png)
 
-## 4. 调整颜色
+## 4. 调整颜色(Color)
 
 一个代表着 Shrine 品牌的配色方案已经创建好了。设计师希望你在 Shrine 应用中实现这个配色方案。
 
@@ -234,7 +234,7 @@ const kShrineSurfaceWhite = const Color(0xFFFFFBFA);
 const kShrineBackgroundWhite = Colors.white;
 ```
 
-### 自定义调色板(color palette)
+### 自定义调色板(Color palette)
 
 此颜色主题由设计师自选颜色进行创建（如下图所示）。它包含 Shrine 的品牌色并应用于 Material 主题编辑器，由此衍生出的完整的调色板。（这些颜色并非来自 2014 Material color palette。）
 
@@ -328,7 +328,7 @@ return MaterialApp(
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-103-flutter/img/img/31adaca378656d60.png)
 
-> 有关颜色和主题的注意事项：
+> 有关颜色（Color）和主题(Theme)的注意事项：
 >
 > *  你可以自定义 UI 中的颜色以便诠释你的品牌特色。
 > *  从两种颜色（主要和次要颜色）开始制作调色板，使用不同色度的颜色。或者使用 Material Design 调色盘工具生成。
@@ -659,7 +659,7 @@ RaisedButton(
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-103-flutter/img/9346cdffc30760da.png)  
 
-> 关于高度的说明：
+> 关于高度(Elevation)的说明：
 >
 > *  所有 Material Design 的平面（surface）和组件都拥有高度值。
 > *  一个平面末尾与另一个平面开始的分隔由平面的边缘区分。
