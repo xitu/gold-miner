@@ -2,33 +2,33 @@
 > * 原文作者：[Roland Leth](https://medium.com/@rolandleth)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/delightful-animations-in-ios.md](https://github.com/xitu/gold-miner/blob/master/TODO1/delightful-animations-in-ios.md)
-> * 译者：
+> * 译者：[iWeslie](https://github.com/iWeslie)
 > * 校对者：
 
-# Delightful animations in iOS
+# iOS 中赏心悦目的动画
 
 ![](https://cdn-images-1.medium.com/max/2560/1*LCqWZwVc8XhXjrlESW0zeA.png)
 
-We all love animations.
+我们热爱动画。
 
-On one hand, they help our eyes be guided, but they also bring a nice finishing touch, a bit of extra care, a bit of _emotion. W_e also prefer a lively UI to a static one, a UI that gives us feedback, that interacts back with us. But, as with anything, too much _will_ be harmful, so let’s explore a few finishing touches that can be added to an app without overwhelming it.
+一方面，它们引导我们的视线，同时也是画龙点睛的一笔，增添了额外的关注点甚至一点 **感情**。比起静态的 UI，我们更偏爱生动形象并且能给我们反馈，可以交互的 UI。但是太多了就会造成不良的后果，所以让我们来探索是否可以给一款 app 增加恰到好处的润色。
 
-### Changing a button’s frame and/or color on `touchDown`
+### 在 `touchDown` 时改变一个按钮的大小或颜色
 
-We usually put a button’s action on `touchUpInside` and the reason for that is to give the user a chance to change his mind. But the physical action performed is the actual touch of the button, which is handled by `touchDown`. At this point, we can have the UI respond to the user’s interaction, to let them know something _did_ happen, by modifying the appearance.
+我们通常在 `touchUpInside` 上设置点击事件，其原因是可以让用户有机会改变他的主意，但由 `touchDown` 处理的是按钮物理上的实际触摸。我们可以在此时让 UI 响应用户的交互，并通过改变外观让他们知道一些事 **确实** 已经发生了。
 
-Don’t go overboard with this, though.  
-I’d start with a scale of `0.97`, a background `alpha` change to `0.85`, a `borderWidth` increase of `1` or `2`, or a combination of two them — more than two will be too aggressive. From here, you have many other options and to name a few: scale increase, `y` position change, adding a slight shadow, a ”wiggle” animation while the button is kept pressed (as if the button was asking _I got your touch, what now?_), a font weight increase or a background color change.
+但是仍然不要太过分。
+我以 `0.97` 的 `scale` 开始，背景色的 `alpha` 为 `0.85`，`borderWidth` 增加 `1` 或 `2`，或者是它们其中两者的组合，超过两个的话就有点过了。从这开始，你还有很多选项，仅仅举几个例子：增加 scale 缩放比例，改变 `y` 值，添加一个轻微的阴影，当一个按钮被不停地点击时添加一个 “抖动” 动画，就好像按钮在跟你说 **我已经知道你点了我了，你还想干嘛？**，还有增加字体的粗细，抑或是改变背景颜色。
 
-This kind of animation doesn’t have to stand out. Its only purpose is to bring a nice finishing touch and to give the user the information that something _did_ happen.
+这类动画不必很显眼，它们唯一的目的就是画龙点睛，以及给用户一些信息，告诉他们一些事情 **确实** 已经发生了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*IK5eAI5eafqPS677Zs-GCw.gif)
 
-### Adding to cart or similar
+### 添加到购物车或类似东西时
 
-Just like Apple animates the add bookmark action in Safari, the same could be done when adding to cart. Guide the user’s eyes to where their action had an effect — the cart button. If you have a badge on it (most likely), animate its scale, for example, with a nice bounce effect. Or, just like Apple does, animate the whole icon and maybe the item ”into” it, as well.
+就像苹果在 Safari 中添加书签的动画一样，我们也可以把添加到购物车时做成这样的动画，这样的话就可以把用户的视引导到购物车按钮上。如果按钮上有小数字的话，就添加个缩放动画，例如像弹簧一样的动画。或者直接模仿苹果的原生效果，把整个图标添加动画就好像你买的东西进入了购物车一样。
 
-This, again, serves as a nice finishing touch and makes the UI respond to the user’s action, but it also serves as a ”here’s where to go next”. It helps the user be guided of what happened, but also to _where_ the change happened. You might say ”after adding to cart 15 times, the user will know where to look for it” and you’d be right; but it doesn’t hurt to confirm it.
+还有，我们可以让 UI 对用户的操作进行了相应，这样也可以提示用户下一步该做什么。它能引导并告诉用户发生了什么以及 **哪里** 发生了改变。你也许会觉得在把东西添加到购物车很多次之后，用户自然就会知道购物车在哪里了，也许你是对的，但是承认它并没有坏处。
 
 ### Call to action
 
