@@ -1493,7 +1493,7 @@
 |------|-------|-------|
 |[再谈如何安全地在 Android 中存储令牌](https://juejin.im/post/5938f81e5c497d006b6187ea)|校对|1|
 |[如何创建 BubblePicker – Android 多彩菜单动画](https://juejin.im/post/591e734d2f301e006bea5243)|翻译|6|
-|[如何测试 Android Service 里的 Singleton (2) ？](http://gold.xitu.io/entry/57fcb8f68ac2470058c9f621/)|校对|1|
+|[如何测试 Android Service 里的 Singleton (2) ？](http://gold.xitu.io/entry/57fcb8f68ac2470058c9f621/)|校对|1|
 |[Activity 的正确打开方式](http://gold.xitu.io/entry/57b9bfc3c4c9710061481310)|校对|1|
 |[使用强大的 Mockito 测试框架来测试你的代码](https://gold.xitu.io/entry/578f11aec4c971005e0caf82)|校对|2|
 
@@ -2914,10 +2914,11 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：295 当前积分：229 年度积分：87.5
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：313 当前积分：247 二零一九年：18
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|18|
 |[在 Keras 中使用一维卷积神经网络处理时间序列数据](https://juejin.im/post/5beb7432f265da61524cf27c)|校对|2|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|10|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|2|
@@ -4389,10 +4390,11 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|1|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
 
-## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：119.5 当前积分：24.5 年度积分：85.5
+## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：124.5 当前积分：29.5 二零一九年：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|13|
 |[语义分割 — U-Net（第一部分）](https://juejin.im/post/5bc55ec8f265da0a8f35ef20)|翻译|7|
 |[使用 python 和 keras 实现卷积神经网络](https://juejin.im/post/5aefb0f351882567336aa3c7)|翻译|4.5|
@@ -5983,10 +5985,11 @@
 |[用户体验中的稀缺性：成为常态的心理偏见](https://juejin.im/post/5aef0943518825672a02d2ca)|校对|1.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|2|
 
-## 译者：[sisibeloved](https://github.com/sisibeloved) 历史贡献积分：68 当前积分：68 年度积分：68
+## 译者：[sisibeloved](https://github.com/sisibeloved) 历史贡献积分：78 当前积分：78 二零一九年：10
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|10|
 |[TensorFlow 中的 RNN 串流](https://juejin.im/post/5bcb2975f265da0a8d36c7d8)|翻译|4|
 |[Sklearn 中的朴素贝叶斯分类器](https://juejin.im/post/5b8510be51882542d23a1d66)|翻译|4|
 |[如何在数据科学中写出生产层面的代码？](https://juejin.im/post/5b7adb7751882542d63b2805)|翻译|7|
@@ -6805,10 +6808,11 @@
 |[一行 JavaScript 代码竟然让 FT.com 网站慢了十倍](https://juejin.im/post/5b7bb6dfe51d4538bf55aa5f)|校对|1|
 |[使用 Web Beacon API 记录活动](https://juejin.im/post/5b694b5de51d4519700fa56a)|校对|1|
 
-## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：29 当前积分：29 年度积分：29
+## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：31.5 当前积分：31.5 二零一九年：2.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|2.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|3|
 |[Javascript: call(), apply() 和 bind()](https://juejin.im/post/5bee3adef265da614c4c612e)|翻译|3|
 |[在 Android 上实现 Google Inbox 的样式动画](https://juejin.im/post/5bee3a45e51d451dca475a43)|翻译|6.5|
@@ -6878,10 +6882,11 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|8|
 |[用 Scikit-Learn 实现 SVM 和 Kernel SVM](https://juejin.im/post/5b7fd39af265da43831fa136)|校对|2|
 
-## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：23 当前积分：23 年度积分：23
+## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：24 当前积分：24 二零一九年：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1|
 |[无容器下的云计算](https://juejin.im/post/5c24800a518825673b02dcfe)|翻译|5.5|
 |[通过集成学习提高机器学习效果](https://juejin.im/post/5c0909d951882548e93806e0)|校对|1.5|
 |[支持向量机（SVM） 教程](http://5a77c24cf265da4e747f92e8/)|校对|3.5|
@@ -7107,10 +7112,11 @@
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|7|
 |[我在阅读 MDN 时发现的 3 个 Input 元素属性](https://juejin.im/post/5bbc6f035188255c5d56b160)|校对|1|
 
-## 译者：[haiyang-tju](https://github.com/haiyang-tju) 历史贡献积分：61.5 当前积分：61.5 年度积分：61.5
+## 译者：[haiyang-tju](https://github.com/haiyang-tju) 历史贡献积分：71.5 当前积分：71.5 二零一九年：10
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|10|
 |[通过集成学习提高机器学习效果](https://juejin.im/post/5c0909d951882548e93806e0)|校对|2.5|
 |[时间序列异常检测算法](https://juejin.im/post/5c19f4cb518825678a7bad4c)|翻译|5.5|
 |[以太坊: 能帮我们把 Uber 换掉的非比特币加密货币](https://juejin.im/post/5bf3e32ee51d4532ff07a7de)|校对|1.5|
@@ -7154,7 +7160,7 @@
 |[以面试官的角度来看 React 工作面试](https://juejin.im/post/5bca74cfe51d450e9163351b)|校对|1.5|
 |[你需要知道的所有 Flexbox 排列方式](https://juejin.im/post/5bc728f2f265da0aef4e3f6d)|校对|3.5|
 
-## 译者：[Ivocin](https://github.com/Ivocin) 历史贡献积分：41.5 当前积分：41.5 年度积分：41.5
+## 译者：[Ivocin](https://github.com/Ivocin) 历史贡献积分：41.5 当前积分：41.5 二零一九年：1
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -7368,10 +7374,11 @@
 |[用 Shadow DOM v1 和 Custom Elements v1 实现一个原生 Web Component](https://juejin.im/post/5c1a401b6fb9a049c042fa07)|翻译|9|
 |[以太坊入门：互联网政府](https://juejin.im/post/5c03c68851882551236eaa82)|翻译|3|
 
-## 译者：[slyrx](https://github.com/slyrx) 历史贡献积分：18 当前积分：18 年度积分：18
+## 译者：[slyrx](https://github.com/slyrx) 历史贡献积分：24 当前积分：24 二零一九年：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|18|
 
 ## 译者：[ElizurHz](https://github.com/ElizurHz) 历史贡献积分：10 当前积分：10 年度积分：10
@@ -7453,7 +7460,7 @@
 |------|-------|-------|
 |[无容器下的云计算](https://juejin.im/post/5c24800a518825673b02dcfe)|校对|2.5|
 
-## 译者：[SHERlocked93](https://github.com/SHERlocked93) 历史贡献积分：3 当前积分：3 年度积分：3
+## 译者：[SHERlocked93](https://github.com/SHERlocked93) 历史贡献积分：3 当前积分：3 二零一九年：3
 
 |文章|类型|积分|
 |------|-------|-------|
