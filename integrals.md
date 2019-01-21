@@ -5937,7 +5937,7 @@
 |[React & Redux 顶级开发伴侣](https://juejin.im/post/5acae8dc6fb9a028c06b1c4c)|校对|1|
 |[拖放库中 React 性能的优化](https://juejin.im/post/5ac31b096fb9a028bc2dedfc)|校对|3|
 
-## 译者：[Hopsken](https://github.com/Hopsken) 历史贡献积分：51 当前积分：51 二零一九：9
+## 译者：[Hopsken](https://github.com/Hopsken) 历史贡献积分：57 当前积分：52 二零一九：9
 
 |文章|类型|积分|
 |------|-------|-------|
