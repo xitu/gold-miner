@@ -36,7 +36,7 @@ material.io/develop
 其余教程可在这里找到：
 
 *   [MDC-101：Material Components（MDC）基础（Flutter）](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-101-flutter.md)
-*   MDC-102：Material 结构和布局](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-102-flutter.md)
+*   [MDC-102：Material 结构和布局](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-102-flutter.md)
 *   [MDC-104: Material Design 高级组件](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-104-flutter.md)
 
 到 MDC-104 的最后，你将会构建一个像这样的应用：
