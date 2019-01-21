@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-103-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-103-flutter.md)
 > * 译者：[DevMcryYu](https://github.com/devmcryyu)
-> * 校对者：[PrinceChou](https://github.com/PrinceChou) [Fengziyin1234](https://github.com/Fengziyin1234)
+> * 校对者：[PrinceChou](https://github.com/PrinceChou), [Fengziyin1234](https://github.com/Fengziyin1234)
 
 # MDC-103 Flutter: Material Theming 的颜色、形状、高度和类型（Flutter）
 
@@ -183,7 +183,7 @@ git checkout 103-starter_and_102-complete
 
 1. 选择设备或模拟器
 
-如果 Android 模拟器尚未运行，请选择 **Tools -> Android -> AVD Manager** 来[创建您设备并启动模拟器](https://developer.android.com/studio/run/managing-avds.html)。 如果 AVD 已存在，你可以直接在 IntelliJ 的设备选择器中启动模拟器，如下一步所示。
+如果 Android 模拟器尚未运行，请选择 **Tools -> Android -> AVD Manager** 来[创建您设备并启动模拟器](https://developer.android.com/studio/run/managing-avds.html)。如果 AVD 已存在，你可以直接在 IntelliJ 的设备选择器中启动模拟器，如下一步所示。
 
 （对于 iOS 模拟器，如果它尚未运行，通过选择 **Flutter Device Selection -> Open iOS Simulator** 来在你的开发设备上启动它。）
 
@@ -192,23 +192,23 @@ git checkout 103-starter_and_102-complete
 2. 启动 Flutter 应用：
 
 *   在你的编辑器窗口顶部寻找 Flutter Device Selection 下拉菜单，然后选择设备（例如，iPhone SE / Android SDK built for <version>）。
-*   点击**运行**图标 (![](https://lh6.googleusercontent.com/Zu8-cWRMCfIrBGIjj4kSW-j8KBiIqVe33PX8Mht5lSKq00kRB7Na3X0kC4aaiG-G7hqqqLPpgtbxTz-1DdYbq2RiNvc2ZaJzfiu_vVYAh1oOc4TZu85pa42nFqqxmMQWySzLWeU1))。
+*   点击**运行**图标（![](https://lh6.googleusercontent.com/Zu8-cWRMCfIrBGIjj4kSW-j8KBiIqVe33PX8Mht5lSKq00kRB7Na3X0kC4aaiG-G7hqqqLPpgtbxTz-1DdYbq2RiNvc2ZaJzfiu_vVYAh1oOc4TZu85pa42nFqqxmMQWySzLWeU1)）。
 
 ![](https://lh4.googleusercontent.com/NLXK-hHFYnHBPeQ6NYrKGnXpj9X2es9her6Y14CotXlR-OdSQBXHyRFv1nvhC1AFCmWx7jIG2Ulb7-OmLV_Pru_-kd-3gArn8OKEGTIOInDJlqIUJ7dxTQUsvLVa0CJwEO5EGjeu)
 
-> 如果你无法成功运行此应用程序，停下来解决你的开发环境问题。尝试导航到  `material-components-flutter-codelabs`；如果你在终端中下载 .zip 文件，导航到 `material-components-flutter-codelabs-...` 然后运行 `flutter create mdc_100_series`。
+> 如果你无法成功运行此应用程序，停下来解决你的开发环境问题。尝试导航到 `material-components-flutter-codelabs`；如果你在终端中下载 .zip 文件，导航到 `material-components-flutter-codelabs-...` 然后运行 `flutter create mdc_100_series`。
 
 成功！上一篇教程中 Shrine 的登陆页面应该在你的模拟器中运行了。你可以看到 Shrine 的 logo 和它下面的名称 "Shrine"。
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-103-flutter/img/db3def4f18a58eed.png)
 
-> 如果应用没有更新，再次单击“Play”按钮，或者点击“Play”后的“Stop”。
+> 如果应用没有更新，再次单击 “Play” 按钮，或者点击 “Play” 后的 “Stop”。
 
 点击“Next”来查看上一教程中的主屏幕。
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-103-flutter/img/532fe80b3fa3db74.png)
 
-## 4. 调整颜色(Color)
+## 4. 调整颜色（Color）
 
 一个代表着 Shrine 品牌的配色方案已经创建好了。设计师希望你在 Shrine 应用中实现这个配色方案。
 
@@ -234,7 +234,7 @@ const kShrineSurfaceWhite = const Color(0xFFFFFBFA);
 const kShrineBackgroundWhite = Colors.white;
 ```
 
-### 自定义调色板(Color palette)
+### 自定义调色板（Color palette）
 
 此颜色主题由设计师自选颜色进行创建（如下图所示）。它包含 Shrine 的品牌色并应用于 Material 主题编辑器，由此衍生出的完整的调色板。（这些颜色并非来自 2014 Material color palette。）
 
@@ -283,7 +283,7 @@ import 'colors.dart';
 然后将以下内容添加到 app.dart 的 ShrineApp 类**之外**的地方：
 
 ```
-// TODO：构建 Shrine 主题(103)
+// TODO：构建 Shrine 主题（103）
 final ThemeData _kShrineTheme = _buildShrineTheme();
 
 ThemeData _buildShrineTheme() {
@@ -359,7 +359,7 @@ return MaterialApp(
 
 ### pubspec 文件故障排除
 
-如果你剪切并粘贴上面的声明代码，你可能会在运行 **pub get** 时遇到错误。如果出现错误，请先删除前导空格，然后使用空格缩进替换空格。（
+如果你剪切并粘贴上面的声明代码，你可能会在运行 **pub get** 时遇到错误。如果出现错误，请先删除前导空格，然后使用空格缩进替换空格。
 
 ```
 fonts:
@@ -371,14 +371,14 @@ fonts:
 family: Rubik
 ```
 
-之前有四个空格，以此类推）
+之前有四个空格，以此类推。
 
 如果你看到 **Mapping values are not allowed here（此处不允许存在映射值）**，检查问题所在行以及上方的其他行的缩进。
 
 `app.dart` 中，在 `_buildShrineTheme()` 之后添加如下内容：
 
 ```
-// TODO：构建 Shrine 文本主题(103)
+// TODO：构建 Shrine 文本主题（103）
 TextTheme _buildShrineTextTheme(TextTheme base) {
   return base.copyWith(
     headline: base.headline.copyWith(
@@ -579,6 +579,7 @@ class AccentColorOverride extends StatelessWidget {
 ```
 
 下一步，将 `AccentColorOverride` 应用到文本框。
+
 在 `login.dart` 中，导入 colors：
 
 ```
@@ -641,7 +642,7 @@ AccentColorOverride(
 
 现在你已经移除了卡片下的阴影。
 
-让我们更改登陆页面组件的高度来补全它。.
+让我们更改登陆页面组件的高度来补全它。
 
 ### 调整 NEXT 按钮的高度
 
@@ -905,7 +906,7 @@ brightness: Brightness.dark,
 
 深入 `supplemental` 目录中的文件来了解我们是如何制作水平滚动的，非对称的布局网格的。
 
-如果您的应用程序设计包含 MDC 库中没有的组件元素该怎么办？在 [MDC-104: Material Design 高级组件](https://codelabs.developers.google.com/codelabs/mdc-104-flutter)一文中我们将展示如何使用MDC库创建自定义组件以实现特定外观。
+如果您的应用程序设计包含 MDC 库中没有的组件元素该怎么办？在 [MDC-104: Material Design 高级组件](https://codelabs.developers.google.com/codelabs/mdc-104-flutter)一文中我们将展示如何使用 MDC 库创建自定义组件以实现特定外观。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
