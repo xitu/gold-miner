@@ -5422,10 +5422,12 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：449 当前积分：373 二零一九：16
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：461 当前积分：385 二零一九：28
 
 |文章|类型|积分|
 |------|-------|-------|
+|[利用 Python中的 Bokeh 实现数据可视化，第二部分：交互](https://juejin.im/post/5c34a9dee51d4551d044efce)|翻译|5|
+|[利用 Python中的 Bokeh 实现数据可视化，第一部分：入门](https://juejin.im/post/5c3c83c7f265da612d197bf0)|翻译|7|
 |[讨论 JS ⚡：文档](https://juejin.im/post/5c4039bbe51d4551733494a6)|翻译|4.5|
 |[提高营销效率的工程（第一部分）](https://juejin.im/post/5c403b5ce51d452c8e6d3dc4)|翻译|5.5|
 |[提高营销效率的工程（二）— 广告制作和管理的规模化](https://juejin.im/post/5c441193518825258604ecd0)|翻译|6|
@@ -6371,10 +6373,11 @@
 |[Kubernetes 分布式应用部署和人脸识别 app 实例](https://juejin.im/post/5b2db0576fb9a00e50313904)|校对|0.5|
 |[[字幕翻译] James Bennett — 理解 Python 字节码 — PyCon 2018](https://github.com/xitu/gold-miner/issues/3990)|校对|0.5|
 
-## 译者：[kasheemlew](https://github.com/kasheemlew) 历史贡献积分：15 当前积分：15 二零一九：0.5
+## 译者：[kasheemlew](https://github.com/kasheemlew) 历史贡献积分：17.5 当前积分：17.5 二零一九：3
 
 |文章|类型|积分|
 |------|-------|-------|
+|[降维技术中常用的几种降维方法](https://juejin.im/post/5c4513a06fb9a049dc028d0c)|校对|2.5|
 |[在 Flask 中使用 Redis Queue 实现异步任务](https://juejin.im/post/5c407497e51d457cba6ca871)|校对|0.5|
 |[用 Python 实现马尔可夫链的初学者教程](https://juejin.im/post/5bb031d06fb9a05cdb104888)|校对|2|
 |[SmartyStreets 的 Go 测试探索之路](https://juejin.im/post/5ba83f2ff265da0a867c3818)|翻译|4.5|
@@ -6819,10 +6822,11 @@
 |[一行 JavaScript 代码竟然让 FT.com 网站慢了十倍](https://juejin.im/post/5b7bb6dfe51d4538bf55aa5f)|校对|1|
 |[使用 Web Beacon API 记录活动](https://juejin.im/post/5b694b5de51d4519700fa56a)|校对|1|
 
-## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：31.5 当前积分：31.5 二零一九：2.5
+## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：37.5 当前积分：37.5 二零一九：8.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[利用 Python中的 Bokeh 实现数据可视化，第三部分：制作一个完整的仪表盘](https://juejin.im/post/5c3ae4656fb9a049d9757021)|翻译|6|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|2.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|3|
 |[Javascript: call(), apply() 和 bind()](https://juejin.im/post/5bee3adef265da614c4c612e)|翻译|3|
@@ -6893,10 +6897,12 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|8|
 |[用 Scikit-Learn 实现 SVM 和 Kernel SVM](https://juejin.im/post/5b7fd39af265da43831fa136)|校对|2|
 
-## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：24 当前积分：24 二零一九：1
+## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：28 当前积分：28 二零一九：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[利用 Python中的 Bokeh 实现数据可视化，第二部分：交互](https://juejin.im/post/5c34a9dee51d4551d044efce)|校对|1.5|
+|[降维技术中常用的几种降维方法](https://juejin.im/post/5c4513a06fb9a049dc028d0c)|校对|2.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1|
 |[无容器下的云计算](https://juejin.im/post/5c24800a518825673b02dcfe)|翻译|5.5|
 |[通过集成学习提高机器学习效果](https://juejin.im/post/5c0909d951882548e93806e0)|校对|1.5|
@@ -7123,10 +7129,11 @@
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|7|
 |[我在阅读 MDN 时发现的 3 个 Input 元素属性](https://juejin.im/post/5bbc6f035188255c5d56b160)|校对|1|
 
-## 译者：[haiyang-tju](https://github.com/haiyang-tju) 历史贡献积分：71.5 当前积分：71.5 二零一九：10
+## 译者：[haiyang-tju](https://github.com/haiyang-tju) 历史贡献积分：79.5 当前积分：79.5 二零一九：18
 
 |文章|类型|积分|
 |------|-------|-------|
+|[降维技术中常用的几种降维方法](https://juejin.im/post/5c4513a06fb9a049dc028d0c)|翻译|8|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|10|
 |[通过集成学习提高机器学习效果](https://juejin.im/post/5c0909d951882548e93806e0)|校对|2.5|
 |[时间序列异常检测算法](https://juejin.im/post/5c19f4cb518825678a7bad4c)|翻译|5.5|
