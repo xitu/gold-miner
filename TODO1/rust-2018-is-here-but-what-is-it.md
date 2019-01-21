@@ -19,7 +19,7 @@
 
 在大多数其它语言中，当新版本到来时任何新功能都会添加到此版本中。之前版本并不会得到功能更新。
 
-Rust 的版本则不同。这是因为语言的演进的方式不同。几乎所有新功能都会 100% 兼容原有的 Rust。他们不需要重大的更新。这意味着不需要把他们限制在 Rust 2018 代码中。新版本的编译器会继续支持“Rust 2015 模式”，也就是你默认使用的模式。
+Rust 的版本则不同。这是因为语言的演进方式不同。几乎所有新功能都会 100% 兼容原有的 Rust。他们不需要重大的更新。这意味着不需要把他们限制在 Rust 2018 代码中。新版本的编译器会继续支持“Rust 2015 模式”，也就是你默认使用的模式。
 
 然而因为有时候要改进语言，你必须添加新的东西（像新语法）。并且这类新语法会在老的代码库下执行失败。
 
@@ -92,7 +92,7 @@ Rust 非常适合 Web 开发，原因有两个：
 一旦编写了 Rust WebAssembly 模块，就可以使用各种工具将其嵌入到 Web 应用程序的其余部分中。你可以使用 [wasm-pack](https://github.com/rustwasm/wasm-pack) 自动运行这些工具，并根据需要将新模块推送到 npm。
 
 Check out the [Rust and WebAssembly book](https://rustwasm.github.io/book/) to try it yourself.
-建议你查看 [Rust 嵌入式书籍](https://rust-embedded.github.io/book/)并自己亲自尝试一下。
+建议你查看 [Rust 嵌入式书籍](https://rust-embedded.github.io/book/)并亲自尝试一下。
 
 #### What’s next?
 #### 下一步呢？
@@ -115,7 +115,7 @@ Check out the [Rust and WebAssembly book](https://rustwasm.github.io/book/) to t
 
 有了这些变化，Rust 的嵌入式开发将从有风险的前沿迈向高效。
 
-建议你查看 [Rust 嵌入式书籍](https://rust-embedded.github.io/book/)并自己亲自尝试一下。
+建议你查看 [Rust 嵌入式书籍](https://rust-embedded.github.io/book/)并亲自尝试一下。
 
 #### 下一步呢？
 
@@ -242,7 +242,7 @@ Rust 的一大卖点就是借用检查器。借用检查器帮助你确保你的
 
 [![借用检查器说：啊，我现在看得到了](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/12/04_04-nll-02-500x303.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/12/04_04-nll-02.png)
 
-不过当前这个特性只支持在 Rust 2018 中使用，而不远的将来，所有 Rust 版本都将可以使用。之后我很会写更多关于这部分的内容。
+不过当前这个特性只支持在 Rust 2018 中使用，而在不远的将来，所有 Rust 版本都将可以使用。之后我很会写更多关于这部分的内容。
 
 #### 稳定的 Rust 过程宏
 
