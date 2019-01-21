@@ -45,7 +45,7 @@ var p = new Proxy(target, handler);
 ```js
 const Car = {
   maker: 'BMW',
-  year: '2018',
+  year: 2018,
 };
 
 const proxyCar = new Proxy(Car, {
