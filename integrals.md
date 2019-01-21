@@ -2914,7 +2914,7 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：313 当前积分：247 二零一九年：18
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：313 当前积分：247 二零一九：18
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -4390,7 +4390,7 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|1|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
 
-## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：124.5 当前积分：29.5 二零一九年：5
+## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：124.5 当前积分：29.5 二零一九：5
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -5985,7 +5985,7 @@
 |[用户体验中的稀缺性：成为常态的心理偏见](https://juejin.im/post/5aef0943518825672a02d2ca)|校对|1.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|2|
 
-## 译者：[sisibeloved](https://github.com/sisibeloved) 历史贡献积分：78 当前积分：78 二零一九年：10
+## 译者：[sisibeloved](https://github.com/sisibeloved) 历史贡献积分：78 当前积分：78 二零一九：10
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -6808,7 +6808,7 @@
 |[一行 JavaScript 代码竟然让 FT.com 网站慢了十倍](https://juejin.im/post/5b7bb6dfe51d4538bf55aa5f)|校对|1|
 |[使用 Web Beacon API 记录活动](https://juejin.im/post/5b694b5de51d4519700fa56a)|校对|1|
 
-## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：31.5 当前积分：31.5 二零一九年：2.5
+## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：31.5 当前积分：31.5 二零一九：2.5
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -6882,7 +6882,7 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|8|
 |[用 Scikit-Learn 实现 SVM 和 Kernel SVM](https://juejin.im/post/5b7fd39af265da43831fa136)|校对|2|
 
-## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：24 当前积分：24 二零一九年：1
+## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：24 当前积分：24 二零一九：1
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -7112,7 +7112,7 @@
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|7|
 |[我在阅读 MDN 时发现的 3 个 Input 元素属性](https://juejin.im/post/5bbc6f035188255c5d56b160)|校对|1|
 
-## 译者：[haiyang-tju](https://github.com/haiyang-tju) 历史贡献积分：71.5 当前积分：71.5 二零一九年：10
+## 译者：[haiyang-tju](https://github.com/haiyang-tju) 历史贡献积分：71.5 当前积分：71.5 二零一九：10
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -7160,7 +7160,7 @@
 |[以面试官的角度来看 React 工作面试](https://juejin.im/post/5bca74cfe51d450e9163351b)|校对|1.5|
 |[你需要知道的所有 Flexbox 排列方式](https://juejin.im/post/5bc728f2f265da0aef4e3f6d)|校对|3.5|
 
-## 译者：[Ivocin](https://github.com/Ivocin) 历史贡献积分：41.5 当前积分：41.5 二零一九年：1
+## 译者：[Ivocin](https://github.com/Ivocin) 历史贡献积分：41.5 当前积分：41.5 二零一九：1
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -7374,7 +7374,7 @@
 |[用 Shadow DOM v1 和 Custom Elements v1 实现一个原生 Web Component](https://juejin.im/post/5c1a401b6fb9a049c042fa07)|翻译|9|
 |[以太坊入门：互联网政府](https://juejin.im/post/5c03c68851882551236eaa82)|翻译|3|
 
-## 译者：[slyrx](https://github.com/slyrx) 历史贡献积分：24 当前积分：24 二零一九年：6
+## 译者：[slyrx](https://github.com/slyrx) 历史贡献积分：24 当前积分：24 二零一九：6
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -7460,7 +7460,7 @@
 |------|-------|-------|
 |[无容器下的云计算](https://juejin.im/post/5c24800a518825673b02dcfe)|校对|2.5|
 
-## 译者：[SHERlocked93](https://github.com/SHERlocked93) 历史贡献积分：3 当前积分：3 二零一九年：3
+## 译者：[SHERlocked93](https://github.com/SHERlocked93) 历史贡献积分：3 当前积分：3 二零一九：3
 
 |文章|类型|积分|
 |------|-------|-------|
