@@ -7154,10 +7154,11 @@
 |[以面试官的角度来看 React 工作面试](https://juejin.im/post/5bca74cfe51d450e9163351b)|校对|1.5|
 |[你需要知道的所有 Flexbox 排列方式](https://juejin.im/post/5bc728f2f265da0aef4e3f6d)|校对|3.5|
 
-## 译者：[Ivocin](https://github.com/Ivocin) 历史贡献积分：40.5 当前积分：40.5 年度积分：40.5
+## 译者：[Ivocin](https://github.com/Ivocin) 历史贡献积分：41.5 当前积分：41.5 年度积分：41.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐一篇英文文章|奖励积分|1|
 |[一份关于色彩无障碍性产品设计的指南](https://juejin.im/post/5c2c233d6fb9a049bd4266b7)|校对|1|
 |[快速原型设计的新手指南](https://juejin.im/user/585b9407da2f6000657a5c0c)|校对|2.5|
 |[5 款工具助力 React 快速开发](https://juejin.im/post/5c242e3f51882573d90678ad)|翻译|4.5|
@@ -7451,3 +7452,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[无容器下的云计算](https://juejin.im/post/5c24800a518825673b02dcfe)|校对|2.5|
+
+## 译者：[SHERlocked93](https://github.com/SHERlocked93) 历史贡献积分：3 当前积分：3 年度积分：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|推荐五篇英文文章|奖励积分|3|
