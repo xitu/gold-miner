@@ -11,7 +11,7 @@
 
 今天，Rust 2018 发布了它的第一个版本，在这个版本中，我们专注于提高生产力，让 Rust 开发人员尽可能高效。
 
-[![时间线显示了不同的进程，Rust 2018 和 Rust 2015，并且 beta 版上的功能指向另两个版本。包围时间线的是工具图标及 4 个领域：WebAssembly，嵌入式，网络和命令行界面(CLI)。一个红色的环包围了所有的东西（除了 Rust 2018 字样和 Developer Productivity 标签）](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/12/01_01-rust2018-500x549.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/12/01_01-rust2018.png)
+[![时间线显示了不同的进程，Rust 2018 和 Rust 2015，并且 beta 版上的功能指向另两个版本。包围时间线的是工具图标及 4 个领域：WebAssembly，嵌入式，网络和命令行界面（CLI）。一个红色的环包围了所有的东西（除了 Rust 2018 字样和 Developer Productivity 标签）](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/12/01_01-rust2018-500x549.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/12/01_01-rust2018.png)
 
 但除了这些，很难准确解释 Rust 2018 是什么。
 
@@ -29,7 +29,7 @@ Rust 的版本则不同。这是因为语言的演进方式不同。几乎所有
 
 所以我们把添加关键字作为 Rust 2018 的一部分。虽然这个功能本身还没实现，但现在关键字已经被保留。接下来三年开发（例如添加关键字）所需的所有重大变化都是在 Rust 1.3.1 中一次性完成的。
 
-[![时间线显示 Rust 2015 连接到 Rust 2018 发布的 1.31版本](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/12/01_02-breaking-changes-02-500x353.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/12/01_02-breaking-changes-02.png)
+[![时间线显示 Rust 2015 连接到 Rust 2018 发布的 1.31 版本](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/12/01_02-breaking-changes-02-500x353.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/12/01_02-breaking-changes-02.png)
 
 虽然 Rust 2018 有重大的变化，但这并不意味着你的代码会执行失败。你的代码会继续编译甚至会把 `async` 或 `await` 当做变量名。除非你告诉它，不然编译器会假设你想让它当前以相同的方式来编译代码。
 
@@ -87,14 +87,13 @@ Rust 非常适合 Web 开发，原因有两个：
 1.  Cargo 包生态系统的工作方式与大多数 Web 应用程序开发人员习惯的方式相同。你将一堆小模块组合在一起构成一个更大的应用程序。这意味着在你需要的地方可以很容易地使用 Rust。
 2.  Rust 实现简单并且不需要特定的运行环境。这意味着你无需嵌入大量代码。如果你需要一个很小的模块进行大量繁重的计算工作，你可以引入几行 Rust 来加快运行速度。
 
-使用[`web-sys` 和 `js-sys` crates](https://rustwasm.github.io/2018/09/26/announcing-web-sys.html)，很容易在 Rust 代码调用类似于 `fetch` 或 `appendChild` 的 Web API 。并且 `wasm-bindgen` 可以轻松支持 WebAssembly 原生不支持的高级数据类型。
+使用 [`web-sys` 和 `js-sys` crates](https://rustwasm.github.io/2018/09/26/announcing-web-sys.html)，很容易在 Rust 代码调用类似于 `fetch` 或 `appendChild` 的 Web API 。并且 `wasm-bindgen` 可以轻松支持 WebAssembly 原生不支持的高级数据类型。
 
 一旦编写了 Rust WebAssembly 模块，就可以使用各种工具将其嵌入到 Web 应用程序的其余部分中。你可以使用 [wasm-pack](https://github.com/rustwasm/wasm-pack) 自动运行这些工具，并根据需要将新模块推送到 npm。
 
 Check out the [Rust and WebAssembly book](https://rustwasm.github.io/book/) to try it yourself.
 建议你查看 [Rust 嵌入式书籍](https://rust-embedded.github.io/book/)并亲自尝试一下。
 
-#### What’s next?
 #### 下一步呢？
 
 现在 Rust 2018 已经完成，工作组正在确定下一步要做什么。他们将与社区合作，确定下一个重点领域。
@@ -109,7 +108,7 @@ Check out the [Rust and WebAssembly book](https://rustwasm.github.io/book/) to t
 
 [![左边：一个人骑在猛然弓背跃起的微处理器芯片上，说“Whoa, Rusty！”。右边，一个人骑在一个驯服的微处理器芯片上说“很好 Rusty，乖乖地保持稳定”](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/12/02_02-bronco-500x444.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/12/02_02-bronco.png)
 
-总之，这两件事意味着开发人员必须依赖于 Rust 的每日构建版本。并且由于没有针对微控制器的自动化测试，每日构建版在这些目标上会经常出错
+总之，这两件事意味着开发人员必须依赖于 Rust 的每日构建版本。并且由于没有针对微控制器的自动化测试，每日构建版在这些目标上会经常出错。
 
 为了解决这个问题，工作组需要保证稳定版本有那些必要的功能。我们也必须向持续集成系统为微控制器目标添加测试。这意味着向桌面端组件添加功能不会破坏嵌入式组件的东西。
 
@@ -170,10 +169,8 @@ Rust 不需要运行时并且允许你编译进单独的静态二进制文件，
 
 #### 下一步呢？
 
-The working group abstracted away a lot of different tasks that are common between CLIs. But there’s still more that could be abstracted away. The working group will be making more of these high level libraries, and fixing more paper cuts as they go.
 工作组会抽象出很多不同的任务，这些任务可以在不同的 CLI 中共用。但是还有更多可以抽象的。工作组会制作更多类似的高级库，并随着时间推移解决更多的 [Pager cut bug](https://en.wikipedia.org/wiki/Paper_cut_bug)。
 
-## Rust tooling
 ## Rust 工具
 
 [![工具图标](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/12/03_01-tooling-1-500x435.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/12/03_01-tooling-1.png)
@@ -272,9 +269,9 @@ Rust 2018 带来了两种过程宏：
 
 以前，如果你想借一些资源并尝试匹配它，你不得不添加一些奇怪的语法：
 
-[![旧版本的代码使用 &Some(ref s) ，新版本使用 Some(s)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/12/04_06-match-500x162.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/12/04_06-match.png)
+[![旧版本的代码使用 &Some(ref s)，新版本使用 Some(s)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/12/04_06-match-500x162.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/12/04_06-match.png)
 
-但现在，你不再需要写 `&Some(ref s)` 了。你可以只写 `Some(s)`，Rust 能清楚地找到（它们之间的）差异。。
+但现在，你不再需要写 `&Some(ref s)` 了。你可以只写 `Some(s)`，Rust 能清楚地找到（它们之间的）差异。
 
 ### Rust 2018 特有的新功能
 
@@ -312,10 +309,8 @@ mod foo {
 
 另一个例子是前缀 `::`，它被用来指代当前包的根目录或一个外部包，这（两种情况）可能很难被（使用者）区分。
 
-We’ve made this more explicit. Now, if you want to refer to the crate root, you use the prefix `crate::` instead. And this is just one of the [path clarity](https://rust-lang-nursery.github.io/edition-guide/rust-2018/module-system/path-clarity.html) improvements we’ve made.
 我们已经明确了这一点。现在，如果要引用包的根路径，则使用前缀 `crate::`。这只是我们所做的 [path clarity](https://rust-lang-nursery.github.io/edition-guide/rust-2018/module-system/path-clarity.html) 改进之一。
 
-If you have existing Rust code and you want it to use Rust 2018, you’ll very likely need to update it for these new module paths. But that doesn’t mean that you’ll need to manually update your code. Run `cargo fix` before you add the edition specifier to Cargo.toml and `rustfix` will make all the changes for you.
 如果你有现存的 Rust 代码并且希望它使用 Rust 2018，那么你很可能需要为这些新的模块路径更新它。但那并不意味着你需要手动更新代码。在将版本说明符添加到 Cargo.toml 之前运行 `cargo fix` ，并且运行 `rustfix` 会为你进行所有更改。
 
 ## 了解更多
@@ -324,7 +319,7 @@ If you have existing Rust code and you want it to use Rust 2018, you’ll very l
 
 ### 关于 [Lin Clark](http://code-cartoons.com)
 
-Lin 是 Mozilla Developer Relations 团队的工程师。她了解 JavaScript，WebAssembly，Rust 和 Servo，还可以绘制代码漫画（code cartoons）。
+Lin 是 Mozilla Developer Relations 团队的工程师。她了解 JavaScript、WebAssembly、Rust 和 Servo，还可以绘制代码漫画（code cartoons）。
 
 *  [code-cartoons.com](http://code-cartoons.com)
 *  [@linclark](http://twitter.com/linclark)
