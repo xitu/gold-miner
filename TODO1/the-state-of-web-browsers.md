@@ -5,7 +5,7 @@
 > * 译者：[HumesFork](https://github.com/HumesFork)
 > * 校对者：[connie610](https://github.com/connie610), [Wangalan30](https://github.com/Wangalan30)
 
-# 浏览器之争:最新进展
+# 2019 开年浏览器之争的最新进展报告
 
 ![](https://cdn-images-1.medium.com/max/800/1*ysSQaD2xD85QT2Zz2kFxZw.png)
 
