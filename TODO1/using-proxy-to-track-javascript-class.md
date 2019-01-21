@@ -2,47 +2,47 @@
 > * 原文作者：[Amir Harel](https://medium.com/@amir.harel)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/using-proxy-to-track-javascript-class.md](https://github.com/xitu/gold-miner/blob/master/TODO1/using-proxy-to-track-javascript-class.md)
-> * 译者：
+> * 译者：[SHERlocked93](https://github.com/SHERlocked93)
 > * 校对者：
 
-# Using Proxy to Track Javascript Class
+# 使用 Proxy 来观测 Javascript 中的类
 
 ![](https://cdn-images-1.medium.com/max/800/0*kcmAY6tU-LtxRRov)
 
 Photo by [Fabian Grohs](https://unsplash.com/@grohsfabian?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=medium&utm_medium=referral)
 
-One of the cool and probably less known features of ES6 is the [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) object. While it has been around for quite some time, I want to take this post and explain a little bit about this feature, and use a real example how it could be used.
+代理对象（[Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)）是 ES6 的一个非常酷却鲜为人知的特性，虽然它已经存在挺长时间的了。我想利用这篇文章稍微解释一下这个特性，并用一个例子说明一下它的用法。
 
-### What is Proxy
+### 什么是 Proxy
 
-In plain boring english, as defined in the MDN web site:
+正如 MDN 上简单而枯燥的定义：
 
-> The **Proxy** object is used to define custom behavior for fundamental operations (e.g. property lookup, assignment, enumeration, function invocation, etc).
+> **Proxy** 对象用于定义基本操作的自定义行为（如属性查找，赋值，枚举，函数调用等）。
 
-While this is pretty much sum it up, when I read it it was not so clear what it does and what can it help with.
+虽然这是一个不错的总结，但是从这个 Proxy 的总结中我没能理解它能做什么，它能帮助我们实现什么。
 
-To begin with, the Proxy concept is from the meta-programming world. In simple words, meta programming is the code which allow us to play with the application (or core) code that we write. For example the infamous `eval` function which allows us to evaluate string code into executable code, is in the meta programming realm.
+首先，Proxy 的概念来源于元编程。简单的说，元编程就是那些允许我们在应用（或引擎）中执行代码的代码。比如著名的 `eval` 函数就允许我们将字符串代码当做可执行代码来执行，它就属于元编程的例子。
 
-The `Proxy` API allows us to create some some kind of a layer between an object and its consuming entities, that gives us the power to control the behavior of that object, like deciding how how the `get`and `set` is being done, or even decide what should we do if someone is trying to access a property in a object which is not defined.
+`Proxy` 这个 Api 允许我们在一个对象和它的消费者中间增加中间层，它让我们可以控制这个对象的行为，比如可以决定怎样去进行它的 `get` 和 `set`，甚至可以自定义当访问这个对象上不存在的属性的时候我们可以做些什么。
 
-### Proxy API
+### Proxy 的 API
 
-```
+```js
 var p = new Proxy(target, handler);
 ```
 
-The `Proxy` object gets a `target` object and a `handler` object to trap different behaviors in the `target` object. Here is a partial list of the traps you can set:
+`Proxy` 构造函数获取一个 `target` 对象，和一个用来拦截 `target` 对象不同行为的 `handler` 对象。你可以设置下面这些拦截项：
 
-*   `has` — to trap the `in` operator. For example, this will allow you to hide a certain properties of an object.
-*   `get` — to trap getting property value. For example, this will allow you to return some default value if this property does not exist.
-*   `set` — to trap setting property value. For example, this will allow you to validate the value that is being set to a property and throw an exception if the value is not valid.
-*   `apply` — to trap a function call. For example, this will allow you to wrap all the functions in a `try` and `catch` block.
+*   `has`  —  拦截 `in` 操作。比如你可以用它来隐藏对象上某些属性。
+*   `get`  —  用来拦截**读取**操作。比如当试图读取不存在的属性时，你可以用它来返回默认值。
+*   `set`  —  用来拦截**赋值**操作。比如给属性赋值的时候你可以增加验证的逻辑，如果验证不通过可以抛出错误。
+*   `apply`  —  用来拦截**函数调用**操作。比如你可以把所有的函数调用都包裹在 `try/catch` 语句块中。
 
-This is just a small traps and you can check the full list in the MDN website.
+这只是一部分拦截项，你可以在 MDN 上找到[完整的列表](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)。
 
-Lets see a simple example of using proxy for validation:
+下面是将 Proxy 用在验证上的一个简单的例子：
 
-```
+```js
 const Car = {
   maker: 'BMW',
   year: '2018,
@@ -67,25 +67,25 @@ proxyCar.maker = ''; // throw exception
 proxyCar.year = '1999'; // throw exception
 ```
 
-As you can see, we can validate the value that is being set into the proxy object.
+可以看到，我们可以用 Proxy 来验证赋给被代理对象的值。
 
-### Debugging with Proxy
+### 使用 Proxy 来调试
 
-To show the power of proxy in action I created a simple tracking lib which tracks the following for a given object/class
+为了展示 Proxy 的能力，我创建了一个用来观测一个给定的对象/类的库，观测项如下：
 
-*   Execution time for functions
-*   Who called each function or property
-*   Count the number of calls for each function or property.
+*   函数执行时间
+*   函数的调用者或属性的访问者
+*   统计每个函数或属性的被访问次数。
 
-It is being done by calling a function `proxyTrack` on any object or class, or even a function.
+这是通过在访问任意对象、类、甚至是函数时，调用一个名为 `proxyTrack` 的函数来完成的。
 
-This could be really useful if you want to track who is changing a value in an object, or how long and how many times a function is being called, and who calls it. I know that there are probably better tools out there to do that, but I created this tool just for the purpose of playing a bit with this API.
+如果你希望观测是谁给一个对象的属性赋的值，或者一个函数执行了多久、执行了多少次、谁执行的，这个库将非常有用。我知道可能还有其他更好的工具来实现上面的功能，但是在这里我创建这个库就是为了用一用这个 API。
 
-#### Using proxyTrack
+#### 使用 proxyTrack
 
-First, lets see how you can use it:
+首先，我们看看怎么用：
 
-```
+```js
 function MyClass() {}
 
 MyClass.prototype = {
@@ -118,18 +118,18 @@ function main() {
 main();
 ```
 
-If we will run this code we should see in the console:
+如果我们运行这段代码，控制台将会输出：
 
-```
+```bash
 MyClass.num is being set by start for the 1 time
 MyClass.num is being get by isPrime for the 1 time
 MyClass.isPrime was called by start for the 1 time and took 0 mils.
 MyClass.num is being get by start for the 2 time
 ```
 
-The `proxyTrack` gets 2 parameters: the first is the object/class to track, and the second one is an options object, which will be set to default options in case it is not passed. Let's take a look at this `options` object:
+`proxyTrack` 接受 2 个参数：第一个是要观测的对象/类，第二个是一个配置项对象，如果没传递的话将被置为默认值。我们看看这个配置项默认值长啥样：
 
-```
+```js
 const defaultOptions = {
     trackFunctions: true,
     trackProps: true,
@@ -141,15 +141,15 @@ const defaultOptions = {
 };
 ```
 
-As you can see, you can control what you want to track by setting the appropriate flag. In case you want to control that the output will go somewhere else then to the `console.log` you can pass a function to the `stdout`.
+可以看到，你可以通过配置你关心的观测项来观测你的目标。比如你希望将结果输出出来，那么你可以将 `console.log` 赋给 `stdout`。
 
-You can also control which tracking message will be output if you pass the `filter` callback. you will get an object with the info about the tracking data, and you will have to return `true` to keep the message or `false` to ignore it.
+还可以通过赋给 `filter` 的回调函数来自定义地控制输出哪些信息。你将会得到一个包括有观测信息的对象，并且如果你希望保留这个信息就返回 `true`，反之返回 `false`。
 
-#### Using proxyTrack with React
+#### 在 React 中使用 proxyTrack
 
-Since react components are actually classes, you can track a class to examine it in real time. For example:
+因为 React 的组件实际上也是类，所以你可以通过 `proxyTrack` 来实时观测它。比如：
 
-```
+```js
 class MyComponent extends Component{...}
 
 export default connect(mapStateToProps)(proxyTrack(MyComponent, {
@@ -165,26 +165,26 @@ export default connect(mapStateToProps)(proxyTrack(MyComponent, {
 }));
 ```
 
-As you can see, you can filter out messages that might not be relevant to you, or might clutter the console.
+可以看到，你可以将你不关心的信息过滤掉，否则输出将会变得杂乱无章。
 
-### proxyTrack Implementation
+### 实现 proxyTrack
 
-Let’s take a look at the implementation of the `proxyTrack` .
+我们来看看 `proxyTrack` 的实现。
 
-First, the function itself:
+首先是这个函数本身：
 
-```
+```js
 export function proxyTrack(entity, options = defaultOptions) {
     if (typeof entity === 'function') return trackClass(entity, options);
     return trackObject(entity, options);
 }
 ```
 
-Nothing special here, we just call the appropriate function.
+没什么特别的嘛，这里只是调用相关函数。
 
-Lets the the `trackObject` first:
+再看看 `proxyObject`：
 
-```
+```js
 function trackObject(obj, options = {}) {
     const { trackFunctions, trackProps } = options;
 
@@ -212,9 +212,9 @@ function proxyFunctions(trackedEntity, options) {
 }
 ```
 
-As you can see, in case we need to track properties for the object, we create a proxy object with `get` and `set` traps. Here is the code for the `set` trap:
+可以看到，假如我们希望观测对象的属性，我们创建了一个带有 `get/set` 拦截器的被观测对象。下面是 `set` 拦截器的实现：
 
-```
+```js
 function trackPropertySet(options = {}) {
     return function set(target, prop, value, receiver) {
         const { trackCaller, trackCount, stdout, filter } = options;
@@ -260,9 +260,9 @@ function trackPropertySet(options = {}) {
 }
 ```
 
-The more interesting (at least to me) is the `trackClass` function:
+比较有趣（至少对我来说）的是 `trackClass` 函数：
 
-```
+```js
 function trackClass(cls, options = {}) {
     cls.prototype = trackObject(cls.prototype, options);
     cls.prototype.constructor = cls;
@@ -280,14 +280,13 @@ function trackClass(cls, options = {}) {
 }
 ```
 
-In this case, we want to create a proxy to the function prototype and to create a trap for the constructor, since we want to be able to trap properties on the class which are not coming from the prototype.
+在此情况下，因为我们希望拦截这个类上不属于原型上的属性，所以我们给这个类的原型创建了个代理，并且创建了个构造函数拦截器。
 
-Don’t forget that even if you defined a property on the prototype level, once you set a value to it, JavaScript will create a local copy of that property so it won’t change the value to all the other instances of this class. This is why is it not enough to only proxy the prototype.
+别忘了，即使你在原型上定义了一个属性，如果你再给这个对象赋值一个同名属性，JavaScript 将会创建一个这个属性的本地副本，所以赋值的改动并不会改变这个类其他实例的行为的原因。
 
-You can take a look at the full code [here](https://gist.github.com/mrharel/592df0228cebc017ca413f2f763acc5f).
+你可以[戳这里](https://gist.github.com/mrharel/592df0228cebc017ca413f2f763acc5f)看完整的代码。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
