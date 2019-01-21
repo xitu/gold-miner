@@ -7434,19 +7434,21 @@
 |------|-------|-------|
 |[使用自定义文件模板加快你的应用开发速度](https://juejin.im/post/5c204bcdf265da611b585bcd)|校对|1.5|
 
-## 译者：[Qiuk17](https://github.com/Qiuk17) 历史贡献积分：7 当前积分：7 年度积分：7
+## 译者：[Qiuk17](https://github.com/Qiuk17) 历史贡献积分：10.5 当前积分：10.5 二零一九：3.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[轻松发布私有 APP](https://juejin.im/post/5c42d0fde51d4511dc72d8d1)|翻译|3.5|
 |[Android 中的 MVP：如何使 Presenter 层系统化](https://juejin.im/post/5c203323f265da6110370dec)|校对|1.5|
 |[以太坊入门指南](https://juejin.im/post/5c1080fbe51d452b307969a3)|校对|1.5|
 |[了解 Android 的矢量图片格式：`VectorDrawable`](https://juejin.im/post/5c1a21ff5188252eb759600e)|校对|2.5|
 |[当 Kotlin 中的监听器包含多个方法时，如何让它 “巧夺天工”？](https://juejin.im/post/5c1e43646fb9a04a102f45ab)|校对|1.5|
 
-## 译者：[gs666](https://github.com/gs666) 历史贡献积分：12.5 当前积分：2.5 二零一九：0
+## 译者：[gs666](https://github.com/gs666) 历史贡献积分：14.5 当前积分：4.5 二零一九：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Android 上一次编写，到处测试](https://juejin.im/post/5c32cbc9f265da611d66d14e)|翻译|2|
 |2019 年 1 月兑掘金桌垫 1 个|减去积分|10|
 |[Android 中的 MVP：如何使 Presenter 层系统化](https://juejin.im/post/5c203323f265da6110370dec)|校对|1.5|
 |[MDC-102 Flutter：Material 结构和布局（Flutter）](https://juejin.im/post/5c24504d518825124e2767fc)|校对|2|
@@ -7455,10 +7457,11 @@
 |[Android 内核控制流完整性](https://juejin.im/post/5c1740dcf265da614a3a66c1)|校对|1.5|
 |[了解 Android 的矢量图片格式：`VectorDrawable`](https://juejin.im/post/5c1a21ff5188252eb759600e)|校对|1.5|
 
-## 译者：[snpmyn](https://github.com/snpmyn) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
+## 译者：[snpmyn](https://github.com/snpmyn) 历史贡献积分：9.5 当前积分：9.5 二零一九：8
 
 |文章|类型|积分|
 |------|-------|-------|
+|[格子拼贴 — 关于模块化的故事](https://juejin.im/post/5c31e7aee51d4543805e6a96)|翻译+校对|6.5+1.5|
 |[如何使用 Dask Dataframes 在 Python 中运行并行数据分析](https://juejin.im/post/5c1feeaf5188257f9242b65c)|校对|1.5|
 
 ## 译者：[ZyGan1999](https://github.com/ZyGan1999) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
@@ -7467,10 +7470,13 @@
 |------|-------|-------|
 |[以太坊入门指南](https://juejin.im/post/5c1080fbe51d452b307969a3)|校对|1.5|
 
-## 译者：[xiaxiayang](https://github.com/xiaxiayang) 历史贡献积分：1 当前积分：1 年度积分：1
+## 译者：[xiaxiayang](https://github.com/xiaxiayang) 历史贡献积分：11 当前积分：11 二零一九：10
 
 |文章|类型|积分|
 |------|-------|-------|
+||[Android 上一次编写，到处测试](https://juejin.im/post/5c32cbc9f265da611d66d14e)|校对|1.5|
+|[轻松发布私有 APP](https://juejin.im/post/5c42d0fde51d4511dc72d8d1)|校对|1.5|
+|[充分利用多摄像头 API](https://juejin.im/post/5c3da4f76fb9a04a0c2eb3fc)|翻译|7|
 |[2019 年你应该要知道的 11 个 React UI 组件库](https://juejin.im/post/5c260f13e51d45473a5c07a4)|校对|1|
 
 ## 译者：[SinanJS](https://github.com/SinanJS) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
@@ -7510,3 +7516,16 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[提高营销效率的工程（二）— 广告制作和管理的规模化](https://juejin.im/post/5c441193518825258604ecd0)|校对|2|
+
+## 译者：[PrinceChou](https://github.com/PrinceChou) 历史贡献积分：2.5 当前积分：2.5 二零一九：2.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[轻松发布私有 APP](https://juejin.im/post/5c42d0fde51d4511dc72d8d1)|校对|1|
+|[充分利用多摄像头 API](https://juejin.im/post/5c3da4f76fb9a04a0c2eb3fc)|校对|1.5|
+
+## 译者：[hongruqi](https://github.com/hongruqi) 历史贡献积分：6 当前积分：6 二零一九：6
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Flutter 从 0 到 1](https://juejin.im/post/5c331b436fb9a049db734b85)|翻译|6|
