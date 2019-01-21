@@ -3548,10 +3548,11 @@
 |------|-------|-------|
 |[如何在无损的情况下让图片变的更小](https://juejin.im/post/5959fbe0f265da6c2518d740)|校对|2|
 
-## 译者：[swants](https://github.com/swants) 历史贡献积分：68.5 当前积分：8.5 年度积分：29.5
+## 译者：[swants](https://github.com/swants) 历史贡献积分：68.5 当前积分：3.5 二零一九：0
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 1 月兑掘金水杯 1 个|减去积分|5|
 |[使用 Swift 的 iOS 设计模式（第二部分）](https://juejin.im/post/5c1786576fb9a049f06a2c4a)|校对|3|
 |[使用 Swift 的 iOS 设计模式（第一部分）](https://juejin.im/post/5c05d4ee5188250ab14e62d6)|校对|3.5|
 |2018 年 9 月兑套头衫（秋冬款）1 个|减去积分|20|
@@ -5419,10 +5420,11 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：433 当前积分：403 年度积分：433
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：433 当前积分：357 二零一九：0
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 1 月兑比特币纪念币 3 个，掘金鼠标垫 2 个，Android 小人偶 1 个，掘金水杯 1 个|减去积分|46|
 |[数据流的不同应用场景 — Java](https://juejin.im/post/5c2c285fe51d4522ec5a2795)|翻译|3.5|
 |[误解 ES6 模块，升级 Babel 的一个解决方案（泪奔）](https://juejin.im/post/5c223f4ce51d452626296b5d)|翻译|3.5|
 |[通过集成学习提高机器学习效果](https://juejin.im/post/5c0909d951882548e93806e0)|翻译|5|
@@ -7290,10 +7292,11 @@
 |------|-------|-------|
 |[使用递归神经网络（LSTMs）对时序数据进行预测](https://juejin.im/post/5bf8a70cf265da61776ba1dc)|校对|2|
 
-## 译者：[weibinzhu](https://github.com/weibinzhu) 历史贡献积分：12 当前积分：12 年度积分：12
+## 译者：[weibinzhu](https://github.com/weibinzhu) 历史贡献积分：12 当前积分：2 二零一九年：0
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 1 月兑掘金水杯 1 个，GitHub 贴纸 1 包|减去积分|10|
 |[怎么做：React Native 网页应用，一场开心的挣扎](https://juejin.im/post/5c13219d6fb9a049e82b65c3)|翻译|4|
 |[函数式编程：抽象与组合](https://juejin.im/post/5bfb989be51d45033627989a)|校对|2|
 |[iOS 12 占有率超过 50%，超过了 iOS 11](https://juejin.im/post/5bf64ad851882579117f74ae)|校对|1.5|
@@ -7308,10 +7311,11 @@
 |[在远程工作中领悟到的 10 件事](https://juejin.im/post/5bf7a79f51882511a8528cf0)|校对|2|
 |[如何让高效的代码评审成为一种文化](https://juejin.im/post/5bfc9ff9e51d454b6c371f5d)|校对|3|
 
-## 译者：[KarthusLorin](https://github.com/KarthusLorin) 历史贡献积分：6.5 当前积分：6.5 年度积分：6.5
+## 译者：[KarthusLorin](https://github.com/KarthusLorin) 历史贡献积分：6.5 当前积分：1.5 二零一九：0
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 12 月兑掘金水杯 1 个|减去积分|5|
 |[被污染的 npm 包：event-stream](https://juejin.im/post/5c1b02dcf265da6166246c25)|校对|1.5|
 |[使用 NodeJS 创建一个 GraphQL 服务器](https://juejin.im/post/5c015a5af265da612577d89a)|校对|2|
 |[Medium 的 GraphQL 服务设计](https://juejin.im/post/5c00dad3f265da617006db4e)|校对|1|
@@ -7347,10 +7351,11 @@
 |[三人研发小组的高效研发尝试](https://juejin.im/post/5c19d1846fb9a049f06a33fc)|校对|2|
 |[你不知道的 console 命令](https://juejin.im/post/5bf64218e51d45194266acb7)|翻译|6|
 
-## 译者：[RicardoCao-Biker ](https://github.com/RicardoCao-Biker ) 历史贡献积分：3.5 当前积分：3.5 年度积分：3.5
+## 译者：[RicardoCao-Biker ](https://github.com/RicardoCao-Biker ) 历史贡献积分：3.5 当前积分：-1.5 二零一九：0
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 1 月兑掘金水杯 1 个|减去积分|5|
 |[继承 JavaScript 类中的静态属性](https://juejin.im/post/5c2217fc6fb9a049b348039d)|校对|0.5|
 |[React 路由和 React 组件的爱恨情仇](https://juejin.im/post/5c2217abe51d4570f1453cad)|校对|1|
 |[你不知道的 console 命令](https://juejin.im/post/5bf64218e51d45194266acb7)|校对|2|
@@ -7419,10 +7424,11 @@
 |[了解 Android 的矢量图片格式：`VectorDrawable`](https://juejin.im/post/5c1a21ff5188252eb759600e)|校对|2.5|
 |[当 Kotlin 中的监听器包含多个方法时，如何让它 “巧夺天工”？](https://juejin.im/post/5c1e43646fb9a04a102f45ab)|校对|1.5|
 
-## 译者：[gs666](https://github.com/gs666) 历史贡献积分：12.5 当前积分：12.5 年度积分：12.5
+## 译者：[gs666](https://github.com/gs666) 历史贡献积分：12.5 当前积分：2.5 二零一九：0
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 1 月兑掘金桌垫 1 个|减去积分|10|
 |[Android 中的 MVP：如何使 Presenter 层系统化](https://juejin.im/post/5c203323f265da6110370dec)|校对|1.5|
 |[MDC-102 Flutter：Material 结构和布局（Flutter）](https://juejin.im/post/5c24504d518825124e2767fc)|校对|2|
 |[以太坊入门指南](https://juejin.im/post/5c1080fbe51d452b307969a3)|翻译|4|
