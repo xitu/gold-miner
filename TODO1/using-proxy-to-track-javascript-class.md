@@ -21,9 +21,9 @@ Photo by [Fabian Grohs](https://unsplash.com/@grohsfabian?utm_source=medium&utm_
 
 虽然这是一个不错的总结，但是从这个 Proxy 的总结中我没能理解它能做什么，它能帮助我们实现什么。
 
-首先，Proxy 的概念来源于元编程。简单的说，元编程就是那些允许我们在应用（或引擎）中执行代码的代码。比如著名的 `eval` 函数就允许我们将字符串代码当做可执行代码来执行，它就属于元编程的例子。
+首先，Proxy 的概念来源于元编程。简单的说，元编程是允许我们使用我们编写的应用程序（或核心）代码的代码。例如，臭名昭著的 `eval` 函数允许我们将字符串代码当做可执行代码来执行，它是就属于元编程领域。
 
-`Proxy` 这个 Api 允许我们在一个对象和它的消费者中间增加中间层，它让我们可以控制这个对象的行为，比如可以决定怎样去进行它的 `get` 和 `set`，甚至可以自定义当访问这个对象上不存在的属性的时候我们可以做些什么。
+`Proxy` 这个 API 允许我们在一个对象和它的消费者中间增加中间层，它让我们可以控制这个对象的行为，比如可以决定怎样去进行它的 `get` 和 `set`，甚至可以自定义当访问这个对象上不存在的属性的时候我们可以做些什么。
 
 ### Proxy 的 API
 
@@ -182,7 +182,7 @@ export function proxyTrack(entity, options = defaultOptions) {
 
 没什么特别的嘛，这里只是调用相关函数。
 
-再看看 `proxyObject`：
+再看看 `trackObject`：
 
 ```js
 function trackObject(obj, options = {}) {
