@@ -35,7 +35,7 @@
 
 #### 7. 100 毫秒响应时间，60 fps
 
-为了使用户感觉交互流畅，界面的响应时间不得超过 100ms。如果超过了这个时间，那么用户将会认为该应用程序是落后的。[RAIL，一个以用户为中心的性能模型](https://www.smashingmagazine.com/2015/10/rail-user-centric-model-performance/) 为你提供了健康的目标：为了达到 <100 毫秒的响应，页面必须最起码在每 <50 毫秒后将控制权返回到主线程手上。[预计输入延迟时间](https://developers.google.com/web/tools/lighthouse/audits/estimated-input-latency) 可以告诉我们是否到达了这个阈值，理想情况下，它应该小于 50ms。对于像动画这样的（性能）高压点，最好不要做任何事情。
+为了使用户感觉交互流畅，界面的响应时间不得超过 100ms。如果超过了这个时间，那么用户将会认为该应用程序是卡顿的。[RAIL，一个以用户为中心的性能模型](https://www.smashingmagazine.com/2015/10/rail-user-centric-model-performance/) 为你提供了健康的目标：为了达到 <100 毫秒的响应，页面必须最起码在每 <50 毫秒后将控制权返回到主线程手上。[预计输入延迟时间](https://developers.google.com/web/tools/lighthouse/audits/estimated-input-latency) 可以告诉我们是否到达了这个阈值，理想情况下，它应该小于 50ms。对于像动画这样的（性能）高压点，最好不要做任何事情。
 
 [![RAIL](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/c91c910d-e934-4610-9dc5-369ec9071b57/rail-perf-model-opt.png)](https://developers.google.com/web/fundamentals/performance/rail)
     
