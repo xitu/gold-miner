@@ -75,7 +75,7 @@ function HellWorld({ message = 'Hello World' }) {
 
 *   模块化代码 - 可以在整个项目范围内复用你的代码段；
 *   只依赖于 props - 默认没有 state；
-*   更便于单元测试 - 对 enzyme/jest 更友好的测试接口；
+*   更便于单元测试 - 对测试工具 enzyme/jest 更友好的测试接口；
 *   更便于 Mock 数据 - 可以对不同场景方便的进行数据 Mock。
 
 #### 我们走过的旅程
@@ -141,7 +141,7 @@ export default compose(
 
 我们可以使用 compose 来将多个高阶组件转化为一个高阶组件。
 
-#### 步骤3 - 正确
+#### 步骤3 - 正确获取 `state`
 
 好了，我们现在需要从这个组件中正确获取 `state`。
 
@@ -162,7 +162,7 @@ export default compose(
 )(Presentation);
 ```
 
-这里我们设置了状态属性 `isVisible`，一个控制可见性的方法 `toggleVis`，和一个初始值 false。
+这里我们设置了一个 `isVisible` 的 `state`，一个控制可见性的方法 `toggleVis`，和一个初始值 false。
 
 `withHandlers` 创建了一个高阶组件，它接受一系列 `props` 并返回一个处理函数，在这个例子中是处理可见性 `state` 的函数。`toggleVisibility` 这个函数将作为 `Presentation` 组件的一个 `prop`。
 
