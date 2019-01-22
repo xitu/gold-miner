@@ -9,7 +9,7 @@
 
 让 2019 来得更迅速吧~你正在阅读的是 2019 年前端性能优化年度总结，始于 2016。
 
-> [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
+> [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md) 
 > **[译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)**
 > [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
 > [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
@@ -18,7 +18,7 @@
 
 #### 目录
 
-- [设置切实可行的目标](#7. 100 毫秒响应时间，60 fps)
+- [设置切实可行的目标](#设置切实可行的目标)
   - [7. 100 毫秒响应时间，60 fps](#7. 100 毫秒响应时间，60 fps)
   - [8. 速度指数 < 1250，TTI（交互时间） < 5s（3G），关键文件大小 < 170KB（gzip 压缩后）](#8. 速度指数 < 1250，TTI（交互时间） < 5s（3G），关键文件大小 < 170KB（gzip 压缩后）)
 - [定义环境](#定义环境)
