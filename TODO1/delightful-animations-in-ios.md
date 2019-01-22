@@ -30,47 +30,47 @@
 
 还有，我们可以让 UI 对用户的操作进行了相应，这样也可以提示用户下一步该做什么。它能引导并告诉用户发生了什么以及 **哪里** 发生了改变。你也许会觉得在把东西添加到购物车很多次之后，用户自然就会知道购物车在哪里了，也许你是对的，但是承认它并没有坏处。
 
-### Call to action
+### 事件响应
 
-With a proper hierarchy, a call to action button should stand out already. But, sometimes, that isn’t possible or it’s not enough. So an approach would be to add a subtle animation to it. It could be a pulse (scale between `1.03` and `0.97` with a slow duration and with a delay between animations), a wiggle (rotate a few degrees in quick succession, but with a great delay between them), or maybe a pulse of the background, text color, text size, border width or border color. But, again, don’t pick too many at once.
+通过合适的层级结构，一个按钮事件的响应应当已经很突出了。但是有时候却不可行或者根本不够。所有有一种方法是给他添加一个微妙的动画，也许是一个有节奏的跳动（scale 在 `1.03` 和 `0.97` 间变化，间隔较短，并且动画之间带有延时），或者一个抖动（快速地连续旋转几度，中间延迟较长），又或者是背景，文字颜色或大小，描边的宽度和颜色等等的变化。但是要注意一次性不要变化太多了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*NAwiqTIbcce-WuTmvhlL3w.gif)
 
-### Creating, deleting and submitting
+### 创建、删除和提交
 
-The same tactic can be done when an event or error occurs.
+当发生了错误的时候可以采用相同的策略。
 
-When submitting a form, but one of the `UITextFields` is empty, add a subtle shake to it, or flash its border/text to red, attracting the user’s attention to where the problem is.
+当提交一个表单时，如果其中一个 `UITextFields` 为空，就给它添加一个轻微的抖动，也可以给边框或者文字添加红色的闪烁的效果，这样才能吸引用户并告诉他们问题出在哪了。
 
-If the user added a new item that already exists, add a background flash to the existing item, or maybe shake it, depending on its size, location or content — if it’s a large item, prefer something really subtle, since it will have a big impact due to its size.
+如果用户想添加了一个已经存在的东西，就让那一项的背景色突出显示出来或者抖动一下，这主要取决与它的大小，如果很大的话，轻微的抖动可能更好，因为它的尺寸比较大的缘故，抖动反而会更加显眼。
 
-When the user successfully creates an item, instead of simply reloading the UI, slide the new item in, fade it in or both; or use the built-in `tableView.insertRows(at:with:)` animations. The same applies for deleting an item, but in reverse.
+当用户成功创建新的一项时，把新的那一项滑入或者淡入而不是简单的刷新 UI，或者也可以使用 `tableView.insertRows(at:with:)` 自带的动画。反之亦然，删除一项也可以这么做。
 
 ![](https://cdn-images-1.medium.com/max/800/1*2Ikp1rb46s7ctWm4Rx68Cg.gif)
 
-### Selection
+### 选择
 
-Think of a radio button, or a checkbox. In this particular case, the animation’s only purpose is to add a nice finishing touch, as there’s not much real UX value. It does add a visual confirmation that lasts until after the finger was lifted, though. A checkbox could have its checkmark drawn, just like you draw one on a sheet of paper; a radio button could have its center filled, like so:
+想象一下单选按钮或者复选框，在这特殊的情况下，动画的唯一作用就是润色，因为并没有太多真正的用户体验价值。这样确实添加了一个视觉上的确认效果，直到手指抬起。一个复选框可以绘制复选的标记，就好像你是在纸上把它画出来一样。至于单选按钮，则可以给它的中心填充，例如下面的效果：
 
 ![](https://cdn-images-1.medium.com/max/800/0*m9ePRKHt7KycWrqJ.gif)
 
-### Tips
+### 小窍门
 
-Looking at [my post](https://rolandleth.com/lthradiobutton) about the above radio button animation, we can see that I’ve broken the animation down into really small steps. The point is to:
+你可以看看我的关于上面的单选按钮动画的 [帖子](https://rolandleth.com/lthradiobutton)，我把动画拆分成了很多非常细小的步骤，核心部分则是：
 
-1.  Properly understand what the animation consists of.
-2.  Have actionable steps that are easy to implement.
-3.  Have steps small enough that are easy to change or remove, if needed.
+1. 正确理解动画的组成部分。
+2. 采取易于实施的可操作步骤。
+3. 如果需要的话，使每一步骤足够的小以便于更换或移除。
 
-This can’t be stressed enough: don’t go overboard, start small. Exaggerated animations are more harmful than no animations. Start with small values, small durations and a few properties, then work your way up from there. It’s better to have something subtle that a small percentage of your users notices, than to have something obtrusive that a high percentage of your users hates (or even a small one).
+这不足以说明：不愠不火，从细节开始做。比起没有动画夸张的动画反而更加有害。从很小的细节，持续时间很短的，只变化几个属性的动画开始吧！最好的是设计出能让用户能注意到的微妙细节上的动画，而不是让用户反感的东西。
 
-A gist with a few examples can be found [here](https://gist.github.com/rolandleth/421dcde6757b942ac7102fea435fd3c3) and the radio button animation can be found in the control itself, [here](https://github.com/rolandleth/LTHRadioButton).
+有一些例子的要点可以在 [这里](https://gist.github.com/rolandleth/421dcde6757b942ac7102fea435fd3c3) 找到，单选按钮的动画可以在控件的找到 [这里](https://github.com/rolandleth/LTHRadioButton) 有单选按钮的动画，它们可以在自身的控件中找到。
 
-Happy animating!
+祝你和动画相处愉快！
 
 * * *
 
-_You can find more articles like this on my blog, or you can subscribe to my_ [_monthly newsletter_](https://rolandleth.us19.list-manage.com/subscribe?u=0d9e49508950cd57917dd7e87&id=7e4ef109bd)_. Originally published at_ [https://rolandleth.com](https://rolandleth.com).
+你可以在我的博客里找到更多文章，或者订阅 [**每月的推送**](https://rolandleth.us19.list-manage.com/subscribe?u=0d9e49508950cd57917dd7e87&id=7e4ef109bd)。**原文链接：** [https://rolandleth.com](https://rolandleth.com).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
