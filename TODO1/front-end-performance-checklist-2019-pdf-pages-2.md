@@ -67,22 +67,28 @@
 
 [![](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/949e5601-04e7-48ee-91a5-10bd7af19a0f/perf-budgets-network-connection.jpg)](https://twitter.com/katiehempenius/status/1075478356311924737) 
 
-性能预算应根据普通移动设备的网络条件进行调整。（图片来源：[Katie Hempenius](https://twitter.com/katiehempenius/status/1075478356311924737)) ([大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/949e5601-04e7-48ee-91a5-10bd7af19a0f/perf-budgets-network-connection.jpg))
+性能预算应根据普通移动设备的网络条件进行调整。（图片来源：[Katie Hempenius](https://twitter.com/katiehempenius/status/1075478356311924737)）（[大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/949e5601-04e7-48ee-91a5-10bd7af19a0f/perf-budgets-network-connection.jpg)）
 
 ### 定义环境
 
 #### 9. 选择并设置你的构建工具
 
-[不要过分关注那些炫酷的东西。](https://2018.stateofjs.com/) 坚持你自己的构建环境，无论是 Grunt，Gulp，Webpack，Parcel 还是工具组合。只要你获得了所需结果，并且构建过程中没有任何问题，这就可以了。
+[不要过分关注那些炫酷的东西。](https://2018.stateofjs.com/) 坚持你自己的构建环境，无论是 Grunt、Gulp、Webpack、Parcel 还是工具组合。只要你获得了所需结果，并且构建过程中没有任何问题，这就可以了。
 
 在构建工具中，Webpack 似乎是最成熟的工具，有数百个插件可用于优化构建大小。入门 Webpack 可能会很难。所以如果你想要入门，这里有一些很棒的资源：
 
 *   [Webpack documentation](https://webpack.js.org/concepts/) ——显然，一个很好的起点，Webpack 也是如此。Raja Rao 写的 [Webpack — The Confusing Bits](https://medium.com/@rajaraodv/webpack-the-confusing-parts-58712f8fcad9) 以及 Andrew Welch 写的 [An Annotated Webpack Config](https://nystudio107.com/blog/an-annotated-webpack-4-config-for-frontend-web-development) 也是。
+
 *   Sean Learkin 有一个名为 [Webpack: The Core Concepts](https://webpack.academy/p/the-core-concepts) 的免费课程，Jeffrey Way 有一个名为 [Webpack for everyone](https://laracasts.com/series/webpack-for-everyone) 的免费课程。这两个课程都是深入 Webpack 的好资料。
+
 *   [Webpack Fundamentals](https://frontendmasters.com/courses/webpack-fundamentals/) 是一个时长为 4h 的非常全面的免费课程，由 Sean Larkin 创作，发布在 FrontendMasters。
+
 *   如果你稍微高级一点，Rowan Oulton 已经发布了一门 [Field Guide for Better Build Performance with Webpack](https://slack.engineering/keep-webpack-fast-a-field-guide-for-better-build-performance-f56a5995e8f1) 并且 Benedikt Rötsch 进行了一项关于优秀的研究 [putting Webpack bundle on a diet](https://www.contentful.com/blog/2017/10/27/put-your-webpack-bundle-on-a-diet-part-3/)。
-*   [Webpack examples](https://github.com/webpack/webpack/tree/master/examples) 包含数百个可以立即使用的 Webpack 配置，按主题和目的分类。还额外提供了一个   [Webpack 配置生成器](https://webpack.jakoblind.no/) ，可以生成基本配置文件。
-*   [awesome-webpack](https://github.com/webpack-contrib/awesome-webpack) 是一个实用的 Webpack 资源，库和工具的精选列表，包括 Angular，React 和框架无关项目的文章，视频，课程，书籍和示例。
+
+*   [Webpack examples](https://github.com/webpack/webpack/tree/master/examples) 包含数百个可以立即使用的 Webpack 配置，按主题和目的分类。还额外提供了一个 [Webpack 配置生成器](https://webpack.jakoblind.no/)，可以生成基本配置文件。
+
+*   [awesome-webpack](https://github.com/webpack-contrib/awesome-webpack) 是一个实用的 Webpack 资源，库和工具的精选列表，包括 Angular、React 和框架无关项目的文章、视频、课程、书籍和示例。
+
 #### 10. 默认使用渐进增强
 
 保持 [渐进增强](https://www.aaron-gustafson.com/notebook/insert-clickbait-headline-about-progressive-enhancement-here/) 作为前端架构和部署的指导原则是一个安全的选择。首先设计和构建核心体验，然后使用高级特性为支持的浏览器提升体验，创建 [弹性](https://resilientwebdesign.com/) 体验。如果你的网站在一台拥有着差劲网络、屏幕以及浏览器的慢速机器上运行的很快，那么它在一台拥有强力网络和浏览器的快速机器上只会运行地更快。
@@ -163,14 +169,15 @@ REST 和 GraphQL 之间的区别，就如左图 Redux + REST 之间的对话与�
 
 注意：基于 Patrick Meenan 和 Andy Davies 的研究，HTTP/2 [在许多 CDN 上被破坏](https://github.com/andydavies/http2-prioritization-issues#cdns--cloud-hosting-services)，所以我们不应该对那里的性能提升过于乐观。
 
-> [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
-> **[译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)**
-> [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
-> [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
-> [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
-> [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
+> - [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
+> - **[译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)**
+> - [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
+> - [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
+> - [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
+> - [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
 
 ---
 
