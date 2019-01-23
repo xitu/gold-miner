@@ -9,27 +9,27 @@
 
 让 2019 来得更迅速吧~你正在阅读的是 2019 年前端性能优化年度总结，始于 2016。
 
-> [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md) 
-> **[译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)**
-> [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
-> [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
-> [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
-> [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
+> - [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
+> - **[译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)**
+> - [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
+> - [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
+> - [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
+> - [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
 
 #### 目录
 
 - [设置切实可行的目标](#设置切实可行的目标)
-  - [7. 100 毫秒响应时间，60 fps](#7. 100 毫秒响应时间，60 fps)
-  - [8. 速度指数 < 1250，TTI（交互时间） < 5s（3G），关键文件大小 < 170KB（gzip 压缩后）](#8. 速度指数 < 1250，TTI（交互时间） < 5s（3G），关键文件大小 < 170KB（gzip 压缩后）)
+  - [7. 100 毫秒响应时间，60 fps](7-100-毫秒响应时间60-fps)
+  - [8. 速度指数 < 1250，TTI（交互时间） < 5s（3G），关键文件大小 < 170KB（gzip 压缩后）](8-速度指数--1250tti交互时间--5s3g关键文件大小--170kbgzip-压缩后)
 - [定义环境](#定义环境)
-  - [9. 选择并设置你的构建工具](#9. 选择并设置你的构建工具)
-  - [10. 默认使用渐进增强](#10. 默认使用渐进增强)
-  - [11. 选择一个高性能基准](#11. 选择一个高性能基准)
-  - [12. 评估每个框架以及它们的依赖项](#12. 评估每个框架以及它们的依赖项)
-  - [13. 考虑使用 PRPL 模式以及应用程序 shell 架构](#13. 考虑使用 PRPL 模式以及应用程序 shell 架构)
-  - [14. 你是否优化了各个 API 的性能？](#14. 你是否优化了各个 API 的性能？)
-  - [15. 你会使用 AMP 或 Instant Articles 吗？](#15. 你会使用 AMP 或 Instant Articles 吗？)
-  - [16. 明智地选择你的 CDN](#16. 明智地选择你的 CDN)
+  - [9. 选择并设置你的构建工具](#9-选择并设置你的构建工具)
+  - [10. 默认使用渐进增强](#10-默认使用渐进增强)
+  - [11. 选择一个高性能基准](#11-选择一个高性能基准)
+  - [12. 评估每个框架以及它们的依赖项](#12-评估每个框架以及它们的依赖项)
+  - [13. 考虑使用 PRPL 模式以及应用程序 shell 架构](#13-考虑使用-prpl-模式以及应用程序-shell-架构)
+  - [14. 你是否优化了各个 API 的性能？](#14-你是否优化了各个-api-的性能)
+  - [15. 你会使用 AMP 或 Instant Articles 吗？](#15-你会使用-amp-或-instant-articles-吗)
+  - [16. 明智地选择你的 CDN](#16-明智地选择你的-cdn)
 
 ### 设置切实可行的目标
 
@@ -39,33 +39,31 @@
 
 [![RAIL](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/c91c910d-e934-4610-9dc5-369ec9071b57/rail-perf-model-opt.png)](https://developers.google.com/web/fundamentals/performance/rail)
     
-[RAIL](https://developers.google.com/web/fundamentals/performance/rail), 一个以用户为中心的性能模型。
+[RAIL](https://developers.google.com/web/fundamentals/performance/rail)，一个以用户为中心的性能模型。
 
-此外，每一帧动画应在 16 毫秒内完成，从而达到每秒 60 帧（1 秒 ÷ 60 = 16.6 毫秒）——最好在 10 毫秒以下。由于浏览器需要时间将新帧绘制到屏幕上，因此你的代码应在到达 16.6 毫秒的标记之前执行完成。我们开始讨论 120 fps（例如 iPad 的新屏幕以 120Hz 运行），而 Surma 已经覆盖了一些 120 fps 的 [渲染性能解决方案](https://dassur.ma/things/120fps/)，但这可能不是我们目前正关注的目标。
+此外，每一帧动画应在 16 毫秒内完成，从而达到每秒 60 帧（1 秒 ÷ 60 = 16.6 毫秒）—— 最好在 10 毫秒以下。由于浏览器需要时间将新帧绘制到屏幕上，因此你的代码应在到达 16.6 毫秒的标记之前执行完成。我们开始讨论 120 fps（例如 iPad 的新屏幕以 120Hz 运行），而 Surma 已经覆盖了一些 120 fps 的 [渲染性能解决方案](https://dassur.ma/things/120fps/)，但这可能不是我们目前正关注的目标。
 
-对性能预期持悲观态度，但要 [在界面设计上保持乐观](https://www.smashingmagazine.com/2016/11/true-lies-of-optimistic-user-interfaces/) 并 [明智地使用空闲时间](https://philipwalton.com/articles/idle-until-urgent/) 。显然，这些目标适用于运行时性能，而不是加载性能。
+对性能预期持悲观态度，但要 [在界面设计上保持乐观](https://www.smashingmagazine.com/2016/11/true-lies-of-optimistic-user-interfaces/) 并 [明智地使用空闲时间](https://philipwalton.com/articles/idle-until-urgent/)。显然，这些目标适用于运行时性能，而不是加载性能。
 
 #### 8. 速度指数 < 1250，TTI（交互时间） < 5s（3G），关键文件大小 < 170KB（gzip 压缩后）
 
 虽然很难实现，但最好将终级目标定为，首次绘制时间 1 秒以内，[速度指数](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index) 的值限制在 1250 以下。由于基准是模拟在价值 200 美元的 Android 手机（如 Moto G4）上，网络为 slow 3G，400ms RTT 和 400kbps 的传输速度，目标是 [交互时间低于 5 秒](https://www.youtube.com/watch?v=_srJ7eHS3IM&feature=youtu.be&t=6m21s)，对于重复访问，目标是低于 2 秒（只能通过 service worker 实现）。
 
-请注意，当谈到互动指标时，最好区分 [First CPU Idle 以及 Time to Interactive](https://calendar.perfplanet.com/2017/time-to-interactive-measuring-more-of-the-user-experience/) ，以避免误解。前者是主要内容渲染后的最早点（其中页面至少有 5 秒的响应时间）。后者是页面可以始终响应输入的时间。（**感谢 Philip Walton ！**）
+请注意，当谈到互动指标时，最好区分 [First CPU Idle 以及 Time to Interactive](https://calendar.perfplanet.com/2017/time-to-interactive-measuring-more-of-the-user-experience/)，以避免误解。前者是主要内容渲染后的最早点（其中页面至少有 5 秒的响应时间）。后者是页面可以始终响应输入的时间。（**感谢 Philip Walton ！**）
 
-我们有两个主要限制因素，限制我们制定一个 **合理的** 目标来保证网络内容的快速传输。一方面，由于 [TCP 慢启动](https://hpbn.co/building-blocks-of-tcp/#slow-start)，我们有着网络传输的限制。HTML 的前 14 KB是最关键的有效负载块——并且是第一次往返中唯一可以提供的预算（由于手机唤醒时间，这是在 400ms RTT 情况下 1 秒内获得的）
+我们有两个主要限制因素，限制我们制定一个 **合理的** 目标来保证网络内容的快速传输。一方面，由于 [TCP 慢启动](https://hpbn.co/building-blocks-of-tcp/#slow-start)，我们有着网络传输的限制。HTML 的前 14 KB是最关键的有效负载块——并且是第一次往返中唯一可以提供的预算（由于手机唤醒时间，这是在 400ms RTT 情况下 1 秒内获得的）。
 
 另一方面，内存和 CPU 有 **硬件限制**（稍后我们将详细讨论它们），原因是 JavaScript 的解析时间。为了实现第一段中所述目标，我们必须考虑 JavaScript 关键文件大小的预算。关于预算应该是多少有很多不同的意见（这应该由你的项目的本身决定），但是 gzip 压缩后预算为 170KB 的 JavaScript 已经需要花费 1s 才能在普通手机上进行解析和编译。假设解压缩时 170KB 扩展到 3 倍大小，那么解压缩后（0.7MB）时，那已经可能是 Moto G4 或 Nexus 2 上“用户体验的丧钟”。
 
-当然，你的数据可能显示你的客户没有使用这些设备，但是也许因为低下的性能导致你的服务无法访问，他们根本没有出现在你的分析中。事实上，Google 的 Alex Russels 建议将 [gzip 压缩后大小为 130 - 170KB](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/) 作为一个合理的上限，当超出这个预算时，你应该进行慎重考虑。在现实世界中，大多数产品都不是很接近（这个标准）；当今的 bundle 平均大小约为 [400KB](https://beta.httparchive.org/reports/state-of-javascript#bytesJs)，与 2015年末相比增长了 35%。在中等水平的移动设备上，**Time-To-Interactive** 占 30 - 35 秒。
+当然，你的数据可能显示你的客户没有使用这些设备，但是也许因为低下的性能导致你的服务无法访问，他们根本没有出现在你的分析中。事实上，Google 的 Alex Russels 建议将 [gzip 压缩后大小为 130-170KB](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/) 作为一个合理的上限，当超出这个预算时，你应该进行慎重考虑。在现实世界中，大多数产品都不是很接近（这个标准）；当今的 bundle 平均大小约为 [400KB](https://beta.httparchive.org/reports/state-of-javascript#bytesJs)，与 2015年末相比增长了 35%。在中等水平的移动设备上，**Time-To-Interactive** 占 30-35 秒。
 
-我们当然也可以超过 bundle 的大小预算。例如，我们可以根据浏览器主线程的活动设置性能预算，即在开始渲染之前进行绘制，或 [跟踪前端 CPU 热点](https://calendar.perfplanet.com/2017/tracking-cpu-with-long-tasks-api/)。[Calibre](https://calibreapp.com/)，[SpeedCurve](https://speedcurve.com/) 以及 [Bundlesize](https://github.com/siddharthkp/bundlesize) 等工具能够帮你控制预算，并且可以集成到你的构建过程中。
+我们当然也可以超过 bundle 的大小预算。例如，我们可以根据浏览器主线程的活动设置性能预算，即在开始渲染之前进行绘制，或 [跟踪前端 CPU 热点](https://calendar.perfplanet.com/2017/tracking-cpu-with-long-tasks-api/)。[Calibre](https://calibreapp.com/)、[SpeedCurve](https://speedcurve.com/) 以及 [Bundlesize](https://github.com/siddharthkp/bundlesize) 等工具能够帮你控制预算，并且可以集成到你的构建过程中。
 
 此外，性能预算可能不应该是固定值。由于依赖网络连接，[性能预算应该（对不同的网络条件）进行适配](https://twitter.com/katiehempenius/status/1075478356311924737)，但无论他们如何使用，慢速连接上的负载更加“昂贵”。
 
 [![From 'Fast By Default: Modern Loading Best Practices' by Addy Osmani](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/3bb4ab9e-978a-4db0-83c3-57a93d70516d/file-size-budget-fast-default-addy-osmani-opt.png)](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices)
 
-[From Fast By Default: Modern loading best practices](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices) by Addy Osmani (幻灯片 19)
-
-
+[From Fast By Default: Modern loading best practices](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices) by Addy Osmani（幻灯片 19）
 
 [![](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/949e5601-04e7-48ee-91a5-10bd7af19a0f/perf-budgets-network-connection.jpg)](https://twitter.com/katiehempenius/status/1075478356311924737) 
 
