@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/delightful-animations-in-ios.md](https://github.com/xitu/gold-miner/blob/master/TODO1/delightful-animations-in-ios.md)
 > * 译者：[iWeslie](https://github.com/iWeslie)
-> * 校对者：[https://github.com/Fengziyin1234](Fengziyin1234)
+> * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234)
 
 # iOS 中赏心悦目的动画
 
