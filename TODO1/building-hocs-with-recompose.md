@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/building-hocs-with-recompose.md](https://github.com/xitu/gold-miner/blob/master/TODO1/building-hocs-with-recompose.md)
 > * 译者：[SHERlocked93](https://github.com/SHERlocked93)
-> * 校对者：
+> * 校对者：[Eternaldeath](https://github.com/Eternaldeath)、[SeanZhouSiyuan](https://github.com/SeanZhouSiyuan)
 
 # 使用 Recompose 来构建高阶组件
 
