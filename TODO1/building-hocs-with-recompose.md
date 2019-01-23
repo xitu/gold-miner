@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/building-hocs-with-recompose.md](https://github.com/xitu/gold-miner/blob/master/TODO1/building-hocs-with-recompose.md)
 > * 译者：[SHERlocked93](https://github.com/SHERlocked93)
-> * 校对者：[Eternaldeath](https://github.com/Eternaldeath)、[SeanZhouSiyuan](https://github.com/SeanZhouSiyuan)
+> * 校对者：[Eternaldeath](https://github.com/Eternaldeath), [SeanZhouSiyuan](https://github.com/SeanZhouSiyuan)
 
 # 使用 Recompose 来构建高阶组件
 
@@ -59,7 +59,7 @@ export default enhance()(Sample);
 *   简化可读性较差的臃肿的组件；
 *   可以控制传入组件的渲染；
 *   可以给任何组件增加 `state`，这意味着你不再需要依赖 Redux 来托管所有 `state`（如果你正这样做）；
-*   操作你传给展示型组件的 `props` （map，reduce 等任何你喜欢的方法）。
+*   操作你传给展示型组件的 `props`（map，reduce 等任何你喜欢的方法）。
 
 #### 为什么不使用类来实现它呢？
 
@@ -73,10 +73,10 @@ function HellWorld({ message = 'Hello World' }) {
 
 使用函数式组件的优点：
 
-*   模块化代码 - 可以在整个项目范围内复用你的代码段；
-*   只依赖于 props - 默认没有 state；
-*   更便于单元测试 - 对测试工具 enzyme/jest 更友好的测试接口；
-*   更便于 Mock 数据 - 可以对不同场景方便的进行数据 Mock。
+*   模块化代码 — 可以在整个项目范围内复用你的代码段；
+*   只依赖于 props — 默认没有 state；
+*   更便于单元测试 — 对测试工具 enzyme/jest 更友好的测试接口；
+*   更便于 Mock 数据 — 可以对不同场景方便的进行数据 Mock。
 
 #### 我们走过的旅程
 
@@ -92,7 +92,7 @@ function HellWorld({ message = 'Hello World' }) {
 
 #### 开始使用 Recompose
 
-> Recompose 是一个为函数式组件和高阶组件开发的 React 工具库。可以把它当做 React 的 Lodash.
+> Recompose 是一个为函数式组件和高阶组件开发的 React 工具库。可以把它当做 React 的 Lodash。
 
 这正是我们所需要的。我们的同事们都喜欢用 Lodash，现在跟他们说开发高阶组件将和使用 Lodash 有相似的开发体验。恩，有戏。
 
@@ -104,7 +104,7 @@ function HellWorld({ message = 'Hello World' }) {
 *   需要将改变可见性的函数放到我们的组件中；
 *   需要在组件中添加一些 props。
 
-#### 步骤1 - 编写展示型组件
+#### 步骤 1 — 编写展示型组件
 
 ```jsx
 export default function Presentation({ title, message, toggleVisibility, isVisible }) {
@@ -121,7 +121,7 @@ export default function Presentation({ title, message, toggleVisibility, isVisib
 
 现在我们需要去提取这个组件的增强型组件了。
 
-#### 步骤2 - 编写容器
+#### 步骤 2 — 编写容器
 
 我通常会把一些 Recompose 的增强型组件合成在一起，所以这个步骤是建立你的 compose：
 
@@ -141,7 +141,7 @@ export default compose(
 
 我们可以使用 compose 来将多个高阶组件转化为一个高阶组件。
 
-#### 步骤3 - 正确获取 `state`
+#### 步骤 3 — 正确获取 `state`
 
 好了，我们现在需要从这个组件中正确获取 `state`。
 
@@ -166,7 +166,7 @@ export default compose(
 
 `withHandlers` 创建了一个高阶组件，它接受一系列 `props` 并返回一个处理函数，在这个例子中是切换可见性 `state` 的函数。`toggleVisibility` 这个函数将作为 `Presentation` 组件的一个 `prop`。
 
-#### 步骤4 - 添加 props
+#### 步骤 4 — 添加 props
 
 最后的要做的是给我们的组件附加一些 `props`。
 
@@ -200,6 +200,7 @@ export default compose(
 在 Recompose 中还有很多有用的 API，[了解更多](https://github.com/acdlite/recompose/blob/master/docs/API.md)！它真的非常像 `Lodash`，现在就打开文档开始写代码吧！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
 
 ---
 
