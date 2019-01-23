@@ -2,178 +2,179 @@
 > * 原文作者：[Vitaly Friedman](https://www.smashingmagazine.com/author/vitaly-friedman)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
-> * 译者：
-> * 校对者：
+> * 译者：[格子熊](https://github.com/KarthusLorin)
+> * 校对者：[Ivocin](https://github.com/Ivocin)，[Fengziyin1234](https://github.com/Fengziyin1234)
 
-# Front-End Performance Checklist 2019 — 2
+# 2019 前端性能优化年度总结 — 第二部分
 
-Let’s make 2019... fast! An annual front-end performance checklist, with everything you need to know to create fast experiences today. Updated since 2016.
+让 2019 来得更迅速吧~你正在阅读的是 2019 年前端性能优化年度总结，始于 2016。
 
-> [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
-> **[译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)**
-> [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
-> [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
-> [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
-> [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
+> - [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
+> - **[译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)**
+> - [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
+> - [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
+> - [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
+> - [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
 
-#### Table Of Contents
+#### 目录
 
-- [Setting Realistic Goals](#setting-realistic-goals)
-  - [7. 100-millisecond response time, 60 fps.](#7-100-millisecond-response-time-60-fps)
-  - [8. Speed Index < 1250, TTI < 5s on 3G, Critical file size budget < 170KB (gzipped).](#8-speed-index--1250-tti--5s-on-3g-critical-file-size-budget--170kb-gzipped)
-- [Defining The Environment](#defining-the-environment)
-  - [9. Choose and set up your build tools](#9-choose-and-set-up-your-build-tools)
-  - [10. Use progressive enhancement as a default.](#10-use-progressive-enhancement-as-a-default)
-  - [11. Choose a strong performance baseline](#11-choose-a-strong-performance-baseline)
-  - [12. Evaluate each framework and each dependency.](#12-evaluate-each-framework-and-each-dependency)
-  - [13. Consider using PRPL pattern and app shell architecture](#13-consider-using-prpl-pattern-and-app-shell-architecture)
-  - [14. Have you optimized the performance of your APIs?](#14-have-you-optimized-the-performance-of-your-apis)
-  - [15. Will you be using AMP or Instant Articles?](#15-will-you-be-using-amp-or-instant-articles)
-  - [16. Choose your CDN wisely](#16-choose-your-cdn-wisely)
+- [设置切实可行的目标](#设置切实可行的目标)
+  - [7. 100 毫秒响应时间，60 fps](#7-100-毫秒响应时间60-fps)
+  - [8. 速度指数 < 1250，TTI（交互时间） < 5s（3G），关键文件大小 < 170KB（gzip 压缩后）](#8-速度指数--1250tti交互时间--5s3g关键文件大小--170kbgzip-压缩后)
+- [定义环境](#定义环境)
+  - [9. 选择并设置你的构建工具](#9-选择并设置你的构建工具)
+  - [10. 默认使用渐进增强](#10-默认使用渐进增强)
+  - [11. 选择一个高性能基准](#11-选择一个高性能基准)
+  - [12. 评估每个框架以及它们的依赖项](#12-评估每个框架以及它们的依赖项)
+  - [13. 考虑使用 PRPL 模式以及应用程序 shell 架构](#13-考虑使用-prpl-模式以及应用程序-shell-架构)
+  - [14. 你是否优化了各个 API 的性能？](#14-你是否优化了各个-api-的性能)
+  - [15. 你会使用 AMP 或 Instant Articles 吗？](#15-你会使用-amp-或-instant-articles-吗)
+  - [16. 明智地选择你的 CDN](#16-明智地选择你的-cdn)
 
-### Setting Realistic Goals
+### 设置切实可行的目标
 
-#### 7. 100-millisecond response time, 60 fps.
+#### 7. 100 毫秒响应时间，60 fps
 
-For an interaction to feel smooth, the interface has 100ms to respond to user’s input. Any longer than that, and the user perceives the app as laggy. The [RAIL, a user-centered performance model](https://www.smashingmagazine.com/2015/10/rail-user-centric-model-performance/) gives you healthy targets: To allow for <100 milliseconds response, the page must yield control back to main thread at latest after every <50 milliseconds. [Estimated Input Latency](https://developers.google.com/web/tools/lighthouse/audits/estimated-input-latency) tells us if we are hitting that threshold, and ideally, it should be below 50ms. For high-pressure points like animation, it’s best to do nothing else where you can and the absolute minimum where you can't.
+为了使用户感觉交互流畅，界面的响应时间不得超过 100ms。如果超过了这个时间，那么用户将会认为该应用程序是卡顿的。[RAIL，一个以用户为中心的性能模型](https://www.smashingmagazine.com/2015/10/rail-user-centric-model-performance/) 为你提供了健康的目标：为了达到 <100 毫秒的响应，页面必须在每 50 毫秒内将控制权交还给主线程。[预计输入延迟时间](https://developers.google.com/web/tools/lighthouse/audits/estimated-input-latency) 可以告诉我们是否到达了这个阈值，理想情况下，它应该小于 50 毫秒。对于像动画这样的（性能）高压点，如果可以，最好不要做任何事情。
 
 [![RAIL](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/c91c910d-e934-4610-9dc5-369ec9071b57/rail-perf-model-opt.png)](https://developers.google.com/web/fundamentals/performance/rail)
     
-[RAIL](https://developers.google.com/web/fundamentals/performance/rail), a user-centric performance model.
+[RAIL](https://developers.google.com/web/fundamentals/performance/rail)，一个以用户为中心的性能模型。
 
-Also, each frame of animation should be completed in less than 16 milliseconds, thereby achieving 60 frames per second (1 second ÷ 60 = 16.6 milliseconds) — preferably under 10 milliseconds. Because the browser needs time to paint the new frame to the screen, your code should finish executing before hitting the 16.6 milliseconds mark. We’re starting having conversations about 120fps (e.g. iPad’s new screens run at 120Hz) and Surma has covered some [rendering performance solutions for 120fps](https://dassur.ma/things/120fps/), but that’s probably not a target we’re looking at _just yet_.
+此外，每一帧动画应在 16 毫秒内完成，从而达到每秒 60 帧（1 秒 ÷ 60 = 16.6 毫秒）—— 最好在 10 毫秒以下。由于浏览器需要时间将新帧绘制到屏幕上，因此你的代码应在到达 16.6 毫秒的标记之前执行完成。我们开始讨论 120 fps（例如 iPad 的新屏幕以 120Hz 运行），而 Surma 已经覆盖了一些 120 fps 的 [渲染性能解决方案](https://dassur.ma/things/120fps/)，但这可能不是我们目前正关注的目标。
 
-Be pessimistic in performance expectations, but [be optimistic in interface design](https://www.smashingmagazine.com/2016/11/true-lies-of-optimistic-user-interfaces/) and [use idle time wisely](https://philipwalton.com/articles/idle-until-urgent/). Obviously, these targets apply to runtime performance, rather than loading performance.
+对性能预期持悲观态度，但要 [在界面设计上保持乐观](https://www.smashingmagazine.com/2016/11/true-lies-of-optimistic-user-interfaces/) 并 [明智地使用空闲时间](https://philipwalton.com/articles/idle-until-urgent/)。显然，这些目标适用于运行时性能，而不是加载性能。
 
-#### 8. Speed Index < 1250, TTI < 5s on 3G, Critical file size budget < 170KB (gzipped).
+#### 8. 速度指数 < 1250，TTI（交互时间） < 5s（3G），关键文件大小 < 170KB（gzip 压缩后）
 
-Although it might be very difficult to achieve, a good ultimate goal would be First Meaningful Paint under 1 second and a [Speed Index](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index) value under 1250. Considering the baseline being a $200 Android phone (e.g. Moto G4) on a slow 3G network, emulated at 400ms RTT and 400kbps transfer speed, aim for [Time to Interactive under 5s](https://www.youtube.com/watch?v=_srJ7eHS3IM&feature=youtu.be&t=6m21s), and for repeat visits, aim for under 2s (achievable only with a service worker),
+虽然很难实现，但最好将终级目标定为，首次绘制时间 1 秒以内，[速度指数](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index) 的值限制在 1250 以下。由于基准是模拟在价值 200 美元的 Android 手机（如 Moto G4）上，网络为 slow 3G，400ms RTT 和 400kbps 的传输速度，目标是 [交互时间低于 5 秒](https://www.youtube.com/watch?v=_srJ7eHS3IM&feature=youtu.be&t=6m21s)，对于重复访问，目标是低于 2 秒（只能通过 service worker 实现）。
 
-Notice that, when speaking about interactivity metrics, it’s a good idea to [distinguish between First CPU Idle and Time To Interactive](https://calendar.perfplanet.com/2017/time-to-interactive-measuring-more-of-the-user-experience/) to avoid misunderstandings down the line. The former is the earliest point after the main content has rendered (where there is at least a 5-second window where the page is responsive). The latter is the point where the page can be expected to always be responsive to input (_thanks, Philip Walton!_).
+请注意，当谈到互动指标时，最好区分 [First CPU Idle 以及 Time to Interactive](https://calendar.perfplanet.com/2017/time-to-interactive-measuring-more-of-the-user-experience/)，以避免误解。前者是主要内容渲染后的最早点（其中页面至少有 5 秒的响应时间）。后者是页面可以始终响应输入的时间。（**感谢 Philip Walton ！**）
 
-We have two major constraints that effectively shape a _reasonable_ target for speedy delivery of the content on the web. On the one hand, we have **network delivery constraints** due to [TCP Slow Start](https://hpbn.co/building-blocks-of-tcp/#slow-start). The first 14KB of the HTML is the >most critical payload chunk — and the only part of the budget that can be delivered in the first roundtrip (which is all you get in 1 sec at 400ms RTT due to mobile wake-up times).
+我们有两个主要限制因素，限制我们制定一个 **合理的** 目标来保证网络内容的快速传输。一方面，由于 [TCP 慢启动](https://hpbn.co/building-blocks-of-tcp/#slow-start)，我们有着网络传输的限制。HTML 的前 14 KB是最关键的有效负载块——并且是第一次往返中唯一可以提供的预算（由于手机唤醒时间，这是在 400ms RTT 情况下 1 秒内获得的）。
 
-On the other hand, we have **hardware constraints** on memory and CPU due to JavaScript parsing times (we’ll talk about them in detail later). To achieve the goals stated in the first paragraph, we have to consider the critical file size budget for JavaScript. Opinions vary on what that budget should be (and it heavily depends on the nature of your project), but a budget of 170KB JavaScript gzipped already would take up to 1s to parse and compile on an average phone. Assuming that 170KB expands to 3× that size when decompressed (0.7MB), that already could be the death knell of a "decent" user experience on a Moto G4 or Nexus 2.
+另一方面，内存和 CPU 有 **硬件限制**（稍后我们将详细讨论它们），原因是 JavaScript 的解析时间。为了实现第一段中所述目标，我们必须考虑 JavaScript 关键文件大小的预算。关于预算应该是多少有很多不同的意见（这应该由你的项目的本身决定），但是 gzip 压缩后预算为 170KB 的 JavaScript 已经需要花费 1s 才能在普通手机上进行解析和编译。假设解压缩时 170KB 扩展到 3 倍大小，那么解压缩后（0.7MB）时，那已经可能是 Moto G4 或 Nexus 2 上“用户体验的丧钟”。
 
-Of course, your data might show that your customers are not on these devices, but perhaps they simply don’t show up in your analytics because your service is inaccessible to them due to slow performance. In fact, Google’s Alex Russels recommends to [aim for 130–170KB gzipped](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/) as a reasonable upper boundary, and exceeding this budget should be an informed and deliberate decision. In real-life world, most products aren’t even close: an average bundle size today is around [400KB](https://beta.httparchive.org/reports/state-of-javascript#bytesJs), which is up 35% compared to late 2015. On a middle-class mobile device, that accounts for 30-35 seconds for _Time-To-Interactive_.
+当然，你的数据可能显示你的客户没有使用这些设备，但是也许因为低下的性能导致你的服务无法访问，他们根本没有出现在你的分析中。事实上，Google 的 Alex Russels 建议将 [gzip 压缩后大小为 130-170KB](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/) 作为一个合理的上限，当超出这个预算时，你应该进行慎重考虑。在现实世界中，大多数产品都不是很接近（这个标准）；当今的 bundle 平均大小约为 [400KB](https://beta.httparchive.org/reports/state-of-javascript#bytesJs)，与 2015年末相比增长了 35%。在中等水平的移动设备上，**Time-To-Interactive** 占 30-35 秒。
 
-We could also go beyond the bundle size budget though. For example, we could set performance budgets based on the activities of the browser’s main thread, i.e. paint time before start render, or [track down front-end CPU hogs](https://calendar.perfplanet.com/2017/tracking-cpu-with-long-tasks-api/). Tools such as [Calibre](https://calibreapp.com/), [SpeedCurve](https://speedcurve.com/) and [Bundlesize](https://github.com/siddharthkp/bundlesize) can help you keep your budgets in check, and can be integrated into your build process.
+我们当然也可以超过 bundle 的大小预算。例如，我们可以根据浏览器主线程的活动设置性能预算，即在开始渲染之前进行绘制，或 [跟踪前端 CPU 热点](https://calendar.perfplanet.com/2017/tracking-cpu-with-long-tasks-api/)。[Calibre](https://calibreapp.com/)、[SpeedCurve](https://speedcurve.com/) 以及 [Bundlesize](https://github.com/siddharthkp/bundlesize) 等工具能够帮你控制预算，并且可以集成到你的构建过程中。
 
-Also, a performance budget probably shouldn’t be a fixed value. Depending on the network connection, [performance budgets should adapt](https://twitter.com/katiehempenius/status/1075478356311924737), but payload on slower connection is much more "expensive", regardless of how they’re used.
+此外，性能预算可能不应该是固定值。由于依赖网络连接，[性能预算应该（对不同的网络条件）进行适配](https://twitter.com/katiehempenius/status/1075478356311924737)，但无论他们如何使用，慢速连接上的负载更加“昂贵”。
 
 [![From 'Fast By Default: Modern Loading Best Practices' by Addy Osmani](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/3bb4ab9e-978a-4db0-83c3-57a93d70516d/file-size-budget-fast-default-addy-osmani-opt.png)](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices)
 
-[From Fast By Default: Modern loading best practices](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices) by Addy Osmani (Slide 19)
+[From Fast By Default: Modern loading best practices](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices) by Addy Osmani（幻灯片 19）
 
 [![](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/949e5601-04e7-48ee-91a5-10bd7af19a0f/perf-budgets-network-connection.jpg)](https://twitter.com/katiehempenius/status/1075478356311924737) 
 
-Performance budgets should adapt depending on the network conditions for an average mobile device. (Image source: [Katie Hempenius](https://twitter.com/katiehempenius/status/1075478356311924737)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/949e5601-04e7-48ee-91a5-10bd7af19a0f/perf-budgets-network-connection.jpg))
+性能预算应根据普通移动设备的网络条件进行调整。（图片来源：[Katie Hempenius](https://twitter.com/katiehempenius/status/1075478356311924737)）（[大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/949e5601-04e7-48ee-91a5-10bd7af19a0f/perf-budgets-network-connection.jpg)）
 
-### Defining The Environment
+### 定义环境
 
-#### 9. Choose and set up your build tools
+#### 9. 选择并设置你的构建工具
 
-[Don’t pay too much attention to what’s supposedly cool](https://24ways.org/2017/all-that-glisters/) [these days](https://2018.stateofjs.com/). Stick to your environment for building, be it Grunt, Gulp, Webpack, Parcel, or a combination of tools. As long as you are getting results you need and you have no issues maintaining your build process, you’re doing just fine.
+[不要过分关注那些炫酷的东西。](https://2018.stateofjs.com/) 坚持你自己的构建环境，无论是 Grunt、Gulp、Webpack、Parcel 还是工具组合。只要你获得了所需结果，并且构建过程中没有任何问题，这就可以了。
 
-Among the build tools, Webpack seems to be the most established one, with literally hundreds of plugins available to optimize the size of your builds. Getting started with Webpack can be tough though. So if you want to get started, there are some great resources out there:
-    
-*   [Webpack documentation](https://webpack.js.org/concepts/) — obviously — is a good starting point, and so are [Webpack — The Confusing Bits](https://medium.com/@rajaraodv/webpack-the-confusing-parts-58712f8fcad9) by Raja Rao and [An Annotated Webpack Config](https://nystudio107.com/blog/an-annotated-webpack-4-config-for-frontend-web-development) by Andrew Welch.
+在构建工具中，Webpack 似乎是最成熟的工具，有数百个插件可用于优化构建大小。入门 Webpack 可能会很难。所以如果你想要入门，这里有一些很棒的资源：
 
-*   Sean Learkin has a free course on [Webpack: The Core Concepts](https://webpack.academy/p/the-core-concepts) and Jeffrey Way has released a fantastic free course on [Webpack for everyone](https://laracasts.com/series/webpack-for-everyone). Both of them are great introductions for diving into Webpack.
+*   [Webpack documentation](https://webpack.js.org/concepts/) —— 显然，一个很好的起点，Webpack 也是如此。Raja Rao 写的 [Webpack — The Confusing Bits](https://medium.com/@rajaraodv/webpack-the-confusing-parts-58712f8fcad9) 以及 Andrew Welch 写的 [An Annotated Webpack Config](https://nystudio107.com/blog/an-annotated-webpack-4-config-for-frontend-web-development) 也是。
 
-*   [Webpack Fundamentals](https://frontendmasters.com/courses/webpack-fundamentals/) is a very comprehensive 4h course with Sean Larkin, released by FrontendMasters.
+*   Sean Learkin 有一个名为 [Webpack: The Core Concepts](https://webpack.academy/p/the-core-concepts) 的免费课程，Jeffrey Way 有一个名为 [Webpack for everyone](https://laracasts.com/series/webpack-for-everyone) 的免费课程。这两个课程都是深入 Webpack 的好资料。
 
-*   If you are slightly more advanced, Rowan Oulton has published a [Field Guide for Better Build Performance with Webpack](https://slack.engineering/keep-webpack-fast-a-field-guide-for-better-build-performance-f56a5995e8f1) and Benedikt Rötsch’s made a tremendous research on [putting Webpack bundle on a diet](https://www.contentful.com/blog/2017/10/27/put-your-webpack-bundle-on-a-diet-part-3/).
+*   [Webpack Fundamentals](https://frontendmasters.com/courses/webpack-fundamentals/) 是一个时长为 4h 的非常全面的免费课程，由 Sean Larkin 创作，发布在 FrontendMasters。
 
-*   [Webpack examples](https://github.com/webpack/webpack/tree/master/examples) has hundreds of ready-to-use Webpack configurations, categorized by topic and purpose. Bonus: there is also a [Webpack config configurator](https://webpack.jakoblind.no/) that generates a basic configuration file.
+*   如果你稍微高级一点，Rowan Oulton 已经发布了一门 [Field Guide for Better Build Performance with Webpack](https://slack.engineering/keep-webpack-fast-a-field-guide-for-better-build-performance-f56a5995e8f1) 并且 Benedikt Rötsch 进行了一项关于优秀的研究 [putting Webpack bundle on a diet](https://www.contentful.com/blog/2017/10/27/put-your-webpack-bundle-on-a-diet-part-3/)。
 
-*   [awesome-webpack](https://github.com/webpack-contrib/awesome-webpack) is a curated list of useful Webpack resources, libraries and tools, including articles, videos, courses, books and examples for Angular, React and framework-agnostic projects.
-#### 10. Use progressive enhancement as a default.
+*   [Webpack examples](https://github.com/webpack/webpack/tree/master/examples) 包含数百个可以立即使用的 Webpack 配置，按主题和目的分类。还额外提供了一个 [Webpack 配置生成器](https://webpack.jakoblind.no/)，可以生成基本配置文件。
 
-Keeping [progressive enhancement](https://www.aaron-gustafson.com/notebook/insert-clickbait-headline-about-progressive-enhancement-here/) as the guiding principle of your front-end architecture and deployment is a safe bet. Design and build the core experience first, and then enhance the experience with advanced features for capable browsers, creating [resilient](https://resilientwebdesign.com/) experiences. If your website runs fast on a slow machine with a poor screen in a poor browser on a sub-optimal network, then it will only run faster on a fast machine with a good browser on a decent network.
-    
-#### 11. Choose a strong performance baseline
+*   [awesome-webpack](https://github.com/webpack-contrib/awesome-webpack) 是一个实用的 Webpack 资源，库和工具的精选列表，包括 Angular、React 和框架无关项目的文章、视频、课程、书籍和示例。
 
-With so many unknowns impacting loading — the network, thermal throttling, cache eviction, third-party scripts, parser blocking patterns, disk I/O, IPC latency, installed extensions, antivirus software and firewalls, background CPU tasks, hardware and memory constraints, differences in L2/L3 caching, RTTS — [JavaScript has the heaviest cost of the experience](https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4), next to web fonts blocking rendering by default and images often consuming too much memory. With the performance bottlenecks [moving away from the server to the client](https://calendar.perfplanet.com/2017/tracking-cpu-with-long-tasks-api/), as developers, we have to consider all of these unknowns in much more detail.
+#### 10. 默认使用渐进增强
 
-With a 170KB budget that already contains the critical-path HTML/CSS/JavaScript, router, state management, utilities, framework and the application logic, we have to thoroughly [examine network transfer cost, the parse/compile time and the runtime cost](https://www.twitter.com/kristoferbaxter/status/908144931125858304) of the framework of our choice.
+保持 [渐进增强](https://www.aaron-gustafson.com/notebook/insert-clickbait-headline-about-progressive-enhancement-here/) 作为前端架构和部署的指导原则是一个安全的选择。首先设计和构建核心体验，然后使用高级特性为支持的浏览器提升体验，创建 [弹性](https://resilientwebdesign.com/) 体验。如果你的网站在一台拥有着差劲网络、屏幕以及浏览器的慢速机器上运行的很快，那么它在一台拥有强力网络和浏览器的快速机器上只会运行地更快。
 
-As [noted](https://twitter.com/sebmarkbage/status/829733454119989248) by Seb Markbåge, a good way to measure start-up costs for frameworks is to first render a view, then delete it and then render again as it can tell you how the framework scales. The first render tends to warm up a bunch of lazily compiled code, which a larger tree can benefit from when it scales. The second render is basically an emulation of how code reuse on a page affects the performance characteristics as the page grows in complexity.
+#### 11. 选择一个高性能基准
+
+有很多未知因素影响加载——网络，热量限制，第三方脚本，缓存替换，解析器阻塞模式，磁盘 I/O，IPC 延迟，已安装的扩展，杀毒软件和防火墙，后台 CPU 任务，硬件和内存限制，L2/L3 缓存的差异和 RTTS 等。[JavaScript 的成本最高](https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4)，此外默认情况下阻塞渲染的 web 字体以及图像也经常消耗过多内存。随着性能瓶颈[从服务器转移到客户端](https://calendar.perfplanet.com/2017/tracking-cpu-with-long-tasks-api/)，作为开发人员，我们必须更详细地考虑所有这些未知因素。
+
+由于 170KB 的预算已经包含关键路径 HTML/CSS/JavaScript、路由、状态管理、实用程序、框架和应用程序逻辑，我们必须彻底审核我们选择不同框架的 [网络传输成本，解析/编译时间和运行时成本](https://www.twitter.com/kristoferbaxter/status/908144931125858304)。
+
+正如 Seb Markbåge [所指出的](https://twitter.com/sebmarkbage/status/829733454119989248)，衡量框架启动成本的一个好方法是首先渲染一个视图，然后将其删除后重新渲染，因为它能告诉你框架如何压缩。首次渲染趋向于唤醒一堆懒洋洋的编译代码，一个更大的树可以在压缩时收益。第二次渲染基本上模拟了随着页面复杂性的提升，页面代码是如何重用影响性能特征的。
 
 [!['Fast By Default: Modern Loading Best Practices' by Addy Osmani](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/39c247a9-223f-4a6c-ae3d-db54a696ffcb/tti-budget-opt.png)](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices)
 
-From [Fast By Default: Modern Loading Best Practices](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices) by Addy Osmani (Slides 18, 19).
+From [Fast By Default: Modern Loading Best Practices](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices) by Addy Osmani（幻灯片 18, 19）。
 
-#### 12. Evaluate each framework and each dependency.
+#### 12. 评估每个框架以及它们的依赖项
 
-Now, [not every project needs a framework](https://twitter.com/jaffathecake/status/923805333268639744) and [not every page of a single-page-application needs to load a framework](https://medium.com/dev-channel/a-netflix-web-performance-case-study-c0bcde26a9d9). In Netflix’s case, "removing React, several libraries and the corresponding app code from the client-side reduced the total amount of JavaScript by over 200KB, causing [an over-50% reduction in Netflix’s Time-to-Interactivity](https://news.ycombinator.com/item?id=15567657) for the logged-out homepage." The team then utilized the time spent by users on the landing page to prefetch React for subsequent pages that users were likely to land on ([read on for details](https://jakearchibald.com/2017/netflix-and-react/)).
+现在，[并非每个项目都需要框架](https://twitter.com/jaffathecake/status/923805333268639744)，而且[不是每个单页应用的页面都需要加载框架](https://medium.com/dev-channel/a-netflix-web-performance-case-study-c0bcde26a9d9)。在 Netflix 的案例中，“删除 React，几个库以及对应的客户端代码将 JavaScript 总量减少了 200KB 以上，导致 [Netflix 登出主页的交互时间缩短了 50% 以上]((https://news.ycombinator.com/item?id=15567657))。”然后，团队利用用户在目标网页上花费的时间为用户可能使用的后续网页预读取 React（[详情请继续阅读](https://jakearchibald.com/2017/netflix-and-react/)）。
 
-It might sound obvious but worth stating: some projects can also benefit [benefit from removing an existing framework](https://twitter.com/jaffathecake/status/925320026411950080) altogether. Once a framework is chosen, you’ll be staying with it for at least a few years, so if you need to use one, make sure your choice [is informed](https://www.youtube.com/watch?v=6I_GwgoGm1w) and [well considered](https://medium.com/@ZombieCodeKill/choosing-a-javascript-framework-535745d0ab90#.2op7rjakk).
+这听起来很明显但是值得一提：一些项目也可以[从完全删除现有框架中收益]((https://twitter.com/jaffathecake/status/925320026411950080))。一旦选择了一个框架，你将至少使用它好几年，所以如果你需要使用它，请确保你的选择得到了[充分的考虑](https://medium.com/@ZombieCodeKill/choosing-a-javascript-framework-535745d0ab90#.2op7rjakk)。
 
-Inian Parameshwaran [has measured performance footprint of top 50 frameworks](https://youtu.be/wVY3-acLIoI?t=699) (against [_First Contentful Paint_](https://developers.google.com/web/tools/lighthouse/audits/first-contentful-paint) — the time from navigation to the time when the browser renders the first bit of content from the DOM). Inian discovered that, out there in the wild, Vue and Preact are the fastest across the board — both on desktop and mobile, followed by React ([slides](https://drive.google.com/file/d/1CoCQP7qyvkSQ4VG9L_PTWD5AF9wF28XT/view)). You could examine your framework candidates and the proposed architecture, and study how most solutions out there perform, e.g. with server-side rendering or client-side rendering, on average.
+Inian Parameshwaran [测量了排名前 50 的框架的性能足迹](https://youtu.be/wVY3-acLIoI?t=699)（针对[首次内容渲染](https://developers.google.com/web/tools/lighthouse/audits/first-contentful-paint)——从导航到浏览器从 DOM 渲染第一部分内容的时间）。Inian 发现，单独来说，Vue 和 Preact 是最快的——无论是桌面端还是移动端，其次是 React（[幻灯片](https://drive.google.com/file/d/1CoCQP7qyvkSQ4VG9L_PTWD5AF9wF28XT/view)）。你可以检查你的候选框架和它建议的体系结构，并研究大多数解决方案如何执行，例如平均而言，使用服务端渲染或者客户端渲染。
 
-Baseline performance cost matters. According to a [study by Ankur Sethi](https://blog.uncommon.is/the-baseline-costs-of-javascript-frameworks-f768e2865d4a), "your React application will never load faster than about 1.1 seconds on an average phone in India, no matter how much you optimize it. Your Angular app will always take at least 2.7 seconds to boot up. The users of your Vue app will need to wait at least 1 second before they can start using it." You might not be targeting India as your primary market anyway, but users accessing your site with suboptimal network conditions will have a comparable experience. In exchange, your team gains maintainability and developer efficiency, of course. But this consideration needs to be deliberate.
+基线性能成本很重要。根据 Ankur Sethi 的一项研究，“无论你对它的优化程度如何，你的 React 应用程序在印度的普通手机上的加载时间绝对不会低于 1.1 秒。你的 Angular 应用程序始终需要至少 2.7 秒才能启动。你的 Vue 应用程序的用户需要等待至少 1 秒才能开始使用它。”无论如何，你可能不会讲印度定位为主要市场，但是网络不佳的用户在访问你的网站是会获得类似的体验。作为交换，你的团队当然可以获得可维护性和开发人员效率。但这种考虑值得商榷。
 
-You could go as far as evaluating a framework (or any JavaScript library) on Sacha Greif’s [12-point scale scoring system](https://medium.freecodecamp.org/the-12-things-you-need-to-consider-when-evaluating-any-new-javascript-library-3908c4ed3f49) by exploring features, accessibility, stability, performance, package ecosystem, community, learning curve, documentation, tooling, track record, team, compatibility, security for example. But on a tough schedule, it’s a good idea to consider _at least_ the total cost on size + initial parse times before choosing an option; lightweight options such as [Preact](https://github.com/developit/preact), [Inferno](https://github.com/infernojs/inferno), [Vue](https://vuejs.org/), [Svelte](https://svelte.technology/) or [Polymer](https://github.com/Polymer/polymer) can get the job done just fine. The size of your baseline will define the constraints for your application’s code.
+你可以通过探索功能、可访问性、稳定性、性能、包生态系统、社区、学习曲线、文档、工具、跟踪记录和团队来评估 Sacha Greif 的[12 点量表评分系统](https://medium.freecodecamp.org/the-12-things-you-need-to-consider-when-evaluating-any-new-javascript-library-3908c4ed3f49) 中的框架（或者任何其他 JavaScript 库）。但是在艰难的时间表上，在选择一个选项之前，最好至少考虑大小 + 初始解析时间的总成本；轻量级选项，如 [Preact](https://github.com/developit/preact)、[Inferno](https://github.com/infernojs/inferno)、[Vue](https://vuejs.org/)、[Svelte](https://svelte.technology/) 或者 [Polymer](https://github.com/Polymer/polymer)，都可以很好地完成工作。基线的大小将定义应用程序代码的约束。
 
-A good starting point is to choose a good default stack for your application. [Gatsby.js](http://gatsbyjs.org/) (React), [Preact CLI](https://github.com/developit/preact-cli), and [PWA Starter Kit](https://github.com/Polymer/pwa-starter-kit) provide reasonable defaults for fast loading out of the box on average mobile hardware.
+一个很好的起点是为你的应用程序选择一个好的默认堆栈。[Gatsby.js](http://gatsbyjs.org/)（React）、[Preact CLI](https://github.com/developit/preact-cli) 以及 [PWA Starter Kit](https://github.com/Polymer/pwa-starter-kit) 为中等移动硬件上的快速加载提供了合理的默认值。
 
 [![JavaScript processing times in 2018 by Addy Osmani](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/53363a80-48ae-4f91-aed0-69d292e6d7a2/2018-js-processing-times.png)](https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4) 
 
-(Image credit: [Addy Osmani](https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/53363a80-48ae-4f91-aed0-69d292e6d7a2/2018-js-processing-times.png))
+（图片来源：[Addy Osmani](https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4)）（[大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/53363a80-48ae-4f91-aed0-69d292e6d7a2/2018-js-processing-times.png)）
 
-#### 13. Consider using PRPL pattern and app shell architecture
+#### 13. 考虑使用 PRPL 模式以及应用程序 shell 架构
 
-Different frameworks will have different effects on performance and will require different strategies of optimization, so you have to clearly understand all of the nuts and bolts of the framework you’ll be relying on. When building a web app, look into the [PRPL pattern](https://developers.google.com/web/fundamentals/performance/prpl-pattern/) and [application shell architecture](https://developers.google.com/web/updates/2015/11/app-shell). The idea is quite straightforward: Push the minimal code needed to get interactive for the initial route to render quickly, then use service worker for caching and pre-caching resources and then lazy-load routes that you need, asynchronously.
+不同的框架会对性能产生不同的影响，并且不需要不同的优化策略，因此你必须清楚地了解你将依赖的框架的所有细节。构建 Web 应用程序时，请查看 [PRPL模式](https://developers.google.com/web/fundamentals/performance/prpl-pattern/) 和 [应用程序 shell 体系结构](https://developers.google.com/web/updates/2015/11/app-shell)。这个想法非常简单：推送初始路由交互所需的最少代码，以便快速渲染，然后使用 service worker 进行缓存和预缓存资源，然后异步地延迟加载所需的路由。
 
 [![PRPL Pattern in the application shell architecture](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/bb4716e5-d25b-4b80-b468-f28d07bae685/app-build-components-dibweb-c-scalew-879-opt.png)](https://developers.google.com/web/fundamentals/performance/prpl-pattern/)
 
-[PRPL](https://developers.google.com/web/fundamentals/performance/prpl-pattern/) stands for Pushing critical resource, Rendering initial route, Pre-caching remaining routes and Lazy-loading remaining routes on demand.
+[PRPL](https://developers.google.com/web/fundamentals/performance/prpl-pattern/) 代表按需推送关键资源，渲染初始路由，预缓存与按需求延迟加载剩余路由。
 
 [![Application shell architecture](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/6423db84-4717-4aeb-9174-7ae96bf4f3aa/appshell-1-o0t8qd-c-scalew-799-opt.jpg)](https://developers.google.com/web/updates/2015/11/app-shell)
 
-An [application shell](https://developers.google.com/web/updates/2015/11/app-shell) is the minimal HTML, CSS, and JavaScript powering a user interface.
+应用程序 shell 是驱动用户界面所需要的最少 HTML、CSS 和 JavaScript。 
 
-#### 14. Have you optimized the performance of your APIs? 
+#### 14. 你是否优化了各个 API 的性能？
 
-APIs are communication channels for an application to expose data to internal and third-party applications via so-called _endpoints_. When [designing and building an API](https://www.smashingmagazine.com/2012/10/designing-javascript-apis-usability/), we need a reasonable protocol to enable the communication between the server and third-party requests. [Representational State Transfer](https://www.smashingmagazine.com/2018/01/understanding-using-rest-api/) ([_REST_](http://web.archive.org/web/20130116005443/http://tomayko.com/writings/rest-to-my-wife)) is a well-established, logical choice: it defines a set of constraints that developers follow to make content accessible in a performant, reliable and scalable fashion. Web services that conform to the REST constraints, are called _RESTful web services_.
+API 是应用程序通过所谓的端点向内部和第三方应用程序公开数据的通信通道。在 [设计和构建 API 时](https://www.smashingmagazine.com/2012/10/designing-javascript-apis-usability/)，我们需要一个合理的协议来启动服务器和第三方请求之间的通信。[Representational State Transfer](https://www.smashingmagazine.com/2018/01/understanding-using-rest-api/)（[**REST**](http://web.archive.org/web/20130116005443/http://tomayko.com/writings/rest-to-my-wife)）是一个合理的成熟选择：它定义了开发人员遵循的一组约束，以便以高性能，可靠和可扩展的方式访问内容。符合 REST 约束的 Web 服务称为 **RESTful Web 服务**。
 
-As with good ol' HTTP requests, when data is retrieved from an API, any delay in server response will propagate to the end user, hence delaying rendering. When a resource wants to retrieve some data from an API, it will need to request the data from the corresponding endpoint. A component that renders data from several resources, such as an article with comments and author photos in each comment, may need several roundtrips to the server to fetch all the data before it can be rendered. Furthermore, the amount of data returned through REST is often more than what is needed to render that component.
+HTTP 请求成功时，当从 API 检索数据，服务器响应中的任何延迟都将传播给最终用户，从而延迟渲染。当资源想要从 API 检索某些数据时，它将需要从相应的端点请求数据。从多个资源渲染数据的组件（例如，在每个评论中包含评论和作者照片的文章）可能需要多次往返服务器以在渲染之前获取所有数据。此外，通过 REST 返回的数据量通常大于渲染该组件所需的数据量。
 
-If many resources require data from an API, the API might become a performance bottleneck. [GraphQL](https://graphql.org/) provides a performant solution to these issues. Per se, GraphQL is a query language for your API, and a server-side runtime for executing queries by using a type system you define for your data. Unlike REST, GraphQL can retrieve all data in a single request, and the response will be exactly what is required, without _over_ or _under_-fetching data as it typically happens with REST.
+如果许多资源需要来自 API 的数据，API 可能会成为性能瓶颈。[GraphQL](https://graphql.org/) 为这些问题提供了高性能的解决方案。本身，GraphQL 是 API 的查询语句，是一个使用你为数据定义的类型系统执行查询的服务端运行时。与 REST 不同，GraphQL 可以在单个请求中检索所有数据，并且响应将完全符合要求，而不会像 REST 那样**过多**或**过少**读取数据。
 
-In addition, because GraphQL is using schema (metadata that tells how the data is structured), it can already organize data into the preferred structure, so, for example, [with GraphQL, we could remove JavaScript code used for dealing with state management](https://hackernoon.com/how-graphql-replaces-redux-3fff8289221d), producing a cleaner application code that runs faster on the client.
+此外，由于 GraphQL 使用 schema（描述数据结构的元数据），它已经可以将数据组织到首选结构中，因此，例如，[使用 GraphQL，我们可以删除用于处理状态管理的 JavaScript 代码](https://hackernoon.com/how-graphql-replaces-redux-3fff8289221d)，生成更简洁的应用程序代码，可以在客户端上运行得更快。
 
-If you want to get started with GraphQL, Eric Baer published two fantastic articles on yours truly Smashing Magazine: [A GraphQL Primer: Why We Need A New Kind Of API](https://www.smashingmagazine.com/2018/01/graphql-primer-new-api-part-1/) and [A GraphQL Primer: The Evolution Of API Design](https://www.smashingmagazine.com/2018/01/graphql-primer-new-api-part-2/) (_thanks for the hint, Leonardo!_).
+如果你想开始使用 GraphQL，Eric Bear 在 Smashing 杂志上发表了两篇精彩的文章：[A GraphQL Primer: Why We Need A New Kind Of API](https://www.smashingmagazine.com/2018/01/graphql-primer-new-api-part-1/) 以及 [A GraphQL Primer: The Evolution Of API Design](https://www.smashingmagazine.com/2018/01/graphql-primer-new-api-part-2/)（**感谢提示，Leonardo**）。
 
 [![Hacker Noon](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/5fda8d85-1151-4d0b-b2f6-da354ebae345/redux-rest-apollo-graphql.png)](https://hackernoon.com/how-graphql-replaces-redux-3fff8289221d) 
 
-A difference between REST and GraphQL, illustrated via a conversation between Redux + REST on the left, an Apollo + GraphQL on the right. (Image source: [Hacker Noon](https://hackernoon.com/how-graphql-replaces-redux-3fff8289221d)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/5fda8d85-1151-4d0b-b2f6-da354ebae345/redux-rest-apollo-graphql.png))
+REST 和 GraphQL 之间的区别，就如左图 Redux + REST 之间的对话与右图 Apollo + GraphQL 的对话的区别（图片来源：[Hacker Noon](https://hackernoon.com/how-graphql-replaces-redux-3fff8289221d)）（[大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/5fda8d85-1151-4d0b-b2f6-da354ebae345/redux-rest-apollo-graphql.png)）
 
-#### 15. Will you be using AMP or Instant Articles?
+#### 15. 你会使用 AMP 或 Instant Articles 吗？
 
-Depending on the priorities and strategy of your organization, you might want to consider using Google’s [AMP](https://www.ampproject.org/) or Facebook’s [Instant Articles](https://instantarticles.fb.com/) or Apple’s [Apple News](https://www.apple.com/news/). You can achieve good performance without them, but AMP _does_ provide a solid performance framework with a free content delivery network (CDN), while Instant Articles will boost your visibility and performance on Facebook.
+根据你的组织的优先级和策略，你可能需要考虑使用 Google 的 [AMP](https://www.ampproject.org/) 或者 Facebook 的 [Instant Articles](https://instantarticles.fb.com/) 或者 Apple 的 [Apple News](https://www.apple.com/news/)。如果没有它们，你也获得良好的性能，但 AMP 确实提供了一个可靠的性能框架和免费的内容分发网络（CDN），而 Instant Articles 将提高你在 Facebook 上的可见性和性能。
 
-The seemingly obvious benefit of these technologies for users is _guaranteed performance_, so at times they might even prefer AMP-/Apple News/Instant Pages-links over "regular" and potentially bloated pages. For content-heavy websites that are dealing with a lot of third-party content, these options could potentially help speed up render times dramatically.
+对于用户来说，这些技术最直观的的好处是保证了性能。 所以比起“正常“的和可能膨胀的页面，有时用户甚至更喜欢 AMP/Apple News/Instant Pages 链接。对于处理大量第三方内容的内容繁重的网站，这些选项可能有助于大幅加快渲染时间。
 
-[Unless they don't.](https://timkadlec.com/remembers/2018-03-19-how-fast-is-amp-really/) According to Tim Kadlec, for example, "AMP documents tend to be faster than their counterparts, but they don’t necessarily mean a page is performant. AMP is not what makes the biggest difference from a performance perspective."
+[除非他们不这样做](https://timkadlec.com/remembers/2018-03-19-how-fast-is-amp-really/)。例如，根据 Tim Kadlec的说法，“AMP 文档往往比同行更快，但并不一定意味着页面具有高性能。在性能方面，AMP 不是最大的差异。”
 
-A benefit for the website owner is obvious: discoverability of these formats on their respective platforms and [increased visibility in search engines](https://ethanmarcotte.com/wrote/ampersand/). You could build [progressive web AMPs](https://www.smashingmagazine.com/2016/12/progressive-web-amps/), too, by reusing AMPs as a data source for your PWA. Downside? Obviously, a presence in a walled garden places developers in a position to produce and maintain a separate version of their content, and in case of Instant Articles and Apple News [without actual URLs](https://www.w3.org/blog/TAG/2017/07/27/distributed-and-syndicated-content-whats-wrong-with-this-picture/) _(thanks Addy, Jeremy!)_.
+站长的好处显而易见：这些格式在各自平台上的可发现性以及[搜索引擎的可见性提高](https://ethanmarcotte.com/wrote/ampersand/)。你也可以通过重复使用 AMP 作为 PWA 的数据源来[构建渐进式 web APM](https://www.smashingmagazine.com/2016/12/progressive-web-amps/)。至于缺点？显然，因为各个平台的不同的要求和限制，开发人员需要对他们的内容，在不同平台制作和维护不同的版本，如果是 Instant Articles 和 Apple News [没有实际的URL](https://www.w3.org/blog/TAG/2017/07/27/distributed-and-syndicated-content-whats-wrong-with-this-picture/)（感谢 Addy，Jeremy）。
 
-#### 16. Choose your CDN wisely
+#### 16. 明智地选择你的 CDN
 
-Depending on how much dynamic data you have, you might be able to "outsource" some part of the content to a [static site generator](https://www.smashingmagazine.com/2015/11/static-website-generators-jekyll-middleman-roots-hugo-review/), pushing it to a CDN and serving a static version from it, thus avoiding database requests. You could even choose a [static-hosting platform](https://www.smashingmagazine.com/2015/11/modern-static-website-generators-next-big-thing/) based on a CDN, enriching your pages with interactive components as enhancements ([JAMStack](https://jamstack.org/)). In fact, some of those generators (like [Gatsby](https://www.gatsbyjs.org/blog/2017-09-13-why-is-gatsby-so-fast/) on top of React) are actually [website compilers](https://tomdale.net/2017/09/compilers-are-the-new-frameworks/) with many automated optimizations provided out of the box. As compilers add optimizations over time, the compiled output gets smaller and faster over time.
+根据你拥有的动态数据量，你可以将内容的某些部分“外包”到 [静态站点生成器](https://www.smashingmagazine.com/2015/11/static-website-generators-jekyll-middleman-roots-hugo-review/)，将其推送到 CDN 并从中提供静态版本，从而避免数据库请求。你甚至可以选择基于 CDN 的[静态托管平台](https://www.smashingmagazine.com/2015/11/modern-static-website-generators-next-big-thing/)，通过交互式组件丰富你的页面作为增强功能（[JAMStack](https://jamstack.org/)）。事实上，其中一些生成器（如 Reats 之上的 [Gatsby](https://www.gatsbyjs.org/blog/2017-09-13-why-is-gatsby-so-fast/)）实际上是[网站编译器](https://tomdale.net/2017/09/compilers-are-the-new-frameworks/)，提供了许多自动优化功能。随着编译器随着时间的推移添加优化，编译后的输出随着时间的推移变得越来越小，越来越快。
 
-Notice that CDNs can serve (and offload) dynamic content as well. So, restricting your CDN to static assets is not necessary. Double-check whether your CDN performs compression and conversion (e.g. image optimization in terms of formats, compression and resizing at the edge), [support for servers workers](https://www.filamentgroup.com/lab/servers-workers.html), edge-side includes, which assemble static and dynamic parts of pages at the CDN’s edge (i.e. the server closest to the user), and other tasks.
+请注意，CDN 也可以提供（和卸载）动态内容。因此，不必将CDN限制为只有静态文件。仔细检查你的 CDN 是否执行压缩和转换（例如，在格式，压缩和边缘大小调整方面的图像优化），对 [服务器端工作者](https://www.filamentgroup.com/lab/servers-workers.html) 的支持，包括边缘，在 CDN 边缘组装页面的静态和动态部分（即最接近用户的服务器）和其他任务。
 
-Note: based on research by Patrick Meenan and Andy Davies, HTTP/2 is [effectively broken on many CDNs](https://github.com/andydavies/http2-prioritization-issues#cdns--cloud-hosting-services), so we shouldn’t be too optimistic about the performance boost there.
+注意：基于 Patrick Meenan 和 Andy Davies 的研究，HTTP/2 [在许多 CDN 上被破坏](https://github.com/andydavies/http2-prioritization-issues#cdns--cloud-hosting-services)，所以我们不应该对那里的性能提升过于乐观。
 
-> [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
-> **[译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)**
-> [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
-> [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
-> [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
-> [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
+> - [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
+> - **[译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)**
+> - [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
+> - [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
+> - [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
+> - [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
