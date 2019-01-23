@@ -15,7 +15,7 @@
 
 二十世纪八十年代末，域名系统（DNS）被提出，可以让人们用简短易记的名称来连接实体（比如 facebook.com），这使得网络安全发生了极大的变化。人们为网络安全做了许多的改进，比如现在大部分的网络流量都是通过 HTTPS 连接，但在线上传输明文时仍然存在一些问题。
 
-2010 年，[DNS 安全拓展](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions)（DNSSEC）部署实施，DNS 协议由此支持身份验证功能。虽然 DNSSEC 支持对消息进行身份验证，但仍然会使用明文来传输 DNS 请求与应答。这也使得传输的内容可以被请求方与响应方中间路径上任意节点轻松获取。2014 年 10 月，国际互联网工程任务组（IETF）建立了 [DPRIVE 工作组](https://datatracker.ietf.org/wg/dprive/about/) ，其章程包括为 DNS 提供保密性与身份验证功能。
+2010 年，[DNS 安全拓展](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions)（DNSSEC）部署实施，DNS 协议由此支持身份验证功能。虽然 DNSSEC 支持对消息进行身份验证，但仍然会使用明文来传输 DNS 请求与应答。这也使得传输的内容可以被请求方与响应方中间路径上任意节点轻松获取。2014 年 10 月，国际互联网工程任务组（IETF）建立了 [DPRIVE 工作组](https://datatracker.ietf.org/wg/dprive/about/)，其章程包括为 DNS 提供保密性与身份验证功能。
 
 此工作组在于 2016 年提出 [RFC 7858](https://tools.ietf.org/html/rfc7858) 指定了 DoT 标准。为此，Cloudflare 的 1.1.1.1 与 Quad9 的 9.9.9.9 等开放的解析器在 DoT 的支持下更加关注使用者的隐私。这也保护了终端用户设备到 DNS 解析器这一部分 DNS 通信。但连接的其它部分仍然是明文传输。在 2018 年 5 月，DPRIVE 重新开发了一个方法，用于加密从解析器到域名服务器间的通信。
 
