@@ -1,5 +1,5 @@
 > * 原文地址：[The State of Web Browsers 2019 edition](https://ferdychristant.com/the-state-of-web-browsers-88224d55b4e6)
-> * 原文作者：[]()
+> * 原文作者：[Ferdy Christant](https://ferdychristant.com/@ferdychristant)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-state-of-web-browsers-2019-edition.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-state-of-web-browsers-2019-edition.md)
 > * 译者：
@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*mkxbYIvO9oe1xsjjezUELA.png)
 
-Two days ago, I published a bitter sweet article on the [state of web browsers](https://ferdychristant.com/the-state-of-web-browsers-f5a83a41c1cb), triggered by the news that Microsoft would abandon their EdgeHTML engine, replacing it with Chromium. Which was the final nail in the coffin, effectively establishing Chromium as the web’s engine, combined with Safari’s webkit. The only resistance to this monopoly, Mozilla, finds itself without any significant allies or traction to counter this development.
+Two days ago, I published a bitter sweet article on the [state of web browsers](https://github.com/xitu/gold-miner/blob/master/TODO1/the-state-of-web-browsers.md), triggered by the news that Microsoft would abandon their EdgeHTML engine, replacing it with Chromium. Which was the final nail in the coffin, effectively establishing Chromium as the web’s engine, combined with Safari’s webkit. The only resistance to this monopoly, Mozilla, finds itself without any significant allies or traction to counter this development.
 
 The article got some readership and a fair amount of feedback. The general consensus seems to be that the article is truthful but depressing.
 
