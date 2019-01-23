@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/using-proxy-to-track-javascript-class.md](https://github.com/xitu/gold-miner/blob/master/TODO1/using-proxy-to-track-javascript-class.md)
 > * 译者：[SHERlocked93](https://github.com/SHERlocked93)
-> * 校对者：[salomezhang](https://github.com/salomezhang)、[cyuamber](https://github.com/cyuamber)
+> * 校对者：[salomezhang](https://github.com/salomezhang), [cyuamber](https://github.com/cyuamber)
 
 # 使用 Proxy 来监测 Javascript 中的类
 
@@ -33,10 +33,10 @@ var p = new Proxy(target, handler);
 
 `Proxy` 构造函数获取一个 `target` 对象，和一个用来拦截 `target` 对象不同行为的 `handler` 对象。你可以设置下面这些拦截项：
 
-*   `has`  —  拦截 `in` 操作。比如，你可以用它来隐藏对象上某些属性。
-*   `get`  —  用来拦截**读取**操作。比如当试图读取不存在的属性时，你可以用它来返回默认值。
-*   `set`  —  用来拦截**赋值**操作。比如给属性赋值的时候你可以增加验证的逻辑，如果验证不通过可以抛出错误。
-*   `apply`  —  用来拦截**函数调用**操作。比如，你可以把所有的函数调用都包裹在 `try/catch` 语句块中。
+*   `has` — 拦截 `in` 操作。比如，你可以用它来隐藏对象上某些属性。
+*   `get` — 用来拦截**读取**操作。比如当试图读取不存在的属性时，你可以用它来返回默认值。
+*   `set` — 用来拦截**赋值**操作。比如给属性赋值的时候你可以增加验证的逻辑，如果验证不通过可以抛出错误。
+*   `apply` — 用来拦截**函数调用**操作。比如，你可以把所有的函数调用都包裹在 `try/catch` 语句块中。
 
 这只是一部分拦截项，你可以在 MDN 上找到[完整的列表](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)。
 
@@ -212,7 +212,7 @@ function proxyFunctions(trackedEntity, options) {
 }
 ```
 
-可以看到，假如我们希望监测对象的属性，我们创建了一个带有 `get/set` 拦截器的被监测对象。下面是 `set` 拦截器的实现：
+可以看到，假如我们希望监测对象的属性，我们创建了一个带有 `get` 和 `set` 拦截器的被监测对象。下面是 `set` 拦截器的实现：
 
 ```js
 function trackPropertySet(options = {}) {
