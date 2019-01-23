@@ -1,5 +1,5 @@
 > * 原文地址：[React Native Bridge for iOS and Android](https://hackernoon.com/react-native-bridge-for-ios-and-android-43feb9712fcb)
-> * 原文作者：[Abhishek Nalwaya](Abhishek Nalwaya)
+> * 原文作者：[Abhishek Nalwaya](https://hackernoon.com/@abhisheknalwaya)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-native-bridge-for-ios-and-android.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-native-bridge-for-ios-and-android.md)
 > * 译者：
