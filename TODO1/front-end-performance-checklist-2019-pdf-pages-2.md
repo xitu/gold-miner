@@ -77,7 +77,7 @@
 
 在构建工具中，Webpack 似乎是最成熟的工具，有数百个插件可用于优化构建大小。入门 Webpack 可能会很难。所以如果你想要入门，这里有一些很棒的资源：
 
-*   [Webpack documentation](https://webpack.js.org/concepts/) ——显然，一个很好的起点，Webpack 也是如此。Raja Rao 写的 [Webpack — The Confusing Bits](https://medium.com/@rajaraodv/webpack-the-confusing-parts-58712f8fcad9) 以及 Andrew Welch 写的 [An Annotated Webpack Config](https://nystudio107.com/blog/an-annotated-webpack-4-config-for-frontend-web-development) 也是。
+*   [Webpack documentation](https://webpack.js.org/concepts/) —— 显然，一个很好的起点，Webpack 也是如此。Raja Rao 写的 [Webpack — The Confusing Bits](https://medium.com/@rajaraodv/webpack-the-confusing-parts-58712f8fcad9) 以及 Andrew Welch 写的 [An Annotated Webpack Config](https://nystudio107.com/blog/an-annotated-webpack-4-config-for-frontend-web-development) 也是。
 
 *   Sean Learkin 有一个名为 [Webpack: The Core Concepts](https://webpack.academy/p/the-core-concepts) 的免费课程，Jeffrey Way 有一个名为 [Webpack for everyone](https://laracasts.com/series/webpack-for-everyone) 的免费课程。这两个课程都是深入 Webpack 的好资料。
 
@@ -97,13 +97,13 @@
 
 有很多未知因素影响加载——网络，热量限制，第三方脚本，缓存替换，解析器阻塞模式，磁盘 I/O，IPC延迟，已安装的扩展，杀毒软件和防火墙，后台 CPU 任务，硬件和内存限制，L2/L3 缓存的差异，RTTS等。[JavaScript 的成本最高](https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4)，此外默认情况下阻塞渲染的 web 字体以及图像也经常消耗过多内存。随着性能瓶颈[从服务器转移到客户端](https://calendar.perfplanet.com/2017/tracking-cpu-with-long-tasks-api/)，作为开发人员，我们必须更详细地考虑所有这些未知因素。
 
-由于 170KB 的预算已经包含关键路径 HTML/CSS/JavaScript，路由，状态管理，实用程序，框架和应用程序逻辑，我们必须彻底审核我们选择不同框架的[网络传输成本，解析/编译时间和运行时成本](https://www.twitter.com/kristoferbaxter/status/908144931125858304)。
+由于 170KB 的预算已经包含关键路径 HTML/CSS/JavaScript、路由、状态管理、实用程序、框架和应用程序逻辑，我们必须彻底审核我们选择不同框架的 [网络传输成本，解析/编译时间和运行时成本](https://www.twitter.com/kristoferbaxter/status/908144931125858304)。
 
 正如 Seb Markbåge [所指出的](https://twitter.com/sebmarkbage/status/829733454119989248)，衡量框架启动成本的一个好方法是首先渲染一个视图，然后将其删除后重新渲染，因为它能告诉你框架如何压缩。首次渲染趋向于唤醒一堆懒洋洋的编译代码，一个更大的树可以在压缩时收益。第二次渲染基本上模拟了随着页面复杂性的提升，页面代码是如何重用影响性能特征的。
 
 [!['Fast By Default: Modern Loading Best Practices' by Addy Osmani](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/39c247a9-223f-4a6c-ae3d-db54a696ffcb/tti-budget-opt.png)](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices)
 
-From [Fast By Default: Modern Loading Best Practices](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices) by Addy Osmani (幻灯片 18, 19).
+From [Fast By Default: Modern Loading Best Practices](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices) by Addy Osmani（幻灯片 18, 19）。
 
 #### 12. 评估每个框架以及它们的依赖项
 
@@ -115,13 +115,13 @@ Inian Parameshwaran [测量了排名前 50 的框架的性能足迹](https://you
 
 基线性能成本很重要。根据 Ankur Sethi 的一项研究，“无论你对它的优化程度如何，你的 React 应用程序在印度的普通手机上的加载时间绝对不会低于 1.1 秒。你的 Angular 应用程序始终需要至少 2.7 秒才能启动。你的 Vue 应用程序的用户需要等待至少 1 秒才能开始使用它。”无论如何，你可能不会讲印度定位为主要市场，但是网络不佳的用户在访问你的网站是会获得类似的体验。作为交换，你的团队当然可以获得可维护性和开发人员效率。但这种考虑值得商榷。
 
-你可以通过探索功能，可访问性，稳定性，性能，包生态系统，社区，学习曲线，文档，工具，跟踪记录，团队来评估 Sacha Greif 的[12 点量表评分系统](https://medium.freecodecamp.org/the-12-things-you-need-to-consider-when-evaluating-any-new-javascript-library-3908c4ed3f49) 中的框架（或者任何其他 JavaScript 库）。但是在艰难的时间表上，在选择一个选项之前，最好至少考虑大小 + 初始解析时间的总成本；轻量级选项，如 [Preact](https://github.com/developit/preact)，[Inferno](https://github.com/infernojs/inferno)， [Vue](https://vuejs.org/)， [Svelte](https://svelte.technology/) 或者 [Polymer](https://github.com/Polymer/polymer)，都可以很好地完成工作。基线的大小将定义应用程序代码的约束。
+你可以通过探索功能、可访问性、稳定性、性能、包生态系统、社区、学习曲线、文档、工具、跟踪记录和团队来评估 Sacha Greif 的[12 点量表评分系统](https://medium.freecodecamp.org/the-12-things-you-need-to-consider-when-evaluating-any-new-javascript-library-3908c4ed3f49) 中的框架（或者任何其他 JavaScript 库）。但是在艰难的时间表上，在选择一个选项之前，最好至少考虑大小 + 初始解析时间的总成本；轻量级选项，如 [Preact](https://github.com/developit/preact)、[Inferno](https://github.com/infernojs/inferno)、[Vue](https://vuejs.org/)、[Svelte](https://svelte.technology/) 或者 [Polymer](https://github.com/Polymer/polymer)，都可以很好地完成工作。基线的大小将定义应用程序代码的约束。
 
-一个很好的起点是为你的应用程序选择一个好的默认堆栈。[Gatsby.js](http://gatsbyjs.org/)（React）, [Preact CLI](https://github.com/developit/preact-cli)，以及 [PWA Starter Kit](https://github.com/Polymer/pwa-starter-kit) 为中等移动硬件上的快速加载提供了合理的默认值。
+一个很好的起点是为你的应用程序选择一个好的默认堆栈。[Gatsby.js](http://gatsbyjs.org/)（React）、[Preact CLI](https://github.com/developit/preact-cli) 以及 [PWA Starter Kit](https://github.com/Polymer/pwa-starter-kit) 为中等移动硬件上的快速加载提供了合理的默认值。
 
 [![JavaScript processing times in 2018 by Addy Osmani](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/53363a80-48ae-4f91-aed0-69d292e6d7a2/2018-js-processing-times.png)](https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4) 
 
-（图片来源： [Addy Osmani](https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4)）([大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/53363a80-48ae-4f91-aed0-69d292e6d7a2/2018-js-processing-times.png))
+（图片来源：[Addy Osmani](https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4)）（[大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/53363a80-48ae-4f91-aed0-69d292e6d7a2/2018-js-processing-times.png)）
 
 #### 13. 考虑使用 PRPL 模式以及应用程序 shell 架构
 
@@ -133,11 +133,11 @@ Inian Parameshwaran [测量了排名前 50 的框架的性能足迹](https://you
 
 [![Application shell architecture](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/6423db84-4717-4aeb-9174-7ae96bf4f3aa/appshell-1-o0t8qd-c-scalew-799-opt.jpg)](https://developers.google.com/web/updates/2015/11/app-shell)
 
-应用程序 shell 是驱动用户界面所需要的最少 HTML，CSS 和 JavaScript。 
+应用程序 shell 是驱动用户界面所需要的最少 HTML、CSS 和 JavaScript。 
 
 #### 14. 你是否优化了各个 API 的性能？
 
-API 是应用程序通过所谓的端点向内部和第三方应用程序公开数据的通信通道。在 [设计和构建 API 时](https://www.smashingmagazine.com/2012/10/designing-javascript-apis-usability/)，我们需要一个合理的协议来启动服务器和第三方请求之间的通信。[Representational State Transfer](https://www.smashingmagazine.com/2018/01/understanding-using-rest-api/) ([**REST**](http://web.archive.org/web/20130116005443/http://tomayko.com/writings/rest-to-my-wife)) 是一个合理的成熟选择：它定义了开发人员遵循的一组约束，以便以高性能，可靠和可扩展的方式访问内容。符合 REST 约束的 Web 服务称为 **RESTful Web 服务**。
+API 是应用程序通过所谓的端点向内部和第三方应用程序公开数据的通信通道。在 [设计和构建 API 时](https://www.smashingmagazine.com/2012/10/designing-javascript-apis-usability/)，我们需要一个合理的协议来启动服务器和第三方请求之间的通信。[Representational State Transfer](https://www.smashingmagazine.com/2018/01/understanding-using-rest-api/)（[**REST**](http://web.archive.org/web/20130116005443/http://tomayko.com/writings/rest-to-my-wife)）是一个合理的成熟选择：它定义了开发人员遵循的一组约束，以便以高性能，可靠和可扩展的方式访问内容。符合 REST 约束的 Web 服务称为 **RESTful Web 服务**。
 
 HTTP 请求成功时，当从 API 检索数据，服务器响应中的任何延迟都将传播给最终用户，从而延迟渲染。当资源想要从 API 检索某些数据时，它将需要从相应的端点请求数据。从多个资源渲染数据的组件（例如，在每个评论中包含评论和作者照片的文章）可能需要多次往返服务器以在渲染之前获取所有数据。此外，通过 REST 返回的数据量通常大于渲染该组件所需的数据量。
 
@@ -145,7 +145,7 @@ HTTP 请求成功时，当从 API 检索数据，服务器响应中的任何延�
 
 此外，由于 GraphQL 使用 schema（描述数据结构的元数据），它已经可以将数据组织到首选结构中，因此，例如，[使用 GraphQL，我们可以删除用于处理状态管理的 JavaScript 代码](https://hackernoon.com/how-graphql-replaces-redux-3fff8289221d)，生成更简洁的应用程序代码，可以在客户端上运行得更快。
 
-如果你想开始使用 GraphQL，Eric Bear 在 Smashing 杂志上发表了两篇精彩的文章：[A GraphQL Primer: Why We Need A New Kind Of API](https://www.smashingmagazine.com/2018/01/graphql-primer-new-api-part-1/) 以及 [A GraphQL Primer: The Evolution Of API Design](https://www.smashingmagazine.com/2018/01/graphql-primer-new-api-part-2/) (**感谢提示，Leonardo**)。
+如果你想开始使用 GraphQL，Eric Bear 在 Smashing 杂志上发表了两篇精彩的文章：[A GraphQL Primer: Why We Need A New Kind Of API](https://www.smashingmagazine.com/2018/01/graphql-primer-new-api-part-1/) 以及 [A GraphQL Primer: The Evolution Of API Design](https://www.smashingmagazine.com/2018/01/graphql-primer-new-api-part-2/)（**感谢提示，Leonardo**）。
 
 [![Hacker Noon](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/5fda8d85-1151-4d0b-b2f6-da354ebae345/redux-rest-apollo-graphql.png)](https://hackernoon.com/how-graphql-replaces-redux-3fff8289221d) 
 
@@ -153,9 +153,9 @@ REST 和 GraphQL 之间的区别，就如左图 Redux + REST 之间的对话与�
 
 #### 15. 你会使用 AMP 或 Instant Articles 吗？
 
-根据你的组织的优先级和策略，你可能需要考虑使用 Google 的 [AMP](https://www.ampproject.org/)  或者 Facebook 的 [Instant Articles](https://instantarticles.fb.com/) 或者 Apple 的 [Apple News](https://www.apple.com/news/)。如果没有它们，你也获得良好的性能，但 AMP 确实提供了一个可靠的性能框架和免费的内容分发网络（CDN），而 Instant Articles 将提高你在 Facebook 上的可见性和性能。
+根据你的组织的优先级和策略，你可能需要考虑使用 Google 的 [AMP](https://www.ampproject.org/) 或者 Facebook 的 [Instant Articles](https://instantarticles.fb.com/) 或者 Apple 的 [Apple News](https://www.apple.com/news/)。如果没有它们，你也获得良好的性能，但 AMP 确实提供了一个可靠的性能框架和免费的内容分发网络（CDN），而 Instant Articles 将提高你在 Facebook 上的可见性和性能。
 
-对于用户来说， 这些技术最直观的的好处是保证了性能。 所以比起“正常“的和可能膨胀的页面，有时用户甚至更喜欢 AMP/Apple News/Instant Pages 链接。对于处理大量第三方内容的内容繁重的网站，这些选项可能有助于大幅加快渲染时间。
+对于用户来说，这些技术最直观的的好处是保证了性能。 所以比起“正常“的和可能膨胀的页面，有时用户甚至更喜欢 AMP/Apple News/Instant Pages 链接。对于处理大量第三方内容的内容繁重的网站，这些选项可能有助于大幅加快渲染时间。
 
 [除非他们不这样做](https://timkadlec.com/remembers/2018-03-19-how-fast-is-amp-really/)。例如，根据 Tim Kadlec的说法，“AMP 文档往往比同行更快，但并不一定意味着页面具有高性能。在性能方面，AMP 不是最大的差异。”
 
