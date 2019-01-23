@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/using-proxy-to-track-javascript-class.md](https://github.com/xitu/gold-miner/blob/master/TODO1/using-proxy-to-track-javascript-class.md)
 > * 译者：[SHERlocked93](https://github.com/SHERlocked93)
-> * 校对者：
+> * 校对者：[salomezhang](https://github.com/salomezhang)、[cyuamber](https://github.com/cyuamber)
 
-# 使用 Proxy 来观测 Javascript 中的类
+# 使用 Proxy 来监测 Javascript 中的类
 
 ![](https://cdn-images-1.medium.com/max/800/0*kcmAY6tU-LtxRRov)
 
 Photo by [Fabian Grohs](https://unsplash.com/@grohsfabian?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=medium&utm_medium=referral)
 
-代理对象（[Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)）是 ES6 的一个非常酷却鲜为人知的特性，虽然它已经存在挺长时间的了。我想利用这篇文章稍微解释一下这个特性，并用一个例子说明一下它的用法。
+Proxy 对象（[Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)）是 ES6 的一个非常酷却鲜为人知的特性。虽然这个特性存在已久，但是我还是想在本文中对其稍作解释，并用一个例子说明一下它的用法。
 
 ### 什么是 Proxy
 
@@ -19,11 +19,11 @@ Photo by [Fabian Grohs](https://unsplash.com/@grohsfabian?utm_source=medium&utm_
 
 > **Proxy** 对象用于定义基本操作的自定义行为（如属性查找，赋值，枚举，函数调用等）。
 
-虽然这是一个不错的总结，但是从这个 Proxy 的总结中我没能理解它能做什么，它能帮助我们实现什么。
+虽然这是一个不错的总结，但是我却并没有从中搞清楚 Proxy 能做什么，以及它能帮我们实现什么。
 
-首先，Proxy 的概念来源于元编程。简单的说，元编程是允许我们使用我们编写的应用程序（或核心）代码的代码。例如，臭名昭著的 `eval` 函数允许我们将字符串代码当做可执行代码来执行，它是就属于元编程领域。
+首先，Proxy 的概念来源于元编程。简单的说，元编程是允许我们运行我们编写的应用程序（或核心）代码的代码。例如，臭名昭著的 `eval` 函数允许我们将字符串代码当做可执行代码来执行，它是就属于元编程领域。
 
-`Proxy` 这个 API 允许我们在一个对象和它的消费者中间增加中间层，它让我们可以控制这个对象的行为，比如可以决定怎样去进行它的 `get` 和 `set`，甚至可以自定义当访问这个对象上不存在的属性的时候我们可以做些什么。
+`Proxy` API 允许我们在对象和其消费实体中创建中间层，这种特性为我们提供了控制该对象的能力，比如可以决定怎样去进行它的 `get` 和 `set`，甚至可以自定义当访问这个对象上不存在的属性的时候我们可以做些什么。
 
 ### Proxy 的 API
 
@@ -33,10 +33,10 @@ var p = new Proxy(target, handler);
 
 `Proxy` 构造函数获取一个 `target` 对象，和一个用来拦截 `target` 对象不同行为的 `handler` 对象。你可以设置下面这些拦截项：
 
-*   `has`  —  拦截 `in` 操作。比如你可以用它来隐藏对象上某些属性。
+*   `has`  —  拦截 `in` 操作。比如，你可以用它来隐藏对象上某些属性。
 *   `get`  —  用来拦截**读取**操作。比如当试图读取不存在的属性时，你可以用它来返回默认值。
 *   `set`  —  用来拦截**赋值**操作。比如给属性赋值的时候你可以增加验证的逻辑，如果验证不通过可以抛出错误。
-*   `apply`  —  用来拦截**函数调用**操作。比如你可以把所有的函数调用都包裹在 `try/catch` 语句块中。
+*   `apply`  —  用来拦截**函数调用**操作。比如，你可以把所有的函数调用都包裹在 `try/catch` 语句块中。
 
 这只是一部分拦截项，你可以在 MDN 上找到[完整的列表](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)。
 
@@ -71,7 +71,7 @@ proxyCar.year = '1999'; // throw exception
 
 ### 使用 Proxy 来调试
 
-为了展示 Proxy 的能力，我创建了一个用来观测一个给定的对象/类的库，观测项如下：
+为了在实践中展示 Proxy 的能力，我创建了一个简单的监测库，用来监测给定的对象或类，监测项如下：
 
 *   函数执行时间
 *   函数的调用者或属性的访问者
@@ -79,7 +79,7 @@ proxyCar.year = '1999'; // throw exception
 
 这是通过在访问任意对象、类、甚至是函数时，调用一个名为 `proxyTrack` 的函数来完成的。
 
-如果你希望观测是谁给一个对象的属性赋的值，或者一个函数执行了多久、执行了多少次、谁执行的，这个库将非常有用。我知道可能还有其他更好的工具来实现上面的功能，但是在这里我创建这个库就是为了用一用这个 API。
+如果你希望监测是谁给一个对象的属性赋的值，或者一个函数执行了多久、执行了多少次、谁执行的，这个库将非常有用。我知道可能还有其他更好的工具来实现上面的功能，但是在这里我创建这个库就是为了用一用这个 API。
 
 #### 使用 proxyTrack
 
@@ -127,7 +127,7 @@ MyClass.isPrime was called by start for the 1 time and took 0 mils.
 MyClass.num is being get by start for the 2 time
 ```
 
-`proxyTrack` 接受 2 个参数：第一个是要观测的对象/类，第二个是一个配置项对象，如果没传递的话将被置为默认值。我们看看这个配置项默认值长啥样：
+`proxyTrack` 接受 2 个参数：第一个是要监测的对象/类，第二个是一个配置项对象，如果没传递的话将被置为默认值。我们看看这个配置项默认值长啥样：
 
 ```js
 const defaultOptions = {
@@ -141,13 +141,13 @@ const defaultOptions = {
 };
 ```
 
-可以看到，你可以通过配置你关心的观测项来观测你的目标。比如你希望将结果输出出来，那么你可以将 `console.log` 赋给 `stdout`。
+可以看到，你可以通过配置你关心的监测项来监测你的目标。比如你希望将结果输出出来，那么你可以将 `console.log` 赋给 `stdout`。
 
-还可以通过赋给 `filter` 的回调函数来自定义地控制输出哪些信息。你将会得到一个包括有观测信息的对象，并且如果你希望保留这个信息就返回 `true`，反之返回 `false`。
+还可以通过赋给 `filter` 的回调函数来自定义地控制输出哪些信息。你将会得到一个包括有监测信息的对象，并且如果你希望保留这个信息就返回 `true`，反之返回 `false`。
 
 #### 在 React 中使用 proxyTrack
 
-因为 React 的组件实际上也是类，所以你可以通过 `proxyTrack` 来实时观测它。比如：
+因为 React 的组件实际上也是类，所以你可以通过 `proxyTrack` 来实时监控它。比如：
 
 ```js
 class MyComponent extends Component{...}
@@ -212,7 +212,7 @@ function proxyFunctions(trackedEntity, options) {
 }
 ```
 
-可以看到，假如我们希望观测对象的属性，我们创建了一个带有 `get/set` 拦截器的被观测对象。下面是 `set` 拦截器的实现：
+可以看到，假如我们希望监测对象的属性，我们创建了一个带有 `get/set` 拦截器的被监测对象。下面是 `set` 拦截器的实现：
 
 ```js
 function trackPropertySet(options = {}) {
@@ -260,7 +260,7 @@ function trackPropertySet(options = {}) {
 }
 ```
 
-比较有趣（至少对我来说）的是 `trackClass` 函数：
+更有趣的是 `trackClass` 函数（至少对我来说是这样）：
 
 ```js
 function trackClass(cls, options = {}) {
@@ -280,11 +280,11 @@ function trackClass(cls, options = {}) {
 }
 ```
 
-在此情况下，因为我们希望拦截这个类上不属于原型上的属性，所以我们给这个类的原型创建了个代理，并且创建了个构造函数拦截器。
+在这个案例中，因为我们希望拦截这个类上不属于原型上的属性，所以我们给这个类的原型创建了个代理，并且创建了个构造函数拦截器。
 
-别忘了，即使你在原型上定义了一个属性，如果你再给这个对象赋值一个同名属性，JavaScript 将会创建一个这个属性的本地副本，所以赋值的改动并不会改变这个类其他实例的行为的原因。
+别忘了，即使你在原型上定义了一个属性，但如果你再给这个对象赋值一个同名属性，JavaScript 将会创建一个这个属性的本地副本，所以赋值的改动并不会改变这个类其他实例的行为。这就是为何只对原型做代理并不能满足要求的原因。
 
-你可以[戳这里](https://gist.github.com/mrharel/592df0228cebc017ca413f2f763acc5f)看完整的代码。
+[戳这里](https://gist.github.com/mrharel/592df0228cebc017ca413f2f763acc5f)查看完整代码。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
