@@ -3,21 +3,21 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/dns-over-tls.md](https://github.com/xitu/gold-miner/blob/master/TODO1/dns-over-tls.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[Qiuk17](https://github.com/Qiuk17)
 
 # DNS over TLS：端到端加密的 DNS
 
 ![](https://code.fb.com/wp-content/uploads/2018/12/DoT-Hero.jpg)
 
-DNS 作为互联网流量的最后的最后一部分，曾经是明文的。为了针对它进行加密，我们与 [Cloudflare DNS](https://www.cloudflare.com/dns/) 合作进行了一个试点项目。这个试点项目利用安全传输层协议（即 [TLS](https://code.fb.com/networking-traffic/deploying-tls-1-3-at-scale-with-fizz-a-performant-open-source-tls-library/)，一种被广泛应用的、经过时间证明的机制，可用于双方在不安全信道上建立通讯时，为通讯提供身份认证及加密）与 DNS 进行结合。这个 DNS over TLS（DoT）方案能够加密并验证 Web 流量的最后一部分。在 DoT 测试中，人们可以在浏览 Facebook 时使用 Cloudflare DNS 享受完全加密的体验：不仅是在连接 Facebook 时用的 HTTPS 时进行了加密，而且在 DNS 级别，从用户计算机到 Cloudflare DNS、从 Cloudflare DNS 到 Facebook 域名服务器（NAMESERVER）中全称都采用了加密技术。
+为了加密互联网流量中未被加密的最后一部分，我们与 [Cloudflare DNS](https://www.cloudflare.com/dns/) 合作进行了一个试点项目。这个试点项目利用安全传输层协议（即 [TLS](https://code.fb.com/networking-traffic/deploying-tls-1-3-at-scale-with-fizz-a-performant-open-source-tls-library/)，一种被广泛应用的、经过时间证明的机制，可用于双方在不安全信道上建立通讯时，为通讯提供身份认证及加密）与 DNS 进行结合。这个 DNS over TLS（DoT）方案能够加密并验证 Web 流量的最后一部分。在 DoT 测试中，人们可以在浏览 Facebook 时使用 Cloudflare DNS 享受完全加密的体验：不仅是在连接 Facebook 时用的 HTTPS 时进行了加密，而且在 DNS 级别，从用户计算机到 Cloudflare DNS、从 Cloudflare DNS 到 Facebook 域名服务器（NAMESERVER）中全程都采用了加密技术。
 
 ## DNS 的历史
 
 二十世纪八十年代末，域名系统（DNS）被提出，可以让人们用简短易记的名称来连接实体（比如 facebook.com），这使得网络安全发生了极大的变化。人们为网络安全做了许多的改进，比如现在大部分的网络流量都是通过 HTTPS 连接，但在线上传输明文时仍然存在一些问题。
 
-2010 年，[DNS 安全拓展](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions)（DNSSEC）部署实施，DNS 协议由此支持身份验证功能。虽然 DNSSEC 支持对消息进行身份验证，但仍然会使用明文来传输 DNS 请求与应答。这也使得传输的内容可以被请求方与响应方中间路径上任意节点轻松获取。2014 年 10 月，国际互联网工程任务组（IETF）建立了[DPRIVE 工作组](https://datatracker.ietf.org/wg/dprive/about/) ，其章程包括为 DNS 提供保密性与身份验证功能。
+2010 年，[DNS 安全拓展](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions)（DNSSEC）部署实施，DNS 协议由此支持身份验证功能。虽然 DNSSEC 支持对消息进行身份验证，但仍然会使用明文来传输 DNS 请求与应答。这也使得传输的内容可以被请求方与响应方中间路径上任意节点轻松获取。2014 年 10 月，国际互联网工程任务组（IETF）建立了 [DPRIVE 工作组](https://datatracker.ietf.org/wg/dprive/about/) ，其章程包括为 DNS 提供保密性与身份验证功能。
 
-此工作组在于 2016 年提出 [RFC 7858](https://tools.ietf.org/html/rfc7858) 指定了 DoT 标准。为此，Cloudflare 的 1.1.1.1 与 Quad9 的 9.9.9.9 等开放的解析器在 DoT 的支持下确立以隐私为中心。这也保护了终端用户设备到 DNS 解析器这一部分 DNS 通信。但连接的其它部分仍然是明文传输。在 2018 年 5 月，DPRIVE 重新开发了一个方法，用于加密从解析器到域名服务器间的通信。
+此工作组在于 2016 年提出 [RFC 7858](https://tools.ietf.org/html/rfc7858) 指定了 DoT 标准。为此，Cloudflare 的 1.1.1.1 与 Quad9 的 9.9.9.9 等开放的解析器在 DoT 的支持下更加关注使用者的隐私。这也保护了终端用户设备到 DNS 解析器这一部分 DNS 通信。但连接的其它部分仍然是明文传输。在 2018 年 5 月，DPRIVE 重新开发了一个方法，用于加密从解析器到域名服务器间的通信。
 
 ![](https://code.fb.com/wp-content/uploads/2018/12/DoT21.png)
 
@@ -41,7 +41,7 @@ DNS 作为互联网流量的最后的最后一部分，曾经是明文的。为�
 
 ![](https://code.fb.com/wp-content/uploads/2018/12/DoT4.png)
 
-作为参考，下图展示了在不使用 TLS 会话恢复技术，并在建立连接后仅处理少量请求时总延时的差异。在 22:35 稍早的时间完成了 TLS 到 UDP 的切换，可以看到总体而言 TLS 对大多数的请求的影响与 UDP 类似，但在 p95 或更高的统计指标下，请求的延时收到了影响。后面一张图显示，当链接已经建立时，延时不受影响。这两张图表明，第一张图中的差异是由于建立新连接时产生的，并且实际上，建立新连接的频率很高。
+作为参考，下图展示了在不使用 TLS 会话恢复技术，并在建立连接后仅处理少量请求时总延时的差异。在比 22:35 稍早的时刻完成了 TLS 到 UDP 的切换，可以看到总体而言 TLS 对大多数的请求的影响与 UDP 类似，但在 p95 或更高的统计指标下，请求的延时收到了影响。后面一张图显示，当链接已经建立时，延时不受影响。这两张图表明，第一张图中的差异是由于建立新连接时产生的，并且实际上，建立新连接的频率很高。
 
 ![](https://code.fb.com/wp-content/uploads/2018/12/DoT51.png)
 
