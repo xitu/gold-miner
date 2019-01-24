@@ -69,7 +69,7 @@ Firebase 为云存储、云功能、实时数据库、托管、身份验证等�
 
 它还可以直接与一个工具结合使用来自动化你的开发和发布过程以促进持续交付（例如 Fastlane）。因此，你不必在团队中提供专门的 DevOps 支持。
 
-**7. 大量 IDE支持Flutter**
+**7. 大量 IDE支持 Flutter**
 
 在使用 Flutter 进行编程时，你可以从许多集成开发环境中进行选择。一开始我使用的是 Android Studio，但后来我看 Flutter Live 时使用的是VS Code。这让我很疑惑，因为我发现很多 Flutter 开发人员都在使用 Visual Studio Code。当我尝试之后，我明白为什么这么多人喜欢它了。 VS Code 相较于 Android Studio 和 IntelliJ 更加轻量，速度也快得多，并且具有两者中的大部分特性。就我个人而言，我已经转向 VS Code，但是你也可以使用许多其他的 IDE ，你无需切换就可以开始 Flutter 的工作。
 
