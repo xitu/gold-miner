@@ -1,193 +1,194 @@
+# 为什么我不再使用 export default 来导出模块
 > * 原文地址：[Why I've stopped exporting defaults from my JavaScript modules](https://humanwhocodes.com/blog/2019/01/stop-using-default-exports-javascript-module/)
 > * 原文作者：[Nicholas C. Zakas](https://humanwhocodes.com/blog/2019/01/stop-using-default-exports-javascript-module/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/stop-using-default-exports-javascript-module.md](https://github.com/xitu/gold-miner/blob/master/TODO1/stop-using-default-exports-javascript-module.md)
-> * 译者：
+> * 译者：[Hopsken](https://juejin.im/user/57e766e42e958a00543d99ae)
 > * 校对者：
 
-# Why I've stopped exporting defaults from my JavaScript modules
+# 为什么我不再使用 export default 来导出模块
 
-After years of fighting with default exports, I've changed my ways.
+在与默认导出（export default）死缠烂打了这么多年后，我改变了主意。
 
-Last week, I tweeted something that got quite a few surprising responses:
+上个星期，我发了条推特，收到了不少出人意料的回复：
 
-> In 2019, one of the things I’m going to do is stop exporting things as default from my CommonJS/ES6 modules.
+> 2019年，我要做的其中一件事就是不再从我的 CommonJS/ES6 模块中导出默认值。
 > 
-> Importing a default export has grown to feel like a guessing game where I have a 50/50 chance of being wrong each time. Is it a class? Is it a function?
+> 导入一个默认值感觉上就像抛硬币一样，有一半的概率会猜错。导入的是 class 还是 function？
 > 
 > — Nicholas C. Zakas (@slicknet) [January 12, 2019](https://twitter.com/slicknet/status/1084101377297506304?ref_src=twsrc%5Etfw)
 
-I tweeted this after realizing that a lot of problems I had with JavaScript modules could be traced back to fights with default exports. It didn’t matter if I was using JavaScript modules (or ECMAScript modules, as many prefer to call them) or CommonJS, I was still stumbling over importing from modules with default exports. I got a variety of responses to the tweet, many of which questioned how I could come to this decision. This post is my attempt to clarify my thinking.
+我意识到我所遇到的大多数与 JavaScript 模块有关的问题都可以归咎于默认导出，于是就发了这条推特。不管我用的是 JavaScript 模块（或者 ECMAScript，很多人喜欢这么叫它）还是 CommonJS，都会深陷于默认导出的泥潭。那条推特收到了各种各样的评论，很多人都在问我我是如何得出这个结论的。在这篇文章中，我将尽可能地解释我的想法。
 
-## A few clarifications
+## 一些澄清
 
-As is the case with all tweets, my tweet was meant as a snapshot into an opinion I had rather than a normative reference for my entire opinion. To clarify a few points people seem confused by on Twitter:
+正如所有的推文一样，我的推文不过是我的看法的一个缩影，而不是我完整看法的规范性参考。首先我要澄清推文里让人困惑的几点：
 
-*   The use case of knowing whether an export is a function or a class was an example of the type of problems I’ve encountered. It is not the _only_ problem I’ve found named exports solve for me.
-*   The problems I’ve encountered don’t just happen with files in my own projects, they also happen with importing library and utility modules that I don’t own. That means naming conventions for filenames don’t solve all of the problems.
-*   I’m not saying that everyone should abandon default exports. I’m saying that in modules I’m writing, I will choose not to use default exports. You may feel differently, and that’s fine.
+*   关于不知道导出的是 function 还是 class 这一点，它只是我在使用中所遇到的问题中的一个例子。这不是命名导出为我解决的**唯一一个**问题。
+*   我所遇到的问题不只出现在我自己的项目中，当引入某些第三方库和工具模块时，也会出现这些问题。这意味着文件名的命名约定并不能解决所有问题。
+*   我并不是要所有人都放弃默认导出。我只是说在我写的模块中，我会选择不去用默认导出。当然你可以有你自己看法。
 
-Hopefully those clarifications setup enough context to avoid confusion throughout the rest of this post.
+希望这些澄清设置足够的上下文，以避免在本文的其余部分产生误会。
 
-## Default exports: A primer
+## 默认导出：最初的选择
 
-To the best of my knowledge, default exports from modules were first popularized in CommonJS, where a module can export a default value like this:
+据我所知，默认导出是最先从 CommonJS 流行开来的。模块可以通过如下方式导出某个默认值：
 
 ```
 class LinkedList {}
 module.exports = LinkedList;
 ```
 
-This code exports the `LinkedList` class but does not specify the name to be used by consumers of the module. Assuming the filename is `linked-list.js`, you can import that default in another CommonJS module like this:
+这段代码导出了 `LinkedList` 类，但是并没有规定它被引用时应该使用的名称。假设该文件名为 `linked-list.js`，你可以通过如下方式在其它模块中导入它：
 
 ```
 const LinkedList = require("./linked-list");
 ```
 
-The `require()` function is returning a value that I just happened to name `LinkedList` to match what is in `linked-list.js`, but I also could have chosen to name it `foo` or `Mountain` or any random identifier.
+我只是碰巧把 `require()` 还是返回的值命名为 `LinkedList`，以匹配文件名 `linked-list.js`，但是我也完全可以叫它 `foo`、`Mountain` 或者其它随便什么名称。
 
-The popularity of default module exports in CommonJS meant that JavaScript modules were designed to support this pattern:
+默认模块导出在 CommonJS 中的流行，说明 JavaScript 模块生来就支持这种模式：
 
-> ES6 favors the single/default export style, and gives the sweetest syntax to importing the default.
+> ES6 偏好单一/默认导出的风格，而且为默认导入提供了甜蜜的语法糖。
 > 
 > — David Herman [June 19, 2014](https://mail.mozilla.org/pipermail/es-discuss/2014-June/037905.html)
 
-So in JavaScript modules, you can export a default like this:
+因此，在 JavaScript 模块中，你可以通过如下方式导出默认值：
 
 ```
 export default class LinkedList {}
 ```
 
-And then you can import like this:
+然后，你可以这样来导入它：
 
 ```
 import LinkedList from "./linked-list.js";
 ```
 
-Once again, `LinkedList` is this context is an arbitrary (if not well-reasoned) choice and could just as well be `Dog` or `symphony`.
+再次说明，这里的 `LinkedList` 这是个随意的选择（如果不是特别合理的话），并没有特殊含义，也可以是 `Dog` 或者 `symphony` 诸如此类。
 
-## The alternative: named exports
+## 另一个选择：命名导出
 
-Both CommonJS and JavaScript modules support named exports in addition to default exports. Named exports allow for the name of a function, class, or variable to be transferred into the consuming file.
+除了默认导出以外，CommonJS 和 JavaScript 模块都支持命名导出。在导入时，命名导出允许保留被导出的函数、类或者变量的名称。
 
-In CommonJS, you create a named export by attaching a name to the `exports` object, such as:
+在 CommonJS 中，你可以通过在 `exports` 对象上添加某对键值来创建命名导出：
 
 ```
 exports.LinkedList = class LinkedList {};
 ```
 
-You can then import in another file like this:
+然后，你可以在另一个文件中使用如下方法来导入它们：
 
 ```
 const LinkedList = require("./linked-list").LinkedList;
 ```
 
-Once again, the name I’ve used with `const` can be anything I want, but I’ve chosen to match it to the exported name `LinkedList`.
+再次说明，`const` 之后的名字是任取的，但是为了导出时的名称一致，这里我选择使用 `LinkedList`。
 
-In JavaScript modules, a named export looks like this:
+在 JavaScript 模块中，命名导出看上去像这样：
 
 ```
 export class LinkedList {}
 ```
 
-And you can import like this:
+然后你可以这样来导入它：
 
 ```
 import { LinkedList } from "./linked-list.js";
 ```
 
-In this code, `LinkedList` cannot be a randomly assigned identifier and must match an named export called `LinkedList`. That’s the only significant difference from CommonJS for the goals of this post.
+这里，`LinkedList` 不可以取任意的标识符，必须与命名导出使用的名称一致。对于这篇文章要讲的东西而言，这是与 CommonJS 唯一的重要区别。
 
-So the capabilities of both module types support both default and named exports.
+所以说，这两种模块化方案都支持默认导出和命名导出。
 
-## Personal preferences
+## 个人偏好
 
-Before going further, it’s helpful for you to know some of my own personal preferences when it comes to writing code. These are general principles I apply to all code that I write, regardless of the programming language I use:
+在进一步深入之前，我需要说明一下我自己在写代码时的一些个人偏好。这是我写代码的总体原则，与语言本身无关。
 
-1.  **Explicit over implicit.** I don’t like having code with secrets. What something does, what something should be called, etc., should always be made explicit whenever possible.
+1.  **明了胜于晦涩**。我不喜欢有秘密的代码。某个东西是干嘛的，应该如何调用，诸如此类，在任何可能的情况下，都应该被明确的表示。
 
-2.  **Names should be consistent throughout all files.** If something is an `Apple` in one file, I shouldn’t call it `Orange` in another file. An `Apple` should always be an `Apple`.
+2.  **名称应该在所有文件中保持一致**。如果某样东西在这个文件里叫 `Apple`，那么在另一个文件里就不该叫 `Orange`。`Apple` 永远都是 `Apple`。
 
-3.  **Throw errors early and often.** If it’s possible for something to be missing then it’s best to check as early as possible and, in the best case, throw an error that alerts me to the problem. I don’t want to wait until the code has finished executing to discover that it didn’t work correctly and then hunt for the problem.
+3.  **尽早并经常抛出错误**。如果某样东西有可能缺失，那么最好就尽早检查它，接着，在最理想的情况下，抛出一个错误，让我知道问题在哪儿。我不想等着代码全部执行完后才发现出了问题，然后再去搜查问题出在哪儿。
 
-4.  **Fewer decisions mean faster development.** A lot of the preferences I have are for eliminating decisions during coding. Every decision you make slows you down, which is why things like coding conventions lead to faster development. I want to decide things up front and then just go.
+4.  **更少地抉择意味着更快地开发速度**。我的很多编程偏好都是为了减少编码过程中的抉择。每做一个决定，你都会慢上一点。这就是为什么代码规范可以提高开发速度的原因。我喜欢预先决定好所有事情，然后直接放手去做。
 
-5.  **Side trips slow down development.** Whenever you have to stop and look something up in the middle of coding, I call that a side trip. Side trips are sometimes necessary but there are a lot of unnecessary side trips that can slow things down. I try to write code that eliminates the need for side trips.
+5.  **中途打断会拖慢开发速度**。当你在编码过程中不得不停下来查找一些东西时，这就是我所说的『中途打断』。打断有时候是必要的，但是过多不必要的打断则会拖你的后腿。我想写出尽可能不需要『中途打断』的代码。
 
-6.  **Cognitive overhead slows down development.** Put simply: the more detail you need to remember to be productive when writing code, the slower your development will be.
+6.  **心智负担会拖慢开发速度**。简单来说，编码时，你需要记忆的用来保证效率的细节越多，你的开发速度越慢。
 
-The focus on speed of development is a practical one for me. As I’ve struggled with my health for years, the amount of energy I’ve had to code continued to decrease. Anything I could do to reduce the amount of time spent coding while still accomplishing my task was key.
+对开发速度的关注对我而言是个很现实的问题。多年来，我一直为自己的健康所困扰，我能用于写代码的精力越来越少。任何能帮我在保证完成度的前提下，减少编码时间的操作都很关键。
 
-## The problems I’ve run into
+## 我遇到的那些问题
 
-With all of this in mind, here are the top problems I’ve run into using default exports and why I believe that named exports are a better choice in most situations.
+在上述前提下，这里是我在使用默认导出时遇到的主要问题，以及为什么我相信在大多数情况下命名导出都是更好的选择。
 
-### What is that thing?
+### 那究竟是啥？
 
-As I mentioned in my original tweet, I find it difficult to figure out what I’m importing when a module only has a default import. If you’re using a module or file you’re unfamiliar with, it can be difficult to figure out what is returned, for example:
+正如我在之前那条推文上说的，如果模块只有一个默认导出，我很难弄清楚我导入的是什么。如果你正在用一个不熟悉的模块或文件，你很难弄清楚返回的是什么。举个例子：
 
 ```
 const list = require("./list");
 ```
 
-In this context, what would you expect `list` to be? It’s unlikely to be a primitive value, but it could logically be a function, class, or other type of object. How will I know for sure? I need a side trip. In this case, a side trip might be any of:
+这里，你预想中 `list` 应该是什么？虽然不太可能是基本类型数据，但从逻辑上讲可以是函数、类或者其它类型的对象。我怎么才能确定呢？我需要中途打断一下。当前情况下，这可能意味着：
 
-*   If I own `list.js`, then I may open the file and look for the export.
-*   If I don’t own `list.js`, then I may open up some documentation.
+*   如果我有 `list.js` 这个文件，我也许会打开它，看看它导出了什么。
+*   如果我没有 `list.js` 这个文件，那么我或许会打开某个文档。
 
-In either case, this now becomes an extra bit of information you need in your brain to avoid a second side trip penalty when you need to import from `list.js` again. If you are importing a lot of defaults from modules then either your cognitive overhead is increasing or the number of side trips is increasing. Both are suboptimal and can be frustrating.
+不管是那种情况，你不得不把这段额外的信息记在脑海里，以避免当你需要再次从 `list.js` 导入时发生打断。如果你从各种模块中引入了很多默认值，要么你的心智负担会增加，要么你不得不中途打断多次。两者都不理想，而且很叫人沮丧。
 
-Some will say that IDEs are the answer to this problem, that the IDEs should be smart enough to figure out what is being imported and tell you. While I’m all for smarter IDEs to help developers, I believe requiring IDEs to effectively use a language feature is problematic.
+有人可能会说，IDE 可以解决这些问题。那么 IDE 应该足够聪明，聪明到可以弄明白正在导入的是什么，然后告诉你。当然我是支持使用聪明的 IDE 来帮助开发者的，不过我觉得要求 IDE 来有效地使用语言特性是会有问题的。
 
-### Name matching problems
+### 名称匹配问题
 
-Named exports require consuming modules to at least specify the name of the thing they are importing from a module. The benefit is that I can easily search for everywhere that `LinkedList` is used in a code base and know that it all refers to the same `LinkedList`. As default exports are not prescriptive of the names used to import them, that means naming imports becomes more cognitive overhead for each developer. You need to determine the correct naming convention, and as extra overhead, you need to make sure every developer working in the application will use the same name for the same thing. (You can, of course, allow each developer to use different names for the same thing, but that introduces more cognitive overhead for the team.)
+命名导出要求模块的消费者至少得指定导入东西的名称。这有个好处，我可以方便地在代码库中查找所有用到 `LinkedList` 的地方，知道它们都指代的同一个 `LinkedList`。因为默认导出并不能限定导入时使用的名称，给导入命名会为每个开发者带来更多的心智负担。你需要决定正确的命名规范，另外，你还得确保团队中的每个开发者对同一个事物使用相同的名称。（当然你也可以允许每一位开发者使用不同的命名，但是这会为整个团队带来更多的心智负担。）
 
-Importing a named export means at least referencing the canonical name of a thing everywhere that it’s used. Even if you choose to rename an import, the decision is made explicit, and cannot be done without first referencing the canonical name in some way. In CommonJS:
+使用命名导出意味着至少在它被用到的地方引用的都是定好的名称。就算你选择重命名某个导入，你也得显示说明出来，不可能在不引用规定名称的情况下实现。 在 CommonJS 中：
 
 ```
 const MyList = require("./list").LinkedList;
 ```
 
-In JavaScript modules:
+ 在 JavaScript 模块中：
 
 ```
 import { LinkedList as MyList } from "./list.js";
 ```
 
-In both module formats, you’ve made an explicit statement that `LinkedList` is now going to be referred to as `MyList`.
+在这两种情况下，你都得显示地声明 `LinkedList` 被改为 `MyList`。
 
-When naming is consistent across a codebase, you’re able to easily do things like:
+如果名称在代码库中保持一致，你就可以做到以下事情：
 
-1.  Search the codebase to find usage information.
-2.  Refactor the name of something across the entire codebase.
+1.  查找代码库，了解使用情况。
+2.  在整个代码库的范围内，重命名某个东西。
 
-Is it possible to do this when using default exports and ad-hoc naming of things? My guess is yes, but I’d also guess that it would be a lot more complicated and error-prone.
+如果使用默认导出和特定命名的话，这些操作可以实现吗？我猜是可以的，但是会复杂得多，也容易出现错误。
 
-### Importing the wrong thing
+### 导入错误的东西
 
-Named exports in JavaScript modules have a particular advantage over default exports in that an error is thrown when attempting to import something that doesn’t exist in the module. Consider this code:
+相对于默认导出，命名导出有个明显的好处。那就是，当试图导入模块中不存在的东西时，命名导入会抛出错误。考虑以下代码：
 
 ```
 import { LinkedList } from "./list.js";
 ```
 
-If `LinkedList` doesn’t exist in `list.js`, then an error is thrown. Further, tools such as IDEs and ESLint[1](#fn:1) are easily able to detect a missing reference before the code is executed.
+如果 `list.js` 中不存在 `LinkedList`，则会报错。另外，也方便像 IDE 和 ESLint[1](#fn:1) 这样的工具在代码执行之前检测不存在的引用。
 
-## Worse tooling support
+## 糟糕的工具支持Worse tooling support
 
-Speaking of IDEs, WebStorm is able to help write `import` statements for you.[2](#fn:2) When you have finished typing an identifier that isn’t defined in the file, WebStorm will search the modules in your project to determine if the identifier is a named export in another file. At that point, it can do any of the following:
+提到 IDE，WebStorm 可以帮你书写 `import` 语句。[2](#fn:2) 当你在打完一个当前文件内未定义的标识符后，WebStorm 会在项目内查找模块，检查该标识符是否是某一个文件的命名导出。这时，它会做如下事情：
 
-1.  Underline the identifier that is missing its definition and show you the `import` statement that would fix it.
-2.  Automatically add the correct `import` statement (if you have enable auto import) can now automatically add an `import` statement based on an identifier that you type. In fact, WebStorm is able to help you a great deal when using named imports:
+1.  在缺失定义的标识符下加上下划线，显示可以修复这个问题的 `import` 语句。
+2.  根据你打出的标识符，自动导入正确的 `import` 语句（如果打开了自动导入功能）。事实上，当使用命名导入时，WebStorm 可以帮上很多忙。
 
-There is a plugin for Visual Studio Code[3](#fn:3) that provides similar functionality. This type of functionality isn’t possible when using default exports because there is no canonical name for things you want to import.
+Visual Studio Code[3](#fn:3) 有一个插件可以实现类似的功能。这种功能无法通过默认导出实现，因为你想导入的东西没有确定的名称。
 
-## Conclusion
+## 结论
 
-I’ve had several productivity problems importing default exports in my projects. While none of the problems are necessarily impossible to overcome, using named imports and exports seems to better fit my preferences when coding. Making things explicit and leaning heavily on tooling makes me a productive coder, and insofar as named exports help me do that, I will likely favor them for the foreseeable future. Of course, I have no control over how third-party modules I use export their functionality, but I definitely have a choice over how my own modules export things and will choose named exports.
+当我在项目中使用默认导出是，我遇到严重的工作效率问题。然而这些问题并不是无解的，使用命名导出和导入可以更好地配合我的编程习惯。清晰明确的代码和对工具的重度依赖使我成为高效的程序员。只要命名导出可以帮我做到这些，在可预见的未来内，我都会支持它们。当然，我无法决定我用的第三方模块如何导出，但我可以控制我自己写的模块如何导出，我会选择命名导出。
 
-As earlier, I remind you that this is my opinion and you may not find my reasoning to be persuasive. This post was not meant to persuade anyone to stop using default exports, but rather, to better explain to those that inquired why I, personally, will stop exporting defaults from the modules I write.
+正如前文说的，得提醒一下，这只是我个人的看法，你也许觉得我的论证没有足够的说服力。这篇文章并不是想劝阻任何使用默认导出，而是作为对那些询问我为什么停止使用默认导出的一个更好的回答。
 
 ## References
 
