@@ -190,7 +190,7 @@ Visual Studio Code[3](#fn:3) 有一个插件可以实现类似的功能。这种
 
 正如前文说的，得提醒一下，这只是我个人的看法，你也许觉得我的论证没有足够的说服力。这篇文章并不是想劝阻任何使用默认导出，而是作为对那些询问我为什么停止使用默认导出的一个更好的回答。
 
-## References
+## 参考资料
 
 1.  [esling-plugin-import `import/named` rule](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/named.md) [↩](#fnref:1)
     
