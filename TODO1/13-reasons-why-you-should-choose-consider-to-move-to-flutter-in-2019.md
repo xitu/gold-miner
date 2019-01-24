@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/13-reasons-why-you-should-choose-consider-to-move-to-flutter-in-2019.md](https://github.com/xitu/gold-miner/blob/master/TODO1/13-reasons-why-you-should-choose-consider-to-move-to-flutter-in-2019.md)
 > - 译者：[YueYong](https://github.com/YueYongDev)
-> - 校对者：
+> - 校对者：[MeandNi](https://github.com/MeandNi)
 
 # 13 个你应该选择/考虑使用 Flutter 的理由
 
@@ -11,11 +11,11 @@
 
 > 13 个你应该[**转向 Dart**](https://twitter.com/scottstoll2017) 并且选择或者学习利用 Flutter 去开发你的下一个 app 的理由。
 
-如今的企业需要在选择移动技术时做出关键选择。他们不断地测试和评估技术，以追求强大的数字体验，而不管用户的移动设备或操作系统是什么。企业如果不能提供易于使用的产品和服务，那么无论使用何种渠道或设备，都有可能落后于竞争对手。
+如今的企业需要在选择移动技术时做出关键选择。他们不断的测试和评估技术，以求不论用户使用什么移动设备或操作系统都能有强大的数字体验。企业如果不能提供易于使用的产品和服务，那么无论使用何种渠道或设备，都有可能落后于竞争对手。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ECNAUzNJCkkl7EJKk2Esrw.gif)
 
-目前面临的挑战便是跨平台应用的开发存在问题。在某些情况下，尽管开发人员尽了最大努力，其用户体验仍然落后于原生 app 。近年来，我们看到了各种移动框架的出现，如 React Native、Xamarin 和 AngularJS ，它们帮助我们更容易地产生这些数字体验。最近我们看到一个新玩家加入了这场游戏——谷歌的 Flutter。
+目前面临的挑战便是跨平台应用的开发存在问题。在某些情况下，尽管开发人员尽了最大努力，其用户体验仍然落后于原生 app 。近年来，我们看到了各种移动框架的出现，如 React Native、Xamarin 和 AngularJS ，它们帮助我们更容易地产生较好地数字体验。最近我们看到一个新玩家加入了这场游戏——谷歌的 Flutter。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ymhzy0pX-tFncyB-jD8Opw.gif)
 
@@ -39,7 +39,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*52k_IC8lfsVnHzwLOcF55w.gif)
 
-没有必要去启动另一个 Gradle 构建程序——因为你可以在保存后查看你的修改。对于开发人员来说，这通常很容易掌握——在使用“热重载”时几乎没有学习曲线，因为在默认情况下，每次保存时都会发生这种情况。
+没有必要去启动另一个 Gradle 构建程序——因为你可以在保存后查看你的修改。对于开发人员来说，这通常很容易掌握——在使用“热重载”时几乎没有等待时间，因为在默认情况下，每次保存时都会实时改变。
 
 然而，优势是至关重要的。使用 Flutter 开发时间通常会减少 30-40%，因为在 Android 开发中，每次修改后 Gradle 都需要重新构建，这会降低 Android 开发人员的速度。
 
@@ -61,7 +61,7 @@ Flutter 的小部件同时也实现了 iOS 的人机界面设计规范，可以�
 
 大量可用的开源包可以帮助你更快、更轻松地创建应用程序，而且目前有许多可用的包可以使许多复杂的任务变得更容易。
 
-由于不断加入的开发人员对 Flutter 的作出的积极贡献，所以即使这个开源库还年轻，但它依然在积极壮大。
+由于不断加入的开发人员对 Flutter 的作出的积极贡献，所以即使这个开源库还不够成熟，但它依然在积极壮大。
 
 **6. 与 Firebase 的紧密结合**
 
@@ -69,7 +69,7 @@ Firebase 为云存储、云功能、实时数据库、托管、身份验证等�
 
 它还可以直接与一个工具结合使用来自动化你的开发和发布过程以促进持续交付（例如 Fastlane）。因此，你不必在团队中提供专门的 DevOps 支持。
 
-**7. Flutter 支持大量 IDE**
+**7. 大量 IDE支持Flutter**
 
 在使用 Flutter 进行编程时，你可以从许多集成开发环境中进行选择。一开始我使用的是 Android Studio，但后来我看 Flutter Live 时使用的是VS Code。这让我很疑惑，因为我发现很多 Flutter 开发人员都在使用 Visual Studio Code。当我尝试之后，我明白为什么这么多人喜欢它了。 VS Code 相较于 Android Studio 和 IntelliJ 更加轻量，速度也快得多，并且具有两者中的大部分特性。就我个人而言，我已经转向 VS Code，但是你也可以使用许多其他的 IDE ，你无需切换就可以开始 Flutter 的工作。
 
