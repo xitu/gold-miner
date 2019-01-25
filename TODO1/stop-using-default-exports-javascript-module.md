@@ -1,4 +1,3 @@
-# 为什么我不再使用 export default 来导出模块
 > * 原文地址：[Why I've stopped exporting defaults from my JavaScript modules](https://humanwhocodes.com/blog/2019/01/stop-using-default-exports-javascript-module/)
 > * 原文作者：[Nicholas C. Zakas](https://humanwhocodes.com/blog/2019/01/stop-using-default-exports-javascript-module/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
@@ -24,7 +23,7 @@
 
 正如所有的推文一样，我的推文不过是我的看法的一个缩影，而不是我完整看法的规范性参考。首先我要澄清推文里让人困惑的几点：
 
-*   关于不知道导出的是 function 还是 class 这一点，它只是我在使用中所遇到的诸多问题中的一个例子。这不是命名导出为我解决的**唯一一个**问题。
+*   关于不知道导出的是 function 还是 class 这一点，它只是我在使用中所遇到的诸多问题中的一个例子。这不是命名导出为我解决的**唯一的一个**问题。
 *   我所遇到的问题不只出现在我自己的项目中，当引入某些第三方库和工具模块时，也会出现这些问题。这意味着文件名的命名约定并不能解决所有问题。
 *   我并不是要所有人都放弃默认导出。我只是说在我写的模块中，我会选择不去用默认导出。当然你可以有你自己看法。
 
@@ -144,7 +143,7 @@ const list = require("./list");
 
 命名导出要求模块的消费者至少得指定导入东西的名称。这有个好处，我可以方便地在代码库中查找所有用到 `LinkedList` 的地方，知道它们都指代的同一个 `LinkedList`。因为默认导出并不能限定导入时使用的名称，给导入命名会为每个开发者带来更多的认知负荷。你需要决定正确的命名规范，另外，你还得确保团队中的每个开发者对同一个事物使用相同的名称。（当然你也可以允许每一位开发者使用不同的命名，但是这会为整个团队带来更多的认知负荷。）
 
-使用命名导出意味着至少在它被用到的地方引用的都是定好的名称。就算你选择重命名某个导入，你也得显示说明出来，不可能在不引用规定名称的情况下实现。 在 CommonJS 中：
+使用命名导出意味着至少在它被用到的地方引用的都是定好的名称。就算你选择重命名某个导入，你也得显示说明出来，不可能在不引用规定名称的情况下实现。在 CommonJS 中：
 
 ```javascript
 const MyList = require("./list").LinkedList;
