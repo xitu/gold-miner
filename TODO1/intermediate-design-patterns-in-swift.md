@@ -7,7 +7,7 @@
 
 # iOS 设计模式进阶
 
-设计模式对于代码的维护和提高可读性非常有用，通过本教程你讲学习 Swift 中的其他设计模式。
+设计模式对于代码的维护和提高可读性非常有用，通过本教程你将学习 Swift 中的一些设计模式。
 
 **更新说明**：本教程已由译者针对 iOS 12，Xcode 10 和 Swift 4.2 进行了更新
 
@@ -15,7 +15,7 @@
 
 在本教程中，你将学习如何使用 Swift 中的设计模式来重构一个名为 **Tap the Larger Shape** 的游戏。
 
-了解设计模式对于编写可维护且无错误的应用程序至关重要，了解何时采用何种设计模式是一项只能通过实践学习的技能。这本教程再好不过了！
+了解设计模式对于编写可维护且无 bug 的应用程序至关重要，了解何时采用何种设计模式是一项只能通过实践学习的技能。这本教程再好不过了！
 
 但究竟什么是设计模式呢？这是一个针对常见问题的正式文档型解决方案。例如，考虑一下遍历一个集合，你在此处使用 **迭代器** 设计模式：
 
@@ -40,7 +40,7 @@ for item in collection {
 
 Tap the Larger Shape 是一个有趣但简单的游戏，你会看到一对相似的形状，你需要点击两者中较大的一个。如果你点击较大的形状，你会得到一分，反之你会失去一分。
 
-你看起来好像你涂鸦出了一些随机的方块、圆圈和三角形涂鸦，不过孩子们会买单的！:\]
+看起来你好像只喷出了一些随机的方块、圆圈和三角形涂鸦，不过孩子们会买单的！:\]
 
 下载 [入门项目](https://github.com/iWeslie/SwiftDesignPatterns) 并在 Xcode 中打开。
 
@@ -579,7 +579,7 @@ private func beginNextTurn() {
 
 ## 利用抽象工厂实现游戏的多功能性
 
-“不要做一个正块！”在现实生活中可能是一种侮辱，你的游戏感觉它被装在一个形状中，它渴望更流畅的线条和更多的符合空气动力学的形状。
+“不要做一个古板的人！”在现实生活中可能是一种侮辱，你的游戏感觉它被装在一个形状中，它渴望更流畅的线条和更多的符合空气动力学的形状。
 
 你需要引入一些流畅的“善良的圆”，现在打开 **Shape.swift** 并在文件底部添加以下代码：
 
@@ -622,7 +622,7 @@ class CircleShapeFactory: ShapeFactory {
 
 你需要解决另一个问题，这样做可能会防止一个混乱的几何图形的革命。看吧，你现在拥有的是 “没有代表性的几何图形”，你知道当形状不足时，形状会变得多么干净哈！
 
-取悦你的玩家很容易，你需要的只是用 `CircleShapeView` 在屏幕上 **代表** 你的新 `CircleShape` 对象。:\]
+取悦你的玩家很容易，你需要的只是用 `CircleShapeView` 在屏幕上 **绘制** 你的新 `CircleShape` 对象。:\]
 
 打开 `ShapeView.swift` 并在文件底部添加以下内容：
 
@@ -727,7 +727,7 @@ shapeFactory = CircleShapeFactory(minProportion: 0.3, maxProportion: 0.8)
 
 请注意你是如何在 `GameViewController` 中添加新形状而不会对游戏逻辑产生太大影响的，抽象工厂和雇工设计模式使之成为可能。
 
-## 建造者模式模式
+## 建造者模式
 
 现在是时候来看看第三种设计模式了：**建造者**。
 
@@ -784,7 +784,7 @@ class ShapeViewBuilder {
 
 2. 存储配置 `ShapeView` 的描边属性。
 
-3. 初始化建造者来保存 `ShapeViewFactory` 从而构造 view。这意味着建造者并不需要知道它是来建造 `SquareShapeView` 还是 `CircleShapeView` 抑或是其他形状的 view。
+3. 初始化建造者来持有 `ShapeViewFactory` 从而构造 view。这意味着建造者并不需要知道它是来建造 `SquareShapeView` 还是 `CircleShapeView` 抑或是其他形状的 view。
 
 4. 这是公共 API，当有一对 `Shape` 时，它会创建并初始化一对 `ShapeView`。
 
@@ -916,7 +916,7 @@ class TurnController {
 private var turnController: TurnController!
 ```
 
-向上滚动到 `viewDidLoad`，在调用 `beginNewTurn` 的行之前，插入以下代码：
+向上滚动到 `viewDidLoad`，在调用 `beginNewTurn` 这行之前，插入以下代码：
 
 ```swift
 turnController = TurnController(shapeFactory: shapeFactory, shapeViewBuilder: shapeViewBuilder)
@@ -979,7 +979,7 @@ Build and run and check that it looks like this:编译并运行，你会看到�
 
 你可以设计许多不同的算法：一种是随机选择形状，一种是挑选形状来给玩家一点挑战或者帮助他获胜更多，等等！**策略** 通过对每个策略必须实现的行为的抽象声明来定义一系列算法，这使得该族内的算法可以互换。
 
-如果你猜想你将将会把策略作为一个 Swift `protocol` 来实现，那你就猜对了！
+如果你猜想你将会把策略作为一个 Swift `protocol` 来实现，那你就猜对了！
 
 Create a new file named **TurnStrategy.swift**, and replace its contents with the following code:创建一个名为 **TurnStrategy.swift** 的新文件，并使用以下代码替换其内容：
 
