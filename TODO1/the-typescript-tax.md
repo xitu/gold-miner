@@ -25,7 +25,7 @@ Google Trends 2014–2019 TypeScript Topic Growth
 
 ![](https://cdn-images-1.medium.com/max/800/1*hIFVBWlTInmFBK29DRS7TQ.png)
 
-GitHub Fastest Growing Languages by Contributor Numbers \[[Source](https://blog.github.com/2018-11-15-state-of-the-octoverse-top-programming-languages/)\]
+GitHub Fastest Growing Languages by Contributor Numbers [[Source](https://blog.github.com/2018-11-15-state-of-the-octoverse-top-programming-languages/)]
 
 This is very impressive traction that shouldn’t be discounted, but it is still far from dominating the over-all JavaScript ecosystem. You might say it’s a big wave in a much bigger ocean.
 
