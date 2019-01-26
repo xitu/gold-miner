@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/5-animation-packages-ionic.md](https://github.com/xitu/gold-miner/blob/master/TODO1/5-animation-packages-ionic.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[Mcskiller](https://github.com/Mcskiller)
 
 # 5 个可以立刻在你的 Ionic App 中用上的动画包
 
@@ -11,7 +11,7 @@
 
 使用 Ionic 与 Angular 有许多方法可以让你在你的 app 中制作动画。你可以直接使用 Angular Animations，也可以使用其它的包（仅需几分钟就能装好）来实现动画。
 
-在本文中我们将介绍**5 个不同的动画包**，可以轻松地将它们引入你的 APP，使用它们预设的动画或者利用这几个框架轻松自定义动画效果。
+在本文中我们将介绍 **5 个不同的动画包**，可以轻松地将它们引入你的 APP，使用它们预设的动画或者利用这几个框架轻松自定义动画效果。
 
 ![ionic-animation-packages-example](https://i1.wp.com/devdactic.com/wp-content/uploads/2019/01/ionic-animation-packages-example-526x1024.gif?resize=526%2C1024&ssl=1)
 
@@ -100,7 +100,7 @@ doMagic() {
 
 每次你都要先加入 **magictime** class，然后加入你要用的动画的 class 名。
 
-这个包没有提供那么多的选项，不过如果你只需要**简单且快速的 CSS 动画**，试试它准没错！
+这个包没有提供那么多的自定义选项，不过如果你只需要**简单且快速的 CSS 动画**，试试它准没错！
 
 ## 3. [Number Flip](https://github.com/gaoryrt/number-flip)
 
