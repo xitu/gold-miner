@@ -20,9 +20,9 @@
 
 - [优化构建](#build-optimizations)
    - [22.确定优先级](#22-确定优先级)
-   - [23.再次使用优秀的 “cutting-the-mustard” 技术](#23-revisit-the-good-ol-%22cutting-the-mustard%22-technique)
-   - [24.解析 JavaScript 是耗时的，所以让它体积小](#24-parsing-javascript-is-expensive-so-keep-it-small)
-   - [25.使用了摇树、作用域提升和代码分割吗](#25-are-you-using-tree-shaking-scope-hoisting-and-code-splitting)
+   - [23.再次使用优秀的 “cutting-the-mustard” 技术](#23-再次使用优秀的-cutting-the-mustard-技术)
+   - [24.解析 JavaScript 是耗时的，所以让它体积小](#24-解析-javascript-是耗时的所以让它体积小)
+   - [25.使用了摇树、作用域提升和代码分割吗](#25使用了摇树作用域提升和代码分割吗)
    - [26.可以将 JavaScript 切换到 Web Worker 中吗？](#26-can-you-offload-javascript-into-a-web-worker)
    - [27.可以将 JavaScript 切换到 WebAssembly 中吗？](#27-can-you-offload-javascript-into-webassembly)
    - [28.是否使用了 AOT 编译？](#28-are-you-using-an-ahead-of-time-compiler)
@@ -47,7 +47,7 @@
 
 在优化性能时，我们需要确定我们的优先事项。立即加载**核心体验**，然后加载**增强体验**，最后加载**额外功能**。
 
-#### 23.再次使用优秀的 “cutting-the-mustard” 技术
+#### 23. 再次使用优秀的 “cutting-the-mustard” 技术
 
 如今，我们仍然可以使用 [cutting-the-mustard technique](https://www.filamentgroup.com/lab/modernizing-delivery.html) 技术将核心体验发送到旧版浏览器，并为现代浏览器提供增强的体验。[该技术的一个更新版本](https://snugug.com/musings/modern-cutting-the-mustard/)将使用 ES2015 + 语法 `<script type="module">`。现代浏览器会将脚本解释为 JavaScript 模块并按预期运行它，而旧版浏览器无法识别该属性并忽略它，因为它是未知的 HTML 语法。
 
@@ -55,7 +55,7 @@
 
 例如，发展中国家的廉价 Android 手机主要使用 Chrome 浏览器，尽管设备的内存和 CPU 功能有限，但其仍然达到了使用 cutting-the-mustard 技术的要求。最终，使用[设备内存客户端提示报头](https://github.com/w3c/device-memory)，我们将能够更可靠地定位低端设备。在本文写作时，仅在 Blink 中支持该报头（通常用于[客户端提示](https://caniuse.com/#search=client%20hints)）。由于设备内存还有[一个已在 Chrome 中提供](https://developers.google.com/web/updates/2017/12/device-memory)的 JavaScript API，因此基于该 API 进行功能检测是一个选择，并且只有在不支持时才会再来使用 cutting the mustard 技术（**感谢 Yoav！**）。
     
-#### 24.解析 JavaScript 是耗时的，所以让它体积小 
+#### 24. 解析 JavaScript 是耗时的，所以让它体积小 
 
 在处理单页面应用程序时，我们需要一些时间来初始化应用程序，然后才能渲染页面。你的设置需要你的自定义解决方案，但可以留意能够加快首次渲染的模块和技术。例如，[如何调试 React 性能](https://building.calibreapp.com/debugging-react-performance-with-react-16-and-chrome-devtools-c90698a522ad)、[消除常见的 React 性能问题](https://logrocket-blog.ghost.io/death-by-a-thousand-cuts-a-checklist-for-eliminating-common-react-performance-issues/)，以及[如何提高 Angular 的性能](https://www.youtube.com/watch?v=p9vT0W31ym8)。通常，大多数性能问题都来自启动应用程序的初始解析时间。
 
@@ -78,7 +78,7 @@
 
 底线：虽然脚本的大小很重要，但它并不是一切。随着脚本大小的增长，解析和编译时间[不一定会线性增加](https://medium.com/reloading/javascript-start-up-performance-69200f43b201)。
     
-#### 25.使用了摇树、作用域提升和代码分割吗
+#### 25. 使用了摇树、作用域提升和代码分割吗
 
 [摇树（tree-shaking）](https://developers.google.com/web/fundamentals/performance/optimizing-javascript/tree-shaking/)是一种在 [webpack](http://www.2ality.com/2015/12/webpack-tree-shaking.html)  中清理构建过程的方法， 它仅将实际生产环境使用的代码打包，并排除没有使用的导入模块。使用 webpack 和 rollup，还可以使用[作用域提升](https://medium.com/webpack/brief-introduction-to-scope-hoisting-in-webpack-8435084c171f)（scope hoisting），它使用了两个工具来检测 `import` 链可以展开的位置，并将其转换为一个内联函数，并且不会影响代码。使用 webpack，我们也可以使用 [JSON Tree Shaking](https://react-etc.net/entry/json-tree-shaking-lands-in-webpack-4-0)。
 
@@ -92,7 +92,7 @@
     
 如果你没有使用 webpack，请注意 [rollup](http://rollupjs.org/) 显示的结果明显优于 Browserify 导出。虽然我们参与其中，但你可能需要查看 [rollup-plugin-closure-compiler](https://github.com/ampproject/rollup-plugin-closure-compiler) 和 [Rollupify](https://github.com/nolanlawson/rollupify)，它将 ECMAScript 2015 模块转换为一个大型 CommonJS 模块 —— 因为根据你的包和模块系统的选择，小模块可能会有[惊人的高性价比](https://nolanlawson.com/2016/08/15/the-cost-of-small-modules/)。
 
-#### 26.可以将 JavaScript 切换到 Web Worker 中吗？
+#### 26. 可以将 JavaScript 切换到 Web Worker 中吗？
 
 为了减少对首次可交互时间（Time-to-Interactive）的负面影响，考虑将高耗时的 JavaScript 放到 [Web Worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers) 或通过 Service Worker 来缓存。
 
@@ -102,7 +102,7 @@
 
 请注意，Web Worker 无权访问 DOM，因为 DOM 不是“线程安全的”，而且它们执行的代码需要包含在单独的文件中。
 
-#### 27.可以将 JavaScript 切换到 WebAssembly 中吗？
+#### 27. 可以将 JavaScript 切换到 WebAssembly 中吗？
 
 我们还可以将 JavaScript 转换为 [WebAssembly](https://webassembly.org/)，这是一种二进制指令格式，可以使用 C/C++/Rust 等高级语言进行编译。它的[浏览器支持非常出色](https://caniuse.com/#feat=wasm)，最近它变得可行了，因为 [JavaSript 和 WASM 之间的函数调用速度变得越来越快](https://hacks.mozilla.org/2018/10/calls-between-javascript-and-webassembly-are-finally-fast-%F0%9F%8E%89/)，至少在 Firefox 中是这样。
 
@@ -120,7 +120,7 @@
 
 Milica Mihajlija 提供了 [WebAssembly 的工作原理及其有用的原因](https://blog.logrocket.com/webassembly-how-and-why-559b7f96cd71)的概述。 ([预览大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/bbb2ea83-7674-47d8-9cad-89a2de009915/how-webassembly-works.png))
 
-#### 28.是否使用了 AOT 编译？
+#### 28. 是否使用了 AOT 编译？
 
 使用 [ahead-of-time 编译器](https://www.lucidchart.com/techblog/2016/09/26/improving-angular-2-load-times/)将一些[客户端渲染](https://www.smashingmagazine.com/2016/03/server-side-rendering-react-node-express/)放到[服务器](http://redux.js.org/docs/recipes/ServerRendering.html)，从而快速输出可用结果。最后，考虑使用 [Optimize.js](https://github.com/nolanlawson/optimize-js) 来加速初始化加载时间，它包装了需要立即调用的函数（尽管现在[这可能不是必需](https://twitter.com/tverwaes/status/809788255243739136)的了）。
 
@@ -128,7 +128,7 @@ Milica Mihajlija 提供了 [WebAssembly 的工作原理及其有用的原因](ht
 
 来自[默认快速：现代加载最佳实践](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices)，作者是独一无二的 Addy Osmani。幻灯片76。
 
-#### 29.仅将遗留代码提供给旧版浏览器
+#### 29. 仅将遗留代码提供给旧版浏览器
 
 由于 ES2015 [在现代浏览器中得到了非常好的支持](http://kangax.github.io/compat-table/es6/)，我们可以仅针对不支持 ES2015 + 的浏览器[使用 `babel-preset-env`](http://2ality.com/2017/02/babel-preset-env.html) 来转义。然后[设置两个构建](https://gist.github.com/newyankeecodeshop/79f3e1348a09583faf62ed55b58d09d9)，一个在 ES6 中，一个在 ES5 中。如上所述，现在[所有主流浏览器都支持](https://caniuse.com/#feat=es6-module) JavaScript 模块，因此使用 [`script type =“module”`](https://developers.google.com/web/fundamentals/primers/modules) 让 ES 模块支持的浏览器加载支持 ES6 的文件，而旧浏览器可以使用 `script nomodule` 加载支持 ES5 的文件。我们可以使用 [Webpack ESNext Boilerplate](https://github.com/philipwalton/webpack-esnext-boilerplate) 自动完成整个过程。
 
@@ -142,19 +142,19 @@ Shubham Kanodia 撰写了一份[详细的关于智能打包的低维护指南](h
 
 Jake Archibald 发布了一篇详细的文章，其中包含了 [需要牢记的 ES 模块相关内容](https://jakearchibald.com/2017/es-modules-in-browsers/)，例如：内联脚本被推迟，直到其阻塞了外部脚本才会执行。（[预览大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/d46ddc8b-4bd7-4627-b738-baf62807b26f/inline-scripts-deferred.png)）
 
-#### 30.是否使用了 JavaScript 差异化服务？
+#### 30. 是否使用了 JavaScript 差异化服务？
 
 我们希望通过网络发送必要的 JavaScript，但这意味着对这些静态资源的传送需要稍微集中精力。前一阵子 Philip Walton 介绍了[差异化服务](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/)的想法。该想法是编译和提供两个独立的 JavaScript 包：“常规”构建，带有 Babel-transforms 和 polyfill 的构建，只提供给实际需要它们的旧浏览器，以及另一个没有转换和 polyfills 的包（具有相同功能）。
 
 结果，通过减少浏览器需要处理的脚本数量来帮助减少主线程的阻塞。Jeremy Wagner 在 2019 年发布了一篇[关于差异服务以及如何在你的构建管道中进行设置的综合文章](https://calendar.perfplanet.com/2018/doing-differential-serving-in-2019/)，从设置 babel 到你需要在 webpack 中进行哪些调整，以及完成所有这些工作的好处。
 
-#### 31.通过增量解耦识别和重写遗留代码
+#### 31. 通过增量解耦识别和重写遗留代码
 
 老项目充斥着陈旧和过时的代码。重新查看你的依赖项，评估重构或重写最近导致问题的遗留代码所需的时间。当然，它始终是一项重大任务，但是一旦你了解了遗留代码的影响，就可以从[增量解耦]((https://githubengineering.com/removing-jquery-from-github-frontend/))开始。
 
 首先，设置指标，跟踪遗留代码调用的比率是保持不变或是下降，不能上升。公开阻止团队使用该库，并确保你的 CI 能够[警告](https://github.com/dgraham/eslint-plugin-jquery)开发人员，如果它在拉取请求中使用。[Polyfills](https://githubengineering.com/removing-jquery-from-github-frontend/#polyfills) 可以帮助将遗留代码转换为使用标准浏览器功能的重写代码库。
 
-#### 32.识别并删除未使用的 CSS/JS
+#### 32. 识别并删除未使用的 CSS/JS
 
 [Chrome 中的 CSS 和 JavaScript 代码覆盖率](https://developers.google.com/web/updates/2017/04/devtools-release-notes#coverage)可以让你了解哪些代码已执行/已应用，哪些代码尚未执行。你可以开始记录覆盖范围，在页面上执行操作，然后浏览代码覆盖率结果。一旦你检测到未使用的代码，[找到那些模块并使用 `import()` 延迟加载](https://twitter.com/TheLarkInn/status/1012429019063578624)（参见整个线程）。然后重复覆盖配置文件并验证它现在在初始加载时发送的代码是否变少了。
 
@@ -164,7 +164,7 @@ Jake Archibald 发布了一篇详细的文章，其中包含了 [需要牢记的
 
 对于爱冒险的人，你甚至可以通过使用 [DevTools 监控 DevTools](http://blog.cowchimp.com/monitoring-unused-css-by-unleashing-the-devtools-protocol/)，通过一组页面自动收集未使用的 CSS。
 
-#### 33.减小 JavaScript 包的大小
+#### 33. 减小 JavaScript 包的大小
 
 正如 Addy Osmani [指出的](https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4)那样，当你只需要一小部分时，你很可能会发送完整的 JavaScript 库，以及提供给不需要它们的浏览器的过时 polyfill，或者只是重复代码。为避免开销，请考虑使用 [webpack-libs-optimization](https://github.com/GoogleChromeLabs/webpack-libs-optimizations)，在构建过程中删除未使用的方法和 polyfill。
 
@@ -180,7 +180,7 @@ Jake Archibald 发布了一篇详细的文章，其中包含了 [需要牢记的
 
 在 [Benedikt Rötsch 的文章中](https://www.contentful.com/blog/2017/10/27/put-your-webpack-bundle-on-a-diet-part-3/)，他表示，从 Moment.js 到 date-fns 的转换可能会使 3G 和低端手机上的首次绘制时间减少大约 300ms。（[预览大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e30c7d5b-ef8b-46ba-b0fc-b1d5a31cefff/webpack-comparison.png)）
 
-#### 34.是否使用了 JavaScript 代码块的预测预获取？
+#### 34. 是否使用了 JavaScript 代码块的预测预获取？
 
 我们可以使用启发式方法来决定何时预加载 JavaScript 代码块。[Guess.js](https://github.com/guess-js/guess) 是一组工具和库，它使用 Google Analytics 的数据来确定用户最有可能从给定页面访问哪个页面。根据从 Google Analytics 或其他来源收集的用户导航模式，Guess.js 构建了一个机器学习模型，用于预测和预获取每个后续页面中所需的 JavaScript。
 
@@ -190,7 +190,7 @@ Jake Archibald 发布了一篇详细的文章，其中包含了 [需要牢记的
 
 需要不太复杂的东西？[Quicklink](https://github.com/GoogleChromeLabs/quicklink) 是一个小型库，可在空闲时自动预获取视口中的链接，以便加快下一页导航的加载速度。但是，它也考虑了数据因素，因此它不会在 2G 网络或者 `Data-Saver` 打开时预获取数据。
 
-#### 35.利用目标 JavaScript 引擎的优化
+#### 35. 利用目标 JavaScript 引擎的优化
 
 研究哪些 JavaScript 引擎在你的用户群中占主导地位，然后探索优化它们的方法。例如，在为 Blink 内核浏览器、Node.js 运行时和 Electron 中使用的 V8 进行优化时，使用[脚本流](https://blog.chromium.org/2015/03/new-javascript-techniques-for-rapid.html)来处理庞大的脚本。它允许在下载开始时在单独的后台线程上解析 `async` 或 `defer scripts`，因此在某些情况下可以将页面加载时间减少多达 10％。实际上，在 `<head>` 里[使用 `<script defer>`](https://medium.com/reloading/javascript-start-up-performance-69200f43b201#3498)，以便浏览器可以提前[发现资源](https://medium.com/reloading/javascript-start-up-performance-69200f43b201#3498)，然后在后台线程上解析它。
 
@@ -200,7 +200,7 @@ Jake Archibald 发布了一篇详细的文章，其中包含了 [需要牢记的
 
 [渐进式启动](https://aerotwist.com/blog/when-everything-is-important-nothing-is/)意味着使用服务器端渲染来获得快速的首次有效绘制，但也包括一些最小的 JavaScript，以保持首次交互时间接近首次有效绘制时间。
 
-#### 36.使用客户端渲染还是服务器端渲染？
+#### 36. 使用客户端渲染还是服务器端渲染？
 
 在这两种情况下，我们的目标应该是设置[渐进式启动](https://aerotwist.com/blog/when-everything-is-important-nothing-is/)：使用服务器端渲染来获得快速的首次有效绘制，但也包括一些最小的必要 JavaScript，以保持首次交互时间接近首次有效绘制时间。如果 JavaScript 在首次有效绘制之后来得太晚，浏览器可能会在解析、编译和执行后期发现的 JavaScript 时[锁定主线程](https://davidea.st/articles/measuring-server-side-rendering-performance-is-tricky)，从而给[站点或应用程序的交互](https://philipwalton.com/articles/why-web-developers-need-to-care-about-interactivity/)带来枷锁。
 
@@ -214,7 +214,7 @@ Jake Archibald 发布了一篇详细的文章，其中包含了 [需要牢记的
 
 将客户端框架的使用限制为绝对需要它们的页面。如果做得不好，服务器渲染和客户端渲染是一场灾难。考虑在[构建时预渲染](https://github.com/GoogleChromeLabs/prerender-loader)和[动态 CSS 内联](https://github.com/GoogleChromeLabs/critters)，以生成生产就绪的静态文件。Addy Osmani 就可能值得关注的 [JavaScript 成本发表了精彩的演讲](https://www.youtube.com/watch?v=63I-mEuSvGA)。
 
-#### 37.约束第三方脚本的影响
+#### 37. 约束第三方脚本的影响
 
 通过所有性能优化，我们通常无法控制来自业务需求的第三方脚本。第三方脚本指标不受最终用户体验的影响，因此通常一个脚本最终会调用令人讨厌的冗长的第三方脚本，从而破坏了专门的性能工作。为了控制和减轻这些脚本带来的性能损失，仅仅异步加载它们（[可能是通过延迟](https://www.twnsnd.com/posts/performant_third_party_scripts.html)）并通过资源提示（如 `dns-prefetch` 或 `preconnect`）加速它们是不够的。
 
@@ -238,7 +238,7 @@ Casper.com 发布了一个详细的案例研究，说明他们如何通过自托
 
 图片来源: [Harry Roberts](https://csswizardry.com/2017/07/performance-and-resilience-stress-testing-third-parties/#request-blocking)
 
-#### 38.设置 HTTP 缓存标头
+#### 38. 设置 HTTP 缓存标头
 
 仔细检查是否已正确设置 `expires`，`max-age`，`cache-control` 和其他 HTTP 缓存头。通常，资源无论在[短时间内（如果它们可能会更改）还是无限期（如果它们是静态的）](https://jakearchibald.com/2016/caching-best-practices/)情况下都是可缓存的 —— 你只需在需要时在 URL 中更改它们的版本。禁用 `Last-Modified` 标头，因为任何带有它的静态资源都将导致带有 `If-Modified-Since` 标头的条件请求，即使资源位于缓存中也是如此。`Etag` 也是如此。
 
