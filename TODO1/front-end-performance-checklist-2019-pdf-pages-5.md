@@ -91,16 +91,6 @@ Alejandro Garcia Anglada发表了一篇关于如何将其应用到实践中的[�
     
 #### 43. 尝试重组 CSS 规则
 
-We’ve got used to critical CSS, but there are a few optimizations that could go beyond that. Harry Roberts conducted a [remarkable research](https://csswizardry.com/2018/11/css-and-network-performance/) with quite surprising results. For example, it might be a good idea to split the main CSS file out into its individual media queries. That way, the browser will retrieve critical CSS with high priority, and everything else with low priority — completely off the critical path.
-
-Also, avoid placing `<link rel="stylesheet" />` before `async` snippets. If scripts don’t depend on stylesheets, consider placing blocking scripts above blocking styles. If they do, split that JavaScript in two and load it either side of your CSS.
-
-Scott Jehl solved another interesting problem by [caching an inlined CSS file with a service worker](https://www.filamentgroup.com/lab/inlining-cache.html), a common problem familiar if you’re using critical CSS. Basically, we add an ID attribute onto the `style` element so that it’s easy to find it using JavaScript, then a small piece of JavaScript finds that CSS and uses the Cache API to store it in a local browser cache (with a content type of `text/css`) for use on subsequent pages. To avoid inlining on subsequent pages and instead reference the cached assets externally, we then set a cookie on the first visit to a site. _Voilà!_
-
-- YouTube 视频链接：https://youtu.be/Cjo9iq8k-bc
-
-Do we [stream reponses](https://jakearchibald.com/2016/streams-ftw/)? With streaming, HTML rendered during the initial navigation request can take full advantage of the browser’s streaming HTML parser.
-
 我们已经习惯了关键的CSS，但还有一些优化可以超越这一点。HarryRoberts进行了一项[非凡的研究](https:/csswissdry.com/2018/11/css-and-network-Performance/)，得出了相当惊人的结果。例如，将主CSS文件拆分为单独的媒体查询可能是个好主意。这样，浏览器将检索具有高优先级的关键CSS，以及其他具有低优先级的所有内容 —— 最终完全脱离关键路径。
 
 另外，避免将`<link rel="stylesheet" />` 放在 `async` 标签之前。如果脚本不依赖于样式表，请考虑将阻塞脚本放在阻塞样式之前。如果脚本依赖样式，请将该JavaScript一分为二，然后对应将其加载到CSS的前后。
