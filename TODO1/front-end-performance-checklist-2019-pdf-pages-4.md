@@ -19,7 +19,7 @@
 #### 目录
 
 - [优化构建](#build-optimizations)
-   - [22.确定优先级](22-确定优先级)
+   - [22.确定优先级](#22-确定优先级)
    - [23.再次使用优秀的 “cutting-the-mustard” 技术](#23-revisit-the-good-ol-%22cutting-the-mustard%22-technique)
    - [24.解析 JavaScript 是耗时的，所以让它体积小](#24-parsing-javascript-is-expensive-so-keep-it-small)
    - [25.使用了摇树、作用域提升和代码分割吗](#25-are-you-using-tree-shaking-scope-hoisting-and-code-splitting)
