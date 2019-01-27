@@ -17,48 +17,47 @@
 
 加和模型分解的例子
 
-这篇文章会细讲一个利用Python和Facebook研发的[Prophet预测拓展包](https://research.fb.com/prophet-forecasting-at-scale/)来为金融的时间序列数据建模的入门例子。我们同时会讲到如何用pandas处理数据，用[Quandl库访问金融数据](https://www.quandl.com/tools/python)，还有[用matplotlib画图](https://matplotlib.org/)。我加入了引导性的代码而且我鼓励大家看看在GitHub上看[Jupyter Notebook](https://github.com/WillKoehrsen/Data-Analysis/tree/master/additive_models)完整的分析。这个入门介绍会为你展示所有你为时间序列建模时必须的步骤。
+这篇文章会细讲一个利用Python和Facebook研发的[Prophet预测拓展包](https://research.fb.com/prophet-forecasting-at-scale/)来为金融的时间序列数据建模的入门例子。我们同时会讲到如何用pandas处理数据，用 [Quandl 库访问金融数据](https://www.quandl.com/tools/python)，还有[用matplotlib画图](https://matplotlib.org/)。我加入了引导性的代码而且我鼓励大家看看在GitHub上看[Jupyter Notebook](https://github.com/WillKoehrsen/Data-Analysis/tree/master/additive_models)完整的分析。这个入门介绍会为你展示所有你为时间序列建模时必须的步骤。
 
 免责声明：不得不说来打击你的是金融数据的[过往表现并不是未来表现的指标](https://seekingalpha.com/article/2453345-past-performance-is-not-an-indicator-of-future-results)而且这个方法是不会让你发财的。我选用股票是因为这些的日数据比较容易得到，运用起来也得心应手。
 
 #### 提取金融数据
 
-一般来说一个数据科学项目中将近80%的时间是获取和整理数据。多亏了quandl金融数据库，这个项目所需的获取和整理的时间减少至5%左右。Quandl可以用命令行的pip安装，让你只用一行Python代码访问成千上万的金融指标，没注册的状况下能发出不超于50个请求。注册免费账户后你可以取得一个API密钥并发出无限的请求。
-First, we import the required libraries and get some data. Quandl automatically puts our data into a pandas dataframe, the data structure of choice for data science. (For other companies, just replace the ‘TSLA’ or ‘GM’ with the stock ticker. You can also specify a date range).
-首先我们导入必要的库并获取一些数据。Quandl自动把我们的数据整合到pandas的数据框，也就是数据科学的一种数据结构（把“TSLA”或“GM”换成别的股票代号便可以取得其他公司的数据，你还可以指定某个时间区间）。
+一般来说一个数据科学项目中将近80%的时间是获取和整理数据。多亏了 quandl 金融数据库，这个项目所需的获取和整理的时间减少至5%左右。Quandl 可以用命令行的pip安装，让你只用一行 Python 代码访问成千上万的金融指标，没注册的状况下能发出不超于 50 个请求。注册免费账户后你可以取得一个 API 密钥并发出无限的请求。
+首先我们导入必要的库并获取一些数据。Quandl 自动把我们的数据整合到 pandas 的数据框，也就是数据科学的一种数据结构（把“TSLA”或“GM”换成别的股票代号便可以取得其他公司的数据，你还可以指定某个时间区间）。
 ```
-# 用quandl取金融数据
+# 用 quandl 取金融数据
 import quandl
 
-# 用pandad作数据处理
+# 用 panda 作数据处理
 import pandas as pd
 
 quandl.ApiConfig.api_key = 'getyourownkey!'
 
-# 从Quandl提取TSLA数据
+# 从 Quandl 提取 TSLA 数据
 tesla = quandl.get('WIKI/TSLA')
 
-# 从Quandl提取GM数据
+# 从 Quandl 提取 GM 数据
 gm = quandl.get('WIKI/GM')
 gm.head(5)
 ```
 
 ![](https://cdn-images-1.medium.com/max/800/1*ixT_RnaZVNXh-ZKxKb2fmg.png)
 
-从quandl的到的GM数据截图
+从 quandl 的到的GM数据截图
 
-quandl上的数据量几乎是无限的，但我想着重看两个在同一个产业的公司，特斯拉和通用汽车。特斯拉的魅力不仅在于它是[美国111年以来首家成功的汽车创业公司](http://www.businessinsider.com/tesla-the-origin-story-2014-10)，它还不时成为[2017年美国最具价值的汽车公司](https://www.recode.net/2017/8/2/16085822/tesla-ford-gm-worth-car-manufacturer-elon-musk-earnings)。
+quandl 上的数据量几乎是无限的，但我想着重看两个在同一个产业的公司，特斯拉和通用汽车。特斯拉的魅力不仅在于它是[美国111年以来首家成功的汽车创业公司](http://www.businessinsider.com/tesla-the-origin-story-2014-10)，它还不时成为[2017年美国最具价值的汽车公司](https://www.recode.net/2017/8/2/16085822/tesla-ford-gm-worth-car-manufacturer-elon-musk-earnings)。
 ![](https://cdn-images-1.medium.com/max/800/1*fqcIBhw_xHHgdGe1s74ciA.jpeg)，尽管它只卖四款车型。同样争夺最具价值汽车公司头衔的对手通用汽车近年来有支持未来汽车的迹象，它也制造了一些新颖（但不好看）的全电动汽车。
 
 答案显而易见
 
-我们可以花费大量时间寻找这些数据并下载成csv文档，不过幸好有quandl，我们几秒就可以得到我们所需要的。
+我们可以花费大量时间寻找这些数据并下载成 csv 文档，不过幸好有 quandl，我们几秒就可以得到我们所需要的。
 
 ### 数据挖掘
 
 我们建模之前最好画几幅图以得到一些其结构的概念。这也让我们检查是否有异常值和遗漏数据的状况。
 
-matplotlib可以轻易地画出Pandas的数据框。如果这些作图代码吓到你了，不必担心，我同样是觉得matplotlib的代码不直观所以常常复制粘贴Stack Overflow的例子或者是别的说明文档。编程的一个规则是不要重新编写一个已经有的答案。
+matplotlib可以轻易地画出Pandas的数据框。如果这些作图代码吓到你了，不必担心，我同样是觉得 matplotlib 的代码不直观所以常常复制粘贴 Stack Overflow 上 quandl 的例子或者是在别的说明文档。编程的一个规则是不要重新编写一个已经有的答案。
 ```
 # 股票分割调整收市价，这是我们应该画的数据
 plt.plot(gm.index, gm['Adj. Close'])
@@ -75,9 +74,9 @@ plt.show();
 ![](https://cdn-images-1.medium.com/max/800/1*0O-F4teSoUK_hs95LdNw4w.png)
 
 原始股票价格
-单单对比两家公司的股票价格不会说明谁更有价值，因为一家公司的价值（市值）同样取决于股票的数量（市值=股票价格 * 股票的数量）。Quandl没有股票数量的数据，但我能找到从谷歌简单搜到两家公司的年平均股票数量。虽然不精准，但足以应付我们的分析，有时就要将就一下！
+单单对比两家公司的股票价格不会说明谁更有价值，因为一家公司的价值（市值）同样取决于股票的数量（市值=股票价格 * 股票的数量）。Quandl 没有股票数量的数据，但我能找到从谷歌简单搜到两家公司的年平均股票数量。虽然不精准，但足以应付我们的分析，有时就要将就一下！
 
-我们用一些pandas的小技巧在数据框里创建两列数据，像是把索引一个列（reset_index)同时用 [ix](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.ix.html) 索引数据框里间隔的数据。
+我们用一些 pandas 的小技巧在数据框里创建两列数据，像是把索引一个列（reset_index)同时用 [ix](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.ix.html) 索引数据框里间隔的数据。
 ```
 # 特斯拉和通用汽车年平均股票数量
 tesla_shares = {2018: 168e6, 2017: 162e6, 2016: 144e6, 2015: 128e6, 2014: 125e6, 2013: 119e6, 2012: 107e6, 2011: 100e6, 2010: 51e6}
@@ -132,7 +131,7 @@ plt.legend();
 ![](https://cdn-images-1.medium.com/max/800/1*JA-_jUVv1B6b2TgRWnFEIg.png)
 
 市值历史数据
-我们看到在数据相关的时期中特斯拉迅速的增长和通用汽车的微弱增长。特斯拉身子在2017年超越了通用汽车！
+我们看到在数据相关的时期中特斯拉迅速的增长和通用汽车的微弱增长。特斯拉身子在 2017 年超越了通用汽车！
 ```
 import numpy as np
 
@@ -145,9 +144,9 @@ print("Tesla was valued higher than GM from {} to {}.".format(first_date.date(),
 Tesla was valued higher than GM from 2017-04-10 to 2017-09-21.
 ```
 
-在那段时期，特斯拉卖了大约[48,000 辆车](https://en.wikipedia.org/wiki/Tesla,_Inc.#Production_and_sales)而[通用卖了1,500,000](http://gmauthority.com/blog/gm/general-motors-sales-numbers/)。在数量比特斯拉多卖30倍的情况下通用竟然比特斯拉低！这绝对展现出有说服力的总裁和超高质量（如此低数量）的产品的威力。虽然现在特斯拉的市值比通用低，但我们可以预期特斯拉的再次超越吗？什么时候会发生？解答这个问题我们求助于用于预测未来的加和模型。
+在那段时期，特斯拉卖了大约[ 48,000 辆车](https://en.wikipedia.org/wiki/Tesla,_Inc.#Production_and_sales)而[通用卖了 1,500,000 ](http://gmauthority.com/blog/gm/general-motors-sales-numbers/)。在数量比特斯拉多卖30倍的情况下通用竟然比特斯拉低！这绝对展现出有说服力的总裁和超高质量（如此低数量）的产品的威力。虽然现在特斯拉的市值比通用低，但我们可以预期特斯拉的再次超越吗？什么时候会发生？解答这个问题我们求助于用于预测未来的加和模型。
 ### 预言家的建模
-[Facebook预言家拓展包](https://facebook.github.io/prophet/docs/quick_start.html)2017年首发用于Python和R，全世界的数据科学家都为之鼓舞。预言家的设计初衷是用作分析时间序列的日观察值，而这些观察值在不同时间区间会呈现不同的规律。它还具备分析节日在时间序列中的影响和应用自定节点的强大功能，我们暂且只看能让模型正常运作的基本功能。预言家就像quandl一样，可以用命令行的pip进行安装。
+[Facebook预言家拓展包](https://facebook.github.io/prophet/docs/quick_start.html)2017年首发用于Python和R，全世界的数据科学家都为之鼓舞。预言家的设计初衷是用作分析时间序列的日观察值，而这些观察值在不同时间区间会呈现不同的规律。它还具备分析节日在时间序列中的影响和应用自定节点的强大功能，我们暂且只看能让模型正常运作的基本功能。预言家就像 quandl 一样，可以用命令行的pip进行安装。
 我们首先导入预言家并把数据中的列更名为正确的格式。日期列必须更名为“ds”还有想预测的数值列叫“y”。我们接着创建预言家模型处理数据，跟Scikit-Learn非常相像：
 ```
 import fbprophet
@@ -155,7 +154,7 @@ import fbprophet
 # 预言家要求列 ds 和 y
 gm = gm.rename(columns={'Date': 'ds', 'cap': 'y'})
 
-# 化单位为10亿美元
+# 化单位为 10 亿美元
 gm['y'] = gm['y'] / 1e9
 
 # 创建预言家模型用于数据
@@ -163,7 +162,7 @@ gm_prophet = fbprophet.Prophet(changepoint_prior_scale=0.15)
 gm_prophet.fit(gm)
 ```
 
-创建预言家模型时我把 changepoint prior 设定在0.15，高于默认的0.05。这个超参数用于控制[趋势变化的敏感度](https://facebook.github.io/prophet/docs/trend_changepoints.html)，值越高表示越敏感，越低越不敏感。此值的价值在于对抗机器学习最本质的权衡问题：[偏见vs.偏差](https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff)。
+创建预言家模型时我把 changepoint prior 设定在 0.15，高于默认的 0.05。这个超参数用于控制[趋势变化的敏感度](https://facebook.github.io/prophet/docs/trend_changepoints.html)，值越高表示越敏感，越低越不敏感。此值的价值在于对抗机器学习最本质的权衡问题：[偏见vs.偏差](https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff)。
 如果我们的模型太贴近训练数据，也就是所谓的[过于拟合](https://elitedatascience.com/overfitting-in-machine-learning)，我们的偏差会过大，模型也难以泛化到其他新的数据。另一方面如果模型不能抓取训练数据的趋势，太多的偏见使得它不合适。当一个模型拟合程度低，加大 changepoint prior 值的让模型更贴近数据；相反如果模型过于拟合，减少prior限制模型的敏感度。changepoint prior的影响可以通过描绘一系列值的预测图展现出来：
 ![](https://cdn-images-1.medium.com/max/800/1*jEFOLncknBJ8cPQSBQDktA.png)
 
@@ -171,7 +170,7 @@ changepoint prior 的程度越高，模型越灵活，越能拟合训练数据�
 决定用预言家模型后，我们可以在时间序列从增加到减少或者是慢速增加到快速增加的时候指定changepoints（位置处在[时间序列变化最快的地方](https://facebook.github.io/prophet/docs/trend_changepoints.html)）。Changepoints可以对应像是新产品发布或是宏观经济动荡这些重大事件。在没有指定的情况下，预言家会帮我们计算出来。
 做预测需要用到未来数据框。我们指定要预测的时间区间的数量（两年）和做预测的频率（每天），然后用预言家模型和未来数据框做预测。
 ```
-# 生成一个2年的数据框
+# 生成一个 2 年的数据框
 gm_forecast = gm_prophet.make_future_dataframe(periods=365 * 2, freq='D')
 
 # 做预测
@@ -186,7 +185,7 @@ plt.title('Market Cap of GM');
 
 ![](https://cdn-images-1.medium.com/max/800/1*OSW5XSzx-EmefhkXjhICuw.png)
 
-黑点代表实际数据（注意他们只到2018年初），蓝色线表示预测值，浅蓝色的区域是不确定性（通常是[预测中至关重要的部分](https://medium.com/@williamkoehrsen/a-theory-of-prediction-10cb335cc3f2)）。不确定区域随着预测时间推移会逐渐扩大，因为起始的不确定性会随着时间增加，如同[天气预报会因预告的时间越长准确率降低](http://www.nytimes.com/2012/09/09/magazine/the-weatherman-is-not-a-moron.html)。
+黑点代表实际数据（注意他们只到 2018 年初），蓝色线表示预测值，浅蓝色的区域是不确定性（通常是[预测中至关重要的部分](https://medium.com/@williamkoehrsen/a-theory-of-prediction-10cb335cc3f2)）。不确定区域随着预测时间推移会逐渐扩大，因为起始的不确定性会随着时间增加，如同[天气预报会因预告的时间越长准确率降低](http://www.nytimes.com/2012/09/09/magazine/the-weatherman-is-not-a-moron.html)。
 我们也可以检查模型检测出的changepoints。重申一点，changepoints代表的是当时间序列的增速有明显变化的时候（例如从增到减）。
 ```
 tesla_prophet.changepoints[:10]
@@ -224,8 +223,8 @@ plt.title('Tesla Search Terms and Changepoints');
 
 ![](https://cdn-images-1.medium.com/max/800/1*rSuNyepHa9lvQeDClGL5XA.png)
 
-特斯拉搜索频率和股票changepoints
-特斯拉市值的一些changepoints跟特斯拉搜索频率的变化一致，但不是全部。我认为谷歌搜索频率不能称为股票变动的好指标。
+特斯拉搜索频率和股票 changepoints
+特斯拉市值的一些 changepoints 跟特斯拉搜索频率的变化一致，但不是全部。我认为谷歌搜索频率不能称为股票变动的好指标。
 我们依然需要知道特斯拉的市值什么时候会超越通用汽车。既然有了接下来两年的预测，我们可以合并两个数据框后在同一幅图中画出两个公司的市值。合并之前，列需要更名方便追踪。
 ```
 gm_names = ['gm_%s' % column for column in gm_forecast.columns]
@@ -246,12 +245,12 @@ forecast = pd.merge(merge_gm_forecast, merge_tesla_forecast, how = 'inner', left
 forecast = forecast.rename(columns={'gm_ds': 'Date'}).drop('tesla_ds', axis=1)
 ```
 
-首先我们会只画估算值。估算值（预言家包的“yhat”）除去一些数据中的噪音因而看着跟原始数据图不太一样。除杂的程度取决于changepoint prior的程度 - 高的 prior 值表示更多的模型灵活度和更多的高低起伏。
+首先我们会只画估算值。估算值（预言家包的“yhat”）除去一些数据中的噪音因而看着跟原始数据图不太一样。除杂的程度取决于 changepoint prior 的大小 - 高的 prior 值表示更多的模型灵活度和更多的高低起伏。
 ![](https://cdn-images-1.medium.com/max/800/1*wtXXjTJK2J9MQFFkyGyhwA.png)
 
 通用和特斯拉的预测市值
-我们的模型认为特斯拉2017年超越通用汽车是噪音，而且知道2018年特斯拉才真正的在预测中打败通用。确切日期是2018年的1月27日，如果那真的发生了，我很乐意接受能预测未来的嘉许！
-当生成以上的图像，我们遗漏了预测中最重要的一点：不确定性！我们可以用matplotlib（参考[notebook](https://github.com/WillKoehrsen/Data-Analysis/blob/master/additive_models/Additive%20Models%20for%20Prediction.ipynb))查看有不确定的区域：
+我们的模型认为特斯拉 2017 年超越通用汽车是噪音，而且知道 2018 年特斯拉才真正的在预测中打败通用。确切日期是 2018 年的 1 月 27 日，如果那真的发生了，我很乐意接受能预测未来的嘉许！
+当生成以上的图像，我们遗漏了预测中最重要的一点：不确定性！我们可以用 matplotlib（参考[notebook](https://github.com/WillKoehrsen/Data-Analysis/blob/master/additive_models/Additive%20Models%20for%20Prediction.ipynb))查看有不确定的区域：
 ![](https://cdn-images-1.medium.com/max/800/1*0rt_W8NzoFG_WQ0I9mncyg.png)
 
 这更好代表预测的结果。图中显示两个公司预期会增长，特斯拉的增长速度会比通用更快。再强调一下，不确定性会随着时间的推移而增加，而2020年特斯拉的下限比通用的上限高意味着通用可能会一直保持领先地位。
@@ -265,7 +264,7 @@ gm_prophet.plot_components(gm_forecast)
 ![](https://cdn-images-1.medium.com/max/800/1*TUWWhcVj8tHLEptgegyYRQ.png)
 
 通用汽车时间序列的分解
-其趋势很明显：通用的股票价格正在并持续上涨。但年间有趣的现象是股价自年末上涨后夏天前都在缓慢地跌。我们可以检验一下年度市值和平均月销量是否有相关性。我先从谷歌收集每月的销售销售量然后用groupby平均这些月份，这是由其重要的步骤因为我们常常想比较两个范畴的数据，例如一个年龄层的用户或者是一个厂商的不同汽车。我们的例子中要计算每月的平均销售便要把月份加总后平均销售。
+其趋势很明显：通用的股票价格正在并持续上涨。但年间有趣的现象是股价自年末上涨后夏天前都在缓慢地跌。我们可以检验一下年度市值和平均月销量是否有相关性。我先从谷歌收集每月的销售销售量然后用 groupby 平均这些月份，这是由其重要的步骤因为我们常常想比较两个范畴的数据，例如一个年龄层的用户或者是一个厂商的不同汽车。我们的例子中要计算每月的平均销售便要把月份加总后平均销售。
 ```
 gm_sales_grouped = gm_sales.groupby('Month').mean()
 ```
@@ -278,12 +277,12 @@ gm_sales_grouped = gm_sales.groupby('Month').mean()
 ![](https://cdn-images-1.medium.com/max/800/1*5OHpAvp_w5g7jccqJ8OYaA.png)
 
 道琼斯工业平均指数（[来源](http://www.cityam.com/257792/dow-jones-industrial-average-breaks-20000-first-time))
-很明显这要告诉你的信息是回到1900年投资！或者是现实生活中股市跌的时候不要抽身因为历史告诉我们它会涨回来。整体来说，每日的变动太小看不到，如果要每天都看股票那么笨的话还不如投资整个市场然后长期拿着。
-预言家也可以用在大规模的数据测量，像是国内生产总值（GDP），一个测量国家经济规模的指标。我基于美国和中国历史GDP数据用预言家模型做了以下预测。
+很明显这要告诉你的信息是回到 1900 年投资！或者是现实生活中股市跌的时候不要抽身因为历史告诉我们它会涨回来。整体来说，每日的变动太小看不到，如果要每天都看股票那么笨的话还不如投资整个市场然后长期拿着。
+预言家也可以用在大规模的数据测量，像是国内生产总值（GDP），一个测量国家经济规模的指标。我基于美国和中国历史 GDP 数据用预言家模型做了以下预测。
 ![](https://cdn-images-1.medium.com/max/800/1*1I9G9ek3oXmuS2Fa9KVf9g.png)
 
-中国回超越美国GDP的确切日子是2036！这个模型的不足在于观察值太少（GDP是每季测量但预言家的强项在于用每日数据），但能在宏观经济知识匮乏的情况下有个基本的预测。
-为时间序列建模的方法很多，从[简单的线性回归](https://onlinecourses.science.psu.edu/stat501/node/250)到[用LSTM建的循环神经网络](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)。加和模型有用的地方在于它容易生成和训练并通过可读的规律产出带不确定性的预测。预言家功能强大而我们只是看到它表面。我鼓励大家利用这篇文章和你们的笔记本去探索[Quandl提供的一些数据](https://www.quandl.com/search?query=)，或是你自己的时间序列。留意我在日常生活中的应用和用这些技能去[分析预测体重变化的文章](https://towardsdatascience.com/data-science-a-practical-application-7056ec22d004)。加和模型是开始探索时间序列的不二之选！
+中国会超越美国GDP的确切日子是 2036！这个模型的不足在于观察值太少（GDP是每季测量但预言家的强项在于用每日数据），但能在宏观经济知识匮乏的情况下有个基本的预测。
+为时间序列建模的方法很多，从[简单的线性回归](https://onlinecourses.science.psu.edu/stat501/node/250)到[用LSTM建的循环神经网络](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)。加和模型有用的地方在于它容易生成和训练并通过可读的规律产出带不确定性的预测。预言家功能强大而我们只是看到它表面。我鼓励大家利用这篇文章和你们的笔记本去探索[Quandl 提供的一些数据](https://www.quandl.com/search?query=)，或是你自己的时间序列。留意我在日常生活中的应用和用这些技能去[分析预测体重变化的文章](https://towardsdatascience.com/data-science-a-practical-application-7056ec22d004)。加和模型是开始探索时间序列的不二之选！
 我的邮箱是 wjk68@case.edu，欢迎指正和建设性批评。
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
