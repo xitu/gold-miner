@@ -955,7 +955,7 @@ private func beginNextTurn() {
 
 由于 `TurnController` 没有假定使用哪种类型的工厂，因此你可以自由地在不同的工厂间进行交换。
 
-这不仅使你的游戏更加灵活，还让自动化测试变得更容易了，因为它允许你向特殊的 `TestShapeFactory` 和 `TestShapeViewFactory` 类传递如果你想的话。这些可能是特殊的存根或模拟，可以使测试更容易、更可靠并且更快速。
+这不仅使你的游戏更加灵活，还让自动化测试变得更容易了。如果你想的话，它允许你向特殊的 `TestShapeFactory` 和 `TestShapeViewFactory` 类传递参数。这些可能是特殊的存根或模拟，可以使测试更容易、更可靠并且更快速。
 
 Build and run and check that it looks like this:编译并运行，你会看到如下图：
 
