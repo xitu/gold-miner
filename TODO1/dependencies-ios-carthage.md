@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/dependencies-ios-carthage.md](https://github.com/xitu/gold-miner/blob/master/TODO1/dependencies-ios-carthage.md)
 > * 译者：[iWeslie](https:github.com/iWeslie)
-> * 校对者：
+> * 校对者：[kirinzer](https://github.com/kirinzer)
 
 # 在 iOS 上使用 Carthage 建立依赖
 
@@ -90,11 +90,11 @@
 |   仓库大小   |     是     |                           -                            |
 |   更新框架   |     否     |    没有改善，开发者需要在升级时重新编译框架和依赖库    |
 
-毕竟我认为这看起来好多了！对于大多数团队而言，快速清理构建相比于在开发者之间可能使用不同 Xcode 来说更为重要。他们仍然可以安装不同的版本，只在特定项目之间切换。我相信每月 5 美元的 LFS 并不算贵。所以这是一个更好，同时也更难的解决方案，但仍有一些改进空间......
+毕竟我认为这看起来好多了！对于大多数团队而言，快速清理构建相比于在开发者之间可能使用不同 Xcode 来说更为重要。他们仍然可以安装不同的版本，只在特定项目之间切换。我相信每月 5 美元的 LFS 并不算贵。所以这是一个更好，同时也更难的解决方案，但仍有一些改进空间...
 
 ## Rome
 
-现在 Keith 又出现了，他很欣赏其他开发者的研究，但 Keith 非常在意团队合作。他认为也许可以在不同项目之间共享由不同版本的 Swift 编译器预编译的不同版本的框架，这种情况很多，但幸运的是有这样一个工具！它被称为 `Rome`。我强烈建议您查看 [相关文档](https://github.com/blender/Rome)。 通常此工具使用 Amazon S3 Bucket 来共享框架，Keith 再一次地改变了规则：
+现在 Keith 又出现了，他很欣赏其他开发者的研究，但 Keith 非常在意团队合作。他认为也许可以在不同项目之间共享由不同版本的 Swift 编译器预编译的不同版本的框架，这种情况很多，但幸运的是有这样一个工具！它被称为 `Rome`。我强烈建议您查看 [相关文档](https://github.com/blender/Rome)。通常此工具使用 Amazon S3 Bucket 来共享框架，Keith 再一次地改变了规则：
 
 * 把 `Carthage/Build` **和** `Carthage/Checkouts` **都** 添加到 `.gitignore`，
 * 当第一次克隆仓库的时候，当第一次克隆仓库的时候，你 **不必** 运行 `carthage bootstrap` 来重新编译所有依赖，但是你需要从 Amazon S3 上下载它们，
