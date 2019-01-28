@@ -31,7 +31,7 @@ Photo by [rawpixel](https://unsplash.com/@rawpixel?utm_source=medium&utm_medium=
 
 就在这个时候，我们聘请了一位数据科学家，他拥有非常丰富的相关经验，我后来从他那里学到了很多。当发现大部分机器学习的问题可以通过Python解决时，我只好不情愿地学起了这门语言的基础知识。后来我发现很多问题使用Python更容易实现，这是由于Python社区对机器学习提供了巨大的支持。
 
-我们从小型课堂学起，就在这时，我们团队的其他成员也因为兴趣加入了进来。数据科学家向我们介绍了[Jupyter Notebooks]https://jupyter.org/install)和[Cloud Machine Learning Engine](https://cloud.google.com/ml-engine/docs/tensorflow/getting-started-training-prediction)。我们立即行动起来，着手尝试这个使用[花卉的数据集](https://cloud.google.com/ml-engine/docs/tensorflow/flowers-tutorial)来进行图像分类的案例。
+我们从小型课堂学起，就在这时，我们团队的其他成员也因为兴趣加入了进来。数据科学家向我们介绍了[Jupyter Notebooks](https://jupyter.org/install)和[Cloud Machine Learning Engine](https://cloud.google.com/ml-engine/docs/tensorflow/getting-started-training-prediction)。我们立即行动起来，着手尝试这个使用[花卉的数据集](https://cloud.google.com/ml-engine/docs/tensorflow/flowers-tutorial)来进行图像分类的案例。
 
 当所有团队成员都掌握了训练和部署模型的基础知识后，我们迈向那些等待解决的问题。作为团队成员，我目前专注于两项任务：图像分类和分割问题,它们之后都将通过卷积神经网络（CNNs）来实现。
 
@@ -53,7 +53,7 @@ Photo by [Jonny Caspari](https://unsplash.com/@jonnysplsh?utm_source=medium&utm_
 
 ![](https://i.loli.net/2019/01/08/5c34b6d806f4f.png)
 
-这些不是真实的日志, LOL.
+这些不是真实的日志, 哈哈.
 
 训练模型是一项计算密集的任务，这让我理解了用于训练的计算机拥有充足的GPU和RAM的重要性。此次训练的时间很短，因为我们使用了这样的计算机集群，如果使用普通计算机，这将花费几周甚至几个月的时间。
 
@@ -67,23 +67,23 @@ Photo by [Jonny Caspari](https://unsplash.com/@jonnysplsh?utm_source=medium&utm_
 
 > 挑战使生活充满趣味，战胜它们使生活更有意义。 ——佚名
 
-我依然记得最大的挑战是三维数组，我谨慎地处理他们。与我们的数据科学家共事机器学习项目成为了我继续机器学习的鼓舞。
+我依然记得最大的挑战是三维数组，我需要十分谨慎地处理它们。与我们的数据科学家一同研究机器学习项目鼓舞着我继续机器学习之路。
 
 在为这些项目工作时，我遇到的最大的挑战是试图使用Bazel从源码中构建用于32位系统的Tensorflow Java 类库，遗憾的是，我始终没有成功。
 
 ![](https://i.loli.net/2019/01/08/5c34b69bf3c36.png)
 
-我也经历了其他一些挑战，有一项比较常见：将Python的解决方案翻译为Java。由于Python已经内置了对于数据科学任务的诸多支持，所以Python代码更简洁。我依然记得当我试图逐字翻译一条命令时的紧张：scaling a 2D array and adding it as a transparent layer to an image。最终我们使其生效了，大家兴奋异常。
+我也经历了其他一些挑战，有一项比较常见：将Python的解决方案翻译为Java。由于Python已经内置了对于数据科学任务的诸多支持，所以Python代码更简洁。我依然记得当我试图逐字翻译一条命令时的紧张：scaling a 2D array and adding it as a transparent layer to an image。最终指令生效了，大家兴奋异常。
 
 现在，通常情况下这些模型在生产环境运行稳定，但是一旦它产生了错误结果，将会错得非常离谱。这让我想起了我在一篇[优秀文章](https://www.oreilly.com/ideas/lessons-learned-turning-machine-learning-models-into-real-products-and-services)中读到的关于如何将机器学习模型投入真实生产和服务的引言：
 
-> 如果不持续提供新数据，模型的质量将会很快降低。正如[漂移概念](https://machinelearningmastery.com/gentle-introduction-concept-drift-machine-learning/)所说的，随着时间的推移，静态机器学习模型提供的预测将变得不准确和无效。某些情况下，这甚至可能在几天内发生。 ————David Talby
+> 如果不持续提供新数据，模型的质量将会很快降低。正如[漂移概念](https://machinelearningmastery.com/gentle-introduction-concept-drift-machine-learning/)所说的，随着时间的推移，静态机器学习模型提供的预测将变得不再那么准确和有效。某些情况下，这甚至可能在几天内发生。 ————David Talby
 
-这意味着我们不得不保持模型优化，因为不存在最终模型，这听上去很有趣。
+这意味着我们不得不保持模型优化，且没有终点，这听上去很有趣。
 
 * * *
 
-我不确定我能否被称之为机器学习新手，因为我更关注移动开发。与机器学习团队共同发布能帮助公司解决问题的模型的这段经历，让我感到十分激动。我期待下一次机会。
+我不确定我能否被称之为机器学习新手，因为我更关注移动开发。与机器学习团队共同研究训练模型来为公司解决问题的这段经历，让我十分激动。我期待下一次机会。
 
 感谢 TDS Team 和 Alexis McKenzie。
 
