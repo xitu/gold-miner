@@ -2,90 +2,90 @@
 > * 原文作者：[Ben Daniel A.](https://towardsdatascience.com/@bendaniel10)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/i-worked-with-a-data-scientist-heres-what-i-learned.md](https://github.com/xitu/gold-miner/blob/master/TODO1/i-worked-with-a-data-scientist-heres-what-i-learned.md)
-> * 译者：
-> * 校对者：
+> * 译者：[寒食君](https://github.com/CasualJi)
+> * 校对者：[Wangalan30](https://github.com/Wangalan30), [Fengziyin1234](https://github.com/Fengziyin1234)
 
-# I Worked With A Data Scientist As A Software Engineer. Here’s My Experience.
+# 我作为软件工程师与一名数据科学家合作的经历
 
-Talking about my experience as a Java/Kotlin developer while working with our data scientist
+本文我将谈一谈我作为一名 Java/Kotlin 工程师与一位数据科学家共事的经历。
 
 ![](https://cdn-images-1.medium.com/max/2560/0*V-3j85eeM0dGnd-o)
 
 Photo by [Daniel Cheung](https://unsplash.com/@danielkcheung?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
 
-#### Background
+#### 背景
 
-In late 2017, I started to develop interest in the Machine Learning field. I [talked about my experience](https://medium.com/@bendaniel10/hello-machine-learning-cc89b3ccbe4d) when I started my journey. In summary, it has been filled with fun challenges and lots of learning. I am an Android Engineer, and this is my experience working on ML projects with our data scientist.
+在 2017 年，机器学习领域激发了我的兴趣。我曾[谈及过我入门时的经历](https://medium.com/@bendaniel10/hello-machine-learning-cc89b3ccbe4d)。总的来说，它充满了有趣的挑战同时也教给了我大量的知识。我是一名安卓工程师，这是我与一位数据科学家共事一项关于机器学习项目的工作经历。
 
-I remember attempting to solve an image classification problem that came up in one of our apps. We needed to differentiate between valid and invalid images based on a defined set of rules. I immediately modified [this example](https://github.com/deeplearning4j/dl4j-examples/blob/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/convolution/AnimalsClassification.java) from Deeplearning4J (dl4j) and tried to use it to handle the classification task. I didn’t get the results that I expected, but I remained optimistic.
+我记得我曾经试图解决一个出现在我司一款应用中有关图像分类的问题，我们需要根据一组已定义的规则去辨别有效与无效的图像。我立即从 Deeplearning4J（dl4j）中改进了这个[案例](https://github.com/deeplearning4j/dl4j-examples/blob/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/convolution/AnimalsClassification.java)，并且试图用它去处理这个分类任务。虽然我没有获得预期的结果，但我保持着乐观心态。
 
 ![](https://i.loli.net/2019/01/08/5c34b6733de77.png)
 
-My approach with dl4j sample code was unsuccessful because of the kind of accuracy that I got and the final size of the trained model. This couldn’t fly since we needed a model with a compact file size which is specially important for mobile devices.
+由于最终获得的训练模型的大小存在问题，我使用 dlf4j 中示例代码的方法没有奏效。之所以失败，是因为我们需要一个能够达到压缩文件大小的模型，这对移动设备来说特别重要。
 
-#### Enter the Data Scientist
+#### 数据科学家的加入
 
 ![](https://cdn-images-1.medium.com/max/600/0*zKBeymXEf00uZbZZ)
 
 Photo by [rawpixel](https://unsplash.com/@rawpixel?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
 
-It was around this time that [we](https://seamfix.com/) hired a data scientist, and he came with a lot of relevant experience. I would later learn a lot from him. I had reluctantly started to learn the basics of Python after I found out that most ML problems could be solved with Python. I later discovered that some things were just easier to implement in Python as there’s already a huge support for ML in the Python community.
+就在这个时候，我们聘请了一位数据科学家，他拥有非常丰富的相关经验，我后来从他那里学到了很多。当发现大部分机器学习的问题可以通过 Python 解决时，我只好不情愿地学起了这门语言的基础知识。后来我发现很多问题使用Python更容易实现，这是由于 Python 社区对机器学习提供了巨大的支持。
 
-We started with small learning sessions. At this point, my other team members became interested and joined the sessions too. He gave us an introduction to [Jupyter Notebooks](https://jupyter.org/install) and the [Cloud Machine Learning Engine](https://cloud.google.com/ml-engine/docs/tensorflow/getting-started-training-prediction). We quickly got our hands dirty by attempting the [image classification using the flower dataset](https://cloud.google.com/ml-engine/docs/tensorflow/flowers-tutorial) example.
+我们从小型课堂学起，就在这时，我们团队的其他成员也因为兴趣加入了进来。数据科学家向我们介绍了[Jupyter Notebooks](https://jupyter.org/install)和[Cloud Machine Learning Engine](https://cloud.google.com/ml-engine/docs/tensorflow/getting-started-training-prediction)。我们立即行动起来，着手尝试这个使用[花卉的数据集](https://cloud.google.com/ml-engine/docs/tensorflow/flowers-tutorial)来进行图像分类的案例。
 
-After everyone in the team became grounded with the basics of training and deploying a model, we went straight to the pending tasks. As a team member, I was focused on two tasks at this point: the image classification problem and a segmentation issue. Both of them would later be implemented using Convolutional Neural Networks (CNNs).
+当所有团队成员都掌握了训练和部署模型的基础知识后，我们迈向那些等待解决的问题。作为团队成员，我目前专注于两项任务：图像分类和分割问题,它们之后都将通过卷积神经网络（CNNs）来实现。
 
-#### Preparing the training data isn’t easy
+#### 准备训练数据并不简单
 
 ![](https://cdn-images-1.medium.com/max/600/0*GllGs9LmPto_7-_U)
 
 Photo by [Jonny Caspari](https://unsplash.com/@jonnysplsh?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
 
-Both tasks required a lot of training data. The good news was that we had a lot of data. The bad news was that they were unsorted/not annotated. I finally understood what ML experts said about spending the most time preparing the training data rather than training the model itself.
+这两项任务都需要大量的训练数据。好消息是我们已经拥有了很多数据，但坏消息是它们都是未排序或未注释的。我终于明白了机器学习专家所说的：机器学习的大量时间都花费在准备训练数据而不是训练模型本身。
 
-For the classification task we needed to arrange hundreds of thousands of images into different classes. This was tedious job. I had to invoke my Java Swing skills to build GUIs that made this task easier, but in all, the task was monotonous for everyone involved in the manual classification.
+为了图像分类任务，我们需要将数十万的图像分门别类，这是一项单调的工作，我不得不借助我 Java Swing 的技能来编写一些用户图形界面来使这项工作简单一些。总而言之，这项任务对于任何参与者都是枯燥无聊的。
 
-The segmentation process was a bit more complicated. We were lucky enough to find some models that were good at segmentation already but unfortunately they were too large. We also wanted the model to be able run on Android devices that had very low specs. In a moment of brilliance, the data scientist suggested that we use the huge model to generate the training data that would be used to build our own mobilenet.
+分割过程更复杂一点儿。幸运的是，我们找到了一些易于分割的模型，但不幸的是，它们太大了。同时，我们还想让模型能够在较低版本的安卓设备上运行。那位数据科学家灵光一闪，他建议我们使用这个大模型来生成训练数据，再使用这些数据来构建我们自己的移动网络。
 
-#### Training
+#### 训练
 
-We eventually switched to [AWS Deep Learning AMI](https://docs.aws.amazon.com/dlami/latest/devguide/launch-config.html). We were already comfortable with AWS and it was a plus that they offered such a service. The process of training the model for the image segmentation was fully handled by our data scientist, and I stood beside him, taking notes :).
+我们最终转向了 [AWS Deep Learning AMI](https://docs.aws.amazon.com/dlami/latest/devguide/launch-config.html)。AWS 使我们感到省心，它提供的这项服务更为方便。训练图像分割模型的过程由我们的数据科学家全权负责，而我就站在他身边，书写笔记 :)
 
 ![](https://i.loli.net/2019/01/08/5c34b6d806f4f.png)
 
-Those are not the actual logs, LOL.
+这些不是真实的日志，哈哈。
 
-Training this model was a computationally intensive task. This was when I saw the importance of training on a computer with sufficient GPU(s) and RAM. The time it took to train was reasonably short because we used such computers for our training. It would have taken weeks, if not months, had we used a basic computer.
+训练模型是一项计算密集的任务，这让我理解了用于训练的计算机拥有充足的 GPU 和 RAM 的重要性。此次训练的时间很短，因为我们使用了这样的计算机集群，如果使用普通计算机，这将花费几周甚至几个月的时间。
 
-I handled the training of the image classification model. We didn’t need to train it on the cloud, and in fact, I trained it on my Macbook pro. This was because I was only training the final layer of the neural network compared to the full network training that we did for the segmentation model.
+我处理了图像分类模型的训练，不必在云服务上训练它，事实上，我使用了我自己的 MacBook Pro。这是因为相较于为分割模型所做的全网络训练，我只训练了神经网络的最后一层。
 
-#### We made it to prod
+#### 部署生产环境
 
-Both models made it to our production environment after rigorous tests 🎉. A team member was tasked with building the Java wrapper libraries. This was done so that the models could be used in a way that abstracts all the complexity involved in feeding the model with the images and extracting meaningful results from the tensor of probabilities. This is the array that contains the result of the prediction the model made on a single image. I was also involved a little at this point too as some of the hacky code I had written earlier was cleaned up and reused here.
+在经过严格测试后，两项模型都部署在了我们的生产环境。一名团队成员负责构建 Java 包装类库，这样是为了使这些模型能够以一种抽象的方式被使用，这种方式抽象化了向模型提供图像和从张量中提取有效结果的复杂性。这是一个包含了模型对单个图像所做的预测的结果集。这个阶段中我也参与了一些工作，优化和重构了我曾经写过的一些代码。
 
-#### Challenges, challenges everywhere
+#### 挑战无处不在
 
-> Challenges are what make life interesting. Overcoming them is what makes them meaningful. — Anonymous
+> 挑战使生活充满趣味，战胜它们使生活更有意义。 ——佚名
 
-I can remember when my biggest challenge was working with a 3-dimensional array. I still approach them with caution. Working on ML projects with our data scientist was the encouragement that I needed to continue my ML adventure.
+我依然记得最大的挑战是三维数组，我需要十分谨慎地处理它们。与我们的数据科学家一同研究机器学习项目鼓舞着我继续机器学习之路。
 
-My biggest challenge when working on these projects was attempting to build, from source, the Tensorflow Java library for 32 bit systems using Bazel. I have not been successful at this.
+在为这些项目工作时，我遇到的最大的挑战是试图使用 Bazel 从源码中构建用于 32 位系统的 Tensorflow Java 类库，遗憾的是，我始终没有成功。
 
 ![](https://i.loli.net/2019/01/08/5c34b69bf3c36.png)
 
-I experienced other challenges too, one of them was frequent: translating the Python solutions to Java. Since Python already has built in support for data science tasks, the code felt more concise in Python. I remember pulling my hair out when I tried to literally translate a command: scaling a 2D array and adding it as a transparent layer to an image. We finally got it to work and everyone was excited.
+我也经历了其他一些挑战，有一项比较常见：将Python的解决方案翻译为 Java。由于 Python 已经内置了对于数据科学任务的诸多支持，所以 Python 代码更简洁。我依然记得当我试图逐字翻译一条命令时的紧张：scaling a 2D array and adding it as a transparent layer to an image。最终指令生效了，大家兴奋异常。
 
-Now the models on our production environment were doing great mostly, however when they produced a wrong result, those wrong results were ridiculously very wrong. It reminded me of quote I saw on this [excellent post](https://www.oreilly.com/ideas/lessons-learned-turning-machine-learning-models-into-real-products-and-services) about turning ML models into real products and services.
+现在，通常情况下这些模型在生产环境运行稳定，但是一旦它产生了错误结果，将会错得非常离谱。这让我想起了我在一篇[优秀文章](https://www.oreilly.com/ideas/lessons-learned-turning-machine-learning-models-into-real-products-and-services)中读到的关于如何将机器学习模型投入真实生产和服务的引言：
 
-> …models will actually degrade in quality — and fast — without a constant feed of new data. Known as [concept drift](https://machinelearningmastery.com/gentle-introduction-concept-drift-machine-learning/), this means that the predictions offered by static machine learning models become less accurate, and less useful, as time goes on. In some cases, this can even happen in a matter of days. — [David Talby](https://www.oreilly.com/people/05617-david-talby)
+> 如果不持续提供新数据，模型的质量将会很快降低。正如[漂移概念](https://machinelearningmastery.com/gentle-introduction-concept-drift-machine-learning/)所说的，随着时间的推移，静态机器学习模型提供的预测将变得不再那么准确和有效。某些情况下，这甚至可能在几天内发生。— David Talby
 
-This means that we will have to keep improving the model, and there is no final model, which is interesting.
+这意味着我们不得不保持模型优化，且没有终点，这听上去很有趣。
 
 * * *
 
-I’m not even sure I qualify to be called a ML newbie since I focus mostly on mobile development. I have had an exciting experience this year working with an ML team to ship models that helped solve company problems. It’s something I would want to do again.
+我不确定我能否被称之为机器学习新手，因为我更关注移动开发。与机器学习团队共同研究训练模型来为公司解决问题的这段经历，让我十分激动。我期待下一次机会。
 
-Thanks to [TDS Team](https://medium.com/@TDSteam?source=post_page) and [Alexis McKenzie](https://medium.com/@lexmckenz?source=post_page).
+感谢 TDS Team 和 Alexis McKenzie。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
