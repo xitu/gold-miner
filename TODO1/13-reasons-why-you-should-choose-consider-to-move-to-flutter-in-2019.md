@@ -15,7 +15,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*ECNAUzNJCkkl7EJKk2Esrw.gif)
 
-目前面临的挑战便是跨平台应用的开发存在问题。在某些情况下，尽管开发人员尽了最大努力，其用户体验仍然落后于原生 app 。近年来，我们看到了各种移动框架的出现，如 React Native、Xamarin 和 AngularJS ，它们帮助我们更容易地产生较好地数字体验。最近我们看到一个新玩家加入了这场游戏——谷歌的 Flutter。
+目前面临的挑战便是跨平台应用的开发存在问题。在某些情况下，尽管开发人员尽了最大努力，其用户体验仍然落后于原生 app 。近年来，我们看到了各种移动框架的出现，如 React Native、Xamarin 和 AngularJS，它们帮助我们更容易地产生较好地数字体验。最近我们看到一个新玩家加入了这场游戏——谷歌的 Flutter。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ymhzy0pX-tFncyB-jD8Opw.gif)
 
@@ -23,7 +23,7 @@
 
 ------
 
-让我们看看 13 个选择 Flutter 作为你的开发环境甚至可以选择它开始你的职业生涯的理由，
+让我们看看 13 个选择 Flutter 作为你的开发环境甚至可以选择它开始你的职业生涯的理由。
 
 **1. Flutter 克服了传统跨平台的限制**
 
@@ -45,13 +45,13 @@
 
 **3. 前后端只需一套代码**
 
-在 Android 编程中，前端( Views )有单独的文件，由后端( Java )引用，与之不同的是，flutter 使用一种语言( Dart )来完成这两项工作，并使用一个响应式框架。
+在 Android 编程中，前端（Views）有单独的文件，由后端（Java）引用，与之不同的是，flutter 使用一种语言（Dart）来完成这两项工作，并使用一个响应式框架。
 
-Dart 借鉴了其他语言众多流行的特性，同时不会让你感到陌生，因为它和 Java 或者其他语言相似。Dart 的构建考虑了开发人员的易用性，从而使许多常见任务变得更加容易。你可以在这学到更多有关 Dart 的知识： [Dart 语言之旅](https://www.dartlang.org/guides/language/language-tour).
+Dart 借鉴了其他语言众多流行的特性，同时不会让你感到陌生，因为它和 Java 或者其他语言相似。Dart 的构建考虑了开发人员的易用性，从而使许多常见任务变得更加容易。你可以在这学到更多有关 Dart 的知识：[Dart 语言之旅](https://www.dartlang.org/guides/language/language-tour)。
 
 **4. 这是一种强大的开箱即用的设计体验**
 
-由于 Flutter 团队对 Material design 规范的积极适配，使得开发者很容易就可以创建出功能强大的 UI 体验。它可以帮助你生成通常只能在原生 app 中才能体验到的平滑、流畅，因为 Flutter 的发行版构建的就是一个原生 app 。
+由于 Flutter 团队对 Material design 规范的积极适配，使得开发者很容易就可以创建出功能强大的 UI 体验。它可以帮助你生成通常只能在原生 app 中才能体验到的平滑、流畅，因为 Flutter 的发行版构建的就是一个原生 app。
 
 Flutter 的小部件同时也实现了 iOS 的人机界面设计规范，可以让你在 iPhone 和 iPad 上也能获得那种原生的“体验”。
 
@@ -71,11 +71,11 @@ Firebase 为云存储、云功能、实时数据库、托管、身份验证等�
 
 **7. 大量 IDE支持 Flutter**
 
-在使用 Flutter 进行编程时，你可以从许多集成开发环境中进行选择。一开始我使用的是 Android Studio，但后来我看 Flutter Live 时使用的是VS Code。这让我很疑惑，因为我发现很多 Flutter 开发人员都在使用 Visual Studio Code。当我尝试之后，我明白为什么这么多人喜欢它了。 VS Code 相较于 Android Studio 和 IntelliJ 更加轻量，速度也快得多，并且具有两者中的大部分特性。就我个人而言，我已经转向 VS Code，但是你也可以使用许多其他的 IDE ，你无需切换就可以开始 Flutter 的工作。
+在使用 Flutter 进行编程时，你可以从许多集成开发环境中进行选择。一开始我使用的是 Android Studio，但后来我看 Flutter Live 时使用的是VS Code。这让我很疑惑，因为我发现很多 Flutter 开发人员都在使用 Visual Studio Code。当我尝试之后，我明白为什么这么多人喜欢它了。VS Code 相较于 Android Studio 和 IntelliJ 更加轻量，速度也快得多，并且具有两者中的大部分特性。就我个人而言，我已经转向 VS Code，但是你也可以使用许多其他的 IDE，你无需切换就可以开始 Flutter 的工作。
 
-**8. UI遵从性——一切都是一个小部件**
+**8. UI遵从性 — —一切都是一个小部件**
 
-在 flutter 中，所有的东西都是一个小部件，例如 Appbar, Drawer, Snackbar, Scaffold 等等。开发者可以很容易地将一个小部件包装在另一个小部件中以实现一些效果，例如将一个部件包装在一个 Center 小部件中，就可以让其居中。
+在 flutter 中，所有的东西都是一个小部件，例如 Appbar、Drawer、Snackbar 和 Scaffold 等等。开发者可以很容易地将一个小部件包装在另一个小部件中以实现一些效果，例如将一个部件包装在一个 Center 小部件中，就可以让其居中。
 
 以上这些都是为了确保你的用户无论使用什么平台运行你的软件都可以有相同的用户体验。你还应该阅读下述 flutter 文档：[Everything’s a widget](https://flutter.io/docs/resources/technical-overview#everythings-a-widget)
 
@@ -106,17 +106,17 @@ return new MaterialApp(
 
 **10. 使用 Code Magic 进行持续集成.**
 
-Code magic 是 2018 年 12 月 4 日在 Flutter Live 中使用的一个开源工具。Code magic 很容易学习，并且完全免费！它是一种高度复杂的 CI 工具，专门针对 Flutter 进行了优化。 Code magic 使构建过程无缝对接。
+Code magic 是 2018 年 12 月 4 日在 Flutter Live 中使用的一个开源工具。Code magic 很容易学习，并且完全免费！它是一种高度复杂的 CI 工具，专门针对 Flutter 进行了优化。Code magic 使构建过程无缝对接。
 
 ![](https://cdn-images-1.medium.com/max/800/1*gdnx0Dcqm6_uEWaoghtvIA.png)
 
 运行中的 Code Magic 
 
-**11.  [2Dimensions](https://www.2dimensions.com/) 让动画制作更简单**
+**11. [2Dimensions](https://www.2dimensions.com/) 让动画制作更简单**
 
 ![](https://cdn-images-1.medium.com/max/600/1*b3Z0cow_co15WpjLYELqSQ.gif)
 
-我第一次尝试使用 Flutter + Flare——Bouncy
+我第一次尝试使用 Flutter + Flare — Bouncy
 
 同样是在 Flutter live 2018 期间推出的惊人的在线工具，可以轻松创建非常棒的 UI 或动画。它弥补了 UI 设计人员和开发人员之间的差距，减少了应用 UI 或动画相关更改所需的时间。
 
@@ -124,25 +124,25 @@ Flare的学习曲线很浅，我在使用了它之后，对创建动画的简单
 
 **12. 运行在桌面和 Web 端的 Flutter**
 
-Flutter 团队现在已经有了可以在 web 浏览器中工作的 Flutter 原型 app ，这让所有人都感到震惊。在 Flutter Live 中，之前的绝密项目 “Hummingbird” 向世界公开。很快，你就可以使用相同的代码轻松地为移动端、桌面端和 web 端创建应用程序。
+Flutter 团队现在已经有了可以在 web 浏览器中工作的 Flutter 原型 app，这让所有人都感到震惊。在 Flutter Live 中，之前的绝密项目 “Hummingbird” 向世界公开。很快，你就可以使用相同的代码轻松地为移动端、桌面端和 web 端创建应用程序。
 
 ![](https://cdn-images-1.medium.com/max/800/1*OlrI9IphckWpiNEzS9ielg.png)
 
-**13.来自 Flutter 团队和 Flutter 社区的持续支持**
+**13. 来自 Flutter 团队和 Flutter 社区的持续支持**
 
-在过去的三周里，我一直在用 Flutter 工作，并注意到来自 Flutter 团队和社区的很多支持和鼓励；尤其是 [Scott Stoll](https://twitter.com/scottstoll2017), [Nilay Yener](https://twitter.com/nlycskn) 和 [Simon Lightfoot](https://twitter.com/devangelslondon)（仅举几个例子）。每个星期三，Flutter 社区中许多比较知名的名字都可以在 Zoom at #HumpDayQandA 上看到，在那里你可以实时获取来自真人的有关 Flutter 的帮助。即便你没有任何问题，那也是一个很好的地方，因为你可以从他们回答别人的问题中学到很多。
+在过去的三周里，我一直在用 Flutter 工作，并注意到来自 Flutter 团队和社区的很多支持和鼓励；尤其是 [Scott Stoll](https://twitter.com/scottstoll2017)、[Nilay Yener](https://twitter.com/nlycskn) 和 [Simon Lightfoot](https://twitter.com/devangelslondon)（仅举几个例子）。每个星期三，Flutter 社区中许多比较知名的名字都可以在 Zoom at #HumpDayQandA 上看到，在那里你可以实时获取来自真人的有关 Flutter 的帮助。即便你没有任何问题，那也是一个很好的地方，因为你可以从他们回答别人的问题中学到很多。
 
 ![](https://cdn-images-1.medium.com/max/800/1*6fuFPHO1w15e3kPk8qp7GA.jpeg)
 
-这是我参加 #HumpDayQandA 的照片。 来自 Flutter Egypt 的创始人，谷歌开发者 Amed Abu Eldahab的推文。
+这是我参加 #HumpDayQandA 的照片。来自 Flutter Egypt 的创始人，谷歌开发者 Amed Abu Eldahab的推文。
 
 使用 Flutter 的价值很明显，也很有吸引力，因为它减轻了初创公司试图将产品发布到多个平台所面临的许多困难；特别是处理在有限的时间和预算内将软件产品推向市场的时候。
 
 ------
 
-大家好，我是 Ganesh S P. ，是一名经验丰富的 Java 开发人员，具有广泛的创造性思维，同时是一名企业家和演说家，现在正冒险进入 Flutter 的世界。你可以在 [_LinkedIn_](https://www.linkedin.com/in/ganesh-sp-a5981a7a) 或者 [_github_](https://github.com/ganeshsp1) 找到我，或者关注我的 [_twitter_](http://Check%20out%20Ganesh%20S%20P%20%28@ganeshsp007%29:%20https://twitter.com/ganeshsp007?s=09)_。在空闲时间，我是一名在  [GadgetKada](https://www.youtube.com/gadgetkada) 上的内容创造者。你也可以给我发邮件ganesh.sp006@gmail.com讨论任何有关科技的话题。
+大家好，我是 Ganesh S P.，是一名经验丰富的 Java 开发人员，具有广泛的创造性思维，同时是一名企业家和演说家，现在正冒险进入 Flutter 的世界。你可以在 [_LinkedIn_](https://www.linkedin.com/in/ganesh-sp-a5981a7a) 或者 [_github_](https://github.com/ganeshsp1) 找到我，或者关注我的 [_twitter_](http://Check%20out%20Ganesh%20S%20P%20%28@ganeshsp007%29:%20https://twitter.com/ganeshsp007?s=09)。在空闲时间，我是一名在 [_GadgetKada_](https://www.youtube.com/gadgetkada) 上的内容创造者。你也可以给我发邮件 ganesh.sp006@gmail.com 讨论任何有关科技的话题。
 
-感谢 [Nash](https://medium.com/@Nash0x7E2?source=post_page) 和 [Scott Stoll](https://medium.com/@scottstoll2017?source=post_page).
+感谢 [Nash](https://medium.com/@Nash0x7E2?source=post_page) 和 [Scott Stoll](https://medium.com/@scottstoll2017?source=post_page)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
