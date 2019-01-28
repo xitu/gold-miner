@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/intermediate-design-patterns-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/intermediate-design-patterns-in-swift.md)
 > * 译者：[iWeslie](https://github.com/iWeslie)
-> * 校对者：
+> * 校对者：[swants](https://github.com/swants), [kirinzer](https://github.com/kirinzer)
 
 # iOS 设计模式进阶
 
 设计模式对于代码的维护和提高可读性非常有用，通过本教程你将学习 Swift 中的一些设计模式。
 
-**更新说明**：本教程已由译者针对 iOS 12，Xcode 10 和 Swift 4.2 进行了更新
+**更新说明**：本教程已由译者针对 iOS 12，Xcode 10 和 Swift 4.2 进行了更新。
 
 **新手教程**：没了解过设计模式？来看看设计模式的 [入门教程](https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-on-ios-using-swift-part-1-2.md) 来阅读之前的基础知识吧。
 
@@ -28,7 +28,7 @@ for item in collection {
 }
 ```
 
-**迭代器** 设计模式的价值在于它抽象出了访问集合中每一项的实际底层机制。无论 `集合` 是数组，字典还是其他类型，你的代码都可以用相同的方式访问它们中的每一项。
+**迭代器** 设计模式的价值在于它抽象出了访问集合中每一项的实际底层机制。无论 `collection` 是数组，字典还是其他类型，你的代码都可以用相同的方式访问它们中的每一项。
 
 不仅如此，设计模式也是开发者文化的一部分，因此维护或扩展代码的另一个开发人员可能会理解迭代器设计模式，它们是用于推理出软件架构的语言。
 
@@ -295,7 +295,7 @@ protocol ShapeViewFactory {
 
 2. 每个工厂应当有一个定义了创建形状的边界的尺寸，这对使用工厂生成的 view 布局代码至关重要。
 
-3. 定义生成形状视图的方法。这是工厂的“肉”，它需要两个 Shape 对象的元组，并返回两个 ShapeView 对象的元组。这基本上是从其原材料 -- 模型中制造 view。
+3. 定义生成形状视图的方法。这是工厂的“肉”，它需要两个 Shape 对象的元组，并返回两个 ShapeView 对象的元组。这基本上是从其原材料 — 模型中制造 view。
 
 在 **ShapeViewFactory.swift** 的最后添加以下代码：
 
