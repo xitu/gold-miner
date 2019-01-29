@@ -5,113 +5,113 @@
 > * 译者：
 > * 校对者：
 
-# One Year with Flutter: My Experience
+# 我与 Flutter 的一年
 
 ![](https://cdn-images-1.medium.com/max/800/1*pO38uoqgEOZiQuzq6lDrvQ.jpeg)
 
-It’s been an amazing year for Flutter.
+这是 Flutter 美好的一年。
 
-Roughly around this time last year, I wrote “[Why Flutter Will Take Off in 2018](https://codeburst.io/why-flutter-will-take-off-in-2018-bbd75f8741b0)”. While in beta for pretty much the entire 2018 and now at version 1.0, the Flutter community and product have grown tremendously, with Flutter now being [in the top 20](https://twitter.com/timsneath/status/1079436636344049664) repos on Github. Reflecting back on this article, it’s time for me to give an update on my experience with **Flutter one year out**, with all the **pros and cons** I’ve found along the way.
+大概刚好一年前，我写了一篇名为[为什么 Flutter 2018 年即将起飞](https://codeburst.io/why-flutter-will-take-off-in-2018-bbd75f8741b0)的文章。虽然几乎整个 2018 年都处于测试阶段，现已发布 1.0 版本，但 Flutter 社区和产品已经大有成长，现在 Flutter 已经进入 GitHub 仓库 [star 排名前 20](https://twitter.com/timsneath/status/1079436636344049664)。而这篇文章，介绍的是我**一年来使用 Flutter 的经验**，以及我在此过程中发现的 Flutter 的**优缺点**。
 
-_How_ did I exactly did I “work with Flutter” in the past year? I’ve:
+过去一年我用 Flutter 做了什么：
 
-*   Re-written an [iOS app](https://steadycalendar.com) I’ve had in the App Store into Flutter.
-*   Developed a free [crash course](https://fluttercrashcourse.com) on Flutter, recording over 5 hours of instructional video content.
-*   A number of smaller, not yet published apps with Flutter.
+*   使用 Flutter 重写了一个之前就已经上架 App Store 的 [iOS 应用](https://steadycalendar.com)。
+*   发布免费 Flutter [速成课](https://fluttercrashcourse.com)，录制超过 5 小时的教学视频。
+*   使用 Flutter 开发了一些尚未发布的小应用。
 
-So before I list out my thoughts, note that my background, in terms of purely mobile dev, is mainly coming from the **iOS world**. Also, last year I’ve done a solid amount of **React Native** sprinkled in for my day job. I’m _not_ going to compare Flutter to these technologies but it’s worth nothing that does shape my impressions of Flutter based on what else is out for mobile devs.
+在我列出我的想法之前，先介绍一下我的技术背景，就移动开发来说我是 **iOS 开发**。另外，去年我在正职中也大量使用了 **React Native**。我**不打算**将 Flutter 与这些技术进行比较，但这些移动开发经验确实会影响我对 Flutter 的印象。
 
-So **here’s what I’ve learned** by using Flutter for a year now:
+然后，以下就是我使用 Flutter 一年来学到的：
 
-#### 1. Dart is simple to learn and a joy to use.
+#### 1. Dart 简单易学，使用愉快
 
-Compared to [TypeScript](https://www.typescriptlang.org/) or [Flow](https://flow.org/), all of which I’ve used extensively this past year doing React Native development, Dart was far easier to learn and had a much simpler syntax. I was able to move fast because I had a proper compiler that had clear, well defined error messages, with far less unexpected hidden runtime errors. If enough people ask for my experiences on this I can write up a more detailed comparison with examples. All I have to say is, when writing even medium sized applications, developers should cherish strongly typed languages because it pays off big time when it comes to moving fast and writing reliable code.
+相比去年我在 React Native 开发中广泛使用的 [TypeScript](https://www.typescriptlang.org/) 和 [Flow](https://flow.org/)，Dart 更容易学习，语法更简单。我能够高速开发应用，必不可少的是可靠的编译器，它有明确的，定义良好的错误消息，极少的意外隐藏运行时错误。如果有足够多的人希望了解相关内容，我会写一篇更详细的例子比较。我要说的是，即使是编写中等规模的应用程序，开发人员也应该考虑强类型语言，因为这为高速开发和编写可靠代码节省了大量时间。
 
-#### 2. I still have to “roll my own” at times.
+#### 2. 有时候仍然需要“自己动手”
 
-Another common case when it comes to a new technology is needing to “roll your own” library in order to integrate with a 3rd party service. For example, to get analytics into my app using Mixpanel (since they have a generous free tier option and very simple, clear cut UI), I had to roll my own library, [pure_mixpanel](https://pub.dartlang.org/packages/pure_mixpanel). It wasn’t a big deal though and actually it was a lot of fun.
+涉及新技术的另一个常见情况是：需要“自己动手”写一个库对接第三方服务。例如，要使用 Mixpanel 分析我的应用程序（因为他们大方地给出了免费套餐，并且 UI 简单，清晰），我不得不自己动手封装一个库：[pure_mixpanel](https://pub.dartlang.org/packages/pure_mixpanel)。这不难，甚至很有趣。
 
-I’ve personally had a lot of success with [scoped_model](https://pub.dartlang.org/packages/scoped_model), since it nicely abstracts away needing to use streams and works a lot like React’s new [Context API](https://reactjs.org/docs/context.html). You can cleanly still separate your business logic and rendering logic nicely and it’s really easy to learn.
+我使用 [scoped_model](https://pub.dartlang.org/packages/scoped_model) 获得了不错的实践，因为它很好地抽象了使用流的需求，使用方法很像React 刚更新的 [Context API](https://reactjs.org/docs/context.html)。你可以干净利落地将业务逻辑和渲染逻辑完美地分开，并且非常容易上手。
 
-#### 3. Architecture and state management patterns will still need time to mature.
+#### 3. 架构和状态管理模式仍未成熟
 
-First off, Flutter is a new technology, so it’s still hard getting enough opinions on battle tested, trusted architecture patterns and state management tools. Some people follow the “[BLoC](https://www.youtube.com/watch?v=fahC3ky_zW0)” (or “business logic component”) pattern. The jury’s still out on this one for me since I think it’s a bit unnecessarily complex. There’s also [RxDart](https://github.com/ReactiveX/rxdart) and [Redux for Flutter](https://pub.dartlang.org/packages/flutter_redux), both of which I haven’t used either yet, as they seemed overly complex as well. On the other hand, folks coming from the Android or React world seem to have a lot of success with them since it’s what they may be used to.
+Flutter 是一项新技术，因此在实践、架构模式和状态管理等方面仍然难以获得足够的意见。有些人遵循“[BLoC](https://www.youtube.com/watch?v=fahC3ky_zW0)”（business logic component）模式。因为我认为它有点不必要的复杂，所以仍未确定使用它。还有 [RxDart](https://github.com/ReactiveX/rxdart) 和 [Redux for Flutter](https://pub.dartlang.org/packages/flutter_redux)，这两个我还没用过，因为他们似乎也过于复杂。另一方面，Android 或 React 工程师似乎有不少成功实践，可能是因为他们已经习惯这种模式。
 
-I think this whole ecosystem will naturally mature in 2019 as more and more people are writing more and more complex Flutter apps.
+我认为整个生态系统将在 2019 年成熟，因为越来越多的人正在编写更复杂的 Flutter 应用程序。
 
-#### 4. Hot reload is still a big deal for me.
+#### 4. 热重载是个重点
 
-There’s not much to say about this, except this feature of Flutter alone is important enough to warrant its own section of this article. It’s fast and even more importantly, _reliable_. I can’t say the same thing about other technologies I’ve used when it comes to hot reloading features (told myself I wouldn’t be negative about other technologies).
+关于这一点其实没什么好说的，Flutter 这个特性的重要程度，足以在本文增加这一节。Flutter 热重载很快，而且**更可靠**。对于其他技术的热重载，我真不敢这么说（告诉自己我没有黑其他技术）。
 
-#### 5. Cross platform design is hard.
+#### 5. 跨平台设计不容易
 
-Material Design is wonderful, allowing folks to get up and running fast. It’s also a no-brainer for certain types of web-applications as well as Android apps. But presenting it to iOS users, unless it’s a Google app or something very simple, isn’t a good idea. iOS users are used to their own CocoaTouch style UX.
+Material Design 很美好，可以让我们快速起步。显然对于某些类型的 web app 以及 Android 应用来说是个不错的选择，但是将它呈现给 iOS 用户并不是一个好主意，除非它是谷歌应用或其他非常简单的应用。iOS 用户习惯使用 CocoaTouch 风格的 UX。
 
-What I’ve been seeing more and more when writing for two platforms using one codebase, some kind of bespoke, custom design is used, pulling in design common design elements (such as say, a tab bar). Although Flutter does offer plenty of iOS style widgets, to keep code maintenance at a minimum, most people will just customize Flutter’s Material Design library, which is incredibly easy to do.
+”一次编写随处运行“、定制的自定义设计、引入设计常见的设计元素（例如，标签栏）等情况越来越普遍。尽管 Flutter 确实提供了大量 iOS 风格的 widget，但为了保持代码精简，大多数人只会定制更容易实现的 Flutter 的 Material Design 库。
 
-I’ll be writing another article on just this topic but my recommendation is to stick to Material Design and in some areas, try to make it not so “Android-like” for all those iOS users out there. One example being forms. Style form fields using Material Design in a way that looks familiar enough to both types of users.
+我将撰写另一篇关于这个主题的文章，但我的建议是坚持使用 Material Design，可以在某些方面，试着让那些 iOS 用户觉得不那么“安卓”。以表单为例，使用 Material Design 样式的表单字段以对两种类型的用户都是足够熟悉的。
 
-#### 6. Implementing complex layout in Flutter is easy.
+#### 6. 在 Flutter 中实现复杂布局很简单
 
-I’m used to implementing layout using libraries like React, CSS Grid, Flexbox, etc. Flutter’s approach to layout takes a lot of cues from these tools for good reason. If you’re already familiar with these more web-based layout concepts, learning layout in Flutter will be easy. Even if you’re not, it’s still easy. I have a [video on this](https://fluttercrashcourse.com/lessons/container-layout-column-row) if you want to get a feel for it.
+我习惯使用 React、CSS Grid、Flexbox 等库来实现布局。Flutter 的布局方法从这些库中借鉴了许多。如果你已经熟悉这些基于 Web 的布局概念，那么学习 Flutter 布局将会非常简单。即使不懂 Web 布局，它仍然很简单。如果你想感受一下 Flutter 的布局方法，可以观看此[视频](https://fluttercrashcourse.com/lessons/container-layout-column-row)。
 
-Also, UI logic in Dart and Flutter is excellent from a code readability standpoint. Overall, I prefer implementing layout personally much more to something like JSX. It reminds me of how simple layout logic is in Swift and iOS, if you’re programmatically implementing layout.
+此外，从代码可读性的角度来看，Dart 和 Flutter 中的 UI 逻辑非常出色。总的来说，比起 JSX 我个人更喜欢这种布局方式。它让我想起了 Swift 和 iOS 中简单的布局逻辑（如果你是以编程方式实现布局的话）。
 
-#### 7. More focus on end to end app examples are still needed.
+#### 7. 仍然需要更多关注端到端应用示例
 
-While there’s a _ton_ of solid documentation, tutorials, communities and overall help out there on working with Flutter, I think there’s too much of a focus on widgets alone. That makes a lot of sense since Flutter is so new. But eventually, more and more people are going beyond just implementing pure-UI and animation and will start writing more full blown apps and more end to end tutorials should be featured on Flutter’s website in my opinion. Actually, this is the main reason why I started my course website.
+虽然有**大量**可靠的文档，教程，社区以及与其他 Flutter 使用者的帮助，但是这些都太着重于 widget 了。Flutter 刚出来时这确实很必要。但最终，越来越多的人不仅仅是实现纯 UI 和动画，而是开始编写更多更完善的应用程序，我认为 Flutter 的网站上应该有更多的端到端教程。这也是我自己开设课程网站的主要原因。
 
-I’ve learned Writing Flutter apps go way beyond just widgets. There are a lot of more advanced Dart features I’ve found very helpful that you have to dig for. There’s architecture patterns that I’ve mentioned that you have kind to dig for. Lastly, integrating with web services and other Dart best practices still need more documentation and tutorials.
+我学习编写 Flutter 应用程序不仅仅是学习 widget。我发现有许多更高级的 Dart 功能非常有用，你必须挖掘它们。我提到的架构模式也值得挖掘。最后，集成 Web 服务和其他 Dart 最佳实践集成仍需要更多文档和教程。
 
-#### 8. GraphQL or gRPC, I’ll pick one for my next project.
+#### 8. 下一个项目我将使用 GraphQL 或 gRPC
 
-I’m always pushing for less boilerplate code. While there are [some tools](https://flutter.io/docs/development/data-and-backend/json) that help me solve this problem that work well for simple projects, I think for my next project I’ll use [GraphQL](https://pub.dartlang.org/packages/graphql_flutter) or [gRPC](https://grpc.io/). I think the investment in either is worth it. As for gRPC, I wouldn’t recommend it for smaller projects, but for medium to larger ones, once you use it it’s hard to go back. gRPC has worked really well for another project using Swift and I’ve had it running in production for some years now.
+我总是争取更少的模版代码。虽然[某些工具](https://flutter.io/docs/development/data-and-backend/json)在一些简单项目中解决了我的问题，但我想我的下一个项目我会使用 [GraphQL](https://pub.dartlang.org/packages/graphql_flutter) 或 [gRPC](https://grpc.io/)。我认为对这两者的投资都是值得的。关于 gRPC，我不推荐将它用于较小的项目，但对于中大型项目，一旦你使用它，就会依赖它。gRPC 在我的一个 Swift 项目行之有效，已经投入生产环境运行好几年了。
 
-#### 9. Submitting apps for both platforms was easy
+#### 9. 在两个平台提交应用程序都很简单
 
-It does take some investment to get used to the tools and steps required to submit apps for each platform, specifically the Google Play Store and iTunes Connect, but it’s very much easy. I’d say submitting apps for iOS though is definitely more of a learning curve.
+你需要一定时间习惯为每个平台（特别是 Google Play 商店和 iTunes Connect）提交应用程序所需的工具和步骤，但这非常简单。我会说为 iOS 提交应用程序肯定更符合学习曲线。
 
-#### 10. Flutter has way too many widgets.
+#### 10. Flutter 有太多的 widget
 
-For all the widgets I thought I had to learn to get going with Flutter, I ended up using probably 20% of them. For example, the [Center](https://docs.flutter.io/flutter/widgets/Center-class.html) widget. Why have a widget alone _just_ for centering something? Although it makes it easy for newcomers to get started, its widgets like these that produce far too much nested Dart code when it comes time to implement more complex layouts. Instead, I fall back on the basic [Container](https://docs.flutter.io/flutter/widgets/Container-class.html) layout options I’m just going to use anyway because they are very flexible.
+在我认为我必须学习的所有 Flutter widget 中，我最终使用了其中的大约 20％。例如 [Center](https://docs.flutter.io/flutter/widgets/Center-class.html) widget，为什么一个 widget **只**用于居中？虽然它使新手很容易上手，但是在实现复杂的布局时，widget 会产生太多嵌套的Dart代码。相反，我会回到基本的 [Container](https://docs.flutter.io/flutter/widgets/Container-class.html) 布局，因为这相比起来更灵活。
 
-My recommendation is to focus on simple, basic widgets and only learn more when it’s really needed.
+我的建议先关注于简单，基本的 widget，真正需要时再学习其他 widget。
 
-#### 11. I’m passing on Firebase (except for Push Notifications)
+#### 11. 我正在从 Firebase 转移（推送通知除外）
 
-Firebase seems like a great product. It reminds me of [Parse](https://parseplatform.org/) from back in the day. It especially seems like a good choice in order to get going for simple projects or to later hand over a project to a client where they don’t have enough specialized developers to manage a custom backend.
+Firebase 似乎是一款出色的产品。它让我想起了当年的 [Parse](https://parseplatform.org/)。对于简单的项目或者你将要把项目移交到一个没有后端技术人员的客户时，它似乎是一个不错的选择。
 
-The reality is is that most folks already have an existing backend or the tech team has chosen to write their own backend. This especially goes for larger companies or even just startups.
+现实情况是，大多数人已经有现成的后端，或者技术团队编写自己的后端。这尤其对于大型公司甚至只是初创公司。
 
-For indie devs or “mom and pop” shops, what happens to your monthly Firebase bill if you get a surge in traffic? That was really the main reason why I avoided Firebase, because in case I did have that “dream problem” of going viral, how would I pay for it if Firebase is charging me based on usage?
+对于独立开发者或小团体，如果你的流量激增，每月 Firebase 账单会发生什么变化？这就是我避免使用 Firebase 的主要原因，如果我的应用真的如梦想一般被用户疯传，Firebase 找我要钱怎么办？
 
-Note that I write backend systems for a living, so I’m biased. If you’re a junior dev, want to hand over a simple backend to a client or you simply don’t write backend APIs, I would still take a strong look at Firebase.
+请注意，我的职业是编写后端系统，所以我有这样的偏见。如果你是初级开发人员，想要将简单的后端移交给客户，或者你只是不编写后端 API，我仍然推荐使用 Firebase。
 
-#### 12. Flutter’s documentation is getting better and better
+#### 12. Flutter 的文档越来越完善
 
-Widgets and class documentation now have more and more examples ([example](https://docs.flutter.io/flutter/widgets/Container-class.html)). This is a big win over other libraries that lack proper examples even, let alone well-written documentation.
+Widget 和 class 文档现在有越来越多的示例（[例如](https://docs.flutter.io/flutter/widgets/Container-class.html)）。这是对比其他缺乏适当示例的库是巨大的优势，更不用说编写良好的文档了。
 
-Beyond documentation, I’ve found that for most of this past year, there have been plenty of passionate, knowledgeable folks out there on Stack Overflow to get me the support I needed.
+除了文档之外，去年 Stack Overflow 上还有很多热情、知识渊博的人为我提供技术支持。
 
-#### 13. I got spoiled by iOS development and same goes for Flutter.
+#### 13. 即使被 iOS 开发惯坏了，也能使用 Flutter。
 
-I’ve been an iOS engineer for a number of years so I’ve been a bit spoiled by the iOS developer experience. Not only documentation and support but the overall quality of the iOS ecosystem, from libraries to Xcode to how the CocoaTouch SDK is organized.
+我当 iOS 工程师很多年了，所以我有点被 iOS 开发惯坏了。不仅是文档和支持，还是 iOS 生态系统的整体质量，从库到 Xcode，再到 CocoaTouch SDK 的组织方式。
 
-Flutter matches this experience I think. It’s refreshingly simple too, taking the simplicity of certain React Native components as well, such as ListView (man, have you used UITableViewController on iOS? Yuck) So overall, learning and using Flutter has been super smooth, with mature tooling to go with it. It’s really refreshing to not need the complexity of something like Xcode any longer.
+Flutter 也符合我之前的体验。它也非常简单，同时也考虑了某些 React Native 组件的简单性，比如 ListView（朋友，你使用过 iOS 的 UITableViewController 吗？Yuck）所以整体来说，有了成熟的工具来配合 Flutter，学习和使用它一直非常流畅。不再需要像 Xcode 这样复杂的工具真的令人耳目一新。
 
-####  14. I can never go back to “single platform” mobile dev.
+#### 14.我不会再回到“单平台”。
 
-A video game developer would probably never consider writing one code base for only a single platform. Now, “non-video game” developers can do the same with the emergence of React Native and Flutter.
+游戏开发者可能永远不会只为一个平台编写一套代码。React Native 和 Flutter 出现后，“非游戏开发者”也这么想。
 
-For example, in my free time, I’m part of (literally) a “mom and pop” shop, building apps with my wife who’s a UX designer. With our user base more than doubling converting our iOS app into Flutter, now that it’s published on two platforms, I can’t go back to writing for a single platform now.
+例如，在空闲时，我会参与夫妻经营的小项目，与我的 UX 设计师妻子编写应用程序。Flutter 重构这个 iOS 应用后，用户基数变为双倍，现在它已经在两个平台上发布，我肯定不会再考虑回到单平台了。
 
-### Final Thoughts
+### 最后的想法
 
-One year out, as I start my next Flutter app (will be posting some videos on how I develop it soon!), I’m _still_ really really happy that I invested all this time into learning Flutter. I can’t go back now. It makes sense for businesses as a now viable option for a technology for writing for multiple platforms and it’s a joy to use as a developer. If you combine this fact with the potential for “Flutter for the Web” technologies like [Hummingbird](https://medium.com/flutter-io/hummingbird-building-flutter-for-the-web-e687c2a023a8) as well as Google’s long term investment in Flutter for the new [Fuschia operating system](https://en.wikipedia.org/wiki/Google_Fuchsia), these facts alone show that Google is very much invested in this technology.
+一年之后，我将开始编写下一个 Flutter 应用程序时（之后将会发布记录开发过程的视频！），我仍然非常高兴我将时间投入到学习 Flutter 中。我现在已经不能回到之前的开发模式。对于企业来说，作为一种用于多平台编写技术的可行选择是有意义的，而且，作为开发人员使用跨平台技术也是一种乐趣。再加上网页 Flutter 技术，比如 [Hummingbird](https://medium.com/flutter-io/hummingbird-building-flutter-for-the-web-e687c2a023a8) 以及谷歌为全新[Fuschia操作系统](https://en.wikipedia.org/wiki/Google_Fuchsia) 长期投资 Flutter，这些事实都表明谷歌注重这项技术。
 
-Feel free to reach out to me on [Twitter](https://twitter.com/seenickcode) with your thoughts. I also have a free Flutter course at my site [fluttercrashcourse.com](https://fluttercrashcourse.com) if you’re interested!
+随时随地通过 [Twitter](https://twitter.com/seenickcode) 与我联系。另外如果你感兴趣，可以看看我的网站 [fluttercrashcourse.com](https://fluttercrashcourse.com) 上的免费 Flutter 课程！
 
-Happy coding in 2019!
+2019 编程快乐！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
@@ -119,3 +119,4 @@ Happy coding in 2019!
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
