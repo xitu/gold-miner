@@ -31,25 +31,25 @@
 
 2015 年，Google [推出了](https://opensource.googleblog.com/2015/09/introducing-brotli-new-compression.html) [Brotli](https://github.com/google/brotli)，新开源的一种无损数据格式，现已被[所有现代浏览器所支持](http://caniuse.com/#search=brotli)。实际上，Brotli 似乎比 Gzip 和 Deflate [有效地](https://quixdb.github.io/squash-benchmark/#results-table)[多](https://paulcalvano.com/index.php/2018/07/25/brotli-compression-how-much-will-it-reduce-your-content/)。压缩可能会（非常）慢，因为这取决于设置，但较慢的压缩则意味着更高的压缩率。它解压速度很快。所以你可以[估算 Brotli 为你的网站所节省的成本](https://tools.paulcalvano.com/compression.php)。
 
-只有用户通过 HTTPS 访问站点时，浏览器才会接受这种格式。那么会捕获到什么呢？Brotli 并没有预安装在一些服务器上，所以如果没有自编译 Nginx，那么设置就会相对困难。尽管如此，[它也不是不可攻破的难题](https://www.tinywp.in/nginx-brotli/)，比如[自 Apache 2.4.26](https://httpd.apache.org/docs/trunk/mod/mod_brotli.html)版本起，它开始被慢慢支持。Brotli 受到广泛支持，而且许多 CND 也开始支持它([Akamai](https://community.akamai.com/community/web-performance/blog/2017/08/18/brotli-support-enablement-on-akamai)、[AWS](https://medium.com/@felice.geracitano/brotli-compression-delivered-from-aws-7be5b467c2e1), [KeyCDN](https://www.keycdn.com/blog/keycdn-brotli-support)、[Fastly](https://docs.fastly.com/guides/detailed-product-descriptions/performance-optimization-package)、[Cloudlare](https://support.cloudflare.com/hc/en-us/articles/200168396-What-will-Cloudflare-compress-)、[CDN77](https://www.cdn77.com/brotli))， 甚至是[即使在不支持它的 CDN 上，也可以启用 Brotli](http://calendar.perfplanet.com/2016/enabling-brotli-even-on-cdns-that-dont-support-it-yet/)（和 service worker 一起使用）。
+只有用户通过 HTTPS 访问站点时，浏览器才会接受这种格式。那么会捕获到什么呢？Brotli 并没有预安装在一些服务器上，所以如果没有自编译 Nginx，那么设置就会相对困难。尽管如此，[它也并非是不可攻破的难题](https://www.tinywp.in/nginx-brotli/)，比如[自 Apache 2.4.26](https://httpd.apache.org/docs/trunk/mod/mod_brotli.html) 版本起，它开始被慢慢支持。Brotli 受到广泛支持，而且许多 CND 也开始支持它（[Akamai](https://community.akamai.com/community/web-performance/blog/2017/08/18/brotli-support-enablement-on-akamai)、[AWS](https://medium.com/@felice.geracitano/brotli-compression-delivered-from-aws-7be5b467c2e1)、[KeyCDN](https://www.keycdn.com/blog/keycdn-brotli-support)、[Fastly](https://docs.fastly.com/guides/detailed-product-descriptions/performance-optimization-package)、[Cloudlare](https://support.cloudflare.com/hc/en-us/articles/200168396-What-will-Cloudflare-compress-)、[CDN77](https://www.cdn77.com/brotli)），甚至[在不支持它的 CDN 上，也可以启用 Brotli](http://calendar.perfplanet.com/2016/enabling-brotli-even-on-cdns-that-dont-support-it-yet/)（和 service worker 一起使用）。
 
-在最高压缩级别时，Brotli 会非常缓慢，以至于服务器在等待动态压缩资源时开始发送响应所花费的时间，可能会抵消文件大小的潜在增益。但对于静态压缩，[应该首选更高的压缩级别](https://css-tricks.com/brotli-static-compression/)。
+在最高级别压缩时，Brotli 会非常缓慢，以至于服务器在等待动态压缩资源时开始发送响应所花费的时间，可能会抵消文件大小的潜在增益。但对于静态压缩，[应该首选更高级别的压缩](https://css-tricks.com/brotli-static-compression/)。
 
-或者，你可以考虑使用将数据编码为 Deflate、Gzip 和 Zlip 格式的 [Zopfli 的压缩算法](https://blog.codinghorror.com/zopfli-optimization-literally-free-bandwidth/)。任何普通的 Gzip 压缩资源，都受益于 Zopfli 的改进版 Deflate 编码，因为这些文件比 Zlib 的最大压缩小 3 道 8%。问题是压缩文件大约需要耗费 80 倍的时间。这就是为什么在资源上使用 Zopfli 是个好主意，这些资源不会发生太大的变化，这些文件被设计成只能压缩一次并下载很多次。
+或者，你可以考虑使用将数据编码为 Deflate、Gzip 和 Zlip 格式的 [Zopfli 的压缩算法](https://blog.codinghorror.com/zopfli-optimization-literally-free-bandwidth/)。任何普通的 Gzip 压缩资源，都受益于 Zopfli 的改进版 Deflate 编码，因为这些文件比 Zlib 的最大压缩小 3 到 8%。问题是压缩文件大约需要耗费 80 倍的时间。这就是为什么在资源上使用 Zopfli 是个好主意，因为这些资源不会发生太大的变化，它们被设计成只压缩一次但可以下载多次。
 
 如果可以降低动态压缩静态资源的成本，那么这种付出是值得的。Brotli 和 Zopfli 都可以用于任意明文的有效负载 —— HTML、CSS、SVG、JavaScript 等。
 
-有和对策呢？[在最高级别中使用 Brotli+Gzip 来预压缩静态资源](https://css-tricks.com/brotli-static-compression/)，使用 Brotli 在 1 —— 4 级中动态压缩（动态）HTML。确保服务器正确处理 Brotli 或 Gzip 的内容协议。如果你在服务器上无法安装/维护 Brotli，请使用 Zopfli。
+有何对策呢？[在最高级别中使用 Brotli + Gzip 来预压缩静态资源](https://css-tricks.com/brotli-static-compression/)，使用 Brotli 在 1 — 4 级中动态压缩（动态）HTML。确保服务器正确处理 Brotli 或 Gzip 的协议内容。如果你在服务器上无法安装/维护 Brotli，请使用 Zopfli。
     
 #### 18. 使用响应图像和 WebP
 
-尽量使用带有 `srcset`、`sizes` 和 `<picture>` 元素的[响应式图片](https://www.smashingmagazine.com/2014/05/responsive-images-done-right-guide-picture-srcset/)。当你使用它的时候，也可以通过使用 `<picture>` 原生和 JPEG 回退来使用 WebP 图像来使用 [WebP 格式](https://www.smashingmagazine.com/2015/10/webp-images-and-performance/) (在Chrome、Opera、Firefox 65、Edge 18 中都被支持的格式)（参见 Andreas Bovens 的[代码片段](https://dev.opera.com/articles/responsive-images/#different-image-types-use-case)），或者使用内容协议（使用 `Accept` 头部）。Ire Aderinokun 也有关于[将图像转换为 WebP 图像的超详细教程](https://bitsofco.de/why-and-how-to-use-webp-images-today/)。
+尽量使用带有 `srcset`、`sizes` 和 `<picture>` 元素的[响应式图片](https://www.smashingmagazine.com/2014/05/responsive-images-done-right-guide-picture-srcset/)。当你使用它的时，也可以通过使用原生 `<picture>` 和 JPEG 回退时应用的 WebP 图像来使用 [WebP 格式](https://www.smashingmagazine.com/2015/10/webp-images-and-performance/) (在 Chrome、Opera、Firefox 65、Edge 18 中都被支持的格式)（参见 Andreas Bovens 的[代码片段](https://dev.opera.com/articles/responsive-images/#different-image-types-use-case)），或者使用协议内容（`Accept` 头部）。Ire Aderinokun 也有关于[将图像转换为 WebP 图像的超详细教程](https://bitsofco.de/why-and-how-to-use-webp-images-today/)。
 
-原生 Sketch 是支持 WebP 的，可以使用 [Phtotshop 的 WebP 插件](http://telegraphics.com.au/sw/product/WebPFormat#webpformat)从 Photoshop 中导出 WebP 图像。[当然也存在其他可用的选项](https://developers.google.com/speed/webp/docs/using)。如果你正在使用 WordPress 或者 Joomla，也可以使用一些扩展来帮助你自己轻松实现对 WebP 的支持，比如适用于 WordPress 的 [Optimus](https://wordpress.org/plugins/optimus/) 和 [Cache Enabler](https://wordpress.org/plugins/cache-enabler/)，[Joomla 当然也存在对应可提供支持的扩展](https://extensions.joomla.org/extension/webp/) (通过使用 [Cody Arsenault](https://css-tricks.com/comparing-novel-vs-tried-true-image-formats/))。
+原生 Sketch 是支持 WebP 的，可以使用 [Phtotshop 的 WebP 插件](http://telegraphics.com.au/sw/product/WebPFormat#webpformat)从 Photoshop 中导出 WebP 图像。[当然也存在其他可用的选项](https://developers.google.com/speed/webp/docs/using)。如果你正在使用 WordPress 或 Joomla，也可以使用一些扩展来帮助你自己轻松实现对 WebP 的支持，比如适用于 WordPress 的 [Optimus](https://wordpress.org/plugins/optimus/) 和 [Cache Enabler](https://wordpress.org/plugins/cache-enabler/)，[Joomla 当然也存在对应可提供支持的扩展](https://extensions.joomla.org/extension/webp/) (通过使用 [Cody Arsenault](https://css-tricks.com/comparing-novel-vs-tried-true-image-formats/))。
 
-需要注意的是，尽管 WebP 图像文件大小[等价于 Guetzli 和 Zopfli](https://www.ctrl.blog/entry/webp-vs-guetzli-zopfli)，但它[并不支持像 JPEG 这样的渐进式渲染](https://youtu.be/jTXhYj2aCDU?t=630)，这就是用户通过良好的 ol' JPEG 可以更快地看到实际图像的原因，尽管 WebP 图像在网络中的传输速度更快。使用 JPEG，我们可以将一半甚至四分之一的数据提供给用户，然后再加载剩余数据，而不是像 WebP 那样有不完整的图像。你应该更加自己的需求来进行取舍：使用 WebP，你可以有效减少负载，使用 JPEG，你可以提高感知性能。
+需要注意的是，尽管 WebP 图像文件大小[等价于 Guetzli 和 Zopfli](https://www.ctrl.blog/entry/webp-vs-guetzli-zopfli)，但它[并不支持像 JPEG 这样的渐进式渲染](https://youtu.be/jTXhYj2aCDU?t=630)，这就是用户通过良好的 ol' JPEG 可以更快地看到实际图像的原因，尽管 WebP 图像在网络中的传输速度更快。使用 JPEG，我们可以将一半甚至四分之一的数据提供给用户，然后再加载剩余数据，而不是像 WebP 那样有不完整的图像。你应该根据自己的需求来进行取舍：使用 WebP，你可以有效减少负载，使用 JPEG，你可以提高性能感知。
 
-在 Smashing 杂志中，我们使用 `-opt` 后缀来为图像命名 —— 比如，`brotli-compression-opt.png`；这样，当我们发现图像包含该后缀时，团队成员就会明白这个图像已经被优化过了。—— **难以置信**！—— Jeremy Wagner 甚至[在 WebP 上除了一本书](https://www.smashingmagazine.com/ebooks/the-webp-manual/)。
+在 Smashing 杂志中，我们使用 `-opt` 后缀来为图像命名 —— 比如，`brotli-compression-opt.png`；这样，当我们发现图像包含该后缀时，团队成员就会明白这个图像已经被优化过了。—— **难以置信**！—— Jeremy Wagner 甚至[在 WebP 上出了一本书](https://www.smashingmagazine.com/ebooks/the-webp-manual/)。
 
 [![Responsive Image Breakpoints Generator](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/db62c469-bbfc-4959-839d-590abb41b64e/responsive-breakpoints-opt.png)](http://www.responsivebreakpoints.com/)
 
@@ -65,7 +65,7 @@
 
 *   使用 [Squoosh](https://squoosh.app/) 在最佳级别上（有损或者无损）进行压缩。调整和操作图像。
 
-*   使用[响应式图像断点生成器](http://www.responsivebreakpoints.com/)或像[Cloudinary](http://cloudinary.com/documentation/api_and_access_identifiers)、[Imgix](https://www.imgix.com/) 这样的服务来实现图像优化的自动化。此外，在许多情况下，使用 `srcset` 和 `sizes` 可以获得最佳效果。
+*   使用[响应式图像断点生成器](http://www.responsivebreakpoints.com/)或像 [Cloudinary](http://cloudinary.com/documentation/api_and_access_identifiers)、[Imgix](https://www.imgix.com/) 这样的服务来实现图像优化的自动化。此外，在许多情况下，使用 `srcset` 和 `sizes` 可以获得最佳效果。
 
 *   要检查响应标记的效率，你可以使用 [imaging-heap](https://github.com/filamentgroup/imaging-heap)（一个命令行工具）来测量不同视窗大小和设备像素比的效果。
 
@@ -79,9 +79,9 @@
 
 *   为了优化存储，你可以使用 Dropbox 的新的 [Lepton 格式](https://github.com/dropbox/lepton)对 JPEG 执行 22% 的无损压缩。
 
-*   注意 [ CSS 属性中的 `aspect-ratio`](https://drafts.csswg.org/css-sizing-4/#ratios) 和 [`intrinsicsize` attribute](https://github.com/ojanvafai/intrinsicsize-attribute)，它们允许为图像设置高宽和尺寸，因此浏览器可以在页面加载期间提前预留一个预定义的布局槽，来[避免布局跳转](https://24ways.org/2018/jank-free-image-loads/)。
+*   注意 [ CSS 属性中的 `aspect-ratio`](https://drafts.csswg.org/css-sizing-4/#ratios) 和 [`intrinsicsize` 属性](https://github.com/ojanvafai/intrinsicsize-attribute)，它们允许为图像设置高宽和尺寸，因此浏览器可以在页面加载期间提前预留一个预定义的布局槽，来[避免布局跳转](https://24ways.org/2018/jank-free-image-loads/)。
 
-*   如果你喜欢冒险，为了更快地通过网络发生图像，可以使用基于 CDN 的实时过滤器 [Edge workers](https://youtu.be/jTXhYj2aCDU?t=854) 来终止并重排 HTTP/2 流。Edge workers 使用你可以控制的 JavaScript 流模块（它们是运行在 CDN 边上的，可以修改的响应流），这样你就可以控制图像的传输。对于 service worker 来说会太迟，因为你无法控制传输过程，但它确实适用于 Edge workers。因此，你可以在针对特定登录页面逐步保存的静态 JPEG 上使用它们。
+*   如果你喜欢冒险，为了更快地通过网络发生图像，可以使用基于 CDN 的实时过滤器 [Edge workers](https://youtu.be/jTXhYj2aCDU?t=854) 来终止并重排 HTTP/2 流。Edge workers 使用你可以控制的 JavaScript 流模块（它们是运行在 CDN 上的，可以修改的响应流），这样你就可以控制图像的传输。对于 service worker 来说会太迟，因为你无法控制传输过程，但它确实适用于 Edge workers。因此，你可以在针对特定登录页面逐步保存的静态 JPEG 上使用它们。
 
 [![](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/8422076c-6eea-4b35-a98c-b15445cb2dff/viewport-percentage-match.jpg)](https://pbs.twimg.com/media/DY1XZ28VwAAwjd8.jpg) 
 
@@ -89,9 +89,9 @@
 
 响应式图像的未来可能会随着[客户端提示](https://cloudfour.com/thinks/responsive-images-201-client-hints/)而发生巨变。客户端提示是 HTTP 的请求字段，例如 `DPR`、`Viewport-Width`、`Width`、`Save-Data`、`Accept`（指定图像格式首选项）等。它们应该告知服务器用户的浏览器、屏幕、连接等细节。因此，服务器可以决定如何用对应大小的图像来填充布局，而且只提供对应格式所需的图像。通过客户端提示，我们将资源从 HTMl 标记移到客户端和服务器之间的请求响应协议中。
 
-就像 Ilya Grigorik [注意的](https://developers.google.com/web/updates/2015/09/automating-resource-selection-with-client-hints)那样，客户端提示获取了图像 —— 它们不是响应式图像的替代品。`<picture>` 在 HTML 标记中提供了必要的控制。客户端提示为请求的图像提供注释来实现资源选择的自动化。Service Worker 为客户端提供完整的请求和响应管理功能。比如，Service Worker 可以在请求中附加新的客户端提示 header 值，重写 URL 并将图像请求指向 CDN，更加链接调整响应，用户偏好等。它不仅适用于图像资源，也适用于所有其他请求。
+就像 Ilya Grigorik [注意的](https://developers.google.com/web/updates/2015/09/automating-resource-selection-with-client-hints)那样，客户端提示获取了图像 —— 它们不是响应式图像的替代品。`<picture>` 在 HTML 标记中提供了必要的控制。客户端提示为请求的图像提供注释来实现资源选择的自动化。Service Worker 为客户端提供完整的请求和响应管理功能。比如，Service Worker 可以在请求中附加新的客户端提示 header 值，重写 URL 并将图像请求指向 CDN，根据链接调整响应，用户偏好等。它不仅适用于图像资源，也适用于所有其他请求。
 
-对于支持客户端提示的客户端，可以测量到在[图像上节省的 42% 的字节](https://twitter.com/igrigorik/status/1032657105998700544)和超过 70% 的 1MB+ 字节数。在 Smashing Magazine 上，我们检测到以及[改进了 19-32% 的性能](https://www.smashingmagazine.com/2016/01/leaner-responsive-images-client-hints/)。不幸的是，客户端提示仍然需要[得到浏览器的支持才行](http://caniuse.com/#search=client-hints)。[Firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=935216) 和 [Edge](https://dev.modern.ie/platform/status/httpclienthints/) 正在考虑对它的支持。不过，如果同时提供政策响应图像标记和客户端提示的 `<meta>` 标记，浏览器将评估响应图像标记并使用客户端提示 HTTP header 请求相应的图像。
+对于支持客户端提示的客户端，可以测量到在[图像上节省的 42% 的字节](https://twitter.com/igrigorik/status/1032657105998700544)和超过 70% 的 1MB+ 字节数。在 Smashing Magazine 上，我们检测到已经[改进了 19-32% 的性能](https://www.smashingmagazine.com/2016/01/leaner-responsive-images-client-hints/)。不幸的是，客户端提示仍然需要[得到浏览器的支持才行](http://caniuse.com/#search=client-hints)。[Firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=935216) 和 [Edge](https://dev.modern.ie/platform/status/httpclienthints/) 正在考虑对它的支持。不过，如果同时提供政策响应图像标记和客户端提示的 `<meta>` 标记，浏览器将评估响应图像标记并使用客户端提示 HTTP header 请求相应的图像。
 
 还不够？那么你可以使用[多种](http://csswizardry.com/2016/10/improving-perceived-performance-with-multiple-background-images/) [背景](https://jmperezperez.com/medium-image-progressive-loading-placeholder/) [图像](https://manu.ninja/dominant-colors-for-lazy-loading-images#tiny-thumbnails) [技术](https://css-tricks.com/the-blur-up-technique-for-loading-background-images/)来提高图像的感知性能。请记住，[处理对比模糊不必要的细节](https://css-tricks.com/contrast-swap-technique-improved-image-performance-css-filters/) （或删除颜色）也可以减少文件大小。你需要放大一张小照片而不损失质量的话，可以考虑使用 [Letsenhance.io](https://letsenhance.io)。
 
@@ -141,11 +141,11 @@ Zach Leatherman 的[字体加载策略综合指南](https://www.zachleat.com/web
 
 此外，如果用户在辅助功能首选项中启用了 [Reduce Motion](https://webkit.org/blog/7551/responsive-design-for-motion/) 或选择数据保护模式（详细内容可参阅 [`Save-Data` header](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/save-data/))，那么最好是选择不使用 Web 字体（至少是第二阶段的渲染中）。或者当用户碰巧链接速度较慢时（通过 [网络信息 API](https://developer.mozilla.org/en-US/docs/Web/API/Network_Information_API)）。
 
-要测量 Web 字体的加载性能，可以考虑使用[**所有文本可视化**](https://noti.st/zachleat/KNaZEg/the-five-whys-of-web-font-loading-performance#s5IYiho)的度量标准（字体加载的时，所有内容立即以 Web 字体显示），以及首次渲染后的 [**Web 字体重排计数**](https://noti.st/zachleat/KNaZEg/the-five-whys-of-web-font-loading-performance#sJw0KSc)。显然，这两种指标月底，性能越好。重要的是要注意到[变量](https://alistapart.com/blog/post/variable-fonts-for-responsive-design) [字体](https://www.smashingmagazine.com/2017/09/new-font-technologies-improve-web/)可能需要[重要的性能考虑](https://youtu.be/FbguhX3n3Uc?t=2161)。它们为设计师提供了更大的字体选择空间，代价是单个串行请求与许多单独的文件请求相反。这个单一的请求可能会缓慢地阻止页面上的整个排版外观。不过，好的一面是，在使用可变字体的情况下，默认情况下我们将得到一个重新流，因此不需要 JavaScript 对重新绘制进行分组。
+要测量 Web 字体的加载性能，可以考虑使用[**所有文本可视化**](https://noti.st/zachleat/KNaZEg/the-five-whys-of-web-font-loading-performance#s5IYiho)的度量标准（字体加载的时，所有内容立即以 Web 字体显示），以及首次渲染后的 [**Web 字体重排计数**](https://noti.st/zachleat/KNaZEg/the-five-whys-of-web-font-loading-performance#sJw0KSc)。显然，这两种指标越低，性能越好。重要的是要注意到[变量](https://alistapart.com/blog/post/variable-fonts-for-responsive-design) [字体](https://www.smashingmagazine.com/2017/09/new-font-technologies-improve-web/)可能需要[重要的性能考虑](https://youtu.be/FbguhX3n3Uc?t=2161)。它们为设计师提供了更大的字体选择空间，代价是单个串行请求与许多单独的文件请求相反。这个单一的请求可能会缓慢地阻止页面上的整个排版外观。不过，好的一面是，在使用可变字体的情况下，默认情况下我们将得到一个重新流，因此不需要 JavaScript 对重新绘制进行分组。
 
 有没有一种完美的 Web 字体加载策略？ 子集字体为二阶段渲染做好准备，使用 `font-display` 描述符来声明它们，使用字体加载 API 对重新绘制进行分组并将字体存储在持久化的 service worker 的缓存中。如果有必要，你可以回到 Bram Stein 的 [Font Face Observer](https://github.com/bramstein/fontfaceobserver)。如果你有兴趣测量字体加载的性能，Andreas Marschke 研究了[使用 字体 API 和 UserTiming API 的性能](https://www.andreas-marschke.name/posts/2017/12/29/Fonts-API-UserTiming-Boomerang.html)。
 
-最后，不要忘记加入 [`unicode-range`](https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2015/august/how-to-subset-fonts-with-unicode-range/)，将一个大字体分解成更小的特定语言字体，使用 Monica Dinculescu’s [font-style-matcher](https://meowni.ca/font-style-matcher/) 来最小化不就上的不和谐变化，这是因为回退和 Web 字体之间的大小不一致。
+最后，不要忘记加入 [`unicode-range`](https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2015/august/how-to-subset-fonts-with-unicode-range/)，将一个大字体分解成更小的特定语言字体，使用 Monica Dinculescu 的 [font-style-matcher](https://meowni.ca/font-style-matcher/) 来最小化布局上的不和谐变化，这是因为回退和 Web 字体之间的大小不一致。
 
 > [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
 > [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
