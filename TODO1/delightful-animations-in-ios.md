@@ -2,75 +2,75 @@
 > * 原文作者：[Roland Leth](https://medium.com/@rolandleth)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/delightful-animations-in-ios.md](https://github.com/xitu/gold-miner/blob/master/TODO1/delightful-animations-in-ios.md)
-> * 译者：
-> * 校对者：
+> * 译者：[iWeslie](https://github.com/iWeslie)
+> * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234)
 
-# Delightful animations in iOS
+# iOS 中赏心悦目的动画
 
 ![](https://cdn-images-1.medium.com/max/2560/1*LCqWZwVc8XhXjrlESW0zeA.png)
 
-We all love animations.
+我们热爱动画。
 
-On one hand, they help our eyes be guided, but they also bring a nice finishing touch, a bit of extra care, a bit of _emotion. W_e also prefer a lively UI to a static one, a UI that gives us feedback, that interacts back with us. But, as with anything, too much _will_ be harmful, so let’s explore a few finishing touches that can be added to an app without overwhelming it.
+一方面，它们引导我们的视线，同时也是画龙点睛的一笔，增添了额外的关注点甚至一点 **感情**。比起静态的 UI，我们更偏爱生动形象并且能给我们反馈，可以交互的 UI。但是太多了就会造成不良的后果，所以让我们来探索一些可以给一款 app 增加恰到好处的润色的动画。
 
-### Changing a button’s frame and/or color on `touchDown`
+### 在 `touchDown` 时改变一个按钮的大小或颜色
 
-We usually put a button’s action on `touchUpInside` and the reason for that is to give the user a chance to change his mind. But the physical action performed is the actual touch of the button, which is handled by `touchDown`. At this point, we can have the UI respond to the user’s interaction, to let them know something _did_ happen, by modifying the appearance.
+我们通常在 `touchUpInside` 上设置点击事件，其原因是可以让用户有机会改变他的主意，但在现实生活中，按下按钮则执行事件，这应 `touchDown` 处理。我们可以在此时让 UI 响应用户的交互，并通过改变外观让他们知道一些事 **确实** 已经发生了。
 
-Don’t go overboard with this, though.  
-I’d start with a scale of `0.97`, a background `alpha` change to `0.85`, a `borderWidth` increase of `1` or `2`, or a combination of two them — more than two will be too aggressive. From here, you have many other options and to name a few: scale increase, `y` position change, adding a slight shadow, a ”wiggle” animation while the button is kept pressed (as if the button was asking _I got your touch, what now?_), a font weight increase or a background color change.
+但是仍然不要太过分。
+我以 `0.97` 的 `scale` 开始，背景色的 `alpha` 为 `0.85`，`borderWidth` 增加 `1` 或 `2`，或者是它们其中两者的组合，超过两个的话就有点过了。从这开始，你还有很多选项，仅仅举几个例子：增加 scale 缩放比例，改变 `y` 值，添加一个轻微的阴影，当一个按钮被不停地点击时添加一个 “抖动” 动画，就好像按钮在跟你说 **我已经知道你点了我了，你还想干嘛？**，还有增加字体的粗细，抑或是改变背景颜色。
 
-This kind of animation doesn’t have to stand out. Its only purpose is to bring a nice finishing touch and to give the user the information that something _did_ happen.
+这类动画不必很显眼，它们唯一的目的就是画龙点睛，以及给用户一些信息，告诉他们一些事情 **确实** 已经发生了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*IK5eAI5eafqPS677Zs-GCw.gif)
 
-### Adding to cart or similar
+### 添加到购物车或类似动作
 
-Just like Apple animates the add bookmark action in Safari, the same could be done when adding to cart. Guide the user’s eyes to where their action had an effect — the cart button. If you have a badge on it (most likely), animate its scale, for example, with a nice bounce effect. Or, just like Apple does, animate the whole icon and maybe the item ”into” it, as well.
+就像苹果在 Safari 中添加书签的动画一样，我们也可以把添加到购物车时做成这样的动画，这样的话就可以把用户的视线引导到购物车按钮上。如果按钮上有小数字的话，就添加个缩放动画，例如像弹簧一样的动画。或者直接模仿苹果的原生效果，把整个图标添加动画就好像你买的东西进入了购物车一样。
 
-This, again, serves as a nice finishing touch and makes the UI respond to the user’s action, but it also serves as a ”here’s where to go next”. It helps the user be guided of what happened, but also to _where_ the change happened. You might say ”after adding to cart 15 times, the user will know where to look for it” and you’d be right; but it doesn’t hurt to confirm it.
+还有，我们可以让 UI 对用户的操作进行了相应，这样也可以提示用户下一步该做什么。它能引导并告诉用户发生了什么以及 **哪里** 发生了改变。你也许会觉得在把东西添加到购物车很多次之后，用户自然就会知道购物车在哪里了，也许你是对的，但是强调它并没有坏处。
 
-### Call to action
+### 事件响应
 
-With a proper hierarchy, a call to action button should stand out already. But, sometimes, that isn’t possible or it’s not enough. So an approach would be to add a subtle animation to it. It could be a pulse (scale between `1.03` and `0.97` with a slow duration and with a delay between animations), a wiggle (rotate a few degrees in quick succession, but with a great delay between them), or maybe a pulse of the background, text color, text size, border width or border color. But, again, don’t pick too many at once.
+通过合适的层级结构，一个按钮事件的响应应当已经很突出了。但是有时候却不可行或者根本不够。所有有一种方法是给他添加一个轻微的动画，也许是一个有节奏的跳动（scale 在 `1.03` 和 `0.97` 间范围内的带有延时的慢动作变化），或者一个抖动（快速地连续旋转几度，中间延迟较长），又或者是背景，文字颜色或大小，描边的宽度和颜色等等的变化。但是要注意一次性不要变化太多了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*NAwiqTIbcce-WuTmvhlL3w.gif)
 
-### Creating, deleting and submitting
+### 创建、删除和提交
 
-The same tactic can be done when an event or error occurs.
+当发生了错误的时候可以采用相同的策略。
 
-When submitting a form, but one of the `UITextFields` is empty, add a subtle shake to it, or flash its border/text to red, attracting the user’s attention to where the problem is.
+当提交一个表单时，如果其中一个 `UITextFields` 为空，就给它添加一个轻微的抖动，也可以给边框或者文字添加红色的闪烁的效果，这样才能吸引用户并告诉他们问题出在哪了。
 
-If the user added a new item that already exists, add a background flash to the existing item, or maybe shake it, depending on its size, location or content — if it’s a large item, prefer something really subtle, since it will have a big impact due to its size.
+如果用户想添加了一个已经存在的东西，就让那一项的背景色突出显示出来或者抖动一下，这主要取决与它的大小，如果很大的话，非常轻微的动画会更好，因为它的尺寸比较大的缘故，很微小的动画反而会更加显眼。
 
-When the user successfully creates an item, instead of simply reloading the UI, slide the new item in, fade it in or both; or use the built-in `tableView.insertRows(at:with:)` animations. The same applies for deleting an item, but in reverse.
+当用户成功创建新的一项时，比起简单的刷新 UI，把新的那一项滑入或者淡入，或者也可以使用 `tableView.insertRows(at:with:)` 自带的动画会更好。反之亦然，删除一项也可以这么做。
 
 ![](https://cdn-images-1.medium.com/max/800/1*2Ikp1rb46s7ctWm4Rx68Cg.gif)
 
-### Selection
+### 选择
 
-Think of a radio button, or a checkbox. In this particular case, the animation’s only purpose is to add a nice finishing touch, as there’s not much real UX value. It does add a visual confirmation that lasts until after the finger was lifted, though. A checkbox could have its checkmark drawn, just like you draw one on a sheet of paper; a radio button could have its center filled, like so:
+想象一下单选按钮或者复选框，在这特殊的情况下，动画的唯一作用就是润色，因为并没有太多真正的用户体验价值。这样确实添加了一个视觉上的确认效果，直到手指抬起。一个复选框可以绘制复选的标记，就好像你是在纸上把它画出来一样。至于单选按钮，则可以给它的中心填充，例如下面的效果：
 
 ![](https://cdn-images-1.medium.com/max/800/0*m9ePRKHt7KycWrqJ.gif)
 
-### Tips
+### 小窍门
 
-Looking at [my post](https://rolandleth.com/lthradiobutton) about the above radio button animation, we can see that I’ve broken the animation down into really small steps. The point is to:
+你可以看看我的关于上面的单选按钮动画的 [帖子](https://rolandleth.com/lthradiobutton)，我把动画拆分成了很多非常细小的步骤，核心部分则是：
 
-1.  Properly understand what the animation consists of.
-2.  Have actionable steps that are easy to implement.
-3.  Have steps small enough that are easy to change or remove, if needed.
+1. 正确理解动画的组成部分。
+2. 采取易于实施的可操作步骤。
+3. 如果需要的话，使每一步骤足够的小以便于更换或移除。
 
-This can’t be stressed enough: don’t go overboard, start small. Exaggerated animations are more harmful than no animations. Start with small values, small durations and a few properties, then work your way up from there. It’s better to have something subtle that a small percentage of your users notices, than to have something obtrusive that a high percentage of your users hates (or even a small one).
+再次强调：不愠不火，从细节开始做。比起没有动画，夸张的动画反而更加有害。从短小精悍的动画开始吧，只变化几个属性！比起十分刺眼的动画，能让用户能注意到的微妙细节上的动画会更好。
 
-A gist with a few examples can be found [here](https://gist.github.com/rolandleth/421dcde6757b942ac7102fea435fd3c3) and the radio button animation can be found in the control itself, [here](https://github.com/rolandleth/LTHRadioButton).
+有一些例子的要点可以在 [这里](https://gist.github.com/rolandleth/421dcde6757b942ac7102fea435fd3c3) 找到，单选按钮的动画可以在控件的找到 [这里](https://github.com/rolandleth/LTHRadioButton) 有单选按钮的动画，它们可以在自身的控件中找到。
 
-Happy animating!
+祝你和动画相处愉快！
 
 * * *
 
-_You can find more articles like this on my blog, or you can subscribe to my_ [_monthly newsletter_](https://rolandleth.us19.list-manage.com/subscribe?u=0d9e49508950cd57917dd7e87&id=7e4ef109bd)_. Originally published at_ [https://rolandleth.com](https://rolandleth.com).
+你可以在我的博客里找到更多文章，或者订阅 [**每月的推送**](https://rolandleth.us19.list-manage.com/subscribe?u=0d9e49508950cd57917dd7e87&id=7e4ef109bd)。**原文链接**：[https://rolandleth.com](https://rolandleth.com)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
