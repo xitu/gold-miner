@@ -371,13 +371,11 @@ class GameViewController: UIViewController {
         // 2 ***** 附加
         let shapeViews = shapeViewFactory.makeShapeViewsForShapes(shapes: (shape1, shape2))
 
-        shapeViews.0.tapHandler = {
-            tappedView in
+        shapeViews.0.tapHandler = { tappedView in
             self.gameView.score += shape1.sideLength >= shape2.sideLength ? 1 : -1
             self.beginNextTurn()
         }
-        shapeViews.1.tapHandler = {
-            tappedView in
+        shapeViews.1.tapHandler = { tappedView in
             self.gameView.score += shape2.sideLength >= shape1.sideLength ? 1 : -1
             self.beginNextTurn()
         }
@@ -548,14 +546,12 @@ private func beginNextTurn() {
 
     let shapeViews = shapeViewFactory.makeShapeViewsForShapes(shapes: shapes)
 
-    shapeViews.0.tapHandler = {
-        tappedView in
+    shapeViews.0.tapHandler = { tappedView in
         // 1
         self.gameView.score += shapes.0.area >= shapes.1.area ? 1 : -1
         self.beginNextTurn()
     }
-    shapeViews.1.tapHandler = {
-        tappedView in
+    shapeViews.1.tapHandler = { tappedView in
         // 2
         self.gameView.score += shapes.1.area >= shapes.0.area ? 1 : -1
         self.beginNextTurn()
@@ -929,8 +925,7 @@ private func beginNextTurn() {
     // 1
     let shapeViews = turnController.beginNewTurn()
 
-    shapeViews.0.tapHandler = {
-        tappedView in
+    shapeViews.0.tapHandler = { tappedView in
         // 2
         self.gameView.score += self.turnController.endTurnWithTappedShape(tappedShape: tappedView.shape)
         self.beginNextTurn()
@@ -1123,8 +1118,7 @@ class GameViewController: UIViewController {
     private func beginNextTurn() {
         let shapeViews = turnController.beginNewTurn()
 
-        shapeViews.0.tapHandler = {
-            tappedView in
+        shapeViews.0.tapHandler = { tappedView in
             self.gameView.score += self.turnController.endTurnWithTappedShape(tappedShape: tappedView.shape)
             self.beginNextTurn()
         }
