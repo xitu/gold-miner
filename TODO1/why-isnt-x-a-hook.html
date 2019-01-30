@@ -1,0 +1,419 @@
+<!DOCTYPE html><html><head>
+      <title>why-isnt-x-a-hook</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/lzc/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.3.11/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+      <style> 
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+ 
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview   ">
+      <blockquote>
+<ul>
+<li>&#x539F;&#x6587;&#x5730;&#x5740;&#xFF1A;<a href="https://overreacted.io/why-isnt-x-a-hook/">Why Isn&#x2019;t X a Hook?</a></li>
+<li>&#x539F;&#x6587;&#x4F5C;&#x8005;&#xFF1A;<a href="https://mobile.twitter.com/dan_abramov">Dan Abramov</a></li>
+<li>&#x8BD1;&#x6587;&#x51FA;&#x81EA;&#xFF1A;<a href="https://github.com/xitu/gold-miner">&#x6398;&#x91D1;&#x7FFB;&#x8BD1;&#x8BA1;&#x5212;</a></li>
+<li>&#x672C;&#x6587;&#x6C38;&#x4E45;&#x94FE;&#x63A5;&#xFF1A;<a href="https://github.com/xitu/gold-miner/blob/master/TODO1/why-isnt-x-a-hook.md">https://github.com/xitu/gold-miner/blob/master/TODO1/why-isnt-x-a-hook.md</a></li>
+<li>&#x8BD1;&#x8005;&#xFF1A;</li>
+<li>&#x6821;&#x5BF9;&#x8005;&#xFF1A;</li>
+</ul>
+</blockquote>
+<h1 class="mume-header" id="x%E4%B8%BA%E5%95%A5%E4%B8%8D%E6%98%AFhook">X&#x4E3A;&#x5565;&#x4E0D;&#x662F;hook?</h1>
+
+<blockquote>
+<p>Translated by readers into: <a href="https://overreacted.io/es/why-isnt-x-a-hook/">Espa&#xF1;ol</a></p>
+</blockquote>
+<p>&#x81EA; <a href="https://reactjs.org/hooks">React Hooks</a> &#x7B2C;&#x4E00;&#x4E2A; alpha &#x7248;&#x672C;&#x53D1;&#x5E03;&#x4EE5;&#x6765;, &#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x4E00;&#x76F4;&#x88AB;&#x6FC0;&#x70C8;&#x8BA8;&#x8BBA;: &#x201C;&#x4E3A;&#x4EC0;&#x4E48; <em>&lt; API &gt;</em> &#x4E0D;&#x662F; hook?&#x201D;</p>
+<p>&#x63D0;&#x793A;&#x4F60;&#x4E00;&#x4E0B;, &#x8FD9;&#x4E9B; <em>&#x662F;</em> Hooks:</p>
+<ul>
+<li><a href="https://reactjs.org/docs/hooks-reference.html#usestate"><code>useState()</code></a> &#x7528;&#x6765;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x53EF;&#x53D8;&#x7684;&#x72B6;&#x6001;&#xFF08;state&#xFF09;.</li>
+<li><a href="https://reactjs.org/docs/hooks-reference.html#useeffect"><code>useEffect()</code></a> &#x7528;&#x6765;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x526F;&#x4F5C;&#x7528;.</li>
+<li><a href="https://reactjs.org/docs/hooks-reference.html#usecontext"><code>useContext()</code></a> &#x7528;&#x6765;&#x8BFB;&#x53D6;&#x4E00;&#x4E9B;&#x4E0A;&#x4E0B;&#x6587;.</li>
+</ul>
+<p>&#x4F46;&#x662F;&#x50CF; <code>React.memo()</code> and <code>&lt;Context.Provider&gt;</code>&#xFF0C;&#x8FD9;&#x4E9B; API &#x5B83;&#x4EEC; <em>&#x4E0D;&#x662F;</em> Hooks &#x3002;&#x4E00;&#x822C;&#x6765;&#x8BF4;&#xFF0C;&#x8FD9;&#x4E9B; Hook &#x7248;&#x672C;&#x7684; API &#x88AB;&#x8BA4;&#x4E3A;&#x662F; <em>&#x975E;&#x7EC4;&#x4EF6;&#x5316;</em> &#x6216; <em>&#x53CD;&#x6A21;&#x5757;&#x5316;</em>&#x7684;. &#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x5C06;&#x5E2E;&#x52A9;&#x4F60;&#x7406;&#x89E3;&#x5176;&#x4E2D;&#x7684;&#x539F;&#x7406;&#x3002;</p>
+<p><strong>&#x6CE8;&#x610F;: &#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x662F;&#x9488;&#x5BF9; API &#x7231;&#x597D;&#x8005;&#x6240;&#x8BA8;&#x8BBA;&#x7684;&#x3002;&#x4F60;&#x4E0D;&#x5FC5;&#x5728;&#x6B63;&#x5F0F;&#x7248;&#x672C;&#x7684; React &#x4E2D;&#x5173;&#x5FC3;&#x8FD9;&#x4E9B;</strong></p>
+<hr>
+<p>&#x4EE5;&#x4E0B;&#x4E24;&#x4E2A;&#x91CD;&#x8981;&#x7684;&#x5C5E;&#x6027;&#x662F;&#x6211;&#x4EEC;&#x5E0C;&#x671B; React &#x7684; APIs &#x6240;&#x62E5;&#x6709;&#x7684;&#xFF1A;</p>
+<ol>
+<li>
+<p><strong>&#x53EF;&#x7EC4;&#x5408;:</strong> <a href="https://reactjs.org/docs/hooks-custom.html">Custom Hooks&#xFF08;&#x81EA;&#x5B9A;&#x4E49; Hooks&#xFF09;</a> are largely the reason we&#x2019;re excited about the Hooks API. We expect people to build their own Hooks very often, and we need to make sure Hooks written by different people <a href="../why-do-hooks-rely-on-call-order/#flaw-4-the-diamond-problem">don&apos;t conflict</a>. (Aren&#x2019;t we all spoiled by how components compose cleanly and don&#x2019;t break each other?)</p>
+</li>
+<li>
+<p><strong>&#x53EF;&#x8C03;&#x8BD5;:</strong> We want the bugs to be <a href="../the-bug-o-notation">easy to find</a> as the application grows. One of React&apos;s best features is that if you see something wrong rendered, you can walk up the tree until you find which component&apos;s prop or state caused the mistake.</p>
+</li>
+</ol>
+<p>These two constraints put together can tell us what can or <em>cannot</em> be a Hook. Let&#x2019;s try a few examples.</p>
+<hr>
+<h2 class="mume-header" id="a-real-hook-usestate">A Real Hook: <code>useState()</code></h2>
+
+<h3 class="mume-header" id="composition">Composition</h3>
+
+<p>Multiple custom Hooks each calling <code>useState()</code> don&#x2019;t conflict:</p>
+<pre data-role="codeBlock" data-info="js" class="language-javascript"><span class="token keyword">function</span> <span class="token function">useMyCustomHook1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>value<span class="token punctuation">,</span> setValue<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// What happens here, stays here.</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">useMyCustomHook2</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>value<span class="token punctuation">,</span> setValue<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// What happens here, stays here.</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">MyComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">useMyCustomHook1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">useMyCustomHook2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</pre><p>Adding a new unconditional <code>useState()</code> call is always safe. You don&#x2019;t need to know anything about other Hooks used by a component to declare a new state variable. You also can&#x2019;t break other state variables by updating one of them.</p>
+<p><strong>Verdict:</strong> &#x2705; <code>useState()</code> doesn&#x2019;t make custom Hooks fragile.</p>
+<h3 class="mume-header" id="debugging">Debugging</h3>
+
+<p>Hooks are useful because you can pass values <em>between</em> Hooks:</p>
+<pre data-role="codeBlock" data-info="js{4,12,14}" class="language-javascript"><span class="token keyword">function</span> <span class="token function">useWindowWidth</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>width<span class="token punctuation">,</span> setWidth<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span>window<span class="token punctuation">.</span>innerWidth<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// ...</span>
+  <span class="token keyword">return</span> width<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">useTheme</span><span class="token punctuation">(</span>isMobile<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">Comment</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> width <span class="token operator">=</span> <span class="token function">useWindowWidth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> isMobile <span class="token operator">=</span> width <span class="token operator">&lt;</span> <span class="token constant">MOBILE_VIEWPORT</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> theme <span class="token operator">=</span> <span class="token function">useTheme</span><span class="token punctuation">(</span>isMobile<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>section className<span class="token operator">=</span><span class="token punctuation">{</span>theme<span class="token punctuation">.</span>comment<span class="token punctuation">}</span><span class="token operator">&gt;</span>
+      <span class="token punctuation">{</span><span class="token comment">/* ... */</span><span class="token punctuation">}</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>section<span class="token operator">&gt;</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>But what if we make a mistake? What&#x2019;s the debugging story?</p>
+<p>Let&apos;s say the CSS class we get from <code>theme.comment</code> is wrong. How would we debug this? We can set a breakpoint or a few logs in the body of our component.</p>
+<p>Maybe we&#x2019;d see that <code>theme</code> is wrong but <code>width</code> and <code>isMobile</code> are correct. That would tell us the problem is inside <code>useTheme()</code>. Or perhaps we&apos;d see that <code>width</code> itself is wrong. That would tell us to look into <code>useWindowWidth()</code>.</p>
+<p><strong>A single look at the intermediate values tells us which of the Hooks at the top level contains the bug.</strong> We don&apos;t need to look at <em>all</em> of their implementations.</p>
+<p>Then we can &#x201C;zoom in&#x201D; on the one that has a bug, and repeat.</p>
+<p>This becomes more important if the depth of custom Hook nesting increases. Imagine we have 3 levels of custom Hook nesting, each level using 3 different custom Hooks inside. The <a href="../the-bug-o-notation">difference</a> between looking for a bug in <strong>3 places</strong> versus potentially checking <strong>3 + 3&#xD7;3 + 3&#xD7;3&#xD7;3 = 39 places</strong> is enormous. Luckily, <code>useState()</code> can&apos;t magically &#x201C;influence&#x201D; other Hooks or components. A buggy value returned by it leaves a trail behind it, just like any variable. &#x1F41B;</p>
+<p><strong>Verdict:</strong> &#x2705; <code>useState()</code> doesn&#x2019;t obscure the cause-effect relationship in our code. We can follow the breadcrumbs directly to the bug.</p>
+<hr>
+<h2 class="mume-header" id="not-a-hook-usebailout">Not a Hook: <code>useBailout()</code></h2>
+
+<p>As an optimization, components using Hooks can bail out of re-rendering.</p>
+<p>One way to do it is to put a <a href="https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactmemo"><code>React.memo()</code></a> wrapper around the whole component. It bails out of re-rendering if props are shallowly equal to what we had during the last render. This makes it similar to <code>PureComponent</code> in classes.</p>
+<p><code>React.memo()</code> takes a component and returns a component:</p>
+<pre data-role="codeBlock" data-info="js{4}" class="language-javascript"><span class="token keyword">function</span> <span class="token function">Button</span><span class="token punctuation">(</span>props<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> React<span class="token punctuation">.</span><span class="token function">memo</span><span class="token punctuation">(</span>Button<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p><strong>But why isn&#x2019;t it just a Hook?</strong></p>
+<p>Whether you call it <code>useShouldComponentUpdate()</code>, <code>usePure()</code>, <code>useSkipRender()</code>, or <code>useBailout()</code>, the proposal tends to look something like this:</p>
+<pre data-role="codeBlock" data-info="js" class="language-javascript"><span class="token keyword">function</span> <span class="token function">Button</span><span class="token punctuation">(</span><span class="token punctuation">{</span> color <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// &#x26A0;&#xFE0F; Not a real API</span>
+  <span class="token function">useBailout</span><span class="token punctuation">(</span>prevColor <span class="token operator">=&gt;</span> prevColor <span class="token operator">!==</span> color<span class="token punctuation">,</span> color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>button className<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">&apos;button-&apos;</span> <span class="token operator">+</span> color<span class="token punctuation">}</span><span class="token operator">&gt;</span>  
+      <span class="token constant">OK</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</pre><p>There are a few more variations (e.g. a simple <code>usePure()</code> marker) but in broad strokes they have the same flaws.</p>
+<h3 class="mume-header" id="composition-1">Composition</h3>
+
+<p>Let&#x2019;s say we try to put <code>useBailout()</code> in two custom Hooks:</p>
+<pre data-role="codeBlock" data-info="js{4,5,19,20}" class="language-javascript"><span class="token keyword">function</span> <span class="token function">useFriendStatus</span><span class="token punctuation">(</span>friendID<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>isOnline<span class="token punctuation">,</span> setIsOnline<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// &#x26A0;&#xFE0F; Not a real API</span>
+  <span class="token function">useBailout</span><span class="token punctuation">(</span>prevIsOnline <span class="token operator">=&gt;</span> prevIsOnline <span class="token operator">!==</span> isOnline<span class="token punctuation">,</span> isOnline<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">useEffect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">handleStatusChange</span> <span class="token operator">=</span> status <span class="token operator">=&gt;</span> <span class="token function">setIsOnline</span><span class="token punctuation">(</span>status<span class="token punctuation">.</span>isOnline<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ChatAPI<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>friendID<span class="token punctuation">,</span> handleStatusChange<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> ChatAPI<span class="token punctuation">.</span><span class="token function">unsubscribe</span><span class="token punctuation">(</span>friendID<span class="token punctuation">,</span> handleStatusChange<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> isOnline<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">useWindowWidth</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>width<span class="token punctuation">,</span> setWidth<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span>window<span class="token punctuation">.</span>innerWidth<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  <span class="token comment">// &#x26A0;&#xFE0F; Not a real API</span>
+  <span class="token function">useBailout</span><span class="token punctuation">(</span>prevWidth <span class="token operator">=&gt;</span> prevWidth <span class="token operator">!==</span> width<span class="token punctuation">,</span> width<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">useEffect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">handleResize</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">setWidth</span><span class="token punctuation">(</span>window<span class="token punctuation">.</span>innerWidth<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    window<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">&apos;resize&apos;</span><span class="token punctuation">,</span> handleResize<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> window<span class="token punctuation">.</span><span class="token function">removeEventListener</span><span class="token punctuation">(</span><span class="token string">&apos;resize&apos;</span><span class="token punctuation">,</span> handleResize<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> width<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>Now what happens if you use them both in the same component?</p>
+<pre data-role="codeBlock" data-info="js{2,3}" class="language-javascript"><span class="token keyword">function</span> <span class="token function">ChatThread</span><span class="token punctuation">(</span><span class="token punctuation">{</span> friendID<span class="token punctuation">,</span> isTyping <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> width <span class="token operator">=</span> <span class="token function">useWindowWidth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> isOnline <span class="token operator">=</span> <span class="token function">useFriendStatus</span><span class="token punctuation">(</span>friendID<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>ChatLayout width<span class="token operator">=</span><span class="token punctuation">{</span>width<span class="token punctuation">}</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>FriendStatus isOnline<span class="token operator">=</span><span class="token punctuation">{</span>isOnline<span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
+      <span class="token punctuation">{</span>isTyping <span class="token operator">&amp;&amp;</span> <span class="token string">&apos;Typing...&apos;</span><span class="token punctuation">}</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>ChatLayout<span class="token operator">&gt;</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>When does it re-render?</p>
+<p>If every <code>useBailout()</code> call has the power to skip an update, then updates from <code>useWindowWidth()</code> would be blocked by <code>useFriendStatus()</code>, and vice versa. <strong>These Hooks would break each other.</strong></p>
+<p>However, if <code>useBailout()</code> was only respected when <em>all</em> calls to it inside a single component &#x201C;agree&#x201D; to block an update, our <code>ChatThread</code> would fail to update on changes to the <code>isTyping</code> prop.</p>
+<p>Even worse, with these semantics <strong>any newly added Hooks to <code>ChatThread</code> would break if they don&#x2019;t <em>also</em> call <code>useBailout()</code></strong>. Otherwise, they can&#x2019;t &#x201C;vote against&#x201D; the bailout inside <code>useWindowWidth()</code> and <code>useFriendStatus()</code>.</p>
+<p><strong>Verdict:</strong> &#x1F534; <code>useBailout()</code> breaks composition. Adding it to a Hook breaks state updates in other Hooks. We want the APIs to be <a href="../optimized-for-change">antifragile</a>, and this behavior is pretty much the opposite.</p>
+<h3 class="mume-header" id="debugging-1">Debugging</h3>
+
+<p>How does a Hook like <code>useBailout()</code> affect debugging?</p>
+<p>We&#x2019;ll use the same example:</p>
+<pre data-role="codeBlock" data-info="js" class="language-javascript"><span class="token keyword">function</span> <span class="token function">ChatThread</span><span class="token punctuation">(</span><span class="token punctuation">{</span> friendID<span class="token punctuation">,</span> isTyping <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> width <span class="token operator">=</span> <span class="token function">useWindowWidth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> isOnline <span class="token operator">=</span> <span class="token function">useFriendStatus</span><span class="token punctuation">(</span>friendID<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>ChatLayout width<span class="token operator">=</span><span class="token punctuation">{</span>width<span class="token punctuation">}</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>FriendStatus isOnline<span class="token operator">=</span><span class="token punctuation">{</span>isOnline<span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
+      <span class="token punctuation">{</span>isTyping <span class="token operator">&amp;&amp;</span> <span class="token string">&apos;Typing...&apos;</span><span class="token punctuation">}</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>ChatLayout<span class="token operator">&gt;</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>Let&#x2019;s say the <code>Typing...</code> label doesn&#x2019;t appear when we expect, even though somewhere many layers above the prop is changing. How do we debug it?</p>
+<p><strong>Normally, in React you can confidently answer this question by looking <em>up</em>.</strong> If <code>ChatThread</code> doesn&#x2019;t get a new <code>isTyping</code> value, we can open the component that renders <code>&lt;ChatThread isTyping={myVar} /&gt;</code> and check <code>myVar</code>, and so on. At one of these levels, we&#x2019;ll either find a buggy <code>shouldComponentUpdate()</code> bailout, or an incorrect <code>isTyping</code> value being passed down. One look at each component in the chain is usually enough to locate the source of the problem.</p>
+<p>However, if this <code>useBailout()</code> Hook was real, you would never know the reason an update was skipped until you checked <em>every single custom Hook</em> (deeply) used by our <code>ChatThread</code> and components in its owner chain. Since every parent component can <em>also</em> use custom Hooks, this <a href="../the-bug-o-notation">scales</a> terribly.</p>
+<p>It&#x2019;s like if you were looking for a screwdriver in a chest of drawers, and each drawer contained a bunch of smaller chests of drawers, and you don&#x2019;t know how deep the rabbit hole goes.</p>
+<p><strong>Verdict:</strong> &#x1F534; Not only <code>useBailout()</code> Hook breaks composition, but it also vastly increases the number of debugging steps and cognitive load for finding a buggy bailout &#x2014; in some cases, exponentially.</p>
+<hr>
+<p>We just looked at one real Hook, <code>useState()</code>, and a common suggestion that is intentionally <em>not</em> a Hook &#x2014; <code>useBailout()</code>. We compared them through the prism of Composition and Debugging, and discussed why one of them works and the other one doesn&#x2019;t.</p>
+<p>While there is no &#x201C;Hook version&#x201D; of <code>memo()</code> or <code>shouldComponentUpdate()</code>, React <em>does</em> provide a Hook called <a href="https://reactjs.org/docs/hooks-reference.html#usememo"><code>useMemo()</code></a>. It serves a similar purpose, but its semantics are different enough to not run into the pitfalls described above.</p>
+<p><code>useBailout()</code> is just one example of something that doesn&#x2019;t work well as a Hook. But there are a few others &#x2014; for example, <code>useProvider()</code>, <code>useCatch()</code>, or <code>useSuspense()</code>.</p>
+<p>Can you see why?</p>
+<p><em>(Whispers: Composition... Debugging...)</em></p>
+<p><a href="https://mobile.twitter.com/search?q=https%3A%2F%2Foverreacted.io%2Fwhy-isnt-x-a-hook%2F">Discuss on Twitter</a> &#x2022; <a href="https://github.com/gaearon/overreacted.io/edit/master/src/pages/why-isnt-x-a-hook/index.md">Edit on GitHub</a></p>
+<blockquote>
+<p>&#x5982;&#x679C;&#x53D1;&#x73B0;&#x8BD1;&#x6587;&#x5B58;&#x5728;&#x9519;&#x8BEF;&#x6216;&#x5176;&#x4ED6;&#x9700;&#x8981;&#x6539;&#x8FDB;&#x7684;&#x5730;&#x65B9;&#xFF0C;&#x6B22;&#x8FCE;&#x5230; <a href="https://github.com/xitu/gold-miner">&#x6398;&#x91D1;&#x7FFB;&#x8BD1;&#x8BA1;&#x5212;</a> &#x5BF9;&#x8BD1;&#x6587;&#x8FDB;&#x884C;&#x4FEE;&#x6539;&#x5E76; PR&#xFF0C;&#x4E5F;&#x53EF;&#x83B7;&#x5F97;&#x76F8;&#x5E94;&#x5956;&#x52B1;&#x79EF;&#x5206;&#x3002;&#x6587;&#x7AE0;&#x5F00;&#x5934;&#x7684; <strong>&#x672C;&#x6587;&#x6C38;&#x4E45;&#x94FE;&#x63A5;</strong> &#x5373;&#x4E3A;&#x672C;&#x6587;&#x5728; GitHub &#x4E0A;&#x7684; MarkDown &#x94FE;&#x63A5;&#x3002;</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><a href="https://github.com/xitu/gold-miner">&#x6398;&#x91D1;&#x7FFB;&#x8BD1;&#x8BA1;&#x5212;</a> &#x662F;&#x4E00;&#x4E2A;&#x7FFB;&#x8BD1;&#x4F18;&#x8D28;&#x4E92;&#x8054;&#x7F51;&#x6280;&#x672F;&#x6587;&#x7AE0;&#x7684;&#x793E;&#x533A;&#xFF0C;&#x6587;&#x7AE0;&#x6765;&#x6E90;&#x4E3A; <a href="https://juejin.im">&#x6398;&#x91D1;</a> &#x4E0A;&#x7684;&#x82F1;&#x6587;&#x5206;&#x4EAB;&#x6587;&#x7AE0;&#x3002;&#x5185;&#x5BB9;&#x8986;&#x76D6; <a href="https://github.com/xitu/gold-miner#android">Android</a>&#x3001;<a href="https://github.com/xitu/gold-miner#ios">iOS</a>&#x3001;<a href="https://github.com/xitu/gold-miner#%E5%89%8D%E7%AB%AF">&#x524D;&#x7AEF;</a>&#x3001;<a href="https://github.com/xitu/gold-miner#%E5%90%8E%E7%AB%AF">&#x540E;&#x7AEF;</a>&#x3001;<a href="https://github.com/xitu/gold-miner#%E5%8C%BA%E5%9D%97%E9%93%BE">&#x533A;&#x5757;&#x94FE;</a>&#x3001;<a href="https://github.com/xitu/gold-miner#%E4%BA%A7%E5%93%81">&#x4EA7;&#x54C1;</a>&#x3001;<a href="https://github.com/xitu/gold-miner#%E8%AE%BE%E8%AE%A1">&#x8BBE;&#x8BA1;</a>&#x3001;<a href="https://github.com/xitu/gold-miner#%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD">&#x4EBA;&#x5DE5;&#x667A;&#x80FD;</a>&#x7B49;&#x9886;&#x57DF;&#xFF0C;&#x60F3;&#x8981;&#x67E5;&#x770B;&#x66F4;&#x591A;&#x4F18;&#x8D28;&#x8BD1;&#x6587;&#x8BF7;&#x6301;&#x7EED;&#x5173;&#x6CE8; <a href="https://github.com/xitu/gold-miner">&#x6398;&#x91D1;&#x7FFB;&#x8BD1;&#x8BA1;&#x5212;</a>&#x3001;<a href="http://weibo.com/juejinfanyi">&#x5B98;&#x65B9;&#x5FAE;&#x535A;</a>&#x3001;<a href="https://zhuanlan.zhihu.com/juejinfanyi">&#x77E5;&#x4E4E;&#x4E13;&#x680F;</a>&#x3002;</p>
+</blockquote>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
