@@ -9,13 +9,13 @@
 
 React Native 流行的最大原因之一是我们可以在 Native 语言和 JavaScript 代码之间建立桥梁。 这意味着我们可以复用在 iOS 和 Android 中创建的所有可重用库。
 
-要创建一个商业等级应用程序，您需要使用Native Bridge。 关于跨平台React Native的文章和教程非常少，它可以同时在 iOS 和 Android 上运行。 在本文中，我们将创建一个 Native Bridge ，以便从 JavaScript 访问 Swift 和 Java 类。
+要创建一个商业级的应用程序，您需要使用Native Bridge。React Native 可以同时在 iOS 和 Android 上运行，但关于它如何跨平台的文章教程非常少。 在本文中，我们将创建一个 Native Bridge ，以便从 JavaScript 访问 Swift 和 Java 类。
 
-这是第一部分, 第二部分可以在 **Native Bridge of UI component** 中找到。 [这里](https://hackernoon.com/react-native-bridge-for-android-and-ios-ui-component-782cb4c0217d).
+文本是此系列的第一部分，第二部分可以在 **Native Bridge of UI component** 中找到 [这里](https://hackernoon.com/react-native-bridge-for-android-and-ios-ui-component-782cb4c0217d)。
 
 > 代码可以在这里找到 -> [https://github.com/nalwayaabhishek/LightApp](https://github.com/nalwayaabhishek/LightApp)
 
-### 创建一个LightApp（开关灯）
+### 创建一个 LightApp（手电筒）
 
 为了更好地理解 Native Module，我们将使用 react-native CLI 创建一个简单的 LightApp 示例。
 
@@ -24,44 +24,43 @@ $ react-native init LightApp
 $ cd LightApp
 ```
 
-接下来，我们将在 Swift 和 Java 中创建一个 `Bulb` 类，这将在 React 组件中被使用。 **这是一个跨平台的示例，相同的 React 代码将同时适用于iOS和Android。**
+接下来，我们将在 Swift 和 Java 中创建一个 `Bulb` 类，稍后将在 React 组件中使用它。**这是一个跨平台的示例，相同的 React 代码将同时适用于iOS和Android。**
 
-由于我们已经创建了项目的基本框架，接下来我们将本文分为两部分：
+现在我们已经创建了项目的基本框架，接下来我们将本文分为两部分：
 
-_Section 1 — Native Bridge in iOS_
-_第一节 — 与原生 IOS 通信_
+_第一节 — 与原生 iOS 通信_
 
 _第二节 — 与原生 Android 通信_
 
-#### **第一节 — 与原生 IOS 通信**
+#### **第一节 — 与原生 iOS 通信**
 
-在本节中，我们将重点介绍 iOS 并在 Swift / Objective C 和您的 React 组件之间创建一个桥梁。 有以下三个步骤：
+在本节中，我们将重点关注 iOS，了解如何在 Swift/Objective C 和 React 组件间建立桥梁。有以下三个步骤：
 
-_步骤  1) 创建一个  Bulb 类 并且完整初步通信_
+_步骤 1) 创建一个  Bulb 类 并且完整初步通信_
 
-_步骤 2) 理解 GCD Queue并且解决出现的警告_
+_步骤 2) 理解 GCD Queue 并且解决出现的警告_
 
-_步骤 3) 从Swift和Callbacks访问JavaScript中的变量_
+_步骤 3) 从 Swift 和 Callbacks 访问 JavaScript 中的变量_
 
-**步骤  1) 创建一个  Bulb 类 并且完整初步通信**
+**步骤 1) 创建一个  Bulb 类 并且完成初步通信**
 
-首先，我们将在 swift 中创建一个 Bulb 类，它将具有一个静态类变量 `isOn` 和一些其他函数。 然后我们将从 Javascript 访问这个 swift 类。 让我们首先在 ios 文件夹中打开 _LightApp.xcodeproj_ 文件。 它应该会打开 Xcode。
+首先，我们将在 swift 中创建一个 Bulb 类，它将具有一个静态类变量 `isOn` 和一些其他函数。然后我们将从 Javascript 访问这个 swift 类。让我们首先在 ios 文件夹中打开 _LightApp.xcodeproj_ 文件。此时 Xcode 应该会被打开。
 
-一旦在 Xcode 中打开项目，然后我们创建一个新的 Swif t文件 Bulb.swift ，如下所示：
+在 Xcode 中打开项目后，创建一个新的 Swift文件 Bulb.swift，如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*FxPFgst2EC5MBA0bx0OcJA.gif)
 
-我们还点击了 Create Bridging Header，它将创建一个文件 `LightApp-Bridging-Header.h`这将有助于 Swift 和 Objective C 代码之间的通信。 请记住，在项目中，我们只有一个 Bridge Header 文件。 因此，如果我们添加新文件，我们可以重用此文件。
+我们还要点击 Create Bridging Header，创建一个文件 `LightApp-Bridging-Header.h` 它将有助于 Swift 和 Objective C 代码之间的通信。请记住，在项目中，我们只有一个 Bridge Header 文件。因此，如果我们添加新文件，我们可以重用此文件。
 
-更新 `LightApp-Bridging-Header.h` 文件为以下代码：
+将以下代码加入 `-Bridging-Header.h` 文件：
 
 ```
 #import "React/RCTBridgeModule.h"
 ```
 
-RCTBridgeModul 将提供一个注册原生与 js 桥接模块的接口。
+RCTBridgeModul 将提供一个接口，用于注册 Bridge 模块。
 
-接下来更新 `Bulb.swift` 的代码为：
+接下来将以下代码输入 `Bulb.swift`：
 
 ```
 import Foundation
@@ -80,11 +79,11 @@ class Bulb: NSObject {
 }
 ```
 
-我们创建了 `Bulb` 类，它继承自  _NSObject_ 。 大多数 Objective-C 类的根类是 _NSObject_，子类从该类继承运行系统的基本接口，并因此具有可以表现为 Objective-C 对象。 我们可以看到我们在函数和类之前使用了 @objc，这将使那个类，方法或对象可用于 Objective C 。
+我们创建了 `Bulb` 类，它继承自  _NSObject_。大多数 Objective-C 类的根类是 _NSObject_，子类从该类继承运行时系统的基本接口，因此它们有与 Objective-C 对象相同的能力。我们在函数和类之前使用了 @objc，这将使那个类，方法或对象可用于 Objective C。
 
-> @objc 属性使您的 Swift API 在 Objective-C 和 Objective-C 运行时可用。
+> @objc 注解使您的 Swift API 在 Objective-C 和 Objective-C 运行时可用。
 
-现在选择 _File  - > New  - > File_ 创建一个新文件，然后选择 Objective-C 文件，然后将该文件命名为_Bulb.m_ 并添加以下代码：
+现在选择 _File -> New -> File_ 创建一个新文件，然后选择 Objective-C 文件，然后将该文件命名为 _Bulb.m_ 并添加以下代码：
 
 ```
 #import "React/RCTBridgeModule.h"
