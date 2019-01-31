@@ -109,7 +109,7 @@ function Comment() {
 
 作为一个优化点, 组件使用 Hooks 可以避免重复渲染（re-rendering）。
 
-其中一个方法是使用 [`React.memo()`](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactmemo) 包裹住整个组件。 如果 props 和上次渲染完之后对比浅相等，就可以避免重复渲染 。这和classes中的`PureComponent` 很像。
+其中一个方法是使用 [`React.memo()`](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactmemo) 包裹住整个组件。 如果 props 和上次渲染完之后对比浅相等，就可以避免重复渲染 。这和classes中的`PureComponent` 很像。
 
 `React.memo()` 接受一个组件作为参数，并返回一个组件：
 
