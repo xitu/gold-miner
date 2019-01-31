@@ -15,11 +15,11 @@ _注释：本文只展示了 Python 和 Go 生成代码的例子。我们也支�
 
 ## The road to gRPC
 
-Courier 不是 Dropbox 的第一个 RPC 框架。在我们正式开始将庞大的的 Python 程序拆成多个服务之前，服务之间的通信需要有牢固的基础。这很大程度上是因为我们选择的 RPC 所隐含的高可靠性。
+Courier 不是 Dropbox 的第一个 RPC 框架。在我们正式开始将庞大的的 Python 程序拆成多个服务之前，我们就认识到服务之间的通信需要有牢固的基础，所以选择一个高可靠性的 RPC 框架就显得尤其关键。
 
 开始之前，Dropbox 调研了多个 RPC 框架。首先，我们从传统的手动序列化和反序列化的协议着手，比如我们用 [Apache Thrift](https://github.com/apache/thrift) 搭建的[基于 Scribe 的日志管道](https://blogs.dropbox.com/tech/2015/05/how-to-write-a-better-scribe/)之类的服务。但我们主要的 RPC 框架（传统的 RPC）是基于 HTTP/1.1 协议并使用 protobuf 编码消息。
 
-我们的新框架有几个候选项。我们可以升级遗留的 RPC 框架使其兼容Swagger（现在叫 [OpenAPI](https://github.com/OAI/OpenAPI-Specification)），或者[建立新标准](https://xkcd.com/927/)，也可以考虑在 Thrift 和 gRPC 的基础上开发。
+我们的新框架有几个候选项。我们可以升级遗留的 RPC 框架使其兼容 Swagger（现在叫 [OpenAPI](https://github.com/OAI/OpenAPI-Specification)），或者[建立新标准](https://xkcd.com/927/)，也可以考虑在 Thrift 和 gRPC 的基础上开发。
 
 我们最终选择 gRPC 主要是因为它允许我们沿用 protobuf。对于我们的情况，多路 HTTP/2 传输和双向流也很有吸引力。
 
@@ -27,7 +27,7 @@ Courier 不是 Dropbox 的第一个 RPC 框架。在我们正式开始将庞大�
 
 ## Courier 给 gRPC 带来了什么
 
-Courier 不是一个新的 RPC 协议 —— 它只是 Dropbox 用来兼容 gRPC和原有基础设施的解决方案。例如，只有使用指定版本的验证、授权和服务发现时它才能工作。它还必须兼容我们的统计、事件日志和追踪工具。所有这些的结果才是我们所说的 Courier。
+Courier 不是一个新的 RPC 协议 —— 它只是 Dropbox 用来兼容 gRPC 和原有基础设施的解决方案。例如，只有使用指定版本的验证、授权和服务发现时它才能工作。它还必须兼容我们的统计、事件日志和追踪工具。满足所有这些条件才是我们所说的 Courier。
 
 > 尽管我们支持在一些特殊情况下使用 [Bandaid](https://blogs.dropbox.com/tech/2018/03/meet-bandaid-the-dropbox-service-proxy/) 作为 gRPC 代理，但为了减小 RPC 的延迟，大多数服务间的通信并不使用代理。
 
@@ -63,7 +63,7 @@ limits:
 
 ![](https://dropboxtechblog.files.wordpress.com/2019/01/02-screenshot2018-12-0317.31.03.png?w=650&h=358)
 
-> 我们在考虑使用[每个人都该用的安全生产标识框架](https://spiffe.io/) (SPIFFE)中的 SPIFFE 可验证标识证件。这将是我们的 RPC 框架与众多开源项目兼容。
+> 我们在考虑使用[每个人都该用的安全生产标识框架](https://spiffe.io/) (SPIFFE)中的 SPIFFE 可验证标识证件。这将使我们的 RPC 框架与众多开源项目兼容。
 
 ### 可观察性：统计和追踪
 
