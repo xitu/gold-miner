@@ -25,9 +25,9 @@
 
 以下两个重要的属性是我们希望 React 的 APIs 应该拥有的：
 
-1. **可组合:** [Custom Hooks（自定义 Hooks）](https://reactjs.org/docs/hooks-custom.html)是我们觉得 Hooks 的 API 非常好用的部分. 我们希望开发者们经常使用自定义 hooks, 这样就需要确保不同开发者所写的hooks [不会冲突](/why-do-hooks-rely-on-call-order/#flaw-4-the-diamond-problem). (撰写干净并且不会相互冲突的组件实在太棒了)
+1. **可组合:** [Custom Hooks（自定义 Hooks）](https://reactjs.org/docs/hooks-custom.html)是我们觉得 Hooks 的 API 非常好用的部分. 我们希望开发者们经常使用自定义 hooks, 这样就需要确保不同开发者所写的hooks [不会冲突](/why-do-hooks-rely-on-call-order/#flaw-4-the-diamond-problem). (撰写干净并且不会相互冲突的组件实在太棒了)
 
-2. **可调试:** 随着应用的膨胀，我们希望 bug 很[容易被发现](/the-bug-o-notation/) 。 React最棒的特性之一就是，当你发现某些渲染错误的时候，你可以顺着组件树寻找，直到找出是哪一个组件的 props 或 state 的值导致的错误。
+2. **可调试:** 随着应用的膨胀，我们希望 bug 很[容易被发现](/the-bug-o-notation/) 。 React最棒的特性之一就是，当你发现某些渲染错误的时候，你可以顺着组件树寻找，直到找出是哪一个组件的 props 或 state 的值导致的错误。
 
 把这两个约束作为指导，就可以告诉我们哪些是或*不是* 一个标准 Hook。 我们来一起看一些例子。
 
@@ -94,14 +94,14 @@ function Comment() {
 
 我们可能会发现 `theme` 是错的，但是 `width` 和 `isMobile` 是对的。这会提示我们问题出在 `useTheme()` 内部。 又或许我们发现 `width` 本身是错的。这可以指引我们去查看 `useWindowWidth()`。
 
-**简单看一下中间值就能指导我们哪个顶层的 Hooks 有 bug。** 我们不需要挨个去查看他们*所有的*实现。
+**简单看一下中间值就能指导我们哪个顶层的 Hooks 有 bug。** 我们不需要挨个去查看他们*所有的*实现。
 
 这样，我们就能 “放大” 查看有 bug 的部分，重复此操作。
 
 如果我们的自定义 Hook 嵌套的层级加深的时候，这一点就显得很重要了。
 假设一下我们有一个3级嵌套的自定义 Hook , 每一层级的内部又用了 3 个不同的自定义 Hooks 。在 **3 处**找bug和最多**3 + 3×3 + 3×3×3 = 39 处**找bug的[区别](/the-bug-o-notation/)是巨大的。幸运的是， `useState()` 不会魔法般的 “影响” 其他 Hooks 或组件。 当一个容易出 bug 的值被返回出来的时候，会在它后面留下长长的痕迹， 就像任何多变的🐛一样。
 
-**结论:** ✅ `useState()` 不会使你的代码逻辑变得模糊不清，我们可以跟着面包屑寻找直接找到 bug 。
+**结论:** ✅ `useState()` 不会使你的代码逻辑变得模糊不清，我们可以跟着面包屑寻找直接找到 bug 。
 
 ---
 
@@ -222,11 +222,11 @@ function ChatThread({ friendID, isTyping }) {
 
 事实上即使 prop 上层的某处改变了，`Typing...` 这个标记也不会像我们期望的那样出现。 那么我们怎么调试呢？
 
-**一般来说， 在 React 中你可以通过向*上*寻找的办法，自信的回答这个问题。** 如果 `ChatThread` 没有得到新的 `isTyping` 的值， 我们可以打开那个渲染`<ChatThread isTyping={myVar} />`的组件，检查 `myVar`，诸如此类。 在其中的某一层， 我们会发现要么是容易出错的 `shouldComponentUpdate()` 跳过了渲染, 要么是一个错误的 `isTyping`的值被传递了下来。通常来说查看这条链路上的每个组件，已经足够定位到问题的来源了。
+**一般来说， 在 React 中你可以通过向*上*寻找的办法，自信的回答这个问题。** 如果 `ChatThread` 没有得到新的 `isTyping` 的值， 我们可以打开那个渲染`<ChatThread isTyping={myVar} />`的组件，检查 `myVar`，诸如此类。 在其中的某一层， 我们会发现要么是容易出错的 `shouldComponentUpdate()` 跳过了渲染, 要么是一个错误的 `isTyping`的值被传递了下来。通常来说查看这条链路上的每个组件，已经足够定位到问题的来源了。
 
-然而, 假如这个 `useBailout()` 真是个 Hook，如果你不检查我们在`ChatThread`中用到的*每一个自定义 Hook* (深的) 和在各自链路上的所有组件，你永远都不会知道跳过这次更新的原因。  更因为任何父组件*也*可能会用到自定义 Hooks， 这个[规模](/the-bug-o-notation/) 很恐怖。
+然而, 假如这个 `useBailout()` 真是个 Hook，如果你不检查我们在`ChatThread`中用到的*每一个自定义 Hook* (深的) 和在各自链路上的所有组件，你永远都不会知道跳过这次更新的原因。  更因为任何父组件*也*可能会用到自定义 Hooks， 这个[规模](/the-bug-o-notation/) 很恐怖。
 
-这就像你要在抽屉里找一把螺丝刀， 而每一层抽屉里都包含一堆小抽屉，这样的话你无法想象爱丽丝仙境中的兔子洞有多深。
+这就像你要在抽屉里找一把螺丝刀， 而每一层抽屉里都包含一堆小抽屉，这样的话你无法想象爱丽丝仙境中的兔子洞有多深。
 
 **结论:** 🔴 `useBailout()` 不仅破坏了可组合性, 也极大的增加了调试的步骤和找 bug 过程的认知负担 — 某些时候，是指数级的。
 
