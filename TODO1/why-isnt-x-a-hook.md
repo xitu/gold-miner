@@ -25,7 +25,7 @@
 
 以下两个重要的属性是我们希望 React 的 APIs 应该拥有的：
 
-1. **可组合:** [Custom Hooks（自定义 Hooks）](https://reactjs.org/docs/hooks-custom.html)是我们觉得 Hooks 的 API 非常好用的部分. 我们希望开发者们经常使用自定义 hooks, 这样就需要确保不同开发者所写的hooks [不会冲突](/why-do-hooks-rely-on-call-order/#flaw-4-the-diamond-problem). (撰写干净并且不会相互冲突的组件实在太棒了)
+1. **可组合:** [Custom Hooks（自定义 Hooks）](https://reactjs.org/docs/hooks-custom.html)是我们觉得 Hooks 的 API 非常好用的部分. 我们希望开发者们经常使用自定义 hooks, 这样就需要确保不同开发者所写的hooks [不会冲突](/why-do-hooks-rely-on-call-order/#flaw-4-the-diamond-problem)。 (撰写干净并且不会相互冲突的组件实在太棒了)
 
 2. **可调试:** 随着应用的膨胀，我们希望 bug 很[容易被发现](/the-bug-o-notation/) 。 React最棒的特性之一就是，当你发现某些渲染错误的时候，你可以顺着组件树寻找，直到找出是哪一个组件的 props 或 state 的值导致的错误。
 
@@ -90,7 +90,7 @@ function Comment() {
 
 但是如果我们的代码出错了呢？我们又该怎么调试？
 
-我们先假设，从 `theme.comment` 拿到的 CSS 的类是错的。我们该怎么调试? 我们可以打一个断点或者在我们的组件体内加一些log。
+我们先假设，从 `theme.comment` 拿到的 CSS 的类是错的。我们该怎么调试? 我们可以打一个断点或者在我们的组件体内加一些log。
 
 我们可能会发现 `theme` 是错的，但是 `width` 和 `isMobile` 是对的。这会提示我们问题出在 `useTheme()` 内部。 又或许我们发现 `width` 本身是错的。这可以指引我们去查看 `useWindowWidth()`。
 
@@ -111,7 +111,7 @@ function Comment() {
 
 其中一个方法是使用 [`React.memo()`](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactmemo) 包裹住整个组件。 如果 props 和上次渲染完之后对比浅相等，就可以避免重复渲染 。这和classes中的`PureComponent` 很像。
 
-`React.memo()` 接受一个组件作为参数，并返回一个组件：
+`React.memo()` 接受一个组件作为参数，并返回一个组件：
 
 ```js{4}
 function Button(props) {
@@ -141,7 +141,7 @@ function Button({ color }) {
 
 ### 可组合
 
-我们来试试把 `useBailout()` 放在2个自定义 Hooks 中:
+我们来试试把 `useBailout()` 放在2个自定义 Hooks 中:
 
 ```js{4,5,19,20}
 function useFriendStatus(friendID) {
@@ -232,7 +232,7 @@ function ChatThread({ friendID, isTyping }) {
 
 ---
 
-我们回头来看看一个真正的 Hook，`useState()`， 和一个一般意义上来说*不是* Hook的 — `useBailout()`。 我们从可组合和可调试的这两个方面来对比他们，来讨论为什么其中一个可以工作，但是另一个不可以。
+我们回头来看看一个真正的 Hook，`useState()`， 和一个一般意义上来说*不是* Hook的 — `useBailout()`。 我们从可组合和可调试的这两个方面来对比他们，来讨论为什么其中一个可以工作，但是另一个不可以。
 
 尽管现在没有 “Hook 版本的 `memo()` 或 `shouldComponentUpdate()`， 但 React *确实*提供了一个名叫[`useMemo()`](https://reactjs.org/docs/hooks-reference.html#usememo)的 Hook 。 它有类似的作用，但是他的语义足够让人们不陷入我们之前说的陷阱。
 
