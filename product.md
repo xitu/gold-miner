@@ -1,3 +1,4 @@
+* [产品管理思维模式适合每一个人](https://juejin.im/post/5c2c266ae51d4511fb7db0c7) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
 * [苹果公司如何颠覆瑞士制表业](https://juejin.im/post/5bdc1f3c6fb9a049a9792211) ([noturnot](https://github.com/noturnot) 翻译)
 * [如何让你的设计系统被广泛采用](https://juejin.im/post/5bb6118af265da0af609c581) ([rydensun](https://github.com/rydensun) 翻译)
 * [如果界面产品设计师设计实体产品](https://juejin.im/post/5baf9697e51d456f087ba2a8) ([ssshooter](https://github.com/ssshooter) 翻译)

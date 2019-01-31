@@ -1,3 +1,6 @@
+* [UX 设计实践：如何设计可扫描的 Web 界面](https://juejin.im/post/5c34af846fb9a049a42f39d8) ([Ivocin](https://github.com/Ivocin) 翻译)
+* [一份关于色彩无障碍性产品设计的指南](https://juejin.im/post/5c2c233d6fb9a049bd4266b7) ([Hopsken](https://github.com/Hopsken) 翻译)
+* [快速原型设计的新手指南](https://juejin.im/user/585b9407da2f6000657a5c0c) ([rydensun](https://github.com/rydensun) 翻译)
 * [我是如何在谷歌找到 UX 设计的工作的](https://juejin.im/post/5bea544ff265da6112048e3c) ([rydensun](https://github.com/rydensun) 翻译)
 * [设计师的决策树](https://juejin.im/post/5befd61ee51d4557fe34e944) ([zhmhhu](https://github.com/zhmhhu) 翻译)
 * [动效设计可以很简单](https://juejin.im/post/5bd11a176fb9a05d101423c0) ([rydensun](https://github.com/rydensun) 翻译)
