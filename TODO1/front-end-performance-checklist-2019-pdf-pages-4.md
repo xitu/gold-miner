@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
 > * 译者：[Ivocin](https://github.com/Ivocin)
-> * 校对者：
+> * 校对者：[ziyin feng](https://github.com/Fengziyin1234)
 
 # 2019 前端性能优化年度总结 — 第四部分
 
@@ -20,7 +20,7 @@
 
 - [优化构建](#build-optimizations)
    - [22.确定优先级](#22-确定优先级)
-   - [23.再次使用优秀的 “cutting-the-mustard” 技术](#23-再次使用优秀的-cutting-the-mustard-技术)
+   - [23.再次使用优秀的“符合最低要求”技术](#23-再次使用优秀的“符合最低要求”技术)
    - [24.解析 JavaScript 是耗时的，所以让它体积小](#24-解析-javascript-是耗时的所以让它体积小)
    - [25.使用了摇树、作用域提升和代码分割吗](#25-使用了摇树作用域提升和代码分割吗)
    - [26.可以将 JavaScript 切换到 Web Worker 中吗？](#26-可以将-javascript-切换到-web-worker-中吗)
@@ -41,19 +41,19 @@
 
 #### 22. 确定优先级
 
-首先要了解你在处理什么。列出你全部的静态资源清单（JavaScript、图片、字体、第三方脚本以及页面上的大模块：如轮播图、复杂的信息图表和多媒体内容），并将它们分组。
+要了解你首先要处理什么。列出你全部的静态资源清单（JavaScript、图片、字体、第三方脚本以及页面上的大模块：如轮播图、复杂的信息图表和多媒体内容），并将它们分组。
 
 新建一个电子表格。定义旧版浏览器的基本**核心**体验（即完全可访问的核心内容）、现代浏览器的**增强**体验（即更加丰富的完整体验）以及**额外功能**（可以延迟加载的非必需的资源：例如网页字体、不必要的样式、轮播脚本、视频播放器、社交媒体按钮和大图片）。不久前，我们发表了一篇关于“[提升 Smashing 杂志网站性能](https://www.smashingmagazine.com/2014/09/improving-smashing-magazine-performance-case-study/)”的文章，文中详细描述了这种方法。
 
 在优化性能时，我们需要确定我们的优先事项。立即加载**核心体验**，然后加载**增强体验**，最后加载**额外功能**。
 
-#### 23. 再次使用优秀的 “cutting-the-mustard” 技术
+#### 23. 再次使用优秀的“符合最低要求”技术
 
-如今，我们仍然可以使用 [cutting-the-mustard 技术](https://www.filamentgroup.com/lab/modernizing-delivery.html) 将核心体验发送到旧版浏览器，并为现代浏览器提供增强体验。[该技术的一个更新版本](https://snugug.com/musings/modern-cutting-the-mustard/)将使用 ES2015 + 语法 `<script type="module">`。现代浏览器会将脚本解释为 JavaScript 模块并按预期运行它，而旧版浏览器无法识别该属性并忽略它，因为它是未知的 HTML 语法。
+如今，我们仍然可以使用[符合最低要求 (cutting-the-mustard) 技术](https://www.filamentgroup.com/lab/modernizing-delivery.html) 将核心体验发送到旧版浏览器，并为现代浏览器提供增强体验。（译者注：关于 cutting-the-mustard 出处可以参考[这篇文章](http://responsivenews.co.uk/post/18948466399/cutting-the-mustard)。）[该技术的一个更新版本](https://snugug.com/musings/modern-cutting-the-mustard/)将使用 ES2015 + 语法 `<script type="module">`。现代浏览器会将脚本解释为 JavaScript 模块并按预期运行它，而旧版浏览器无法识别该属性并忽略它，因为它是未知的 HTML 语法。
 
-现在我们需要谨记的是，单独的功能检测不足以做出发送到该浏览器有效 payload 的明智决定。就其本身而言，**cutting-the-mustard** 从浏览器版本中推断出设备这一功能，今天已经不再有效了。
+现在我们需要谨记的是，单独的功能检测不足以做出发送到该浏览器有效 payload 的明智决定。就其本身而言，**符合最低要求** 从浏览器版本中推断出设备这一功能，今天已经不再有效了。
 
-例如，发展中国家的廉价 Android 手机主要使用 Chrome 浏览器，尽管设备的内存和 CPU 功能有限，但其仍然达到了使用 cutting-the-mustard 技术的要求。最终，使用[设备内存客户端提示报头](https://github.com/w3c/device-memory)，我们将能够更可靠地定位低端设备。在本文写作时，仅在 Blink 中支持该报头（通常用于[客户端提示](https://caniuse.com/#search=client%20hints)）。由于设备内存还有[一个已在 Chrome 中提供](https://developers.google.com/web/updates/2017/12/device-memory)的 JavaScript API，因此基于该 API 进行功能检测是一个选择，并且只有在不支持时才会再来使用 cutting-the-mustard 技术（**感谢 Yoav！**）。
+例如，发展中国家的廉价 Android 手机主要使用 Chrome 浏览器，尽管设备的内存和 CPU 功能有限，但其仍然达到了使用符合最低要求技术的标准。最终，使用[设备内存客户端提示报头](https://github.com/w3c/device-memory)，我们将能够更可靠地定位低端设备。在本文写作时，仅在 Blink 中支持该报头（通常用于[客户端提示](https://caniuse.com/#search=client%20hints)）。由于设备内存还有[一个已在 Chrome 中提供](https://developers.google.com/web/updates/2017/12/device-memory)的 JavaScript API，因此基于该 API 进行功能检测是一个选择，并且只有在不支持时才会再来使用符合最低要求技术（**感谢 Yoav！**）。
     
 #### 24. 解析 JavaScript 是耗时的，所以让它体积小 
 
@@ -80,7 +80,7 @@
     
 #### 25. 使用了摇树、作用域提升和代码分割吗
 
-[摇树（tree-shaking）](https://developers.google.com/web/fundamentals/performance/optimizing-javascript/tree-shaking/)是一种在 [webpack](http://www.2ality.com/2015/12/webpack-tree-shaking.html)  中清理构建过程的方法， 它仅将实际生产环境使用的代码打包，并排除没有使用的导入模块。使用 webpack 和 rollup，还可以使用[作用域提升](https://medium.com/webpack/brief-introduction-to-scope-hoisting-in-webpack-8435084c171f)（scope hoisting），它使用了两个工具来检测 `import` 链可以展开的位置，并将其转换为一个内联函数，并且不会影响代码。使用 webpack，我们也可以使用 [JSON Tree Shaking](https://react-etc.net/entry/json-tree-shaking-lands-in-webpack-4-0)。
+[摇树（tree-shaking）](https://developers.google.com/web/fundamentals/performance/optimizing-javascript/tree-shaking/)是一种在 [webpack](http://www.2ality.com/2015/12/webpack-tree-shaking.html)  中清理构建过程的方法， 它仅将实际生产环境使用的代码打包，并排除没有使用的导入模块。使用 webpack 和 rollup，还可以使用[作用域提升](https://medium.com/webpack/brief-introduction-to-scope-hoisting-in-webpack-8435084c171f)（scope hoisting），作用域提升使得 webpack 和 rollup 可以检测 `import` 链可以展开的位置，并将其转换为一个内联函数，并且不会影响代码。使用 webpack，我们也可以使用 [JSON Tree Shaking](https://react-etc.net/entry/json-tree-shaking-lands-in-webpack-4-0)。
 
 此外，你可能需要考虑学习如何[编写高效的 CSS 选择器](http://csswizardry.com/2011/09/writing-efficient-css-selectors/)，以及如何[避免臃肿且耗时的样式](https://benfrain.com/css-performance-revisited-selectors-bloat-expensive-styles/)。如果你希望更进一步，你还可以使用 webpack 来缩短 class 名，并使用作用域隔离在编译时[动态重命名 CSS class 名](https://medium.freecodecamp.org/reducing-css-bundle-size-70-by-cutting-the-class-names-and-using-scope-isolation-625440de600b)。
 
@@ -90,7 +90,7 @@
 
 在哪里定义分割点呢？通过跟踪代码查看使用了哪些 CSS / JavaScript 包，没有使用哪些包。Umar Hansa [解释了](https://vimeo.com/235431630#t=11m37s)如何使用 Devtools 的代码覆盖率工具来实现它。
     
-如果你没有使用 webpack，请注意 [rollup](http://rollupjs.org/) 显示的结果明显优于 Browserify 导出。虽然我们参与其中，但你可能需要查看 [rollup-plugin-closure-compiler](https://github.com/ampproject/rollup-plugin-closure-compiler) 和 [Rollupify](https://github.com/nolanlawson/rollupify)，它将 ECMAScript 2015 模块转换为一个大型 CommonJS 模块 —— 因为根据你的包和模块系统的选择，小模块可能会有[惊人的高性价比](https://nolanlawson.com/2016/08/15/the-cost-of-small-modules/)。
+如果你没有使用 webpack，请注意 [rollup](http://rollupjs.org/) 显示的结果明显优于 Browserify 导出。虽然我们参与其中，但你可能需要查看 [rollup-plugin-closure-compiler](https://github.com/ampproject/rollup-plugin-closure-compiler) 和 [Rollupify](https://github.com/nolanlawson/rollupify)，它将 ECMAScript 2015 模块转换为一个大型 CommonJS 模块 —— 因为根据你的包和模块系统的选择，小模块可能会有[惊人高的成本](https://nolanlawson.com/2016/08/15/the-cost-of-small-modules/)。
 
 #### 26. 可以将 JavaScript 切换到 Web Worker 中吗？
 
@@ -144,7 +144,7 @@ Jake Archibald 发布了一篇详细的文章，其中包含了 [需要牢记的
 
 #### 30. 是否使用了 JavaScript 差异化服务？
 
-我们希望通过网络发送必要的 JavaScript，但这意味着对这些静态资源的传送需要稍微集中精力。前一阵子 Philip Walton 介绍了[差异化服务](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/)的想法。该想法是编译和提供两个独立的 JavaScript 包：“常规”构建，带有 Babel-transforms 和 polyfill 的构建，只提供给实际需要它们的旧浏览器，以及另一个没有转换和 polyfill 的包（具有相同功能）。
+我们希望通过网络发送必要的 JavaScript，但这意味着需要更加集中精力并且细粒度地关注这些静态资源的传送。前一阵子 Philip Walton 介绍了[差异化服务](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/)的想法。该想法是编译和提供两个独立的 JavaScript 包：“常规”构建，带有 Babel-transforms 和 polyfill 的构建，只提供给实际需要它们的旧浏览器，以及另一个没有转换和 polyfill 的包（具有相同功能）。
 
 结果，通过减少浏览器需要处理的脚本数量来帮助减少主线程的阻塞。Jeremy Wagner 在 2019 年发布了一篇[关于差异服务以及如何在你的构建管道中进行设置的综合文章](https://calendar.perfplanet.com/2018/doing-differential-serving-in-2019/)，从设置 babel 到你需要在 webpack 中进行哪些调整，以及完成所有这些工作的好处。
 
@@ -226,7 +226,7 @@ Jake Archibald 发布了一篇详细的文章，其中包含了 [需要牢记的
 
 Casper.com 发布了一个详细的案例研究，说明他们如何通过自托管的 Optimizely 网站响应时间减少了 1.7 秒。这可能是值得的。（[图片来源](https://medium.com/caspertechteam/we-shaved-1-7-seconds-off-casper-com-by-self-hosting-optimizely-2704bcbff8ec)）（[预览大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/cf570272-840e-4cf8-92de-76808a12422c/casper-case-study-optimizely.png)）
 
-另一种选择是建立**内容安全策略**（CSP）以限制第三方脚本的影响，例如：不允许下载音频或视频。最好的选择是通过 `<iframe>` 嵌入脚本，以便脚本在 iframe 的上下文中运行，因此第三方脚本无法访问页面的 DOM，也无法在你的域上运行任意代码。可以使用 `sandbox` 属性进一步约束 iframe，你可以禁用 iframe 可能执行的任何功能，例如：防止脚本运行、阻止警报、表单提交、插件、访问顶部导航等。
+另一种选择是建立**内容安全策略**（CSP）以限制第三方脚本的影响，例如：不允许下载音频或视频。最好的选择是通过 `<iframe>` 嵌入脚本，以便脚本在 iframe 的上下文中运行，因此第三方脚本无法访问页面的 DOM，也无法在你的域上运行任意代码。使用 `sandbox` 属性可以进一步约束 iframe，那样你就可以禁用一切 iframe 可能执行的任何功能，例如：防止脚本运行、阻止警报、表单提交、插件、访问顶部导航等。
 
 比如，可能必须使用 `<iframe sandbox="allow-scripts">` 来运行脚本。每个限制都可以通过 `sandbox` 属性上的各种 `allow` 值来解除（[几乎所有的浏览器都受支持](https://caniuse.com/#search=sandbox)），因此将它们限制在应该允许的最低限度。
 
