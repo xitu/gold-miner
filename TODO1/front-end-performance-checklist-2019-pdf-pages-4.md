@@ -49,7 +49,7 @@
 
 #### 23. 重温优秀的“符合最低要求”技术
 
-如今，我们仍然可以使用[符合最低要求 (cutting-the-mustard) 技术](https://www.filamentgroup.com/lab/modernizing-delivery.html) 将核心体验发送到旧版浏览器，并为现代浏览器提供增强体验。（译者注：关于 cutting-the-mustard 出处可以参考[这篇文章](http://responsivenews.co.uk/post/18948466399/cutting-the-mustard)。）[该技术的一个更新版本](https://snugug.com/musings/modern-cutting-the-mustard/)将使用 ES2015 + 语法 `<script type="module">`。现代浏览器会将脚本解释为 JavaScript 模块并按预期运行它，而旧版浏览器无法识别该属性并忽略它，因为它是未知的 HTML 语法。
+如今，我们仍然可以使用[符合最低要求（cutting-the-mustard）技术](https://www.filamentgroup.com/lab/modernizing-delivery.html) 将核心体验发送到旧版浏览器，并为现代浏览器提供增强体验。（译者注：关于 cutting-the-mustard 出处可以参考[这篇文章](http://responsivenews.co.uk/post/18948466399/cutting-the-mustard)。）[该技术的一个更新版本](https://snugug.com/musings/modern-cutting-the-mustard/)将使用 ES2015 + 语法 `<script type="module">`。现代浏览器会将脚本解释为 JavaScript 模块并按预期运行它，而旧版浏览器无法识别该属性并忽略它，因为它是未知的 HTML 语法。
 
 现在我们需要谨记的是，单独的功能检测不足以做出该发送哪些资源到该浏览器的明智决定。就其本身而言，**符合最低要求** 从浏览器版本中推断出设备的能力，今天已经不再有效了。
 
