@@ -18,9 +18,9 @@
 
 #### 目录
 
-- [优化构建](#build-optimizations)
+- [构建优化](#构建优化)
    - [22.确定优先级](#22-确定优先级)
-   - [23.再次使用优秀的“符合最低要求”技术](#23-再次使用优秀的“符合最低要求”技术)
+   - [23.再次使用优秀的“符合最低要求”技术](#23-再次使用优秀的符合最低要求技术)
    - [24.解析 JavaScript 是耗时的，所以让它体积小](#24-解析-javascript-是耗时的所以让它体积小)
    - [25.使用了摇树、作用域提升和代码分割吗](#25-使用了摇树作用域提升和代码分割吗)
    - [26.可以将 JavaScript 切换到 Web Worker 中吗？](#26-可以将-javascript-切换到-web-worker-中吗)
@@ -37,15 +37,15 @@
    - [37.约束第三方脚本的影响](#37-约束第三方脚本的影响)
    - [38.设置 HTTP 缓存标头](#38-设置-http-缓存标头)
 
-### 优化构建
+### 构建优化
 
 #### 22. 确定优先级
  
 要了解你首先要处理什么。列出你全部的静态资源清单（JavaScript、图片、字体、第三方脚本以及页面上的大模块：如轮播图、复杂的信息图表和多媒体内容），并将它们分组。
 
-Set up a spreadsheet. Define the basic _core_ experience for legacy browsers (i.e. fully accessible core content), the _enhanced_ experience for capable browsers (i.e. the enriched, full experience) and the _extras_ (assets that aren’t absolutely required and can be lazy-loaded, such as web fonts, unnecessary styles, carousel scripts, video players, social media buttons, large images). A while back, we published an article on "[Improving Smashing Magazine’s Performance](https://www.smashingmagazine.com/2014/09/improving-smashing-magazine-performance-case-study/)," which describes this approach in detail.
+新建一个电子表格。定义旧版浏览器的基本**核心**体验（即完全可访问的核心内容）、现代浏览器的**增强**体验（即更加丰富的完整体验）以及**额外功能**（可以延迟加载的非必需的资源：例如网页字体、不必要的样式、轮播脚本、视频播放器、社交媒体按钮和大图片）。不久前，我们发表了一篇关于 “[提升 Smashing 杂志网站性能](https://www.smashingmagazine.com/2014/09/improving-smashing-magazine-performance-case-study/)” 的文章，文中详细描述了这种方法。
 
-When optimizing for performance we need to reflect our priorities. Load the _core experience_ immediately, then _enhancements_, and then the _extras_.
+在优化性能时，我们需要确定我们的优先事项。立即加载**核心体验**，然后加载**增强体验**，最后加载**额外功能**。
 
 #### 23. 再次使用优秀的“符合最低要求”技术
 
