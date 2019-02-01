@@ -41,7 +41,7 @@
 
 #### 22. 确定优先级
  
-It’s a good idea to know what you are dealing with first. Run an inventory of all of your assets (JavaScript, images, fonts, third-party scripts and "expensive" modules on the page, such as carousels, complex infographics and multimedia content), and break them down in groups.
+要了解你首先要处理什么。列出你全部的静态资源清单（JavaScript、图片、字体、第三方脚本以及页面上的大模块：如轮播图、复杂的信息图表和多媒体内容），并将它们分组。
 
 Set up a spreadsheet. Define the basic _core_ experience for legacy browsers (i.e. fully accessible core content), the _enhanced_ experience for capable browsers (i.e. the enriched, full experience) and the _extras_ (assets that aren’t absolutely required and can be lazy-loaded, such as web fonts, unnecessary styles, carousel scripts, video players, social media buttons, large images). A while back, we published an article on "[Improving Smashing Magazine’s Performance](https://www.smashingmagazine.com/2014/09/improving-smashing-magazine-performance-case-study/)," which describes this approach in detail.
 
