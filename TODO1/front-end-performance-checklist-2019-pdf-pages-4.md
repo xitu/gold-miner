@@ -39,7 +39,7 @@
 
 ### 优化构建
 
-#### 22. Set your priorities straight
+#### 22. 确定优先级
  
 It’s a good idea to know what you are dealing with first. Run an inventory of all of your assets (JavaScript, images, fonts, third-party scripts and "expensive" modules on the page, such as carousels, complex infographics and multimedia content), and break them down in groups.
 
