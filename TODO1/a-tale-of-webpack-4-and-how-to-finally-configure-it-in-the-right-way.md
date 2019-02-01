@@ -5,106 +5,106 @@
 > * 译者：
 > * 校对者：
 
-# A tale of Webpack 4 and how to finally configure it in the right way. Updated.
+# 【有更新】Webpack 4 的故事以及如何用正确的方式去最终配置它
 
-Spoiler: there is no right way. #justwebpackthings
+剧透：没有正确的方式。 #justwebpackthings
 
 ![](https://cdn-images-1.medium.com/max/2560/1*f2JinK5jRjYoLJ31kAKyLQ.jpeg)
 
-Original photo: https://www.instagram.com/p/BhPo4pqBytk/?taken-by=riittagirl
+原图： https://www.instagram.com/p/BhPo4pqBytk/?taken-by=riittagirl
 
-> This blogpost has been last updated 28.12.2018 with webpack v4.28.0
-
-* * *
-
-> Update 23.06.2018: I have received a bunch of comments about what worked and what can be improved! Thank you for your feedback! I have tried to take every comment into consideration here! At a certain point I have also decided to create a webpack boilerplate project on github, were you can git pull the latest webapck.config! Thank you for your support! Link: [https://github.com/marharyta/webpack-boilerplate](https://github.com/marharyta/webpack-boilerplate)
+> 这篇博文最后一次更新在 2018 年 12 月 28 日，适用于 Webpack v4.28.0 版本。 
 
 * * *
 
-> Update: this article is now a part of a series of articles about Webpack and React.js set ups. Read the next part about configuring dev environment with React here: [https://medium.com/@riittagirl/how-to-develop-react-js-apps-fast-using-webpack-4-3d772db957e4](https://medium.com/@riittagirl/how-to-develop-react-js-apps-fast-using-webpack-4-3d772db957e4)
+> 2018 年 06 月 23 日更新： 我收到了许多关于如何使其工作和如何改进的评论。感谢你们的反馈！我已经尽力的去考虑每一条评论！某种程度上，我也决定在 Github 上创建一个 Webpack 模板项目，你可以使用 Git 来拉取最新的 Webpack 配置文件。感谢你们的支持！链接：https://github.com/marharyta/webpack-boilerplate](https://github.com/marharyta/webpack-boilerplate)
 
 * * *
 
-> _Thanks for giving my tutorial so much feedback. I am proud to say that Webpack has twitted about it the other day and it was officially approved by a couple of contributors!_
+> 更新：本文是关于 Webpack 和 React.js 搭建系列文章的一部分。在这里阅读有关配置 React 开发环境的部分：[https://medium.com/@riittagirl/how-to-develop-react-js-apps-fast-using-webpack-4-3d772db957e4](https://medium.com/@riittagirl/how-to-develop-react-js-apps-fast-using-webpack-4-3d772db957e4)
+
+* * *
+
+> _感谢各位对我的教程提出大量的反馈。我要很自豪的说，Webpack 前几天在 Twitter 上推荐了这篇教程，并且它已经得到了一些贡献者的认可！_
 
 ![](https://cdn-images-1.medium.com/max/600/1*LMP6qbC151q2eJ7efXurmA.jpeg)
 
 ![](https://cdn-images-1.medium.com/max/600/1*UVme7DsXop97cirV0TuaWw.jpeg)
 
-thanks!
+谢谢！
 
 * * *
 
-There are a million tutorials online, so you probably have seen a thousand different ways to configure Webpack file. And all of them will be working examples. Why is it so? Webpack itself has been evolving really fast and a lot of loaders and plugins have to keep up. This is a major reason why the configuration files are so different: with a different version combination of the same tools things might work, or break.
+网上有上百万的教程，所以你可能已经看到了上千种配置 Webpack 文件的方式，而且他们都是可运行的例子。为什么会这样？Webpack 本身发展的非常快，很多加载器和插件都必须跟上。这是配置文件如此不同的一个主要原因：使用同一工具的不同版本组合，可能可以运行，也可能会失败。
 
-Let me just say one thing, and this is my sincere opinion: a lot of people have been complaining about webpack and how cumbersome it is. This is true in many ways, although I have to say with my experience of working with **gulp and grunt**, you stumble upon the same type of errors there too, meaning that when you use **npm modules**, it’s inevitable that some versions would be incompatible.
+让我只说一件事情，这是我真诚的意见：许多人已经在抱怨 Webpack 和它的笨重，这在很多方面都是正确的。我不得不说，根据我使用 **Gulp 和 Grunt** 的经验，你也会遇到相同类型的错误，这意味着当你使用  **npm 模块**时，某些版本不可避免的会不兼容。
 
-Webpack 4 so far is the popular module bundler that has just undergone a massive update. There is a lot of new things it has to offer, such as **zero configuration, reasonable defaults, performance improvement, optimisation tools out of the box.**
+迄今为止，Webpack 4 是一个非常流行的模块打包器，它刚刚经历了一次大规模的更新，提供了许多新功能，如**零配置、合理的默认值、性能提升、开箱即用的优化工具。**
 
-If you are completely new to webpack, a great way to start would be to read the docs. [Webpack has a pretty nice documentation](https://webpack.js.org/concepts/) with many parts explained, so I will go through them very briefly.
+如果你刚接触 Webpack，阅读文档是一个很好的开始。[Webpack 有一个非常好的文档](https://webpack.js.org/concepts/)，其中解释了许多部分，因此我会简单的介绍它们。
 
-**Zero config:** webpack 4 does not require a configuration file, this is new for the version 4. Webpack kinda grows step by step, so there is no need to do a monstrous configuration from the start.
+**零配置：** Webpack 4 无需配置文件，这是 Webpack 4 的新特性。Webpack 是逐步增长的，因此没必要一开始就做一个可怕的配置。
 
-**Performance improvement:** webpack 4 is the fastest version of webpack so far.
+**性能提升：** Webpack 4 是迄今为止最快的版本。
 
-**Reasonable** **defaults:** webpack 4  main concepts are _entry, output, loaders, plugins_. I will not cover these in details, although the difference between loaders and plugins is very vague. It all depends on how library author has implemented it.
+**合理的默认值：** Webpack 4  的主要概念是_入口、输出、加载器、插件_。我不会详细介绍这些。加载器和插件之间的区别非常模糊，这完全取决于库作者如何去实现它。
 
-### Core concepts
+### 核心概念
 
-#### Entry
+#### 入口
 
 This should be your _.js_ file. Now you will probably see a few configurations where people include _.scss_ or _.css_ file there. This is a major hack and can lead to a lot of unexpected errors. Also sometimes you see an entry with a few _.js_ files. While some solutions allow you to do so, I would say it usually adds more complexity and only do it when you really know why you are doing it.
 
-#### Output
+#### 输出
 
 This is your _build/_ or _dist/_ or _wateveryounameit/_ folder where your end js file will be hosted. This is your end result comprised of modules.
 
-#### Loaders
+#### 加载器
 
-They mostly compile or transpile your code, like postcss-loader will go through different plugins. You will see it later.
+它们主要编译或转换你的代码，像 postcss-loader 将通过不同的插件。稍后你将能了解它。
 
-#### Plugins
+#### 插件
 
-Plugins play a vital role in outputting your code into files.
+插件在将代码输出到文件中的过程中起着至关重要的作用。
 
-### Quickstart
+### 快速入门
 
-Create a new directory and move into it:
+创建一个新的目录，并移动到它：
 
-```
+```shell
 mkdir webpack-4-tutorial
 cd webpack-4-tutorial
 ```
 
-Initialize a package.json :
+初始化 package.json 文件：
 
-```
+```shell
 npm init
-
-or
-
+```
+或者
+```shell
 yarn init
 ```
 
-We need to download **webpack v4** as a module and **webpack-cli** to run it from your terminal.
+我们需要下载模块 **Webpack v4** 和 **webpack-cli** 。在你的终端（控制台）运行它：
 
 ```
 npm install webpack webpack-cli --save-dev
-
-or
-
+```
+或
+```
 yarn add webpack webpack-cli --dev
 ```
 
-Make sure you have version 4 installed, if not, you can explicitly specify it in your _package.json_ file. Now open up _package.json_ and add a build script:
+确保你已经安装了版本 4，如果没有安装，你可以在 _package.json_ 中显式指定它。现在打开 _package.json_ 然后添加构建脚本：
 
-```
+```javascript
 "scripts": {
   "dev": "webpack"
 }
 ```
 
-Trying to run it, you will most likely see a warning:
+尝试运行它，你很可能会看到一条警告：
 
 ```
 WARNING in configuration
@@ -114,9 +114,9 @@ The ‘mode’ option has not been set, webpack will fallback to ‘production�
 You can also set it to ‘none’ to disable any default behavior. Learn more: https://webpack.js.org/concepts/mode/
 ```
 
-### Webpack 4 modes
+### Webpack 4 模式
 
-You need to edit your script to contain mode flag:
+你需要编辑脚本来包含模式标记：
 
 ```
 "scripts": {
@@ -134,7 +134,7 @@ Let`s go create a directory with a _.js_ file like this **./src/index.js** and p
 console.log("hello, world");
 ```
 
-Now run the dev script:
+现在运行 dev 脚本：
 
 ```
 npm run dev
@@ -246,7 +246,7 @@ nano .babelrc
 
 paste there:
 
-```
+```json
 {
 "presets": [
   "env"
@@ -254,14 +254,14 @@ paste there:
 }
 ```
 
-We have two options for configuring babel-loader:
+我们有两个选择来配置 babel-loader ：
 
-*   using a configuration file **webpack.config.js**
-*   using --module-bind in your **npm scripts**
+*   使用配置文件 **webpack.config.js**
+*   在 **npm 脚本**使用 --module-bind 参数
 
-You can technically do a lot with new flags webpack introduces but I would prefer **webpack.config.js** for simplicity reasons.
+从技术上讲，你可以使用 Webpack 引入的新标志来作很多事情，但是为了简单起见，我更喜欢使用 **webpack.config.js** 。
 
-### Configuration file
+### 配置文件
 
 Although webpack advertises itself as a zero-configuration platform, it mostly applies to general defaults such as entry and output.
 
@@ -330,11 +330,11 @@ yarn add @babel/core --dev
 
 > The most common pattern of webpack is to use it to compile React.js application. While this is true, we will not concentrate on React part in this tutorial since I want it to be framework agnostic. Instead, I will show you how to proceed and create your .html and .css configuration.
 
-### HTML and CSS imports
+### HTML 和 CSS 的导入
 
-Lets create a small _index.html_ file first in our _./dist_ folder
+让我们首先在 _./dist_ 文件夹下创建一个小小的 _index.html_ 文件：
 
-```
+```html
 <html>
   <head>
     <link rel="stylesheet" href="style.css">
@@ -346,22 +346,22 @@ Lets create a small _index.html_ file first in our _./dist_ folder
 </html>
 ```
 
-As you can see, we are importing here _style.css_ Lets configure it! As we agreed, we ca only have one entry point for webpack. So where do we put our css to?Create a _style.css_ in our _./src_ folder
+如你所见，As you can see, we are importing here _style.css_ Lets configure it! As we agreed, we ca only have one entry point for webpack. So where do we put our css to?Create a _style.css_ in our _./src_ folder
 
-```
+```css
 div {
   color: red;
 }
 ```
 
-Do not forget to include it into your .js file:
+别忘了在你的 .js 文件里包含它：
 
-```
+```javascript
 import "./style.css";
 console.log("hello, world");
 ```
 
-> Spoiler: in certain articles, you will hear that ExtractTextPlugin does not work with webpack 4. It worked for me for webpack v4.2 but stopped working as I used webpack v4.20. It proves my point of modules ambiguity in set-up and if it absolutely does not work for you, you can switch to MiniCssExtractPlugin. I will show you how to configure another one later in this article.
+> 剧透：in certain articles, you will hear that ExtractTextPlugin does not work with webpack 4. It worked for me for webpack v4.2 but stopped working as I used webpack v4.20. It proves my point of modules ambiguity in set-up and if it absolutely does not work for you, you can switch to MiniCssExtractPlugin. I will show you how to configure another one later in this article.
 >
 > For backwards compatibility, I will still show ExtractTextPlugin example, yet feel free to skim it and move to a part where I am using MiniCssExtractPlugin.
 
@@ -406,14 +406,14 @@ module.exports = {
 };
 ```
 
-in terminal run
+在终端（控制台）运行：
 
-```
+```shell
 npm install extract-text-webpack-plugin --save-dev
 npm install style-loader css-loader --save-dev
-
-or
-
+```
+或者
+```shell
 yarn add extract-text-webpack-plugin style-loader css-loader --dev
 ```
 
@@ -421,23 +421,23 @@ We need to use extract text plugin to compile our **.css**. As you can see, we a
 
 - [**Webpack 4 compatibility · Issue #701 · webpack-contrib/extract-text-webpack-plugin**](https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/701 "https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/701")
 
-To fix it, you can run
+为了修复这个问题，你可以运行
 
-```
+```shell
 npm install -D extract-text-webpack-plugin@next
-
-or
-
+```
+或
+```shell
 yarn add --dev extract-text-webpack-plugin@next
 ```
 
-> Pro tip: google errors you get and try to find similar question in Github issues or just ask a question on StackOverflow.
+> 专业技巧：Google 一下你获得的错误信息，尝试在 Github 问题列表查找类似的问题，或者在 StackOverflow 网站恰当的提一个问题。
 
-After that, your css code should compile to _./dist/style.css_
+在那之后，你的 CSS 代码应当会编译到 _./dist/style.css_。
 
-At this point in my package.json my dev dependencies look like this:
+此时在 package.json 中，开发依赖看起来像这样：
 
-```
+```json
 "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
@@ -447,10 +447,10 @@ At this point in my package.json my dev dependencies look like this:
     "style-loader": "^0.20.3",
     "webpack": "^4.4.1",
     "webpack-cli": "^2.0.12"
-  }
+ }
 ```
 
-your versions might differ and it is ok!
+版本可能不同，但这是正常的！
 
 Please, note that another combination might not work since even updating webpack-cli v2.0.12 to 2.0.13 can break it. #justwebpackthings
 
@@ -458,15 +458,15 @@ So now it should output your _style.css_ into _./dist_ folder.
 
 ![](https://cdn-images-1.medium.com/max/800/1*q72pzP6EMWubm7J_IESMaw.png)
 
-### Mini-CSS plugin
+### Mini-CSS 插件
 
 The Mini CSS plugin is meant to replace extract-text plugin and provide you with better future compatibility. I have restructured my webpack file to compile style.css with [**/mini-css-extract-plugin**](https://github.com/webpack-contrib/mini-css-extract-plugin "https://github.com/webpack-contrib/mini-css-extract-plugin") **and it works for me.**
 
-```
+```shell
 npm install mini-css-extract-plugin --save-dev
-
-or
-
+```
+或者是
+```bash
 yarn add mini-css-extract-plugin --dev
 ```
 
@@ -515,9 +515,9 @@ module.exports = {
 
 As Nikolay Volkov pointed out, ‘style-loader’ might not be necessary anymore since **MiniCssExtractPlugin.loader does the same.** Though it might be true I would still recommend to leave it for the fallback.
 
-### How do Webpack rules work?
+### Webpack 规则如何工作？
 
-> A quick description of how rules usually work:
+> 一个关于规则通常如何工作的快速描述：
 
 ```
 {
@@ -529,23 +529,23 @@ As Nikolay Volkov pointed out, ‘style-loader’ might not be necessary anymore
 }
 ```
 
-**We need to use** **MiniCssExtractPlugin because webpack by default only understands _.js_ format. MiniCssExtractPlugin gets your _.css_ and extracts it into a separate _.css_ file in your _./dist_ directory.**
+**我们需要去使用** **MiniCssExtractPlugin ，因为 Webpack 默认只能理解 _.js_ 格式。 MiniCssExtractPlugin 获取你的 _.css_ ，然后提取它到一个在 _./dist_ 目录下的独立 _.css_ 文件。**
 
-### Configure support for SCSS
+### 配置对 SCSS 的支持
 
-It is very common to develop websites with SASS and POSTCSS, they are very helpful. So we will include support for SASS first. Let`s rename our _./src/style.css_ and create another folder to store _.scss_ files in there. Now we need to add support for _.scss_ formatting.
+使用 SASS 和 POSTCSS 开发网站是一个很平常的事情，它们非常有用。因此我们首先要包含对 SASS 的支持。让我们重命名 _./src/style.css_ ，然后创建另外的文件夹来存放 _.scss_ 文件。现在我们需要添加对 _.scss_ 格式的支持。
 
-```
+```shell
 npm install node-sass sass-loader --save-dev
-
-or
-
+```
+或者是
+```shell
 yarn add node-sass sass-loader --dev
 ```
 
-replace style.css with **_./scss/main.scss_** in your _.js_ file. Change test to support _.scss_
+在你的 _.js_ 文件里用  **_./scss/main.scss_** 替换 *style.css* ，更改测试以支持 _.scss_ 。
 
-```
+```javascript
 // webpack v4
 const path = require('path');
 // update 23.12.2018
@@ -583,11 +583,11 @@ module.exports = {
   } ...
 ```
 
-### HTML template
+### HTML 模板
 
-Now lets create _.html_ file template. Add _index.html_ to _./src_ file with exactly the same structure.
+现在让我们创建 _.html_ 文件模板。添加 _index.html_ 到 _./src_ ，保持完全相同的结构。
 
-```
+```html
 <html>
   <head>
     <link rel="stylesheet" href="style.css">
@@ -599,19 +599,19 @@ Now lets create _.html_ file template. Add _index.html_ to _./src_ file with exa
 </html>
 ```
 
-We will need to use html plugin for this file in order to use it as a template.
+为了作为一个模板去使用这个文件，我们将需要对它使用 html 插件。
 
-```
+```shell
 npm install html-webpack-plugin --save-dev
-
-or
-
+```
+或者
+```sh
 yarn add html-webpack-plugin --dev
 ```
 
-Add it to your webpack file:
+把它添加到你的 Webpack 文件：
 
-```
+```javascript
 // webpack v4
 const path = require('path');
 // update 23.12.2018
@@ -665,12 +665,12 @@ module.exports = {
 
 Now your file from _./src/index.html_ is a template for your final index.html file. To check that everything works, delete every file from _./dist_ folder and the folder itself.
 
-```
+```shell
 rm -rf ./dist
 npm run dev
-
-or
- 
+```
+或者是
+```shell
 yarn dev
 ```
 
@@ -793,15 +793,15 @@ This issue is known and there is even a stack overflow question about it:
 
 - [**Updating chunkhash in both css and js file in webpack**: I have only got the JS file in the output whereas i have used the ExtractTextPlugin to extract the Css file.Both have…](https://stackoverflow.com/questions/44491064/updating-chunkhash-in-both-css-and-js-file-in-webpack "https://stackoverflow.com/questions/44491064/updating-chunkhash-in-both-css-and-js-file-in-webpack")
 
-#### Now how to fix that?
+#### 现在如何去修复那个？
 
 After trying a lot of plugins that claim they solve this problem I have finally came to two types of solution.
 
-#### Solution 1
+#### 解决方案 1
 
 There might also be some conflicts still, so **now lets try** [**mini-css-extract plugin**](https://github.com/webpack-contrib/mini-css-extract-plugin)**.**
 
-#### Solution 2
+#### 解决方案 2
 
 Replace **[chukhash]** with just **[hash]** in _.css_ extract plugin. This was one of the solutions to the [issue](https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/763). This appears to be a conflict with webpack 4.3 which introduced a `[contenthash]` variable of its [own](https://github.com/webpack/webpack/releases/tag/v4.3.0). In conjunction, use this plugin: [**webpack-md5-hash**](https://www.npmjs.com/package/webpack-md5-hash) **(see more below).**
 
@@ -968,15 +968,15 @@ I will use **cssnano** to minify my output file and [css-mqpacker](https://githu
 
 Feel free to try **cleancss** if you want to.
 
-### Version controlling
+### 版本控制
 
-To keep your dependencies in place, I recommend using **yarn** instead of **npm to install modules. Long story short, this will lock every package and when you do node modules reinstallation, you will avoid many incompatibility surprises.**
+为了保证你的依赖在对的位置，我推荐使用 **yarn** 来替代 **npm 安装模块。长话短说，yarn 会锁定每一个包，并且当你重装模块时，你会避免遇到许多意想不到的不兼容情况。**
 
 ### Keeping it clean and fresh
 
-We can try importing **clean-webpack-plugin** to clean our _./dist_ folder before we regenerate files.
+我们可以尝试导入 **clean-webpack-plugin** ，在重新生成文件之前清理 _./dist_ 文件夹。
 
-```
+```javascript
 // webpack v4
 const path = require('path');
 // update 23.12.2018
@@ -1083,7 +1083,6 @@ The _package.json_ with the latest versions of plugins has the following structu
 > Read the next part about configuring dev environment with React here: [How to streamline your React.js development process using Webpack 4](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-develop-react-js-apps-fast-using-webpack-4.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
