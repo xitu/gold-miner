@@ -90,7 +90,7 @@
 
 在哪里定义分割点呢？通过跟踪代码查看使用了哪些 CSS / JavaScript 包，没有使用哪些包。Umar Hansa [解释了](https://vimeo.com/235431630#t=11m37s)如何使用 Devtools 的代码覆盖率工具来实现它。
     
-如果你没有使用 webpack，请注意 [rollup](http://rollupjs.org/) 显示的结果明显优于 Browserify 导出。虽然我们参与其中，但你可能需要查看 [rollup-plugin-closure-compiler](https://github.com/ampproject/rollup-plugin-closure-compiler) 和 [Rollupify](https://github.com/nolanlawson/rollupify)，它将 ECMAScript 2015 模块转换为一个大型 CommonJS 模块 —— 因为根据你的包和模块系统的选择，小模块可能会有[惊人高的成本](https://nolanlawson.com/2016/08/15/the-cost-of-small-modules/)。
+如果你没有使用 webpack，请注意 [rollup](http://rollupjs.org/) 显示的结果明显优于 Browserify 导出。虽然我们参与其中，但你可能需要查看 [rollup-plugin-closure-compiler](https://github.com/ampproject/rollup-plugin-closure-compiler) 和 [rollupify](https://github.com/nolanlawson/rollupify)，它将 ECMAScript 2015 模块转换为一个大型 CommonJS 模块 —— 因为根据你的包和模块系统的选择，小模块可能会有[惊人高的成本](https://nolanlawson.com/2016/08/15/the-cost-of-small-modules/)。
 
 #### 26. 可以将 JavaScript 切换到 Web Worker 中吗？
 
