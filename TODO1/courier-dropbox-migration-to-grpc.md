@@ -507,7 +507,7 @@ Courier 和 gRPC 本身都在不断变化，所以我们最后来总结一下运
 
 ## 鸣谢
 
-**项目贡献者**:Ashwin Amit、Can Berk Guder、Dave Zbarsky、Giang Nguyen、Mehrdad Afshari、Patrick Lee、Ross Delinger、Ruslan Nigmatullin、Russ Allbery 和 Santosh Ananthakrishnan。
+**项目贡献者**：Ashwin Amit、Can Berk Guder、Dave Zbarsky、Giang Nguyen、Mehrdad Afshari、Patrick Lee、Ross Delinger、Ruslan Nigmatullin、Russ Allbery 和 Santosh Ananthakrishnan。
 
 同时也非常感谢 gRPC 团队的支持。
 
