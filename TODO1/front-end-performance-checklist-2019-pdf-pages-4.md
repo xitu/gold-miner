@@ -7,14 +7,14 @@
 
 # 2019 前端性能优化年度总结 — 第四部分
 
-让 2019 来得更迅速吧！你现在阅读的是 2019 年前端性能优化年度总结，始于 2016 。
+让 2019 来得更迅速吧！你现在阅读的是 2019 年前端性能优化年度总结，始于 2016。
 
-> [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
-> [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
-> [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
-> **[译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)**
-> [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
-> [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
+> - [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
+> - [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
+> - [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
+> - **[译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)**
+> - [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
+> - [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
 
 #### 目录
 
@@ -43,7 +43,7 @@
  
 要了解你首先要处理什么。列出你全部的静态资源清单（JavaScript、图片、字体、第三方脚本以及页面上的大模块：如轮播图、复杂的信息图表和多媒体内容），并将它们分组。
 
-新建一个电子表格。定义旧版浏览器的基本**核心**体验（即完全可访问的核心内容）、现代浏览器的**增强**体验（即更加丰富的完整体验）以及**额外功能**（可以延迟加载的非必需的资源：例如网页字体、不必要的样式、轮播脚本、视频播放器、社交媒体按钮和大图片）。不久前，我们发表了一篇关于 “[提升 Smashing 杂志网站性能](https://www.smashingmagazine.com/2014/09/improving-smashing-magazine-performance-case-study/)” 的文章，文中详细描述了这种方法。
+新建一个电子表格。定义旧版浏览器的基本**核心**体验（即完全可访问的核心内容）、现代浏览器的**增强**体验（即更加丰富的完整体验）以及**额外功能**（可以延迟加载的非必需的资源：例如网页字体、不必要的样式、轮播脚本、视频播放器、社交媒体按钮和大图片）。不久前，我们发表了一篇关于“[提升 Smashing 杂志网站性能](https://www.smashingmagazine.com/2014/09/improving-smashing-magazine-performance-case-study/)”的文章，文中详细描述了这种方法。
 
 在优化性能时，我们需要确定我们的优先事项。立即加载**核心体验**，然后加载**增强体验**，最后加载**额外功能**。
 
@@ -72,7 +72,7 @@
 *   [Webpack size-plugin](https://github.com/GoogleChromeLabs/size-plugin)
 *   [Import Cost for Visual Code](https://marketplace.visualstudio.com/items?itemName=wix.vscode-import-cost)
 
-有一种有趣方法可以用来避免解析成本，它使用了 Ember 在 2017 年推出的[二进制模板](https://emberjs.com/blog/2017/10/10/glimmer-progress-report.html#toc_binary-templates)。使用该模板，Ember 用 JSON 解析代替 JavaScript 解析，这可能更快。 （**感谢 Leonardo，Yoav!**）
+有一种有趣方法可以用来避免解析成本，它使用了 Ember 在 2017 年推出的[二进制模板](https://emberjs.com/blog/2017/10/10/glimmer-progress-report.html#toc_binary-templates)。使用该模板，Ember 用 JSON 解析代替 JavaScript 解析，这可能更快。（**感谢 Leonardo，Yoav!**）
 
 [衡量 JavaScript 解析和编译时间](https://medium.com/reloading/javascript-start-up-performance-69200f43b201#7557)。我们可以使用综合测试工具和浏览器跟踪来跟踪解析时间，浏览器实现者正在谈论[将来把基于 RUM 的处理时间暴露出来](https://github.com/w3c/resource-timing/issues/133)。也可以考虑使用 Etsy 的 [DeviceTiming](https://github.com/danielmendel/DeviceTiming)，这是一个小工具，它允许你使用 JavaScript 在任何设备或浏览器上测量解析和执行时间。
 
@@ -80,7 +80,7 @@
     
 #### 25. 使用了摇树、作用域提升和代码分割吗
 
-[摇树（tree-shaking）](https://developers.google.com/web/fundamentals/performance/optimizing-javascript/tree-shaking/)是一种在 [webpack](http://www.2ality.com/2015/12/webpack-tree-shaking.html)  中清理构建过程的方法， 它仅将实际生产环境使用的代码打包，并排除没有使用的导入模块。使用 webpack 和 rollup，还可以使用[作用域提升](https://medium.com/webpack/brief-introduction-to-scope-hoisting-in-webpack-8435084c171f)（scope hoisting），作用域提升使得 webpack 和 rollup 可以检测 `import` 链可以展开的位置，并将其转换为一个内联函数，并且不会影响代码。使用 webpack，我们也可以使用 [JSON Tree Shaking](https://react-etc.net/entry/json-tree-shaking-lands-in-webpack-4-0)。
+[摇树（tree-shaking）](https://developers.google.com/web/fundamentals/performance/optimizing-javascript/tree-shaking/)是一种在 [webpack](http://www.2ality.com/2015/12/webpack-tree-shaking.html) 中清理构建过程的方法，它仅将实际生产环境使用的代码打包，并排除没有使用的导入模块。使用 webpack 和 rollup，还可以使用[作用域提升](https://medium.com/webpack/brief-introduction-to-scope-hoisting-in-webpack-8435084c171f)（scope hoisting），作用域提升使得 webpack 和 rollup 可以检测 `import` 链可以展开的位置，并将其转换为一个内联函数，并且不会影响代码。使用 webpack，我们也可以使用 [JSON Tree Shaking](https://react-etc.net/entry/json-tree-shaking-lands-in-webpack-4-0)。
 
 此外，你可能需要考虑学习如何[编写高效的 CSS 选择器](http://csswizardry.com/2011/09/writing-efficient-css-selectors/)，以及如何[避免臃肿且耗时的样式](https://benfrain.com/css-performance-revisited-selectors-bloat-expensive-styles/)。如果你希望更进一步，你还可以使用 webpack 来缩短 class 名，并使用作用域隔离在编译时[动态重命名 CSS class 名](https://medium.freecodecamp.org/reducing-css-bundle-size-70-by-cutting-the-class-names-and-using-scope-isolation-625440de600b)。
 
@@ -88,7 +88,7 @@
 
 考虑使用 [preload-webpack-plugin](https://github.com/GoogleChromeLabs/preload-webpack-plugin)，它接受代码拆分的路由，然后提示浏览器使用 `<link rel="preload">` 或 `<link rel="prefetch">` 预加载它们。[Webpack 内联指令](https://webpack.js.org/guides/code-splitting/#prefetching-preloading-modules)还可以控制 `preload`/`prefetch`。
 
-在哪里定义分割点呢？通过跟踪代码查看使用了哪些 CSS / JavaScript 包，没有使用哪些包。Umar Hansa [解释了](https://vimeo.com/235431630#t=11m37s)如何使用 Devtools 的代码覆盖率工具来实现它。
+在哪里定义分割点呢？通过跟踪代码查看使用了哪些 CSS/JavaScript 包，没有使用哪些包。Umar Hansa [解释了](https://vimeo.com/235431630#t=11m37s)如何使用 Devtools 的代码覆盖率工具来实现它。
     
 如果你没有使用 webpack，请注意 [rollup](http://rollupjs.org/) 显示的结果明显优于 Browserify 导出。虽然我们参与其中，但你可能需要查看 [rollup-plugin-closure-compiler](https://github.com/ampproject/rollup-plugin-closure-compiler) 和 [rollupify](https://github.com/nolanlawson/rollupify)，它将 ECMAScript 2015 模块转换为一个大型 CommonJS 模块 —— 因为根据你的包和模块系统的选择，小模块可能会有[惊人高的成本](https://nolanlawson.com/2016/08/15/the-cost-of-small-modules/)。
 
@@ -118,11 +118,11 @@
 
 [![WebAssembly 如何工作，以及它为什么有用的概述。](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/bbb2ea83-7674-47d8-9cad-89a2de009915/how-webassembly-works.png)](https://blog.logrocket.com/webassembly-how-and-why-559b7f96cd71) 
 
-Milica Mihajlija 提供了 [WebAssembly 的工作原理及其有用的原因](https://blog.logrocket.com/webassembly-how-and-why-559b7f96cd71)的概述。 ([预览大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/bbb2ea83-7674-47d8-9cad-89a2de009915/how-webassembly-works.png))
+Milica Mihajlija 提供了 [WebAssembly 的工作原理及其有用的原因](https://blog.logrocket.com/webassembly-how-and-why-559b7f96cd71)的概述。 ([预览大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/bbb2ea83-7674-47d8-9cad-89a2de009915/how-webassembly-works.png)）
 
 #### 28. 是否使用了 AOT 编译？
 
-使用 [AOT（ahead-of-time） 编译器](https://www.lucidchart.com/techblog/2016/09/26/improving-angular-2-load-times/)将一些[客户端渲染](https://www.smashingmagazine.com/2016/03/server-side-rendering-react-node-express/)放到[服务器](http://redux.js.org/docs/recipes/ServerRendering.html)，从而快速输出可用结果。最后，考虑使用 [Optimize.js](https://github.com/nolanlawson/optimize-js) 来加速初始化加载时间，它包装了需要立即调用的函数（尽管现在[这可能不是必需](https://twitter.com/tverwaes/status/809788255243739136)的了）。
+使用 [AOT（ahead-of-time）编译器](https://www.lucidchart.com/techblog/2016/09/26/improving-angular-2-load-times/)将一些[客户端渲染](https://www.smashingmagazine.com/2016/03/server-side-rendering-react-node-express/)放到[服务器](http://redux.js.org/docs/recipes/ServerRendering.html)，从而快速输出可用结果。最后，考虑使用 [Optimize.js](https://github.com/nolanlawson/optimize-js) 来加速初始化加载时间，它包装了需要立即调用的函数（尽管现在[这可能不是必需](https://twitter.com/tverwaes/status/809788255243739136)的了）。
 
 ![“默认快速：现代加载最佳实践”，作者 Addy Osmani](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/31237c37-d7db-4faa-9849-51657e122331/babel-preset-opt.png)
 
@@ -150,7 +150,7 @@ Jake Archibald 发布了一篇详细的文章，其中包含了 [需要牢记的
 
 #### 31. 通过增量解耦识别和重写遗留代码
 
-老项目充斥着陈旧和过时的代码。重新查看你的依赖项，评估重构或重写最近导致问题的遗留代码所需的时间。当然，它始终是一项重大任务，但是一旦你了解了遗留代码的影响，就可以从[增量解耦]((https://githubengineering.com/removing-jquery-from-github-frontend/))开始。
+老项目充斥着陈旧和过时的代码。重新查看你的依赖项，评估重构或重写最近导致问题的遗留代码所需的时间。当然，它始终是一项重大任务，但是一旦你了解了遗留代码的影响，就可以从[增量解耦](https://githubengineering.com/removing-jquery-from-github-frontend/)开始。
 
 首先，设置指标，跟踪遗留代码调用的比率是保持不变或是下降，而不是上升。公开阻止团队使用该库，并确保你的 CI 能够[警告](https://github.com/dgraham/eslint-plugin-jquery)开发人员，如果它在拉取请求（pull request）中使用。[Polyfill](https://githubengineering.com/removing-jquery-from-github-frontend/#polyfills) 可以帮助将遗留代码转换为使用标准浏览器功能的重写代码库。
 
@@ -160,7 +160,7 @@ Jake Archibald 发布了一篇详细的文章，其中包含了 [需要牢记的
 
 你可以使用 [Puppeteer](https://github.com/GoogleChrome/puppeteer) 以[编程方式收集代码覆盖率](https://twitter.com/matijagrcic/statuses/1060863620568043520)，Canary 也能够让你[导出代码覆盖率结果](https://twitter.com/tkadlec/status/1073330247758684163)。正如 Andy Davies 提到的那样，你可能希望[同时收集现代和旧版浏览器](https://twitter.com/AndyDavies/status/1073339071106297856)的代码覆盖率。[Puppeteer 还有许多其他用例](https://github.com/GoogleChromeLabs/puppeteer-examples)，例如，[自动视差](https://meowni.ca/posts/2017-puppeteer-tests/)或[监视每个构建的未使用的 CSS](http://blog.cowchimp.com/monitoring-unused-css-by-unleashing-the-devtools-protocol/)。
 
-此外，[purgecss](https://github.com/FullHuman/purgecss)、[UnCSS](https://github.com/giakki/uncss) 和 [Helium](https://github.com/geuis/helium-css) 可以帮助你从 CSS 中删除未使用的样式。如果你不确定是否在某处使用了可疑的代码，可以遵循 [Harry Roberts 的建议](https://csswizardry.com/2018/01/finding-dead-css/)：为该 class 创建 1×1px 透明 GIF 并将其放入 `dead/` 目录，例如： `/assets/img/dead/comments.gif`。然后，将该特定图像设置为 CSS 中相应选择器的背景，然后静候几个月，查看该文件能否出现在你的日志中。如果日志里没出现该条目，则没有人使用该遗留组件：你可以继续将其全部删除。
+此外，[purgecss](https://github.com/FullHuman/purgecss)、[UnCSS](https://github.com/giakki/uncss) 和 [Helium](https://github.com/geuis/helium-css) 可以帮助你从 CSS 中删除未使用的样式。如果你不确定是否在某处使用了可疑的代码，可以遵循 [Harry Roberts 的建议](https://csswizardry.com/2018/01/finding-dead-css/)：为该 class 创建 1×1px 透明 GIF 并将其放入 `dead/` 目录，例如：`/assets/img/dead/comments.gif`。然后，将该特定图像设置为 CSS 中相应选择器的背景，然后静候几个月，查看该文件能否出现在你的日志中。如果日志里没出现该条目，则没有人使用该遗留组件：你可以继续将其全部删除。
 
 对于爱冒险的人，你甚至可以通过使用 [DevTools 监控 DevTools](http://blog.cowchimp.com/monitoring-unused-css-by-unleashing-the-devtools-protocol/)，通过一组页面自动收集未使用的 CSS。
 
@@ -174,7 +174,7 @@ Jake Archibald 发布了一篇详细的文章，其中包含了 [需要牢记的
 
 喜欢冒险吗？你可以看看[Prepack](https://gist.github.com/gaearon/d85dccba72b809f56a9553972e5c33c4)。它将 JavaScript 编译为等效的 JavaScript 代码，但与 Babel 或 Uglify 不同，它允许你编写正常的 JavaScript 代码，并输出运行速度更快的等效 JavaScript 代码。
 
-除了传送整个框架包之外，你甚至可以修剪框架并将其编译为不需要额外代码的原始 JavaScript 包。[Svelte 做到了](https://svelte.technology/)，[Rawact Babel 插件](https://github.com/sokra/rawact)也是如此，它在构建时将 React.js 组件转换为原生 DOM 操作。 为什么？  好吧，正如维护者解释的那样：“React-dom 包含可以渲染的每个可能组件/ HTMLElement 的代码，包括用于增量渲染、调度、事件处理等的代码。但是有些应用程序不需要所有这些功能（在初始页面加载时）。对于此类应用程序，使用原生 DOM 操作构建交互式用户界面可能是有意义的。”
+除了传送整个框架包之外，你甚至可以修剪框架并将其编译为不需要额外代码的原始 JavaScript 包。[Svelte 做到了](https://svelte.technology/)，[Rawact Babel 插件](https://github.com/sokra/rawact)也是如此，它在构建时将 React.js 组件转换为原生 DOM 操作。 为什么？好吧，正如维护者解释的那样：“React-dom 包含可以渲染的每个可能组件/ HTMLElement 的代码，包括用于增量渲染、调度、事件处理等的代码。但是有些应用程序不需要所有这些功能（在初始页面加载时）。对于此类应用程序，使用原生 DOM 操作构建交互式用户界面可能是有意义的。”
 
 [![Webpack 比较](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e30c7d5b-ef8b-46ba-b0fc-b1d5a31cefff/webpack-comparison.png)](https://cdn-images-1.medium.com/max/2000/1*fdX-6h2HnZ_Mo4fBHflh2w.png) 
 
@@ -194,7 +194,7 @@ Jake Archibald 发布了一篇详细的文章，其中包含了 [需要牢记的
 
 研究哪些 JavaScript 引擎在你的用户群中占主导地位，然后探索针对这些引擎的优化方法。例如，在为 Blink 内核浏览器、Node.js 运行时和 Electron 中使用的 V8 进行优化时，使用[脚本流](https://blog.chromium.org/2015/03/new-javascript-techniques-for-rapid.html)来处理庞大的脚本。它允许在下载开始时在单独的后台线程上解析 `async` 或 `defer scripts`，因此在某些情况下可以将页面加载时间减少多达 10％。实际上，在 `<head>` 里[使用 `<script defer>`](https://medium.com/reloading/javascript-start-up-performance-69200f43b201#3498)，以便浏览器可以提前[发现资源](https://medium.com/reloading/javascript-start-up-performance-69200f43b201#3498)，然后在后台线程上解析它。
 
-**警告**：**Opera Mini [不支持脚本延迟]（https://caniuse.com/search#=defer），所以如果你正在为印度或非洲开发，** `defer` **将被忽略，这会导致阻止渲染，直到脚本执行完为止（感谢 Jeremy！）**。
+**警告**：**Opera Mini [不支持脚本延迟](https://caniuse.com/search#=defer)，所以如果你正在为印度或非洲开发**，`defer` **将被忽略，这会导致阻止渲染，直到脚本执行完为止（感谢 Jeremy！）**。
 
 [![渐进式启动](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ab06acd3-833a-4634-abf9-fc8d91939250/fmp-and-tti-opt.jpeg)](https://aerotwist.com/blog/when-everything-is-important-nothing-is/)
 
@@ -230,7 +230,7 @@ Casper.com 发布了一个详细的案例研究，说明他们如何通过自托
 
 比如，可能必须使用 `<iframe sandbox="allow-scripts">` 来运行脚本。每个限制都可以通过 `sandbox` 属性上的各种 `allow` 值来解除（[几乎所有的浏览器都受支持](https://caniuse.com/#search=sandbox)），因此将它们限制在应该允许的最低限度。
 
-考虑使用 Intersection Observer；这将使广告仍然在 iframe 中，但是可以调度事件或从 DOM 获取所需信息（例如， 广告可见性）。可以关注一些新的策略，例如[功能策略](https://www.smashingmagazine.com/2018/12/feature-policy/)，资源大小限制和 CPU/带宽优先级，以限制可能会降低浏览器速度的有害 Web 功能和脚本，例如：同步脚本、同步 XHR 请求、`document.write` 和过时的实现。
+考虑使用 Intersection Observer；这将使广告仍然在 iframe 中，但是可以调度事件或从 DOM 获取所需信息（例如，广告可见性）。可以关注一些新的策略，例如[功能策略](https://www.smashingmagazine.com/2018/12/feature-policy/)，资源大小限制和 CPU/带宽优先级，以限制可能会降低浏览器速度的有害 Web 功能和脚本，例如：同步脚本、同步 XHR 请求、`document.write` 和过时的实现。
 
 要对[第三方进行压力测试](https://csswizardry.com/2017/07/performance-and-resilience-stress-testing-third-parties/)，请检查 DevTools 中性能配置文件页面中的自下而上的摘要，测试如果请求被阻止或超时的情况会发生什么 —— 对于后者，你可以使用 WebPageTest 的 Blackhole 服务器 `blackhole.webpagetest.org`，它可以将特定域指向你的 `hosts` 文件。最好是[自托管并使用单一主机名](https://www.twnsnd.com/posts/performant_third_party_scripts.html)，但也可以[生成一个请求映射](https://www.soasta.com/blog/10-pro-tips-for-managing-the-performance-of-your-third-party-scripts/)，该映射公开第四方调用并检测脚本何时更改。你可以使用 Harry Roberts 的[方法审核第三方](https://csswizardry.com/2018/05/identifying-auditing-discussing-third-parties/)，并生成[类似这样](https://docs.google.com/spreadsheets/d/1uTcRSoJAkXfIm2yfG5hvCSzvSZD9fAwXNQMVK3HdPMI/edit#gid=0)的电子表格。Harry 还在他[关于第三方性能和审计的讨论中](https://www.youtube.com/watch?v=bmIUYBNKja4)解释了审计工作流程。
 
@@ -240,24 +240,24 @@ Casper.com 发布了一个详细的案例研究，说明他们如何通过自托
 
 #### 38. 设置 HTTP 缓存标头
 
-仔细检查是否已正确设置 `expires`，`max-age`，`cache-control` 和其他 HTTP 缓存头。通常，资源无论在[短时间内（如果它们可能会更改）还是无限期（如果它们是静态的）](https://jakearchibald.com/2016/caching-best-practices/)情况下都是可缓存的 —— 你只需在需要时在 URL 中更改它们的版本。禁用 `Last-Modified` 标头，因为任何带有它的静态资源都将导致带有 `If-Modified-Since` 标头的条件请求，即使资源位于缓存中也是如此。`Etag` 也是如此。
+仔细检查是否已正确设置 `expires`、`max-age`、`cache-control` 和其他 HTTP 缓存头。通常，资源无论在[短时间内（如果它们可能会更改）还是无限期（如果它们是静态的）](https://jakearchibald.com/2016/caching-best-practices/)情况下都是可缓存的 —— 你只需在需要时在 URL 中更改它们的版本。禁用 `Last-Modified` 标头，因为任何带有它的静态资源都将导致带有 `If-Modified-Since` 标头的条件请求，即使资源位于缓存中也是如此。`Etag` 也是如此。
 
 使用使用专为指纹静态资源设计的 `Cache-control：immutable`，以避免重新验证（截至 2018 年 12 月，[Firefox、Edge 和 Safari 都已经支持该功能](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control); Firefox 仅支持 `https：//` 事务）。事实上，“在 HTTP 存档中的所有页面中，2％ 的请求和 30％ 的网站似乎[包含至少 1 个不可变响应](https://discuss.httparchive.org/t/cache-control-immutable-a-year-later/1195)。此外，大多数使用它的网站都设置了具有较长新鲜生命周期的静态资源。”
 
-还记得 [stale-while-revalidate](https://www.fastly.com/blog/stale-while-revalidate-stale-if-error-available-today) 吗？你可能知道，我们使用 `Cache-Control` 响应头指定缓存时间，例如： `Cache-Control: max-age=604800`。经过 604800 秒后，缓存将重新获取所请求的内容，从而导致页面加载速度变慢。通过使用 `stale-while-revalidate` 可以避免这种速度变慢的问题。它本质上定义了一个额外的时间窗口，在此期间缓存可以使用旧的静态资源，只要它在异步地在后台重新验证自己。因此，它“隐藏了”来自客户端的延迟（在网络和服务器上）。
+还记得 [stale-while-revalidate](https://www.fastly.com/blog/stale-while-revalidate-stale-if-error-available-today) 吗？你可能知道，我们使用 `Cache-Control` 响应头指定缓存时间，例如：`Cache-Control: max-age=604800`。经过 604800 秒后，缓存将重新获取所请求的内容，从而导致页面加载速度变慢。通过使用 `stale-while-revalidate` 可以避免这种速度变慢的问题。它本质上定义了一个额外的时间窗口，在此期间缓存可以使用旧的静态资源，只要它在异步地在后台重新验证自己。因此，它“隐藏了”来自客户端的延迟（在网络和服务器上）。
 
-在 2018 年 10 月，Chrome 发布了一个[意图](https://groups.google.com/a/chromium.org/forum/#!topic/blink-dev/rspPrQHfFkI/discussion) 在 HTTP Cache-Control 标头中对 `stale-while-revalidate` 的处理，因此，它应该会改善后续页面加载延迟，因为旧的静态文件不再位于关键路径中。 结果：[重复访问页面的 RTT 为零](https://twitter.com/RyanTownsend/status/1072443651844911104)。 
+在 2018 年 10 月，Chrome 发布了一个[意图](https://groups.google.com/a/chromium.org/forum/#!topic/blink-dev/rspPrQHfFkI/discussion) 在 HTTP Cache-Control 标头中对 `stale-while-revalidate` 的处理，因此，它应该会改善后续页面加载延迟，因为旧的静态文件不再位于关键路径中。结果：[重复访问页面的 RTT 为零](https://twitter.com/RyanTownsend/status/1072443651844911104)。 
 
 你可以使用 [Heroku 的 HTTP 缓存标头入门](https://devcenter.heroku.com/articles/increasing-application-performance-with-http-cache-headers)，Jake Archibald 的“[缓存最佳实践](https://jakearchibald.com/2016/caching-best-practices/)”和Ilya Grigorik 的 [HTTP 缓存入门](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=en)作为指南。另外，要注意[标头的变化](https://www.smashingmagazine.com/2017/11/understanding-vary-header/)，特别是[与 CDN 相关的标头](https://www.fastly.com/blog/getting-most-out-vary-fastly)，并注意 [Key 标头](https://www.greenbytes.de/tech/webdav/draft-ietf-httpbis-key-latest.html)，这有助于避免当新请求与先前请求略有差异（但不显着）时，需要进行额外的往返验证（**感谢 Guy！**）。
 
 另外，请仔细检查你是否发送了[不必要的标头](https://www.fastly.com/blog/headers-we-dont-want)（例如 `x-powered-by`、`pragma`、`x-ua-compatible`、`expires` 等），并且包含有用的[安全性和性能标头](https://www.fastly.com/blog/headers-we-want)（例如 `Content-Security-Policy`, `X-XSS-Protection`, `X-Content-Type-Options` 等）。最后，请记住单页应用程序中 [CORS 请求的性能成本](https://medium.com/@ankur_anand/the-terrible-performance-cost-of-cors-api-on-the-single-page-application-spa-6fcf71e50147)。
 
-> [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
-> [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
-> [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
-> **[译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)**
-> [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
-> [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
+> - [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
+> - [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
+> - [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
+> - **[译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)**
+> - [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
+> - [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
