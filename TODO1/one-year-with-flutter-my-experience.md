@@ -35,7 +35,7 @@
 
 #### 3. 架构和状态管理模式仍未成熟
 
-Flutter 是一项新技术，因此在实践、架构模式和状态管理等方面仍然难以获得足够的意见。有些人遵循「[BLoC](https://www.youtube.com/watch?v=fahC3ky_zW0)」（business logic component）模式。因为我认为它有点过于的复杂，所以仍未确定使用它。还有 [RxDart](https://github.com/ReactiveX/rxdart) 和 [Redux for Flutter](https://pub.dartlang.org/packages/flutter_redux)，这两个我还没用过，因为它们似乎也太麻烦了。另一方面，Android 或 React 工程师似乎有不少成功实践，可能是因为他们已经习惯这种模式。
+Flutter 是一项新技术，因此在实践、架构模式和状态管理等方面仍然难以获得足够的意见。有些人遵循「[BLoC](https://www.youtube.com/watch?v=fahC3ky_zW0)」（business logic component）模式。因为我认为它有点过于的复杂，所以仍未确定使用它。还有 [RxDart](https://github.com/ReactiveX/rxdart) 和 [Redux for Flutter](https://pub.dartlang.org/packages/flutter_redux)，这两个我还没用过，因为它们似乎也太麻烦了。另一方面，Android 或 React 工程师似乎有不少成功实践，可能是因为他们已经习惯这种模式。
 
 我认为整个生态系统将在 2019 年成熟，因为越来越多的人正在编写更复杂的 Flutter 应用程序。
 
