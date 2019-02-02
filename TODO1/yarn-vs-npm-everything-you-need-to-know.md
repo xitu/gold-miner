@@ -41,7 +41,7 @@ Whenever npm or Yarn needs to install a package, it carries out a series of task
 
 For comparison, I installed the [express](https://www.npmjs.com/package/express) package using both npm and Yarn without a shrinkwrap/lock file and with a clean cache. This installs 42 packages in total.
 
-propertag.cmd.push(function() { proper\_display('sitepoint\_content_1'); });
+propertag.cmd.push(function() { proper_display('sitepoint_content_1'); });
 
 *   npm: 9 seconds
 *   Yarn: 1.37 seconds
