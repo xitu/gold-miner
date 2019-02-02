@@ -88,6 +88,7 @@ Server: Apache 0.84
 ```
 
 1⃣️ Request line with HTTP version number, followed by request headers
+
 2⃣️Response status, followed by response headers
 
 The preceding exchange is not an exhaustive list of HTTP/1.0 capabilities, but it does illustrate some of the key protocol changes:
@@ -116,6 +117,7 @@ $> telnet website.org 80
 Connected to xxx.xxx.xxx.xxx
 
 GET /index.html HTTP/1.1 1⃣️
+
 Host: website.org
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4)... (snip)
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -125,6 +127,7 @@ Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3
 Cookie: __qca=P0-800083390... (snip)
 
 HTTP/1.1 200 OK 2⃣️
+
 Server: nginx/1.0.11
 Connection: keep-alive
 Content-Type: text/html; charset=utf-8
@@ -135,6 +138,7 @@ Cache-Control: max-age=0, no-cache
 Transfer-Encoding: chunked
 
 100 3⃣️
+
 <!doctype html>
 (snip)
 
@@ -144,17 +148,20 @@ Transfer-Encoding: chunked
 0 4⃣️
 
 GET /favicon.ico HTTP/1.1 5⃣️
+
 Host: www.website.org
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4)... (snip)
 Accept: */*
 Referer: http://website.org/
 Connection: close 6⃣️
+
 Accept-Encoding: gzip,deflate,sdch
 Accept-Language: en-US,en;q=0.8
 Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3
 Cookie: __qca=P0-800083390... (snip)
 
 HTTP/1.1 200 OK 7⃣️
+
 Server: nginx/1.0.11
 Content-Type: image/x-icon
 Content-Length: 3638
@@ -171,11 +178,17 @@ Etag: W/PSA-GAu26oXbDi
 (connection closed)
 
 1⃣️ Request for HTML file, with encoding, charset, and cookie metadata
+
 2⃣️ Chunked response for original HTML request
+
 3⃣️ Number of octets in the chunk expressed as an ASCII hexadecimal number (256 bytes)
+
 4⃣️ End of chunked stream response
+
 5⃣️ Request for an icon file made on same TCP connection
+
 6⃣️ Inform server that the connection will not be reused
+
 7⃣️ Icon response, followed by connection close
 
 Phew, there is a lot going on in there! The first and most obvious difference is that we have two object requests, one for an HTML page and one for an image, both delivered over a single connection. This is connection keepalive in action, which allows us to reuse the existing TCP connection for multiple requests to the same host and deliver a much faster end-user experience; see [Optimizing for TCP](/building-blocks-of-tcp/#optimizing-for-tcp).
