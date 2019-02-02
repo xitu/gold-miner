@@ -66,11 +66,11 @@ Vue.js 作者, [尤雨溪](https://medium.com/@youyuxi), 在 GitHub 评论中已
 
 但是，紧接着就出现了下一个问题 ——**我总是要为了我的组件需要 4 个文件（vue + html + js + css）吗。我可以以某种方式去掉** `**.vue**` **文件吗？**答案肯定是可以，你可以这样做。使用 `vue-template-loader`。
 
-- [**ktsn/vue-template-loader**: vue-template-loader - Vue.js 2.0 template loader for webpack](https://github.com/ktsn/vue-template-loader "https://github.com/ktsn/vue-template-loader")
+- [**ktsn/vue-template-loader**: vue-template-loader - webpack 的 Vue.js 2.0 模板加载器](https://github.com/ktsn/vue-template-loader "https://github.com/ktsn/vue-template-loader")
 
 我的同事写了一篇关于它的很好的博客：
 
-- [**Using vue-template-loader with Vue.js to Compile HTML Templates**: Using vue-template-loader to eliminate need for .vue files in Vue apps, if you're feeling so inclined!](https://alligator.io/vuejs/vue-template-loader/ "https://alligator.io/vuejs/vue-template-loader/")
+- [**使用 vue-template-loader 和 Vue.js 编译 HTML 模板**：如果您有这样的倾向，使用 vue-template-loader 来消除在 Vue 应用中对 .vue 文件的需求！](https://alligator.io/vuejs/vue-template-loader/ "https://alligator.io/vuejs/vue-template-loader/")
 
 * * *
 
@@ -90,15 +90,15 @@ Vue.js 作者, [尤雨溪](https://medium.com/@youyuxi), 在 GitHub 评论中已
 
 函数组件没有像普通组件那样的类和样式绑定。必须在渲染函数中手动应用这些绑定。
 
-- [**DOM class attribute not rendered properly with functional components · Issue #1014 ·…**](https://github.com/vuejs/vue-loader/issues/1014 "https://github.com/vuejs/vue-loader/issues/1014")
+- [**在函数组件中，DOM 类的属性不会被正确的渲染· Issue #1014 ·…**](https://github.com/vuejs/vue-loader/issues/1014 "https://github.com/vuejs/vue-loader/issues/1014")
 
-- [**class attribute ignored on functional components · Issue #7554 · vuejs/vue**](https://github.com/vuejs/vue/issues/7554 "https://github.com/vuejs/vue/issues/7554")
+- [**在函数组件上忽略 class 属性 · Issue #7554 · vuejs/vue**](https://github.com/vuejs/vue/issues/7554 "https://github.com/vuejs/vue/issues/7554")
 
 #### 4.3 函数组件总是重新渲染？
 
 > TLDR: 在函数组件中使用 **有数据的** **组件** 时要小心
 
-- [**Functional components are re-rendered when props are unchanged. · Issue #4037 · vuejs/vue**](https://github.com/vuejs/vue/issues/4037#issuecomment-258164999 "https://github.com/vuejs/vue/issues/4037#issuecomment-258164999")
+- [**当 props 不变时，函数组件会重新渲染。 · Issue #4037 · vuejs/vue**](https://github.com/vuejs/vue/issues/4037#issuecomment-258164999 "https://github.com/vuejs/vue/issues/4037#issuecomment-258164999")
 
 函数组件非常 **渴望** 直接使用组件的渲染函数。这也意味着你应该：
 
@@ -110,7 +110,7 @@ Vue.js 作者, [尤雨溪](https://medium.com/@youyuxi), 在 GitHub 评论中已
 
 从函数组件中发出事件并不是直接了当的。不幸的是，文档中没有提到这一点。`$emit` 方法在函数组件中不可用。以下 stack overflow 问题将在这方面有所帮助：
 
-- [**How to emit an event from Vue.js Functional component?**: This is explained in the docs Passing Attributes and Events to Child Elements/Components: If you are using...](https://stackoverflow.com/questions/50288996/how-to-emit-an-event-from-vue-js-functional-component "https://stackoverflow.com/questions/50288996/how-to-emit-an-event-from-vue-js-functional-component")
+- [**如何从 Vue.js 函数组件中发出事件？**：这在文档中解释了将属性和事件传递给子元素/组件：如果您正在使用．．．](https://stackoverflow.com/questions/50288996/how-to-emit-an-event-from-vue-js-functional-component "https://stackoverflow.com/questions/50288996/how-to-emit-an-event-from-vue-js-functional-component")
 
 * * *
 
@@ -167,9 +167,9 @@ Vue.js 作者, [尤雨溪](https://medium.com/@youyuxi), 在 GitHub 评论中已
 
 组件 `slot` 由调用父组件提供。这意味着所有事件都应与调用组件关联。试图监听这些变化意味着你的父组件和子组件是紧密耦合的，还有另外一个方法可以做到这一点，[Evan You](https://medium.com/@youyuxi) 解释得很漂亮：
 
-- [**Is it possible to emit event from component inside slot · Issue #4332 · vuejs/vue**](https://github.com/vuejs/vue/issues/4332#issuecomment-263444492 "https://github.com/vuejs/vue/issues/4332#issuecomment-263444492")
+- [**是否可以从组件插槽内发出事件 · Issue #4332 · vuejs/vue**](https://github.com/vuejs/vue/issues/4332#issuecomment-263444492 "https://github.com/vuejs/vue/issues/4332#issuecomment-263444492")
 
-- [**Suggestion: v-on on slots · Issue #4781 · vuejs/vue**](https://github.com/vuejs/vue/issues/4781 "https://github.com/vuejs/vue/issues/4781")
+- [**建议: 在插槽上 v-on · Issue #4781 · vuejs/vue**](https://github.com/vuejs/vue/issues/4781 "https://github.com/vuejs/vue/issues/4781")
 
 * * *
 
@@ -193,7 +193,7 @@ function render(h) {
 
 但是，如果你使用基于模板的渲染函数，那么你就不走运了。幸运的是，这个问题正在取得进展，我们可能会为基于模板的组件提供一些东西：
 
-- [**feat(core): support passing down scopedSlots with v-bind by yyx990803 · Pull Request #7765 ·…**](https://github.com/vuejs/vue/pull/7765 "https://github.com/vuejs/vue/pull/7765")
+- [**功能(核心)：支持传递带有 v-bind 的 局部插槽 by yyx990803 · Pull Request #7765 ·…**](https://github.com/vuejs/vue/pull/7765 "https://github.com/vuejs/vue/pull/7765")
 
 * * *
 
