@@ -9,20 +9,20 @@
 
 让 2019 来得更迅速吧~你正在阅读的是 2019 年前端性能优化年度总结，始于 2016。
 
-> [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
-> [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
-> [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
-> [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
-> **[译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)**
-> [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
+> - **[译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)**
+> - [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
+> - [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
+> - [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
+> - [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
+> - [译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)
 
 #### 目录
 
 - [交付优化](#交付优化)
-  - [39. 所有的 JavaScript 库是否都采用了异步的方式加载？](#39-所有的-JavaScript-库是否都采用了异步的方式加载？)
+  - [39. 是否所有的 JavaScript 库都采用了异步加载？](#39-所有的-JavaScript-库是否都采用了异步的方式加载？)
   - [40. 使用 IntersectionObserver 加载开销大的组件](#40-使用-IntersectionObserver-加载开销大的组件)
   - [41. 渐进式加载图片](#41-渐进式加载图片)
-  - [42. 是否发送了关键的css？](#42-你是否发送了关键的css？)
+  - [42. 是否发送了关键的 css？](#42-你是否发送了关键的-css？)
   - [43. 尝试重组 CSS 规则](#43-尝试重组-CSS-规则)
   - [44. 有没有将请求设为 stream？](#44-你有没有将请求设为-stream？)
   - [45. 考虑使组件具有连接感知能力](#45-考虑使组件具有连接感知能力)
@@ -35,25 +35,25 @@
 
 ### 交付优化
 
-#### 39. 所有的 JavaScript 库是否都采用了异步的方式加载？
+#### 39. 是否所有的 JavaScript 库都采用了异步加载？
 
-当用户请求页面时，浏览器获取HTML并构造DOM，然后获取CSS并构造CSSOM，然后通过匹配DOM和CSSOM生成渲染树。一旦出现需要解析的 JavaScript，浏览器将停止渲染，直到 JavaScript 被解析完成，从而造成渲染延迟。作为开发人员，我们必须明确告诉浏览器不要等待 JS 解析，直接渲染页面。对脚本执行此操作的方法是使用HTML中的`defer`和`async`属性。
+当用户请求页面时，浏览器获取 HTML 并构造 DOM，然后获取 CSS 并构造 CSSOM，然后通过匹配 DOM 和 CSSOM 生成渲染树。一旦出现需要解析的 JavaScript，浏览器将停止渲染，直到 JavaScript 被解析完成，从而造成渲染延迟。作为开发人员，我们必须明确告诉浏览器不要等待 JS 解析，直接渲染页面。对脚本执行此操作的方法是使用HTML中的`defer`和`async`属性。
 
 在实践中，事实证明我们应该[更倾向于使用`defer`](http://calendar.perfplanet.com/2016/prefer-defer-over-async/)。使用`async`的话，[Internet Explorer 9 及其之前的版本有兼容性问题](https://github.com/h5bp/lazyweb-requests/issues/42)，可能会破坏它们的脚本。根据[Steve Souders 的讲述](https://youtu.be/RwSlubTBnew?t=1034)，一旦`async`脚本加载完成，它们就会立即执行。如果这种情况发生得非常快，例如当脚本处于缓存中时，它实际上可以阻止HTML解析器。使用`defer`的话，浏览器在解析HTML之前不会执行脚本。因此，除非在开始渲染之前需要执行JavaScript，否则最好使用`defer`。
 
-此外，如上所述，限制第三方库和脚本的可能造成的影响，尤其是社交共享按钮和嵌入式`<iframe>`（如地图）。 [Size Limit库](https://github.com/ai/size-limit)可以帮助[防止 JavaScript 库过大](https://evilmartians.com/chronicles/size-limit-make-the-web-lighter) ：如果不小心添加了一个大的依赖项，该工具将通知你并抛出错误。可以使用[静态的社交分享按钮](https://www.savjee.be/2015/01/Creating-static-social-share-buttons/)（例如[SSBG](https://simplesharingbuttons.com) ）和[交互式地图的静态链接](https://developers.google.com/maps/documentation/static-maps/intro)。
+此外，如上所述，限制第三方库和脚本的可能造成的影响，尤其是社交分享按钮和嵌入式`<iframe>`（如地图）。 [Size Limit库](https://github.com/ai/size-limit)可以帮助[防止 JavaScript 库过大](https://evilmartians.com/chronicles/size-limit-make-the-web-lighter) ：如果不小心添加了一个大的依赖项，该工具将通知你并抛出错误。可以使用[静态的社交分享按钮](https://www.savjee.be/2015/01/Creating-static-social-share-buttons/)（例如[SSBG](https://simplesharingbuttons.com) ）和[交互式地图的静态链接](https://developers.google.com/maps/documentation/static-maps/intro)。
 
 也可以试着[修改非阻塞脚本加载器以实现CSP合规性](https://calendar.perfplanet.com/2018/a-csp-compliant-non-blocking-script-loader/)。
 
-#### 40. 使用 IntersectionObserver 加载开销大的组件
+#### 40. 使用 IntersectionObserver 加载大型组件
 
-一般来说，延迟加载所有开销大的组件是一个好主意，例如大体积的JavaScript，视频，iframe，小部件和潜在的图像。最高效的方法是使用[Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)，它对具有祖先元素或顶级文档视口的目标元素提供了一种异步观察交叉点变化的方法。基本用法是，创建一个新的`IntersectionObserver`对象，该对象接收回调函数和一组选项。然后再添加一个观察目标就可以了。
+一般来说，延迟加载所有大型组件是一个好主意，例如大体积的JavaScript，视频，iframe，小部件和潜在的图像。最高效的方法是使用[Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)，它对具有祖先元素或顶级文档视口的目标元素提供了一种异步观察交叉点变化的方法。基本用法是，创建一个新的`IntersectionObserver`对象，该对象接收回调函数和配置对象。然后再添加一个观察目标就可以了。
 
-回调函数在目标变为可见或不可见时执行，因此当它截取视口时，可以在元素变为可见之前开始执行某些操作。实际上，我们使用了`rootMargin`（根周围的边距）和`threshold`（单个数字或数字数组，表示目标可见性的百分比）对回调函数的执行时间进行了精细的控制。
+回调函数在目标变为可见或不可见时执行，因此当它截取视窗时，可以在元素变为可见之前开始执行某些操作。实际上，我们使用了`rootMargin`（根周围的边距）和`threshold`（单个数字或数字数组，表示目标可见性的百分比）对何时调用回调函数进行精确控制。
 
-Alejandro Garcia Anglada发表了一篇关于如何将其应用到实践中的[简易教程](https://medium.com/@aganglada/intersection-observer-in-action-efc118062366)，Rahul Nanwani写了一篇关于[延迟加载前景和背景图片的详细文章](https://css-tricks.com/the-complete-guide-to-lazy-loading-images/)，Google Fundamentals提供了[关于 Intersection Observer 延迟加载图像和视频的详细教程](https://developers.google.com/web/fundamentals/performance/lazy-loading-guidance/images-and-video/) 。还记得使用动静结合的物体进行艺术指导的长篇故事吗？您也可以使用Intersection Observer实现[高性能的滚动型讲述](https://github.com/russellgoldenberg/scrollama)。
+Alejandro Garcia Anglada 发表了一篇关于如何将其应用到实践中的[简易教程](https://medium.com/@aganglada/intersection-observer-in-action-efc118062366)，Rahul Nanwani写了一篇关于[延迟加载前景和背景图片的详细文章](https://css-tricks.com/the-complete-guide-to-lazy-loading-images/)，Google Fundamentals提供了[关于 Intersection Observer 延迟加载图像和视频的详细教程](https://developers.google.com/web/fundamentals/performance/lazy-loading-guidance/images-and-video/) 。还记得使用动静结合的物体进行艺术指导的长篇故事吗？你也可以使用Intersection Observer实现[高性能的滚动型讲述](https://github.com/russellgoldenberg/scrollama)。
 
-另外，请注意[`lazyload`属性](https://css-tricks.com/a-native-lazy-load-for-the-web-platform/)，它将允许我们以原生的方式指定哪些图像和`iframe`应该是懒惰加载。 [功能说明：LazyLoad](https://www.chromestatus.com/feature/5641405942726656)将提供一种机制，允许我们强制在每个域的基础上选择加入或退出LazyLoad功能（类似于[内容安全政策](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)的功能）。 惊喜：一旦启用，[优先提示 priority hints]（https://twitter.com/csswizardry/status/1050717710525509633）将允许我们在标题中指定脚本和预加载资源的权重（目前已在Chrome Canary中实现）。
+另外，请注意[`lazyload`属性](https://css-tricks.com/a-native-lazy-load-for-the-web-platform/)，它将允许我们以原生的方式指定哪些图像和`iframe`应该是延迟加载。 [功能说明：LazyLoad](https://www.chromestatus.com/feature/5641405942726656)将提供一种机制，允许我们强制在每个域的基础上选择加入或退出LazyLoad功能（类似于[内容安全政策](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)的功能）。 惊喜：一旦启用，[优先提示 priority hints]（https://twitter.com/csswizardry/status/1050717710525509633）将允许我们在标题中指定脚本和预加载资源的权重（目前已在Chrome Canary中实现）。
 
 #### 41. 渐进式加载图片
 
@@ -63,19 +63,19 @@ Alejandro Garcia Anglada发表了一篇关于如何将其应用到实践中的[�
 
 浏览器支持怎么样呢？[主流浏览器](https://caniuse.com/#feat=intersectionobserver)，Chrome，Firefox，Edge和三星的浏览器均有支持。WebKit状态目前已在[预览中支持](https://webkit.org/status/#specification-intersection-observer)。如何优雅降级？如果浏览器不支持 intersection observer，我们仍然可以使用[polyfill](https://github.com/jeremenichelli/intersection-observer-polyfill)来[延迟加载](https://medium.com/@aganglada/intersection-observer-in-action-efc118062366)或立即加载图像。甚至有一个[库](https://github.com/ApoorvSaxena/lozad.js)可以用来实现它。
 
-想成为一名发烧友？你可以[追踪你的图像](https://jmperezperez.com/svg-placeholders/)并使用原始形状和边框来创建一个轻量级的SVG占位符，首先加载它，然后从占位符矢量图像转换为（已加载的）位图图像。
+想成为一名发烧友？你可以[追踪你的图像](https://jmperezperez.com/svg-placeholders/)并使用原始形状和边框来创建一个轻量级的SVG占位符，首先加载它，然后把占位符矢量图像转换为（已加载的）位图图像。
 
 [![José M. Pérez 的 SVG 延迟加载技术](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f7f56052-6abb-4d18-a5aa-8d84102d812e/jmperez-composition-primitive-full.jpg)](https://jmperezperez.com/svg-placeholders/) 
 
 [José M. Pérez](https://jmperezperez.com/svg-placeholders/)的 SVG 延迟加载技术。([大图预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f7f56052-6abb-4d18-a5aa-8d84102d812e/jmperez-composition-primitive-full.jpg))
 
-#### 42. 你是否发送了关键的css？
+#### 42. 你是否发送了关键的 css？
 
-为了确保浏览器尽快开始渲染页面，[通常做法是](https://www.smashingmagazine.com/2015/08/understanding-critical-css/)收集开始渲染页面的第一个可见部分所需的所有CSS（称为“关键CSS”或“首页CSS”）并将其以内联的形式添加到页面的“<head>”中，从而减少往返请求。由于在慢启动阶段交换的包的大小有限，因此关键CSS的预算约为14 KB。
+为了确保浏览器尽快开始渲染页面，[通常做法是](https://www.smashingmagazine.com/2015/08/understanding-critical-css/)收集开始渲染页面的第一个可见部分所需的所有CSS（称为“关键CSS”或“首页CSS”）并将其以内联的形式添加到页面的“<head>”中，从而减少往返请求。由于在慢启动阶段交换的包的大小有限，因此关键 CSS 的预算大小约为14 KB。
 
 如果超出此范围，浏览器将需要额外的开销来获取更多样式。 [CriticalCSS](https://github.com/filamentgroup/criticalCSS)和[Critical](https://github.com/addyosmani/critical)使你能够做到这一点。你可能需要为正在使用的每个模板执行此操作。如果可能的话，请考虑使用Filament Group使用的[条件内联方法](https://www.filamentgroup.com/lab/modernizing-delivery.html)，或[动态地将内联代码转换为静态资源](https://www.smashingmagazine.com/2018/11/pitfalls-automatically-inlined-code/)。
 
-使用HTTP/2，关键CSS可以存储在单独的CSS文件中，并通过[服务器推送](https://www.filamentgroup.com/lab/modernizing-delivery.html)传送，而不会增加HTML的大小。问题是，服务器推送[很麻烦](https://twitter.com/jaffathecake/status/867699157150117888) ，浏览器存在许多陷阱和竞争条件。往往并不能始终支持，且伴有一些缓存问题（参见[Hooman Beheshti演示文稿幻灯片的114页](http://www.slideshare.net/Fastly/http2-what-no-one-is-telling-you)）。事实上，这种影响可能是[负面的](https://jakearchibald.com/2017/h2-push-tougher-than-i-thought/) ，它会使网络缓冲区膨胀，从而阻止文档中的真实帧被传递。此外，由于TCP启动缓慢，服务器推送似乎[在热连接上更有效](https://docs.google.com/document/d/1K0NykTXBbbbTlv60t5MyJvXjqKGsCVNYHyLEXIxYMv0/edit)。
+使用HTTP/2，关键CSS可以存储在单独的CSS文件中，并通过[服务器推送](https://www.filamentgroup.com/lab/modernizing-delivery.html)传送，而不会增加HTML的大小。问题是，服务器推送[很麻烦](https://twitter.com/jaffathecake/status/867699157150117888) ，浏览器存在许多陷阱和竞争条件。往往并不能始终支持，且伴有一些缓存问题（参见[Hooman Beheshti演示文稿幻灯片的114页](http://www.slideshare.net/Fastly/http2-what-no-one-is-telling-you)）。事实上，这种影响可能是[负面的](https://jakearchibald.com/2017/h2-push-tougher-than-i-thought/) ，它会使网络缓冲区膨胀，从而导致文档中真实帧的传递被阻止。此外，由于TCP启动缓慢，服务器推送似乎[在热连接上更有效](https://docs.google.com/document/d/1K0NykTXBbbbTlv60t5MyJvXjqKGsCVNYHyLEXIxYMv0/edit)。
 
 即使使用HTTP/1，将关键CSS放在根域名下的单独文件中[也是有好处的](http://www.jonathanklein.net/2014/02/revisiting-cookieless-domain.html)，由于缓存的原因，有时甚至比内联更优。 Chrome在请求页面时会尝试打开根域名下的第二个HTTP连接，从而无需TCP连接来获取此CSS（_感谢Philip！_）
 
@@ -105,7 +105,7 @@ Scott Jehl通过[使用service worker缓存内联CSS文件](https:/www.filamentG
 
 经常被遗忘和忽略的是[Streams](https://streams.spec.whatwg.org/)提供了一个读或写异步数据块的接口，在任何给定的时间里，内存中可能只有一部分数据块可用。基本上，它们允许发出原始请求的页面在第一块数据可用时立即开始处理响应，并使用针对流优化的解析器逐步显示内容。
 
-我们可以从多个来源创建一个流。例如，可以让service worker构造一个流，其中shell来自缓存，但主体来自网络，而不是提供一个空的 UI shell 并让JavaScript填充它。正如Jeff Posnick[所说](https:/developers.google.com/web/update/2016/06/sw-readablestream)，如果你的Web应用程序由CMS提供支持，该CMS通过将部分模板缝合在一起呈现HTML，则可以将该模型直接转换为使用流响应，模板逻辑将复制到service worker而不是你的服务器中。 Jake Archibald 的[网络流年](https:/jakearchibald.com/2016/stream-ftw/)文章重点介绍了如何准确地构建它。可以为性能带来[相当明显的提升](https:/www.youtube.com/watch？v=Cjo9iq8k-bc)。
+我们可以从多个来源创建一个流。例如，可以让service worker构造一个流，其中shell来自缓存，但主体来自网络，而不是提供一个空的 UI shell 并让JavaScript填充它。正如Jeff Posnick[所说](https:/developers.google.com/web/update/2016/06/sw-readablestream)，如果你的Web应用程序由CMS提供支持，该CMS通过将部分模板缝合在一起呈现HTML，则可以将该模型直接转换为使用流响应，模板逻辑将复制到service worker而不是你的服务器中。 Jake Archibald 的[Web Streams 之年](https:/jakearchibald.com/2016/stream-ftw/)文章重点介绍了如何准确地构建它。可以为性能带来[相当明显的提升](https:/www.youtube.com/watch？v=Cjo9iq8k-bc)。
 
 流式处理整个HTML响应的一个重要优点是，在初始导航请求期间呈现的HTML可以充分利用浏览器的流式HTML解析器。页面加载后插入到文档中的HTML块(这在通过JavaScript填充的内容中很常见)则无法享受这种优化。
 
@@ -143,7 +143,7 @@ DevTools中的“优先级”列。图片来源：Ben Schwarz, [关键请求](ht
 
 请注意，即使使用`preconnect` 和 `dns-prefetch`，浏览器对要并行查找/连接到的主机数量也有限制，因此基于优先级对它们进行排序是安全的(_感谢Philip！_)。
 
-事实上，使用资源提示可能是提高性能的最简单的方法，而且[它确实工作得很好](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)。什么时候用什么？正如Addy Osmani[曾解释过的](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)，我们应该预先加载我们高度信任的资源，以便在当前页面中使用这些资源。预获取资源可能会用于未来跨边界的导航，例如用户尚未访问的页面所需的 webpack bundles。
+事实上，使用资源提示可能是提高性能的最简单的方法，而且[它确实很有效](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)。什么时候用什么？正如Addy Osmani[曾解释过的](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)，我们应该预先加载我们高度信任的资源，以便在当前页面中使用这些资源。预获取资源可能会用于未来跨边界的导航，例如用户尚未访问的页面所需的 webpack bundles。
 
 Addy关于[“在Chrome中加载优先级”]的文章(https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)准确地展示了Chrome是如何解释资源提示的，因此一旦确定了哪些资源对于渲染至关重要，就可以为它们分配高优先级。要查看请求的优先级，可以在Chrome 的 DevTools 网络请求表(以及 Safari 的 Technology Preview)中启用“优先级”列。
 
