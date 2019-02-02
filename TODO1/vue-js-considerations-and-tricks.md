@@ -5,55 +5,55 @@
 > * 译者：
 > * 校对者：
 
-# Vue.js — Considerations and Tricks
+# Vue.js — 注意事项和技巧
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Agh6VagdEwoIziUUnbxgOg.png)
 
-Vue.js is great. However, when you start building large scale JavaScript applications, you will start to hit the boundaries of the Vue.js. These boundaries are not really the limitations of the framework; rather these are the important design decisions that Vue.js team had taken from time to time.
+Vue.js 很棒。但是， 当你开始构建大型 JavaScript 应用时，你将开始触及 Vue.js 的边界。实际上这些边界并不是框架的限制；相反，这些边界是 Vue.js 团队不断进步地重要设计决策。
 
-Unlike React or Angular, Vue.js caters to different level of developers. It is friendly, easy-to-use for beginners and equally flexible for experts. It doesn’t try to shy away from DOM. Instead, it plays well with it.
+与 React 或 Angular 不同，Vue.js 迎合不同级别的开发人员。对于初学者它友好，易用，并且对于专家它同样灵活。它不会试图回避 DOM。相反，它发挥得很好。
 
-Having said this, this article is more like a catalog of some of the great **discussions, issues and tricks** I have come across on my way to Vue.js enlightenment. Understanding these key design aspects helped us while building our large scale web applications.
+话虽如此，但这篇文章更像是我在 Vue.js 启蒙途中遇到的一些重要 **讨论，问题和技巧** 的目录。了解这些关键的设计方面有助于我们构建大型的web应用程序。
 
-Again, these discussion are valid as of today, May 18th, 2018. When framework upgrades, underlying browser and JS API will change, they may not be valid and intuitive.
-
-* * *
-
-#### 1. Why Vue.js doesn’t use ES classes out-of-box for component?
-
-If you are coming from Angular-like framework or some backend OOP heavy language, your first question will be — why not classes for components?
-
-Vue.js creator, [Evan You](https://medium.com/@youyuxi), has nicely answered this question in this GitHub comment:
-
-- [**Use standard JS classes instead of custom syntax? · Issue #2371 · vuejs/vue**](https://github.com/vuejs/vue/issues/2371#issuecomment-284052430 "https://github.com/vuejs/vue/issues/2371#issuecomment-284052430")
-
-There are three main reason why not classes as default mechanism:
-
-1.  ES Classes are not good enough to meet the needs of Vue.js current API. ES Classes are not fully evolved and often criticized as a step in wrong direction. Classes with private fields and decorators once stabilized (Stage 3 at least) may help.
-2.  ES Classes serve good only those who are familiar with Class based languages. It easily excludes large community of web that doesn’t use sophisticated build tools or transpilers.
-3.  **Building great UI component hierarchy is about great component composition. It is not about great inheritance hierarchy. Unfortunately, ES classes are better at the latter.**
+同样，这些讨论在 2018 年 5 月 18 日的今天有效。当框架升级，底层浏览器和 JS API 将发生改变，它们可能无效和不直观。
 
 * * *
 
-#### 2. How can I build my own abstract component?
+#### 1. 为什么 Vue.js 不使用开箱即用的 ES 类组件？
 
-If building large scale web application is not enough, you have some crazy idea to implement an abstract component like `<transition>` or `<router-view>`. There was definitely a discussion about this, but it really did not sail through.
+如果你来自类似 Angular 的框架或一些后端 OOP 的重语言，你的第一个问题将是 - 为什么不是组件类？
 
-- [**Any plan for docs of abstract components? · Issue #720 · vuejs/vuejs.org**](https://github.com/vuejs/vuejs.org/issues/720 "https://github.com/vuejs/vuejs.org/issues/720")
+Vue.js 作者, [尤雨溪](https://medium.com/@youyuxi), 在 GitHub 评论中已经很好地回答了这个问题：
 
-But fear not, with good understanding of slots, you can build your own abstract components. There is a very good blog post explaining how to do that.
+- [**使用标准 js 类而不是自定义语法？ · Issue #2371 · vuejs/vue**](https://github.com/vuejs/vue/issues/2371#issuecomment-284052430 "https://github.com/vuejs/vue/issues/2371#issuecomment-284052430")
 
-- [**Writing Abstract Components with Vue.js**](https://alligator.io/vuejs/vue-abstract-components/ "https://alligator.io/vuejs/vue-abstract-components/")
+不将类作为默认机制有三个主要的原因：
 
-But still think twice before you do that. We have always relied on mixins and plain functions to solve some corner case scenarios. Just think of mixins as your abstract components:
-
-- [**How do I extend another VueJS component in a single-file component? (ES6 vue-loader)**](https://stackoverflow.com/a/35964246/5723098 "https://stackoverflow.com/a/35964246/5723098")
+1.  ES 类不足以满足 Vue.js 当前 API 的需求。ES 课程没有完全发展，经常被批评为错误方向的一步。具有私有字段和装饰器的类一旦稳定（至少第 3 阶段）可能会有所帮助。
+2.  ES 课程只适用于熟悉基于类的语言的人。它很容易排除不使用复杂构建工具或转换器的大型 web 社区。
+3.  **构建出色的 UI 组件层次结构是关于出色的组件组成。它与伟大的继承层次结构无关。不幸的是，ES 类在后者方面更胜一筹。**
 
 * * *
 
-#### 3. I am not really comfortable with Vue.js Single File Component Approach. I am more happy with Separate HTML, CSS and JavaScript.
+#### 2. 如何构建自己的抽象组件？
 
-Nobody has stopped you from doing so. If you are old school Separation of Concern philosopher who like to literally put separate things into separate files or you hate code editor’s erratic behavior around `.vue` files, then it is certainly possible. All you have to do:
+如果构建大型 web 应用是不够的，那么你有一些疯狂的想法来实现一个抽象组件，如 `<transition>` 或 `<router-view>`。这肯定有关于此的讨论，但它真的没有通过。
+
+- [**任何抽象组件的文档计划？ · Issue #720 · vuejs/vuejs.org**](https://github.com/vuejs/vuejs.org/issues/720 "https://github.com/vuejs/vuejs.org/issues/720")
+
+但是不要害怕，通过对插槽的充分理解，你可以构建自己的抽象组件。这有一篇非常好的博客文章来解释如何做到这一点。
+
+- [**用 Vue.js 编写抽象组件**](https://alligator.io/vuejs/vue-abstract-components/ "https://alligator.io/vuejs/vue-abstract-components/")
+
+但在你这样做之前还是要三思而行。我们一直依靠 mixins 和 plain 函数来解决一些极端情况。只需将 minxins 视为您的抽象组件：
+
+- [**如何在一个单文件组件中扩展另一个 Vue.js 组件？（ES6 vue-loader）**](https://stackoverflow.com/a/35964246/5723098 "https://stackoverflow.com/a/35964246/5723098")
+
+* * *
+
+#### 3. 我真的对用 Vue.js 单文件组件 不舒服。我更喜欢把 HTML，CSS 和 JavaScript 分开。
+
+没有人阻止你这么做。如果你是老派的 Separation of Concern 哲学家，喜欢将单独的东西放在单独的文件中，或者你讨厌代码编辑器围绕 `.vue` 文件的不稳定行为，那么它肯定是可能的。所以你需要做的：
 
 ```
 <!--https://vuejs.org/v2/guide/single-file-components.html -->
@@ -64,59 +64,59 @@ Nobody has stopped you from doing so. If you are old school Separation of Concer
 <style src="./my-component.css"></style>
 ```
 
-However, immediately next question comes up —**Do I always need 4 files (vue + html + js + css) for my component. Can I somehow get rid of** `**.vue**` **files?** Answer is definitely yes, you can do that. Use `vue-template-loader`.
+但是，紧接着就出现了下一个问题 ——**我总是要为了我的组件需要 4 个文件（vue + html + js + css）吗。我可以以某种方式去掉** `**.vue**` **文件吗？**答案肯定是可以，你可以这样做。使用 `vue-template-loader`。
 
 - [**ktsn/vue-template-loader**: vue-template-loader - Vue.js 2.0 template loader for webpack](https://github.com/ktsn/vue-template-loader "https://github.com/ktsn/vue-template-loader")
 
-My colleguage has written a great post about it:
+我的同事写了一篇关于它的很好的博客：
 
 - [**Using vue-template-loader with Vue.js to Compile HTML Templates**: Using vue-template-loader to eliminate need for .vue files in Vue apps, if you're feeling so inclined!](https://alligator.io/vuejs/vue-template-loader/ "https://alligator.io/vuejs/vue-template-loader/")
 
 * * *
 
-### 4. Functional Components
+### 4. 函数组件
 
-Thanks to React.js, functional components are craze now a days albeit for a good reason. They are **fast, stateless and easy to test**. However, there are gotchas.
+感谢 React.js，函数组件是现在的热潮，虽然有充分的理由。它们 **快速，无状态且易于测试**。但是，它们有一些问题。
 
-#### 4.1 Why can’t I use class based @Component decorator for Functional Components?
+#### 4.1 为什么我不能为函数组件使用基于类的 @Component 装饰器？
 
-Again coming back to classes, it should be noted that classes are a data structures that are meant to hold local state. If functional components are stateless, then is there really no point inhaving @Component decorator.
+又回到类上，应该注意的是，类是旨在保持本地状态的一种数据结构。如果函数组件是无状态的，那么 @Component 真的没有意义。
 
-The relevant discussion is available at:
+相关讨论可在以下网站查阅：
 
-- [**How to create functional component in @Component? · Issue #120 · vuejs/vue-class-component**](https://github.com/vuejs/vue-class-component/issues/120 "https://github.com/vuejs/vue-class-component/issues/120")
+- [**怎样在 @Component 中创建函数组件？ · Issue #120 · vuejs/vue-class-component**](https://github.com/vuejs/vue-class-component/issues/120 "https://github.com/vuejs/vue-class-component/issues/120")
 
-#### 4.2 External classes and styles are not applied to Functional components
+#### 4.2 外部类和样式不适用于函数组件
 
-Functional components do not have class and style binding like normal components. One has to manually apply these binding within render function
+函数组件没有像普通组件那样的类和样式绑定。必须在渲染函数中手动应用这些绑定。
 
 - [**DOM class attribute not rendered properly with functional components · Issue #1014 ·…**](https://github.com/vuejs/vue-loader/issues/1014 "https://github.com/vuejs/vue-loader/issues/1014")
 
 - [**class attribute ignored on functional components · Issue #7554 · vuejs/vue**](https://github.com/vuejs/vue/issues/7554 "https://github.com/vuejs/vue/issues/7554")
 
-#### 4.3 Functional components are always re-rendered?
+#### 4.3 函数组件总是重新渲染？
 
-> TLDR: Be careful when using **statuful** **components** inside functional components
+> TLDR: 在函数组件中使用 **有数据的** **组件** 时要小心
 
 - [**Functional components are re-rendered when props are unchanged. · Issue #4037 · vuejs/vue**](https://github.com/vuejs/vue/issues/4037#issuecomment-258164999 "https://github.com/vuejs/vue/issues/4037#issuecomment-258164999")
 
-Functional components are **eager** meaning render function of the component gets directly called. This also means that you should:
+函数组件非常 **渴望** 直接使用组件的渲染函数。这也意味着你应该：
 
-> Avoid using stateful component directly within render function because that will create different component definition on every call to render function.
+> 避免在渲染函数中直接使用有状态的组件，因为这会在每一次调用渲染函数时创建不同的组件定义。
 
-**Functional component are better used if they are leaf components**. It should be noted that this same behavior also applies to React.js.
+**如果函数组件是子组件，它们会更好地被使用**。应该注意的是，这种行为也适用于 React.js。
 
-#### 4.4 How to emit an event from Vue.js Functional component?
+#### 4.4 如何从 Vue.js 函数组件中发出事件？
 
-Emitting an event from Functional component is not straight forward. Unfortunately, there is nothing mentioned in the docs about this. `$emit` method is not available within functional component. Following stack overflow question will help in this regard:
+从函数组件中发出事件并不是直接了当的。不幸的是，文档中没有提到这一点。`$emit` 方法在函数组件中不可用。以下 stack overflow 问题将在这方面有所帮助：
 
 - [**How to emit an event from Vue.js Functional component?**: This is explained in the docs Passing Attributes and Events to Child Elements/Components: If you are using...](https://stackoverflow.com/questions/50288996/how-to-emit-an-event-from-vue-js-functional-component "https://stackoverflow.com/questions/50288996/how-to-emit-an-event-from-vue-js-functional-component")
 
 * * *
 
-#### 5. Vue.js Transparent wrapper components
+#### 5. Vue.js 透明包装组件
 
-Transparent wrapper component wraps some DOM structure and yet expose events for that DOM structure instead of root DOM element. For example,
+透明包装组件包装一些 DOM 结构，但暴露该 DOM 结构的事件而不是根 DOM 元素。例如，
 
 ```
 <!-- Wrapper component for input -->
@@ -128,7 +128,7 @@ Transparent wrapper component wraps some DOM structure and yet expose events for
 </template>
 ```
 
-Here we are really interested in `input` tag and not with root `div` element as it is mostly added for styling and cosmetic purpose. The user of this component might be interested in several events from input like `blur`, `focus`, `click`, `hover`, etc. **It means we have to re-emit each event**. Our component would look like this.
+这里，我们真的对 `input` 标签 感兴趣而不是 根 `div` 元素，因为它主要用于添加样式和装饰的。该组件的用户可能对来自 input 的几个事件感兴趣，例如 `blur`，`focus`，`click`，`hover`等。这意味着我们必须重新发出每个事件。我们的组件看起来像这样。
 
 ```
 <!-- Wrapper component for input -->
@@ -145,7 +145,7 @@ Here we are really interested in `input` tag and not with root `div` element as 
 </template>
 ```
 
-Now that is **anti-DRY and looks messy**. Simple solution is to simply rebind your event listeners to required DOM elements using `vm.$listeners` property on Vue instance:
+现在是 **anti-DRY 且看起来很乱**。简单的解决方案是使用 Vue 实例上的 `vm.$listeners` 属性简单地将事件侦听重新绑定到所需的 DOM 元素：
 
 ```
 <!-- Notice the use of $listeners -->
@@ -161,11 +161,11 @@ Now that is **anti-DRY and looks messy**. Simple solution is to simply rebind yo
 
 * * *
 
-#### 6. Why you cannot v-on or emit from the slot
+#### 6. 为什么你不能从插槽中 v-on 或 emit
 
-I have often seen developers trying to emit event from a slot or to listen for events on a slot. That is simply not possible.
+我经常看到一些开发者试图从插槽中发出事件或者在一个插槽中监听事件。
 
-Component `slot` is provided by calling/parent component. It means all the events should associated with the calling component. Trying to listen for those changes means your parent and child component are tightly coupled and there is another route to do that which is explainly beautifully by [Evan You](https://medium.com/@youyuxi):
+组件 `slot` 由调用父组件提供。这意味着所有事件都应与调用组件关联。试图监听这些变化意味着你的父组件和子组件是紧密耦合的，还有另外一个方法可以做到这一点，[Evan You](https://medium.com/@youyuxi) 解释得很漂亮：
 
 - [**Is it possible to emit event from component inside slot · Issue #4332 · vuejs/vue**](https://github.com/vuejs/vue/issues/4332#issuecomment-263444492 "https://github.com/vuejs/vue/issues/4332#issuecomment-263444492")
 
@@ -173,13 +173,13 @@ Component `slot` is provided by calling/parent component. It means all the event
 
 * * *
 
-#### 7. Slot within a slot (Read grandchildren slot)
+#### 7. 插槽中的插槽（读取后代插槽）
 
-At some point, you will encounter this scenario. Imagine you have a component, say **A**, that accepts some slots. Following the principles of composition, you build another component **B** using component **A**. Now you take component **B** and use it in component **C**.
+在某些时候，你会遇到这种情况。想象一下，你有一个组件，比如 A，接受一些插槽。遵循组合原则，你会使用组件 **A** 创建另一个组件 **B**。现在你获取组件 **B** 并在组件 **C** 中使用它。
 
-> Question is — How do you pass slot from component **C** to component **A?**
+> 问题是 — 如何将组件 **C** 中的插槽传递给 **A**？
 
-**Answer to this question depends on what you use?** If you use render function, then it is pretty trivial. Render function of component B will be:
+**这个问题的答案取决于你使用的是什么？** 如果你使用渲染函数，那么它非常简单。组件 B 的渲染函数将是：
 
 ```
 // Render function for component B
@@ -191,13 +191,13 @@ function render(h) {
 }
 ```
 
-However, if you use template based render function, then you are out of luck. Fortunately, there is a progress happening on this issue and we may have something for template based components:
+但是，如果你使用基于模板的渲染函数，那么你就不走运了。幸运的是，这个问题正在取得进展，我们可能会为基于模板的组件提供一些东西：
 
 - [**feat(core): support passing down scopedSlots with v-bind by yyx990803 · Pull Request #7765 ·…**](https://github.com/vuejs/vue/pull/7765 "https://github.com/vuejs/vue/pull/7765")
 
 * * *
 
-Hopefully, this post has given in insights into Vue.js design considerations and some tips/tricks to play with advanced scenarios in Vue.js.
+希望这篇文章能够深入了解 Vue.js 的设计要点和在 Vue.js 中使用高级场景的提示/技巧。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
