@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/courier-dropbox-migration-to-grpc.md](https://github.com/xitu/gold-miner/blob/master/TODO1/courier-dropbox-migration-to-grpc.md)
 > * 译者：[kasheemlew](https://github.com/kasheemlew)
-> * 校对者：
+> * 校对者：[shixi-li](https://github.com/shixi-li)
 
 # Courier: Dropbox 的 gRPC 迁移利器
 
@@ -11,7 +11,7 @@
 
 Dropbox 运行着几百个服务，它们由不同的语言编写，每秒会交换几百万个请求。在我们面向服务架构的中心就是 Courier，它是我们基于 gRPC 的远过程调用（RPC）框架。在开发 Courier 的过程中，我们学到了很多扩展 RPC 并优化性能和衔接原有 RPC 系统的东西。
 
-_注释：本文只展示了 Python 和 Go 生成代码的例子。我们也支持 Rust 和 Java。_
+**注释：本文只展示了 Python 和 Go 生成代码的例子。我们也支持 Rust 和 Java。**
 
 ## The road to gRPC
 
@@ -93,7 +93,7 @@ Courier 集中管理所有的客户端的基于特定语言实现的功能，例
 
 **截止期限**
 
-每个 [gRPC](https://grpc.io/blog/deadlines) [请求都包含一个](https://grpc.io/blog/deadlines) [截止期限](https://grpc.io/blog/deadlines)， 用来表示客户端等待回复的时长。 由于 Courier 自动传送全部已知的元数据，截止期限会一只存在于请求中，甚至跨越 API 边界。在进程中，截止期限被转换成了特定的表示。例如在 Go 中会使用 `WithDeadline` 方法的返回结构 `context.Context` 进行表示。
+每个 [gRPC](https://grpc.io/blog/deadlines) [请求都包含一个](https://grpc.io/blog/deadlines) [截止期限](https://grpc.io/blog/deadlines)，用来表示客户端等待回复的时长。由于 Courier 自动传送全部已知的元数据，截止期限会一只存在于请求中，甚至跨越 API 边界。在进程中，截止期限被转换成了特定的表示。例如在 Go 中会使用 `WithDeadline` 方法的返回结构 `context.Context` 进行表示。
 
 在实践过程中，我们要求工程师们在服务的定义中制定截止期限，从而使所有的类都是可靠的。
 
@@ -121,18 +121,18 @@ Courier 集中管理所有的客户端的基于特定语言实现的功能，例
 
 **运行时**
 
-能在看到运行时的状态是非常有用的。例如 [堆和 CPU 文件可以暴露为 HTTP 或 gRPC 端点](https://golang.org/pkg/net/http/pprof/).
+能在看到运行时的状态是非常有用的。例如 [堆和 CPU 文件可以暴露为 HTTP 或 gRPC 端点](https://golang.org/pkg/net/http/pprof/)。
 
 > 我们打算在灰度验证的阶段用这个方法自动化新旧版本代码间的对比。
 
-这些调试端点允许在修改运行时的状态，例如，一个用 golang 开发的服务可以动态设置 [GCPercent](https://golang.org/pkg/runtime/debug/#SetGCPercent) 。
+这些调试端点允许在修改运行时的状态，例如，一个用 golang 开发的服务可以动态设置 [GCPercent](https://golang.org/pkg/runtime/debug/#SetGCPercent)。
 
 **库**
 
 动态导出某些特定库的数据作为 RPC 端点对于库的作者来说很有用。[malloc 库转储内部状态](http://jemalloc.net/jemalloc.3.html#malloc_stats_print_opts)就是个很好的例子。
 
 **RPC**  
-考虑到对加密的和二进制编码的协议进行故障诊断有点复杂，因此应该在性能允许的情况下向 RPC 层加入尽可能多的工具。最近有个这样的自省 API 的例子，就是[gRPC 的 channelz 提案](https://github.com/grpc/proposal/blob/master/A14-channelz.md)。
+考虑到对加密的和二进制编码的协议进行故障诊断有点复杂，因此应该在性能允许的情况下向 RPC 层加入尽可能多的工具。最近有个这样的自省 API 的例子，就是 [gRPC 的 channelz 提案](https://github.com/grpc/proposal/blob/master/A14-channelz.md)。
 
 **应用**
 
@@ -207,15 +207,15 @@ Did ... AES-128-GCM (8192 bytes) seal operations in ... 4534.4 MB/s
 
 ### 高时延带宽积链接
 
-Dropbox 拥有 [大量通过骨干网络连接的数据中心](https://blogs.dropbox.com/tech/2017/09/infrastructure-update-evolution-of-the-dropbox-backbone-network/)。有时候不同区域的节点可能需要使用 RPC 进行通信，例如为了复制。 使用 TCP 的内核是为了限制指定连接（限制在 `/proc/sys/net/ipv4/tcp_{r,w}mem`）的传输中数据的数量。由于 gRPC 是基于 HTTP/2 的，在 TCP 之上还有其特有的流控制。[BDP 的上限硬编码于](https://github.com/grpc/grpc-go/issues/2400) [grpc-go 为 16Mb](https://github.com/grpc/grpc-go/issues/2400)，这可能会成为单一的高 BDP 连接的瓶颈。
+Dropbox 拥有 [大量通过骨干网络连接的数据中心](https://blogs.dropbox.com/tech/2017/09/infrastructure-update-evolution-of-the-dropbox-backbone-network/)。有时候不同区域的节点可能需要使用 RPC 进行通信，例如为了复制。使用 TCP 的内核是为了限制指定连接（限制在 `/proc/sys/net/ipv4/tcp_{r,w}mem`）的传输中数据的数量。由于 gRPC 是基于 HTTP/2 的，在 TCP 之上还有其特有的流控制。[BDP 的上限硬编码于](https://github.com/grpc/grpc-go/issues/2400) [grpc-go 为 16Mb](https://github.com/grpc/grpc-go/issues/2400)，这可能会成为单一的高 BDP 连接的瓶颈。
 
 ### Golang 的 net.Server 和 grpc.Server 对比
 
-在我们的 Go 代码中，我们起初支持 HTTP/1.1 和 gRPC 使用相同的 [net.Server](https://golang.org/pkg/net/http/#Server)。 这从逻辑上讲得通，但是在性能上表现不佳。 将 HTTP/1.1 和 gRPC 拆分到不同的路径、用不同的服务器管理并且将 gRPC 换成 [grpc.Server](https://godoc.org/google.golang.org/grpc#Server) 大大改进了 Courier 服务的吞吐量和内存占用。
+在我们的 Go 代码中，我们起初支持 HTTP/1.1 和 gRPC 使用相同的 [net.Server](https://golang.org/pkg/net/http/#Server)。这从逻辑上讲得通，但是在性能上表现不佳。将 HTTP/1.1 和 gRPC 拆分到不同的路径、用不同的服务器管理并且将 gRPC 换成 [grpc.Server](https://godoc.org/google.golang.org/grpc#Server) 大大改进了 Courier 服务的吞吐量和内存占用。
 
 ### golang/protobuf 和 gogo/protobuf 对比
 
-如果你使用 gRPC 的话，编组和解组开销会很大。对于我们的 Go 代码， 我们使用了 [gogo/protobuf](https://github.com/gogo/protobuf)，它显著降低了对我们最忙碌的 Courier 服务器的 CPU 使用。
+如果你使用 gRPC 的话，编组和解组开销会很大。对于我们的 Go 代码，我们使用了 [gogo/protobuf](https://github.com/gogo/protobuf)，它显著降低了对我们最忙碌的 Courier 服务器的 CPU 使用。
 
 > 同样的，[使用 gogo/protobuf 也有一些注意事项](https://jbrandhorst.com/post/gogoproto/)，但坚持使用一个正常的功能子集的话应该没问题。
 
@@ -414,7 +414,7 @@ class TestCourierClient(Protocol):
 
 一开始，这看起来有些奇怪，但时候后来开发者们渐渐习惯了显式的 `ctx`，就像他们习惯 `self` 一样。
 
-请注意，我们的存根也都是 mypy 类型的，这在大规模重构期间会得到充分的回报。
+请注意，我们的存根也都是 mypy 类型的，这在大规模重构期间会得到充分的回报。并且 mypy 在像 PyCharm 这样的 IDE 中也已经得到了很好的集成。
 
 继续静态类型的趋势，我们还可以将 mypy 的注解加入到 proto 中。
 
@@ -485,17 +485,17 @@ class MyClient(object):
 
 这里我们总结了开发和部署 Courier 过程中主要的经验教训：
 
-1.  可观察性是一个特性。 在排除故障时，所有现成的度量和故障是非常宝贵的。
-2.  标准化和一致性很重要。 它们可以降低认知压力并简化操作和代码维护。
-3.  试着最小化代码开发者需要编写的样板文件。代码生成器是你的伙伴。
-4.  尽量让迁移简单些。迁移通常需要比开发更多的时间。同时，迁移只有在清理过程完成之后才算结束。
+1. 可观察性是一个特性。在排除故障时，所有现成的度量和故障是非常宝贵的。
+2. 标准化和一致性很重要。它们可以降低认知压力并简化操作和代码维护。
+3. 试着最小化代码开发者需要编写的样板文件。代码生成器是你的伙伴。
+4. 尽量让迁移简单些。迁移通常需要比开发更多的时间。同时，迁移只有在清理过程完成之后才算结束。
 5. 可以在 RPC 框架中对基础设施范围内的可靠性进行改进，例如，强制截止期限、超载保护等等。常见的可靠性问题可以通过每个季度的事件报告来确定。
 
 ## 工作展望
 
 Courier 和 gRPC 本身都在不断变化，所以我们最后来总结一下运行时团队和可靠性团队的工作路线。
 
-在不远的将来，我们会给 Python 的 gRPC 代码加一个合适的解析器 API，切换到 Python/Rust 中的 C++ 绑定，并加上完整的断路控制和故障注入的支持。明年我们准备调研一下 [ALTS 并且将 TLS 握手移到单独的进程](https://cloud.google.com/security/encryption-in-transit/application-layer-transport-security/resources/alts-whitepaper.pdf) (可能甚至与服务容器分离开。)
+在不远的将来，我们会给 Python 的 gRPC 代码加一个合适的解析器 API，切换到 Python/Rust 中的 C++ 绑定，并加上完整的断路控制和故障注入的支持。明年我们准备调研一下 [ALTS 并且将 TLS 握手移到单独的进程](https://cloud.google.com/security/encryption-in-transit/application-layer-transport-security/resources/alts-whitepaper.pdf)（可能甚至与服务容器分离开。）
 
 ## 我们在招聘！
 
@@ -503,11 +503,11 @@ Courier 和 gRPC 本身都在不断变化，所以我们最后来总结一下运
 
 ![](https://dropboxtechblog.files.wordpress.com/2019/01/09-screenshot2018-10-0318.04.58.png?w=650&h=364)
 
-[通信量/运行时/可靠性团队都在招 SWE 和 SRE](https://www.dropbox.com/jobs/listing/1233364?gh_src=f80311fa1)，负责开发 TCP/IP 包处理器和负载均衡器、HTTP/gRPC 代理和我们内部的运行时 service mesh：Courier/gRPC、服务发现和 AFS。感觉不合适？我们[旧金山、纽约、西雅图、特拉维等地的办公室还有各个方向的职位](https://www.dropbox.com/jobs/teams/engineering?gh_src=f80311fa1#open-positions).
+[通信量/运行时/可靠性团队都在招 SWE 和 SRE](https://www.dropbox.com/jobs/listing/1233364?gh_src=f80311fa1)，负责开发 TCP/IP 包处理器和负载均衡器、HTTP/gRPC 代理和我们内部的运行时 service mesh：Courier/gRPC、服务发现和 AFS。感觉不合适？我们[旧金山、纽约、西雅图、特拉维等地的办公室还有各个方向的职位](https://www.dropbox.com/jobs/teams/engineering?gh_src=f80311fa1#open-positions)。
 
 ## 鸣谢
 
-**项目贡献者:** Ashwin Amit, Can Berk Guder, Dave Zbarsky, Giang Nguyen, Mehrdad Afshari, Patrick Lee, Ross Delinger, Ruslan Nigmatullin, Russ Allbery, Santosh Ananthakrishnan.
+**项目贡献者**:Ashwin Amit、Can Berk Guder、Dave Zbarsky、Giang Nguyen、Mehrdad Afshari、Patrick Lee、Ross Delinger、Ruslan Nigmatullin、Russ Allbery 和 Santosh Ananthakrishnan。
 
 同时也非常感谢 gRPC 团队的支持。
 
