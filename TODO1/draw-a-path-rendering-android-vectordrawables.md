@@ -38,7 +38,7 @@ The simplest way to draw a path is to specify a hard-coded fill/stroke color.
 
 You can define one or both of these properties and only a single fill/stroke can be applied per path (unlike some graphics packages). Fills are drawn first, then any stroke is applied. Strokes are always centered (again unlike some graphics apps which allow inner or outer strokes), require a `strokeWidth` to be specified and can optionally define `strokeLineCap`, `strokeLineJoin` properties which control the shape of the ends/joins of stroked lines (also `strokeMiterLimit` for `miter` line joins). Dashed strokes are not supported.
 
-Both fills and strokes offer separate alpha properties: `fillAlpha` and `strokeAlpha` \[0–1\] both of which default to 1 i.e. fully opaque. If you specify a `fillColor` or `strokeColor` with an alpha component then these two values are _combined_. For example if you specified a 50% transparent red `fillColor` (`#80ff0000`) and a `0.5` `fillAlpha` then the result would be 25% transparent red. The separate alpha attributes make it easier to animate the opacity of a path.
+Both fills and strokes offer separate alpha properties: `fillAlpha` and `strokeAlpha` [0–1] both of which default to 1 i.e. fully opaque. If you specify a `fillColor` or `strokeColor` with an alpha component then these two values are _combined_. For example if you specified a 50% transparent red `fillColor` (`#80ff0000`) and a `0.5` `fillAlpha` then the result would be 25% transparent red. The separate alpha attributes make it easier to animate the opacity of a path.
 
 ### Color Resources
 
