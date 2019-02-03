@@ -1,277 +1,274 @@
-> * 原文地址：[HTTP/2 Frequently Asked Questions](https://http2.github.io/faq/)
-> * 原文作者：[HTTP/2](https://http2.github.io)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/http-2-frequently-asked-questions.md](https://github.com/xitu/gold-miner/blob/master/TODO1/http-2-frequently-asked-questions.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[HTTP/2 Frequently Asked Questions](https://http2.github.io/faq/)
+> - 原文作者：[HTTP/2](https://http2.github.io)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/http-2-frequently-asked-questions.md](https://github.com/xitu/gold-miner/blob/master/TODO1/http-2-frequently-asked-questions.md)
+> - 译者：[YueYong](https://github.com/YueYongDev)
+> - 校对者：
 
-# HTTP/2 Frequently Asked Questions
+# HTTP / 2 常见问题解答
 
-These are Frequently Asked Questions about HTTP/2.
+以下是有关 HTTP / 2 的常见问题解答。
 
-*   [General Questions](#general-questions)
-    *   [Why revise HTTP?](#why-revise-http)
-    *   [Who made HTTP/2?](#who-made-http2)
-    *   [What’s the relationship with SPDY?](#whats-the-relationship-with-spdy)
-    *   [Is it HTTP/2.0 or HTTP/2?](#is-it-http20-or-http2)
-    *   [What are the key differences to HTTP/1.x?](#what-are-the-key-differences-to-http1x)
-    *   [Why is HTTP/2 binary?](#why-is-http2-binary)
-    *   [Why is HTTP/2 multiplexed?](#why-is-http2-multiplexed)
-    *   [Why just one TCP connection?](#why-just-one-tcp-connection)
-    *   [What’s the benefit of Server Push?](#whats-the-benefit-of-server-push)
-    *   [Why do we need header compression?](#why-do-we-need-header-compression)
-    *   [Why HPACK?](#why-hpack)
-    *   [Can HTTP/2 make cookies (or other headers) better?](#can-http2-make-cookies-or-other-headers-better)
-    *   [What about non-browser users of HTTP?](#what-about-non-browser-users-of-http)
-    *   [Does HTTP/2 require encryption?](#does-http2-require-encryption)
-    *   [What does HTTP/2 do to improve security?](#what-does-http2-do-to-improve-security)
-    *   [Can I use HTTP/2 now?](#can-i-use-http2-now)
-    *   [Will HTTP/2 replace HTTP/1.x?](#will-http2-replace-http1x)
-    *   [Will there be a HTTP/3?](#will-there-be-a-http3)
-*   [Implementation Questions](#implementation-questions)
-    *   [Why the rules around Continuation on HEADERS frames?](#why-the-rules-around-continuation-on-headers-frames)
-    *   [What is the minimum or maximum HPACK state size?](#what-is-the-minimum-or-maximum-hpack-state-size)
-    *   [How can I avoid keeping HPACK state?](#how-can-i-avoid-keeping-hpack-state)
-    *   [Why is there a single compression/flow-control context?](#why-is-there-a-single-compressionflow-control-context)
-    *   [Why is there an EOS symbol in HPACK?](#why-is-there-an-eos-symbol-in-hpack)
-    *   [Can I implement HTTP/2 without implementing HTTP/1.1?](#can-i-implement-http2-without-implementing-http11)
-    *   [Is the priority example in Section 5.3.2 incorrect?](#is-the-priority-example-in-section-532-incorrect)
-    *   [Will I need TCP_NODELAY for my HTTP/2 connections?](#will-i-need-tcpnodelay-for-my-http2-connections)
-*   [Deployment Questions](#deployment-questions)
-    *   [How do I debug HTTP/2 if it’s encrypted?](#how-do-i-debug-http2-if-its-encrypted)
-    *   [How can I use HTTP/2 server push](#how-can-i-use-http2-server-push)
+- [一般问题](#一般问题)
+  - [为什么要修订 HTTP ?](#为什么要修订-HTTP?)
+  - [谁发明了 HTTP/2??](#谁发明了-HTTP/2?)
+  - [HTTP/2 与 SPDY 的关系是什么？](#HTTP/2-与-SPDY-的关系是什么？)
+  - [究竟是 HTTP/2.0 还是 HTTP/2？](#究竟是-HTTP/2.0-还是-HTTP/2？)
+  - [和 HTTP/1.x 相比 HTTP/2 的关键区别是什么?](#和-HTTP/1.x-相比-HTTP/2-的关键区别是什么?)
+  - [为什么 HTTP/2 是二进制的?](#为什么-HTTP/2-是二进制的?)
+  - [为什么 HTTP/2 需要多路传输?](#为什么-HTTP/2-需要多路传输?)
+  - [为什么只需要一个 TCP 连接?](#为什么只需要一个-TCP-连接?)
+  - [服务器推送的好处是什么？](#服务器推送的好处是什么？)
+  - [消息头为何需要压缩？](#消息头为何需要压缩？)
+  - [为什么选择 HPACK？](#为什么选择-HPACK？)
+  - [HTTP/2 可以让 cookies （或者其他消息头）变得更好吗？](#HTTP/2-可以让-cookies-（或者其他消息头）变得更好吗？)
+  - [非浏览器用户的 HTTP 是什么样的？](#非浏览器用户的-HTTP-是什么样的？)
+  - [HTTP/2 需要加密吗？](#HTTP/2-需要加密吗？)
+  - [HTTP/2 是怎么提高安全性的呢？](#HTTP/2-是怎么提高安全性的呢？)
+  - [我现在可以使用 HTTP/2 吗？](#我现在可以使用-HTTP/2-吗？)
+  - [HTTP/2 将会取代 HTTP/1.x 吗？](#HTTP/2-将会取代-HTTP/1.x-吗？)
+  - [HTTP/3 会出现吗？](#HTTP/3-会出现吗？)
+- [实现过程中的问题](#实现过程中的问题)
+  - [为什么规则会围绕消息头帧的数据接续？](#为什么规则会围绕消息头帧的数据接续？)
+  - [HPACK 状态的最小和最大尺寸是多少？](#HPACK-状态的最小和最大尺寸是多少？)
+  - [我怎样才能避免保持 HPACK 状态？](#我怎样才能避免保持-HPACK-状态？)
+  - [为什么会有一个单独的压缩/流程控制上下文？](#为什么会有一个单独的压缩/流程控制上下文？)
+  - [为什么在 HPACK 中有 EOS 的符号？](#为什么在-HPACK-中有-EOS-的符号？)
+  - [实现 HTTP/2 的时候我可以不用去实现 HTTP/1.1 吗？](#实现-HTTP/2-的时候我可以不用去实现-HTTP/1.1-吗？)
+  - [5.3.2节中的优先级示例是否正确？](#5.3.2节中的优先级示例是否正确？)
+  - [HTTP/2 连接中需要 TCP_NODELAY 吗？](#HTTP/2-连接中需要-TCP_NODELAY-吗？)
+- [部署问题](#部署问题)
+  - [我该怎么调试加密过的 HTTP/2 ？](#我该怎么调试加密过的-HTTP/2-？)
+  - [我该怎么使用 HTTP/2 的服务端推送？](#我该怎么使用-HTTP/2-的服务端推送？)
 
-## General Questions
+## 一般问题
 
-### Why revise HTTP?
+### 为什么要修订 HTTP?
 
-HTTP/1.1 has served the Web well for more than fifteen years, but its age is starting to show.
+HTTP / 1.1 已经在 Web 上服役了十五年以上，但其劣势也开始显现。
 
-Loading a Web page is more resource intensive than ever (see the [HTTP Archive’s page size statistics](http://httparchive.org/trends.php#bytesTotal&reqTotal)), and loading all of those assets efficiently is difficult, because HTTP practically only allows one outstanding request per TCP connection.
+加载一个网页比以往更加耗费资源（详见  [HTTP Archive’s page size statistics](http://httparchive.org/trends.php#bytesTotal&reqTotal)）。与此同时，有效地加载所有这些资产变得非常困难，因为事实上，HTTP 只允许每个 TCP 连接有一个未完成的请求。
 
-In the past, browsers have used multiple TCP connections to issue parallel requests. However, there are limits to this; if too many connections are used, it’s both counter-productive (TCP congestion control is effectively negated, leading to congestion events that hurt performance and the network), and it’s fundamentally unfair (because browsers are taking more than their share of network resources).
+在过去，浏览器使用多个 TCP 连接来发出并行请求。然而这种做法是有限制的。如果使用了太多的连接，就会产生相反的效果（ TCP 拥塞控制被有效地否定，因为这会引发性能受损和网络阻塞等事情的发生）。而且从根本上讲这对其他程序来说也是不公平的(因为浏览器会占用许多本不该属于他的资源)。
 
-At the same time, the large number of requests means a lot of duplicated data “on the wire”.
+同时，大量的请求意味着“在线上”有大量重复的数据。
 
-Both of these factors means that HTTP/1.1 requests have a lot of overhead associated with them; if too many requests are made, it hurts performance.
+这两个因素都意味着 HTTP/1.1 请求有很多与之相关的开销;如果请求太多，则会影响性能。
 
-This has led the industry to a place where it’s considered Best Practice to do things like spriting, data: inlining, domain sharding and concatenation. These hacks are indications of underlying problems in the protocol itself, and cause a number of problems on their own when used.
+这使得该行业成为了一个公认的、进行各种实践的最佳场所，比如，Spriting（图片合并）、data：Inlining（数据内嵌）、Domain Sharding（域名分片）和 Concatenation（文件合并）等。这些黑客行为说明了协议本身存在一些潜在问题，并且在使用的时候会出现很多问题。
 
-### Who made HTTP/2?
+### 谁发明了 HTTP/2?
 
-HTTP/2 was developed by the [IETF](http://www.ietf.org/)’s [HTTP Working Group](https://httpwg.github.io/), which maintains the HTTP protocol. It’s made up of a number of HTTP implementers, users, network operators and HTTP experts.
+HTTP/2 是由 [IETF](http://www.ietf.org/) 的 [HTTP 工作组](https://httpwg.github.io/)开发的，该组织负责维护 HTTP 协议。该组织由众多 HTTP 实现者、用户、网络运营商和 HTTP 专家组成。
 
-Note that while [our mailing list](http://lists.w3.org/Archives/Public/ietf-http-wg/) is hosted on the W3C site, this is _not_ a W3C effort. Tim Berners-Lee and the W3C TAG are kept up-to-date with the WG’s progress, however.
+值得注意的是，虽然[工作组的邮件列表](http://lists.w3.org/Archives/Public/ietf-http-wg/) 托管在 W3C 网站上，不过这并不是 W3C 的功劳。但是， Tim Berners-Lee 和 W3C TAG与 WG 的进度保持一致。
 
-A large number of people have contributed to the effort, but the most active participants include engineers from “big” projects like Firefox, Chrome, Twitter, Microsoft’s HTTP stack, Curl and Akamai, as well as a number of HTTP implementers in languages like Python, Ruby and NodeJS.
+许多人为这项工作做出了自己的贡献，尤其是一些来自“大”项目的工程师，例如 Firefox， Chrome， Twitter，Microsoft 的 HTTP stack， Curl 和 Akamai。以及若干 Python、Ruby 和 NodeJS 的 HTTP 实现者。
 
-To learn more about participating in the IETF, see the [Tao of the IETF](http://www.ietf.org/tao.html); you can also get a sense of who’s contributing to the specification on [Github’s contributor graph](https://github.com/http2/http2-spec/graphs/contributors), and who’s implementing on our [implementation list](https://github.com/http2/http2-spec/wiki/Implementations).
+为了更好的了解有关 IETF 的信息，你可以访问  [Tao of the IETF](http://www.ietf.org/tao.html)；你也可以在 [Github 的贡献者图表](https://github.com/http2/http2-spec/graphs/contributors)上查看有哪些人为该项目做出了贡献，同样的，你也可以在 [implementation list](https://github.com/http2/http2-spec/wiki/Implementations) 上查看谁正在参与该项目。
 
-### What’s the relationship with SPDY?
+### HTTP/2 与 SPDY 的关系是什么？
 
-HTTP/2 was first discussed when it became apparent that SPDY was gaining traction with implementers (like Mozilla and nginx), and was showing significant improvements over HTTP/1.x.
+HTTP/2 第一次出现并被讨论的时候， SPDY 正得到厂商 (像 Mozilla 和 nginx)的青睐和支持， 并被看成是 HTTP/1.x 基础上的重大改善。
 
-After a call for proposals and a selection process, [SPDY/2](http://tools.ietf.org/html/draft-mbelshe-httpbis-spdy-00) was chosen as the basis for HTTP/2. Since then, there have been a number of changes, based on discussion in the Working Group and feedback from implementers.
+在不断的征求建议以及投票选择之后，[SPDY/2](http://tools.ietf.org/html/draft-mbelshe-httpbis-spdy-00)  被选为 HTTP/2 的基础。从那时起， 根据工作组的讨论和厂商的反馈，它已经有了很多变化。
 
-Throughout the process, the core developers of SPDY have been involved in the development of HTTP/2, including both Mike Belshe and Roberto Peon.
+在整个过程中，SPDY 的核心开发人员参与了 HTTP/2 的开发，其中包括 Mike Belshe 和 Roberto Peon。
 
-In February 2015, Google [announced its plans](https://blog.chromium.org/2015/02/hello-http2-goodbye-spdy.html) to remove support for SPDY in favor of HTTP/2.
+2015 年 2 月，谷歌[宣布计划](https://blog.chromium.org/2015/02/hello-http2-goodbye-spdy.html)取消对 SPDY 的支持，转而支持 HTTP/2 。
 
-### Is it HTTP/2.0 or HTTP/2?
+### 究竟是 HTTP/2.0 还是 HTTP/2？
 
-The Working Group decided to drop the minor version (“.0”) because it has caused a lot of confusion in HTTP/1.x.
+工作组决定删除次要版本 (“.0”) ，因为它在 HTTP/1.x 中造成了很多混乱。也就是说， HTTP 的版本仅代表它的兼容性，不表示它的特性和 “亮点”。
 
-In other words, the HTTP version _only_ indicates wire compatibility, not feature sets or “marketing.”
+### 和 HTTP/1.x 相比 HTTP/2 的关键区别是什么?
 
-### What are the key differences to HTTP/1.x?
+在高版本 HTTP/2 中:
 
-At a high level, HTTP/2:
+- 是二进制的，代替原有的文本
+- 是多路复用的， 代替原来的序列和阻塞机制
+- 所以可以在一个连接中并行处理
+- 压缩头部信息减小开销
+- 允许服务器主动推送应答到客户端的缓存中
 
-*   is binary, instead of textual
-*   is fully multiplexed, instead of ordered and blocking
-*   can therefore use one connection for parallelism
-*   uses header compression to reduce overhead
-*   allows servers to “push” responses proactively into client caches
+### 为什么 HTTP/2 是二进制的?
 
-### Why is HTTP/2 binary?
+和 HTTP/1.x 这样的文本协议相比，二进制协议解析起来更高效、“线上”更紧凑，更重要的是错误更少。因为它们对如空白字符的处理、大小写、行尾、空链接等的处理很有帮助。
 
-Binary protocols are more efficient to parse, more compact “on the wire”, and most importantly, they are much less error-prone, compared to textual protocols like HTTP/1.x, because they often have a number of affordances to “help” with things like whitespace handling, capitalization, line endings, blank lines and so on.
+举个栗子🌰，HTTP/1.1 定义了[四种不同的方法来解析一条消息](http://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.4)；而在HTTP/2中，仅需一个代码路径即可。
 
-For example, HTTP/1.1 defines [four different ways to parse a message](http://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.4); in HTTP/2, there’s just one code path.
+HTTP/2 在 telnet 中不可用，但是我们已经有一些工具可以提供支持，例如 [Wireshark plugin](https://bugs.wireshark.org/bugzilla/show_bug.cgi?id=9042)。
 
-It’s true that HTTP/2 isn’t usable through telnet, but we already have some tool support, such as a [Wireshark plugin](https://bugs.wireshark.org/bugzilla/show_bug.cgi?id=9042).
+### 为什么 HTTP/2 需要多路传输?
 
-### Why is HTTP/2 multiplexed?
+HTTP/1.x 有个问题叫“队头阻塞(head-of-line blocking)“，它是指在一次连接(connection)中，只提交一个请求的效率比较高， 多了就会变慢。
 
-HTTP/1.x has a problem called “head-of-line blocking,” where effectively only one request can be outstanding on a connection at a time.
+HTTP/1.1 尝试使用管线化( pipelining )来解决这个问题， 但是效果并不理想(数据量较大或者速度较慢的响应， 会阻碍排在他后面的请求).。此外， 由于许多网络媒介(intermediary )和服务器不能很好的支持管线化， 导致其部署起来也是困难重重。
 
-HTTP/1.1 tried to fix this with pipelining, but it didn’t completely address the problem (a large or slow response can still block others behind it). Additionally, pipelining has been found very difficult to deploy, because many intermediaries and servers don’t process it correctly.
+这也就迫使客户端使用一些启发式的方法(基本靠猜) 来决定通过哪些连接提交哪些请求; 由于一个页面加载的数据量， 往往比可用连接能处理的数据量的10倍还多， 对性能产生极大的负面影响， 结果经常引起瀑布式阻塞(waterfall of blocked requests)。
 
-This forces clients to use a number of heuristics (often guessing) to determine what requests to put on which connection to the origin when; since it’s common for a page to load 10 times (or more) the number of available connections, this can severely impact performance, often resulting in a “waterfall” of blocked requests.
+而多路传输( Multiplexing )能很好的解决这些问题， 因为它能同时处理多个消息的请求和响应; 甚至可以在传输过程中将一个消息跟另外一个掺杂在一起。
 
-Multiplexing addresses these problems by allowing multiple request and response messages to be in flight at the same time; it’s even possible to intermingle parts of one message with another on the wire.
+所以在这种情况下，客户端只需要一个连接就能加载一个页面。
 
-This, in turn, allows a client to use just one connection per origin to load a page.
+### 为什么只需要一个 TCP 连接?
 
-### Why just one TCP connection?
+如果使用 HTTP/1，浏览器打开每个点 (origin) 就需要 4 到 8 个连接(Connection). 而现在很多网站都使用多点传输( multiple origins )， 也就是说， 光加载一个网页， 打开的连接数量就超过 30 个。
 
-With HTTP/1, browsers open between four and eight connections per origin. Since many sites use multiple origins, this could mean that a single page load opens more than thirty connections.
+一个应用同时打开这么多连接， 已经远远超出了当初设计 TCP 时的预想；同时，因为每个连接都会响应大量的数据，使其可以造成网络缓存溢出的风险，结果可能导致网络堵塞和数据重传。
 
-One application opening so many connections simultaneously breaks a lot of the assumptions that TCP was built upon; since each connection will start a flood of data in the response, there’s a real risk that buffers in the intervening network will overflow, causing a congestion event and retransmits.
+此外， 使用这么多连接还会强占许多网络资源. 这些资源都是从那些“遵纪守法“的应用那 “偷” 来的 ( VoIP 就是个很好的例子).
 
-Additionally, using so many connections unfairly monopolizes network resources, “stealing” them from other, better-behaved applications (e.g., VoIP).
+### 服务器推送的好处是什么？
 
-### What’s the benefit of Server Push?
+当浏览器请求页面时，服务器发送 HTML 作为响应，然后需要等待浏览器解析 HTML 并发出对所有嵌入资源的请求，然后才能开始发送 JavaScript ，图像和 CSS 。
 
-When a browser requests a page, the server sends the HTML in the response, and then needs to wait for the browser to parse the HTML and issue requests for all of the embedded assets before it can start sending the JavaScript, images and CSS.
+服务器推送服务通过“推送”那些它认为客户端将会需要的内容到客户端的缓存中，以此来避免往返的延迟。
 
-Server Push potentially allows the server to avoid this round trip of delay by “pushing” the responses it thinks the client will need into its cache.
+但是，推送的响应并不是“万金油”，如果使用不当，可能会损害性能。 正确使用服务器推送是一个长期的实验及研究领域。
 
-However, Pushing responses is not “magical” – if used incorrectly, it can harm performance. Correct use of Server Push is an ongoing area of experimentation and research.
+### 消息头为何需要压缩？
 
-### Why do we need header compression?
+来自 Mozilla 的 Patrick McManus 通过计算消息头对平均页面负载的印象，对此进行了形象且充分的说明。
 
-Patrick McManus from Mozilla showed this vividly by calculating the effect of headers for an average page load.
+假定一个页面有80个资源需要加载（这个数量对于今天的 Web 而言还是挺保守的）， 而每一次请求都有 1400 字节的消息头（这同样也并不少见，因为 Cookie 和引用等东西的存在）， 至少要 7 到 8 个来回去“在线”获得这些消息头。这还不包括响应时间——那只是从客户端那里获取到它们所花的时间而已。
 
-If you assume that a page has about 80 assets (which is conservative in today’s Web), and each request has 1400 bytes of headers (again, not uncommon, thanks to Cookies, Referer, etc.), it takes at least 7-8 round trips to get the headers out “on the wire.” That’s not counting response time - that’s just to get them out of the client.
+这全都由于 TCP 的[慢启动](http://en.wikipedia.org/wiki/Slow-start)机制，它根据已确认的数据包数量在新连接上对数据包进行检测——这有效地限制了最初的几次来回可以发送的数据包数量。
 
-This is because of TCP’s [Slow Start](http://en.wikipedia.org/wiki/Slow-start) mechanism, which paces packets out on new connections based on how many packets have been acknowledged – effectively limiting the number of packets that can be sent for the first few round trips.
+相比之下，即使是头部轻微的压缩也可以是让那些请求只需一个来回就能搞定——有时候甚至一个包就可以了。
 
-In comparison, even mild compression on headers allows those requests to get onto the wire within one roundtrip – perhaps even one packet.
+这种开销是可以被节省下来的，特别是当你考虑移动客户端应用的时候，即使是良好条件下，一般也会看到几百毫秒的往返延迟。
 
-This overhead is considerable, especially when you consider the impact upon mobile clients, which typically see round-trip latency of several hundred milliseconds, even under good conditions.
+### 为什么选择 HPACK？
 
-### Why HPACK?
+SPDY/2 提出在每一方都使用一个单独的 GZIP 上下文用于消息头压缩，这实现起来很容易，也很高效。
 
-SPDY/2 proposed using a single GZIP context in each direction for header compression, which was simple to implement as well as efficient.
+从那时候开始，就有了一个被证明能针对算法中使用流压缩（如GZIP）的重要攻击方式 CRIME。
 
-Since then, a major attack has been documented against the use of stream compression (like GZIP) inside of encryption; [CRIME](http://en.wikipedia.org/wiki/CRIME).
+从那时起，一个重要的攻击方式 [CRIME](http://en.wikipedia.org/wiki/CRIME) 诞生了，这种方式可以攻击加密文件内部的所使用的压缩流（如GZIP）。
 
-With CRIME, it’s possible for an attacker who has the ability to inject data into the encrypted stream to “probe” the plaintext and recover it. Since this is the Web, JavaScript makes this possible, and there were demonstrations of recovery of cookies and authentication tokens using CRIME for TLS-protected HTTP resources.
+CRIME 让那些能向加密流中诸如数据的攻击者获得了“探测”原文并进行还原的可能性。因为是 Web，JavaScript 使其成为了可能，而且已经有了使用针对受到 TLS 保护的 HTTP 资源的 CRIME 恢复 cookie 和认证令牌信息的证明。
 
-As a result, we could not use GZIP compression. Finding no other algorithms that were suitable for this use case as well as safe to use, we created a new, header-specific compression scheme that operates at a coarse granularity; since HTTP headers often don’t change between messages, this still gives reasonable compression efficiency, and is much safer.
+因此，我们不应该使用 GZIP 进行压缩。由于找不到其它适合在这种用例下使用的安全有效的算法，我们创造了一种新的，特别针对消息头的压缩方案，它能进行粗粒度的操作；因为HTTP消息头并不常常需要改变，我们仍然可以得到很好的压缩效率，而且更加的安全.
 
-### Can HTTP/2 make cookies (or other headers) better?
+### HTTP/2 可以让 cookies （或者其他消息头）变得更好吗？
 
-This effort was chartered to work on a revision of the wire protocol – i.e., how HTTP headers, methods, etc. are put “onto the wire”, not change HTTP’s semantics.
+这一尝试被许可在网络协议的一个修订版本上运行 – 例如，HTTP消息头、方法等等如何才能在不改变 HTTP 语义的前提下放到"网络上“。
 
-That’s because HTTP is so widely used. If we used this version of HTTP to introduce a new state mechanism (one example that’s been discussed) or change the core methods (thankfully, this hasn’t yet been proposed), it would mean that the new protocol was incompatible with the existing Web.
+这是因为 HTTP 的应用非常广泛。如果我们使用了这个版本的 HTTP ，它就会引入一种新的状态机制（例如之前讨论过的例子）或者改变其核心方法(幸好，这还没有发生过)，这可能就意味着新的协议将不会兼容现有的 Web 内容。
 
-In particular, we want to be able to translate from HTTP/1 to HTTP/2 and back with no loss of information. If we started “cleaning up” the headers (and most will agree that HTTP headers are pretty messy), we’d have interoperability problems with much of the existing Web.
+具体地，我们是想要能够从 HTTP/1 转移到 HTTP/2 ，并且不会有信息的丢失。如果我们开始”清理”消息头（大多数人都认为现在的 HTTP 消息头简直是一团糟)，我们就不得不去面对现有 Web 的诸多问题。
 
-Doing that would just create friction against the adoption of the new protocol.
+这样做只会对新协议的普及造成麻烦。
 
-All of that said, the [HTTP Working Group](https://httpwg.github.io/) is responsible for all of HTTP, not just HTTP/2. As such, we can work on new mechanisms that are version-independent, as long as they’re backwards-compatible with the existing Web.
+总而言之，[工作组](https://httpwg.github.io/) 会对所有的 HTTP 负责，而不仅仅只是 HTTP/2 。因此，我们才可以在版本独立的新机制下运作，只要它们也能同现有的网络向下兼容。
 
-### What about non-browser users of HTTP?
+### 非浏览器用户的 HTTP 是什么样的？
 
-Non-browser applications should be able to use HTTP/2 as well, if they’re already using HTTP.
+如果非浏览器应用已经使用过 HTTP 的话，那他们也应该可以使用 HTTP/2 。
 
-Early feedback has been that HTTP/2 has good performance characteristics for HTTP “APIs”, because the APIs don’t need to consider things like request overhead in their design.
+先前收到过 HTTP “APIs” 在 HTTP/2 中具有良好性能等特点这样的反馈，那是因为 API 的设计不需要考虑类似请求开销这样一些事情。
 
-Having said that, the main focus of the improvements we’re considering is the typical browsing use cases, since this is the core use case for the protocol.
+话虽如此，我们正在考虑的改进重点是典型的浏览用例，因为这是协议主要的使用场景。
 
-Our [charter](http://datatracker.ietf.org/wg/httpbis/charter/) says this about it:
+我们的章程里面是这样说的：
 
-The resulting specification(s) are expected to meet these goals for common existing deployments of HTTP; in particular, Web browsing (desktop and mobile), non-browsers ("HTTP APIs"), Web serving (at a variety of scales), and intermediation (by proxies, corporate firewalls, "reverse" proxies and Content Delivery Networks). Likewise, current and future semantic extensions to HTTP/1.x (e.g., headers, methods, status codes, cache directives) should be supported in the new protocol.
+正在组织的规范能满足现在已经普遍部署了的 HTTP 的功能要求; 具体来说主要包括，Web 浏览（桌面端和移动端），非浏览器（“ HTTP API ”形式的）， Web 服务（大范围的），还有各种网络中介（借助代理，企业防火墙，反向代理以及内容分发网络实现的）。同样的，对 HTTP/1.x 当前和未来的语义扩展 (例如，消息头，方法，状态码，缓存指令) 都应该在新的协议中支持。
     
-Note that this does not include uses of HTTP where non-specified behaviours are relied upon (e.g., connection state such as timeouts or client affinity, and "interception" proxies); these uses may or may not be enabled by the final product.
+值得注意的是，这里没有包括将 HTTP 用于非特定行为所依赖的场景中（例如超时，连接状态以及拦截代理）。这些可能并不会被最终的产品启用。
 
-### Does HTTP/2 require encryption?
+### HTTP/2 需要加密吗？
 
-No. After extensive discussion, the Working Group did not have consensus to require the use of encryption (e.g., TLS) for the new protocol.
+不需要。在激烈的讨论后，工作组没有就新协议是否使用加密（如TLS）而达成共识。
 
-However, some implementations have stated that they will only support HTTP/2 when it is used over an encrypted connection, and currently no browser supports HTTP/2 unencrypted.
+不过，有些观点认为只有在加密连接上使用时才会支持 HTTP/2 ，而目前还没有浏览器支持未加密的HTTP/2。
 
-### What does HTTP/2 do to improve security?
+### HTTP/2 是怎么提高安全性的呢？
 
-HTTP/2 defines a profile of TLS that is required; this includes the version, a ciphersuite blacklist, and extensions used.
+HTTP/2 定义了所需的 TLS 文档，包括版本，密码套件黑名单和使用的扩展。
 
-See [the spec](http://http2.github.io/http2-spec/#TLSUsage) for details.
+细节详见[相关规范](http://http2.github.io/http2-spec/#TLSUsage)。
 
-There is also discussion of additional mechanisms, such as using TLS for HTTP:// URLs (so-called “opportunistic encryption”); see [RFC 8164](https://tools.ietf.org/html/rfc8164).
+除此之外，同样对额外的机制进行了讨论，例如对 HTTP:// URLs (所谓的“机会主义加密”)使用 TLS ；详见 [RFC 8164](https://tools.ietf.org/html/rfc8164)。
 
-### Can I use HTTP/2 now?
+### 我现在可以使用 HTTP/2 吗？
 
-In browsers, HTTP/2 is supported by the most current releases of Edge, Safari, Firefox and Chrome. Other browsers based upon Blink will also support HTTP/2 (e.g., Opera and Yandex Browser). See the [caniuse](http://caniuse.com/#feat=http2) for more details.
+浏览器中，最新版本的 Edge、Safari、Firefox 和 Chrome都支持 HTTP/2 。其他基于 Blink 的浏览器也将支持HTTP/2 （例如 Opera 和 Yandex 浏览器）。详见 [caniuse](http://caniuse.com/#feat=http2)。
 
-There are also several servers available (including beta support from [Akamai](https://http2.akamai.com/), [Google](https://google.com/) and [Twitter](https://twitter.com/)’s main sites), and a number of Open Source implementations that you can deploy and test.
+### HTTP/2 将会取代 HTTP/1.x 吗？
 
-See the [implementations list](https://github.com/http2/http2-spec/wiki/Implementations) for more details.
+工作组的目的是让那些使用 HTTP/1.x 的人也可以使用 HTTP/2 ，并能感受到 HTTP/2 所带来的好处。他们说过，由于人们部署代理和服务器的方式不同，我们不能强迫整个世界进行迁移，所以 HTTP/1.x 仍有可能要使用了一段时间。
 
-### Will HTTP/2 replace HTTP/1.x?
+### HTTP/3 会出现吗？
 
-The goal of the Working Group is that typical uses of HTTP/1.x _can_ use HTTP/2 and see some benefit. Having said that, we can’t force the world to migrate, and because of the way that people deploy proxies and servers, HTTP/1.x is likely to still be in use for quite some time.
+如果通过 HTTP/2 引入的沟通协作机制运行良好，支持新版本的 HTTP 就会比过去更加容易。
 
-### Will there be a HTTP/3?
+## 实现过程中的问题
 
-If the negotiation mechanism introduced by HTTP/2 works well, it should be possible to support new versions of HTTP much more easily than in the past.
+### 为什么规则会围绕消息头帧的数据接续？
 
-## Implementation Questions
+数据接续的存在是由于一个值（例如 cookie )可以超过 16kb，这意味着它不可能全部装进一个帧里面。
 
-### Why the rules around Continuation on HEADERS frames?
+所以就决定以最不容易出错的方式让所有的消息头数据以一个接一个帧的方式传递， 这样就使得对消息头的解码和缓冲区的管理变得更加容易。
 
-Continuation exists since a single value (e.g. Set-Cookie) could exceed 16KiB - 1, which means it couldn’t fit into a single frame. It was decided that the least error-prone way to deal with this was to require that all of the headers data come in back-to-back frames, which made decoding and buffer management easier.
+### HPACK 状态的最小和最大尺寸是多少？
 
-### What is the minimum or maximum HPACK state size?
+接收一方总是会控制 HPACK 中内存的使用量, 并且最小能设置到 0 ，最大则要看 SETTING 帧中能表示的最大整型数是多少，目前是 2^32 - 1.
 
-The receiver always controls the amount of memory used in HPACK, and can set it to zero at a minimum, with a maximum related to the maximum representable integer in a SETTINGS frame, currently 2^32 - 1.
+### 我怎样才能避免保持 HPACK 状态？
 
-### How can I avoid keeping HPACK state?
+发送一个 SETTINGS 帧，将状态尺寸 ( SETTINGS_HEADER_TABLE_SIZE ) 设置到0, 然后 RST 所有的流，直到一个带有 ACT 设置位的 SETTINGS 帧被接收。
 
-Send a SETTINGS frame setting state size (SETTINGS_HEADER_TABLE_SIZE) to zero, then RST all streams until a SETTINGS frame with the ACK bit set has been received.
+### 为什么会有一个单独的压缩/流程控制上下文？
 
-### Why is there a single compression/flow-control context?
+简单说一下。
 
-Simplicity.
+原来的提案里面提到了流分组这个概念，它可以共享上下文，进行流控制等等。那样有利于代理 (也有利于用户体验)，而这样做相应也会增加一点复杂度。所以我们就决定先以一个简单的东西开始，看看它会有多糟糕的问题，并且在未来的协议版本中解决这些问题（如果有的话）.
 
-The original proposals had stream groups, which would share context, flow control, etc. While that would benefit proxies (and the experience of users going through them), doing so added a fair bit of complexity. It was decided that we’d go with the simple thing to begin with, see how painful it was, and address the pain (if any) in a future protocol revision.
+### 为什么在 HPACK 中有 EOS 的符号？
 
-### Why is there an EOS symbol in HPACK?
+ 由于 CPU 效率和安全的原因，HPACK 的霍夫曼编码填充了霍夫曼编码字符串的下一个字节边界。因此对于任何特定的字符串可能需要0-7个比特的填充。
 
-HPACK’s huffman encoding, for reasons of CPU efficiency and security, pads out huffman-encoded strings to the next byte boundary; there may be between 0-7 bits of padding needed for any particular string.
+如果单独考虑霍夫曼解码，任何比所需要的填充长的符号都可以正常工作。但是，HPACK 的设计允许按字节对比霍夫曼编码的字符串。通过填充 EOS 符号需要的比特，我们确保用户在做霍夫曼编码字符串字节级比较时是相等的。反之，许多 headers 可以在不需要霍夫曼解码的情况下被解析。
 
-If one considers huffman decoding in isolation, any symbol that is longer than the required padding would work; however, HPACK’s design allows for bytewise comparison of huffman-encoded strings. By requiring that the bits of the EOS symbol are used for padding, we ensure that users can do bytewise comparison of huffman-encoded strings to determine equality. This in turn means that many headers can be interpreted without being huffman decoded.
+### 实现 HTTP/2 的时候我可以不用去实现 HTTP/1.1 吗？
 
-### Can I implement HTTP/2 without implementing HTTP/1.1?
+是的，完全可以.
 
-Yes, mostly.
+对于运行在 TLS (`h2`)  之上的 HTTP/2 而言, 如果你没有实现 `http1.1` 的 ALPN 标识, 那你就不需要支持任何 HTTP/1.1 的特性。
 
-For HTTP/2 over TLS (`h2`), if you do not implement the `http1.1` ALPN identifier, then you will not need to support any HTTP/1.1 features.
+对于运行在 TCP (`h2c`) 之上的 HTTP/2 而言, 你需要实现最原始的升级（Upgrade）请求。
 
-For HTTP/2 over TCP (`h2c`), you need to implement the initial upgrade request.
+只支持 `h2c` 的客户端需要生成一个请求 OPTIONS 的请求，因为 “*” 或者一个针对“/”的 HEAD 请求已经相当安全，并且也很容易构建。寻求实现 HTTP/2 的客户端只需要把没有带上 101 状态码的 HTTP/1.1 响应看做一个错误就行了。
 
-`h2c`-only clients will need to generate an OPTIONS request for “*” or a HEAD request for “/”, which are fairly safe and easy to construct. Clients looking to implement HTTP/2 only will need to treat HTTP/1.1 responses without a 101 status code as errors.
+只支持 `h2c` 的服务器可以使用一个固定的 101 响应来接收一个包含升级（Upgrade）消息头字段的请求。没有 `h2c` 的升级令牌的请求可以使用一个包含了 Upgrade 消息头字段的 505 （ HTTP 版本不支持）状态码来拒绝。那些不希望处理 HTTP/1.1 响应的服务器应该在发送了带有鼓励用户在升级了的 HTTP/2 连接上重试的连接序言之后立即用带有 REFUSED_STREAM 错误码拒绝该请求的第一份数据流.
 
-`h2c`-only servers can accept a request containing the Upgrade header field with a fixed 101 response. Requests without the `h2c` upgrade token can be rejected with a 505 (HTTP Version Not Supported) status code that contains the Upgrade header field. Servers that don’t wish to process the HTTP/1.1 response should reject stream 1 with a REFUSED_STREAM error code immediately after sending the connection preface to encourage the client to retry the request over the upgraded HTTP/2 connection.
+### 5.3.2节中的优先级示例是否正确？
 
-### Is the priority example in Section 5.3.2 incorrect?
+不正确。流 B 的权重为 4 ，流 C的权重为 12。为了确定每个流接收的可用资源的比例，将所有权重（16）相加并将每个流权重除以总权重。因此，流 B 接收四分之一的可用资源，流 C 接收四分之三。因此，正如规范所述：[流 B 理想地接收分配给流 C 的资源的三分之一](http://http2.github.io/http2-spec/#rfc.section.5.3.2)。
 
-No. Stream B has weight 4, stream C has weight 12. To determine the proportion of the available resources that each of these streams receive, sum all the weights (16) and divide each stream weight by the total weight. Stream B therefore receives one-quarter of the available resources and stream C receives three-quarters. Consequently, as the specification states: [stream B ideally receives one-third of the resources allocated to stream C](http://http2.github.io/http2-spec/#rfc.section.5.3.2).
+### HTTP/2 连接中需要 TCP_NODELAY 吗？
 
-### Will I need TCP_NODELAY for my HTTP/2 connections?
+是的,有可能。即使对于仅使用单个流下载大量数据的客户端，仍然需要一些数据包以相反的方向发回以实现最大传输速度。在没有设置 TCP_NODELAY（仍然允许 Nagle 算法）的情况下，可以将输出分组保持一段时间以允许它们与后续分组合并。
 
-Yes, probably. Even for a client-side implementation that only downloads a lot of data using a single stream, some packets will still be necessary to send back in the opposite direction to achieve maximum transfer speeds. Without TCP_NODELAY set (still allowing the Nagle algorithm), the outgoing packets may be held for a while in order to allow them to merge with a subsequent one.
+例如，如果这样一个数据包告诉对等端有更多可用的窗口来发送数据，那么将其发送延迟数毫秒(或更长时间)会对高速连接造成严重影响。
 
-In cases where such a packet, for example, is a packet telling the peer that there is more window available to send data, delaying its sending for multiple milliseconds (or more) can have a severe impact on high speed connections.
+## 部署问题
 
-## Deployment Questions
+### 我该怎么调试加密过的 HTTP/2 ？
 
-### How do I debug HTTP/2 if it’s encrypted?
+存取应用程序数据的方法很多, 最简单的方法是使用 [NSS keylogging](https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/Key_Log_Format) 配上 Wireshark 插件 (包含在最新开发版中). 这种方法对 Firefox 和 Chrome 都适用.
 
-There are many ways to get access to the application data, but the easiest is to use [NSS keylogging](https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/Key_Log_Format) in combination with the Wireshark plugin (included in recent development releases). This works with both Firefox and Chrome.
+### 我该怎么使用 HTTP/2 的服务端推送？
 
-### How can I use HTTP/2 server push?
+HTTP/2 服务器推送允许服务器向客户端提供内容而无需等待请求。这可以提高检索资源的时间，特别是对于具有大[带宽延迟产品](https://en.wikipedia.org/wiki/Bandwidth-delay_product)的连接，其中网络往返时间占了在资源上花费的大部分时间。
 
-HTTP/2 server push allows a server to provide content to clients without waiting for a request. This can improve the time to retrieve a resource, particularly for connections with a large [bandwidth-delay product](https://en.wikipedia.org/wiki/Bandwidth-delay_product) where the network round trip time comprises most of the time spent on a resource.
+推送基于请求内容而变化的资源可能是不明智的。目前，浏览器只会推送请求，如果他们不这样做，就会提出匹配的请求（详见[Section 4 of RFC 7234](https://tools.ietf.org/html/rfc7234#section-4)）。
 
-Pushing resources that vary based on the contents of a request could be unwise. Currently, browsers only use pushed requests if they would otherwise make a matching request (see [Section 4 of RFC 7234](https://tools.ietf.org/html/rfc7234#section-4)).
-
-Some caches don’t respect variations in all request header fields, even if they are listed in the `Vary` header field. To maximize the likelihood that a pushed resource will be accepted, content negotiation is best avoided. Content negotiation based on the `accept-encoding` header field is widely respected by caches, but other header fields might not be as well supported.
+有些缓存不考虑所有请求头字段的变化，即使它们列在  `Vary` header 字段中。为了使推送资源被接收的可能性最大化，内容协商是最好的选择。基于 `accept-encoding` 报头字段的内容协商受到缓存的广泛尊重，但是其他报头字段可能不受支持。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
-
----
+------
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
