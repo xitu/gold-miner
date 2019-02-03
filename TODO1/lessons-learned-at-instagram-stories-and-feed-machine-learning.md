@@ -73,9 +73,9 @@ As machine learning engineers, we aren’t just looking to ship features, but we
 
 Blending different types of content is another challenge we faced. For example, a video and a photo have very different distributions for the possible actions. For example you could imagine that “liking” a post and “commenting” on a post or “completing” a video are three actions with very different distributions (likes happen more often than comments, etc.)
 
-Naively it makes more sense to rank photos with P\[Like\] (probability of a viewer liking a post) and videos with P\[completion\] (probability of a viewer viewing more than X% of a video). That puts machine learning engineers in a difficult position when we want to merge the lists to come up with a final ordering for the viewer.
+Naively it makes more sense to rank photos with P[Like] (probability of a viewer liking a post) and videos with P[completion] (probability of a viewer viewing more than X% of a video). That puts machine learning engineers in a difficult position when we want to merge the lists to come up with a final ordering for the viewer.
 
-We tackled this problem by fitting a mapping from one value function distribution (such as P\[Like\]) to a reasonably well-behaved distribution such as a Gaussian. In that output space, the lists are now comparable and we can unambiguously say a piece of content is superior to another one.
+We tackled this problem by fitting a mapping from one value function distribution (such as P[Like]) to a reasonably well-behaved distribution such as a Gaussian. In that output space, the lists are now comparable and we can unambiguously say a piece of content is superior to another one.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*jgHr3apEde5SFp0IMPOKZA.jpeg)
 
