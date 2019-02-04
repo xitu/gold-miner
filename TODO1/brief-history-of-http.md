@@ -234,7 +234,6 @@ HTTP/2 的主要关注点是提高传输性能并实现更低的延迟和更高�
 
 任何现有的网站或应用程序都可以并且将通过 HTTP/2 传送而无需做出任何修改：您无需变更您的应用程序以利用 HTTP/2。HTTP 服务器将普遍使用 HTTP/2，但这应该成为大多数用户的透明升级。如果工作组实现其目标，唯一的区别应该是我们的应用程序以更低的延迟和更好的网络链接利用率交付！
 
-Having said that, let’s not get ahead of ourselves. Before we get to the new HTTP/2 protocol features, it is worth taking a step back and examining our existing deployment and performance best practices for HTTP/1.1. The HTTP/2 working group is making fast progress on the new specification, but even if the final standard was already done and ready, we would still have to support older HTTP/1.1 clients for the foreseeable future—realistically, a decade or more.
 话虽如此，让我们不要过于超前。在我们开始使用新的 HTTP/2 协议功能之前，值得退一步并检查我们现有的 HTTP/1.1 部署和性能最佳实践。HTTP/2 工作组正在新规范上取得快速进展，但即使最终标准已经完成并准备就绪，我们仍然必须在可预见的未来支持旧的 HTTP/1.1 客户端。实际上，有可能会是十年或更长时间。
 
 
