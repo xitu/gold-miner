@@ -5,27 +5,27 @@
 > * 译者：
 > * 校对者：
 
-# Brief History of HTTP
+# HTTP简史
 
-## Introduction
+## 简介
 
-The Hypertext Transfer Protocol (HTTP) is one of the most ubiquitous and widely adopted application protocols on the Internet: it is the common language between clients and servers, enabling the modern web. From its simple beginnings as a single keyword and document path, it has become the protocol of choice not just for browsers, but for virtually every Internet-connected software and hardware application.
+超文本传输​​协议（ HTTP ）是 Internet 上最普遍和广泛采用的应用程序协议之一：它是客户端和服务器之间的通用语言，支持现代 Web 。从简单的单一关键字和文档路径开始，它已不再是浏览器的专属，而且适用于几乎所有连接互联网的软件和硬件应用程序的协议。
 
-In this chapter, we will take a brief historical tour of the evolution of the HTTP protocol. A full discussion of the varying HTTP semantics is outside the scope of this book, but an understanding of the key design changes of HTTP, and the motivations behind each, will give us the necessary background for our discussions on HTTP performance, especially in the context of the many upcoming improvements in HTTP/2.
+在本章中，我们将简要介绍 HTTP 协议的演变。对不同 HTTP 语义的完整讨论超出了本书的范围，但是理解 HTTP 的关键设计变更以及每个变更背后的动机将为我们讨论 HTTP 性能提供必要的背景，特别是本文中提及的 HTTP/2 即将进行的许多改进。
 
-## HTTP 0.9: The One-Line Protocol
+## HTTP 0.9: 单线协议
 
-The original HTTP proposal by Tim Berners-Lee was designed with _simplicity in mind_ as to help with the adoption of his other nascent idea: the World Wide Web. The strategy appears to have worked: aspiring protocol designers, take note.
+Tim Berners-Lee 最初的 HTTP 提案在设计时考虑到了 _简单性_ ，以帮助他支撑他的另一个新生想法：万维网。该策略似乎有效：有抱负的协议设计者，请注意
 
-In 1991, Berners-Lee outlined the motivation for the new protocol and listed several high-level design goals: file transfer functionality, ability to request an index search of a hypertext archive, format negotiation, and an ability to refer the client to another server. To prove the theory in action, a simple prototype was built, which implemented a small subset of the proposed functionality:
+1991年，Berners-Lee 概述了新协议产生的动机并列出了几个高级设计目标：文件传输功能、请求索引搜索超文本存档的能力、格式协商以及将客户端引用到另一个服务器的能力。为了证明该理论的实际应用，我们构建了一个简单的原型，它实现了所提议功能的一小部分：
 
-*   Client request is a single ASCII character string.
-*   Client request is terminated by a carriage return (CRLF).
-*   Server response is an ASCII character stream.
-*   Server response is a hypertext markup language (HTML).
-*   Connection is terminated after the document transfer is complete.
+*   客户端请求是单个 ASCII 字符串。
+*   客户请求由回车（CRLF）终止。
+*   服务器响应是 ASCII 字符流。
+*   服务器响应是一种超文本标记语言（HTML）。
+*   文档传输完成后终止连接。
 
-However, even that sounds a lot more complicated than it really is. What these rules enable is an extremely simple, Telnet-friendly protocol, which some web servers support to this very day:
+然而，这听起来却比实际复杂得多。这些规则启用的是一个一些 Web 服务器当前已经支持的、非常简单的并且 Telnet 友好的协议：
 
 ```
 $> telnet google.com 80
@@ -38,34 +38,34 @@ GET /about/
 (connection closed)
 ```
 
-The request consists of a single line: `GET` method and the path of the requested document. The response is a single hypertext document—no headers or any other metadata, just the HTML. It really couldn’t get any simpler. Further, since the previous interaction is a subset of the intended protocol, it unofficially acquired the HTTP 0.9 label. The rest, as they say, is history.
+请求由单行：`GET` 方法和所请求文档的路径组成。响应是单个超文本文档 - 没有头部或任何其他元数据，只有 HTML 。它真的不能变得更简单。此外，由于先前的交互是预期协议的子集，因此它并不是必须有 HTTP/0.9 标签。其余的，正如他们所说，是历史。
 
-From these humble beginnings in 1991, HTTP took on a life of its own and evolved rapidly over the coming years. Let us quickly recap the features of HTTP 0.9:
+从1991年这些不起眼的开始，HTTP 开始了自己的生命，并在未来几年迅速发展。让我们快速回顾一下 HTTP/0.9 的功能：
 
-*   Client-server, request-response protocol.
-*   ASCII protocol, running over a TCP/IP link.
-*   Designed to transfer hypertext documents (HTML).
-*   The connection between server and client is closed after every request.
+*   客户端 - 服务器，请求 - 响应协议。
+*   ASCII 协议，运行在 TCP / IP 链接之上。
+*   旨在传输超文本文档（HTML）。
+*   每次请求后，服务器和客户端之间的连接都将关闭。
 
-> Note: Popular web servers, such as Apache and Nginx, still support the HTTP 0.9 protocol—in part, because there is not much to it! If you are curious, open up a Telnet session and try accessing google.com, or your own favorite site, via HTTP 0.9 and inspect the behavior and the limitations of this early protocol.
+> 小提示：现阶段流行的 Web 服务器，如 Apache 和 Nginx ，仍然有一部分支持 HTTP/0.9 协议，因为本来就没有多少人在用它！如果您感到好奇，请打开 Telnet 会话并尝试通过 HTTP/0.9 访问 google.com 或您自己喜欢的网站，并检查此早期协议的行为和限制。
 
-## HTTP/1.0: Rapid Growth and Informational RFC
+## HTTP/1.0: 协议的快速发展和信息 RFC
 
-The period from 1991 to 1995 is one of rapid coevolution of the HTML specification, a new breed of software known as a "web browser," and the emergence and quick growth of the consumer-oriented public Internet infrastructure.
+1991年至1995年期间是 HTML 规范的快速发展的阶段，一种被称为“网络浏览器”的新型软件，以及面向消费者的公共互联网基础设施的出现和快速增长。
 
-> #### The Perfect Storm: Internet Boom of the Early 1990s
+> #### 完美风暴：20世纪90年代初的互联网热潮
 >
-> Building on Tim Berner-Lee’s initial browser prototype, a team at the National Center of Supercomputing Applications (NCSA) decided to implement their own version. With that, the first popular browser was born: NCSA Mosaic. One of the programmers on the NCSA team, Marc Andreessen, partnered with Jim Clark to found Mosaic Communications in October 1994. The company was later renamed Netscape, and it shipped Netscape Navigator 1.0 in December 1994. By this point, it was already clear that the World Wide Web was bound to be _much more_ than just an academic curiosity.
+> 在 Tim Berner-Lee 最初的浏览器原型的基础上，国家超级计算应用中心（NCSA）的一个团队决定实现他们自己的版本。有了这个，第一个流行的浏览器诞生了：NCSA Mosaic 。1994年10月，NCSA 团队的一名程序员 Marc Andreessen 与 Jim Clark 合作创建了 Mosaic 社区。该公司后来改名为 Netscape （网景），并于1994年12月发布了 Netscape Navigator 1.0 。到目前为止，一切已经很明朗了，万维网不仅仅是一个学术热点而必将引起 _更多的_ 关注。
 >
-> In fact, that same year the first World Wide Web conference was organized in Geneva, Switzerland, which led to the creation of the World Wide Web Consortium (W3C) to help guide the evolution of HTML. Similarly, a parallel HTTP Working Group (HTTP-WG) was established within the IETF to focus on improving the HTTP protocol. Both of these groups continue to be instrumental to the evolution of the Web.
+> 实际上，同年第一次万维网会议在瑞士日内瓦举办，这也是万维网联盟（W3C）创建的直接原因，这个联盟用以帮助指导 HTML 的发展。同样，在 IETF 内部同期建立了HTTP 工作组（HTTP-WG），专注于改进 HTTP 协议。这两个群体将继续协助网络的发展。
 >
->Finally, to create the perfect storm, CompuServe, AOL, and Prodigy began providing dial-up Internet access to the public within the same 1994–1995 time frame. Riding on this wave of rapid adoption, Netscape made history with a wildly successful IPO on August 9, 1995—the Internet boom had arrived, and everyone wanted a piece of it!
+>最后，为了创造完美的风暴，CompuServe ，AOL 和 Prodigy 在1994-1995相同的时段内开始向公众提供拨号上网服务。凭借这股迅速采用的浪潮，Netscape 在1995年8月9日以非常成功的 IPO 创造了历史 - 互联网热潮已经到来，每个人都想要分得一瓢羹！
 
-The growing list of desired capabilities of the nascent Web and their use cases on the public Web quickly exposed many of the fundamental limitations of HTTP 0.9: we needed a protocol that could serve more than just hypertext documents, provide richer metadata about the request and the response, enable content negotiation, and more. In turn, the nascent community of web developers responded by producing a large number of experimental HTTP server and client implementations through an ad hoc process: implement, deploy, and see if other people adopt it.
+新兴网络的所需功能及其在公共网站上不断增加的用户需求很快暴露了 HTTP/0.9 的许多根本限制：我们需要的协议不仅可以提供超文本文档，还可以提供有关请求的更丰富的元数据：响应、启用内容协商等。反过来，新兴的 Web 开发人员社区通过临时流程生成大量实验性 HTTP 服务器和客户端实现来做出回应：实现，部署，并观望是否有人开始采用它。
 
-From this period of rapid experimentation, a set of best practices and common patterns began to emerge, and in May 1996 the HTTP Working Group (HTTP-WG) published RFC 1945, which documented the "common usage" of the many HTTP/1.0 implementations found in the wild. Note that this was only an informational RFC: HTTP/1.0 as we know it is not a formal specification or an Internet standard!
+从这段快速的实验期开始，一系列最佳的实践和常见的模式开始出现，1996年5月，HTTP 工作组（HTTP-WG）发布了 RFC 1945，它记录了许多 HTTP/1.0 实现的没被提上规范的“常见用法”。请注意，这只是一个信息 RFC：HTTP/1.0 ，因为我们知道它不是正式规范或Internet 标准！
 
-Having said that, an example HTTP/1.0 request should look very familiar:
+话虽如此，但 HTTP/1.0 请求实例看起来却非常熟悉：
 
 ```
 $> telnet website.org 80
@@ -87,32 +87,34 @@ Server: Apache 0.84
 (connection closed)
 ```
 
-1⃣️ Request line with HTTP version number, followed by request headers
+1⃣️ 具有HTTP版本号的请求行，后接请求头
 
-2⃣️Response status, followed by response headers
+2⃣️具有响应状态码，后接响应头
 
-The preceding exchange is not an exhaustive list of HTTP/1.0 capabilities, but it does illustrate some of the key protocol changes:
+前面的变化不只是 HTTP/1.0 功能的详尽列表，但它确实说明了一些关键的协议更改：
 
-*   Request may consist of multiple newline separated header fields.
-*   Response object is prefixed with a response status line.
-*   Response object has its own set of newline separated header fields.
-*   Response object is not limited to hypertext.
-*   The connection between server and client is closed after every request.
+*   请求可能包含多个换行符分隔的标题字段。
+*   响应对象以响应状态行为前缀。
+*   响应对象有自己的一组换行符分隔的标题字段。
+*   响应对象不限于超文本。
+*   每次请求后，服务器和客户端之间的连接都将关闭。
 
-Both the request and response headers were kept as ASCII encoded, but the response object itself could be of any type: an HTML file, a plain text file, an image, or any other content type. Hence, the "hypertext transfer" part of HTTP became a misnomer not long after its introduction. In reality, HTTP has quickly evolved to become a _hypermedia transport_, but the original name stuck.
+请求和响应头都应保证是 ASCII 编码，但响应对象本身可以是任何类型：HTML 文件、纯文本文件、图像或任何其他内容类型。因此，HTTP 的“超文本传输​​”部分在新特性引入后不久就变成了用词不当。实际上，HTTP已经迅速发展成为 _超媒体_ 传输，但原始名称仍然存在。
 
-In addition to media type negotiation, the RFC also documented a number of other commonly implemented capabilities: content encoding, character set support, multi-part types, authorization, caching, proxy behaviors, date formats, and more.
+除了媒体类型协商之外，RFC 还记录了许多其他常用功能：内容编码，字符集支持，多部分类型，授权，缓存，代理行为，日期格式等。
 
-> Note: Almost every server on the Web today can and will still speak HTTP/1.0. Except that, by now, you should know better! Requiring a new TCP connection per request imposes a significant performance penalty on HTTP/1.0; see [Three-Way Handshake](/building-blocks-of-tcp/#three-way-handshake), followed by [Slow-Start](/building-blocks-of-tcp/#slow-start).
+> 小提示：如今，Web 上的几乎所有服务器都可以并且仍将使用 HTTP/1.0。除此之外，到现在为止，你应该知道它比之前更好！但每个请求需要新的TCP连接会对HTTP/1.0造成严重的性能损失。参考：[三次握手](/building-blocks-of-tcp/#three-way-handshake)，以及[Slow-Start](/building-blocks-of-tcp/#slow-start)。
 
-## HTTP/1.1: Internet Standard
 
-The work on turning HTTP into an official IETF Internet standard proceeded in parallel with the documentation effort around HTTP/1.0 and happened over a period of roughly four years: between 1995 and 1999. In fact, the first official HTTP/1.1 standard is defined in RFC 2068, which was officially released in January 1997, roughly six months after the publication of HTTP/1.0. Then, two and a half years later, in June of 1999, a number of improvements and updates were incorporated into the standard and were released as RFC 2616.
+## HTTP/1.1：Internet 标准
 
-The HTTP/1.1 standard resolved a lot of the protocol ambiguities found in earlier versions and introduced a number of critical performance optimizations: keepalive connections, chunked encoding transfers, byte-range requests, additional caching mechanisms, transfer encodings, and request pipelining.
+将 HTTP 转变为官方 IETF 互联网标准的工作与围绕 HTTP/1.0 的文档工作并行进行，并发生在大约四年的时间内：1995年至1999年。事实上，第一个正式的 HTTP/1.1 标准定义于 RFC 2068，在 HTTP/1.0发布大约六个月后于1997年1月正式发布。两年半之后，即1999年6月，标准中包含了许多改进和更新，并作为 RFC 2616 发布。
 
-With these capabilities in place, we can now inspect a typical HTTP/1.1 session as performed by any modern HTTP browser and client:
+HTTP/1.1 标准解决了早期版本中发现的许多协议歧义，并引入了许多关键性能优化：keep-alive 连接，分块编码传输，字节范围请求，附加缓存机制，传输编码和管道式请求。
 
+有了这些能力，我们现在可以检查由任何现代 HTT P浏览器和客户端执行的典型 HTTP/1.1会话：
+
+```
 $> telnet website.org 80
 Connected to xxx.xxx.xxx.xxx
 
@@ -176,62 +178,65 @@ Etag: W/PSA-GAu26oXbDi
 
 (icon data)
 (connection closed)
+```
 
-1⃣️ Request for HTML file, with encoding, charset, and cookie metadata
+1⃣️ 请求 HTML 文件，包含编码，字符集和 cookie 元数据
 
-2⃣️ Chunked response for original HTML request
+2⃣️ 原始 HTML 请求的分块响应
 
-3⃣️ Number of octets in the chunk expressed as an ASCII hexadecimal number (256 bytes)
+3⃣️ 块中的八位字节数表示为 ASCII 十六进制数（256字节）
 
-4⃣️ End of chunked stream response
+4⃣️ 分块流响应结束
 
-5⃣️ Request for an icon file made on same TCP connection
+5⃣️ 请求在同一 TCP 连接上创建的图标文件
 
-6⃣️ Inform server that the connection will not be reused
+6⃣️ 通知服务器不会重用连接
 
-7⃣️ Icon response, followed by connection close
+7⃣️ 图标响应，然后关闭连接
 
-Phew, there is a lot going on in there! The first and most obvious difference is that we have two object requests, one for an HTML page and one for an image, both delivered over a single connection. This is connection keepalive in action, which allows us to reuse the existing TCP connection for multiple requests to the same host and deliver a much faster end-user experience; see [Optimizing for TCP](/building-blocks-of-tcp/#optimizing-for-tcp).
+哎呀，那里有太多事情发生！第一个也是最明显的区别是我们有两个对象请求，一个用于HTML页面，另一个用于图像，两者都通过单个连接传递。这是连接 keep-alive 的实际应用，它允许我们重用现有的 TCP 连接，以便对同一主机发出多个请求，并提供更快的最终用户体验。参阅[ TCP 的优化](/building-blocks-of-tcp/#optimizing-for-tcp)。
 
-To terminate the persistent connection, notice that the second client request sends an explicit `close` token to the server via the `Connection` header. Similarly, the server can notify the client of the intent to close the current TCP connection once the response is transferred. Technically, either side can terminate the TCP connection without such signal at any point, but clients and servers should provide it whenever possible to enable better connection reuse strategies on both sides.
+要终止持久连接，请注意第二个客户端请求 `close` 通过 `Connection` 请求头向服务器发送显式指令 。类似地，一旦传输响应，服务器就可以通知客户端关闭当前TCP连接的意图。从技术上讲，任何一方都可以在没有此类信号的情况下终止TCP连接，但客户端和服务器应尽可能提供它以在双方上实现更好的连接重用策略。
 
-> Note: HTTP/1.1 changed the semantics of the HTTP protocol to use connection keepalive by default. Meaning, unless told otherwise (via `Connection: close` header), the server should keep the connection open by default.
+> 小提示：HTTP/1.1 下将 HTTP 协议的语法更改为默认情况使用连接 keep-alive 。这意味着，除非另有说明（通过 `Connection: close` 头部），否则服务器应默认保持连接处于打开状态。
 >
-> However, this same functionality was also backported to HTTP/1.0 and enabled via the `Connection: Keep-Alive` header. Hence, if you are using HTTP/1.1, technically you don’t need the `Connection: Keep-Alive` header, but many clients choose to provide it nonetheless.
+> 但是，同样的功能也被反向移植到 HTTP/1.0 并通过 `Connection: Keep-Alive` 头部启用。因此，如果您使用 HTTP/1.1，从技术上讲，您不需要 `Connection: Keep-Alive` 请求头，但许多客户端仍然选择提供它。
 
-Additionally, the HTTP/1.1 protocol added content, encoding, character set, and even language negotiation, transfer encoding, caching directives, client cookies, plus a dozen other capabilities that can be negotiated on each request.
+此外，HTTP/1.1 协议添加了内容，编码，字符集，甚至语言协商，传输编码，缓存指令，客户端 cookie，以及可以在每个请求上协商的十几种其他功能。
 
-We are not going to dwell on the semantics of every HTTP/1.1 feature. This is a subject for a dedicated book, and many great ones have been written already. Instead, the previous example serves as a good illustration of both the quick progress and evolution of HTTP, as well as the intricate and complicated dance of every client-server exchange. There is a lot going on in there!
+我们不打算详述每个 HTTP/1.1 功能的语义。这会是一本专业的书的主题，已经写了很多很棒的书。相反，前面的示例可以很好地说明HTTP 的快速进展和演变，以及每个客户端 - 服务器交换的错综复杂的舞蹈。那里有很多事情发生！
 
-> Note: For a good reference on all the inner workings of the HTTP protocol, check out O’Reilly’s _HTTP: The Definitive Guide_ by David Gourley and Brian Totty.
+> 小提示：有关HTTP协议所有内部工作原理的详细参考，请查看 David Gourley 和 Brian Totty 撰写的 O'Reilly 出版的 _HTTP：The Definitive Guide_ 。
 
-## HTTP/2: Improving Transport Performance
+## HTTP/2: 提高运输性能
 
-Since its publication, RFC 2616 has served as a foundation for the unprecedented growth of the Internet: billions of devices of all shapes and sizes, from desktop computers to the tiny web devices in our pockets, speak HTTP every day to deliver news, video, and millions of other web applications we have all come to depend on in our lives.
+自发布以来，RFC 2616 已经成为互联网空前增长的基础：数十亿台各种形状和大小的设备，从台式电脑到我们口袋里的小型网络设备，我们的生活中都离不开每天都会用HTTP来传送新闻、视频以及数以百万计的其他网络应用程序。
 
-What began as a simple, one-line protocol for retrieving hypertext quickly evolved into a generic hypermedia transport, and now a decade later can be used to power just about any use case you can imagine. Both the ubiquity of servers that can speak the protocol and the wide availability of clients to consume it means that many applications are now designed and deployed exclusively on top of HTTP.
+最初用于检索超文本的简单单行协议最终演变为通用的超媒体传输，现在或者十年后甚至可用于为您能想象的任何需求提供支持。无处不在的服务器以及协议在客户端中的广泛可用性，意味着现在许多应用程序都是专门在 HTTP 之上设计和部署的。
 
-Need a protocol to control your coffee pot? RFC 2324 has you covered with the Hyper Text Coffee Pot Control Protocol (HTCPCP/1.0)—originally an April Fools’ Day joke by IETF, and increasingly anything but a joke in our new hyper-connected world.
+需要一个协议来控制你的咖啡壶？RFC 2324 已经涵盖了超文本咖啡壶控制协议（HTCPCP/1.0） - 原本是 IETF 的愚人节玩笑，并且在我们新的超连接世界中越来越多的“玩笑”。
 
-> The Hypertext Transfer Protocol (HTTP) is an application-level protocol for distributed, collaborative, hypermedia information systems. It is a generic, stateless, protocol that can be used for many tasks beyond its use for hypertext, such as name servers and distributed object management systems, through extension of its request methods, error codes and headers. A feature of HTTP is the typing and negotiation of data representation, allowing systems to be built independently of the data being transferred.
+> 超文本传输​​协议（HTTP）是用于分布式协作超媒体信息系统的应用程序级协议。它是一种通用的无状态协议，可以通过扩展其请求方法，错误代码和头部，用于拓展其用于超文本之外的许多任务，例如名称服务器和分布式对象管理系统。HTTP 的一个特性是数据表示的输入和协商，允许系统独立于正在传输的数据而构建。
 > 
-> RFC 2616: HTTP/1.1, June 1999
+> RFC 2616：HTTP/1.1, 1999年6月
 
-The simplicity of the HTTP protocol is what enabled its original adoption and rapid growth. In fact, it is now not unusual to find embedded devices—sensors, actuators, and coffee pots alike—using HTTP as their primary control and data protocols. But under the weight of its own success and as we increasingly continue to migrate our everyday interactions to the Web—social, email, news, and video, and increasingly our entire personal and job workspaces—it has also begun to show signs of stress. Users and web developers alike are now demanding near real-time responsiveness and protocol performance from HTTP/1.1, which it simply cannot meet without some modifications.
+HTTP 协议的简捷性使其最初被广泛采用和快速发展成为可能。事实上，现在发现使用 HTTP 作为主要控制和数据协议的嵌入式设备（传感器，执行器和咖啡壶）并不罕见。但在其自身成功的重压下，随着我们越来越多地继续将我们的日常互动转移到网络 —— 社交、电子邮件、新闻、视频以及越来越多的个人和工作空间 —— 它也开始显示出有心无力的迹象。用户和 Web 开发人员现在都要求 HTTP/1.1 提供近乎实时的响应和协议性能，如果不做出修改，它就无法满足需求。
 
-To meet these new challenges, HTTP must continue to evolve, and hence the HTTPbis working group announced a new initiative for HTTP/2 in early 2012:
+为了应对这些新挑战，HTTP 必须继续发展，因此 HTTPbis 工作组在2012年初宣布了一项针对 HTTP/2的新计划：
 
-> There is emerging implementation experience and interest in a protocol that retains the semantics of HTTP without the legacy of HTTP/1.x message framing and syntax, which have been identified as hampering performance and encouraging misuse of the underlying transport.
+> 新的实现专注于在保留 HTTP 的语义的基础上，摒弃 HTTP/1.x 消息框架和语法的遗留问题，这些问题已被确定为妨碍性能并大量使用底层传输。
 > 
-> The working group will produce a specification of a new expression of HTTP’s current semantics in ordered, bi-directional streams. As with HTTP/1.x, the primary target transport is TCP, but it should be possible to use other transports.
+> 工作组将基于 HTTP 当前的语义以及有序的全双工模式中设计新的规范。与 HTTP/1.x 一样，主要目标传输是 TCP，但应该可以使用其他传输。
 > 
-> HTTP/2 charter, January 2012
+> HTTP/2 章程，2012年1月
 
-The primary focus of HTTP/2 is on improving transport performance and enabling both lower latency and higher throughput. The major version increment sounds like a big step, which it is and will be as far as performance is concerned, but it is important to note that none of the high-level protocol semantics are affected: all HTTP headers, values, and use cases are the same.
+HTTP/2 的主要关注点是提高传输性能并实现更低的延迟和更高的吞吐量。主要的版本增幅听起来是一个很大的步骤，就性能而言，它将是一个重要的步骤，但重要的是要注意，没有任何高级协议语义受到影响：所有 HTTP 头，值和用户场景都是相同的。
 
-Any existing website or application can and will be delivered over HTTP/2 without modification: you do not need to modify your application markup to take advantage of HTTP/2. The HTTP servers will have to speak HTTP/2, but that should be a transparent upgrade for the majority of users. The only difference if the working group meets its goal, should be that our applications are delivered with lower latency and better utilization of the network link!
+任何现有的网站或应用程序都可以并且将通过 HTTP/2 传送而无需做出任何修改：您无需变更您的应用程序以利用 HTTP/2。HTTP 服务器将普遍使用 HTTP/2，但这应该成为大多数用户的透明升级。如果工作组实现其目标，唯一的区别应该是我们的应用程序以更低的延迟和更好的网络链接利用率交付！
 
 Having said that, let’s not get ahead of ourselves. Before we get to the new HTTP/2 protocol features, it is worth taking a step back and examining our existing deployment and performance best practices for HTTP/1.1. The HTTP/2 working group is making fast progress on the new specification, but even if the final standard was already done and ready, we would still have to support older HTTP/1.1 clients for the foreseeable future—realistically, a decade or more.
+话虽如此，让我们不要过于超前。在我们开始使用新的 HTTP/2 协议功能之前，值得退一步并检查我们现有的 HTTP/1.1 部署和性能最佳实践。HTTP/2 工作组正在新规范上取得快速进展，但即使最终标准已经完成并准备就绪，我们仍然必须在可预见的未来支持旧的 HTTP/1.1 客户端。实际上，有可能会是十年或更长时间。
+
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
