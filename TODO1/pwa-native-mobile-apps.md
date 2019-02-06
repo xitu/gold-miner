@@ -5,132 +5,130 @@
 > * 译者：
 > * 校对者：
 
-# Will PWAs Replace Native Mobile Apps?
+# PWA 会取代原生移动应用吗？
 
-When it comes to the mobile user experience, are mobile websites all that bad? You hear so much about the benefits of building a dedicated native app, but that can become an incredibly costly gamble if users don’t take to it. That said, is the progressive web app the best choice? And will it eventually replace the mobile web and native apps? This article explores this idea.
+当谈到移动用户体验，移动网站是不是很糟糕？您已经听到了很多关于构建专用原生应用程序的好处，但如果用户不接受它，这可能会成为令人难以置信的代价高昂的赌博。那么，渐进式网络应用程序是最佳选择吗？它是否最终将取代移动网页和原生应用吗？本文探讨了这个想法。
 
-A developer friend of mine has decided to build a progressive web app for his new company. When I asked why he opted for a PWA instead of a native app, he said:
+我的一位开发人员朋友决定为他的新公司构建一个 PWA 应用程序。当我问他为什么选择PWA而不是原生应用时，他说：
 
-> “Because the PWA is the future of the web.”
+> “因为 PWA 是网页的未来。”
 
-I thought that was an interesting sentiment. Until he mentioned it, I was of a similar mindset as Aaron Gustafson when he discussed [the battle between the native app and PWA](https://www.smashingmagazine.com/2018/02/native-and-pwa-choices-not-challengers/). In other words, I thought it really just came down to choice; not whether one was better than the other.
+我认为那是一种有趣的想法。直到他提到它，我和 Aaron Gustafson 在讨论 [原生 APP 和 PWA 之间的斗争](https://www.smashingmagazine.com/2018/02/native-and-pwa-choices-not-challengers/) 时有着类似的心态。换句话说，我认为它真的只是应该归结为一个选择，而不是完全比另一个好。
 
-Now that the idea has been planted, though, I can’t help but notice a bunch of people proclaiming their support for the PWA over the native app. Not only that, many of them have gone as far as to say that the PWA will replace the native app entirely.
+既然这个想法已经被种下了，我不禁注意到一群人宣称他们支持原生应用程序上的 PWA。不仅如此，他们中的许多人甚至说 PWA 将完全取代原生应用程序。
 
-I’d like to see if that argument holds any water.
+我想看看这样的论点是否有一些水分。
 
-### Will PWAs Replace Native Apps?
+### PWA会取代原生应用吗？
 
-I’m going to go ahead and answer that question right now:
+我现在要首先回答这个问题：
 
-> “Yes, but not for everyone.”
+> “是的，但不适合所有人。”
 
-Here’s the way I see it:
+这是我看到它的方式：
 
-**The mobile web** has definitely improved from where it was just a couple years ago. It’s very rare to run into a website that isn’t 100% responsive in design. That said, I don’t think many mobile websites are 100% mobile-first in design (which I recently hinted at when talking about [ditching design elements](https://www.smashingmagazine.com/2018/12/elements-ditch-repurpose-mobile/) instead of acquiring more in 2019).
+**移动网页**与几年前相比有了明显的改进。在设计中遇到100％响应的网站是非常罕见的。也就是说，我不认为很多移动网站在设计上都是100％移动优先(我最近在 [在移动设备上投放或重新利用的元素](https://www.smashingmagazine.com/2018/12/elements-ditch-repurpose-mobile/) 一文中提到了这一点)。
 
-I think for an experience to be truly mobile-first, it would need to be faster and have an app shell. Which is exactly what **a PWA** offers.
+我认为，要获得真正的移动优先体验，它需要更快，并拥有原生应用程序的外壳，这正是 **PWA** 提供的。
 
-While **native apps** may provide a superior experience (mostly) to other mobile experiences, I just don’t see a valid reason to spend that amount of money and time to build and manage one… unless your app sits in the top 20 of your category in an app store.
+虽然**原生应用**可以（大多数情况下）提供卓越的移动体验，但我认为没有必要花费这么多金钱和时间来构建和管理一个应用……除非您的应用程序在应用商店中位于某项类别的前20位。
 
-Let me break down the logic I used to come to this decision.
+让我打破我过去做出这个决定的逻辑。
 
-#### Reason #1: Mobile Web Is Lagging
+#### 原因＃1：移动网页已经落伍了
 
-comScore’s [Global Digital Future in Focus report](https://www.comscore.com/Insights/Presentations-and-Whitepapers/2018/Global-Digital-Future-in-Focus-2018) from 2018 makes this point painfully clear:
+comScore 在2018年发表的 [全球数字未来焦点报告](https://www.comscore.com/Insights/Presentations-and-Whitepapers/2018/Global-Digital-Future-in-Focus-2018) 明确地谈到这样一点
 
 [![comScore 2018 mobile web vs. app](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4401052b-487f-4349-a901-5fbe018b4a6f/9-will-pwas-replace-native-mobile-apps.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4401052b-487f-4349-a901-5fbe018b4a6f/9-will-pwas-replace-native-mobile-apps.png) 
 
-comScore 2018 report shows use of mobile web vs. mobile apps (Image source: [comScore](https://www.comscore.com/Insights/Presentations-and-Whitepapers/2018/Global-Digital-Future-in-Focus-2018)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4401052b-487f-4349-a901-5fbe018b4a6f/9-will-pwas-replace-native-mobile-apps.png))
+comScore 的2018报告显示移动网页与移动应用的用户占比 （图片来源： [comScore](https://www.comscore.com/Insights/Presentations-and-Whitepapers/2018/Global-Digital-Future-in-Focus-2018)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4401052b-487f-4349-a901-5fbe018b4a6f/9-will-pwas-replace-native-mobile-apps.png)）
 
-That said, I don’t believe native apps will make mobile websites disappear. I also don’t believe this point counteracts the argument I’m attempting to make today. If this data demonstrates anything, it’s that mobile users strongly prefer the experience of interacting with a digital property through an app interface.
+也就是说，我不相信原生应用程序会让移动网页消失。我也不相信这一点可以抵消我今天试图提出的论点。如果此数据想要表示什么，那么则是移动用户非常喜欢通过应用程序界面进行数字交互的体验。
 
-Web developers recognize this preference as well, as this [survey from JAXenter](https://jaxenter.com/react-native-tool-native-vs-pwa-poll-150667.html) demonstrates:
+Web开发人员也发现了用户的这种偏好，正如 [来自 JAXenter 的调查](https://jaxenter.com/react-native-tool-native-vs-pwa-poll-150667.html) 表明：
 
 [![JAXenter PWA survey](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/96c7279c-cff6-42ad-bb24-4c774ad83f9d/13-will-pwas-replace-native-mobile-apps.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/96c7279c-cff6-42ad-bb24-4c774ad83f9d/13-will-pwas-replace-native-mobile-apps.png) 
 
-JAXenter developer survey about PWAs (Image source: [JAXenter](https://jaxenter.com/react-native-tool-native-vs-pwa-poll-150667.html)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/96c7279c-cff6-42ad-bb24-4c774ad83f9d/13-will-pwas-replace-native-mobile-apps.png))
+关于 PWA 的 JAXenter 开发人员调查（图片来源： [JAXenter](https://jaxenter.com/react-native-tool-native-vs-pwa-poll-150667.html)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/96c7279c-cff6-42ad-bb24-4c774ad83f9d/13-will-pwas-replace-native-mobile-apps.png)）
 
-So, although the mobile web browser has proven to be the less preferred interface through which someone views a website, I don’t think that’ll be the case for much longer as more businesses build PWAs.
+因此，虽然移动网页浏览器已被证明是用户不太喜欢看到某个网站的首要选择，但随着越来越多的企业建立 PWA，我不认为这样的情况会更久。
 
-The PWA takes all of the things users love about native apps — the app shell, offline access, telephony features, an always-present navigation bar and so on — and gives users a more convenient means for experiencing them.
+PWA拥有用户喜欢的原生应用程序的特点 —— 应用程序外壳，离线访问，电话功能，始终存在的导航栏等等 —— 并为用户提供了更方便的体验方式。
 
-Look at a brand like [Crabtree & Evelyn](http://www.crabtree-evelyn.com/):
+看看 [Crabtree & Evelyn](http://www.crabtree-evelyn.com/) 这样的品牌：
 
 [![Crabtree & Evelyn PWA](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/b11bd3d3-0e48-4362-9780-aa1b929bb6b1/3-will-pwas-replace-native-mobile-apps.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/b11bd3d3-0e48-4362-9780-aa1b929bb6b1/3-will-pwas-replace-native-mobile-apps.png) 
 
-Crabtree & Evelyn PWA example (Image source: [Crabtree & Evelyn](http://www.crabtree-evelyn.com/)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/b11bd3d3-0e48-4362-9780-aa1b929bb6b1/3-will-pwas-replace-native-mobile-apps.png))
+Crabtree & Evelyn PWA 示例 （图片来源： [Crabtree & Evelyn](http://www.crabtree-evelyn.com/)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/b11bd3d3-0e48-4362-9780-aa1b929bb6b1/3-will-pwas-replace-native-mobile-apps.png)）
 
-This major retailer has the funds to build a native app counterpart to its website, but it’s chosen not to go that route. Instead, the progressive web app experience gives mobile users the convenience of browsing the online store and making a purchase without having to leave the browser.
+这家大型零售商有资本建立与其网站类似的原生应用程序，但它没做那样的选择。相反，PWA Web 应用程序的为移动用户提供了浏览在线商店和购买而不必离开浏览器的便利体验。
 
-Or, if they’re frequent users, they can add this PWA to their home screen and treat it as they would any other app (but more on that later).
+或者，如果他们是频繁的用户，他们可以将此 PWA 添加到他们的主屏幕，并将其视为任何其他应用程序（将来会有更多）。
 
-Now, let’s look at an example of a PWA that, again, has opted not to go the route of the native app. Instead, [Infobae](https://www.infobae.com/america/) has created a PWA that beats the mobile web experience:
+现在，让我们再看一个PWA的例子，它再次选择不去开发一个原生应用程序。相反，[Infobae](https://www.infobae.com/america/) 创造了一个打败移动网页体验的PWA：
 
 [![Infobae PWA](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4cac4628-c1c7-440f-8052-8630fa8f43ee/7-will-pwas-replace-native-mobile-apps.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4cac4628-c1c7-440f-8052-8630fa8f43ee/7-will-pwas-replace-native-mobile-apps.png) 
 
-Infobae PWA example (Image source: [Infobae](https://www.infobae.com/america/)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4cac4628-c1c7-440f-8052-8630fa8f43ee/7-will-pwas-replace-native-mobile-apps.png))
+Infobae PWA 示例（图像来源：[Infobae](https://www.infobae.com/america/)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4cac4628-c1c7-440f-8052-8630fa8f43ee/7-will-pwas-replace-native-mobile-apps.png)）
 
-[According to Google data](https://developers.google.com/web/showcase/2017/infobae), the Infobae PWA has:
+[根据谷歌数据](https://developers.google.com/web/showcase/2017/infobae)，Infobae PWA有以下优势：
 
-*   A 5% bounce rate. The mobile web was 51%.
-*   Sessions that are 230% longer than they were on mobile web.
-*   Over three times more pages viewed per session than the mobile web.
+*   跳出率为5％。移动网络是51％。
+*   Session 机制比移动网页上的时间长230％。
+*   每个 Session 查看的页面数比移动网络多三倍。
 
-So, if you’re worried that the PWA won’t cut it as an alternative to the mobile web, you can stop right there. There are clear benefits to building a PWA.
+因此，如果您担心 PWA 不会成为移动网页的替代品，那么您可以在那里停下来，但建立PWA的确有明显的好处。
 
-#### Reason #2: Native App Stores Are Overflowing
+#### 原因＃2：原生应用商店逐渐饱和并已过量
 
-Native apps have a lot of competition in the native app stores — many of which are heavy hitters that mobile users are all too familiar with. If your intention is to launch an app in an already congested space, is the app store really the best place for it?
+原生应用在原生应用商店中存在很多竞争 —— 其中许多是移动用户都非常熟悉的重量级产品。如果您的目的是在已经拥挤的空间中竞争，那么应用程序商店真的是最适合它的地方吗？
 
-[comScore](https://www.comscore.com/Insights/Presentations-and-Whitepapers/2018/Global-Digital-Future-in-Focus-2018)’s report breaks down the top 5 apps based on reach:
+[comScore](https://www.comscore.com/Insights/Presentations-and-Whitepapers/2018/Global-Digital-Future-in-Focus-2018)  的覆盖率进入前5应用的报告： 
 
 [![comScore top 5 apps](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/56b3e6fc-73ef-4608-8adf-0370929738a0/6-will-pwas-replace-native-mobile-apps.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/56b3e6fc-73ef-4608-8adf-0370929738a0/6-will-pwas-replace-native-mobile-apps.png) 
 
-comScore data on the top 5 apps by reach in 2018 (Image source: [comScore](https://www.comscore.com/Insights/Presentations-and-Whitepapers/2018/Global-Digital-Future-in-Focus-2018)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/56b3e6fc-73ef-4608-8adf-0370929738a0/6-will-pwas-replace-native-mobile-apps.png))
+ccomScore 在2018年达到前五的应用的数据（图片来源：[comScore](https://www.comscore.com/Insights/Presentations-and-Whitepapers/2018/Global-Digital-Future-in-Focus-2018)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/56b3e6fc-73ef-4608-8adf-0370929738a0/6-will-pwas-replace-native-mobile-apps.png)）
 
-As you can see, the top 5 apps tend to be dominated by the same mobile apps, no matter what part of the world mobile users are located in.
+正如您所看到的，无论移动用户位于世界的哪个部分，前5的应用程序往往由相同的移动应用程序主导。
 
-What you might be thinking is, “But what if my app has a unique edge? Isn’t that enough to dominate our niche?”
+您可能会想到的是，“但如果我的应用具有独特的优势呢？还不足以支配我们的市场吗？“
 
-I could see that, especially if your app is targeted to region-specific mobile users. Then again, you have to consider what sort of app types perform well with mobile app users.
+我可以预见，特别是如果您的应用针对特定地区的移动用户，您就必须考虑哪种应用类型与移动应用用户表现良好。
 
-comScore breaks down this point:
+comScore 打破了这一点：
 
 [![comScore total app minute share](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/fba4b726-7711-4ea1-a2ba-97bdde4bfd8c/2-will-pwas-replace-native-mobile-apps.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/fba4b726-7711-4ea1-a2ba-97bdde4bfd8c/2-will-pwas-replace-native-mobile-apps.png) 
 
-comScore data on share of total app minutes (Image source: [comScore](https://www.comscore.com/Insights/Presentations-and-Whitepapers/2018/Global-Digital-Future-in-Focus-2018)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/fba4b726-7711-4ea1-a2ba-97bdde4bfd8c/2-will-pwas-replace-native-mobile-apps.png))
+comScore关于应用总分钟份额的数据（图片来源：[comScore](https://www.comscore.com/Insights/Presentations-and-Whitepapers/2018/Global-Digital-Future-in-Focus-2018)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/fba4b726-7711-4ea1-a2ba-97bdde4bfd8c/2-will-pwas-replace-native-mobile-apps.png)）
 
-Roughly 70% to 80% of all time spent in mobile apps goes to four categories:
+在移动应用程序中用户花费的时间大约在70％到80％可以分为四类：
 
-*   Entertainment (like YouTube);
-*   Social media (like Facebook);
-*   Instant messaging (like Whatsapp);
-*   Games (like Fortnite).
+*   娱乐（如YouTube）
+*   社交媒体（如Facebook）
+*   即时通讯（如Whatsapp）
+*   游戏（如Fortnite）
 
-If your app concept doesn’t fall into one of those categories, is it worth all that work to place your app in the app store? While I recognize that those aren’t the only kinds of apps that succeed, I just think it would be a risky and expensive gamble to make, especially if your client’s business is brand new. Even then, there are so many cases of well-known entities that have opted not to compete in app stores, despite having a large enough audience or customer base to do so.
+如果您的应用程序概念不属于这些类别之一，那么将应用程序放入应用程序商店是否值得所有工作？虽然我认识到这些并不是唯一能成功的应用程序，但我认为这将是一个冒险且代价昂贵的赌博，特别是如果您的客户的业务是全新的。即便如此，尽管拥有足够多的受众或客户群，但仍有很多不在应用商店中的知名产品的竞争。
 
-[West Elm](https://www.westelm.com/) is a great example of a retailer who’s done this:
+[West Elm](https://www.westelm.com/) 是零售商的一个很好的例子：
 
 [![West Elm PWA](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e7fefd4f-5d94-4bdc-ac5a-eece8e51c054/4-will-pwas-replace-native-mobile-apps.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e7fefd4f-5d94-4bdc-ac5a-eece8e51c054/4-will-pwas-replace-native-mobile-apps.png) 
 
-The West Elm PWA (Image source: [West Elm](https://www.westelm.com/)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e7fefd4f-5d94-4bdc-ac5a-eece8e51c054/4-will-pwas-replace-native-mobile-apps.png))
+West Elm PWA（图片来源：[West Elm](https://www.westelm.com/)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e7fefd4f-5d94-4bdc-ac5a-eece8e51c054/4-will-pwas-replace-native-mobile-apps.png)）
 
-If you look in the app stores, you’ll find that West Elm has developed two native apps. One is for registries. This makes sense as a mobile app could be conducive to tagging and tracking registry items. It also has one for the West Elm card. If someone is a frequent enough shopper, this type of app might make sense as well.
+如果您查看应用程序商店，您会发现 West Elm 已经开发了两个原生应用程序。一个是用于用户注册。这是有道理的，因为移动应用程序可能有助于标记和跟踪注册表项。它还有一个用于 West Elm 购物卡。如果有人经常购物，这种类型的应用程序也可能有意义。
 
-That said, neither of these native apps is popular with users (at least not in terms of quantity of reviews). So, it was a smart and economical move by West Elm to keep its main shopping interface in the PWA.
+也就是说，这些本机应用程序都不受用户欢迎（至少在评论数量方面不受欢迎）。因此，West Elm 将其主要购物界面保留在 PWA 中是一项明智而经济的举措。
 
-#### Reason #3: PWAs Rank In Search
+#### 原因＃3：PWA在搜索中的排名
 
-On a related note, progressive web apps come with the added benefit of ranking in search engines. There are a few reasons why you and your clients should be overjoyed by this:
+在相关的说明中，PWA 应用程序还具有在搜索引擎中排名的额外好处。您和您的客户应该为此高兴的原因有以下几个：
 
-1.  Your app’s rank in search is contingent upon the SEO work you put into it. If you’re already doing this with your website, this should be easy!
-2.  You don’t have to worry about a brand new app getting buried in app store search. Or easily dismissed because of a lack of ratings.
-3.  Because a PWA can live in mobile users’ browsers as well as from a button on the home screen, it needs to have a link. And links make for much easier sharing with friends/family/colleagues than telling them the name of an app, hoping they can find it in the store on their own.
+1.  您的应用在搜索中的排名取决于您投入的SEO工作。如果你已经在你的网站上这样做，这应该很容易！
+2.  您不必担心一个全新的应用程序被埋没在应用程序商店搜索中，或者由于缺乏评级而轻易被下架。
+3.  由于PWA可以存在于移动用户的浏览器中以及主屏幕上的按钮中，因此它需要具有链接。链接可以更方便地与朋友/家人/同事共享，而不是告诉他们应用程序的名称，希望他们可以自己在商店中找到它。
 
-Bottom line: if you can give users a tangible link to your app, you can drastically reduce the friction often caused by having one that only exists in the app store.
-
-Plus, I think the searchability aspect is an important one to consider when you think about how people use your app. Take [micro-moments](https://www.smashingmagazine.com/2018/08/designing-for-micro-moments/), for example.
+最后：如果您可以为用户提供与应用程序的实际链接，则可以大幅减少通常由于只有应用程序商店中存在的问题而导致的问题。以 [micro-moments](https://www.smashingmagazine.com/2018/08/designing-for-micro-moments/) 为例。
 
 When a consumer is inspired to:
 
