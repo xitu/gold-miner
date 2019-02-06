@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Agh6VagdEwoIziUUnbxgOg.png)
 
-Vue.js 很棒。但是， 当你开始构建大型 JavaScript 应用时，你将开始触及 Vue.js 的边界。实际上这些边界并不是框架的限制；相反，这些边界是 Vue.js 团队不断进步地重要设计决策。
+Vue.js 很棒。但是，当你开始构建大型 JavaScript 应用时，你将开始触及 Vue.js 的边界。实际上这些边界并不是框架的限制；相反，这些边界是 Vue.js 团队不断进步地重要设计决策。
 
 与 React 或 Angular 不同，Vue.js 迎合不同级别的开发人员。对于初学者它友好，易用，并且对于专家它同样灵活。它不会试图回避 DOM。相反，它发挥得很好。
 
@@ -21,7 +21,7 @@ Vue.js 很棒。但是， 当你开始构建大型 JavaScript 应用时，你将
 
 #### 1. 为什么 Vue.js 不使用开箱即用的 ES 类组件？
 
-如果你来自类似 Angular 的框架或一些后端 OOP 的重语言，你的第一个问题将是 - 为什么不是组件类？
+如果你来自类似 Angular 的框架或一些后端 OOP 的强类型语言，你的第一个问题将是 - 为什么不是组件类？
 
 Vue.js 作者, [尤雨溪](https://medium.com/@youyuxi), 在 GitHub 评论中已经很好地回答了这个问题：
 
@@ -29,8 +29,8 @@ Vue.js 作者, [尤雨溪](https://medium.com/@youyuxi), 在 GitHub 评论中已
 
 不将类作为默认机制有三个主要的原因：
 
-1.  ES 类不足以满足 Vue.js 当前 API 的需求。ES 课程没有完全发展，经常被批评为错误方向的一步。具有私有字段和装饰器的类一旦稳定（至少第 3 阶段）可能会有所帮助。
-2.  ES 课程只适用于熟悉基于类的语言的人。它很容易排除不使用复杂构建工具或转换器的大型 web 社区。
+1.  ES 类不足以满足 Vue.js 当前 API 的需求。ES 类没有完全发展，经常被批评为错误方向的一步。具有私有字段和装饰器的类一旦稳定（至少第 3 阶段）可能会有所帮助。
+2.  ES 类只适用于熟悉基于类的语言的人。它很容易排除不使用复杂构建工具或转换器的大型 web 社区。
 3.  **构建出色的 UI 组件层次结构是关于出色的组件组成。它与伟大的继承层次结构无关。不幸的是，ES 类在后者方面更胜一筹。**
 
 * * *
@@ -64,7 +64,7 @@ Vue.js 作者, [尤雨溪](https://medium.com/@youyuxi), 在 GitHub 评论中已
 <style src="./my-component.css"></style>
 ```
 
-但是，紧接着就出现了下一个问题 ——**我总是要为了我的组件需要 4 个文件（vue + html + js + css）吗。我可以以某种方式去掉** `**.vue**` **文件吗？**答案肯定是可以，你可以这样做。使用 `vue-template-loader`。
+但是，紧接着就出现了下一个问题 ——**我的组件总需要四个文件吗？（vue + html + js + css）吗。我可以以某种方式去掉** `**.vue**` **文件吗？**答案肯定是可以，你可以这样做。使用 `vue-template-loader`。
 
 - [**ktsn/vue-template-loader**: vue-template-loader - webpack 的 Vue.js 2.0 模板加载器](https://github.com/ktsn/vue-template-loader "https://github.com/ktsn/vue-template-loader")
 
@@ -80,7 +80,8 @@ Vue.js 作者, [尤雨溪](https://medium.com/@youyuxi), 在 GitHub 评论中已
 
 #### 4.1 为什么我不能为函数组件使用基于类的 @Component 装饰器？
 
-又回到类上，应该注意的是，类是旨在保持本地状态的一种数据结构。如果函数组件是无状态的，那么 @Component 真的没有意义。
+又回到类上，应该注意的是，类是旨在保持本地状态的一种数据结构。如果函数组件是无状态的，那么 @Component 
+没有意义。
 
 相关讨论可在以下网站查阅：
 
@@ -106,11 +107,11 @@ Vue.js 作者, [尤雨溪](https://medium.com/@youyuxi), 在 GitHub 评论中已
 
 **如果函数组件是子组件，它们会更好地被使用**。应该注意的是，这种行为也适用于 React.js。
 
-#### 4.4 如何从 Vue.js 函数组件中发出事件？
+#### 4.4 如何从 Vue.js 函数组件中触发事件？
 
-从函数组件中发出事件并不是直接了当的。不幸的是，文档中没有提到这一点。`$emit` 方法在函数组件中不可用。以下 stack overflow 问题将在这方面有所帮助：
+从函数组件中触发事件并不是直接了当的。不幸的是，文档中没有提到这一点。`$emit` 方法在函数组件中不可用。以下 stack overflow 问题将在这方面有所帮助：
 
-- [**如何从 Vue.js 函数组件中发出事件？**：这在文档中解释了将属性和事件传递给子元素/组件：如果您正在使用．．．](https://stackoverflow.com/questions/50288996/how-to-emit-an-event-from-vue-js-functional-component "https://stackoverflow.com/questions/50288996/how-to-emit-an-event-from-vue-js-functional-component")
+- [**如何从 Vue.js 函数组件中触发事件？**：这在文档中解释了将属性和事件传递给子元素/组件：如果您正在使用．．．](https://stackoverflow.com/questions/50288996/how-to-emit-an-event-from-vue-js-functional-component "https://stackoverflow.com/questions/50288996/how-to-emit-an-event-from-vue-js-functional-component")
 
 * * *
 
@@ -128,7 +129,7 @@ Vue.js 作者, [尤雨溪](https://medium.com/@youyuxi), 在 GitHub 评论中已
 </template>
 ```
 
-这里，我们真的对 `input` 标签 感兴趣而不是 根 `div` 元素，因为它主要用于添加样式和装饰的。该组件的用户可能对来自 input 的几个事件感兴趣，例如 `blur`，`focus`，`click`，`hover`等。这意味着我们必须重新发出每个事件。我们的组件看起来像这样。
+这里，我们只是对 `input` 标签 感兴趣而不是 根 `div` 元素，因为它主要用于添加样式和装饰的。该组件的用户可能对来自 input 的几个事件感兴趣，例如 `blur`，`focus`，`click`，`hover`等。这意味着我们必须重新触发每个事件。我们的组件看起来像这样。
 
 ```
 <!-- Wrapper component for input -->
@@ -163,11 +164,11 @@ Vue.js 作者, [尤雨溪](https://medium.com/@youyuxi), 在 GitHub 评论中已
 
 #### 6. 为什么你不能从插槽中 v-on 或 emit
 
-我经常看到一些开发者试图从插槽中发出事件或者在一个插槽中监听事件。
+我经常看到一些开发者试图从插槽中触发事件或者在一个插槽中监听事件。
 
 组件 `slot` 由调用父组件提供。这意味着所有事件都应与调用组件关联。试图监听这些变化意味着你的父组件和子组件是紧密耦合的，还有另外一个方法可以做到这一点，[Evan You](https://medium.com/@youyuxi) 解释得很漂亮：
 
-- [**是否可以从组件插槽内发出事件 · Issue #4332 · vuejs/vue**](https://github.com/vuejs/vue/issues/4332#issuecomment-263444492 "https://github.com/vuejs/vue/issues/4332#issuecomment-263444492")
+- [**是否可以从组件插槽内触发事件 · Issue #4332 · vuejs/vue**](https://github.com/vuejs/vue/issues/4332#issuecomment-263444492 "https://github.com/vuejs/vue/issues/4332#issuecomment-263444492")
 
 - [**建议: 在插槽上 v-on · Issue #4781 · vuejs/vue**](https://github.com/vuejs/vue/issues/4781 "https://github.com/vuejs/vue/issues/4781")
 
