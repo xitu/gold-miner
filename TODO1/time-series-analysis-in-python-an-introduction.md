@@ -4,7 +4,7 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/time-series-analysis-in-python-an-introduction.md](https://github.com/xitu/gold-miner/blob/master/TODO1/time-series-analysis-in-python-an-introduction.md)
 > * 译者：[ppp-man](https://github.com/ppp-man)
 
-# Python的时间序列分析：简介
+# Python 的时间序列分析：简介
 
 ![](https://cdn-images-1.medium.com/max/800/1*5nQ2sdmFTo9hfpDkcqAYnw.jpeg)
 
