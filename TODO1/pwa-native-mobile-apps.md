@@ -130,108 +130,108 @@ West Elm PWA（图片来源：[West Elm](https://www.westelm.com/)) ([Large prev
 
 最后：如果您可以为用户提供与应用程序的实际链接，则可以大幅减少通常由于只有应用程序商店中存在的问题而导致的问题。以 [micro-moments](https://www.smashingmagazine.com/2018/08/designing-for-micro-moments/) 为例。
 
-When a consumer is inspired to:
+当用户想去做这些事的时候：
 
-*   Research something of interest,
-*   Go somewhere,
-*   Make a purchase,
-*   Or do something…
+*   研究一些有趣的东西，
+*   去某地，
+*   进行购买，
+*   或做点什么......
 
-Instead of opening a data-hogging application on their device, they’ll open their search browser and type or speak their query. It’s what we’re all trained to do as consumers. Have a question? Need something? Want help choosing a restaurant? Go to Google.
+他们不会在他们的设备上打开与数据息息相关的应用程序，而是打开他们的搜索浏览器并键入或说出他们的查询。这就是我们作为用户最有可能去做的事情。有一个问题？需要某物？想要帮助选择一家餐馆吗？转到 Google。
 
-If your website or app provides an answer to those kinds of questions, you don’t want it hidden away in app stores. You also don’t want to give them a mobile website that offers an option to “Download the App”. You’re only creating extra work for them.
+如果您的网站或应用程序提供了这类问题的答案，您不希望它隐藏在应用程序商店中，您也不想给他们一个提供“下载应用程序”选项的移动网站。你只是为他们创造额外的工作。
 
-A PWA enables you to place your app directly in search results and to get your users the instant answers they require.
+通过 PWA，您可以将应用直接放置在搜索结果中，并为您的用户提供所需的即时答案。
 
-I think this is why e-commerce businesses have especially gravitated towards PWAs, like [HobbyCraft](https://www.hobbycraft.co.uk/).
+我认为这就是为什么电子商务企业特别倾向于像 [HobbyCraft](https://www.hobbycraft.co.uk/) 这样的 PWA。
 
 [![HobbyCraft PWA](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4c932970-c61b-4193-9d20-9a204f4b24d2/11-will-pwas-replace-native-mobile-apps.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4c932970-c61b-4193-9d20-9a204f4b24d2/11-will-pwas-replace-native-mobile-apps.png) 
 
-HobbyCraft PWA example (Image source: [HobbyCraft](https://www.hobbycraft.co.uk/)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4c932970-c61b-4193-9d20-9a204f4b24d2/11-will-pwas-replace-native-mobile-apps.png))
+HobbyCraft PWA 示例（图片来源： [HobbyCraft](https://www.hobbycraft.co.uk/)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4c932970-c61b-4193-9d20-9a204f4b24d2/11-will-pwas-replace-native-mobile-apps.png)）
 
-As you can see here, HobbyCraft is a niche retailer that sells craft supplies out of the UK. It wouldn’t make much sense to put something like this in the app stores — especially when the PWA interface works well enough as it is.
+正如你在这里看到的，HobbyCraft 是一家零售商，在英国境外销售工艺品。在应用程序商店中放置这样的东西是没有多大意义的 —— 特别是当 PWA 入口工作得很好时。
 
-[Lancome](https://www.lancome-usa.com/) is another e-tailer that’s made the conscious decision to forego the native app and keep the mobile shopping experience in a PWA format.
+[兰蔻](https://www.lancome-usa.com/) 是另一家电子零售商，它有意识地决定放弃原生应用，并将移动购物体验保持在 PWA 格式。
 
 [![Lancome PWA](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/52a5212c-488b-4a69-a2f1-08d83ccb3cf0/1-will-pwas-replace-native-mobile-apps.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/52a5212c-488b-4a69-a2f1-08d83ccb3cf0/1-will-pwas-replace-native-mobile-apps.png) 
 
-Lancome e-commerce PWA example (Image source: [Lancome](https://www.lancome-usa.com/)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/52a5212c-488b-4a69-a2f1-08d83ccb3cf0/1-will-pwas-replace-native-mobile-apps.png))
+兰蔻电子商务PWA示例（图片来源：[Lancome](https://www.lancome-usa.com/)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/52a5212c-488b-4a69-a2f1-08d83ccb3cf0/1-will-pwas-replace-native-mobile-apps.png)）
 
-One important design element I would point you to in both these examples is the Stores icon located in the top navigation bar. For businesses with brick-and-mortar counterparts, there’s no reason to keep your app out of [local search](https://www.smashingmagazine.com/2018/06/local-search-mobile-web-design/) in Google.
+我将在这两个示例中指出的一个重要设计元素是位于顶部导航栏中的Stores图标。对于拥有实体产品的企业，没有理由让您的应用在Google中进行[本地搜索](https://www.smashingmagazine.com/2018/06/local-search-mobile-web-design/)。
 
-If you design your PWA correctly, you can make it show up in relevant location-based queries. And if you present an interface that’s reminiscent of a native app — and just as secure as one (since PWAs require HTTPS) — you can compel more mobile users to make a purchase on the spot.
+如果您正确设计了PWA，则可以将其显示在相关的基于位置的查询中。如果你提供一个让人想起原生应用程序的界面 —— 并且与在原生应用上一样安全（因为 PWA 需要 HTTPS）—— 你可以促使更多的移动用户在 PWA 上进行购买。
 
-#### Reason #4: Native Apps Struggle With Retention
+#### 原因＃4：原生应用难以被持久保留
 
-For app types that have a hook that compels users to spend time inside a native app and spend money to enjoy the experience further, that’s great. When you find that perfect fit, there’s good money to be made from having a native app. It’s simply a matter of having people willing to commit to the download.
+对于具有钩子的应用类型，该钩子促使用户在原生应用中花费时间并花钱进一步享受体验，这很棒。当你发现完美契合时，有一个原生应用程序可以赚到很多钱。这只是让人们愿意承诺下载的问题。
 
-However, as we recently saw, most [native apps struggle to retain users](https://www.smashingmagazine.com/2018/10/mobile-app-retention-rate/).
+但是，正如我们最近看到的 [本机应用程序都很难留住用户](https://www.smashingmagazine.com/2018/10/mobile-app-retention-rate/).
 
-It doesn’t matter how many initial downloads you get. If mobile users don’t return to the app to engage with your content, purchase subscriptions or upgrades or click on ads, consider it a wasted investment. Unfortunately, that’s the case with a lot of them.
+您获得的初始下载量无关紧要。如果移动用户未返回应用以与您的内容互动，购买订阅或升级或点击广告，则将其视为浪费的投资。不幸的是，很多人就是这种情况。
 
-PWAs, on the other hand, don’t require the lofty commitment of having to download an app to one’s device. Heck, users don’t even have to save the PWA to their home screens, if they don’t want to. It’s an overall more convenient experience.
+另一方面，PWA 不是必须下载应用程序到一个设备上。哎呀，用户甚至不必将 PWA 保存到他们的主屏幕，如果他们不想这样做的话。这是一个整体更方便的体验。
 
-Nevertheless, you may want to urge users to save it for instant access in the future, as [The Weather Channel](https://weather.com/) does:
+尽管如此，您可能更希望用户将其保存以便将来即时访问，就像 [The Weather Channel](https://weather.com/) 这样做的：
 
 [![The Weather Channel PWA message](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f5167704-6515-4283-bdc9-5e530dbaf288/8-will-pwas-replace-native-mobile-apps.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f5167704-6515-4283-bdc9-5e530dbaf288/8-will-pwas-replace-native-mobile-apps.png) 
 
-The Weather Channel asks users to save PWA to device. (Image source: [The Weather Channel](https://weather.com/)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f5167704-6515-4283-bdc9-5e530dbaf288/8-will-pwas-replace-native-mobile-apps.png))
+天气频道要求用户将PWA保存到设备。（图片来源：[The Weather Channel](https://weather.com/)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f5167704-6515-4283-bdc9-5e530dbaf288/8-will-pwas-replace-native-mobile-apps.png)）
 
-Really, what it boils down to is the type of app you’ve built.
+真的，它取决于你构建的应用程序的类型。
 
-The Weather Channel, for instance, provides a service that mobile users _will_ want to use on a daily basis. They could install a native app from the app store with up-to-date weather forecasting, but that app would likely chew through data and battery power a lot more quickly than the browser-based PWA will.
+天气频道，实话说，提供的服务 _将会_ 在日常被使用。用户可以通过应用程序商店安装原生应用程序查看最新的天气预报，但该应用程序可能比基于浏览器的 PWA 更快地消耗数据和电池电量。
 
-There are other business types that should consider using a PWA for this reason. Think about an online magazine like [Forbes](https://www.forbes.com/).
+出于这个原因，还有其他业务类型应考虑使用PWA。 就好像 [Forbes](https://www.forbes.com/) 这样的在线杂志。
 
 [![Forbes PWA add to homescreen](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/1bf93e11-6217-414c-96ae-65119a598c93/5-will-pwas-replace-native-mobile-apps.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/1bf93e11-6217-414c-96ae-65119a598c93/5-will-pwas-replace-native-mobile-apps.png) 
 
-Users can add the Forbes PWA to their home screen just like a native app. (Image source: [Forbes](https://www.forbes.com/)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/1bf93e11-6217-414c-96ae-65119a598c93/5-will-pwas-replace-native-mobile-apps.png))
+用户可以将福布斯 PWA 添加到其主屏幕，就像原生应用程序一样。（图片来源：[Forbes](https://www.forbes.com/)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/1bf93e11-6217-414c-96ae-65119a598c93/5-will-pwas-replace-native-mobile-apps.png)）
 
-Highly specialized publications would do really well to develop PWAs for their daily readers.
+高度专业化的出版物为他们的日常读者开发 PWA 也可以有更好的效果。
 
-Again, it provides a much lighter-weight experience for their phones. Plus, PWAs give users offline access, so they can get access to content no matter where they are or how limited their access may be to the Internet. And the home screen presence (if they choose to put the button there), provides a nice little shortcut around the mobile web browser.
+同样，它为他们的手机提供了更轻量级的体验。此外，PWA 为用户提供离线访问，因此他们随时可以访问内容，无论他们身在何处或者网络情况是否有限。主屏幕入口的存在（如果他们选择将按钮放在那里），在移动网络浏览器之外提供了一个很好的小捷径。
 
-#### Reason #5: PWAs Can Generate More Revenue
+#### 理由5：PWA 可以产生更多收入
 
-With the exception of in-app advertising, Apple and Google take a sizable cut from any sales you make through a native app. This includes paid downloads, in-app purchases or upgrades and subscription fees. At one point, these fees were as high as 30% per sale.
+除了应用内广告外，Apple 和 Google 从您通过原生应用进行的推广中获得了相当大的利润削减。这包括付费下载、应用内购买或升级和订阅费用。甚至有时候，这些费用高达每次销售30％。
 
-When you’re hoping to spend money on design tweaks, much-needed development updates and promotional advertising, that’s the last thing you want to hear. In other words, a significant portion of the money that _starts_ to trickle in from your native app goes straight into the pockets of app store owners. That doesn’t seem right, especially if you have to pay for app store ads in order to gain visibility within them.
+当你希望花钱进行设计调整，急需的开发更新和促销广告时，这是你想听到的最后一件事。换句话说，从您的原生应用程序 _开始_ 流入的大部分资金直接进入应用程序商店所有者的口袋。这似乎不太对劲，特别是如果您必须为应用商店广告付费以获得其中的搜索可见性。
 
-PWAs don’t come with fees to pay-to-play, which means all revenue generated from them go directly to you (or whoever the owner of the business is). This is especially nice if you have an app concept like a local newspaper (such as [The Billings Gazette](https://billingsgazette.com/)) that probably deals in smaller profit margins to begin with.
+PWA 不收取任何费用，这意味着它们产生的所有收入都直接发送给您（或业务所有者）。如果您有像本地报纸（例如 The Billings Gazette）这样给您带来较小的利润率的应用程序，这一点尤为出色。
 
 [![Billings Gazette PWA](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/10fe37f8-8aa1-4873-a68b-fa619447a4c3/12-will-pwas-replace-native-mobile-apps.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/10fe37f8-8aa1-4873-a68b-fa619447a4c3/12-will-pwas-replace-native-mobile-apps.png) 
 
-The Billings Gazette PWA monetization example (Image source: [The Billings Gazette](https://billingsgazette.com/)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/10fe37f8-8aa1-4873-a68b-fa619447a4c3/12-will-pwas-replace-native-mobile-apps.png))
+Billings Gazette PWA货币化示例（图片来源： [The Billings Gazette](https://billingsgazette.com/)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/10fe37f8-8aa1-4873-a68b-fa619447a4c3/12-will-pwas-replace-native-mobile-apps.png)）
 
-That’s not the only way you can make more money from PWAs than native apps either.
+这不是您从 PWA 获得比原生应用更多资金的唯一方式。
 
-To start, they’re significantly easier to build than native apps. Plus, managing them after launch requires less of a time commitment and resources from you. Yes, it still needs to be updated and maintained — just like anything else on the web — but you don’t have to deal with the obstacles that come with apps in the app store.
+首先，它们比原生应用程序更容易构建。此外，在发布后管理它们需要更少的时间和资源。是的，它仍然需要更新和维护 —— 就像网络上的任何其他内容一样 - 但您不必处理应用商店中带来的障碍。
 
-For example, you only have to build one progressive web app. You don’t have to create separate ones to match the guidelines for different mobile devices.
+例如，您只需构建一个PWA Web应用程序。您无需创建单独的符合不同移动设备的指南。
 
-Updates are easier, too, especially if your PWA is based off of a WordPress website. You push an update through the pipeline and it shows up immediately in the live PWA. There’s no need to push updates to the app store admins and wait for their approvals. Everything happens in real time, which means getting new features and money-making initiatives out to the public more quickly.
+更新也更容易，特别是如果您的 PWA 是基于 WordPress 网站。您通过 pipeline 推送更新，它会实时在 PWA 中生效。无需将更新推送到应用商店管理员并等待他们的批准。一切都是实时发生的，这意味着更快地向公众发布新功能和赚钱计划。
 
-This is helpful in the case of PWAs like [Twitter](https://twitter.com/) Lite.
+这对于像 [Twitter](https://twitter.com/) 这样的 PWA 很有用。
 
 [![Twitter Lite PWA](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/8dcaca3f-b3eb-49b6-b83e-f20091130445/10-will-pwas-replace-native-mobile-apps.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/8dcaca3f-b3eb-49b6-b83e-f20091130445/10-will-pwas-replace-native-mobile-apps.png) 
 
-The Twitter Lite PWA can stay on the cutting edge in real time (Image source: [Twitter](https://twitter.com/)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/8dcaca3f-b3eb-49b6-b83e-f20091130445/10-will-pwas-replace-native-mobile-apps.png))
+Twitter Lite PWA可以实时保持最前沿（图片来源：[Twitter](https://twitter.com/)) ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/8dcaca3f-b3eb-49b6-b83e-f20091130445/10-will-pwas-replace-native-mobile-apps.png)）
 
-When going up against a plethora of social media giants that dominate the app stores, having the ability to keep your app updated in real time can serve as a strong competitive edge. This is in addition to all of the other benefits that come from developing your app in a progressive web format.
+当面对主导应用商店的众多社交媒体巨头时，能够让您的应用实时更新可以作为强大的竞争优势。这是通过渐进式Web格式开发应用程序所带来的所有其他好处的附赠品。
 
-This is what happened when Twitter put out its PWA.
+这就是 Twitter 推出其 PWA 之后所发生的事情。
 
-As this [case study from Google](https://developers.google.com/web/showcase/2017/twitter) shows, Twitter took an incremental approach to optimizing its PWA. As such, they’ve been able to introduce huge improvements to the user experience without much detection from the end user. Their only response to the updates, in fact, has been greater usage of the PWA.
+正如 Google 的 [case study from Google](https://developers.google.com/web/showcase/2017/twitter) 所示，Twitter 采取了渐进的方法来优化其 PWA。因此，他们能够在没有最终用户检测的情况下对用户体验进行大幅改进。事实上，他们对更新的唯一回应是更多地使用PWA。
 
-### The PWA Is The Future For (Most Of) The Web
+### PWA是（大部分）Web的未来
 
-Visibility and searchability are known problems with native mobile apps. User retainment is another. And they’re just not sustainable unless you have an idea that’s inherently meant for a native interface that’s sure to bring in money. Mobile games are one example of this. I’d argue that dating apps are another. I used to think social media fell into that category, but Twitter has since proven me wrong.
+可见性和可搜索性是原生移动应用程序的常见问题，用户保留是另一个。它们只是不可持续的，除非你有一个想法能够创造一个肯定带来钱的原生入口。手机游戏就是其中的一个例子。我认为网约应用程序是另一个。我曾经认为社交媒体属于这一类别，但Twitter证明我错了。
 
-**Based on what I’m seeing online and from what I’ve heard from developer friends and colleagues, I do believe the future is in the PWA.**
+**根据我在网上看到的内容以及我从开发人员朋友和同事那里听到的内容，我相信未来是在PWA中。**
 
-I think app stores will slowly quiet down as developers realize there are many more benefits to putting a small- to medium-sized company’s app into a progressive web form. The major players will stay put, and companies that have outgrown the bounds of the PWA may eventually move over. But, otherwise, most apps will end up in the progressive web format.
+我认为随着开发人员意识到将中小型公司的应用程序放入 PWA Web 中有很多好处，应用程序商店将逐渐退出减缓热度。主要参与者将保持不变，而已经超出 PWA 范围的公司可能最终会转移。否则，大多数应用程序将以 PWA 的形式结束。
 
-As this trend towards the PWA continues to grow, consumers will become more accustomed to encountering it in search and know that this user-friendly interface is accessible right from their browser. In turn, they’ll only go to the app stores for the kinds of apps that belong there, i.e. messaging, games, entertainment, and some social media. This will create a clearer division between online search and app store search, and further help to improve the overall user experience online.
+随着PWA的这种趋势继续增长，用户将更加习惯于在搜索中遇到它并且知道这个用户友好的界面可以直接从他们的浏览器访问。相反，他们只会去应用商店寻找属于那里的各种应用，即消息，游戏，娱乐和一些社交媒体。这将在在线搜索和应用商店搜索之间创建更清晰的划分，并进一步帮助改善在线的整体用户体验
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
