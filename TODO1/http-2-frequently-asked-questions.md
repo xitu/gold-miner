@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/http-2-frequently-asked-questions.md](https://github.com/xitu/gold-miner/blob/master/TODO1/http-2-frequently-asked-questions.md)
 > - 译者：[YueYong](https://github.com/YueYongDev)
-> - 校对者：[Ranjay](https://github.com/jerryOnlyZRJ)
+> - 校对者：[Ranjay](https://github.com/jerryOnlyZRJ)、[ziyin feng](https://github.com/Fengziyin1234)
 
 # HTTP/2 常见问题解答
 
@@ -49,13 +49,13 @@ HTTP / 1.1 已经在 Web 上服役了十五年以上，但其劣势也开始显�
 
 加载一个网页比以往更加耗费资源（详见  [HTTP Archive’s page size statistics](http://httparchive.org/trends.php#bytesTotal&reqTotal)）。与此同时，有效地加载所有这些静态资源变得非常困难，因为事实上，HTTP 只允许每个 TCP 连接有一个未完成的请求。
 
-在过去，浏览器使用多个 TCP 连接来发出并行请求。然而这种做法是有限制的。如果使用了太多的连接，就会产生相反的效果（ TCP 拥塞控制被阻止，因为这会引发性能受损和网络阻塞等事情的发生）。而且从根本上讲这对其他程序来说也是不公平的(因为浏览器会占用许多本不该属于他的资源)。
+在过去，浏览器使用多个 TCP 连接来发出并行请求。然而这种做法是有限制的。如果使用了太多的连接，就会产生相反的效果（ TCP 拥塞控制将被无效化，导致的用塞事件将会损害性能和网络）。而且从根本上讲这对其他程序来说也是不公平的(因为浏览器会占用许多本不该属于他的资源)。
 
 同时，大量的请求意味着“在线上”有大量重复的数据。
 
 这两个因素都意味着 HTTP/1.1 请求有很多与之相关的开销;如果请求太多，则会影响性能。
 
-这使得该行业成为了一个公认的、进行各种实践的最佳场所，比如，Spriting（图片合并）、data：Inlining（数据内嵌）、Domain Sharding（域名分片）和 Concatenation（文件合并）等。这些不规范的解决方案说明了协议本身存在一些潜在问题，并且在使用的时候会出现很多问题。
+这使得业界在有哪些是最好的实践上达成共识，它们包括，比如，Spriting（图片合并）、data：Inlining（数据内嵌）、Domain Sharding（域名分片）和 Concatenation（文件合并）等。这些不规范的解决方案说明了协议本身存在一些潜在问题，并且在使用的时候会出现很多问题。
 
 ### 谁制定了 HTTP/2?
 
@@ -71,7 +71,7 @@ HTTP/2 是由 [IETF](http://www.ietf.org/) 的 [HTTP 工作组](https://httpwg.g
 
 HTTP/2 第一次出现并被讨论的时候， SPDY 正得到厂商 (像 Mozilla 和 nginx)的青睐和支持， 并被看成是 HTTP/1.x 基础上的重大改善。
 
-在不断的征求建议以及投票选择之后，[SPDY/2](http://tools.ietf.org/html/draft-mbelshe-httpbis-spdy-00)  被选为 HTTP/2 的基础。从那时起， 根据工作组的讨论和厂商的反馈，它已经有了很多变化。
+在不断的征求建议以及投票选择之后，[SPDY/2](http://tools.ietf.org/html/draft-mbelshe-httpbis-spdy-00)  被选为 HTTP/2 的基础。从那时起， 根据工作组的讨论和用户的反馈，它已经有了很多变化。
 
 在整个过程中，SPDY 的核心开发人员参与了 HTTP/2 的开发，其中包括 Mike Belshe 和 Roberto Peon。
 
@@ -103,7 +103,7 @@ HTTP/2 在 telnet 中不可用，但是我们已经有一些工具可以提供�
 
 HTTP/1.x 有个问题叫“队头阻塞(head-of-line blocking)“，它是指在一次连接(connection)中，只提交一个请求的效率比较高， 多了就会变慢。
 
-HTTP/1.1 尝试使用管线化( pipelining )来解决这个问题， 但是效果并不理想(数据量较大或者速度较慢的响应， 会阻碍排在他后面的请求)。此外，由于许多网络媒介(intermediary )和服务器不能很好的支持管线化， 导致其部署起来也是困难重重。
+HTTP/1.1 尝试使用管线化( pipelining )来解决这个问题， 但是效果并不理想(对于数据量较大或者速度较慢的响应， 依旧会阻碍排在他后面的请求)。此外，由于许多网络媒介( intermediary )和服务器不能很好的支持管线化， 导致其部署起来也是困难重重。
 
 这也就迫使客户端使用一些启发式的方法(基本靠猜) 来决定通过哪些连接提交哪些请求; 由于一个页面加载的数据量， 往往比可用连接能处理的数据量的10倍还多， 对性能产生极大的负面影响， 结果经常引起瀑布式阻塞(waterfall of blocked requests)。
 
