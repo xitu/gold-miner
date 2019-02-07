@@ -5,11 +5,11 @@
 > * 译者：
 > * 校对者：
 
-# Applying Styles Based on the User Scroll Position with Smart CSS
+# 使用智能CSS基于用户滚动位置应用样式
 
-By mapping the current scroll offset to an attribute on the `html` element we can style elements on the page based on the current scroll position. We can use this to build, for example, a floating navigation component.
+通过将当前滚动偏移量添加到到 `html` 元素的属性上，我们可以根据当前滚动位置设置页面上的元素样式。我们可以使用它来构建一个浮动在页面顶部的导航组件。
 
-This is the HTML we’ll work with, a nice `<header>` component that we want to float on top of the content when we scroll down.
+这是我们将使用的 HTML，`<header>` 组件是我们希望当我们向下滚动时，始终浮动在页面顶部的一个组件。
 
 ```
 <header>I'm the page header</header>
@@ -18,7 +18,7 @@ This is the HTML we’ll work with, a nice `<header>` component that we want to 
 <p>Content...</p>
 ```
 
-As a start, we’ll listen for the `'scroll'` event on the `document` and we’ll request the current `scrollY` position each time the user scrolls.
+首先，我们将监听 `document` 上的 `'scroll'` 事件，并且每次用户滚动时我们都会取出当前的 `scrollY` 值。
 
 ```
 document.addEventListener('scroll', () => {
@@ -26,79 +26,79 @@ document.addEventListener('scroll', () => {
 });
 ```
 
-We have the scroll position stored in a data attribute on the `html` element. If you view the DOM using your dev tools it would look like this `<html data-scroll="0">`.
+我们将滚动位置存储在 `html` 元素的数据属性中。如果您使用开发工具查看 DOM，它将如下所示：`<html data-scroll="0">`
 
-Now we can use this attribute to style elements on the page.
+现在我们可以使用此属性来设置页面上的元素样式。
 
 ```
-/* Make sure the header is always at least 3em high */
+/* 保证 header标签始终高于 3em */
 header {
   min-height: 3em;
   width: 100%;
   background-color: #fff;
 }
 
-/* Reserve the same height at the top of the page as the header min-height */
+/* 在页面顶部保留与 header 的 min-height 相同的高度 */
 html:not([data-scroll='0']) body {
   padding-top: 3em;
 }
 
-/* Switch to fixed positioning, and stick the header to the top of the page */
+/* 将 header 标签切换成 fixed 定位模式，并且将它固定在页面顶部 */
 html:not([data-scroll='0']) header {
   position: fixed;
   top: 0;
   z-index: 1;
 
-  /* This box-shadow will help sell the floating effect */
+  /* box-shadow 属性能够增强浮动的效果 */
   box-shadow: 0 0 .5em rgba(0, 0, 0, .5);
 }
 ```
 
-This is basically it, the header will now automatically detach from the page and float on top of the content when scrolling down. The JavaScript code doesn’t care about this, it’s task is simply putting the scroll offset in the data attribute. This is nice as there is no tight coupling between the JavaScript and the CSS.
+基本上就是这样，当用户向下滚动时，header 标签将自动从页面中分离并浮动在内容之上。JavaScript 代码并不关心这一点，它的任务就是将滚动偏移量放在数据属性中。这很完美，因为 JavaScript 和 CSS 之间没有紧密耦合。
 
-There are still some improvements to make, mostly in the performance area.
+但仍有一些可以改进的地方，主要是在性能方面。
 
-But first, we have to fix our script for situations where the scroll position is not at the top when the page loads. In those situations, the header will render incorrectly.
+首先，我们必须修改 JavaScript 脚本，以适应页面加载时滚动位置不在顶部的情况。在这样的情况下，header 标签将呈现错误的样式。
 
-When the page loads we’ll have to quickly get the current scroll offset. This ensures we’re always in sync with the current state of affairs.
+页面加载时，我们必须快速获取当前的滚动偏移量，这样确保了我们始终与当前的页面的状态同步。
 
 ```
-// Reads out the scroll position and stores it in the data attribute
-// so we can use it in our stylesheets
+// 读出当前页面的滚动位置并将其存入 document 的 data 属性中
+// 因此我们就可以在我们的样式表中使用它
 const storeScroll = () => {
   document.documentElement.dataset.scroll = window.scrollY;
 }
 
-// Listen for new scroll events
+// 监听滚动事件
 document.addEventListener('scroll', storeScroll);
 
-// Update scroll position for first time
+// 第一次打开页面时就更新滚动位置
 storeScroll();
 ```
 
-Next we’re going to look at some performance improvements. If we request the `scrollY` position the browser will have to calculate the positions of each and every element on the page to make sure it returns the correct position. It’s best if we not force it to do this each and every scroll interaction.
+接下来我们将看一些性能方面改进。如果我们想要获取 `scrollY` 滚动位置，浏览器将必须计算页面上每个元素的位置，以确保它返回正确的位置。如果我们不强制它每次滚动都取值才是最好的做法。
 
-To do this, we’ll need a debounce method, this method will queue our request till the browser is ready to paint the next frame, at that point it has already calculate the positions of all the elements on the page so it won’t do it again.
+要做到这一点，我们需要一个 debounce（防抖动）方法，这个方法会将我们的取值请求加入一个队列中，在浏览器准备好绘制下一帧之前都不会重新取值，此时它已经计算出了页面上所有元素的位置，所以它不会不断重复相同的工作。
 
 ```
-// The debounce function receives our function as a parameter
+// 防抖动函数接受一个我们自定义的函数作为参数
 const debounce = (fn) => {
 
-  // This holds the requestAnimationFrame reference, so we can cancel it if we wish
+  // 这包含了对 requestAnimationFrame 的引用，所以我们可以在我们希望的任何时候停止它
   let frame;
-
-  // The debounce function returns a new function that can receive a variable number of arguments
+  
+  // 防抖动函数将返回一个可以接受多个参数的新函数
   return (...params) => {
     
-    // If the frame variable has been defined, clear it now, and queue for next frame
+    // 如果 frame 的值存在，那就清除对应的回调
     if (frame) { 
       cancelAnimationFrame(frame);
     }
 
-    // Queue our function call for the next frame
+    // 使我们的回调在浏览器下一帧刷新时执行
     frame = requestAnimationFrame(() => {
       
-      // Call our function and pass any params we received
+      // 执行我们的自定义函数并传递我们的参数
       fn(...params);
     });
 
@@ -118,13 +118,13 @@ document.addEventListener('scroll', debounce(storeScroll));
 storeScroll();
 ```
 
-By marking the event as `passive` we can tell the browser that our scroll event is not going to be canceled by a touch interaction (for instance when interacting with a plugin like Google Maps). This allows the browser to scroll the page immediately as it now knows that the event won’t be canceled.
+通过标记事件为 `passive` 状态，我们可以告诉浏览器我们的滚动事件不会被触摸交互阻止（例如与谷歌地图等插件交互时）。这允许浏览器立即滚动页面，因为它现在知道该事件不会被阻止。
 
 ```
 document.addEventListener('scroll', debounce(storeScroll), { passive: true });
 ```
 
-With the performance issues resolved we now have a stable way to feed data obtained with JavaScript to our CSS and can use this to start styling elements on the page.
+解决了性能问题后，我们现在可以通过稳定的方式使用 JavaScript 将获取的数据提供给 CSS，并可以使用它来为页面上的元素添加样式。
 
 [Live Demo on CodePen](https://codepen.io/rikschennink/pen/yZYbwQ)
 
