@@ -2,8 +2,8 @@
 > * 原文作者：[Harshal Patil](https://blog.webf.zone/@mistyHarsh)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/vue-js-considerations-and-tricks.md](https://github.com/xitu/gold-miner/blob/master/TODO1/vue-js-considerations-and-tricks.md)
-> * 译者：
-> * 校对者：
+> * 译者：[xingqiwu55555](https://github.com/xingqiwu55555)
+> * 校对者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
 
 # Vue.js — 注意事项和技巧
 
@@ -13,7 +13,7 @@ Vue.js 很棒。但是，当你开始构建大型 JavaScript 应用时，你将�
 
 与 React 或 Angular 不同，Vue.js 迎合不同级别的开发人员。对于初学者它友好，易用，并且对于专家它同样灵活。它不会试图避开 DOM。相反，它发挥得很好。
 
-话虽如此，但这篇文章更像是我在 Vue.js 启蒙途中遇到的一些重要 **讨论，问题和技巧** 的目录。了解这些关键的设计方面有助于我们构建大型的web应用程序。
+话虽如此，但这篇文章更像是我在 Vue.js 启蒙途中遇到的一些重要 **讨论，问题和技巧** 的目录。了解这些关键的设计方面有助于我们构建大型的 web 应用程序。
 
 同样，这些讨论在 2018 年 5 月 18 日的今天有效。当框架升级，底层浏览器和 JS API 将发生改变，它们可能无效和不直观。
 
@@ -23,9 +23,9 @@ Vue.js 很棒。但是，当你开始构建大型 JavaScript 应用时，你将�
 
 如果你来自类似 Angular 的框架或一些后端 OOP 的强类型语言，你的第一个问题将是 - 为什么不是组件类？
 
-Vue.js 作者, [尤雨溪](https://medium.com/@youyuxi), 在 GitHub 评论中已经很好地回答了这个问题：
+Vue.js 作者，[尤雨溪](https://medium.com/@youyuxi)，在 GitHub 评论中已经很好地回答了这个问题：
 
-- [**使用标准 js 类而不是自定义语法？ · Issue #2371 · vuejs/vue**](https://github.com/vuejs/vue/issues/2371#issuecomment-284052430 "https://github.com/vuejs/vue/issues/2371#issuecomment-284052430")
+- [**使用标准 js 类而不是自定义语法？· Issue #2371 · vuejs/vue**](https://github.com/vuejs/vue/issues/2371#issuecomment-284052430 "https://github.com/vuejs/vue/issues/2371#issuecomment-284052430")
 
 不将类作为默认机制有三个主要的原因：
 
@@ -39,7 +39,7 @@ Vue.js 作者, [尤雨溪](https://medium.com/@youyuxi), 在 GitHub 评论中已
 
 如果构建大型 web 应用是不够的，那么你有一些疯狂的想法来实现一个抽象组件，如 `<transition>` 或 `<router-view>`。这肯定有关于此的讨论，但它真的没有通过。
 
-- [**任何抽象组件的文档计划？ · Issue #720 · vuejs/vuejs.org**](https://github.com/vuejs/vuejs.org/issues/720 "https://github.com/vuejs/vuejs.org/issues/720")
+- [**任何抽象组件的文档计划？· Issue #720 · vuejs/vuejs.org**](https://github.com/vuejs/vuejs.org/issues/720 "https://github.com/vuejs/vuejs.org/issues/720")
 
 但是不要害怕，通过对插槽的充分理解，你可以构建自己的抽象组件。这有一篇非常好的博客文章来解释如何做到这一点。
 
@@ -64,7 +64,7 @@ Vue.js 作者, [尤雨溪](https://medium.com/@youyuxi), 在 GitHub 评论中已
 <style src="./my-component.css"></style>
 ```
 
-但是，紧接着就出现了下一个问题 ——**我的组件总需要四个文件吗？（vue + html + js + css）吗。我可以以某种方式去掉** `**.vue**` **文件吗？**答案肯定是可以，你可以这样做。使用 `vue-template-loader`。
+但是，紧接着就出现了下一个问题 ——**我的组件总需要四个文件吗？（vue + html + js + css）吗。我可以以某种方式去掉** `.vue` **文件吗**？答案肯定是可以，你可以这样做。使用 `vue-template-loader`。
 
 - [**ktsn/vue-template-loader**: vue-template-loader - webpack 的 Vue.js 2.0 模板加载器](https://github.com/ktsn/vue-template-loader "https://github.com/ktsn/vue-template-loader")
 
@@ -85,7 +85,7 @@ Vue.js 作者, [尤雨溪](https://medium.com/@youyuxi), 在 GitHub 评论中已
 
 相关讨论可在以下网站查阅：
 
-- [**怎样在 @Component 中创建函数组件？ · Issue #120 · vuejs/vue-class-component**](https://github.com/vuejs/vue-class-component/issues/120 "https://github.com/vuejs/vue-class-component/issues/120")
+- [**怎样在 @Component 中创建函数组件？· Issue #120 · vuejs/vue-class-component**](https://github.com/vuejs/vue-class-component/issues/120 "https://github.com/vuejs/vue-class-component/issues/120")
 
 #### 4.2 外部类和样式不适用于函数组件
 
@@ -99,7 +99,7 @@ Vue.js 作者, [尤雨溪](https://medium.com/@youyuxi), 在 GitHub 评论中已
 
 > TLDR: 在函数组件中使用 **有数据的** **组件** 时要小心
 
-- [**当 props 不变时，函数组件会重新渲染。 · Issue #4037 · vuejs/vue**](https://github.com/vuejs/vue/issues/4037#issuecomment-258164999 "https://github.com/vuejs/vue/issues/4037#issuecomment-258164999")
+- [**当 props 不变时，函数组件会重新渲染。· Issue #4037 · vuejs/vue**](https://github.com/vuejs/vue/issues/4037#issuecomment-258164999 "https://github.com/vuejs/vue/issues/4037#issuecomment-258164999")
 
 函数组件非常 **渴望** 直接使用组件的渲染函数。这也意味着你应该：
 
@@ -111,7 +111,7 @@ Vue.js 作者, [尤雨溪](https://medium.com/@youyuxi), 在 GitHub 评论中已
 
 从函数组件中触发事件并不是直接了当的。不幸的是，文档中没有提到这一点。`$emit` 方法在函数组件中不可用。以下 stack overflow 问题将在这方面有所帮助：
 
-- [**如何从 Vue.js 函数组件中触发事件？**：这在文档中解释了将属性和事件传递给子元素/组件：如果您正在使用．．．](https://stackoverflow.com/questions/50288996/how-to-emit-an-event-from-vue-js-functional-component "https://stackoverflow.com/questions/50288996/how-to-emit-an-event-from-vue-js-functional-component")
+- [**如何从 Vue.js 函数组件中触发事件？**：这在文档中解释了将属性和事件传递给子元素/组件：如果您正在使用...](https://stackoverflow.com/questions/50288996/how-to-emit-an-event-from-vue-js-functional-component "https://stackoverflow.com/questions/50288996/how-to-emit-an-event-from-vue-js-functional-component")
 
 * * *
 
@@ -129,7 +129,7 @@ Vue.js 作者, [尤雨溪](https://medium.com/@youyuxi), 在 GitHub 评论中已
 </template>
 ```
 
-这里，我们只是对 `input` 标签 感兴趣而不是 根 `div` 元素，因为它主要用于添加样式和装饰的。该组件的用户可能对来自 input 的几个事件感兴趣，例如 `blur`，`focus`，`click`，`hover`等。这意味着我们必须重新触发每个事件。我们的组件看起来像这样。
+这里，我们只是对 `input` 标签 感兴趣而不是 根 `div` 元素，因为它主要用于添加样式和装饰的。该组件的用户可能对来自 input 的几个事件感兴趣，例如 `blur`、`focus`、`click` 和 `hover`等。这意味着我们必须重新触发每个事件。我们的组件看起来像这样。
 
 ```
 <!-- Wrapper component for input -->
@@ -180,7 +180,7 @@ Vue.js 作者, [尤雨溪](https://medium.com/@youyuxi), 在 GitHub 评论中已
 
 > 问题是 — 如何将组件 **C** 中的插槽传递给 **A**？
 
-**这个问题的答案取决于你使用的是什么？** 如果你使用渲染函数，那么它非常简单。组件 B 的渲染函数将是：
+**这个问题的答案取决于你使用的是什么**？如果你使用渲染函数，那么它非常简单。组件 B 的渲染函数将是：
 
 ```
 // Render function for component B
