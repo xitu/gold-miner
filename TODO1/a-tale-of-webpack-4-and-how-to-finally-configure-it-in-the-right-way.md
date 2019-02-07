@@ -53,12 +53,11 @@
 
 #### 入口
 
-这应该是你的 _.js_ 文件
-This should be your _.js_ file. Now you will probably see a few configurations where people include _.scss_ or _.css_ file there. This is a major hack and can lead to a lot of unexpected errors. Also sometimes you see an entry with a few _.js_ files. While some solutions allow you to do so, I would say it usually adds more complexity and only do it when you really know why you are doing it.
+这应该是你的 _.js_ 文件。现在您可能会看到一些配置，其中人们在那里包含 _.scss_ 或 _.css_ 文件。 这是一个重大的 hack ，并可能会导致许多意外错误。有时你也会看到一个带有几个 _.js_ 文件的条目。虽然有些解决方案允许你这样做，但我会说它通常会增加更多的复杂性，只有当你真正知道你为什么这样做时才能这样做。
 
 #### 输出
 
-这是你的  _build/_ 、 _dist/_ 或 _wateveryounameit/_ 文件夹,其中将存放最终 js 文件。这是你的最终结果，由模块组成。
+这是你的 _build/_ 、 _dist/_ 或 _wateveryounameit/_ 文件夹,其中将存放最终 js 文件。这是你的最终结果，由模块组成。
 
 #### 加载器
 
@@ -198,9 +197,7 @@ module.exports = {
   "build": "webpack --mode production"
 }
 ```
-
-If you paid close attention, you have checked your _main.js_ file and saw it was not minified.
-
+如果你密切关注，你已经检查了你的 _main.js_ 文件并看到它没有被缩小。
 
 _我将在此示例中使用构建脚本，因为它提供了大量开箱即用的优化，但从现在开始可以随意使用它们中的任何一个。构建和开发脚本之间的核心区别在于它们如何输出文件。构建脚本为生产代码创建。开发脚本为开发而创建，这意味着它支持热模块替换、开发服务器以及许多可以帮助你进行开发工作的东西。_
 
@@ -772,7 +769,7 @@ npm run dev
 
 不论您运行多少次，运行前后两个文件中的哈希值均会彼此相同。
 
-### CSS 散列问题以及如何解决
+### CSS 散列问题以及解决方案
 
 * * *
 
@@ -782,7 +779,8 @@ npm run dev
 
 * * *
 
-Although we have the working implementation here, it is not perfect yet. What if we change some code in our _.scss_ file? Go ahead, change some scss there and run dev script again. Now the new file hash is not generated. What if we add a new console.log to our _.js_ file like this:
+虽然我们在这里做了一些工作，但它还不完美。如果我们更改 _.scss_ 文件中的某些代码怎么办？继续下去，在那里更改一些 scss 并再次运行 dev 脚本。现在不生成新的文件哈希。如果我们将一个新的 console.log 添加到我们的 _.js_ 文件中，如下所示：
+
 
 ```
 import "./style.css";
@@ -798,21 +796,21 @@ console.log("Hello, world 2");
 
 #### 现在如何去修复那个？
 
-After trying a lot of plugins that claim they solve this problem I have finally came to two types of solution.
+在尝试了很多声称可以解决这个问题的插件之后，我终于找到了两种类型的解决方案。
 
 #### 解决方案 1
 
-There might also be some conflicts still, so **now lets try** [**mini-css-extract plugin**](https://github.com/webpack-contrib/mini-css-extract-plugin)**.**
+可能还存在一些冲突，所以**现在我们试试** [**mini-css-extract plugin**](https://github.com/webpack-contrib/mini-css-extract-plugin)**.**
 
 #### 解决方案 2
 
-Replace **[chukhash]** with just **[hash]** in _.css_ extract plugin. This was one of the solutions to the [issue](https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/763). This appears to be a conflict with webpack 4.3 which introduced a `[contenthash]` variable of its [own](https://github.com/webpack/webpack/releases/tag/v4.3.0). In conjunction, use this plugin: [**webpack-md5-hash**](https://www.npmjs.com/package/webpack-md5-hash) **(see more below).**
+Replace **[chukhash]** with just **[hash]** 在 _.css_ 提取插件. 这是[问题](https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/763)的一个解决方案。 This appears to be a conflict with webpack 4.3 which introduced a `[contenthash]` variable of its [own](https://github.com/webpack/webpack/releases/tag/v4.3.0). In conjunction, use this plugin: [**webpack-md5-hash**](https://www.npmjs.com/package/webpack-md5-hash) **(see more below).**
 
-Now lets test our _.js_ files: both files change hash.
+现在让我们测试一下 _.js_ 文件：两个文件都改变了哈希值。
 
-### Problem with JS hashing and how to solve it
+### JS 散列的问题以及解决方案
 
-In case if you are already using MiniCssExtractPlugin you have an opposite problem: **every time you change something in your SCSS, both .js file and .css output files change hashes.**
+如果您已经在使用 MiniCssExtractPlugin ，则会出现相反的问题：**每次更改 SCSS 中的某些内容时，.js 文件和 .css 输出文件哈希值都会更改。**
 
 #### 解决方案:
 
@@ -874,11 +872,11 @@ module.exports = {
 
 ### 整合 PostCSS
 
-To have out output _.css_ polished, we can add PostCSS on top.
+为了优雅的输出 _.css_ ，我们可以在顶部添加 PostCSS。
 
-[PostCSS](https://github.com/postcss/postcss) provides you with **autoprefixer, cssnano** and other nice and handy stuff. I will show what I am using on a daily basis. We will need **postcss-loader.** We will also install autoprefixer as we will need it later.
+[PostCSS](https://github.com/postcss/postcss) 为您提供 **autoprefixer,cssnano** 和其他漂亮和方便的东西。 我会每天展示我正在使用的内容。我们需要 **postcss-loader 。**我们还将安装 autoprefixer ，因为我们稍后会需要它。
 
-```
+```shell
 npm install postcss-loader --save-dev
 npm i -D autoprefixer
 
@@ -887,7 +885,7 @@ npm i -D autoprefixer
 yarn add postcss-loader autoprefixer --dev
 ```
 
-> Spoiler: you do not have to use webpack to benefit from PostCSS, it has a pretty decent [post-css-cli](https://github.com/postcss/postcss-cli) plugin that allows you to use it in npm script.
+> 剧透：您不必使用 webpack 从 PostCSS 中受益，它有一个相当不错的 [post-css-cli](https://github.com/postcss/postcss-cli) 插件，允许你在 npm 脚本中使用它。
 
 在需要相关插件的地方创建 _postcss.config.js_ ，粘贴
 
@@ -948,28 +946,26 @@ module.exports = {
   ]
 };
 ```
-请注意我们使用
-Please, pay attention to the order of plugins we use for our .scss
+请注意我们用于 .scss 的插件顺序
 
 ```json
 use:  [  'style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
 ```
+加载器将从后向前应用插件。
 
-The loader uses plugins from the end to the beginning.
+您可以通过向 .scss 文件添加更多代码并检查输出来测试 [**autoprefixer**](https://github.com/postcss/autoprefixer)。还有一种方法可以通过在 _.browserslistrc_ 文件中指定要支持的浏览器来修复输出。
 
-You can test [**autoprefixer**](https://github.com/postcss/autoprefixer) by adding more code to your .scss files and checking the output. There is also a way to fix the output by specifying which browser you want to support in the _.browserslistrc_ file.
-
-I would direct you to [https://www.postcss.parts/](https://www.postcss.parts/) to explore the plugins available for PostCSS, such as:
+我将引导您到 [https://www.postcss.parts/](https://www.postcss.parts/) 探索可用于 PostCSS 的插件，例如：
 
 *   [utilities](https://github.com/ismamz/postcss-utilities)
 *   [cssnano](https://github.com/ben-eb/cssnano)
 *   [style-lint](https://github.com/stylelint/stylelint)
 
-I will use **cssnano** to minify my output file and [css-mqpacker](https://github.com/hail2u/node-css-mqpacker) to arrange my media queries. I also have received some messages that:
+我将使用 **cssnano** 来缩小我的输出文件，使用 [css-mqpacker](https://github.com/hail2u/node-css-mqpacker) 来编排我的媒体查询。我也收到了一些消息：
 
 ![](https://cdn-images-1.medium.com/max/800/1*8TyHjIG5jTjPFn51icEVtA@2x.jpeg)
 
-Feel free to try **cleancss** if you want to.
+如果你愿意，可以试试 **cleancss**。
 
 ### 版本控制
 
@@ -1083,7 +1079,7 @@ module.exports = {
 
 * * *
 
-> 在这里阅读下一篇关于使用 React 配置开发环境的部分：[如何使用Webpack 4 简化 React.js 开发过程](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-develop-react-js-apps-fast-using-webpack-4.md)
+> 在这里阅读下一篇关于使用 React 配置开发环境的部分：[如何使用 Webpack 4 简化 React.js 开发过程](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-develop-react-js-apps-fast-using-webpack-4.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
