@@ -804,7 +804,7 @@ console.log("Hello, world 2");
 
 #### 解决方案 2
 
-Replace **[chukhash]** with just **[hash]** 在 _.css_ 提取插件. 这是[问题](https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/763)的一个解决方案。 This appears to be a conflict with webpack 4.3 which introduced a `[contenthash]` variable of its [own](https://github.com/webpack/webpack/releases/tag/v4.3.0). In conjunction, use this plugin: [**webpack-md5-hash**](https://www.npmjs.com/package/webpack-md5-hash) **(see more below).**
+在 _.css_ 提取插件上用 **[hash]** 替换 **[chunkhash]** 。 这是[问题](https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/763)的解决方案之一。 这似乎与 webpack 4.3 产生了冲突，后者引入了[自己](https://github.com/webpack/webpack/releases/tag/v4.3.0)的 `[contenthash]` 变量。结合使用此插件：[**webpack-md5-hash**](https://www.npmjs.com/package/webpack-md5-hash) **(请参阅下文).**
 
 现在让我们测试一下 _.js_ 文件：两个文件都改变了哈希值。
 
