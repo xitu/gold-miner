@@ -13,7 +13,7 @@
 
 no.thisispatrick — “Electric Water” (CC BY-NC-ND 2.0)
 
-自 2005 年以来，**以太坊** 一直是智能合约平台的主导者，但是在 2018，谷歌、亚马逊和苹果公司打造智能合约平台的竞赛逐渐升温，且赌注很大。主导新兴价值互联网的平台可能轻易地达到万亿美元的市值。
+自 2015 年以来，**以太坊** 一直是智能合约平台的主导者，但是在 2018，谷歌、亚马逊和苹果公司打造智能合约平台的竞赛逐渐升温，且赌注很大。主导新兴价值互联网的平台可能轻易地达到万亿美元的市值。
 
 > **TL;DR:** 请在底部参阅 2019 年值得关注的加密技术的完整列表。
 
@@ -23,7 +23,7 @@ no.thisispatrick — “Electric Water” (CC BY-NC-ND 2.0)
 
 但是，要追赶上来很难。以太坊有成千上万的开发者课程、教程、文章和 Stack Overflow 问答，这是一个很好的开始。他们还拥有致力于改进提案和核心协议开发的最大、最活跃的社区。
 
-开发人员可能会对缓慢的交易和糟糕的用户界面感到不满，但以太坊仍然在占据着开发人员的心。超过 3000 个 ICO 已经在以太坊发行，其最接近的竞争对手仍然有数百计。以太坊在 2018 年遭受了一些重大打击，但本周的一次大反弹可以作为给挑战者的答案：**不要将以太坊排除在外**。
+开发人员可能会对缓慢的交易和糟糕的用户界面感到不满，但以太坊仍然在占据着开发人员的心。超过 3000 个 ICO 已经在以太坊发行，其最接近的竞争对手仍然有数百计。以太坊在 2018 年遭受了一些重大打击，但本周的一次大反弹可以作为给挑战者的回应：**不要将以太坊排除在外**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*BDxlV5cQEhxEcWBAnKSWyA.png)
 
@@ -31,7 +31,7 @@ no.thisispatrick — “Electric Water” (CC BY-NC-ND 2.0)
 
 ![](https://cdn-images-1.medium.com/max/800/1*aO99I_W_x4ckn_kgFlYYlg.png)
 
-24 小时涨幅最大排行 2018 年 12 月 28 号
+2018 年 12 月 28 号 24 小时内涨幅排行
 
 ### 主导主题
 
@@ -43,17 +43,17 @@ no.thisispatrick — “Electric Water” (CC BY-NC-ND 2.0)
 
 2018年有两个主要主题：
 
-**BUILD跑道** - 我们可以在资金耗尽之前将我们的加密项目推向市场吗？子主题：**加密行业的浪费**。许多公司在打造可行的产品之前，花费了大量资金飞到世界各地举行会议。在你建立 MVP 之前就在营销上花钱，这与精益创业的理念背道而驰，自 2001 年互联网泡沫破裂以来，精益创业理念一直主导着明智的科技领导者。
+**BUIDL 跑道** - 我们可以在资金耗尽之前将我们的加密项目推向市场吗？子主题：**加密行业的浪费**。许多公司在打造可行的产品之前，花费了大量资金飞到世界各地举行会议。在你建立 MVP 之前就在营销上花钱，这与精益创业的理念背道而驰，自 2001 年互联网泡沫破裂以来，精益创业理念一直主导着明智的科技领导者。
 
 **加密“寒冬”** - 在 2017 年底，加密市场又跨越了另一个 10 倍的增长。每次发生这种情况，市场都会回落，然后再攀升至上次的 10 倍。2018 年是 10 倍峰值之后的第一年，所以很自然地，我们再次下跌。不幸的是，许多加密项目在价格暴跌 80％-90％ 期间保留了他们在市场上筹集的资金，现在钱即将耗尽。这已经导致了很多裁员。（另见：[“BUIDL 圣诞节：区块链圣诞节裁员的故事](https://medium.com/the-challenge/buidl-christmas-58a0c9d7377b)）
 
-这意味着什么？加密市场有可预测的起伏。根据过去的表现，我们知道在我们达到下一个 10 倍标记后，价格很可能会在接下来的几个月中达到 80％-90％。这对于国债来说意味着他们应该计划项目跑道—传统上至少18个月的运营费用，并用法定货币存入资金以保护它免受市场下行周期的影响。这样，无论加密市场如何，他们都可以继续运营。如果在将该跑道投入保管之后还有额外的资金，当然是将这些资金留在市场中并期望在买入时获得长期收益。
+这意味着什么？加密市场有可预测的起伏。根据过去的表现，我们知道在我们达到下一个 10 倍标记后，价格很可能会在接下来的几个月中下降 80％-90％。这对于财务部门来说意味着他们应该计划项目跑道—传统上至少18个月的运营费用，并用法定货币存入资金以保护它免受市场下行周期的影响。这样，无论加密市场如何，他们都可以继续运营。如果在将该跑道投入保管之后还有额外的资金，当然是将这些资金留在市场中并期望在买入时获得长期收益。
 
-大多数项目都做不到这点。那些公司被迫进行裁员，而 IMO 应该从财务主管开始。
+大多数项目都做不到这点。那些公司被迫进行裁员，而在我看来应该从财务主管开始。
 
 ![](https://cdn-images-1.medium.com/max/800/1*2nlit12SUIYN93RdmBNoHQ.png)
 
-比特币价格（记录）：每个红色的箭头都比上次的十倍更高
+比特币价格（记录）：每个红色的箭头都比上次高十倍
 
 精明的加密行业投资者意识到了市场周期，并计划他们期望保持 7 到 10 多年的长期投资策略。对于这些投资者来说，加密行业投资的前景再次开始变得好看起来。
 
@@ -63,13 +63,13 @@ no.thisispatrick — “Electric Water” (CC BY-NC-ND 2.0)
 
 如果 2017 年是关于 ICO，2018 年是关于“生存”，那么 2019 年的加密相关的主题会是什么？
 
-#### User Traction
+#### 吸引用户
 
 去中心化应用程序在 2018 年只有很少的受众，但 2019 年可能是我们第一次看到有着数百万用户的去中心化应用程序的年份，而拒绝加密的极客最终将开始以加密货币进行交易。
 
 据 [DappRadar](https://dappradar.com/) 称，2018 年最受欢迎的以太坊 dApp 目前每日活跃用户**不足一千**。但是，一种新的加密应用程序正在显现。
 
-支持加密的 [**Brave Browser**](https://brave.com/) （由Mozilla的联合创始人 Brendan Eich 以及 JavaScript 平台编程语言 JavaScript 的创建者领导）已经在 Google Play 商店中有着超过 1000 万的安装量。Brave 使用户可以轻松获得并使用 [**BAT**](https://basicattentiontoken.org/) 加密货币。您可以通过浏览自己喜欢的网站获得加密币。如果您选择加入，Brave 将使用不会跟踪您的行为的广告替换广告网络商投放的具有潜在危险的跟踪型广告。作为交换，你将自动获得 BAT，只是为了做你以前总做的事情。
+支持加密的 [**Brave Browser**](https://brave.com/) （由Mozilla的联合创始人兼web 平台编程语言 JavaScript 的创建者 Brendan Eich 领导）已经在 Google Play 商店中有着超过 1000 万的安装量。Brave 使用户可以轻松获得并使用 [**BAT**](https://basicattentiontoken.org/) 加密货币。您可以通过浏览自己喜欢的网站获得加密币。如果您选择加入，Brave 将使用不会跟踪您的行为的广告替换广告网络商投放的具有潜在危险的跟踪型广告。作为交换，你将自动获得 BAT，只是为了做你以前总做的事情。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kbd-a9fDJdFenZ8couEOFw.png)
 
@@ -79,19 +79,19 @@ no.thisispatrick — “Electric Water” (CC BY-NC-ND 2.0)
 
 ![](https://cdn-images-1.medium.com/max/800/1*81S6bI6fP7ca59GzR_qyMw.png)
 
-截屏 左边：腾讯游戏的极乐世界的戒指在Sliver上直播。右：Sliver.tv 集成了 Theta 钱包。
+截屏 左边：腾讯游戏的无限法则在 Sliver 上直播。右：Sliver.tv 集成了 Theta 钱包。
 
 观众也可以赢得 Theta，捐给主播或者使用它来在 Sliver 商店购买虚拟或真实的商品。Sliver.tv [每月活跃用户超过两万](https://www.alexa.com/siteinfo/sliver.tv)，可能是迄今为止最受欢迎的加密应用程序，供一般受众使用（即不是投资/交换/钱包应用）。
 
 Sliver.tv 是一个非常有前途的开端，但它使用中心化的托管钱包，用户无法提取资金。
 
-[**Cent.co**](https://beta.cent.co/) 着眼于基于内容的社交网络的未来。想象一下 Twitter 和 Medium 的最大优势:长格式内容以咬入式内容流的形式呈现，你可以将其扩展到更大的图片。你可以给创建内容的用户小费，当其他人给你小费时，你也会得到奖励。小费被称为“播种”。当你对内容播种时，一部分钱会给内容原始创建者，一部分钱会给在你之前播种内容的每个人。它为发布高质量的内容以及你认为会在平台上流行的种子内容创造了经济激励。
+[**Cent.co**](https://beta.cent.co/) 着眼于基于内容的社交网络的未来。想象一下 Twitter 和 Medium 的最大优势:长格式内容以咬入式内容流的形式呈现，你可以将其扩展到更大的图片。你可以给创建内容的用户小费，当其他人给你小费时，你也会得到奖励。给小费被称为“播种”。当你对内容播种时，一部分钱会给内容原始创建者，一部分钱会给在你之前播种内容的每个人。它为发布高质量的内容以及你认为会在平台上流行的种子内容创造了经济激励。
 
 ![](https://cdn-images-1.medium.com/max/800/1*OuairG9NVQBNbsuhZ5gXaQ.png)
 
 Cent 截图
 
-Cent 开启了作为提供奖励以获得一些工作的方式 - 任何类型的工作 - 由Cent生态系统的用户完成。您可以提出问题并提供回答的悬赏。您可以要求提供 logo 设计帮助，或者请求帮助编辑您的最新帖子。任何对您来说物有所值的东西。您可以控制您悬赏的金额以及将获得这笔钱的人数，因此就算您的提议病毒式传播，您也不会意外地超出预算。Cent背后的想法是创造一种经济形式，允许其用户日常工作之外只使用他们的才能和 Cent 平台在线挣钱。我不确定人们每小时在 Cent 上赚多少钱，但我确信它看起来非常有前途。
+Cent 用提供奖励来获得工作的方式 - 任何类型的工作 - 由 Cent 生态系统的用户完成。您可以提出问题并提供回答的悬赏。您可以要求提供 logo 设计帮助，或者请求帮助编辑您的最新帖子。任何对您来说物有所值的东西。您可以控制您悬赏的金额以及将获得这笔钱的人数，因此就算您的提议病毒式传播，您也不会意外地超出预算。Cent背后的想法是创造一种经济形式，允许其用户日常工作之外只使用他们的才能和 Cent 平台在线挣钱。我不确定人们每小时在 Cent 上赚多少钱，但我确信它看起来非常有前途。
 
 它也是我迄今为止看到的最用户友好的 dApp 之一，到目前为止，我没有看到任何迹象表明它被以太坊扩展问题所困扰。要使用 Cent,你需要一个 Web3 浏览器比如  [**Trust**](https://trustwallet.com/) 或者 [**Coinbase Wallet**](https://wallet.coinbase.com/)。
 
@@ -126,7 +126,7 @@ Cent 开启了作为提供奖励以获得一些工作的方式 - 任何类型的
 
 Facebook 也是一个非常好的例子。如果 Facebook 想[分享你的好友列表](https://www.fool.com/investing/2018/12/22/this-spotlight-is-plaguing-facebook-and-it-wont-se.aspx)给第三方开发者，他们未经你的允许就能做到。如果他们想[分享你的私人消息](https://www.newsweek.com/facebook-stock-price-fb-messenger-sharing-private-messages-netflix-spotify-1265319)，他们也可以。如果他们想[关闭某个功能或杀掉你的应用](https://medium.com/javascript-scene/a-new-hope-e2021fce7c7b)，他们还是可以做到。
 
-另一方面，去中心化应用程序不会将所有用户数据存储在集中式数据库中。取而代之的是他们依赖去中心化技术，如区块链和其他 DLT（分布式分类技术），[去中心化数据库](https://github.com/orbitdb/orbit-db) 和 [去中心化文件存储系统](https://ipfs.io/)。dApps 可以让您控制自己的身份，货币和数据。（他们还没有全部做到这些，但我怀疑那些做到的将颠覆 Web 3.0。）
+另一方面，去中心化应用程序不会将所有用户数据存储在集中式数据库中。取而代之的是他们依赖去中心化技术，如区块链和其他 DLT（分布式账本技术），[去中心化数据库](https://github.com/orbitdb/orbit-db) 和 [去中心化文件存储系统](https://ipfs.io/)。dApps 可以让您控制自己的身份，货币和数据。（他们还没有全部做到这些，但我怀疑那些做到的将颠覆 Web 3.0。）
 
 dApp 经常需要通过网络进行交易。为此，他们通常依赖区块链，例如比特币，以太坊，Waves等。他们通常需要与钱包接口才能授权交易。
 
@@ -134,7 +134,7 @@ dApp 经常需要通过网络进行交易。为此，他们通常依赖区块链
 
 #### dApp 用户体验
 
-dApp 用户体验正在变得越来越好。现在有两个流行的浏览器集成了 dApp 支持功能，因此不需要考虑浏览器扩展：[**Trust**](https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp)（最近被 [Binance](https://www.binance.com/) 收购）和 [**Coinbase Wallet**](https://www.coinbase.com)（直到 [Coinbase](https://www.coinbase.com) 在收购Trust后不久收购了它的Toshi）。两者都比  [Metamask](https://metamask.io/) 等替代品具有更好的用户体验，并提供与 [**Web3 API**](https://github.com/ethereum/wiki/wiki/JavaScript-API) 的集成，这有助于 dApp 与以太坊区块链集成。
+dApp 用户体验正在变得越来越好。现在有两个流行的浏览器集成了 dApp 支持功能，因此不需要考虑浏览器扩展：[**Trust**](https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp)（最近被 [Binance](https://www.binance.com/) 收购）和 [**Coinbase Wallet**](https://www.coinbase.com)（直到 [Coinbase](https://www.coinbase.com) 在收购Trust后不久收购了它的 Toshi）。两者都比  [Metamask](https://metamask.io/) 等替代品具有更好的用户体验，并提供与 [**Web3 API**](https://github.com/ethereum/wiki/wiki/JavaScript-API) 的集成，这有助于 dApp 与以太坊区块链集成。
 
 我最喜欢的 dApp 使用区块链来达成一致，但它们也连接到快速数据库并且加载非常迅速。我最喜欢的 dApp 也不需要用户批准可能在区块链上发生的每一笔事务。良好的 dApp 用户体验的关键是选择你所遇到的区块链。例如，可以拥有一个由数据库支持的虚拟帐户，该数据库只需要定期同步到区块链，用于结算或安全，或两者兼而有之。
 
@@ -150,7 +150,7 @@ dApp 用户体验正在变得越来越好。现在有两个流行的浏览器集
 
 *  [**Plutus**](https://cardanodocs.com/technical/plutus/introduction/) ([**Cardano**](https://www.cardano.org/en/home/)) 是另一种受Haskell启发的函数式编程语言，它是为了 Cardano 区块链而生。Cardano 计划在2019年推出两个重要版本：Shelley，它提供完全的去中心化和赌注，以及 Cardano-CL，它是支持可编程智能合约的虚拟机。
 *  [**Scilla**](https://scilla-lang.org/) ([**Zilliqa**](https://zilliqa.com/)) 是一种经过正式验证的智能合约语言，其设计考虑了计算和效果的分离。这意味着状态转换的计算和通信是严格隔离的，这使得 Scilla 智能合约更容易测试和静态验证以最大限度地减少出错的可能性。Zilliqa 的主网计划于 2019 年 1 月底推出。
-*  [**ewasm**](https://github.com/ewasm/design)  (Ethereum) 并不是一个智能合约语言，而是一个编译器目标，它将允许以太坊程序员用其他语言编程（如Rust，C ++，也许某一天是智能合约特定语言，如 [Simplicity](http://chrome-extension://oemmndcbldboiebfnladdacbdfmadadm/https://blockstream.com/simplicity.pdf)），并编译成以太坊风格的 WebAssembly。ewasm 是 WebAssembly 的一个更安全的子集，它是Web 平台相对较新的低级编译目标。方便的是，wasm（以及 ewasm）模块可以在任何 JavaScript 项目中使用。对于大多数区块链代码，通常超过 75％ 的代码根本不在智能合约中 — 它在 JavaScript 中必须与智能合约进行通信。ewasm 和 JavaScript 共享绑定和模块支持的共同基础。
+*  [**ewasm**](https://github.com/ewasm/design)  (Ethereum) 并不是一个智能合约语言，而是一个编译器目标，它将允许以太坊程序员用其他语言编程（如Rust，C ++，也许某一天是智能合约特定语言，如 [Simplicity](http://chrome-extension://oemmndcbldboiebfnladdacbdfmadadm/https://blockstream.com/simplicity.pdf)），并编译成以太坊风格的 WebAssembly。ewasm 是 WebAssembly 的一个更安全的子集，它是 Web 平台相对较新的低级编译目标。方便的是，wasm（以及 ewasm）模块可以在任何 JavaScript 项目中使用。对于大多数区块链代码，通常超过 75％ 的代码根本不在智能合约中 — 它在 JavaScript 中必须与智能合约进行通信。ewasm 和 JavaScript 共享绑定和模块支持的共同基础。
 
 *   **JavaScript** ([**Lisk**](https://lisk.io/)) Lisk是一个区块链开发平台，允许开发人员使用 JavaScript 编写代码并为特定应用程序创建自定义区块链，从而避免以太网的大规模扩展问题。Lisk 允许开发人员创建自己的支链来管理所有特定应用程序的区块链操作，因此它不必与其他任何应用程序竞争主链的计算资源。目前，Lisk 没有开发智能合约编程语言或 虚拟机，区块链交易功能与比特币相似。
 
