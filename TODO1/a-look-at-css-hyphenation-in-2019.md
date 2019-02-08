@@ -5,19 +5,19 @@
 > * 译者：
 > * 校对者：
 
-# A look at CSS hyphenation in 2019
+# 2019 CSS 新属性“连字符”初探
 
-rather long words and they often don’t fit in the surrounding container. Without doing anything this would »break« the layout as a horizontal scroll bar would appear. So, I reread an article I wrote almost four years ago about [Dealing with long words](https://justmarkup.com/log/2015/07/dealing-with-long-words-in-css/) and implemented the final solution.
+我最近在制作一个使用大标题（字体大小）的网站，也有德语版本，这意味着经常存在相当长的单词，并且周围的容器腾出的空间不足以美观地展示它。如果没有做任何调整措施，就会出现水平滚动条，这将“损坏”我们的页面布局。因此，我重读了大约四年前写的 [如何处里页面中的长单词](https://justmarkup.com/log/2015/07/dealing-with-long-words-in-css/) 一文并且实现了最终的解决方案。
 
-This seemed to still work great, but there were some issues with this approach. Let’s have a look at the browser support of CSS Hyphenation, how to use it today and which feature I would like to see in browsers.
+这些解决方案似乎还能起到很好的作用，但这些方法仍然存在一些问题。让我们来看看 CSS Hyphenation（连字符样式）的浏览器支持情况，今天的我们该如何使用它以及我们希望在浏览器中看到哪些功能。
 
-## Browser support
+## 浏览器支持情况
 
-Support for [CSS Hyphenation](https://caniuse.com/#feat=css-hyphens) is pretty good. You should keep in mind that while it works in Chromium-based browsers on Mac & Android platforms it doesn’t work at the moment (January 2019) on [Windows and Linux](https://bugs.chromium.org/p/chromium/issues/detail?id=652964). It also doesn’t work in Opera Mini and some other mobile browsers (Blackberry browser, IE mobile, …), but overall the support is solid.
+浏览器对 [CSS 连字符样式](https://caniuse.com/#feat=css-hyphens) 支持的非常好。您应该记住，虽然它适用于 Mac 和 Android 平台上基于 Chromium 的浏览器，但它在 [Windows 和 Linux](https://bugs.chromium.org/p/chromium/issues/detail?id=652964) 上暂时不起作用（至少在2019年1月之前），并且它在 Opera Mini 和其他一些移动浏览器（Blackberry 浏览器，IE 移动设备......）中也不起作用，但整体支持是可靠的。
 
-## Using CSS Hyphenation
+## 使用 CSS 连字符
 
-To use hyphens today we still need to add prefixes for IE/Edge/Chromium, so it is best to use the following for every text which should use hyphens:
+要使用连字符，我们仍然需要为 IE 、Edge 和 Chromium 添加前缀，因此最好对每个应该使用连字符的文本使用以下内容：
 
 ```
 .hyphenate {
@@ -27,7 +27,7 @@ To use hyphens today we still need to add prefixes for IE/Edge/Chromium, so it i
 }
 ```
 
-As you probably want to break words and not the layout in unsupported browsers I recommend the following. This way all words will be hyphenated in supported browsers and will break into new lines in unsupported browsers.
+如果您可能想要在不受支持的浏览器中切分单词而不是修改布局，我建议你像下面这样做。这样，所有单词将在受支持的浏览器中连字符，并在不受支持的浏览器中分成新行。
 
 ```
 .hyphenate {
@@ -39,32 +39,32 @@ As you probably want to break words and not the layout in unsupported browsers I
 }
 ```
 
-Now, that we know how to use CSS Hyphenation today, let’s have a look at what’s missing to make it even better.
+现在，我们今天知道如何使用CSS Hyphenation，让我们看看它还有那些缺陷。
 
-## Too much Hyphenation
+## 太多连字符
 
-The biggest problem we had with Hyphenation was that it simple hyphenates too often. What this means shows the following example, here it hyphenates the word Josef (Joseph), which doesn’t look great. It also makes the text harder to read and therefore a little bit less accessible.
+我们对连字符的最大问题是它经常使用简单的连字符。这意味着以下示例，在这里它连接约瑟夫（约瑟夫）一词，但这看起来不太好。它还使文本更难阅读，因此不太容易访问。
 
 ![Über Josef Hauser](https://justmarkup.com/log/wp-content/uploads/2019/01/josef-hauser.png)
 
-This is because, unless the UA (user agent) is able to calculate a better value, it is suggested that `hyphens: auto` means two for before and after, and five for the word total. This means hyphens will be used for every word, which is at least five characters long and it will break after/before a minium of two words.
+这是因为，除非UA（客户端）能够计算出更好的值，否则预示着 `hyphens: auto` 将把原来的单词查分成看似前后都有两个单词，这样看起来总共就好像有五个单词。这意味着连字符将用于每个单词，其长度至少为五个字符，并且它会在至少两个字符之后或之前中断。
 
-I am not sure why they came up with this default values, but here we are now having them. There is a solution though already defined in the specification – The [hyphenate-limit-chars property](https://www.w3.org/TR/css-text-4/#hyphenate-char-limits).  
-It specifies the minimum number of characters in a hyphenated word and thus we can use it to override the default value of 5 (word length) 2 (before break) 2 (after break).
+我不确定他们为什么想出这个默认值，但现在我们已经拥有了这样一个值。不过好在规范中已经定义了一个解决方案 —— [连字符字符数限制属性](https://www.w3.org/TR/css-text-4/#hyphenate-char-limits).  
+它指定了带连字符的单词中的最小字符数，因此我们可以使用它来覆盖默认值5（单词长度）2（连字符之前）2（连字符之后）。
 
-So, in theory we could use the following to only use hyphens for words with 10 characters or more and only break before/after after four characters:
+因此，理论上我们可以使用以下配置仅对10个或以上字符的单词使用连字符，并且仅在四个字符之前或之后中断：
 
 ```
 hyphenate-limit-chars: 10 4 4;
 ```
 
-In reality, this property is still only supported in Internet Explorer 10+ and in Edge with the -ms prefix. It would be really great to get better support for hyphenate-limit-chars – so please let your favorite browser(s) know that you want it – thanks! Here is the issue for [Chromium](https://bugs.chromium.org/p/chromium/issues/detail?id=924069) and here for [Firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=1521723)
+实际上，此属性仍仅在 Internet Explorer 10+ 和 Edge 中以 -ms 前缀支持。为连字符限制字符提供更好的支持真的很棒 —— 所以请让你最喜欢的浏览器知道你想要它，谢谢！以下是 [Chromium](https://bugs.chromium.org/p/chromium/issues/detail?id=924069) and here for [Firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=1521723) 的问题。
 
-Additional note: Webkit-based browsers (Safari) support the -webkit-hyphenate-limit-before, -webkit-hyphenate-limit-after and -webkit-hyphenate-limit-lines [properties](https://github.com/WebKit/webkit/blob/master/LayoutTests/fast/text/hyphenate-limit-before-after.html), which lets you also define the minimum length and the minimum characters before/after a break.
+特别提醒：基于 Webkit 的浏览器（Safari）支持 -webkit-hyphenate-limit-before、-webkit-hyphenate-limit-after和-webkit-hyphenate-limit-lines [properties](https://github.com/WebKit/webkit/blob/master/LayoutTests/fast/text/hyphenate-limit-before-after.html)，它还允许您定义最小长度和分割之前和之后的最小字符数。
 
-As you can see support for CSS Hyphenation is pretty solid in 2019. The only issue for me is the lack of support for the hyphenate-limit-chars property which will hopefully get better in the future when enough users/developers request it.
+正如你所看到的那样，支持 CSS Hyphenation 在2019年是非常有希望的。对我来说唯一的问题是缺乏对 hyphenate-limit-chars 属性的支持，当有足够的用户或者开发者要求时，它有望在将来变得更好。
 
-Update from 28.01.2018: Added info about similiar properties for webkit-based browser as pointed out by [Alexander Rutz](https://twitter.com/petitsanimaux/status/1089841643195383814) and [Jiminy Panoz](https://twitter.com/JiminyPan/status/1089841172040876032).
+18.01.2018更新：添加了 [Alexander Rutz](https://twitter.com/petitsanimaux/status/1089841643195383814) 和 [Jiminy Panoz](https://twitter.com/JiminyPan/status/1089841172040876032) 所述的有关webkit的浏览器的类似属性的信息。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
