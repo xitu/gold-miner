@@ -1,5 +1,5 @@
 > * 原文地址：[A Picture is Worth a Thousand Words, Faces, and Barcodes—The Shape Detection API](https://developers.google.com/web/updates/2019/01/shape-detection)
-> * 原文作者：[]()
+> * 原文作者：[Thomas Steiner](https://developers.google.com/web/resources/contributors/thomassteiner)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-picture-is-worth-a-thousand-words-faces-and-barcodes—the-shape-detection-api.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-picture-is-worth-a-thousand-words-faces-and-barcodes—the-shape-detection-api.md)
 > * 译者：
