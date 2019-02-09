@@ -9,12 +9,12 @@
 
 让 2019 来得更迅速吧~ 你正在阅读的是 2019 年前端性能优化年度总结，始于 2016。
 
-> [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
-> [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
-> [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
-> [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
-> [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
-> **[译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)**
+> - [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
+> - [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
+> - [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
+> - [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
+> - [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
+> - **[译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)**
 
 #### 内容目录
 
@@ -39,11 +39,11 @@
 
 #### 52. 迁移到 HTTPS，然后启用 HTTP/2
 
-随着 Google [推进更安全的 web](https://security.googleblog.com/2016/09/moving-towards-more-secure-web.html)  并最终所有的 HTTP 页面都被 Chrome 视为“不安全”，[向 HTTP/2 环境转变](https://http2.github.io/faq/)已经不可避免。HTTP/2 现在已经得到了[很好的支持](http://caniuse.com/#search=http2)；它没有任何大的改变；并且在大多数情况下，使用它会让你得到出色的性能表现。一旦在已经 HTTPS 运行了，你可以使用 service workes 和 server push 得到[巨大的性能提升](https://www.youtube.com/watch?v=RWLzUnESylc&t=1s&list=PLNYkxOF6rcIBTs2KPy1E6tIYaWoFcG3uj&index=25)（至少长期来看）。
+随着 Google [推进更安全的 web](https://security.googleblog.com/2016/09/moving-towards-more-secure-web.html) 并最终所有的 HTTP 页面都被 Chrome 视为“不安全”，[向 HTTP/2 环境转变](https://http2.github.io/faq/)已经不可避免。HTTP/2 现在已经得到了[很好的支持](http://caniuse.com/#search=http2)；它没有任何大的改变；并且在大多数情况下，使用它会让你得到出色的性能表现。一旦在已经 HTTPS 运行了，你可以使用 service workes 和 server push 得到[巨大的性能提升](https://www.youtube.com/watch?v=RWLzUnESylc&t=1s&list=PLNYkxOF6rcIBTs2KPy1E6tIYaWoFcG3uj&index=25)（至少长期来看）。
 
 ![HTTP/2](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/30dd1821-9800-4f01-91a8-1375d4812144/http-pages-chrome-opt.png)
 
-最终 Google 打算标记所有 HTTP 页面为非安全，并把 Chrome 标记失效 HTTPS 用的红色三角形作为 HTTP 的安全性指示器。([图像来源](https://security.googleblog.com/2016/09/moving-towards-more-secure-web.html))
+最终 Google 打算标记所有 HTTP 页面为非安全，并把 Chrome 标记失效 HTTPS 用的红色三角形作为 HTTP 的安全性指示器。（[图像来源](https://security.googleblog.com/2016/09/moving-towards-more-secure-web.html)）
 
 最耗时的工作将会是[迁移至 HTTPS](https://https.cio.gov/faq/)，并且根据你的 HTTP/1.1 用户（使用过时操作系统和浏览器的用户）数量你不得不要考虑过时浏览器的性能优化而发送不同构建的版本，这需要你采纳不同的[构建进程](https://rmurphey.com/blog/2015/11/25/building-for-http2)。注意：配置迁移和新的构建进程会很麻烦且耗时。在本文的余下内容中，我会假设你正在或已经迁移 HTTP/2。
 
@@ -67,7 +67,7 @@
 
 不同的服务器和 CDN 可能可能对 HTTP/2 的支持不一样。使用 [TLS 速度快吗？](https://istlsfastyet.com)来检查你的配置，或快速查找服务器的运行情况以及可以支持的功能。
 
-我参考了 Pat Meenan 非常棒的[ HTTP/2 优先级的研究](https://blog.cloudflare.com/http-2-prioritization-with-nginx/)和[测试服务器的支持程度以确定 HTTP/2 优先级](https://github.com/pmeenan/http2priorities)。依据 Pat 的研究，为了让 HTTP/2 优先级能可靠地工作在 Linux 4.9 以及更新的内核上，推荐开启 BBR 堵塞控制和设置 `tcp_notsent_lowat` 为 16 KB（**感谢 Yoav！**）。Andy Davies 在多个浏览器上做了类似的 HTTP/2 优先级研究，[CDN 和云托管服务](https://github.com/andydavies/http2-prioritization-issues#cdns--cloud-hosting-services)。
+我参考了 Pat Meenan 非常棒的 [HTTP/2 优先级的研究](https://blog.cloudflare.com/http-2-prioritization-with-nginx/)和[测试服务器的支持程度以确定 HTTP/2 优先级](https://github.com/pmeenan/http2priorities)。依据 Pat 的研究，为了让 HTTP/2 优先级能可靠地工作在 Linux 4.9 以及更新的内核上，推荐开启 BBR 堵塞控制和设置 `tcp_notsent_lowat` 为 16 KB（**感谢 Yoav！**）。Andy Davies 在多个浏览器上做了类似的 HTTP/2 优先级研究，[CDN 和云托管服务](https://github.com/andydavies/http2-prioritization-issues#cdns--cloud-hosting-services)。
 
 ![TLS 速度快吗？](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/c2102708-944d-46ed-93d9-fa28cd76f232/is-tls-fast-yet-01.png)
 
@@ -85,7 +85,7 @@
 
 如果你在使用 HTTP/2，请确保检查你的服务器为 HTTP 响应头[实现了 HPACK 压缩](https://blog.cloudflare.com/hpack-the-silent-killer-feature-of-http-2/)来减少不必要的载荷。因为 HTTP/2 服务器都比较新，它们也许没有完全支持设计规范，HPACK 就是一个例子，[H2spec](https://github.com/summerwind/h2spec) 是一个出色的（从技术上讲很详尽）检查工具。HPACK 的压缩算法确实[令人印象深刻](https://www.mnot.net/blog/2018/11/27/header_compression)，并且[运行效果不错](https://www.keycdn.com/blog/http2-hpack-compression/)。
 
-#### 58. 确保你的服务器安全稳固**
+#### 58. 确保你的服务器安全稳固
 
 所有浏览器的 HTTP/2 实现都是运行在 TLS 之上，所以你可能想避免安全性警告或页面中的某些元素出错。请确保 [HTTP 头在安全方面得到合适配置](https://securityheaders.io/)，[消除已知的风险](https://www.smashingmagazine.com/2016/01/eliminating-known-security-vulnerabilities-with-snyk/)，并且[检查你的证书](https://www.ssllabs.com/ssltest/)。还有确保通过 HTTPS 加载所有的外部插件和跟踪脚本，没有跨站脚本并且已经合适地配置了 [HTTP 严格传输安全头](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet)和[内容安全策略头](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet)。
 
@@ -101,7 +101,7 @@
 
 [![拉取请求（pull request）检查非常有必要](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/705ed9b1-cd4d-4231-b808-ce8c2e72e070/review-required-checks-pr.png)](https://cdn-images-1.medium.com/max/1600/1*Y-1sdlIzFBRfEQPprzLnbA.png)
 
-通过使用 Lighthouse CI 在 Travis 中集成[辅助性工具，性能和 SEO 评分测试](https://web.dev/fast/using-lighthouse-ci-to-set-a-performance-budget)对所有的合作开发者来说都能显著提升开发新功能的效率。([图像来源](https://cdn-images-1.medium.com/max/1600/1*Y-1sdlIzFBRfEQPprzLnbA.png)) ([大预览图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/705ed9b1-cd4d-4231-b808-ce8c2e72e070/review-required-checks-pr.png))
+通过使用 Lighthouse CI 在 Travis 中集成[辅助性工具，性能和 SEO 评分测试](https://web.dev/fast/using-lighthouse-ci-to-set-a-performance-budget)对所有的合作开发者来说都能显著提升开发新功能的效率。（[图像来源](https://cdn-images-1.medium.com/max/1600/1*Y-1sdlIzFBRfEQPprzLnbA.png)）（[大预览图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/705ed9b1-cd4d-4231-b808-ce8c2e72e070/review-required-checks-pr.png)）
 
 #### 60. 你测试过代理和过时的浏览器吗？
 
@@ -125,7 +125,7 @@ Léonie Watson 有一个[在辅助性工具的性能方面令人眼界大开的�
 
 对于快速无限制测试来说持有一个 [WebPagetest](http://www.webpagetest.org/) 实例总是非常受益的。一个类似 [Sitespeed](https://www.sitespeed.io/)，[Calibre](https://calibreapp.com/) 和 [SpeedCurve](https://speedcurve.com/) 的可持续监控工具能自动报警，给你更详尽的性能画像。设置你自己的用户时间记录来测试和监控特殊业务指标。并请考虑加入[自动性能回归警报](https://calendar.perfplanet.com/2017/automating-web-performance-regression-alerts/)来监控变化。
 
-了解使用 RUM-solutions 来监控性能随时间的变化。对于像加载测试工具的自动化测试，你可以使用 [k6](https://github.com/loadimpact/k6) 和它的脚本 API。并了解 [SpeedTracker](https://speedtracker.org)，[Lighthouse](https://github.com/GoogleChrome/lighthouse) 和  [Calibre](https://calibreapp.com)。
+了解使用 RUM-solutions 来监控性能随时间的变化。对于像加载测试工具的自动化测试，你可以使用 [k6](https://github.com/loadimpact/k6) 和它的脚本 API。并了解 [SpeedTracker](https://speedtracker.org)，[Lighthouse](https://github.com/GoogleChrome/lighthouse) 和 [Calibre](https://calibreapp.com)。
 
 ### 速效方案
 
@@ -162,12 +162,12 @@ Léonie Watson 有一个[在辅助性工具的性能方面令人眼界大开的�
 
 **非常感谢 Guy Podjarny，Yoav Weiss，Addy Osmani，Artem Denysov，Denys Mishunov，Ilya Pukhalski，Jeremy Wagner，Colin Bendell，Mark Zeman，Patrick Meenan，Leonardo Losoviz，Andy Davies，Rachel Andrew，Anselm Hannemann，Patrick Hamann，Andy Davies，Tim Kadlec，Rey Bango，Matthias Ott，Peter Bowyer，Phil Walton，Mariana Peralta，Philipp Tellis，Ryan Townsend，Ingrid Bergman，Mohamed Hussain S. H.，Jacob Groß，Tim Swalling，Bob Visser，Kev Adamson，Adir Amsalem，Aleksey Kulikov 和 Rodney Rehm 对这篇文章的审阅，同时也感谢我们无与伦比的社区，大家会分享从工作学到的，对每个人都有用的优化技术和课程。你们真的是太棒了！**
 
-> [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
-> [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
-> [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
-> [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
-> [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
-> **[译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)**
+> - [译] [2019 前端性能优化年度总结 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-1.md)
+> - [译] [2019 前端性能优化年度总结 — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-2.md)
+> - [译] [2019 前端性能优化年度总结 — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-3.md)
+> - [译] [2019 前端性能优化年度总结 — 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-4.md)
+> - [译] [2019 前端性能优化年度总结 — 第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-5.md)
+> - **[译] [2019 前端性能优化年度总结 — 第六部分](https://github.com/xitu/gold-miner/blob/master/TODO1/front-end-performance-checklist-2019-pdf-pages-6.md)**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
