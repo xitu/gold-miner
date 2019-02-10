@@ -5,60 +5,61 @@
 > * 译者：
 > * 校对者：
 
-# A Picture is Worth a Thousand Words, Faces, and Barcodes—The Shape Detection API
+# 一张图片可能由数千个文字、人脸或者二维码组成 —— 形状检测 API
 
-> Warning: We’re currently working the specification for this API as part of the [capabilities project](https://developers.google.com/web/updates/capabilities). We’ll keep this post updated as this new API moves from design to implementation.
+> 注意：我们目前正在使用此API的规范作为 [功能项目](https://developers.google.com/web/updates/capabilities) 的一部分， 随着这个新的 API 从设计转向实现，我们将保持这篇文章的不断更新。
 
-## What is the Shape Detection API?
+## 什么是形状检测 API ？
 
-With APIs like [`navigator.mediaDevices.getUserMedia`](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) and the new Chrome for Android [photo picker](https://bugs.chromium.org/p/chromium/issues/detail?id=656015), it has become fairly easy to capture images or live video data from device cameras, or to upload local images. So far, this dynamic image data—as well as static images on a page—has been opaque, even though images may actually contain a lot of interesting features such as faces, barcodes, and text.
+借助 API [`navigator.mediaDevices.getUserMedia`](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) 和新版的 Chrome for Android [photo picker](https://bugs.chromium.org/p/chromium/issues/detail?id=656015)，从移动设备上的相机获取图像或者实时上传视频数据或本地图像变得相当容易。在此之前，这些动态的图像数据以及页面上的静态图像一直都是个黑盒我们无法操作，即使图像实际上可能包含许多有趣的特征，如人脸、条形码和文本。
 
-In the past, if developers wanted to extract such features on the client side, for example to build a [QR code reader](https://qrsnapper.appspot.com/), they had to rely on external JavaScript libraries. This could be expensive from a performance point of view and increase the overall page weight. On the other side, operating systems including Android, iOS, and macOS, but also hardware chips found in camera modules, typically already have performant and highly optimized feature detectors such as the Android [`FaceDetector`](https://developer.android.com/reference/android/media/FaceDetector) or the iOS generic feature detector [`CIDetector`](https://developer.apple.com/documentation/coreimage/cidetector?language=objc).
+过去，如果开发人员想要在客户端提取这些特征，例如构建一个 [ QR 代码识别器](https://qrsnapper.appspot.com/)，他们必须借助外部的 JavaScript 库。从性能的角度来看，这可能是昂贵的，并且会增加整体页面的资源体积。另一方面，诸如 Android 、iOS 和 macOS 这些操作系统，以及他们的相机模块中的硬件芯片，通常已经具有高性能和高度优化的特征检测器，例如 Android 的  [`FaceDetector`](https://developer.android.com/reference/android/media/FaceDetector) 或者 iOS 自带的特征检测器 [`CIDetector`](https://developer.apple.com/documentation/coreimage/cidetector?language=objc)。
 
-The Shape Detection API opens up these native implementations and exposes them through a set of JavaScript interfaces. Currently, the supported features are face detection through the `FaceDetector` interface, barcode detection through the `BarcodeDetector` interface, and text detection (Optical Character Recognition, \[OCR\]) through the `TextDetector` interface.
+而 Shape Detection API 做的便是调用这些原生实现，并暴露一组 JavaScript 接口。目前，这个 API 支持的功能是通过 `FaceDetector` 接口进行人脸检测，通过  `BarcodeDetector` 接口进行条形码检测以及通过 `TextDetector` 接口进行文本检测（光学字符识别，OCR）。
 
-> **Note:** Text detection, despite being an interesting field, is not considered stable enough across either computing platforms or character sets to be standardized at the moment, which is why text detection has been moved to a separate [informative specification](https://wicg.github.io/shape-detection-api/text.html).
 
-[Read explainer](https://docs.google.com/document/d/1QeCDBOoxkElAB0x7ZpM3VN3TQjS1ub1mejevd2Ik1gQ/edit)
+> **小提示：** 尽管文本检测是一个有趣的领域，但在目前要标准化的计算平台或字符集中，文本检测还不够稳定，这也是文本检测已经有一套单独的[信息规范](https://wicg.github.io/shape-detection-api/text.html)的原因。
 
-### Suggested use cases for the Shape Detection API
+[相关论文](https://docs.google.com/document/d/1QeCDBOoxkElAB0x7ZpM3VN3TQjS1ub1mejevd2Ik1gQ/edit)
 
-As outlined above, the Shape Detection API currently supports the detection of faces, barcodes, and text. The following bullet list contains examples of use cases for all three features.
+### Shape Detection API 实践用例
 
-*   Face detection
-    *   Online social networking or photo sharing sites commonly let their users annotate people in images. By highlighting the boundaries of detected faces, this task can be facilitated.
-    *   Content sites can dynamically crop images based on potentially detected faces rather than rely on other heuristics, or highlight detected faces with [Ken Burns](https://en.wikipedia.org/wiki/Ken_Burns_effect) panning and zooming effects in story-like formats.
-    *   Multimedia messaging sites can allow their users to overlay funny objects like [sunglasses or mustaches](https://beaufortfrancois.github.io/sandbox/media-recorder/mustache.html) on detected face landmarks.
+如上所述，Shape Detection API 目前支持检测人脸、条形码和文本。以下列表包含了所有三个功能的用例示例：
 
-*   Barcode detection
-    *   Web applications that read QR codes can unlock interesting use cases like online payments or web navigation, or use barcodes for establishing social connections on messenger applications.
-    *   Shopping apps can allow their users to scan [EAN](https://en.wikipedia.org/wiki/International_Article_Number) or [UPC](https://en.wikipedia.org/wiki/Universal_Product_Code) barcodes of items in a physical store to compare prices online.
-    *   Airports can expose web kiosks where passengers can scan their boarding passes’ [Aztec codes](https://en.wikipedia.org/wiki/Aztec_Code) to show personalized information related to their flights.
+*   人脸检测
+    *   在线社交网络或照片共享网站通常会让用户在图像中标记出人物。通过边缘检测识别人脸，能使这项工作更为便捷。
+    *   内容网站可以根据可能检测到的面部动态裁剪图像，而不是依赖于其他启发式方法，或者使用 [Ken Burns](https://en.wikipedia.org/wiki/Ken_Burns_effect) 提出的通过平移或者缩放检测人脸。
+    *   多媒体消息网站可以允许其用户在检测到的面部的不同位置上添加 [太阳镜或胡须](https://beaufortfrancois.github.io/sandbox/media-recorder/mustache.html) 之类的有趣贴图。
 
-*   Text detection
-    *   Online social networking sites can improve the accessibility of user-generated image content by adding detected texts as `img[alt]` attribute values when no other descriptions are provided.
-    *   Content sites can use text detection to avoid placing headings on top of hero images with contained text.
-    *   Web applications can use text detection to translate texts, for example, to translate restaurant menus.
+*   条形码检测
+    *   能够读取 QR 码的 We b应用程序可以实现很多有趣的用例，如在线支付或 Web 导航，或使用条形码在应用程序上传递社交连接。
+    *   购物应用可以允许其用户扫描实体店中物品的 [EAN](https://en.wikipedia.org/wiki/International_Article_Number) 或者 [UPC](https://en.wikipedia.org/wiki/Universal_Product_Code) 条形码，以在线比较价格。
+    *   机场可以设立网络信息亭，乘客可以在那里扫描登机牌的 [Aztec codes](https://en.wikipedia.org/wiki/Aztec_Code) 以显示与其航班相关的个性化信息。
 
-## Current status
+*   文字检测
+    *   当没有提供其他描述时，在线社交网站可以通过将检测到的文本添加为 `img[alt]` 属性值来改善用户生成的图像内容的体验。
+    *   内容网站可以使用文本检测来避免将标题置于包含文本的主要图像之上。
+    *   Web应用程序可以使用文本检测来翻译文本，例如，翻译餐馆菜单。
+
+## 当前进度
 
 | ---- | ------ |
-| Step | Status |
-| 1. Create explainer | [Complete](https://docs.google.com/document/d/1QeCDBOoxkElAB0x7ZpM3VN3TQjS1ub1mejevd2Ik1gQ/edit) |
-| 2. Create initial draft of specification | [In Progress](https://wicg.github.io/shape-detection-api) |
-| 3. Gather feedback & iterate on design | [In progress](#feedback) |
-| **4. Origin trial** | **[In progress](https://developers.chrome.com/origintrials/#/view_trial/-2341871806232657919)** |
-| 5. Launch | Not started |
+| 步骤 | 状态 |
+| 1、创建解释器| [完成](https://docs.google.com/document/d/1QeCDBOoxkElAB0x7ZpM3VN3TQjS1ub1mejevd2Ik1gQ/edit) |
+| 2、创建规范的初始草案	 | [进行中](https://wicg.github.io/shape-detection-api) |
+| 3、收集反馈并迭代 | [进行中](#feedback) |
+| **4、投入实验** | **[进行中](https://developers.chrome.com/origintrials/#/view_trial/-2341871806232657919)** |
+| 5. 发布 | 未开始 |
 
-## How to use the Shape Detection API
+## 如何使用 Shape Detection API
 
-The interfaces of all three detectors, the `FaceDetector`, the `BarcodeDetector`, and the `TextDetector`, are very similar. They all provide a single asynchronous method `detect` that takes an [`ImageBitmapSource`](https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#imagebitmapsource) as an input (that is, either a [`CanvasImageSource`](https://html.spec.whatwg.org/multipage/canvas.html#canvasimagesource), a [`Blob`](https://w3c.github.io/FileAPI/#dfn-Blob), or [`ImageData`](https://html.spec.whatwg.org/multipage/canvas.html#imagedata)).
+三个检测器向外暴露的接口 `FaceDetector`、`BarcodeDetector` 和 `TextDetector` 都非常相似，它们都提供了一个异步方法 `detect` ，它接受一个 [`ImageBitmapSource`](https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#imagebitmapsource) 输入（或者是一个 [`CanvasImageSource`](https://html.spec.whatwg.org/multipage/canvas.html#canvasimagesource)、 [`Blob`] 对象(https://w3c.github.io/FileAPI/#dfn-Blob) 或者 [`ImageData`](https://html.spec.whatwg.org/multipage/canvas.html#imagedata))。
 
-In the case of `FaceDetector` and `BarcodeDetector`, optional parameters can be passed to the detector’s constructor that allow for providing hints to the underlying native detectors.
+在使用 `FaceDetector` 和 `BarcodeDetector` 的情况下，可选参数可以被传递到所述检测器的构造函数中，其允许向底层原生检测器发起调用指示。
 
-> **Note:** If your `ImageBitmapSource` has an [effective script origin](https://html.spec.whatwg.org/multipage/#concept-origin) which is not the same as the document’s effective script origin, then attempts to call `detect` will fail with a new [`DOMException`](https://heycam.github.io/webidl/#idl-DOMException) whose name is SecurityError. If your image origin supports CORS, you can use the [`crossorigin`](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes) attribute to request CORS access.
+> **小提示：** 如果你的 `ImageBitmapSource` 来自一个 [独立的脚本源](https://html.spec.whatwg.org/multipage/#concept-origin) 并且与 document 的源不同， 那么 `detect` 将会调用失败并抛出一个名为 SecurityError 的 [`DOMException`](https://heycam.github.io/webidl/#idl-DOMException) 。如果你的图片对跨域设置了 CORS，那么你可以使用 [`crossorigin`](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes) 属性来请求 CORS 访问。
 
-### Working with the `FaceDetector`
+### 在项目里使用 `FaceDetector`
 
 ```
 const faceDetector = new FaceDetector({
@@ -77,7 +78,7 @@ try {
 }
 ```
 
-### Working with the `BarcodeDetector`
+### 在项目里使用 `BarcodeDetector`
 
 ```
 const barcodeDetector = new BarcodeDetector({
@@ -107,7 +108,7 @@ try {
 }
 ```
 
-### Working with the `TextDetector`
+### 在项目里使用 `TextDetector`
 
 ```
 const textDetector = new TextDetector();
@@ -119,9 +120,9 @@ try {
 }
 ```
 
-## Feature detection
+## 特征检测
 
-Purely checking for the existence of the constructors to feature detect the Shape Detection API doesn’t suffice, as Chrome on Linux and Chrome OS currently still expose the detectors, but they are known to not work ([bug](https://crbug.com/920961)). As a temporary measure, we instead recommend doing feature detection like this:
+在使用 Shape Detection API 接口之前检查构造函数是否存在是必须的，因为虽然 Linux 和 Chrome OS 上的 Chrome 目前已经暴露了检测器的接口，但它们却没法正常使用 ([bug](https://crbug.com/920961))。作为临时措施，我们建议在使用特征检测应当这么做：
 
 ```
 const supported = await (async () => 'FaceDetector' in window &&
@@ -130,29 +131,29 @@ const supported = await (async () => 'FaceDetector' in window &&
     .catch(e => e.name === 'NotSupportedError' ? false : true))();
 ```
 
-## Best practices
+## 最佳做法
 
-All detectors work asynchronously, that is, they are not blocking the main thread 🎉, so don’t rely on realtime detection, but rather allow for some time for the detector to do its work.
+所有检测器都是异步工作的，也就是说，它们不会阻塞主线程 🎉 ，因此不要过分追求实时检测，而是给检测器一段时间来完成其工作。
 
-If you are a fan of [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API) (and who isn’t?), the good news is that the detectors are exposed there as well. The detection results are serializable and can thus be passed back from the worker to the main app via `postMessage`. The [demo](https://shape-detection-demo.glitch.me/) shows this in action.
+如果你是 [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API) 的忠实粉丝 （难道还有人不是吗？）最棒的是检测器的接口也暴露在那里。检测结果也是可序列化的，因此可以通过 `postMessage` 将其从 worker 线程传回主线程。 这里有个 [demo](https://shape-detection-demo.glitch.me/) 展示了一些简单实践。
 
-Not all platform implementations support all features, so be sure to check the support situation carefully and see the API more like a progressive enhancement. For example, some platforms might support face detection per se, but not face landmark detection (eyes, nose, mouth,…); or the existence and the location of text may be recognized, but not the actual text contents.
+并非所有平台实现都支持所有功能，因此请务必仔细检查支持情况，并将 API 看作是渐进增强功能。例如，某些平台本身可能支持人脸检测，但不支持面部标志检测（眼睛、鼻子、嘴巴等等），或者可以识别文本的存在和位置，但不识别实际的文本内容。
 
-> **Note:** This API is an optimization and not something guaranteed to be available from the platform for every user. Developers are expected to combine this with their own image recognition code and take advantage of the native optimization when it is available.
+> **小提示：** 此API是一种优化，并不能保证每个用户都可以正常使用。期望开发人员将其与他们自己的图像识别代码相结合，当其可用时将其作为原生的一种优化手段。
 
-## Feedback
+## 意见反馈
 
-We need your help to ensure that the Shape Detection API works in a way that meets your needs and that we’re not missing any key scenarios.
+我们需要您的帮助，以确保 Shape Detection API 能够满足您的需求，并且我们不会错过任何关键方案。
 
-**We need your help!** - Will the current design of the Shape Detection API meet your needs? If it won’t, please file an issue in the [Shape Detection API repo](https://github.com/WICG/shape-detection-api) and provide as much detail as you can.
+**我们需要你的帮助！** —— Shape Detection API 的当前设计是否满足您的需求？如果不能，请在 [Shape Detection API repo](https://github.com/WICG/shape-detection-api) 提交 issue 并提供尽可能详细的信息。
 
-We’re also interested to hear how you plan to use the Shape Detection API:
+我们也很想知道您打算如何使用 Shape Detection API：
 
-*   Have an idea for a use case or an idea where you’d use it?
-*   Do you plan to use this?
-*   Like it, and want to show your support?
+*   有一个独到的使用场景或者说你知道在哪些情况下可以用到它？
+*   你打算用这个吗？
+*   喜欢它，并想表达你对它的支持？
 
-Share your thoughts on the [Shape Detection API WICG Discourse](https://discourse.wicg.io/t/rfc-proposal-for-face-detection-api/1642/3) discussion.
+在 [Shape Detection API WICG Discourse](https://discourse.wicg.io/t/rfc-proposal-for-face-detection-api/1642/3) 上分享您的讨论与看法。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
