@@ -49,7 +49,7 @@ git merge 2nd-parent
 git merge 2nd-parent 3rd-parent 4th-parent ... 8th-parent etc...
 ```
 
-这意味着父级的记录就像它听起来一样。当你提交新的代码的时候，忽略第一个父级以外的父级，从而得到一个新的代码记录。对于常规的 `commit`（非 `merge`），第一个父级是唯一的父级，并且对于 `merge` 来说，它是你在输入 `git merge` 时所产生的记录。这种父级概念是直接植入到 Git 里的，并且在很多命令行中都有所体现，例如，`git log –first-parent`。
+这意味着父级的记录就像它听起来一样。当你提交新的代码的时候，忽略第一个父级以外的父级，从而得到一个新的代码记录。对于常规的 `commit`（非 `merge`），第一个父级是唯一的父级，并且对于 `merge` 来说，它是你在输入 `git merge` 时所产生的记录。这种父级概念是直接植入到 Git 里的，并且在很多命令行中都有所体现，例如，`git log –-first-parent`。
 
 “狐步舞”式的合并问题在于，它使得 *origin/master* 由第一父级变成了第二父级。
 
