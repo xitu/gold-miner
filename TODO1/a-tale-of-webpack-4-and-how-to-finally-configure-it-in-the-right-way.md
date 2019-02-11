@@ -2,22 +2,22 @@
 > * 原文作者：[Margarita Obraztsova](https://hackernoon.com/@riittagirl)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-tale-of-webpack-4-and-how-to-finally-configure-it-in-the-right-way.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-tale-of-webpack-4-and-how-to-finally-configure-it-in-the-right-way.md)
-> * 译者：
-> * 校对者：
+> * 译者：[iceytea](https://github.com/iceytea)
+> * 校对者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
 
 # Webpack 4 的故事以及如何用正确的方式去最终配置它【更新版】
 
-特别提醒：没有正确的方式。 #justwebpackthings
+特别提醒：没有正确的方式。#justwebpackthings
 
 ![](https://cdn-images-1.medium.com/max/2560/1*f2JinK5jRjYoLJ31kAKyLQ.jpeg)
 
-原图： https://www.instagram.com/p/BhPo4pqBytk/?taken-by=riittagirl
+原图：https://www.instagram.com/p/BhPo4pqBytk/?taken-by=riittagirl
 
-> 这篇博文最后一次更新在 2018 年 12 月 28 日，适用于 Webpack v4.28.0 版本。 
+> 这篇博文最后一次更新在 2018 年 12 月 28 日，适用于 Webpack v4.28.0 版本。
 
 * * *
 
-> 2018 年 06 月 23 日更新： 我收到了许多关于如何使其工作和如何改进的评论。感谢你们的反馈！我已经尽力的去考虑每一条评论！某种程度上，我也决定在 Github 上创建一个 Webpack 模板项目，你可以使用 Git 来拉取最新的 Webpack 配置文件。感谢你们的支持！链接：https://github.com/marharyta/webpack-boilerplate](https://github.com/marharyta/webpack-boilerplate)
+> 2018 年 06 月 23 日更新：我收到了许多关于如何使其工作和如何改进的评论。感谢你们的反馈！我已经尽力的去考虑每一条评论！某种程度上，我也决定在 Github 上创建一个 Webpack 模板项目，你可以使用 Git 来拉取最新的 Webpack 配置文件。感谢你们的支持！链接：https://github.com/marharyta/webpack-boilerplate](https://github.com/marharyta/webpack-boilerplate)
 
 * * *
 
@@ -25,7 +25,7 @@
 
 * * *
 
-> _感谢各位对我的教程提出大量的反馈。我要很自豪的说，Webpack 前几天在 Twitter 上推荐了这篇教程，并且它已经得到了一些贡献者的认可！_
+> **感谢各位对我的教程提出大量的反馈。我要很自豪的说，Webpack 前几天在 Twitter 上推荐了这篇教程，并且它已经得到了一些贡献者的认可！**
 
 ![](https://cdn-images-1.medium.com/max/600/1*LMP6qbC151q2eJ7efXurmA.jpeg)
 
@@ -43,17 +43,17 @@
 
 如果你刚接触 Webpack，阅读文档是一个很好的开始。[Webpack 有一个非常好的文档](https://webpack.js.org/concepts/)，其中解释了许多部分，因此我会简单的介绍它们。
 
-**零配置：** Webpack 4 无需配置文件，这是 Webpack 4 的新特性。Webpack 是逐步增长的，因此没必要一开始就做一个可怕的配置。
+**零配置**：Webpack 4 无需配置文件，这是 Webpack 4 的新特性。Webpack 是逐步增长的，因此没必要一开始就做一个可怕的配置。
 
-**性能提升：** Webpack 4 是迄今为止最快的一版。
+**性能提升**：Webpack 4 是迄今为止最快的一版。
 
-**合理的默认值：** Webpack 4 的主要概念是「 _入口、输出、加载器、插件_ 」。我不会详细介绍这些。加载器和插件之间的区别非常模糊，这完全取决于库作者如何去实现它。
+**合理的默认值**：Webpack 4 的主要概念是「 _入口、输出、加载器、插件_ 」。我不会详细介绍这些。加载器和插件之间的区别非常模糊，这完全取决于库作者如何去实现它。
 
 ### 核心概念
 
 #### 入口
 
-这应该是你的 _.js_ 文件。现在您可能会看到一些配置，其中人们在那里包含 _.scss_ 或 _.css_ 文件。 这是一个重大的 hack ，并可能会导致许多意外错误。有时你也会看到一个带有几个 _.js_ 文件的条目。虽然有些解决方案允许你这样做，但我会说它通常会增加更多的复杂性，只有当你真正知道你为什么这样做时才能这样做。
+这应该是你的 _.js_ 文件。现在您可能会看到一些配置，其中人们在那里包含 _.scss_ 或 _.css_ 文件。这是一个重大的 hack，并可能会导致许多意外错误。有时你也会看到一个带有几个 _.js_ 文件的条目。虽然有些解决方案允许你这样做，但我会说它通常会增加更多的复杂性，只有当你真正知道你为什么这样做时才能这样做。
 
 #### 输出
 
@@ -86,7 +86,7 @@ npm init
 yarn init
 ```
 
-我们需要下载模块 **Webpack v4** 和 **webpack-cli** 。在你的终端（控制台）运行它：
+我们需要下载模块 **Webpack v4** 和 **webpack-cli**。在你的终端（控制台）运行它：
 
 ```shell
 npm install webpack webpack-cli --save-dev
@@ -128,7 +128,7 @@ ERROR in Entry module not found: Error: Can't resolve './src' in '~/webpack-4-qu
 
 这意味着 Webpack 在寻找 _.src/_ 文件夹下的 _index.js_ 文件。这是 Webpack 4 的默认行为，也是它实现零配置的原因。
 
-让我们去创建带有 _.js_ 文件的目录，如 **./src/index.js** ，并在那里放一些代码。
+让我们去创建带有 _.js_ 文件的目录，如 **./src/index.js**，并在那里放一些代码。
 ```
 console.log("hello, world");
 ```
@@ -143,7 +143,7 @@ npm run dev
 yarn dev
 ```
 
-如果此时你遇到错误，请阅读本小节下面的更新。否则，现在你应该会有一个  **./dist/main.js** 目录。这很好，因为我们知道我们的代码被编译过了。但刚刚发生了什么？
+如果此时你遇到错误，请阅读本小节下面的更新。否则，现在你应该会有一个 **./dist/main.js** 目录。这很好，因为我们知道我们的代码被编译过了。但刚刚发生了什么？
 
 > 默认情况下， Webpack 是零配置的，这意味着在你开始使用它时，你无需去配置 webpack.config.js 。因此，它必须去假定一些默认行为，例如它总是会在默认情况下查找 ./src 文件夹，在其中查找 index.js 并输出到 ./dist/main.js 。main.js 是带有依赖项的编译后文件。
 
@@ -188,7 +188,7 @@ module.exports = {
 
 * * *
 
-在 webpack 中，拥有两个配置文件是常见做法，尤其是在大型项目中。通常你会有一个用于开发的文件和一个用于生产的文件。在 webpack 4 中，你有 _开发_ 和 _生产_ 两种模式。这消除了对两个文件的需求（对于中型项目）。
+在 webpack 中，拥有两个配置文件是常见做法，尤其是在大型项目中。通常你会有一个用于开发的文件和一个用于生产的文件。在 webpack 4 中，你有 **开发** 和 **生产** 两种模式。这消除了对两个文件的需求（对于中型项目）。
 
 
 ```
@@ -199,7 +199,7 @@ module.exports = {
 ```
 如果你密切关注，你应当已经检查了你的 _main.js_ 文件，并了解到它没有被缩小。
 
-_我将在此示例中使用 dev 脚本，因为它提供了大量开箱即用的优化，但从现在开始，你可以随意使用它们中的任何一个。build 和 dev 脚本之间的核心区别在于它们如何输出文件。build 脚本为生产代码创建。dev 脚本为开发而创建，这意味着它支持热模块替换、开发服务器以及许多可以帮助你进行开发工作的东西。_
+**我将在此示例中使用 dev 脚本，因为它提供了大量开箱即用的优化，但从现在开始，你可以随意使用它们中的任何一个。build 和 dev 脚本之间的核心区别在于它们如何输出文件。build 脚本为生产代码创建。dev 脚本为开发而创建，这意味着它支持热模块替换、开发服务器以及许多可以帮助你进行开发工作的东西。**
 
 你可以在 npm 脚本中很轻易地覆盖默认配置，只需要使用标记：
 
@@ -227,7 +227,7 @@ _我将在此示例中使用 dev 脚本，因为它提供了大量开箱即用�
 
 ### 转译你的 .js 代码
 
-现代 JS 代码大多是用 ES6 编写的，然而并不是所有浏览器都支持 ES6。 因此，您需要将其 transpile ———— 一个将您的 ES6 代码转换为 ES5 的奇特词汇。 你可以使用 **babel**（现在最流行的工具）来处理。 当然，转译不仅针对 ES6 代码，而且针对许多 JS 实现，如 TypeScript，React 等。
+现代 JS 代码大多是用 ES6 编写的，然而并不是所有浏览器都支持 ES6。 因此，您需要将其 transpile — 一个将您的 ES6 代码转换为 ES5 的奇特词汇。你可以使用 **babel**（现在最流行的工具）来处理。 当然，转译不仅针对 ES6 代码，而且针对许多 JS 实现，如 TypeScript 和 React 等。
 
 
 ```
@@ -259,13 +259,13 @@ nano .babelrc
 *   使用配置文件 **webpack.config.js**
 *   在 **npm 脚本**使用 --module-bind 参数
 
-从技术上讲，你可以使用 Webpack 引入的新标志来作很多事情，但是为了简单起见，我更喜欢使用 **webpack.config.js** 。
+从技术上讲，你可以使用 Webpack 引入的新标志来作很多事情，但是为了简单起见，我更喜欢使用 **webpack.config.js**。
 
 ### 配置文件
 
 虽然 webpack 将自己宣传为零配置平台，但它主要适用于一般默认设置，如入口和输出。
 
-现在我们将使用以下内容创建 **webpack.config.js** ：
+现在我们将使用以下内容创建 **webpack.config.js**：
 
 ```
 // webpack v4
@@ -312,7 +312,7 @@ module.exports = {
 
 > 2018.12.23 更新
 >
-> 如果你遇到 **module '@babel/core' conflict** ，这意味着你的某些预加载的 babel 依赖项不兼容。就我而言，我遇到了
+> 如果你遇到 **module '@babel/core' conflict**，这意味着你的某些预加载的 babel 依赖项不兼容。就我而言，我遇到了。
 
 ```
 Module build failed: Error: Cannot find module '@babel/core'
@@ -346,8 +346,7 @@ yarn add @babel/core --dev
 </html>
 ```
 
-如您所见，我们在这里导入 style.css 。让我们配置它！正如我们所说，我们只有一个 Webpack 入口点。那么我们将 css 放在哪里？在 _./src_ 文件夹中创建一个 _style.css_
-
+如您所见，我们在这里导入 style.css。让我们配置它！正如我们所说，我们只有一个 Webpack 入口点。那么我们将 css 放在哪里？在 _./src_ 文件夹中创建一个 _style.css_
 
 ```css
 div {
@@ -362,7 +361,7 @@ import "./style.css";
 console.log("hello, world");
 ```
 
-> 特别提醒：在某些文章中，你会了解到 ExtractTextPlugin 不适用于 webpack 4。它在我的 webpack v4.2 上可以运行，但在我使用 webpack v4.20 时停止运行。它证明了在搭建时我的模块设置很模糊，如果它完全不适合你，你可以切换到 MiniCssExtractPlugin 。 我将在本文后面部分向您展示如何配置。
+> 特别提醒：在某些文章中，你会了解到 ExtractTextPlugin 不适用于 webpack 4。它在我的 webpack v4.2 上可以运行，但在我使用 webpack v4.20 时停止运行。它证明了在搭建时我的模块设置很模糊，如果它完全不适合你，你可以切换到 MiniCssExtractPlugin。我将在本文后面部分向您展示如何配置。
 >
 > 为了向后兼容，我仍然会展示 ExtractTextPlugin 示例，但是你完全可以删去它并替换成正在使用 MiniCssExtractPlugin 的部分。
 
@@ -413,12 +412,14 @@ module.exports = {
 npm install extract-text-webpack-plugin --save-dev
 npm install style-loader css-loader --save-dev
 ```
+
 或者
+
 ```shell
 yarn add extract-text-webpack-plugin style-loader css-loader --dev
 ```
 
-我们需要使用文本提取插件来编译 **.css** 。如您所见，我们还为 **.css** 添加了一条新规则。从版本 4 开始，Webpack 4 和这个插件有一些问题，因此你可能会遇到这个错误：
+我们需要使用文本提取插件来编译 **.css**。如您所见，我们还为 **.css** 添加了一条新规则。从版本 4 开始，Webpack 4 和这个插件有一些问题，因此你可能会遇到这个错误：
 
 - [**Webpack 4 compatibility · Issue #701 · webpack-contrib/extract-text-webpack-plugin**](https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/701 "https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/701")
 
@@ -512,23 +513,21 @@ module.exports = {
   ]
 };
 ```
-正如尼古拉·沃尔科夫所指出的那样，可能不再需要 style-loader 了，因为用 **MiniCssExtractPlugin.loader 也可以做到同样的事情。** 虽然这可能属实，但我仍然建议留下它作为后备。
+正如尼古拉·沃尔科夫所指出的那样，可能不再需要 style-loader 了，因为用 **MiniCssExtractPlugin.loader 也可以做到同样的事情**。虽然这可能属实，但我仍然建议留下它作为后备。
 
 ### Webpack 匹配规则如何工作？
 
 > 一个关于匹配规则通常如何工作的快速描述：
 
 ```json
-{
-      test: /\.YOUR_FILE_EXTENSION$/,
-      exclude: /SOMETHING THAT IS THAT EXTENSION BUT SHOULD NOT BE PROCESSED/,
-      use: {
-        loader: "loader for your file extension  or a group of loaders"
-      }
+test: /\.YOUR_FILE_EXTENSION$/,
+exclude: /SOMETHING THAT IS THAT EXTENSION BUT SHOULD NOT BE PROCESSED/,
+use: {
+  loader: "loader for your file extension  or a group of loaders"
 }
 ```
 
-**我们需要去使用 MiniCssExtractPlugin ，因为 Webpack 默认只能解析 _.js_ 格式。 MiniCssExtractPlugin 获取你的 _.css_ ，然后提取它到一个在 _./dist_ 目录下的独立 _.css_ 文件。**
+**我们需要去使用 MiniCssExtractPlugin，因为 Webpack 默认只能解析 _.js_ 格式。MiniCssExtractPlugin 获取你的 _.css_ ，然后提取它到一个在 _./dist_ 目录下的独立 _.css_ 文件。**
 
 ### 配置对 SCSS 的支持
 
@@ -537,12 +536,14 @@ module.exports = {
 ```shell
 npm install node-sass sass-loader --save-dev
 ```
+
 或者是
+
 ```shell
 yarn add node-sass sass-loader --dev
 ```
 
-在你的 _.js_ 文件里用  **_./scss/main.scss_** 替换 *style.css* ，更改测试以支持 _.scss_ 。
+在你的 _.js_ 文件里用  **_./scss/main.scss_** 替换 *style.css* ，更改测试以支持 _.scss_。
 
 ```javascript
 // webpack v4
@@ -603,7 +604,9 @@ module.exports = {
 ```shell
 npm install html-webpack-plugin --save-dev
 ```
+
 或者
+
 ```shell
 yarn add html-webpack-plugin --dev
 ```
@@ -662,24 +665,26 @@ module.exports = {
 };
 ```
 
-现在，_./src/index.html_ 中的文件是最终 index.html 文件的模板。要检查一切是否正常，请删除_./dist_文件夹中的每个文件和文件夹本身。
+现在，_./src/index.html_ 中的文件是最终 index.html 文件的模板。要检查一切是否正常，请删除 _./dist_ 文件夹中的每个文件和文件夹本身。
 
 ```shell
 rm -rf ./dist
 npm run dev
 ```
+
 或者是
+
 ```shell
 yarn dev
 ```
 
-你会看到 _./dist_ 文件夹是自行创建的，包含三个文件：**index.html，style.css，main.js 。**
+你会看到 _./dist_ 文件夹是自行创建的，包含三个文件：**index.html，style.css，main.js。**
 
 ### 缓存和哈希
 
 开发中最常见的问题之一是实现缓存。了解它的工作原理非常重要，因为您希望用户始终拥有最新版本的代码。
 
-由于这篇博文主要是关于 webpack 配置的，因此我们不会专注于缓存如何工作。我只想说解决缓存问题最常用的方法之一是向资源文件添加 **_哈希值_**，例如 _style.css_ 和 _script.js_ 。**你可以在[这里](https://developers.google.com/web/fundamentals/performance/webpack/use-long-term-caching#split-the-code-into-routes-and-pages)阅读相关内容。** 需要哈希来指导我们的浏览器只请求更改的文件。
+由于这篇博文主要是关于 webpack 配置的，因此我们不会专注于缓存如何工作。我只想说解决缓存问题最常用的方法之一是向资源文件添加 **_哈希值_** ，例如 _style.css_ 和 _script.js_ 。**你可以在[这里](https://developers.google.com/web/fundamentals/performance/webpack/use-long-term-caching#split-the-code-into-routes-and-pages)阅读相关内容。** 需要哈希来指导我们的浏览器只请求更改的文件。
 
 Webpack 4 具有通过 [**chunkhash**](https://webpack.js.org/guides/caching/) 实现的预构建功能。它可以通过以下方式完成：
 
@@ -754,13 +759,13 @@ module.exports = {
 
 - [**Support for .css and .manifest files and cache busting by jantimon · Pull Request #14**](https://github.com/jantimon/html-webpack-plugin/pull/14 "https://github.com/jantimon/html-webpack-plugin/pull/14")
 
-我们将使用在 HTML 模板中描述的 **htmlWebpackPlugin.files.chunks.main** 。 查看我们在 **_./dist_** 下的文件 **index.html**。
+我们将使用在 HTML 模板中描述的 **htmlWebpackPlugin.files.chunks.main**。查看我们在 **_./dist_** 下的文件 **index.html**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*eAcjaMGzriv946f1lI3-Hw.png)
 
 ![](https://cdn-images-1.medium.com/max/800/1*Ccl_haaqqZ4OrEco0ZCZtQ.png)
 
-如果我们不改变我们的 _.js_ 和 . _css_ 文件中任何东西，运行
+如果我们不改变我们的 _.js_ 和 _.css_ 文件中任何东西，运行
 
 ```
 npm run dev
@@ -774,7 +779,7 @@ npm run dev
 
 > 2018.12.28 更新
 >
-> 如果你使用针对 CSS 的 webpack 4 版本的 ExtractTextPlugin，可能会存在这个问题。如果你使用 MiniCssExtractPlugin ，这个问题将不会发生，但阅读它是有益的！
+> 如果你使用针对 CSS 的 webpack 4 版本的 ExtractTextPlugin，可能会存在这个问题。如果你使用 MiniCssExtractPlugin，这个问题将不会发生，但阅读它是有益的！
 
 * * *
 
@@ -799,21 +804,21 @@ console.log("Hello, world 2");
 
 #### 解决方案 1
 
-可能还存在一些冲突，所以**现在我们试试 [mini-css-extract plugin](https://github.com/webpack-contrib/mini-css-extract-plugin) 。**
+可能还存在一些冲突，所以**现在我们试试 [mini-css-extract plugin](https://github.com/webpack-contrib/mini-css-extract-plugin)。**
 
 #### 解决方案 2
 
-在 _.css_ 提取插件上用 **[hash]** 替换 **[chunkhash]** 。这是[上述问题](https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/763)的解决方案之一。 这似乎与 Webpack 4.3 产生了冲突，后者引入了[Webpack 自己](https://github.com/webpack/webpack/releases/tag/v4.3.0)的 `[contenthash]` 变量。结合使用此插件：[**webpack-md5-hash**](https://www.npmjs.com/package/webpack-md5-hash) **(请参阅下文)。**
+在 _.css_ 提取插件上用 **[hash]** 替换 **[chunkhash]**。这是[上述问题](https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/763)的解决方案之一。这似乎与 Webpack 4.3 产生了冲突，后者引入了[Webpack 自己](https://github.com/webpack/webpack/releases/tag/v4.3.0)的 `[contenthash]` 变量。结合使用此插件：[**webpack-md5-hash**](https://www.npmjs.com/package/webpack-md5-hash) **(请参阅下文)。**
 
 现在让我们测试一下 _.js_ 文件：两个文件的哈希值都改变了。
 
 ### JS Hash 的问题以及解决方案
 
-如果您已经在使用 MiniCssExtractPlugin ，则会出现相反的问题：**每次更改 SCSS 中的某些内容时，.js 文件和 .css 输出文件哈希值都会更改。**
+如果您已经在使用 MiniCssExtractPlugin，则会出现相反的问题：**每次更改 SCSS 中的某些内容时，.js 文件和 .css 输出文件哈希值都会更改。**
 
 #### 解决方案:
 
-使用这个插件： [**webpack-md5-hash**](https://www.npmjs.com/package/webpack-md5-hash) 。如果对 _main.scss_ 文件进行更改并运行 dev 脚本，则只应使用新哈希生成新的 _style.css_ ，而不是两者。
+使用这个插件：[**webpack-md5-hash**](https://www.npmjs.com/package/webpack-md5-hash)。如果对 _main.scss_ 文件进行更改并运行 dev 脚本，则只应使用新哈希生成新的 _style.css_ ，而不是两者。
 
 ```javascript
 // webpack v4
@@ -873,15 +878,15 @@ module.exports = {
 
 为了优雅的输出 _.css_ ，我们可以在顶部添加 PostCSS。
 
-[PostCSS](https://github.com/postcss/postcss) 为您提供 **autoprefixer, cssnano** 和其他漂亮和方便的东西。 我会每天展示我正在使用的内容。我们需要 **postcss-loader 。**我们还将安装 autoprefixer ，因为我们稍后会需要它。
+[PostCSS](https://github.com/postcss/postcss) 为您提供 **autoprefixer、cssnano** 和其他漂亮和方便的东西。 我会每天展示我正在使用的内容。我们需要 **postcss-loader**。我们还将安装 autoprefixer，因为我们稍后会需要它。
 
 
 > 更新于：2019.2.11
 >
 > 校对者注：
-> 最新版的 postcss-loader （v3.0.0 版本以上）是自带支持 autoprefixer 的，所以我们不需要安装 autoprefixer。
+> 最新版的 postcss-loader（v3.0.0 版本以上）是自带支持 autoprefixer 的，所以我们不需要安装 autoprefixer。
 >
-> 具体请参阅：[postcss-preset-env 包含 autoprefixer，因此如果您已经使用了预设配置，则无需单独添加 autoprefixer 。](https://github.com/postcss/postcss-loader#autoprefixing) 
+> 具体请参阅：[postcss-preset-env 包含 autoprefixer，因此如果您已经使用了预设配置，则无需单独添加 autoprefixer。](https://github.com/postcss/postcss-loader#autoprefixing) 
 
 
 ```shell
@@ -961,7 +966,7 @@ use:  ['style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loade
 ```
 加载器将从后向前应用插件。
 
-您可以通过向 .scss 文件添加更多代码并检查输出来测试 [**autoprefixer**](https://github.com/postcss/autoprefixer) 。还有一种方法可以通过在 _.browserslistrc_ 文件中指定要支持的浏览器来修复输出。
+您可以通过向 .scss 文件添加更多代码并检查输出来测试 [**autoprefixer**](https://github.com/postcss/autoprefixer)。还有一种方法可以通过在 _.browserslistrc_ 文件中指定要支持的浏览器来修复输出。
 
 我将引导您到 [https://www.postcss.parts/](https://www.postcss.parts/) 探索可用于 PostCSS 的插件，例如：
 
@@ -981,7 +986,7 @@ use:  ['style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loade
 
 ### 保持配置干净整洁
 
-我们可以尝试导入 **clean-webpack-plugin** ，在重新生成文件之前清理 _./dist_ 文件夹。
+我们可以尝试导入 **clean-webpack-plugin**，在重新生成文件之前清理 _./dist_ 文件夹。
 
 ```javascript
 // webpack v4
@@ -1040,7 +1045,7 @@ module.exports = {
 
 现在我们的配置干净整洁，我们可以保持下去！
 
-> 在这里，我为您提供了我的配置文件以及逐步配置它的方法。注意：由于许多 npm 依赖项可能会在您阅读此内容时发生更改，因此相同的配置可能对您无效！我恳请您将错误留在下面的评论中，以便我以后编辑。今天是 2018.04.05 。
+> 在这里，我为您提供了我的配置文件以及逐步配置它的方法。注意：由于许多 npm 依赖项可能会在您阅读此内容时发生更改，因此相同的配置可能对您无效！我恳请您将错误留在下面的评论中，以便我以后编辑。今天是 2018.04.05。
 
 * * *
 
@@ -1090,6 +1095,7 @@ module.exports = {
 > 在这里阅读下一篇关于使用 React 配置开发环境的部分：[如何使用 Webpack 4 简化 React.js 开发过程](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-develop-react-js-apps-fast-using-webpack-4.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
 
 ---
 
