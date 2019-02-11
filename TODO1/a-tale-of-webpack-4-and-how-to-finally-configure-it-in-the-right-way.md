@@ -88,11 +88,11 @@ yarn init
 
 我们需要下载模块 **Webpack v4** 和 **webpack-cli** 。在你的终端（控制台）运行它：
 
-```
+```shell
 npm install webpack webpack-cli --save-dev
 ```
 或
-```
+```shell
 yarn add webpack webpack-cli --dev
 ```
 
@@ -126,7 +126,7 @@ You can also set it to 'none' to disable any default behavior. Learn more: https
 ERROR in Entry module not found: Error: Can't resolve './src' in '~/webpack-4-quickstart'
 ```
 
-这意味着 webpack 在寻找 _.src/_ 文件夹下的 _index.js_ 文件。这是 webpack 4 的默认行为，这也是它实现零配置的原因。
+这意味着 Webpack 在寻找 _.src/_ 文件夹下的 _index.js_ 文件。这是 Webpack 4 的默认行为，也是它实现零配置的原因。
 
 让我们去创建带有 _.js_ 文件的目录，如 **./src/index.js** ，并在那里放一些代码。
 ```
@@ -159,7 +159,7 @@ ERROR in ./node_modules/fsevents/node_modules/node-pre-gyp/lib/publish.js
 Module not found: Error: Can't resolve 'aws-sdk' in '/Users/mobr/Documents/workshop/test-webpack-4-setup/node_modules/fsevents/node_modules/node-pre-gyp/lib'
 ```
 
-> 更多细节描述请参阅[这里](https://github.com/webpack/webpack/issues/8400)， then you are most likely using one of more mature webpack v4 releases.
+> 更多细节描述请参阅[这里](https://github.com/webpack/webpack/issues/8400)，那你最有可能使用一个更成熟的 Webpack v4 版本。
 >
 > 不幸的是，如果不创建 webpack.config.js 文件，你就无法解决它（我将在本文中后续部分向您展示如何执行此操作）。只需按照我的教程，直到 “转义你的 .js 代码” 部分并复制粘贴那里的配置文件。你需要下载 [webpack-node-externals](https://github.com/liady/webpack-node-externals)。
 
@@ -197,9 +197,9 @@ module.exports = {
   "build": "webpack --mode production"
 }
 ```
-如果你密切关注，你已经检查了你的 _main.js_ 文件并看到它没有被缩小。
+如果你密切关注，你应当已经检查了你的 _main.js_ 文件，并了解到它没有被缩小。
 
-_我将在此示例中使用构建脚本，因为它提供了大量开箱即用的优化，但从现在开始你可以随意使用它们中的任何一个。构建和开发脚本之间的核心区别在于它们如何输出文件。构建脚本为生产代码创建。开发脚本为开发而创建，这意味着它支持热模块替换、开发服务器以及许多可以帮助你进行开发工作的东西。_
+_我将在此示例中使用 dev 脚本，因为它提供了大量开箱即用的优化，但从现在开始，你可以随意使用它们中的任何一个。build 和 dev 脚本之间的核心区别在于它们如何输出文件。build 脚本为生产代码创建。dev 脚本为开发而创建，这意味着它支持热模块替换、开发服务器以及许多可以帮助你进行开发工作的东西。_
 
 你可以在 npm 脚本中很轻易地覆盖默认配置，只需要使用标记：
 
@@ -227,7 +227,7 @@ _我将在此示例中使用构建脚本，因为它提供了大量开箱即用�
 
 ### 转译你的 .js 代码
 
-现代 JS 代码大多是用 ES6 编写的，然而并不是所有浏览器都支持 ES6。 因此，您需要将其 transpile ———— 一个将您的 ES6 代码转换为 ES5 的奇特词汇。 你可以使用 **babel**（现在最流行的工具）来处理。 当然，我们不仅针对 ES6 代码，而且针对许多 JS 实现，例如 TypeScript，React 等。
+现代 JS 代码大多是用 ES6 编写的，然而并不是所有浏览器都支持 ES6。 因此，您需要将其 transpile ———— 一个将您的 ES6 代码转换为 ES5 的奇特词汇。 你可以使用 **babel**（现在最流行的工具）来处理。 当然，转译不仅针对 ES6 代码，而且针对许多 JS 实现，如 TypeScript，React 等。
 
 
 ```
@@ -305,7 +305,7 @@ module.exports = {
   "dev": "webpack --mode development"
 },
 ```
-现在当我们运行 **_npm run build 或者 yarn build_** 时，他应当输出一个被很好地压缩的 _.js_ 文件到 _./dist/main.js_ 。如果没有的话，尝试重新安装 **babel-loader** 。
+现在当我们运行 **_npm run build 或者 yarn build_** 时，它应当输出一个被很好地压缩的 _.js_ 文件到 _./dist/main.js_ 。如果没有的话，尝试重新安装 **babel-loader** 。
 
 
 * * *
@@ -320,7 +320,7 @@ Module build failed: Error: Cannot find module '@babel/core'
 babel-loader@8 requires Babel 7.x (the package '@babel/core'). If you'd like to use Babel 6.x ('babel-core'), you should install 'babel-loader@7'.
 ```
 
-> 我解决了这个问题，通过
+> 我解决了这个问题，通过执行
 
 ```
 yarn add @babel/core --dev
@@ -366,7 +366,7 @@ console.log("hello, world");
 >
 > 为了向后兼容，我仍然会展示 ExtractTextPlugin 示例，但是你完全可以删去它并替换成正在使用 MiniCssExtractPlugin 的部分。
 
-在 webpack 为您的 css 文件创建一条新的规则：
+在 Webpack 为您的 css 文件创建一条新的规则：
 
 ```javascript
 // webpack v4
@@ -418,7 +418,7 @@ npm install style-loader css-loader --save-dev
 yarn add extract-text-webpack-plugin style-loader css-loader --dev
 ```
 
-我们需要使用文本提取插件来编译 **.css** 。如您所见，我们还为 **.css** 添加了一条新规则。从版本 4 开始，Webpack 4 和这个插件有问题，所以你可能会遇到这个错误：
+我们需要使用文本提取插件来编译 **.css** 。如您所见，我们还为 **.css** 添加了一条新规则。从版本 4 开始，Webpack 4 和这个插件有一些问题，因此你可能会遇到这个错误：
 
 - [**Webpack 4 compatibility · Issue #701 · webpack-contrib/extract-text-webpack-plugin**](https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/701 "https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/701")
 
@@ -436,7 +436,7 @@ yarn add --dev extract-text-webpack-plugin@next
 
 在那之后，你的 CSS 代码应当会编译到 _./dist/style.css_。
 
-此时在 package.json 中，开发依赖看起来像这样：
+此时在 package.json 中，开发依赖清单看起来像这样：
 
 ```json
 "devDependencies": {
@@ -453,7 +453,7 @@ yarn add --dev extract-text-webpack-plugin@next
 
 版本可能不同，但这是正常的！
 
-请注意，另一个组合可能无法正常工作，即使将 webpack-cli v2.0.12 更新为 2.0.13 也可能会破坏它。#justwebpackthings
+请注意，另一个组合可能无法正常工作，即使像将 webpack-cli v2.0.12 更新为 2.0.13 这样的改动，也可能会使其无法正常运行。#justwebpackthings
 
 所以现在它应该将 _style.css_ 输出到 _./dist_ 文件夹中。
 
@@ -461,7 +461,7 @@ yarn add --dev extract-text-webpack-plugin@next
 
 ### Mini-CSS 插件
 
-Mini CSS 插件旨在取代 extract-text 插件，它为您提供更好的未来兼容性。我用 [**mini-css-extract-plugin**](https://github.com/webpack-contrib/mini-css-extract-plugin "https://github.com/webpack-contrib/mini-css-extract-plugin") 重新构建了我的 webpack 文件以编译 style.css，**并且它对我很有用。**
+Mini CSS 插件旨在取代 extract-text 插件，它为您提供更好的未来兼容性。我用 [**mini-css-extract-plugin**](https://github.com/webpack-contrib/mini-css-extract-plugin "https://github.com/webpack-contrib/mini-css-extract-plugin") 重新构建了我的 Webpack 文件以编译 style.css，**并且它对我很有用。**
 
 ```shell
 npm install mini-css-extract-plugin --save-dev
@@ -512,7 +512,7 @@ module.exports = {
   ]
 };
 ```
-正如尼古拉·沃尔科夫所指出的那样，可能不再需要 style-loader 了，因为 **MiniCssExtractPlugin.loader 也可以做到同样的事情。** 虽然这可能属实，但我仍然建议留下它作为后备。
+正如尼古拉·沃尔科夫所指出的那样，可能不再需要 style-loader 了，因为用 **MiniCssExtractPlugin.loader 也可以做到同样的事情。** 虽然这可能属实，但我仍然建议留下它作为后备。
 
 ### Webpack 匹配规则如何工作？
 
@@ -528,11 +528,11 @@ module.exports = {
 }
 ```
 
-**我们需要去使用** **MiniCssExtractPlugin ，因为 Webpack 默认只能解析 _.js_ 格式。 MiniCssExtractPlugin 获取你的 _.css_ ，然后提取它到一个在 _./dist_ 目录下的独立 _.css_ 文件。**
+**我们需要去使用 MiniCssExtractPlugin ，因为 Webpack 默认只能解析 _.js_ 格式。 MiniCssExtractPlugin 获取你的 _.css_ ，然后提取它到一个在 _./dist_ 目录下的独立 _.css_ 文件。**
 
 ### 配置对 SCSS 的支持
 
-使用 SASS 和 POSTCSS 开发网站是一个很平常的事情，它们非常有用。因此我们首先要包含对 SASS 的支持。让我们重命名 _./src/style.css_ ，然后创建另外的文件夹来存放 _.scss_ 文件。现在我们需要添加对 _.scss_ 格式的支持。
+使用 SASS 和 PostCSS 开发网站是一个很平常的事情，它们非常有用。因此我们首先要包含对 SASS 的支持。让我们重命名 _./src/style.css_ ，然后创建另外的文件夹来存放 _.scss_ 文件。现在我们需要添加对 _.scss_ 格式的支持。
 
 ```shell
 npm install node-sass sass-loader --save-dev
@@ -604,7 +604,7 @@ module.exports = {
 npm install html-webpack-plugin --save-dev
 ```
 或者
-```sh
+```shell
 yarn add html-webpack-plugin --dev
 ```
 
@@ -750,11 +750,11 @@ module.exports = {
 </html>
 ```
 
-这样的语法将会为您的 HTML 模版注入带有哈希值的文件。这是此问题后实现的新功能：
+这样的语法将会为您的 HTML 模版注入带有哈希值的文件。这是下面问题被解决后实现的新功能：
 
 - [**Support for .css and .manifest files and cache busting by jantimon · Pull Request #14**](https://github.com/jantimon/html-webpack-plugin/pull/14 "https://github.com/jantimon/html-webpack-plugin/pull/14")
 
-我们将使用在那里描述的 **htmlWebpackPlugin.files.chunks.main** 。 查看我们在 **_./dist_** 下的文件 **index.html**。
+我们将使用在 HTML 模板中描述的 **htmlWebpackPlugin.files.chunks.main** 。 查看我们在 **_./dist_** 下的文件 **index.html**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*eAcjaMGzriv946f1lI3-Hw.png)
 
@@ -799,13 +799,13 @@ console.log("Hello, world 2");
 
 #### 解决方案 1
 
-可能还存在一些冲突，所以**现在我们试试** [**mini-css-extract plugin**](https://github.com/webpack-contrib/mini-css-extract-plugin)**.**
+可能还存在一些冲突，所以**现在我们试试 [mini-css-extract plugin](https://github.com/webpack-contrib/mini-css-extract-plugin) 。**
 
 #### 解决方案 2
 
-在 _.css_ 提取插件上用 **[hash]** 替换 **[chunkhash]** 。这是[问题](https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/763)的解决方案之一。 这似乎与 webpack 4.3 产生了冲突，后者引入了[自己](https://github.com/webpack/webpack/releases/tag/v4.3.0)的 `[contenthash]` 变量。结合使用此插件：[**webpack-md5-hash**](https://www.npmjs.com/package/webpack-md5-hash) **(请参阅下文).**
+在 _.css_ 提取插件上用 **[hash]** 替换 **[chunkhash]** 。这是[上述问题](https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/763)的解决方案之一。 这似乎与 Webpack 4.3 产生了冲突，后者引入了[Webpack 自己](https://github.com/webpack/webpack/releases/tag/v4.3.0)的 `[contenthash]` 变量。结合使用此插件：[**webpack-md5-hash**](https://www.npmjs.com/package/webpack-md5-hash) **(请参阅下文)。**
 
-现在让我们测试一下 _.js_ 文件：两个文件都改变了哈希值。
+现在让我们测试一下 _.js_ 文件：两个文件的哈希值都改变了。
 
 ### JS Hash 的问题以及解决方案
 
@@ -961,7 +961,7 @@ use:  ['style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loade
 ```
 加载器将从后向前应用插件。
 
-您可以通过向 .scss 文件添加更多代码并检查输出来测试 [**autoprefixer**](https://github.com/postcss/autoprefixer)。还有一种方法可以通过在 _.browserslistrc_ 文件中指定要支持的浏览器来修复输出。
+您可以通过向 .scss 文件添加更多代码并检查输出来测试 [**autoprefixer**](https://github.com/postcss/autoprefixer) 。还有一种方法可以通过在 _.browserslistrc_ 文件中指定要支持的浏览器来修复输出。
 
 我将引导您到 [https://www.postcss.parts/](https://www.postcss.parts/) 探索可用于 PostCSS 的插件，例如：
 
