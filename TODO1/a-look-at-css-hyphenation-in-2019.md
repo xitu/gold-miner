@@ -2,8 +2,8 @@
 > * 原文作者：[Michael Scharnagl](http://twitter.com/justmarkup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-look-at-css-hyphenation-in-2019.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-look-at-css-hyphenation-in-2019.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
+> * 校对者：[Mcskiller](https://github.com/Mcskiller)
 
 # 2019 CSS 新属性“连字符”初探
 
@@ -13,7 +13,7 @@
 
 ## 浏览器支持情况
 
-浏览器对 [CSS 连字符样式](https://caniuse.com/#feat=css-hyphens) 支持的非常好。您应该记住，虽然它适用于 Mac 和 Android 平台上基于 Chromium 的浏览器，但它在 [Windows 和 Linux](https://bugs.chromium.org/p/chromium/issues/detail?id=652964) 上暂时不起作用（至少在2019年1月之前），并且它在 Opera Mini 和其他一些移动浏览器（Blackberry 浏览器，IE 移动设备......）中也不起作用，但整体支持是可靠的。
+浏览器对 [CSS 连字符样式](https://caniuse.com/#feat=css-hyphens) 支持的非常好。您应该记住，虽然它适用于 Mac 和 Android 平台上基于 Chromium 的浏览器，但它在 [Windows 和 Linux](https://bugs.chromium.org/p/chromium/issues/detail?id=652964) 上暂时不起作用（至少在2019年1月之前），并且它在 Opera Mini 和其他一些移动浏览器（Blackberry 浏览器，IE 移动设备...）中也不起作用，但整体支持是可靠的。
 
 ## 使用 CSS 连字符
 
@@ -62,7 +62,7 @@ hyphenate-limit-chars: 10 4 4;
 
 特别提醒：基于 Webkit 的浏览器（Safari）支持 -webkit-hyphenate-limit-before、-webkit-hyphenate-limit-after 和 -webkit-hyphenate-limit-lines [properties](https://github.com/WebKit/webkit/blob/master/LayoutTests/fast/text/hyphenate-limit-before-after.html)，它还允许您定义最小长度和分割之前和之后的最小字符数。
 
-正如你所看到的那样，支持 CSS Hyphenation 在2019年是非常有希望的。对我来说唯一的问题是缺乏对 hyphenate-limit-chars 属性的支持，当有足够的用户或者开发者要求时，它有望在将来变得更好。
+正如你所看到的那样，支持 CSS Hyphenation 在 2019年是非常有希望的。对我来说唯一的问题是缺乏对 hyphenate-limit-chars 属性的支持，当有足够的用户或者开发者要求时，它有望在将来变得更好。
 
 2018年1月18日更新：添加了 [Alexander Rutz](https://twitter.com/petitsanimaux/status/1089841643195383814) 和 [Jiminy Panoz](https://twitter.com/JiminyPan/status/1089841172040876032) 所述的有关 webkit 的浏览器的类似属性的信息。
 
