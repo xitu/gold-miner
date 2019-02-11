@@ -2,141 +2,141 @@
 > * 原文作者：[Tim Severien](https://www.sitepoint.com/author/tseverien/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/yarn-vs-npm-everything-you-need-to-know.md](https://github.com/xitu/gold-miner/blob/master/TODO1/yarn-vs-npm-everything-you-need-to-know.md)
-> * 译者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
 > * 校对者：
 
-# Yarn vs npm: Everything You Need to Know
+# 关于 Yarn 和 npm 你所需要知道的一切
 
-Yarn is a new JavaScript package manager built by Facebook, Google, Exponent and Tilde. As can be read in the [official announcement](https://code.facebook.com/posts/1840075619545360), its purpose is to solve a handful of problems that these teams faced with npm, namely:
+Yarn 是一个由 Facebook，Google，Exponent 和 Tilde 构建的新的 JavaScript 包管理器。正如[官方公告](https://code.facebook.com/posts/1840075619545360)所写，它的目标就是解决这些团队使用 npm 的时候所遇到的几个问题，即：
 
-*   installing packages wasn’t fast/consistent enough, and
-*   there were security concerns, as npm allows packages to run code on installation.
+*   安装包不够快速和稳定，以及
+*   存在安全隐患，因为 npm 允许包在安装的时候运行代码
 
-But, don’t be alarmed! This is not an attempt to replace npm completely. Yarn is only a new CLI client that fetches modules from the npm registry. Nothing about the registry itself will change — you’ll still be able to fetch and publish packages as normal.
+但是，不必慌张！它并不是想要完全替代 npm。Yarn 仅仅是一个新的能够从 npm 注册处获取到模块的 CLI 客户端。 
 
-Should everyone jump aboard the Yarn hype train now? Chances are you never encountered these problems with npm. In this article, we’re going to compare npm and Yarn, so you can decide which is best for you.
+应该每个人都现在就登上 Yarn 这辆快车吗？可能你在使用 npm 的时候你从没遇到过这些问题。在这篇文章中，我们将会比对 npm 和 Yarn，所以你就能够决定哪个对你来说是最好的。
 
-![Yarn logo](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/10/1476870188yarn.jpg)
+![Yarn 标志](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/10/1476870188yarn.jpg)
 
-## Yarn vs npm: Functional Differences
+## Yarn 和 npm：功能差异
 
-At a first glance Yarn and npm appear similar. As we peek under the hood though, we realize what makes Yarn different.
+初看 Yarn 和 npm，它们很相似。但正如我们深入了解所知，Yarn 和 npm 是有所区别的。
 
-### The yarn.lock File
+### yarn.lock 文件
 
-In `package.json`, the file where both npm and Yarn keep track of the project’s dependencies, version numbers aren’t always exact. Instead, you can define a range of versions. This way you can choose a specific major and minor version of a package, but allow npm to install the latest patch that might fix some bugs.
+`package.json` 文件中有 npm 和 Yarn 追踪项目依赖的信息，版本号并不总是确切的。但是，你可以定义版本的范围。这样你可以选择包的最高和最低版本，但是允许 npm 安装最新的布丁，来修复一些 bug。
 
-In an ideal world of [semantic versioning](http://semver.org/), patched releases won’t include any breaking changes. This, unfortunately, is not always true. The strategy employed by npm may result into two machines with the same `package.json` file, having different versions of a package installed, possibly introducing bugs.
+在 [语义版本控制](http://semver.org/) 的理想世界里，发布的补丁不应该包括任何实质性的修改。但是很不幸，这并不总是事实。npm 的策略可能会导致两台设备使用同样的 `package.json` 文件，但安装了不同版本的包，这可能导致故障。
 
-To avoid package version mis-matches, an exact installed version is pinned down in a lock file. Every time a module is added, Yarn creates (or updates) a `yarn.lock` file. This way you can guarantee another machine installs the exact same package, while still having a range of allowed versions defined in `package.json`.
+为了避免包版本的错误匹配，在锁定文件中需要固定安装的确切版本。每次添加模块，Yarn 会创建（或更新）一个 `yarn.lock` 文件。这样你就能保证在 `package.json` 文件中定义一个可选版本范围的同时，其他设备都安装一样的包。
 
-In npm, the `npm shrinkwrap` command generates a lock file as well, and `npm install` reads that file before reading `package.json`, much like how Yarn reads `yarn.lock` first. The important difference here is that Yarn always creates and updates `yarn.lock`, while npm doesn’t create one by default and only updates `npm-shrinkwrap.json` when it exists.
+在 npm 命令中，`npm shrinkwrap` 同样可以生成一个锁定文件，并且 `npm install` 在读取 `package.json` 之前会先读这个锁文件，和 Yarn 会首先读取 `yarn.lock` 的方式类似。最关键的区别是，Yarn 一定会创建并更新 `yarn.lock`，但是 npm 默认不会创建，并且只会当文件 `npm-shrinkwrap.json` 存在时更新它。
 
-1.  [yarn.lock documentation](https://yarnpkg.com/en/docs/configuration#toc-use-yarn-lock-to-pin-your-dependencies)
-2.  [npm shrinkwrap documentation](https://docs.npmjs.com/cli/shrinkwrap)
+1.  [yarn.lock 文档](https://yarnpkg.com/en/docs/configuration#toc-use-yarn-lock-to-pin-your-dependencies)
+2.  [npm shrinkwrap 文档](https://docs.npmjs.com/cli/shrinkwrap)
 
-### Parallel Installation
+### 并行安装
 
-Whenever npm or Yarn needs to install a package, it carries out a series of tasks. In npm, these tasks are executed per package and sequentially, meaning it will wait for a package to be fully installed before moving on to the next. Yarn executes these tasks in parallel, increasing performance.
+无论何时 npm 或者 Yarn 需要安装包，都会产出一系列的任务。使用 npm 时，这些任务按包顺序执行，也就是只有当一个包全部安装完成后，才会安装下一个。Yarn 则是并行执行任务，提高了性能。
 
-For comparison, I installed the [express](https://www.npmjs.com/package/express) package using both npm and Yarn without a shrinkwrap/lock file and with a clean cache. This installs 42 packages in total.
+对比来说，我同时使用 npm 和 Yarn 安装了包 [express](https://www.npmjs.com/package/express)，它们都没有 shrinkwrap 或者 lock 文件也没有缓存。这次安装一共包括 42 个包。
 
 propertag.cmd.push(function() { proper_display('sitepoint_content_1'); });
 
-*   npm: 9 seconds
-*   Yarn: 1.37 seconds
+*   npm：9 秒
+*   Yarn：1.37 秒
 
-I couldn’t believe my eyes. Repeating the steps yielded similar results. I then installed the [gulp](https://www.npmjs.com/package/gulp) package, resulting in 195 dependencies.
+我简直不敢相信我的眼睛。重复这个步骤的结果是相似的。然后我安装了包 [gulp](https://www.npmjs.com/package/gulp)，共下载 195 个依赖包。
 
-*   npm: 11 seconds
-*   Yarn: 7.81 seconds
+*   npm：11 秒
+*   Yarn：7.81 秒
 
-It seems the difference closely depends on the amount of packages that are being installed. Either way, Yarn is consistently faster.
+看起来，下载时间的差异很大程度取决于安装的软件包的数量。但是无论那种，Yarn 都更快。
 
-### Cleaner Output
+### 更清晰的输出
 
-By default npm is very verbose. For example, it recursively lists all installed packages when running `npm install <package>`. Yarn on the other hand, isn’t verbose at all. When details can be obtained via other commands, it lists significantly less information with appropriate emojis (unless you’re on Windows).
+npm 的输出默认就很详细。例如，当运行 `npm install <package>` 的时候，它将会递归的列出所有安装了的包。而另一方面，Yarn 就很简略。它只列出很少的重要信息并配合适当的 emojis（除非你用的是 Windows 系统），而详细信息可以通过其他命令获取。
 
-![The output of the "yarn install" command](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/10/1476651912yarn-install-output.png)
+![“yarn install” 命令的输出](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/10/1476651912yarn-install-output.png)
 
-## Yarn vs npm: CLI Differences
+## Yarn 和 npm：CLI 的区别
 
-Other than some functional differences, Yarn also has different commands. Some npm commands were removed, others modified and a couple of interesting commands were added.
+除了功能上的区别，Yarn 还有一些不同的命令。去掉了一些 npm 的命令，其他的也做了修改，另外还有添加了一些有意思的命令。
 
-### yarn global
+### 全局 yarn
 
-Unlike npm, where global operations are performed using the `-g` or `--global` flag, Yarn commands need to be prefixed with `global`. Just like npm, project-specific dependencies shouldn’t need to be installed globally.
+和 npm 在全局安装操作时需要使用 `-g` 或者 `--global` 标志不同，Yarn 命令需要用 `global` 作为前缀。和 npm 一样，具体项目的依赖性不应该全局安装。
 
-The `global` prefix only works for `yarn add`, `yarn bin`, `yarn ls` and `yarn remove`. With the exception of `yarn add`, these commands are identical to their npm equivalent.
+`global` 前缀仅适用于 `yarn add`，`yarn bin`，`yarn ls` 和 `yarn remove`。除了 `yarn add`，这些命令都和 npm 命令一样。
 
-1.  [yarn global documentation](https://yarnpkg.com/en/docs/cli/global)
+1.  [yarn global 文档](https://yarnpkg.com/en/docs/cli/global)
 
-### yarn install
+### yarn 安装
 
-The `npm install` command will install dependencies from the `package.json` file and allows you to add new packages. `yarn install` only installs the dependencies listed in `yarn.lock` or `package.json`, in that order.
+`npm install` 命令将会依照 `package.json` 文件安装依赖，并且允许你添加新的包。`yarn install` 仅下载 `yarn.lock` 列出的依赖，如果没有该文件，则下载 `package.json` 列出的。
 
-1.  [yarn install documentation](https://yarnpkg.com/en/docs/cli/install)
-2.  [npm install documentation](https://docs.npmjs.com/cli/install)
+1.  [yarn install 文档](https://yarnpkg.com/en/docs/cli/install)
+2.  [npm install 文档](https://docs.npmjs.com/cli/install)
 
 ### yarn add [–dev]
 
-Similar to `npm install <package>`, `yarn add <package>` allows you to add and install a dependency. As the name of the command implies, it adds a dependency, meaning it automatically saves a reference to the package in the `package.json` file, just as npm’s `--save` flag does. Yarn’s `--dev` flag adds the package as a developer dependency, like npm’s `--save-dev` flag.
+和 `npm install <package>` 类似，`yarn add <package>` 让你能添加并安装依赖。正如命令名的字面义，它能添加依赖，同时意味着它将自动的把包的引用添加到 `package.json` 文件中，和 npm 的 `--save` 标志一样。Yarn 的 `--dev` 标志会把包作为开发模式的依赖，和 npm 的 `--save-dev` 标志一样。
 
-1.  [yarn add documentation](https://yarnpkg.com/en/docs/cli/add)
-2.  [npm install documentation](https://docs.npmjs.com/cli/install)
+1.  [yarn add 文档](https://yarnpkg.com/en/docs/cli/add)
+2.  [npm install 文档](https://docs.npmjs.com/cli/install)
 
 ### yarn licenses [ls|generate-disclaimer]
 
-At the time of writing, no npm equivalent is available. `yarn licenses ls` lists the licenses of all installed packages. `yarn licenses generate-disclaimer` generates a disclaimer containing the contents of all licenses of all packages. Some licenses state that you must include the project’s license in your project, making this a rather useful tool to do that.
+在写本篇文章的时候，没有等价的可用的 npm 命令。`yarn licenses ls` 能够列出所有安装包的许可协议。`yarn licenses generate-disclaimer` 能生成包括所有包的所有许可协议的免责声明。一些许可协议声明了你必须在你的项目中包含该项目协议，此时该命令就是一个很有用的工具了。
 
-1.  [yarn licenses documentation](https://yarnpkg.com/en/docs/cli/licenses)
+1.  [yarn licenses 文档](https://yarnpkg.com/en/docs/cli/licenses)
 
 ### yarn why
 
-This command peeks into the dependency graph and figures out why given package is installed in your project. Perhaps you explicitly added it, perhaps it’s a dependency of a package you installed. `yarn why` helps you figure that out.
+这个命令能够分析依赖图然后找出为什么指定的包会被安装到你的项目中。也许是你明确指定安装它的，或许它是你安装的包的依赖之一。`yarn why` 将帮助你查明原因。
 
-1.  [yarn why documentation](https://yarnpkg.com/en/docs/cli/why)
+1.  [yarn why 文档](https://yarnpkg.com/en/docs/cli/why)
 
 ### yarn upgrade [package]
 
-This command upgrades packages to the latest version conforming to the version rules set in `package.json` and recreates `yarn.lock`. This is similar to `npm update`.
+这个命令将更新包到符合 `package.json` 设定规则的最新的版本，并重新创建 `yarn.lock` 文件。它和 `npm update` 类似。
 
-Interestingly, when specifying a package, it updates that package to latest release and updates the tag defined in `package.json`. This means this command might update packages to a new major release.
+有趣的是，当指定包的时候，它将会将这个包更新到最新版并更新 `package.json` 中定义的标签。这意味着这个命令可能将包更新到一个新的 major 发布。
 
-1.  [yarn upgrade documentation](https://yarnpkg.com/en/docs/cli/upgrade)
+1.  [yarn upgrade 文档](https://yarnpkg.com/en/docs/cli/upgrade)
 
 ### yarn generate-lock-entry
 
-The `yarn generate-lock-entry` command generates a `yarn.lock` file based on the dependencies set in `package.json`. This is similar to `npm shrinkwrap`. This command should be used with caution, as the lock file is generated and updated automatically when adding and upgrading dependencies via `yarn add` and `yarn upgrade`.
+`yarn generate-lock-entry` 命令将生成一个 `yarn.lock` 文件，它是基于 `package.json` 中的依赖设定的。这和 `npm shrinkwrap` 很类似。使用这个命令要谨慎，因为它将生成锁定文件，并且当你通过 `yarn add` 和 `yarn upgrade` 更新依赖的时候，它会自动更新。
 
-1.  [yarn generate-lock-entry documentation](https://yarnpkg.com/en/docs/cli/generate-lock-entry)
-2.  [npm shrinkwrap documentation](https://docs.npmjs.com/cli/shrinkwrap)
+1.  [yarn generate-lock-entry 文档](https://yarnpkg.com/en/docs/cli/generate-lock-entry)
+2.  [npm shrinkwrap 文档](https://docs.npmjs.com/cli/shrinkwrap)
 
-## Stability and Reliability
+## 稳定性和可靠性
 
-Could the Yarn hype train become derailed? It did receive a lot of [issue reports](https://github.com/yarnpkg/yarn/issues) the first day it was released into the public, but the rate of resolved issues is also astounding. Both indicate that the community is working hard to find and remove bugs. Looking at the number and type of issues, Yarn appears stable for most users, but might not yet be suitable for edge cases.
+Yarn 的快车可能脱轨吗？在发布的第一天，它确实收到了很多[问题反馈](https://github.com/yarnpkg/yarn/issues)，但是解决问题的比率同样惊人。这都意味着社区在努力寻找并解决问题。看看这些问题的数量和种类后我们知道，Yarn 对于大多数用户都是更加稳定的，但是对于一些边缘情况，可能就不太适合了。
 
-Note that although a package manager is probably vital for your project, it is just a package manager. If something goes wrong, reinstalling packages shouldn’t be difficult, and nor is reverting back to npm.
+注意，尽管可能包管理对于你的项目非常重要，它也仅仅是一个包管理器。如果真的有什么问题出现了，重装包并不难，切回使用 npm 也不难。
 
-## The Future
+## 展望将来
 
-Perhaps you’re aware of the history between Node.js and io.js. To recap: io.js was a fork of Node.js, created by some core contributors after some disagreement over the project’s governance. Instead, io.js chose an open governance. In less than a year, both teams came to an agreement, io.js was merged back into Node.js, and the former was discontinued. Regardless of the rights or wrongs, this introduced a lot of great features into Node.js.
+也许你知道 Node.js 和 io.js 的历史。概括的说，io.js 是 Node.js 的一个分叉，由于 Node.js 项目的管理出现了分歧，一些核心贡献者就创建了 io.js。但是，io.js 选择了开源。不到一年的时间，两个团队又达成了一致，于是 io.js 又合并回了 Node.js，io.js 的研发也就不再进行了。忽略对与错，这件事的结果是为 Node.js 引入了很多很棒的功能。
 
-I’m seeing similar patterns with npm and Yarn. Although Yarn isn’t a fork, it improves several flaws npm has. Wouldn’t it be cool if npm learned from this and asked Facebook, Google and the other Yarn contributors to help improve npm instead? Although it is way too early to say if this will happen, I hope it will.
+我现在在 npm 和 Yarn 上看到了类似的模式。尽管 Yarn 不是一个分叉，但是它改进了数个 npm 的漏洞。如果 npm 从中学习，并要求 Facebook，Google 以及其他 Yarn 贡献者转而帮助 npm 优化，这不是很好的事情吗？尽管现在这样说有些早了，但是我希望如此。
 
-Either way, Yarn’s future looks bright. The community appears excited and is receiving this new package manager well. Unfortunately, no road map is available, so I am not sure what surprises Yarn has in store for us.
+不管怎样，Yarn 的未来都是光明的。这个新的包管理器的出现让社区里的人都感到很兴奋，并且人们也渐渐接受了它。不幸的是，它没有任何规划说明，所以我也不知道 Yarn 会给我们准备什么惊喜。
 
-## Conclusion
+## 总结
 
-Yarn scores points with way better defaults compared to npm. We get a lockfile for free, installing packages is blazing fast and they are automatically stored in `package.json`. The impact of installing and using Yarn is also minimal. You can try it on just one project, and see if it works for you or not. This makes Yarn a perfect drop-in substitute for npm.
+和 npm 相比，Yarn 的评分更高。我们可以自由的获取锁定文件，安装包的速度也惊人的快，而且它们会被自动的保存到 `package.json`。安装并使用 Yarn 的缺点也很少。你可以先在一个项目中试用它，看看是否适合于你。这样，Yarn 就成为了 npm 一个替代品。
 
 propertag.cmd.push(function() { proper_display('sitepoint_content_2'); });
 
-I would definitely recommend trying Yarn on a single project sooner or later. If you are cautious about installing and using new software, give it a couple of months. After all, npm is battle-tested, and that is definitely worth something in the world of software development.
+我强烈推荐你在一个项目中试试看 Yarn。如果你对于安装和使用新的软件很谨慎，也请给它几个月的时间。毕竟，npm 是经过实战检验的，这在软件开发的世界中，绝对值得。
 
-If you happen to find yourself waiting for npm to finish installing packages, that might be the perfect moment to read the [migration guide](https://yarnpkg.com/en/docs/migrating-from-npm) ;)
+如果你正巧在等着 npm 安装包，也许正好可以读一读[迁移到 Yarn 的指南](https://yarnpkg.com/en/docs/migrating-from-npm) ;)
 
-What do you think? Are you using Yarn already? Are you willing to give it a try? Or is this just contributing to the further fragmentation of an already fragmented ecosystem? Let me know in the comments below.
+你怎么想？你已经在使用 Yarn 了吗？你愿意尝试吗？或者你认为这仅会导致一个已经很分散的生态圈的进一步分裂？请在评论区写下你的看法。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
