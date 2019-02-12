@@ -5,7 +5,7 @@
 > * 译者：[JerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
 > * 校对者：
 
-# 如何利用 Webpack4 为你的 React.js 开发提速
+# 如何利用 Webpack4 提升你的 React.js 开发效率
 
 ![](https://cdn-images-1.medium.com/max/2600/1*NLzcqb-jEMHg9K5Ov0oAyw.jpeg)
 
