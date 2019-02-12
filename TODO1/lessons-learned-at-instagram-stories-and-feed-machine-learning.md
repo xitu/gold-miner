@@ -2,124 +2,124 @@
 > * 原文作者：[Thomas Bredillet](https://instagram-engineering.com/@thomasbredillet)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lessons-learned-at-instagram-stories-and-feed-machine-learning.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lessons-learned-at-instagram-stories-and-feed-machine-learning.md)
-> * 译者：
+> * 译者：[TrWestdoor](https://github.com/TrWestdoor)
 > * 校对者：
 
-# Lessons Learned at Instagram Stories and Feed Machine Learning
+# 从 Instagram 上的故事和反馈机器学习中的一些经验
 
-Instagram machine learning has grown a lot since we announced Feed ranking back in 2016. Our recommender system serves over 1 billion users on a regular basis. We also now use machine learning for more than just ranking Feed and Stories: we source and recommend posts from Hashtags you follow, blend in different types of content together, and power intelligent app prefetching.
+自从我们在 2016 年宣布反馈排名以来，Instagram 机器学习有了显著的提高。我们的推荐系统定期为超过 10 亿的用户提供服务。我们现在也使用机器学习不仅仅为 feed 和 story 进行排名：我们从您关注的标签中收集并推荐文章，将不同类型的内容混合在一起，并为智能 app 预取提供动力。
 
-All of the different ways Instagram uses machine learning deserves its own post, but we want to discuss a few lessons we’ve learned along the way of building our ML pipeline.
+所有 Instagram 使用的不同机器学习方法都取决于它自己的文章，但是我们想要讨论一些在建立我们的机器学习管道时学到的一些经验。
 
-#### Modeling Choices
+#### 模型选择
 
-We made a few decisions for how we do modeling that have been beneficial to us either by improving our models’ predictive power and providing top line improvements or by maintaining the accuracy and lowering our memory consumption.
+我们在这里做一些简单的讨论，关于我们怎样建模有利于我们要么可以提高模型的预测力和提供一线改进，要么可以在维持精度的情况下降低我们的内存消耗。
 
-First off we went with [caffe2](https://caffe2.ai/) as our general modeling framework, meaning we write and design our models through that platform. Caffe2 is significantly more optimized for our workflows than other options, and it gives us the most headroom with model weight per CPU cycle at inference time. “Stack Footprint” is an important metric for the ML team because we use several CPU intensive statistical techniques in our networks (pooling, etc).
+首先我们选择 [caffe2](https://caffe2.ai/) 作为我们的模型框架，这意味着我们写和设计我们的模型都在这个平台上。相比于其它选项，Caffe2 对我们的工作流提供了明显的优化，并且它给我们提供了在推理时每个 CPU 周期的模型权重最大空间。“堆栈占用”在机器学习团队中是一个很重要的方法，因为我们在网络中使用了多个 CPU 密集型统计技术（池，等）。
 
-We also use models with ranking losses and point-wise models (log loss for example). This gives us more control in our final value function so we can fine-tune trade offs between our key engagement metrics.
+我们也使用排序损失模型和 point-wise 模型（例如对数损失）。这给了我们更多在控制决策在我们最终的价值函数中，所以我们可以细粒度的来调节我们的关键参与度量之间的平衡。
 
-In terms of core machine learning, we saw some very good accuracy wins by taking into account position bias in our model. We added a sparse position feature to our last fully connected layer to avoid confusing the model too much. In general, co-learning sparse embeddings is another impactful area for us, that comes in many flavors to properly capture our users’ interests.
+ 在核心机器学习中，通过考虑我们模型中的位置偏差，我们可以看到一些非常好的精度表现。我们在最后的全连接层添加了一个稀疏位置特征，以此避免过多的影响模型。一般来说，共同学习稀疏嵌入是影响我们的另外一个领域，它有许多风格来丰富地捕捉用户的兴趣。
 
-We tune our final value function regularly by fitting a Gaussian Process to learn the effect of the value functions’ parameters on our top line metrics measured through series of A/B tests.
+我们通过拟合高斯过程学习价值函数中参数的影响来精调最终的价值函数，这个过程部署在我们的一线方法上并通过一系列 A/B 测试来测量。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*gkKF0o5RqOubUXvJgAK83Q.png)
 
-Figure 1: Example of a typical model architecture we’d be using for prediction
+图 1：一个我们用来进行预测的经典模型结构的例子
 
-#### Data Freshness and Trends
+#### 数据新鲜度和趋势
 
-Our users’ habits change over time. Similarly, the ecosystem is subject to trend effects (during seasonal events such as the Superbowl). Because of this, data freshness is important. Stale models cannot capture changes in user behavior or understand new trends.
+我们的用户的兴趣在随着时间变化。相似的，生态系统受到趋势的影响（在诸如超级碗的这种季节性事件中）。正因为如此，数据新鲜度是很重要的。陈旧的模型不能捕捉到用户行为的变化或者理解新的趋势。
 
-Quantifying the effects of data freshness was helpful to us. We monitor the drift in KL-divergences between key behavioral distributions to inform us of the “staleness” of our pipeline.
+量化数据新鲜度的影响对我们是有帮助的。我们监测关键行为分布之间的 KL-散度偏移，来告知我们的通道的“不稳定性”。
 
-One way to keep our models fresh is to have online learning models or at least some periodic training. In this setting, one of our biggest challenges was coming up with a reasonable adaptive learning rate strategy since we want new examples to still matter in gradient updates (even for models that have been training on months of data).
+保持我们的模型新鲜的一个方法是有一个在线学习模型或者至少进行周期性的训练。这个这个设定中，一个最大的挑战是提出一个合理的自适应学习率策略，因为我们想新的例子在梯度更新中仍然重要（即使对那些已经在数月的数据上进行了训练的模型）。
 
-#### Novelty Effects
+#### 新颖效应
 
-Novelty effect are another hard problem that we face. We frequently run A/B tests where the treatment arm shows positive engagement for the early days and slowly trends down to neutral.
+新颖效应是我们面临的另外一个严峻的问题。我们经常进行 A/B 测试，在早期对照组表现出正向的作用，并且逐渐趋于中性。
 
-On one hand it’s actually quite telling that subtle changes can temporarily drive engagement. We believe it stems from the fact that long running models tend to “exploit” too much and those tests bring some new areas of exploration.
+一方面，它实际上清楚一些微小的变化可以暂时推动参与。我们相信事实上，长期运行模型会倾向于“挖掘”的过多，并且这些测试带来了一些新的探索领域。
 
-The time scale of these effects are also interesting. We’ve seen changes that would take over a month to plateau (with engagement trending up or down).
+这些效应的时间尺度也很有趣。我们已经看到那些变化在持续一个多月后才趋于平稳（参与度呈上升或下降趋势）。
 
-On the other hand, we learned the hard way that novelty effects can be subtle and should be carefully controlled while launching new experiences that may be effected. We recently had a rather serious post-mortem where two experiments prone to novelty effects interacted together very poorly in the few hours after launch.
+另一方面， 我们学习到了一种很难的方法，即新颖效应可以是微妙的，并且应该在启动新的可能被影响的体验时被小心的控制。我们最近进行了一个严重的事后分析，在启动后的几个小时内，两个容易产生新奇效应的实验相互作用非常差。
 
-While it isn’t perfect, we now have some modeling that can predict the magnitude and the length of novelty-prone experiments. With this we can iterate faster by mitigating risk and terminating tests earlier.
+虽然这并不完美，我们现在有了一些模型可以预测容易新颖的实验的数量和长度。借此我们可以通过减缓风险和提前终止测试来更快的进行迭代。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*99xykWyce5eGX5h6ha9dJA.jpeg)
 
-Figure 2: Novelty effects seen on one of the A/B tests we’ve been running
+图 2：在我们运行的 A/B 测试之一上观察新颖性
 
-#### Experimentation (A/B) Small Effects
+#### 实验（A/B）小影响
 
-There are many different complexities with large scale ML and A/B testing. Besides the novelty effects mentioned above, we also face statistical problems. Imagine having 10 ranking engineers each launching a new test _everyday_: it’s quite likely that several of those tests improve engagement metrics with statistical significance!
+有一些不同复杂性的大规模机器学习和 A/B 测试。除了上述提到的新颖性之外，我们也面临统计问题。想象一下有 10 个排名工程师每人启动一个新的测试**everyday**：很有可能这其中的一些测试提高了参与度指标，这很有统计意义。
 
-On top of that, some of those experiments may only target specific cohorts of users, and the measured effects aren’t necessarily as important on the overall population. This makes the test results even harder to assess.
+最重要的是，这些实验中的一些可能只是为了一些特定目标的用户，因此这个测量结果不是对所有用户起到同样的重要性的。这就使得测试结果很难评估。
 
-Our current set of best practices try to make sensible trade offs between engineer iteration speed and our confidence interval in the changes we launch. These best practices require strict replication on increasingly larger population of users before we approve an A/B test for production.
+我们当前的最佳实践是在工程师的迭代速度和我们启动的变化置信区间之间做出权衡。在我们批准进行 A/B 测试之前，这些最佳实践需要在大量用户中进行严格的复制。
 
-#### Learnings-as-Impact and Scientific Method
+#### 学习作为影响和科学方法
 
-Machine learning is a stochastic process by definition. When we do performance reviews, our engineers and researchers are calibrated against traditional software engineers working on less volatile projects. It is entirely possible to do all the right things but to come up short in terms of bottom line metrics.
+机器学习是一种随机过程。 当我们进行性能评估时，我们的工程师和科研人员根据在稳定项目上的传统软件工程师来进行校准。做所有正确的事情都是有可能的，但是在底线方法方面会让人失望。
 
-At Instagram, we are keen to stick to the scientific method for our experimentations. Even if an A/B test doesn’t directly result in a launch, we can often leverage it to provide interesting product insights in the future.
+在 Instagram 上，我们热衷于坚持科学的实验方法。即使A/B测试不会直接导致产品发布，我们也可以经常利用它在未来提供有趣的产品洞察力。
 
-This also prevents bad scientific patterns of random-walking through the hyper parameters of our pipelines to find some local optima. We now call this pattern “human gradient descent”. With this, we require principled hypothesis to verify before launching a test.
+这也防止了错误的随机游走的科学模式，即通过我们的管道的超参数寻找局部最优的方案。我们现在称这种模式为“人类梯度下降”。有了这一点，我们需要在启动测试之前验证原则假设。
 
-As machine learning engineers, we aren’t just looking to ship features, but we also want to learn. Each experiment has a specific set of outcomes. We’re not random walking.
+作为一个机器学习工程师，我们并非仅仅盯着特征看，我们还想要学习。每个实验都有其特定的输出，我们并不是随机游走。
 
-#### Normalization
+#### 正则化
 
-Blending different types of content is another challenge we faced. For example, a video and a photo have very different distributions for the possible actions. For example you could imagine that “liking” a post and “commenting” on a post or “completing” a video are three actions with very different distributions (likes happen more often than comments, etc.)
+混合不同类型的内容是我们面临的另外一个挑战。例如，一个视频和一张照片有不同可能操作的分布。例如你可以想象“喜欢”一张照片和“评论”一张照片或者“完成”一部视频是三种不同的行为，并且有着不同的分布（如喜欢比评论更常见，等）。
 
-Naively it makes more sense to rank photos with P[Like] (probability of a viewer liking a post) and videos with P[completion] (probability of a viewer viewing more than X% of a video). That puts machine learning engineers in a difficult position when we want to merge the lists to come up with a final ordering for the viewer.
+简单来说，它就像是对照片用 P[喜欢]（一个观众喜欢这个照片的概率）和对视频 P[完成]（一个观众观看一部视频超过其 X% 长度的概率）来进行排序一样。当我们想要合并这个列表来完成对观众的最终排序时，机器学习工程师就处在一个很为难的位置。
 
-We tackled this problem by fitting a mapping from one value function distribution (such as P[Like]) to a reasonably well-behaved distribution such as a Gaussian. In that output space, the lists are now comparable and we can unambiguously say a piece of content is superior to another one.
+我们通过拟合一个映射来解决这个问题，即从一个价值函数分布（如 P[喜欢]）映射到一个合理的分布如高斯分布。在那样的输出空间中，列表现在是可比较的，并且我们可以清楚的说出一部分内容优于另外一部分。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*jgHr3apEde5SFp0IMPOKZA.jpeg)
 
-_Figure 3: Log scores of our value model before normalization, the distribution is very uneven_
+**图 3：我们的价值模型在归一化前的对数分数，分布很不均匀**
 
-#### Iteration Speed — Offline Analysis
+#### 迭代速度 - 离线分析
 
-We were way too late with adding a proper backtesting framework. For very large scale and impactful machine learning systems, engineers and researchers really need to open up the models and understand as precisely as possible the effect their experiment has. It’s very hard to do this without solid tooling. We worked on a replaying tool that takes in whatever new model/ranking configuration you want to test and outputs a panel of useful metrics to understand the overall ecosystem impact that your change may have.
+我们添加适当的后验框架已经太晚了。对非常大规模且有影响的机器学习系统来说，工程师和科研人员真的需要去打开模型并且仔细的理解他们实验产生的效果。在没有可靠的工具下这是很难做到的。我们开发了一个重播工具来接收你想要测试的新模型/排名配置，并且输出一组有用的测量结果来帮助理解你的改变对整个生态系统的影响。
 
-Our goal with this is to reduce as much online experimentation as possible to reduce the risk of exposing users to bad experiences and to speed up our iteration speed.
+我们的目标是尽量减少在线实验，尽可能减少给用户暴露糟糕的实验结果的风险并且加速我们的迭代速度。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*neNMnbd7f7yKWdfs7qBMJw.png)
 
-_Figure 4: Our offline analysis tooling looking at modeling metrics (each dot represents a different trained model)_
+**图 4：我们的离线分析工具在模型指标上的表现（每个点表示了一个不同的训练模型）**
 
-#### Tooling and Infrastructure
+#### 工具和基础设施
 
-All large-scale systems require serious infrastructure, and thankfully at Instagram we have a stellar ML Infrastructure team (they originally built Feed ranking and spun out from it). All model inference, features extraction, training data generation and monitoring is taken care of by their infrastructure.
+所有大规模系统都需要严格的基础设施，幸运的是，在 Instagram 中我们有一个稳定的机器学习基础设施团队（他们最初建立了反馈排名并从其分离出来）。所有模型推理、特征提取、训练数据生成和监控都由其基础设施负责。
 
-Not having to worry about scaling concerns and focussing fully on statistical modeling is one of the most significant efficiency boosts for our engineers. On top of that, the ML infra team create tools that let us dive deep to understand our models better which help us improve our users’ experience.
+不必去担心规模问题，全神贯注于统计模型对我们工程师而言是最有效的提高之一。最重要的是，机器学习基础团队创建了工具让我们更加深入的理解我们的模型，从而帮助我们提高用户体验。
 
-#### Personalization
+#### 个性化
 
-Another beneficial feature is the ability to fine-tune our final value function. This takes our models as input, adds our business logic, and returns a final score per media. _Personalizing_ that value function is both impactful and complex. We chose to to have high level heuristics around cohorts of users who benefit less from our recommendation system and tune the value function specifically for them.
+另外一个有利的特征是精调我们的最终价值函数的能力。将我们的模型作为输入，添加我们的业务逻辑，然后返回每个媒体的最终得分。**个性化**价值函数兼具了有效性和复杂性。我们选择对那些从我们的推荐系统中获益较少的用户群体进行高层次的启发式分析，并专门为他们调整价值函数。
 
-Another personalization strategy that shows promising early results is factoring in some user affinity models. Trying to quantify how much affinity a user may have with other users/types of content helps us tailor and fit our function specifically to our viewers.
+另一个显示早期结果的个性化策略是在一些用户亲和力模型中进行因子分解。试图量化一个用户与其他用户/内容类型之间的亲和力有多大，这有助于我们专门为观众定制和适应我们的功能。
 
-#### Value Modeling
+#### 价值模型
 
-Finally we have our value model: the formulaic description that combines different signals into a score and incorporates our business logic. This is complex code where product heuristics meets statistical predictions.
+最后，我们有了我们的价值模型：公式化描述，它将不同的信号组合成一个分数，并且合并我们的业务逻辑。这是一个复杂的代码，产品启发法满足统计预测。
 
-We’ve seen significant improvements over the years by tuning this value model. We typically use Gaussian processes and Bayesian optimizations to span the space of hyper parameters of the model and find a region that works well for us. There is another article detailing this procedure [here](https://research.fb.com/efficient-tuning-of-online-systems-using-bayesian-optimization/).
+过去这些年通过调整这个价值模型，我们看到了显著的增长。我们经常使用高斯处理和贝叶斯优化来跨越模型的超参数空间，并且找到一个适合我们的区域。有一篇在[这里](https://research.fb.com/efficient-tuning-of-online-systems-using-bayesian-optimization/)详细的描述了这个过程。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*wSOPR-9Q0YclynQAcIShZw.png)
 
-_Figure 5: How we tune our different normalized value models and measure different effect sizes_
+**图 5：我们怎样调节不同的归一化价值模型并且测量不同的影响程度**
 
-### Parting Thoughts
+### 后记
 
-We hope that this summary of our machine learning pipeline and problems we face is helpful. In future posts, we will go in even more depth on some of the issues mentioned above.
+我们希望对我们的机器学习管道和我们面临的问题的总结是有帮助的。在未来的文章中，我们将更深入的讨论上述的一些问题。
 
-Whether we are predicting user actions, building content understanding convolutional neural networks, or creating latent user modes, these lessons help us make fewer mistakes and iterate faster so we can constantly improve ML for everyone on Instagram!
+无论我们是在预测用户行为，构建内容理解卷积神经网络，还是创建潜在的用户模式，这些课程都有助于我们减少错误并更快地迭代，这样我们就可以不断地为Instagram上的每个人改进机器学习！
 
-_If you are excited to apply machine learning to provide value to our global community at scale, we’re always looking for more great talent to_ [_join us_](https://www.instagram.com/about/jobs/)_._
+**如果你很高兴应用机器学习技术为我们的全球化社区提供价值，我们一直在寻找更多优秀的人才来[加入我们](https://www.instagram.com/about/jobs/)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
