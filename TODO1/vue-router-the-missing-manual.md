@@ -2,108 +2,108 @@
 > * 原文作者：[Harshal Patil](https://blog.webf.zone/@mistyHarsh)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/vue-router-the-missing-manual.md](https://github.com/xitu/gold-miner/blob/master/TODO1/vue-router-the-missing-manual.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Sam](https://github.com/xutaogit)
+> * 校对者：[Ranjay](https://github.com/jerryOnlyZRJ), [shixi-li](https://github.com/shixi-li)
 
-# Vue Router — The Missing Manual
+# Vue Router 实战手册
 
 ![](https://cdn-images-1.medium.com/max/2600/1*0rItCaXRjYFvhdhtLahUXw.png)
 
-Beyond DOM manipulations, events handling, forms and components, every Single Page Application (SPA) framework need two core pieces if it is intended to be used for large-scale applications:
+除了 DOM 操作，事件处理，表单和组件之外，每个单页应用程序（SPA）框架如果要用于大型应用程序都需要两个核心部分：
 
-1.  Client-side Routing
-2.  Explicit State Management (often unidirectional)
+1.  客户端路由
+2.  显示状态管理（通常是单向的）
 
-Fortunately, Vue provides **official solutions** for routing as well as state management. In this article, we are going to take a look at [vue-router,](https://router.vuejs.org/) understand router behavior in various scenarios and explore some patterns to write elegant code. It assumes that you already have a decent understanding of vue, vue-router, and SPA in general.
+幸运的是，Vue 为路由和状态管理提供了**官方解决方案**。这篇文章里，我们将要探寻 [vue-router](https://router.vuejs.org/)，以了解路由在诸多场景中的行为表现，并探索一些编写优雅代码的模式。这里假设你已经对 vue，vue-router 和 SPA 有了一个很好的理解。
 
-We will use the following example application with HTML5 routing mode enabled.
+我们将使用下面开启了 HTML5 路由模式的示例应用程序。
 
-#### Routes:
+#### 路由:
 
-1.  List of all the users in a project `/projects/:projectId/users`
-2.  Details view of a single user `/projects/:projectId/users/:userId`
-3.  Profile view of a single user `/projects/:projectId/users/:userId/profile`
-4.  Create a new user `/projects/:projectId/users/new`
+1. 项目中所有用户的列表 `/projects/:projectId/users`
+2. 单个用户的详细信息视图 `/projects/:projectId/users/:userId`
+3. 单个用户的简要信息视图 `/projects/:projectId/users/:userId/profile`
+4. 创建一个新用户 `/projects/:projectId/users/new`
 
-#### Component tree:
+#### 组件树结构：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*tTCwKlFNQiHQaN3QVqKM7Q.png)
 
-Component hierarchy derived from the application routes
+从应用程序路由派生出的组件层次结构
 
 * * *
 
-### 1. Current route object is shared and immutable
+### 1. 当前的路由对象是共享且不可变的
 
-Vue-router injects **current route object** into every component. It is accessible with `this.$route` inside each component. There are two things to note about this object.
+Vue-router 在每一个组件里注入**当前路由对象**。每个组件里可以通过 `this.$route` 访问到。但关于这个对象有两点需要注意的事项。
 
-> Route object is **immutable**.
+> 路由对象是**不可改变的**。
 
-If you navigate to any route using `$router.push()`, `$router.replace()` or a link, then fresh copy of `$route` object is created. Existing object is not modified. Since it is immutable, you **don’t need to** **deep watch** this `$route` object:
+如果你使用 `$router.push()`，`$router.replace()` 或者链接导航到任何路由上，则会创建 `$route` 对象的新副本。已有的（路由）对象是不会被修改的。由于它（路由对象）是不可变的，所以你**不需要设置 deep 属性监听**这个 `$route` 对象：
 
 ```
 Vue.component('app-component', {
     watch: {
         $route: {
              handler() {},
-             deep: true // <-- Not really required
+             deep: true // <-- 并不需要
         }
     }
 });
 ```
 
-> Route object is **shared**.
+> 路由对象是**共享的**。
 
-Immutability brings further advantages. Router internally shares the same instance of `$route` object with all the components. Thus following will work:
+不可变性带来了进一步的优势。路由在所有组件内部共享同一个 `$route` 对象实例。所以下面这些内容都将生效：
 
 ```
-// Parent component
+// 父组件
 Vue.component('app-component', {
     mounted() { window.obj1 = this.$route; }
 });
-// Child component
+// 子组件
 Vue.component('user-list', {
     mounted() { window.obj2 = this.$route; }
 });
-// Once the app is instantiated
-window.obj1 === window.obj2; // <-- This is true
+// 一旦 App 实例化
+window.obj1 === window.obj2; // <-- 返回 true
 ```
 
-### 2. Vue-router is not a state-router
+### 2. Vue-router 不是状态路由
 
-> In theory, **routing is the first level of abstraction** to decompose large web application. State management comes later.
+> 理论上来说，**路由**是分解大型网络应用程序的**第一级抽象**。状态管理更晚一些。
 
-There are two ways to think about decomposing your web application. Either you split your application into series of pages (i.e. each page is split at a URL boundary) or think about your application as a set of well-defined states (Optionally every state has a URL).
+有两种关于分解网络应用程序的思考方式。一种是把应用程序分解成一系列的页面（例如，每个页面都根据 URL 边界进行拆分），另一种是把应用程序理解成已经定义好的一组状态（可选择让每个状态都有一个 URL）。
 
-> With state-router, decompose an application into the **set of states**. With url-router, split an application into the **set of pages**.
+> state-router 会把应用程序拆解成**一组状态**。url-router 会把应用程序拆解成**一组页面**。
 
-Vue-router is a **url-router**. Vue doesn’t have official state-router. People with the Angular background will instantly recognize the difference. State router is different than URL router in ways:
+Vue-router 是 **url-router**。Vue 没有官方 state-router。有 Angular 背景的人员马上会意识到它们的区别。状态路由器相较于 URL 路由器方式的区别：
 
-*   State router works like a state machine
-*   URL is optional for state router
-*   States can be nested
-*   An application is split in a well-defined set of states. instead of pages. A transition from one-state to another can optionally change the URL.
-*   Any complex data can be passed when transitioning from one state to another. With URL router, data to be passed between pages usually becomes part of URL path or query params.
-*   With state router, passed data is lost when a full page refresh happens (unless you use session or local storage). With URL router, it is possible to reconstruct state since most of the passed data is present in the URL.
+*   状态路由器像状态机一样工作。
+*   状态路由器中 URL 是非必要的。
+*   状态是可以嵌套的。
+*   一个应用程序被拆分成一组定义好的状态集合而不是页面。从一个状态转变为另一个状态时可选择性的改变 URL。
+*   当从一个状态转变成另一个状态时可以传递任何复杂的数据。使用 URL 路由器，在页面间传递数据一般是将它作为 URL 地址的一部分或查询参数。
+*   使用状态路由器，当整体页面发生刷新的时候已传递的数据会丢失（除非你使用了 session 或者 local storage）。使用URL路由器，可以重建状态，因为大部分传递的数据都存在于 URL 中。
 
-### 3. Implicit data passing between routes
+### 3. 路由之间传递的隐式数据
 
-Even if not a state-router, you can still pass complex data from one-route to another during transition without making the data part of URL.
+即便不是状态路由器，在转变过程中，你仍然可以把复杂数据从一个路径传递到另一个上，而不用将数据作为 URL 的一部分。
 
-> You can pass hidden data/state when navigating from one route to another with vue-router.
+> 当使用 vue-router 从一个路由导航到另一个路由时，你可以传递隐式数据/状态。
 
-Where is this useful? **Mostly optimization**. Consider the following case:
+这在哪里有用？**主要是优化的时候**。考虑下面的例子：
 
-1.  We have two pages:
-    Details — `/users/:userId`
-    Profile — `/users/:userId/profile`
-2.  On the details page, we make one API call to get user information. Also, a link on this page helps a user navigate to the profile page.
-3.  On a second page, we need to make two API calls —get user information and get user feed.
-4.  The problem here is — I have to make same API call twice when I navigate from details to profile page. An optimal solution is when our user is transitioning from Details view to Profile view, pass already retrieved user data to next route. Additionally, this retrieved data need not be made part of the URL (just like a state router, pass a hidden state)
-5.  If a user directly jumps to profile page by any other means, say, complete page refresh or any other view, then in `created` hook, I can optionally check for data availability.
+1.  我们有两个页面：
+    详情页 —— `/users/:userId`
+    简介页 —— `/users/:userId/profile`
+2.  在详情页面里，我们调起一个 API 请求获取用户信息。并且，页面上有一个链接帮助用户跳转到简介页面。
+3.  第二个页面上，我们需要发起两个 API 请求 —— 获取用户信息和用户概要。
+4.  这里的问题是 —— 当我从详情页面导航到简介页面时做了两次一样的 API 请求。最佳的解决方案是当我们用户从详情视图页转变成简介视图页时，把已检索的用户数据传递给下一个路由。另外，这些已检索的数据不需要作为 URL 的一部分（就像状态路由器一样，传递一个隐式的状态）。
+5.  如果用户通过任何其他方式直接跳转到简介页面，比如整个页面刷新或者从其他视图，那么在 `created` 钩子函数里，我们可以选择检查数据可用性。
 
 ```
-// Inside user-details component
+// 用户详情组件内部
 Vue.component('user-details', {
     methods: {
         onLinkClick() {
@@ -111,21 +111,21 @@ Vue.component('user-details', {
                 name: 'profile',
                 params: { 
                     userId: 123,
-                    userData  // Hidden data/state
+                    userData  // 隐式数据/状态
                 }
             });
         }
     }
 });
 
-// Inside user-profile component
+// 用户简介组件内部
 Vue.component('user-profile', {
     created() {
-        // Accessing piggy-bagged data
+        // 访问附带过来的数据
         if (this.$route.params.userData) {
             this.userData = this.$route.params.userData;
         } else {
-            // Otherwise, make API call to get userData
+            // 不然就发起 API 请求获取用户数据
             this.getUserDetails(this.$route.params.userId)
                 .then(/* handle response */);
         }
@@ -133,11 +133,11 @@ Vue.component('user-profile', {
 });
 ```
 
-_Note: This is possible because_ `$route` _object injected into each component is shared and immutable. Otherwise, it is difficult._
+**注意：能够这样处理是因为 _`$route`_ 对象注入在每个组件中且是共享不可变的。不然很难实现。**
 
-### 4. Navigation guards block Parent component
+### 4. 导航保护阻塞父组件
 
-If you have a nested configuration, then guard on any children may block Parent component from rendering. For example:
+如果你有嵌套配置，那么任何子组件上的保护都有可能阻塞父组件的渲染。例如：
 
 ```
 const ParentComp = Vue.extend({ 
@@ -163,9 +163,9 @@ const ParentComp = Vue.extend({
 }
 ```
 
-If you directly navigate to `/projects/100/users/list`, then due to async guard `beforeEnter`, navigation will be considered **pending** and `ParentComp` will not be rendered. So, if you anticipate seeing `progress-loader` till the guard is resolved, that won’t happen. Same goes for any API calls that you may have triggered from Parent Component.
+如果你直接导航到 `/projects/100/users/list`，那么由于 `beforeEnter` 的异步保护，导航会被当作**等待中（pending）**，并且 `ParentComp` 组件不会被渲染。所以，如果你希望看到`进程加载器（progress-loader）`直到保护解除，这应该是不会发生。对于你可能从父组件发起的任何 API 请求也是如此。
 
-In this scenario, if you wish to show the **Parent** irrespective of child route guard resolution, the solution is to change your component hierarchy and update `progress-loader` logic by some means. If you cannot do that, then you can **use double transition — first navigate to parent and then children** like:
+在这种情况下，如果你希望显示**父级组件**而不顾子级路由的保护策略，解决方案是改变你组件的层级结构并且通过某种方式更新 `进程加载器（progress-loader）`的逻辑。如果你做不到，那么你可以像这样**使用双重传递 —— 先导航到父组件然后再到子组件：**
 
 ```
 goToUserList () {
@@ -174,17 +174,17 @@ goToUserList () {
 }
 ```
 
-> This behavior makes sense. If parent view doesn’t wait for child guard, then it may render parent view for a moment and then navigate somewhere else if the guard fails.
+> 这个行为是有道理的。如果父级视图不等待子级的保护，那么它可能先渲染一会父级视图，然后如果保护失败则导航到其他地方。
 
-> **Note:** In contrast, Angular routing is exactly the opposite. Parent component typically doesn’t wait for any child guard to activate. So which is the right approach? It is neither. At first glance, the approach taken by Angular feels more natural and ordered, but it can easily screw up UX if a developer is not careful.
+> **注意**：相比之下，Angular 的路由是完全相反地。父级组件一般不会等待任何子级保护的触发。那么哪种方案是正确的？都不是。乍看上去，Angular 采取的方法感觉自然而有序，但如果开发者不仔细的话它很容易搞砸用户体验（UX）。
 >
-> With vue-router, routing hierarchy seems a little awkward. But there is less chance for UX damage. Vue implicitly enforces this decision upfront. Also, do not forget the scope provided by vue-router. You can have a global, route-level or in-component guard. You can have a really fine-grained control.
+> 使用 vue-router，渲染层级似乎有点尴尬。但却少有机会破坏用户体验（UX）。Vue 隐含地预先强制执行这项决定。同时，不要忘记 vue-router 提供的作用域。你可以使用全局级别，路由级别或者组件内级别的保护。你会拥有真正细粒度的控制。
 
-Having understood a few concepts around vue-router, it is time to talk about patterns to write elegant code.
+在理解了关于 vue-router 的一些概念之后，是时候讨论关于编写优雅代码的模式了。
 
-### 5. Vue-router is not a trie-based router
+### 5. Vue-router 不是基于前缀（trie-based）的路由器
 
-Vue-router is built on top of [path-to-regexp](https://github.com/pillarjs/path-to-regexp). Express.js routing also uses the same library. URL matching is based on regular expressions. It means you can define your routes as:
+Vue-router 是构建在 [path-to-regexp](https://github.com/pillarjs/path-to-regexp) 之上的。Express.js 路由也是使用相同的库。URL 匹配是基于正则表达式的。这意味着你可以像这样定义你的路由：
 
 ```
 const prefix = `/projects/:projectId/users`;
@@ -203,7 +203,7 @@ const routes = [
     },
 
     {
-        // IS THIS NOT PROBLEMATIC?
+        // 这个不会造成问题吗？
         path: `${prefix}/new`,
         name: 'user-new',
         component: NewUser
@@ -211,7 +211,7 @@ const routes = [
 ];
 ```
 
-The not-so-obvious problem here that path `${prefix}/new` will never be matched as it is defined later in a route list. That is the downside of **RegExp** based routing. More than one routes can match. Of course, it is not a problem for small web applications. Alternately, you can define **routes as a tree**:
+这里不那么明显的问题是路径 `${prefix}/new` 永远不会被匹配，因为它定义在路由列表的最后。这是基于**正则表达式**路由的缺点。不止一个路由会被匹配上（译者注：路径 `${prefix}/:userId` 会覆盖匹配路径 `${prefix}/new`）。当然，这对于小型网络应用程序不是问题。或者，你可以像这样定义**一棵路由树**：
 
 ```
 const routes = [{
@@ -239,32 +239,32 @@ const routes = [{
 }];
 ```
 
-There are a few advantages of tree-based configuration:
+基于树结构配置有一些优点：
 
-1.  It is obvious. Easy to maintain.
-2.  Authorization/Guards are easy to manage. CRUD based rights become very trivial to implement.
-3.  More predictable routing than flat route list.
+1.  结构清晰。易于维护。 
+2.  授权/保护的管理变得容易。基于 CRUD (增删改查) 的权限执行变得非常简单。		
+3.  比起扁平的路由列表有更可预见的路由。
 
-The small nuance with tree-based configuration is the creation of intermediate components which probably contain nothing but a `router-view` component. Vue-router doesn’t expose `RouterView` component directly to end-developers. But a small trick of wrapping `router-view` can greatly help reduce intermediate components:
+使用基于树结构的配置的细微差别是创建中间组件，它们可能只包含一个 `router-view` 组件。Vue-router 没有将 `RouterView` 组件直接暴露给最终开发者。但是一个包装 `router-view` 的小技巧可以极大地帮助减少中间组件：
 
 ```
 const RouterViewWrapper = Vue.extend({ 
     template: `<router-view></router-view>`
 });
 
-// Now, use RouterViewWrapper component wherever you 
-// need in route config tree.
+// 现在，可以在路由配置树的任何位置
+// 使用 RouterViewWrapper 组件。
 ```
 
-> Note: **Trie** is a type of search-tree data structure. Trie-based routing is predictable, and irrespective of the routes definition order. In Node ecosystem, many trie-based or similar routers exist. Hapi.js and Fastify.js employ trie-based routing.
+> 注意：**Trie**是一种搜索树数据结构的类型（译者注：[前缀树](https://zh.wikipedia.org/wiki/Trie)）。基于前缀的路由是可预见的，并且不管路由的定义顺序。在 Nodejs 生态环境里，存在很多基于前缀或者类似的路由。Hapi.js 和 Fastify.js 使用的是基于前缀的路由。
 
-In a nutshell:
+简而言之：
 
-> Prefer tree configuration over a flat configuration.
+> 树结构配置优于扁平结构配置。
 
-### 6. Injecting dependencies into router
+### 6. 路由器的依赖注入
 
-When you have navigation guards, you might need some dependencies into these guard functions. Most common example is Vuex/Redux store. The solution is very trivial. It has more to do with code organization than the router itself. Assuming you have, following files:
+当你使用导航保护的时候，你可能在这些保护函数里需要一些依赖。大多数常见的例子是 Vuex/Redux 的 store。这个解决方案过于简单。比起路由器本身，还有更多关于代码组织的工作要做。假定你有以下这些文件：
 
 ```
 src/
@@ -273,27 +273,27 @@ src/
   |-- store.js
 ```
 
-You can create a store injector function that can be used when defining navigation guards:
+你可以创建一个在定义导航守护时的存储（store）注入函数：
 
 ```
-// In your store.js, define storeInjector
+// 在你的 store.js 里，定义存储注入器
 export const store = new Vuex.Store({ /* config */ });
 
 export function storeInjector(fn) {
     return (...args) => fn(...args, store);
 }
 
-// In your router.js, use storeInjector
+// 在你的 router.js 里，使用存储注入器
 const routeConfig = {
-    // Other fields
+    // 其他内容
     beforeEnter: storeInjector((to, from, next, store) => {})
 }
 ```
 
-Or, you can also wrap your route creation into a function to which any dependencies can be passed:
+或者，你也可以将路由创建器封装到可以传递任何依赖的函数中：
 
 ```
-// main.js file
+// main.js 文件
 import { makeStore } from './store.js';
 
 const store = makeStore();
@@ -301,47 +301,47 @@ const router = makeRouter(store);
 
 const app = new Vue({ store, router, template: `<div></div>` });
 
-// router.js file
+// router.js 文件
 export function makeRouter(store) {
 
-    // Do anything with store
+    // 使用 store 处理任何事情
     return new VueRouter({
         routes: []
     })
 }
 ```
 
-### 7. Watching route object once
+### 7. 单次监听路由对象
 
-Imagine you have a route configuration with an asynchronous component. Async components are required for lazy loading. It is often achieved with bundle splitting using tools like Webpack or Rollup. The configuration will look like:
+设想你在一个异步组件里使用路由配置。异步组件是通过懒加载方式引入的。这通常是使用像 Webpack 或 Rollup 这样的工具进行包（bundle）拆分实现的。配置看起来将会是这样的：
 
 ```
 const routes = [{
     path: '/projects/:projectId/users',
     name: 'user-list',
 
-    // Async component (Webpack code splitting)
+    // 异步组件（Webpack 的代码拆分）
     component: import('../UserList.js'),
 }];
 ```
 
-In the root instance or the parent `AppComponent`, you might want to retrieve `projectId` to make some bootstrapping API calls. The typical code for this is:
+在根实例或者父级 `AppComponent` 组件里，你可能希望检索 `projectId` 用来做一些引导性的 API 调用。典型的代码是：
 
 ```
 Vue.component('app-comp', {
 
     created() {
-        // PROBLEM: projectId is undefined         
+        // 问题：projectId 未定义         
         console.log(this.$route.params.projectId);
     }
 }
 ```
 
-The problem here is that `projectId` will be undefined as the child component is not ready and router has not finished the transition.
+这里的问题是 `projectId` 将是未定义的，因为子组件没有准备好，路由器还没有完成转换。
 
-> When you have Async component in route config, path or query parameters will not be available within parent component till the child component is not created.
+> 当你在路由配置里使用异步组件时，在未创建子组件之前，父组件中将不提供路径或查询参数。
 
-The solution here is to watch `$route` in your parent. Additionally, **you must watch it only once as it is only bootstrapping API call** which should not be fired again:
+这里的解决方案是在父组件里监听 `$route`。另外，**你必须只监听它一次，因为它只是一个引导性 API 请求**并且不应该再被触发：
 
 ```
 Vue.component('app-comp', {
@@ -350,17 +350,17 @@ Vue.component('app-comp', {
         const unwatch = this.$watch('$route', () => {
             const projectId = this.$route.params.projectId;
             
-            // Do remaining work
+            // 做剩余的工作 
             this.getProjectInfo(projectId);
 
-            // Unwatch immediately
+            // 立即解开监听
             unwatch();
         });
     }
 }
 ```
 
-### 8. Mix-match nested components with flat routes
+### 8. 使用扁平路由混合监听嵌套组件
 
 ```
 const routes = [{
@@ -373,8 +373,8 @@ const routes = [{
     },
 
     children: [{
-        // OBSERVE CAREFULLY
-        // Nested routes begin with `/`
+        // 仔细观察
+        // 嵌套路由以 `/` 开头 
         path: '/users',
         name: 'list',
         component: UserList,
@@ -382,22 +382,21 @@ const routes = [{
 }];
 ```
 
-In the above configuration, child route begins with `/` and thus treated as a root path. So, instead of `https://example.com/projects/100/users` you can use `https://example.com/users` to access `UserList` component. However, the `UserList` component will be rendered as a child of `ProjectView` component. Such paths are known as **root-relative nested paths**.
+在上面的配置中，子级路由以 `/` 开头因此被当作根路径。所以你可以使用 `https://example.com/users` 而不是 `https://example.com/projects/100/users` 就可以访问 `UserList` 组件。然而，`UserList` 组件将被渲染成 `ProjectView` 组件的子组件。这种路径被称为**根相对嵌套路径**。
 
-Of course, component hierarchy, navigation guards are still processed. You still need nested `<router-view>` components. The only thing that changes is the URL structure. Everything else stays the same. It means `beforeEnter` guard will be executed before the `UserList` component.
+当然，组件层级，导航保护依然在处理中。你仍然需要嵌套的 `<router-view>` 组件。唯一改变的事情是 URL 的结构。其他的都还保持原样。这意味着 `beforeEnter` 保护将在 `UserList` 组件之前执行。
 
-**This is pure convenience and thus use it judiciously**. It has a tendency to create confusing code in a long run. However —
+**这个技巧是纯粹的便利，因此需要谨慎的使用它**。从长远来看，它往往会产生令人困惑的代码。然而 —— 
 
-> Root-relative nested paths are very useful in building PWA where [App Shell Model](https://developers.google.com/web/fundamentals/architecture/app-shell) is very prominent.
+> 根相对嵌套路径在构建 [App Shell Model](https://developers.google.com/web/fundamentals/architecture/app-shell) 的 PWA 时非常有用。
 
 * * *
 
-Official routing solution provided by Vue is very flexible. Beyond simple routing, it provides many features like `meta` fields, `transitions`, advanced `scroll-behavior`, `lazy-loading`, etc.
+Vue 提供的官方路由解决方案是非常灵活的。除去简单的路由，它提供了许多功能，如 `meta` 字段，`transition`，高级 `scroll-behavior`，`lazy-loading` 等。
 
-Also, vue-router designed with UX considerations in mind when we think about features like navigation guards, pre-route data fetching. You can use a global or in-component guards but use them judiciously as you should keep separation of concern in mind and move routing responsibilities out of components.
+此外，当我们使用导航保护，预路由数据获取时，vue-router 设计了关于用户体验（UX）的考量。你可以使用全局或者组件内保护，但需谨慎地使用它们，因此你应该牢记关注点分离并把路由职责从组件中移除。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
