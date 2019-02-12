@@ -2,8 +2,8 @@
 > * 原文作者：[Suzanne Scacca](https://www.smashingmagazine.com/author/suzanne-scacca)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/pwa-native-mobile-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO1/pwa-native-mobile-apps.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
+> * 校对者：[shixi-li](https://github.com/shixi-li), [DevMcryYu](https://github.com/DevMcryYu)
 
 # PWA 会取代原生移动应用吗？
 
@@ -31,7 +31,7 @@
 
 我认为，要获得真正的移动优先体验，它需要更快，并拥有原生应用程序的外壳，这正是 **PWA** 提供的。
 
-虽然**原生应用**一般情况下可以提供更好的用户体验，但我认为没有必要花费这么多金钱和时间来构建和管理一个应用……除非您的应用程序在应用商店中位于某项类别的前 20 位。
+虽然**原生应用**一般情况下可以提供更好的用户体验，但我认为没有必要花费这么多金钱和时间来构建和管理一个应用...除非您的应用程序在应用商店中位于某项类别的前 20 位。
 
 让我打破我过去做出这个决定的逻辑。
 
@@ -41,7 +41,7 @@ comScore 在 2018 年发表的[全球数字未来焦点报告](https://www.comsc
 
 [![comScore 2018 mobile web vs. app](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4401052b-487f-4349-a901-5fbe018b4a6f/9-will-pwas-replace-native-mobile-apps.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4401052b-487f-4349-a901-5fbe018b4a6f/9-will-pwas-replace-native-mobile-apps.png) 
 
-comScore 的 2018 报告显示移动网页与移动应用的用户占比（图片来源：[comScore](https://www.comscore.com/Insights/Presentations-and-Whitepapers/2018/Global-Digital-Future-in-Focus-2018) ）（[Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4401052b-487f-4349-a901-5fbe018b4a6f/9-will-pwas-replace-native-mobile-apps.png)）
+comScore 的 2018 报告显示移动网页与移动应用的用户占比（图片来源：[comScore](https://www.comscore.com/Insights/Presentations-and-Whitepapers/2018/Global-Digital-Future-in-Focus-2018)）（[Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4401052b-487f-4349-a901-5fbe018b4a6f/9-will-pwas-replace-native-mobile-apps.png)）
 
 话虽如此，但我不相信原生应用程序会让移动网页消失，我也不相信这一点可以抵消我今天试图提出的论点。如果此数据想要表示什么，那么只能是移动用户非常喜欢通过应用程序界面进行数字交互的体验。
 
@@ -77,13 +77,13 @@ Infobae PWA 示例（图像来源：[Infobae](https://www.infobae.com/america/)�
 *   Session 机制比移动网页上的时间长 230％。
 *   每个 Session 查看的页面数比移动网络多三倍。
 
-因此，如果您担心 PWA 不会成为移动网页的替代品，那么您可以在那里停下来，但建立PWA的确有明显的好处。
+因此，如果您担心 PWA 不会成为移动网页的替代品，那么您可以在那里停下来，但建立 PWA 的确有明显的好处。
 
 #### 原因＃2：原生应用商店逐渐饱和并已过量
 
 原生应用在原生应用商店中存在很多竞争 —— 其中许多是移动用户都非常熟悉的重量级产品。如果您的目的是在已经拥挤的空间中竞争，那么应用程序商店真的是最适合它的地方吗？
 
-[comScore](https://www.comscore.com/Insights/Presentations-and-Whitepapers/2018/Global-Digital-Future-in-Focus-2018)  的覆盖率进入前五应用的报告： 
+[comScore](https://www.comscore.com/Insights/Presentations-and-Whitepapers/2018/Global-Digital-Future-in-Focus-2018)  的覆盖率进入前五应用的报告：
 
 [![comScore top 5 apps](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/56b3e6fc-73ef-4608-8adf-0370929738a0/6-will-pwas-replace-native-mobile-apps.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/56b3e6fc-73ef-4608-8adf-0370929738a0/6-will-pwas-replace-native-mobile-apps.png) 
 
@@ -103,10 +103,10 @@ comScore 关于应用总分钟份额的数据（图片来源：[comScore](https:
 
 用户花费的时间大约在 70％ 到 80％ 的移动应用可以分为四类：
 
-*   娱乐（如 YouTube ）
-*   社交媒体（如 Facebook ）
-*   即时通讯（如 Whatsapp ）
-*   游戏（如 Fortnite ）
+*   娱乐（如 YouTube）
+*   社交媒体（如 Facebook）
+*   即时通讯（如 Whatsapp）
+*   游戏（如 Fortnite）
 
 如果您的应用程序概念不属于这些类别之一，那么将应用程序放入应用程序商店是否值得所有工作？虽然我认识到这些并不是唯一能成功的应用程序，但我认为这将是一个冒险且代价昂贵的赌博，特别是如果您的客户的业务是全新的。即便如此，尽管拥有足够多的受众或客户群，但仍有很多不在应用商店中的知名产品的竞争。
 
@@ -135,7 +135,7 @@ West Elm PWA（图片来源：[West Elm](https://www.westelm.com/)）（[Large p
 *   研究一些有趣的东西，
 *   去某地，
 *   进行购买，
-*   或做点什么......
+*   或做点什么...
 
 他们不会在他们的设备上打开与数据息息相关的应用程序，而是打开他们的搜索浏览器并键入或说出他们的查询。这就是我们作为用户最有可能去做的事情。有一个问题？需要某物？想要帮助选择一家餐馆吗？去 Google 吧。
 
@@ -147,7 +147,7 @@ West Elm PWA（图片来源：[West Elm](https://www.westelm.com/)）（[Large p
 
 [![HobbyCraft PWA](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4c932970-c61b-4193-9d20-9a204f4b24d2/11-will-pwas-replace-native-mobile-apps.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4c932970-c61b-4193-9d20-9a204f4b24d2/11-will-pwas-replace-native-mobile-apps.png) 
 
-HobbyCraft PWA 示例（图片来源： [HobbyCraft](https://www.hobbycraft.co.uk/)）（[Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4c932970-c61b-4193-9d20-9a204f4b24d2/11-will-pwas-replace-native-mobile-apps.png)）
+HobbyCraft PWA 示例（图片来源：[HobbyCraft](https://www.hobbycraft.co.uk/)）（[Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4c932970-c61b-4193-9d20-9a204f4b24d2/11-will-pwas-replace-native-mobile-apps.png)）
 
 正如你在这里看到的，HobbyCraft 是一家零售商，在英国境外销售工艺品。在应用程序商店中放置这样的东西是没有多大意义的 —— 特别是当 PWA 入口工作得很好时。
 
@@ -181,7 +181,7 @@ HobbyCraft PWA 示例（图片来源： [HobbyCraft](https://www.hobbycraft.co.u
 
 天气频道，实话说，提供的服务**将会**在日常被使用。用户可以通过应用程序商店安装原生应用程序查看最新的天气预报，但该应用程序可能比基于浏览器的 PWA 更快地消耗数据和电池电量。
 
-出于这个原因，还有其他业务类型应考虑使用 PWA。 就好像 [Forbes](https://www.forbes.com/) 这样的在线杂志。
+出于这个原因，还有其他业务类型应考虑使用 PWA。就好像 [Forbes](https://www.forbes.com/) 这样的在线杂志。
 
 [![Forbes PWA add to homescreen](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/1bf93e11-6217-414c-96ae-65119a598c93/5-will-pwas-replace-native-mobile-apps.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/1bf93e11-6217-414c-96ae-65119a598c93/5-will-pwas-replace-native-mobile-apps.png) 
 
@@ -201,7 +201,7 @@ PWA 不收取任何费用，这意味着它们产生的所有收入都直接发�
 
 [![Billings Gazette PWA](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/10fe37f8-8aa1-4873-a68b-fa619447a4c3/12-will-pwas-replace-native-mobile-apps.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/10fe37f8-8aa1-4873-a68b-fa619447a4c3/12-will-pwas-replace-native-mobile-apps.png) 
 
-Billings Gazette PWA 货币化示例（图片来源： [The Billings Gazette](https://billingsgazette.com/)）（[Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/10fe37f8-8aa1-4873-a68b-fa619447a4c3/12-will-pwas-replace-native-mobile-apps.png)）
+Billings Gazette PWA 货币化示例（图片来源：[The Billings Gazette](https://billingsgazette.com/)）（[Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/10fe37f8-8aa1-4873-a68b-fa619447a4c3/12-will-pwas-replace-native-mobile-apps.png)）
 
 这不是您从 PWA 比原生应用赚更多钱的唯一方式。
 
@@ -221,7 +221,7 @@ Twitter Lite PWA 可以实时保持最前沿（图片来源：[Twitter](https://
 
 这就是 Twitter 推出其 PWA 之后所发生的事情。
 
-正如 Google 的 [case study from Google](https://developers.google.com/web/showcase/2017/twitter) 所示，Twitter 采取了渐进的方法来优化其 PWA。因此，他们能够在没有最终用户检测的情况下对用户体验进行大幅改进。事实上，他们对更新的唯一回应是更多地使用PWA。
+正如 Google 的 [case study from Google](https://developers.google.com/web/showcase/2017/twitter) 所示，Twitter 采取了渐进的方法来优化其 PWA。因此，他们能够在没有最终用户检测的情况下对用户体验进行大幅改进。事实上，他们对更新的唯一回应是更多地使用 PWA。
 
 ### PWA 是（大部分）Web 的未来
 
@@ -231,7 +231,7 @@ Twitter Lite PWA 可以实时保持最前沿（图片来源：[Twitter](https://
 
 我认为随着开发人员意识到将中小型公司的应用程序放入 PWA Web 中有很多好处，应用程序商店将逐渐减缓热度。主要参与者将保持不变，而已经超出 PWA 范围的公司可能最终会转移。否则，大多数应用程序将以 PWA 的形式结束。
 
-随着 PWA 的这种趋势继续增长，用户将更加习惯于在搜索中遇到它并且知道这个用户友好的界面可以直接从他们的浏览器访问。相反，他们只会去应用商店寻找属于那里的各种应用，即消息，游戏，娱乐和一些社交媒体。这将在在线搜索和应用商店搜索之间创建更清晰的划分，并进一步帮助改善在线的整体用户体验
+随着 PWA 的这种趋势继续增长，用户将更加习惯于在搜索中遇到它并且知道这个用户友好的界面可以直接从他们的浏览器访问。相反，他们只会去应用商店寻找属于那里的各种应用，即消息，游戏，娱乐和一些社交媒体。这将在在线搜索和应用商店搜索之间创建更清晰的划分，并进一步帮助改善在线的整体用户体验。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
