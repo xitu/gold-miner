@@ -17,9 +17,9 @@
 * [`useEffect()`](https://reactjs.org/docs/hooks-reference.html#useeffect) 用来声明副作用
 * [`useContext()`](https://reactjs.org/docs/hooks-reference.html#usecontext) 用来读取一些上下文
 
- 但是像 `React.memo()` 和 `<Context.Provider>`，这些 API 它们**不是** Hooks。一般来说，这些 Hook 版本的 API 被认为是 **非组件化** 或 **反模块化** 的。这篇文章将帮助你理解其中的原理。
+但是像 `React.memo()` 和 `<Context.Provider>`，这些 API 它们**不是** Hooks。一般来说，这些 Hook 版本的 API 被认为是 **非组件化** 或 **反模块化** 的。这篇文章将帮助你理解其中的原理。
 
-**注：这篇文章并非教你如何高效的使用 React，而是对 hooks API 饶有兴趣的开发者所准备的深入分析。
+**注：这篇文章并非教你如何高效的使用 React，而是对 hooks API 饶有兴趣的开发者所准备的深入分析。**
 
 ---
 
