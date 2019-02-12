@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/vue-router-the-missing-manual.md](https://github.com/xitu/gold-miner/blob/master/TODO1/vue-router-the-missing-manual.md)
 > * 译者：[Sam](https://github.com/xutaogit)
-> * 校对者：
+> * 校对者：[Ranjay](https://github.com/jerryOnlyZRJ),[shixi-li](https://github.com/shixi-li)
 
 # Vue Router 实战手册
 
@@ -77,7 +77,7 @@ window.obj1 === window.obj2; // <-- 返回 true
 
 > state-router 会把应用程序拆解成**一组状态**。url-router 会把应用程序拆解成**一组页面**。
 
-Vue-router 是**url-router**。Vue 没有官方 state-router。有 Angular 背景的人员马上会意识到它们的区别。状态路由器相较于 URL 路由器方式的区别：
+Vue-router 是 **url-router**。Vue 没有官方 state-router。有 Angular 背景的人员马上会意识到它们的区别。状态路由器相较于 URL 路由器方式的区别：
 
 *   状态路由器像状态机一样工作 。
 *   状态路由器中 URL 是非必要的。	
