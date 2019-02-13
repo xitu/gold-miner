@@ -2,142 +2,142 @@
 > * 原文作者：[Addy Osmani](https://medium.com/@addyosmani?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-netflix-web-performance-case-study.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-netflix-web-performance-case-study.md)
-> * 译者：
-> * 校对者：
+> * 译者：[子非](https://github.com/CoolRice)
+> * 校对者：[Moonliujk](https://github.com/Moonliujk), [kyrieliu](https://kyrieliu.cn/)
 
-# A Netflix Web Performance Case Study
+# Netflix 的 Web 性能案例研究
 
-## Improving Time-To-Interactive for Netflix.com on Desktop
+## 为 Netflix.com 改进桌面端可交互时间
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Pxmm24WKcYUqFC1Fsh_n7g.png)
 
-rmance Case Study
+**提纲：Web 性能优化没有银弹。简单的静态网页得益于使用极少 JavaScript 代码的服务端渲染。库的谨慎使用可以为复杂的页面带来巨大的价值。**
 
-**tl;dr: There are no silver bullets to web performance. Simple static pages benefit from being server-rendered with minimal JavaScript. Libraries can provide great value for complex pages when used with care.**
+[Netflix](https://netflix.com) 是最受欢迎的视频流服务之一。自 2016 年在全球推出以来，公司发现许多新用户不仅通过移动设备完成注册，而且还使用了不太理想的网络连接。
 
-[Netflix](https://netflix.com) is one of the most popular video streaming services. Since launching globally in 2016, the company has found that many new users are not only signing up on mobile devices but are also using less-than-ideal connections to do so.
+通过改进用于 Netflix.com 注册过程 JavaScript 代码和使用预加载技术，开发人员团队可以为移动和桌面用户提供更好的用户体验，并提供多项改进。
 
-By refining the JavaScript used for Netflix.com’s sign-up process and using prefetching techniques, the developer team was able to provide a better user experience for both mobile and desktop users and offer several improvements.
+*   **减少 50% 的加载和可交互时间（适用于 Netflix.com 桌面端未登录的主页）**
+*   **通过把 React 和其他客户端库改为原生的 JavaScript 使打包大小减少 200 KB。React 仍在服务端使用**
+*   **为将来的操作预获取 HTML，CSS 和 JavaScript（React）使可交互时间减少 30%**
 
-*   **Loading and Time-to-Interactive decreased by 50% (for the logged-out desktop homepage at Netflix.com)**
-*   **JavaScript bundle size reduced by 200kB by switching from React and other client-side libraries to vanilla JavaScript. React was still used server-side.**
-*   **Prefetching HTML, CSS and JavaScript (React) reduced Time-to-Interactive by 30% for future navigations**
+#### 通过嵌入更少的代码来减少可交互时间
 
-#### Reducing Time-to-Interactive by shipping less JavaScript
-
-The area optimized for performance by the Netflix developers was the logged-out homepage, where users come to sign-up or sign-in to the site.
+Netflix 开发者优化性能的地方是未登录主页，用户在此页面注册并登录站点。
 
 ![](https://cdn-images-1.medium.com/max/800/1*T_bJaPmnB7Muy1Vw67CBqg.png)
 
-The Netflix.com homepage for new and logged-out members
+新用户和已登出用户的 Netflix.com 主页
 
-This page initially contained 300kB of JavaScript, some of which was React and other client-side code (such as utility libraries like Lodash), and some of which was context data required to hydrate React’s state.
+此页面初始包含 300KB 的 JavaScript 代码，其中一些是 React 和其他客户端代码（例如像 Lodash 的工具库），而且还有一些是必要的上下文数据用来给 React 的状态注水（hydrate）。
 
-All of Netflix’s webpages are served by server-side rendered React, serving the generated HTML and then serving the client-side application, so it was important to keep the structure of the newly-optimized homepage similar to maintain a consistent developer experience.
+所有 Netflix 的网页都由服务端 React 渲染，这些页面为生成的 HTML 和客户端应用提供服务，因此维持新优化的主页结构不变和保持开发人员体验的一致性同样重要。
 
 ![](https://cdn-images-1.medium.com/max/800/1*LaiM-eBWHnLloOpvbMggww.png)
 
-Homepage tabs are an example of a component initially written using React
+Homepage 选项卡是最初使用 React 编写的组件的示例
 
-Using Chrome’s DevTools and Lighthouse to simulate the logged-out homepage page being loaded on a 3G connection showed that the logged-out homepage took 7 seconds to load, far too long for just a simple landing page, so the potential for improvement was investigated. With some performance auditing, Netflix discovered their client-side JS had a high [cost](https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4).
+使用 Chrome 的 DevTools 和 Lighthouse 来模拟 3G 网络下加载未登录主页，结果显示未登录主页需要 7 秒时间来加载，这段时间对于一个简单的入口页面来说实在是太久了，所以我们开始调查改进的可能性。通过一些性能审查，Netflix 发现他们的客户端 JS 有过高的[开销](https://medium.com/@addyosmani/the-cost-of-javascript-in-2018-7d8950fbb5d4)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*9lGTXyeixVs7P1cBL1p7NA.png)
 
-Network throttling for the unoptimized Netflix.com in Chrome DevTools
+通过 Chrome DevTools 的网络限速功能，查看未优化的 Netflix.com 的表现。
 
-By turning off JavaScript in the browser and observing which elements of the site still functioned, the developer team could determine if React was truly necessary for the logged-out homepage to function.
+通过关闭浏览器中的 JavaScript 来观察站点中仍在起作用的元素，开发者团队可以决定 React 在未登录主页是否真正必要。
 
-Since most of the elements on the page were basic HTML, remaining elements such as JavaScript click handling and class adding could be replaced with plain JavaScript, and the page’s language switcher, originally built using React, was rebuilt in vanilla JavaScript using less than 300 lines of code.
+由于页面中的多数元素是基本的 HTML，剩下的元素比如 JavaScript 点击处理和添加类可以用原生 JavaScript 来替换，而页面原来使用 React 实现的语言切换器则使用不到 300 行的原生 JavaScript 代码重构。
 
-The complete list of components ported to vanilla JavaScript were:
+移植到原生 JavaScript 的组件完全列表：
 
-*   Basic interactions (tabs halfway down the homepage)
-*   Language switcher
-*   Cookie banner (for non-US visitors)
-*   Client-side logging for analytics
-*   Performance measurement and logging
-*   Ad attribution pixel bootstrap code (which are sandboxed in an iFrame for security)
+*   基础交互（主页中的选项卡）
+*   语言切换器
+*   Cookie 横幅（针对非美国访问者）
+*   分析用的客户端日志
+*   性能评估和记录
+*   广告来源引导代码（出于安全考虑，沙盒化放在 iframe 里）
 
 ![](https://cdn-images-1.medium.com/max/800/1*wBgSYuZmjbGP34BJiRSETw.jpeg)
 
-Even though React’s initial footprint was just 45kB, removing React, several libraries and the corresponding app code from the client-side **reduced the total amount of JavaScript by over 200kB**, causing an over-50% reduction in Netflix’s Time-to-Interactivity for the logged-out homepage.
+虽然 React 的初始代码仅仅 45 KB，在客户端移除 React、一些库和相应的 App 代码**减少的 JavaScript 代码总量超多 200 KB**，由此在 Netflix 的未登录主页降低了超过 50% 的可交互时间。
 
 ![](https://cdn-images-1.medium.com/max/800/1*zd9QTVBtN2xmrZ94s4TYYA.jpeg)
 
-_Payload comparison before and after removing client-side React, Lodash and other libraries._
+**移除客户端 React、Lodash 和其他一些库前后的负载比较。**
 
-In a [lab](https://developers.google.com/web/fundamentals/performance/speed-tools/#lab_data) environment, we can validate users can now interact with the Netflix homepage quickly using [Lighthouse](https://developers.google.com/web/tools/lighthouse/) ([trace](https://www.webpagetest.org/lighthouse.php?test=180822_M4_a5899bc8928b958d06902161c15b2c86&run=2)). Desktop TTI is < 3.5s.
+在[实验](https://developers.google.com/web/fundamentals/performance/speed-tools/#lab_data)环境下，我们可以使用 [Lighthouse](https://developers.google.com/web/tools/lighthouse/)（[trace](https://www.webpagetest.org/lighthouse.php?test=180822_M4_a5899bc8928b958d06902161c15b2c86&run=2)）快速测验用户是否能与 Netflix 主页交互。结果桌面端的 TTI 少于 3.5s。
+
 
 ![](https://cdn-images-1.medium.com/max/800/1*xviETZh4IDKxT5x_k2u8cg.png)
 
-Lighthouse report after the Time-to-Interactive optimizations were made
+可交互时间优化后的 Lighthouse 报告。
 
-What about metrics from the field? Using the [Chrome User Experience report](https://developers.google.com/web/tools/chrome-user-experience-report/) we can see [First Input Delay](https://developers.google.com/web/updates/2018/05/first-input-delay) — the time from when a user first interacts with your site to the time when the browser is actually able to respond to that interaction — is [fast](https://bigquery.cloud.google.com/savedquery/920398604589:1692b8e0bdc94d4883437d8712cbb83a) for 97% of Netflix users on desktop. This is great.
+那么这个领域的度量标准呢？使用 [Chrome 用户体验报告](https://developers.google.com/web/tools/chrome-user-experience-report/)我们可以看到[首次输入延迟](https://developers.google.com/web/updates/2018/05/first-input-delay) —— 从用户首次与你的站点交互时间到浏览器真正响应那次交互的时间 —— 对于 97% 的 Netflix 桌面用户来说很[快](https://bigquery.cloud.google.com/savedquery/920398604589:1692b8e0bdc94d4883437d8712cbb83a)。结果非常棒。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Gxkl5liyc-tI7Wh7UTtDlQ.png)
 
-First Input Delay (FID) measures the delay users experience when interacting with the page.
+首先输入延迟（FID）度量用户在与页面交互时的延迟体验。
 
-#### Prefetching React for subsequent pages
+#### 为后续页面预加载 React
 
-To further improve performance when navigating their logged-out homepage, Netflix utilized the time spent by users on the landing page to **prefetch** resources for the next page users were likely to land on.
+为了进一步提高浏览登录主页的性能，Netflix 利用用户在入口页面上花费的时间针对可能会登录的下一个页面进行资源**预加载**。
 
-This was achieved by using two techniques — the built-in [<link rel=prefetch>](https://developer.mozilla.org/en-US/docs/Web/HTTP/Link_prefetching_FAQ) browser API and XHR prefetching.
+通过两项技术完成 —— 内置的 [`<link rel=prefetch>`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Link_prefetching_FAQ) 浏览器 API 和 XHR 预加载。
 
-The built-in browser API consists of a simple link tag within the head tag of the page. It suggests to the browser that the resource (e.g. HTML, JS, CSS, images) can be prefetched, though it doesn’t guarantee that the browser actually _will_ prefetch the resource, and it lacks full support from [other browsers](https://caniuse.com/#feat=link-rel-prefetch).
+内置的浏览器 API 包含页面头部标签内的简单链接标签。它会建议浏览器资源（例如 HTML、JS、CSS、图片）可以被预加载，虽然它并不保证浏览器真的**会**预加载资源，并且它缺少[其他浏览器](https://caniuse.com/#feat=link-rel-prefetch)的全面支持。
 
 ![](https://cdn-images-1.medium.com/max/800/1*TAv9_jZGqmX-aTJw5QDtRA.jpeg)
 
-Comparison of prefetching techniques
+预加载技术对比
 
-XHR prefetching, on the other hand, has been a browser standard for many years and produced a 95% success rate when the Netflix team prompted the browser to cache a resource. While XHR prefetching cannot be used to prefetch HTML documents, it was used by Netflix to prefetch the JavaScript and CSS bundle for subsequent pages.
+另一方面，XHR 预加载已经成为浏览器标准很多年了，当 Netflix 团队提示浏览器缓存资源时，其成功率达到 95%。但是 XHR 预加载不能预加载 HTML 文档，Netflix 用它来为后续页面预加载 JavaScript 和 CSS 打包文件。
 
-Note: Netflix’s HTTP response header configuration is preventing HTML caching with XHR (they do no-cache on the second page’s HTML). Link Prefetch is otherwise working as expected because it will work on HTML even if no-cache is present up to a certain point.
+注意：Netflix 配置的 HTTP 响应头禁止使用 XHR 缓存 HTML（它们确实不缓存（no-cache）第二个页面的 HTML）。链接预加载会按预期工作，因为它对 HTML 有效，即使设置了不缓存（no-cache）。
 
 ```
-// create a new XHR request
+// 创建新的 XHR 请求
 const xhrRequest = new XMLHttpRequest();
 
 // open the request for the resource to "prefetch"
+// 打开请求来“预加载”资源
 xhrRequest.open('GET', '../bundle.js', true);
 
-// fire!
+// 发送！
 xhrRequest.send();
 ```
 
-By using both the built-in browser API and XHR to prefetch HTML, CSS, and JS, the Time-to-Interactive was reduced by 30%. This implementation also required no JavaScript to be rewritten and didn’t negatively impact the performance of the logged-out homepage, and hence offered a valuable tool for improving page performance at a very low-risk.
+通过使用浏览器内置 API 和 XHR 预加载 HTML、CSS 和 JS，可交互时间减少了 30%。这个实现不需要重写 JavaScript，也不会对未登录主页的性能造成负面影响，而且从此以后，能以极低的风险为提升页面性能提供了非常有价值的工具。
 
 ![](https://cdn-images-1.medium.com/max/800/1*yusmoWBbhhfxDEv03OWPTQ.jpeg)
 
-After prefetching was implemented, the Netflix developers observed improvements by analyzing reductions in the Time-to-Interactive metric on the page, as well as using Chrome’s developer tools to directly measure cache hits of resources.
+预加载实现之后，Netflix 开发者可以通过分析页面减少的可交互时间数据来观察性能提升效果，同样使用 Chrome 开发工具直接度量资源缓存的命中情况。
 
-#### Netflix logged-out homepage — optimization summary
+#### Netflix 未登录主页 —— 优化总结
 
-By prefetching resources and optimizing the client-side code on Netflix’s logged-out homepage, Netflix was able to greatly improve their Time-to-Interactive metrics during the sign-up process. By prefetching future pages using the built-in browser API and XHR prefetching, Netflix was able to reduce Time-to-Interactive by 30%. This was for the second-page loading, which contained the bootstrapping code for single-page app sign-up flow.
+通过预加载 Netflix 未登录主页资源和优化客户端代码，Netflix 可以在注册过程中出色地提升可交互时间指标。通过使用浏览器内置 API 和 XHR 预加载来预获取未来页面，Netflix 可以把可交互时间降低 30%。这是针对下一页面的加载，其中包含单页应用注册过程的引导代码。
 
-The code optimizations carried out by the Netflix team showed that while React is a useful library, it may not provide an adequate solution to every problem. By removing React from the client-side code on the first landing page for signup, the Time-to-Interactive was improved by over 50%. Reducing Time-to-Interactive on the client-side also caused users to click the sign-up button at a greater rate, showing that code optimization can lead to a greater user experience overall.
+Netflix 团队进行的代码优化表明，React 是一个十分有用的库，不过它可能无法为每个问题提供足够的解决方案。通过从第一个用于注册的入口页面的客户端代码中删除 React，可交互时间减少了 50% 以上。缩短客户端上的可交互时间还可以让用户以更快地速度单击注册按钮，这表明代码优化完全可以带来更好的用户体验。
 
-While Netflix didn’t use React for the homepage, they prefetched it for subsequent pages. This allowed them to leverage client-side React throughout the rest of the single page application sign-up process.
+虽然 Netflix 没有在主页中使用 React，但他们为后续的页面预加载。这使得他们整个页面应用程序流程中的其他部分可以利用客户端 React。
 
-For more details on these optimisations, see this A+ talk by Tony Edwards:
+更多关于这些优化的细节，请观看 Tony Edwards 的出色演讲：
 
 * YouTube 视频链接：https://youtu.be/V8oTJ8OZ5S0
 
-### Conclusion
+### 总结
 
-Netflix discovered opportunities to improve their Time-to-Interactive by keeping a close eye on the cost of JavaScript. To discover if your site has opportunities to do better here, consult your [performance tools](https://developers.google.com/web/fundamentals/performance/speed-tools/).
+通过密切关注 JavaScript 的开销，Netflix 发现了改善可交互时间的机会。若想发现你的站点是否有机会在这点上做得更好，可以借助你的[性能工具](https://developers.google.com/web/fundamentals/performance/speed-tools/)。
 
-The tradeoff Netflix decided to make is to server-render the landing page using React, but also pre-fetching React / the code for the rest of the signup flow while on it. This optimizes first load performance, but also optimizes the time to load for the rest of the signup flow, which has a much larger JS bundle size to download since it’s a single-page app.
+Netflix 决定做出的权衡是使用 React 对入口页面进行服务器渲染，同时也在其上预先获取 React 和其余注册流程的代码。这样可以优化首次加载性能，同时还可以优化其余注册流的加载时间，因为它是一个单页应用程序，因此需要下载更大的 JS 打包文件。
 
-Consider if leveraging vanilla JavaScript is an option for flows in your site. If you absolutely need to use libraries, try to only ship down down code your users will need. Techniques like prefetching can help improve page load times for future page navigations.
+考虑一下是否使用原生 JavaScript 是否适合你的站点的流程。如果你确实需要使用库，那么尝试只嵌入你的用户需要的代码。预加载技术可以帮助优化未来浏览页面的加载时间。
 
-#### Additional notes
+#### 补充说明：
 
-*   Netflix considered using [Preact](https://preactjs.com/), however, for a simple page flow with low interactivity, using vanilla JavaScript was a simpler choice for their stack.
-*   Netflix experimented with [Service Workers](https://developers.google.com/web/fundamentals/primers/service-workers/) for static resource caching. At the time, Safari didn’t support the API (it now does) but they’re exploring them again now. The Netflix sign-up flow needs more legacy browser support than the member experience. Many users will sign-up on an older browser, but watch Netflix on their native mobile app or a TV device.
-*   The Netflix landing page is quite dynamic. It’s their most heavily A/B tested page in the sign-up flow, with machine learning models used to customize messaging and imagery depending on location, device type and many other factors. With almost 200 countries supported, there are different localization, legal and value messaging challenges for each derivative. For more on A/B testing, see [Testing Into A Better User Experience](https://www.youtube.com/watch?v=TmhJN6rdm28) by Ryan Burgess.
+*   Netflix 考虑过使用 [Preact](https://preactjs.com/)，但是对于低交互性的简单页面流而言，使用原生 JavaScript 是一个更简单的选择。
+*   Netflix 试验过使用 [Service Workers](https://developers.google.com/web/fundamentals/primers/service-workers/) 进行静态资源缓存。那时 Safari 不支持这个 API（现在支持了），但他们现在又在探索这个了。Netflix 的注册过程更多需要的是较旧的浏览器支持而不是会员体验。许多用户都会在较旧的浏览器上注册，但会在其原生移动应用或电视设备上观看 Netflix。
+*   Netflix 的入口页面极为动态。这是他们的注册过程中进行 A/B 测试最多的页面，机器学习模型用于根据位置、设备类型和许多其他因素定制消息和图像。支持近 200 个国家，每个派生页面都面对着不同的本地化、法律和价值信息挑战。有关 A/B 测试的更多信息，请参阅 Ryan Burgess 的[测试，只为更好的用户体验](https://www.youtube.com/watch?v=TmhJN6rdm28)。
 
-_With thanks to Netflix UI Engineers,_ [_Tony Edwards_](https://twitter.com/tedwards947)_,_ [_Ryan Burgess_](https://twitter.com/burgessdryan)_,_ [_Brian Holt_](https://twitter.com/holtbt?lang=en)_,_ [_Jem Young_](https://twitter.com/JemYoung?lang=en)_,_ [_Kristofer Baxter_](https://twitter.com/kristoferbaxter) _(Google),_ [_Nicole Sullivan_](https://twitter.com/stubbornella) _(Chrome) and_ [_Houssein Djirdeh_](https://twitter.com/hdjirdeh) _(Chrome) for their reviews and contributions._
+**感谢 Netflix UI 工程师，[Tony Edwards](https://twitter.com/tedwards947)、[Ryan Burgess](https://twitter.com/burgessdryan)、[Brian Holt](https://twitter.com/holtbt?lang=en)、[Jem Young](https://twitter.com/JemYoung?lang=en)、[Kristofer Baxter](https://twitter.com/kristoferbaxter)（Google）、[Nicole Sullivan](https://twitter.com/stubbornella)（Chrome）和 [Houssein Djirdeh](https://twitter.com/hdjirdeh)（Chrome）的审阅和贡献。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

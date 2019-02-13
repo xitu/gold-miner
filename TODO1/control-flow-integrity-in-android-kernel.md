@@ -2,72 +2,72 @@
 > * 原文作者：[Android Developers Blog](https://android-developers.googleblog.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/control-flow-integrity-in-android-kernel.md](https://github.com/xitu/gold-miner/blob/master/TODO1/control-flow-integrity-in-android-kernel.md)
-> * 译者：
-> * 校对者：
+> * 译者：[nanjingboy](https://github.com/nanjingboy)
+> * 校对者：[gs666](https://github.com/gs666)
 
-# Control Flow Integrity in the Android kernel
+# Android 内核控制流完整性
 
-_Posted by Sami Tolvanen, Staff Software Engineer, Android Security_
+**由 Android 安全研究工程师 Sami Tolvanen 发布**
 
-Android's security model is enforced by the Linux kernel, which makes it a tempting target for attackers. We have put a lot of effort into [hardening the kernel](https://android-developers.googleblog.com/2017/08/hardening-kernel-in-android-oreo.html) in previous Android releases and in Android 9, we continued this work by focusing on [compiler-based security mitigations](https://android-developers.googleblog.com/2018/06/compiler-based-security-mitigations-in.html) against code reuse attacks.
+Android 的安全模型由 Linux 内核强制执行，这将诱使攻击者将其视为攻击目标。我们在已发布的 Android 版本和 Android 9 上为[加强内核](https://android-developers.googleblog.com/2017/08/hardening-kernel-in-android-oreo.html)投入了大量精力，我们将继续这项工作，通过将关注点放在[基于编译器的安全缓解措施](https://android-developers.googleblog.com/2018/06/compiler-based-security-mitigations-in.html)上以防止代码重用攻击。
 
-Google's Pixel 3 will be the first Android device to ship with LLVM's forward-edge [Control Flow Integrity (CFI)](https://clang.llvm.org/docs/ControlFlowIntegrity.html) enforcement in the kernel, and we have made [CFI support available in Android kernel versions 4.9 and 4.14](https://source.android.com/devices/tech/debug/kcfi). This post describes how kernel CFI works and provides solutions to the most common issues developers might run into when enabling the feature.
+Google 的 Pixel 3 将是第一款在内核中实施 LLVM 前端[控制流完整性（CFI）](https://clang.llvm.org/docs/ControlFlowIntegrity.html)的设备，我们已经实现了 [Android 内核版本 4.9 和 4.14 中对 CFI 的支持](https://source.android.com/devices/tech/debug/kcfi)。这篇文章描述了内核 CFI 的工作原理，并为开发人员在启用该功能时可能遇到的常见问题提供了解决方案。
 
-## Protecting against code reuse attacks
+## 防止代码重用攻击
 
-A common method of exploiting the kernel is using a bug to overwrite a function pointer stored in memory, such as a stored callback pointer or a return address that had been pushed to the stack. This allows an attacker to execute arbitrary parts of the kernel code to complete their exploit, even if they cannot inject executable code of their own. This method of gaining code execution is particularly popular with the kernel because of the huge number of function pointers it uses, and the existing memory protections that make code injection more challenging.
+利用内核的常用方法是使用错误来覆盖存储在内存中的函数指针，例如存储了回调函数的指针，或已被推送到堆栈的返回地址。这允许攻击者执行任意内核代码来完成利用，即使他们不能注入自己的可执行代码。这种获取代码执行能力的方法在内核中特别受欢迎，因为它使用了大量的函数指针，以及使代码注入更具挑战性的现有内存保护机制。
 
-CFI attempts to mitigate these attacks by adding additional checks to confirm that the kernel's control flow stays within a precomputed graph. This doesn't prevent an attacker from changing a function pointer if a bug provides write access to one, but it significantly restricts the valid call targets, which makes exploiting such a bug more difficult in practice.
+CFI 尝试通过添加额外的检查来确认内核控制流停留在预先设计的版图中，以便缓解这类攻击。尽管这无法阻止攻击者利用一个已存在的 bug 获取写入权限，从而更改函数指针，但它会严格限制可被其有效调用的目标，这使得攻击者在实践中利用漏洞的过程变得更加困难。
 
 [![](https://1.bp.blogspot.com/-SAbAK7FpTNw/W700bhOfGuI/AAAAAAAAFz4/N6PNS6LDxN0-yRl-xwWdRQW4pyqKAcRwACLcBGAs/s1600/figure_cfi_effectivenessimage1.png)](https://1.bp.blogspot.com/-SAbAK7FpTNw/W700bhOfGuI/AAAAAAAAFz4/N6PNS6LDxN0-yRl-xwWdRQW4pyqKAcRwACLcBGAs/s1600/figure_cfi_effectivenessimage1.png)
 
-Figure 1. In an Android device kernel, LLVM's CFI limits 55% of indirect calls to at most 5 possible targets and 80% to at most 20 targets.
+图 1. 在 Android 设备内核中，LLVM 的 CFI 将 55% 的间接调用限制为最多 5 个可能的目标，80% 限制为最多 20 个目标。
 
-## Gaining full program visibility with Link Time Optimization (LTO)
+## 通过链接时优化（LTO）获得完整的程序可见性
 
-In order to determine all valid call targets for each indirect branch, the compiler needs to see all of the kernel code at once. Traditionally, compilers work on a single compilation unit (source file) at a time and leave merging the object files to the linker. LLVM's solution to CFI is to require the use of LTO, where the compiler produces LLVM-specific bitcode for all C compilation units, and an LTO-aware linker uses the LLVM back-end to combine the bitcode and compile it into native code.
+为了确定每个间接分支的所有有效调用目标，编译器需要立即查看所有内核代码。传统上，编译器一次处理单个编译单元（源代文件），并将目标文件合并到链接器。LLVM 的 CFI 要求使用 LTO，其编译器为所有 C 编译单元生成特定于 LLVM 的 bitcode，并且 LTO 感知链接器使用 LLVM 后端来组合 bitcode，并将其编译为本机代码。
 
 [![](https://3.bp.blogspot.com/-qyrtXmMXuVs/W700gB5yQOI/AAAAAAAAFz8/9Dm4v75Sl9oNEskKppbYap9AMbE7s2KWACLcBGAs/s1600/2_lto_overviewimage2.png)](https://3.bp.blogspot.com/-qyrtXmMXuVs/W700gB5yQOI/AAAAAAAAFz8/9Dm4v75Sl9oNEskKppbYap9AMbE7s2KWACLcBGAs/s1600/2_lto_overviewimage2.png)
 
-Figure 2. A simplified overview of how LTO works in the kernel. All LLVM bitcode is combined, optimized, and generated into native code at link time.
+图 2. LTO 在内核中的工作原理的简单概述。所有 LLVM bitcode 在链接时被组合，优化并生成本机代码。
 
-Linux has used the GNU toolchain for assembling, compiling, and linking the kernel for decades. While we continue to use the GNU assembler for stand-alone assembly code, LTO requires us to switch to LLVM's integrated assembler for inline assembly, and either GNU gold or LLVM's own lld as the linker. Switching to a relatively untested toolchain on a huge software project will lead to compatibility issues, which we have addressed in our arm64 LTO patch sets for kernel versions [4.9](https://android-review.googlesource.com/q/topic:android-4.9-lto) and [4.14](https://android-review.googlesource.com/q/topic:android-4.14-lto).
+几十年来，Linux 一直使用 GNU 工具链来汇编，编译和链接内核。虽然我们继续将 GNU 汇编程序用于独立的汇编代码，但 LTO 要求我们切换到 LLVM 的集成汇编程序以进行内联汇编，并将 GNU gold 或 LLVM 自己的 lld 作为链接器。在巨大的软件项目上切换到未经测试的工具链会导致兼容性问题，我们已经在内核版本 [4.9](https://android-review.googlesource.com/q/topic:android-4.9-lto) 和 [4.14](https://android-review.googlesource.com/q/topic:android-4.14-lto) 的 arm64 LTO 补丁集中解决了这些问题。
 
-In addition to making CFI possible, LTO also produces faster code due to global optimizations. However, additional optimizations often result in a larger binary size, which may be undesirable on devices with very limited resources. Disabling LTO-specific optimizations, such as global inlining and loop unrolling, can reduce binary size by sacrificing some of the performance gains. When using GNU gold, the aforementioned optimizations can be disabled with the following additions to LDFLAGS:
+除了使 CFI 成为可能，由于全局优化，LTO 还可以生成更快的代码。但额外的优化通常会导致更大的二进制尺寸，这在资源受限的设备上可能是不需要的。禁用 LTO 特定的优化（比如全局内联和循环展开）可以通过牺牲一些性能收益来减少二进制尺寸。使用 GNU gold 时，可以通过以下方式设置 LDFLAGS 来禁用上述优化：
 
 ```
 LDFLAGS += -plugin-opt=-inline-threshold=0 \
            -plugin-opt=-unroll-threshold=0
 ```
 
-Note that flags to disable individual optimizations are not part of the stable LLVM interface and may change in future compiler versions.
+注意，禁用单个优化的标志不是稳定 LLVM 接口的一部分，在将来的编译器版本中可能会更改。
 
-## Implementing CFI in the Linux kernel
+## 在 Linux 内核中实现 CFI
 
-[LLVM's CFI](https://clang.llvm.org/docs/ControlFlowIntegrity.html#indirect-function-call-checking) implementation adds a check before each indirect branch to confirm that the target address points to a valid function with a correct signature. This prevents an indirect branch from jumping to an arbitrary code location and even limits the functions that can be called. As C compilers do not enforce similar restrictions on indirect branches, there were several CFI violations due to function type declaration mismatches even in the core kernel that we have addressed in our CFI patch sets for kernels [4.9](https://android-review.googlesource.com/q/topic:android-4.9-cfi) and [4.14](https://android-review.googlesource.com/q/topic:android-4.14-cfi).
+[LLVM 的 CFI](https://clang.llvm.org/docs/ControlFlowIntegrity.html#indirect-function-call-checking) 实现在每个间接分支之前添加一个检查，以确认目标地址指向一个拥有有效签名的函数。这可以防止一个间接分支跳转到任意代码位置，甚至限制可以调用的函数。由于 C 编译器没有对间接分支强制执行类似限制，函数类型声明不匹配导致了几个 CFI 违规，即使在我们在内核的 CFI 补丁集中解决的内核 [4.9](https://android-review.googlesource.com/q/topic:android-4.9-cfi) 和 [4.14](https://android-review.googlesource.com/q/topic:android-4.14-cfi) 中也是如此。
 
-Kernel modules add another complication to CFI, as they are loaded at runtime and can be compiled independently from the rest of the kernel. In order to support loadable modules, we have implemented LLVM's [cross-DSO CFI](https://clang.llvm.org/docs/ControlFlowIntegrity.html#shared-library-support) support in the kernel, including a CFI shadow that speeds up cross-module look-ups. When compiled with cross-DSO support, each kernel module contains information about valid local branch targets, and the kernel looks up information from the correct module based on the target address and the modules' memory layout.
+内核模块为 CFI 添加了另一个复杂功能，因为它们在运行时加载，并且可以独立于内核的其它部分进行编译。为了支持可加载模块，我们在内核中实现了 LLVM 的 [cross-DSO CFI](https://clang.llvm.org/docs/ControlFlowIntegrity.html#shared-library-support) 支持，包括用来加速跨模块查找的 CFI 影子。在使用 cross-DSO 支持进行编译时，每个内核模块都会包含有关有效本地分支目标的信息，内核根据目标地址和模块的内存布局从正确的模块中查找信息。
 
 [![](https://2.bp.blogspot.com/-Iee5TBAz8Yo/W700nNjYZkI/AAAAAAAAF0A/oPsRJJhs2qMb-jNv4RGd4a5K3h8W7B9ygCLcBGAs/s1600/3_cfi_checkimage3.png)](https://2.bp.blogspot.com/-Iee5TBAz8Yo/W700nNjYZkI/AAAAAAAAF0A/oPsRJJhs2qMb-jNv4RGd4a5K3h8W7B9ygCLcBGAs/s1600/3_cfi_checkimage3.png)
 
-Figure 3. An example of a cross-DSO CFI check injected into an arm64 kernel. Type information is passed in X0 and the target address to validate in X1.
+图 3. 注入 arm64 内核的 cross-DSO CFI 检查示例。类型信息在 X0 中传递，目标地址在 X1 中验证。
 
-CFI checks naturally add some overhead to indirect branches, but due to more aggressive optimizations, our tests show that the impact is minimal, and overall system performance even improved 1-2% in many cases.
+CFI 检查会给间接分支增加一些开销，但由于更积极的优化，我们的测试表明影响很小，在很多情况下整体系统性能甚至提高了 1-2%。
 
-## Enabling kernel CFI for an Android device
+## 为 Android 设备启用内核 CFI
 
-CFI for arm64 requires clang version >= 5.0 and binutils >= 2.27. The kernel build system also assumes that the LLVMgold.so plug-in is available in LD_LIBRARY_PATH. Pre-built toolchain binaries for [clang](https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+/master) and [binutils](https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/+/master) are available in AOSP, but upstream binaries can also be used.
+arm64 中的 CFI 需要 clang 版本 >= 5.0 并且 binutils >= 2.27。内核构建系统还假定 LLVMgold.so 插件在 LD_LIBRARY_PATH 中可用。[clang](https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+/master) 和 [binutils](https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/+/master) 预构建工具链二进制文件可在 AOSP 获得，也可使用上游二进制文件。
 
-The following kernel configuration options are needed to enable kernel CFI:
+启用内核 CFI 需要开启以下内核配置选项：
 
 ```
 CONFIG_LTO_CLANG=y
 CONFIG_CFI_CLANG=y
 ```
 
-Using CONFIG_CFI_PERMISSIVE=y may also prove helpful when debugging a CFI violation or during device bring-up. This option turns a violation into a warning instead of a kernel panic.
+在调试 CFI 违规或设备启动期间，使用 CONFIG_CFI_PERMISSIVE=y 可能会有所帮助。此选项将违规转换为警告而不是内核恐慌。
 
-As mentioned in the previous section, the most common issue we ran into when enabling CFI on Pixel 3 were benign violations caused by function pointer type mismatches. When the kernel runs into such a violation, it prints out a runtime warning that contains the call stack at the time of the failure, and the call target that failed the CFI check. Changing the code to use a correct function pointer type fixes the issue. While we have fixed all known indirect branch type mismatches in the Android kernel, similar problems may be still found in device specific drivers, for example.
+如前一节所述，我们在 Pixel 3 上启用 CFI 时遇到的最常见问题是由函数指针类型不匹配引起的良性违规。当内核遇到这种违规时，它会打印出一个运行时警告，其中包含失败时的调用堆栈，以及未通过 CFI 检查的目标调用。更改代码以使用正确的函数指针类型可以解决问题。虽然我们已经修复了 Android 内核中所有已知的间接分支类型不匹配的问题，但在设备特定的驱动程序中仍然可能发现类似的问题，例如。
 
 ```
 CFI failure (target: [<fffffff3e83d4d80>] my_target_function+0x0/0xd80):
@@ -75,23 +75,23 @@ CFI failure (target: [<fffffff3e83d4d80>] my_target_function+0x0/0xd80):
 kernel BUG at kernel/cfi.c:32!
 Internal error: Oops - BUG: 0 [#1] PREEMPT SMP
 …
-Call trace:
+调用堆栈:
 …
 [<ffffff8752d00084>] handle_cfi_failure+0x20/0x28
 [<ffffff8752d00268>] my_buggy_function+0x0/0x10
 …
 ```
 
-Figure 4. An example of a kernel panic caused by a CFI failure.
+图 4. CFI 故障引起的内核恐慌示例
 
-Another potential pitfall are address space conflicts, but this should be less common in driver code. LLVM's CFI checks only understand kernel virtual addresses and any code that runs at another exception level or makes an indirect call to a physical address will result in a CFI violation. These types of failures can be addressed by disabling CFI for a single function using the __nocfi attribute, or even disabling CFI for entire code files using the $(DISABLE_CFI) compiler flag in the Makefile.
+另一个潜在的缺陷是地址空间冲突，但这在驱动程序代码中应该不太常见。LLVM 的 CFI 检查仅清楚内核虚拟地址和在另一个异常级别运行或间接调用物理地址的任何代码都将导致 CFI 违规。可通过使用 `__nocfi` 属性禁用单个函数的 CFI 来解决这些类型的故障，甚至可以使用 Makefile 中的 $(DISABLE_CFI) 编译器标志来禁用整个文件的 CFI。
 
 ```
 static int __nocfi address_space_conflict()
 {
       void (*fn)(void);
  …
-/* branching to a physical address trips CFI w/o __nocfi */
+/* 切换分支到物理地址将使 CFI 没有 __nocfi */
  fn = (void *)__pa_symbol(function_name);
       cpu_install_idmap();
       fn();
@@ -100,15 +100,15 @@ static int __nocfi address_space_conflict()
 }
 ```
 
-Figure 5. An example of fixing a CFI failure caused by an address space conflict.
+图 5. 修复由地址空间冲突引起 CFI 故障的示例。
 
-Finally, like many hardening features, CFI can also be tripped by memory corruption errors that might otherwise result in random kernel crashes at a later time. These may be more difficult to debug, but memory debugging tools such as [KASAN](https://www.kernel.org/doc/html/v4.14/dev-tools/kasan.html) can help here.
+最后，和许多增强功能一样，CFI 也可能因内存损坏错误而被触发，否则可能导致随后的内核崩溃。这些可能更难以调试，但内存调试工具，如 [KASAN](https://www.kernel.org/doc/html/v4.14/dev-tools/kasan.html) 在这种情况下可以提供帮助。
 
-## Conclusion
+## 结论
 
-We have implemented support for LLVM's CFI in Android kernels 4.9 and 4.14. Google's Pixel 3 will be the first Android device to ship with these protections, and we have made the feature available to all device vendors through the Android common kernel. If you are shipping a new arm64 device running Android 9, we strongly recommend enabling kernel CFI to help protect against kernel vulnerabilities.
+我们已经在 Android 内核 4.9 和 4.14 中实现了对 LLVM 的 CFI 的支持。Google 的 Pixel 3 将是第一款提供这些保护功能的 Android 设备，我们已通过 Android 通用内核向所有设备供应商提供了该功能。如果你要发布运行 Android 9 的新 arm64 设备，我们强烈建议启用内核 CFI 以帮助防止内核漏洞。
 
-LLVM's CFI protects indirect branches against attackers who manage to gain access to a function pointer stored in kernel memory. This makes a common method of exploiting the kernel more difficult. Our future work involves also protecting function return addresses from similar attacks using LLVM's [Shadow Call Stack](https://clang.llvm.org/docs/ShadowCallStack.html), which will be available in an upcoming compiler release.
+LLVM 的 CFI 保护间接分支免受攻击者的攻击，这些攻击者设法访问存储在内核中的函数指针。这使得利用内核的常用方法更加困难。我们未来的工作还涉及到 LLVM 的 [影子调用堆栈](https://clang.llvm.org/docs/ShadowCallStack.html)来保护函数返回地址免受类似攻击，这将在即将发布的编译器版本中提供。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
