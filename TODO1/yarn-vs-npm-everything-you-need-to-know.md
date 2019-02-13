@@ -3,18 +3,18 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/yarn-vs-npm-everything-you-need-to-know.md](https://github.com/xitu/gold-miner/blob/master/TODO1/yarn-vs-npm-everything-you-need-to-know.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)，[TUARAN](https://github.com/TUARAN)
 
 # 关于 Yarn 和 npm 你所需要知道的一切
 
 Yarn 是一个由 Facebook，Google，Exponent 和 Tilde 构建的新的 JavaScript 包管理器。正如[官方公告](https://code.facebook.com/posts/1840075619545360)所写，它的目标就是解决这些团队使用 npm 的时候所遇到的几个问题，即：
 
-*   安装包不够快速和稳定，以及
+*   安装包不够快速和稳定
 *   存在安全隐患，因为 npm 允许包在安装的时候运行代码
 
-但是，不必慌张！它并不是想要完全替代 npm。Yarn 仅仅是一个新的能够从 npm 注册处获取到模块的 CLI 客户端。 
+但是，不必慌张！它并不是想要完全替代 npm。Yarn 仅仅是一个能够从 npm 仓库获取到模块的新的 CLI 客户端。 
 
-应该每个人都现在就登上 Yarn 这辆快车吗？可能你在使用 npm 的时候你从没遇到过这些问题。在这篇文章中，我们将会比对 npm 和 Yarn，所以你就能够决定哪个对你来说是最好的。
+现在每个人都应该跳上 Yarn 这辆快车吗？可能你在使用 npm 的时候你从没遇到过这些问题。在这篇文章中，我们将会比对 npm 和 Yarn，所以你就能够决定哪个对你来说是最好的。
 
 ![Yarn 标志](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/10/1476870188yarn.jpg)
 
@@ -24,7 +24,7 @@ Yarn 是一个由 Facebook，Google，Exponent 和 Tilde 构建的新的 JavaScr
 
 ### yarn.lock 文件
 
-`package.json` 文件中有 npm 和 Yarn 追踪项目依赖的信息，版本号并不总是确切的。但是，你可以定义版本的范围。这样你可以选择包的最高和最低版本，但是允许 npm 安装最新的布丁，来修复一些 bug。
+`package.json` 文件中有 npm 和 Yarn 追踪项目依赖的信息，版本号并不总是确切的。但是，你可以定义版本的范围。这样你可以选择包的最高和最低版本，但是允许 npm 安装最新的补丁，来修复一些 bug。
 
 在 [语义版本控制](http://semver.org/) 的理想世界里，发布的补丁不应该包括任何实质性的修改。但是很不幸，这并不总是事实。npm 的策略可能会导致两台设备使用同样的 `package.json` 文件，但安装了不同版本的包，这可能导致故障。
 
@@ -87,7 +87,7 @@ npm 的输出默认就很详细。例如，当运行 `npm install <package>` 的
 
 ### yarn licenses [ls|generate-disclaimer]
 
-在写本篇文章的时候，没有等价的可用的 npm 命令。`yarn licenses ls` 能够列出所有安装包的许可协议。`yarn licenses generate-disclaimer` 能生成包括所有包的所有许可协议的免责声明。一些许可协议声明了你必须在你的项目中包含该项目协议，此时该命令就是一个很有用的工具了。
+在写本篇文章的时候，yarn 上还有一些 npm 上没有的等价可用的命令。`yarn licenses ls` 能够列出所有安装包的许可协议。`yarn licenses generate-disclaimer` 能生成包括所有包的所有许可协议的免责声明。一些许可协议声明了你必须在你的项目中包含该项目协议，此时该命令就是一个很有用的工具了。
 
 1.  [yarn licenses 文档](https://yarnpkg.com/en/docs/cli/licenses)
 
@@ -114,13 +114,13 @@ npm 的输出默认就很详细。例如，当运行 `npm install <package>` 的
 
 ## 稳定性和可靠性
 
-Yarn 的快车可能脱轨吗？在发布的第一天，它确实收到了很多[问题反馈](https://github.com/yarnpkg/yarn/issues)，但是解决问题的比率同样惊人。这都意味着社区在努力寻找并解决问题。看看这些问题的数量和种类后我们知道，Yarn 对于大多数用户都是更加稳定的，但是对于一些边缘情况，可能就不太适合了。
+Yarn 的快车可能脱轨吗？在发布的第一天，它确实收到了很多[问题反馈](https://github.com/yarnpkg/yarn/issues)，但是解决问题的效率同样惊人。这都意味着社区在努力寻找并解决问题。看看这些问题的数量和种类后我们知道，Yarn 对于大多数用户都是更加稳定的，但是对于一些边缘情况，可能就不太适合了。
 
 注意，尽管可能包管理对于你的项目非常重要，它也仅仅是一个包管理器。如果真的有什么问题出现了，重装包并不难，切回使用 npm 也不难。
 
 ## 展望将来
 
-也许你知道 Node.js 和 io.js 的历史。概括的说，io.js 是 Node.js 的一个分叉，由于 Node.js 项目的管理出现了分歧，一些核心贡献者就创建了 io.js。但是，io.js 选择了开源。不到一年的时间，两个团队又达成了一致，于是 io.js 又合并回了 Node.js，io.js 的研发也就不再进行了。忽略对与错，这件事的结果是为 Node.js 引入了很多很棒的功能。
+也许你知道 Node.js 和 io.js 的历史。概括的说，io.js 是 Node.js 的一个分叉，由于 Node.js 项目的管理出现了分歧，一些核心贡献者就创建了 io.js。但是，io.js 选择了开源。不到一年的时间，两个团队又达成了一致，于是 io.js 又合并回了 Node.js，io.js 的研发也就不再进行了。无论这样的选择现在来看是对是错，这件事的结果是为 Node.js 引入了很多很棒的功能。
 
 我现在在 npm 和 Yarn 上看到了类似的模式。尽管 Yarn 不是一个分叉，但是它改进了数个 npm 的漏洞。如果 npm 从中学习，并要求 Facebook，Google 以及其他 Yarn 贡献者转而帮助 npm 优化，这不是很好的事情吗？尽管现在这样说有些早了，但是我希望如此。
 
@@ -136,7 +136,7 @@ propertag.cmd.push(function() { proper_display('sitepoint_content_2'); });
 
 如果你正巧在等着 npm 安装包，也许正好可以读一读[迁移到 Yarn 的指南](https://yarnpkg.com/en/docs/migrating-from-npm) ;)
 
-你怎么想？你已经在使用 Yarn 了吗？你愿意尝试吗？或者你认为这仅会导致一个已经很分散的生态圈的进一步分裂？请在评论区写下你的看法。
+看完文章后你觉得怎样？你已经在使用 Yarn 了吗？你愿意尝试吗？或者你认为这仅会导致一个已经很分散的生态圈的进一步分裂？请在评论区写下你的看法。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
