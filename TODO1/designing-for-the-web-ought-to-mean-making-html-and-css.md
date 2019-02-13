@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/designing-for-the-web-ought-to-mean-making-html-and-css.md](https://github.com/xitu/gold-miner/blob/master/TODO1/designing-for-the-web-ought-to-mean-making-html-and-css.md)
 > * 译者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
-> * 校对者：[sunui](https://github.com/sunui)、[iceytea](https://github.com/iceytea)
+> * 校对者：[sunui](https://github.com/sunui)，[iceytea](https://github.com/iceytea)
 
 # 设计一个页面原则上应该指的是编写 HTML 和 CSS
 
@@ -25,7 +25,7 @@
 
 我们有可能找到这样优秀的独角兽设计师吗？也许，我猜？比如谁呢？斯科特、JZ 、康纳、乔纳斯、瑞安和杰森通过在工作中不断的投入，在今天都成长为了这样的设计师。不要被他人的轻视或者像“这对他们来说太难了”的废话影响。
 
-如今这个问题也与**我们**如何制作网页有关。Basecamp 是著名的，也可以说不太出名的一家，这主要取决于你问的是谁，那是一家不愿意迎接重量级 SPA 的复杂新世界大门的公司。我们使用 [服务器端渲染](https://rubyonrails.org/)，并使用 [Turbolinks](https://github.com/turbolinks/turbolinks) 和 [Stimulus](https://stimulusjs.org) 构建。 设计师采用的所有工具都是容易上手和且实际的，因为设计师主要关注的是 HTML 和 CSS，以及一些用于交互的 JavaScript。
+如今这个问题也与**我们**如何制作网页有关。Basecamp 是著名的，也可以说不太出名的一家，这主要取决于你问的是谁，那是一家不愿意迎接重量级 SPA 的复杂新世界大门的公司。我们使用 [服务器端渲染](https://rubyonrails.org/)，并使用 [Turbolinks](https://github.com/turbolinks/turbolinks) 和 [Stimulus](https://stimulusjs.org) 构建。设计师采用的所有工具都是容易上手和且实际的，因为设计师主要关注的是 HTML 和 CSS，以及一些用于交互的 JavaScript。
 
 它并不像是一个秘密！实际上，我们在 Basecamp 开发的允许设计人员以这种方式工作的框架都已经开源。虽然现在对设计师而言，JavaScript 的环境并不友好，甚至像是一场人为的灾难，但也仍然可以做出不同的选择并达到不同的设计。
 
