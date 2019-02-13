@@ -2,8 +2,8 @@
 > * 原文作者：[DHH](https://m.signalvnoise.com/author/dhh/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/designing-for-the-web-ought-to-mean-making-html-and-css.md](https://github.com/xitu/gold-miner/blob/master/TODO1/designing-for-the-web-ought-to-mean-making-html-and-css.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
+> * 校对者：[sunui](https://github.com/sunui)、[iceytea](https://github.com/iceytea)
 
 # 设计一个页面原则上应该指的是编写 HTML 和 CSS
 
