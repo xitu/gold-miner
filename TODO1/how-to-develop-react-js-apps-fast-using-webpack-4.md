@@ -11,11 +11,11 @@
 
 图片来源：https://www.instagram.com/p/BiaH379hrAp/?taken-by=riittagirl
 
-在现实生活的开发中，我们经常需要对新功能进行快速迭代。在本教程中，我将向您展示一些您可以采取的措施，以提升大约 120% 的开发速度。
+在现实生活的开发中，我们经常需要对新功能进行快速迭代。在本教程中，我将向您展示一些您可以采取的措施，以提升大约 20% 的开发速度。
 
 **为什么要这样**，你可能会问？
 
-因为在编程时进行人工操作往往会非常适得其反，我们希望尽可能将流程自动化。因此，我将向您展示如何使用 Webpack v4.6.0 提升 React 的开发过程中的哪些部分。
+因为在编程时进行人工操作往往会非常适得其反，我们希望尽可能将流程自动化。因此，我将向您展示使用 Webpack v4.6.0 提升 React 的开发过程中的哪些部分。
 
 我不会介绍如何初始化配置 webpack， 因为我已经在[**之前的帖子**](https://hackernoon.com/a-tale-of-webpack-4-and-how-to-finally-configure-it-in-the-right-way-4e94c8e7e5c1)里讲过它。在那篇文章里，我详细介绍了如何配置 Webpack。我假设在阅读本文之前你已经熟悉 Webpack 配置的基础知识，这样我们就可以从准备好了基本配置之后开始。
 
@@ -125,7 +125,7 @@ console.log("hello, world");
 npm run dev
 ```
 
-**接下来你就会发现：项目开始编译了！**现在让我们继续为它配置 React。
+**接下来你就会发现：项目完成编译了！**现在让我们继续为它配置 React。
 
 ### 配置 React 项目
 
@@ -170,7 +170,7 @@ render(<App />, document.getElementById('app'));
 npm run dev
 ```
 
-如果在你的 `./dist` 目录下能够看到一个 `index.html` 文件和一个带有 hash 值的 `main.js`文件，**那么说明你已经做到一件很棒的事情了 —— 我们成功将我们的项目完成了编译！**
+如果在你的 `./dist` 目录下能够看到一个 `index.html` 文件和一个带有 hash 值的 `main.js` 文件，**那么说明你做得很棒！项目完成了编译！**
 
 ### 配置 web-dev-server
 
@@ -180,13 +180,13 @@ npm run dev
 
 > 使用 [webpack](https://webpack.js.org/) 和后端开发服务配合能够实现 live reloading（热重启），但这只应当被用于开发环境下。
 
-**这可能会让人感到有些困惑：**为什么 webpack-dev-server 仅适用于开发模式？
+**这可能会让人感到有些困惑：**怎样使 webpack-dev-server 仅在开发模式下生效？
 
 ```
 npm i webpack-dev-server --save-dev
 ```
 
-在你的 `package.json` 文件中，更正：
+在你的 `package.json` 文件中，调整：
 
 ```
 "scripts": {
@@ -242,7 +242,7 @@ npm i webpack-dev-server --save-dev
 
 ### ESLint 配置
 
-我们为什么需要它？好吧，通常我们不需要使用它，但 ESLint 是一个方便的工具。在我们的例子中，它将呈现并突出显示（在编辑器和终端中以及在浏览器上）我们代码中的错误，包括拼写错误等等（如果有的话），这称为 **linting**。
+我们为什么需要它？好吧，通常来讲我们不是必须使用它，但 ESLint 是一个方便的工具。在我们的例子中，它将呈现并突出显示（在编辑器和终端中以及在浏览器上）我们代码中的错误，包括拼写错误等等（如果有的话），这称为 **linting**。
 
 ESLint 是一个开源的 JavaScript linting 实用程序，最初由 Nicholas C. Zakas 于 2013 年 6 月开发完成。它有其替代品，但到目前为止，它与 ES6 和 React 配合使用效果特别好，能够发现常见问题，并能与项目的生态系统其他部分集成。
 
@@ -262,7 +262,7 @@ npm install eslint --save-dev
 
 ![](https://cdn-images-1.medium.com/max/1600/1*I0dtDFE0l2vSSlp2rN3aaw.png)
 
-这会将一个 `.eslintrc.js` 文件添加 到项目目录中。我生成的文件如下所示：
+这会将一个 `.eslintrc.js` 文件添加到项目目录中。我生成的文件如下所示：
 
 ```
 module.exports = {
@@ -305,7 +305,7 @@ module.exports = {
 
 到目前为止什么都没发生。虽然这是一个完全有效的配置，但这还不够，我们必须将它与 Webpack 和我们的文本编辑器集成才能工作。正如我所提到的，我们可以在代码编辑器、终端（作为 linter）或 git 的 precommit 钩子中使用它。我们现在将为我们的编辑器配置它：
 
-#### Visual Studio Code ESLint安装
+#### Visual Studio Code 中安装
 
 如果你想要，几乎每个常用的代码编辑器都有 ESLint 插件，包括 **Visual Studio Code、Visual Studio、SublimeText、Atom、WebStorm 甚至是 vim**。 所以，下载[您自己的文本编辑器](https://prettier.io/docs/en/editors.html)的对应版本。在本次示例中我会使用 **VS Code**。
 
@@ -360,7 +360,7 @@ module.exports = {
 };
 ```
 
-更改了配置之后，如果您错误地使用了双引号而不是单引号，则不会停止构建，它还将为 JSX 添加一些检查。
+更改了配置之后，如果您错误地使用了双引号而不是单引号，ESLint 不会中断构建。它还将为 JSX 添加一些检查。
 
 #### 添加 Prettier
 
@@ -425,9 +425,9 @@ extends: [
 
 ![](https://cdn-images-1.medium.com/max/1600/1*peNFmblwA6zx1DkANNye3Q.png)
 
-Prettier 借用了 ESLint 的[override 格式](http://eslint.org/docs/user-guide/configuring#example-configuration)，这允许您将配置应用于特定的文件。
+Prettier 借用了 ESLint 的 [override 格式](http://eslint.org/docs/user-guide/configuring#example-configuration)，这允许您将配置应用于特定的文件。
 
-您现在可以以 `.js `文件的形式为其创建配置文件。
+您现在可以以  `.js ` 文件的形式为其创建配置文件。
 
 ```
 nano prettier.config.js
@@ -599,11 +599,11 @@ semi: ['error', 'always'],
 
 这样我们就会得到漂亮的错误和警告信息。
 
-我喜欢使用自动修复功能，但我们必须明确一点：我并不是特别像让事情神奇地改变。为了避免这种情况，我们现在可以提交 autofix。
+我喜欢使用自动修复功能，但我们必须明确一点：我并不是特别想让事情神奇地改变。为了避免这种情况，我们现在可以提交 autofix。
 
 ### Pre commit 钩子
 
-在使用 Git 工具时，人们都会非常小心。但我向你保证，这个东西非常简单而且直截了当。挂载了 Prettier 的 Pre commit 钩子之后，团队在每个项目文件中将有一致的代码库样式，并且没有人可以提交无样式的代码。要为您的项目设置 Git 集成，如下所示：
+在使用 Git 工具时，人们都会非常小心。但我向你保证，这个东西非常简单而且直截了当。挂载了 Prettier 的 Pre commit 钩子之后，团队在每个项目文件中将有一致的代码风格，并且没有人可以提交不规范的代码。要为您的项目设置 Git 集成，如下所示：
 
 ```
 git init
@@ -831,7 +831,7 @@ devServer: {
 
 如您所见，我们得到了发生错误的确切文件！
 
-现在您已成功为项目设置了开发环境！
+现在项目的开发环境已经搭建成功！
 
 让我们回顾一下：
 
