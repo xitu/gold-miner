@@ -15,11 +15,11 @@
 
 **为什么要这样**，你可能会问？
 
-因为在编程时进行人工操作往往会非常适得其反，我们希望尽可能能将流程自动化。因此，我将向您展示如何使用 Webpack v4.6.0 提升 React 的开发过程中的哪些部分。
+因为在编程时进行人工操作往往会非常适得其反，我们希望尽可能将流程自动化。因此，我将向您展示如何使用 Webpack v4.6.0 提升 React 的开发过程中的哪些部分。
 
-我不会介绍如何初始化配置 webpack， 因为我已经在[**之前的帖子**](https://hackernoon.com/a-tale-of-webpack-4-and-how-to-finally-configure-it-in-the-right-way-4e94c8e7e5c1)里讲过它。在那篇文章里，我详细介绍了如何配置 Webpack。我假设在阅读本文之前已经熟悉 Webpack 配置的基础知识，因此我们可以从准备好了基本配置之后开始。
+我不会介绍如何初始化配置 webpack， 因为我已经在[**之前的帖子**](https://hackernoon.com/a-tale-of-webpack-4-and-how-to-finally-configure-it-in-the-right-way-4e94c8e7e5c1)里讲过它。在那篇文章里，我详细介绍了如何配置 Webpack。我假设在阅读本文之前你已经熟悉 Webpack 配置的基础知识，这样我们就可以从准备好了基本配置之后开始。
 
-### 配置Webpack
+### 配置 Webpack
 
 在你的 `webpack.config.js` 文件中，添加以下代码：
 
@@ -125,7 +125,7 @@ console.log("hello, world");
 npm run dev
 ```
 
-**接下来你就会发现：项目开始编译了！**现在让我们继续为它配置React。
+**接下来你就会发现：项目开始编译了！**现在让我们继续为它配置 React。
 
 ### 配置 React 项目
 
@@ -553,7 +553,7 @@ Webpack 有它自己的 [ESLint loader](https://www.npmjs.com/package/eslint-loa
 npm install eslint-loader --save-dev
 ```
 
-您必须将 ESLint 添加到 rules 配置中。当使用了使用了编译类的 loader（如babel-loader）时，请确保它们的执行顺序正确（从下到上）。否则，Webpack 将检查文件经过 babel-loader 编译后的文件。
+您必须将 ESLint 添加到 rules 配置中。当使用了使用了编译类的 loader（如 babel-loader）时，请确保它们的执行顺序正确（从下到上）。否则，Webpack 将检查文件经过 babel-loader 编译后的文件。
 
 ```
 ...
@@ -577,9 +577,9 @@ module: {
 
 ![](https://cdn-images-1.medium.com/max/1600/1*OSM0SXJIZ0Ain2VrHn7xYA.png)
 
-如果你偶然发现了这个错误（no-unused-vars），那么在 GitHub 和[这里](https://github.com/yannickcr/eslint-plugin-react/issues/1146)的[这个 issue](https://github.com/babel/babel-eslint/issues/6)中很好地解释了这个错误。
+如果你偶然发现了这个错误（no-unused-vars），那么在 GitHub 和[这里](https://github.com/yannickcr/eslint-plugin-react/issues/1146)的[这个 issue ](https://github.com/babel/babel-eslint/issues/6)中很好地解释了这个错误。
 
-我们可以通过添加一些规则来解决这个问题，[这里](https://github.com/yannickcr/eslint-plugin-react#recommended)和[here](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-uses-vars.md)都有解答。
+我们可以通过添加一些规则来解决这个问题，[这里](https://github.com/yannickcr/eslint-plugin-react#recommended)和[这里](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-uses-vars.md)都有解答。
 
 您可能已经注意到，这里会出现 [no-unused-vars](https://eslint.org/docs/rules/no-unused-vars) 错误，您需要将其设为警告而不是错误，因为这样可以更轻松地进行快速开发。您需要向 ESLint 添加新规则，以便不会收到默认错误。
 
@@ -599,7 +599,7 @@ semi: ['error', 'always'],
 
 这样我们就会得到漂亮的错误和警告信息。
 
-我喜欢使用自动修复功能，但我们必须明确一点：我并不是特别像让事情神奇地改变。为了避免这种情况，我们现在可以提交autofix。
+我喜欢使用自动修复功能，但我们必须明确一点：我并不是特别像让事情神奇地改变。为了避免这种情况，我们现在可以提交 autofix。
 
 ### Pre commit 钩子
 
@@ -618,7 +618,7 @@ git push -u origin master
 
 对于那些说你只能在本地做这些操作的人说：不，那不是真的！
 
-您可以使用 [Andrey Okonetchnikov](https://medium.com/@okonetchnikov) 开源的 [lint-staged](https://github.com/okonet/lint-staged)  工具执行此操作。
+您可以使用 [Andrey Okonetchnikov](https://medium.com/@okonetchnikov) 开源的 [lint-staged](https://github.com/okonet/lint-staged) 工具执行此操作。
 
 ### 添加 propTypes
 
@@ -696,7 +696,7 @@ export default Hello;
 
 当然，每次更改项目中的某些内容时，重新编译整个应用程序都不是一种好的选择，你需要一种更快的方法来优化它。
 
-所以让我们添加热模块替换，即HMR。在[文档中](https://webpack.js.org/concepts/hot-module-replacement/)，它被描述为：
+所以让我们添加热模块替换，即 HMR。在[文档中](https://webpack.js.org/concepts/hot-module-replacement/)，它被描述为：
 > 热模块更换（HMR）在应用程序运行时变更、添加或删除[模块](https://webpack.js.org/concepts/modules/)无需完全重新加载。可以通过以下几种方式显著提升开发速度：
 
 > 保留在完全重新加载期间丢失的应用程序状态。
@@ -764,7 +764,7 @@ module.exports = {
 
 我之前提到过，**source maps 不能和 ESLint loader 一起使用**， 我在[这里](https://github.com/webpack-contrib/eslint-loader/issues/227#issuecomment-386798932)提了一个 issue。
 
-> 通常，您无论如何都不希望它们出现在您的项目中（因为您想从ESLint错误消息中调试项目），总所周知，他们会使HMR变慢。
+> 通常，您无论如何都不希望它们出现在您的项目中（因为您想从 ESLint 错误消息中调试项目），总所周知，他们会使 HMR 变慢。
 
 你可以在[这里](https://github.com/facebook/create-react-app/pull/109#issuecomment-234674331)和[这里](https://github.com/facebook/create-react-app/pull/109#issuecomment-234674331)阅读更多。
 
@@ -841,7 +841,7 @@ devServer: {
 *   我们配置了热模块替换
 *   我们（可能）添加了 source maps 功能
 
-**特别提醒**：由于许多npm依赖项可能会在您阅读此内容时发生更改，因此相同的配置可能对您无效。我恳请您将错误留在下面的评论中，以便我以后编辑。
+**特别提醒**：由于许多 npm 依赖项可能会在您阅读此内容时发生更改，因此相同的配置可能对您无效。我恳请您将错误留在下面的评论中，以便我以后编辑。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
