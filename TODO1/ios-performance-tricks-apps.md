@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ios-performance-tricks-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ios-performance-tricks-apps.md)
 > * 译者：[LoneyIsError](https://github.com/LoneyIsError)
-> * 校对者：
+> * 校对者：[EdmondWang](https://github.com/EdmondWang)
 
 # 用这些 iOS 技巧让你的 APP 性能更佳
 
