@@ -13,26 +13,27 @@
 
 每次创建类的新实例时，ARC都会分配一块内存来存储有关它的信息，并在不再需要该实例时自动释放该内存。
 
-作为开发人员，你不需要为内存管理做任何事情，除了3个案例，你需要告诉ARC有关实例之间关系的更多信息，以避免「循环引用期」。
+作为开发人员，你不需要为内存管理做任何事情，除了以下3种情况，你需要告诉 ARC 有关实例之间关系的更多信息，以避免「循环引用」。
 
-In this article we will walk together in the process of managing these 3 cases , and see real examples of retain cycles and how to get rid of them.  
-But first, what are retain cycles and why we need to avoid them?
+在本文中，我们将在集中讨论这3种情况，并查看循环引用的实际示例以及如何摆脱它们。 
 
-* * *
-
-### Retain Cycles:
-
-Retain Cycle is the case when 2 objects have strong reference to each others and are retained , make it impossible for ARC to release those object from the memory and cause what we call a “memory leak”.
-
-> Memory leaks are dangerous in you app because they will affect your app’s performance and might lead to crashes when the app runs out of memory.
+但是首先，我们得知道什么是循环引用以及为什么我们需要避免它们？
 
 * * *
 
-### The 3 cases that cause memory leaks:
+### 循环引用:
 
-#### **1- Strong Reference Between 2 Classes:**
+循环引用就是这种情况，两个对象彼此具有强引用并相互持有，ARC 无法从内存中释放这些对象并导致「内存泄漏」。
 
-Suppose we have 2 classes (Author&Book) that directly reference each other :
+> 在你的应用程序中出现内存泄漏是危险的，因为它们会影响应用程序的性能，并可能在应用程序内存不足时导致崩溃。
+
+* * *
+
+### 以下三种情况会造成内存泄漏：
+
+#### **1- 两个类之间的强引用：**
+
+假设我们有2个类（Author 类和 Book 类）直接相互引用：
 
 ```
 class Author {
@@ -71,21 +72,21 @@ var book = Book(name:"Swift",author:author)
 book = nil
 ```
 
-Theoretically this should print that both objects were allocated , and then de allocated because they were set to nil but instead it prints the following:
+从理论上讲，这应该先打印出两个对象都已分配，然后打印出两个对象都被销毁，因为这两个对象都被设置为 nil，但是它会打印以下内容：
 
 ```
 Author Object was allocated in memory
 Book object was allocated in memory
 ```
 
-As you see both objects were never released from memory because a retain cycle occurred when both classed had strong reference to each others.
+正如你所见，两个对象并未从内存中释放，因为当两个对象之间彼此具有强引用时发生了循环引用。
 
-To solve this we can declare on of the references to be weak or unowned as follows:
+为了解决这个问题，我们可以如下声明弱引用或无主引用：
 
 ```
 class Author {
    var name:String
-   weak var book:Book? // book needs to be optional to be declared as weak
+   weak var book:Book? // book 对象需要被声明为弱的可选项
     
     init(name:String,book:Book?) {
         self.name = name
@@ -98,7 +99,7 @@ class Author {
 }
 ```
 
-This time both objects will be released and the console prints the following:
+这次两个对象都会被释放，控制台将打印以下内容：
 
 ```
 Author Object was allocated in memory
@@ -107,21 +108,21 @@ Author Object was deallocated
 Book Object was deallocated
 ```
 
-The problem was solved and ARC was able to clean the memory chunk when the objects were released just by making one of the references weak , but what does weak and unowned actually mean? According to apple’s documentation:
+问题解决了，ARC 在清理内存块时可以通过使其中一个引用变弱来释放对象，但弱引用和无主引用是什么呢？根据 apple 的文档：
 
-#### Weak References
+#### 弱引用
 
-> A weak reference is a reference that does not keep a strong hold on the instance it refers to, and so does not stop ARC from disposing of the referenced instance. This behavior prevents the reference from becoming part of a strong reference cycle. You indicate a weak reference by placing the `weak` keyword before a property or variable declaration.
+> 弱引用是一种引用，它不会强制保留它引用的实例，因此不会阻止 ARC 处理引用的实例。这样就会阻止引用成为强引用循环的一部分。通过在属性或变量声明之前放置 `weak` 关键字来标记弱引用。
 
-#### Unowned References
+#### 无主引用
 
-> Like a weak reference, an _unowned reference_ does not keep a strong hold on the instance it refers to. Unlike a weak reference, however, an unowned reference is used when the other instance has the same lifetime or a longer lifetime. You indicate an unowned reference by placing the `unowned` keyword before a property or variable declaration.
+> 就像一个弱引用一样，_无主引用_ 也不会对它引用的实例保持强引用。然而，与弱引用不同得是，当另一个实例具有相同的生命周期或更长的生命周期时，则需要使用无主引用。 通过在属性或变量声明之前放置 `unowned` 关键字来标记无主引用。
 
 * * *
 
-#### **2- Class Protocol Relation:**
+#### **2- 类协议关系：**
 
-Another cause for memory leaks can be a strong relation between a protocol and a class. In the following example we will take a real world scenario were we have a TablViewController Class and a TableViewCell Class , when the user presses a button in the TableViewCell it should delegate this action to the TablViewController as follows:
+内存泄漏的另一个原因可能是协议和类之间的密切关系。在下面的示例中，我们将采用一个真实的场景，我们有一个 TablViewController 类和一个 TableViewCell 类，当用户按下 TableViewCell 中的一个按钮时，它应该将此动作代理给 TablViewController，如下所示：
 
 ```
 @objc protocol TableViewCellDelegate {
@@ -168,8 +169,9 @@ extension TableViewController: TableViewCellDelegate {
 }
 ```
 
-Normally , when we dismiss the TableViewController , deinit should be called and the print statement should appear in the console , but in this case since TableViewCellDelegate and TableViewController have strong reference to each other they will never be released from memory.  
-To solve this we can simply adjust the TableViewCell class to be as follows:
+通常，当我们关闭 TableViewController 时，ARC 应该调用 deinit 方法并且在控制台中 打印「TableViewController is deallocated」，但是在这种情况下，由于 TableViewCellDelegate 和 TableViewController 彼此之间具有强引用，所以它们永远不会从内存中释放。
+
+为了解决这个问题，我们可以简单地将 TableViewCell 类调整为如下：
 
 ```
 @objc protocol TableViewCellDelegate {
@@ -185,7 +187,7 @@ class TableViewCell: UITableViewCell {
 }
 ```
 
-This time dismiss the TableViewController and see the console:
+这次关闭 TableViewController 就可以在控制台中看到：
 
 ```
 TableViewController is deallocated
@@ -193,9 +195,9 @@ TableViewController is deallocated
 
 * * *
 
-#### 3- Strong Reference Cycles for Closures:
+#### 3- 闭包的强循环引用：
 
-Suppose we have the following ViewController:
+假设我们有以下 ViewController：
 
 ```
 class ViewController: UIViewController {
@@ -214,8 +216,8 @@ class ViewController: UIViewController {
 }
 ```
 
-Try dismissing ViewController , the deinit method will never be executed.  
-The reason why is because the closure captures a strong reference of the ViewController. To solve this we need to pass self as weak or unowned as follows:
+尝试关闭 ViewController，deinit 方法永远不会被执行。
+这是因为闭包捕获了 ViewController 的强引用。要解决这个问题，我们需要在闭包中使用 weak 或 unowned 修饰的 self，如下所示：
 
 ```
 class ViewController: UIViewController {
@@ -234,7 +236,7 @@ class ViewController: UIViewController {
 }
 ```
 
-This time when dismissing ViewController the console will print:
+这次关闭 ViewController 时控制台将打印：
 
 ```
 ClosureViewController was deallocated
@@ -242,16 +244,16 @@ ClosureViewController was deallocated
 
 * * *
 
-### Conclusion
+### 总结
 
-There is no doubt ARC do an amazing job managing memory for our application , all we have to do as developers is to be aware of strong references between classes , between a class and a protocol , and inside closures by declaring weak or unowned variables in those cases.
+毫无疑问，ARC 对应用程序的内存管理起了了不起的作用，我们开发者所要做的是注意类之间，类和协议之间以及内部闭包之间的强引用，通过声明 weak 或者 unowned 来避免循环引用。
 
 * * *
 
-### Some Great References about ARC:
+### 关于 ARC 的一些重要参考：
 
-*   [Apple’s Documentation.](https://docs.swift.org/swift-book/LanguageGuide/AutomaticReferenceCounting.html)
-*   [Raywenderlich](https://www.raywenderlich.com/959-arc-and-memory-management-in-swift) article about ARC.
+*   [Apple 官方文档](https://docs.swift.org/swift-book/LanguageGuide/AutomaticReferenceCounting.html)
+*   [Raywenderlich](https://www.raywenderlich.com/959-arc-and-memory-management-in-swift) 关于 ARC 的文章。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
