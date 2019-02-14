@@ -2,32 +2,32 @@
 > * 原文作者：[Lucas Pardue](https://blog.cloudflare.com/author/lucas/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/http-3-from-root-to-tip.md](https://github.com/xitu/gold-miner/blob/master/TODO1/http-3-from-root-to-tip.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)，[kasheemlew](https://github.com/kasheemlew)
 
 # HTTP/3: 起源
 
-HTTP 是确保 Web 应用程序正常运行的应用层协议。1991 年，HTTP/0.9 正式生效 ,至 1991 年，已经发展为 IETF（国际互联网工程任务组）的标准化协议 HTTP/1.1。在很长的一段时间里，HTTP/1.1 表现得都非常好，但面对如今变化多端的 Web 需求，显然需要一个更为合适的协议。2015 年，HTTP/2 应运而生。最近，有人披露 IETF 预计发布一个新版本 —— HTTP/3。对有些人来说，这是惊喜，也引发了业界的激烈探讨。如果你不怎么关注 IETF，可能就会觉得 HTTP/3 的出现非常突然。但事实是，我们可以透过 HTTP 的一系列实现和 Web 协议发展来追溯它的起源，尤其是 QUIC 传输协议。
+HTTP 是确保 Web 应用程序正常运行的应用层协议。1991 年，HTTP/0.9 正式发布，至 1991 年，已经发展为 IETF（国际互联网工程任务组）的标准化协议 HTTP/1.1。在很长的一段时间里，HTTP/1.1 表现得都非常好，但面对如今变化多端的 Web 需求，显然需要一个更为合适的协议。2015 年，HTTP/2 应运而生。最近，有人披露 IETF 预计发布一个新版本 —— HTTP/3。对有些人来说，这是惊喜，也引发了业界的激烈探讨。如果你不怎么关注 IETF，可能就会觉得 HTTP/3 的出现非常突然。但事实是，我们可以透过 HTTP 的一系列实现和 Web 协议发展来追溯它的起源，尤其是 QUIC 传输协议。
 
-如果你不熟悉 QUIC，可以查看我同事的一些高质量博文。John 的 [blog](https://blog.cloudflare.com/the-quicening/)。它从不同的角度讨论了现如今的 HTTP 所存在的一些问题，Alessandro 的 [blog](https://blog.cloudflare.com/the-road-to-quic/) 阐述了传输层的本质，Nick 的 [blog](https://blog.cloudflare.com/head-start-with-quic/) 涉及了相关测试的处理方法。我们对这些相关内容进行了收集整理，如果你想要查看更多内容，可以前往 [https://cloudflare-quic.com](https://cloudflare-quic.com)。如果你对此感兴趣，记得去查看我们自己用 Rust 编写的 QUIC 开源实现项目 —— [quiche](https://blog.cloudflare.com/enjoy-a-slice-of-quic-and-rust/)。
+如果你不熟悉 QUIC，可以查看我同事的一些高质量博文。John 的[博客](https://blog.cloudflare.com/the-quicening/)。它从不同的角度讨论了现如今的 HTTP 所存在的一些问题，Alessandro 的[博客](https://blog.cloudflare.com/the-road-to-quic/) 阐述了传输层的本质，Nick 的[博客](https://blog.cloudflare.com/head-start-with-quic/) 涉及了相关测试的处理方法。我们对这些相关内容进行了收集整理，如果你想要查看更多内容，可以前往 [https://cloudflare-quic.com](https://cloudflare-quic.com)。如果你对此感兴趣，记得去查看我们自己用 Rust 编写的 QUIC 开源实现项目 —— [quiche](https://blog.cloudflare.com/enjoy-a-slice-of-quic-and-rust/)。
 
 HTTP/3 是 QUIC 传输层的 HTTP 应用程序映射。该名称在最近（2018 年 10 月底）草案的第 17 个版本中被正式提出（[draft-ietf-quic-http-17](https://tools.ietf.org/html/draft-ietf-quic-http-17)），在 11 月举行的 IETF 103 会议中进行了讨论并形成了初步的共识。HTTP/3 以前被称为 QUIC（以前被称为 HTTP/2）。在此之前，我们已经有了 gQUIC，而在更早之前，我们还有 SPDY。事实是，HTTP/3 只是一种适用于 IETF QUIC 的新 HTTP 语法 —— 基于 UDP 的多路复用和安全传输。
 
-在本文中，我们将讨论 HTTP/3 以前一些名称背的后历史故事，以及最近更名的诱因。我们将回到 HTTP 的早期时代，探寻它一路成长中的美好回忆。如果你已经迫不及待了，可以直接查看文末，或打开[这个详细的 SVG 版本](https://blog.cloudflare.com/content/images/2019/01/web_timeline_large1.svg)。
+在本文中，我们将讨论 HTTP/3 以前一些名称背后的历史故事，以及最近更名的诱因。我们将回到 HTTP 的早期时代，探寻它一路成长中的美好回忆。如果你已经迫不及待了，可以直接查看文末，或打开[这个详细的 SVG 版本](https://blog.cloudflare.com/content/images/2019/01/web_timeline_large1.svg)。
 
 ![](https://blog.cloudflare.com/content/images/2019/01/http3-stack.png)
 
-HTTP/3 层
+HTTP/3 分层模型（蛋糕模型）
 
 ## 设置背景
 
-在我们关注 HTTP 之前，值得回忆的是两个共享 QUIC 的名称。就像我们[之前](https://blog.cloudflare.com/the-road-to-quic/)解释得那样，gQUIC 通常用于识别 Google QUIC（协议起源），QUIC 通常用于表示与 gQUIC 不同的 IETF 标准（正在开发的版本）。
+在我们关注 HTTP 之前，值得回忆的是两个共享 QUIC 的名称。就像我们[之前](https://blog.cloudflare.com/the-road-to-quic/)解释得那样，gQUIC 通常是指 Google QUIC（协议起源），QUIC 通常用于表示与 gQUIC 不同的 IETF 标准（正在开发的版本）。
 
 在 90 年代初期，Web 需求就已经发生了改变。我们已经有了新的 HTTP 版本，以传输层安全（TLS）的形式加强用户安全性。在本文中，我们会涉及 TLS。如果你想更详细地了解这个领域，可以参阅我们其他的高质量[博文](https://blog.cloudflare.com/tag/tls/)。
 
-为了帮组我们解释 HTTP 和 TLS 的历史，我整理了协议规范以及日期的细节内容。这种信息一般以文本形式呈现，比如，按日期排序说明文档标题的符号点列表。不过，因为分支标准的存在，所以重叠的时间和简单的列表并不能正确表达复杂的关系。在 HTTP 中，并行工作导致了核心协议定义的重构，为了更简单的使用，我们为新行为扩展了协议内容，为了提高性能，我们甚至还重定义了协议如何在互联网上交换数据。当你尝试了解近 30 年的互联网历史，跨越不同的分支工作流程时，你需要将其可视化。所以我做了一个 Cloudflare 安全 Web 时间线（注意：从技术上说，它是 [Cladogram](https://en.wikipedia.org/wiki/Cladogram)，但时间线这个术语更广为人知）。
+为了帮助我们了解 HTTP 和 TLS 的历史，我整理了协议规范以及日期的细节内容。这种信息一般以文本形式呈现，比如，按日期排序说明文档标题的符号点列表。不过，因为分支标准的存在，所以重叠的时间和简单的列表并不能正确表达复杂的关系。在 HTTP 中，并行工作导致了核心协议定义的重构，为了更简单的使用，我们为新行为扩展了协议内容，为了提高性能，我们甚至还重定义了协议如何在互联网上交换数据。当你尝试了解近 30 年的互联网历史，跨越不同的分支工作流程时，你需要将其可视化。所以我做了一个 Cloudflare 安全 Web 时间线（注意：从技术上说，它是[进化树](https://en.wikipedia.org/wiki/Cladogram)，但时间线这个术语更广为人知）。
 
-在创建它时，我申请了一些 artistic license。选择关注 IETF 中的成功分支。未显示的内容，包括 W3 Consortium [HTTP-NG](https://www.w3.org/Protocols/HTTP-NG/) 工作组的努力成果，还有些热衷于解释如何发音的作者的奇特想法：[HMURR（发音为 'hammer'）](https://blog.jgc.org/2012/12/speeding-up-http-with-minimal-protocol.html) 和 [WAKA（发音为 “wah-kah”）](https://github.com/HTTPWorkshop/workshop2017/blob/master/talks/waka.pdf)。
+在创建它时，我获得了作者的授权。选择关注 IETF 中的成功分支。未显示的内容，包括 W3C [HTTP-NG](https://www.w3.org/Protocols/HTTP-NG/) 工作组的努力成果，还有些热衷于解释如何发音的作者的奇特想法：[HMURR（发音为 'hammer'）](https://blog.jgc.org/2012/12/speeding-up-http-with-minimal-protocol.html) 和 [WAKA（发音为 “wah-kah”）](https://github.com/HTTPWorkshop/workshop2017/blob/master/talks/waka.pdf)。
   
 为了让你们更好地把握本文的脉络，下面的一些部分，我会沿着这条时间线来解释 HTTP 历史的重点内容。了解标准化以及 IETF 是如何对待标准化的。因此，在回到时间线之前，我们首先会对这个主题进行一个简短的概述。如果你已经非常熟悉 IETF 了，可以跳过该内容。
 
@@ -37,25 +37,25 @@ HTTP/3 层
 
 早期 Web 使用在 IETF 之外发布的 HTTP 和 SSL 协议定义，它们在安全的 Web 时间线上被标记为**红线**。客户端和服务的对这些协议的妥协使它们得以成为事实上的标准。
 
-迫于当时的形式，这些协议最终被确定为标准化（一些激进的原因会在之后进行描述）。互联网标准通常在 IETF 中定义，以 "rough consensus and running code" 非正式原则作为指导。这是基于在互联网上开发和部署项目的经验。这与试图在真空中开发完美协议的 "clean room" 方法形成了鲜明对比。
+迫于当时的形式，这些协议最终被确定为标准化（一些激进的原因会在之后进行描述）。互联网标准通常在 IETF 中定义，以“多数共识和运行的代码”非正式原则作为指导。这是基于在互联网上开发和部署项目的经验。这与试图在真空中开发完美协议的 "clean room" 方法形成了鲜明对比。
 
 IETF 互联网标准通常被称为 RFCs。这是一个需要解释的复杂领域，因此我建议阅读 QUIC 工作组主席 Mark Nottingham 的博文 "[如何阅读 RFC](https://www.ietf.org/blog/how-read-rfc/)"。工作组或 WG，或多或少的只是一个邮件列表。
 
 IETF 每年举行三次会议，为所有工作组提供时间和设施，如果他们愿意的话，可以亲自前来。这几周的行程挤在了一起，需要在有限的时间里深入讨论高级技术领域。为了解决这个问题，一些工作组甚至选择在 IETF 的一般性会议期间举行临时会议。这有助于保持规范开发的信心。自 2017 年以来，QUIC 工作组举行了几次临时会议，可以在其[会议网站页面](https://datatracker.ietf.org/wg/quic/meetings/)查看完整清单。
 
-这些 IETF 会议也为 IETF 的相关群体提供了机会，比如[互联网架构委员会](https://www.iab.org/)或者[互联网研究任务组](https://irtf.org/)。最近几年，在 IETF 会议前的几周还举行了 [IETF Hackathon](https://www.ietf.org/how/runningcode/hackathons/)。这位社区提供了一个开发运行代码的机会，更重要的是，可以和其他人进行交互操作性测试。这有助于发现规范中的问题，并在接下来的会议中进行讨论。
+这些 IETF 会议也为 IETF 的相关群体提供了机会，比如[互联网架构委员会](https://www.iab.org/)或者[互联网研究任务组](https://irtf.org/)。最近几年，在 IETF 会议前的几周还举行了 [IETF Hackathon](https://www.ietf.org/how/runningcode/hackathons/)。这为社区提供了一个开发运行代码的机会，更重要的是，可以和其他人进行交互操作性测试。这有助于发现规范中的问题，并在接下来的会议中进行讨论。
 
-这个博客最重要的目的是让大家理解 RFCS 并不是凭空出世的。很显然，它经历了以 IETF 因特网草案（I-D）格式开始的过程，该格式是为了考虑采用而提交的。在已发布规范的情况下，I-D 的准备可能只是一个简单的重格式化尝试。I-Ds 自发布起，有 6 个月的有效期。为了保证它的活跃，需要发布新的版本。实践中，让 I-D 消逝并不产生严重的后果，而且这一情况时有发生。对于想要了解它们的人，可以在 [IETF 文档网站](https://datatracker.ietf.org/doc/recent)阅览。
+这个博客最重要的目的是让大家理解 RFCs 并不是凭空出世的。很显然，它经历了以 IETF 因特网草案（I-D）格式开始的过程，该格式是为了考虑采用而提交的。在已发布规范的情况下，I-D 的准备可能只是一个简单的重格式化尝试。I-Ds 自发布起，有 6 个月的有效期。为了保证它的活跃，需要发布新的版本。实践中，让 I-D 消逝并不产生严重的后果，而且这一情况时有发生。对于想要了解它们的人，可以在 [IETF 文档网站](https://datatracker.ietf.org/doc/recent)阅览。
 
-I-Ds 在安全 Web 时间线上显示为**紫色**。每条线都有格式为 **draft-{author name}-{working group}-{topic}-{version}** 的唯一名称。工作组字段是可选的，它可以预测 IETF 工作组是否在此工作，这是可变的参数，如果选用了 I-D，或者如果 I-D 是直接在 IETF 内启动的，名称为 **draft-ietf-{working group}-{topic}-{version}**。I-Ds 就可能会产生分支，合并或者死亡。从 00 版本开始，每次发布新草案就 +1.比如，I-D 的第四稿有 03 版本。无论何时，只要 I-D 变更名称，它的版本号就会重置为 00。
+I-Ds 在安全 Web 时间线上显示为**紫色**。每条线都有格式为 **draft-{author name}-{working group}-{topic}-{version}** 的唯一名称。工作组字段是可选的，它可以预测 IETF 工作组是否在此工作，这是可变的参数，如果选用了 I-D，或者如果 I-D 是直接在 IETF 内启动的，名称为 **draft-ietf-{working group}-{topic}-{version}**。I-Ds 就可能会产生分支，合并或者死亡。从 00 版本开始，每次发布新草案就 +1。比如，I-D 的第四稿有 03 版本。无论何时，只要 I-D 变更名称，它的版本号就会重置为 00。
 
-需要注意的是，任何人都可以向 IETF 提交一个 I-D；你不应该将这些视为标准。但如果 IETF 的 I-D 标准化过程得到了一致的肯定，而且通过了最终的文件审查，我们就会得到一个 PFC。在此阶段，名称会再次变更。每个 RFC 都有一个唯一的数字。比如，[RFC 7230](https://tools.ietf.org/html/rfc7230)。他们在安全 Web 时间线上显示为**蓝色**。
+需要注意的是，任何人都可以向 IETF 提交一个 I-D；你不应该将这些视为标准。但如果 IETF 的 I-D 标准化过程得到了一致的肯定，而且通过了最终的文件审查，我们就会得到一个 RFC。在此阶段，名称会再次变更。每个 RFC 都有一个唯一的数字。比如，[RFC 7230](https://tools.ietf.org/html/rfc7230)。他们在安全 Web 时间线上显示为**蓝色**。
 
 RFC 是不可变文档。这意味着 RFC 的更改会产生一个全新的数字。为了合并修复的错误（发现和报告的编辑或技术错误）或是简单地重构规范来改进布局，可以进行更改。RFC 可能会**弃用**旧版本，或只是**更新**它们（实质性改变）。
 
 所有的 IETF 文档都是开源在 [http://tools.ietf.org](http://tools.ietf.org) 上的。因为它提供了从 I-D 到 RFC 的文档进度可视化，所以个人认为 [IETF Datatracker](https://datatracker.ietf.org) 对用户很友好。
 
-以下是显示 [RFC 1945](https://tools.ietf.org/html/rfc1945) - HTTP/1.0 开发的示例，它为安全 Web 时间线提供了一个明确灵感来源。
+以下是显示 [RFC 1945](https://tools.ietf.org/html/rfc1945) —— HTTP/1.0 开发的示例，它为安全 Web 时间线提供了一个明确灵感来源。
 
 ![](https://blog.cloudflare.com/content/images/2019/01/RFC-1945-datatracker.png)
 
@@ -73,7 +73,7 @@ HTTP 在 1991 年以 HTTP/0.9 协议开始，在 1994 年 I-D [draft-fielding-ht
 
 甚至在 HTTP/1.0 还没有完成之前，HTTP/1.1 就已经开始了一个独立的分支。I-D [draft-ietf-http-v11-spec-00](https://tools.ietf.org/html/draft-ietf-http-v11-spec-00) 于 1995 年 11 月发布，1997 年正式以 [RFC 2068](https://tools.ietf.org/html/rfc2068) 形式出版。敏锐的洞察力会让你发现安全 Web 时间线并不能捕捉到事件顺序，这是用于生成可视化工具的一个不幸的副作用。我会尽可能的减少这样的问题。
 
-HTTP/1.1 修订工作在 1997 年年中以 [draft-ietf-http-v11-spec-rev-00](https://tools.ietf.org/html/draft-ietf-http-v11-spec-rev-00) 形式开始。1999 年出版的 [RFC 2616](https://tools.ietf.org/html/rfc2616) 标志着这一计划的完成。直到 2017 年，IETF HTTP 世界才获得平静。我们很快会再提及此事。
+HTTP/1.1 修订工作在 1997 年年中以 [draft-ietf-http-v11-spec-rev-00](https://tools.ietf.org/html/draft-ietf-http-v11-spec-rev-00) 形式开始。1999 年出版的 [RFC 2616](https://tools.ietf.org/html/rfc2616) 标志着这一计划的完成。直到 2007 年，IETF HTTP 世界才获得平静。我们很快会再提及此事。
 
 ## SSL 和 TLS 的历史
 
@@ -89,13 +89,13 @@ TLS 在 2000 至 2007 年得以继续发展，TLS 1.1 和 1.2 的标准化。距
 
 ## 因特网标准化过程
 
-在看了下时间线之后，我希望你能对 IETF 的工作方式有大概的了解。互联网标准形成方式的概况是，研究人员或工程师设计师和他们具体用例的实验协议。他们在不同规模的公共或私有协议中进行试验。这些数据有助于识别或改进问题。这项工作可能是为了解释试验，收集更广泛的投入，或帮组寻找其他实验者。其他对早期工作的参与者可能会使其成为事实上的标准；可能最后会有足够的原因使其成为正式标准化的一种选择。
+在看了下时间线之后，我希望你能对 IETF 的工作方式有大概的了解。互联网标准形成方式的概况是，研究人员或工程师设计师和他们具体用例的实验协议。他们在不同规模的公共或私有协议中进行试验。这些数据有助于发现可以优化的地方或问题。这项工作可能是为了解释试验，收集更广泛的投入，或帮组寻找其他实验者。其他对早期工作的参与者可能会使其成为事实上的标准；可能最后会有足够的原因使其成为正式标准化的一种选择。
 
 对于正在考虑实施、部署或以某种范式使用协议的组织来说，协议的状态可能是一个重要的因素。一个正式的标准化过程可以促使事实上的标准更具吸引力因为它倾向于提供稳定性。管理和指导由 IETF 这类组织提供，它反映了更广泛的经验。然而，需要强调的是，并非所有的正式标准都是成功的。
 
-创建最终标准的过程与标准本身同等重要。从具有更广泛知识、经验和用例的人那里获取初步的想法和贡献，可以帮助产生对更广泛人群有用的产物。但标准化的过程并不容易。存在陷阱和障碍，有时，过程需要花费很长的时间才能排除不相关的内容。
+创建最终标准的过程与标准本身同等重要。从具有更广泛知识、经验和用例的人那里获取初步的想法和贡献，可以帮助产生对更广泛人群有用的产物。但标准化的过程并不容易。存在陷阱和障碍，有时，需要花费很长的时间过程，才能排除不相关的内容。
 
-每个标准定义组织都存在自己的标准化过程，主要围绕其对应领域和参与者。解释 IETF 如何运转的所有工作细节，远远超过了这个博客的涵盖范围。IETF 的 "[我们的运行原理](https://www.ietf.org/how/)"是很好的起点，涵盖了很多内容。是的，理解的最好途径就是自己参与其中。就像加入电子邮件列表或添加相关 GitHub 仓库的讨论一样容易。
+每个标准定义组织都存在自己的标准化过程，主要围绕其对应领域和参与者。解释 IETF 如何运转的所有工作细节，远远超过了这个博客的涵盖范围。IETF 的“[我们的运行原理](https://www.ietf.org/how/)”是很好的起点，涵盖了很多内容。是的，理解的最好途径就是自己参与其中。就像加入电子邮件列表或添加相关 GitHub 仓库的讨论一样容易。
 
 ## Cloudflare 的运行代码
 
@@ -105,13 +105,13 @@ Cloudflare 为成为新的、不断发展的协议的早期采用者而感到自
 
 测试新特性并不是唯一的优先级。作为改革者，需要知道什么时候推进进度，抛弃旧的创新。有时，这会涉及到面向安全的协议，比如 Cloudflare [默认禁用 SSLv3](https://blog.cloudflare.com/sslv3-support-disabled-by-default-due-to-vulnerability/)。在其他情况下，协议会被更先进的所取代；Cloudflare 会[废弃 SPDY](https://blog.cloudflare.com/deprecating-spdy/)，转而支持 HTTP/2。
 
-相关协议的介绍和废弃在安全 Web 时间线上显示为**橙色**。虚线有助于将 Cloudflare 事件与 IETF 相关文档关联。比如，Cloudflare 在 2016 年 9 月开始支持的 TLS 1.3，最后的文档 [RFC 8446](https://tools.ietf.org/html/rfc8446)，在近两年后的 2018 年 8 月发布。
+相关协议的介绍和废弃在安全 Web 时间线上显示为**橙色**。垂直虚线有助于将 Cloudflare 事件与 IETF 相关文档关联。比如，Cloudflare 在 2016 年 9 月开始支持的 TLS 1.3，最后的文档 [RFC 8446](https://tools.ietf.org/html/rfc8446)，在近两年后的 2018 年 8 月发布。
 
 ![](https://blog.cloudflare.com/content/images/2019/01/cf-events.png)
 
 ## 在 HTTPbis 中重构
 
-HTTP/1.1 是非常成功的协议，时间线显示 1999 年以后 IETF 并不活跃。然而，事实是，多年的积极使用，为 [RFC 2616](https://tools.ietf.org/html/rfc2616) 研究潜在问题提供了实战经验，但这也导致了一些交互操作的问题。此外，RFC（像 2817 和 2818）还对该协议进行了扩展。2007 年决定启动一项改进 HTTP 协议规范的新活动 —— HTTPbis（"bis" 源自拉丁语，意为“二”、“两次”或“重复”），它还采用了新的工作组形式。最初的[章节](https://tools.ietf.org/wg/httpbis/charters?item=charter-httpbis-2007-10-23.txt)详细描述了尝试解决的问题。
+HTTP/1.1 是非常成功的协议，时间线显示 1999 年以后 IETF 并不活跃。然而，事实是，多年的积极使用，为 [RFC 2616](https://tools.ietf.org/html/rfc2616) 研究潜在问题提供了实战经验，但这也导致了一些交互操作的问题。此外，RFC（像 2817 和 2818）还对该协议进行了扩展。2007 年决定启动一项改进 HTTP 协议规范的新活动 —— HTTPbis（"bis" 源自拉丁语，意为“二”、“两次”或“重复”），它还采用了新的工作组形式。最初的[章程](https://tools.ietf.org/wg/httpbis/charters?item=charter-httpbis-2007-10-23.txt)详细描述了尝试解决的问题。
 
 简而言之，HTTPbis 决定重构 [RFC 2616](https://tools.ietf.org/html/rfc2616)。它将纳入勘误修订，合并在此期间发布的其他规范的一些内容。文件将被分为几个部分，这导致 2017 年 12 月发布了 6 个 I-D：
 
@@ -130,13 +130,13 @@ HTTP/1.1 是非常成功的协议，时间线显示 1999 年以后 IETF 并不�
 
 尽管 IETF 的 RFC 723x 系列的工作繁忙，但是技术的进步并未停止。人们继续加强、扩展和测试因特网上的 HTTP。而 Google 已率先开始尝试名为 SPDY（发音同 Speedy）的技术。该协议宣称可以提高 Web 浏览性能，一个使用 HTTP 原则的用例。2009 年底，SPDY v1 发布，2010 年 SPDY v2 紧随其后。
 
-我想避免深入 SPDY 的技术细节。因为这又是另一个话题。重要的是理解 SPDY 采用的是 HTTP 核心范例，通过对交换格式的修改来改进技术。我们可以看到 HTTP 清楚地划分了语义和语法。语义描述了请求和响应的概念，包括：方法，状态码，头字段（元数据）和主题部分（有效载荷）。语法描述如何将语义映射到 wire 字节上。
+我想避免深入 SPDY 的技术细节。因为这又是另一个话题。重要的是理解 SPDY 采用的是 HTTP 核心范例，通过对交换格式的修改来改进技术。我们可以看到 HTTP 清楚地划分了语义和语法。语义描述了请求和响应的概念，包括：方法，状态码，头字段（元数据）和主体部分（有效载荷）。语法描述如何将语义映射到 wire 字节上。
 
-HTTP/0.9、1.0 和 1.1 共享需要语义。它们还以通过 TCP 连接发送字符串的形式共享语法。SPDY 采用 HTTP/1.1 语义，语法修改是，将字符串改为二进制。这是一个非常有趣的话题，但今天并不会深入涉及这些问题。
+HTTP/0.9、1.0 和 1.1 有很多相同的语义。它们还以通过 TCP 连接发送字符串的形式共享语法。SPDY 采用 HTTP/1.1 语义，语法修改是，将字符串改为二进制。这是一个非常有趣的话题，但今天并不会深入涉及这些问题。
 
-Google 对 SPDY 实验表明，改变 HTTP 语法是有希望的，维持现有 HTTP 语义是有意义的。比如，保留 URL 的使用格式 ——   https://，可以避免许多可能影响采用的问题。
+Google 对 SPDY 实验表明，改变 HTTP 语法是有希望的，维持现有 HTTP 语义是有意义的。比如，保留 URL 的使用格式 —— https://，可以避免许多可能影响采用的问题。
 
-看到一些积极的结果后，IETF 决定考虑 HTTP/2.0。2012 年 3 月 IETF 83 期间举行的 HTTPbs 会议的 [slides](https://github.com/httpwg/wg-materials/blob/gh-pages/ietf83/HTTP2.pdf)显示了请求、目标和成功标准。它还明确指出 "HTTP/2.0 与 HTTP/1.x 格式不兼容"。
+看到一些积极的结果后，IETF 决定考虑 HTTP/2.0。2012 年 3 月 IETF 83 期间举行的 HTTPbis 会议的 [slides](https://github.com/httpwg/wg-materials/blob/gh-pages/ietf83/HTTP2.pdf)显示了请求、目标和成功标准。它还明确指出 "HTTP/2.0 与 HTTP/1.x 连线格式不兼容"。
 
 ![](/content/images/2019/01/http2-standardisation.png)
 
@@ -150,28 +150,27 @@ Google 对 SPDY 实验表明，改变 HTTP 语法是有希望的，维持现有 
 
 ### gQUIC
 
-2012 - 2015 之间，Google 继续进行试验，他们发布了 SPDY v3 和 v3.1。他们还开始研究 gQUIC
-(当时的发音类似于 quick），在 2012 年年初，发布了初始的公共规范。
+2012 - 2015 之间，Google 继续进行试验，他们发布了 SPDY v3 和 v3.1。他们还开始研究 gQUIC(当时的发音类似于 quick），在 2012 年年初，发布了初始的公共规范。
 
 gQUIC 的早期版本使用 SPDY v3 形式的 HTTP 语法。这个选择是有意义的，因为 HTTP/2 尚未完成。SPDY 二进制语法被打包到可以用 UDP 数据报发送数据的 QUIC 包中。这与 HTTP 传统上依赖的 TCP 传输不同。当所有的东西堆叠在一起时，就会像这样：
 
 ![](https://blog.cloudflare.com/content/images/2019/01/gquic-stack.png)
 
-SPDY over gQUIC 层
+SPDY 式 gQUIC 分层模型（蛋糕模型）
 
 gQUIC 使用巧妙的设计来实现性能优化。其中一个是破坏应用程序与传输层之间清晰的分层。这也意味着 gQUIC 只支持 HTTP。因此，gQUIC 最后被称为 "QUIC"。它是 HTTP 下一个候选版本的同义词。QUIC 从过去的几年到现在，一直在持续更新，但我们并不会涉及过多的讨论，QUIC 也被人们理解为是初始 HTTP 的变体。不幸的是，这正是我们在讨论协议时，经常出现混乱的原因。
 
-gQUIC 继续在实验中摸索，最后选择了更接近 HTTP/2 的语法。也正因为如此，它才被称为 "HTTP/2 over QUIC"。但因为技术上的限制，所有存在一些非常微妙的差别。一个示例是，HTTP 头是如何序列化并交换的。这是一个细微的差别，但实际上，这意味着 HTTP/2 over gQUIC 与 IETF's HTTP/2 并不兼容。
+gQUIC 继续在实验中摸索，最后选择了更接近 HTTP/2 的语法。也正因为如此，它才被称为 "HTTP/2 over QUIC"。但因为技术上的限制，所有存在一些非常微妙的差别。一个示例是，HTTP 头是如何序列化并交换的。这是一个细微的差别，但实际上，这意味着 HTTP/2 式 gQUIC 与 IETF's HTTP/2 并不兼容。
 
-最后，同样重要的是，我们总是需要考虑互联网协议的安全方面。gQUIC 选择不使用 TLS 来提供安全性。转而使用 Google 开发的另一种称为 QUIC Crypto 的方法。其中一个有趣的方面是有一种加速安全握手的新方法。以前与服务器建立了安全会话的客户端可以重用信息来进行 "zero round-trip time" 或 0-RTT 握手。0-RTT 后来被纳入 TLS 1.3。
+最后，同样重要的是，我们总是需要考虑互联网协议的安全方面。gQUIC 选择不使用 TLS 来提供安全性。转而使用 Google 开发的另一种称为 QUIC Crypto 的方法。其中一个有趣的方面是有一种加速安全握手的新方法。以前与服务器建立了安全会话的客户端可以重用信息来进行“零延迟往返握手”或 0-RTT 握手。0-RTT 后来被纳入 TLS 1.3。
 
 ## 现在可以告诉你什么是 HTTP/3 了么？
 
 当然。
 
-到目前为止，你应该已经了解了标准化的工作原理，QUIC 为何如此特殊。或许你也对 Google 用 I-D 格式编写的规范感兴趣。在2015 年 6 月的 [draft-tsvwg-quic-protocol-00](https://tools.ietf.org/html/draft-tsvwg-quic-protocol-00) 中，写有 "QUIC：基于 UDP 的安全可靠的 HTTP/2 传输" 已经提交。请记住我之前提过的，几乎都是 HTTP/2 的语法。
+到目前为止，你应该已经了解了标准化的工作原理，QUIC 并非与众不同。或许你也对 Google 用 I-D 格式编写的规范感兴趣。在2015 年 6 月的 [draft-tsvwg-quic-protocol-00](https://tools.ietf.org/html/draft-tsvwg-quic-protocol-00) 中，写有 "QUIC：基于 UDP 的安全可靠的 HTTP/2 传输" 已经提交。请记住我之前提过的，几乎都是 HTTP/2 的语法。
 
-Google [宣布](https://groups.google.com/a/chromium.org/forum/#!topic/proto-quic/otGKB4ytAyc)将在布拉格举行一次  Bar BoF  IETF 93 会议。如有疑问，请参阅 [RFC 6771](https://tools.ietf.org/html/rfc6771)。提示：BoF 代表鸟的羽毛。
+Google [宣布](https://groups.google.com/a/chromium.org/forum/#!topic/proto-quic/otGKB4ytAyc)将在布拉格举行一次  Bar BoF  IETF 93 会议。如有疑问，请参阅 [RFC 6771](https://tools.ietf.org/html/rfc6771)。提示：BoF 是物以类聚（Birds of a Feather）的缩写。
 
 ![](https://blog.cloudflare.com/content/images/2019/01/quic-standardisation.png)
 
@@ -184,9 +183,9 @@ Google [宣布](https://groups.google.com/a/chromium.org/forum/#!topic/proto-qui
 *   [draft-iyengar-quic-loss-recovery-00](https://tools.ietf.org/html/draft-iyengar-quic-loss-recovery-00)
 *   [draft-shade-quic-http2-mapping-00](https://tools.ietf.org/html/draft-shade-quic-http2-mapping-00)
 
-这里是关于 HTTP 和 QUIC 的另一个困惑的来源。[draft-shade-quic-http2-mapping-00](https://tools.ietf.org/html/draft-shade-quic-http2-mapping-00) 题为 "HTTP/2 使用 QUIC 传输协议的语义"，对与自己的描述是 "HTTP/2 是 QUIC 的另一种语义映射"。但这个解释并不正确。HTTP/2 在维护语义的同时，改变了语法。而且，我很早之前就说过了，"HTTP/2 over gQUIC" 从未对语法进行确切的描述，记住这个概念。
+这里是关于 HTTP 和 QUIC 的另一个困惑的来源。[draft-shade-quic-http2-mapping-00](https://tools.ietf.org/html/draft-shade-quic-http2-mapping-00) 题为 "HTTP/2 使用 QUIC 传输协议的语义"，对于自己的描述是 "HTTP/2 是 QUIC 的另一种语义映射"。但这个解释并不正确。HTTP/2 在维护语义的同时，改变了语法。而且，我很早之前就说过了，"HTTP/2 over gQUIC" 从未对语法进行确切的描述，记住这个概念。
 
-这个 QUIC 的 IETF 版本即将成为新的传输层协议。因为任务艰巨，所以 IETF 会在首次确认之前，评估测评人员对其的实际兴趣程度。因此，2016 年在柏林举行 IETF 96 会议期间，举行了一次正式的 [Birds of a Feather](https://www.ietf.org/how/bofs/) 会议。我很荣幸地参加了这次会议，[slides](https://datatracker.ietf.org/meeting/96/materials/slides-96-quic-0) 并未受到公平地对待。就像 Adam Roach 的[图片](https://www.flickr.com/photos/adam-roach/28343796722/in/photostream/)所示，有数百人参加了这次会议。会议结束时，达成了一致的共识：QUIC 将被 IETF 采用并标准化。
+这个 QUIC 的 IETF 版本即将成为新的传输层协议。因为任务艰巨，所以 IETF 会在首次确认之前，评估测评人员对其的实际兴趣程度。因此，2016 年在柏林举行 IETF 96 会议期间，举行了一次正式的 [Birds of a Feather](https://www.ietf.org/how/bofs/) 会议。我很荣幸地参加了这次会议，[幻灯片](https://datatracker.ietf.org/meeting/96/materials/slides-96-quic-0)并未给出公正的评价。就像 Adam Roach 的[图片](https://www.flickr.com/photos/adam-roach/28343796722/in/photostream/)所示，有数百人参加了这次会议。会议结束时，达成了一致的共识：QUIC 将被 IETF 采用并标准化。
 
 将 HTTP 映射到 QUIC 的第一个 IETF QUIC I-D —— [draft-ietf-quic-http-00](https://tools.ietf.org/html/draft-ietf-quic-http-00)，采用了 Ronseal 方法来简化命名 —— "HTTP over QUIC"。不幸的是，它并没有达到预期效果，整个内容中都残留有 HTTP/2 术语的实例。Mike Bishop —— I-D 的新编辑，发现并修复了 HTTP/2 的错误名称。在 01 草案中，将描述修改为 "a mapping of HTTP semantics over QUIC"。
 
