@@ -2,20 +2,18 @@
 > * 原文作者：[jaafar barek](https://hackernoon.com/@BarekJaafar)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/swift-avoiding-memory-leaks-by-examples.md](https://github.com/xitu/gold-miner/blob/master/TODO1/swift-avoiding-memory-leaks-by-examples.md)
-> * 译者：
+> * 译者：[LoneyIsError](https://github.com/LoneyIsError)
 > * 校对者：
 
-# Swift: Avoiding Memory Leaks by Examples
+# Swift：通过示例避免内存泄漏
 
-![](https://cdn-images-1.medium.com/max/1600/1*Vy54VZkKuf4zbd7WjdS75Q.png)
+[![](https://cdn-images-1.medium.com/max/1600/1*Vy54VZkKuf4zbd7WjdS75Q.png)](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/MemoryMgmt/Art/memory_management_2x.png)
 
-https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/MemoryMgmt/Art/memory_management_2x.png
+在 Swift 中，使用自动引用计数（ARC）来管理 iOS 应用程序中的内存使用情况。
 
-In Swift Automatic Reference Counting (ARC) is used to manage memory usage in an iOS application.
+每次创建类的新实例时，ARC都会分配一块内存来存储有关它的信息，并在不再需要该实例时自动释放该内存。
 
-Each time you create a new instance of a class ARC allocates a chunk of memory to store information about it, and automatically frees this memory when that instance is no longer in need.
-
-You as a developer don’t need to do anything for that management , except for 3 cases were you need to tell ARC more information about relations between instances to avoid “Retain Cycles”.
+作为开发人员，你不需要为内存管理做任何事情，除了3个案例，你需要告诉ARC有关实例之间关系的更多信息，以避免「循环引用期」。
 
 In this article we will walk together in the process of managing these 3 cases , and see real examples of retain cycles and how to get rid of them.  
 But first, what are retain cycles and why we need to avoid them?
