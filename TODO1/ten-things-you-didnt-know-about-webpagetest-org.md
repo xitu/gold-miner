@@ -2,22 +2,22 @@
 > * 原文作者：[deanhume.com](https://deanhume.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ten-things-you-didnt-know-about-webpagetest-org.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ten-things-you-didnt-know-about-webpagetest-org.md)
-> * 译者：
+> * 译者：[lsvih](https://github.com/lsvih)
 > * 校对者：
 
-# Ten Things you didn't know about WebPageTest.org
+# 十件你不知道的关于 WebPageTest.org 的事
 
-That's a pretty catchy title for an article, right?! Now that I've lured you onto this page, I am going to do my best to deliver the goods! Without a doubt, WebPageTest is one of my favourite web performance testing tools. It's completely free to use and is such a powerful way to test your web pages from different locations all over the world.
+够标题党吧？既然你点进来了，那我也得说一些干货了！毫无疑问，WebPageTest 是我最喜欢的 Web 性能测试工具之一。它功能强大、完全免费，为世界各地的网页提供测试。
 
-If you've used WebPageTest before you'll know how easy it is to get a load of detailed information in just a few clicks, but did you know that there are a load of features that you've probably never heard of?
+如果你曾经用过 WebPageTest，那你应该知道它是多么的好用：只需要几下点击就能得到你网站加载的详细信息。不过，它还有一些你可能闻所未闻的功能！
 
-I recently attended [Velocity Conference](http://conferences.oreilly.com/velocity) in Santa Clara and managed to corner [Pat Meenan](https://github.com/pmeenan) (the creator of WebPageTest) and ask him a few questions about WebPageTest. In this article, I am going to give you my list of the top ten coolest features of WebPageTest that you (_hopefully_) didn't already know about! In true clickbait style, I am going to countdown the list from number 10.
+最近我在 Santa Clara 参加了 [Velocity Conference](http://conferences.oreilly.com/velocity)，偶遇了 [Pat Meenan](https://github.com/pmeenan)（WebPageTest 的创始人）并问了一些关于 WebPageTest 的问题。在本文中，我将列出 WebPageTest 的 10 个最酷的功能（我自己评的），~~希望你还没有用过它们~~。按照钓鱼文的标准套路，本文章节的标号会从 10 开始数。
 
-## 10. Simulating a Single Point of Failure
+## 10. 模拟单点失效
 
-There’s a good chance that your website relies on 3rd party libraries to provide you with extra functionality. Tracking scripts, A/B testing and adverts are just a few of the many reasons why you would want to use a 3rd party library. The problem is that if the library that you use is hosted on another server, you risk creating a [single point of failure](https://en.wikipedia.org/wiki/Single_point_of_failure) (SPOF). If for any reason the server that is hosting these libraries goes down, or is slow to respond, your site will unfortunately be affected by this. It can happen to anyone!
+你的网站很可能依赖了一些第三方库来提供额外的功能（包括且不仅限于监控脚本、A/B 测试和广告）。问题就有可能出在这些你使用的部署在别人服务器上的库，这就是[单点失效](https://en.wikipedia.org/wiki/Single_point_of_failure)（SPOF）风险。如果出于某些原因，导致托管这些库的服务器出现故障或响应缓慢，你的网站也会不幸地收到影响。这种事情可能发生在任何人身上！
 
-In order simulate this using WebPageTest, test the site as you normally would, but you'll need to ensure that the domain(s) of the 3rd party are blocked. For example, if you wanted to test ccn.com you would copy the following domains and paste it into the SPOF tab.
+使用 WebPageTest 模拟单点失效与正常测试网站的设置一模一样，不过你需要将第三方库的域名屏蔽。例如，如果你想对 ccn.com 测试单点失效，可以将以下域名复制并粘贴到 SPOF 选项卡中：
 
 ```
 cdn3.optimizely.com
@@ -27,25 +27,25 @@ pixel.quantserve.com
 budgetedbauer.com
 ```
 
-It should look a little something like the image below when pasted.
+粘贴好后界面应该如下所示：
 
 ![WebPageTest simulate a Single Point of Failure SPOF](https://307a6ed092846b809be7-9cfa4cf7c673a59966ad8296f4c88804.ssl.cf3.rackcdn.com/WebPageTest-TenThings/spof-webpagetest-tab.jpg)
 
-When you view the video for this site, you'll notice that you've simulated a SPOF and the site should take significantly longer to load. For the [above test](http://www.webpagetest.org/video/compare.php?tests=160705_CE_HJQ,160705_JS_HJR), it took over 20 seconds for the site to finally load! It's a great way to test how your site would respond under such circumstances.
+当查看此网站的加载视频时，你会发现 WebPagetest 已经对 SPOF 进行了模拟，导致该网站的加载时间长了不少。在[上述测试](http://www.webpagetest.org/video/compare.php?tests=160705_CE_HJQ,160705_JS_HJR)中，网站最终加载完毕共花了 20 多秒！这个功能是测试你的网站在 SPOF 情况下响应情况的好工具。
 
-## 9. Create your own personal WebPagetest instance
+## 9. 创建个人 WebPagetest 实例
 
-Using the public WebPageTest instance is great - it's free to use and you can quickly get to the information that you need, but it is limited. On a busy day you might find yourself in a queue and waiting for a while before your test results get processed. If you regularly use WebPageTest for business purposes, you might want to create your own private WebPageTest instance.
+WebPageTest 公共实例非常方便，你可以免费用它来快速获取需要的信息。不过公共实例有一些限制，比如在某个忙碌的日子里，你可能会需要在排队等待测试结果。如果你将 WebPageTest 用于商业用途，也许需要创建属于自己的私有 WebPageTest 实例。
 
-Pat Meenan wrote a handy guide entitled [WebPagetest Private Instances in Five Minutes](http://calendar.perfplanet.com/2014/webpagetest-private-instances-in-five-minutes/) which runs through the basics of setting your own instance up using Amazon's EC2. The agents are available as AMI's in all of the EC2 regions and you can configure your own if you need testing inside of your corporate firewall.
+Pat Meenan 写了一篇名为 [5 分钟上手 WebPagetest 私有实例](http://calendar.perfplanet.com/2014/webpagetest-private-instances-in-five-minutes/)的指南，介绍了在 Amazon EC2 上如何设置自己的实例。代理在所有 EC2 域中以 AMI 的形式提供，如果你需要在公司防火墙内部进行测试，也可以自行配置。
 
-Using your own instance is great because you control the testing infrastructure and there is no limit on the number of API requests that you can make.
+私有实例用起来很方便，因为你可以控制测试的基础架构，并且 API 请求数量没有限制。
 
-## 8. Script login steps
+## 8. 编写登录脚本
 
-Believe it or not, WebPageTest isn't just for testing public facing websites - you can actually script the login steps to your website if needed. WebPageTest has a scripting capability that lets you automate a multi-step test (for example, logging into a site or sending an e-mail message).
+WebPageTest 不仅可以用于测试公开的网站，如果有需要，它也可以通过编写登录网站的脚本测试需要登录的网站。WebPageTest 具有脚本功能，可以自动执行多步测试（比如登录网站和发送电子邮件）。
 
-For example, if you wanted to script the login steps for the AOL website you might do something similar to the following:
+例如，如果你想为 AOL 网站编写登录步骤的脚本，可以执行类似于以下操作：
 
 ```
 logData	0
@@ -60,67 +60,68 @@ setValue	name=loginId	someuser@aol.com
 setValue	name=password	somepassword
 submitForm	name=AOLLoginForm
 ```
-Just remember not to put your important login credentials in there, because unless you explicitly set them to be private, the tests on webpagetest.org website are public! If you'd like to learn more about scripting, I recommend checking out the following [link](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/scripting).
 
-## 7. The Speed Index metric was invented by WebPagetest
+请记住不要将重要的登录凭证放在里面！除非你将它们明确设为私有，否则 webpagetest.org 网站上的测试都是公开的。如果你想了解更多有关编写脚本的信息，请查阅此[链接](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/scripting)。
 
-True story! The Speed Index metric was added to WebPagetest in 2012 and measures how quickly the page contents are visually populated. It is quite useful if you are trying to compare different pages against each other (before/after optimizing, my site vs competitor, etc) and should be used in combination with the other metrics (load time, start render, etc) to better understand a site's performance. If you'd like to learn more about Speed Index, the [following link](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index) gives you more detail.
+## 7.WebPagetest 发明的 Speed Index 指标
 
-## 6. Collect your own custom metrics
+WebPagetest 于 2012 年添加了 Speed Index 指标（速度指数），它可以用于标化页面可视内容的填充速度。你可以尝试将不同的页面相互比较（优化之前与之后、自己的网站与竞品等），并与其他指标（加载时间，开始渲染时刻等）结合，来更好地理解这个对于描述网站性能非常有用的指标。如果你想了解更多有关 Speed Index 的信息，请参阅[此链接](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index)。
 
-WebPageTest produces a plethora of helpful metrics, but did you know that you can also collect your own custom metrics? WebPagetest can execute arbitrary JavaScript at the end of a test to collect [custom metrics](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/custom-metrics). These can be defined statically in the server configuration or be specified at runtime on a per-test basis.
+## 6. 收集自定义指标
 
-In fact, the defined custom metrics can also override built-in metrics. This becomes useful for the "result" where you can force a test to fail based on a JavaScript validation check. The [HTTP Archive](http://httparchive.org/) also collects several of it's stats through [custom metrics](https://github.com/HTTPArchive/httparchive/tree/master/custom_metrics).
+WebPageTest 提供了大量有用的统计指标。但你知道吗？你还可以用它来收集你自定义的指标。WebPageTest 可以在测试的最后执行任意的 JavaScript 脚本并收集[自定义指标](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/custom-metrics)。你可以在服务器配置中静态地配置或在每个基础测试进行时配置它。
 
-## 5. Integrate WebPageTest results into your CI tests
+其实，自定义指标可以覆写内置指标。当你需要通过 JavaScript 验证强制让测试失败时，可以通过自定义指标得到“测试结果”。[HTTP Archive](http://httparchive.org/) 还通过 [自定义指标](https://github.com/HTTPArchive/httparchive/tree/master/custom_metrics) 采集了一些统计数据。
 
-If you are looking to ensure that every time new code is deployed it doesn't regress all of the hard work you've done around your web performance, the magic of WebPageTest can help! You could set a “budget” against on your page and if it exceeds the budget it would cause your tests to fail. [Tim Kadlec](https://timkadlec.com/2013/01/setting-a-performance-budget/) created a useful [Grunt task](https://github.com/tkadlec/grunt-perfbudget) that uses either a public or private instance of WebPagetest to perform tests on a specified URL. Marcel Duran also created a [WebPageTest API wrapper](https://github.com/marcelduran/webpagetest-api) for NodeJS, allowing you to customize exactly how you want your tests to run.
+## 5. 将 WebPageTest 整合进你的 CI 测试中
 
-It's important to ensure that the performance of your website is checked every time new code is released. Remember kids, web page performance isn't just for Christmas, it's for life!
+如果你想在每次部署新代码时，都确保新代码不会让你在 Web 性能上的努力前功尽弃，那么 WebPageTest 可以帮上忙！你可以在页面上设置“budget”（预算），如果测试结果超过预算值则会导致测试失败。[Tim Kadlec](https://timkadlec.com/2013/01/setting-a-performance-budget/) 创建了一个有用的 [Grunt任务](https://github.com/tkadlec/grunt-perfbudget)，可以用 WebPagetest 的公开或私有实例对指定的 URL 执行测试。Marcel Duran 还为 NodeJS 创建了一个 [WebPageTest API 包装器](https://github.com/marcelduran/webpagetest-api)，可以让你自定义测试的运行方式。
 
-## 4. You can customize the way the waterfall chart appears
+通过这些方法，每当更新代码时，都能检查网站性能。网页的性能并不是儿戏，而是维系网站生命的重要事项！
 
-Did you know that you can customize the way the waterfall chart appears in WebPageTest? Once you've run a test, click on the waterfall image and scroll down a little bit. You'll notice a link entitled "customize waterfall".
+## 4. 你可以自定义瀑布图的显示方式
+
+你知道吗？WebPageTest 可以自定义瀑布图的显示方式。运行测试后，单击瀑布图像并向下滚动，可以看到一个“customize waterfall”（自定义瀑布）的链接。
 
 ![WebPageTest customize waterfall chart link](https://307a6ed092846b809be7-9cfa4cf7c673a59966ad8296f4c88804.ssl.cf3.rackcdn.com/WebPageTest-TenThings/customize-waterfall-link.jpg)
 
-Click on the link and it will allow you to customize how you want the waterfall chart to appear. Very useful!
+点击这个链接，可以自定义瀑布图的显示方式。很好用！
 
 ![WebPageTest customize the waterfall chart](https://307a6ed092846b809be7-9cfa4cf7c673a59966ad8296f4c88804.ssl.cf3.rackcdn.com/WebPageTest-TenThings/customize-waterfall-webpagetest.jpg)
 
-If you find yourself using waterfall charts in your presentations, this feature allows you to highlight exactly the bits that you are trying to call out.
+如果你要在幻灯片里使用瀑布图，这个功能可让你精准地展示需要展示的部分。
 
-## 3. Compare multiple tests in test history
+## 3. 在测试历史记录中对比多个测试结果
 
-The test history page allows you to see a list of tests that have been run against a specific instance. The great thing about this page is that you can visually compare multiple tests for filmstrip comparison.
+在测试历史记录页面中，你可以查看针对特定实例运行过的测试列表。这个页面可以让你以幻灯片的形式直观地比较多个测试。
 
 ![Compare History WebPageTest](https://307a6ed092846b809be7-9cfa4cf7c673a59966ad8296f4c88804.ssl.cf3.rackcdn.com/WebPageTest-TenThings/compare-history.jpg)
 
-Select the tests you'd like to compare and you'll be presented with a helpful filmstrip comparison of all the past tests that you have run.
+选择要进行比较的测试，就能看到一个幻灯片视图，比较所有过去运行过的测试。
 
 ![WebPageTest - Compare multiple tests with a filmstrip](https://307a6ed092846b809be7-9cfa4cf7c673a59966ad8296f4c88804.ssl.cf3.rackcdn.com/WebPageTest-TenThings/history-filmstrip-webpagetest.jpg)
 
-It's worth mentioning you should try and label your tests when you run them. This way it helps you to find the test in the history, but also gives you a labelled view when you display it in the filmstrip / video.
+需要注意，在运行测试时最好对测试设置标签。这样有助于帮你在历史记录中找到对应的测试，并且在幻灯片、视频视图中显示时也会显示标签。
 
-## 2. You can contribute to the WebPageTest codebase
+## 2. 你也可以为 WebPageTest 代码库做贡献
 
-The entire WebPageTest codebase is open source! The code base is on [Github](https://github.com/WPO-Foundation/webpagetest) and contains the code for both the Web UI and the code for running the tests on various browsers. Pat also mentioned that the code is under a very liberal BSD license which means that you are also welcome to use any parts of the project for your own purposes (commercial or otherwise).
+整个 WebPageTest 的代码库都是开源的！代码库位于 [Github](https://github.com/WPO-Foundation/webpagetest)，包括了 Web UI 和可用于在各种浏览器上运行测试的代码。Pat 提到，这个代码库使用的是非常宽松的 BSD 协议，也就是说你可以出于任何的目的（包括商业等用途）使用项目的任何部分。
 
-If you think there is something that could benefit the community then please contribute to this awesome tool!
+如果你觉得有些东西可以让社区受益，请务必为这个非常棒的工具做出贡献！
 
-## 1. Find out if your JavaScript execution causing a bottleneck
+## 1. 检查你的 JavaScript 执行是否导致性能瓶颈
 
-JavaScript is taking over the world! This also means that JavaScript execution is becoming a serious bottleneck in our browsers. Did you know that you can actually expose the breakdown of the main thread as it runs on a device using WebPageTest?
+现在 JavaScript 在全世界都非常流行，这也意味着 JavaScript 的执行已经成为了妨碍浏览器性能的一个严重瓶颈。你知道吗？使用 WebPageTest，可以模拟在设备上运行网站，并得到主线程运作的详细情况。
 
-Before you run your next test, head over to the Chrome tab and select "Capture Dev Tools Timeline".
+在运行测试前，打开 Chrome 标签，然后勾选“Capture Dev Tools Timeline”（捕获开开发者工具时间轴）。
 
 ![Capture JavaScript main thread processing - WebPageTest](https://307a6ed092846b809be7-9cfa4cf7c673a59966ad8296f4c88804.ssl.cf3.rackcdn.com/WebPageTest-TenThings/capture-javascript-webpagetest.jpg)
 
-Once the test is complete, click on "Processing Breakdown" you'll get a detailed view of the main thread processing breakdown. This is a great way to find out exactly how your website runs on a real device by showing you the breakdown of the main thread.
+在测试完成后，点击“Processing Breakdown”（处理详情）按钮，将得到主线程处理过程中的详细视图。通过展示主线程的处理过程的详细情况，可以让你更好地了解网站在真实设备上的确切运行情况。
 
-## Summary
+## 总结
 
-And that's it! For those of you that regularly use WebPageTest, I hope there is something new in this article for you too. Many thanks to [Pat Meenan](http://blog.patrickmeenan.com/) for his help checking over my facts and for the insider tips!
+总结：如果你经常使用 WebPageTest，希望这篇文章能帮你了解更多关于它的内容。感谢 [Pat Meenan](http://blog.patrickmeenan.com/) 提供信息并帮忙检查文章！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
