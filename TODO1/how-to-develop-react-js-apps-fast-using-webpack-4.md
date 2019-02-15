@@ -2,26 +2,26 @@
 > * 原文作者：[Margarita Obraztsova](https://medium.freecodecamp.org/@riittagirl)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-develop-react-js-apps-fast-using-webpack-4.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-develop-react-js-apps-fast-using-webpack-4.md)
-> * 译者：
-> * 校对者：
+> * 译者：[JerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
+> * 校对者：[iceytea](https://github.com/iceytea)，[xilihuasi](https://github.com/xilihuasi)
 
-# How to streamline your React.js development process using Webpack 4
+# 如何利用 Webpack4 提升你的 React.js 开发效率
 
 ![](https://cdn-images-1.medium.com/max/2600/1*NLzcqb-jEMHg9K5Ov0oAyw.jpeg)
 
-Original photo at: https://www.instagram.com/p/BiaH379hrAp/?taken-by=riittagirl
+图片来源：https://www.instagram.com/p/BiaH379hrAp/?taken-by=riittagirl
 
-In the real world of development, we have to add new features very quickly. In this tutorial, I will show you everything you can do to streamline this process and reach 120% of your dev speed.
+在现实生活的开发中，我们经常需要对新功能进行快速迭代。在本教程中，我将向你展示一些你可以采取的措施，以提升大约 20% 的开发速度。
 
-**Why**, you might ask?
+**为什么要这样**，你可能会问？
 
-Because doing manual work is extremely counter-productive when it comes to programming. We want to automate as much as possible. So I will show you what parts of the development process with React we can adjust using Webpack v4.6.0.
+因为在编程时进行人工操作往往会非常适得其反，我们希望尽可能将流程自动化。因此，我将向你展示使用 Webpack v4.6.0 提升 React 的开发过程中的哪些部分。
 
-I will not cover the first steps of setting up the webpack configuration,  since I have already done it in my [**previous post**](https://hackernoon.com/a-tale-of-webpack-4-and-how-to-finally-configure-it-in-the-right-way-4e94c8e7e5c1)**.** There, I described how to configure Webpack in greater detail. I will assume you are already familiar with the Webpack configuration basics, so we can start with a ready setup.
+我不会介绍如何初始化配置 webpack，因为我已经在[**之前的帖子**](https://hackernoon.com/a-tale-of-webpack-4-and-how-to-finally-configure-it-in-the-right-way-4e94c8e7e5c1)里讲过它。在那篇文章里，我详细介绍了如何配置 Webpack。我假设在阅读本文之前你已经熟悉 Webpack 配置的基础知识，这样我们就可以从准备好了基本配置之后开始。
 
-### Setting up Webpack
+### 配置 Webpack
 
-In your _webpack.config.js_, enter the following code:
+在你的 `webpack.config.js` 文件中，添加以下代码：
 
 ```
 // webpack v4
@@ -60,7 +60,7 @@ module.exports = {
 };
 ```
 
-and in your _package.json_:
+并在你的 `package.json` 文件中添加这些依赖：
 
 ```
 {
@@ -92,15 +92,15 @@ and in your _package.json_:
 }
 ```
 
-Now you can download your node modules:
+接下来你可以安装你的项目所需依赖：
 
 ```
 npm i
 ```
 
-and add _src/_ folder to your project with _index.html_ and _index.js_
+并将 `index.html` 和 `index.js` 两个文件添加进项目的 `src/` 目录下
 
-First in _src/index.html_:
+首先在 `src/index.html` 文件中添加如下代码：
 
 ```
 <html>
@@ -113,29 +113,30 @@ First in _src/index.html_:
 </html>
 ```
 
-and then in _src/index.js_:
+接着在 `src/index.js` 中添加：
 
 ```
 console.log("hello, world");
 ```
 
-Let’s run the dev script:
+执行 dev 脚本：
 
 ```
 npm run dev
 ```
 
-**There you have it: it compiled!** Now let’s configure React for it, too.
+**接下来你就会发现：项目完成编译了**！现在让我们继续为它配置 React。
 
-### Setting up your React project
+### 配置 React 项目
 
-Since React uses special syntax called JSX, we need to transpile our code. If we go to babel’s website, it has the [preset for React](https://babeljs.io/docs/plugins/preset-react/).
+由于 React 使用了名为 JSX 的特殊语法，我们需要转换代码。如果我们去 babel 的官网，就可以看到它为我们提供了 [React 的 preset](https://babeljs.io/docs/plugins/preset-react/).
+
 
 ```
 npm install --save-dev babel-cli babel-preset-react
 ```
 
-Our _.babelrc_ file should look like this:
+我们的 `.babelrc` 文件应该长这样：
 
 ```
 {
@@ -143,7 +144,7 @@ Our _.babelrc_ file should look like this:
 }
 ```
 
-Add some app initialisation to your _index.js_:
+在你的 `index.js` 文件中添加一些项目的初始化代码：
 
 ```
 import React from 'react';
@@ -163,29 +164,29 @@ render() {
 render(<App />, document.getElementById('app'));
 ```
 
-and run the dev script:
+接着执行 dev 脚本：
 
 ```
 npm run dev
 ```
 
-If you managed to generate a _./dist_ folder with _index.html_ and a main file with a hash, **you have done great! We have our app compiling!**
+如果在你的 `./dist` 目录下能够看到一个 `index.html` 文件和一个带有 hash 值的 `main.js` 文件，**那么说明你做得很棒！项目完成了编译！**
 
-### Setting up web-dev-server
+### 配置 web-dev-server
 
-Technically, we do not have to do this, since there are many node-based servers for front-end apps out there. But I recommend **webpack-dev-server** because it is designed to work with Webpack, and it supports a bunch of nice features such as **hot module replacement**, **source maps, and so on**.
+严格来说，我们并不是必须要使用它，因为社区里有很多为前端服务的 node.js 服务端程序。但我之所以建议使用 **webpack-dev-server** 因为本就是为 Webpack 而设计的，它支持一些很好的功能，如**热模块替换**、**Source Maps（源文件映射）**等。
 
-As they mention in the [official documentation page](https://github.com/webpack/webpack-dev-server):
+正如他们在[官方文档](https://github.com/webpack/webpack-dev-server)中提到的那样：
 
-> Use [webpack](https://webpack.js.org/) with a development server that provides live reloading. This should be used for development only.
+> 使用 [webpack](https://webpack.js.org/) 和后端开发服务配合能够实现 live reloading（热重启），但这只应当被用于开发环境下。
 
-**Here is where it might get a bit confusing:** how do you make webpack-dev-server only work for dev mode?
+**这可能会让人感到有些困惑**：怎样使 webpack-dev-server 仅在开发模式下生效？
 
 ```
 npm i webpack-dev-server --save-dev
 ```
 
-in your _package.json_, adjust
+在你的 `package.json` 文件中，调整：
 
 ```
 "scripts": {
@@ -194,9 +195,9 @@ in your _package.json_, adjust
 }
 ```
 
-**Now it should launch a server and automatically open your browser tab with your app.**
+**现在它应该能够启动一个本地服务器并使用你的应用程序自动打开浏览器选项卡。**
 
-Your _package.json_ looks like this at this point:
+你的 `package.json` 现在看起来应该像这样：
 
 ```
 {
@@ -229,23 +230,23 @@ Your _package.json_ looks like this at this point:
 }
 ```
 
-Now if you try to modify something in your app, the browser should automatically refresh the page.
+现在，如果你尝试修改应用中的某些代码，浏览器就会自动刷新页面。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*7vXsZHPYCclQ9KtJ0A6_Og.gif)
 
-Next, you need to download React devtools as a Chrome extension.
+接下来，你需要将 React devtools 添加到 Chrome 扩展程序。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Bw2FhT8CyLq5NUci8GZZGQ.png)
 
-**This way you can debug your app from the Chrome console much more easily.**
+**这样，你就可以更轻松地使用 Chrome 控制台调试应用。**
 
-### ESLint configuration
+### ESLint 配置
 
-Why do we need it? Well, generally we do not have to use it. But ESLint is a handy tool. In our case, it will render our code (in the editor and terminal, and on the browser) and highlight our mistakes, typos, and errors if we have any. This is called **linting**.
+我们为什么需要它？好吧，通常来讲我们不是必须使用它，但 ESLint 是一个方便的工具。在我们的例子中，它将呈现并突出显示（在编辑器和终端中以及在浏览器上）我们代码中的错误，包括拼写错误等等（如果有的话），这称为 **linting**。
 
-ESLint is an open-source JavaScript linting utility originally created by Nicholas C. Zakas in June 2013. There are alternatives to it, but so far it works great with ES6 and React, finds common problems, and integrates with other parts of the ecosystem.
+ESLint 是一个开源的 JavaScript linting 实用程序，最初由 Nicholas C. Zakas 于 2013 年 6 月开发完成。它有其替代品，但到目前为止，它与 ES6 和 React 配合使用效果特别好，能够发现常见问题，并能与项目的生态系统其他部分集成。
 
-For now, let’s install it locally for our own new project. Of course, ESLint at this point has a large number of settings. You can read more about them [on the official website](https://eslint.org/docs/about/).
+现在，让我们在本地为我们自己的新项目安装它。当然，此时 ESLint 会有很多设置。你可以在[官方网站](https://eslint.org/docs/about/)阅读更多相关信息。
 
 ```
 npm install eslint --save-dev
@@ -253,15 +254,15 @@ npm install eslint --save-dev
 ./node_modules/.bin/eslint --init
 ```
 
-The last command will create a config file. You will be prompted to choose among three options:
+最后一个命令将创建一个配置文件。系统将提示你选择以下三个选项：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*kLrjReWpcFvbz3R2LPCv0g.png)
 
-In this tutorial, I chose the first one: answering questions. Here are my answers:
+在本教程中，我选择了第一个：回答问题。以下是我的答案：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*I0dtDFE0l2vSSlp2rN3aaw.png)
 
-This will add _.eslintrc.js_ file to your project directory. My generated file looks like this:
+这会将一个 `.eslintrc.js` 文件添加到项目目录中。我生成的文件如下所示：
 
 ```
 module.exports = {
@@ -302,23 +303,23 @@ module.exports = {
 };
 ```
 
-Nothing happens so far. Although this is a perfectly valid config, it is not enough — we have to integrate it with Webpack and our text editor for it to work. As I mentioned, we can have it in the code editor, terminal (as a linter), or as a precommit hook. We will configure it for our editor for now.
+到目前为止什么都没发生。虽然这是一个完全有效的配置，但这还不够，我们必须将它与 Webpack 和我们的文本编辑器集成才能工作。正如我所提到的，我们可以在代码编辑器、终端（作为 linter）或 git 的 precommit 钩子中使用它。我们现在将为我们的编辑器配置它：
 
-#### Setup for Visual Studio Code
+#### Visual Studio Code 中安装
 
-In case you are wondering, ESLint has a plugin for almost every major code editor, including **Visual Studio Code, Visual Studio, SublimeText**, **Atom, WebStorm, and even vim.** So go ahead and download the version for [your own text editor](https://prettier.io/docs/en/editors.html). I will be using **VS Code in this demo.**
+如果你想要，几乎每个常用的代码编辑器都有 ESLint 插件，包括 **Visual Studio Code、Visual Studio、SublimeText、Atom、WebStorm 甚至是 vim**。所以，下载[你自己的文本编辑器](https://prettier.io/docs/en/editors.html)的对应版本。在本次示例中我会使用 **VS Code**。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*AJ3s5IVxDjZTEk0_wrrDEw.png)
 
-Now we can see some code errors appear. This is because the project has a configuration file that lints the code and complains when some rules are not obeyed.
+现在我们可以看到出现了一些代码错误提示。这是因为项目有一个 Lint 配置文件，它会在没有遵守某些规则时标记代码并提示警告。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*QWa23sp5U4AXteyZcJimeA.png)
 
-You can debug it manually by checking the error message, or you can take advantage of it and just press save and it will automatically fix things.
+你可以通过检查错误消息手动调试它，或者你可以使用它只需执行保存便自动修复问题的功能。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*XMEzmLN03Ub5MKKWRNMzPg.gif)
 
-You can now go and adjust the ESLint settings:
+你现在也可以调整 ESLint 设置：
 
 ```
 module.exports = {
@@ -359,29 +360,29 @@ module.exports = {
 };
 ```
 
-This will not break the build if you included double quotes by mistake instead of single quotes. It will also add some checks for JSX.
+更改了配置之后，如果你错误地使用了双引号而不是单引号，ESLint 不会中断构建。它还将为 JSX 添加一些检查。
 
-#### Add Prettier
+#### 添加 Prettier
 
 ![](https://cdn-images-1.medium.com/max/1600/1*mYS-gqOHDfadjSPRVRk-Qg.png)
 
-Prettier is one of the most popular formatters nowadays, and it is well-accepted by the coding community. It can be added to ESLint, [your editor](https://prettier.io/docs/en/editors.html), and also installed as a pre-commit hook.
+Prettier 是当今最流行的格式化程序之一，它已被编码社区广泛使用。它可以添加到 ESLint、[你的编辑器](https://prettier.io/docs/en/editors.html)，也可以被挂载在 git 的 pre-commit 钩子上。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*l2Mh782tYEIhFY7nQrFr9Q.png)
 
-I will install it to my VS code here
+我会在这里将它安装到我的 VS Code 中
 
-Once you install it, you can try to check your code again. If we write some weird indentation and press save, it should automatically format the code now.
+安装后，你可以尝试再次检查代码。如果我们写一些奇怪的缩进并执行保存，它应该会自动格式化代码。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*44ug1_PkUfZb07-H_mkvOg.gif)
 
-That is not enough yet. In order for ESLint to work synched and not emit the same errors twice, or even have rules conflicts, you [need to integrate it with your ESLint.](https://prettier.io/docs/en/eslint.html)
+但这还不够。为了使其与 ESLint 同步工作并且不会两次发出相同的错误，甚至发生规则冲突，你需要将它[与 ESLint 集成](https://prettier.io/docs/en/eslint.html)。
 
 ```
 npm i --save-dev prettier eslint-plugin-prettier
 ```
 
-In the official docs, they recommend that you use yarn , but npm will do for now. To your _.eslintrc.json_ file add:
+在官方文档中，他们建议你使用 yarn，但 npm 现在同样也能安装。在你的 `.eslintrc.json` 文件中添加：
 
 ```
 ...
@@ -399,13 +400,13 @@ rules: {
 ...
 ```
 
-**Now we want to extend our ESLint rules to include prettier rules:**
+**现在我们想扩展我们的 ESLint 规则以包含 prettier 的规则：**
 
 ```
 npm i --save-dev eslint-config-prettier
 ```
 
-and add some extends to your eslint config:
+并为你的 eslint 配置添加一些 extends：
 
 ```
 ...
@@ -420,19 +421,19 @@ extends: [
 
 ![](https://cdn-images-1.medium.com/max/1600/1*xUdYUgdomd75VQNmSJpzww.gif)
 
-Let’s add some more [configurations](https://prettier.io/docs/en/options.html) to it. You should do this in order to avoid mismatches between default Prettier rules and your ESLint rules, like the one I have now:
+让我们为它添加更多[配置](https://prettier.io/docs/en/options.html)。为了避免默认的 Prettier 规则和你的 ESLint 规则之间的不匹配，你应该像我现在这样做：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*peNFmblwA6zx1DkANNye3Q.png)
 
-Prettier borrows ESLint’s [override format](http://eslint.org/docs/user-guide/configuring#example-configuration). This allows you to apply configuration to specific files.
+Prettier 借用了 ESLint 的 [override 格式](http://eslint.org/docs/user-guide/configuring#example-configuration)，这允许你将配置应用于特定的文件。
 
-You can now create a config file for it in the form of a _.js_ file.
+你现在可以以 `.js ` 文件的形式为其创建配置文件。
 
 ```
 nano prettier.config.js
 ```
 
-Now, paste in that file:
+现在，粘贴到该文件中：
 
 ```
 module.exports = {
@@ -446,9 +447,9 @@ module.exports = {
 
 ![](https://cdn-images-1.medium.com/max/1600/1*u8OnUOEonV58hwoQ6-nw_A.gif)
 
-Now when you press save, you see your code being automatically formatted. Isn’t that way prettier? Pun very much intended.
+现在，当你执行保存时，你会看到代码自动格式化。那不是很漂亮（prettier）吗？双关语很有意思。
 
-My _package.json_ looks like this:
+我的 `package.json` 文件现在看起来是这样：
 
 ```
 {
@@ -486,7 +487,7 @@ My _package.json_ looks like this:
 }
 ```
 
-Now that we have this all set up, let’s quickly recap: ESLint watches your code for errors, and Prettier is a style formatting tool. ESLint has many more ways to catch errors, while Prettier formats your code nicely.
+现在我们已经完成了很多工作，让我们快速回顾一下：ESLint 会监视代码中的错误，而 Prettier 是一种样式格式化工具。ESLint 有许多方法可以捕获错误，而 Prettier 可以很好地格式化你的代码。
 
 ```
 // webpack v4
@@ -524,11 +525,11 @@ module.exports = {
 };
 ```
 
-#### Issue: Prettier does not automatically format code in Visual Studio Code
+#### 问题：Prettier 不会自动格式化 Visual Studio Code 中的代码
 
-A few people have pointed out that VS Code does not work with Prettier.
+有些人指出 VS Code 无法使用 Prettier。
 
-If your Prettier plugin does not format the code automatically on save, you ca fix it by adding this code to VS Code settings:
+如果你的 Prettier 插件在保存时没有自动格式化代码，你可以通过将下面的代码添加到 VS Code 设置来修复它：
 
 ```
 "[javascript]": {
@@ -536,23 +537,23 @@ If your Prettier plugin does not format the code automatically on save, you ca f
   }
 ```
 
-as described [here](https://github.com/prettier/prettier-vscode/issues/290).
+问题描述在[这里](https://github.com/prettier/prettier-vscode/issues/290)。
 
-#### Adding ESLint loader to your pipeline
+#### 添加 ESLint loader 到你的 pipeline 中
 
-Since ESLint is configured in the project, it will also complain in your terminal once you run dev server.
+由于 ESLint 是在项目中配置的，因此一旦运行 dev 服务器，它也会在终端中提示警告。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*wFH1KjXh8n6Tr8fp6fLCZw.png)
 
-> **Note**: Although it is possible to do, at this moment I do not recommend using ESLint as a loader. It will break source map setup, which I described in greater details in my previous article [How to solve Webpack problems. The Practical Case.](https://medium.com/@riittagirl/how-to-solve-webpack-problems-the-practical-case-79fb676417f4) I will show how to set it up here, in case the guys have already fixed the bug they had.
+> **特别提示**：尽管可以这样做，但此时我不建议将 ESLint 用作 Webpack 的 loader。它将破坏 source map 的生成，我在我的前一篇文章[《如何解决 Webpack 中的问题 —— 一些实际案例》](https://medium.com/@riittagirl/how-to-solve-webpack-problems-the-practical-case-79fb676417f4)中有更详细的描述。我将展示如何在这里设置它，以防这些人已经修复了他们的错误。
 
-Webpack has its own [ESLint loader](https://www.npmjs.com/package/eslint-loader).
+Webpack 有它自己的 [ESLint loader](https://www.npmjs.com/package/eslint-loader).
 
 ```
 npm install eslint-loader --save-dev
 ```
 
-You have to add ESLint to rules. When using with transpiling loaders (like `babel-loader`), make sure they are in the correct order (bottom to top). Otherwise, the files will be checked after being processed by `babel-loader`
+你必须将 ESLint 添加到 rules 配置中。当使用了使用了编译类的 loader（如 babel-loader）时，请确保它们的执行顺序正确（从下到上）。否则，Webpack 将检查文件经过 babel-loader 编译后的文件。
 
 ```
 ...
@@ -570,19 +571,19 @@ module: {
 
 ![](https://cdn-images-1.medium.com/max/1600/1*tPh8qjDAdQeTnaQR54sKAw.png)
 
-Here are some possible issues you might have:
+以下是你可能遇到的一些问题：
 
-*   add an unused variable to your index file
+*   将未使用的变量添加到 index 文件中
 
 ![](https://cdn-images-1.medium.com/max/1600/1*OSM0SXJIZ0Ain2VrHn7xYA.png)
 
-If you stumble upon this error (no-unused-vars), it is pretty well explained in [this issue](https://github.com/babel/babel-eslint/issues/6) on GitHub and [here](https://github.com/yannickcr/eslint-plugin-react/issues/1146).
+如果你偶然发现了这个错误（no-unused-vars），那么在 GitHub 和[这里](https://github.com/yannickcr/eslint-plugin-react/issues/1146)的[这个 issue](https://github.com/babel/babel-eslint/issues/6) 中很好地解释了这个错误。
 
-We can solve this problem by adding some rules, explained [here](https://github.com/yannickcr/eslint-plugin-react#recommended) and [here](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-uses-vars.md).
+我们可以通过添加一些规则来解决这个问题，[这里](https://github.com/yannickcr/eslint-plugin-react#recommended)和[这里](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-uses-vars.md)都有解答。
 
-As you might have noticed, you get the [no-unused-vars](https://eslint.org/docs/rules/no-unused-vars) error here. You need to make it a warning and not a error, because this way it way easier to do fast development. You need to add a new rule to your ESLint so that you do not get the default error.
+你可能已经注意到，这里会出现 [no-unused-vars](https://eslint.org/docs/rules/no-unused-vars) 错误，你需要将其设为警告而不是错误，因为这样可以更轻松地进行快速开发。你需要向 ESLint 添加新规则，以便不会收到默认错误。
 
-You can read about this setup more [here](https://eslint.org/docs/rules/no-unused-vars) and [here](https://eslint.org/docs/user-guide/formatters/).
+你可以在[此处](https://eslint.org/docs/rules/no-unused-vars)和[此处](https://eslint.org/docs/user-guide/formatters/)更详细地了解这个配置。
 
 ```
 ...
@@ -596,13 +597,13 @@ semi: ['error', 'always'],
 ...
 ```
 
-This way we will get pretty error and warning messages.
+这样我们就会得到漂亮的错误和警告信息。
 
-I like the idea of having an auto fix feature, but let’s be clear: I am not the biggest fan of having things magically change. To avoid that situation we can commit autofix for now.
+我喜欢使用自动修复功能，但我们必须明确一点：我并不是特别想让事情神奇地改变。为了避免这种情况，我们现在可以提交 autofix。
 
-### Pre commit hook
+### Pre commit 钩子
 
-People are usually very careful when it comes to using Git tools. But I assure you, this one is very easy and straightforward. Pre commit hooks with Prettier are used so that teams have consistent codebase style across every project file, and nobody can commit unstyled code. Setup Git integration for your project like this:
+在使用 Git 工具时，人们都会非常小心。但我向你保证，这个东西非常简单而且直截了当。挂载了 Prettier 的 Pre commit 钩子之后，团队在每个项目文件中将有一致的代码风格，并且没有人可以提交不规范的代码。要为你的项目设置 Git 集成，如下所示：
 
 ```
 git init
@@ -613,15 +614,15 @@ git remote add origin your origin
 git push -u origin master
 ```
 
-Here are some great articles on [git hooks](https://www.atlassian.com/git/tutorials/git-hooks) and [using Prettier](https://prettier.io/docs/en/precommit.html).
+这里有一些关于 [git 钩子](https://www.atlassian.com/git/tutorials/git-hooks)和[使用 Prettier](https://prettier.io/docs/en/precommit.html) 的精彩文章。
 
-For people who say you can only do it locally — no, that’s not true!
+对于那些说你只能在本地做这些操作的人说：不，那不是真的！
 
-You can do it using lint-stage tool from [this](https://github.com/okonet/lint-staged) repository by [Andrey Okonetchnikov](https://medium.com/@okonetchnikov).
+你可以使用 [Andrey Okonetchnikov](https://medium.com/@okonetchnikov) 开源的 [lint-staged](https://github.com/okonet/lint-staged) 工具执行此操作。
 
-### Adding propTypes
+### 添加 propTypes
 
-Let’s create a new component in our app. So far, our _index.js_ looks like this:
+让我们在我们的应用程序中创建一个新组件。到目前为止，我们的 `index.js` 看起来像这样：
 
 ```
 import React from 'react';
@@ -635,7 +636,7 @@ class App extends React.Component {
 render(<App />, document.getElementById('app'));
 ```
 
-We will create a new component called Hello.js for demo purposes.
+我们将创建一个名为 Hello.js 的新组件用于演示。
 
 ```
 import React from 'react';
@@ -647,7 +648,7 @@ class Hello extends React.Component {
 export default Hello;
 ```
 
-Now import it to your _index.js_ file:
+现在在 `index.js` 文件中引入：
 
 ```
 import React from 'react';
@@ -665,13 +666,13 @@ class App extends React.Component {
 render(<App />, document.getElementById('app'));
 ```
 
-We were supposed to see the element, but ESLint complains:
+我们应该看到这个元素，但 ESLint 提示警告：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*ZGEz6llC5Y1ITWxgnyjbgQ.png)
 
 **Error: [eslint] ‘hello’ is missing in props validation (react/prop-types)**
 
-In React v16, it is mandatory to add [prop types](https://www.tutorialspoint.com/reactjs/reactjs_props_validation.htm) in order to avoid type confusion. You can read more about it [here](https://reactjs.org/docs/typechecking-with-proptypes.html).
+在 React v16 中，必须添加 [prop 类型](https://www.tutorialspoint.com/reactjs/reactjs_props_validation.htm)以避免类型混淆。你可以在[这里](https://reactjs.org/docs/typechecking-with-proptypes.html)阅读更多相关信息。
 
 ```
 import React from 'react';
@@ -689,23 +690,22 @@ export default Hello;
 
 ![](https://cdn-images-1.medium.com/max/1600/1*hbcqU2L5sIf6xHhYfTAt_w.png)
 
-### Hot module replacement
+### 热模块替换
 
-Now that you have your code checked, it is time to add more components to your React app. So far you only have two, but in most cases you have dozens.
+现在你已经检查了代码，现在是时候向 React 应用添加更多组件了。到目前为止，你只有两个，但在大多数情况下，你会有几十个。
 
-Of course, recompiling the entire app on refresh every time you change something in your project is not an option. You need a faster way to do it.
+当然，每次更改项目中的某些内容时，重新编译整个应用程序都不是一种好的选择，你需要一种更快的方法来优化它。
 
-So let’s add hot module replacement, aka HMR. In the [documentation](https://webpack.js.org/concepts/hot-module-replacement/), it is described as:
+所以让我们添加热模块替换，即 HMR。在[文档中](https://webpack.js.org/concepts/hot-module-replacement/)，它被描述为：
+> 热模块更换（HMR）在应用程序运行时变更、添加或删除[模块](https://webpack.js.org/concepts/modules/)无需完全重新加载。可以通过以下几种方式显著提升开发速度：
 
-> Hot Module Replacement (HMR) exchanges, adds, or removes [modules](https://webpack.js.org/concepts/modules/) while an application is running, without a full reload. This can significantly speed up development in a few ways:
+> 保留在完全重新加载期间丢失的应用程序状态。
 
-> Retain application state which is lost during a full reload.
+> 只更新已变更的内容，即可节省宝贵的开发时间。
 
-> Save valuable development time by only updating what’s changed.
+> 更快地调整样式 —— 几乎可以与在浏览器控制台中进行样式更改相媲美。
 
-> Tweak styling faster — almost comparable to changing styles in the browser’s debugger.
-
-I am not going into the technicalities of how it works here: that would be the subject of a separate post. But here is how to configure it:
+我不会在这里讨论它的工作原理：这足够写成一篇单独的文章，但我会告诉你该如何配置它：
 
 ```
 ...
@@ -722,11 +722,11 @@ module: {
 ...
 ```
 
-### Solving small issues with HMR
+### 解决 HMR 的小问题
 
 ![](https://cdn-images-1.medium.com/max/1600/1*fNtuYu1IhiI8Tfx4Kayrxg.png)
 
-We had to replace chunkhash with hash, because evidently webpack has fixed that issue since the last time. Now we have hot module replacement working!
+我们必须使用 hash 来替换 chunkhash，因为很明显 webpack 已经修复了自上次以来的问题，现在我们终于让热模块替换开始正常工作了！
 
 ```
 ...
@@ -741,15 +741,15 @@ module.exports = {
 ...
 ```
 
-### Solving bugs
+### 解决 bugs
 
-If we run the dev script here:
+如果我们在这里运行 dev 脚本：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*WY_Y_fPRy26ixkq8N8aWsg.png)
 
-then use tips from [this issue](https://github.com/webpack/webpack/issues/1151) to fix it.
+然后使用[这个 issue](https://github.com/webpack/webpack/issues/1151) 提到的方案来解决它：
 
-Next, add — hot flag to dev script in _package.json_:
+接下来，在 `package.json` 中添加 --hot 参数到 dev 脚本中：
 
 ```
 ...
@@ -762,15 +762,15 @@ Next, add — hot flag to dev script in _package.json_:
 
 ### Source maps:
 
-As I mentioned above, **source maps will not work together with ESLint loader.** I have filed an issue [here](https://github.com/webpack-contrib/eslint-loader/issues/227#issuecomment-386798932).
+我之前提到过，**source maps 不能和 ESLint loader 一起使用**，我在[这里](https://github.com/webpack-contrib/eslint-loader/issues/227#issuecomment-386798932)提了一个 issue。
 
-> Usually, you would not want them in your project anyway (since you want to debug your project from ESLint error messages). They are also known for making HMR slower.
+> 通常，你无论如何都不希望它们出现在你的项目中（因为你想从 ESLint 错误消息中调试项目），总所周知，他们会使 HMR 变慢。
 
-You can read about it more [here](https://github.com/facebook/create-react-app/pull/109#issuecomment-234674331) and [here](https://github.com/facebook/create-react-app/pull/109#issuecomment-234674331).
+你可以在[这里](https://github.com/facebook/create-react-app/pull/109#issuecomment-234674331)和[这里](https://github.com/facebook/create-react-app/pull/109#issuecomment-234674331)阅读更多。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*TpqdcojSNpZCgwgruvJeHw.png)
 
-But if you want source maps anyway, the easiest way to add them is through the [devtools](https://webpack.js.org/configuration/devtool/) option.
+如果你希望生成 source maps，最简单的方法就是通过 [devtools](https://webpack.js.org/configuration/devtool/) 选项。
 
 ```
 ...
@@ -788,19 +788,19 @@ module.exports = {
   ...
 ```
 
-Note: source maps will not work until you specify the environment the right way. You can read about my process of debugging [here](https://medium.com/@riittagirl/how-to-solve-webpack-problems-the-practical-case-79fb676417f4). Below I will provide you with a spoiler and explanation of how I solved that issue.
+注意：你必须以正确的方式配置环境，否则 source maps 将不起作用。你可以在[这里](https://medium.com/@riittagirl/how-to-solve-webpack-problems-the-practical-case-79fb676417f4)阅读我的调试过程。下面我将为你梳理一个流程并解释我如何解决该问题。
 
-If we now go and create an error in our code, this will be displayed in the console and will point us to the right place:
+如果我们现在在代码中创建一个错误，它将显示在控制台中并指向正确的位置：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*woAOu4zwBh0El7IDnm0jqw.png)
 
-…or so we thought. But nope:
+但现实好像不太尽人意…
 
 ![](https://cdn-images-1.medium.com/max/1600/1*1MqvBQ4uXHOFJdndj7_vNQ.png)
 
-That is wrog behaviour
+这是错误的做法
 
-You need to change the environment variable like this:
+你需要更改环境变量，如下所示：
 
 ```
 ...
@@ -813,7 +813,7 @@ You need to change the environment variable like this:
 ...
 ```
 
-_webpack.config.js_
+`webpack.config.js`
 
 ```
 ...
@@ -825,23 +825,23 @@ devServer: {
 ...
 ```
 
-Now it works!
+现在它就有效了！
 
 ![](https://cdn-images-1.medium.com/max/1600/1*OgplHry1FcpiYgiHiQV3Cw.png)
 
-As you can see, we are pointed to the exact file where the error occured!
+如你所见，我们得到了发生错误的确切文件！
 
-Now you have successfully setup the development environment for your project!
+现在项目的开发环境已经搭建成功！
 
-Lets recap:
+让我们回顾一下：
 
-*   We set up webpack
-*   We created our first React component
-*   We included ESLint to check the code for mistakes
-*   We set up hot module replacement
-*   We (maybe) added source maps
+*   我们配置了 webpack
+*   我们创建了第一个 React 组件
+*   我们引入 ESLint 来检查代码是否存在错误
+*   我们配置了热模块替换
+*   我们（可能）添加了 source maps 功能
 
-**Note**: since a lot of npm dependencies might change by the time you read this, the same config might not work for you. I kindly ask you to leave your errors in the comments below so that I can edit it later.
+**特别提醒**：由于许多 npm 依赖项可能会在你阅读此内容时发生更改，因此相同的配置可能对你无效。我恳请你将错误留在下面的评论中，以便我以后编辑。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
