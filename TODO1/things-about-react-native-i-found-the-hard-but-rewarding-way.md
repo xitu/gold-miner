@@ -25,7 +25,7 @@ React Native 已经存在了一段时间了。当它支持 Android 的版本（i
 
 React Native 最广为人知的特性是跨平台，但这并不是它引起我注意的原因。React Native 最重要的特性是**它使用 React，这样使得它支持一个通用的声明式布局**。跨平台支持排在重要性的第二位。作为一名 iOS 开发人员，我一直在尝试那些不那么直观的用户界面设计方式自动布局系统。
 
-如果您的系统具有高度动态性，并且屏幕上的元素相互依赖（比如一些侧边栏和动画），那么使用 Apple 的 Autolayout 是管理屏幕上内容的最佳方式。但是，对于大多数 Android 和 iOS 应用程序，情况并非如此。大多数 Android 和 iOS 应用程序都会使用我们经常看到的标准元素：文本、按钮、列表、通用视图和图像并以最类似于Web的方式布局。
+如果你的系统具有高度动态性，并且屏幕上的元素相互依赖（比如一些侧边栏和动画），那么使用 Apple 的 Autolayout 是管理屏幕上内容的最佳方式。但是，对于大多数 Android 和 iOS 应用程序，情况并非如此。大多数 Android 和 iOS 应用程序都会使用我们经常看到的标准元素：文本、按钮、列表、通用视图和图像并以最类似于Web的方式布局。
 
 在 AutoLayout 出现的同时，[flex 布局](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)也被发明并被制定为排列屏幕上的元素的现实标准。除了标准的 Web 使用之外，还有一些布局系统旨在利用 FlexBox 原则进行原生开发：
 
@@ -43,7 +43,7 @@ React Native 最广为人知的特性是跨平台，但这并不是它引起我�
 
 **组件化**。iOS 使用 ViewControllers 中嵌套 ViewControllers 或者 views 中嵌套 views，而 Android 使用 Fragments。两者都具有 XML 接口声明，并且都允许运行时实例化和编辑视图。当涉及将它们分解为较小的模块或复用它们时，你就是在进行一个小型的重构。在声明式 UI 中，默认情况下已经具有此功能。
 
-**开发人员的生产力**。声明式 UI 负责为您调整组件大小。看看这段代码（React Native 示例）：
+**开发人员的生产力**。声明式 UI 负责为你调整组件大小。看看这段代码（React Native 示例）：
 
 ```
 class TestTextLabel extends React.Component {
@@ -77,17 +77,17 @@ class TestTextLabel extends React.Component {
 
 **协作 —— 配合 Git 的友好体验**。我看到的每个声明式 UI 都能更好
 
-在iOS和Android上，如果你有大的单片 UI，那你就做错了。但是，大型 XML 文件在大多数情况下是不可避免的（请注意 iOS：XIB 实际上是 XML 文件）。它们的变化对代码审查者（或您）没有任何意义，如果您不同意之前的版本（您的更改或其他开发人员）完整保留，则发起 Pull Request 几乎是不可能的。
+在iOS和Android上，如果你有大的单片 UI，那你就做错了。但是，大型 XML 文件在大多数情况下是不可避免的（请注意 iOS：XIB 实际上是 XML 文件）。它们的变化对代码审查者（或你）没有任何意义，如果你不同意之前的版本（你的更改或其他开发人员）完整保留，则发起 Pull Request 几乎是不可能的。
 
-使用 React 和其他声明性 UI 库，这些问题在很大程度上被最小化，因为布局是实际代码，您可以更新、删除、合并、对比差异以及执行所有您你平时对其他软件执行的操作。
+使用 React 和其他声明性 UI 库，这些问题在很大程度上被最小化，因为布局是实际代码，你可以更新、删除、合并、对比差异以及执行所有你你平时对其他软件执行的操作。
 
 ### 最关键的是知道“性能”究竟是什么
 
-您可能需要成为移动开发人员才能掌握性能概念并管理有效的内存和数据处理器使用。
+你可能需要成为移动开发人员才能掌握性能概念并管理有效的内存和数据处理器使用。
 
-Web 开发人员可以在不了解原生的情况下使用 React Native 开发仅适用于小型项目。一旦应用程序开始增长并且 Redux 的 store 的计算开始对应用程序的性能造成影响时，您将需要了解原生端如何工作以了解为什么会发生这种情况。您还需要意识到 React Native 中的 Redux 的 Store 导致的重新渲染与 DOM 中发生的重新渲染并不完全相同，这更适用于来自应用的原生端的组件。
+Web 开发人员可以在不了解原生的情况下使用 React Native 开发仅适用于小型项目。一旦应用程序开始增长并且 Redux 的 store 的计算开始对应用程序的性能造成影响时，你将需要了解原生端如何工作以了解为什么会发生这种情况。你还需要意识到 React Native 中的 Redux 的 Store 导致的重新渲染与 DOM 中发生的重新渲染并不完全相同，这更适用于来自应用的原生端的组件。
 
-同时，在 React Native 上重新渲染应用程序的组件会变得代价昂贵。由于 React Native 本质是使用 bridge，因此您在 `render()` 函数内部提供的任何指令都将从 JavascriptCore 传递到 Java 或者 Objective C ++。原生端将获取 `render()` 给出的 JSX 标签，并将它们转换为其原生对应部分，例如视图、标签和图像。如果转换每秒进行数百次，那就需要不可忽略的 cpu 时间。
+同时，在 React Native 上重新渲染应用程序的组件会变得代价昂贵。由于 React Native 本质是使用 bridge，因此你在 `render()` 函数内部提供的任何指令都将从 JavascriptCore 传递到 Java 或者 Objective C ++。原生端将获取 `render()` 给出的 JSX 标签，并将它们转换为其原生对应部分，例如视图、标签和图像。如果转换每秒进行数百次，那就需要不可忽略的 cpu 时间。
 
 在性能方面，似乎 React Native 是更好的跨平台解决方案之一。但是，在某些关键领域仍然存在 React Native 的性能瓶颈。
 
@@ -95,13 +95,13 @@ Web 开发人员可以在不了解原生的情况下使用 React Native 开发�
 
 React Native 为大型数据集提供 VirtualizedList 及其派生的（FlatList 和 SectionList）。然而，即使这样也有很多不足之处。存在性能开销，尤其是在 SectionList 中渲染复杂组件并尝试更新一百多个对象的大型数据集时。更新机制会使低端或中端移动设备缓慢运行。
 
-为了解决这个问题，我已经从 Redux 切换到 MobX，它为我的组件提供了更可预测的更新。此外，在大型列表的情况下，MobX 可以更新特定单元格而无需重新呈现整个列表。通常这也可以通过 Redux 实现，但是您需要重写 `componentShouldUpdate()` 方法并编写更多样板文件以避免不必要的重新渲染。在将其余变量复制到新状态时，您的 reducer 仍会执行一些不必要的工作。
+为了解决这个问题，我已经从 Redux 切换到 MobX，它为我的组件提供了更可预测的更新。此外，在大型列表的情况下，MobX 可以更新特定单元格而无需重新呈现整个列表。通常这也可以通过 Redux 实现，但是你需要重写 `componentShouldUpdate()` 方法并编写更多样板文件以避免不必要的重新渲染。在将其余变量复制到新状态时，你的 reducer 仍会执行一些不必要的工作。
 
-**写在最后**：总之要小心。如果您正在使用 React Native ，就意味着你想从您的应用程序中实现最佳效果需要熟悉 React 的最佳实践和原生实践。
+**写在最后**：总之要小心。如果你正在使用 React Native ，就意味着你想从你的应用程序中实现最佳效果需要熟悉 React 的最佳实践和原生实践。
 
-### 了解JS运行时及其对您的影响非常重要。
+### 了解JS运行时及其对你的影响非常重要。
 
-可以通过将调试信息发送到 Chrome 对 React Native 进行调试。**这意味着在设备中运行实际代码的过程与您调试代码的过程不同**。
+可以通过将调试信息发送到 Chrome 对 React Native 进行调试。**这意味着在设备中运行实际代码的过程与你调试代码的过程不同**。
 
 Android 和 iOS 上的 React Native 使用 JavascriptCore 执行 Javascript。但是，调试工具在 V8（Chrome）上运行。为了使系统有更普遍适用性，在撰写本文时，React Native 在 iOS 上使用 Apple 的 Javascript Core，而在Android上，他们使用的是[已经发布三年的 JS Core](https://github.com/facebook/android-jsc) 来构建脚本（因为 Android 没有提供任何像 iOS 这样现成的 JS 运行时，Facebook 也必须自己构建）。这就导致缺乏了很多 JS 新特性，比如 Proxy 对象只在 Android 上和 iOS 64 位上支持。因此，如果你想使用 [MobX 5+](https://github.com/mobxjs/mobx/blob/master/CHANGELOG.md#the-system-requirements-to-run-mobx-has-been-upped)，那你必须使用升级的 Javascript 运行时（继续阅读以了解如何做到这一点）。
 
@@ -117,13 +117,13 @@ Android 和 iOS 上的 React Native 使用 JavascriptCore 执行 Javascript。�
 
 ### 使用 React Native 进行应用内导航效果非常棒
 
-您是否开发过带有身份验证的移动应用程序？如果用户收到一条推送通知并且只有在登录界面登录后他才能看到推送通知内容界面，会怎么样？或者，如果您当前已经在一个应用程序中的深层次界面并希望跳转到另一个应用程序=中的完全不同的区域作为对用户操作的响应，又该怎么办？
+你是否开发过带有身份验证的移动应用程序？如果用户收到一条推送通知并且只有在登录界面登录后他才能看到推送通知内容界面，会怎么样？或者，如果你当前已经在一个应用程序中的深层次界面并希望跳转到另一个应用程序=中的完全不同的区域作为对用户操作的响应，又该怎么办？
 
 使用原生的方法可以解决这一问题，但需要花费一些努力。而使用 [React Navigation](https://reactnavigation.org/)，它们甚至都不是问题。深层的链接和导航跳转能让用户感觉自然而流畅。虽然还有其他导航库，但 React Navigation 被认为是事实上的标准。你应该试一试，这是 React Native 比 iOS 和Android 更好的**地方**。
 
 ### React Native 不是银色子弹（灵丹妙药）
 
-与任何其他技术一样，您需要在投放使用它之前了解它有或者么有哪些功能。以下是 RN 在哪些类别的应用上具有优势：
+与任何其他技术一样，你需要在投放使用它之前了解它有或者么有哪些功能。以下是 RN 在哪些类别的应用上具有优势：
 
 *   内容驱动的应用程序
 *   具有 Web 式 UI 的应用程序
@@ -135,19 +135,19 @@ Android 和 iOS 上的 React Native 使用 JavascriptCore 执行 Javascript。�
 *   媒体驱动的应用程序，无需布局（例如：简单/小型游戏，动画，视频处理）或屏幕到屏幕的过渡。
 *   CPU密集型任务
 
-确实，对于 React 无法做到的事情，您可以在原生中编写所需的所有内容，然后从 React Native 调用相应的代码。但这意味着您需要为每个平台（iOS、Android）编写一次代码，然后为 Javascript 接口编写额外的代码。
+确实，对于 React 无法做到的事情，你可以在原生中编写所需的所有内容，然后从 React Native 调用相应的代码。但这意味着你需要为每个平台（iOS、Android）编写一次代码，然后为 Javascript 接口编写额外的代码。
 
-React Native的内部组件目前正在经历一个主要的重构，以让 RN 可以并行执行更多同步操作，以便它可以与原生共享公共代码：[https://facebook.github.io/react-native/blog](https://facebook.github.io/react-native/blog/2018/11/01/oss-roadmap)。因此，在此之前，您应该在决定是否使用它之前进行一些研究。
+React Native的内部组件目前正在经历一个主要的重构，以让 RN 可以并行执行更多同步操作，以便它可以与原生共享公共代码：[https://facebook.github.io/react-native/blog](https://facebook.github.io/react-native/blog/2018/11/01/oss-roadmap)。因此，在此之前，你应该在决定是否使用它之前进行一些研究。
 
 ### 结论
 
-React Native 是一个经过深思熟虑且发展良好的平台。它为您的应用打开了 NodeJS 的世界，让您在最好的布局系统中进行编程。它还为您提供了与原生方面的良好 bridge，以便您可以充分利用这两个世界。
+React Native 是一个经过深思熟虑且发展良好的平台。它为你的应用打开了 NodeJS 的世界，让你在最好的布局系统中进行编程。它还为你提供了与原生方面的良好 bridge，以便你可以充分利用这两个世界。
 
-然而，它也属于另一个奇怪的类别，有时候你只需要一个团队来开发你的应用程序，但有时候也需要三个！在某些时候，您需要一些 iOS 和 Android 开发人员来构建 React Native 默认情况下没有的组件。一旦您的团队开始成长，您将不得不决定是否将您的应用程序设为 100％ 原生。因此，无论您为下一个项目是否选择 React Native，取决于您拥有多少原生代码（Java、Kotlin、Swift、ObjC）。
+然而，它也属于另一个奇怪的类别，有时候你只需要一个团队来开发你的应用程序，但有时候也需要三个！在某些时候，你需要一些 iOS 和 Android 开发人员来构建 React Native 默认情况下没有的组件。一旦你的团队开始成长，你将不得不决定是否将你的应用程序设为 100％ 原生。因此，无论你为下一个项目是否选择 React Native，取决于你拥有多少原生代码（Java、Kotlin、Swift、ObjC）。
 
-我的个人建议：如果你意识到你需要三个团队来开发一个应用程序的三个不同层面（一个 iOS 团队、一个 Android 团队和一个 React 团队），那么你应该可以一直使用原生 iOS 和 Android 并抛弃 React Native 。仅维护两个代码库而不是开发三个代码库，您将节省时间和金钱。
+我的个人建议：如果你意识到你需要三个团队来开发一个应用程序的三个不同层面（一个 iOS 团队、一个 Android 团队和一个 React 团队），那么你应该可以一直使用原生 iOS 和 Android 并抛弃 React Native 。仅维护两个代码库而不是开发三个代码库，你将节省时间和金钱。
 
-但是，如果您拥有一个由熟练的开发人员组成的小团队并希望构建内容应用程序或类似的软件，那么 React Native 是一个很好的选择。
+但是，如果你拥有一个由熟练的开发人员组成的小团队并希望构建内容应用程序或类似的软件，那么 React Native 是一个很好的选择。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
