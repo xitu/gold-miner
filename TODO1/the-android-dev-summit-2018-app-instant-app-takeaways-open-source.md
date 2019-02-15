@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-android-dev-summit-2018-app-instant-app-takeaways-open-source.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-android-dev-summit-2018-app-instant-app-takeaways-open-source.md)
 > * 译者：[DevMcryYu](https://github.com/devmcryyu)
-> * 校对者：
+> * 校对者：[ScDadaguo](https://github.com/ScDadaguo)
 
 # Android Dev Summit 2018 应用（instant app 的总结 + 开源）
 
 创建 Android Dev Summit 应用并发布具有即时体验的应用程序包的总结。
 
-11 月 7 日和 8 日在加利福尼亚州山景举办的 [Android Dev Summit](https://developer.android.com/dev-summit/) 的应用已经发布给所有与会者及远程观众。
+11 月 7 日和 8 日，在加利福尼亚州山景城的 [Android Dev Summit](https://developer.android.com/dev-summit/) 举办时，会议使用的应用程序已经发布给所有与会者及远程观众。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*F12l55pOjn7vPiXBrbklCg.png)
 
@@ -17,7 +17,7 @@
 
 ### 从 IO-Sched 到 ADS-Sched
 
-The Android Dev Summit 应用（[adssched](https://github.com/google/iosched/tree/adssched)）基于 Google I/O 应用（iosched）开发。这是一个[在 Github 上可用的](https://github.com/google/iosched/)开源项目。移除了一些不需要的功能，比如：
+The Android Dev Summit 应用（[adssched](https://github.com/google/iosched/tree/adssched)）基于 Google I/O 应用（iosched）开发，这是一个[在 Github 上可用的](https://github.com/google/iosched/)开源项目。移除了一些不需要的功能，比如：
 
 *   **预约** [[main commit](https://github.com/google/iosched/commit/65a5eb2d61bdd7507148db4d3b32a34f85a9e422)]。此功能与应用的每一层深度耦合，严重增加了数据库的复杂度。在 I/O 应用中，我们使用了一个 endpoint 来指明一个用户是否是注册的与会者。未注册的与会者具有不同的用户体验。在 adssched 中，所有的用户都是相同的，这使得业务逻辑更加简洁。
 *   **地图** [[commit](https://github.com/google/iosched/commit/36c1e942379fcfac9181dcac58db434ebcdbb532)\]。会议只有两条路线，因此不需要地图。这在底部导航中释放了位置，让我们能够将议程提升到顶层。
@@ -44,7 +44,7 @@ The Android Dev Summit 应用（[adssched](https://github.com/google/iosched/tre
 
 #### 采纳：
 
-*   当应用程序在会议召开前一周[宣布](https://android-developers.googleblog.com/2018/10/the-android-dev-summit-app-is-live-get.html)时，我们看到大约 **40% 的用户通过即时应用体验程序**。即时应用可以通过在搜索结果和 Play 上的**立即尝试**按钮访问。
+*   在会议召开一周前[公布](https://android-developers.googleblog.com/2018/10/the-android-dev-summit-app-is-live-get.html)应用程序时，我们看到大约 **40% 的用户通过即时应用体验程序**。即时应用可以通过在搜索结果和 Play 上的**立即尝试**按钮访问。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*MLOghqlxxrXtgc38JTcW6A.png)
 
@@ -72,7 +72,7 @@ The Android Dev Summit 应用（[adssched](https://github.com/google/iosched/tre
 
 **Google Play 从即时应用到安装应用的流程**
 
-可以改进更好的：
+可以改进的地方：
 
 *   **问题** activity-alias 标签阻止了应用程序在即时应用启动后出现在启动器上。它出现在**最近**页面上，但这[远非理想中的效果](https://twitter.com/lehtimaeki/status/1058077669076729857)。由于时间限制，我们未能及时发布[错误修复程序](https://github.com/google/iosched/commit/d5f1fdbfdb9d6c49a256fdaad52a9ea73392c71e)。
 *   即时应用无法直接提供**通知**功能。但你可以通过 Play 服务发送推送通知(目前处于[测试阶段](https://docs.google.com/forms/d/e/1FAIpQLSeu5yabEoJNXfTIugoqqhAqI6HMu2ebpLhyHuWZ2D85s4rRLw/viewform)）。但这需要后端代码的支持，所以我们决定从即时应用转化到安装应用后才可展示通知。这也是两者间的唯一区别。
