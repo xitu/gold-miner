@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/http-3-from-root-to-tip.md](https://github.com/xitu/gold-miner/blob/master/TODO1/http-3-from-root-to-tip.md)
 > * 译者：[Starrier](https://github.com/Starriers)
-> * 校对者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)，[kasheemlew](https://github.com/kasheemlew)
+> * 校对者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)，[kasheemlew](https://github.com/kasheemlew)，[Fengziyin1234](https://github.com/Fengziyin1234)
 
 # HTTP/3: 起源
 
