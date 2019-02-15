@@ -7,9 +7,9 @@
 
 # HTTP/3: 起源
 
-HTTP 是确保 Web 应用程序正常运行的应用层协议。1991 年，HTTP/0.9 正式发布，至 1991 年，已经发展为 IETF（国际互联网工程任务组）的标准化协议 HTTP/1.1。在很长的一段时间里，HTTP/1.1 表现得都非常好，但面对如今变化多端的 Web 需求，显然需要一个更为合适的协议。2015 年，HTTP/2 应运而生。最近，有人披露 IETF 预计发布一个新版本 —— HTTP/3。对有些人来说，这是惊喜，也引发了业界的激烈探讨。如果你不怎么关注 IETF，可能就会觉得 HTTP/3 的出现非常突然。但事实是，我们可以透过 HTTP 的一系列实现和 Web 协议发展来追溯它的起源，尤其是 QUIC 传输协议。
+HTTP 是确保 Web 应用程序正常运行的应用层协议。1991 年，HTTP/0.9 正式发布，至 1999 年，已经发展为 IETF（国际互联网工程任务组）的标准化协议 HTTP/1.1。在很长的一段时间里，HTTP/1.1 表现得都非常好，但面对如今变化多端的 Web 需求，显然需要一个更为合适的协议。2015 年，HTTP/2 应运而生。最近，有人披露 IETF 预计发布一个新版本 —— HTTP/3。对有些人来说，这是惊喜，也引发了业界的激烈探讨。如果你不怎么关注 IETF，可能就会觉得 HTTP/3 的出现非常突然。但事实是，我们可以透过 HTTP 的一系列实现和 Web 协议发展来追溯它的起源，尤其是 QUIC 传输协议。
 
-如果你不熟悉 QUIC，可以查看我同事的一些高质量博文。John 的[博客](https://blog.cloudflare.com/the-quicening/)。它从不同的角度讨论了现如今的 HTTP 所存在的一些问题，Alessandro 的[博客](https://blog.cloudflare.com/the-road-to-quic/) 阐述了传输层的本质，Nick 的[博客](https://blog.cloudflare.com/head-start-with-quic/) 涉及了相关测试的处理方法。我们对这些相关内容进行了收集整理，如果你想要查看更多内容，可以前往 [https://cloudflare-quic.com](https://cloudflare-quic.com)。如果你对此感兴趣，记得去查看我们自己用 Rust 编写的 QUIC 开源实现项目 —— [quiche](https://blog.cloudflare.com/enjoy-a-slice-of-quic-and-rust/)。
+如果你不熟悉 QUIC，可以查看我同事的一些高质量博文。John 的[博客](https://blog.cloudflare.com/the-quicening/)从不同的角度讨论了现如今的 HTTP 所存在的一些问题，Alessandro 的[博客](https://blog.cloudflare.com/the-road-to-quic/) 阐述了传输层的本质，Nick 的[博客](https://blog.cloudflare.com/head-start-with-quic/) 涉及了相关测试的处理方法。我们对这些相关内容进行了收集整理，如果你想要查看更多内容，可以前往 [https://cloudflare-quic.com](https://cloudflare-quic.com)。如果你对此感兴趣，记得去查看我们自己用 Rust 编写的 QUIC 开源实现项目 —— [quiche](https://blog.cloudflare.com/enjoy-a-slice-of-quic-and-rust/)。
 
 HTTP/3 是 QUIC 传输层的 HTTP 应用程序映射。该名称在最近（2018 年 10 月底）草案的第 17 个版本中被正式提出（[draft-ietf-quic-http-17](https://tools.ietf.org/html/draft-ietf-quic-http-17)），在 11 月举行的 IETF 103 会议中进行了讨论并形成了初步的共识。HTTP/3 以前被称为 QUIC（以前被称为 HTTP/2）。在此之前，我们已经有了 gQUIC，而在更早之前，我们还有 SPDY。事实是，HTTP/3 只是一种适用于 IETF QUIC 的新 HTTP 语法 —— 基于 UDP 的多路复用和安全传输。
 
@@ -27,7 +27,7 @@ HTTP/3 分层模型（蛋糕模型）
 
 为了帮助我们了解 HTTP 和 TLS 的历史，我整理了协议规范以及日期的细节内容。这种信息一般以文本形式呈现，比如，按日期排序说明文档标题的符号点列表。不过，因为分支标准的存在，所以重叠的时间和简单的列表并不能正确表达复杂的关系。在 HTTP 中，并行工作导致了核心协议定义的重构，为了更简单的使用，我们为新行为扩展了协议内容，为了提高性能，我们甚至还重定义了协议如何在互联网上交换数据。当你尝试了解近 30 年的互联网历史，跨越不同的分支工作流程时，你需要将其可视化。所以我做了一个 Cloudflare 安全 Web 时间线（注意：从技术上说，它是[进化树](https://en.wikipedia.org/wiki/Cladogram)，但时间线这个术语更广为人知）。
 
-在创建它时，我获得了作者的授权。选择关注 IETF 中的成功分支。未显示的内容，包括 W3C [HTTP-NG](https://www.w3.org/Protocols/HTTP-NG/) 工作组的努力成果，还有些热衷于解释如何发音的作者的奇特想法：[HMURR（发音为 'hammer'）](https://blog.jgc.org/2012/12/speeding-up-http-with-minimal-protocol.html) 和 [WAKA（发音为 “wah-kah”）](https://github.com/HTTPWorkshop/workshop2017/blob/master/talks/waka.pdf)。
+在创建它时，我进行了一些文学性质的修饰。选择关注 IETF 中的成功分支。未显示的内容，包括 W3C [HTTP-NG](https://www.w3.org/Protocols/HTTP-NG/) 工作组的努力成果，还有些热衷于解释如何发音的作者的奇特想法：[HMURR（发音为 'hammer'）](https://blog.jgc.org/2012/12/speeding-up-http-with-minimal-protocol.html) 和 [WAKA（发音为 “wah-kah”）](https://github.com/HTTPWorkshop/workshop2017/blob/master/talks/waka.pdf)。
   
 为了让你们更好地把握本文的脉络，下面的一些部分，我会沿着这条时间线来解释 HTTP 历史的重点内容。了解标准化以及 IETF 是如何对待标准化的。因此，在回到时间线之前，我们首先会对这个主题进行一个简短的概述。如果你已经非常熟悉 IETF 了，可以跳过该内容。
 
