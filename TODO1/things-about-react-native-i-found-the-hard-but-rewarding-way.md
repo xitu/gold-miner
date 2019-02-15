@@ -5,7 +5,7 @@
 > * 译者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
 > * 校对者：
 
-# React Native 中那些令我收获颇丰的难点
+# React Native 中那些令我收获颇丰的痛点
 
 ## 通过将 React Native 投入到企业级项目中使用后的多方位思考
 
