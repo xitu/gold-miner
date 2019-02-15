@@ -2,7 +2,7 @@
 > * 原文作者：[Christos Sotiriou](https://blog.usejournal.com/@christossotiriou)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/things-about-react-native-i-found-the-hard-but-rewarding-way.md](https://github.com/xitu/gold-miner/blob/master/TODO1/things-about-react-native-i-found-the-hard-but-rewarding-way.md)
-> * 译者：
+> * 译者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
 > * 校对者：
 
 # React Native 中那些令我收获颇丰的难点
@@ -115,39 +115,39 @@ Android 和 iOS 上的 React Native 使用 JavascriptCore 执行 Javascript。�
 
 不仅如此，React Native 社区[现在提供了JS android 构建脚本](https://github.com/react-native-community/jsc-android-buildscripts)，它能够构建针对较新版本的 JavascriptCore 的脚本并将其嵌入到 React Native 应用程序中。这使 Android 上的 React Native 的 Javascript 功能能与 iOS 相提并论，也为在 Android 上运行的React Native 增加了 64 位支持奠定了基础。
 
-### In-App Navigation Is Awesome with React Native
+### 使用 React Native 进行应用内导航效果非常棒
 
-Have you ever developed a mobile application with authentication? What happens if the user receives a Push Notification and has to first pass through the Login screen and only after login he will be able to see the push notification content screen? Or, what if you are currently deeply nested inside your application and want to jump into an entirely different area in another app section as a response to a user action?
+您是否开发过带有身份验证的移动应用程序？如果用户收到一条推送通知并且只有在登录界面登录后他才能看到推送通知内容界面，会怎么样？或者，如果您当前已经在一个应用程序中的深层次界面并希望跳转到另一个应用程序=中的完全不同的区域作为对用户操作的响应，又该怎么办？
 
-Problems such as those are solvable in Native with a bit of effort. With [React Navigation](https://reactnavigation.org/) they are not even a problem. Deep linking with associated routes and navigation jumps feel natural and fluid. There are other navigation libraries as well, but React Navigation is being considered as the de facto standard. You should give it a try. This is the one thing that React Native does _way_ better than iOS and Android hands down.
+使用原生的方法可以解决这一问题，但需要花费一些努力。而使用 [React Navigation](https://reactnavigation.org/)，它们甚至都不是问题。深层的链接和导航跳转能让用户感觉自然而流畅。虽然还有其他导航库，但 React Navigation 被认为是事实上的标准。你应该试一试，这是 React Native 比 iOS 和Android 更好的**地方**。
 
-### React Native is not a silver bullet
+### React Native 不是银色子弹（灵丹妙药）
 
-As with any other technology, you need to understand what it is and what it isn’t before you invest in it. Here is a non-exhaustive list about what RN is good at:
+与任何其他技术一样，您需要在投放使用它之前了解它有或者么有哪些功能。以下是 RN 在哪些类别的应用上具有优势：
 
-*   Content-driven applications
-*   Applications with a Web-like UI.
-*   Cross Platform apps that may or may not need a fast Time To Market.
+*   内容驱动的应用程序
+*   具有 Web 式 UI 的应用程序
+*   可能需要或可能不需要快速上市时间的跨平台应用程序
 
-Here is also a non-exhaustive list of things where RN does not fare too good:
+这里还列出了一些对于 RN 来说哪些类别的应用不太适合：
 
-*   Apps with Huge Lists
-*   Media Driven Applications without the need for a layout (example: simple/small games, animations, video processing), or screen-to-screen transitions.
-*   CPU-intensive tasks.
+*   具有巨大列表的应用程序
+*   媒体驱动的应用程序，无需布局（例如：简单/小型游戏，动画，视频处理）或屏幕到屏幕的过渡。
+*   CPU密集型任务
 
-It’s true that for the things that React cannot do you can write everything you need in Native and then call the appropriate code from React Native. But that means that you need to write code once per platform (iOS, Android), and then write extra code for the Javascript Interface.
+确实，对于 React 无法做到的事情，您可以在原生中编写所需的所有内容，然后从 React Native 调用相应的代码。但这意味着您需要为每个平台（iOS、Android）编写一次代码，然后为 Javascript 接口编写额外的代码。
 
-React Native’s internals are currently undergoing a major refactor so that RN can do more things synchronously, in parallel and so that it can share common code with Native. [https://facebook.github.io/react-native/blog](https://facebook.github.io/react-native/blog/2018/11/01/oss-roadmap)/ — until this is done, you ought to do some research before you decide whether to use it.
+React Native的内部组件目前正在经历一个主要的重构，以让 RN 可以并行执行更多同步操作，以便它可以与原生共享公共代码：[https://facebook.github.io/react-native/blog](https://facebook.github.io/react-native/blog/2018/11/01/oss-roadmap)。因此，在此之前，您应该在决定是否使用它之前进行一些研究。
 
-### Conclusion
+### 结论
 
-React Native is an insanely well-thought and good platform to develop on. It opens the world of NodeJS to your app, and makes you program in one of the best layout systems out there. It also gives you a very good bridge with the Native side so that you can get the best of both worlds.
+React Native 是一个经过深思熟虑且发展良好的平台。它为您的应用打开了 NodeJS 的世界，让您在最好的布局系统中进行编程。它还为您提供了与原生方面的良好 bridge，以便您可以充分利用这两个世界。
 
-It also falls into another strange category, however — the one where you will either need one team to develop your application or three! At some point, you will need some iOS and Android developers to construct components that React Native does not have by default. Once your team starts to grow you will have to decide whether you will make your application 100% Native or not. Therefore whether you choose React Native for your next project becomes a question of how much native code (Java / Kotlin / Swift / ObjC) you will need to have.
+然而，它也属于另一个奇怪的类别，有时候你只需要一个团队来开发你的应用程序，但有时候也需要三个！在某些时候，您需要一些 iOS 和 Android 开发人员来构建 React Native 默认情况下没有的组件。一旦您的团队开始成长，您将不得不决定是否将您的应用程序设为 100％ 原生。因此，无论您为下一个项目是否选择 React Native，取决于您拥有多少原生代码（Java、Kotlin、Swift、ObjC）。
 
-My personal advice: If you realize that you need 3 teams to develop three aspects of one application (an iOS team, an Android team, and a React team) then you should probably go for Native iOS and Android all the way and skip React Native. You will save time and money by maintaining only two codebases instead of developing three.
+我的个人建议：如果你意识到你需要三个团队来开发一个应用程序的三个不同层面（一个 iOS 团队、一个 Android 团队和一个 React 团队），那么你应该可以一直使用原生 iOS 和 Android 并抛弃 React Native 。仅维护两个代码库而不是开发三个代码库，您将节省时间和金钱。
 
-However, if you have a small team of proficient developers and want to build a content application or something similar, then React Native is an excellent choice.
+但是，如果您拥有一个由熟练的开发人员组成的小团队并希望构建内容应用程序或类似的软件，那么 React Native 是一个很好的选择。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
