@@ -27,7 +27,7 @@ HTTP/3 分层模型（蛋糕模型）
 
 为了帮助我们了解 HTTP 和 TLS 的历史，我整理了协议规范以及日期的细节内容。这种信息一般以文本形式呈现，比如，按日期排序说明文档标题的符号点列表。不过，因为分支标准的存在，所以重叠的时间和简单的列表并不能正确表达复杂的关系。在 HTTP 中，并行工作导致了核心协议定义的重构，为了更简单的使用，我们为新行为扩展了协议内容，为了提高性能，我们甚至还重定义了协议如何在互联网上交换数据。当你尝试了解近 30 年的互联网历史，跨越不同的分支工作流程时，你需要将其可视化。所以我做了一个 Cloudflare 安全 Web 时间线（注意：从技术上说，它是[进化树](https://en.wikipedia.org/wiki/Cladogram)，但时间线这个术语更广为人知）。
 
-在创建它时，我进行了一些文学性质的修饰。选择关注 IETF 中的成功分支。未显示的内容，包括 W3C [HTTP-NG](https://www.w3.org/Protocols/HTTP-NG/) 工作组的努力成果，还有些热衷于解释如何发音的作者的奇特想法：[HMURR（发音为 'hammer'）](https://blog.jgc.org/2012/12/speeding-up-http-with-minimal-protocol.html) 和 [WAKA（发音为 “wah-kah”）](https://github.com/HTTPWorkshop/workshop2017/blob/master/talks/waka.pdf)。
+在创建它时，经过深思熟虑后，我选择关注 IETF 中的成功分支。未显示的内容，包括 W3C [HTTP-NG](https://www.w3.org/Protocols/HTTP-NG/) 工作组的努力成果，还有些热衷于解释如何发音的作者的奇特想法：[HMURR（发音为 'hammer'）](https://blog.jgc.org/2012/12/speeding-up-http-with-minimal-protocol.html) 和 [WAKA（发音为 “wah-kah”）](https://github.com/HTTPWorkshop/workshop2017/blob/master/talks/waka.pdf)。
   
 为了让你们更好地把握本文的脉络，下面的一些部分，我会沿着这条时间线来解释 HTTP 历史的重点内容。了解标准化以及 IETF 是如何对待标准化的。因此，在回到时间线之前，我们首先会对这个主题进行一个简短的概述。如果你已经非常熟悉 IETF 了，可以跳过该内容。
 
