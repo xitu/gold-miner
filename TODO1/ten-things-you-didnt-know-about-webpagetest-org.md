@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ten-things-you-didnt-know-about-webpagetest-org.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ten-things-you-didnt-know-about-webpagetest-org.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[TUARAN](https://github.com/TUARAN)，[Park-ma](https://github.com/Park-ma)
 
 # 十件你不知道的关于 WebPageTest.org 的事
 
