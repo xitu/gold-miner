@@ -20,7 +20,7 @@
 The Android Dev Summit 应用（[adssched](https://github.com/google/iosched/tree/adssched)）基于 Google I/O 应用（iosched）开发，这是一个[在 Github 上可用的](https://github.com/google/iosched/)开源项目。移除了一些不需要的功能，比如：
 
 *   **预约** [[main commit](https://github.com/google/iosched/commit/65a5eb2d61bdd7507148db4d3b32a34f85a9e422)]。此功能与应用的每一层深度耦合，严重增加了数据库的复杂度。在 I/O 应用中，我们使用了一个 endpoint 来指明一个用户是否是注册的与会者。未注册的与会者具有不同的用户体验。在 adssched 中，所有的用户都是相同的，这使得业务逻辑更加简洁。
-*   **地图** [[commit](https://github.com/google/iosched/commit/36c1e942379fcfac9181dcac58db434ebcdbb532)\]。会议只有两条路线，因此不需要地图。这在底部导航中释放了位置，让我们能够将议程提升到顶层。
+*   **地图** [[commit](https://github.com/google/iosched/commit/36c1e942379fcfac9181dcac58db434ebcdbb532)\]。会议只有两条路线，因此不需要地图。这在底部导航中释放了位置，让我们能够将议程提升到醒目的位置。
 
 我们还添加了一些新功能：
 
