@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-your-app-should-be-optimized-for-screen-of-all-sizes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-your-app-should-be-optimized-for-screen-of-all-sizes.md)
 > * 译者：MirosalvaSun
-> * 校对者：
+> * 校对者：TUARAN、jerryOnlyZRJ
 
 # 为什么你的应用需要对各种尺寸屏幕做适配优化？
 
@@ -42,7 +42,7 @@ Chrome OS 的演变为开发者在提升多类型设备和屏幕上的研究能�
 
 #### Evernote 应用和 Slack 应用
 
-[Evernote 应用](https://developer.android.com/stories/apps/evernote) 的一个关键功能是可以将触摸屏上的手写转化成文本，用户更倾向于在更大屏幕上使用这一功能。为了让应用更易于跨设备和平台使用，Evernote 的开发团队使用谷歌的低延迟手写笔 API 接口来快速实现触摸屏手写和更大屏幕上的增强布局。这些 API 能够让应用实现跨平台调用，并能允许用户在展示屏上直接书写并即时呈现出来，这样 Evernote 应用的用户就能有像在纸面上书写的良好体验。
+[Evernote 应用](https://developer.android.com/stories/apps/evernote)的一个关键功能是可以将触摸屏上的手写转化成文本，用户更倾向于在更大屏幕上使用这一功能。为了让应用更易于跨设备和平台使用，Evernote 的开发团队使用谷歌的低延迟手写笔 API 接口来快速实现触摸屏手写和更大屏幕上的增强布局。这些 API 能够让应用实现跨平台调用，并能允许用户在展示屏上直接书写并即时呈现出来，这样 Evernote 应用的用户就能有像在纸面上书写的良好体验。
 
 得益于Chrome OS的新体验，Evernote 用户的平均使用时长在更大屏幕上增加了 3 倍，在 Google 的 Pixelbook 上增加了 4 倍。
 
