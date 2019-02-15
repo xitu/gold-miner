@@ -16,7 +16,7 @@
 
 你之前可能在 `tableView(_:cellForRowAt:)` 中使用了`tableView.dequeueReusableCell(withIdentifier:for:)`。但你有没有想过为什么必须使用这个笨拙的 API，而不是只传递一个 `TableViewCell` 的数组？让我们来看看为什么。
 
-假设你有一个有一千行的表视图。如果不使用可重用的 `tableViewCell` ，我们必须为每一行创建一个新的 `tableViewCell`，如下所示：
+假设你有一个有一千行的表视图。如果不使用可复用的 `tableViewCell` ，我们必须为每一行创建一个新的 `tableViewCell`，如下所示：
 
 ```
 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -29,11 +29,11 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 
 你可能已经想到，当你滚动到底部时，这将为设备的内存添加一千个 `tableViewCell`。想象一下如果每个 `tableViewCell` 都包含一个 `UIImageView` 和大量文本会发生什么：一次性加载它们可能会导致应用内存溢出！除此之外，每个 `tableViewCell` 在滚动期间都需要分配新内存。如果你快速滚动表视图，期间会动态分配许多小块内存，这个过程将使 UI 变得卡顿！
 
-为了解决这个问题，Apple 为我们提供了 `dequeueReusableCell(withIdentifier:for:)` 方法。通过将屏幕上不再可见的 `tableViewCell` 放入队列中进行重用，并且当新 `tableViewCell` 即将在屏幕上可见时（例如，当用户向下滚动时，下面的后续 `tableViewCell`），表视图将从此队列中检索 `tableViewCell` 并在 `cellForRowAt indexPath：` 方法中修改它。 
+为了解决这个问题，Apple 为我们提供了 `dequeueReusableCell(withIdentifier:for:)` 方法。通过将屏幕上不再可见的 `tableViewCell` 放入队列中进行复用，并且当新 `tableViewCell` 即将在屏幕上可见时（例如，当用户向下滚动时，下面的后续 `tableViewCell`），表视图将从此队列中检索 `tableViewCell` 并在 `cellForRowAt indexPath：` 方法中修改它。 
 
 [![Cell reuse queue mechanism](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ba882cd5-8212-4b68-8ad0-cdbf9e26aeb3/ios-performance-tricks-1-dequeue.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ba882cd5-8212-4b68-8ad0-cdbf9e26aeb3/ios-performance-tricks-1-dequeue.png) 
 
-iOS 中 `tableViewCell` 重用队列图解([查看大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ba882cd5-8212-4b68-8ad0-cdbf9e26aeb3/ios-performance-tricks-1-dequeue.png))
+iOS 中 `tableViewCell` 复用队列图解([查看大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ba882cd5-8212-4b68-8ad0-cdbf9e26aeb3/ios-performance-tricks-1-dequeue.png))
 
 通过使用队列来存储 `tableViewCell`，表视图中不需要创建一千个 `tableViewCell`。反而，它只需要创建足够覆盖表视图区域的 `tableViewCell` 就够了。
 
