@@ -2,8 +2,8 @@
 > * 原文作者：[Natalia Gvak](https://medium.com/@nataliagvak)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-your-app-should-be-optimized-for-screen-of-all-sizes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-your-app-should-be-optimized-for-screen-of-all-sizes.md)
-> * 译者：MirosalvaSun
-> * 校对者：TUARAN、jerryOnlyZRJ
+> * 译者：[MirosalvaSun](https://github.com/MirosalvaSun)
+> * 校对者：[TUARAN](https://github.com/TUARAN)、[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
 
 # 为什么你的应用需要对各种尺寸屏幕做适配优化？
 
