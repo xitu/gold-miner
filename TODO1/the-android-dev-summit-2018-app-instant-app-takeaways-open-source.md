@@ -20,12 +20,12 @@
 The Android Dev Summit 应用（[adssched](https://github.com/google/iosched/tree/adssched)）基于 Google I/O 应用（iosched）开发，这是一个[在 Github 上可用的](https://github.com/google/iosched/)开源项目。移除了一些不需要的功能，比如：
 
 *   **预约** [[main commit](https://github.com/google/iosched/commit/65a5eb2d61bdd7507148db4d3b32a34f85a9e422)]。此功能与应用的每一层深度耦合，严重增加了数据库的复杂度。在 I/O 应用中，我们使用了一个 endpoint 来指明一个用户是否是注册的与会者。未注册的与会者具有不同的用户体验。在 adssched 中，所有的用户都是相同的，这使得业务逻辑更加简洁。
-*   **地图** [[commit](https://github.com/google/iosched/commit/36c1e942379fcfac9181dcac58db434ebcdbb532)\]。会议只有两条路线，因此不需要地图。这在底部导航中释放了位置，让我们能够将议程提升到醒目的位置。
+*   **地图** [[commit](https://github.com/google/iosched/commit/36c1e942379fcfac9181dcac58db434ebcdbb532)]。会议只有两条路线，因此不需要地图。这在底部导航中释放了位置，让我们能够将议程提升到醒目的位置。
 
 我们还添加了一些新功能：
 
 *   **通知** [[commit](https://github.com/google/iosched/commit/a13dcdae7e2bee6c287549ef4674a84b78f2218c)]。使用 AlarmManager 在已加星标的项目开始时间 5 分钟前设置提醒。
-*   **即时应用** [[commit](https://github.com/google/iosched/commit/07092236185425bb5e10c5b5629377ed9dcc6e10)]。 从一个 Android Studio 项目构建一个 instant app 非常容易。我们使用 flavor 来生成两个不同的 bundle（installed
+*   **即时应用** [[commit](https://github.com/google/iosched/commit/07092236185425bb5e10c5b5629377ed9dcc6e10)]。从一个 Android Studio 项目构建一个 instant app 非常容易。我们使用 flavor 来生成两个不同的 bundle（installed
 /instant）这是目前的要求，但是在将来你能够上传单个 bundle。
 
 ### 即时应用统计信息
@@ -53,7 +53,7 @@ The Android Dev Summit 应用（[adssched](https://github.com/google/iosched/tre
 *   在会议期间，该数字**下降到 30%**，可能是由于通知的可用性。
 *   同样有趣的时，会议结束后安装次数减少，即时应用用户数量增加。用户似乎发现了通知时两者之间的唯一区别。
 
-在发布即时应用之前，请按照[本指南设置分析 ](https://developer.android.com/topic/google-play-instant/guides/analytics)，并为即时安装流程添加事件（遗憾的是我们没有！）。
+在发布即时应用之前，请按照[本指南设置分析](https://developer.android.com/topic/google-play-instant/guides/analytics)，并为即时安装流程添加事件（遗憾的是我们没有！）。
 
 ### 添加即时体验后的分析
 
@@ -91,7 +91,7 @@ Android Dev Summit 的规模和要求与其他会议类似，**因此更适合 F
 
 这个即时应用实验取得了成功并**带来了非常有趣的数据**，但我们的需求非常简单，因此完整的应用也足够小。我们只有一个即时入口点，用户群体也有限。我们等不及想要看看开发人员会在哪些场景使用即时应用程序以及社区会用 adssched 构建什么新东西了！
 
-**致谢：** [**Ben Weiss**](https://medium.com/@keyboardsurfer)**（adssched 即时应用功能的所有者）**，[**Nick Butcher**](https://medium.com/@crafty)**（魔法 GIF 的创造者）**
+**致谢：[Ben Weiss](https://medium.com/@keyboardsurfer)（adssched 即时应用功能的所有者），[Nick Butcher](https://medium.com/@crafty)（魔法 GIF 的创造者）**
 
 感谢 [Nick Butcher](https://medium.com/@crafty?source=post_page) 和 [Ben Weiss](https://medium.com/@keyboardsurfer?source=post_page)。
 
