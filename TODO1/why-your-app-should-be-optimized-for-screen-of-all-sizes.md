@@ -36,7 +36,7 @@ Chrome OS 的演变为开发者在提升多类型设备和屏幕上的研究能�
 
 狂野飙车 8：《极速凌云》是一个拥有超速度体验和超强控制感的赛车类游戏。Gameloft 公司的设计团队一直希望他们的游戏可以在最新的便携设备上运行，因此 Chromebook 一经上市，该公司团队就把新的适配方案整合进了自家 Asphalt 系列游戏中。
 
-由于 Chrome OS 系统将物理键盘作为类似于安卓手机上的外设键盘，狂野飙车 8：《极速凌云》，基于[安卓平台开发套件 SDK26](https://developer.android.com/studio/releases/platform-tools) 可以[通过开发者接口支持键盘控制](https://developer.android.com/topic/arc/input-compatibility) 。这样可以使 UI 界面在触摸屏和键盘模式间自由切换。完成了适配后，Gameloft 公司可以使安卓应用包的运行时性能水平比原生应用更高，且在 Chrome OS 上保有美到窒息的图形和令人惊叹的极致速度。
+由于 Chrome OS 系统将物理键盘作为类似于安卓手机上的外设键盘，狂野飙车 8：《极速凌云》，基于[安卓平台开发套件 SDK26](https://developer.android.com/studio/releases/platform-tools)可以[通过开发者接口支持键盘控制](https://developer.android.com/topic/arc/input-compatibility)。这样可以使 UI 界面在触摸屏和键盘模式间自由切换。完成了适配后，Gameloft 公司可以使安卓应用包的运行时性能水平比原生应用更高，且在 Chrome OS 上保有美到窒息的图形和令人惊叹的极致速度。
 
 优化之后，狂野飙车 8 实现了 6 倍的日活用户增长以及 9 倍的来自 Chrome 用户的收入增长。现在，为了更大屏设计成为 Gameloft 公司游戏系列最新版本的设计经验法则，狂野飙车 9：《传奇》现在已经[可以在 Chromebook 下载](https://play.google.com/store/apps/details?id=com.gameloft.android.ANMP.GloftA9HM&hl=en_US)。
 
@@ -46,11 +46,11 @@ Chrome OS 的演变为开发者在提升多类型设备和屏幕上的研究能�
 
 得益于Chrome OS的新体验，Evernote 用户的平均使用时长在更大屏幕上增加了 3 倍，在 Google 的 Pixelbook 上增加了 4 倍。
 
-同样的，Slack 应用的开发团队为 Chrome OS 系统上运行的其流行的通讯软件做了键盘快捷键来快速启动常用功能的优化适配。当用户在 Chromebook 上编写消息时，他们可以简单的敲击 『Enter』键（就像在手机上做的那样），而不需要再用鼠标多点一步『Send』键。
+同样的，Slack 应用的开发团队为 Chrome OS 系统上运行的其流行的通讯软件做了键盘快捷键来快速启动常用功能的优化适配。当用户在 Chromebook 上编写消息时，他们可以简单的敲击『Enter』键（就像在手机上做的那样），而不需要再用鼠标多点一步『Send』键。
 
 - YouTube 视频链接：https://youtu.be/YlQVNyTDI6Y
 
-- #### 1Password 应用  
+#### 1Password 应用  
 
 1Password 应用团队与 Chrome OS 团队通过仅 6 个月的合作就大幅提高了该应用的用户体验。为确保充分利用好[在任意屏幕方向和尺寸上的窗口空间](https://developer.android.com/topic/arc/window-management)，开发团队将手机和平板电脑设备上的现有设计经验，与提供一个响应式布局这项技术结合，用来应对用户调整屏幕大小的操作。开发团队也使用了 Chrome OS 的拖拽功能，以便于用户可以轻松地将内容在 1Password 与 Chrome OS 上其他安卓应用之间进行拖动。
 
