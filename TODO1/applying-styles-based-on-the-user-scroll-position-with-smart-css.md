@@ -2,8 +2,8 @@
 > * 原文作者：[Rik Schennink](https://twitter.com/intent/follow?original_referer=https%3A%2F%2Fpqina.nl%2Fblog%2Fapplying-styles-based-on-the-user-scroll-position-with-smart-css%2F&ref_src=twsrc%5Etfw&region=follow_link&screen_name=rikschennink&tw_p=followbutton)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/applying-styles-based-on-the-user-scroll-position-with-smart-css.md](https://github.com/xitu/gold-miner/blob/master/TODO1/applying-styles-based-on-the-user-scroll-position-with-smart-css.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
+> * 校对者：[ScDadaguo](https://github.com/ScDadaguo)
 
 # 使用智能 CSS 基于用户滚动位置应用样式
 
