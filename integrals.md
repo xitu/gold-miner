@@ -3259,7 +3259,7 @@
 |[我是如何找回 Reddit 密码的](https://juejin.im/entry/590aee94da2f60005328fb2d/)|校对|2|
 |[ES6 模块原生支持在浏览器中落地，是时候该重新考虑打包了吗？](https://juejin.im/post/590a990a5c497d005852cf61)|校对|2|
 
-## 译者：[misstom](https://github.com/JerryMissTom) 历史贡献积分：1 当前积分：1
+## 译者：[jerrymisstom](https://github.com/JerryMissTom) 历史贡献积分：1 当前积分：1
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -7589,7 +7589,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[审校文章 https://github.com/xitu/gold-miner/issues/5118](https://github.com/xitu/gold-miner/issues/5118)|审校|1|
+|[审校文章 https://github.com/xitu/gold-miner/issues/5118](https://github.com/xitu/gold-miner/issues/5118)|奖励|1|
 
 ## 译者：[Fengziyin1234](https://github.com/Fengziyin1234) 历史贡献积分：1 当前积分：1 二零一九：1
 
