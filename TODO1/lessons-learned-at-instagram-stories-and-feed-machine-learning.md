@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lessons-learned-at-instagram-stories-and-feed-machine-learning.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lessons-learned-at-instagram-stories-and-feed-machine-learning.md)
 > * 译者：[TrWestdoor](https://github.com/TrWestdoor)
-> * 校对者：
+> * 校对者：[haiyang-tju](https://github.com/haiyang-tju), [kasheemlew](https://github.com/kasheemlew)
 
 # 从 Instagram 故事流和信息流机器学习中吸取的教训
 
@@ -119,10 +119,9 @@ Instagram 使用机器学习方法的所有不同方式都值得一贴，但是�
 
 无论我们是在预测用户行为，构建内容理解卷积神经网络，还是创建潜在的用户模式，这些课程都有助于我们减少错误并更快地迭代，这样我们就可以不断地为 Instagram 上的每个人改进机器学习！
 
-**如果你很高兴应用机器学习技术为我们的全球化社区提供价值，我们一直在寻找更多优秀的人才来[加入我们](https://www.instagram.com/about/jobs/)。
+**如果你很高兴应用机器学习技术为我们的全球化社区提供价值，我们一直在寻找更多优秀的人才来[加入我们](https://www.instagram.com/about/jobs/)。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
