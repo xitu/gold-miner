@@ -3259,7 +3259,7 @@
 |[我是如何找回 Reddit 密码的](https://juejin.im/entry/590aee94da2f60005328fb2d/)|校对|2|
 |[ES6 模块原生支持在浏览器中落地，是时候该重新考虑打包了吗？](https://juejin.im/post/590a990a5c497d005852cf61)|校对|2|
 
-## 译者：[jerrymisstom](https://github.com/JerryMissTom) 历史贡献积分：1 当前积分：1
+## 译者：[misstom](https://github.com/JerryMissTom) 历史贡献积分：1 当前积分：1
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -7506,10 +7506,11 @@
 |[充分利用多摄像头 API](https://juejin.im/post/5c3da4f76fb9a04a0c2eb3fc)|翻译|7|
 |[2019 年你应该要知道的 11 个 React UI 组件库](https://juejin.im/post/5c260f13e51d45473a5c07a4)|校对|1|
 
-## 译者：[SinanJS](https://github.com/SinanJS) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
+## 译者：[SinanJS](https://github.com/SinanJS) 历史贡献积分：2.5 当前积分：2.5 二零一九：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐英文文章一篇|奖励|1|
 |[误解 ES6 模块，升级 Babel 的一个解决方案（泪奔）](https://juejin.im/post/5c223f4ce51d452626296b5d)|校对|1.5|
 
 ## 译者：[tonylua](https://github.com/tonylua) 历史贡献积分：2.5 当前积分：2.5 年度积分：2.5
@@ -7518,10 +7519,11 @@
 |------|-------|-------|
 |[无容器下的云计算](https://juejin.im/post/5c24800a518825673b02dcfe)|校对|2.5|
 
-## 译者：[SHERlocked93](https://github.com/SHERlocked93) 历史贡献积分：9 当前积分：9 二零一九：9
+## 译者：[SHERlocked93](https://github.com/SHERlocked93) 历史贡献积分：15 当前积分：15 二零一九：15
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐六篇英文文章|奖励|6|
 |[2019 前端性能优化年度总结 — 第一部分](https://juejin.im/post/5c4418006fb9a049c043545e)|校对|4|
 |[讨论 JS ⚡：文档](https://juejin.im/post/5c4039bbe51d4551733494a6)|校对|2|
 |推荐五篇英文文章|奖励积分|3|
@@ -7582,3 +7584,15 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[渐进增强的含义及意义](https://juejin.im/post/5c2f42556fb9a049f57148ca)|校对|1.5|
+
+## 译者：[sfmDev](https://github.com/sfmDev) 历史贡献积分：1 当前积分：1 二零一九：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[审校文章 https://github.com/xitu/gold-miner/issues/5118](https://github.com/xitu/gold-miner/issues/5118)|审校|1|
+
+## 译者：[Fengziyin1234](https://github.com/Fengziyin1234) 历史贡献积分：1 当前积分：1 二零一九：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|推荐英文文章一篇|奖励|1|
