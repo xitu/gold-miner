@@ -5,7 +5,7 @@
 > * 译者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
 > * 校对者：
 
-# Flutter 的 Widget 生成器介绍：一款用 Flutter 编写的应用构建工具
+# 介绍一款 Flutter 的 Widget 生成器介绍：用 Flutter 编写的应用构建工具
 
 不只是一个布局生成器
 
