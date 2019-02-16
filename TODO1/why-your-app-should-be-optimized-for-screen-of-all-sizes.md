@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-your-app-should-be-optimized-for-screen-of-all-sizes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-your-app-should-be-optimized-for-screen-of-all-sizes.md)
 > * 译者：[MirosalvaSun](https://github.com/MirosalvaSun)
-> * 校对者：[TUARAN](https://github.com/TUARAN)、[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
+> * 校对者：[TUARAN](https://github.com/TUARAN)，[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
 
 # 为什么你的应用需要对各种尺寸屏幕做适配优化？
 
@@ -12,7 +12,9 @@
 ![](https://cdn-images-1.medium.com/max/1000/1*qstDYCF2lqMH_aQd_81cWA.png)
 
 自从 2011 年，我们发布第一批 Chromebooks 起，Chrome OS 系统的变化令人惊奇。如今，Chromebooks 的使用范围从传统笔记本电脑扩展到了可折叠翻转的笔记本和平板电脑，在超过1万家商店有售，这要归功于它与包括三星、戴尔、惠普等在内的顶级 OEM 厂商的密切合作关系，并且我们还会继续扩张。对我们来说这一直是令人激动的增长阶段，对开发者来说更是如此。
-Chrome OS 的演变为开发者在提升多类型设备和屏幕上的研究能力上带来独特的机遇。通过优化基于 Chrome OS 系统的宽屏应用，开发者团队可以驱动更高的参与度并通过沉浸式体验来吸引更多用户。 
+ 
+Chrome OS 的演变为开发者在提升多类型设备和屏幕上的研究能力上带来独特的机遇。通过优化基于 Chrome OS 系统的宽屏应用，开发者团队可以驱动更高的参与度并通过沉浸式体验来吸引更多用户。
+
 ### 为更宽屏幕挖掘更广泛的影响力  
 
 我们的大多数增长是由用户消费和接触内容的新方式来助推的。许多人每天使用不止一种类型的设备，并且台式机和移动设备的差异并得越来越模糊。如今，消费者希望设备能提供更多功能，我们发现人们对设备的关注点转移到更大、更宽的屏幕，以便他们随时随地可以便捷地获取所需内容。
@@ -21,8 +23,6 @@ Chrome OS 的演变为开发者在提升多类型设备和屏幕上的研究能�
 
 ![](https://cdn-images-1.medium.com/max/800/0*5aXo82iDOfDi9_wX)
 
-
-
 像其他基于 Chrome OS 系统的设备一样，Pixel Slate 的两款设备可以将数百万移动应用与出色的大屏幕显示器连接起来。开发者可以通过将他们的[应用适配 Chrome OS](https://developer.android.com/topic/arc/optimizing)后来触达更多用户。
 
 1.  宽屏的优化设计
@@ -30,10 +30,10 @@ Chrome OS 的演变为开发者在提升多类型设备和屏幕上的研究能�
 3.  多窗口管理
 4.  键盘、鼠标、手写笔输入 
 
-
 ### 领先开发团队是如何针对 Chrome OS 进行优化的
 
 #### Gameloft 公司的游戏应用 狂野飙车 8：《极速凌云》
+
 狂野飙车 8：《极速凌云》是一个拥有超速度体验和超强控制感的赛车类游戏。Gameloft 公司的设计团队一直希望他们的游戏可以在最新的便携设备上运行，因此 Chromebook 一经上市，该公司团队就把新的适配方案整合进了自家 Asphalt 系列游戏中。
 
 由于 Chrome OS 系统将物理键盘作为类似于安卓手机上的外设键盘，狂野飙车 8：《极速凌云》，基于[安卓平台开发套件 SDK26](https://developer.android.com/studio/releases/platform-tools) 可以[通过开发者接口支持键盘控制](https://developer.android.com/topic/arc/input-compatibility) 。这样可以使 UI 界面在触摸屏和键盘模式间自由切换。完成了适配后，Gameloft 公司可以使安卓应用包的运行时性能水平比原生应用更高，且在 Chrome OS 上保有美到窒息的图形和令人惊叹的极致速度。
@@ -48,15 +48,18 @@ Chrome OS 的演变为开发者在提升多类型设备和屏幕上的研究能�
 
 同样的，Slack 应用的开发团队为 Chrome OS 系统上运行的其流行的通讯软件做了键盘快捷键来快速启动常用功能的优化适配。当用户在 Chromebook 上编写消息时，他们可以简单的敲击 『Enter』键（就像在手机上做的那样），而不需要再用鼠标多点一步『Send』键。
 
-
 - YouTube 视频链接：https://youtu.be/YlQVNyTDI6Y
+
 - #### 1Password 应用  
+
 1Password 应用团队与 Chrome OS 团队通过仅 6 个月的合作就大幅提高了该应用的用户体验。为确保充分利用好[在任意屏幕方向和尺寸上的窗口空间](https://developer.android.com/topic/arc/window-management)，开发团队将手机和平板电脑设备上的现有设计经验，与提供一个响应式布局这项技术结合，用来应对用户调整屏幕大小的操作。开发团队也使用了 Chrome OS 的拖拽功能，以便于用户可以轻松地将内容在 1Password 与 Chrome OS 上其他安卓应用之间进行拖动。
 
 ![](https://cdn-images-1.medium.com/max/800/0*GEnxnt_AJrb1rysl)
+
 最后，开发团队增强了对键盘和触控盘输入的支持，从而使用户即使手不离键盘，也可以做到导航应用。这样在移动设备上提供了一种更类似于台式机的体验，允许用户使用方向键和键盘快捷键来触发应用活动。自从实现了这些改进，1Password 见证了 Chrome OS 设备上装机量 22.6% 的增幅。
 
 ### **提供你的应用用户所需体验**
+
 在消费者越来越需要多功能的世界里，对开发人员来说，重要的是将他们的策略扩展到移动设备之外，并在各种设备上为用户提供服务。思考这件事很重要：你的应用是否要为每一个用户提供最具吸引力的体验，而不论他们的设备或屏幕大小。这样做意味着分清驱动用户增长和错失大量新用户两者之间的差异。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
