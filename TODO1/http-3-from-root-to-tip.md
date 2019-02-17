@@ -27,7 +27,7 @@ HTTP/3 分层模型（蛋糕模型）
 
 为了帮助我们了解 HTTP 和 TLS 的历史，我整理了协议规范以及日期的细节内容。这种信息一般以文本形式呈现，比如，按日期排序说明文档标题的符号点列表。不过，因为分支标准的存在，所以重叠的时间和简单的列表并不能正确表达复杂的关系。在 HTTP 中，并行工作导致了核心协议定义的重构，为了更简单的使用，我们为新行为扩展了协议内容，为了提高性能，我们甚至还重定义了协议如何在互联网上交换数据。当你尝试了解近 30 年的互联网历史，跨越不同的分支工作流程时，你需要将其可视化。所以我做了一个 Cloudflare 安全 Web 时间线（注意：从技术上说，它是[进化树](https://en.wikipedia.org/wiki/Cladogram)，但时间线这个术语更广为人知）。
 
-在创建它时，经过深思熟虑后，我选择关注 IETF 中的成功分支。未显示的内容，包括 W3C [HTTP-NG](https://www.w3.org/Protocols/HTTP-NG/) 工作组的努力成果，还有些热衷于解释如何发音的作者的奇特想法：[HMURR（发音为 'hammer'）](https://blog.jgc.org/2012/12/speeding-up-http-with-minimal-protocol.html) 和 [WAKA（发音为 “wah-kah”）](https://github.com/HTTPWorkshop/workshop2017/blob/master/talks/waka.pdf)。
+在创建它时，经过深思熟虑后，我选择关注 IETF 中的成功分支。本文未涉及的内容，包括 W3C [HTTP-NG](https://www.w3.org/Protocols/HTTP-NG/) 工作组的努力成果，还有些热衷于解释如何发音的作者的奇特想法：[HMURR（发音为 'hammer'）](https://blog.jgc.org/2012/12/speeding-up-http-with-minimal-protocol.html) 和 [WAKA（发音为 “wah-kah”）](https://github.com/HTTPWorkshop/workshop2017/blob/master/talks/waka.pdf)。
   
 为了让你们更好地把握本文的脉络，下面的一些部分，我会沿着这条时间线来解释 HTTP 历史的重点内容。了解标准化以及 IETF 是如何对待标准化的。因此，在回到时间线之前，我们首先会对这个主题进行一个简短的概述。如果你已经非常熟悉 IETF 了，可以跳过该内容。
 
@@ -39,7 +39,7 @@ HTTP/3 分层模型（蛋糕模型）
 
 迫于当时的形式，这些协议最终被确定为标准化（一些激进的原因会在之后进行描述）。互联网标准通常在 IETF 中定义，以“多数共识和运行的代码”非正式原则作为指导。这是基于在互联网上开发和部署项目的经验。这与试图在真空中开发完美协议的 "clean room" 方法形成了鲜明对比。
 
-IETF 互联网标准通常被称为 RFCs。这是一个需要解释的复杂领域，因此我建议阅读 QUIC 工作组主席 Mark Nottingham 的博文 "[如何阅读 RFC](https://www.ietf.org/blog/how-read-rfc/)"。工作组或 WG，或多或少的只是一个邮件列表。
+IETF 互联网标准通常被称为 RFCs。这是一个解释起来很复杂的领域，因此我建议阅读 QUIC 工作组主席 Mark Nottingham 的博文 "[如何阅读 RFC](https://www.ietf.org/blog/how-read-rfc/)"。工作组或 WG，或多或少的只是一个邮件列表。
 
 IETF 每年举行三次会议，为所有工作组提供时间和设施，如果他们愿意的话，可以亲自前来。这几周的行程挤在了一起，需要在有限的时间里深入讨论高级技术领域。为了解决这个问题，一些工作组甚至选择在 IETF 的一般性会议期间举行临时会议。这有助于保持规范开发的信心。自 2017 年以来，QUIC 工作组举行了几次临时会议，可以在其[会议网站页面](https://datatracker.ietf.org/wg/quic/meetings/)查看完整清单。
 
@@ -47,7 +47,7 @@ IETF 每年举行三次会议，为所有工作组提供时间和设施，如果
 
 这个博客最重要的目的是让大家理解 RFCs 并不是凭空出世的。很显然，它经历了以 IETF 因特网草案（I-D）格式开始的过程，该格式是为了考虑采用而提交的。在已发布规范的情况下，I-D 的准备可能只是一个简单的重格式化尝试。I-Ds 自发布起，有 6 个月的有效期。为了保证它的活跃，需要发布新的版本。实践中，让 I-D 消逝并不产生严重的后果，而且这一情况时有发生。对于想要了解它们的人，可以在 [IETF 文档网站](https://datatracker.ietf.org/doc/recent)阅览。
 
-I-Ds 在安全 Web 时间线上显示为**紫色**。每条线都有格式为 **draft-{author name}-{working group}-{topic}-{version}** 的唯一名称。工作组字段是可选的，它可以预测 IETF 工作组是否在此工作，这是可变的参数，如果选用了 I-D，或者如果 I-D 是直接在 IETF 内启动的，名称为 **draft-ietf-{working group}-{topic}-{version}**。I-Ds 就可能会产生分支，合并或者死亡。从 00 版本开始，每次发布新草案就 +1。比如，I-D 的第四稿有 03 版本。无论何时，只要 I-D 变更名称，它的版本号就会重置为 00。
+I-Ds 在安全 Web 时间线上显示为**紫色**。每条线都有格式为 **draft-{author name}-{working group}-{topic}-{version}** 的唯一名称。工作组字段是可选的，它可以预测 IETF 工作组是否在此工作，这是可变的参数，如果选用了 I-D，或者如果 I-D 是直接在 IETF 内启动的，名称为 **draft-ietf-{working group}-{topic}-{version}**。I-Ds 就可能会产生分支，合并或者死亡。从 00 版本开始，每次发布新草案就 +1。比如，I-D 的第四稿有 03 版本号。无论何时，只要 I-D 变更名称，它的版本号就会重置为 00。
 
 需要注意的是，任何人都可以向 IETF 提交一个 I-D；你不应该将这些视为标准。但如果 IETF 的 I-D 标准化过程得到了一致的肯定，而且通过了最终的文件审查，我们就会得到一个 RFC。在此阶段，名称会再次变更。每个 RFC 都有一个唯一的数字。比如，[RFC 7230](https://tools.ietf.org/html/rfc7230)。他们在安全 Web 时间线上显示为**蓝色**。
 
@@ -65,9 +65,9 @@ IETF RFC 1945 Datatracker 视图
 
 ## 探索安全的 Web 时间线
 
-稍微了解因特网标准文档是如何实现后，我们就可以着手安全 Web 时间线了。在本节中，有许多摘选图显示了时间轴的重要部分。每个点对应着文档或功能的可用日期。对于 IETF 文档，为了清晰可见，省略了草案编号。但如果你想查看所有细节，可以查看[完整的时间线](https://blog.cloudflare.com/content/images/2019/01/web_timeline_large1.svg)。
+稍微了解因特网标准文档是如何实现后，我们就可以着手安全网络时间线了。在本节中，有许多摘选图显示了时间轴的重要部分。每个点对应着文档或功能的可用日期。对于 IETF 文档，为了清晰可见，省略了草案编号。但如果你想查看所有细节，可以查看[完整的时间线](https://blog.cloudflare.com/content/images/2019/01/web_timeline_large1.svg)。
 
-HTTP 在 1991 年以 HTTP/0.9 协议开始，在 1994 年 I-D [draft-fielding-http-spec-00](https://tools.ietf.org/html/draft-fielding-http-spec-00) 发布。它很快就被 IETF 采用，导致 [draft-ietf-http-v10-spec-00](https://tools.ietf.org/html/draft-ietf-http-v10-spec-00) 的名称被修改。在 [RFC 1945](https://tools.ietf.org/html/rfc1945) —— HTTP/1.0 于 1996 年发布之前，I-D 已经通过了 6 个草案版本。
+HTTP 在 1991 年以 HTTP/0.9 协议开始，在 1994 年 I-D [draft-fielding-http-spec-00](https://tools.ietf.org/html/draft-fielding-http-spec-00) 发布。它很快就被 IETF 采用，导致 [draft-ietf-http-v10-spec-00](https://tools.ietf.org/html/draft-ietf-http-v10-spec-00) 的名称被修改。在 [RFC 1945](https://tools.ietf.org/html/rfc1945) —— HTTP/1.0 于 1996 年发布之前，I-D 已经已经了 6 个草案版本的修改。
 
 ![](https://blog.cloudflare.com/content/images/2019/01/http11-standardisation.png)
 
@@ -83,15 +83,15 @@ HTTP/1.1 修订工作在 1997 年年中以 [draft-ietf-http-v11-spec-rev-00](htt
 
 我们更感兴趣的是 SSL 如何促进 TLS 发展的，TLS 的生命在 1996 年 11 月开始于 [draft-ietf-tls-protocol-00](https://tools.ietf.org/html/draft-ietf-tls-protocol-00)。它通过了 6 个草案版本，发布时为 [RFC 2246](https://tools.ietf.org/html/rfc2246) —— TLS 1.0 起始于 1999。
 
-在 1995 年和 1999 年，SSL 和 TLS 协议被用于保护因特网上的 HTTP 通信。作为一个事实上的标准，这非常好。直到 1998 年 1 月，HTTPS 的正式标准化进程才随着 I-D [draft-ietf-tls-https-00](https://tools.ietf.org/html/draft-ietf-tls-https-00) 的出版而开始。这项工作结束于 2000 年 5 月，发布了 [RFC 2616](https://tools.ietf.org/html/rfc2616) —— HTTP over TLS。
+在 1995 年和 1999 年，SSL 和 TLS 协议被用于保护因特网上的 HTTP 通信。作为一个事实上的标准，它并没有太大的问题。直到 1998 年 1 月，HTTPS 的正式标准化进程才随着 I-D [draft-ietf-tls-https-00](https://tools.ietf.org/html/draft-ietf-tls-https-00) 的出版而开始。这项工作结束于 2000 年 5 月，发布的 [RFC 2616](https://tools.ietf.org/html/rfc2616) —— HTTP over TLS。
 
-TLS 在 2000 至 2007 年得以继续发展，TLS 1.1 和 1.2 的标准化。距下一个 TLS 版本的开发时间还有 7 年时间，它在 2014 年 4 月的 [draft-ietf-tls-tls13-00](https://tools.ietf.org/html/draft-ietf-tls-tls13-00) 中被通过，在 28 份的草案之后，[RFC 8446](https://tools.ietf.org/html/rfc8446) - TLS 1.3 在 2018 年 8 月完成。
+伴随着 TLS 1.1 和 1.2 的标准化，TLS 在 2000 至 2007 年得以继续发展。距下一个 TLS 版本的开发时间还有 7 年时间，它在 2014 年 4 月的 [draft-ietf-tls-tls13-00](https://tools.ietf.org/html/draft-ietf-tls-tls13-00) 中被通过，在历经 28 份草案之后，[RFC 8446](https://tools.ietf.org/html/rfc8446) —— TLS 1.3 于 2018 年 8 月完成。
 
 ## 因特网标准化过程
 
-在看了下时间线之后，我希望你能对 IETF 的工作方式有大概的了解。互联网标准形成方式的概况是，研究人员或工程师设计师和他们具体用例的实验协议。他们在不同规模的公共或私有协议中进行试验。这些数据有助于发现可以优化的地方或问题。这项工作可能是为了解释试验，收集更广泛的投入，或帮组寻找其他实验者。其他对早期工作的参与者可能会使其成为事实上的标准；可能最后会有足够的原因使其成为正式标准化的一种选择。
+在看了下时间线之后，我希望你能对 IETF 的工作方式有大概的了解。互联网标准形成方式的概况是，研究人员或工程师和他们具体用例的实验协议。他们在不同规模的公共或私有协议中进行试验。这些数据有助于发现可以优化的地方或问题。这项工作可能是为了解释试验，收集更广泛的投入，或帮组寻找其他实验者。其他对早期工作的参与者可能会使其成为事实上的标准；可能最后会有足够的原因使其成为正式标准化的一种选择。
 
-对于正在考虑实施、部署或以某种范式使用协议的组织来说，协议的状态可能是一个重要的因素。一个正式的标准化过程可以促使事实上的标准更具吸引力因为它倾向于提供稳定性。管理和指导由 IETF 这类组织提供，它反映了更广泛的经验。然而，需要强调的是，并非所有的正式标准都是成功的。
+对于正在考虑实施、部署或以某种范式使用协议的组织来说，协议的状态可能是一个重要的因素。一个正式的标准化过程可以促使事实上的标准更具吸引力，因为标准化倾向于提供稳定性。管理和指导由 IETF 这类组织提供，它反映了更广泛的经验。然而，需要强调的是，并非所有的正式标准都是成功的。
 
 创建最终标准的过程与标准本身同等重要。从具有更广泛知识、经验和用例的人那里获取初步的想法和贡献，可以帮助产生对更广泛人群有用的产物。但标准化的过程并不容易。存在陷阱和障碍，有时，需要花费很长的时间过程，才能排除不相关的内容。
 
