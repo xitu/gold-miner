@@ -7,7 +7,7 @@
 
 # 资助 ESLint 的未来
 
-2019 年的 6 月将是 ESLint 首次发布以来的整整第六年。ESLint 从起初解决有限问题的一个小项目成长为如今世界上最流行的 Javascript 代码检测工具，在 npm 上已拥有**每周** 650 万的下载次数。现在 ESLint 每天都被用于帮助大公司团队和个人开发者发现和解决 Javascript 代码问题。另外，ESLint 也已经有足够的能力来检测由 Javascript 衍生出的编程语言，如 [Flow](https://www.npmjs.com/package/eslint-plugin-flowtype) 和 [TypeScript](https://typescript-eslint.io) ，甚至能帮助移动端开发者检测 [React Native](https://www.npmjs.com/package/eslint-plugin-react-native) 。
+2019 年的 6 月将是 ESLint 首次发布以来的整整第六年。 ESLint 从起初解决有限问题的一个小项目成长为如今世界上最流行的 Javascript 代码检测工具，在 npm 上已拥有**每周** 650 万的下载次数。现在 ESLint 每天都被用于帮助大公司团队和个人开发者发现和解决 Javascript 代码问题。另外，ESLint 也已经有足够的能力来检测由 Javascript 衍生出的编程语言，如 [Flow](https://www.npmjs.com/package/eslint-plugin-flowtype) 和 [TypeScript](https://typescript-eslint.io) ，甚至能帮助移动端开发者检测 [React Native](https://www.npmjs.com/package/eslint-plugin-react-native) 。
 
 所有这一切都意味着 ESLint 已经成为了 Javascript 生态系统中重要的一部分。它是一个 Javascript 社区所依赖的工具，并被期望可用，高效且安全。所有的这些期望现在都已经被一个全部是由志愿者组成的团队利用他们的闲暇时光如午休，夜晚和周末来实现了。虽然当前这个开发模式足以满足日常维护的需要，但是难以使得 ESLint 继续成长来解决更多的问题，比如既定的发展路线图和安全问题。
 
@@ -46,7 +46,7 @@ ESLint 团队有很多的想法关于接下来怎么处理收到的捐款。取�
 
 *   **建立一个发展规划。** 有一段时间，ESLint团队大多以基于要实现的功能来做一次性的工作。如果不知道谁能够在项目上花费多少的时间，这就很难做出长期规划并制定一个未来的路线图。当我们成为一个自我维持的项目时，我们必将有能力去做成这件事情。
 
-## 我们的目标：每月两万美元！
+## 我们的目标：每月两万美元
 
 为了实现我们的愿景，我们相信我们将需要每月两万美元的捐款。有了这个数额，我们有能力在可预见的未来维持 ESLint 项目。
 
