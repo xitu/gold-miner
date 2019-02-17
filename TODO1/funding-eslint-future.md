@@ -2,12 +2,12 @@
 > * 原文作者：[ESLint](https://eslint.org)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/funding-eslint-future.md](https://github.com/xitu/gold-miner/blob/master/TODO1/funding-eslint-future.md)
-> * 译者：
+> * 译者：[EdmondWang](https://github.com/EdmondWang)
 > * 校对者：
 
-# Funding ESLint’s Future
+# 资助 ESLint 的未来
 
-June 2019 will mark six years since ESLint was first released. What began as a side project for a very narrow use case has grown into the most popular JavaScript linter in the world, with over 6.5 million npm downloads _every week_. ESLint is now used by both large companies and individual developers to help find and fix problems with JavaScript code every day. In addition, ESLint has been flexible enough to work with languages derived from JavaScript, such as [Flow](https://www.npmjs.com/package/eslint-plugin-flowtype) and [TypeScript](https://typescript-eslint.io), and even helps mobile developers by linting [React Native](https://www.npmjs.com/package/eslint-plugin-react-native).
+2019 年的 6 月将是 ESLint 首次发布以来的第六年。ESLint 从起初用于解决有限问题的一个小项目成长为如今世界上最流行的 Javascript 代码检测工具，在 npm 上拥有**每周** 650 万的下载次数。现在 ESLint 每天都被用于帮助大公司团队和个人开发者发现和解决 Javascript 代码问题。另外，ESLint 也已经有足够的能力来检测由 Javascript 衍生出的编程语言，如 [Flow](https://www.npmjs.com/package/eslint-plugin-flowtype) 和 [TypeScript](https://typescript-eslint.io) ，甚至能帮助移动端开发者检测 [React Native](https://www.npmjs.com/package/eslint-plugin-react-native) 。
 
 All of this means that ESLint has become an important part of the JavaScript ecosystem. It’s a tool that the JavaScript community depends on and expects to be available, performant, and secure. These expectations are currently being met by an all-volunteer team who spends their free time during lunch breaks, nights, and weekends maintaining ESLint. And while that has worked well for normal maintenance, it’s grown difficult to deal with more involved issues such as roadmap planning and security issues.
 
@@ -15,7 +15,7 @@ In short, we’ve realized that in order for ESLint to continue to grow and evol
 
 ## The ESLint Collective
 
-[![ESLint Collective Logo](https://eslint.org/img/posts/eslint-collective.png)](https://opencollective.com/eslint)  
+[![ESLint Collective Logo](https://eslint.org/img/posts/eslint-collective.png)](https://opencollective.com/eslint)
 [Become a Sponsor](https://opencollective.com/eslint)
 
 Today, we are happy to announce the [ESLint Collective](https://opencollective.com/eslint) on Open Collective. Open Collective is a secure way for people to sustain and support open source projects. The funds taken in and paid out are publicly available on each collective’s page, so there is 100% transparency around the money a collective uses. Open Collective has already helped other JavaScript ecosystem projects such as [Webpack](https://opencollective.com/webpack) and [Babel](https://opencollective.com/babel) to fund their ongoing development, and the ESLint team is happy to join them on what has proven to be a great option for open source sustainability.
