@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/swift-avoiding-memory-leaks-by-examples.md](https://github.com/xitu/gold-miner/blob/master/TODO1/swift-avoiding-memory-leaks-by-examples.md)
 > * 译者：[LoneyIsError](https://github.com/LoneyIsError)
-> * 校对者：
+> * 校对者：[HearFishle](https://github.com/HearFishle)
 
 # Swift：通过示例避免内存泄漏
 
