@@ -5,21 +5,21 @@
 > * 译者：
 > * 校对者：
 
-# Draw a Path: Rendering Android VectorDrawables
+# 绘制路径:  Android 中矢量图渲染
 
 ![](https://cdn-images-1.medium.com/max/2600/1*t4yigvVn3kGRHnTu0yAlqQ.png)
 
-Illustration by [Virginia Poltrack](https://twitter.com/VPoltrack)
+插图来自 [Virginia Poltrack](https://twitter.com/VPoltrack)
 
-In the previous article, we looked at Android’s VectorDrawable format, going into its benefits and capabilities.
+在上一篇文章中，我们研究了 Android 的 VectorDrawable 格式，了解了它的优点和功能。
 
 - [了解 Android 的矢量图片格式：VectorDrawable](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-androids-vector-image-format-vectordrawable.md)
 
-We covered how you can define paths which make up the shapes in your assets. `VectorDrawable` supports a number of ways of actually drawing these shapes that we can use to create rich, flexible, theme-able and _interactive_ assets. In this post I’ll deep dive on these techniques: using color resources, theme colors, color state lists and gradients.
+我们讨论了如何定义组成 assets 中形状的路径。`VectorDrawable` 支持许多实际绘制这些形状的方法，我们可以使用这些方法创建丰富的、灵活的、可配置主题的和可交互的资源。在这篇文章中，我将深入探讨这些技巧：颜色资源、主题颜色、颜色状态列表和渐变的使用。
 
-### Simple Colors
+### 简单的颜色
 
-The simplest way to draw a path is to specify a hard-coded fill/stroke color.
+绘制路径最简单的方法是指定硬编码的 fill/stroke 颜色。
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -36,13 +36,13 @@ The simplest way to draw a path is to specify a hard-coded fill/stroke color.
 </vector>
 ```
 
-You can define one or both of these properties and only a single fill/stroke can be applied per path (unlike some graphics packages). Fills are drawn first, then any stroke is applied. Strokes are always centered (again unlike some graphics apps which allow inner or outer strokes), require a `strokeWidth` to be specified and can optionally define `strokeLineCap`, `strokeLineJoin` properties which control the shape of the ends/joins of stroked lines (also `strokeMiterLimit` for `miter` line joins). Dashed strokes are not supported.
+你可以定义一个或两个属性，并且每个路径只能应用一个 fill/stroke  (与某些图形包不同)。首先绘制填充，然后绘制任意笔画。笔画总是居中的(不像一些图形应用程序允许内或外笔画)，需要指定一个 `strokeWidth`，可以选择定义 `strokeLineCap`、`strokeLineJoin` 属性，这些属性控制笔画线的端点/连接处的形状(也可以为 `miter` 线连接处定义 `strokeMiterLimit`)。不支持虚线笔画。
 
-Both fills and strokes offer separate alpha properties: `fillAlpha` and `strokeAlpha` [0–1] both of which default to 1 i.e. fully opaque. If you specify a `fillColor` or `strokeColor` with an alpha component then these two values are _combined_. For example if you specified a 50% transparent red `fillColor` (`#80ff0000`) and a `0.5` `fillAlpha` then the result would be 25% transparent red. The separate alpha attributes make it easier to animate the opacity of a path.
+填充和笔画都提供单独的 alpha 属性：`fillAlpha` 和 `strokeAlpha` [0-1] 都默认为 1，即完全不透明。如果为一个设置了 alpha 值的组件指定 `fillColor` 或 `strokeColor`，结果是这两个值的结合。例如，如果指定 50% 透明的红色 `fillColor` (`#80ff0000`) 和 0.5 的 ` fillAlpha`，那么结果将是 25% 透明的红色。单独的 alpha 属性使路径的不透明度更容易动画化。
 
-### Color Resources
+### 颜色资源
 
-Vectors support the `@color` resource syntax for both fill and stroke colors:
+向量中填充和笔画颜色的设置都支持 `@color` 资源的语法：
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -58,19 +58,19 @@ Vectors support the `@color` resource syntax for both fill and stroke colors:
 </vector>
 ```
 
-This allows you to factor out colors for easier maintenance and helps you to restrict your app to a consistent palette.
+这允许你可以提取颜色以便于维护，并帮助你约束应用程序的色调一致性。
 
-It _also_ enables you to supply different color values in different configurations using Android’s [resource qualifiers](https://developer.android.com/guide/topics/resources/providing-resources#AlternativeResources). For example you could provide alternate color values in night mode (`res/colors-night/colors.xml`) or if the [device supports wide color gamuts](https://medium.com/google-design/android-color-management-what-developers-and-designers-need-to-know-4fdd8054557e) (`res/colors-widecg/colors.xml`).
+它还允许你使用 Android 的 [资源限定符](https://developer.android.com/guide/topics/resources/providing-resources#AlternativeResources) 在不同配置中提供不同的颜色值。例如，你可以在夜间模式 (`res/colors-night/colors.xml`) 或 如果 [设备支持宽色域](https://medium.com/google-design/android-color-management-what-developers-and-designers-need-to-know-4fdd8054557e) (`res/colors-widecg/colors.xml`) 下提供替代的颜色值。
 
-### Theme Colors
+### 主题色
 
-All versions of vectors (back to API14 through AndroidX) support using theme attributes (e.g. `?attr/colorPrimary`) to specify colors. These are colors provided by a theme and prove extremely useful for creating flexible assets that you can use in different places in your app.
+所有版本的矢量 (从 API14 到 AndroidX) 都支持使用主题属性 (例如 `?attr/colorPrimary`) 来指定颜色。这些颜色是由主题提供的，对于创建灵活的可以在应用程序的不同位置中使用的资源非常有用。
 
-There are 2 main ways to use theme colors.
+有两种主要的方式使用主题颜色。
 
-#### Themed fills/strokes
+#### 为 fills/strokes 设置主题色
 
-You can directly reference theme colors to fill or stroke paths:
+你可以直接参考主题颜色来设置填充或描边路径:
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -84,15 +84,15 @@ You can directly reference theme colors to fill or stroke paths:
 </vector>
 ```
 
-This is useful if you have elements in an asset that you want to differ based on the theme. For example a sports app may theme a placeholder image to display the team’s color; using a single drawable:
+如果你希望资源中的元素依据主题有所不同，那么这是非常有用的。例如，一个体育类型的应用程序可以设置一个主题色的占位符图像来显示球队的颜色；使用单一绘图：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*bC0qT04NmBsM5wQdiDYPgw.png)
 
-Filling a path with a theme color
+用主题颜色填充路径
 
-#### Tinting
+#### 着色
 
-The root `<vector>` element offers `tint` & `tintMode` attributes:
+ `<vector>` 根元素提供了 `tint` 和 `tintMode` 属性值：
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -105,23 +105,23 @@ The root `<vector>` element offers `tint` & `tintMode` attributes:
 </vector>
 ```
 
-While you could use this to apply a static tint, this is much more useful in combination with theme attributes. This allows you to change the color of the entire asset depending upon the theme it is inflated against. For example you could tint the icon using `?attr/colorControlNormal` which defines the standard color for icons and varies across light and dark themes. This way you can use a single icon across differently themed screens:
+虽然你可以使用它来采取静态着色，但它在与主题属性组合时更有用。这允许您根据引入的主题更改整个资源文件的颜色。例如，你可以使用 `?attr/colorControlNormal `，它定义了图标的标准颜色，并在明暗主题之间变化。这样你就可以在不同主题的屏幕上使用一个图标:
 
 ![](https://cdn-images-1.medium.com/max/1600/1*h1z2s8mJ6giKx5_Ixx0DQQ.png)
 
-Tinting an icon so that it is appropriately colored on light/dark screens
+在明/暗屏幕上对图标进行着色，使其具有适当的颜色
 
-A benefit of using tints is that you aren’t reliant on the source artwork for your assets (usually from your designer) being the correct color. Applying a standard tint like `?attr/colorControlNormal` to icons both gets you themeing and guarantees that assets are exactly the same, correct color.
+使用着色的一个好处是，你不需要依赖于你的资源文件(通常来自你的设计师)是正确的颜色。使用像 `?attr/colorControlNormal` 既能主题化，又能保证资源文件的颜色完全相同、正确。
 
-The `tintMode` attribute lets you change the blending mode used to tint the drawable, it supports: `add`, `multiply`, `screen`, `src_atop`, `src_over` or `src_in`; corresponding to the equivalent [PorterDuff.Mode](https://developer.android.com/reference/android/graphics/PorterDuff.Mode). The default `src_in` is usually what you want and treats the image as an alpha mask applying the single tint color to the entire icon, ignoring any color information in the individual paths (although the alpha channel is maintained). For this reason, if you plan to tint icons then it’s best to use a fully opaque fill/stroke color (convention is to use `#fff`).
+`tintMode` 属性允许你更改用于着色绘制的混合模式，它支持: `add`、`multiply`、`screen`、`src_atop`、`src_over`或`src_in`;；对应于对应的 [PorterDuff.Mode](https://developer.android.com/reference/android/graphics/PorterDuff.Mode)。 通常你希望的默认值是 `src_in`，它将图像作为 alpha 蒙版应用于整个图标，忽略单个路径中的任何颜色信息(尽管 alpha 通道是维护的)。因此，如果你打算给图标着色，那么最好使用完全不透明的填充/描边颜色(惯例是使用 `#fff`)。
 
-You might wonder when to tint the assets and when to use theme colors on individual paths as both can attain similar results? If you want to use theme colors on only _some_ paths, then you have to use them directly. Another consideration can be if your asset has any overlapping rendering. If so then filling with a semi-opaque theme color may not produce the effect you want, but applying a tint may.
+你可能想知道什么时候为资源着色？什么时候在单独的路径上使用主题颜色？因为这两种颜色都可以获得类似的结果。如果你只想在某些路径上使用主题颜色，那么必须直接使用它们。另一个需要考虑的问题是，你的资源是否具有重叠渲染。如果是这样的话，那么用半透明的主题颜色填充可能不会产生你想要的效果，但应用着色模式可能达到这种效果。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*3hsEvZy71AHHAPAz-f9AHw.png)
 
-Assets with overlapping paths & semi-opaque theme colors: comparing tint vs fills
+具有重叠路径和半透明主题颜色的资源:比较着色和填充模式
 
-Note that you can vary the theme used to inflate the drawable either at the `Activity`/`View` level by setting the `android:theme` attribute, or in code using a `[ContextThemeWrapper](https://developer.android.com/reference/android/view/ContextThemeWrapper.html)` with a specific theme to [inflate](https://developer.android.com/reference/android/support/v7/content/res/AppCompatResources.html#getDrawable%28android.content.Context,%20int%29) the vector.
+请注意，你可以通过设置 `android:theme` 属性，在`Activity`/`View` 级别改变可绘制对象的主题，或者在代码中使用 [ContextThemeWrapper](https://developer.android.com/reference/android/view/ContextThemeWrapper.html) 设置一个特定的主题来 [填充](https://developer.android.com/reference/android/support/v7/content/res/AppCompatResources.html#getDrawable%28android.content.Context,%20int%29) 这个向量。
 
 ```
 /* Copyright 2018 Google LLC.
@@ -130,17 +130,17 @@ val themedContext = ContextThemeWrapper(context, R.style.baz)
 val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 ```
 
-Overlaying the theme `baz`
+覆盖主题 `baz`
 
-### ColorStateLists
+### 颜色状态列表
 
-`VectorDrawable` supports referencing `[ColorStateLists](https://developer.android.com/reference/android/content/res/ColorStateList.html)` for fills/strokes. In this way, you can create a single drawable where path(s) change color depending upon the view/drawable’s state (such as pressed, selected, activated etc).
+对于 填充/描边，`VectorDrawable` 支持 [ColorStateLists](https://developer.android.com/reference/android/content/res/ColorStateList.html) 的引用。通过这种方式，你可以创建一个单独的绘图，其中路径根据视图/绘图的状态(如按下、选择、激活等)来改变颜色。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*6ZTTJcAjPO6cUU5yk3tahQ.gif)
 
-Examples of vectors responding to pressed and selected states
+向量对按下和选择的状态作出响应的例子
 
-This was introduced in API24 but recently added to AndroidX, from version 1.0.0 bringing support back to API14. This also uses the [AndroidX ColorStateList inflater](https://developer.android.com/reference/android/support/v7/content/res/AppCompatResources.html#getColorStateList%28android.content.Context,%20int%29) which means that you can also use theme attributes and alpha in the `ColorStateList` itself (which were themselves only added to the platform in API23).
+这是在 API24 中引入的，但最近添加到 AndroidX 中，从 1.0.0 版本也支持 API14。这也使用了 [AndroidX 颜色状态列表填充](https://developer.android.com/reference/android/support/v7/content/res/AppCompatResources.html#getColorStateList%28android.content.Context,%20int%29) ，这意味着你也可以在 `ColorStateList` 中使用主题属性和 alpha (它们本身只在 API23 中被添加到平台中)。
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -153,17 +153,17 @@ This was introduced in API24 but recently added to AndroidX, from version 1.0.0 
 </selector>
 ```
 
-While similar results could be achieved using multiple drawables in a `StateListDrawable`, if the rendering differs little between states this reduces duplication and can be easier to maintain.
+虽然在 `StateListDrawable` 中使用多个可绘制对象也可以获得类似的结果，但是如果状态之间的呈现差异很小，则可以减少重复，并且更容易维护。
 
-I’m also a big fan of creating your own states for custom views which can be combined with this support to control elements within an asset e.g. making paths transparent unless a certain state is set.
+我也非常喜欢为自定义视图创建自己的状态，这些视图可以与此支持结合使用，以控制资源中的元素，例如除非设置了特定的状态而使路径透明。
 
-### Gradients
+### 渐变
 
 ![](https://cdn-images-1.medium.com/max/1600/1*v9DUfuae-a0oX12Dw88pmw.png)
 
-The 3 types of gradients supported
+支持 3 种类型的渐变
 
-`VectorDrawable` supports linear, radial and sweep (also known as angular) gradients for both fills and strokes.This is also supported back to API14 via AndroidX. Gradients are declared in their own file in `res/colors/` but we can use the [inline resource technique](https://developer.android.com/guide/topics/resources/complex-xml-resources) to instead declare the gradient within a vector—which can be more convenient:
+`VectorDrawable` 支持线性、径向和扫描(也称为角)渐变的填充和描边。从API14 到 AndroidX 都支持。渐变是在它们自己的文件中以 `res/colors/` 的形式声明的，但是我们可以使用 [内嵌资源技术](https://developer.android.com/guide/topics/resources/complex-xml-resources) 来代替在向量中声明的渐变，这样更方便：
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -177,11 +177,11 @@ The 3 types of gradients supported
 </vector>
 ```
 
-At build time, the gradient is extracted to its own resource and a reference to it is inserted in the _parent_ element. If you’re going to use the same gradient multiple times it’s better to declare it once and reference it as the inline version will create a new resource each time.
+在构建时，渐变被提取到它自己的资源中，并在父元素中插入对它的引用。如果要多次使用相同的渐变，最好声明一次并引用它，因为内联版本每次都会创建一个新资源。
 
-When specifying gradients, any coordinates are in the viewport space from the root vector element. Let’s take a look at each type of gradient and how to use them.
+当指定渐变时，任何坐标都位于根向量元素的视觉空间中。让我们看看每一种渐变，以及如何使用它们。
 
-#### Linear
+#### 线性
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -196,9 +196,9 @@ When specifying gradients, any coordinates are in the viewport space from the ro
   android:endColor="#a242b4"/>
 ```
 
-Linear gradients must specify start/end X/Y coordinates and `type="linear"`.
+线性渐变必须指定 开始/结束的 X/Y 坐标和 `type="linear"`。
 
-#### Radial
+#### 径向
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -212,9 +212,9 @@ Linear gradients must specify start/end X/Y coordinates and `type="linear"`.
   android:endColor="#a242b4"/>
 ```
 
-Radial gradients must specify a center X/Y and a radius (again in viewport coordinates) and `type="radial"`.
+径向渐变必须指定一个中心点 X/Y 的坐标和一个半径(同样在视觉坐标中)，以及 `type="radial"`。
 
-#### Sweep
+#### 扫描
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -227,11 +227,11 @@ Radial gradients must specify a center X/Y and a radius (again in viewport coord
   android:endColor="#a242b4"/>
 ```
 
-Sweep gradients must specify just a center X/Y and `type="sweep"`.
+扫描渐变必须指定一个中心点坐标 X/ Y和 `type="sweep"`。
 
-#### Color Stops
+#### 起止颜色
 
-As a convenience gradients let you specify a `startColor`, `centerColor` and `endColor` directly in the gradient. If you need finer grained control or more color stops you can also achieve this by adding child `item` elements specifying a `color` and a [0–1] `offset` (think of this as a percentage of the way through the gradient).
+渐变的使用很方便，你可以直接在渐变中指定一个 `startColor`, `centerColor` 和 `endColor`。如果你需要更细粒度的控制它或者设置更多起止颜色， 你也可以通过添加指定了 `color` 和 [0–1] `offset` (可以把这个看成渐变的百分比) 的子 `item` 来实现。
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -249,60 +249,60 @@ As a convenience gradients let you specify a `startColor`, `centerColor` and `en
 </gradient>
 ```
 
-#### Tile Modes
+#### 平铺模式
 
-Linear and radial (but not sweep) gradients offer a concept of tiling — that is if the gradient doesn’t cover the entirety of the path it’s filling/stroking, what to do. The default is `clamp`, which just continues the start/end colors. Alternatively you can specify `repeat` or `mirror` tile modes which… do as their names imply! In the below examples, a radial gradient is defined over the central blue→purple circle, but fills the larger square path.
+线性和径向(不是扫描)渐变提供了平铺的概念——也就是说，如果渐变没有覆盖它填充/描边的整个路径，那么应该怎么做。默认值是 `clamp`, 它只是延续开始/结束的颜色。或者你可以指定 `repeat` o或者 `mirror` 平铺模式，这些模式……正如它们的名称所暗示的那样!在以下示例中,定义了一个径向渐变：中心蓝色→紫色圆形,但充满更大的正方形路径。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*8ngJx7igxFyEc48mjrN4xA.png)
 
-Gradient tile modes
+渐变平铺模式
 
-#### Patterns
+#### 模式
 
-We can combine using color stops and tile modes to achieve rudimentary pattern support in vectors. For example, if you specify coinciding color stops, you can achieve abrupt color changes. Combine this with a repeated tile mode and we can create striped pattern. [For example](https://gist.github.com/nickbutcher/1e6c2309ee075ac62d2f8a6c285f0ce8) here’s a loading indicator made of a single pattern filled shape. By animating the `translateX` property on the group holding this pattern, we can achieve this effect:
+我们可以结合使用起止颜色和平铺模式来实现基本的向量中支持的模式。例如，如果指定了一致的起止颜色，就可以实现突然的颜色更改。将其与重复的平铺模式结合起来，就可以创建条纹模式。 [例如](https://gist.github.com/nickbutcher/1e6c2309ee075ac62d2f8a6c285f0ce8) 这是一个由单个模式的填充形状组成的加载指示器。通过在持有此模式的 group 上动画化 `translateX` 属性，我们可以实现以下效果:
 
 ![](https://cdn-images-1.medium.com/max/1600/1*uXCjERVWWepz-1AyHIy2Ow.gif)
 
-Note that this technique is a far cry from full [SVG Pattern](https://www.w3.org/TR/SVG/pservers.html#Patterns) support, but it can be useful.
+注意，这种技术与完整的 [SVG 模式](https://www.w3.org/TR/SVG/pservers.html#Patterns) 支持相去甚远，但它可能很有用。
 
-#### Illustrations
+#### 插图
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Rk-FXON4_Y5RqsD_koB-ow.png)
 
-Another lovely illustration by the very talented [Virginia Poltrack](https://twitter.com/VPoltrack)
+另一幅由非常有才华的 [Virginia Poltrack](https://twitter.com/VPoltrack) 绘制的可爱插图
 
-Gradients are extremely common in larger vector artwork like illustrations. Vectors can be a good fit for illustrations but be aware of the memory tradeoffs when inflating them at large sizes. We’ll revisit this later in the series.
+渐变在像插图这样的大型矢量图形中非常常见。矢量图非常适合插图，但是在放大时要注意内存的权衡。我们将在本系列的后面讨论这个问题。
 
-#### Shadows
+#### 阴影
 
-`VectorDrawable`s do not support drop shadow effects; however simple shadows can be _approximated_ using gradients. For example this app icon uses radial gradients to approximate the drop shadow of the white circles and a linear gradient for the shadow below the triangle:
+`VectorDrawable`s 不支持阴影效果；然而，简单的阴影可以用渐变来近似。例如，这个 app 图标使用径向渐变来近似白色圆圈的投影，三角形下方的阴影使用线性渐变:
 
 ![](https://cdn-images-1.medium.com/max/1600/1*LtNVL0GpyFlFei434XS-0Q.png)
 
-Approximating shadows using gradients
+使用渐变近似阴影
 
-Again, this is a long way from full shadow support as only linear/radial/sweep gradients can be drawn and not along an arbitrary paths. You can approximate some shapes; especially by applying transforms to gradient elements like this [example](https://gist.github.com/nickbutcher/b9c726e956d25b354ee1d19dcb105a88) which uses the `scaleY` property to transform a circle with a radial gradient to an oval shape to create the shadow:
+同样，这离完全的支持阴影还有很长的路要走，因为只能绘制线性/径向/扫描渐变，而不能沿着任意路径绘制。你可以近似一些形状；特别是像如下 [示例](https://gist.github.com/nickbutcher/b9c726e956d25b354ee1d19dcb105a88) 对渐变元素应用变换，它使用 `scaleY` 属性将一个径向渐变的圆转换成一个椭圆形来创建阴影:
 
 ![](https://cdn-images-1.medium.com/max/1600/1*CPo9LovW1xgD5jCkWRu0Ow.gif)
 
-Transforming a path containing a gradient
+转换包含渐变的路径
 
-### Color by Numbers
+### 颜色的数量
 
-Hopefully this post has shown that `VectorDrawable`s support a number of advanced features that you can use to render more complex assets in your app or even replace multiple assets with a single file, helping you to build slimmer apps.
+希望这篇文章已经表明 `VectorDrawable`支持许多高级特性，你可以使用这些特性在应用程序中渲染更复杂的资源，甚至可以用一个文件替换多个资源，帮助你构建更精简的应用程序。
 
-I’d suggest that all apps should be using theme color tints for icons. `ColorStateList` and gradient support is more niche, but if you need it, it’s good to know that vectors support those use cases.
+我建议所有的应用程序都应该使用主题色彩的图标。`ColorStateList` 和渐变支持就合适，但是如果你需要它，最好知道向量支持的这些用例。
 
-The compatibility story with vectors is good so these features can be used today in most apps (more on this in the next installment).
+与向量的兼容性非常好，因此这些特性现在可以在大多数应用程序中使用(下一期将详细介绍)。
 
-Join us in the next part of our adventures in vector-land:
+加入我们下一部分关于向量的探索:
 
-- [**Using vector assets in Android apps**: In previous posts we’ve looked at Android’s VectorDrawable image format and what it can do](https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9 "https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9")
+- [**在 Android 应用中使用矢量资源**: 在之前的文章中我们已经了解了 Android 的VectorDrawable 图像格式和它的功能](https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9 "https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9")
 
-_Coming soon: Creating vector assets for Android_
-_Coming soon: Profiling Android `VectorDrawable`s_
+即将展示: 为 Android 创建矢量资源
+即将展示: 分析 Android 的 `VectorDrawable`
 
-Thanks to [Ben Weiss](https://medium.com/@keyboardsurfer?source=post_page), [Don Turner](https://medium.com/@donturner?source=post_page), and [Doris Liu](https://medium.com/@doris4lt?source=post_page).
+感谢 [Ben Weiss](https://medium.com/@keyboardsurfer?source=post_page)、 [Don Turner](https://medium.com/@donturner?source=post_page) 和 [Doris Liu](https://medium.com/@doris4lt?source=post_page)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
