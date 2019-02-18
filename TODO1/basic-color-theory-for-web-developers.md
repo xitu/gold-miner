@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/basic-color-theory-for-web-developers.md](https://github.com/xitu/gold-miner/blob/master/TODO1/basic-color-theory-for-web-developers.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[Mcskiller](https://github.com/Mcskiller)，[kasheemlew](https://github.com/kasheemlew)
 
 # Web 开发者需要了解的基础色彩理论
 
@@ -11,7 +11,7 @@
 
 [![](https://res.cloudinary.com/practicaldev/image/fetch/s--OE8uCwmx--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/cgr160zn3evkbry9h3l7.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--OE8uCwmx--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/cgr160zn3evkbry9h3l7.png)
 
-在小学美术课上应该讲过**主色**（primary color）与**副色**（seondary color），如果你在小学之后还上过美术课，应该还了解过**点缀色**（tertiary color）。
+在小学美术课上应该讲过**一次色**（primary color，即三原色）与**二次色**（seondary color，间色），如果你在小学之后还上过美术课，应该还了解过**三次色**（tertiary color，副色）。
 
 [![](https://res.cloudinary.com/practicaldev/image/fetch/s--jDnCmgm0--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/h1li6xy7lsolpx1pfd7y.jpg)](https://res.cloudinary.com/practicaldev/image/fetch/s--jDnCmgm0--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/h1li6xy7lsolpx1pfd7y.jpg)
 
@@ -25,7 +25,7 @@
 
 上图为莫奈的 Haystacks 系列画作
 
-**简单来说**：色彩理论研究的是人的眼睛如何将光线转化为颜色。匹配或相似的色彩往往有着相似或互补的波。
+**简单来说**：色彩理论研究的是人的眼睛如何将光波转化为颜色。匹配或相似的色彩往往有着相似或互补的波。
 
 因此可以将色彩理论归结为光波科学，来解释为什么可以看到各种颜色。不过在本文中，我们将主要说明一下两个问题：
 
@@ -56,11 +56,11 @@
 
 ## Level 2：互补色
 
-如果不想在配色中只用各种各样的“橙色”怎么办？如果你想让链接突出，但又和导航栏或者背景色冲突怎么办？
+如果不想在配色中只用各种各样的“橙色”怎么办？如果你想让链接突出，但又不和导航栏或者背景色冲突怎么办？
 
 如果我们遵循基本色彩理论，解决上述问题的方案就是去寻找**互补色**。
 
-可以在色轮中一种颜色相对的位置找到它的**互补色**。
+可以在色轮中一种颜色相对的位置找到它的**互补**色。
 
 [![](https://res.cloudinary.com/practicaldev/image/fetch/s--laijYZC7--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/3fj00kbhg6s8nqpm3ut9.jpg)](https://res.cloudinary.com/practicaldev/image/fetch/s--laijYZC7--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/3fj00kbhg6s8nqpm3ut9.jpg)
 
@@ -90,8 +90,8 @@
 [Doug R. Thomas, Esq.](https://dev.to/ferkungamaboobo) 强烈推荐以下网站：
 
 *   [Color.Adobe.com](https://color.adobe.com/)
-*   [WebAIM - Color Contrast Checker](https://webaim.org/resources/contrastchecker/) \- 确保文本在背景上的可读性。
-*   [Coblis — Color Blindness Simulator](https://www.color-blindness.com/coblis-color-blindness-simulator/) - 用 colorblindness 过滤器来测试你的布局截图，以确保内容对所有受众都是可读的。
+*   [WebAIM - 颜色对比度检查器](https://webaim.org/resources/contrastchecker/) \- 确保文本在背景上的可读性。
+*   [Coblis — 色盲模拟器](https://www.color-blindness.com/coblis-color-blindness-simulator/) - 用色盲滤镜来测试你的布局截图，以确保内容对所有受众都是可读的。
 
 ## 拓展阅读
 
