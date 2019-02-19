@@ -2,74 +2,74 @@
 > * 原文作者：[Matt Holt](https://medium.com/@mattholt)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/its-2019-and-i-still-make-websites-with-my-bare-hands.md](https://github.com/xitu/gold-miner/blob/master/TODO1/its-2019-and-i-still-make-websites-with-my-bare-hands.md)
-> * 译者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
 > * 校对者：
 
-# It’s 2019 and I Still Make Websites with my Bare Hands
+# 已经 2019 年了，我依然赤手空拳制作网站
 
-I have no idea how to make a website the way the cool kids do today.
+我完全不知道该怎样像现在那些酷小孩一样制作网站。
 
-All I know is that our frontend team spent about a day laying the foundation for our new website, and the next day my `git pull` landed this thing (after a post-merge hook):
+我所知道的是，我们的前端团队为新网站花费了一天的时间来搭建基础框架，然后第二天我运行 `git pull` 然后下载了这些东西（在合并钩子之后）：
 
 ![](https://cdn-images-1.medium.com/max/1200/1*9YY47IfhbjQnKxW0AgKqWw.png)
 
 ![](https://cdn-images-1.medium.com/max/1200/1*Ppd2YF0XThfea1HJV-Jt8Q.png)
 
-(Had to kill the first size calculation since it was spinning my CPU.)
+（我必须杀掉了计算文件体积的进程，因为它占用太多 CPU 资源了。）
 
-It literally says _Hello world_ but I’m told it has the **potential** to do so much more! I think they said it could even make me toast… [toasts](https://material.angularjs.org/latest/demo/toast).
+它显示出了 **Hello world**，但是他们告诉我，它**有能力**做更多的事情！我想他们是想说它甚至可以让我为 [toasts](https://material.angularjs.org/latest/demo/toast) 敬酒了。
 
-The only things most web devs— even the not-computer-science ones — can talk about when it comes to their own websites are things that I imagine _must_ be frameworks or hosted services (because I don’t know what the words are but they weren’t in my CS classes) and frankly, they sound _amazing_. I compare what they’re describing to what I’m doing and I feel really, really, inadequate. They’re learning the hottest stuff at coding schools like DevMountain or the latest online courses.
+我认为，当说到个人网站时，大多数网络开发者甚至是非计算机科学的从业者都会谈论的**一定**是框架或者托管服务（因为我不知道这些单词是什么，但它们也不在我的 CS 课程里），而且说实话，它们听起来都很**神奇**。我将他们描述的和我正在做的事情做了比较，我感觉我自己的知识真的非常匮乏。而他们在像 DevMountain 这样的代码学校，或者最新的在线大学里学习最热门的技术。
 
 ![](https://cdn-images-1.medium.com/max/1200/1*jRlmvu9hgYO-uEIMmEyBag.png)
 
-Anyway, I would just say I’m “old school” but I’ve only been doing web development for like 10 years.
+但是，我还是要说虽然我是“老学派”的人，但是我只从事网络开发差不多 10 年。
 
-**counts on fingers**
+**仅仅靠自己的双手搭建代码**
 
-…Okay, 19 years. Like when the `<FONT>` tag [was still the right way](https://www.amazon.com/Teach-Yourself-HTML-VISUALLY-Visually/dp/0764534238). (← link to fun book that taught me HTML, when I was… 11?)
+19 年了。就像当初 `<FONT>` 标签[是最好的方法](https://www.amazon.com/Teach-Yourself-HTML-VISUALLY-Visually/dp/0764534238)。（我...11 岁的时候，教会我 HTML 的那本有趣的书的链接）
 
-So then, get this: some of these same people ask me for help, because they found out I’ve been doing webdev for years. Next thing I know, I have no idea what is going on, so I’m googling two-way data binding in React, or dynamic variable workarounds in SCSS, or whatever else, and landing on the exact same pages that my friends _should_ be on instead, because _they_ would actually know the answer when they see it, and all I can do is “how about this?” and yet somehow they don’t find the same answers I did.
+所以了解这些以后，由于他们知道了我有多年网络开发的经验，一些同样的人就来请求我的帮助。随后我就知道了我对现在的情况已经一无所知，所以我就在谷歌搜索了 React 的双向数据绑定和 SCSS 的动态变量，还有其他那些我不知道的东西，并且完成了（landing on 这里应该怎么翻译呢？想不出，>.<，求大佬指点～）和我的朋友完全相同的页面，因为他们看到答案的时候就能完全理解，然而我能做的就是询问“这个怎么样？”，但是他们却无法找到我给出的答案。
 
-Sooner or later, because I’m totally clueless about this or that framework, I have to start asking them questions: “Well, wait — what does that do?” _pointing to something that I think is a function call. … erm, nope, it’s a type definition… okaaay awkward!_ And their answer is usually unsatisfactory (shallow), so I drill down more in an effort to help them debug their app:
+迟早我会对这些框架感到无能为力，我就必须开始询问他们：“啊，请等等，这个是做什么的？”**指着那段我以为是函数调用的代码...额，哦不，这是一个类型定义，这就尴尬了！**他们的回答通常也是很不让人不满意（答案都比较浅薄），所以我就更努力的钻研更多知识，好帮他们调试应用：
 
-> “But how does this part work? Like, what is it actually doing?” I ask.
+> “但是这部分是如何工作的呢？比如说，它实际上是在做什么？”我问道
 
-> I usually get blank stares. They almost never know.
+> 我通常得到的都是一段无言的凝视。他们几乎全都不知道。
 
-So here I am, it’s 2019, I’ve been writing code for almost 20 years, and I’m surrounded by people making 2–10 times as much money as I am (graduate student _lyfe_) and they can’t explain how their own craftsmanship works. I get it, though: it’s not their own craftsmanship. I can’t really explain how my car works, but I still use it every day.
+所以我就处于了这样的境地，已经 2019 年了，我已经写了近 20 年的代码，我周围的人的薪资都是我的 2-10 倍但是他们却不知道如何解释他们自己的代码是如何运作的。所以我认为，那其实并不是他们自己完成的代码。就像我并不知道我的车是如何工作的，但是我依旧可以每天都驾驶它。
 
-I just… how… **how can you stand building applications without knowing how they work?**
+但是，在你不知道工作原理的情况下，你要如何构建应用程序呢？
 
-Why are over 500 MB of files needed to write a web app that shows a few lists of things and makes some AJAX requests? (Yes I still call them that. I’ll call them XHR too, even though XML is way passé.)
+为什么一个需要展示几个列表，发送几个 AJAX 请求的网络应用需要超过 500M 的文件呢？（没错，我依然这样称呼它们。我也把它们称为 XHR，尽管 XML 已经很过时了。）
 
-Why do so many sites break my back button or my scrolling? Like, _you have to go out of your way_ to do that.
+为什么很多网站要破坏我的返回按钮或者滚动条？就像是，**你必须自己努力来**实现它们。
 
-Why does it take 10x longer to compile a web app with 5 routes than it does to **_cross_**_-_**_compile_** my 25,000 LoC Go program?
+为什么打包一个有 5 个路由的网站应用需要花费时间是我的 25000 LoC Go 程序**交叉-编译**时间的十倍？
 
-### How Papa Parse got fat
+### Papa Parse 是怎么变的越来越重了
 
-Back in 2013, I wrote a CSV parser on a flight to Disneyland. I needed a fast, correct CSV parser for the browser, and none existed that met my needs. So I wrote what became [Papa Parse](https://www.papaparse.com/), now used by an impressive list of clients — from the United Nations to companies and organizations far and wide, even Wikipedia — I’m proud of it (not-so-humble brag: it’s arguably [the #1 CSV parser](https://mwholt.blogspot.com/2014/11/papa-parse-4-fastest-csv-parser.html) for JavaScript). In the beginning, it was a simple, happy library that worked great.
+在 2013 年，我在飞往迪士尼的航班上写了一个 CSV 解析器。我的浏览器需要一个快速准确的 CSV 解析器，但是已有的都不符合我的要求。所以我自己写了一个，这就是 [Papa Parse](https://www.papaparse.com/)，现在被很多知名的用户使用 —— 从联合国到各地的公司和组织，甚至是 Wikipedia —— 我很为它而骄傲（有点不谦虚的说，按理说它是服务于 JavaScript 的[最好 CSV 解析器](https://mwholt.blogspot.com/2014/11/papa-parse-4-fastest-csv-parser.html)）。最开始它就是个很简单的库，运行也非常好。
 
-Then came requests to have it work on old browsers, so we added shims. Hm. Okay.
+然后有需求需要它兼容老版本的浏览器，所以我加上了 shims，嗯，也还好吧。
 
-Then came the requests for using it with Node.
+然后有需求希望可以在 Node 上使用它。
 
-And then, not just requests — but _bug reports — _that it didn’t work with `<insert JavaScript framework here>`. It became maddening: adding support for one framework or toolchain broke another. Papa Parse grew from a few hundred lines of code to a few thousand. **That’s an order of magnitude.** From one file, to about a dozen. From no builds needed, to about 3 or 4 build systems and packaging distributions.
+接下来，不止是需求，还有**问题反馈** —— 它在 `<insert JavaScript framework here>` 的时候无法正常运行。这就有点让人发狂了：添加对一个框架或者工具链的支持，就会让其他的失灵。Papa Parse 从只有几百行代码增加到几千行。**这是个数量级了。**从只有一个文件，到大概有十几个。从不需要构建，到大概 3 到 4 个系统构建以及分布式打包。
 
-All for the luxury of `Papa.parse("csv,file")` in the browser.
+所有都是为了浏览器中 `Papa.parse("csv,file")` 的丰富功能。
 
-I eventually gave up maintainership to others in the community. They’ve been doing a good job. It just got far beyond what I cared to support. Before that, I was happy in my own little world with my little library just the way it was. But now, although Papa Parse is still a great library, I just have no idea what it’s actually doing anymore.
+我最终放弃了它的维护，交给了社区中的其他人。他们非常好的完成了维护工作。它的功能远远超出了最初我所支持的。在此之前，我在我自己的小世界里，完成很轻量、拥有它自己本来样子的库，自得其乐。但是现在，尽管 Papa Parse 依然是一个很棒的库，但是我已经不再知道它究竟是做什么的了。
 
-(I still love and recommend Papa Parse, by the way, for all your JavaScript CSV parsing needs.)
+（我依然很喜欢并且推荐 Papa Parse，顺便说一句，万一你正好需要 JavaScript CSV 解析器。）
 
-### How I (still) make my websites
+### 按照老样子，我如何制作我的网站
 
-I don’t consider myself a web designer or even a web developer, but I’ll make a website if I have to (and I do quite often — enough so that I wrote an entire web server, [Caddy](https://caddyserver.com), to make this process faster).
+我不认为自己是一名网络设计师，甚至也不是网站开发者，但是当我需要的时候我还是会制作网站（并且我经常这样做 —— 次数非常多，所以我写了一个完整的网络服务，[Caddy](https://caddyserver.com)，来让这个的过程更加快速）。
 
-I’m not even kidding, this is how I still make websites:
+我不是开玩笑的，我仍然是这样制作网站的：
 
-I open a text editor, and stub this out (by hand, it only takes like 30 seconds — I’ll even do it as I write this post to be authentic — except stinkin’ tab doesn’t work here):
+打开一个编辑器，写下这些（手写，大概只需要 30 秒 —— 为了这篇文章的真实性，我甚至真的写了一遍 —— 除非烦人的标签在这里并不起作用）：
 
 ```
 <!DOCTYPE html>
@@ -84,7 +84,7 @@ I open a text editor, and stub this out (by hand, it only takes like 30 seconds�
 </html>
 ```
 
-Then I open a new tab and make a CSS file; something like this:
+然后我打开了一个新的标签页，写了 CSS 文件；也就是像这样的代码：
 
 ```
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -99,47 +99,47 @@ p {
 }
 ```
 
-And what about JavaScript? I use it, of course. But… like… just the parts of it I understand. I have a lot to learn, especially when it comes to ES6 and new APIs like fetch, and… I still use jQuery for some things ([emphasis on _some_](http://youmightnotneedjquery.com/)) — it makes certain tasks, like manipulating multiple elements in the DOM, very straightforward, and it’s mostly boilerplate code I would just accrue and copy and paste from project to project anyway. No dependency hell here.
+JavaScript 怎么办呢？我当然也用了。但是，仅用了我懂的那部分。我有很多需要学习，尤其是现在还出现了 ES6，以及很多新的 API 比如 fetch，但是我仍旧会在一些场景（[强调下**一些**](http://youmightnotneedjquery.com/)）中使用 jQuery —— 它能完成特定的任务，比如能够非常简单直接的操作多个 DOM 元素，而且它几乎是模版代码，我可以积累下来，还可以从一个项目复制粘贴到另一个项目。并不存在层层依赖的地狱。
 
-Anyway, I only put JS where it’s needed. I’ll pull in the occasional vanilla-JS-based library once in a while, for example, something like Papa Parse for [**advanced, high-performance CSV parsing needs**](https://www.youtube.com/watch?v=EX69fn2Wi9A). (← links to UtahJS video where I talk about the amazing quirks of pushing browsers to their limits.)
+但是，我仅在这里加入了需要的 JS 代码。我偶尔也会加入一些仅基于 JS 的库，例如 Papa Parse 的[**高级、高性能 CSV 解析需求**](https://www.youtube.com/watch?v=EX69fn2Wi9A)。（UtahJS 视频的链接，我在这段视频中介绍了将浏览器性能发挥到极限的惊人方法。）
 
-Most of the time, there’s nothing wrong with traditional form POSTs or page navigations. I do turn form POSTs into AJAX requests pretty often, but there’s hardly ever a need to change the URL (_any_ of it).
+大多数的时候，传统的表单请求或者页面导航没什么缺点。我确实经常将表单请求改成 AJAX 请求，但是却没什么需要修改 URL（它们中**任何一个**都不需要）。
 
-Then I save the files, run `caddy` in my project folder, and open my browser. I refresh every time I make changes. After 10+ years, I finally got a second monitor so I don’t have to keep switching windows.
+然后我开始保存文件，在我们项目文件夹中运行 `caddy`，然后打开浏览器。我每次修改都需要刷新页面。十多年以后，我终于安装了第二个屏幕，所以我不需要切换桌面了。
 
-JavaScript isn’t the only technology I’m stingy on: it’s CSS, SVG, Markdown, and static site generators, too. I almost never use CSS libraries. I only held out on a few hacks while we waited for CSS 3 and for new features like flexbox and grid. But that’s all here now. SVG is still a WIP as far as browser support goes, and Markdown… well… I’d almost rather write HTML/CSS because at least that’s the same pretty much everywhere.
+JavaScript 并不是我吝啬使用的唯一技术：CSS，SVG，Markdown 还有静态站点生成器也是如此。我几乎从不使用 CSS 库。我只是在 CSS 3 和一些新特性比如 flexbox 和 grid 没有被支持的时候坚持用几个 hack 技术。但是所有的也就现在我说的这些了。就浏览器支持而言，SVG 依旧还处于发展中，而 Markdown 嘛...嗯...多数情况下我还是宁愿写 HTML/CSS，因为至少这样子在所有浏览器上表现都是相同的。
 
-I like the idea of static site generators, but they’re usually more complex than is necessary. Most of the time, all I need is a way to include snippets of code in my HTML document, and Caddy does that with a simple template action: `{{.Include "/includes/header.html"}}`. (I can even use [**git push**](https://caddyserver.com/docs/http.git) to deploy my site with Caddy, no static site generator needed! Although it does support those.)
+我很喜欢静态站点生成器的思想，但是通常它们都要比必要内容复杂。多数情况下，我所需要的就只是将代码片嵌入到我的 HTML 文件中，Caddy 只需要简单的几个模版操作就可以完成：`{{.Include "/includes/header.html"}}`。（我甚至可以用 [**git push**](https://caddyserver.com/docs/http.git) 来部署使用了 Caddy 的网站，不需要静态站点生成器！尽管它也支持这些功能）
 
-### Benefits
+### 优势
 
-Not using fancy, general-purpose or overly-featureful libraries, frameworks, and tooling makes:
+不使用那些花哨的，用途普适的，或者功能过多的库、框架和工具能够：
 
-*   the website code base smaller,
-*   managing your dev environment easier,
-*   debugging faster and more universally solvable
-*   your web server configuration simpler (believe me, _I_ _know_)
-*   your web sites load faster,
+*   网站代码量少
+*   更容易管理测试环境
+*   调试速度快，解决问题的方法更普适
+*   服务配置更简单（**我了解这方面**，相信我）
+*   网站加载更快
 
-and it saves you GBs of hard drive space!
+它还能够为你省下好几个 GB 的硬盘空间！
 
-### Tradeoffs
+### 代价
 
-Well, since I don’t know React, Angular, Polymer, Vue, Ember, Meteor, Electron, Bootstrap, Docker, Kubernetes, Node, Redux, Meteor, Babel, Bower, Firebase, Laravel, Grunt, etc., I can’t really help my friends or impress them with my answers, OR satisfy many of today’s web development job requirements.
+既然我不了解 React，Angular，Polymer，Vue，Ember，Meteor，Electron，Bootstrap，Docker，Kubernetes，Node，Redux，Meteor，Babel，Bower，Bower，Firebase，Laravel，Grunt 等等，我就没办法真正的帮助我的朋友们，或者在我的回答中强调它们，或者达到现在很多网站开发工作的要求。
 
-Technically, though, there’s not a whole lot I **can’t** do — that’s the thing! I bring in tools when I _really_ need them, otherwise I opt to just write it myself or paste something small from Stack Overflow (if I’m being honest). (Pro tip: Unlike YouTube or HN, **_always read the comments on Stack Overflow_.**) (And definitely understand the code that you’re borrowing!)
+尽管如此，但是从技术上讲，我并**不能**做很多事 —— 这是关键！仅有真正需要工具的时候，我才引入它们，否则我就选择自己写代码或者从 Stack Overflow 复制粘贴过来一些小功能（我很诚实）。（提示：和 YouTube 或者 HN 不同，**请阅读 Stack Overflow 上的评论。**）（需要绝对的了解你借用的代码是什么！）
 
-Does my development productivity suffer?
+我开发的效率降低了吗？
 
-Maybe. But… nah, I don’t really think so.
+也许吧。但是，其实我并不这么认为。
 
-### Results
+### 结果
 
-Here are a few sites that I’ve made using my bare hands — and believe me, if I had resources to hire professional front-end developers, I would rather just do that — but all these sites have no frameworks, no unnecessary or unwieldy dependencies.
+这里有几个网站，都是我这样赤手空拳的搭建起来的 —— 相信我，如果我有资源能够雇佣专业的前端开发者，我更愿意雇佣他们的 —— 但是所有这些网站都没有用任何框架，没有不必要的、笨重的依赖库。
 
-I don’t even minify page assets (except image compression, which is just a drag-and-drop onto [tinypng.com](https://tinypng.com)), mostly because I’m lazy. But you know what? Page load times are still pretty fantastic.
+我甚至没有最小化页面资源（除了图片压缩，只要拖动到 [tinypng.com](https://tinypng.com) 就可以了），基本上是因为我比较懒。但是你知道吗？页面的加载时间依旧非常短。
 
-All of these sample sites have features that could be considered “web application” but I think the most involved it gets in the code is some hairy jQuery (and that’s just because I was in a hurry).
+如下所有这些网站样例都有可以被认为是“网络应用”的特性，但是我认为代码中最常用的就是 jQuery。（这其实仅仅因为我写网站的时候很匆忙）。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*zziUiqYBKpwkEYi8-gPM5w.png)
 
@@ -151,53 +151,53 @@ All of these sample sites have features that could be considered “web applicat
 
 ![](https://cdn-images-1.medium.com/max/1200/1*yckUvqs6ByWudzJ_rBGCcA.png)
 
-Links to the sites:
+网站链接：
 
 *   [https://caddyserver.com](https://caddyserver.com)
 *   [http://goconvey.co/](http://goconvey.co/)
 *   [https://www.papaparse.com](https://www.papaparse.com)
-*   [https://relicabackup.com](https://relicabackup.com) _(shameless plug: 50% off sale happening right now!)_
+*   [https://relicabackup.com](https://relicabackup.com) **（羞耻的提一句：现在有五折优惠！）**
 
-Each site probably took me anywhere from a day to about a week to flush out fully (depending on how many pages and how much financial incentive there was). The actual content, of course, can take longer, but that’s a given.
+每个网站大概都会花费我一天到一个礼拜的时间完成（取决于页面有多少，以及能够有多少的收入）。实质的内容当然会需要更长时间，但这都是给定的。
 
-Here’s just some of the feedback I’ve received, which is a result of the “classic” approach:
+下面是一些我收到的反馈，是我“经典”路线 的结果：
 
-*   I love the simplicity of your website design. Did you make it yourself, or use a template/theme?
-*   Your website is an example of what good web design should look like. It’s fast, clean, doesn’t load extraneous crap and almost all of it works without JavaScript.
-*   I’m curious what framework or tool you used to build your documentation site! It’s very nice and clean.
+*   我很喜欢你网站设计的简洁性。你是自己写的吗，还是用了模版/主题？
+*   你的网站是一个优秀的榜样，好的网站设计应该如此。它快速，干净，不会加载很多没用的东西，而且几乎所有内容都能脱离 JavaScript 工作。
+*   我很好奇你使用了什么框架或者工具来构建你的文档网站！它真的非常棒，非常轻量。
 
-I’m not saying my sites are perfect — they’re far from it, and I cringe using them as case studies — but they get the job done.
+我并不是说我的网站是十全十美的 —— 它们距离完美还差得远，我只是小心的将它们用作案例研究 —— 但是无论如何，它们的功能都实现了。
 
-Bonus: here’s a fun little API demo I did in vanilla HTML, CSS, and JS just a few years ago for my old job:
+给你一个小奖励：这里有一个很有意思的 API 示例，是我在几年前为了当时的工作，使用 vanilla HTML，CSS，和 JS 制作的。
 
 * Youtube 视频链接：https://youtu.be/7T97vf-lrXk
 
-I understood what every single line of code did, and the whole thing probably weighed in at under 50 KB of code, including minified jQuery (uncompressed). Obviously, displaying the map tiles used another dependency (Leaflet), but things like that are reasonable when they are needed. For example, if you’re doing complex time-related computations and time rendering, it’s OK to import Moment.js. I just try to avoid _general-purpose_ frameworks, libraries, and tooling, unless I really need them and/or understand what they’re doing.
+我知道每行代码都是什么意思，并且，包括了最小化的 jQuery（未压缩），所有内容加在一起大概是 50KB。很明显，显示地图图块时使用了另外一个依赖（Leaflet），但这是很合理的，因为它们是必需的功能。例如，如果你在做复杂的和时间相关运算以及时间渲染，那么使用 Moment.js 就没什么问题。我只是想要避免**广适性**的框架、库、以及工具，除非我真的需要他们或者明白它们在做什么。
 
-### My process
+### 开发过程
 
-I’ve had several requests now to write up my process for making websites and this article is the best I could come up with. Maybe it’s more of a rant, **but my process is really quite simple and hard to explain, because… there _is_ no process.**
+我收到了一些请求，所以我写下了构建网站的过程，并且这篇文章已经是我想到的最好的了。也许这篇文章很粗俗，**但是我的开发过程真的非常简单，很难解释，因为...其实没有任何过程。**
 
-Except for the minimum requirements (a text editor and a local web server), my “process” doesn’t need any special tooling: no compiling, no installation steps, no package management. It’s just me, my text editor, my web server, and understanding the basics of how websites work.
+除了最低需求（文字编辑器和一个本地网络服务），我的“开发过程”不需要其他特别的工具：没有表意，没有安装，没有包管理。就只有我本人，我的文字编辑器，我的网络服务，并且懂得网站运行的基础。
 
-### The point
+### 要点
 
-I’m by no means an expert. Web development takes years and years of practice for true mastery, even without fancy tooling.
+我并不是一个专家。网络开发需要很多年的实践才能获得真知灼见，就算没有使用华丽的工具也是一样的。
 
-I believe that with time, one can acquire all the skills and knowledge needed to do the things the cool kids are doing at a comparable speed, but with the advantages of:
+我相信随着时间流逝，一个人能够获取到所有需要的技术和知识，能以相同的速度来做现在酷小孩做的事情，但是却有一下优势：
 
-*   a vastly smaller code base;
-*   fewer bugs;
-*   better intuition;
-*   shorter, more efficient, debugging sessions;
-*   higher knowledge transfer;
-*   and more flexible, future-proof software architecture;
+*   大大减小代码量
+*   更少出故障
+*   更直观
+*   更短，更有效率的调试会话
+*   更高的知识转移
+*   更灵活，面向未来的软件结构
 
-all by consuming _only what you need_.
+所有这一切都是通过只消费**你所需要的**而来。
 
-That is a cure for technical debt, right there.
+这也正是技术亏空的治愈方法。
 
-(Hmm, maybe more like a vaccine.)
+（嗯，可能更像是预防针。）
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
