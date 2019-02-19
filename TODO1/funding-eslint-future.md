@@ -16,9 +16,10 @@
 ## ESLint Collective
 
 [![ESLint Collective 的商标](https://eslint.org/img/posts/eslint-collective.png)](https://opencollective.com/eslint)
+
 [成为一个赞助人](https://opencollective.com/eslint)
 
-今天我们很高兴在 Open Collective 上宣布 [ESLint Collective](https://opencollective.com/eslint) 。 Open Collective 是一个人们维持和支持开源项目的安全可靠的平台。资金的收入和支出都会被公示在每个集体项目的页面，因此集体使用的资金有百分之一百的透明度。 Open Collective 已经帮助了许多其他的 Javascript 生态项目例如 [Webpack](https://opencollective.com/webpack) 和 [Babel](https://opencollective.com/babel) 以资助他们的持续发展，并且 ESLint 团队也非常高兴能加入到这个已经被证明为开源可持续性项目的绝佳选择的平台。
+今天我们很高兴在 Open Collective 上宣布 [ESLint Collective](https://opencollective.com/eslint) 。 Open Collective 是一个人们维持和支持开源项目的安全可靠的平台。资金的收入和支出都会被公示在每个 Collective 项目的页面，因此每个项目使用的资金有百分之一百的透明度。 Open Collective 已经帮助了许多其他的 Javascript 生态项目例如 [Webpack](https://opencollective.com/webpack) 和 [Babel](https://opencollective.com/babel) 以资助他们的持续发展，并且 ESLint 团队也非常高兴能加入到这个已经被证明为开源可持续性项目的绝佳选择的平台。
 
 和 Open Collective 合作的一些好处包括：
 
@@ -34,23 +35,23 @@
 
 ## 钱将会被怎么使用？
 
-ESLint 团队有很多的想法关于接下来怎么处理收到的捐款。取决于得到的捐款数额，以下是我们计划想做的事情：
+ESLint 团队对于怎么处理收到的捐款有很多的想法。取决于得到的捐款数额，以下是我们计划想做的事情：
 
-*   **向开发和维护团队成员付薪。** 所有的 ESLint 团队成员现在仍然都是利用他们的闲暇时间来贡献代码。在 ESLint 项目中引入有偿全职或有偿兼职，有利于项目更快速和更持续的发展。
+*   **向开发和维护团队成员付薪。** 所有的 ESLint 团队成员现在仍然都是利用他们的闲暇时间来贡献代码。在 ESLint 项目中引入有偿的全职或兼职，有利于项目更快速和更持续的发展。
 
 *   **奖励来自社区的贡献。** 我们想要奖励每一个为 ESLint 项目做出贡献的人，无论是一次性的贡献或者持续性的贡献。我们仍在研究细节，从贴纸、t恤到对重大贡献的现金奖励，都是我们目前正在考虑的事情。
 
-*   **改进文档。** ESLint 项目自从第一次发布以来还没有进行过重大的文档改进。我们觉得有很多方式可以改进我们的项目文档，包括联系潜在的信息架构师或者技术类作家来改进我们的文档。
+*   **改进文档。** ESLint 项目自从第一次发布以来还没有进行过重大的文档改进。我们觉得有很多方式可以改进我们的项目文档，包括可能与信息架构师或者技术类作家签订合同来改进我们的文档。
 
-*   **更好的交流和支持。** 引入有偿全职或有偿兼职的同时，这也为将团队成员派往聚会，公司和会议以与社区互动并更好地了解开发人员面临的问题提供了可能性。
+*   **更好的交流和支持。** 引入有偿全职或有偿兼职的同时，这也为将团队成员派往线下技术分享，公司和会议以与社区互动并更好地了解开发人员面临的问题提供了可能性。
 
-*   **建立一个发展规划。** 有一段时间，ESLint团队大多以基于要实现的功能来做一次性的工作。如果不知道谁能够在项目上花费多少的时间，这就很难做出长期规划并制定一个未来的路线图。当我们成为一个自我维持的项目时，我们必将有能力去做成这件事情。
+*   **建立一个发展规划。** 一段时间以来，ESLint团队大多基于要实现的功能来做一次性的工作。如果不知道谁能够在项目上花费多少的时间，这就很难做出长期规划并制定一个未来的路线图。当我们成为一个自我维持的项目时，我们终于有能力去做成这件事情。
 
 ## 我们的目标：每月两万美元
 
 为了实现我们的愿景，我们相信我们将需要每月两万美元的捐款。有了这个数额，我们有能力在可预见的未来维持 ESLint 项目。
 
-## 介绍我们的第一批资助们
+## 介绍我们的第一批资助者们
 
 [![Facebook](https://eslint.org/img/logos/facebook.png)](https://facebook.com) [![Airbnb](https://eslint.org/img/logos/airbnb.png)](https://airbnb.com)
 
