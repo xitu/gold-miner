@@ -103,13 +103,13 @@ Cloudflare 为成为新的、不断发展的协议的早期采用者而感到自
 
 在 IETF 标准化过程中，将运行中的代码部署到多个不同网站的真实网络上，可以帮助我们理解协议在实践中的工作效果。我们将现有的专业知识与实现信息进行结合，来改进运行中的代码，并在有意义的地方，对工作组的反馈问题或改进进行修正，来促使协议标准化。
 
-测试新特性并不是唯一的优先级。作为改革者，需要知道什么时候推进进度，抛弃旧的创新。有时，这会涉及到面向安全的协议，比如 Cloudflare [默认禁用 SSLv3](https://blog.cloudflare.com/sslv3-support-disabled-by-default-due-to-vulnerability/)。在其他情况下，协议会被更先进的所取代；Cloudflare 会[废弃 SPDY](https://blog.cloudflare.com/deprecating-spdy/)，转而支持 HTTP/2。
+测试新特性并不是唯一的优先级。作为改革者，需要知道什么时候推进进度，抛弃旧的创新。有时，这会涉及到面向安全的协议，比如 Cloudflare 因为 POODLE 的漏洞而[默认禁用 SSLv3](https://blog.cloudflare.com/sslv3-support-disabled-by-default-due-to-vulnerability/)。在某些情况下，协议会被更先进的所取代；Cloudflare [废弃 SPDY](https://blog.cloudflare.com/deprecating-spdy/)，转而支持 HTTP/2。
 
 相关协议的介绍和废弃在安全 Web 时间线上显示为**橙色**。垂直虚线有助于将 Cloudflare 事件与 IETF 相关文档关联。比如，Cloudflare 在 2016 年 9 月开始支持的 TLS 1.3，最后的文档 [RFC 8446](https://tools.ietf.org/html/rfc8446)，在近两年后的 2018 年 8 月发布。
 
 ![](https://blog.cloudflare.com/content/images/2019/01/cf-events.png)
 
-## 在 HTTPbis 中重构
+## 重构 HTTPbis
 
 HTTP/1.1 是非常成功的协议，时间线显示 1999 年以后 IETF 并不活跃。然而，事实是，多年的积极使用，为 [RFC 2616](https://tools.ietf.org/html/rfc2616) 研究潜在问题提供了实战经验，但这也导致了一些交互操作的问题。此外，RFC（像 2817 和 2818）还对该协议进行了扩展。2007 年决定启动一项改进 HTTP 协议规范的新活动 —— HTTPbis（"bis" 源自拉丁语，意为“二”、“两次”或“重复”），它还采用了新的工作组形式。最初的[章程](https://tools.ietf.org/wg/httpbis/charters?item=charter-httpbis-2007-10-23.txt)详细描述了尝试解决的问题。
 
@@ -168,7 +168,7 @@ gQUIC 继续在实验中摸索，最后选择了更接近 HTTP/2 的语法。也
 
 当然。
 
-到目前为止，你应该已经了解了标准化的工作原理，QUIC 并非与众不同。或许你也对 Google 用 I-D 格式编写的规范感兴趣。在2015 年 6 月的 [draft-tsvwg-quic-protocol-00](https://tools.ietf.org/html/draft-tsvwg-quic-protocol-00) 中，写有 "QUIC：基于 UDP 的安全可靠的 HTTP/2 传输" 已经提交。请记住我之前提过的，几乎都是 HTTP/2 的语法。
+到目前为止，你应该已经了解了标准化的工作原理，gQUIC 并非与众不同。或许你也对 Google 用 I-D 格式编写的规范感兴趣。在2015 年 6 月的 [draft-tsvwg-quic-protocol-00](https://tools.ietf.org/html/draft-tsvwg-quic-protocol-00) 中，写有 "QUIC：基于 UDP 的安全可靠的 HTTP/2 传输" 已经提交。请记住我之前提过的，几乎都是 HTTP/2 的语法。
 
 Google [宣布](https://groups.google.com/a/chromium.org/forum/#!topic/proto-quic/otGKB4ytAyc)将在布拉格举行一次  Bar BoF  IETF 93 会议。如有疑问，请参阅 [RFC 6771](https://tools.ietf.org/html/rfc6771)。提示：BoF 是物以类聚（Birds of a Feather）的缩写。
 
@@ -183,13 +183,13 @@ Google [宣布](https://groups.google.com/a/chromium.org/forum/#!topic/proto-qui
 *   [draft-iyengar-quic-loss-recovery-00](https://tools.ietf.org/html/draft-iyengar-quic-loss-recovery-00)
 *   [draft-shade-quic-http2-mapping-00](https://tools.ietf.org/html/draft-shade-quic-http2-mapping-00)
 
-这里是关于 HTTP 和 QUIC 的另一个困惑的来源。[draft-shade-quic-http2-mapping-00](https://tools.ietf.org/html/draft-shade-quic-http2-mapping-00) 题为 "HTTP/2 使用 QUIC 传输协议的语义"，对于自己的描述是 "HTTP/2 是 QUIC 的另一种语义映射"。但这个解释并不正确。HTTP/2 在维护语义的同时，改变了语法。而且，我很早之前就说过了，"HTTP/2 over gQUIC" 从未对语法进行确切的描述，记住这个概念。
+这里是关于 HTTP 和 QUIC 的另一个困惑的来源。[draft-shade-quic-http2-mapping-00](https://tools.ietf.org/html/draft-shade-quic-http2-mapping-00) 题为 "HTTP/2 使用 QUIC 传输协议的语义"，对于自己的描述是 "HTTP/2 式 QUIC 的另一种语义映射"。但这个解释并不正确。HTTP/2 在维护语义的同时，改变了语法。而且，我很早之前就说过了，"HTTP/2 式 gQUIC" 从未对语法进行确切的描述，记住这个概念。
 
 这个 QUIC 的 IETF 版本即将成为新的传输层协议。因为任务艰巨，所以 IETF 会在首次确认之前，评估测评人员对其的实际兴趣程度。因此，2016 年在柏林举行 IETF 96 会议期间，举行了一次正式的 [Birds of a Feather](https://www.ietf.org/how/bofs/) 会议。我很荣幸地参加了这次会议，[幻灯片](https://datatracker.ietf.org/meeting/96/materials/slides-96-quic-0)并未给出公正的评价。就像 Adam Roach 的[图片](https://www.flickr.com/photos/adam-roach/28343796722/in/photostream/)所示，有数百人参加了这次会议。会议结束时，达成了一致的共识：QUIC 将被 IETF 采用并标准化。
 
 将 HTTP 映射到 QUIC 的第一个 IETF QUIC I-D —— [draft-ietf-quic-http-00](https://tools.ietf.org/html/draft-ietf-quic-http-00)，采用了 Ronseal 方法来简化命名 —— "HTTP over QUIC"。不幸的是，它并没有达到预期效果，整个内容中都残留有 HTTP/2 术语的实例。Mike Bishop —— I-D 的新编辑，发现并修复了 HTTP/2 的错误名称。在 01 草案中，将描述修改为 "a mapping of HTTP semantics over QUIC"。
 
-随着时间和版本的推进，"HTTP/2" 的使用逐渐减少，实例部分仅仅是对 [RFC 7540](https://tools.ietf.org/html/rfc7540) 部分的引用。从 2018 年 10 月开始向前回退两年，I-D 如今已经是第 16 版本。虽然 HTTP over QUIC 与 HTTP/2 有相似内容，但始终是独立的（非向后兼容的 HTTP 语法）。然而，对那些不密切关注 IETF 发展的人来说（人数众多），他们并不能从名称中发现一些细微的差异。标准化的重点之一是帮助通信和互操作性。但像命名这样的简单事件，才是导致社区相对混乱的主要原因。
+随着时间和版本的推进，"HTTP/2" 的使用逐渐减少，实例部分仅仅是对 [RFC 7540](https://tools.ietf.org/html/rfc7540) 部分的引用。从 2018 年 10 月开始向前回退两年的时间开始计算，I-D 如今已经是第 16 版本。虽然 HTTP over QUIC 与 HTTP/2 有相似内容，但始终是独立的（非向后兼容的 HTTP 语法）。然而，对那些不密切关注 IETF 发展的人来说（人数众多），他们并不能从名称中发现一些细微的差异。标准化的重点之一是帮助通信和互操作性。但像命名这样的简单事件，才是导致社区相对混乱的主要原因。
 
 回顾 2012 年的内容，"HTTP/2.0 意味着 wire 格式与 HTTP/1.x 格式不兼容"。IETF 遵循现有线索。IETF 103 是经过深思熟虑才最终达成一致的，即："HTTP over QUIC" 命名为 HTTP/3。互联网正在促使世界变得更加美好，我们可以继续进行更加重要的的探讨。
 
@@ -200,7 +200,7 @@ Google [宣布](https://groups.google.com/a/chromium.org/forum/#!topic/proto-qui
 *   [RFC 7230](https://tools.ietf.org/html/rfc7230) —— 超文本传输协议（HTTP/1.1)：消息语法和路由
 *   [RFC 7231](https://tools.ietf.org/html/rfc7231) —— 超文本传输协议（HTTP/1.1）：语法和上下文
 
-对这些名称的过度解读可能会让你认为 HTTP 版本的核心语义是特定的。比如，HTTP/1.1。但这是 HTTP 家族树的副作用。好消息是 HTTPbis 工作组正在尝试解决这个问题。一些勇敢的成员正在进行文档的另一轮修订，就像 Roy Fielding 说的 "one more time!"。这项工作目前正作为 HTTP 核心任务进行（你可能也听过 HTTPtre 或 HTTPter；命名工作很艰难）。这将把六个草案压缩成三个：
+对这些名称的过度解读可能会让你认为 HTTP 版本的核心语义是特定的。比如，HTTP/1.1。但这是 HTTP 家族树的副作用。好消息是 HTTPbis 工作组正在尝试解决这个问题。一些勇敢的成员正在进行文档的另一轮修订，就像 Roy Fielding 说的 "one more time!"。这项工作目前正作为 HTTP 核心任务进行（你可能也听过 moniker HTTPtre 或 HTTPter；命名工作很艰难）。这将把六个草案压缩成三个：
 
 *   HTTP 语义（draft-ietf-httpbis-semantics）
 *   HTTP 缓存（draft-ietf-httpbis-caching）
