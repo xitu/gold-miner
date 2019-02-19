@@ -22,7 +22,7 @@
 
 和 Open Collective 合作的一些好处包括：
 
-*   **完全透明。** 每个人都可以知道资金的来源和去向。
+*   **资金完全透明。** 每个人都可以知道资金的来源和去向。
 
 *   **个人和企业的赞助。** Open Collective 使得个人和企业都很容易资助开源项目。
 
@@ -54,13 +54,13 @@ ESLint 团队有很多的想法关于接下来怎么处理收到的捐款。取�
 
 [![Facebook](https://eslint.org/img/logos/facebook.png)](https://facebook.com) [![Airbnb](https://eslint.org/img/logos/airbnb.png)](https://airbnb.com)
 
-我们也非常高兴地宣布我们的第一批投资者们。 [Facebook](https://facebook.com) 和 [Airbnb](https://airbnb.com) 都已经承诺每月赞助一千美元来支持 ESLint 项目。
+我们也非常高兴地在此宣布我们的第一批投资者们。 [Facebook](https://facebook.com) 和 [Airbnb](https://airbnb.com) 都已经承诺每月赞助一千美元来支持 ESLint 项目。
 
 [![Frontend Masters](https://static.frontendmasters.com/assets/fm/js/frontendmasters.0e71088726.svg)](https://frontendmasters.com)
 
 另外， [Frontend Masters](https://frontendmasters.com) 已经捐款两百美元来支持 ESLint 项目。
 
-如果你的公司也在使用 ESLint 来发现和修复你们项目中 Javascript 代码的问题，请询问他们是否愿意和这些出色的公司一起来[赞助 ESLint](https://opencollective.com/eslint) 。 （ESLint 组织的网站首页和 README 文件都将会展示所有每月捐款超过两百美元的赞助者的商标）
+如果你的公司也在使用 ESLint 来发现和修复你们项目中 Javascript 代码的问题，请询问他们是否愿意和这些出色的公司一起来[赞助 ESLint](https://opencollective.com/eslint) 。（ESLint 组织的网站首页和 README 文件都将会展示所有每月捐款超过两百美元的赞助者的商标）
 
 我们想要感谢来自 Facebook 的 Eric Nakagawa ，来自 Airbnb 的 Jordan Harband ，来自 Frontend Masters 的 Marc Grabanski，和来自 Open Collective 的 Pia Mancini。感谢他们在各自公司为我们早期赞助工作所做出的支持。
 
