@@ -804,10 +804,11 @@
 |[在网站 Logo 上右击时提示下载网站的 Logo 素材下载](https://github.com/rainyear/gold-miner/blob/fabff8780118b24c61c57b13577cf971757c84d5/TODO/right-click-logo-show-logo-download-options.md)|校对|1|
 |[给产品经理的简易优先级法则](http://gold.xitu.io/entry/572ad1cc1532bc0065d5e36b)|翻译|7|
 
-## 译者：[loneyiserror](https://github.com/LoneyIsError) 历史贡献积分：26 当前积分：26 年度积分：17
+## 译者：[loneyiserror](https://github.com/LoneyIsError) 历史贡献积分：28 当前积分：28 二零一九：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐两篇英文文章|奖励|2|
 |[使用 Kotlin 将你的 iOS 应用程序转换为 Android](https://juejin.im/post/5c03f64ce51d454af013d076)|校对|5|
 |[iOS 12 占有率超过 50%，超过了 iOS 11](https://juejin.im/post/5bf64ad851882579117f74ae)|翻译|2.5|
 |[介绍适用于 iOS 的 AloeStackView](https://juejin.im/post/5bf22a05f265da61783106de)|翻译|5|
@@ -5671,10 +5672,11 @@
 |[如何修改域名来提高国际增长率](https://juejin.im/post/5aaf0542f265da239530c653)|校对|1|
 |[开始设计动画的九个步骤](https://juejin.im/post/5aa1f965f265da23994e1e1f)|校对|1|
 
-## 译者：[talisk](https://github.com/talisk) 历史贡献积分：42 当前积分：42 年度积分：42
+## 译者：[talisk](https://github.com/talisk) 历史贡献积分：42 当前积分：12 二零一九：0
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 1 月兑 Google Android 小红人 2 个|减去积分|30|
 |[React Native 中使用转场动画！](https://juejin.im/post/5b69467e5188251b3c3b4e4e)|翻译|3|
 |[watchOS 5 愿望清单：Apple Watch Podcasts、open Siri face 和更新 Control Center 等](https://juejin.im/post/5b15045bf265da6e6039372b)|翻译|4|
 |[JavaScript 是如何工作的：Service Worker 的生命周期与使用场景](https://juejin.im/post/5b14c1d86fb9a01e700ff2f2)|翻译|5|
@@ -6409,10 +6411,11 @@
 |[自然语言处理真是有趣](https://juejin.im/post/5b6d08e2f265da0f9c67cf0b)|校对|3|
 |[支撑现代存储系统的算法](https://juejin.im/post/5b10f80b5188257d92206851)|校对|1.5|
 
-## 译者：[7Ethan](https://github.com/7Ethan) 历史贡献积分：62.5 当前积分：62.5 年度积分：62.5
+## 译者：[7Ethan](https://github.com/7Ethan) 历史贡献积分：62.5 当前积分：7.5 二零一九：
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 2 月兑 树莓派 3 官方套餐一个|减去积分|55|
 |[如何在六个月或更短的时间内成为 DevOps 工程师，第四部分：打包](https://juejin.im/post/5c19d6255188252ea66b33b3)|校对|1.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
 |[以太坊入门：互联网政府](https://juejin.im/post/5c03c68851882551236eaa82)|校对|1|
@@ -6715,10 +6718,11 @@
 |[在 Sketch 中使用一个设计体系创作: 第二部分 [教程]](https://juejin.im/post/5b5d2a456fb9a04fc80b8f4b)|翻译|2.5|
 |[在 Sketch 中使用一个设计体系创作：第一部分 [教程]](https://juejin.im/post/5b591a655188257bca290b24)|校对|0.5|
 
-## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：43.5 当前积分：43.5 年度积分：43.5
+## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：44.5 当前积分：44.5 二零一九：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐一篇英文文章|奖励|1|
 |[创建并发布一个小而美的 npm 包](https://juejin.im/post/5c26c1b65188252dcb312ad6)|校对|1.5|
 |[iOS 12 占有率超过 50%，超过了 iOS 11](https://juejin.im/post/5bf64ad851882579117f74ae)|校对|0.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1.5|
@@ -6856,10 +6860,12 @@
 |------|-------|-------|
 |[Slidable：一个 Flutter 的故事](https://juejin.im/post/5b5e84b86fb9a04fa91bfeb6)|校对|1.5|
 
-## 译者：[CoolRice](https://github.com/CoolRice) 历史贡献积分：92 当前积分：92 年度积分：92
+## 译者：[CoolRice](https://github.com/CoolRice) 历史贡献积分：95 当前积分：25 二零一九：3
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 1 月兑 树莓派大套装 1 个|减去积分|70|
+|推荐优秀英文文章三篇|奖励|3|
 |[我无法想象没有 Git 别名的的场景](https://juejin.im/post/5c207bd4e51d452b7b032cf6)|校对|2|
 |[柯里化与函数组合](https://juejin.im/post/5c1a0d516fb9a049d05daee9)|翻译|6|
 |[写给 React 开发者的自定义元素指南](https://juejin.im/post/5c0873a8e51d451de96890dc)|翻译|4|
@@ -7592,6 +7598,24 @@
 |[审校文章 https://github.com/xitu/gold-miner/issues/5118](https://github.com/xitu/gold-miner/issues/5118)|奖励|1|
 
 ## 译者：[Fengziyin1234](https://github.com/Fengziyin1234) 历史贡献积分：1 当前积分：1 二零一九：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|推荐英文文章一篇|奖励|1|
+
+## 译者：[Jerry-FD](https://github.com/Jerry-FD) 历史贡献积分：1 当前积分：1 二零一九：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|推荐英文文章一篇|奖励|1|
+
+## 译者：[EdmondWang](https://github.com/EdmondWang) 历史贡献积分：1 当前积分：1 二零一九：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|推荐英文文章一篇|奖励|1|
+
+## 译者：[WangLeto](https://github.com/WangLeto) 历史贡献积分：1 当前积分：1 二零一九：1
 
 |文章|类型|积分|
 |------|-------|-------|
