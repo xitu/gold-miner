@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-flutter-widget-maker-a-flutter-app-builder-written-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-flutter-widget-maker-a-flutter-app-builder-written-in-flutter.md)
 > * 译者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
-> * 校对者：
+> * 校对者：[Mirosalva](https://github.com/Mirosalva)
 
 # 介绍一款 Flutter 的 Widget 生成器：用 Flutter 编写的应用构建工具
 
@@ -134,11 +134,11 @@
 
 在深入研究这个（一些人认为我已经做到了）项目之前，我需要确认大家对这个项目是否真正感兴趣。
 
-为此，我制作了当前的演示版，可供下载和播放。但希望大家能记得，这只是一个演示版，它还有一些即将完成修复的 bug。。
+为此，我制作了当前的演示版，可供下载和播放。但希望大家能记得，这只是一个演示版，它还有一些即将完成修复的 bug。
 
 如果你喜欢这个项目或有什么意见建议，请通过电子邮件或 Twitter 或者其他方式告知我。我得到的反馈越多越好，这样我就可以对该项目的未来作出更明智的决定。
 
-**PS. 感谢** [**Simon Lightfoot**](https://twitter.com/devangelslondon?lang=en) **在最后阶段给予的帮助 :)**
+**PS. 感谢 [Simon Lightfoot](https://twitter.com/devangelslondon?lang=en) 在最后阶段给予的帮助 :)**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
