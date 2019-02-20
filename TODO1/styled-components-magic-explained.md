@@ -5,7 +5,7 @@
 > * 译者：WangLeto
 > * 校对者：
 
-# 💅 styled-components 背后的魔力
+# 💅 styled-components 背后的魔法
 
 如果你不曾了解 [`styled-components`](https://styled-components.com)，下面是 styled component 中定义 React 组件的形式：
 
@@ -37,7 +37,7 @@ const Button = styled.button`
 const logArgs = (...args) => console.log(...args)
 ```
 
-这是一个很棒的输出（dump）函数，它会输出调用时传入的参数，别的什么都不做。
+这个函数会输出调用时传入的参数，别的什么都不做。
 
 > 你可以在（任何现代浏览器）控制台中，粘贴上面的函数，然后执行接下来的代码，来跟随我的分析。
 
@@ -120,11 +120,11 @@ logArgs(`I like ${favoriteFood} and ${favoriteDrink}.`)
 
 ## 为什么这很有用?
 
-哎呦不错哦，这样我们就能用用重音符（`` `）调用函数了，而且传参也别具一格，哇哦 —— 不过这又有什么了不起的？
+哎呦不错哦，这样我们就能用用重音符（`` ` ``）调用函数了，而且传参也别具一格，哇哦 —— 不过这又有什么了不起的？
 
 好吧，事实证明可以用它进行一些很酷的探索。我们将 [`styled-components`](https://styled-components.com) 作为案例，分析一下。
 
-对于 React 组件，你希望使用 props 值调整他们的样式。比如我们通过传入一个 `primary` 的 prop 值，让`<Button />` 组件变大一些。
+对于 React 组件，你希望使用 props 值调整他们的样式。比如我们通过传入一个 `primary` 的 prop 值，让`<Button />` 组件变大一些，像这样：`<Button primary />`。
 
 当你使用 `styled-components` 传入一个插值函数，我们其实就向组件传入了一个 `props`，使用它就可以进行组件样式调整。
 
@@ -144,7 +144,7 @@ const Button = styled.button`
 <Button />
 ```
 
-回头看一眼 `logArgs` 函数。我们尝试使用插值函数调用它，就向上面 `styled.button` 一样，只不过我们没有使用插值模板字符串。我们传入什么呢？
+回头看一眼 `logArgs` 函数。我们尝试使用插值函数调用它，就像上面 `styled.button` 一样，只不过我们没有使用插值模板字符串。我们传入什么呢？
 
 ```javascript
 logArgs(`Test ${() => console.log('test')}`)
@@ -203,7 +203,7 @@ execFuncArgs`Hi, ${() => { console.log('Executed!') }}`
 
 与之前相比，`execFuncArgs` 获得的第二个参数是一个**真正的函数**，并且执行了它。
 
-`styled-components` 私底下就是这么做的！在渲染时，我们向所有插值函数中传入 props，以便用户可以基于 props 修改样式。
+`styled-components` 底层就是这么做的！在渲染时，我们向所有插值函数中传入 props，以便用户可以基于 props 修改样式。
 
 标签模板字符串使得 `styled-components` API 得以实现，没有这个特性 `styled-compnents` 就不可能出现。期待大家能以不同的方式利用标签模板字符串！
 
