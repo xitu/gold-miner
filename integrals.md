@@ -6416,7 +6416,7 @@
 |[自然语言处理真是有趣](https://juejin.im/post/5b6d08e2f265da0f9c67cf0b)|校对|3|
 |[支撑现代存储系统的算法](https://juejin.im/post/5b10f80b5188257d92206851)|校对|1.5|
 
-## 译者：[7Ethan](https://github.com/7Ethan) 历史贡献积分：62.5 当前积分：7.5 二零一九：
+## 译者：[7Ethan](https://github.com/7Ethan) 历史贡献积分：62.5 当前积分：7.5 二零一九：0
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -6569,10 +6569,11 @@
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3.5|
 |[修订 The JavaScript Tutorial](https://github.com/xitu/javascript-tutorial-zh/pull/151)|修订|1|
 
-## 译者：[ssshooter](https://github.com/ssshooter) 历史贡献积分：54 当前积分：54 年度积分：54
+## 译者：[ssshooter](https://github.com/ssshooter) 历史贡献积分：59 当前积分：59 二零一九：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[我与 Flutter 的一年](https://juejin.im/post/5c5aeb8a6fb9a04a027acddf)|翻译|5|
 |[什么是模块化 CSS？](https://juejin.im/post/5bb6c5195188255c9e02e6f3)|翻译|9|
 |[如何使用 JavaScript ES6 有条件地构造对象](https://juejin.im/post/5bb47db76fb9a05d071953ea)|翻译|2.5|
 |[我在阅读 MDN 时发现的 3 个 Input 元素属性](https://juejin.im/post/5bbc6f035188255c5d56b160)|翻译|3.5|
@@ -6845,10 +6846,11 @@
 |[一行 JavaScript 代码竟然让 FT.com 网站慢了十倍](https://juejin.im/post/5b7bb6dfe51d4538bf55aa5f)|校对|1|
 |[使用 Web Beacon API 记录活动](https://juejin.im/post/5b694b5de51d4519700fa56a)|校对|1|
 
-## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：37.5 当前积分：37.5 二零一九：8.5
+## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：42 当前积分：42 二零一九：13
 
 |文章|类型|积分|
 |------|-------|-------|
+|[13 个你应该选择/考虑使用 Flutter 的理由](https://juejin.im/post/5c4fcd54e51d45527201db80)|翻译|4.5|
 |[利用 Python中的 Bokeh 实现数据可视化，第三部分：制作一个完整的仪表盘](https://juejin.im/post/5c3ae4656fb9a049d9757021)|翻译|6|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|2.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|3|
@@ -7387,10 +7389,13 @@
 |------|-------|-------|
 |[使用 Swift 的 iOS 设计模式（第一部分）](https://juejin.im/post/5c05d4ee5188250ab14e62d6)|校对|3.5|
 
-## 译者：[DevMcryYu](https://github.com/DevMcryYu) 历史贡献积分：20 当前积分：20 年度积分：20
+## 译者：[DevMcryYu](https://github.com/DevMcryYu) 历史贡献积分：36 当前积分：36 二零一九：16
 
 |文章|类型|积分|
 |------|-------|-------|
+|[PWA 会取代原生移动应用吗？](https://juejin.im/post/5c627f76f265da2deb6a8828)|校对|5|
+|[MDC-103 Flutter: Material Theming 的颜色、形状、高度和类型（Flutter）](https://juejin.im/post/5c45bb026fb9a049e3086bbc)|翻译|8|
+|[Android Dev Summit 2018 应用（instant app 的总结 + 开源）](https://juejin.im/post/5c6798486fb9a049e660c839)|翻译|3|
 |[MDC-102 Flutter：Material 结构和布局（Flutter）](https://juejin.im/post/5c24504d518825124e2767fc)|翻译|8|
 |[使用 Flutter，Material Theming 和官方材质组件（MDC）构建美观，灵活的用户界面](https://juejin.im/post/5c07d8a7518825778a56b80f)|翻译|3.5|
 |[MDC-101 Flutter：Material Components（MDC）基础（Flutter）](https://juejin.im/post/5c1758e6e51d451a77161ab5)|翻译|7|
@@ -7564,17 +7569,19 @@
 |------|-------|-------|
 |[提高营销效率的工程（二）— 广告制作和管理的规模化](https://juejin.im/post/5c441193518825258604ecd0)|校对|2|
 
-## 译者：[PrinceChou](https://github.com/PrinceChou) 历史贡献积分：2.5 当前积分：2.5 二零一九：2.5
+## 译者：[PrinceChou](https://github.com/PrinceChou) 历史贡献积分：4.5 当前积分：4.5 二零一九：4.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[MDC-103 Flutter: Material Theming 的颜色、形状、高度和类型（Flutter）](https://juejin.im/post/5c45bb026fb9a049e3086bbc)|校对|2|
 |[轻松发布私有 APP](https://juejin.im/post/5c42d0fde51d4511dc72d8d1)|校对|1|
 |[充分利用多摄像头 API](https://juejin.im/post/5c3da4f76fb9a04a0c2eb3fc)|校对|1.5|
 
-## 译者：[hongruqi](https://github.com/hongruqi) 历史贡献积分：6 当前积分：6 二零一九：6
+## 译者：[hongruqi](https://github.com/hongruqi) 历史贡献积分：14.5 当前积分：14.5 二零一九：14.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Flutter 从 0 到 1 第二部分](https://juejin.im/post/5c6ca802f265da2dce1f3af6)|翻译|8.5|
 |[Flutter 从 0 到 1](https://juejin.im/post/5c331b436fb9a049db734b85)|翻译|6|
 
 ## 译者：[lianghx-319](https://github.com/lianghx-319) 历史贡献积分：1.5 当前积分：1.5 二零一九：1.5
@@ -7608,10 +7615,12 @@
 |------|-------|-------|
 |[审校文章 https://github.com/xitu/gold-miner/issues/5118](https://github.com/xitu/gold-miner/issues/5118)|奖励|1|
 
-## 译者：[Fengziyin1234](https://github.com/Fengziyin1234) 历史贡献积分：1 当前积分：1 二零一九：1
+## 译者：[Fengziyin1234](https://github.com/Fengziyin1234) 历史贡献积分：6.5 当前积分：6.5 二零一九：6.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[MDC-103 Flutter: Material Theming 的颜色、形状、高度和类型（Flutter）](https://juejin.im/post/5c45bb026fb9a049e3086bbc)|校对|2.5|
+|[Flutter 从 0 到 1 第二部分](https://juejin.im/post/5c6ca802f265da2dce1f3af6)|校对|3|
 |推荐英文文章一篇|奖励|1|
 
 ## 译者：[Jerry-FD](https://github.com/Jerry-FD) 历史贡献积分：1 当前积分：1 二零一九：1
@@ -7632,14 +7641,43 @@
 |------|-------|-------|
 |推荐英文文章一篇|奖励|1|
 
-## 译者：[shixi-li](https://github.com/shixi-li) 历史贡献积分：3 当前积分：3 二零一九：3
+## 译者：[shixi-li](https://github.com/shixi-li) 历史贡献积分：8 当前积分：8 二零一九：8
 
 |文章|类型|积分|
 |------|-------|-------|
+|[PWA 会取代原生移动应用吗？](https://juejin.im/post/5c627f76f265da2deb6a8828)|校对|3|
+|[我与 Flutter 的一年](https://juejin.im/post/5c5aeb8a6fb9a04a027acddf)|校对|2|
 |[2019 区块链平台与技术展望](https://juejin.im/post/5c613e6e6fb9a049e4132ba5)|校对|3|
 
-## 译者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ) 历史贡献积分：4 当前积分：4 二零一九：4
+## 译者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ) 历史贡献积分：15 当前积分：15 二零一九：15
 
 |文章|类型|积分|
 |------|-------|-------|
+|[PWA 会取代原生移动应用吗？](https://juejin.im/post/5c627f76f265da2deb6a8828)|翻译|8.5|
+|[为什么你的应用需要对各种尺寸屏幕做适配优化？](https://juejin.im/post/5c662023518825767633ab86)|校对|2.5|
 |[提取图像中的文字、人脸或者条形码 — 形状检测 API](https://juejin.im/post/5c64026fe51d457f963d249c)|翻译|4|
+
+## 译者：[Mirosalva](https://github.com/Mirosalva) 历史贡献积分：6 当前积分：6 二零一九：6
+
+|文章|类型|积分|
+|------|-------|-------|
+|[为什么你的应用需要对各种尺寸屏幕做适配优化？](https://juejin.im/post/5c662023518825767633ab86)|翻译|3|
+|[我与 Flutter 的一年](https://juejin.im/post/5c5aeb8a6fb9a04a027acddf)|校对|3|
+
+## 译者：[TUARAN](https://github.com/TUARAN) 历史贡献积分：1 当前积分：1 二零一九：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[为什么你的应用需要对各种尺寸屏幕做适配优化？](https://juejin.im/post/5c662023518825767633ab86)|校对|1|
+
+## 译者：[ScDadaguo](https://github.com/ScDadaguo) 历史贡献积分：1.5 当前积分：1.5 二零一九：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Android Dev Summit 2018 应用（instant app 的总结 + 开源）](https://juejin.im/post/5c6798486fb9a049e660c839)|校对|1.5|
+
+## 译者：[MeandNi](https://github.com/MeandNi) 历史贡献积分：2 当前积分：2 二零一九：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[13 个你应该选择/考虑使用 Flutter 的理由](https://juejin.im/post/5c4fcd54e51d45527201db80)|校对|2|
