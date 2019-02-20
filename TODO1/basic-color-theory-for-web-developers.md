@@ -90,7 +90,7 @@
 [Doug R. Thomas, Esq.](https://dev.to/ferkungamaboobo) 强烈推荐以下网站：
 
 *   [Color.Adobe.com](https://color.adobe.com/)
-*   [WebAIM - 颜色对比度检查器](https://webaim.org/resources/contrastchecker/) \- 确保文本在背景上的可读性。
+*   [WebAIM — 颜色对比度检查器](https://webaim.org/resources/contrastchecker/) - 确保文本在背景上的可读性。
 *   [Coblis — 色盲模拟器](https://www.color-blindness.com/coblis-color-blindness-simulator/) - 用色盲滤镜来测试你的布局截图，以确保内容对所有受众都是可读的。
 
 ## 拓展阅读
