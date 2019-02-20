@@ -11,7 +11,7 @@
 
 ![](https://images.fastcompany.net/image/upload/w_1153,ar_16:9,c_fill,g_auto,f_auto,q_auto,fl_lossy/wp-cms/uploads/2018/12/p-3-90281299-the-9-big-design-trends-of-2019.jpg)
 
-现在每个人都 [疲惫并且不快乐](https://www.psychologytoday.com/us/blog/good-thinking/201306/why-americans-are-overworked-and-under-pleasured)。数字平台吸干了我们最后的[注意力和理智的判断力](https://www.fastcompany.com/90146795/how-the-anxiety-and-disorder-of-our-time-is-changing-design). 如果你在 2018 年有看头条新闻，那么你会有充分的理由对未来感到悲观。
+现在每个人都 [疲惫并且不快乐](https://www.psychologytoday.com/us/blog/good-thinking/201306/why-americans-are-overworked-and-under-pleasured)。数字平台吸干了我们最后的[注意力和理智的判断力](https://www.fastcompany.com/90146795/how-the-anxiety-and-disorder-of-our-time-is-changing-design)。 如果你在 2018 年有看头条新闻，那么你会有充分的理由对未来感到悲观。
 
 但当我们和来自微软、谷歌、Forrester 等公司的设计专家交谈后，他们却给我们大家提供了一线希望。展望 2019 年，他们达成了一个共识：过去几年商业世界定义的冷酷和企业化的思维方式并不是人们想要的。在 2019 年，人们关注的将不再仅仅是数据本身，设计师的工作将会是确保呈现出更多的东西。以下就是总结出的 2019 年 9 大设计趋势。
 
