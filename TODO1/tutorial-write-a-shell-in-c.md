@@ -2,7 +2,7 @@
 > * 原文作者：[Stephen Brennan](https://brennan.io)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/tutorial-write-a-shell-in-c.md](https://github.com/xitu/gold-miner/blob/master/TODO1/tutorial-write-a-shell-in-c.md)
-> * 译者：
+> * 译者：[nettee](https://github.com/nettee)
 > * 校对者：
 
 # 教程 - 用 C 写一个 Shell
@@ -21,9 +21,9 @@ It’s easy to view yourself as “not a _real_ programmer.” There are program
 *   **解释执行**：接着，shell 会从标准输入（可能是交互式输入，也可能是一个文件）读取命令，并执行这些命令。
 *   **终止**：当命令全部执行完毕，shell 会执行关闭命令，释放所有内存，然后终止。
 
-These steps are so general that they could apply to many programs, but we’re going to use them for the basis for our shell. Our shell will be so simple that there won’t be any configuration files, and there won’t be any shutdown command. So, we’ll just call the looping function and then terminate. But in terms of architecture, it’s important to keep in mind that the lifetime of the program is more than just looping.
+这三个步骤过于宽泛，其实可以适用于任何程序，但我们可以将其用于我们的 shell 的基础。我们的 shell 会很简单，不需要任何配置文件，也没有任何关闭命令。那么，我们只需要调用循环函数，然后终止。不过对于架构而言，我们需要记住，程序的生命周期并不仅仅是循环。
 
-```
+```C
 int main(int argc, char **argv)
 {
   // 如果有配置文件，则加载。
@@ -31,23 +31,23 @@ int main(int argc, char **argv)
   // 运行命令循环
   lsh_loop();
 
-  // Perform any shutdown/cleanup.
+  // 做一些关闭和清理工作。
 
   return EXIT_SUCCESS;
 }
 ```
 
-Here you can see that I just came up with a function, `lsh_loop()`, that will loop, interpreting commands. We’ll see the implementation of that next.
+这里你可以看到，我只是写了一个函数：`lsh_loop()`。这个函数会循环，并解释执行一条条命令。我们接下来会看到这个循环如何实现。
 
 ### Shell 的基本循环
 
-So we’ve taken care of how the program should start up. Now, for the basic program logic: what does the shell do during its loop? Well, a simple way to handle commands is with three steps:
+我们已经知道了 shell 程序如何启动。现在考虑程序的基本逻辑：shell 在它的循环中会做什么？处理命令的一个简单的方式是采用这三步：
 
 *   **读取**：从标准输入读取一个命令。
 *   **分析**：将命令字符串分割为程序名和参数。
 *   **执行**：运行分析后的命令。
 
-Here, I’ll translate those ideas into code for `lsh_loop()`:
+下面，我将这些思路转化为 `lsh_loop()` 的代码：
 
 ```
 void lsh_loop(void)
@@ -68,11 +68,11 @@ void lsh_loop(void)
 }
 ```
 
-Let’s walk through the code. The first few lines are just declarations. The do-while loop is more convenient for checking the status variable, because it executes once before checking its value. Within the loop, we print a prompt, call a function to read a line, call a function to split the line into args, and execute the args. Finally, we free the line and arguments that we created earlier. Note that we’re using a status variable returned by `lsh_execute()` to determine when to exit.
+让我们看一遍这段代码。一开始的几行只是一些声明。Do-while 循环在检查 status 变量时会更方便，因为它会在检查变量的值之前先执行一次。在循环内部，我们打印了一个提示符，调用函数来分别读取一行输入、将一行分割为参数，以及执行这些参数。最后，我们释放之前为 line 和 args 申请的内存空间。注意到我们使用 `lsh_execute()` 返回的状态变量决定何时退出。
 
 ### 读取一行输入
 
-Reading a line from stdin sounds so simple, but in C it can be a hassle. The sad thing is that you don’t know ahead of time how much text a user will enter into their shell. You can’t simply allocate a block and hope they don’t exceed it. Instead, you need to start with a block, and if they do exceed it, reallocate with more space. This is a common strategy in C, and we’ll use it to implement `lsh_read_line()`.
+从标准输入读取一行听起来很简单，但用 C 语言做起来可能有一定难度。坏消息是，你没法预先知道用户会在 shell 中键入多长的文本。因此你不能简单地分配一块空间，希望能装得下用户的输入，而应该先暂时分配一定长度的空间，当确实装不下用户的输入时，再重新分配更多的空间。这是 C 语言中的一个常见策略，我们也会用这个方法来实现 `lsh_read_line()`。
 
 ```
 #define LSH_RL_BUFSIZE 1024
@@ -89,10 +89,10 @@ char *lsh_read_line(void)
   }
 
   while (1) {
-    // Read a character
+    // 读一个字符
     c = getchar();
 
-    // If we hit EOF, replace it with a null character and return.
+    // 如果我们到达了 EOF, 就将其替换为 '\0' 并返回。
     if (c == EOF || c == '\n') {
       buffer[position] = '\0';
       return buffer;
@@ -101,7 +101,7 @@ char *lsh_read_line(void)
     }
     position++;
 
-    // If we have exceeded the buffer, reallocate.
+    // 如果我们超出了 buffer 的大小，则重新分配。
     if (position >= bufsize) {
       bufsize += LSH_RL_BUFSIZE;
       buffer = realloc(buffer, bufsize);
@@ -114,17 +114,17 @@ char *lsh_read_line(void)
 }
 ```
 
-The first part is a lot of declarations. If you hadn’t noticed, I prefer to keep the old C style of declaring variables before the rest of the code. The meat of the function is within the (apparently infinite) `while (1)` loop. In the loop, we read a character (and store it as an `int`, not a `char`, that’s important! EOF is an integer, not a character, and if you want to check for it, you need to use an `int`. This is a common beginner C mistake.). If it’s the newline, or EOF, we null terminate our current string and return it. Otherwise, we add the character to our existing string.
+第一部分是很多的声明。也许你没有发现，我倾向于使用古老的 C 语言风格，将变量的声明放在其他代码前面。这个函数的重点在（显然是无限的）`while (1)` 循环中。在这个循环中，我们读取了一个字符（并将它保存为 `int` 类型，而不是 `char` 类型，这很重要！EOF 是一个整型值而不是字符型值。如果你想检查它的值，需要使用 `int` 类型。这是 C 语言初学者常犯的错误。）如果这个字符是换行符或者 EOF，我们将当前字符串用空字符结尾，并返回它。否则，我们将这个字符添加到当前的字符串中。
 
-Next, we see whether the next character will go outside of our current buffer size. If so, we reallocate our buffer (checking for allocation errors) before continuing. And that’s really it.
+下一步，我们检查下一个字符是否会超出当前的缓冲区大小。如果会超出，我们就先重新分配缓冲区（并检查内存分配是否成功）。就是这样。
 
-Those who are intimately familiar with newer versions of the C library may note that there is a `getline()` function in `stdio.h` that does most of the work we just implemented. To be completely honest, I didn’t know it existed until after I wrote this code. This function was a GNU extension to the C library until 2008, when it was added to the specification, so most modern Unixes should have it now. I’m leaving my existing code the way it is, and I encourage people to learn it this way first before using `getline`. You’d be robbing yourself of a learning opportunity if you didn’t! Anyhow, with `getline`, the function becomes trivial:
+如果你对新版的 C 标准库很熟悉，会注意到 `stdio.h` 中有一个 `getline()` 函数，和我们刚才实现的功能几乎一样。实话说，我在写完上面这段代码之后才知道这个函数的存在。这个函数一直是 C 标准库的 GNU 扩展，直到 2008 年才加入规约中，现在的 Unix 系统应该都已经有了这个函数。我会保持我已写的代码，我也鼓励你们先用这种方式学习，然后再使用 `getline`。否则，你会失去一次学习的机会。不管怎样，有了 `getline` 之后，这个函数变得很平凡：
 
 ```
 char *lsh_read_line(void)
 {
   char *line = NULL;
-  ssize_t bufsize = 0; // have getline allocate a buffer for us
+  ssize_t bufsize = 0; // 利用 getline 帮助我们分配缓冲区
   getline(&line, &bufsize, stdin);
   return line;
 }
@@ -132,9 +132,9 @@ char *lsh_read_line(void)
 
 ### 分析一行输入
 
-OK, so if we look back at the loop, we see that we now have implemented `lsh_read_line()`, and we have the line of input. Now, we need to parse that line into a list of arguments. I’m going to make a glaring simplification here, and say that we won’t allow quoting or backslash escaping in our command line arguments. Instead, we will simply use whitespace to separate arguments from each other. So the command `echo "this message"` would not call echo with a single argument `this message`, but rather it would call echo with two arguments: `"this` and `message"`.
+好，那我们回到最初的那个循环。我们目前实现了 `lsh_read_line()`，得到了一行输入。现在，我们需要将这一行解析为参数的列表。我在这里将会做一个巨大的简化，假设我们的命令行参数中不允许使用引号和反斜杠转义，而是简单地使用空白字符作为参数间的分隔。这样的话，命令 `echo "this message"` 就不是使用单个参数 `this message` 调用 echo，而是有两个参数： `"this` 和 `message"`。
 
-With those simplifications, all we need to do is “tokenize” the string using whitespace as delimiters. That means we can break out the classic library function `strtok` to do some of the dirty work for us.
+有了这些简化，我们需要做的只是使用空白符作为分隔符，将字符串分割为“token”。这意味着我们可以使用传统的库函数 `strtok` 来为我们干些苦力活。
 
 ```
 #define LSH_TOK_BUFSIZE 64
@@ -171,27 +171,27 @@ char **lsh_split_line(char *line)
 }
 ```
 
-If this code looks suspiciously similar to `lsh_read_line()`, it’s because it is! We are using the same strategy of having a buffer and dynamically expanding it. But this time, we’re doing it with a null-terminated array of pointers instead of a null-terminated array of characters.
+这段代码看起来和 `lsh_read_line()` 极其相似。这是因为它们就是很相似！我们使用了相同的策略 —— 使用一个缓冲区，并且将其动态地扩展。不过这里我们使用的是以空指针结尾的指针数组，而不是以空字符结尾的字符数组。
 
-At the start of the function, we begin tokenizing by calling `strtok`. It returns a pointer to the first token. What `strtok()` actually does is return pointers to within the string you give it, and place `\0` bytes at the end of each token. We store each pointer in an array (buffer) of character pointers.
+在函数的开始处，我们开始调用 `strtok` 来分割 token。这个函数会返回指向第一个 token 的指针。`strtok()` 实际上做的是返回指向你传入的字符串内部的指针，并在每个 token 的结尾处放置字节 `\0`。我们将每个返回的指针放在一个字符指针的数组（缓冲区）中。
 
-Finally, we reallocate the array of pointers if necessary. The process repeats until no token is returned by `strtok`, at which point we null-terminate the list of tokens.
+最后，我们重新分配指针数组，如果有必要的话。这样的处理过程一直重复，直到 `strtok` 不再返回 token 为止。在这里我们将 token 列表的尾部设为空指针。
 
-So, once all is said and done, we have an array of tokens, ready to execute. Which begs the question, how do we do that?
+这样，我们的工作完成了，我们得到了 token 的数组。接下来我们就可以执行命令。那么问题来了，我们怎么去执行命令呢？
 
 ## Shell 如何启动进程
 
-Now, we’re really at the heart of what a shell does. Starting processes is the main function of shells. So writing a shell means that you need to know exactly what’s going on with processes and how they start. That’s why I’m going to take us on a short diversion to discuss processes in Unix.
+现在，我们真正来到了 shell 的核心位置。Shell 的主要功能就是启动进程。所以写一个 shell 意味着你要很清楚进程是什么，以及进程是如何启动的。因此这里我要暂时岔开话题，聊一聊 Unix 中的进程。
 
-There are only two ways of starting processes on Unix. The first one (which almost doesn’t count) is by being Init. You see, when a Unix computer boots, its kernel is loaded. Once it is loaded and initialized, the kernel starts only one process, which is called Init. This process runs for the entire length of time that the computer is on, and it manages loading up the rest of the processes that you need for your computer to be useful.
+在 Unix 中，启动进程只有两种方式。第一种（其实不能算一种方式）是成为 Init 进程。当 Unix 机器启动时，它的内核会被加载。内核加载并初始化完成后，会启动单独一个进程，叫做 Init 进程。这个进程在机器开启的时间中会一直运行，负责管理启动其他的你需要的进程，这样机器才能正常使用。
 
-Since most programs aren’t Init, that leaves only one practical way for processes to get started: the `fork()` system call. When this function is called, the operating system makes a duplicate of the process and starts them both running. The original process is called the “parent”, and the new one is called the “child”. `fork()` returns 0 to the child process, and it returns to the parent the process ID number (PID) of its child. In essence, this means that the only way for new processes is to start is by an existing one duplicating itself.
+既然大部分的程序都不是 Init，那么实际上就只有一种方式启动进程：使用 `fork()` 系统调用。当调用该函数时，操作系统会将当前进程复制一份，并让两者同时运行。原有的进程叫做“父进程”，而新的进程叫做“子进程”。`fork()` 会在子进程中返回 0，在父进程中返回子进程的进程 ID 号（PID）。本质上，这意味着新进程启动的唯一方法是复制一个已有的进程。
 
-This might sound like a problem. Typically, when you want to run a new process, you don’t just want another copy of the same program – you want to run a different program. That’s what the `exec()` system call is all about. It replaces the current running program with an entirely new one. This means that when you call `exec`, the operating system stops your process, loads up the new program, and starts that one in its place. A process never returns from an `exec()` call (unless there’s an error).
+这看上去好像有点问题。特别是，当你想运行一个新的进程时，你肯定不希望再运行一遍相同的程序 —— 你想运行的是一个不同的程序。这就是 `exec()` 系统调用所做的事情。它会将当前运行的程序替换为一个全新的程序。这意味着每当你调用 `exec`，操作系统都会停下你的进程，装入新的程序，再启动新的程序。一个进程从来不会从 `exec()` 调用中返回（除非出现错误）。
 
-With these two system calls, we have the building blocks for how most programs are run on Unix. First, an existing process forks itself into two separate ones. Then, the child uses `exec()` to replace itself with a new program. The parent process can continue doing other things, and it can even keep tabs on its children, using the system call `wait()`.
+有了这两个系统调用，我们就有了大多数程序在 Unix 上运行的基本要素。首先，一个已有的进程将自己分叉（fork）为两个不同的进程。然而，子进程使用 `exec()` 将自己正在执行的程序替换为一个新的程序。父进程可以继续做其他的事情，甚至也可以使用系统调用 `wait()` 继续关注子进程。
 
-Phew! That’s a lot of information, but with all that background, the following code for launching a program will actually make sense:
+啊！我们讲了这么多。但是有了这些作为背景，下面启动程序的代码才真正起作用：
 
 ```
 int lsh_launch(char **args)
@@ -220,21 +220,21 @@ int lsh_launch(char **args)
 }
 ```
 
-Alright. This function takes the list of arguments that we created earlier. Then, it forks the process, and saves the return value. Once `fork()` returns, we actually have _two_ processes running concurrently. The child process will take the first if condition (where `pid == 0`).
+这个函数使用了我们之前创建的参数列表。然后，它 fork 当前的进程，并保存返回值。当 `fork()` 返回时，我们实际上有了**两个**并发运行的进程。子进程会进入第一个 if 分支（`pid == 0`）。
 
-In the child process, we want to run the command given by the user. So, we use one of the many variants of the `exec` system call, `execvp`. The different variants of `exec` do slightly different things. Some take a variable number of string arguments. Others take a list of strings. Still others let you specify the environment that the process runs with. This particular variant expects a program name and an array (also called a vector, hence the ‘v’) of string arguments (the first one has to be the program name). The ‘p’ means that instead of providing the full file path of the program to run, we’re going to give its name, and let the operating system search for the program in the path.
+在子进程中，我们想要运行用户提供的命令。所以，我们使用 `exec` 系统调用的多个变体之一，`execvp`。`exec` 的不同变体做的事情稍有不同。一些接受变长的字符串参数，一些接受字符串的列表，还有一些允许你设定进程运行的环境。`execvp` 这个变体接受一个程序名和一个字符串参数的数组（也叫做 vector，因此是‘v’）（数组的第一个元素应当是程序名）。‘p’ 表示我们不需要提供程序的文件路径，只需要提供文件名，让操作系统搜索程序文件的路径。
 
-If the exec command returns -1 (or actually, if it returns at all), we know there was an error. So, we use `perror` to print the system’s error message, along with our program name, so users know where the error came from. Then, we exit so that the shell can keep running.
+如果 exec 命令返回 -1（或者说，如果它返回了），我们就知道有地方出错了。那么，我们使用 `perror` 打印系统的错误消息已经我们的程序名，让用户知道是哪里出了错。然后，我们让 shell 继续运行。
 
-The second condition (`pid < 0`) checks whether `fork()` had an error. If so, we print it and keep going – there’s no handling that error beyond telling the user and letting them decide if they need to quit.
+第二个 if 条件（`pid < 0`）检查 `fork()` 是否出错。如果出错，我们打印错误，然后继续执行 —— 除了告知用户，我们不会进行更多的错误处理。我们让用户决定是否需要退出。
 
-The third condition means that `fork()` executed successfully. The parent process will land here. We know that the child is going to execute the process, so the parent needs to wait for the command to finish running. We use `waitpid()` to wait for the process’s state to change. Unfortunately, `waitpid()` has a lot of options (like `exec()`). Processes can change state in lots of ways, and not all of them mean that the process has ended. A process can either exit (normally, or with an error code), or it can be killed by a signal. So, we use the macros provided with `waitpid()` to wait until either the processes are exited or killed. Then, the function finally returns a 1, as a signal to the calling function that we should prompt for input again.
+第三个 if 条件表明 `fork()` 成功执行。父进程会运行到这里。我们知道子进程会执行命令的进程，所以父进程需要等待命令运行结束。我们使用 `waitpid()` 来等待一个进程改变状态。不幸的是，`waitpid()` 有很多选项（就像 `exec()` 一样）。进程可以以很多种方式改变其状态，并不是所有的状态都表示进程结束。一个进程可能退出（正常退出，或者返回一个错误码），也可能被一个信号杀掉。所以，我们需要使用 `waitpid()` 提供的宏来等待进程退出或被杀掉。函数最终返回 1，提示上层函数需要继续提示用户输入了。
 
 ### Shell 内置函数
 
-You may have noticed that the `lsh_loop()` function calls `lsh_execute()`, but above, we titled our function `lsh_launch()`. This was intentional! You see, most commands a shell executes are programs, but not all of them. Some of them are built right into the shell.
+你可能发现了，`lsh_loop()` 函数调用了 `lsh_execute()`。但上面我们的写函数的却叫做 `lsh_launch()`。这是有意为之的。虽然 shell 执行的命令大部分是程序，但有一些不是。一些命令是 shell 内置的。
 
-The reason is actually pretty simple. If you want to change directory, you need to use the function `chdir()`. The thing is, the current directory is a property of a process. So, if you wrote a program called `cd` that changed directory, it would just change its own current directory, and then terminate. Its parent process’s current directory would be unchanged. Instead, the shell process itself needs to execute `chdir()`, so that its own current directory is updated. Then, when it launches child processes, they will inherit that directory too.
+这里的原因其实很简单。如果你想改变当前目录，你需要使用函数 `chdir()`。问题是，当前目录是进程的一个属性。那么，如果你写了一个叫 `cd` 的程序来改变当前目录，它就会改变自己当前的目录，然后终止。它的父进程的当前目录不会改变。所以应当是 shell 进程自己执行 `chdir()`，才能更新自己的当前目录。然后，当它启动子进程时，子进程也会继承这个新的目录。
 
 Similarly, if there was a program named `exit`, it wouldn’t be able to exit the shell that called it. That command also needs to be built into the shell. Also, most shells are configured by running configuration scripts, like `~/.bashrc`. Those scripts use commands that change the operation of the shell. These commands could only change the shell’s operation if they were implemented within the shell itself.
 
