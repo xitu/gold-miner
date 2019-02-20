@@ -2916,10 +2916,11 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：313 当前积分：247 二零一九：18
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：316 当前积分：250 二零一九：21
 
 |文章|类型|积分|
 |------|-------|-------|
+|[DNS over TLS：端到端加密的 DNS](https://juejin.im/post/5c4849d06fb9a049c30b967b)|翻译|3|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|18|
 |[在 Keras 中使用一维卷积神经网络处理时间序列数据](https://juejin.im/post/5beb7432f265da61524cf27c)|校对|2|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|10|
@@ -5010,10 +5011,11 @@
 |[JavaScript 自动化爬虫入门指北（Chrome + Puppeteer + Node JS）](https://juejin.im/post/5a4e1038f265da3e591e1247)|翻译|7|
 |[智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7)|翻译|5|
 
-## 译者：[Wangalan30](https://github.com/Wangalan30) 历史贡献积分：23.5 当前积分：23.5 年度积分：22
+## 译者：[Wangalan30](https://github.com/Wangalan30) 历史贡献积分：25 当前积分：25 二零一九：1.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[我作为软件工程师与一名数据科学家合作的经历](https://juejin.im/post/5c550038f265da2d8532b2f9)|校对|1.5|
 |[为用户提供安全可靠的体验](https://juejin.im/post/5bf66114e51d45229468d659)|校对|0.5|
 |[强化学习中的好奇心与拖延症](https://juejin.im/post/5bff316651882548e937ef20)|校对|2|
 |[设计师的决策树](https://juejin.im/post/5befd61ee51d4557fe34e944)|校对|1|
@@ -5428,10 +5430,11 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：461 当前积分：385 二零一九：28
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：472 当前积分：396 二零一九：39
 
 |文章|类型|积分|
 |------|-------|-------|
+|[HTTP/3：起源](https://juejin.im/post/5c6cb623f265da2dd37c1505)|翻译|11|
 |[利用 Python中的 Bokeh 实现数据可视化，第二部分：交互](https://juejin.im/post/5c34a9dee51d4551d044efce)|翻译|5|
 |[利用 Python中的 Bokeh 实现数据可视化，第一部分：入门](https://juejin.im/post/5c3c83c7f265da612d197bf0)|翻译|7|
 |[讨论 JS ⚡：文档](https://juejin.im/post/5c4039bbe51d4551733494a6)|翻译|4.5|
@@ -6385,10 +6388,12 @@
 |[Kubernetes 分布式应用部署和人脸识别 app 实例](https://juejin.im/post/5b2db0576fb9a00e50313904)|校对|0.5|
 |[[字幕翻译] James Bennett — 理解 Python 字节码 — PyCon 2018](https://github.com/xitu/gold-miner/issues/3990)|校对|0.5|
 
-## 译者：[kasheemlew](https://github.com/kasheemlew) 历史贡献积分：23 当前积分：23 二零一九：8.5
+## 译者：[kasheemlew](https://github.com/kasheemlew) 历史贡献积分：35 当前积分：35 二零一九：20.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Courier: Dropbox 的 gRPC 迁移利器](https://juejin.im/post/5c55997ae51d457fd81e3ca0)|翻译|9|
+|[HTTP/3：起源](https://juejin.im/post/5c6cb623f265da2dd37c1505)|校对|3|
 |[从 Instagram 上的故事和反馈机器学习中收获的一些经验](https://juejin.im/post/5c683dfce51d45164c7599fb)|校对|1.5|
 |[2019 区块链平台与技术展望](https://juejin.im/post/5c613e6e6fb9a049e4132ba5)|校对|2.5|
 |[使用 Stripe, Vue.js 和 Flask 接受付款](https://juejin.im/post/5c3bed42f265da615064aacb)|校对|1.5|
@@ -6724,10 +6729,11 @@
 |[在 Sketch 中使用一个设计体系创作: 第二部分 [教程]](https://juejin.im/post/5b5d2a456fb9a04fc80b8f4b)|翻译|2.5|
 |[在 Sketch 中使用一个设计体系创作：第一部分 [教程]](https://juejin.im/post/5b591a655188257bca290b24)|校对|0.5|
 
-## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：45.5 当前积分：45.5 二零一九：2
+## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：47 当前积分：47 二零一九：3.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[HTTP 简史](https://juejin.im/post/5c5ecc04e51d457f9c058be6)|校对|1.5|
 |[提取图像中的文字、人脸或者条形码 — 形状检测 API](https://juejin.im/post/5c64026fe51d457f963d249c)|校对|1|
 |推荐一篇英文文章|奖励|1|
 |[创建并发布一个小而美的 npm 包](https://juejin.im/post/5c26c1b65188252dcb312ad6)|校对|1.5|
@@ -6846,10 +6852,11 @@
 |[一行 JavaScript 代码竟然让 FT.com 网站慢了十倍](https://juejin.im/post/5b7bb6dfe51d4538bf55aa5f)|校对|1|
 |[使用 Web Beacon API 记录活动](https://juejin.im/post/5b694b5de51d4519700fa56a)|校对|1|
 
-## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：42 当前积分：42 二零一九：13
+## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：50.5 当前积分：50.5 二零一九：21.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[HTTP/2 常见问题解答](https://juejin.im/post/5c5ada2e6fb9a049dd80be75)|翻译|8.5|
 |[13 个你应该选择/考虑使用 Flutter 的理由](https://juejin.im/post/5c4fcd54e51d45527201db80)|翻译|4.5|
 |[利用 Python中的 Bokeh 实现数据可视化，第三部分：制作一个完整的仪表盘](https://juejin.im/post/5c3ae4656fb9a049d9757021)|翻译|6|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|2.5|
@@ -7481,10 +7488,11 @@
 |------|-------|-------|
 |[使用自定义文件模板加快你的应用开发速度](https://juejin.im/post/5c204bcdf265da611b585bcd)|校对|1.5|
 
-## 译者：[Qiuk17](https://github.com/Qiuk17) 历史贡献积分：11.5 当前积分：11.5 二零一九：4.5
+## 译者：[Qiuk17](https://github.com/Qiuk17) 历史贡献积分：12.5 当前积分：12.5 二零一九：5.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[DNS over TLS：端到端加密的 DNS](https://juejin.im/post/5c4849d06fb9a049c30b967b)|校对|1|
 |[通过垃圾回收机制理解 JavaScript 内存管理](https://juejin.im/post/5c4409fbf265da616f703d5a)|校对|1|
 |[轻松发布私有 APP](https://juejin.im/post/5c42d0fde51d4511dc72d8d1)|翻译|3.5|
 |[Android 中的 MVP：如何使 Presenter 层系统化](https://juejin.im/post/5c203323f265da6110370dec)|校对|1.5|
@@ -7615,10 +7623,14 @@
 |------|-------|-------|
 |[审校文章 https://github.com/xitu/gold-miner/issues/5118](https://github.com/xitu/gold-miner/issues/5118)|奖励|1|
 
-## 译者：[Fengziyin1234](https://github.com/Fengziyin1234) 历史贡献积分：6.5 当前积分：6.5 二零一九：6.5
+## 译者：[Fengziyin1234](https://github.com/Fengziyin1234) 历史贡献积分：19 当前积分：19 二零一九：19
 
 |文章|类型|积分|
 |------|-------|-------|
+|[HTTP/2 常见问题解答](https://juejin.im/post/5c5ada2e6fb9a049dd80be75)|校对|3.5|
+|[HTTP 简史](https://juejin.im/post/5c5ecc04e51d457f9c058be6)|校对|2.5|
+|[我作为软件工程师与一名数据科学家合作的经历](https://juejin.im/post/5c550038f265da2d8532b2f9)|校对|1|
+|[HTTP/3：起源](https://juejin.im/post/5c6cb623f265da2dd37c1505)|校对|5.5|
 |[MDC-103 Flutter: Material Theming 的颜色、形状、高度和类型（Flutter）](https://juejin.im/post/5c45bb026fb9a049e3086bbc)|校对|2.5|
 |[Flutter 从 0 到 1 第二部分](https://juejin.im/post/5c6ca802f265da2dce1f3af6)|校对|3|
 |推荐英文文章一篇|奖励|1|
@@ -7641,18 +7653,22 @@
 |------|-------|-------|
 |推荐英文文章一篇|奖励|1|
 
-## 译者：[shixi-li](https://github.com/shixi-li) 历史贡献积分：8 当前积分：8 二零一九：8
+## 译者：[shixi-li](https://github.com/shixi-li) 历史贡献积分：11 当前积分：11 二零一九：11
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Courier: Dropbox 的 gRPC 迁移利器](https://juejin.im/post/5c55997ae51d457fd81e3ca0)|校对|3|
 |[PWA 会取代原生移动应用吗？](https://juejin.im/post/5c627f76f265da2deb6a8828)|校对|3|
 |[我与 Flutter 的一年](https://juejin.im/post/5c5aeb8a6fb9a04a027acddf)|校对|2|
 |[2019 区块链平台与技术展望](https://juejin.im/post/5c613e6e6fb9a049e4132ba5)|校对|3|
 
-## 译者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ) 历史贡献积分：15 当前积分：15 二零一九：15
+## 译者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ) 历史贡献积分：26.5 当前积分：26.5 二零一九：26.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[HTTP/2 常见问题解答](https://juejin.im/post/5c5ada2e6fb9a049dd80be75)|校对|2.5|
+|[HTTP 简史](https://juejin.im/post/5c5ecc04e51d457f9c058be6)|翻译|6|
+|[HTTP/3：起源](https://juejin.im/post/5c6cb623f265da2dd37c1505)|校对|3|
 |[PWA 会取代原生移动应用吗？](https://juejin.im/post/5c627f76f265da2deb6a8828)|翻译|8.5|
 |[为什么你的应用需要对各种尺寸屏幕做适配优化？](https://juejin.im/post/5c662023518825767633ab86)|校对|2.5|
 |[提取图像中的文字、人脸或者条形码 — 形状检测 API](https://juejin.im/post/5c64026fe51d457f963d249c)|翻译|4|
@@ -7681,3 +7697,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[13 个你应该选择/考虑使用 Flutter 的理由](https://juejin.im/post/5c4fcd54e51d45527201db80)|校对|2|
+
+## 译者：[CasualJi](https://github.com/CasualJi) 历史贡献积分：4.5 当前积分：4.5 二零一九：4.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[我作为软件工程师与一名数据科学家合作的经历](https://juejin.im/post/5c550038f265da2d8532b2f9)|翻译|4.5|
