@@ -2,8 +2,8 @@
 > * 原文作者：[https://mxstbr.blog](https://mxstbr.blog)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/styled-components-magic-explained.md](https://github.com/xitu/gold-miner/blob/master/TODO1/styled-components-magic-explained.md)
-> * 译者：WangLeto
-> * 校对者：
+> * 译者：[WangLeto](https://github.com/WangLeto)
+> * 校对者：[kezhenxu94](https://github.com/kezhenxu94)，[ziyin feng](https://github.com/Fengziyin1234)
 
 # 💅 styled-components 背后的魔法
 
@@ -124,7 +124,7 @@ logArgs(`I like ${favoriteFood} and ${favoriteDrink}.`)
 
 好吧，事实证明可以用它进行一些很酷的探索。我们将 [`styled-components`](https://styled-components.com) 作为案例，分析一下。
 
-对于 React 组件，你希望使用 props 值调整他们的样式。比如我们通过传入一个 `primary` 的 prop 值，让`<Button />` 组件变大一些，像这样：`<Button primary />`。
+对于 React 组件，你希望使用 props 值调整他们的样式。比如我们通过传入一个 `primary` 的 prop 值，让 `<Button />` 组件变大一些，像这样：`<Button primary />`。
 
 当你使用 `styled-components` 传入一个插值函数，我们其实就向组件传入了一个 `props`，使用它就可以进行组件样式调整。
 
