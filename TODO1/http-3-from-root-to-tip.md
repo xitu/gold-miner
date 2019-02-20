@@ -5,7 +5,7 @@
 > * 译者：[Starrier](https://github.com/Starriers)
 > * 校对者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)，[kasheemlew](https://github.com/kasheemlew)，[Fengziyin1234](https://github.com/Fengziyin1234)
 
-# HTTP/3: 起源
+# HTTP/3：起源
 
 HTTP 是确保 Web 应用程序正常运行的应用层协议。1991 年，HTTP/0.9 正式发布，至 1999 年，已经发展为 IETF（国际互联网工程任务组）的标准化协议 HTTP/1.1。在很长的一段时间里，HTTP/1.1 表现得都非常好，但面对如今变化多端的 Web 需求，显然需要一个更为合适的协议。2015 年，HTTP/2 应运而生。最近，有人披露 IETF 预计发布一个新版本 —— HTTP/3。对有些人来说，这是惊喜，也引发了业界的激烈探讨。如果你不怎么关注 IETF，可能就会觉得 HTTP/3 的出现非常突然。但事实是，我们可以透过 HTTP 的一系列实现和 Web 协议发展来追溯它的起源，尤其是 QUIC 传输协议。
 
@@ -150,7 +150,7 @@ Google 对 SPDY 实验表明，改变 HTTP 语法是有希望的，维持现有 
 
 ### gQUIC
 
-2012 - 2015 之间，Google 继续进行试验，他们发布了 SPDY v3 和 v3.1。他们还开始研究 gQUIC(当时的发音类似于 quick），在 2012 年年初，发布了初始的公共规范。
+2012-2015 之间，Google 继续进行试验，他们发布了 SPDY v3 和 v3.1。他们还开始研究 gQUIC(当时的发音类似于 quick），在 2012 年年初，发布了初始的公共规范。
 
 gQUIC 的早期版本使用 SPDY v3 形式的 HTTP 语法。这个选择是有意义的，因为 HTTP/2 尚未完成。SPDY 二进制语法被打包到可以用 UDP 数据报发送数据的 QUIC 包中。这与 HTTP 传统上依赖的 TCP 传输不同。当所有的东西堆叠在一起时，就会像这样：
 
@@ -170,7 +170,7 @@ gQUIC 继续在实验中摸索，最后选择了更接近 HTTP/2 的语法。也
 
 到目前为止，你应该已经了解了标准化的工作原理，gQUIC 并非与众不同。或许你也对 Google 用 I-D 格式编写的规范感兴趣。在2015 年 6 月的 [draft-tsvwg-quic-protocol-00](https://tools.ietf.org/html/draft-tsvwg-quic-protocol-00) 中，写有 "QUIC：基于 UDP 的安全可靠的 HTTP/2 传输" 已经提交。请记住我之前提过的，几乎都是 HTTP/2 的语法。
 
-Google [宣布](https://groups.google.com/a/chromium.org/forum/#!topic/proto-quic/otGKB4ytAyc)将在布拉格举行一次  Bar BoF  IETF 93 会议。如有疑问，请参阅 [RFC 6771](https://tools.ietf.org/html/rfc6771)。提示：BoF 是物以类聚（Birds of a Feather）的缩写。
+Google [宣布](https://groups.google.com/a/chromium.org/forum/#!topic/proto-quic/otGKB4ytAyc)将在布拉格举行一次 Bar BoF  IETF 93 会议。如有疑问，请参阅 [RFC 6771](https://tools.ietf.org/html/rfc6771)。提示：BoF 是物以类聚（Birds of a Feather）的缩写。
 
 ![](https://blog.cloudflare.com/content/images/2019/01/quic-standardisation.png)
 
@@ -197,7 +197,7 @@ Google [宣布](https://groups.google.com/a/chromium.org/forum/#!topic/proto-qui
 
 文档的标题有时候会给人造成困扰。如今描述 HTTP 文档语法和语义的是：
 
-*   [RFC 7230](https://tools.ietf.org/html/rfc7230) —— 超文本传输协议（HTTP/1.1)：消息语法和路由
+*   [RFC 7230](https://tools.ietf.org/html/rfc7230) —— 超文本传输协议（HTTP/1.1）：消息语法和路由
 *   [RFC 7231](https://tools.ietf.org/html/rfc7231) —— 超文本传输协议（HTTP/1.1）：语法和上下文
 
 对这些名称的过度解读可能会让你认为 HTTP 版本的核心语义是特定的。比如，HTTP/1.1。但这是 HTTP 家族树的副作用。好消息是 HTTPbis 工作组正在尝试解决这个问题。一些勇敢的成员正在进行文档的另一轮修订，就像 Roy Fielding 说的 "one more time!"。这项工作目前正作为 HTTP 核心任务进行（你可能也听过 moniker HTTPtre 或 HTTPter；命名工作很艰难）。这将把六个草案压缩成三个：
