@@ -138,7 +138,7 @@ Google 对 SPDY 实验表明，改变 HTTP 语法是有希望的，维持现有 
 
 看到一些积极的结果后，IETF 决定考虑 HTTP/2.0。2012 年 3 月 IETF 83 期间举行的 HTTPbis 会议的 [slides](https://github.com/httpwg/wg-materials/blob/gh-pages/ietf83/HTTP2.pdf)显示了请求、目标和成功标准。它还明确指出 "HTTP/2.0 与 HTTP/1.x 连线格式不兼容"。
 
-![](/content/images/2019/01/http2-standardisation.png)
+![](https://blog.cloudflare.com/content/images/2019/01/http2-standardisation.png)
 
 社区在这次会议期间被邀请分享提案。提交审议的 I-D 包括 [draft-mbelshe-httpbis-spdy-00](https://tools.ietf.org/html/draft-mbelshe-httpbis-spdy-00)、[draft-montenegro-httpbis-speed-mobility-00](https://tools.ietf.org/html/draft-montenegro-httpbis-speed-mobility-00) 和 [draft-tarreau-httpbis-network-friendly-00](https://tools.ietf.org/html/draft-tarreau-httpbis-network-friendly-00)。最终，SPDY 草案被通过，在 2012 年 11 月开始于 [draft-ietf-httpbis-http2-00](https://tools.ietf.org/html/draft-ietf-httpbis-http2-00)。在超过 2 年的时间里完成了 18 次草案，[RFC 7540](https://tools.ietf.org/html/rfc7540) —— HTTP/2 于 2015 年发布。在此规范期间，HTTP/2 的精确语法的差异导致 HTTP/2 和 SPDY 不兼容。
 
@@ -214,7 +214,7 @@ Google [宣布](https://groups.google.com/a/chromium.org/forum/#!topic/proto-qui
 
 本文的叙述过程中，我们探究了 HTTP 和 TLS 开发中的重要章节，但它们都是单独阐述的。在文章即将结束时，我们会将它们全部总结到下面介绍的完整安全 Web 时间线。你可以用它来调查详细的历史记录。对于 super sleuths，请务必查看[包括草案编号的完整版本](https://blog.cloudflare.com/content/images/2019/01/web_timeline_large1.svg)。
 
-![](/content/images/2019/01/cf-secure-web-timeline-1.png)
+![](https://blog.cloudflare.com/content/images/2019/01/cf-secure-web-timeline-1.png)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
