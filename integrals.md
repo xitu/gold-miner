@@ -804,10 +804,12 @@
 |[在网站 Logo 上右击时提示下载网站的 Logo 素材下载](https://github.com/rainyear/gold-miner/blob/fabff8780118b24c61c57b13577cf971757c84d5/TODO/right-click-logo-show-logo-download-options.md)|校对|1|
 |[给产品经理的简易优先级法则](http://gold.xitu.io/entry/572ad1cc1532bc0065d5e36b)|翻译|7|
 
-## 译者：[loneyiserror](https://github.com/LoneyIsError) 历史贡献积分：28 当前积分：28 二零一九：2
+## 译者：[loneyiserror](https://github.com/LoneyIsError) 历史贡献积分：38.5 当前积分：38.5 二零一九：12.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[用这些 iOS 技巧让你的 APP 性能更佳](https://juejin.im/post/5c6a0b6ef265da2de660f83f)|翻译|8|
+|[Swift：通过示例避免内存泄漏](https://juejin.im/post/5c6a0abaf265da2dc675a9b2)|翻译|2.5|
 |推荐两篇英文文章|奖励|2|
 |[使用 Kotlin 将你的 iOS 应用程序转换为 Android](https://juejin.im/post/5c03f64ce51d454af013d076)|校对|5|
 |[iOS 12 占有率超过 50%，超过了 iOS 11](https://juejin.im/post/5bf64ad851882579117f74ae)|翻译|2.5|
@@ -2916,10 +2918,11 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：316 当前积分：250 二零一九：21
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：320 当前积分：254 二零一九：25
 
 |文章|类型|积分|
 |------|-------|-------|
+|[React Native 与 iOS 和 Android 通信](https://juejin.im/post/5c6ca781f265da2da8356c81)|校对|4|
 |[DNS over TLS：端到端加密的 DNS](https://juejin.im/post/5c4849d06fb9a049c30b967b)|翻译|3|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|18|
 |[在 Keras 中使用一维卷积神经网络处理时间序列数据](https://juejin.im/post/5beb7432f265da61524cf27c)|校对|2|
@@ -3552,10 +3555,11 @@
 |------|-------|-------|
 |[如何在无损的情况下让图片变的更小](https://juejin.im/post/5959fbe0f265da6c2518d740)|校对|2|
 
-## 译者：[swants](https://github.com/swants) 历史贡献积分：68.5 当前积分：3.5 二零一九：0
+## 译者：[swants](https://github.com/swants) 历史贡献积分：72.5 当前积分：7.5 二零一九：4
 
 |文章|类型|积分|
 |------|-------|-------|
+|[iOS 设计模式进阶](https://juejin.im/post/5c51b959f265da6115112e3e)|校对|4|
 |2019 年 1 月兑掘金水杯 1 个|减去积分|5|
 |[使用 Swift 的 iOS 设计模式（第二部分）](https://juejin.im/post/5c1786576fb9a049f06a2c4a)|校对|3|
 |[使用 Swift 的 iOS 设计模式（第一部分）](https://juejin.im/post/5c05d4ee5188250ab14e62d6)|校对|3.5|
@@ -7295,10 +7299,13 @@
 |------|-------|-------|
 |[深入理解 React 高阶组件](https://juejin.im/entry/5bdd226cf265da616f6f6cce)|校对|4|
 
-## 译者：[iWeslie](https://github.com/iWeslie) 历史贡献积分：48 当前积分：48 二零一九：4
+## 译者：[iWeslie](https://github.com/iWeslie) 历史贡献积分：67 当前积分：67 二零一九：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|[在 iOS 上使用 Carthage 建立依赖](https://juejin.im/post/5c4f04ef51882525eb3663be)|翻译|4|
+|[iOS 中赏心悦目的动画](https://juejin.im/post/5c4f05bce51d4552411b1e13)|翻译|3|
+|[iOS 设计模式进阶](https://juejin.im/post/5c51b959f265da6115112e3e)|翻译|12|
 |[如何写一篇软件工程必杀简历](https://juejin.im/post/5c6ca8b9f265da2dc13c7a10)|校对|4|
 |[使用 Swift 的 iOS 设计模式（第二部分）](https://juejin.im/post/5c1786576fb9a049f06a2c4a)|翻译|11|
 |[使用 Kotlin 将你的 iOS 应用程序转换为 Android](https://juejin.im/post/5c03f64ce51d454af013d076)|翻译|5|
@@ -7623,10 +7630,11 @@
 |------|-------|-------|
 |[审校文章 https://github.com/xitu/gold-miner/issues/5118](https://github.com/xitu/gold-miner/issues/5118)|奖励|1|
 
-## 译者：[Fengziyin1234](https://github.com/Fengziyin1234) 历史贡献积分：19 当前积分：19 二零一九：19
+## 译者：[Fengziyin1234](https://github.com/Fengziyin1234) 历史贡献积分：20.5 当前积分：20.5 二零一九：20.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[iOS 中赏心悦目的动画](https://juejin.im/post/5c4f05bce51d4552411b1e13)|校对|1.5|
 |[HTTP/2 常见问题解答](https://juejin.im/post/5c5ada2e6fb9a049dd80be75)|校对|3.5|
 |[HTTP 简史](https://juejin.im/post/5c5ecc04e51d457f9c058be6)|校对|2.5|
 |[我作为软件工程师与一名数据科学家合作的经历](https://juejin.im/post/5c550038f265da2d8532b2f9)|校对|1|
@@ -7641,10 +7649,11 @@
 |------|-------|-------|
 |推荐英文文章一篇|奖励|1|
 
-## 译者：[EdmondWang](https://github.com/EdmondWang) 历史贡献积分：1 当前积分：1 二零一九：1
+## 译者：[EdmondWang](https://github.com/EdmondWang) 历史贡献积分：4 当前积分：4 二零一九：4
 
 |文章|类型|积分|
 |------|-------|-------|
+|[用这些 iOS 技巧让你的 APP 性能更佳](https://juejin.im/post/5c6a0b6ef265da2de660f83f)|校对|3|
 |推荐英文文章一篇|奖励|1|
 
 ## 译者：[WangLeto](https://github.com/WangLeto) 历史贡献积分：1 当前积分：1 二零一九：1
@@ -7692,10 +7701,11 @@
 |------|-------|-------|
 |[Android Dev Summit 2018 应用（instant app 的总结 + 开源）](https://juejin.im/post/5c6798486fb9a049e660c839)|校对|1.5|
 
-## 译者：[MeandNi](https://github.com/MeandNi) 历史贡献积分：2 当前积分：2 二零一九：2
+## 译者：[MeandNi](https://github.com/MeandNi) 历史贡献积分：6 当前积分：6 二零一九：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[React Native 与 iOS 和 Android 通信](https://juejin.im/post/5c6ca781f265da2da8356c81)|翻译|4|
 |[13 个你应该选择/考虑使用 Flutter 的理由](https://juejin.im/post/5c4fcd54e51d45527201db80)|校对|2|
 
 ## 译者：[CasualJi](https://github.com/CasualJi) 历史贡献积分：4.5 当前积分：4.5 二零一九：4.5
@@ -7703,3 +7713,16 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[我作为软件工程师与一名数据科学家合作的经历](https://juejin.im/post/5c550038f265da2d8532b2f9)|翻译|4.5|
+
+## 译者：[HearFishle](https://github.com/HearFishle) 历史贡献积分：1 当前积分：1 二零一九：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Swift：通过示例避免内存泄漏](https://juejin.im/post/5c6a0abaf265da2dc675a9b2)|校对|1|
+
+## 译者：[kirinzer](https://github.com/kirinzer) 历史贡献积分：6.5 当前积分：6.5 二零一九：6.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[在 iOS 上使用 Carthage 建立依赖](https://juejin.im/post/5c4f04ef51882525eb3663be)|校对|1.5|
+|[iOS 设计模式进阶](https://juejin.im/post/5c51b959f265da6115112e3e)|校对|5|
