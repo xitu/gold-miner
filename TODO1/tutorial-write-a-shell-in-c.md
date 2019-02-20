@@ -236,20 +236,20 @@ int lsh_launch(char **args)
 
 这里的原因其实很简单。如果你想改变当前目录，你需要使用函数 `chdir()`。问题是，当前目录是进程的一个属性。那么，如果你写了一个叫 `cd` 的程序来改变当前目录，它就会改变自己当前的目录，然后终止。它的父进程的当前目录不会改变。所以应当是 shell 进程自己执行 `chdir()`，才能更新自己的当前目录。然后，当它启动子进程时，子进程也会继承这个新的目录。
 
-Similarly, if there was a program named `exit`, it wouldn’t be able to exit the shell that called it. That command also needs to be built into the shell. Also, most shells are configured by running configuration scripts, like `~/.bashrc`. Those scripts use commands that change the operation of the shell. These commands could only change the shell’s operation if they were implemented within the shell itself.
+类似的，如果有一个程序叫做 `exit`，它也没有办法使调用它的 shell 退出。这个命令也必须内置在 shell 中。还有，多数 shell 通过运行配置脚本（如 `~/.bashrc`）来进行配置。这些脚本使用一些改变 shell 行为的命令。这些命令如果由 shell 自己实现的话，同样只会改变 shell 自己的行为。
 
-So, it makes sense that we need to add some commands to the shell itself. The ones I added to my shell are `cd`, `exit`, and `help`. Here are their function implementations below:
+因此，我们需要向 shell 本身添加一些命令是有道理的。我添加进我的 shell 的命令是 `cd`、`exit` 和 `help` 下面是他们的函数实现：
 
 ```
 /*
-  Function Declarations for builtin shell commands:
+  内置 shell 命令的函数声明：
  */
 int lsh_cd(char **args);
 int lsh_help(char **args);
 int lsh_exit(char **args);
 
 /*
-  List of builtin commands, followed by their corresponding functions.
+  内置命令列表，以及它们对应的函数。
  */
 char *builtin_str[] = {
   "cd",
@@ -268,7 +268,7 @@ int lsh_num_builtins() {
 }
 
 /*
-  Builtin function implementations.
+  内置命令的函数实现。
 */
 int lsh_cd(char **args)
 {
@@ -303,11 +303,11 @@ int lsh_exit(char **args)
 }
 ```
 
-There are three parts to this code. The first part contains _forward declarations_ of my functions. A forward declaration is when you declare (but don’t define) something, so that you can use its name before you define it. The reason I do this is because `lsh_help()` uses the array of builtins, and the arrays contain `lsh_help()`. The cleanest way to break this dependency cycle is by forward declaration.
+这段代码有三个部分。第一部分包括我的函数的**前向声明**。前向声明是当你声明了（但还未定义）某个符号，就可以在它的定义之前使用。我这么做是因为 `lsh_help()` 使用了内置命令的数组，而这个数组中又包括 `lsh_help()`。打破这个依赖循环的最好方式是使用前向声明。
 
-The next part is an array of builtin command names, followed by an array of their corresponding functions. This is so that, in the future, builtin commands can be added simply by modifying these arrays, rather than editing a large “switch” statement somewhere in the code. If you’re confused by the declaration of `builtin_func`, that’s OK! I am too. It’s an array of function pointers (that take array of strings and return an int). Any declaration involving function pointers in C can get really complicated. I still look up how function pointers are declared myself!
+第二个部分是内置命令名字的数组，然后是它们对应的函数的数组。这样做是为了，在未来可以简单地通过修改这些数组来添加内置命令，而不是修改代码中某处一个庞大的“switch”语句。如果你不理解 `builtin_func` 的定义，这很正常！我也不理解。这是一个函数指针（一个接受字符串数组作为参数，返回整型的函数）的数组。C 语言中任何有关函数指针的声明都会很复杂。我自己仍然需要查一下函数指针是怎么声明的！
 
-Finally, I implement each function. The `lsh_cd()` function first checks that its second argument exists, and prints an error message if it doesn’t. Then, it calls `chdir()`, checks for errors, and returns. The help function prints a nice message and the names of all the builtins. And the exit function returns 0, as a signal for the command loop to terminate.
+最后，我实现了每个函数。`lsh_cd()` 函数首先检查它的第二个参数是否存在，不存在的话打印错误消息。然后，它调用 `chdir()`，检查是否出错，并返回。帮助函数会打印漂亮的消息，以及所有内置函数的名字。退出函数返回 0，这是让命令循环退出的信号。
 
 ### Putting together builtins and processes
 
