@@ -5,30 +5,30 @@
 > * 译者：
 > * 校对者：
 
-# Tutorial - Write a Shell in C
+# 教程 - 用 C 写一个 Shell
 
 It’s easy to view yourself as “not a _real_ programmer.” There are programs out there that everyone uses, and it’s easy to put their developers on a pedestal. Although developing large software projects isn’t easy, many times the basic idea of that software is quite simple. Implementing it yourself is a fun way to show that you have what it takes to be a real programmer. So, this is a walkthrough on how I wrote my own simplistic Unix shell in C, in the hopes that it makes other people feel that way too.
 
-The code for the shell described here, dubbed `lsh`, is available on [GitHub](https://github.com/brenns10/lsh).
+这篇文章中介绍的 shell（叫做 `lsh`），可以在 [GitHub](https://github.com/brenns10/lsh) 上获取它的源代码。
 
-**University students beware!** Many classes have assignments that ask you to write a shell, and some faculty are aware of this tutorial and code. If you’re a student in such a class, you shouldn’t copy (or copy then modify) this code without permission. And even then, I would [advise](/2016/03/29/dishonesty/) against heavily relying on this tutorial.
+**学校里的学生请注意！** Many classes have assignments that ask you to write a shell, and some faculty are aware of this tutorial and code. If you’re a student in such a class, you shouldn’t copy (or copy then modify) this code without permission. And even then, I would [advise](/2016/03/29/dishonesty/) against heavily relying on this tutorial.
 
-### Basic lifetime of a shell
+### Shell 的基本生命周期
 
-Let’s look at a shell from the top down. A shell does three main things in its lifetime.
+让我们自顶向下地观察一个 shell。一个 shell 在它的生命周期中主要做三件事。
 
-*   **Initialize**: In this step, a typical shell would read and execute its configuration files. These change aspects of the shell’s behavior.
-*   **Interpret**: Next, the shell reads commands from stdin (which could be interactive, or a file) and executes them.
-*   **Terminate**: After its commands are executed, the shell executes any shutdown commands, frees up any memory, and terminates.
+*   **初始化**：在这一步中，shell 一般会加载并执行它的配置文件。这些配置会改变 shell 的行为。
+*   **解释执行**：接着，shell 会从标准输入（可能是交互式输入，也可能是一个文件）读取命令，并执行这些命令。
+*   **终止**：当命令全部执行完毕，shell 会执行关闭命令，释放所有内存，然后终止。
 
 These steps are so general that they could apply to many programs, but we’re going to use them for the basis for our shell. Our shell will be so simple that there won’t be any configuration files, and there won’t be any shutdown command. So, we’ll just call the looping function and then terminate. But in terms of architecture, it’s important to keep in mind that the lifetime of the program is more than just looping.
 
 ```
 int main(int argc, char **argv)
 {
-  // Load config files, if any.
+  // 如果有配置文件，则加载。
 
-  // Run command loop.
+  // 运行命令循环
   lsh_loop();
 
   // Perform any shutdown/cleanup.
@@ -39,13 +39,13 @@ int main(int argc, char **argv)
 
 Here you can see that I just came up with a function, `lsh_loop()`, that will loop, interpreting commands. We’ll see the implementation of that next.
 
-### Basic loop of a shell
+### Shell 的基本循环
 
 So we’ve taken care of how the program should start up. Now, for the basic program logic: what does the shell do during its loop? Well, a simple way to handle commands is with three steps:
 
-*   **Read**: Read the command from standard input.
-*   **Parse**: Separate the command string into a program and arguments.
-*   **Execute**: Run the parsed command.
+*   **读取**：从标准输入读取一个命令。
+*   **分析**：将命令字符串分割为程序名和参数。
+*   **执行**：运行分析后的命令。
 
 Here, I’ll translate those ideas into code for `lsh_loop()`:
 
@@ -70,7 +70,7 @@ void lsh_loop(void)
 
 Let’s walk through the code. The first few lines are just declarations. The do-while loop is more convenient for checking the status variable, because it executes once before checking its value. Within the loop, we print a prompt, call a function to read a line, call a function to split the line into args, and execute the args. Finally, we free the line and arguments that we created earlier. Note that we’re using a status variable returned by `lsh_execute()` to determine when to exit.
 
-### Reading a line
+### 读取一行输入
 
 Reading a line from stdin sounds so simple, but in C it can be a hassle. The sad thing is that you don’t know ahead of time how much text a user will enter into their shell. You can’t simply allocate a block and hope they don’t exceed it. Instead, you need to start with a block, and if they do exceed it, reallocate with more space. This is a common strategy in C, and we’ll use it to implement `lsh_read_line()`.
 
@@ -130,7 +130,7 @@ char *lsh_read_line(void)
 }
 ```
 
-### Parsing the line
+### 分析一行输入
 
 OK, so if we look back at the loop, we see that we now have implemented `lsh_read_line()`, and we have the line of input. Now, we need to parse that line into a list of arguments. I’m going to make a glaring simplification here, and say that we won’t allow quoting or backslash escaping in our command line arguments. Instead, we will simply use whitespace to separate arguments from each other. So the command `echo "this message"` would not call echo with a single argument `this message`, but rather it would call echo with two arguments: `"this` and `message"`.
 
@@ -179,7 +179,7 @@ Finally, we reallocate the array of pointers if necessary. The process repeats u
 
 So, once all is said and done, we have an array of tokens, ready to execute. Which begs the question, how do we do that?
 
-## How shells start processes
+## Shell 如何启动进程
 
 Now, we’re really at the heart of what a shell does. Starting processes is the main function of shells. So writing a shell means that you need to know exactly what’s going on with processes and how they start. That’s why I’m going to take us on a short diversion to discuss processes in Unix.
 
@@ -201,16 +201,16 @@ int lsh_launch(char **args)
 
   pid = fork();
   if (pid == 0) {
-    // Child process
+    // 子进程
     if (execvp(args[0], args) == -1) {
       perror("lsh");
     }
     exit(EXIT_FAILURE);
   } else if (pid < 0) {
-    // Error forking
+    // Fork 出错
     perror("lsh");
   } else {
-    // Parent process
+    // 父进程
     do {
       wpid = waitpid(pid, &status, WUNTRACED);
     } while (!WIFEXITED(status) && !WIFSIGNALED(status));
@@ -230,7 +230,7 @@ The second condition (`pid < 0`) checks whether `fork()` had an error. If so, we
 
 The third condition means that `fork()` executed successfully. The parent process will land here. We know that the child is going to execute the process, so the parent needs to wait for the command to finish running. We use `waitpid()` to wait for the process’s state to change. Unfortunately, `waitpid()` has a lot of options (like `exec()`). Processes can change state in lots of ways, and not all of them mean that the process has ended. A process can either exit (normally, or with an error code), or it can be killed by a signal. So, we use the macros provided with `waitpid()` to wait until either the processes are exited or killed. Then, the function finally returns a 1, as a signal to the calling function that we should prompt for input again.
 
-### Shell Builtins
+### Shell 内置函数
 
 You may have noticed that the `lsh_loop()` function calls `lsh_execute()`, but above, we titled our function `lsh_launch()`. This was intentional! You see, most commands a shell executes are programs, but not all of them. Some of them are built right into the shell.
 
