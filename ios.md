@@ -1,3 +1,4 @@
+* [状态恢复入门教程](https://juejin.im/post/5c330d0ce51d45518e147fd2) ([nanjingboy](https://github.com/nanjingboy) 翻译)
 * [值类型导向编程](https://juejin.im/post/5c2c3f8d518825480635db8b) ([nanjingboy](https://github.com/nanjingboy) 翻译)
 * [使用 Swift 的 iOS 设计模式（第二部分）](https://juejin.im/post/5c1786576fb9a049f06a2c4a) ([iWeslie](https://github.com/iWeslie) 翻译)
 * [使用 Swift 的 iOS 设计模式（第一部分）](https://juejin.im/post/5c05d4ee5188250ab14e62d6) ([iWeslie](https://github.com/iWeslie) 翻译)

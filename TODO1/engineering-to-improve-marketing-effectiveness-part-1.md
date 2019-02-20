@@ -2,50 +2,50 @@
 > * 原文作者：[Netflix Technology Blog](https://medium.com/@NetflixTechBlog?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/engineering-to-improve-marketing-effectiveness-part-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/engineering-to-improve-marketing-effectiveness-part-1.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[kuangbao9](https://github.com/kuangbao9)
 
-# Engineering to Improve Marketing Effectiveness (Part 1)
+# 提高营销效率的工程（第一部分）
 
-Authored by — [Subir Parulekar](https://www.linkedin.com/in/subir-parulekar-19ab403/), [Gopal Krishnan](https://www.linkedin.com/in/gopal-krishnan-9057a7/)
+作者 — [Subir Parulekar](https://www.linkedin.com/in/subir-parulekar-19ab403/)、[Gopal Krishnan](https://www.linkedin.com/in/gopal-krishnan-9057a7/)
 
-_“Make people so excited about our content that they sign up and watch”_
+**“让大家对我们的内容感兴趣，这样他们就会注册并进行观看”**
 
-- Kelly Bennett, Netflix Chief Marketing Officer
+- Kelly Bennett，Netflix 的首席营销官
 
-This statement has become the driving force on our Advertising Technology (AdTech) team. With a slate of great original content to promote, Netflix has a unique opportunity to use both earned and paid media to create the excitement among people all over the world. Netflix is now available in 190 countries and advertises globally in dozens of languages, for hundreds of pieces of content, using millions of promotional assets.
+这句话已经成为我们广告技术（AdTech）团队的动力。Netflix 有大量优秀的原创内容可供推广，因此存在一个既可以利用赚钱的媒体，也可以利用付费的媒体来为世界各地的人们创造他们感兴趣的内容的独特机会。Netflix 现在已经在 190 个国家和地区进行了推广，拥有数百万中资产，以数十种语言形式在全球范围内宣传数百种内容。
 
-The AdTech team’s charter is to help make it easy for our marketing partners to spend their time and money wisely through experimentation and automation. This involves deep partnership with marketing, operations, finance, science and analytics groups to drive improvements across the board. This is the first in a series of blog posts where we share all the ways we partner with our marketing team all the way from collaborative asset creation and assembly of advertisements to optimizing campaigns on programmatic channels.
+AdTech 团队的宗旨是帮助我们的市场营销伙伴通过实验和自动化来利益最大化他们所花费的时间和金钱。这涉及到为推进全面改进而与市场营销、运营、财务、科学和分析团队的深入合作。这是系列博客中的第一篇，分享了与我们的营销团队合作的所有方式，从合作创作资产、组装广告到优化计划渠道上的活动。
 
-**Context and Culture:**
+**背景和文化：**
 
-The Netflix marketing team believes the best ways to create demand for Netflix is to promote high quality, exclusive content that can only be watched on Netflix. If we are successful at creating demand for our original content, new members will sign up. As part of this process, we are more successful if we create and collect on this demand (acquisition marketing) in about the right proportion by market.
+Netflix 营销团队相信，创造 Netflix 需求的最佳途径是推广只能在 Netflix 上观看的高质量的独家内容。如果我们成功创作了对原始内容的需求，那么新会员就会注册。作为这一过程的一部分，如果我们按照市场的正确比例创造和收集这种需求（收购营销），那么我们会更加成功。
 
-Choosing which titles and markets to support remains a mix of art and science, with our creative teams working hand in hand with our technology teams to create winning formulas. Marketing makes top level strategy decisions on the set of markets to advertise in, the set of titles that need attention, and the creative behind the title in partnership with the director/showrunner.
+选择支持哪些标题和市场仍然需要艺术与科学的结合，我们的创意团队与我们的技术团队携手合作，共同创造出成功的公式。市场营销根据需要关注标题集，以及与导演/节目主持人合作的片名背后的创意，制定一系列广告市场的顶级战略决策。
 
-The AdTech team helps our marketing partners execute against that strategy in the following ways:
+AdTech 团队通过以下方式来帮助我们的营销伙伴执行该策略：
 
-1.  Creating technology to streamline workflows to improve assets for marketing. This frees up the marketing team to be more focused on creative aspects and less on the mundane.
-2.  Creating a unified internal platform for creating ads and campaigns across all our promotional canvases and channels. E.g. Facebook, Youtube, Instagram, TV, out of home, etc.
-3.  Enabling technology that allows us to measure and optimize the effectiveness of our marketing campaigns — be it via online programmatic channels or via offline channels. For example, we do this through various algorithms on Facebook and YouTube that help us better understand impact and improve our spend efficiency.
+1.  为了改善营销资产，我们进行创新技术来简化工作流程。这解放了营销团队，让他们可以减少对日常生活的关注，聚焦于创意领域。
+2.  为了在所有宣传画布和频道中创建广告，可以创建一个统一的内部平台。例如，Facebook、YouTube 和 Instagram。TV 和户外等。
+3.  启用使我们能衡量和优化我们的营销活动有效性的技术 —— 无论是通过在线编程渠道还是离线渠道。例如，我们通过 Facebook 和 YouTube 上的各种算法来实现这一点，这些算法可以帮助我们更好地理解影响并提高我们的消费效率。
 
-We are proud of Netflix’s data driven culture, as you can read about [here](https://medium.com/netflix-techblog/its-all-a-bout-testing-the-netflix-experimentation-platform-4e1ca458c15) and [here](https://ieondemand.com/presentations/quasi-experimentation-at-netflix-beyond-a-b-testing). Just as we improve our Netflix product through A/B testing, our marketing team embraces experimentation to help guide and improve human judgement. The more we can create tools and processes that streamline our approach, the more our talented teams can focus on helping great stories reach the right audiences. Our philosophy is “_every dollar we spend is a dollar we can learn from”_. The AdTech team ultimately seeks to create technology that will enable our partners to spend more of their time on strategic and creative decisions, while we use experimentation to guide Netflix’s instincts on the best tactical path forward.
+我们为 Netflix 的数据驱动文化感到自豪，你可以在[这里](https://medium.com/netflix-techblog/its-all-a-bout-testing-the-netflix-experimentation-platform-4e1ca458c15)和[这里](https://ieondemand.com/presentations/quasi-experimentation-at-netflix-beyond-a-b-testing)阅读到相关内容。正如我们通过 A/B 测试来改进 Netflix 产品一样，我们的营销团队也会利用实验来引导和提高人们的判断力。我们越是能创造工具和流程来简化我们的方法，我们的团队就越能专注于帮助正确的受众体验到优秀的成果。我们的理念是“**我们花费的每一美元，都是务必要物超所值**。AdTech 团队致力于寻求技术创新，使我们的合作伙伴能够将更多的时间花在战略性和创造性的决策上，而我们则利用实验来引导 Netflix 在最佳策略上的直觉判断。
 
-**Optimizing for Incrementality**
+**优化增长**
 
-Netflix aims to use paid media to drive incremental effectiveness. Some cohorts of people are likely to sign up for Netflix anyway (e.g. due to a friend’s recommendation) and we would rather not show ads to them to the extent we are able to control for it. Instead, what we are most interested in is having our marketing focus on people who have not yet made up their mind about Netflix. This overall strategy has heavily shaped our philosophy and work as you will find in subsequent blog posts.
+Netflix 的目标是使用付费媒体来提高效率。有些人可能会注册 Netflix（例如，由于朋友的推荐），但我们不愿意在我们能够控制的范围内向他们展示广告。相反，我们最感兴趣的重点营销对象是那些尚未对 Netflix 下定决心的人。这一总体策略在很大程度上影响了我们的理念和工作，就像你在随后的博客种所发现的那样。
 
-At a high level, we can model the marketing lifecycle at Netflix to these four steps:
+在更高的层次中，我们可以将 Netflix 的营销生命周期建模成以下四个步骤：
 
 ![](https://cdn-images-1.medium.com/max/800/0*f_bkj3H4z6gSA5ja.)
 
-This article will go in details on first step of Creative Development & Localization. We will give an overview of the work to support our operations team who helps create millions of assets (trailers, artwork, etc.) that are used in Netflix marketing.
+本文将详细介绍创意开发与本地化的第一步。我们将概述应用于 Netflix 营销市场中，支持我们创造数百万资产（预告片、艺术品等）的运营团队所做的工作。
 
-**Creative Development & Localization at Scale**
+**规模化的创意开发与本地化**
 
-The rate at which Netflix is growing, marketing all of the Netflix Original titles in dozens of languages, with many concepts & message types will ultimately result in millions of marketing assets. We need our marketing, social & PR teams to come together to scale our content campaigns globally around the world. This will only be possible when we build a streamlined, robust asset creation & delivery pipeline to automate all the processes involved. This is where the Digital Marketing Infrastructure team enters! Our charter is to create applications and services that help Netflix Marketing optimize and automate their processes and scale their operations to deliver a large number of video, digital and print assets for all Netflix marketing campaigns being worked on across the globe.
+Netflix 的增长速度得力于它以数十种语言来营销 Netflix 的所有新颖的标题，包括最终将产生数百万的营销资产的许多概念和消息类型。我们需要让市场营销、社交和公关团队团结起来，在全球范围内扩展我们的内容活动。只有当我们构建了一个流线型、健壮的资产创造和交付管道来自动化所有涉及的过程时，才能实现这一目标。这是数字营销基础设施团队关注的领域！我们的目标是创建应用程序和服务，来帮助 Netflix 营销优化和自动化流程，扩大其业务范围，为正在全球范围内开展的所有 Netflix 营销活动提供大量的视频、数字和影印资产。
 
-To put it in simple words — any Netflix trailers and digital artwork that you see on YouTube, Facebook, Snapchat, Instagram, Twitter and other social media platforms or on TV are created and localized using tools built by the team. We even touch some of those physical billboards and posters you see at various freeways and traffic lights and on buses and trains all over the world.
+简而言之 —— 你可以在 YouTube、Facebook、Snpchat、Instagram 和 Twitter 和其他社交媒体平台或电视上看到 Netflix 的任何预告片和数码艺术品，它们都是用团队开发工具创建和本地化的。我们的领域甚至涉及到了世界各地的高速公路、交通灯、公共汽车和火车上，你所能看到的一些实体广告牌和海报。
 
 ![](https://cdn-images-1.medium.com/max/400/0*6vxzgYQuNvpUils5.)
 
@@ -53,47 +53,47 @@ To put it in simple words — any Netflix trailers and digital artwork that 
 
 ![](https://cdn-images-1.medium.com/max/400/0*BmrA1SFkZ0jKx_Dk.)
 
-Netflix posters on subways (New York), elevators (Colombia) and billboards (Mumbai)
+Netflix 在地铁（纽约）、电梯（哥伦比亚）和广告牌（孟买）上的海报
 
-**So how are these trailers created?**
+**那么这些预告片是如何被创建的呢？**
 
-In the Audio Visual (AV) world, it all starts with the Marketing Creative team working with external agencies to create a set of trailers for a particular title. A title can be a Series like [Stranger Things](https://www.netflix.com/title/80057281) or a movie like [Bright](https://www.netflix.com/title/80119234), or a Stand up Comedy like [Dave Chappelle’s](https://www.netflix.com/title/80171965) or a Documentary like [13th](https://www.netflix.com/title/80091741). After a few rounds of creative review and feedback, the trailer is finalized for the original language of the title. Regions then need this trailer in various combinations of subtitles, dubs, ratings card, Netflix logo in specific locations on the screen, etc. Here is an example showing these various combinations for a frame from [Ozark](https://www.netflix.com/title/80117552).
+在音频视觉（AV）领域中，这一切都始于营销创意团队与外部机构合作，为一个特定的标题创建一组预告片。标题可以是像[Stranger Things](https://www.netflix.com/title/80057281) 这样的系列，或者是 [Bright](https://www.netflix.com/title/80119234) 这样的电影，亦或是像 [Dave Chappelle](https://www.netflix.com/title/80171965) 的独立喜剧，亦或是像 [13th](https://www.netflix.com/title/80091741) 这样的记录片。经过几轮创造性的回顾和反馈后，预告片最终确定了标题的原始语言。之后，特定领域会需要这个预告片在屏幕上的特定位置进行字幕，配音，评级卡，Netflix 标志的各种组合等。下面是展示了 [Ozark](https://www.netflix.com/title/80117552) 中的一个框架的各种组合的示例。
 
 ![](https://cdn-images-1.medium.com/max/800/0*RKKQ86KDXyAfTgZK.)
 
-The Marketing team works with multiple partner agencies to build these localized video files for these trailers. The assets are then encoded to specifications (file type, resolution, encoding) of the social platform where they will be delivered.
+营销团队与多个合作伙伴合作，为这些预告片构建这些本地化的视频文件。然后将这些资产编码为交付给它们的社交平台的规范。
 
-To give an insight into the numbers, the following graphic gives an idea on the number of video assets that were created for marketing [Bright](https://www.netflix.com/title/80119234). We ended up with a total of over 5000 different files covering different languages and various ad formats.
+为了深入了解这些数字，下图给出了为市场营销而创建的视频资产的数量[资产的数量](https://www.netflix.com/title/80119234)。我们最终获得了 5000 多个不同的文件，涵盖了不同的语言和广告格式。
 
 ![](https://cdn-images-1.medium.com/max/800/0*25v1WBwYoFBb3Qyf.)
 
-Our Marketing team spends a lot of time creating, producing, testing, and sometimes redelivering these assets due to video, subtitle, dubbing issues. We also incur expenses for getting these done by external agencies to help scale out this operation today. Moving forward, we would love to be able to gather metrics during the marketing campaign to identify bottlenecks, be able to compare campaigns for various titles and provide much needed visibility across global teams.
+由于视频、字幕、配音等问题，我们的营销团队在创作，生产，测试中花费了大量的时间，有时由于视频问题还会重发这些资产。为了帮助扩展这项业务，我们还为外部机构完成这些工作承担了费用。我们希望未来可以在营销活动期间通过收集指标来确定瓶颈，能够比较各种标题的活动，并在全球团队中提供需求的可见性。
 
-**How do we help?**
+**我们如何帮助他们？**
 
-We started our work by looking through the Marketing workflow and identifying key automation points in the process and started building applications/services to help optimize. We are building:
+我们通过查看营销工作流以及流程中的关键的自动化点来开始工作，然后开始构建应用程序/服务来帮助优化。我们正在构建：
 
-*  **Digital Asset Management**: We are building a Digital Asset Management (DAM) system that provides a user interface to our partners and external agencies to upload/download/share these digital assets. We support uploading up to terabytes of data and millions of files from video/photo shoots in a single upload. We have leveraged Amazon S3 to store the physical assets, but store the metadata for the assets in the DAM. We have built collaboration features on top of the system and are continuing to invest in building out more features to essentially build something that will be a DAM + Dropbox + Google docs and will have the benefit of being connected with the Netflix ecosystem of tools.
+*  **数字资产管理**：我们正在构建一个数字资产管理系统，为我们的合作伙伴和外部机构提供一个可以上传/下载/共享这些数字资产的用户界面。我们支持在一次上传中上传高达兆字节的数据和数百万来自视频/照片拍摄的文件。我们利用 Amazon S3 存储物理资产，但将资产的元数据存储在 DAM 中。我们已经在系统之上构建了协作功能，也在继续投资构建更多的功能，从本质上说，这将是一个 DAM + Dropbox + Google 文档，将具有与 Netflix 工具生态系统相连接的能力。
 
-*  **Video Clipping in the Cloud**: We are rebuilding a video clipping tool that our agency partners can use to clip short video clips from footage to create the trailers/teasers.
+*  **云中的视频剪辑**：我们正在重建一个视频剪辑工具，我们的合作伙伴可以使用这个工具从视频片段中剪辑短片来创建预告片。
 
-*  **Video assembly for marketing assets**: We are actively working on a first of its kind video assembly tool. At the click of a button, this tool will automate creation of localized versions of the trailer given all the inputs such as the master trailer file along with the subtitles, dubbing and other relevant information for a language/region. We are excited to continue innovating with the assembly as we are confident of seeing huge benefits by reducing time, effort and expenses that are incurred today to create these localized assets in various languages. What takes hours and days today will just take seconds and minutes to get done!
+*  **为营销资产组装视频**：我们正致力于开发首个视频组装工具。单击按钮后，该工具将自动创建预告片的本地化版本，提供所有输入，如主预告片文件、字幕、配音和其他语言/区域相关信息。我们很高兴能够在组装方面进行创新，因为我们有信心通过减少当前所用的各种语言创建本地化资产所花费的时间、精力和费用来获得巨大利益。现在，创建这些本地化资产，我们需要几秒或者几分钟就可以完成任务！
 
-*  **Encoding in the cloud**: We are leveraging the [Netflix Encoding Service](https://medium.com/netflix-techblog/high-quality-video-encoding-at-scale-d159db052746) to encode the assets as per platform specifications. However, the Marketing teams do not need to know the specific encoding details needed by the social media platforms and so we are providing an abstraction layer on top of the encoding service where the teams only need to specify the platforms and the layer converts that to the encoding specs. We are providing this as a service for other tools in Netflix to use.
+*  **云中编码**：我们正在利用 [Netflix 编码服务](https://medium.com/netflix-techblog/high-quality-video-encoding-at-scale-d159db052746)将资产编码为不同平台规范。然而，营销团队不需要知道社交媒体平台所需的特定编码细节，因此我们在编码服务之上提供抽象层，团队只需要指定平台，该层会将其转换为对应的编码规范。我们将此作为 Netflix 中其他工具的服务进行提供。
 
-*  **Campaign management oversight**: We are creating a global campaign management lifecycle application to provide insights into the health of the marketing campaigns. This follows the campaign over several months & provides visibility into all of the work being done, including metrics, bottlenecks & modeling the workflow through which the assets move from inception to delivery. This application will be the central hub used by various sub-teams within Marketing to collaborate and gain visibility into the asset creation and production workflow.
+*  **活动管理监督**：我们正在创建一个全球活动管理生命周期应用程序，来提供有关营销活动健康状况的监控。这项活动将持续数月，对所有正在完成的工作提供可见性，包括指标，瓶颈以及资产从开始到交付的工作流建模。该应用程序将成为各个子团队使用的中心枢纽。
 
-As we make progress on each of these tools individually, the real value will be realized when all of these tools start interacting with each other and doing automated handoffs for the assets from one tool to another minimizing human involvement for lower order decisions. Here is how it will all come together.
+当我们在每个工具上取得进展时，或者所有这些工具开始相互交互，并将资产从一个工具自动切换到另一个工具时，真正的价值就会实现，这将最大限度的减少人员对不重要决策的参与，以下是如何将它们结合在一起的方式。
 
 ![](https://cdn-images-1.medium.com/max/800/0*e_uEt-JxxMTwxHaY.)
 
-We have set ourselves with the goal of making 2018 the year when all the moving pieces start to work together and we expect to see tremendous gains on the operations side in terms of time, effort and resources.
+我们设定了目标，让 2018 年成为所有移动部件开始协同工作的一年，我们期望在时间、成果和资源方面都取得巨大的进展。
 
-The team is growing fast and rightly so, as the benefit of automating and optimizing most of these workflows will save us a lot of manual hours and expense. That is the only way forward for us to scale. We are hiring for several [open positions](https://sites.google.com/netflix.com/adtechjobs) in the AdTech team to help us architect and build these systems. A chance to make an impact of this magnitude is rare. If you are interested in working on these complex challenges to disrupt the entertainment industry and shape its future, we would love for you to be a part of the team!
+团队一直在向着正确又快速的方向发展，而且自动化和优化这些工作流可以为我们节省大量人工时间和成本。这是我们扩大规模的唯一途径。我们正在招聘 AdTech 团队中的几个[空缺职位](https://sites.google.com/netflix.com/adtechjobs)，来帮助我们设计和构建这些系统。如果你有兴趣解决这些复杂的挑战，颠覆娱乐行业，塑造其未来，我们希望你成为团队的一员
 
-As mentioned earlier, Creative Development & Localization is just the first stage in the Marketing Asset Creation and Delivery pipeline. There are a lot of interesting opportunities and challenges in the whole process.
+就像前面提及的那样，创意开发和本地化只是营销资产创建和交付过程中的第一个阶段。在整个过程中，会存在许多有趣的机会和挑战。
 
-Our follow up articles will go in depth on the next stages of the marketing lifecycle. So stay tuned!
+我们的后续文章会深入营销生命周期的下一个阶段。敬请期待！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

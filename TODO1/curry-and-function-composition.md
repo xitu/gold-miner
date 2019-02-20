@@ -5,7 +5,7 @@
 > * 译者：[子非](https://www.github.com/CoolRice)
 > * 校对者：[wuzhengyan2015](https://github.com/wuzhengyan2015), [TTtuntuntutu](https://github.com/TTtuntuntutu)
 
-# 柯里化与函数组合
+# 柯里化与函数组合（第十七部分）
 
 ![](https://cdn-images-1.medium.com/max/2000/1*uVpU7iruzXafhU2VLeH4lw.jpeg)
 

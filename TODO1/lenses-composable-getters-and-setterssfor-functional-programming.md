@@ -2,39 +2,39 @@
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lenses-composable-getters-and-setterssfor-functional-programming.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lenses-composable-getters-and-setterssfor-functional-programming.md)
-> * 译者：
-> * 校对者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
+> * 校对者：[Moonliujk](https://github.com/Moonliujk)
 
-# Lenses: Composable Getters and Setters for Functional Programming
+# Lenses：可组合函数式编程的 Getter 和 Setter（第十九部分）
 
 ![](https://cdn-images-1.medium.com/max/2000/1*uVpU7iruzXafhU2VLeH4lw.jpeg)
 
-Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)
+烟雾艺术立方 — MattysFlicks —（CC BY 2.0）
 
-> **Note:** This is part of the [**“Composing Software” book**](https://leanpub.com/composingsoftware) that started life right here as a blog post series. It covers functional programming and compositional software techniques in JavaScript (ES6+) from the ground up.  
-> [_< Previous_](https://github.com/xitu/gold-miner/blob/master/TODO1/transducers-efficient-data-processing-pipelines-in-javascript.md) _|_ [_<< Start over at Part 1_](https://juejin.im/post/5c0dd214518825444758453a)
+> **注意：本篇是[“组合软件”这本书](https://leanpub.com/composingsoftware)** 的一部分，它将以系列博客的形式展开新生。它涵盖了 JavaScript（ES6+）函数式编程和可组合软件技术的最基础的知识。
+> [< 上一篇](https://github.com/xitu/gold-miner/blob/master/TODO1/transducers-efficient-data-processing-pipelines-in-javascript.md) | [<< 从第一部分开始](https://juejin.im/post/5c0dd214518825444758453a)
 
-A lens is a composable pair of pure getter and setter functions which focus on a particular field inside an object, and obey a set of axioms known as the lens laws. Think of the object as the _whole_ and the field as the _part_. The getter takes a whole and returns the part of the object that the lens is focused on.
+lens 是一对可组合的 getter 和 setter 纯函数，它会关注对象内部的一个特殊字段，并且会遵从一系列名为 lens 法则的公理。将对象视为**整体**，字段视为**局部**。getter 以对象整体作为参数，然后返回 lens 所关注的对象的一部分。
 
 ```
 // view = whole => part
 ```
 
-The setter takes a whole, and a value to set the part to, and returns a new whole with the part updated. Unlike a function which simply sets a value into an object’s member field, Lens setters are pure functions:
+setter 则以对象整体作为参数，以及一个需要设置的值，然后返回一个新的对象整体，这个对象的特定部分已经更新。和一个简单设置对象成员字段的值的函数不同，Lens 的 setter 是纯函数：
 
 ```
 // set = whole => part => whole
 ```
 
-> **Note:** In this text, we’re going to use some naive lenses in the code examples just to give you a beneath-the-hood peek at the general concept. For production code, you should look at a well tested library like Ramda, instead. The API differs between different lens libraries, and it’s possible to express lenses in more composable, elegant ways than they are presented here.
+> **注意**：在本篇中，我们将在代码示例中使用一些原生的 lenses，这样是为了对总体概念有更深入的了解。而对于生产环境下的代码，你则应该看看像 Ramda 这样的经过充分测试的库。不同的 lens 库的 API 也不同，比起本篇给出的例子，更有可能用可组合性更强、更优雅的方法来描述 lenses。
 
-Imagine you have a tuple array representing a point’s `x`, `y`, and `z` coordinates:
+假设你有一个元组数组（tuple array），代表了一个包含 `x`、`y` 和 `z` 三点的坐标：
 
 ```
 [x, y, z]
 ```
 
-To get or set each field individually, you might create three lenses. One for each axis. You could manually create getters which focus on each field:
+为了能分别获取或者设置每个字段，你可以创建三个 lenses。每个轴一个。你可以手动创建关注每个字段的 getter：
 
 ```
 const getX = ([x]) => x;
@@ -46,7 +46,7 @@ console.log(
 );
 ```
 
-Likewise, the corresponding setters might look like this:
+同样，相应的 setter 也许会像这样：
 
 ```
 const setY = ([x, _, z]) => y => ([x, y, z]);
@@ -56,50 +56,50 @@ console.log(
 );
 ```
 
-### Why Lenses?
+### 为什么选择 Lenses？
 
-State shape dependencies are a common source of coupling in software. Many components may depend on the shape of some shared state, so if you need to later change the shape of that state, you have to change logic in multiple places.
+状态依赖是软件中耦合性的常见来源。很多组件会依赖于共享状态的结构，所以如果你需要改变状态的结构，你就必须修改很多处的逻辑。
 
-Lenses allow you to abstract state shape behind getters and setters. Instead of littering your codebase with code that dives deep into the shape of a particular object, import a lens. If you later need to change the state shape, you can do so in the lens, and none of the code that depends on the lens will need to change.
+Lenses 让你能够把状态的结构抽象，让它隐藏在 getters 和 setter 之后。为代码引入 lens，而不是丢弃你的那些涉及深入到特定对象结构的代码库的代码。如果后续你需要修改状态结构，你可以使用 lens 来做，并且不需要修改任何依赖于 lens 的代码。
 
-This follows the principle that a small change in requirements should require only a small change in the system.
+这遵循了需求的小变化将只需要系统的小变化的原则。
 
-### Background
+### 背景
 
-In 1985, [“Structure and Interpretation of Computer Programs”](https://www.amazon.com/Structure-Interpretation-Computer-Programs-Engineering/dp/0262510871/ref=as_li_ss_tl?ie=UTF8&linkCode=ll1&tag=eejs-20&linkId=9fac31d60f8b9b60f63f71ab716694bc) described getter and setter pairs (called `put` and `get` in the text) as a way to isolate an object's shape from the code that uses the object. The text shows how to create generic selectors that access parts of a complex number independent of how the number is represented. That isolation is useful because it breaks state shape dependencies. These getter/setter pairs were a bit like referenced queries which have existed in relational databases for decades.
+在 1985 年，[“Structure and Interpretation of Computer Programs”](https://www.amazon.com/Structure-Interpretation-Computer-Programs-Engineering/dp/0262510871/ref=as_li_ss_tl?ie=UTF8&linkCode=ll1&tag=eejs-20&linkId=9fac31d60f8b9b60f63f71ab716694bc) 描述了用于分离对象结构与使用对象的代码的方法的 getter 和 setter 对（下文中称为 `put` 和 `get`）。文章描述了如何创建通用的选择器，它们访问复杂变量，但却不依赖变量的表示方式。这种分离特性非常有用，因为它打破了对状态结构的依赖。这些 getter 和 setter 对有点像这几十年来一直存在于关系数据库中的引用查询。
 
-Lenses took the concept further by making getter/setter pairs more generic and composable. They were popularized after Edward Kmett released the Lens library for Haskell. He was influenced by Jeremy Gibbons and Bruno C. d. S. Oliveira, who demonstrated that traversals express the iterator pattern, Luke Palmer’s “accessors”, Twan van Laarhoven, and Russell O’Connor.
+Lenses 把 getter 和 setter 对做得更加通用，更有可组合性，从而更加延伸了这个概念。在 Edward Kmett 发布了为 Haskell 写的 Lens 库后，它们更加普及。他是受到了推论出了遍历表达了迭代模式的 Jeremy Gibbons 和 Bruno C. d. S. Oliveira，Luke Palmer 的 “accessors”，Twan van Laarhoven 以及 Russell O’Connor 的影响。
 
-> **Note:** An easy mistake to make is to equate the modern notion of a functional lens with Anamorphisms, based on Erik Meijer, Maarten Fokkinga, and Ross Paterson’s [“Functional Programming with Bananas, Lenses, Envelopes and Barbed Wire”](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.41.125) in 1991. “The term ‘lens’ in the functional reference sense refers to the fact that it looks at part of a whole. The term ‘lens’ in a recursion scheme sense refers to the fact that `[(` and `)]` syntactically look kind of like concave lenses. **tl;dr** They have nothing to do with one another." ~ [Edward Kmett on Stack Overflow](https://stackoverflow.com/questions/17198072/how-is-anamorphism-related-to-lens)
+> **注意**：一个很容易犯的错误是，将函数式 lens 的现代观念和 Anamorphisms 等同，Anamorphisms 基于 Erik Meijer，Maarten Fokkinga 和 Ross Paterson 1991 年发表的 [“使用 Bananas，Lenses，Envelopes 和 Barbed Wire 的函数式编程”](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.41.125)。“函数意义上的术语 ‘lens’ 指的是它看起来是整体的一部分。在递归结构意义上的术语 ‘lens’ 指的是 `[(` and `)]`，它在语法上看起来有些像凹透镜。**太长，请不用读**。它们之间并没有任何关系。” ~ [Edward Kmett on Stack Overflow](https://stackoverflow.com/questions/17198072/how-is-anamorphism-related-to-lens)
 
-### Lens Laws
+### Lens 法则
 
-The lens laws are algebraic axioms which ensure that the lens is well behaved.
+lens 法则其实是代数公理，它们确保 lens 能良好运行。
 
-1.  `view(lens, set(lens, a, store)) ≡ a` — If you set a value into the store, and immediately view the value through the lens, you get the value that was set.
-2.  `set(lens, b, set(lens, a, store)) ≡ set(lens, b, store)` — If you set a lens value to `a` and then immediately set the lens value to `b`, it's the same as if you'd just set the value to `b`.
-3.  `set(lens, view(lens, store), store) ≡ store` — If you get the lens value from the store, and then immediately set that value back into the store, the value is unchanged.
+1.  `view(lens, set(lens, a, store)) ≡ a` — 如果你将一组值设置到一个 store 里，并且马上通过 lens 看到了值，你将能获取到这个被设置的值。
+2.  `set(lens, b, set(lens, a, store)) ≡ set(lens, b, store)` — 如果你为 `a` 设置了一个 lens 值，然后马上为 `b` 设置 lens 值，那么和你只设置了 `b` 的值的结果是一样的。
+3.  `set(lens, view(lens, store), store) ≡ store` — 如果你从 store 中获取 lens 值，然后马上将这个值再设置回 store 里，这个值就等于没有修改过。
 
-Before we dive into code examples, remember that if you’re using lenses in production, you should probably be using a well tested lens library. The best one I know of in JavaScript is Ramda. We’re going to skip that for now and build some naive lenses ourselves, just for the sake of learning:
+在我们深入代码示例之前，记住，如果你在生产环境中使用 lenses，你应该使用经过充分测试的 lens 库。在 JavaScript 语言中，我知道的最好的是 Ramda。目前，为了更好的学习，我们先跳过这部分，自己写一些原生的 lenses。
 
 ```
-// Pure functions to view and set which can be used with any lens:
+// 纯函数 view 和 set，它们可以配合任何 lens 一起使用：
 const view = (lens, store) => lens.view(store);
 const set = (lens, value, store) => lens.set(value, store);
 
-// A function which takes a prop, and returns naive
-// lens accessors for that prop.
+// 一个将 prop 作为参数，返回 naive 的函数
+// 通过 lens 存取这个 prop。
 const lensProp = prop => ({
   view: store => store[prop],
-  // This is very naive, because it only works for objects:
+  // 这部分代码是原生的，它只能为对象服务：
   set: (value, store) => ({
     ...store,
     [prop]: value
   })
 });
 
-// An example store object. An object you access with a lens
-// is often called the "store" object:
+// 一个 store 对象的例子。一个可以使用 lens 访问的对象
+// 通常被称为 “store” 对象
 const fooStore = {
   a: 'foo',
   b: 'bar'
@@ -108,29 +108,28 @@ const fooStore = {
 const aLens = lensProp('a');
 const bLens = lensProp('b');
 
-// Destructure the `a` and `b` props from the lens using
-// the `view()` function.
+// 使用`view()` 方法来解构 lens 中的属性 `a` 和 `b`。
 const a = view(aLens, fooStore);
 const b = view(bLens, fooStore);
 console.log(a, b); // 'foo' 'bar'
 
-// Set a value into our store using the `aLens`:
+// 使用 `aLens` 来设置 store 中的值：
 const bazStore = set(aLens, 'baz', fooStore);
 
-// View the newly set value.
+// 查看新设置的值。
 console.log( view(aLens, bazStore) ); // 'baz'
 ```
 
-Let’s prove the lens laws for these functions:
+我们来证实下这些函数的 lens 法则：
 
 ```
 const store = fooStore;
 
 {
   // `view(lens, set(lens, value, store))` = `value`
-  // If you set a value into the store, and immediately
-  // view the value through the lens, you get the value
-  // that was set.
+  // 如果你把某个值存入 store，
+  // 然后马上通过 lens 查看这个值，
+  // 你将会获取那个你刚刚存入的值
   const lens = lensProp('a');
   const value = 'baz';
 
@@ -142,8 +141,8 @@ const store = fooStore;
 
 {
   // set(lens, b, set(lens, a, store)) = set(lens, b, store)
-  // If you set a lens value to `a` and then immediately set the lens value to `b`,
-  // it's the same as if you'd just set the value to `b`.
+  // 如果你将一个 lens 值存入了 `a` 然后马上又存入 `b`，
+  // 那么和你直接存入 `b` 是一样的
   const lens = lensProp('a');
 
   const a = 'bar';
@@ -157,8 +156,8 @@ const store = fooStore;
 
 {
   // `set(lens, view(lens, store), store)` = `store`
-  // If you get the lens value from the store, and then immediately set that value
-  // back into the store, the value is unchanged.
+  // 如果你从 store 中获取到一个 lens 值，然后马上把这个值
+  // 存回到 store，那么这个值不变
   const lens = lensProp('a');
 
   const r1 = set(lens, view(lens, store), store);
@@ -168,9 +167,9 @@ const store = fooStore;
 }
 ```
 
-### Composing Lenses
+### 组合 Lenses
 
-Lenses are composable. When you compose lenses, the resulting lens will dive deep into the object, traversing the full object path. Let’s import the more full-featured `lensProp` from Ramda to demonstrate:
+Lenses 是可组合的。当你组合 lenses 的时候，得到的结果将会深入对象的字段，穿过所有对象中字段可能的组合路径。我们将从 Ramda 引入功能全面的 `lensProp` 来做说明：
 
 ```
 import { compose, lensProp, view } from 'ramda';
@@ -195,11 +194,11 @@ console.log(
 );
 ```
 
-That’s great, but there’s more to composition with lenses that we should be aware of. Let’s take a deeper dive.
+棒极了，但是其实还有很多使用 lenses 的组合值得我们注意。让我们继续深入。
 
 ### Over
 
-It’s possible to apply a function from `a => b` in the context of any functor data type. We've already demonstrated that functor mapping _is composition._ Similarly, we can apply a function to the value of focus in a lens. Typically, that value would be of the same type, so it would be a function from `a => a`. The lens map operation is commonly called "over" in JavaScript libraries. We can create it like this:
+在任何仿函数数据类型的情况下，应用源自 `a => b` 的函数都是可能的。我们已经论述了，这个仿函数映射是**可组合的。**类似的，我们可以在 lens 中对关注的值应用某个函数。通常情况下，这个值是同类型的，也是一个源于 `a => a` 的函数。lens 映射的这个操作在 JavaScript 库中一般被称为 “over”。我们可以像这样创建它：
 
 ```
 // over = (lens, f: a => a, store) => store
@@ -212,11 +211,11 @@ console.log(
 );
 ```
 
-Setters obey the functor laws:
+Setter 遵守了仿函数规则：
 
 ```
-{ // if you map the identity function over a lens
-  // the store is unchanged.
+{ // 如果你通过 lens 映射特定函数
+  // store 不变
   const id = x => x;
   const lens = aLens;
   const a = over(lens, id, store);
@@ -226,7 +225,7 @@ Setters obey the functor laws:
 }
 ```
 
-For the composition example, we’re going to use an auto-curried version of over:
+对于可组合的示例，我们将使用一个 over 的 auto-curried 版本：
 
 ```
 import { curry } from 'ramda';
@@ -236,11 +235,11 @@ const over = curry(
 );
 ```
 
-Now it’s easy to see that lenses under the over operation also obey the functor composition law:
+很容易看出，over 操作下的 lenses 依旧遵循仿函数可组合规则：
 
 ```
-{ // over(lens, f) after over(lens g) is the same as
-  // over(lens, compose(f, g))
+{ // over(lens, f) after over(lens g)
+  // 和 over(lens, compose(f, g)) 是一样的
   const lens = aLens;
 
   const store = {
@@ -264,15 +263,15 @@ Now it’s easy to see that lenses under the over operation also obey the functo
 }
 ```
 
-We’ve barely scratched the surface of lenses here, but it should be enough to get you started. For a lot more, detail, Edward Kmett has spoken a lot on the topic, and many people have written much more in-depth explorations.
+我们目前只基本了解了 lenses 的的皮毛，但是对于你继续开始学习已经足够了。如果想获取更多细节，Edward Kmett 在这个话题讨论了很多，很多人也写了许多深度的探索。
 
 * * *
 
-**_Eric Elliott_** _is a distributed systems expert and author of the books,_ [_“Composing Software”_](https://leanpub.com/composingsoftware) _and_ [_“Programming JavaScript Applications”_](https://ericelliottjs.com/product/programming-javascript-applications-ebook/)_. As co-founder of_ [_DevAnywhere.io_](https://devanywhere.io/)_, he teaches developers the skills they need to work remotely and embrace work/life balance. He builds and advises development teams for crypto projects, and has contributed to software experiences for_ **_Adobe Systems,_**  **_Zumba Fitness,_**  **_The Wall Street Journal,_**  **_ESPN,_**  **_BBC,_** _and top recording artists including_ **_Usher, Frank Ocean, Metallica,_** _and many more._
+**_Eric Elliott_ 是 [“编写 JavaScript 应用”](http://pjabook.com)（O’Reilly）以及[“跟着 Eric Elliott 学 Javascript”](http://ericelliottjs.com/product/lifetime-access-pass/) 两书的作者。他为许多公司和组织作过贡献，例如 *Adobe Systems*、*Zumba Fitness*、*The Wall Street Journal*、*ESPN* 和 *BBC* 等，也是很多机构的顶级艺术家，包括但不限于 *Usher*、*Frank Ocean* 以及 *Metallica*。**
 
-_He enjoys a remote lifestyle with the most beautiful woman in the world._
+大多数时间，他都在 San Francisco Bay Area，同这世上最美丽的女子在一起。
 
-Thanks to [JS_Cheerleader](https://medium.com/@JS_Cheerleader?source=post_page).
+感谢 [JS_Cheerleader](https://medium.com/@JS_Cheerleader?source=post_page)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

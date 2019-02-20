@@ -1,3 +1,7 @@
+* [利用 Python中的 Bokeh 实现数据可视化，第一部分：入门](https://juejin.im/post/5c3c83c7f265da612d197bf0) ([Starriers](https://github.com/Starriers) 翻译)
+* [利用 Python中的 Bokeh 实现数据可视化，第二部分：交互](https://juejin.im/post/5c34a9dee51d4551d044efce) ([Starriers](https://github.com/Starriers) 翻译)
+* [利用 Python中的 Bokeh 实现数据可视化，第三部分：制作一个完整的仪表盘](https://juejin.im/post/5c3ae4656fb9a049d9757021) ([YueYongDev](https://github.com/YueYongDev) 翻译)
+* [降维技术中常用的几种降维方法](https://juejin.im/post/5c4513a06fb9a049dc028d0c) ([haiyang-tju](https://github.com/haiyang-tju) 翻译)
 * [如何使用 Dask Dataframes 在 Python 中运行并行数据分析](https://juejin.im/post/5c1feeaf5188257f9242b65c) ([Starriers](https://github.com/Starriers) 翻译)
 * [时间序列异常检测算法](https://juejin.im/post/5c19f4cb518825678a7bad4c) ([haiyang-tju](https://github.com/haiyang-tju) 翻译)
 * [支持向量机（SVM） 教程](http://5a77c24cf265da4e747f92e8/) ([zhmhhu](https://github.com/zhmhhu) 翻译)

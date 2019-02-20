@@ -1,3 +1,5 @@
+* [提高营销效率的工程（第一部分）](https://juejin.im/post/5c403b5ce51d452c8e6d3dc4) ([Starriers](https://github.com/Starriers) 翻译)
+* [讨论 JS ⚡：文档](https://juejin.im/post/5c4039bbe51d4551733494a6) ([Starriers](https://github.com/Starriers) 翻译)
 * [我无法想象没有 Git 别名的的场景](https://juejin.im/post/5c207bd4e51d452b7b032cf6) ([Starriers](https://github.com/Starriers) 翻译)
 * [三人研发小组的高效研发尝试](https://juejin.im/post/5c19d1846fb9a049f06a33fc) ([yuwhuawang](https://github.com/yuwhuawang) 翻译)
 * [理解编译器 — 从人类的角度（版本 2）](https://juejin.im/post/5c10b2f6e51d452ad958631f) ([Starriers](https://github.com/Starriers) 翻译)

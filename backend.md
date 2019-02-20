@@ -1,3 +1,6 @@
+* [在 Flask 中使用 Redis Queue 实现异步任务](https://juejin.im/post/5c407497e51d457cba6ca871) ([lcx-seima](https://github.com/lcx-seima) 翻译)
+* [再看 Flask 视频流](https://juejin.im/post/5c33540451882524ed5b9154) ([zhmhhu](https://github.com/zhmhhu) 翻译)
+* [提高营销效率的工程（二）— 广告制作和管理的规模化](https://juejin.im/post/5c441193518825258604ecd0) ([Starriers](https://github.com/Starriers) 翻译)
 * [数据流的不同应用场景 — Java](https://juejin.im/post/5c2c285fe51d4522ec5a2795) ([Starriers](https://github.com/Starriers) 翻译)
 * [无容器下的云计算](https://juejin.im/post/5c24800a518825673b02dcfe) ([TrWestdoor](https://github.com/TrWestdoor) 翻译)
 * [如何在六个月或更短的时间内成为 DevOps 工程师，第四部分：打包](https://juejin.im/post/5c19d6255188252ea66b33b3) ([Raoul1996](https://github.com/Raoul1996) 翻译)
