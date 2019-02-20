@@ -5,7 +5,7 @@
 > * 译者：[Jerry-FD](https://github.com/Jerry-FD)
 > * 校对者：[yoyoyohamapi](https://github.com/yoyoyohamapi), [CoolRice](https://github.com/CoolRice)
 
-# X为啥不是hook?
+# X 为啥不是 hook？
 
 > 由读者翻译的版本：[西班牙语](https://overreacted.io/es/why-isnt-x-a-hook/)
 
