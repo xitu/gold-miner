@@ -1,4 +1,4 @@
-> * 原文地址：[Swift 5 Exclusivity Enforcement](https://css-tricks.com/what-hooks-mean-for-vue/)
+> * 原文地址：[What Hooks Mean for Vue](https://css-tricks.com/what-hooks-mean-for-vue/)
 > * 原文作者：[Sarah Drasner](https://css-tricks.com/author/sdrasner/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-hooks-mean-for-vue.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-hooks-mean-for-vue.md)
