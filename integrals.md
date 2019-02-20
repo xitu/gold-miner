@@ -4236,10 +4236,11 @@
 |[Python 3.7 的新特性](https://juejin.im/post/5a127e60f265da430f31b45b)|翻译|4|
 |[如何为通知设计更好的用户体验](https://juejin.im/post/59f9b14f518825295f5d411f)|校对|3|
 
-## 译者：[ppp-man](https://github.com/ppp-man) 历史贡献积分：24.5 当前积分：24.5 年度积分：7.5
+## 译者：[ppp-man](https://github.com/ppp-man) 历史贡献积分：30.5 当前积分：30.5 二零一九：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Python 的时间序列分析：简介](https://juejin.im/post/5c6c12def265da2ddc3c70ce)|翻译|6|
 |[第三方 SDK 的信任问题](https://juejin.im/post/5aa72655f265da238b7daa74)|校对|2.5|
 |[比特币的三个经济阶段](https://juejin.im/post/5a61d5336fb9a01cb049667e)|翻译|5|
 |[从应用探索者到初次购买者](https://juejin.im/post/5a24b9fc6fb9a04519696a06)|翻译|6|
@@ -5775,10 +5776,11 @@
 |[让 Apache Cassandra 尾部延迟减小 10 倍（已开源）](https://juejin.im/post/5ac31083f265da239a5fff0c)|翻译|4|
 |[让我们来简化 UserDefaults 的使用](https://juejin.im/post/5abde324f265da23826e1723)|校对|0.5|
 
-## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：86 当前积分：66 二零一九：4
+## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：95 当前积分：75 二零一九：13
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何写一篇软件工程必杀简历](https://juejin.im/post/5c6ca8b9f265da2dc13c7a10)|翻译|9|
 |[Lenses：可组合函数式编程的 Getter 和 Setter](https://juejin.im/post/5c3d35f8f265da611e4de068)|翻译|4|
 |[产品管理思维模式适合每一个人](https://juejin.im/post/5c2c266ae51d4511fb7db0c7)|翻译|9|
 |[为什么我放弃了 React 而转向 Vue](https://juejin.im/post/5c2c27096fb9a049f66c3672)|翻译|6|
@@ -6189,10 +6191,11 @@
 |[Awesome Flutter 校对](https://github.com/xitu/awesome-flutter)|校对|1|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1|
 
-## 译者：[lihanxiang](https://github.com/lihanxiang) 历史贡献积分：59 当前积分：31 年度积分：59
+## 译者：[lihanxiang](https://github.com/lihanxiang) 历史贡献积分：60 当前积分：32 二零一九：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何写一篇软件工程必杀简历](https://juejin.im/post/5c6ca8b9f265da2dc13c7a10)|校对|1|
 |[我是如何在谷歌找到 UX 设计的工作的](https://juejin.im/post/5bea544ff265da6112048e3c)|校对|1.5|
 |[6 个最令人满意的和编程相关的工作（和参与这些工作的人们的类型）](https://juejin.im/post/5be271f0e51d450556196864)|校对|1.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|10|
@@ -6382,10 +6385,12 @@
 |[Kubernetes 分布式应用部署和人脸识别 app 实例](https://juejin.im/post/5b2db0576fb9a00e50313904)|校对|0.5|
 |[[字幕翻译] James Bennett — 理解 Python 字节码 — PyCon 2018](https://github.com/xitu/gold-miner/issues/3990)|校对|0.5|
 
-## 译者：[kasheemlew](https://github.com/kasheemlew) 历史贡献积分：19 当前积分：19 二零一九：4.5
+## 译者：[kasheemlew](https://github.com/kasheemlew) 历史贡献积分：23 当前积分：23 二零一九：8.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[从 Instagram 上的故事和反馈机器学习中收获的一些经验](https://juejin.im/post/5c683dfce51d45164c7599fb)|校对|1.5|
+|[2019 区块链平台与技术展望](https://juejin.im/post/5c613e6e6fb9a049e4132ba5)|校对|2.5|
 |[使用 Stripe, Vue.js 和 Flask 接受付款](https://juejin.im/post/5c3bed42f265da615064aacb)|校对|1.5|
 |[降维技术中常用的几种降维方法](https://juejin.im/post/5c4513a06fb9a049dc028d0c)|校对|2.5|
 |[在 Flask 中使用 Redis Queue 实现异步任务](https://juejin.im/post/5c407497e51d457cba6ca871)|校对|0.5|
@@ -6718,10 +6723,11 @@
 |[在 Sketch 中使用一个设计体系创作: 第二部分 [教程]](https://juejin.im/post/5b5d2a456fb9a04fc80b8f4b)|翻译|2.5|
 |[在 Sketch 中使用一个设计体系创作：第一部分 [教程]](https://juejin.im/post/5b591a655188257bca290b24)|校对|0.5|
 
-## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：44.5 当前积分：44.5 二零一九：1
+## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：45.5 当前积分：45.5 二零一九：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|[提取图像中的文字、人脸或者条形码 — 形状检测 API](https://juejin.im/post/5c64026fe51d457f963d249c)|校对|1|
 |推荐一篇英文文章|奖励|1|
 |[创建并发布一个小而美的 npm 包](https://juejin.im/post/5c26c1b65188252dcb312ad6)|校对|1.5|
 |[iOS 12 占有率超过 50%，超过了 iOS 11](https://juejin.im/post/5bf64ad851882579117f74ae)|校对|0.5|
@@ -6916,10 +6922,11 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|8|
 |[用 Scikit-Learn 实现 SVM 和 Kernel SVM](https://juejin.im/post/5b7fd39af265da43831fa136)|校对|2|
 
-## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：28 当前积分：28 二零一九：5
+## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：33 当前积分：33 二零一九：10
 
 |文章|类型|积分|
 |------|-------|-------|
+|[从 Instagram 上的故事和反馈机器学习中收获的一些经验](https://juejin.im/post/5c683dfce51d45164c7599fb)|翻译|5|
 |[利用 Python中的 Bokeh 实现数据可视化，第二部分：交互](https://juejin.im/post/5c34a9dee51d4551d044efce)|校对|1.5|
 |[降维技术中常用的几种降维方法](https://juejin.im/post/5c4513a06fb9a049dc028d0c)|校对|2.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1|
@@ -7149,10 +7156,12 @@
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|7|
 |[我在阅读 MDN 时发现的 3 个 Input 元素属性](https://juejin.im/post/5bbc6f035188255c5d56b160)|校对|1|
 
-## 译者：[haiyang-tju](https://github.com/haiyang-tju) 历史贡献积分：79.5 当前积分：79.5 二零一九：18
+## 译者：[haiyang-tju](https://github.com/haiyang-tju) 历史贡献积分：83 当前积分：83 二零一九：21.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[从 Instagram 上的故事和反馈机器学习中收获的一些经验](https://juejin.im/post/5c683dfce51d45164c7599fb)|校对|2|
+|[提取图像中的文字、人脸或者条形码 — 形状检测 API](https://juejin.im/post/5c64026fe51d457f963d249c)|校对|1.5|
 |[降维技术中常用的几种降维方法](https://juejin.im/post/5c4513a06fb9a049dc028d0c)|翻译|8|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|10|
 |[通过集成学习提高机器学习效果](https://juejin.im/post/5c0909d951882548e93806e0)|校对|2.5|
@@ -7277,10 +7286,11 @@
 |------|-------|-------|
 |[深入理解 React 高阶组件](https://juejin.im/entry/5bdd226cf265da616f6f6cce)|校对|4|
 
-## 译者：[iWeslie](https://github.com/iWeslie) 历史贡献积分：44 当前积分：44 年度积分：44
+## 译者：[iWeslie](https://github.com/iWeslie) 历史贡献积分：48 当前积分：48 二零一九：4
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何写一篇软件工程必杀简历](https://juejin.im/post/5c6ca8b9f265da2dc13c7a10)|校对|4|
 |[使用 Swift 的 iOS 设计模式（第二部分）](https://juejin.im/post/5c1786576fb9a049f06a2c4a)|翻译|11|
 |[使用 Kotlin 将你的 iOS 应用程序转换为 Android](https://juejin.im/post/5c03f64ce51d454af013d076)|翻译|5|
 |[使用 Swift 的 iOS 设计模式（第一部分）](https://juejin.im/post/5c05d4ee5188250ab14e62d6)|翻译|11|
@@ -7477,10 +7487,11 @@
 |[了解 Android 的矢量图片格式：`VectorDrawable`](https://juejin.im/post/5c1a21ff5188252eb759600e)|校对|2.5|
 |[当 Kotlin 中的监听器包含多个方法时，如何让它 “巧夺天工”？](https://juejin.im/post/5c1e43646fb9a04a102f45ab)|校对|1.5|
 
-## 译者：[gs666](https://github.com/gs666) 历史贡献积分：14.5 当前积分：4.5 二零一九：2
+## 译者：[gs666](https://github.com/gs666) 历史贡献积分：23 当前积分：13 二零一九：10.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2019 区块链平台与技术展望](https://juejin.im/post/5c613e6e6fb9a049e4132ba5)|翻译|8.5|
 |[Android 上一次编写，到处测试](https://juejin.im/post/5c32cbc9f265da611d66d14e)|翻译|2|
 |2019 年 1 月兑掘金桌垫 1 个|减去积分|10|
 |[Android 中的 MVP：如何使 Presenter 层系统化](https://juejin.im/post/5c203323f265da6110370dec)|校对|1.5|
@@ -7620,3 +7631,15 @@
 |文章|类型|积分|
 |------|-------|-------|
 |推荐英文文章一篇|奖励|1|
+
+## 译者：[shixi-li](https://github.com/shixi-li) 历史贡献积分：3 当前积分：3 二零一九：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|[2019 区块链平台与技术展望](https://juejin.im/post/5c613e6e6fb9a049e4132ba5)|校对|3|
+
+## 译者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ) 历史贡献积分：4 当前积分：4 二零一九：4
+
+|文章|类型|积分|
+|------|-------|-------|
+|[提取图像中的文字、人脸或者条形码 — 形状检测 API](https://juejin.im/post/5c64026fe51d457f963d249c)|翻译|4|
