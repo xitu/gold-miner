@@ -7,11 +7,11 @@
 
 # 教程 - 用 C 写一个 Shell
 
-It’s easy to view yourself as “not a _real_ programmer.” There are programs out there that everyone uses, and it’s easy to put their developers on a pedestal. Although developing large software projects isn’t easy, many times the basic idea of that software is quite simple. Implementing it yourself is a fun way to show that you have what it takes to be a real programmer. So, this is a walkthrough on how I wrote my own simplistic Unix shell in C, in the hopes that it makes other people feel that way too.
+你很容易将自己看作“不是一个**真正的**程序员”。有一些程序所有人都用，它们的开发者很容易被捧上神坛。虽然开发大型软件项目并不容易，但很多时候这种软件的基本思想都很简单。自己实现这样的软件是一种证明自己可以是真正的程序员的有趣方式。所以，这篇文章介绍了我是如何用 C 语言写一个自己的简易 Unix shell 的。我希望其他人也能感受到这种有趣的方式。
 
 这篇文章中介绍的 shell（叫做 `lsh`），可以在 [GitHub](https://github.com/brenns10/lsh) 上获取它的源代码。
 
-**学校里的学生请注意！** Many classes have assignments that ask you to write a shell, and some faculty are aware of this tutorial and code. If you’re a student in such a class, you shouldn’t copy (or copy then modify) this code without permission. And even then, I would [advise](/2016/03/29/dishonesty/) against heavily relying on this tutorial.
+**学校里的学生请注意！** 许多课程都有要求你编写一个 shell 的作业，而且有些教师都知道这样的教程和代码。如果你是此类课程上的学生，请不要在未经允许的情况下复制（或复制加修改）这里的代码。我[建议](https://brennan.io/2016/03/29/dishonesty/)反对重度依赖本教程的行为。
 
 ### Shell 的基本生命周期
 
@@ -232,13 +232,13 @@ int lsh_launch(char **args)
 
 ### Shell 内置函数
 
-你可能发现了，`lsh_loop()` 函数调用了 `lsh_execute()`。但上面我们的写函数的却叫做 `lsh_launch()`。这是有意为之的。虽然 shell 执行的命令大部分是程序，但有一些不是。一些命令是 shell 内置的。
+你可能发现了，`lsh_loop()` 函数调用了 `lsh_execute()`。但上面我们写的函数却叫做 `lsh_launch()`。这是有意为之的。虽然 shell 执行的命令大部分是程序，但有一些不是。一些命令是 shell 内置的。
 
 这里的原因其实很简单。如果你想改变当前目录，你需要使用函数 `chdir()`。问题是，当前目录是进程的一个属性。那么，如果你写了一个叫 `cd` 的程序来改变当前目录，它就会改变自己当前的目录，然后终止。它的父进程的当前目录不会改变。所以应当是 shell 进程自己执行 `chdir()`，才能更新自己的当前目录。然后，当它启动子进程时，子进程也会继承这个新的目录。
 
 类似的，如果有一个程序叫做 `exit`，它也没有办法使调用它的 shell 退出。这个命令也必须内置在 shell 中。还有，多数 shell 通过运行配置脚本（如 `~/.bashrc`）来进行配置。这些脚本使用一些改变 shell 行为的命令。这些命令如果由 shell 自己实现的话，同样只会改变 shell 自己的行为。
 
-因此，我们需要向 shell 本身添加一些命令是有道理的。我添加进我的 shell 的命令是 `cd`、`exit` 和 `help` 下面是他们的函数实现：
+因此，我们需要向 shell 本身添加一些命令是有道理的。我添加进我的 shell 的命令是 `cd`、`exit` 和 `help`。下面是他们的函数实现：
 
 ```
 /*
@@ -309,9 +309,9 @@ int lsh_exit(char **args)
 
 最后，我实现了每个函数。`lsh_cd()` 函数首先检查它的第二个参数是否存在，不存在的话打印错误消息。然后，它调用 `chdir()`，检查是否出错，并返回。帮助函数会打印漂亮的消息，以及所有内置函数的名字。退出函数返回 0，这是让命令循环退出的信号。
 
-### Putting together builtins and processes
+### 组合内置命令与进程
 
-The last missing piece of the puzzle is to implement `lsh_execute()`, the function that will either launch either a builtin, or a process. If you’re reading this far, you’ll know that we’ve set ourselves up for a really simple function:
+我们的程序最后缺失的一部分就是实现 `lsh_execute()` 了。这个函数要么启动一个内置命令，要么启动一个进程。如果你一路读到了这里，你会知道我们已经为一个非常简单的函数准备好了：
 
 ```
 int lsh_execute(char **args)
@@ -319,7 +319,7 @@ int lsh_execute(char **args)
   int i;
 
   if (args[0] == NULL) {
-    // An empty command was entered.
+    // 用户输入了一个空命令
     return 1;
   }
 
@@ -333,14 +333,14 @@ int lsh_execute(char **args)
 }
 ```
 
-All this does is check if the command equals each builtin, and if so, run it. If it doesn’t match a builtin, it calls `lsh_launch()` to launch the process. The one caveat is that `args` might just contain NULL, if the user entered an empty string, or just whitespace. So, we need to check for that case at the beginning.
+这个函数所做的不过是检查命令是否和各个内置命令相同，如果相同的话就运行内置命令。如果没有匹配到一个内置命令，我们会调用 `lsh_launch()` 来启动进程。一个警告是，有可能用户输入了一个空字符串或字符串只有空白符，此时 `args` 只包含空指针。所以，我们需要在一开始检查这种情况。
 
-### Putting it all together
+### 全部组合在一起
 
-That’s all the code that goes into the shell. If you’ve read along, you should understand completely how the shell works. To try it out (on a Linux machine), you would need to copy these code segments into a file (`main.c`), and compile it. Make sure to only include one implementation of `lsh_read_line()`. You’ll need to include the following headers at the top. I’ve added notes so that you know where each function comes from.
+以上就是这个 shell 的全部代码了。如果你已经读完，你应该完全理解了 shell 是如何工作的。要试用它（在 Linux 机器上）的话，你需要将这些代码片段复制到一个文件中（`main.c`），然后编译它。确保代码中只包括一个 `lsh_read_line()` 的实现。你需要在文件的顶部包含以下的头文件。我添加了注释，以便你知道每个函数的来源。
 
 *   `#include <sys/wait.h>`
-    *   `waitpid()` and associated macros
+    *   `waitpid()` 及其相关的宏
 *   `#include <unistd.h>`
     *   `chdir()`
     *   `fork()`
@@ -363,28 +363,28 @@ That’s all the code that goes into the shell. If you’ve read along, you shou
     *   `strcmp()`
     *   `strtok()`
 
-Once you have the code and headers, it should be as simple as running `gcc -o main main.c` to compile it, and then `./main` to run it.
+当你准备好的代码和头文件，简单地运行 `gcc -o main main.c` 进行编译，然后 `./main` 来运行即可。
 
-Alternatively, you can get the code from [GitHub](https://github.com/brenns10/lsh/tree/407938170e8b40d231781576e05282a41634848c). That link goes straight to the current revision of the code at the time of this writing– I may choose to update it and add new features someday in the future. If I do, I’ll try my best to update this article with the details and implementation ideas.
+或者，你可以从 [GitHub](https://github.com/brenns10/lsh/tree/407938170e8b40d231781576e05282a41634848c) 上获取代码。这个链接直接跳转到我写这篇文章时的代码当前版本 —— 未来我可能会更新代码，增加一些新的功能。如果代码更新了，我会尽量在本文中更新代码的细节和实现思路。
 
-### Wrap up
+### 结语
 
-If you read this and wondered how in the world I knew how to use those system calls, the answer is simple: man pages. In `man 3p` there is thorough documentation on every system call. If you know what you’re looking for, and you just want to know how to use it, the man pages are your best friend. If you don’t know what sort of interface the C library and Unix offer you, I would point you toward the [POSIX Specification](http://pubs.opengroup.org/onlinepubs/9699919799/), specifically Section 13, “Headers”. You can find each header and everything it is required to define in there.
+如果你读了这篇文章，想知道我到底是怎么知道如何使用这些系统调用的。答案很简单：通过手册页（man pages）。在 `man 3p` 中有对每个系统调用的详尽文档。如果你知道你要找什么，只是想知道如何使用它，那么手册页是你最好的朋友。如果你不知道 C 标准库和 Unix 为你提供了什么样的接口，我推荐你阅读 [POSIX 规范](http://pubs.opengroup.org/onlinepubs/9699919799/)，特别是第 13 章，“头文件”。你可以找到每个头文件，以及其中需要定义哪些内容。
 
-Obviously, this shell isn’t feature-rich. Some of its more glaring omissions are:
+显然，这个 shell 的功能不够丰富。一些明显的遗漏有：
 
-*   Only whitespace separating arguments, no quoting or backslash escaping.
-*   No piping or redirection.
-*   Few standard builtins.
-*   No globbing.
+*   只用了空白符分割参数，没有考虑到引号和反斜杠转义。
+*   没有管道和重定向。
+*   内置命令太少。
+*   没有通配符。
 
-The implementation of all of this stuff is really interesting, but way more than I could ever fit into an article like this. If I ever get around to implementing any of them, I’ll be sure to write a follow-up about it. But I’d encourage any reader to try implementing this stuff yourself. If you’re met with success, drop me a line in the comments below, I’d love to see the code.
+实现这几个功能其实非常有趣，但已经远不是我这样一篇文章可以容纳的了的了。如果我开始实现其中任何一项，我一定会写一篇关于它的后续文章。不过我鼓励读者们都尝试自己实现这些功能。如果你成功了，请在下面的评论区给我留言，我很乐意看到你的代码。
 
-And finally, thanks for reading this tutorial (if anyone did). I enjoyed writing it, and I hope you enjoyed reading it. Let me know what you think in the comments!
+最后，感谢阅读这篇教程（如果有人读了的话）。我写得很开心，也希望你能读得开心。在评论区让我知道你的想法！
 
-**Edit:** In an earlier version of this article, I had a couple nasty bugs in `lsh_split_line()`, that just happened to cancel each other out. Thanks to /u/munmap on Reddit (and other commenters) for catching them! Check [this diff](https://github.com/brenns10/lsh/commit/486ec6dcdd1e11c6dc82f482acda49ed18be11b5) to see exactly what I did wrong.
+**更新：** 在本文的较早版本中，我在 `lsh_split_line()` 中遇到了一些讨厌的 bug，它们恰好相互抵消了。感谢 Reddit 的 /u/munmap（以及其他评论者）找到了这些 bug！ 在[这里](https://github.com/brenns10/lsh/commit/486ec6dcdd1e11c6dc82f482acda49ed18be11b5)看看我究竟做错了什么。
 
-**Edit 2:** Thanks to user ghswa on GitHub for contributing some null checks for `malloc()` that I forgot. He/she also pointed out that the [manpage](http://pubs.opengroup.org/onlinepubs/9699919799/functions/getline.html) for `getline()` specifies that the first argument should be freeable, so `line` should be initialized to `NULL` in my `lsh_read_line()` implementation that uses `getline()`.
+**更新二：** 感谢 GitHub 用户 ghswa 贡献了我忘记的一些 `malloc()` 的空指针检查。他/她还指出 `getline` 的[手册页](http://pubs.opengroup.org/onlinepubs/9699919799/functions/getline.html)规定了第一个参数应当可以被 free，所以我的使用 `getline()` 的 `lsh_read_line()` 实现中，`line` 应当初始化为 `NULL`。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
