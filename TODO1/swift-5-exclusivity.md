@@ -5,7 +5,7 @@
 > * 译者：[LoneyIsError](https://github.com/LoneyIsError)
 > * 校对者：
 
-# Swift 5 强制执行独占性原则
+# Swift 5 强制独占性原则
 
 > 在理解概念时参照了喵神的[所有权宣言 - Swift 官方文章 Ownership Manifesto 译文评注版](https://onevcat.com/2017/02/ownership/)
 
@@ -217,7 +217,7 @@ point.modifyX {
 
 1.  执行独占性性检查消除了程序涉及可变状态和远距离动作的危险交互。
 
-    随着程序规模的不断扩大，越来越可能以意想不到的方式进行交互。 下面的例子在类似于上面的`Array.append(removedFrom:)` 例子，需要执行排他性检查来避免程序员将相同的变量同事作为源数据和目标数据进行传递。但请注意，一旦涉及到类对象，因为这两个变量引用了同一个对象，程序就会在无意中更容易在 `src` 和 `dest` 位置上传递同一个的 `Names` 实例。当然，这样就会导致死循环：
+    随着程序规模的不断扩大，越来越可能以意想不到的方式进行交互。 下面的例子在类似于上面的`Array.append(removedFrom:)` 例子，需要执行排他性检查来避免程序员将相同的变量同时作为源数据和目标数据进行传递。但请注意，一旦涉及到类对象，因为这两个变量引用了同一个对象，程序就会在无意中更容易在 `src` 和 `dest` 位置上传递同一个的 `Names` 实例。当然，这样就会导致死循环：
 
 ```
 func moveElements(from src: inout Set<String>, to dest: inout Set<String>) {
