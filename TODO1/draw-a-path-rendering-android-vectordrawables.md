@@ -19,7 +19,7 @@
 
 ### 简单的颜色
 
-绘制路径最简单的方法是指定硬编码的 fill/stroke 颜色。
+绘制路径最简单的方法是指定一种硬编码的 fill/stroke 颜色。
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -36,13 +36,13 @@
 </vector>
 ```
 
-你可以定义一个或两个属性，并且每个路径只能应用一个 fill/stroke  (与某些图形包不同)。首先绘制填充，然后绘制任意笔画。笔画总是居中的(不像一些图形应用程序允许内或外笔画)，需要指定一个 `strokeWidth`，可以选择定义 `strokeLineCap`、`strokeLineJoin` 属性，这些属性控制笔画线的端点/连接处的形状(也可以为 `miter` 线连接处定义 `strokeMiterLimit`)。不支持虚线笔画。
+你可以定义一个或两个属性，并且每个路径只能应用一个 fill/stroke  (与某些图形包不同)。首先绘制填充，然后绘制任意描边。描边总是居中的(不像一些图形应用程序允许内或外描边)，需要指定一个 `strokeWidth`，可以选择定义 `strokeLineCap`、`strokeLineJoin` 属性，这些属性控制描边线的端点/连接处的形状(也可以定义 `strokeMiterLimit` 来控制 `miter` 线的交点的形状)。不支持虚线描边。
 
-填充和笔画都提供单独的 alpha 属性：`fillAlpha` 和 `strokeAlpha` [0-1] 都默认为 1，即完全不透明。如果为一个设置了 alpha 值的组件指定 `fillColor` 或 `strokeColor`，结果是这两个值的结合。例如，如果指定 50% 透明的红色 `fillColor` (`#80ff0000`) 和 0.5 的 ` fillAlpha`，那么结果将是 25% 透明的红色。单独的 alpha 属性使路径的不透明度更容易动画化。
+填充和描边都提供单独的 alpha 属性：`fillAlpha` 和 `strokeAlpha` [0-1] 都默认为 1，即完全不透明。如果为一个设置了 alpha 值的组件指定 `fillColor` 或 `strokeColor`，结果是这两个值的结合。例如，如果指定 50% 透明的红色 `fillColor` (`#80ff0000`) 和 0.5 的 ` fillAlpha`，那么结果将是 25% 透明的红色。单独的 alpha 属性使路径的不透明度更容易动画化。
 
 ### 颜色资源
 
-向量中填充和笔画颜色的设置都支持 `@color` 资源的语法：
+向量中填充和描边颜色的设置都支持 `@color` 资源的语法：
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -64,13 +64,13 @@
 
 ### 主题色
 
-所有版本的矢量 (从 API14 到 AndroidX) 都支持使用主题属性 (例如 `?attr/colorPrimary`) 来指定颜色。这些颜色是由主题提供的，对于创建灵活的可以在应用程序的不同位置中使用的资源非常有用。
+所有版本的矢量 (从 API14 到 AndroidX) 都支持使用主题属性 (例如 `?attr/colorPrimary`) 来指定颜色。这些颜色是由主题提供的，对于创建灵活的资源非常有用，这种资源可以在应用的不同位置使用。
 
-有两种主要的方式使用主题颜色。
+使用主题颜色主要有两种方式。
 
 #### 为 fills/strokes 设置主题色
 
-你可以直接参考主题颜色来设置填充或描边路径:
+你可以直接引用主题颜色来设置填充或描边路径:
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -111,9 +111,9 @@
 
 在明/暗屏幕上对图标进行着色，使其具有适当的颜色
 
-使用着色的一个好处是，你不需要依赖于你的资源文件(通常来自你的设计师)是正确的颜色。使用像 `?attr/colorControlNormal` 既能主题化，又能保证资源文件的颜色完全相同、正确。
+使用着色的一个好处是，你不需要依赖于你的资源文件(通常来自你的设计师)是正确的颜色。对图标使用 `?attr/colorControlNormal` 属性既能主题化，又能保证资源文件的颜色完全相同、正确。
 
-`tintMode` 属性允许你更改用于着色绘制的混合模式，它支持: `add`、`multiply`、`screen`、`src_atop`、`src_over`或`src_in`;；对应于对应的 [PorterDuff.Mode](https://developer.android.com/reference/android/graphics/PorterDuff.Mode)。 通常你希望的默认值是 `src_in`，它将图像作为 alpha 蒙版应用于整个图标，忽略单个路径中的任何颜色信息(尽管 alpha 通道是维护的)。因此，如果你打算给图标着色，那么最好使用完全不透明的填充/描边颜色(惯例是使用 `#fff`)。
+`tintMode` 属性允许你更改用于着色绘制的混合模式，它支持: `add`、`multiply`、`screen`、`src_atop`、`src_over`或`src_in`;；对应于类似的 [PorterDuff.Mode](https://developer.android.com/reference/android/graphics/PorterDuff.Mode)。 通常你使用的默认属性是 `src_in`，它将图像作为 alpha 蒙版应用于整个图标，忽略单个路径中的任何颜色信息(尽管 alpha 通道是维护的)。因此，如果你打算给图标着色，那么最好使用完全不透明的填充/描边颜色(惯例是使用 `#fff`)。
 
 你可能想知道什么时候为资源着色？什么时候在单独的路径上使用主题颜色？因为这两种颜色都可以获得类似的结果。如果你只想在某些路径上使用主题颜色，那么必须直接使用它们。另一个需要考虑的问题是，你的资源是否具有重叠渲染。如果是这样的话，那么用半透明的主题颜色填充可能不会产生你想要的效果，但应用着色模式可能达到这种效果。
 
@@ -155,7 +155,7 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 
 虽然在 `StateListDrawable` 中使用多个可绘制对象也可以获得类似的结果，但是如果状态之间的呈现差异很小，则可以减少重复，并且更容易维护。
 
-我也非常喜欢为自定义视图创建自己的状态，这些视图可以与此支持结合使用，以控制资源中的元素，例如除非设置了特定的状态而使路径透明。
+我也非常喜欢为自定义视图创建自己的状态，这些视图可以与此支持结合使用，以控制资源中的元素，例如在某个特定状态触发之前将路径设为透明。
 
 ### 渐变
 
@@ -163,7 +163,7 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 
 支持 3 种类型的渐变
 
-`VectorDrawable` 支持线性、径向和扫描(也称为角)渐变的填充和描边。从API14 到 AndroidX 都支持。渐变是在它们自己的文件中以 `res/colors/` 的形式声明的，但是我们可以使用 [内嵌资源技术](https://developer.android.com/guide/topics/resources/complex-xml-resources) 来代替在向量中声明的渐变，这样更方便：
+`VectorDrawable` 支持线性、径向和扫描(也称为角)渐变的填充和描边。在 AndroidX 包往前可支持到 API4 版本。渐变是在它们自己的文件中以 `res/colors/` 的形式声明的，但是我们可以使用 [内嵌资源技术](https://developer.android.com/guide/topics/resources/complex-xml-resources) 来代替在向量中声明的渐变，这样更方便：
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -231,7 +231,7 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 
 #### 起止颜色
 
-渐变的使用很方便，你可以直接在渐变中指定一个 `startColor`, `centerColor` 和 `endColor`。如果你需要更细粒度的控制它或者设置更多起止颜色， 你也可以通过添加指定了 `color` 和 [0–1] `offset` (可以把这个看成渐变的百分比) 的子 `item` 来实现。
+渐变的使用很方便，你可以直接在渐变中指定一个 `startColor`, `centerColor` 和 `endColor`。如果你需要更细粒度的控制它或者设置更多起止颜色， 你也可以通过添加指定了 `color` 和 [0–1] `offset` (可以把这个看成控制渐变程度的百分比) 的子 `item` 来实现。
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -251,7 +251,7 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 
 #### 平铺模式
 
-线性和径向(不是扫描)渐变提供了平铺的概念——也就是说，如果渐变没有覆盖它填充/描边的整个路径，那么应该怎么做。默认值是 `clamp`, 它只是延续开始/结束的颜色。或者你可以指定 `repeat` o或者 `mirror` 平铺模式，这些模式……正如它们的名称所暗示的那样!在以下示例中,定义了一个径向渐变：中心蓝色→紫色圆形,但充满更大的正方形路径。
+线性和径向(不是扫描)渐变提供了平铺的概念——也就是说，如果渐变没有覆盖它填充/描边的整个路径，那么应该怎么做。默认值是 `clamp`, 它只是延续开始/结束的颜色。或者你可以指定 `repeat` 或者 `mirror` 平铺模式，这些模式……正如它们的名称所暗示的那样!在以下示例中,定义了一个径向渐变：中心蓝色→紫色圆形,但充满更大的正方形路径。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*8ngJx7igxFyEc48mjrN4xA.png)
 
@@ -259,7 +259,7 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 
 #### 模式
 
-我们可以结合使用起止颜色和平铺模式来实现基本的向量中支持的模式。例如，如果指定了一致的起止颜色，就可以实现突然的颜色更改。将其与重复的平铺模式结合起来，就可以创建条纹模式。 [例如](https://gist.github.com/nickbutcher/1e6c2309ee075ac62d2f8a6c285f0ce8) 这是一个由单个模式的填充形状组成的加载指示器。通过在持有此模式的 group 上动画化 `translateX` 属性，我们可以实现以下效果:
+我们可以结合使用起止颜色和平铺模式来实现向量中的基本模式支持。例如，如果指定了一致的起止颜色，就可以实现突然的颜色更改。将其与重复的平铺模式结合起来，就可以创建条纹模式。 [例如](https://gist.github.com/nickbutcher/1e6c2309ee075ac62d2f8a6c285f0ce8) 这是一个由单个模式的填充形状组成的加载指示器。通过在持有此模式的 group 上动画化 `translateX` 属性，我们可以实现以下效果:
 
 ![](https://cdn-images-1.medium.com/max/1600/1*uXCjERVWWepz-1AyHIy2Ow.gif)
 
@@ -275,7 +275,7 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 
 #### 阴影
 
-`VectorDrawable`s 不支持阴影效果；然而，简单的阴影可以用渐变来近似。例如，这个 app 图标使用径向渐变来近似白色圆圈的投影，三角形下方的阴影使用线性渐变:
+`VectorDrawable`s 不支持阴影效果；然而，简单的阴影可以用渐变来模拟实现。例如，这个 app 图标使用径向渐变来近似白色圆圈的投影，三角形下方的阴影使用线性渐变:
 
 ![](https://cdn-images-1.medium.com/max/1600/1*LtNVL0GpyFlFei434XS-0Q.png)
 
