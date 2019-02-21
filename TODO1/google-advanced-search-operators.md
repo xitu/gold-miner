@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/google-advanced-search-operators.md](https://github.com/xitu/gold-miner/blob/master/TODO1/google-advanced-search-operators.md)
 > * 译者：[cdpath](https://github.com/cdpath)
-> * 校对者：
+> * 校对者：[JackEggie (Jack Tang)](https://github.com/JackEggie), [nettee (William Liu)](https://github.com/nettee)
 
-# 谷歌搜索操作符大全（42个高级操作符）
+# 谷歌搜索操作符大全（42 个高级操作符）
 
-接触过 SEO 的人都对谷歌高级搜索操作符有所了解。也就是一些比普通搜索更进阶的特殊搜索命令。
+接触过 SEO 的人都对谷歌高级搜索操作符有所了解，也就是一些比普通搜索更进阶的特殊搜索命令。
 
 比如这个搜索操作符你可能比较熟悉：
 
@@ -49,7 +49,7 @@ SEO 从业者大多只知皮毛，鲜有精通者。
 
 本文中我测试了能找到的所有操作符。
 
-下面是所有可用的，被废弃的，以及时好时坏的 2018 版谷歌高级搜索操作符大全。
+下面是所有可用的，被废弃的，以及时好时坏的 2018 版谷歌高级搜索操作符清单。
 
 ![](https://ahrefs.com/blog/wp-content/uploads/2018/05/working-operators.png)
 
@@ -61,21 +61,21 @@ SEO 从业者大多只知皮毛，鲜有精通者。
 
 ### OR
 
-X **或** Y。会得到与 X, Y 或者和两者都有关的结果。**注意**：可以用管道操作符（`|`）代替 OR。
+搜索 X **或** Y。会得到与 X, Y 或者和两者都有关的结果。**注意**：可以用管道操作符（`|`）代替 OR。
 
-**例子: [jobs OR gates](https://www.google.com/search?&q=jobs+OR+gates) / [jobs | gates](https://www.google.com/search?&q=jobs+%7C+gates)**
+**例子**: [jobs OR gates](https://www.google.com/search?&q=jobs+OR+gates) / [jobs | gates](https://www.google.com/search?&q=jobs+%7C+gates)
 
 ### AND
 
-X **且** Y。返回结果与 X **和** Y 都有关。**注意**：实际和常规搜索没什么关系，因为谷歌默认使用 `AND` 操作符。但是和其他操作符组合使用时 `AND` 还是有用的。
+搜索 X **且** Y。返回结果与 X **和** Y 都有关。**注意**：实际和常规搜索没什么区别，因为谷歌默认使用 `AND` 操作符。但是和其他操作符组合使用时 `AND` 还是有用的。
 
-**例子: [jobs AND gates](https://www.google.com/search?&q=jobs+AND+gates)**
+**例子**: [jobs AND gates](https://www.google.com/search?&q=jobs+AND+gates)
 
 ### -
 
-排除术语或短语。下面这个例子只会返回与苹果公司**无关**的 jobs 结果。
+排除一个词或短语。下面这个例子只会返回与苹果公司**无关**的 jobs 结果。
 
-**例子: [jobs -apple](https://www.google.com/search?q=jobs+-apple)**
+**例子**: [jobs -apple](https://www.google.com/search?q=jobs+-apple)
 
 ### *
 
@@ -85,7 +85,7 @@ X **且** Y。返回结果与 X **和** Y 都有关。**注意**：实际和常�
 
 ### ( )
 
-组合多个术语或搜索操作符，控制搜索的行为。
+组合多个词或搜索操作符，控制搜索的行为。
 
 **例子**: [(ipad OR iphone) apple](https://www.google.com/search?q=%28ipad+OR+iphone%29+apple)
 
@@ -109,7 +109,7 @@ X **且** Y。返回结果与 X **和** Y 都有关。**注意**：实际和常�
 
 ### filetype:
 
-只展示特定文件类型的搜索结果。比如，PDF，DOXC，TXT，PPT 等。**注意**：等价于 ext 操作符。
+只展示特定文件类型的搜索结果。比如，PDF，DOCX，TXT，PPT 等。**注意**：等价于 `ext:` 操作符。
 
 **例子**: [apple filetype:pdf](https://www.google.com/search?q=apple+filetype%3Apdf) / [apple ext:pdf](https://www.google.com/search?q=apple+ext%3Apdf)
 
@@ -237,7 +237,7 @@ X **且** Y。返回结果与 X **和** Y 都有关。**注意**：实际和常�
 
 **例子**: [blogurl:microsoft.com](https://www.google.com/search?q=blogurl%3Amicrosoft.com)
 
-旁注。
+旁注：
 
 谷歌博客搜索在 2011 年被废弃。
 
@@ -247,7 +247,7 @@ X **且** Y。返回结果与 X **和** Y 都有关。**注意**：实际和常�
 
 **例子**: [loc:”san francisco” apple](https://www.google.com/search?q=loc%3A%22san+francisco%22+apple)
 
-旁注。
+旁注：
 
 没有被官方废弃，不过结果时好时坏。
 
@@ -257,7 +257,7 @@ X **且** Y。返回结果与 X **和** Y 都有关。**注意**：实际和常�
 
 **例子**: [loc:”san francisco” apple](https://www.google.com/search?q=loc%3A%22san+francisco%22+apple)
 
-旁注。
+旁注：
 
 没有被官方废弃，不过结果时好时坏。
 
@@ -271,7 +271,7 @@ X **且** Y。返回结果与 X **和** Y 都有关。**注意**：实际和常�
 
 **例子**: [jobs +apple](https://www.google.com/search?q=jobs+%2Bapple)
 
-旁注。
+旁注：
 
 可以用双引号代替。
 
@@ -287,7 +287,7 @@ X **且** Y。返回结果与 X **和** Y 都有关。**注意**：实际和常�
 
 **例子**: inpostauthor:”steve jobs”
 
-旁注。
+旁注：
 
 谷歌博客搜索在 2011 年被废弃。
 
@@ -305,17 +305,17 @@ X **且** Y。返回结果与 X **和** Y 都有关。**注意**：实际和常�
 
 ### link:
 
-查找指向特定域名或 URL 的网页。谷歌在 2017 年废弃了这个操作符，不过这个操作符还是会返回一些结果 —— 只是结果不是特别精确。(**[于2017 年被废弃](https://searchengineland.com/google-officially-killed-off-link-command-267454)**)
+查找指向特定域名或 URL 的网页。谷歌在 2017 年废弃了这个操作符，不过这个操作符还是会返回一些结果 —— 只是结果不是特别精确。(**[于 2017 年被废弃](https://searchengineland.com/google-officially-killed-off-link-command-267454)**)
 
 **例子**: [link:apple.com](https://www.google.com/search?q=link%3Aapple.com)
 
 ### info:
 
-查阅指定网页的相关信息，包括最近的缓存，类似的网站等（[于2017年被废弃](https://searchengineland.com/google-changes-info-command-search-operator-dropping-useful-links-286422)）。**注意**：可以用 `id:` 操作符代替，结果一样。
+查阅指定网页的相关信息，包括最近的缓存，类似的网站等（**[于 2017 年被废弃](https://searchengineland.com/google-changes-info-command-search-operator-dropping-useful-links-286422)**）。**注意**：可以用 `id:` 操作符代替，结果一样。
 
-旁注。
+旁注：
 
-尽管这个操作符的原始功能被废弃了，在查找标准的、被索引的 URL 时还是挺有用的。感谢 [@glenngabe](https://twitter.com/glenngabe)的说明。
+尽管这个操作符的原始功能被废弃了，在查找标准的、被索引的 URL 时还是挺有用的。感谢 [@glenngabe](https://twitter.com/glenngabe) 的说明。
 
 **例子**: [info:apple.com](https://www.google.com/search?q=info%3Aapple.com) / [id:apple.com](https://www.google.com/search?q=id%3Aapple.com)
 
@@ -325,7 +325,7 @@ X **且** Y。返回结果与 X **和** Y 都有关。**注意**：实际和常�
 
 **例子**: [daterange:11278–13278](https://www.google.com/search?q=steve+jobs+daterange%3A11278-13278)
 
-旁注。
+旁注：
 
 没有被官方废弃，但是好像不能用了。
 
@@ -345,7 +345,7 @@ X **且** Y。返回结果与 X **和** Y 都有关。**注意**：实际和常�
 
 现在来实战一下这些操作符。
 
-我的目的是给你展示用谷歌高级操作符就可以实现大多数操作，前提是你知道如何高效地组合使用。
+我的目的是给你展示用谷歌高级操作符就几乎可以实现任何操作，前提是你知道如何高效地组合使用。
 
 不要担心，放手去尝试，超出下文给出的例子也没有关系。说不定还会有新的收获。
 
@@ -369,7 +369,7 @@ X **且** Y。返回结果与 X **和** Y 都有关。**注意**：实际和常�
 
 大约 1,040。
 
-旁注。
+旁注：
 
 用这个操作符谷歌只告诉你[大致的结果](https://searchengineland.com/what-you-can-learn-from-googles-site-operator-14052)。要完整信息，请查阅[谷歌搜索控制台](https://www.google.com/webmasters/tools/home?hl=en)。
 
@@ -381,7 +381,7 @@ X **且** Y。返回结果与 X **和** Y 都有关。**注意**：实际和常�
 
 约 249。 差不多是 ¼.
 
-我对 Ahrefs 博客太了解了，所以我知道我的博文比这个数字要多。
+我对 Ahrefs 博客太了解了，所以我知道这个数字比我们的博文数量要多。
 
 进一步调查。
 
@@ -397,7 +397,7 @@ X **且** Y。返回结果与 X **和** Y 都有关。**注意**：实际和常�
 
 ![ahrefs 子域名索引数](https://ahrefs.com/blog/wp-content/uploads/2018/05/ahrefs-index-subdomains.jpg)
 
-旁注。
+旁注：
 
 这里用到了通配符（\*）来查找主域名下的所有子域名，同时使用了排除操作符（\-）来去除常规的 www 结果。
 
@@ -422,13 +422,13 @@ HTTPs **不可或缺**，尤其对于[商业网站](https://ahrefs.com/blog/ecom
 
 ![asos unsecure 1](https://ahrefs.com/blog/wp-content/uploads/2018/05/asos-unsecure-1.jpg)
 
-天，大概有 247万个不安全页面。
+天，大概有 247 万个不安全页面。
 
 看上去 ASOS 还没有启用 SSL —— 对于这么大的网站来说实在不应该。
 
 ![asos unsecure](https://ahrefs.com/blog/wp-content/uploads/2018/05/asos-unsecure.jpg)
 
-旁注。
+旁注：
 
 Asos 的用户不要担心，Asos 的结算页面还是安全的。 🙂
 
@@ -440,7 +440,7 @@ ASOS 可以同时用 **https** 和 **http** 访问。
 
 所有这些信息都可以通过 `site:` 获取。
 
-旁注。
+旁注：
 
 我发现，有时候用这个技巧找到了没有 https 的页面，如果你点进去，会被重定向到 https 版本。所以不要因为出现在搜索结果中就认为网页不安全。记得点几个搜索结果确认一下。
 
@@ -485,7 +485,7 @@ ASOS 可以同时用 **https** 和 **http** 访问。
 
 可以看到，除去数量不同外，所有产品页内容都是雷同的。
 
-不过重复内容并不是电商网站的唯一问题。
+不过重复内容并不仅仅是电商网站会出现的问题。
 
 如果你经营一个博客，就会有人未经允许抄袭你的内容。
 
@@ -495,7 +495,7 @@ ASOS 可以同时用 **https** 和 **http** 访问。
 
 约 17 个结果。
 
-旁注。
+旁注：
 
 注意到我用排除操作符去除了来自 **ahrefs.com** 的结果，保证原创内容不会出现在搜索结果中。我同样排除了关键字 pinterest。因为我看到结果中有太多 Pinterest 结果，实际上和我们的目的无关。我本可以直接排除 pinterest.com (-pinterest.com)，不过 Pinterest 有太多 ccTLDs（国家顶级域名），这个操作符就无效了。所以排除关键字 pinterest 就是最好的清理方法。
 
@@ -539,7 +539,7 @@ PDF 文件；Word 文档；PPT 演示文稿；文本文件；等等等等。
 
 ![filetype 操作符 pdf](https://ahrefs.com/blog/wp-content/uploads/2018/05/filetype-operator-pdf.jpg)
 
-旁注。
+旁注：
 
 记住，还可以用 `ext:` 操作符，结果是一样的。
 
@@ -555,11 +555,11 @@ PDF 文件；Word 文档；PPT 演示文稿；文本文件；等等等等。
 
 ![filetype 操作符检索所有文件类型](https://ahrefs.com/blog/wp-content/uploads/2018/05/filetype-operator-all-types.jpg)
 
-旁注。
+旁注：
 
-filetype 操作符还支持 .**asp， .php， .html** 等格式。
+filetype 操作符还支持 **.asp， .php， .html** 等格式。
 
-如果你不像让其他人看到这些文件，删除或不索引（noindex）它们。
+如果你不想让其他人看到这些文件，删除或不索引（noindex）它们。
 
 ### 5. 寻找投稿的机会
 
@@ -569,13 +569,13 @@ filetype 操作符还支持 .**asp， .php， .html** 等格式。
 
 不过这个方法你已经知道了，对吧？😉
 
-旁注。
+旁注：
 
 对于不太清楚的读者这里再赘述一下，这个方法可以找出所谓的“为我们写作”页面，很多人在积极寻找合作作者的时候会创建这种页面。
 
 还可以更有创造力一点。
 
-首先：不要只使用 “write for us.”
+首先：不要只使用 “为我们写作”
 
 还可以用：
 
@@ -593,7 +593,7 @@ filetype 操作符还支持 .**asp， .php， .html** 等格式。
 
 ![寻找合作作者的多关键字操作符](https://ahrefs.com/blog/wp-content/uploads/2018/05/guest-post-multi-search-operator.jpg)
 
-旁注。
+旁注：
 
 是否注意到我用了管道操作符（`|`）而不是 OR？记住，这俩其实是一个东西。🙂
 
@@ -615,13 +615,13 @@ filetype 操作符还支持 .**asp， .php， .html** 等格式。
 
 会找到这个人发表作品的所有网站。
 
-旁注。
+旁注：
 
 不要忘了排除作者自己的网站，让结果更清楚！
 
 如何找到更多合作作者的博文
 
-**[Content Explorer](https://ahrefs.com/content-explorer) \>搜索作者 \> 排除作者自己的网站**
+**[Content Explorer](https://ahrefs.com/content-explorer) \> 搜索作者 \> 排除作者自己的网站**
 
 以我们网站的 [Tim Soulo](https://ahrefs.com/tim) 为例。
 
@@ -635,7 +635,7 @@ filetype 操作符还支持 .**asp， .php， .html** 等格式。
 
 基本上就是搜索了 Tim Soulo 的博文。但是同时排除了 ahrefs.com 和 bloggerjet.com（Tim 自己的博客）的结果。
 
-**注意**：有时候会得到假阳性结果。这取决于你搜索的人名有多常见。
+**注意**：有时候会得到错误结果。这取决于你搜索的人名有多常见。
 
 不要止步于此：
 
@@ -649,12 +649,12 @@ filetype 操作符还支持 .**asp， .php， .html** 等格式。
 
 也就是说 **marketingprofs.com** 还没有链接过我们。
 
-尽管这个搜索不能告诉我们搜索结果中是否有 write for us 页面。不过也没有关系。事实是，大多数网站都乐于接受文章投稿，只要你拿得出高质量的内容。所以完全有必要主动伸手联系这些网站。
+尽管这个搜索不能告诉我们搜索结果中是否有“为我们写作”页面。不过也没有关系。事实是，大多数网站都乐于接受文章投稿，只要你拿得出高质量的内容。所以完全有必要主动伸手联系这些网站。
 
 另外一个使用 [Content Explorer](https://ahrefs.com/content-explorer) 的好处是，你可以看到每个网页的统计数据，包括：
 
-*   \\# of RDs;
-*   DR;
+*   \# of RDs（提及的域名数量）;
+*   DR（域名排名）;
 *   流量统计；
 *   社交媒体分享数；
 *   等等。
@@ -665,7 +665,7 @@ filetype 操作符还支持 .**asp， .php， .html** 等格式。
 
 ![特定网站是否接受投稿](https://ahrefs.com/blog/wp-content/uploads/2018/05/specific-site-guest-contribution.jpg)
 
-旁注。
+旁注：
 
 你应该尝试更多的搜索关键字——比如，‘这是篇不错的投稿文章’——到括号中。我只写了两个是为了演示时比较简洁。
 
@@ -679,7 +679,7 @@ filetype 操作符还支持 .**asp， .php， .html** 等格式。
 
 你看到的所有链接都是指向其他站点的资源。
 
-**（讽刺的是——考虑到这种页面受制于人的本质——大部分链接都失效了）**
+**（考虑到这个页面的主题（如何修复失效的链接），讽刺的是，它的大部分链接都失效了）**
 
 推荐阅读
 
@@ -705,11 +705,11 @@ filetype 操作符还支持 .**asp， .php， .html** 等格式。
 
 ![intitle fitness numbers resources operator](https://ahrefs.com/blog/wp-content/uploads/2018/05/intitle-fitness-numbers-resources-operator.jpg)
 
-旁注。
+旁注：
 
 用 `allintitle:` 保证标题同时含有 fitness 和 resources，而且有 5 到 15 的数字。
 
-#..# 操作符的说明
+\#..\# 操作符的说明
 
 我知道你在想什么：
 
@@ -725,7 +725,7 @@ filetype 操作符还支持 .**asp， .php， .html** 等格式。
 
 这个操作符和其他大部分操作符都无法组合工作。
 
-单独使用时都不一定总是有效——它完全就是时好时坏。
+单独使用时都不一定总是有效 —— 它完全就是时好时坏。
 
 所以我建议使用一连串用 OR 或管道操作符（`|`）隔开的数字。
 
@@ -759,7 +759,7 @@ filetype 操作符还支持 .**asp， .php， .html** 等格式。
 
 ![fitness infographic operator](https://ahrefs.com/blog/wp-content/uploads/2018/05/fitness-infographic-operator.jpg)
 
-旁注。
+旁注：
 
 在搜索中加上最近的时间范围也挺好的，比如最近 3 个月。如果一个网站两年前曾主推信息图，不代表它现在仍然重视信息图。然而如果一个网站最近几个月就在力推信息图的话，他们很可能仍然以此为卖点。不过由于 daterange 操作符已经无效了，你必须使用谷歌搜索内置的过滤器。
 
@@ -794,7 +794,7 @@ filetype 操作符还支持 .**asp， .php， .html** 等格式。
 
 ![content explorer infographic](https://ahrefs.com/blog/wp-content/uploads/2018/05/content-explorer-infographic.jpg)
 
-可以看到，你可以在 CE 中使用高级搜索操作符来一次性搜索多个术语。上面的搜索会找到标题中含有 SEO，keyword search，link building 或者 “[infographic]”的结果。
+可以看到，你可以在 CE 中使用高级搜索操作符来一次性搜索多个词。上面的搜索会找到标题中含有 SEO，keyword search，link building 或者 “[infographic]” 的结果。
 
 同样，结果可以导出（附带相关信息）。
 
@@ -816,7 +816,7 @@ filetype 操作符还支持 .**asp， .php， .html** 等格式。
 
 大概有 49 个结果，都是类似的网站。
 
-旁注。
+旁注：
 
 在上例中，我们找的是和 Ahrefs 博客相似的网站，不是和 Ahrefs 整体相似的网站。
 
@@ -832,12 +832,12 @@ filetype 操作符还支持 .**asp， .php， .html** 等格式。
 
 我和 Yoast 相当熟，所以我知道这是个高度相关的网站。
 
-但是如果我对这个站一点都不了解，要如何检查 呢？
+但是如果我对这个站一点都不了解，要如何检查呢？
 
 方法如下：
 
 1.  搜索 `site:domain.com`，记下结果数量
-2.  搜索 `site:domain.com [niche]`，记下结果数量
+2.  搜索 `site:domain.com [领域]`，记下结果数量
 3.  第二个数除以第一个数，如果大于 0.5，结果不错，比较相关；如果大于 0.75 就说明非常相关。
 
 用 **yoast.com** 试试。
@@ -846,7 +846,7 @@ filetype 操作符还支持 .**asp， .php， .html** 等格式。
 
 ![yoast simple site search](https://ahrefs.com/blog/wp-content/uploads/2018/05/yoast-simple-site-search.jpg)
 
-`site: [niche]` 的结果数量：
+`site: [领域]` 的结果数量：
 
 ![yoast site niche search](https://ahrefs.com/blog/wp-content/uploads/2018/05/yoast-site-niche-search.jpg)
 
@@ -863,7 +863,7 @@ filetype 操作符还支持 .**asp， .php， .html** 等格式。
 
 **(18,000 / 7 = ~0.0004 = 完全无关的网站)**
 
-**重要提示！**这是个快速评估相关性的好方法，但是不是绝对可靠——有时候会得到奇怪或者完全没有用的结果。我还想强调，没有哪种方法可以绝对取代手工检查网站。你应该总是先全面检查网站再和他们取得联系。如果做不到就意味着[垃圾邮件](https://ahrefs.com/blog/outreach/)。
+**重要提示！**这是个快速评估相关性的好方法，但是不是绝对可靠 —— 有时候会得到奇怪或者完全没有用的结果。我还想强调，没有哪种方法可以绝对取代手工检查网站。你应该总是先全面检查网站再和他们取得联系。如果做不到就意味着[垃圾邮件](https://ahrefs.com/blog/outreach/)。
 
 还有一个方法查找相似域名…
 
@@ -887,9 +887,9 @@ filetype 操作符还支持 .**asp， .php， .html** 等格式。
 
 ![tim soulo google search social profiles](https://ahrefs.com/blog/wp-content/uploads/2018/05/tim-soulo-google-search-social-profiles.jpg)
 
-旁注。
+旁注：
 
-你需要知道他们的名字。通常在大多数网站上都不难找——只是联系信息可能不太好找。
+你需要知道他们的名字。通常在大多数网站上都不难找 —— 只是联系信息可能不太好找。
 
 下面是前 4 个结果：
 
@@ -922,7 +922,7 @@ filetype 操作符还支持 .**asp， .php， .html** 等格式。
 
 **当然。**
 
-只是要找到相关的地点来加入内链有时比较困难——尤其是对于大网站来说。
+只是要找到相关的地点来加入内链有时比较困难 —— 尤其是对于大网站来说。
 
 不妨试试这个技巧：
 
@@ -940,9 +940,9 @@ filetype 操作符还支持 .**asp， .php， .html** 等格式。
 
 只花了 3 秒钟就找到了。🙂
 
-### 11. 通过搜索提及竞争对手的内容发现 PR 机会
+### 11. 通过搜索提及竞争对手的内容发现公关（PR）机会
 
-下面这个页面提及了我们的一个竞争对手——Moz。
+下面这个页面提及了我们的一个竞争对手 —— Moz。
 
 ![how to use moz](https://ahrefs.com/blog/wp-content/uploads/2018/05/how-to-use-moz.jpg)
 
@@ -966,9 +966,9 @@ filetype 操作符还支持 .**asp， .php， .html** 等格式。
 
 ![allintitle review search google](https://ahrefs.com/blog/wp-content/uploads/2018/05/allintitle-review-search-google.jpg)
 
-旁注。
+旁注：
 
-因为用到了 `allintitle` 而不是 `intitle`，只会返回标题中同时有 “review‘ 和竞争对手名字的结果。
+因为用到了 `allintitle` 而不是 `intitle`，只会返回标题中同时有 “review“ 和竞争对手名字的结果。
 
 你可以和这些人发展关系让他们也评价一下你们的产品/服务。
 
@@ -1024,7 +1024,6 @@ filetype 操作符还支持 .**asp， .php， .html** 等格式。
 
 ### 12. 寻找赞助文章机会
 
-Sponsored posts are paid‐for posts promoting your brand, product or service.
 赞助贴是宣传你的品牌，产品或服务的收费文章。
 
 并不是构建链接的机会。
@@ -1037,7 +1036,7 @@ Sponsored posts are paid‐for posts promoting your brand, product or service.
 
 但是赞助文章的真正价值从来都和链接无关。
 
-它会影响 PR，比如说，让你的品牌出现在对的人面前。
+它会影响 PR，也就是让你的品牌出现在对的人面前。
 
 下面是用谷歌搜索操作符寻找赞助文章机会的方法：
 
@@ -1053,7 +1052,7 @@ Sponsored posts are paid‐for posts promoting your brand, product or service.
 *   `[niche] intitle:”sponsored post archives” inurl:”category/sponsored-post”`
 *   `“sponsored” AROUND(3) “post”`
 
-旁注。
+旁注：
 
 上面的例子就只是**例子**。当然还有其他线索来寻找这类帖子。你还可以试试其他点子。
 
@@ -1071,7 +1070,7 @@ Sponsored posts are paid‐for posts promoting your brand, product or service.
 
 论坛和问答网站非常有助于宣传你的内容。
 
-旁注。
+旁注：
 
 宣传不等于制造垃圾邮件。不要只为了加入你的链接就参与垃圾站点。提供有价值的内容，同时，偶尔在回答中放一些自己的链接。
 
@@ -1083,9 +1082,9 @@ Sponsored posts are paid‐for posts promoting your brand, product or service.
 
 一个带有 SEO 博客链接的 Quora 答案。
 
-当然这些链接属性时 nofollow。
+当然这些链接是被设置为 nofollow 的。
 
-不过我们又不是要在这里创建链接——纯粹是为了 PR！
+不过我们又不是要在这里创建链接 —— 纯粹是为了 PR！
 
 还有一个找到相关帖子的方法：
 
@@ -1157,13 +1156,13 @@ Sponsored posts are paid‐for posts promoting your brand, product or service.
 
 ![competitor blog posts month](https://ahrefs.com/blog/wp-content/uploads/2018/05/competitor-blog-posts-month.gif)
 
-旁注。
+旁注：
 
 任何时间段都可以。只需选择“自定义”。
 
 大约 29 篇。有意思。
 
-另外说一句，比我们更新速度快了差不多 4 倍。而且他们文章总是比我们多十五倍。
+另外说一句，比我们更新速度快了差不多 4 倍。而且他们文章总数比我们多十五倍。
 
 不过我想补充一句，我们的流量更多，大概是 2 倍。😉
 
@@ -1187,11 +1186,11 @@ Sponsored posts are paid‐for posts promoting your brand, product or service.
 
 ![competitor links search](https://ahrefs.com/blog/wp-content/uploads/2018/05/competitor-links-search.gif)
 
-旁注。
+旁注：
 
 使用这个方法时记得用 `site` 操作符排除掉竞争对手自己的网站。如果不排除掉，他们内部的链接也会被算进来。
 
-大概 90万个链接。
+大概 90 万个链接。
 
 想看到更多链接吗？
 
