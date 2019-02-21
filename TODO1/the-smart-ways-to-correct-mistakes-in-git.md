@@ -2,43 +2,43 @@
 > * 原文作者：[Tobias Günther](https://css-tricks.com/author/tobiasgunther/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-smart-ways-to-correct-mistakes-in-git.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-smart-ways-to-correct-mistakes-in-git.md)
-> * 译者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
 > * 校对者：
 
-# The Smart Ways to Correct Mistakes in Git
+# 修改 Git 错误的高明方法
 
-The world of software development offers an _infinite_ amount of ways to mess up: deleting the wrong things, coding into dead ends, littering commit messages with typos, are a mere few of the plentitude.
+在软件开发的世界，有**无穷无尽**的方法能够把事情搞得一团糟：错删东西，代码混乱，提交信息写错了字，这些都仅仅是冰山一角。
 
-​​Fortunately, however, we have a wonderful safety net under our feet in the form of Git when we’re working with version control. Not that you and I need a safety net, of course, because we never make mistakes, right? Sure, sure. But for the benefit of everyone else, let's take a tour of some of the "undo" tools in Git that can save us from ourselves.
+幸运的是，当我们使用版本控制时，Git 提供给我们了一个很完美的安全网。当然啦，不是咱俩需要它，因为我们从来不犯错的，对吧？嗯嗯当然当然。但是为了他人的利益，我们还是一起来看看那些可以拯救我们的 Git “撤回”工具。
 
-### Fixing the last commit
+### 修改最后提交
 
-​​Messing up a commit is all too easy. Classic case in point: making a typo in a commit message. Another? Forgetting to add a change to the staging area. And in many cases, we instantly realize our mistake — right after hitting the Enter key, naturally.
+搞砸一份提交非常容易。经典的场景包括：提交信息里写了错字。其他的？还有忘记将修改添加到临时区（staging area）。还有很多时候，我们忽然意识到代码中有错误 —— 但是当然是在点击了提交的确认叫之后。
 
-​​Luckily, Git makes it ridiculously easy to fix the very last commit. Let's say we had just hit Enter on the following command:
+幸运的是，Git 让修改最后一次提交这件事出乎意料的简单。假如我们刚刚确认了下面这个命令：
 
 ```
 git commit -m "Massage full of typohs"
 ```
 
-​​And (as if this orthographic mess wasn't bad enough) let's say we _also_ forgot to add another changed file to the staging area. We can correct both of our mistakes with the following two commands:
+并且（就好像这个拼写错误还没那么糟糕）假如我们也忘记了添加某个已经修改的文件到临时区。我们可以使用如下两行命令修正这两个错误：
 
 ```
 git add forgotten-changes.js
 ​​git commit --amend -m "A sensible message"
 ```
 
-​​The magic ingredient is the `--amend​` flag: when using it on a commit, Git will correct the very last commit — with any staged changes and the new message.
+神奇之处就在于 `--amend​` 标识：当我们跟着 commit 命令使用它的时候，Git 将会修改最后一次提交 —— 添加临时区的修改，并替换为新的说明信息。
 
-​​A short word of warning, though: only use `--amend`​ on commits that haven't been pushed to a remote repository, yet. The reason is that Git **replaces the original**, bad commit with the amended version. Afterwards, it looks as if the original commit never happened. Yeah, that’s good for concealing mistakes, but only if we haven't already _published_ this mistake on the remote server.
+但是有一点需要提示：只能在没有推送到远端仓库的提交上使用 `--amend`。原因是 Git 会用修改了的版本**取代原来的**，有错误的提交。这之后，看上去就像是原来的提交从来没有过。是的，这种方式用来处理错误很好，但是必须是当我们还没有将过这个错误**发布**到远端仓库的时候。
 
-### Undoing local changes
+### 撤销本地修改
 
-​​Everyone’s had days like this: spend all morning hacking away, only to admit to yourself that the last few hours were a waste of time. Gotta start over and undo much (or all) of that work.
+每个人都有类似的经历：用了一早晨的时间寻找解决办法，但是最后只好承认这几个小时就是在浪费时间。必须从头开始了，并且要撤销大部分（或者所有）的代码。
 
-​​But this is one of the reasons for using Git in the first place — to be able to try out things without the fear that we might break something.
+但是这其实是使用 Git 的初衷之一 —— 它能让你不用害怕破坏了什么，而随意的尝试不同的方法。
 
-​​Let's take stock in an example situation:
+让我们来看一个例子：
 
 ```
 git status
@@ -47,73 +47,73 @@ git status
 ​​  modified: index.html
 ```
 
-​​Now, let's assume that this is one of the wasted hacking days described above. We ought to have kept our hands off of about.html and not deleted imprint.html. What we now want is to _discard_ our current changes in these files — while keeping the brilliant work done in index.html. ​​The `git checkout​` command can help in this case. Instead, we’ve gotta get more specific with which files to check out, like this:
+现在我们假设，这些修改就是在前文说的浪费时间的场景。我们需要撤销 about.html 的修改并且恢复已经删除的 imprint.html。我们现在想要的就是，**丢弃**这些文件当前的更改 —— 但是保留 index.html 中的超赞的已经写好的代码。这时，`git checkout​` 命令就能够有所帮助。但是，我们需要像这样指明是哪些文件：
 
 ```
 git checkout HEAD about.html imprint.html
 ```
 
-​​This command restores both about.html and imprint.html to their last committed states. Phew, we got away from a black eye!
+这行命令将 about.html 和 imprint.html 恢复到了最后提交的状态。哎，我们可以不用熬夜来撤销它们了！
 
-​​We could take this one step further and **discard specific individual lines** in a changed file instead of tossing out the entire thing! I’ll admit, it’s rather complicated to make it happen on the command line, but using a [desktop Git client like Tower](https://www.git-tower.com/) is a great way to go about it:
+我们可以更进一步，可以在一个修改过的文件里**仅丢弃特定几行代码**，而不是恢复整个文件！我必须承认，在命令行完成这项任务比较复杂，但使用 [desktop Git client like Tower](https://www.git-tower.com/) 则是一个很好的方法：
 
 ![](https://css-tricks.com/wp-content/uploads/2019/02/tower-discard-single-lines-2.gif)
 
-​​For those _really_ bad days, we might want to bring out the big guns in the form of:
+在代码**真的**糟透了的时候，我们就想掏出一把大枪：
 
 ```
 git reset --hard HEAD
 ```
 
-​​While we only restored _specific_ files with `checkout`​, this command resets our _whole working copy_. In other words, `reset`​ restores the complete project at its last committed state. ​​Similar to `--amend`​, there's something to keep in mind when using `checkout`​ and `reset`​: discarding local changes with these commands cannot be undone! They have never been committed to the repository, so it's only logical that they cannot be restored. Better be sure that you really want to get rid of them because there’s no turning back!
+这次我们不是仅仅使用 `checkout`​ 恢复**指定的**文件，而是重置了**所有修改过的副本**。换句话说，`reset` 将所有项目文件恢复到了最后一次提交的状态。和 `--amend` 类似，使用 `checkout`​ 和 `reset`​ 的时候需要牢记：使用这些命令丢弃的本地修改无法恢复！它们还从来没有被提交到仓库中，所以不能被恢复也是合理的。请确认你真的想要删除它们，因为删除了就没法找回了！
 
-### Undoing and reverting an older commit
+### 撤销并还原更早的提交
 
-​​In many cases, we only realize a mistake much later, after it has long been committed to the repository.
+很多情况下，我们一段时间后才意识到代码的错误，而它已经被提交到仓库里很久了。
 
 ![](https://res.cloudinary.com/css-tricks/image/upload/v1548698897/F9D13FDA-F04C-467F-A910-B944BB7AA196_a71qfi.png)
 
-​​How can we get rid of that one bad commit? Well, the answer is that we shouldn't… at least in most cases. Even when "undoing" things, Git normally doesn't actually delete data. It _corrects it by adding new data_. Let's see how this works using our "bad guy" example:
+我们如何才能删除掉这个错误的提交呢？答案是在大多数场景下，我们其实不应该这样做。就算是“撤销”内容的时候，通常情况下 Git 并没有真的删除数据。它**通过添加新的数据来修正内容**。用这个例子，我们来看看它是如何工作的：
 
 ```
 git revert 2b504bee
 ```
 
-​​By using `git revert`​ on that bad commit, we haven't deleted anything. Quite the contrary:
+通过对这个提交执行 `git revert`，我们并没有删除任何东西。相反的是：
 
 ![](https://res.cloudinary.com/css-tricks/image/upload/v1548698922/F4BA4EB6-68CB-4ADB-B840-157A0FB094B8_pt0t26.png)
 
-​​Git automatically created a _new_ commit with changes that _reverts the effects_ of the "bad" commit. So, really, if we started with three commits and were trying to correct the middle one, now we have four total commits, with a new one added that corrects the one we targeted with `revert`​.
+Git 自动创建了一个**新的**提交来**撤销**错误提交所造成的修改。所以，如果我们一开始有三个提交，然后试图修正中间的那个，那么我们就会有四个提交了，新增的那个用来修改 `revert` 的目标提交。
 
-### Restoring a previous version of a project
+### 恢复项目之前的版本
 
-​​A different use case is when we want to restore a previous version of our project. Instead of simply undoing or reverting a specific revision somewhere in our commit history, we might really want to turn back time and return to a specific revision.
+另一个情境是我们希望恢复到项目之前的版本。我们不是仅仅撤销提交历史中的一个特定的版本，而是想让时间倒流，直接退回到这个版本。
 ​​  
-​​In the following example scenario, we would declare all the commits that came after "C2" as _unwanted_. What we want is to return to the state of commit "C2" and forget everything that came after it in the process:
+在下面的场景中，我们声明“C2”之后的所有提交都是**不需要的**。我们想要回到“C2”这次提交的状态，它之后的提交统统删除：
 
 ![](https://res.cloudinary.com/css-tricks/image/upload/v1548698945/9F2F3E84-7499-4047-B3A1-812AD45D32A1_qcy0xt.png)
 
-​​The command that's necessary is already (at least partly) familiar to you based on what we’ve already covered:
+根据我们已经讲述过的内容，我想你已经（至少部分）熟悉了所需的命令：
 
 ```
 git reset --hard 2b504bee
 ```
 
-​​This tells `git reset`​ the SHA-1 hash of the commit we want to return to. Commits C3 and C4 then disappear from the project's history.
+这个命令通知了 `git reset` 我们想要返回的提交的 SHA-1 哈希值。C3 和 C4 提交将会从项目历史中消失。
 ​​
-​​If you're working in a Git client, like Tower, both `git revert`​ and `git reset` are available from the contextual menu of a commit item:
+如果你在使用 Git 客户端，例如 Tower，提交项目的右键菜单中的 `git revert` 和 `git reset` 两者都可以使用：
 
 ![](https://res.cloudinary.com/css-tricks/image/upload/v1548699011/23F90DCB-BD37-4948-A309-0682FB961824_lc3t8d.png)
 
-### ​​Deleting commits, restoring deleted branches, dealing with conflicts, etc. etc. etc.
+### 删除提交，恢复删除的分支，处理冲突等等
 
-​​Of course, there are many other ways to mess up things in a software project. But luckily, Git also offers many more tools for undoing the mess.
+当然，软件项目中还有很多其他会把事情搞砸的方式。但是幸运的是，Git 提供了很多工具来撤销错误。
 
-​​Have a look at the ["First Aid Kit for Git"](https://www.git-tower.com/learn/git/first-aid-kit) project that I and other folks on the Tower team have created if you want to learn more about the scenarios we covered in this post, or about other topics, like how to move commits between branches, delete old commits, restore deleted branches or gracefully deal with merge conflicts. It’s a totally free guide that includes 17 videos and a handy cheat sheet you can download and keep next to your machine.
+如果你想要学习本篇文章提到的场景中的更多的内容，或者其他题目，例如如何在分支之间移动提交，删除旧提交，恢复删除的分支，或者优雅的处理冲突，看一下项目 ["Git 急救包"](https://www.git-tower.com/learn/git/first-aid-kit)，它是我和其他一些 Tower 团队的人创建的。这是一份完全免费的教程，包括了 17 个视频以及一份很方便的备忘单，你可一下载并保存到你的设备上。
 
 [![](https://res.cloudinary.com/css-tricks/image/upload/v1548699043/7A41F2B2-96C4-483C-8639-B7A35F305681_vafnlo.png)](https://www.git-tower.com/learn/git/first-aid-kit)
 
-​​In the meantime, happy undoing!
+同时，祝你撤销得愉快！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
