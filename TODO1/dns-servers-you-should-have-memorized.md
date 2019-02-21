@@ -53,7 +53,7 @@
 
 我最初尝试使用 Quad9 时发现它有点慢。 我想他们现在应该已经解决了这个问题，但更多关于以下的表现。
 
-## Enter CloudFlare
+## CloudFlare 出现了
 
 ![, DNS Servers That Offer Privacy and Filtering](https://danielmiessler.com/images/Screen-Shot-2019-01-27-at-11.49.14-PM-300x300.png)
 
