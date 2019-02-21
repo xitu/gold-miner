@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/html-is-and-always-was-a-compilation-target-can-we-deal-with-that.md](https://github.com/xitu/gold-miner/blob/master/TODO1/html-is-and-always-was-a-compilation-target-can-we-deal-with-that.md)
 > * 译者：[CodeMing](https://github.com/coderming)
-> * 校对者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)、[Fengziyin1234](https://github.com/Fengziyin1234)
+> * 校对者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)，[Fengziyin1234](https://github.com/Fengziyin1234)
 
 # HTML 一直是我们编译的目标 – 我们可以解决好它吗？
 
