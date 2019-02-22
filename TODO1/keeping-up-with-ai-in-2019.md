@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# What is the next big thing in AI and ML?
+# Keeping up with AI in 2019: What is the next big thing in AI and ML?
 
 The past year has been rich in events, discoveries and developments in AI. It is hard to sort through the noise to see if the signal is there and, if it is, what is the signal saying. This post attempts to get you exactly that: I’ll try to extract some of the patterns in the AI landscape over the past year. And, if we are lucky, we’ll see how some of the trends extend into the near future.
 
