@@ -1,7 +1,7 @@
 > * 原文地址：[Java Service Loader vs. Spring Factories Loader](https://dzone.com/articles/java-service-loader-vs-spring-factories-loader)
 > * 原文作者：[Nicolas Frankel](https://dzone.com/users/293758/nfrankel.html)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/.md](https://github.com/xitu/gold-miner/blob/master/TODO1/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/java-service-loader-vs-spring-factories-loader.md](https://github.com/xitu/gold-miner/blob/master/TODO1/java-service-loader-vs-spring-factories-loader.md)
 > * 译者：
 > * 校对者：
 
@@ -76,7 +76,6 @@ Sources for this article can be found on [GitHub](https://github.com/nfrankel/se
 *   [Java Service Loader](https://docs.oracle.com/javase/tutorial/ext/basics/spi.html)
 *   [Java Service Loader Spring integration Javadoc](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/serviceloader/package-summary.html)
 *   [Spring Factories Loader Javadoc](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/io/support/SpringFactoriesLoader.html)
-
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
