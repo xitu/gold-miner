@@ -1,7 +1,7 @@
 > * 原文地址：[Writing a Microservice in Rust](http://www.goldsborough.me/rust/web/tutorial/2018/01/20/17-01-11-writing_a_microservice_in_rust/)
 > * 原文作者：[Peter Goldsborough](http://www.goldsborough.me/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/.md](https://github.com/xitu/gold-miner/blob/master/TODO1/writing-a-microservice-in-rust.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/writing-a-microservice-in-rust.md](https://github.com/xitu/gold-miner/blob/master/TODO1/writing-a-microservice-in-rust.md)
 > * 译者：
 > * 校对者：
 
@@ -736,6 +736,8 @@ Pieced together, the above snippets of code make up around 270 lines necessary t
 I wrote this blog post to share the knowledge I picked up while learning about Rust and applying my knowledge to a small [url-shortening webservice](http://github.com/goldsborough/psag.cc) that I use to shorten URLs for my blog (which, if you take a look at your browser’s URL bar, are quite long). Coming out of this, I feel like I now have a solid appreciation for the features Rust brings along, and where it is more expressive and safe or less expressive (but not less safe) to work with compared to modern C++.
 
 I feel like it may take another few years for Rust’s ecosystem to stabilize and go-to, stable and well-maintained packages to establish themselves for the majority of tasks. Nevertheless, the prospects are promising. Facebook is already investigating the use of Rust for a new [Mercurial server](https://www.theregister.co.uk/2016/10/18/facebook_mercurial_devs_forget_git/) which would host its codebase. And more and more people are looking at Rust as an interesting option for embedded programming. I’ll be watching the development of the language closely, meaning I subscribed to the `r/Rust` subreddit.
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
 
