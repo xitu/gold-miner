@@ -73,8 +73,6 @@ Though OpenAI has been giving a lot of attention to computer games, they haven�
 
 Deepfakes are images or videos that show (usually) a public figure doing or saying something they never did or said. They are created by training a GAN on a large amount of footage of the “target” person, and then generating new media with desired actions performed in it. A desktop application called FakeApp released in January 2018 allows anyone with a computer and zero computer science knowledge to create deepfakes. And while the videos it produces can be easily spotted as non genuine, the technology has progressed very far. Just watch this [video](https://youtu.be/cQ54GDm1eL0) to see how much.
 
-<iframe width="700" height="393" src="https://www.youtube.com/embed/cQ54GDm1eL0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 Thanks, Obama?
 
 ### Infrastructure
@@ -199,7 +197,7 @@ And yet, the efforts of countless graduate students and software engineers are n
 
 Now, if only someone figured out those pesky shoelaces! Wait, what? [They did](https://www.theverge.com/2019/2/4/18210711/puma-fi-self-lacing-shoes-nike-hyperadapt-bb)?
 
-<iframe width="700" height="393" src="https://www.youtube.com/embed/nU-XDVyYqMs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+* [Click here](https://www.youtube.com/embed/nU-XDVyYqMs) to watch the full video.
 
 _Huge thanks to Malika Cantor, Maya Grossman, Tom White, Cassie Kozyrkov and Peter Norvig for reading the draft versions of this post._
 
