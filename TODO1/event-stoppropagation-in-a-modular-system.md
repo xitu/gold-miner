@@ -8,6 +8,7 @@
 # event.stopPropagation() in a modular system
 
 ![](https://www.moxio.com/documents/gfx/page_images/blog.header_1.png)
+
 Here at Moxio we build web applications from modules that we call widgets. A widget contains some logic and it controls a little bit of HTML. Think of a checkbox input element or a list of other widgets. A widget can declare what data or dependencies it needs and can choose to pass resources down to its children. Modularity is great for managing complexity because all channels of communication are explicitly defined. It also allows you reuse widgets by combining in different ways. JavaScript makes it a little bit difficult to ensure a modular contract because you always have access to a global scope but it can be managed.
 
 ## Modular design in JavaScript
@@ -111,7 +112,6 @@ function on_row_click(event) {
 I'm often amazed at the foresight in the design of JavaScript and its native libraries. In general things work really well. It's a kind of 'choose your own adventure' style API that supports many workflows, including ours. Our modular design and wrapping allows us to augment the native libraries with our own concepts. We can fill in the gaps and smooth out the bumps.
 
 We still allow stopPropagation but discourage its use. The significant-flag has been implemented in many a checkbox-table and there was much rejoicing.
-
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
