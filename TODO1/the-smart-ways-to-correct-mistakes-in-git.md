@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-smart-ways-to-correct-mistakes-in-git.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-smart-ways-to-correct-mistakes-in-git.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[shixi-li](https://github.com/shixi-li)，[kezhenxu94](https://github.com/kezhenxu94)
 
 # 修改 Git 错误的高明方法
 
@@ -13,7 +13,7 @@
 
 ### 修改最后提交
 
-搞砸一份提交非常容易。经典的场景包括：提交信息里写了错字。其他的？还有忘记将修改添加到临时区（staging area）。还有很多时候，我们忽然意识到代码中有错误 —— 但是当然是在点击了提交的确认叫之后。
+搞砸一次提交非常容易。经典的场景包括：提交信息里写了错字。其他的？还有忘记将修改添加到临时区（staging area）。还有很多时候，我们忽然意识到代码中有错误 —— 但是当然是在点击了提交的确认键之后。
 
 幸运的是，Git 让修改最后一次提交这件事出乎意料的简单。假如我们刚刚确认了下面这个命令：
 
@@ -21,7 +21,7 @@
 git commit -m "Massage full of typohs"
 ```
 
-并且（就好像这个拼写错误还没那么糟糕）假如我们也忘记了添加某个已经修改的文件到临时区。我们可以使用如下两行命令修正这两个错误：
+并且（好像这个拼写错误还没那么糟糕）假如我们还忘记了添加某个已经修改的文件到临时区。我们可以使用如下两行命令修正这两个错误：
 
 ```
 git add forgotten-changes.js
@@ -36,7 +36,7 @@ git add forgotten-changes.js
 
 每个人都有类似的经历：用了一早晨的时间寻找解决办法，但是最后只好承认这几个小时就是在浪费时间。必须从头开始了，并且要撤销大部分（或者所有）的代码。
 
-但是这其实是使用 Git 的初衷之一 —— 它能让你不用害怕破坏了什么，而随意的尝试不同的方法。
+但是这其实是使用 Git 的初衷之一 —— 它能让你不用害怕破坏了什么，而可以随意的尝试不同的方法。
 
 让我们来看一个例子：
 
@@ -55,7 +55,7 @@ git checkout HEAD about.html imprint.html
 
 这行命令将 about.html 和 imprint.html 恢复到了最后提交的状态。哎，我们可以不用熬夜来撤销它们了！
 
-我们可以更进一步，可以在一个修改过的文件里**仅丢弃特定几行代码**，而不是恢复整个文件！我必须承认，在命令行完成这项任务比较复杂，但使用 [desktop Git client like Tower](https://www.git-tower.com/) 则是一个很好的方法：
+我们可以更进一步，可以在一个修改过的文件里**仅丢弃特定几行代码**，而不是恢复整个文件！我必须承认，在命令行完成这项任务比较复杂，但使用 [像 Tower 这样的 Git 桌面客户端](https://www.git-tower.com/) 则是一个很好的方法：
 
 ![](https://css-tricks.com/wp-content/uploads/2019/02/tower-discard-single-lines-2.gif)
 
@@ -109,7 +109,7 @@ git reset --hard 2b504bee
 
 当然，软件项目中还有很多其他会把事情搞砸的方式。但是幸运的是，Git 提供了很多工具来撤销错误。
 
-如果你想要学习本篇文章提到的场景中的更多的内容，或者其他题目，例如如何在分支之间移动提交，删除旧提交，恢复删除的分支，或者优雅的处理冲突，看一下项目 ["Git 急救包"](https://www.git-tower.com/learn/git/first-aid-kit)，它是我和其他一些 Tower 团队的人创建的。这是一份完全免费的教程，包括了 17 个视频以及一份很方便的备忘单，你可一下载并保存到你的设备上。
+如果你想要学习本篇文章提到的场景中的更多的内容，或者其他题目，例如如何在分支之间移动提交，删除旧提交，恢复删除的分支，或者优雅的处理冲突，看一下项目 ["Git 急救包"](https://www.git-tower.com/learn/git/first-aid-kit)，它是我和其他一些 Tower 团队的人创建的。这是一份完全免费的教程，包括了 17 个视频以及一份很方便的备忘单，你可以下载并保存到你的设备上。
 
 [![](https://res.cloudinary.com/css-tricks/image/upload/v1548699043/7A41F2B2-96C4-483C-8639-B7A35F305681_vafnlo.png)](https://www.git-tower.com/learn/git/first-aid-kit)
 
