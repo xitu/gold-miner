@@ -1,17 +1,11 @@
 > * 原文地址：[medium.com](https://medium.com/thelaunchpad/what-is-the-next-big-thing-in-ai-and-ml-904a3f3345ef)
 > * 原文作者：[Max Grigorev](https://medium.com/@forwidur)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/.md](https://github.com/xitu/gold-miner/blob/master/TODO1/keep-up-with-ai-in-2019.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/keeping-up-with-ai-in-2019.md](https://github.com/xitu/gold-miner/blob/master/TODO1/keeping-up-with-ai-in-2019.md)
 > * 译者：
 > * 校对者：
 
-
-Keeping up with AI in 2019
-==========================
-
-What is the next big thing in AI and ML?
-----------------------------------------
-
+# What is the next big thing in AI and ML?
 
 The past year has been rich in events, discoveries and developments in AI. It is hard to sort through the noise to see if the signal is there and, if it is, what is the signal saying. This post attempts to get you exactly that: I’ll try to extract some of the patterns in the AI landscape over the past year. And, if we are lucky, we’ll see how some of the trends extend into the near future.
 
