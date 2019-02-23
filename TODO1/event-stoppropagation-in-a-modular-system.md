@@ -6,20 +6,22 @@
 > * 校对者：
 
 # event.stopPropagation() in a modular system
+# 模块化系统中的 event.stopPropagation() 
+
 
 ![](https://www.moxio.com/documents/gfx/page_images/blog.header_1.png)
 
-Here at Moxio we build web applications from modules that we call widgets. A widget contains some logic and it controls a little bit of HTML. Think of a checkbox input element or a list of other widgets. A widget can declare what data or dependencies it needs and can choose to pass resources down to its children. Modularity is great for managing complexity because all channels of communication are explicitly defined. It also allows you reuse widgets by combining in different ways. JavaScript makes it a little bit difficult to ensure a modular contract because you always have access to a global scope but it can be managed.
+在 Moxio，我们通过叫 widgets 的模块来构建网络应用。一个 widget 里面包含一些逻辑，和一点对于 HTML 的控制。就像是 checkbox 或者一组其他的 widgets。 一个 widget 可以申明他需要的数据和依赖关系，并且可以选择传递资源去他的子组件。模块化可以很好的来管理复杂度，因为所有资源传输的渠道都被很清楚的定义了。它同样可以允许你通过结合不同的方式来重用 widgets。JavaScript 想要真正的确保模块化约定是有点小困难的，因为你总是可以访问全局作用域， 当然，我们也有办法管理这个问题。
 
-## Modular design in JavaScript
+## JavaScript 中的模块化设计
 
-Native JavaScript APIs are not really designed with modularity in mind; by default you have access to the _global_ scope. We make global resources available to widgets by wrapping them at the root level and passing them down. We have wrappers for resources such as LocalStorage, the page URL and the viewport (for looking at page coordinates). We also wrap DOMElements and Events. With our wrappers we can restrict or alter functionality so we keep the modularity contract intact. For instance: a click event may know whether the shift-key was pressed but you can't know the target of the click event, which may be in another widget. This might seem very restrictive, but so far we haven't found a need to expose the target directly.
+原生 JavaScript 的 API 在设计中并没有考虑到模块化；你总是默认可以访问 _全局_ 作用域。我们通过将全局资源包装在根目录并向下层传递的方式，来让 wigets 获得到这些资源。我们有的包装器包括 LocalStorage，页面的 URL 以及 viewport（为了观察在页面内的坐标）。我们还包装 DOMElements 和事件。 通过这些包装器，我们可以限制和调整功能，进而保证模块化约定的完整。例如： 一个 click 事件 可能知道 shift 是否被按，但是你没法知道 click 事件的目标是什么，这个目标可能是在另一个 widget 内。这个看起来可能有非常大的限制性，但是知道目前，我们还没有发现需要直接暴露目标的需求。
 
-For every feature we find a way to express it without breaking the modularity contract. This leads us into my analysis of `event.stopPropagation()`. Do we need it, and how can we provide its functionality?
+对于每一个需求，我们都找到了在不破坏模块化约定的前提下的表达方法。这也引出了我对于 `event.stopPropagation()` 的分。我们是否需要它？我们如何能够提供它的功能？
 
-## stopPropagation example
+## stopPropagation 的栗子🌰
 
-Consider this example HTML:
+思考一下这个 HTML 的例子：
 
 ```html
 <div class="table">
@@ -42,21 +44,22 @@ Consider this example HTML:
 </div>
 ```
 
-With some CSS magic it looks like:
+加了一点 CSS i 后它变成了这样：
 
 ![](https://www.moxio.com/documents/gfx/blog.stoppropagation.png)
 
-We have the following interactions:
+我们有如下一些交互：
 
-*   clicking the checkbox will check or uncheck the checkbox and make the row "selected"
-*   clicking the link in the second cell opens that location
-*   clicking the row will open or close the row showing "contents"
+*   点击 checkbox 将选中和取消它，并且使得所在行被“选择”
+*   点击每一行末尾的链接将会打开对应地址
+*   点击任何一行将会打开或者关闭改行下显示“内容”
 
-### JavaScript event model
+### JavaScript 的事件模型
 
-A quick refresher on how events work in JavaScript: when you click on an element (for instance a checkbox) an event spawns and first travels down the tree: table > body > row > columns > cell > input. This is the capturing phase. Then the event travels back up in reverse order, this is the bubble phase: input > cell > columns > row > body > table.
+让我们一起快速的过一遍`事件`在 JavaScript 中是怎么运作的。当你点击一个元素节点（例如一个 checkbox），一个事件将诞生，首先它沿着节点树向下传递：table > body > row > columns > cell > input。这是捕捉（capturing）阶段。然后，这个事件按照相反的顺序向上传递，这个冒泡（bubble）阶段：input > cell > columns > row > body > table.
 
 The implication of this is that a click on the checkbox causes a click event on the checkbox _and_ on the row. We don't expect that clicking the checkbox will also toggle the row so we need to detect this. This is where stopPropagation comes in.
+这意味着，对于 checkbox 的点击会造成一个在 checkbox 和 row 上的 click 事件。我们不希望点击 checkbox 会打开或关闭 row， 所以我们需要检测它。这里我们也就引入了 stopPropagation。
 
 ```javascript
 function on_checkbox_click(event) {
@@ -65,7 +68,7 @@ function on_checkbox_click(event) {
 }
 ```
 
-If you `event.stopPropagation()` in the click listener of the checkbox in the bubbling phase the event will no longer bubble up and it will never reach the row. This is a straightforward way to implement the desired interaction.
+如果冒泡（bubble）阶段，你在 click 的监听器中加入了 `event.stopPropagation()`， 那个这个事件将不会继续向上传递，也就永远不会到达 row 节点。也就简单明了实现了我们所期待的交互。
 
 ## Undesirable interactions
 
