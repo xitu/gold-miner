@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/dns-servers-you-should-have-memorized.md](https://github.com/xitu/gold-miner/blob/master/TODO1/dns-servers-you-should-have-memorized.md)
 > * 译者：[ScDadaguo](https://github.com/ScDadaguo)
-> * 校对者：[lsvih](https://github.com/lsvih)、[Fengziyin1234](https://github.com/Fengziyin1234)
+> * 校对者：[lsvih](https://github.com/lsvih)，[Fengziyin1234](https://github.com/Fengziyin1234)
 
 # 提供隐私和过滤功能的 DNS 服务器
 
