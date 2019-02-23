@@ -2,146 +2,146 @@
 > * 原文作者：[Rachel Andrew](https://www.smashingmagazine.com/author/rachel-andrew)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-learn-css.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-learn-css.md)
-> * 译者：
+> * 译者：[Mcskiller](https://github.com/Mcskiller)
 > * 校对者：
 
-# How To Learn CSS
+# 如何学习 CSS
 
-Quick Summary: You don’t need to commit to memorizing every CSS Property and Value, as there are good places to look them up. There are some fundamental things, however, which will make CSS much easier for you to use. This article aims to guide you along your path of learning CSS.
+快速摘要：你不需要强制去记住每一个 CSS 属性和值，有很多地方可以方便你快速去查阅。但是记住一些基础的知识点会让你使用起来更加得心应手。本文旨在引导你如何学习 CSS。
 
-I get a lot of people asking me to recommend to them tutorials on various parts of CSS, or asking how to learn CSS. I also see a lot of people who are confused about bits of CSS, in part because of outdated ideas about the language. Given that CSS has changed quite substantially in the last few years, this is a really good time to refresh your knowledge. Even if CSS is a small part of what you do (because you work elsewhere in the stack), CSS is how things end up looking as you want them on screen, so it is worth being reasonably up to date.
+我遇到很多人叫我给他们推荐 CSS 各个知识点的教程，或者问我应该怎么学习 CSS。我也看到很多人对 CSS 的内容感到困惑，一部分原因是因为他们对语言的过时认知。鉴于 CSS 在过去的几年间改变了很多，也是一个好时候来更新你掌握的知识了。即便 CSS 只占你所做工作的一小部分（因为你在栈的别处工作），CSS 就像你想他们最终在屏幕上看到的那样，所以值得合理更新。
 
-Therefore, this article aims to outline the key fundamentals of CSS and resources for further reading on key areas of modern CSS development. Many of those are things right here on Smashing Magazine, but I’ve also selected some other resources and also people to follow in key areas of CSS. It’s not a complete beginner guide or intended to cover absolutely everything. My aim is to cover the breadth of modern CSS with a focus on a few key areas, that will help to unlock the rest of the language for you.
+因此，本文旨在概述 CSS 的关键基础和资源，以便进一步阅读学习现代 CSS 开发的关键领域。其中许多都是 Smashing Magazine 上的东西，但我也选择了其他的一些资源，以及人们关注的 CSS 关键领域。这不是一个完整的初学者指南或者绝对涵盖一切。我的目标是以重点关注几个关键领域来涵盖现代 CSS 的广度，这将有助于你学习其他语言。
 
-### Language Fundamentals
+### 语言基础知识
 
-For much of CSS, you don’t need to worry about learning properties and values by heart. You can look them up when you need them. However, there are some key underpinnings of the language, without which you will struggle to make sense of it. It really is worth dedicating some time to making sure you understand these things, as it will save you a lot of time and frustration in the long run.
+对于 CSS 的大部分内容，你不需要担心学习属性和值 。你可以在需要时查找它们。然而，学习语言需要一些关键基础，如果没有这些基础，你会很难去理解它。所以它真的值得你去花时间理解，从长远来看，它将会为你的学习带来诸多便利。
 
-#### Selectors, More Than Just Class
+#### 选择器，不仅仅是 Class
 
-A selector does what it says on the tin, it _selects_ some part of your document in order that you can apply CSS rules to it. While most people are familiar with using a class, or styling an HTML element such as `body` directly, there are a large number of more advanced selectors which can select elements based on their location in the document, perhaps because they come directly after an element, or are the odd rows in a table.
+选择器顾名思义，它 **选择** 文档的某些部分，以便你可以将 CSS 应用到上面。虽然大多数人都熟悉使用 Class，或者直接设置诸如 `body` 之类的 HTML 元素，但是这里还有大量更高级的选择器可以根据文档中的位置来选择元素，可能是因为它们在某些元素的后边，也可能是表格中的奇数行。
 
-The selectors that are part of the Level 3 specification (you may have heard them referred to as Level 3 selectors) have [excellent browser support](https://caniuse.com/#feat=css-sel3). For a detailed look at the various selectors you can use, [see the MDN Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors).
+作为 Level 3 规范部分的选择器（你也许听过它们被称为 Level 3 选择器）具有 [优秀的浏览器兼容性](https://caniuse.com/#feat=css-sel3)。更多有关使用各种选择器的详细信息，请参考 [MDN 参考](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)。
 
-Some selectors act as if you had applied a class to something in the document. For example `p:first-child` behaves as if you added a class to the first `p` element, these are known as _pseudo-class_ selectors. The _pseudo-element_ selectors act as if an element was dynamically inserted, for example `::first-line` acts in a similar way to you wrapping a `span` around the first line of text. However it will reapply if the length of that line changes, which wouldn’t be the case if you inserted the element. You can get fairly complex with these selectors. In the below CodePen is an example of a pseudo-element chained with a pseudo-class. We target the first `p` element with a `:first-child` psuedo-class, then the `::first-line` selector selects the first line of that element, acting as if a span was added around that first line in order to make it bold and change the color.
+一些选择器的效果就像你在文档中运用 class 选择器一样。例如，`p:first-child` 就像你在第一个 `p` 元素中添加了一个 class 一样，这些被称为 **伪类** 选择器。**伪元素** 选择器就好像一个元素是动态插入的，例如 `::first-line` 的作用方式就类似于在第一行文本周围包裹 `span`。但是，如果这一行的长度发生了变化，它将会重新应用，如果插入该元素则不会出现这种情况。这些选择器可能会非常复杂，在下面的 CodePen 中是一个伪元素用伪类链接的例子。我们使用 `:first-child` 伪类定位第一个 `p` 元素，然后使用 `::first-line` 选择器选择该元素的第一行，就好像在第一行的周围添加了一个 span 让它变粗并改变颜色。
 
-See the Pen [first-line](https://codepen.io/rachelandrew/pen/wRdJdQ) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+查看由 Rachel Andrew（[@rachelandrew](https://codepen.io/rachelandrew)）在 [CodePen](https://codepen.io) 上编写的例子 —— [第一行](https://codepen.io/rachelandrew/pen/wRdJdQ)。
 
-#### Inheritance And The Cascade
+#### 继承和层叠
 
-The cascade defines which rule wins when a number of rules could apply to one element. If you have ever been in a situation where you can’t understand why some CSS doesn’t seem to be applying, it’s likely the cascade is tripping you up. The cascade is closely linked to inheritance, which defines which properties are inherited by the child elements of the element they are applied to. It is also linked to specificity; different selectors have different specificity which controls which wins when there are several selectors which could apply to one element.
+当有许多规则应用于一个元素上时，层叠定义了到底按哪一个规则执行。如果你曾经无法理解一些 CSS 为什么没有被应用，那可能是因为你没有理解层叠的概念。层叠与继承密切相关，它定义了被应用的元素的子元素继承的属性。它也和优先级有关；不同的选择器有不同的优先级，当有多个选择器可以应用到同一个元素上时，优先级控制了哪一个能够被成功应用。
 
-**Note**: _To get an understanding of all of these things, I would suggest reading [The Cascade and Inheritance](https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Cascade_and_inheritance), in the MDN Introduction to CSS._
+**提示**：要是想了解全部内容，推荐去看看 MDN 的 CSS 简介中的 [层叠和继承](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Introduction_to_CSS/Cascade_and_inheritance)。
 
-If you are struggling with getting some CSS to apply to an element then your browser DevTools are the best place to start, take a look at the example below in which I have an `h1` element targeted by the element selector `h1` and making the heading orange. I am also using a class, which sets the `h1` to rebeccapurple. The class is more specific and so the `h1` is purple. In DevTools, you can see that the element selector is crossed out as it does not apply. Once you can see that the browser is getting your CSS (but something else has overruled it), then you can start to work out why.
+如果你正努力将一些 CSS 应用到一个元素上，那么使用浏览器的开发者工具是最佳方法，看看下面的例子，其中我有一个 `h1` 元素由 `h1` 选择器选择并将标题设置为橙色。我还使用了一个 class 设置 `h1` 颜色为 rebeccapurple。这个 class 优先级更高，所以 `h1` 是紫色的。在开发者工具中，你可以看见元素选择器被划掉，因为它并没有被应用。所以现在一旦你看见浏览器开始应用你的 CSS（但其他东西阻止了它导致没有正常显示），你就可以找到原因了。
 
-See the Pen [specificity](https://codepen.io/rachelandrew/pen/yGbMoL) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+查看由 Rachel Andrew（[@rachelandrew](https://codepen.io/rachelandrew)）在 [CodePen](https://codepen.io) 上编写的例子 —— [优先级](https://codepen.io/rachelandrew/pen/yGbMoL)。
 
 [![The DevTools in Firefox showing rules for the h1 selector crossed out](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/2720c905-e734-4d57-9ae8-fb4bab1de633/smashing-css-specificity.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/2720c905-e734-4d57-9ae8-fb4bab1de633/smashing-css-specificity.png) 
 
-DevTools can help you see why some CSS is not applying to an element ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/2720c905-e734-4d57-9ae8-fb4bab1de633/smashing-css-specificity.png))
+开发者工具可以帮助你查看为什么有些 CSS 没有成功应用到元素上（[查看原图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/2720c905-e734-4d57-9ae8-fb4bab1de633/smashing-css-specificity.png)）
 
-#### The Box Model
+#### 盒模型
 
-CSS is all about boxes. Everything that is displayed on the screen has a box, and the Box Model describes how the size of that box is worked out — taking into account margins, padding, and borders. The standard CSS Box Model takes the width that you have given an element, then adds onto that width the padding and border — meaning that the space taken up by the element is larger than the width you gave it.
+CSS 就是盒子。每个显示在屏幕上的东西都有一个框，盒模型描述了如何计算出框的大小 —— 考虑 margin，padding，和 border。标准的 CSS 盒模型使用给定的元素宽度，然后在该宽度加上 padding 和 border 的宽度 —— 也就是说元素占据的空间比你设定的宽度要大。
 
-More recently, we have been able to choose to use an alternate box model which uses the given width on the element as the width of the visible element on screen. Any padding or border will inset the content of the box from the edges. This makes a lot more sense for many layouts.
+最近，我们已经可以选择使用 `border-box` 盒模型，该模型使用元素上给定的宽度作为屏幕上可见元素的宽度。任何 padding 或者 border 上的设置都将从边缘向内进行设置。这让许多布局更加便利。
 
-In the demo below, I have two boxes. Both have a width of 200 pixels, with a border of 5 pixels and padding of 20 pixels. The first box uses the standard box model, so takes up a total width of 250 pixels. The second uses the alternate box model, so is actually 200 pixels wide.
+在下面的 Demo 中有两个盒子。它们的宽度都是 200px，其中 border 是 5px，padding 是 20px。第一个盒子使用的是基础盒模型，所以总体宽度是 250px。第二个盒子使用的是 `border-box` 盒模型，所以实际宽度就是 200px。
 
-See the Pen [box models](https://codepen.io/rachelandrew/pen/xmdqjd) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+查看由 Rachel Andrew（[@rachelandrew](https://codepen.io/rachelandrew)）在 [CodePen](https://codepen.io) 上编写的例子 —— [盒模型](https://codepen.io/rachelandrew/pen/xmdqjd)。
 
-Browser DevTools can once again help you with understanding the box model in use. In the below image, I use Firefox DevTools to inspect a box using the default `content-box` box model. The tools tell me this is the Box Model in use, and I can see the sizing and how the border and padding is added to the width I assigned.
+浏览器的开发者工具能够再一次帮助你了解你正在使用的盒模型。下面的图片中，我使用 Firefox 的开发者工具去检查默认的 `content-box` 盒模型。开发者工具告诉我这是一个正在使用的盒模型然后我能够看见它的大小和我设定的 border 和 padding 是怎样添加到宽度上的。
 
 [![The Box Model Panel in Firefox DevTools](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/52f5291d-fb2e-4418-99a7-002f898053aa/smashing-css-box-model.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/52f5291d-fb2e-4418-99a7-002f898053aa/smashing-css-box-model.png) 
 
-DevTools help you see why a box is a certain size, and the box model in use ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/52f5291d-fb2e-4418-99a7-002f898053aa/smashing-css-box-model.png))
+开发者工具帮助你了解盒子为何具有特定尺寸，以及你正在使用的盒模型（[查看原图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/52f5291d-fb2e-4418-99a7-002f898053aa/smashing-css-box-model.png)）
 
-**Note**: _Prior to IE6, [Internet Explorer used the alternate Box Model](https://en.wikipedia.org/wiki/Internet_Explorer_box_model_bug), with padding and borders insetting content away from the given width. So for a while browsers used different Box Models! When frustrated by interoperability issues today, be glad that things have improved so we aren’t dealing with browsers calculating the width of things differently._
+**提示**：在 IE6 之前，[Internet Explorer 默认使用 `border-box` 盒模型](https://en.wikipedia.org/wiki/Internet_Explorer_box_model_bug)，padding 和 border 让内容偏离了给定的宽度。所以在那段时间内浏览器们都在使用不同的盒模型！不过你今天不必为了浏览器之间的互通所担心，事情已经有所改善，我们已经不需要因为浏览器的不同而计算宽度设置。
 
-There is a good explanation of the [Box Model and Box Sizing](https://css-tricks.com/box-sizing/) on CSS Tricks, plus an explanation of the best way to [globally use the alternate box model](https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/) in your site.
+在 CSS Tricks 上有一篇很好的对于 [盒模型和 Box Size](https://css-tricks.com/box-sizing/) 的解释，以及在你的站点中 [全局使用 border-box 盒模型](https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/) 的最佳方法。
 
-#### Normal Flow
+#### 常规流
 
-If you have a document with some HTML marking up the content and view it in a browser, it will hopefully be readable. Headings and paragraphs will start on a new line, words display as a sentence with a single white space between them. Tags for formatting, such as em, do not break up the sentence flow. This content is being displayed in [Normal Flow](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flow_Layout), or Block Flow Layout. Each part of the content is described as “in flow”; it knows about the rest of the content and so doesn’t overlap.
+如果你的文档由一些 HTML 标签组成然后你在浏览器中打开它，它应该是有可读性的。标题和段落会从一个新行开始，单词中间由空格隔开组成句子。用于格式化的标签，就像 `em`，不会破坏一句话的流。这些内容都以 [常规流布局](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flow_Layout) 或者说块状流布局。每一部分内容都处于“流”中；每一个元素都会依次排放，不会重叠在一起。
 
-If you work with rather than against this behavior, your life is made much easier. It is one of the reasons why [starting with a correctly marked up HTML document](https://www.brucelawson.co.uk/2018/the-practical-value-of-semantic-html/) makes a lot of sense, as due to normal flow and the inbuilt stylesheets that browsers have which respect it, your content starts from a readable place.
+如果你合理运用这种特性的话，你的工作将会变得更加轻松。这也是为什么 [从正确标记的 HTML 文档开始]((https://www.brucelawson.co.uk/2018/the-practical-value-of-semantic-html/)) 有道理的原因之一，由于常规流和内置样式表被浏览器所遵守，你的内容会从可读的地方开始。
 
-#### Formatting Contexts
+#### 格式化上下文
 
-Once you have a document with content in normal flow, you may want to change how some of that content looks. You do this by changing the formatting context of the element. As a very simple example, if you wanted all of your paragraphs to run together and not start on a new line, you could change the `p` element to `display: inline` changing it from a block to an inline formatting context.
+一旦你有了一个内容在常规流中的文档，你也许会想改变某些内容的外观。那么你可以通过修改元素的格式化上下文来进行改变。举一个简单的例子，如果你想所有段落都连在一起而不是每一段都新建一行，你可以将 `p` 元素设定为 `display：inline` 将其从块更改为行内格式化上下文。
 
-Formatting contexts essentially define an outer and an inner type. The outer controls how the element behaves alongside other elements on the page, the inner controls how the children should look. So, for example, when you say `display: flex` you are setting the outer to be a block formatting context, and the children to have a flex formatting context.
+格式化上下文基本上定义了容器外部和内部类型。外部控制元素与页面上其他元素的共同表现，内部控制子元素的外观。打个比方，当你设定 `display: flex` 时，你设定外部为块级格式化上下文，并且子元素为 flex 格式化上下文。
 
-**Note** : _The latest version of the Display Specification changes the values of `display` to explicitly declare the inner and outer value. Therefore, in the future you might say `display: block flex;` (`block` being the outer and `flex` being the inner)._
+**提示**：最新版本的 Display 规范更改 `display` 来显式的声明内部和外部值。因此，以后你可能会用到 `display: block flex;`（`block` 是外部的，`flex` 是内部的）。
 
-Read more about `display` [over at MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/display).
+在 MDN 上阅读更多有关 [`display`](https://developer.mozilla.org/en-US/docs/Web/CSS/display) 的内容。
 
-#### Being In Or Out Of Flow
+#### 进入或脱离常规流
 
-Elements in CSS are described as being ‘in flow’ or ‘out of flow.’ Elements in flow are given space and that space is respected by the other elements in flow. If you take an element out of flow, by floating or positioning it, then the space for that element will no longer be respected by other in flow items.
+CSS 中的元素可以被分为，“在流中”或者“脱离流”。流中的元素被赋予了不被其他元素干扰的独立空间。如果你通过调整浮动或者定位让一个元素脱离流，那么它的空间可能会被其他在流中的元素占用。
 
-This is most noticeable with absolutely positioned items. If you give an item `position: absolute` it is removed from flow, then you will need to ensure that you do not have a situation in which the out of flow element overlaps and makes unreadable some other part of your layout.
+对于使用绝对定位的元素，这是最明显的。如果你设定一个元素 `position: absolute` 那它就脱离流了，然后你需要去保证脱离流的元素没有和流中的元素重叠，不然你的布局可能会变得难以理解。
 
-See the Pen [Out of Flow: absolute positioning](https://codepen.io/rachelandrew/pen/Ormgzj) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+查看由 Rachel Andrew（[@rachelandrew](https://codepen.io/rachelandrew)）在 [CodePen](https://codepen.io) 上编写的例子 —— [脱离流：绝对定位](https://codepen.io/rachelandrew/pen/Ormgzj)。
 
-However, floated items also are removed from flow, and while following content will wrap around the shortened line boxes of a floated element, you can see by placing a background color on the box of the following elements that they have risen up and are ignoring the space used by the floated item.
+然而，浮动物品也会导致脱离流，然后后续的内容将会围绕浮动元素的盒边线布局，你可以通过在后面元素的盒中设置背景颜色来看到它们已经提升位置并且忽略了之前的浮动元素的空间。
 
-See the Pen [Out of flow: float](https://codepen.io/rachelandrew/pen/BvRZYw) by Rachel Andrew ([@rachelandrew](https://codepen.io/rachelandrew)) on [CodePen](https://codepen.io).
+查看由 Rachel Andrew（[@rachelandrew](https://codepen.io/rachelandrew)）在 [CodePen](https://codepen.io) 上编写的例子 —— [脱离流：浮动](https://codepen.io/rachelandrew/pen/BvRZYw)。
 
-You can read more about [in flow and out of flow elements on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flow_Layout/In_Flow_and_Out_of_Flow). The important thing to remember is that if you take an element out of flow, you need to manage overlap yourself as the regular rules of block flow layout no longer apply.
+你可以在 MDN 上阅读更多关于 [在流中和脱离流的元素](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flow_Layout/In_Flow_and_Out_of_Flow) 的内容。要记住的重要一点是，如果你让一个元素脱离流，你需要自己去管理元素是否重叠，因为块级流布局不再适用。
 
-### Layout
+### 布局
 
-For over fifteen years we have been doing layout in CSS without a designed for the job layout system. This has changed. We now have a perfectly capable layout system which includes Grid and Flexbox, but also Multiple-column Layout and the older layout methods used for their real purpose. If CSS Layout is a mystery to you, head on over to the MDN [Learn Layout](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout) tutorial, or read my article [Getting Started With CSS Layout](https://www.smashingmagazine.com/2018/05/guide-css-layout/) here on Smashing Magazine.
+十五年来，我们一直在 CSS 中进行布局而没有一个专门设计的布局系统。现在这一切已经发生了改变。我们现在拥有了一个功能完善的布局系统包括 Grid 和 Flexbox，还有多列布局和用于实际目的的旧布局方案。如果你还不理解 CSS 布局，请移步 MDN [学习布局](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout) 或者在 Smashing Magazine 查阅我的文章 [从零开始的 CSS 布局](https://www.smashingmagazine.com/2018/05/guide-css-layout/)。
 
-**Do not imagine that methods such as grid and flexbox are somehow competing**. In order to use Layout well, you will sometimes find a component is best as a flex component and sometimes as Grid. On occasion, you will want the column flowing behavior of multicol. All of these are valid choices. If you feel you are fighting against the way something behaves, that is, in general, a very good sign that it might be worth taking a step back and trying a different approach. We are so used to hacking at CSS to make it do what we want that we are likely to forget that we have a number of other options to try.
+**不要以为像 grid 和 flexbox 这样的方法在某种程度上来说是竞争关系**。为了更好的布局，你可能会发现有时候适合使用 flex 组件有时候又适合使用 grid。有时，你也会想要使用多列布局。所有这些都只是你的可选项。如果你感觉一种布局不太合适，通常情况下这是一个好现象，说明你应该去试试其他不同的布局方案。我们习惯于“矫正” CSS 来达到想要的效果，而导致我们忘记了本来就有的那些可选项。
 
-Layout is my main area of expertise and I’ve written a number of articles here on Smashing Magazine and elsewhere to try and help tame the new Layout landscape. In addition to the Layout article mentioned above, I have a whole series on Flexbox — start with [What Happens When You Create a Flexbox Flex Container](https://www.smashingmagazine.com/2018/08/flexbox-display-flex-container/). On [Grid By Example](https://gridbyexample.com), I have a whole bunch of small examples of CSS Grid — plus a video screencast tutorial.
+布局是我的主要专业领域，我在 Smashing Magazine 和其他地方写了很多文章来帮助掌握新的布局。除了上面我提到的布局文章，我还有一个 Flexbox 系列文章 —— 从 [当你在创建一个 Flexbox 伸缩容器时会发生什么](https://www.smashingmagazine.com/2018/08/flexbox-display-flex-container/) 开始。在 [Grid by Example](https://gridbyexample.com) 上，我有一大堆 CSS Grid 的小例子 —— 以及一个视频教程。
 
-In addition — and especially for designers — check out [Jen Simmons](https://twitter.com/jensimmons) and her [Layout Land video series](https://www.youtube.com/channel/UC7TizprGknbDalbHplROtag).
+此外 —— 特别是设计师们 —— 请查看 [Jen Simmons](https://twitter.com/jensimmons) 和她的 [Layout Land 系列视频](https://www.youtube.com/channel/UC7TizprGknbDalbHplROtag)。
 
-#### Alignment
+#### 对齐
 
-I’ve separated Alignment out from Layout in general because while most of us were introduced to Alignment as part of Flexbox, these properties apply to all layout methods, and it is worth understanding them in that context rather than thinking about “Flexbox Alignment” or “CSS Grid alignment.” We have a set of Alignment properties which work in a common way where possible; they then have some differences due to the way different layout methods behave.
+我一般把对齐和布局分开，不过我们大多数人都是把对齐作为 Flexbox 的一部分来看的，其实这些属性可以应用到任何一个布局方法上，认真学习以下部分比思考用“Flexbox 对齐”或者“CSS Grid 布局”要好得多。我们有一组对齐属性可以在日常中使用；不过由于不同的布局它们的效果可能会有些许不同。
 
-On MDN, you can dig into [Box Alignment](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Alignment) and how it is implemented for Grid, Flexbox, Multicol, and Block Layout. Here on Smashing Magazine, I have an article specifically covering alignment in Flexbox: [Everything You Need To Know About Alignment In Flexbox](https://www.smashingmagazine.com/2018/08/flexbox-alignment/).
+在 MDN 上，你可以深入研究 [盒对齐](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Alignment) 以及它是如何在 Grid（网格布局），Flexbox（弹性布局），Multicol（多行布局）和 Block 布局（块布局）中实现的。在 Smashing Magazine 上，我有一篇专门介绍 Flexbox 对齐的文章：[Flexbox 中你所需要知道的一切](https://www.smashingmagazine.com/2018/08/flexbox-alignment/)。
 
-#### Sizing
+#### 尺寸
 
-I spent much of 2018 speaking about the Intrinsic and Extrinsic Sizing specification, and how it relates to Grid and Flexbox in particular. On the web, we are used to setting sizing in lengths or percentages, as this is how we have been able to make Grid-type layouts using floats. However, modern layout methods can do a lot of the space distribution for us — if we let them. Understanding how Flexbox assigns space (or the Grid `fr` unit works), is worth your time.
+我在 2018 年中的大部分时间都在谈论内部和外部尺寸规范，以及它与 Grid 和 Flexbox 的关系。在 Web 开发中，我们习惯于使用固定长度或者百分比来设置尺寸，因为这是我们能够做到的使用数值完成的网格类布局。但是，现代布局方式能帮我们完成很多空间操作 —— 只要我们让它们这么做。理解 Flexbox 如何分配空间（或者 Grid 的 `fr` 单位是如何工作）是很有必要的。
 
-Here on Smashing Magazine, I’ve written about [Sizing in Layout](https://www.smashingmagazine.com/2018/01/understanding-sizing-css-layout/) in general and also for Flexbox in [How Big Is That Flexible Box?](https://www.smashingmagazine.com/2018/09/flexbox-sizing-flexible-box/).
+在 Smashing Magazine 中，我写了几篇文章，关于 [布局中的尺寸](https://www.smashingmagazine.com/2018/01/understanding-sizing-css-layout/) 以及适用于 Flexbox 的 [那个弹性盒子有多大？](https://www.smashingmagazine.com/2018/09/flexbox-sizing-flexible-box/)
 
-### Responsive Design
+### 响应式设计
 
-Our new layout methods of Grid and Flexbox often mean that we can get away with fewer media queries than we needed with our older methods, due to the fact that they are flexible and respond to changes in viewport or component size without us needing to change the widths of elements. However, there will be places where you will want to add in some breakpoints to further enhance your designs.
+我们的新布局方法 Grid 和 Flexbox 可以让我们和老布局方法比起来使用更少的媒体查询，因为它们是灵活的，不需要我们去修改元素的宽度，它们会根据试图或者组件大小进行自适应。但是你可能会希望在某些地方添加断点来增强你的设计。
 
-Here are some simple guides to [Responsive Design](https://responsivedesign.is/), and for media queries, in general, check out my article [Using Media Queries for Responsive Design in 2018](https://www.smashingmagazine.com/2018/02/media-queries-responsive-design-2018/). I take a look at what Media Queries are useful for, and also show the new features coming to Media Queries in Level 4 of the spec.
+这里是一些简单的 [响应式设计](https://responsivedesign.is/) 指南，查看我的文章 [在 2018 年使用媒体查询来进行响应式设计](https://www.smashingmagazine.com/2018/02/media-queries-responsive-design-2018/)。我介绍了一下媒体查询的许多用法，以及一些未来在 Level 4 中会出现的新媒体查询功能。
 
-### Fonts And Typography
+### 字体和排版
 
-Along with Layout, the use of fonts on the web has undergone huge change in the last year. Variable Fonts, enabling a single font file to have unlimited variations, are here. To get an overview of what they are and how they work, watch this excellent short talk from [Mandy Michael](https://twitter.com/mandy_kerr): [Variable Fonts and the Future of Web Design](https://www.youtube.com/watch?v=luAqYCd_TC8). Also, I would recommend [Dynamic Typography With Modern CSS and Variable Fonts](https://noti.st/jpamental/WNNxqQ/dynamic-typography-with-modern-css-variable-fonts) by [Jason Pamental](https://twitter.com/jpamental).
+和布局一样，网络上关于字体的使用在去年也发生了巨大的变化。可变的字体在这里让单个字体文件可以产生无数种变体。想了解它们是什么以及它们的工作方式，请查看 [Mandy Michael](https://twitter.com/mandy_kerr) 的精彩讲解：[可变字体和 web 设计的未来](https://www.youtube.com/watch?v=luAqYCd_TC8)。另外，我还推荐去看看 [Jason Pamental](https://twitter.com/jpamental) 的 [动态排版与现代 CSS 和可变字体](https://noti.st/jpamental/WNNxqQ/dynamic-typography-with-modern-css-variable-fonts)。
 
-To explore Variable Fonts and their capabilities, there is [a fun demo from Microsoft](https://developer.microsoft.com/en-us/microsoft-edge/testdrive/demos/variable-fonts/) plus a number of playgrounds to try out Variable Fonts — [Axis Praxis](https://www.axis-praxis.org/) being the most well known (I also like the [Font Playground](https://play.typedetail.com/)).
+想要探索可变字体和它们的功能，可以去看看 [来自微软的一个有趣的演示](https://developer.microsoft.com/en-us/microsoft-edge/testdrive/demos/variable-fonts/) 提供了许多案例来尝试可变字体 —— [Axis Praxis](https://www.axis-praxis.org/) 就是一个知名的例子（我还喜欢 [Font Playground](https://play.typedetail.com/)）。
 
-Once you start working with Variable Fonts, then [this guide on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Fonts/Variable_Fonts_Guide) will prove incredibly useful. To learn how to implement a fallback solution for browsers which does not support Variable Fonts read [Implementing a Variable Font With Fallback Web Fonts](https://www.zeichenschatz.net/typografie/implementing-a-variable-font-with-fallback-web-fonts.html) by Oliver Schöndorfer. The [Firefox DevTools Font Editor](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Edit_fonts) also has support for working with Variable Fonts.
+当你开始使用可变字体时，这篇 [MDN 上的指南](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Fonts/Variable_Fonts_Guide) 可以给你一些帮助。以及阅读 Oliver Schöndorfer 的 [使用备选 Web 字体实现可变字体](https://www.zeichenschatz.net/typografie/implementing-a-variable-font-with-fallback-web-fonts.html) 学习如何给不支持可变字体的浏览器返回解决方案。[Firefox 开发者工具字体编辑器](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Edit_fonts) 也支持可变字体。
 
-### Transforms And Animation
+### 变形和动画
 
-CSS Transforms and Animation are definitely something I look up on a need-to-know basis. I don’t often need to use them, and the syntax seems to hop right out of my head between uses. Thankfully, the reference on MDN helps me out and I would suggest starting with the guides on [Using CSS Transforms](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transforms/Using_CSS_transforms) and [Using CSS Animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations). [Zell Liew](https://twitter.com/zellwk) also has a nice article that provides a great [explanation to CSS transitions](https://zellwk.com/blog/css-transitions/).
+CSS 变形和动画绝对是我们所需要知道的基础内容。我不经常使用它们，语法已经消失在了我的脑海中。不过谢天谢地，MDN 上的资料帮助了我，我也建议直接从 MDN 上的指南 [使用 CSS 变形](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Transforms/Using_CSS_transforms) 和 [使用 CSS 动画](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Animations/Using_CSS_animations) 开始。[Zell Liew](https://twitter.com/zellwk) 也有一篇优秀的文章 [解释 CSS 过渡](https://zellwk.com/blog/css-transitions/)。
 
-To discover some of the things that are possible, take a look at the [Animista](http://animista.net/) site.
+想发掘一些有趣的内容，请访问 [Animista](http://animista.net/)。
 
-One of the things that can be confusing about animations, is which approach to take. In addition to what is supported in CSS, you might need to involve JavaScript, SVG, or the Web Animation API, and these things all tend to get lumped together. In her talk, [Choose Your Animation Adventure](https://aneventapart.com/news/post/choose-your-animation-adventure-by-val-head-aea-video) recorded at An Event Apart, [Val Head](https://twitter.com/vlh) explains the options.
+关于动画可能最令人困扰的就是应该怎么去实现。除了 CSS 的部分，你可能还需要涉及到 JavaScript，SVG，或者 Web 动画 API，这些事情可能往往会被混为一谈，在 An Event Apart 录制的 [选择你的动画冒险](https://aneventapart.com/news/post/choose-your-animation-adventure-by-val-head-aea-video) 中 [Val Head](https://twitter.com/vlh) 解释了这些。
 
-### Use Cheatsheets As A Reminder, Not A Learning Tool
+### 使用小抄作提示，而不是学习工具
 
-When I mention Grid or Flexbox resources, I often see replies saying that they _can’t_ do Flexbox without a certain cheatsheet. I have no problem with cheatsheets as a memory helper to look up syntax, and I’ve published some of my own. The problem with entirely relying on those is that you can miss why things work as you copy syntax. Then, when you hit a case where that property seems to behave differently, that apparent inconsistency seems baffling, or a fault of the language.
+当我提到 Grid 或者 Flexbox 资源时，我经常看到有回复说它们 **不能** 在没有特定小抄的情况下使用 Flexbox。我不反对使用小抄来帮助记忆语法，我也分享了我自己的一些小抄。主要问题是，在你照着小抄复制代码时你很可能会忘记思考它是如何做到的。然后，当你遇到一个属性实现出了意想不到的效果时，你会感到莫名其妙甚至觉得可能是这个语言的问题。
 
-If you find yourself in a situation where CSS seems to be doing something very strange, ask _why_. Create a reduced test case that highlights the issue, ask someone who is more familiar with the spec. Many of the CSS problems I am asked about are because that person believes a property works in a different way to the way it works in reality. It’s why I talk a lot about things like alignment and sizing, as these are places where this confusion often lives.
+如果你发现自己的 CSS 在做一些奇怪的事情时，大胆的问 **为什么**。创建一个简单的测试用例来突出显示问题，问问更加熟悉规范的人。我被问到的许多 CSS 的问题都是因为使用者坚信代码正在以不同的方式在运行。这也是我为什么要谈论对齐和尺寸，许多问题就出在这些地方。
 
-Yes, there are strange things in CSS. It is a language that has evolved over the years, and there are things about it that we can’t change — [until we invent a timemachine](https://wiki.csswg.org/ideas/mistakes). However, once you have some basics down, and understand why things behave as they do, you will have a much easier time with the trickier places.
+没错，CSS 中确实有一些奇怪的问题。这是一个多年来都在不断发展的语言，有些事情我们不能改变 —— [除非我们有时光机](https://wiki.csswg.org/ideas/mistakes)。但是，一旦你掌握了 这些基础知识，然后理解了其中的原理，你就能更轻松的处理这些问题。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
