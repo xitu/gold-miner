@@ -80,7 +80,7 @@ CloudFlare 不是提供过滤功能，而是专注于隐私方面的提升。
 
 ## Norton ConnectSafe DNS
 
-Norton 也有一个公共 DNS 服务，它具有多级 URL 内容过滤的有趣功能。
+Norton 也有一个公共 DNS 服务，它有一个有趣的功能：多级 URL 内容过滤。
 
 ### 阻止恶意和欺诈性网站
 
