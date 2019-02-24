@@ -2,62 +2,62 @@
 > * 原文作者：[https://code.fb.com](https://code.fb.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/dns-over-tls.md](https://github.com/xitu/gold-miner/blob/master/TODO1/dns-over-tls.md)
-> * 译者：
-> * 校对者：
+> * 译者：[lsvih](https://github.com/lsvih)
+> * 校对者：[Qiuk17](https://github.com/Qiuk17)
 
-# DNS over TLS: Encrypting DNS end-to-end
+# DNS over TLS：端到端加密的 DNS
 
 ![](https://code.fb.com/wp-content/uploads/2018/12/DoT-Hero.jpg)
 
-As a first step toward encrypting the last portion of internet traffic that has historically been cleartext, we have partnered with [Cloudflare DNS](https://www.cloudflare.com/dns/) on a pilot project. This pilot takes advantage of the benefits of Transport Layer Security ([TLS](https://code.fb.com/networking-traffic/deploying-tls-1-3-at-scale-with-fizz-a-performant-open-source-tls-library/)) — a widely adopted and proven mechanism for providing authentication and confidentiality between two parties over an insecure channel — in conjunction with DNS. This solution, DNS over TLS (DoT), would encrypt and authenticate the remaining portion of web traffic. With this DoT pilot, people browsing Facebook and using Cloudflare DNS enjoy a fully encrypted experience, not just when they connect to Facebook using HTTPS, but also at the DNS level, from their computers to Cloudflare DNS, and from Cloudflare DNS to Facebook name servers.
+为了加密互联网流量中未被加密的最后一部分，我们与 [Cloudflare DNS](https://www.cloudflare.com/dns/) 合作进行了一个试点项目。这个试点项目利用安全传输层协议（即 [TLS](https://code.fb.com/networking-traffic/deploying-tls-1-3-at-scale-with-fizz-a-performant-open-source-tls-library/)，一种被广泛应用的、经过时间证明的机制，可用于双方在不安全信道上建立通讯时，为通讯提供身份认证及加密）与 DNS 进行结合。这个 DNS over TLS（DoT）方案能够加密并验证 Web 流量的最后一部分。在 DoT 测试中，人们可以在浏览 Facebook 时使用 Cloudflare DNS 享受完全加密的体验：不仅是在连接 Facebook 时用的 HTTPS 时进行了加密，而且在 DNS 级别，从用户计算机到 Cloudflare DNS、从 Cloudflare DNS 到 Facebook 域名服务器（NAMESERVER）中全程都采用了加密技术。
 
-## History of DNS
+## DNS 的历史
 
-Online security has changed considerably since the late 1980s, when the Domain Name System  (DNS) was first standardized to allow connection to entities by the means of simple mnemonic names, such as facebook.com. Many improvements have been made, and a large portion of web traffic is now connected via HTTPS. But there are still some issues inherent in sending cleartext on the wire.
+二十世纪八十年代末，域名系统（DNS）被提出，可以让人们用简短易记的名称来连接实体（比如 facebook.com），这使得网络安全发生了极大的变化。人们为网络安全做了许多的改进，比如现在大部分的网络流量都是通过 HTTPS 连接，但在线上传输明文时仍然存在一些问题。
 
-In 2010, the DNS protocol was extended to support authentication when the [Domain Name System Security Extension](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions) (DNSSEC) was deployed. While DNSSEC enables authentication of the messages, the DNS requests and answers are still sent in the clear. This leaves them easily read by any party in the path between the requestor and the responder. In October 2014, the Internet Engineering Task Force (IETF) created the [DPRIVE Working Group](https://datatracker.ietf.org/wg/dprive/about/) with a charter to provide confidentiality and authentication to the DNS.
+2010 年，[DNS 安全拓展](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions)（DNSSEC）部署实施，DNS 协议由此支持身份验证功能。虽然 DNSSEC 支持对消息进行身份验证，但仍然会使用明文来传输 DNS 请求与应答。这也使得传输的内容可以被请求方与响应方中间路径上任意节点轻松获取。2014 年 10 月，国际互联网工程任务组（IETF）建立了 [DPRIVE 工作组](https://datatracker.ietf.org/wg/dprive/about/)，其章程包括为 DNS 提供保密性与身份验证功能。
 
-The group standardized DoT with [RFC 7858](https://tools.ietf.org/html/rfc7858) in 2016. To that end, open resolvers such as Cloudflare’s 1.1.1.1 and Quad9’s 9.9.9.9 became privacy focused with DoT support. This protects one portion of the DNS communication — from the end-user device to their resolver. But the second part of the connection remains in cleartext. In May 2018, DPRIVE was rechartered to develop a solution for encrypting the part of the communication from the resolver to the name server.
+此工作组在于 2016 年提出 [RFC 7858](https://tools.ietf.org/html/rfc7858) 指定了 DoT 标准。为此，Cloudflare 的 1.1.1.1 与 Quad9 的 9.9.9.9 等开放的解析器在 DoT 的支持下更加关注使用者的隐私。这也保护了终端用户设备到 DNS 解析器这一部分 DNS 通信。但连接的其它部分仍然是明文传输。在 2018 年 5 月，DPRIVE 重新开发了一个方法，用于加密从解析器到域名服务器间的通信。
 
 ![](https://code.fb.com/wp-content/uploads/2018/12/DoT21.png)
 
-_DNS prior to DoT_
+**DoT 以前的 DNS**
 
-## Piloting DoT
+## DoT 试验
 
-Over the past few months, we have been running a pilot in which we enabled DoT between Cloudflare’s 1.1.1.1 recursive resolvers and our authoritative name servers. The goal is to understand the feasibility of doing this at scale, gather metrics to better understand the overhead incurred in terms of latency on receiving an answer, and determine computing overhead. This pilot will allow us to better understand how the protocol behaves in the wild. Additionally, running in a production workload will surface any issues or quirks that might arise from shifting the DNS from User Datagram Protocol (UDP) and its fire-and-forget approach to a connected and encrypted protocol like TLS — in a way that might not occur during protocol design.
+我们在过去的几个月中一直在进行一项试验，在 Cloudflare 1.1.1.1 递归解析器与我们的主域名服务器间开启 DoT。这个试验的目的是了解大规模使用 DoT 的可行性，收集信息以更好地了解 DoT 在接受应答时的延迟产生的开销，并确定计算开销。这个试验让我们更好地了解了 DoT 协议在真实环境下的表现。另外在生产环境负载中试验把 DNS 从 UDP 等即发即弃方法换成 TLS 之类的加密连接协议，可以将一些设计协议时发现不了的问题给暴露出来。
 
 ![](https://code.fb.com/wp-content/uploads/2018/12/DoT3.jpg)
 
-_DNS with DoT_
+**DoT 下的 DNS**
 
-So far, the pilot has proved to be a working solution for the type of production traffic we see between Cloudflare DNS and Facebook name servers. An initial connection adds some latency to the initial request, but we are able to reuse the TLS connections to perform multiple requests. Thus the initial overhead is amortized to the point that the resulting p99 of DNS latency between Cloudflare DNS and Facebook authoritative name servers is on par with the UDP baseline.
+截至目前，通过观察 Cloudflare DNS 与 Facebook 域名服务器间的生产环境流量，已经可以证明该试验是可行的解决方案。在初始化一个新连接的时候由于需要初始化请求，因此增加了延时；但我们可以重用 TLS 连接来处理其它更多的请求。因此，初始化增加的负载在均摊之后，降低到了 Cloudflare DNS 与 Facebook 主域名服务器 UDP 基线的 p99 相同的程度。
 
-The graphs below show the impact on latency when we switched from TLS to UDP (at 17:30). This allows us to compare the latency of requests between the two protocols. The first graph shows the latency percentiles without the cost of the TCP/TLS session establishments. It shows that once a connection is established, the latency between query and response remains the same, whether TLS or UDP is used.
+下图展示了我们从 TLS 切换回 UDP 时（在 17:30 时刻）延时的变化。它可以让我们比较两个协议请求的延时。第一个图显示了在没有 TCP/TLS 会话建立开销情况下的延时百分比。它展示了当连接建立后，TLS 与 UDP 在查询和响应间的延时是相同的。
 
 ![](https://code.fb.com/wp-content/uploads/2018/12/DoT41.png)
 
-The second graph takes into account the overall latency of the requests by including connection setup time. Here we can see again that whether we use TLS or UDP has no impact on the overall latency; this is because we are using TLS session resumption and performing many requests over the same TLS connection, essentially amortizing the cost of the initial connection setup.
+第二张图加上了建立连接的时间来考虑请求的总体延迟。从图中可以看到，使用 TLS 还是 UDP 对连接的总体延时也没有影响。这是因为我们使用 TLS 的会话恢复技术，通过相同的 TLS 连接来执行多个请求，实质上分摊了初始化连接的开销。
 
 ![](https://code.fb.com/wp-content/uploads/2018/12/DoT4.png)
 
-As a point of reference, the graph below shows the difference in total latency when we were not yet using TLS session resumption and handling only a small number of requests over an established connection. The switch from TLS to UDP was done slightly before 22:35, so we can see that overall, the impact on the majority of requests was similar to that of UDP, but at p95 and above, request latency was affected. The accompanying graph on the other end shows that, when the connection was already established, the latency was not affected. This tells us that the difference in the first graph was due to establishing new connections, and, as a matter of fact, to doing it more often.
+作为参考，下图展示了在不使用 TLS 会话恢复技术，并在建立连接后仅处理少量请求时总延时的差异。在比 22:35 稍早的时刻完成了 TLS 到 UDP 的切换，可以看到总体而言 TLS 对大多数的请求的影响与 UDP 类似，但在 p95 或更高的统计指标下，请求的延时收到了影响。后面一张图显示，当链接已经建立时，延时不受影响。这两张图表明，第一张图中的差异是由于建立新连接时产生的，并且实际上，建立新连接的频率很高。
 
 ![](https://code.fb.com/wp-content/uploads/2018/12/DoT51.png)
 
 ![](https://code.fb.com/wp-content/uploads/2018/12/DoT61.png)
 
-Essentially, people browsing Facebook and using Cloudflare DNS with DoT now enjoy a fully encrypted experience, not only when they connect to Facebook using HTTPS, but also at the DNS level. While we do implement TLS session resumption, the current setup has not yet taken full advantage of all the optimizations offered by modern protocol stacks. Moving forward, we could cut latency even further by leveraging the improvements brought by the latest version of TLS ([TLS 1.3](https://tools.ietf.org/html/rfc8446)) and by [TCP Fast Open](https://en.wikipedia.org/wiki/TCP_Fast_Open).
+基本来说，浏览 Facebook 和使用带 DoT 的 Cloudflare DNS 的用户，无论是在用 HTTPS 连接时还是在 DNS 层面上，都可以享受完全加密的体验。虽然我们已经实现了 TLS 会话恢复技术，但还没有充分利用现代协议栈提供的全部优化方法。在将来，我们可以利用 TLS 的最新版本（[TLS 1.3](https://tools.ietf.org/html/rfc8446)）和 [TCP Fast Open](https://en.wikipedia.org/wiki/TCP_Fast_Open) 等技术带来的改进，进一步降低延时。
 
-## Next steps for DoT
+## DoT 的下一步
 
-This pilot has allowed to us to prove that DoT can work on a production workload at scale without any negative impact on the user experience. The experience and knowledge gained will allow us to bring operational experience back to the DNS community.
+这个试验已经证明了，我们可以使用 DoT 大规模处理生产环境的负荷，并且不会对用户体验产生任何负面影响。我们将这个试验所得到的经验和知识，作为一种可行的经验回馈给 DNS 社区。
 
-Protocols developed by standards communities such as the [IETF](https://www.ietf.org/) sometimes lack input from the organizations that will eventually run them. This creates a disconnect between the designers, implementers, and operators. With this pilot, we are well positioned to report early, concrete results to the working group based on our experience running the protocol in production, which helps inform best practices for operators and software vendors interested in deploying DoT.
+[IETF](https://www.ietf.org/) 等标准社区开发协议时，有时候会缺乏与最终实施与运行协议的组织的意见，这导致了协议设计者、实施者、运营者间的脱节。通过这个试验，我们可以根据在生产环境中运行协议得到的经验，及时向工作组报告具体结果，同时也为有意于部署 DoT 的运营商和软件供应商提供了最佳实践。
 
-We hope these initial results will motivate other industry partners to join us in this pilot and to expand the pool of operators and experience gained during the making of this protocol, thereby increasing the level of feedback, operational expertise, and best practices.
+我们希望这些初步的试验结果可以激励其它的行业合作伙伴加入我们的试验，扩大 DoT 运营商的数量，并得到更多制定此协议时得到的经验，从而提高反馈水准、得到更多的运营知识和最佳实践。
 
-_We would like to thank Cloudflare’s Marek Vavruša for his work on this pilot project._
+**感谢 Cloudflare 的 Marek Vavruša 在这个试验中做出的贡献。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
