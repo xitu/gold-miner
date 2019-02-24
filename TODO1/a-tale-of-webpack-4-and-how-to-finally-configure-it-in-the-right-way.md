@@ -47,7 +47,7 @@
 
 **性能提升**：Webpack 4 是迄今为止最快的一版。
 
-**合理的默认值**：Webpack 4 的主要概念是「 _入口、输出、加载器、插件_ 」。我不会详细介绍这些。加载器和插件之间的区别非常模糊，这完全取决于库作者如何去实现它。
+**合理的默认值**：Webpack 4 的主要概念是「**入口、输出、加载器、插件**」，我不会详细介绍它们。加载器和插件之间的区别非常模糊，这完全取决于库作者如何去实现它。
 
 ### 核心概念
 
@@ -57,7 +57,7 @@
 
 #### 输出
 
-这是你的 _build/_ 、 _dist/_ 或 _wateveryounameit/_ 文件夹，其中将存放最终生成的 js 文件。这是你的最终结果，由模块组成。
+这是你的 _build/_、_dist/_ 或 _wateveryounameit/_ 文件夹，其中将存放最终生成的 js 文件。这是你的最终结果，由模块组成。
 
 #### 加载器
 
@@ -126,7 +126,7 @@ You can also set it to 'none' to disable any default behavior. Learn more: https
 ERROR in Entry module not found: Error: Can't resolve './src' in '~/webpack-4-quickstart'
 ```
 
-这意味着 Webpack 在寻找 _.src/_ 文件夹下的 _index.js_ 文件。这是 Webpack 4 的默认行为，也是它实现零配置的原因。
+这意味着 Webpack 在寻找 _.src/_ 文件夹下的 _index.js_ 文件。这是 Webpack 4 的默认行为，毕竟它不需要任何配置。
 
 让我们去创建带有 _.js_ 文件的目录，如 **./src/index.js**，并在那里放一些代码。
 ```
@@ -145,7 +145,7 @@ yarn dev
 
 如果此时你遇到错误，请阅读本小节下面的更新。否则，现在你应该会有一个 **./dist/main.js** 目录。这很好，因为我们知道我们的代码被编译过了。但刚刚发生了什么？
 
-> 默认情况下， Webpack 是零配置的，这意味着在你开始使用它时，你无需去配置 webpack.config.js 。因此，它必须去假定一些默认行为，例如它总是会在默认情况下查找 ./src 文件夹，在其中查找 index.js 并输出到 ./dist/main.js 。main.js 是带有依赖项的编译后文件。
+> 默认情况下，Webpack 是零配置的，这意味着在你开始使用它时，你无需去配置 webpack.config.js。因此，它必须去假定一些默认行为，例如它总是会在默认情况下查找 ./src 文件夹，在其中查找 index.js 并输出到 ./dist/main.js。main.js 是带有依赖项的编译后文件。
 
 * * *
 
@@ -214,7 +214,7 @@ module.exports = {
 
 作为一个练习，你也可以试试这些标记：
 
-*   — watch 标记来启用监听模式。它将会监控文件变化，并且在每次文件更新时重新编译。 
+*   — watch 启用监听模式的标记。它将会监控文件变化，并且在每次文件更新时重新编译。
 
 ```
 "scripts": {
@@ -383,7 +383,7 @@ module.exports = {
     filename: 'main.js'
   },
   target: 'node', // update from 23.12.2018
-  externals: [nodeExternals()], // update from 23.12.2018  
+  externals: [nodeExternals()], // update from 23.12.2018
   module: {
     rules: [
       {
@@ -433,7 +433,7 @@ npm install -D extract-text-webpack-plugin@next
 yarn add --dev extract-text-webpack-plugin@next
 ```
 
-> 专业提示：Google 一下你获得的错误信息，尝试在 Github 问题列表查找类似的问题，或者在 StackOverflow 网站恰当的提一个问题。
+> 专业提示：Google 一下你获得的错误信息，尝试在 Github 问题列表查找类似的问题，或者直接在 StackOverflow 网站提一个问题。
 
 在那之后，你的 CSS 代码应当会编译到 _./dist/style.css_。
 
@@ -543,7 +543,7 @@ npm install node-sass sass-loader --save-dev
 yarn add node-sass sass-loader --dev
 ```
 
-在你的 _.js_ 文件里用  **_./scss/main.scss_** 替换 *style.css* ，更改测试以支持 _.scss_。
+在你的 _.js_ 文件里用 **_./scss/main.scss_** 替换 *style.css*，更改测试以支持 _.scss_。
 
 ```javascript
 // webpack v4
@@ -585,7 +585,7 @@ module.exports = {
 
 ### HTML 模板
 
-现在让我们创建 _.html_ 文件模板。添加 _index.html_ 到 _./src_ ，保持完全相同的结构。
+现在让我们创建 _.html_ 文件模板。添加 _index.html_ 到 _./src_，保持完全相同的结构。
 
 ```html
 <html>
@@ -651,7 +651,7 @@ module.exports = {
       }
     ]
   },
-  plugins: [ 
+  plugins: [
     new MiniCssExtractPlugin({
       filename: "style.css"
     }),
@@ -684,9 +684,9 @@ yarn dev
 
 开发中最常见的问题之一是实现缓存。了解它的工作原理非常重要，因为您希望用户始终拥有最新版本的代码。
 
-由于这篇博文主要是关于 webpack 配置的，因此我们不会专注于缓存如何工作。我只想说解决缓存问题最常用的方法之一是向资源文件添加 **_哈希值_** ，例如 _style.css_ 和 _script.js_ 。**你可以在[这里](https://developers.google.com/web/fundamentals/performance/webpack/use-long-term-caching#split-the-code-into-routes-and-pages)阅读相关内容。** 需要哈希来指导我们的浏览器只请求更改的文件。
+由于这篇博文主要是关于 webpack 配置的，在这里，我们不会对缓存如何工作来做过多的讨论。我只想说解决缓存问题最常用的方法之一是向资源文件添加**哈希值**，例如 _style.css_ 和 *script.js*。**你可以在[这里](https://developers.google.com/web/fundamentals/performance/webpack/use-long-term-caching#split-the-code-into-routes-and-pages)阅读相关内容**。哈希值可以确保我们的浏览器只请求更改过的文件。
 
-Webpack 4 具有通过 [**chunkhash**](https://webpack.js.org/guides/caching/) 实现的预构建功能。它可以通过以下方式完成：
+Webpack 4 有内置的 [**chunkhash**](https://webpack.js.org/guides/caching/) 功能来实现用哈希值缓存控制。它可以通过以下方式完成：
 
 ```javascript
 // webpack v4
@@ -726,7 +726,7 @@ module.exports = {
        }
     ]
   },
-  plugins: [ 
+  plugins: [
     new MiniCssExtractPlugin({
      filename: "style.[contenthash].css"
     }),
@@ -783,7 +783,7 @@ npm run dev
 
 * * *
 
-虽然我们在这里做了一些工作，但它还不完美。如果我们更改 _.scss_ 文件中的某些代码怎么办？继续下去，在那里更改一些 scss 并再次运行 dev 脚本。现在不生成新的文件哈希。如果我们将一个新的 console.log 添加到我们的 _.js_ 文件中，如下所示：
+虽然我们在这里已经有实现方法，但它还不完美。如果我们更改 _.scss_ 文件中的某些代码怎么办？继续下去，在那里更改一些 scss 并再次运行 dev 脚本。现在不生成新的文件哈希。如果我们将一个新的 console.log 添加到我们的 _.js_ 文件中，如下所示：
 
 
 ```
@@ -818,7 +818,7 @@ console.log("Hello, world 2");
 
 #### 解决方案:
 
-使用这个插件：[**webpack-md5-hash**](https://www.npmjs.com/package/webpack-md5-hash)。如果对 _main.scss_ 文件进行更改并运行 dev 脚本，则只应使用新哈希生成新的 _style.css_ ，而不是两者。
+使用这个插件：[**webpack-md5-hash**](https://www.npmjs.com/package/webpack-md5-hash)。如果对 _main.scss_ 文件进行更改并运行 dev 脚本，则只应使用新哈希生成新的 _style.css_，而不是两者。
 
 ```javascript
 // webpack v4
@@ -857,7 +857,7 @@ module.exports = {
       }
     ]
   },
-  plugins: [ 
+  plugins: [
     new MiniCssExtractPlugin({
       filename: "style.[contenthash].css"
     }),
@@ -886,7 +886,7 @@ module.exports = {
 > 校对者注：
 > 最新版的 postcss-loader（v3.0.0 版本以上）是自带支持 autoprefixer 的，所以我们不需要安装 autoprefixer。
 >
-> 具体请参阅：[postcss-preset-env 包含 autoprefixer，因此如果您已经使用了预设配置，则无需单独添加 autoprefixer。](https://github.com/postcss/postcss-loader#autoprefixing) 
+> 具体请参阅：[postcss-preset-env 包含 autoprefixer，因此如果您已经使用了预设配置，则无需单独添加 autoprefixer。](https://github.com/postcss/postcss-loader#autoprefixing)
 
 
 ```shell
@@ -974,7 +974,7 @@ use:  ['style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loade
 *   [cssnano](https://github.com/ben-eb/cssnano)
 *   [style-lint](https://github.com/stylelint/stylelint)
 
-我将使用 **cssnano** 来缩小我的输出文件，使用 [css-mqpacker](https://github.com/hail2u/node-css-mqpacker) 来编排我的媒体查询。我也收到了一些消息：
+我将使用 **cssnano** 来 Minify 我的输出文件，使用 [css-mqpacker](https://github.com/hail2u/node-css-mqpacker) 来编排我的 media queries。我也收到了一些消息：
 
 ![](https://cdn-images-1.medium.com/max/800/1*8TyHjIG5jTjPFn51icEVtA@2x.jpeg)
 
@@ -983,6 +983,7 @@ use:  ['style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loade
 ### 版本控制
 
 为了保证你的依赖在对的位置，我推荐使用 **yarn** 来替代 **npm 安装模块。长话短说，yarn 会锁定每一个包，并且当你重装模块时，你将不会遇到许多意想不到的不兼容情况。**
+( 注：**npm** 也早已有 **package-lock** 文件帮助锁定版本。请根据个人需求选择包管理工具。 )
 
 ### 保持配置干净整洁
 
@@ -1019,15 +1020,15 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use:  [  'style-loader', 
-                 MiniCssExtractPlugin.loader, 
-                 'css-loader', 
-                 'postcss-loader', 
+        use:  [  'style-loader',
+                 MiniCssExtractPlugin.loader,
+                 'css-loader',
+                 'postcss-loader',
                  'sass-loader']
       }
     ]
   },
-  plugins: [ 
+  plugins: [
     new CleanWebpackPlugin('dist', {} ),
     new MiniCssExtractPlugin({
       filename: 'style.[contenthash].css',
@@ -1095,7 +1096,6 @@ module.exports = {
 > 在这里阅读下一篇关于使用 React 配置开发环境的部分：[如何使用 Webpack 4 简化 React.js 开发过程](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-develop-react-js-apps-fast-using-webpack-4.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
