@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/tutorial-write-a-shell-in-c.md](https://github.com/xitu/gold-miner/blob/master/TODO1/tutorial-write-a-shell-in-c.md)
 > * 译者：[nettee](https://github.com/nettee)
-> * 校对者：
+> * 校对者：[kasheemlew](https://github.com/kasheemlew)，[JackEggie](https://github.com/JackEggie)
 
 # 教程 - 用 C 写一个 Shell
 
