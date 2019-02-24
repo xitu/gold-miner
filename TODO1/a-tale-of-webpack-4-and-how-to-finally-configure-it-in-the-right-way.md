@@ -684,7 +684,7 @@ yarn dev
 
 开发中最常见的问题之一是实现缓存。了解它的工作原理非常重要，因为您希望用户始终拥有最新版本的代码。
 
-由于这篇博文主要是关于 webpack 配置的，在这里，我们不会对缓存如何工作来做过多的讨论。我只想说解决缓存问题最常用的方法之一是向资源文件添加**哈希值** ，例如 _style.css_ 和 _script.js_ 。**你可以在[这里](https://developers.google.com/web/fundamentals/performance/webpack/use-long-term-caching#split-the-code-into-routes-and-pages)阅读相关内容。哈希值** 可以确保我们的浏览器只请求更改过的文件。
+由于这篇博文主要是关于 webpack 配置的，在这里，我们不会对缓存如何工作来做过多的讨论。我只想说解决缓存问题最常用的方法之一是向资源文件添加**哈希值** ，例如 _style.css_ 和 _script.js_ 。**你可以在[这里](https://developers.google.com/web/fundamentals/performance/webpack/use-long-term-caching#split-the-code-into-routes-and-pages)阅读相关内容。哈希值**可以确保我们的浏览器只请求更改过的文件。
 
 Webpack 4 有内置的 [**chunkhash**](https://webpack.js.org/guides/caching/) 功能来实现用哈希值缓存控制。它可以通过以下方式完成：
 
