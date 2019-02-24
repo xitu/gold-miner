@@ -9,11 +9,7 @@
 
 ## 1. Introduction
 
-![](https://lh4.googleusercontent.com/yzZPYGHe5CrFE-84MXhqwb_y7YjCKLWQJHI7W7zqbT9_qdK8qufFjx51kepr3ITvZtF7vD3d72nurt-HPBARmQ6RF74PD1FwGZMNbXphLap4LqIEBCKWP5OxK2Vjeo-YEY3-oeIP)
-
-Material Components (MDC) help developers implement Material Design. Created by a team of engineers and UX designers at Google, MDC features dozens of beautiful and functional UI components and is available for Android, iOS, web and Flutter.
-
-material.io/develop
+> Material Components (MDC) help developers implement [Material Design](material.io/develop). Created by a team of engineers and UX designers at Google, MDC features dozens of beautiful and functional UI components and is available for Android, iOS, web and Flutter.
 
 In codelab MDC-103, you customized the color, elevation, typography, and shape of Material Components (MDC) to style your app.
 
@@ -31,7 +27,9 @@ In this codelab, you'll change the UI in the Shrine app to a two-level presentat
 *   Motion
 *   Flutter widgets (that you've used in the previous codelabs)
 
-![](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/img/a533be3bc12ef2f7.png)![](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/img/42b6ae2cb79fc507.png)
+![](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/img/a533be3bc12ef2f7.png)
+
+![](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/img/42b6ae2cb79fc507.png)
 
 > This is the last of 4 codelabs that guide you through building an app for a product called Shrine. We recommend that you do all of the codelabs in order as they progress through tasks step-by-step.
 >
@@ -40,8 +38,6 @@ In this codelab, you'll change the UI in the Shrine app to a two-level presentat
 > *   [MDC-101: Material Components (MDC) Basics](https://codelabs.developers.google.com/codelabs/mdc-101-flutter)
 > *   [MDC-102: Material Design Structure and Layout](https://codelabs.developers.google.com/codelabs/mdc-102-flutter).
 > *   [MDC-103: Material Design Theming with Color, Shape, Elevation and Type](https://codelabs.developers.google.com/codelabs/mdc-103-flutter)
->
-> ![](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/img/a533be3bc12ef2f7.png)
 
 ### MDC-Flutter component in this codelab
 
@@ -76,13 +72,13 @@ To start developing mobile apps with Flutter you need:
 
 Flutter's IDE tools are available for [Android Studio](https://developer.android.com/studio/index.html), [IntelliJ IDEA Community (free), and IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/download/).
 
-![](https://lh6.googleusercontent.com/ol-teJ4O7B69JJRkTfRVQ0a2afiPmL60r-KxNGD26R0KreGtbem_U05Js7HNw3FQu7rIaDVDBQozSFWUB7QVgyfoYpPCPVjKh1knJQGvtbAvLtDbdBmB7XaVbBvth3WOwBAIFDS7)To build and run Flutter apps on iOS:
+To build and run Flutter apps on iOS:
 
 *   a computer running macOS
 *   Xcode 9 or newer
 *   iOS Simulator, or a physical iOS device
 
-![](https://lh3.googleusercontent.com/Si2NN00ySyOEkNilzmWrhGLWwaCfGZME_01PwA1sSWu66Prw15UijYovXa-y3csDBg4NP_nhxBc_oqjparZ5Cme0zKuf0RRK1KiaN_n0Kn3AQ0zdkACXUhJJHAXdWK2WFshbxQLt)To build and run Flutter apps on Android:
+To build and run Flutter apps on Android:
 
 *   a computer running macOS, Windows, or Linux
 *   Android Studio
