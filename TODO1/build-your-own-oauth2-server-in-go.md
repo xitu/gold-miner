@@ -5,125 +5,125 @@
 > * 译者：
 > * 校对者：
 
-# Build your Own OAuth2 Server in Go: Client Credentials Grant Flow
+# 通过 GO 语言中创建你自己 OAuth2 服务：客户端凭据授予流程
 
 ![](https://cdn-images-1.medium.com/max/2600/0*mtbIDJPdV4cD8Xgo)
 
-Hello, in today’s article, I will show you how you can build your own OAuth2 server just like google, facebook, github etc.
+嗨，在今天的文章中，我会像大家展示怎么构建属于每个人自己的 OAuth2 服务器，就像 google、facebook 和 github 等公司一样。
 
-This will be very helpful if you want to build a production ready public or private API. So let’s get started.
+如果你想构建用于生产环境的公共或者私有 API，这都会是很有帮助的。所以现在让我们开始吧。
 
-### What is OAuth2?
+### 什么是 OAuth2?
 
-Open Authorization Version 2.0 is known as OAuth2. It’s one kind of protocol or framework to secure RESTful Web Services. OAuth2 is very powerful. Now a days, majority of the REST API are protected with OAuth2 due to it’s rock solid security.
+开放授权版本 2.0 被称为 OAuth2。它是一种保护 RESTful Web 服务的协议或者说是框架。OAuth2 非常强大。现在大多数 REST API 都受到 OAuth2 的保护就是因为它坚如磐石的安全性。
 
-#### OAuth2 has two parts
+#### OAuth2 具有两个部分
 
-01. Client
+01. 客户端
 
-02. Server
+02. 服务端
 
-### OAuth2 Client
+### OAuth2 服务端
 
 ![](https://cdn-images-1.medium.com/max/1600/0*ojCsrGLMlae6xw62.png)
 
-If you’re familiar with this screen, you know what I’m talking about. Anyway, Let me explain the story behind the image:
+如果你熟悉这个界面，你就会知道我将要说什么。但是无论熟悉与否，都让我来讲一下这个图片背后的故事吧。
 
-You’re building a user facing application that works with user’s github repositories. For example: CI tools like TravisCI, CircleCI, Drone etc.
+你正在构建一个面向用户的应用程序，它是与用户的 github 仓库协同使用的。比如：就像是 TravisCI、CircleCI 和 Drone 等 CI 工具。
 
-But user’s github account is secured and no one can access it if the owner doesn’t want. So how do these CI tools access user’s github account and repositories?
+但是用户的 github 账户是被保护的，如果所有者不愿意任何人都无权访问。那么这些 CI 工具如何访问用户的 github 帐户和仓库的呢？
 
-Easy.
+这其实很简单。
 
-Your application will ask the user
+你的应用程序会询问用户
 
-> **“In order to work with us, you need to give read access to your github repos. Do you agree?”**
+> **“为了与我们的服务协作，我们需要得到你的 github 仓库的读取权限。你同意吗？”**
 
-Then the user will say
+然后这个用户就会说
 
-> **“Yes I do. And do whatever needs to do”.**
+> **“我同意。你们可以去做你们需要做的事儿啦。"**
 
-Then your application will contact github’s authority to grant access to that particular user’s github account. Github will check if it’s true and ask that user to authorize. Then github will issue an ephemeral token to the client.
+然后你的应用程序会请求 github 的权限管理以获得那个特定用户的 github 访问权限。Github 会检查是否属实并要求该用户进行授权。通过之后 github 就会给这个客户端发送一个临时的令牌。
 
-Now, when your application needs to access it after the authentication and authorization, it needs to send the access token with the request so that github will think:
+现在，当你的应用程序得到身份验证和授权以后需要访问 github 时，就需要把这个令牌在请求中间带过去，github 收到了之后就会想：
 
-> **“Oh, the access token looks familiar, may be we have given that to you. Ok, you can access”**
+> **“也，这个授权令牌看起来很眼熟嘛，应该是我们之前就给过你了。好，你可以访问了”**
 
-That’s the long story. Days have changed, now you don’t need to go to github authority physically each time (we never had to do that). Everything can be done automatically.
+这是一个很长的流程。但是时代已经变啦，现在你不用每次都去 github 授权中心（当然我们从来也不需要这样）。每件事都可以自动化的完成。
 
-But how?
+但是怎么完成呢？
 
 ![](https://cdn-images-1.medium.com/max/1600/0*wGuxcdSwF1vaOaH9)
 
-This is a UML sequence diagram of what I have talked couple of minutes ago. Just graphical representation.
+这是我前几分钟讨论的内容所对应的 UML 流程图。就是一个对应的图形表示。
 
-From the above picture, we found some important things.
+从上图中，我们可以发现几点重要的东西。
 
-**OAuth2 has 4 roles:**
+**OAuth2 有 4 个角色：**
 
-01. User — The end user who will use your application
+01. 用户 — 最终使用你的应用程序的用户
 
-02. Client — The application you’re building that will use github account and the user will use
+02. 客户端  — 就是你构建的那个会使用 github 账户的应用程序，也就是用户会使用的东西
 
-03. Auth Server — The server that deals with the main OAuth things
+03. 鉴权服务器  — 这个服务器主要处理 OAuth 相关事务
 
-04. Resource Server — The server that has the protected resources. For example github
+04. 资源服务器  — 这个服务器有那些被保护的资源。比如说 github
 
-Client sends OAuth2 request to the auth server on behalf of the user.
+客户端代表用户向鉴权服务器发送 OAuth2 请求。
 
-Building an OAuth2 client is neither easy nor hard. Sounds funny, right? We’ll do that in the next part.
+构建一个 OAuth2 客户端不算简单但也不算困难。听起来很有趣对吧？我们会在下一个部分来实际操作。
 
-But in this part, we’ll go to the other side of the world. We’ll build our own OAuth2 Server. Which is not easy but juicy.
+但在这个部分，我们会去这个世界的另一面看看。我们会构建我们自己的 OAuth2 服务端。这并不简单但是很有趣。
 
-Ready? Let’s go
+准备好了吗？让我们开始吧
 
-### OAuth2 Server
+### OAuth2 服务器
 
-You may ask me
+你也许会问我
 
-> **“Wait a minute Cyan, why building an OAuth2 server?”**
+> **“Cyan 等一下，为什么要构建一个 OAuth2 服务器啊？”**
 
-Did you forget man? I have said this earlier. Ok, let me tell you again.
+朋友你搞忘了吗？我之前说了这一点的啊。好吧，让我再次告诉你。
 
-Imagine, you’re building a very useful application that gives accurate weather information (there are plenty of this kind of api out there). Now you want to make it open so that public can use it or you want to make money with it.
+想象一下，你构建了一个非常棒的应用程序，它可以提供准确的天气信息（现在已经有很多这种类型的 API 了）。现在你希望把它变得开放让公众都可以使用或者你想靠它来赚钱了。
 
-Whatever the case is, you need to protect your resources from un-authorized access or malicious attacks. In order to do that you need to secure your API resources. Here comes the OAuth2 thingy. Bingo!
+但无论什么情况，你都需要保护你的资源免受未经授权的访问或者恶意的攻击。 所以你需要保护你的 API 资源。那这里就需要用到 OAuth2 啦。对吧！
 
-From the picture above, we can see that we need place an Auth Server in front of our REST API Resource Server. That’s what we’re talking about. The Auth Server will be built using OAuth2 specification. Then we’ll become the github of the first picture, hahahaha just kidding.
+从上图中我们可以看到，鉴权服务器需要放置在 REST API 资源服务器之前。这就是我们要讨论的东西。这个鉴权服务器需要根据 OAuth2 规范构建。然后我呢就可以变成 github 开始的那张图片啦，哈哈哈哈开玩笑的。
 
-The primary goal of the OAuth2 server is to provide access token to the client. That’s why OAuth2 Server is also known as OAuth2 Provider, because they provide token.
+OAuth2 服务器的主要目标是给客户端提供访问的令牌。这也就是为什么 OAuth2 服务器也被称作 OAuth2 提供者，因为他们可以提供令牌。
 
-Enough talking.
+这个解释就说这么多啦。
 
-**There are four types of OAuth2 server based of the Grant Flow type:**
+**基于鉴权流程有 4 种不同的 OAuth2 服务器模式：**
 
-01. Authorization Code Grant
+01. 授权码模式
 
-02. Implicit Grant
+02. 简化模式
 
-03. Client Credentials Grant
+03. 客户端验证模式
 
-04. Password Grant
+04. 密码模式
 
-If you want to know more about OAuth2, check out [**this**](https://itnext.io/an-oauth-2-0-introduction-for-beginners-6e386b19f7a9) awesome article.
+如果你想了解更多关于 OAuth2 的东西，请看 [**这里的**](https://itnext.io/an-oauth-2-0-introduction-for-beginners-6e386b19f7a9) 精彩文章。
 
-For this article, we’ll use **Client Credentials Grant Type**. So let’s dig in
+在本文中，我们会使用 **客户端验证模式**。 咱们来深入了解一下吧。
 
-### Client Credentials Grant Flow Based Server
+### 基于服务器的客户端验证模式
 
-When implementing Client Credentials Grant Flow based OAuth2 Server, we need to know couple of things.
+在构建基于 OAuth2 服务器的客户端验证模式时，我们需要了解一些东西。
 
-In this grant type, there’s no user interaction (i.e. signup, sign-in). Two things needed, and they are the **client_id** and the **client_secret**. With this two things, we can obtain **access_token**. Client is the 3rd party application. When you need to access resource server without the user or only by the client application, then this grant type is simple and best suited.
+在这个授权类型里面没有用户交互 (也就是指没有注册，登录)。而是需要两个东西，它们是 **客户端 ID** 和 **客户端密钥**. 有了这两个东西，我们就可以获取到 **授权令牌**。客户端就是第三方的应用程序。当你请求资源服务器的时候没有用户信息或者只有客户端应用程序，那这种授权方式就是简单并且适合的。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*7X5b1VSQ2zC4MMin.png)
 
-Here’s a UML Sequence Diagram of it.
+这就是对应的 UML 序列图。
 
-### Coding
+### 编码
 
-To build this, we need to rely on an awesome Go package
+为了构建这个项目，我们需要依赖一个非常棒的 Go 语言包。
 
-First of all, let’s build a simple API server as Resource Server
+首先，我们需要开发一个简单的 API 服务作为资源服务器。
 
 ```
 package main
@@ -142,25 +142,25 @@ func main() {
 }
 ```
 
-Run the server and send a Get Request to [http://localhost:9096/protected](http://localhost:5555/protected)
+运行这个服务并且发送 Get 请求到 [http://localhost:9096/protected](http://localhost:5555/protected)
 
-You’ll get response.
+你会得到相应。
 
-What kind of protected server it is?
+这个服务受到什么类型的保护呢？
 
-Though the endpoint name is protected, but anyone can access it. So we need to protect it with OAuth2.
+即使接口名称是保护，但是任何人都可以请求它。我们需要将这个接口使用 OAuth2 保护。
 
-Now we’ll write our authorization server
+现在我们就要编写我们自己的授权服务。
 
-#### Routes
+#### 路由
 
-01. **/credentials** for issuing client credentials (client_id and client_secret)
+01. **/credentials** 用于颁发客户端凭据 （客户端 ID 和客户端密钥）
 
-02. **/token** to issue token with client credentials
+02. **/token** 使用客户端凭据颁发令牌
 
-We need to implement these two routes.
+我们需要实现这两个路由。
 
-Here’s the preliminary setup
+这里是初步的设置
 
 ```
 package main
@@ -211,9 +211,9 @@ func main() {
 }
 ```
 
-Here we created one manager, client store and the auth server itself.
+这里我们创建了一个管理器，用于客户端存储和鉴权服务本身。
 
-Here’s the **/credentials** route
+这里是 **/credentials** 路由：
 
 ```
 http.HandleFunc("/credentials", func(w http.ResponseWriter, r *http.Request) {
@@ -233,9 +233,9 @@ http.HandleFunc("/credentials", func(w http.ResponseWriter, r *http.Request) {
 })
 ```
 
-It creates two random string, one for client_id and another for client_secret. Then saves them to the client store. And return them as response. That’s it. We used in memory store, but we can store them in redis, mongodb, postgres etc.
+它创建了两个随机字符串，一个就是客户端 ID，另一个就是客户端密钥。并把它们保存到客户端存储。然后就会返回响应。就是这样。在这里我们使用了内存存储，但我们同样可以把它们存储到 redis，mongodb，postgres 等等里面。
 
-Here’s the **/token** route:
+这里是 **/token** 路由：
 
 ```
 http.HandleFunc("/token", func(w http.ResponseWriter, r *http.Request) {
@@ -243,9 +243,9 @@ http.HandleFunc("/token", func(w http.ResponseWriter, r *http.Request) {
 })
 ```
 
-It’s very simple. It passes the request and response to the appropriate handler so that the servwr can decode all the necessary data from the request payload.
+这非常简单。它将请求和响应传递给适当的处理程序，以便服务器可以解码请求中的所有必要的数据。
 
-So here’s our overall code:
+所以以下就是我们的整体代码：
 
 ```
 package main
@@ -315,17 +315,17 @@ func main() {
 }
 ```
 
-Run the code and go to [http://localhost:9096/credentials](http://localhost:9096/credentials) route to register and get client_id and client_secret
+运行这个代码并到 [http://localhost:9096/credentials](http://localhost:9096/credentials) 路由去注册并获取客户端 ID 和客户端密钥。
 
-Now go to this URL http://localhost:9096/token?grant_type=client_credentials&client_id=2e14f7dd&client_secret=c729e9d0&scope=all
+现在去到这个链接 http://localhost:9096/token?grant_type=client_credentials&client_id=2e14f7dd&client_secret=c729e9d0&scope=all
 
-You”ll get the access_token with expiry time and some other information.
+你可以得到具有过期时间和一些其他信息的授权 token。
 
-Now we got our access_token. But our /protected route is still un-protected. We need to setup a way that will check if a valid token exists with each client request. If yes, then we give the client access. Otherwise not.
+现在我们得到了我们的授权 token。但是我们的 /protected 路由依然没有被保护。我们需要设置一个方法来检查每个客户端的请求是否都带有有效的令牌。如果是的，我们就可以给予这个客户端授权。反之就不能给予授权。
 
-We can do this with a middleware.
+我们可以通过一个中间件来做到这一点。
 
-Writing middleware in go is ao much fun if you know what you are doing. Here’s the middleware:
+如果你知道你在做什么，那么在 golang 中编写中间件会很有趣。以下就是中间件的代码：
 
 ```
 func validateToken(f http.HandlerFunc, srv *server.Server) http.HandlerFunc {
@@ -341,9 +341,9 @@ func validateToken(f http.HandlerFunc, srv *server.Server) http.HandlerFunc {
 }
 ```
 
-This will check if a valid token is given with the request and take action based on that.
+这里将检查请求是否带有有效的令牌并采取对应的措施。
 
-Now we need to put this middleware in front of our /protected route using adapter/decorator pattern
+现在我们需要使用 适配器/装饰者 模式来将中间件放在我们的 /protected 路由前面。
 
 ```
 http.HandleFunc("/protected", validateToken(func(w http.ResponseWriter, r *http.Request) {
@@ -351,7 +351,7 @@ http.HandleFunc("/protected", validateToken(func(w http.ResponseWriter, r *http.
 }, srv))
 ```
 
-Now the whole code looks like this:
+现在整个代码看起来像这样子：
 
 ```
 package main
@@ -437,20 +437,21 @@ func validateToken(f http.HandlerFunc, srv *server.Server) http.HandlerFunc {
 }
 ```
 
-Now run the server and try to access **/protected** endpoint without the **access_token** as URL Query. Then try to give wrong **access_token**. Either way, the auth server will stop you.
+现在运行服务并在 URL 不带有 **授权令牌** 的情况下访问 **/protected** 接口。或者尝试使用错误的 **授权令牌**。在这两种方式下鉴权服务都会阻止你。
 
-Now get the **credentials** and **access_token** again from the server and send request to the protected endpoint :
+现在再次从服务器获得**认证信息** and **授权令牌** 并发送请求到受保护的接口 :
 
 http://localhost:9096/test?access_token=YOUR_ACCESS_TOKEN
 
-Bingo! You’ll get access to it.
+对啦！你现在有权限访问啦。
 
-So we’ve learned how to setup our own OAuth2 Server using Go.
+现在我们已经学会了怎么使用 Go 来设置我们自己的 OAuth2 服务器。
 
-In the next part, we’ll build our OAuth2 client in Go. And in the last part, we’ll build the **Authorization Code Grant Type Based Server** with user login and authorization.
+在下一部分中。我们会在 Go 中构建我们自己的 OAuth2 客户端。并且在最后一部分，我们会基于登录和授权构建我们自己的 **基于服务器的授权码模式**。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
