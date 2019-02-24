@@ -47,7 +47,7 @@
 
 **性能提升**：Webpack 4 是迄今为止最快的一版。
 
-**合理的默认值**：Webpack 4 的主要概念是「 _入口、输出、加载器、插件_ 」。我不会详细介绍这些。加载器和插件之间的区别非常模糊，这完全取决于库作者如何去实现它。
+**合理的默认值**：Webpack 4 的主要概念是「**入口、输出、加载器、插件**」，我不会详细介绍它们。加载器和插件之间的区别非常模糊，这完全取决于库作者如何去实现它。
 
 ### 核心概念
 
@@ -57,7 +57,7 @@
 
 #### 输出
 
-这是你的 _build/_ 、 _dist/_ 或 _wateveryounameit/_ 文件夹，其中将存放最终生成的 js 文件。这是你的最终结果，由模块组成。
+这是你的 _build/_、_dist/_ 或 _wateveryounameit/_ 文件夹，其中将存放最终生成的 js 文件。这是你的最终结果，由模块组成。
 
 #### 加载器
 
@@ -145,7 +145,7 @@ yarn dev
 
 如果此时你遇到错误，请阅读本小节下面的更新。否则，现在你应该会有一个 **./dist/main.js** 目录。这很好，因为我们知道我们的代码被编译过了。但刚刚发生了什么？
 
-> 默认情况下， Webpack 是零配置的，这意味着在你开始使用它时，你无需去配置 webpack.config.js 。因此，它必须去假定一些默认行为，例如它总是会在默认情况下查找 ./src 文件夹，在其中查找 index.js 并输出到 ./dist/main.js 。main.js 是带有依赖项的编译后文件。
+> 默认情况下，Webpack 是零配置的，这意味着在你开始使用它时，你无需去配置 webpack.config.js。因此，它必须去假定一些默认行为，例如它总是会在默认情况下查找 ./src 文件夹，在其中查找 index.js 并输出到 ./dist/main.js。main.js 是带有依赖项的编译后文件。
 
 * * *
 
@@ -543,7 +543,7 @@ npm install node-sass sass-loader --save-dev
 yarn add node-sass sass-loader --dev
 ```
 
-在你的 _.js_ 文件里用  **_./scss/main.scss_** 替换 *style.css* ，更改测试以支持 _.scss_。
+在你的 _.js_ 文件里用 **_./scss/main.scss_** 替换 *style.css*，更改测试以支持 _.scss_。
 
 ```javascript
 // webpack v4
@@ -585,7 +585,7 @@ module.exports = {
 
 ### HTML 模板
 
-现在让我们创建 _.html_ 文件模板。添加 _index.html_ 到 _./src_ ，保持完全相同的结构。
+现在让我们创建 _.html_ 文件模板。添加 _index.html_ 到 _./src_，保持完全相同的结构。
 
 ```html
 <html>
@@ -684,7 +684,7 @@ yarn dev
 
 开发中最常见的问题之一是实现缓存。了解它的工作原理非常重要，因为您希望用户始终拥有最新版本的代码。
 
-由于这篇博文主要是关于 webpack 配置的，在这里，我们不会对缓存如何工作来做过多的讨论。我只想说解决缓存问题最常用的方法之一是向资源文件添加**哈希值** ，例如 _style.css_ 和 _script.js_ 。**你可以在[这里](https://developers.google.com/web/fundamentals/performance/webpack/use-long-term-caching#split-the-code-into-routes-and-pages)阅读相关内容。哈希值**可以确保我们的浏览器只请求更改过的文件。
+由于这篇博文主要是关于 webpack 配置的，在这里，我们不会对缓存如何工作来做过多的讨论。我只想说解决缓存问题最常用的方法之一是向资源文件添加**哈希值**，例如 _style.css_ 和 _script.js_。**你可以在[这里](https://developers.google.com/web/fundamentals/performance/webpack/use-long-term-caching#split-the-code-into-routes-and-pages)阅读相关内容。哈希值**可以确保我们的浏览器只请求更改过的文件。
 
 Webpack 4 有内置的 [**chunkhash**](https://webpack.js.org/guides/caching/) 功能来实现用哈希值缓存控制。它可以通过以下方式完成：
 
@@ -818,7 +818,7 @@ console.log("Hello, world 2");
 
 #### 解决方案:
 
-使用这个插件：[**webpack-md5-hash**](https://www.npmjs.com/package/webpack-md5-hash)。如果对 _main.scss_ 文件进行更改并运行 dev 脚本，则只应使用新哈希生成新的 _style.css_ ，而不是两者。
+使用这个插件：[**webpack-md5-hash**](https://www.npmjs.com/package/webpack-md5-hash)。如果对 _main.scss_ 文件进行更改并运行 dev 脚本，则只应使用新哈希生成新的 _style.css_，而不是两者。
 
 ```javascript
 // webpack v4
@@ -1096,7 +1096,6 @@ module.exports = {
 > 在这里阅读下一篇关于使用 React 配置开发环境的部分：[如何使用 Webpack 4 简化 React.js 开发过程](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-develop-react-js-apps-fast-using-webpack-4.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
