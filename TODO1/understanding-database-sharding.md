@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-database-sharding.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-database-sharding.md)
 > * 译者：[Romeo0906](https://github.com/Romeo0906)
-> * 校对者：
+> * 校对者：[HearFishle](https://github.com/HearFishle)
 
 # Understanding Database Sharding
 
@@ -65,7 +65,7 @@ The main appeal of sharding a database is that it can help to facilitate _horizo
 
 It's relatively simple to have a relational database running on a single machine and scale it up as necessary by upgrading its computing resources. Ultimately, though, any non-distributed database will be limited in terms of storage and compute power, so having the freedom to scale horizontally makes your setup far more flexible.
 
-我们可以很容易地在某一台机器上运行一个关系型数据库实例，并在必要时对其扩容，只要升级机器的计算资源即可。然而，所有非分布式的数据库最终都会受限于机器的存储容量和计算力，因此能够自由地横向扩展将使你的应用变得更加灵活。
+我们可以很容易地在某一台机器上运行一个关系型数据库实例，只需要通过升级机器的计算资源即可对其进行扩容。然而，所有非分布式的数据库最终都会受限于机器的存储容量和计算力，因此能够自由地横向扩展将使你的应用变得更加灵活。
 
 Another reason why some might choose a sharded database architecture is to speed up query response times. When you submit a query on a database that hasn't been sharded, it may have to search every row in the table you're querying before it can find the result set you're looking for. For an application with a large, monolithic database, queries can become prohibitively slow. By sharding one table into multiple, though, queries have to go over fewer rows and their result sets are returned much more quickly.
 
@@ -73,7 +73,7 @@ Another reason why some might choose a sharded database architecture is to speed
 
 Sharding can also help to make an application more reliable by mitigating the impact of outages. If your application or website relies on an unsharded database, an outage has the potential to make the entire application unavailable. With a sharded database, though, an outage is likely to affect only a single shard. Even though this might make some parts of the application or website unavailable to some users, the overall impact would still be less than if the entire database crashed.
 
-数据库分片还能使应用更加稳定，因为它降低了宕机的影响。如果你的应用或网站依赖于一个未经分片的数据库，宕机有可能会使得整个应用都不可用。但假如是分片的数据库，宕机也只会影响其中的一个分片。即使这会使得一些用户无法使用我们的应用或网站，但总的影响仍然会比整个数据库都挂掉要小很多。
+数据库分片还能使应用更加稳定，因为它降低了宕机的影响。如果你的应用或网站依赖于一个未经分片的数据库，宕机有可能会使得整个应用都不可用。但假如是分片的数据库，宕机也只会影响其中的一个分片。尽管我们的应用或网站的某些功能可能无法被一些用户访问，但总的影响仍然会比整个数据库都挂掉要小很多。
 
 ## Drawbacks of Sharding
 
@@ -177,7 +177,7 @@ Here, the **Delivery Zone** column is defined as a shard key. Data from the shar
 
 The main appeal of directory based sharding is its flexibility. Range based sharding architectures limit you to specifying ranges of values, while key based ones limit you to using a fixed hash function which, as mentioned previously, can be exceedingly difficult to change later on. Directory based sharding, on the other hand, allows you to use whatever system or algorithm you want to assign data entries to shards, and it's relatively easy dynamically add shards using this approach.
 
-基于目录的数据库分片架构最吸引人的地方就是灵活性。基于范围的数据库分片架构要求你必须制定值的区间，而基于键的数据库分片架构则要求你必须使用一个固定的哈希函数，正如前文所说，要修改该函数是非常困难的一件事。然而，基于目录的数据库分片架构允许你使用任何系统、任何算法来指定数据保存的分片位置，而且添加分片也相对简单一些。
+基于目录的数据库分片架构最吸引人的地方就是灵活性。基于范围的数据库分片架构要求你必须制定值的区间，而基于键的数据库分片架构则要求你必须使用一个固定的哈希函数，正如前文所说，要修改该函数是非常困难的一件事。而基于目录的数据库分片架构允许你使用任何系统、任何算法来指定数据保存的分片位置，而且添加分片也相对简单一些。
 
 While directory based sharding is the most flexible of the sharding methods discussed here, the need to connect to the lookup table before every query or write can have a detrimental impact on an application's performance. Furthermore, the lookup table can become a single point of failure: if it becomes corrupted or otherwise fails, it can impact one's ability to write new data or access their existing data.
 
@@ -208,7 +208,7 @@ Before sharding, you should exhaust all other options for optimizing your databa
 对数据库分片之前，你最好先尝试其他的方式来优化你的数据库。比如：
 
 *   **Setting up a remote database**. If you're working with a monolithic application in which all of its components reside on the same server, you can improve your database's performance by moving it over to its own machine. This doesn't add as much complexity as sharding since the database's tables remain intact. However, it still allows you to vertically scale your database apart from the rest of your infrastructure.
-* **使用远程数据库**。如果你有一个庞大的应用，其所有的组建都依赖于同一个数据库服务器，你可以考虑将数据库迁移到一台单独的机器上来提高其性能。这不会像数据库分片那样复杂，因为所有的数据库表都还是完整的。并且，这种方式还允许你能够抛开其他基础设施，单独地对数据库做纵向扩展。
+* **使用远程数据库**。如果你有一个庞大的应用，其所有的组件都依赖于同一个数据库服务器，你可以考虑将数据库迁移到一台单独的机器上来提高其性能。这不会像数据库分片那样复杂，因为所有的数据库表都还是完整的。并且，这种方式还允许你能够抛开其他基础设施，单独地对数据库做纵向扩展。
 *   **Implementing [caching](https://en.wikipedia.org/wiki/Database_caching)**. If your application's read performance is what's causing you trouble, caching is one strategy that can help to improve it. Caching involves temporarily storing data that has already been requested in memory, allowing you to access it much more quickly later on.
 * **使用[缓存](https://en.wikipedia.org/wiki/Database_caching)**。如果应用受制于读数据的性能，使用缓存是改进性能的一种方式。缓存通过将请求过的数据暂时地保存在内存中，加速后续的数据访问。
 *   **Creating one or more read replicas**. Another strategy that can help to improve read performance, this involves copying the data from one database server (the _primary server_) over to one or more _secondary servers_. Following this, every new write goes to the primary before being copied over to the secondaries, while reads are made exclusively to the secondary servers. Distributing reads and writes like this keeps any one machine from taking on too much of the load, helping to prevent slowdowns and crashes. Note that creating read replicas involves more computing resources and thus costs more money, which could be a significant constraint for some.
