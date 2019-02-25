@@ -1,7 +1,7 @@
 > * 原文地址：[Why UX and UI should remain separate](https://uxdesign.cc/why-ux-and-ui-should-remain-separate-7d6e3addb46f)
 > * 原文作者：[Daryl Duckmanton](https://uxdesign.cc/@daryl_60370)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/.md](https://github.com/xitu/gold-miner/blob/master/TODO1/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-ux-and-ui-should-remain-separate.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-ux-and-ui-should-remain-separate.md)
 > * 译者：
 > * 校对者：
 
