@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/things-about-react-native-i-found-the-hard-but-rewarding-way.md](https://github.com/xitu/gold-miner/blob/master/TODO1/things-about-react-native-i-found-the-hard-but-rewarding-way.md)
 > * 译者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
-> * 校对者：
+> * 校对者：[xilihuasi](https://github.com/xilihuasi)，[WangLeto](https://github.com/WangLeto)
 
 # React Native 中那些令我收获颇丰的痛点
 
