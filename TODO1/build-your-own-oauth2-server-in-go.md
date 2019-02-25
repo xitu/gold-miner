@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# 在 GO 语言中创建你自己 OAuth2 服务：客户端凭据授权流程
+# 在 GO 语言中创建你自己的 OAuth2 服务：客户端凭据授权流程
 
 ![](https://cdn-images-1.medium.com/max/2600/0*mtbIDJPdV4cD8Xgo)
 
