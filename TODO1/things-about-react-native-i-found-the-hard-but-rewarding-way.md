@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/things-about-react-native-i-found-the-hard-but-rewarding-way.md](https://github.com/xitu/gold-miner/blob/master/TODO1/things-about-react-native-i-found-the-hard-but-rewarding-way.md)
 > * 译者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
-> * 校对者：
+> * 校对者：[xilihuasi](https://github.com/xilihuasi)，[WangLeto](https://github.com/WangLeto)
 
 # React Native 中那些令我收获颇丰的痛点
 
@@ -87,7 +87,7 @@ class TestTextLabel extends React.Component {
 
 Web 开发人员可以在不了解原生的情况下使用 React Native 开发，这种说法仅适用于小型项目。一旦应用程序开始增长并且 Redux 的 store 的计算开始对应用程序的性能造成影响时，你将需要了解原生端如何工作的，才能理解为什么会这样。你还需要意识到 React Native 中的 Redux 的 Store 导致的重新渲染与 DOM 中发生的重新渲染并不完全相同，尤其是应用中的原生组件。
 
-同时，在 React Native 上重新渲染应用程序的组件会变得代价昂贵。由于 React Native 本质是使用 bridge，因此你在 `render()` 函数内部提供的任何指令都将从 JavascriptCore 传递到 Java 或者 Objective C ++。原生端将获取 `render()` 给出的 JSX 标签，并将它们转换为其原生对应部分，例如视图、标签和图像。如果转换每秒进行数百次，那就需要不可忽略的 cpu 时间。
+同时，在 React Native 上重新渲染应用程序的组件会变得代价昂贵。由于 React Native 本质是使用 bridge，因此你在 `render()` 函数内部提供的任何指令都将从 JavascriptCore 传递到 Java 或者 Objective C++。原生端将获取 `render()` 给出的 JSX 标签，并将它们转换为其原生对应部分，例如视图、标签和图像。如果转换每秒进行数百次，那就需要不可忽略的 cpu 时间。
 
 在性能方面，似乎 React Native 是更好的跨平台解决方案之一。但是，在某些关键领域 React Native 仍然存在性能问题。
 
@@ -148,7 +148,6 @@ React Native 是一个经过深思熟虑且发展良好的平台。它为你的�
 但是，如果你拥有一个由熟练的开发人员组成的小团队并希望构建内容应用程序或类似的软件，那么 React Native 是一个很好的选择。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
