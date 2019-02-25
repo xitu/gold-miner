@@ -3,25 +3,25 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-learn-css.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-learn-css.md)
 > * 译者：[Mcskiller](https://github.com/Mcskiller)
-> * 校对者：[Reaper622](https://github.com/Reaper622)
+> * 校对者：[Reaper622](https://github.com/Reaper622)、[Qiuk17](https://github.com/Qiuk17)
 
 # 如何学习 CSS
 
 快速摘要：你不需要强制去记住每一个 CSS 属性和值，有很多地方可以方便你快速去查阅。但是记住一些基础的知识点会让你使用起来更加得心应手。本文旨在引导你如何学习 CSS。
 
-我遇到很多人叫我给他们推荐 CSS 各个知识点的教程，或者问我应该怎么学习 CSS。我也看到很多人对 CSS 的部分内容感到困惑，一部分原因是因为他们对语言的过时认知。鉴于 CSS 在过去的几年间改变了很多，也是一个好时候来更新你掌握的知识了。即便 CSS 只占你所做工作的一小部分（因为你在栈的别处工作），CSS 就像你想他们最终在屏幕上看到的那样，所以值得合理更新。
+我遇到很多人叫我给他们推荐 CSS 各个知识点的教程，或者问我应该怎么学习 CSS。我也看到很多人对 CSS 的部分内容感到困惑，一部分原因是因为他们对语言的过时认知。鉴于 CSS 在过去的几年间改变了很多，也是时候来更新你掌握的知识了。即便 CSS 只占你所做工作的一小部分（因为你在栈的别处工作），CSS 就像你想他们最终在屏幕上看到的那样，所以值得合理更新。
 
-因此，本文旨在概述 CSS 的关键基础和资源，以便进一步阅读学习现代 CSS 开发的关键领域。其中许多都是 Smashing Magazine 上的东西，但我也选择了其他的一些资源，以及人们关注的 CSS 关键领域。这不是一个完整的初学者指南或者绝对涵盖所有知识点的文章。我的目标是以重点关注几个关键领域来涵盖现代 CSS 的广度，这将有助于你学习其他语言。
+因此，本文旨在概述 CSS 的关键基础和资源，以便进一步阅读学习现代 CSS 开发的关键领域。其中许多都是 Smashing Magazine 上的东西，但我也选择了其他的一些资源，以及人们关注的 CSS 关键领域。这不是一个完整的初学者指南或者绝对涵盖所有知识点的文章。我的目标是以几个关键领域来涵盖现代 CSS 的广度，这将有助于你学习其他语言。
 
 ### 语言基础知识
 
-对于 CSS 的大部分内容，你不需要担心学习属性和值。你可以在需要时查找它们。然而，学习语言需要一些关键基础，如果没有这些基础，你会很难去理解它。所以它真的值得你去花时间理解，从长远来看，它将会为你的学习带来诸多便利。
+对于 CSS 的大部分内容，你不需要担心学习属性和值。你可以在需要时查找它们。然而，学习 CSS 需要一些关键基础，如果没有这些基础，你会很难去理解它。所以它真的值得你去花时间理解，从长远来看，它将会为你的学习带来诸多便利。
 
 #### 选择器，不仅仅是 Class
 
 选择器顾名思义，它 **选择** 文档的某些部分，以便你可以将 CSS 应用到上面。虽然大多数人都熟悉使用 Class，或者直接设置诸如 `body` 之类的 HTML 元素，但是这里还有大量更高级的选择器可以根据文档中的位置来选择元素，可能是因为它们在某些元素的后边，也可能是表格中的奇数行。
 
-作为 Level 3 规范部分的选择器（你也许听过它们被称为 Level 3 选择器）具有 [优秀的浏览器兼容性](https://caniuse.com/#feat=css-sel3)。更多有关使用各种选择器的详细信息，请参考 [MDN 参考](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)。
+Level 3 规范中的选择器（你也许听过它们被称为 Level 3 选择器）具有 [优秀的浏览器兼容性](https://caniuse.com/#feat=css-sel3)。更多有关使用各种选择器的详细信息，请参考 [MDN 参考](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)。
 
 一些选择器的效果就像你在文档中运用 class 选择器一样。例如，`p:first-child` 就像你在第一个 `p` 元素中添加了一个 class 一样，这些被称为 **伪类** 选择器。**伪元素** 选择器就好像一个元素是动态插入的，例如 `::first-line` 的作用方式就类似于在第一行文本周围包裹 `span`。但是，如果这一行的长度发生了变化，它将会重新应用，如果插入该元素则不会出现这种情况。这些选择器可能会非常复杂，在下面的 CodePen 中是一个伪元素用伪类链接的例子。我们使用 `:first-child` 伪类定位第一个 `p` 元素，然后使用 `::first-line` 选择器选择该元素的第一行，就好像在第一行的周围添加了一个 span 让它变粗并改变颜色。
 
@@ -29,11 +29,11 @@
 
 #### 继承和层叠
 
-当有许多规则应用于一个元素上时，层叠决定了到底按哪一个规则执行。如果你曾经无法理解一些 CSS 为什么没有被应用，那可能是因为你没有理解层叠的概念。层叠与继承密切相关，它定义了哪些属性是应该被子元素继承的。它也和优先级有关；不同的选择器有不同的优先级，当有多个选择器可以应用到同一个元素上时，优先级控制了哪一个能够被成功应用。
+当有许多规则应用于一个元素上时，层叠决定了到底按哪一个规则执行。如果你曾经无法理解一些 CSS 为什么没有被应用，那可能是因为你没有理解层叠的概念。层叠与继承密切相关，它定义了哪些属性是应该被子元素继承的。它也和优先级有关：不同的选择器有不同的优先级，当有多个选择器可以应用到同一个元素上时，优先级决定了哪一个能够被成功应用。
 
 **提示**：要是想了解全部内容，推荐去看看 MDN 的 CSS 简介中的 [层叠和继承](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Introduction_to_CSS/Cascade_and_inheritance)。
 
-如果你正努力将一些 CSS 应用到一个元素上，那么使用浏览器的开发者工具是最佳方法，看看下面的例子，其中我有一个 `h1` 元素由 `h1` 选择器选择并将标题设置为橙色。我还使用了一个 class 设置 `h1` 颜色为 rebeccapurple。这个 class 优先级更高，所以 `h1` 是紫色的。在开发者工具中，你可以看见元素选择器被划掉，因为它并没有被应用。所以现在一旦你看见浏览器开始应用你的 CSS（但其他东西阻止了它导致没有正常显示），你就可以找到原因了。
+如果你正努力将一些 CSS 应用到一个元素上，那么使用浏览器的开发者工具是最佳方法，看看下面的例子，其中有一个 `h1` 元素由 `h1` 选择器选择并将标题设置为橙色。我还使用了一个 class 设置 `h1` 颜色为 rebeccapurple。这个 class 优先级更高，所以 `h1` 是紫色的。在开发者工具中，你可以看见元素选择器被划掉，因为它并没有被应用。所以现在一旦你看见浏览器开始应用你的 CSS（但其他东西阻止了它导致没有正常显示），你就可以找到原因了。
 
 查看由 Rachel Andrew（[@rachelandrew](https://codepen.io/rachelandrew)）在 [CodePen](https://codepen.io) 上编写的例子 —— [优先级](https://codepen.io/rachelandrew/pen/yGbMoL)。
 
@@ -57,15 +57,15 @@ CSS 都是关于盒子的。每个显示在屏幕上的东西都有一个框，�
 
 开发者工具帮助你了解盒子为何具有特定尺寸，以及你正在使用的盒模型（[查看原图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/52f5291d-fb2e-4418-99a7-002f898053aa/smashing-css-box-model.png)）
 
-**提示**：在 IE6 之前，[Internet Explorer 默认使用 `border-box` 盒模型](https://en.wikipedia.org/wiki/Internet_Explorer_box_model_bug)，padding 和 border 让内容偏离了给定的宽度。所以在那段时间内浏览器们都在使用不同的盒模型！不过你今天不必为了浏览器之间的互通所担心，事情已经有所改善，我们已经不需要因为浏览器的不同而计算宽度设置。
+**提示**：在 IE6 之前，[Internet Explorer 默认使用 `border-box` 盒模型](https://en.wikipedia.org/wiki/Internet_Explorer_box_model_bug)，padding 和 border 让内容偏离了给定的宽度。所以在那段时间许多浏览器都在使用不同的盒模型！不过现在你不必为了浏览器之间的互通所担心，事情已经有所改善，我们已经不需要因为浏览器的不同而使用不同方法计算宽度。
 
-在 CSS Tricks 上有一篇很好的对于 [盒模型和 Box Size](https://css-tricks.com/box-sizing/) 的解释，以及在你的站点中 [全局使用 border-box 盒模型](https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/) 的最佳方法。
+在 CSS Tricks 上有一篇很好的对于 [盒模型及其大小](https://css-tricks.com/box-sizing/) 的解释，以及在你的站点中 [全局使用 border-box 盒模型](https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/) 的最佳方法。
 
 #### 常规流
 
 如果你的文档由一些 HTML 标签组成然后你在浏览器中打开它，它应该是有可读性的。标题和段落会从一个新行开始，单词中间由空格隔开组成句子。用于格式化的标签，就像 `em`，不会破坏一句话的流。这些内容都以 [常规流布局](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flow_Layout) 或者说块状流布局展示。每一部分内容都处于“流”中；每一个元素都会依次排放，不会重叠在一起。
 
-如果你合理运用这种特性的话，你的工作将会变得更加轻松。这也是为什么 [从正确标记的 HTML 文档开始]((https://www.brucelawson.co.uk/2018/the-practical-value-of-semantic-html/)) 有道理的原因之一，由于常规流和内置样式表被浏览器所遵守，你的内容会从可读的地方开始。
+如果你合理运用这种特性的话，你的工作将会变得更加轻松。这也是为什么 [从正确标记的 HTML 文档开始](https://www.brucelawson.co.uk/2018/the-practical-value-of-semantic-html/) 有道理的原因之一，由于常规流和内置样式表被浏览器所遵守，你的内容会从可读的地方开始。
 
 #### 格式化上下文
 
