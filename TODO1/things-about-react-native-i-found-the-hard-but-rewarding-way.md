@@ -13,7 +13,7 @@
 
 React Native 已经存在了一段时间了。当它支持 Android 的版本（iOS 之后大约一年）发布后，我便使用它进行专业级开发了，我决定投入时间在 RN 上进行跨平台开发。当我发现 React Native 时，我从事 iOS 开发工作已经六年了，而且不仅仅是 Mac OSX 的开发人员。
 
-我已经在 App Store 和 Play Store 为我的客户开发了四个中等大小（一万到两万左右行代码，不包括依赖项）的项目。我还在一个更大的使用 React Native 编写的代码超过五万行（除了本机代码）的项目中进行监督和贡献，现在已经部署上线并运行顺利。我已经积累了足够的经验来找出 React（和 React Native）闪耀的地方，以及在没有它的地方如何扩展它。
+我已经在 App Store 和 Play Store 为我的客户开发了四个中等大小（一万到两万左右行代码，不包括依赖项）的项目。我还在一个使用 React Native 编写的代码超过五万行（除了本机代码）的大型项目中参与监督和贡献，现在已经部署上线并运行顺利。我已经积累了足够的经验来找出 React（和 React Native）闪耀的地方，以及它不足的地方如何扩展它。
 
 注意：我知道你们中的一些人在阅读这篇文章时会提到 [Flutter](https://flutter.io/)。但由于它的成熟度远不及它的竞争对手，所以我还没有深入了解它。
 
@@ -58,7 +58,7 @@ class TestTextLabel extends React.Component {
 }
 ```
 
-上面的代码渲染了一个只包含两个文本组件的 Component。注意 `this.props.sampleText`，如果此变量太长（例如10000个字符左右的长度）会发生什么？结果将会是组件将调整大小以适合整个文本。如果文本达到了可用空间的极限（比如说屏幕大小），那么视图将被剪切，用户将无法看到整个文本，你需要一个滚动视图。
+上面的代码渲染了一个只包含两个文本组件的 Component。注意 `this.props.sampleText`，如果此变量太长（例如 10000 个字符左右的长度）会发生什么？结果将会是组件将调整大小以适合整个文本。如果文本达到了可用空间的极限（比如说屏幕大小），那么视图将被剪切，用户将无法看到整个文本，你需要一个滚动视图。
 
 ```
 class TestTextLabel extends React.Component {
@@ -77,7 +77,7 @@ class TestTextLabel extends React.Component {
 
 **协作 —— 配合 Git 的友好体验**。我看到的每个声明式 UI 都能更好
 
-在iOS和Android上，如果你有大的单片 UI，那你就做错了。但是，大型 XML 文件在大多数情况下是不可避免的（请注意 iOS：XIB 实际上是 XML 文件）。它们的变化对代码审查者（或你）没有任何意义，如果你不同意之前的版本（你的更改或其他开发人员）完整保留，则发起 Pull Request 几乎是不可能的。
+在 iOS 和 Android 上，如果你有大的单片 UI，那你就做错了。但是，大型 XML 文件在大多数情况下是不可避免的（请注意 iOS：XIB 实际上是 XML 文件）。它们的变化对代码审查者（或你）没有任何意义，如果你不同意之前的版本（你的更改或其他开发人员）**完整**保留，则发起 Pull Request 几乎是不可能的。
 
 使用 React 和其他声明性 UI 库，这些问题在很大程度上被最小化，因为布局是实际代码，你可以更新、删除、合并、对比差异以及执行所有你你平时对其他软件执行的操作。
 
@@ -99,25 +99,23 @@ React Native 为大型数据集提供 VirtualizedList 及其派生的（FlatList
 
 **写在最后**：总之要小心。如果你正在使用 React Native ，就意味着你想从你的应用程序中实现最佳效果需要熟悉 React 的最佳实践和原生实践。
 
-### 了解JS运行时及其对你的影响非常重要。
+### 了解 JS 运行时及其对你的影响非常重要。
 
 可以通过将调试信息发送到 Chrome 对 React Native 进行调试。**这意味着在设备中运行实际代码的过程与你调试代码的过程不同**。
 
-Android 和 iOS 上的 React Native 使用 JavascriptCore 执行 Javascript。但是，调试工具在 V8（Chrome）上运行。为了使系统有更普遍适用性，在撰写本文时，React Native 在 iOS 上使用 Apple 的 Javascript Core，而在Android上，他们使用的是[已经发布三年的 JS Core](https://github.com/facebook/android-jsc) 来构建脚本（因为 Android 没有提供任何像 iOS 这样现成的 JS 运行时，Facebook 也必须自己构建）。这就导致缺乏了很多 JS 新特性，比如 Proxy 对象只在 Android 上和 iOS 64 位上支持。因此，如果你想使用 [MobX 5+](https://github.com/mobxjs/mobx/blob/master/CHANGELOG.md#the-system-requirements-to-run-mobx-has-been-upped)，那你必须使用升级的 Javascript 运行时（继续阅读以了解如何做到这一点）。
-
-Android 和 iOS 上的 React Native 使用 JavascriptCore 执行 Javascript。但是，调试工具在 V8（Chrome）上运行。为了使系统有更普遍适用性，在撰写本文时，React Native 在 iOS 上使用 Apple 的 Javascript Core，而在Android上，他们使用的是已经发布三年的 JS Core 来构建脚本（因为 Android 没有提供任何像 iOS 这样现成的 JS 运行时，Facebook 也必须自己构建）。这就导致缺乏了很多 JS 新特性，比如 Proxy 对象只在 Android 上和 iOS 64 位上支持。因此，如果你想使用 MobX 5+，那你必须使用升级的 Javascript 运行时（继续阅读以了解如何做到这一点）。
+Android 和 iOS 上的 React Native 使用 JavascriptCore 执行 Javascript。但是，调试工具在 V8（Chrome）上运行。为了使系统有更普遍适用性，在撰写本文时，React Native 在 iOS 上使用 Apple 的 Javascript Core，而在 Android 上，他们使用的是[已经发布三年的 JS Core](https://github.com/facebook/android-jsc) 来构建脚本（因为 Android 没有提供任何像 iOS 这样现成的 JS 运行时，Facebook 也必须自己构建）。这就导致缺乏了很多 JS 新特性，比如 Proxy 对象只在 Android 上和 iOS 64 位上支持。因此，如果你想使用 [MobX 5+](https://github.com/mobxjs/mobx/blob/master/CHANGELOG.md#the-system-requirements-to-run-mobx-has-been-upped)，那你必须使用升级的 Javascript 运行时（继续阅读以了解如何做到这一点）。
 
 运行时差异通常会导致错误只能在生产模式中重现。更糟糕的是，甚至有些错误会变得难以调试。
 
-例如，当涉及 React Native 时，移动端数据库的最佳解决方案是 Realm。但是，当进入调试模式时，会发生这种情况：[https://github.com/realm/realm-js/issues/491](https://github.com/realm/realm-js/issues/491)。虽然 Realm 的研发人员已经解释了[为什么会这样](https://github.com/realm/realm-js/issues/491#issuecomment-350718316)，但最重要的是，如果我们想要一个更稳定的调试解决方案，必须改进 React Native 的调试架构。好消息是我一直在使用 [Haul](https://callstack.github.io/haul/) 作为我的捆绑包，它允许我直接从我的 iOS 设备进行调试，而无需通过Chrome Dev Tools（不幸的是，你需要Mac、iOS 模拟器和 Safari）。
+例如，当涉及 React Native 时，移动端数据库的最佳解决方案是 Realm。但是，当进入调试模式时，会发生这种情况：[https://github.com/realm/realm-js/issues/491](https://github.com/realm/realm-js/issues/491)。虽然 Realm 的研发人员已经解释了[为什么会这样](https://github.com/realm/realm-js/issues/491#issuecomment-350718316)，但最重要的是，如果我们想要一个更稳定的调试解决方案，必须改进 React Native 的调试架构。好消息是我一直在使用 [Haul](https://callstack.github.io/haul/) 作为我的捆绑包，它允许我直接从我的 iOS 设备进行调试，而无需通过 Chrome Dev Tools（不幸的是，你需要 Mac、iOS 模拟器和 Safari）。
 
 请注意，Facebook 上的人已经发现了这个问题，他们正在重新设计 React Native 的核心，以便原生和 React Native 部分可以共享相同的内存。完成此操作后，可能可以直接在设备的 JavaScript 运行时上进行调试。（参照文章：[React Native Fabric (UI-Layer Re-architecture)](https://github.com/react-native-community/discussions-and-proposals/issues/4)）
 
-不仅如此，React Native 社区[现在提供了JS android 构建脚本](https://github.com/react-native-community/jsc-android-buildscripts)，它能够构建针对较新版本的 JavascriptCore 的脚本并将其嵌入到 React Native 应用程序中。这使 Android 上的 React Native 的 Javascript 功能能与 iOS 相提并论，也为在 Android 上运行的React Native 增加了 64 位支持奠定了基础。
+不仅如此，React Native 社区[现在提供了 JS android 构建脚本](https://github.com/react-native-community/jsc-android-buildscripts)，它能够构建针对较新版本的 JavascriptCore 的脚本并将其嵌入到 React Native 应用程序中。这使 Android 上的 React Native 的 Javascript 功能能与 iOS 相提并论，也为在 Android 上运行的React Native 增加了 64 位支持奠定了基础。
 
 ### 使用 React Native 进行应用内导航效果非常棒
 
-你是否开发过带有身份验证的移动应用程序？如果用户收到一条推送通知并且只有在登录界面登录后他才能看到推送通知内容界面，会怎么样？或者，如果你当前已经在一个应用程序中的深层次界面并希望跳转到另一个应用程序=中的完全不同的区域作为对用户操作的响应，又该怎么办？
+你是否开发过带有身份验证的移动应用程序？如果用户收到一条推送通知并且只有在登录界面登录后他才能看到推送通知内容界面，会怎么样？或者，如果你当前已经在一个应用程序中的深层次界面并希望跳转到另一个应用程序中的完全不同的区域作为对用户操作的响应，又该怎么办？
 
 使用原生的方法可以解决这一问题，但需要花费一些努力。而使用 [React Navigation](https://reactnavigation.org/)，它们甚至都不是问题。深层的链接和导航跳转能让用户感觉自然而流畅。虽然还有其他导航库，但 React Navigation 被认为是事实上的标准。你应该试一试，这是 React Native 比 iOS 和Android 更好的**地方**。
 
@@ -133,11 +131,11 @@ Android 和 iOS 上的 React Native 使用 JavascriptCore 执行 Javascript。�
 
 *   具有巨大列表的应用程序
 *   媒体驱动的应用程序，无需布局（例如：简单/小型游戏，动画，视频处理）或屏幕到屏幕的过渡。
-*   CPU密集型任务
+*   CPU 密集型任务
 
 确实，对于 React 无法做到的事情，你可以在原生中编写所需的所有内容，然后从 React Native 调用相应的代码。但这意味着你需要为每个平台（iOS、Android）编写一次代码，然后为 Javascript 接口编写额外的代码。
 
-React Native的内部组件目前正在经历一个主要的重构，以让 RN 可以并行执行更多同步操作，以便它可以与原生共享公共代码：[https://facebook.github.io/react-native/blog](https://facebook.github.io/react-native/blog/2018/11/01/oss-roadmap)。因此，在此之前，你应该在决定是否使用它之前进行一些研究。
+React Native 的内部组件目前正在经历一个主要的重构，以让 RN 可以并行执行更多同步操作，以便它可以与原生共享公共代码：[https://facebook.github.io/react-native/blog](https://facebook.github.io/react-native/blog/2018/11/01/oss-roadmap)。因此，在此之前，你应该在决定是否使用它之前进行一些研究。
 
 ### 结论
 
