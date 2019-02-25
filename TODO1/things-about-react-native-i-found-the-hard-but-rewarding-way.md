@@ -25,7 +25,7 @@ React Native 已经存在了一段时间了。当它支持 Android 的版本（i
 
 React Native 最广为人知的特性是跨平台，但这并不是它引起我注意的原因。React Native 最重要的特性是**它使用 React，从而支持通用的声明式布局**。跨平台支持排在重要性的第二位。作为一名 iOS 开发人员，我一直在尝试那些不那么直观的用户界面设计方式的 Auto Layout 系统（指 IOS 开发使用的自动布局系统）。
 
-如果你的系统具有高度动态性，并且屏幕上的元素相互依赖（比如一些侧边栏和动画），那么使用 Apple 的 Autolayout 是管理屏幕上内容的最佳方式。但是，对于大多数 Android 和 iOS 应用程序，情况并非如此。大多数 Android 和 iOS 应用程序都会使用我们经常看到的标准元素：文本、按钮、列表、通用视图和图像并以最类似于Web的方式布局。
+如果你的系统具有高度动态性，并且屏幕上的元素相互依赖（比如一些侧边栏和动画），那么使用 Apple 的 Autolayout 是管理屏幕上内容的最佳方式。但是，对于大多数 Android 和 iOS 应用程序，情况并非如此。大多数 Android 和 iOS 应用程序都会使用我们经常看到的标准元素：文本、按钮、列表、通用视图和图像并以最类似于 Web 的方式布局。
 
 在 AutoLayout 出现的同时，[flex 布局](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)也被发明出来，并成为了屏幕上元素布局约定俗成的标准。除了标准的 Web 使用之外，还有一些布局系统旨在利用 FlexBox 原则进行原生开发：
 
@@ -33,7 +33,7 @@ React Native 最广为人知的特性是跨平台，但这并不是它引起我�
 *   [TextureKit](http://texturegroup.org/)（以前名为 AsyncDisplayKit）
 *   [LinkedIn’s LayoutKit](https://github.com/linkedin/LayoutKit)（不是 flexbox，但和它相似）
 
-这只是比较出名的一些，还有很多 UI 库。他们有一个共同点，就是他们都使用了声明式 UI 。
+这只是比较出名的一些，还有很多 UI 库。他们有一个共同点，就是他们都使用了声明式 UI。
 
 #### 声明式 UI 的特点：
 
@@ -75,7 +75,7 @@ class TestTextLabel extends React.Component {
 
 唯一改变的是添加 `<ScrollView>` 元素，这将需要在 iOS 上进行更多工作。
 
-**协作 —— 配合 Git 的友好体验**。我看到的每个声明式 UI 都能更好
+**协作 —— 配合 Git 的友好体验**。我看到的每个声明式 UI 都能更好。
 
 在 iOS 和 Android 上，如果你有大的单片 UI，那你就做错了。但是，大型 XML 文件在大多数情况下是不可避免的（请注意 iOS：XIB 实际上是 XML 文件）。它们的变化对代码审查者（或你）没有任何意义，如果你不同意之前的版本（你的更改或其他开发人员）**完整**保留，则发起 Pull Request 几乎是不可能的。
 
@@ -97,7 +97,7 @@ React Native 为大型数据集提供 VirtualizedList 及其派生的（FlatList
 
 为了解决这个问题，我已经从 Redux 切换到 MobX，它为我的组件提供了更可预测的更新。此外，在大型列表的情况下，MobX 可以更新特定单元格而无需重新呈现整个列表。通常这也可以通过 Redux 实现，但是你需要重写 `componentShouldUpdate()` 方法并编写更多样板文件以避免不必要的重新渲染。在将其余变量复制到新状态时，你的 reducer 仍会执行一些不必要的工作。
 
-**写在最后**：总之要小心。如果你正在使用 React Native ，要想让你的应用程有最好的表现效果，就要对 React 和原生的最佳实践都很熟悉。
+**写在最后**：总之要小心。如果你正在使用 React Native，要想让你的应用程有最好的表现效果，就要对 React 和原生的最佳实践都很熟悉。
 
 ### 了解 JS 运行时及其对你的影响非常重要。
 
