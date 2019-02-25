@@ -2,8 +2,8 @@
 > * 原文作者：[Shashank Gupta](https://towardsdatascience.com/@shashankgupta_54342)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ten-machine-learning-algorithms-you-should-know-to-become-a-data-scientist.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ten-machine-learning-algorithms-you-should-know-to-become-a-data-scientist.md)
-> * 译者： [JohnJiang](https://github.com/JohnJiangLA)
-> * 校对者：[Daltan He](https://github.com/Daltan)  [Kasheem Lew](https://github.com/kasheemlew)
+> * 译者：[JohnJiang](https://github.com/JohnJiangLA)
+> * 校对者：[Daltan He](https://github.com/Daltan), [Kasheem Lew](https://github.com/kasheemlew)
 
 # 数据科学领域十大必知机器学习算法
 
@@ -101,7 +101,7 @@ Sigmod 函数图像如下：
 
 [https://www.youtube.com/watch?v=-la3q9d7AKQ](https://www.youtube.com/watch?v=-la3q9d7AKQ)
 
-### 5. SVM (支持向量机)
+### 5. SVM（支持向量机）
 
 支持向量机是类似线性回归和逻辑回归的线性模型，它们之间的不同在于使用了不同的边际损失函数（支持向量的推导是我见过使用特征值计算的最优美的数学结果之一）。你可以使用 L-BFGS 甚至 SGD 这样的优化方法来优化损失函数。
 
@@ -121,7 +121,7 @@ SVM 的一个独特之处是可以学习一个分类器。
 
 [https://www.youtube.com/watch?v=eHsErlPJWUU](https://www.youtube.com/watch?v=eHsErlPJWUU)
 
-**注意：** 基于 SGD 的逻辑回归和 SVM 训练都是来源于 SKLearn 的 [http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html](http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html) ，我常用这个，因为可以用公用接口同时检测逻辑回归和 SVM。你也可以使用小型批次利用 RAM 大小的数据集进行训练。
+**注意**：基于 SGD 的逻辑回归和 SVM 训练都是来源于 SKLearn 的 [http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html](http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html)，我常用这个，因为可以用公用接口同时检测逻辑回归和 SVM。你也可以使用小型批次利用 RAM 大小的数据集进行训练。
 
 ### 6. 前馈神经网络
 
@@ -219,7 +219,7 @@ CRF 可能是概率图模型（PGM）家族中最常用的模型。它们可以�
 
 [http://blog.echen.me/2012/01/03/introduction-to-conditional-random-fields/](http://blog.echen.me/2012/01/03/introduction-to-conditional-random-fields/)
 
-油管上 Hugo Larochelle 的 7 部系列演讲： [https://www.youtube.com/watch?v=GF3iSJkgPbA](https://www.youtube.com/watch?v=GF3iSJkgPbA)
+油管上 Hugo Larochelle 的 7 部系列演讲：[https://www.youtube.com/watch?v=GF3iSJkgPbA](https://www.youtube.com/watch?v=GF3iSJkgPbA)
 
 ### 10. 决策树
 
@@ -247,7 +247,7 @@ CRF 可能是概率图模型（PGM）家族中最常用的模型。它们可以�
 
 [http://education.parrotprediction.teachable.com/p/practical-xgboost-in-python](http://education.parrotprediction.teachable.com/p/practical-xgboost-in-python)
 
-### 更多算法 (你应当学习)
+### 更多算法（你应当学习）
 
 如果你还在思考以上方法能否解决类似 DeepMind 击败世界围棋冠军一样的任务，不要痴心妄想了。我们上面讨论的这 10 种算法都是模式识别，而不是策略学习。要学习解决多步骤问题（比如赢得棋类游戏或玩 Atari 游戏）的策略，我们需要创建一个自由终端并让其能够学习其面对的奖励和惩罚。这一类的机器学习被称作强化学习。最近该领域中的许多成果（并非全部）都是在将卷积网或 LSTM 的感知能力与一组名为即时差分学习的算法相结合而得出的成果。其中就包括 Q-learning、SARSA 和其他一些变种。这些算法巧妙运用贝尔曼方程得到一个能够让终端由环境奖励训练的损失函数。
 
@@ -261,7 +261,7 @@ CRF 可能是概率图模型（PGM）家族中最常用的模型。它们可以�
 
 ### 入门教程：
 
-获取 Sutton 和 Barto 的免费图书： [https://web2.qatar.cmu.edu/~gdicaro/15381/additional/SuttonBarto-RL-5Nov17.pdf](https://web2.qatar.cmu.edu/~gdicaro/15381/additional/SuttonBarto-RL-5Nov17.pdf)
+获取 Sutton 和 Barto 的免费图书：[https://web2.qatar.cmu.edu/~gdicaro/15381/additional/SuttonBarto-RL-5Nov17.pdf](https://web2.qatar.cmu.edu/~gdicaro/15381/additional/SuttonBarto-RL-5Nov17.pdf)
 
 查看 David Silver 的课程：[https://www.youtube.com/watch?v=2pWv7GOvuf0](https://www.youtube.com/watch?v=2pWv7GOvuf0)。
 
