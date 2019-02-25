@@ -25,7 +25,7 @@ It is my opinion that the designer role is a separate individual role. Why? Well
 
 1.  **User Interface Design** — Building a creative and engaging UI across potentially different form factors. These could be different devices, such as iPhone, iPad, Android, or just simply different screen sizes for the web. In a lot of cases both are done.
 2.  **Theme design** — Related to the first one. Providing a consistent theme, for the product/service so that it’s memorable to the users.
-3.  **Logo Design **— Building any logos the product/service may require. Each logo may also potentially be a number of different form factors.
+3.  **Logo Design** — Building any logos the product/service may require. Each logo may also potentially be a number of different form factors.
 4.  **Digital Asset Creation** — Based on the User Interface Design, assets need to be created for the developers to use. Some interfaces will indicate that a change in state of a button and other individual elements, These changes in state need to exported reliably.
 5.  **Web Design (Optional)** — If this product/service is a web application, some designers will also take on the work of building the basic prototype of what the web application will look like, without backend support. This can assist the User Experience Designer in determining if he/she is on the right track with their assumption in what is expected from the product/service before development takes place.
 
