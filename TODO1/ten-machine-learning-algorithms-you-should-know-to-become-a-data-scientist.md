@@ -263,7 +263,7 @@ CRF 可能是概率图模型（PGM）家族中最常用的模型。它们可以�
 
 获取 Sutton 和 Barto 的免费图书： [https://web2.qatar.cmu.edu/~gdicaro/15381/additional/SuttonBarto-RL-5Nov17.pdf](https://web2.qatar.cmu.edu/~gdicaro/15381/additional/SuttonBarto-RL-5Nov17.pdf)
 
-查看 David Silver 的课程[https://www.youtube.com/watch?v=2pWv7GOvuf0](https://www.youtube.com/watch?v=2pWv7GOvuf0)。
+查看 David Silver 的课程：[https://www.youtube.com/watch?v=2pWv7GOvuf0](https://www.youtube.com/watch?v=2pWv7GOvuf0)。
 
 这些就是成为一个数据科学家你必学的 10 个机器学习算法。
 
