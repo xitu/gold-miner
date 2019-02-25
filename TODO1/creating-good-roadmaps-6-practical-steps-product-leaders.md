@@ -5,8 +5,7 @@
 > * 译者：
 > * 校对者：
 
-Creating Good Roadmaps: 6 Practical Steps for Product Leaders
-=============================================================
+# Creating Good Roadmaps: 6 Practical Steps for Product Leaders
 
 BY [Matt Walton](/profile/matt-walton) ON FEBRUARY 15, 2018
 
@@ -18,8 +17,7 @@ I would define a good roadmap as one that the team understands and feels ownersh
 
 This article captures my reflections on your role as product leader in ensuring that your team is empowered to create good roadmaps.
 
-1\. Ownership
--------------
+1. **Ownership**
 
 Perhaps the biggest mistake you can make as a product leader is believing that you should ultimately own the roadmap(s). This can easily happen if your role is changing and you’re becoming less hands-on in a rapidly growing startup or simply if you’re new to a leadership role.
 
@@ -43,8 +41,7 @@ So as a product leader, if you’re hands-off in the creation of a roadmap, how 
 
 The “agile onion” and the layers that you as a product leader should be in
 
-2\. Purpose, Vision, Mission and Strategy
------------------------------------------
+2. **Purpose, Vision, Mission and Strategy**
 
 In order for your team to create effective roadmaps, they need to understand their context within the business. It’s your job as product leader to interpret the company’s strategy into something useful for product people and to make sure they understand it.
 
@@ -60,8 +57,7 @@ An example of one of our strategic objectives is to “Grow the number of Advanc
 
 You can take many approaches to vision and strategy, but the important thing is to make sure that they exist and are understood.
 
-3\. Team Organisation, Missions and Metrics
--------------------------------------------
+3. **Team Organisation, Missions and Metrics**
 
 As product leader, the biggest impact you have on product roadmaps is how you organise your teams and define their missions.
 
@@ -79,8 +75,7 @@ A cross-functional team at FutureLearn
 
 This highly collaborative and matrix approach has its own challenges – as a product leader you need to work closely with others in the leadership team to arrive at ways of organising and defining missions that work not only for product people but the rest of the business too. This may require some compromises and certainly requires you to be empathetic, diplomatic and tenacious.
 
-4\. Creating Alignment and Encouraging Communication
-----------------------------------------------------
+4. **Creating Alignment and Encouraging Communication**
 
 At FutureLearn, we organise to optimise for speed by giving cross-functional teams autonomy. Once the team has a mission and a metric, they are broadly free and empowered to achieve this in whatever way they see fit.
 
@@ -96,8 +91,7 @@ This enables the product management team to share their developing plans with ea
 
 We achieve alignment by encouraging teams to attend each others’ Sprint reviews, and by running a fortnightly product management team meeting. We also make sure that key things are presented to the company at our monthly all-hands meeting.
 
-5\. Coaching Your Team
-----------------------
+5. **Coaching Your Team**
 
 Another big impact you can make on roadmaps comes through how you coach your team. Wherever possible, it’s best to resist the urge to tell members of your team what should be on their roadmap. It’s unlikely to be productive for the reasons outlined above.
 
@@ -105,8 +99,7 @@ However, it is your role to keep asking your team good questions. You should pus
 
 There’s lots of ways to do this, through one-to-ones, sharing documents, encouraging them to connect with others and so on. And this should be a constant process – not just when they review their roadmap.
 
-6\. Creating a Product-Friendly Culture
----------------------------------------
+6. **Creating a Product-Friendly Culture**
 
 Finally, the company needs a “product-friendly” culture to achieve much of the above. Your other key role should be to cultivate this. What you do here depends on the organisation, the people in senior positions, and how they are used to working.
 
@@ -116,19 +109,18 @@ Knowing what questions to ask in order to understand the thinking of your CEO an
 
 Encouraging your team to relate their successes and achievements to what was planned on the roadmap will also help to establish, reinforce and maintain trust in the process. Essentially, the key is constant communication and celebration of success.
 
-A Product Leader’s Role in Roadmapping
---------------------------------------
+**A Product Leader’s Role in Roadmapping**
 
 In practice, every company is different and presents someone in a leadership role with a very different set of challenges on how to help their team develop roadmaps.
 
 However, wherever you are, remember that your role in product roadmapping is to ensure that:
 
-1.  Your team owns their roadmaps
-2.  There is a clear strategic context to inform their work and that the missions and success measures of the teams are clear
-3.  The processes, frameworks and cadence for roadmapping are all consistent, understood by your team and bought into effect across the organisation
-4.  There are processes in place to encourage communication and collaboration across teams
-5.  Your team is inspired, supported and challenged appropriately
-6.  You cultivate and maintain a “product-friendly” culture
+1. Your team owns their roadmaps
+2. There is a clear strategic context to inform their work and that the missions and success measures of the teams are clear
+3. The processes, frameworks and cadence for roadmapping are all consistent, understood by your team and bought into effect across the organisation
+4. There are processes in place to encourage communication and collaboration across teams
+5. Your team is inspired, supported and challenged appropriately
+6. You cultivate and maintain a “product-friendly” culture
 
 If you’re able to do all that, you should find that your teams naturally create good roadmaps and, equally as important, are passionate about delivering them. Ultimately, it’s what ends up in the hands of the end user that matters.
 
