@@ -11,9 +11,9 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/1*TkSZ7PH0c6nqkJ3oFeSmBA.jpeg)
 
-React Native 已经存在了一段时间了。当它支持 Android 的版本（iOS 之后大约一年）发布后，我便使用它进行专业级开发了，我决定投入时间在 RN 上进行跨平台开发。当我发现 React Native 时，我从事 iOS 开发工作已经六年了，而且不仅仅是 Mac OSX 的开发人员。
+React Native 已经存在了一段时间了。当它支持 Android 的版本（iOS 之后大约一年）发布后，我便使用它进行专业级开发了，我决定投入时间在 RN 上进行跨平台开发。当我发现 React Native 时，我从事 iOS 开发工作已经六年了，而且不仅仅是 Mac OS X 的开发人员。
 
-我已经在 App Store 和 Play Store 为我的客户开发了四个中等大小（一万到两万左右行代码，不包括依赖项）的项目。我还在一个使用 React Native 编写的代码超过五万行（除了本机代码）的大型项目中参与监督和贡献，现在已经部署上线并运行顺利。我已经积累了足够的经验来找出 React（和 React Native）闪耀的地方，以及它不足的地方如何扩展它。
+我已经在 App Store 和 Play Store 为我的客户开发了四个中等大小（一万到两万左右行代码，不包括依赖项）的项目。我还在一个使用 React Native 编写的代码超过五万行（除了本机代码）的大型项目中参与监督和贡献，现在已经部署上线并运行顺利。我已经积累了足够的经验来找出 React（和 React Native）闪耀的地方，和解决它短处的方案。
 
 注意：我知道你们中的一些人在阅读这篇文章时会提到 [Flutter](https://flutter.io/)。但由于它的成熟度远不及它的竞争对手，所以我还没有深入了解它。
 
@@ -29,7 +29,7 @@ React Native 最广为人知的特性是跨平台，但这并不是它引起我�
 
 在 AutoLayout 出现的同时，[flex 布局](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)也被发明出来，并成为了屏幕上元素布局约定俗成的标准。除了标准的 Web 使用之外，还有一些布局系统旨在利用 FlexBox 原则进行原生开发：
 
-*   [Yoga](https://github.com/facebook/yoga) 或者是一些依赖于它的衍生框架：安卓（Java 或 Kotlin）的 [Litho](https://fblitho.com/) 以及 IOS（Objective C++）的 [ComponentKit](https://componentkit.org/)。
+*   [Yoga](https://github.com/facebook/yoga) 或者是一些依赖于它的衍生框架：安卓（Java 或 Kotlin）的 [Litho](https://fblitho.com/) 以及 iOS（Objective C++）的 [ComponentKit](https://componentkit.org/)。
 *   [TextureKit](http://texturegroup.org/)（以前名为 AsyncDisplayKit）
 *   [LinkedIn’s LayoutKit](https://github.com/linkedin/LayoutKit)（不是 flexbox，但和它相似）
 
@@ -111,7 +111,7 @@ Android 和 iOS 上的 React Native 使用 JavascriptCore 执行 Javascript。�
 
 请注意，Facebook 上的人已经发现了这个问题，他们正在重新设计 React Native 的核心，以便原生和 React Native 部分可以共享相同的内存。完成此操作后，可能可以直接在设备的 JavaScript 运行时上进行调试。（参照文章：[React Native Fabric (UI-Layer Re-architecture)](https://github.com/react-native-community/discussions-and-proposals/issues/4)）
 
-不仅如此，React Native 社区[现在提供了 JS android 构建脚本](https://github.com/react-native-community/jsc-android-buildscripts)，它能够构建针对较新版本的 JavascriptCore 的脚本并将其嵌入到 React Native 应用程序中。这使 Android 上的 React Native 的 Javascript 功能能与 iOS 相提并论，也为在 Android 上运行的React Native 增加了 64 位支持奠定了基础。
+不仅如此，React Native 社区[现在提供了 JS android 构建脚本](https://github.com/react-native-community/jsc-android-buildscripts)，它能够构建针对较新版本的 JavascriptCore 的脚本并将其嵌入到 React Native 应用程序中。这使 Android 上的 React Native 的 Javascript 功能能与 iOS 相提并论，也为在 Android 上运行的 React Native 增加了 64 位支持奠定了基础。
 
 ### 使用 React Native 进行应用内导航效果非常棒
 
