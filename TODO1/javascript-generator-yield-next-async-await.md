@@ -54,11 +54,11 @@ UUID.next()
 // return {value: 'e35834ae-8694-4e16-8352-6d2368b3ccbf', done: false}
 ```
 
-UUID.next() this will return you the new UUID on each UUID.next() under value key ，并且当我们处于无限循环时，done 将始终为 false 。
+这将在值键下的每个 UUID.next() 上返回新的 UUID ，并且当我们处于无限循环时，done 将始终为 false 。
 
 > 注意：我们暂停在无限循环之上，这对于 generator 函数中的任何“停止点”都是很酷的，它们不仅可以为外部函数生成值，而且还可以从外部接收值。
 
-有许多 generator 的实现，并且很多库都在大量使用。比如说 [co](https://github.com/tj/co) 、 [koa](https://koajs.com/) 和 [redux-saga](https://github.com/redux-saga/redux-saga)。
+有许多 generator 的实现，并且很多库都在大量使用。比如说 [co](https://github.com/tj/co) 、[koa](https://koajs.com/) 和 [redux-saga](https://github.com/redux-saga/redux-saga)。 
 
 * * *
 
@@ -66,13 +66,13 @@ UUID.next() this will return you the new UUID on each UUID.next() under value ke
 
 ![](https://cdn-images-1.medium.com/max/1600/0*LAkE4GiZATgtseM5)
 
-Traditionally, callbacks were passed and invoked when an asynchronous operation returned with data which are handled using `Promise.`
+传统上，callbacks were passed and invoked when an asynchronous operation returned with data which are handled using `Promise.`
 
 > Async/Await 是一种特殊的语法，以更舒适的方式使用 Promise ，这种方式非常容易理解和使用。
 
-**_Async_** _关键字_ 用于定义 _异步函数_, 该函数返回一个 `[AsyncFunction](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncFunction "The AsyncFunction constructor creates a new async function object. In JavaScript every asynchronous function is actually an AsyncFunction object.")` 对象.
+**_Async_** _关键字_ 用于定义 _异步函数_, 该函数返回一个 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncFunction" title=" AsyncFunction 构造函数创建一个新的异步函数对象。在 JavaScript 中，每个异步函数实际上都是一个 AsyncFunction 对象。" rel="noopener" target="_blank">AsyncFunction</a> 对象.
 
-_Await 关键字_ 用于暂停异步函数执行， 直到 `Promise` 被解决（resolved 或者 reject）, 并在 and to resume execution of the `async` function after fulfillments。恢复时，await 表达式的值是已满足的值 Promise 。
+_Await 关键字_ 用于暂停异步函数执行， 直到 `Promise` 被解决（resolved 或者 reject）, 并在完成后继续执行 `async` 函数。恢复时，await 表达式的值是已满足的值 Promise 。
 
 **关键点：**
 
