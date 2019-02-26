@@ -7,14 +7,11 @@
 
 # How I finally got my head around Scoped Slots in Vue
 
-
 <div align="center"><img src="https://cdn-images-1.medium.com/max/800/1*zyNSb0UXhP8TfxYbj-GNWg.png" height="400" width="400"></div>
 
 Vue is a front-end framework for building web applications designed in such a way that developers can become productive very quickly. There’s a tonne of great information out there on all aspects of the framework, and the community is growing every day. If you’re here reading this, chances are you know this already.
 
 While it’s fast and straightforward to get up-and-running, there are elements of the framework that are more sophisticated and more powerful that take a bit more brainpower (at least for me) to understand. One of these areas is Slots and, the related but functionally somewhat different, Scoped Slots. It took a while for me to understand how Slots worked so when I did, I thought it’d be worthwhile to share how I think about Slots in case it’s helpful for anyone else.
-
-<hr>
 
 ## Slots and Named Slots
 
@@ -120,8 +117,6 @@ Since we’re now providing the value for the default/unnamed slot and neither o
 
 What you send in doesn’t have to be just text, it can be other components too or HTML. You’re sending in content for display.
 
-<hr>
-
 ## Scoped Slots
 
 ![](https://cdn-images-1.medium.com/max/800/1*DNFusxSTHQwwoeWD9iNUrQ.jpeg)
@@ -190,3 +185,9 @@ Or even give it a new name in the parent:
 All just ES6 destructuring, nothing really to do with Vue.
 
 If you’re beginning your journey with Vue and slots, hopefully, that’s given you a leg up and demystified a few of the trickier parts.
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
