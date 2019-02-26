@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-learn-css.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-learn-css.md)
 > * 译者：[Mcskiller](https://github.com/Mcskiller)
-> * 校对者：[Reaper622](https://github.com/Reaper622)、[Qiuk17](https://github.com/Qiuk17)
+> * 校对者：[Reaper622](https://github.com/Reaper622), [Qiuk17](https://github.com/Qiuk17)
 
 # 如何学习 CSS
 
