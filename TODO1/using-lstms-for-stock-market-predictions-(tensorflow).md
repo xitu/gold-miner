@@ -7,6 +7,7 @@
 
 # Using LSTMs For Stock Market Predictions (Tensorflow)
 
+
 ![](https://cdn-images-1.medium.com/max/1600/1*kq6dfFNUkPhPLS2B6vODrg.jpeg)
 
 In this tutorial, you will see how you can use a time-series model known as Long Short-Term Memory. LSTM models are powerful, especially for retaining a long-term memory, by design, as you will see later. You’ll tackle the following topics in this tutorial:
@@ -68,9 +69,26 @@ Data found on Kaggle is a collection of csv files and you don’t have to do any
 
 Here you will print the data you collected into the DataFrame. You should also make sure that the data is sorted by date, because the order of the data is crucial in time series modeling.
 
+```
+# Sort DataFrame by date
+df = df.sort_values('Date')
+
+# Double check the result
+df.head()
+```
+
 #### Data Visualization
 
 Now let’s see what sort of data you have. You want data with various patterns occurring over time.
+
+```
+plt.figure(figsize = (18,9))
+plt.plot(range(df.shape[0]),(df['Low']+df['High'])/2.0)
+plt.xticks(range(0,df.shape[0],500),df['Date'].loc[::500],rotation=45)
+plt.xlabel('Date',fontsize=18)
+plt.ylabel('Mid Price',fontsize=18)
+plt.show()
+```
 
 ![](https://cdn-images-1.medium.com/max/1600/0*BK3alG7gtLtG05nw.png)
 
@@ -82,9 +100,30 @@ Another thing to notice is that the values close to 2017 are much higher and flu
 
 You will use the mid price calculated by taking the average of the highest and lowest recorded prices on a day.
 
+```
+# First calculate the mid prices from the highest and lowest
+high_prices = df.loc[:,'High'].as_matrix()
+low_prices = df.loc[:,'Low'].as_matrix()
+mid_prices = (high_prices+low_prices)/2.0
+```
+
 Now you can split the training data and test data. The training data will be the first 11,000 data points of the time series and rest will be test data.
 
+```
+train_data = mid_prices[:11000] 
+test_data = mid_prices[11000:]
+```
+
 Now you need to define a scaler to normalize the data. `MinMaxScalar` scales all the data to be in the region of 0 and 1. You can also reshape the training and test data to be in the shape `[data_size, num_features]`.
+
+```
+# Scale the data to be between 0 and 1
+# When scaling remember! You normalize both test and train data with respect to training data
+# Because you are not supposed to have access to test data
+scaler = MinMaxScaler()
+train_data = train_data.reshape(-1,1)
+test_data = test_data.reshape(-1,1)
+```
 
 Due to the observation you made earlier, that is, different time periods of data have different value ranges, you normalize the data by splitting the full series into windows. If you don’t do this, the earlier data will be close to 0 and will not add much value to the learning process. Here you choose a window size of 2500.
 
@@ -92,13 +131,46 @@ Due to the observation you made earlier, that is, different time periods of data
 
 In this example, 4 data points will be affected by this. But given you have 11,000 data points, 4 points will not cause any issue
 
+```
+# Train the Scaler with training data and smooth data
+smoothing_window_size = 2500
+for di in range(0,10000,smoothing_window_size):
+    scaler.fit(train_data[di:di+smoothing_window_size,:])
+    train_data[di:di+smoothing_window_size,:] = scaler.transform(train_data[di:di+smoothing_window_size,:])
+
+# You normalize the last bit of remaining data
+scaler.fit(train_data[di+smoothing_window_size:,:])
+train_data[di+smoothing_window_size:,:] = scaler.transform(train_data[di+smoothing_window_size:,:])
+```
+
 Reshape the data back to the shape of `[data_size]`
+
+```
+# Reshape both train and test data
+train_data = train_data.reshape(-1)
+
+# Normalize test data
+test_data = scaler.transform(test_data).reshape(-1)
+```
 
 You can now smooth the data using the exponential moving average. This helps you to get rid of the inherent raggedness of the data in stock prices and produce a smoother curve.
 
 **Note:** We only train the MinMaxScaler with training data only, it’d be wrong to normalize test data by fitting the MinMaxScaler to test data
 
 **Note** that you should only smooth training data.
+
+```
+# Now perform exponential moving average smoothing
+# So the data will have a smoother curve than the original ragged data
+EMA = 0.0
+gamma = 0.1
+for ti in range(11000):
+  EMA = gamma*train_data[ti] + (1-gamma)*EMA
+  train_data[ti] = EMA
+
+# Used for visualization and test purposes
+all_mid_data = np.concatenate([train_data,test_data],axis=0)
+```
 
 ### Evauating Results
 
@@ -126,12 +198,12 @@ A cell is pictured below.
 
 And the equations for calculating each of these entities are as follows.
 
-* i_t = σ(W{ix} * x_t + W{ih} * h_{t-1}+b_i)
-* \tilde{c}_t = σ(W{cx} * x_t + W{ch} * h_{t-1} + b_c)
-* f_t = σ(W{fx} * xt + W{fh} * h_{t-1}+b_f)
-* c_t = f_t * c{t-1} + i_t * \tilde{c}_t
-* o_t = σ(W{ox} * xt + W{oh} * h_{t-1}+b_o)
-* h_t = o_t * tanh(c_t)
+*   i__t =_ σ_(W_{ix} * x__t + W_{ih} * h_{t-1}+b_i)
+*   \\tilde{c}__t =_ σ_(W_{cx} * x__t + W_{ch} * h_{t-1} + b_c)
+*   f__t =_ σ_(W_{fx} * x_t + W_{fh} * h_{t-1}+b_f)
+*   c_t = f__t * c_{t-1} + i\_t * \\tilde{c}\_t
+*   o__t =_ σ_(W_{ox} * x_t + W_{oh} * h_{t-1}+b_o)
+*   h\_t = o\_t * tanh(c_t)
 
 For a better (more technical) understanding about LSTMs you can refer to [this article](http://colah.github.io/posts/2015-08-Understanding-LSTMs/).
 
@@ -151,23 +223,147 @@ Then you have the `batch_size`. Batch size is how many data samples you consider
 
 Next you define `num_nodes` which represents the number of hidden neurons in each cell. You can see that there are three layers of LSTMs in this example.
 
+```
+D = 1 # Dimensionality of the data. Since your data is 1-D this would be 1
+num_unrollings = 50 # Number of time steps you look into the future.
+batch_size = 500 # Number of samples in a batch
+num_nodes = [200,200,150] # Number of hidden nodes in each layer of the deep LSTM stack we're using
+n_layers = len(num_nodes) # number of layers
+dropout = 0.2 # dropout amount
+
+tf.reset_default_graph() # This is important in case you run this multiple times
+```
+
 ### Defining Inputs and Outputs
 
 Next you define placeholders for training inputs and labels. This is very straightforward as you have a list of input placeholders, where each placeholder contains a single batch of data. And the list has `num_unrollings` placeholders, that will be used at once for a single optimization step.
+
+```
+# Input data.
+train_inputs, train_outputs = [],[]
+
+# You unroll the input over time defining placeholders for each time step
+for ui in range(num_unrollings):
+    train_inputs.append(tf.placeholder(tf.float32, shape=[batch_size,D],name='train_inputs_%d'%ui))
+    train_outputs.append(tf.placeholder(tf.float32, shape=[batch_size,1], name = 'train_outputs_%d'%ui))
+```
 
 ### Defining Parameters of the LSTM and Regression layer
 
 You will have a three layers of LSTMs and a linear regression layer, denoted by `w` and `b`, that takes the output of the last Long Short-Term Memory cell and output the prediction for the next time step. You can use the `MultiRNNCell` in TensorFlow to encapsulate the three `LSTMCell` objects you created. Additionally, you can have the dropout implemented LSTM cells, as they improve performance and reduce overfitting.
 
+```
+stm_cells = [
+    tf.contrib.rnn.LSTMCell(num_units=num_nodes[li],
+                            state_is_tuple=True,
+                            initializer= tf.contrib.layers.xavier_initializer()
+                           )
+ for li in range(n_layers)]
+
+drop_lstm_cells = [tf.contrib.rnn.DropoutWrapper(
+    lstm, input_keep_prob=1.0,output_keep_prob=1.0-dropout, state_keep_prob=1.0-dropout
+) for lstm in lstm_cells]
+drop_multi_cell = tf.contrib.rnn.MultiRNNCell(drop_lstm_cells)
+multi_cell = tf.contrib.rnn.MultiRNNCell(lstm_cells)
+
+w = tf.get_variable('w',shape=[num_nodes[-1], 1], initializer=tf.contrib.layers.xavier_initializer())
+b = tf.get_variable('b',initializer=tf.random_uniform([1],-0.1,0.1))
+```
+
 ### Calculating LSTM output and Feeding it to the regression layer to get final prediction
 
 In this section, you first create TensorFlow variables (`c` and `h`) that will hold the cell state and the hidden state of the Long Short-Term Memory cell. Then you transform the list of `train_inputs` to have a shape of `[num_unrollings, batch_size, D]`, this is needed for calculating the outputs with the `tf.nn.dynamic_rnn` function. You then calculate the LSTM outputs with the `tf.nn.dynamic_rnn` function and split the output back to a list of `num_unrolling` tensors. the loss between the predictions and true stock prices.
+
+```
+# Create cell state and hidden state variables to maintain the state of the LSTM
+c, h = [],[]
+initial_state = []
+for li in range(n_layers):
+  c.append(tf.Variable(tf.zeros([batch_size, num_nodes[li]]), trainable=False))
+  h.append(tf.Variable(tf.zeros([batch_size, num_nodes[li]]), trainable=False))
+  initial_state.append(tf.contrib.rnn.LSTMStateTuple(c[li], h[li]))
+
+# Do several tensor transofmations, because the function dynamic_rnn requires the output to be of
+# a specific format. Read more at: https://www.tensorflow.org/api_docs/python/tf/nn/dynamic_rnn
+all_inputs = tf.concat([tf.expand_dims(t,0) for t in train_inputs],axis=0)
+
+# all_outputs is [seq_length, batch_size, num_nodes]
+all_lstm_outputs, state = tf.nn.dynamic_rnn(
+    drop_multi_cell, all_inputs, initial_state=tuple(initial_state),
+    time_major = True, dtype=tf.float32)
+
+all_lstm_outputs = tf.reshape(all_lstm_outputs, [batch_size*num_unrollings,num_nodes[-1]])
+
+all_outputs = tf.nn.xw_plus_b(all_lstm_outputs,w,b)
+
+split_outputs = tf.split(all_outputs,num_unrollings,axis=0)
+```
 
 ### Loss Calculation and Optimizer
 
 Now, you’ll calculate the loss. However, you should note that there is a unique characteristic when calculating the loss. For each batch of predictions and true outputs, you calculate the Mean Squared Error. And you sum (not average) all these mean squared losses together. Finally, you define the optimizer you’re going to use to optimize the neural network. In this case, you can use Adam, which is a very recent and well-performing optimizer.
 
+```
+When calculating the loss you need to be careful about the exact form, because you calculate
+# loss of all the unrolled steps at the same time
+# Therefore, take the mean error or each batch and get the sum of that over all the unrolled steps
+
+print('Defining training Loss')
+loss = 0.0
+with tf.control_dependencies([tf.assign(c[li], state[li][0]) for li in range(n_layers)]+
+                             [tf.assign(h[li], state[li][1]) for li in range(n_layers)]):
+  for ui in range(num_unrollings):
+    loss += tf.reduce_mean(0.5*(split_outputs[ui]-train_outputs[ui])**2)
+
+print('Learning rate decay operations')
+global_step = tf.Variable(0, trainable=False)
+inc_gstep = tf.assign(global_step,global_step + 1)
+tf_learning_rate = tf.placeholder(shape=None,dtype=tf.float32)
+tf_min_learning_rate = tf.placeholder(shape=None,dtype=tf.float32)
+
+learning_rate = tf.maximum(
+    tf.train.exponential_decay(tf_learning_rate, global_step, decay_steps=1, decay_rate=0.5, staircase=True),
+    tf_min_learning_rate)
+
+# Optimizer.
+print('TF Optimization operations')
+optimizer = tf.train.AdamOptimizer(learning_rate)
+gradients, v = zip(*optimizer.compute_gradients(loss))
+gradients, _ = tf.clip_by_global_norm(gradients, 5.0)
+optimizer = optimizer.apply_gradients(
+    zip(gradients, v))
+
+print('\tAll done')
+```
+
 Here you define the prediction related TensorFlow operations. First, define a placeholder for feeding in the input (`sample_inputs`), then similar to the training stage, you define state variables for prediction (`sample_c` and `sample_h`). Finally you calculate the prediction with the `tf.nn.dynamic_rnn` function and then sending the output through the regression layer (`w` and `b`). You also should define the `reset_sample_state` operation, which resets the cell state and the hidden state. You should execute this operation at the start, every time you make a sequence of predictions.
+
+```
+print('Defining prediction related TF functions')
+
+sample_inputs = tf.placeholder(tf.float32, shape=[1,D])
+
+# Maintaining LSTM state for prediction stage
+sample_c, sample_h, initial_sample_state = [],[],[]
+for li in range(n_layers):
+  sample_c.append(tf.Variable(tf.zeros([1, num_nodes[li]]), trainable=False))
+  sample_h.append(tf.Variable(tf.zeros([1, num_nodes[li]]), trainable=False))
+  initial_sample_state.append(tf.contrib.rnn.LSTMStateTuple(sample_c[li],sample_h[li]))
+
+reset_sample_states = tf.group(*[tf.assign(sample_c[li],tf.zeros([1, num_nodes[li]])) for li in range(n_layers)],
+                               *[tf.assign(sample_h[li],tf.zeros([1, num_nodes[li]])) for li in range(n_layers)])
+
+sample_outputs, sample_state = tf.nn.dynamic_rnn(multi_cell, tf.expand_dims(sample_inputs,0),
+                                   initial_state=tuple(initial_sample_state),
+                                   time_major = True,
+                                   dtype=tf.float32)
+
+with tf.control_dependencies([tf.assign(sample_c[li],sample_state[li][0]) for li in range(n_layers)]+
+                              [tf.assign(sample_h[li],sample_state[li][1]) for li in range(n_layers)]):  
+  sample_prediction = tf.nn.xw_plus_b(tf.reshape(sample_outputs,[1,-1]), w, b)
+
+print('\tAll done')
+```
 
 ### Running the LSTM
 
