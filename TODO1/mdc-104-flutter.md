@@ -3,21 +3,21 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-104-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-104-flutter.md)
 > * 译者：[DevMcryYu](https://github.com/DevMcryYu)
-> * 校对者：aaa
+> * 校对者：
 
-# MDC-104 Flutter: Material Advanced Components (Flutter)
+# MDC-104 Flutter：Material 高级组件（Flutter）
 
-## 1. Introduction
+## 1. 介绍
 
-> Material Components (MDC) help developers implement [Material Design](material.io/develop). Created by a team of engineers and UX designers at Google, MDC features dozens of beautiful and functional UI components and is available for Android, iOS, web and Flutter.
+> Material 组件（MDC）帮助开发者实现 [Material Design](material.io/develop)。MDC 由谷歌团队的工程师和 UX 设计师创造，为 Android、iOS、Web 和 Flutter 提供很多美观实用的 UI 组件。
 
-In codelab MDC-103, you customized the color, elevation, typography, and shape of Material Components (MDC) to style your app.
+在 MDC-103 教程中，自定义定制了Material 组件（MDC）的颜色、高度、排版和形状来给你的应用设置样式。
 
-A component in the Material Design system performs a set of predefined tasks and has certain characteristics, like a button. However, a button is more than just a way for a user to perform an action, it's also a visual expression of shape, size, and color that lets the user know that it's interactive, and that something will happen upon touch or click.
+Material Design 系统中的组件执行一些预定义的工作并具有一定特征，例如一个 button。然而一个 button 不仅仅是用来给用户执行操作的，它可以用其形状、尺寸和颜色表达一种视觉体验，让用户知道它是可交互的，触摸或点击它时可能会有事情发生。
 
-The Material Design guidelines describe components from a designer's point of view. They describe a wide range of basic functions available across platforms, as well as the anatomic elements that make up each component. For instance, a backdrop contains a back layer and its content, the front layer and its content, motion rules, and display options. Each of these components can be customized for each app's needs, use cases, and content. These pieces are, for the most part, traditional views, controls, and functions from your platform's SDK.
+Material Design 指南以设计师的角度来描述组件。他们描述了跨平台可用的基本功能以及构成每个组件的基本元素。例如，一个背景包含一个背层内容、前层内容及其本身的内容、运动规则和显示选项。根据每个应用的需求、用例和内容可以自定义每个组件，包括传统的视图、控件以及你所处平台 SDK 的功能。
 
-While the Material Design guidelines name many components, not all of them are good candidates for reusable code and therefore aren't found in MDC. You can create these experiences yourself to achieve a customized style for your app, all using traditional code.
+Material Design 指南命名了很多组件，但不是所有的组件都可以很好的重用，因此无法在 MDC 中找到它们。你可以自己塑造这样的经历，实现使用传统代码自定义你的应用样式。
 
 ### What you'll build
 
