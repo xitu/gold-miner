@@ -2,40 +2,40 @@
 > * 原文作者：[Daryl Duckmanton](https://uxdesign.cc/@daryl_60370)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-ux-and-ui-should-remain-separate.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-ux-and-ui-should-remain-separate.md)
-> * 译者：
+> * 译者：[Mirosalva](https://github.com/Mirosalva)
 > * 校对者：
 
-# Why UX and UI should remain separate
+# 为什么 UX 和 UI 仍需要分离开
 
 ![](https://cdn-images-1.medium.com/max/1000/1*hp-yfKsmzsj711iLbM8eEw.jpeg)
 
-A lot of us would have heard of the term User Experience. We’ve also heard the term User Interface. Did you know that User Experience is not the same as User Interface? So why is it that I consistently see a UX/UI Designer roles advertised? As if they are part of the same job. They aren’t. Here is why.
+我们很大一部分人估计都已听过用户体验这个词语，我们也都听过用户界面这个词。那你知道用户体验与用户界面并不相同吗？然而为什么我经常看到一个和 UX/UI 设计师角色有关的推广？就好像他们是属于同一种工作类型。其实并不是，接下来就是解释原因。
 
-First and foremost, a User Experience Designer is primarily focused on the users of your product/service. These users being both the consumers, as well as the people within your business. From a high level, their ultimate goal is to establish what your product/service is required to do, in order to provide the best value to your target audience. With this in mind, some of the tasks they work on (not a complete list) are:-
+首先最重要的是, 一个用户设计师主要关注于产品或服务的用户，这些用户既是消费者，同时也是你业务范围内的干系人。从一个较高层面来说，设计师的终极目标是创造你的产品或服务被要求做到的这种水平：可以为你的目标用户提供最大价值。考虑这一点，一些用户设计师需要做的事情如下（一份不完备的列表）：
 
-1.  **Strategising** — Performing research, interviewing potential users, establishing business goals, establishing customer needs, building a road map etc.
-2.  **Scoping** — Establishing a list of requirements that meet the goals of your target audience and your business. The requirements have a high level of feasibility.
-3.  **Structure** — Establishing simple but powerful information architecture, establishing the interaction and/or flow between particular steps in your product/service etc.
-4.  **Skeleton** — High level interface design (mocks etc). Navigation design etc.
-5.  **Surface** — Visual representation of the final output of the product/service. Focusing primarily on how the eye is lead on each screen etc. This is usually where they assist the designer in how the content should flow in the designs.
+1.  **制定战略** — 执行调研，访问现在客户，建立商业目标，确定客户需求，构建一幅战略路线图等等。 establishing business goals, establishing customer needs, building a road map etc.
+2.  **限制范围** — 建立一个要求列表用来满足你潜在客户的目标和你的商业目标，这些要求需要具备高度的可行性。
+3.  **结构化** — 建立一个简单但是有效的信息架构模式,在产品或服务的特殊步骤之间形成交互 and/or 流。 
+4.  **架构化** — 高水平界面设计(mocks 等)， 导航设计等。
+5.  **外在形象** — 视觉体现了产品或服务的最终输出效果。重点关注眼睛是如何在各种屏幕上被引导，这种引导经常会帮助设计师了解内容如何在设计中流动。
 
-As you can see only the last list item really focuses on design, and this is more about visualising both the information architecture and the interactive flow of the application via the designs. So with this said, a User Experience Designer does not necessarily have the skills nor the creativity to design the system and make it look beautiful. And even if they do, they already have enough work on their plate to ensure that the product/service is being built as expected to suit our audience.
+你可以看到只有最后一条是聚焦于设计，并且不仅仅是将信息架构和应用交互流程通过设计的方式实现视觉化效果。所以综上所述，一个用户体验设计师没必要具备设计技能，或者设计系统并让它变得好看的创造力。即是他们有这个能力，为了保证产品或服务的构造效果能符合客户需求这些工作都足够他们忙活了。
 
-It is my opinion that the designer role is a separate individual role. Why? Well lets see some of the things they do (not a complete list either).
+我个人认为设计师角色是一个独立的角色。为什么？那么我们来看一下他们做的一些事情吧（同样一份不完备的列表）：
 
-1.  **User Interface Design** — Building a creative and engaging UI across potentially different form factors. These could be different devices, such as iPhone, iPad, Android, or just simply different screen sizes for the web. In a lot of cases both are done.
-2.  **Theme design** — Related to the first one. Providing a consistent theme, for the product/service so that it’s memorable to the users.
-3.  **Logo Design** — Building any logos the product/service may require. Each logo may also potentially be a number of different form factors.
-4.  **Digital Asset Creation** — Based on the User Interface Design, assets need to be created for the developers to use. Some interfaces will indicate that a change in state of a button and other individual elements, These changes in state need to exported reliably.
-5.  **Web Design (Optional)** — If this product/service is a web application, some designers will also take on the work of building the basic prototype of what the web application will look like, without backend support. This can assist the User Experience Designer in determining if he/she is on the right track with their assumption in what is expected from the product/service before development takes place.
+1.  **用户界面设计** — 在可能不同的外形中构建富有创意又引人入胜的用户界面。这些外形可能对应不同的设备，比如：iPhone、iPad、Android，或者仅仅不同屏幕尺寸的 web 应用。 在大多数情况下，两种情况都存在。
+2.  **主题设计** — 和第一条相关。提供一种连贯的主题风格，以便产品或服务可以让用户们难以忘怀。 
+3.  **Logo 设计** — 创造产品或服务可能需要的任何 logo。每种 logo 都可能有一些不同的外形特点。
+4.  **数字资产创造** — 依赖于用户界面设计，资源需要被设计出以供开发者们使用。一些界面需要标明某个按钮或者其他元素会产生的某种状态变化，这些状态变化需要被可靠地导出。 
+5.  **Web 设计 (可选)** — 如果产品或服务是一个 web 应用，在没有后端支持的情况下，一些设计师也会继续承担一部分 web 应用外观的基础原型设计工作。这样可以辅助用户体验设计师来做决策：在开发尚未启动之前，他们的假设是否真正符合产品或服务的预期。
 
-Now please understand, if you are a reading this article, and are either a UX Designer or a UI Designer, I am simply a developer. I do not completely understand everything these 2 roles do entirely. I’m sure there is more that these roles do. However my point of this article was to detail how I feel these roles are completely different, and should be treated as such.
+现在请谅解，如果正在读本文的你是一个 UX 设计师或者 UI 设计师，我仅仅是一个开发者，我并不是能完全理解两种角色所做的所有事情，我相信他们会做比本文描述的更多的事情。然而我想表达的本文重点是细说两者是完全不同的，需要被区别对待。
 
-I have seen a number of companies invest in just 1 UX/UI Designer. What I have noticed about these individuals is they are either overworked, and do not have enough time to do all tasks required accurately, or even worse, they are simple UI Designers, who have done a little bit of UX. Sure you think this is ok, but to me UX is everything to a product/service. It is a full time job of it’s own.
+我曾看到过许多公司只招一名 UX/UI 设计师。我注意到这些个人既工作过劳，又没有足够的时间来准确做完所有需要做的事情，甚至更糟的是，他们仅仅是简单的 UI 设计师，只能做一点点用户体验设计。当然你认为这样可以的，但是对我来说，用户体验 UX 是产品或服务的一切，它本身即是一个全职的工作内容。
 
-Not only is it important to me that this role be kept separate from a UI Designer, but if I could afford it, I would have at least 2 UX Designers for each project I have that requires their services. That’s how valuable they are to me. In fact, if I was to start a product/service based business tomorrow and could only start out with one employee along with myself, I would choose a UX Designer over any other role. I don’t think enough people understand how important a UX Designer is to a product/service based business. If you don’t have a solid understanding of what you should do to get the best out of your product/service, then you will fail, no matter how good it looks or how well it’s developed.
+对我来说，用户体验设计师这个角色与 UI 设计师分离开很重要，如果经济允许，我会为需要 UX 服务的每个项目，都聘用至少两名用户体验设计师，这就是对我来说多么的有价值。事实上，如果明天我将要启动一项基于产品或服务的商业项目，且只能选择一名员工与我作伴，我会选择一个名 UX 用户体验设计师而非其他角色。我觉得并不是太多人能明白：一个用户体验设计师对一项基于产品或服务的商业项目是多么重要。你应该做什么来充分利用你的产品或服务，如果你对这点没有深刻的理解，不管看起来或者发展势头如何好，你都有可能会失败。
 
-Bottom line. Keep the UX Designer role separate from a UI Designer. Both roles are way too important to try and save money on. Invest in the 2 roles separately and I guarantee it will be worth the investment.
+底线是继续将 UX 设计师的岗位和 UI 设计师分开吧。两者都很重要，以至于不能靠合并来尝试省钱。分别对两种岗位投资的话，我保证这么做是值得的。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
