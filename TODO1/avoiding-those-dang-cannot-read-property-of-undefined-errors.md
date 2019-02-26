@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# 避免那些可恶的“cannot read property of undefined”错误
+# 避免那些可恶的 "cannot read property of undefined" 错误
 
 `Uncaught TypeError: Cannot read property 'foo' of undefined.` 是一个我们在 JavaScript 开发中都遇到过的可怕错误。 或许是某个 API 返回了意料外的空值，又或许是其他什么原因， 这个错误是如此的普遍而广泛以至于我们无法判断。
 
