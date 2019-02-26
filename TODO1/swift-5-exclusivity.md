@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/swift-5-exclusivity.md](https://github.com/xitu/gold-miner/blob/master/TODO1/swift-5-exclusivity.md)
 > * 译者：[LoneyIsError](https://github.com/LoneyIsError)
-> * 校对者：
+> * 校对者：[Bruce-pac](https://github.com/Bruce-pac)
 
 # Swift 5 强制独占性原则
 
@@ -34,7 +34,7 @@ func testCount() {
 
 编译时（静态）检测可以捕获许多常见的独占性违规行为，但是还需要运行时（动态）检测来捕获涉及逃逸闭包，类类型的属性，静态属性和全局变量的违规情况。Swift 4.0 同时提供了编译时和运行时的强制性检测，但运行时的强制检测仅在 Debug 构建过程中启用。
 
-在 Swift 4.1 和 4.2 中，编译器检查能力逐渐得到加强，可以捕获到越来越多程序员绕过独占性规则的情况 —— 最明显的是在非逃逸闭包中捕获变量，或者将非逃逸闭包转换为逃逸闭包。Swift 4.2 宣称，[在 Swift 4.2 中将独占访问内存警告升级为错误](https://forums.swift.org/t/upgrading-exclusive-access-warning-to-be-an-error-in-swift-4-2/12704)，并解释了一些受新强制独占性性检测影响的常见案例。
+在 Swift 4.1 和 4.2 中，编译器检查能力逐渐得到加强，可以捕获到越来越多程序员绕过独占性规则的情况 —— 最明显的是在非逃逸闭包中捕获变量，或者将非逃逸闭包转换为逃逸闭包。Swift 4.2 宣称，[在 Swift 4.2 中将独占访问内存警告升级为错误](https://forums.swift.org/t/upgrading-exclusive-access-warning-to-be-an-error-in-swift-4-2/12704)，并解释了一些受新强制独占性检测影响的常见案例。
 
 Swift 5 修复了语言模型中剩余的漏洞，并完全执行了该模型。 由于在 Release 编译过程中默认启用了对内存独占情况的强制性运行时检查，一些以前表现得很好的但未在 Debug 模式下被充分测试的 Swift 程序可能会受到一些影响.
 
@@ -52,7 +52,7 @@ Swift 5 中的强制独占性检查对现有项目可能会产生以下两种影
     
 2. 内存访问检查的开销可能会影响构建 Release 二进制文件过程中的性能。在大多数情况下，这种影响应该很小；如果你发现某个可测量的性能下降情况，请提交 bug，以便我们了解需要改进的内容。作为一般性准则，应当避免在大多数性能关键循环中执行类属性访问，特别是在每个循环迭代中的不同对象上。如果必须如此，那么你可以将类属性修饰为 `private` 或 `internal` 来帮助告知编译器没有其他代码访问循环内的相同属性。
 
-你可以通过 Xcode 的「独占访问内存」构建设置来禁用这些运行时检查，该设置还有「仅在调试构建中运行时检查」和「仅编译时强制执行」两个选项：
+你可以通过 Xcode 的「Exclusive Access to Memory」构建设置来禁用这些运行时检查，该设置还有「Run-time Checks in Debug Builds Only」和「Compile-time Enforcement Only」两个选项：
 
 ![Xcode exclusivity build setting](https://swift.org/assets/images/exclusivity-blog/XcodeBuildSettings.png)
 
@@ -213,9 +213,9 @@ point.modifyX {
 
 ## 目的
 
-上述编译时和运行时独占性检查的结合对于加强Swift的 [内存安全](https://docs.swift.org/swift-book/LanguageGuide/MemorySafety.html) 是很必要的。完全执行这些规则，而不是让程序员承担遵守独占性规则的负担，至少有以下五种帮助：
+上述编译时和运行时独占性检查的结合对于加强 Swift 的 [内存安全](https://docs.swift.org/swift-book/LanguageGuide/MemorySafety.html) 是很必要的。完全执行这些规则，而不是让程序员承担遵守独占性规则的负担，至少有以下五种帮助：
 
-1.  执行独占性性检查消除了程序涉及可变状态和远距离动作的危险交互。
+1.  执行独占性检查消除了程序涉及可变状态和远距离动作的危险交互。
 
     随着程序规模的不断扩大，越来越可能以意想不到的方式进行交互。 下面的例子在类似于上面的`Array.append(removedFrom:)` 例子，需要执行独占性检查来避免程序员将相同的变量同时作为源数据和目标数据进行传递。但请注意，一旦涉及到类对象，因为这两个变量引用了同一个对象，程序就会在无意中更容易在 `src` 和 `dest` 位置上传递同一个的 `Names` 实例。当然，这样就会导致死循环：
 
@@ -242,17 +242,17 @@ moveNames(from: oldNames, to: newNames)
 
    [SE-0176：实施对内存的独占访问](https://github.com/apple/swift-evolution/blob/master/proposals/0176-enforce-exclusive-access-to-memory.md) 更深入地描述了这个问题。
 
-2. 执行独占性性检查消除了语言中未指定的行为规则。
+2. 执行独占性检查消除了语言中未指定的行为规则。
 
    在 Swift 4 之前，独占性对于明确定义的程序行为是必要的，但规则是不受限制的。在实践中，人们很容易以微妙的方式违反这些规则，使程序容易受到不可预测的行为的影响，特别是在编译器的各个发布版本中。
 
-3. 执行独占性性检查是稳定 ABI 的必要条件。
+3. 执行独占性检查是稳定 ABI 的必要条件。
 
    未能完全执行独占性检查将会对 ABI 的稳定性产生不可预测的影响。在没有进行完全检查的情况下构建的现有二进制文件可能在某一个版本中能够正常运行，但在未来的编译器版本、标准库和运行时中无法正确运行。
 
-4. 执行独占性性检查使性能优化更合法，同时保护内存安全。
+4. 执行独占性检查使性能优化更合法，同时保护内存安全。
 
-    对 `inout` 参数和 `mutating` 方法的独占性检查向编译器提供了重要信息，可用于优化内存访问和引用计数操作。 如上面第2点所述，简单地声明一个未指定的行为规则对于编译器来说是不够，因为 Swift是一种内存安全语言。完全强制执行独占性检查允许编译器基于内存独占性进行优化，而不会牺牲内存安全性。
+    对 `inout` 参数和 `mutating` 方法的独占性检查向编译器提供了重要信息，可用于优化内存访问和引用计数操作。 如上面第2点所述，简单地声明一个未指定的行为规则对于编译器来说是不够，因为 Swift 是一种内存安全语言。完全强制执行独占性检查允许编译器基于内存独占性进行优化，而不会牺牲内存安全性。
 
 5. 独占性规则为程序员提供所有权和仅移动类型的控制权。
 
