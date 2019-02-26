@@ -8,7 +8,6 @@
 
 # Using LSTMs For Stock Market Predictions (Tensorflow)
 
-
 ![](https://cdn-images-1.medium.com/max/1600/1*kq6dfFNUkPhPLS2B6vODrg.jpeg)
 
 In this tutorial, you will see how you can use a time-series model known as Long Short-Term Memory. LSTM models are powerful, especially for retaining a long-term memory, by design, as you will see later. You’ll tackle the following topics in this tutorial:
@@ -61,7 +60,6 @@ Here you will print the data you collected into the DataFrame. You should also m
 #### Data Visualization
 
 Now let’s see what sort of data you have. You want data with various patterns occurring over time.
-
 
 ![](https://cdn-images-1.medium.com/max/1600/0*BK3alG7gtLtG05nw.png)
 
