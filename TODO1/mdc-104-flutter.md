@@ -2,7 +2,7 @@
 > * 原文作者：[codelabs.developers.google.com](https://codelabs.developers.google.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-104-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-104-flutter.md)
-> * 译者：
+> * 译者：[DevMcryYu](https://github.com/DevMcryYu)
 > * 校对者：
 
 # MDC-104 Flutter: Material Advanced Components (Flutter)
