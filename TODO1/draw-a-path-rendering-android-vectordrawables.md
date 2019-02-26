@@ -2,8 +2,8 @@
 > * 原文作者：[Nick Butcher](https://medium.com/@crafty)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/draw-a-path-rendering-android-vectordrawables.md](https://github.com/xitu/gold-miner/blob/master/TODO1/draw-a-path-rendering-android-vectordrawables.md)
-> * 译者：
-> * 校对者：
+> * 译者：[xiaxiayang](https://github.com/xiaxiayang)
+> * 校对者：[Mirosalva](https://github.com/Mirosalva), [siegeout](https://github.com/siegeout)
 
 # 绘制路径:  Android 中矢量图渲染
 
@@ -36,9 +36,9 @@
 </vector>
 ```
 
-你可以定义这两个属性中的一个或者两个，但每个路径只能应用一组 fill/stroke (这与某些图形包不同)。首先绘制填充内容，然后绘制描边内容。描边总是居中的(不像一些图形应用程序定义了内边缘和外边缘), 它需要被明确的指定`strokeWidth`属性，而`strokeLineCap`、`strokeLineJoin` 属性是可以选择性定义的，这些属性控制描边线的端点/连接处的形状(也可以定义` strokeMiterLimit`来控制`miter`线的交点的形状)。不支持虚线描边。
+你可以定义这两个属性中的一个或者两个，但每个路径只能应用一组 fill/stroke (这与某些图形包不同)。首先绘制填充内容，然后绘制描边内容。描边总是居中的(不像一些图形应用程序定义了内边缘和外边缘), 它需要被明确的指定 `strokeWidth` 属性，而 `strokeLineCap`、`strokeLineJoin` 属性是可以选择性定义的，这些属性控制描边线的端点/连接处的形状(也可以定义 `strokeMiterLimit` 来控制 `miter` 线的交点的形状)。不支持虚线描边。
 
-填充和描边都提供单独的 alpha 属性：`fillAlpha` 和 `strokeAlpha` [0-1] 都默认为 1，即完全不透明。如果为一个设置了 alpha 值的组件指定 `fillColor` 或 `strokeColor`，结果是这两个值的结合。例如，如果指定 50% 透明的红色 `fillColor` (`#80ff0000`) 和 0.5 的 ` fillAlpha`，那么结果将是 25% 透明的红色。单独的 alpha 属性使路径的不透明度更容易动画化。
+填充和描边都提供单独的 alpha 属性：`fillAlpha` 和 `strokeAlpha` [0-1] 都默认为 1，即完全不透明。如果为一个设置了 alpha 值的组件指定 `fillColor` 或 `strokeColor`，结果是这两个值的结合。例如，如果指定 50% 透明的红色 `fillColor` (`#80ff0000`) 和 0.5 的 `fillAlpha`，那么结果将是 25% 透明的红色。单独的 alpha 属性使路径的不透明度更容易动画化。
 
 ### 颜色资源
 
@@ -60,17 +60,17 @@
 
 这允许你可以提取颜色以便于维护，并帮助你约束应用程序的色调一致性。
 
-它还允许你使用 Android 的 [资源限定符](https://developer.android.com/guide/topics/resources/providing-resources#AlternativeResources) 在不同配置中提供不同的颜色值。例如，你可以在夜间模式 (`res/colors-night/colors.xml`) 或 如果 [设备支持宽色域](https://medium.com/google-design/android-color-management-what-developers-and-designers-need-to-know-4fdd8054557e) (`res/colors-widecg/colors.xml`) 下提供替代的颜色值。
+它还允许你使用 Android 的 [资源限定符](https://developer.android.com/guide/topics/resources/providing-resources#AlternativeResources) 在不同配置中提供不同的颜色值。例如，你可以在夜间模式（`res/colors-night/colors.xml`）或如果 [设备支持宽色域](https://medium.com/google-design/android-color-management-what-developers-and-designers-need-to-know-4fdd8054557e)（`res/colors-widecg/colors.xml`）下提供替代的颜色值。
 
 ### 主题色
 
-所有版本的矢量 (从 API14 到 AndroidX) 都支持使用主题属性 (例如 `?attr/colorPrimary`) 来指定颜色。这些颜色是由主题提供的，对于创建灵活的资源非常有用，这种资源可以在应用的不同位置使用。
+所有版本的矢量（从 API14 到 AndroidX）都支持使用主题属性（例如 `?attr/colorPrimary`）来指定颜色。这些颜色是由主题提供的，对于创建灵活的资源非常有用，这种资源可以在应用的不同位置使用。
 
 使用主题颜色主要有两种方式。
 
 #### 为 fills/strokes 设置主题色
 
-你可以直接引用主题颜色来设置填充或描边路径:
+你可以直接引用主题颜色来设置填充或描边路径：
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -92,7 +92,7 @@
 
 #### 着色
 
- `<vector>` 根元素提供了 `tint` 和 `tintMode` 属性值：
+`<vector>` 根元素提供了 `tint` 和 `tintMode` 属性值：
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -105,7 +105,7 @@
 </vector>
 ```
 
-虽然你可以使用它来采取静态着色，但它在与主题属性组合时更有用。这允许您根据引入的主题更改整个资源文件的颜色。例如，你可以使用 `?attr/colorControlNormal `，它定义了图标的标准颜色，并在明暗主题之间变化。这样你就可以在不同主题的屏幕上使用一个图标:
+虽然你可以使用它来采取静态着色，但它在与主题属性组合时更有用。这允许您根据引入的主题更改整个资源文件的颜色。例如，你可以使用 `?attr/colorControlNormal`，它定义了图标的标准颜色，并在明暗主题之间变化。这样你就可以在不同主题的屏幕上使用一个图标：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*h1z2s8mJ6giKx5_Ixx0DQQ.png)
 
@@ -113,7 +113,7 @@
 
 使用着色的一个好处是，你不需要依赖于你的资源文件(通常来自你的设计师)是正确的颜色。对图标使用 `?attr/colorControlNormal` 属性既能主题化，又能保证资源文件的颜色完全相同、正确。
 
-`tintMode` 属性允许你更改用于着色绘制的混合模式，它支持: `add`、`multiply`、`screen`、`src_atop`、`src_over`或`src_in`;；对应于类似的 [PorterDuff.Mode](https://developer.android.com/reference/android/graphics/PorterDuff.Mode)。 通常你使用的默认属性是 `src_in`，它将图像作为 alpha 蒙版应用于整个图标，忽略单个路径中的任何颜色信息(尽管 alpha 通道是维护的)。因此，如果你打算给图标着色，那么最好使用完全不透明的填充/描边颜色(惯例是使用 `#fff`)。
+`tintMode` 属性允许你更改用于着色绘制的混合模式，它支持：`add`、`multiply`、`screen`、`src_atop`、`src_over`或`src_in`；对应于类似的 [PorterDuff.Mode](https://developer.android.com/reference/android/graphics/PorterDuff.Mode)。通常你使用的默认属性是 `src_in`，它将图像作为 alpha 蒙版应用于整个图标，忽略单个路径中的任何颜色信息（尽管 alpha 通道是维护的）。因此，如果你打算给图标着色，那么最好使用完全不透明的填充/描边颜色（惯例是使用 `#fff`）。
 
 你可能想知道什么时候为资源着色？什么时候在单独的路径上使用主题颜色？因为这两种颜色都可以获得类似的结果。如果你只想在某些路径上使用主题颜色，那么必须直接使用它们。另一个需要考虑的问题是，你的资源是否具有重叠渲染。如果是这样的话，那么用半透明的主题颜色填充可能不会产生你想要的效果，但应用着色模式可能达到这种效果。
 
@@ -140,7 +140,7 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 
 矢量图形对按下和选择的状态作出响应的例子
 
-这是在 API24 中引入的，但最近添加到 AndroidX 中，从 1.0.0 版本也支持 API14。这也使用了 [AndroidX 颜色状态列表填充](https://developer.android.com/reference/android/support/v7/content/res/AppCompatResources.html#getColorStateList%28android.content.Context,%20int%29) ，这意味着你也可以在 `ColorStateList` 中使用主题属性和 alpha (它们本身只在 API23 中被添加到平台中)。
+这是在 API24 中引入的，但最近添加到 AndroidX 中，从 1.0.0 版本也支持 API14。这也使用了 [AndroidX 颜色状态列表填充](https://developer.android.com/reference/android/support/v7/content/res/AppCompatResources.html#getColorStateList%28android.content.Context,%20int%29)，这意味着你也可以在 `ColorStateList` 中使用主题属性和 alpha（它们本身只在 API23 中被添加到平台中）。
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -212,7 +212,7 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
   android:endColor="#a242b4"/>
 ```
 
-径向渐变必须指定一个中心点 X/Y 的坐标和一个半径(同样在视觉坐标中)，以及 `type="radial"`。
+径向渐变必须指定一个中心点 X/Y 的坐标和一个半径（同样在视觉坐标中），以及 `type="radial"`。
 
 #### 扫描
 
@@ -231,7 +231,7 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 
 #### 起止颜色
 
-渐变的使用很方便，你可以直接在渐变中指定一个 `startColor`, `centerColor` 和 `endColor`。如果你需要更细粒度的控制它或者设置更多起止颜色， 你也可以通过添加指定了 `color` 和 [0–1] `offset` (可以把这个看成控制渐变程度的百分比) 的子 `item` 来实现。
+渐变的使用很方便，你可以直接在渐变中指定一个 `startColor`、`centerColor` 和 `endColor`。如果你需要更细粒度的控制它或者设置更多起止颜色，你也可以通过添加指定了 `color` 和 [0–1] `offset`（可以把这个看成控制渐变程度的百分比）的子 `item` 来实现。
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -251,7 +251,7 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 
 #### 平铺模式
 
-线性和径向(不是扫描)渐变提供了平铺的概念——也就是说，如果渐变没有覆盖它填充/描边的整个路径，那么应该怎么做。默认值是 `clamp`, 它只是延续开始/结束的颜色。或者你可以指定 `repeat` 或者 `mirror` 平铺模式，这些模式……正如它们的名称所暗示的那样!在以下示例中,定义了一个径向渐变：中心蓝色→紫色圆形,但充满更大的正方形路径。
+线性和径向(不是扫描)渐变提供了平铺的概念——也就是说，如果渐变没有覆盖它填充/描边的整个路径，那么应该怎么做。默认值是 `clamp`, 它只是延续开始/结束的颜色。或者你可以指定 `repeat` 或者 `mirror` 平铺模式，这些模式……正如它们的名称所暗示的那样!在以下示例中,定义了一个径向渐变：中心蓝色 → 紫色圆形，但充满更大的正方形路径。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*8ngJx7igxFyEc48mjrN4xA.png)
 
@@ -259,7 +259,7 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 
 #### 模式
 
-我们可以结合使用起止颜色和平铺模式来实现矢量图形中的基本模式支持。例如，如果指定了一致的起止颜色，就可以实现突然的颜色更改。将其与重复的平铺模式结合起来，就可以创建条纹模式。 [例如](https://gist.github.com/nickbutcher/1e6c2309ee075ac62d2f8a6c285f0ce8) 这是一个由单个模式的填充形状组成的加载指示器。通过在持有此模式的 group 上动画化 `translateX` 属性，我们可以实现以下效果:
+我们可以结合使用起止颜色和平铺模式来实现矢量图形中的基本模式支持。例如，如果指定了一致的起止颜色，就可以实现突然的颜色更改。将其与重复的平铺模式结合起来，就可以创建条纹模式。[例如](https://gist.github.com/nickbutcher/1e6c2309ee075ac62d2f8a6c285f0ce8) 这是一个由单个模式的填充形状组成的加载指示器。通过在持有此模式的 group 上动画化 `translateX` 属性，我们可以实现以下效果:
 
 ![](https://cdn-images-1.medium.com/max/1600/1*uXCjERVWWepz-1AyHIy2Ow.gif)
 
@@ -281,7 +281,7 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 
 使用渐变近似阴影
 
-同样，这离完全的支持阴影还有很长的路要走，因为只能绘制线性/径向/扫描渐变，而不能沿着任意路径绘制。你可以近似一些形状；特别是像如下 [示例](https://gist.github.com/nickbutcher/b9c726e956d25b354ee1d19dcb105a88) 对渐变元素应用变换，它使用 `scaleY` 属性将一个径向渐变的圆转换成一个椭圆形来创建阴影:
+同样，这离完全的支持阴影还有很长的路要走，因为只能绘制线性/径向/扫描渐变，而不能沿着任意路径绘制。你可以近似一些形状；特别是像如下 [示例](https://gist.github.com/nickbutcher/b9c726e956d25b354ee1d19dcb105a88) 对渐变元素应用变换，它使用 `scaleY` 属性将一个径向渐变的圆转换成一个椭圆形来创建阴影：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*CPo9LovW1xgD5jCkWRu0Ow.gif)
 
@@ -293,16 +293,16 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 
 我建议所有的应用程序都应该使用主题色彩的图标。`ColorStateList` 和渐变支持就合适，但是如果你需要它，最好知道矢量图形支持的这些用例。
 
-与矢量图形的兼容性非常好，因此这些特性现在可以在大多数应用程序中使用(下一期将详细介绍)。
+与矢量图形的兼容性非常好，因此这些特性现在可以在大多数应用程序中使用（下一期将详细介绍）。
 
-加入我们下一部分关于矢量图形的探索:
+加入我们下一部分关于矢量图形的探索：
 
-- [**在 Android 应用中使用矢量资源**: 在之前的文章中我们已经了解了 Android 的VectorDrawable 图像格式和它的功能](https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9 "https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9")
+- [**在 Android 应用中使用矢量资源**：在之前的文章中我们已经了解了 Android 的VectorDrawable 图像格式和它的功能](https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9 "https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9")
 
-即将展示: 为 Android 创建矢量资源
-即将展示: 分析 Android 的 `VectorDrawable`
+即将展示：为 Android 创建矢量资源
+即将展示：分析 Android 的 `VectorDrawable`
 
-感谢 [Ben Weiss](https://medium.com/@keyboardsurfer?source=post_page)、 [Don Turner](https://medium.com/@donturner?source=post_page) 和 [Doris Liu](https://medium.com/@doris4lt?source=post_page)。
+感谢 [Ben Weiss](https://medium.com/@keyboardsurfer?source=post_page)、[Don Turner](https://medium.com/@donturner?source=post_page) 和 [Doris Liu](https://medium.com/@doris4lt?source=post_page)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
