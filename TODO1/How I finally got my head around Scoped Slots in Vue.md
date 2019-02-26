@@ -46,7 +46,6 @@ Then from the parent, we do this:
     <child-component>This is from outside</child-component>  
   </div>  
 </template>
-
 ```
 
 What we see rendered to the screen is, as you might expect, “This is from outside” but rendered by the child component.
