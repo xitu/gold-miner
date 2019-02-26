@@ -36,13 +36,13 @@
 </vector>
 ```
 
-你可以定义一个或两个属性，并且每个路径只能应用一个 fill/stroke  (与某些图形包不同)。首先绘制填充，然后绘制任意描边。描边总是居中的(不像一些图形应用程序允许内或外描边)，需要指定一个 `strokeWidth`，可以选择定义 `strokeLineCap`、`strokeLineJoin` 属性，这些属性控制描边线的端点/连接处的形状(也可以定义 `strokeMiterLimit` 来控制 `miter` 线的交点的形状)。不支持虚线描边。
+你可以定义这两个属性中的一个或者两个，但每个路径只能应用一组 fill/stroke (这与某些图形包不同)。首先绘制填充内容，然后绘制描边内容。描边总是居中的(不像一些图形应用程序定义了内边缘和外边缘), 它需要被明确的指定`strokeWidth`属性，而`strokeLineCap`、`strokeLineJoin` 属性是可以选择性定义的，这些属性控制描边线的端点/连接处的形状(也可以定义` strokeMiterLimit`来控制`miter`线的交点的形状)。不支持虚线描边。
 
 填充和描边都提供单独的 alpha 属性：`fillAlpha` 和 `strokeAlpha` [0-1] 都默认为 1，即完全不透明。如果为一个设置了 alpha 值的组件指定 `fillColor` 或 `strokeColor`，结果是这两个值的结合。例如，如果指定 50% 透明的红色 `fillColor` (`#80ff0000`) 和 0.5 的 ` fillAlpha`，那么结果将是 25% 透明的红色。单独的 alpha 属性使路径的不透明度更容易动画化。
 
 ### 颜色资源
 
-向量中填充和描边颜色的设置都支持 `@color` 资源的语法：
+矢量图形中填充和描边颜色的设置都支持 `@color` 资源的语法：
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -121,7 +121,7 @@
 
 具有重叠路径和半透明主题颜色的资源:比较着色和填充模式
 
-请注意，你可以通过设置 `android:theme` 属性，在`Activity`/`View` 级别改变可绘制对象的主题，或者在代码中使用 [ContextThemeWrapper](https://developer.android.com/reference/android/view/ContextThemeWrapper.html) 设置一个特定的主题来 [填充](https://developer.android.com/reference/android/support/v7/content/res/AppCompatResources.html#getDrawable%28android.content.Context,%20int%29) 这个向量。
+请注意，你可以通过设置 `android:theme` 属性，在`Activity`/`View` 级别改变可绘制对象的主题，或者在代码中使用 [ContextThemeWrapper](https://developer.android.com/reference/android/view/ContextThemeWrapper.html) 设置一个特定的主题来 [填充](https://developer.android.com/reference/android/support/v7/content/res/AppCompatResources.html#getDrawable%28android.content.Context,%20int%29) 这个矢量图形。
 
 ```
 /* Copyright 2018 Google LLC.
@@ -138,7 +138,7 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 
 ![](https://cdn-images-1.medium.com/max/1600/1*6ZTTJcAjPO6cUU5yk3tahQ.gif)
 
-向量对按下和选择的状态作出响应的例子
+矢量图形对按下和选择的状态作出响应的例子
 
 这是在 API24 中引入的，但最近添加到 AndroidX 中，从 1.0.0 版本也支持 API14。这也使用了 [AndroidX 颜色状态列表填充](https://developer.android.com/reference/android/support/v7/content/res/AppCompatResources.html#getColorStateList%28android.content.Context,%20int%29) ，这意味着你也可以在 `ColorStateList` 中使用主题属性和 alpha (它们本身只在 API23 中被添加到平台中)。
 
@@ -163,7 +163,7 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 
 支持 3 种类型的渐变
 
-`VectorDrawable` 支持线性、径向和扫描(也称为角)渐变的填充和描边。在 AndroidX 包往前可支持到 API4 版本。渐变是在它们自己的文件中以 `res/colors/` 的形式声明的，但是我们可以使用 [内嵌资源技术](https://developer.android.com/guide/topics/resources/complex-xml-resources) 来代替在向量中声明的渐变，这样更方便：
+`VectorDrawable` 支持线性、径向和扫描(也称为角)渐变的填充和描边。在 AndroidX 包往前可支持到 API4 版本。渐变是在它们自己的文件中以 `res/colors/` 的形式声明的，但是我们可以使用 [内嵌资源技术](https://developer.android.com/guide/topics/resources/complex-xml-resources) 来代替在矢量图形中声明的渐变，这样更方便：
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -179,7 +179,7 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 
 在构建时，渐变被提取到它自己的资源中，并在父元素中插入对它的引用。如果要多次使用相同的渐变，最好声明一次并引用它，因为内联版本每次都会创建一个新资源。
 
-当指定渐变时，任何坐标都位于根向量元素的视觉空间中。让我们看看每一种渐变，以及如何使用它们。
+当指定渐变时，任何坐标都位于根矢量元素的视觉空间中。让我们看看每一种渐变，以及如何使用它们。
 
 #### 线性
 
@@ -259,7 +259,7 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 
 #### 模式
 
-我们可以结合使用起止颜色和平铺模式来实现向量中的基本模式支持。例如，如果指定了一致的起止颜色，就可以实现突然的颜色更改。将其与重复的平铺模式结合起来，就可以创建条纹模式。 [例如](https://gist.github.com/nickbutcher/1e6c2309ee075ac62d2f8a6c285f0ce8) 这是一个由单个模式的填充形状组成的加载指示器。通过在持有此模式的 group 上动画化 `translateX` 属性，我们可以实现以下效果:
+我们可以结合使用起止颜色和平铺模式来实现矢量图形中的基本模式支持。例如，如果指定了一致的起止颜色，就可以实现突然的颜色更改。将其与重复的平铺模式结合起来，就可以创建条纹模式。 [例如](https://gist.github.com/nickbutcher/1e6c2309ee075ac62d2f8a6c285f0ce8) 这是一个由单个模式的填充形状组成的加载指示器。通过在持有此模式的 group 上动画化 `translateX` 属性，我们可以实现以下效果:
 
 ![](https://cdn-images-1.medium.com/max/1600/1*uXCjERVWWepz-1AyHIy2Ow.gif)
 
@@ -291,11 +291,11 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 
 希望这篇文章已经表明 `VectorDrawable`支持许多高级特性，你可以使用这些特性在应用程序中渲染更复杂的资源，甚至可以用一个文件替换多个资源，帮助你构建更精简的应用程序。
 
-我建议所有的应用程序都应该使用主题色彩的图标。`ColorStateList` 和渐变支持就合适，但是如果你需要它，最好知道向量支持的这些用例。
+我建议所有的应用程序都应该使用主题色彩的图标。`ColorStateList` 和渐变支持就合适，但是如果你需要它，最好知道矢量图形支持的这些用例。
 
-与向量的兼容性非常好，因此这些特性现在可以在大多数应用程序中使用(下一期将详细介绍)。
+与矢量图形的兼容性非常好，因此这些特性现在可以在大多数应用程序中使用(下一期将详细介绍)。
 
-加入我们下一部分关于向量的探索:
+加入我们下一部分关于矢量图形的探索:
 
 - [**在 Android 应用中使用矢量资源**: 在之前的文章中我们已经了解了 Android 的VectorDrawable 图像格式和它的功能](https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9 "https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9")
 
