@@ -7,7 +7,6 @@
 
 # Using LSTMs For Stock Market Predictions (Tensorflow)
 
-
 ![](https://cdn-images-1.medium.com/max/1600/1*kq6dfFNUkPhPLS2B6vODrg.jpeg)
 
 In this tutorial, you will see how you can use a time-series model known as Long Short-Term Memory. LSTM models are powerful, especially for retaining a long-term memory, by design, as you will see later. You’ll tackle the following topics in this tutorial:
@@ -198,18 +197,18 @@ A cell is pictured below.
 
 And the equations for calculating each of these entities are as follows.
 
-*   i__t =_ σ_(W_{ix} * x__t + W_{ih} * h_{t-1}+b_i)
-*   \\tilde{c}__t =_ σ_(W_{cx} * x__t + W_{ch} * h_{t-1} + b_c)
-*   f__t =_ σ_(W_{fx} * x_t + W_{fh} * h_{t-1}+b_f)
-*   c_t = f__t * c_{t-1} + i\_t * \\tilde{c}\_t
-*   o__t =_ σ_(W_{ox} * x_t + W_{oh} * h_{t-1}+b_o)
-*   h\_t = o\_t * tanh(c_t)
+* i_t = σ(W{ix} * x_t + W{ih} * h_{t-1}+b_i)
+* \tilde{c}_t = σ(W{cx} * x_t + W{ch} * h_{t-1} + b_c)
+* f_t = σ(W{fx} * xt + W{fh} * h_{t-1}+b_f)
+* c_t = f_t * c{t-1} + i_t * \tilde{c}_t
+* o_t = σ(W{ox} * xt + W{oh} * h_{t-1}+b_o)
+* h_t = o_t * tanh(c_t)
 
 For a better (more technical) understanding about LSTMs you can refer to [this article](http://colah.github.io/posts/2015-08-Understanding-LSTMs/).
 
 ### Data Generator
 
-Below you illustrate how a batch of data is created visually. The basic idea is that we divide the data sequence to N/b segments, so that each segment is size b. Then we define cursors, 1 for each segment. Then to sample a single batch of data, we get one input (current segment cursor index) and one true prediction (randomly sampled one between \[current segment cursor + 1, current segment cursor + 5\]). Note that we are not always getting the value next to the input, as its prediction. This is a step taken to reduce overfitting. At the end of each sampling, we increase the cursor by 1. You can find more information about the data generation in the [original tutorial](https://www.datacamp.com/community/tutorials/lstm-python-stock-market).
+Below you illustrate how a batch of data is created visually. The basic idea is that we divide the data sequence to N/b segments, so that each segment is size b. Then we define cursors, 1 for each segment. Then to sample a single batch of data, we get one input (current segment cursor index) and one true prediction (randomly sampled one between [current segment cursor + 1, current segment cursor + 5]). Note that we are not always getting the value next to the input, as its prediction. This is a step taken to reduce overfitting. At the end of each sampling, we increase the cursor by 1. You can find more information about the data generation in the [original tutorial](https://www.datacamp.com/community/tutorials/lstm-python-stock-market).
 
 ![](https://cdn-images-1.medium.com/max/1600/0*gzwP9wpanog-uOPq.png)
 
