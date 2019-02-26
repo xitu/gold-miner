@@ -7,7 +7,7 @@
 
 # 避免那些可恶的“cannot read property of undefined”错误
 
-`Uncaught TypeError: Cannot read property 'foo' of undefined.` 是一个我们在 JavaScript 开发中都遇到过的可怕错误。 或许是某个 API 返回了意料外的空值，又或许是其他什么原因， 这个错误是如此的普遍而广泛以至于我们无法判断。
+`Uncaught TypeError: Cannot read property 'foo' of undefined.` 是一个我们在 JavaScript 开发中都遇到过的可怕错误。或许是某个 API 返回了意料外的空值，又或许是其他什么原因，这个错误是如此的普遍而广泛以至于我们无法判断。
 
 我最近遇到了一个问题，某一环境变量出于某种的原因没有被加载，导致各种各样的报错夹杂着这个错误摆在我面前。不论什么原因，放着这个错误不处理都会是灾难性的。所以我们该怎么从源头阻止这个问题发生呢？
 
