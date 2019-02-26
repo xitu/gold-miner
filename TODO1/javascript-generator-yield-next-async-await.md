@@ -9,27 +9,27 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/0*yONeU8vuaq8eIyTD)
 
-Generator (ES6)-
+Generator (ES6)
 
-> Functions that can return multiple values at different time interval, as per the user demands and can manage its internal state are generator functions. A function becomes a GeneratorFunction if it uses the `[function*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function* "The function* declaration (function keyword followed by an asterisk) defines a generator function, which returns a Generator object.")` syntax.
+> generator 函数是一个可以根据用户需求，以不同的时间间隔返回多个值，并能管理其内部状态的函数。如果一个函数使用了 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*" title=" function* 声明（function 关键字后跟着星号）定义了一个 Generator 函数，它返回一个 Generator 对象。" rel="noopener" target="_blank">function*</a> 语法，那么它就变成了一个 generator 函数。
 
-They are different from the normal function in the sense that normal function run to completion in a single execution where as _generator function can be paused and resumed_, so they do run to completion but the trigger remain in our hand. They allow _better execution control for asynchronous functionality_ but that does not mean they cannot be used as synchronous functionality.
+它们与正常函数不同，正常函数在单次执行中运行完成。因为 _generator 函数可以被暂停和恢复_ ，因此它们确实运行完成但触发器仍在我们手中。它们允许 _对异步函数_ 进行 _更好的执行控制_ ，但这并不意味着它们不能用作同步功能。
 
-> Note: When generator function are executed it returns a new Generator object.
+> 注意：执行 generator 函数时，会返回一个新的 Generator 对象。
 
-The pause and resume are done using `yield`&`next`. So lets look at what are they and what they do.
+generator 的暂停和恢复是使用 `yield` 和 `next` 完成的。让我们来看看它们是什么，以及它们能做什么。
 
-#### Yield/Next-
+#### Yield/Next
 
-> The `yield` keyword pauses generator function execution and the value of the expression following the `yield` keyword is returned to the generator's caller. It can be thought of as a generator-based version of the `return` keyword.
+> `yield` 关键字暂停 generator 函数的执行 execution and the value of the expression following the `yield` keyword is returned to the generator's caller. 它可以被理解为基于 generator 版本的 `return` 关键字。
 
-The `yield` keyword actually returns an `IteratorResult` object with two properties, `value` and `done`. ([Don’t know what are iterators and iterables then read here](https://codeburst.io/javascript-es6-iterables-and-iterators-de18b54f4d4)).
+`yield` 关键字实际上返回一个具有 `value` 和 `done` 两个属性的 `IteratorResult` 对象。([如果你不了解什么是 iterators 和 iterables，点击这里阅读](https://codeburst.io/javascript-es6-iterables-and-iterators-de18b54f4d4)).
 
-> Once paused on a `yield` expression, the generator's code execution remains paused until the generator's `next()` method is called. Each time the generator's `next()` method is called, the generator resumes execution and return the [iterator](https://codeburst.io/javascript-es6-iterables-and-iterators-de18b54f4d4) result.
+> 一旦暂停 `yield` 表达式，generator 的代码执行将保持暂停状态，直到调用 generator 的 `next()` 方法为止。每次调用 generator 的 `next()` 方法时，generator 都会恢复执行并返回 [iterator](https://codeburst.io/javascript-es6-iterables-and-iterators-de18b54f4d4) 结果。
 
-pheww..enough of theory, lets see an example
+嗯……理论先到这里，让我们看一个例子
 
-```
+```js
 function* UUIDGenerator() {
     let d, r;
     while(true) {
@@ -42,11 +42,11 @@ function* UUIDGenerator() {
 };
 ```
 
-Here, UUIDGenerator is an generator function which calculate the UUID using current time an a random number and return us a new UUID every time its executed.
+UUIDGenerator 是一个 Generator 函数，它使用当前时间和随机数计算 UUID ，并在每次执行时返回一个新的 UUID 。
 
-To run above function we need to create a generator object on which we can call `next()`
+要运行上面的函数，我们需要创建一个我们可以调用的 generator 对象 `next()`
 
-```
+```js
 const UUID = UUIDGenerator();
 // UUID is our generator object
 
@@ -54,11 +54,11 @@ UUID.next()
 // return {value: 'e35834ae-8694-4e16-8352-6d2368b3ccbf', done: false}
 ```
 
-UUID.next() this will return you the new UUID on each UUID.next() under value key and done will always be false as we are in infinite loop.
+UUID.next() this will return you the new UUID on each UUID.next() under value key ，并且当我们处于无限循环时，done 将始终为 false 。
 
-> Note: We pause above the infinite loop, which is kind of cool and at any “stopping points” in a generator function, not only can they yield values to an external function, but they also can receive values from outside.
+> 注意：我们暂停在无限循环之上，这对于 generator 函数中的任何“停止点”都是很酷的，它们不仅可以为外部函数生成值，而且还可以从外部接收值。
 
-There are lot of practical implementation of generators as one above and lot of library that heavily use it, [co](https://github.com/tj/co) , [koa](https://koajs.com/) and [redux-saga](https://github.com/redux-saga/redux-saga) are some examples.
+有许多 generator 的实现，并且很多库都在大量使用。比如说 [co](https://github.com/tj/co) 、 [koa](https://koajs.com/) 和 [redux-saga](https://github.com/redux-saga/redux-saga)。
 
 * * *
 
@@ -68,24 +68,24 @@ There are lot of practical implementation of generators as one above and lot of 
 
 Traditionally, callbacks were passed and invoked when an asynchronous operation returned with data which are handled using `Promise.`
 
-> Async/Await is special syntax to work with promises in a more comfort fashion which is surprisingly easy to understand and use.
+> Async/Await 是一种特殊的语法，以更舒适的方式使用 Promise ，这种方式非常容易理解和使用。
 
-**_Async_** _keyword_ is used to define an _asynchronous function_, which returns a `[AsyncFunction](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncFunction "The AsyncFunction constructor creates a new async function object. In JavaScript every asynchronous function is actually an AsyncFunction object.")` object.
+**_Async_** _关键字_ 用于定义 _异步函数_, 该函数返回一个 `[AsyncFunction](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncFunction "The AsyncFunction constructor creates a new async function object. In JavaScript every asynchronous function is actually an AsyncFunction object.")` 对象.
 
-_Await keyword_ is used to pause async function execution until a `Promise` is fulfilled, that is resolved or rejected, and to resume execution of the `async` function after fulfillments. When resumed, the value of the `await` expression is that of the fulfilled `Promise`.
+_Await 关键字_ 用于暂停异步函数执行， 直到 `Promise` 被解决（resolved 或者 reject）, 并在 and to resume execution of the `async` function after fulfillments。恢复时，await 表达式的值是已满足的值 Promise 。
 
-**Key points:**
+**关键点：**
 
-> 1. Await can only be used inside an async function.
-> 2. Functions with the async keyword will _always_ return a promise.
-> 3. Multiple awaits will always run in sequential order under a same function.
-> 4. If a promise resolves normally, then `await promise` returns the result. But in case of a rejection it throws the error, just if there were a `throw` statement at that line.
-> 5. Async function cannot wait for multiple promises at the same time.
-> 6. Performance issues can occur if using await after await as many times one statement doesn’t depend on the previous one.
+> 1. Await 只能在异步函数中使用。
+> 2. 具有 async 关键字的函数将 _始终_ 返回 promise 。
+> 3. 在相同函数下的多个 awaits 将始终按顺序运行。
+> 4. 如果 promise 正常被 resolve ，则 `await promise` 返回结果。但是如果拒绝，它就会抛出错误，就像在那行有 `throw` 语句一样。
+> 5. 异步函数不能同时等待多个 promise 。
+> 6. 如果在await之后使用await多次，后一条语句不依赖于前一条语句，则可能会出现性能问题。
 
-So far so good, now lets see a simple example :-
+到目前为止一切顺利，现在让我们看一个简单的例子：
 
-```
+```js
 async function asyncFunction() {
 
   const promise = new Promise((resolve, reject) => {
@@ -105,19 +105,18 @@ The `asyncFunction` execution “pauses” at the line `await promise` and resum
 
 * * *
 
-#### Generator and Async-await — Comparison
+#### Generator 和 Async-await 比较
 
-1.  _Generator functions/yield_ and _Async functions/await_ can both be used to write asynchronous code that “waits”, which means code that looks as if it was synchronous, even though it really is asynchronous.
+1.  _Generator 函数/yield_ and _Async 函数/await_ 都可以用来编写“等待”的异步代码，这意味着代码看起来像是同步的，即使它确实是异步的。
 2.  _Generator function_ are executed **yield by yield** i.e one yield-expression at a time by its iterator (the `next` method) where as _Async-await_, they are executed sequential **await by await**.
-3.  _Async/await_ makes it easier to implement a particular use case of _Generators_.
-4.  The return value of _Generator_ is always **{value: X, done: Boolean}** where as for _Async function_ it will always be a **promise** that will either resolve to the value X or throw an error.
-5.  _Async function_ can be decomposed into G_enerator and promise_ implementation which are good to know stuff.
-
+3.  _Async/await_ 可以更容易地实现 _Generators_ 的特定用例。
+4.  _Generator_ 的返回值始终是 **{value: X, done: Boolean}** 。对于 _Async 函数_ 它将始终是一个将解析为值 X 或抛出错误的 **promise** 。
+5.  _Async 函数_ 可以分解为 G_enerator 和 promise_ implementation ，这些都很有用。
 * * *
 
-Please consider [**entering your email here**](https://goo.gl/forms/MOPINWoY7q1f1APu2) if you’d like to be added to my email list and **follow me on** [**medium**](https://medium.com/@ideepak.jsd) **to read more article on javascript and on** [**github**](https://github.com/dg92) **to see my crazy code**. If anything is not clear or you want to point out something, please comment down below.
+如果您想要添加到我的电子邮件列表中，请考虑 [**在此处输入您的电子邮件**](https://goo.gl/forms/MOPINWoY7q1f1APu2)，并在 [**medium**](https://medium.com/@ideepak.jsd) **上关注我以阅读更多有关 javascript 的文章，并在** [**github**](https://github.com/dg92) **上查看我的疯狂代码**。如果有什么不清楚的，或者你想指出什么，请在下面评论。
 
-You may also like my other articles
+你可能也喜欢我的其他文章：
 
 1.  [Nodejs app structure](https://codeburst.io/fractal-a-nodejs-app-structure-for-infinite-scale-d74dda57ee11)
 2.  [Javascript data structure with map, reduce, filter](https://codeburst.io/write-beautiful-javascript-with-%CE%BB-fp-es6-350cd64ab5bf)
@@ -128,9 +127,9 @@ You may also like my other articles
 
 * * *
 
-**If you liked the article, please clap your heart out. Tip — You can clap 50 times! Also, recommend and share to help others find it!**
+**如果你喜欢这篇文章，请鼓掌。提示：你可以拍 50 次！此外，推荐和分享，以帮助其他人找到它！**
 
-**THANK YOU!**
+**谢谢！**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
