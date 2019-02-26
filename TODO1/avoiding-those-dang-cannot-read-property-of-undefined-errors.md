@@ -5,40 +5,40 @@
 > * 译者：
 > * 校对者：
 
-# Avoiding those dang cannot read property of undefined errors
+# 避免那些可恶的“cannot read property of undefined”错误
 
-`Uncaught TypeError: Cannot read property 'foo' of undefined.` The dreaded error we all hit at some point in JavaScript development. Could be an empty state from an API that returns differently than you expected. Could be something else. We don’t know because the error itself is so general and broad.
+`Uncaught TypeError: Cannot read property 'foo' of undefined.` 是一个我们在 JavaScript 开发中都遇到过的可怕错误。 或许是某个 API 返回了意料外的空值，又或许是其他什么原因， 这个错误是如此的普遍而广泛以至于我们无法判断。
 
-I recently had an issue where certain environment variables weren't being pulled in for one reason or another, causing all sorts of funkiness with that error staring me in the face. Whatever the cause, it can be a disastrous error if it’s left unaccounted for, so how can we prevent it in the first place?
+我最近遇到了一个问题，某一环境变量出于某种的原因没有被加载，导致各种各样的报错夹杂着这个错误摆在我面前。不论什么原因，放着这个错误不处理都会是灾难性的。所以我们该怎么从源头阻止这个问题发生呢？
 
-Let’s figure it out.
+让我们一起来找出解决方案。
 
-### Utility library
+### 工具库
 
-If you are already using a utility library in your project, there is a good chance that it includes a function for preventing this error. `_.get` in lodash ([docs](https://lodash.com/docs/4.17.11#get)) or `R.path` in Ramda​ ([docs](https://ramdajs.com/docs/#path)) allow accessing the object safely.  
+如果你已经在项目里用到一些工具库，很有可能库里已经有了预防这个问题发生的函数。lodash 里的 `_.get`([文档](https://lodash.com/docs/4.17.11#get)) 或者 Ramda 里的 `R.path`([文档](https://ramdajs.com/docs/#path)) 都能确保你安全使用对象。  
   
-If you are already using a utility library, this is likely the simplest solution. If you are not using a utility library, read on!
+如果你已经使用了工具库，那么这看起来已经是最简单的方法了。如果你没有使用工具库，继续读下去吧！
 
-### Short-circuiting with &&
+### && 短路
 
-One interesting fact about logical operators in JavaScript is that they don't always return a boolean. [According to the spec](https://www.ecma-international.org/ecma-262/9.0/index.html#sec-binary-logical-operators), "the value produced by a `&&` or `||` operator is not necessarily of type Boolean. The value produced will always be the value of one of the two operand expressions.”  
+JavaScript 里有一个关于逻辑运算符的有趣事实就是它不总是返回布尔值。[根据说明](https://www.ecma-international.org/ecma-262/9.0/index.html#sec-binary-logical-operators)，“`&&` 或者 `||` 运算符的返回值并不需要是布尔值。而是两个操作表达式的其中之一。”  
  
-In the case of the `&&` operator, the first expression will be used if it a "falsy" value. Otherwise, the second expression will be used. This means that the expression `0 && 1` will be evaluated as `0` (a falsy value), and the expression `2 && 3` will be evaluated as `3`. If multiple `&&` expressions are chained together, they will evaluate to either the first falsy value or the last value. For example, `1 && 2 && 3 && null && 4` will evaluate to `null`, and `1 && 2 && 3` will evaluate to `3`.
+举个 `&&` 运算符的例子，如果第一个表达式的值是“假”的，那么该值就会被返回。否则，第二个表达式的值就会被返回。这说明表达式 `0 && 1` 会返回 `0` (一个假值), 而表达式 `2 && 3` 会返回 `3`. 如果多个 `&&` 表达式连在一起，它们将会返回第一个假植或最后一个值。举个例子，`1 && 2 && 3 && null && 4` 会返回 `null`, 而 `1 && 2 && 3` 会返回 `3`.
 
-How is this useful for safely accessing nested object properties? Logical operators in JavaScript will "short-circuit." In this case of `&&`, this means that the expression will cease moving forward after it reaches its first falsy value.
+这对于安全获得嵌套对象内的属性十分有用。JavaScript 里的逻辑运算符会“短路”。 在这个 `&&` 的例子中，这表示表达式会在到达第一个假值时停下来。
 
 ```
 const foo = false && destroyAllHumans();
-console.log(foo); // false, and humanity is safe
+console.log(foo); // false，人类安全了
 ```
 
-In this example, `destroyAllHumans` is never called because the `&&` operand stopped all evaluation after false​.
+在这个例子中，`destroyAllHumans` 不会被调用，因为 `&&` 停止了所有在 false 之后的运算
 
-This can be used to safely access nested properties.
+这可以被用于安全地获取嵌套对象的属性。
 
 ```
 const meals = {
-  breakfast: null, // I skipped the most important meal of the day! :(
+  breakfast: null, // 我跳过了一天中最重要的一餐！ :(
   lunch: {
     protein: 'Chicken',
     greens: 'Spinach',
@@ -53,7 +53,7 @@ const breakfastProtein = meals.breakfast && meals.breakfast.protein; // null
 const lunchProtein = meals.lunch && meals.lunch.protein; // 'Chicken'
 ```
 
-Aside from its simplicity, one of the main advantages of this approach is its brevity when dealing with small chains. However, when accessing deeper objects, this can be quite verbose.
+除了简单，这个方法的一个主要优势就是在处理较少嵌套时十分简洁。然而，当涉及深层的对象时，它会变得十分冗长。
 
 ```
 const favorites = {
@@ -66,7 +66,7 @@ const favorites = {
     podcasts: ['Shop Talk Show', 'CodePen Radio'],
     audiobooks: null,
   },
-  reading: null, // Just kidding -- I love to read
+  reading: null, // 开玩笑的 ———— 我热爱阅读
 };
 
 const favoriteMovie = favorites.video && favorites.video.movies && favorites.video.movies[0];
@@ -75,11 +75,11 @@ const favoriteVlog = favorites.video && favorites.video.vlogs && favorites.video
 // null
 ```
 
-The more deeply nested an object is, the more unwieldy it gets.
+对象嵌套的越深，它就变得越笨重。
 
-### The “Maybe Monad”
+### “或单元”
 
-Oliver Steele came up with this method and goes through it in much more detail in his blog post, ["Monads on the Cheap I: The Maybe Monad."](https://blog.osteele.com/2007/12/cheap-monads/) I will attempt to give a brief explanation here.
+Oliver Steele 提出这个方法并且在他发布的博客里探究了更多的细节，[“单元第一章：或单元”](https://blog.osteele.com/2007/12/cheap-monads/) 我会试着在这里给出一个简要的解释。
 
 ```
 const favoriteBook = ((favorites.reading||{}).books||[])[0]; // undefined
@@ -87,13 +87,13 @@ const favoriteAudiobook = ((favorites.audio||{}).audiobooks||[])[0]; // undefine
 const favoritePodcast = ((favorites.audio||{}).podcasts||[])[0]; // 'Shop Talk Show'
 ```
 
-Similar to the short-circuit example above, this method works by checking if a value is falsy. If it is, it will attempt to access the next property on an empty object. In the example above, favorites.reading is null, so the books property is being accessed from an empty object. This will result in an undefined, so the 0 will likewise be accessed from an empty array.
+与上面的短路例子类似，这个方法通过检查值是否为假来生效。如果值为假，它会尝试取得空对象的属性。在上面的例子中，favorites.reading 的值是 null，所以从一个空对象上获得books属性。这会返回一个 undefined 结果，所以0会被用于获取空数组中的成员。
 
-The advantage of this method over the `&&` method is that it avoids repetition of property names. On deeper objects, this can be quite a significant advantage. The primary disadvantage would be readability — it is not a common pattern, and may take a reader a moment to parse out how it is working.
+这个方法相较于 `&&` 方法的优势是它避免了属性名的重复。在深层嵌套的对象中，这会成为显著的优势。而主要的缺点在于可读性 ———— 这不是一个普通的模式，所以这或许需要阅读者花一点时间理解它是怎么运作的。
 
 ### try/catch
 
-`try...catch` statements in JavaScript allow another method for safely accessing properties.
+JavaScript 里的 `try...catch` 是另一个安全获取属性的方法。
 
 ```
 try {
@@ -103,20 +103,20 @@ try {
 }
 ```
 
-Unfortunately, in JavaScript, `try...catch` statements are not expressions. They do not evaluate to a value as they do in some languages. This prevents a concise try statement as a way of setting a variable.
+不幸的是，在 JavaScript 里，`try...catch` 声明不是表达式，它们不会像某些语言里那样计算值。这导致不能用一个简洁的 try 声明来作为设置变量的方法。
 
-One option is to use a let variable that is defined in the block above the `try...catch`.
+有一种选择就是在 `try...catch` 前定义一个 let 变量。
 
 ```
 let favoriteMagazine;
 try { 
   favoriteMagazine = favorites.reading.magazines[0]; 
 } catch (error) { 
-  favoriteMagazine = null; /* any default can be used */
+  favoriteMagazine = null; /* 任意默认值都可以被使用 */
 };
 ```
 
-Although it’s verbose, this works for setting a single variable (that is, if the mutable variable doesn't scare you off). However, issues can arise if they’re done in bulk.
+虽然这很冗长，但这对设置单一变量起作用（就是说，如果变量还没有吓跑你的话）然而，把它们写在一块就会出问题。
 
 ```
 let favoriteMagazine, favoriteMovie, favoriteShow;
@@ -135,9 +135,9 @@ console.log(favoriteShow); // null
 console.log(favoriteMagazine); // null
 ```
 
-If any of the attempts to access the property fails, this will cause all of them to fall back into their defaults.
+如果任意一个获取属性的尝试失败了，这会导致它们全部返回默认值
 
-An alternative is to wrap the `try...catch`​ in a reusable utility function.
+一个可选的方法是用一个可复用的工具函数包裹 `try...catch`。
 
 ```
 const tryFn = (fn, fallback = null) => {
@@ -152,13 +152,13 @@ const favoriteBook = tryFn(() => favorites.reading.book[0]); // null
 const favoriteMovie = tryFn(() => favorites.video.movies[0]); // "Casablanca"
 ```
 
-By wrapping the access to the object in a function, you can delay the "unsafe" code and pass it into a `try...catch`.
+通过一个函数包裹获取对象属性的行为，你可以延后“不安全”的代码，并且把它传入 `try...catch`。
 
-A major advantage of this method is how natural it is to access the property. As long as properties are wrapped in a function, they are safely accessed. A default value can also be specified in the case of a non-existent path.
+这个方法的主要优势在于它十分自然地获取了属性。只要属性被包裹在函数里，遇见不存在的路径就能返回指定的默认值。
 
-### Merge with a default object
+### 与默认对象合并
 
-By merging an object with a similarly shaped object of "defaults," we can ensure that the path that we are trying to access is safe.
+通过将对象与相近结构的“默认”对象合并，我们能确保获取属性的路径是安全的。
 
 ```
 const defaults = {
@@ -183,7 +183,7 @@ console.log(merged);
 */
 ```
 
-Careful, though, because the entire nested object can be overwritten rather than a single property.
+然而，需要注意的是整个嵌套的对象会被覆盖而非单个属性。
 
 ```
 const defaults = {
@@ -210,7 +210,7 @@ console.log(merged.font.size); // "16px"
 console.log(merged.font.style); // undefined
 ```
 
-Oh no! To fix this, we'll need to similarly copy each of the nested objects.
+不！为了解决这点，我们需要类似地复制每一个嵌套对象。
 
 ```
 const merged = { 
@@ -226,32 +226,32 @@ console.log(merged.font.size); // "16px"
 console.log(merged.font.style); // "normal"
 ```
 
-Much better!
+好多了！
 
-This pattern is common with plugins or components that accept a large settings object with included defaults.
+这种模式在接受的一个较大设置对象并含有默认值的插件或组件中很常见。
 
-A bonus about this approach is that, by writing a default object, we’re including documentation on how an object should look. Unfortunately, depending on the size and shape of the data, the "merging" can be littered with copying each nested object.
+这种方式的一个额外好处就是通过编写一个默认对象，我们包含了一个文档描述这个对象应该长成什么样。不幸的是，按照数据的大小和结构，复制每一个嵌套对象进行合并有可能造成污染。
 
-### The future: optional chaining
+### 未来：可选链式调用
 
-There is currently a TC39 proposal for a feature called "optional chaining." This new operator would look like this:
+目前 TC39 提案中有一个功能叫“可选链式调用”。这个新的运算符看起来像这样：
 
 ```
 console.log(favorites?.video?.shows[0]); // 'The Simpsons'
 console.log(favorites?.audio?.audiobooks[0]); // undefined
 ```
 
-The `?.` operator works by short-circuiting: if the left-hand side of the `?.` operator evaluates to `null` or `undefined`, the entire expression will evaluate to `undefined` and the right-hand side will remain unevaluated.
+`?.` 运算符通过短路方式运作：如果 `?.` 运算符的左侧计算值为 `null` 或者 `undefined`，这整个表达式会返回 `undefined` 并且右侧不会被计算。
 
-To have a custom default, we can use the `||` operator in the case of an undefined.
+为了有一个自定义的默认值，我们可以使用 `||` 运算符以应对未定义的情况。
 
 ```
 console.log(favorites?.audio?.audiobooks[0] || "The Hobbit");
 ```
 
-### Which method should you use?
+### 我们该使用哪一种方法？
 
-The answer, as you might have guessed, is that age-old answer… "it depends." If the optional chaining operator has been added to the language and has the necessary browser support, it is likely the best option. If you are not from the future, however, there are more considerations to take into account. Are you using a utility library? How deeply nested is your object? Do you need to specify defaults? Different cases may warrant a different approach.
+答案或许你已经猜到了，正是那句老话“看情况而定”。如果可选链式调用已经被加到语言中并且获得了必要的浏览器支持，这或许是最好的选择。然而，如果你不来自未来，那么你有更多需要考虑的。你在使用工具库吗？你的对象嵌套有多深？你是否需要指定默认值？我们需要根据不同的场景采用不同的方法。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
