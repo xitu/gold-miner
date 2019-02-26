@@ -5,7 +5,7 @@
 > * 译者：[xiaxiayang](https://github.com/xiaxiayang)
 > * 校对者：[Mirosalva](https://github.com/Mirosalva), [siegeout](https://github.com/siegeout)
 
-# 绘制路径:  Android 中矢量图渲染
+# 绘制路径：Android 中矢量图渲染
 
 ![](https://cdn-images-1.medium.com/max/2600/1*t4yigvVn3kGRHnTu0yAlqQ.png)
 
@@ -36,9 +36,9 @@
 </vector>
 ```
 
-你可以定义这两个属性中的一个或者两个，但每个路径只能应用一组 fill/stroke (这与某些图形包不同)。首先绘制填充内容，然后绘制描边内容。描边总是居中的(不像一些图形应用程序定义了内边缘和外边缘), 它需要被明确的指定 `strokeWidth` 属性，而 `strokeLineCap`、`strokeLineJoin` 属性是可以选择性定义的，这些属性控制描边线的端点/连接处的形状(也可以定义 `strokeMiterLimit` 来控制 `miter` 线的交点的形状)。不支持虚线描边。
+你可以定义这两个属性中的一个或者两个，但每个路径只能应用一组 fill/stroke (这与某些图形包不同)。首先绘制填充内容，然后绘制描边内容。描边总是居中的（不像一些图形应用程序定义了内边缘和外边缘），它需要被明确的指定 `strokeWidth` 属性，而 `strokeLineCap`、`strokeLineJoin` 属性是可以选择性定义的，这些属性控制描边线的端点/连接处的形状（也可以定义 `strokeMiterLimit` 来控制 `miter` 线的交点的形状）。不支持虚线描边。
 
-填充和描边都提供单独的 alpha 属性：`fillAlpha` 和 `strokeAlpha` [0-1] 都默认为 1，即完全不透明。如果为一个设置了 alpha 值的组件指定 `fillColor` 或 `strokeColor`，结果是这两个值的结合。例如，如果指定 50% 透明的红色 `fillColor` (`#80ff0000`) 和 0.5 的 `fillAlpha`，那么结果将是 25% 透明的红色。单独的 alpha 属性使路径的不透明度更容易动画化。
+填充和描边都提供单独的 alpha 属性：`fillAlpha` 和 `strokeAlpha` [0-1] 都默认为 1，即完全不透明。如果为一个设置了 alpha 值的组件指定 `fillColor` 或 `strokeColor`，结果是这两个值的结合。例如，如果指定 50% 透明的红色 `fillColor`（`#80ff0000`）和 0.5 的 `fillAlpha`，那么结果将是 25% 透明的红色。单独的 alpha 属性使路径的不透明度更容易动画化。
 
 ### 颜色资源
 
@@ -134,7 +134,7 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 
 ### 颜色状态列表
 
-对于 填充/描边，`VectorDrawable` 支持 [ColorStateLists](https://developer.android.com/reference/android/content/res/ColorStateList.html) 的引用。通过这种方式，你可以创建一个单独的绘图，其中路径根据视图/绘图的状态(如按下、选择、激活等)来改变颜色。
+对于 填充/描边，`VectorDrawable` 支持 [ColorStateLists](https://developer.android.com/reference/android/content/res/ColorStateList.html) 的引用。通过这种方式，你可以创建一个单独的绘图，其中路径根据视图/绘图的状态（如按下、选择、激活等）来改变颜色。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*6ZTTJcAjPO6cUU5yk3tahQ.gif)
 
@@ -163,7 +163,7 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 
 支持 3 种类型的渐变
 
-`VectorDrawable` 支持线性、径向和扫描(也称为角)渐变的填充和描边。在 AndroidX 包往前可支持到 API4 版本。渐变是在它们自己的文件中以 `res/colors/` 的形式声明的，但是我们可以使用 [内嵌资源技术](https://developer.android.com/guide/topics/resources/complex-xml-resources) 来代替在矢量图形中声明的渐变，这样更方便：
+`VectorDrawable` 支持线性、径向和扫描（也称为角）渐变的填充和描边。在 AndroidX 包往前可支持到 API4 版本。渐变是在它们自己的文件中以 `res/colors/` 的形式声明的，但是我们可以使用 [内嵌资源技术](https://developer.android.com/guide/topics/resources/complex-xml-resources) 来代替在矢量图形中声明的渐变，这样更方便：
 
 ```
 <!-- Copyright 2018 Google LLC.
