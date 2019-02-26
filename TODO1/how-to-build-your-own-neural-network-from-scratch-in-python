@@ -1,4 +1,3 @@
-
 How to build your own Neural Network from scratch in Python
 ===========================================================
 
@@ -23,15 +22,21 @@ Neural Networks consist of the following components
 
 The diagram below shows the architecture of a 2-layer Neural Network (_note that the input layer is typically excluded when counting the number of layers in a Neural Network_)
 
-![](https://cdn-images-1.medium.com/freeze/max/60/1*sX6T0Y4aa3ARh7IBS_sdqw.png?q=20)
-
 ![](https://cdn-images-1.medium.com/max/1600/1*sX6T0Y4aa3ARh7IBS_sdqw.png)
 
 Architecture of a 2-layer Neural Network
 
 Creating a Neural Network class in Python is easy.
 
-![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Favatars2.githubusercontent.com%2Fu%2F25820505%3Fs%3D400%26v%3D4&key=a19fcc184b9711e1b4764040d3dc5c07&width=40)
+```
+class NeuralNetwork:
+    def __init__(self, x, y):
+        self.input      = x
+        self.weights1   = np.random.rand(self.input.shape[1],4) 
+        self.weights2   = np.random.rand(4,1)                 
+        self.y          = y
+        self.output     = np.zeros(y.shape)
+```
 
 **Training the Neural Network**
 
@@ -50,8 +55,6 @@ Each iteration of the training process consists of the following steps:
 
 The sequential graph below illustrates the process.
 
-![](https://cdn-images-1.medium.com/freeze/max/60/1*CEtt0h8Rss_qPu7CyqMTdQ.png?q=20)
-
 ![](https://cdn-images-1.medium.com/max/1600/1*CEtt0h8Rss_qPu7CyqMTdQ.png)
 
 #### Feedforward
@@ -61,8 +64,19 @@ As we’ve seen in the sequential graph above, feedforward is just simple calcul
 ![](https://cdn-images-1.medium.com/max/1600/1*E1_l8PGamc2xTNS87XGNcA.png)
 
 Let’s add a feedforward function in our python code to do exactly that. Note that for simplicity, we have assumed the biases to be 0.
+```
+class NeuralNetwork:
+    def __init__(self, x, y):
+        self.input      = x
+        self.weights1   = np.random.rand(self.input.shape[1],4) 
+        self.weights2   = np.random.rand(4,1)                 
+        self.y          = y
+        self.output     = np.zeros(self.y.shape)
 
-![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Favatars2.githubusercontent.com%2Fu%2F25820505%3Fs%3D400%26v%3D4&key=a19fcc184b9711e1b4764040d3dc5c07&width=40)
+    def feedforward(self):
+        self.layer1 = sigmoid(np.dot(self.input, self.weights1))
+        self.output = sigmoid(np.dot(self.layer1, self.weights2))
+```
 
 However, we still need a way to evaluate the “goodness” of our predictions (i.e. how far off are our predictions)? The **Loss Function** allows us to do exactly that.
 
@@ -84,8 +98,6 @@ In order to know the appropriate amount to adjust the weights and biases by, we 
 
 Recall from calculus that the derivative of a function is simply the slope of the function.
 
-![](https://cdn-images-1.medium.com/freeze/max/60/1*3FgDOt4kJxK2QZlb9T0cpg.png?q=20)
-
 ![](https://cdn-images-1.medium.com/max/1600/1*3FgDOt4kJxK2QZlb9T0cpg.png)
 
 Gradient descent algorithm
@@ -93,8 +105,6 @@ Gradient descent algorithm
 If we have the derivative, we can simply update the weights and biases by increasing/reducing with it(refer to the diagram above). This is known as **gradient descent**.
 
 However, we can’t directly calculate the derivative of the loss function with respect to the weights and biases because the equation of the loss function does not contain the weights and biases. Therefore, we need the **chain rule** to help us calculate it.
-
-![](https://cdn-images-1.medium.com/freeze/max/60/1*7zxb2lfWWKaVxnmq2o69Mw.png?q=20)
 
 ![](https://cdn-images-1.medium.com/max/1600/1*7zxb2lfWWKaVxnmq2o69Mw.png)
 
@@ -104,17 +114,36 @@ Phew! That was ugly but it allows us to get what we needed — the derivativ
 
 Now that we have that, let’s add the backpropagation function into our python code.
 
-![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Favatars2.githubusercontent.com%2Fu%2F25820505%3Fs%3D400%26v%3D4&key=a19fcc184b9711e1b4764040d3dc5c07&width=40)
+```
+class NeuralNetwork:
+    def __init__(self, x, y):
+        self.input      = x
+        self.weights1   = np.random.rand(self.input.shape[1],4) 
+        self.weights2   = np.random.rand(4,1)                 
+        self.y          = y
+        self.output     = np.zeros(self.y.shape)
+
+    def feedforward(self):
+        self.layer1 = sigmoid(np.dot(self.input, self.weights1))
+        self.output = sigmoid(np.dot(self.layer1, self.weights2))
+
+    def backprop(self):
+        # application of the chain rule to find derivative of the loss function with respect to weights2 and weights1
+        d_weights2 = np.dot(self.layer1.T, (2*(self.y - self.output) * sigmoid_derivative(self.output)))
+        d_weights1 = np.dot(self.input.T,  (np.dot(2*(self.y - self.output) * sigmoid_derivative(self.output), self.weights2.T) * sigmoid_derivative(self.layer1)))
+
+        # update the weights with the derivative (slope) of the loss function
+        self.weights1 += d_weights1
+        self.weights2 += d_weights2
+```
 
 For a deeper understanding of the application of calculus and the chain rule in backpropagation, I strongly recommend this tutorial by 3Blue1Brown.
 
-![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Fi.ytimg.com%2Fvi%2FtIeHLnjs5U8%2Fhqdefault.jpg&key=a19fcc184b9711e1b4764040d3dc5c07&width=40)
+Watch this [video](https://youtu.be/tIeHLnjs5U8)
 
 ### Putting it all together
 
 Now that we have our complete python code for doing feedforward and backpropagation, let’s apply our Neural Network on an example and see how well it does.
-
-![](https://cdn-images-1.medium.com/freeze/max/60/1*HaC4iILh2t0oOKi6S6FwtA.png?q=20)
 
 ![](https://cdn-images-1.medium.com/max/1600/1*HaC4iILh2t0oOKi6S6FwtA.png)
 
@@ -122,13 +151,9 @@ Our Neural Network should learn the ideal set of weights to represent this funct
 
 Let’s train the Neural Network for 1500 iterations and see what happens. Looking at the loss per iteration graph below, we can clearly see the loss **monotonically decreasing towards a minimum.** This is consistent with the gradient descent algorithm that we’ve discussed earlier.
 
-![](https://cdn-images-1.medium.com/freeze/max/60/1*fWNNA2YbsLSoA104K3Z3RA.png?q=20)
-
 ![](https://cdn-images-1.medium.com/max/1600/1*fWNNA2YbsLSoA104K3Z3RA.png)
 
 Let’s look at the final prediction (output) from the Neural Network after 1500 iterations.
-
-![](https://cdn-images-1.medium.com/freeze/max/60/1*9oOlYhhOSdCUqUJ0dQ_KxA.png?q=20)
 
 ![](https://cdn-images-1.medium.com/max/1600/1*9oOlYhhOSdCUqUJ0dQ_KxA.png)
 
@@ -155,4 +180,3 @@ I’ve certainly learnt a lot writing my own Neural Network from scratch.
 Although Deep Learning libraries such as TensorFlow and Keras makes it easy to build deep nets without fully understanding the inner workings of a Neural Network, I find that it’s beneficial for aspiring data scientist to gain a deeper understanding of Neural Networks.
 
 This exercise has been a great investment of my time, and I hope that it’ll be useful for you as well!
-
