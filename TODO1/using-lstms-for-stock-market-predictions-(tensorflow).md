@@ -1,5 +1,4 @@
-> * 原文地址：[Using LSTMs For Stock Market Predictions (Tensorflow)
-](https://towardsdatascience.com/using-lstms-for-stock-market-predictions-tensorflow-9e83999d4653)
+> * 原文地址：[Using LSTMs For Stock Market Predictions (Tensorflow)](https://towardsdatascience.com/using-lstms-for-stock-market-predictions-tensorflow-9e83999d4653)
 > * 原文作者：[Thushan Ganegedara](https://towardsdatascience.com/@thushv89?source=user_popover)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/using-lstms-for-stock-market-predictions-(tensorflow).md](https://github.com/xitu/gold-miner/blob/master/TODO1/using-lstms-for-stock-market-predictions-(tensorflow).md)
@@ -28,6 +27,19 @@ You would like to model stock prices correctly, so as a stock buyer you can reas
 
 However, let’s not go all the way believing that this is just a stochastic or random process and that there is no hope for machine learning. Let’s see if you can at least model the data, so that the predictions you make correlate with the actual behavior of the data. In other words, you don’t need the exact stock values of the future, but the stock price movements (that is, if it is going to rise of fall in the near future).
 
+```
+# Make sure that you have all these libaries available to run the code successfully
+from pandas_datareader import data
+import matplotlib.pyplot as plt
+import pandas as pd
+import datetime as dt
+import urllib.request, json 
+import os
+import numpy as np
+import tensorflow as tf # This code has been tested with TensorFlow 1.6
+from sklearn.preprocessing import MinMaxScaler
+```
+
 ### Downloading the Data
 
 You will be using data from the following sources:
@@ -55,7 +67,6 @@ Data found on Kaggle is a collection of csv files and you don’t have to do any
 ### Data Exploration
 
 Here you will print the data you collected into the DataFrame. You should also make sure that the data is sorted by date, because the order of the data is crucial in time series modeling.
-
 
 #### Data Visualization
 
@@ -115,12 +126,12 @@ A cell is pictured below.
 
 And the equations for calculating each of these entities are as follows.
 
-*   i__t =_ σ_(W_{ix} * x__t + W_{ih} * h_{t-1}+b_i)
-*   \\tilde{c}__t =_ σ_(W_{cx} * x__t + W_{ch} * h_{t-1} + b_c)
-*   f__t =_ σ_(W_{fx} * x_t + W_{fh} * h_{t-1}+b_f)
-*   c_t = f__t * c_{t-1} + i\_t * \\tilde{c}\_t
-*   o__t =_ σ_(W_{ox} * x_t + W_{oh} * h_{t-1}+b_o)
-*   h\_t = o\_t * tanh(c_t)
+* i_t = σ(W{ix} * x_t + W{ih} * h_{t-1}+b_i)
+* \tilde{c}_t = σ(W{cx} * x_t + W{ch} * h_{t-1} + b_c)
+* f_t = σ(W{fx} * xt + W{fh} * h_{t-1}+b_f)
+* c_t = f_t * c{t-1} + i_t * \tilde{c}_t
+* o_t = σ(W{ox} * xt + W{oh} * h_{t-1}+b_o)
+* h_t = o_t * tanh(c_t)
 
 For a better (more technical) understanding about LSTMs you can refer to [this article](http://colah.github.io/posts/2015-08-Understanding-LSTMs/).
 
