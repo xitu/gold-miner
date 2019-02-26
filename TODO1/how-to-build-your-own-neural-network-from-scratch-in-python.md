@@ -1,14 +1,19 @@
-How to build your own Neural Network from scratch in Python
-===========================================================
+> * 原文地址：[How to build your own Neural Network from scratch in Python](https://towardsdatascience.com/how-to-build-your-own-neural-network-from-scratch-in-python-68998a08e4f6)
+> * 原文作者：[James Loy](https://towardsdatascience.com/@jamesloyys)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-your-own-neural-network-from-scratch-in-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-your-own-neural-network-from-scratch-in-python.md)
+> * 译者：
+> * 校对者：
 
-A beginner’s guide to understanding the inner workings of Deep Learning
------------------------------------------------------------------------
+# How to build your own Neural Network from scratch in Python
+
+> A beginner’s guide to understanding the inner workings of Deep Learning
 
 **Motivation:** As part of my personal journey to gain a better understanding of Deep Learning, I’ve decided to build a Neural Network from scratch without a deep learning library like TensorFlow. I believe that understanding the inner workings of a Neural Network is important to any aspiring Data Scientist.
 
 This article contains what I’ve learned, and hopefully it’ll be useful for you as well!
 
-### What’s a Neural Network?
+## What’s a Neural Network?
 
 Most introductory texts to Neural Networks brings up brain analogies when describing them. Without delving into brain analogies, I find it easier to simply describe Neural Networks as a mathematical function that maps a given input to a desired output.
 
@@ -28,7 +33,7 @@ Architecture of a 2-layer Neural Network
 
 Creating a Neural Network class in Python is easy.
 
-```
+```python
 class NeuralNetwork:
     def __init__(self, x, y):
         self.input      = x
@@ -57,14 +62,15 @@ The sequential graph below illustrates the process.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*CEtt0h8Rss_qPu7CyqMTdQ.png)
 
-#### Feedforward
+### Feedforward
 
 As we’ve seen in the sequential graph above, feedforward is just simple calculus and for a basic 2-layer neural network, the output of the Neural Network is:
 
 ![](https://cdn-images-1.medium.com/max/1600/1*E1_l8PGamc2xTNS87XGNcA.png)
 
 Let’s add a feedforward function in our python code to do exactly that. Note that for simplicity, we have assumed the biases to be 0.
-```
+
+```python
 class NeuralNetwork:
     def __init__(self, x, y):
         self.input      = x
@@ -80,7 +86,7 @@ class NeuralNetwork:
 
 However, we still need a way to evaluate the “goodness” of our predictions (i.e. how far off are our predictions)? The **Loss Function** allows us to do exactly that.
 
-#### Loss Function
+### Loss Function
 
 There are many available loss functions, and the nature of our problem should dictate our choice of loss function. In this tutorial, we’ll use a simple **sum-of-sqaures error** as our loss function.
 
@@ -90,7 +96,7 @@ That is, the sum-of-squares error is simply the sum of the difference between ea
 
 **Our goal in training is to find the best set of weights and biases that minimizes the loss function.**
 
-#### Backpropagation
+### Backpropagation
 
 Now that we’ve measured the error of our prediction (loss), we need to find a way to **propagate** the error back, and to update our weights and biases.
 
@@ -114,7 +120,7 @@ Phew! That was ugly but it allows us to get what we needed — the derivativ
 
 Now that we have that, let’s add the backpropagation function into our python code.
 
-```
+```python
 class NeuralNetwork:
     def __init__(self, x, y):
         self.input      = x
@@ -141,7 +147,7 @@ For a deeper understanding of the application of calculus and the chain rule in 
 
 Watch this [video](https://youtu.be/tIeHLnjs5U8)
 
-### Putting it all together
+## Putting it all together
 
 Now that we have our complete python code for doing feedforward and backpropagation, let’s apply our Neural Network on an example and see how well it does.
 
@@ -163,7 +169,7 @@ We did it! Our feedforward and backpropagation algorithm trained the Neural Netw
 
 Note that there’s a slight difference between the predictions and the actual values. This is desirable, as it prevents **overfitting** and allows the Neural Network to **generalize** better to unseen data.
 
-### What’s Next?
+## What’s Next?
 
 Fortunately for us, our journey isn’t over. There’s still **much** to learn about Neural Networks and Deep Learning. For example:
 
@@ -173,10 +179,16 @@ Fortunately for us, our journey isn’t over. There’s still **much** to learn 
 
 I’ll be writing more on these topics soon, so do follow me on Medium and keep and eye out for them!
 
-### Final Thoughts
+## Final Thoughts
 
 I’ve certainly learnt a lot writing my own Neural Network from scratch.
 
 Although Deep Learning libraries such as TensorFlow and Keras makes it easy to build deep nets without fully understanding the inner workings of a Neural Network, I find that it’s beneficial for aspiring data scientist to gain a deeper understanding of Neural Networks.
 
 This exercise has been a great investment of my time, and I hope that it’ll be useful for you as well!
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
