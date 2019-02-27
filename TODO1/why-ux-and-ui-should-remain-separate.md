@@ -5,7 +5,7 @@
 > * 译者：[Mirosalva](https://github.com/Mirosalva)
 > * 校对者：[HearFishle](https://github.com/HearFishle), [shixi-li](https://github.com/shixi-li)
 
-# * 为什么 UX 和 UI 需要分离开
+# 为什么 UX 和 UI 需要分离开
 
 ![](https://cdn-images-1.medium.com/max/1000/1*hp-yfKsmzsj711iLbM8eEw.jpeg)
 
