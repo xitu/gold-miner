@@ -7,7 +7,7 @@
 
 # Flutter 核心概念详解： Widget、State、Context 及 InheritedWidget
 
-本文涵盖了 Flutter 应用中有关 Widget、State、Context 及 InheritedWidget 的重要概念。 因为 InheritedWidget 是最重要且文档缺乏的部件之一，故需特别关注。
+本文涵盖了 Flutter 应用中有关 Widget、State、Context 及 InheritedWidget 的重要概念。因为 InheritedWidget 是最重要且文档缺乏的部件之一，故需特别关注。
 
 难度：**初学者**
 
@@ -98,7 +98,7 @@ Widget build(BuildContext){
 
 ![state diagram basic context](https://www.didierboelens.com/images/state_basic_context_tree.png)
 
-> **Context 可见性** (**简短描述**):
+> **Context 可见性** (**简短描述**)：
 >
 > **某些东西** 只能在自己的 context 或在其父 context 中可见。
 
@@ -110,7 +110,7 @@ Widget build(BuildContext){
 
 ### Widget 的类型
 
-Widget 拥有 2 种类型:
+Widget 拥有 2 种类型：
 
 #### Stateless Widget
 
@@ -120,7 +120,7 @@ Widget 拥有 2 种类型:
 
 这样的 Widget 称为 **Stateless Widget**。
 
-这种 Widget 的典型示例可以是 Text、Row、Column、Container 等。在构建时，我们只需将一些参数传递给它们。
+这种 Widget 的典型示例可以是 Text、Row、Column 和 Container 等。在构建时，我们只需将一些参数传递给它们。
 
 **参数**可以是装饰、尺寸、甚至其他 widget 中的任何内容。需要强调的是，该配置一旦被创建，在下次构建过程之前都不会改变。
 
@@ -185,9 +185,9 @@ class MyStatelessWidget extends StatelessWidget {
 
 当 **State** 与 **Context** 关联时，**State** 被视为**已挂载**。
 
-> **重点**:
+> **重点**：
 >
-> **State 对象** 与 **context** 相关联，就意味着该 **State 对象**是**不**（直接）访问**另一个 context** ！（我们将在稍后讨论该问题）。
+> **State 对象** 与 **context** 相关联，就意味着该 **State 对象**是**不**（直接）访问**另一个 context**！（我们将在稍后讨论该问题）。
 
 * * *
 
@@ -197,7 +197,7 @@ class MyStatelessWidget extends StatelessWidget {
 
 以下是与 **Stateful Widget** 相关的典型代码结构。
 
-由于本文的主要目的是用“变量”数据来解释 **State** 的概念，我将故意跳过任何与 Stateful Widget 相关的一些**可重写**方法的解释，这些方法与此没有特别的关系。这些可重写的方法是 **didUpdateWidget、deactivate、reassemble**。这些内容将在下一篇文章中讨论。
+由于本文的主要目的是用“变量”数据来解释 **State** 的概念，我将故意跳过任何与 Stateful Widget 相关的一些**可重写**方法的解释，这些方法与此没有特别的关系。这些可重写的方法是 **didUpdateWidget、deactivate 和 reassemble**。这些内容将在下一篇文章中讨论。
 
 ```dart
 class MyStatefulWidget extends StatefulWidget {
@@ -297,7 +297,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
 如果问题的答案是 **yes**，那么你需要一个 **Stateful** Widget，否则，你需要一个 **Stateless** Widget。
 
-一些例子:
+一些例子：
 
 *   用于显示复选框列表的 widget。要显示复选框，你需要考虑一系列项目。每个项目都是一个包含标题和状态的对象。如果你点击一个复选框，相应的 item.status 将会切换；
 
@@ -345,7 +345,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 }
 ```
 
-第二部分 “**_MyStatefulWidgetStat**” 管理 Widget 生命周期中的**变化**，并强制每次应用修改时重建该 Widget 实例。名称开头的 ‘**\_**’ 字符使得该类对 .dart 文件是**私有的**。
+第二部分 “**_MyStatefulWidgetStat**” 管理 Widget 生命周期中的**变化**，并强制每次应用修改时重建该 Widget 实例。名称开头的 ‘**_**’ 字符使得该类对 .dart 文件是**私有的**。
 
 如果你需要在 .dart 文件之外引用此类，请不要使用 ‘**_**’ 前缀。
 
@@ -478,7 +478,7 @@ class MyExposingWidget extends StatefulWidget {
 *   公共属性（不推荐）
 *   getter / setter
 
-例子:
+例子：
 
 ```dart
 class MyExposingWidgetState extends State<MyExposingWidget>{
@@ -542,7 +542,7 @@ class MyInheritedWidget extends InheritedWidget {
 }
 ```
 
-以上代码定义了一个名为 “**_MyInheritedWidget**” 的 Widget，目的在于为子树中的所有 widget 提供某些『**共享**』数据。
+以上代码定义了一个名为 “**MyInheritedWidget**” 的 Widget，目的在于为子树中的所有 widget 提供某些『**共享**』数据。
 
 如前所述，为了能够传播/共享某些数据，需要将 **InheritedWidget** 放置在 widget 树的顶部，这解释了传递给 InheritedWidget 基础构造函数的 **@required Widget child** 参数。
 
@@ -781,7 +781,7 @@ static MyInheritedWidgetState of(BuildContext context) {
 
 至此它能够有效工作！
 
-然而， Widget A 和 Widget B 都被重建了，但由于 Wiget A 没有任何改变，因此它没有重建的必要。那么应该如何防止此种情况发生呢？
+然而，Widget A 和 Widget B 都被重建了，但由于 Wiget A 没有任何改变，因此它没有重建的必要。那么应该如何防止此种情况发生呢？
 
 #### 在继续访问 Inherited Widget 的同时阻止某些 Widget 重建
 
