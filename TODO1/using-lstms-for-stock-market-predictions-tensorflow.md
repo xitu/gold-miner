@@ -2,10 +2,10 @@
 > * 原文作者：[Thushan Ganegedara](https://towardsdatascience.com/@thushv89?source=user_popover)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/using-lstms-for-stock-market-predictions-(tensorflow).md](https://github.com/xitu/gold-miner/blob/master/TODO1/using-lstms-for-stock-market-predictions-(tensorflow).md)
-> * 译者：
+> * 译者：[Qiuk17](https://github.com/Qiuk17)
 > * 校对者：
 
-# Using LSTMs For Stock Market Predictions (Tensorflow)
+# 用长短期记忆网络预测股票市场（Tensorflow）
 
 ![](https://cdn-images-1.medium.com/max/1600/1*kq6dfFNUkPhPLS2B6vODrg.jpeg)
 
