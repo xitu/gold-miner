@@ -198,7 +198,7 @@ A cell is pictured below.
 And the equations for calculating each of these entities are as follows.
 
 * i_t = σ(W{ix} * x_t + W{ih} * h_{t-1}+b_i)
-* \tilde{c}_t = σ(W{cx} * x_t + W{ch} * h_{t-1} + b_c)
+* \tilde{c}\_t = σ(W{cx} * x_t + W{ch} * h\_{t-1} + b_c)
 * f_t = σ(W{fx} * xt + W{fh} * h_{t-1}+b_f)
 * c_t = f_t * c{t-1} + i_t * \tilde{c}_t
 * o_t = σ(W{ox} * xt + W{oh} * h_{t-1}+b_o)
@@ -368,13 +368,13 @@ print('\tAll done')
 
 Here you will train and predict stock price movements for several epochs and see whether the predictions get better or worse over time. You follow the following procedure. I’m not sharing the code as I’m sharing the link to the full Jupyter notebook.
 
-_*Define a test set of starting points (_`_test_points_seq_`_) on the time series to evaluate the model on_
+_*Define a test set of starting points (_`test_points_seq`_) on the time series to evaluate the model on_
 
 > _*For each epoch_
 
 > _**For full sequence length of training data_
 
-> _***Unroll a set of_ `_num_unrollings_` _batches_
+> _***Unroll a set of `num_unrollings` batches_
 
 > _***Train the neural network with the unrolled batches_
 
@@ -382,11 +382,11 @@ _*Define a test set of starting points (_`_test_points_seq_`_) on the time serie
 
 > _**For each starting point in the test set_
 
-> _***Update the LSTM state by iterating through the previous_ `_num_unrollings_` _data points found before the test point_
+> _***Update the LSTM state by iterating through the previous_ `num_unrollings` _data points found before the test point_
 
-> _***Make predictions for_ `_n_predict_once_` _steps continuously, using the previous prediction as the current input_
+> _***Make predictions for_ `n_predict_once` _steps continuously, using the previous prediction as the current input_
 
-> _***Calculate the MSE loss between the_ `_n_predict_once_` _points predicted and the true stock prices at those time stamps_
+> _***Calculate the MSE loss between the_ `n_predict_once` _points predicted and the true stock prices at those time stamps_
 
 ### Visualizing the Predictions
 
