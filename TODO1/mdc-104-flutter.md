@@ -19,102 +19,102 @@ Material Design 指南以设计师的角度来描述组件。他们描述了跨�
 
 Material Design 指南命名了很多组件，但不是所有的组件都可以很好的重用，因此无法在 MDC 中找到它们。你可以自己塑造这样的经历，实现使用传统代码自定义你的应用样式。
 
-### What you'll build
+### 你将构建一个
 
-In this codelab, you'll change the UI in the Shrine app to a two-level presentation called a "backdrop". The backdrop includes a menu that lists selectable categories used to filter the products shown in the asymmetrical grid. In this codelab, you'll use the following Flutter components:
+本教程里，将把 Shrine 应用的 UI 修改成名为“背景”的两级展示。它包含一个菜单，列出了用于过滤在不对称网格中展示的产品的可选类别。在本教程中，你将使用如下 Flutter 组件：
 
-*   Shape
-*   Motion
-*   Flutter widgets (that you've used in the previous codelabs)
+*   形状（Shape）
+*   动作（Motion）
+*   Flutter 小部件（在往期教程中所使用的）
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/img/a533be3bc12ef2f7.png)
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/img/42b6ae2cb79fc507.png)
 
-> This is the last of 4 codelabs that guide you through building an app for a product called Shrine. We recommend that you do all of the codelabs in order as they progress through tasks step-by-step.
+> 这是四篇教程中的最后一篇，它将指导你构建一个名为 Shrine 的应用。我们建议你阅读每篇教程，跟随进度逐步完成此项目。
 >
-> The related codelabs can be found at:
+> 有关教程可以在这里找到：
 >
-> *   [MDC-101: Material Components (MDC) Basics](https://codelabs.developers.google.com/codelabs/mdc-101-flutter)
-> *   [MDC-102: Material Design Structure and Layout](https://codelabs.developers.google.com/codelabs/mdc-102-flutter).
-> *   [MDC-103: Material Design Theming with Color, Shape, Elevation and Type](https://codelabs.developers.google.com/codelabs/mdc-103-flutter)
+> *   [MDC-101: Material 组件（MDC）基础](https://codelabs.developers.google.com/codelabs/mdc-101-flutter)
+> *   [MDC-102: Material Design 结构和布局](https://codelabs.developers.google.com/codelabs/mdc-102-flutter).
+> *   [MDC-103: Material Design Theming 的颜色、形状、高度和类型](https://codelabs.developers.google.com/codelabs/mdc-103-flutter)
 
-### MDC-Flutter component in this codelab
+### 此教程中的 MDC-Flutter 组件
 
-*   Shape
+*   形状（Shape）
 
-### What you'll need
+### 你将需要
 
-*   The [Flutter SDK](https://flutter.io/setup/)
-*   Android Studio with Flutter plugins, or your favorite code editor
-*   The sample code
+*   [Flutter SDK](https://flutter.io/setup/)
+*   安装好 Flutter 插件的 Android Studio，或者你喜欢的代码编辑器
+*   示例代码
 
-### To build and run Flutter apps on iOS:
+### 要在 iOS 上构建和运行 Flutter 应用程序，你需要满足以下要求：
 
-*   A computer running macOS
-*   Xcode 9 or newer
-*   iOS Simulator, or a physical iOS device
+*   运行 macOS 的计算机
+*   Xcode 9 或更新版本
+*   iOS 模拟器，或者 iOS 物理设备
 
-### To build and run Flutter apps on Android:
+### 要在 Android 上构建和运行 Flutter 应用程序，你需要满足以下要求：
 
-*   A computer running macOS, Windows, or Linux
+*   运行 macOS、Windows 或 Linux 的计算机
 *   Android Studio
-*   Android Emulator (comes with Android Studio), or a physical Android device
+*   Android 模拟器（随 Android Studio 一起提供）或 Android 物理设备
 
-## 2. Set up your Flutter environment
+## 2. 安装 Flutter 环境
 
-### Prerequisites
+### 前提条件
 
-To start developing mobile apps with Flutter you need:
+要开始使用 Flutter 开发移动应用程序，你需要：
 
-*   the [Flutter SDK](https://flutter.io/setup/)
-*   an IntelliJ IDE with Flutter plugins, or your favorite code editor
+*   [Flutter SDK](https://flutter.io/setup/)
+*   装有 Flutter 插件的 IntelliJ IDE，或者你喜欢的代码编辑器
 
-Flutter's IDE tools are available for [Android Studio](https://developer.android.com/studio/index.html), [IntelliJ IDEA Community (free), and IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/download/).
+Flutter 的 IDE 工具适用于 [Android Studio](https://developer.android.com/studio/index.html)、[IntelliJ IDEA Community（免费）和 IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/download/)。
 
-To build and run Flutter apps on iOS:
+要在 iOS 上构建和运行 Flutter 应用程序，你需要满足以下要求：
 
-*   a computer running macOS
-*   Xcode 9 or newer
-*   iOS Simulator, or a physical iOS device
+*   运行 macOS 的计算机
+*   Xcode 9 或更新版本
+*   iOS 模拟器，或者 iOS 物理设备
 
-To build and run Flutter apps on Android:
+要在 Android 上构建和运行 Flutter 应用程序，你需要满足以下要求：
 
-*   a computer running macOS, Windows, or Linux
+*   运行 macOS，Windows 或者 Linux 的计算机
 *   Android Studio
-*   Android Emulator (comes with Android Studio), or a physical Android device
+*   Android 模拟器（随 Android Studio 一起提供）或 Android 物理设备
 
-[Get detailed Flutter setup information](https://flutter.io/setup/)
+[获取详细的 Flutter 安装信息](https://flutter.io/setup/)
 
-> **Important:** If an Allow USB debugging dialog appears on the Android phone connected to the codelab machine, enable the **Always allow from this computer** option and click **OK**.
+> **重要提示：** 如果连接到计算机的 Android 手机上出现“允许 USB 调试”对话框，请启用**始终允许从此计算机**选项，然后单击**确定**。
 
-Before proceeding with this codelab, make sure that your SDK is in the right state. If the flutter SDK was installed previously, then use `flutter upgrade` to ensure that the SDK is at the latest state.
+在继续本教程之前，请确保你的 SDK 处于正确的状态。如果之前安装过 Flutter SDK，则使用 `flutter upgrade` 来确保 SDK 处于最新版本。
 
 ```
 flutter upgrade
 ```
 
-Running `flutter upgrade` will automatically run `flutter doctor.` If this a fresh flutter install and no upgrade was necessary, then run `flutter doctor` manually. See that all the check marks are showing; this will download any missing SDK files you need and ensure that your codelab machine is set up correctly for Flutter development.
+运行 `flutter upgrade` 将自动运行 `flutter doctor`。如果这是首次安装 Flutter 且不需升级，那么请手动运行 `flutter doctor`。查看显示的所有 ✓ 标记；这将会下载你需要的任何缺少的 SDK 文件，并确保你的计算机配置无误以进行 Flutter 的开发。
 
 ```
 flutter doctor
 ```
 
-## 3. Download the codelab starter app
+## 3. 下载教程初始应用程序
 
-### Continuing from MDC-103?
+### 从 MDC-103 继续？
 
-If you completed MDC-103, your code should be ready for this codelab. Skip to step: _Add the backdrop menu_.
+如果你完成了 MDC-103，那么本教程所需的代码应该已经准备就绪。跳转到：**添加背景菜单**。
 
-### Starting from scratch?
+### 从头开始？
 
-[Download starter app](https://github.com/material-components/material-components-flutter-codelabs/archive/104-starter_and_103-complete.zip)
+[下载初始程序](https://github.com/material-components/material-components-flutter-codelabs/archive/104-starter_and_103-complete.zip)
 
-The starter app is located in the `material-components-flutter-codelabs-104-starter_and_103-complete/mdc_100_series` directory.
+初始程序位于 `material-components-flutter-codelabs-104-starter_and_103-complete/mdc_100_series` 目录下。
 
-### ...or clone it from GitHub
+### ...或者从 GitHub 克隆它
 
-To clone this codelab from GitHub, run the following commands:
+从 GitHub 克隆此项目，运行以下命令：
 
 ```
 git clone https://github.com/material-components/material-components-flutter-codelabs.git
@@ -122,68 +122,68 @@ cd material-components-flutter-codelabs
 git checkout 104-starter\_and\_103-complete
 ```
 
-> For more help: [Cloning a repository from GitHub](https://help.github.com/articles/cloning-a-repository/)
+> 更多帮助：[从 GitHub 克隆一个仓库](https://help.github.com/articles/cloning-a-repository/)
 
->  **The right branch**
+>  **正确的分支**
 >
-> Codelabs MDC-101 through MDC-104 consecutively build upon each other. The code for MDC-103 is the starter code for MDC-104. The code is divided across multiple branches. To list the branches in GitHub, use the following command:
+> 教程 MDC-101 到 MDC-104 在前一个基础上持续构建。MDC-103 的完整代码将是 MDC-104 的初始代码。代码被分成多个分支。要列出 GitHub 中的分支，使用如下命令：
 >
 > `git branch --list`
 >
-> To see the completed code, checkout the `104-complete` branch.
+> 想要查看完整代码，切换到 `104-complete` 分支。
 
-Set up your project
+建立你的项目
 
-The following instructions assume you're using Android Studio (IntelliJ).
+以下步骤默认你使用的是 Android Studio (IntelliJ)。
 
-### Create the project
+### 创建项目
 
-1. In Terminal, navigate to `material-components-flutter-codelabs`
+1. 在终端中，导航到 `material-components-flutter-codelabs`
 
-2. Run `flutter create mdc_100_series`
+2. 运行 `flutter create mdc_100_series`
 
 ![](https://lh5.googleusercontent.com/J9CQ2xQy4PCirtParnKTrQbjo5tdy0LEh__NVXEjkSYdwSl96QWiwyX2fAdQcW5jTCUzVSzpAqF9-f5mfvyg9BE299XA5nNawKXkAKAO9KIJWawpJtEucLXwqi9buzCX3D7UJixV)
 
-### Open the project
+### 打开项目
 
-1. Open Android Studio.
+1. 打开 Android Studio。
 
-2. If you see the welcome screen, click **Open an existing Android Studio project**.
+2. 如果你看到欢迎页面，单击**打开已有的 Android Studio 项目**。
 
 ![](https://lh5.googleusercontent.com/q3QrMqM5NUKXvHdNL4f-OPx1WQJCiXZuq0XJzExqbMK6NrSEigfggRFuJ9C9zpqOCsl0uWfywG1_6W1B45xrafR2EGTP68B0Yr0QtGAu3NWCdnylzYHWEp-as7AkYj8S5oNwFzr-)
 
-3. Navigate to the `material-components-flutter-codelabs/mdc_100_series` directory and click Open. The project should open.
+3. 导航到 `material-components-flutter-codelabs/mdc_100_series` 目录并单击打开，这将打开此项目。
 
-**You can ignore any errors you see in analysis until you've built the project once.**
+**在构建项目一次之前，你可以忽略在分析中见到的任何错误。**
 
 ![](https://lh4.googleusercontent.com/eohV4ysnGI7n1WXZEpvDocqGoj2yBijhLPxkGovkL85mil0HSvbQxgJ4VlduNj1ypfOdVd1fyTxR5QnS31iu0HFaqjWcOY2GqWs2hHFNO4-zqQzj-S8rGGH0VqrOEtAFEbzUuCxB)
 
-4. In the project panel on the left, if you see the testing file `../test/widget_test.dart` delete it.
+4. 在左侧的项目面板中，如果看到含有测试文件 `../test/widget_test.dart`，删除它。
 
 ![](https://lh4.googleusercontent.com/tbOkXg3PBYapj_J0CpdwQTt-sqnf7s3bqi7E3Dd__z_aC5XANKphvuoMvmiOFfBR6oDeZixE0Ww2jTzskt1sDNgEXjAJjwHr7m242tkZ7VvXGaFMObmSIZ06oC7UQusGgCL7DpHr)
 
-5. If prompted, install any platform and plugin updates or FlutterRunConfigurationType, then restart Android Studio.
+5. 如果出现提示，安装所有平台和插件更新或 FlutterRunConfigurationType，然后重新启动 Android Studio。
 
 ![](https://lh5.googleusercontent.com/MVD7YGuMneCprDEam1Vy8NusO9BPmOZTyrH4jvO8RmsfTeu8q-t0AfHU3kzXk1F8EUgHaFbqeORdXc7iOcz5ZLM4qbXsv_tMiVnAi0i68p0t957RThrZ56Udf-F292JgRV3iKs7T)
 
-> **Tip:** Make sure you have the [plugins installed for Flutter and Dart](https://flutter.io/get-started/editor/#androidstudio).
+> **提示：** 确保你已安装 [Flutter 和 Dart 插件](https://flutter.io/get-started/editor/#androidstudio)。
 
-### Run the starter app
+### 运行初始程序
 
-The following instructions assume you're testing on an Android emulator or device but you can also test on an iOS Simulator or device if you have Xcode installed.
+以下步骤默认你在 Android 模拟器或真实设备上进行测试。如果你安装了 Xcode，则也可以在 iOS 模拟器或设备上测试。
 
-1. Select the device or emulator.
+1. 选择设备或模拟器
 
-If the Android emulator is not already running, select **Tools -> Android -> AVD Manager** to [create a virtual device and start the emulator](https://developer.android.com/studio/run/managing-avds.html). If an AVD already exists, you can start the emulator directly from the device selector in IntelliJ, as shown in the next step.
+如果 Andorid 模拟器尚未运行，选择 **Tools -> Android -> AVD Manager** 来[创建并运行一个模拟设备](https://developer.android.com/studio/run/managing-avds.html)。如果 AVD 已存在，你可以直接在 IntelliJ 的设备选择器中启动模拟器，如下一步所示。
 
-(For the iOS Simulator, if it is not already running, launch the simulator on your development machine by selecting **Flutter Device Selection -> Open iOS Simulator**.)
+（对于 iOS 模拟器，如果它尚未运行，通过选择 **Flutter Device Selection -> Open iOS Simulator** 来在你的开发设备上启动它。）
 
 ![](https://lh5.googleusercontent.com/mmcO6QRlA96Sc1AZhL8NqvaTE9DZL5q3QQJsrx-2U4ptShFUcrmYoEuVLB6uyAxL4F80dFaxiotLmWjtTYUYYJu-Rf9TtoKDcJLlzuyWezQIz0BiIIBsgy7mPNS8bO5VbqcMb1Qt)
 
-2. Start your Flutter app:
+2. 启动 Flutter 应用：
 
-*   Look for the Flutter Device Selection dropdown menu at the top of your editor screen, and select the device (for example, iPhone SE or Android SDK built for <version>).
-*   Press the **Play** icon (![](https://lh6.googleusercontent.com/Zu8-cWRMCfIrBGIjj4kSW-j8KBiIqVe33PX8Mht5lSKq00kRB7Na3X0kC4aaiG-G7hqqqLPpgtbxTz-1DdYbq2RiNvc2ZaJzfiu_vVYAh1oOc4TZu85pa42nFqqxmMQWySzLWeU1)).
+*   在你的编辑器窗口顶部寻找 Flutter Device Selection 下拉菜单，然后选择设备（例如，iPhone SE / Android SDK built for \<version>）。
+*   点击**运行**图标（![](https://lh6.googleusercontent.com/Zu8-cWRMCfIrBGIjj4kSW-j8KBiIqVe33PX8Mht5lSKq00kRB7Na3X0kC4aaiG-G7hqqqLPpgtbxTz-1DdYbq2RiNvc2ZaJzfiu_vVYAh1oOc4TZu85pa42nFqqxmMQWySzLWeU1)）。
 
 ![](https://lh4.googleusercontent.com/NLXK-hHFYnHBPeQ6NYrKGnXpj9X2es9her6Y14CotXlR-OdSQBXHyRFv1nvhC1AFCmWx7jIG2Ulb7-OmLV_Pru_-kd-3gArn8OKEGTIOInDJlqIUJ7dxTQUsvLVa0CJwEO5EGjeu)
 
