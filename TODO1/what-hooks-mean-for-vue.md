@@ -7,19 +7,19 @@
 
 # Hooks 对 Vue 而言意味着什么
 
-不要把 Hooks 和 Vue 的[生命周期钩子（Lifecycle Hooks）](https://css-tricks.com/intro-to-vue-3-vue-cli-lifecycle-hooks/#article-header-id-1) 弄混了，React 在 V16.7.0-alpha 版本中引入了 [Hooks](https://reactjs.org/docs/hooks-intro.html)，而且几天后 Vue 发布了其概念验证版本。虽然 Hooks 是由 React 提出的，但实际上它是一个重要的对各 JavaScript 框架生态系统都有价值的组合机制，因此我们今天会花一点时间讨论 Hooks 意味着什么。
+不要把 Hooks 和 Vue 的[生命周期钩子（Lifecycle Hooks）](https://css-tricks.com/intro-to-vue-3-vue-cli-lifecycle-hooks/#article-header-id-1) 弄混了，[Hooks](https://reactjs.org/docs/hooks-intro.html) 是 React 在 V16.7.0-alpha 版本中引入的，而且几天后 Vue 发布了其概念验证版本。虽然 Hooks 是由 React 提出的，但实际上它是一个重要的对各 JavaScript 框架生态系统都有价值的组合机制，因此我们今天会花一点时间讨论 Hooks 意味着什么。
 
-Hooks 主要是提供了一种更明确的方式来考虑可重用模式 —— 避免重写组件本身，并允许有状态逻辑的不同部分无缝地协同工作。
+Hooks 主要是提供了一种更明确的方式来考虑可重用模式 —— 避免重写组件本身，并允许不同部分的有状态逻辑能够无缝地协同工作。
 
 ### 最初的问题
 
-就 React 而言，问题在于：在表达状态的概念时，类是最常见的组件形式。无状态函数式组件也非常受欢迎，但由于它们只能单纯地渲染，所以它们的用途仅限展示的任务。
+就 React 而言，问题在于：在表达状态的概念时，类是最常见的组件形式。无状态函数式组件也非常受欢迎，但由于它们只能单纯地渲染，所以它们的用途仅限用于展示的任务。
 
 类本身存在一些问题。例如，随着 React 变得越来越普遍，新手的障碍也是如此。人们为了理解 React，也必须理解类。绑定使得代码冗长且可读性差，并且需要理解 JavaScript 中的 `this`。[这里](https://reactjs.org/docs/hooks-intro.html#classes-confuse-both-people-and-machines)还讨论了使用类所带来的一些优化障碍。
 
-在逻辑复用方面，通常使用 render props 和高阶组件等模式，但我们发现自己处于熟悉的[“厄运金字塔”](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming))中 —— 样式实现地狱，其中嵌套使用过度导致组件可能会难以维护。这导致我想要对 Dan Abramov 醉酒咆哮，没有人想要那样。
+在逻辑复用方面，我们通常使用 render props 和高阶组件等模式。但使用这些模式后会发现自己处于熟悉的[“厄运金字塔”](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming))中 —— 样式实现地狱，其中嵌套使用过度导致组件可能会难以维护。这导致我想要对 Dan Abramov 醉酒咆哮，没有人想要那样。
 
-Hooks 通过允许我们仅使用函数调用来定义组件的状态逻辑来解决这些问题。这些函数调用变得更具有组合性、可复用性，并且允许我们在使用函数式组件的同时能够访问和维护状态。React 发布 Hooks 时，人们很兴奋 —— 你可以看到这里展示的一些好处，关于它们如何减少代码和重复：
+Hooks 允许我们使用函数调用来定义组件的有状态逻辑，从而解决这些问题。这些函数调用变得更具有组合性、可复用性，并且允许我们在使用函数式组件的同时能够访问和维护状态。React 发布 Hooks 时，人们很兴奋 —— 下面你可以看到 Hooks 展示的一些优势，关于它们如何减少代码和重复：
 
 > 来自 [#ReactConf2018](https://twitter.com/hashtag/ReactConf2018?src=hash&ref_src=twsrc%5Etfw) 中 [@dan_abramov](https://twitter.com/dan_abramov?ref_src=twsrc%5Etfw) 的代码并对其进行可视化，以便你可以看到 React Hooks 为我们带来的好处。[pic.twitter.com/dKyOQsG0Gd](https://t.co/dKyOQsG0Gd)
 > 
@@ -29,9 +29,9 @@ Hooks 通过允许我们仅使用函数调用来定义组件的状态逻辑来�
 
 ### 为什么 Vue 中需要 Hooks？
 
-读到这里你肯定想知道 Hooks 在 Vue 中必须提供什么。这似乎是一个不需要解决的问题。毕竟，Vue 并不主要使用类。Vue 提供无状态函数式组件（如果需要它们），但为什么我们需要在函数式组件中携带状态呢？[我们有混入（mixins）](https://css-tricks.com/using-mixins-vue-js/) 用于组合可以在多个组件复用的相同逻辑。问题解决了。
+读到这里你肯定想知道 Hooks 在 Vue 中必须提供什么。这似乎是一个不需要解决的问题。毕竟，类并不是 Vue 主要使用的模式。Vue 提供无状态函数式组件（如果需要它们），但为什么我们需要在函数式组件中携带状态呢？[我们有混入（mixins）](https://css-tricks.com/using-mixins-vue-js/) 用于组合可以在多个组件复用的相同逻辑。问题解决了。
 
-我想到了同样的事情，但在与 Evan You 交谈后，他指出了我错过的一个主要用例：混入不能相互消费和使用状态，但 Hooks 可以。这意味着如果我们需要链封装逻辑，现在可以使用 Hooks。
+我想到了同样的事情，但在与 Evan You 交谈后，他指出了我错过的一个主要用例：混入不能相互消费和使用状态，但 Hooks 可以。这意味着如果我们需要链式封装逻辑，可以使用 Hooks。
 
 Hooks 实现了混入的功能，但避免了混入带来的两个主要问题：
 
@@ -40,11 +40,11 @@ Hooks 实现了混入的功能，但避免了混入带来的两个主要问题�
 
 如果使用多个混入，我们不清楚哪个属性是由哪个混入提供的。使用 Hooks，函数的返回值会记录消费的值。
 
-那么，这在 Vue 中如何运行呢？我们之前提到过，在使用 Hooks 时，逻辑表示在可复用的函数调用中。在 Vue 中，这意味着我们可以将数据调用、方法调用或计算调用组织到另一个自定义函数中，并使它们可以自由组合。数据、方法和计算属性现在可用于函数式组件。
+那么，这在 Vue 中如何运行呢？我们之前提到过，在使用 Hooks 时，逻辑表示在可复用的函数调用中。在 Vue 中，这意味着我们可以将数据调用、方法调用或计算属性调用组织到另一个自定义函数中，并使它们可以自由组合。数据、方法和计算属性现在可用于函数式组件了。
 
 ### 例子
 
-让我们来看一个非常简单的 Hook，以便我们在继续学习 Hooks 中的组合例子之前理解构建块。
+让我们来看一个非常简单的 hook，以便我们在继续学习 Hooks 中的组合例子之前理解构建块。
 
 #### useWat?
 
