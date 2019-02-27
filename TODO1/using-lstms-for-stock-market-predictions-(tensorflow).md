@@ -198,7 +198,7 @@ A cell is pictured below.
 And the equations for calculating each of these entities are as follows.
 
 * i_t = σ(W{ix} * x_t + W{ih} * h_{t-1}+b_i)
-* \tilde{c}\_t = σ(W{cx} * x_t + W{ch} * h\_{t-1} + b_c)
+* \tilde{c}\_t = σ(W{cx} * x_t + W{ch} * h_{t-1} + b_c)
 * f_t = σ(W{fx} * xt + W{fh} * h_{t-1}+b_f)
 * c_t = f_t * c{t-1} + i_t * \tilde{c}_t
 * o_t = σ(W{ox} * xt + W{oh} * h_{t-1}+b_o)
@@ -368,25 +368,25 @@ print('\tAll done')
 
 Here you will train and predict stock price movements for several epochs and see whether the predictions get better or worse over time. You follow the following procedure. I’m not sharing the code as I’m sharing the link to the full Jupyter notebook.
 
-_*Define a test set of starting points (_`test_points_seq`_) on the time series to evaluate the model on_
+_Define a test set of starting points (_`test_points_seq`_) on the time series to evaluate the model on_
 
-> _*For each epoch_
-
-> _**For full sequence length of training data_
-
-> _***Unroll a set of `num_unrollings` batches_
-
-> _***Train the neural network with the unrolled batches_
-
-> _**Calculate the average training loss_
-
-> _**For each starting point in the test set_
-
-> _***Update the LSTM state by iterating through the previous_ `num_unrollings` _data points found before the test point_
-
-> _***Make predictions for_ `n_predict_once` _steps continuously, using the previous prediction as the current input_
-
-> _***Calculate the MSE loss between the_ `n_predict_once` _points predicted and the true stock prices at those time stamps_
+> _For each epoch_
+>
+> _For full sequence length of training data_
+>
+> _Unroll a set of `num_unrollings` batches_
+>
+> _Train the neural network with the unrolled batches_
+>
+> _Calculate the average training loss_
+>
+> _For each starting point in the test set_
+>
+> _Update the LSTM state by iterating through the previous_ `num_unrollings` _data points found before the test point_
+>
+> _Make predictions for_ `n_predict_once` _steps continuously, using the previous prediction as the current input_
+>
+> _Calculate the MSE loss between the_ `n_predict_once` _points predicted and the true stock prices at those time stamps_
 
 ### Visualizing the Predictions
 
@@ -403,8 +403,11 @@ I’m hoping that you found this tutorial useful. I should mention that this was
 Here, I’m stating several takeaways of this tutorial.
 
 1.  Stock price/movement prediction is an extremely difficult task. Personally I don’t think _any of the stock prediction models out there shouldn’t be taken for granted and blindly rely on them_. However models might be able to predict stock price movement correctly most of the time, but not always.
+
 2.  Do not be fooled by articles out there that shows predictions curves that perfectly overlaps the true stock prices. This can be replicated with a simple averaging technique and in practice it’s useless. A more sensible thing to do is predicting the stock price movements.
+
 3.  The model’s hyperparameters are extremely sensitive to the results you obtain. So a very good thing to do would be to run some hyperparameter optimization technique (for example, Grid search / Random search) on the hyperparameters. Here I list some of the most critical hyperparameters; _the learning rate of the optimizer, number of layers and the number of hidden units in each layer, the optimizer (I found Adam to perform the best), type of the model (GRU/LSTM/LSTM with peepholes)_
+
 4.  In this tutorial you did something faulty (due to the small size of data)! That is you used the test loss to decay the learning rate. This indirectly leaks information about test set into the training procedure. A better way of handling this is to have a separate validation set (apart from the test set) and decay learning rate with respect to performance of the validation set.
 
 ### Jupyter Notebook: [Here](https://github.com/thushv89/datacamp_tutorials)
