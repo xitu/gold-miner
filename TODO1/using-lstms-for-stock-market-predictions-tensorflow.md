@@ -370,23 +370,23 @@ Here you will train and predict stock price movements for several epochs and see
 
 _Define a test set of starting points (_`test_points_seq`_) on the time series to evaluate the model on_
 
-> _For each epoch_
+> ★ _For each epoch_
 >
-> _For full sequence length of training data_
+> ★★ _For full sequence length of training data_
 >
-> _Unroll a set of `num_unrollings` batches_
+> ★★★ _Unroll a set of `num_unrollings` batches_
 >
-> _Train the neural network with the unrolled batches_
+> ★★★ _Train the neural network with the unrolled batches_
 >
-> _Calculate the average training loss_
+> ★★ _Calculate the average training loss_
 >
-> _For each starting point in the test set_
+> ★★ _For each starting point in the test set_
 >
-> _Update the LSTM state by iterating through the previous_ `num_unrollings` _data points found before the test point_
+> ★★★ _Update the LSTM state by iterating through the previous_ `num_unrollings` _data points found before the test point_
 >
-> _Make predictions for_ `n_predict_once` _steps continuously, using the previous prediction as the current input_
+> ★★★ _Make predictions for_ `n_predict_once` _steps continuously, using the previous prediction as the current input_
 >
-> _Calculate the MSE loss between the_ `n_predict_once` _points predicted and the true stock prices at those time stamps_
+> ★★★ _Calculate the MSE loss between the_ `n_predict_once` _points predicted and the true stock prices at those time stamps_
 
 ### Visualizing the Predictions
 
