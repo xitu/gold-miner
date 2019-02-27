@@ -8,6 +8,7 @@
 # The most famous data visualisation ever and what we can learn from it
 
 ![](https://cdn-images-1.medium.com/max/1600/1*V9sq--wHI1wm1zA3Gng1sg.png)
+
 Napoleon’s invasion of Russia
 
 ### You need data visualisation
