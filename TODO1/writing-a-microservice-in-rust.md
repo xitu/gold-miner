@@ -14,11 +14,11 @@
 * 符合直觉的语法糖，例如模式匹配（pattern matching）；
 * 没有内置的（算数）类型间的隐式转换。
 
-闲聊完毕。本文的剩余部分将引导你创建一个小而完整的**微服务** —— 类似于我为我的博客所写的 [URL 缩短器](https://github.com/goldsborough/psag.cc)。我说的**微服务**指的是一个使用 HTTP，接受请求，访问数据库，返回一个响应（可能运送着 HTML），打包在一个 Docker 容器中，并可以放在云上的某个地方的这样一种应用。在这篇文章中，我很构建一个简单的聊天应用，运行你存储和检索消息。我会在过程中介绍一些相关的包（crate）。你可以[在 GitHub 上](http://github.com/goldsborough/microservice-rs)找到服务的完整代码。
+闲聊完毕。本文的剩余部分将引导你创建一个小而完整的**微服务** —— 类似于我为我的博客所写的 [URL 缩短器](https://github.com/goldsborough/psag.cc)。我说的**微服务**指的是一个使用 HTTP，接受请求，访问数据库，返回一个响应（可能运送着 HTML），打包在一个 Docker 容器中，并可以放在云上的某个地方的这样一种应用。在这篇文章中，我会构建一个简单的聊天应用，允许你存储和检索消息。我会在过程中介绍一些相关的包（crate）。你可以[在 GitHub 上](http://github.com/goldsborough/microservice-rs)找到服务的完整代码。
 
 ## 使用 HTTP
 
-我们需要让我们的 web 服务做的第一件事就是如何**使用 HTTP 协议**，也就是我们的应用（服务器）需要接收并解析 HTTP 请求，并返回 HTTP 响应。The first thing we need to teach our web service is how to *speak HTTP*. With that, I mean that our application (server) has to accept and parse HTTP requests and return HTTP responses. While there exist a number of high-level,虽然有很多类似 [Flask](http://flask.pocoo.org) 或 [Django](https://www.djangoproject.com) 的高级框架能将这一些封装起来，我们还是选择使用稍微低级一点的 [hyper](https://hyper.rs) 库来处理 HTTP。这个库使用网络库 [tokio](https://tokio.rs) 和 [futures](https://github.com/alexcrichton/futures-rs)，让我们能创建一个干净的异步 web 服务器。此外，我们还会使用 [log](https://docs.rs/log/0.4.1/log/) 和 [env-logger](https://docs.rs/crate/env_logger/0.5.2) 两个 crate 来实现日志功能。
+我们需要让我们的 web 服务做的第一件事就是如何**使用 HTTP 协议**，也就是我们的应用（服务器）需要接收并解析 HTTP 请求，并返回 HTTP 响应。虽然有很多类似 [Flask](http://flask.pocoo.org) 或 [Django](https://www.djangoproject.com) 的高级框架能将这一切封装起来，我们还是选择使用稍微低级一点的 [hyper](https://hyper.rs) 库来处理 HTTP。这个库使用网络库 [tokio](https://tokio.rs) 和 [futures](https://github.com/alexcrichton/futures-rs)，让我们能创建一个干净的异步 web 服务器。此外，我们还会使用 [log](https://docs.rs/log/0.4.1/log/) 和 [env-logger](https://docs.rs/crate/env_logger/0.5.2) 两个 crate 来实现日志功能。
 
 我们首先设置好 `Cargo.toml`，下载上述的 crate：
 
@@ -134,7 +134,7 @@ fn call(&self, request: Request) -> Self::Future {
     }
 ```
 
-我们通过匹配请求的方法是路径来区分不同的请求。在我们的例子中，请求的方法会是 `Post` 或 `Get`。我们服务的唯一有效路径是根路径 `"/"`。如果方法是 `&Post` 并且路径正确，我们就调用前面提到的函数。注意到我们可以优雅地使用组合函数来串联 future。组合子 `and_then` 会在 future 正确解析（不包含错误）的情况下，使用 future 中包含的值来调用一个函数。这个调用的函数也必须返回一个新的 future。这允许我们在多个处理阶段之间传递值，而不是**现场**计算出某个值。最终，我们使用组合子 `then`，无论 future 的状态如何都会执行回调函数。这样，它会得到一个 `Result`，而不是一个值。
+我们通过匹配请求的方法和路径来区分不同的请求。在我们的例子中，请求的方法会是 `Post` 或 `Get`。我们服务的唯一有效路径是根路径 `"/"`。如果方法是 `&Post` 并且路径正确，我们就调用前面提到的函数。注意到我们可以优雅地使用组合函数来串联 future。组合子 `and_then` 会在 future 正确解析（不包含错误）的情况下，使用 future 中包含的值来调用一个函数。这个调用的函数也必须返回一个新的 future。这允许我们在多个处理阶段之间传递值，而不是**现场**计算出某个值。最终，我们使用组合子 `then`，无论 future 的状态如何都会执行回调函数。这样，它会得到一个 `Result`，而不是一个值。
 
 这里是上面使用到的函数的内容：
 
@@ -344,7 +344,7 @@ fn make_get_response(
 
 ## 连接到数据库
 
-既然我们的服务中有写入和读取的路径，我们就需要将它们与数据库结合起来进行读写。Rust 有一个非常好用和流行的对象-关系模型（ORM）库叫做 [diesel](http://diesel.rs)。这个库非常有趣和直观。将它添加到你的 `Cargo.toml` 中，并启用 `postgres` 功能，因为我们这份教程中要使用 [Postgres](https://postgresql.org) 数据库：
+既然我们的服务中有写入和读取的路径，我们就需要将它们与数据库结合起来进行读写。Rust 有一个非常好用和流行的对象关系模型（ORM）库叫做 [diesel](http://diesel.rs)。这个库非常有趣和直观。将它添加到你的 `Cargo.toml` 中，并启用 `postgres` 功能，因为我们这份教程中要使用 [Postgres](https://postgresql.org) 数据库：
 
 ```plain
 diesel = { version = "1.0.0", features = ["postgres"] }
@@ -713,7 +713,7 @@ networks:
   network:
 ```
 
-这个文件有点复杂，但写好这个以后，其他内容都简单了。注意到我讲讲两个 Dockerfile 都放在了 `docker/` 目录下。现在，只需运行 `docker-compose up`：
+这个文件有点复杂，但写好这个以后，其他内容都简单了。注意到我将两个 Dockerfile 都放在了 `docker/` 目录下。现在，只需运行 `docker-compose up`：
 
 ```bash
 $ docker-compose up
@@ -734,7 +734,7 @@ db_1      | 2018-01-22 01:38:57.939 UTC [1] LOG:  database system is ready to ac
 
 上面的代码片段拼在一起大约有 270 行，这已经足够用 Rust 创建我们完整的微服务了。相比于例如在 Flask 中的等价代码，我们的代码可能也不是很少。然而，Rust 中还有更多的 web 框架，可以为你提供更多的抽象，例如 [Rocket](https://rocket.rs)。尽管如此，我相信跟随这个教程，使用 *Hyper* 稍微接近底层，会带给你关于如何利用 Rust 写一个安全且高性能的 web 服务的一些很好的思路。
 
-我写这篇博文是想分享我在学习 Rust，以及使用我的知识写一个小型的 [URL 缩短器 web 服务](http://github.com/goldsborough/psag.cc) —— 我用这个 web 服务来缩短我的博客的 URL（如果你看一眼浏览器的 URL 栏，会发现它非常长）—— 时学到的东西。出于这个原因，我觉得我现在会 Rust 提供的特性有了深刻的认识。也知道了 Rust 的这些特性和现代 C++ 相比，哪些表达能力较强且更安全，而哪些表达能力较弱（但不会更不安全）。
+我写这篇博文是想分享我在学习 Rust，以及使用我的知识写一个小型的 [URL 缩短器 web 服务](http://github.com/goldsborough/psag.cc) —— 我用这个 web 服务来缩短我的博客的 URL（如果你看一眼浏览器的 URL 栏，会发现它非常长）—— 时学到的东西。出于这个原因，我觉得我现在对 Rust 提供的特性有了深刻的认识。也知道了 Rust 的这些特性和现代 C++ 相比，哪些表达能力较强且更安全，而哪些表达能力较弱（但不会更不安全）。
 
 我觉得 Rust 的生态系统可能还需要几年的时间来稳定，来让稳定且维护良好的软件包完成主要的功能。尽管如此，前途还是很光明的。Facebook 已经在研究如何使用 Rust 构建托管其代码库的新 [Mercurial 服务器](https://www.theregister.co.uk/2016/10/18/facebook_mercurial_devs_forget_git/)。越来越多的人将 Rust 视为嵌入式编程的一个有趣选择。我会密切关注这个语言的发展，也就是我在 Reddit 上订阅了 `r/Rust`。
 
