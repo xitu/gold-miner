@@ -21,11 +21,11 @@
 
 ### 使用 && 短路
 
-JavaScript 里有一个关于逻辑运算符的有趣事实就是它不总是返回布尔值。[根据说明](https://www.ecma-international.org/ecma-262/9.0/index.html#sec-binary-logical-operators)，“`&&` 或者 `||` 运算符的返回值并不一定是布尔值。而是两个操作表达式的其中之一。”  
+JavaScript 里有一个关于逻辑运算符的有趣事实就是它不总是返回布尔值。[根据说明](https://www.ecma-international.org/ecma-262/9.0/index.html#sec-binary-logical-operators)，『`&&` 或者 `||` 运算符的返回值并不一定是布尔值。而是两个操作表达式的其中之一。』  
  
 举个 `&&` 运算符的例子，如果第一个表达式的布尔值是 false，那么该值就会被返回。否则，第二个表达式的值就会被使用。这说明表达式 `0 && 1` 会返回 `0` (一个 false 值), 而表达式 `2 && 3` 会返回 `3`. 如果多个 `&&` 表达式连在一起，它们将会返回第一个 false 植或最后一个值。举个例子，`1 && 2 && 3 && null && 4` 会返回 `null`, 而 `1 && 2 && 3` 会返回 `3`.
 
-那么如何安全的获取嵌套对象内的属性呢？JavaScript 里的逻辑运算符会“短路”。 在这个 `&&` 的例子中，这表示表达式会在到达第一个假值时停下来。
+那么如何安全的获取嵌套对象内的属性呢？JavaScript 里的逻辑运算符会『短路』。 在这个 `&&` 的例子中，这表示表达式会在到达第一个假值时停下来。
 
 ```
 const foo = false && destroyAllHumans();
@@ -77,9 +77,9 @@ const favoriteVlog = favorites.video && favorites.video.vlogs && favorites.video
 
 对象嵌套的越深，它就变得越笨重。
 
-### “或单元”
+### 『或单元』
 
-Oliver Steele 提出这个方法并且在他发布的博客里探究了更多的细节，[“单元第一章：或单元”](https://blog.osteele.com/2007/12/cheap-monads/) 我会试着在这里给出一个简要的解释。
+Oliver Steele 提出这个方法并且在他发布的博客里探究了更多的细节，[『单元第一章：或单元』](https://blog.osteele.com/2007/12/cheap-monads/) 我会试着在这里给出一个简要的解释。
 
 ```
 const favoriteBook = ((favorites.reading||{}).books||[])[0]; // undefined
@@ -152,13 +152,13 @@ const favoriteBook = tryFn(() => favorites.reading.book[0]); // null
 const favoriteMovie = tryFn(() => favorites.video.movies[0]); // "Casablanca"
 ```
 
-通过一个函数包裹获取对象属性的行为，你可以延后“不安全”的代码，并且把它传入 `try...catch`。
+通过一个函数包裹获取对象属性的行为，你可以延后『不安全』的代码，并且把它传入 `try...catch`。
 
 这个方法的主要优势在于它十分自然地获取了属性。只要属性被封装在一个函数中，属性就可以被安全访问，同时可以为不存在的路径返回指定的默认值。
 
 ### 与默认对象合并
 
-通过将对象与相近结构的“默认”对象合并，我们能确保获取属性的路径是安全的。
+通过将对象与相近结构的『默认』对象合并，我们能确保获取属性的路径是安全的。
 
 ```
 const defaults = {
@@ -234,7 +234,7 @@ console.log(merged.font.style); // "normal"
 
 ### 未来：可选链式调用
 
-目前 TC39 提案中有一个功能叫“可选链式调用”。这个新的运算符看起来像这样：
+目前 TC39 提案中有一个功能叫『可选链式调用』。这个新的运算符看起来像这样：
 
 ```
 console.log(favorites?.video?.shows[0]); // 'The Simpsons'
@@ -251,7 +251,7 @@ console.log(favorites?.audio?.audiobooks[0] || "The Hobbit");
 
 ### 我们该使用哪一种方法？
 
-答案或许你已经猜到了，正是那句老话“看情况而定”。如果可选链式调用已经被加到语言中并且获得了必要的浏览器支持，这或许是最好的选择。然而，如果你不来自未来，那么你有更多需要考虑的。你在使用工具库吗？你的对象嵌套有多深？你是否需要指定默认值？我们需要根据不同的场景采用不同的方法。
+答案或许你已经猜到了，正是那句老话『看情况而定』。如果可选链式调用已经被加到语言中并且获得了必要的浏览器支持，这或许是最好的选择。然而，如果你不来自未来，那么你有更多需要考虑的。你在使用工具库吗？你的对象嵌套有多深？你是否需要指定默认值？我们需要根据不同的场景采用不同的方法。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
