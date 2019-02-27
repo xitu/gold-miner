@@ -409,7 +409,7 @@ iOS 团队和 Android 团队有不同的说法。
 
 #### 移动设备上的 Udacity
 
-[**移动设备上的 Udacity | iPad, iPhone 和 Android**：我们已经将 Udacity 的课程体验带到了 iPad 和 iPhone 和 Android 上。开始学习你所需的技能吧)(https://www.udacity.com/mobile)
+[**移动设备上的 Udacity | iPad, iPhone 和 Android**：我们已经将 Udacity 的课程体验带到了 iPad 和 iPhone 和 Android 上。开始学习你所需的技能吧](https://www.udacity.com/mobile)
 
 感谢 [Aashish Bansal](https://medium.com/@aashish.bansal?source=post_page) 和 [Justin Li](https://medium.com/@li.justin?source=post_page)。
 

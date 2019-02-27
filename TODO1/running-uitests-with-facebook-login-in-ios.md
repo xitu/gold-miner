@@ -2,38 +2,38 @@
 > * 原文作者：[Khoa Pham](https://hackernoon.com/@onmyway133?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/running-uitests-with-facebook-login-in-ios.md](https://github.com/xitu/gold-miner/blob/master/TODO1/running-uitests-with-facebook-login-in-ios.md)
-> * 译者：
-> * 校对者：
+> * 译者： [LoneyIsError](https://github.com/LoneyIsError)
+> * 校对者：[Alan](https://github.com/Wangalan30)
 
-# Running UITests with Facebook login in iOS
+# 在 iOS 中使用 UITests 测试 Facebook 登录功能
 
 ![](https://cdn-images-1.medium.com/max/800/0*Opf2sAlTPclE_4kE.jpg)
 
-Source: Google
+图片来源：谷歌
 
-Today I’m trying to run some UITest on my app, which uses Facebook login. And here are some of my notes on it.
+今天我正试图在我的应用程序上运行一些 UITest，它集成了 Facebook 登录功能。以下是我的一些笔记。
 
 ![](https://cdn-images-1.medium.com/max/600/0*e0lQASZpw5qGT7jn.gif)
 
-### Challenges
+### 挑战
 
-*   The challenges with Facebook is it uses `Safari controller`, we we deal mostly with `web view` for now. Starting from iOS 9+, Facebook decided to use `safari` instead of `native facebook app` to avoid app switching. You can read the detail here [Building the Best Facebook Login Experience for People on iOS 9](https://developers.facebook.com/blog/post/2015/10/29/Facebook-Login-iOS9/)
-*   It does not have wanted `accessibilityIdentifier` or `accessibilityLabel`
-*   The webview content may change in the future 😸
+*   对我们来说，使用 Facebook 的挑战主要在于，它使用了 `Safari controller`，而我们主要处理 `web view`。从 iOS 9+ 开始，Facebook 决定使用 `safari` 取代 `native facebook app` 以此来避免应用间的切换。你可以在这里阅读详细信息 [在 iOS 9 上为人们构建最佳的 Facebook 登录体验](https://developers.facebook.com/blog/post/2015/10/29/Facebook-Login-iOS9/)。
+*   它并没有我们想要的 `accessibilityIdentifier` 或者 `accessibilityLabel`。
+*   webview 内容将来可能会发生变化 😸
 
-### Create a Facebook test user
+### 创建一个 Facebook 测试用户
 
-Luckily, you don’t have to create your own Facebook user to test. Facebook supports test users that you can manage permissions and friends, very handy
+幸运的是，您不必创建自己的 Facebook 用户用于测试。Facebook 支持创建测试用户，可以管理权限和好友，非常方便。
 
 ![](https://cdn-images-1.medium.com/max/800/0*kVdiqx7CB7b43dRw.png)
 
-When creating the test user, you have the option to select language. That will be the displayed language in Safari web view. I choose `Norwegian` 🇳🇴 for now
+当我们创建测试用户时，您还可以选择不同语言。这将是 Safari Web 视图中显示的语言。我现在选择的是 `Norwegian` 🇳🇴。
 
 ![](https://cdn-images-1.medium.com/max/800/0*H7V1GZN413eb1y4n.png)
 
-### Click the login button and show Facebook login
+### 单击登录按钮并显示 Facebook 登录
 
-Here we use the default `FBSDKLoginButton`
+这里我们使用默认的 `FBSDKLoginButton`。
 
 ```
 var showFacebookLoginFormButton: XCUIElement {
@@ -41,19 +41,19 @@ var showFacebookLoginFormButton: XCUIElement {
 }
 ```
 
-And then tap it
+然后点击它
 
 ```
 app.showFacebookLoginFormButton.tap()
 ```
 
-### Check login status
+### 检查登录状态
 
-When going to safari Facebook form, user may have already logged in or not. So we need to handle these 2 cases. When user has logged in, Facebook will say something like “you have already logged in” or the `OK` button.
+当在 Safari 访问 Facebook 表单时，用户也许已经登录过，也许没有。所以我们需要处理这两种情况。所以我们需要处理这两个场景。当用户已经登录时，Facebook 会返回`你已经登录`或 `OK` 按钮。
 
-The advice here is to put breakpoint and `po app.staticTexts`, `po app.buttons` to see which UI elements are at a certain point.
+这里的建议是添加断点，然后使用 `lldb` 命令 `po app.staticTexts` 和 `po app.buttons`，查看当前断点下的 UI 元素。
 
-You can check for the static text, or simply just the `OK` button
+您可以检查静态文本，或只是点击 `OK` 按钮。
 
 ```
 var isAlreadyLoggedInSafari: Bool {
@@ -61,15 +61,15 @@ var isAlreadyLoggedInSafari: Bool {
 }
 ```
 
-### Wait and refresh
+### 等待并刷新
 
-But Facebook form is a webview, so its content is a bit dynamic. And UITest seems to cache content for fast query, so before checking `staticTexts`, we need to `wait` and `refresh the cache`
+因为 Facebook 表单是一个 webview，所以它的内容是有点动态的。并且 UITest 似乎会缓存内容以便快速查询，因此在检查 `staticTexts` 之前，我们需要 `wait` 和 `refresh the cache`。
 
 ```
 app.clearCachedStaticTexts()
 ```
 
-This is the `wait` function
+这里实现了 `wait` 功能。
 
 ```
 extension XCTestCase {
@@ -87,9 +87,9 @@ extension XCTestCase {
 }
 ```
 
-### Wait for element to appear
+### 等待元素出现
 
-But a more solid approach would be to wait for element to appear. For Facebook login form, they should display a `Facebook` label after loading. So we should wait for this element
+但更保险的方法是等待元素出现。对于 Facebook 登录表单来说，他们会在加载后显示 `Facebook` 的标签。所以我们应该等待这个元素出现。
 
 ```
 extension XCTestCase {
@@ -106,15 +106,15 @@ extension XCTestCase {
 }
 ```
 
-And call this before you do any further inspection on elements in Facebook login form
+在对 Facebook 登录表单中的元素进行任何进一步检查之前，请调用此方法。
 
 ```
 wait(for: app.staticTexts["Facebook"], timeout: 5)
 ```
 
-### If user is logged in
+### 如果用户已登录
 
-After login, my app shows the main controller with a map view inside. So a basic test would be to check the existence of that map
+登录后，我的应用程序会在主控制器中显示一个地图页面。因此，我们需要简单的测试一下，检查该地图是否存在。
 
 ```
 if app.isAlreadyLoggedInSafari {
@@ -126,9 +126,9 @@ if app.isAlreadyLoggedInSafari {
 }
 ```
 
-### Handle interruption
+### 处理中断
 
-You know that when showing the map with location, `Core Location` will ask for permission. So we need to handle that interruption as well. You need to ensure to call it early before the alert happens
+我们知道，当要显示位置地图时，`Core Location` 会发送请求许可。所以我们也需要处理这种中断。你需要确保在弹框弹出之前尽早调用它。
 
 ```
 fileprivate func handleLocationPermission() {
@@ -139,30 +139,30 @@ fileprivate func handleLocationPermission() {
 }
 ```
 
-There is another problem, this `monitor` won't be called. So the workaround is to call `app.tap()` again when the alert will happen. In my case, I call `app.tap()` when my `map` has been shown for 1,2 seconds, just to make sure `app.tap()` is called after alert is shown
+还有一个问题，这个`监视器`不会被调用。所以解决方法是在弹框弹起时再次调用 `app.tap()`。 对我来说，我会在我的 ‘地图’ 显示1到2秒后调用 `app.tap()`，这是为了确保在显示弹框之后再调用 `app.tap()`。
 
-For a more detailed guide, please read [#48](https://github.com/onmyway133/blog/issues/48)
+更详细的指南，请阅读 [#48](https://github.com/onmyway133/blog/issues/48)
 
-### If user is not logged in
+### 如果用户未登录
 
-In this case, we need to fill in email and password. You can take a look at the `The full source code`section below. When things don't work or `po` does not show you the elements you needed, it's probably because of caching or you need to wait until dynamic content finishes rendering.
+在这种情况下，我们需要填写邮箱账户和密码。 您可以查看下面的`完整源代码`部分。当如果方法不起作用或者 `po` 命令并没有打印出你需要的元素时，这可能是因为缓存或者你需要等到动态内容渲染完成后在再尝试。
 
-You need to wait for element to appear
+您需要等待元素出现。
 
-### Tap on the text field
+### 点击文本输入框
 
-You may get `Neither element nor any descendant has keyboard focus`, here are the workaround
+如果遇到这种情况 `Neither element nor any descendant has keyboard focus`，这是解决方法。
 
-*   If you test on Simulator, make sure `Simulator -> Hardware -> Keyboard -> Connect Hardware Keyboard` is not checked
-*   `wait` a bit after tap
+*   如果你在模拟器上测试, 请确保没有选中 `Simulator -> Hardware -> Keyboard -> Connect Hardware Keyboard`。
+*   点击后稍微 `稍等` 一下。
 
 ```
 app.emailTextField.tap()
 ```
 
-### Clear all the text
+### 清除所有文字
 
-The idea is to move the caret to the end of the textField, then apply each `delete key` for each character, then type the next text
+此举是为了将光标移动到文本框末尾，然后依次删除每一个字符，并键入新的文本。
 
 ```
 extension XCUIElement {
@@ -180,9 +180,9 @@ extension XCUIElement {
 }
 ```
 
-### Change language
+### 修改语言环境
 
-For my case, I want to test in Norwegian, so we need to find the `Norwegian` option and tap on that. It is identified as `static text` by `UI Test`
+对我来说，我想用挪威语进行测试，所以我们需要找到 `Norwegian` 选项并点击它。它被 `UI Test` 识别为`静态文本`。
 
 ```
 var norwegianText: XCUIElement {
@@ -193,9 +193,9 @@ wait(for: app.norwegianText, timeout: 1)
 app.norwegianText.tap()
 ```
 
-### The email text field
+### 邮箱账户输入框
 
-Luckily, email text field is detected by `UI Test` as `text field` element, so we can query for that. This uses predicate
+幸运的是，邮箱账户输入框可以被 `UI Test` 检测为 `text field` 元素，因此我们可以查询它。这里使用谓词。
 
 ```
 var emailTextField: XCUIElement {
@@ -204,9 +204,9 @@ var emailTextField: XCUIElement {
 }
 ```
 
-### The password text field
+### 密码输入框
 
-`UI Test` can't seem to identify the password text field, so we need to search for it by `coordinate`
+`UI Test` 似乎无法识别出密码输入框，因此我们需要通过 `coordinate` 进行搜索。
 
 ```
 var passwordCoordinate: XCUICoordinate {
@@ -215,27 +215,27 @@ var passwordCoordinate: XCUICoordinate {
 }
 ```
 
-This is the document for `func coordinate(withNormalizedOffset normalizedOffset: CGVector) -> XCUICoordinate`
+下面是这个方法的文档描述`func coordinate(withNormalizedOffset normalizedOffset: CGVector) -> XCUICoordinate`
 
-> _Creates and returns a new coordinate with a normalized offset.  
-> The coordinate’s screen point is computed by adding normalizedOffset multiplied by the size of the element’s frame to the origin of the element’s frame._
+> **创建并返回带有标准化偏移量的新坐标。**
+> **坐标的屏幕点是通过将 normalizedOffset 乘以元素 `frame` 的大小与元素 `frame` 的原点相加来计算的。**
 
-Then type the password
+然后输入密码
 
 ```
 app.passwordCoordinate.tap()
 app.typeText("My password")
 ```
 
-We should not use `app.passwordCoordinate.referencedElement` because it will point to email text field ❗️ 😢
+我们不应该使用 `app.passwordCoordinate.referencedElement` 因为它会指向邮箱账户输入框 ❗️ 😢
 
-### Run that test again
+### 再次运行该测试
 
-Go to `Xcode -> Product -> Perform Actions -> Test Again` to run the previous test again
+这里我们从 `Xcode -> Product -> Perform Actions -> Test Again` 再次运行上一个测试。
 
 ![](https://cdn-images-1.medium.com/max/800/0*kYHd-HY0mLvgdXUs.png)
 
-Here are the full source code
+以下是完整的源代码
 
 ```
 import XCTest
@@ -360,16 +360,16 @@ extension XCUIElement {
 }
 ```
 
-### One more thing
+### 另外一点
 
-Thanks to the helpful feedback on my article Original story [https://github.com/onmyway133/blog/issues/44](https://github.com/onmyway133/blog/issues/44), here are some more ideas
+感谢这些我原创文章的有用反馈 [https://github.com/onmyway133/blog/issues/44](https://github.com/onmyway133/blog/issues/44)，这里有一些更多的点子。
 
-*   To look for password text fields, we can actually use `secureTextFields` instead of coordinate
-*   The `wait` function should be made as an extension to `XCUIElement` so other element can use that. Or you can just use the old `expectation` style, which does not involve a hardcoded interval value.
+*   要查找密码输入框，实际上我们可以使用 `secureTextFields` 来代替使用 `coordinate`。
+*   `wait` 函数应该作为 `XCUIElement` 的扩展，以便于其他元素可以使用它。或者你可以使用旧的 `expectation` 样式，这不涉及硬编码的间隔值。
 
-### Where to go from here
+### 进一步拓展
 
-I found these guides to cover many aspects of UITests, worth taking a look
+这些指南涵盖了 UITests 许多方面的内容，值得一看。
 
 *   [UI-Testing-Cheat-Sheet](https://github.com/joemasilotti/UI-Testing-Cheat-Sheet)
 *   [Everything About Xcode UI Testing](http://samwize.com/2016/02/28/everything-about-xcode-ui-testing-snapshot/)
