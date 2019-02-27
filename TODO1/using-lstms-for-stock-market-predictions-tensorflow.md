@@ -368,8 +368,8 @@ print('\tAll done')
 
 Here you will train and predict stock price movements for several epochs and see whether the predictions get better or worse over time. You follow the following procedure. I’m not sharing the code as I’m sharing the link to the full Jupyter notebook.
 
-_Define a test set of starting points (_`test_points_seq`_) on the time series to evaluate the model on_
-
+> ★ _Define a test set of starting points (_`test_points_seq`_) on the time series to evaluate the model on_
+>
 > ★ _For each epoch_
 >
 > ★★ _For full sequence length of training data_
