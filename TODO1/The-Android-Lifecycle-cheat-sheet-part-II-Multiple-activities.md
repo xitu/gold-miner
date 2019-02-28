@@ -6,6 +6,7 @@
 > * 校对者：
 
 # The Android Lifecycle cheat sheet — part II: Multiple activities
+
 In this series:  
 [Part I: Activities — single activity lifecycle](https://medium.com/@JoseAlcerreca/the-android-lifecycle-cheat-sheet-part-i-single-activities-e49fd3d202ab)  
 **Part II: Multiple activities** — navigation and back stack (this post)
@@ -13,7 +14,6 @@ In this series:
 [Part IV: ViewModels, Translucent Activities and Launch Modes](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iv-49946659b094)
 
 The diagrams are also available as a [cheat sheet in PDF format](https://github.com/JoseAlcerreca/android-lifecycles) for quick reference.
-
 
 > Note that, when showing lifecycles for multiple components (activities, fragments, etc) in a diagram, grouped events that appear side by side run in parallel. The execution focus can switch from one parallel group of events to another at any time, so **the order of calls among parallel groups of events is not guaranteed**. However, order inside a group is guaranteed.
 >
@@ -35,7 +35,6 @@ Note that [`onSaveInstanceState`](https://developer.android.com/reference/androi
 
 If the system kills the app process to save resources, this is another scenario in which the state needs to be restored.
 
-
 ## Back Stack — Scenario 2: Activities in the back stack with configuration changes
 
 ![](https://cdn-images-1.medium.com/max/800/1*TaoqKwKSPur_2S__OzhdoQ.png)
@@ -47,7 +46,6 @@ If the system kills the app process to save resources, this is another scenario 
 Saving state is not only important for the activity in the foreground. **All activities in the stack need to restore state after a configuration change** to recreate their UI.
 
 Also, the system can kill your app’s process at almost any time so you should be prepared to restore state in any situation.
-
 
 ## Back Stack — Scenario 3: App’s process is killed
 
