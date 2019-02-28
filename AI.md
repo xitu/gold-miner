@@ -1,3 +1,6 @@
+* [提取图像中的文字、人脸或者条形码 — 形状检测 API](https://juejin.im/post/5c64026fe51d457f963d249c) ([jerryOnlyZRJ](https://github.com/jerryOnlyZRJ) 翻译)
+* [Python 的时间序列分析：简介](https://juejin.im/post/5c6c12def265da2ddc3c70ce) ([ppp-man](https://github.com/ppp-man) 翻译)
+* [从 Instagram 上的故事和反馈机器学习中收获的一些经验](https://juejin.im/post/5c683dfce51d45164c7599fb) ([TrWestdoor](https://github.com/TrWestdoor) 翻译)
 * [利用 Python中的 Bokeh 实现数据可视化，第一部分：入门](https://juejin.im/post/5c3c83c7f265da612d197bf0) ([Starriers](https://github.com/Starriers) 翻译)
 * [利用 Python中的 Bokeh 实现数据可视化，第二部分：交互](https://juejin.im/post/5c34a9dee51d4551d044efce) ([Starriers](https://github.com/Starriers) 翻译)
 * [利用 Python中的 Bokeh 实现数据可视化，第三部分：制作一个完整的仪表盘](https://juejin.im/post/5c3ae4656fb9a049d9757021) ([YueYongDev](https://github.com/YueYongDev) 翻译)
