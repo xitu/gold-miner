@@ -7,8 +7,6 @@
 
 # Using errors as control flow in Swift
 
-I’ve written articles about some of the other great new features coming in Swift 5, and you might want to check them out:
-
 How we manage the control flow within the apps and systems that we work on can have a huge impact on everything from how fast our code executes, to how easy it is to debug. Our code's control flow is essentially the order in which our various functions and statements get executed, and what code paths that end up being entered.
 
 While Swift offers a number of tools for defining control flow - such as statements like `if`, `else` and `while`, and constructs like optionals - this week, let's take a look at how we can use Swift's built-in error throwing and handling model to make our control flow easier to manage.
