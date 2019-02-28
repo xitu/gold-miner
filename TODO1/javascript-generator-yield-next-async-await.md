@@ -27,7 +27,7 @@ generator 的暂停和恢复是使用 `yield` 和 `next` 完成的。让我们�
 
 > 一旦暂停 `yield` 表达式，generator 的代码执行将保持暂停状态，直到调用 generator 的 `next()` 方法为止。每次调用 generator 的 `next()` 方法时，generator 都会恢复执行并返回 [iterator](https://codeburst.io/javascript-es6-iterables-and-iterators-de18b54f4d4) 结果。
 
-嗯……理论先到这里，让我们看一个例子
+嗯……理论先到这里，让我们看一个例子：
 
 ```js
 function* UUIDGenerator() {
@@ -44,7 +44,7 @@ function* UUIDGenerator() {
 
 UUIDGenerator 是一个 Generator 函数，它使用当前时间和随机数计算 UUID ，并在每次执行时返回一个新的 UUID 。
 
-要运行上面的函数，我们需要创建一个我们可以调用的 generator 对象 `next()`
+要运行上面的函数，我们需要创建一个我们可以调用的 generator 对象 `next()`：
 
 ```js
 const UUID = UUIDGenerator();
@@ -58,7 +58,7 @@ UUID.next()
 
 > 注意：我们暂停在无限循环之上，这对于 generator 函数中的任何“停止点”都是很酷的，它们不仅可以为外部函数生成值，而且还可以从外部接收值。
 
-有许多 generator 的实现，并且很多库都在大量使用。比如说 [co](https://github.com/tj/co) 、[koa](https://koajs.com/) 和 [redux-saga](https://github.com/redux-saga/redux-saga)。 
+有许多 generator 的实现，并且很多库都在大量使用。比如说 [co](https://github.com/tj/co) 、[koa](https://koajs.com/) 和 [redux-saga](https://github.com/redux-saga/redux-saga) 。
 
 * * *
 
@@ -66,11 +66,11 @@ UUID.next()
 
 ![](https://cdn-images-1.medium.com/max/1600/0*LAkE4GiZATgtseM5)
 
-传统上，当一个异步操作返回由 `Promise` 处理的数据时，回调会被传递并调用。
+依照惯例，当一个异步操作返回由 `Promise` 处理的数据时，回调会被传递并调用。
 
 > Async/Await 是一种特殊的语法，以更舒适的方式使用 Promise ，这种方式非常容易理解和使用。
 
-**_Async_** _关键字_ 用于定义 _异步函数_, 该函数返回一个 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncFunction" title=" AsyncFunction 构造函数创建一个新的异步函数对象。在 JavaScript 中，每个异步函数实际上都是一个 AsyncFunction 对象。" rel="noopener" target="_blank">AsyncFunction</a> 对象.
+**_Async_** _关键字_ 用于定义 _异步函数_ ，该函数返回一个 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncFunction" title=" AsyncFunction 构造函数创建一个新的异步函数对象。在 JavaScript 中，每个异步函数实际上都是一个 AsyncFunction 对象。" rel="noopener" target="_blank">AsyncFunction</a> 对象。
 
 _Await 关键字_ 用于暂停异步函数执行， 直到 `Promise` 被解决（resolved 或者 reject）, 并在完成后继续执行 `async` 函数。恢复时，await 表达式的值是已满足的值 Promise 。
 
@@ -101,7 +101,7 @@ async function asyncFunction() {
 asyncFunction();
 ```
 
-在 `await promise` 这一行，`asyncFunction` 执行 “暂停”，并在 promise 被解决后回复, `result` （第 95 行的 `const result`）变成它的结果。上面的代码在一秒钟后展示 “`i am resolved!`” 。
+在 `await promise` 这一行，`asyncFunction` 执行“暂停”，并在 promise 被解决后回复, `result`（第 95 行的 `const result`）变成它的结果。上面的代码在一秒钟后展示“ `i am resolved!` ”。
 
 * * *
 
@@ -127,7 +127,7 @@ asyncFunction();
 
 * * *
 
-**如果你喜欢这篇文章，请鼓掌。提示：你可以拍 50 次！此外，推荐和分享，以帮助其他人找到它！**
+**如果你喜欢这篇文章，请鼓掌。提示：你可以拍 50 次！此外，欢迎推荐和分享，以帮助其他人找到它！**
 
 **谢谢！**
 
