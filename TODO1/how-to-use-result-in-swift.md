@@ -20,6 +20,7 @@ enum NetworkError: Error {
     case badURL
 }
 ```
+
 The fetching function will accept a URL string as its first parameter, and a completion handler as its second. That completion handler will itself accept a `Result`, where the success case will store an integer, and the failure case will be some sort of `NetworkError`. We’re not actually going to connect to a server here, but using a completion handler at least lets us simulate asynchronous code.
 
 Here’s the code:
@@ -164,6 +165,7 @@ enum FactorError: Error {
     case isPrime
 }
 ```
+
 Next, we’d write a function that accepts a maximum number, and returns either a random number or an error:
 
 ```
@@ -240,7 +242,6 @@ If you’re curious to learn more about result types in Swift, you might want to
 I would also highly recommend reading Matt Gallagher’s [excellent discussion of `Result`](https://www.cocoawithlove.com/blog/2016/08/21/result-types-part-one.html) – it’s a few years old now, but still both useful and interesting.
 
 **Sponsored** You’re already busy updating your app for Swift 4.2 and iOS 12, so why not let Instabug help you find and fix bugs? **Add just two lines of code** to your project and receive comprehensive reports with all the feedback you need to ship a world-class app – [click here to learn more](https://try.instabug.com/ios/?utm_source=hackingwithswift&utm_medium=native_ads&utm_campaign=hackingwithswiftv3)!
-
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
