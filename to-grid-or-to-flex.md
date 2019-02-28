@@ -86,7 +86,7 @@ By contrast, if we were to create this layout with flexbox, we would need to sty
 
 We need negative margins on the grid container to counteract the fact that the total width of the items would be larger than the container itself, and therefore wrap onto the next line. We also don’t get the same responsive behaviour out of the box and would likely need to use media queries.
 
-<iframe height="419" style="width: 100%;" scrolling="no" title="Flexbox layout examples" src="//codepen.io/michellebarker/embed/VgXwRJ/?height=419&amp;theme-id=0&amp;default-tab=result" frameborder="no" allowtransparency="true" allowfullscreen="true">See the Pen <a href='https://codepen.io/michellebarker/pen/VgXwRJ/'>Flexbox layout examples</a> by Michelle Barker (<a href='https://codepen.io/michellebarker'>@michellebarker</a>) on <a href='https://codepen.io'>CodePen</a>.</iframe>
+See the Pen [Flexbox layout examples](https://codepen.io/michellebarker/pen/VgXwRJ/) by Michelle Barker ([@michellebarker](https://codepen.io/michellebarker)) on [CodePen](https://codepen.io).
 
 There are a few different ways to achieve this same layout with flexbox, but they all feel a bit hacky – and that’s because they are. We’re using flexbox for something it wasn’t really designed for – but that doesn’t mean it’s always the wrong choice.
 
