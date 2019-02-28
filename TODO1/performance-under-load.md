@@ -1,13 +1,11 @@
-
 > * 原文地址：[Performance Under Load](https://medium.com/@NetflixTechBlog/performance-under-load-3e6fa9a60581)
-> * 原文作者：[Netflix Technology Blog
-Netflix Technology Blog](https://medium.com/@NetflixTechBlog)
+> * 原文作者：[Netflix Technology Blog Netflix Technology Blog](https://medium.com/@NetflixTechBlog)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/performance-under-load.md](https://github.com/xitu/gold-miner/blob/master/TODO1/performance-under-load.md)
 > * 译者：
 > * 校对者：
 
-## Performance Under Load
+# Performance Under Load
 
 *Adaptive Concurrency Limits @ Netflix*
 >  by Eran Landau, William Thurston, Tim Bozarth
@@ -67,3 +65,9 @@ It’s important to note that limits are enforced at the server level (with no c
 As we roll out adaptive concurrency limits we’re eliminating the need to babysit and manually tune how our services shed load. Even more, it does it while simultaneously improving the overall reliability and availability of our whole microservice-based ecosystem.
 
 We’re excited to share our implementation and common integrations in a small open source library that can be found at [http://github.com/Netflix/concurrency-limits](http://github.com/Netflix/concurrency-limits). Our hope is that anyone interested in shielding their services from cascading failures and load-related latency degradation can take advantage of our code to achieve better availability. We look forward to feedback from the community and are happy to accept pull requests with new algorithms or integrations.
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
