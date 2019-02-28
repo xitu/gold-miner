@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/swift-5-exclusivity.md](https://github.com/xitu/gold-miner/blob/master/TODO1/swift-5-exclusivity.md)
 > * 译者：[LoneyIsError](https://github.com/LoneyIsError)
-> * 校对者：[Bruce-pac](https://github.com/Bruce-pac)
+> * 校对者：[Bruce-pac](https://github.com/Bruce-pac),[Danny1451](https://github.com/Danny1451)
 
 # Swift 5 强制独占性原则
 
 > 在理解概念时参照了喵神的[所有权宣言 - Swift 官方文章 Ownership Manifesto 译文评注版](https://onevcat.com/2017/02/ownership/)
 
-Swift 5 允许在 Release 构建过程中默认启用关于「独占访问内存」的运行时检查，进一步增强了 Swift 作为安全语言的能力。在 Swift 4 中，这种运行时检查仅被允许在 Debug 构建过程中启用。在这篇文章中，首先我将解释这个变化对 Swift 开发人员的意义，然后再深入研究为什么它对 Swift 的安全和性能策略至关重要。
+Swift 5 允许在 Release 构建过程中默认启用关于「独占访问内存」的运行时检查，进一步增强了 Swift 作为安全语言的能力。在 Swift 4 中，这种运行时检查仅允许在 Debug 构建过程中启用。在这篇文章中，首先我将解释这个变化对 Swift 开发人员的意义，然后再深入研究为什么它对 Swift 的安全和性能策略至关重要。
 
 ## 背景
 
-为了保障 [内存安全](https://docs.swift.org/swift-book/LanguageGuide/MemorySafety.html)，Swift 需要对变量进行独占访问时才能修改该变量。本质上来说，变量不能在一个持续时间内，作为 `inout` 参数或者 `mutating` 方法中的 `self` ，通过不同的名称同时访问并进行修改。
+为了实现 [内存安全](https://docs.swift.org/swift-book/LanguageGuide/MemorySafety.html)，Swift 需要对变量进行独占访问时才能修改该变量。本质上来说，当一个变量作为 `inout` 参数或者 `mutating` 方法中的 `self` 被修改时，不能通过不同的名称被访问的。
 
 在以下示例中，通过将 `count` 作为 `inout` 参数传递来对 `count` 变量进行修改。出现独占性违规情况是因为 `modifier` 闭包对捕获的 `count` 变量同时进行了读取操作，并且在同一变量修改的范围内进行了调用。在 `modifyTwice` 函数中，`count` 变量只能通过 `inout ` 修饰的 `value` 参数来进行安全访问而在 `modified` 闭包内，它只能以 `$0` 来进行安全访问。
 
@@ -46,11 +46,11 @@ Swift 5 中的强制独占性检查对现有项目可能会产生以下两种影
 
 1. 如果项目源码违反了 Swift 的独占性规则（具体查看 [SE-0176：实施对内存的独占访问](https://github.com/apple/swift-evolution/blob/master/proposals/0176-enforce-exclusive-access-to-memory.md)），Debug 调试测试时未能执行无效代码，然后，在构建 Release 二进制文件时可能会触发运行时陷阱。产生崩溃并抛出一个包含字符串的诊断消息：
 
-   「同时访问…，但需要修改独占访问权限」
+   「Simultaneous accesses to …, but modification requires exclusive access」
 
-    源代码级别修复通常很简单。下面会展示常见的违规和修复示例。
+    源代码级别修复通常很简单。后面的章节会展示常见的违规和修复示例。
     
-2. 内存访问检查的开销可能会影响构建 Release 二进制文件过程中的性能。在大多数情况下，这种影响应该很小；如果你发现某个可测量的性能下降情况，请提交 bug，以便我们了解需要改进的内容。作为一般性准则，应当避免在大多数性能关键循环中执行类属性访问，特别是在每个循环迭代中的不同对象上。如果必须如此，那么你可以将类属性修饰为 `private` 或 `internal` 来帮助告知编译器没有其他代码访问循环内的相同属性。
+2. 内存访问检查的开销可能会影响的 Release 二进制包的性能。在大多数情况下，这种影响应该很小；如果你发现某个明显的性能下降情况，请提交 bug，以便我们了解需要改进的内容。作为一般性准则，应当避免在大多数性能关键循环中执行类属性访问，特别是在每个循环迭代中的不同对象上。如果必须如此，那么你可以将类属性修饰为 `private` 或 `internal` 来帮助告知编译器没有其他代码访问循环内的相同属性。
 
 你可以通过 Xcode 的「Exclusive Access to Memory」构建设置来禁用这些运行时检查，该设置还有「Run-time Checks in Debug Builds Only」和「Compile-time Enforcement Only」两个选项：
 
@@ -85,7 +85,7 @@ extension Array {
 }
 ```
 
-但是，使用此方法将自身数组中的所有元素添加到自身将引发意外情况 —— 死循环。在这里，编译器在构建时再次抛出异常，因为「inout 参数不允许彼此混淆。」：
+但是，使用此方法将自身数组中的所有元素添加到自身将引发意外情况 —— 死循环。在这里，编译器在构建时再次抛出异常，因为「inout arguments are not allowed to alias each other」：
 
 ![append(removingFrom:) error](https://swift.org/assets/images/exclusivity-blog/Example2.png)
 
@@ -100,7 +100,7 @@ elements.append(removingFrom: &toAppend)
 
 可以在 [在 Swift 4.2 中将独占访问内存警告升级为错误](https://forums.swift.org/t/upgrading-exclusive-access-warning-to-be-an-error-in-swift-4-2/12704) 中找到导致构建错误的一些常见情况的示例。
 
-通过更改第一个示例，使用全局变量而不是局部变量，可以防止编译器在构建时抛出错误。然而, 程序将会踏进「同时访问」的程序陷阱:
+通过更改第一个示例，使用全局变量而不是局部变量，可以防止编译器在构建时抛出错误。然而，运行程序会命中「Simultaneous access」 的检查:
 
 ![global count error](https://swift.org/assets/images/exclusivity-blog/Example3.png)
 
@@ -126,7 +126,7 @@ point.modifyX {
 }
 ```
 
-运行时检测捕获了在开始调用 `modifyX` 时的访问信息，以及在 `getY` 闭包内发生冲突的访问信息，以及显示了导致冲突的路径回溯：
+运行时检测捕获了在开始调用 `modifyX` 时的访问信息，以及在 `getY` 闭包内发生冲突的访问信息，以及显示了导致冲突的堆栈信息：
 
 ```
 Simultaneous accesses to ..., but modification requires exclusive access.
@@ -217,7 +217,7 @@ point.modifyX {
 
 1.  执行独占性检查消除了程序涉及可变状态和远距离动作的危险交互。
 
-    随着程序规模的不断扩大，越来越可能以意想不到的方式进行交互。 下面的例子在类似于上面的`Array.append(removedFrom:)` 例子，需要执行独占性检查来避免程序员将相同的变量同时作为源数据和目标数据进行传递。但请注意，一旦涉及到类对象，因为这两个变量引用了同一个对象，程序就会在无意中更容易在 `src` 和 `dest` 位置上传递同一个的 `Names` 实例。当然，这样就会导致死循环：
+    随着程序规模的不断扩大，越来越可能会以意想不到的方式进行交互。下面的例子在类似于上面的`Array.append(removedFrom:)` 例子，需要执行独占性检查来避免程序员将相同的变量同时作为源数据和目标数据进行传递。但请注意，一旦涉及到类对象，因为这两个变量引用了同一个对象，程序就会在无意中更容易在 `src` 和 `dest` 位置上传递同一个的 `Names` 实例。当然，这样就会导致死循环：
 
 ```
 func moveElements(from src: inout Set<String>, to dest: inout Set<String>) {
