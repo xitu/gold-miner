@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-hooks-mean-for-vue.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-hooks-mean-for-vue.md)
 > * 译者：[Ivocin](https://github.com/Ivocin)
-> * 校对者：[LeoYang](https://github.com/LeoooY),[TUARAN](https://github.com/TUARAN)
+> * 校对者：[LeoYang](https://github.com/LeoooY), [TUARAN](https://github.com/TUARAN)
 
 # Hooks 对 Vue 而言意味着什么
 
@@ -21,7 +21,7 @@ Hooks 主要是对模式的复用提供了一种更明确的思路 —— 避免
 
 Hooks 允许我们使用函数调用来定义组件的有状态逻辑，从而解决这些问题。这些函数调用变得更具有组合性、可复用性，并且允许我们在使用函数式组件的同时能够访问和维护状态。React 发布 Hooks 时，人们很兴奋 —— 下面你可以看到 Hooks 展示的一些优势，关于它们如何减少代码和重复：
 
-> 将 [@dan_abramov](https://twitter.com/dan_abramov?ref_src=twsrc%5Etfw) 的代码（来自 [#ReactConf2018](https://twitter.com/hashtag/ReactConf2018?src=hash&ref_src=twsrc%5Etfw) ）可视化，你能看到 React Hooks 为我们带来的好处。[pic.twitter.com/dKyOQsG0Gd](https://t.co/dKyOQsG0Gd)
+> 将 [@dan_abramov](https://twitter.com/dan_abramov?ref_src=twsrc%5Etfw) 的代码（来自 [#ReactConf2018](https://twitter.com/hashtag/ReactConf2018?src=hash&ref_src=twsrc%5Etfw)）可视化，你能看到 React Hooks 为我们带来的好处。[pic.twitter.com/dKyOQsG0Gd](https://t.co/dKyOQsG0Gd)
 > 
 > — Pavel Prichodko (@prchdk) [2018 年 10 月 29 日](https://twitter.com/prchdk/status/1056960391543062528?ref_src=twsrc%5Etfw)
 
@@ -207,11 +207,11 @@ export default {
 
 ### 未来的计划
 
-**Vue Hooks 现在已经可以与 Vue 2.x 一起使用了，但仍然是实验性的**。 我们计划将 Hooks 集成到 Vue 3 中，但在我们自己的实现中可能会偏离 React 的 API。我们发现 React Hooks 非常鼓舞人心，正在考虑如何向 Vue 开发人员介绍其优势。我们想以一种符合 Vue 习惯用法的方式来做，所以还有很多实验要做。
+**Vue Hooks 现在已经可以与 Vue 2.x 一起使用了，但仍然是实验性的**。我们计划将 Hooks 集成到 Vue 3 中，但在我们自己的实现中可能会偏离 React 的 API。我们发现 React Hooks 非常鼓舞人心，正在考虑如何向 Vue 开发人员介绍其优势。我们想以一种符合 Vue 习惯用法的方式来做，所以还有很多实验要做。
 
 你可以查看[这个仓库](https://github.com/yyx990803/vue-hooks)作为起步。Hooks 可能会成为 mixins 的替代品，所以虽然这个功能还处于早期阶段，但是一个在此期间探索其概念是有好处的。
 
-_(真诚地感谢 Evan You 和 Dan Abramov 为本文审阅。)_
+**（真诚地感谢 Evan You 和 Dan Abramov 为本文审阅。）**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
