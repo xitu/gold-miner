@@ -2,69 +2,69 @@
 > * 原文作者：[Sarah Drasner](https://css-tricks.com/author/sdrasner/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-hooks-mean-for-vue.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-hooks-mean-for-vue.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Ivocin](https://github.com/Ivocin)
+> * 校对者：[LeoYang](https://github.com/LeoooY), [TUARAN](https://github.com/TUARAN)
 
-# What Hooks Mean for Vue
+# Hooks 对 Vue 而言意味着什么
 
-Not to be confused with [Lifecycle Hooks](https://css-tricks.com/intro-to-vue-3-vue-cli-lifecycle-hooks/#article-header-id-1), [Hooks](https://reactjs.org/docs/hooks-intro.html) were introduced in React in v16.7.0-alpha, and a proof of concept was released for Vue a few days after. Even though it was proposed by React, it’s actually an important composition mechanism that has benefits across JavaScript framework ecosystems, so we’ll spend a little time today discussing what this means.
+不要把 Hooks 和 Vue 的[生命周期钩子（Lifecycle Hooks）](https://css-tricks.com/intro-to-vue-3-vue-cli-lifecycle-hooks/#article-header-id-1) 弄混了，[Hooks](https://reactjs.org/docs/hooks-intro.html) 是 React 在 V16.7.0-alpha 版本中引入的，而且几天后 Vue 发布了其概念验证版本。虽然 Hooks 是由 React 提出的，它是一个对各 JavaScript 框架生态系统都有价值的、重要的组合机制，因此我们今天会花一点时间讨论 Hooks 意味着什么。
 
-Mainly, Hooks offer a more explicit way to think of reusable patterns — one that avoids rewrites to the components themselves and allows disparate pieces of the stateful logic to seamlessly work together.
+Hooks 主要是对模式的复用提供了一种更明确的思路 —— 避免重写组件本身，并允许有状态逻辑的不同部分能无缝地进行协同工作。
 
-### The initial problem
+### 最初的问题
 
-In terms of React, the problem was this: classes were the most common form of components when expressing the concept of state. Stateless functional components were also quite popular, but due to the fact that they could only really render, their use was limited to presentational tasks.
+就 React 而言，问题在于：在表达状态的概念时，类是最常见的组件形式。无状态函数式组件也非常受欢迎，但由于它们只能单纯地渲染，所以它们的用途仅限于展示任务。
 
-Classes in and of themselves present some issues. For example, as React became more ubiquitous, stumbling blocks for newcomers did as well. In order to understand React, one had to understand classes, too. Binding made code verbose and thus less legible, and an understanding of `this` in JavaScript was required. There are also some optimization stumbling blocks that classes present, [discussed here](https://reactjs.org/docs/hooks-intro.html#classes-confuse-both-people-and-machines).
+类本身存在一些问题。例如，随着 React 变得越来越流行，类的问题也普遍成为新手的阻碍。开发者为了理解 React，也必须理解类。绑定使得代码冗长且可读性差，并且需要理解 JavaScript 中的 `this`。[这里](https://reactjs.org/docs/hooks-intro.html#classes-confuse-both-people-and-machines)还讨论了使用类所带来的一些优化障碍。
 
-In terms of the reuse of logic, it was common to use patterns like render props and higher-order components, but we’d find ourselves in similar “[pyramid of doom](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming))” — style implementation hell where nesting became so heavily over-utilized that components could be difficult to maintain. This led me to ranting drunkenly at Dan Abramov, and nobody wants that.
+在逻辑复用方面，我们通常使用 render props 和高阶组件等模式。但使用这些模式后会发现自己处于类似的[“厄运金字塔”](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming))中 —— 样式实现地狱，即过度使用嵌套可能会导致组件难以维护。这导致我想对 Dan Abramov 像喝醉了一样大吼大叫，没有人想要那样。
 
-Hooks address these concerns by allowing us to define a component's stateful logic using only function calls. These function calls become more compose-able, reusable, and allows us to express composition in functions while still accessing and maintaining state. When hooks were announced in React, people were excited — you can see some of the benefits illustrated here, with regards to how they reduce code and repetition:
+Hooks 允许我们使用函数调用来定义组件的有状态逻辑，从而解决这些问题。这些函数调用变得更具有组合性、可复用性，并且允许我们在使用函数式组件的同时能够访问和维护状态。React 发布 Hooks 时，人们很兴奋 —— 下面你可以看到 Hooks 展示的一些优势，关于它们如何减少代码和重复：
 
-> Took [@dan_abramov](https://twitter.com/dan_abramov?ref_src=twsrc%5Etfw)'s code from [#ReactConf2018](https://twitter.com/hashtag/ReactConf2018?src=hash&ref_src=twsrc%5Etfw) and visualised it so you could see the benefits that React Hooks bring us. [pic.twitter.com/dKyOQsG0Gd](https://t.co/dKyOQsG0Gd)
+> 将 [@dan_abramov](https://twitter.com/dan_abramov?ref_src=twsrc%5Etfw) 的代码（来自 [#ReactConf2018](https://twitter.com/hashtag/ReactConf2018?src=hash&ref_src=twsrc%5Etfw)）可视化，你能看到 React Hooks 为我们带来的好处。[pic.twitter.com/dKyOQsG0Gd](https://t.co/dKyOQsG0Gd)
 > 
-> — Pavel Prichodko (@prchdk) [October 29, 2018](https://twitter.com/prchdk/status/1056960391543062528?ref_src=twsrc%5Etfw)
+> — Pavel Prichodko (@prchdk) [2018 年 10 月 29 日](https://twitter.com/prchdk/status/1056960391543062528?ref_src=twsrc%5Etfw)
 
-In terms of maintenance, simplicity is key, and Hooks provide a single, functional way of approaching shared logic with the potential for a smaller amount of code.
+在维护方面，简单性是关键，Hooks 提供了一种单一的、函数式的方式来实现逻辑共享，并且可能代码量更小。
 
-### Why Hooks in Vue?
+### 为什么 Vue 中需要 Hooks？
 
-You may read through this and wonder what Hooks have to offer in Vue. It seems like a problem that doesn’t need solving. After all, Vue doesn’t predominantly use classes. Vue offers stateless functional components (should you need them), but why would we need to carry state in a functional component? [We have mixins](https://css-tricks.com/using-mixins-vue-js/) for composition where we can reuse the same logic for multiple components. Problem solved.
+读到这里你肯定想知道 Hooks 在 Vue 中必须提供什么。这似乎是一个不需要解决的问题。毕竟，类并不是 Vue 主要使用的模式。Vue 提供无状态函数式组件（如果需要它们），但为什么我们需要在函数式组件中携带状态呢？[我们有 mixins](https://css-tricks.com/using-mixins-vue-js/) 用于组合可以在多个组件复用的相同逻辑。问题解决了。
 
-I thought the same thing, but after talking to Evan You, he pointed out a major use case I missed: mixins can’t consume and use state from one to another, but Hooks can. This means that if we need chain encapsulated logic, it’s now possible with Hooks.
+我想到了同样的事情，但在与 Evan You 交谈后，他指出了我忽略的一个主要用例：mixins 不能相互消费和使用状态，但 Hooks 可以。这意味着如果我们需要链式封装逻辑，可以使用 Hooks。
 
-Hooks achieve what mixins do, but avoid two main problems that come with mixins:
+Hooks 实现了 mixins 的功能，但避免了 mixins 带来的两个主要问题：
 
-*   They allows us to pass state from one to the other.
-*   They make it explicit where logic is coming from.
+*   允许相互传递状态。
+*   明确指出逻辑来自哪里。
 
-If we’re using more than one mixin, it’s not clear which property was provided by which mixin. With Hooks, the return value of the function documents the value being consumed.
+如果使用多个 mixins，我们不清楚哪个属性是由哪个 mixins 提供的。使用 Hooks，函数的返回值会记录消费的值。
 
-So, how does that work in Vue? We mentioned before that, when working with Hooks, logic is expressed in function calls that become reusable. In Vue, this means that we can group a data call, a method call, or a computed call into another custom function, and make them freely compose-able. Data, methods, and computed now become available in functional components.
+那么，这在 Vue 中如何运行呢？我们之前提到过，在使用 Hooks 时，逻辑在函数调用时表达从而可复用。在 Vue 中，这意味着我们可以将数据调用、方法调用或计算属性调用封装到另一个自定义函数中，并使它们可以自由组合。数据、方法和计算属性现在可用于函数式组件了。
 
-### Example
+### 例子
 
-Let’s go over a really simple hook so that we can understand the building blocks before we move on to an example of composition in Hooks.
+让我们来看一个非常简单的 hook，以便我们在继续学习 Hooks 中的组合例子之前理解构建块。
 
 #### useWat?
 
-OK, here’s were we have, what you might call, a crossover event between React and Vue. The `use` prefix is a React convention, so if you look up Hooks in React, you’ll find things like `useState`, `useEffect`, etc. [More info here.](https://reactjs.org/docs/hooks-overview.html#-state-hook)
+好的，Vue Hooks 和 React Hooks 之间存在交叉部分。使用 `use` 作为前缀是 React 的约定，所以如果你在 React 中查找 Hooks，你会发现 Hooks 的名称都会像 `useState`、`useEffect` 等。[更多信息可以查看这里。](https://reactjs.org/docs/hooks-overview.html#-state-hook)
 
-In [Evan’s live demo](https://codesandbox.io/s/jpqo566289), you can see where he’s accessing `useState` and `useEffect` for a render function.
+在 [Evan 的在线 demo 里](https://codesandbox.io/s/jpqo566289)，你可以看到他在何处访问 `useState` 和 `useEffect` 并用于 render 函数。
 
-If you’re not familiar with render functions in Vue, it might be helpful [to take a peek at that](https://vuejs.org/v2/guide/render-function.html).
+如果你不熟悉 Vue 中的 render 函数，那么看一看[官网文档](https://vuejs.org/v2/guide/render-function.html)可能会有所帮助。
 
-But when we’re working with Vue-style Hooks, we’ll have — you guessed it — things like: `useData`, `useComputed`, etc.
+但是当我们使用 Vue 风格的 Hooks 时，我们会如何命名呢 —— 你猜对了 —— 比如：`useData`，`useComputed`等。
 
-So, in order for us look at how we'd use Hooks in Vue, I created a sample app for us to explore.
+因此，为了让我们看看如何在 Vue 中使用 Hooks，我创建了一个示例应用程序供我们探索。
 
 详见视频演示：https://css-tricks.com/wp-content/uploads/2019/01/hooks-demo-shorter.mp4
 
-[Demo Site](https://sdras.github.io/vue-hooks-foodapp/)
+[演示网站](https://sdras.github.io/vue-hooks-foodapp/)
 
-[GitHub Repo](https://github.com/sdras/vue-hooks-foodapp)
+[GitHub 仓库](https://github.com/sdras/vue-hooks-foodapp)
 
-In the src/hooks folder, I've created a hook that prevents scrolling on a `useMounted` hook and reenables it on `useDestroyed`. This helps me pause the page when we're opening a dialog to view content, and allows scrolling again when we're done viewing the dialog. This is good functionality to abstract because it would probably be useful several times throughout an application.
+在 src/hooks 文件夹中，我创建了一个 hook，它在 `useMounted` hook 上阻止了滚动，并在 `useDestroyed` 上重新启用滚动。这有助于我在打开查看内容的对话框时暂停页面滚动，并在查看对话框结束时再次允许滚动。这是一个好的抽象功能，因为它在整个应用程序中可能会多次使用。
 
 ```
 import { useDestroyed, useMounted } from "vue-hooks";
@@ -115,7 +115,7 @@ export function preventscroll() {
 } 
 ```
 
-And then we can call it in a Vue component like this, in AppDetails.vue:
+然后我们可以在像 AppDetails.vue 一样的 Vue 组件中调用它：
 
 ```
 <script>
@@ -131,17 +131,17 @@ export default {
 </script>
 ```
 
-We're using it in that component, but now we can use the same functionality throughout the application!
+我们不仅可以在该组件中使用它，还可以在整个应用程序中使用相同的功能！
 
-#### Two Hooks, understanding each other
+#### 能够相互理解的两个 Hooks
 
-We mentioned before that one of the primary differences between hooks and mixins is that hooks can actually pass values from one to another. Let's look at that with a simple, albeit slightly contrived, example.
+我们之前提到过，Hooks 和 mixins 之间的主要区别之一是 Hooks 实际上可以互相传值。让我们看一下这个简单但有点不自然的例子。
 
-Let's say in our application we need to do calculations in one hook that will be reused elsewhere, and something else that needs to use that calculation. In our example, we have a hook that takes the window width and passes it into an animation to let it know to only fire when we're on larger screens.
+在我们的应用程序中，我们需要在一个可复用的 hook 中进行计算，还有一些需要使用该计算结果的东西。在我们的例子中，我们有一个 hook，它获取窗口宽度并将其传递给动画，让它知道只有当我们在更大的屏幕上时才会触发。
 
 详见视频演示：https://css-tricks.com/wp-content/uploads/2019/01/hook-logo.mp4
 
-In the first hook:
+第一个 hook:
 
 ```
 import { useData, useMounted } from 'vue-hooks';
@@ -162,7 +162,7 @@ export function windowwidth() {
 }
 ```
 
-Then, in the second we use this to create a conditional that fires the animation logic:
+然后，在第二个 hook 中，我们使用它来创建一个触发动画逻辑的条件：
 
 ```
 // the data comes from the other hook
@@ -188,7 +188,7 @@ export function logolettering(data) {
         ...
 ```
 
-Then, in the component itself, we'll pass one into the other:
+然后，在组件内部，我们将一个 hook 作为参数传递给另一个 hook：
 
 ```
 <script>
@@ -203,15 +203,15 @@ export default {
 </script>
 ```
 
-Now we can compose logic with Hooks throughout our application! Again, this is a contrived example for the purposes of demonstration, but you can see how useful this might be for large scale applications to keep things in smaller, reusable functions.
+现在我们可以在整个应用程序中使用 Hooks 来编写逻辑！再提一下，这是一个用于演示目的不太自然的例子，但你可以看到这对于大型应用程序，将逻辑保存在较小的、可复用的函数中是有效的。
 
-### Future plans
+### 未来的计划
 
-**Vue Hooks are already available to use today with Vue 2.x, but are still experimental**. We’re planning on integrating Hooks into Vue 3, but will likely deviate from React’s API in our own implementation. We find React Hooks to be very inspiring and are thinking about how to introduce its benefits to Vue developers. We want to do it in a way that complements Vue's idiomatic usage, so there's still a lot of experimentation to do.
+**Vue Hooks 现在已经可以与 Vue 2.x 一起使用了，但仍然是实验性的**。我们计划将 Hooks 集成到 Vue 3 中，但在我们自己的实现中可能会偏离 React 的 API。我们发现 React Hooks 非常鼓舞人心，正在考虑如何向 Vue 开发人员介绍其优势。我们想以一种符合 Vue 习惯用法的方式来做，所以还有很多实验要做。
 
-You can get started by [checking out the repo here](https://github.com/yyx990803/vue-hooks). Hooks will likely become a replacement for mixins, so although the feature still in its early stages, it’s probably a concept that would be beneficial to explore in the meantime.
+你可以查看[这个仓库](https://github.com/yyx990803/vue-hooks)作为起步。Hooks 可能会成为 mixins 的替代品，所以虽然这个功能还处于早期阶段，但是一个在此期间探索其概念是有好处的。
 
-_(Sincere thanks to Evan You and Dan Abramov for proofing this article.)_
+**（真诚地感谢 Evan You 和 Dan Abramov 为本文审阅。）**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
