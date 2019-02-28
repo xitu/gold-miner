@@ -1,4 +1,12 @@
 
+> * 原文地址：[Performance Under Load](https://medium.com/@NetflixTechBlog/performance-under-load-3e6fa9a60581)
+> * 原文作者：[Netflix Technology Blog
+Netflix Technology Blog](https://medium.com/@NetflixTechBlog)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/performance-under-load.md](https://github.com/xitu/gold-miner/blob/master/TODO1/performance-under-load.md)
+> * 译者：
+> * 校对者：
+
 ## Performance Under Load
 
 *Adaptive Concurrency Limits @ Netflix*
