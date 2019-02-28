@@ -6,6 +6,7 @@
 > * 校对者：
 
 # Using errors as control flow in Swift
+
 I’ve written articles about some of the other great new features coming in Swift 5, and you might want to check them out:
 
 How we manage the control flow within the apps and systems that we work on can have a huge impact on everything from how fast our code executes, to how easy it is to debug. Our code's control flow is essentially the order in which our various functions and statements get executed, and what code paths that end up being entered.
@@ -38,12 +39,14 @@ The problem we're facing above is that we're essentially using `nil` values to d
 
 Let's see how we could solve both of those issues by refactoring our control flow to instead use throwing functions and errors. We'll start by defining an enum containing cases for each error that can occur within our image handling code - looking something like this:
 
+```
 enum ImageError: Error {
     case missing
     case failedToCreateContext
     case failedToRenderImage
     ...
 }
+```
 
 We'll then change all of our inner functions to throw one of the above errors whenever it failed, instead of returning `nil`. For example, here's how we could quickly update `loadImage(named:)` to either return a _non-optional_ `UIImage` or throw `ImageError.missing`:
 
@@ -85,7 +88,7 @@ let optionalImage = try? loadImage(
 
 What's great about `try?` is that it kind of gives us the best of both worlds. We're able to get an optional at the call site - while still letting us use the power of throws and errors to manage our internal control flow 👍.
 
-##Validating input
+## Validating input
 
 Next, let's take a look at how we can improve our control flow using errors when performing input validation. Even though Swift has a really advanced and powerful type system, it can't _always_ ensure that our functions will receive valid input - sometimes a runtime check is our only option.
 
@@ -224,21 +227,18 @@ class PasswordValidatorTests: XCTestCase {
 
 As you can see above, since `XCTest` supports throwing test functions - and every unhandled error counts as a failure - all we have to do to verify the success case is to call our `validate` function using `try`, and if the function doesn't throw our test will succeed 👍.
 
-##Conclusion
+## Conclusion
 
 While there are many ways of organizing the control flow of Swift code - for operations that can either succeed or fail, using errors and throwing functions can be a great option. While doing so does require a bit of extra _ceremony_ (such as introducing error types and making all calls with either `try` or `try?`) \- it can give us some really nice benefits while also making our code much more compact.
 
 It will of course still be appropriate to return optionals from some functions - especially those that don't really have any sensible errors to throw - but in places where we're juggling several different optionals and `guard` statements - using errors instead might give us a more clear flow of control.
 
 What do you think? Do you currently use errors and throwing functions to manage your code's control flow - or is it something you'll try out? Let me know - along with your questions, comments and feedback - [on Twitter @johnsundell](https://twitter.com/johnsundell).
-    
- Thanks for reading! 🚀
 
+Thanks for reading! 🚀
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-
-
