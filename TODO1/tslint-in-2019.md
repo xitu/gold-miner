@@ -19,13 +19,13 @@ Meanwhile, ESLint is the standard JavaScript linter. Like TSLint, it consists of
 
 ## TypeScript + ESLint
 
-The [strategic direction](https://github.com/Microsoft/TypeScript/issues/29288) of the TypeScript team is to enable** “**types on every desk, in every home, for every JS developer”. In other words, the direction is to incrementally enrich the JavaScript developer experience with TypeScript features like types and static analysis until, maybe, the TypeScript and JavaScript developer experience converge.
+The [strategic direction](https://github.com/Microsoft/TypeScript/issues/29288) of the TypeScript team is to enable "types on every desk, in every home, for every JS developer". In other words, the direction is to incrementally enrich the JavaScript developer experience with TypeScript features like types and static analysis until, maybe, the TypeScript and JavaScript developer experience converge.
 
 It is clear that linting is a core part of the TypeScript/JavaScript developer experience, and so Palantir’s TSLint team met with the TypeScript core team in Redmond to discuss what the TypeScript/JavaScript convergence should mean for linting. The TypeScript community intends to meet JavaScript developers where they are, and ESLint is the tool of choice for JavaScript linting. In order to avoid bifurcating the linting tool space for TypeScript, we therefore plan to deprecate TSLint and focus our efforts instead on improving ESLint’s TypeScript support. There are both strategic and pragmatic reasons why we believe this is the correct path forward:
 
-* **Developer accessibility:**One of the barriers for JavaScript developers to move to TypeScript is the non-trivial migration from ESLint to TSLint. Allowing developers to start from their existing ESLint setups and incrementally add TypeScript-specific static analysis reduces this barrier.
+* **Developer accessibility:** One of the barriers for JavaScript developers to move to TypeScript is the non-trivial migration from ESLint to TSLint. Allowing developers to start from their existing ESLint setups and incrementally add TypeScript-specific static analysis reduces this barrier.
 
-* **Uniting the community:**At their core, ESLint and TSLint have the same purpose: to provide an excellent code linting experience with a strong core rule set and extensive plugin points. Now that TypeScript parsing is available within ESLint, we believe it’s best for the communities to standardize, rather than to maintain fragmentation through competing tools.
+* **Uniting the community:** At their core, ESLint and TSLint have the same purpose: to provide an excellent code linting experience with a strong core rule set and extensive plugin points. Now that TypeScript parsing is available within ESLint, we believe it’s best for the communities to standardize, rather than to maintain fragmentation through competing tools.
 
 * **More performant analysis infrastructure**: The ESLint API allows for more efficient implementations of certain classes of checks. Although it would be possible to refactor TSLint’s APIs, it seems prudent to leverage ESLint’s architecture and focus our development resources elsewhere.
 
@@ -35,9 +35,9 @@ It is clear that linting is a core part of the TypeScript/JavaScript developer e
 
 Palantir will support the TSLint community by providing a smooth transition path to ESLint via a range of feature and plugin contributions (shout out to [James Henry](https://github.com/JamesHenry) and other contributors there for getting it started!), for instance:
 
-* **Support & documentation for writing ESLint rules in TypeScript: **See [this typescript-eslint issue thread](https://github.com/typescript-eslint/typescript-eslint/issues/40).
+* **Support & documentation for writing ESLint rules in TypeScript:** See [this typescript-eslint issue thread](https://github.com/typescript-eslint/typescript-eslint/issues/40).
 
-* **Testing infrastructure in typescript-eslint: **ESLint’s built-in rule tester is hard to use and the test case syntax is hard to read. We’d like to bring something like [TSLint’s testing infrastructure](https://palantir.github.io/tslint/develop/testing-rules/) to this project to ensure there are no regressions in the TSLint rule development experience.
+* **Testing infrastructure in typescript-eslint:** ESLint’s built-in rule tester is hard to use and the test case syntax is hard to read. We’d like to bring something like [TSLint’s testing infrastructure](https://palantir.github.io/tslint/develop/testing-rules/) to this project to ensure there are no regressions in the TSLint rule development experience.
 
 * **Semantic, type-checker-based rules:** Porting over and adding new rules which [use TypeScript language services](https://github.com/palantir/tslint/labels/Requires%20Type%20Checker).
 
