@@ -16,8 +16,7 @@ Your boss (The Supreme Commander) shows up at your desk and tells you the curren
 *   Anyone from outside the _organization_ doesn’t have any access to the _“volunteers”_
 *   It should go without saying the Supreme Commander has access to everything
 
-Start With a REST Application
------------------------------
+## Start With a REST Application
 
 To get started, grab this [Spring Boot example](https://github.com/oktadeveloper/shiro-spring-boot-example). It’ll get you started with a set of REST endpoints which expose CRUD operations to manage a list of Stormtroopers. You’ll be adding authentication and authorization using [Apache Shiro](https://shiro.apache.org/). All of the code is up on [Github](https://github.com/bdemers/shiro-spring-boot-example).
 
@@ -87,8 +86,7 @@ In the code block above, you’re using Shiro’s `@RequiresRoles` annotation 
 
 You could stop here but, roles are not that flexible, and if you put them directly in your code you’re now tightly coupled to those names/IDs.
 
-Stop Using Roles
-----------------
+## Stop Using Roles
 
 Imagine your application has been deployed and is working fine, the following week your _boss_ stops by your desk and tells you to to make some changes:
 
@@ -170,8 +168,7 @@ role.underling = troopers:read
 
 If the permission syntax looks a little funny to you, take a look at [Apache Shiro’s Wildcard Permission](https://shiro.apache.org/permissions.html) documentation for an in depth explanation.
 
-Apache Shiro and Spring
------------------------
+## Apache Shiro and Spring
 
 We’ve already covered the Maven dependencies and the actual REST controller, but our application will also need a `Realm` and error handling.
 
@@ -225,8 +222,7 @@ chainDefinition.addPathDefinition("/troopers/**", "authcBasic, rest[troopers]");
 
 This would map any resource starting with the path `/troopers` to require BASIC authentication, and use the [‘rest’ filter](https://shiro.apache.org/static/current/apidocs/org/apache/shiro/web/filter/authz/HttpMethodPermissionFilter.html) which based on the HTTP request method, appends a CRUD action to the permission string. For example an HTTP `GET` would map to ‘read’ so the full permission string for a ‘GET’ request would be `troopers:read`(just like you did with your annotations).
 
-Exception Handling
-------------------
+## Exception Handling
 
 The last bit of code you have handles exceptions.
 
@@ -260,8 +256,7 @@ public @ResponseBody ErrorMessage handleException(NotFoundException e) {
 
 The first two handle Shiro exceptions and simply set the status to 401 or 403. A 401 for invalid or missing user/passwords, and a 403 for any valid logged in user that does NOT have access to the resource. Lastly, you’ll want to handle any `NotFoundException` with a 404 and return a JSON serialized `ErrorMessage` object.
 
-Fire it Up!
------------
+## Fire it Up!
 
 If you put all of this together, or you just grab the code from [GitHub](https://github.com/oktadeveloper/shiro-spring-boot-example), you can start the application using `mvn spring-boot:run`. Once you have everything running you can start making requests!
 
@@ -319,8 +314,7 @@ Transfer-Encoding: chunked
 }
 ```
 
-Learn More About Apache Shiro
------------------------------
+## Learn More About Apache Shiro
 
 This example has shown how easy it is to integrate Apache Shiro into a Spring Boot application, how using permissions allow for greater flexibility over roles, and all it takes is a single Annotation in your controller.
 
