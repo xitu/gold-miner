@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/swift-5-exclusivity.md](https://github.com/xitu/gold-miner/blob/master/TODO1/swift-5-exclusivity.md)
 > * 译者：[LoneyIsError](https://github.com/LoneyIsError)
-> * 校对者：[Bruce-pac](https://github.com/Bruce-pac),[Danny1451](https://github.com/Danny1451)
+> * 校对者：[Bruce-pac](https://github.com/Bruce-pac), [Danny1451](https://github.com/Danny1451)
 
 # Swift 5 强制独占性原则
 
@@ -15,7 +15,7 @@ Swift 5 允许在 Release 构建过程中默认启用关于「独占访问内存
 
 为了实现 [内存安全](https://docs.swift.org/swift-book/LanguageGuide/MemorySafety.html)，Swift 需要对变量进行独占访问时才能修改该变量。本质上来说，当一个变量作为 `inout` 参数或者 `mutating` 方法中的 `self` 被修改时，不能通过不同的名称被访问的。
 
-在以下示例中，通过将 `count` 作为 `inout` 参数传递来对 `count` 变量进行修改。出现独占性违规情况是因为 `modifier` 闭包对捕获的 `count` 变量同时进行了读取操作，并且在同一变量修改的范围内进行了调用。在 `modifyTwice` 函数中，`count` 变量只能通过 `inout ` 修饰的 `value` 参数来进行安全访问而在 `modified` 闭包内，它只能以 `$0` 来进行安全访问。
+在以下示例中，通过将 `count` 作为 `inout` 参数传递来对 `count` 变量进行修改。出现独占性违规情况是因为 `modifier` 闭包对捕获的 `count` 变量同时进行了读取操作，并且在同一变量修改的范围内进行了调用。在 `modifyTwice` 函数中，`count` 变量只能通过 `inout` 修饰的 `value` 参数来进行安全访问而在 `modified` 闭包内，它只能以 `$0` 来进行安全访问。
 
 ```
 func modifyTwice(_ value: inout Int, by modifier: (inout Int) -> ()) {
@@ -30,7 +30,7 @@ func testCount() {
 }
 ```
 
-违反独占性的情况通常如此，程序员的意图此时显得有些模糊。他们希望 `count` 打印的值是「3」还是「4」呢？ 无论哪种结果，编译器都无法保证。更糟糕的是，编译器优化会在出现此类错误时产生微妙的不可预测行为。为了防止违反独占性并允许引入依赖于安全保证的语言特性，强制独占性最初在 Swift 4.0 中引入的： [SE-0176：实施对内存的独占访问](https://github.com/apple/swift-evolution/blob/master/proposals/0176-enforce-exclusive-access-to-memory.md).
+违反独占性的情况通常如此，程序员的意图此时显得有些模糊。他们希望 `count` 打印的值是「3」还是「4」呢？无论哪种结果，编译器都无法保证。更糟糕的是，编译器优化会在出现此类错误时产生微妙的不可预测行为。为了防止违反独占性并允许引入依赖于安全保证的语言特性，强制独占性最初在 Swift 4.0 中引入的：[SE-0176：实施对内存的独占访问](https://github.com/apple/swift-evolution/blob/master/proposals/0176-enforce-exclusive-access-to-memory.md)。
 
 编译时（静态）检测可以捕获许多常见的独占性违规行为，但是还需要运行时（动态）检测来捕获涉及逃逸闭包，类类型的属性，静态属性和全局变量的违规情况。Swift 4.0 同时提供了编译时和运行时的强制性检测，但运行时的强制检测仅在 Debug 构建过程中启用。
 
@@ -100,7 +100,7 @@ elements.append(removingFrom: &toAppend)
 
 可以在 [在 Swift 4.2 中将独占访问内存警告升级为错误](https://forums.swift.org/t/upgrading-exclusive-access-warning-to-be-an-error-in-swift-4-2/12704) 中找到导致构建错误的一些常见情况的示例。
 
-通过更改第一个示例，使用全局变量而不是局部变量，可以防止编译器在构建时抛出错误。然而，运行程序会命中「Simultaneous access」 的检查:
+通过更改第一个示例，使用全局变量而不是局部变量，可以防止编译器在构建时抛出错误。然而，运行程序会命中「Simultaneous access」的检查:
 
 ![global count error](https://swift.org/assets/images/exclusivity-blog/Example3.png)
 
@@ -189,7 +189,7 @@ func testDisjointStructProperties(point: inout Point) {
 3. 任意类型的静态和类属性
     
 
-只有对第一类属性（实例属性）的修改才会要求对聚合值的整体存储具有独占性访问，如上面的 `struct Point` 示例所示。 另外两种类别可以作为独立存储分别执行。 如果这个例子被转换成一个类对象，那么将不会违反独占性原则：
+只有对第一类属性（实例属性）的修改才会要求对聚合值的整体存储具有独占性访问，如上面的 `struct Point` 示例所示。另外两种类别可以作为独立存储分别执行。 如果这个例子被转换成一个类对象，那么将不会违反独占性原则：
 
 ```
 class SharedPoint {
@@ -215,7 +215,7 @@ point.modifyX {
 
 上述编译时和运行时独占性检查的结合对于加强 Swift 的 [内存安全](https://docs.swift.org/swift-book/LanguageGuide/MemorySafety.html) 是很必要的。完全执行这些规则，而不是让程序员承担遵守独占性规则的负担，至少有以下五种帮助：
 
-1.  执行独占性检查消除了程序涉及可变状态和远距离动作的危险交互。
+1. 执行独占性检查消除了程序涉及可变状态和远距离动作的危险交互。
 
     随着程序规模的不断扩大，越来越可能会以意想不到的方式进行交互。下面的例子在类似于上面的`Array.append(removedFrom:)` 例子，需要执行独占性检查来避免程序员将相同的变量同时作为源数据和目标数据进行传递。但请注意，一旦涉及到类对象，因为这两个变量引用了同一个对象，程序就会在无意中更容易在 `src` 和 `dest` 位置上传递同一个的 `Names` 实例。当然，这样就会导致死循环：
 
@@ -252,7 +252,7 @@ moveNames(from: oldNames, to: newNames)
 
 4. 执行独占性检查使性能优化更合法，同时保护内存安全。
 
-    对 `inout` 参数和 `mutating` 方法的独占性检查向编译器提供了重要信息，可用于优化内存访问和引用计数操作。 如上面第2点所述，简单地声明一个未指定的行为规则对于编译器来说是不够，因为 Swift 是一种内存安全语言。完全强制执行独占性检查允许编译器基于内存独占性进行优化，而不会牺牲内存安全性。
+    对 `inout` 参数和 `mutating` 方法的独占性检查向编译器提供了重要信息，可用于优化内存访问和引用计数操作。如上面第2点所述，简单地声明一个未指定的行为规则对于编译器来说是不够，因为 Swift 是一种内存安全语言。完全强制执行独占性检查允许编译器基于内存独占性进行优化，而不会牺牲内存安全性。
 
 5. 独占性规则为程序员提供所有权和仅移动类型的控制权。
 
