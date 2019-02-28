@@ -203,7 +203,7 @@ do {
 
 _Worth noting is that, while the above code samples didn't use any localization, we'd always want to use localized strings for all error messages when displaying them to the user in a real app._
 
-##Throwing tests
+## Throwing tests
 
 Another big benefit of structuring code around what kind of errors that could be encountered, is that it often makes testing much easier. Since a throwing function essentially has two distinct possible outputs - a value and an error - adding tests covering both of those two scenarios is in many cases quite straight forward.
 
