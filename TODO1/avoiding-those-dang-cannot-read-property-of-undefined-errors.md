@@ -2,8 +2,8 @@
 > * 原文作者：[Adam Giese](https://css-tricks.com/author/thirdgoose/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/avoiding-those-dang-cannot-read-property-of-undefined-errors.md](https://github.com/xitu/gold-miner/blob/master/TODO1/avoiding-those-dang-cannot-read-property-of-undefined-errors.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Xcco](https://github.com/Xcco)
+> * 校对者：[hanxiansen](https://github.com/hanxiansen), [Mirosalva](https://github.com/Mirosalva)
 
 # 避免那些可恶的 "cannot read property of undefined" 错误
 
@@ -15,7 +15,7 @@
 
 ### 工具库
 
-如果你已经在项目里用到一些工具库，很有可能库里已经有了预防这个问题发生的函数。lodash 里的 `_.get`([文档](https://lodash.com/docs/4.17.11#get)) 或者 Ramda 里的 `R.path`([文档](https://ramdajs.com/docs/#path)) 都能确保你安全使用对象。  
+如果你已经在项目里用到一些工具库，很有可能库里已经有了预防这个问题发生的函数。lodash 里的 `_.get`（[文档](https://lodash.com/docs/4.17.11#get)) 或者 Ramda 里的 `R.path`([文档](https://ramdajs.com/docs/#path)）都能确保你安全使用对象。  
   
 如果你已经使用了工具库，那么这看起来已经是最简单的方法了。如果你没有使用工具库，继续读下去吧！
 
@@ -23,9 +23,9 @@
 
 JavaScript 里有一个关于逻辑运算符的有趣事实就是它不总是返回布尔值。[根据说明](https://www.ecma-international.org/ecma-262/9.0/index.html#sec-binary-logical-operators)，『`&&` 或者 `||` 运算符的返回值并不一定是布尔值。而是两个操作表达式的其中之一。』  
  
-举个 `&&` 运算符的例子，如果第一个表达式的布尔值是 false，那么该值就会被返回。否则，第二个表达式的值就会被使用。这说明表达式 `0 && 1` 会返回 `0` (一个 false 值), 而表达式 `2 && 3` 会返回 `3`. 如果多个 `&&` 表达式连在一起，它们将会返回第一个 false 植或最后一个值。举个例子，`1 && 2 && 3 && null && 4` 会返回 `null`, 而 `1 && 2 && 3` 会返回 `3`.
+举个 `&&` 运算符的例子，如果第一个表达式的布尔值是 false，那么该值就会被返回。否则，第二个表达式的值就会被使用。这说明表达式 `0 && 1` 会返回 `0`（一个 false 值），而表达式 `2 && 3` 会返回 `3`。如果多个 `&&` 表达式连在一起，它们将会返回第一个 false 植或最后一个值。举个例子，`1 && 2 && 3 && null && 4` 会返回 `null`，而 `1 && 2 && 3` 会返回 `3`。
 
-那么如何安全的获取嵌套对象内的属性呢？JavaScript 里的逻辑运算符会『短路』。 在这个 `&&` 的例子中，这表示表达式会在到达第一个假值时停下来。
+那么如何安全的获取嵌套对象内的属性呢？JavaScript 里的逻辑运算符会『短路』。在这个 `&&` 的例子中，这表示表达式会在到达第一个假值时停下来。
 
 ```
 const foo = false && destroyAllHumans();
@@ -66,7 +66,7 @@ const favorites = {
     podcasts: ['Shop Talk Show', 'CodePen Radio'],
     audiobooks: null,
   },
-  reading: null, // 开玩笑的 ———— 我热爱阅读
+  reading: null, // 开玩笑的 — 我热爱阅读
 };
 
 const favoriteMovie = favorites.video && favorites.video.movies && favorites.video.movies[0];
@@ -79,7 +79,7 @@ const favoriteVlog = favorites.video && favorites.video.vlogs && favorites.video
 
 ### 『或单元』
 
-Oliver Steele 提出这个方法并且在他发布的博客里探究了更多的细节，[『单元第一章：或单元』](https://blog.osteele.com/2007/12/cheap-monads/) 我会试着在这里给出一个简要的解释。
+Oliver Steele 提出这个方法并且在他发布的博客里探究了更多的细节，[『单元第一章：或单元』](https://blog.osteele.com/2007/12/cheap-monads/)我会试着在这里给出一个简要的解释。
 
 ```
 const favoriteBook = ((favorites.reading||{}).books||[])[0]; // undefined
@@ -89,7 +89,7 @@ const favoritePodcast = ((favorites.audio||{}).podcasts||[])[0]; // 'Shop Talk S
 
 与上面的短路例子类似，这个方法通过检查值是否为假来生效。如果值为假，它会尝试取得空对象的属性。在上面的例子中，favorites.reading 的值是 null，所以从一个空对象上获得books属性。这会返回一个 undefined 结果，所以0会被用于获取空数组中的成员。
 
-这个方法相较于 `&&` 方法的优势是它避免了属性名的重复。在深层嵌套的对象中，这会成为显著的优势。而主要的缺点在于可读性 ———— 这不是一个普通的模式，所以这或许需要阅读者花一点时间理解它是怎么运作的。
+这个方法相较于 `&&` 方法的优势是它避免了属性名的重复。在深层嵌套的对象中，这会成为显著的优势。而主要的缺点在于可读性 — 这不是一个普通的模式，所以这或许需要阅读者花一点时间理解它是怎么运作的。
 
 ### try/catch
 
@@ -135,7 +135,7 @@ console.log(favoriteShow); // null
 console.log(favoriteMagazine); // null
 ```
 
-如果任意一个获取属性的尝试失败了，这会导致它们全部返回默认值
+如果任意一个获取属性的尝试失败了，这会导致它们全部返回默认值。
 
 一个可选的方法是用一个可复用的工具函数封装 `try...catch`。
 
