@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# Javascript - Generator-Yield/Next & Async-Await
+# Javascript - Generator-Yield/Next 和 Async-Await
 
 ![](https://cdn-images-1.medium.com/max/2000/0*yONeU8vuaq8eIyTD)
 
@@ -21,9 +21,9 @@ generator 的暂停和恢复是使用 `yield` 和 `next` 完成的。让我们�
 
 #### Yield/Next
 
-> `yield` 关键字暂停 generator 函数的执行 execution and the value of the expression following the `yield` keyword is returned to the generator's caller. 它可以被理解为基于 generator 版本的 `return` 关键字。
+> `yield` 关键字暂停 generator 函数的执行，并且 `yield` 关键字后面的表达式的值将返回给 generator 的调用者。它可以被理解为基于 generator 版本的 `return` 关键字。
 
-`yield` 关键字实际上返回一个具有 `value` 和 `done` 两个属性的 `IteratorResult` 对象。([如果你不了解什么是 iterators 和 iterables，点击这里阅读](https://codeburst.io/javascript-es6-iterables-and-iterators-de18b54f4d4)).
+`yield` 关键字实际上返回一个具有 `value` 和 `done` 两个属性的 `IteratorResult` 对象。（[如果你不了解什么是 iterators 和 iterables，点击这里阅读](https://codeburst.io/javascript-es6-iterables-and-iterators-de18b54f4d4)）。
 
 > 一旦暂停 `yield` 表达式，generator 的代码执行将保持暂停状态，直到调用 generator 的 `next()` 方法为止。每次调用 generator 的 `next()` 方法时，generator 都会恢复执行并返回 [iterator](https://codeburst.io/javascript-es6-iterables-and-iterators-de18b54f4d4) 结果。
 
@@ -66,7 +66,7 @@ UUID.next()
 
 ![](https://cdn-images-1.medium.com/max/1600/0*LAkE4GiZATgtseM5)
 
-传统上，callbacks were passed and invoked when an asynchronous operation returned with data which are handled using `Promise.`
+传统上，当一个异步操作返回由 `Promise` 处理的数据时，回调会被传递并调用。
 
 > Async/Await 是一种特殊的语法，以更舒适的方式使用 Promise ，这种方式非常容易理解和使用。
 
@@ -101,17 +101,17 @@ async function asyncFunction() {
 asyncFunction();
 ```
 
-The `asyncFunction` execution “pauses” at the line `await promise` and resumes when the promise settles, with `result` becoming its result. So the code above shows “`i am resolved!`” in one second.
+在 `await promise` 这一行，`asyncFunction` 执行 “暂停”，并在 promise 被解决后回复, `result` （第 95 行的 `const result`）变成它的结果。上面的代码在一秒钟后展示 “`i am resolved!`” 。
 
 * * *
 
 #### Generator 和 Async-await 比较
 
-1.  _Generator 函数/yield_ and _Async 函数/await_ 都可以用来编写“等待”的异步代码，这意味着代码看起来像是同步的，即使它确实是异步的。
-2.  _Generator function_ are executed **yield by yield** i.e one yield-expression at a time by its iterator (the `next` method) where as _Async-await_, they are executed sequential **await by await**.
+1.  _Generator 函数/yield_ 和 _Async 函数/await_ 都可以用来编写“等待”的异步代码，这意味着代码看起来像是同步的，即使它确实是异步的。
+2.  _Generator 函数_ 按照 **yield 接着 yield** 的顺序执行，就是说一个 yield 表达式通过迭代器来执行一次（执行 `next` 方法），而 _Async-await_ 按照 **await 接着 await** 的顺序接续执行。
 3.  _Async/await_ 可以更容易地实现 _Generators_ 的特定用例。
 4.  _Generator_ 的返回值始终是 **{value: X, done: Boolean}** 。对于 _Async 函数_ 它将始终是一个将解析为值 X 或抛出错误的 **promise** 。
-5.  _Async 函数_ 可以分解为 G_enerator 和 promise_ implementation ，这些都很有用。
+5.  _Async 函数_ 可以分解为 _Generator 和 promise_ 实施，这些都很有用。
 * * *
 
 如果您想要添加到我的电子邮件列表中，请考虑 [**在此处输入您的电子邮件**](https://goo.gl/forms/MOPINWoY7q1f1APu2)，并在 [**medium**](https://medium.com/@ideepak.jsd) **上关注我以阅读更多有关 javascript 的文章，并在** [**github**](https://github.com/dg92) **上查看我的疯狂代码**。如果有什么不清楚的，或者你想指出什么，请在下面评论。
