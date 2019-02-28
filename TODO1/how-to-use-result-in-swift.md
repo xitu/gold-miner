@@ -7,7 +7,7 @@
 
 # How to use Result in Swift 5
 
-![](/uploads/swift-evolution-5.jpg)
+![](https://www.hackingwithswift.com/uploads/swift-evolution-5.jpg)
 
 [SE-0235](https://github.com/apple/swift-evolution/blob/master/proposals/0235-add-result.md) introduces a `Result` type into the standard library, giving us a simpler, clearer way of handling errors in complex code such as asynchronous APIs. This is something folks have been asking for since the very earliest days of Swift, so it's great to see it finally arrive!
 
