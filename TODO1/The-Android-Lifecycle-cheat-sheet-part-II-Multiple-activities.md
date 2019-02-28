@@ -8,7 +8,7 @@
 # The Android Lifecycle cheat sheet — part II: Multiple activities
 
 In this series:  
-[Part I: Activities — single activity lifecycle](https://medium.com/@JoseAlcerreca/the-android-lifecycle-cheat-sheet-part-i-single-activities-e49fd3d202ab)  
+[第一部分：单一 Activities](https://github.com/xitu/gold-miner/blob/master/TODO/the-android-lifecycle-cheat-sheet-part-i-single-activities.md)  
 **Part II: Multiple activities** — navigation and back stack (this post)
 [Part III: Fragments — activity and fragment lifecycle](https://medium.com/@JoseAlcerreca/the-android-lifecycle-cheat-sheet-part-iii-fragments-afc87d4f37fd)  
 [Part IV: ViewModels, Translucent Activities and Launch Modes](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iv-49946659b094)
