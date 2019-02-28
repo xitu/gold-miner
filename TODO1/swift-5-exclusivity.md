@@ -2,18 +2,20 @@
 > * 原文作者：[swift.org](https://swift.org)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/swift-5-exclusivity.md](https://github.com/xitu/gold-miner/blob/master/TODO1/swift-5-exclusivity.md)
-> * 译者：
-> * 校对者：
+> * 译者：[LoneyIsError](https://github.com/LoneyIsError)
+> * 校对者：[Bruce-pac](https://github.com/Bruce-pac), [Danny1451](https://github.com/Danny1451)
 
-# Swift 5 Exclusivity Enforcement
+# Swift 5 强制独占性原则
 
-The Swift 5 release enables runtime checking of “Exclusive Access to Memory” by default in Release builds, further enhancing Swift’s capabilities as a safe language. In Swift 4, these runtime checks were only enabled in Debug builds. In this post, I’ll first explain what this change means for Swift developers before delving into why it is essential to Swift’s strategy for safety and performance.
+> 在理解概念时参照了喵神的[所有权宣言 - Swift 官方文章 Ownership Manifesto 译文评注版](https://onevcat.com/2017/02/ownership/)
 
-## Background
+Swift 5 允许在 Release 构建过程中默认启用关于「独占访问内存」的运行时检查，进一步增强了 Swift 作为安全语言的能力。在 Swift 4 中，这种运行时检查仅允许在 Debug 构建过程中启用。在这篇文章中，首先我将解释这个变化对 Swift 开发人员的意义，然后再深入研究为什么它对 Swift 的安全和性能策略至关重要。
 
-To achieve [memory safety](https://docs.swift.org/swift-book/LanguageGuide/MemorySafety.html), Swift requires exclusive access to a variable in order to modify that variable. In essence, a variable cannot be accessed via a different name for the duration in which the same variable is being modified as an `inout` argument or as `self` within a `mutating` method.
+## 背景
 
-In the following example, `count` is accessed for modification by passing it as an `inout` argument. The exclusivity violation occurs because the `modifier` closure both reads the captured `count` variable and is called within the scope of the same variable’s modification. Inside the `modifyTwice` function, the `count` variable may only be safely accessed via the `value` inout argument, and within the `modified` closure it may only safely be accessed as `$0`.
+为了实现 [内存安全](https://docs.swift.org/swift-book/LanguageGuide/MemorySafety.html)，Swift 需要对变量进行独占访问时才能修改该变量。本质上来说，当一个变量作为 `inout` 参数或者 `mutating` 方法中的 `self` 被修改时，不能通过不同的名称被访问的。
+
+在以下示例中，通过将 `count` 作为 `inout` 参数传递来对 `count` 变量进行修改。出现独占性违规情况是因为 `modifier` 闭包对捕获的 `count` 变量同时进行了读取操作，并且在同一变量修改的范围内进行了调用。在 `modifyTwice` 函数中，`count` 变量只能通过 `inout` 修饰的 `value` 参数来进行安全访问而在 `modified` 闭包内，它只能以 `$0` 来进行安全访问。
 
 ```
 func modifyTwice(_ value: inout Int, by modifier: (inout Int) -> ()) {
@@ -28,50 +30,50 @@ func testCount() {
 }
 ```
 
-As is often the case with exclusivity violations, the programmer’s intention is somewhat ambiguous. Do they expect `count` to be printed as “3” or “4”? Either way, the compiler does not guarantee the behavior. Worse yet, compiler optimizations can produce subtly unpredictable behavior in the presence of such errors. To protect against exclusivity violations and to allow the introduction of language features that depend on safety guarantees, exclusivity enforcement was first introduced in Swift 4.0: [SE-0176: Enforce Exclusive Access to Memory](https://github.com/apple/swift-evolution/blob/master/proposals/0176-enforce-exclusive-access-to-memory.md).
+违反独占性的情况通常如此，程序员的意图此时显得有些模糊。他们希望 `count` 打印的值是「3」还是「4」呢？无论哪种结果，编译器都无法保证。更糟糕的是，编译器优化会在出现此类错误时产生微妙的不可预测行为。为了防止违反独占性并允许引入依赖于安全保证的语言特性，强制独占性最初在 Swift 4.0 中引入的：[SE-0176：实施对内存的独占访问](https://github.com/apple/swift-evolution/blob/master/proposals/0176-enforce-exclusive-access-to-memory.md)。
 
-Compile-time (static) diagnostics catch many common exclusivity violations, but run-time (dynamic) diagnostics are also required to catch violations involving escaping closures, properties of class types, static properties, and global variables. Swift 4.0 provided both compile-time and run-time enforcement, but run-time enforcement was only enabled in Debug builds.
+编译时（静态）检测可以捕获许多常见的独占性违规行为，但是还需要运行时（动态）检测来捕获涉及逃逸闭包，类类型的属性，静态属性和全局变量的违规情况。Swift 4.0 同时提供了编译时和运行时的强制性检测，但运行时的强制检测仅在 Debug 构建过程中启用。
 
-In Swift 4.1 and 4.2, compiler diagnostics were gradually strengthened to catch more and more of the cases in which programmers could skirt exclusivity rules–most notably by capturing variables in nonescaping closures or by converting nonescaping closures to escaping closures. The Swift 4.2 announcement, [Upgrading exclusive access warning to be an error in Swift 4.2](https://forums.swift.org/t/upgrading-exclusive-access-warning-to-be-an-error-in-swift-4-2/12704), explains some of the common cases affected by the newly enforced exclusivity diagnostics.
+在 Swift 4.1 和 4.2 中，编译器检查能力逐渐得到加强，可以捕获到越来越多程序员绕过独占性规则的情况 —— 最明显的是在非逃逸闭包中捕获变量，或者将非逃逸闭包转换为逃逸闭包。Swift 4.2 宣称，[在 Swift 4.2 中将独占访问内存警告升级为错误](https://forums.swift.org/t/upgrading-exclusive-access-warning-to-be-an-error-in-swift-4-2/12704)，并解释了一些受新强制独占性检测影响的常见案例。
 
-Swift 5 fixes the remaining holes in the language model and fully enforces that model1. Since run-time exclusivity enforcement is now enabled by default in Release builds, some Swift programs that previously appeared well-behaved, but weren’t fully tested in Debug mode, could be affected.
+Swift 5 修复了语言模型中剩余的漏洞，并完全执行了该模型。 由于在 Release 编译过程中默认启用了对内存独占情况的强制性运行时检查，一些以前表现得很好的但未在 Debug 模式下被充分测试的 Swift 程序可能会受到一些影响.
 
-1Some rare corner cases involving illegal code aren’t yet diagnosed by the compiler ([SR-8546](https://bugs.swift.org/browse/SR-8546), [SR-9043](https://bugs.swift.org/browse/SR-9043)).
+一些罕见的还无法被编译器检测出来的涉及非法代码的情况（[SR-8546](https://bugs.swift.org/browse/SR-8546)，[SR-9043](https://bugs.swift.org/browse/SR-9043)）。
 
-## Impact on Swift projects
+## 对 Swift 项目的影响
 
-Exclusivity enforcement in Swift 5 may affect an existing project in two ways:
+Swift 5 中的强制独占性检查对现有项目可能会产生以下两种影响：
 
-1. If the project source violates Swift’s exclusivity rules (see [SE-0176: Enforce Exclusive Access to Memory](https://github.com/apple/swift-evolution/blob/master/proposals/0176-enforce-exclusive-access-to-memory.md), and Debug testing failed to exercise the invalid code, then executing the Release binary could trigger a runtime trap. The crash will produce a diagnostic message with the string:
+1. 如果项目源码违反了 Swift 的独占性规则（具体查看 [SE-0176：实施对内存的独占访问](https://github.com/apple/swift-evolution/blob/master/proposals/0176-enforce-exclusive-access-to-memory.md)），Debug 调试测试时未能执行无效代码，然后，在构建 Release 二进制文件时可能会触发运行时陷阱。产生崩溃并抛出一个包含字符串的诊断消息：
 
-“Simultaneous accesses to …, but modification requires exclusive access”
+   「Simultaneous accesses to …, but modification requires exclusive access」
 
-A source level fix is usually straightforward. The following section shows examples of common violations and fixes.
+    源代码级别修复通常很简单。后面的章节会展示常见的违规和修复示例。
     
-2. The overhead of the memory access checks could affect the performance of the Release binary. The impact should be small in most cases; if you see a measurable performance regression, please file a bug so we know what we need to improve. As a general guideline, avoid performing class property access within the most performance critical loops, particularly on different objects in each loop iteration. If that isn’t possible, making the class properties `private` or `internal` can help the compiler prove that no other code accesses the same property inside the loop.
+2. 内存访问检查的开销可能会影响的 Release 二进制包的性能。在大多数情况下，这种影响应该很小；如果你发现某个明显的性能下降情况，请提交 bug，以便我们了解需要改进的内容。作为一般性准则，应当避免在大多数性能关键循环中执行类属性访问，特别是在每个循环迭代中的不同对象上。如果必须如此，那么你可以将类属性修饰为 `private` 或 `internal` 来帮助告知编译器没有其他代码访问循环内的相同属性。
 
-These runtime checks can be disabled via Xcode’s “Exclusive Access to Memory” build setting, which has options for “Run-time Checks in Debug Builds Only” and “Compile-time Enforcement Only”:
+你可以通过 Xcode 的「Exclusive Access to Memory」构建设置来禁用这些运行时检查，该设置还有「Run-time Checks in Debug Builds Only」和「Compile-time Enforcement Only」两个选项：
 
 ![Xcode exclusivity build setting](https://swift.org/assets/images/exclusivity-blog/XcodeBuildSettings.png)
 
-The corresponding swiftc compiler flags are `-enforce-exclusivity=unchecked` and `-enforce-exclusivity=none`.
+相对应的 swiftc 编译器标志是 `-enforce-exclusivity = unchecked` 和 `-enforce-exclusivity = none`。
 
-While disabling run-time checks may work around a performance regression, it does not mean that exclusivity violations are safe. Without enforcement enabled, the programmer must take responsibility for obeying exclusivity rules. Disabling run-time checks in Release builds is strongly discouraged because, if the program violates exclusivity, then it could exhibit unpredictable behavior, including crashes or memory corruption. Even if the program appears to function correctly today, future release of Swift could cause additional unpredictable behavior to surface, and security exploits may be exposed.
+虽然禁用运行时检查可能会解决性能下降问题，但这并不意味着违反独占性是安全的。如果没有启用强制执行，程序员就必须承担遵守独占性规则的责任。强烈建议不要在构建 Release 包时禁用运行时检查，因为如果程序违反独占他性原则，则可能会出现不可预测的结果，包括崩溃或内存损坏。即使程序现在似乎能正常运行，未来的 Swift 版本也可能导致出现其他不可预测的情况，并且可能会暴露安全漏洞。
 
-## Examples
+## 示例
 
-The “testCount” example from the Background section violates exclusivity by passing a local variable as an `inout` argument while simultaneously capturing it in a closure. The compiler detects this at build time, as shown in the screen shot below:
+在背景部分中的「testCount」示例中通过将局部变量作为 `inout` 参数来传递，与此同时在闭包中捕获它来违反了独占性原则。编译器在构建时检测到这一段时，就会如下面的屏幕截图所示：
 
 ![testCount error](https://swift.org/assets/images/exclusivity-blog/Example1.png)
 
-`inout` argument violations can often be trivially fixed with the addition of a `let`:
+通常可以通过添加 `let` 来简单地修复 `inout` 参数的违规情况：
 
 ```
 let incrementBy = count
 modifyTwice(&count) { $0 += incrementBy }
 ```
 
-The next example may simultaneously modify `self` in a `mutating` method, producing unexpected behavior. The `append(removingFrom:)` method appends to an array by removing all the elements from another array:
+下一个示例可能会在 `mutating` 方法中同时修改 `self`，从而产生异常。`append(removingFrom:)` 方法通过删除另一个数组中所有元素来增加数组元素：
 
 ```
 extension Array {
@@ -83,26 +85,26 @@ extension Array {
 }
 ```
 
-However, using this method to append an array to itself will do something unexpected — loop forever. Here, again the compiler produces an error at build time because “inout arguments are not allowed to alias each other”:
+但是，使用此方法将自身数组中的所有元素添加到自身将引发意外情况 —— 死循环。在这里，编译器在构建时再次抛出异常，因为「inout arguments are not allowed to alias each other」：
 
 ![append(removingFrom:) error](https://swift.org/assets/images/exclusivity-blog/Example2.png)
 
-To avoid these simultaneous modifications, the local variable can be copied into another `var` before being passed as an ‘inout’ to the mutating method:
+为了避免这些同时修改，可以将局部变量复制到另一个 `var` 中，然后作为 `inout` 参数传递给 mutating 方法：
 
 ```
 var toAppend = elements
 elements.append(removingFrom: &toAppend)
 ```
 
-The two modifications are now on different variables, so there is no conflict.
+现在，这两个修改方法对不同的变量进行修改，所以没有产生冲突。
 
-Examples of some common cases that cause build time errors can be found in [Upgrading exclusive access warning to be an error in Swift 4.2](https://forums.swift.org/t/upgrading-exclusive-access-warning-to-be-an-error-in-swift-4-2/12704).
+可以在 [在 Swift 4.2 中将独占访问内存警告升级为错误](https://forums.swift.org/t/upgrading-exclusive-access-warning-to-be-an-error-in-swift-4-2/12704) 中找到导致构建错误的一些常见情况的示例。
 
-Changing the first example to use a global rather than local variable prevents the compiler from raising an error at build time. Instead, running the program traps with the “Simultaneous access” diagnostic:
+通过更改第一个示例，使用全局变量而不是局部变量，可以防止编译器在构建时抛出错误。然而，运行程序会命中「Simultaneous access」的检查:
 
 ![global count error](https://swift.org/assets/images/exclusivity-blog/Example3.png)
 
-In many cases, as shown in the next example, the conflicting accesses occur in separate statements.
+如示例中所示，在许多情况下，冲突访问发生在不同的语句中。
 
 ```
 struct Point {
@@ -124,7 +126,7 @@ point.modifyX {
 }
 ```
 
-The runtime diagnostics capture the information that an access started at the call to `modifyX` and that a conflicting access occurred within the `getY` closure, along with a backtrace showing the path leading to the conflict:
+运行时检测捕获了在开始调用 `modifyX` 时的访问信息，以及在 `getY` 闭包内发生冲突的访问信息，以及显示了导致冲突的堆栈信息：
 
 ```
 Simultaneous accesses to ..., but modification requires exclusive access.
@@ -137,15 +139,15 @@ Current access (a read) started at:
 Fatal access conflict detected.
 ```
 
-Xcode first pinpoints the inner conflicting access:
+Xcode 首先确定了内部访问冲突：
 
 ![Point error: inner position](https://swift.org/assets/images/exclusivity-blog/Example4a.png)
 
-Selecting “Previous access” from the current thread’s view in the sidebar pinpoints the outer modification:
+从侧边栏中当前线程的视图中选择「上一次访问」来确定外部修改：
 
 ![Point error: outer position](https://swift.org/assets/images/exclusivity-blog/Example4b.png)
 
-The exclusivity violation can be avoided by copying any values that need to be available within the closure:
+通过复制闭包中所需要用的任何值，可以避免独占性违规：
 
 ```
 let y = point.y
@@ -154,15 +156,15 @@ point.modifyX {
 }
 ```
 
-If this had been written without getters and setters:
+如果这是在没有 getter 和 setter 的情况下编写的：
 
 ```
 point.x = point.y
 ```
 
-…then there would be no exclusivity violation, because in a simple assignment (with no `inout` argument scope), the modification is instantaneous.
+…那么就不存在独占性违规，因为在一个简单的赋值中（没有 `inout` 参数），修改是瞬间的。
 
-At this point, the reader may wonder why the original example is considered a violation of exclusivity when two separate properties are written and read; `point.x` and `point.y`. Because `Point` is declared as a `struct`, it is considered a value type, meaning that all of its properties are part of a whole value, and accessing one property accesses the entire value. The compiler makes exception to this rule when it can prove safety via a straighforward static analysis. In particular, when same statement initiates accesses of two disjoint stored properties, the compiler avoids reporting an exclusivity violation. In the next example, the statement that calls `modifyX` first accesses `point` in order to immediately pass its property `x` as `inout`. The same statement accesses `point` a second time in order to capture it in a closure. Since the compiler can immediately see that the captured value is only used to access property `y`, there is no error.
+在这一点上，读者可能想知道为什么在读写两个单独的属性时，原始示例被视为违反独占性规则；`point.x` 和 `point.y`。因为 `Point` 被声明为 `struct`，它被认为是一个值类型，这意味着它的所有属性都是整个值的一部分，访问任何一个属性都会访问整个值。当通过简单的静态分析可以证明安全性时，编译器会对此规则进行例外处理。 特别是，当同一语句发起对两个不相交存储的属性访问时，编译器会避免抛出违反独占性的报告。在下一个示例中，先调用 `modifyX` 的方法访问 `point`，以便立即将其属性 `x` 作为 `inout` 传递。然后用相同的语句再次访问 `point`，以便在闭包中捕获它。因为编译器可以立即看到捕获的值只用于访问属性 `y`，所以没有错误。
 
 ```
 func modifyX(x: inout Int, updater: (Int)->Int) {
@@ -178,16 +180,16 @@ func testDisjointStructProperties(point: inout Point) {
 }
 ```
 
-Properties can be classified into three groups:
+属性可以分为三类：
 
-1. instance properties of value types
+1. 值类型的实例属性
     
-2. instance properties of reference types
+2. 引用类型的实例属性
     
-3. static and class properties on any kind of type
+3. 任意类型的静态和类属性
     
 
-Only modifications of the first kind of property (instance properties) require exclusivity access to entire storage of the aggregate value as shown in the `struct Point` example above. The other two kinds of properties are enforced separately, as independent storage. If this example is converted to a class, the original exclusivity violation goes away:
+只有对第一类属性（实例属性）的修改才会要求对聚合值的整体存储具有独占性访问，如上面的 `struct Point` 示例所示。另外两种类别可以作为独立存储分别执行。 如果这个例子被转换成一个类对象，那么将不会违反独占性原则：
 
 ```
 class SharedPoint {
@@ -209,13 +211,13 @@ point.modifyX {
 }
 ```
 
-## Motivation
+## 目的
 
-The combination of compile-time and run-time exclusivity checks described above are necessary to enforce Swift’s [memory safety](https://docs.swift.org/swift-book/LanguageGuide/MemorySafety.html). Fully enforcing those rules, rather than placing the burden on programmers to follow the rules, helps in at least five ways:
+上述编译时和运行时独占性检查的结合对于加强 Swift 的 [内存安全](https://docs.swift.org/swift-book/LanguageGuide/MemorySafety.html) 是很必要的。完全执行这些规则，而不是让程序员承担遵守独占性规则的负担，至少有以下五种帮助：
 
-1. Exclusivity eliminates dangerous program interactions involving mutable state and action at a distance.
+1. 执行独占性检查消除了程序涉及可变状态和远距离动作的危险交互。
 
-As programs scale in size, it becomes increasingly likely for routines to interact in unexpected ways. The following example is similar in spirit to the `Array.append(removingFrom:)` example above, where exclusivity enforcement is needed to prevent the programmer from passing the same variable as both the source and destination of a move. But notice that, once classes are involved, it becomes much easier for programs to unwittingly pass the same instance of `Names` in both `src` and `dest` position because two variables reference the same object. Again, this causes an infinite loop:
+    随着程序规模的不断扩大，越来越可能会以意想不到的方式进行交互。下面的例子在类似于上面的`Array.append(removedFrom:)` 例子，需要执行独占性检查来避免程序员将相同的变量同时作为源数据和目标数据进行传递。但请注意，一旦涉及到类对象，因为这两个变量引用了同一个对象，程序就会在无意中更容易在 `src` 和 `dest` 位置上传递同一个的 `Names` 实例。当然，这样就会导致死循环：
 
 ```
 func moveElements(from src: inout Set<String>, to dest: inout Set<String>) {
@@ -238,31 +240,31 @@ var newNames = oldNames // Aliasing naturally happens with reference types.
 moveNames(from: oldNames, to: newNames)
 ```
 
-[SE-0176: Enforce Exclusive Access to Memory](https://github.com/apple/swift-evolution/blob/master/proposals/0176-enforce-exclusive-access-to-memory.md) describes the problem in more depth.
+   [SE-0176：实施对内存的独占访问](https://github.com/apple/swift-evolution/blob/master/proposals/0176-enforce-exclusive-access-to-memory.md) 更深入地描述了这个问题。
 
-2. Enforcement eliminates an unspecified behavior rule from the language.
+2. 执行独占性检查消除了语言中未指定的行为规则。
 
-Prior to Swift 4, exclusivity was necessary for well defined program behavior, but the rules were unenforced. In practice, it is easy to violate these rules in subtle ways, leaving programs susceptible to unpredictable behavior, particularly across releases of the compiler.
+   在 Swift 4 之前，独占性对于明确定义的程序行为是必要的，但规则是不受限制的。在实践中，人们很容易以微妙的方式违反这些规则，使程序容易受到不可预测的行为的影响，特别是在编译器的各个发布版本中。
 
-3. Enforcement is necessary for ABI stability.
+3. 执行独占性检查是稳定 ABI 的必要条件。
 
-Failing to fully enforce exclusivity would have an unpredictable impact on ABI stability. Existing binaries built without full enforcement may function correctly in one release but behave incorrectly in future versions of the compiler, standard library, and runtime.
+   未能完全执行独占性检查将会对 ABI 的稳定性产生不可预测的影响。在没有进行完全检查的情况下构建的现有二进制文件可能在某一个版本中能够正常运行，但在未来的编译器版本、标准库和运行时中无法正确运行。
 
-4. Enforcement legalizes performance optimization while protecting memory safety.
+4. 执行独占性检查使性能优化更合法，同时保护内存安全。
 
-A guarantee of exclusivity on `inout` parameters and `mutating` methods provides important information to the compiler, which it can use to optimize memory access and reference counting operations. Simply declaring an unspecified behavior rule, as described in point #2 above, is an insufficient guarantee for the compiler given that Swift is a memory safe language. Full exclusivity enforcement allows the compiler to optimize based on memory exclusivity without sacrificing memory safety.
+    对 `inout` 参数和 `mutating` 方法的独占性检查向编译器提供了重要信息，可用于优化内存访问和引用计数操作。如上面第2点所述，简单地声明一个未指定的行为规则对于编译器来说是不够，因为 Swift 是一种内存安全语言。完全强制执行独占性检查允许编译器基于内存独占性进行优化，而不会牺牲内存安全性。
 
-5. Exclusivity rules are needed to give the programmer control of ownership and move-only types.
+5. 独占性规则为程序员提供所有权和仅移动类型的控制权。
 
-The [Ownership Manifesto](https://github.com/apple/swift/blob/master/docs/OwnershipManifesto.md) intoduces the [Law of Exclusivity](https://github.com/apple/swift/blob/master/docs/OwnershipManifesto.md#the-law-of-exclusivity), and explains how it provides the basis for adding ownership and move-only types to the language.
+   在 Swift 的 [所有权宣言](https://github.com/apple/swift/blob/master/docs/OwnershipManifesto.m) 中新增了 [独占性原则](https://github.com/apple/swift/blob/master/docs/OwnershipManifesto.md#the-law-of-exclusivity)，并解释了它如何为语言添加所有权和仅限移动类型提供依据。
 
-## Conclusion
+## 总结
 
-By shipping with full exclusivity enforcement enabled in Release builds, Swift 5 helps to eliminate bugs and security issues, ensure binary compatibility, and enable future optimizations and language features.
+通过在 Release 构建过程中强制启动完全独占性检查，Swift 5 有助于消除错误和安全性问题，确保二进制兼容性，并支持未来的优化和语言功能。
 
-## Questions?
+## 还有疑问?
 
-Please feel free to post questions about this post on the [associated thread](https://forums.swift.org/t/swift-org-blog-swift-5-exclusivity-enforcement/20178) on the Swift forums.
+请随时在 Swift 论坛的 [相关主题](https://forums.swift.org/t/swift-org-blog-swift-5-exclusivity-enforcement/20178) 上发布相关的问题。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
