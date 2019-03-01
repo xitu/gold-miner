@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-your-own-neural-network-from-scratch-in-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-your-own-neural-network-from-scratch-in-python.md)
 > * 译者：[JackEggie](https://github.com/JackEggie)
-> * 校对者：
+> * 校对者：[lsvih](https://github.com/lsvih), [xionglong58](https://github.com/xionglong58)
 
 # 如何用 Python 从零开始构建你自己的神经网络
 
