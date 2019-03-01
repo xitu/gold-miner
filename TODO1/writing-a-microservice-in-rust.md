@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/writing-a-microservice-in-rust.md](https://github.com/xitu/gold-miner/blob/master/TODO1/writing-a-microservice-in-rust.md)
 > * 译者：[nettee](https://github.com/nettee)
-> * 校对者：
+> * 校对者：[HearFishle](https://github.com/HearFishle), [shixi-li](https://github.com/shixi-li)
 
 # 用 Rust 写一个微服务
 
-请允许我在写这样一篇**用 Rust 写一个微服务**的文章的开头先谈两句 C++。我成为 C++ 社区的一个相当活跃的成员已经很长一段时间了。我参加会议并[贡献了演讲](https://www.youtube.com/watch?v=E6i8jmiy8MY)，跟随语言的更现代化的特性的发展和传播，当然也写了很多。C++ 让用户在写代码时能对程序的所有方面有非常细粒度的控制，不过代价是陡峭的学习曲线，以及写出有效的 C++ 代码所需的[大量知识](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/n4659.pdf)。然而，C++ 也是一个非常古老的语言。它由 Bjarne Stroustrup 在 1985 年构思出来，因此即使在现代标准中也带有很多的历史包袱。 当然，在 C++ 创建之后，关于语言设计的研究仍在继续，也导致了一些如 [Go](https://golang.org)、[Rust](https://www.rust-lang.org/en-US/)、[Crystal](https://crystal-lang.org) 等很多有趣的新语言的诞生。然而，这些新语言中很少有能够既具有比现代 C++ 更有趣的功能，**同时仍**保证和 C++ 同样的性能和对内存、硬件的控制。Go 想要替代 C++，但正如 [Rob Pike 发现的那样](https://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html)，C++ 程序员对一种性能较差而又提供较少控制的语言不是很感兴趣。而在另一方面，Rust 却吸引了很多 C++ 爱好者。Rust 和 C++ 有不少相同的设计目标，比如**零成本抽象**，以及对内存的精细控制。然而，除此之外，Rust 还添加了很多让程序更安全、更有表达力，以及更高开发效率的语言特性。最让我对 Rust 感兴趣的东西是
+请允许我在写这样一篇**用 Rust 写一个微服务**的文章的开头先谈两句 C++。我成为 C++ 社区的一个相当活跃的成员已经很长一段时间了。我参加会议并[贡献了演讲](https://www.youtube.com/watch?v=E6i8jmiy8MY)，跟随语言的更现代化的特性的发展和传播，当然也写了很多代码。C++ 让用户在写代码时能对程序的所有方面有非常细粒度的控制，不过代价是陡峭的学习曲线，以及写出有效的 C++ 代码所需的[大量知识](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/n4659.pdf)。然而，C++ 也是一个非常古老的语言。它由 Bjarne Stroustrup 在 1985 年构思出来。因此，它即使在现代标准中也带有很多的历史包袱。 当然，在 C++ 创建之后，关于语言设计的研究仍在继续，也导致了一些如 [Go](https://golang.org)、[Rust](https://www.rust-lang.org/en-US/)、[Crystal](https://crystal-lang.org) 等很多有趣的新语言的诞生。然而，这些新语言中很少有能够既具有比现代 C++ 更有趣的功能，**同时仍**保证具备和 C++ 同样的性能和对内存、硬件的控制。Go 想要替代 C++，但正如 [Rob Pike 发现的那样](https://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html)，C++ 程序员对一种性能较差而又提供较少控制的语言不是很感兴趣。不过，Rust 却吸引了很多 C++ 爱好者。Rust 和 C++ 有不少相同的设计目标，比如**零成本抽象**，以及对内存的精细控制。除此之外，Rust 还添加了很多让程序更安全、更有表达力，以及让开发更高效的语言特性。我对 Rust 最感兴趣的东西是
 
 * **借用检查**，极大地提升了内存安全性（再也没有 `SEGFAULT` 了！）；
 * 默认的不可变性（`const`）；
@@ -79,7 +79,7 @@ fn main() {
 }
 ```
 
-有了上面的代码，hyper 会在 `localhost:8080` 开始监听 HTTP 请求，解析到来的请求，并将请求转发到我们的 `Microservice` 类。注意到每次有新请求到来，都会创建一个新的实例。我们现在可以启动服务器，用 curl 发来一些请求！我们在终端中启动服务器：
+有了上面的代码，hyper 会在 `localhost:8080` 开始监听 HTTP 请求，解析并将其转发到我们的 `Microservice` 类。请注意，每次有新请求到来，都会创建一个新的实例。我们现在可以启动服务器，用 curl 发来一些请求！我们在终端中启动服务器：
 
 ```plain
 $ RUST_LOG="microservice=debug" cargo run
@@ -105,13 +105,13 @@ INFO 2018-01-21T23:35:05Z: microservice: Running microservice at 127.0.0.1:8080
 INFO 2018-01-21T23:35:06Z: microservice: Microservice received a request: Request { method: Get, uri: "/", version: Http11, remote_addr: Some(V4(127.0.0.1:61667)), headers: {"Host": "localhost:8080", "User-Agent": "curl/7.54.0", "Accept": "*/*"} }
 ```
 
-万岁！我们有了一个用 Rust 写的基础的服务器。注意到在上面的命令中，我将 `RUST_LOG="microservice=debug"` 添加到了 `cargo run` 中。由于 `env_logger` 会搜索这个特定的环境变量，我们通过这种方式控制它的的行为。这个环境变量（`"microservice=debug"`）的第一部分指定了我们希望启动日志的根模块，第二部分（`=` 后面的部分）指定了可见的最小日志级别。默认情况下，只有 `error!` 会被记录。
+万岁！我们有了一个用 Rust 写的基础的服务器。注意到在上面的命令中，我将 `RUST_LOG="microservice=debug"` 添加到了 `cargo run` 中。由于 `env_logger` 会搜索这个特定的环境变量，我们通过这种方式控制它的行为。这个环境变量（`"microservice=debug"`）的第一部分指定了我们希望启动的日志的根模块，第二部分（`=` 后面的部分）指定了可见的最小日志级别。默认情况下，只有 `error!` 会被记录。
 
 现在，让我们的服务器真正做点事情。因为我们在构建一个聊天应用，我们想要处理的两个请求类型是 `POST` 请求（有包含用户名和消息的表单数据）和 `GET` 请求（有可选的用来根据时间过滤的 `before` 和 `after` 参数）。
 
 ### 接收 `POST` 请求
 
-我们先从写数据的这一部分开始。我们的接受发送到我们服务的根路径（`"/"`）的 `POST` 请求，并期望请求的表单数据中包含 `username` 和 `message` 字段。然后，我们会将这些信息传给一个将其写入数据库的函数。最终，我们返回一个响应。
+我们先从写数据的这一部分开始。我们的接受发送到我们服务的根路径（`"/"`）的 `POST` 请求，并期望请求的表单数据中包含 `username` 和 `message` 字段。然后，这些信息会传入一个函数，写进数据库中。最终，我们返回一个响应。
 
 首先重写 `call()` 方法：
 
@@ -199,11 +199,11 @@ fn parse_form(form_chunk: Chunk) -> FutureResult<NewMessage, hyper::Error> {
 }
 ```
 
-在将表单解析为一个 hashmap 之后，我们尝试从中移除 `message` 键。如果移除失败，我们就返回错误，因为消息是一个必填项。如果移除成功，我们接着获取 `username` 字段，如果这个字段不存在的话，就使用默认值 `"anonymous"`。最后，我们返回一个包含简单的 `NewMessage` 结构体的一个成功的 future。
+在将表单解析为一个 hashmap 之后，我们尝试从中移除 `message` 键。因为这是一个必填项，所以如果移除失败，就返回一个错误（error）。如果移除成功，我们接着获取 `username` 字段，如果这个字段不存在的话，就使用默认值 `"anonymous"`。最后，我们返回一个包含简单的 `NewMessage` 结构体的一个成功的 future。
 
 我现在不会立刻讨论 `write_to_db` 函数。数据库的交互本身非常复杂，所以我会使用后续的一个章节来介绍这个函数，以及对应的从数据库中读取消息的函数。然而，注意到 `write_to_db` 在成功时返回 `i64` 类型的值，这是新消息提交到数据库中的时间戳。
 
-我们先看看我们如何将响应返回给任何向我们的微服务发来的请求：
+先让我们看看我们如何将响应返回给任何向微服务发来的请求：
 
 ```rust
 #[macro_use]
@@ -309,7 +309,7 @@ fn parse_query(query: &str) -> Result<TimeRange, String> {
 }
 ```
 
-不幸的是，这里的代码有些笨重和重复，但在不增加复杂性的情况下很难让它变得更好了。本质上，我们尝试从表单中获取 `before` 和 `after` 两个字段。如果字段存在的话，再尝试将其解析为 `i64`。我本希望能合并多个 `if let` 语句，所以我们可以写：
+不幸的是，这里的代码有些笨重和重复，但在不增加复杂性的情况下很难让它变得更好了。本质上，我们尝试从表单中获取 `before` 和 `after` 两个字段。如果字段存在的话，再尝试将其解析为 `i64`。我希望能合并多个 `if let` 语句，所以我们可以写：
 
 ```rust
 if let Some(ref result) = before && let Err(ref error) = *result {
@@ -350,9 +350,9 @@ fn make_get_response(
 diesel = { version = "1.0.0", features = ["postgres"] }
 ```
 
-请保证你已经在机器上安装了 Postgres，并且可以使用 `psql` 登录（作为基本的健壮性检查）。Diesel 还支持 MySQL 等其他 DBMS，如果你想在本教程之外尝试他们的话。
+请保证你已经在机器上安装了 Postgres，并且可以使用 `psql` 登录（作为基本的健壮性检查）。Diesel 还支持 MySQL 等其他 DBMS，你可以在学完本教程之后尝试它们。
 
-让我们从为我们的应用创建数据库模式开始。我们将它放入 `schemas/messages.sql` 中：
+让我们从为应用创建数据库模式开始。我们将它放入 `schemas/messages.sql` 中：
 
 ```sql
 CREATE TABLE messages (
@@ -363,7 +363,7 @@ CREATE TABLE messages (
 )
 ```
 
-表中的每一行都存储一条消息，包括单调递增的 ID、作者的用户名、消息文本，和一个时间戳。上面所说的时间戳的默认值会为每个新的条目插入自 epoch 以来的当前秒数。由于 `id` 列也是自动递增的，我们最终只需要为每个新行插入用户名和消息。
+表中的每一行都存储一条消息，包括单调递增的 ID、作者的用户名、消息文本和一个时间戳。上面所说的时间戳的默认值会为每个新的条目插入自 epoch 以来的当前秒数。由于 `id` 列也是自动递增的，我们最终只需要为每个新行插入用户名和消息。
 
 现在我们需要将此表与 Diesel 集成。为此，我们需要通过 `cargo install diesel_cli` 安装 Diesel CLI。然后你就可以运行下面的命令：
 
@@ -392,7 +392,7 @@ pub struct Message {
 }
 ```
 
-这个模型是我们在代码中与之交互的 Rust 结构体。为此，我们需要在 主模块中添加一些声明：
+这个模型是我们在代码中与之交互的 Rust 结构体。为此，我们需要在主模块中添加一些声明：
 
 ```rust
 #[macro_use]
@@ -404,7 +404,7 @@ mod schema;
 mod models;
 ```
 
-此时，我们已经准备好填写我们之前遗漏的函数 `write_to_db` 和 `query_db` 了。
+此时，我们已经准备好补充我们之前遗漏的函数 `write_to_db` 和 `query_db` 了。
 
 ### 写入数据库
 
@@ -464,7 +464,7 @@ pub struct NewMessage {
 }
 ```
 
-这样，Diesel 可以直接将我们的结构体中的字段与数据库中的列关联起来。干净！注意到，为此，数据库中的表必须叫做 `messages`，如 `table_name` 属性所示。
+这样，Diesel 可以直接将我们的结构体中的字段与数据库中的列关联起来。多么简洁！注意到，为此，数据库中的表必须叫做 `messages`，如 `table_name` 属性所示。
 
 对于第二个谜团，我们需要稍微修改代码，引入数据库连接的概念。在 `Service::call()` 中，将以下内容放在顶部：
 
@@ -566,11 +566,11 @@ fn query_db(time_range: TimeRange, db_connection: &PgConnection) -> Option<Vec<M
 }
 ```
 
-不幸的是，这段代码有点复杂。这是因为 `before` 和 `after` 都是 `Option`，而且 Diesel 目前不支持逐步构建查询的简单方法。所以我们只能穷举 `before` 或 `after` 是 `Some` 或者 `None`，然后决定执行零个、一个或两个过滤器。然而，查询本身非常简单和直观。由于 `where` 是 Rust 中的关键字，SQL 中的 `WHERE` 子句是使用 Diesel 中的 `filter` 方法实现的。像 `>` 或 `=` 这样的关系操作符则是模型结构体上的方法，如 `.gt()` 或 `.eq()`。
+不幸的是，这段代码有点复杂。这是因为 `before` 和 `after` 都是 `Option`，而且 Diesel 目前不支持逐步构建查询的简单方法。所以我们只能穷举 `before` 或 `after` 是 `Some` 或者 `None`，然后决定执行零个、一个或两个过滤器。不过，查询本身还是非常简单和直观的。由于 `where` 是 Rust 中的关键字，SQL 中的 `WHERE` 子句是使用 Diesel 中的 `filter` 方法实现的。像 `>` 或 `=` 这样的关系操作符则是模型结构体上的方法，如 `.gt()` 或 `.eq()`。
 
 ## 渲染 HTML 模板
 
-我们很接近完成了！现在还剩下的就只有编写我们之前遗漏的 `render_page`。为此，我们要使用**模板**库。在 web 服务器的上下文中，模板是一种通过动态数据和控制流创建 HTML 页面的通用概念。其他语言中流行的模板库有 JavaScript 的 [Handlebars](http://handlebarsjs.com) 和 Python 的 [Jinja](http://jinja.pocoo.org)。虽然我在 [URL 缩短器](http://github.com/goldsborough/psag.cc) 项目中使用了 [Rust 上的 Handlebars](https://github.com/sunng87/handlebars-rust)，但是我不得不说 Rust 的模板库都[不怎么样](http://www.arewewebyet.org/topics/templating/)。就像 Rust 中的不少领域一样，没有像 Jinja 在 Python 中一样的“准标准库”. 这使得从中选择一个很难，因为你永远不知道它会不会在未来六个月内被弃。
+我们很接近完成了！现在还剩下的就只有编写我们之前遗漏的 `render_page`。为此，我们要使用**模板**库。在 web 服务器的上下文中，模板是一种通过动态数据和控制流创建 HTML 页面的通用概念。其他语言中流行的模板库有 JavaScript 的 [Handlebars](http://handlebarsjs.com) 和 Python 的 [Jinja](http://jinja.pocoo.org)。虽然我在 [URL 缩短器](http://github.com/goldsborough/psag.cc) 项目中使用了 [Rust 上的 Handlebars](https://github.com/sunng87/handlebars-rust)，但是我不得不说 Rust 的模板库都[不怎么样](http://www.arewewebyet.org/topics/templating/)。就像 Rust 中的不少领域一样，没有像 Jinja 在 Python 中一样的“准标准库”. 这使得从中选择一个很难，因为你永远不知道它会不会在未来六个月内被弃用。
 
 虽然如此，我们的教程中会使用一个叫做 [maud](http://maud.lambda.xyz) 的模板库。虽然 maud 不是真实世界应用的最具扩展性的选择，但它也很有趣和强大，允许我们直接用 Rust 写 HTML 模板。maud 还可以发挥 Rust 宏的力量，如果有的话。也就是说，maud 需要一个 Rust 的每日构建版本，以启动宏程序（procedural macro）功能。这个功能[看起来已经接近稳定了](https://github.com/rust-lang/rust/issues/38356)。
 
@@ -655,7 +655,7 @@ $ curl 'localhost:8080'
 
 ## 使用 Docker 打包
 
-我将简单谈谈如果将这个应用打包为一个 Docker 容器。这和 Rust 本身没有任何关系，但在此基础上了解相关的 Docker 容器是很有用的。
+我将简单谈谈如何将这个应用打包为一个 Docker 容器。这和 Rust 本身没有任何关系，但在此基础上了解相关的 Docker 容器是很有用的。
 
 Rust 开发人员维护了两个官方的 Docker 镜像：一个是稳定版，一个是用于每日构建的 Rust。稳定版的 Rust 镜像就是 [`rust`](https://hub.docker.com/_/rust/)，每日构建版的镜像是 [`rust-lang/rust:nightly`](https://hub.docker.com/r/rustlang/rust/)。基于其中一个镜像扩展出我们的容器非常简单。我们想基于每日构建的镜像。`Dockerfile` 的内容应当像下面这样：
 
@@ -728,7 +728,7 @@ db_1      | 2018-01-22 01:38:57.917 UTC [20] LOG:  database system was shut down
 db_1      | 2018-01-22 01:38:57.939 UTC [1] LOG:  database system is ready to accept connections
 ```
 
-当然，你第一次运行时的输出可能会有所不同。无论如何，我们的工作已经全部完成了。你可以将这些代码上传到一个 GitHub 仓库，然后放到（免费的）[AWS](https://aws.amazon.com/free/) 或 [Google Cloud](https://cloud.google.com/free/) 实例上，就可以从外部访问你的服务了。哇哦！
+当然，你第一次运行时的输出可能会有所不同。但无论如何，我们的工作已经全部完成了。你可以将这些代码上传到一个 GitHub 仓库，然后放到（免费的）[AWS](https://aws.amazon.com/free/) 或 [Google Cloud](https://cloud.google.com/free/) 实例上，就可以从外部访问你的服务了。哇哦！
 
 ## 结语
 
@@ -736,7 +736,7 @@ db_1      | 2018-01-22 01:38:57.939 UTC [1] LOG:  database system is ready to ac
 
 我写这篇博文是想分享我在学习 Rust，以及使用我的知识写一个小型的 [URL 缩短器 web 服务](http://github.com/goldsborough/psag.cc) —— 我用这个 web 服务来缩短我的博客的 URL（如果你看一眼浏览器的 URL 栏，会发现它非常长）—— 时学到的东西。出于这个原因，我觉得我现在对 Rust 提供的特性有了深刻的认识。也知道了 Rust 的这些特性和现代 C++ 相比，哪些表达能力较强且更安全，而哪些表达能力较弱（但不会更不安全）。
 
-我觉得 Rust 的生态系统可能还需要几年的时间来稳定，来让稳定且维护良好的软件包完成主要的功能。尽管如此，前途还是很光明的。Facebook 已经在研究如何使用 Rust 构建托管其代码库的新 [Mercurial 服务器](https://www.theregister.co.uk/2016/10/18/facebook_mercurial_devs_forget_git/)。越来越多的人将 Rust 视为嵌入式编程的一个有趣选择。我会密切关注这个语言的发展，也就是我在 Reddit 上订阅了 `r/Rust`。
+我觉得 Rust 的生态系统可能还需要几年的时间来稳定，才能让稳定且维护良好的软件包完成主要的功能。尽管如此，前途还是很光明的。Facebook 已经在研究如何使用 Rust 构建托管其代码库的新 [Mercurial 服务器](https://www.theregister.co.uk/2016/10/18/facebook_mercurial_devs_forget_git/)。越来越多的人将 Rust 视为嵌入式编程的一个有趣选择。我会密切关注这个语言的发展，这意味着我已经在 Reddit 上订阅了 `r/Rust`。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
