@@ -3,19 +3,19 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lazy-loading-video-based-on-connection-speed.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lazy-loading-video-based-on-connection-speed.md)
 > * 译者：[SHERlocked93](https://github.com/SHERlocked93)
-> * 校对者：
+> * 校对者：[Reaper622](https://github.com/Reaper622)、[Fengziyin1234](https://github.com/Fengziyin1234)
 
-# 根据网络速度进行视频播放懒加载
+# 网速敏感的视频延迟加载方案
 
-一个大的视频背景 Banner 有时候是一个不错的选择，但是大部分情况下，增加视频功能意味着给首页加一个 25mb 大小的视频，不管是不是给性能带来了消极影响。
+一个大视频的背景，如果做的好，会是一个绝佳的体验！但是，在首页添加一个视频并不仅仅是随便找个人，然后加个 25mb 的视频，那会让你的所有的性能优化都付之一炬。
 
 ![](https://cdn-images-1.medium.com/max/800/1*FAfkN32_GGB-8qyJOXYtKQ.jpeg)
 
 Lazy pandas love lazy loading. (Photo by [Elena Loshina](https://unsplash.com/photos/94c2BwxqwXw?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText))
 
-我参加过一些团队，他们希望给首页加上类似的全屏视频背景。我一般不会开心的太早，因为这种做法通常会导致性能上的噩梦。老实说，我曾干过给一个页面加上一个 **40mb** 大的视频。 😬
+我参加过一些团队，他们希望给首页加上类似的全屏视频背景。我通常不愿意那么做，因为这种做法通常会导致性能上的噩梦。老实说，我曾给一个页面加上一个 **40mb** 大的视频。 😬
 
-上次有人让我这么做的时候，我很好奇当用户处于面临视频加载这个潜在的较大下载量的场景时，我到底应如何对这个背景视频的**渐进增强**问题呢。我跟我的组员们着重强调视频文件体积小、经过压缩的重要性，但是有时候我也期待一些编程上的 Hack。
+上次有人让我这么做的时候，我很好奇应如何将背景视频的加载作为**渐进增强**（Progressive Enhancement），来提升网络连接状况比较好的用户的体验。除了和我的同事们强调视频体积小和压缩视频的重要性以外，也希望在代码上有一些奇迹发生。
 
 **下面是最终的解决方案：**
 
@@ -23,13 +23,13 @@ Lazy pandas love lazy loading. (Photo by [Elena Loshina](https://unsplash.com/p
 2. 监听 `canplaythrough` 事件
 3. 如果 `canplaythrough` 事件没有在 2 秒内触发，那么使用 `Promise.race()` 将视频加载超时 
 4. 如果没有监听到 `canplaythrough` 事件，那么移除 `<source>`，并且取消视频加载
-5. 如果监测到 `canplaythrough` 事件，那么淡入这个视频
+5. 如果监测到 `canplaythrough` 事件，那么使用淡入效果显示这个视频
 
 ### 标记
 
-这里要注意的问题是，即使我在 `<video>` 标签中使用了 `<source>`，但我还没为这些 `<source>` 设置 `src` 属性。如果设置了 `src` 属性，那么浏览器会自动地找到它可以播放的第一个 `<source>`，并立即开始下载它。
+这里要注意的问题是，即使我正在 `<video>` 标签中使用 `<source>`，但我还没为这些 `<source>` 设置 `src` 属性。如果设置了 `src` 属性，那么浏览器会自动地找到它可以播放的第一个 `<source>`，并立即开始下载它。
 
-Since the video is a progressive enhancement in this example, we don’t need or want the video to load by default. In fact, the only thing that will load is the poster, which I have set to be the featured image of the page.因为这是一个渐进增强的例子，我们不需要也不想要真的去加载视频。事实上，唯一需要加载的是海报图，就是我们要设置为这个页面的预览图片。
+因为在这个例子中，视频是作为渐进增强的对象，默认情况下我们不用真的加载视频。事实上唯一需要加载的，是我们为这个页面设置的预览图片。
 
 ```html
   <video class="js-video-loader" poster="<?= $poster; ?>" muted="true" loop="true">
@@ -40,7 +40,7 @@ Since the video is a progressive enhancement in this example, we don’t need or
 
 ### JavaScript
 
-我编写了一个简单的 JavaScript 类，用于查找带有 `.js-video-loader` 这个 CSS 类的页面元素，让我们以后可以在其他视频中复用这个逻辑。[完整的源码可以从 Github 上看到](https://gist.github.com/benjamingrobertson/00c5b47eaf5786da0759b63d78dfde9e)。
+我编写了一个简单的 JavaScript 类，用于查找带有 `.js-video-loader` 这个 class 的 video 元素，让我们以后可以在其他视频中复用这个逻辑。[完整的源码可以从 Github 上看到](https://gist.github.com/benjamingrobertson/00c5b47eaf5786da0759b63d78dfde9e)。
 
 构造函数是这样的：
 
@@ -50,7 +50,7 @@ Since the video is a progressive enhancement in this example, we don’t need or
     // 将在下面情况下返回
     // - 浏览器不支持 Promise
     // - 没有 video 元素
-    // - 如果用户设置了 prefers reduced motion
+    // - 如果用户设置了减少动态偏好（prefers reduced motion） 
     // - 在移动设备上
     if (typeof Promise === 'undefined'
       || !this.videos
@@ -63,7 +63,7 @@ Since the video is a progressive enhancement in this example, we don’t need or
   }
 ```
 
-这里我们所做的就是找到这个页面上所有我们希望懒加载的视频。如果没有，我们可以返回。当用户开启了[减少运动（preference for reduced motion）](https://css-tricks.com/introduction-reduced-motion-media-query/)设置时，我们同样不会懒加载这样的视频。为了不让某些低网速或低图形处理能力的手机用户担心，在小屏幕手机上也会直接返回。（我在考虑是否可以通过 `<source>` 元素的媒体查询来做这些，但也不确定。）
+这里我们所做的就是找到这个页面上所有我们希望延迟加载的视频。如果没有，我们可以返回。当用户开启了[减少动态偏好（preference for reduced motion）](https://css-tricks.com/introduction-reduced-motion-media-query/)设置时，我们同样不会加载这样的视频。为了不让某些低网速或低图形处理能力的手机用户担心，在小屏幕手机上也会直接返回。（我在考虑是否可以通过 `<source>` 元素的媒体查询来做这些，但也不确定。）
 
 然后给每个视频运行这个视频加载逻辑。
 
@@ -120,7 +120,7 @@ Since the video is a progressive enhancement in this example, we don’t need or
   });
 ```
 
-我们同时创建另一个 Promise 作为计时器。在这个 Promise 中，当经过一个设定好的时间后，我们使用 `setTimeout` 来将这个 Promise 给 resolve 掉，我这事呢一个 2 秒的时延（2000毫秒）。   
+我们同时创建另一个 Promise 作为计时器。在这个 Promise 中，当经过一个设定好的时间后，我们使用 `setTimeout` 来将这个 Promise 给 resolve 掉，我这设置了一个 2 秒的时延（2000毫秒）。   
 
 ```javascript
   // 创建一个 Promise 将在
@@ -136,7 +136,7 @@ Since the video is a progressive enhancement in this example, we don’t need or
 
 ```javascript
   // 将 promises 进行 Race 看看哪个先被 resolves
-  Promise.race([videoLoad, videoTimeout]).then(data => {
+  Promise.race([videoLoad, videoTimeout]).  then(data => {
     if (data === 'can play') {
       video.play();
       setTimeout(() => {
@@ -150,7 +150,7 @@ Since the video is a progressive enhancement in this example, we don’t need or
 
 在这个 `.then()` 的回调中我们等着拿到最先被 `resolve` 的那个 Promise 传回来的信息。如果这个视频可以播放，那么我就会拿到之前传的 `can play`，然后试一下是否可以播放这个视频。`video.play()` 是使用 HTMLMediaElement 提供的 `play()` 方法来触发视频播放。
 
-3 秒后，`setTimeout()` 将会给这个标签加上 `.video-loaded` 类，这将有助于实现淡入的特效自动循环播放。
+3 秒后，`setTimeout()` 将会给这个标签加上 `.video-loaded` 类，这将有助于视频文件更巧妙的淡入自动循环播放。
 
 如果我们没接收到 `can play` 字符串，那么我们将取消这个视频的加载。
 
@@ -162,7 +162,7 @@ Since the video is a progressive enhancement in this example, we don’t need or
 
 ```javascript
   /**
-    * 通过移除所有的 <source> 来停止视频加载
+    * 通过移除所有的 <source> 来取消视频加载
     * 然后触发 video.load().
     *
     * @param {DOM object} video
@@ -182,7 +182,7 @@ Since the video is a progressive enhancement in this example, we don’t need or
 
 ### 总结
 
-这个方法的缺点是，我们仍然试图通过一个不一定靠谱的链接来下载一个可能比较大的文件，但是通过提供一个超时时间，我们希望能够给某些网速慢的用户节约一些流量并且获得更好的性能。根据我在 Chrome Dev Tools 里将网速节流到慢 3G 条件下的测试，这个方法将在超时之前加载了 512kb 的视频。即使是一个 3-5mb 的视频，对于一些网速慢的用户来说，这也带来了显著的性能提升。
+这个方法的缺点是，我们仍然试图通过一个不一定靠谱的链接来下载一个可能比较大的文件，但是通过提供一个超时时间，我们希望能够给某些网速慢的用户节约一些流量并且获得更好的性能。根据我在 Chrome Dev Tools 里将网速节流到慢 3G 条件下的测试，这个方法将在超时之前加载了 512kb 的视频。即使是一个 3-5mb 的视频，对于一些网速慢的用户来说，这也带来了显著的流量节省。
 
 你觉得怎么样？如果有改进的建议，欢迎在评论里分享！
 
