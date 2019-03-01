@@ -30,9 +30,9 @@ Lets imagine this person went and collected some data, and they observed a range
 
 ![](https://cdn-images-1.medium.com/max/2000/0*kkaO7QpZeGOg9DRf.)
 
-In Bayesian statistics, the distribution representing our beliefs about a parameter is called the ***prior distribution**, *because it captures our beliefs *prior *to seeing any data. The ***likelihood distribution*** summarizes what the observed data are telling us, by representing a range of parameter values accompanied by the likelihood that each each parameter explains the data we are observing. Estimating the parameter value that maximizes the likelihood distribution is just answering the question: what parameter value would make it most likely to observe the data we have observed? In the absence of prior beliefs, we might stop there.
+In Bayesian statistics, the distribution representing our beliefs about a parameter is called the **prior distribution**, because it captures our beliefs *prior* to seeing any data. The **likelihood distribution** summarizes what the observed data are telling us, by representing a range of parameter values accompanied by the likelihood that each each parameter explains the data we are observing. Estimating the parameter value that maximizes the likelihood distribution is just answering the question: what parameter value would make it most likely to observe the data we have observed? In the absence of prior beliefs, we might stop there.
 
-The key to Bayesian analysis, however, is to combine the prior and the likelihood distributions to determine the ***posterior distribution***. This tells us which parameter values maximize the chance of observing the particular data that we did, taking into account our prior beliefs. In our case, the posterior distribution looks like this:
+The key to Bayesian analysis, however, is to combine the prior and the likelihood distributions to determine the **posterior distribution**. This tells us which parameter values maximize the chance of observing the particular data that we did, taking into account our prior beliefs. In our case, the posterior distribution looks like this:
 
 ![](https://cdn-images-1.medium.com/max/2000/0*3M3HCM8goJjlS-KX.)
 
