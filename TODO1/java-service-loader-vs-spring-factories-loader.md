@@ -13,7 +13,6 @@ Inversion of Control is not only possible at the class level, but at the module 
 IoC 并不仅限于解决模块内类与类之间的依赖耦合问题，其同样适用于模块与模块之间。OSGi 一直致力于这方面的工作。但其实 Java 和 Spring 都提供了对 IoC 的支持。
 ## Java Service Loader
 ## Java Service Loader
-Out-of-the-box, the Java API offers a specific form of Inversion of Control. It’s implemented by the [Service Loader](https://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html) class. It is designed to locate implementation classes of an interface on the classpath. This way allows to discover which available implementations of an interface are available on the classpath _at runtime_, and thus paves the way for modules designed around a clean separation between an API module — _i.e._ JAR, and multiple implementation modules.
 Java 本身提供了一种很简便的方式来支持 IoC，它通过使用[Service Loader] (https://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html) 来实现，其可以获取到工程类路径内指定接口的实现类。这使我们可以在运行期间获知类路径内包含哪些可用的实现类，从而做到接口定义和多个实现模块（jar包）之间的依赖解耦
 This is the path chosen by the logging framework, SLF4J. SLF4J itself is just the API, while different implementations are available (_e.g. Logback, Log4J, etc.). SLF4J clients only interact with the SLF4J API, while the implementation available on the classpath takes care of the nitty-gritty details at runtime.
 
