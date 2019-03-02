@@ -69,7 +69,7 @@ UUID.next()
 
 > Async/Await 是一种特殊的语法，以更舒适的方式使用 Promise ，这种方式非常容易理解和使用。
 
-**Async 关键字**用于定义**异步函数** ，该函数返回一个 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncFunction" title=" AsyncFunction 构造函数创建一个新的异步函数对象。在 JavaScript 中，每个异步函数实际上都是一个 AsyncFunction 对象。" rel="noopener" target="_blank">AsyncFunction</a> 对象。
+**Async 关键字**用于定义**异步函数** ，该函数返回一个 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncFunction" title=" AsyncFunction 构造函数创建一个新的异步函数对象。在 JavaScript 中，每个异步函数实际上都是一个 AsyncFunction 对象。" rel="noopener" >AsyncFunction</a> 对象。
 
 **Await 关键字**用于暂停异步函数执行， 直到 `Promise` 被解决（resolved 或者 rejected）, 并在完成后继续执行 `async` 函数。恢复时，await 表达式的值是已执行的 Promise 的值。
 
