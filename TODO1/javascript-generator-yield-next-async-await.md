@@ -72,16 +72,16 @@ UUID.next()
 
 **Async 关键字**用于定义**异步函数** ，该函数返回一个 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncFunction" title=" AsyncFunction 构造函数创建一个新的异步函数对象。在 JavaScript 中，每个异步函数实际上都是一个 AsyncFunction 对象。" rel="noopener" target="_blank">AsyncFunction</a> 对象。
 
-**Await 关键字** 用于暂停异步函数执行， 直到 `Promise` 被解决（resolved 或者 reject）, 并在完成后继续执行 `async` 函数。恢复时，await 表达式的值是已执行的 Promise 的值。
+**Await 关键字**用于暂停异步函数执行， 直到 `Promise` 被解决（resolved 或者 reject）, 并在完成后继续执行 `async` 函数。恢复时，await 表达式的值是已执行的 Promise 的值。
 
 **关键点：**
 
 > 1. Await 只能在异步函数中使用。
 > 2. 具有 async 关键字的函数将**始终**返回 promise 。
-> 3. 在相同函数下的多个 awaits 将始终按顺序运行。
-> 4. 如果 promise 正常被 resolve ，则 `await promise` 返回结果。但是如果拒绝，它就会抛出错误，就像在那行有 `throw` 语句一样。
+> 3. 在相同函数下的多个 await 语句将始终按顺序运行。
+> 4. 如果 promise 正常被 resolve ，则 `await` 会返回 `promise` 结果。但是如果拒绝，它就会抛出错误，就像在那行有 `throw` 语句一样。
 > 5. 异步函数不能同时等待多个 promise 。
-> 6. 如果在await之后使用await多次，后一条语句不依赖于前一条语句，则可能会出现性能问题。
+> 6. 如果在 await 之后使用 await 多次，并且后一条语句不依赖于前一条语句，则可能会出现性能问题。
 
 到目前为止一切顺利，现在让我们看一个简单的例子：
 
