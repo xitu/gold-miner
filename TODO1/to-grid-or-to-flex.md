@@ -3,19 +3,19 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/to-grid-or-to-flex.md](https://github.com/xitu/gold-miner/blob/master/TODO1/to-grid-or-to-flex.md)
 > * 译者：[Reaper622](https://github.com/Reaper622)
-> * 校对者：
+> * 校对者：[xionglong58](https://github.com/xionglong58)
 
 # 选择 Grid 还是 Flex ？
 
-一个最近由 Chris Coyier 发起的的 [推特话题](https://twitter.com/chriscoyier/status/1088827201468813312) 使我开始思考人们通常在什么情况下使用 CSS Grid 布局还是 Flexbox:
+一个最近由 Chris Coyier 发起的的 [推特话题](https://twitter.com/chriscoyier/status/1088827201468813312) 使我开始思考人们通常在什么情况下使用 CSS Grid 布局还是 Flexbox 布局:
 
-> 对于你们已经理解了 CSS grid 和 flexbox 的人来说， 你们最喜欢的解释它们差异的方法是什么？
+> 对于已经理解了 CSS grid 和 flexbox 的你们来说， 最喜欢的描述二者之间差异的方法是什么？
 > 
 > — Chris Coyier (@chriscoyier) [January 25, 2019](https://twitter.com/chriscoyier/status/1088827201468813312?ref_src=twsrc%5Etfw)
 
 自然地一些最有见地的回复来自于  Rachel Andrew 和 Jen Simmons:
 
-> Flexbox 是一种一维的布局。一行或者一列。Grid 是一种二维的布局。多行和多列。
+> Flexbox 是一种一维布局。一行或者一列。Grid 是一种二维布局。多行和多列。
 > 
 > — Rachel Andrew (@rachelandrew) [January 25, 2019](https://twitter.com/rachelandrew/status/1088827732874747910?ref_src=twsrc%5Etfw)
 
@@ -23,7 +23,7 @@
 > 
 > — Jen Simmons (@jensimmons) [January 26, 2019](https://twitter.com/jensimmons/status/1089181330133450752?ref_src=twsrc%5Etfw)
 
-然而，只是单单阅读推文并不会告诉我们始末。在这篇文章中我想要仔细解析什么时候并在什么条件下你可能会想要使用 Grid 或者 flexbox，和你学着其一而不选择另一的原因。
+然而，只是单单阅读推文并不会告诉我们始末。这篇文章旨在告诉读者两者的适用场景，以及在哪种情况下只能选择使用其中一个。
 
 当我阅读那个话题下面的回复时，那些人们的数量令我十分吃惊——他们陈述着他们只会在页面级的布局中使用 Grid，而且其他情况下直接使用 flexbox。如果你把这个当成一条准则，那么你在严重的限制自己使用 Grid 的强大的功能。我想告诉你们的最主要的建议是，把每个设计个体化，分析可行的选项并且不要对你需要使用的技术来做出假设。当你选择一种布局方法是，先扪心自问一下下面的这些问题。
 
