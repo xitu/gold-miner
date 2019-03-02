@@ -6570,7 +6570,7 @@
 |[苹果公司如何修复 3D Touch](https://juejin.im/post/5b35e5886fb9a00e3642724f)|校对|0.5|
 |[怎样使用简单的三角函数来创建更好的加载动画](https://juejin.im/post/5b33055f518825748871c590)|校对|1|
 
-## 译者：[JackEggie](https://github.com/JackEggie) 历史贡献积分：7 当前积分：7 年度积分：7
+## 译者：[JackEggie](https://github.com/JackEggie) 历史贡献积分：7 当前积分：7 二零一九：4
 
 |文章|类型|积分|
 |------|-------|-------|
