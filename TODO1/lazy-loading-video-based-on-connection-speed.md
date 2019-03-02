@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lazy-loading-video-based-on-connection-speed.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lazy-loading-video-based-on-connection-speed.md)
 > * 译者：[SHERlocked93](https://github.com/SHERlocked93)
-> * 校对者：[Reaper622](https://github.com/Reaper622)、[Fengziyin1234](https://github.com/Fengziyin1234)
+> * 校对者：[Reaper622](https://github.com/Reaper622), [Fengziyin1234](https://github.com/Fengziyin1234)
 
 # 网速敏感的视频延迟加载方案
 
@@ -50,7 +50,7 @@ Lazy pandas love lazy loading. (Photo by [Elena Loshina](https://unsplash.com/p
     // 将在下面情况下返回
     // - 浏览器不支持 Promise
     // - 没有 video 元素
-    // - 如果用户设置了减少动态偏好（prefers reduced motion） 
+    // - 如果用户设置了减少动态偏好（prefers reduced motion）
     // - 在移动设备上
     if (typeof Promise === 'undefined'
       || !this.videos
@@ -120,7 +120,7 @@ Lazy pandas love lazy loading. (Photo by [Elena Loshina](https://unsplash.com/p
   });
 ```
 
-我们同时创建另一个 Promise 作为计时器。在这个 Promise 中，当经过一个设定好的时间后，我们使用 `setTimeout` 来将这个 Promise 给 resolve 掉，我这设置了一个 2 秒的时延（2000毫秒）。   
+我们同时创建另一个 Promise 作为计时器。在这个 Promise 中，当经过一个设定好的时间后，我们使用 `setTimeout` 来将这个 Promise 给 resolve 掉，我这设置了一个 2 秒的时延（2000毫秒）。
 
 ```javascript
   // 创建一个 Promise 将在
@@ -136,7 +136,7 @@ Lazy pandas love lazy loading. (Photo by [Elena Loshina](https://unsplash.com/p
 
 ```javascript
   // 将 promises 进行 Race 看看哪个先被 resolves
-  Promise.race([videoLoad, videoTimeout]).  then(data => {
+  Promise.race([videoLoad, videoTimeout]).then(data => {
     if (data === 'can play') {
       video.play();
       setTimeout(() => {
@@ -186,7 +186,7 @@ Lazy pandas love lazy loading. (Photo by [Elena Loshina](https://unsplash.com/p
 
 你觉得怎么样？如果有改进的建议，欢迎在评论里分享！
 
-- - -
+---
 
 *Originally published at* [*benrobertson.io*](https://benrobertson.io/front-end/lazy-load-connection-speed).
 
