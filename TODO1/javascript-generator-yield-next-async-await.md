@@ -11,9 +11,9 @@
 
 Generator (ES6)
 
-> generator 函数是一个可以根据用户需求，以不同的时间间隔返回多个值，并能管理其内部状态的函数。如果一个函数使用了 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*" title=" function* 声明（function 关键字后跟着星号）定义了一个 Generator 函数，它返回一个 Generator 对象。" rel="noopener" target="_blank">function*</a> 语法，那么它就变成了一个 generator 函数。
+> generator 函数是一个可以根据用户需求，在不同的时间间隔返回多个值，并能管理其内部状态的函数。如果一个函数使用了 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*" title=" function* 声明（function 关键字后跟着星号）定义了一个 Generator 函数，它返回一个 Generator 对象。" rel="noopener">function*</a> 语法，那么它就变成了一个 generator 函数。
 
-它们与正常函数不同，正常函数在单次执行中运行完成。因为 **generator 函数可以被暂停和恢复**，因此它们确实运行完成但触发器仍在我们手中。它们允许**对异步函数**进行**更好的执行控制**，但这并不意味着它们不能用作同步功能。
+它们与正常函数不同，正常函数在单次执行中完成运行，而 **generator 函数可以被暂停和恢复**。它们确实会运行完成，但触发器在我们手中。它们使得**对异步函数能有更好的执行控制**，但这并不意味着它们不能用作同步函数。
 
 > 注意：执行 generator 函数时，会返回一个新的 Generator 对象。
 
@@ -42,9 +42,9 @@ function* UUIDGenerator() {
 };
 ```
 
-UUIDGenerator 是一个 Generator 函数，它使用当前时间和随机数计算 UUID ，并在每次执行时返回一个新的 UUID 。
+UUIDGenerator 是一个 generator 函数，它使用当前时间和随机数计算 UUID ，并在每次执行时返回一个新的 UUID 。
 
-要运行上面的函数，我们需要创建一个我们可以调用的 generator 对象 `next()`：
+要运行上面的函数，我们需要创建一个可以调用 `next()` 的 generator 对象：
 
 ```js
 const UUID = UUIDGenerator();
@@ -53,8 +53,7 @@ const UUID = UUIDGenerator();
 UUID.next() 
 // return {value: 'e35834ae-8694-4e16-8352-6d2368b3ccbf', done: false}
 ```
-
-这将在值键下的每个 UUID.next() 上返回新的 UUID ，并且当我们处于无限循环时，done 将始终为 false 。
+每次 UUID.next() 返回值的 value 值是新的 UUID ，done 值将始终为 false ，因为我们处于一个无限循环中。
 
 > 注意：我们在无限循环上暂停，这是一种很酷的方式。在 generator 函数中的任何“停止点”处，不仅可以为外部函数生成值，还可以从外部接收值。
 
@@ -72,14 +71,14 @@ UUID.next()
 
 **Async 关键字**用于定义**异步函数** ，该函数返回一个 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncFunction" title=" AsyncFunction 构造函数创建一个新的异步函数对象。在 JavaScript 中，每个异步函数实际上都是一个 AsyncFunction 对象。" rel="noopener" target="_blank">AsyncFunction</a> 对象。
 
-**Await 关键字**用于暂停异步函数执行， 直到 `Promise` 被解决（resolved 或者 reject）, 并在完成后继续执行 `async` 函数。恢复时，await 表达式的值是已执行的 Promise 的值。
+**Await 关键字**用于暂停异步函数执行， 直到 `Promise` 被解决（resolved 或者 rejected）, 并在完成后继续执行 `async` 函数。恢复时，await 表达式的值是已执行的 Promise 的值。
 
 **关键点：**
 
 > 1. Await 只能在异步函数中使用。
 > 2. 具有 async 关键字的函数将**始终**返回 promise 。
 > 3. 在相同函数下的多个 await 语句将始终按顺序运行。
-> 4. 如果 promise 正常被 resolve ，则 `await` 会返回 `promise` 结果。但是如果拒绝，它就会抛出错误，就像在那行有 `throw` 语句一样。
+> 4. 如果 promise 正常被 resolve ，则 `await` 会返回 `promise` 结果。但是如果被 reject，它就会抛出错误，就像在那行有 `throw` 语句一样。
 > 5. 异步函数不能同时等待多个 promise 。
 > 6. 如果在 await 之后使用 await 多次，并且后一条语句不依赖于前一条语句，则可能会出现性能问题。
 
@@ -108,10 +107,10 @@ asyncFunction();
 #### Generator 和 Async-await 比较
 
 1.  **Generator 函数/yield** 和 **Async 函数/await** 都可以用来编写“等待”的异步代码，这意味着代码看起来像是同步的，即使它确实是异步的。
-2.  **Generator 函数**按照 **yield 接着 yield** 的顺序执行，就是说一个 yield 表达式通过迭代器来执行一次（执行 `next` 方法），而 **Async-await** 按照 **await 接着 await** 的顺序接续执行。
+2.  **Generator 函数**按照 **yield 接着 yield** 的顺序执行，就是说一个 yield 表达式通过迭代器来执行一次（执行 `next` 方法），而 **Async-await** 按照 **await 接着 await** 的顺序依序执行。
 3.  **Async/await** 可以更容易地实现 **Generators** 的特定用例。
 4.  **Generator** 的返回值始终是 **{value: X, done: Boolean}** 。对于 **Async 函数**它将始终是一个将解析为值 X 或抛出错误的 **promise** 。
-5.  **Async 函数**可以分解为 **Generator 和 promise** 实施，这些都很有用。
+5.  **Async 函数**可以分解为 **Generator 和 promise** 来实现，这些都很有用。
 * * *
 
 如果您想要添加到我的电子邮件列表中，请考虑 [**在此处输入您的电子邮件**](https://goo.gl/forms/MOPINWoY7q1f1APu2)，并在 [**medium**](https://medium.com/@ideepak.jsd) **上关注我以阅读更多有关 javascript 的文章，并在** [**github**](https://github.com/dg92) **上查看我的疯狂代码**。如果有什么不清楚的，或者你想指出什么，请在下面评论。
