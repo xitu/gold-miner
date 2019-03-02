@@ -2,8 +2,8 @@
 > * 原文作者：[Nicolas Frankel](https://dzone.com/users/293758/nfrankel.html)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/java-service-loader-vs-spring-factories-loader.md](https://github.com/xitu/gold-miner/blob/master/TODO1/java-service-loader-vs-spring-factories-loader.md)
-> * 译者：HearFishle
-> * 校对者：
+> * 译者：[HearFishle](https://github.com/HearFishle)
+> * 校对者：[Endone](https://github.com/Endone)
 
 # Java Service Loader vs. Spring Factories Loader
 # Java Service Loder 对比 spring Factories Loader
