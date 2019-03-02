@@ -2,16 +2,16 @@
 > * 原文作者：[Llorenç Muntaner](https://medium.com/@lmuntaner)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/can-you-console-log-in-jsx.md](https://github.com/xitu/gold-miner/blob/master/TODO1/can-you-console-log-in-jsx.md)
-> * 译者：
-> * 校对者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
+> * 校对者：[noahziheng](https://github.com/noahziheng)，[hanxiansen](https://github.com/hanxiansen)
 
-# Can you console.log in JSX?
+# 在 JSX 代码中可以加入 console.log 吗？
 
-## TLDR: You can’t do it!
+## 结论：不行！
 
 ![](https://cdn-images-1.medium.com/max/2000/1*OIfGKWZBZRsvKQZxQtr3Yw.jpeg)
 
-As a coding instructor, I have seen many students trying this:
+作为一名编程老师，我曾看到过我的学生写出了这样的代码：
 
 ```jsx
 render() {
@@ -24,13 +24,13 @@ render() {
 }
 ```
 
-This will not print the expected list in the console. It will just render the string *console.log(this.props.todos)* in the browser.
+这样写不会在控制台打印出期望的内容。而是在浏览器上渲染出 **console.log(this.props.todos)** 这个字符串。
 
-Let’s first take a look at some solutions which are very straightforward, then we will explain the reason.
+我们先来看一些很直接的解决方案，然后我们将会解释原理。
 
-## The most used solution:
+## 最常用的解决方式：
 
-Embed the expression in your JSX:
+在 JSX 中嵌入表达式：
 
 ```jsx
 render() {
@@ -43,9 +43,9 @@ render() {
 }
 ```
 
-## Another popular solution:
+## 另一个很受欢迎的方式：
 
-Place your `console.log` before the `return()`:
+在 `return()` 语句之前加 `console.log`：
 
 ```jsx
 render() {
@@ -58,9 +58,9 @@ render() {
 }
 ```
 
-## A fancy solution:
+## 一种更高级的方式：
 
-Get fancy by writing and using your own `<ConsoleLog>` Component:
+使用自定义的 `<ConsoleLog>` 组件是更高级的方法：
 
 ```jsx
 const ConsoleLog = ({ children }) => {
@@ -69,7 +69,7 @@ const ConsoleLog = ({ children }) => {
 };
 ```
 
-Then use it:
+然后使用它：
 
 ```jsx
 render() {
@@ -82,13 +82,13 @@ render() {
 }
 ```
 
-## Why is that so?
+## 为什么是这样？
 
-We have to remember that JSX is not vanilla JavaScript, nor is it HTML. It is a syntax extension.
+我们必须记住：JSX 不是原生的 JavaScript，也不是 HTML。它是一种语法扩展。
 
-Ultimately, JSX gets compiled into vanilla JavaScript.
+最终，JSX 会被编译成原生 JavaScript。
 
-For example, if we write the following JSX:
+例如，如果我们写了如下的 JSX：
 
 ```jsx
 const element = (
@@ -98,7 +98,7 @@ const element = (
 );
 ```
 
-It will get compiled down to:
+它将会被编译成：
 
 ```jsx
 const element = React.createElement(
@@ -108,15 +108,15 @@ const element = React.createElement(
 );
 ```
 
-Let’s review the parameters of `React.createElement`:
+我们来回顾一下方法 `React.createElement` 的参数：
 
-* `'h1'`: This is the name of the tag, as a string
+* `'h1'`：标签名，是一个字符串类型
 
-* `{ className: 'greeting' }`: These are the props used in `<h1>` . It is converted to an object. The key of the object is the name of the prop and the value, its value.
+* `{ className: 'greeting' }`：`<h1>` 的属性。它会被转换成一个对象。对象的键就是属性名，对象的键值就是属性的值。
 
-* `'Hello, world!'`: This is called the `children`. It’s whatever is passed between the opening tag `<h1>` and the closing tag `</h1>`.
+* `'Hello, world!'`：它被称为 `children`。位于起始符标签 `<h1>` 和结束符 `</h1>` 之间的内容都会被传递进去。
 
-Let’s now review the failing console.log that we tried to write at the start of this article:
+我们现在来回顾一下文章开始的时候写的失败的 console.log：
 
 ```jsx
 <div>
@@ -125,18 +125,18 @@ Let’s now review the failing console.log that we tried to write at the start o
 </div>
 ```
 
-This would get compiled down to:
+这段代码将会被编译为：
 
 ```jsx
-// when more than 1 thing is passed in, it is converted to an array
+// 当一个以上的元素被传递进去，第三个参数将会变成一个数组
 
 React.createElement(
   'div',
-  {}, // no props are passed/
+  {}, // 没有属性
   [ 
     React.createElement(
       'h1',
-      {}, // no props here either
+      {}, // 也没有属性
       'List of todos',
     ),
     'console.log(this.props.todos)'
@@ -144,15 +144,15 @@ React.createElement(
 );
 ```
 
-See how the `console.log` is passed as a string to `createElement`. It is not executed.
+`console.log` 被当成一个字符串传递到了方法 `createElement`。它并没有被执行。
 
-It makes sense, above we have the title `List of todos`. How could the computer know which text needs to be executed and which is something you want to render?
+这说得通，上面我们也看到了标题 `List of todos`。计算机如何能知道，哪段代码是需要被执行的，哪段是你希望渲染的呢？
 
-**Answer**: It considers both as a string. It ALWAYS considers the text as a string.
+**答案**：计算机认为两者都是字符串。计算机一定会将文字作为字符串处理。
 
-Hence, if you want that to be executed, you need to specify to JSX to do so. By embedding it as an expression with `{}`.
+所以，如果你希望这段代码被执行，你需要 JSX 中表明，好让它知道如何处理。你可以将代码作为表达式放在 `{}` 中。
 
-And there you go! Now you know where, when and how `console.log` can be used inside of JSX!
+这样就好了！现在你已经知道了在哪里，在何时，如何将 `console.log` 用于 JSX 代码中了！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
