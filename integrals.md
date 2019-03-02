@@ -2192,10 +2192,11 @@
 |[我在手撕 SVG 条形图时踩过的定位坑](http://gold.xitu.io/entry/58306b428ac2470061b60ede/)|校对|1|
 |[构建 Android APP 一定要绕过的 30 个坑](http://gold.xitu.io/entry/58217b84570c350060bc40f8/)|校对|1|
 
-## 译者：[aceleewinnie](https://github.com/AceLeeWinnie) 历史贡献积分：102 当前积分：57 年度积分：20.5
+## 译者：[aceleewinnie](https://github.com/AceLeeWinnie) 历史贡献积分：103 当前积分：57 年度积分：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐英文文章一篇|奖励|1|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|6|
 |[如何在数据科学中写出生产层面的代码？](https://juejin.im/post/5b7adb7751882542d63b2805)|校对|3|
@@ -6211,10 +6212,11 @@
 |[Awesome Flutter 校对](https://github.com/xitu/awesome-flutter)|校对|1|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1|
 
-## 译者：[lihanxiang](https://github.com/lihanxiang) 历史贡献积分：60 当前积分：32 二零一九：1
+## 译者：[lihanxiang](https://github.com/lihanxiang) 历史贡献积分：60 当前积分：22 二零一九：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 2 月兑 GitHub 贴纸 1 包，掘金水杯 1 个|减去积分|10|
 |[如何写一篇软件工程必杀简历](https://juejin.im/post/5c6ca8b9f265da2dc13c7a10)|校对|1|
 |[我是如何在谷歌找到 UX 设计的工作的](https://juejin.im/post/5bea544ff265da6112048e3c)|校对|1.5|
 |[6 个最令人满意的和编程相关的工作（和参与这些工作的人们的类型）](https://juejin.im/post/5be271f0e51d450556196864)|校对|1.5|
@@ -6955,10 +6957,11 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|8|
 |[用 Scikit-Learn 实现 SVM 和 Kernel SVM](https://juejin.im/post/5b7fd39af265da43831fa136)|校对|2|
 
-## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：33 当前积分：33 二零一九：10
+## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：33 当前积分：23 二零一九：10
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 02 月兑掘金水杯 2 个|减去积分|10|
 |[从 Instagram 上的故事和反馈机器学习中收获的一些经验](https://juejin.im/post/5c683dfce51d45164c7599fb)|翻译|5|
 |[利用 Python中的 Bokeh 实现数据可视化，第二部分：交互](https://juejin.im/post/5c34a9dee51d4551d044efce)|校对|1.5|
 |[降维技术中常用的几种降维方法](https://juejin.im/post/5c4513a06fb9a049dc028d0c)|校对|2.5|
@@ -7585,10 +7588,11 @@
 |------|-------|-------|
 |[无容器下的云计算](https://juejin.im/post/5c24800a518825673b02dcfe)|校对|2.5|
 
-## 译者：[SHERlocked93](https://github.com/SHERlocked93) 历史贡献积分：22 当前积分：22 二零一九：22
+## 译者：[SHERlocked93](https://github.com/SHERlocked93) 历史贡献积分：23 当前积分：23 二零一九：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐英文文章一篇|奖励|1|
 |[使用 Proxy 来观测 Javascript 中的类](https://juejin.im/post/5c484b76e51d45522b4f5f7d)|翻译|2.5|
 |[使用 Recompose 来构建高阶组件](https://juejin.im/post/5c484a43e51d452ec621b6a9)|翻译|3|
 |[为什么我不再使用 export default 来导出模块](https://juejin.im/post/5c4acd646fb9a049b5072f0e)|校对|1.5|
@@ -7831,3 +7835,15 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[一文带你看完 2018 年浏览器之争的最新进展](https://juejin.im/post/5c45a392f265da61483be57c)|校对|3|
+
+## 译者：[Honwhy](https://github.com/Honwhy) 历史贡献积分：7 当前积分：7 二零一九：7
+
+|文章|类型|积分|
+|------|-------|-------|
+|推荐英文文章七篇|奖励|7|
+
+## 译者：[iliYF](https://github.com/iliYF) 历史贡献积分：2 当前积分：2 二零一九：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|推荐英文文章一系列|奖励|2|
