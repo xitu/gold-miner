@@ -19,7 +19,7 @@ Palantir 是[ TSLint 项目](https://github.com/palantir/tslint)（ TypeScript �
 
 ## TypeScript + ESLint
 
-TypeScript 团队的[战略方向](https://github.com/Microsoft/TypeScript/issues/29288)是让“每个桌面，在每栋房子里，每个JS开发者都使用类型”。换句话说，这个方向主要是通过类型和静态代码分析来逐渐完善 JavaScript 的开发体验，直到 TypeScript 和 JavaScript 开发体验逐渐融合。
+TypeScript 团队的[战略方向](https://github.com/Microsoft/TypeScript/issues/29288)是让“每个桌面，在每栋房子里，每个 JS 开发者都使用类型”。换句话说，这个方向主要是通过类型和静态代码分析来逐渐完善 JavaScript 的开发体验，直到 TypeScript 和 JavaScript 开发体验逐渐融合。
 
 很明显，静态代码分析是 TypeScript 以及 JavaScript 开发体验的一个核心部分，所以 Palantir 的 TSLint 团队和 Redmond 的 TypeScript 核心团队会面，讨论了 TypeScript 和 JavaScript 融合对于静态代码分析的意义。TypeScript 社区旨在满足 JavaScript 开发人员的需求，ESLint 是 JavaScript 的首选静态代码分析工具。为了避免分裂 TypeScript 的静态代码检查工具，我们计划废弃 TSLint，并且集中精力去改进 ESLint 对于 TypeScript 的支持。我们认为这是正确的前进道路，具有战略意义并且务实的原因：
 
