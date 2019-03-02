@@ -2192,7 +2192,7 @@
 |[我在手撕 SVG 条形图时踩过的定位坑](http://gold.xitu.io/entry/58306b428ac2470061b60ede/)|校对|1|
 |[构建 Android APP 一定要绕过的 30 个坑](http://gold.xitu.io/entry/58217b84570c350060bc40f8/)|校对|1|
 
-## 译者：[aceleewinnie](https://github.com/AceLeeWinnie) 历史贡献积分：103 当前积分：57 年度积分：1
+## 译者：[aceleewinnie](https://github.com/AceLeeWinnie) 历史贡献积分：103 当前积分：57 二零一九：1
 
 |文章|类型|积分|
 |------|-------|-------|
