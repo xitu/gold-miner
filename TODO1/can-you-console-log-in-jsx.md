@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/can-you-console-log-in-jsx.md](https://github.com/xitu/gold-miner/blob/master/TODO1/can-you-console-log-in-jsx.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[noahziheng](https://github.com/noahziheng)，[hanxiansen](https://github.com/hanxiansen)
 
 # 在 JSX 代码中可以加入 console.log 吗？
 
@@ -11,7 +11,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*OIfGKWZBZRsvKQZxQtr3Yw.jpeg)
 
-作为一名编程老师，我曾看到过我的学生尝试这样写代码：
+作为一名编程老师，我曾看到过我的学生写出了这样的代码：
 
 ```jsx
 render() {
@@ -24,9 +24,9 @@ render() {
 }
 ```
 
-这样写不会在控制台打印出期望的内容。而是在浏览器上渲染出 **console.log(this.props.todos)** 字符串。
+这样写不会在控制台打印出期望的内容。而是在浏览器上渲染出 **console.log(this.props.todos)** 这个字符串。
 
-我们先来看一些很直观的解决方案，然后我们将会解释原因。
+我们先来看一些很直接的解决方案，然后我们将会解释原理。
 
 ## 最常用的解决方式：
 
@@ -84,9 +84,9 @@ render() {
 
 ## 为什么是这样？
 
-我们必须记住，JSX 不是原生的 JavaScript，也不是 HTML。它是一种语法扩展。
+我们必须记住：JSX 不是原生的 JavaScript，也不是 HTML。它是一种语法扩展。
 
-最后，JSX 会被编译成原生 JavaScript。
+最终，JSX 会被编译成原生 JavaScript。
 
 例如，如果我们写了如下的 JSX：
 
@@ -110,13 +110,13 @@ const element = React.createElement(
 
 我们来回顾一下方法 `React.createElement` 的参数：
 
-* `'h1'`：它是标签名，是一个字符串类型
+* `'h1'`：标签名，是一个字符串类型
 
-* `{ className: 'greeting' }`：它是 `<h1>` 的属性。它会被转换成一个对象。对象的键就是属性名，对象的键值就是属性的值。
+* `{ className: 'greeting' }`：`<h1>` 的属性。它会被转换成一个对象。对象的键就是属性名，对象的键值就是属性的值。
 
 * `'Hello, world!'`：它被称为 `children`。位于起始符标签 `<h1>` 和结束符 `</h1>` 之间的内容都会被传递进去。
 
-我们现在来回顾一下文章开始的时候写的运行失败的 console.log：
+我们现在来回顾一下文章开始的时候写的失败的 console.log：
 
 ```jsx
 <div>
@@ -128,7 +128,7 @@ const element = React.createElement(
 这段代码将会被编译为：
 
 ```jsx
-// 当多于一个元素被传递进去，第三个参数将会变成一个数组
+// 当一个以上的元素被传递进去，第三个参数将会变成一个数组
 
 React.createElement(
   'div',
@@ -144,7 +144,7 @@ React.createElement(
 );
 ```
 
-`console.log` 被当成一个数组传递到了方法 `createElement`。它并没有被执行。
+`console.log` 被当成一个字符串传递到了方法 `createElement`。它并没有被执行。
 
 这说得通，上面我们也看到了标题 `List of todos`。计算机如何能知道，哪段代码是需要被执行的，哪段是你希望渲染的呢？
 
