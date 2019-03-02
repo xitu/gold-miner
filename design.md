@@ -1,3 +1,5 @@
+* [为什么 UX 和 UI 仍需要分离开](https://juejin.im/post/5c769c44f265da2d8c7ddb71) ([Mirosalva](https://github.com/Mirosalva) 翻译)
+* [2019 年的 9 大设计趋势](https://juejin.im/post/5c7355e0f265da2d993d8ceb) ([shixi-li](https://github.com/shixi-li) 翻译)
 * [UX 设计实践：如何设计可扫描的 Web 界面](https://juejin.im/post/5c34af846fb9a049a42f39d8) ([Ivocin](https://github.com/Ivocin) 翻译)
 * [一份关于色彩无障碍性产品设计的指南](https://juejin.im/post/5c2c233d6fb9a049bd4266b7) ([Hopsken](https://github.com/Hopsken) 翻译)
 * [快速原型设计的新手指南](https://juejin.im/user/585b9407da2f6000657a5c0c) ([rydensun](https://github.com/rydensun) 翻译)
