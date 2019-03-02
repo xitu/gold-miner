@@ -15,7 +15,7 @@ Palantir 是[ TSLint 项目](https://github.com/palantir/tslint)（ TypeScript �
 
 现在，TSLint 事实上已经是 TypeScript 项目的标准静态代码分析工具了。TSLint 的生态由一个核心的规范集，社区维护的多种自定义规则以及配置包组成。
 
-同时，ESLint 是 JavaScript 的标准静态代码分析工具。和 TSLint 一样，ESLint 也是由一个核心规范集和许多社区维护的自定义规则组成。ESLint 支持 TSLint 所缺少的很多功能，比如，[条件 lint 配置](https://github.com/palantir/tslint/issues/3447)和[自动缩进](https://github.com/palantir/tslint/issues/2814)。相反，ESLint 的规则不能受益于（至少现在不能）TypeScript 语言所提供的静态分析以及类型推断，因此无法捕获TSLint[语义规则](https://palantir.github.io/tslint/usage/type-checking/)所覆盖的某些类型的错误和代码的潜在问题。
+同时，ESLint 是 JavaScript 的标准静态代码分析工具。和 TSLint 一样，ESLint 也是由一个核心规范集和许多社区维护的自定义规则组成。ESLint 支持 TSLint 所缺少的很多功能，比如，[条件 lint 配置](https://github.com/palantir/tslint/issues/3447)和[自动缩进](https://github.com/palantir/tslint/issues/2814)。相反，ESLint 的规则不能受益于（至少现在不能）TypeScript 语言所提供的静态分析以及类型推断，因此无法捕获TSLint[语义规则](https://palantir.github.io/tslint/usage/type-checking/)所覆盖的某些类型的错误和代码异味（译者注：[code smells](https://en.wikipedia.org/wiki/Code_smell)）。
 
 ## TypeScript + ESLint
 
@@ -37,9 +37,9 @@ Palantir 将会通过一系列功能和插件的贡献支持 TSLint 社区实现
 
 * **在 TypeScript 中编写 ESLint 规范的支持和文档：** 可以参考[这个 typescript-eslint issue](https://github.com/typescript-eslint/typescript-eslint/issues/40)。
 
-* **typescript-eslint 的测试架构：**ESLint 的内置规则测试器很难使用，并且测试用例语法很难阅读。我们会提供类似[TSLint的测试基础架构](https://palantir.github.io/tslint/develop/testing-rules/)来保证体验不会差于 TSLint。
+* **typescript-eslint 的测试架构：**ESLint 的内置规则测试器很难使用，并且测试用例语法很难阅读。我们会提供类似于[TSLint的测试基础架构](https://palantir.github.io/tslint/develop/testing-rules/)的东西来保证 TSLint 规则的开发体验不会变差。
 
-* **基于语义的类型检查规则：**移植并且添加新的，[为 TypeScript 语言服务](https://github.com/palantir/tslint/labels/Requires%20Type%20Checker)的规则。
+* **基于语义的类型检查规则：**移植并且添加[为 TypeScript 语言服务](https://github.com/palantir/tslint/labels/Requires%20Type%20Checker)的新的规则。
 
 一旦我们觉得 ESLint 中关于 TSLint 的特性已经完整，我们就会废弃 TSLint，并且帮助用户们迁移到 ESLint，在那之前，我们的主要任务包括：
 
