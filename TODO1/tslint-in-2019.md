@@ -37,7 +37,7 @@ Palantir 将会通过一系列功能和插件的贡献支持 TSLint 社区实现
 
 * **在 TypeScript 中编写 ESLint 规范的支持和文档：** 可以参考[这个 typescript-eslint issue](https://github.com/typescript-eslint/typescript-eslint/issues/40)。
 
-* **typescript-eslint 的测试架构：**ESLint 的内置规则测试器很难使用，并且测试用例语法很难阅读。我们会提供类似于[TSLint的测试基础架构](https://palantir.github.io/tslint/develop/testing-rules/)的东西来保证 TSLint 规则的开发体验不会变差。
+* **typescript-eslint 的测试架构：**ESLint 的内置规则测试器很难使用，并且测试用例语法很难阅读。我们会提供类似于 [TSLint 的测试基础架构](https://palantir.github.io/tslint/develop/testing-rules/)的东西来保证 TSLint 规则的开发体验不会变差。
 
 * **基于语义的类型检查规则：**移植并且添加[为 TypeScript 语言服务](https://github.com/palantir/tslint/labels/Requires%20Type%20Checker)的新的规则。
 
