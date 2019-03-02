@@ -278,7 +278,7 @@ struct TimeRange {
 }
 ```
 
-因为 `before` 和 `after` 参数都是可选的，我们将 `TimeRange` 结构体的两个字段都设置为 `Option`。此外，时间戳可能是无效的（例如不是数字），所以我们应当处理解析其值失败的情况。在这种情况下， `parse_query` 会返回一条错误消息，我们可以将其转发给我们之前写的 `make_error_response` 函数。如果解析成功，我们可以继续调用 `query_db`（为我们获取消息）和 `make_get_response`（创建合适的 `Response` 对象，并返回给客户端）。
+因为 `before` 和 `after` 参数都是可选的，我们将 `TimeRange` 结构体的两个字段都设置为 `Option`。此外，时间戳可能是无效的（例如不是数字），所以我们应当处理解析其值失败的情况。在这种情况下，`parse_query` 会返回一条错误消息，我们可以将其转发给我们之前写的 `make_error_response` 函数。如果解析成功，我们可以继续调用 `query_db`（为我们获取消息）和 `make_get_response`（创建合适的 `Response` 对象，并返回给客户端）。
 
 为了解析查询字符串，我们再次使用之前的 `url::form_urlencoded` 函数，因为它的语法还是 `key=value&key=value`。然后我们尝试获取 `before` 和 `after` 两个值并将其转化为整数类型（即时间戳类型）：
 
@@ -317,8 +317,7 @@ if let Some(ref result) = before && let Err(ref error) = *result {
 }
 ```
 
-然而，现在 Rust 中不能这么写（可以通过打包在元组中的方法，在 `if let` 语句中写多个值，但是这些值不能像这里一样互相依赖）
-。
+然而，现在 Rust 中不能这么写（可以通过打包在元组中的方法，在 `if let` 语句中写多个值，但是这些值不能像这里一样互相依赖）。
 
 暂时跳过 `query_db` 的话，`make_get_response` 看起来非常简单：
 
