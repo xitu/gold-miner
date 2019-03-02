@@ -2,56 +2,56 @@
 > * 原文作者：[Ben Robertson](https://medium.com/@bgrobertson)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lazy-loading-video-based-on-connection-speed.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lazy-loading-video-based-on-connection-speed.md)
-> * 译者：
-> * 校对者：
+> * 译者：[SHERlocked93](https://github.com/SHERlocked93)
+> * 校对者：[Reaper622](https://github.com/Reaper622), [Fengziyin1234](https://github.com/Fengziyin1234)
 
-# Lazy Loading Video Based on Connection Speed
+# 网速敏感的视频延迟加载方案
 
-A large video hero can be a neat experience when done well — but adding video capability to the homepage is just asking for somebody to go in and add a 25mb video and throw all your performance optimizations out the window.
+一个大视频的背景，如果做的好，会是一个绝佳的体验！但是，在首页添加一个视频并不仅仅是随便找个人，然后加个 25mb 的视频，那会让你的所有的性能优化都付之一炬。
 
 ![](https://cdn-images-1.medium.com/max/800/1*FAfkN32_GGB-8qyJOXYtKQ.jpeg)
 
 Lazy pandas love lazy loading. (Photo by [Elena Loshina](https://unsplash.com/photos/94c2BwxqwXw?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText))
 
-I’ve been on a few teams who wanted to do one of those full-screen background videos on the home page. And I’m usually not too thrilled to do it because how often they turn into performance nightmares. I’m embarrassed to say, there was once a day I put a ***40mb*** background video on a page. 😬
+我参加过一些团队，他们希望给首页加上类似的全屏视频背景。我通常不愿意那么做，因为这种做法通常会导致性能上的噩梦。老实说，我曾给一个页面加上一个 **40mb** 大的视频。 😬
 
-The last time someone asked me to do it, I got curious about how I could treat the background video as a *progressive enhancement* for users on connections that could handle a potentially large download. I made sure to emphasize to our team the importance of a small, compressed video file, but I also wanted some programmatic magic to happen too.
+上次有人让我这么做的时候，我很好奇应如何将背景视频的加载作为**渐进增强**（Progressive Enhancement），来提升网络连接状况比较好的用户的体验。除了和我的同事们强调视频体积小和压缩视频的重要性以外，也希望在代码上有一些奇迹发生。
 
-**Here’s a breakdown of the solution I ended up with:**
+**下面是最终的解决方案：**
 
-1. Try loading the `<source>` with JavaScript
-2. Listen for the `canplaythrough` event.
-3. Use `Promise.race()` to timeout the source loading if the `canplaythrough` event doesn’t fire within 2 seconds.
-4. Remove the `<source>` and cancel the video loading if we don’t detect the `canplaythrough` event.
-5. Fade the video in if we do detect the `canplaythrough` event.
+1. 尝试使用 JavaScript 加载 `<source>`
+2. 监听 `canplaythrough` 事件
+3. 如果 `canplaythrough` 事件没有在 2 秒内触发，那么使用 `Promise.race()` 将视频加载超时 
+4. 如果没有监听到 `canplaythrough` 事件，那么移除 `<source>`，并且取消视频加载
+5. 如果监测到 `canplaythrough` 事件，那么使用淡入效果显示这个视频
 
-### The Markup
+### 标记
 
-The main thing to note in my video markup is that even though I am using the `<source>` elements inside the `<video>`, I have not set the `src` attribute for either of the sources. If you set the `src` attribute, the browser automatically finds the first `<source>` it can play and immediately starts downloading it.
+这里要注意的问题是，即使我正在 `<video>` 标签中使用 `<source>`，但我还没为这些 `<source>` 设置 `src` 属性。如果设置了 `src` 属性，那么浏览器会自动地找到它可以播放的第一个 `<source>`，并立即开始下载它。
 
-Since the video is a progressive enhancement in this example, we don’t need or want the video to load by default. In fact, the only thing that will load is the poster, which I have set to be the featured image of the page.
+因为在这个例子中，视频是作为渐进增强的对象，默认情况下我们不用真的加载视频。事实上唯一需要加载的，是我们为这个页面设置的预览图片。
 
-```javascript
+```html
   <video class="js-video-loader" poster="<?= $poster; ?>" muted="true" loop="true">
     <source data-src="path/to/video.webm" type="video/webm">
     <source data-src="path/to/video.mp4" type="video/mp4">
   </video>
 ```
 
-### The JavaScript
+### JavaScript
 
-I wrote a small JavaScript class that looks for any video that has a `.js-video-loader` class on it so that we could reuse this logic in the future for other videos. [The full source is available on Github](https://gist.github.com/benjamingrobertson/00c5b47eaf5786da0759b63d78dfde9e).
+我编写了一个简单的 JavaScript 类，用于查找带有 `.js-video-loader` 这个 class 的 video 元素，让我们以后可以在其他视频中复用这个逻辑。[完整的源码可以从 Github 上看到](https://gist.github.com/benjamingrobertson/00c5b47eaf5786da0759b63d78dfde9e)。
 
-Here’s the constructor:
+构造函数是这样的：
 
 ```javascript
   constructor () {
     this.videos = Array.from(document.querySelectorAll('video.js-video-loader'));
-    // Abort when:
-    // - The browser does not support Promises.
-    // - There no videos.
-    // - If the user prefers reduced motion.
-    // - Device is mobile.
+    // 将在下面情况下返回
+    // - 浏览器不支持 Promise
+    // - 没有 video 元素
+    // - 如果用户设置了减少动态偏好（prefers reduced motion）
+    // - 在移动设备上
     if (typeof Promise === 'undefined'
       || !this.videos
       || window.matchMedia('(prefers-reduced-motion)').matches
@@ -63,18 +63,18 @@ Here’s the constructor:
   }
 ```
 
-What we are doing in here is finding all the videos on the page that we want to lazy load. If there are none, we can return. I also don’t want to load the video if the user has stated their [preference for reduced motion](https://css-tricks.com/introduction-reduced-motion-media-query/). And to not worry about mobile connection speed and/or phones with low graphics ability, I’m also returning for small screens. (I’m thinking now I could have done this with media queries in the `<source>` elements, but I’m not sure.)
+这里我们所做的就是找到这个页面上所有我们希望延迟加载的视频。如果没有，我们可以返回。当用户开启了[减少动态偏好（preference for reduced motion）](https://css-tricks.com/introduction-reduced-motion-media-query/)设置时，我们同样不会加载这样的视频。为了不让某些低网速或低图形处理能力的手机用户担心，在小屏幕手机上也会直接返回。（我在考虑是否可以通过 `<source>` 元素的媒体查询来做这些，但也不确定。）
 
-Then I run our video loading logic for each video.
+然后给每个视频运行这个视频加载逻辑。
 
 #### loadVideo
 
-`loadVideo()` is a small function that calls some other functions:
+`loadVideo()` 是一个调用其他函数的简单的函数：
 
 ```javascript
   loadVideo(video) {
     this.setSource(video);
-    // Reload the video with the new sources added.
+    // 加上了视频链接后重新加载视频
     video.load();
     this.checkLoadTime(video);
   }
@@ -82,13 +82,13 @@ Then I run our video loading logic for each video.
 
 #### setSource
 
-`setSource()` is where we find the sources that we included as data attributes and add them as proper `src` attributes.
+在 `setSource()` 中，我们找到那些作为数据属性（Data Attributes）插入的视频链接，并且将它们设置为真正的 `src` 属性。
 
 ```javascript
   /**
-    * Find the children of the video that are <source> tags.
-    * Set the src attribute for each <source> based on the
-    * data-src attribute.
+    * 找 video 子元素中是 <source> 的，
+    * 基于 data-src 属性，
+    * 给每个 <source> 设置 src 属性
     *
     * @param {DOM Object} video
     */
@@ -102,17 +102,17 @@ Then I run our video loading logic for each video.
     }
 ```
 
-Basically what I am doing is looping through each child of the `<video>` element. I only want to find children that are `<source>` elements and that have a `data-src` attribute defined (`child.dataset.src`). If both of those conditions are met, we use `setAttribute` to set the `src` attribute of the source.
+基本上，我所做的就是遍历每一个 `<video>` 元素的子元素，找一个定义了 `data-src` 属性（`child.dataset.src`）的 `<source>` 子元素。如果找到了，那就用 `setAttribute` 将它的 `src` 属性设置为视频链接。
 
-Now that video element has its sources set, we need to tell the browser to try loading the video again. We did this above in our `loadVideo()` function, with `video.load()`. `load()` is part of the [HTMLMediaElement API](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement) that resets the media element and restarts the loading process.
+现在视频链接已经被设置给 `<video>` 元素了，下面需要让浏览器再次加载视频。我们通过在 `loadVideo()` 中的 `video.load()` 来完成这个工作。`load()` 方法是 [HTMLMediaElement API](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement) 的一部分，它可以重置媒体元素并且重启加载过程。 
 
 #### checkLoadTime
 
-Next up is where the magic happens. In `checkLoadTime()` I create two Promises. The first Promise resolves when the `<video>` element fires the [canplaythrough](https://developer.mozilla.org/ro/docs/Web/Events/canplaythrough) event. This event is fired when the browser thinks it can play the media without stopping to buffer. To do this, we add an event listener in the Promise, and `resolve()` only if the event is triggered.
+接下来是见证奇迹的时刻。在 `checkLoadTime()` 方法中我们创建了两个 Promise。第一个 Promise 将在 `<video>` 元素的 [canplaythrough](https://developer.mozilla.org/ro/docs/Web/Events/canplaythrough)  事件触发时被 `resolve`。这个 `canplaythrough` 事件是浏览器认为这个视频可以在不停下来缓冲的情况下持续播放的时候被触发。我们在这个 Promise 中添加一个这个事件的监听回调，当这个事件触发的时候执行 `resolve()`。
 
 ```javascript
-  // Create a promise that resolves when the
-  // video.canplaythrough event triggers.
+  // 创建一个 Promise，将在
+  // video.canplaythrough 事件发生时被 resolve
   let videoLoad = new Promise((resolve) => {
     video.addEventListener('canplaythrough', () => {
       resolve('can play');
@@ -120,11 +120,11 @@ Next up is where the magic happens. In `checkLoadTime()` I create two Promises. 
   });
 ```
 
-We also create another promise that functions as a timer. Inside the Promise, we use `setTimeout` to resolve the Promise after an arbitrary time limit. For my purposes, I set a timeout of 2 seconds (2000 milliseconds).
+我们同时创建另一个 Promise 作为计时器。在这个 Promise 中，当经过一个设定好的时间后，我们使用 `setTimeout` 来将这个 Promise 给 resolve 掉，我这设置了一个 2 秒的时延（2000毫秒）。
 
 ```javascript
-  // Create a promise that resolves after a
-  // predetermined time (2sec)
+  // 创建一个 Promise 将在
+  // 特定时间(2s)后被 resolve
   let videoTimeout = new Promise((resolve) => {
     setTimeout(() => {
       resolve('The video timed out.');
@@ -132,10 +132,10 @@ We also create another promise that functions as a timer. Inside the Promise, we
   });
 ```
 
-Now that we have two Promises, we can race them against each other to find out which one finishes first. `Promise.race()` accepts an array of promises and we pass in the promises we created above to this function.
+现在我们有了两个 Promise，我们可以通过 `Promise.race()` 看他们谁先完成。
 
 ```javascript
-  // Race the promises to see which one resolves first.
+  // 将 promises 进行 Race 看看哪个先被 resolves
   Promise.race([videoLoad, videoTimeout]).then(data => {
     if (data === 'can play') {
       video.play();
@@ -148,22 +148,22 @@ Now that we have two Promises, we can race them against each other to find out w
   });
 ```
 
-In our `.then()` we are looking to receive the data from the Promise that resolves first. I send the string ‘can play’ through if the video can play, so I am checking against that to see if we can play the video. `video.play()` uses the HTMLMediaElement `play()` function to trigger the video to play.
+在这个 `.then()` 的回调中我们等着拿到最先被 `resolve` 的那个 Promise 传回来的信息。如果这个视频可以播放，那么我就会拿到之前传的 `can play`，然后试一下是否可以播放这个视频。`video.play()` 是使用 HTMLMediaElement 提供的 `play()` 方法来触发视频播放。
 
-The `setTimeout()` function adds the `.video-loaded` class after 3 seconds to help the finesse the fade-in animation and the autoplay loop.
+3 秒后，`setTimeout()` 将会给这个标签加上 `.video-loaded` 类，这将有助于视频文件更巧妙的淡入自动循环播放。
 
-If we don’t receive the `can play` string, then we want to cancel the loading of the video.
+如果我们没接收到 `can play` 字符串，那么我们将取消这个视频的加载。
 
 #### cancelLoad
 
-The `cancelLoad()` method basically does the opposite of our `loadVideo()` function. It removes the `src` attribute from each `<source>` and then triggers `video.load()` to reset the video element.
+`cancelLoad()` 方法做的基本上跟 `loadVideo()` 方法相反。它从每个 `source` 标签移除 `src` 属性，并且触发 `video.load()` 来重置视频元素。
 
-If we didn’t do this, the video would keep loading in the background even though we aren’t displaying it.
+如果我们不这么做，这个视频元素将会在后台保持加载状态，即使我们都没将它显示出来。
 
 ```javascript
   /**
-    * Cancel the video loading by removing all
-    * <source> tags and then triggering video.load().
+    * 通过移除所有的 <source> 来取消视频加载
+    * 然后触发 video.load().
     *
     * @param {DOM object} video
     */
@@ -174,21 +174,19 @@ If we didn’t do this, the video would keep loading in the background even thou
           child.parentNode.removeChild(child);
         }
       });
-      // reload the video without <source> tags so it
-      // stops downloading.
+      // 重新加载没有 <source> 标签的 video
+      // 这样它会停止下载
       video.load();
     }
 ```
 
-### Wrap Up
+### 总结
 
-The downfall of this method is that we are still attempting to download a potentially large file over a potentially poor connection, but by providing a timeout, I’m hoping to save data and recoup some performance for users on slow connections. In my tests in the Chrome Dev Tools throttled down to a Slow 3G connection, this logic ends up loading <512kb of the video before the timeout fires. Even with a 3–5mb video, this is still a significant saving for users on a slow connection.
+这个方法的缺点是，我们仍然试图通过一个不一定靠谱的链接来下载一个可能比较大的文件，但是通过提供一个超时时间，我们希望能够给某些网速慢的用户节约一些流量并且获得更好的性能。根据我在 Chrome Dev Tools 里将网速节流到慢 3G 条件下的测试，这个方法将在超时之前加载了 512kb 的视频。即使是一个 3-5mb 的视频，对于一些网速慢的用户来说，这也带来了显著的流量节省。
 
-What do you think? I’d love to hear suggestions for how to improve this in the comments!
+你觉得怎么样？如果有改进的建议，欢迎在评论里分享！
 
-*Interested in learning about how to make your JavaScript more accessible? Checkout my* [*4 tips for writing accessible JavaScript*](https://benrobertson.io/accessibility/javascript-accessibility)
-
-- - -
+---
 
 *Originally published at* [*benrobertson.io*](https://benrobertson.io/front-end/lazy-load-connection-speed).
 
