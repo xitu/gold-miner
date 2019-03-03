@@ -51,7 +51,7 @@ Palantir 将会通过一系列功能和插件的贡献支持 TSLint 社区实现
 
 ## 作者
 
-[Adi D.](https://twitter.com/adi_dahiya)，[John W.](https://github.com/johnwiseheart)，[Robert F.](https://github.com/uschi2000)，Stephanie Y.
+[Adi D.](https://twitter.com/adi_dahiya)、[John W.](https://github.com/johnwiseheart)、[Robert F.](https://github.com/uschi2000)、Stephanie Y.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
