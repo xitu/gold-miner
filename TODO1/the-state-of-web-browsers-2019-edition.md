@@ -23,7 +23,7 @@ Critical notes suggest that some statements are true-ish but too broad, lacking 
 
 Only a few critiqued the delivery style of brutal honesty, most seemed to appreciate it. And some don’t, it comes with the territory. All I can say is that I won’t tone it down, I was actually in a mild mood that day. I don’t apply brutal honesty for shock value or attention, I genuinely believe that in a world ruled by tech, we need no nonsense critique, not sugar coated suggestions. Plus, I’m dutch, this is our default tone of voice.
 
-只有少数人批评作者的近似残酷的诚实，更多读者却很欣赏作者的做法。这等同于领土问题。作者所能说的是，尽管那天我的情绪很平和，我并不会降低语气。我也不会用我的诚实获取价值和关注，我坚信在一个有科技主导的世界里不需要毫无意义的批评，更不需要高谈阔论的建议。另外，作者是一个荷兰人，我们惯有的语调就是如此。
+只有少数人批评作者近似残酷的诚实，更多读者则偏向欣赏作者的做法。这等同于领土问题。作者所能说的是，尽管那天我的情绪很平和，但我并不会降低语气。我也不会用我的诚实获取价值和关注，我坚信在一个由科技主导的世界里不需要毫无意义的批评，更不需要高谈阔论的建议。另外，作者是一个荷兰人，我们惯有的语调就是如此。
 
 Back on point, why a second article? I want to address the depressing part of the original article. If you were brave enough to read it to the end, you’d notice the lack of a happy ending. You could be under the impression that the web is a lost cause, the open web in great danger, and that we’ve returned to medieval IE times. It would take the greatest of optimists to wade through that article without it ruining your day, if you care about the web.
 
@@ -39,7 +39,7 @@ In this article, we’re going to accept the new state, where Chromium dominates
 
 
 ### Chromium for users: the web works
-### Chromium 对于网络工作
+### Chromium 之于用户：Web 运行
 By a rough estimation of global market share, Chromium/Chrome browsers would make up for at least 70% of users. Then there’s 15% of Webkit, mostly mobile Safari.
 
 根据对全球市场份额的粗略估计，Chromium/Chrome 浏览器将占有至少70%的用户。还有15%的Webkit，主要是移动端的Safari 。  
@@ -58,9 +58,15 @@ Therefore, my very rough assessment is that for 90% of users, pretty much all of
 
 As strange as it sounds, in a competitive browser landscape where 3 engines would have an equal share, the above would not be as true. There would be far more compatibility issues. With our user hat on, the web works quite well in a Chromium world, where mobile Safari and Firefox combined are large enough to still keep the dominant engine in check.
 
+很奇怪的是，假设在一个浏览器竞争环境中，3个搜索引擎占据相同的份额，上面所说就不成立了。这种假设下将会出现很多兼容性问题，具体应用时，web 在 chrome 的世界中运行得非常好，移动端的 Safari 和 Firefo 结合起来也足够大到可以占据主导地位。
+
 The other 10% is stuff like old IE, slow as its death will be, it will shrink eventually, boosting our 90% even further.
 
+另外10%的浏览器是像旧版IE一样的东西，虽然它的消亡速度很慢，但它最终会缩小，进一步提高我们的90%。
+
 And there’s more good news for users. With the exception of mobile Safari, all these browsers auto update on a frequent basis. Almost all web users will have up-to-date browsers to use an ever-improving web experience.
+
+对于用户的好消息是，出了移动端的 Safari，其余浏览器都会经常自动更新。这导致几乎所有的 web 用户都将使用最新的浏览器来使用不断改进的 web。
 
 ### Chromium for developers: life could get easier
 
