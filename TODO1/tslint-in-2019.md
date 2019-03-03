@@ -35,17 +35,17 @@ TypeScript 团队的[战略方向](https://github.com/Microsoft/TypeScript/issue
 
 Palantir 将会通过一系列功能和插件的贡献支持 TSLint 社区实现从 TSLint 到 ESLint 的平滑过渡。（快去叫 [James Henry](https://github.com/JamesHenry) 和其他贡献者一起，让这个过程开始吧），比如：
 
-* **在 TypeScript 中编写 ESLint 规范的支持和文档：** 可以参考[这个 typescript-eslint issue](https://github.com/typescript-eslint/typescript-eslint/issues/40)。
+* **在 TypeScript 中编写 ESLint 规范的支持和文档**：可以参考[这个 typescript-eslint issue](https://github.com/typescript-eslint/typescript-eslint/issues/40)。
 
-* **typescript-eslint 的测试架构：**ESLint 的内置规则测试器很难使用，并且测试用例语法很难阅读。我们会提供类似于 [TSLint 的测试基础架构](https://palantir.github.io/tslint/develop/testing-rules/)的东西来保证 TSLint 规则的开发体验不会变差。
+* **typescript-eslint 的测试架构**：ESLint 的内置规则测试器很难使用，并且测试用例语法很难阅读。我们会提供类似于 [TSLint 的测试基础架构](https://palantir.github.io/tslint/develop/testing-rules/)的东西来保证 TSLint 规则的开发体验不会变差。
 
-* **基于语义的类型检查规则：**移植并且添加[为 TypeScript 语言服务](https://github.com/palantir/tslint/labels/Requires%20Type%20Checker)的新的规则。
+* **基于语义的类型检查规则**：移植并且添加[为 TypeScript 语言服务](https://github.com/palantir/tslint/labels/Requires%20Type%20Checker)的新的规则。
 
 一旦我们觉得 ESLint 中关于 TSLint 的特性已经完整，我们就会废弃 TSLint，并且帮助用户们迁移到 ESLint，在那之前，我们的主要任务包括：
 
-* **继续维护 TSLint：**在 TSLint 维护中，我们最重要的任务是确保其与 TypeScript 新版本的编译器和功能的兼容性。
+* **继续维护 TSLint**：在 TSLint 维护中，我们最重要的任务是确保其与 TypeScript 新版本的编译器和功能的兼容性。
 
-* **TSLint 到 ESLint 的兼容包：**一旦 ESLint 静态分析检查功能到达了与 TSLint 相同的时候，我们将会发布 *eslint-config-palantir* 包，这是将 TSLint 规则集集成到 ESLint 中的插入式替换。
+* **TSLint 到 ESLint 的兼容包**：一旦 ESLint 静态分析检查功能到达了与 TSLint 相同的时候，我们将会发布 *eslint-config-palantir* 包，这是将 TSLint 规则集集成到 ESLint 中的插入式替换。
 
 我们很高兴看到 TypeScript 和 TSLint 在过去几年中的应用变得越来越多，并且我们也很高兴能为 Web 开发生态中更为具有影响力的 TypeScript 做出贡献！如果你有任何问题或者疑虑，请通过评论此帖子或者 Github issue 的方式与我们取得联系。
 
