@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/tslint-in-2019.md](https://github.com/xitu/gold-miner/blob/master/TODO1/tslint-in-2019.md)
 > * 译者：[LucaslEliane](https://github.com/LucaslEliane)
-> * 校对者：[EdmondWang](https://github.com/EdmondWang)、[WangLeto](https://github.com/WangLeto)
+> * 校对者：[EdmondWang](https://github.com/EdmondWang), [WangLeto](https://github.com/WangLeto)
 
 # TSLint in 2019
 
 ![](https://cdn-images-1.medium.com/max/5984/1*YtDebDXHLQIWDyJl2LWh8g.png)
 
-Palantir 是[ TSLint 项目](https://github.com/palantir/tslint)（ TypeScript 的标准静态代码分析工具）的创建者和主要的维护者。TypeScript 社区正致力于提供统一的、跨 TypeScript 和 JavaScript 两种语言的开发体验，我们在致力于 TSLint 和 ESLint 的融合，在这篇文章中，我们会解释我们为什么要这么做以及如何去做。
+Palantir 是 [TSLint 项目](https://github.com/palantir/tslint)（TypeScript 的标准静态代码分析工具）的创建者和主要的维护者。TypeScript 社区正致力于提供统一的、跨 TypeScript 和 JavaScript 两种语言的开发体验，我们在致力于 TSLint 和 ESLint 的融合，在这篇文章中，我们会解释我们为什么要这么做以及如何去做。
 
 ## 现在的 TSLint 和 ESLint
 
@@ -51,7 +51,7 @@ Palantir 将会通过一系列功能和插件的贡献支持 TSLint 社区实现
 
 ## 作者
 
-[Adi D.](https://twitter.com/adi_dahiya)、[John W.](https://github.com/johnwiseheart)、[Robert F.](https://github.com/uschi2000)、Stephanie Y.
+[Adi D.](https://twitter.com/adi_dahiya)、[John W.](https://github.com/johnwiseheart)、[Robert F.](https://github.com/uschi2000) 和 Stephanie Y。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
