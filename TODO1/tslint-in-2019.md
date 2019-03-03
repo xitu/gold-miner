@@ -2,10 +2,10 @@
 > * 原文作者：[Palantir](https://medium.com/@palantir)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/tslint-in-2019.md](https://github.com/xitu/gold-miner/blob/master/TODO1/tslint-in-2019.md)
-> * 译者：
-> * 校对者：
+> * 译者：[LucaslEliane](https://github.com/LucaslEliane)
+> * 校对者：[EdmondWang](https://github.com/EdmondWang)、[WangLeto](https://github.com/WangLeto)
 
-## TSLint in 2019
+# TSLint in 2019
 
 ![](https://cdn-images-1.medium.com/max/5984/1*YtDebDXHLQIWDyJl2LWh8g.png)
 
