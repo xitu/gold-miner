@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-future-of-digital-product-design-is-about-human-empowerment.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-future-of-digital-product-design-is-about-human-empowerment.md)
 > * 译者：[Mirosalva](https://github.com/Mirosalva)
-> * 校对者：  
+> * 校对者：[xionglong58](https://github.com/xionglong58)，[hanxiansen](https://github.com/hanxiansen)  
 
 # 数字产品为人们授权的时代已来
 
