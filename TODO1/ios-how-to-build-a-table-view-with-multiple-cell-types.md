@@ -7,13 +7,13 @@
 
 # iOS：如何构建具有多中 Cell 类型的表视图
 
-第1部分：怎样才能不迷失在大量代码中
+第1部分：如何才能不迷失在大量代码中
 
 ![](https://cdn-images-1.medium.com/max/800/1*cTOkFg6sVgV0MEdThEw2bA.png)
 
-在具有静态 Cell 的表视图中，其中 Cell 的数量和顺序是恒定的。实现这样的表视图非常简单，与实现常规 _UIView_ 没有太大的区别。
+在具有静态 Cell 的表视图中，其 Cell 的数量和顺序是恒定的。要实现这样的表视图非常简单，与实现常规 _UIView_ 没有太大的区别。
 
-只包含一种内容类型的动态 Cell 的表视图：Cell 的数量和顺序是动态变化的，但所有 Cell 都有相同类型的内容。这就是可复用 Cell 的位置。这也是最常见的表视图样式。
+只包含一种内容类型的动态 Cell 的表视图：Cell 的数量和顺序是动态变化的，但所有 Cell 都有相同类型的内容。在这里你可以使用可复用 Cell 。这也是最常见的表视图样式。
 
 包含具有不同内容类型的动态 Cell 的表视图：数量，顺序和 Cel l类型是动态的。实现这种表视图是最有趣和最具挑战性的。
 
@@ -21,11 +21,11 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*MTXgVkRfdmcGrdZKlaUjdQ.gif)
 
-所有数据都来自后端，我们无法控制下一个请求将接收哪些数据：可能没有「about」的信息，或者「gallery」部分可能是空的。在这种情况下，我们根本不需要显示这些 Cell。最后，我们必须知道用户点击的 Cell 类型并做出相应的反应。
+所有数据都来自后端，我们无法控制下一个请求将接收哪些数据：可能没有「about」的信息，或者「gallery」部分可能是空的。在这种情况下，我们根本不需要展示这些 Cell。最后，我们必须知道用户点击的 Cell 类型并做出相应的反应。
 
-首先，我们先确定问题。
+首先，让我们来先确定问题。
 
-我经常在不同项目中看到这样的方法：在 _UITableView_ 中根据索引位置配置 Cell。
+我经常在不同项目中看到这样的方法：在 _UITableView_ 中根据 index 配置 Cell。
 
 ```
 override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -53,13 +53,13 @@ if indexPath.row == 0 {
 }
 ```
 
-直到你想要重新排序 Cell 或在表视图中删除或添加新的 Cell 的那一刻，代码都将按所预期的工作。如果你更改了一个索引，整个表视图的结构都将破坏，你需要手动更新 _cellForRowAt_ 和 _didSelectRowAt_ 方法中的所有索引判断。
+直到你想要重新排序 Cell 或在表视图中删除或添加新的 Cell 的那一刻，代码都将如所预期的工作。如果你更改了一个 index，那么整个表视图的结构都将破坏，你需要手动更新 _cellForRowAt_ 和 _didSelectRowAt_ 方法中所有的 index 判断。
 
 > 换句话说，它无法重用，可读性差，也不遵循任何编程模式，因为它混合了视图和模型。
 
 有什么更好的方法吗？
 
-在这个项目中，我们将使用 MVVM 模式。MVVM 代表「Model-View-ViewModel」,当你在模型和视图之间需要额外的图层时，这种模式非常有用。你可以在此处阅读有关所有主要 [iOS 设计模式](https://medium.com/ios-os-x-development/ios-architecture-patterns-ecba4c38de52)的更多信息。
+在这个项目中，我们将使用 MVVM 模式。MVVM 代表「Model-View-ViewModel」,当你在模型和视图之间需要额外的图层时，这种模式非常有用。你可以在此处阅读有关所有主要 [iOS 设计模式](https://medium.com/ios-os-x-development/ios-architecture-patterns-ecba4c38de52) 的更多信息。
 
 在本系列教程的第一部分中，我们将使用 JSON 作为数据源构建动态表视图。我们将讨论以下主题和概念：_协议_，_协议拓展_，_属性计算_，_声明转换_ 以及更多。
 
@@ -69,7 +69,7 @@ if indexPath.row == 0 {
 
 #### 第1部分： Model
 
-首先，创建一个新项目，将 TableView 添加到默认的 ViewController 中，ViewController 绑定该 tableView，并将ViewController 嵌入到 NavigationController 中，并确保项目按预期编译和运行。这是基本步骤，此处不予介绍。如果你在这部分遇到麻烦，那对你来说深入研究这个话题可能太早了。
+首先，创建一个新项目，将 TableView 添加到默认的 ViewController 中，ViewController 绑定该 tableView，并将ViewController 嵌入到 NavigationController 中，并确保项目按预期能编译和运行。这是基本步骤，此处不予介绍。如果你在这部分遇到麻烦，那对你来说深入研究这个话题可能太早了。
 
 你的 ViewController 类应该像这样子：
 
@@ -83,7 +83,7 @@ class ViewController: UIViewController {
 }
 ```
 
-我创建了一个简单的JSON数据，模仿服务器响应。 你可以在我的 [Dropbox](https://www.dropbox.com/s/esh7uvr6dovwq53/Images.zip?dl=0) 中下载它。将此文件保存在项目文件夹中，并确保该文件的项目名称与文件检查器中的目标名称相同：
+我创建了一个简单的 JSON 数据，来模仿服务器响应。你可以在我的 [Dropbox](https://www.dropbox.com/s/esh7uvr6dovwq53/Images.zip?dl=0) 中下载它。将此文件保存在项目文件夹中，并确保该文件的项目名称与文件检查器中的目标名称相同：
 
 ![](https://cdn-images-1.medium.com/max/800/1*TSOtH7H7wvmEuzld6LNcqg.png)
 
@@ -125,7 +125,7 @@ public func dataFromFile(_ filename: String) -> Data? {
 }
 ```
 
-使用 Data 对象，我们可以初始化 Profile 类。原生或第三方库中有许多不同的方可以在swift中解析JSON，你可以使用你喜欢的那个。我坚持使用标准的 Swift JSONSerialization 库来保持项目的精简，不使用任何第三方库：
+使用 Data 对象，我们可以初始化 Profile 类。原生或第三方库中有许多不同的方可以在 Swift 中解析JSON，你可以使用你喜欢的那个。我坚持使用标准的 Swift JSONSerialization 库来保持项目的精简，不使用任何第三方库：
 
 ```
 class Profile {
@@ -194,11 +194,11 @@ class Attribute {
 
 > 译者注：五个部分，对应图片应该都能知道，感觉不需要翻译
 
-前三个部分各只有一个 Cell，最后两个部分可以有多个 Cell，具体取决于我们的JSON文件的内容。
+前三个部分各只有一个 Cell，最后两个部分可以有多个 Cell，具体取决于我们的 JSON 文件的内容。
 
 因为我们的数据是动态的，所以 Cell 的数量不是固定的，并且我们对每种类型的数据使用不同的 tableViewCell，因此我们需要使用正确的 ViewModel 结构。
 
-首先，我们必须区分数据类型，以便我们可以使用适当的Cell。当你需要在 Swift 中使用多种类型并且可以轻松的切换时，最好的方法是使用枚举。那么让我们开始使用 _ViewModelItemType_ 构建 _ViewModel_：
+首先，我们必须区分数据类型，以便我们可以使用适当的 Cell。当你需要在 Swift 中使用多种类型并且可以轻松的切换时，最好的方法是使用枚举。那么让我们开始使用 _ViewModelItemType_ 构建 _ViewModel_：
 
 ```
 enum ProfileViewModelItemType {
@@ -210,7 +210,7 @@ enum ProfileViewModelItemType {
 }
 ```
 
-每个 _enum case_ 表示需要不同 _TableViewCell_ 的数据类型。 但是，因为我们希望在同一个表视图中使用数据，所以需要有一个单独的 _dataModelItem_，它将决定所有属性。我们可以通过使用协议来实现这一点，该协议将为我们的 item 提供属性计算：
+每个 _enum case_ 表示  _TableViewCell_ 需要的不同的数据类型。但是，我由于们希望在同一个表视图中使用数据，所以需要有一个单独的 _dataModelItem_，它将决定所有属性。我们可以通过使用协议来实现这一点，该协议将为我们的 item 提供属性计算：
 
 ```
 protocol ProfileViewModelItem {  
@@ -218,7 +218,7 @@ protocol ProfileViewModelItem {
 }
 ```
 
-我们首先需要知道的是我们的 item 的类型。所以我们为协议创建一个类型属性。当你创建协议属性时，你需要为该属性设置 _name_, _type_，并指定该属性是_gettable_ 还是 _settable_ 和_gettable_。您可以在 [此处](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html) 获得有关协议属性的更多信息和示例。在我们的例子中，类型将是 _ProfileViewModelItemType_，我们仅需要只读该属性：
+首先，我们需要知道的是 item 的类型。所以我们为协议创建一个类型属性。当你创建协议属性时，你需要为该属性设置 _name_, _type_，并指定该属性是 _gettable_ 还是 _settable_ 和 _gettable_。你可以在 [此处](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html) 获得有关协议属性的更多信息和示例。在我们的例子中，类型将是 _ProfileViewModelItemType_，我们仅需要只读该属性：
 
 ```
 protocol ProfileViewModelItem {
@@ -226,7 +226,7 @@ protocol ProfileViewModelItem {
 }
 ```
 
-我们需要的下一个属性是 _rowCount_。它将告诉我们每个 section 有多少行。 为此属性指定类型和只读：
+我们需要的下一个属性是 _rowCount_。它将告诉我们每个 section 有多少行。为此属性指定类型和只读类型：
 
 ```
 protocol ProfileViewModelItem {
@@ -235,7 +235,7 @@ protocol ProfileViewModelItem {
 }
 ```
 
-最后，我们需要在协议中添加一个 _sectionTitle_ 类型，这样就很好了。基本上，_sectionTitle_ 也属于 _TableView_ 的数据。如你所知，在使用 MVVM 结构时，我们不希望在其他任何地方创建任何类型的数据，除了在 _viewModel_ 中：
+最后，我们最好在协议中添加一个 _sectionTitle_ 属性。基本上，_sectionTitle_ 也属于 _TableView_ 的相关数据。如你所知，在使用 MVVM 结构时，我们不希望在其他任何地方创建任何类型的数据，除了在 _viewModel_ 中：
 
 ```
 protocol ProfileViewModelItem {
@@ -255,7 +255,7 @@ extension ProfileViewModelItem {
 }
 ```
 
-现在，如果 rowCount 为 1，我们不必为项目提供 rowCount，它将为你节省一些冗余的代码行。
+现在，如果 rowCount 为 1，我们就不必为 item 赋值 rowCount，它将为你节省一些冗余的代码。
 
 > 协议扩展还允许您在不使用 @objc 协议的情况下生成可选的协议方法。只需创建一个协议扩展并在这个扩展中实现默认方法。
 
@@ -273,9 +273,9 @@ class ProfileViewModelNameItem: ProfileViewModelItem {
 }
 ```
 
-正如我之前所说，我们不需要提供行计数，因为在这种情况下，我们只需要默认值 1。
+正如我之前所说，在这种情况下，我们不需要为 rowCount 赋值，因为，我们只需要默认值 1。
 
-现在我们添加其他属性，这些属性对于此 item 是唯一的：_pictureUrl_ 和 _userName_。两者都是没有初始值的存储属性，因此我们还需要为此类提供 init 方法：
+现在我们添加其他属性，这些属性对于这个 item 来说是唯一的：_pictureUrl_ 和 _userName_。两者都是没有初始值的存储属性，因此我们还需要为这个类提供 init 方法：
 
 ```
 class ProfileViewModelNameAndPictureItem: ProfileViewModelItem {
@@ -297,7 +297,7 @@ class ProfileViewModelNameAndPictureItem: ProfileViewModelItem {
 }
 ```
 
-现在我们可以创建剩余的4个 Model：
+然后我们可以创建剩余的4个 Model：
 
 ```
 class ProfileViewModelAboutItem: ProfileViewModelItem {
@@ -402,7 +402,7 @@ class ProfileViewModel: NSObject {
 }
 ```
 
-下面是最有趣的部分：基于 _Model_，我们将配置要显示的 _ViewModel_。
+下面是最有趣的部分：基于 _Model_，我们将配置需要显示的 _ViewModel_。
 
 ```
 class ProfileViewModel: NSObject {
@@ -446,9 +446,9 @@ class ProfileViewModel: NSObject {
 }
 ```
 
-现在，如果要重新排序，添加或删除 item，只需修改此 _ViewModel_ 的 item 数组即可。很清楚，是吧？
+现在，如果要重新排序、添加或删除 item，只需修改此 _ViewModel_ 的 item 数组即可。很清楚，是吧？
 
-接下来，我们将向在 ModelView 里添加 UITableViewDataSource：
+接下来，我们将 UITableViewDataSource 添加到 ModelView：
 
 ```
 extension ViewModel: UITableViewDataSource {
@@ -472,11 +472,11 @@ extension ViewModel: UITableViewDataSource {
 
 #### 第3部分：View
 
-返回到 _ViewController_，开始准备 _TableView_。
+让我们回到 _ViewController_ 中，开始 _TableView_ 的准备。
 
-首先，我们创建存储的属性 _ProfileViewModel_ 并初始化它。在实际项目中，你必须先请求数据，将数据提供给 _ViewModel_，然后在数据更新时重新加载 _TableView_（[在这里查看在 iOS 应用程序中传递数据的方法](https://medium.com/ios-os-x-development/ios-three-ways-to-pass-data-from-model-to-controller-b47cc72a4336)）。
+首先，我们创建存储属性 _ProfileViewModel_ 并初始化它。在实际项目中，你必须先请求数据，将数据提供给 _ViewModel_，然后在数据更新时重新加载 _TableView_（[在这里查看在 iOS 应用程序中传递数据的方法](https://medium.com/ios-os-x-development/ios-three-ways-to-pass-data-from-model-to-controller-b47cc72a4336)）。
 
-接下来，让我们配置 tableViewDataSource：
+接下来，让我们来配置 tableViewDataSource：
 
 ```
 override func viewDidLoad() {  
@@ -486,7 +486,7 @@ override func viewDidLoad() {
 }
 ```
 
-现在我们可以开始构建 UI 了。我们需要创建五种不同类型的 Cell，每种 Cell 对应一个 _ViewModelItems_。如何创建 Cell 并不是本教程中所需要介绍的内容，你可以创建自己的 Cell 类、样式和布局。 作为参考，我将向你展示需要做的简单示例：
+现在我们可以开始构建 UI 了。我们需要创建五种不同类型的 Cell，每种 Cell 对应一种 _ViewModelItems_。如何创建 Cell 并不是本教程中所需要介绍的内容，你可以创建自己的 Cell 类、样式和布局。作为参考，我将向你展示一些简单示例：
 
 ![](https://cdn-images-1.medium.com/max/800/1*Opk9kuxb8bPCZNeS6P-c2Q.png)
 
@@ -500,7 +500,7 @@ override func viewDidLoad() {
 
 <center>AttributeCell 示例</center>
 
-如果你对创建 Cell 需要一些帮助，或者想要一些提示，可以查看我之前关于_tableViewCells_的某个 [教程](https://medium.com/ios-os-x-development/ios-tableview-with-mvc-a05103c01110) 。
+如果你对创建 Cell 需要一些帮助，或者想要一些提示，可以查看我之前关于 _tableViewCells_ 的某个 [教程](https://medium.com/ios-os-x-development/ios-tableview-with-mvc-a05103c01110) 。
 
 每个 Cell 都应该具有 _ProfileViewModelItem_ 类型的 _item_ 属性，我们将使用它来配置 Cell UI：
 
@@ -568,9 +568,9 @@ var item: Attribute?  {
 }
 ```
 
-你们可能会提一个合理的问题：为什么我们不为 _ProfileViewModelAboutItem_ 和 _ProfileViewModelEmailItem_ 创建同一个的 Cell，因为他们都只有一个 label？答案是肯定的，我们可以使用一个的 Cell。但本教程的目的是向你展示使用不同类型 Cell 的方法。
+你们可能会提一个合理的问题：为什么我们不为 _ProfileViewModelAboutItem_ 和 _ProfileViewModelEmailItem_ 创建同一个的 Cell，他们都只有一个 label？答案是可以这样子做，我们可以使用一个的 Cell。但本教程的目的是向你展示如何使用不同类型的 Cell。
 
-> 如果你想将它们用作 reusableCells，不要忘记注册 Cell：UITableView 有注册 Cell class 和 nib 文件的方法，这取决于你创建 Cell 的方式。
+> 如果你想将它们用作 reusableCells，不要忘记注册 Cell：UITableView 提供注册 Cell class 和 nib 文件的方法，这取决于你创建 Cell 的方式。
 
 现在是时候在 _TableView_ 中使用 Cell 了。同样，_ViewModel_ 将以一种非常简单的方式处理它：
 
@@ -632,9 +632,9 @@ override func tableView(_ tableView: UITableView, titleForHeaderInSection sectio
 
 <center>呈现</center>
 
-要测试方法的灵活性，你可以修改 JSON 文件：添加或删除一些 friends 数据，或完全删除一些数据（只是不要破坏 JSON 结构，不然，你就无法看到任何数据）。当你重新构建项目时，_tableView_ 将以其应有的方式查找和工作，而无需任何代码修改。 如果更改 _Model_ 本身，你只需修改 _ViewModel_ 和 _ViewController_：添加新属性，或重构其整个结构。但这是一个完全不同的例子。
+要测试该方法的灵活性，你可以修改 JSON 文件：添加或删除一些 friends 数据，或完全删除一些数据（只是不要破坏 JSON 结构，不然，你就无法看到任何数据）。当你重新构建项目时，_tableView_ 将以其应有的方式查找和工作，而无需任何代码修改。 如果要更改 _Model_ 本身，你只需修改 _ViewModel_ 和 _ViewController_：添加新属性，或重构其整个结构。但这是一个完全不同的例子。
 
-你可以在这里查看完整的项目：
+在这里，你可以查看完整的项目：
 
 [Stan-Ost/TableViewMVVM](https://github.com/Stan-Ost/TableViewMVVM)
 
@@ -644,7 +644,7 @@ override func tableView(_ tableView: UITableView, titleForHeaderInSection sectio
 
 * * *
 
-更新：在[此处](https://medium.com/ios-os-x-development/ios-aimate-tableview-updates-dc3df5b3fe07)查看如何在不使用 _ReloadData_ 方法的情况下动态更新此 _tableView_。
+更新：在 [此处](https://medium.com/ios-os-x-development/ios-aimate-tableview-updates-dc3df5b3fe07) 查看如何在不使用 _ReloadData_ 方法的情况下动态更新此 _tableView_。
 
 * * *
 
