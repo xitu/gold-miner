@@ -5,15 +5,15 @@
 > * 译者：[Reaper622](https://github.com/Reaper622)
 > * 校对者：[xionglong58](https://github.com/xionglong58)，[hanxiansen](https://github.com/hanxiansen)
 
-# 选择 Grid 还是 Flex ？
+# 选择 Grid 还是 Flex？
 
 一个最近由 Chris Coyier 发起的的 [推特话题](https://twitter.com/chriscoyier/status/1088827201468813312) 使我开始思考人们通常在什么情况下使用 CSS Grid 布局还是 Flexbox 布局:
 
-> 对于已经理解了 CSS grid 和 flexbox 的你们来说， 最喜欢的描述二者之间差异的方法是什么？
+> 对于已经理解了 CSS grid 和 flexbox 的你们来说，最喜欢的描述二者之间差异的方法是什么？
 > 
 > — Chris Coyier (@chriscoyier) [January 25, 2019](https://twitter.com/chriscoyier/status/1088827201468813312?ref_src=twsrc%5Etfw)
 
-自然地一些最有见地的回复来自于  Rachel Andrew 和 Jen Simmons：
+自然地一些最有见地的回复来自于 Rachel Andrew 和 Jen Simmons：
 
 > Flexbox 是一种一维布局。一行或者一列。Grid 是一种二维布局。多行和多列。
 > 
@@ -39,7 +39,7 @@
 
 ## 一维还是二维？
 
-Grid 和 flexbox 的一个很大的差异是 Grid 允许我们在二维空间(多行多列)控制元素的位置，flexbox 则不行。 再强调一次，那并不意味着你**永远**不能在一维布局中使用 Grid。我经常在我需要准确地在一维空间控制元素的尺寸和位置时选择使用 Grid。就像在这个示例和随附的文章中：
+Grid 和 flexbox 的一个很大的差异是 Grid 允许我们在二维空间(多行多列)控制元素的位置，flexbox 则不行。再强调一次，那并不意味着你**永远**不能在一维布局中使用 Grid。我经常在我需要准确地在一维空间控制元素的尺寸和位置时选择使用 Grid。就像在这个示例和随附的文章中：
 
 在 [CodePen](https://codepen.io) 上查看 Michelle Barker ([@michellebarker](https://codepen.io/michellebarker)) 写的 [带有变量和媒体查询的 CSS Grid 组件](https://codepen.io/michellebarker/pen/XBPMZZ/)
 
@@ -63,7 +63,7 @@ Grid 通常在你需要控制二维空间的布局时是一个正确的选择。
 
 元素之后就被自动放置，不需要我们再做其他的事情了。如果我们真的想要它变得非常灵巧，我们可以使用 Grid 的 _auto-fit()_ 和 _minmax()_ 方法来给我们一个不需要媒体查询的完全响应式的布局 - 尝试调整此示例的大小，看看会发生什么。
 
-在[CodePen](https://codepen.io) 上查看 Michelle Barker ([@michellebarker](https://codepen.io/michellebarker)) 的 [Grid 自适应例子](https://codepen.io/michellebarker/pen/bzvGaE/)
+在 [CodePen](https://codepen.io) 上查看 Michelle Barker ([@michellebarker](https://codepen.io/michellebarker)) 的 [Grid 自适应例子](https://codepen.io/michellebarker/pen/bzvGaE/)。
 
 我推荐观看 Heydon Pickering 的视频 [算法布局](https://www.youtube.com/watch?v=qOUtkN6M52M) 来作为一个对这个技术的概述等。
 
@@ -86,7 +86,7 @@ Grid 通常在你需要控制二维空间的布局时是一个正确的选择。
 
 我们需要在网格容器上使用负 margin 来抵消这一事实 —— 内部元素的总的宽度可能要比容器更大，因此它会被换行到下一行。我们也没有了开箱即用的响应式行为并且很可能需要使用媒体查询。
 
-在 [CodePen](https://codepen.io) 上查看 Michelle Barker ([@michellebarker](https://codepen.io/michellebarker)) 的 [Flexbox 布局示例](https://codepen.io/michellebarker/pen/VgXwRJ/)
+在 [CodePen](https://codepen.io) 上查看 Michelle Barker ([@michellebarker](https://codepen.io/michellebarker)) 的 [Flexbox 布局示例](https://codepen.io/michellebarker/pen/VgXwRJ/)。
 
 使用 flexbox 可以通过几种不同的方式实现相同的布局，但他们都让我感觉有点复杂 - 它们本来就是那么复杂。我们将 flexbox 用于并不是它真正被设计出来要做的事 — 但并不意味着它总是错误的选择。
 
