@@ -2,8 +2,8 @@
 > * 原文作者：[Deepak Gupta](https://codeburst.io/@ideepak.jsd)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-generator-yield-next-async-await.md](https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-generator-yield-next-async-await.md)
-> * 译者：
-> * 校对者：
+> * 译者：[iceytea](https://github.com/iceytea)
+> * 校对者：[huimingwu](https://github.com/huimingwu), [zsky](https://github.com/zsky)
 
 # Javascript - Generator-Yield/Next 和 Async-Await
 
@@ -57,7 +57,7 @@ UUID.next()
 
 > 注意：我们在无限循环上暂停，这是一种很酷的方式。在 generator 函数中的任何“停止点”处，不仅可以为外部函数生成值，还可以从外部接收值。
 
-有许多 generator 的实现，并且很多库都在大量使用。比如说 [co](https://github.com/tj/co) 、[koa](https://koajs.com/) 和 [redux-saga](https://github.com/redux-saga/redux-saga) 。
+有许多 generator 的实现，并且很多库都在大量使用。比如说 [co](https://github.com/tj/co)、[koa](https://koajs.com/) 和 [redux-saga](https://github.com/redux-saga/redux-saga)。
 
 * * *
 
@@ -67,19 +67,19 @@ UUID.next()
 
 依照惯例，当一个异步操作返回由 `Promise` 处理的数据时，回调会被传递并调用。
 
-> Async/Await 是一种特殊的语法，以更舒适的方式使用 Promise ，这种方式非常容易理解和使用。
+> Async/Await 是一种特殊的语法，以更舒适的方式使用 Promise，这种方式非常容易理解和使用。
 
 **Async 关键字**用于定义**异步函数** ，该函数返回一个 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncFunction" title=" AsyncFunction 构造函数创建一个新的异步函数对象。在 JavaScript 中，每个异步函数实际上都是一个 AsyncFunction 对象。" rel="noopener" >AsyncFunction</a> 对象。
 
-**Await 关键字**用于暂停异步函数执行， 直到 `Promise` 被解决（resolved 或者 rejected）, 并在完成后继续执行 `async` 函数。恢复时，await 表达式的值是已执行的 Promise 的值。
+**Await 关键字**用于暂停异步函数执行，直到 `Promise` 被解决（resolved 或者 rejected），并在完成后继续执行 `async` 函数。恢复时，await 表达式的值是已执行的 Promise 的值。
 
 **关键点：**
 
 > 1. Await 只能在异步函数中使用。
-> 2. 具有 async 关键字的函数将**始终**返回 promise 。
+> 2. 具有 async 关键字的函数将**始终**返回 promise。
 > 3. 在相同函数下的多个 await 语句将始终按顺序运行。
-> 4. 如果 promise 正常被 resolve ，则 `await` 会返回 `promise` 结果。但是如果被 reject，它就会抛出错误，就像在那行有 `throw` 语句一样。
-> 5. 异步函数不能同时等待多个 promise 。
+> 4. 如果 promise 正常被 resolve，则 `await` 会返回 `promise` 结果。但是如果被 reject，它就会抛出错误，就像在那行有 `throw` 语句一样。
+> 5. 异步函数不能同时等待多个 promise。
 > 6. 如果在 await 之后使用 await 多次，并且后一条语句不依赖于前一条语句，则可能会出现性能问题。
 
 到目前为止一切顺利，现在让我们看一个简单的例子：
@@ -100,7 +100,7 @@ async function asyncFunction() {
 asyncFunction();
 ```
 
-在 `await promise` 这一行，`asyncFunction` 执行“暂停”，并在 promise 被解决后回复, `result`（第 95 行的 `const result`）变成它的结果。上面的代码在一秒钟后展示“ `i am resolved!` ”。
+在 `await promise` 这一行，`asyncFunction` 执行“暂停”，并在 promise 被解决后回复，`result`（第 95 行的 `const result`）变成它的结果。上面的代码在一秒钟后展示 “`i am resolved!`”。
 
 * * *
 
@@ -109,7 +109,7 @@ asyncFunction();
 1.  **Generator 函数/yield** 和 **Async 函数/await** 都可以用来编写“等待”的异步代码，这意味着代码看起来像是同步的，即使它确实是异步的。
 2.  **Generator 函数**按照 **yield 接着 yield** 的顺序执行，就是说一个 yield 表达式通过迭代器来执行一次（执行 `next` 方法），而 **Async-await** 按照 **await 接着 await** 的顺序依序执行。
 3.  **Async/await** 可以更容易地实现 **Generators** 的特定用例。
-4.  **Generator** 的返回值始终是 **{value: X, done: Boolean}** 。对于 **Async 函数**它将始终是一个将解析为值 X 或抛出错误的 **promise** 。
+4.  **Generator** 的返回值始终是 **{value: X, done: Boolean}**。对于 **Async 函数**它将始终是一个将解析为值 X 或抛出错误的 **promise**。
 5.  **Async 函数**可以分解为 **Generator 和 promise** 来实现，这些都很有用。
 * * *
 
