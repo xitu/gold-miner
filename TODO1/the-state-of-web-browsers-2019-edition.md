@@ -111,9 +111,14 @@ I would welcome a simpler development workflow, I think the current one is rathe
 
 ### Chromium and web standards
 
+### Chromium 以及 web 标准
 We’ve established that we live in a Chromium monopoly which triggers deep concerns on the future of web standards, the standardization process itself, and the enormous control one party has over the future direction of the web. In this section, we’re going to explore how bad, or not so bad things are at a practical level.
 
+可以确定的是，我们已经处在 Chromium 的垄断环境中，Chromium 的垄断引发了对 web 标准、Chromium 自身标准建立过程、两者对 web 未来发展方向的关注。在这一部分，我们将从实践层面讨论 Chromium 的垄断所带来的坏的一面，以及其有利的一面。
+
 Let us make the assumption that Google is at the steering wheel of both standards creation and standards implementation. It isn’t an absolute 100% power, yet a decisive power. Let’s explore how such a dominant position could potentially be abused, and whether it is likely to occur.
+
+我们假设 Google 不仅担任着标准建立的角色，还是标准的践行者。虽然这种假设不是百分百的可能，但很大程度上是可能发生的。接着让我们看看在背地里 Google 可以如何滥用这种优势，并分析这种滥用是否会发生。
 
 #### Incentive
 
