@@ -6,38 +6,67 @@
 > * 校对者：
 
 # The State of Web Browsers 2019 edition
-
+# 浏览器的状态 - 2019年编辑
 ![](https://cdn-images-1.medium.com/max/800/1*mkxbYIvO9oe1xsjjezUELA.png)
 
 Two days ago, I published a bitter sweet article on the [state of web browsers](https://github.com/xitu/gold-miner/blob/master/TODO1/the-state-of-web-browsers.md), triggered by the news that Microsoft would abandon their EdgeHTML engine, replacing it with Chromium. Which was the final nail in the coffin, effectively establishing Chromium as the web’s engine, combined with Safari’s webkit. The only resistance to this monopoly, Mozilla, finds itself without any significant allies or traction to counter this development.
 
+两天前，有感于微软放弃 Edgehtml 引擎，使用 Chromiun 取而代之的事件，作者发表了一片关于[浏览器苦乐现状](https://ferdychristant.com/the-state-of-web-browsers-f5a83a41c1cb)的文章。微软的此番作为被视为将 Chromium 与 Safari 的 webkit 结合建立搜索引擎的最后一步。而此时，唯一能对微软的垄断行为产生威胁的对手 —— Mozia，发现自己已经没有盟友和动力来应对微软的这一举措。
+
 The article got some readership and a fair amount of feedback. The general consensus seems to be that the article is truthful but depressing.
+
+这篇文章获得了大量读者的反馈，大家普遍肯定了文章的真实性，但也对文章揭露的事实感到沮丧。
 
 Critical notes suggest that some statements are true-ish but too broad, lacking finer details and nuance. I agree. Some statements could be more polished, but it would make the article twice as long, and not all of those details matter for the larger conclusions I was going for. To illustrate, the article got tens of thousands of views, only 25% bothered to actually read it. Which surely has to do with length, and I suppose some were so disgusted halfway-in, they gave up, saving both time and the chance of a clinical depression.
 
+一些批判性的评论则认为文章的一些观点是真实可信的，但过于宽泛，缺乏细节。作者肯定有些观点可以更加精辟，但这会使文章的篇幅增加一倍，并且增加的内容对作者所要阐述的核心观点没有太大用处。比如说，该篇文章获得了数万读者的浏览，实际上仅仅有 25% 左右的读者真正通读了，可能是因为文章的长度，有些读者感到厌烦，在阅读中途就放弃了，既节省了时间又免得内心沮丧。
+
 Only a few critiqued the delivery style of brutal honesty, most seemed to appreciate it. And some don’t, it comes with the territory. All I can say is that I won’t tone it down, I was actually in a mild mood that day. I don’t apply brutal honesty for shock value or attention, I genuinely believe that in a world ruled by tech, we need no nonsense critique, not sugar coated suggestions. Plus, I’m dutch, this is our default tone of voice.
+
+只有少数人批评作者近似残酷的诚实，更多读者则偏向欣赏作者的做法。这等同于领土问题。作者所能说的是，尽管那天我的情绪很平和，但我并不会降低语气。我也不会用我的诚实获取价值和关注，我坚信在一个由科技主导的世界里不需要毫无意义的批评，更不需要高谈阔论的建议。另外，作者是一个荷兰人，我们惯有的语调就是如此。
 
 Back on point, why a second article? I want to address the depressing part of the original article. If you were brave enough to read it to the end, you’d notice the lack of a happy ending. You could be under the impression that the web is a lost cause, the open web in great danger, and that we’ve returned to medieval IE times. It would take the greatest of optimists to wade through that article without it ruining your day, if you care about the web.
 
+回到主题上，为什么要发布第二篇文章？我想要谈谈原文中令人沮丧的那部分内容。如果你有足够的时间读到最后，你会在末尾发现这将是一个缺少快乐的结局。你可能会认为网络是一个失败的东西，开放的网络处于极大的危险中，我们已经回到了中世纪的 IE 时代。如果你关心网络的话，即使是最乐观的人也会在读完这篇文章之后整天沮丧难受。
+
 I cannot change the fact that the road to Chromium/Webkit dominance was messy or even abusive. It is a questionable history that will not be undone. We’re going to leave this one to the lawyers, but sure enough, those browsers aren’t going to be uninstalled. It’s a done deal.
+
+我不能改变的事实是： Chromium/Webkit 的统治之路是混乱的，甚至是滥用的。这是一段不可抹去的、值得怀疑的历史。我们将把这个留给律师，但足够肯定的是，这些浏览器仍不会被卸载。咱们走着瞧。
 
 In this article, we’re going to accept the new state, where Chromium dominates the web, and look **ahead**. To see what Chromium dominance means for users, developers and the open web. The spoiler is of course that there’s plenty of reasons to be happy, optimistic, and even excited about this new state, even if the new state came into existence in unfair ways.
 
-### Chromium for users: the web works
+在本文中，我们将接受 Chrome 主导 web 的新态势，并展望未来。看看 Chromium 的优势对用户、开发者和开放网络意味着什么。剧透一下，我们将有很多理由对这个态势感到高兴、乐观，甚至兴奋，即使这个新态势是以一种不公平的方式出现的。
 
+
+### Chromium for users: the web works
+### Chromium 之于用户：Web 运行
 By a rough estimation of global market share, Chromium/Chrome browsers would make up for at least 70% of users. Then there’s 15% of Webkit, mostly mobile Safari.
+
+根据对全球市场份额的粗略估计，Chromium/Chrome 浏览器将占有至少70%的用户。还有15%的Webkit，主要是移动端的Safari 。  
 
 No sane developer would ignore mobile Safari, and Webkit is in many ways similar to Chromium (although growing apart), therefore, a base starting point is that 85% of users will experience a website exactly as it was intended. **At least**. That’s pretty awesome.
 
+任何明智的开发人员都不会忽视移动端的 Safari，而 Webkit 在许多方面与 Chromium 相似(尽管有所不同)，因此，一个基本的出发点是85%的用户将完全按照预期体验浏览一个网站。至少算是 Chromium 的一个优势。 
+
 It gets even better. Most websites do not use bleeding edge features or Chromium-only features, therefore Chromium dominance does not mean the same website would not work just as well in Firefox. Firefox is close to on par with Chromium regarding web standards. Even if slightly lagging behind, it doesn’t mean websites will break in Firefox at scale. And if there’s any issues, surely Mozilla will be eager to achieve compatibility asap.
+
+其次，大多数网站不会使用前沿功能或只使用 Chromium 的功能，因此 Chromium 的优势并不意味着相同的网站不能像Firefox那样工作。Firefox 在 web 标准方面与 Chromium 接近。即使略微落后，这并不意味着网站将在 Firefox 中大规模突破。如果有任何问题，Mozilla 肯定会尽快实现兼容性。
 
 Therefore, my very rough assessment is that for 90% of users, pretty much all of the web will work correctly and as intended by the creator. The exception would be parts of the web that are bleeding edge or experimental.
 
+因此，我的粗略评估是，对于90%的用户来说，几乎所有的 web 都将按照创建者的意图正常工作。唯一的例外是网络的前沿性或实验性部分。
+
 As strange as it sounds, in a competitive browser landscape where 3 engines would have an equal share, the above would not be as true. There would be far more compatibility issues. With our user hat on, the web works quite well in a Chromium world, where mobile Safari and Firefox combined are large enough to still keep the dominant engine in check.
+
+很奇怪的是，假设在一个浏览器竞争环境中，3个搜索引擎占据相同的份额，上面所说就不成立了。这种假设下将会出现很多兼容性问题，具体应用时，web 在 chrome 的世界中运行得非常好，移动端的 Safari 和 Firefo 结合起来也足够大到可以占据主导地位。
 
 The other 10% is stuff like old IE, slow as its death will be, it will shrink eventually, boosting our 90% even further.
 
+另外10%的浏览器是像旧版IE一样的东西，虽然它的消亡速度很慢，但它最终会缩小，进一步提高我们的90%。
+
 And there’s more good news for users. With the exception of mobile Safari, all these browsers auto update on a frequent basis. Almost all web users will have up-to-date browsers to use an ever-improving web experience.
+
+对于用户的好消息是，出了移动端的 Safari，其余浏览器都会经常自动更新。这导致几乎所有的 web 用户都将使用最新的浏览器来使用不断改进的 web。
 
 ### Chromium for developers: life could get easier
 
