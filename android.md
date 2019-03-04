@@ -1,3 +1,6 @@
+* [绘制路径：Android 中矢量图渲染](https://juejin.im/post/5c75e73051882562ea724cd4) ([xiaxiayang](https://github.com/xiaxiayang) 翻译)
+* [介绍一款使用 Flutter 编写的 Flutter 组件、应用生成器](https://juejin.im/post/5c732e8ff265da2d8e70ed36) ([jerryOnlyZRJ](https://github.com/jerryOnlyZRJ) 翻译)
+* [Widget - State - Context - InheritedWidget](https://juejin.im/post/5c768ad2f265da2dce1f535c) ([nanjingboy](https://github.com/nanjingboy) 翻译)
 * [Flutter 从 0 到 1 第二部分](https://juejin.im/post/5c6ca802f265da2dce1f3af6) ([hongruqi](https://github.com/hongruqi) 翻译)
 * [我与 Flutter 的一年](https://juejin.im/post/5c5aeb8a6fb9a04a027acddf) ([ssshooter](https://github.com/ssshooter) 翻译)
 * [为什么你的应用需要对各种尺寸屏幕做适配优化？](https://juejin.im/post/5c662023518825767633ab86) ([Mirosalva](https://github.com/Mirosalva) 翻译)

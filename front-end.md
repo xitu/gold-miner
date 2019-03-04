@@ -1,3 +1,8 @@
+* [Hooks 对 Vue 而言意味着什么](https://juejin.im/post/5c7784d5f265da2de713629c) ([Ivocin](https://github.com/Ivocin) 翻译)
+* [如何学习 CSS](https://juejin.im/post/5c74daaaf265da2d9d1cb774) ([Mcskiller](https://github.com/Mcskiller) 翻译)
+* [已经 2019 年了，我依然赤手空拳制作网站](https://juejin.im/post/5c74ad81f265da2da00ebaf6) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
+* [模块化系统中的 event.stopPropagation ()](https://juejin.im/post/5c74a8bef265da2d881b331f) ([Fengziyin1234](https://github.com/Fengziyin1234) 翻译)
+* [HTML 一直是我们编译的目标 — 我们可以解决好它吗？](https://juejin.im/post/5c6ec3fc6fb9a049b07df54c) ([CoderMing](https://github.com/CoderMing) 翻译)
 * [2019 前端性能优化年度总结 — 第一部分](https://juejin.im/post/5c4418006fb9a049c043545e) ([Hopsken](https://github.com/Hopsken) 翻译)
 * [2019 前端性能优化年度总结 — 第二部分](https://juejin.im/post/5c47232b6fb9a049f8199ee2) ([KarthusLorin](https://github.com/KarthusLorin) 翻译)
 * [2019 前端性能优化年度总结 — 第三部分](https://juejin.im/post/5c5ccbefe51d457f95354a46) ([Starriers](https://github.com/Starriers) 翻译)

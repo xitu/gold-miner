@@ -2,740 +2,740 @@
 > * 原文作者：[Peter Goldsborough](http://www.goldsborough.me/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/writing-a-microservice-in-rust.md](https://github.com/xitu/gold-miner/blob/master/TODO1/writing-a-microservice-in-rust.md)
-> * 译者：
-> * 校对者：
+> * 译者：[nettee](https://github.com/nettee)
+> * 校对者：[HearFishle](https://github.com/HearFishle), [shixi-li](https://github.com/shixi-li)
 
-# Writing a Microservice in Rust
+# 用 Rust 写一个微服务
 
-Let me begin this article on *Writing a Microservice in Rust* by talking about C++. I’ve been a reasonably active member of the C++ community for quite a while now, attending and [contributing talks](https://www.youtube.com/watch?v=E6i8jmiy8MY) to conferences, following the development and evangelism of the language’s more modern features and of course writing lots of it. C++ is a language that gives its users very fine-grained control over all aspects of the program they are writing, at the cost of a steep learning curve and a [large body of knowledge](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/n4659.pdf) required to write effective C++. However, C++ is also a very old language, conceived by Bjarne Stroustrup in 1985, and thus caries a lot of technical debt even into modern standards. Of course, research into language design continued after the creation of C++, leading to interesting new programming languages like [Go](https://golang.org), [Rust](https://www.rust-lang.org/en-US/), [Crystal](https://crystal-lang.org) and many more. However, it’s very rare for one of these new languages to have significantly more interesting features than modern C++, *while still* guaranteeing the same performance and control over memory and hardware. Go set out to be a replacement for C++, but as [Rob Pike found himself](https://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html), C++ programmers were not quite elated by a language that offers less control at lower performance. On the other hand, Rust is appealing to many a C++ aficionado. Rust and C++ share quite a few design goals, such as *zero-cost abstractions* and detailed control over memory. However, on top of that, Rust adds a number of language features that make programs safer and more expressive, and development more productive. The things that excite me the most about Rust are
+请允许我在写这样一篇**用 Rust 写一个微服务**的文章的开头先谈两句 C++。我成为 C++ 社区的一个相当活跃的成员已经很长一段时间了。我参加会议并[贡献了演讲](https://www.youtube.com/watch?v=E6i8jmiy8MY)，跟随语言的更现代化的特性的发展和传播，当然也写了很多代码。C++ 让用户在写代码时能对程序的所有方面有非常细粒度的控制，不过代价是陡峭的学习曲线，以及写出有效的 C++ 代码所需的[大量知识](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/n4659.pdf)。然而，C++ 也是一个非常古老的语言。它由 Bjarne Stroustrup 在 1985 年构思出来。因此，它即使在现代标准中也带有很多的历史包袱。 当然，在 C++ 创建之后，关于语言设计的研究仍在继续，也导致了一些如 [Go](https://golang.org)、[Rust](https://www.rust-lang.org/en-US/)、[Crystal](https://crystal-lang.org) 等很多有趣的新语言的诞生。然而，这些新语言中很少有能够既具有比现代 C++ 更有趣的功能，**同时仍**保证具备和 C++ 同样的性能和对内存、硬件的控制。Go 想要替代 C++，但正如 [Rob Pike 发现的那样](https://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html)，C++ 程序员对一种性能较差而又提供较少控制的语言不是很感兴趣。不过，Rust 却吸引了很多 C++ 爱好者。Rust 和 C++ 有不少相同的设计目标，比如**零成本抽象**，以及对内存的精细控制。除此之外，Rust 还添加了很多让程序更安全、更有表达力，以及让开发更高效的语言特性。我对 Rust 最感兴趣的东西是
 
-* The *borrow checker*, which greatly improves memory safety (`SEGFAULT`s no more!),
-* Immutability (`const`) by default,
-* Intuitive syntactic sugar such as pattern matching,
-* No built-in implicit conversions between (arithmetic) types.
+* **借用检查**，极大地提升了内存安全性（再也没有 `SEGFAULT` 了！）；
+* 默认的不可变性（`const`）；
+* 符合直觉的语法糖，例如模式匹配（pattern matching）；
+* 没有内置的（算数）类型间的隐式转换。
 
-Now, having rambled, the remainder of this post will walk you through creating a small but complete *microservice* – similar to the [URL shortener](https://github.com/goldsborough/psag.cc) I built for my blog. With *microservice*, I mean an application that speaks HTTP, accepts requests, speaks to a database, returns a response (possibly serving HTML), packaged up in a Docker container and ready to be dropped somewhere in the cloud. For this post, we’ll build a simple chat application which lets you store and retrieve messages. I will introduce the relevant packages (crates) we’ll use for this as we go along. You can find the complete service [on GitHub](http://github.com/goldsborough/microservice-rs).
+闲聊完毕。本文的剩余部分将引导你创建一个小而完整的**微服务** —— 类似于我为我的博客所写的 [URL 缩短器](https://github.com/goldsborough/psag.cc)。我说的**微服务**指的是一个使用 HTTP，接受请求，访问数据库，返回一个响应（可能运送着 HTML），打包在一个 Docker 容器中，并可以放在云上的某个地方的这样一种应用。在这篇文章中，我会构建一个简单的聊天应用，允许你存储和检索消息。我会在过程中介绍一些相关的包（crate）。你可以[在 GitHub 上](http://github.com/goldsborough/microservice-rs)找到服务的完整代码。
 
-## Speaking HTTP
+## 使用 HTTP
 
-The first thing we need to teach our web service is how to *speak HTTP*. With that, I mean that our application (server) has to accept and parse HTTP requests and return HTTP responses. While there exist a number of high-level, [Flask](http://flask.pocoo.org) or [Django](https://www.djangoproject.com) like frameworks that abstract away most of the fun about this, we will opt for using the slightly lower-level [hyper](https://hyper.rs) library to handle HTTP, which uses the [tokio](https://tokio.rs) networking library and [futures](https://github.com/alexcrichton/futures-rs), to give us the ability to create a neat asynchronous web server. For vanity, we’ll also use the [log](https://docs.rs/log/0.4.1/log/) and [env-logger](https://docs.rs/crate/env_logger/0.5.2) crates for logging purposes.
+我们需要让我们的 web 服务做的第一件事就是如何**使用 HTTP 协议**，也就是我们的应用（服务器）需要接收并解析 HTTP 请求，并返回 HTTP 响应。虽然有很多类似 [Flask](http://flask.pocoo.org) 或 [Django](https://www.djangoproject.com) 的高级框架能将这一切封装起来，我们还是选择使用稍微低级一点的 [hyper](https://hyper.rs) 库来处理 HTTP。这个库使用网络库 [tokio](https://tokio.rs) 和 [futures](https://github.com/alexcrichton/futures-rs)，让我们能创建一个干净的异步 web 服务器。此外，我们还会使用 [log](https://docs.rs/log/0.4.1/log/) 和 [env-logger](https://docs.rs/crate/env_logger/0.5.2) 两个 crate 来实现日志功能。
 
-We’ll begin by setting up our `Cargo.toml` and grabbing said crates:
-
-```plain
-  [package]
-  name = "microservice_rs"
-  version = "0.1.0"
-  authors = ["you <you@email>"]
-  [dependencies]
-  env_logger = "0.5.3"
-  futures = "0.1.17"
-  hyper = "0.11.13"
-  log = "0.4.1"
-```
-
-Now to the actual code. Hyper has the concept of a `Service`, which is a type that implements the `Service` trait and has a `call` function, which can be called with a `hyper::Request` object representing a parsed HTTP request. That function must, for an asynchronous service, return a `Future`. Here is the basic boilerplate for this, which we can drop into our `main.rs`:
-
-```rust
-  extern crate hyper;
-  extern crate futures;
-
-  #[macro_use]
-  extern crate log;
-  extern crate env_logger;
-
-  use hyper::server::{Request, Response, Service};
-
-  use futures::future::Future;
-
-  struct Microservice;
-
-  impl Service for Microservice {
-    type Request = Request;
-    type Response = Response;
-    type Error = hyper::Error;
-    type Future = Box<Future<Item = Self::Response, Error = Self::Error>>;
-
-    fn call(&self, request: Request) -> Self::Future {
-      info!("Microservice received a request: {:?}", request);
-      Box::new(futures::future::ok(Response::new()))
-    }
-  }
-```
-
-Note how we also have to declare some basic types for our service. Our future type is boxed, since `futures::future::Future` itself is only a trait and can thus not be returned from a function by value. Inside `call()`, we currently return the simplest valid value, a boxed future containing an empty response.
-
-To start the server, we bind an IP address to a `hyper::server::Http` instance and call its `run()` method:
-
-```rust
-  fn main() {
-    env_logger::init();
-    let address = "127.0.0.1:8080".parse().unwrap();
-    let server = hyper::server::Http::new()
-      .bind(&address, || Ok(Microservice {}))
-      .unwrap();
-    info!("Running microservice at {}", address);
-    server.run().unwrap();
-  }
-```
-
-With the above code, hyper will start listening for HTTP requests at `localhost:8080`, parse incoming requests and forward them to our `Microservice` class. Note that a new instance is created for each new request. We are now ready to start our server and curl some requests at it! Start a server in one terminal:
+我们首先设置好 `Cargo.toml`，下载上述的 crate：
 
 ```plain
-  $ RUST_LOG="microservice=debug" cargo run
-    Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
-      Running `target/debug/microservice`
-  INFO 2018-01-21T23:35:05Z: microservice: Running microservice at 127.0.0.1:8080
+[package]
+name = "microservice_rs"
+version = "0.1.0"
+authors = ["you <you@email>"]
+[dependencies]
+env_logger = "0.5.3"
+futures = "0.1.17"
+hyper = "0.11.13"
+log = "0.4.1"
 ```
 
-And send it requests from another:
-
-```bash
-  $ curl 'localhost:8080'
-```
-
-In the first terminal, you should see something like
-
-```bash
-  $ RUST_LOG="microservice=debug" cargo run
-    Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
-    Running `target/debug/microservice`
-  Running microservice at 127.0.0.1:8080
-  INFO 2018-01-21T23:35:05Z: microservice: Running microservice at 127.0.0.1:8080
-  INFO 2018-01-21T23:35:06Z: microservice: Microservice received a request: Request { method: Get, uri: "/", version: Http11, remote_addr: Some(V4(127.0.0.1:61667)), headers: {"Host": "localhost:8080", "User-Agent": "curl/7.54.0", "Accept": "*/*"} }
-```
-
-Hooray! We have ourselves a basic server, written in Rust. Note that in the commands above, I prepended `RUST_LOG="microservice=debug"` to `cargo run`. This is how we control the behavior of `env_logger`, which will look for this environment variable specifically. The first part of this specifies the root module for which we want to enable logging, and the second part (after the `=`) specifies the minimum logging level that will be visible. By default, only `error!` gets logged.
-
-Now, let’s make our server actually do something. Since we’re building a chat application, the two kinds of requests we’ll want to handle are `POST` requests, with form data containing the user’s name and the message, and `GET` requests with optional `before` and `after` parameters to filter by time.
-
-### Accepting `POST` Requests
-
-Let’s begin on the write-side. We’ll accept `POST` requests to our service’s root path (`"/"`) and expect them to contain a `username` and `message` field in their form data. We’ll then pass that information on to a function that writes the values of those fields into a database. Finally, we return a response.
-
-Let’s begin with rewriting `call()`:
+然后是实际的代码。Hyper 中有 `Service` 的概念。它是一个实现了 `Service` trait 的类型，有一个 `call` 函数，接收一个表示解析过的 HTTP 请求的 `hyper::Request` 对象作为参数。对于一个异步服务来说，这个函数必须返回一个 `Future`。下面是基本的样板文件，我们可以直接放在 `main.rs` 中：
 
 ```rust
+extern crate hyper;
+extern crate futures;
+
+#[macro_use]
+extern crate log;
+extern crate env_logger;
+
+use hyper::server::{Request, Response, Service};
+
+use futures::future::Future;
+
+struct Microservice;
+
+impl Service for Microservice {
+  type Request = Request;
+  type Response = Response;
+  type Error = hyper::Error;
+  type Future = Box<Future<Item = Self::Response, Error = Self::Error>>;
+
   fn call(&self, request: Request) -> Self::Future {
-        match (request.method(), request.path()) {
-          (&Post, "/") => {
-            let future = request
-              .body()
-              .concat2()
-              .and_then(parse_form)
-              .and_then(write_to_db)
-              .then(make_post_response);
-            Box::new(future)
-          }
-          _ => Box::new(futures::future::ok(
-            Response::new().with_status(StatusCode::NotFound),
-          )),
-        }
-      }
+    info!("Microservice received a request: {:?}", request);
+    Box::new(futures::future::ok(Response::new()))
+  }
+}
 ```
 
-We distinguish between different requests by matching on the method and path of the request. The method will be `Post` or `Get` in our case. The only valid path for our service is the root path `"/"`. If the method is `&Post` and the path correct, we call the functions I mentioned earlier. Notice how beautifully we can pipeline the futures using their combination functions. The `and_then` combinator will call a function with the value contained in a future, if that future resolved successfully (did not contain an error). The function called must then return a new future. This allows passing values through several stages of processing, without computing anything *just yet*. Finally, we have a `then` combinator, which executes its callback regardless of the future’s state. As such, it receives a `Result` and not a value directly.
+注意到我们还需要为我们的服务声明一些基本的类型。我们装箱了 future 类型，因为 `futures::future::Future` 本身只是一个 trait，不能作为函数的返回值。在 `call()` 内部，我们目前返回一个最简单的有效值，一个包含空响应的装箱 future。
 
-Here are the stubs for the functions used above:
+要启动服务器，我们绑定一个 IP 地址到 `hyper::server::Http` 实例，并调用它的 `run()` 方法：
 
 ```rust
-  struct NewMessage {
-    username: String,
-    message: String,
-  }
-
-  fn parse_form(form_chunk: Chunk) -> FutureResult<NewMessage, hyper::Error> {
-    futures::future::ok(NewMessage {
-      username: String::new(),
-      message: String::new(),
-    })
-  }
-
-  fn write_to_db(entry: NewMessage) -> FutureResult<i64, hyper::Error> {
-    futures::future::ok(0)
-  }
-
-  fn make_post_response(
-    result: Result<i64, hyper::Error>,
-  ) -> FutureResult<hyper::Response, hyper::Error> {
-    futures::future::ok(Response::new().with_status(StatusCode::NotFound))
-  }
+fn main() {
+  env_logger::init();
+  let address = "127.0.0.1:8080".parse().unwrap();
+  let server = hyper::server::Http::new()
+    .bind(&address, || Ok(Microservice {}))
+    .unwrap();
+  info!("Running microservice at {}", address);
+  server.run().unwrap();
+}
 ```
 
-and our `use` statements have changed a little too:
-
-```rust
-  use hyper::{Chunk, StatusCode};
-  use hyper::Method::{Get, Post};
-  use hyper::server::{Request, Response, Service};
-
-  use futures::Stream;
-  use futures::future::{Future, FutureResult};
-```
-
-Let’s continue by taking a look at `parse_form`, which receives a `Chunk` (a message body), and parses out the username and message while handling errors appropriately. To parse the form, we use the `url` crate (which you’ll have to grab with cargo):
-
-```rust
-  use std::collections::HashMap;
-  use std::io;
-
-  fn parse_form(form_chunk: Chunk) -> FutureResult<NewMessage, hyper::Error> {
-    let mut form = url::form_urlencoded::parse(form_chunk.as_ref())
-      .into_owned()
-      .collect::<HashMap<String, String>>();
-
-    if let Some(message) = form.remove("message") {
-      let username = form.remove("username").unwrap_or(String::from("anonymous"));
-      futures::future::ok(NewMessage {
-        username: username,
-        message: message,
-      })
-    } else {
-      futures::future::err(hyper::Error::from(io::Error::new(
-          io::ErrorKind::InvalidInput,
-          "Missing field 'message",
-      )))
-    }
-  }
-```
-
-After parsing the form into a hashmap, we attempt to remove the `message` key from it. If that fails, we return an error, since a message is mandatory. Otherwise, we grab the `username` field, which we default to `"anonymous"` if it’s not there. Finally, we return a successful future containing our simple `NewMessage` struct.
-
-I’ll not talk about the `write_to_db` function just yet. Database interaction is a beast of its own, so I’ll devote a subsequent section to this function and the corresponding routine that reads messages from the database. However, note that `write_to_db` returns an `i64` when successful. This will be the timestamp of the submission of the new message into the database.
-
-Instead, let’s see what we need to do to return a response back to whoever blessed our microservice with a request:
-
-```rust
-  #[macro_use]
-  extern crate serde_json;
-
-  fn make_post_response(
-    result: Result<i64, hyper::Error>,
-  ) -> FutureResult<hyper::Response, hyper::Error> {
-    match result {
-      Ok(timestamp) => {
-        let payload = json!({"timestamp": timestamp}).to_string();
-        let response = Response::new()
-          .with_header(ContentLength(payload.len() as u64))
-          .with_header(ContentType::json())
-          .with_body(payload);
-        debug!("{:?}", response);
-        futures::future::ok(response)
-      }
-      Err(error) => make_error_response(error.description()),
-    }
-  }
-```
-
-We match on the `result` to see if we were able to write to the database successfully or not. If so, we’ll create a JSON payload forming the body of the response we return. For this I use the `serde_json` crate, which you should add to your `Cargo.toml`. When constructing the response struct, we need to set the correct HTTP headers. In this case, this means setting the `Content-Length` header to the length of the response body and the `Content-Type` header to `application/json`.
-
-I’ve refactored out the code to make the response struct for the erroneous case into a separate function `make_error_response`, since we’ll be re-using that later on:
-
-```rust
-  fn make_error_response(error_message: &str) -> FutureResult<hyper::Response, hyper::Error> {
-    let payload = json!({"error": error_message}).to_string();
-    let response = Response::new()
-      .with_status(StatusCode::InternalServerError)
-      .with_header(ContentLength(payload.len() as u64))
-      .with_header(ContentType::json())
-      .with_body(payload);
-    debug!("{:?}", response);
-    futures::future::ok(response)
-  }
-```
-
-The response construction is quite similar to the previous function, however this time we have to set the HTTP status of the response to `StatusCode::InternalServerError` (status 500). The default is OK (200), so we didn’t have to set the status earlier.
-
-### Accepting `GET` Requests
-
-Next, let’s move on to `GET` requests, which will be sent to our server to fetch messages. The request is allowed to have two query arguments, `before` and `after`, both timestamps to constrain the messages fetched according to their timestamp, and both optional. If neither `before` nor `after` are present, we will return only the last message.
-
-Below is the code for the match arm handling `GET` requests. It’s slightly more logic than before:
-
-```rust
-  (&Get, "/") => {
-    let time_range = match request.query() {
-      Some(query) => parse_query(query),
-      None => Ok(TimeRange {
-        before: None,
-        after: None,
-      }),
-    };
-    let response = match time_range {
-      Ok(time_range) => make_get_response(query_db(time_range)),
-      Err(error) => make_error_response(&error),
-    };
-    Box::new(response)
-  }
-```
-
-By calling `request.query()`, we get an `Option<&str>`, since a URI may not have a query string at all. If it is present, we call `parse_query`, which parses the query arguments and returns a `TimeRange` struct, defined as
-
-```rust
-  struct TimeRange {
-    before: Option<i64>,
-    after: Option<i64>,
-  }
-```
-
-Since both `before` and `after` arguments are optional, we make both `Option`s in the `TimeRange` struct. Further, the timestamps may be invalid (e.g. not numeric), so we have to deal with the case where parsing their values fails. In such a case, `parse_query` will return an error message, which we can forward to the `make_error_response` function we wrote earlier. Otherwise, we can go on to call `query_db`, which will fetch the messages for us, and `make_get_response`, which creates an appropriate `Response` object to return back to the client.
-
-To parse the query string, we again use the `url::form_urlencoded` function from earlier, since the syntax is still `key=value&key=value`. We then try to fetch the `before` and `after` values and convert them to integers (timestamps):
-
-```rust
-  fn parse_query(query: &str) -> Result<TimeRange, String> {
-    let args = url::form_urlencoded::parse(&query.as_bytes())
-      .into_owned()
-      .collect::<HashMap<String, String>>();
-
-    let before = args.get("before").map(|value| value.parse::<i64>());
-    if let Some(ref result) = before {
-      if let Err(ref error) = *result {
-          return Err(format!("Error parsing 'before': {}", error));
-      }
-    }
-
-    let after = args.get("after").map(|value| value.parse::<i64>());
-    if let Some(ref result) = after {
-      if let Err(ref error) = *result {
-        return Err(format!("Error parsing 'after': {}", error));
-      }
-    }
-
-    Ok(TimeRange {
-      before: before.map(|b| b.unwrap()),
-      after: after.map(|a| a.unwrap()),
-    })
-  }
-```
-
-The code for this is unfortunately slightly clunky and repetitive, but is hard to make much nicer in this case without added complexity. Essentially, we try to get the `before` and `after` fields from the form, and if they are there, we attempt to parse them as `i64`. One thing I would have wished for here is to be able to combine multiple `if let` statements, so we could write:
-
-```rust
-  if let Some(ref result) = before && let Err(ref error) = *result {
-    return Err(format!("Error parsing 'before': {}", error));
-  }
-```
-
-However, this is not currently possible in Rust (you can have multiple values in `if let` statements by packing them in tuples, but not if the values depend on each other, like here).
-
-Skipping over `query_db` for now, `make_get_response` looks fairly simple:
-
-```rust
-  fn make_get_response(
-      messages: Option<Vec<Message>>,
-  ) -> FutureResult<hyper::Response, hyper::Error> {
-    let response = match messages {
-      Some(messages) => {
-        let body = render_page(messages);
-        Response::new()
-          .with_header(ContentLength(body.len() as u64))
-          .with_body(body)
-      }
-      None => Response::new().with_status(StatusCode::InternalServerError),
-    };
-    debug!("{:?}", response);
-    futures::future::ok(response)
-  }
-```
-
-If the `messages` option contains a value, we can pass the messages on to `render_page`, which will return an HTML page that forms the body of our response, showing the messages in a simple HTML list. If the option is empty, an error occurred in `query_db`, which we’ll log but not expose to the user, so we just return a response with status code 500. I’ll cover the implementation of `render_page` in the section on templating.
-
-## Connecting to a Database
-
-Now that we have paths for both writing and reading in our service, we need to tie the ends together with a database to write to and read from. Rust has a very nice and popular object relational model (ORM) library called [diesel](http://diesel.rs), which is very fun and intuitive to work with. Add it to your `Cargo.toml` and enable the `postgres` feature, since we’ll be using [Postgres](https://postgresql.org) for this tutorial:
+有了上面的代码，hyper 会在 `localhost:8080` 开始监听 HTTP 请求，解析并将其转发到我们的 `Microservice` 类。请注意，每次有新请求到来，都会创建一个新的实例。我们现在可以启动服务器，用 curl 发来一些请求！我们在终端中启动服务器：
 
 ```plain
-    diesel = { version = "1.0.0", features = ["postgres"] }
+$ RUST_LOG="microservice=debug" cargo run
+  Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
+    Running `target/debug/microservice`
+INFO 2018-01-21T23:35:05Z: microservice: Running microservice at 127.0.0.1:8080
 ```
 
-Please make sure you have Postgres installed on your machine and are able to log in with `psql` (as a basic sanity check). Diesel also supports other DBMSs like MySQL, in case you want to try those out after this tutorial.
+然后在另一个终端中向它发送一些请求：
 
-Let’s begin by creating a database schema for our application. We’ll drop it in `schemas/messages.sql`:
+```bash
+$ curl 'localhost:8080'
+```
+
+在第一个终端中，你应该能看到类似下面的输出
+
+```bash
+$ RUST_LOG="microservice=debug" cargo run
+  Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
+  Running `target/debug/microservice`
+Running microservice at 127.0.0.1:8080
+INFO 2018-01-21T23:35:05Z: microservice: Running microservice at 127.0.0.1:8080
+INFO 2018-01-21T23:35:06Z: microservice: Microservice received a request: Request { method: Get, uri: "/", version: Http11, remote_addr: Some(V4(127.0.0.1:61667)), headers: {"Host": "localhost:8080", "User-Agent": "curl/7.54.0", "Accept": "*/*"} }
+```
+
+万岁！我们有了一个用 Rust 写的基础的服务器。注意到在上面的命令中，我将 `RUST_LOG="microservice=debug"` 添加到了 `cargo run` 中。由于 `env_logger` 会搜索这个特定的环境变量，我们通过这种方式控制它的行为。这个环境变量（`"microservice=debug"`）的第一部分指定了我们希望启动的日志的根模块，第二部分（`=` 后面的部分）指定了可见的最小日志级别。默认情况下，只有 `error!` 会被记录。
+
+现在，让我们的服务器真正做点事情。因为我们在构建一个聊天应用，我们想要处理的两个请求类型是 `POST` 请求（有包含用户名和消息的表单数据）和 `GET` 请求（有可选的用来根据时间过滤的 `before` 和 `after` 参数）。
+
+### 接收 `POST` 请求
+
+我们先从写数据的这一部分开始。我们的接受发送到我们服务的根路径（`"/"`）的 `POST` 请求，并期望请求的表单数据中包含 `username` 和 `message` 字段。然后，这些信息会传入一个函数，写进数据库中。最终，我们返回一个响应。
+
+首先重写 `call()` 方法：
+
+```rust
+fn call(&self, request: Request) -> Self::Future {
+      match (request.method(), request.path()) {
+        (&Post, "/") => {
+          let future = request
+            .body()
+            .concat2()
+            .and_then(parse_form)
+            .and_then(write_to_db)
+            .then(make_post_response);
+          Box::new(future)
+        }
+        _ => Box::new(futures::future::ok(
+          Response::new().with_status(StatusCode::NotFound),
+        )),
+      }
+    }
+```
+
+我们通过匹配请求的方法和路径来区分不同的请求。在我们的例子中，请求的方法会是 `Post` 或 `Get`。我们服务的唯一有效路径是根路径 `"/"`。如果方法是 `&Post` 并且路径正确，我们就调用前面提到的函数。注意到我们可以优雅地使用组合函数来串联 future。组合子 `and_then` 会在 future 正确解析（不包含错误）的情况下，使用 future 中包含的值来调用一个函数。这个调用的函数也必须返回一个新的 future。这允许我们在多个处理阶段之间传递值，而不是**现场**计算出某个值。最终，我们使用组合子 `then`，无论 future 的状态如何都会执行回调函数。这样，它会得到一个 `Result`，而不是一个值。
+
+这里是上面使用到的函数的内容：
+
+```rust
+struct NewMessage {
+  username: String,
+  message: String,
+}
+
+fn parse_form(form_chunk: Chunk) -> FutureResult<NewMessage, hyper::Error> {
+  futures::future::ok(NewMessage {
+    username: String::new(),
+    message: String::new(),
+  })
+}
+
+fn write_to_db(entry: NewMessage) -> FutureResult<i64, hyper::Error> {
+  futures::future::ok(0)
+}
+
+fn make_post_response(
+  result: Result<i64, hyper::Error>,
+) -> FutureResult<hyper::Response, hyper::Error> {
+  futures::future::ok(Response::new().with_status(StatusCode::NotFound))
+}
+```
+
+我们的 `use` 语句也发生了一点变化：
+
+```rust
+use hyper::{Chunk, StatusCode};
+use hyper::Method::{Get, Post};
+use hyper::server::{Request, Response, Service};
+
+use futures::Stream;
+use futures::future::{Future, FutureResult};
+```
+
+让我们观察一下 `parse_form`。它接收一个 `Chunk`（消息体），从中解析出用户名和消息，同时恰当地处理错误。为了解析表单，我们使用 `url` 这个 crate（你需要使用 cargo 下载它）：
+
+```rust
+use std::collections::HashMap;
+use std::io;
+
+fn parse_form(form_chunk: Chunk) -> FutureResult<NewMessage, hyper::Error> {
+  let mut form = url::form_urlencoded::parse(form_chunk.as_ref())
+    .into_owned()
+    .collect::<HashMap<String, String>>();
+
+  if let Some(message) = form.remove("message") {
+    let username = form.remove("username").unwrap_or(String::from("anonymous"));
+    futures::future::ok(NewMessage {
+      username: username,
+      message: message,
+    })
+  } else {
+    futures::future::err(hyper::Error::from(io::Error::new(
+        io::ErrorKind::InvalidInput,
+        "Missing field 'message",
+    )))
+  }
+}
+```
+
+在将表单解析为一个 hashmap 之后，我们尝试从中移除 `message` 键。因为这是一个必填项，所以如果移除失败，就返回一个错误（error）。如果移除成功，我们接着获取 `username` 字段，如果这个字段不存在的话，就使用默认值 `"anonymous"`。最后，我们返回一个包含简单的 `NewMessage` 结构体的一个成功的 future。
+
+我现在不会立刻讨论 `write_to_db` 函数。数据库的交互本身非常复杂，所以我会使用后续的一个章节来介绍这个函数，以及对应的从数据库中读取消息的函数。然而，注意到 `write_to_db` 在成功时返回 `i64` 类型的值，这是新消息提交到数据库中的时间戳。
+
+先让我们看看我们如何将响应返回给任何向微服务发来的请求：
+
+```rust
+#[macro_use]
+extern crate serde_json;
+
+fn make_post_response(
+  result: Result<i64, hyper::Error>,
+) -> FutureResult<hyper::Response, hyper::Error> {
+  match result {
+    Ok(timestamp) => {
+      let payload = json!({"timestamp": timestamp}).to_string();
+      let response = Response::new()
+        .with_header(ContentLength(payload.len() as u64))
+        .with_header(ContentType::json())
+        .with_body(payload);
+      debug!("{:?}", response);
+      futures::future::ok(response)
+    }
+    Err(error) => make_error_response(error.description()),
+  }
+}
+```
+
+我们在 `result` 上进行匹配，看看我们是否能成功写入数据库。如果成功，我们会创建一个 JSON 负载，构成我们返回的响应体。为此我使用了 `serde_json` 这个 crate，你应当将其添加到 `Cargo.toml` 中。当构建响应结构体时，我们需要设置正确的 HTTP 头。在这个例子中，这意味着将 `Content-Length` 头字段设置为响应体的长度，将 `Content-Type` 头字段设置为 `application/json`。
+
+我已经重构了代码，将在错误情况下构建响应体的功能变成一个单独的函数 `make_error_response`，因为我们稍后会重新使用它：
+
+```rust
+fn make_error_response(error_message: &str) -> FutureResult<hyper::Response, hyper::Error> {
+  let payload = json!({"error": error_message}).to_string();
+  let response = Response::new()
+    .with_status(StatusCode::InternalServerError)
+    .with_header(ContentLength(payload.len() as u64))
+    .with_header(ContentType::json())
+    .with_body(payload);
+  debug!("{:?}", response);
+  futures::future::ok(response)
+}
+```
+
+响应的构建与前一个函数相当相似，不过这次我们必须将响应的 HTTP 状态设置为 `StatusCode::InternalServerError`（状态 500）。默认的状态是 OK（200），因此我们之前不需要设置状态。
+
+### 接收 `GET` 请求
+
+下面，我们转向 `GET` 请求，这些请求发到服务器是要获取消息。我们允许请求有两个查询参数（query arguments）`before` 和 `after`。两个参数都是时间戳，用于根据消息的时间戳来约束会获取哪些消息。两个参数都是可选的。如果 `before` 和 `after` 参数都不存在，我们将只返回最后的消息。
+
+下面是处理 `GET` 请求的 match 分支。它的逻辑比前面的代码略多。
+
+```rust
+(&Get, "/") => {
+  let time_range = match request.query() {
+    Some(query) => parse_query(query),
+    None => Ok(TimeRange {
+      before: None,
+      after: None,
+    }),
+  };
+  let response = match time_range {
+    Ok(time_range) => make_get_response(query_db(time_range)),
+    Err(error) => make_error_response(&error),
+  };
+  Box::new(response)
+}
+```
+
+通过调用 `request.query()`，我们得到一个 `Option<&str>`，因为一个 URI 可能根本没有查询字符串。如果查询存在，我们调用 `parse_query`，它会解析查询参数，返回一个 `TimeRange` 结构体。它的定义是
+
+```rust
+struct TimeRange {
+  before: Option<i64>,
+  after: Option<i64>,
+}
+```
+
+因为 `before` 和 `after` 参数都是可选的，我们将 `TimeRange` 结构体的两个字段都设置为 `Option`。此外，时间戳可能是无效的（例如不是数字），所以我们应当处理解析其值失败的情况。在这种情况下，`parse_query` 会返回一条错误消息，我们可以将其转发给我们之前写的 `make_error_response` 函数。如果解析成功，我们可以继续调用 `query_db`（为我们获取消息）和 `make_get_response`（创建合适的 `Response` 对象，并返回给客户端）。
+
+为了解析查询字符串，我们再次使用之前的 `url::form_urlencoded` 函数，因为它的语法还是 `key=value&key=value`。然后我们尝试获取 `before` 和 `after` 两个值并将其转化为整数类型（即时间戳类型）：
+
+```rust
+fn parse_query(query: &str) -> Result<TimeRange, String> {
+  let args = url::form_urlencoded::parse(&query.as_bytes())
+    .into_owned()
+    .collect::<HashMap<String, String>>();
+
+  let before = args.get("before").map(|value| value.parse::<i64>());
+  if let Some(ref result) = before {
+    if let Err(ref error) = *result {
+        return Err(format!("Error parsing 'before': {}", error));
+    }
+  }
+
+  let after = args.get("after").map(|value| value.parse::<i64>());
+  if let Some(ref result) = after {
+    if let Err(ref error) = *result {
+      return Err(format!("Error parsing 'after': {}", error));
+    }
+  }
+
+  Ok(TimeRange {
+    before: before.map(|b| b.unwrap()),
+    after: after.map(|a| a.unwrap()),
+  })
+}
+```
+
+不幸的是，这里的代码有些笨重和重复，但在不增加复杂性的情况下很难让它变得更好了。本质上，我们尝试从表单中获取 `before` 和 `after` 两个字段。如果字段存在的话，再尝试将其解析为 `i64`。我希望能合并多个 `if let` 语句，所以我们可以写：
+
+```rust
+if let Some(ref result) = before && let Err(ref error) = *result {
+  return Err(format!("Error parsing 'before': {}", error));
+}
+```
+
+然而，现在 Rust 中不能这么写（可以通过打包在元组中的方法，在 `if let` 语句中写多个值，但是这些值不能像这里一样互相依赖）。
+
+暂时跳过 `query_db` 的话，`make_get_response` 看起来非常简单：
+
+```rust
+fn make_get_response(
+    messages: Option<Vec<Message>>,
+) -> FutureResult<hyper::Response, hyper::Error> {
+  let response = match messages {
+    Some(messages) => {
+      let body = render_page(messages);
+      Response::new()
+        .with_header(ContentLength(body.len() as u64))
+        .with_body(body)
+    }
+    None => Response::new().with_status(StatusCode::InternalServerError),
+  };
+  debug!("{:?}", response);
+  futures::future::ok(response)
+}
+```
+
+如果 `messages` 这个 option 包含一个值，我们可以将这个消息传给 `render_page`，它会返回一个构成我们的响应体的 HTML 页面，其中在一个简单的 HTML 列表中显示消息。如果 option 为空，`query_db` 中出现了一个错误，我们会记录日志但不会暴露给用户，所以我们只是返回状态码为 500 的响应。我将在模板章节介绍 `render_page` 的实现。
+
+## 连接到数据库
+
+既然我们的服务中有写入和读取的路径，我们就需要将它们与数据库结合起来进行读写。Rust 有一个非常好用和流行的对象关系模型（ORM）库叫做 [diesel](http://diesel.rs)。这个库非常有趣和直观。将它添加到你的 `Cargo.toml` 中，并启用 `postgres` 功能，因为我们这份教程中要使用 [Postgres](https://postgresql.org) 数据库：
+
+```plain
+diesel = { version = "1.0.0", features = ["postgres"] }
+```
+
+请保证你已经在机器上安装了 Postgres，并且可以使用 `psql` 登录（作为基本的健壮性检查）。Diesel 还支持 MySQL 等其他 DBMS，你可以在学完本教程之后尝试它们。
+
+让我们从为应用创建数据库模式开始。我们将它放入 `schemas/messages.sql` 中：
 
 ```sql
-  CREATE TABLE messages (
-    id SERIAL PRIMARY KEY,
-    username VARCHAR(128) NOT NULL,
-    message TEXT NOT NULL,
-    timestamp BIGINT NOT NULL DEFAULT EXTRACT('epoch' FROM CURRENT_TIMESTAMP)
-  )
+CREATE TABLE messages (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(128) NOT NULL,
+  message TEXT NOT NULL,
+  timestamp BIGINT NOT NULL DEFAULT EXTRACT('epoch' FROM CURRENT_TIMESTAMP)
+)
 ```
 
-Each row in our table stores a message, represented by a monotonically incrementing ID, the username of the author, the message text and finally a timestamp. The default value of the timestamp specified above will insert the current seconds since the epoch for every new entry. Since the `id` column is also auto-incrementing, we’ll ultimately only have to insert the username and message for each new row.
+表中的每一行都存储一条消息，包括单调递增的 ID、作者的用户名、消息文本和一个时间戳。上面所说的时间戳的默认值会为每个新的条目插入自 epoch 以来的当前秒数。由于 `id` 列也是自动递增的，我们最终只需要为每个新行插入用户名和消息。
 
-We now have to integrate this table with Diesel. For this, you’ll need to install the Diesel CLI with `cargo install diesel_cli`. Then, you can run the following command:
+现在我们需要将此表与 Diesel 集成。为此，我们需要通过 `cargo install diesel_cli` 安装 Diesel CLI。然后你就可以运行下面的命令：
 
 ```rust
-  $ export DATABASE_URL=postgres://<user>:<password>@localhost
-  $ diesel print-schema | tee src/schema.rs
-  table! {
-    messages (id) {
-      id -> Int4,
-      username -> Varchar,
-      message -> Text,
-      timestamp -> Int8,
-    }
+$ export DATABASE_URL=postgres://<user>:<password>@localhost
+$ diesel print-schema | tee src/schema.rs
+table! {
+  messages (id) {
+    id -> Int4,
+    username -> Varchar,
+    message -> Text,
+    timestamp -> Int8,
   }
+}
 ```
 
-where `<user>:<password>` are your database’s username and password. If your database doesn’t have a password, the user will suffice. The latter command shows us the representation of our database in Rust, which we also store in `src/schema.rs`. The `table!` macro comes from Diesel. Besides the *schema*, Diesel also requires us to write a *model*. This we have to write ourselves, in `src/models.rs`:
+其中 `<user>:<password>` 是你的数据库的用户名和密码。如果你的数据库没有密码，则只需要输入用户名。后一个命令打印出用 Rust 写的数据库表示，我们可以将它存储在 `src/schema.rs` 中。`table!` 宏来自于 Diesel。除了**模式**（schema）之外，Diesel 还要求我们写一个**模型**（model）。这个我们需要在 `src/models.rs` 中自己编写：
 
 ```rust
-  #[derive(Queryable, Serialize, Debug)]
-  pub struct Message {
-    pub id: i32,
-    pub username: String,
-    pub message: String,
-    pub timestamp: i64,
-  }
+#[derive(Queryable, Serialize, Debug)]
+pub struct Message {
+  pub id: i32,
+  pub username: String,
+  pub message: String,
+  pub timestamp: i64,
+}
 ```
 
-This model is the Rust struct we interact with in our code. To do so, we need to add a few declarations to our main module:
+这个模型是我们在代码中与之交互的 Rust 结构体。为此，我们需要在主模块中添加一些声明：
 
 ```rust
-  #[macro_use]
-  extern crate serde_derive;
-  #[macro_use]
-  extern crate diesel;
+#[macro_use]
+extern crate serde_derive;
+#[macro_use]
+extern crate diesel;
 
-  mod schema;
-  mod models;
+mod schema;
+mod models;
 ```
 
-At this point, we are ready to fill in the functions `write_to_db` and `query_db` that we left out earlier.
+此时，我们已经准备好补充我们之前遗漏的函数 `write_to_db` 和 `query_db` 了。
 
-### Writing to the Database
+### 写入数据库
 
-We’ll begin with `write_to_db`, which should simply write an entry into the database and return its creation timestamp:
-
-```rust
-  use diesel::prelude::*;
-  use diesel::pg::PgConnection;
-
-  fn write_to_db(
-    new_message: NewMessage,
-    db_connection: &PgConnection,
-  ) -> FutureResult<i64, hyper::Error> {
-    use schema::messages;
-    let timestamp = diesel::insert_into(messages::table)
-      .values(&new_message)
-      .returning(messages::timestamp)
-      .get_result(db_connection);
-
-    match timestamp {
-      Ok(timestamp) => futures::future::ok(timestamp),
-      Err(error) => {
-        error!("Error writing to database: {}", error.description());
-        futures::future::err(hyper::Error::from(
-            io::Error::new(io::ErrorKind::Other, "service error"),
-        ))
-      }
-    }
-  }
-```
-
-And it’s as easy as that! Diesel exposes a very intuitive and type-safe query interface, with which we:
-
-* specify the table we are inserting into,
-* specify the value(s) we are inserting (more on this in a second),
-* specify what values we want to return at the same (if any) and
-* call `get_result`, which will actually execute the query.
-
-This gives us a `QueryResult<i64>` object, which we can match on, handling errors as needed. Two things that should surprise you above are that (1) we can pass the `NewMessage` struct as-is to Diesel and (2) we are using a magical `db_connection` parameter that wasn’t there before. Let’s resolve these two mysteries! For (1), this will not actually compile with the code I have given you so far. To make it compile, we need to move our `NewMessage` struct into `src/models.rs`, right under the `Message` struct, and make it look like so:
+我们从 `write_to_db` 开始。这个函数只是简单地将一个条目写入数据库，并返回它创建的时间戳：
 
 ```rust
+use diesel::prelude::*;
+use diesel::pg::PgConnection;
+
+fn write_to_db(
+  new_message: NewMessage,
+  db_connection: &PgConnection,
+) -> FutureResult<i64, hyper::Error> {
   use schema::messages;
+  let timestamp = diesel::insert_into(messages::table)
+    .values(&new_message)
+    .returning(messages::timestamp)
+    .get_result(db_connection);
 
-  #[derive(Queryable, Serialize, Debug)]
-  pub struct Message {
-    pub id: i32,
-    pub username: String,
-    pub message: String,
-    pub timestamp: i64,
-  }
-
-  #[derive(Insertable, Debug)]
-  #[table_name = "messages"]
-  pub struct NewMessage {
-    pub username: String,
-    pub message: String,
-  }
-```
-
-This way, Diesel can directly associate the fields of our struct with the columns in the database. Neat! Note that, for this, the table must be called `messages`, as indicated by the `table_name` attribute.
-
-For the second mystery, we’ll have to change our code a bit to introduce the concept of a database connection. In `Service::call()`, put the following right at the top:
-
-```rust
-  fn call(&self, request: Request) -> Self::Future {
-    let db_connection = match connect_to_db() {
-      Some(connection) => connection,
-      None => {
-        return Box::new(futures::future::ok(
-          Response::new().with_status(StatusCode::InternalServerError),
-        ))
-      }
-    };
-```
-
-where `connect_to_db` is defined as
-
-```rust
-  use std::env;
-
-  const DEFAULT_DATABASE_URL: &'static str = "postgresql://postgres@localhost:5432";
-
-  fn connect_to_db() -> Option<PgConnection> {
-    let database_url = env::var("DATABASE_URL").unwrap_or(String::from(DEFAULT_DATABASE_URL));
-    match PgConnection::establish(&database_url) {
-      Ok(connection) => Some(connection),
-      Err(error) => {
-        error!("Error connecting to database: {}", error.description());
-        None
-      }
+  match timestamp {
+    Ok(timestamp) => futures::future::ok(timestamp),
+    Err(error) => {
+      error!("Error writing to database: {}", error.description());
+      futures::future::err(hyper::Error::from(
+          io::Error::new(io::ErrorKind::Other, "service error"),
+      ))
     }
   }
+}
 ```
 
-This function looks for the environment variable `DATABASE_URL` to determine the Postgres database URL, or uses a pre-defined constant otherwise. It then attempts to create a new database connection and returns it if possible. You’ll also want to update your `GET` and `POST` handlers:
+就这么简单！Diesel 提供了一个非常直观而且类型安全的查询接口，我们用它来：
+
+* 指定我们要插入的表，
+* 指定我们要插入的值（马上还会再提到），
+* 指定我们想要返回的值（如果有的话），以及
+* 调用 `get_result`，它将实际执行查询。
+
+这返回给我们一个 `QueryResult<i64>` 对象，我们可以对它进行匹配，根据需要处理错误。上面应当会让你感到惊讶的两件事是（1）我们可以直接将 `NewMessage` 结构体传入 Diesel，以及（2）我们使用一个神奇的、之前不存在的 `db_connection` 参数。让我们解开这两个谜团！对于（1），上面我给你的代码实际上不会通过编译。为了让代码能编译，我们需要将 `NewMessage` 结构体移动到 `src/models.rs` 中，就放在 `Message` 结构体下面。代码看起来像这样：
 
 ```rust
-  (&Post, "/") => {
-    let future = request
-      .body()
-      .concat2()
-      .and_then(parse_form)
-      .and_then(move |new_message| write_to_db(new_message, &db_connection))
-      .then(make_post_response);
-    Box::new(future)
-  }
-  (&Get, "/") => {
-    let time_range = match request.query() {
-      Some(query) => parse_query(query),
-      None => Ok(TimeRange {
-        before: None,
-        after: None,
-      }),
-    };
-    let response = match time_range {
-      Ok(time_range) => make_get_response(query_db(time_range, &db_connection)),
-      Err(error) => make_error_response(&error),
-    };
-    Box::new(response)
-  }
+use schema::messages;
+
+#[derive(Queryable, Serialize, Debug)]
+pub struct Message {
+  pub id: i32,
+  pub username: String,
+  pub message: String,
+  pub timestamp: i64,
+}
+
+#[derive(Insertable, Debug)]
+#[table_name = "messages"]
+pub struct NewMessage {
+  pub username: String,
+  pub message: String,
+}
 ```
 
-With this scheme, we’ll be creating a new Database connection for each request. Depending on your setup, this may be fine. However, you may also want to consider using [r2d2](https://github.com/diesel-rs/r2d2-diesel) to establish a *connection pool* which will keep a constant number of connections open for you and hand you one as you need it.
+这样，Diesel 可以直接将我们的结构体中的字段与数据库中的列关联起来。多么简洁！注意到，为此，数据库中的表必须叫做 `messages`，如 `table_name` 属性所示。
 
-### Querying the Database
-
-We can now write new messages into the database – that’s awesome. Next, we’ll want to figure out how to read them back out by querying the database appropriately. Let’s implement `query_db`:
+对于第二个谜团，我们需要稍微修改代码，引入数据库连接的概念。在 `Service::call()` 中，将以下内容放在顶部：
 
 ```rust
-  fn query_db(time_range: TimeRange, db_connection: &PgConnection) -> Option<Vec<Message>> {
-    use schema::messages;
-    let TimeRange { before, after } = time_range;
-    let query_result = match (before, after) {
-      (Some(before), Some(after)) => {
-        messages::table
-          .filter(messages::timestamp.lt(before as i64))
-          .filter(messages::timestamp.gt(after as i64))
-          .load::<Message>(db_connection)
-      }
-      (Some(before), _) => {
-        messages::table
-          .filter(messages::timestamp.lt(before as i64))
-          .load::<Message>(db_connection)
-      }
-      (_, Some(after)) => {
-        messages::table
-          .filter(messages::timestamp.gt(after as i64))
-          .load::<Message>(db_connection)
-      }
-      _ => messages::table.load::<Message>(db_connection),
-    };
-    match query_result {
-      Ok(result) => Some(result),
-      Err(error) => {
-        error!("Error querying DB: {}", error);
-        None
-      }
+fn call(&self, request: Request) -> Self::Future {
+  let db_connection = match connect_to_db() {
+    Some(connection) => connection,
+    None => {
+      return Box::new(futures::future::ok(
+        Response::new().with_status(StatusCode::InternalServerError),
+      ))
+    }
+  };
+```
+
+其中 `connect_to_db` 如下定义
+
+```rust
+use std::env;
+
+const DEFAULT_DATABASE_URL: &'static str = "postgresql://postgres@localhost:5432";
+
+fn connect_to_db() -> Option<PgConnection> {
+  let database_url = env::var("DATABASE_URL").unwrap_or(String::from(DEFAULT_DATABASE_URL));
+  match PgConnection::establish(&database_url) {
+    Ok(connection) => Some(connection),
+    Err(error) => {
+      error!("Error connecting to database: {}", error.description());
+      None
     }
   }
+}
 ```
 
-The code for this is unfortunately slightly complex. This is because both `before` and `after` are `Option`s, and Diesel does not currently provide an easy way to gradually build up a query. So we have to exhaustively check if `before` or `after` are `Some` or `None` and perform zero to two filters each time. The querying itself, however, is once more simple and intutitive. Since `where` is a keyword in Rust, the `WHERE` clause from SQL is implemented with the `filter` method in Diesel. Relational operators like `>` or `=` are methods on the model structs, like `.gt()` or `.eq()`.
-
-## Rendering HTML Templates
-
-We’re very close! All that’s left at this point is to write `render_page`, which we left out earlier. For this, we’ll want to use a *templating* library. Templating, in the context of web servers, is the general concept of creating an HTML page with dynamic data and control flow. Popular templating libraries in other languages are [Handlebars](http://handlebarsjs.com) in JavaScript or [Jinja](http://jinja.pocoo.org) in Python. While I personally used a [Rust port of Handlebars](https://github.com/sunng87/handlebars-rust) for my [url-shortening project](http://github.com/goldsborough/psag.cc), I have to say that the landscape of templating libraries in Rust is [not fantastic](http://www.arewewebyet.org/topics/templating/). Like in quite a few domains in Rust, there is no go-to, “quasi-standard” library like Jinja is in Python. This makes picking one of the hard, since you never know if it will turn into abandonware 6 months down the road.
-
-Nevertheless, for this tutorial, we’ll use a templating library called [maud](http://maud.lambda.xyz). Albeit not be the most scalable option for a real-world application, maud is interesting and clever, allowing us to write HTML templates directly in Rust, using natural control flow. If anything, maud shows off the power of Rust macros. That said, maud will require a nightly build of Rust to enable the procedural macro feature, which is [close to being stable, it seems](https://github.com/rust-lang/rust/issues/38356).
-
-First, add `maud` to your Cargo.toml:
+这个函数查找环境变量 `DATABASE_URL` 来确定 Postgres 数据库的 URL，否则使用预定义的常量。然后它尝试创建一个新的数据库连接，如果成功的话则返回。你还需要更新处理 `GET` 和 `POST` 的代码：
 
 ```rust
-  [dependencies]
-  maud = "0.17.2"
+(&Post, "/") => {
+  let future = request
+    .body()
+    .concat2()
+    .and_then(parse_form)
+    .and_then(move |new_message| write_to_db(new_message, &db_connection))
+    .then(make_post_response);
+  Box::new(future)
+}
+(&Get, "/") => {
+  let time_range = match request.query() {
+    Some(query) => parse_query(query),
+    None => Ok(TimeRange {
+      before: None,
+      after: None,
+    }),
+  };
+  let response = match time_range {
+    Ok(time_range) => make_get_response(query_db(time_range, &db_connection)),
+    Err(error) => make_error_response(&error),
+  };
+  Box::new(response)
+}
 ```
 
-Then, add the following declarations to the top of your `main.rs`:
+使用这种方案，我们会在每次请求到来时创建一个新的数据库连接。取决于你的配置，这种方案可能没问题。不过，你可能还需要考虑使用 [r2d2](https://github.com/diesel-rs/r2d2-diesel) 建立一个**连接池**来保持一定数量的连接打开，并在你需要的时候给你一个连接。
+
+### 查询数据库
+
+我们现在可以将新的消息写入数据库 —— 这太棒了。下面，我们要弄清楚如何通过恰当地查询数据库来将它们再读出来。让我们实现 `query_db`：
 
 ```rust
-  #![feature(proc_macro)]
-  extern crate maud;
+fn query_db(time_range: TimeRange, db_connection: &PgConnection) -> Option<Vec<Message>> {
+  use schema::messages;
+  let TimeRange { before, after } = time_range;
+  let query_result = match (before, after) {
+    (Some(before), Some(after)) => {
+      messages::table
+        .filter(messages::timestamp.lt(before as i64))
+        .filter(messages::timestamp.gt(after as i64))
+        .load::<Message>(db_connection)
+    }
+    (Some(before), _) => {
+      messages::table
+        .filter(messages::timestamp.lt(before as i64))
+        .load::<Message>(db_connection)
+    }
+    (_, Some(after)) => {
+      messages::table
+        .filter(messages::timestamp.gt(after as i64))
+        .load::<Message>(db_connection)
+    }
+    _ => messages::table.load::<Message>(db_connection),
+  };
+  match query_result {
+    Ok(result) => Some(result),
+    Err(error) => {
+      error!("Error querying DB: {}", error);
+      None
+    }
+  }
+}
 ```
 
-Now, we can write `render_page`:
+不幸的是，这段代码有点复杂。这是因为 `before` 和 `after` 都是 `Option`，而且 Diesel 目前不支持逐步构建查询的简单方法。所以我们只能穷举 `before` 或 `after` 是 `Some` 或者 `None`，然后决定执行零个、一个或两个过滤器。不过，查询本身还是非常简单和直观的。由于 `where` 是 Rust 中的关键字，SQL 中的 `WHERE` 子句是使用 Diesel 中的 `filter` 方法实现的。像 `>` 或 `=` 这样的关系操作符则是模型结构体上的方法，如 `.gt()` 或 `.eq()`。
+
+## 渲染 HTML 模板
+
+我们很接近完成了！现在还剩下的就只有编写我们之前遗漏的 `render_page`。为此，我们要使用**模板**库。在 web 服务器的上下文中，模板是一种通过动态数据和控制流创建 HTML 页面的通用概念。其他语言中流行的模板库有 JavaScript 的 [Handlebars](http://handlebarsjs.com) 和 Python 的 [Jinja](http://jinja.pocoo.org)。虽然我在 [URL 缩短器](http://github.com/goldsborough/psag.cc) 项目中使用了 [Rust 上的 Handlebars](https://github.com/sunng87/handlebars-rust)，但是我不得不说 Rust 的模板库都[不怎么样](http://www.arewewebyet.org/topics/templating/)。就像 Rust 中的不少领域一样，没有像 Jinja 在 Python 中一样的“准标准库”. 这使得从中选择一个很难，因为你永远不知道它会不会在未来六个月内被弃用。
+
+虽然如此，我们的教程中会使用一个叫做 [maud](http://maud.lambda.xyz) 的模板库。虽然 maud 不是真实世界应用的最具扩展性的选择，但它也很有趣和强大，允许我们直接用 Rust 写 HTML 模板。maud 还可以发挥 Rust 宏的力量，如果有的话。也就是说，maud 需要一个 Rust 的每日构建版本，以启动宏程序（procedural macro）功能。这个功能[看起来已经接近稳定了](https://github.com/rust-lang/rust/issues/38356)。
+
+首先，在你的 Cargo.toml 中添加 `maud`：
+
+```rust
+[dependencies]
+maud = "0.17.2"
+```
+
+然后，将下面的声明添加到你的 `main.rs` 的顶部：
+
+```rust
+#![feature(proc_macro)]
+extern crate maud;
+```
+
+现在，你可以编写 `render_page` 了：
 
 ```bash
-  fn render_page(messages: Vec<Message>) -> String {
-    (html! {
-      head {
-        title "microservice"
-        style "body { font-family: monospace }"
-      }
-      body {
-        ul {
-          @for message in &messages {
-            li {
-              (message.username) " (" (message.timestamp) "): " (message.message)
-            }
+fn render_page(messages: Vec<Message>) -> String {
+  (html! {
+    head {
+      title "microservice"
+      style "body { font-family: monospace }"
+    }
+    body {
+      ul {
+        @for message in &messages {
+          li {
+            (message.username) " (" (message.timestamp) "): " (message.message)
           }
         }
       }
-    }).into_string()
-  }
+    }
+  }).into_string()
+}
 ```
 
-*mind = blown*? Yes, somewhat. Just let that sink in for a bit. Breathe in deeply. Exhale. You’re writing an HTML page using a Rust macro. Damn.
+**什么鬼**？这确实有点惊人。仔细思考一下，深呼吸。这是在用 Rust 宏来编写 HTML 页面。我勒个去。
 
-And that’s it! Our microservice is complete. And *micro* it is. Let’s run it:
+确实如此！我们的微服务已经写完了，而且非常的**微**。我们来运行它：
 
 ```bash
-  $ DATABASE_URL="postgresql://goldsborough@localhost" RUST_LOG="microservice=debug" cargo run
-  Compiling microservice v0.1.0 (file:///Users/goldsborough/Documents/Rust/microservice)
-    Finished dev [unoptimized + debuginfo] target(s) in 12.30 secs
-    Running `target/debug/microservice`
-  INFO 2018-01-22T01:22:16Z: microservice: Running microservice at 127.0.0.1:8080
+$ DATABASE_URL="postgresql://goldsborough@localhost" RUST_LOG="microservice=debug" cargo run
+Compiling microservice v0.1.0 (file:///Users/goldsborough/Documents/Rust/microservice)
+  Finished dev [unoptimized + debuginfo] target(s) in 12.30 secs
+  Running `target/debug/microservice`
+INFO 2018-01-22T01:22:16Z: microservice: Running microservice at 127.0.0.1:8080
 ```
 
-and then in another terminal:
+然后在另一个终端中：
 
 ```bash
-  $ curl -X POST -d 'username=peter&message=hi' 'localhost:8080'
-  {"timestamp":1516584255}
-  $ curl -X POST -d 'username=mike&message=hi2' 'localhost:8080'
-  {"timestamp":1516584282}
+$ curl -X POST -d 'username=peter&message=hi' 'localhost:8080'
+{"timestamp":1516584255}
+$ curl -X POST -d 'username=mike&message=hi2' 'localhost:8080'
+{"timestamp":1516584282}
 ```
 
-In the first, you should see the debug logs:
+你应当立刻能看到调试日志：
 
 ```plain
-    ...
-    DEBUG 2018-01-22T01:24:14Z: microservice: Request { method: Post, uri: "/", version: Http11, remote_addr: Some(V4(127.0.0.1:64869)), headers: {"Host": "localhost:8080", "User-Agent": "curl/7.54.0", "Accept": "*/*", "Content-Length": "25", "Content-Type": "application/x-www-form-urlencoded"} }
-    DEBUG 2018-01-22T01:24:14Z: microservice: Response { status: Ok, version: Http11, headers: {"Content-Length": "24", "Content-Type": "application/json"} }
-    ...
+...
+DEBUG 2018-01-22T01:24:14Z: microservice: Request { method: Post, uri: "/", version: Http11, remote_addr: Some(V4(127.0.0.1:64869)), headers: {"Host": "localhost:8080", "User-Agent": "curl/7.54.0", "Accept": "*/*", "Content-Length": "25", "Content-Type": "application/x-www-form-urlencoded"} }
+DEBUG 2018-01-22T01:24:14Z: microservice: Response { status: Ok, version: Http11, headers: {"Content-Length": "24", "Content-Type": "application/json"} }
+...
 ```
 
-Now, let’s `GET` some messages:
+现在，我们用 `GET` 来获取一些消息：
 
 ```bash
-  $ curl 'localhost:8080'
-  <head><title>microservice</title><style>body { font-family: monospace }</style></head><body><ul><li>peter (1516584255): hi</li><li>mike (1516584282): hi2</li></ul></body>
+$ curl 'localhost:8080'
+<head><title>microservice</title><style>body { font-family: monospace }</style></head><body><ul><li>peter (1516584255): hi</li><li>mike (1516584282): hi2</li></ul></body>
 ```
 
-or, if you navigate your web browser to `http://localhost:8080`:
+或者你在浏览器中打开 `http://localhost:8080`：
 
-![screenshot](/images/rust-webservice/index.png)
+![screenshot](http://www.goldsborough.me/images/rust-webservice/index.png)
 
-You can also try adding `?after=<timestamp>&before=<timestamp>` to the query URL and verify that you only get messages in the specified time range.
+你也可以尝试在查询 URL 上添加 `?after=<timestamp>&before=<timestamp>`，并验证你确实只获得了指定时间范围内的消息。
 
-## Packaging with Docker
+## 使用 Docker 打包
 
-I’ll talk very briefly about how to package this application in a Docker container. This doesn’t have anything to do with Rust per-se, but it’s useful to know about relevant Docker containers to base yours on.
+我将简单谈谈如何将这个应用打包为一个 Docker 容器。这和 Rust 本身没有任何关系，但在此基础上了解相关的 Docker 容器是很有用的。
 
-There are two official Docker images maintained by the Rust developers: one for stable and one for nightly Rust. The stable Rust image is simply [`rust`](https://hub.docker.com/_/rust/) and the nightly one is [`rust-lang/rust:nightly`](https://hub.docker.com/r/rustlang/rust/). Basing our container on one of these is very simple. We’ll want to base ours on the nightly image. Make the content of your `Dockerfile` look like this:
+Rust 开发人员维护了两个官方的 Docker 镜像：一个是稳定版，一个是用于每日构建的 Rust。稳定版的 Rust 镜像就是 [`rust`](https://hub.docker.com/_/rust/)，每日构建版的镜像是 [`rust-lang/rust:nightly`](https://hub.docker.com/r/rustlang/rust/)。基于其中一个镜像扩展出我们的容器非常简单。我们想基于每日构建的镜像。`Dockerfile` 的内容应当像下面这样：
 
 ```Dockerfile
-    FROM rustlang/rust:nightly
-    MAINTAINER <your@email>
+FROM rustlang/rust:nightly
+MAINTAINER <your@email>
 
-    WORKDIR /var/www/microservice/
-    COPY . .
+WORKDIR /var/www/microservice/
+COPY . .
 
-    RUN rustc --version
-    RUN cargo install
+RUN rustc --version
+RUN cargo install
 
-    CMD ["microservice"]
+CMD ["microservice"]
 ```
 
-We’ll run the Postgres database in a separate Docker container, as is typical of a microservice architecture. Make this `Dockerfile-db`:
+参考典型的微服务架构，我们在另一个 Docker 容器中运行 Postgres 数据库。如下编写 `Dockerfile-db`：
 
 ```Dockerfile
-    FROM postgres
-    MAINTAINER <your@email>
+FROM postgres
+MAINTAINER <your@email>
 
-    # Create the table on start-up
-    ADD schemas/messages.sql /docker-entrypoint-initdb.d/
+# Create the table on start-up
+ADD schemas/messages.sql /docker-entrypoint-initdb.d/
 ```
 
-And tie things together with a [docker-compose.yaml](https://docs.docker.com/compose/):
+然后用 [docker-compose.yaml](https://docs.docker.com/compose/) 将它们组合在一起：
 
 ```yaml
-  version: '2'
-  services:
-    server:
-      build:
-        context: .
-        dockerfile: docker/Dockerfile
-      networks:
-        - network
-      ports:
-          - "8080:80"
-      environment:
-        DATABASE_URL: postgresql://postgres:secret@db:5432
-        RUST_BACKTRACE: 1
-        RUST_LOG: microservice=debug
-    db:
-      build:
-        context: .
-        dockerfile: docker/Dockerfile-db
-      restart: always
-      networks:
-        - network
-      environment:
-        POSTGRES_PASSWORD: secret
+version: '2'
+services:
+  server:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    networks:
+      - network
+    ports:
+        - "8080:80"
+    environment:
+      DATABASE_URL: postgresql://postgres:secret@db:5432
+      RUST_BACKTRACE: 1
+      RUST_LOG: microservice=debug
+  db:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-db
+    restart: always
+    networks:
+      - network
+    environment:
+      POSTGRES_PASSWORD: secret
 
-  networks:
-    network:
+networks:
+  network:
 ```
 
-This file is a bit more involved, but once it’s written, the rest is a breeze. Note that I place both Dockerfiles into a `docker/` folder. Now, simply run `docker-compose up`:
+这个文件有点复杂，但写好这个以后，其他内容都简单了。注意到我将两个 Dockerfile 都放在了 `docker/` 目录下。现在，只需运行 `docker-compose up`：
 
 ```bash
-  $ docker-compose up
-  Recreating microservice_db_1 ...
-  Recreating microservice_server_1 ... done
-  Attaching to microservice_db_1, microservice_server_1
-  server_1  |  INFO 2018-01-22T01:38:57Z: microservice: Running microservice at 127.0.0.1:8080
-  db_1      | 2018-01-22 01:38:57.886 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
-  db_1      | 2018-01-22 01:38:57.886 UTC [1] LOG:  listening on IPv6 address "::", port 5432
-  db_1      | 2018-01-22 01:38:57.891 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
-  db_1      | 2018-01-22 01:38:57.917 UTC [20] LOG:  database system was shut down at 2018-01-22 00:10:07 UTC
-  db_1      | 2018-01-22 01:38:57.939 UTC [1] LOG:  database system is ready to accept connections
+$ docker-compose up
+Recreating microservice_db_1 ...
+Recreating microservice_server_1 ... done
+Attaching to microservice_db_1, microservice_server_1
+server_1  |  INFO 2018-01-22T01:38:57Z: microservice: Running microservice at 127.0.0.1:8080
+db_1      | 2018-01-22 01:38:57.886 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+db_1      | 2018-01-22 01:38:57.886 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+db_1      | 2018-01-22 01:38:57.891 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+db_1      | 2018-01-22 01:38:57.917 UTC [20] LOG:  database system was shut down at 2018-01-22 00:10:07 UTC
+db_1      | 2018-01-22 01:38:57.939 UTC [1] LOG:  database system is ready to accept connections
 ```
 
-This will look different for you the first time you run it, of course. Anyway, that’s all there is to it. You could now push this into a GitHub repo, drop it on a (free) [AWS](https://aws.amazon.com/free/) or [Google Cloud](https://cloud.google.com/free/) instance, and access your service from the outside world. Wooh!
+当然，你第一次运行时的输出可能会有所不同。但无论如何，我们的工作已经全部完成了。你可以将这些代码上传到一个 GitHub 仓库，然后放到（免费的）[AWS](https://aws.amazon.com/free/) 或 [Google Cloud](https://cloud.google.com/free/) 实例上，就可以从外部访问你的服务了。哇哦！
 
-## Epilogue
+## 结语
 
-Pieced together, the above snippets of code make up around 270 lines necessary to create our full-fledged microservice in Rust. I’m not saying that’s little, compared to the equivalent code written in, say, Flask. However, there are also more batteries-inclued web frameworks available in Rust, such as [Rocket](https://rocket.rs), that abstract away even more for you. Nevertheless, I believe taking this route and going slightly lower level with *Hyper* gave you some nice insights into how you can leverage Rust to write a safe and performant webservice.
+上面的代码片段拼在一起大约有 270 行，这已经足够用 Rust 创建我们完整的微服务了。相比于例如在 Flask 中的等价代码，我们的代码可能也不是很少。然而，Rust 中还有更多的 web 框架，可以为你提供更多的抽象，例如 [Rocket](https://rocket.rs)。尽管如此，我相信跟随这个教程，使用 *Hyper* 稍微接近底层，会带给你关于如何利用 Rust 写一个安全且高性能的 web 服务的一些很好的思路。
 
-I wrote this blog post to share the knowledge I picked up while learning about Rust and applying my knowledge to a small [url-shortening webservice](http://github.com/goldsborough/psag.cc) that I use to shorten URLs for my blog (which, if you take a look at your browser’s URL bar, are quite long). Coming out of this, I feel like I now have a solid appreciation for the features Rust brings along, and where it is more expressive and safe or less expressive (but not less safe) to work with compared to modern C++.
+我写这篇博文是想分享我在学习 Rust，以及使用我的知识写一个小型的 [URL 缩短器 web 服务](http://github.com/goldsborough/psag.cc) —— 我用这个 web 服务来缩短我的博客的 URL（如果你看一眼浏览器的 URL 栏，会发现它非常长）—— 时学到的东西。出于这个原因，我觉得我现在对 Rust 提供的特性有了深刻的认识。也知道了 Rust 的这些特性和现代 C++ 相比，哪些表达能力较强且更安全，而哪些表达能力较弱（但不会更不安全）。
 
-I feel like it may take another few years for Rust’s ecosystem to stabilize and go-to, stable and well-maintained packages to establish themselves for the majority of tasks. Nevertheless, the prospects are promising. Facebook is already investigating the use of Rust for a new [Mercurial server](https://www.theregister.co.uk/2016/10/18/facebook_mercurial_devs_forget_git/) which would host its codebase. And more and more people are looking at Rust as an interesting option for embedded programming. I’ll be watching the development of the language closely, meaning I subscribed to the `r/Rust` subreddit.
+我觉得 Rust 的生态系统可能还需要几年的时间来稳定，才能让稳定且维护良好的软件包完成主要的功能。尽管如此，前途还是很光明的。Facebook 已经在研究如何使用 Rust 构建托管其代码库的新 [Mercurial 服务器](https://www.theregister.co.uk/2016/10/18/facebook_mercurial_devs_forget_git/)。越来越多的人将 Rust 视为嵌入式编程的一个有趣选择。我会密切关注这个语言的发展，这意味着我已经在 Reddit 上订阅了 `r/Rust`。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
