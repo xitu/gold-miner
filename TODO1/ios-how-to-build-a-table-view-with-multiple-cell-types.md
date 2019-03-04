@@ -5,9 +5,9 @@
 > * 译者：[LoneyIsError](https://github.com/LoneyIsError)
 > * 校对者：
 
-# iOS：如何构建具有多中 Cell 类型的表视图
+# iOS：如何构建具有多种 Cell 类型的表视图
 
-第1部分：如何才能不迷失在大量代码中
+第1部分：怎样才能不迷失在大量代码中
 
 ![](https://cdn-images-1.medium.com/max/800/1*cTOkFg6sVgV0MEdThEw2bA.png)
 
