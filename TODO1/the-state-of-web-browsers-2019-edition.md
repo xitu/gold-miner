@@ -69,15 +69,25 @@ And there’s more good news for users. With the exception of mobile Safari, all
 对于用户的好消息是，出了移动端的 Safari，其余浏览器都会经常自动更新。这导致几乎所有的 web 用户都将使用最新的浏览器来使用不断改进的 web。
 
 ### Chromium for developers: life could get easier
-
+### Chromium 之于开发者：生活可以变得更简单
 A negative spin on the statement “The web runs on a single engine, Chromium” could be:
 
 *   Developers build Chromium-only websites instead of standards-based websites, and they do this at scale.
 *   Chromium is full of non-standard features and actively sabotages an open web or web standards
 
+“web 运行在 Chromium 这一个搜索引擎上”这句话的负面含义可能是:
+
+*   开发人员构建的是基于 Chromium 的网站，而不是基于标准的网站，并且大部分开发者都将是如此。
+*   Chromium 充满了非标准的特性，并且破坏了开放式 web ，或者说是破坏了 web 标准
+
 Both are overly dramatic conclusions that I don’t believe to be accurate.
 
+上述两个观点都过于夸张，作者认为均不正确。
+
 First, yes, there was a low period a few years ago when the mobile revolution was in full swing where developers could not wait for web standards and massively used vendor-prefixed or Chrome/Webkit-only features to maximize what they could do on mobile, this whole new exciting category of the web. This practice got so far out of hand that competing browsers had to implement vendor prefixed features **of their competitors** just to stay in the game.
+
+首先，当移动端如火如荼发展的时候，Web 端的确经历了一段低谷期，在那期间，Web 开发者们不得不一边等待 Web 标准的发布
+，一边大量使用与厂商相关的前缀或 Chrome/Webkit-only 等特征去最大化他们能在移动设备这种全新 Web 载体上实现的功能。
 
 This period is largely behind us now. Every major browser vendor has agreed that vendor prefixes were a bad idea. New features are now behind a flag, which means developers cannot deploy them to users before they mature. Existing problematic prefixes that we cannot undo from the wild are now built into each browser to ensure compatibility.
 
