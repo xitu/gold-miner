@@ -20,7 +20,7 @@ SLF4J 作为一个日志框架正是使用了这个方法。SLF4J 本身只提�
 
 It’s implemented as a file located in the `META-INF/services` folder of a JAR. The name of the file is the fully qualified name of the interface, while its content is a list of qualified names of available implementations. For example, for an interface `ch.frankel.blog.serviceloader.Foo`, there must be a file named `META-INF/services/ch.frankel.blog.serviceloader.Foo` which content might look like this:
 
-为了使用 Service Loader，首先需要在类所在工程的类路径下面建立'META-INF/services'目录，然后根据接口名在该目录创建一个文件。该文件的文件名必须是接口的完全限定名，其内容是可用实现的限定名列表。例如，对于'ch.frankel.blog.serviceloader.Foo'这个接口，文件名应该是 'META-INF/services/ch.frankel.blog.serviceloader.Foo'，文件的内容可能是如下这样的：
+为了使用 Service Loader，首先需要在类所在工程的类路径下面建立'META-INF/services'目录，然后根据接口名在该目录创建一个文件。该文件的文件名必须是接口的完全限定名，其内容是可用实现的限定名列表。例如，对于 `ch.frankel.blog.serviceloader.Foo` 这个接口，文件名应该是 `META-INF/services/ch.frankel.blog.serviceloader.Foo`，文件的内容可能是如下这样的：
 
 ``` java
 ch.frankel.blog.serviceloader.FooImpl1
@@ -28,7 +28,7 @@ ch.frankel.blog.serviceloader.FooImpl2
 ```
 
 Note that the classes listed above must implement the `ch.frankel.blog.serviceloader.Foo` interface.
-其中包含的类必须实现'ch.frankel.blog.serviceloader.Foo'接口。
+其中包含的类必须实现 `ch.frankel.blog.serviceloader.Foo` 接口。
 From a code perspective, it’s very straightforward:
 使用 Service Loader 获取实现类的代码非常简单：
 ``` java
@@ -58,9 +58,9 @@ Obviously, this requires further operations to get the data in the right form (h
 ## Spring Factories Loader
 ## Spring Factories Loader
 In parallel to the Java Service Loader, Spring offers another Inversion of Control implementation. There’s only a single property file involved, it must be named `spring.factories` and located under `META-INF`. From a code perspective, the file is read through the `SpringFactoriesLoader.loadFactories()`**static** method - yes, for Spring, it’s quite a shock.
-除了集成 Java 的 Service Loader 之外，Spring 还提供了另一种 IoC 的实现。其只需要添加一个简单的配置文件，文件名必须为'spring.factories'并且放到 META-INF 下。从代码的角度看，这个文件通过静态方法'SpringFactoriesLoader.loadFactories()'来读取。Spring 的这个实现确实让你吃惊。
+除了集成 Java 的 Service Loader 之外，Spring 还提供了另一种 IoC 的实现。其只需要添加一个简单的配置文件，文件名必须为 `spring.factories` 并且放到  `META-INF` 下。从代码的角度看，这个文件通过静态方法 `SpringFactoriesLoader.loadFactories()` 来读取。Spring 的这个实现确实让你吃惊。
 Client code couldn’t get any simpler:
-调用的代码非常简单：
+调用的代码不能再简单了：
 ``` java
 List<Foo> foos = SpringFactoriesLoader.loadFactories(Foo.class, null);
 ```
@@ -72,7 +72,7 @@ Compared to the Java Service Loader, the differences are two-fold:
 1.  Whether one file format is better _.i.e._ more readable or more maintainable, than the other is a matter of personal taste.
 2.  There’s no requirement in `spring.factories` for the key to be an interface and for the values to implement it. For example, Spring Boot uses this approach to handle auto-configuration beans: the key is an annotation _i.e._`org.springframework.boot.autoconfigure.EnableAutoConfiguration`while values are classes annotated with `@Configuration`. This allows for a much more flexible design, if used wisely.
 1. 通过一个文件来配置是否比其他方式更好，更可读，更可维护，这取决于个人喜好。
-2. 文件中的配置项的键和值不一定分别是接口和其实现类。例如，Spring Boot 使用这种方法来初始化类实例：配置中键内容为一个注解，如' org.springframework.boot.autoconfigure.EnableAutoConfiguration'，而值是则可以是标注了'@Configuration'注解的类。如果灵活使用，可以去完成更多更复杂的设计。
+2. `spring.factories` 中并没有要求键是一个接口并且实现它的值。例如，Spring Boot 使用这种方法来初始化类实例：配置中键内容为一个注解，如 ` org.springframework.boot.autoconfigure.EnableAutoConfiguration` ，而值是则可以是标注了 `@Configuration` 注解的类。如果灵活使用，可以去完成更多更复杂的设计。
 Sources for this article can be found on [GitHub](https://github.com/nfrankel/serviceloader) in Maven format.
 这篇文章的资源可以在 [GitHub](https://github.com/nfrankel/serviceloader) 的 Maven 格式下找到。
 **To go further:**
