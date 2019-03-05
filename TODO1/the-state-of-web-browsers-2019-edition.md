@@ -86,38 +86,69 @@ Both are overly dramatic conclusions that I don’t believe to be accurate.
 
 First, yes, there was a low period a few years ago when the mobile revolution was in full swing where developers could not wait for web standards and massively used vendor-prefixed or Chrome/Webkit-only features to maximize what they could do on mobile, this whole new exciting category of the web. This practice got so far out of hand that competing browsers had to implement vendor prefixed features **of their competitors** just to stay in the game.
 
-首先，当移动端如火如荼发展的时候，Web 端的确经历了一段低谷期，在那期间，Web 开发者们不得不一边等待 Web 标准的发布
-，一边大量使用与厂商相关的前缀或 Chrome/Webkit-only 等特征去最大化他们能在移动设备这种全新 Web 载体上实现的功能。
+首先，当移动端如火如荼发展的时候，Web 端的确经历了一段低谷期，在那期间，Web 开发者们不得不一边等待 Web 标准的发布，一边大量使用与厂商相关的前缀或 Chrome/Webkit-only 等特征去最大化他们能在移动设备这种全新 Web 载体上实现的功能。
 
 This period is largely behind us now. Every major browser vendor has agreed that vendor prefixes were a bad idea. New features are now behind a flag, which means developers cannot deploy them to users before they mature. Existing problematic prefixes that we cannot undo from the wild are now built into each browser to ensure compatibility.
 
+那段低谷期已经距离我们很久了。所有的浏览器厂商也都认为使用厂商前缀是一个坏的解决方法。新的特性隐藏在一个标志后面，这意味着开发人员无法在用户成熟之前将它们部署到用户身上。那些我们无法直接撤销的现有的前缀问题，现在已经内置到每个浏览器中，以确保兼容性。
+
 So, no, developers using non-standard Chromium features does not seem like a huge problem to me these days.
+
+所以，这些天开发人员使用非标准的 Chromium 特性对我来说似乎不是一个大问题。
 
 What about Chromium-only standards-based features? Here we have the situation where Chromium shipped a new standards-based feature not yet available in other engines.
 
+那么那些仅仅基于 Chromium 的标准特征呢？在这里，会出现这样一种情况：Chromium 发布了一种新的基于标准的功能，但在其他搜索引擎中却不可用。
+
 A short-sighted developer could conclude that they can just use it without fallback since the world runs Chromium anyway. Well, no. Good old lagging mobile Safari comes to the rescue. Very likely, mobile Safari will not have that new feature and it may not have it for years to come.
+
+一个目光短浅的开发人员可以得出这样的结论：他们可以仅仅使用 Chromium 而不需要其它的备用引擎，因为世界上无论如何都有 Chromium 的存在。呵呵！这也是不正确的。落在后面的移动端 Safari 来拯救我们了。很有可能的是，移动端 Safari 不会有 Chromium 发布的新功能，而且在未来几年也不会有。
+
 
 You cannot afford to ship a web experience that breaks in mobile Safari. Mobile Safari has 15% market share across devices. On mobile it’s 25%. In some major markets, it may even be as high as 40% on mobile.
 
+在移动端 Safari 中，你不能提供中断的 web 体验。移动端 Safari 在不同设备上拥有 15% 的市场份额。在移动设备上，这个比例是25%。而一些主要市场，在手机用户的这一比例甚至可能高达40%。
+
+
 **The fallback is a must in almost any case** and by developing the fallback, you are quite likely to support that other browser as well: Firefox.
+
+几乎在任何情况下，备用技术都是必须的，通过发展其它备用技术，你才很可能还会使用到其他浏览器:比如 Firefox。
 
 As for Chromium and the relation to web standards, I’ll discuss it in a separate chapter. Let’s first now consider what the new state of browsers means for developers.
 
+至于 Chromium 及其与 web 标准的关系，我将在另一章中讨论。现在让我们首先考虑浏览器的新状态对开发人员意味着什么。
+
 There is news, and there is no news. A first and clear positive workflow improvement is that you no longer have to test for EdgeHTML compatibility.
+
+似乎也没有什么。第一个明显且正面的工作流改进是你不需要再测试 EdgeHTM 的L兼容性。
 
 You’ll have to keep testing for Firefox, but here I expect improvements too. Mozilla will now be in survival mode and I expect them to prioritize compatibility with Chromium in an effort not decline any further.
 
+可你将不得不继续测试 Firefox ，但是在这里作者也希望能得到改进。Mozilla 现在处于寻求生存模式，我希望他们会优先考虑与 Chromium 的兼容性，而不会进一步降低其兼容性。
+
 The lack of bigger workflow improvements is in Safari lagging behind, forcing us into fallbacks, polyfills, transpilations, the like.
+
+Safari缺乏更大的工作流改进，这使得它落后于其他浏览器，迫使我们使用向下兼容、polyfills、transpilations等技术。
 
 Rather than to keep bashing mobile Safari, I’m going to deliver a new take on it. Let’s make the rough assessment that Safari lags behind in supporting major new web standards by about 1–2 years in general.
 
+与其继续抨击移动端 Safari，作者还不如换一个视角。让我们粗略估计一下，Safari 在支持主要的新 web 标准方面总体上落后了大约1-2年。
+
 Now be very serious when you ask yourself this question: given your audience and product, can you create the web experience you want your users to enjoy using web standards generally available 1–2 years ago?
+
+现在，问你自己一个严肃的问题:考虑到你的受众和产品，你能创造出你希望你的用户喜欢使用1-2年前普遍可用的 web 标准的 web 体验吗?
 
 If the answer to that question is YES, and I believe it very often can be, you may simplify your workflow significantly. Possibly, you can say goodbye to polyfills, transpilation and auto prefixing altogether. Because the web of 1–2 years ago really is no joke.
 
+如果这个问题的答案是肯定的，而且作者相信通常情况下会的到肯定的答案，那么你可以大大简化你的工作流程。也许，你可以跟polyfills, transpilation和自动补齐前缀说再见。因为1-2年前的 web 真的不是开玩笑。
+
 There are examples of emerging web standards where you do need the latest and greatest, for example Web Components. Still here you could ask the question if your users really need Web Components. Be honest, it’s you that wants Web Components, not your users. I won’t judge, I love web tech too.
 
+在一些新兴的 web 标准中，你确实需要最新的和最好的标准，例如 web 组件。在这里，你仍可以问自己一个问题，用户是否真的需要 Web 组件。老实说，需要 Web 组件的是开发者你自己，而不是你的用户。我不做评判，因为我也喜欢 web 技术。
+
 I would welcome a simpler development workflow, I think the current one is rather shit. Absurdly complex, slow, constantly breaking, and obsolete by the time you have it working. I would welcome a return to just entering code and running it, without a 100,000 node modules processing my input. Maybe web development could once again become accessible and fun to those who are not hardcore engineers. Because the web belongs to all of us, and they are just as entitled as the rest of us to work on it. Even as an experienced developer you must admit the current state of affairs is rather involved and messy, even if you learned to cope with it.
+
+我希望有一个更简单的开发工作流，我认为当前的工作流相当糟糕。异常复杂、缓慢、反复中断，当你让它工作的时候，它已经过时了。我希望回到只输入代码并运行它，而不是需要 10 万个节点模块处理我的输入。也许 web 开发可以再次为那些不是铁杆工程师的人提供方便和乐趣。因为 web 属于我们所有人，那些人和我们其他人一样有权利为之工作。即使你是一个有经验的开发人员，你也必须承认当前的状态是相当复杂和混乱的，即使你已经学会了如何处理它。
 
 ### Chromium and web standards
 
