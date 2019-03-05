@@ -39,7 +39,7 @@ In this article, we’re going to accept the new state, where Chromium dominates
 
 
 ### Chromium for users: the web works
-### Chromium 之于用户：Web 运行
+### Chromium 之于用户：Web
 By a rough estimation of global market share, Chromium/Chrome browsers would make up for at least 70% of users. Then there’s 15% of Webkit, mostly mobile Safari.
 
 根据对全球市场份额的粗略估计，Chromium/Chrome 浏览器将占有至少70%的用户。还有15%的Webkit，主要是移动端的Safari 。  
