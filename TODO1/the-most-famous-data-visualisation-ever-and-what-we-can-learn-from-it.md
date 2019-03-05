@@ -8,7 +8,7 @@
 # 从著名数据数据可视化中我们可以学到什么
 
 > 译注：原文对拿破仑东征图存在多处事实错误，译者将保留可视化理解部分，修正事实错误部分。
-> 附拿破仑东征历史阅读材料 - [拿破仑东征俄国大惨败：60万大军仅剩2万](https://www.backchina.com/news/2013/06/29/250418.html)
+> 附拿破仑东征历史阅读材料 - [俄法战争](https://zh.wikipedia.org/wiki/%E4%BF%84%E6%B3%95%E6%88%98%E4%BA%89)
 
 ![](https://cdn-images-1.medium.com/max/1600/1*V9sq--wHI1wm1zA3Gng1sg.png)
 
