@@ -11,11 +11,11 @@
 [第一部分：单一 Activities](https://github.com/xitu/gold-miner/blob/master/TODO/the-android-lifecycle-cheat-sheet-part-i-single-activities.md)  
 **第二部分：多 Activity** — 跳转和返回栈（本篇文章）    
 [**第三部分： Fragments** — activity 和 fragment 的生命周期](https://medium.com/@JoseAlcerreca/the-android-lifecycle-cheat-sheet-part-iii-fragments-afc87d4f37fd)  
-[第四部分：视图模型、半透明 Activity 和启动模式](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iv-49946659b094)
+[第四部分：ViewModels、半透明 Activity 和启动模式](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iv-49946659b094)
 
-它们的图表也提供了 [PDF 格式备忘录](https://github.com/JoseAlcerreca/android-lifecycles)，以方便查阅。
+为了方便查阅，我制作了 [PDF 格式备忘录](https://github.com/JoseAlcerreca/android-lifecycles)。
 
-> 请注意，在图表中显示多个组件（activities，fragments 等）的生命周期时，并排显示的分组事件是在并行运行。执行焦点可以随时从一个并行事件组切换到另一个，因此**并行事件组之间的调用顺序并不能保证**。但是，组内的顺序是有保证的。
+> 请注意，图表中显示多个组件（activities，fragments 等）的生命周期时，并排显示的分组事件是并行的。执行焦点可以随时从一个并行事件组切换到另一个，因此**并行事件组之间的调用顺序并不能保证**。但是，组内的顺序是有保证的。
 >
 > 以下场景并不适用于有着自定义启动模式或任务关联型的 activities 和任务。想要了解更多，详见 Android 开发者官网：[任务和返回栈](https://developer.android.com/guide/components/activities/tasks-and-back-stack.html)。
 
@@ -25,13 +25,13 @@
 
 **场景 1: 在 Activity 之间跳转**
 
-进入 [STOPPED](https://developer.android.com/guide/components/activities/activity-lifecycle.html#onstop)（但是并没有 destroyed），类似于用户在进行跳转（就像按下"Home"一样）。
+在这种场景下，当一个新 activity 启动时，activity 1 被[停止](https://developer.android.com/guide/components/activities/activity-lifecycle.html#onstop)（但没有被销毁），类似于用户在进行跳转（就像按下"Home"一样）。
 
-当返回按钮被按下，activity 2 被 destroyed 结束运行。
+当返回按钮被按下，activity 2 被销毁结束运行。
 
 ### 管理状态
 
-请注意，尽管[`onSaveInstanceState`](https://developer.android.com/reference/android/app/Activity.html#onSaveInstanceState%28android.os.Bundle%29)被调用，**但是** [`onRestoreInstanceState`](https://developer.android.com/reference/android/app/Activity.html#onRestoreInstanceState%28android.os.Bundle,%20android.os.PersistableBundle%29) **不会被调用**。如果在第二个活动处于活动状态时配置发生改变，则第一个活动将被销毁并仅在其重新获取焦点时重新创建。这就是保存一个状态的实例很重要的原因。
+请注意，尽管[`onSaveInstanceState`](https://developer.android.com/reference/android/app/Activity.html#onSaveInstanceState%28android.os.Bundle%29)被调用，**但是** [`onRestoreInstanceState`](https://developer.android.com/reference/android/app/Activity.html#onRestoreInstanceState%28android.os.Bundle,%20android.os.PersistableBundle%29) **不会被调用**。如果在第二个 activity 处于活动状态时配置发生改变，则第一个活动将被销毁并仅在其重新获取焦点时重新创建。这就是保存一个状态的实例很重要的原因。
 
 如果系统杀死应用程序进程以节省资源，这是另一种需要恢复状态的场景。
 
