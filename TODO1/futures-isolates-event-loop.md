@@ -5,7 +5,7 @@
 > * 译者：[nanjingboy](https://github.com/nanjingboy)
 > * 校对者：
 
-# Fultter 异步编程：Future、Isolate 和事件循环
+# Flutter 异步编程：Future、Isolate 和事件循环
 
 本文介绍了 Flutter 中不同的代码执行模式：单线程、多线程、同步和异步。
 
