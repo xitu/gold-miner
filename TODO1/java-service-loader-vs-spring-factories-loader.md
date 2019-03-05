@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/java-service-loader-vs-spring-factories-loader.md](https://github.com/xitu/gold-miner/blob/master/TODO1/java-service-loader-vs-spring-factories-loader.md)
 > * 译者：[HearFishle](https://github.com/HearFishle)
-> * 校对者：[Endone](https://github.com/Endone)
+> * 校对者：[Endone](https://github.com/Endone)，[ziyin feng](https://github.com/Fengziyin1234)
 
 # Java Service Loader vs. Spring Factories Loader
 # Java Service Loder 对比 spring Factories Loader
@@ -20,7 +20,7 @@ SLF4J 作为一个日志框架正是使用了这个方法。SLF4J 本身只提�
 
 It’s implemented as a file located in the `META-INF/services` folder of a JAR. The name of the file is the fully qualified name of the interface, while its content is a list of qualified names of available implementations. For example, for an interface `ch.frankel.blog.serviceloader.Foo`, there must be a file named `META-INF/services/ch.frankel.blog.serviceloader.Foo` which content might look like this:
 
-为了使用 Service Loader，首先需要在类所在工程的类路径下面建立 META-INF/services 目录，然后根据接口名在该目录创建一个文件。该文件的文件名必须是接口的完全限定名，其内容是可用实现的限定名列表。例如，对于 ch.frankel.blog.serviceloader.Foo这个接口，文件完整路径为 META-INF/services/ch.frankel.blog.serviceloader.Foo，文件的内容可能是如下这样的：
+为了使用 Service Loader，首先需要在类所在工程的类路径下面建立 META-INF/services 目录，然后根据接口名在该目录创建一个文件。该文件的文件名必须是接口的完全限定名，其内容是可用实现的限定名列表。例如，对于 ch.frankel.blog.serviceloader.Foo这个接口，文件名应该是 META-INF/services/ch.frankel.blog.serviceloader.Foo，文件的内容可能是如下这样的：
 
 ``` java
 ch.frankel.blog.serviceloader.FooImpl1
@@ -28,7 +28,7 @@ ch.frankel.blog.serviceloader.FooImpl2
 ```
 
 Note that the classes listed above must implement the `ch.frankel.blog.serviceloader.Foo` interface.
-其中包含的类必须实现 ch.frankel.blog.serviceloader.Foo 接口。。
+其中包含的类必须实现 ch.frankel.blog.serviceloader.Foo 接口。
 From a code perspective, it’s very straightforward:
 使用Service Loader获取实现类的代码非常简单：
 ``` java
@@ -54,7 +54,7 @@ Object object = serviceListFactoryBean.getObject();
 ```
 
 Obviously, this requires further operations to get the data in the right form (hint: it’s a linked list).
-很明显，从调用返回来看，需要进一步操作才能得到正确实现类(注意：serviceListFactoryBean 是一个链表)
+很明显，从调用返回来看，需要进一步操作才能得到正确格式的数据(注意：serviceListFactoryBean 是一个链表)
 ## Spring Factories Loader
 ## Spring Factories Loader
 In parallel to the Java Service Loader, Spring offers another Inversion of Control implementation. There’s only a single property file involved, it must be named `spring.factories` and located under `META-INF`. From a code perspective, the file is read through the `SpringFactoriesLoader.loadFactories()`**static** method - yes, for Spring, it’s quite a shock.
