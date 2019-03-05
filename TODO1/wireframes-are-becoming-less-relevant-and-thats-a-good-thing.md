@@ -15,15 +15,15 @@ Over time I’ve found wireframes to be less and less useful, and I don’t thin
 
 In discussions I’ve had and online I’ve been surprised to hear wireframes are still posited as an **essential** undefinedstep in the process of design. This attitude seems to be on the decline, but I’ve still heard everyone from early career designers to industry leading agencies insist on the necessity of a “wireframing phase”. The argument typically looks something like this:
 
->  ⦁ Wireframes focus attention on usability instead of aesthetics. They prevent stakeholders derailing meetings over irrelevant details like button color, and they allow user testing to focus on interactions instead of visuals.
+> - Wireframes focus attention on usability instead of aesthetics. They prevent stakeholders derailing meetings over irrelevant details like button color, and they allow user testing to focus on interactions instead of visuals.
 >
->  ⦁ Wireframes are faster to create. They keep things conceptual and avoid the risk of getting too invested or attached to a particular direction.
+> - Wireframes are faster to create. They keep things conceptual and avoid the risk of getting too invested or attached to a particular direction.
 >
->  ⦁ There’s also a somewhat separate argument (more enterprise-oriented) for wireframes as a tool for detailed documentation of interactions without the additional overhead of visual design.
+> - There’s also a somewhat separate argument (more enterprise-oriented) for wireframes as a tool for detailed documentation of interactions without the additional overhead of visual design.
 
 That doesn’t mean that everyone actually makes wireframes, but when someone admits they don’t it’s often in a hushed tone and without a lot of eye contact. They would like to include them. It’s just that the constraints of their organization, stakeholders, or project prevent it from always being possible. But the mindset that they are essential, and many beliefs about their advantages may be misguided. While I won’t deny that wireframes are **ever** undefineduseful, nowadays they’re valuable only in limited circumstances that are narrowing by the day. There are a number of shifts in industry thinking and practices that are contributing to this change and are worth examining.
 
-## **Shifting product development methodologies are changing how design gets done**
+## Shifting product development methodologies are changing how design gets done
 
 **Agile** undefinedproduct development encourages less linear process. Instead of starting with work on foundational elements across an entire product and then building layers on top of that foundation, the focus has shifted to smaller, more frequent delivery of fully realized “vertical” slices.
 
@@ -49,13 +49,13 @@ Years ago photoshop was the UI design king and everyone was in an arms race to s
 
 It can—in the right situation. For example, you might create wireframes because:
 
-⦁ You really do have a product that will be visually complex (like a mobile game) and need to work out the interaction independent of an unavoidably long art process. Even if this is the case you can still do your best to approximate style.
+- You really do have a product that will be visually complex (like a mobile game) and need to work out the interaction independent of an unavoidably long art process. Even if this is the case you can still do your best to approximate style.
 
-⦁ You’re using them as an exercise to help someone learn about information architecture in isolation (hopefully a one-off rather than a recurring part of real product development).
+- You’re using them as an exercise to help someone learn about information architecture in isolation (hopefully a one-off rather than a recurring part of real product development).
 
-⦁ You want to map out or test information architecture but have a dependency on someone else for visual design (not ideal!) or are limited in some way by the visual capabilities of the tools available to you, or by your own skill-set.
+- You want to map out or test information architecture but have a dependency on someone else for visual design (not ideal!) or are limited in some way by the visual capabilities of the tools available to you, or by your own skill-set.
 
-⦁ You’re in a dated waterfall or agency environment and don’t have yet have much autonomy over your process. This isn’t great, but may be outside of your control.
+- You’re in a dated waterfall or agency environment and don’t have yet have much autonomy over your process. This isn’t great, but may be outside of your control.
 
 I’m sure there are plenty of other possible scenarios and exceptions, but I would argue that they are likely infrequent for most designers operating today. If you think of traditional wireframes as a tactic to be employed only when really suited for the problem, then you’ll probably find that they can often be avoided — and that’s OK.
 
