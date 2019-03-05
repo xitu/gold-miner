@@ -13,7 +13,7 @@ IoC 并不仅限于解决模块内类与类之间的依赖耦合问题，其同�
 
 ## Java Service Loader
 
-Java 本身提供了一种很简便的方式来支持 IoC，它通过使用[Service Loader] (https://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html) 来实现，其可以获取到工程类路径内指定接口的实现类。这使我们可以在运行期间获知类路径内包含哪些可用的实现类，从而做到接口定义和多个实现模块（JAR 包）之间的依赖解耦。
+Java 本身提供了一种很简便的方式来支持 IoC，它通过使用 [Service Loader] (https://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html) 来实现，其可以获取到工程类路径内指定接口的实现类。这使我们可以在运行期间获知类路径内包含哪些可用的实现类，从而做到接口定义和多个实现模块（JAR 包）之间的依赖解耦。
 
 SLF4J 作为一个日志框架正是使用了这个方法。SLF4J 本身只提供日志操作接口，其他的日志系统基于这些接口进行实现（如 Logback 和 Log4J 等）。用户只需通过调用 SLF4J 的接口来记录日志，而具体的实现则交由工程类路径中可用的实现类来执行。
 
@@ -48,7 +48,7 @@ public class ServiceConfiguration {
 Object object = serviceListFactoryBean.getObject();
 ```
 
-很明显，从调用返回来看，需要进一步操作才能得到正确格式的数据(注意：serviceListFactoryBean 是一个链表)
+很明显，从调用返回来看，需要进一步操作才能得到正确格式的数据(注意：serviceListFactoryBean 是一个链表)。
 
 ## Spring Factories Loader
 除了集成 Java 的 Service Loader 之外，Spring 还提供了另一种 IoC 的实现。其只需要添加一个简单的配置文件，文件名必须为 `spring.factories` 并且放到  `META-INF` 下。从代码的角度看，这个文件通过静态方法 `SpringFactoriesLoader.loadFactories()` 来读取。Spring 的这个实现确实让你吃惊。
