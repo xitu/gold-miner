@@ -132,19 +132,19 @@ Safari缺乏更大的工作流改进，这使得它落后于其他浏览器，�
 
 Rather than to keep bashing mobile Safari, I’m going to deliver a new take on it. Let’s make the rough assessment that Safari lags behind in supporting major new web standards by about 1–2 years in general.
 
-与其继续抨击移动端 Safari，作者还不如换一个视角。让我们粗略估计一下，Safari 在支持主要的新 web 标准方面总体上落后了大约1-2年。
+与其继续抨击移动端 Safari，作者还不如换一个视角。让我们粗略估计一下，Safari 在支持主流新 web 标准上总体落后了大约1-2年。
 
 Now be very serious when you ask yourself this question: given your audience and product, can you create the web experience you want your users to enjoy using web standards generally available 1–2 years ago?
 
-现在，问你自己一个严肃的问题:考虑到你的受众和产品，你能创造出你希望你的用户喜欢使用1-2年前普遍可用的 web 标准的 web 体验吗?
+现在，问你自己一个严肃的问题: 考虑到你的受众和产品，你能开发出你的用户喜欢使用1-2年前普遍可用的 web 标准的 web 体验吗?
 
 If the answer to that question is YES, and I believe it very often can be, you may simplify your workflow significantly. Possibly, you can say goodbye to polyfills, transpilation and auto prefixing altogether. Because the web of 1–2 years ago really is no joke.
 
-如果这个问题的答案是肯定的，而且作者相信通常情况下会的到肯定的答案，那么你可以大大简化你的工作流程。也许，你可以跟polyfills, transpilation和自动补齐前缀说再见。因为1-2年前的 web 真的不是开玩笑。
+如果这个问题的答案是肯定的，其实作者相信通常情况下会得到肯定的答案，那么你可以大大简化你的工作流程。也许，你可以跟polyfills, transpilation和自动补齐前缀说再见。因为1-2年前的 web 真的不是开玩笑。
 
 There are examples of emerging web standards where you do need the latest and greatest, for example Web Components. Still here you could ask the question if your users really need Web Components. Be honest, it’s you that wants Web Components, not your users. I won’t judge, I love web tech too.
 
-在一些新兴的 web 标准中，你确实需要最新的和最好的标准，例如 web 组件。在这里，你仍可以问自己一个问题，用户是否真的需要 Web 组件。老实说，需要 Web 组件的是开发者你自己，而不是你的用户。我不做评判，因为我也喜欢 web 技术。
+你确实需要最新的和最好的标准，例如 web 组件。在这里，你仍可以问自己一个问题，用户是否真的需要 Web 组件。老实说，需要 Web 组件的是开发者你自己，而不是你的用户。我不做评判，因为我也喜欢 web 技术。
 
 I would welcome a simpler development workflow, I think the current one is rather shit. Absurdly complex, slow, constantly breaking, and obsolete by the time you have it working. I would welcome a return to just entering code and running it, without a 100,000 node modules processing my input. Maybe web development could once again become accessible and fun to those who are not hardcore engineers. Because the web belongs to all of us, and they are just as entitled as the rest of us to work on it. Even as an experienced developer you must admit the current state of affairs is rather involved and messy, even if you learned to cope with it.
 
@@ -163,11 +163,20 @@ Let us make the assumption that Google is at the steering wheel of both standard
 
 #### Incentive
 
+#### Incentive
+
 First, we should take away one major concern, or even the biggest concern. Unlike old Microsoft or current Apple, Google has no business incentive to hurt or hold back the web or web technology in any serious ways. It is a company born on the web with an incentive for the web and web technology to thrive. Stagnation or intentionally introducing incompatibilities makes no logical sense, and no financial sense. In many or most cases, Google’s direction of the web benefits users, developers and themselves all at once. Interests align. Not perfectly, and not at all times, but most of the time they do.
+
+首先，我们应该消除一个主要担忧，甚至是最大的担忧。与微软和苹果不同的是，谷歌是没有商业动机去以任何方式伤害或阻碍 web 或 web 技术发展的。因为谷歌是一家诞生在 web 上的公司，其致力于 web 和 web 技术的蓬勃发展。两者的停滞不前或故意引入不兼容性，逻辑上不成立，经济上也没有意义。在多数甚至是大多数情况下，谷歌的 web 发展方向对用户、开发人员和他们自己都有好处。三者的利益是一致的。这种互利状态虽然不是很完美，也不是每时每刻都存在，但大多数时候都是这样。
+
 
 Therefore at a very fundamental level, surely the web or web technology isn’t doomed at all. It is in the hands of a party that has just as much interest as us in preserving and improving it.
 
+因此，从一个非常基本的层面来讲，web 或 web 技术注定不会失败。两者的命运掌握在像我们一样致力于维护和改进它们的人手里。
+
 The devil is in the details, therefore let’s explore a few risks in detail:
+
+细节决定成败，下面让我们来详细探讨几个存在的风险:
 
 #### Google just making stuff up in Chromium
 
