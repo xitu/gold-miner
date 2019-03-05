@@ -5,17 +5,19 @@
 > * 译者：[HearFishle](https://github.com/HearFishle)
 > * 校对者：[Endone](https://github.com/Endone)，[ziyin feng](https://github.com/Fengziyin1234)
 
-
 # Java Service Loader 对比 Spring Factories Loader
-### Java 和 Spring 都提供了实现模块层的 IoC 的方式(译者注：Inversion of Control 控制反转)。两者实现的功能很类似，不过 Spring 提供的功能更灵活一些。
+
+### Java 和 Spring 都提供了实现模块层的 IoC 的方式（译者注：Inversion of Control 控制反转）。两者实现的功能很类似，不过 Spring 提供的功能更灵活一些。
+
 IoC 并不仅限于解决模块内类与类之间的依赖耦合问题，其同样适用于模块与模块之间。OSGi 一直致力于这方面的工作。但其实 Java 和 Spring 都提供了对 IoC 的支持。
 
 ## Java Service Loader
+
 Java 本身提供了一种很简便的方式来支持 IoC，它通过使用[Service Loader] (https://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html) 来实现，其可以获取到工程类路径内指定接口的实现类。这使我们可以在运行期间获知类路径内包含哪些可用的实现类，从而做到接口定义和多个实现模块（JAR 包）之间的依赖解耦。
 
-SLF4J 作为一个日志框架正是使用了这个方法。SLF4J 本身只提供日志操作接口,其他的日志系统基于这些接口进行实现（如 Logback, Log4J等）。用户只需通过调用 SLF4J 的接口来记录日志，而具体的实现则交由工程类路径中可用的实现类来执行。
+SLF4J 作为一个日志框架正是使用了这个方法。SLF4J 本身只提供日志操作接口，其他的日志系统基于这些接口进行实现（如 Logback 和 Log4J 等）。用户只需通过调用 SLF4J 的接口来记录日志，而具体的实现则交由工程类路径中可用的实现类来执行。
 
-为了使用 Service Loader，首先需要在类所在工程的类路径下面建立'META-INF/services'目录，然后根据接口名在该目录创建一个文件。该文件的文件名必须是接口的完全限定名，其内容是可用实现的限定名列表。例如，对于 `ch.frankel.blog.serviceloader.Foo` 这个接口，文件名应该是 `META-INF/services/ch.frankel.blog.serviceloader.Foo`，文件的内容可能是如下这样的：
+为了使用 Service Loader，首先需要在类所在工程的类路径下面建立 'META-INF/services' 目录，然后根据接口名在该目录创建一个文件。该文件的文件名必须是接口的完全限定名，其内容是可用实现的限定名列表。例如，对于 `ch.frankel.blog.serviceloader.Foo` 这个接口，文件名应该是 `META-INF/services/ch.frankel.blog.serviceloader.Foo`，文件的内容可能是如下这样的：
 
 ``` java
 ch.frankel.blog.serviceloader.FooImpl1
@@ -23,7 +25,9 @@ ch.frankel.blog.serviceloader.FooImpl2
 ```
 
 其中包含的类必须实现 `ch.frankel.blog.serviceloader.Foo` 接口。
+
 使用 Service Loader 获取实现类的代码非常简单：
+
 ``` java
 ServiceLoader<Foo> loader = ServiceLoader.load(Foo.class);
 loader.iterator();
