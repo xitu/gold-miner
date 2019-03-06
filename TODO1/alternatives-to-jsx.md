@@ -76,7 +76,7 @@ class A extends React.Component {
 
 如果 `React.createElement` 或者 `h` 你都已经尝试过了，你就可以看出它们都存在一些缺点。首先，函数需要三个参数，所以在没有属性的情况下，你还是必须传递 `null` 作为参数，同时，`className` 作为一个很常用的属性，在每次使用的时候都需要新建一个对象。
 
-作为一个替代方案，你可以使用 [react-hyperscript](https://github.com/mlmorg/react-hyperscript) 库。它不需要你提供空属性，并且允许你用点号的方式定义 class 和 id（`div#main.content` -\> `<div id="main" class="content">`）。这样，你的代码能优化为：
+作为一个替代方案，你可以使用 [react-hyperscript](https://github.com/mlmorg/react-hyperscript) 库。它不需要你提供空属性，并且允许你用点号的方式定义 class 和 id（`div#main.content` -> `<div id="main" class="content">`）。这样，你的代码能优化为：
 
 ```
 class A extends React.Component {
