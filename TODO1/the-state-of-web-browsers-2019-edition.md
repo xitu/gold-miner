@@ -159,7 +159,7 @@ We’ve established that we live in a Chromium monopoly which triggers deep conc
 
 Let us make the assumption that Google is at the steering wheel of both standards creation and standards implementation. It isn’t an absolute 100% power, yet a decisive power. Let’s explore how such a dominant position could potentially be abused, and whether it is likely to occur.
 
-我们假设 Google 不仅担任着标准建立的角色，还是标准的践行者。虽然这种假设不是百分百的可能，但很大程度上是可能发生的。接着让我们看看在背地里 Google 可以如何滥用这种优势，并分析这种滥用是否会发生。
+我们假设 Google 不仅担任着标准实现的角色，还是标准的践行者。虽然这种假设不是百分百的可能，但很大程度上是可能发生的。接着让我们看看在背地里 Google 可以如何滥用这种优势，并分析这种滥用是否会发生。
 
 #### Incentive
 
@@ -200,21 +200,32 @@ Finally, as said, “fit their agenda” very often aligns with the agenda of us
 
 #### Google dictating priorities of implementation
 
+#### 谷歌决定实现的优先顺序
+
+
 In this scenario, Google would influence the logical order of implementation regarding web standards in a way that puts their interests first.
 
-在改场景下下，谷歌会以一种将他们的利益放在首位的方式影响 web 标准实施的逻辑顺序。
+在该场景下，谷歌会以一种将他们的利益放在首位的方式影响 web 标准实施的逻辑顺序。
 
 For example, imagine we’re all waiting for subgrids to be implemented, a feature that will widely benefit all of us. Meanwhile, Google prioritizes the implementation of KeyboardSynthesizerVoiceMachineLearningCloudWorklet instead, an essential API for their new chat client #735, code-named “Hola!”, to be announced at I/O 2019 and to be sunset 6 weeks later, for it had a disappointing 300 million users only.
 
-比如，想象一下，我们正在等待 subgrids 的应用，这是对大家都有益处的一个特征。与此同时，Google则优先应用机器学习云工具下的语音合成器，该语音合成器是其代号为 “Hola”的新型聊天客户端 #735 中的一个必要 API, Hola客户端在 2019 I/O 大会上发布，仅仅 6 周后就废止，因为其仅仅获得了3亿用户。
+比如，想象一下，我们正在等待 subgrids 的应用，这是对大家都有益处的一个特征。与此同时，Google 则优先实现机器学习云工具下的语音合成器，该语音合成器是其代号为 “Hola” 的新型聊天客户端 #735 中的一个必要 API, Hola 客户端在 2019 I/O 大会上发布，仅仅 6 周后就废止，因为其仅仅获得了3亿用户。
 
 Yes, this could happen and I think it does happen. Following Chrome release notes closely for a long time (which I realize is not the same as Chromium but close enough), I do find myself occasionally surprised at updates to APIs I never heard of or can’t imagine being widely needed, whilst there would be candidate features with a far wider use case not being delivered (yet).
 
+诚然，这种情况有可能发生，我认为确实发生了。密切关注 Chrome 的版本说明很长一段时间(我意识到了 Chromium 的变化，但这种变化却不是很大),我自己偶尔也会惊讶于一些我从未听说过或无法想象会有广泛需求的 api 更新出来,同时一些具有广泛用例的补充特征还没有发布。
+
 It’s not as bad as it sounds. It doesn’t mean the more important feature does not get delivered. The web moves pretty fast these days. Also, there isn’t always some evil plan behind a more important feature not getting delivered first. It could simply be more complex or have more dependencies. With many people working on many things in parallel, there’s no guarantee that the most important feature gets delivered first.
+
+其实也没有那么糟糕。这并不意味着一些更重要的特征没有得到发布。况且现在 web 发展得如此之快。此外，不发布那些重要特征并不是一件坏事情。特征可以变得更复杂，或者会有更多的依赖项。由于许多人同时完成发布工作，所以不能保证首先交付的就是最重要的特性。
 
 So whilst Google may incidentally prioritize self-serving features, in practice I’m not seeing a huge risk. Once again, remember that the world is watching.
 
+因此，虽然谷歌可能会偶尔优先考虑利己的特征，但在实践过程中，我并没有看到 Google 顶风作案。请再次记住，全世界都在关注 Google。
+
 #### Google says NO
+
+#### Google 说：“不”
 
 The opposite of prioritizing self-serving features is to de-prioritize or downright block ideas of others. Let’s assume the idea or proposal is serious and has consensus from many stakeholders. Yet for whichever reason, Google doesn’t like it, and blocks implementation.
 
