@@ -180,19 +180,33 @@ The devil is in the details, therefore let’s explore a few risks in detail:
 
 #### Google just making stuff up in Chromium
 
+#### 谷歌用 Chromium 仅仅是为了提高 web 质量
+
 With Chromium so dominant, Google could in theory bypass standards creation entirely and just go all rogue in pushing new features that fit their agenda. After all, if it’s implemented in Chromium, it has basically become a standard, right?
+
+由于 Chromium 的主导地位，谷歌在理论上完全可以绕过标准的建立，并在推行符合自己规划的新特征时肆无忌惮。毕竟，如果新的特征在 Chromium 中实现了，那它基本上已经成为了一个标准，对不对?
 
 They can, occasionally, but they can’t go too far. Truly bullshit features will never make it to webkit or Firefox, which is a problem, as Google surely doesn’t want the web to be incompatible for hundreds of millions of users given their widely spread web properties.
 
+他们偶尔可以这样做，但是从长远来看是行不通的。非常糟糕的特征永远不会在 webkit 和 Firefox 身上出现，这是因为谷歌鉴于其 web 属性非常广泛，他们也不希望 web 对数以亿计的用户不兼容。
+
 Plus, if the feature is truly insane and openly against general interests, there will be push-back from other stakeholders, and subsequently, bad PR.
 
+此外，如果推行的特征真的很过分，公然违背了大众的利益，那么其他利益相关者就会予以抵制，从而导致糟糕的公关。
+
 Finally, as said, “fit their agenda” very often aligns with the agenda of users and developers. So all in all, I’m not too worried about this one.
+
+最后，如前所述，“符合他们的规划” 通常与用户和开发人员的规划一致。总之，我不太担心这个。
 
 #### Google dictating priorities of implementation
 
 In this scenario, Google would influence the logical order of implementation regarding web standards in a way that puts their interests first.
 
+在改场景下下，谷歌会以一种将他们的利益放在首位的方式影响 web 标准实施的逻辑顺序。
+
 For example, imagine we’re all waiting for subgrids to be implemented, a feature that will widely benefit all of us. Meanwhile, Google prioritizes the implementation of KeyboardSynthesizerVoiceMachineLearningCloudWorklet instead, an essential API for their new chat client #735, code-named “Hola!”, to be announced at I/O 2019 and to be sunset 6 weeks later, for it had a disappointing 300 million users only.
+
+比如，想象一下，我们正在等待 subgrids 的应用，这是对大家都有益处的一个特征。与此同时，Google则优先应用机器学习云工具下的语音合成器，该语音合成器是其代号为 “Hola”的新型聊天客户端 #735 中的一个必要 API, Hola客户端在 2019 I/O 大会上发布，仅仅 6 周后就废止，因为其仅仅获得了3亿用户。
 
 Yes, this could happen and I think it does happen. Following Chrome release notes closely for a long time (which I realize is not the same as Chromium but close enough), I do find myself occasionally surprised at updates to APIs I never heard of or can’t imagine being widely needed, whilst there would be candidate features with a far wider use case not being delivered (yet).
 
