@@ -187,7 +187,6 @@ html := Node{
 
 ## 实现节点查询🔎
 
-So, let’s continue with what we were up to - allow JavaScript to call `getElementById` on our `document` and find the `Node` that it’s looking for.
 所以让我们来继续实现我们的目标 —— 让 JavaScript 可以在我们的 `document` 中调用 `getElementById` 并找到它想找到的 `Node`。
 
 为此，我们需要实现一个树查询算法。搜索（或者遍历）图结构和树结构最流行的方法是广度优先搜索（BFS）和深度优先搜索（DFS）。
