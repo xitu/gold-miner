@@ -34,7 +34,9 @@ loader.iterator();
 ```
 
 ## Service Loader 的 Spring 实现
+
 核心的 Spring 库以工厂模式集成了 Java 的 Service Loader。例如，下面的代码假定工程内至少有一个可选的 Foo 接口的实现类：
+
 ``` java
 @Configuration
 public class ServiceConfiguration {
@@ -48,21 +50,28 @@ public class ServiceConfiguration {
 Object object = serviceListFactoryBean.getObject();
 ```
 
-很明显，从调用返回来看，需要进一步操作才能得到正确格式的数据(注意：serviceListFactoryBean 是一个链表)。
+很明显，从调用返回来看，需要进一步操作才能得到正确格式的数据（注意：serviceListFactoryBean 是一个链表）。
 
 ## Spring Factories Loader
-除了集成 Java 的 Service Loader 之外，Spring 还提供了另一种 IoC 的实现。其只需要添加一个简单的配置文件，文件名必须为 `spring.factories` 并且放到  `META-INF` 下。从代码的角度看，这个文件通过静态方法 `SpringFactoriesLoader.loadFactories()` 来读取。Spring 的这个实现确实让你吃惊。
+
+除了集成 Java 的 Service Loader 之外，Spring 还提供了另一种 IoC 的实现。其只需要添加一个简单的配置文件，文件名必须为 `spring.factories` 并且放到 `META-INF` 下。从代码的角度看，这个文件通过静态方法 `SpringFactoriesLoader.loadFactories()` 来读取。Spring 的这个实现确实让你吃惊。
 调用的代码不能再简单了：
+
 ``` java
 List<Foo> foos = SpringFactoriesLoader.loadFactories(Foo.class, null);
 ```
 
 上面第二个可选参数是类加载器
+
 相对于 Java Service Loader，主要有两方面的区别：
+
 1. 通过一个文件来配置是否比其他方式更好，更可读，更可维护，这取决于个人喜好。
-2. `spring.factories` 中并没有要求键是一个接口并且实现它的值。例如，Spring Boot 使用这种方法来初始化类实例：配置中键内容为一个注解，如 ` org.springframework.boot.autoconfigure.EnableAutoConfiguration` ，而值是则可以是标注了 `@Configuration` 注解的类。如果灵活使用，可以去完成更多更复杂的设计。
+2. `spring.factories` 中并没有要求键是一个接口并且实现它的值。例如，Spring Boot 使用这种方法来初始化类实例：配置中键内容为一个注解，如 `org.springframework.boot.autoconfigure.EnableAutoConfiguration`，而值是则可以是标注了 `@Configuration` 注解的类。如果灵活使用，可以去完成更多更复杂的设计。
+
 这篇文章的资源可以在 [GitHub](https://github.com/nfrankel/serviceloader) 的 Maven 格式下找到。
-** 延伸阅读 :**
+
+** 延伸阅读：**
+
 *   [Java Service Loader](https://docs.oracle.com/javase/tutorial/ext/basics/spi.html)
 *   [Java Service Loader Spring integration Javadoc](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/serviceloader/package-summary.html)
 *   [Spring Factories Loader Javadoc](http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/io/support/SpringFactoriesLoader.html)
