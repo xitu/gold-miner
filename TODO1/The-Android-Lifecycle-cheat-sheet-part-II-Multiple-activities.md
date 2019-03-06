@@ -3,14 +3,14 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-II-Multiple-activities.md](https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-II-Multiple-activities.md)
 > * 译者：[Rickon](https://github.com/gs666)
-> * 校对者：
+> * 校对者：[Endone](https://github.com/Endone)；[Mirosalva](https://github.com/Mirosalva)
 
 # Android 生命周期备忘录 — 第二部分：多 Activity
 
-在这个系列中： 
-[第一部分：单一 Activities](https://github.com/xitu/gold-miner/blob/master/TODO/the-android-lifecycle-cheat-sheet-part-i-single-activities.md)  
-**第二部分：多 Activity** — 跳转和返回栈（本篇文章）    
-[**第三部分： Fragments** — activity 和 fragment 的生命周期](https://medium.com/@JoseAlcerreca/the-android-lifecycle-cheat-sheet-part-iii-fragments-afc87d4f37fd)  
+在这个系列中：
+[第一部分：单一 Activities](https://github.com/xitu/gold-miner/blob/master/TODO/the-android-lifecycle-cheat-sheet-part-i-single-activities.md)
+**第二部分：多 Activity** — 跳转和返回栈（本篇文章）
+[**第三部分：Fragments** — activity 和 fragment 的生命周期](https://medium.com/@JoseAlcerreca/the-android-lifecycle-cheat-sheet-part-iii-fragments-afc87d4f37fd)
 [第四部分：ViewModels、半透明 Activity 和启动模式](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iv-49946659b094)
 
 为了方便查阅，我制作了 [PDF 格式备忘录](https://github.com/JoseAlcerreca/android-lifecycles)。
@@ -19,19 +19,19 @@
 >
 > 以下场景并不适用于有着自定义启动模式或任务关联型的 activities 和任务。想要了解更多，详见 Android 开发者官网：[任务和返回栈](https://developer.android.com/guide/components/activities/tasks-and-back-stack.html)。
 
-## 返回栈 — 场景 1: 在 Activity 之间跳转
+## 返回栈 — 场景 1：在 Activity 之间跳转
 
 ![](https://user-gold-cdn.xitu.io/2019/3/2/1693d96d9b8fa76e?w=728&h=972&f=png&s=49929)
 
-**场景 1: 在 Activity 之间跳转**
+**场景 1：在 Activity 之间跳转**
 
-在这种场景下，当一个新 activity 启动时，activity 1 被[停止](https://developer.android.com/guide/components/activities/activity-lifecycle.html#onstop)（但没有被销毁），类似于用户在进行跳转（就像按下"Home"一样）。
+在这种场景下，当一个新 activity 启动时，activity 1 被[停止](https://developer.android.com/guide/components/activities/activity-lifecycle.html#onstop)（但没有被销毁），类似于用户在进行跳转（就像按下 "Home" 一样）。
 
 当返回按钮被按下，activity 2 被销毁结束运行。
 
 ### 管理状态
 
-请注意，尽管[`onSaveInstanceState`](https://developer.android.com/reference/android/app/Activity.html#onSaveInstanceState%28android.os.Bundle%29)被调用，**但是** [`onRestoreInstanceState`](https://developer.android.com/reference/android/app/Activity.html#onRestoreInstanceState%28android.os.Bundle,%20android.os.PersistableBundle%29) **不会被调用**。如果在第二个 activity 处于活动状态时配置发生改变，则第一个活动将被销毁并仅在其重新获取焦点时重新创建。这就是保存一个状态的实例很重要的原因。
+请注意，尽管 [`onSaveInstanceState`](https://developer.android.com/reference/android/app/Activity.html#onSaveInstanceState%28android.os.Bundle%29) 被调用，**但是** [`onRestoreInstanceState`](https://developer.android.com/reference/android/app/Activity.html#onRestoreInstanceState%28android.os.Bundle,%20android.os.PersistableBundle%29) **不会被调用**。如果在第二个 activity 处于活动状态时配置发生改变，则第一个活动将被销毁并仅在其重新获取焦点时重新创建。这就是保存一个状态的实例很重要的原因。
 
 如果系统杀死应用程序进程以节省资源，这是另一种需要恢复状态的场景。
 
@@ -43,7 +43,7 @@
 
 ### 管理状态
 
-保存状态不仅对前台的 activity 很重要。**配置发生变化后，栈中的所有的 activities 都需要重新恢复状态**来重新创建它们的 UI.
+保存状态不仅对前台的 activity 很重要。**配置发生变化后，栈中的所有的 activities 都需要重新恢复状态**来重新创建它们的 UI。
 
 此外，系统几乎可以随时终止你的应用程序进程，因此你应该准备好在任何情况下恢复状态。
 
@@ -53,7 +53,7 @@
 
 ![](https://user-gold-cdn.xitu.io/2019/3/2/1693d96d9c7c0d19?w=800&h=1077&f=png&s=104247)
 
-**场景 3: 应用的进程被终止**
+**场景 3：应用的进程被终止**
 
 ### 管理状态
 
