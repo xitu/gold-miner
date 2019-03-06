@@ -70,7 +70,7 @@ List<Foo> foos = SpringFactoriesLoader.loadFactories(Foo.class, null);
 
 这篇文章的资源可以在 [GitHub](https://github.com/nfrankel/serviceloader) 的 Maven 格式下找到。
 
-** 延伸阅读：**
+**延伸阅读：**
 
 *   [Java Service Loader](https://docs.oracle.com/javase/tutorial/ext/basics/spi.html)
 *   [Java Service Loader Spring integration Javadoc](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/serviceloader/package-summary.html)
