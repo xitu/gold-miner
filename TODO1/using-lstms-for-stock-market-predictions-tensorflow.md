@@ -5,30 +5,30 @@
 > * 译者：[Qiuk17](https://github.com/Qiuk17)
 > * 校对者：
 
-# 用长短期记忆网络预测股票市场（Tensorflow）
+# 用长短期记忆网络预测股票市场（使用 Tensorflow）
 
 ![](https://cdn-images-1.medium.com/max/1600/1*kq6dfFNUkPhPLS2B6vODrg.jpeg)
 
-In this tutorial, you will see how you can use a time-series model known as Long Short-Term Memory. LSTM models are powerful, especially for retaining a long-term memory, by design, as you will see later. You’ll tackle the following topics in this tutorial:
+在本教程中，你将了解到如何使用被称作长短期记忆网络（LSTM）的时间序列模型。LSTM 模型在保持长期记忆方面非常强大。阅读这篇教程时，你将：
 
-*   Understand why would you need to be able to predict stock price movements;
-*   Download the data — You will be using stock market data gathered from Alphavantage/Kaggle;
-*   Split train-test data and also perform some data normalization;
-*   Motivate and briefly discuss an LSTM model as it allows to predict more than one-step ahead;
-*   Predict and visualize future stock market with current data
+*   明白预测股市走势的动机；
+*   下载股票数据 — 你将使用由 Alpha Vantage 或 Kaggle 收集的股票数据；
+*   将数据划分为训练集和测试集，并将其标准化；
+*   简要讨论一下为什么 LSTM 模型可以预测未来多步的情形；
+*   使用现有数据预测股票趋势，并将结果可视化。
 
-**Note:** But before we start, _I’m not advocating LSTMs as a highly reliable model that exploits the patterns in stock data perfectly_, _or can be used blindly without any human-in-the-loop_. I did this as an experiment, in a pure machine learning interest. In my opinion, the model has observed certain patterns in the data, thus giving it the ability to correctly predict the stock movements most of the time. But it is up to you to decide if this model can be used for practical purposes or not.
+**注意：请不要认为 LSTM 是一种可以完美预测股票趋势的可靠模型，也不要在盲目使用它进行股票交易**。我只是出于对机器学习的兴趣做了这个实验。在大部分情况下，这个模型的确能发现数据中的特定规律并准确预测股票的走势。但是否将其用于实际的股票市场取决于你自己。
 
-### Why Do You Need Time Series Models?
+### 为什么要用时间序列模型？
 
-You would like to model stock prices correctly, so as a stock buyer you can reasonably decide when to buy stocks and when to sell them to make a profit. This is where time series modeling comes in. You need good machine learning models that can look at the history of a sequence of data and correctly predict what the future elements of the sequence are going to be.
+作为一名股民，如果你能对股票价格进行正确的建模，你就可以通过在合适的时机买入或卖出来获取利益。因此，你需要能通过一组历史数据来预测未来数据的模型——时间序列模型。
 
-**Warning**: Stock market prices are highly unpredictable and volatile. This means that there are no consistent patterns in the data that allow you to model stock prices over time near-perfectly. Don’t take it from me, take it from Princeton University economist Burton Malkiel, who argues in his 1973 book, “A Random Walk Down Wall Street,” that _if the market is truly efficient and a share price reflects all factors immediately as soon as they’re made public, a blindfolded monkey throwing darts at a newspaper stock listing should do as well as any investment professional_.
+**警告**：股价本身因受到诸多因素影响而难以预测，这意味着你难以找到一种能完美预测股价的模型。并不只有我一人如此认为。普林斯顿大学的经济学教授 Burton Malkiel 在他 1973 年出版的《A Random Walk Down Wall Street》一书中写道：“如果股市足够高效，人们能从公开的股价中知晓影响它的全部因素，那么人人都能像投资专业人士那样炒股”。
 
-However, let’s not go all the way believing that this is just a stochastic or random process and that there is no hope for machine learning. Let’s see if you can at least model the data, so that the predictions you make correlate with the actual behavior of the data. In other words, you don’t need the exact stock values of the future, but the stock price movements (that is, if it is going to rise of fall in the near future).
+但是，请保持信心，用机器学习的方法来预测这完全随机的股价仍有一丝希望。我们至少能通过建模来预测这组数据的实际走势。换而言之，不必知晓股价的确切值，你只要能预测股价要涨还是要跌就万事大吉了。
 
-```
-# Make sure that you have all these libaries available to run the code successfully
+```python
+# 请确保你安装了这些包，并且能运行成功以下代码
 from pandas_datareader import data
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -36,51 +36,51 @@ import datetime as dt
 import urllib.request, json 
 import os
 import numpy as np
-import tensorflow as tf # This code has been tested with TensorFlow 1.6
+import tensorflow as tf # TensorFlow 1.6 版本下测试通过
 from sklearn.preprocessing import MinMaxScaler
 ```
 
-### Downloading the Data
+### 下载数据
 
-You will be using data from the following sources:
+你可以从以下来源下载数据：
 
-1.  Alpha Vantage. Before you start, however, you will first need an API key, which you can obtain for free [here](https://www.alphavantage.co/support/#api-key). After that, you can assign that key to the `api_key` variable.
-2.  Use the data from [this page](https://www.kaggle.com/borismarjanovic/price-volume-data-for-all-us-stocks-etfs). You will need to copy the _Stocks_ folder in the zip file to your project home folder.
+1.  Alpha Vantage。首先，你必须从 [这个网站](https://www.alphavantage.co/support/#api-key) 获取你的 API key。在此之后，将它的值赋给变量 `api_key`。
+2.  从 [这个页面](https://www.kaggle.com/borismarjanovic/price-volume-data-for-all-us-stocks-etfs) 下载并将其中的 _Stocks_ 文件夹拷贝到你的工程目录下。
 
-Stock prices come in several different flavours. They are,
+股价中包含几种不同的数据，它们是：
 
-*   Open: Opening stock price of the day
-*   Close: Closing stock price of the day
-*   High: Highest stock price of the data
-*   Low: Lowest stock price of the day
+*   开盘价：一天中股票刚开盘时的价格；
+*   收盘价：一天中股票收盘时的价格；
+*   最高价：一天中股价的最大值；
+*   最低价：一天中股价的最小值。
 
-### Getting Data from Alphavantage
+### 从 Alpha Vantage 获取数据
 
-You will first load in the data from Alpha Vantage. Since you’re going to make use of the American Airlines Stock market prices to make your predictions, you set the ticker to `"AAL"`. Additionally, you also define a `url_string`, which will return a JSON file with all the stock market data for American Airlines within the last 20 years, and a `file_to_save`, which will be the file to which you save the data. You'll use the `ticker` variable that you defined beforehand to help name this file.
+为了从 Alpha Vantage 上下载美国航空公司的股价数据用于分析，你要将行情显示代号 `ticker` 设置为 `"AAL"`。同时，你也要定义一个 `url_string` 变量来获取包含最近 20 年内的全部股价信息的 JSON 文件，以及文件保存路径 `file_to_save`。别忘了用你的 `ticker` 变量来帮助你命名你下载下来的文件。
 
-Next, you’re going to specify a condition: if you haven’t already saved data, you will go ahead and grab the data from the URL that you set in `url_string`; You'll store the date, low, high, volume, close, open values to a pandas DataFrame `df` and you'll save it to `file_to_save`. However, if the data is already there, you'll just load it from the CSV.
+接下来，设定一个条件：如果本地没有保存的数据文件，就从 `url_string` 指明的 URL 下载数据，并将其中的日期、最低价、最高价、交易量、开盘价和收盘价存入 Pandas 的 DataFrame `df` 中，再将其保存到 `file_to_save`；否则直接读取 csv 文件就好了。
 
-### Getting Data from Kaggle
+### 从 Kaggle 获取数据
 
-Data found on Kaggle is a collection of csv files and you don’t have to do any preprocessing, so you can directly load the data into a Pandas DataFrame. Make sure you download the data into the project home directory. So that the _Stocks_ folder should be in the project home directory.
+从 Kaggle 上找到的数据是一系列 csv 表格，你不需要对它进行任何处理就可以直接读入 Pandas 的 DataFrame 中。确保你正确地将 _Stocks_ 文件夹放在项目的主目录中。
 
-### Data Exploration
+### 读取数据
 
-Here you will print the data you collected into the DataFrame. You should also make sure that the data is sorted by date, because the order of the data is crucial in time series modeling.
+现在，将这些数据打印出来吧！由于数据的顺序在时间序列模型中至关重要，所以请确保你的数据已经按照日期排好序了。
 
-```
-# Sort DataFrame by date
+```python
+# 按日期排序
 df = df.sort_values('Date')
 
-# Double check the result
+# 检查结果
 df.head()
 ```
 
-#### Data Visualization
+#### 数据可视化
 
-Now let’s see what sort of data you have. You want data with various patterns occurring over time.
+看看你的数据，并从中找到伴随时间推移而具有的不同规律。
 
-```
+```python
 plt.figure(figsize = (18,9))
 plt.plot(range(df.shape[0]),(df['Low']+df['High'])/2.0)
 plt.xticks(range(0,df.shape[0],500),df['Date'].loc[::500],rotation=45)
@@ -91,167 +91,167 @@ plt.show()
 
 ![](https://cdn-images-1.medium.com/max/1600/0*BK3alG7gtLtG05nw.png)
 
-This graph already says a lot of things. The specific reason I picked this company over others is that this graph is bursting with different behaviors of stock prices over time. This will make the learning more robust as well as give you a change to test how good the predictions are for a variety of situations.
+这幅图包含了很多信息。我特意选取了这家公司的股价图，因为它包含了股价的多种不同规律。这将使你的模型更鲁棒，也让它能更好地预测不同情形下的股价。
 
-Another thing to notice is that the values close to 2017 are much higher and fluctuate more than the values close to the 1970s. Therefore you need to make sure that the data behaves in similar value ranges throughout the time frame. You will take care of this during the _data normalization_ phase.
+另一件值得注意的事情是 2017 年的股价远比上世纪七十年代的股价高且波动更大。因此，你要在**数据标准化**的过程中，注意让这些部分的数据落在相近的数值区间内。
 
-### Splitting Data into a Training set and a Test set
+### 将数据划分为训练集和测试集
 
-You will use the mid price calculated by taking the average of the highest and lowest recorded prices on a day.
+首先通过对每一天的最高和最低价的平均值来算出 `mid_prices`。
 
-```
-# First calculate the mid prices from the highest and lowest
+```python
+# 首先用最高和最低价来算出中间价
 high_prices = df.loc[:,'High'].as_matrix()
 low_prices = df.loc[:,'Low'].as_matrix()
 mid_prices = (high_prices+low_prices)/2.0
 ```
 
-Now you can split the training data and test data. The training data will be the first 11,000 data points of the time series and rest will be test data.
+然后你就可以划分数据集了。前 11000 个数据属于训练集，剩下的都属于测试集。
 
-```
+```python
 train_data = mid_prices[:11000] 
 test_data = mid_prices[11000:]
 ```
 
-Now you need to define a scaler to normalize the data. `MinMaxScalar` scales all the data to be in the region of 0 and 1. You can also reshape the training and test data to be in the shape `[data_size, num_features]`.
+接下来我们需要一个换算器 `scaler` 用于标准化数据。`MinMaxScalar` 会将所有数据换算到 0 和 1 之间。同时，你也可以将两个数据集都调整为 `[data_size, num_features]` 的大小。
 
-```
-# Scale the data to be between 0 and 1
-# When scaling remember! You normalize both test and train data with respect to training data
-# Because you are not supposed to have access to test data
+```python
+# 将所有数据缩放到 0 和 1 之间
+# 在缩放时请注意，缩放测试集数据时请使用缩放训练集数据的参数
+# 因为在测试前你是不应当知道测试集数据的
 scaler = MinMaxScaler()
 train_data = train_data.reshape(-1,1)
 test_data = test_data.reshape(-1,1)
 ```
 
-Due to the observation you made earlier, that is, different time periods of data have different value ranges, you normalize the data by splitting the full series into windows. If you don’t do this, the earlier data will be close to 0 and will not add much value to the learning process. Here you choose a window size of 2500.
+上面我们注意到不同年代的股价处于不同的价位，如果不做特殊处理的话，在标准化后的数据中，上世纪的股价数据将非常接近于 0。这对模型的学习过程没啥好处。所以我们将整个时间序列划分为若干个区间，并在每一个区间上做标准化。这里每一个区间的长度取值为 2500。
 
-**Tip**: when choosing the window size make sure it’s not too small, because when you perform windowed-normalization, it can introduce a break at the very end of each window, as each window is normalized independently.
+**提示**：因为每一个区间都被独立地初始化，所以在两个区间的交界处会引入一个“突变”。为了避免这个“突变”给我们的模型带来大麻烦，这里的每一个区间长度不要太小。
 
-In this example, 4 data points will be affected by this. But given you have 11,000 data points, 4 points will not cause any issue
+本例中会引入 4 个“突变”，鉴于数据有 11000 组，所以它们无关紧要。
 
-```
-# Train the Scaler with training data and smooth data
+```python
+# 使用训练集来训练换算器 scaler，并且调整数据使之更平滑
 smoothing_window_size = 2500
 for di in range(0,10000,smoothing_window_size):
     scaler.fit(train_data[di:di+smoothing_window_size,:])
     train_data[di:di+smoothing_window_size,:] = scaler.transform(train_data[di:di+smoothing_window_size,:])
 
-# You normalize the last bit of remaining data
+# 标准化所有的数据
 scaler.fit(train_data[di+smoothing_window_size:,:])
 train_data[di+smoothing_window_size:,:] = scaler.transform(train_data[di+smoothing_window_size:,:])
 ```
 
-Reshape the data back to the shape of `[data_size]`
+将数据矩阵调整回 `[data_size]` 的形状。
 
-```
-# Reshape both train and test data
+```python
+# 重新调整测试集和训练集
 train_data = train_data.reshape(-1)
 
-# Normalize test data
+# 将测试集标准化
 test_data = scaler.transform(test_data).reshape(-1)
 ```
 
-You can now smooth the data using the exponential moving average. This helps you to get rid of the inherent raggedness of the data in stock prices and produce a smoother curve.
+为了产生一条更平滑的曲线，我们使用一种叫做指数加权平均的算法。
 
-**Note:** We only train the MinMaxScaler with training data only, it’d be wrong to normalize test data by fitting the MinMaxScaler to test data
+**注意**：我们只使用训练集来训练换算器 `scaler`，否则在标准化测试集时将得到不准确的结果。
 
-**Note** that you should only smooth training data.
+**注意**：只允许对训练集做平滑处理。
 
-```
-# Now perform exponential moving average smoothing
-# So the data will have a smoother curve than the original ragged data
+```python
+# 应用指数加权平均
+# 现在数据将比之间更为平滑
 EMA = 0.0
 gamma = 0.1
 for ti in range(11000):
   EMA = gamma*train_data[ti] + (1-gamma)*EMA
   train_data[ti] = EMA
 
-# Used for visualization and test purposes
+# 用于可视化和调试
 all_mid_data = np.concatenate([train_data,test_data],axis=0)
 ```
 
-### Evauating Results
+### 评估结果
 
-We will be using the mean squared error to compute how good our model is. The Mean Squared Error (MSE) can be calculated by taking the Squared Error between the true value at one step ahead and the predicted value and averaging it over all the predictions.
+为了评估训练出来的模型，我们将计算其预测值与真实值的均方误差（MSE）。将每一个预测值与真实值误差的平方取均值，即为这个模型的均方误差。
 
-### Averaging as a Stock Price Modeling Technique
+### 股价建模中的平均值
 
-In the [original tutorial](https://www.datacamp.com/community/tutorials/lstm-python-stock-market), I talk about how deceiving and bad averaging is for this type of a problem. The conclusion is,
+在我的 [这篇同类型文章](https://www.datacamp.com/community/tutorials/lstm-python-stock-market) 中，我提到了取平均值在股价建模中是一种糟糕的做法，其结论如下：
 
-> Averaging is good to predict one time step ahead (which is not very useful for stock market predictions), but not many steps to the future. You can find more details in the [original tutorial](https://www.datacamp.com/community/tutorials/lstm-python-stock-market).
+> 取平均值在预测单步上效果不错，但对股市预测这种需要预测许多步的情形不适用。。如果你想了解更多，请查看 [这篇文章](https://www.datacamp.com/community/tutorials/lstm-python-stock-market)。
 
-### Introduction to LSTMs: Making Stock Movement Predictions Far into the Future
+### 使用 LSTM 预测未来股价走势
 
-Long Short-Term Memory models are extremely powerful time-series models. They can predict an arbitrary number of steps into the future. An LSTM module (or cell) has 5 essential components which allows it to model both long-term and short-term data.
+长短期记忆网络模型是非常强大的基于时间序列的模型，它们能向后预测任意步。一个 LSTM 模块（或者一个 LSTM 单元）使用 5 个重要的参数来对长期和短期数据建模。
 
-*   Cell state (c_t) — This represents the internal memory of the cell which stores both short term memory and long-term memories
-*   Hidden state (h_t) — This is output state information calculated w.r.t. current input, previous hidden state and current cell input which you eventually use to predict the future stock market prices. Additionally, the hidden state can decide to only retrieve the short or long-term or both types of memory stored in the cell state to make the next prediction.
-*   Input gate (i_t) — Decides how much information from current input flows to the cell state
-*   Forget gate (f_t) — Decides how much information from the current input and the previous cell state flows into the current cell state
-*   Output gate (o_t) — Decides how much information from the current cell state flows into the hidden state, so that if needed LSTM can only pick the long-term memories or short-term memories and long-term memories
+*   单元状态（$c_{t}$）- 这代表了单元存储的短期和长期记忆；
+*   隐藏状态（$h_{t}$）- 这是根据当前输入、以前的隐藏状态和当前单元输入计算的用于预测未来股价的输出状态信息 。此外，隐藏状态还决定着是否只使用单元状态中的记忆（短期、长期或两者都使用）来进行下一次预测；
+*   输入门（$i_{t}$）-  从输入门流入到单元状态中的信息；
+*   遗忘门（$f_{t}$）- 从当前输入和前一个单元状态流到当前单元状态的信息；
+*   输出门（$o_{t}$）- 从当前单元状态流到隐藏状态的信息，这决定了 LSTM 接下来使用的记忆类型。
 
-A cell is pictured below.
+下图展示了一个 LSTM 单元。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*pbM_2Jo3xG-mI5Zu.png)
 
-And the equations for calculating each of these entities are as follows.
+其中计算的算式如下：
 
-* i_t = σ(W{ix} * x_t + W{ih} * h_{t-1}+b_i)
-* \tilde{c}\_t = σ(W{cx} * x_t + W{ch} * h_{t-1} + b_c)
-* f_t = σ(W{fx} * xt + W{fh} * h_{t-1}+b_f)
-* c_t = f_t * c{t-1} + i_t * \tilde{c}_t
-* o_t = σ(W{ox} * xt + W{oh} * h_{t-1}+b_o)
-* h_t = o_t * tanh(c_t)
+* $i_{t} = \sigma(W_{ix} * x_{t} + W_{ih} * h_{t-1}+b_{i})$
+* $\tilde{c_{t}} = tanh(W_{cx} * x_{t} + W_{ch} * h_{t-1} + b_{c})$
+* $f_{t} = \sigma(W_{fx} * x_{t} + W_{fh} * h_{t-1}+b_{f})$
+* $c_{t} = f_{t} * c_{t-1} + i_{t} * \tilde{c_{t}}$
+* $o_{t} = \sigma(W_{ox} * x_{t} + W_{oh} * h_{t-1}+b_{o})$
+* $h_{t} = o_{t} * tanh(c_{t})$
 
-For a better (more technical) understanding about LSTMs you can refer to [this article](http://colah.github.io/posts/2015-08-Understanding-LSTMs/).
+如果你想更学术性地了解 LSTM，请阅读 [这篇文章](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)。
 
-### Data Generator
+### 数据生成器
 
-Below you illustrate how a batch of data is created visually. The basic idea is that we divide the data sequence to N/b segments, so that each segment is size b. Then we define cursors, 1 for each segment. Then to sample a single batch of data, we get one input (current segment cursor index) and one true prediction (randomly sampled one between [current segment cursor + 1, current segment cursor + 5]). Note that we are not always getting the value next to the input, as its prediction. This is a step taken to reduce overfitting. At the end of each sampling, we increase the cursor by 1. You can find more information about the data generation in the [original tutorial](https://www.datacamp.com/community/tutorials/lstm-python-stock-market).
+最简单的想法是将总量为 N 的数据集，平均分割成 N/b 个序列，每个序列包含 b 个数据点。然后我们假想若干个指针，它们指向每一个序列的第一个元素。然后我们就可以开始采样生成数据了。我们将当前段的指针指向的元素下标当作输入，并在其后面的 1~5 个元素中随机挑选一个作为正确的预测值，因为模型并不总是只预测紧靠当前时间点的后一个数据。这样可以有效避免过拟合。每一次取样之后，我们将指针的下标加一，并开始生成下一个数据点。请移步我的 [另一篇教程](https://www.datacamp.com/community/tutorials/lstm-python-stock-market) 来了解更多。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*gzwP9wpanog-uOPq.png)
 
-### Defining Hyperparameters
+### 定义超参数
 
-In this section, you’ll define several hyperparameters. `D` is the dimensionality of the input. It's straightforward, as you take the previous stock price as the input and predict the next one, which should be `1`.
+在本节中，我们将定义若干个超参数。`D` 是输入的维数。因为你使用前一天的股价来预测后面的股价，所以 `D` 应当是 `1`。
 
-Then you have `num_unrollings`, denotes how many continuous time steps you consider for a single optimization step. The larger the better.
+`num_unrollings` 表示单个步骤中考虑的连续时间点个数，越大越好。
 
-Then you have the `batch_size`. Batch size is how many data samples you consider in a single time step. The larger the better, because more visibility of data you have at a given time.
+然后是 `batch_size`。它是在单个时间点中考虑的数据样本数量。它越大越好，因为选取的样本数量越大，模型可以参考的数据也就更多。
 
-Next you define `num_nodes` which represents the number of hidden neurons in each cell. You can see that there are three layers of LSTMs in this example.
+最后是 `num_nodes` 决定了每个单元中包含了多少隐藏神经元。在本例中，网络中包含三层 LSTM。
 
+```python
+D = 1 # 数据的维度
+num_unrollings = 50 # 你想预测多远的结果
+batch_size = 500 # 一次批处理中包含的数据个数
+num_nodes = [200,200,150] # 使用的深层 LSTM 网络的每一层中的隐藏节点数
+n_layers = len(num_nodes) # 层数
+dropout = 0.2 # dropout 概率
+
+tf.reset_default_graph() # 如果你想要多次运行，这个语句至关重要
 ```
-D = 1 # Dimensionality of the data. Since your data is 1-D this would be 1
-num_unrollings = 50 # Number of time steps you look into the future.
-batch_size = 500 # Number of samples in a batch
-num_nodes = [200,200,150] # Number of hidden nodes in each layer of the deep LSTM stack we're using
-n_layers = len(num_nodes) # number of layers
-dropout = 0.2 # dropout amount
 
-tf.reset_default_graph() # This is important in case you run this multiple times
-```
+### 定义输入和输出
 
-### Defining Inputs and Outputs
+接下来定义用于输入训练数据和标签的 placeholder。因为每个 placeholder 中只包含一批一维数据，所以这并不难。对于每一个优化步骤，我们需要 `num_unrollings` 个 placeholder。
 
-Next you define placeholders for training inputs and labels. This is very straightforward as you have a list of input placeholders, where each placeholder contains a single batch of data. And the list has `num_unrollings` placeholders, that will be used at once for a single optimization step.
-
-```
-# Input data.
+```python
+# 输入数据
 train_inputs, train_outputs = [],[]
 
-# You unroll the input over time defining placeholders for each time step
+# 根据时间顺序展开输入，为每个时间点定义一个 placeholder
 for ui in range(num_unrollings):
     train_inputs.append(tf.placeholder(tf.float32, shape=[batch_size,D],name='train_inputs_%d'%ui))
     train_outputs.append(tf.placeholder(tf.float32, shape=[batch_size,1], name = 'train_outputs_%d'%ui))
 ```
 
-### Defining Parameters of the LSTM and Regression layer
+### 定义LSTM和回归层的参数
 
-You will have a three layers of LSTMs and a linear regression layer, denoted by `w` and `b`, that takes the output of the last Long Short-Term Memory cell and output the prediction for the next time step. You can use the `MultiRNNCell` in TensorFlow to encapsulate the three `LSTMCell` objects you created. Additionally, you can have the dropout implemented LSTM cells, as they improve performance and reduce overfitting.
+您将有一个包含三层 LSTM 和一层线性回归层的神经网络，分别用 `w` 和 `b` 表示，它获取上一个长短期记忆单元的输出，并输出对下一个时间的预测。你可以使用 TensorFlow 中的 `MultiRNNCell` 来封装您创建的三个 `LSTMCell` 对象。此外，LSTM 单元上还可以加上 dropout 来提高性能并减少过拟合。
 
-```
+```python
 stm_cells = [
     tf.contrib.rnn.LSTMCell(num_units=num_nodes[li],
                             state_is_tuple=True,
@@ -269,12 +269,12 @@ w = tf.get_variable('w',shape=[num_nodes[-1], 1], initializer=tf.contrib.layers.
 b = tf.get_variable('b',initializer=tf.random_uniform([1],-0.1,0.1))
 ```
 
-### Calculating LSTM output and Feeding it to the regression layer to get final prediction
+### 计算 LSTM 输出并将结果代入回归层进行预测
 
-In this section, you first create TensorFlow variables (`c` and `h`) that will hold the cell state and the hidden state of the Long Short-Term Memory cell. Then you transform the list of `train_inputs` to have a shape of `[num_unrollings, batch_size, D]`, this is needed for calculating the outputs with the `tf.nn.dynamic_rnn` function. You then calculate the LSTM outputs with the `tf.nn.dynamic_rnn` function and split the output back to a list of `num_unrolling` tensors. the loss between the predictions and true stock prices.
+在本节中，首先创建 TensorFlow 张量 `c` 和 `h` 用来保存 LSTM 单元的单元状态和隐藏状态。然后将 `train_input` 转换为 `[num_unrollings, batch_size, D]` 的形状，这是计算 `tf.nn.dynamic_rnn` 函数的输出所必需的。然后用 `tf.nn.dynamic_rnn` 计算 LSTM 输出，并将输出转化为一系列 `num_unrolling` 张量来预测和真实股价之间的损失函数。
 
-```
-# Create cell state and hidden state variables to maintain the state of the LSTM
+```python
+# 创建 LSTM 的单元状态 c 和隐藏状态 h
 c, h = [],[]
 initial_state = []
 for li in range(n_layers):
@@ -282,11 +282,11 @@ for li in range(n_layers):
   h.append(tf.Variable(tf.zeros([batch_size, num_nodes[li]]), trainable=False))
   initial_state.append(tf.contrib.rnn.LSTMStateTuple(c[li], h[li]))
 
-# Do several tensor transofmations, because the function dynamic_rnn requires the output to be of
-# a specific format. Read more at: https://www.tensorflow.org/api_docs/python/tf/nn/dynamic_rnn
+# 因为 dynamic_rnn 函数需要特定的输出格式，所以我们对张量进行一些变换
+# 请访问 https://www.tensorflow.org/api_docs/python/tf/nn/dynamic_rnn 来了解更多
 all_inputs = tf.concat([tf.expand_dims(t,0) for t in train_inputs],axis=0)
 
-# all_outputs is [seq_length, batch_size, num_nodes]
+# all_outputs 张量的尺寸是 [seq_length, batch_size, num_nodes]
 all_lstm_outputs, state = tf.nn.dynamic_rnn(
     drop_multi_cell, all_inputs, initial_state=tuple(initial_state),
     time_major = True, dtype=tf.float32)
@@ -298,14 +298,14 @@ all_outputs = tf.nn.xw_plus_b(all_lstm_outputs,w,b)
 split_outputs = tf.split(all_outputs,num_unrollings,axis=0)
 ```
 
-### Loss Calculation and Optimizer
+### 损失函数的计算与优化
 
-Now, you’ll calculate the loss. However, you should note that there is a unique characteristic when calculating the loss. For each batch of predictions and true outputs, you calculate the Mean Squared Error. And you sum (not average) all these mean squared losses together. Finally, you define the optimizer you’re going to use to optimize the neural network. In this case, you can use Adam, which is a very recent and well-performing optimizer.
+然后计算损失函数。但是在计算它时有一个值得注意的点。对于每批预测和真实输出，计算均方误差。然后将这些均方损失加起来（而非平均值）。最后，定义用于优化神经网络的优化器。我推荐使用 Adam 这种最新的、性能良好的优化器。
 
-```
-When calculating the loss you need to be careful about the exact form, because you calculate
-# loss of all the unrolled steps at the same time
-# Therefore, take the mean error or each batch and get the sum of that over all the unrolled steps
+```python
+# 在计算损失函数时，你需要注意准确的计算方法
+# 因为你要同时计算所有展开步骤的损失函数
+# 因此，在展开时取每批数据的平均误差，并将它们相加得到最终损失函数
 
 print('Defining training Loss')
 loss = 0.0
@@ -324,7 +324,7 @@ learning_rate = tf.maximum(
     tf.train.exponential_decay(tf_learning_rate, global_step, decay_steps=1, decay_rate=0.5, staircase=True),
     tf_min_learning_rate)
 
-# Optimizer.
+# 优化器
 print('TF Optimization operations')
 optimizer = tf.train.AdamOptimizer(learning_rate)
 gradients, v = zip(*optimizer.compute_gradients(loss))
@@ -335,14 +335,14 @@ optimizer = optimizer.apply_gradients(
 print('\tAll done')
 ```
 
-Here you define the prediction related TensorFlow operations. First, define a placeholder for feeding in the input (`sample_inputs`), then similar to the training stage, you define state variables for prediction (`sample_c` and `sample_h`). Finally you calculate the prediction with the `tf.nn.dynamic_rnn` function and then sending the output through the regression layer (`w` and `b`). You also should define the `reset_sample_state` operation, which resets the cell state and the hidden state. You should execute this operation at the start, every time you make a sequence of predictions.
+这里定义与预测相关的 TensorFlow 操作。首先，定义用于输入的占位符（`sample_input`）。然后像训练阶段那样，定义用于预测的状态变量（`sample_c` 和 `sample_h`）。再然后用 `tf.nn.dynamic_rnn` 函数计算预测值。最后通过线性回归层（`w` 和 `b`）发送输出。您还应该定义 `reset_sample_state` 操作用于重置单元格状态和隐藏状态。每次进行一系列预测时，都应该在开始时执行此操作。
 
-```
+```python
 print('Defining prediction related TF functions')
 
 sample_inputs = tf.placeholder(tf.float32, shape=[1,D])
 
-# Maintaining LSTM state for prediction stage
+# 在预测阶段更新 LSTM 状态
 sample_c, sample_h, initial_sample_state = [],[],[]
 for li in range(n_layers):
   sample_c.append(tf.Variable(tf.zeros([1, num_nodes[li]]), trainable=False))
@@ -364,57 +364,57 @@ with tf.control_dependencies([tf.assign(sample_c[li],sample_state[li][0]) for li
 print('\tAll done')
 ```
 
-### Running the LSTM
+### 运行 LSTM
 
-Here you will train and predict stock price movements for several epochs and see whether the predictions get better or worse over time. You follow the following procedure. I’m not sharing the code as I’m sharing the link to the full Jupyter notebook.
+在这里，你将训练并预测股票价格在接下来一段时间内的变动趋势，并观察预测是否正确。按照以下步骤操作我分享出来的 Jupyter Notebook。
 
-> ★ _Define a test set of starting points (_`test_points_seq`_) on the time series to evaluate the model on_
+> ★ 在时间序列上定义一系列起始点 `test_points_seq` 用于评估你的模型
 >
-> ★ _For each epoch_
+> ★ 对于每一个时间点
 >
-> ★★ _For full sequence length of training data_
+> ★★ 对于全部的训练数据
 >
-> ★★★ _Unroll a set of `num_unrollings` batches_
+> ★★★ 将 `num_unrollings` 展开
 >
-> ★★★ _Train the neural network with the unrolled batches_
+> ★★★ 使用展开的数据训练神经网络
 >
-> ★★ _Calculate the average training loss_
+> ★★ 计算训练的平均损失函数
 >
-> ★★ _For each starting point in the test set_
+> ★★ 对于测试集中的每一个起始点
 >
-> ★★★ _Update the LSTM state by iterating through the previous_ `num_unrollings` _data points found before the test point_
+> ★★★ 通过迭代测试点之前找到的 `num_unrollings` 中的数据点来更新 LSTM 状态
 >
-> ★★★ _Make predictions for_ `n_predict_once` _steps continuously, using the previous prediction as the current input_
+> ★★★ 连续预测接下来的 `n_predict_once` 步，然后将前一次的预测作为本次的输入
 >
-> ★★★ _Calculate the MSE loss between the_ `n_predict_once` _points predicted and the true stock prices at those time stamps_
+> ★★★ 计算预测值和真实股价之间的均方误差
 
-### Visualizing the Predictions
+### 将预测结果可视化
 
-You can see how the MSE loss is going down with the amount of training. This is good sign that the model is learning something useful. To quantify your findings, you can compare the network’s MSE loss to the MSE loss you obtained when doing the standard averaging (0.004). You can see that the LSTM is doing better than the standard averaging. And you know that standard averaging (though not perfect) followed the true stock prices movements reasonably.
+你可以发现，模型的均方误差在显著地下降，这意味着模型确实学习到了有用的信息。你可以通过比较神经网络产生的均方误差以及对股价取标准平均的均方误差（0.004）来量化你的成果。显然，LSTM 优于标准平均，同时你也能明白股价的标准平均能较好地反映股价地变化。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*7p0lFpJwrT2ZHngS.png)
 
-Though not perfect, LSTMs seem to be able to predict stock price behavior correctly most of the time. Note that you are making predictions roughly in the range of 0 and 1.0 (that is, not the true stock prices). This is okay, because you’re predicting the stock price movement, not the prices themselves.
+尽管并不完美，LSTM 在大部分情况下都能正确预测接下来的股价。而且你只能预测到股票接下来是涨是跌，而非股价的确切值。
 
-### Conclusion
+### 总结
 
-I’m hoping that you found this tutorial useful. I should mention that this was a rewarding experience for me. In this tutorial, I learnt how difficult it can be to device a model that is able to correctly predict stock price movements. You started with a motivation for why you need to model stock prices. This was followed by an explanation and code for downloading data. Then you looked at two averaging techniques that allow you to make predictions one step into the future. You next saw that these methods are futile when you need to predict more than one step into the future. Thereafter you discussed how you can use LSTMs to make predictions many steps into the future. Finally you visualized the results and saw that your model (though not perfect) is quite good at correctly predicting stock price movements.
+但愿本教程能帮到你，写这篇教程也让我受益匪浅。在本教程中，我了解到建立能够正确预测股价走势的模型是非常困难的。首先我们探讨了预测股价的动机。接下来我们了解到如何去下载并处理数据。然后我们介绍了两种可以向后预测一步的平均技术，这两种方法在预测多步时并不管用。之后，我们讨论了如何使用 LSTM 对未来的多步进行预测。最后，结果可视化，并发现这个模型（尽管并不完美）能出色地预测股价走势。
 
-Here, I’m stating several takeaways of this tutorial.
+下面是本教程中对几个要点：
 
-1.  Stock price/movement prediction is an extremely difficult task. Personally I don’t think _any of the stock prediction models out there shouldn’t be taken for granted and blindly rely on them_. However models might be able to predict stock price movement correctly most of the time, but not always.
+1.  股票价格/走势预测是一项极其困难的任务。就我个人而言，我认为任何股票预测模型都不完全正确，因此它们不应该被盲目地依赖。模型并不总是正确的。
 
-2.  Do not be fooled by articles out there that shows predictions curves that perfectly overlaps the true stock prices. This can be replicated with a simple averaging technique and in practice it’s useless. A more sensible thing to do is predicting the stock price movements.
+2.  不要相信那些声称预测曲线与真实股价完全重合的文章。那些取平均的方法在实践中并不管用。更明智的做法是预测股价走势。
 
-3.  The model’s hyperparameters are extremely sensitive to the results you obtain. So a very good thing to do would be to run some hyperparameter optimization technique (for example, Grid search / Random search) on the hyperparameters. Here I list some of the most critical hyperparameters; _the learning rate of the optimizer, number of layers and the number of hidden units in each layer, the optimizer (I found Adam to perform the best), type of the model (GRU/LSTM/LSTM with peepholes)_
+3.  模型的超参数会显著影响训练结果。所以最好使用一些诸如 Grid search 和 Random search 的调参技巧，下面是一系列非常重要的超参数：**优化器的学习速率、网络层数、每层中的隐藏节点个数、优化器（Adam 是最好用的）以及模型的种类（GRU / LSTM / 增加 peephole connection 的 LSTM）**。
 
-4.  In this tutorial you did something faulty (due to the small size of data)! That is you used the test loss to decay the learning rate. This indirectly leaks information about test set into the training procedure. A better way of handling this is to have a separate validation set (apart from the test set) and decay learning rate with respect to performance of the validation set.
+4.  在本教程中，由于数据集太小，我们根据测试损失函数来降低学习速率，这本身是不对的，因为这间接地将有关测试集的信息泄露到训练过程中。一种更好的处理方法是使用一个独立的验证集（与测试集不同），并根据验证集的性能降低学习速率。
 
-### Jupyter Notebook: [Here](https://github.com/thushv89/datacamp_tutorials)
+### Jupyter Notebook：请访问我的 [GitHub](https://github.com/thushv89/datacamp_tutorials) 来获取。
 
-### References
+### 参考
 
-I referred to [this repository](https://github.com/jaungiers/LSTM-Neural-Network-for-Time-Series-Prediction) to get an understanding about how to use LSTMs for stock predictions. But details can be vastly different from the implementation found in the reference.
+我参照 [这个](https://github.com/jaungiers/LSTM-Neural-Network-for-Time-Series-Prediction) 理解了怎样使用 LSTM 来预测股价。但是实现细节与之有很大不同。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
