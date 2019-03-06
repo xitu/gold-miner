@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/alternatives-to-jsx.md](https://github.com/xitu/gold-miner/blob/master/TODO1/alternatives-to-jsx.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[xionglong58](https://github.com/xionglong58)，[sunui](https://github.com/sunui)
 
 # JSX 的替代方案
 
-如今，JSX 已经是一个非常受欢迎的框架模版了，它的应用也不仅仅局限于 React（或其他 JSX 衍生模版）。但是，如果你并不喜欢它，或者有某些想要避免使用它的项目，或者只是好奇如何不使用 JSX 该如何书写 React 代码的时候，该怎么办呢？最简单的方法就是去阅读[官方文档](https://reactjs.org/docs/react-without-jsx.html)，但是，官方文档很简短，而在本篇文章中我们为您提供了更多的选择。
+如今，JSX 已经是一个非常受欢迎的框架模版了，它的应用也不仅仅局限于 React（或其他 JSX 衍生模版）。但是，如果你并不喜欢它，或者有某些想要避免使用它的项目，或者只是好奇不使用 JSX 该如何书写 React 代码的时候，该怎么办呢？最简单的方法就是去阅读[官方文档](https://reactjs.org/docs/react-without-jsx.html)，但是，官方文档很简短，而在本篇文章中我们为您提供了更多的选择。
 
 > 免责声明：个人来说，我很喜欢 JSX，在我所有的 React 项目中我都使用了它。但是，我对本文主题重新进行了调研，并且希望和你分享我的所见。
 
 ## 什么是 JSX
 
-首先，我们需要明白什么是 JSX，这样我们才能在纯 JavaScript 中编写对应的代码。JSX 是一种[特定域编程语言](https://en.wikipedia.org/wiki/Domain-specific_language)，意味着我们需要将 JSX 代码转码，以便得到常规的 JavaScript，否则浏览器将无法解析代码。展望前景光明的未来，如果你想要使用[模块](https://developers.google.com/web/fundamentals/primers/modules)，并且所有需要的功能都能被目标浏览器支持，你仍然不能完全丢弃转码这一步，这可能是一个问题。
+首先，我们需要明白什么是 JSX，这样我们才能在纯 JavaScript 中编写对应的代码。JSX 是一种[特定域编程语言](https://en.wikipedia.org/wiki/Domain-specific_language)，意味着我们需要将 JSX 代码转码，以便得到常规的 JavaScript，否则浏览器将无法解析代码。展望前景光明的未来，如果你想要使用 [modules](https://developers.google.com/web/fundamentals/primers/modules)，并且所有需要的功能都能被目标浏览器支持，你仍然不能完全丢弃转码这一步，这可能是一个问题。
 
 也许理解 JSX 将会被解析成什么最好的方法就是使用 [babel repl](https://babeljs.io/repl) 实际操作一次。你需要点击左侧面板的 `presets` 并且选择 `react`，这样解析器才能正确的解析代码。这之后，你就能在右侧实时看到编译生成的 JavaScript 代码。例如，你可以尝试下这段代码：
 
@@ -45,7 +45,7 @@ class A extends React.Component {
 
 可以看到，每个 `<%tag%>` 结构都被替换成了函数 [React.createElement](https://reactjs.org/docs/react-api.html#createelement)。第一个参数是 react 组件或者内建标签名字符串（比如 `div` 或 `span`），第二个参数则是组件属性，其他的参数则都被视作组件的子元素。
 
-我强烈推荐你使用不同结构的组件树反复尝试，来观察 React 如何渲染值为 `true` 或 `false`，数组，或者组件的属性：即使你只尝试使用 JSX 和一些其他内容的代码，它也很有帮助。
+我强烈推荐你使用不同结构的组件树反复尝试，来观察 React 如何渲染值为 `true`、`false`、数组、或者组件等的属性：即使你只尝试使用 JSX 和一些其他内容的代码，它也很有帮助。
 
 > 如果你想深入学习 JSX，可以参考[官方文档](https://reactjs.org/docs/jsx-in-depth.html)
 
@@ -53,7 +53,7 @@ class A extends React.Component {
 
 由于编译结果是固定的，我们其实也可以将所有的 React 代码直接以这种形式写出，但是其实这种方式存在一些问题。
 
-第一个问题就是非常繁琐。**真的**相当繁琐，而罪魁就是 `React.createElement`。所以这个问题的解决方案就是将它简写为一个变量，按照 [hyperscript](https://github.com/hyperhype/hyperscript) 的方式命名为 `h`。这种方式能节省很多代码量，并且可读性也更强。下面我们来重写上面的代码，以便说明：
+第一个问题就是非常繁琐。**真的**相当繁琐，而罪魁祸首就是 `React.createElement`。所以这个问题的解决方案就是将它简写为一个变量，按照 [hyperscript](https://github.com/hyperhype/hyperscript) 的方式命名为 `h`。这种方式能节省很多代码量，并且可读性也更强。下面我们来重写上面的代码，以便说明：
 
 ```
 const h = React.createElement;
@@ -91,7 +91,7 @@ class A extends React.Component {
 
 ## HTM
 
-如果你并不反感 JSX 本身，但是不喜欢必需的代码编译，那么你可以试试看 [htm](https://github.com/developit/htm) 这个项目。它的目标就是完成和 JSX 相同的事情（并且代码看上去也相同），但是使用的是[模版语言](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)。它可能会带来一些开销（因为需要在运行时将模版解析），但是在某些情况下也许也是值得的。
+如果你并不反感 JSX 本身，但是不喜欢必需的代码编译，那么你可以试试看 [htm](https://github.com/developit/htm) 这个项目。它的目标就是完成和 JSX 相同的事情（并且代码看上去也相同），但是使用的是[模版字符串](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)。它可能会带来一些开销（因为需要在运行时将模版解析），但是在某些情况下也许也是值得的。
 
 它的工作方式是将元素函数包裹起来，也就相当于前面例子中的 `React.createElement`，但是它支持任何其他具有类似 API 的库，同时仅在运行时编译模版并返回和 babel 编译结果一样的代码。
 
