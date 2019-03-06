@@ -2,46 +2,46 @@
 > * 原文作者：[Seva Zaikov](https://blog.bloomca.me)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/small-websites-are-dying.md](https://github.com/xitu/gold-miner/blob/master/TODO1/small-websites-are-dying.md)
-> * 译者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
 > * 校对者：
 
-# Small Websites Are Dying
+# 正在消失的小型网站
 
-Web is growing massively, JavaScript is being rapidly developed and improved, and to keep up, you need to [transpile](https://babeljs.io/) your code from the latest version to whatever (it is complicated, just [trust us](https://babeljs.io/docs/en/babel-preset-env)). Also, you can use [another language](https://www.typescriptlang.org/) completely. What is the deal, though? There were a lot of attempts ([1](http://www.gwtproject.org/), [2](https://coffeescript.org/), [3](https://clojurescript.org/), etc), but what is important to note is the fact they tried to tackle big applications specifically, while nowadays it is often advised to use it everywhere.
+网站正在日益增大，JavaScript 也在飞速发展、升级，为了能跟上时代，你需要将你的代码从最新的版本[编译](https://babeljs.io/)成某种形式（这非常复杂，你就[交给它好了](https://babeljs.io/docs/en/babel-preset-env)）。同样，你也可以完全使用[另一种编程语言](https://www.typescriptlang.org/)。但是这又怎么样呢？这里已经有很多成果([1](http://www.gwtproject.org/)，[2](https://coffeescript.org/)，[3](https://clojurescript.org/) 等等)，但重要的是，必须指出人们正试图专门处理大型应用，同时它也正是被建议要广泛应用的。
 
-## Road to SPA
+## 单页面应用（SPA）之路
 
-Historically small pages were made out of static HTML with some sprinkles of JavaScript here and there. I bet it is still the way to go in traditional server-side applications (like in [Django](https://www.djangoproject.com/) or [Ruby on Rails](https://rubyonrails.org/)), but it is not cool anymore, so even if people still use them, very often it is just an API. These pages (no matter static or server-side rendered) had a lot of adhoc scripts, which looked like crazy tangled mess. It was a nightmare to maintain and test, and they were either very long or concatenated in some bizarre way.
+在历史上，小型页面是由静态 HTML 和一些零散的 JavaScript 组成的。我敢打赌现在很多传统的服务端渲染应用（比如 [Django](https://www.djangoproject.com/) 或者 [Ruby on Rails](https://rubyonrails.org/)）还是这样做的，但是这样的方式一点也不酷了，所以就算还有人使用它们，可能也仅仅是 API。这些页面（不管是静态页面或者服务端渲染页面）都有很多特设脚本，它们看上去都一团糟。维护和测试就更像是噩梦，这些代码要么就是非常长，要么就是以某种奇怪的方式连接起来。
 
-For this type of scripts move to [single page applications](https://en.wikipedia.org/wiki/Single-page_application) is definitely a good thing – now we get at least partially maintainable application, with [proper module importing](https://webpack.js.org/), and with new [shiny](https://reactjs.org/) [frameworks](https://vuejs.org/) which allow to handle complex interactions, routes, shared data across screens, reusing UI elements across applications (!) or even across the whole web (as open-source components). However, this article is not about them – I already [complained](https://blog.bloomca.me/2018/02/04/spa-is-not-silver-bullet.html) about SPA being a default choice nowadays for literally everything; this article is about _small_ websites.
+而当这样的脚本转变成了[单页应用](https://en.wikipedia.org/wiki/Single-page_application)，这绝对是一件好事 —— 现在，至少我们的应用是部分可维护的了，使用了[合适的模块引入](https://webpack.js.org/)，以及许多允许开发者处理复杂接口，路由，多屏数据功效，跨应用甚至整个网站（例如开源组件）的 UI 元素复用的[闪亮](https://reactjs.org/)[框架](https://vuejs.org/)。但是，本片文章并不是关于它们的 —— 我已经[吐槽](https://blog.bloomca.me/2018/02/04/spa-is-not-silver-bullet.html)过现在人们已经将 SPA 作为所有项目的默认选项；这篇文章是关于**小型**网站的。
 
-## Rise and Fall of jQuery
+## jQuery 的兴衰
 
-Before this niche was dominated by [jQuery](https://jquery.com/) and its _huge_ ecosystem of plugins, with all sorts of sliders, image galleries and rich animations. Also, it was super simple to integrate it, usually just initializing some plugin with parameters (or even with defaults) and providing an element id. Everything else often was specified in the markup (or it required certain markup rules), and HTML, being a declarative language, was simple enough to figure it out. In fact, jQuery was so big that people [really wondered](https://webmasters.stackexchange.com/questions/84683/why-dont-browsers-have-jquery-installed) why not to include it in browsers by default. jQuery also had a lot of convenient functionality included (one might call it “missing” stdlib for DOM), which made making simple interactions super simple.
+在这之前，[jQuery](https://jquery.com/)还是主宰，它有**庞大**的插件生态圈，提供滑动窗口，图片展示以及丰富的动态效果等等。同时，它也能够极其简单的整合，通常只是用某些参数（甚至是默认值就可以）初始化一些插件，并提供元素 id。其他内容通常都在标记中指定（或需要特定的标记规则），HTML 作为一种声明式语言，完全可以辨认出指定的内容。事实上，jQuery 使用范围如此之广，很多人们都很[奇怪](https://webmasters.stackexchange.com/questions/84683/why-dont-browsers-have-jquery-installed)为什么不把它默认的加载到浏览器中。jQuery 也有很多很方便的功能（甚至可以称为 DOM 缺失的标准库），它让已经简单的交互变得极其简单。
 
-I actually believe jQuery is still big (can’t really provide any data, just my gut feeling), but there was an important shift. jQuery is [frowned upon](http://youmightnotneedjquery.com/) nowadays, and you won’t find a lot of tutorials how to quickly write a small script for your page without knowing JavaScript too much. Also, about ~5 years ago standard for libraries was to:
+事实上，我相信 jQuery 依旧在被广泛的使用着（我没有任何数据，只是我自己的直觉），但是有了很重要的改变。如今，jQuery 已经[不那么让人满意](http://youmightnotneedjquery.com/)，你也不会发现有很多教程，教你如何不用很了解 JavaScript 就快速写出一个页面小脚本。同时，大约五年前，库的标准就是：
 
-*   host their minified code on some CDN
-*   attach all their functionality to some global variable (e.g. window.Backbone)
+*   在一些 CDN 上存储最小化后的代码
+*   把它提供的功能绑定在全局变量上（比如 window.Backbone）
 
-Nowadays some libraries still pack [UMD build](https://github.com/umdjs/umd), which is essentially a global variable version of loading libraries, but a lot of them don’t. Also, there are much more frameworks out there now, and all these widgets are only framework-specific, and not only require to use them (for jQuery plugins you needed the library as well), but often you need to make the whole page using that framework!
+现在一些库依旧会打包[构建全局模块定义（UMD）](https://github.com/umdjs/umd)，它其实就是一个加载库的全局变量版，但是很多库已经不这样做了。现在，出现了更多的新的框架，这些小插件都是专门服务于框架的了，而你不仅仅是需要它们（如果你需要 jQuery 插件，那么你也需要 jQuery 这个库），而是需要用这个框架来完成你所有的页面！
 
-## Modern Solutions
+## 现代解决方案
 
-This issue is, of course, addressed, and it is done by providing starters or special frameworks on top of existing ones, where you can use these widgets and compile a static site. Moreover, under the hood they use already mentioned tools for modules loading and code transpiling, so you can use the latest version of JavaScript and separate your logic into nice reusable logical pieces. Prominent examples of such apporach are [GatsbyJS](https://www.gatsbyjs.org/) and [Nuxt.js](https://nuxtjs.org/). Starters often exist in form of CLIs, like [create-react-app](https://github.com/facebook/create-react-app), hiding all the complexity away, and just giving an application that “just works”, so you write your components.
+当然，这个问题已经解决，解决方法就是在已有基础上提供启动方式或者特定框架，然后你就可以使用这些小插件并编译为一个静态网站。此外，它们会在后台使用上述工具加载模块或者编译代码，所以你可以使用 JavaScript 的最新版本，并将逻辑拆分为最佳可复用的单元。这种方式的一个很好的例子就是 [GatsbyJS](https://www.gatsbyjs.org/) 和 [Nuxt.js](https://nuxtjs.org/)。启动方式通常是命令行，例如 [create-react-app](https://github.com/facebook/create-react-app)，它将繁琐的步骤都隐藏了起来，并提供了可以运行的应用，然后你就可以开始编写组件了。
 
-What is the issue with that change, though? Code is more maintainable (thanks to the modules), you can use the latest JavaScript version and can be sure everything missing will be polyfilled, which was a common source of errors before. Well, there are plenty of them, from my point of view:
+尽管如此，这种变化的问题是什么呢？代码的维护性更高了（这都多亏了模块），你可以使用最新版的 JavaScript，还能保证所有不支持的功能都有可以替代的补丁，这在之前是很容易出现问题的地方。但是其实，问题有很多，在我看来：
 
-*   you really have to know JavaScript this time (you have to understand much more)
-*   not only JavaScript, but you might have to understand webpack (for static assets loading – imagine your surprise seeing requiring image in the source code!)
-*   your workflow now consists of _building_ your application, using ~200MB files (rather than editing text files)
-*   it is a slippery slope, when it is super easy to make your small app more bloated
+*   现在你必须非常了解 JavaScript（需要比之前更深的理解）
+*   不仅是 JavaScript，你可能还需要知道 webpack（为了处理静态资源加载 —— 想象一下你忽然发现代码中在引用图像）
+*   现在，你的工作包括了使用大约 200MB 的文件**构建**应用（而不是编写文档）。
+*   让你的小应用膨胀起来是像滑下坡那么容易的事情。
 
-The last part is the worst one, I think. All these tutorials out there will suggest to add some advanced data management library, refactoring code in some special, “more declarative” way (think how often somebody tried to convince to refactor your HTML), and some people will follow that! Now, this advice is good, but probably only for big applications, and not for a small GatsbyJS website, which would be a perfect folder with 5 `.html` files. Yes, you would not be able to reuse this menu, but you can just copy it (and CSS classes make it _sort of_ reusable).
+我认为最后一部分是最值得关注的。很多教程都会建议你添加一些高级数据管理库，用某些特定的，“更声明式”的方法重构你的代码（想想那些人经常试图说服你重构 HTML 结构），然后很多人就会按照教程建议的做了！这些建议是好的，但是可能只适用于大型网站，而不是那种小型的，用 5 个 `.html` 文件就能完成的。是的，你不能复用这个菜单，但是你可以直接复制它们（同时 CSS 类让它在**某种形式上**能复用了）。
 
-## Conclusion
+## 总结
 
-Maybe I am wrong, and it is not that bad. But using internet, reading blogs, looking at landing pages I feel that these small websites, previously accessible to everyone with HTML knowledge and minimal JS skills are slowly going away, now more and more often replaced with more “scalable” applications.
+也许我是错的，也许并没有那么糟糕。但是使用互联网，阅读博客，查看网页时，我觉得这些曾经每个人只要有 HTML 的只是和极少的 JS 技术就能完成的小型网站，正在慢慢消失，现在更多的网站被替换为更加“可扩展”的应用了。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
