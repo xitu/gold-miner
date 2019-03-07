@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/using-lstms-for-stock-market-predictions-(tensorflow).md](https://github.com/xitu/gold-miner/blob/master/TODO1/using-lstms-for-stock-market-predictions-(tensorflow).md)
 > * 译者：[Qiuk17](https://github.com/Qiuk17)
-> * 校对者：[Park-ma](https://github.com/Park-ma)、[Long Xiong](https://github.com/xionglong58)
+> * 校对者：[Park-ma](https://github.com/Park-ma)，[Long Xiong](https://github.com/xionglong58)
 
 # 用长短期记忆网络预测股票市场（使用 Tensorflow）
 
@@ -187,7 +187,7 @@ all_mid_data = np.concatenate([train_data,test_data],axis=0)
 
 *   单元状态（$c_{t}$）- 这代表了单元存储的短期和长期记忆；
 *   隐藏状态（$h_{t}$）- 这是根据当前输入、以前的隐藏状态和当前单元输入计算的用于预测未来股价的输出状态信息 。此外，隐藏状态还决定着是否只使用单元状态中的记忆（短期、长期或两者都使用）来进行下一次预测；
-*   输入门（$i_{t}$）-  从输入门流入到单元状态中的信息；
+*   输入门（$i_{t}$）- 从输入门流入到单元状态中的信息；
 *   遗忘门（$f_{t}$）- 从当前输入和前一个单元状态流到当前单元状态的信息；
 *   输出门（$o_{t}$）- 从当前单元状态流到隐藏状态的信息，这决定了 LSTM 接下来使用的记忆类型。
 
