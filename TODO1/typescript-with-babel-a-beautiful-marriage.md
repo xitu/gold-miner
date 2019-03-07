@@ -201,7 +201,7 @@ Assuming your files are in `/src`:
 find src -name "*.js" -exec sh -c 'mv "$0" "${0%.js}.ts"' {} ;
 ```
 
-**2) Add TypeScript to Babel**
+**2) Add TypeScript to Babel.**
 
 A few dependencies:
 
@@ -213,13 +213,13 @@ In your Babel config file (`.babelrc` or `babel.config.js`):
 
 ```json
 {
-	"presets": [
-			"@babel/typescript"
-	],
-	"plugins": [
-			"@babel/proposal-class-properties",
-			"@babel/proposal-object-rest-spread"
-	]
+  "presets": [
+    "@babel/typescript"
+  ],
+  "plugins": [
+    "@babel/proposal-class-properties",
+    "@babel/proposal-object-rest-spread"
+  ]
 }
 ```
 
@@ -231,13 +231,13 @@ If you use Babel CLI, add `--extensions '.ts'`
 
 If you use Webpack, add `'ts'` to `resolve.extensions` array.
 
-**3) Add ‘check-types’ command**
+**3) Add ‘check-types’ command.**
 
 In `package.json`:
 
 ```json
 "scripts": {
-	"check-types": "tsc"
+  "check-types": "tsc"
 }
 ```
 
@@ -253,25 +253,25 @@ To configure TypeScript (and `tsc`), we need a `tsconfig.json` file in the root 
 
 ```json
 {
-	"compilerOptions": {
-		// Target latest version of ECMAScript.
-		"target": "esnext",
-		// Search under node_modules for non-relative imports.
-		"moduleResolution": "node",
-		// Process & infer types from .js files.
-		"allowJs": true,
-		// Don't emit; allow Babel to transform files.
-		"noEmit": true,
-		// Enable strictest settings like strictNullChecks & noImplicitAny.
-		"strict": true,
-		// Disallow features that require cross-file information for emit.
-		"isolatedModules": true,
-		// Import non-ES modules as default imports.
-		"esModuleInterop": true
-	},
-	"include": [
-		"src"
-	]
+  "compilerOptions": {
+    // Target latest version of ECMAScript.
+    "target": "esnext",
+    // Search under node_modules for non-relative imports.
+    "moduleResolution": "node",
+    // Process & infer types from .js files.
+    "allowJs": true,
+    // Don't emit; allow Babel to transform files.
+    "noEmit": true,
+    // Enable strictest settings like strictNullChecks & noImplicitAny.
+    "strict": true,
+    // Disallow features that require cross-file information for emit.
+    "isolatedModules": true,
+    // Import non-ES modules as default imports.
+    "esModuleInterop": true
+  },
+  "include": [
+    "src"
+  ]
 }
 ```
 
@@ -287,11 +287,9 @@ Use [tslint](https://palantir.github.io/tslint/).
 
 **Update** (Feb 2019): Use ESlint! The TypeScript team are [focusing on ESLint integration](https://github.com/Microsoft/TypeScript/issues/29288) since January. It’s easy to configure ESLint thanks to the [@typesript-eslint](https://github.com/typescript-eslint/typescript-eslint) project. For inspiration, check out my [mega ESLint config](https://github.com/iamturns/create-exposed-app/blob/master/.eslintrc.js) which includes TypeScript, Airbnb, Prettier, and React.
 
-## Babel + TypeScript = Beautiful Marriage.
+## Babel + TypeScript = Beautiful Marriage
 
-![Love hearts](data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFwABAAMAAAAAAAAAAAAAAAAAAAECBf/EABYBAQEBAAAAAAAAAAAAAAAAAAECBP/aAAwDAQACEAMQAAAB04DRUFf/xAAWEAADAAAAAAAAAAAAAAAAAAAAASD/2gAIAQEAAQUCHP8A/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAFBABAAAAAAAAAAAAAAAAAAAAIP/aAAgBAQAGPwJf/8QAFxABAAMAAAAAAAAAAAAAAAAAAQAQEf/aAAgBAQABPyENYq2LX//aAAwDAQACAAMAAAAQB+//xAAWEQEBAQAAAAAAAAAAAAAAAAARARD/2gAIAQMBAT8QK5//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAYEAEBAQEBAAAAAAAAAAAAAAABACERMf/aAAgBAQABPxDIgDx27YZORf/Z)![Love hearts](/static/love-6816a7c4005415586f0da1a9fea5407b-f6c13.jpg)
-
-![Love hearts](/static/love-6816a7c4005415586f0da1a9fea5407b-f6c13.jpg)
+![Love hearts](https://iamturns.com/static/love-6816a7c4005415586f0da1a9fea5407b-f6c13.jpg)
 
 Photo by [Akshar Dave](https://unsplash.com/photos/1GRvY9WUu08)
 
@@ -301,13 +299,11 @@ There’s no need to battle with two competing JavaScript compilers. Simplify yo
 
 The Babel and TypeScript combo is lightning fast to compile, and allows you to stay in the zone as you code, and check types only when you’re ready.
 
-## Prediction: TypeScript will rise.
+## Prediction: TypeScript will rise
 
 According to the most recent [Stack Overflow Developer Survey](https://insights.stackoverflow.com/survey/2018/#technology-programming-scripting-and-markup-languages), JavaScript is the most popular language, with TypeScript trailing at #12. This is still a great achievement for TypeScript, beating out Ruby, Swift, and Go.
 
-![Developer survey results](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAVCAIAAADJt1n/AAAACXBIWXMAAAsSAAALEgHS3X78AAABjklEQVQ4y5VUa2+jMBDk///CXqVr1fbCOWDj9Wv9iGG7pmmbKGlIR4P4AKP1zCx0zrndbmesdRa0ErRkmtMdjLTUbp5npaR1Ppi92T9SHikN24yCKnZEFLwHY7wZ9fBMB6CitwiUpzaZxTknYx3awcu/FPdbFIQ9HTwL18khsGV0k5GvVCwV8wPXRxVpmWlZjuKccwgYvXbqbX0JrjNrSlMTN6zilNLE0OBh0IIDU5TkBccmvkAHAEIIH/AzbQ5zf0Y2ycc5Tvvgp5ivcRzYszdyTfvSM9Bc6BqamKtGjOzZ6921nG6Kc0oajAcB4mHdga8zr/swZ/oBTZxS5LDRSSefKJ0Exm7XPk99XkzOOcYUrDLy5bsqLmY+0E10H7da5+AmN/07C2ypG2LuWWvNgfF6gvjzvfrHem6KEbHvewBT0Dj12g7MbmukO3D8qrjngtpzYPzRnG/ChjhGNMZGD2j+t5/B3ehKKeM48uTkVVDPtJRfiDkwKZs4o/G6v/PAJ+tZqw8xO4HyYbOeU7wDtMrL+79r9ugAAAAASUVORK5CYII=)![Developer survey results](/static/dev-survey-7e7416c3e24796eb8de66d34164a8777-aef05.png)
-
-![Developer survey results](/static/dev-survey-7e7416c3e24796eb8de66d34164a8777-aef05.png)
+![Developer survey results](https://iamturns.com/static/dev-survey-7e7416c3e24796eb8de66d34164a8777-aef05.png)
 
 I predict TypeScript will crack the top 10 by next year.
 
