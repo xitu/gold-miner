@@ -1,7 +1,7 @@
 > * 原文地址：[TypeScript With Babel: A Beautiful Marriage](https://iamturns.com/typescript-babel/)
 > * 原文作者：[Matt Turnbull](https://iamturns.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/.md](https://github.com/xitu/gold-miner/blob/master/TODO1/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/typescript-with-babel-a-beautiful-marriage.md](https://github.com/xitu/gold-miner/blob/master/TODO1/typescript-with-babel-a-beautiful-marriage.md)
 > * 译者：
 > * 校对者：
 
