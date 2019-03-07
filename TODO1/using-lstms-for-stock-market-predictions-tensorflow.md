@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/using-lstms-for-stock-market-predictions-(tensorflow).md](https://github.com/xitu/gold-miner/blob/master/TODO1/using-lstms-for-stock-market-predictions-(tensorflow).md)
 > * 译者：[Qiuk17](https://github.com/Qiuk17)
-> * 校对者：
+> * 校对者：[Park-ma](https://github.com/Park-ma)、[Long Xiong](https://github.com/xionglong58)
 
 # 用长短期记忆网络预测股票市场（使用 Tensorflow）
 
@@ -17,13 +17,13 @@
 *   简要讨论一下为什么 LSTM 模型可以预测未来多步的情形；
 *   使用现有数据预测股票趋势，并将结果可视化。
 
-**注意：请不要认为 LSTM 是一种可以完美预测股票趋势的可靠模型，也不要在盲目使用它进行股票交易**。我只是出于对机器学习的兴趣做了这个实验。在大部分情况下，这个模型的确能发现数据中的特定规律并准确预测股票的走势。但是否将其用于实际的股票市场取决于你自己。
+**注意：请不要认为 LSTM 是一种可以完美预测股票趋势的可靠模型，也不要盲目使用它进行股票交易**。我只是出于对机器学习的兴趣做了这个实验。在大部分情况下，这个模型的确能发现数据中的特定规律并准确预测股票的走势。但是否将其用于实际的股票市场取决于你自己。
 
 ### 为什么要用时间序列模型？
 
 作为一名股民，如果你能对股票价格进行正确的建模，你就可以通过在合适的时机买入或卖出来获取利益。因此，你需要能通过一组历史数据来预测未来数据的模型——时间序列模型。
 
-**警告**：股价本身因受到诸多因素影响而难以预测，这意味着你难以找到一种能完美预测股价的模型。并不只有我一人如此认为。普林斯顿大学的经济学教授 Burton Malkiel 在他 1973 年出版的《A Random Walk Down Wall Street》一书中写道：“如果股市足够高效，人们能从公开的股价中知晓影响它的全部因素，那么人人都能像投资专业人士那样炒股”。
+**警告**：股价本身因受到诸多因素影响而难以预测，这意味着你难以找到一种能完美预测股价的模型。并不只有我一人如此认为。普林斯顿大学的经济学教授 Burton Malkiel 在他 1973 年出版的《A Random Walk Down Wall Street》一书中写道：“如果股市足够高效，以至于人们能从公开的股价中知晓影响它的全部因素，那么人人都能像投资专业人士那样炒股”。
 
 但是，请保持信心，用机器学习的方法来预测这完全随机的股价仍有一丝希望。我们至少能通过建模来预测这组数据的实际走势。换而言之，不必知晓股价的确切值，你只要能预测股价要涨还是要跌就万事大吉了。
 
@@ -44,7 +44,7 @@ from sklearn.preprocessing import MinMaxScaler
 
 你可以从以下来源下载数据：
 
-1.  Alpha Vantage。首先，你必须从 [这个网站](https://www.alphavantage.co/support/#api-key) 获取你的 API key。在此之后，将它的值赋给变量 `api_key`。
+1.  Alpha Vantage。首先，你必须从 [这个网站](https://www.alphavantage.co/support/#api-key) 获取所需的 API key。在此之后，将它的值赋给变量 `api_key`。
 2.  从 [这个页面](https://www.kaggle.com/borismarjanovic/price-volume-data-for-all-us-stocks-etfs) 下载并将其中的 _Stocks_ 文件夹拷贝到你的工程目录下。
 
 股价中包含几种不同的数据，它们是：
@@ -58,7 +58,7 @@ from sklearn.preprocessing import MinMaxScaler
 
 为了从 Alpha Vantage 上下载美国航空公司的股价数据用于分析，你要将行情显示代号 `ticker` 设置为 `"AAL"`。同时，你也要定义一个 `url_string` 变量来获取包含最近 20 年内的全部股价信息的 JSON 文件，以及文件保存路径 `file_to_save`。别忘了用你的 `ticker` 变量来帮助你命名你下载下来的文件。
 
-接下来，设定一个条件：如果本地没有保存的数据文件，就从 `url_string` 指明的 URL 下载数据，并将其中的日期、最低价、最高价、交易量、开盘价和收盘价存入 Pandas 的 DataFrame `df` 中，再将其保存到 `file_to_save`；否则直接读取 csv 文件就好了。
+接下来，设定一个条件：如果本地没有保存的数据文件，就从 `url_string` 指明的 URL 下载数据，并将其中的日期、最低价、最高价、交易量、开盘价和收盘价存入 Pandas 的 DataFrame `df` 中，再将其保存到 `file_to_save`；否则直接从本地读取 csv 文件就好了。
 
 ### 从 Kaggle 获取数据
 
@@ -66,7 +66,7 @@ from sklearn.preprocessing import MinMaxScaler
 
 ### 读取数据
 
-现在，将这些数据打印出来吧！由于数据的顺序在时间序列模型中至关重要，所以请确保你的数据已经按照日期排好序了。
+现在，将这些数据打印到 DataFrame 中吧！由于数据的顺序在时间序列模型中至关重要，所以请确保你的数据已经按照日期排好序了。
 
 ```python
 # 按日期排序
@@ -91,7 +91,7 @@ plt.show()
 
 ![](https://cdn-images-1.medium.com/max/1600/0*BK3alG7gtLtG05nw.png)
 
-这幅图包含了很多信息。我特意选取了这家公司的股价图，因为它包含了股价的多种不同规律。这将使你的模型更鲁棒，也让它能更好地预测不同情形下的股价。
+这幅图包含了很多信息。我特意选取了这家公司的股价图，因为它包含了股价的多种不同规律。这将使你的模型更健壮，也让它能更好地预测不同情形下的股价。
 
 另一件值得注意的事情是 2017 年的股价远比上世纪七十年代的股价高且波动更大。因此，你要在**数据标准化**的过程中，注意让这些部分的数据落在相近的数值区间内。
 
@@ -179,7 +179,7 @@ all_mid_data = np.concatenate([train_data,test_data],axis=0)
 
 在我的 [这篇同类型文章](https://www.datacamp.com/community/tutorials/lstm-python-stock-market) 中，我提到了取平均值在股价建模中是一种糟糕的做法，其结论如下：
 
-> 取平均值在预测单步上效果不错，但对股市预测这种需要预测许多步的情形不适用。。如果你想了解更多，请查看 [这篇文章](https://www.datacamp.com/community/tutorials/lstm-python-stock-market)。
+> 取平均值在预测单步上效果不错，但对股市预测这种需要预测许多步的情形不适用。如果你想了解更多，请查看 [这篇文章](https://www.datacamp.com/community/tutorials/lstm-python-stock-market)。
 
 ### 使用 LSTM 预测未来股价走势
 
@@ -247,7 +247,7 @@ for ui in range(num_unrollings):
     train_outputs.append(tf.placeholder(tf.float32, shape=[batch_size,1], name = 'train_outputs_%d'%ui))
 ```
 
-### 定义LSTM和回归层的参数
+### 定义 LSTM 和回归层的参数
 
 您将有一个包含三层 LSTM 和一层线性回归层的神经网络，分别用 `w` 和 `b` 表示，它获取上一个长短期记忆单元的输出，并输出对下一个时间的预测。你可以使用 TensorFlow 中的 `MultiRNNCell` 来封装您创建的三个 `LSTMCell` 对象。此外，LSTM 单元上还可以加上 dropout 来提高性能并减少过拟合。
 
