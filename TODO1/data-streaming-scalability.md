@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/data-streaming-scalability.md](https://github.com/xitu/gold-miner/blob/master/TODO1/data-streaming-scalability.md)
 > * 译者：[Park-ma](https://github.com/park-ma)
-> * 校对者：
+> * 校对者：[JackEggie](https://github.com/JackEggie), []()
 
 # 论数据流的扩展性 
 
