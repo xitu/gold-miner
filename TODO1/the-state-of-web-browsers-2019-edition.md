@@ -11,7 +11,7 @@
 
 Two days ago, I published a bitter sweet article on the [state of web browsers](https://github.com/xitu/gold-miner/blob/master/TODO1/the-state-of-web-browsers.md), triggered by the news that Microsoft would abandon their EdgeHTML engine, replacing it with Chromium. Which was the final nail in the coffin, effectively establishing Chromium as the web’s engine, combined with Safari’s webkit. The only resistance to this monopoly, Mozilla, finds itself without any significant allies or traction to counter this development.
 
-两天前，有感于微软放弃 Edgehtml 引擎，使用 Chromiun 取而代之的事件，作者发表了一片关于[浏览器苦乐现状](https://ferdychristant.com/the-state-of-web-browsers-f5a83a41c1cb)的文章。微软的此番作为被视为将 Chromium 与 Safari 的 webkit 结合建立搜索引擎的最后一步。而此时，唯一能对微软的垄断行为产生威胁的对手 —— Mozia，发现自己已经没有盟友和动力来应对微软的这一举措。
+两天前，有感于微软放弃 Edgehtml 引擎，使用 Chromiun 取而代之的事件，作者发表了一片关于[浏览器兴衰](https://ferdychristant.com/the-state-of-web-browsers-f5a83a41c1cb)的文章。微软的此番作为被视为将 Chromium 与 Safari 的 webkit 结合建立搜索引擎的最后一步。而此时，唯一能对微软的垄断行为产生威胁的对手 —— Mozia，发现自己已经没有盟友和动力来应对微软的这一举措。
 
 The article got some readership and a fair amount of feedback. The general consensus seems to be that the article is truthful but depressing.
 
@@ -229,7 +229,11 @@ So whilst Google may incidentally prioritize self-serving features, in practice 
 
 The opposite of prioritizing self-serving features is to de-prioritize or downright block ideas of others. Let’s assume the idea or proposal is serious and has consensus from many stakeholders. Yet for whichever reason, Google doesn’t like it, and blocks implementation.
 
+优先考虑为自己服务的特性的反面是降低其他厂商特征的优先级或完全阻止其想法实施。我们认定有些想法或提议是真正有益的，并且得到了很多其他利益相关者的一致肯定。但不知道是什么原因 Google 就是不接受它们，并且阻碍其实现。
+
 This is a tricky one, where all we can do is look at track records and incentives. I’ll admit that I don’t follow Chromium discussions in detail, because I chose life. Possible there’s tons of examples where this happens, if so, let me know.
+
+这是一个棘手的问题，我们所能做的就是关注 Google 的工作报告和动机。 我承认我不会密切关注 Chromium ，因为我还有我的生活。 可能有大量这样的例子在发生，如果有的话请大家分享出来让我知道。
 
 A memorable example I have of this happening is CSS Regions. It’s a giant spec and enormous code commit by Adobe that was blocked. Whether it was blocked for good reasons or bad, I’m unable to answer, given the enormous complexity of the discussion. You could cancel your Netflix subscription and be entertained for two months just soaking up this epic mud fight.
 
