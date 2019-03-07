@@ -5,13 +5,6 @@
 > * 译者：
 > * 校对者：
 
-> * 原文地址：[Using vector assets in Android apps](https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9)
-> * 原文作者：[Nick Butcher](https://medium.com/@crafty)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/using-vector-assets-in-android-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO1/using-vector-assets-in-android-apps.md)
-> * 译者：
-> * 校对者：
-
 # Using vector assets in Android apps
 
 ![Illustration by [Virginia Poltrack](https://twitter.com/VPoltrack)](https://cdn-images-1.medium.com/max/8418/1*oqnL46dzsUEDsmfABwTapg.png)
