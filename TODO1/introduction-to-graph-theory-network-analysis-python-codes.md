@@ -15,16 +15,13 @@ But to truly understand what graphs are and why they are used, we will need to u
 
 ![](https://s3-ap-south-1.amazonaws.com/av-blog-media/wp-content/uploads/2018/03/Graph-Theory.jpg)
 
-*                                                                  Source: Quantdare*
-
 But if you have tried to understand this concept before, you'll have come across tons of formulae and dry theoretical concepts. This is why we decided to write this blog post. We have explained the concepts and then provided illustrations so you can follow along and intuitively understand how the functions are performing. This is a detailed post, because we believe that providing a proper explanation of this concept is a much preferred option over succinct definitions.
 
 In this article, we will look at what graphs are, their applications and a bit of history about them. We'll also cover some Graph Theory concepts and then take up a case study using python to cement our understanding.
 
 Ready? Let's dive into it.
 
-Table of Contents
------------------
+## Table of Contents
 
 -   Graphs and their applications
 -   History and why graphs?
@@ -33,8 +30,7 @@ Table of Contents
 -   Getting familiar with Graphs in python
 -   Analysis on a dataset
 
-Graphs and their applications
------------------------------
+## Graphs and their applications
 
 Let us look at a simple graph to understand the concept. Look at the image below --
 
@@ -42,9 +38,11 @@ Let us look at a simple graph to understand the concept. Look at the image below
 
 Consider that this graph represents the places in a city that people generally visit, and the path that was followed by a visitor of that city. Let us consider V as the places and E as the path to travel from one place to another.
 
+```python
 V = {v1, v2, v3, v4, v5}
 
 E = {(v1,v2), (v2,v5), (v5, v5), (v4,v5), (v4,v4)}
+```
 
 The edge (u,v) is the same as the edge (v,u) -- They are unordered pairs.
 
