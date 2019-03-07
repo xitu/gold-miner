@@ -3,15 +3,16 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-II-Multiple-activities.md](https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-II-Multiple-activities.md)
 > * 译者：[Rickon](https://github.com/gs666)
-> * 校对者：[Endone](https://github.com/Endone)；[Mirosalva](https://github.com/Mirosalva)
+> * 校对者：[Endone](https://github.com/Endone)，[Mirosalva](https://github.com/Mirosalva)
 
 # Android 生命周期备忘录 — 第二部分：多 Activity
 
 在这个系列中：
-[第一部分：单一 Activities](https://github.com/xitu/gold-miner/blob/master/TODO/the-android-lifecycle-cheat-sheet-part-i-single-activities.md)
-**第二部分：多 Activity** — 跳转和返回栈（本篇文章）
-[**第三部分：Fragments** — activity 和 fragment 的生命周期](https://medium.com/@JoseAlcerreca/the-android-lifecycle-cheat-sheet-part-iii-fragments-afc87d4f37fd)
-[第四部分：ViewModels、半透明 Activity 和启动模式](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iv-49946659b094)
+
+- [第一部分：单一 Activities](https://github.com/xitu/gold-miner/blob/master/TODO/the-android-lifecycle-cheat-sheet-part-i-single-activities.md)
+- **第二部分：多 Activity** — 跳转和返回栈（本篇文章）
+- [**第三部分：Fragments** — activity 和 fragment 的生命周期](https://medium.com/@JoseAlcerreca/the-android-lifecycle-cheat-sheet-part-iii-fragments-afc87d4f37fd)
+- [第四部分：ViewModels、半透明 Activity 和启动模式](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iv-49946659b094)
 
 为了方便查阅，我制作了 [PDF 格式备忘录](https://github.com/JoseAlcerreca/android-lifecycles)。
 
