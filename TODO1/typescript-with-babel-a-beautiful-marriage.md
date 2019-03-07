@@ -251,7 +251,7 @@ npm install --save-dev typescript
 
 To configure TypeScript (and `tsc`), we need a `tsconfig.json` file in the root directory:
 
-```json
+```
 {
   "compilerOptions": {
     // Target latest version of ECMAScript.
