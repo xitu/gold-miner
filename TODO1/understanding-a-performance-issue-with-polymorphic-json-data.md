@@ -46,9 +46,9 @@ The JS engine keeps track of the property names defined on an object, and whenev
 What I hadn’t known before was that the shape also distinguishes between different *kinds* of property values. Particularly, a property with small-integer values implies a different shape than a property that (sometimes) contains other numeric values. E.g. in
 
 ```js
-    const b = {};
-    b.x = 2;
-    b.x = 0.2;
+const b = {};
+b.x = 2;
+b.x = 0.2;
 ```
 
 a shape transition happens with the second assignment, from a shape where property x is known to have a *Smi* value to a shape where property x can be any *Double*. The previous shape is then “deprecated” and not used anymore moving forward. Even other objects that never actually used a non-Smi value will switch to the new shape as soon as their property x is used in any way. [This slide](https://slidr.io/bmeurer/javascript-engine-fundamentals-the-good-the-bad-and-the-ugly#140) sums it up very well.
@@ -74,24 +74,24 @@ We can inspect what’s going on under the hood in V8 by using *natives syntax*.
 In our case, we can use %HasSmiElements to determine whether a given array has Smi elements:
 
 ```js
-    const obj = {};
-    obj.value = 1;
-    const arr1 = [obj.value, obj.value];
-    console.log(`arr1 has Smi elements: ${%HasSmiElements(arr1)}`);
+const obj = {};
+obj.value = 1;
+const arr1 = [obj.value, obj.value];
+console.log(`arr1 has Smi elements: ${%HasSmiElements(arr1)}`);
 
-    const otherObj = {};
-    otherObj.value = 1.5;
+const otherObj = {};
+otherObj.value = 1.5;
 
-    const arr2 = [obj.value, obj.value];
-    console.log(`arr2 has Smi elements: ${%HasSmiElements(arr2)}`);
+const arr2 = [obj.value, obj.value];
+console.log(`arr2 has Smi elements: ${%HasSmiElements(arr2)}`);
 ```
 
 Running this program gives the following output:
 
 ```shell
-    $ node --allow-natives-syntax inspect-types.js
-    arr1 has Smi elements: true
-    arr2 has Smi elements: false
+$ node --allow-natives-syntax inspect-types.js
+arr1 has Smi elements: true
+arr2 has Smi elements: false
 ```
 
 After constructing an object with the same shape but a floating-point value, using the original object (containing an integer value) again yields a non-Smi array.
@@ -101,25 +101,25 @@ After constructing an object with the same shape but a floating-point value, usi
 To illustrate the effect on performance, let’s use the following JS program (counters-smi.js):
 
 ```js
-    function copyAndIncrement(arr) {
-      const copy = arr.slice();
-      copy[0] += 1;
-      return copy;
-    }
+function copyAndIncrement(arr) {
+  const copy = arr.slice();
+  copy[0] += 1;
+  return copy;
+}
 
-    function main() {
-      const obj = {};
-      obj.value = 1;
-      let arr = [];
-      for (let i = 0; i < 100; ++i) {
-        arr.push(obj.value);
-      }
-      for (let i = 0; i < 10000000; ++i) {
-        arr = copyAndIncrement(arr);
-      }
-    }
+function main() {
+  const obj = {};
+  obj.value = 1;
+  let arr = [];
+  for (let i = 0; i < 100; ++i) {
+    arr.push(obj.value);
+  }
+  for (let i = 0; i < 10000000; ++i) {
+    arr = copyAndIncrement(arr);
+  }
+}
 
-    main();
+main();
 ```
 
 We construct an array of 100 integers extracted from an object obj, and then we call copyAndIncrement 10 million times, which creates a copy of the array, changes one item in the copy, and returns the new array. This is essentially what happens when cell counters are processed while rendering a (large) notebook.
@@ -142,11 +142,11 @@ Note that creating an empty object and adding a property later has the same effe
 Now compare the execution of these two programs:
 
 ``` shell
-    $ time node counters-smi.js
-    node counters-smi.js  0.87s user 0.11s system 103% cpu 0.951 total
+$ time node counters-smi.js
+node counters-smi.js  0.87s user 0.11s system 103% cpu 0.951 total
 
-    $ time node counters-float.js
-    node counters-float.js  1.22s user 0.13s system 103% cpu 1.309 total
+$ time node counters-float.js
+node counters-float.js  1.22s user 0.13s system 103% cpu 1.309 total
 ```
 
 This is with Node v11.9.0 (running V8 version 7.0.276.38-node.16). But let’s try all major JS engines:
@@ -154,20 +154,20 @@ This is with Node v11.9.0 (running V8 version 7.0.276.38-node.16). But let’s t
 ![](https://cdn-images-1.medium.com/max/2000/1*DBcx2JPXO70Sw72-nPF60g.jpeg)
 
 ```shell
-    $ npm i -g jsvu
+$ npm i -g jsvu
 
-    $ jsvu
+$ jsvu
 
-    $ v8 -v
-    V8 version 7.4.221
+$ v8 -v
+V8 version 7.4.221
 
-    $ spidermonkey -v
-    JavaScript-C66.0
+$ spidermonkey -v
+JavaScript-C66.0
 
-    $ chakra -v
-    ch version 1.11.6.0
+$ chakra -v
+ch version 1.11.6.0
 
-    $ jsc
+$ jsc
 ```
 
 V8 is used in Chrome, SpiderMonkey in Firefox, Chakra in IE and Edge, JavaScriptCore in Safari.
@@ -175,55 +175,55 @@ V8 is used in Chrome, SpiderMonkey in Firefox, Chakra in IE and Edge, JavaScript
 Measuring execution time of the whole process isn’t ideal, but we can mitigate outliers by focusing on the median of 100 runs per example (in randomized order, sleeping 1 second between runs) using [multitime](https://github.com/ltratt/multitime):
 
 ```shell
-    $ multitime -n 100 -s 1 -b examples.bat
-    ===> multitime results
-    1: v8 counters-smi.js
-                Mean        Std.Dev.    Min         Median      Max
-    real        0.767       0.014       0.738       0.765       0.812
-    user        0.669       0.012       0.643       0.666       0.705
-    sys         0.086       0.003       0.080       0.085       0.095
+$ multitime -n 100 -s 1 -b examples.bat
+===> multitime results
+1: v8 counters-smi.js
+            Mean        Std.Dev.    Min         Median      Max
+real        0.767       0.014       0.738       0.765       0.812
+user        0.669       0.012       0.643       0.666       0.705
+sys         0.086       0.003       0.080       0.085       0.095
 
-    2: v8 counters-float.js
-                Mean        Std.Dev.    Min         Median      Max
-    real        0.854       0.016       0.829       0.851       0.918
-    user        0.750       0.019       0.662       0.750       0.791
-    sys         0.088       0.004       0.082       0.087       0.107
+2: v8 counters-float.js
+            Mean        Std.Dev.    Min         Median      Max
+real        0.854       0.016       0.829       0.851       0.918
+user        0.750       0.019       0.662       0.750       0.791
+sys         0.088       0.004       0.082       0.087       0.107
 
-    3: spidermonkey counters-smi.js
-                Mean        Std.Dev.    Min         Median      Max
-    real        1.378       0.024       1.355       1.372       1.538
-    user        1.362       0.011       1.346       1.360       1.408
-    sys         0.074       0.005       0.067       0.073       0.101
+3: spidermonkey counters-smi.js
+            Mean        Std.Dev.    Min         Median      Max
+real        1.378       0.024       1.355       1.372       1.538
+user        1.362       0.011       1.346       1.360       1.408
+sys         0.074       0.005       0.067       0.073       0.101
 
-    4: spidermonkey counters-float.js
-                Mean        Std.Dev.    Min         Median      Max
-    real        1.406       0.021       1.385       1.400       1.506
-    user        1.389       0.011       1.374       1.387       1.440
-    sys         0.075       0.005       0.068       0.074       0.093
+4: spidermonkey counters-float.js
+            Mean        Std.Dev.    Min         Median      Max
+real        1.406       0.021       1.385       1.400       1.506
+user        1.389       0.011       1.374       1.387       1.440
+sys         0.075       0.005       0.068       0.074       0.093
 
-    5: chakra counters-smi.js
-                Mean        Std.Dev.    Min         Median      Max
-    real        2.285       0.051       2.193       2.280       2.494
-    user        2.359       0.044       2.291       2.354       2.560
-    sys         0.203       0.032       0.141       0.202       0.268
+5: chakra counters-smi.js
+            Mean        Std.Dev.    Min         Median      Max
+real        2.285       0.051       2.193       2.280       2.494
+user        2.359       0.044       2.291       2.354       2.560
+sys         0.203       0.032       0.141       0.202       0.268
 
-    6: chakra counters-float.js
-                Mean        Std.Dev.    Min         Median      Max
-    real        2.292       0.050       2.195       2.286       2.444
-    user        2.365       0.042       2.284       2.360       2.501
-    sys         0.207       0.031       0.141       0.209       0.277
+6: chakra counters-float.js
+            Mean        Std.Dev.    Min         Median      Max
+real        2.292       0.050       2.195       2.286       2.444
+user        2.365       0.042       2.284       2.360       2.501
+sys         0.207       0.031       0.141       0.209       0.277
 
-    7: jsc counters-smi.js
-                Mean        Std.Dev.    Min         Median      Max
-    real        1.042       0.031       1.009       1.034       1.218
-    user        1.051       0.013       1.030       1.050       1.093
-    sys         0.336       0.013       0.319       0.333       0.394
+7: jsc counters-smi.js
+            Mean        Std.Dev.    Min         Median      Max
+real        1.042       0.031       1.009       1.034       1.218
+user        1.051       0.013       1.030       1.050       1.093
+sys         0.336       0.013       0.319       0.333       0.394
 
-    8: jsc counters-float.js
-                Mean        Std.Dev.    Min         Median      Max
-    real        1.041       0.025       1.012       1.038       1.246
-    user        1.054       0.012       1.032       1.056       1.099
-    sys         0.338       0.014       0.315       0.335       0.397
+8: jsc counters-float.js
+            Mean        Std.Dev.    Min         Median      Max
+real        1.041       0.025       1.012       1.038       1.246
+user        1.054       0.012       1.032       1.056       1.099
+sys         0.338       0.014       0.315       0.335       0.397
 ```
 
 A few things to note here:
@@ -245,8 +245,8 @@ If you’re dealing with external JSON data not under your control, you can “c
 If you have control over the JSON data, it might be a good idea to only use the same property names for properties with the same underlying value type. E.g. in our case it might be better to use
 
 ```js
-    {"type": "MInteger", "intValue": 2}
-    {"type": "MReal", "realValue": 2.5}
+{"type": "MInteger", "intValue": 2}
+{"type": "MReal", "realValue": 2.5}
 ```
 
 instead of calling the property value in both cases. In other words: Avoid “polymorphic” objects.
