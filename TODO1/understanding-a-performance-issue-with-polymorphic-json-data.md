@@ -88,7 +88,7 @@ console.log(`arr2 has Smi elements: ${%HasSmiElements(arr2)}`);
 
 Running this program gives the following output:
 
-```shell
+```bash
 $ node --allow-natives-syntax inspect-types.js
 arr1 has Smi elements: true
 arr2 has Smi elements: false
@@ -141,7 +141,7 @@ Note that creating an empty object and adding a property later has the same effe
 
 Now compare the execution of these two programs:
 
-``` shell
+``` bash
 $ time node counters-smi.js
 node counters-smi.js  0.87s user 0.11s system 103% cpu 0.951 total
 
@@ -153,7 +153,7 @@ This is with Node v11.9.0 (running V8 version 7.0.276.38-node.16). But let’s t
 
 ![](https://cdn-images-1.medium.com/max/2000/1*DBcx2JPXO70Sw72-nPF60g.jpeg)
 
-```shell
+```bash
 $ npm i -g jsvu
 
 $ jsvu
@@ -174,7 +174,7 @@ V8 is used in Chrome, SpiderMonkey in Firefox, Chakra in IE and Edge, JavaScript
 
 Measuring execution time of the whole process isn’t ideal, but we can mitigate outliers by focusing on the median of 100 runs per example (in randomized order, sleeping 1 second between runs) using [multitime](https://github.com/ltratt/multitime):
 
-```shell
+```bash
 $ multitime -n 100 -s 1 -b examples.bat
 ===> multitime results
 1: v8 counters-smi.js
