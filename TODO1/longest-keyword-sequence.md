@@ -21,7 +21,7 @@ Let's see if we can do better!
 
 (...but first let's review the ground rules)
 
-### Rules
+## Rules
 
 1) Code must parse and run as valid Javascript. No ignoring [early errors](https://tc39.github.io/ecma262/#early-error), nuh-uh!
 2) Only [keywords](https://tc39.github.io/ecma262/#sec-keywords) are allowed
@@ -29,12 +29,12 @@ Let's see if we can do better!
 4) Cannot repeat keywords within the sequence
 5) You can add as much preamble and postamble code as necessary
 
-### Bonus Challenge
+## Bonus Challenge
 
 6) Line breaks are allowed between keywords
 7) Keyword-like tokens are allowed
 
-### The bar to meet
+## The bar to meet
 
 arjunb_msft starts off with this 15 word solution:
 
@@ -69,7 +69,7 @@ async function* foo() {
 
 Hooray!
 
-### Bring the real fun
+## Bring the real fun
 
 Now, while being super pedantic can be fun, it's not necessarily _fun_ fun.
 
