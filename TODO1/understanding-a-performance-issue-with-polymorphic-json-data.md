@@ -16,19 +16,19 @@ While working on some [low-level performance optimizations](https://medium.com/w
 We represent cell counters (defined by [CounterAssignments](https://reference.wolfram.com/language/ref/CounterAssignments.html) and [CounterIncrements](https://reference.wolfram.com/language/ref/CounterIncrements.html)) as an array of integers, with a separate mapping from counter names to offsets in the array. This is a bit more efficient than storing a dictionary for each set of counters. E.g. instead of
 
 ```js
-    {Title: 1, Section: 3, Input: 7}
+{Title: 1, Section: 3, Input: 7}
 ```
 
 we store an array
 
 ```js
-    [1, 3, 7]
+[1, 3, 7]
 ```
 
 and keep a separate (global) mapping
 
 ```js
-    {Title: 0, Section: 1, Input: 2}
+{Title: 0, Section: 1, Input: 2}
 ```
 
 from names to indices. As we render a notebook, each cell keeps its own copy of the current counter values, performs its own assignments and increments (if any), and passes on a new array to the next cell.
@@ -56,13 +56,13 @@ a shape transition happens with the second assignment, from a shape where proper
 So this is exactly what happened in our case with counters: The definitions of CounterAssignments and CounterIncrements came from JSON data such as
 
 ```js
-    {"type": "MInteger", "value": 2}
+{"type": "MInteger", "value": 2}
 ```
 
 but we also had values like
 
 ```js
-    {"type": "MReal", "value": 0.2}
+{"type": "MReal", "value": 0.2}
 ```
 
 for other parts of a notebook. Even though no MReal objects were used for counters, the *mere existence* of such objects caused all MInteger objects to also change their shape. Copying their value into the counter arrays then caused those arrays to switch to a less efficient representation as well.
