@@ -99,7 +99,7 @@ const relativeTime = function(value) {
 We can then add it globally to all Vue instances and components with the `Vue.filter` method:
 
 ```
-Vue.filter(’relativeTime', relativeTime);
+Vue.filter('relativeTime', relativeTime);
 ```
 
 Or add it to a particular component using the `filters` option:
@@ -107,7 +107,7 @@ Or add it to a particular component using the `filters` option:
 ```
 const myComponent = {
   filters: {
-    ’relativeTime': relativeTime,
+    'relativeTime': relativeTime,
   } 
 }
 ```
@@ -310,7 +310,7 @@ Let’s approach them one at a time.
     ```
 
 2. **Handle Internal Changes**
-    To handle changes occurring due to the user interacting with the multiselect, we can go back to the callbacks we explored before — but ‘less naively’ this time. Instead of simply emitting what they send us, we want to turn a new array that takes into account our original value and the change made.
+    To handle changes occurring due to the user interacting with the multiselect, we can go back to the callbacks we explored before — but 'less naively' this time. Instead of simply emitting what they send us, we want to turn a new array that takes into account our original value and the change made.
 
     ```
     mounted() { 
@@ -353,7 +353,7 @@ Let’s approach them one at a time.
     ```
 
 4. **Handling External Updates To Slot**
-    We have one last thing that we need to handle: our multiselect is currently utilizing option elements passed in via a slot. If that set of options changes, we need to tell the multiselect to refresh itself, otherwise the new options don’t show up. Luckily, we have both an easy API for this in multiselect (the ’refresh' function and an obvious Vue hook to hook into) updated. Handling this last case is as simple as:
+    We have one last thing that we need to handle: our multiselect is currently utilizing option elements passed in via a slot. If that set of options changes, we need to tell the multiselect to refresh itself, otherwise the new options don’t show up. Luckily, we have both an easy API for this in multiselect (the 'refresh' function and an obvious Vue hook to hook into) updated. Handling this last case is as simple as:
 
     ```
     updated() {
