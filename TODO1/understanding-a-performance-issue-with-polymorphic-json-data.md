@@ -1,4 +1,3 @@
-
 > * 原文地址：[Understanding a Performance Issue with “Polymorphic” JSON Data](https://medium.com/wolfram-developers/understanding-a-performance-issue-with-polymorphic-json-data-e7e4cd079be0)
 > * 原文作者：[Jan Pöschko](https://medium.com/@poeschko)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
