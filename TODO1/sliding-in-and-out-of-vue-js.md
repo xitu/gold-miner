@@ -19,8 +19,6 @@ This article will explore the different types of third-party JavaScript that you
 
 _This article assumes some familiarity with Vue.js, and the concepts of components and directives. If you are looking for an introduction to Vue and these concepts, you might check out Sarah Drasner’s excellent [introduction to Vue.js series](https://css-tricks.com/intro-to-vue-1-rendering-directives-events/) or the official [Vue Guide](https://vuejs.org/v2/guide/)._
 
-
-
 ## Types Of Third-Party JavaScript
 
 There are three major types of third-party JavaScript that we’ll look at in order of complexity:
@@ -57,7 +55,7 @@ These tools provide _extensive_ functionality and can be challenging to replace 
 
 Integrating a library that doesn’t touch the DOM into a Vue.js project is relatively trivial. If you’re using JavaScript modules, simply `import`or `require` the module as you would in another project. For example:
 
-```
+```js
 import moment from 'moment';
 
 Vue.component('my-component', {
@@ -71,7 +69,7 @@ Vue.component('my-component', {
 
 If using global JavaScript, include the script for the library before your Vue project:
 
-```
+```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.min.js"></script>
 <script src="/project.js"></script>
@@ -83,13 +81,13 @@ One additional common way to layer on a bit more integration is to wrap up your 
 
 Vue [Filters](https://vuejs.org/v2/guide/filters.html) are a pattern that allows you to apply text formatting directly inline in a template. Drawing an example from the documentation, you could create a ‘capitalize’ filter and then apply it in your template as follows:
 
-```
+```js
 {{myString | capitalize}}
 ```
 
 When importing libraries having to do with formatting, you may want to wrap them up as a filter for ease of use. For example, if we are using `moment` to format all or many of our dates to relative time, we might create a `relativeTime` filter.
 
-```
+```js
 const relativeTime = function(value) {
   if (!value) return '';
   return moment(value).fromNow();
@@ -98,13 +96,13 @@ const relativeTime = function(value) {
 
 We can then add it globally to all Vue instances and components with the `Vue.filter` method:
 
-```
+```js
 Vue.filter('relativeTime', relativeTime);
 ```
 
 Or add it to a particular component using the `filters` option:
 
-```
+```js
 const myComponent = {
   filters: {
     'relativeTime': relativeTime,
@@ -128,13 +126,13 @@ Vue directives are modifiers that can be used to add behavior to elements in you
 
 Defining a custom directive is much like defining a component; you create an object with a set of methods corresponding to particular lifecycle hooks, and then add it to Vue either globally by running:
 
-```
+```js
 Vue.directive('custom-directive', customDirective);
 ```
 
 Or locally in a component by adding it to the `directives` object in the component:
 
-```
+```js
 const myComponent = {
   directives: {
     'custom-directive': customDirective,
@@ -170,7 +168,7 @@ _More information on these can be found in the [Vue Guide on custom directives](
 
 Let’s look at an example of doing this type of wrapping using [lozad](https://www.npmjs.com/package/lozad), a lazy-loading library built using the Intersection Observer API. The API for using lozad is simple: use `data-src` instead of `src` on images, and then pass a selector or an element to `lozad()` and call `observe` on the object that is returned:
 
-```
+```js
 const el = document.querySelector('img');
 const observer = lozad(el); 
 observer.observe();
@@ -178,7 +176,7 @@ observer.observe();
 
 We can do this simply inside of a directive using the `bind` hook.
 
-```
+```js
 const lozadDirective = {
   bind(el, binding) {
     el.setAttribute('data-src', binding.value) ;
@@ -191,7 +189,7 @@ Vue.directive('lozad', lozadDirective)
 
 With this in place, we can change images to lazy load by simply passing the source as a string into the v-lozad directive:
 
-```
+```html
 <img v-lozad="'https://placekitten.com/100/100'" />
 ```
 
@@ -201,7 +199,7 @@ We’re not quite done yet though! While this works for an initial load, what ha
 
 To implement this, we need to add an `updated` hook:
 
-```
+```js
 const lozadDirective = {
   bind(el, binding) {
     el.setAttribute('data-src', binding.value) ;
@@ -258,7 +256,7 @@ The first place to start when implementing a third-party component wrapper is wi
 
 For example, to start wrapping jquery-multiselect, we could write:
 
-```
+```js
 mounted() { 
   $(this.$el).multiselect();
 }
@@ -272,7 +270,7 @@ This is looking pretty good for a start. If there were any teardown we needed to
 
 The next thing we want to do with this library is add the ability to notify our Vue application when the user selects items. The jquery-multiselect library enables this via callbacks called `afterSelect` and `afterDeselect`, but to make this more vue-like, we’ll have those callbacks emit events. We could wrap those callbacks naively as follows:
 
-```
+```js
 mounted() { 
   $(this.$el).multiSelect({
      afterSelect: (values) => this.$emit('select', values),
@@ -294,74 +292,74 @@ There are four pieces to handle here: initial setup for a particular value, prop
 Let’s approach them one at a time.
 
 1. **Setup With A Value Prop**
-    First, we need to teach our component to accept a value prop, and then when we instantiate the multiselect we will tell it which values to select.
+First, we need to teach our component to accept a value prop, and then when we instantiate the multiselect we will tell it which values to select.
 
-    ```
-    export default {
-      props: {
-        value: Array,
-        default: [],
-      },
-      mounted() { 
-        $(this.$el).multiSelect();
-        $(this.$el).multiSelect('select', this.value);
-      },
-    }
-    ```
+```js
+export default {
+  props: {
+    value: Array,
+    default: [],
+  },
+  mounted() { 
+    $(this.$el).multiSelect();
+    $(this.$el).multiSelect('select', this.value);
+  },
+}
+```
 
 2. **Handle Internal Changes**
-    To handle changes occurring due to the user interacting with the multiselect, we can go back to the callbacks we explored before — but 'less naively' this time. Instead of simply emitting what they send us, we want to turn a new array that takes into account our original value and the change made.
+To handle changes occurring due to the user interacting with the multiselect, we can go back to the callbacks we explored before — but 'less naively' this time. Instead of simply emitting what they send us, we want to turn a new array that takes into account our original value and the change made.
 
-    ```
-    mounted() { 
-      $(this.$el).multiSelect({
-        afterSelect: (values) => this.$emit('input', [...new Set(this.value.concat(values))]),
-        afterDeselect: (values) => this.$emit('input', this.value.filter(x => !values.includes(x))),
-      });
-      $(this.$el).multiSelect('select', this.value);
-    },
-    ```
+```js
+mounted() { 
+  $(this.$el).multiSelect({
+    afterSelect: (values) => this.$emit('input', [...new Set(this.value.concat(values))]),
+    afterDeselect: (values) => this.$emit('input', this.value.filter(x => !values.includes(x))),
+  });
+  $(this.$el).multiSelect('select', this.value);
+},
+```
 
-    Those callback functions might look a little dense, so let’s break them down a little.
-    The `afterSelect` handler concatenates the newly selected value with our existing values, but then just to make sure there are no duplicates, it converts it to a Set (guarantees uniqueness) and then a destructuring to turn it back to an array.
-    The `afterDeselect` handler simply filters out any deselected values from the current value list in order to emit a new list.
+Those callback functions might look a little dense, so let’s break them down a little.
+The `afterSelect` handler concatenates the newly selected value with our existing values, but then just to make sure there are no duplicates, it converts it to a Set (guarantees uniqueness) and then a destructuring to turn it back to an array.
+The `afterDeselect` handler simply filters out any deselected values from the current value list in order to emit a new list.
 
 3. **Handling External Updates To Value**
-    The next thing we need to do is to update the selected values in the UI whenever the `value` prop changes. This involves translating from a _declarative_ change to the props into an _imperative_ change utilizing the functions available on multiselect. The simplest way to do this is to utilize a watcher on our `value` prop:
+  The next thing we need to do is to update the selected values in the UI whenever the `value` prop changes. This involves translating from a _declarative_ change to the props into an _imperative_ change utilizing the functions available on multiselect. The simplest way to do this is to utilize a watcher on our `value` prop:
 
-    ```
-    watch:
-      // don’t actually use this version. See why below
-      value() {
-        $(this.$el).multiselect('select', this.value);
+```js
+watch:
+  // don’t actually use this version. See why below
+  value() {
+    $(this.$el).multiselect('select', this.value);
+  }
+}
+```
+
+However, there’s a catch! Because triggering that select will actually result in our `onSelect` handler, and thus use updating values. If we do this naive watcher, we will end up in an infinite loop.
+Luckily,for us, Vue gives us the ability to see the old as well as the new values. We can compare them, and only trigger the select if the value has changed. Array comparisons can get tricky in JavaScript, but for this example, we’ll take advantage of the fact that our arrays are simple (not containing objects) and use JSON stringify to do the comparison. After taking into account that we need to also deselect any that options that have been removed, our final watcher looks like this:
+
+```js
+watch: {
+    value(newValue, oldValue) {
+      if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+        $(this.$el).multiSelect('deselect_all');
+        $(this.$el).multiSelect('select', this.value);
       }
     }
-    ```
-
-    However, there’s a catch! Because triggering that select will actually result in our `onSelect` handler, and thus use updating values. If we do this naive watcher, we will end up in an infinite loop.
-    Luckily,for us, Vue gives us the ability to see the old as well as the new values. We can compare them, and only trigger the select if the value has changed. Array comparisons can get tricky in JavaScript, but for this example, we’ll take advantage of the fact that our arrays are simple (not containing objects) and use JSON stringify to do the comparison. After taking into account that we need to also deselect any that options that have been removed, our final watcher looks like this:
-
-    ```
-    watch: {
-        value(newValue, oldValue) {
-          if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
-            $(this.$el).multiSelect('deselect_all');
-            $(this.$el).multiSelect('select', this.value);
-          }
-        }
-      },
-    ```
+  },
+```
 
 4. **Handling External Updates To Slot**
-    We have one last thing that we need to handle: our multiselect is currently utilizing option elements passed in via a slot. If that set of options changes, we need to tell the multiselect to refresh itself, otherwise the new options don’t show up. Luckily, we have both an easy API for this in multiselect (the 'refresh' function and an obvious Vue hook to hook into) updated. Handling this last case is as simple as:
+We have one last thing that we need to handle: our multiselect is currently utilizing option elements passed in via a slot. If that set of options changes, we need to tell the multiselect to refresh itself, otherwise the new options don’t show up. Luckily, we have both an easy API for this in multiselect (the 'refresh' function and an obvious Vue hook to hook into) updated. Handling this last case is as simple as:
 
-    ```
-    updated() {
-      $(this.$el).multiSelect(’refresh');
-    },    
-    ```
+```js
+updated() {
+  $(this.$el).multiSelect(’refresh');
+},    
+```
 
-    You can see a working version of this component wrapper in this CodePen: See the Pen [ Vue integrations: Multiselect Wrapper with v-model](https://codepen.io/smashing-magazine/pen/QoLJJV) by Smashing Magazine([@smashing-magazine](https://codepen.io/smashing-magazine/)) on [CodePen](https://codepen.io).
+You can see a working version of this component wrapper in this CodePen: See the Pen [ Vue integrations: Multiselect Wrapper with v-model](https://codepen.io/smashing-magazine/pen/QoLJJV) by Smashing Magazine([@smashing-magazine](https://codepen.io/smashing-magazine/)) on [CodePen](https://codepen.io).
 
 ## Drawbacks And Other Considerations
 
