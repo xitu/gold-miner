@@ -2,81 +2,81 @@
 > * 原文作者：[Jakob Jenkov](https://twitter.com/#!/jjenkov)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/joining-data-streams.md](https://github.com/xitu/gold-miner/blob/master/TODO1/joining-data-streams.md)
-> * 译者：
+> * 译者：[whatbeg](https://github.com/whatbeg)
 > * 校对者：
 
-# Joining Data Streams
+# 连接数据流
 
-Joining data streams means joining messages from one data stream with the messages or another data stream, often based on keys found inside these messages. Once you start joining data streams, it affects how you can process the streams and how you can scale them. Joining data streams can also affect how much storage is needed to store the messages along the way.
+连接数据流意味着将一个数据流的消息与另一个数据流的消息连接起来，这通常基于这些消息中的关键字。一旦开始连接数据流，它将牵扯到如何处理流以及如何扩展流的方式。连接数据流还会影响到连接过程中存储消息所需的存储空间大小。
 
-## Basic Stream Joining
+## 基本的流连接
 
-The basic concept of joining streams means that you read messages from multiple streams and join these messages together. For example, imagine you have one data stream containing update events for customer updates, and another stream containing update events for customer contracts. When you receive an update to a customer, you may want to lookup all the customer's contacts and do something with them. For instance, you might attach the contracts to the customer object and forward that enriched customer object onto another data stream. Or, say the customer's marital status changed from married to single, perhaps you would like to check if their contracts should be changed accordingly.
+连接流的基本概念指的是你从多个流中读取消息并将这些消息连接在一起。例如，假设你有一个数据流包含客户更新的更新事件，另一个流包含客户合同的更新事件。当你收到客户的更新时，你可能希望查找客户的所有联系人并对其执行某些操作。例如，你可以将合同附加到客户对象，并将附加后的客户对象转发到另一个数据流。或者，假设客户的婚姻状况从已婚变为单身，你可能会想检查他们的合同是否应该做相应的更改。
 
 ![](http://tutorials.jenkov.com/images/data-streaming/joining-data-streams-1.png)
 
-When joining streams the messages in the different streams that are related to each other is typically identified by some set of keys. For example, a customer may have a customer ID and a contract may have a contract ID plus a customer ID (foreign key) of the customer the contract belong to. To join a customer object with its related contract objects, you would lookup the contract objects in the contract stream which have a customer ID referencing the customer ID of the customer in question.
+当连接流时，通常由一组关键字标识彼此相关的不同流中的消息。例如，客户具有客户 ID，合同具有合同 ID 以及合同所属的客户 ID（外键）。要将客户对象与其相关的合同对象连接起来，你可以在合同流中查找满足条件的合同对象，条件是此合同对象有一个客户 ID 引用了该客户对象的客户 ID。
 
-## Stream Data Views
+## 流数据视图
 
-When processing a data stream you process one message or record at a time. You do not have access to any previous records in that data stream, and not to any future records either. Thus, in order to be able to locate records from another stream, the messages of that stream must be stored in some kind of data view.
+当处理数据流时，你是一次处理一条消息或一条记录。你无权访问该数据流中的任何先前的记录，同样也无法访问任何将来的记录。因此，为了能够从另一个流中定位记录，该流的消息必须存储在某种数据视图中。
 
 ![](http://tutorials.jenkov.com/images/data-streaming/joining-data-streams-2.png)
 
-Data views come in two common variations:
+数据视图有两种常见的变体：
 
-*   Windows
-*   Tables
+*   窗口（Windows）
+*   表（Tables）
 
-### Data Windows
+### 数据窗口（Data Windows）
 
-A _data window_ keeps a _window_ of records in which records can be looked up. A data window is typically limited either by time, by number of records or other storage constraints. Time is typically used when it is expected that the records in the two streams are expected to arrive close to each other in time. Then the records in one stream can be stored in a window e.g. 5 minutes or 30 minutes (or whatever time window fits your use case) until the record in the other data stream arrives.
+一个 **数据窗口** 维护了一个可以在其中查找记录的记录 **视窗**。数据窗口通常受时间，记录数量或其他存储约束的限制。当预计两个流中的记录在到达时间上彼此接近时，通常使用时间窗口。然后，一个流中的记录可以存储在一个窗口中，例如 5 分钟或 30 分钟（或适合实际用例的任何时间窗口），直到其他数据流中的记录到达。
 
-### Data Tables
+### 数据表（Data Tables）
 
-A _Data Table_ keeps records in a tabular data structure. Such a data structure can be a simple key, record map, where records can be looked up by their keys. Records can also be stored with more fields like a database table, so the records can be found both by their primary key, foreign keys and other values.
+一个 **数据表** 将记录保存在表格型数据结构中。这样的数据结构可以是简单的关键字到记录的映射，其中记录可以通过其关键字来查找。记录也可以存储在更多地方，如数据库表，以便可以通过主键，外键和其他值找到记录。
 
-### Combinations of Windows and Tables
+### 数据窗口和数据表的组合
 
-Data windows and tables can be combined. A data table can be put together from only a window of records. When a record gets "too old" to be in the window, it is removed from the table again.
+数据窗口和表格可以组合。数据表可以仅和一个记录窗口组合在一起。当记录“太旧”而不在窗口中时，它将会重新从数据表中被删除。
 
-### Other Data Views
+### 其他数据视图
 
-It is also possible to build data views using other data structures like a tree or graph from the records in a data stream or data window. It all depends on what your needs are.
+还可以从数据流或数据窗口中的记录中使用其他数据结构（如树或图）来构建数据视图。这一切都取决于你的需求。
 
-## Forwarding Joined Records
+## 转发连接后的记录
 
-Sometimes you may want to forward a record from one data stream which has been joined with a record from another data stream. By _forward_ I mean write the joined record out onto another data stream for someone else to consume. By _joined_ I mean that either the one record has been inserted into the other, or a new record has been created which contains the joined information from both records. Both of these options are illustrated here:
+有时，你可能希望从一个数据流中转发记录，而该数据流已与另一个数据流中的记录进行了连接。这里的 **转发** 指的是将连接后的记录写入另一个数据流，供其他人使用。这里的 **连接** 指的是要么将一条记录插入另一条记录，要么创建一条包含两条记录的连接信息的新记录。这两个选项都在下图说明：
 
 ![](http://tutorials.jenkov.com/images/data-streaming/joining-data-streams-3.png)
 
-Once you forward joined records, there are a few issues that will affect the correctness and performance of your system. I will get into these issues in the following sections.
+一旦你转发连接后的记录，会有一些问题会影响系统的正确性和性能。我将在以下部分介绍这些问题。
 
-## Timing Issues
+## 时间问题
 
-The timing of the arrival of records in the input data streams affect how the joined records look when processed or forwarded. Here is a diagram illustrating how the difference in timing affects the joined record of two input records:
+输入数据流中记录到达的时间会影响处理或转发时连接后记录的外观。下图说明了时序的差异如何影响两个输入记录的连接记录：
 
 ![](http://tutorials.jenkov.com/images/data-streaming/joining-data-streams-4.png)
 
-The records A and B are updated 2 times each. These two versions are noted as A1, A2, B1 and B2\. The number represents the version of the record. Notice how the timing of the arrival of A1, A2, B1 and B2 affects how the joined record looks when processed or forwarded. The diagram shows 3 different timing permutations, and the joined results look different in each case.
+记录 A 和 B 各自被更新 2 次。这两个版本标注为 A1，A2，B1 和 B2，其中数字代表记录的版本。请注意，A1，A2，B1 和 B2 的到达时间是如何影响处理或转发时连接记录的外观的。该图显示了 3 种不同的时序排列，并且在每种情况下连接的结果看起来都不同。
 
-Notice, that even if the final joined records look the same, the joined records leading up to the final record do not. Also, keep in mind that you never know when the "final" record has been joined. There is no way to know what will arrive in the future in the input data streams. Therefore, you cannot just look at the last record in the examples above, and consider that the "final" result of the join operations of those records in the data streams. The "final" result is the full sequence of joined records in all their intermediate mutations.
+注意，即使最终连接后的记录看起来相同，得到最终记录的连接记录也不会相同。另外，请记住，你永远不知道“最终”记录何时被连接。没有任何办法可以知道输入数据流中将来会发生什么。因此，你不能只查看上面示例中的最后一条记录，就得出数据流中这些记录的连接操作的“最终”结果。“最终”结果是所有中间突变中连接记录的完整序列。
 
-## Horizontal Scalability Issues
+## 水平扩展性问题
 
-If your data streams are scaled horizontally (scaled out), joining records will be somewhat harder. In this section I will try to explain to you why that is.
+如果您的数据流是水平扩展的（scale out），则连接记录将更加困难。在本节中，我将尝试向你解释为什么会这样。
 
-As mentioned earlier in this tutorial, records that are joined are usually matched by their keys. For instance, a Customer record may have a customerId as primary key, and a Contract record may have a foreign key customerIdFk that references the primary key customerId of the Customer record.
+如本教程之前所述，连接的记录通常由其键匹配。例如，一个 Customer 记录可能使用 customerId 作为主键，而一个 Contract 记录可能具有引用 Customer 记录的主键 customerId 的外键 customerIdFk。
 
-When a data stream is scaled horizontally the records in the data stream are partitioned across different computers. In order to join two records, either the records must be partitioned onto the same computer, or your join operation must know how to lookup a record that is stored on another computer. Both options will be explained in more detail in the following sections.
+当水平扩展数据流时，数据流中的记录在不同的计算机上进行分区。要连接两条记录，要么将记录分区到同一台计算机上，要么你的连接操作必须知道如何查找存储在另一台计算机上的记录。这两个选项将在以下各节做更详细的介绍。
 
-### Record Repartitioning
+### 记录重分区
 
-If your join operation does not know how to lookup records stored on another computer, the records to be joined must be partitioned so that records to be joined are located on the same computer. If this partitioning is not the natural partitioning of the records, then the records in one of the data streams will have to be repartitioned to place records to be joined on the same computer.
+如果您的连接操作不知道如何查找存储在另一台计算机上的记录，则必须对要连接的记录进行分区，以便要连接的记录都位于同一台计算机上。如果此分区不是记录的自然分区，则必须重新分区其中一个数据流中的记录，以便将需要连接的记录放置在同一计算机上。
 
 ![](http://tutorials.jenkov.com/images/data-streaming/joining-data-streams-5.png)
 
-Notice, that repartitioning of records lowers performance of the full record processing chain (AKA graph or topology). Repartitioning also creates an extra copy of the repartitioned records.
+注意，记录的重新分区会降低完整记录处理链（AKA 图或拓扑）的性能。重新分区还会创建被重新分区的记录的额外副本。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
