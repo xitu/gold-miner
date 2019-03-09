@@ -2,82 +2,83 @@
 > * 原文作者：[The Rust Project Developers](https://www.rust-lang.org/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/rust-case-study-community-makes-rust-an-easy-choice-for-npm.md](https://github.com/xitu/gold-miner/blob/master/TODO1/rust-case-study-community-makes-rust-an-easy-choice-for-npm.md)
-> * 译者：
+> * 译者：[WangLeto](https://github.com/WangLeto)
 > * 校对者：
 
-# Rust Case Study: Community makes Rust an easy choice for npm
 
-> The npm Registry uses Rust for its CPU-bound bottlenecks
+# Rust 语言案例研究：社区使得 Rust 成为 npm 的简单选择
 
-## Rust at npm
+> 使用 Rust 来解决 CPU 性能产生的 npm 软件包注册瓶颈
 
-Facts and Figures:
+## Rust 语言在 npm
+
+事实与数据：
 
 ```
-Over 836,000 JavaScript packages are available
+共有超过 836,000 个 JavaScript 包可用
 
-Each month, npm serves over 30 billion packages
+每个月使用 npm 下载的软件包超过三百亿
 
-These downloads come from over 10 million users
+下载来自于超过一千万个用户
 ```
 
-npm, Inc is the company behind [npmjs.com](https://www.npmjs.com/) and the npm Registry. The largest software registry in the world, it sees upwards of 1.3 billion package downloads per day. In addition to maintaining the open source Registry, npm also offers an enterprise registry product and maintains a command-line tool to interact with registries.
+npm 公司（npm, Inc.）是 [npmjs.com](https://www.npmjs.com/) 网站和 npm 注册服务背后的公司。它是全世界最大的软件注册中心，每天有高达 13 亿的包下载量。除了维护开源软件包注册，npm 公司也提供企业级的软件包注册产品，并维护着一个用于与注册信息交互的命令行工具。
 
-The challenges that npm faces demand efficient and scalable solutions. When a service can be deploy-and-forget, that saves valuable operations time and lets them focus on other issues. npm employees also value having a helpful community around any technology they use. Rust fits all these criteria and is currently in use as part of npm's stack.
+npm 所面临的挑战是对效率和扩展性的要求。当服务可以部署然后被忘记（译注：指服务不需要花精力维护）时，我们就节约了宝贵的时间，可以处理别的问题。npm 员工们也很重视选取的技术能有一个有助益的社区。Rust 符合这些要求，而且在 npm 目前的技术栈中也有部分使用。
 
-### Problem: Scaling a CPU-bound Service
+### 问题：扩展一个受限于 CPU 性能的服务
 
-The npm engineering team is always on the lookout for areas that may potentially become performance problems as npm's exponential growth continues. Most of the operations npm performs are network-bound and JavaScript is able to underpin an implementation that meets the performance goals. However, looking at the authorization service that determines whether a user is allowed to, say, publish a particular package, they saw a CPU-bound task that was projected to become a performance bottleneck.
+npm 工程团队时刻关注着随着 npm 包指数增长可能导致的性能问题。大多数情况下 npm 的操作性能受限于网络，JavaScript 足以支撑实现性能目标。然而，当考察决定用户是否被允许发布软件包的授权服务时，这是一个受限于 CPU 性能的任务，预计会成为性能瓶颈。
 
-The legacy JavaScript implementation of this service in Node.js was in need of a rewrite in any case, so the npm team took the opportunity to consider other implementations to both modernize the code and improve performance before service degraded.
+Node.js 中使用传统 JavaScript 实现的这个服务无论如何都需要重写，所以 npm 团队借此契机，考虑在服务降级前重新实现，既使得代码更现代化，又能提高服务性能。
 
-### Solutions Considered
+### 考虑过的解决方案
 
-When considering alternate technologies, the team quickly rejected using C, C++, and Java, and took a close look at Go and Rust.
+当考虑替代技术时，npm 团队很快否决了 C，C++和 Java 实现，而密切关注 Go 语言和 Rust 语言。
 
-A C or C++ solution is no longer a reasonable choice in the minds of the npm engineering team. “I wouldn't trust myself to write a C++ HTTP application and expose it to the web,” explains Chris Dickinson, an engineer at npm. These languages require expertise in memory management to avoid making mistakes that cause catastrophic problems. Security problems, crashes, and memory leaks were not problems that npm was willing to tolerate in order to get improved performance.
+在 npm 工程团队的考虑中，C 或 C++ 解决方案不再是一个合理的选择。 “我不相信自己能写一个 C++ HTTP 应用程序，然后把它发布到网络上，”npm 的工程师 Chris Dickinson 解释说。这些语言需要内存管理方面的专业知识，以避免可能导致灾难性问题的错误。即使是为了提高性能，安全问题、系统崩溃和内存泄漏也不是 npm 公司能容忍的。
 
-Java was excluded from consideration because of the requirement of deploying the JVM and associated libraries along with any program to their production servers. This was an amount of operational complexity and resource overhead that was as undesirable as the unsafety of C or C++.
+Java 也未被考虑，因为要部署任何程序到生产服务器上，都得带上 JVM（Java 虚拟机）和相关类库。这是一系列复杂操作，会产生资源消耗，与 C 或 C++的不安全性一样难以接受。
 
-Given the criteria that the programming language chosen should be:
+考虑到这些要求，所选的编程语言应该：
 
-* Memory safe
-* Compile to a standalone and easily deployable binary
-* Consistently outperform JavaScript
+* 内存安全
+* 可以编译为独立、易部署的二进制文件
+* 性能始终优于 JavaScript
 
-the languages that remained under consideration were Go and Rust.
+因此最后考虑使用的是 Go 语言和 Rust 语言。
 
-### Evaluation
+### 评估
 
-To evaluate candidate solutions, the team rewrote the authorization service in Node.js, Go, and Rust.
+为了评估候选方案，npm 团队分别使用 Node.js、 Go 语言和 Rust 语言重写了授权服务。
 
-The Node.js rewrite served as a baseline against which to evaluate the change in technology to either Go or Rust. npm is full of JavaScript experts, as you would expect. The rewrite of the authorization service using Node.js took about an hour. Performance was similar to that of the legacy implementation.
+使用 Node.js 重写的服务被当做基准线，以评估使用 Go 语言和 Rust 语言带来的变化。如你所料，npm 有很多 JavaScript 专家。使用 Node.js 重写授权服务大约用了一个小时，性能表现与过去实现的差不多。
 
-The Go rewrite took two days. During the rewrite process, the team was disappointed in the lack of a dependency management solution. npm is a company dedicated to making the management of JavaScript dependencies predictable and effortless, and they expect other ecosystems to have similar world-class dependency management tooling available. The prospect of installing dependencies globally and sharing versions across any Go project (the standard in Go at the time they performed this evaluation) was unappealing.
+使用 Go 语言重写授权服务用了 2 天。在这个过程中，npm 团队对于缺少依赖管理解的决方案感到失望。npm 公司致力于使让 JavaScript 依赖管理可预测，并且用起来毫不费力，他们期待其他语言生态也有同样的世界级依赖管理工具。Go 语言的依赖安装全球化进程、跨项目版本共享的前景（在他们进行评估时 Go 语言的标准）都不具有吸引力。
 
-They found a stark contrast in the area of dependency management when they began the Rust implementation. "Rust has absolutely stunning dependency management," one engineer enthused, noting that Rust's strategy took inspiration from npm's. The Cargo command-line tool shipped with Rust is similar to that of the npm command- line tool: Cargo coordinates the versions of each dependency independently for each project so that the environment in which a project is built doesn't affect the final executable. The developer experience in Rust was friendly and matched the team's JavaScript-inspired expectations.
+当开始用 Rust 语言实现时，他们在依赖管理方面发现了鲜明的对比。“Rust 语言有着绝对令人惊叹的依赖管理，”一位工程师热情地说，他指出 Rust 的依赖管理策略从 npm 获得了灵感。Rust 语言安装时附带的 Cargo 命令行工具与 npm 命令行工具类似：Cargo 分开协调每一个项目中的各依赖版本，从而让搭建每个项目时所在环境不会影响最终的执行结果。Rust 语言的开发体验很友好，符合 npm 团队受到 JavaScript 影响的预期。
 
-> Rust has absolutely stunning dependency management.
+> Rust 语言有着绝对令人惊叹的依赖管理。
 
-The rewrite of the service in Rust did take longer than both the JavaScript version and the Go version: about a week to get up to speed in the language and implement the program. Rust felt like a more difficult programming language to grapple with. The design of the language front-loads decisions about memory usage to ensure memory safety in a different way than other common programming languages. “You will write a correct program, but you will have to think about all the angles of that correct program,” described Dickinson. However, when the engineers encountered problems, the Rust community was helpful and friendly answering questions. This enabled the team to reimplement the service and deploy the Rust version to production.
+使用 Rust 语言重写授权服务的时间其实比 JavaScript 版本和 Go 语言版本的都长：大约用了一个周来熟悉语言并进行实现。Rust 感觉像是一种更难以搞定的编程语言。语言的设计预先加载了不同于其他常见编程语言的内存使用决策，以确保内存安全性。“你可以写出一个正确的程序，但是你必须考虑到这个程序的方方面面，”Dickinson 说。然而，当工程师们遇到问题时，Rust 社区友善地回答了问题，很有帮助。这一点让 npm 团队能够用 Rust 语言重写服务并将其部署到生成环境。
 
-### Results
+### 结果
 
-> My biggest compliment to Rust is that it’s boring.
+> 我对 Rust 最大的恭维就是它很无聊。
 
-npm’s first Rust program hasn't caused any alerts in its year and a half in production. "My biggest compliment to Rust is that it's boring," offered Dickinson, "and this is an amazing compliment." The process of deploying the new Rust service was straight-forward, and soon they were able to forget about the Rust service because it caused so few operational issues. At npm, the usual experience of deploying a JavaScript service to production was that the service would need extensive monitoring for errors and excessive resource usage necessitating debugging and restarts.
+npm 的第一个 Rust 程序在一年半的生产使用中没有引起任何警报。“我对 Rust 最大的恭维就是它很无聊，”Dickinson 说，“而这是一个很棒的恭维。”部署新的 Rust 服务的过程很简单，很快他们就忘记了这个 Rust 服务，因为它极少引起运行问题。在 npm 公司，将 JavaScript 服务部署到生产环境的一般经验是，要对服务的错误和过多的资源占用进行大量监控，从而需要调试和重启。
 
-### Community Matters
+### 社区很重要
 
-npm called out the Rust community as a positive factor in the decision-making process. Particular aspects they find valuable are the Rust community’s inclusivity, friendliness, and solid processes for making difficult technical decisions. These aspects made learning Rust and developing the Rust solution easier, and assured them that the language will continue to improve in a healthy, sustainable fashion.
+npm 称 Rust 社区是决策过程中的一个积极因素。他们认为 Rust 社区有很价值的一些方面是他们的包容、友好以及做出困难的技术决策的可靠流程。这些方面使 Rust 语言的学习和解决方案的开发更容易，并保证了语言将以健康、可持续的方式继续提高。
 
-### Downsides: Maintaining Multiple Stacks
+### 缺点：维护多个技术栈
 
-Every technical decision comes with trade-offs, and adding Rust to npm’s production services is no different. The biggest downside of introducing Rust at npm is the maintenance burden of having separate solutions for monitoring, logging, and alerting for the existing JavaScript stack as well as the new Rust stack. As a young language, Rust doesn’t yet have industry-standard libraries and best practices for these purposes, but hopefully will in the future.
+每个技术决策都需要权衡利弊，将 Rust 语言加入 npm 的生产服务也不例外。将 Rust 引入 npm 的最大缺点是，现有的 JavaScript 技术栈和新的 Rust 技术栈都有自己的解决方案，用来进行状态监视、日志记录与发出警报；而维护这些解决方案有一定的负担。作为一门年轻的语言，Rust 还没有用以完成工业级产品标准的库和最佳实践，但是希望在不久的将来能实现。
 
-### Conclusion
+### 结论
 
-Rust is a solution that scales and is straightforward to deploy. It keeps resource usage low without the possibility of compromising memory safety. Dependency management through Cargo brings modern tools to the systems programming domain. While there are still best practices and tooling that could be improved, the community is set up for long-term success. For these reasons, npm chose Rust to handle CPU-bound bottlenecks.
+Rust 语言是一种可扩展且易于部署的解决方案。它可以占用较少的资源而不影响内存安全性。通过 Cargo 的依赖管理为系统编程领域带来了现代化工具。虽然仍有最佳实践和工具有待提高，但社区的建立保证了长期成功。出于这些原因，npm 选择了 Rust 来处理 CPU 限制的性能瓶颈。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
