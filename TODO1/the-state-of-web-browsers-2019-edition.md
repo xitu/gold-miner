@@ -286,11 +286,16 @@ Another recent controversy is in Chrome, which is not pure Chromium, therefore o
  
 A third concern is Google’s aggressive deprecation policy that lacks empathy. This is an area I have experience with. Because of some of my other hobbies (wildlife photography) I spent a lot of time on websites that deal with zoology: describing species. These websites are often made by amateurs, hobbyists, people that are not professional web developers. Also, some of these websites haven’t been touched (in terms of code) for years. Let’s call all of this the “old web”.
 
-
+第三个例子是 Google 缺乏同理心的强势弃用政策。我在这方面有自己的亲身体验。出于我的爱好 (野生动物摄影)，我花了很多时间在与描述动物物种有关的网站上:。这些网站通常是由程序小白、业余爱好者、非专业 web 开发人员创建的。此外，其中一些网站多年来 (在代码方面) 都没有被触及。让我们把这些网站称为 “old web”。
 
 How big is this old web? I don’t know, but I’m willing to bet that most of the world’s web pages aren’t under active maintenance. The thing is, many of these websites are breaking. Partly, or as a whole. They’re falling apart, bit by bit. Because of deprecations, new expectations (for example HTTPS), but even more so by breaking API changes of 3rd party services, like Maps. Or, they are massively de-ranked for not complying with new expectations and therefore wiped from existence.
 
+世界上有多少 old web 呢?我也不知道，但是我敢打赌世界上大部分的网页都没有进行有效的维护。问题是，很多这样的网站其部分或是整体正处于崩溃状态。他们正在一点点地分崩离析。由于 Google 的弃用政策，比如应用 HTTPS 而弃用 HTTP，其中通过打破第三方服务的 API 更改（例如Maps）更是如此。 或者，由于 old web 不符合新的期望，因此它们被大规模降级，消失殆尽。
+
+
 Yet these websites still have value. Tech companies owe it to these website owners for their site that once worked, to keep working years after. It’s part of the promise of the web: backwards compatibility. The gut reaction that these website owners should update their shit and get with the times is arrogant and lacks empathy. It is based on the faulty assumption that behind every website, there’s some team of developers maintaining it throughout its entire life cycle.
+
+然而，这些网站仍然有价值。科技公司应该感谢这些网站的所有者，因为他们的网站曾经运作良好，并坚持运行多年。这是 web 承诺的一部分:向后兼容。这些网站的所有者应该承认他们的不幸，也应该认识到世道的残酷和无情。一个错误的认知是，在每个网站的背后，都有一些开发团队在整个生命周期中维护它。
 
 Even if you believe its their problem, consider this analogy. Say you have a computer illiterate mother (I do). She struggles with basic computing and needs constant help. You could now be all smug and tell her to brush up her computing skills, to “get with the times”. You could technically be right, but I sure hope she kicks your arrogant ass. Even if right, the problem isn’t going to be solved, and therefore empathy is the answer. And that’s how I feel about the old web: it must be preserved with empathy. Google has a very poor track record in this area.
 
