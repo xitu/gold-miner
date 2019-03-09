@@ -1,11 +1,11 @@
-> * 原文地址：[Longest Keyword Sequence](https://gist.github.com/lhorie/c0d9fd9b2aa215f4984f3ce1c8fd01bf)
+> * 原文地址：[What's the longest keyword sequence in Javascript?](https://gist.github.com/lhorie/c0d9fd9b2aa215f4984f3ce1c8fd01bf)
 > * 原文作者：[Leo Horie](https://mithril.js.org/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/longest-keyword-sequence.md](https://github.com/xitu/gold-miner/blob/master/TODO1/longest-keyword-sequence.md)
 > * 译者：
 > * 校对者：
 
-# Longest Keyword Sequence
+# What's the longest keyword sequence in Javascript?
 
 So there were a few threads going around recently about a challenge to write the longest sequence of keywords in Javascript:
 
