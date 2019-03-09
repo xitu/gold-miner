@@ -1,3 +1,5 @@
+* [数据科学领域十大必知机器学习算法](https://juejin.im/post/5c73bbfff265da2da771d42a) ([JohnJiangLA](https://github.com/JohnJiangLA) 翻译)
+* [如何用 Python 从零开始构建你自己的神经网络](https://juejin.im/post/5c7a478c518825787e6a0f67) ([JackEggie](https://github.com/JackEggie) 翻译)
 * [提取图像中的文字、人脸或者条形码 — 形状检测 API](https://juejin.im/post/5c64026fe51d457f963d249c) ([jerryOnlyZRJ](https://github.com/jerryOnlyZRJ) 翻译)
 * [Python 的时间序列分析：简介](https://juejin.im/post/5c6c12def265da2ddc3c70ce) ([ppp-man](https://github.com/ppp-man) 翻译)
 * [从 Instagram 上的故事和反馈机器学习中收获的一些经验](https://juejin.im/post/5c683dfce51d45164c7599fb) ([TrWestdoor](https://github.com/TrWestdoor) 翻译)
