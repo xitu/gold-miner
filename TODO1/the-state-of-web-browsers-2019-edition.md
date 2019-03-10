@@ -295,50 +295,97 @@ How big is this old web? I don’t know, but I’m willing to bet that most of t
 
 Yet these websites still have value. Tech companies owe it to these website owners for their site that once worked, to keep working years after. It’s part of the promise of the web: backwards compatibility. The gut reaction that these website owners should update their shit and get with the times is arrogant and lacks empathy. It is based on the faulty assumption that behind every website, there’s some team of developers maintaining it throughout its entire life cycle.
 
-然而，这些网站仍然有价值。科技公司应该感谢这些网站的所有者，因为他们的网站曾经运作良好，并坚持运行多年。这是 web 承诺的一部分:向后兼容。这些网站的所有者应该承认他们的不幸，也应该认识到世道的残酷和无情。一个错误的认知是，在每个网站的背后，都有一些开发团队在整个生命周期中维护它。
+然而，这些网站仍然有价值。科技公司应该感谢这些网站的所有者，因为他们的网站曾经运作良好，并坚持运行多年。这是 web 承诺的一部分:向后兼容。这些网站的所有者应该承认他们的不幸，也应该认识到世道的残酷和无情。一个错误的认知是，在每个网站的背后，都有一些开发团队在网站的整个生命周期中提供维护。
 
 Even if you believe its their problem, consider this analogy. Say you have a computer illiterate mother (I do). She struggles with basic computing and needs constant help. You could now be all smug and tell her to brush up her computing skills, to “get with the times”. You could technically be right, but I sure hope she kicks your arrogant ass. Even if right, the problem isn’t going to be solved, and therefore empathy is the answer. And that’s how I feel about the old web: it must be preserved with empathy. Google has a very poor track record in this area.
 
+即使你认为这是他们的问题，想想这个类比。假设你有一位不懂电脑的母亲(我母亲就是)。她很难掌握基本的计算技术，需要不断的帮助。你现在可以沾沾自喜地告诉她，要 “与时俱进”，重新学习一下她的计算技能。从技术上讲，你可能是对的，但我确实希望她给你一脚。即使是对的，问题也不会得到解决，因此同理心就是答案。这就是我对 "old web" 的看法:必须以同理心来对待它的存在。Google 在这方面的做的很差。
+
 I’m getting side tracked here, and breaking my promise of making this an optimistic article. I could make the above list a lot longer but my main point here is that most of Google’s questionable moves regarding the web and its users do not take place in Chromium, instead outside of it.
+
+我在这里已经有点跑题了，违背了要让这篇文章变得乐观的承诺。我可以举出更多的例子来，在这里我主要观点是，Goodle 在对 web 及用户的大多数可疑举动都不是在 Chromium 中发生的，而是在 Chromium 之外发生的。
 
 I don’t have a solution for it, it’s just an observation.
 
+我没有解决方案，也只是提出了一个观点。
+
 ### The downsides of power
+
+### 权力的弊端
 
 On to more positive thoughts. For us that is, not for Google. Sorry, Googlers. This one isn’t personal though, I promise. It may scare the shit out of you though. I want to talk about the downsides of power, of which there are many.
 
+转向更积极的想法。对我们来说，不是谷歌。对不起,谷歌员工。但我保证这不是针对个人的。不过这可能会把你吓个半死。我想谈谈权力的弊端，其中有很多。
+
 Whenever I see the CEO of a big company, my immediate thought is pity, not admiration. At the top of the food chain, it’s all eyes on you. There’s nobody to hide behind. Expectations are sky high, relentless, and constant. Mistakes, made by any human being, can have disastrous consequences which will forever be linked to you. Even the upsides aren’t that great. Fame has downsides. Money is not that great if you don’t have the time to enjoy it. There’s even personal security risks and legal risks. You don’t even know if your friends are really your friends.
+
+每当我看到一家大公司的 CEO 时，我的直接感觉是怜悯，而不是钦佩。他们处在食物链的顶端，所有的目光都集中在身上。他们也没有人可以依靠。对他们的期望一如既往的高。任何人犯错造成的灾难性后果都将与他们联系在一起。权力带来的好处不完美，名气也有有缺点。如果你没有时间享受，金钱也将一文不值。甚至存在个人安全风险和法律风险。你甚至不知道你身边的朋友是敌是友。
 
 No, I wouldn’t want to trade with a CEO, world leader, or anybody else at the top of a giant food chain. I prefer being a nobody in the shadows.
 
+我不想和一个 CEO、世界领袖、任何其他处于食物链顶端的人进行交易。我宁愿做一个默默无闻的人。
+
 A fitting example of this I saw a few years ago in a nature documentary. It was documenting a group of monkeys. The monkey society was organized by dominant males ruling a harem of about 20 females. One dominant male was followed for years in its day-to-day activities which pretty much consisted of keeping the females happy and fighting of any challengers to its rule.
+
+几年前我在一部自然纪录片中看到了一个很好的例子。它在记录的是一群猴子。猴群是由支配着大约20只雌性配偶的一只雄性猴王管理的。纪录片追踪记录猴王的日常生活多年，追踪的活动甚至包括让母猴高兴以及与挑战者战斗。
 
 Until the day when the male got too old to do so, and a young male kicked his ass, ending his rule. From absolute power to zero, in one minute. And you know what happened? Rather than depressed by its defeat, the old male seemed to be celebrating, visibly relieved. Because dominance is stressful, tiring, relentless and not at all as awesome as you may think it to be. I believe I even saw the old male laughing at the young new ruler: oh boy, if only you’d know. Well no, I made that part up.
 
+直到有一天，猴王老得不能维持其统治，一只年轻的公猴结束了他的统治。猴王的瞬间从拥有绝对的权力到一无所有。你知道接下来发生了什么吗?老猴王非但没有因为失败而沮丧，反而在庆祝，显然是因为松了一口气。因为统治是需要承受压力、令人疲倦、残酷无情，所以统治根本不像你想象的那么美好。我相信我甚至看到了老猴王在嘲笑年轻的统治者:哦，孩子，总有一天你会后悔的。哈哈，那只是我瞎编的。
+
 The point? Google is the red ass monkey. Being at the top of this giant food chain has all the downsides discussed. Rather than a comfortable stronghold, it’s a position of stress, risk, high stakes and volatility. An abuse of power can lead to competitors stepping in the gap, massive revolts of users, billions lost, enormous legal claims, and more. A single technical innovation can wipe out enormous parts of your business. It is an inevitability that no power lasts forever, it has never done so, ever.
+
+我举上面的一个例子的重点是什么？Google 就像是是红屁股猴子。在这个巨大的食物链的顶端就要承担我们刚才讨论的所有缺点。那不是一个舒适的位置，而是一个压力、危险、高风险和波动性共存的位置。滥用权力会导致被竞争取代、用户的大规模抗议、数十亿的损失、法律的巨额索赔等等。一项技术创新就能毁掉你所有的业务。没有一种力量是永远存在的，新旧交替是不可避免的。
 
 Rather than being afraid of Google for its dominance, it is in fact Google that should be afraid. Because once you win, you can’t go up, and everybody wants you to go down. We’re just waiting, whilst you face all the downsides of being a winner.
 
+实际上是 Google 自己应该产生担忧，而不该是我们去担忧 Google 的统治地位。因为一旦你到达最高点，你就不能再继续往上了，但是几乎所有人都希望你走下坡。旁人只是在等待，而你却要面对成为赢家的所有缺点。
+
 If I were more intelligent and qualified to be a browser engineer, I’d be absolutely terrified to work on Chromium, the “winner”. I’d be totally relaxed, optimistic and laughing when working on Firefox, the “loser”. It’s the difference between having everything to lose with the whole world watching, and having nothing to lose and everything to win, with nobody watching. It is the difference between the highly stressful task of trying to keep a container ship running on which everything depends and having the freedom of thought to invent a wildly cool new speed boat.
+
+如果我更聪明，更有资格成为一名浏览器工程师，我绝对不会去开发 chrome，因为它是“赢家”。如果我在 Firefox 工作，我会完全放松、乐观、大笑，因为 Firefox 是一个“失败者”。这就是在全世界注视下失去一切，和在没有人关注的情况下一无所有却赢得一切的区别。这也是设法让一艘满载集装箱的船只稳定航行，和驾驶新型、酷炫快艇自由驰骋的区别。
 
 How is this good for us? Google comes across as a rational and intelligent company and I expect them to realize how fragile their position really is. If so, it is a powerful safeguard against actions that are too hostile to the web. They simply can’t afford to. The previous one that tried, Microsoft, has been decimated. It only takes time. A mistake. Being too arrogant. Doing too many wrongs. One lawsuit. Power never lasts, and that is a good thing.
 
+这对我们有什么好处? Google  给人的印象是一家理性而明智的公司，我希望他们能意识到自己的地位有多么脆弱。如果那样的话，将会强有力地防止出现对 web 过于敌对的行为。他们根本也经不起失败。前一家尝试过的公司 —— 微软(Microsoft) 已遭到重创。太傲慢会犯错，做错事会被追责，只是时间早晚的问题。没有永远的权力，这是对我们来说也是一件好事。
+
 So instead of freaking out about this dominance, let’s instead sit back, relax and grab some popcorn. The pressure isn’t on us. The web cannot be killed or uninstalled and in the long term, truly isn’t owned by anybody, it’s a temporary illusion at best.
 
-### The opposition is down, but alive
+所以，我们不要为这种统治而惊慌失措，坐下来，放松一下，吃点爆米花。压力不在我们身上。从长远来看 web 不可能被杀死或卸载，它也不属于任何人，充其量只是暂时的幻觉而已。
+
+### 竞争对手虽倒下，但还活着
 
 The biggest victim of this round of browser wars is Firefox. As discussed in the previous article, they’re in deep trouble. Near-zero presence on mobile, and a declining market share on desktop that without intervention is heading towards dangerous territories.
 
+这一轮浏览器战争的最大受害者是 Firefox。正如前一篇文章所讨论的，他们陷入了深深的麻烦之中。手机市场占有率几乎为零，台式机市场份额不断下降，如果不采取干预措施，将处于危险的境地。
+
 What message of hope can be distilled from this disaster? There’s a few I can think of:
 
+从这场灾难中可以提炼出什么有希望的信息？我可以想到一些：
+
 *   Whereas part of the desktop loss is due to Chrome being aggressively pushed (combined with Chrome being a great browser), another part of the loss may be due to Mozilla’s neglect of the desktop browser during the Firefox OS years. Another reason could be a series of painful changes to the UI and web extensions. The point here is that there is a sizable audience that can be regained, and isn’t lost forever. I’m talking a few percentage points here. Which doesn’t mean dominance, it still means dozens of millions of users.
+
+*   Firefox 桌面浏览器份额的损失一部分是由于 Chrome 被大力推荐（加上 Chrome 本身还是一款很棒的浏览器），另一部分损失可能是由于 Mozilla 在Firefox OS 时代忽视了桌面浏览器。另一个原因可能是 Firefox 对 UI 和 web 扩展进行了一系列让人厌烦的更改。这里的重点是有大量的观用户可以重新争取过来，并且不会永远失去。我在这儿说的几个百分点不仅意味着数以千万计的用户，还意味着对 Google 统治地位的撼动。
+
 *   Maybe WebRenderer really is as unique and awesome as I dream it to be. And maybe some major player builds a game or other killer app which will let it shine, whilst Chromium can’t run it ever. Maybe a technically superior browser does matter, if only the right application exists for it that people love or find important.
+
+*   也许 WebRenderer 浏览器真的像我梦想的那样独特和出色。也许一些玩家会开发一款游戏或其他杀手级的应用程序，让它大放异彩，而 Chromium 却永远无法运行它。如果不是浏览器中只有人们喜欢或正确的应用程序存在的话，那么也许一个技术上更先进的浏览器确实很重要。
+
 *   We live in privacy aware times. The party of unlimited data harvesting is largely over or past its peak. Whilst the general public doesn’t seem to care that much yet in terms of which technology they use, it doesn’t mean this state of indifference is forever. It just takes the right push of buttons to set big things in motion, like the butterfly causing a hurricane. Beneficiaries would be Firefox and mobile Safari.
+
+我们生活在一个注重隐私的时代。无限制采集数据的时代基本结束或已经过去了。虽然公众似乎还不太在意浏览器所使用的技术，但这并不意味着这种漠不关心的状态会永远持续下去。暴风雨一触即发，比如蝴蝶引发飓风。受益者将是 Firefox 和移动端的 Safari。
+
 *   Maybe some major Android manufacturer is tired of Google’s abusive shit and says to hell with it: I’m shipping Firefox to the home screen. Could happen any day, as the relation between Google and Android manufacturers is dual: allies as well as competitors. Firefox mobile can’t go down much, but it can go up a lot.
+
+也许一些主要 Android 制造商已经厌倦了 Google 的粗鲁行为，并说:我要把 Firefox 放到主屏幕上。这种情况可能发生随时发生，因为 Google 和 Android 制造商之间的关系是双重的:既有盟友，也有竞争对手。移动端 Firefox 的占有率不会跌太多，但却可以涨很多。
 
 I’m making up all of these scenarios. Each one may be highly unlikely to happen but for **any** unlikely event to happen, is highly likely. Unlikely things happen all the time, we don’t know which or when, but they will happen.
 
+我所假设的这些场景，极可能发生的事情极不可能发生，但对于**任何**不可能发生的事件，却都极有可能发生。不太可能的事情总是发生的，我们不确定是什么时候发生的，但确定他们一定会发生。
+
 The young monkeys are waiting, and they are patient. Their time will come.
+
+年轻的猴子们严阵以待，他们很有耐心。他们的时机将会到来。
 
 ### Wrapping up
 
