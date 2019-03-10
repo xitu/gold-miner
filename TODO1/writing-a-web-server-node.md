@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/writing-a-web-server-node.md](https://github.com/xitu/gold-miner/blob/master/TODO1/writing-a-web-server-node.md)
 > * 译者：[Mirosalva](https://github.com/Mirosalva)
-> * 校对者：
+> * 校对者：[kasheemlew](https://github.com/kasheemlew)，[Endone](https://github.com/Endone)
 
 # Node.js 基础知识: 没有依赖关系的 Web 服务器
 
@@ -342,7 +342,7 @@ Invalid JSON
 {"property":true,"ourMessage":"success"}
 ```
 
-## 结尾
+## 结尾 
 你可以看出，有在仅使用内建模块来处理每个请求时有许多繁琐工作 - 比如记住每次都要关闭响应流，或者每次你发送对象时都要以字符串化的 JSON 来设置一个 `Content-Type: application/json` 类型的 header，或者分析查询参数，或者编写你自己的路由系统.....所有这些都被完成，只需要记住在框架引擎下，它使用这些核心方法，你不用担心它的内部实际如何运行。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
