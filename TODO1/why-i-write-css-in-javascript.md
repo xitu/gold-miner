@@ -58,7 +58,7 @@ const App = () => (
 
 **动态样式**：基于全局主题或不同状态设置组件样式。
 
-CSS-in-JS 还提供 CSS 预处理器的所有重要功能。所有库都支持 auto-prefixing，JavaScript 原生提供了大多数其他功能，如mixins（函数）和变量。
+CSS-in-JS 还提供 CSS 预处理器的所有重要功能。所有库都支持 auto-prefixing，JavaScript 原生提供了大多数其他功能，如 mixins（函数）和变量。
 
 * * *
 
