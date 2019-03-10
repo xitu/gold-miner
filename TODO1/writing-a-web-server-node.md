@@ -7,15 +7,15 @@
 
 # Node.js 基础知识: 没有依赖关系的 Web 服务器
 
-Node.js 是构建 web 服务应用的一种非常流行的技术选择，并且有许多成熟的网络框架，比如 [express](https://expressjs.com/), [koa](https://koajs.com/), [hapijs](https://hapijs.com/)。 In this tutorial在这种背景下，然而我们需要使用核心的 Node 包[http](https://nodejs.org/api/http.html)，来构建一种没有任何依赖的工作服务程序，并一点点地探索所有的重要细节。这不是你能经常看到的一种状况，因此它可以帮助你更好地理解其涉及的所有框架--不仅是现有的许多库在底层使用这个包，而且经常暴露原始对象，同时你可能需要将它们应用在某些特殊任务中。
+Node.js 是构建 web 应用服务端的一种非常流行的技术选择，并且有许多成熟的网络框架，比如 [express](https://expressjs.com/), [koa](https://koajs.com/), [hapijs](https://hapijs.com/)。尽管如此，在这篇教程中我们不用任何依赖，仅仅使用 Node 核心的 [http](https://nodejs.org/api/http.html) 包搭建服务端，并一点点地探索所有的重要细节。这不是你能经常看到的一种状况，因此它可以帮助你更好地理解其涉及的所有框架--不仅是现有的许多库在底层使用这个包，而且经常暴露原始对象，同时你可能需要将它们应用在某些特殊任务中。
 
 ## 目录表
 
-  - [Hello, world](#hello-world)
+  - [Hello, World](#hello-world)
   - [响应细节](#%E5%93%8D%E5%BA%94%E7%BB%86%E8%8A%82)
   - [HTTP 报文](#http-%E6%8A%A5%E6%96%87)
-  - [HTTP Headers 报文头](#http-headers-%E6%8A%A5%E6%96%87%E5%A4%B4)
-  - [HTTP Status Codes 状态码](#http-status-codes-%E7%8A%B6%E6%80%81%E7%A0%81)
+  - [HTTP 报文头](#http-headers-%E6%8A%A5%E6%96%87%E5%A4%B4)
+  - [HTTP 状态码](#http-status-codes-%E7%8A%B6%E6%80%81%E7%A0%81)
   - [路由](#%E8%B7%AF%E7%94%B1)
   - [HTTP 方法](#http-%E6%96%B9%E6%B3%95)
   - [Cookies 缓存](#cookies-%E7%BC%93%E5%AD%98)
@@ -25,7 +25,7 @@ Node.js 是构建 web 服务应用的一种非常流行的技术选择，并且�
 
 ## Hello, world
 
-首先，让我们开始一个最简单的程序--返回那句经典的响应『hello,world』。为了用 Node.js 构建一个服务程序，我们需要使用 [http](https://nodejs.org/api/http.html) 内建模式，尤其是 [createServer](https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener) 函数。
+首先，让我们开始一个最简单的程序--返回那句经典的响应『hello,world』。为了用 Node.js 构建一个服务程序，我们需要使用 [http](https://nodejs.org/api/http.html) 内建模模块，尤其是 [createServer](https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener) 函数。
 
 ```
 const { createServer } = require("http");
@@ -47,11 +47,11 @@ server.listen(PORT, () => {
 
 让我们列出这个简短示例的所有内容：
 
-1.  创建一个服务对象实例，命名 `createServer` 函数。
+1.  使用 createServer 函数创建一个服务对象实例。
 2.  为我们的服务程序中 `request` 事件添加一个事件监听器
-3.  Ran our server using port specified in environment variables with fallback on 在端口 _8080_ 运行我们服务程序中的回调方法，在环境变量中指定这个端口配置。
+3.  在环境变量指定的端口运行我们的服务程序，缺省时使用 8080 端口。
 
-我们创建的服务程序是 [http.Server](https://nodejs.org/api/http.html#http_class_http_server) 对象的一个实例，继承自对象 [net.Server](https://nodejs.org/api/net.html#net_class_net_server)，而它又继承自对象 [EventEmitter](https://nodejs.org/api/events.html#events_class_eventemitter)。有许多我们可以监听的事件，但最重要的事件是 [request](https://nodejs.org/api/http.html#http_event_request)，并且在创建服务时提供它的监听，常见的实现方式如下：
+我们创建的服务程序是 [http.Server](https://nodejs.org/api/http.html#http_class_http_server) 类的一个实例，继承自对象 [net.Server](https://nodejs.org/api/net.html#net_class_net_server)，而它又继承自类 [EventEmitter](https://nodejs.org/api/events.html#events_class_eventemitter)。有许多我们可以监听的事件，但最重要的事件是 [request](https://nodejs.org/api/http.html#http_event_request)，并且在创建服务时提供它的监听，常见的实现方式如下：
 
 ```
 const { createServer } = require("http");
@@ -62,11 +62,11 @@ createServer((request, response) => {
 }).listen(8080);
 ```
 
-最后一步是启动我们的服务。我通过调用 [server.listen](https://nodejs.org/api/http.html#http_server_listen) 方法来启动，并且你可以在启动后指定端口和执行内容。有一点要注意的是：服务并不会立即开始，它接入来访的请求时必须先和一个端口绑定，然而在实践中这点并不是非常重要，因为这个过程几乎是瞬间完成。你也可以通过 [listening](https://nodejs.org/api/net.html#net_event_listening) 事件方法来单独监听这个特殊事件。
+最后一步是启动我们的服务。我通过调用 [server.listen](https://nodejs.org/api/http.html#http_server_listen) 方法来启动，并且你可以指定端口和启动后执行内容。有一点要注意的是：服务并不会立即开始，它接入来访的请求时必须先和一个端口绑定，然而在实践中这点并不是非常重要，因为这个过程几乎是瞬间完成。你也可以通过 [listening](https://nodejs.org/api/net.html#net_event_listening) 事件方法来单独监听这个特殊事件。
 
 ## 响应细节
 
-现在，在我们学会了如何实例化一个新服务应用后，让我们看看如何实际回复用户的请求。在我们的单一程序中，我们使用 [response.end](https://nodejs.org/api/http.html#http_response_end_data_encoding_callback) 方法以常规经典响应 [Hello, world!](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) 来回复。你可以看出这个签名与可写流方法 [writable.end](https://nodejs.org/api/stream.html#stream_writable_end_chunk_encoding_callback) 非常相似，这是因为请求和响应对象都是流对象 [streams](/2018/06/21/nodejs-guide-for-frontend-developers.html#streams)，同时请求只是可读流，而且响应只是可写流。为什么它们必须是流对象呢？为什么我们不能发送整个回复？
+现在，在我们学会了如何实例化一个新服务应用后，让我们看看如何实际回复用户的请求。在我们唯一的事件处理器中，我们使用 [response.end](https://nodejs.org/api/http.html#http_response_end_data_encoding_callback) 方法以常规经典响应 [Hello, world!](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) 来回复。你可以看出这个签名与可写流方法 [writable.end](https://nodejs.org/api/stream.html#stream_writable_end_chunk_encoding_callback) 非常相似，这是因为请求和响应对象都是流对象 [streams](/2018/06/21/nodejs-guide-for-frontend-developers.html#streams)，同时请求只是可读流，而且响应只是可写流。为什么它们必须是流对象呢？为什么我们不能发送整个回复？
 
 答案是在回复前我们不是非得做完所有的事。想象这种情景，当我们从文件系统中读取一个文件时，而这个文件比较大。因此我们通过 [fs.createReadStream](https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options) 方法打开了一个文件流，这样我们就可以立即写入响应。此外我们还可以直接将输入通过管道连接到输出！
 
@@ -83,7 +83,7 @@ createServer((request, response) => {
 }).listen(8080);
 ```
 
-因此我们可以直接多次写入我们流对象。在任何形式的循环中这么做时要小心，因为你必须自己处理背压问题，另外最好直接管道连接到流对象。同样的，请注意在结尾时使用 `response.end()` 方法。这是强制行的，如果没有这个调用，Node 将保持此连接处于打开状态，造成内存泄漏和客户端处于等待状态。
+因此我们可以直接多次写入我们流对象。在任何形式的循环中这么做时要小心，因为你必须自己处理背压问题，另外最好直接管道连接到流对象。同样的，请注意在结尾时使用 `response.end()` 方法。这是强制的，如果没有这个调用，Node 将保持此连接处于打开状态，造成内存泄漏和客户端处于等待状态。
 
 最后，让我们演示一下流的管道方法是如何为响应对象和其他流起作用的。为了这么做，我们使用 [__filename](/2018/06/21/nodejs-guide-for-frontend-developers.html#module-system) 变量来读取源文件：
 
@@ -100,7 +100,7 @@ createServer((request, response) => {
 
 ## HTTP 报文
 
-我们的服务程序实现了 [HTTP protocol](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) 协议，它是一种文本集的规则，允许客户以自己首选格式请求特定信息，也允许服务程序以数据和附加信息来回复，例如格式、连接状态、缓存信息等等。
+我们的服务程序实现了 [HTTP 协议](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol)，它是一种文本集的规则，允许客户端以自己首选格式请求特定信息，也允许服务程序以数据和附加信息来回复，例如格式、连接状态、缓存信息等等。
 
 让我们看一个对 web 页面的典型请求：
 
@@ -134,7 +134,7 @@ createServer((request, response) => {
 
 为了写一个 header，你需要理解 HTTP 是一种协议，这个协议规定首先是元数据，然后在一个分隔符（两个换行符）之后才是真正的报文体。这意味着一旦你开始发送内容，你就不能变更你的报文头！如果这么做会在 Node 中抛出错误以及实际会中止你的程序。
 
-有两种设置 header 的方法： [response.setHeader](https://nodejs.org/api/http.html#http_response_setheader_name_value) 方法和 [response.writeHead](https://nodejs.org/api/http.html#http_response_writehead_statuscode_statusmessage_headers) 方法。 两者的区别是前者更特殊，并且如果两者都被使用的情况下，所有的 header 会被合并，且以 _writeHead_ 方式设置的 header 取值具有更高的优先级。_writeHead_ 和 _write_ 方法的作用相同，这样你可以在后续修改 header。
+有两种设置 header 的方法： [response.setHeader](https://nodejs.org/api/http.html#http_response_setheader_name_value) 方法和 [response.writeHead](https://nodejs.org/api/http.html#http_response_writehead_statuscode_statusmessage_headers) 方法。 两者的区别是前者更特殊，并且如果两者都被使用的情况下，所有的 header 会被合并，且以 _writeHead_ 方式设置的 header 取值具有更高的优先级。_writeHead_ 和 _write_ 方法的作用相同，这样你不可以在后续修改 header。
 
 ```
 const { createServer } = require("http");
@@ -149,7 +149,7 @@ createServer((req, res) => {
 
 ## HTTP Status Codes 状态码
 
-HTTP 以一种列表 [extensive list](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) 的形式定义了与各种响应相关的状态码。同样地，它们并不会完全认真得遵守，可以想象在不同服务程序表现出一些（或许不这样）细微不同。
+HTTP 以一种列表 [extensive list](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) 的形式定义了与各种响应相关的状态码。此外，并非所有人都严格遵守这个列表，不同的服务端的行为（或多或少）会有细微的差别。
 
 让我们列出最重要的状态码：
 
@@ -170,20 +170,20 @@ HTTP 以一种列表 [extensive list](https://en.wikipedia.org/wiki/List_of_HTTP
 
 *   400: 错误请求，比如传递参数错误，或者缺少一些参数
 *   401: 未授权，用户未被认证，因此无法访问。
-*   403: 禁止访问，用户通常已被认证，但是这项操作未被授权。
+*   403: 禁止访问，用户通常已被认证，但是这项操作未被授权，同样，在某些服务端可能会与 401 状态码混淆。
 *   404: 未找到，提供的 URL 找不到指定页面或数据。
 
 5xx – 服务器错误码
 
 *   500: 服务器内部错误，例如数据库连接错误。
 
-这些错误码是最常见的类型，并且需要足够多以便于将你的响应内容与合适的状态码对应起来。在 Node.js 中，我们既可以使用 [response.statusCode](https://nodejs.org/api/http.html#http_response_statuscode) 方法，也可以使用 [response.writeHead](https://nodejs.org/api/http.html#http_response_writehead_statuscode_statusmessage_headers) 方法。这次就让我们使用 _writeHead_ 方法来设置一个自定义 HTTP 消息：
+这些错误码是最常见的类型，并且足够让你为请求匹配正确的状态码。在 Node.js 中，我们既可以使用 [response.statusCode](https://nodejs.org/api/http.html#http_response_statuscode) 方法，也可以使用 [response.writeHead](https://nodejs.org/api/http.html#http_response_writehead_statuscode_statusmessage_headers) 方法。这次就让我们使用 _writeHead_ 方法来设置一个自定义 HTTP 消息：
 
 ```
 const { createServer } = require("http");
 
 createServer((req, res) => {
-  // 表明没有连接
+  // 表明没有内容
   res.writeHead(204, "My Custom Message");
   res.end();
 }).listen(8080);
@@ -217,7 +217,7 @@ createServer((req, res) => {
 
 ## HTTP 方法
 
-你可能熟悉 [HTTP methods/verbs](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods)，例如 _GET_ 和 _POST_。它们是 HTTP 协议本身的一部分，且含义很明显。然而，它们也有许多我不想深挖的微妙细节，为了简洁起见，我想说 _GET_ 是为了恢复数据，而 _POST_ 是为了创建新的实体对象。没人不让你拿它们另做他用，但是标准和惯例建议你不要这么做。
+你可能熟悉 [HTTP methods/verbs](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods)，例如 _GET_ 和 _POST_。它们是 HTTP 协议本身的一部分，且含义很明显。然而，它们也有许多我不想深挖的微妙细节，为了简洁起见，我想说 _GET_ 是为了获取数据，而 _POST_ 是为了创建新的实体对象。没人不让你拿它们另做他用，但是标准和惯例建议你不要这么做。
 
 上面已经说到，在 Node.js 中服务程序有 [request.method](https://nodejs.org/api/http.html#http_message_method) 属性，可以用于我们内部逻辑处理。同样，Node.js 本身没有任何内容可供我们使用，对不同方法抽象出处理方法。我们需要自己构建抽象处理方法：
 
@@ -239,7 +239,7 @@ createServer((req, res) => {
 
 ## Cookies 缓存
 
- [MDN guide](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies).Cookies 值得单独开一个文章来介绍，所以请随时阅读更多关于它们的内容 [MDN guide](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)。
+ Cookies 值得单独开一个文章来介绍，所以请随时阅读更多关于它们的内容 [MDN guide](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)。
 
 两个关键词，cookie 用于在请求过程中保留一些数据，因为 HTTP 是一种无状态协议，从技术上讲，如果没有 cookies（或者本地存储），我们必须在每次需要身份验证的操作之前都得执行登录操作。我们在客户端保留 cookie（通常在浏览器中），这样浏览器可以给我们发送一个名为 _Cookie_ 且包含所有 cookie 对象的 header，我们可以通过一个 `Set-Cookie` header 来响应请求，告诉客户端设置哪个 cookie（例如访问 token）；客户端保存它之后，就会在每次后续请求中将它发回服务端。
 
@@ -266,9 +266,9 @@ createServer((req, res) => {
 
 ## 查询参数
 
-给特殊处理器设置参数很常见：例如，你希望显示所有图片，我们可以指定一个页面，这通过可以通过查询参数来实现。它们被添加到 URL，通过符号 `?` 与路径分隔开：`http://localhost:8080/pictures?page=2`，但是这里的问题是：如果有不止一个参数，URL 会很快变得混乱。查询参数并不固定，因此我们可以添加任意数量的内容，也可以在将来删除/添加新内容。
+给特殊处理器设置参数很常见：例如，你希望显示所有图片，我们可以指定一个页面，这通过可以通过查询参数来实现。它们被添加到 URL，通过符号 `?` 与路径分隔开：`http://localhost:8080/pictures?page=2`，你可以看出，我们请求了图片库的第二个页面。或者我们可以只需要把它嵌入到 URL 链接本身，但是这里的问题是：如果有不止一个参数，URL 会很快变得混乱。查询参数并不固定，因此我们可以添加任意数量的内容，也可以在将来删除/添加新内容。
 
-为了在我们的服务程序中获取到它，我们使用 [request.url](https://nodejs.org/api/http.html#http_message_url) 属性，在 [routing](#routing) 小节中我们已经用到过。现在，我们需要将我们的 URL 与查询参数分开，虽然我们可以手动这么做，但是没有必要，因为它已经在 Node.js 中实现了：
+为了在我们的服务程序中获取到它，我们使用 [request.url](https://nodejs.org/api/http.html#http_message_url) 属性，在 [路由](#routing) 小节中我们已经用到过。现在，我们需要将我们的 URL 与查询参数分开，虽然我们可以手动这么做，但是没有必要，因为它已经在 Node.js 中实现了：
 
 ```
 const { createServer } = require("http");
@@ -286,12 +286,12 @@ createServer((req, res) => {
 现在，如果你添加查询参数来请求任何页面，你将会在响应中看到效果，例如这个 [http://localhost:8080/about?name=Seva](http://localhost:8080/about?name=Seva) 的请求将会返回带有我们标识名的字符串：
 
 ```
- 1 你的请求参数名带有值 Seva 1
+ 你的请求参数名带有值 Seva
 ``` 
 
 ## 请求体内容
 
-最后一件事是我们看一下请求体内容。之前我们已知道，你可以从 URL 本身获取所有信息（路由和查询参数），但是我们如何从客户端获取到真实数据？你不用直接访问它，但我们可以直接通过读取流来获得传递的数据，这也是为什么请求对象是流对象的一个原因。让我们写一个简单的服务程序，这个程序期望从 POST 请求中获取一个 JSON 对象，并且当获取的并非有效 JSON 时将返回 _400_ 状态码。
+ 我们最后要看的是请求体内容。之前我们已知道，你可以从 URL 本身获取所有信息（路由和查询参数），但是我们如何从客户端获取到真实数据？你不用直接访问它，但我们可以直接通过读取流来获得传递的数据，这也是为什么请求对象是流对象的一个原因。让我们写一个简单的服务程序，这个程序期望从 POST 请求中获取一个 JSON 对象，并且当获取的并非有效 JSON 时将返回 _400_ 状态码。
 
 ```
 const { createServer } = require("http");
