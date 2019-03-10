@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-i-write-css-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-i-write-css-in-javascript.md)
 > * 译者：[Ivocin](https://github.com/Ivocin)
-> * 校对者：
+> * 校对者：[MacTavish Lee](https://github.com/Reaper622), [Mirosalva](https://github.com/Mirosalva)
 
 # 为什么我用 JavaScript 来编写 CSS
 
@@ -42,13 +42,13 @@ const App = () => (
 
 **易维护**：再也不需要寻找影响组件的 CSS 了。
 
-我所在的团队从中受益良多。我不能指望所有团队成员，特别是初级成员，对 CSS 有着百科全书般的理解。最重要的是，截止日期还可能会影响质量。
+尤其是我所在的团队从中获取了很大的信心。我不能指望所有团队成员，特别是初级成员，对 CSS 有着百科全书般的理解。最重要的是，截止日期还可能会影响质量。
 
 使用 CSS-in-JS，我们会自动避开 CSS 常见的坑，比如类名冲突和权重大战（specificity wars）。这使我们的代码库整洁，并且开发更迅速。 😍
 
 **提升的团队合作**：无论经验水平如何，都会避开 CSS 常见的坑，以保持代码库整洁，并且开发更迅速。
 
-关于性能，CSS-in-JS 库跟踪我在页面上使用的组件，只将它们的样式注入 DOM 中。虽然我的 `.js` 包稍大，但我的用户下载了尽可能小的 CSS 内容，并避免了对 `.css` 文件的额外网络请求。
+关于性能，CSS-in-JS 库跟踪我在页面上使用的组件，只将它们的样式注入 DOM 中。虽然我的 `.js` 包稍大，但我的用户下载了尽可能小的有效 CSS 内容，并避免了对 `.css` 文件的额外网络请求。
 
 这导致交互时间稍微长一点，但是首次有效绘制却会快很多！ 🏎💨
 
@@ -68,7 +68,7 @@ CSS-in-JS 将所有这些好处结合到一个好用的包中并强制执行它�
 
 ## 谁在使用 CSS-in-JS？
 
-有上千家公司在生产中使用 CSS-in-JS，包括 [Reddit](https://reddit.com), [Patreon](https://patreon.com), [Target](https://target.com), [Atlassian](https://atlaskit.atlassian.com), [Vogue](https://vogue.de), [GitHub](https://primer.style/components), [Coinbase](https://pro.coinbase.com) 等等。([包括本网站](https://github.com/mxstbr/mxstbr.com))
+有上千家公司在生产中使用 CSS-in-JS，包括 [Reddit](https://reddit.com)、[Patreon](https://patreon.com)、[Target](https://target.com), [Atlassian](https://atlaskit.atlassian.com)、[Vogue](https://vogue.de)、[GitHub](https://primer.style/components)、[Coinbase](https://pro.coinbase.com) 等等。([包括本网站](https://github.com/mxstbr/mxstbr.com))
 
 ## CSS-in-JS 适合你吗？
 
