@@ -157,7 +157,7 @@ role.officer = troopers:create,  troopers:read
 role.underling = troopers:read
 ```
 
-对于后来更新的需求，只需要在文件中加入 “emperor” 角色，以及给 “officer” 添加 “update” 权限： 
+对于后来更新的需求，只需要在文件中加入 “emperor” 角色，以及给 “officer” 添加 “update” 权限：
 
 ```ini
 role.emperor = *
