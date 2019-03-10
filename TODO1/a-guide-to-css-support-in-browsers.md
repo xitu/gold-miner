@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-guide-to-css-support-in-browsers.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-guide-to-css-support-in-browsers.md)
 > * 译者：[huimingwu](https://github.com/huimingwu)
-> * 校对者：
+> * 校对者：[xionglong58](https://github.com/xionglong58), [QiaoN](https://github.com/QiaoN)
 
 # 浏览器中 CSS 支持指南
 
