@@ -149,7 +149,7 @@ public void deleteTrooper(@PathVariable("id") String id)
 
 **值得注意的是:** 在这个例子中，用户名和密码都是明文存储的，这对于博客的文章来说没什么问题，但是你需要[正确地](https://stormpath.com/blog/password-security-right-way)管理你的密码！
 
-为了实现原来的需求，角色-权限的映射是这样的： To meet the original requirements, the role-to-permission mapping would look like this:
+为了实现原来的需求，角色-权限的映射是这样的：
 
 ```ini
 role.admin = troopers:*
@@ -157,7 +157,7 @@ role.officer = troopers:create,  troopers:read
 role.underling = troopers:read
 ```
 
-对于后来更新的需求，只需要在文件中加入 “emperor” 角色，以及给 “officer” 添加 “update” 权限： For the updated requirements, you would just change the file slightly to add the new ‘emperor’ role, and grant officers the ‘update’ permission:
+对于后来更新的需求，只需要在文件中加入 “emperor” 角色，以及给 “officer” 添加 “update” 权限： 
 
 ```ini
 role.emperor = *
