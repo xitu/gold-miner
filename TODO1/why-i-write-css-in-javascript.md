@@ -36,7 +36,7 @@ const App = () => (
 
 ## 为什么我喜欢 CSS-in-JS？
 
-主要是 **CSS-in-JS 增强了我的信心**。我可以在不产生任何意外后果的情况下，添加、更改和删除 CSS。我对组件样式的更改不会影响其他任何内容。如果删除组件，我也会删除它的 CSS。没有更多的[只增不减的样式表](https://css-tricks.com/oh-no-stylesheet-grows-grows-grows-append-stylesheet-problem/)！ ✨
+主要是 **CSS-in-JS 增强了我的信心**。我可以在不产生任何意外后果的情况下，添加、更改和删除 CSS。我对组件样式的更改不会影响其他任何内容。如果删除组件，我也会删除它的 CSS。不再是[只增不减的样式表](https://css-tricks.com/oh-no-stylesheet-grows-grows-grows-append-stylesheet-problem/)了！ ✨
 
 **信心**：在不产生任何意外后果的情况下，添加、更改和删除 CSS，并避免无用代码。
 
