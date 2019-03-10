@@ -13,7 +13,7 @@
 
 ## CSS-in-JS 长什么样？
 
-开发者创建了[不同风格的 CSS-in-JS](https://github.com/michelebertoli/css-in-js)。迄今为止最受欢迎的，是我主创的一个叫做 [styled-components](https://styled-components.com) 的库，在 GitHub 上有超过 20,000 颗星。
+开发者们已经创建了[不同风格的 CSS-in-JS](https://github.com/michelebertoli/css-in-js)。迄今为止最受欢迎的，是我和他人共同开发的一个叫做 [styled-components](https://styled-components.com) 的库，在 GitHub 上有超过 20,000 颗星。
 
 如下是它与 React 一起使用的例子：
 
