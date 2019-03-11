@@ -241,7 +241,7 @@ A memorable example I have of this happening is CSS Regions. It’s a giant spec
 
 A more recent example is dropping HTML Imports, but here too it’s not clear at all whether it was a wrong move, given other browsers’ reluctance to implement it. It was blocked for technical reasons, not corporate reasons.
 
-最近的一个例子是 Google 放弃使用 HTML Imports，其它浏览器厂商虽然照做，但表现得极不情愿，所以我也不肯定 Google 的这一举措是不是错误。 封锁 HTML Imports 实际上是技术的原因，而 Google 的原因。
+最近的一个例子是 Google 放弃使用 HTML Imports，其它浏览器厂商虽然照做，但表现得极不情愿，所以我也不肯定 Google 的这一举措是不是错误。 封锁 HTML Imports 实际上是技术的原因，而不是 Google 的原因。
 
 
 I’d say Google is unlikely to say no to ideas that help the web forward as its in their interest to help the web forward too. This will apply to any idea, for as long as those ideas do not threaten their business.
