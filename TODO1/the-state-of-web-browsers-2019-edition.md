@@ -11,7 +11,7 @@
 
 Two days ago, I published a bitter sweet article on the [state of web browsers](https://github.com/xitu/gold-miner/blob/master/TODO1/the-state-of-web-browsers.md), triggered by the news that Microsoft would abandon their EdgeHTML engine, replacing it with Chromium. Which was the final nail in the coffin, effectively establishing Chromium as the web’s engine, combined with Safari’s webkit. The only resistance to this monopoly, Mozilla, finds itself without any significant allies or traction to counter this development.
 
-两天前，有感于微软放弃 Edgehtml 引擎，使用 Chromiun 取而代之的事件，我发表了一片关于[浏览器兴衰](https://ferdychristant.com/the-state-of-web-browsers-f5a83a41c1cb)的文章。微软的此番作为被视为将 Chromium 与 Safari 的 webkit 结合建立搜索引擎的最后一步。而此时，唯一能对微软的垄断行为产生威胁的对手 —— Mozilla，发现自己已经没有盟友和动力来应对微软的这一举措。
+两天前，有感于微软放弃 Edgehtml 引擎，使用 Chromiun 取而代之的事件，我发表了一篇关于[浏览器兴衰](https://ferdychristant.com/the-state-of-web-browsers-f5a83a41c1cb)的文章。微软的此番作为被视为将 Chromium 与 Safari 的 webkit 结合建立搜索引擎的最后一步。而此时，唯一能对微软的垄断行为产生威胁的对手 —— Mozilla，发现自己已经没有盟友和动力来应对微软的这一举措了。
 
 The article got some readership and a fair amount of feedback. The general consensus seems to be that the article is truthful but depressing.
 
@@ -241,7 +241,7 @@ A memorable example I have of this happening is CSS Regions. It’s a giant spec
 
 A more recent example is dropping HTML Imports, but here too it’s not clear at all whether it was a wrong move, given other browsers’ reluctance to implement it. It was blocked for technical reasons, not corporate reasons.
 
-最近的一个例子是 Google 放弃使用 HTML Imports，其它浏览器厂商虽然照做，但表现得极不情愿，所以我也肯定 Google的这一举措是不是错误。 封锁 HTML Imports 实际上是技术的原因，而 Google 的原因。
+最近的一个例子是 Google 放弃使用 HTML Imports，其它浏览器厂商虽然照做，但表现得极不情愿，所以我也不肯定 Google 的这一举措是不是错误。 封锁 HTML Imports 实际上是技术的原因，而 Google 的原因。
 
 
 I’d say Google is unlikely to say no to ideas that help the web forward as its in their interest to help the web forward too. This will apply to any idea, for as long as those ideas do not threaten their business.
@@ -319,7 +319,7 @@ On to more positive thoughts. For us that is, not for Google. Sorry, Googlers. T
 
 Whenever I see the CEO of a big company, my immediate thought is pity, not admiration. At the top of the food chain, it’s all eyes on you. There’s nobody to hide behind. Expectations are sky high, relentless, and constant. Mistakes, made by any human being, can have disastrous consequences which will forever be linked to you. Even the upsides aren’t that great. Fame has downsides. Money is not that great if you don’t have the time to enjoy it. There’s even personal security risks and legal risks. You don’t even know if your friends are really your friends.
 
-每当我看到一家大公司的 CEO 时，我的直接感觉是怜悯，而不是钦佩。他们处在食物链的顶端，所有的目光都集中在身上。他们也没有人可以依靠。对他们的期望一如既往的高。任何人犯错造成的灾难性后果都将与他们联系在一起。权力带来的好处不完美，名气也有有缺点。如果你没有时间享受，金钱也将一文不值。甚至存在个人安全风险和法律风险。你甚至不知道你身边的朋友是敌是友。
+每当我看到一家大公司的 CEO 时，我的直接感觉是怜悯，而不是钦佩。他们处在食物链的顶端，所有的目光都集中在身上。他们也没有人可以依靠。对他们的期望一如既往的高。任何人犯错造成的灾难性后果都将与他们联系在一起。权力带来的好处不完美，名气也有缺点。如果你没有时间享受，金钱也将一文不值。甚至存在个人安全风险和法律风险。你甚至不知道你身边的朋友是敌是友。
 
 No, I wouldn’t want to trade with a CEO, world leader, or anybody else at the top of a giant food chain. I prefer being a nobody in the shadows.
 
@@ -347,7 +347,7 @@ If I were more intelligent and qualified to be a browser engineer, I’d be abso
 
 How is this good for us? Google comes across as a rational and intelligent company and I expect them to realize how fragile their position really is. If so, it is a powerful safeguard against actions that are too hostile to the web. They simply can’t afford to. The previous one that tried, Microsoft, has been decimated. It only takes time. A mistake. Being too arrogant. Doing too many wrongs. One lawsuit. Power never lasts, and that is a good thing.
 
-这对我们有什么好处? Google  给人的印象是一家理性而明智的公司，我希望他们能意识到自己的地位有多么脆弱。如果那样的话，将会强有力地防止出现对 web 过于敌对的行为。他们根本也经不起失败。前一家尝试过的公司 —— 微软(Microsoft) 已遭到重创。太傲慢会犯错，做错事会被追责，只是时间早晚的问题。没有永远的权力，这是对我们来说也是一件好事。
+这对我们有什么好处? Google 给人的印象是一家理性而明智的公司，我希望他们能意识到自己的地位有多么脆弱。如果那样的话，将会强有力地防止出现对 web 过于敌对的行为。他们根本也经不起失败。前一家尝试过的公司 —— 微软(Microsoft) 已遭到重创。太傲慢会犯错，做错事会被追责，只是时间早晚的问题。没有永远的权力，这是对我们来说也是一件好事。
 
 So instead of freaking out about this dominance, let’s instead sit back, relax and grab some popcorn. The pressure isn’t on us. The web cannot be killed or uninstalled and in the long term, truly isn’t owned by anybody, it’s a temporary illusion at best.
 
