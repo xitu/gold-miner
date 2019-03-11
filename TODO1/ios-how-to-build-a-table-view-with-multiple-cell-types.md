@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/ios-how-to-build-a-table-view-with-multiple-cell-types.md](https://github.com/xitu/gold-miner/blob/master/TODO1/ios-how-to-build-a-table-view-with-multiple-cell-types.md)
 > * 译者：[LoneyIsError](https://github.com/LoneyIsError)
-> * 校对者：
+> * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234)
 
 # iOS：如何构建具有多种 Cell 类型的表视图
 
@@ -53,23 +53,23 @@ if indexPath.row == 0 {
 }
 ```
 
-直到你想要重新排序 Cell 或在表视图中删除或添加新的 Cell 的那一刻，代码都将如所预期的工作。如果你更改了一个 index，那么整个表视图的结构都将破坏，你需要手动更新 _cellForRowAt_ 和 _didSelectRowAt_ 方法中所有的 index 判断。
+直到你想要重新排序 Cell 或在表视图中删除或添加新的 Cell 的那一刻，代码都将如所预期的工作。如果你更改了一个 index，那么整个表视图的结构都将破坏，你需要手动更新 _cellForRowAt_ 和 _didSelectRowAt_ 方法中所有的 index。
 
-> 换句话说，它无法重用，可读性差，也不遵循任何编程模式，因为它混合了视图和模型。
+> 换句话说，它无法重用，可读性差，也不遵循任何编程模式，因为它混合了视图和 Model。
 
 有什么更好的方法吗？
 
-在这个项目中，我们将使用 MVVM 模式。MVVM 代表「Model-View-ViewModel」,当你在模型和视图之间需要额外的图层时，这种模式非常有用。你可以在此处阅读有关所有主要 [iOS 设计模式](https://medium.com/ios-os-x-development/ios-architecture-patterns-ecba4c38de52) 的更多信息。
+在这个项目中，我们将使用 MVVM 模式。MVVM 代表「Model-View-ViewModel」，当你在模型和视图之间需要额外的视图时，这种模式非常有用。你可以在此处阅读有关所有主要 [iOS 设计模式](https://medium.com/ios-os-x-development/ios-architecture-patterns-ecba4c38de52) 的更多信息。
 
-在本系列教程的第一部分中，我们将使用 JSON 作为数据源构建动态表视图。我们将讨论以下主题和概念：_协议_，_协议拓展_，_属性计算_，_声明转换_ 以及更多。
+在本系列教程的第一部分中，我们将使用 JSON 作为数据源构建动态表视图。我们将讨论以下主题和概念：_协议，协议拓展，属性计算，声明转换_ 以及更多。
 
-在下一个教程中，我们将把它提高一个级别：仅需几行代码即可折叠某个 section。
+在下一个教程中，我们将把它提高一个难度：通过几行代码来实现 section 的折叠。。
 
 * * *
 
 #### 第1部分： Model
 
-首先，创建一个新项目，将 TableView 添加到默认的 ViewController 中，ViewController 绑定该 tableView，并将ViewController 嵌入到 NavigationController 中，并确保项目按预期能编译和运行。这是基本步骤，此处不予介绍。如果你在这部分遇到麻烦，那对你来说深入研究这个话题可能太早了。
+首先，创建一个新项目，将 TableView 添加到默认的 ViewController 中，ViewController 绑定该 tableView，并将ViewController 嵌入到 NavigationController 中，并确保项目能按预期编译和运行。这是基本步骤，此处不予介绍。如果你在这部分遇到麻烦，那对你来说深入研究这个话题可能太早了。
 
 你的 ViewController 类应该像这样子：
 
@@ -112,7 +112,7 @@ class Attribute {
 }
 ```
 
-我们将给 JSON 对象添加初始化方法，因此你可以轻松地将 JSON 映射到 Model。首先，我们需要从 .json 文件中提取内容的方法，并将其转成 Data 对象：
+我们将给 JSON 对象添加初始化方法，那样你就可以轻松地将 JSON 映射到 Model。首先，我们需要从 .json 文件中提取内容的方法，并将其转成 Data 对象：
 
 ```
 public func dataFromFile(_ filename: String) -> Data? {
@@ -184,7 +184,7 @@ class Attribute {
 
 我们的 _Model_ 已准备就绪，所以我们需要创建 _ViewModel_。它将负责向我们的 _TableView_ 提供数据。
 
-我们将创建 5 个不同的 section：
+我们将创建 5 个不同的 table sections：
 
 *   Full name and Profile Picture
 *   About
@@ -192,13 +192,9 @@ class Attribute {
 *   Attributes
 *   Friends
 
-> 译者注：五个部分，对应图片应该都能知道，感觉不需要翻译
+前三个 section 各只有一个 Cell，最后两个 section 可以有多个 Cell，具体取决于我们的 JSON 文件的内容。
 
-前三个部分各只有一个 Cell，最后两个部分可以有多个 Cell，具体取决于我们的 JSON 文件的内容。
-
-因为我们的数据是动态的，所以 Cell 的数量不是固定的，并且我们对每种类型的数据使用不同的 tableViewCell，因此我们需要使用正确的 ViewModel 结构。
-
-首先，我们必须区分数据类型，以便我们可以使用适当的 Cell。当你需要在 Swift 中使用多种类型并且可以轻松的切换时，最好的方法是使用枚举。那么让我们开始使用 _ViewModelItemType_ 构建 _ViewModel_：
+因为我们的数据是动态的，所以 Cell 的数量不是固定的，并且我们对每种类型的数据使用不同的 tableViewCell，因此我们需要使用正确的 ViewModel 结构。首先，我们必须区分数据类型，以便我们可以使用适当的 Cell。当你需要在 Swift 中使用多种类型并且可以轻松的切换时，最好的方法是使用枚举。那么让我们开始使用 _ViewModelItemType_ 构建 _ViewModel_：
 
 ```
 enum ProfileViewModelItemType {
@@ -210,7 +206,7 @@ enum ProfileViewModelItemType {
 }
 ```
 
-每个 _enum case_ 表示  _TableViewCell_ 需要的不同的数据类型。但是，我由于们希望在同一个表视图中使用数据，所以需要有一个单独的 _dataModelItem_，它将决定所有属性。我们可以通过使用协议来实现这一点，该协议将为我们的 item 提供属性计算：
+每个 _enum case_ 表示 _TableViewCell_ 需要的不同的数据类型。但是，我由于们希望在同一个表视图中使用数据，所以需要有一个单独的 _dataModelItem_，它将决定所有属性。我们可以通过使用协议来实现这一点，该协议将为我们的 item 提供属性计算：
 
 ```
 protocol ProfileViewModelItem {  
@@ -218,7 +214,7 @@ protocol ProfileViewModelItem {
 }
 ```
 
-首先，我们需要知道的是 item 的类型。所以我们为协议创建一个类型属性。当你创建协议属性时，你需要为该属性设置 _name_, _type_，并指定该属性是 _gettable_ 还是 _settable_ 和 _gettable_。你可以在 [此处](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html) 获得有关协议属性的更多信息和示例。在我们的例子中，类型将是 _ProfileViewModelItemType_，我们仅需要只读该属性：
+首先，我们需要知道的是 item 的类型。因此我们为协议创建一个类型属性。当你创建协议属性时，你需要为该属性设置 _name_, _type_，并指定该属性是 _gettable_ 还是 _settable_ 和 _gettable_。你可以在 [此处](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html) 获得有关协议属性的更多信息和示例。在我们的例子中，类型将是 _ProfileViewModelItemType_，我们仅需要只读该属性：
 
 ```
 protocol ProfileViewModelItem {
@@ -235,7 +231,7 @@ protocol ProfileViewModelItem {
 }
 ```
 
-最后，我们最好在协议中添加一个 _sectionTitle_ 属性。基本上，_sectionTitle_ 也属于 _TableView_ 的相关数据。如你所知，在使用 MVVM 结构时，我们不希望在其他任何地方创建任何类型的数据，除了在 _viewModel_ 中：
+我们最好在协议中添加一个 _sectionTitle_ 属性。基本上，_sectionTitle_ 也属于 _TableView_ 的相关数据。如你所知，在使用 MVVM 结构时，除了在 _viewModel_ 中，我们不希望在其他任何地方创建任何类型的数据，：
 
 ```
 protocol ProfileViewModelItem {
@@ -255,7 +251,7 @@ extension ProfileViewModelItem {
 }
 ```
 
-现在，如果 rowCount 为 1，我们就不必为 item 赋值 rowCount，它将为你节省一些冗余的代码。
+现在，如果 rowCount 为 1，我们就不必为 item 的 rowCount 赋值了，它将为你节省一些冗余的代码。
 
 > 协议扩展还允许您在不使用 @objc 协议的情况下生成可选的协议方法。只需创建一个协议扩展并在这个扩展中实现默认方法。
 
@@ -502,7 +498,7 @@ override func viewDidLoad() {
 
 如果你对创建 Cell 需要一些帮助，或者想要一些提示，可以查看我之前关于 _tableViewCells_ 的某个 [教程](https://medium.com/ios-os-x-development/ios-tableview-with-mvc-a05103c01110) 。
 
-每个 Cell 都应该具有 _ProfileViewModelItem_ 类型的 _item_ 属性，我们将使用它来配置 Cell UI：
+每个 Cell 都应该具有 _ProfileViewModelItem_ 类型的 _item_ 属性，我们将使用它来构建 Cell UI：
 
 ```
 // this assumes you already have all the cell subviews: labels, imagesViews, etc
@@ -630,9 +626,9 @@ override func tableView(_ tableView: UITableView, titleForHeaderInSection sectio
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZYedJ6I233Ek9MiQX2ELIQ.png)
 
-<center>呈现</center>
+<center>结果图</center>
 
-要测试该方法的灵活性，你可以修改 JSON 文件：添加或删除一些 friends 数据，或完全删除一些数据（只是不要破坏 JSON 结构，不然，你就无法看到任何数据）。当你重新构建项目时，_tableView_ 将以其应有的方式查找和工作，而无需任何代码修改。 如果要更改 _Model_ 本身，你只需修改 _ViewModel_ 和 _ViewController_：添加新属性，或重构其整个结构。但这是一个完全不同的例子。
+要测试该方法的灵活性，你可以修改 JSON 文件：添加或删除一些 friends 数据，或完全删除一些数据（只是不要破坏 JSON 结构，不然，你就无法看到任何数据）。当你重新构建项目时，_tableView_ 将以其应有的方式查找和工作，而无需任何代码修改。 如果要更改 _Model_ 本身，你只需修改 _ViewModel_ 和 _ViewController_：添加新属性，或重构其整个结构。当然那就要另当别论了。
 
 在这里，你可以查看完整的项目：
 
