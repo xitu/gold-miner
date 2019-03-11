@@ -7,7 +7,7 @@
 
 # Node.js 基础知识: 没有依赖关系的 Web 服务器
 
-Node.js 是构建 web 应用服务端的一种非常流行的技术选择，并且有许多成熟的网络框架，比如 [express](https://expressjs.com/), [koa](https://koajs.com/), [hapijs](https://hapijs.com/)。尽管如此，在这篇教程中我们不用任何依赖，仅仅使用 Node 核心的 [http](https://nodejs.org/api/http.html) 包搭建服务端，并一点点地探索所有的重要细节。这不是你能经常看到的一种状况，因此它可以帮助你更好地理解其涉及的所有框架--不仅是现有的许多库在底层使用这个包，而且经常暴露原始对象，同时你可能需要将它们应用在某些特殊任务中。
+Node.js 是构建 web 应用服务端的一种非常流行的技术选择，并且有许多成熟的网络框架，比如 [express](https://expressjs.com/), [koa](https://koajs.com/), [hapijs](https://hapijs.com/)。尽管如此，在这篇教程中我们不用任何依赖，仅仅使用 Node 核心的 [http](https://nodejs.org/api/http.html) 包搭建服务端，并一点点地探索所有的重要细节。这不是你能经常看到的一种状况，它可以帮助你更好地理解上面提及的所有框架--现有的许多库不仅在底层使用这个包，而且经常会将原始对象暴露出来，使得你可以在某些特殊任务中应用他们。
 
 ## 目录表
 
@@ -68,7 +68,7 @@ createServer((request, response) => {
 
 现在，在我们学会了如何实例化一个新服务应用后，让我们看看如何实际回复用户的请求。在我们唯一的事件处理器中，我们使用 [response.end](https://nodejs.org/api/http.html#http_response_end_data_encoding_callback) 方法以常规经典响应 [Hello, world!](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) 来回复。你可以看出这个签名与可写流方法 [writable.end](https://nodejs.org/api/stream.html#stream_writable_end_chunk_encoding_callback) 非常相似，这是因为请求和响应对象都是流对象 [streams](/2018/06/21/nodejs-guide-for-frontend-developers.html#streams)，同时请求只是可读流，而且响应只是可写流。为什么它们必须是流对象呢？为什么我们不能发送整个回复？
 
-答案是在回复前我们不是非得做完所有的事。想象这种情景，当我们从文件系统中读取一个文件时，而这个文件比较大。因此我们通过 [fs.createReadStream](https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options) 方法打开了一个文件流，这样我们就可以立即写入响应。此外我们还可以直接将输入通过管道连接到输出！
+答案是在回复前我们不是非得做完所有的事。想象这种情景，当我们从文件系统中读取一个文件时，而这个文件比较大。因此我们可以通过 [fs.createReadStream](https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options) 方法打开了一个文件流，这样我们就可以立即写入响应。此外我们还可以直接将输入通过管道连接到输出！
 
 现在因为它是流对象，我们可以做下面的事：
 
@@ -113,7 +113,7 @@ Accept-Encoding: gzip, deflate
 Connection: Keep-Alive
 ```
 
-这是当你想要请求页面时，我们浏览器发送的内容，除了上面这些它还发送更多的 headers，传输 cookies（也是一种 header），还有其他信息。对我们来说重要的是要理解：所有的请求有方法、路径（路由）以及 headers 列表，这些都是键值对（如果你想了解 cookies，它们只是一种具有特殊含义的 header）。HTTP 是一种文本协议，正如你所看到的，你自己可以读懂它。虽然它只是一组协议，实现此协议的浏览器和服务程序都试图遵守这个协议规定，这就是整个互联网的运转方式。并非所有规则都被遵守，但主要规则 - HTTP 操作、路由、cookie 都足够可靠，您应该始终追求可预测的行为。
+这是当你请求页面时，我们浏览器发送的内容，除了上面这些它还发送更多的 headers，传输 cookies（也是一种 header），还有其他信息。对我们来说重要的是要理解：所有的请求有方法、路径（路由）以及 headers 列表，这些都是键值对（如果你想了解 cookies，它们只是一种具有特殊含义的 header）。HTTP 是一种文本协议，正如你所看到的，你自己可以读懂它。虽然它只是一组协议，实现此协议的浏览器和服务程序都试图遵守这个协议规定，这就是整个互联网的运转方式。并非所有规则都被遵守，但主要规则 - HTTP 操作、路由、cookie 都足够可靠，您应该始终追求可预测的行为。
 
 ## HTTP Headers 报文头
 
@@ -134,7 +134,7 @@ createServer((request, response) => {
 
 为了写一个 header，你需要理解 HTTP 是一种协议，这个协议规定首先是元数据，然后在一个分隔符（两个换行符）之后才是真正的报文体。这意味着一旦你开始发送内容，你就不能变更你的报文头！如果这么做会在 Node 中抛出错误以及实际会中止你的程序。
 
-有两种设置 header 的方法： [response.setHeader](https://nodejs.org/api/http.html#http_response_setheader_name_value) 方法和 [response.writeHead](https://nodejs.org/api/http.html#http_response_writehead_statuscode_statusmessage_headers) 方法。 两者的区别是前者更特殊，并且如果两者都被使用的情况下，所有的 header 会被合并，且以 _writeHead_ 方式设置的 header 取值具有更高的优先级。_writeHead_ 和 _write_ 方法的作用相同，这样你不可以在后续修改 header。
+有两种设置 header 的方法： [response.setHeader](https://nodejs.org/api/http.html#http_response_setheader_name_value) 方法和 [response.writeHead](https://nodejs.org/api/http.html#http_response_writehead_statuscode_statusmessage_headers) 方法。 两者的区别是前者更特殊，并且如果两者都被使用的情况下，所有的 header 会被合并，且以 _writeHead_ 方式设置的 header 取值具有更高的优先级。_writeHead_ 和 _write_ 方法的作用相同，也就是说你不可以在后续修改 header。
 
 ```
 const { createServer } = require("http");
@@ -149,7 +149,7 @@ createServer((req, res) => {
 
 ## HTTP Status Codes 状态码
 
-HTTP 以一种列表 [extensive list](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) 的形式定义了与各种响应相关的状态码。此外，并非所有人都严格遵守这个列表，不同的服务端的行为（或多或少）会有细微的差别。
+HTTP 定义了每个响应都必须要有的状态码，[列表](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) 中定义了各个状态码的含义。同样，并非所有人都严格遵守这个列表
 
 让我们列出最重要的状态码：
 
