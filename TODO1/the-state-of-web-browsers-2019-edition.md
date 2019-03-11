@@ -2,11 +2,11 @@
 > * 原文作者：[Ferdy Christant](https://ferdychristant.com/@ferdychristant)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-state-of-web-browsers-2019-edition.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-state-of-web-browsers-2019-edition.md)
-> * 译者：
+> * 译者：[xionglong58](https://github.com/xionglong58)
 > * 校对者：
 
 # The State of Web Browsers 2019 edition
-# 浏览器的状态 - 2019年编辑
+# 2019版 web 浏览器现状
 ![](https://cdn-images-1.medium.com/max/800/1*mkxbYIvO9oe1xsjjezUELA.png)
 
 Two days ago, I published a bitter sweet article on the [state of web browsers](https://github.com/xitu/gold-miner/blob/master/TODO1/the-state-of-web-browsers.md), triggered by the news that Microsoft would abandon their EdgeHTML engine, replacing it with Chromium. Which was the final nail in the coffin, effectively establishing Chromium as the web’s engine, combined with Safari’s webkit. The only resistance to this monopoly, Mozilla, finds itself without any significant allies or traction to counter this development.
@@ -42,15 +42,15 @@ In this article, we’re going to accept the new state, where Chromium dominates
 ### Chromium 之于用户：Web
 By a rough estimation of global market share, Chromium/Chrome browsers would make up for at least 70% of users. Then there’s 15% of Webkit, mostly mobile Safari.
 
-根据对全球市场份额的粗略估计，Chromium/Chrome 浏览器将占有至少70%的用户。还有15%的Webkit，主要是移动端的Safari 。  
+根据对全球市场份额的粗略估计，Chromium/Chrome 浏览器将占有至少 70% 的用户。还有 15% 的 Webkit，主要是移动端的 Safari 。  
 
 No sane developer would ignore mobile Safari, and Webkit is in many ways similar to Chromium (although growing apart), therefore, a base starting point is that 85% of users will experience a website exactly as it was intended. **At least**. That’s pretty awesome.
 
-任何明智的开发人员都不会忽视移动端的 Safari，而 Webkit 在许多方面与 Chromium 相似(尽管有所不同)，因此，一个基本的出发点是85%的用户将完全按照预期体验浏览一个网站。至少算是 Chromium 的一个优势。 
+任何明智的开发人员都不会忽视移动端的 Safari，而 Webkit 在许多方面与 Chromium 相似(尽管有所不同)，因此，一个基本的出发点是 85% 的用户将完全按照预期体验浏览一个网站。这至少算是 Chromium 的一个优势。 
 
 It gets even better. Most websites do not use bleeding edge features or Chromium-only features, therefore Chromium dominance does not mean the same website would not work just as well in Firefox. Firefox is close to on par with Chromium regarding web standards. Even if slightly lagging behind, it doesn’t mean websites will break in Firefox at scale. And if there’s any issues, surely Mozilla will be eager to achieve compatibility asap.
 
-其次，大多数网站不会使用前沿功能或只使用 Chromium 的功能，因此 Chromium 的优势并不意味着相同的网站不能像Firefox那样工作。Firefox 在 web 标准方面与 Chromium 接近。即使略微落后，这并不意味着网站将在 Firefox 中大规模突破。如果有任何问题，Mozilla 肯定会尽快实现兼容性。
+其次，大多数网站不会使用前沿功能或只使用 Chromium 的功能，因此 Chromium 的优势并不意味着相同的网站不能像 Firefox 那样工作。Firefox 在 web 标准方面与 Chromium 接近。即使略微落后，这并不意味着网站将在 Firefox 中大规模崩溃。如果有任何问题，Mozilla 肯定会尽快实现兼容性。
 
 Therefore, my very rough assessment is that for 90% of users, pretty much all of the web will work correctly and as intended by the creator. The exception would be parts of the web that are bleeding edge or experimental.
 
@@ -62,7 +62,7 @@ As strange as it sounds, in a competitive browser landscape where 3 engines woul
 
 The other 10% is stuff like old IE, slow as its death will be, it will shrink eventually, boosting our 90% even further.
 
-另外10%的浏览器是像旧版IE一样的东西，虽然它的消亡速度很慢，但它最终会缩小，进一步提高我们的90%。
+另外 10% 的浏览器是像旧版 IE 一样的东西，虽然它的消亡速度很慢，但它最终会缩小，进一步提高我们的90%。
 
 And there’s more good news for users. With the exception of mobile Safari, all these browsers auto update on a frequent basis. Almost all web users will have up-to-date browsers to use an ever-improving web experience.
 
@@ -86,7 +86,7 @@ Both are overly dramatic conclusions that I don’t believe to be accurate.
 
 First, yes, there was a low period a few years ago when the mobile revolution was in full swing where developers could not wait for web standards and massively used vendor-prefixed or Chrome/Webkit-only features to maximize what they could do on mobile, this whole new exciting category of the web. This practice got so far out of hand that competing browsers had to implement vendor prefixed features **of their competitors** just to stay in the game.
 
-首先，当移动端如火如荼发展的时候，Web 端的确经历了一段低谷期，在那期间，Web 开发者们不得不一边等待 Web 标准的发布，一边大量使用与厂商相关的前缀或 Chrome/Webkit-only 等特征去最大化他们能在移动设备这种全新 Web 载体上实现的功能。
+首先，当移动端如火如荼发展的时候，web 端的确经历了一段低谷期，在那期间，web 开发者们不得不一边等待 web 标准的发布，一边大量使用与厂商相关的前缀或 Chrome/Webkit-only 等特征去最大化他们能在移动设备这种全新 web 载体上实现的功能。
 
 This period is largely behind us now. Every major browser vendor has agreed that vendor prefixes were a bad idea. New features are now behind a flag, which means developers cannot deploy them to users before they mature. Existing problematic prefixes that we cannot undo from the wild are now built into each browser to ensure compatibility.
 
@@ -94,7 +94,7 @@ This period is largely behind us now. Every major browser vendor has agreed that
 
 So, no, developers using non-standard Chromium features does not seem like a huge problem to me these days.
 
-所以，这些天开发人员使用非标准的 Chromium 特性对我来说似乎不是一个大问题。
+所以，这些开发人员使用非标准的 Chromium 特性对我来说似乎不是一个大问题。
 
 What about Chromium-only standards-based features? Here we have the situation where Chromium shipped a new standards-based feature not yet available in other engines.
 
@@ -107,12 +107,12 @@ A short-sighted developer could conclude that they can just use it without fallb
 
 You cannot afford to ship a web experience that breaks in mobile Safari. Mobile Safari has 15% market share across devices. On mobile it’s 25%. In some major markets, it may even be as high as 40% on mobile.
 
-在移动端 Safari 中，你不能提供中断的 web 体验。移动端 Safari 在不同设备上拥有 15% 的市场份额。在移动设备上，这个比例是25%。而一些主要市场，在手机用户的这一比例甚至可能高达40%。
+在移动端 Safari 中，你不能提供中断的 web 体验。移动端 Safari 在不同设备上拥有 15% 的市场份额。在移动设备上，这个比例是 25%。而一些主要市场，在手机用户的这一比例甚至可能高达 40%。
 
 
 **The fallback is a must in almost any case** and by developing the fallback, you are quite likely to support that other browser as well: Firefox.
 
-几乎在任何情况下，备用技术都是必须的，通过发展其它备用技术，你才很可能还会使用到其他浏览器:比如 Firefox。
+几乎在任何情况下，**备用技术都是必须的**，通过发展其它备用技术，你才很可能还会使用到其他浏览器:比如 Firefox。
 
 As for Chromium and the relation to web standards, I’ll discuss it in a separate chapter. Let’s first now consider what the new state of browsers means for developers.
 
@@ -120,15 +120,15 @@ As for Chromium and the relation to web standards, I’ll discuss it in a separa
 
 There is news, and there is no news. A first and clear positive workflow improvement is that you no longer have to test for EdgeHTML compatibility.
 
-似乎也没有什么。第一个明显且正面的工作流改进是你不需要再测试 EdgeHTM 的L兼容性。
+似乎也没有什么。第一个明显且正面的工作流改进是你不需要再测试 EdgeHTML 的兼容性。
 
 You’ll have to keep testing for Firefox, but here I expect improvements too. Mozilla will now be in survival mode and I expect them to prioritize compatibility with Chromium in an effort not decline any further.
 
-可你将不得不继续测试 Firefox ，但是在这里我也希望能得到改进。Mozilla 现在处于寻求生存模式，我希望他们会优先考虑与 Chromium 的兼容性，而不会进一步降低其兼容性。
+可你将不得不继续测试 Firefox ，但是在这里我也希望能得到改进。Mozilla 现在处于寻求生存模式，我希望他们会优先考虑与 Chromium 的兼容性，而不会进一步降低其自身的兼容性。
 
 The lack of bigger workflow improvements is in Safari lagging behind, forcing us into fallbacks, polyfills, transpilations, the like.
 
-Safari缺乏更大的工作流改进，这使得它落后于其他浏览器，迫使我们使用向下兼容、polyfills、transpilations等技术。
+Safari 缺乏更大的工作流改进，这使得它落后于其他浏览器，迫使我们使用向下兼容、polyfills、transpilations等技术。
 
 Rather than to keep bashing mobile Safari, I’m going to deliver a new take on it. Let’s make the rough assessment that Safari lags behind in supporting major new web standards by about 1–2 years in general.
 
@@ -140,7 +140,7 @@ Now be very serious when you ask yourself this question: given your audience and
 
 If the answer to that question is YES, and I believe it very often can be, you may simplify your workflow significantly. Possibly, you can say goodbye to polyfills, transpilation and auto prefixing altogether. Because the web of 1–2 years ago really is no joke.
 
-如果这个问题的答案是肯定的，其实我相信通常情况下会得到肯定的答案，那么你可以大大简化你的工作流程。也许，你可以跟polyfills, transpilation和自动补齐前缀说再见。因为1-2年前的 web 真的不是开玩笑。
+如果这个问题的答案是肯定的，其实我相信通常情况下会得到肯定的答案，那么你可以大大简化你的工作流程。也许，你可以跟 polyfills, transpilation 和自动补齐前缀说再见。因为1-2年前的 web 真的不是开玩笑。
 
 There are examples of emerging web standards where you do need the latest and greatest, for example Web Components. Still here you could ask the question if your users really need Web Components. Be honest, it’s you that wants Web Components, not your users. I won’t judge, I love web tech too.
 
@@ -209,7 +209,7 @@ In this scenario, Google would influence the logical order of implementation reg
 
 For example, imagine we’re all waiting for subgrids to be implemented, a feature that will widely benefit all of us. Meanwhile, Google prioritizes the implementation of KeyboardSynthesizerVoiceMachineLearningCloudWorklet instead, an essential API for their new chat client #735, code-named “Hola!”, to be announced at I/O 2019 and to be sunset 6 weeks later, for it had a disappointing 300 million users only.
 
-比如，想象一下，我们正在等待 subgrids 的应用，这是对大家都有益处的一个特征。与此同时，Google 则优先实现机器学习云工具下的语音合成器，该语音合成器是其代号为 “Hola” 的新型聊天客户端 #735 中的一个必要 API, Hola 客户端在 2019 I/O 大会上发布，仅仅 6 周后就废止，因为其仅仅获得了3亿用户。
+比如，想象一下，我们正在等待 subgrids 的应用，这是对大家都有益处的一个特征。与此同时，Google 则优先实现机器学习云工具下的语音合成器，该语音合成器是其代号为 “Hola” 的新型聊天客户端 #735 中的一个必要 API, Hola 客户端在 2019 I/O 大会上发布，仅仅 6 周后就废止，因为其仅仅获得了 3 亿用户。
 
 Yes, this could happen and I think it does happen. Following Chrome release notes closely for a long time (which I realize is not the same as Chromium but close enough), I do find myself occasionally surprised at updates to APIs I never heard of or can’t imagine being widely needed, whilst there would be candidate features with a far wider use case not being delivered (yet).
 
@@ -265,7 +265,7 @@ In the above sections I have illustrated how I believe Google at the steering wh
 Indeed, at a practical level I have no immediate existential concern for the future of the web, web technology or web standards. If I was to be in an overly optimistic mood, I could be even be excited about it, given Google’s track record in improving the web. The web will continue to improve, in rapid pace, and those improvements will be deployed instantly to the vast majority of web users. It’s hard to see that as a negative. Even more so if you’re as old as me, having lived through times where pretty much nothing happened.
 
 
-实际上，在实践层面上，我对 web 、web 技术和 web 标准的未来没有直接的关注。如果我是在一个极其乐观的人，鉴于 Google 在改善 web 方面的历史记录，我甚至可以为 web 感到兴奋。web 将继续快速改进，这些改进将立即部署到绝大多数网络用户身上。很难将 Google 视为对 web产生负面影响的公司。更重要的是，如果你和我一样老，我们所经历的 web 时代一直一帆风顺。
+实际上，在实践层面上，我对 web 、web 技术和 web 标准的未来没有直接的关注。如果我是在一个极其乐观的人，鉴于 Google 在改善 web 方面的历史记录，我甚至可以为 web 感到兴奋。web 将继续快速改进，这些改进将立即部署到绝大多数 web 用户身上。很难将 Google 视为对 web产生负面影响的公司。更重要的是，如果你和我一样老，我们所经历的 web 时代一直一帆风顺。
 
 And this is where you watch a movie and the main characters seem to be happy for about 10 minutes. You know something bad is coming.
 
@@ -315,7 +315,7 @@ I don’t have a solution for it, it’s just an observation.
 
 On to more positive thoughts. For us that is, not for Google. Sorry, Googlers. This one isn’t personal though, I promise. It may scare the shit out of you though. I want to talk about the downsides of power, of which there are many.
 
-转向更积极的想法。对我们来说，不是谷歌。对不起,谷歌员工。但我保证这不是针对个人的。不过这可能会把你吓个半死。我想谈谈权力的弊端，其中有很多。
+转向更积极的方面。对我们来说算是积极的，而不是 Google，当然也不包括 Google 的员工。但我保证这不是针对个人的。不过这可能会把你吓个半死。我想谈谈权力的弊端，其中有很多。
 
 Whenever I see the CEO of a big company, my immediate thought is pity, not admiration. At the top of the food chain, it’s all eyes on you. There’s nobody to hide behind. Expectations are sky high, relentless, and constant. Mistakes, made by any human being, can have disastrous consequences which will forever be linked to you. Even the upsides aren’t that great. Fame has downsides. Money is not that great if you don’t have the time to enjoy it. There’s even personal security risks and legal risks. You don’t even know if your friends are really your friends.
 
@@ -389,25 +389,55 @@ The young monkeys are waiting, and they are patient. Their time will come.
 
 ### Wrapping up
 
+### 总结
+
 I’m thinking I’m not that good in writing positive articles after all, but let me try to wrap up why I believe the situation of Chromium as the dominant engine to run the web isn’t as bad or depressing as my previous article suggested:
 
+我在想，我毕竟不擅长写积极向上的文章，但我会试着总结一下为什么我认为 Chromium 作为驱动 web 的主导引擎并不像我之前的文章所分析的那样糟糕或令人沮丧:
+
 *   To users, the web will work. Almost every user will experience websites the way they were intended to be experienced. Users will experience a rapidly improving web by means of their engine constantly updated, instead of being tied in to some OS (except for iOS users, who are on a slower pace)
+
+*   对用户来说，web 仍旧照常运行。几乎所有用户都会以他们想要的方式来浏览网页。通过不断更新搜索引擎来体验快速改进的 web，而不是使用被绑定到某些操作系统(iOS用户除外，他们的速度较慢)的搜索引擎。
+
 *   To developers, one engine less means a simpler workflow. The dominant engine, Chromium, is also a really great if not the best engine. With almost every web user on a great engine and by targeting web features smartly, you can even drastically simplify your workflow.
+
+*   对于开发人员来说，少一个引擎意味着更简捷的工作流。主导引擎 Chromium 即使不是最好的引擎，也算得上是一个非常棒的引擎。因为 Chromium 是几乎所有 web 用户都在使用的一个很棒的搜索引擎，通过巧妙地定位 web 特性，你甚至可以极大地简化你的工作流。
+
 *   As for standards, Chromium incompatibilities or vendor prefixes are largely a thing of the past and there is a strong disincentive to introduce new incompatibilities (because of mobile Safari). Furthermore, Google has no track record or incentive to sabotage web standards from moving forward, the opposite is true. The open web and web standards are not dead, they could even thrive. Chromium moves fast and it being the leading engine deployed to almost every user, means the web as a whole moves fast.
+
+*   至于 web 标准，Chromium 的不兼容性或供应商前缀在很大程度上已经成为过去，人们强烈反对引入新的不兼容性(原因在于移动段端 Safari)。此外，Google 没有破坏 web 标准发展的记录和动机，反之亦然。开放 web 和 web 标准并没有消亡，它们甚至可以蓬勃发展。Chromium 的发展速度很快，而且它是部署到几乎所有用户的首选引擎，两者作为一个整体，这也意味着 web 的快速发展。
+
 *   Google may incidentally put its own interests overall general interests, yet it is unlikely to do so at Chromium level. As discussed, this is more likely to happen outside of Chromium, at other properties they own.
+
+*   Google 可能会偶尔把自己的利益置于总体利益之上，但 Google 不太可能在 Chromium 上做手脚。如前所述，那更可能发生在 Chromium 以外他们所控制的地方。
+
 *   Power is temporary, even more so in the tech industry. The competition is down but never asleep, and this provides a strong incentive for our overlord to behave, if not for the army of people caring about the web with powerful ways to speak up.
+
+*   权力是暂时的，在科技行业更是如此。竞争已然平息，但从未停止，这不仅为我们的霸主提供了一个强有力的激励，还为那些关心 web、以强有力的方式发声的人们提供了强大的动力。
 
 In 2019, there’s no reason to be depressed about the state of the web, even if it’s not in an ideal state.
 
+在2019年，没有理由对 web 的现状感到沮丧，即使它不是一个理想的状态。
+
 Web technology is more capable than ever, and will continue to evolve rapidly. There is no sign of anything slowing down. Web technology will be more compatible than before, and users will experience a compatible web no matter their browser.
+
+web 技术比以往任何时候都更有能力，并且将继续快速发展，没有任何放缓的迹象。web 技术将比以前更兼容，用户将体验到一个兼容的 web，无论他们使用哪种浏览器。
 
 The ever improving web will inevitably lead to a sustainable web app platform that once robust enough, will break the chains of walled native app gardens. It’s an inevitable path forward that can be slowed down, but not stopped. Rather than reduced, the web’s role in computing will grow again at the cost of proprietary solutions.
 
+不断改进的 web 将不可避免地带来一个可持续的 web 应用程序平台，这个平台一旦足够强大，web app 就会抢占 native app 的领土。这是一条不可避免的前进之路，可以放慢脚步，但不能停下来。web 在计算领域的作用非但不会减少，反而会以专有解决方案为代价再次增长。
+
 The web will continue to evolve based on web standards, discussed in the open. The latest, standards-based web tech instantly deployed to almost every user, may ultimately make web development a whole lot simpler, bringing in new creators.
+
+web 将会继续依照公开发布的 web 标准发展。最新的、基于标准的 Web 技术及时部署到每个用户，最终不仅可能使 web 开发变得更加简单，还会引入新的创建者。
 
 Is it perfect? No. But there’s lots to be excited about. Look past the mono-culture to see that compared to multiple incompatible engines with heavy feature disparity, we may be in for quite a ride of web awesomeness.
 
+这就完美了吗？不！还有很多值得兴奋的东西。与多个功能差异较大的不兼容引擎相比，单引擎文化可能让我们在 web 中具有更大的优势。
+
 With that, I wish you happy holidays.
+
+基于此，我祝你节日快乐。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
