@@ -352,7 +352,7 @@ HomePage 的小部件将成为前层的内容。现在它有一个应用栏。�
 
 backLayer 在 frontLayer 的主页后面插入了一个新的粉色背景。
 
-你可以使用 [Flutter Inspector](https://flutter.io/inspector/)来验证在 Stack 里的主页后面确实有一个容器。就像这样：
+你可以使用 [Flutter Inspector](https://flutter.io/inspector/) 来验证在 Stack 里的主页后面确实有一个容器。就像这样：
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/img/58aa28868bf094a0.png)
 
@@ -551,7 +551,7 @@ AnimationController 用来配合 Animation ，并提供播放、反向和停止�
 >
 > 部件树通过遍历叶结点来组织布局。约束在树下传递，但是在叶结点根据约束返回其大小之前通常不会计算大小。叶子点无法知道它的父母的大小，因为它尚未计算。
 >
-> LayoutBuilder is used when a widget must know its parent widget's size in order to lay itself out (and the parent size does not depend on the child.) LayoutBuilder takes a function that returns a Widget.当部件必须知道其父部件的大小以便自行布局（且父部件大小不依赖于子部件）时，LayoutBuilder 就派上用场了。它使用一个方法来返回部件。
+> 当部件必须知道其父部件的大小以便自行布局（且父部件大小不依赖于子部件）时，LayoutBuilder 就派上用场了。它使用一个方法来返回部件。
 >
 > 了解有关更多信息，请查看 [LayoutBuilder 类](https://docs.flutter.io/flutter/widgets/LayoutBuilder-class.html)文档。
 
