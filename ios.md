@@ -1,3 +1,5 @@
+* [Swift 5 强制独占性原则](https://juejin.im/post/5c778b5e6fb9a049c64487e0) ([LoneyIsError](https://github.com/LoneyIsError) 翻译)
+* [React Native 中那些令我收获颇丰的痛点](https://juejin.im/post/5c74d6a16fb9a049f06ae907) ([jerryOnlyZRJ](https://github.com/jerryOnlyZRJ) 翻译)
 * [React Native 与 iOS 和 Android 通信](https://juejin.im/post/5c6ca781f265da2da8356c81) ([MeandNi](https://github.com/MeandNi) 翻译)
 * [Swift：通过示例避免内存泄漏](https://juejin.im/post/5c6a0abaf265da2dc675a9b2) ([LoneyIsError](https://github.com/LoneyIsError) 翻译)
 * [用这些 iOS 技巧让你的 APP 性能更佳](https://juejin.im/post/5c6a0b6ef265da2de660f83f) ([LoneyIsError](https://github.com/LoneyIsError) 翻译)
