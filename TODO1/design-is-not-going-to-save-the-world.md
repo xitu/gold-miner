@@ -7,9 +7,11 @@
 
 # Design Won't Save the World
 
-### Human-centered design is great for mops and phones, but it won’t solve society’s biggest problems
+> Human-centered design is great for mops and phones, but it won’t solve society’s biggest problems
 
-![Photo by [Hermes Rivera](https://unsplash.com/photos/R1_ibA4oXiI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/@hermez777?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/10944/1*xxI7UYo5-Lyb7wCth0FyOQ.jpeg)
+![](https://cdn-images-1.medium.com/max/10944/1*xxI7UYo5-Lyb7wCth0FyOQ.jpeg)
+
+Photo by [Hermes Rivera](https://unsplash.com/photos/R1_ibA4oXiI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/@hermez777?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 
 “Design can change the world.”
 
