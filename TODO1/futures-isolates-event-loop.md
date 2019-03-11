@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/futures-isolates-event-loop.md](https://github.com/xitu/gold-miner/blob/master/TODO1/futures-isolates-event-loop.md)
 > * 译者：[nanjingboy](https://github.com/nanjingboy)
-> * 校对者：
+> * 校对者：[sunui](https://github.com/sunui)、[Fengziyin1234](https://github.com/Fengziyin1234)
 
 # Flutter 异步编程：Future、Isolate 和事件循环
 
@@ -27,9 +27,9 @@
 
 > **重点**
 >
-> **Dart 一次执行一个操作，其他操作在该操作之后执行**意味着只要一个操作正在执行，它就**不会**被其他 **Dart** 代码中断。
+> **Dart 同一时刻只执行一个操作，其他操作在该操作之后执行**，这意味着只要一个操作正在执行，它就**不会**被其他 **Dart** 代码中断。
 
-也就是说，如果你考虑**纯粹的同步**方法，那么在完成之前，后者将是**唯一**要执行的方法。
+也就是说，如果你考虑**纯粹的同步**方法，那么在它完成之前，后者将是**唯一**要执行的方法。
 
 ```dart
 void myBigLoop(){
@@ -54,7 +54,7 @@ void myBigLoop(){
 所以，此线程创建后，Dart 会自动：
 
 1.  初始化 2 个 FIFO（先进先出）队列（「**MicroTask**」和 「**Event**」）；
-2.  执行 **main()** 方法，并且该方法一旦执行完成后，
+2.  并且当该方法执行完成后，执行 **main()** 方法，
 3.  启动**事件循环**。
 
 在该线程的整个生命周期中，一个被称为**事件循环**的**单一**且隐藏的进程将决定你代码的执行方式及顺序（取决于 **MicroTask** 和 **Event** 队列）。
@@ -76,13 +76,13 @@ void eventLoop(){
 }
 ```
 
-正如我们看到的，**MicroTask** 队列优先于 **Event** 队列，那这 2 个对列的作用是什么呢？
+正如我们看到的，**MicroTask** 队列优先于 **Event** 队列，那这 2 个队列的作用是什么呢？
 
 ### MicroTask 队列
 
 **MicroTask** 队列用于**非常简短**且需要**异步**执行的内部动作，这些动作需要在其他事情完成之后并在将执行权送还给 **Event** 队列**之前**运行。
 
-作为 **MicroTask** 的一个例子，你可以设想必须在资源关闭后立即处理它。由于关闭过程可能需要一些时间才能完成，你可以按照以下方式编写代码：
+作为 **MicroTask** 的一个例子，你可以设想必须在资源关闭后立即释放它。由于关闭过程可能需要一些时间才能完成，你可以按照以下方式编写代码：
 
 ```dart
 MyResource myResource;
@@ -145,7 +145,7 @@ void _dispose(){
 
 只要**事件循环**从 **Event** 循环中获取它，被 **Future** 引用的代码将像其他任何 **Event** 一样执行。
 
-当该代码将被执行并将完成（或失败）时，将直接执行 **then()** 或 **catchError()** 方法。
+当该代码将被执行并将完成（或失败）时，**then()** 或 **catchError()** 方法将直接被触发。
 
 为了说明这一点，我们来看下面的例子：
 
@@ -173,7 +173,7 @@ Future is complete
 这是完全正确的，因为执行流程如下：
 
 1.  print(‘Before the Future’)
-2.  将「_(){print(‘Running the Future’);}_」添加到 Event 队列；
+2.  将 **(){print(‘Running the Future’);}** 添加到 Event 队列；
 3.  print(‘After the Future’)
 4.  **事件循环**获取（在第二步引用的）代码并执行它
 5.  当代码执行时，它会查找 **then()** 语句并执行它
@@ -186,7 +186,7 @@ Future is complete
 
 ### Async 方法
 
-当你使用 **async** 关键字作为方法声明的后缀时，**Dart** 知道：
+当你使用 **async** 关键字作为方法声明的后缀时，**Dart** 会将其理解为：
 
 *   该方法的返回值是一个 **Future**；
 *   它**同步**执行该方法的代码直到**第一个 await 关键字**，然后它暂停该方法其他部分的执行；
@@ -246,7 +246,7 @@ methodD(){
 11.  C running Future from main
 12.  C end of Future from main
 
-现在，让我们认为上述代码中的「**methodC()**」为对服务端的调用，这可能需要不均匀的时间来进行响应。我相信可以很明确地说，预测确切的执行流程可能变得非常困难。
+现在，让我们认为上述代码中的 **methodC()** 为对服务端的调用，这可能需要不均匀的时间来进行响应。我相信可以很明确地说，预测确切的执行流程可能变得非常困难。
 
 如果你最初希望示例代码中仅在所有代码末尾执行 **methodD()** ，那么你应该按照以下方式编写代码：
 
@@ -355,7 +355,7 @@ Future<void> delayedPrint(String value) async {
 
 ## 多线程
 
-因此，我们在 Flutter 中如何运行并行代码呢？这可能吗？
+因此，我们在 Flutter 中如何并行运行代码呢？这可能吗？
 
 **是的**，这多亏了 [Isolates](https://api.dartlang.org/stable/2.1.0/dart-isolate/Isolate-class.html)。
 
@@ -383,7 +383,7 @@ Future<void> delayedPrint(String value) async {
 
 根据你运行 **Isolate** 的场景，你可能需要考虑不同的方法。
 
-#### 1. 底级解决方案
+#### 1. 底层解决方案
 
 第一个解决方案不依赖任何软件包，它完全依赖 **Dart** 提供的底层 API。
 
@@ -457,7 +457,7 @@ static void callbackFunction(SendPort callerSendPort){
 ```
 
 > **约束**
-> isolate 的「**入口**」必须是**顶级**函数或**静态**方法。
+> isolate 的「**入口**」**必须**是顶级函数或**静态**方法。
 
 ##### 1.2. 第二步：向 Isolate 提交消息
 
@@ -582,7 +582,7 @@ void dispose(){
 
 #### 3. **重要限制**
 
-在撰写本文时，请务必注意这一点
+在撰写本文时，发现这点十分重要
 
 > Platform-Channel 通信**仅仅**由**主 isolate 支持**。该**主 isolate** 对应于应用启动时创建的 **isolate**。
 
