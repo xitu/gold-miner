@@ -11,7 +11,7 @@
 
 Two days ago, I published a bitter sweet article on the [state of web browsers](https://github.com/xitu/gold-miner/blob/master/TODO1/the-state-of-web-browsers.md), triggered by the news that Microsoft would abandon their EdgeHTML engine, replacing it with Chromium. Which was the final nail in the coffin, effectively establishing Chromium as the web’s engine, combined with Safari’s webkit. The only resistance to this monopoly, Mozilla, finds itself without any significant allies or traction to counter this development.
 
-两天前，有感于微软放弃 Edgehtml 引擎，使用 Chromiun 取而代之的事件，作者发表了一片关于[浏览器苦乐现状](https://ferdychristant.com/the-state-of-web-browsers-f5a83a41c1cb)的文章。微软的此番作为被视为将 Chromium 与 Safari 的 webkit 结合建立搜索引擎的最后一步。而此时，唯一能对微软的垄断行为产生威胁的对手 —— Mozia，发现自己已经没有盟友和动力来应对微软的这一举措。
+两天前，有感于微软放弃 Edgehtml 引擎，使用 Chromiun 取而代之的事件，作者发表了一篇关于[浏览器苦乐现状](https://ferdychristant.com/the-state-of-web-browsers-f5a83a41c1cb)的文章。微软的此番作为被视为将 Chromium 与 Safari 的 webkit 结合建立搜索引擎的最后一步。而此时，唯一能对微软的垄断行为产生威胁的对手 —— Mozia，发现自己已经没有盟友和动力来应对微软的这一举措。
 
 The article got some readership and a fair amount of feedback. The general consensus seems to be that the article is truthful but depressing.
 
