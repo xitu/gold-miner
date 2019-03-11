@@ -187,34 +187,34 @@ git checkout 104-starter\_and\_103-complete
 
 ![](https://lh4.googleusercontent.com/NLXK-hHFYnHBPeQ6NYrKGnXpj9X2es9her6Y14CotXlR-OdSQBXHyRFv1nvhC1AFCmWx7jIG2Ulb7-OmLV_Pru_-kd-3gArn8OKEGTIOInDJlqIUJ7dxTQUsvLVa0CJwEO5EGjeu)
 
-> If you were unable to run the app successfully, stop and troubleshoot your developer environment. Try navigating to `material-components-flutter-codelabs` or if you downloaded the .zip file `material-components-flutter-codelabs-...`) in the terminal and running `flutter create mdc_100_series`.
+> 如果你无法成功运行此应用程序，停下来解决你的开发环境问题。尝试导航到 `material-components-flutter-codelabs`；如果你在终端中下载 .zip 文件，导航到 `material-components-flutter-codelabs-...` 然后运行 `flutter create mdc_100_series`。
 
-Success! You should see the Shrine login page from the previous codelabs in the simulator or emulator.
+成功！上一篇教程中 Shrine 的登陆页面应该在你的模拟器中运行了。你可以看到 Shrine 的 logo 和它下面的名称 "Shrine"。
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/img/58aa28868bf094a0.png)
 
-> If the app doesn't update, click the "Play" button again, or click "Stop" followed by "Play."
+> 如果应用没有更新，再次单击 “Play” 按钮，或者点击 “Play” 后的 “Stop”。
 
-## 4. Add the backdrop menu
+## 4. 添加背景菜单
 
-A backdrop appears behind all other content and components. It's composed of two layers: a back layer (that displays actions and filters) and a front layer (that displays content). You can use a backdrop to display interactive information and actions, such as navigation or content filters.
+背景出现在所有其他内容和组件后面。它由两层组成：后层（显示操作和过滤器）和前层（用来显示内容）。你可以使用背景来显示交互信息和操作，例如导航或内容过滤。
 
-### Remove the home app bar
+### 移除 home 的应用栏
 
-The HomePage widget will be the content of our front layer. Right now it has an app bar. We'll move the app bar to the back layer and the HomePage will only include the AsymmetricView.
+HomePage 的小部件将成为前层的内容。现在它有一个应用栏。我们将应用栏移动到后层，这样 HomePage 将只包含 AsymmetricView。
 
-In `home.dart`, change the `build()` function to just return an AsymmetricView:
+在 `home.dart`中，修改 `build()` 方法使其仅返回一个 AsymmetricView：
 
-    // TODO: Return an AsymmetricView (104)
+    // TODO: 返回一个 AsymmetricView（104）
     return  AsymmetricView(products: ProductsRepository.loadProducts(Category.all));
 
-### Add the Backdrop widget
+### 添加背景小部件
 
-Create a widget called **Backdrop** that includes the `frontLayer` and the `backLayer`.
+创建名为 **Backdrop** 的小部件，使其包含 `frontLayer` 和 `backLayer`。
 
-The `backLayer` includes a menu that allows you to select a category to filter the list (`currentCategory`). Since we want the menu selection to persist, we'll make Backdrop a stateful widget.
+`backLayer` 包含一个菜单，它允许你选择一个类别来过滤列表（`currentCategory`）。由于我们希望菜单选择保持不变，因此我们将 Backdrop 继承 StatefulWidget。
 
-Add a new file to `/lib` named `backdrop.dart`:
+在 `/lib` 下添加名为 `backdrop.dart` 的文件：
 
 ```
     import 'package:flutter/material.dart';
@@ -222,7 +222,7 @@ Add a new file to `/lib` named `backdrop.dart`:
 
     import 'model/product.dart';
 
-    // TODO: Add velocity constant (104)
+    // TODO: 添加速度常量（104）
 
     class Backdrop extends StatefulWidget {
       final Category currentCategory;
@@ -247,24 +247,24 @@ Add a new file to `/lib` named `backdrop.dart`:
       _BackdropState createState() => _BackdropState();
     }
 
-    // TODO: Add _FrontLayer class (104)
-    // TODO: Add _BackdropTitle class (104)
-    // TODO: Add _BackdropState class (104)
+    // TODO: 添加 _FrontLayer 类（104）
+    // TODO: 添加 _BackdropTitle 类（104）
+    // TODO: 添加 _BackdropState 类（104）
 ```
 
-Import the **meta** package to mark the properties `@required`. This is a best practice when you have properties in the constructor that have no default value and cannot be `null` and therefore should not be forgotten. Notice that we also have asserts after the constructor that check the values passed into those fields are indeed not `null`.
+导入 **meta** 包来添加 `@required` 标记。当构造函数中的属性没有默认值且不能为空的时候，用它来提醒你不能遗漏。注意，我们在构造方法后再一次声明了传入的值的确不是 `null`。
 
-Under the Backdrop class definition, add `_BackdropState` class:
+在 Backdrop 类定义下添加 `_BackdropState` 类：
 
 ```
-    // TODO: Add _BackdropState class (104)
+    // TODO: 添加 _BackdropState 类（104）
     class _BackdropState extends State<Backdrop>
         with SingleTickerProviderStateMixin {
       final GlobalKey _backdropKey = GlobalKey(debugLabel: 'Backdrop');
 
-      // TODO: Add AnimationController widget (104)
+      // TODO: 添加 AnimationController 部件（104）
 
-      // TODO: Add BuildContext and BoxConstraints parameters to _buildStack (104)
+      // TODO: 为 _buildStack 添加 BuildContext 和 BoxConstraints 参数（104）
       Widget _buildStack() {
         return Stack(
         key: _backdropKey,
@@ -281,20 +281,20 @@ Under the Backdrop class definition, add `_BackdropState` class:
           brightness: Brightness.light,
           elevation: 0.0,
           titleSpacing: 0.0,
-          // TODO: Replace leading menu icon with IconButton (104)
-          // TODO: Remove leading property (104)
-          // TODO: Create title with _BackdropTitle parameter (104)
+          // TODO: 用 IconButton 替换 leading 菜单图标（104）
+          // TODO: 移除 leading 属性（104）
+          // TODO: 使用 _BackdropTitle 参数创建标题（104）
           leading: Icon(Icons.menu),
           title: Text('SHRINE'),
           actions: <Widget>[
-            // TODO: Add shortcut to login screen from trailing icons (104)
+            // TODO: 添加从尾部图标到登陆页面的快捷方式（104）
             IconButton(
               icon: Icon(
                 Icons.search,
                 semanticLabel: 'search',
               ),
               onPressed: () {
-              // TODO: Add open login (104)
+              // TODO: 打开登陆（104）
               },
             ),
             IconButton(
@@ -303,77 +303,77 @@ Under the Backdrop class definition, add `_BackdropState` class:
                 semanticLabel: 'filter',
               ),
               onPressed: () {
-              // TODO: Add open login (104)
+              // TODO: 打开登陆（104）
               },
             ),
           ],
         );
         return Scaffold(
           appBar: appBar,
-          // TODO: Return a LayoutBuilder widget (104)
+          // TODO: 返回一个 LayoutBuilder 部件（104）
           body: _buildStack(),
         );
       }
     }
 ```
 
-The `build()` function returns a Scaffold with an app bar just like HomePage used to. But the body of the Scaffold is a **Stack**. A Stack's children can overlap. Each child's size and location is specified relative to the Stack's parent.
+`build()` 方法像 HomePage 一样返回一个带有 app bar 的 Scaffold。但是 Scaffold 的主体是一个 **Stack**。Stack 的孩子可以重叠。每个孩子的大小和位置都是相对于 Stack 的父级指定的。
 
-Now add a Backdrop instance to ShrineApp.
+现在在 ShrineApp 中添加一个 Backdrop 实例。
 
-In `app.dart`, import `backdrop.dart` and `model/product.dart`:
+在 `app.dart` 中引入 `backdrop.dart` 及 `model/product.dart`:
 ```
-    import 'backdrop.dart'; // New code
+    import 'backdrop.dart'; // 新增代码
     import 'colors.dart';
     import 'home.dart';
     import 'login.dart';
-    import 'model/product.dart'; // New code
+    import 'model/product.dart'; // 新增代码
     import 'supplemental/cut_corners_border.dart';
 ```
 
-In `app.dart,` modify the ShrineApp's `build()` function. Change `home:` to a Backdrop that has a HomePage as its `frontLayer`:
+在 `app.dart` 中修改 ShrineApp 的 `build()` 方法。将 `home:` 改成以 HomePage 为 `frontLayer` 的 Backdrop。
 ```
-        // TODO: Change home: to a Backdrop with a HomePage frontLayer (104)
+        // TODO: 将 home: 改为使用 HomePage frontLayer 的 Backdrop（104）
         home: Backdrop(
-          // TODO: Make currentCategory field take _currentCategory (104)
+          // TODO: 使 currentCategory 持有 _currentCategory （104）
           currentCategory: Category.all,
-          // TODO: Pass _currentCategory for frontLayer (104)
+          // TODO: 为 frontLayer 传递 _currentCategory（104）
           frontLayer: HomePage(),
-          // TODO: Change backLayer field value to CategoryMenuPage (104)
+          // TODO: 将 backLayer 的值改为 CategoryMenuPage（104）
           backLayer: Container(color: kShrinePink100),
           frontTitle: Text('SHRINE'),
           backTitle: Text('MENU'),
         ),
 ```
 
-If you hit the Play button, you should see that our home page is showing up and so is the app bar:
+如果你点击运行按钮，你将会看到主页与应用栏已经出现了：
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/img/19d0457f72708f20.png)
 
-The backLayer shows the pink area in a new layer behind the frontLayer home page.
+backLayer 在 frontLayer 的主页后面插入了一个新的粉色背景。
 
-You can use the [Flutter Inspector](https://flutter.io/inspector/) to verify that the Stack indeed has a Container behind a HomePage. It should similar to this:
+你可以使用 [Flutter Inspector](https://flutter.io/inspector/)来验证在 Stack 里的主页后面确实有一个容器。就像这样：
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/img/58aa28868bf094a0.png)
 
-You can now adjust the design and content of the two layers.
+现在你可以调整两个层的设计和内容。
 
-## 5. Add a shape
+## 5. 添加形状（Shape）
 
-In this step, you'll style the front layer to add a cut in the upper left corner.
+在本小节，你将为 frontLayer 设置样式以在其左上角添加一个切片。
 
-Material Design refers to this type of customization as a shape. Material surfaces can have arbitrary shapes. Shapes add emphasis and style to surfaces and can be used to express branding. Ordinary rectangular shapes can be customized with curved or angled corners and edges, and any number of sides. They can be symmetrical or irregular.
+Material Design 将此类定制称为形状。Material 表面可以具有任意形状。形状为表面增加了重点和风格，可用于表达品牌特点。普通的矩形形状可以定制使其具有弯曲或成角度的角和边缘，以及任意数量的边。它们可以是对称的或不规则的。
 
-### Add a shape to the front layer
+### 为 front layer 添加一个形状（Shape）
 
-The angled Shrine logo inspired the shape story for the Shrine app. The shape story is the common use of shapes that are applied throughout an app. For example, the logo shape is echoed in the login page elements that have shape applied to them. In this step, you'll style the front layer with an angled cut in the upper-left corner.
+斜角 Shrine logo 激发了 Shrine 应用的形状故事。形状故事是应用程序中应用的形状的常见用法。例如，徽标形状在应用了形状的登录页面元素中回显。在本小节，您将在左上角使用倾斜切片做为前层设置样式。
 
-In `backdrop.dart`, add a new class `_FrontLayer`:
+在 `backdrop.dart` 中，添加新的 `_FrontLayer` 类：
 
 ```
-    // TODO: Add _FrontLayer class (104)
+    // TODO: 添加 _FrontLayer 类（104）
     class _FrontLayer extends StatelessWidget {
-      // TODO: Add on-tap callback (104)
+      // TODO: 添加 on-tap 回调（104）
       const _FrontLayer({
         Key key,
         this.child,
@@ -391,7 +391,7 @@ In `backdrop.dart`, add a new class `_FrontLayer`:
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              // TODO: Add a GestureDetector (104)
+              // TODO: 添加 GestureDetecto（104）
               Expanded(
                 child: child,
               ),
@@ -402,46 +402,46 @@ In `backdrop.dart`, add a new class `_FrontLayer`:
     }
 ```
 
-Then, in BackdropState's `_buildStack()` function, wrap the front layer in a `_FrontLayer`:
+然后在 BackdropState 的 `_buildStack()` 方法里将 front layer 包裹在 `_FrontLayer` 内：
 
 ```
       Widget _buildStack() {
-        // TODO: Create a RelativeRectTween Animation (104)
+        // TODO: 创建一个 RelativeRectTween 动画（104）
 
         return Stack(
         key: _backdropKey,
           children: <Widget>[
             widget.backLayer,
-            // TODO: Add a PositionedTransition (104)
-            // TODO: Wrap front layer in _FrontLayer (104)
+            // TODO: 添加 PositionedTransition（104）
+            // TODO: 在 _FrontLayer 中包裹 front layer（104）
               _FrontLayer(child: widget.frontLayer),
           ],
         );
       }
 ```
-Reload.
+重载。
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/img/df346fb575d5885e.png)
 
-We've given Shrine's primary surface a custom shape. Because of the surface elevation, users can see that there is something just behind the front white layer. Let's add motion so that users can see the backdrop's back layer.
+我们给 Shrine 的主表面定制了一个形状。由于表面具有高度，用户可以看到白色前层后面有东西。让我们添加一个动作，以便用户可以看到背景的背景层。
 
-## 6. Add motion
+## 6. 添加动作（Motion）
 
-Motion is a way to bring your app to life. It can be big and dramatic, subtle and minimal, or anywhere in between. But keep in mind that the type of motion you use should be suitable to the situation. Motion that's applied to repeated, regular actions should be small and subtle, so that the actions don't distract the user or take up too much time on a regular basis. But there are appropriate situations, like the first time a user opens an app, that can be more eye-catching, and some animations can help educate the user about how to use your app.
+动作是一种可以让你的应用变得更真实的方式。它可以是大且夸张的、小且微妙的，亦或是介于两者之间的。但需要注意的是动作的形式一定要适合使用场景。多次重复的有规律的动作要精细小巧，才不会分散用户的注意力或占用太多时间。适当的情况，如用户第一次打开应用时，长时的动作可能会更引人注目，一些动画也可以帮助用户了解如何使用您的应用程序。
 
-### Add reveal motion to the menu button
+### 为菜单按钮添加显示动作
 
-At the top of `backdrop.dart`, outside the scope of any class of function, add a constant to represent the velocity we want our animation to have:
+在 `backdrop.dart` 的顶部，其他类函数外，添加一个常量来表示我们需要的动画执行的速度：
 
 ```
-    // TODO: Add velocity constant (104)
+    // TODO: 添加速度常数（104）
     const double _kFlingVelocity = 2.0;
 ```
 
-Add an `AnimationController` widget to `_BackdropState`, instantiate it in the `initState()` function, and dispose of it in the state's `dispose()` function:
+在 `_BackdropState` 中添加 `AnimationController` 部件, 在 `initState()` 函数中实例化它，并将其部署在 state 的 `dispose()` 函数中：
 
 ```
-      // TODO: Add AnimationController widget (104)
+      // TODO: 添加 AnimationController 部件（104）
       AnimationController _controller;
 
       @override
@@ -454,7 +454,7 @@ Add an `AnimationController` widget to `_BackdropState`, instantiate it in the `
         );
       }
 
-      // TODO: Add override for didUpdateWidget (104)
+      // TODO: 重写 didUpdateWidget（104）
 
       @override
       void dispose() {
@@ -462,18 +462,18 @@ Add an `AnimationController` widget to `_BackdropState`, instantiate it in the `
         super.dispose();
       }
 
-      // TODO: Add functions to get and change front layer visibility (104)
+      // TODO: 添加函数以确定并改变 front layer 可见性（104）
 ```
 
-> **The widget lifecycle**
+> **部件生命周期**
 >
-> The `initState()` method is only called once, before the widget is part of its render tree. The `dispose()` method is also only called once, when the widget is removed from its tree for good.
+> 仅在部件成为其渲染树的一部分之前会调用一次 `initState()` 方法。只有在部件从树中移除时才会调用一次 `dispose()` 方法。
 
-The AnimationController coordinates Animations and gives you API to play, reverse, and stop the animation. Now we need functions that make it move.
+AnimationController 用来配合 Animation ，并提供播放、反向和停止动画的 API。现在我们需要使用某个方法来移动它。
 
-Add functions that determine as well as change the visibility of the front layer:
+添加函数以确定并改变 front layer 的可见性：
 ```
-      // TODO: Add functions to get and change front layer visibility (104)
+      // TODO: 添加函数以确定并改变 front layer 的可见性（104）
       bool get _frontLayerVisible {
         final AnimationStatus status = _controller.status;
         return status == AnimationStatus.completed ||
@@ -486,29 +486,29 @@ Add functions that determine as well as change the visibility of the front layer
       }
 ```
 
-Wrap the backLayer in an ExcludeSemantics widget. This widget will exclude the backLayer's menu items from the semantics tree when the back layer isn't visible.
+将 backLayer 包裹在 ExcludeSemantics 部件中。当 back layer 不可见时，此部件将从语义树中剔除 backLayer 的菜单项。
 
 ```
         return Stack(
           key: _backdropKey,
           children: <Widget>[
-            // TODO: Wrap backLayer in an ExcludeSemantics widget (104)
+            // TODO: 将 backLayer 包裹在 ExcludeSemantics 部件中（104）
             ExcludeSemantics(
               child: widget.backLayer,
               excluding: _frontLayerVisible,
             ),
           ...
 ```
-Change the `_buildStack()` function to take a BuildContext and BoxConstraints. Also, include a PositionedTransition that takes a RelativeRectTween Animation:
+修改 `_buildStack()` 方法使其持有一个 BuildContext 和 BoxConstraints。同时包含一个使用 RelativeRectTween 动画的 PositionedTransition ：
 
 ```
-      // TODO: Add BuildContext and BoxConstraints parameters to _buildStack (104)
+      // TODO: 为 _buildStack 添加 BuildContext 和 BoxConstraints 参数（104）
       Widget _buildStack(BuildContext context, BoxConstraints constraints) {
         const double layerTitleHeight = 48.0;
         final Size layerSize = constraints.biggest;
         final double layerTop = layerSize.height - layerTitleHeight;
 
-        // TODO: Create a RelativeRectTween Animation (104)
+        // TODO: 创建一个 RelativeRectTween 动画（104）
         Animation<RelativeRect> layerAnimation = RelativeRectTween(
           begin: RelativeRect.fromLTRB(
               0.0, layerTop, 0.0, layerTop - layerSize.height),
@@ -522,11 +522,11 @@ Change the `_buildStack()` function to take a BuildContext and BoxConstraints. A
               child: widget.backLayer,
               excluding: _frontLayerVisible,
             ),
-            // TODO: Add a PositionedTransition (104)
+            // TODO: 添加一个 PositionedTransition（104）
             PositionedTransition(
               rect: layerAnimation,
               child: _FrontLayer(
-                // TODO: Implement onTap property on _BackdropState (104)
+                // TODO: 在 _BackdropState 上实现 onTap 属性（104）
                 child: widget.frontLayer,
               ),
             ),
@@ -535,45 +535,45 @@ Change the `_buildStack()` function to take a BuildContext and BoxConstraints. A
       }
 ```
 
-Finally, instead of calling the `_buildStack` function for the body of the Scaffold, return a **LayoutBuilder** widget that uses `_buildStack` as its builder:
+最后，返回一个使用 `_buildStack` 作为其 builder 的 **LayoutBuilder** 部件，而不是为 Scaffold 的主体调用 `_buildStack` 函数：
 
 ```
         return Scaffold(
           appBar: appBar,
-          // TODO: Return a LayoutBuilder widget (104)
+          // TODO: 返回一个 LayoutBuilder 部件（104）
           body: LayoutBuilder(builder: _buildStack),
         );
 ```
 
-We've delayed the build of the front/back layer stack until layout time using LayoutBuilder so that we can incorporate the backdrop's actual overall height. LayoutBuilder is a special widget whose builder callback provides size constraints.
+我们使用 LayoutBuilder 延迟了 front/back 堆栈的构建，直到布局的时候，以便我们可以合并背景的实际整体高度。 LayoutBuilder 是一个特殊的部件，其构建器回调提供了大小约束。
 
 > **LayoutBuilder**
 >
-> The widget tree performs layout by traversing towards the leaves. Constraints are passed down the tree but sizes usually aren't calculated until the leaf returns its size based on the constraints. If a leaf needed to know its parent's size, it couldn't since it's not yet calculated.
+> 部件树通过遍历叶结点来组织布局。约束在树下传递，但是在叶结点根据约束返回其大小之前通常不会计算大小。叶子点无法知道它的父母的大小，因为它尚未计算。
 >
-> LayoutBuilder is used when a widget must know its parent widget's size in order to lay itself out (and the parent size does not depend on the child.) LayoutBuilder takes a function that returns a Widget.
+> LayoutBuilder is used when a widget must know its parent widget's size in order to lay itself out (and the parent size does not depend on the child.) LayoutBuilder takes a function that returns a Widget.当部件必须知道其父部件的大小以便自行布局（且父部件大小不依赖于子部件）时，LayoutBuilder 就派上用场了。它使用一个方法来返回部件。
 >
-> For more information, see the [LayoutBuilder class](https://docs.flutter.io/flutter/widgets/LayoutBuilder-class.html) documentation.
+> 了解有关更多信息，请查看 [LayoutBuilder 类](https://docs.flutter.io/flutter/widgets/LayoutBuilder-class.html)文档。
 
-In the `build()` function, turn the leading menu icon in the app bar into an IconButton and use it to toggle the visibility of the front layer when the button is tapped.
+在 `build()` 方法中，将应用栏中的前导菜单图标转换为 IconButton，并在点击按钮时使用它来切换 front layer 的可见性。
 
 ```
-          // TODO: Replace leading menu icon with IconButton (104)
+          // TODO: 用 IconButton 替换 leading 菜单图标（104）
           leading: IconButton(
             icon: Icon(Icons.menu),
             onPressed: _toggleBackdropLayerVisibility,
           ),
 ```
 
-Reload then tap the menu button in the simulator.
+在模拟器中重载并点击菜单按钮。
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/img/9b027fdb5f0cb48.png)
 
-The front layer animates (slides) down. But if you look down, there's a red error and an overflow error. This is because the AsymmetricView is squeezed and becomes smaller by this animation, which in turn gives less room to the Columns. Eventually, the Columns can't lay themselves out with the space given and they result in an error. If we replace the Columns with ListViews, the column size should remain as they animate.
+front layer 在向下移动（滑动）。但如果向下看，则会出现红色错误和溢出错误。这是因为 AsymmetricView 被这个动画挤压并变小，反过来使得 Column 的空间更小。最终，Column 不能用给定的空间自行排列并导致错误。如果我们用 ListView 替换 Column，则移动时列的尺寸仍然保持不变。
 
-### Wrap product columns in a ListView
+### 在 ListView 中包裹产品列项
 
-In `supplemental/product_columns.dart`, replace the Column in `OneProductCardColumn` with a ListView:
+在 `supplemental/product_columns.dart` 中，将 `OneProductCardColumn` 的 Column 替换成 ListView：
 
 ```
     class OneProductCardColumn extends StatelessWidget {
@@ -583,7 +583,7 @@ In `supplemental/product_columns.dart`, replace the Column in `OneProductCardCol
 
       @override
       Widget build(BuildContext context) {
-        // TODO: Replace Column with a ListView (104)
+        // TODO: 用 ListView 替换 Column（104）
         return ListView(
           reverse: true,
           children: <Widget>[
@@ -599,24 +599,24 @@ In `supplemental/product_columns.dart`, replace the Column in `OneProductCardCol
     }
 ```
 
-The Column includes `MainAxisAlignment.end`. To begin the layout from the bottom, mark `reverse: true`. The order of the children is reversed to compensate for the change.
+Column 包含 `MainAxisAlignment.end`。要使得从底部开始布局，使用 `reverse: true`。其孩子的顺序将翻转以弥补变化。
 
-Reload and then tap the menu button.
+重载并点击菜单按钮。
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/img/96f7660473bb549b.png)
 
-The gray overflow warning on OneProductCardColumn is gone! Now let's fix the other.
+OneProductCardColumn 上的灰色溢出警告消失了！现在让我们修复另一个。
 
-In `supplemental/product_columns.dart`, change the way the `imageAspectRatio` is calculated, and replace the Column in `TwoProductCardColumn` with a ListView:
+在 `supplemental/product_columns.dart` 中修改 `imageAspectRatio` 的计算方式，并将 `TwoProductCardColumn` 中的 Column 替换成 ListView：
 
 ```
-          // TODO: Change imageAspectRatio calculation (104)
+          // TODO: 修改 imageAspectRatio 的计算方式（104）
           double imageAspectRatio =
               (heightOfImages >= 0.0 && constraints.biggest.width > heightOfImages)
                   ? constraints.biggest.width / heightOfImages
                   : 33 / 49;
 
-          // TODO: Replace Column with a ListView (104)
+          // TODO: 用 ListView 替换 Column（104）
           return ListView(
             children: <Widget>[
               Padding(
@@ -643,22 +643,21 @@ In `supplemental/product_columns.dart`, change the way the `imageAspectRatio` is
         });
 ```
 
-We also added some safety to `imageAspectRatio`.
+我们还为 `imageAspectRatio` 添加了一些安全性。
 
-Reload. Then tap the menu button.
+重载。然后点击菜单按钮。
 
-No more overflows.
+现在已经没有溢出了。
 
-## 7. Add a menu on the back layer
+## 7. 在 back layer 上添加菜单
 
-A menu is a list of tappable text items that notify listeners when the text items are touched. In this step, you'll add a category filtering menu.
+菜单是由可点击文本项组成的列表，当发生点击事件时通知监听器。在此小节，你将添加一个类别过滤菜单。
 
-**Add the menu**
-----------------
+### 添加菜单
 
-Add the menu to the front layer and the interactive buttons to the back layer.
+在 front layer 添加菜单并在 back layer 添加互动按钮。
 
-Create a new file called `lib/category_menu_page.dart`:
+创建名为 `lib/category_menu_page.dart` 的新文件：
 
 ```
     import 'package:flutter/material.dart';
@@ -732,19 +731,19 @@ Create a new file called `lib/category_menu_page.dart`:
     }
 ```
 
-It's a **GestureDetector** wrapping a Column whose children are the category names. An underline is used to indicate the selected category.
+它是一个 **GestureDetector**，它包含一个 Column，其孩子是类别名称。下划线用于指示所选的类别。
 
-In `app.dart`, convert the ShrineApp widget from stateless to stateful.
+在 `app.dart` 中，将 ShrineApp 部件从 stateless 转换成 stateful。
 
-1.  Highlight `ShrineApp.`
-2.  Press alt (option) + enter.
-3.  Select "Convert to StatefulWidget".
-4.  Change the ShrineAppState class to private (\_ShrineAppState). To do this from the IDE main menu, select Refactor > Rename. Alternatively, from within the code, you can highlight the class name, ShrineAppState, then right-click and select Refactor > Rename. Enter \_ShrineAppState to make the class private.
+1.  高亮 `ShrineApp.`
+2.  按 alt（option）+ enter
+3.  选择 "Convert to StatefulWidget"。
+4.  将 ShrineAppState 类更改为 private（`_ShrineAppState`）。要从 IDE 主菜单执行此操作，请选择“重构” > “重命名”。或者在代码中，您可以高亮显示类名 ShrineAppState，然后右键单击并选择 Refactor > Rename。输入 `_ShrineAppState` 以使该类成为私有。
 
-In `app.dart`, add a variable to `_ShrineAppState` for the selected Category and a callback when it's tapped:
+在 `app.dart` 中，为选择的类别添加一个变量 `_ShrineAppState`，并在点击时添加一个回调：
 
 ```
-    // TODO: Convert ShrineApp to stateful widget (104)
+    // TODO: 将 ShrineApp 转换成 stateful 部件（104）
     class _ShrineAppState extends State<ShrineApp> {
       Category _currentCategory = Category.all;
 
@@ -755,9 +754,9 @@ In `app.dart`, add a variable to `_ShrineAppState` for the selected Category and
       }
 ```
 
-Then change the back layer to a CategoryMenuPage.
+然后将 back layer 修改为 CategoryMenuPage。
 
-In `app.dart`, import the CategoryMenuPage:
+在 `app.dart` 中引入 CategoryMenuPage：
 
 ```
     import 'backdrop.dart';
@@ -769,15 +768,15 @@ In `app.dart`, import the CategoryMenuPage:
     import 'supplemental/cut_corners_border.dart';
 ```
 
-In the `build()` function, change the backlayer field to CategoryMenuPage and the currentCategory field to take the instance variable.
+在 `build()` 方法，将 backlayer 字段修改成 CategoryMenuPage 并让 currentCategory 字段持有实例变量。
 
 ```
           home: Backdrop(
-            // TODO: Make currentCategory field take _currentCategory (104)
+            // TODO: 让 currentCategory 字段持有 _currentCategory（104）
             currentCategory: _currentCategory,
-            // TODO: Pass _currentCategory for frontLayer (104)
+            // TODO: 为 frontLayer 传递 _currentCategory（104）
             frontLayer: HomePage(),
-            // TODO: Change backLayer field value to CategoryMenuPage (104)
+            // TODO: 将 backLayer 修改成 CategoryMenuPage（104）
             backLayer: CategoryMenuPage(
               currentCategory: _currentCategory,
               onCategoryTap: _onCategoryTap,
@@ -787,13 +786,13 @@ In the `build()` function, change the backlayer field to CategoryMenuPage and th
           ),
 ```
 
-Reload and then tap the Menu button.
+重载并点击菜单按钮。
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/img/570506f76fc169b.png)
 
-If you tap a menu option, nothing happens...yet. Let's fix that.
+你点击了菜单选项，然而什么也没有发生...让我们修复它。
 
-In `home.dart`, add a variable for Category and pass it to the AsymmetricView.
+在 `home.dart` 中，为 Category 添加一个变量并将其传递给 AsymmetricView。
 
 ```
     import 'package:flutter/material.dart';
@@ -803,38 +802,38 @@ In `home.dart`, add a variable for Category and pass it to the AsymmetricView.
     import 'supplemental/asymmetric_view.dart';
 
     class HomePage extends StatelessWidget {
-      // TODO: Add a variable for Category (104)
+      // TODO: 为 Category 添加一个变量（104）
       final Category category;
 
       const HomePage({this.category: Category.all});
 
       @override
       Widget build(BuildContext context) {
-        // TODO: Pass Category variable to AsymmetricView (104)
+        // TODO: 为 Category 添加一个变量并将其传递给 AsymmetricView（104）
         return AsymmetricView(products: ProductsRepository.loadProducts(category));
       }
     }
 ```
 
-In `app.dart`, pass the `_currentCategory` for `frontLayer`:.
+在 `app.dart` 中为 `frontLayer` 传递 `_currentCategory`：
 
 ```
-            // TODO: Pass _currentCategory for frontLayer (104)
+            // TODO: 为 `frontLayer` 传递 `_currentCategory`（104）
             frontLayer: HomePage(category: _currentCategory),
 ```
 
-Reload. Tap the menu button in the simulator and select a Category.
+重载。点击模拟器中的菜单按钮并选择一个类别。
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/img/963f80325fbd359c.png)
 
-Tap the menu icon to view the products. They're filtered!
+点击菜单图标以查看产品。他们被过滤了！
 
-## Close the front layer after a menu selection
+## 选择菜单项后关闭 front layer
 
-In `backdrop.dart`, add an override for the `didUpdateWidget()` function in `BackdropState`:
+在 `backdrop.dart` 中，为 `BackdropState` 重写 `didUpdateWidget()` 方法：
 
 ```
-      // TODO: Add override for didUpdateWidget() (104)
+      // TODO: 为 didUpdateWidget() 添加重写方法（104）
       @override
       void didUpdateWidget(Backdrop old) {
         super.didUpdateWidget(old);
@@ -847,32 +846,32 @@ In `backdrop.dart`, add an override for the `didUpdateWidget()` function in `Bac
       }
 ```
 
-Hot reload then tap the menu icon and select a category. The menu should close automatically and your should see the category of items selected. Now you'll add that functionality to the front layer too.
+热加载，然后点击菜单图标并选择一个类别。菜单应该自动关闭，然后你将看到所选择类别的物品。现在同样地将这个功能添加到 front layer 。
 
-### Toggle the front layer
+### 切换 front layer
 
-In `backdrop.dart`, add an on-tap callback to the backdrop layer:
+在 `backdrop.dart` 中，给 backdrop layer 添加一个 on-tap 回调：
 
 ```
     class _FrontLayer extends StatelessWidget {
-      // TODO: Add on-tap callback (104)
+      // TODO: 添加 on-tap 回调（104）
       const _FrontLayer({
         Key key,
-        this.onTap, // New code
+        this.onTap, // 新增代码
         this.child,
       }) : super(key: key);
 
-      final VoidCallback onTap; // New code
+      final VoidCallback onTap; // 新增代码
       final Widget child;
 ```
 
-Then add a GestureDetector to the `_ FrontLayer`'s child: Column's children:.
+然后将一个 GestureDetector 添加到 `_FrontLayer` 的孩子 Column 的子节点中：Then add a GestureDetector to the `_ FrontLayer`'s child: Column's children:.
 
 ```
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              // TODO: Add a GestureDetector (104)
+              // TODO: 添加一个 GestureDetector（104）
               GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: onTap,
@@ -888,33 +887,33 @@ Then add a GestureDetector to the `_ FrontLayer`'s child: Column's children:.
           ),
 ```
 
-Then implement the new `onTap` property on the `_BackdropState` in the `_buildStack()` function:
+然后在 `_buildStack()` 方法的 `_BackdropState` 中实现新的 `onTap` 属性：
 
 ```
               PositionedTransition(
                 rect: layerAnimation,
                 child: _FrontLayer(
-                  // TODO: Implement onTap property on _BackdropState (104)
+                  // TODO: 在 _BackdropState 中实现 onTap 属性（104)
                   onTap: _toggleBackdropLayerVisibility,
                   child: widget.frontLayer,
                 ),
               ),
 ```
 
-Reload and then tap on the top of the front layer. The layer should open and close each time you tap the top of the front layer.
+重载并点击 front layer 的顶部。每次你点击 front layer 顶部时都它应该打开或者关闭。
 
-## 8. Add a branded icon
+## 8. 添加品牌图标
 
-Branded iconography extends to familiar icons too. Let's make the reveal icon custom and merge it with our title for a unique, branded look.
+品牌肖像也应该延伸到熟悉的图标。让我们自定义显示图标并将其与我们的标题合并，以获得独特的品牌外观。
 
-### **Change the menu button icon**
+### 修改菜单按钮图标
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/img/a533be3bc12ef2f7.png)
 
-In `backdrop.dart`, create a new class `_BackdropTitle`.
+在 `backdrop.dart` 中，新建 `_BackdropTitle` 类。
 
 ```
-    // TODO: Add _BackdropTitle class (104)
+    // TODO: 添加 _BackdropTitle 类（104）
     class _BackdropTitle extends AnimatedWidget {
       final Function onPress;
       final Widget frontTitle;
@@ -939,7 +938,7 @@ In `backdrop.dart`, create a new class `_BackdropTitle`.
           softWrap: false,
           overflow: TextOverflow.ellipsis,
           child: Row(children: <Widget>[
-            // branded icon
+            // 品牌图标
             SizedBox(
               width: 72.0,
               child: IconButton(
@@ -959,8 +958,8 @@ In `backdrop.dart`, create a new class `_BackdropTitle`.
                   )]),
               ),
             ),
-            // Here, we do a custom cross fade between backTitle and frontTitle.
-            // This makes a smooth animation between the two texts.
+            // 在这里，我们在 backTitle 和 frontTitle 之间是实现自定义的交叉淡入淡出效果
+            // 这使得两个文本之间能够平滑过渡。
             Stack(
               children: <Widget>[
                 Opacity(
@@ -997,7 +996,7 @@ In `backdrop.dart`, create a new class `_BackdropTitle`.
     }
 ```
 
-The `_BackdropTitle` is a custom widget that will replace the plain `Text` widget for the `AppBar` widget's `title` parameter. It has an animated menu icon and animated transitions between the front title and back title. The animated menu icon will use a new asset. The reference to the new `slanted_menu.png` must be added to the `pubspec.yaml`.
+`_BackdropTitle` 是一个自定义部件，它将替换 `AppBar` 里 `title` 参数的 `Text` 部件。它有一个动画菜单图标和前后标题之间的动画过渡。动画菜单图标将使用新资源。因此必须将对新 `slanted_menu.png` 的引用添加到 `pubspec.yaml`中。
 
 ```
     assets:
@@ -1006,10 +1005,10 @@ The `_BackdropTitle` is a custom widget that will replace the plain `Text` widge
         - packages/shrine_images/0-0.jpg
 ```
 
-Remove the `leading` property in the `AppBar` builder. Removal is necessary for the custom branded icon to be rendered in the original `leading` widget's place. The animation `listenable` and the `onPress` handler for the branded icon are passed to the `_BackdropTitle`. The `frontTitle` and `backTitle` are also passed so that they can be rendered within the backdrop title. The `title` parameter of the `AppBar` should look like this:
+移除 `AppBar` builder 中的 `leading` 属性。这样才能在原始 `leading` 部件的位置显示自定义品牌图标。`listenable` 动画和品牌图标的 `onPress` 处理将传递给 `_BackdropTitle`。`frontTitle` 和 `backTitle` 也会被传递，以便将它们显示在背景标题中。`AppBar` 的 `title` 参数如下所示：
 
 ```
-    // TODO: Create title with _BackdropTitle parameter (104)
+    // TODO: 使用 _BackdropTitle 参数创建标题（104）
     title: _BackdropTitle(
       listenable: _controller.view,
       onPress: _toggleBackdropLayerVisibility,
@@ -1018,23 +1017,23 @@ Remove the `leading` property in the `AppBar` builder. Removal is necessary for 
     ),
 ```
 
-The branded icon is created in the `_BackdropTitle.` It contains a `Stack` of animated icons: a slanted menu and a diamond, which is wrapped in an `IconButton` so that it can be pressed. The `IconButton` is then wrapped in a `SizedBox` in order to make room for the horizontal icon motion.
+品牌图标在 `_BackdropTitle` 中创建。它包含一组动画图标：倾斜的菜单和钻石，它包裹在 `IconButton` 中，以便可以按下它。然后将 `IconButton` 包装在 `SizedBox` 中，以便为图标水平运动腾出空间。
 
-Flutter's "everything is a widget" architecture allows the layout of the default `AppBar` to be altered without having to create an entirely new custom `AppBar` widget. The `title` parameter, which is originally a `Text` widget, can be replaced with a more complex `_BackdropTitle`. Since the `_BackdropTitle` also includes the custom icon, it takes the place of the `leading` property, which can be now be omitted. This simple widget substitution is accomplished without changing any of the other parameters, such as the action icons, which continue to function on their own.
+Flutter 的 "everything is a widget" 架构允许更改默认 `AppBar` 的布局，而无需创建全新的自定义 `AppBar` 小部件。`title` 参数最初是一个 `Text` 部件，可以用更复杂的 `_BackdropTitle` 替换。由于 `_BackdropTitle` 还包含自定义图标，因此它取代了 `leading` 属性，现在可以省略。这个简单的部件替换是在不改变任何其他参数的情况下完成的，例如动作图标，它们可以继续运行。
 
-### Add a shortcut back to the login screen
+### 添加返回登录屏幕的快捷方式
 
-In `backdrop.dart,`add a shortcut back to the login screen from the two trailing icons in the app bar: Change the semantic labels of the icons to reflect their new purpose.
+在 `backdrop.dart` 中，从应用栏中的两个尾部图标向登录屏幕添加一个快捷方式：更改图标的 `semanticLabel` 以反映其新用途。
 
 ```
-            // TODO: Add shortcut to login screen from trailing icons (104)
+            // TODO: 添加从尾部图标到登陆页面的快捷方式（104）
             IconButton(
               icon: Icon(
                 Icons.search,
-                semanticLabel: 'login', // New code
+                semanticLabel: 'login', // 新增代码
               ),
               onPressed: () {
-                // TODO: Add open login (104)
+                // TODO: 打开登陆（104）
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
@@ -1044,10 +1043,10 @@ In `backdrop.dart,`add a shortcut back to the login screen from the two trailing
             IconButton(
               icon: Icon(
                 Icons.tune,
-                semanticLabel: 'login', // New code
+                semanticLabel: 'login', // 新增代码
               ),
               onPressed: () {
-                // TODO: Add open login (104)
+                // TODO: 打开登陆（104）
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
@@ -1056,29 +1055,29 @@ In `backdrop.dart,`add a shortcut back to the login screen from the two trailing
             ),
 ```
 
-You'll get an error if you try a reload. Import `login.dart` to fix the error:
+如果你尝试重载将收到错误消息。导入 `login.dart` 以修复错误：
 
 ```
     import 'login.dart';
 ```
 
-Reload the app and tap the search or tune buttons to return to the login screen.
+重载应用并点击搜索或调整按钮以返回登录屏幕。
 
-## 9. Recap
+## 9. 总结
 
-Over the course of these four codelabs, you've seen how to use Material Components to build unique, elegant user experiences that express brand personality and style.
+通过四篇教程，你已经了解了如何使用 Material 组件来构建表达品牌个性和风格的独特，优雅的用户体验。
 
-> The completed MDC-104 app is available in the `104-complete` branch.
+> 完成的 MDC-104 应用可在 `104-complete` 分支中找到。
 >
-> You can test your version of the page against the app in that branch.
+> 您可以使用该分支中的版本测试你的应用。
 
-### Next steps
+### 下一步
 
-This codelab, MDC-104, completes this sequence of codelabs. You can explore even more components in MDC-Flutter by visiting the [Flutter Widgets Catalog](https://flutter.io/widgets/).
+MDC-104 到此已经完成。你可以访问 [Flutter Widget 目录](https://flutter.io/widgets/)以在 MDC-Flutter 中探索更多组件。
 
-For a stretch goal, try replacing the branded icon with an [AnimatedIcon](https://docs.flutter.io/flutter/material/AnimatedIcon-class.html).
+对于拉伸目标，尝试使用 [AnimatedIcon](https://docs.flutter.io/flutter/material/AnimatedIcon-class.html) 替换品牌图标。
 
-To learn how to connect an app to Firebase for a working backend, see the codelab [Firebase for Flutter](http://codelabs.developers.google.com/codelabs/flutter-firebase).
+要了解如何将应用连接到 Firebase 以获得后端支持，请参阅 [Flutter 中的 Firebase](http://codelabs.developers.google.com/codelabs/flutter-firebase)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
