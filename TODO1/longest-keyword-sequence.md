@@ -2,37 +2,57 @@
 > * 原文作者：[Leo Horie](https://mithril.js.org/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/longest-keyword-sequence.md](https://github.com/xitu/gold-miner/blob/master/TODO1/longest-keyword-sequence.md)
-> * 译者：
+> * 译者：[xionglong58](https://github.com/xionglong58)
 > * 校对者：
 
 # What's the longest keyword sequence in Javascript?
 
+# Javascript 中的最长关键字序列是什么意思？
+
 So there were a few threads going around recently about a challenge to write the longest sequence of keywords in Javascript:
+
+最近有几个挑战主题关于使用 Javascript 编写最长关键字序列。
 
 * https://twitter.com/bterlson/status/1093624668903268352
 * https://news.ycombinator.com/item?id=19102367
 
 There are, however, a few problems:
 
+但是，问题是：
+
 * These solutions use non-keyword tokens (`null`, `true`, `false` are actually [Literals](https://tc39.github.io/ecma262/#prod-Literal), not [Keywords](https://tc39.github.io/ecma262/#prod-Keyword))
 * One of the solutions isn't quite valid (`new super`)
 
+* 这些解决方案使用非关键字标记(null、true、false实际上是文字，而不是关键字)
+
+* 其中一个解决方案不是很有效
+
 Let's see if we can do better!
+
+让我们试试能不能做的更好。
 
 (...but first let's review the ground rules)
 
+(但是我们首先的温故一些基础规则)
 ## Rules
-
 1) Code must parse and run as valid Javascript. No ignoring [early errors](https://tc39.github.io/ecma262/#early-error), nuh-uh!
 2) Only [keywords](https://tc39.github.io/ecma262/#sec-keywords) are allowed
 3) The only other character allowed other than lower case letters are whitespaces
 4) Cannot repeat keywords within the sequence
 5) You can add as much preamble and postamble code as necessary
-
+## 规则
+1) 代码必须作为有效的 Javascript 进行解析和运行。不能忽略[早期错误]
+2) 只允许使用关键字
+3) 除小写字母外，其它唯一允许的字符是空格
+4) 不能在序列中重复使用一个关键字
+5) 您可以根据需要添加尽可能多的前同步码和后同步码
 ## Bonus Challenge
 
 6) Line breaks are allowed between keywords
 7) Keyword-like tokens are allowed
+## 额外挑战
+6) 关键字之间允许换行
+7) 允许使用类似关键字的标记
 
 ## The bar to meet
 
