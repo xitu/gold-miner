@@ -196,7 +196,7 @@ Plus, if the feature is truly insane and openly against general interests, there
 
 Finally, as said, “fit their agenda” very often aligns with the agenda of users and developers. So all in all, I’m not too worried about this one.
 
-最后，如前所述，“符合他们的规划” 通常与用户和开发人员的规划一致。总之，我不太担心这个。
+最后，如前所述，“符合他们的规划”通常与用户和开发人员的规划一致。总之，我不太担心这个。
 
 #### Google dictating priorities of implementation
 
@@ -286,7 +286,7 @@ Another recent controversy is in Chrome, which is not pure Chromium, therefore o
  
 A third concern is Google’s aggressive deprecation policy that lacks empathy. This is an area I have experience with. Because of some of my other hobbies (wildlife photography) I spent a lot of time on websites that deal with zoology: describing species. These websites are often made by amateurs, hobbyists, people that are not professional web developers. Also, some of these websites haven’t been touched (in terms of code) for years. Let’s call all of this the “old web”.
 
-第三个例子是 Google 缺乏同理心的强势弃用政策。我在这方面有自己的亲身体验。出于我的爱好 (野生动物摄影)，我花了很多时间在与描述动物物种有关的网站上:。这些网站通常是由程序小白、业余爱好者、非专业 web 开发人员创建的。此外，其中一些网站多年来 (在代码方面) 都没有被触及。让我们把这些网站称为 “old web”。
+第三个例子是 Google 缺乏同理心的强势弃用政策。我在这方面有自己的亲身体验。出于我的爱好 (野生动物摄影)，我花了很多时间在与描述动物物种有关的网站上:。这些网站通常是由程序小白、业余爱好者、非专业 web 开发人员创建的。此外，其中一些网站多年来 (在代码方面) 都没有被触及。让我们把这些网站称为“old web”。
 
 How big is this old web? I don’t know, but I’m willing to bet that most of the world’s web pages aren’t under active maintenance. The thing is, many of these websites are breaking. Partly, or as a whole. They’re falling apart, bit by bit. Because of deprecations, new expectations (for example HTTPS), but even more so by breaking API changes of 3rd party services, like Maps. Or, they are massively de-ranked for not complying with new expectations and therefore wiped from existence.
 
@@ -299,7 +299,7 @@ Yet these websites still have value. Tech companies owe it to these website owne
 
 Even if you believe its their problem, consider this analogy. Say you have a computer illiterate mother (I do). She struggles with basic computing and needs constant help. You could now be all smug and tell her to brush up her computing skills, to “get with the times”. You could technically be right, but I sure hope she kicks your arrogant ass. Even if right, the problem isn’t going to be solved, and therefore empathy is the answer. And that’s how I feel about the old web: it must be preserved with empathy. Google has a very poor track record in this area.
 
-即使你认为这是他们的问题，想想这个类比。假设你有一位不懂电脑的母亲(我母亲就是)。她很难掌握基本的计算技术，需要不断的帮助。你现在可以沾沾自喜地告诉她，要 “与时俱进”，重新学习一下她的计算技能。从技术上讲，你可能是对的，但我确实希望她给你一脚。即使是对的，问题也不会得到解决，因此同理心就是答案。这就是我对 "old web" 的看法:必须以同理心来对待它的存在。Google 在这方面的做的很差。
+即使你认为这是他们的问题，想想这个类比。假设你有一位不懂电脑的母亲(我母亲就是)。她很难掌握基本的计算技术，需要不断的帮助。你现在可以沾沾自喜地告诉她，要“与时俱进”，重新学习一下她的计算技能。从技术上讲，你可能是对的，但我确实希望她给你一脚。即使是对的，问题也不会得到解决，因此同理心就是答案。这就是我对“old web”的看法:必须以同理心来对待它的存在。Google 在这方面的做的很差。
 
 I’m getting side tracked here, and breaking my promise of making this an optimistic article. I could make the above list a lot longer but my main point here is that most of Google’s questionable moves regarding the web and its users do not take place in Chromium, instead outside of it.
 
