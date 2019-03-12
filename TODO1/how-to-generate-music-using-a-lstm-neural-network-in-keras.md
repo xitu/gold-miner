@@ -147,6 +147,7 @@ We start by loading each file into a Music21 stream object using the _converter.
 Now that we have put all the notes and chords into a sequential list we can create the sequences that will serve as the input of our network.
 
 ![Figure 1: When converting from categorical to numerical data the data is converted to integer indexes representing where the category is positioned in the set of distinct values. E.g. apple is the first distinct value so it maps to 0, orange is the second so it maps to 1, pineapple is the third so it maps to 2, and so forth.](https://cdn-images-1.medium.com/max/2000/1*sM3FeKwC-SD66FCKzoExDQ.jpeg)
+
 Figure 1: When converting from categorical to numerical data the data is converted to integer indexes representing where the category is positioned in the set of distinct values. E.g. apple is the first distinct value so it maps to 0, orange is the second so it maps to 1, pineapple is the third so it maps to 2, and so forth.
 
 First, we will create a mapping function to map from string-based categorical data to integer-based numerical data. This is done because neural network perform much better with integer-based numerical data than string-based categorical data. An example of a categorical to numerical transformation can be seen in Figure 1.
@@ -305,11 +306,13 @@ for note_index in range(500):
 We chose to generate 500 notes using the network since that is roughly two minutes of music and gives the network plenty of space to create a melody. For each note that we want to generate we have to submit a sequence to the network. The first sequence we submit is the sequence of notes at the starting index. For every subsequent sequence that we use as input, we will remove the first note of the sequence and insert the output of the previous iteration at the end of the sequence as can be seen in Figure 2.
 
 ![Figure 2: The first input sequence is ABCDE. The output we get from feeding that to the network is F. For the next iteration we remove A from the sequence and append F to it. Then we repeat the process.](https://cdn-images-1.medium.com/max/2000/1*lsMVJ484dEqIVMFyJ1gV2g.jpeg)
+
 Figure 2: The first input sequence is ABCDE. The output we get from feeding that to the network is F. For the next iteration we remove A from the sequence and append F to it. Then we repeat the process.
 
 To determine the most likely prediction from the output from the network, we extract the index of the highest value. The value at index *X* in the output array correspond to the probability that *X* is the next note. Figure 3 helps explain this.
 
 ![Figure 3: Here we see the mapping between the an output prediction from the network and classes. As we can see the highest probability is that the next value should be D, so we choose D as the most probable class.](https://cdn-images-1.medium.com/max/2000/1*YpnnaPA1Sm8rzTR4N2knKQ.jpeg)
+
 Figure 3: Here we see the mapping between the an output prediction from the network and classes. As we can see the highest probability is that the next value should be D, so we choose D as the most probable class.
 
 Then we collect all the outputs from the network into a single array.
