@@ -2,8 +2,8 @@
 > * 原文作者：[Ross Coundon](https://medium.com/@ross_65916)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/How-I-finally-got-my-head-around-Scoped-Slots-in-Vue.md](https://github.com/xitu/gold-miner/blob/master/TODO1/How-I-finally-got-my-head-around-Scoped-Slots-in-Vue.md)
-> * 译者：
-> * 校对者：
+> * 译者：[shixi-li](https://github.com/shixi-li)
+> * 校对者：[brilliantGuo](https://github.com/brilliantGuo), [xionglong58](https://github.com/xionglong58)
 
 # 我最终是怎么玩转了 Vue 的作用域插槽
 
