@@ -5,7 +5,6 @@
 > * 译者：
 > * 校对者：
 
-# Wireframes are becoming less relevant — and that’s a good thing
 # 线框图变得不那么重要了 — 好事啊！
 
 ![](https://cdn-images-1.medium.com/max/3160/1*-uTCxjdcMtjgKnKfUJqixA.png)
