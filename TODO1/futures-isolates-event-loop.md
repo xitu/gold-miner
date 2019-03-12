@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/futures-isolates-event-loop.md](https://github.com/xitu/gold-miner/blob/master/TODO1/futures-isolates-event-loop.md)
 > * 译者：[nanjingboy](https://github.com/nanjingboy)
-> * 校对者：[sunui](https://github.com/sunui)、[Fengziyin1234](https://github.com/Fengziyin1234)
+> * 校对者：[sunui](https://github.com/sunui), [Fengziyin1234](https://github.com/Fengziyin1234)
 
 # Flutter 异步编程：Future、Isolate 和事件循环
 
