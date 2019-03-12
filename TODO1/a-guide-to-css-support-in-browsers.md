@@ -159,7 +159,7 @@ CSS 的这种设计原则意味着你可以愉快地使用新特性，因为你�
 
 这与你在使用媒体查询进行响应式设计时使用的过程大致相同，遵循的是移动优先的方法。在这种方法中，你从较小屏幕的布局开始，然后随着断点的移动，为较大屏幕添加或覆盖内容。
 
-[我可以使用 CSS 特性查询吗?](http://caniuse.com/#feat=css-featurequeries) 关于跨主要浏览器支持 CSS 特性查询的数据来自 caniuse.com。
+[我可以使用 CSS 特性查询吗？](http://caniuse.com/#feat=css-featurequeries) 关于跨主要浏览器支持 CSS 特性查询的数据来自 caniuse.com。
 
 上述工作方式意味着你不需要担心不支持特性查询的浏览器。正如你从 **Can I Use** 中所看到的，特性查询得到了很好的支持。不支持它们的浏览器是 Internet Explorer 的任何版本。
 
@@ -209,7 +209,7 @@ CSS 碎片属性 `break-before`、`break-after` 和 `break-inside` 也有类似�
 
 ## 选择器支持测试
 
-目前，特性查询只能测试 CSS 属性和值。我们可能想要测试的另一件事是较新的选择器的支持，例如选择器规范的 level 4 中的选择器。在 Firefox Nightly 的一个标志后面有一个[解释说明]((https://github.com/dbaron/css-supports-functions/blob/master/explainer.md))和一个实现，这是一个功能查询的新功能，它将实现这一点。
+目前，特性查询只能测试 CSS 属性和值。我们可能想要测试的另一件事是较新的选择器的支持，例如选择器规范的 level 4 中的选择器。在 Firefox Nightly 的一个标志后面有一个[解释说明](https://github.com/dbaron/css-supports-functions/blob/master/explainer.md)和一个实现，这是一个功能查询的新功能，它将实现这一点。
 
 如果你在 Firefox 中访问 `about:config`，并启用标志 `layout.css.supports-selector.enabled`，那么你可以测试是否支持各种选择器。当前的语法非常简单，例如测试 `：has` 选择器：
 
