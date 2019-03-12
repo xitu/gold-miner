@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-## How to Generate Music using a LSTM Neural Network in Keras
+# How to Generate Music using a LSTM Neural Network in Keras
 
 ![](https://cdn-images-1.medium.com/max/3840/1*evQj8gukICFrnBICeJvY0w.jpeg)
 
@@ -23,7 +23,7 @@ Before we go into the details of the implementation there is some terminology th
 
 A recurrent neural network is a class of artificial neural networks that make use of sequential information. They are called recurrent because they perform the same function for every single element of a sequence, with the result being dependent on previous computations. Whereas outputs are independent of previous computations in traditional neural networks.
 
-In this tutorial we will use a [**Long Short-Term Memory (LSTM)](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)** network. They are a type of Recurrent Neural Network that can efficiently learn via gradient descent. Using a gating mechanism, LSTMs are able to recognise and encode long-term patterns. LSTMs are extremely useful to solve problems where the network has to remember information for a long period of time as is the case in music and text generation.
+In this tutorial we will use a [**Long Short-Term Memory (LSTM)**](http://colah.github.io/posts/2015-08-Understanding-LSTMs/) network. They are a type of Recurrent Neural Network that can efficiently learn via gradient descent. Using a gating mechanism, LSTMs are able to recognise and encode long-term patterns. LSTMs are extremely useful to solve problems where the network has to remember information for a long period of time as is the case in music and text generation.
 
 ### Music21
 
