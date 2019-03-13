@@ -5,7 +5,6 @@
 > * 译者：[WangLeto](https://github.com/WangLeto)
 > * 校对者：[xionglong58](https://github.com/xionglong58), [HearFishle](https://github.com/HearFishle)
 
-
 # Rust 语言案例研究：社区使得 Rust 成为 npm 的简单选择
 
 > 使用 Rust 来解决 CPU 性能产生的 npm 软件包注册瓶颈
