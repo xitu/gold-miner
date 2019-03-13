@@ -7,6 +7,10 @@
 
 # Distributed transactions in Spring, with and without XA - Part I
 
+> * [Distributed transactions in Spring, with and without XA - Part I](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-1.md)
+> * [Distributed transactions in Spring, with and without XA - Part II](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-2.md)
+> * [Distributed transactions in Spring, with and without XA - Part III](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-3.md)
+
 > Seven transaction-processing patterns for Spring applications
 
 While it's common to use the Java Transaction API and the XA protocol for distributed transactions in Spring, you do have other options. The optimum implementation depends on the types of resources your application uses and the trade-offs you're willing to make between performance, safety, reliability, and data integrity. In this JavaWorld feature, SpringSource's David Syer guides you through seven patterns for distributed transactions in Spring applications, three of them with XA and four without. _Level: Intermediate_
