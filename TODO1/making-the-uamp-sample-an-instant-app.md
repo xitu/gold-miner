@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/making-the-uamp-sample-an-instant-app.md](https://github.com/xitu/gold-miner/blob/master/TODO1/making-the-uamp-sample-an-instant-app.md)
 > * 译者：[Mirosalva](https://github.com/Mirosalva)
-> * 校对者：
+> * 校对者：[Qiuk17](https://github.com/Qiuk17)
 
 # 将通用安卓音乐播放器转化为 instant 应用
 
