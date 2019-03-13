@@ -9,9 +9,9 @@
 
 ![Babel and TypeScript](https://iamturns.com/static/babel-typescript-36d1d3a0edfdd9f9391a86a4503c75a2-bea90.png)
 
-感谢 TypeScript 和 Babel 团队官方合作了一年的项目： [TypeScript plugin for Babel](https://babeljs.io/docs/en/babel-preset-typescript.html) (`@babel/preset-typescript`)， [TypeScript](https://www.typescriptlang.org/) 从未变得如此简单。了解 TypeScript 和 Babel 是完美配对的 4 个理由，并按照分步指南在10 分钟内升级到 TypeScript。
+感谢 TypeScript 和 Babel 团队官方合作了一年的项目： [TypeScript plugin for Babel](https://babeljs.io/docs/en/babel-preset-typescript.html) (`@babel/preset-typescript`)， [TypeScript](https://www.typescriptlang.org/) 从未变得如此简单。了解 TypeScript 和 Babel 是完美配对的 4 个理由，并按照分步指南在 10 分钟内升级到 TypeScript。
 
-## 哈? 什么? 为什么?
+## 哈？什么？为什么？
 
 我一开始并不理解这个 preset 的必要性。
 
