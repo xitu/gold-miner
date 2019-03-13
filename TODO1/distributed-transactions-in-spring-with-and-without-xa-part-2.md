@@ -14,6 +14,7 @@
 A shared database resource can sometimes be synthesized from existing separate resources, especially if they are all in the same RDBMS platform. Enterprise-level database vendors all support the notion of synonyms (or the equivalent), where tables in one schema (to use the Oracle terminology) are declared as synonyms in another. In that way data that is partitioned physically in the platform can be addressed transactionally from the same `Connection` in a JDBC client. For example, the implementation of the shared-resource pattern with ActiveMQ in a real system (as opposed to the sample) would usually involve creating synonyms for the messaging and business data.
 
 > #### Performance and the JDBCPersistenceAdapter
+>
 > Some people in the ActiveMQ community claim that the `JDBCPersistenceAdapter` creates performance problems. However, many projects and live systems use ActiveMQ with a relational database. In these cases the received wisdom is that a journaled version of the adapter should be used to improve performance. This is not amenable to the shared-resource pattern (because the journal itself is a new transactional resource). However, the jury may still be out on the `JDBCPersistenceAdapter.` And indeed there are reasons to think that the use of a shared resource might _improve_ performance over the journaled case. This is an area of active research among the Spring and ActiveMQ engineering teams.
 
 Another shared-resource technique in a nonmessaging scenario (multiple databases) is to use the Oracle database link feature to link two database schemas together at the level of the RDBMS platform (see Resources). This may require changes to application code, or the creation of synonyms, because the table name aliases that refer to a linked database include the name of the link.
@@ -60,9 +61,9 @@ In the [sample code](http://images.techhive.com/downloads/idge/imported/article/
 
 The `TransactionAwareConnectionFactoryProxy` -- a stock component in Spring designed to be used in this pattern -- is the key ingredient. Instead of using the raw vendor-provided `ConnectionFactory`, the configuration wraps `ConnectionFactory` in a decorator that handles the transaction synchronization. This happens in the `jms-context.xml,` as shown in Listing 6:
 
-#### Listing 6\. Configuring a `TransactionAwareConnectionFactoryProxy` to wrap a vendor-provided JMS `ConnectionFactory`
+#### Listing 6. Configuring a `TransactionAwareConnectionFactoryProxy` to wrap a vendor-provided JMS `ConnectionFactory`
 
-``` xml
+```xml
 <bean id="connectionFactory"
   class="org.springframework.jms.connection.TransactionAwareConnectionFactoryProxy">
   <property >
@@ -76,7 +77,7 @@ The `TransactionAwareConnectionFactoryProxy` -- a stock component in Spring desi
 
 There is no need for the `ConnectionFactory`to know which transaction manager to synchronize with, because only one transaction active will be active at the time that it is needed, and Spring can handle that internally. The driving transaction is handled by a normal `DataSourceTransactionManager` configured in `data-source-context.xml`. The component that needs to be aware of the transaction manager is the JMS listener container that will poll and receive messages:
 
-``` xml
+```xml
 <jms:listener-container transaction-manager="transactionManager" >
   <jms:listener destination="async" ref="fooHandler" method="handle"/>
 </jms:listener-container>
@@ -84,7 +85,7 @@ There is no need for the `ConnectionFactory`to know which transaction manager to
 
 The `fooHandler` and `method` tell the listener container which method on which component to call when a message arrives on the "async" queue. The handler is implemented like this, accepting a `String` as the incoming message, and using it to insert a record:
 
-``` java
+```java
 public void handle(String msg) {
 
   jdbcTemplate.update(
@@ -95,9 +96,9 @@ public void handle(String msg) {
 
 To simulate failures, the code uses a `FailureSimulator` aspect. It checks the message content to see if it supposed to fail, and in what way. The `maybeFail()` method, shown in Listing 7, is called after the `FooHandler` handles the message, but before the transaction has ended, so that it can affect the transaction's outcome:
 
-#### Listing 7\. The `maybeFail()` method
+#### Listing 7. The `maybeFail()` method
 
-``` java
+```java
 @AfterReturning("execution(* *..*Handler+.handle(String)) && args(msg)")
 public void maybeFail(String msg) {
   if (msg.contains("fail")) {
@@ -124,9 +125,9 @@ In the other sample of the Best Efforts 1PC pattern (the `best-db-db` project) a
 
 The implementation is in `ChainedTransactionManager`, which accepts a list of other transaction managers as an injected property, is shown in Listing 8:
 
-#### Listing 8\. Configuration of the ChainedTransactionManager
+#### Listing 8. Configuration of the ChainedTransactionManager
 
-``` xml
+```xml
 <bean id="transactionManager" class="com.springsource.open.db.ChainedTransactionManager">
   <property >
     <list>
@@ -147,7 +148,7 @@ The simplest test for this configuration is just to insert something in both dat
 
 Remember that the order of the resources is significant. They are nested, and the commit or rollback happens in reverse order to the order they are enlisted (which is the order in the configuration). This makes one of the resources special: the outermost resource always rolls back if there is a problem, even if the only problem is a failure of that resource. Also, the `testInsertWithCheckForDuplicates()` test method shows an idempotent business process protecting the system from partial failures. It is implemented as a defensive check in the business operation on the inner resource (the `otherDataSource` in this case):
 
-``` java
+```java
 int count = otherJdbcTemplate.update("UPDATE T_AUDITS ... WHERE id=, ...?");
 if (count == 0) {
   count = otherJdbcTemplate.update("INSERT into T_AUDITS ...", ...);
