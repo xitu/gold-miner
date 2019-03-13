@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-state-of-web-browsers-2019-edition.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-state-of-web-browsers-2019-edition.md)
 > * 译者：[xionglong58](https://github.com/xionglong58)
-> * 校对者：
+> * 校对者：[letica ](https://github.com/letica)、[HearFishle ](https://github.com/HearFishle)
 
 # 2019版 web 浏览器现状
 ![](https://cdn-images-1.medium.com/max/800/1*mkxbYIvO9oe1xsjjezUELA.png)
