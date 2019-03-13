@@ -61,9 +61,9 @@ If the application is Spring-enabled, it uses the Spring `JtaTransactionManager`
 
 To see the sample working, run the unit tests under `com.springsource.open.db`. A simple `MulipleDataSourceTests` class just inserts data into two data sources and then uses the Spring integration support features to roll back the transaction, as shown in Listing 1:
 
-#### Listing 1\. Transaction rollback
+#### Listing 1. Transaction rollback
 
-``` java
+```java
 @Transactional
   @Test
   public void testInsertIntoTwoDataSources() throws Exception {
@@ -86,9 +86,9 @@ To see the sample working, run the unit tests under `com.springsource.open.db`. 
 
 Then `MulipleDataSourceTests` verifies that the two operations were both rolled back, as shown in Listing 2:
 
-#### Listing 2\. Verifying rollback
+#### Listing 2. Verifying rollback
 
-``` java
+```java
 @AfterTransaction
   public void checkPostConditions() {
 
@@ -125,9 +125,9 @@ Not all vendors make this easy. An alternative, which works for almost any datab
 
 A unit test in the sample called `SynchronousMessageTriggerAndRollbackTests` verifies that everything is working with synchronous message reception. The `testReceiveMessageUpdateDatabase` method receives two messages and uses them to insert two records in the database. When this method exits, the test framework rolls back the transaction, so you can verify that the messages and the database updates are both rolled back, as shown in Listing 3:
 
-#### Listing 3\. Verifying rollback of messages and database updates
+#### Listing 3. Verifying rollback of messages and database updates
 
-``` java
+```java
 @AfterTransaction
 public void checkPostConditions() {
 
@@ -140,9 +140,9 @@ public void checkPostConditions() {
 
 The most important features of the configuration are the ActiveMQ persistence strategy, linking the messaging system to the same `DataSource` as the business data, and the flag on the Spring `JmsTemplate` used to receive the messages. Listing 4 shows how to configure the ActiveMQ persistence strategy:
 
-#### Listing 4\. Configuring ActiveMQ persistence
+#### Listing 4. Configuring ActiveMQ persistence
 
-``` xml
+```xml
 <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory"
   depends-on="brokerService">
   <property vm://localhost?async=false" />
@@ -168,9 +168,9 @@ The most important features of the configuration are the ActiveMQ persistence st
 
 Listing 5 shows the flag on the Spring `JmsTemplate` that is used to receive the messages:
 
-#### Listing 5\. Setting up the `JmsTemplate` for transactional use
+#### Listing 5. Setting up the `JmsTemplate` for transactional use
 
-``` xml
+```xml
 <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
   ...
   <!-- This is important... -->
