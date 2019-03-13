@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/rust-case-study-community-makes-rust-an-easy-choice-for-npm.md](https://github.com/xitu/gold-miner/blob/master/TODO1/rust-case-study-community-makes-rust-an-easy-choice-for-npm.md)
 > * 译者：[WangLeto](https://github.com/WangLeto)
-> * 校对者：
+> * 校对者：[xionglong58](https://github.com/xionglong58), [HearFishle](https://github.com/HearFishle)
 
 
 # Rust 语言案例研究：社区使得 Rust 成为 npm 的简单选择
