@@ -5,9 +5,9 @@
 > * 译者：[Mirosalva](https://github.com/Mirosalva)
 > * 校对者：
 
-# 转化通用安卓音乐播放器为 instant 应用
+# 将通用安卓音乐播放器转化为 instant 应用
 
-从 Android Studio 的 3.3 版本开始，IDE 将会为 instant 应用提供工具支持。（撰写至本文时，Android Studio 3.3 的可下载版本是 [preview release](https://developer.android.com/studio/preview)。）这篇博文中我们将介绍 [我们即将采取的步骤](https://github.com/googlesamples/android-UniversalMusicPlayer/commit/fc569696dd5dcaf7a8e1fa6bdeea82b30cf5f9d9) 来把[通用安卓音乐播放器](https://github.com/googlesamples/android-UniversalMusicPlayer) (UAMP) 转换成 instant 应用。对于首次听说 instant 应用的人，可以查看[Android 开发者峰会上的会话](https://www.youtube.com/watch?v=L9J2e5PYXNg)，或者之前发布的与该话题有关的[阅读文档](https://developer.android.com/topic/google-play-instant/)。 
+从 Android Studio 的 3.3 版本开始，IDE 将会为 instant 应用提供工具支持。（撰写至本文时，Android Studio 3.3 的可下载版本是 [preview release](https://developer.android.com/studio/preview)，撰写至译文时，3.3 版本已更新到正式 release 版）。这篇博文中我们将介绍 [我们即将采取的步骤](https://github.com/googlesamples/android-UniversalMusicPlayer/commit/fc569696dd5dcaf7a8e1fa6bdeea82b30cf5f9d9) 来把[通用安卓音乐播放器](https://github.com/googlesamples/android-UniversalMusicPlayer) (UAMP) 转换成 instant 应用。对于首次听说 instant 应用的人，可以查看[Android 开发者峰会上的会话](https://www.youtube.com/watch?v=L9J2e5PYXNg)，或者之前发布的与该话题有关的[阅读文档](https://developer.android.com/topic/google-play-instant/)。 
 
 ![](https://cdn-images-1.medium.com/max/2000/0*c_CwU7uNVestpB4t)
 
@@ -60,7 +60,7 @@
 
 ## 构建和部署一个具备 instant 特性的应用包
 
-我们可以遵照如[Google Play Instant 文档](https://developer.android.com/topic/google-play-instant/getting-started/instant-enabled-app-bundle)中解释的流程，但是我们可以在 Android Studio 中更改运行配置。为了启用 instant 应用的部署，我们可以选择应用菜单中 **Deploy as instant app** 选择框，如下图所示： 
+我们可以遵照[Google Play Instant 文档](https://developer.android.com/topic/google-play-instant/getting-started/instant-enabled-app-bundle)中解释的流程，我们也可以在 Android Studio 中更改运行配置。为了启用 instant 应用的部署，我们可以选择应用菜单中 **Deploy as instant app** 选择框，如下图所示： 
 
 ![使用 Android Studio 界面来使应用部署为 instant 应用](https://cdn-images-1.medium.com/max/2000/0*bCe1OhjN7ZVbv2eC)
 
