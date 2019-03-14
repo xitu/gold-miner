@@ -18,6 +18,7 @@ When you start designing keeping the B&W color palette constraint in mind, most 
 ## 2. Your clients ask the right questions
 
 Good design takes time. At the early stages of design, most designers are shy to show incomplete work to their clients/users to gather early feedback. I cannot stress more on the importance of gathering early feedback from clients. This helps you to stay away from the trap of too many iterations with too much time wasted on unnecessary versions. Most clients either don’t know what exactly they want or suck at giving constructive feedback. Showing them an early version that looks like a more high-fid version of a pen and paper sketch will get them to understand the process and ask you questions that are more constructive.
+
 > You might get a ‘What color works for this button’ which surely leads to be a better conversation than ‘Why have you chosen yellow for this button’.
 
 ## 3. Your designs are clean
