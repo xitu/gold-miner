@@ -355,7 +355,7 @@ watch: {
 
 ```js
 updated() {
-  $(this.$el).multiSelect(’refresh');
+  $(this.$el).multiSelect('refresh');
 },    
 ```
 
