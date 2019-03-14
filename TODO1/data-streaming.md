@@ -41,7 +41,7 @@
 
 ### 数据流用于事件驱动架构
 
-数据流通常可以用来实现[事件驱动架构](/software-architecture/event-driven-architecture.html)。事件生产者将事件作为记录写到某些数据流系统，事件的消费者可以从中读取事件。
+数据流通常可以用来实现[事件驱动架构](http://tutorials.jenkov.com/software-architecture/event-driven-architecture.html)。事件生产者将事件作为记录写到某些数据流系统，事件的消费者可以从中读取事件。
 
 ### 数据流用于智能城市和物联网
 
