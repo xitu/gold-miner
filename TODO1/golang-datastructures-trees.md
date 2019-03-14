@@ -2,52 +2,52 @@
 > * 原文作者：[Ilija Eftimov](https://ieftimov.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/golang-datastructures-trees.md](https://github.com/xitu/gold-miner/blob/master/TODO1/golang-datastructures-trees.md)
-> * 译者：
-> * 校对者：
+> * 译者：[steinliber](https://github.com/steinliber)
+> * 校对者：[Endone](https://github.com/Endone)，[LeoooY](https://github.com/LeoooY)
 
-# Golang Datastructures: Trees
+# Golang 数据结构：树
 
-You can spend quite a bit of your programming career without working with trees, or just by simply avoiding them if you don’t understand them (which is what I had been doing for a while).
+在你编程生涯的大部分时间中你都不用接触到树这个数据结构，或者即使并不理解这个结构，你也可以轻易地避开使用它们（这就是我过去一直在做的事）。
 
-Now, don’t get me wrong - arrays, lists, stacks and queues are quite powerful data structures and can take you pretty far, but there is a limit to their capabilities, how you can use them and how efficient that usage can be. When you throw in hash tables to that mix, you can solve quite some problems, but for many of the problems out there trees are a powerful (and maybe the only) tool if you have them under your belt.
+现在，不要误会我的意思 —— 数组，列表，栈和队列都是非常强大的数据结构，可以帮你在带你在编程之路上走的很远，但是它们无法解决所有的问题，且不论如何去使用它们以及效率如何。当你把哈希表放入这个组合中时，你就可以解决相当多的问题，但是对于许多问题而言，如果你能掌握了树结构，那它将是一个强大的（或许也是唯一的）工具。
 
-So, let’s look at trees and then we can try to use them in a small exercise.
+那么让我们来看看树结构，然后我们可以通过一个小练习来学习如何使用它们。
 
-## A touch of theory
+## 一点理论
 
-Arrays, lists, queues, stacks store data in a collection that has a start and an end, hence they are called “linear”. But when it comes to trees and graphs, things can get confusing since the data is not stored in a linear fashion.
+数组，列表，队列，栈把数据储存在有头和尾的集合中，因此它们被称作“线性结构”。但是当涉及到树和图这种数据结构时，这就会变得让人困惑，因为数据并不是以线性方式储存到结构中的。
 
-Trees are called nonlinear data structures. In fact, you can also say that trees are hierarchical data structures since the data is stored in a hierarchical way.
+树被称作非线性结构。实际上，你也可以说树是一种层级数据结构因为它的数据是以分层的方式储存的。
 
-For your reading pleasure, Wikipedia’s definition of trees:
+为了你阅读的乐趣，下面是维基百科对树结构的定义：
 
-> A tree is a data structure made up of nodes or vertices and edges without having any cycle. The tree with no nodes is called the null or empty tree. A tree that is not empty consists of a root node and potentially many levels of additional nodes that form a hierarchy.
+> 树是由节点（或顶点）和边组成不包含任何环的数据结构。没有节点的树被称为空树。一颗非空的树是由一个根节点和可能由多个层级的附加节点形成的层级结构组成。
 
-What the definition states are that a tree is just a combination of nodes (or vertices) and edges (or links between the nodes) without having a cycle.
+这个定义所要表示的意思就是树只是节点（或者顶点）和边（或者节点之间的连接）的集合，它不包含任何循环。
 
 ![](https://ieftimov.com/img/posts/golang-datastructures-trees/invalid-tree.png)
 
-For example, the data structure represented on the diagram is a combination of nodes, named from A to F, with six edges. Although all of its elements look like they construct a tree, the nodes A, D, E and F have a cycle, therefore this structure is not a tree.
+比如说，图中表示的数据结构就是节点的组合，依次从 A 到 F 命名，有六条边。虽然它的所有元素都使它们看起来像是构造了一棵树，但节点 A，D，F 都有一个循环，因此这个数据结构并不是树。
 
-If we would break the edge between nodes F and E and add a new node called G with an edge between F and G, we would end up with something like this:
+如果我们打断节点 F 和 E 之间的边并且增加一个节点 G，把 G 和 F 用边连起来，我们会得到像下图这样的结构：
 
 ![](https://ieftimov.com/img/posts/golang-datastructures-trees/valid-tree.png)
 
-Now, since we eliminated the cycle in this graph, we can say that we have a valid tree. It has a **root** with the name A, with a total of 7 **nodes**. Node A has 3 **children** (B, D & F) and those have 3 children (C, E & G respectively). Therefore, node A has 6 **descendants**. Also, this tree has 3 leaf nodes (C, E & G) or nodes that have no children.
+现在，因为我们消除了在图中的循环，可以说我们现在有了一个有效的树结构。它有一个称作 A 的**根部节点**，一共有 7 个**节点**。节点 A 有 3 个**子节点**（B，D 和 F）以及这些节点下一层的节点（分别为 C，E 和 G）。因此，节点 A 有 6 个**子孙节点**。此外，这个树有 3 个叶节点（C，E 和 G）或者把它们叫做没有子节点的节点。
 
-What do B, D & F have in common? They are **siblings** because they have the same parent (node A). They all reside on **level** 1 because to get from each of them to the root we need to take only one step. For example, node G has level 2, because the **path** from G to A is: G -> F -> A, hence we need to follow two edges to get to A.
+B，D 和 F 节点有什么共同之处？因为它们有同一个父节点（节点 A）所以它们是**兄弟节点**。它们都位于第一层因为其中的每一个要到达根节点都只需要一步。例如，节点 G 位于第二层，因为从 G 到 A 的**路径**为：G -> F -> A，我们需要走两条边来才能到达节点 A。
 
-Now that we know a bit of theory about trees, let’s see how we can solve some problems.
+现在我们已经了解了树的一点理论，让我们来看看如何用树来解决一些问题。
 
-## Modelling an HTML document
+## 为 HTML 文档建模
 
-If you are a software developer that has never written any HTML, I will just assume that you have seen (or have an idea) what HTML looks like. If you have not, then I encourage you to right click on the page that you are reading this and click on ‘View Source’.
+如果你是一个从没写过任何 HTML 的软件开发者， 我会假设你已经看到过（或者知道）HTML 是什么样子的。如果你还是不知道，那么我建议你右键单击当前正在阅读的页面，然后单击“查看源代码”就可以看到。
 
-Seriously, go for it, I’ll wait…
+说真的，去看看吧，我会在这等着的。。。
 
-Browsers have this thing baked in, called the DOM - a cross-platform and language-independent application programming interface, which treats internet documents as a tree structure wherein each node is an object representing a part of the document. This means that when the browser reads your document’s HTML code it will load it and create a DOM out of it.
+浏览器有个内置的东西，叫做 DOM —— 一个跨平台且语言独立的应用程序编程接口，它会将这些 网络文档视为一个树结构，其中的每个节点都是表示文档其中一部分的对象。这意味着当浏览器读取你文档中的 HTML 代码时它将会加载这个文档并基于此创建一个 DOM。
 
-So, let’s imagine for a second we are developers working on a browser, like Chrome or Firefox and we need to model the DOM. Well, to make this exercise easier, let’s see a tiny HTML document:
+所以，让我们短暂的设想一下，我们是 Chrome 或者 Firefox 浏览器的开发者，我们需要来为 DOM 建模。好吧，为了让这个练习更简单点，让我们来看一个小的 HTML 文档：
 
 ```
 <html>
@@ -56,13 +56,13 @@ So, let’s imagine for a second we are developers working on a browser, like Ch
 </html>
 ```
 
-So, if we would model this document as a tree, it would look something like this:
+所以，如果我们把这个文档建模成一个树结构，它看起将会是这样：
 
 ![](https://ieftimov.com/img/posts/golang-datastructures-trees/html-document-tree.png)
 
-Now, we could treat the text nodes as separate `Node`s, but we can make our lives simpler by assuming that any HTML element can have text in it.
+现在，我们可以把文本节点视为单独的`Node`，但是简单起见，我们可以假设任何 HTML 元素都可以包含文本。
 
-The `html` node will have two children, `h1` and `p`, which will have `tag`, `text` and `children` as fields. Let’s put this into code:
+`html`节点将会有两个子节点，`h1` 和 `p` 节点，这些节点包含字段 `tag`，`text` 和 `children` 。让我们把这些放到代码里：
 
 ```
 type Node struct {
@@ -72,7 +72,7 @@ type Node struct {
 }
 ```
 
-A `Node` will have only the tag name and children optionally. Let’s try to create the HTML document we saw above as a tree of `Node`s by hand:
+一个 `Node` 将只有标签名和子节点可选。让我们通过上面看到的 `Node` 树来亲手尝试创建这个 HTML 文档：
 
 ```
 func main() {
@@ -94,19 +94,19 @@ func main() {
 }
 ```
 
-That looks okay, we have a basic tree up and running now.
+这看起来还可以，我们建立了一个基础的树结构并且运行了。
 
-## Building MyDOM - a drop-in replacement for the DOM 😂
+## 构建 MyDOM - DOM 的直接替代😂
 
-Now that we have some tree structure in place, let’s take a step back and see what kind of functionality would a DOM have. For example, if MyDOM (TM) would be a drop-in replacement of a real DOM, then with JavaScript we should be able to access nodes and modify them.
+现在我们已经有了一些树结构，让我们退一步来看看 DOM 有哪些功能。比如说，如果在真实环境中用 MyDOM（TM）替代 DOM，那么我们应该可以使用 JavaScript 访问其中的节点并修改它们。
 
-The simplest way to do this with JavaScript would be to use
+使用 JavaScript 执行这个操作的最简单方法是使用如下代码
 
 ```
 document.getElementById('foo')
 ```
 
-This function would lookup in the `document` tree to find the node whose ID is `foo`. Let’s update our `Node` struct to have more attributes and then work on writing a lookup function for our tree:
+这个函数将会在 `document` 树中查找以 `foo` 作为 ID 的节点。让我们更新我们的 `Node` 结构来获得更多的功能，然后为我们的树结构编写一个查询函数：
 
 ```
 type Node struct {
@@ -117,9 +117,9 @@ type Node struct {
 }
 ```
 
-Now, each of our `Node` structs will have a `tag`, `children` which is a slice of pointers to the children of that `Node`, `id` which is the ID of that DOM node and `class` which is the classes that can be applied to this DOM node.
+现在，我们的每个 `Node` 结构将会有 `tag`，`children`，它是指向该 `Node` 子节点的指针切片，`id` 表示在该 DOM 节点中的 ID，`class` 指的是可应用于该 DOM 节点的类。
 
-Now, back to our `getElementById` lookup function. Let’s see how we could implement it. First, let’s build an example tree that we can use for our lookup algorithm:
+现在回到我们之前的 `getElementById` 查询函数。来如何去实现它。首先，让我们构造一个可用于测试我们查询算法的树结构：
 
 ```
 <html>
@@ -137,7 +137,7 @@ Now, back to our `getElementById` lookup function. Let’s see how we could impl
 </html>
 ```
 
-This is a quite complicated HTML document. Let’s sketch out its structure in Go using the `Node` struct as a building block:
+这是一个非常复杂的 HTML 文档。让我们使用 `Node` 作为 Go 语言中的结构来表示其结构：
 
 ```
 image := Node{
@@ -181,34 +181,34 @@ html := Node{
 }
 ```
 
-We start building this tree bottom - up. That means we create structs from the most deeply nested structs and working up towards `body` and `html`. Let’s look at a graphic of our tree:
+我们开始自下而上构建这个树结构。这意味着从嵌套最深的结构起来构建这个结构，一直到 `body` 和 `html` 节点。让我们来看一下这个树结构的图形：
 
 ![](https://ieftimov.com/img/posts/golang-datastructures-trees/mydom-tree.png)
 
-## Implementing Node Lookup 🔎
+## 实现节点查询🔎
 
-So, let’s continue with what we were up to - allow JavaScript to call `getElementById` on our `document` and find the `Node` that it’s looking for.
+让我们来继续实现我们的目标 —— 让 JavaScript 可以在我们的 `document` 中调用 `getElementById` 并找到它想找到的 `Node`。
 
-To do this, we have to implement a tree searching algorithm. The most popular approaches to searching (or traversal) of graphs and trees are Breadth First Search (BFS) and Depth First Search (DFS).
+为此，我们需要实现一个树查询算法。搜索（或者遍历）图结构和树结构最流行的方法是广度优先搜索（BFS）和深度优先搜索（DFS）。
 
-### Breadth-first search ⬅➡
+### 广度优先搜素⬅➡
 
-BFS, as its name suggests, takes an approach to traversal where it explores nodes in “width” first before it goes in “depth”. Here’s a visualisation of the steps a BFS algorithm would take to traverse the whole tree:
+顾名思义，BFS 采用的遍历方式会首先考虑探索节点的“宽度”再考虑“深度”。下面是 BFS 算法遍历整个树结构的可视化图：
 
 ![](https://ieftimov.com/img/posts/golang-datastructures-trees/mydom-tree-bfs-steps.png)
 
-As you can see, the algorithm will take two steps in depth (over `html` and `body`), but then it will visit all of the `body`’s children nodes before it proceeds to explore in depth and visit the `span` and `img` nodes.
+正如你所看到的，这个算法会先在深度上走两步（通过 `html` 和 `body` 节点），然后它会遍历 `body` 的所有子节点，最后深入到下一层从而访问到 `span` 和 `img` 节点。
 
-If you would like to have a step-by-step playbook, it would be:
+如果你想要一步一步的说明，它将会是：
 
-1.  We start at the root, the `html` node
-2.  We push it on the `queue`
-3.  We kick off a loop where we loop while the `queue` is not empty
-4.  We check the next element in the `queue` for a match. If a match is found, we return the match and we’re done.
-5.  When a match is not found, we take all of the children of the node-under-inspection and we add them to the queue, so they can be inspected
-6.  `GOTO` 4
+1.  我们从根部 `html` 节点开始
+2.  我们把它推到 `queue`
+3.  我们开始进入一个循环，如果 `queue` 不为空，这个循环会一直运行
+4. 我们检查 `queue` 中的下一个元素是否与查询的匹配。如果匹配上了，我们就返回这个节点然后整个就结束了
+5. 当找不到匹配项时，我们把被检查节点的子节点都放入队列中，这样就可以在之后检查它们了
+6. `GOTO` 第四步
 
-Let’s see a simple implementation of the algorithm in Go and I’ll share some tips on how you can remember the algorithm easily.
+让我们看看在 Go 里面这个算法的简单实现，我将会分享一些如何可以轻松记住算法的建议。
 
 ```
 func findById(root *Node, id string) *Node {
@@ -230,29 +230,29 @@ func findById(root *Node, id string) *Node {
 }
 ```
 
-The algorithm has three key points:
+这个算法有 3 个关键点：
 
-1.  The `queue` - it will contain all of the nodes that the algorithm visits
-2.  Taking the first element of the `queue`, checking it for a match, and proceeding with the next nodes if no match is found
-3.  `Queue`ing up all of the children nodes for a node before moving on in the `queue`
+1. `queue` —— 它将包含算法访问的所有节点
+2. 获取 `queue` 中的第一个元素，检查它是否匹配，如果该节点未匹配，则继续下一个节点
+3. 在查看 `queue` 的下一个元素之前把节点的所有子节点都**入队列**。
 
-Essentially, the whole algorithm revolves around pushing children nodes on a queue and inspecting the nodes that are queued up. Of course, if a match is not found at the end we return `nil` instead of a pointer to a `Node`.
+从本质上讲，整个算法围绕着在队列中推入子节点和检测已经在队列中的节点实现。当然，如果在队列的末尾还是找不到匹配项的话我们就返回 `nil` 而不是指向 `Node` 的指针。
 
-### Depth-first search ⬇
+### 深度优先搜索 ⬇
 
-For completeness sake, let’s also see how DFS would work.
+为了完整起见，让我们来看看 DFS 是如何工作的。
 
-As we stated earlier, the depth-first search will go first in depth by visiting as many nodes as possible until it reaches a leaf. When then happens, it will backtrack and find another branch on the tree to drill down on.
+如前所述，深度优先搜索首先会在深度上访问尽可能多的节点，直到到达树结构中的一个叶节点。当这种情况发生时，它就会回溯到上面的节点并在树结构中找到另一个分支再继续向下访问。
 
-Let’s see what that means visually:
+让我们看下这看起来意味着什么：
 
 ![](https://ieftimov.com/img/posts/golang-datastructures-trees/mydom-tree-dfs-steps.png)
 
-If this is confusing to you, worry not - I’ve added a bit more granularity in the steps to aid my explanation.
+如果这让你觉得困惑，请不要担心——我在讲述步骤中增加了更多的细节支持我的解释。
 
-The algorithm starts off just like BFS - it walks down from `html` to `body` and to `div`. Then, instead of continuing to `h1`, it takes another step to the leaf `span`. Once it figures out that `span` is a leaf, it will move back up to `div` to find other branches to explore. Since it won’t find any, it will move back to `body` to find new branches proceeding to visit `h1`. Then, it will do the same exercise again - go back to `body` and find that there’s another branch to explore - ultimately visiting `p` and the `img` nodes.
+这个算法开始就像 BFS 一样 —— 它从 `html` 到 `body` 再到 `div` 节点。然后，与之不同的是，该算法并没有继续遍历到 `h1` 节点，它往叶节点 `span` 前进了一步。一旦它发现 `span` 是个叶节点，它就会返回 `div` 节点以查找其它分支去探索。因为在 `div` 也找不到，所以它会移回 `body` 节点，在这个节点它找到了一个新分支，它就会去访问该分支中的 `h1` 节点。然后，它会继续之前同样的步骤 —— 返回 `body` 节点然后发现还有另一个分支要去探索 —— 最后会访问到 `p` 和 `img` 节点。
 
-If you’re wondering something along the lines of “how can we go back up to the parent without having a pointer to it”, then you’re forgetting one of the oldest tricks in the book - recursion. Let’s see a simple recursive Go implementation of the algorithm:
+如果你想要知道“我们如何在没有指向父节点指针情况下返回到父节点的话”，那么你已经忘了在书中最古老的技巧之一 —— 递归。让我们来看下这个算法在 Go 中的简单递归实现：
 
 ```
 func findByIdDFS(node *Node, id string) *Node {
@@ -269,13 +269,14 @@ func findByIdDFS(node *Node, id string) *Node {
 }
 ```
 
-## Finding by class name 🔎
+## 通过类名搜索🔎
 
-Another functionality MyDOM (TM) should have is the ability to find nodes by a class name. Essentially, when a JavaScript script executes `getElementsByClassName`, MyDOM should know how to collect all nodes with a certain class.
+MyDOM（TM）应该具有的另一个功能是通过类名来查找节点。基本上，当 JavaScript 脚本执行 `getElementsByClassName` 时，MyDOM 应该知道如何收集具有某个特定类名的所有节点。
 
-As you can imagine, this is also an algorithm that would have to explore the whole MyDOM (TM) tree and pick up the nodes that satisfy certain conditions.
+可以想像，这也是一种必须探寻整个 MyDOM（TM）结构树从中获取符合特定条件的节点的算法。
 
-To make our lives easier, let’s first implement a function that a `Node` can receive, called `hasClass`:
+简单起见，我们先来实现一个 `Node` 结构的方法，叫做 `hasClass`：
+
 
 ```
 func (n *Node) hasClass(className string) bool {
@@ -289,7 +290,8 @@ func (n *Node) hasClass(className string) bool {
 }
 ```
 
-`hasClass` takes a `Node`’s classes field, splits them on each space character and then loops the slice of classes and tries to find the class name that we are interested in. Let’s write a couple of tests that will test this function:
+`hasClass` 获取 `Node` 结构的 classes 字段，通过空格字符来分割它们，然后再循环这个 classes 的切片并尝试查找到我们想要的类名。让我们来写几个测试用例来验证这个函数：
+
 
 ```
 type testcase struct {
@@ -331,7 +333,8 @@ func TestHasClass(t *testing.T) {
 }
 ```
 
-As you can see, the `hasClass` function will detect if a class name is in the list of classes on a `Node`. Now, let’s move on to implementing MyDOM’s implementation of finding all `Node`s by class name:
+如你所见，`hasClass` 函数会检测 `Node` 的类名是否在类名列表中。现在，让我们继续完成对 MyDOM 的实现，即通过类名来查找所有匹配的 `Node`。
+
 
 ```
 func findAllByClassName(root *Node, className string) []*Node {
@@ -354,29 +357,30 @@ func findAllByClassName(root *Node, className string) []*Node {
 }
 ```
 
-If the algorithm seems familiar, that’s because you’re looking at a modified `findById` function. `findAllByClassName` works just like `findById`, but instead of `return`ing the moment it finds a match, it will just append the matched `Node` to the `result` slice. It will continue doing that until all of the `Node`s have been visited.
+这个算法是不是看起来很熟悉？那是因为你正在看的是一个修改过的 `findById` 函数。`findAllByClassName` 的运作方式和 `findById` 类似，但是它不会在找到匹配项后就直接返回，而是将匹配到的 `Node` 加到 `result` 切片中。它将会继续执行循环操作，直到遍历了所有的 `Node`。
 
-If there are no matches, the `result` slice will be empty. If there are any matches, they will be returned as part of the `result` slice.
+如果没有找到匹配项，那么 `result` 切片将会是空的。如果其中有任何匹配到的，它们都将作为 `result` 的一部分返回。
 
-Last thing worth mentioning is that to traverse the tree we used a Breadth-first approach here - the algorithm uses a queue for each of the `Node`s and loops over them while appending to the `result` slice if a match is found.
+最后要注意的是在这里我们使用的是广度优先的方式来遍历树结构 —— 这种算法使用队列来储存每个 `Node` 结构，在这个队列中进行循环如果找到匹配项就把它们加入到 `result` 切片中。
 
-## Deleting nodes 🗑
+## 删除节点 🗑
 
-Another functionality that is often used in the DOM is the ability to remove nodes. Just like the DOM can do it, also our MyDOM (TM) should be able to handle such operations.
+另一个在 Dom 中经常使用的功能就是删除节点。就像 DOM 可以做到这个一样，我们的MyDOM（TM）也应该可以进行这种操作。
 
-The simplest way to do this operation in JavaScript is:
+在 Javascript 中执行这个操作的最简单方法是：
+
 
 ```
 var el = document.getElementById('foo');
 el.remove();
 ```
 
-While our `document` knows how to handle `getElementById` (by calling `findById` under the hood), our `Node`s do not know how to handle a `remove` function. Removing a `Node` from the MyDOM (TM) tree would be a two-step process:
+尽管我们的 `document` 知道如何去处理 `getElementById`（在后面通过调用 `findById`），但我们的 `Node` 并不知道如何去处理一个 `remove` 函数。从 MyDOM（TM）中删除 `Node` 将会需要两个步骤：
 
-1.  We have to look up to the `parent` of the `Node` and remove it from its parent’s `children` collection;
-2.  If the to-be-removed `Node` has any children, we have to remove those from the DOM. This means we have to remove all pointers to each of the children and its parent (the node to-be-removed) so Go’s garbage collector can free up that memory.
+1.  我们找到 `Node` 的父节点然后把它从父节点的子节点集合中删去；
+2.  如果要删除的 `Node` 有子节点，我们必须从 DOM 中删除这些子节点。这意味着我们必须删除所有指向这些子节点的指针和它们的父节点（也就是要被删除的节点），这样 Go 里的垃圾收集器才可以释放这些被占用的内存。
 
-And here’s a simple way to achieve that:
+这是实现上述的一个简单方式：
 
 ```
 func (node *Node) remove() {
@@ -400,19 +404,20 @@ func (node *Node) remove() {
 }
 ```
 
-A `*Node` would have a `remove` function, which does the two-step process of the `Node`’s removal.
 
-In the first step, we take the node out of the `parent`’s children list, by looping over them and removing the node by appending the elements before the node in the list, and the elements after the node.
+一个 `*Node` 将会拥有一个 `remove` 函数，它会执行上面所描述的两个步骤来实现 `Node` 的删除操作。
 
-In the second step, after checking for the presence of any children on the node, we remove the reference to the `parent` from all the children and then we set the `Node`’s children to `nil`.
+在第一步中，我们把这个节点从 `parent` 节点的子节点列表中取出来，通过遍历这些子节点，合并这个节点前面的元素和后面的元素组成一个新的列表来删除这个节点。
 
-## Where to next?
+在第二步中，在检查这个节点是否存在子节点之后，我们将所有子节点中的 `parent` 引用删除，然后把这个 `Node` 的子节点字段设为 `nil`。
 
-Obviously, our MyDOM (TM) implementation is never going to become a replacement for the DOM. But, I believe that it’s an interesting example that can help you learn and it’s pretty interesting problem to think about. We interact with browsers every day, so thinking how they could function under the hood is an interesting exercise.
+## 接下来呢？
 
-If you would like to play with our tree structure and write more functionality, you can head over to WC3’s JavaScript HTML DOM Document [documentation](https://www.w3schools.com/js/js_htmldom_document.asp) and think about adding more functionality to MyDOM.
+显然，我们的 MyDOM（TM）实现永远不可能替代 DOM。但是，我相信这是一个有趣的例子可以帮助你学习，这也是一个很有趣的问题。我们每天都与浏览器交互，因此思考它们暗地里是如何工作的会是一个有趣的练习。
 
-Obviously, the idea behind this article was to learn more about trees (graphs) and learn about the popular searching/traversal algorithms that are used out there. But, by all means, please keep on exploring and experimenting and drop me a comment about what improvements you did to your MyDOM implementation.
+如果你想使用我们的树结构并为其写更多的功能，你可以访问 WC3 的 JavaScript HTML DOM [文档](https://www.w3schools.com/js/js_htmldom_document.asp)然后考虑为 MyDOM 增加更多的功能。
+
+显然，本文的主旨是为了让你了解更多关于树（图）结构的信息，了解目前流行的搜索/遍历算法。但是，无论如何请保持探索和实践，如果对你的 MyDOM 实现有任何改进请在文章下面留个评论。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

@@ -2,206 +2,206 @@
 > * 原文作者：[Max Grigorev](https://medium.com/@forwidur)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/keeping-up-with-ai-in-2019.md](https://github.com/xitu/gold-miner/blob/master/TODO1/keeping-up-with-ai-in-2019.md)
-> * 译者：
-> * 校对者：
+> * 译者：[TUARAN](https://github.com/TUARAN)
+> * 校对者：[xionglong58](https://github.com/xionglong58), [Fengziyin1234](https://github.com/Fengziyin1234)
 
-# Keeping up with AI in 2019: What is the next big thing in AI and ML?
+# 2019，跟上 AI 的脚步：AI 和 ML 接下来会发生什么重要的事？
 
-The past year has been rich in events, discoveries and developments in AI. It is hard to sort through the noise to see if the signal is there and, if it is, what is the signal saying. This post attempts to get you exactly that: I’ll try to extract some of the patterns in the AI landscape over the past year. And, if we are lucky, we’ll see how some of the trends extend into the near future.
+过去的一年，在 AI 领域里发生了许多事情，也有很多发现和丰富的发展。很难在各种观点中提取出有效的信号，如果它存在，那么这个信号又说明了什么。这篇文章的目的正在于此：我将尝试提取过去一年在 AI 领域里一些共通的模式。如果幸运的话，我们将看到一些（AI 的）趋势是如何延伸到不久的将来。
 
-> Confucius is quoted saying: “The hardest thing of all is to find a black cat in a dark room, especially if there is no cat.” Wise man.
+> 有这样的一种说法（黑猫类比）：“最难的事就是在一间黑暗的房间里找到一只黑猫，尤其是房间里没有猫的时候。”多么智慧啊。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*NVLoi3vu-9kry4t2)
 
-See that cat?
+看见那只猫了吗？
 
-Make no mistake: this is an opinion piece. I am not trying to establish some comprehensive record of accomplishments for the year. I am merely trying to outline **some** of these trends. Another caveat : this review is US-centric. A lot of interesting things are happening, say, in China, but I, unfortunately, am not familiar with that exciting ecosystem.
+毫无疑问，这是一篇观点文章。我并不是要全面的记录 AI 这一年的成就。我只是想概诉一下这些趋势中的**一些**。另外声明：这篇文章的论点以美国为中心。比如，在中国，正发生许多有趣的事，但不幸的是，我对那令人兴奋的生态系统并不熟悉。
 
-Who is this post for? If you are still reading, it is probably for you: an engineer, who wants to widen their horizons; an entrepreneur, looking where to direct their energy next; a venture capitalist, looking for their next deal; or just a technology cheerleader, who can’t wait to see where this whirlwind is taking us next.
+这篇博文适合谁看？如果你还在继续阅读，它可能适合你：一个想要开阔眼界的工程师；一个寻找下一步他们的精力将投向何处的企业家；一个寻找下一笔交易的投资家；或者只是一名为技术欢呼的人，迫不及待的想知道这股旋风将把我们带往何处。
 
-### Algorithms
+### 算法
 
-The algorithmic discourse was, undoubtedly, dominated by the Deep Neural Networks. Of course, you would hear about someone deploying a “classical” machine learning model (like Gradient Boosted trees or Multi-armed bandits) here and there. And claiming that it’s the only thing anyone ever needed. There are proclamations, that [deep learning is at its death throes](https://www.technologyreview.com/s/612768/we-analyzed-16625-papers-to-figure-out-where-ai-is-headed-next/). Even top researchers are questioning the [efficiency](https://arxiv.org/abs/1711.11561) and [robustness](https://arxiv.org/abs/1811.02553) of some DNN architectures. But, like it or not, DNNs were everywhere: in self-driving cars, natural language systems, robots — you name it. None of the leaps in DNNs were as pronounced as in **Natural Language Processing**, **Generative Adversarial Networks**, and deep **Reinforcement Learning**.
+算法论述，无疑是由深度神经网络主导的。当然，你会听到有人在到处部署一个“经典的”机器学习模型(比如梯度提升树或者多臂老虎机)。并声称这是所以人需要的唯一的东西。有人声称[深度学习正处于垂死挣扎的境地](https://www.technologyreview.com/s/612768/we-analyzed-16625-papers-to-figure-out-where-ai-is-headed-next/)。即使是顶级研究人员也在质疑某些 DNN 架构的[效率](https://arxiv.org/abs/1711.11561)和[健壮性](https://arxiv.org/abs/1811.02553)。但是，不论你承不承认，DNNs 无处不在：在自动驾驶汽车中，在自然语言系统中，在机器人中 —— 你能说上名字的任何事上。DNNs 在比如**自然语言处理**、**生成式对抗网络**和**深层强化学习**上有着最为明显的飞跃。
 
-#### Deep NLP: BERT et al.
+#### 深度自然语言处理：BERT 等 
 
-Though before 2018 there had been several breakthroughs in using DNNs for text (word2vec, GLOVE, LSTM-based models come to mind), one key conceptual element was missing: [transfer learning](https://machinelearningmastery.com/transfer-learning-for-deep-learning/). That is, training a model on a large amount of publicly available data, and then “fine-tuning” it on the specific dataset you are working with. In computer vision, using the patterns discovered on the famous ImageNet dataset to a specific problem was, usually, a part of a solution.
+尽管在2018年以前，DNNs 在文本研究上已经取得了一些突破(例如 word2vec、GLOVE 和 LSTM-based 模型)，但是它（DNNs）缺少一个关键的概念上的元素：[迁移学习](https://machinelearningmastery.com/transfer-learning-for-deep-learning/)。就是说，在大量公开可用的数据上来训练一个模型，然后在您使用的特定数据集上“微调”它。在计算机视觉中，使用在著名的 ImageNet 数据集上发现的模式来解决特定的问题通常是解决方案的一部分。
 
-The problem was, the techniques used for transfer learning didn’t really apply well to NLP problems. In some sense, the pre-trained embeddings like word2vec were filling that role, but they work on a single word level and fail to capture the high level structure of language.
+问题是，用于迁移学习的技术并不能很好地应用于 NLP 问题。从某种意义上说，像 word2vec 这样的预先训练嵌入式的程序填补了这一空缺，但是它们只能在单词级别上工作，无法捕捉语言的高级结构。
 
-In 2018, however, this has changed. [ELMo](https://allennlp.org/elmo), contextualized embeddings became the first significant step to improved transfer learning in NLP. [ULMFiT](https://arxiv.org/abs/1801.06146) went even further: not satisfied with the semantic capturing capability of embeddings, the authors figured out a way to do a transfer learning for the entire model.
+然而，到了2018年，情况发生了变化。[ELMo](https://allennlp.org/elmo)，情境化嵌入成为改善 NLP 迁移学习的第一个重要步骤。 [ULMFiT](https://arxiv.org/abs/1801.06146) 甚至更进一步：由于对嵌入式的语义捕获能力不满意，作者找到了一种对整个模型采用迁移学习的方法。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*S5L044q215w-mg6j)
 
-The important guy.
+就是这个人！
 
-But the most interesting development was, definitely, the introduction of [BERT](https://ai.googleblog.com/2018/11/open-sourcing-bert-state-of-art-pre.html). By letting the language model learn from the entire collection of articles from English Wikipedia, the team was able to achieve state-of-the-art results on 11 NLP tasks — quite a feat! Even better, both the code and the pre-trained modes were published online — so you can apply this breakthrough to your own problem.
+但最有趣的发展无疑是 [BERT](https://ai.googleblog.com/2018/11/open-sourcing-bert-state-of-art-pre.html) 的引入。通过让语言模型从英语维基百科的所有文章中学习，团队能够在 11 个 NLP 任务上得到最先进的结果 —— 相当了不起！更好的是，代码和预训练模型都是在线发布的 —— 因此您可以将这一突破应用于您自己的问题。
 
-#### Many Faces of GANs
+#### GANs 的多面
 
 ![](https://cdn-images-1.medium.com/max/1600/0*4CIByVmyt17M-iQW)
 
-CPU speeds are not growing exponentially any more, but the number of academic papers on Generative Adversarial Networks surely seems to be continuing to grow. GANs have been an academic darling for many years now. The real life applications seem to be few and far between though, and it changed very little in 2018. Still GANs have amazing potential waiting to be realized.
+CPU 速度不再呈指数级增长，但是关于**生成式对抗网络** (GANs) 的学术论文的数量似乎还在继续增长。GANs 多年来一直是学术界的宠儿。然而，现实生活中的应用程序似乎少之又少，而且在2018年几乎没有什么变化。GANs 仍然有惊人的潜力等待被发现。
 
-A new approach, that emerged, was an idea of progressively growing GANs: getting the generator to increase the resolution of its output progressively throughout the training process. One of the more impressive papers that used this approach was employing [style transfer techniques to generate realistic looking photos](https://arxiv.org/abs/1812.04948). How realistic? You tell me:
+新出现的方法是逐步增加使用 GANs：让生成器在整个训练过程中逐步提高输出的分辨率。一篇令人印象深刻的论文[样式转换技术来生成逼真的照片](https://arxiv.org/abs/1812.04948)使用了这种方法。有多么逼真呢？你告诉我：
 
 ![](https://cdn-images-1.medium.com/max/1600/0*Sn_Uz3dzQzkw0AJu)
 
-Which one of this photos is of a real person? Trick question: none of them are.
+这些照片中哪一张是真人？有陷阱的问题：没有一个是真的。
 
-How and why do the GANs really work though? We haven’t had deep insight into that yet, but there are important steps being made: a team at MIT has done a [a high quality study](https://arxiv.org/abs/1811.10597) of that problem.
+然而，GANs 真正的工作方式和原因是什么呢？我们还没有深入了解这个问题，但是已经采取了一些重要的步骤：麻省理工学院的一个研究小组针对这个问题做了一个[高质量的研究](https://arxiv.org/abs/1811.10597)。
 
-Another interesting development, though not technically a GAN, was [Adversarial Patch](https://arxiv.org/pdf/1712.09665.pdf). The idea was to use both black-box (basically, not looking at the internal state of a neural network) and white-box methods to craft a “patch”, that would deceive a CNN-based classifier. This is an important result: it guided us towards better intuition about _how_ DNNs work and how far we are still from a human-level conceptual perception.
+另一个有趣的应用，虽然在技术上使用的不是 GAN，而是 [Adversarial Patch](https://arxiv.org/pdf/1712.09665.pdf)。这个想法是使用黑盒(也就是说，不查看神经网络的内部状态)和白盒方法来创建一个“补丁”，这将欺骗 CNN-based 分类器的“补丁”。这是一个重要的结果：它可以引导我们更好地理解 DNNs 是如何工作的，以及我们离人类层次的概念感知还有多远。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*lJRt4MvyHBfVg2RR)
 
-Can you tell a the banana from a toaster? AI still can’t.
+你能分辨香蕉和烤面包机吗？AI 仍然不能。
 
-#### We need Reinforcement
+#### 我们需要强化学习
 
-Reinforcement learning has been in the spotlight since [AlphaGo defeated Lee Sedol](https://en.wikipedia.org/wiki/AlphaGo_versus_Lee_Sedol) in 2016. With AI dominating the last “classic” game though, what else there is to conquer? Well, the rest of the world! Specifically, computer games and robotics.
+自2016年 [AlphaGo 战胜李世石](https://en.wikipedia.org/wiki/AlphaGo_versus_Lee_Sedol)以来，强化学习一直备受关注。尽管 AI 已经统治了最后一款“经典”游戏，但我们还需要征服什么呢？整个世界！特别是电脑游戏和机器人。
 
-For it’s training, reinforcement learning relies on the “reward” signal, a scoring of how well it did in it’s last attempt. Computer games provide a natural environment, where such signal is readily available, as opposed to the real life. Hence all the attention RL researches are giving to teaching AI how to play Atari games.
+对于训练来说，强化学习依赖于“奖励”信号，这是对它在最后一次尝试中表现如何的评分。电脑游戏提供了一个自然的环境，在那里这样的信号很容易得到，而不是在现实生活中。因此，RL（强化学习）研究的所有注意力都集中在如何教 AI 玩雅达利游戏上。
 
-Talking about DeepMind, their new creation, [AlphaStar](https://deepmind.com/blog/alphastar-mastering-real-time-strategy-game-starcraft-ii/) just made news again. This new model has defeated one of the top StarCraft II professional players. StarCraft is much more complex than chess or Go, with a huge action space and crucial information hidden from a player, unlike in most board games. This victory is a very significant leap for the field as a whole.
+谈到他们的新发明 DeepMind，[AlphaStar](https://deepmind.com/blog/alphastar-mastering-real-time-strategy-game-starcraft-ii/) 再次成为新闻。这个新模式打败了星际争霸 II 的一个顶级职业玩家。星际争霸比国际象棋或围棋要复杂得多，它拥有巨大的行动空间和隐藏在玩家面前的关键信息，这与大多数棋盘游戏不同。这一胜利对整个领域来说是一个非常重大的飞跃。
 
-OpenAI, another important player in the space or RL, did not sit idle either. Their claim to fame is OpenAI Five, a system that in August defeated a team of 99.95th percentile players in Dota 2, an extremely complex esports game.
+OpenAI，这个领域的另一个重要玩家，也没有闲着。他们因 OpenAI Five 而成名，在8月份，该系统在一款极其复杂的电子竞技游戏《dota2》中击败了99.95%的玩家。
 
-Though OpenAI has been giving a lot of attention to computer games, they haven’t ignored a real potential application for RL: robots. In real world, the feedback one might give to a robot is rare and expensive to create: you basically need a human babysitting your R2D2, while it’s trying to take its first “steps”. And you need millions of these data points. To bridge that gap, the recent trend was to learn to simulate an environment and run a large number of those scenarios in parallel to teach a robot basic skills, before moving on to the real world. Both [OpenAI](https://blog.openai.com/generalizing-from-simulation/) and [Google](https://ai.googleblog.com/2018/06/scalable-deep-reinforcement-learning.html) are working on that approach.
+尽管OpenAI一直在关注电脑游戏，但他们并没有忽视 RL 真正的潜在应用：机器人。在现实世界中，人们给机器人的反馈很少，而且制作起来也很昂贵：你基本上需要一个人照看你的 R2D2，当它正试图迈出第一步。你需要数以百万计的数据点。为了弥补这一差距，最近的趋势是学习模拟环境，并在投入实际应用之前并行运行大量这些场景，以传授机器人基本的技能。[OpenAI](https://blog.openai.com/generalizing-from-simulation/) 和[谷歌](https://ai.googleblog.com/2018/06/scalable-deep-reinforcement-learning.html)都在研究这种方法。
 
-#### Honorable mention: Deepfakes
+#### 荣誉奖：Deepfakes
 
-Deepfakes are images or videos that show (usually) a public figure doing or saying something they never did or said. They are created by training a GAN on a large amount of footage of the “target” person, and then generating new media with desired actions performed in it. A desktop application called FakeApp released in January 2018 allows anyone with a computer and zero computer science knowledge to create deepfakes. And while the videos it produces can be easily spotted as non genuine, the technology has progressed very far. Just watch this [video](https://youtu.be/cQ54GDm1eL0) to see how much.
+Deepfakes 是一种图片或视频，通常显示一个公众人物在做或在说他们从未做过或说过的事情。它们是通过在大量“目标”人物的镜头上训练 GAN 来创建的，然后生成新媒体，并在其中执行所需的操作。一款名为 FakeApp 的桌面应用程序于 2018 年 1 月发布，它允许任何一个拥有电脑却没有任何计算机科学知识的人制造 deepfakes。虽然由它制作的视频很容易被发现不是正品，但这项技术已经进步了很多。看看这个[视频](https://youtu.be/cQ54GDm1eL0)就知道了。
 
-Thanks, Obama?
+谢谢你，奥巴马？
 
-### Infrastructure
+### 基础结构
 
 #### TensorFlow vs PyTorch
 
-There are many deep learning frameworks out there. The field is vast, and this variety makes sense on the surface.But in practice, lately most people were using either Tensorflow or PyTorch. If you cared about reliability, ease of deployment, model re-loading, the things that SREs usually care about, you probably chose Tensorflow. If you were writing a research paper, and didn’t work for Google — you probably used PyTorch.
+现在已经有很多深度学习框架。这个领域是广阔的，这种多样性在表层上是合理的。但在实践中，近来大多数人要么使用 Tensorflow，要么使用 PyTorch。如果您关心可靠性、部署的简易、模型的重新加载，以及 [SREs](https://en.m.wikipedia.org/wiki/Site_Reliability_Engineering) 通常关心的事情，那么您可能会选择 Tensorflow。如果你正在写一篇研究论文，但没有在谷歌工作 —— 你可能用过 PyTorch。
 
-#### ML as a service everywhere
+#### ML作为一种服务无处不在
 
-This year we saw even more AI solutions, packaged as an API for consumption by a software engineer not blessed with a machine learning PhD from Stanford. Both Google Cloud and Azure improved the old services and added new ones. AWS Machine Learning service list is starting to look seriously intimidating.
+今年我们看到了更多的人工智能解决方案，它们被打包成一个 API 供软件工程师使用，这些工程师不需要有斯坦福大学机器学习博士学位的朋友在身边。Google Cloud 和 Azure 都改进了旧的服务并添加了新服务。AWS 机器学习服务列表开始变得让人觉着可怕。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*NeMASS_FiI3NruBW)
 
-Man, AWS will soon need 2-level folder hierarchy for their services.
+天哪，AWS很快就需要二级文件夹的层次结构来提供服务了。
 
-Multiple startups threw their gauntlets down, though the frenzy has cooled down a little bit. Everyone is promising speed of model training, ease of use during inference and amazing model performance. Just type in your credit card, upload your dataset, give the model some time to train or finetune, call a REST (or, for more forward looking startups, GraphQL) API and become the master of AI without ever figuring out what dropout is.
+尽管这股热潮已经有所降温， 但是多家初创公司都向它（提供ML 服务）发出了挑战。每家公司都承诺模型训练的速度，推理过程中的易用性和惊人的模型性能。只需输入你的信用卡，上传你的数据集，给模型一些时间来训练或完善，调用一个 REST(或者，对于更有前瞻性的初创公司来说，则选择 GraphQL API，成为 AI 的大师，甚至不需要弄清楚什么是随机失活。
 
-With that wealth of choice, why would anyone even bother building out a model and infrastructure themselves? In practice, it seems, off the shelf MLaaS products do very well with 80% of use cases. If you want the remaining 20% to work well too — you are out of luck: not only you can’t really choose the model, you can’t even control the hyperparameters. Or if you need to do inference somewhere outside the comfort of the cloud — you usually can’t. Definitely a tradeoff here.
+有了这么多的选择，为什么还有人会费心自己构建模型和基础结构呢？实际上，似乎市面上的 MLaaS 产品可以很好地处理80%的用例。如果你想让剩下的20%也能正常工作 —— 那你就太不幸了：你不仅不能真正选择模型，甚至不能控制超参数。或者，如果您需要在云计算之外的某个地方进行推导 —— 这通常不能做到。这绝对是一种权衡。
 
-#### Honorable mention: AutoML and AI Hub
+#### 荣誉奖：AutoML 和 AI Hub
 
-The two particularly interesting services, unveiled this year, were both launched by Google.
+今年推出的两项特别有趣的服务都是由谷歌推出的。
 
-First, [Google Cloud AutoML](https://cloud.google.com/automl/), is a set of custom NLP and computer vision model training products. What does that mean? AutoML designers solve model customization by automatically fine-tuning several pre-trained ones and choosing the one that performs best. This means that you, most likely, won’t need to bother with customizing the model yourself. Of course, if you want to do something really new or different, this service is not for you. But, as a side benefit, Google pre-trains their models on a large amount of proprietary data. Think of all those [cat pictures](https://www.google.com/search?tbm=isch&q=kitten); those must generalize way better than just Imagenet!
+首先，[谷歌 Cloud AutoML](https://cloud.google.com/automl/) 是一套针对 NLP 和计算机视觉模型训练而定制的产品。这是什么意思呢? AutoML 设计器通过自动微调几个预先培训的模型并选择其中性能最好的模型来解决模型的定制问题。这意味着您很可能不需要自定义模型。当然，如果你想做一些真正新的或不同的事情，那么这个服务将不再适合你。但是，作为附带的好处，谷歌在大量专有数据的基础上对他们的模型进行了预先培训。想想所有这些[猫的照片](https://www.google.com/search?tbm=isch&q=kitten);这些比 Imagenet 生成的要好的多
 
-Second, [AI Hub](https://cloud.google.com/ai-hub/) and [TensorFlow Hub](https://www.tensorflow.org/hub). Before those two, re-using someone’s model was a real chore. Random code off GitHub rarely worked, was usually poorly documented and is, generally, not a joy to deal with. And the pre-trained weights for transfer learning… let’s say you don’t want to even try to get those to work. That’s exactly the problem TF Hub was built to solve: it’s a reliable, curated repository of models you can fine-tune or build upon. Just include a couple of lines of code — and the TF Hub client will fetch both the code and corresponding weights from Google’s servers — and _voilá_, it just works! AI Hub goes further: it allows you to share entire ML pipelines, not just models! It’s still in alpha, but it’s already better than a random repository with the newest file “modified 3 years ago”, if you know what I mean.
+其次，[AI Hub](https://cloud.google.com/ai-hub/) 和 [TensorFlow Hub](https://www.tensorflow.org/hub)。在这两者之前，重用某个人的模型着实是一件苦差事。GitHub 上的随机代码很少工作，文档记录也很差，而且通常不太好处理。还有用于迁移学习的预先训练的权重......你根本都不会试图让他们能正常工作。这正是 TF Hub 要去解决的问题：它是一个可靠的、经过策划的模型存储库，您可以对其进行微调或构建。只需包含几行代码 —— TF Hub 客户端将从谷歌的服务器获取代码和相应的权重 —— 瞧，它可以工作了！AI Hub 则更进一步：它允许您共享整个 ML 信道，而不仅仅是模型！它一直在 alpha 中，它已经比那些文件（什么样的文件呢？ 那些最新的 file 是三年前修改的文件。）更加好了，如果您明白我的意思。
 
-### Hardware
+### 硬件
 
-#### Nvidia
+#### 英伟达
 
-If you were serious about ML in 2018, especially DNNs, you were using a GPU (or multiple). In its turn, the GPU leader had a very busy year. On the heels of the cooling of crypto frenzy and the subsequent stock price plunge, Nvidia has released an entire generation of new consumer grade cards based on Turing architecture. Just with the professional cards released in 2017 and based on the Volta chips, the new cards contain new high-speed matrix multiplication hardware, called Tensor Cores. Matrix multiplication lies at the core of how DNNs operate, so speeding up those operations will greatly increase the speed of neural network training on the new GPUs.
+如果你在2018年认真了解过 ML，特别是 DNNs，你用过了一个 GPU（或多个）。与此同时，GPU 的领导度过了非常忙碌的一年。在加密热潮降温和随后的股价暴跌之后，英伟达发布了一套基于图灵架构的新一代消费卡。在 2017 年发布了基于 Volta 芯片的专业卡，新卡包含了新的高速矩阵乘法硬件，我们称之为 Tensor Cores。矩阵乘法是 DNNs 的核心，加快这些运算将大大提高神经网络在新的 GPU 上的运行速度。
 
-For those, not satisfied with the “small” and “slow” gaming GPUs, Nvidia updated their enterprise “supercomputer”. DGX-2 is a monster box with 16 Tesla Vs for 480 TFLOPs of FP16 operations. The price got updated too, to an impressive $400,000.
+针对那些对“小”和“慢”的游戏 GPU 不满意的人，英伟达更新了他们的企业级 GPU “超级计算机”。相较于480 TFLOPs的FP16操作来说，DGX-2 是 16 Tesla 系列的怪物。并且价格也被刷新，高达 40 万美元。
 
-The autonomous hardware got updated too. Jetson AGX Xavier is a board that, Nvidia hopes, is going to power the next generation of self-driving cars. An eight-core CPU, a vision accelerator, deep learning accelerator — everything the growing autonomous driving industry needs.
+自主式硬件也得到了更新。英伟达希望 Jetson AGX Xavier 主板将为下一代自动驾驶汽车助力。一个八核的 CPU，一个视觉加速器，以及深度学习加速器 —— 这是发展中的自动驾驶行业所需要的一切。
 
-In an interesting development, Nvidia launched a DNN-based feature for their gaming cards: Deep Learning Super Sampling. The idea is to replace anti-aliasing, that is currently mostly done by rendering a picture in higher resolution than required (say 4x) and then scaling it to the native monitor resolution. Now Nvidia allows developers to train an image transformation model on the game running at extremely high quality before releasing it. Afterwards, the game is shipped to the end users with that pre-trained model. During a game session, instead of incurring the cost of old-style anti-aliasing, the frames are run through that model to improve the picture quality.
+在一项有趣的开发中，英伟达为其游戏卡增加了 DNN-based 的特性：深度学习超抽样。这个想法是为了取代抗锯齿处理，目前主要是通过呈现比所需分辨率(比如 4x )更高的图片，然后将其缩放到本机监视器的分辨率来实现的。现在，英伟达允许开发者在发布游戏之前，对运行在游戏上的图像转换模型进行高质量的运行。之后，游戏将使用预训练模型交付给最终用户。在游戏过程中，不需要花费老式的抗锯齿的代价，帧通过在模型上的运行来提高图像质量。
 
-#### Intel
+#### 英特尔
 
-Intel was definitely not a trailblazer in the world of AI hardware in 2018. But it seems they would like to change that.
+2018年，英特尔绝对不是 AI 硬件领域的开拓者。但他们似乎想要改变这一点。
 
-Most activity happened, surprisingly, in the field of software. Intel is trying to make their existing and upcoming hardware to be more developer-friendly. With that in mind, they’ve released a pair of (surprisingly, competing) toolkits: [OpenVINO](http://www.openvino.org/) and [nGraph](https://www.intel.ai/ngraph-a-new-open-source-compiler-for-deep-learning-systems/#gs.zJSQNhZI).
+令人惊讶的是，英特尔的大多数活动都发生在软件领域。英特尔正在努力使他们现有的和即将推出的硬件对开发者更加友好。考虑到这一点，他们发布了两个(令人惊讶的，有竞争力的)工具包：[OpenVINO](http://www.openvino.org/) 和 [nGraph](https://www.intel.ai/ngraph-a-new-open-source-compiler-for-deep-learning-systems/#gs.zJSQNhZI)。
 
-They’ve updated their [Neural Compute Stick](https://newsroom.intel.com/news/intel-unveils-intel-neural-compute-stick-2/): a small USB device, that can accelerate DNNs running on anything with USB port, even a Raspberry Pi.
+他们更新了他们的 [Neural Compute Stick](https://newsroom.intel.com/news/intel-unils-intel-neur-comput-stick-2/)：一个小型  USB设备，可以加速DNNs 在任何 USB 端口上运行，甚至是在 Raspberry Pi 上。
 
-And there was more and more intrigue around a rumored Intel discrete GPU. The gossip is becoming more and more persistent, but it remains to be seen how applicable the new device will be to the DNNs training. What will definitely be applicable to deep learning are the pair of rumored specialized deep learning cards, codenamed Spring Hill and Spring Crest, the latter being based on the technology of Nervana, a startup Intel acquired several years ago.
+关于 Intel 离散型 GPU 阴谋的传闻也越来越多。流言蜚语愈演愈烈，但新设备在 DNNs 应用的适用性还有待观察。真正适用于深度学习的是传说中两张专业深度学习卡，代号为 Spring Hill 和 Spring Crest ，后者是基于多年前英特尔收购的创业公司 Nervana 的技术。
 
-#### Custom hardware from the usual (and unusual) suspects
+#### 来自通常(和不寻常)的怀疑对象的自定义硬件
 
-Google unveiled their 3rd generation [TPUs](https://en.wikipedia.org/wiki/Tensor_processing_unit): an ASIC-based DNN-specific accelerator with an amazing 128Gb of HMB memory. 256 such devices are assembled into a pod with over a hundred petaflops of performance. This year, instead of just teasing the rest of the world with the power of these devices, Google [made the TPUs available](https://cloud.google.com/tpu/) to general public on Google Cloud.
+谷歌发布了他们的第三代 [tpu](https://en.wikipedia.org/wiki/Tensor_processing_unit)：一个基于 asic 的 dnn 专用加速器，拥有惊人的 128Gb HMB 内存。256 个这样的设备被组装成一个性能超过 100 千万亿次的吊舱。今年，谷歌[让谷歌云上的公众可以使用 tpu](https://cloud.google.com/tpu/)，而不仅仅是用这些设备的强大来戏弄世界其他地方。
 
-In a similar move, but mostly directed towards inference applications, Amazon has deployed [AWS Inferentia](https://aws.amazon.com/machine-learning/inferentia/): a cheaper, more efficient way to run the models in production.
+与此类似，但主要是针对推理应用程序，Amazon 部署了 [AWS Inferentia](https://aws.amazon.com/machinlearning/inferentia/)：一种在生产环境中运行模型的更便宜、更有效的方法。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*nTqHAwzY8MINf5j-)
 
-Google also announced [Edge TPU](https://cloud.google.com/edge-tpu/): a little brother of the big bad cards discussed above. The chip is tiny: 10 of them would fit on a surface of a 1 cent coin. At the same time, it’s good enough to run DNNs on real-time video and barely consumes any energy.
+谷歌还宣布 [Edge TPU](https://cloud.google.com/edge-tpu/)：上面讨论的大烂牌的小弟弟。这种芯片很小：一枚 1 美分硬币的表面可以容纳 10 枚。同时，它可以在实时视频上运行 DNNs，几乎不消耗任何能量。
 
-An interesting potential new entrant is [Graphcore](https://www.graphcore.ai/). The British company has raised an impressive $310M, and in 2018 has shipped their first product, the GC2 chip. According to [benchmarks](https://cdn2.hubspot.net/hubfs/729091/NIPS2017/NIPS%2017%20-%20benchmarks%20final.pdf), GC2 obliterates the top Nvidia server GPU card while doing inference, while consuming significantly less power.
+一个有趣的潜在新参与者是[Graphcore](https://www.graphcore.ai/)。这家英国公司已经筹集了令人印象深刻的3.1亿美元，并在2018年推出了他们的第一款产品—— GC2芯片。根据 [benchmark](https://cdn2.hubspot.net/hubfs/729091/NIPS2017/NIPS%2017%20-%20benchmarks%20final.pdf)，GC2 在进行推算时，会在消耗更少的功耗的情况下，清除顶级的 Nvidia 服务器 GPU 卡。
 
-#### Honorable mention: AWS Deep Racer
+#### 荣誉奖：AWS Deep Racer
 
-In a completely unexpected move, but, somewhat mirroring their previous move with [DeepLens](https://aws.amazon.com/deeplens/), Amazon unveiled a small-scale self-driving car, [DeepRacer](https://aws.amazon.com/deepracer/) and a racing league for it. The $400 car sports an Atom processor, 4MP camera, wifi, several USB ports and enough power to run for several hours. Self-driving models can be trained using a 3d simulation environment completely in the cloud and then deployed directly to the car. If you always dreamed of building your own self-driving car, this is your chance to do so without starting a VC-backed company.
+亚马逊推出了一款小型自动驾驶汽车[DeepRacer](https://aws.amazon.com/deeplens/)，并为此成立了一个赛车联盟。这款售价 400 美元的汽车配备了 Atom 处理器、 4MP 摄像头、wifi、多个 USB 端口以及足够运行数小时的电量。自动驾驶模型可以完全在云端使用 3d 仿真环境进行训练，然后直接部署到汽车上。如果你一直梦想着制造自己的自动驾驶汽车，这是你不用开一家由风投支持的公司就能实现这一梦想的机会。
 
-### What’s next?
+### 接下来是什么？
 
-#### Shifting focus to decision intelligence
+#### 把注意力转移到决策智能上
 
-Now that the components — algorithms, infrastructure, and hardware — for making AI useful are better than ever, businesses are realizing that the biggest stumbling block to getting started with applying AI is on the [practical side](http://bit.ly/quaesita_fail): how do you actually take an AI applied from an idea to an effective, safe, reliable system running in production? Applied AI, or applied Machine Learning (ML), also referred to as [Decision Intelligence](http://bit.ly/di_wiki), is the science of creating AI solutions to real-world problems. While the past put much of the focus on the science behind the algorithms, the future is likely to see more equal attention paid to the end-to-end application side of the field.
+现在的组件 —— 算法、基础结构和硬件 —— 让 AI 比以往任何时候都要好用，企业正在意识到，应用人工智能的最大障碍在于[实用性](http://bit.ly/quaesita_fail)：如何将人工智能从一个想法应用到生产中运行的有效、安全、可靠的系统中去？应用人工智能，或称应用机器学习 (ML)，也被称为[决策智能](http://bit.ly/di_wiki)，是一门为现实问题创建人工智能解决方案的科学。虽然过去将大部分注意力放在算法背后的科学上，但未来可能会更多地关注该领域端到端的应用程序方面。
 
-#### AI seems to be creating more jobs than it destroys
+#### 人工智能创造的就业机会似乎比它消灭的要多
 
-“AI will take all our jobs” is the common refrain in the media and a common fear among blue collar and white collar workers alike. And, on the surface it seems like a reasonable prediction. But so far, the opposite seems to be the truth. For instance, a lot of people [are getting paid to create labeled datasets](https://www.nytimes.com/2018/11/25/business/china-artificial-intelligence-labeling.html).
+“人工智能将抢走我们所有的工作”是媒体的普遍说辞，也是蓝领和白领工人的共同担忧。从表面上看，这似乎是一个合理的预测。但到目前为止，事实似乎正好相反。例如，许多人[通过创建带标签的数据集而获得报酬](https://www.nytimes.com/2018/11/25/business/china-artificial-intelligence-labeling.html)。
 
-It goes beyond the usual data farms in low income countries: several apps, like LevelApp allow refugees to make money by labeling their data just using their cellphones. Harmoni went further: they are even providing devices to the migrants in the refugee camps so that people can contribute and make a living.
+这些报酬超越了低收入国家通常的收入：有几个应用程序，比如 LevelApp，可以让生活困难的人民仅用手机给自己的数据贴上标签就能赚钱。Harmoni 更进一步：他们甚至向难民营里的移民提供设备，让他们可以贡献自己的力量，并以此谋生。
 
-On top of data labeling, entire industries are being created by the new AI technology. We are able to do things, that were unthinkable even several years ago, like self driving cars or [drug discovery](https://blog.benchsci.com/startups-using-artificial-intelligence-in-drug-discovery).
+在数据标签的基础上，新的人工智能技术正在创造整个行业。我们能够做的事情，在几年前甚至是不可想象的，像自动驾驶汽车或[药物发现](https://blog.benchsci.com/startups-using-artificial-intelligence-in-drug-discovery)。
 
-#### More ML-related compute is going to happen on the edge
+#### 更多与 ML 相关的计算将出现在边缘
 
-The way data-oriented systems work, more data is usually available at the very edge of the system, on the ingestion side. Later stages of a pipeline usually down-sample or in other ways reduce the the fidelity of the signals. On the other hand, with increasingly complex AI models are performing better with more data. Would not it make sense to move the AI component closer to the data, to the edge?
+在面向数据的系统的工作方式中，通常在系统的边缘，即采集端，有更多的数据可用。信道的后期通常以向下采样或以其他方式降低信号的保真度。另一方面，随着越来越复杂的人工智能模型表现得越来越好，数据也越来越多。使人工智能组件更靠近数据的边缘不是更有意义吗？
 
-A simple example: imagine a high resolution camera, that produces a high-quality video at 30fps. The computer vision model, that processes that video, runs on a server with. The camera streams the video to the server, but the uplink bandwidth is limited, so the video is shrunk and highly-compressed. Why not move the vision model to the camera and consume the pristine video stream?
+一个简单的例子：想象一个高分辨率的相机，它能以 30 fps 的速度产生高质量的视频。处理视频的计算机视觉模型，在服务器上运行。摄像机将视频传输到服务器，但上行带宽有限，因此视频被压缩和高度压缩。为什么不将视觉模型移动到摄像机并使用原始视频流呢？
 
-There were always multiple hurdles with that, primarily: the amount of compute capability available on the edge devices and the complexity of management (such as pushing updated models to the edge). The compute limitation is being cancelled out by the advent of specialized hardware (such as Google’s Edge TPU, Apple’s Neural Engine etc.), more efficient models and optimized software. The management complexity is constantly addressed by improvements in ML frameworks and tooling.
+这方面总是存在许多障碍，主要是：边缘设备上可用的计算能力的数量和管理的复杂性(例如将更新的模型推到边缘)。随着专用硬件(如谷歌的 Edge TPU、苹果的神经引擎等)、更高效的模型和优化的软件的出现，计算的局限性正在被消除。通过改进 ML 框架和工具，可以不断地解决管理的复杂性。
 
-#### Consolidation in the AI infrastructure space
+#### 人工智能基础设施领域的整合
 
-The preceding years were full of activity in AI infrastructure: grand announcements, hefty funding rounds and lofty promises. In 2018, it seems, the race in the space cooled down, and, while there were still significant new entrances, most of the contributions were done by large existing players.
+在此之前的几年里，人工智能基础设施领域充满了活动：盛大的公告、巨额融资以及崇高的承诺。2018年，太空竞赛似乎降温了，虽然仍有一些重要的新入口，但大部分贡献是由现有的大型参与者做出的。
 
-One of the possible explanations maybe that our understanding of what the ideal infrastructure for an AI system looks like is [not mature enough](https://ai.google/research/pubs/pub43146). As the problem is complex. It will require long term, persistent, focused, well-resourced effort to produce a viable solution — something startups and smaller companies are just not good at. It would be really surprising, if a startup “solved” AI infra out of the blue.
+一种可能的解释是，我们对人工智能系统的理想基础结构的理解是[不够成熟](https://ai.google/research/pubs/pub43146)。因为问题很复杂。这需要长期的、持续的、专注的、资源充足的努力来产生一个可行的解决方案 —— 这是创业公司和小公司不擅长的。如果一家初创公司突然“解决”了人工智能的基础问题，那将是非常令人惊讶的。
 
-On the other hand, ML infrastructure engineers are rare and far between. A struggling startup with several of those on staff becomes an obvious and valuable acquisition target for a larger player. And there are at least several of those playing this game for the win, both building out internal and external tooling. For instance, for both AWS and Google Cloud, AI infrastructure services are a major selling points.
+另一方面，ML 基础架构工程师非常少见。对于一家规模更大的公司来说，一家拥有数名员工、但处境艰难的初创公司显然是一个有价值的收购目标。几个玩家希望通过在构建内部和外部工具赢得游，他们都在构建内部和外部工具。例如，对于 AWS 和谷歌云，人工智能基础设施服务是一个主要的卖点。
 
-Put it all together and a major consolidation of the space becomes a reasonable forecast.
+把它们放在一起，空间的主要整合就成为一个合理的预测。
 
-#### Even more custom hardware
+#### 更多定制的硬件
 
-[Moore’s law is dead](https://www.nextplatform.com/2019/02/05/the-era-of-general-purpose-computers-is-ending/), at least for CPUs, and has been for many years now. GPUs are soon going to encounter a similar fate. And while our models are becoming more efficient, to solve some more advanced problems we’ll need to get our hands on more computing power. This can be solved with distributed training, but it has its own limits and tradeoffs.
+[摩尔定律已经逝去](https://www.nextplatform.com/2019/02/05/the-era-of-general-purpose-computers-is-ending/)，至少对于 CPU 来说是这样，而且这种情况已经持续了很多年。GPU 很快也将遭遇类似的命运。当我们的模型变得更高效时，为了解决一些更高级的问题，我们需要获得更多的计算能力。这可以通过分布式训练来解决，但是它有自己的限制和权衡。
 
-Moreover, if you want to run some of the bigger models on a resource-constrained device, distributed training is not going to help. Enter custom AI accelerators. Depending on how custom you want or can go, you could [save an order of magnitude](http://web.eecs.umich.edu/~shihclin/papers/AutonomousCar-ASPLOS18.pdf) of power, cost or [latency](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/10/Cloud-Scale-Acceleration-Architecture.pdf).
+此外，如果您想在资源受限的设备上运行一些更大的模型，分布式训练是没有帮助的。输入自定义 AI 加速器。根据您想要或可以进行的定制，您可以[保存一个量级](http://web.eecs.umich.edu/~shihclin/papers/AutonomousCar-ASPLOS18.pdf)的电力、成本或[延迟](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/10/Cloud-Scale-Acceleration-Architecture.pdf)。
 
-In some way, even Nvidia’s Tensor Cores are an example of this trend. With no general-purpose hardware, we will see even more of those.
+在某种程度上，甚至英伟达的 Tensor Cores 也是这种趋势的一个例子。在没有通用硬件的情况下，我们将看到更多这样的硬件。
 
-#### Less reliance on training data
+#### 减少对训练数据的依赖
 
-Labeled data is, generally, either expensive, inaccessible or both. There are few exceptions to this rule. Open high quality datasets like MNIST, ImageNet, COCO, Netflix prize and IMDB reviews were a source of incredible innovation. But many problems don’t have a corresponding dataset to work with. While building a dataset is not a great career move for a researcher, big companies, who could sponsor or release one are not in a hurry: they are building the huge datasets alright, but keeping those close to their chest.
+标记数据通常要么昂贵，要么难以访问，要么两条都有。这条规则几乎没有例外。开放的高质量数据集，如 MNIST、ImageNet、COCO、Netflix prize 和 IMDB eviews 是令人难以置信的创新的来源。但是许多问题没有相对应的数据集来处理。虽然对于研究人员来说，建立数据集并不是一个很好的职业发展方向，但能够赞助或发布数据集的大公司并不着急：他们正在建立庞大的数据集，并且把这些数据私密保存。
 
-So how does a small independent entity, like startup or a university research group, produce interesting solutions to hard problems? By building systems that rely less and less on supervised signals and more and more on unlabeled and unstructured data — which is abundant thanks to the internet and proliferation in cheap sensors.
+那么，一个小型独立实体，比如创业公司或大学研究小组，是如找到复杂问题的解决方案的呢？通过构建越来越少地依赖监督信号、越来越多地依赖无标记和非结构化数据的系统 —— 得益于互联网和廉价传感器的普及，这些数据非常丰富。
 
-This somewhat explains the explosion of interest in GANs, transfer and reinforcement learning: all of these techniques require less (or no) investment in a training dataset.
+这在一定程度上解释了人们对 GANs、迁移学习和强化学习兴趣的激增：所有这些技术都需要较少(或不需要)的训练数据的投入。
 
-### So, it’s all just a bubble, right?
+### 所以，这只是一个泡沫，对吧？
 
-So is there a cat in that dark room? I think there definitely is, and not just one, but multiple. And while some of cats have four legs, tails, and whiskers — you know, the usual deal — some are weird beasts that we are only starting to see the basic outlines of.
+那间黑屋子里有只猫吗？我想肯定有，不止一个，而是多个。虽然有些猫有四条腿，尾巴和胡须 —— 通常情况下 —— 有些是奇怪的动物，我们只是刚刚开始看到它们的基本轮廓。
 
-The industry has entered year seven of the hot AI “summer”. An amazing amount of research effort, academic grants, venture capital, media attention and lines of code were poured into the space over that time. But one would be justified in pointing out, that the promises of AI are still mostly unfulfilled. That their last Uber ride still had a human driver behind the wheel. That they there is still no helpful robot making eggs in the morning. I even have to tie my shoelaces myself, for crying out loud!
+行业已经进入了 AI 大热的第七年。在那这段时间里，大量的研究工作、学术资助、风险投资、媒体关注和代码编写被投入到这个领域。但我们有理由指出，人工智能的承诺基本上仍未兑现。我们最后一次乘坐优步时，司机仍然是人类。在早晨仍然没有用机器人下蛋。我甚至不得不自己系鞋带，这到底在搞什么名堂！
 
-And yet, the efforts of countless graduate students and software engineers are not in vain. It seems like every large company either already relies heavily on AI, or has plans to in the future. [AI art sells](https://www.nytimes.com/2018/10/25/arts/design/ai-art-sold-christies.html). If the self driving cars are not yet here, they soon will be.
+然而，无数研究生和软件工程师的努力并没有白费。似乎每一家大公司要么已经严重依赖人工智能，要么计划在未来这么做。[AI art sells](https://www.nytimes.com/2018/10/25/arts/design/ai-art-sold-christies.html)。如果自动驾驶汽车还没有出现，那它们也在不久后就会出现。
 
-Now, if only someone figured out those pesky shoelaces! Wait, what? [They did](https://www.theverge.com/2019/2/4/18210711/puma-fi-self-lacing-shoes-nike-hyperadapt-bb)?
+现在，要是有人能理顺这些讨厌的鞋带就好了！等等，什么？[他们做到了](https://www.theverge.com/2019/2/4/18210711/puma-fi-self-lacing-shoes-nike-hyperadapt-bb)？
 
-* [Click here](https://www.youtube.com/embed/nU-XDVyYqMs) to watch the full video.
+* [点击这里](https://www.youtube.com/embed/nU-XDVyYqMs)观看完整视频
 
-_Huge thanks to Malika Cantor, Maya Grossman, Tom White, Cassie Kozyrkov and Peter Norvig for reading the draft versions of this post._
+**非常感谢 Malika Cantor、Maya Grossman、Tom White、Cassie Kozyrkov 和 Peter Norvig 阅读本文的初稿**
 
-[_Max Grigorev_](https://www.linkedin.com/in/grigorev/) _has built ML systems at Google, Airbnb and multiple startups. He hopes to build many more. He is also a_ [_Google Developers Launchpad_](https://developers.google.com/programs/launchpad/) _mentor._
+**[_Max Grigorev_](https://www.linkedin.com/in/grigorev/) 在谷歌建立了 ML 系统，Airbnb 和多家创业公司。他希望建造更多。他也是一名 google 开发者。我的良师益友 [_Max Grigorev_](https://www.linkedin.com/in/grigorev/)。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
