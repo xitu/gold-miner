@@ -60,7 +60,7 @@
 
 ## 构建和部署一个具备 instant 特性的应用包
 
-我们可以遵照 [Google Play Instant 文档](https://developer.android.com/topic/google-play-instant/getting-started/instant-enabled-app-bundle)中解释的流程，我们也可以在 Android Studio 中更改运行配置。为了启用 instant 应用的部署，我们可以选择应用菜单中 **Deploy as instant app** 选择框，如下图所示： 
+我们可以遵照 [Google Play Instant 文档](https://developer.android.com/topic/google-play-instant/getting-started/instant-enabled-app-bundle)中解释的流程，我们也可以在 Android Studio 中更改运行配置。为了启用 instant 应用的部署，我们可以选择应用菜单中 **Deploy as instant app** 选择框，如下图所示：
 
 ![使用 Android Studio 界面来使应用部署为 instant 应用](https://cdn-images-1.medium.com/max/2000/0*bCe1OhjN7ZVbv2eC)
 
@@ -82,7 +82,7 @@ adb shell am start -a android.intent.action.VIEW "https://example.android.com/ua
 
 ![当**打开**按钮被按下时会启动 UAMP 应用](https://cdn-images-1.medium.com/max/2160/0*LMIwDW_RUMO6PtKc)
 
-有关应用链接的更多信息，查看这个主题的[相关文档](https://developer.android.com/training/app-links/instant-app-links)，包括你的应用处理如何 [验证链接的归属方](https://developer.android.com/training/app-links/verify-site-associations)的方法。
+有关应用链接的更多信息，查看这个主题的[相关文档](https://developer.android.com/training/app-links/instant-app-links)，包括你的应用处理如何[验证链接的归属方](https://developer.android.com/training/app-links/verify-site-associations)的方法。
 
 ## 已知问题
 
