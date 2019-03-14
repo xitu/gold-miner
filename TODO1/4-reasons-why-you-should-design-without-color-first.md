@@ -2,40 +2,40 @@
 > * 原文作者：[Anand Satyan](https://medium.com/@anandsatyan)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/4-reasons-why-you-should-design-without-color-first.md](https://github.com/xitu/gold-miner/blob/master/TODO1/4-reasons-why-you-should-design-without-color-first.md)
-> * 译者：
+> * 译者：[xionglong58](https://github.com/xionglong58)
 > * 校对者：
 
-# 4 Reasons Why You Should Design Without Color First
+# 四个理由让你使用灰度色调记性设计
 
-Creating your screens in grayscale before adding color forces you think clearly and prioritize right when it comes to UX design.
+设计时使用灰度色调会迫使你在 UX 设计中思路清晰、明确元素的优先级。
 
-## 1. You focus on layout and spacing
+## 1. 你可以更关注布局和间距
 
-When you start designing keeping the B&W color palette constraint in mind, most of your thinking time goes into figuring out how to space things right to be able to seem like things are grouped together. You start thinking about the invisible yet more important aspects such as readability (line height, paragraphs and typography), center of attention (call to action buttons and sizes) and scannability (grouping of elements, spacing)
+当心里有 D&W 色彩限制的时候，你做设计时的大部分思考时间将会花在如何正确的划分空间才能使事物看起来像是被组合在一起。紧接着你开始思考那些不可见，但是更重要的东西，比如可读性（行高、段落和排版）、关注的焦点（call to action buttons and sizes）、scannability (元素分割、间距)。
 
 ![Musety App by [Muse](https://dribbble.com/siyumiao)](https://cdn-images-1.medium.com/max/2000/0*q2R1nr4jd9NpW3E1.png)
 
-## 2. Your clients ask the right questions
+## 2. 方便收集客户有益的反馈
 
-Good design takes time. At the early stages of design, most designers are shy to show incomplete work to their clients/users to gather early feedback. I cannot stress more on the importance of gathering early feedback from clients. This helps you to stay away from the trap of too many iterations with too much time wasted on unnecessary versions. Most clients either don’t know what exactly they want or suck at giving constructive feedback. Showing them an early version that looks like a more high-fid version of a pen and paper sketch will get them to understand the process and ask you questions that are more constructive.
+好的设计需要时间。在设计的初期阶段，大多数设计师都不愿让客户/用户试用未完成的工作，以收集早期反馈。收集客户的反馈十分重要，它可以让你减少产品的迭代次数，避免在不必要的版本上浪费大量时间。大多数客户要么不知道自己到底想要什么样的产品，要么不愿意给出建设性的反馈。向客户展示产品最简单不过的早期设计版本，会让他们理解设计过程，并问你一些更有建设性的问题。
 
-> You might get a ‘What color works for this button’ which surely leads to be a better conversation than ‘Why have you chosen yellow for this button’.
+> 那样的话，客户可能会问你“什么颜色适合这个按钮”，而不是“为什么这个按钮是黄色的”。显然，前者更有利于设计。
 
-## 3. Your designs are clean
+## 3. 设计更整洁
 
-Creating a simple and clean design is not an easy task. When you create your designs in black and white, all your focus is on usability, spacing, sizes, laying out elements, interactions, and flows. The first version of your design should only feature different shades of black and white to show hierarchy and visual weight between elements.
+创造一个简洁的设计不是一件容易的事情。当你用黑白模式创建设计时，您的重点是可用性、间距、尺寸、布局元素、交互和设计流程。设计的第一个版本应该只采用不同的黑白色调，以突出元素之间的层次结构和视觉主次。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*6BGjoJRHoqxYay2d.png)
 
-## 4. Creates consistency
+## 4. 设计重点更突出
 
-It is best to use three or lesser colors in your design. Having too many colors in your designs may confuse the user or bring the attention of the user to less important areas. When you have a single brand color and use it selectively on a design that’s complete in black and white, the eyes of the user naturally get dragged into these “color” areas.
+在你的设计中最好使用三种或三种以下的颜色。设计中有太多的颜色可能会弄晕用户或将用户的注意力引向不太重要区域。比如，当你设计的对象是一个品牌颜色单一的客户时，完全采用的黑白设计，会让用户的眼睛被这些“色彩”区域紧紧抓住。
 
 ![UXPin Design Systems Tool](https://cdn-images-1.medium.com/max/2000/0*hxW3pxZK3PRE-XVE.jpg)
 
-So, the next time you open Sketch or Illustrator or any tool of your choice that you prefer to make designs in, forgot about the color palette for a while till you have the complete design ready in grayscale.
+所以，下次当你打开 Sketch、Illustrator 或其他任何你喜欢的设计工具时，先忘记了调色板一段时间，直到你在灰度色调上有了完整的设计框架。
 
-**If you’re a developer struggling with ux/design, we are building a tool to assist you. You can signup for early access here:**[ https://devs.design/](https://devs.design)
+**如果你是一个在 UX/design 上苦苦挣扎的开发人员，我们正在构建的一个工具可以帮助你。**[点这里！](https://devs.design)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
