@@ -5,55 +5,55 @@
 > * 译者：
 > * 校对者：
 
-# Sliding In And Out Of Vue.js
+# Vue.js的滑入滑出效果
 
-**Quick summary**: One of the key advantages of Vue.js is that it plays nicely with other code: it is easy to embed progressively into other applications, but it is also easy to wrap up non-Vue code into Vue. This article explores this second advantage, covering three distinct types of third-party JavaScript and ways to embed each of them in Vue.
+**摘要**： Vue.js 的一个主要的优点是可以很好地与其他代码一起工作： 也就是它不仅很容易嵌入到其他的应用程序当中，而且也很容易将非 Vue 代码包装到 Vue 当中。本文讨论了 Vue.js 的第二个优势，包括了三种不同类型的 JavaScript，以及将它们嵌入到 Vue 中的方法。
 
-**Vue.js has achieved phenomenal adoption growth** over the last few years. It has gone from a barely known open-source library to the second most popular front-end framework (behind only React.js).
+**Vue.js 在过去几年中实现了非常惊人的使用量增长。**它已经从一个鲜为人知的开源库变成了第二受欢迎的前端框架（仅次于 React.js ）。
 
-One of the biggest reasons for its growth is that Vue is a _progressive_ framework — it allows you to adopt bits and pieces at a time. Don’t need a full single page application? Just embed a component. Don’t want to use a build system? Just drop in a script tag, and you’re up and running.
+Vue 用户增长的一个核心原因是： Vue 是一个 _渐进式_ 框架 - 它允许你的页面中部分使用 Vue.js 来进行开发，而不需要一个完整的单页应用。也允许你只加入一个 script 标签，而不是使用一个完整的构建系统就可以启动并且运行。
 
-This progressive nature has made it very easy to begin adopting Vue.js piecemeal, without having to do a big architecture rewrite. However, one thing that is often overlooked is that it’s not just easy to embed Vue.js into sites written with other frameworks, **it’s also easy to embed other code inside of Vue.js**. While Vue likes to control the DOM, it has lots of escape hatches available to allow for non-Vue JavaScript that also touches the DOM.
+这种渐进式的哲学让 Vue.js 的碎片化开发非常简单，不需要进行大型架构的重写。然而，有一件事却经常被忽略，不仅将 Vue.js 嵌入到其他框架编写的网站中比较容易。 **在 Vue.js 中嵌入其他代码也非常容易**。虽然 Vue 会控制 DOM，但是它也预留了一个出口，允许其他非 Vue 的JavaScript控制 DOM。
 
-This article will explore the different types of third-party JavaScript that you might want to use, what situations you might want to use them inside of a Vue project, and then cover the tools and techniques that work best for embedding each type within Vue. We’ll close with some considerations of the drawbacks of these approaches, and what to consider when deciding if to use them.
+本文将会探讨当你想要使用不同类型的第三方 JavaScript ，并且想将其嵌入到 Vue 编写的工程里面的情况，然后介绍最适合嵌入到 Vue 中的几种类型的工具和技术。在最后，我们会考虑这些方法的缺点，以及在决定使用它们的时候需要考虑什么。
 
-_This article assumes some familiarity with Vue.js, and the concepts of components and directives. If you are looking for an introduction to Vue and these concepts, you might check out Sarah Drasner’s excellent [introduction to Vue.js series](https://css-tricks.com/intro-to-vue-1-rendering-directives-events/) or the official [Vue Guide](https://vuejs.org/v2/guide/)._
+_本文假设你熟悉 Vue.js 以及组件和指令的概念。如果你正在寻找 Vue 和这些概念的介绍，可以参考 Sarah Drasner 的 [introduction to Vue.js series](https://css-tricks.com/intro-to-vue-1-rendering-directives-events/) 或者 [Vue 官方文档](https://vuejs.org/v2/guide/)。_
 
-## Types Of Third-Party JavaScript
+## 第三方 JavaScript 类型
 
-There are three major types of third-party JavaScript that we’ll look at in order of complexity:
+我们将主要的三种第三方 JavaScript 类型按照复杂程度排序：
 
-1.  [Non-DOM Touching Libraries](#non-dom-libraries)
-2.  [Element Augmentation Libraries](#element-augmentation-libraries)
-3.  [Components And Component Libraries](#components-and-component-libraries)
+1. [DOM 无关的库](#non-dom-libraries)
+2. [元素扩充库](#element-augmentation-libraries)
+3. [组件和组件库](#components-and-component-libraries)
 
-### Non-DOM Libraries
+### DOM 无关的库
 
-The first category of third-party JavaScript is libraries that provide logic in the abstract and have no direct access to the DOM. Tools like [moment.js](https://momentjs.com/) for handling dates or [lodash](https://lodash.com/) for adding functional programming utilities fall into this category.
+第一种第三方 JavaScript 库是仅提供逻辑方面的功能，并不直接访问 DOM，比如用于处理时间的 [moment.js](https://momentjs.com/) 或者用于增强函数式编程能力的 [lodash](https://lodash.com/) 都属于这种类型。
 
-These libraries are trivial to integrate into Vue applications, but can be wrapped up in a couple of ways for particularly ergonomic access. These are very commonly used to provide utility functionality, the same as they would in any other type of JavaScript project.
+这些库很容易集成到 Vue 应用当中，但是可以多种方式来提供合理的访问方式。这些库一般都是为了提供实用的程序功能，和其他任何类型的 JavaScript 项目都是相融的。
 
-### Element Augmentation Libraries
+### 元素增强库
 
-Element augmentation is a time-honored way to add just a bit of functionality to an element. Examples include tasks like lazy-loading images with [lozad](https://github.com/ApoorvSaxena/lozad.js) or adding input masking using [Vanilla Masker](https://github.com/vanilla-masker/vanilla-masker).
+元素增强是一种为 DOM 元素添加额外功能的方法，这种方法由来已久。比如可以帮助图片进行懒加载的 [lozad](https://github.com/ApoorvSaxena/lozad.js) 或者为输入框提供遮盖的 [Vanilla Masker](https://github.com/vanilla-masker/vanilla-masker)。
 
-These libraries typically impact a single element at a time, and expect a constrained amount of access to the DOM. They will likely be manipulating that single element, but not adding new elements to the DOM.
+这些库通常只会一次影响单个元素，他们可能会操纵单个元素，但是不会为 DOM 增加新的元素。
 
-These tools typically are tightly scoped in purpose, and relatively straightforward to swap out with other solutions. They’ll often get pulled into a Vue project to avoid re-inventing the wheel.
+这些工具具有严格的用途，并且和其他解决方案进行交互非常简单。这些库经常会被引入到 Vue 工程中，防止重复造轮子。
 
-### Components And Component Libraries
+### 组件和组件库
 
-These are the big, intensive frameworks and tools like [Datatables.net](https://datatables.net/) or [ZURB Foundation](https://foundation.zurb.com/). They create a full-on interactive component, typically with multiple interacting elements.
+这些工具是大型的，并且密集的框架。比如 [Datatables.net](https://datatables.net/)，或者 [ZURB Foundation](https://foundation.zurb.com/)。这些库会创建一个完整的交互式组件。通常具有多个可交互元素。
 
-They are either directly injecting these elements into the DOM or expect a high level of control over the DOM. They were often built with another framework or toolset (both of these examples build their JavaScript on top of jQuery).
+这些库要么会直接将这些元素注入到 DOM 中，要么期望能够对 DOM 进行高级别的控制。它们通常使用其他的框架或者工具集构建（上面的两个例子都是基于jQuery进行构建的）。
 
-These tools provide _extensive_ functionality and can be challenging to replace with a different tool without extensive modifications, so a solution for embedding them within Vue can be key to migrating a large application.
+这些工具提供了 _非常广泛的_ 功能，并且在没有大量修改的情况下，将其替换成其他的工具是非常具有挑战性的，因此，将他们嵌入到 Vue 中的解决方案，对于迁移一个大型应用来说非常关键。
 
-## How To Use In Vue
+## 如何在 Vue 中使用
 
-### Non-DOM Libraries
+### DOM 无关的库
 
-Integrating a library that doesn’t touch the DOM into a Vue.js project is relatively trivial. If you’re using JavaScript modules, simply `import`or `require` the module as you would in another project. For example:
+将DOM 无关的库集成到 Vue.js 工程中相对简单一些。如果你在使用 JavaScript 模块，那么就像在工程中引入其他模块一样，简单地使用 `import` 或者 `require` 就好了。比如：
 
 ```js
 import moment from 'moment';
@@ -67,7 +67,7 @@ Vue.component('my-component', {
 });
 ```
 
-If using global JavaScript, include the script for the library before your Vue project:
+如果使用全局 JavaScript，那么需要在 Vue 工程之前引入这个库：
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
@@ -75,17 +75,17 @@ If using global JavaScript, include the script for the library before your Vue p
 <script src="/project.js"></script>
 ```
 
-One additional common way to layer on a bit more integration is to wrap up your library or functions from the library using a filter or method to make it easy to access from inside your templates.
+另外一种常见的分层方法是使用过滤器或者方法将库中的函数进行包装，以便在模板中比较方便地访问。
 
-#### Vue Filters
+#### Vue 过滤器
 
-Vue [Filters](https://vuejs.org/v2/guide/filters.html) are a pattern that allows you to apply text formatting directly inline in a template. Drawing an example from the documentation, you could create a ‘capitalize’ filter and then apply it in your template as follows:
+Vue 的[过滤器](https://vuejs.org/v2/guide/filters.html)是一种模式，允许您直接在模板中内嵌应用文本格式。文档中提供了一个示例，你可以创建一个 'capitalize' 过滤器，然后将其应用到模板中，如下所示：
 
 ```js
 {{myString | capitalize}}
 ```
 
-When importing libraries having to do with formatting, you may want to wrap them up as a filter for ease of use. For example, if we are using `moment` to format all or many of our dates to relative time, we might create a `relativeTime` filter.
+当导入与格式有关的库时，你可能希望能够直接在过滤器中使用。比如，如果你使用 `moment` 来格式化工程中的日期，将其转换为相对时间，我们可以创建一个 `relativeTime` 过滤器。
 
 ```js
 const relativeTime = function(value) {
@@ -94,13 +94,13 @@ const relativeTime = function(value) {
 }
 ```
 
-We can then add it globally to all Vue instances and components with the `Vue.filter` method:
+然后我们可以使用 `Vue.filter` 方法来将其全局添加到所有的 Vue 组件和实例上：
 
 ```js
 Vue.filter('relativeTime', relativeTime);
 ```
 
-Or add it to a particular component using the `filters` option:
+或者将其添加到使用了 `filters` 选项的特定组件上：
 
 ```js
 const myComponent = {
@@ -110,27 +110,27 @@ const myComponent = {
 }
 ```
 
-You can play with this on CodePen here: See the Pen [Vue integrations: Moment Relative Value Filter](https://codepen.io/smashing-magazine/pen/drbQOo) by Smashing Magazine([@smashing-magazine](https://codepen.io/smashing-magazine/)) on [CodePen](https://codepen.io).
+你可以试着在 [CodePen](https://codepen.io) 上跑一下这段代码：参阅  Smashing Magazine ([@smashing-magazine](https://codepen.io/smashing-magazine/)) 的这段代码片：[Vue 集成：相对时间过滤器](https://codepen.io/smashing-magazine/pen/drbQOo)。
 
-### Element Augmentation Libraries
+### 元素增强库
 
-Element augmentation libraries are slightly more complex to integrate than libraries that don’t touch the DOM — if you’re not careful, Vue and the library can end up at cross purposes, fighting each other for control.
+与 DOM 无关的库相比，元素增强库的集成稍微复杂一些。如果你不小心，Vue 会和库产生交叉控制，争夺 DOM 的控制权。
 
-To avoid this, you need to hook the library into Vue’s lifecycle, so it runs after Vue is done manipulating the DOM element, and properly handles updates that Vue instigates.
+为了避免这样的情况发生，你需要将库挂载到 Vue 的生命周期当中，让这些库在 Vue 完成 DOM 操作之后运行，并且正确处理 Vue 触发的更新操作。
 
-This could be done in a component, but since these libraries typically touch only a single element at a time, a more flexible approach is to wrap them in a custom directive.
+这些事可以在组件内部完成，但是由于这些库一般都只会接触一个元素，因此将其封装到自定义指令（directive）中是更加灵活的方法。
 
-#### Vue Directives
+#### Vue 指令
 
-Vue directives are modifiers that can be used to add behavior to elements in your page. Vue ships with a number of built-in directives that you are likely already comfortable with — things like `v-on`, `v-model`, and `v-bind`. It is also possible to create _custom_ directives that add any sort of behavior to an element — exactly what we’re trying to achieve.
+Vue 指令是一种修饰符，可以为页面中的元素添加行为。Vue 已经提供了许多你已经熟悉了的內建指令，比如 `v-on`，`v-model` 以及 `v-bind`。并且我们还可以创建 _自定义_ 指令来为元素添加任何类型的行为 - 这正是我们想要实现的。
 
-Defining a custom directive is much like defining a component; you create an object with a set of methods corresponding to particular lifecycle hooks, and then add it to Vue either globally by running:
+定义一个自定义指令和定义组件非常相似；使用一组和特定声明周期钩子对应的方法创建一个对象，并且通过执行将其添加到全局：
 
 ```js
 Vue.directive('custom-directive', customDirective);
 ```
 
-Or locally in a component by adding it to the `directives` object in the component:
+或者通过在组件内部添加 `directives` 对象来将指令添加到组件本地。
 
 ```js
 const myComponent = {
@@ -140,33 +140,33 @@ const myComponent = {
 }
 ```
 
-#### Vue Directive Hooks
+#### Vue 指令钩子
 
-Vue directives have the following hooks available to define behavior. While you can use all of them in a single directive, it is also not uncommon to only need one or two. They are all optional, so use only what you need.
+Vue 指令有针对以下应为的钩子。虽然可以在单个指令中使用这些钩子，但是一般情况下只会在一个指令中使用其中的一个到两个钩子。这些生命周期钩子都是可选的，所以请在使用的时候选择需要的即可。
 
--   `bind(el, binding, vnode)`
-    Called once and only once, when the directive is first bound to an element. This is a good place for one-time setup work, but be cautious, i.e. the element exists, may not yet actually be in the document.
--   `inserted(el, binding, vnode)`
-    Called when the bound element has been inserted into its parent node. This also does not guarantee presence in the document, but does mean if you need to reference the parent you can.
--   `update(el, binding, vnode, oldVnode)`
-    Called whenever the containing component’s VNode has updated. There are no guarantees that other children of the component will have updated, and the value for the directive may or may not have changed. (You can compare `binding.value` to `binding.oldValue` to see and optimize away any unnecessary updates.)
--   `componentUpdated(el, binding, vnode, oldVnode)`
-    Similar to `update`, but called after all children of the containing component have updated. If the behavior of your directive depends on its peers (e.g. `v-else`), you would use this hook instead of update.
--   `unbind(el, binding, vnode)`
-    Similar to `bind`, this is called once and only once, when the directive is unbound from an element. This is a good location for any teardown code.
+- `bind(el, binding, vnode)`
+    当指令首次绑定到一个元素上的时候，会且仅会被调用一次。这是一个进行一次性设置工作的好地方，但是要小心，即使元素存在，也有可能还未被实际挂载到文档中。
+- `inserted(el, binding, vnode)`
+    当绑定元素插入到父节点中的时候被调用。这也不能够保证文档中存在这个元素，但是这意味着如果你需要引用父节点，那么是可以引用到的。
+- `update(el, binding, vnode, oldVnode)`
+    当包含组件的 VNode 更新时调用，但是无法保证组件的其他孩子将会更新，并且该指令的值可能已经被更改，也可能还未更改。（你可以通过比较 `binding.value` 和 `binding.oldValue` 来优化掉不必要的更新）。
+- `componentUpdated(el, binding, vnode, oldValue)`
+    和 `update` 非常类似，但是这个钩子会在当前节点包含的所有孩子都更新完成后调用。如果你的指令的行为依赖于当前节点的对等体，（比如 `v-else`），那么可以使用这个钩子来代替 `update`。
+- `unbind(el, binding, vnode)`
+    和`bind`类似，这个钩子当且仅当指令从元素上解绑的时候被触发一次。这是一个执行所有卸载代码的好地方。
 
-The arguments to these functions are:
+这些函数的参数如下：
 
--   `el`: The element the directive is bound to;
--   `binding`: An object containing information about the arguments and value of the directive;
--   `vnode`: The virtual node for this element produced by Vue’s compiler;
--   `oldVNode`: The previous virtual node, only passed to `update` and `componentUpdated`.
+- `el`：指令所绑定的元素；
+- `binding`：一个包含了指令参数以及值的相关信息的对象；
+- `vnode`：Vue 编译器产出的对应元素的虚拟节点；
+- `oldValue`：更新之前的虚拟节点，只会在 `update` 和 `componentUpdated` 中被传入。
 
-_More information on these can be found in the [Vue Guide on custom directives](https://vuejs.org/v2/guide/custom-directive.html#Directive-Hook-Arguments)._
+_更多信息可以在 [Vue 自定义指令指南](https://cn.vuejs.org/v2/guide/custom-directive.html#hook-arguments-example)中找到。_
 
-#### Wrapping The Lozad Library In A Custom Directive
+#### 在自定义指令中引入 Lozad 库
 
-Let’s look at an example of doing this type of wrapping using [lozad](https://www.npmjs.com/package/lozad), a lazy-loading library built using the Intersection Observer API. The API for using lozad is simple: use `data-src` instead of `src` on images, and then pass a selector or an element to `lozad()` and call `observe` on the object that is returned:
+让我们来看一个使用了 [lozad](https://www.npmjs.com/package/lozad) 的引入例子， lozad 库是一种基于 Intersection Observer API 懒加载库。使用 lozad 的 API 非常简单：通过 `data-src` 来替换图片的 `src` 属性，并且传递一个选择器或者元素到 `lozad()` 方法中，然后调用的对象中的 `observe` 即可。
 
 ```js
 const el = document.querySelector('img');
@@ -174,7 +174,7 @@ const observer = lozad(el);
 observer.observe();
 ```
 
-We can do this simply inside of a directive using the `bind` hook.
+我们可以通过指令中的 `bind` 钩子来很方便地进行实现。
 
 ```js
 const lozadDirective = {
@@ -187,17 +187,17 @@ const lozadDirective = {
 Vue.directive('lozad', lozadDirective)
 ```
 
-With this in place, we can change images to lazy load by simply passing the source as a string into the v-lozad directive:
+有了这个，我们可以简单地将源字符串传递给 `v-lozad` 指令，来将图片转变为懒加载：
 
 ```html
 <img v-lozad="'https://placekitten.com/100/100'" />
 ```
 
-You can observe this at work in this CodePen: See the Pen [Vue integrations: Lozad Directive Just Bind](https://codepen.io/smashing-magazine/pen/aMoQLe) by Smashing Magazine([@smashing-magazine](https://codepen.io/smashing-magazine/)) on [CodePen](https://codepen.io).
+这段代码片可以在 [CodePen](https://codepen.io) 中查看：参阅  Smashing Magazine ([@smashing-magazine](https://codepen.io/smashing-magazine/)) 的这段代码片：[Vue 集成：仅设置 bind 的 Lozad 指令](https://codepen.io/smashing-magazine/pen/aMoQLe)。
 
-We’re not quite done yet though! While this works for an initial load, what happens if the value of the source is dynamic, and Vue changes it? This can be triggered in the pen by clicking the “Swap Sources” button. If we only implement bind, the values for `data-src` and `src` are not changed when we want them to be!
+我们还没有完成！虽然这样在初始加载的时候可以工作，但是如果源字符串的值是动态的，Vue 会动态改变绑定吗？可以在上面的 CodePen 中通过点击“Swap Sources”按钮触发。如果我们只实现 bind，那么当需要动态改变源字符串的话，`data-src` 和 `src` 则不会动态改变。
 
-To implement this, we need to add an `updated` hook:
+为了实现这样的效果，我们需要增加 `updated` 钩子：
 
 ```js
 const lozadDirective = {
@@ -217,44 +217,44 @@ const lozadDirective = {
 }
 ```
 
-With this in place, we’re set! Our directive now updates everything lozad touches whenever Vue updates. The final version can be found in this pen: See the Pen [Vue integrations: Lozad Directive With Updates](https://codepen.io/smashing-magazine/pen/gEYQvR) by Smashing Magazine([@smashing-magazine](https://codepen.io/smashing-magazine/)) on [CodePen](https://codepen.io).
+有了这个就好了！我们的指令现在可以在 Vue 更新的时候触发 lozad 了。最后的版本可以通过下面的代码片查看：参阅 [CodePen](https://codepen.io/) 上面 Smashing Magazine ([@smashing-magazine](https://codepen.io/smashing-magazine/)) 的这段代码片：[Vue 集成：设置了 update 的 Lozad 指令](https://codepen.io/smashing-magazine/pen/gEYQvR)。
 
-### Components And Component Libraries
+### 组件和组件库
 
-The most complex third-party JavaScript to integrate is that which controls entire regions of the DOM, full-on components and component libraries. These tools expect to be able to create and destroy elements, manipulate them, and more.
+需要集成的最复杂的第三方 JavaScript 是需要控制整个 DOM 区域的，完整的组件或者组件库。这些工具希望能够创建，销毁并且控制 DOM。
 
-For these, the best way to pull them into Vue is to wrap them in a dedicated component, and make extensive use of Vue’s lifecycle hooks to manage initialization, passing data in, and handling events and callbacks.
+对于这些库，将他们集成到 Vue 的最好方法是将其包装到一个专用的组件中，并且大量使用 Vue 的生命周期函数来管理初始化，数据传入，以及事件处理和回调。
 
-Our goal is to completely abstract away the details of the third-party library, so that the rest of our Vue code can interact with our wrapping component like a native Vue component.
+我们的目标是完全抽象出第三方库的细节，以便其他的 Vue 代码可以像与原生组件交互一样，和我们包装的组件进行交互。
 
-#### Component Lifecycle Hooks
+#### 组件生命周期钩子
 
-To wrap around a more complex component, we’ll need to be familiar with the full complement of lifecycle hooks available to us in a component. Those hooks are:
+要包装更加复杂的组件，我们需要了解组件中可用的所有生命周期钩子函数，这些钩子函数有：
 
 -   `beforeCreate()`
-    Called before the component is instantiated. Pretty rarely used, but useful if we’re integrating profiling or something similar.
+    在组件被实例化之前调用，很少使用，但是如果需要类似整合分析功能的时候是有用的。
 -   `created()`
-    Called after the component is instantiated, but before it is added to the DOM. Useful if we have any one-off setup that doesn’t require the DOM.
+    在组件被实例化之后，挂载到 DOM 上之前调用，在我们需要一次性的，不依赖 DOM 的设置工作的时候非常有用。
 -   `beforeMount()`
-    Called just before the component is mounted in the DOM. (Also pretty rarely used.)
+    在组件挂载到 DOM 之前被调用。（也很少使用）
 -   `mounted()`
-    Called once the component is placed into the DOM. For components and component libraries that assume DOM presence, this is one of our most commonly used hooks.
+    在组件被挂载到 DOM 之后调用。对于调用时需要依赖 DOM 或者 假设 DOM 存在的库来说，这是我们最常使用的钩子函数。
 -   `beforeUpdate()`
-    Called when Vue is about to update the rendered template. Pretty rarely used, but again useful if integrating profiling.
+    在 Vue 即将更新渲染模板的时候调用，很少使用，但是同样地，在整合分析的时候也是有用的。
 -   `updated()`
-    Called when Vue has finished updating the template. Useful for any re-instantiation that is needed.
+    当 Vue 完成模板更新的时候调用。适合任何需要重新实例化的过程。
 -   `beforeDestroy()`
-    Called before Vue tears down a component. A perfect location to call any destruction or deallocation methods on our third-party component
+    在 Vue 卸载一个组件之前调用。如果我们需要在第三方组件上调用任何销毁或者卸载的方法，这里是一个完美的地方。
 -   `destroyed()`
-    Called after Vue has torn down a component.
+    当 Vue 完成了一个组件的卸载之后调用。
 
-#### Wrapping A Component, One Hook At A Time
+#### 一次包装一个组件，一个钩子函数
 
-Let’s take a look at the popular [jquery-multiselect](http://loudev.com/) library. There exist many fine multiselect components already written in Vue, but this example gives us a nice combination: complicated enough to be interesting, simple enough to be easy to understand.
+来让我们看看流行的 [jquery-multiselect](http://loudev.com/) 库。目前已经有许多 Vue 写的多选组件了，但是这个例子是一个很好的组合：复杂到足够有趣，简单到足够理解。
 
-The first place to start when implementing a third-party component wrapper is with the `mounted` hook. Since the third-party component likely expects the DOM to exist before it takes charge of it, this is where you will hook in to initialize it.
+实现一个第三方组件包装器，首先需要使用到 `mounted` 钩子。由于第三方组件可能希望在调用第三方库之前，DOM 就已经存在，因此需要在这里初始化第三方组件。
 
-For example, to start wrapping jquery-multiselect, we could write:
+例如，开始包装 jquery-multiselect 的时候，我们会写如下代码：
 
 ```js
 mounted() { 
@@ -262,13 +262,13 @@ mounted() {
 }
 ```
 
-You can see this functioning in this CodePen: See the Pen [Vue integrations: Simple Multiselect Wrapper](https://codepen.io/smashing-magazine/pen/WmeYKy) by Smashing Magazine([@smashing-magazine](https://codepen.io/smashing-magazine/)) on [CodePen](https://codepen.io).
+你可以在 [CodePen](https://codepen.io/) 中查看下面代码片：参阅  Smashing Magazine ([@smashing-magazine](https://codepen.io/smashing-magazine/)) 的这段代码片：[Vue 集成：简单的多选包装](https://codepen.io/smashing-magazine/pen/WmeYKy)。
 
-This is looking pretty good for a start. If there were any teardown we needed to do, we could also add a `beforeDestroy` hook, but this library does not have any teardown methods that we need to invoke.
+这看起来很不错。如果我们需要任何卸载方法，我们需要添加 `beforeDestroy` 钩子函数，但是这个库没有需要我们调用的任何卸载方法。
 
-#### Translating Callbacks To Events
+#### 将回调转换为事件
 
-The next thing we want to do with this library is add the ability to notify our Vue application when the user selects items. The jquery-multiselect library enables this via callbacks called `afterSelect` and `afterDeselect`, but to make this more vue-like, we’ll have those callbacks emit events. We could wrap those callbacks naively as follows:
+我们要对这个库做的下一件事是在用户选择某个选项的时候，提供通知 Vue 应用的能力。jquery-multiselect 库通过 `afterSelect` 以及 `afterDeselect` 函数来进行回调，但是这样并不适合 Vue，我们让这些回调内部触发事件。我们可以简单地将回调函数进行包装：
 
 ```js
 mounted() { 
@@ -279,20 +279,20 @@ mounted() {
 }
 ```
 
-However, if we insert a logger in the event listeners, we’ll see that this does not provide us a very vue-like interface. After each select or deselect, we receive a list of the values that have changed, but to be more vue-like, we should probably emit a change event with the current list.
+然而，如果我们在事件监听器中插入一个 logger，我们会发现并没有真正提供到一个类似 Vue 的接口。在每次选择或者取消选择的时候，我们会收到一个值已经改变了的列表，但是为了更符合 Vue，我们应该让列表触发 change 事件。
 
-We also don’t have a very vue-like way to set values. Instead of this naive approach then, we should look at using these tools to implement something like the v-model approach that [Vue provides for native select elements](https://vuejs.org/v2/guide/forms.html#Select).
+我们没有像 Vue 那样的方法去设置值。我们应该考虑使用这些工具其实现类似 `v-model` 的方法，比如 [Vue 提供的原生选择元素](https://vuejs.org/v2/guide/forms.html#Select)。
 
-#### Implementing `v-model`
+#### 实现 `v-model`
 
-To implement `v-model` on a component, we need to enable two things: accepting a `value` prop that will accept an array and set the appropriate options as selected, and then emit an `input` event on change that passes the new complete array.
+要在组件上实现 `v-model`，我们需要实现两件事：接收一个 `value` 属性并且将相应的选项设置为选中，然后在选项改变之后触发 `input` 事件并且传入一个新的数组。
 
-There are four pieces to handle here: initial setup for a particular value, propagate any changes made up to the parent, and handle any changes to value starting outside the component, and finally handle any changes to the content in the slot (the options list).
+这里有四个需要处理的部分：一个特定的初始值，将所有更改传递到父组件，处理从外部组件接收到的所有更改，最后处理对于插槽（选项列表）内部内容的所有变更。
 
-Let’s approach them one at a time.
+让我们挨个来进行实现。
 
-1. **Setup With A Value Prop**
-First, we need to teach our component to accept a value prop, and then when we instantiate the multiselect we will tell it which values to select.
+1. **通过属性来进行初始化设置**
+首先，我们需要让组件接收一个属性，并且当我们初始化的时候，告诉多选组件，需要选中哪个。
 
 ```js
 export default {
@@ -307,8 +307,8 @@ export default {
 }
 ```
 
-2. **Handle Internal Changes**
-To handle changes occurring due to the user interacting with the multiselect, we can go back to the callbacks we explored before — but 'less naively' this time. Instead of simply emitting what they send us, we want to turn a new array that takes into account our original value and the change made.
+2. **处理内部变化**
+为了处理因为用户和多选元素的交互所产生的变化，我们可以回到之前探讨过的回调 - 但这次不是那么简单了。我们需要考虑原始值以及发生的变化，而不是简单地将接收到的值传递出去。
 
 ```js
 mounted() { 
@@ -320,12 +320,12 @@ mounted() {
 },
 ```
 
-Those callback functions might look a little dense, so let’s break them down a little.
-The `afterSelect` handler concatenates the newly selected value with our existing values, but then just to make sure there are no duplicates, it converts it to a Set (guarantees uniqueness) and then a destructuring to turn it back to an array.
-The `afterDeselect` handler simply filters out any deselected values from the current value list in order to emit a new list.
+这些回调函数看起来有些密集，所以让我们来把它分解一下。
+`afterSelect` 处理器将新选择的值与我们现有的值连接起来，但是为了确保没有重复，我们采用 Set（保证唯一性）来进行处理。然后将其解构，转换为数组。
+`afterDeselect` 处理器只是从列表中过滤掉当前取消选择的值，以便传递出去新的列表。
 
-3. **Handling External Updates To Value**
-  The next thing we need to do is to update the selected values in the UI whenever the `value` prop changes. This involves translating from a _declarative_ change to the props into an _imperative_ change utilizing the functions available on multiselect. The simplest way to do this is to utilize a watcher on our `value` prop:
+3. **处理外部触发的更新**
+接下来我们需要做的是在 `value` 属性更新时，更改 UI 中的选定值。这包括将属性的 _声明式_ 变化转换到多选可用的 _必要的_ 变化。最简单的方式是在 `value` 属性上使用观察者。
 
 ```js
 watch:
@@ -336,8 +336,8 @@ watch:
 }
 ```
 
-However, there’s a catch! Because triggering that select will actually result in our `onSelect` handler, and thus use updating values. If we do this naive watcher, we will end up in an infinite loop.
-Luckily,for us, Vue gives us the ability to see the old as well as the new values. We can compare them, and only trigger the select if the value has changed. Array comparisons can get tricky in JavaScript, but for this example, we’ll take advantage of the fact that our arrays are simple (not containing objects) and use JSON stringify to do the comparison. After taking into account that we need to also deselect any that options that have been removed, our final watcher looks like this:
+但是，有一个问题！因为触发 select 同时会我们的 `onSelect` 处理程序，从而使用更新值。如果我们使用这样的一个简单的观察者，我们会陷入到死循环中。
+幸运的是，对于我们来说，Vue 能够让我们同时访问到旧的和新的值。我们可以进行比较，只有在值发生变化的时候才触发 select。在 JavaScript 中，数组的比较可能会比较棘手，但是对于这个例子，我们可以通过 `JSON.stringify` 来直接进行比较，因为我们的数组实际上比较简单（因为没有对象）。在考虑到我们还需要取消选择已经删除的选项之后，我们最后的观察者是这样的：
 
 ```js
 watch: {
@@ -350,8 +350,8 @@ watch: {
   },
 ```
 
-4. **Handling External Updates To Slot**
-We have one last thing that we need to handle: our multiselect is currently utilizing option elements passed in via a slot. If that set of options changes, we need to tell the multiselect to refresh itself, otherwise the new options don’t show up. Luckily, we have both an easy API for this in multiselect (the 'refresh' function and an obvious Vue hook to hook into) updated. Handling this last case is as simple as:
+4. **将外部更新表现在插槽中**
+我们还有一件事需要处理：我们的多选元素正在使用通过插槽传入的选项值。如果这组选项发生了变化，我们需要告诉多选元素进行更新，否则新的选项不会展示出来。幸运的是，我们在多选组件的更新中有一个简单的 API（`refresh`函数和一个明显的 Vue 钩子）。这样就可以简单地处理这种情况了。
 
 ```js
 updated() {
@@ -359,54 +359,54 @@ updated() {
 },    
 ```
 
-You can see a working version of this component wrapper in this CodePen: See the Pen [ Vue integrations: Multiselect Wrapper with v-model](https://codepen.io/smashing-magazine/pen/QoLJJV) by Smashing Magazine([@smashing-magazine](https://codepen.io/smashing-magazine/)) on [CodePen](https://codepen.io).
+你可以在 [CodePen](https://codepen.io/) 上查看到这个组件的最终版本：参阅  Smashing Magazine ([@smashing-magazine](https://codepen.io/smashing-magazine/)) 的这段代码片：[Vue 集成：具有 v-model 的多选包装器](https://codepen.io/smashing-magazine/pen/QoLJJV)。
 
-## Drawbacks And Other Considerations
+## 缺点和其他考虑因素
 
-Now that we’ve looked at how straightforward it is to utilize third-party JavaScript within Vue, it’s worth discussing drawback of these approaches, and when it appropriate to use them.
+现在我们已经了解了在 Vue 中使用第三方 JavaScript 是多么简单了，是时候讨论一下这些方法的缺点，以及何时使用它们了。
 
-### Performance Implications
+### 性能影响
 
-One of the primary drawbacks of utilizing third-party JavaScript that is _not_ written for Vue within Vue is performance — particularly when pulling in components and component libraries or things built using entire additional frameworks. Using this approach can result in a lot of additional JavaScript that needs to be downloaded and parsed by the browser before the user can interact with our application.
+在 Vue 中使用 _不_ 是为了 Vue 编写的第三方 JavaScript 的主要缺点之一就是性能 - 特别是在引用由其他框架构建的组件以及组件库的时候。在用户与我们的应用程序交互之前，浏览器会需要下载和解析额外的 JavaScript。
 
-For example, by using the multiselect component, we developed above means pulling in not only that component’s code, but all of jQuery as well. That can double the amount of framework related JavaScript our users will have download, just for this one component! Clearly finding a component built natively with Vue.js would be better.
+比如，如果使用上述的多选组件，需要引入全部的 jQuery 代码。这使得用户需要下载两倍于现在的框架代码，仅仅是为了这样一个组件！显然，使用原生的 Vue.js 组件会更好。
 
-Additionally, when there are large mismatches between the APIs used by third-party libraries and the declarative approach that Vue takes, you may find yourself implementing patterns that result in a lot of extra execution time. Also using the multiselect example, we had to refresh the component (requiring looking at a whole bunch of the DOM) every time a slot changed, while a Vue-native component could utilize Vue’s virtual DOM to be much more efficient in its updates.
+此外，当第三方使用的 API 和 Vue 的声明方式大相径庭的时候，你可能会发现自己的程序需要大量额外的执行时间。同样使用多选的示例，我们不得不每次更换插槽的值的时候，刷新整个组件（需要查看一大堆的 DOM），而 Vue 原生的组件可以通过虚拟 DOM 来使其更新更加高效。
 
-### When To Use
+### 何时使用
 
-Utilizing third-party libraries can save you a ton of development time, and often means you’re able to use well-maintained and tested software that you don’t have the expertise to build. The primary drawback is performance, particularly when bringing in large frameworks like jQuery.
+利用第三方库可以大幅减少你的开发时间，并且通常意味着你可以使用你还没有能力去构建出来的，有着良好维护和测试的组件。
 
-For libraries that don’t have those large dependencies, and particularly those that don’t heavily manipulate the DOM, there’s no real reason to favor Vue-specific libraries over more generic ones. Because Vue makes it so easy to pull in other JavaScript, you should go based on your feature and performance needs, simply picking the best tool for the job, without worrying about something Vue-specific.
+对于那些没有较大依赖关系的库，特别是没有大量 DOM 操作的库，没有理由必须要为了使用 Vue 特定的库，而放弃更加通用的库。因为 Vue 可以很方便的引入其他第三方 JavaScript，所以你只需要根据你的功能和性能需求，选择最合适的工具，而没有必要去特别关注 Vue 特有的库。
 
-For more extensive component frameworks, there are three primary cases in which you’d want to pull them in.
+对于更为广泛的组件框架，有三种需要将其引入的主要情况：
 
-1.  **Prototyping**
-    In this case, speed of iteration matters far more than user performance; use whatever gets the job done fastest.
-2.  **Migrating an existing site.**
-    If you’re migrating from an existing site to Vue, being able to wrap whatever framework you’re already using within Vue will give you a graceful migration path so you can gradually pull out the old code piece by piece, without having to do a big bang rewrite.
-3.  **When the functionality simply isn’t available yet in a Vue component.**
-    If you have a specific and challenging requirement you need to meet, for which a third-party library exists but there isn’t a Vue specific component, by all means consider wrapping the library that does exist.
+1.  **项目原型**
+    在这种情况下，迭代速度的需求远远超过用户性能；只需要使用所有能让你工作效率提升的东西。
+2.  **迁移现有的站点**
+    如果你需要将现有的站点迁移到 Vue，可以通过 Vue 来将现有的东西进行优雅地包装，这样就可以逐步地抽出旧的代码，而不用进行一次大爆炸似的重写。
+3.  **当 Vue 组件功能尚不可用的时候**
+    如果你需要完成特定的，或者具有挑战性的需求的时候，存在第三方库支持，但是 Vue 还没有特定的组件，请务必考虑用 Vue 来包装现有的库。
 
-> [When there are large mismatches between the APIs used by third-party libraries and the declarative approach that Vue takes, you may find yourself implementing patterns that result in a lot of extra execution time.](http://twitter.com/share?text=When%20there%20are%20large%20mismatches%20between%20the%20APIs%20used%20by%20third-party%20libraries%20and%20the%20declarative%20approach%20that%20Vue%20takes,%20you%20may%20find%20yourself%20implementing%20patterns%20that%20result%20in%20a%20lot%20of%20extra%20execution%20time.%0a&url=https://smashingmagazine.com%2f2019%2f02%2fvue-framework-third-party-javascript%2f)
+> [当第三方使用的 API 和 Vue 的声明方式大相径庭的时候，你可能会发现自己的程序需要大量额外的执行时间。](http://twitter.com/share?text=When%20there%20are%20large%20mismatches%20between%20the%20APIs%20used%20by%20third-party%20libraries%20and%20the%20declarative%20approach%20that%20Vue%20takes,%20you%20may%20find%20yourself%20implementing%20patterns%20that%20result%20in%20a%20lot%20of%20extra%20execution%20time.%0a&url=https://smashingmagazine.com%2f2019%2f02%2fvue-framework-third-party-javascript%2f)
 
-### Examples In The Wild
+### 现有的一些例子
 
-The first two of these patterns are used all over the open-source ecosystem, so there are a number of different examples you can investigate. Since wrapping an entire complex component or component library tends to be more of a stopgap/migration solution, I haven’t found as many examples of that in the wild, but there are a couple out there, and I’ve used this approach for clients occasionally as requirements have dictated. Here is a quick example of each:
+前两个模式在开源生态环境中使用范围非常广泛，所以有非常多的例子可以去参考。由于包装整个组件更像是一种权宜之计/迁移解决方案，我们在外部找不到那么多例子，但是还有有一些现有的例子，我曾经在客户要求下使用了这种方法。下面是三种模式的一些简单的例子：
 
-1.  [Vue-moment](https://www.npmjs.com/package/vue-moment) wraps the moment.js library and creates a set of handy Vue filters;
-2.  [Awesome-mask](https://www.npmjs.com/package/awesome-mask) wraps the vanilla-masker library and creates a directive for masked inputs;
-3.  [Vue2-foundation](https://www.npmjs.com/package/vue2-foundation) wraps up the ZURB Foundation component library inside of Vue components.
+1.  [Vue-moment](https://www.npmjs.com/package/vue-moment) 包装了 moment.js 库，并且提供了一系列的 Vue 过滤器；
+2.  [Awesome-mask](https://www.npmjs.com/package/awesome-mask) 包装了 vanilla-masker 库并且提供了遮盖输入的指令；
+3.  [Vue2-foundation](https://www.npmjs.com/package/vue2-foundation) 在 Vue 组件内部包装了 ZURB Foundation 组件。
 
-## Conclusion
+## 结论
 
-The popularity of Vue.js shows no signs of slowing down, with a huge amount of credit being due to the framework’s progressive approach. By enabling incremental adoption, Vue’s progressive nature means that individuals can start using it here and there, a bit at a time, without having to do massive rewrites.
+Vue.js 的受欢迎程度还没有放缓的迹象，框架的渐进式策略赢得了很多的信任。渐进式策略意味着个人可以逐渐地接入使用，而无需进行大规模的重写。
 
-As we’ve looked at here, that progressive nature extends in the other direction as well. Just as you can embed Vue bit by bit in another application, you can embed other libraries bit by bit inside of Vue.
+正如我们看到的那样，这种渐进式也在向另外的方向发展。正如你可以在其他应用程序中嵌入 Vue 一样，也可以在 Vue 内部嵌入其他的库。
 
-Need some piece of functionality that hasn’t been ported to a Vue component yet? Pull it in, wrap it up, and you’re good to go.
+需要一些尚未移植到 Vue 组件的功能吗？把它拉进来，把它包起来，你会觉得物超所值的。
 
-### Further Reading on SmashingMag:
+### SmashingMag 上的进一步阅读：
 
 -   [Replacing jQuery With Vue.js: No Build Step Necessary](https://www.smashingmagazine.com/2018/02/jquery-vue-javascript/ "Read 'Replacing jQuery With Vue.js: No Build Step Necessary'") by Sarah Drasner
 -   [Creating Custom Inputs With Vue.js](https://www.smashingmagazine.com/2017/08/creating-custom-inputs-vue-js/ "Read 'Creating Custom Inputs With Vue.js'") by Joseph Zimmerman
