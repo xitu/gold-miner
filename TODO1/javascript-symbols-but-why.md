@@ -23,7 +23,7 @@ Some languages, such as C, have the concept of pass-by-reference and pass-by-val
 
 Consider the following example:
 
-```
+```js
 function primitiveMutator(val) {
   val = val + 1;
 }
@@ -43,7 +43,7 @@ console.log(obj.prop); // 2
 
 Primitive values (except for the mystical `NaN` value) will always be exactly equal to another primitive with an equivalent value. Check it out here:
 
-```
+```js
 const first = "abc" + "def";
 const second = "ab" + "cd" + "ef";
 
@@ -52,7 +52,7 @@ console.log(first === second); // true
 
 However, constructing equivalent non-primitive values will **not** result in values which are exactly equal. We can see this happening here:
 
-```
+```js
 const obj1 = { name: "Intrinsic" };
 const obj2 = { name: "Intrinsic" };
 
@@ -64,7 +64,7 @@ console.log(obj1.name === obj2.name); // true
 
 Objects play an elemental role in the JavaScript language. They’re used **everywhere**. They’re often used as collections of key/value pairs. However, this is a big limitation of using them in this manner: Until symbols existed, object keys could only be strings. If we ever attempt to use a non-string value as a key for an object, the value will be coerced to a string. We can see this feature here:
 
-```
+```js
 const obj = {};
 obj.foo = 'foo';
 obj['bar'] = 'bar';
@@ -82,7 +82,7 @@ console.log(obj);
 
 Now that we know what a primitive value is, we’re finally ready to define what a symbol is. A symbol is a primitive which cannot be recreated. In this case a symbols is similar to an object as creating multiple instances will result in values which are not exactly equal. But, a symbol is also a primitive in that it cannot be mutated. Here is an example of symbol usage:
 
-```
+```js
 const s1 = Symbol();
 const s2 = Symbol();
 
@@ -91,7 +91,7 @@ console.log(s1 === s2); // false
 
 When instantiating a symbol there is an optional first argument where you can choose to provide it with a string. This value is intended to be used for debugging code, it otherwise doesn’t really affect the symbol itself.
 
-```
+```js
 const s1 = Symbol('debug');
 const str = 'debug';
 const s2 = Symbol('xxyy');
@@ -105,7 +105,7 @@ console.log(s1); // Symbol(debug)
 
 Symbols have another important use. They can be used as keys in objects! Here is an example of using a symbol as a key within an object:
 
-```
+```js
 const obj = {};
 const sym = Symbol();
 obj[sym] = 'foo';
@@ -123,7 +123,7 @@ At first glance, this almost looks like symbols can be used to create private pr
 
 Unfortunately, it is still possible for code which interacts with this object to access properties whose keys are symbols. This is even possible in situations where the calling code does **not** already have access to the symbol itself. As an example, the `Reflect.ownKeys()` method is able to get a list of **all** keys on an object, both strings and symbols alike:
 
-```
+```js
 function tryToAddPrivate(o) {
   o[Symbol('Pseudo Private')] = 42;
 }
@@ -144,7 +144,7 @@ Symbols may not directly benefit JavaScript for providing private properties to 
 
 Consider the situation where two different libraries want to attach some sort of metadata to an object. Perhaps they both want to set some sort of identifier on the object. By simply using the two character string `id` as a key, there is a huge risk that multiple libraries will use the same key.
 
-```
+```js
 function lib1tag(obj) {
   obj.id = 42;
 }
@@ -156,7 +156,7 @@ function lib2tag(obj) {
 
 By making use of symbols, each library can generate their required symbols upon instantiation. Then the symbols can be checked on objects, and set to objects, whenever an object is encountered.
 
-```
+```js
 const library1property = Symbol('lib1');
 function lib1tag(obj) {
   obj[library1property] = 42;
@@ -172,7 +172,7 @@ For this reason it would seem that symbols **do** benefit JavaScript.
 
 However, you may be wondering, why can’t each library simply generate a random string, or use a specially namespaced string, upon instantiation?
 
-```
+```js
 const library1property = uuid(); // random approach
 function lib1tag(obj) {
   obj[library1property] = 42;
@@ -188,7 +188,7 @@ Well, you’d be right. This approach is actually pretty similar to the approach
 
 At this point the astute reader would point out that the two approaches haven’t been entirely equal. Our property names with unique names still have a shortcoming: their keys are very easy to find, especially when code runs to either iterate the keys or to otherwise serialize the objects. Consider the following example:
 
-```
+```js
 const library2property = 'LIB2-NAMESPACE-id'; // namespaced
 function lib2tag(obj) {
   obj[library2property] = 369;
@@ -209,7 +209,7 @@ If we had used a symbol for a property name of the object then the JSON output w
 
 We can easily rectify the issue where our library object strings are polluting the JSON output by making use of `Object.defineProperty()`:
 
-```
+```js
 const library2property = uuid(); // namespaced approach
 function lib2tag(obj) {
   Object.defineProperty(obj, library2property, {
@@ -233,7 +233,7 @@ console.log(user[library2property]); // 369
 
 String keys which have been “hidden” by setting their `enumerable` [descriptor](https://medium.com/intrinsic/javascript-object-property-descriptors-proxies-and-preventing-extension-1e1907aa9d10) to false behave very similarly to symbol keys. Both are hidden by `Object.keys()`, and both are revealed with `Reflect.ownKeys()`, as seen in the following example:
 
-```
+```js
 const obj = {};
 obj[Symbol()] = 1;
 Object.defineProperty(obj, 'foo', {
@@ -260,12 +260,11 @@ A proxy offers many ways to intercept actions performed on an object. The one we
 
 We can use a proxy to then lie about which properties are available on our object. In this case we’re going to craft a proxy which hides our two known hidden properties, one being the string `_favColor`, and the other being the symbol assigned to `favBook`:
 
-
 It’s easy to come up with the `_favColor` string: just read the source code of the library. Additionally, dynamic keys (e.g., the `uuid` example from before) can be found via brute force. But without a direct reference to the symbol, no one can access the 'Metro 2033' value from the `proxy` object.
 
 **Node.js Caveat**: There is a feature in Node.js which breaks the privacy of proxies. This feature doesn’t exist in the JavaScript language itself and doesn’t apply in other situations, such as a web browser. It allows one to gain access to the underlying object when given a proxy. Here is an example of using this functionality to break the above private property example:
 
-```
+```js
 const [originalObject] = process
   .binding('util')
   .getProxyDetails(proxy);
