@@ -5,7 +5,7 @@
 > * 译者：[steinliber](https://github.com/steinliber)
 > * 校对者：[Endone](https://github.com/Endone)，[xionglong58](https://github.com/xionglong58)
 
-# 数据流
+# 数据流简介
 
 **数据流**是一种数据分发技术，通过这种技术数据生产者可以把数据记录写入到一个有序的数据流中，数据消费者可以从该数据流中以同样的顺序读取数据。这里有一个简单的数据流图解释数据生产者、数据流和数据消费者：
 
