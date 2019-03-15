@@ -45,7 +45,7 @@ function *f() {
 }
 ```
 
-不幸的是，他的方法里使用了保留字 `true` 和 `false`，而两者实际上不是关键字。在 Chrome 中运行程序也会抛出一个错误:“Uncaught SyntaxError: Unexpected token in”。
+不幸的是，他的方法里使用了保留字 `true` 和 `false`，而两者实际上不是关键字。在 Chrome 中运行程序也会抛出一个错误：“Uncaught SyntaxError: Unexpected token in”。
 
 [@bluepnume](https://news.ycombinator.com/user?id=bluepnume)提出15个关键字的方案是：
 
@@ -57,7 +57,7 @@ async function* foo() {
 
 这段程序可以在 Chrome 中运行，但是程序中使用了 `null` ，这也不是一个关键字。
 
-虽然有些卖弄，如果我们从第二个解决方案中剔除 `null` ，并结合第一个解决方案，可以得到一个不同的 15 个关键字长度的解决方案:
+虽然有些卖弄，如果我们从第二个解决方案中剔除 `null` ，并结合第一个解决方案，可以得到一个不同的 15 个关键字长度的解决方案：
 
 ```js
 async function* foo() {
@@ -149,7 +149,7 @@ typeof let
 
 或者这样做：
 
-输入一个段落分隔符(`\u2029`),如果正确呈现，它看起来如下：<code></code>
+输入一个段落分隔符(`\u2029`)，如果正确呈现，它看起来如下：<code></code>
 
 什么都看不见？这就对了！这是一个隐形变量。
 
