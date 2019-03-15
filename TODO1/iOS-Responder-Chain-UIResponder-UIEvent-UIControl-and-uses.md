@@ -79,13 +79,11 @@ If you run this, you'll see that even though the action was sent from a plain `U
 
 When no target is specified, UIKit will search for an `UIResponder` capable of handling this action just like in the plain `UIEvent` example. In this case, being able to handle an action relates to the following `UIResponder` method:
 
-
 ```
 open func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool
 ```
 
 By default, this method simply checks if the responder implements the actual method. "Implementing" the method can be done in three ways, depending on how much info you want (this applies to any native action/target component in iOS!):
-
 
 ```
 func myCustomMethod()
@@ -150,7 +148,6 @@ final class BlinkableView: UIView {
 
 UIApplication.shared.sendAction(#selector(BlinkableView.performBlinkAction), to: nil, from: nil, for: nil)
 //Will precisely blink the last BlinkableView that had select() called.
-
 ```
 
 This works pretty much like regular notifications, with the difference being that while notifications will trigger everyone that registers them, this efficiently iterates the Responder Chain and stops as soon as the first BlinkableView is found.
