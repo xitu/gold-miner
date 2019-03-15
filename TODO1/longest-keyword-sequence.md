@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/longest-keyword-sequence.md](https://github.com/xitu/gold-miner/blob/master/TODO1/longest-keyword-sequence.md)
 > * 译者：[xionglong58](https://github.com/xionglong58)
-> * 校对者：
+> * 校对者：[Endone](https://github.com/Endone)
 
 # Javascript 中最长的关键字序列长什么样子？
 
@@ -14,7 +14,7 @@
 
 但问题是：
 
-* 这些解决方案使用了非关键字标记(null、true、false 实际上是字面量，而不是关键字)
+* 这些解决方案使用了非关键字标记(null、true、false 实际上是[字面量](https://tc39.github.io/ecma262/#prod-Literal)，而不是[关键字](https://tc.github.io/ecma262/#prod-Keyword))
 * 其中一个解决方案有些说不通
 
 让我们试试能不能做的更好。
@@ -23,8 +23,8 @@
 
 ## 规则
 
-1) 代码必须能作为有效的 Javascript 进行解析和运行。不能忽略 [early errors]
-2) 只允许使用关键字
+1) 代码必须能作为有效的 Javascript 进行解析和运行。不能忽略 [early errors](https://tc39.github.io/ecma262/#early-error)
+2) 只允许使用[关键字](https://tc39.github.io/ecma262/#sec-keywords)
 3) 除小写字母外，其它唯一允许的字符是空格
 4) 不能在序列中重复使用一个关键字
 5) 您可以根据需要添加尽可能多的前同步码和后同步码
@@ -73,7 +73,7 @@ async function* foo() {
 
 虽然这样做没什么意思，但卖弄知识却很有趣。
 
-但不用担心，因为在下面的讨论中 [Bterlson](https://twitter.com/bterlson) 作了这样的补充:
+但不用担心，因为在下面的讨论中 [Bterlson](https://twitter.com/bterlson/status/1093651943325483008) 作了这样的补充:
 
 > `this`、`null`和 `undefined` 可以认为是关键字，即使它们在技术上不是关键字。这使得比赛更有趣（加上编辑们把它们标记成关键字，所以这么说也行得通）
 
@@ -101,7 +101,7 @@ c
 // boooring
 ```
 
-我倒认为这项挑战的意义在于仅使用 _类似_ 关键字的标记完成挑战 (即使这些类似关键字的词在技术层面不能算作规范的关键字)
+我倒认为这项挑战的意义在于仅使用***类似***关键字的标记完成挑战 (即使这些类似关键字的词在技术层面不能算作规范的关键字)
 
 下面是一些像是关键字实际上不是关键字的标记：
 
