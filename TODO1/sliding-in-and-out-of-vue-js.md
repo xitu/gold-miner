@@ -7,25 +7,25 @@
 
 # Vue.js 和第三方 JavaScript 的逐渐集成
 
-**摘要**： Vue.js 的一个主要的优点是可以很好地与其他代码一起工作： 也就是它不仅很容易嵌入到其他的应用程序当中，而且也很容易将非 Vue 代码包装到 Vue 当中。本文讨论了 Vue.js 的第二个优势，包括了三种不同类型的 JavaScript，以及将它们嵌入到 Vue 中的方法。
+**摘要**： Vue.js 的一个主要的优点是可以很好地与其他代码一起工作： 也就是说它不仅很容易嵌入到其他的应用程序当中，而且也很容易将非 Vue 代码包装到 Vue 当中。本文讨论了 Vue.js 的第二个优势，包括了三种不同类型的第三方 JavaScript，以及将它们嵌入到 Vue 中的方法。
 
 **Vue.js 在过去几年中实现了非常惊人的使用量增长**。它已经从一个鲜为人知的开源库变成了第二受欢迎的前端框架（仅次于 React.js ）。
 
-Vue 用户增长的一个核心原因是： Vue 是一个 _渐进式_ 框架 - 它允许你的页面中部分使用 Vue.js 来进行开发，而不需要一个完整的单页应用。也允许你只加入一个 script 标签，而不是使用一个完整的构建系统就可以启动并且运行。
+Vue 用户增长的一个核心原因是： Vue 是一个**渐进式**框架 - 它允许你的页面中部分使用 Vue.js 来进行开发，而不需要一个完整的单页应用。也允许你只加入一个 script 标签，而不是使用一个完整的构建系统就可以启动并且运行。
 
 这种渐进式的哲学让 Vue.js 的碎片化开发非常简单，不需要进行大型架构的重写。然而，有一件事却经常被忽略，不仅将 Vue.js 嵌入到其他框架编写的网站中比较容易。 **在 Vue.js 中嵌入其他代码也非常容易**。虽然 Vue 会控制 DOM，但是它也预留了一个出口，允许其他非 Vue 的JavaScript控制 DOM。
 
-本文将会探讨当你想要使用不同类型的第三方 JavaScript ，并且想将其嵌入到 Vue 编写的工程里面的情况，然后介绍最适合嵌入到 Vue 中的几种类型的工具和技术。在最后，我们会考虑这些方法的缺点，以及在决定使用它们的时候需要考虑什么。
+本文将会探讨当你想要使用不同类型的第三方 JavaScript ，并且想将其嵌入到 Vue 项目中的情况，然后介绍最适合嵌入到 Vue 中的几种类型的工具和技术。在最后，我们会考虑这些方法的缺点，以及在决定使用它们的时候需要考虑什么。
 
-_本文假设你熟悉 Vue.js 以及组件和指令的概念。如果你正在寻找 Vue 和这些概念的介绍，可以参考 Sarah Drasner 的 [introduction to Vue.js series](https://css-tricks.com/intro-to-vue-1-rendering-directives-events/) 或者 [Vue 官方文档](https://vuejs.org/v2/guide/)。_
+**本文假设你熟悉 Vue.js 以及组件和指令的概念。如果你正在寻找 Vue 和这些概念的介绍，可以参考 Sarah Drasner 的 [introduction to Vue.js series](https://css-tricks.com/intro-to-vue-1-rendering-directives-events/) 或者 [Vue 官方文档](https://vuejs.org/v2/guide/)。**
 
 ## 第三方 JavaScript 类型
 
 我们将主要的三种第三方 JavaScript 类型按照复杂程度排序：
 
-1. [DOM 无关的库](#non-dom-libraries)
-2. [元素扩充库](#element-augmentation-libraries)
-3. [组件和组件库](#components-and-component-libraries)
+1. [DOM 无关的库](#DOM-无关的库)
+2. [元素扩充库](#元素增强库)
+3. [组件和组件库](#组件和组件库)
 
 ### DOM 无关的库
 
@@ -35,7 +35,7 @@ _本文假设你熟悉 Vue.js 以及组件和指令的概念。如果你正在�
 
 ### 元素增强库
 
-元素增强是一种为 DOM 元素添加额外功能的方法，这种方法由来已久。比如可以帮助图片进行懒加载的 [lozad](https://github.com/ApoorvSaxena/lozad.js) 或者为输入框提供遮盖的 [Vanilla Masker](https://github.com/vanilla-masker/vanilla-masker)。
+元素增强是一种为 DOM 元素添加额外功能的方法，这种方法由来已久。比如可以帮助图片进行懒加载的 [lozad](https://github.com/ApoorvSaxena/lozad.js) 或者为输入框提供输入过滤的 [Vanilla Masker](https://github.com/vanilla-masker/vanilla-masker)。
 
 这些库通常只会一次影响单个元素，他们可能会操纵单个元素，但是不会为 DOM 增加新的元素。
 
@@ -47,13 +47,13 @@ _本文假设你熟悉 Vue.js 以及组件和指令的概念。如果你正在�
 
 这些库要么会直接将这些元素注入到 DOM 中，要么期望能够对 DOM 进行高级别的控制。它们通常使用其他的框架或者工具集构建（上面的两个例子都是基于jQuery进行构建的）。
 
-这些工具提供了 _非常广泛的_ 功能，并且在没有大量修改的情况下，将其替换成其他的工具是非常具有挑战性的，因此，将他们嵌入到 Vue 中的解决方案，对于迁移一个大型应用来说非常关键。
+这些工具提供了**非常广泛的**功能，并且在没有大量修改的情况下，将其替换成其他的工具是非常具有挑战性的，因此，将他们嵌入到 Vue 中的解决方案，对于迁移一个大型应用来说非常关键。
 
 ## 如何在 Vue 中使用
 
 ### DOM 无关的库
 
-将DOM 无关的库集成到 Vue.js 工程中相对简单一些。如果你在使用 JavaScript 模块，那么就像在工程中引入其他模块一样，简单地使用 `import` 或者 `require` 就好了。比如：
+将 DOM 无关的库集成到 Vue.js 工程中相对简单一些。如果你在使用 JavaScript 模块，那么就像在工程中引入其他模块一样，简单地使用 `import` 或者 `require` 就好了。比如：
 
 ```js
 import moment from 'moment';
@@ -122,7 +122,7 @@ const myComponent = {
 
 #### Vue 指令
 
-Vue 指令是一种修饰符，可以为页面中的元素添加行为。Vue 已经提供了许多你已经熟悉了的內建指令，比如 `v-on`，`v-model` 以及 `v-bind`。并且我们还可以创建 _自定义_ 指令来为元素添加任何类型的行为 - 这正是我们想要实现的。
+Vue 指令是一种修饰符，可以为页面中的元素添加行为。Vue 已经提供了许多你已经熟悉了的內建指令，比如 `v-on`，`v-model` 以及 `v-bind`。并且我们还可以创建**自定义**指令来为元素添加任何类型的行为 - 这正是我们想要实现的。
 
 定义一个自定义指令和定义组件非常相似；使用一组和特定声明周期钩子对应的方法创建一个对象，并且通过执行将其添加到全局：
 
@@ -142,7 +142,7 @@ const myComponent = {
 
 #### Vue 指令钩子
 
-Vue 指令有针对以下应为的钩子。虽然可以在单个指令中使用这些钩子，但是一般情况下只会在一个指令中使用其中的一个到两个钩子。这些生命周期钩子都是可选的，所以请在使用的时候选择需要的即可。
+Vue 指令有针对以下可用于自定义行为的钩子。虽然可以在单个指令中使用这些钩子，但是一般情况下只会在一个指令中使用其中的一个到两个钩子。这些生命周期钩子都是可选的，所以请在使用的时候选择需要的即可。
 
 - `bind(el, binding, vnode)`
     当指令首次绑定到一个元素上的时候，会且仅会被调用一次。这是一个进行一次性设置工作的好地方，但是要小心，即使元素存在，也有可能还未被实际挂载到文档中。
@@ -162,11 +162,11 @@ Vue 指令有针对以下应为的钩子。虽然可以在单个指令中使用�
 - `vnode`：Vue 编译器产出的对应元素的虚拟节点；
 - `oldValue`：更新之前的虚拟节点，只会在 `update` 和 `componentUpdated` 中被传入。
 
-_更多信息可以在 [Vue 自定义指令指南](https://cn.vuejs.org/v2/guide/custom-directive.html#hook-arguments-example)中找到。_
+**更多信息可以在 [Vue 自定义指令指南](https://cn.vuejs.org/v2/guide/custom-directive.html#hook-arguments-example)中找到。**
 
 #### 在自定义指令中引入 Lozad 库
 
-让我们来看一个使用了 [lozad](https://www.npmjs.com/package/lozad) 的引入例子， lozad 库是一种基于 Intersection Observer API 懒加载库。使用 lozad 的 API 非常简单：通过 `data-src` 来替换图片的 `src` 属性，并且传递一个选择器或者元素到 `lozad()` 方法中，然后调用的对象中的 `observe` 即可。
+让我们来看一个使用了 [lozad](https://www.npmjs.com/package/lozad) 的引入例子， lozad 库是一种基于 Intersection Observer API 的懒加载库。使用 lozad 的 API 非常简单：通过 `data-src` 来替换图片的 `src` 属性，并且传递一个选择器或者元素到 `lozad()` 方法中，然后调用的对象中的 `observe` 即可。
 
 ```js
 const el = document.querySelector('img');
@@ -238,7 +238,7 @@ const lozadDirective = {
 -   `beforeMount()`
     在组件挂载到 DOM 之前被调用。（也很少使用）
 -   `mounted()`
-    在组件被挂载到 DOM 之后调用。对于调用时需要依赖 DOM 或者 假设 DOM 存在的库来说，这是我们最常使用的钩子函数。
+    在组件被挂载到 DOM 之后调用。对于调用时需要依赖 DOM 或者假设 DOM 存在的库来说，这是我们最常使用的钩子函数。
 -   `beforeUpdate()`
     在 Vue 即将更新渲染模板的时候调用，很少使用，但是同样地，在整合分析的时候也是有用的。
 -   `updated()`
@@ -264,7 +264,7 @@ mounted() {
 
 你可以在 [CodePen](https://codepen.io/) 中查看下面代码片：参阅  Smashing Magazine ([@smashing-magazine](https://codepen.io/smashing-magazine/)) 的这段代码片：[Vue 集成：简单的多选包装](https://codepen.io/smashing-magazine/pen/WmeYKy)。
 
-这看起来很不错。如果我们需要任何卸载方法，我们需要添加 `beforeDestroy` 钩子函数，但是这个库没有需要我们调用的任何卸载方法。
+这看起来很不错。如果我们需要在卸载的时候调用某些方法，我们需要添加 `beforeDestroy` 钩子函数，但是这个库没有需要我们调用的任何卸载方法。
 
 #### 将回调转换为事件
 
@@ -308,7 +308,7 @@ export default {
 ```
 
 2. **处理内部变化**
-为了处理因为用户和多选元素的交互所产生的变化，我们可以回到之前探讨过的回调 - 但这次不是那么简单了。我们需要考虑原始值以及发生的变化，而不是简单地将接收到的值传递出去。
+为了处理因为用户和多选元素的交互所产生的变化，我们可以回到之前探讨过的回调 ——— 但这次不是那么简单了。我们需要考虑原始值以及发生的变化，而不是简单地将接收到的值传递出去。
 
 ```js
 mounted() { 
@@ -321,11 +321,11 @@ mounted() {
 ```
 
 这些回调函数看起来有些密集，所以让我们来把它分解一下。
-`afterSelect` 处理器将新选择的值与我们现有的值连接起来，但是为了确保没有重复，我们采用 Set（保证唯一性）来进行处理。然后将其解构，转换为数组。
-`afterDeselect` 处理器只是从列表中过滤掉当前取消选择的值，以便传递出去新的列表。
+`afterSelect` 方法将新选择的值与我们现有的值连接起来，但是为了确保没有重复，我们采用 Set（保证唯一性）来进行处理。然后将其解构，转换为数组。
+`afterDeselect` 方法只是从列表中过滤掉当前取消选择的值，以便传递出去新的列表。
 
 3. **处理外部触发的更新**
-接下来我们需要做的是在 `value` 属性更新时，更改 UI 中的选定值。这包括将属性的 _声明式_ 变化转换到多选可用的 _必要的_ 变化。最简单的方式是在 `value` 属性上使用观察者。
+接下来我们需要做的是在 `value` 属性更新时，更改 UI 中的选定值。这包括将属性的**声明式**变化转换到多选可用的**必要的**变化。最简单的方式是在 `value` 属性上使用观察者。
 
 ```js
 watch:
@@ -351,7 +351,7 @@ watch: {
 ```
 
 4. **将外部更新表现在插槽中**
-我们还有一件事需要处理：我们的多选元素正在使用通过插槽传入的选项值。如果这组选项发生了变化，我们需要告诉多选元素进行更新，否则新的选项不会展示出来。幸运的是，我们在多选组件的更新中有一个简单的 API（`refresh`函数和一个明显的 Vue 钩子）。这样就可以简单地处理这种情况了。
+我们还有一件事需要处理：我们的多选元素正在使用通过插槽传入的选项值。如果这组选项发生了变化，我们需要告诉多选元素进行更新，否则新的选项不会展示出来。幸运的是，我们在多选组件的更新中有一个简单的 API（`refresh` 函数和一个明显的 Vue 钩子）。这样就可以简单地处理这种情况了。
 
 ```js
 updated() {
@@ -367,7 +367,7 @@ updated() {
 
 ### 性能影响
 
-在 Vue 中使用 _不_ 是为了 Vue 编写的第三方 JavaScript 的主要缺点之一就是性能 - 特别是在引用由其他框架构建的组件以及组件库的时候。在用户与我们的应用程序交互之前，浏览器会需要下载和解析额外的 JavaScript。
+在 Vue 中使用**不**是为了 Vue 编写的第三方 JavaScript 的主要缺点之一就是性能 ——— 特别是在引用由其他框架构建的组件以及组件库的时候。在用户与我们的应用程序交互之前，浏览器会需要下载和解析额外的 JavaScript。
 
 比如，如果使用上述的多选组件，需要引入全部的 jQuery 代码。这使得用户需要下载两倍于现在的框架代码，仅仅是为了这样一个组件！显然，使用原生的 Vue.js 组件会更好。
 
@@ -395,7 +395,7 @@ updated() {
 前两个模式在开源生态环境中使用范围非常广泛，所以有非常多的例子可以去参考。由于包装整个组件更像是一种权宜之计/迁移解决方案，我们在外部找不到那么多例子，但是还有有一些现有的例子，我曾经在客户要求下使用了这种方法。下面是三种模式的一些简单的例子：
 
 1.  [Vue-moment](https://www.npmjs.com/package/vue-moment) 包装了 moment.js 库，并且提供了一系列的 Vue 过滤器；
-2.  [Awesome-mask](https://www.npmjs.com/package/awesome-mask) 包装了 vanilla-masker 库并且提供了遮盖输入的指令；
+2.  [Awesome-mask](https://www.npmjs.com/package/awesome-mask) 包装了 vanilla-masker 库并且提供了过滤输入的指令；
 3.  [Vue2-foundation](https://www.npmjs.com/package/vue2-foundation) 在 Vue 组件内部包装了 ZURB Foundation 组件。
 
 ## 结论
