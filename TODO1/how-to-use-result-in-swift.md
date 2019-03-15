@@ -1,31 +1,31 @@
-> * 原文地址：[How to use Result in Swift 5](https://www.hackingwithswift.com/articles/161/how-to-use-result-in-swift)
-> * 原文作者：[Paul Hudson](https://twitter.com/twostraws)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-use-result-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-use-result-in-swift.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[How to use Result in Swift 5](https://www.hackingwithswift.com/articles/161/how-to-use-result-in-swift)
+> - 原文作者：[Paul Hudson](https://twitter.com/twostraws)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-use-result-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-use-result-in-swift.md)
+> - 译者：[Bruce-pac](https://github.com/Bruce-pac)
+> - 校对者：
 
-# How to use Result in Swift 5
+# 如何在 Swift 5 中使用 Result
 
 ![](https://www.hackingwithswift.com/uploads/swift-evolution-5.jpg)
 
-[SE-0235](https://github.com/apple/swift-evolution/blob/master/proposals/0235-add-result.md) introduces a `Result` type into the standard library, giving us a simpler, clearer way of handling errors in complex code such as asynchronous APIs. This is something folks have been asking for since the very earliest days of Swift, so it's great to see it finally arrive!
+[SE-0235](https://github.com/apple/swift-evolution/blob/master/proposals/0235-add-result.md) 在标准库中引入了一个```Result```类型，使我们能够更简单、更清晰地处理复杂代码中的错误，比如异步 API 。这是人们在 Swift 早期就开始要求的东西，所以很高兴看到它终于到来!
 
-Swift’s `Result` type is implemented as an enum that has two cases: `success` and `failure`. Both are implemented using generics so they can have an associated value of your choosing, but `failure` must be something that conforms to Swift’s `Error` type.
+Swift 的```Result```类型被实现为一个枚举，它有两种情况:```success```和```failure```。两者都是使用泛型实现的，因此它们可以有您选择的关联值，但```failure```必须符合 Swift 的```Error```类型。
 
-To demonstrate `Result`, we could write a function that connects to a server to figure out how many unread messages are waiting for the user. In this example code we’re going to have just one possible error, which is that the requested URL string isn’t a valid URL:
+为了演示```Result```，我们可以编写一个连接到服务器的函数来计算有多少未读消息在等待用户。在这个例子代码中，我们将只有一个可能的错误，那就是请求的 URL 字符串不是一个有效的 URL :
 
-```
+```swift
 enum NetworkError: Error {
     case badURL
 }
 ```
 
-The fetching function will accept a URL string as its first parameter, and a completion handler as its second. That completion handler will itself accept a `Result`, where the success case will store an integer, and the failure case will be some sort of `NetworkError`. We’re not actually going to connect to a server here, but using a completion handler at least lets us simulate asynchronous code.
+这个函数将接受一个 URL 字符串作为它的第一个参数，并接受一个完成处理闭包作为它的第二个参数。该完成处理程序本身将接受一个```Result```，其中```success```将存储一个整数，而```failure```案例将是某种```NetworkError```。我们实际上并不打算在这里连接到服务器，但是使用一个完成处理闭包至少可以让我们模拟异步代码。
 
-Here’s the code:
+代码如下：
 
-```
+```swift
 func fetchUnreadCount1(from urlString: String, completionHandler: @escaping (Result<Int, NetworkError>) -> Void)  {
     guard let url = URL(string: urlString) else {
         completionHandler(.failure(.badURL))
@@ -38,9 +38,9 @@ func fetchUnreadCount1(from urlString: String, completionHandler: @escaping (Res
 }
 ```
 
-To use that code we need to check the value inside our `Result` to see whether our call succeeded or failed, like this:
+要使用该代码，我们需要检查我们的```Result```中的值，看看我们的调用成功还是失败，如下所示:
 
-```
+```swift
 fetchUnreadCount1(from: "https://www.hackingwithswift.com") { result in
     switch result {
     case .success(let count):
@@ -51,11 +51,11 @@ fetchUnreadCount1(from: "https://www.hackingwithswift.com") { result in
 }
 ```
 
-Even in this simple scenario, `Result` has given us two benefits. First, the error we get back is now strongly typed: it must be some sort of `NetworkError`. Swift’s regular throwing functions are unchecked and so can throw any type of error. As a result, if you add a `switch` block to go over their cases you need to add `default` case even when it isn’t possible. With the strongly-typed errors of `Result` we can create exhaustive `switch` blocks by listing all the cases of our error enum.
+即使在这个简单的场景中，```Result```也给了我们两个好处。首先，我们返回的错误现在是强类型的:它一定是某种```NetworkError```。Swift 的常规抛出函数是不检查类型的，因此可以抛出任何类型的错误。因此，如果您添加了一个```switch```块来查看他们的情况，您需要添加```default```情况，即使这种情况是不可能的。使用```Result```的强类型错误，我们可以通过列出错误枚举的所有情况来创建详尽的```switch```块。
 
-Second, it’s now clear that we will get back _either_ successful data _or_ an error – it is not possible to get both or neither of them. You can see the importance of this second benefit if we rewrite `fetchUnreadCount1()` using the traditional, Objective-C approach to completion handlers:
+其次，现在很清楚，我们要么返回成功的数据要么返回一个错误，不可能同时获得或两者都不可能获得。如果我们使用传统的 Objective-C 方法重写```fetchUnreadCount1()```来完成处理程序，你可以看到第二个好处的重要性:
 
-```
+```swift
 func fetchUnreadCount2(from urlString: String, completionHandler: @escaping (Int?, NetworkError?) -> Void) {
     guard let url = URL(string: urlString) else {
         completionHandler(nil, .badURL)
@@ -67,21 +67,21 @@ func fetchUnreadCount2(from urlString: String, completionHandler: @escaping (Int
 }
 ```
 
-Here the completion handler is expected to receive both an integer and an error, although either of them might be nil. Objective-C used this approach because it doesn’t have the ability to express enums with an associated value, so there was no choice but to send back both and let users figure it out.
+这里，完成处理程序将同时接收一个整数和一个错误，尽管它们中的任何一个都可能是 nil 。Objective-C 之所以使用这种方法，是因为它没有能力用关联的值来表示枚举，所以别无选择，只能将两者都发送回去，让用户自己去弄清楚。
 
-However, this approach means we’ve gone from two possible states to four: an integer with no error, an error with no integer, an error _and_ an integer, and no error with no integer. Those last two ought to be impossible states, but there was no easy way to express this before Swift introduced `Result`.
+然而，这种方法意味着我们已经从两种可能的状态变成了四种:一个没有错误的整数，一个没有整数的错误，一个错误和一个整数，没有整数和没有错误。最后两种状态应该是不可能的，但在 Swift 引入```Result```之前，没有简单的方法来表达这一点。
 
-This situation occurs a _lot_. The `dataTask()` method from `URLSession` uses the same approach, for example: it calls its completion handler with `(Data?, URLResponse?, Error?)`. That might give us some data, a response, and an error, or any combination of the three – the Swift Evolution proposal calls this situation “awkwardly disparate”.
+这种情况经常发生。```URLSession```中的```dataTask()```方法使用相同的方法，例如:它用```(Data?, URLResponse?, Error?)```。这可能会给我们提供一些数据、一个响应和一个错误，或者三者的任何组合 — Swift Evolution 的提议称这种情况是完全无法比较的。
 
-Think of `Result` as a super-powered `Optional`: it wraps a successful value, but can also wrap a second case that expresses the absence of a value. With `Result`, though, that absence conveys bonus data, because rather than just being `nil` it instead tells us what went wrong.
+可以将```Result```看作一个超级强大的```Optional```，```Optional```封装了一个成功的值，但也可以封装第二个表示没有值的情况。然而，对于```Result```，第二种情况还可以传递了额外的数据，因为它告诉我们哪里出了问题，而不仅仅是```nil```。
 
-## Why not use `throws`?
+## 为何不使用```throws```？
 
-When you first meet `Result` it’s common to wonder why it’s useful, particularly when Swift already has a perfectly good `throws` keyword for handling errors ever since Swift 2.0.
+当你第一次看到```Result```时，你常常会想知道它为什么有用，尤其是自从 Swift 2.0 以来，它已经有了一个非常好的```throws```关键字来处理错误。
 
-You could implement much the same functionality by making the completion handler accept _another_ function that throws or returns the data in question, like this:
+你可以通过让完成处理闭包接受另一个函数来实现几乎相同的功能，该函数会抛出或返回有问题的数据，如下所示:
 
-```
+```swift
 func fetchUnreadCount3(from urlString: String, completionHandler: @escaping  (() throws -> Int) -> Void) {
     guard let url = URL(string: urlString) else {
         completionHandler { throw NetworkError.badURL }
@@ -93,9 +93,9 @@ func fetchUnreadCount3(from urlString: String, completionHandler: @escaping  (()
 }
 ```
 
-You could then call `fetchUnreadCount3()` with a completion handler that accepts a function to run, like this:
+然后，您可以使用一个接受要运行的函数的完成处理闭包调用```fetchUnreadCount3()```，如下所示:
 
-```
+```swift
 fetchUnreadCount3(from: "https://www.hackingwithswift.com") { resultFunction in
     do {
         let count = try resultFunction()
@@ -106,17 +106,17 @@ fetchUnreadCount3(from: "https://www.hackingwithswift.com") { resultFunction in
 }
 ```
 
-This gets us to more or less the same place, but it’s significantly more complicated to read. Worse, we don’t actually know what calling the `result()` function does, so there’s a risk it might cause its own problems if it does more than just send back a value or throw.
+这或多或少把我们带到了同一个地方，但读起来要复杂得多。更糟的是，我们实际上并不知道调用```result()```函数是做什么的，所以如果它不仅仅返回一个值或抛出一个值，那么就有可能导致它自己的问题。
 
-Even with simpler code, using `throws` often forces us handle errors immediately, rather than store them away for later processing. With `Result` that problem goes away: errors are stashed away in a value that we can read when we’re ready.
+即使使用更简单的代码，使用```throws```也常常迫使我们立即处理错误，而不是将错误存储起来供以后处理。有了```Result```，这个问题就消失了，错误被保存在一个值中，我们可以在准备好时读取这个值。
 
-## Working with Result
+## 处理```Result```
 
-We’ve already looked at how `switch` blocks let us evaluate both the `success` and `failure` cases of `Result` in a clean way, but there are five more things you ought to know before you start using it.
+我们已经了解了```switch```块如何让我们以一种干净的方式评估```Result```的```success```和```failure```案例，但是在开始使用它之前，还有五件事您应该知道。
 
-First, `Result` has a `get()` method that either returns the successful value if it exists, or throws its error otherwise. This allows you to convert `Result` into a regular throwing call, like this:
+首先，```Result```有一个```get()```方法，如果存在则返回成功值，否则抛出错误。这允许您将```Result```转换为一个常规抛出调用，如下所示:
 
-```
+```swift
 fetchUnreadCount1(from: "https://www.hackingwithswift.com") { result in
     if let count = try? result.get() {
         print("\(count) unread messages.")
@@ -125,9 +125,9 @@ fetchUnreadCount1(from: "https://www.hackingwithswift.com") { result in
 
 ```
 
-Second, you can use regular `if` statements to read the cases of an enum if you prefer, although some find the syntax a little odd. For example:
+其次，如果您愿意，可以使用常规的```if```语句来读取枚举的情况，尽管有些人觉得语法有点奇怪。例如:
 
-```
+```swift
 fetchUnreadCount1(from: "https://www.hackingwithswift.com") { result in
     if case .success(let count) = result {
         print("\(count) unread messages.")
@@ -135,40 +135,40 @@ fetchUnreadCount1(from: "https://www.hackingwithswift.com") { result in
 }
 ```
 
-Third, `Result` has an initializer that accepts a throwing closure: if the closure returns a value successfully that gets used for the `success` case, otherwise the thrown error is placed into the `failure` case.
+第三，```Result```有一个接受抛出闭包的初始化器:如果闭包成功返回一个值，该值用于```success```情况，否则抛出的错误将被放入```failure```情况。
 
-For example:
+例如：
 
-```
+```swift
 let result = Result { try String(contentsOfFile: someFile) }
 ```
 
-Fourth, rather than using a specific error enum that you’ve created, you can also use the general `Error` protocol. In fact, the Swift Evolution proposal says “it's expected that most uses of Result will use `Swift.Error` as the `Error` type argument.”
+第四，您还可以使用一般的```Error```协议，而不是使用您创建的特定错误枚举。事实上，Swift Evolution 的提议说：“预计`Result`的大多数用法都将使用```Swift.Error```作为```Error```类型参数。”
 
-So, rather than using `Result<Int, NetworkError>` you could use `Result<Int, Error>`. Although this means you lose the safety of typed throws, you gain the ability to throw a variety of different error enums – which you prefer really depends on your coding style.
+因此，可以使用```Result<Int, Error>```而不是```Result<Int, NetworkError>```。虽然这意味着您失去了类型抛出的安全性，但是您获得了抛出各种不同错误枚举的能力——您更喜欢哪种错误枚举实际上取决于您的编码风格。
 
-Finally, if you already have a custom `Result` type in your project – anything you have defined yourself or imported from one of the custom `Result` types on GitHub – then they will automatically be used in place of Swift’s own `Result` type. This will allow you to upgrade to Swift 5.0 without breaking your code, but ideally you’ll move to Swift’s own `Result` type over time to avoid incompatibilities with other projects.
+最后，如果你已经在你的项目中有了一个自定义的```Result```类型（任何你自己定义的或者从GitHub上的自定义```Result```类型导入的），那么它们将自动代替 Swift 自己的```Result```类型。这将允许您在不破坏代码的情况下升级到 Swift 5.0，但理想情况下，随着时间的推移，您将迁移到 Swift 自己的```Result```类型，以避免与其他项目不兼容。
 
-## Transforming Result
+## 转换```Result```
 
-`Result` has four other methods that may prove useful: `map()`, `flatMap()`, `mapError()`, and `flatMapError()`. Each of these give you the ability to transform either the success or error somehow, and the first two work similarly to the methods of the same name on `Optional`.
+```Result```有另外四个可能被证明有用的方法:```map()```、```flatMap()```、``` mapError()```和```flatMapError()```。这几个方法都能够以某种方式转换成功或错误，前两种方法和```Optional```上的同名方法行为类似。
 
-The `map()` method looks inside the `Result`, and transforms the success value into a different kind of value using a closure you specify. However, if it finds failure instead, it just uses that directly and ignores your transformation.
+```map()```方法查看```Result```内部，并使用指定的闭包将成功值转换为另一种类型的值。但是，如果它发现失败，它只直接使用它，而忽略您的转换。
 
-To demonstrate this, we’re going to write some code that generates random numbers between 0 and a maximum then calculate the factors of that number. If the user requests a random number below zero, or if the number happens to be prime – i.e., it has no factors except itself and 1 – then we’ll consider those to be failures.
+为了演示这一点，我们将编写一些代码，生成0到最大值之间的随机数，然后计算该数的因子。如果用户请求一个小于零的随机数，或者这个随机数恰好是素数，即它没有其他因子，除了它自己和1，然后我们会认为这些都是失败。
 
-We might start by writing code to model the two possible failure cases: the user has tried to generate a random number below 0, and the number that was generated was prime:
+我们可以从编写代码开始，对两种可能的失败案例进行建模:用户试图生成一个小于0的随机数和生成的随机数是素数:
 
-```
+```swift
 enum FactorError: Error {
     case belowMinimum
     case isPrime
 }
 ```
 
-Next, we’d write a function that accepts a maximum number, and returns either a random number or an error:
+接下来，我们将编写一个函数，它接受一个最大值，并返回一个随机数或一个错误:
 
-```
+```swift
 func generateRandomNumber(maximum: Int) -> Result<Int, FactorError> {
     if maximum < 0 {
        // creating a range below 0 will crash, so refuse
@@ -180,22 +180,22 @@ func generateRandomNumber(maximum: Int) -> Result<Int, FactorError> {
     }
 ```
 
-When that’s called, the `Result` we get back will either be an integer or an error, so we could use `map()` to transform it:
+当它被调用时，我们返回的```Result```要么是一个整数，要么是一个错误，所以我们可以使用```map()```来转换它:
 
-```
+```swift
 let result1 = generateRandomNumber(maximum: 11)
 let stringNumber = result1.map { "The random number is: \($0)." }
 ```
 
-As we’ve passed in a valid maximum number, `result` will be a success with a random number. So, using `map()` will take that random number, use it with our string interpolation, then return another `Result` type, this time of the type `Result<String, FactorError>`.
+当我们传入一个有效的最大值时，```result1```将是一个成功的随机数。因此，使用```map()```将获取这个随机数，并将其与字符串插值一起使用，然后返回另一个```Result```类型，这次的类型是```Result< string, FactorError>```。
 
-However, if we had used `generateRandomNumber(maximum: -11)` then `result` would be set to the failure case with `FactorError.belowMinimum`. So, using `map()` would still return a `Result<String, FactorError>`, but it would have the same failure case and same `FactorError.belowMinimum` error.
+但是，如果我们使用了```generateRandomNumber(maximum: -11)```，那么```result1```将被设置为`FactorError.belowMinimum`的失败情况。因此，使用```map()```仍然会返回```Result<String, FactorError>```，但是它会有相同的失败情况和相同的`FactorError.belowMinimum`错误。
 
-Now that you’ve seen how `map()` lets us transform the success type to another type, let’s continue: we have a random number, so the next step is to calculate the factors for it. To do this, we’ll write another function that accepts a number and calculates its factors. If it finds the number is prime it will send back a failure `Result` with the `isPrime` error, otherwise it will send back the number of factors.
+既然您已经了解了`map()`如何让我们将成功类型转换为另一种类型，那么让我们继续，我们有一个随机数，因此下一步是计算它的因子。为此，我们将编写另一个函数，它接受一个数字并计算其因子。如果它发现数字是素数，它将返回一个带有```isPrime```错误的失败```Result```，否则它将返回因子的数量。
 
-Here’s that in code:
+这是代码：
 
-```
+```swift
 func calculateFactors(for number: Int) -> Result<Int, FactorError> {
     let factors = (1...number).filter { number % $0 == 0 }
     
@@ -207,46 +207,45 @@ func calculateFactors(for number: Int) -> Result<Int, FactorError> {
 }
 ```
 
-If we wanted to use `map()` to transform the output of `generateRandomNumber()` using `calculateFactors()`, it would look like this:
+如果我们想使用```map()```来转换```generateRandomNumber()```生成随机数后再```calculateFactors()```的输出，它应该是这样的:
 
-```
+```swift
 let result2 = generateRandomNumber(maximum: 10)
 let mapResult = result2.map { calculateFactors(for: $0) }
 ```
 
-However, that make `mapResult` a rather ugly type: `Result<Result<Int, FactorError>, FactorError>`. It’s a `Result` inside another `Result`.
+然而，这使得```mapResult```成为一个相当难看的类型:`Result<Result<Int, FactorError>， FactorError>`。它是另一个`Result`内部的一个`Result`。
 
-Just like with optionals, this is where the `flatMap()` method comes in. If your transform closure returns a `Result`, `flatMap()` will return the new `Result` directly rather than wrapping it in another `Result`:
+就像可选值一样，这就是`flatMap()`方法的作用所在。如果你的转换闭包返回一个`Result`，`flatMap()`将直接返回新的`Result`，而不是包装在另一个`Result`内:
 
-```
+```swift
 let flatMapResult = result2.flatMap { calculateFactors(for: $0) }
 ```
 
-So, where `mapResult` was a `Result<Result<Int, FactorError>, FactorError>`, `flatMapResult` is flattened down into `Result<Int, FactorError>` – the first original success value (a random number) was transformed into a new success value (the number of factors). Just like `map()`, if either `Result` was a failure, `flatMapResult` will also be a failure.
+因此，其中`mapResult`是一个`Result<Result<Int, FactorError>， FactorError>`，`flatMapResult`被平铺成`Result<Int, FactorError>` – 第一个原始成功值(一个随机数)被转换成一个新的成功值(因子的数量)。就像`map()`一样，如果其中一个`Result`失败，那么`flatMapResult`也将失败。
 
-As for `mapError()` and `flatMapError()`, those do similar things except they transform the _error_ value rather than the _success_ value.
+至于`mapError()`和`flatMapError()`，除了转换**error**值而不是**success**值外，它们执行类似的操作。
 
-## What next?
+## 接下来？
 
-I’ve written articles about some of the other great new features coming in Swift 5, and you might want to check them out:
+我写过一些关于 Swift 5 其他一些很棒的新功能的文章，你可能想看看:
 
-* [How to use custom string interpolation in Swift 5](/articles/163/how-to-use-custom-string-interpolation-in-swift)
-* [How to use @dynamicCallable in Swift](/articles/134/how-to-use-dynamiccallable-in-swift)
-* [Swift 5.0 is changing optional try](/articles/147/swift-5-is-changing-optional-try)
-* [What’s new in Swift 5.0](/articles/126/whats-new-in-swift-5-0)
+- [How to use custom string interpolation in Swift 5](/articles/163/how-to-use-custom-string-interpolation-in-swift)
+- [How to use @dynamicCallable in Swift](/articles/134/how-to-use-dynamiccallable-in-swift)
+- [Swift 5.0 is changing optional try](/articles/147/swift-5-is-changing-optional-try)
+- [What’s new in Swift 5.0](/articles/126/whats-new-in-swift-5-0)
 
-You might also want to try out my [What’s new in Swift 5.0 playground](https://github.com/twostraws/whats-new-in-swift-5-0), which lets you try Swift 5’s new features interactively.
+您可能还想尝试我的 [What 's new in Swift 5.0 playground](https://github.com/twostraws/whats-new-in-swift-5-0)，它允许您交互式地尝试 Swift 5 的新功能。
 
-If you’re curious to learn more about result types in Swift, you might want to look over the source code for [antitypical/Result](https://github.com/antitypical/Result) on GitHub, which is one of the most popular result implementations.
+如果您想了解更多 Swift 中的 result 类型，您可能想查看 GitHub 上的 [antitypical/ result](https://github.com/antitypical/Result) 的源代码，这是最流行的 result 实现之一。
 
-I would also highly recommend reading Matt Gallagher’s [excellent discussion of `Result`](https://www.cocoawithlove.com/blog/2016/08/21/result-types-part-one.html) – it’s a few years old now, but still both useful and interesting.
+我还强烈推荐阅读 Matt Gallagher 的 [excellent discussion of `Result`](https://www.cocoawithlove.com/blog/2016/08/21/result-typs-partone.html)，这本书已经有几年的历史了，但仍然很有用，也很有趣。
 
-**Sponsored** You’re already busy updating your app for Swift 4.2 and iOS 12, so why not let Instabug help you find and fix bugs? **Add just two lines of code** to your project and receive comprehensive reports with all the feedback you need to ship a world-class app – [click here to learn more](https://try.instabug.com/ios/?utm_source=hackingwithswift&utm_medium=native_ads&utm_campaign=hackingwithswiftv3)!
+你已经在忙着为 Swift 4.2 和 iOS 12 更新你的应用程序了，为什么不让 Instabug 帮你发现和修复 bug 呢?**只需添加两行代码**到您的项目中，就可以收到全面的报告，其中包含您发布世界级应用程序所需的所有反馈 — [单击此处了解更多信息](https://try.instabug.com/ios/?utm_source=hackingwithswift&utm_medium=native_ads&utm_campaign=hackingwithswiftv3)!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
----
+------
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-
 
