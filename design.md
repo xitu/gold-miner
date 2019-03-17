@@ -1,3 +1,5 @@
+* [数字产品为人们授权的时代已来](https://juejin.im/post/5c7e50236fb9a04a0e2deffa) ([Mirosalva](https://github.com/Mirosalva) 翻译)
+* [从著名数据数据可视化中我们可以学到什么](https://juejin.im/user/567e246a34f81a1d879e7a14) ([AceLeeWinnie](https://github.com/AceLeeWinnie) 翻译)
 * [为什么 UX 和 UI 仍需要分离开](https://juejin.im/post/5c769c44f265da2d8c7ddb71) ([Mirosalva](https://github.com/Mirosalva) 翻译)
 * [2019 年的 9 大设计趋势](https://juejin.im/post/5c7355e0f265da2d993d8ceb) ([shixi-li](https://github.com/shixi-li) 翻译)
 * [UX 设计实践：如何设计可扫描的 Web 界面](https://juejin.im/post/5c34af846fb9a049a42f39d8) ([Ivocin](https://github.com/Ivocin) 翻译)
