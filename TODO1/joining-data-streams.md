@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/joining-data-streams.md](https://github.com/xitu/gold-miner/blob/master/TODO1/joining-data-streams.md)
 > * 译者：[whatbeg](https://github.com/whatbeg)
-> * 校对者：
+> * 校对者：[xionglong58](https://github.com/xionglong58), [Fengziyin1234 ](https://github.com/Fengziyin1234)
 
 # 连接数据流
 
