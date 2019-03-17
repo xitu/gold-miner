@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/longest-keyword-sequence.md](https://github.com/xitu/gold-miner/blob/master/TODO1/longest-keyword-sequence.md)
 > * 译者：[xionglong58](https://github.com/xionglong58)
-> * 校对者：[Endone](https://github.com/Endone)
+> * 校对者：[Endone](https://github.com/Endone), [Jingyuan0000](https://github.com/Jingyuan0000)
 
 # Javascript 中最长的关键字序列长什么样子？
 
@@ -19,7 +19,7 @@
 
 让我们试试能不能做的更好。
 
-(但是我们首先的回顾一些基础规则)
+（但是我们首先的回顾一些基础规则）
 
 ## 规则
 
@@ -36,7 +36,7 @@
 
 ## 进入正题
 
-[@arjunb_msft](https://twitter.com/arjunb_msft) 提出的最长15个关键字程序
+[@arjunb_msft](https://twitter.com/arjunb_msft) 提出的最长 15 个关键字程序
 
 ```js
 function *f() {
@@ -75,15 +75,15 @@ async function* foo() {
 
 但不用担心，因为在下面的讨论中 [Bterlson](https://twitter.com/bterlson/status/1093651943325483008) 作了这样的补充:
 
-> `this`、`null`和 `undefined` 可以认为是关键字，即使它们在技术上不是关键字。这使得比赛更有趣（加上编辑们把它们标记成关键字，所以这么说也行得通）
+> `this`、`null` 和 `undefined` 可以认为是关键字，即使它们在技术上不是关键字。这使得比赛更有趣（加上编辑们把它们标记成关键字，所以这么说也行得通）
 
-从技术层面讲，`this` 实际上是一个关键字。 但是，Bterlson 对 `null` 和 `undefined` 不是关键字的认定却是正确的。
+从技术层面讲，`this` 实际上是一个关键字。但是，Bterlson 对 `null` 和 `undefined` 不是关键字的认定却是正确的。
 
 在余下部分，我们可以看到 `true` 和 `false` 也被当作关键字使用。这就给我们带来了一个问题：如果可以使用非关键字标记，那么对于这个挑战，哪些标记更合适？
 
-`null`、`true` 和 `false` 的共同点是它们都是只包含字母的字面量（显然，包含字符和数字的字面量是不允许的） 
+`null`、`true` 和 `false` 的共同点是它们都是只包含字母的字面量（显然，包含字符和数字的字面量是不允许的）。
 
-由于可以使用 null 字符和 boolean 字符，我们可以轻松地复现出先前的序列，并构建17个单词长度的序列：
+由于可以使用 null 字符和 boolean 字符，我们可以轻松地复现出先前的序列，并构建 17 个单词长度的序列：
 
 ```js
 async function* foo() {
@@ -115,7 +115,7 @@ import {foo as bar} from 'baz'
 
 如果你不喜欢仔细研究编程语言诸多的规范，而且不能一眼看出哪些标记是关键字，哪些不是关键字，那么下面的标记都可以当作是关键字：`let`、`of`、`static`、`as`、`from`、`get`、`set`。它们看起来也确实像关键字。
 
-我们可能认为不可以往上面的列表中添加 `NaN` 和 `Infinity` 之类的东西，是因为它们与 `undefined` 属于同一个类型，都是标识符（标识符总是指向相同的值），也可能是由于只允许使用小写字符。不管怎样，我们将它们排除在外。我们也应该省略排除 `atguments`，因为在语法规范中它没有作为标记出现，因此它实际上只是一个magic 变量，而不是关键字。
+我们可能认为不可以往上面的列表中添加 `NaN` 和 `Infinity` 之类的东西，是因为它们与 `undefined` 属于同一个类型，都是标识符（标识符总是指向相同的值），也可能是由于只允许使用小写字符。不管怎样，我们将它们排除在外。我们也应该省略排除 `atguments`，因为在语法规范中它没有作为标记出现，因此它实际上只是一个 magic 变量，而不是关键字。
 
 另一个我们需要排除是 `new.target`，因为它中间有一个“.”。
 
@@ -149,7 +149,7 @@ typeof let
 
 或者这样做：
 
-输入一个段落分隔符(`\u2029`)，如果正确呈现，它看起来如下：<code></code>
+输入一个段落分隔符（`\u2029`），如果正确呈现，它看起来如下：<code></code>
 
 什么都看不见？这就对了！这是一个隐形变量。
 
@@ -169,7 +169,7 @@ async function* foo() {
 
 当然，并不是所有 32 个词都是关键字，这可能是 ASI 有史以来最严重的滥用，但是，这仍然有挑战意义。另外，我很开心，这才是最重要的！
 
-那么，你觉得呢？你能做一个更长的序列吗？你能弄明白为什么这在语法上是有效的吗？这是作弊吗？Gists [译者注：原文发布在gist上]是有史以来最被滥用的博客平台吗？下面评论！
+那么，你觉得呢？你能做一个更长的序列吗？你能弄明白为什么这在语法上是有效的吗？这是作弊吗？Gists [译者注：原文发布在 gist 上]是有史以来最被滥用的博客平台吗？下面评论！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
