@@ -5592,10 +5592,11 @@
 |[在 V8 引擎中设置原型（prototypes）](https://juejin.im/post/5a9921e76fb9a028bd4bc3c4)|校对|1|
 |[json — JavaScript 对象表示法](https://juejin.im/post/5a9432ae5188257a5c6092b0)|校对|1|
 
-## 译者：[rydensun](https://github.com/rydensun) 历史贡献积分：80 当前积分：70 年度积分：80
+## 译者：[rydensun](https://github.com/rydensun) 历史贡献积分：80 当前积分：57 年度积分：80
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 3 月兑掘金桌垫 1 个|减去积分|13|
 |[快速原型设计的新手指南](https://juejin.im/user/585b9407da2f6000657a5c0c)|翻译|6|
 |[我是如何在谷歌找到 UX 设计的工作的](https://juejin.im/post/5bea544ff265da6112048e3c)|翻译|4|
 |[作为自由开发者，7 个步骤让你获得更多的客户](https://juejin.im/post/5bd660c26fb9a05ce576e9b7)|翻译|5.5|
@@ -6123,10 +6124,11 @@
 |[细数那些我离不开的 Sketch 插件](https://juejin.im/post/5ae0623ef265da0b8d419aca)|校对|1|
 |[用 Skater 解读预测模型：打开模型的黑箱](https://juejin.im/post/5ae1494bf265da0b7c06f835)|校对|2.5|
 
-## 译者：[wzasd](https://github.com/wzasd) 历史贡献积分：42 当前积分：42 年度积分：42
+## 译者：[wzasd](https://github.com/wzasd) 历史贡献积分：42 当前积分：7 年度积分：42
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 3 月兑米家 LED 智能台灯 1 个|减去积分|35|
 |[使用 TensorFlow.js 进行无服务的机器学习](https://juejin.im/post/5bc13de2e51d450e827b88fc)|翻译|6|
 |[绘图技巧的快速入门之：6 个绘图练习，让你立即上手！](https://juejin.im/post/5b39823fe51d4558ca674cff)|翻译|3.5|
 |[在 SnackBar，Navigation 和其他事件中使用 LiveData（SingleLiveEvent 案例）](https://juejin.im/post/5b2b1b2cf265da5952314b63)|翻译|4|
@@ -6773,10 +6775,11 @@
 |[在 Sketch 中使用一个设计体系创作: 第二部分 [教程]](https://juejin.im/post/5b5d2a456fb9a04fc80b8f4b)|翻译|2.5|
 |[在 Sketch 中使用一个设计体系创作：第一部分 [教程]](https://juejin.im/post/5b591a655188257bca290b24)|校对|0.5|
 
-## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：48 当前积分：48 二零一九：4.5
+## 译者：[Park-ma](https://github.com/Park-ma) 历史贡献积分：48 当前积分：3 二零一九：4.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 3 月兑 Google DIY 纸板音箱 1 个|减去积分|45|
 |[十件你不知道的关于 WebPageTest.org 的事](https://juejin.im/post/5c679531f265da2dc45367ab)|校对|1|
 |[HTTP 简史](https://juejin.im/post/5c5ecc04e51d457f9c058be6)|校对|1.5|
 |[提取图像中的文字、人脸或者条形码 — 形状检测 API](https://juejin.im/post/5c64026fe51d457f963d249c)|校对|1|
@@ -6898,10 +6901,11 @@
 |[一行 JavaScript 代码竟然让 FT.com 网站慢了十倍](https://juejin.im/post/5b7bb6dfe51d4538bf55aa5f)|校对|1|
 |[使用 Web Beacon API 记录活动](https://juejin.im/post/5b694b5de51d4519700fa56a)|校对|1|
 
-## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：50.5 当前积分：50.5 二零一九：21.5
+## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：50.5 当前积分：15.5 二零一九：21.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 3 月兑米家 LED 智能台灯 1 个|减去积分|35|
 |[HTTP/2 常见问题解答](https://juejin.im/post/5c5ada2e6fb9a049dd80be75)|翻译|8.5|
 |[13 个你应该选择/考虑使用 Flutter 的理由](https://juejin.im/post/5c4fcd54e51d45527201db80)|翻译|4.5|
 |[利用 Python中的 Bokeh 实现数据可视化，第三部分：制作一个完整的仪表盘](https://juejin.im/post/5c3ae4656fb9a049d9757021)|翻译|6|
@@ -7595,10 +7599,11 @@
 |------|-------|-------|
 |[以太坊入门指南](https://juejin.im/post/5c1080fbe51d452b307969a3)|校对|1.5|
 
-## 译者：[xiaxiayang](https://github.com/xiaxiayang) 历史贡献积分：15 当前积分：15 二零一九：14
+## 译者：[xiaxiayang](https://github.com/xiaxiayang) 历史贡献积分：15 当前积分：2 二零一九：14
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 3 月兑掘金桌垫 1 个|减去积分|13|
 |[绘制路径：Android 中矢量图渲染](https://juejin.im/post/5c75e73051882562ea724cd4)|翻译|4|
 ||[Android 上一次编写，到处测试](https://juejin.im/post/5c32cbc9f265da611d66d14e)|校对|1.5|
 |[轻松发布私有 APP](https://juejin.im/post/5c42d0fde51d4511dc72d8d1)|校对|1.5|
