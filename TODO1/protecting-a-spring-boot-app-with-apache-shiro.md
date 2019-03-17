@@ -7,9 +7,9 @@
 
 # 用 Apache Shiro 来保护一个 Spring Boot 应用
 
-对于 Apache Shiro，我最欣赏的一点是它能够轻易地处理应用的授权行为。你能够使用以角色为基础的访问控制模型来对用户进行角色分配，以及对角色进行权限分配。这使得处理一些不可避免的行为变得简单。你不需要改动代码，只需修改角色权限。在这篇文章中，我想展示它的易用性，用一个 Spring Boot 程序来介绍我是如何处理以下场景的：
+对于 Apache Shiro，我最欣赏的一点是它能够轻易地处理应用的授权行为。你能够使用基于角色的访问控制模型来对用户进行角色分配，以及对角色进行权限分配。这使得处理一些不可避免的行为变得简单。你不需要改动代码，只需修改角色权限。在这篇文章中，我想展示它的易用性，用一个 Spring Boot 程序来介绍我是如何处理以下场景的：
 
-你的老大（最高指挥官）出现在你的桌旁并告诉你， 当前的志愿者（士兵）注册应用需要针对不同的员工类别分配不同的权限。
+你的老大（最高指挥官）出现在你的桌旁并告诉你，当前的志愿者（士兵）注册应用需要针对不同的员工类别分配不同的权限。
 
 *   长官能够注册新加入的**志愿者**
 *   下属（你我这样的人员）只有阅读志愿者资料的权限
@@ -20,7 +20,7 @@
 
 首先，来看看这个 [Spring Boot 的例子](https://github.com/oktadeveloper/shiro-spring-boot-example)。它会帮助你从一些进行 CRUD 操作的 REST 接入点来管理一个士兵名单。你将用 [Apache Shiro](https://shiro.apache.org/) 来添加身份验证和角色授权。所有代码已上传至 [Github](https://github.com/bdemers/shiro-spring-boot-example)。
 
-你所需要的就是用 Apache Shiro 和 Spring Boot 来编写一个应用，只要在 pom 文件里加入你所需要的依赖（`${shiro.version}` 至少需要在 1.4.0 之上）：
+要使用 Apache Shiro, 你所需要做的就是使用 Spring Boot 的 starter，只要在 pom 文件里加入你所需要的依赖（`${shiro.version}` 至少需要在 1.4.0 之上）：
 
 ```xml
 <dependency>
@@ -82,7 +82,7 @@ public class StormtrooperController {
 }
 ```
 
-在以上的代码块中，使用 Shiro 的 `@RequiresRoles` 注释来指定角色。你会看到用逻辑符 `OR` 来为这种角色的任何人赋予权限。这很棒，只需要添加一行注解，你的代码就已经完成了。
+在以上的代码块中，使用 Shiro 的 `@RequiresRoles` 注释来指定角色。你会看到用逻辑符 `OR` 来为任何拥有这种角色的人赋予权限。这很棒，只需要添加一行注解，你的代码就已经完成了。
 
 你的代码可以到此为止，但是，使用角色的方式并不是那么灵活，如果直接在代码中使用，就会导致代码与这些名字的紧密耦合。
 
@@ -166,7 +166,7 @@ role.officer = troopers:create,troopers:read,troopers:update
 role.underling = troopers:read
 ```
 
-如果你觉得这授权语句的语法看上去有点搞笑，可以从 [Apache Shiro 的通配符授权](https://shiro.apache.org/permissions.html) 文档中来获得一些深入的了解。
+如果你觉得这授权语句的语法看上去有点奇怪，可以从 [Apache Shiro 的通配符授权](https://shiro.apache.org/permissions.html) 文档中来获得一些深入的了解。
 
 ## Apache Shiro 和 Spring
 
@@ -212,7 +212,7 @@ public CacheManager cacheManager() {
 }
 ```
 
-首先，你先定义一个 Shiro 的 `Realm`。 realm 只是一个特定的存储用户的 DAO，Shiro 支持多种不同类型的 Realm (活动目录、LDAP、数据库和文件等等)。
+首先，你先定义一个 Shiro 的 `Realm`。realm 只是一个特定的存储用户的 DAO，Shiro 支持多种不同类型的 Realm (活动目录、LDAP、数据库和文件等等)。
 
 接下来看看 `ShiroFilterChainDefinition`，你配置了允许基本的身份验证功能，但是并不是通过『permissive』选项来获取这个功能。这样你的注释就可以配置所有内容了。你可以使用 Ant 样式的路径来定义 [URL 映射权限](https://shiro.apache.org/web.html#default-filters)，而不是使用注解（或者使用一些其他的）。这个例子看起来是这样子的：
   
@@ -220,7 +220,7 @@ public CacheManager cacheManager() {
 chainDefinition.addPathDefinition("/troopers/**", "authcBasic, rest[troopers]");
 ```
 
-这样做将所有以 /troopers 开头的资源映射到要求基本身份验证，并且使用 [‘rest’ 过滤器]((https://shiro.apache.org/static/current/apidocs/org/apache/shiro/web/filter/authz/HttpMethodPermissionFilter.html))，它基于 HTTP 请求方法，且在权限字符串后附加了一个 CRUD 操作。举个例子，一个 HTTP`GET` 方法会映射到 ‘read’，所以对于一个 `GET` 请求的完整权限字符串为`troopers:read`（就像你用注释做的那样）。
+这样做将所有以 `/troopers` 开头的资源映射到要求基本身份验证，并且使用 [‘rest’ 过滤器](https://shiro.apache.org/static/current/apidocs/org/apache/shiro/web/filter/authz/HttpMethodPermissionFilter.html)，它基于 HTTP 请求方法，且在权限字符串后附加了一个 CRUD 操作。举个例子，一个 HTTP`GET` 方法会映射到 ‘read’，所以对于一个 `GET` 请求的完整权限字符串为`troopers:read`（就像你用注解做的那样）。
 
 ## 异常处理
 
@@ -254,7 +254,7 @@ public @ResponseBody ErrorMessage handleException(NotFoundException e) {
 }
 ```
 
-前两个处理 Shiro 异常的例子，只是简单的将状态码改至 401 或 403。401 针对的是用户名/密码的无效或缺失，403 是因为已登录的用户无权访问受限资源。最后，你将要用 404 来处理 `NotFoundException`， 并且返回一个 JSON 序列化的 `ErrorMessage` 对象。
+前两个处理 Shiro 异常的例子，只是简单的将状态码改至 401 或 403。401 针对的是用户名/密码的无效或缺失，403 是因为已登录的用户无权访问受限资源。最后，你将要用 404 来处理 `NotFoundException`，并且返回一个 JSON 序列化的 `ErrorMessage` 对象。
 
 ## 火力全开！
 
