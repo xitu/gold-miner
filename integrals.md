@@ -2150,10 +2150,11 @@
 |[成为一个编译器之「使用 JavaScript 来制作编译器」](http://gold.xitu.io/entry/582343555bbb500059056d4b/)|校对|1|
 |[给 iOS App 开发者的 39 个开源的 Swift UI 库](http://gold.xitu.io/entry/58209322570c350060b73588)|校对|1|
 
-## 译者：[phxnirvana](https://github.com/phxnirvana) 历史贡献积分：83 当前积分：48 年度积分：3
+## 译者：[phxnirvana](https://github.com/phxnirvana) 历史贡献积分：85 当前积分：50 年度积分：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Flutter 异步编程：Future、Isolate 和事件循环](https://juejin.im/post/5c898b4af265da2de25bcc2d)|校对|2|
 |[使用 Kotlin 将你的 iOS 应用程序转换为 Android](https://juejin.im/post/5c03f64ce51d454af013d076)|校对|3|
 |[管中窥豹：RxJava 与 Kotlin 协程的对比](https://juejin.im/post/5a0ab91451882533d0229556)|翻译|3|
 |[2017 年 8 月 16 日兑换杯子一个]()|减去积分|5|
@@ -2818,10 +2819,11 @@
 |[如何在 ChromeOS 下用 Go 搭建 Web 服务](https://juejin.im/post/58d9e1711b69e6006bc38b1a)|翻译|8|
 |[Pull request review 的十大错误](https://juejin.im/post/58ce3b3e61ff4b006c988f63)|校对|1|
 
-## 译者：[sunui](https://github.com/sunui) 历史贡献积分：115 当前积分：25 二零一九：6
+## 译者：[sunui](https://github.com/sunui) 历史贡献积分：117 当前积分：27 二零一九：8
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Flutter 异步编程：Future、Isolate 和事件循环](https://juejin.im/post/5c898b4af265da2de25bcc2d)|校对|2|
 |[负载性能](https://juejin.im/post/5c7faa955188251bdd53ebd2)|校对|1|
 |[JSX 的替代方案](https://juejin.im/post/5c807f73e51d453ba723d88d)|校对|0.5|
 |[2019 年的 9 大设计趋势](https://juejin.im/post/5c7355e0f265da2d993d8ceb)|校对|3|
@@ -7407,10 +7409,11 @@
 |------|-------|-------|
 |修订文章 https://github.com/xitu/gold-miner/pull/4753|奖励|2|
 
-## 译者：[nanjingboy](https://github.com/nanjingboy) 历史贡献积分：62 当前积分：62 二零一九：17.5
+## 译者：[nanjingboy](https://github.com/nanjingboy) 历史贡献积分：67 当前积分：67 二零一九：22.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Flutter 异步编程：Future、Isolate 和事件循环](https://juejin.im/post/5c898b4af265da2de25bcc2d)|翻译|5|
 |[Widget - State - Context - InheritedWidget](https://juejin.im/post/5c768ad2f265da2dce1f535c)|翻译|11|
 |[状态恢复入门教程](https://juejin.im/post/5c330d0ce51d45518e147fd2)|翻译|6.5|
 |[值类型导向编程](https://juejin.im/post/5c2c3f8d518825480635db8b)|校对|1|
@@ -7573,10 +7576,11 @@
 |------|-------|-------|
 |[使用自定义文件模板加快你的应用开发速度](https://juejin.im/post/5c204bcdf265da611b585bcd)|校对|1.5|
 
-## 译者：[Qiuk17](https://github.com/Qiuk17) 历史贡献积分：14.5 当前积分：14.5 二零一九：7.5
+## 译者：[Qiuk17](https://github.com/Qiuk17) 历史贡献积分：15.5 当前积分：15.5 二零一九：8.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[转化通用安卓音乐播放器为 instant 应用](https://juejin.im/post/5c89d2e05188257e1f292958)|校对|1|
 |[如何学习 CSS](https://juejin.im/post/5c74daaaf265da2d9d1cb774)|校对|2|
 |[DNS over TLS：端到端加密的 DNS](https://juejin.im/post/5c4849d06fb9a049c30b967b)|校对|1|
 |[通过垃圾回收机制理解 JavaScript 内存管理](https://juejin.im/post/5c4409fbf265da616f703d5a)|校对|1|
@@ -7586,10 +7590,11 @@
 |[了解 Android 的矢量图片格式：`VectorDrawable`](https://juejin.im/post/5c1a21ff5188252eb759600e)|校对|2.5|
 |[当 Kotlin 中的监听器包含多个方法时，如何让它 “巧夺天工”？](https://juejin.im/post/5c1e43646fb9a04a102f45ab)|校对|1.5|
 
-## 译者：[gs666](https://github.com/gs666) 历史贡献积分：23 当前积分：13 二零一九：10.5
+## 译者：[gs666](https://github.com/gs666) 历史贡献积分：25 当前积分：15 二零一九：12.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Android 生命周期备忘录 — 第二部分：多 Activity](https://juejin.im/post/5c8e018d51882545ca77d857)|翻译|2|
 |[2019 区块链平台与技术展望](https://juejin.im/post/5c613e6e6fb9a049e4132ba5)|翻译|8.5|
 |[Android 上一次编写，到处测试](https://juejin.im/post/5c32cbc9f265da611d66d14e)|翻译|2|
 |2019 年 1 月兑掘金桌垫 1 个|减去积分|10|
@@ -7814,10 +7819,12 @@
 |[为什么你的应用需要对各种尺寸屏幕做适配优化？](https://juejin.im/post/5c662023518825767633ab86)|校对|2.5|
 |[提取图像中的文字、人脸或者条形码 — 形状检测 API](https://juejin.im/post/5c64026fe51d457f963d249c)|翻译|4|
 
-## 译者：[Mirosalva](https://github.com/Mirosalva) 历史贡献积分：21.5 当前积分：21.5 二零一九：21.5
+## 译者：[Mirosalva](https://github.com/Mirosalva) 历史贡献积分：24 当前积分：24 二零一九：24
 
 |文章|类型|积分|
 |------|-------|-------|
+|[转化通用安卓音乐播放器为 instant 应用](https://juejin.im/post/5c89d2e05188257e1f292958)|翻译|2|
+|[Android 生命周期备忘录 — 第二部分：多 Activity](https://juejin.im/post/5c8e018d51882545ca77d857)|校对|0.5|
 |[Node.js 基础知识: 没有依赖关系的 Web 服务器](https://juejin.im/post/5c88a6855188257b0b126564)|翻译|4|
 |[为什么我用 JavaScript 来编写 CSS](https://juejin.im/post/5c8878b7f265da2deb6ae6f2)|校对|0.5|
 |[避免那些可恶的 "cannot read property of undefined" 错误](https://juejin.im/post/5c810170e51d450a453fb48e)|校对|1|
@@ -8037,10 +8044,11 @@
 |------|-------|-------|
 |[浏览器中 CSS 支持指南](https://juejin.im/post/5c87a9006fb9a049e4138c7e)|校对|2.5|
 
-## 译者：[Endone](https://github.com/Endone) 历史贡献积分：6 当前积分：6 二零一九：6
+## 译者：[Endone](https://github.com/Endone) 历史贡献积分：6.5 当前积分：6.5 二零一九：6.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Android 生命周期备忘录 — 第二部分：多 Activity](https://juejin.im/post/5c8e018d51882545ca77d857)|校对|0.5|
 |[Java Service 加载器 和 spring Factories 加载器的比较](https://juejin.im/post/5c7fbe52e51d4541e510d282)|校对|2|
 |[Node.js 基础知识: 没有依赖关系的 Web 服务器](https://juejin.im/post/5c88a6855188257b0b126564)|校对|1|
 |[Golang 数据结构：树](https://juejin.im/post/5c8e023351882545eb718c9d)|校对|3|
