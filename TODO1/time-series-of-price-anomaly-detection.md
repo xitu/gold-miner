@@ -117,7 +117,6 @@ we set `n_clusters=10`, and upon generating the k-means output use the data to p
 
 Now we need to find out the number of components (features) to keep.
 
-
 ![Figure 8](https://cdn-images-1.medium.com/max/2000/1*_ncv1D_uD2wWmigdRvZbsA.png)
 
 We see that the first component explains almost 50% of the variance. The second component explains over 30%. However, we’ve got to notice that almost none of the components are really negligible. The first 2 components contain over 80% of the information. So, we will set `n_components=2`.
