@@ -5,11 +5,11 @@
 > * 译者：
 > * 校对者：
 
+# Time Series of Price Anomaly Detection
+
 ![Photo credit: Pixabay](https://cdn-images-1.medium.com/max/2560/1*T-SmdkxMgpAebevA2ElyGA.jpeg)
 
-## Time Series of Price Anomaly Detection
-
-### Anomaly detection detects data points in data that does not fit well with the rest of the data.
+> Anomaly detection detects data points in data that does not fit well with the rest of the data.
 
 Also known as outlier detection, anomaly detection is a data mining process used to determine types of anomalies found in a data set and to determine details about their occurrences. Automatic anomaly detection is critical in today’s world where the sheer volume of data makes it impossible to tag outliers manually. Auto anomaly detection has a wide range of applications such as fraud detection, system health monitoring, fault detection, and event detection systems in sensor networks, and so on.
 
@@ -32,11 +32,8 @@ The data we are going to use is a subset of[ Personalize Expedia Hotel Searches]
 We are going to slice a subset of the training.csv set like so:
 
 * Select one single hotel which has the most data point `property_id = 104517` .
-
 * Select visitor_location_country_id = 219 , as we know from the another analysis that country id 219 is the Unites States. The reason we do that is to unify the `price_usd` column. Since different countries have different conventions regarding displaying taxes and fees and the value may be per night or for the whole stay. And we know that price displayed to US visitors is always per night and without taxes.
-
 * Select `search_room_count = 1`.
-
 * Select the features we need: `date_time`, `price_usd`, `srch_booking_window`, `srch_saturday_night_bool`.
 
 ```
@@ -143,7 +140,6 @@ The underline assumption in the clustering based anomaly detection is that if we
 
 * Visualize anomalies with Time Series view.
 
-
 ![Figure 9](https://cdn-images-1.medium.com/max/2000/1*JG_xuw8E14iEkxLBuBF4fg.png)
 
 
@@ -180,7 +176,6 @@ According to the paper:[ Support Vector Method for Novelty Detection](http://use
 
 * `predict(data)` perform classification on data, and because our model is an one-class model, +1 or -1 is returned, and -1 is anomaly, 1 is normal.
 
-
 ![Figure 12](https://cdn-images-1.medium.com/max/2000/1*4CBpGg6xTabEf_K1yWbteQ.png)
 
 ## Anomaly Detection using Gaussian Distribution
@@ -198,7 +193,6 @@ Scikit-Learn’s `[**covariance.EllipticEnvelope**](https://scikit-learn.org/sta
 * We use `decision_function` to compute the decision function of the given observations. It is equal to the shifted Mahalanobis distances. The threshold for being an outlier is 0, which ensures a compatibility with other outlier detection algorithms.
 
 * The `predict(X_train)` predict the labels (1 normal, -1 anomaly) of X_train according to the fitted model.
-
 
 ![Figure 13](https://cdn-images-1.medium.com/max/2000/1*YMF_eAI6ofVzwKc0Ncsz8g.png)
 
