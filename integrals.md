@@ -2197,10 +2197,11 @@
 |[我在手撕 SVG 条形图时踩过的定位坑](http://gold.xitu.io/entry/58306b428ac2470061b60ede/)|校对|1|
 |[构建 Android APP 一定要绕过的 30 个坑](http://gold.xitu.io/entry/58217b84570c350060bc40f8/)|校对|1|
 
-## 译者：[aceleewinnie](https://github.com/AceLeeWinnie) 历史贡献积分：103 当前积分：57 二零一九：1
+## 译者：[aceleewinnie](https://github.com/AceLeeWinnie) 历史贡献积分：104 当前积分：58 二零一九：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐英文文章一篇|奖励|1|
 |推荐英文文章一篇|奖励|1|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|6|
@@ -3468,11 +3469,12 @@
 |[用 Go 语言理解 Tensorflow](https://juejin.im/post/59420951128fe1006a1960f8)|校对|1|
 |[间复杂度 O(log n) 意味着什么？](https://juejin.im/entry/593f56528d6d810058a355f4/detail)|校对|1|
 
-## 译者：[horizon13th](https://github.com/horizon13th) 历史贡献积分：56 当前积分：11 年度积分：16.4
+## 译者：[horizon13th](https://github.com/horizon13th) 历史贡献积分：57 当前积分：12 年度积分：17.5
 
 |文章|类型|积分|
 |------|-------|-------|
-|[Web 应用架构基础课](https://juejin.im/post/5b69a8eef265da0f926baa56)|翻译|6.4|
+|推荐英文文章一篇|奖励|1|
+|[Web 应用架构基础课](https://juejin.im/post/5b69a8eef265da0f926baa56)|翻译|6.5|
 |[2018 年 4 月兑树莓派套餐 1 个](#)|减去积分|45|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|10|
 |[网站设计综合指南](https://juejin.im/post/5a5abb97518825733f6df3d9)|翻译|12|
@@ -6291,10 +6293,11 @@
 |[怎样更好地使用 Vue：我在新工作中遇到的一些问题清单](https://juejin.im/post/5b0a36366fb9a07a9c04aca2)|校对1|
 |[可微可塑性：一种学会学习的新方法](https://juejin.im/post/5b055308f265da0ba063879d)|校对|1.5|
 
-## 译者：[zhongdeming428](https://github.com/zhongdeming428) 历史贡献积分：23 当前积分：8 年度积分：23
+## 译者：[zhongdeming428](https://github.com/zhongdeming428) 历史贡献积分：24 当前积分：9 二零一九：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐英文文章一篇|奖励|1|
 |推荐优秀英文文章一篇|奖励|1|
 |2018 年 8 月兑掘金桌垫和集智马克杯各一个|减去积分|15|
 |[将项目迁移到 Yarn 然后又迁回到 npm](https://juejin.im/post/5b3b5735f265da0f894b443d)|翻译|3|
@@ -6918,10 +6921,11 @@
 |------|-------|-------|
 |[Slidable：一个 Flutter 的故事](https://juejin.im/post/5b5e84b86fb9a04fa91bfeb6)|校对|1.5|
 
-## 译者：[CoolRice](https://github.com/CoolRice) 历史贡献积分：114 当前积分：44 二零一九：22
+## 译者：[CoolRice](https://github.com/CoolRice) 历史贡献积分：115 当前积分：45 二零一九：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐英文文章一篇|奖励|1|
 |[Rust 2018 已经发布...但它是到底什么呢？](https://juejin.im/post/5c47f714e51d4551b7481c8c)|翻译|9.5|
 |[2019 前端性能优化年度总结 — 第六部分](https://juejin.im/post/5c6167f6f265da2ddf7866ec)|翻译|7.5|
 |[X 为啥不是 hook？](https://juejin.im/post/5c6ca856f265da2dce1f3af9)|校对|2|
@@ -7601,10 +7605,11 @@
 |[充分利用多摄像头 API](https://juejin.im/post/5c3da4f76fb9a04a0c2eb3fc)|翻译|7|
 |[2019 年你应该要知道的 11 个 React UI 组件库](https://juejin.im/post/5c260f13e51d45473a5c07a4)|校对|1|
 
-## 译者：[SinanJS](https://github.com/SinanJS) 历史贡献积分：2.5 当前积分：2.5 二零一九：1
+## 译者：[SinanJS](https://github.com/SinanJS) 历史贡献积分：3.5 当前积分：3.5 二零一九：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐英文文章一篇|奖励|1|
 |推荐英文文章一篇|奖励|1|
 |[误解 ES6 模块，升级 Babel 的一个解决方案（泪奔）](https://juejin.im/post/5c223f4ce51d452626296b5d)|校对|1.5|
 
@@ -7614,10 +7619,11 @@
 |------|-------|-------|
 |[无容器下的云计算](https://juejin.im/post/5c24800a518825673b02dcfe)|校对|2.5|
 
-## 译者：[SHERlocked93](https://github.com/SHERlocked93) 历史贡献积分：23 当前积分：23 二零一九：23
+## 译者：[SHERlocked93](https://github.com/SHERlocked93) 历史贡献积分：24 当前积分：24 二零一九：24
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐英文文章一篇|奖励|1|
 |推荐英文文章一篇|奖励|1|
 |[使用 Proxy 来观测 Javascript 中的类](https://juejin.im/post/5c484b76e51d45522b4f5f7d)|翻译|2.5|
 |[使用 Recompose 来构建高阶组件](https://juejin.im/post/5c484a43e51d452ec621b6a9)|翻译|3|
@@ -7733,10 +7739,11 @@
 |[用这些 iOS 技巧让你的 APP 性能更佳](https://juejin.im/post/5c6a0b6ef265da2de660f83f)|校对|3|
 |推荐英文文章一篇|奖励|1|
 
-## 译者：[WangLeto](https://github.com/WangLeto) 历史贡献积分：6 当前积分：6 二零一九：6
+## 译者：[WangLeto](https://github.com/WangLeto) 历史贡献积分：7 当前积分：7 二零一九：7
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐英文文章一篇|奖励|1|
 |[React Native 中那些令我收获颇丰的痛点](https://juejin.im/post/5c74d6a16fb9a049f06ae907)|校对|2|
 |[💅 styled-components 背后的魔力](https://juejin.im/post/5c6d3a32e51d451804732248)|翻译|3|
 |推荐英文文章一篇|奖励|1|
@@ -7889,10 +7896,11 @@
 |------|-------|-------|
 |[一文带你看完 2018 年浏览器之争的最新进展](https://juejin.im/post/5c45a392f265da61483be57c)|校对|3|
 
-## 译者：[Honwhy](https://github.com/Honwhy) 历史贡献积分：7 当前积分：7 二零一九：7
+## 译者：[Honwhy](https://github.com/Honwhy) 历史贡献积分：8 当前积分：8 二零一九：8
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐英文文章一篇|奖励|1|
 |推荐英文文章七篇|奖励|7|
 
 ## 译者：[iliYF](https://github.com/iliYF) 历史贡献积分：2 当前积分：2 二零一九：2
@@ -7948,3 +7956,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[在 GO 语言中创建你自己 OAuth2 服务：客户端凭据授权流程](https://juejin.im/post/5c77639a5188251fd46eea45)|校对|1.5|
+
+## 译者：[oliyg](https://github.com/oliyg) 历史贡献积分：1 当前积分：1 二零一九：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|推荐英文文章一篇|奖励|1|
