@@ -47,7 +47,7 @@ function *f() {
 
 不幸的是，他的方法里使用了保留字 `true` 和 `false`，而两者实际上不是关键字。在 Chrome 中运行程序也会抛出一个错误：“Uncaught SyntaxError: Unexpected token in”。
 
-[@bluepnume](https://news.ycombinator.com/user?id=bluepnume)提出15个关键字的方案是：
+[@bluepnume](https://news.ycombinator.com/user?id=bluepnume) 提出 15 个关键字的方案是：
 
 ```js
 async function* foo() {
