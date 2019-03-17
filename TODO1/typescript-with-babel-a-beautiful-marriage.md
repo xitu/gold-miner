@@ -2,14 +2,14 @@
 > * 原文作者：[Matt Turnbull](https://iamturns.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/typescript-with-babel-a-beautiful-marriage.md](https://github.com/xitu/gold-miner/blob/master/TODO1/typescript-with-babel-a-beautiful-marriage.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zsky](https://github.com/zsky)
+> * 校对者：[xionglong58](https://github.com/xionglong58), [brilliantGuo](https://github.com/brilliantGuo)
 
 # TypeScript 和 Babel：美丽的结合
 
 ![Babel and TypeScript](https://iamturns.com/static/babel-typescript-36d1d3a0edfdd9f9391a86a4503c75a2-bea90.png)
 
-由于 TypeScript 和 Babel 团队官方合作了一年的项目： [TypeScript plugin for Babel](https://babeljs.io/docs/en/babel-preset-typescript.html) (`@babel/preset-typescript`)， [TypeScript](https://www.typescriptlang.org/) 的使用变得比以往任何时候都容易。这篇文章会告诉你为何 TypeScript 和 Babel 是完美配对的 4 点原因，并会教你在 10 分钟内一步步地升级到 TypeScript。
+由于 TypeScript 和 Babel 团队官方合作了一年的项目：[TypeScript plugin for Babel](https://babeljs.io/docs/en/babel-preset-typescript.html)（`@babel/preset-typescript`），[TypeScript](https://www.typescriptlang.org/) 的使用变得比以往任何时候都容易。这篇文章会告诉你为何 TypeScript 和 Babel 是完美配对的 4 点原因，并会教你在 10 分钟内一步步地升级到 TypeScript。
 
 ## 哈？什么？为什么？
 
@@ -23,7 +23,7 @@ Babel 和 TypeScript 不是两个完全不一样的东西么？Babel 能怎么�
 
 让我来告诉你原因。
 
-## 1）你早已使用 Babel (或者应该如此)
+## 1）你早已使用 Babel（或者应该如此）
 
 你属于这三个类别之一：
 
@@ -35,7 +35,7 @@ Babel 和 TypeScript 不是两个完全不一样的东西么？Babel 能怎么�
 
 你的 JavaScript 代码需要在旧浏览器中运行？没问题，Babel 会转换代码，而且不会出现任何问题。使用最新和最好的功能，无需担心。
 
-TypeScript 编译器具有类似的功能，可通过将  `target`  设置为 `ES5` 或 `ES6` 来实现。 但 Babel 配置通过 [babel-preset-env](https://babeljs.io/docs/en/babel-preset-env/) 改进了这方面功能。你可以列出需要支持的环境，而不是锁定一组特定的 JavaScript 功能（ES5，ES6 等）：
+TypeScript 编译器具有类似的功能，可通过将 `target` 设置为 `ES5` 或 `ES6` 来实现。但 Babel 配置通过 [babel-preset-env](https://babeljs.io/docs/en/babel-preset-env/) 改进了这方面功能。你可以列出需要支持的环境，而不是锁定一组特定的 JavaScript 功能（ES5，ES6 等）：
 
 ```json
 "targets": {
@@ -48,9 +48,9 @@ Babel 使用 [compat-table](https://kangax.github.io/compat-table/) 来检查要
 
 ![compat-table](https://iamturns.com/static/compat-table-4011bf23893b052a3c08c9a89da0548e-bea90.png)
 
-花点时间欣赏那个将这个项目命名为“[compat-table](https://kangax.github.io/compat-table/)“的天才。
+花点时间欣赏那个将这个项目命名为 ‘[compat-table](https://kangax.github.io/compat-table/)’ 的天才。
 
- [create-react-app](https://github.com/facebook/create-react-app/blob/96ba7bddc1600d6f5dac9da2418ee69793c22eca/packages/react-scripts/package.json#L82-L94) 使用了一种有趣的技术：在开发期间以最新的浏览器进行编译（为了速度），并在生产中以更大范围的浏览器进行编译（为了兼容性）。漂亮。
+[create-react-app](https://github.com/facebook/create-react-app/blob/96ba7bddc1600d6f5dac9da2418ee69793c22eca/packages/react-scripts/package.json#L82-L94) 使用了一种有趣的技术：在开发期间以最新的浏览器进行编译（为了速度），并在生产中以更大范围的浏览器进行编译（为了兼容性）。漂亮。
 
 ### Babel 是超级可配置的
 
@@ -64,7 +64,7 @@ Babel 使用 [compat-table](https://kangax.github.io/compat-table/) 来检查要
 
 但不幸的是，TypeScript 无法理解这种更新的语法。
 
-不要紧张，有另一种选择......
+不要紧张，有另一种选择...
 
 ### Babel 宏
 
@@ -93,7 +93,7 @@ const friends =
   props.user.friends[0].friends
 ```
 
-宏是相当新的，但很快就越来越受欢迎。 特别是集成在 [create-react-app v2.0](https://reactjs.org/blog/2018/10/01/create-react-app-v2.html) 后。 CSS in JS 被覆盖：[styled-jsx](https://www.npmjs.com/package/styled-jsx#using-resolve-as-a-babel-macro), [styled-components](https://www.styled-components.com/docs/tooling#babel-macro)，和 [emotion](https://emotion.sh/docs/babel-plugin-emotion#babel-macros)。Webpack 插件在被移植中：[raw-loader](https://github.com/pveyes/raw.macro)，[url-loader](https://github.com/Andarist/data-uri.macro)，和 [filesize-loader](https://www.npmjs.com/package/filesize.macro)。 还有更多列在 [awesome-babel-macros](https://github.com/jgierer12/awesome-babel-macros)。
+宏是相当新的，但很快就越来越受欢迎。特别是集成在 [create-react-app v2.0](https://reactjs.org/blog/2018/10/01/create-react-app-v2.html) 后。 CSS in JS 被覆盖：[styled-jsx](https://www.npmjs.com/package/styled-jsx#using-resolve-as-a-babel-macro)、[styled-components](https://www.styled-components.com/docs/tooling#babel-macro) 和 [emotion](https://emotion.sh/docs/babel-plugin-emotion#babel-macros)。Webpack 插件在被移植中：[raw-loader](https://github.com/pveyes/raw.macro)、[url-loader](https://github.com/Andarist/data-uri.macro) 和 [filesize-loader](https://www.npmjs.com/package/filesize.macro)。还有更多列在 [awesome-babel-macros](https://github.com/jgierer12/awesome-babel-macros)。
 
 这是最好的部分：与 Babel 插件不同，**所有** Babel 宏都与 TypeScript 兼容。它们还可以帮助减少运行时依赖，避免一些客户端计算，并在构建时提前捕获错误。 查看 [此帖子](https://babeljs.io/blog/2017/09/11/zero-config-with-babel-macros) 了解更多详情。
 
@@ -103,15 +103,15 @@ const friends =
 
 ## 2）管理一个编译器更容易
 
-TypeScript 需要它自己的编译器 - 它提供了惊人的类型检查超能力。
+TypeScript 需要它自己的编译器 — 它提供了惊人的类型检查超能力。
 
 ### 令人沮丧的日子（在 Babel 7 之前）
 
-将两个独立的编译器（TypeScript 和 Babel）链接在一起并非易事。 编译流程变为： `TS > TS Compiler > JS > Babel > JS (again)`。
+将两个独立的编译器（TypeScript 和 Babel）链接在一起并非易事。编译流程变为：`TS > TS Compiler > JS > Babel > JS (again)`。
 
-Webpack 经常用于解决这个问题。调整 Webpack 配置以将  `*.ts` 提供给 TypeScript，然后将结果提供给 Babel。但是你使用哪种 TypeScript loader？两个流行的选择是 [ts-loader](https://github.com/TypeStrong/ts-loader) 和 [awesome-typescript-loader](https://github.com/s-panferov/awesome-typescript-loader)。[awesome-typescript-loader](https://github.com/s-panferov/awesome-typescript-loader) 的 `README.md` 提到它对一些工作负载来说可能更慢，并建议使用 [ts-loader](https://github.com/TypeStrong/ts-loader) 加上 [HappyPack](https://github.com/amireh/happypack) 或 [thread-loader](https://webpack.js.org/loaders/thread-loader/)。[ts-loader](https://github.com/TypeStrong/ts-loader) 的 `README.md` 推荐结合 [fork-ts-checker-webpack-plugin](https://github.com/Realytics/fork-ts-checker-webpack-plugin)，[HappyPack](https://github.com/amireh/happypack)， [thread-loader](https://github.com/webpack-contrib/thread-loader)，和（或）[cache-loader](https://github.com/webpack-contrib/cache-loader)。
+Webpack 经常用于解决这个问题。调整 Webpack 配置以将 `*.ts` 提供给 TypeScript，然后将结果提供给 Babel。但是你使用哪种 TypeScript loader？两个流行的选择是 [ts-loader](https://github.com/TypeStrong/ts-loader) 和 [awesome-typescript-loader](https://github.com/s-panferov/awesome-typescript-loader)。[awesome-typescript-loader](https://github.com/s-panferov/awesome-typescript-loader) 的 `README.md` 提到它对一些工作负载来说可能更慢，并建议使用 [ts-loader](https://github.com/TypeStrong/ts-loader) 加上 [HappyPack](https://github.com/amireh/happypack) 或 [thread-loader](https://webpack.js.org/loaders/thread-loader/)。[ts-loader](https://github.com/TypeStrong/ts-loader) 的 `README.md` 推荐结合 [fork-ts-checker-webpack-plugin](https://github.com/Realytics/fork-ts-checker-webpack-plugin)，[HappyPack](https://github.com/amireh/happypack)，[thread-loader](https://github.com/webpack-contrib/thread-loader)，和（或）[cache-loader](https://github.com/webpack-contrib/cache-loader)。
 
-啊。 不。这是大多数人不堪重负的地方，并把 TypeScript 放在“太难”的篮子里。 我不怪他们。
+啊。不。这是大多数人不堪重负的地方，并把 TypeScript 放在“太难”的篮子里。我不怪他们。
 
 ![One does not simply configure TypeScript](https://iamturns.com/static/simply-configure-typescript-1933ffec04eb2221fd05695a070016a5-27dc3.jpg)
 
@@ -123,7 +123,7 @@ Webpack 经常用于解决这个问题。调整 Webpack 配置以将  `*.ts` 提
 
 通过允许 Babel 充当单个编译器，不需要使用一些复杂的 Webpack 魔术来管理，配置或合并两个编译器。
 
-它还简化了整个 JavaScript 生态系统。他们只需要支持 Babel，而不是支持不同编译器的语法检查、测试运行器、构建系统和脚手架。然后，配置 Babel 以满足你的特定需求。告别 [ts-node](https://github.com/TypeStrong/ts-node)， [ts-jest](https://github.com/kulshekhar/ts-jest)， [ts-karma](https://github.com/monounity/karma-typescript)， [create-react-app-typescript](https://github.com/wmonk/create-react-app-typescript) 等，并使用 Babel 支持代替。对 Babel 的支持无处不在，请查看 [Babel 设置](https://babeljs.io/en/setup) 页面：
+它还简化了整个 JavaScript 生态系统。他们只需要支持 Babel，而不是支持不同编译器的语法检查、测试运行器、构建系统和脚手架。然后，配置 Babel 以满足你的特定需求。告别 [ts-node](https://github.com/TypeStrong/ts-node)、[ts-jest](https://github.com/kulshekhar/ts-jest)、[ts-karma](https://github.com/monounity/karma-typescript) 和 [create-react-app-typescript](https://github.com/wmonk/create-react-app-typescript) 等，并使用 Babel 支持代替。对 Babel 的支持无处不在，请查看 [Babel 设置](https://babeljs.io/en/setup) 页面：
 
 ![Babel and TypeScript](https://iamturns.com/static/babel-support-83d89cdf00af707da859a373ff56dbf5-b1cd8.png)
 
@@ -141,11 +141,11 @@ Babel 如何处理 TypeScript 代码？**它删除它**。
 
 第一个优势：️⚡️**闪电般快速**⚡️。
 
-大多数 Typescript 开发人员在开发/监视模式下经历过编译时间长的问题。你正在编写代码，保存一个文件，然......后……它来了......再然后……**最后**，你看到了你的变更。哎呀，错了一个字，修复，保存，然后……啊。它**只是**慢得令人烦恼并打消你的势头。
+大多数 Typescript 开发人员在开发/监视模式下经历过编译时间长的问题。你正在编写代码，保存一个文件，然后...它来了...再然后...**最后**，你看到了你的变更。哎呀，错了一个字，修复，保存，然后...啊。它**只是**慢得令人烦恼并打消你的势头。
 
 很难去指责 TypeScript 编译器，它在做很多工作。它在扫描那些包括 `node_modules` 在内的类型定义文件（`*.d.ts`），并确保你的代码正确使用。这就是为什么许多人将 Typescript 类型检查分到一个单独的进程。然而，Babel + TypeScript 组合仍然提供更快的编译，这要归功于 Babel 的高级缓存和单文件发射架构。
 
-因此，如果 Babel 剥离掉 TypeScript 代码，那么编写 TypeScript 有什么意义呢？这带来了第二个优势......
+因此，如果 Babel 剥离掉 TypeScript 代码，那么编写 TypeScript 有什么意义呢？这带来了第二个优势...
 
 ## 4）只有在准备好后才检查类型错误
 
@@ -157,7 +157,7 @@ Babel 如何处理 TypeScript 代码？**它删除它**。
 
 这是 Babel 在编译期间剥离 TypeScript 代码的第二个优点。你编写代码，保存，并且编译（非常快）**而不**检查类型安全性。继续尝试解决方案，直到你准备好检查代码是否有错误。这种工作流程可让你在编码时保持专注。
 
-那么如何检查类型错误？添加一个调用 TypeScript 编译器的  `npm run check-types` 脚本。我将我的 `npm test` 命令调整为首先检查类型，然后继续运行单元测试。
+那么如何检查类型错误？添加一个调用 TypeScript 编译器的 `npm run check-types` 脚本。我将我的 `npm test` 命令调整为首先检查类型，然后继续运行单元测试。
 
 ## 这不是完美的结合
 
@@ -231,7 +231,7 @@ Babel 默认查找 .js 文件，遗憾的是，这在 Babel 配置文件中是�
 
 如果你使用 Webpack，添加 `'ts'` 到 `resolve.extensions` 数组。
 
-**3）添加“check-types“命令。**
+**3）添加 “check-types” 命令。**
 
 在 `package.json` 里添加：
 
@@ -301,13 +301,13 @@ Babel 和 TypeScript 组合可以快速编译，并允许你专注地编码，�
 
 ## 预测：TypeScript 使用将会上升
 
-根据最新的 [Stack Overflow 开发者调查](https://insights.stackoverflow.com/survey/2018/#technology-programming-scripting-and-markup-languages)，JavaScript 是最流行的语言，TypeScript 排在第 12 位。 对于TypeScript 来说，这仍然是一项伟大的成就，击败了 Ruby，Swift 和 Go。
+根据最新的 [Stack Overflow 开发者调查](https://insights.stackoverflow.com/survey/2018/#technology-programming-scripting-and-markup-languages)，JavaScript 是最流行的语言，TypeScript 排在第 12 位。 对于TypeScript 来说，这仍然是一项伟大的成就，击败了 Ruby、Swift 和 Go。
 
 ![Developer survey results](https://iamturns.com/static/dev-survey-7e7416c3e24796eb8de66d34164a8777-aef05.png)
 
 我预测 TypeScript 将在明年进入前 10 名。
 
-TypeScript 团队正在努力推广。这个 Babel preset 是为期一年的合作，他们的新焦点是在 [改进 ESLint 集成](https://github.com/Microsoft/TypeScript/issues/29288)。这是一个聪明的举措 - 利用现有工具的功能、社区和插件。开发有竞争力的编译器和语法检查是浪费精力。
+TypeScript 团队正在努力推广。这个 Babel preset 是为期一年的合作，他们的新焦点是在 [改进 ESLint 集成](https://github.com/Microsoft/TypeScript/issues/29288)。这是一个聪明的举措 — 利用现有工具的功能、社区和插件。开发有竞争力的编译器和语法检查是浪费精力。
 
 通往 TypeScript 的路径已经被铺平了，我们只需调整我们喜爱的工具配置即可。进入的障碍已被打破。
 
