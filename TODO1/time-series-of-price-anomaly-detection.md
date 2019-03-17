@@ -107,13 +107,11 @@ In general, the price is more stable and lower when searching Non-Saturday night
 
 k-means is a widely used clustering algorithm. It creates ‘k’ similar clusters of data points. Data instances that fall outside of these groups could potentially be marked as anomalies. Before we start k-means clustering, we use elbow method to determine the optimal number of clusters.
 
-
 ![Figure 6](https://cdn-images-1.medium.com/max/2000/1*sbYunUvghD_r721IR5E2RA.png)
 
 From the above elbow curve, we see that the graph levels off after 10 clusters, implying that addition of more clusters do not explain much more of the variance in our relevant variable; in this case `price_usd`.
 
 we set `n_clusters=10`, and upon generating the k-means output use the data to plot the 3D clusters.
-
 
 ![Figure 7](https://cdn-images-1.medium.com/max/2000/1*HoU7DGQx8UgHBJSXLuq1bQ.png)
 
@@ -136,7 +134,6 @@ The underline assumption in the clustering based anomaly detection is that if we
 
 ![Figure 9](https://cdn-images-1.medium.com/max/2000/1*JG_xuw8E14iEkxLBuBF4fg.png)
 
-
 ![Figure 10](https://cdn-images-1.medium.com/max/2000/1*B85xLfKeg4n4NqFx4H1Cow.png)
 
 It seems that the anomalies detected by k-means clustering were either some of very high rates or some of very low rates.
@@ -146,10 +143,8 @@ It seems that the anomalies detected by k-means clustering were either some of v
 [Isolation Forest](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html) detects anomalies purely based on the fact that anomalies are data points that are few and different. The anomalies isolation is implemented without employing any distance or density measure. This method is fundamentally different from clustering based or distance based algorithms.
 
 * When applying an[ IsolationForest](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html) model, we set contamination = outliers_fraction, that is telling the model that the proportion of outliers in the data set is 0.01.
-
 * `fit` and `predict(data)` performs outlier detection on data, and returns 1 for normal, -1 for anomaly.
 * Finally, we visualize anomalies with Time Series view.
-
 
 ![Figure 11](https://cdn-images-1.medium.com/max/2000/1*qddrIOLJSd2-iMpj7qbjiQ.png)
 
@@ -189,16 +184,11 @@ So far, we have done price anomaly detection with four different methods. Becaus
 [Jupyter notebook](https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/Time%20Series%20of%20Price%20Anomaly%20Detection%20Expedia.ipynb) can be found on [Github](https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/Time%20Series%20of%20Price%20Anomaly%20Detection%20Expedia.ipynb). Enjoy the rest of the week!
 
 References:
-* [**Introduction to Anomaly Detection**
-**Experience with the specific topic: Novice Professional experience: No industry experience This overview is intended…**www.datascience.com](https://www.datascience.com/blog/python-anomaly-detection)
-* [**sklearn.ensemble.IsolationForest - scikit-learn 0.20.2 documentation**
-**Behaviour of the decision_function which can be either 'old' or 'new'. Passing behaviour='new' makes the…**scikit-learn.org](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html)
-* [**sklearn.svm.OneClassSVM - scikit-learn 0.20.2 documentation**
-**Specifies the kernel type to be used in the algorithm. It must be one of 'linear', 'poly', 'rbf', 'sigmoid'…**scikit-learn.org](https://scikit-learn.org/stable/modules/generated/sklearn.svm.OneClassSVM.html)
-* [**sklearn.covariance.EllipticEnvelope - scikit-learn 0.20.2 documentation**
-**If True, the support of robust location and covariance estimates is computed, and a covariance estimate is recomputed…**scikit-learn.org](https://scikit-learn.org/stable/modules/generated/sklearn.covariance.EllipticEnvelope.html)
-* [**Unsupervised Anomaly Detection | Kaggle**
-**Edit description**www.kaggle.com](https://www.kaggle.com/victorambonati/unsupervised-anomaly-detection)
+* [**Introduction to Anomaly Detection**](https://www.datascience.com/blog/python-anomaly-detection)
+* [**sklearn.ensemble.IsolationForest - scikit-learn 0.20.2 documentation**](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html)
+* [**sklearn.svm.OneClassSVM - scikit-learn 0.20.2 documentation**](https://scikit-learn.org/stable/modules/generated/sklearn.svm.OneClassSVM.html)
+* [**sklearn.covariance.EllipticEnvelope - scikit-learn 0.20.2 documentation**](https://scikit-learn.org/stable/modules/generated/sklearn.covariance.EllipticEnvelope.html)
+* [**Unsupervised Anomaly Detection | Kaggle**](https://www.kaggle.com/victorambonati/unsupervised-anomaly-detection)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
