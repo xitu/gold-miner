@@ -2,20 +2,20 @@
 > * 原文作者：[max stoiber](https://mxstbr.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-i-write-css-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-i-write-css-in-javascript.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Ivocin](https://github.com/Ivocin)
+> * 校对者：[MacTavish Lee](https://github.com/Reaper622), [Mirosalva](https://github.com/Mirosalva)
 
-# Why I Write CSS in JavaScript
+# 为什么我用 JavaScript 来编写 CSS
 
-For three years, I have styled my web apps without any `.css` files. Instead, I have written all the CSS in JavaScript.
+三年来，我设计的 Web 应用程序都没有使用 `.css` 文件。作为替代，我用 JavaScript 编写了所有的 CSS。
 
-I know what you are thinking: “why would anybody write CSS in JavaScript?!” Let me explain.
+我知道你在想什么：“为什么有人会用 JavaScript 编写 CSS 呢？！” 这篇文章我就来解答这个问题。
 
-### What Does CSS-in-JS Look Like?
+## CSS-in-JS 长什么样？
 
-Developers have created [different flavors of CSS-in-JS](https://github.com/michelebertoli/css-in-js). The most popular to date, with over 20,000 stars on GitHub, is a library I co-created, called [styled-components](https://styled-components.com).
+开发者们已经创建了[不同风格的 CSS-in-JS](https://github.com/michelebertoli/css-in-js)。迄今为止最受欢迎的，是我和他人共同开发的一个叫做 [styled-components](https://styled-components.com) 的库，在 GitHub 上有超过 20,000 颗星。
 
-Using it with React looks like this:
+如下是它与 React 一起使用的例子：
 
 ```
 import styled from 'styled-components'
@@ -30,51 +30,51 @@ const App = () => (
 )
 ```
 
-This renders a palevioletred `<h1>` with a font size of 18px to the DOM:
+这会在 DOM 里渲染一个字体大小为 18px 的浅紫红色的 `<h1>`：
 
 ![](https://user-images.githubusercontent.com/26959437/53942001-9c4cfd80-40f4-11e9-80ad-5cc9a4c35c4e.png)
 
-### Why I like CSS-in-JS
+## 为什么我喜欢 CSS-in-JS？
 
-Primarily, **CSS-in-JS boosts my confidence**. I can add, change and delete CSS without any unexpected consequences. My changes to the styling of a component will not affect anything else. If I delete a component, I delete its CSS too. No more [append-only stylesheets](https://css-tricks.com/oh-no-stylesheet-grows-grows-grows-append-stylesheet-problem/)! ✨
+主要是 **CSS-in-JS 增强了我的信心**。我可以在不产生任何意外后果的情况下，添加、更改和删除 CSS。我对组件样式的更改不会影响其他任何内容。如果删除组件，我也会删除它的 CSS。不再是[只增不减的样式表](https://css-tricks.com/oh-no-stylesheet-grows-grows-grows-append-stylesheet-problem/)了！ ✨
 
-**Confidence**: Add, change and delete CSS without any unexpected consequences and avoid dead code.
+**信心**：在不产生任何意外后果的情况下，添加、更改和删除 CSS，并避免无用代码。
 
-**Painless Maintenance**: Never go on a hunt for CSS affecting your components ever again.
+**易维护**：再也不需要寻找影响组件的 CSS 了。
 
-Teams I have been a member of are especially benefitting from this confidence boost. I cannot expect all team members, particularly juniors, to have an encyclopedic understanding of CSS. On top of that, deadlines can get in the way of quality.
+尤其是我所在的团队从中获取了很大的信心。我不能指望所有团队成员，特别是初级成员，对 CSS 有着百科全书般的理解。最重要的是，截止日期还可能会影响质量。
 
-With CSS-in-JS, we automatically sidestep common CSS frustrations such as class name collisions and specificity wars. This keeps our codebase clean and lets us move quicker. 😍
+使用 CSS-in-JS，我们会自动避开 CSS 常见的坑，比如类名冲突和权重大战（specificity wars）。这使我们的代码库整洁，并且开发更迅速。 😍
 
-**Enhanced Teamwork**: Avoid common CSS frustrations to keep a neat codebase and moving quickly, regardless of experience levels.
+**提升的团队合作**：无论经验水平如何，都会避开 CSS 常见的坑，以保持代码库整洁，并且开发更迅速。
 
-Regarding performance, CSS-in-JS libraries keep track of the components I use on a page and only inject their styles into the DOM. While my `.js` bundles are slightly heavier, my users download the smallest possible CSS payload and avoid extra network requests for `.css` files.
+关于性能，CSS-in-JS 库跟踪我在页面上使用的组件，只将它们的样式注入 DOM 中。虽然我的 `.js` 包稍大，但我的用户下载了尽可能小的有效 CSS 内容，并避免了对 `.css` 文件的额外网络请求。
 
-This leads to a marginally slower time to interactive, but a much quicker first meaningful paint! 🏎💨
+这导致交互时间稍微长一点，但是首次有效绘制却会快很多！ 🏎💨
 
-**Fast Performance**: Send only the critical CSS to the user for a rapid first paint.
+**高性能**：仅向用户发送关键 CSS 以快速进行首次绘制。
 
-I can also easily adjust the styles of my components based on different states (`variant="primary"` vs `variant="secondary"`) or a global theme. The component will apply the correct styles automatically when I dynamically change that context. 💅
+我还可以基于不同的状态（`variant="primary"` vs `variant="secondary"`）或全局主题轻松调整组件的样式。当我动态更改该上下文时，该组件将自动应用正确的样式。 💅
 
-**Dynamic Styling**: Simply style your components with a global theme or based on different states.
+**动态样式**：基于全局主题或不同状态设置组件样式。
 
-CSS-in-JS still offers all the important features of CSS preprocessors. All libraries support auto-prefixing, and JavaScript offers most other features like mixins (functions) and variables natively.
+CSS-in-JS 还提供 CSS 预处理器的所有重要功能。所有库都支持 auto-prefixing，JavaScript 原生提供了大多数其他功能，如 mixins（函数）和变量。
 
 * * *
 
-I know what you are thinking: “Max, you can also get these benefits with other tools or strict processes or extensive training. What makes CSS-in-JS special?”
+我知道你在想什么：“Max，你也可以通过其他工具或严格的流程或大量的培训来获得这些好处。是什么让 CSS-in-JS 变得特别？”
 
-CSS-in-JS combines all these benefits into one handy package and enforces them. It guides me to the [pit of success](https://blog.codinghorror.com/falling-into-the-pit-of-success/): doing the right thing is easy, and doing the wrong thing is hard (or even impossible).
+CSS-in-JS 将所有这些好处结合到一个好用的包中并强制执行它们。它引导我走向[成功的关键](https://blog.codinghorror.com/falling-into-the-pit-of-success/)：做正确的事情很容易，做错事很难（甚至不可能）。
 
-### Who Uses CSS-in-JS?
+## 谁在使用 CSS-in-JS？
 
-Thousands of companies use CSS-in-JS in production, including [Reddit](https://reddit.com), [Patreon](https://patreon.com), [Target](https://target.com), [Atlassian](https://atlaskit.atlassian.com), [Vogue](https://vogue.de), [GitHub](https://primer.style/components), [Coinbase](https://pro.coinbase.com), and many more. ([including this website](https://github.com/mxstbr/mxstbr.com))
+有上千家公司在生产中使用 CSS-in-JS，包括 [Reddit](https://reddit.com)、[Patreon](https://patreon.com)、[Target](https://target.com), [Atlassian](https://atlaskit.atlassian.com)、[Vogue](https://vogue.de)、[GitHub](https://primer.style/components)、[Coinbase](https://pro.coinbase.com) 等等。([包括本网站](https://github.com/mxstbr/mxstbr.com))
 
-### Is CSS-in-JS For You?
+## CSS-in-JS 适合你吗？
 
-If you are using a JavaScript framework to build a web app with components, CSS-in-JS is probably a good fit. Especially if you are part of a team where everybody understands basic JavaScript.
+如果你使用 JavaScript 框架来构建包含组件的 Web 应用程序，那么 CSS-in-JS 可能非常适合。特别是你所在团队中每个人都理解基本的 JavaScript。
 
-If you are not sure how to get started, I would recommend trying it out and seeing for yourself how good it feels! ✌️
+如果你不确定如何开始，我会建议你尝试一下 CSS-in-JS，亲眼看看它有多好！ ✌️
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
