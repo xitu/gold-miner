@@ -4428,10 +4428,11 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|1|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
 
-## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：130 当前积分：35 二零一九：10.5
+## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：138 当前积分：43 二零一九：18.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|8|
 |[数据科学领域十大必知机器学习算法](https://juejin.im/post/5c73bbfff265da2da771d42a)|翻译|5.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|13|
