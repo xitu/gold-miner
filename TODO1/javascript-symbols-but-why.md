@@ -9,15 +9,15 @@
 
 ![](https://cdn-images-1.medium.com/max/3840/1*-6P9pSYh8qCbyzKu4AG88w.jpeg)
 
-作为最新的基本类型，Symbols 为 Javascript 语言带来了很多好处，特别是当其用在对象属性上时。但是，相比较于 String 类型，Symbols 有哪些 String 没有的功能呢？ 
+作为最新的基本类型，Symbols 为 JavaScript 语言带来了很多好处，特别是当其用在对象属性上时。但是，相比较于 String 类型，Symbol 有哪些 String 没有的功能呢？ 
 
 在深入探讨 Symbols 之前，让我们先看看一些许多开发人员可能都不知道的 JavaScript 特性。
 
 ## Background
 
-Javascript 中有两种数据类型：基本数据类型和对象（对象也包括函数），基本数据类型包括简单数据类型，比如 numbers（从整数到浮点数，从无穷到 NaN 都属于 Number 类型）、booleans、strings、`undefined`、`null`（注意尽管 `typeof null=='object'`，`null` 仍然是一个基本数据类型）。
+JavaScript 中有两种数据类型：基本数据类型和对象（对象也包括函数），基本数据类型包括简单数据类型，比如 numbers（从整数到浮点数，从无穷到 NaN 都属于 Number 类型）、booleans、strings、`undefined`、`null`（注意尽管 `typeof null=='object'`，`null` 仍然是一个基本数据类型）。
 
-基本数据类型的值是不可以改变的，即不能更改变量的原始值。当然**可以**重新对变量进行赋值。例如，代码 `let x=1;x++`，虽然你通过重新赋值改变了变量 `x` 的值，但是变量的原始值 `1` 没有被改变。
+基本数据类型的值是不可以改变的，即不能更改变量的原始值。当然**可以**重新对变量进行赋值。例如，代码 `let x=1;x++`，虽然你通过重新赋值改变了变量 `x` 的值，但是变量的原始值 `1` 仍没有被改变。
 
 Some languages, such as C, have the concept of pass-by-reference and pass-by-value. JavaScript sort of has this concept too, though, it’s inferred based on the type of data being passed around. If you ever pass a value into a function, reassigning that value will not modify the value in the calling location. However, if you **modify** a non-primitive value, the modified value **will** also be modified where it has been called from.
 
@@ -50,7 +50,7 @@ const second = "ab" + "cd" + "ef";
 console.log(first === second); // true
 ```
 
-然而，构造值相同的两个非基本数据类型则得到**不相等**的结果。我们可以看到发生了什么:
+然而，构造两个值相同的非基本数据类型则得到**不相等**的结果。我们可以看到发生了什么:
 
 ```js
 const obj1 = { name: "Intrinsic" };
@@ -58,11 +58,11 @@ const obj2 = { name: "Intrinsic" };
 
 console.log(obj1 === obj2); // false
 
-// 但是，两者的.name 属性为基本数据类型:
+// 但是，当两者的.name 属性为基本数据类型时:
 console.log(obj1.name === obj2.name); // true
 ```
 
-Objects play an elemental role in the JavaScript language. They’re used **everywhere**. They’re often used as collections of key/value pairs. However, this is a big limitation of using them in this manner: Until symbols existed, object keys could only be strings. If we ever attempt to use a non-string value as a key for an object, the value will be coerced to a string. We can see this feature here:
+对象在 javaScript 中扮演着重要的角色，几乎**到处**可以见到它们的身影。集合通常是键/值对的集合，然而这种形式的最大限制是：对象的键只能是字符串，直到 Symbol 出现这一限制才得到解决。如果我们使用非字符串的值作为对象的键，该值会被强制转换成字符串。在下面的程序中可以看到这种强制转换：
 
 ```js
 const obj = {};
@@ -76,9 +76,9 @@ console.log(obj);
      '[object Object]': 'someobj' }
 ```
 
-**Note**: It’s slightly off topic, but the `Map` data structure was created in part to allow for key/value storage in situations where a key is not a string.
+**注意**：虽然有些离题，但是需要知道的是创建 `Map` 数据结构的部分原因是为了在键不是字符串的情况下允许键/值方式存储。
 
-## What is a Symbol?
+## Symbol 是什么？
 
 Now that we know what a primitive value is, we’re finally ready to define what a symbol is. A symbol is a primitive which cannot be recreated. In this case a symbols is similar to an object as creating multiple instances will result in values which are not exactly equal. But, a symbol is also a primitive in that it cannot be mutated. Here is an example of symbol usage:
 
