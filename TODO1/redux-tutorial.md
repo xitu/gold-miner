@@ -1,7 +1,4 @@
-A Complete React Redux Tutorial for 2019
-========================================
-
-MARCH 10, 2019
+# A Complete React Redux Tutorial for 2019
 
 ![A Complete Redux Tutorial (2019): why use it? - store - reducers - actions - thunks - data fetching](https://daveceddia.com/images/complete-redux-tutorial-2019.png)
 
@@ -19,23 +16,17 @@ Then we'll look at the more advanced topics, one-by-one, until you understand *
 
 Quick warning though: this tutorial is *compleeete*. And by that I mean *looong*. I turned this into a full-fledged free course, *and* I made a nice-looking PDF you can read on your iPad or [whatever Android device is cool these days]. Drop your email in the box to get both right now.
 
-This tutorial is 43 pages of awesome. Take it as a course 👇
-
-Get the Course + PDF
-
-(I know how the browser tabs spiral out of control. So many fun things to read, so little time!)
-
-Redux Essentials in One Video
------------------------------
+## Redux Essentials in One Video
 
 If you prefer watching to reading, this video covers how to add Redux to a React app step-by-step:
+
+[Watch this video](https://youtu.be/sX3KeP7v7Kg)
 
 This parallels the first part of this tutorial, where we'll take a plain React app and add Redux to it one piece at a time.
 
 Or, keep reading! The tutorial below covers everything in the video and then some.
 
-Should You Use Redux?
----------------------
+## Should You Use Redux?
 
 It's especially valid, in 2019, to wonder... should you still use Redux? Is there something better out now, with Hooks or Context or some other library?
 
@@ -61,8 +52,7 @@ Learn React by building a few simple apps over the next 5 days.
 
 Get Lesson 1
 
-The Benefits of Redux
----------------------
+## The Benefits of Redux
 
 If you've used React for more than a few minutes, you probably know about props and one-way data flow. Data is passed *down* the component tree via props. Given a component like this:
 
@@ -112,8 +102,7 @@ Using the `connect` function that comes with `react-redux`, you can plug any 
 
 Redux does some other cool stuff too, like make debugging easier (Redux DevTools let you inspect every single state change), time-travel debugging (you can *roll back*state changes and see how your app looked in the past), and it can make your code more maintainable in the long run. It'll teach you more about functional programming too.
 
-Built-in Redux Alternatives
----------------------------
+## Built-in Redux Alternatives
 
 If Redux seems like overkill for your situation, give these alternatives a look. They're built right in to React.
 
@@ -131,8 +120,7 @@ Depending on how you structure your app, you might be able to pass data to child
 
 I have an article about this ["slots" pattern and how to arrange your component tree](https://daveceddia.com/pluggable-slots-in-react-components/)to pass data more efficiently.
 
-Learn Redux, Starting With Plain React
---------------------------------------
+## Learn Redux, Starting With Plain React
 
 We're going to take an incremental approach, starting with a plain React app with component state, adding parts of Redux piece-by-piece, and dealing with the errors along the way. Let's call it "Error-Driven Development" :)
 
@@ -222,8 +210,7 @@ These libraries are like two peas in a pod, though. 99.999% of the time, when an
 
 The `redux` library can be used outside of a React app too. It'll work with Vue, Angular, and even backend Node/Express apps.
 
-Redux Has One Global Store
---------------------------
+## Redux Has One Global Store
 
 We're going to start by looking at just Redux by itself, and just one piece of it: the store.
 
@@ -233,8 +220,7 @@ You'll often see the words "state" and "store" used interchangeably. Technically
 
 So: as step 1 of our refactoring from plain React to Redux, we need to create a store to hold the state.
 
-Create the Redux Store
-----------------------
+## Create the Redux Store
 
 Redux comes with a handy function that creates stores, and it's called `createStore`. Logical enough, eh?
 
@@ -297,8 +283,7 @@ Also notice how Redux passed a `state` of `undefined`, and the action was an 
 
 We'll talk more about actions in a minute. For now, let's go over the *reducer*.
 
-What Is a Redux Reducer?
-------------------------
+## What Is a Redux Reducer?
 
 The term "reducer" might seem a bit scary and foreign, but after this section I think you'll come to agree that it is, as the saying goes, "just a function."
 
@@ -346,8 +331,7 @@ Redux reducers work just like the function you pass to Array.reduce! :) The thin
 
 If you're still super unsure, check out my guide to [how Redux reducers work](https://daveceddia.com/what-is-a-reducer/). Otherwise, let's forge ahead.
 
-Give the Reducer an Initial State
----------------------------------
+## Give the Reducer an Initial State
 
 Remember that the reducer's job is to take the current `state` and an `action` and return the new state.
 
@@ -379,8 +363,7 @@ Important Rule of Reducers #1: Never return undefined from a reducer.
 
 You always want your state to be defined. A defined state is a happy state. An *un*defined state is *un*happy (and will likely break your app).
 
-Dispatch Actions to Change the State
-------------------------------------
+## Dispatch Actions to Change the State
 
 Yep, two new terms at once: we're gonna "dispatch" some "actions."
 
@@ -424,8 +407,7 @@ Actions, despite their active-sounding name, are boring, inert objects. They don
 
 In order to make an action DO something, you need to dispatch it.
 
-How Redux Dispatch Works
-------------------------
+## How Redux Dispatch Works
 
 The store we created earlier has a built-in function called `dispatch`. Call it with an action, and Redux will call your reducer with that action (and then replace the state with whatever your reducer returned).
 
@@ -452,8 +434,7 @@ Also notice how the state is the same every time? `{count: 0}` never changes.
 
 That's because our reducer is not *acting on* those actions. That's an easy fix though. Let's do that now.
 
-Handle Actions in the Redux Reducer
------------------------------------
+## Handle Actions in the Redux Reducer
 
 To make actions actually do something, we need to write some code in the reducer that will inspect the `type` of each action and update the state accordingly.
 
@@ -469,7 +450,6 @@ if(action.type === "INCREMENT") {
 } else if(action.type === "RESET") {
   ...
 }
-
 ```
 
 Or you could use a simple `switch` statement, which is what I'll show below because it's straightforward, and a very common way to do it.
@@ -501,7 +481,6 @@ function reducer(state = initialState, action) {
       return state;
   }
 }
-
 ```
 
 Try this out and take a look at the console.
@@ -512,8 +491,7 @@ Hey look at that! The `count` is changing!
 
 We're about ready to hook this up to React, but let's talk about this reducer code for a second.
 
-How to Keep Your Reducers Pure
-------------------------------
+## How to Keep Your Reducers Pure
 
 Another rule about reducers is that they must be pure functions. This means that they can't modify their arguments, and they can't have side effects.
 
@@ -535,8 +513,7 @@ Another great option is to install the [Immer](https://github.com/mweststrate/i
 
 My advice: if you're starting a brand new app, use Immer from the beginning. It'll save you a lot of hassle. But I'm showing you the "hard" way because that's how a lot of code still does it, and you're bound to see reducers written without Immer.
 
-All These Rules...
-----------------
+## All These Rules...
 
 Always return a state, never change state, don't connect every component, eat your broccoli, don't stay out past 11... it's exhausting. It's like a rules factory, and I don't even know what that is.
 
@@ -554,8 +531,7 @@ Redux avoids these problems with some simple rules.
 -   Changes happen one way, and one way only: dispatch(action) -> reducer -> new state.
 -   The reducer function must be "pure" -- it cannot modify its arguments, and it can't have side effects.
 
-How to Use Redux with React
----------------------------
+## How to Use Redux with React
 
 At this point we have a lovely little `store` with a `reducer` that knows how to update the `state` when it receives an `action`.
 
@@ -579,7 +555,6 @@ const App = () => (
     <Counter/>
   </Provider>
 );
-
 ```
 
 After this, `Counter`, and children of `Counter`, and children of their children, and so on -- all of them can now access the Redux store.
@@ -594,8 +569,7 @@ Context is like a secret passageway connected to every component, and using `co
 
 Imagine pouring syrup on a pile of pancakes, and how it manages to make its way into ALL the pancakes even though you only poured it on the top one. `Provider`does that for Redux.
 
-Prepare the Counter Component for Redux
----------------------------------------
+## Prepare the Counter Component for Redux
 
 Right now the Counter has local state. We're going to rip that out, in preparation to get the `count` as a prop from Redux.
 
@@ -643,15 +617,13 @@ class Counter extends React.Component {
     );
   }
 }
-
 ```
 
 This will leave `increment` and `decrement` empty. We'll fill them in again soon.
 
 You'll also notice the count has disappeared -- which it should, because nothing is passing a `count` prop to `Counter` yet.
 
-Connect the Component to Redux
-------------------------------
+## Connect the Component to Redux
 
 To get the `count` out of Redux, we first need to import the `connect` function at the top of Counter.js:
 
@@ -659,7 +631,6 @@ Counter.js
 
 ```
 import { connect } from 'react-redux';
-
 ```
 
 Then we need to "connect" the Counter component to Redux at the bottom:
@@ -679,15 +650,13 @@ function mapStateToProps(state) {
 
 // With this:
 export default connect(mapStateToProps)(Counter);
-
 ```
 
 Previously we were exporting the component itself. Now we're wrapping it with this `connect` function call, so we're exporting the *connected* Counter. As far as the rest of your app is concerned, this looks like a regular component.
 
 And the count should reappear! Except it's frozen until we reimplement increment/decrement.
 
-How to Use React Redux `connect`
---------------------------------
+## How to Use React Redux `connect`
 
 You might notice the call looks little... weird. Why `connect(mapStateToProps)(Counter)` and not `connect(mapStateToProps, Counter)` or `connect(Counter, mapStateToProps)`? What's that doing?
 
@@ -697,8 +666,7 @@ Another name for this is a [*higher-order component*](https://daveceddia.com/ex
 
 What `connect` does is hook into Redux, pull out the entire state, and pass it through the `mapStateToProps` function that you provide. This needs to be a custom function because only *you* know the "shape" of the state you've stored in Redux.
 
-How mapStateToProps Works
--------------------------
+## How mapStateToProps Works
 
 `connect` passes the entire state to your `mapStateToProps` function as if to say, "Hey, tell me what you need out of this jumbled mess."
 
@@ -716,8 +684,7 @@ And also, without the `mapStateToProps` function, `connect` won't pass in an
 
 You *could* pass in all of the state, and let the component sort it out. That's not a great habit to get into though, because the component will need to know the shape of the Redux state to pick out what it needs, and it'll be harder to change that shape later, if you need.
 
-Dispatch Redux Actions from a React Component
----------------------------------------------
+## Dispatch Redux Actions from a React Component
 
 Now that our Counter is `connect`ed, we've got the `count` value. Now how can we dispatch actions to change the count?
 
@@ -729,7 +696,7 @@ Our reducer is already set up to handle the `INCREMENT` and `DECREMENT` acti
 
 Counter.js
 
-```
+```js
 increment = () => {
   this.props.dispatch({ type: "INCREMENT" });
 };
@@ -737,7 +704,6 @@ increment = () => {
 decrement = () => {
   this.props.dispatch({ type: "DECREMENT" });
 };
-
 ```
 
 And now we're done. The buttons should work again.
@@ -748,8 +714,7 @@ Here's a little exercise to try: add a "Reset" button to the counter that dispat
 
 The reducer is already set up to handle this action, so you should only need to modify Counter.js.
 
-Action Constants
-----------------
+## Action Constants
 
 In most Redux apps, you'll see action constants used in place of plain strings. It's an extra level of abstraction that can save you some time in the long run.
 
@@ -761,17 +726,16 @@ A good place to put these is in an `actions.js` file (when your app is small, 
 
 actions.js
 
-```
+```js
 export const INCREMENT = "INCREMENT";
 export const DECREMENT = "DECREMENT";
-
 ```
 
 Then you can import the action names, and use those instead of writing the strings:
 
 Counter.js
 
-```
+```js
 import React from "react";
 import { INCREMENT, DECREMENT } from './actions';
 
@@ -790,11 +754,9 @@ class Counter extends React.Component {
     ...
   }
 }
-
 ```
 
-What is a Redux Action Creator?
--------------------------------
+## What is a Redux Action Creator?
 
 Up til now we've been writing out action objects manually. Like heathens.
 
@@ -814,7 +776,7 @@ Here are two of them, returning familiar actions. These go nicely in `actions.j
 
 actions.js
 
-```
+```js
 export const INCREMENT = "INCREMENT";
 export const DECREMENT = "DECREMENT";
 
@@ -823,7 +785,6 @@ export function increment() {
 }
 
 export const decrement = () => ({ type: DECREMENT });
-
 ```
 
 I wrote them two different ways -- as a `function` and as an arrow -- to show that it doesn't matter how you write them. Pick your fave and go with it.
@@ -834,7 +795,7 @@ Now... what do you do with an action creator? Import it and dispatch it, of cour
 
 Counter.js
 
-```
+```js
 import React from "react";
 import { increment, decrement } from './actions';
 
@@ -853,7 +814,6 @@ class Counter extends React.Component {
     ...
   }
 }
-
 ```
 
 The key thing is to remember to call the action creator()!
@@ -866,8 +826,7 @@ Remember that an action creator is a plain old function. Dispatch wants an actio
 
 Also: you will almost definitely mess this up and be very confused. At least once, probably many times. That's normal. I *still* forget sometimes.
 
-How to Use React Redux mapDispatchToProps
------------------------------------------
+## How to Use React Redux mapDispatchToProps
 
 Now that you know what an action creator is, we can talk about *one more* level of abstraction. (I know. I KNOW. It's optional though.)
 
@@ -877,7 +836,7 @@ By writing a `mapDispatchToProps` object (or function! but usually object) and
 
 Counter.js
 
-```
+```js
 import React from 'react';
 import { connect } from 'react-redux';
 import { increment, decrement } from './actions';
@@ -913,15 +872,13 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
-
 ```
 
 This is nice because it saves you from having to call `dispatch` manually.
 
 You can also write `mapDispatch` as a function, but the object covers probably 95% of what you need. You can read more about the [functional mapDispatch form and why you probably don't need it](https://daveceddia.com/redux-mapdispatchtoprops-object-form/).
 
-How to Fetch Data with Redux Thunk
-----------------------------------
+## How to Fetch Data with Redux Thunk
 
 Since reducers are supposed to be "pure," we can't do any API calls or dispatch actions from inside a reducer.
 
@@ -929,13 +886,12 @@ We also can't do that stuff inside a plain action creator!
 
 But what if we could make an action creator *return* a function that could do our work? Something like this:
 
-```
+```js
 function getUser() {
   return function() {
     return fetch('/current_user');
   };
 }
-
 ```
 
 Out of the box, Redux doesn't support actions like this. Stock Redux only accepts *plain objects* as actions.
@@ -950,7 +906,7 @@ A "thunk" is a (uncommon) name for a *function* that's returned by another fun
 
 In Redux terms, it's an action creator that returns a function instead of a plain action object, like this:
 
-```
+```js
 function doStuff() {
   return function(dispatch, getState) {
     // dispatch actions here
@@ -958,7 +914,6 @@ function doStuff() {
     // or whatever
   }
 }
-
 ```
 
 If you wanna get technical, the function being returned is the "thunk", and the one that returns it is the "action creator". Usually I call the whole bundle a "thunk action."
@@ -967,8 +922,7 @@ The function you return from your action creator will be passed 2 arguments: the
 
 Most of the time you'll only need `dispatch`, but sometimes you want to do something conditionally, based on some value in the Redux state. In that case, call `getState()` and you'll have the entire state to read as needed.
 
-How to Setup Redux Thunk
-------------------------
+## How to Setup Redux Thunk
 
 To install redux-thunk with NPM or Yarn, run `npm install --save redux-thunk`.
 
@@ -986,13 +940,11 @@ const store = createStore(
   reducer,
   applyMiddleware(thunk)
 );
-
 ```
 
 Just make sure to wrap `thunk` in the `applyMiddlware` call or it won't work. Don't pass `thunk` directly.
 
-An Example of Fetching Data with Redux
---------------------------------------
+## An Example of Fetching Data with Redux
 
 Let's imagine you want to display a list of products. You've got a backend API that answers to `GET /products`, so you create this thunk action to do the fetching:
 
@@ -1011,13 +963,11 @@ export function fetchProducts() {
       .catch(error => dispatch(fetchProductsFailure(error)));
   };
 }
-
 ```
 
 The `fetch("/products")` part is what's actually fetching the data. Then we have a few calls to `dispatch` before and after.
 
-Dispatch the Action to Fetch the Data
--------------------------------------
+## Dispatch the Action to Fetch the Data
 
 To kick off the call and actually fetch the data, we need to dispatch the `fetchProducts` action.
 
@@ -1049,7 +999,7 @@ Here's what those actions look like, along with action creators for them:
 
 productActions.js
 
-```
+```js
 export const FETCH_PRODUCTS_BEGIN   = 'FETCH_PRODUCTS_BEGIN';
 export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
 export const FETCH_PRODUCTS_FAILURE = 'FETCH_PRODUCTS_FAILURE';
@@ -1067,14 +1017,13 @@ export const fetchProductsFailure = error => ({
   type: FETCH_PRODUCTS_FAILURE,
   payload: { error }
 });
-
 ```
 
 We'll write a reducer to save the products into the Redux store when it receives the `FETCH_PRODUCTS_SUCCESS` action. It'll also set a `loading` flag to true when the fetch begins, and false when it finishes or fails.
 
 productReducer.js
 
-```
+```js
 import {
   FETCH_PRODUCTS_BEGIN,
   FETCH_PRODUCTS_SUCCESS,
@@ -1127,14 +1076,13 @@ export default function productReducer(state = initialState, action) {
       return state;
   }
 }
-
 ```
 
 Finally, we need to pass the products into a `ProductList` component that will display them, and also be responsible for kicking off the data fetching.
 
 ProductList.js
 
-```
+```js
 import React from "react";
 import { connect } from "react-redux";
 import { fetchProducts } from "/productActions";
@@ -1172,14 +1120,13 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(ProductList);
-
 ```
 
 I'm referring to the data with `state.products.<whatever>` instead of just `state.<whatever>` because I'm making the assumption that you'll probably have more than one reducer, each handling its own slice of state. To make this work, we can write a `rootReducer.js` file that pulls them all together:
 
 rootReducer.js
 
-```
+```js
 import { combineReducers } from "redux";
 import products from "./productReducer";
 
@@ -1199,11 +1146,9 @@ import rootReducer from './rootReducer';
 // ...
 
 const store = createStore(rootReducer);
-
 ```
 
-Error Handling in Redux
------------------------
+## Error Handling in Redux
 
 The error handling here is pretty light, but the basic structure will be the same for most actions that make API calls. The general idea is:
 
@@ -1221,8 +1166,7 @@ You may be worried about unnecessary renders because of performance, but don't b
 
 Think of it this way: the app needs to show *something* when there are no products, or when they're loading, or when there's an error. You probably don't want to just show a blank screen until the data is ready. This gives you an opportunity to make that user experience shine.
 
-What Next?
-----------
+## What Next?
 
 Hopefully this tutorial helped you make more sense of Redux!
 
