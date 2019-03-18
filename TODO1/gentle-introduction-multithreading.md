@@ -1,14 +1,12 @@
-A gentle introduction to multithreading
-=======================================
+# A gentle introduction to multithreading
 
-Approaching the world of concurrency, one step at a time.
+> Approaching the world of concurrency, one step at a time.
 
 Modern computers have the ability to perform multiple operations at the same time. Supported by hardware advancements and smarter operating systems, this feature makes your programs run faster, both in terms of speed of execution and responsiveness.
 
 Writing software that takes advantage of such power is fascinating, yet tricky: it requires you to understand what happens under your computer's hood. In this first episode I'll try to scratch the surface of threads, one of the tools provided by operating systems to perform this kind of magic. Let's go!
 
-Processes and threads: naming things the right way
---------------------------------------------------
+## Processes and threads: naming things the right way
 
 Modern operating systems can run multiple programs at the same time. That's why you can read this article in your browser (a program) while listening to music on your media player (another program). Each program is known as a process that is being executed. The operating system knows many software tricks to make a process run along with others, as well as taking advantage from the underlying hardware. Either way, the final outcome is that you *sense* all your programs to be running simultaneously.
 
@@ -20,7 +18,7 @@ You can think of the operating system as a container that holds multiple process
 
 ![Processes vs Threads](https://raw.githubusercontent.com/monocasual/internalpointers-files/master/2019/02/processes-threads.png)
 
-1\. Operating systems can be seen as a box that contains processes, which in turn contain one or more threads.
+fig 1: Operating systems can be seen as a box that contains processes, which in turn contain one or more threads.
 
 ### The differences between processes and threads
 
@@ -38,8 +36,7 @@ Green threads are faster to create and to manage because they completely bypass 
 
 The name "green threads" refers to the Green Team at Sun Microsystem that designed the original Java thread library in the 90s. Today Java no longer makes use of green threads: they switched to native ones back in 2000. Some other programming languages --- Go, Haskell or Rust to name a few --- implement equivalents of green threads instead of native ones.
 
-What threads are used for
--------------------------
+## What threads are used for
 
 Why should a process employ multiple threads? As I mentioned before, doing things in parallel greatly speed up things. Say you are about to render a movie in your movie editor. The editor could be smart enough to spread the rendering operation across multiple threads, where each thread processes a chunk of the final movie. So if with one thread the task would take, say, one hour, with two threads it would take 30 minutes; with four threads 15 minutes, and so on.
 
@@ -53,10 +50,9 @@ The last one is crucial: if your computer doesn't support multiple operations at
 
 ![Concurrency vs Parallelism](https://raw.githubusercontent.com/monocasual/internalpointers-files/master/2019/02/concurrency-parallelism.png)
 
-2\. Parallelism is a subset of concurrency.
+fig 2: Parallelism is a subset of concurrency.
 
-What makes concurrency and parallelism possible
------------------------------------------------
+## What makes concurrency and parallelism possible
 
 The central processing unit (CPU) in your computer does the hard work of running programs. It is made of several parts, the main one being the so-called core: that's where computations are actually performed. A core is capable of running only one operation at a time.
 
@@ -76,8 +72,7 @@ Say for example you are working on a desktop app that reads some data from a ver
 
 Let's rethink your app in a multithreaded way. Thread A is responsible for the disk access, while thread B takes care of the main interface. If thread A gets stuck waiting because the device is slow, thread B can still run the main interface, keeping your program responsive. This is possible because, having two threads, the operating system can switch the CPU resources between them without getting stuck on the slower one.
 
-More threads, more problems
----------------------------
+## More threads, more problems
 
 As we know, threads share the same chunk of memory of their parent process. This makes extremely easy for two or more of them to exchange data within the same application. For example: a movie editor might hold a big portion of shared memory containing the video timeline. Such shared memory is being read by several worker threads designated for rendering the movie to a file. They all just need a handle (e.g. a pointer) to that memory area in order to read from it and output rendered frames to disk.
 
@@ -91,8 +86,7 @@ Things run smoothly as long as two or more threads *read* from the same memory
 
 A piece of code is said to be thread-safe if it works correctly, that is without data races or race conditions, even if many threads are executing it simultaneously. You might have noticed that some programming libraries declare themselves as being thread-safe: if you are writing a multithreaded program you want to make sure that any other third-party function can be used across different threads without triggering concurrency problems.
 
-The root cause of data races
-----------------------------
+## The root cause of data races
 
 We know that a CPU core can perform only one machine instruction at a time. Such instruction is said to be atomic because it's indivisible: it can't be break into smaller operations. The Greek word "atom" (ἄτομος; atomos) means *uncuttable*.
 
@@ -100,8 +94,7 @@ The property of being indivisible makes atomic operations thread-safe by nature.
 
 The bad news is that the vast majority of operations out there are non-atomic. Even a trivial assignment like `x = 1` on some hardware might be composed of multiple atomic machine instructions, making the assignment itself non-atomic as a whole. So a data race is triggered if a thread reads `x` while another one performs the assignment.
 
-The root cause of race conditions
----------------------------------
+## The root cause of race conditions
 
 Preemptive multitasking gives the operating system full control over thread management: it can start, stop and pause threads according to advanced scheduling algorithms. You as a programmer cannot control the time or order of execution. In fact, there is no guarantee that a simple code like this:
 
@@ -115,8 +108,7 @@ would start the two threads in that specific order. Run this program several tim
 
 This behavior is called non-deterministic: the outcome changes each time and you can't predict it. Debugging programs affected by a race condition is very annoying because you can't always reproduce the problem in a controlled way.
 
-Teach threads to get along: concurrency control
------------------------------------------------
+## Teach threads to get along: concurrency control
 
 Both data races and race conditions are real-world problems: some people even [died because of them](https://en.wikipedia.org/wiki/Therac-25). The art of accommodating two or more concurrent threads is called concurrency control: operating systems and programming languages offer several solutions to take care of it. The most important ones:
 
@@ -128,8 +120,7 @@ Both data races and race conditions are real-world problems: some people even [
 
 I will cover all this fascinating topics in the next episodes of this mini-series about concurrency. Stay tuned!
 
-Sources
--------
+## Sources
 
 8 bit avenue - [Difference between Multiprogramming, Multitasking, Multithreading and Multiprocessing](https://www.8bitavenue.com/difference-between-multiprogramming-multitasking-multithreading-and-multiprocessing/)\
 Wikipedia - [Inter-process communication](https://en.wikipedia.org/wiki/Inter-process_communication)\
