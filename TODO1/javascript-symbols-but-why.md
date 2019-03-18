@@ -2,26 +2,26 @@
 > * 原文作者：[Thomas Hunter II](https://medium.com/@tlhunter)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-symbols-but-why.md](https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-symbols-but-why.md)
-> * 译者：
+> * 译者：[xionglong58](https://github.com/xionglong58)
 > * 校对者：
 
 # JavaScript Symbols: But Why?
 
 ![](https://cdn-images-1.medium.com/max/3840/1*-6P9pSYh8qCbyzKu4AG88w.jpeg)
 
-Symbols, the newest JavaScript primitive, bring a few benefits to the language and are particularly useful when used as object properties. But, what can they do for us that strings cannot?
+作为最新的基本类型，Symbols 为 Javascript 语言带来了很多好处，特别是当其用在对象属性上时。但是，相比较于 String 类型，Symbols 有哪些 String 没有的功能呢？ 
 
-Before we explore symbols too much let’s first look at some JavaScript features which many developers might not be aware of.
+在深入探讨 Symbols 之前，让我们先看看一些许多开发人员可能都不知道的 JavaScript 特性。
 
 ## Background
 
-There are essentially two types of values in JavaScript. The first type is primitives, and the second type is objects (which also includes functions). Primitive values include simple value types such as numbers (which includes everything from integers to floats to `Infinity` to `NaN`), booleans, strings, `undefined`, and `null` (note: even though `typeof null === 'object'`, `null` is a still primitive value).
+Javascript 中有两种数据类型：基本数据类型和对象（对象也包括函数），基本数据类型包括简单数据类型，比如 numbers（从整数到浮点数，从无穷到 NaN 都属于 Number 类型）、booleans、strings、`undefined`、`null`（注意尽管 `typeof null=='object'`，`null` 仍然是一个基本数据类型）。
 
-Primitive values are also immutable. They can’t be changed. Of course, a variable with a primitive assigned **can** be reassigned. For example, when you write the code `let x = 1; x++;`, you've reassigned the variable `x`. But, you haven't mutated the primitive numeric value of `1`.
+基本数据类型的值是不可以改变的，即不能更改变量的原始值。当然**可以**重新对变量进行赋值。例如，代码 `let x=1;x++`，虽然你通过重新赋值改变了变量 `x` 的值，但是变量的原始值 `1` 没有被改变。
 
 Some languages, such as C, have the concept of pass-by-reference and pass-by-value. JavaScript sort of has this concept too, though, it’s inferred based on the type of data being passed around. If you ever pass a value into a function, reassigning that value will not modify the value in the calling location. However, if you **modify** a non-primitive value, the modified value **will** also be modified where it has been called from.
 
-Consider the following example:
+考虑下面的例子：
 
 ```js
 function primitiveMutator(val) {
@@ -41,7 +41,7 @@ objectMutator(obj);
 console.log(obj.prop); // 2
 ```
 
-Primitive values (except for the mystical `NaN` value) will always be exactly equal to another primitive with an equivalent value. Check it out here:
+基本数据类型(`NaN` 除外)总是与另一个具有相同值的基本数据类型完全相等。如下:
 
 ```js
 const first = "abc" + "def";
@@ -50,7 +50,7 @@ const second = "ab" + "cd" + "ef";
 console.log(first === second); // true
 ```
 
-However, constructing equivalent non-primitive values will **not** result in values which are exactly equal. We can see this happening here:
+然而，构造值相同的两个非基本数据类型则得到**不相等**的结果。我们可以看到发生了什么:
 
 ```js
 const obj1 = { name: "Intrinsic" };
@@ -58,7 +58,7 @@ const obj2 = { name: "Intrinsic" };
 
 console.log(obj1 === obj2); // false
 
-// Though, their .name properties ARE primitives:
+// 但是，两者的.name 属性为基本数据类型:
 console.log(obj1.name === obj2.name); // true
 ```
 
