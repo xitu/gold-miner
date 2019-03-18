@@ -132,7 +132,7 @@ In this example, the Counter component holds the state, and the App surrounding 
 
 Counter.js
 
-```
+```js
 import React from 'react';
 
 class Counter extends React.Component {
@@ -165,7 +165,6 @@ class Counter extends React.Component {
 }
 
 export default Counter;
-
 ```
 
 As a quick review, here's how this works:
@@ -187,8 +186,7 @@ The best way to actually learn this stuff is to try it! So here's a CodeSandbox 
 
 I highly recommend you keep the CodeSandbox in sync with the tutorial and actually type out the examples as you go along.
 
-Add Redux To The React App
---------------------------
+## Add Redux To The React App
 
 In CodeSandbox, expand the Dependencies section in the left pane, and click Add Dependency.
 
@@ -228,7 +226,7 @@ In `index.js`, let's make a store. Import `createStore` and call it like so:
 
 index.js
 
-```
+```js
 import { createStore } from 'redux';
 
 const store = createStore();
@@ -238,7 +236,6 @@ const App = () => (
     <Counter/>
   </div>
 );
-
 ```
 
 This should fail with the error "Expected the reducer to be a function."
@@ -259,14 +256,13 @@ We have to provide a function that will return the state. That function is calle
 
 index.js
 
-```
+```js
 function reducer(state, action) {
   console.log('reducer', state, action);
   return state;
 }
 
 const store = createStore(reducer);
-
 ```
 
 After you make this change, open up the console (in CodeSandbox, click the Console button at the bottom).
@@ -295,7 +291,7 @@ Your function gets called with 2 arguments: the last iteration's result, and the
 
 This will make more sense with an example:
 
-```
+```js
 var letters = ['r', 'e', 'd', 'u', 'x'];
 
 // `reduce` takes 2 arguments:
@@ -308,23 +304,20 @@ var word = letters.reduce(
 ''); // <-- notice this empty string argument: it's the initial value
 
 console.log(word) // => "redux"
-
 ```
 
 The function you pass in to `reduce` could rightfully be called a "reducer"... because it *reduces* a whole array of items down to a single result.
 
 Redux is *basically* a fancy version of Array's `reduce`. Earlier, you saw how Redux reducers have this signature:
 
-```
+```js
 (state, action) => newState
-
 ```
 
 Meaning: it takes the current `state`, and an `action`, and returns the `newState`. Looks a lot like the signature of an `Array.reduce` reducer!
 
-```
+```js
 (accumulatedValue, nextItem) => nextAccumulatedValue
-
 ```
 
 Redux reducers work just like the function you pass to Array.reduce! :) The thing they reduce is actions. They reduce a set of actions (over time) into a single state. The difference is that with Array's reduce it happens all at once, and with Redux, it happens over the lifetime of your running app.
@@ -343,7 +336,7 @@ Since we're gonna be moving our `Counter` state into Redux, let's set up its i
 
 index.js
 
-```
+```js
 const initialState = {
   count: 0
 };
@@ -352,7 +345,6 @@ function reducer(state = initialState, action) {
   console.log('reducer', state, action);
   return state;
 }
-
 ```
 
 If you look at the console again, you'll see it printed `{count: 0}` as the value for `state`. That's what we want.
@@ -371,30 +363,27 @@ Yep, two new terms at once: we're gonna "dispatch" some "actions."
 
 An action is Redux-speak for a plain object with a property called `type`. That's pretty much it. Following those 2 rules, this is an action:
 
-```
+```js
 {
   type: "add an item",
   item: "Apple"
 }
-
 ```
 
 This is also an action:
 
-```
+```js
 {
   type: 7008
 }
-
 ```
 
 Here's another one:
 
-```
+```js
 {
   type: "INCREMENT"
 }
-
 ```
 
 Actions are very free-form things. As long as it's an object with a `type` it's fair game.
@@ -415,13 +404,12 @@ Let's try it out with our store.
 
 index.js
 
-```
+```js
 const store = createStore(reducer);
 store.dispatch({ type: "INCREMENT" });
 store.dispatch({ type: "INCREMENT" });
 store.dispatch({ type: "DECREMENT" });
 store.dispatch({ type: "RESET" });
-
 ```
 
 Add those dispatch calls to your CodeSandbox and check the console.
@@ -444,7 +432,7 @@ You could make a fancy object where you look up a handler function by the action
 
 Or you could write a bunch of if/else statements...
 
-```
+```js
 if(action.type === "INCREMENT") {
   ...
 } else if(action.type === "RESET") {
@@ -460,7 +448,7 @@ Here's how we'll handle the actions:
 
 index.js
 
-```
+```js
 function reducer(state = initialState, action) {
   console.log('reducer', state, action);
 
@@ -545,7 +533,7 @@ In `index.js`, import the `Provider` and wrap the contents of `App` with it
 
 index.js
 
-```
+```js
 import { Provider } from 'react-redux';
 
 ...
@@ -577,7 +565,7 @@ Remove the state initialzation at the top and the `setState` calls inside `in
 
 Counter.js
 
-```
+```js
 class Counter extends React.Component {
   // state = { count: 0 }; // remove this
 
@@ -629,7 +617,7 @@ To get the `count` out of Redux, we first need to import the `connect` funct
 
 Counter.js
 
-```
+```js
 import { connect } from 'react-redux';
 ```
 
@@ -637,7 +625,7 @@ Then we need to "connect" the Counter component to Redux at the bottom:
 
 Counter.js
 
-```
+```js
 // Add this function:
 function mapStateToProps(state) {
   return {
@@ -928,7 +916,7 @@ To install redux-thunk with NPM or Yarn, run `npm install --save redux-thunk`.
 
 Then, in index.js (or wherever you create your store), import `redux-thunk` and apply it to the store with Redux's `applyMiddleware` function:
 
-```
+```js
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 
@@ -950,7 +938,7 @@ Let's imagine you want to display a list of products. You've got a backend API t
 
 productActions.js
 
-```
+```js
 export function fetchProducts() {
   return dispatch => {
     dispatch(fetchProductsBegin());
@@ -1133,14 +1121,13 @@ import products from "./productReducer";
 export default combineReducers({
   products
 });
-
 ```
 
 Then, when we create our store, we can pass this "root" reducer:
 
 index.js
 
-```
+```js
 import rootReducer from './rootReducer';
 
 // ...
