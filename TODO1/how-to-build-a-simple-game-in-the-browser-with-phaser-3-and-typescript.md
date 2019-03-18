@@ -12,12 +12,12 @@
 照片由 [Phil Botha](https://unsplash.com/photos/a0TJ3hy-UD8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 拍摄于 [Unsplash](https://unsplash.com/collections/3995048/stars/e08862541511fcb17f0de3d4a555bff8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 
 我是后端开发人员，而我的前端开发专业知识相对较弱。前一段时间我想找点乐子，在浏览器中制作游戏；我选择 Phaser 3 框架（它现在看起来非常流行）和 TypeScript 语言（因为我更喜欢静态打字而不是动态）。事实证明，你需要做一些无聊的事情才能使它全部工作，所以我写了这个教程来帮助像我这样的其他人更快地开始。
- 
+
 ## 准备开发环境
 
 ### IDE
 
-选择您的开发环境。如果您愿意，您可以随时使用普通的旧记事本，但我建议您使用更有帮助的 IDE。至于我，我更喜欢在 Emacs 中开发pet projects 项目，因此我安装了 [tide](https://github.com/ananthakumaran/tide) 并按照说明进行设置。
+选择您的开发环境。如果您愿意，您可以随时使用普通的旧记事本，但我建议您使用更有帮助的 IDE。至于我，我更喜欢在 Emacs 中开发拿手的项目，因此我安装了 [tide](https://github.com/ananthakumaran/tide) 并按照说明进行设置。
 
 ### Node
 
@@ -127,6 +127,7 @@ TypeScript 是一种静态类型语言。因此，它需要编译的类型定义
   "start": "webpack --watch & live-server --port=8085"
 }
 ```
+
 执行 `npm build` 时，将根据 webpack 配置构建 `app.js` 文件。当你运行 `npm start` 时，你不必费心去构建过程。只要保存任何源，webpack 就会重建应用程序，而 [live-server](https://www.npmjs.com/package/live-server) 将在默认浏览器中重新加载它。该应用程序将托管在 [http://127.0.0.1:8085/](http://127.0.0.1:8085/).
 
 ## 入门
