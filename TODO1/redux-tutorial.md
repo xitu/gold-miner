@@ -107,7 +107,7 @@ Using the `connect` function that comes with `react-redux`, you can plug any 
 
 ![Connecting Redux to the Avatar components](https://daveceddia.com/images/redux-connected-twitter.png)
 
-Redux does some other cool stuff too, like make debugging easier (Redux DevTools let you inspect every single state change), time-travel debugging (you can *roll back*state changes and see how your app looked in the past), and it can make your code more maintainable in the long run. It'll teach you more about functional programming too.
+Redux does some other cool stuff too, like make debugging easier (Redux DevTools let you inspect every single state change), time-travel debugging (you can *roll back* state changes and see how your app looked in the past), and it can make your code more maintainable in the long run. It'll teach you more about functional programming too.
 
 ## Built-in Redux Alternatives
 
