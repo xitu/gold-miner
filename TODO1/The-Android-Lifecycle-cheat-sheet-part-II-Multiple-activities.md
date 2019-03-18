@@ -9,8 +9,8 @@
 
 在这个系列中：
 
-- [第一部分：单一 Activities](https://github.com/xitu/gold-miner/blob/master/TODO/the-android-lifecycle-cheat-sheet-part-i-single-activities.md)
-- **第二部分：多 Activity** — 跳转和返回栈（本篇文章）
+- [第一部分：单一 Activities](https://juejin.im/post/5a77c9aef265da4e6f17bd51)
+- [**第二部分：多 Activity** — 跳转和返回栈（本篇文章）](https://juejin.im/post/5c8e018d51882545ca77d857)
 - [**第三部分：Fragments** — activity 和 fragment 的生命周期](https://medium.com/@JoseAlcerreca/the-android-lifecycle-cheat-sheet-part-iii-fragments-afc87d4f37fd)
 - [第四部分：ViewModels、半透明 Activity 和启动模式](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iv-49946659b094)
 
