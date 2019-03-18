@@ -27,7 +27,7 @@
 
 获取数据的过程很艰难，我只拿到了一些不够完美的数据。
 
-我们要使用的数据是[Expedia 个性化酒店搜索](https://www.kaggle.com/c/expedia-personalized-sort/data)数据的子集，点[这里](https://www.kaggle.com/c/expedia-personalized-sort/data)获取数据集。
+我们要使用的数据是 [Expedia 个性化酒店搜索](https://www.kaggle.com/c/expedia-personalized-sort/data)数据的子集，点[这里](https://www.kaggle.com/c/expedia-personalized-sort/data)获取数据集。
 
 我们将从 training.csv 中分割出一个子集：
 
@@ -60,7 +60,7 @@ df['price_usd'].describe()
 
 现在我们发现了一个严重的异常，price_usd 的最大值竟然是 5584。
 
-如果一个单独的数据项与其他数据相比有些反常的话，我们就称它为****点异常**** （例如巨额交易）。我们可以检查日志，看看到底是怎么回事。经过一番调查，我觉得可能是数据错误，或者是某个用户无意间搜了一下总统套房，但是并没有预定或者浏览。为了发现更多比较轻微的异常，我决定删掉这条数据。
+如果一个单独的数据项与其他数据相比有些反常的话，我们就称它为**点异常**（例如巨额交易）。我们可以检查日志，看看到底是怎么回事。经过一番调查，我觉得可能是数据错误，或者是某个用户无意间搜了一下总统套房，但是并没有预定或者浏览。为了发现更多比较轻微的异常，我决定删掉这条数据。
 
 ```python
 expedia.loc[(expedia['price_usd'] == 5584) & (expedia['visitor_location_country_id'] == 219)]
