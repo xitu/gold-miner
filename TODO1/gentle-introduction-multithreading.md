@@ -42,9 +42,9 @@ Why should a process employ multiple threads? As I mentioned before, doing thing
 
 Is it really that simple? There are three important points to consider:
 
-1.  not every program needs to be multithreaded. If your app performs sequential operations or often waits on the user to do something, multithreading might not be that beneficial;
-2.  you just don't throw more threads to an application to make it run faster: each sub-task has to be thought and designed carefully to perform parallel operations;
-3.  it is not 100% guaranteed that threads will perform their operations truly in parallel, that is *at the same time*: it really depends on the underlying hardware.
+1. not every program needs to be multithreaded. If your app performs sequential operations or often waits on the user to do something, multithreading might not be that beneficial;
+2. you just don't throw more threads to an application to make it run faster: each sub-task has to be thought and designed carefully to perform parallel operations;
+3. it is not 100% guaranteed that threads will perform their operations truly in parallel, that is *at the same time*: it really depends on the underlying hardware.
 
 The last one is crucial: if your computer doesn't support multiple operations at the same time, the operating system has to fake them. We will see how in a minute. For now let's think of concurrency as the *perception* of having tasks that run at the same time, while true parallelism as tasks that literally run at the same time.
 
@@ -78,9 +78,9 @@ As we know, threads share the same chunk of memory of their parent process. This
 
 Things run smoothly as long as two or more threads *read* from the same memory location. The troubles kick in when at least one of them *writes* to the shared memory, while others are reading from it. Two problems can occur at this point:
 
--   data race --- while a writer thread modifies the memory, a reader thread might be reading from it. If the writer has not finished its work yet, the reader will get corrupted data;
+- data race --- while a writer thread modifies the memory, a reader thread might be reading from it. If the writer has not finished its work yet, the reader will get corrupted data;
 
--   race condition --- a reader thread is supposed to read only after a writer has written. What if the opposite happens? More subtle than a data race, a race condition is about two or more threads doing their job in an unpredictable order, when in fact the operations should be performed in the proper sequence to be done correctly. Your program can trigger a race condition even if it has been protected against data races.
+- race condition --- a reader thread is supposed to read only after a writer has written. What if the opposite happens? More subtle than a data race, a race condition is about two or more threads doing their job in an unpredictable order, when in fact the operations should be performed in the proper sequence to be done correctly. Your program can trigger a race condition even if it has been protected against data races.
 
 ### The concept of thread safety
 
@@ -101,7 +101,6 @@ Preemptive multitasking gives the operating system full control over thread mana
 ```
 writer_thread.start()
 reader_thread.start()
-
 ```
 
 would start the two threads in that specific order. Run this program several times and you will notice how it behaves differently on each run: sometimes the writer thread starts first, sometimes the reader does instead. You will surely hit a race condition if your program needs the writer to always run before the reader.
@@ -112,11 +111,11 @@ This behavior is called non-deterministic: the outcome changes each time and yo
 
 Both data races and race conditions are real-world problems: some people even [died because of them](https://en.wikipedia.org/wiki/Therac-25). The art of accommodating two or more concurrent threads is called concurrency control: operating systems and programming languages offer several solutions to take care of it. The most important ones:
 
--   synchronization --- a way to ensure that resources will be used by only one thread at a time. Synchronization is about marking specific parts of your code as "protected" so that two or more concurrent threads do not simultaneously execute it, screwing up your shared data;
+- synchronization --- a way to ensure that resources will be used by only one thread at a time. Synchronization is about marking specific parts of your code as "protected" so that two or more concurrent threads do not simultaneously execute it, screwing up your shared data;
 
--   atomic operations --- a bunch of non-atomic operations (like the assignment mentioned before) can be turned into atomic ones thanks to special instructions provided by the operating system. This way the shared data is always kept in a valid state, no matter how other threads access it;
+- atomic operations --- a bunch of non-atomic operations (like the assignment mentioned before) can be turned into atomic ones thanks to special instructions provided by the operating system. This way the shared data is always kept in a valid state, no matter how other threads access it;
 
--   immutable data --- shared data is marked as immutable, nothing can change it: threads are only allowed to read from it, eliminating the root cause. As we know threads can safely read from the same memory location as long as they don't modify it. This is the main philosophy behind [functional programming](https://en.wikipedia.org/wiki/Functional_programming).
+- immutable data --- shared data is marked as immutable, nothing can change it: threads are only allowed to read from it, eliminating the root cause. As we know threads can safely read from the same memory location as long as they don't modify it. This is the main philosophy behind [functional programming](https://en.wikipedia.org/wiki/Functional_programming).
 
 I will cover all this fascinating topics in the next episodes of this mini-series about concurrency. Stay tuned!
 
