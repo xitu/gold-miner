@@ -683,7 +683,7 @@ You *could* pass in all of the state, and let the component sort it out. That'
 
 Now that our Counter is `connect`ed, we've got the `count` value. Now how can we dispatch actions to change the count?
 
-Well, `connect` has your back: in addition to passing in the (mapped) state, it *also*passes in the `dispatch` function from the store!
+Well, `connect` has your back: in addition to passing in the (mapped) state, it *also* passes in the `dispatch` function from the store!
 
 To dispatch an action from inside the Counter, we can call `this.props.dispatch`with an action.
 
