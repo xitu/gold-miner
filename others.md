@@ -1,3 +1,5 @@
+* [修改 Git 错误的高明方法](https://juejin.im/post/5c735a235188256262174e48) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
+* [如何写一篇软件工程必杀简历](https://juejin.im/post/5c6ca8b9f265da2dc13c7a10) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
 * [提高营销效率的工程（第一部分）](https://juejin.im/post/5c403b5ce51d452c8e6d3dc4) ([Starriers](https://github.com/Starriers) 翻译)
 * [讨论 JS ⚡：文档](https://juejin.im/post/5c4039bbe51d4551733494a6) ([Starriers](https://github.com/Starriers) 翻译)
 * [我无法想象没有 Git 别名的的场景](https://juejin.im/post/5c207bd4e51d452b7b032cf6) ([Starriers](https://github.com/Starriers) 翻译)
