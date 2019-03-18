@@ -7,17 +7,17 @@
 
 # iOS 响应者链 UIResponder，UIEvent，UIControl 的使用
 
-**当我用使用 UITextFields 究竟谁是第一响应者？**
+**当我用使用 UITextField 究竟谁是第一响应者？**
 **为什么 UIView 像 UIResponder 一样进行子类化？**
 **这其中的关键又是什么？**
 
 在 iOS 里，**响应者链** 是指 UIKit 生成的 UIResponder 对象组成的链表，它同时还是 iOS 里一切相关事件（例如触摸和动效）的基础。
 
-响应者链是你在 iOS 开发的世界中经常需要打交道的东西，并且尽管你偶尔需要在除了 `UITextField` 的键盘问题之外直接处理它。了解它的工作原理将让你解决事件相关的问题更加容易，或者说更加富有创造力，你甚至可以只依赖响应者链来进行架构。
+响应者链是你在 iOS 开发的世界中经常需要打交道的东西，并且尽管你很少需要在除了 `UITextField` 的键盘问题之外直接处理它。了解它的工作原理将让你解决事件相关的问题更加容易，或者说更加富有创造力，你甚至可以只依赖响应者链来进行架构。
 
 ## UIResponder，UIEvent 和 UIControl
 
-简而言之，UIResponder 实例对象可以处理并对随机事件进行响应。iOS 中的许多东西诸如UIView，UIViewController，UIWindow，UIApplication 和 UIApplicationDelegate。
+简而言之，UIResponder 实例对象可以对随机事件进行响应并处理。iOS 中的许多东西诸如 UIView，UIViewController，UIWindow，UIApplication 和 UIApplicationDelegate。
 
 相反，`UIEvent` 代表一个单一并只含有一种类型和一个可选子类的 UIKit 事件，这个类型可以是触摸、动效、远程控制或者按压，对应的子类具体一点可能是设备的摇动。当检测到一个系统事件，例如屏幕上的点击，UIKit 内部创建一个 `UIEvent` 实例并且通过调用 `UIApplication.shared.sendEvent()` 把它派发到系统事件队列。当事件被从队列中取出时，UIKit 内部选出第一个可以处理事件的 `UIResponder` 并把它发送到对应的响应者。这个选择过程当事件类型不同的时候也会有所变化，其中触摸事件直接发送到被触摸的 View，其他种类的事件将会被派发给一个所谓的 **第一响应者**。
 
@@ -103,7 +103,7 @@ open func target(forAction action: Selector, withSender sender: Any?) -> Any?
 
 如开头所述，UIKit 通过动态管理 `UIResponder` 对象的链表来处理这个问题。所谓的 **第一响应者** 只是链表的头节点，如果响应者无法处理特定的事件，则事件被递归地发送给链表的下一个响应者，直到某个响应者可以处理该事件或者链表遍历结束。
 
-虽然检视实际的第一响应者是受 `UIWindow` 中的私有 `firstResponder` 属性的保护，但你可以通过检查 `next` 属性是否有值来检查任何给定响应者的响应者链：
+虽然查看实际的第一响应者是受 `UIWindow` 中的私有 `firstResponder` 属性的保护，但你可以通过检查 `next` 属性是否有值来检查任何给定响应者的响应者链：
 
 ```swift
  extension UIResponder {
@@ -121,7 +121,7 @@ myViewController.view.responderChain()
 
 ![](https://i.imgur.com/922BVYT.png)
 
-在上一个 `UIViewController` 处理动作的例子中，UIKit 首先将事件发送给 `UIView` 第一响应者，但由于它没有实现 `myCustomMethod`，view 将事件发给下一个响应者，正好下一个 `UIViewController` 实现了所需方法。
+在上一个 `UIViewController` 处理 action 的例子中，UIKit 首先将事件发送给 `UIView` 第一响应者，但由于它没有实现 `myCustomMethod`，view 将事件发给下一个响应者，正好下一个 `UIViewController` 实现了所需方法。
 
 虽然在大多数情况下，响应者链符合子视图的结构顺序，但你可以对其进行自定义以更改常规流程顺序。除了能够重写 `next` 属性以返回其他内容之外，你还可以通过调用 `becomeFirstResponder()` 强制 `UIResponder` 成为第一响应者，并通过调用 `resignFirstResponder()` 来取消。这通常与 `UITextField` 结合使用以显示键盘，`UIResponders` 可以定义一个可选的 `inputView` 属性，使得键盘仅在它是第一响应者时显示。
 
@@ -150,7 +150,7 @@ UIApplication.shared.sendAction(#selector(BlinkableView.performBlinkAction), to:
 //将精确地让最后一个调用了 select() 的 BlinkableView 进行闪烁。
 ```
 
-这与常规通知非常相似，不同之处在于通知是全局的，但是这个方法会有效地迭代响应者链并在找到第一个 BlinkableView 后立即停止。
+这与常规通知非常相似，不同之处在于通知会触发注册它们的每个对象，而这个方法只会触发在响应链上最先被查找到的 BlinkableView 对象。
 
 如前所述，甚至可以用此方法进行架构。这是 Coordinator 结构的框架，它定义了一个自定义类型的事件并将自身注入到响应者链中：
 
@@ -224,7 +224,7 @@ UIApplication.shared.push(vc: newVC)
 // MyView -> MyViewController -> **Coordinator** -> UIWindow -> UIApplication -> AppDelegate
 ```
 
-这允许 `Coordinator` 接收系统事件，并通过定义一个新的包含了有关新 view controller 信息的 `PushScreenEvent` ，我们可以调度由这些 `Coordinators` 处理的 `pushNewScreen` 事件来刷新屏幕。
+这允许 `Coordinator` 接收系统事件，并通过定义一个新的包含了有关新 view controller 信息的 `PushScreenEvent` ，我们可以调用由这些 `Coordinators` 处理的 `pushNewScreen` 事件来刷新屏幕。
 
 有了这个结构，`UIApplication.shared.push(vc: newVC)` 可以在 app 中的 **任何地方** 调用，而不需要单个代理或单例，因为 UIKit 将确保只通知当前的 `Coordinator` 这个事件，这得多亏了响应者链。
 
