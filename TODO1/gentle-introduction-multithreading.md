@@ -1,3 +1,10 @@
+> * 原文地址：[A gentle introduction to multithreading](https://www.internalpointers.com/post/gentle-introduction-multithreading)
+> * 原文作者：[Triangles](https://www.internalpointers.com/)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/gentle-introduction-multithreading.md](https://github.com/xitu/gold-miner/blob/master/TODO1/gentle-introduction-multithreading.md)
+> * 译者：
+> * 校对者：
+
 # A gentle introduction to multithreading
 
 > Approaching the world of concurrency, one step at a time.
@@ -141,3 +148,9 @@ Wikipedia - [Thread safety](https://en.wikipedia.org/wiki/Thread_safety)\
 Preshing on Programming - [Atomic vs. Non-Atomic Operations](https://preshing.com/20130618/atomic-vs-non-atomic-operations/)\
 Wikipedia - [Green threads](https://en.wikipedia.org/wiki/Green_threads)\
 Stackoverflow - [Why should I use a thread vs. using a process?](https://stackoverflow.com/questions/617787/why-should-i-use-a-thread-vs-using-a-process)
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
