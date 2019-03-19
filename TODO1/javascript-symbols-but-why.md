@@ -13,9 +13,9 @@
 
 在深入探讨 Symbols 之前，让我们先看看一些许多开发人员可能都不知道的 JavaScript 特性。
 
-## Background
+## 背景
 
-JavaScript 中有两种数据类型：基本数据类型和对象（对象也包括函数），基本数据类型包括简单数据类型，比如 numbers（从整数到浮点数，从无穷到 NaN 都属于 Number 类型）、booleans、strings、`undefined`、`null`（注意尽管 `typeof null=='object'`，`null` 仍然是一个基本数据类型）。
+JavaScript 中有两种数据类型：基本数据类型和对象（对象也包括函数），基本数据类型包括简单数据类型，比如 number（从整数到浮点数，从无穷到 NaN 都属于 Number 类型）、boolean、string、`undefined`、`null`（注意尽管 `typeof null=='object'`，`null` 仍然是一个基本数据类型）。
 
 基本数据类型的值是不可以改变的，即不能更改变量的原始值。当然**可以**重新对变量进行赋值。例如，代码 `let x=1;x++`，虽然你通过重新赋值改变了变量 `x` 的值，但是变量的原始值 `1` 仍没有被改变。
 
@@ -62,7 +62,7 @@ console.log(obj1 === obj2); // false
 console.log(obj1.name === obj2.name); // true
 ```
 
-对象在 javaScript 中扮演着重要的角色，几乎**到处**可以见到它们的身影。集合通常是键/值对的集合，然而这种形式的最大限制是：对象的键只能是字符串，直到 Symbol 出现这一限制才得到解决。如果我们使用非字符串的值作为对象的键，该值会被强制转换成字符串。在下面的程序中可以看到这种强制转换：
+对象在 JavaScript 中扮演着重要的角色，几乎**到处**可以见到它们的身影。集合通常是键/值对的集合，然而这种形式的最大限制是：对象的键只能是字符串，直到 symbol 出现这一限制才得到解决。如果我们使用非字符串的值作为对象的键，该值会被强制转换成字符串。在下面的程序中可以看到这种强制转换：
 
 ```js
 const obj = {};
@@ -80,7 +80,7 @@ console.log(obj);
 
 ## Symbol 是什么？
 
-Now that we know what a primitive value is, we’re finally ready to define what a symbol is. A symbol is a primitive which cannot be recreated. In this case a symbols is similar to an object as creating multiple instances will result in values which are not exactly equal. But, a symbol is also a primitive in that it cannot be mutated. Here is an example of symbol usage:
+现在既然我们已经知道了基本数据类型是什么，也就终于可以定义 symbol。symbol 是不能被重新创建的基本数据类型。在这种情况下，symbol 类似于对象，因为对象创建多个实例也将导致不完全相等的值。但是，符号也是原始的，因为它不能被改变。下面是 symbol 用法的一个例子:
 
 ```js
 const s1 = Symbol();
@@ -89,7 +89,7 @@ const s2 = Symbol();
 console.log(s1 === s2); // false
 ```
 
-When instantiating a symbol there is an optional first argument where you can choose to provide it with a string. This value is intended to be used for debugging code, it otherwise doesn’t really affect the symbol itself.
+当实例化一个 symbol 时，有一个可选的首选参数，你可以赋值一个字符串。此值用于调试代码，不会真正影响 symbol本身。
 
 ```js
 const s1 = Symbol('debug');
@@ -101,9 +101,10 @@ console.log(s1 === s2); // false
 console.log(s1); // Symbol(debug)
 ```
 
-## Symbols as Object Properties
+## Symbols 作为对象属性
 
-Symbols have another important use. They can be used as keys in objects! Here is an example of using a symbol as a key within an object:
+symbols 还有另一个重要的用法，它们可以当作对象中的键!下面是一个在对象中使用 symbol 作为键的例子:
+
 
 ```js
 const obj = {};
@@ -117,9 +118,9 @@ console.log(obj[sym]); // foo
 console.log(Object.keys(obj)); // ['bar']
 ```
 
-Notice how they are not returned in the result of `Object.keys()`. This is, again, for the purpose of backwards compatibility. Old code isn't aware of symbols and so this result shouldn't be returned from the ancient `Object.keys()` method.
+注意，symbols 键不会被在 `Object.keys()` 返回。这也是为了满足向后兼容性。旧版本的 JavaScript 没有 symbol 数据类型，因此不应该从旧的 `Object.keys()` 方法中被返回。
 
-At first glance, this almost looks like symbols can be used to create private properties on an object! Many other programming languages have hidden properties in their classes and this omission has long been seen as a shortcoming of JavaScript.
+乍一看，这就像是可以用 symbols 在对象上创建私有属性！许多其他编程语言可以在其类中有私有属性，而 JavaScript 却遗漏了这种功能，长期以来被视为其语法的一种缺点。
 
 Unfortunately, it is still possible for code which interacts with this object to access properties whose keys are symbols. This is even possible in situations where the calling code does **not** already have access to the symbol itself. As an example, the `Reflect.ownKeys()` method is able to get a list of **all** keys on an object, both strings and symbols alike:
 
@@ -136,13 +137,13 @@ console.log(Reflect.ownKeys(obj));
 console.log(obj[Reflect.ownKeys(obj)[1]]); // 42
 ```
 
-**Note**: There is currently work being done to tackle the issue of adding private properties to classes in JavaScript. The name of this feature is called [Private Fields](https://github.com/tc39/proposal-class-fields#private-fields), and although this won’t benefit **all** objects, it will benefit objects which are class instances. Private Fields are available as of Chrome 74.
+**注意**:目前有些工作旨在处理在 JavaScript 中向类添加私有属性的问题。这个特性就是 [Private Fields](https://github.com/tc39/proposal-class-fields#Private-Fields) 虽然这不会对**所有**对象都有好处，但会对类实例的对象有好处。Private Fields 在 Chrome 74 中开始可用。
 
-## Preventing Property Name Collisions
+## 防止属性名冲突
 
-Symbols may not directly benefit JavaScript for providing private properties to objects. However, they are beneficial for another reason. They are useful in situations where disparate libraries want to add properties to objects without the risk of having name collisions.
+symbols 可能不会直接有助于 JavaScript 中对象获得私有属性。它们之所以有用的另一个理由是，当不同的库希望向对象添加属性时 symbols 可以避免命名冲突的风险。
 
-Consider the situation where two different libraries want to attach some sort of metadata to an object. Perhaps they both want to set some sort of identifier on the object. By simply using the two character string `id` as a key, there is a huge risk that multiple libraries will use the same key.
+如果有两个不同的库希望将某种元数据附加到一个对象上，两者可能都想在对象上设置某种标识符。仅仅使用两个字符串 类型的 `id` 作为键来标识，就有很大的风险，就是多个库使用相同的键。
 
 ```js
 function lib1tag(obj) {
@@ -154,7 +155,7 @@ function lib2tag(obj) {
 }
 ```
 
-By making use of symbols, each library can generate their required symbols upon instantiation. Then the symbols can be checked on objects, and set to objects, whenever an object is encountered.
+应用 symbols，每个库都可以通过实例化 Symbol 类生成所需的 symbols。然后不管什么时候，都可以在相应的对象上检查、赋值 symbols对应的键值。
 
 ```js
 const library1property = Symbol('lib1');
@@ -169,11 +170,12 @@ function lib2tag(obj) {
 ```
 
 For this reason it would seem that symbols **do** benefit JavaScript.
+基于这个原因 symbols **确实**有益于 JavaScript。
 
-However, you may be wondering, why can’t each library simply generate a random string, or use a specially namespaced string, upon instantiation?
+然而，你可能会怀疑，为什么每个库不能在实例化时简单地生成一个随机字符串，或者使用一个特殊的命名空间？
 
 ```js
-const library1property = uuid(); // random approach
+const library1property = uuid(); // 随机方法
 function lib1tag(obj) {
   obj[library1property] = 42;
 }
@@ -184,9 +186,9 @@ function lib2tag(obj) {
 }
 ```
 
-Well, you’d be right. This approach is actually pretty similar to the approach with symbols. Unless two libraries would choose to use the same property name, then there wouldn’t be a risk of overlap.
+你有可能是正确的，上面的两种方法与使用 symbols 的方法很相似。除非两个库使用了相同的属性名，否则不会有冲突的风险。
 
-At this point the astute reader would point out that the two approaches haven’t been entirely equal. Our property names with unique names still have a shortcoming: their keys are very easy to find, especially when code runs to either iterate the keys or to otherwise serialize the objects. Consider the following example:
+在这一点上，机灵的读者会指出，这两种方法并不完全相同。具有唯一名称的属性名仍然有一个缺点：它们的键非常容易找到，特别是当运行代码来迭代键或以其他方式序列化对象时。请考虑以下示例：
 
 ```js
 const library2property = 'LIB2-NAMESPACE-id'; // namespaced
@@ -205,7 +207,7 @@ JSON.stringify(user);
 // '{"name":"Thomas Hunter II","age":32,"LIB2-NAMESPACE-id":369}'
 ```
 
-If we had used a symbol for a property name of the object then the JSON output would not contain its value. Why is that? Well, just because JavaScript gained support for symbols doesn’t mean that the JSON spec has changed! JSON only allows strings as keys and JavaScript won’t make any attempt to represent symbol properties in the final JSON payload.
+如果我们为对象的属性名使用了一个 symbol，那么 JSON 的输出将不包含 symbol 对应的值。为什么会这样？因为仅仅是 JavaScript 支持了symbols，并不意味着 JSON 规范也改变了！JSON 只允许字符串作为键，而 JavaScript 不会尝试在最终的 JSON 负载中呈现 symbol 属性。
 
 We can easily rectify the issue where our library object strings are polluting the JSON output by making use of `Object.defineProperty()`:
 
@@ -226,7 +228,7 @@ const user = {
 lib2tag(user);
 
 // '{"name":"Thomas Hunter II",
-   "age":32,"f468c902-26ed-4b2e-81d6-5775ae7eec5d":369}'
+"age":32,"f468c902-26ed-4b2e-81d6-5775ae7eec5d":369}'
 console.log(JSON.stringify(user));
 console.log(user[library2property]); // 369
 ```
