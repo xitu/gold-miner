@@ -5,11 +5,9 @@
 > * 译者：
 > * 校对者：
 
-# Chars2vec: character-based language model for handling real world texts with spelling errors and…
+# Chars2vec: character-based language model for handling real world texts with spelling errors and human slang
 
 ![](https://cdn-images-1.medium.com/max/9094/1*kAvyOmNO4q1PAa-qEyrc5g.jpeg)
-
-## Chars2vec: character-based language model for handling real world texts with spelling errors and human slang
 
 This paper describes our open source character-based language model [**chars2vec**](https://github.com/IntuitionEngineeringTeam/chars2vec). This model was developed with Keras library (TensorFlow backend) and now is available for Python 2.7 and 3.0+.
 
@@ -34,7 +32,6 @@ We have developed the chars2vec language model based on symbolic embeddings of w
 
 The following code snippet creates chars2vec embeddings (with dimension 50) and projects these embedding vectors on a plane with the help of PCA, outputting an image depicting the geometrical meaning of the described model:
 
-
 Execution of this code produces the following image:
 
 ![](https://cdn-images-1.medium.com/max/3200/1*gjqy3VkVQK51BXsI7qOv4A.png)
@@ -52,7 +49,6 @@ A prime example of a character-based language model is the model implemented in 
 ## Model architecture
 
 Each chars2vec model has a fixed list of characters used for words vectorisation: the characters from this list are represented by various one-hot vectors which are fed to the model when the character appears in the text; the characters absent in the list are ignored in the vectorisation procedure. We trained models designed to process English texts; these models use a list of the most popular of ASCII characters — all English letters, digits and the most popular punctuation:
-
 
 The model is not case sensitive, it converts any symbol’s case to the lower one.
 
@@ -78,7 +74,6 @@ We have trained chars2vec models for English language with embedding dimensions 
 
 The following code snippet shows the way to train your own chars2vec model instance.
 
-
 A list of characters `model_chars` that the model would use for words vectorisation should be defined as well as the model’s dimension `dim` and path to the model storage folder `path_to_model`. Training set (`X_train`, `y_train`) consists of pairs of “similar” and “not similar” words. `X_train` is a list of word pairs, and `y_train` is a list of their binary similarity metric scores (0 or 1).
 
 It is important that all the characters from the `model_chars` list should be present in the set of words of the training dataset — if a character is absent or appears very seldom then unstable model behaviour could be observed once this character is met in the test dataset. The reason is that the corresponding one-hot vector has been rarely fed into the model’s input layer and some weights of the model’s first layer have always been multiplied by zero meaning their tuning has never been performed.
@@ -92,7 +87,6 @@ We have performed benchmarking on the IMDb dataset for the reviews classificatio
 Along with chars2vec embeddings we have tested several prominent embedding models like [GloVe](https://nlp.stanford.edu/projects/glove/), [word2vec](https://code.google.com/archive/p/word2vec/) by Google (“pre-trained vectors trained on part of Google News dataset (about 100 billion words). The model contains 300-dimensional vectors for 3 million words and phrases”), [fastText](https://fasttext.cc/docs/en/english-vectors.html) (wiki-news model with dimension 300, “1 million word vectors trained on Wikipedia 2017, UMBC webbase corpus and statmt.org news dataset (16B tokens)”).
 
 The classifier model looks the following way: each review is vectorised by averaging the embedding vectors of all the words comprising it. If a word is out of the model dictionary, a zero vector is assigned to it. We have used a standart tokenisation procedure along with stop words by NLTK library. The classifier we chose was the linearSVM. The table below shows test accuracies for the most popular models we have benchmarked this way. We should point out that our chars2vec model is about 3 oders lighter than the semantic models relying on large vocabularies and still demonstrates quite reasonable results.
-
 
 We see some space for chars2vec model improvements needed to compete with the results of the semantic models.
 
