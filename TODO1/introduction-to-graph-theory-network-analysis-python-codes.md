@@ -307,11 +307,11 @@ B.node_attr['fontcolor']='#FFFFFF'
 
 # 创建并设置每个节点不同的属性（使用循环）
 for i in range(16):
- B.add_edge(0,i)
- n=B.get_node(i)
- n.attr['fillcolor']="#%2x0000"%(i*16)
- n.attr['height']="%s"%(i/16.0+0.5)
- n.attr['width']="%s"%(i/16.0+0.5)
+	B.add_edge(0,i)
+	n=B.get_node(i)
+	n.attr['fillcolor']="#%2x0000"%(i*16)
+	n.attr['height']="%s"%(i/16.0+0.5)
+	n.attr['width']="%s"%(i/16.0+0.5)
 B.draw('star.png',prog="circo") # 这行代码会在本地创建一个 .png 格式的文件。如下所示。
 
 Image('images/star.png', width=650) # 我们所创建的图的可视化图片
@@ -472,7 +472,7 @@ nx.average_degree_connectivity(FG) # 对于一个度为 k 的节点 —— 它�
 ```python
 # 找到所有可用路径
 for path in nx.all_simple_paths(FG, source='JAX', target='DFW'):
- print(path)
+	print(path)
 
 # 站到从 JAX 到 DFW 的 dijkstra 路径
 # 你可以在这里阅读更多更深入关于 dijkstra 是如何计算的信息 —— https://courses.csail.mit.edu/6.006/fall11/lectures/lecture16.pdf
