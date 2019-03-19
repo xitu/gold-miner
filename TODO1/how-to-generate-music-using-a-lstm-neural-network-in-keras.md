@@ -5,49 +5,49 @@
 > * 译者：
 > * 校对者：
 
-# How to Generate Music using a LSTM Neural Network in Keras
+# 如何在 Keras 中使用 LSTM 神经网络创作音乐
 
 ![](https://cdn-images-1.medium.com/max/3840/1*evQj8gukICFrnBICeJvY0w.jpeg)
 
-## Introduction
+## 介绍
 
-Neural networks are being used to improve all aspects of our lives. They provide us with recommendations for items we want to purchase, [generate text based on the style of an author](http://www.cs.utoronto.ca/~ilya/pubs/2011/LANG-RNN.pdf) and can even be used to [change the art style of an image](https://arxiv.org/pdf/1508.06576.pdf). In recent years, there have been a number of tutorials on how to generate text using neural networks but a lack of tutorials on how to create music. In this article we will go through how to create music using a recurrent neural network in Python using the Keras library.
+神经网络正在被使用去提高我们生活的方方面面。它们为我们提供购物建议，[创作一篇基于某作者风格的文档](http://www.cs.utoronto.ca/~ilya/pubs/2011/LANG-RNN.pdf)甚至可以被使用去[改变图片的艺术风格](https://arxiv.org/pdf/1508.06576.pdf)。近几年来，大量的教程集中于如何使用神经网络去创作文本但却鲜有教程告诉你如何创作音乐。在这篇文章中我们将介绍如何通过循环神经网络，使用 Python 和 Keras 库去创作音乐。
 
-For the impatient, there is a link to the Github repository at the end of the tutorial.
+对于那些没耐心的人，文档的结尾为你们提供了本教程的 Github 仓库的链接。
 
-## Background
+## 背景
 
-Before we go into the details of the implementation there is some terminology that we must clarify.
+在进入具体的实现之前必须先弄清一些专业术语
 
-### Recurrent Neural Networks (RNN)
+### 循环神经网络（RNN）
 
-A recurrent neural network is a class of artificial neural networks that make use of sequential information. They are called recurrent because they perform the same function for every single element of a sequence, with the result being dependent on previous computations. Whereas outputs are independent of previous computations in traditional neural networks.
+循环神经网络是一类让我们使用时序信息的人工神经网络。之所以称之为循环是因为他们对每一个单独的数据序列都执行相同的函数。每次的结果依赖于之前的运算。传统的神经网络则与之相反，输出不依赖于之前的计算。
 
-In this tutorial we will use a [**Long Short-Term Memory (LSTM)**](http://colah.github.io/posts/2015-08-Understanding-LSTMs/) network. They are a type of Recurrent Neural Network that can efficiently learn via gradient descent. Using a gating mechanism, LSTMs are able to recognise and encode long-term patterns. LSTMs are extremely useful to solve problems where the network has to remember information for a long period of time as is the case in music and text generation.
+在这篇教程中，我们使用一个[**Long Short-Term Memory (LSTM)**](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)神经网络。这类循环神经网络可以高效的学习通过梯度下降法。使用闸门机制，LSTMs 可以识别和编码长期模式。LSTMs 对于解决那些长期记忆信息的案例如创作音乐和文本特别有用。
 
 ### Music21
 
-[Music21](http://web.mit.edu/music21/) is a Python toolkit used for computer-aided musicology. It allows us to teach the fundamentals of music theory, generate music examples and study music. The toolkit provides a simple interface to acquire the musical notation of MIDI files. Additionally, it allows us to create Note and Chord objects so that we can make our own MIDI files easily.
+[Music21](http://web.mit.edu/music21/) 是一个被使用在计算机辅助音乐学的 Python 工具包。它使我们可以去教授音乐的基本原理，创作音乐范例并且学音乐。这个工具包提供了一个简单的接口去获得 MIDI 文件中的音乐谱号。除此之外，我们还能使用它去创作音符与和弦来轻松制作属于自己的 MIDI 文件。
 
-In this tutorial we will use Music21 to extract the contents of our dataset and to take the output of the neural network and translate it to musical notation.
+在这篇教程中我们将使用 Music21 来提取我们数据集的内容，获取神经网络的输出，再将之转换成音符。
 
 ### Keras
 
-[Keras](https://keras.io/) is a high-level neural networks API that simplifies interactions with [Tensorflow](https://www.tensorflow.org/). It was developed with a focus on enabling fast experimentation.
+[Keras](https://keras.io/) 是一个高层神经网络接口，它简化了和[Tensorflow](https://www.tensorflow.org/)的交互。它的开发重点是实现快速实验。
 
-In this tutorial we will use the Keras library to create and train the LSTM model. Once the model is trained we will use it to generate the musical notation for our music.
+在本教程中我们将使用 Keras 库去创造和训练 LSTM 模型。一旦这个模型被训练出来，我们将使用它去给我们的音乐创作音符。
 
-## Training
+## 训练
 
-In this section we will cover how we gathered data for our model, how we prepared it so that it could be used in a LSTM model and the architecture of our model.
+在本节中我们将讲解如何为我们的模型收集数据，如何整理数据使它能够在 LSTM  模型中被使用，以及我们模型的结构是什么。
 
-### Data
+### 数据
 
-In our [Github repository](https://github.com/Skuldur/Classical-Piano-Composer) we used piano music, mostly consisting of music from Final Fantasy soundtracks. We picked Final Fantasy music due to the very distinct and beautiful melodies that the majority of the pieces have and the sheer amount of pieces that exist. But any set of MIDI files consisting of a single instrument would work for our purposes.
+在[Github repository](https://github.com/Skuldur/Classical-Piano-Composer) 中，我们使用钢琴曲（展示），音乐主要由《最终幻想》中的音轨组成。选择《最终幻想》系列音乐，是因为它有很多部分，而且大部分的旋律都是清晰而优美的。而任何一组由单个乐器组成的 MIDI 文件都可以为我们的目的服务。
 
-The first step to implementing the neural network is to examine the data we will be working with.
+第一步是执行神经网络去检查我们将要使用到的数据。
 
-Below we can see an excerpt from a midi file that has been read using Music21:
+下面我们看到的是来自于一个被 Music21 读取后的 midi 文件的摘录：
 
 ```
 ...
@@ -71,21 +71,21 @@ Below we can see an excerpt from a midi file that has been read using Music21:
 ...
 ```
 
-The data splits into two object types: [Note](http://web.mit.edu/music21/doc/moduleReference/moduleNote.html#note)s and [Chord](http://web.mit.edu/music21/doc/moduleReference/moduleChord.html)s. Note objects contain information about the **pitch**, **octave**, and **offset** of the Note.
+这个数据拆分成两种类型：[Note](http://web.mit.edu/music21/doc/moduleReference/moduleNote.html#note)s（译者注：音符集）和[Chord](http://web.mit.edu/music21/doc/moduleReference/moduleChord.html)s（译者注：和弦集）。音符对象包括 **音高** ， **音阶** 和音符的 **终止**
 
-* **Pitch** refers to the frequency of the sound, or how high or low it is and is represented with the letters [A, B, C, D, E, F, G], with A being the highest and G being the lowest.
+*  **音高** 是指声音的频率，或者用 [A, B, C, D, E, F, G] 来表示它是高还是低。其中 A 是最高，G 是最低。*
+* 
+*  **[音阶](http://web.mst.edu/~kosbar/test/ff/fourier/notes_pitchnames.html)** 是指选择是指你将在钢琴上使用哪些音高。*
+* 
+*  **终止** 是指音符在作品的哪里驻留。*
+* 
+而和弦对象的本质是是一个同时播放一组音符的容器
 
-* **[Octave](http://web.mst.edu/~kosbar/test/ff/fourier/notes_pitchnames.html)** refers to which set of pitches you use on a piano.
+现在我们可以看到要想精确创作音乐，我们的神经网络将必须有能力去预测哪个音符或和弦将被使用。这意味着我们的预测集将必须包含每一个我们训练集中遇到的的音符和和弦对象。在 Github 页面的训练集上，不同的音符与和弦的数量总计达 352 个。这似乎交给了网络许多种可能的预测去输出，但是一个 LSTM 网络可以轻松处理它。
 
-* **Offset** refers to where the note is located in the piece.
+接下来我得考虑把这些音符放到哪里了。正如大部分人听音乐时注意到的，音符的间隔通常不同。你可以听到很多音符的快速演替，然后接下来又是一段空白，这时没有任何音符演奏。
 
-And Chord objects are essentially a container for a set of notes that are played at the same time.
-
-Now we can see that to generate music accurately our neural network will have to be able to predict which note or chord is next. That means that our prediction array will have to contain every note and chord object that we encounter in our training set. In the training set on the Github page the total number of different notes and chords was 352. That seems like a lot of possible output predictions for the network to handle, but a LSTM network can easily handle it.
-
-Next we have to worry about where we want to put the notes. As most people that have listened to music have noticed, notes usually have varying intervals between them. You can have many notes in quick succession and then followed by a rest period where no note is played for a short while.
-
-Below we have another excerpt from a midi file that has been read using Music21, only this time we have added the offset of the object behind it. This allows us to see the interval between each note and chord.
+接下来我们从另外一个被 Music21 读取过的 midi 文件里找一个摘要，这次我们仅仅在它后面添加了休止符。这使我们可以看到每个音符与和弦之间的间隔。
 
 ```
 ...
@@ -111,13 +111,13 @@ Below we have another excerpt from a midi file that has been read using Music21,
 ...
 ```
 
-As can be seen from this excerpt and most of the dataset, the most common interval between notes in the midi files is 0.5. Therefore, we can simplify the data and model by disregarding the varying offsets in the list of possible outputs. It will not affect the melodies of the music generated by the network too severely. So we will ignore the offset in this tutorial and keep our list of possible outputs at 352.
+如这段摘要里所示，midi 文件里大部分数据集的音符的间隔都是 0.5。因此，我们可以通过忽略不同输出的休止符来简化数据和模型。这不会太剧烈的影响神经网络创作的音乐旋律。因此我们将忽视教程中的休止符并且把我们的可能输出列表保持在 352。
 
-### Preparing the Data
+### 准备数据
 
-Now that we have examined the data and determined that the features that we want to use are the notes and chords as the input and output of our LSTM network it is time to prepare the data for the network.
+既然我们已经检查了数据并且决定了我们要使用的特征是作为 LSTM 网络的输入和输出的音符与和弦，那么现在就要为网络准备数据了。
 
-First, we will load the data into an array as can be seen in the code snippet below:
+首先，我们把数据加载到一个数组中，就像下面的代码这样：
 
 ```
 from music21 import converter, instrument, note, chord
@@ -142,17 +142,19 @@ for file in glob.glob("midi_songs/*.mid"):
             notes.append('.'.join(str(n) for n in element.normalOrder))
 ```
 
-We start by loading each file into a Music21 stream object using the _converter.parse(file)_ function. Using that stream object we get a list of all the notes and chords in the file. We append the pitch of every note object using its string notation since the most significant parts of the note can be recreated using the string notation of the pitch. And we append every chord by encoding the id of every note in the chord together into a single string, with each note being separated by a dot. These encodings allows us to easily decode the output generated by the network into the correct notes and chords.
+使用  _converter.parse(file)_ 函数，我们开始把每一个文件加载到一个 Music21流对象中。使用这个流对象，我们在文件中得到一个包含所有的音符与和弦的列表。把字符串符号贴到到每个音符对象的音高上，因为使用字符串符号可以重新创造音符最重要的部分。这些代码使我们可以轻松的把由网络生成的输出解码为正确的音符与和弦。
 
-Now that we have put all the notes and chords into a sequential list we can create the sequences that will serve as the input of our network.
+既然我们已经把所有的音符与和弦放入一个序列表中，我们就可以创造一个序列，作为网络的输入。
+
 
 ![Figure 1: When converting from categorical to numerical data the data is converted to integer indexes representing where the category is positioned in the set of distinct values. E.g. apple is the first distinct value so it maps to 0, orange is the second so it maps to 1, pineapple is the third so it maps to 2, and so forth.](https://cdn-images-1.medium.com/max/2000/1*sM3FeKwC-SD66FCKzoExDQ.jpeg)
 
-Figure 1: When converting from categorical to numerical data the data is converted to integer indexes representing where the category is positioned in the set of distinct values. E.g. apple is the first distinct value so it maps to 0, orange is the second so it maps to 1, pineapple is the third so it maps to 2, and so forth.
 
-First, we will create a mapping function to map from string-based categorical data to integer-based numerical data. This is done because neural network perform much better with integer-based numerical data than string-based categorical data. An example of a categorical to numerical transformation can be seen in Figure 1.
+图1： 当一个数据由分类数据转换成数值数据时，此数据被转换成了一个整数索引来表示某一类在一组不同值中的位置。例如，苹果是第一个明确的值，因此它被映射成0。桔子在第二个因此被映射成1，菠萝就是3，然后是4。
 
-Next, we have to create input sequences for the network and their respective outputs. The output for each input sequence will be the first note or chord that comes after the sequence of notes in the input sequence in our list of notes.
+首先，我们将写一个映射函数去把字符型分类数据映射成整型数值数据。这么做是因为神经网络处理整型数值数据（的性能）远比处理字符型分类数据好的多。图 1就是一个把分类转换成数值的例子。
+
+接下来，我们必须为网络写一个输出序列并让它们分别输出。每一个输入序列对应的输出序列将是第一个音符或者和弦，它在音符列表的输入序列中，位于音符列表之后。
 
 ```
 sequence_length = 100
@@ -183,21 +185,21 @@ network_input = network_input / float(n_vocab)
 network_output = np_utils.to_categorical(network_output)
 ```
 
-In our code example, we have put the length of each sequence to be 100 notes/chords. This means that to predict the next note in the sequence the network has the previous 100 notes to help make the prediction. I highly recommend training the network using different sequence lengths to see the impact different sequence lengths can have on the music generated by the network.
+在这段示例代码汇总，我们把每一个序列的长度都置于100个音符或者和弦。这意味着要想去在序列中去预测下一个音符，网络已经帮助去预测100个音符了。我极其推荐使用不同长度的序列去训练网络然后观察这些不同长度的序列对由网络产生的音乐的影响。
 
-The final step in preparing the data for the network is to normalise the input and [one-hot encode the output](https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/).
+为网络准备数据的最后一步是将输入归一化处理并且[one-hot 编码输出](https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/).
 
-### Model
+### 模型
 
-Finally we get to designing the model architecture. In our model we use four different types of layers:
+最后我们来设计这个模型的机构。在模型汇总我们使用到了四种不同类型的层：
 
-**LSTM layers** is a Recurrent Neural Net layer that takes a sequence as an input and can return either sequences (return_sequences=True) or a matrix.
+**LSTM 层** 是一个循环的神经网络层，它把一个序列作为输入然后返回另一个序列（返回_序列 = True）或者一个矩阵。
 
-**Dropout layers** are a regularisation technique that consists of setting a fraction of input units to 0 at each update during the training to prevent overfitting. The fraction is determined by the parameter used with the layer.
+**Dropout 层** 是一个技术规则，这其中包含了在训练期间每次更新时将输入单位的一小部分置于0，以防止过拟合。
 
-**Dense layers** or **fully connected layers** is a fully connected neural network layer where each input node is connected to each output node.
+**Dense 层** 或**fully connected layers** 是一个完全连接神经网络的层，在这里每一个输入节点都连接着输出节点。
 
-**The Activation layer** determines what activation function our neural network will use to calculate the output of a node.
+**The Activation 层** 决定使用神经网络中的哪个激活函数去计算输出节点。
 
 ```
 model = Sequential()
@@ -217,17 +219,17 @@ model = Sequential()
     model.compile(loss='categorical_crossentropy', optimizer='rmsprop')
 ```
 
-Now that we have some information about the different layers we will be using it is time to add them to the network model.
+既然我们有关于不同层的一些信息，那就把它们加到神经网络的模型中。
 
-For each LSTM, Dense, and Activation layer the first parameter is how many nodes the layer should have. For the Dropout layer the first parameter is the fraction of input units that should be dropped during training.
+对于每一个 LSTM，Dense，和Activation 层，第一个参数是层里应该有多少节点。对于 Dropout 层，第一个参数是输入单元中应该在训练中被舍弃的输入单元的片段。
 
-For the first layer we have to provide a unique parameter called *input_shape*. The purpose of the parameter is to inform the network of the shape of the data it will be training.
+对于第一层我们必须提供一个唯一的，名字是 *input_shape* 的参数。这个参数的目的是去通知网络中将要培训的数据的形状。
 
-The last layer should always contain the same amount of nodes as the number different outputs our system has. This assures that the output of the network will map directly to our classes.
+最后一层应该始终包含和我们系统不同输出个数的等同数量的节点。这确保网络的输出将直接映射到我们的类里。
 
-For this tutorial we will use a simple network consisting of three LSTM layers, three Dropout layers, two Dense layers and one activation layer. I would recommend playing around with the structure of the network to see if you can improve the quality of the predictions.
+在这里我们将使用一个简单的，包含三个 LSTM 层，三个 Dropout 层，两个 Dense 层和一个 activation 层的网络。我推荐绕着网络的结构去“玩玩”，观察你是否可以提高预测的质量。
 
-To calculate the loss for each iteration of the training we will be using [categorical cross entropy](https://rdipietro.github.io/friendly-intro-to-cross-entropy-loss/) since each of our outputs only belongs to a single class and we have more than two classes to work with. And to optimise our network we will use a RMSprop optimizer as it is usually a very good choice for recurrent neural networks.
+为了计算每次迭代的损失，我们将使用 [分类交叉熵](https://rdipietro.github.io/friendly-intro-to-cross-entropy-loss/)因为我们每次输出属于一个简单类并且我们有不止两个以上的类在为此工作。为了优化网络我们将使用 RMSprop 优化器。通常对于循环神经网络，使用它算是一个好的选择。
 
 ```
 filepath = "weights-improvement-{epoch:02d}-{loss:.4f}-bigger.hdf5"    
@@ -243,15 +245,15 @@ callbacks_list = [checkpoint]
 model.fit(network_input, network_output, epochs=200, batch_size=64, callbacks=callbacks_list)
 ```
 
-Once we have determined the architecture of our network the time has come to start the training. The *model.fit()* function in Keras is used to train the network. The first parameter is the list of input sequences that we prepared earlier and the second is a list of their respective outputs. In our tutorial we are going to train the network for 200 epochs (iterations), with each batch that is propagated through the network containing 64 samples.
+一旦我们决定了网络的结构，就应该开始训练了。使用Kearas 里的 *model.fit()* 函数来训练网络。第一个参数是我们早前准备的输入序列表，而第二个参数是它们各自输出的列表。在本教程中我们将训练网络进行200次迭代，每一个分支都是通过包含了 60 个分支的网络增殖的。
 
-To make sure that we can stop the training at any point in time without losing all of our hard work, we will use model checkpoints. Model checkpoints provide us with a way to save the weights of the network nodes to a file after every epoch. This allows us to stop running the neural network once we are satisfied with the loss value without having to worry about losing the weights. Otherwise we would have to wait until the network has finished going through all 200 epochs before we could get the chance to save the weights to a file.
+为了确保我们可以在任何时间点停止训练而不会将之前的努力付之东流，我们将使用模型检查点。模型检查点为我们提供了一种方法，把每次迭代之后的网络节点的权重保存到一个文件中。这使我们一旦对损失值满意了就可以停掉神经网络而不必担心失去权重值。否则我们必须一直等待直到网络完成所有的 200 次迭代次数才能把权重保存到文件中。
 
-## Generating Music
+## 创作音乐
 
-Now that we have finished training the network it is time to have some fun with the network we have spent hours training.
+既然我们已经完成了训练网络，那是时候让我们花费数小时训练的网络玩的开心。
 
-To be able to use the neural network to generate music you will have to put it into the same state as before. For simplicity we will reuse code from the training section to prepare the data and set up the network model in the same way as before. Except, that instead of training the network we load the weights that we saved during the training section into the model.
+为了能用神经网络去创作音乐，你得把它恢复到原来的状态。简言之我们将再次使用训练部分中的代码，用之前的方式去准备数据和建立网络模型。这并不是重新训练网络，而是把之前网络中的权重加载到模型中。
 
 ```
 model = Sequential()
@@ -274,11 +276,11 @@ model.compile(loss='categorical_crossentropy', optimizer='rmsprop')
 model.load_weights('weights.hdf5')
 ```
 
-Now we can use the trained model to start generating notes.
+现在我们可以使用训练中的模型去开始创作音符了。
 
-Since we have a full list of note sequences at our disposal we will pick a random index in the list as our starting point, this allows us to rerun the generation code without changing anything and get different results every time. However, If you wish to control the starting point simply replace the random function with a command line argument.
+因为我们有一个完整的音符序列表，我们将在列表中选择任意一个索引作为起始点，这允许我们不需要做任何修改就能重新运行代码并且每次都能返回不同的结果。
 
-Here we also need to create a mapping function to decode the output of the network. This function will map from numerical data to categorical data (from integers to notes).
+这里我也需要写一个映射函数去编译网络的输出。这个函数将数值数据映射成分类数据（把整数变成音符）。
 
 ```
 start = numpy.random.randint(0, len(network_input)-1)
@@ -303,29 +305,29 @@ for note_index in range(500):
     pattern = pattern[1:len(pattern)]
 ```
 
-We chose to generate 500 notes using the network since that is roughly two minutes of music and gives the network plenty of space to create a melody. For each note that we want to generate we have to submit a sequence to the network. The first sequence we submit is the sequence of notes at the starting index. For every subsequent sequence that we use as input, we will remove the first note of the sequence and insert the output of the previous iteration at the end of the sequence as can be seen in Figure 2.
-
+我们选择使用网络去创作 500 个音符是因为两分钟的音乐是平滑的而且给了网络充足的空间去创造旋律。想要制作任何一个音符我们都必须给网络提交一个序列。我们提交的第一个序列是开始索引的音符序列。对于我们用作输入的每个后续序列，我们将删除序列的第一个音符，并在序列末尾插入上一个迭代的输出，如图 2 所示。
+ 
 ![Figure 2: The first input sequence is ABCDE. The output we get from feeding that to the network is F. For the next iteration we remove A from the sequence and append F to it. Then we repeat the process.](https://cdn-images-1.medium.com/max/2000/1*lsMVJ484dEqIVMFyJ1gV2g.jpeg)
 
-Figure 2: The first input sequence is ABCDE. The output we get from feeding that to the network is F. For the next iteration we remove A from the sequence and append F to it. Then we repeat the process.
+图2：第一个输入列是 ABCDE。我们依靠网络从流里得到的输出是 F。对于下一次的迭代，我们把A从列表里移除，并把 F 追加进去。然后重复这步骤。
 
-To determine the most likely prediction from the output from the network, we extract the index of the highest value. The value at index *X* in the output array correspond to the probability that *X* is the next note. Figure 3 helps explain this.
+为了从网络的输出中确定出最准确的预测，我们抽取了值最高的索引。在输出汇总索引为 *X* 的列可能对应于 下一个音符的 *X*。图三帮助解释这个。
 
 ![Figure 3: Here we see the mapping between the an output prediction from the network and classes. As we can see the highest probability is that the next value should be D, so we choose D as the most probable class.](https://cdn-images-1.medium.com/max/2000/1*YpnnaPA1Sm8rzTR4N2knKQ.jpeg)
 
-Figure 3: Here we see the mapping between the an output prediction from the network and classes. As we can see the highest probability is that the next value should be D, so we choose D as the most probable class.
+图三：我们看到在一个从网络到类的输出预测的映射。正如我们看到的，下一个值最可能是 D，因此我们选择 D 最为最可能的类。
 
-Then we collect all the outputs from the network into a single array.
+之后我们把网络的所有输出搜集，放到一个单一数组中。
 
-Now that we have all the encoded representations of the notes and chords in an array we can start decoding them and creating an array of Note and Chord objects.
+既然我们有了数组中所有的音符与和弦的编码，我们可以开始编译它们并且创造一个音符与和弦对象的数组。
 
-First we have to determine whether the output we are decoding is a Note or a Chord.
+首先必须确定我们编译后的输出是音符还是和弦。
 
-If the pattern is a **Chord**, we have to split the string up into an array of notes. Then we loop through the string representation of each note and create a Note object for each of them. Then we can create a Chord object containing each of these notes.
+如果模式是**和弦**，我们必须将字符串拆分成一组音符。然后我们循环遍历每个音符的字符串表示，并为每个音符创建一个音符对象。然后我们可以创建一个包含每个音符的和弦对象。
 
-If the pattern is a **Note**, we create a Note object using the string representation of the pitch contained in the pattern.
+如果输出是一个 **音符**，我们使用模式中包含的音高字符串表示创建一个音符对象。
 
-At the end of each iteration we increase the offset by 0.5 (as we decided in a previous section) and append the Note/Chord object created to a list.
+在每次迭代的结尾我们增加 0.5 的终止时间并且把音符/和弦对象追加到一个列表中。
 
 ```
 offset = 0
@@ -356,7 +358,7 @@ for pattern in prediction_output:
     offset += 0.5
 ```
 
-Now that we have a list of Notes and Chords generated by the network we can create a Music21 Stream object using the list as a parameter. Then finally to create the MIDI file to contain the music generated by the network we use the *write* function in the Music21 toolkit to write the stream to a file.
+在用网络创造音符与和弦的列表之后，我们可以使用这个列表创造一个 Music21 流对象作为一个参数。最后，为了创建包含网络生成的音乐的 MIDI 文件，我们使用 Music21 工具包中的 *write* 函数将流写入文件中。
 
 ```
 midi_stream = stream.Stream(output_notes)
@@ -364,41 +366,42 @@ midi_stream = stream.Stream(output_notes)
 midi_stream.write('midi', fp='test_output.mid')
 ```
 
-### Results
+### 结果
 
-Now it is time to marvel at the results. Figure 4 contains sheet music representation of music that was generated using the LSTM network. At a quick glance we can see that there is some structure to it. This is especially obvious in the third to last line on the second page.
+现在是见证奇迹的时刻。图4包含了一页通过 LSTM 神经网络创作的音乐。瞅一眼就能看到它的结构，这在第二页的第三行到最后一行尤为明显。
 
-People that are knowledgeable about music and can read musical notation can see that there are some weird notes strewn about the sheet. This is a result of the neural network not being able to create perfect melodies. With our current implementation there will always be some false notes and to be able to achieve better results we will need a bigger network.
+有音乐常识，能阅读乐谱的人呢可以看到在这一页里有一些奇怪的音符。这就是网络不能创作预测的旋律的结果。在我们目前的成果里将总会有一些错误的音符。如果想获得更好的结果我们得有更大的网络才行。
 
 ![Figure 4: An example of sheet music generated by the LSTM network](https://cdn-images-1.medium.com/max/2836/1*tzfrAkHCbGjBXA5ZOthjrw.png)
-Figure 4: An example of sheet music generated by the LSTM network
+图四：通过 LSTM 网络创作一页音乐
 
-The results from this relatively shallow network are still really impressive as can be heard from the example music in Embed 1. For those interested, the sheet music in Figure 4 represents the musical notation of NeuralNet Music 5.
+这个相对较浅的网络的结果仍然令人印象深刻，从示例音乐中可以听到。对于那些感兴趣的人来说，图4中的乐谱代表了 Neuralnet  音乐 5 的音乐符号。
 
 [https://w.soundcloud.com/player/?referrer=https%3A%2F%2Ftowardsdatascience.com%2Fmedia%2Fd721bab5c62c8061387ced1869dcdf5b%3FpostId%3D68786834d4c5&amp;show_artwork=true&amp;url=http%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2F362886486](https://w.soundcloud.com/player/?referrer=https%3A%2F%2Ftowardsdatascience.com%2Fmedia%2Fd721bab5c62c8061387ced1869dcdf5b%3FpostId%3D68786834d4c5&amp;show_artwork=true&amp;url=http%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2F362886486)
 
-## Future Work
+## 未来的工作
 
-We have achieved remarkable results and beautiful melodies by using a simple LSTM network and 352 classes. However, there are areas that can be improved.
+我们用一个简单的 LSTM 网络和 352 个类实现 这个非凡的成果。不过，有一些地方还有待提高。
 
-First, the implementation we have at the moment does not support varying duration of notes and different offsets between notes. To achieve that we could add more classes for each different duration and add rest classes that represent the rest period between notes.
+首先，目前实现的结果不支持音符的多种音长和音符间的休止。我们要为添加为不同音长服务的类和代表休止时间的类。
 
-To achieve satisfying results with more classes added we would also have to increase the depth of the LSTM network, which would require a significantly more powerful computer. It took the laptop I use at home approximately twenty hours to train the network as it is now.
+为了用这么的类打成满意的结果我们也必须增加 LSTM 网络的深度，这将需要满足性能更高的计算机。我自用的笔记本电脑大约需要两个小时去训练网络。
 
-Second, add beginnings and endings to pieces. As the network is now there is no distinction between pieces, that is to say the network does not know where one piece ends and another one begins. This would allow the network to generate a piece from start to finish instead of ending the generated piece abruptly as it does now.
+第二，为章节增加开始和结束。现在网络在两个章节之间没有间隔，网络不知道一个章节的结尾和另一个的开始在哪里。这允许网络从开始到结束去创作一个章节而不是像现在这样突然的结束创作。
 
-Third, add a method to handle unknown notes. As it is now the network would enter a fail state if it encounters a note that it does not know. A possible method to solve that issue would be to find the note or chord that is most similar to the unknown note.
+第三，增加一个方法去处理未知的音符。目前的情况是如果网络遇到一个它不认识的音符，它就会返回状态失败。解决这个方法的可能方案是去寻找一个和未知音符最相似的音符或者和弦。
 
-Finally, adding more instruments to the dataset. As it is now, the network only supports pieces that only have a single instrument. It would be interesting to see if it could be expanded to support a whole orchestra.
+最后，为数据集增加更多的乐器（的音乐）。现在网络仅仅支持只有一种单一乐器的作品。如果可以扩展到一整个管弦乐队那将会是非常有趣的。
 
-## Conclusion
+## 结语
 
-During this tutorial we have shown how to create a LSTM neural network to generate music. While the results may not be perfect, they are pretty impressive nonetheless and shows us that neural networks can create music and could potentially be used to help create more complex musical pieces.
+在本教程中我们演示了如何创建一个 LSTM 神经网络去创作音乐。也许这个结果不尽如人意，但它们还是让人印象深刻。而且它向我们展示了，神经网络可以创作音乐并且可以被用来帮助创作人们更复杂的音乐作品。
 
-[Check out the Github repository for the tutorial here](https://github.com/Skuldur/Classical-Piano-Composer)
+[Check out the Github repository for the tutorial here](https://github.com/Skuldur/Classical-Piano-Composer)[在此查看 GitHub 仓库查看本教程](https://github.com/Skuldur/Classical-Piano-Composer)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
