@@ -1,3 +1,5 @@
+* [用长短期记忆网络预测股票市场（使用 Tensorflow）](https://juejin.im/post/5c8114de51882540a830b910) ([Qiuk17](https://github.com/Qiuk17) 翻译)
+* [2019 跟上 AI 的脚步：AI 和 ML 接下来会发生什么重要的事？](https://juejin.im/post/5c83c8ba5188250aa57a0e2f) ([TUARAN](https://github.com/TUARAN) 翻译)
 * [数据科学领域十大必知机器学习算法](https://juejin.im/post/5c73bbfff265da2da771d42a) ([JohnJiangLA](https://github.com/JohnJiangLA) 翻译)
 * [如何用 Python 从零开始构建你自己的神经网络](https://juejin.im/post/5c7a478c518825787e6a0f67) ([JackEggie](https://github.com/JackEggie) 翻译)
 * [提取图像中的文字、人脸或者条形码 — 形状检测 API](https://juejin.im/post/5c64026fe51d457f963d249c) ([jerryOnlyZRJ](https://github.com/jerryOnlyZRJ) 翻译)

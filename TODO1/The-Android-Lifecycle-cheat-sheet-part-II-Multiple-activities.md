@@ -2,62 +2,63 @@
 > * 原文作者：[Jose Alcérreca](https://medium.com/@JoseAlcerreca)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-II-Multiple-activities.md](https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-II-Multiple-activities.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Rickon](https://github.com/gs666)
+> * 校对者：[Endone](https://github.com/Endone)，[Mirosalva](https://github.com/Mirosalva)
 
-# The Android Lifecycle cheat sheet — part II: Multiple activities
+# Android 生命周期备忘录 — 第二部分：多 Activity
 
-In this series:  
-[第一部分：单一 Activities](https://github.com/xitu/gold-miner/blob/master/TODO/the-android-lifecycle-cheat-sheet-part-i-single-activities.md)  
-**Part II: Multiple activities** — navigation and back stack (this post)
-[Part III: Fragments — activity and fragment lifecycle](https://medium.com/@JoseAlcerreca/the-android-lifecycle-cheat-sheet-part-iii-fragments-afc87d4f37fd)  
-[Part IV: ViewModels, Translucent Activities and Launch Modes](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iv-49946659b094)
+在这个系列中：
 
-The diagrams are also available as a [cheat sheet in PDF format](https://github.com/JoseAlcerreca/android-lifecycles) for quick reference.
+- [第一部分：单一 Activities](https://juejin.im/post/5a77c9aef265da4e6f17bd51)
+- [**第二部分：多 Activity** — 跳转和返回栈（本篇文章）](https://juejin.im/post/5c8e018d51882545ca77d857)
+- [**第三部分：Fragments** — activity 和 fragment 的生命周期](https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-III-Fragments.md)
+- [第四部分：ViewModels、半透明 Activity 和启动模式](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iv-49946659b094)
 
-> Note that, when showing lifecycles for multiple components (activities, fragments, etc) in a diagram, grouped events that appear side by side run in parallel. The execution focus can switch from one parallel group of events to another at any time, so **the order of calls among parallel groups of events is not guaranteed**. However, order inside a group is guaranteed.
+为了方便查阅，我制作了 [PDF 格式备忘录](https://github.com/JoseAlcerreca/android-lifecycles)。
+
+> 请注意，图表中显示多个组件（activities，fragments 等）的生命周期时，并排显示的分组事件是并行的。执行焦点可以随时从一个并行事件组切换到另一个，因此**并行事件组之间的调用顺序并不能保证**。但是，组内的顺序是有保证的。
 >
-> The following scenarios don’t apply to activities and tasks that have a custom launch mode or task affinity defined. For more information, see [Tasks And Back Stack](https://developer.android.com/guide/components/activities/tasks-and-back-stack.html) on the Android developer website.
+> 以下场景并不适用于有着自定义启动模式或任务关联型的 activities 和任务。想要了解更多，详见 Android 开发者官网：[任务和返回栈](https://developer.android.com/guide/components/activities/tasks-and-back-stack.html)。
 
-## Back Stack — Scenario 1: Navigating between activities
+## 返回栈 — 场景 1：在 Activity 之间跳转
 
-![](https://cdn-images-1.medium.com/freeze/max/800/1*Bt1fQmVtZc0ExHUlzhJO6Q.png)
+![](https://user-gold-cdn.xitu.io/2019/3/2/1693d96d9b8fa76e?w=728&h=972&f=png&s=49929)
 
-**Scenario 1: Navigating between activities**
+**场景 1：在 Activity 之间跳转**
 
-In this scenario, when a new activity is started, activity 1 is [STOPPED](https://developer.android.com/guide/components/activities/activity-lifecycle.html#onstop) (but not destroyed), similar to a user navigating away (as if “Home” was pressed).
+在这种场景下，当一个新 activity 启动时，activity 1 被[停止](https://developer.android.com/guide/components/activities/activity-lifecycle.html#onstop)（但没有被销毁），类似于用户在进行跳转（就像按下 "Home" 一样）。
 
-When the Back button is pressed, activity 2 is destroyed and finished.
+当返回按钮被按下，activity 2 被销毁结束运行。
 
-### Managing state
+### 管理状态
 
-Note that [`onSaveInstanceState`](https://developer.android.com/reference/android/app/Activity.html#onSaveInstanceState%28android.os.Bundle%29) is called, **but** [`onRestoreInstanceState`](https://developer.android.com/reference/android/app/Activity.html#onRestoreInstanceState%28android.os.Bundle,%20android.os.PersistableBundle%29) **is not**. If there is a configuration change when the second activity is active, the first activity will be destroyed and recreated only when it’s back in focus. That’s why saving an instance of the state is important.
+请注意，尽管 [`onSaveInstanceState`](https://developer.android.com/reference/android/app/Activity.html#onSaveInstanceState%28android.os.Bundle%29) 被调用，**但是** [`onRestoreInstanceState`](https://developer.android.com/reference/android/app/Activity.html#onRestoreInstanceState%28android.os.Bundle,%20android.os.PersistableBundle%29) **不会被调用**。如果在第二个 activity 处于活动状态时配置发生改变，则第一个活动将被销毁并仅在其重新获取焦点时重新创建。这就是保存一个状态的实例很重要的原因。
 
-If the system kills the app process to save resources, this is another scenario in which the state needs to be restored.
+如果系统杀死应用程序进程以节省资源，这是另一种需要恢复状态的场景。
 
-## Back Stack — Scenario 2: Activities in the back stack with configuration changes
+## 返回栈 — 场景 2：配置发生变化时返回栈中的 Activities
 
-![](https://cdn-images-1.medium.com/max/800/1*TaoqKwKSPur_2S__OzhdoQ.png)
+![](https://user-gold-cdn.xitu.io/2019/3/2/1693d96e23dc5098?w=742&h=1127&f=png&s=58345)
 
-**Scenario 2: Activities in the back stack with configuration changes**
+**场景 2：配置发生变化时返回栈中的 Activities**
 
-### Managing state
+### 管理状态
 
-Saving state is not only important for the activity in the foreground. **All activities in the stack need to restore state after a configuration change** to recreate their UI.
+保存状态不仅对前台的 activity 很重要。**配置发生变化后，栈中的所有的 activities 都需要重新恢复状态**来重新创建它们的 UI。
 
-Also, the system can kill your app’s process at almost any time so you should be prepared to restore state in any situation.
+此外，系统几乎可以随时终止你的应用程序进程，因此你应该准备好在任何情况下恢复状态。
 
-## Back Stack — Scenario 3: App’s process is killed
+## 返回栈 — 场景 3：应用的进程被终止
 
-When the Android operating system needs resources, it kills apps in the background.
+当 Android 操作系统需要资源时，它会杀死在后台的应用程序。
 
-![](https://cdn-images-1.medium.com/max/800/1*Au5PqGADz31UCfANL3ZRug.png)
+![](https://user-gold-cdn.xitu.io/2019/3/2/1693d96d9c7c0d19?w=800&h=1077&f=png&s=104247)
 
-**Scenario 3: App’s process is killed**
+**场景 3：应用的进程被终止**
 
-### Managing state
+### 管理状态
 
-Note that the state of the full back stack is saved but, in order to efficiently use resources, activities are only restored when they are recreated.
+请注意，完整返回栈的状态被保存起来，但为了有效地使用资源，只有在重新创建 activity 时才会恢复 activity。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
