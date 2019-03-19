@@ -11,19 +11,19 @@
 
 照片由 [Phil Botha](https://unsplash.com/photos/a0TJ3hy-UD8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 拍摄于 [Unsplash](https://unsplash.com/collections/3995048/stars/e08862541511fcb17f0de3d4a555bff8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 
-我是后端开发人员，而我的前端开发专业知识相对较弱。前一段时间我想找点乐子，在浏览器中制作游戏；我选择 Phaser 3 框架（它现在看起来非常流行）和 TypeScript 语言（因为我更喜欢静态打字而不是动态）。事实证明，你需要做一些无聊的事情才能使它全部工作，所以我写了这个教程来帮助像我这样的其他人更快地开始。
+我是后端开发人员，而我的前端开发专业知识相对较弱。前一段时间我想找点乐子，在浏览器中制作游戏；我选择 Phaser 3 框架（它现在看起来非常流行）和 TypeScript 语言（因为我更喜欢静态类型语言而不是动态类型语言）。事实证明，你需要做一些无聊的事情才能使它正常工作，所以我写了这个教程来帮助像我这样的其他人更快地开始。
 
 ## 准备开发环境
 
 ### IDE
 
-选择您的开发环境。如果您愿意，您可以随时使用普通的旧记事本，但我建议您使用更有帮助的 IDE。至于我，我更喜欢在 Emacs 中开发拿手的项目，因此我安装了 [tide](https://github.com/ananthakumaran/tide) 并按照说明进行设置。
+选择你的开发环境。如果你愿意，你可以随时使用普通的旧记事本，但我建议你使用更有帮助的 IDE。至于我，我更喜欢在 Emacs 中开发拿手的项目，因此我安装了 [tide](https://github.com/ananthakumaran/tide) 并按照说明进行设置。
 
 ### Node
 
-如果我们使用 JavaScript 进行开发，那么在没有所有这些准备步骤的情况下开始编码就完全没问题。但是，由于我们想要使用 TypeScript，我们必须设置基础架构以尽可能快地进行未来的开发。因此我们需要安装 node 和 npm 。
+如果我们使用 JavaScript 进行开发，那么无需这些准备步骤就可以开始编码。但是，由于我们想要使用 TypeScript，我们必须设置基础架构以尽可能快地进行未来的开发。因此我们需要安装 node 和 npm 。
 
-在我编写本教程时，我使用 [node 10.13.0](https://nodejs.org/en/) 和 [npm 6.4.1](https://www.npmjs.com/)。请注意，前端世界中的版本更新速度非常快，因此您只需使用最新的稳定版本。我强烈建议使用 [nvm](https://github.com/creationix/nvm) 而不是手动安装 node 和 npm；这会为你节省大量的时间和精力。
+在我编写本教程时，我使用 [node 10.13.0](https://nodejs.org/en/) 和 [npm 6.4.1](https://www.npmjs.com/)。请注意，前端世界中的版本更新速度非常快，因此你只需使用最新的稳定版本。我强烈建议使用 [nvm](https://github.com/creationix/nvm) 而不是手动安装 node 和 npm；这会为你节省大量的时间和精力。
 
 ## 搭建项目
 
@@ -70,7 +70,7 @@ npm install -D typescript webpack webpack-cli ts-loader phaser live-server
 
 Webpack 将运行 TypeScript 编译器并将一堆生成的 JS 文件以及库收集到一个缩小的 JS 中，以便我们可以将它包含在页面中。
 
-在 `project.json` 附近添加 `webpack.config.js`：
+在 `package.json` 附近添加 `webpack.config.js`：
 
 ```
 const path = require('path');
@@ -128,15 +128,15 @@ TypeScript 是一种静态类型语言。因此，它需要编译的类型定义
 }
 ```
 
-执行 `npm build` 时，将根据 webpack 配置构建 `app.js` 文件。当你运行 `npm start` 时，你不必费心去构建过程。只要保存任何源，webpack 就会重建应用程序，而 [live-server](https://www.npmjs.com/package/live-server) 将在默认浏览器中重新加载它。该应用程序将托管在 [http://127.0.0.1:8085/](http://127.0.0.1:8085/).
+执行 `npm build` 时，将根据 webpack 配置构建 `app.js` 文件。当你运行 `npm start` 时，你不必费心去构建过程。只要对任何更新进行了保存操作，webpack 就会重建应用程序，而 [live-server](https://www.npmjs.com/package/live-server) 将在默认浏览器中重新加载它。该应用程序将托管在 [http://127.0.0.1:8085/](http://127.0.0.1:8085/).
 
 ## 入门
 
-既然我们已经建立了基础设施（我在开始一个项目时个人讨厌的部分），我们终于可以开始编码了。在这一步中，我们将做一件简单的事情：在浏览器窗口中绘制一个深蓝色矩形。使用一个大型的游戏开发框架是有点……嗯……太过分了。不过，我们还会在接下来的步骤中使用它。
+既然我们已经建立了基础设施（开始一个项目时我感到厌恶的环节），我们终于可以开始编码了。在这一步中，我们将做一件简单的事情：在浏览器窗口中绘制一个深蓝色矩形。使用一个大型的游戏开发框架是有点……嗯……太过分了。不过，我们还会在接下来的步骤中使用它。
 
 让我简要解释一下 Phaser 3 的主要概念。游戏是 `Phaser.Game` 类（或其后代）的一个实例。每个游戏都包含一个或多个 `Phaser.Game` 后代的实例。每个场景包含几个对象（静态或动态对象），并代表游戏的逻辑部分。例如，我们琐碎的游戏将有三个场景：欢迎屏幕，游戏本身和分数屏幕。
 
-我们开始编码了。
+让我们开始编码吧。
 
 首先，为游戏创建一个简约的 HTML 容器。创建一个 `index.html` 文件，其中包含以下代码：
 
@@ -154,7 +154,7 @@ TypeScript 是一种静态类型语言。因此，它需要编译的类型定义
 ```
 这里只有两个基本部分：第一个是 `script` 条目，表示我们将在这里使用我们构建的文件，第二个是 `div` 条目，它将成为游戏容器。
 
-现在使用以下代码创建一个文件 `src/app.ts`：
+现在创建 `src/app.ts` 文件并添加以下代码：
 
 ```
 import "phaser";
@@ -178,7 +178,7 @@ window.onload = () => {
 };
 ```
 
-此代码不言自明。GameConfig 有很多不同的属性，你可以查看[这里](https://photonstorm.github.io/phaser3-docs/global.html#GameConfig) .
+这段代码一目了然。GameConfig 有很多不同的属性，你可以查看[这里](https://photonstorm.github.io/phaser3-docs/global.html#GameConfig) .
 
 现在你终于可以运行 `npm start` 了。如果在此步骤和之前的步骤中完成所有操作，您应该在浏览器中看到一些简单的内容：
 
@@ -224,7 +224,7 @@ update(time): void {
 
 * `init([params])` 在场景开始时被调用。这个函数可以通过调用 `scene.start(key, [params])` 来接受从其他场景或游戏传递的参数。
 
-* `preload()` 在创建场景对象之前被调用，它包含加载资源；这些资产被缓存，因此当重新启动场景时，不会重新加载它们。
+* `preload()` 在创建场景对象之前被调用，它包含加载资源；这些资源将被缓存，因此当重新启动场景时，不会重新加载它们。
 
 * `create()` 在加载资源时被调用，并且通常包含主要游戏对象（背景，玩家，障碍物，敌人等）的创建。
 
@@ -313,7 +313,7 @@ this.info = this.add.text(10, 10, '',
 
 Phaser 3 中的一个组是一种创建一组您想要一起控制的对象的方法。有两种类型的对象：静态和动态。正如你可能猜到的那样，静态物体（地面，墙壁，各种障碍物）不会移动，动态物体（马里奥，舰船，导弹）可以移动。
 
-我们创建了一个静态的地面组。那些碎片沿着线放置。请注意，该线分为 20 个相等的部分（不是您可能预期的 19 个），并且地砖位于左端的每个部分，瓷砖中心位于该点（我希望这解释了那些数字）。我们还必须调用 `refresh()` 来更新组边界框（否则，将根据默认位置（场景的左上角）检查冲突）。
+我们创建了一个静态的地面组。那些碎片沿着线放置。请注意，该线分为 20 个相等的部分（不是您可能预期的 19 个），并且地砖位于左端的每个部分，瓷砖中心位于该点（我希望这些能让你明白那些数字的意思）。我们还必须调用 `refresh()` 来更新组边界框（否则，将根据默认位置（场景的左上角）检查冲突）。
 
 如果您现在在浏览器中查看应用程序，您应该会看到如下内容：
 
@@ -464,7 +464,7 @@ const config: GameConfig = {
   ...
 ```
 
-你有没有注意到遗失的东西？是的，我们还没有从任何地方调用 `ScoreScene` ！当玩家错过第三颗星时（此时游戏结束），我们来调用它：
+你有没有发现遗漏了什么？是的，我们还没有从任何地方调用 `ScoreScene` ！当玩家错过第三颗星时（此时游戏结束），我们来调用它：
 
 ```
 private onFall(star: Phaser.Physics.Arcade.Image): () => void {
