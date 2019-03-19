@@ -2,54 +2,54 @@
 > * 原文作者：[Jose Alcérreca](https://medium.com/@JoseAlcerreca)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-III-Fragments.md](https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-III-Fragments.md)
-> * 译者：
+> * 译者：[Qiuk17](https://github.com/Qiuk17)
 > * 校对者：
 
-# The Android Lifecycle cheat sheet — part III : Fragments
+# Android 生命周期备忘录 — 第三部分：Fragments
 
-In this series:  
-[**Part I: Activities** — single activity lifecycle](https://github.com/xitu/gold-miner/blob/master/TODO/the-android-lifecycle-cheat-sheet-part-i-single-activities.md)  
-[**Part II: Multiple activities** — navigation and back stack](https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-II-Multiple-activities.md)   
-**Part III: Fragments** — activity and fragment lifecycle (this post)  
-[**Part IV: ViewModels, Translucent Activities and Launch Modes**](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iv-49946659b094)
+本系列文章：
+[**第一部分：Activities** — 单一 activity 的生命周期](https://github.com/xitu/gold-miner/blob/master/TODO/the-android-lifecycle-cheat-sheet-part-i-single-activities.md)  
+[**第二部分：多个 activities** — 跳转和返回栈（back stack)](https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-II-Multiple-activities.md)   
+**第三部分： Fragments** — Activity 和 Fragment 的生命周期（即本文）
+[**第四部分：ViewModels、透明 Activities 及其启动模式**](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iv-49946659b094)
 
-The diagrams are also available as a [cheat sheet in PDF format](https://github.com/JoseAlcerreca/android-lifecycles) for quick reference.
+为了更方便地查询，你可以去查阅 [PDF 版本的图表备忘录](https://github.com/JoseAlcerreca/android-lifecycles)。
 
-In this section we’ll cover the behavior of a fragment that is attached to an activity. Don’t confuse this scenario with that of a fragment added to the back stack (see [Tasks and Back Stack](https://medium.com/google-developers/tasks-and-the-back-stack-dbb7c3b0f6d4) for more information on fragment transactions and the back stack).
+本节中我们将介绍附加在 Activity 上的 Fragment 的行为。不过别把这种情况和加入到返回栈的 Fragment 搞混了（请参看 [Tasks and Back Stack](https://medium.com/google-developers/tasks-and-the-back-stack-dbb7c3b0f6d4) 这篇文章来学习有关 Fragment 事务和返回栈的知识）。
 
-## Scenario 1: Activity with Fragment starts and finishes
+## 场景 1：当带有 Fragment 的 Activity 启动和终止时
 
 ![](https://cdn-images-1.medium.com/max/800/1*ALMDBkuAAZ28BJ2abmvniA.png)
 
-**Scenario 1: Activity with Fragment starts and finishes**
+**场景 1：带有 Fragment 的 Activity 启动和终止时**
 
-Note that it’s guaranteed that the Activity’s `onCreate` is executed before the Fragment’s. However, callbacks shown side by side — such as `onStart` and `onResume` — are executed in parallel and can therefore be called in either order. For example, the system might execute the Activity’s `onStart` method before the Fragment’s `onStart` method, but then execute the _Fragment’s_ `onResume` method before the Activity’s `onResume` method.
+虽然 Activity 的 `onCreate` 方法保证在 Fragment 的之前被调用，但是其他像 `onStart` 和 `onResume` 这样的回调会被并行执行，因此它们会被以任意顺序调用。例如，系统可能先调用 Activity 的 `onStart` 方法再调用 Fragment 的 `onStart`，但在此之后却先调用 **Fragment** 的 `onResume` 方法再执行 Activity 的 `onResume`。
 
-**Be careful to manage the timing of the respective execution sequences so that you avoid race conditions.**
+**小心管理它们执行的顺序和时间，以避免两者竞争带来的问题。**
 
-## Scenario 2: Activity with Fragment is rotated
+## 场景 2：当带有 Fragment 的 Activity 被旋转时
 
 ![](https://cdn-images-1.medium.com/max/800/1*ukapaC23cOJSPUeZ0bUdCA.png)
 
-**Scenario 2: Activity with Fragment is rotated**
+**场景 2：带有 Fragment 的 Activity 被旋转时**
 
-### State management
+### 状态管理
 
-Fragment state is saved and restored in very similar fashion to activity state. The difference is that there’s no `onRestoreInstanceState` in fragments, but the Bundle is available in the fragment’s `onCreate`, `onCreateView` and `onActivityCreated`.
+Fragment 状态的保存和恢复与 Activity 状态非常相似，区别在于 Fragment 没有 `onRestoreInstanceState`，同时 Fragment 的 `onCreate`、`onCreateView` 和 `onActivityCreated` 中 Bundle 是可被获取的。
 
-Fragments can be retained, which means that the same instance is used on configuration change. As the next scenario shows, this changes the diagram slightly.
+Fragment 是可以被保留的，这意味着当配置被改变时可以使用同一个 Fragment 实例。正如接下来的场景中所描述的，被复用的 Fragment 与普通 Fragment 有些许不同。
 
 * * *
 
-## Fragments — Scenario 3: Activity with retained Fragment is rotated
+## 场景 3：当带有可被复用的 Fragment 的 Activity 被旋转时
 
 ![](https://cdn-images-1.medium.com/max/800/1*hK_YRdty1GoafABfug-r4g.png)
 
-**Scenario 3: Activity with retained Fragment is rotated**
+**场景 3：当带有可被复用的 Fragment 的 Activity 被旋转时**
 
-The fragment is not destroyed nor created after the rotation because the same fragment instance is used after the activity is recreated. The state bundle is still available in `onActivityCreated`.
+Fragment 对象既没有被创建也没有被销毁，因为在 Activity 被重新创建后，同一个 Fragment 实例被复用了。因此在 `onActivityCreated` 过程中 Bundle 仍然是可被获取的。
 
-Using retained fragments is not recommended unless they are used to store data across configuration changes (in a non-UI fragment). This is what the [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel.html) class from the Architecture Components library uses internally, but with a simpler API.
+使用可被复用的 Fragment 是不被推荐的，Using retained fragments is not recommended unless they are used to store data across configuration changes (in a non-UI fragment). This is what the [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel.html) class from the Architecture Components library uses internally, but with a simpler API.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
