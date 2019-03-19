@@ -73,10 +73,13 @@
 
 这个数据拆分成两种类型：[Note](http://web.mit.edu/music21/doc/moduleReference/moduleNote.html#note)s（译者注：音符集）和[Chord](http://web.mit.edu/music21/doc/moduleReference/moduleChord.html)s（译者注：和弦集）。音符对象包括 **音高** ， **音阶** 和音符的 **终止**
 
-*  **音高** 是指声音的频率，或者用 [A, B, C, D, E, F, G] 来表示它是高还是低。其中 A 是最高，G 是最低。*
-*  **[音阶](http://web.mst.edu/~kosbar/test/ff/fourier/notes_pitchnames.html)** 是指选择是指你将在钢琴上使用哪些音高。* 
-*  **终止** 是指音符在作品的哪里驻留。* 
-而和弦对象的本质是是一个同时播放一组音符的容器
+*  **音高** 是指声音的频率，或者用 [A, B, C, D, E, F, G] 来表示它是高还是低。其中 A 是最高，G 是最低。
+
+*  **[音阶](http://web.mst.edu/~kosbar/test/ff/fourier/notes_pitchnames.html)** 是指你将选择在钢琴上使用哪些音高。 
+
+*  **终止** 是指音符在作品的哪里驻留。
+
+而和弦对象的本质是一个同时播放一组音符的容器。
 
 现在我们可以看到要想精确创作音乐，我们的神经网络将必须有能力去预测哪个音符或和弦将被使用。这意味着我们的预测集将必须包含每一个我们训练集中遇到的的音符和和弦对象。在 Github 页面的训练集上，不同的音符与和弦的数量总计达 352 个。这似乎交给了网络许多种可能的预测去输出，但是一个 LSTM 网络可以轻松处理它。
 
