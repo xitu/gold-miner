@@ -5,99 +5,100 @@
 > * 译者：
 > * 校对者：
 
-# A comprehensive (and honest) list of UX clichés
+# 曝光！UX 行话大全
 
-> A guide to newcomers.
+> 小白指北
 
 ![](https://cdn-images-1.medium.com/max/4804/1*Qdx2MMrjk-mHxFCLVR9Otw.png)
 
-**“You are not your user”**  
-A reminder that you are not designing the product for people like yourself. Often used as a way to encourage more user research in a project.
+**“你不是你的产品的用户”**
+这句话是在提示，你不是在为和你一样的用户设计产品。通常被用来鼓励对一个项目做更多的用户调研。
 
-**“If Henry Ford had asked people what they wanted, they would have told him faster horses”**  
-Used as a counter-argument to the previous statement, when you start to realize you won’t have time or money to do enough user research.
+**“每当我问顾客需要什么的时候,他们总是会说需要跑得更快的马。”——亨利·福特**
+当你发现你并没有时间和金钱来做足够的用户调研时，我们通常用这句话来回答上一句话。
 
-**“We are testing the design, not your skills”**  
-Disclaimer given to users at the start of a user testing session to make them feel better about being a little stupid.
+**“我们测试的是设计，不是你的技能”**
+在测试阶段的一开始，这句话通常被用来安慰用户：放心，不是你们蠢，我们还在测试我们的设计。
 
-**“Designers should have a seat at the table”**  
-When you are not able to prove your strategic value to the company based on your everyday actions and behaviors, and you have to beg to be invited to important meetings.
+**“设计师应该在会议中也一席之地”**
+当你发现，你每日的工作并不能证明你的战略价值时，你通常用这句话来哀求请求（哀求）参加重要的会议。
 
-**“Choices should be limited to 7 plus or minus 2”**  
-A nicer way of saying that choices should range from 5 to 9, without sounding too broad. When in reality every good designer knows choices should range from 1 to 2.
+**“选项的数量应该被限制在7，正负不超过2”**
+“选项的数量应该在5到9个之间。” 这句话诙谐幽默（译者注：呵呵）的说法。当然，每一个优秀的设计师都知道，选择应该只有1或者2个。
 
-**“People don’t want to buy a quarter-inch drill bit; they want a quarter-​inch hole”**  
-Wait, do they really want a hole? Or do they want wireless Bluetooth instead, so no holes are needed whatsoever?
+**“人们需要的不是钻头，而是墙上的洞”**
+等等，他们真的想要一个洞吗？或者他们想要的其实是无线蓝牙，所以不需要任何漏洞。(译者注：好冷)
 
-**“UX should be a mindset, not a step in the process”**  
-When you realize the deadline is coming close and you haven’t been able to finish your deliverables. Used to try to retroactively convince the PM to extend the project timeline.
+**“UX 应该是一种思维方式，而不是设计过程中的一个步骤”**
+当你意识到 deadline 快到了，而你却没法完交付的时候，你通常用这句话来试图在事后说服 PM 给你的项目延期。
 
-**“Content is king”**  
-A pretty strong argument to convince everyone to push the deadline because you haven’t received the content that will go on the page you are designing.
+**“内容才是王道”**
+一个非常强硬的论据(狡辩)。用来说服大家，你之所以推迟 deadline，是因为你还没有收到你所设计的页面的内容。
 
-**“Never underestimate the stupidity of the user”**  
-An efficient way of outsourcing your own responsibility of giving users enough context so they know what to do (a.k.a. being a good designer).
+**“永远不要低估用户的愚蠢”**
+如果给用户足够的上下文，那么他们就知道该做什么了！行之有效的甩锅大法（论如何成为优秀的设计师）。
 
-**“I’m wondering if this breaks accessibility standards”**  
-Used as last resort when you are running out of arguments to convince other designers their design is not working.
+**“我很担心这么做会不会破坏可访问性标准”**
+当你想要 diss 别的设计师的设计，却找不到任何有效论点时的终极杀手锏。
 
-**“A user interface is like a joke; if you have to explain it, it’s not that good”**  
-An easy way of killing that onboarding wizard/walkthrough idea your stakeholders are asking for. Watch out for the backfire: others might agree with your argument and blame on you the fact that the product is not that working that well.
+**“用户界面就想是一个笑话；如果还需要去解释它，我只能说它还不够好”**
+打消老板提出的做用户引导的需求的简单方法。小心玩脱：别人可能会同意你的意见，并将产品做的不好的锅甩给你。
 
-**“People don’t scroll”**  
-The most offensive statement you can throw at a designer.
+**“人们并不会上下滚页面”**
+激怒设计师的最好方法。（译者注：我也没懂这个梗，大概就是在以前，大家总说要 above fold，然后设计师一直很不爽这个说法）
 
-**“People are used to scrolling; think about the way you use Instagram”**  
-A polite counter-argument to the previous statement. The Instagram example can be replaced by any other feed-based product your interlocutor might be addicted to.
+**“人们都很习惯上下滚动页面；想想你是 Instagram 是怎么用的”**
+针对上一句话的礼貌回答方法。句中的 Instagram 可以用其他任何你说法对象沉迷的 Feed 类产品替换。
 
-**“The fold doesn’t exist”**  
-If you can’t convince them, confuse them.
+**“Fold 并不存在”**  
+如果你不能说服他们，那就让他们懵逼。
 
 **“UI vs. UX”**  
-Pzajsodiajhsknfksdjbfsdbfkqwehjoqiwejroe. Usually followed by even more cliché analogies of ketchup bottles or unpaved walkways.
+@#@¥%@#¥%……&*（%##¥%#。 这句话通常接着的是一些更加陈词滥调的，例如番茄酱瓶（见第上文图）或未铺砌的走道之类的的类比。
 
-**“All pages should be accessible in 3 clicks”**  
-Just. Don’t.
+![未铺砌的走道](http://www.patrickhansen.com/wp-content/uploads/2017/10/ui-vs-ux-path-300x219.png)
 
-**“Should designers code?”**  
-A commonly used wild card when the audience is running out of questions in a Q&A session at a design event.
+**“所有的页面都应该能在3次点击之内到达”**
+听听就行，憋理他
 
-**“If you think good design is expensive, you should look at the cost of bad design”**  
-A passive-aggressive way of explaining to clients you will not reduce your price. Usually ineffective.
+**“设计师还得写代码？”**
+在设计会议的提问环节无话可说时可以用来提问的的万能金句。
 
-**“You can’t design an experience; experiences are too subjective to be designed”**  
-An argument used by coworkers who are running out of things to say but somehow still want to sound smart.
+**“如果你觉得一个好的设计很贵，你应该看看一个不好的设计的代价”**
+委婉地拒绝金主爸爸的还价。通常效果不理想。
 
-**“Let the users decide”**  
-None of us is going to win this endless argument, so we should take this to c̶o̶u̶r̶t̶ user testing. But I’m still going to prove you wrong at the end.
+**“你没法设计一个体验；体验因为太主观而没法设计”**
+如何在无话可说时，成为一名体面而机智的同事。
 
-**“No one enters a website through the homepage anymore”**  
-Popular at the peak of the SEO era (2005–2008), the argument was used to cut short endless meetings where a large group of stakeholders is trying to design your homepage by committee.
+**“交给用户决定”**
+不要再吵了，交给~~法院~~用户来决定吧。 当然，最终对的人一定是我。
 
-**“The only other industry who names their customers ‘users’ are drug dealers”**  
-Can’t even explain why this one exists. Used a lot when the term UX came about in the early 2000s, is becoming pretty popular again in the “designing for addiction” era.
+**“人们不再通过首页来访问网站了”**
+在SEO 时代 (2005–2008) 非常流行，通常用来停止老板们对于首页的无尽地讨论。
 
-**“When escalators break, they actually become stairs”**  
-Originally used to explain the concept of [graceful degradation](https://www.w3.org/wiki/Graceful_degradation_versus_progressive_enhancement), the quote started being adopted by developers to convince the product owner that certain bugs do not need to be fixed.
+**“除了我们，也只有毒贩称他们的客户为用户了”**
+完全不能解释这句话存在的意义。曾在 UX 刚刚出现的21世纪初期被大量使用，并伴随着“设计成瘾”时代的而再一次流行。
 
-**“Mobile users are distracted”**  
-Just a generalization made by someone who still thinks the primary use case for mobile devices is on-the-go, while doing groceries and simultaneously trying to tame a wild giraffe.
+**“自动扶梯坏了，那也是个楼梯”**  
+最初被用来解释[优雅降级](https://www.w3.org/wiki/Graceful_degradation_versus_progressive_enhancement)，现被程序员拿来搪塞产品负责人，这个 bug 不用修。
 
-**“You don’t know what you don’t know”**  
-Honestly, no one knows.
+**“移动端的用户总是在分心的状态”**
+依旧有些人相信人们只在移动中才使用移动设备。
 
-**“Leave your ego by the door”**  
-An inspirational quote used before you walk into a user testing session or a collaborative work session with your coworkers. Looks particularly great if written in Helvetica, printed and framed, and hung by the entrance of truly collaborative office spaces.
+**“你不知道你不知道的事情”**
+大实话，确实没人知道。
 
-**“Double diamond”**  
-Hey, we need a slide in this deck that represents our design process — can you come up with something that is relatively simple to understand, that will make us look less chaotic than we actually are?
+**“请放下你无谓的自尊”**
+极具“启发性”的言论，适合在用户测试环节或合作环节前分享给同事。装裱并挂在奉行“真·合作至上”的办公室入口显得逼格很高。
 
-**“Users don’t read”**  
-An overly used argument to convince clients and stakeholders to cut copy length in half. If you made this far to this article, you’re living proof that this statement is untrue.
+**“~~奥迪双钻~~双钻石理论”**  
+哈喽，我们需要一个可以展现我们设计流程的 PPT - 你能想出一些相对简单易懂的东西，让我们看起来不那么乱么？
 
-### Any cliché missing from the list? Please add it in the comments.
+**“用户从来不读”**
+被大量使用来说服用户和老板们，让他们把内容中文字的数量减半。当然如果你都读到这里了，那你就是“证明这句话是错的”的一个活生生的例子
 
-***
+### 你有什么没有这里被列出来的的行话么，快快添加到下面的评论里吧～
+
 
 This is a satire article, where I use humor, irony, and exaggeration to invite reflection. Here are more serious articles about [UX and the designer’s journey](http://journey.uxdesign.cc).
 
