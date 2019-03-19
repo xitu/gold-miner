@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/10944/1*m16cMnrn60vR49N8Sj1liA.jpeg)
 
-照片由 [Phil Botha](https://unsplash.com/photos/a0TJ3hy-UD8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 拍摄于 [Unsplash](https://unsplash.com/collections/3995048/stars/e08862541511fcb17f0de3d4a555bff8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+照片由 [Phil Botha](https://unsplash.com/photos/a0TJ3hy-UD8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 拍摄并发布于 [Unsplash](https://unsplash.com/collections/3995048/stars/e08862541511fcb17f0de3d4a555bff8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 
 我是后端开发人员，而我的前端开发专业知识相对较弱。前一段时间我想找点乐子，在浏览器中制作游戏；我选择 Phaser 3 框架（它现在看起来非常流行）和 TypeScript 语言（因为我更喜欢静态类型语言而不是动态类型语言）。事实证明，你需要做一些无聊的事情才能使它正常工作，所以我写了这个教程来帮助像我这样的其他人更快地开始。
 
@@ -23,7 +23,7 @@
 
 如果我们使用 JavaScript 进行开发，那么无需这些准备步骤就可以开始编码。但是，由于我们想要使用 TypeScript，我们必须设置基础架构以尽可能快地进行未来的开发。因此我们需要安装 node 和 npm 。
 
-在我编写本教程时，我使用 [node 10.13.0](https://nodejs.org/en/) 和 [npm 6.4.1](https://www.npmjs.com/)。请注意，前端世界中的版本更新速度非常快，因此你只需使用最新的稳定版本。我强烈建议使用 [nvm](https://github.com/creationix/nvm) 而不是手动安装 node 和 npm；这会为你节省大量的时间和精力。
+在我编写本教程时，我使用 [node 10.13.0](https://nodejs.org/en/) 和 [npm 6.4.1](https://www.npmjs.com/)。请注意，前端世界中的版本更新速度非常快，因此你只需使用最新的稳定版本。我强烈建议你使用 [nvm](https://github.com/creationix/nvm) 而不是手动安装 node 和 npm，这会为你节省大量的时间和精力。
 
 ## 搭建项目
 
@@ -31,7 +31,7 @@
 
 我们将使用 npm 来构建项目，因此要启动项目，请转到空文件夹并运行`npm init`。 npm 会问你关于项目属性的几个问题，然后创建一个`package.json` 文件。它看起来像这样：
 
-```
+```json
 {
   "name": "Starfall",
   "version": "0.1.0",
@@ -49,13 +49,13 @@
 
 使用以下命令安装我们需要的软件包：
 
-```
+```bash
 npm install -D typescript webpack webpack-cli ts-loader phaser live-server
 ```
 
 `-D` 选项（完整写法 `--save-dev`）使 npm 自动将这些包添加到 `package.json` 中的 devDependencies 列表中：
 
-```
+```json
 "devDependencies": {
    "live-server": "^1.2.1",
    "phaser": "^3.15.1",
@@ -68,11 +68,11 @@ npm install -D typescript webpack webpack-cli ts-loader phaser live-server
 
 ### Webpack
 
-Webpack 将运行 TypeScript 编译器并将一堆生成的 JS 文件以及库收集到一个缩小的 JS 中，以便我们可以将它包含在页面中。
+Webpack 将运行 TypeScript 编译器，并将一堆生成的 JS 文件以及库收集到一个缩小的 JS 中，以便我们可以将它包含在页面中。
 
 在 `package.json` 附近添加 `webpack.config.js`：
 
-```
+```js
 const path = require('path');
 
 module.exports = {
@@ -100,9 +100,9 @@ module.exports = {
 
 ### TypeScript
 
-我们还需要一个用于 TypeScript 编译器的小配置文件（ `tsconfig.json` ），其中我们解释了我们希望将源代码编译到哪个 JS 版本以及在哪里找到这些源代码：
+我们还需要一个用于 TypeScript 编译器的小型配置文件（ `tsconfig.json` ），其中我们描述了希望将源代码编译到哪个 JS 版本，以及在哪里找到这些源代码：
 
-```
+```json
 {
   "compilerOptions": {
     "target": "es5"
@@ -115,20 +115,20 @@ module.exports = {
 
 ### TypeScript 定义
 
-TypeScript 是一种静态类型语言。因此，它需要编译的类型定义。在编写本教程时，Phaser 3 的定义尚未作为 npm 包提供，因此您可能需要从官方存储库中[下载它们](https://github.com/photonstorm/phaser3-docs/blob/master/typescript/phaser.d.ts)，并将文件放在项目的 `src` 子目录中。
+TypeScript 是一种静态类型语言。因此，它需要编译的类型定义（.d.ts）。在编写本教程时，Phaser 3 的定义尚未作为 npm 包提供，因此您可能需要从官方存储库中[下载它们](https://github.com/photonstorm/phaser3-docs/blob/master/typescript/phaser.d.ts)，并将文件放在项目的 `src` 子目录中。
 
 ### Scripts
 
-我们几乎完成了项目的设置。此时你应该创建 `package.json` 、 `webpack.config.js` 和 `tsconfig.json`，并添加 `src/phaser.d.ts`。在开始编写代码之前，我们需要做的最后一件事是解释npm 与项目有什么关系。我们更新 `package.json` 的 `scripts` 部分，如下所示：
+我们几乎完成了项目的设置。此时你应该创建 `package.json` 、`webpack.config.js` 和 `tsconfig.json`，并添加 `src/phaser.d.ts`。在开始编写代码之前，我们需要做的最后一件事是解释 npm 与项目有什么关系。我们更新 `package.json` 的 `scripts` 部分，如下所示：
 
-```
+```js
 "scripts": {
   "build": "webpack",
   "start": "webpack --watch & live-server --port=8085"
 }
 ```
 
-执行 `npm build` 时，将根据 webpack 配置构建 `app.js` 文件。当你运行 `npm start` 时，你不必费心去构建过程。只要对任何更新进行了保存操作，webpack 就会重建应用程序，而 [live-server](https://www.npmjs.com/package/live-server) 将在默认浏览器中重新加载它。该应用程序将托管在 [http://127.0.0.1:8085/](http://127.0.0.1:8085/).
+执行 `npm build` 时，webpack 将根据配置构建 `app.js` 文件。当你运行 `npm start` 时，你不必费心去构建过程，只要对任何更新进行了保存操作，webpack 就会重建应用程序；而 [live-server](https://www.npmjs.com/package/live-server) 将在默认浏览器中重新加载它。该应用程序将托管在 [http://127.0.0.1:8085/](http://127.0.0.1:8085/) 。
 
 ## 入门
 
@@ -140,7 +140,7 @@ TypeScript 是一种静态类型语言。因此，它需要编译的类型定义
 
 首先，为游戏创建一个简约的 HTML 容器。创建一个 `index.html` 文件，其中包含以下代码：
 
-```
+```html
 <!DOCTYPE html>
 <html>
   <head>
@@ -152,11 +152,11 @@ TypeScript 是一种静态类型语言。因此，它需要编译的类型定义
   </body>
 </html>
 ```
-这里只有两个基本部分：第一个是 `script` 条目，表示我们将在这里使用我们构建的文件，第二个是 `div` 条目，它将成为游戏容器。
+这里只有两个基本部分：第一个是 `script` 条目，表示我们将在这里使用我们构建的文件；第二个是 `div` 条目，它将成为游戏容器。
 
 现在创建 `src/app.ts` 文件并添加以下代码：
 
-```
+```typescript
 import "phaser";
 
 const config: GameConfig = {
@@ -190,22 +190,22 @@ window.onload = () => {
 
 为了实现这个目标，创建一个新文件 `gameScene.ts`，并添加以下代码：
 
-```
+```typescript
 import "phaser";
 
 export class GameScene extends Phaser.Scene {
 
-constructor() {
+  constructor() {
     super({
       key: "GameScene"
     });
   }
 
-init(params): void {
+  init(params): void {
     // TODO
   }
 
-preload(): void {
+  preload(): void {
     // TODO
   }
   
@@ -213,12 +213,12 @@ preload(): void {
     // TODO
   }
 
-update(time): void {
+  update(time): void {
     // TODO
   }
 };
 ```
-这里的构造函数包含一个键，其他场景可以在其下调用此场景。
+这里的构造函数包含一个 key ，其他场景可以在其下调用此场景。
 
 你在这里看到四种方法的存根。让我简要解释一下之间的区别：
 
@@ -228,11 +228,11 @@ update(time): void {
 
 * `create()` 在加载资源时被调用，并且通常包含主要游戏对象（背景，玩家，障碍物，敌人等）的创建。
 
-* `update([time])` 在每个 tick 中被调用并包含场景的动态部分 - 移动，闪烁等的所有内容。
+* `update([time])` 在每个 tick 中被调用并包含场景的动态部分（移动，闪烁等）的所有内容。
 
 为了确保我们以后不会忘记这些，让我们在 `game.ts` 中快速添加以下行：
 
-```
+```typescript
 import "phaser";
 import { GameScene } from "./gameScene";
 
@@ -252,7 +252,8 @@ const config: GameConfig = {
 };
 ...
 ```
-我们的游戏现在知道游戏场景。如果游戏配置包含一个场景列表，然后第一个场景开始时，游戏开始，所有其他场景都被创建但直到明确调用才开始。
+
+我们的游戏现在知道游戏场景。如果游戏配置包含一个场景列表，然后第一个场景开始时，游戏开始。所有其他场景都被创建，但直到明确调用才开始。
 
 我们还在这里添加了 arcade physics （一种物理模型，[这里是一些例子](http://phaser.io/examples/v2/category/arcade-physics)），这里需要它使我们的星星下降。
 
@@ -260,7 +261,7 @@ const config: GameConfig = {
 
 首先，我们声明一些必要的属性和对象：
 
-```
+```typescript
 export class GameScene extends Phaser.Scene {
   delta: number;
   lastStarTime: number;
@@ -273,31 +274,31 @@ export class GameScene extends Phaser.Scene {
 
 然后，我们初始化数字：
 
-```
-init(/*params: any*/): void {
-    this.delta = 1000;
-    this.lastStarTime = 0;
-    this.starsCaught = 0;
-    this.starsFallen = 0;
+```typescript
+  init(/*params: any*/): void {
+      this.delta = 1000;
+      this.lastStarTime = 0;
+      this.starsCaught = 0;
+      this.starsFallen = 0;
   }
 ```
 
 现在，我们加载几个图片：
 
-```
-preload(): void {
+```typescript
+  preload(): void {
     this.load.setBaseURL(
-      "https://raw.githubusercontent.com/mariyadavydova/" +
-      "starfall-phaser3-typescript/master/");
+        "https://raw.githubusercontent.com/mariyadavydova/" +
+        "starfall-phaser3-typescript/master/");
     this.load.image("star", "assets/star.png");
     this.load.image("sand", "assets/sand.jpg");
   }
 ```
 
-在这之后，我们可以准备我们的静态组件。我们将创造地球，星星将落在那里，文字通知我们目前的分数：
+在这之后，我们可以准备我们的静态组件。我们将创造地球组件，星星将落在那里，文字通知我们目前的分数：
 
-```
-create(): void {
+```typescript
+  create(): void {
     this.sand = this.physics.add.staticGroup({
       key: 'sand',
       frameQuantity: 20
@@ -306,7 +307,7 @@ create(): void {
       new Phaser.Geom.Line(20, 580, 820, 580));
     this.sand.refresh();
 
-this.info = this.add.text(10, 10, '',
+    this.info = this.add.text(10, 10, '',
       { font: '24px Arial Bold', fill: '#FBFBAC' });
   }
 ```
@@ -321,7 +322,7 @@ Phaser 3 中的一个组是一种创建一组您想要一起控制的对象的�
 
 我们终于达到了这个场景中最具活力的部分 —— `update()` 函数，其中星星落下。此函数在 60ms 内调用一次。我们希望每秒发出一颗新的流星。我们不会为此使用动态组，因为每个星的生命周期都很短：它会被用户点击或与地面碰撞而被摧毁。因此，在 `emitStar()` 函数中，我们创建一个新的星并添加两个事件的处理：`onClick()` 和`onCollision()`。
 
-```
+```typescript
 update(time: number): void {
     var diff: number = time - this.lastStarTime;
     if (diff > this.delta) {
@@ -385,7 +386,7 @@ star.on('pointerdown', this.onClick(star), this);
 
 欢迎场景将在 `welcomeScene.ts` 中包含以下代码。请注意，当用户点击此场景中的某个位置时，将显示游戏场景。
 
-```
+```typescript
 import "phaser";
 
 export class WelcomeScene extends Phaser.Scene {
@@ -416,7 +417,7 @@ this.input.on('pointerdown', function (/*pointer*/) {
 
 得分场景看起来几乎相同，点击（ `scoreScene.ts` ）后引导到欢迎场景。
 
-```
+```typescript
 import "phaser";
 
 export class ScoreScene extends Phaser.Scene {
@@ -452,7 +453,7 @@ this.input.on('pointerdown', function (/*pointer*/) {
 
 我们现在需要更新我们的主应用程序文件：添加这些场景并使 `WelcomeScene` 成为列表中的第一个（译者注：第一个位置会首先运行，类似于小程序的 page 列表）：
 
-```
+```typescript
 import "phaser";
 import { WelcomeScene } from "./welcomeScene";
 import { GameScene } from "./gameScene";
@@ -466,7 +467,7 @@ const config: GameConfig = {
 
 你有没有发现遗漏了什么？是的，我们还没有从任何地方调用 `ScoreScene` ！当玩家错过第三颗星时（此时游戏结束），我们来调用它：
 
-```
+```typescript
 private onFall(star: Phaser.Physics.Arcade.Image): () => void {
     return function () {
       star.setTint(0xff0000);
