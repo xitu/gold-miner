@@ -19,7 +19,7 @@ JavaScript 中有两种数据类型：基本数据类型和对象（对象也包
 
 基本数据类型的值是不可以改变的，即不能更改变量的原始值。当然**可以**重新对变量进行赋值。例如，代码 `let x=1;x++`，虽然你通过重新赋值改变了变量 `x` 的值，但是变量的原始值 `1` 仍没有被改变。
 
-Some languages, such as C, have the concept of pass-by-reference and pass-by-value. JavaScript sort of has this concept too, though, it’s inferred based on the type of data being passed around. If you ever pass a value into a function, reassigning that value will not modify the value in the calling location. However, if you **modify** a non-primitive value, the modified value **will** also be modified where it has been called from.
+一些语言，比如 C 语言，有引用传递和值传递的概念。JavaScript 也有类似的概念，它是根据传递的数据类型推断出来的。如果将值传递给函数，则重新分配该值不会修改调用位置中的值。但是，如果你**修改**的是基本数据的值，那么修改后的值**会**在调用它的地方被修改。
 
 考虑下面的例子：
 
@@ -122,7 +122,7 @@ console.log(Object.keys(obj)); // ['bar']
 
 乍一看，这就像是可以用 symbols 在对象上创建私有属性！许多其他编程语言可以在其类中有私有属性，而 JavaScript 却遗漏了这种功能，长期以来被视为其语法的一种缺点。
 
-Unfortunately, it is still possible for code which interacts with this object to access properties whose keys are symbols. This is even possible in situations where the calling code does **not** already have access to the symbol itself. As an example, the `Reflect.ownKeys()` method is able to get a list of **all** keys on an object, both strings and symbols alike:
+不幸的是，与该对象交互的代码仍然可以访问对象那些键为 symbols 的属性。甚至是在调用代码自己**无法**访问 symbol 的情况下也有可能发生。 例如，`Reflect.ownKeys()` 方法能够得到一个对象的**所有**键的列表，包括字符串和 symbols：
 
 ```js
 function tryToAddPrivate(o) {
@@ -169,7 +169,6 @@ function lib2tag(obj) {
 }
 ```
 
-For this reason it would seem that symbols **do** benefit JavaScript.
 基于这个原因 symbols **确实**有益于 JavaScript。
 
 然而，你可能会怀疑，为什么每个库不能在实例化时简单地生成一个随机字符串，或者使用一个特殊的命名空间？
@@ -233,7 +232,7 @@ console.log(JSON.stringify(user));
 console.log(user[library2property]); // 369
 ```
 
-String keys which have been “hidden” by setting their `enumerable` [descriptor](https://medium.com/intrinsic/javascript-object-property-descriptors-proxies-and-preventing-extension-1e1907aa9d10) to false behave very similarly to symbol keys. Both are hidden by `Object.keys()`, and both are revealed with `Reflect.ownKeys()`, as seen in the following example:
+通过将字符串键的 enumerable [描述符](https://medium.com/intrinsic/javascript-object-property-descriptors-proxies-and-preventing-extension-1e1907aa9d10)设置为 false 来“隐藏”的字符串键的行为非常类似于 symbol 键。它们通过 `Object.keys()` 遍历也看不到，但可以通过 `Reflect.ownKeys()`显示，如下所示:
 
 ```js
 const obj = {};
@@ -248,13 +247,13 @@ console.log(Reflect.ownKeys(obj)); // [ 'foo', Symbol() ]
 console.log(JSON.stringify(obj)); // {}
 ```
 
-At this point we’ve **nearly** recreated symbols. Both our hidden string properties and symbols are hidden from serializers. Both properties can be extracted using the `Reflect.ownKeys()` method and are therefor not actually private. Assuming we use some sort of namespace / random value for the string version of the property name then we've removed the risk of multiple libraries accidentally having a name collision.
+在这一点上，我们**几乎**重新创建了 symbols。 隐藏的字符串属性和 symbols 都对序列化程序隐身。这两种属性都可以使用 `Reflect.ownKeys()`方法提取，因此实际上并不是私有的。 假设我们对字符串属性使用某种命名空间/随机值，那么我们就消除了多个库意外发生命名冲突的风险。
 
-But, there’s still just one tiny difference. Since strings are immutable, and symbols are always guaranteed to be unique, there is still the potential for someone to generate every single possible string combination and come up with a collision. Mathematically this means symbols do provide a benefit that we just can’t get from strings.
+但是，仍然有一个微小的差异。由于字符串是不可变的，符号始终保证是唯一的，因此仍有可能生成相同的字符串并产生冲突。 从数学角度来说，意味着 symbols 确实提供了我们无法从字符串中获得的好处。
 
-In Node.js, when inspecting an object (such as using `console.log()`), if a method on the object named `inspect` is encountered, that function is invoked and the output is used as the logged representation of the object. As you can imagine, this behavior isn't expected by everyone and the generically-named `inspect` method often collides with objects created by users. There is now a symbol available for implementing this functionality and is available at require('util').inspect.custom. The `inspect` method is deprecated in Node.js v10 and entirely ignored in v11. Now no one will ever change the behavior of inspect by accident!
+在 Node.js 中，检查对象时(例如使用 `console.log()`)，如果遇到对象上名为 `inspect` 的方法，则调用该函数，并将输出表示成对象的日志。可以想象，这种行为并不是每个人都期望的，通常命名为 `inspect` 的方法经常与用户创建的对象发生冲突。现在有 symbol 可用来实现这个功能，并且可以在 require('util').inspection.custom 中使用。`inspect` 方法在 Node.js v10 中被废弃，在 v11 中完全被忽略。现在没有人会因为偶然改变 inspect 的行为!
 
-## Simulating Private Properties
+## 模拟私有属性
 
 Here’s an interesting approach that we can use to simulate private properties on an object. This approach will make use of another JavaScript feature available to us today: proxies. A proxy essentially wraps an object and allows us to interpose on various interactions with that object.
 
