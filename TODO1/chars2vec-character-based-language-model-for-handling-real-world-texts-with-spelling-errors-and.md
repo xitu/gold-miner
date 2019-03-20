@@ -167,6 +167,18 @@ Along with chars2vec embeddings we have tested several prominent embedding model
 
 The classifier model looks the following way: each review is vectorised by averaging the embedding vectors of all the words comprising it. If a word is out of the model dictionary, a zero vector is assigned to it. We have used a standart tokenisation procedure along with stop words by NLTK library. The classifier we chose was the linearSVM. The table below shows test accuracies for the most popular models we have benchmarked this way. We should point out that our chars2vec model is about 3 oders lighter than the semantic models relying on large vocabularies and still demonstrates quite reasonable results.
 
+|  Embeddings  | Accuracy | Size of model |
+|----------------- |----------------------- |-----------------------|
+| GLoVe 50 | 0.7536 | 171.5 MB | 
+| GLoVe 300 | 0.83336 | 1.04 GB | 
+| word2vec GoogleNews-vectors-negative300 | 0.85604 | 3.64 GB | 
+| fastText wiki-news-300d-1M | 0.85568 | 2.26 GB | 
+| chars2vec 50 | 0.63036 | 188 KB | 
+| chars2vec 100 | 0.6788 | 598 KB | 
+| chars2vec 150 | 0.69592 | 1.2 MB | 
+| chars2vec 200 | 0.70188 | 2.1 MB | 
+| chars2vec 300 | 0.74012 | 4.6 MB | 
+
 We see some space for chars2vec model improvements needed to compete with the results of the semantic models.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
