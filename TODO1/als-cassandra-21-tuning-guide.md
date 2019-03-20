@@ -118,9 +118,8 @@ If the AnonHugePages is slightly larger than your heap, you're all set with THP.
 
 Pro tip: you can make a top-like view of /proc files using the watch(1) command, e.g.
 
-```
+```bash
 watch grep Dirty /proc/meminfo
-
 ```
 
 /proc/interrupts is useful for figuring out which CPUs are handling IO. It is often too large to display on a screen, so a little awk or scripting may be in order to get it down to size. For quick checks, simply cat'ing the file will do.
@@ -171,9 +170,8 @@ There are a number of switches available, but most of the time you don't need th
 
 <https://github.com/tobert/pcstat> is a tool I wrote out of frustration. One question we often have is whether or not a given file is being cached by Linux. Linux itself doesn't export this information in an easy way, so pcstat gets it via the mincore(2) system call. The easiest way to get it if you have Go installed is "go get github.com/tobert/pcstat". This will place a pcstat binary in $GOPATH/bin that you can scp to any Linux server.
 
-```
+```bash
 pcstat -bname /var/lib/cassandra/data/*/*/*-Data.db
-
 ```
 
 ![image alt text](https://tobert.github.io/pages/image_12.png)
@@ -196,7 +194,7 @@ Small objects running at maximum transaction throughput help expose issues with 
 
 I usually put my cassandra-stress commands in little shell scripts so it's easier to edit and I don't have to rely on command history or, horror of horrors, typing. For example, here's what my small-stress.sh looks like:
 
-```
+```bash
 #!/bin/bash
 
 export PATH=/opt/cassandra/bin:/opt/cassandra/tools/bin:$PATH
@@ -208,7 +206,6 @@ cassandra-stress\
     -rate threads=500\
     -schema "replication(factor=3)"\
     -node 192.168.10.12
-
 ```
 
 ### large objects for finding MB/s limits
@@ -217,7 +214,7 @@ Many of the times I'' asked to look at a cluster, IO is usually suspect. Small o
 
 In this example, I'm writing partitions with 32 columns at 2K each for a total of 64K per partition. You will probably need to try some different values to get things moving. Sometimes disabling durability on the CF or putting the CL on tmpfs is useful to reduce CPU/GC load and move more IO through flushing.
 
-```
+```bash
 cassandra-stress\
     write\
     n=1000000\
@@ -226,7 +223,6 @@ cassandra-stress\
     -col "size=fixed(2048)" "n=fixed(32)"\
     -schema "replication(factor=3)"\
     -node 192.168.10.12
-
 ```
 
 ## cassandra.yaml
@@ -241,7 +237,6 @@ a.k.a. <https://issues.apache.org/jira/browse/CASSANDRA-8729>
 
 ```
 commitlog_segment_recycling: false
-
 ```
 
 #### Prior to 2.1.9:
@@ -298,21 +293,19 @@ Now that you have GC logging enabled you have a choice: stick with CMS (the devi
 
 By default, Hotspot caps GC threads at 8, seemingly because of some legacy assumptions combined with unrelated side-effects on SPARC. In any case, if the target system has more than 8 cores, you may want to allow GC to use all of them. This has been observed to reduce STW durations. I haven't seen any negative side-effects. As the comments say, HT cores don't count. See also: "EC2 cores are not what you think they are".
 
-```
+```bash
 # The JVM maximum is 8 PGC threads and 1/4 of that for ConcGC.
 # Machines with > 10 cores may need additional threads.
 # Increase to <= full cores (do not count HT cores).
 #JVM_OPTS="$JVM_OPTS -XX:ParallelGCThreads=16"
 #JVM_OPTS="$JVM_OPTS -XX:ConcGCThreads=16"
-
 ```
 
 Reference processing isn't usually a big deal for Cassandra, but in some workloads it does start to show up in the GC logs. Since we pretty much always want all the parallel stuff offered by the JVM, go ahead and enable parallel reference processing to bring down your p99.9's.
 
-```
+```bash
 # Do reference processing in parallel GC.
 JVM_OPTS="$JVM_OPTS -XX:+ParallelRefProcEnabled"
-
 ```
 
 ### CMS
@@ -321,7 +314,7 @@ The 100mb/core commentary in cassandra-env.sh for setting HEAP_NEWSIZE is wrong
 
 TODO: add Pierre's notes about CMS
 
-```
+```bash
 # [http://blog.ragozin.info/2012/03/secret-hotspot-option-improving-gc.html](http://blog.ragozin.info/2012/03/secret-hotspot-option-improving-gc.html)
 JVM_OPTS="$JVM_OPTS -XX:+UnlockDiagnosticVMOptions"
 JVM_OPTS="$JVM_OPTS -XX:ParGCCardsPerStrideChunk=4096"
@@ -334,7 +327,6 @@ JVM_OPTS="$JVM_OPTS -XX:MaxTenuringThreshold=16"
 JVM_OPTS="$JVM_OPTS -XX:+CMSScavengeBeforeRemark"
 JVM_OPTS="$JVM_OPTS -XX:CMSMaxAbortablePrecleanTime=60000"
 JVM_OPTS="$JVM_OPTS -XX:CMSWaitDuration=30000"
-
 ```
 
 CMSScavengeBeforeRemark: triggers a Young GC (STW) before running CMS Remark (STW) phase. The expected effect is to reduce the duration of the Remark phase.
@@ -361,7 +353,7 @@ G1 can scale to over 256GB of RAM and down to 1GB (6GB minimum is recommended) T
 
 The other tunable is -XX:MaxGCPauseMillis=n. The default in Hotspot 8 is 200ms. When testing G1 on lower-end hardware (mobile CPUs, EC2) it was observed that throughput suffered too much with the 200ms pause target. Increasing it to 500ms keeps the average STW pause below the default timeouts in cassandra.yaml while allowing for better throughput. The critical thing to keep in mind is that this is a target and nothing is guaranteed; STW on fast machines might hover around 120ms and never even approach the target. Slower machines may exceed the target occasionally, which is why your timeouts in cassandra.yaml should allow for some slack.
 
-```
+```bash
 # Use the Hotspot garbage-first collector.
 JVM_OPTS="$JVM_OPTS -XX:+UseG1GC"
 
@@ -382,7 +374,6 @@ JVM_OPTS="$JVM_OPTS -XX:InitiatingHeapOccupancyPercent=25"
 # size may make things more efficient. Otherwise, let the JVM
 # set this automatically.
 #JVM_OPTS="$JVM_OPTS -XX:G1HeapRegionSize=32m"
-
 ```
 
 ### useful GC log highlights
@@ -391,43 +382,38 @@ Set up the above config and kick off some load. Start tailing the GC log and wai
 
 ```
 [Object Copy (ms): Min: 157.6, Avg: 161.5, Max: 162.2, Diff: 4.6, Sum: 1292.0]
-
 ```
 
 Object Copy time is embedded in a larger block of stats. With most of the systems I've examined, this is where the vast majority of the STW time is spent, so the trick is to tune the JVM so that it does less copying of objects. As mentioned earlier, start with adding heap space and offheap memtables. Compaction is particularly pragmatic (as observed through jvisualvm or sjk-plus ttop) and there doesn't seem to be much we can do about it. Throttling compaction can even make it worse by forcing Cassandra to keep objects in memory longer than necessary, causing promotion which leads to memory compaction which is bound by memory bandwidth of the system.
 
 ```
 [Eden: 4224.0M(4224.0M)->0.0B(4416.0M) Survivors: 576.0M->448.0M Heap: 6334.9M(8192.0M)->2063.4M(8192.0M)]
-
 ```
 
 This is where you can see how much of the heap is being used for eden space. It will go to 0.0B every time this is printed, since with the default logging it only prints it after a STW. The survivors number under G1 rarely go over 1GB and usually hover in the 200-300MB range. If it goes over 1GB there might be something wrong in the DB worth investigating. The last part, "Heap:" shows the total amount of allocated heap space. This will vary the most. If it hovers at 90-100% of the total heap, you're probably using Solr and have a lot of data and will need a bigger heap.
 
 ```
 [Times: user=1.73 sys=0.00, real=0.20 secs]
-
 ```
 
 I don't typically use these final numbers for much tuning, but they're good to glance at every once in a while to get an idea how much of your CPU is being burned for GC. user= represents the amount of CPU time consumed on all cores and is usually a multiple of real=. If sys is significant relative to the other numbers, it probably points at contention somewhere in the system (sometimes debuggable with strace -c). Finally, the real= part is wall-clock time and will correlate with the observable pause.
 
 ### Always Pre-Touch
 
-```
+```bash
 # Make sure all memory is faulted and zeroed on startup.
 # This helps prevent soft faults in containers and makes
 # transparent hugepage allocation more effective.
 JVM_OPTS="$JVM_OPTS -XX:+AlwaysPreTouch"
-
 ```
 
 ### Disable Biased Locking
 
 Biased locking is an optimization introduced in Hotspot 1.5 that optimizes single-writer locks. It's a win in systems that have mostly uncontended locking. Cassandra is a large system with many contended locks in hot paths making this optimization counter-productive. The difference between having this enabled/disabled is difficult to detect unless the system is running close to full capacity.
 
-```
+```bash
 # Biased locking does not benefit Cassandra.
 JVM_OPTS="$JVM_OPTS -XX:-UseBiasedLocking"
-
 ```
 
 <https://blogs.oracle.com/dave/entry/biased_locking_in_hotspot>
@@ -440,25 +426,23 @@ JVM_OPTS="$JVM_OPTS -XX:-UseBiasedLocking"
 
 TLABs are enabled by default in Cassandra, but the option is mixed in with some CMS stuff so it occasionally gets dropped by accident when switching to G1 so it's worth calling out as important. With the number of threads in play in a Cassandra instance, it's worth also enabling TLAB resizing if only to recover the TLAB from threads that rarely wake up or do significant allocation. Right now this is just a theory, but being able to increase the size of TLAB is likely a big win for Cassandra since a few threads (e.g. compaction) allocate large amounts of memory making any opportunity to avoid a GC lock a big win. That's the theory and although a statistically significant difference between +/-ResizeTLAB could not be found in simple tests, this is a common and practical optimization that should be enabled.
 
-```
+```bash
 # Enable thread-local allocation blocks and allow the JVM to automatically
 # resize them at runtime.
 JVM_OPTS="$JVM_OPTS -XX:+UseTLAB -XX:+ResizeTLAB"
-
 ```
 
 ### other JVM applications
 
 A good chunk of applications using Cassandra are built on the JVM. Quite often even our own tools (e.g. cassandra-stress) have simple GC and tuning settings that limit performance. Copying Cassandra's settings is not the answer; many of the things that are good for Cassandra are bad for smaller/simpler apps. That said, here's the settings I use for G1 with cassandra-stress and many of the other tools in the distribution, as well as other JVM apps. It's not universal, but perhaps a better starting point than the defaults.
 
-```
+```bash
 java -server -ea\
   -Xmx8G -Xms1G\
   -XX:+UseG1GC\
   -XX:+AggressiveOpts -XX:+UseCompressedOops\
   -XX:+OptimizeStringConcat -XX:+UseFastAccessorMethods\
   $MAIN
-
 ```
 
 ## Compaction
@@ -503,12 +487,11 @@ Always disable swap. In addition, always set /proc/sys/vm/swappiness to 1 just i
 
 Recommendation:
 
-```
+```bash
 swapoff -a
 sed -i 's/^\(.*swap\)/#\1/' /etc/fstab
 echo "vm.swappiness = 1" > /etc/sysctl.d/swappiness.conf
 sysctl -p /etc/sysctl.d/swappiness.conf
-
 ```
 
 ### numactl & -XX:+UseNUMA
@@ -541,14 +524,12 @@ When a transaction is served entirely out of memory, the client txn latency is r
 
 ```
 memory_txn_latency + network_latency + client_latency
-
 ```
 
 Cache misses are always worse:
 
 ```
 disk_latency + memory_txn_latency + network_latency + client_latency
-
 ```
 
 This is not unique to Cassandra; every durable database with data > RAM has to deal with disks as the wildcard in client latency. Cache miss latency is dominated by disk access time. No amount of magic can make that go away (though rapid read protection may hide it).
@@ -626,11 +607,10 @@ Folks spend a lot of time worrying about tuning SSDs, and that's great, but on m
 
 When in doubt, always use the deadline IO scheduler. The default IO scheduler is CFQ, which stands for "Completely Fair Queueing". This is the only elevator that supports IO prioritization via cgroups, so if Docker or some other reason for cgroups is in play, stick with CFQ. In some cases it makes sense to use the noop scheduler, such as in VMs and on hardware RAID controllers, but the difference between noop and deadline is small enough that I only ever use deadline. Some VM-optimized kernels are hard-coded to only have noop and that's fine.
 
-```
+```bash
 echo 1 > /sys/block/sda/queue/nomerges # SSD only! 0 on HDD
 echo 8 > /sys/block/sda/queue/read_ahead_kb # up to 128, no higher
 echo deadline > /sys/block/sda/queue/scheduler
-
 ```
 
 I usually start with read_ahead_kb at 8 on SSDs and 64 on hard drives (to line up with Cassandra <= 2.2's sstable block size). With mmap IO in <= 2.2 and all configurations >= 3.0. Setting readahead to 0 is fine on many configurations but has caused problems on older kernels, making 8 a safe choice that doesn't hurt latency.
@@ -681,9 +661,8 @@ RAID0 is common in combination with Cassandra because it provides the simplest m
 
 A typical RAID0 setup looks like:
 
-```
+```bash
 mdadm --create /dev/md0 --chunk=256 --metadata=1.2 --raid-devices=6 --level=0 /dev/sd[cdefgh]1
-
 ```
 
 Most of this is straightforward except for the chunk size. Most of the time the chunk should be 64-256 bytes and should always be a power of 4096. The fio numbers are best at 128-256K and that tends to be the size of "erase blocks" on SSDs, so that's what I usually go with.
@@ -726,23 +705,20 @@ mkfs.xfs will try to detect drive and RAID settings automatically. It almost alw
 
 For partitions or whole drives, setting just the block size should be sufficient. Nearly every drive sold in the last few years has a 4K block size. Setting a 4K block size on a 512 byte device doesn't hurt much, while setting a 512 byte block size on a 4K device causes extra work for the drive in the form of read-modify write for 512 byte block updates. TL;DR, always set -s size=4096.
 
-```
+```bash
 mkfs.xfs -s size=4096 /dev/sdb1
-
 ```
 
 And on a RAID device (adjust to the local configuration):
 
-```
+```bash
 mkfs.xfs -s size=4096 -d su=262144 -d sw=6 /dev/md0
-
 ```
 
 This is a potential SSD optimization but the data so far is inconclusive. It doesn't seem to hurt anything though, so I'm mentioning it in hopes that someone else will figure out if it's worth the effort. The idea is to set the stripe width to the erase block size of the underlying SSD, usually 128K (256 * 512) and then set the stripe unit (a.k.a. chunk size) to 4K (8 * 512) to match the block size.
 
-```
+```bash
 mkfs.xfs -f -s size=4096 -d sunit=8 -d swidth=256 /dev/sdb1
-
 ```
 
 If you're setting the sunit/swidth, it's worth passing the same values through to mount via mount -o or /etc/fstab. The man page says these only need to be set when changing the geometry of a RAID device, but when they're not set the kernel reports the wrong values for them, so to be safe always set them in /etc/fstab.
@@ -809,13 +785,12 @@ On RHEL6, CentOS6, and other older LTS distros, the default idle driver for Inte
 
 Another thing I've seen recently is machines that get configured with frequency scaling on by default. Frequency scaling is great on laptops where minimum power consumption is more important than throughput, but it has particularly nasty side-effects for Cassandra. The first is that with the CPUs running at lower clock speeds, latency will be higher. Another is that performance will be inconsistent. Lastly, and most nastily, it seems to destabilize the tsc clock on the system which may cause time drift.
 
-```
+```bash
 # make sure the CPUs run at max frequency
 for sysfs_cpu in /sys/devices/system/cpu/cpu[0-9]*
 do
      echo performance > $sysfs_cpu/cpufreq/scaling_governor
 done
-
 ```
 
 <http://jpbempel.blogspot.gr/2015/09/why-bios-settings-matter-and-not-size.html>
@@ -826,9 +801,8 @@ The vast majority of Cassandra instances run on x86 CPUs, where there are multip
 
 Some of the clouds are starting to move over to using paravirtual clocks, presumably to reduce the amount of clock drift in VMs. The xen paravirtual clock in particular has been observed by Netflix to cause performance problems, so it's a good idea to switch back to tsc, then double-check that NTP is working.
 
-```
+```bash
 echo tsc > /sys/devices/system/clocksource/clocksource0/current_clocksource
-
 ```
 
 Source: <http://www.brendangregg.com/blog/2015-03-03/performance-tuning-linux-instances-on-ec2.html>
@@ -892,7 +866,6 @@ vm.max_map_count = 1073741824
 # only swap if absolutely necessary
 # some kernels have trouble with 0 as a value, so stick with 1
 vm.swappiness = 1
-
 ```
 
 On vm.max_map_count:
@@ -916,24 +889,21 @@ The DSE and DSC packages install an /etc/security/limits.d/ file by default that
 * - locks      unlimited
 * - sigpending unlimited
 * - msgqueue   unlimited
-
 ```
 
 ### chrt
 
 The Linux kernel's default policy for new processes is SCHED_OTHER. The SCHED_OTHER policy is designed to make interactive tasks such as X windows and audio/video playback work well. This means the scheduler assigns tasks very short time slices on the CPU so that other tasks that may need immediate service can get time. This is great for watching cat videos on Youtube, but not so great for a database, where interactive response is on a scale of milliseconds rather than microseconds. Furthermore, Cassandra's threads park themselves properly. Setting the scheduling policy to SCHED_BATCH seems more appropriate and can open up a little more throughput. I don't have good numbers on this yet, but observations of dstat on a few clusters have convinced me it's useful and doesn't impact client latency.
 
-```
+```bash
 chrt --batch 0 $COMMAND
 chrt --batch 0 --all-tasks --pid $PID
-
 ```
 
 You can inject these into cassandra-env.sh or /etc/{default,sysconfig}/{dse,cassandra} by using the $$ variable that returns the current shell's pid. Child processes inherity scheduling policies, so if you set the startup shell's policy, the JVM will inherit it. Just add this line to one of those files:
 
-```
+```bash
 chrt --batch 0 --pid $$
-
 ```
 
 ### taskset & isolcpus & irqbalance
@@ -944,20 +914,18 @@ Sometimes a machine ends up spending more time processing IO requests (interrupt
 
 The easiest way to get started on a running system is with the taskset utility. Taskset can be used to tell the Linux scheduler which CPUs are available to a process or thread. The results of taskset are usually observable within a couple seconds. After moving load off one of the cores, it may be necessary to manually move interrupts over to the core.
 
-```
+```bash
 taskset -apc 2-7 $CASS_PID
 taskset -c 2-7 ./cassandra -f
 taskset -pc 2-7 $$ # in /etc/{default,sysconfig}/{dse,cassandra}
-
 ```
 
 ### isolcpus
 
 If you can reboot, you can reserve cores for the kernel by using the isolcpus= kernel command line option. In my tests, the kernel automatically schedules its tasks on the reserved CPU. You may need to do some additional IRQ management to get it right, but it's worth the effort when it works out. In order to enable it you will need to edit the grub configuration in /etc/default/grub on Debian or /etc/sysconfig/grub on Redhat. For quick tests you can edit /boot/grub/grub.conf (grub2) or /boot/grub/menu.lst (grub1 & pvgrub (EC2)) and add it to the end of the kernel options. This will probably get reverted on the next kernel upgrade, so make sure to do it in the way prescribed by the Linux distribution. My test machine's /proc/cmdline looks like this:
 
-```
+```bash
 BOOT_IMAGE=../vmlinuz-linux root=PARTUUID=91012260-6834-425a-b488-9dd9f537a294 rw isolcpus=0-1 initrd=../initramfs-linux.img
-
 ```
 
 Make sure irqbalance is disabled or configured to wire interrupts to the selected CPU. On NUMA machines it's important to make sure the reserved core is on the socket that manages the PCIe devices. Core 0 is almost always the right choice.
@@ -974,14 +942,13 @@ This is one of my favorite dirty tricks, combined with renice/ionice. If you've 
 
 Linux has always used a 1:1 threading model and even uses the global pid space to assign ids to threads, so they're still visible if you know how to look for them. htop displays thread ids by default and standard top can do it if you hit H. With ps, the -L flag makes them show up. We can take advantage of this to do some prioritization and pinning outside of Cassandra so we don't have to wait around for features to make their way into DSE.
 
-```
+```bash
 for tid in $(ps -eLo tid,args,nice |awk '/java.*4$/{print $1}')
 do
   taskset -pc 5-6 $tid     # pin to cores 5 and 6
   renice 20 $tid           # set the lowest nice priority
   ionice -c 2 -n 7 -p $tid # set IO to the lowest best-effort priority
 done
-
 ```
 
 After that, your htop will look more like this (load is done but compaction is still going):
