@@ -9,11 +9,9 @@
 
 ![](https://cdn-images-1.medium.com/max/10944/1*Vv0HNvRhU0ihKVaBIpDUww.jpeg)
 
- 1. Write More Code
-
- 2. Read More Code
-
- 3. Repeat Daily
+1. Write More Code
+2. Read More Code
+3. Repeat Daily
 
 That was the advice given to me when I made the career switch to programming almost two years ago. Fortunately, there are plenty of courses and tutorials online for writing code. Unfortunately, there are still little-to-no resources that teach reading it.
 
