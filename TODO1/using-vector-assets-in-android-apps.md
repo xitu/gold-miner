@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/using-vector-assets-in-android-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO1/using-vector-assets-in-android-apps.md)
 > - 译者：[YueYong](https://github.com/YueYongDev)
-> - 校对者：[Rickon](https://github.com/gs666)、 [TUARAN](https://github.com/TUARAN)
+> - 校对者：[Rickon](https://github.com/gs666), [TUARAN](https://github.com/TUARAN)
 
 # 在 Android 应用中使用矢量资源
 
@@ -14,21 +14,21 @@
 - [**Understanding Android’s vector image format: VectorDrawable**: Android devices come in all sizes, shapes and screen densities. That’s why I’m a huge fan of using resolution...](https://medium.com/androiddevelopers/understanding-androids-vector-image-format-vectordrawable-ab09e41d5c68)
 - [**Draw a Path: Rendering Android VectorDrawables**: In the previous article, we looked at Android’s VectorDrawable format, going into its benefits and capabilities.](https://medium.com/androiddevelopers/draw-a-path-rendering-android-vectordrawables-89a33b5e5ebf)
 
-在这篇文章中，我们将会深入研究如何在你的 app 中应用这些矢量资源。 `VectorDrawable` 是在 Lollipop（API 21） 中引入的，也可以在 AndroidX 中使用（作为 `VectorDrawableCompat` ），可以向下兼容到 API 14（这使其可以覆盖超过 [99％ 的设备](https://developer.android.com/about/dashboards/)）。本文将概述一些能真正在你的应用中使用 `VectorDrawables` 的建议。。
+在这篇文章中，我们将会深入研究如何在你的 app 中应用这些矢量资源。`VectorDrawable` 是在 Lollipop（API 21）中引入的，也可以在 AndroidX 中使用（作为 `VectorDrawableCompat`），可以向下兼容到 API 14（这使其可以覆盖超过 [99％ 的设备](https://developer.android.com/about/dashboards/)）。本文将概述一些能真正在你的应用中使用 `VectorDrawables` 的建议。
 
-## 首先是 AndroidX 
+## 首先是 AndroidX
 
-从 Lollipop 开始，你可以在任何需要使用其他可绘制类型的地方使用 `VectorDrawables` （使用标准的 `@drawable/foo` 语法引用它们），但是我建议**始终**使用 AndroidX 实现。
+从 Lollipop 开始，你可以在任何需要使用其他可绘制类型的地方使用 `VectorDrawables`（使用标准的 `@drawable/foo` 语法引用它们），但是我建议**始终**使用 AndroidX 实现。
 
-这会显著增加其使用平台的范围，不仅如此，它还支持将特性和 bug 修复程序向后移植到旧平台。例如，使用 AndroidX 中的 `VectorDrawableCompat` 可以:
+这会显著增加其使用平台的范围，不仅如此，它还支持将特性和 bug 修复程序向后移植到旧平台。例如，使用 AndroidX 中的 `VectorDrawableCompat` 可以：
 
-- `nonZero` 和 `evenOdd` 路径 `fillTypes`  —— [定义形状“内部”](https://www.sitepoint.com/understanding-svg-fill-rule-property/)的两种常见方法，通常用于 SVGs （`evenOdd` 在 API 24 中得以实现）
+- `nonZero` 和 `evenOdd` 路径 `fillTypes` —— [定义形状“内部”](https://www.sitepoint.com/understanding-svg-fill-rule-property/)的两种常见方法，通常用于 SVGs （`evenOdd` 在 API 24 中得以实现）
 - 渐变（Gradient） & `ColorStateList` 填充 / 画笔 （在 API 24 中被添加实现）
 - Bug修复
 
-事实上， AndroidX 将使用 compat 实现，甚至在一些存在本地实现的平台上（[当前是 api 21-23](https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev/appcompat/src/main/java/androidx/appcompat/widget/AppCompatDrawableManager.java#100) ）也可以实现上述优点。否则，它将委托给平台实现，因此仍然可以接收对新版本的任何改进（例如，为了提高性能， `VectorDrawable` 在 API 24 的 C 中重新实现)。
+事实上， AndroidX 将使用 compat 实现，甚至在一些存在本地实现的平台上（[当前是 api 21-23](https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev/appcompat/src/main/java/androidx/appcompat/widget/AppCompatDrawableManager.java#100)）也可以实现上述优点。否则，它将委托给平台实现，因此仍然可以接收对新版本的任何改进（例如，为了提高性能， `VectorDrawable` 在 API 24 的 C 中重新实现)。
 
-基于这些原因，你应该**始终**使用 AndroidX ，即使你很幸运地将你的 `minSdkVersion` 设置成 24 。这没什么不好的，如果/当 `VectorDrawable` 在未来扩展了新的功能，并且它们也被添加到 AndroidX 中，那么它们就可以直接使用，而不需要重新检查代码。
+基于这些原因，你应该**始终**使用 AndroidX ，即使你很幸运地将你的 `minSdkVersion` 设置成 24。这没什么不好的，如果/当 `VectorDrawable` 在未来扩展了新的功能，并且它们也被添加到 AndroidX 中，那么它们就可以直接使用，而不需要重新检查代码。
 
 [Alex Lockwood](undefined) *是这么说的*:
 
