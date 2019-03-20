@@ -43,35 +43,35 @@ That runs dstat with the load average (-l), disk IOPS (-r), vmstats (-v), and ne
 
 Reading the Matrix: I leave dstat running inside GNU Screen (or tmux if you prefer) pretty much all the time I'' connected to a cluster. Even when there aren't problems. Maybe especially then. While running benchmarks or production load, I'll flip through my screens (ctrl-a n) and glance at the dstat output. Once it has been running for a little while, the whole terminal should be full. What I'm looking for is vertical consistency (or lack thereof) and outliers. On a fully warmed-up system, memory should be around 95% in-use, with most of it in the cache column. CPUs should be in use with no more than 1-2% of iowait and 2-15% system time. The network throughput should mirror whatever the application is doing, so if it's cassandra-stress, it should be steady. If it's a Hadoop job writing in big batches, I'll expect big spikes. Think through the workload and learn what to expect *and* learn what is normal.
 
-### reading vmstats
+#### reading vmstats
 
 I am a huge fan of dstat. Back in the Bad Old Days, I had to switch between 3-4 tools to get an idea of how a system was doing. With dstat I can see all the key metrics in one view and that is important. With a snapshot every 10 seconds, a full-screen terminal can show me the last few minutes of data, making it easy to scan the columns visually for patterns and anomalies. This is plain old pattern recognition most of the time; even without knowing what the stats mean, you should be able to correlate changes in system stats with changes in the client workload. For practice, fire up dstat on an idle Cassandra node, then fire up a simple cassandra-stress load. The change in metrics over the first couple minutes of load are instructive. How long does it take to level out? Does it level out or are metrics swinging wildly? Once the patterns are identified, then it's time to understand whats happening under the hood. Going from left to right of my usual dstat -vn 10:
 
-#### run/blocked/new tasks
+##### run/blocked/new tasks
 
 These show how many processes or threads were running/blocked/created during the sample window. run=~n_cores is ideal for ROI/efficiency, but makes a lot of admins nervous. run=2*n_cores isn't necessarily bad. run>cores is healthy with some head room. Any blocked processes is considered bad and you should immediately look at the iowait %. 1-2% iowait isn't necessarily a problem, but it usually points at storage as a bottleneck.
 
-#### memory
+##### memory
 
 Memory is perhaps the easiest. Used will usually be your heap + offheap + ~500MB. If it's significantly higher, find out where that memory went! Buffers should be a couple hundred MB, rarely more than a gigabyte. Cache should account for almost all the remaining memory if data > RAM. Free memory should be in the 200-300MB range unless the working data size is smaller than installed memory.
 
-#### swap
+##### swap
 
 dstat shows the swap columns along with memory. These should always be zeroes. Any swap activity whatsoever is a source of hiccups and must be eliminated before anything else.
 
-#### disk throughput
+##### disk throughput
 
 This tells you how many bytes are going in and out of the storage every second. It is fairly accurate and tends to be more useful than IOPS. There isn't a standard range here. Try saturation testing the cluster with large objects to find out what the high end is, then try to size the cluster/tuning to keep it 25% or so below peak load, or more if there is a tight SLA. You will often see activity on the disks after a load test has completed and that's most likely compaction.
 
-#### interrupts (int) & context switches (ctx)
+##### interrupts (int) & context switches (ctx)
 
 An interrupt occurs when a device needs the CPU to do something, such as pick up data from the network or disks. Context switches occur when the kernel has to switch out a task on the CPU. Most interrupts are tied to a ctx, which is why ctx is almost always > interrupts. On a healthy system, ctx should be 20-40% higher than interrupts. If it's a lot higher, take a look at system call counts with strace. futex is almost always the top call and indicates a high amount of lock contention.
 
-#### user/system/idle/wait/hiq/siq CPU time
+##### user/system/idle/wait/hiq/siq CPU time
 
 User time is CPU time used to run userland processes, i.e. JVM threads. System time is time spent in kernel code. Idle time is exactly as it sounds. hiq/siq are for time spent processing hardware and soft interrupts. These are usually zeroes but you'll occasionally see siq time under heavy load. A few % is fine. Any more indicates a serious problem with the kernel and/or hardware.
 
-#### network send/recv
+##### network send/recv
 
 Shows the amount of data flowing over the network. I can saturate 10gig links with Cassandra 2.1 and large objects, so this is more important to look at than it has been in the past. This shows how much data is flowing over CQL and storage protocols. The differential between network / disk io / CPU usage gives a good picture of how efficiently a system is running. I do this in my head....
 
