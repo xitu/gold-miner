@@ -1,9 +1,9 @@
-> - 原文地址：[How to use Result in Swift 5](https://www.hackingwithswift.com/articles/161/how-to-use-result-in-swift)
-> - 原文作者：[Paul Hudson](https://twitter.com/twostraws)
-> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-use-result-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-use-result-in-swift.md)
-> - 译者：[Bruce-pac](https://github.com/Bruce-pac)
-> - 校对者：[iWeslie](https://github.com/iWeslie)
+> * 原文地址：[How to use Result in Swift 5](https://www.hackingwithswift.com/articles/161/how-to-use-result-in-swift)
+> * 原文作者：[Paul Hudson](https://twitter.com/twostraws)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-use-result-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-use-result-in-swift.md)
+> * 译者：[Bruce-pac](https://github.com/Bruce-pac)
+> * 校对者：[iWeslie](https://github.com/iWeslie)
 
 # 如何在 Swift 5 中使用 Result
 
