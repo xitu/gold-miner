@@ -1,28 +1,20 @@
-Amy's Cassandra 2.1 tuning guide
-================================
+# Amy's Cassandra 2.1 tuning guide
 
-[](http://twitter.com/intent/tweet?url=https://tobert.github.io/pages/als-cassandra-21-tuning-guide.html&text=Amy%27s%20Cassandra%202.1%20tuning%20guide&via=MissAmyTobey) [](http://facebook.com/sharer.php?u=https://tobert.github.io/pages/als-cassandra-21-tuning-guide.html) [](https://plus.google.com/share?url=https://tobert.github.io/pages/als-cassandra-21-tuning-guide.html)
+> Amy's Cassandra 2.1 Tuning Guide (2015)
 
-* * * * *
-
-Amy's Cassandra 2.1 Tuning Guide (2015)
-
-Personal Note
-=============
+## Personal Note
 
 I really appreciate all the folks who have told me that this guide helped them in some way. I'm happy to hear that.
 
 I've pushed this small update to change my name from Albert to Amy and haven't changed anything else at this point. I'm also leaving the URL the same because some folks have it bookmarked and I don't mind my old name being around so long as folks call me Amy from now on :)
 
-Assumptions
-===========
+## Assumptions
 
 -   Jr. Systems Administrator level Linux CLI skills
 -   familiarity with Cassandra 2.1 and/or Datastax Enterprise 4.7
 -   basic statistics
 
-Errors, Omissions, and Updates
-==============================
+## Errors, Omissions, and Updates
 
 This guide is not intended to be complete and focuses on techniques I've used to track down performance issues on production clusters.
 
@@ -30,8 +22,7 @@ This version of the guide has not had a lot of peer review, so there may be some
 
 If you find any errors, please (really!) submit an issue at <https://github.com/tobert/tobert.github.io>.
 
-Go-to Observation Tools
-=======================
+## Go-to Observation Tools
 
 Observation is a critical skill to develop as a systems administrator. A wide variety of tools are available for observing systems in different ways. Many of them use the same few system metrics in different ways to provide you with a view into your system. Understanding low-level metrics (e.g. /proc/vmstat) allows you to better reason about higher-level displays such as OpsCenter graphs.
 
@@ -204,8 +195,7 @@ cl-netstat.pl
 
 ![image alt text](https://tobert.github.io/pages/image_13.png)
 
-Saturation Testing with cassandra-stress
-========================================
+## Saturation Testing with cassandra-stress
 
 We really need an entire guide like this one for cassandra-stress. For most performance tuning, a very simple cassandra-stress configuration is sufficient for identifying bottlenecks by pushing a saturation load at the cluster. It is important to keep in mind that sustained saturation load should never be used to determine production throughput; by definition it is unsustainable. It is, on occasion, useful to find the max saturation load, then dial it back by 10-20% as a starting point for finding a cluster's maximum sustainable load.
 
@@ -252,8 +242,7 @@ cassandra-stress\
 
 ```
 
-cassandra.yaml
-==============
+## cassandra.yaml
 
 There are three major places to find settings that impact Cassandra's performance: the java command-line (GC, etc.), the schema, and cassandra.yaml. Probably in that order. The inaccuracy of some comments in Cassandra configs is an old tradition, dating back to 2010 or 2011. The infamous "100mb per core" atrocity dates back a ways, but we're not here to talk about history. What you need to know is that a lot of the advice in the config commentary is misleading. Whenever it says "number of cores" or "number of disks" is a good time to be suspicious. I'm n't going to rewrite the whole yaml file here, but instead cover the few settings that should always be checked when tuning.
 
@@ -308,8 +297,7 @@ Make sure to always set streaming_socket_timeout_in_ms to a non-zero value. 1 ho
 
 <https://issues.apache.org/jira/browse/CASSANDRA-8611>
 
-The Java Virtual Machine
-========================
+## The Java Virtual Machine
 
 Java 8
 ------
@@ -503,8 +491,7 @@ java -server -ea\
 
 ```
 
-Compaction
-==========
+## Compaction
 
 The most visible deferred cost of writing to Cassandra is compaction. I find it useful to describe it in terms of compound interest: you get to write at every high throughput now (borrowing), but at some point you have to redo all that IO (principal) with a fair amount of waste (interest) to maintain acceptable reads (credit score).
 
