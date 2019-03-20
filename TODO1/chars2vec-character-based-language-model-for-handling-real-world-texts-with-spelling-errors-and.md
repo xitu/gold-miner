@@ -33,6 +33,40 @@ We have developed the chars2vec language model based on symbolic embeddings of w
 
 The following code snippet creates chars2vec embeddings (with dimension 50) and projects these embedding vectors on a plane with the help of PCA, outputting an image depicting the geometrical meaning of the described model:
 
+```python
+import chars2vec
+import sklearn.decomposition
+import matplotlib.pyplot as plt
+
+# Load Inutition Engineering pretrained model
+# Models names: 'eng_50', 'eng_100', 'eng_150' 'eng_200', 'eng_300'
+c2v_model = chars2vec.load_model('eng_50')
+
+words = ['Natural', 'Language', 'Understanding',
+         'Naturael', 'Longuge', 'Updderctundjing',
+         'Motural', 'Lamnguoge', 'Understaating',
+         'Naturrow', 'Laguage', 'Unddertandink',
+         'Nattural', 'Languagge', 'Umderstoneding']
+
+# Create word embeddings
+word_embeddings = c2v_model.vectorize_words(words)
+
+# Project embeddings on plane using the PCA
+projection_2d = sklearn.decomposition.PCA(n_components=2).fit_transform(word_embeddings)
+
+# Draw words on plane
+f = plt.figure(figsize=(8, 6))
+
+for j in range(len(projection_2d)):
+    plt.scatter(projection_2d[j, 0], projection_2d[j, 1],
+                marker=('$' + words[j] + '$'),
+                s=500 * len(words[j]), label=j,
+                facecolors='green' if words[j] 
+                           in ['Natural', 'Language', 'Understanding'] else 'black')
+
+plt.show()
+```
+
 Execution of this code produces the following image:
 
 ![](https://cdn-images-1.medium.com/max/3200/1*gjqy3VkVQK51BXsI7qOv4A.png)
@@ -74,6 +108,42 @@ We have trained chars2vec models for English language with embedding dimensions 
 ## Train your own chars2vec model
 
 The following code snippet shows the way to train your own chars2vec model instance.
+
+```python
+import chars2vec
+
+dim = 50
+
+path_to_model = 'path/to/model/directory'
+
+X_train = [('mecbanizing', 'mechanizing'), # similar words, target is equal 0
+           ('dicovery', 'dis7overy'), # similar words, target is equal 0
+           ('prot$oplasmatic', 'prtoplasmatic'), # similar words, target is equal 0
+           ('copulateng', 'lzateful'), # not similar words, target is equal 1
+           ('estry', 'evadin6'), # not similar words, target is equal 1
+           ('cirrfosis', 'afear') # not similar words, target is equal 1
+          ]
+
+y_train = [0, 0, 0, 1, 1, 1]
+
+model_chars = ['!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.',
+               '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<',
+               '=', '>', '?', '@', '_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+               'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
+               'x', 'y', 'z']
+
+# Create and train chars2vec model using given training data
+my_c2v_model = chars2vec.train_model(dim, X_train, y_train, model_chars)
+
+# Save pretrained model
+chars2vec.save_model(my_c2v_model, path_to_model)
+
+words = ['list', 'of', 'words']
+
+# Load pretrained model, create word embeddings
+c2v_model = chars2vec.load_model(path_to_model)
+word_embeddings = c2v_model.vectorize_words(words)
+```
 
 A list of characters `model_chars` that the model would use for words vectorisation should be defined as well as the model’s dimension `dim` and path to the model storage folder `path_to_model`. Training set (`X_train`, `y_train`) consists of pairs of “similar” and “not similar” words. `X_train` is a list of word pairs, and `y_train` is a list of their binary similarity metric scores (0 or 1).
 
