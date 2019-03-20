@@ -68,7 +68,7 @@ npm install -D typescript webpack webpack-cli ts-loader phaser live-server
 
 ### Webpack
 
-Webpack 将运行 TypeScript 编译器，并将一堆生成的 JS 文件以及库收集到一个缩小的 JS 中，以便我们可以将它包含在页面中。
+Webpack 将运行 TypeScript 编译器，并将一堆生成的 JS 文件以及库收集到一个压缩过的 JS 中，以便我们可以将它包含在页面中。
 
 在 `package.json` 附近添加 `webpack.config.js`：
 
@@ -100,7 +100,7 @@ module.exports = {
 
 ### TypeScript
 
-我们还需要一个用于 TypeScript 编译器的小型配置文件（ `tsconfig.json` ），其中我们描述了希望将源代码编译到哪个 JS 版本，以及在哪里找到这些源代码：
+我们还需要一个用于 TypeScript 编译器的小配置（`tsconfig.json`），其中我们描述了希望将源代码编译到哪个 JS 版本，以及在哪里找到这些源代码：
 
 ```json
 {
@@ -115,7 +115,7 @@ module.exports = {
 
 ### TypeScript 定义
 
-TypeScript 是一种静态类型语言。因此，它需要编译的类型定义（.d.ts）。在编写本教程时，Phaser 3 的定义尚未作为 npm 包提供，因此您可能需要从官方存储库中[下载它们](https://github.com/photonstorm/phaser3-docs/blob/master/typescript/phaser.d.ts)，并将文件放在项目的 `src` 子目录中。
+TypeScript 是一种静态类型语言。因此，它需要编译的类型定义（.d.ts）。在编写本教程时，Phaser 3 的定义尚未作为 npm 包提供，因此您可能需要从官方存储库中 [下载它们](https://github.com/photonstorm/phaser3-docs/blob/master/typescript/phaser.d.ts)，并将文件放在项目的 `src` 子目录中。
 
 ### Scripts
 
@@ -138,7 +138,7 @@ TypeScript 是一种静态类型语言。因此，它需要编译的类型定义
 
 让我们开始编码吧。
 
-首先，为游戏创建一个简约的 HTML 容器。创建一个 `index.html` 文件，其中包含以下代码：
+首先，为游戏创建一个简单的 HTML 容器。创建一个 `index.html` 文件，其中包含以下代码：
 
 ```html
 <!DOCTYPE html>
@@ -152,7 +152,7 @@ TypeScript 是一种静态类型语言。因此，它需要编译的类型定义
   </body>
 </html>
 ```
-这里只有两个基本部分：第一个是 `script` 条目，表示我们将在这里使用我们构建的文件；第二个是 `div` 条目，它将成为游戏容器。
+这里只有两个基本部分：第一个是 `script` 标签，表示我们将在这里使用我们构建的文件；第二个是 `div` 标签，它将成为游戏容器。
 
 现在创建 `src/app.ts` 文件并添加以下代码：
 
@@ -178,7 +178,7 @@ window.onload = () => {
 };
 ```
 
-这段代码一目了然。GameConfig 有很多不同的属性，你可以查看[这里](https://photonstorm.github.io/phaser3-docs/global.html#GameConfig) .
+这段代码一目了然。GameConfig 有很多不同的属性，你可以查看 [这里](https://photonstorm.github.io/phaser3-docs/global.html#GameConfig) .
 
 现在你终于可以运行 `npm start` 了。如果在此步骤和之前的步骤中完成所有操作，您应该在浏览器中看到一些简单的内容：
 
@@ -220,7 +220,7 @@ export class GameScene extends Phaser.Scene {
 ```
 这里的构造函数包含一个 key ，其他场景可以在其下调用此场景。
 
-你在这里看到四种方法的存根。让我简要解释一下之间的区别：
+你在这里看到四种方法的插桩。让我简要解释一下它们之间的区别：
 
 * `init([params])` 在场景开始时被调用。这个函数可以通过调用 `scene.start(key, [params])` 来接受从其他场景或游戏传递的参数。
 
@@ -255,7 +255,7 @@ const config: GameConfig = {
 
 我们的游戏现在知道游戏场景。如果游戏配置包含一个场景列表，然后第一个场景开始时，游戏开始。所有其他场景都被创建，但直到明确调用才开始。
 
-我们还在这里添加了 arcade physics （一种物理模型，[这里是一些例子](http://phaser.io/examples/v2/category/arcade-physics)），这里需要它使我们的星星下降。
+我们还在这里添加了 arcade physics（一种物理模型，[这里有一些例子](http://phaser.io/examples/v2/category/arcade-physics)），这里需要用它使我们的星星下降。
 
 现在我们可以把内容放在我们游戏场景的骨架上。
 
@@ -314,7 +314,7 @@ export class GameScene extends Phaser.Scene {
 
 Phaser 3 中的一个组是一种创建一组您想要一起控制的对象的方法。有两种类型的对象：静态和动态。正如你可能猜到的那样，静态物体（地面，墙壁，各种障碍物）不会移动，动态物体（马里奥，舰船，导弹）可以移动。
 
-我们创建了一个静态的地面组。那些碎片沿着线放置。请注意，该线分为 20 个相等的部分（不是您可能预期的 19 个），并且地砖位于左端的每个部分，瓷砖中心位于该点（我希望这些能让你明白那些数字的意思）。我们还必须调用 `refresh()` 来更新组边界框（否则，将根据默认位置（场景的左上角）检查冲突）。
+我们创建了一个静态的地面组。那些碎片沿着线放置。请注意，该线分为 20 个相等的部分（不是您可能预期的 19 个），并且地砖位于左端的每个部分，瓷砖中心位于该点（我希望这些能让你明白那些数字的意思）。我们还必须调用 `refresh()` 来更新组边界框，否则将根据默认位置（场景的左上角）检查冲突。
 
 如果您现在在浏览器中查看应用程序，您应该会看到如下内容：
 
@@ -483,11 +483,11 @@ private onFall(star: Phaser.Physics.Arcade.Image): () => void {
   }
 ```
 
-最后，我们的 Starfall 游戏看起来像一个真正的游戏 - 它开始，结束，甚至有一个目标存档（你可以捕获多少颗星？）。
+最后，我们的 Starfall 游戏看起来像一个真正的游戏了 - 它可以开始、结束，甚至有一个分数排行榜（你可以捕获多少颗星？）。
 
 我希望这个教程对你来说和我写的时候一样有用😀，任何反馈都非常感谢！
 
-你可以在[这里](https://github.com/mariyadavydova/starfall-phaser3-typescript)找到本教程的源代码。
+你可以在 [这里](https://github.com/mariyadavydova/starfall-phaser3-typescript) 找到本教程的源代码。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
