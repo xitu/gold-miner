@@ -2,8 +2,8 @@
 > * 原文作者：[Sean Dexter](https://medium.com/@seandexter1)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/wireframes-are-becoming-less-relevant-and-thats-a-good-thing.md](https://github.com/xitu/gold-miner/blob/master/TODO1/wireframes-are-becoming-less-relevant-and-thats-a-good-thing.md)
-> * 译者：
-> * 校对者：
+> * 译者：[hanxiansen](https://github.com/hanxiansen)
+> * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234), [xiantang](https://github.com/xiantang)
 
 # 线框图变得不那么重要了 — 好事啊！
 
