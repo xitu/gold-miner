@@ -85,6 +85,14 @@ A prime example of a character-based language model is the model implemented in 
 
 Each chars2vec model has a fixed list of characters used for words vectorisation: the characters from this list are represented by various one-hot vectors which are fed to the model when the character appears in the text; the characters absent in the list are ignored in the vectorisation procedure. We trained models designed to process English texts; these models use a list of the most popular of ASCII characters — all English letters, digits and the most popular punctuation:
 
+```python
+['!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.',
+ '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<',
+ '=', '>', '?', '@', '_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+ 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
+ 'x', 'y', 'z']
+```
+
 The model is not case sensitive, it converts any symbol’s case to the lower one.
 
 Chars2vec is implemented with the help of Keras library based on TensorFlow. The neural network creating words embeddings has the following architecture:
