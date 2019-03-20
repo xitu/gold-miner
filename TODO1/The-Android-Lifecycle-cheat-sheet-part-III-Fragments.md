@@ -49,7 +49,7 @@ Fragment 是可以被保留的，这意味着当配置被改变时可以使用�
 
 Fragment 对象既没有被创建也没有被销毁，因为在 Activity 被重新创建后，同一个 Fragment 实例被复用了。因此在 `onActivityCreated` 过程中 Bundle 仍然是可被获取的。
 
-使用可被复用的 Fragment 是不被推荐的，Using retained fragments is not recommended unless they are used to store data across configuration changes (in a non-UI fragment). This is what the [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel.html) class from the Architecture Components library uses internally, but with a simpler API.
+使用可被复用的 Fragment 是不被推荐的，除非你想在配置改变时使用非 UI 的 Fragment 来存储数据。它的功能和内部组件库中的 [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel.html) 相同，但 ViewModel 具有更简洁的 API。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
