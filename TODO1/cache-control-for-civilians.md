@@ -12,7 +12,6 @@ A `Cache-Control` header might look something like this:
 
 ```
 Cache-Control: public, max-age=31536000
-
 ```
 
 `Cache-Control` is the header, and each of `public` and `max-age=31536000` are*directives*. The `Cache-Control` header can accept one or more directives, and it is these directives, what they really mean, and their optimum use-cases that I want to cover in this post.
