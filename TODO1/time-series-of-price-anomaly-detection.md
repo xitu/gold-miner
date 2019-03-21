@@ -5,7 +5,7 @@
 > * 译者：[kasheemlew](https://github.com/kasheemlew)
 > * 校对者：
 
-# 时间顺序的价格异常检测
+# 时间序列的价格异常检测
 
 ![Photo credit: Pixabay](https://cdn-images-1.medium.com/max/2560/1*T-SmdkxMgpAebevA2ElyGA.jpeg)
 
@@ -21,7 +21,7 @@
 
 ![Figure 1](https://cdn-images-1.medium.com/max/2218/1*hGWm-K7FMcyXEA2j4i5weg.png)
 
-在这篇文章中，我会尝试不同的异常检测技术，使用无监督学习对时间顺序的酒店房费进行异常检测。下面我们开始吧！
+在这篇文章中，我会尝试不同的异常检测技术，使用无监督学习对时间序列的酒店房费进行异常检测。下面我们开始吧！
 
 ## 数据
 
@@ -74,7 +74,7 @@ df = df.loc[df['price_usd'] < 5584]
 
 看到这里，你一定已经发现我们漏掉了些条件，我们不知道用户搜索的房型，标准间的价格可是和海景大床房的价格大相径庭的。为了证明，请记住这一点。好了，该继续了。
 
-## 时间顺序可视化
+## 时间序列可视化
 
 ```python
 df.plot(x='date_time', y='price_usd', figsize=(12,6))
