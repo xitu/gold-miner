@@ -9,7 +9,7 @@
 
 ![Photo credit: Pixabay](https://cdn-images-1.medium.com/max/2560/1*T-SmdkxMgpAebevA2ElyGA.jpeg)
 
-> 异常检测是指检测数据集中与不遵循其他数据的统计规律的数据点
+> 异常检测是指检测数据集中不遵循其他数据的统计规律的数据点
 
 异常检测，也叫离群点检测，是数据挖掘中确定异常类型和异常出现的相关细节的过程。 如今，自动化异常检测至关重要，因为现在的数据量太庞大了，人工标记已经不可能实现了。自动异常检测有着广泛的应用，例如反欺诈、系统监控、错误检测、传感器网络中的事件检测等等。
 
@@ -34,7 +34,7 @@
 * 选择数据点最多的酒店 `property_id = 104517` .
 * 选择 visitor_location_country_id = 219（从另一段分析中可知国家号 219 代表美国）来统一 `price_usd` 列。 这样做是因为各个国家在显示税费和房费上有不同的习惯，这个房费可能是每晚的费用也可能是总计的费用，但我们知道美国的酒店显示的就是每晚不含税费的价格。
 * 选择 `search_room_count = 1`.
-* 选择我们需要的其他特征： `date_time`，`price_usd`，`srch_booking_window`，`srch_saturday_night_bool`。
+* 选择我们需要的其他特征： `date_time`、`price_usd`、`srch_booking_window`、`srch_saturday_night_bool`。
 
 ```python
 expedia = pd.read_csv('expedia_train.csv')
@@ -123,7 +123,7 @@ k-平均是一个应用广泛的聚类算法。它创建 ‘k’ 个相似数据
 
 基于聚类的异常检测中强调的假设是我们对数据聚类，正常的数据归属于簇，而异常不属于任何簇或者属于很小的簇。下面我们找出异常并进行可视化。
 
-* 计算每个点和离它最近的重心间的距离。最大的哪些距离就是异常。
+* 计算每个点和离它最近的聚类中心的距离。最大的那些距离就是异常。
 * 我们用 `outliers_fraction` 给算法提供数据集中离群点比例的信息。不同的数据集情况可能不同，但是作为一个起点，我估计 `outliers_fraction=0.01`，因为在标准化正态分布中，观测值的百分比应该落在距离均值的 Z 分数绝对值为 3 之上的位置。
 * 使用 `outliers_fraction` 计算 `number_of_outliers` 。
 * 将 `threshold` 设置为离群点间的最短距离。
@@ -153,10 +153,10 @@ k-平均是一个应用广泛的聚类算法。它创建 ‘k’ 个相似数据
 
 ### OneClassSVM
 
-根据这篇论文：[ Support Vector Method for Novelty Detection](http://users.cecs.anu.edu.au/~williams/papers/P126.pdf)。SVM 是最大裕度的方法，也就是不对一种可能的分布建模。基于 SVM 的异常检测的核心就是找到一个函数，这个函数对于点密度高的区域输出正值，对于点密度低的区域返回负值。
+根据这篇论文：[ Support Vector Method for Novelty Detection](http://users.cecs.anu.edu.au/~williams/papers/P126.pdf)。SVM 是基于间隔最大的方法，也就是不对一种可能的分布建模。基于 SVM 的异常检测的核心就是找到一个函数，这个函数对于点密度高的区域输出正值，对于点密度低的区域返回负值。
 
 * 在拟合 [OneClassSVM](https://scikit-learn.org/stable/modules/generated/sklearn.svm.OneClassSVM.html#sklearn.svm.OneClassSVM) 模型时，我们设置  `nu=outliers_fraction`，这时训练误差的上界和支持向量的下界，这个值必须在 0 到 1 之间。这基本上是我们期望中数据集上离群点的比例。
-* 指定算法中的内核类型：`rbf`。 此时 SVM 使用非线性函数将超空间映射到更高维度中。
+* 指定算法中的核函数类型：`rbf`。 此时 SVM 使用非线性函数将超空间映射到更高维度中。
 * `gamma` 是 RBF 内核类型的一个参数，控制着单个训练样本的影响 —— 它影响着模型的"平滑度"。经过试验，我没发现什么重要的差别。
 * `predict(data)` 执行数据分类。因为我们的模型是一个单类模型，所以只会返回 +1 或者 -1，-1 代表异常， 1 代表正常。
 
@@ -168,7 +168,7 @@ k-平均是一个应用广泛的聚类算法。它创建 ‘k’ 个相似数据
 
 Scikit-Learn 的 `[**covariance.EllipticEnvelope**](https://scikit-learn.org/stable/modules/generated/sklearn.covariance.EllipticEnvelope.html)` 函数假设我们的所有数据符合一个潜在的多元高斯分布表达式，以此尝试计算数据数据总体分布的关键参数。过程类似这样：
 
-* 根据之前定义的类别创建两个不同的数据集 —— search_Sat_night，Search_Non_Sat_night。
+* 根据之前定义的类别创建两个不同的数据集 —— search_Sat_night、Search_Non_Sat_night。
 * 对每个类别使用 `EllipticEnvelope`（高斯分布）。
 * 我们设置 `contamination` 参数，它是数据集中出现的离群点的比例。
 * 我们用 `decision_function` 来计算给定观测值的决策函数，它和平移马氏距离等价。 为了确保和其他离群点检测算法的兼容性，成为离群点的阈值被设置为 0。
