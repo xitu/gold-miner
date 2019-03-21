@@ -4,10 +4,7 @@ The best request is the one that never happens: in the fight for fast websites, 
 
 That being said, more and more often in my work I see lots of opportunities being left on the table through unconsidered or even completely overlooked caching practices. Perhaps it's down to the heavy focus on first-time visits, or perhaps it's a simple lack of awareness and knowledge? Whatever it is, let's have a bit of a refresher.
 
-* * * * *
-
-`Cache-Control`
----------------
+## `Cache-Control`
 
 One of the most common and effective ways to manage the caching of your assets is via the `Cache-Control` HTTP header. This header applies to individual assets, meaning everything on our pages can have a very bespoke and granular cache policy. The amount of control we're granted makes for very intricate and powerful caching strategies.
 
@@ -20,25 +17,18 @@ Cache-Control: public, max-age=31536000
 
 `Cache-Control` is the header, and each of `public` and `max-age=31536000` are*directives*. The `Cache-Control` header can accept one or more directives, and it is these directives, what they really mean, and their optimum use-cases that I want to cover in this post.
 
-* * * * *
-
-`public` and `private`
-----------------------
+## `public` and `private`
 
 `public` means that any caches may store a copy of the response. This includes CDNs, proxy servers, and the like. The `public` directive is often redundant, as the presence of other directives (such as `max-age`) are implicit instructions that caches may store a copy.
 
 `private`, on the other hand, is an explicit instruction that only the end recipient of the response (the *client*, or *the browser*) may store a copy of the file. While `private` isn't a security feature in and of itself, it is intended to prevent public caches (such as a CDN) storing a response that contains information unique to one user.
 
-* * * * *
-
-`max-age`
----------
+## `max-age`
 
 `max-age` defines a unit of time in seconds (relative to the time of the request) for which the response is deemed 'fresh'.
 
 ```
 Cache-Control: max-age=60
-
 ```
 
 This `Cache-Control` header tells the browser that it can use this file from the cache for the next 60 seconds without having to worry about revalidating it. Once the 60 seconds is up, the browser will head back to the server to revalidate the file.
@@ -53,28 +43,21 @@ Beware: There is one pretty large caveat with `max-age` on its own... `max-a
 
 The `s-maxage` (note the absence of the `-` between `max` and `age`) will take precedence over the `max-age` directive but only in the context of shared caches. Using `max-age`and `s-maxage` in conjunction allows you to have different fresh durations for private and public caches (e.g. proxies, CDNs) respectively.
 
-* * * * *
 
-`no-store`
-----------
+## `no-store`
 
 ```
 Cache-Control: no-store
-
 ```
 
 What if we don't want to cache a file? What if the file contains sensitive information? Perhaps it's an HTML page that contains your bank details? Or maybe the information is time-critical? Perhaps a page that contains realtime stock prices? We don't want to store or serve any responses like this from cache at all: we always want to discard sensitive information and fetch the freshest realtime information. Now we'd use `no-store`.
 
 `no-store` is a very strong directive not to persist any information to any cache, private or otherwise. Any asset that carries the `no-store` directive will always hit the network, no matter what.
 
-* * * * *
-
-`no-cache`
-----------
+## `no-cache`
 
 ```
 Cache-Control: no-cache
-
 ```
 
 This is the one that trips most people up... `no-cache` doesn't mean 'no cache'. It means 'do `no`t serve a copy from `cache` until you've revalidated it with the server and the server said you can use the cached copy'. Right. Sounds like this should be called `must-revalidate`! Except that's not what it sounds like, either.
@@ -87,16 +70,12 @@ A good use-case for `no-cache` would be almost any dynamic HTML page. Think of
 
 Tip: There is no use sending a `max-age` directive alongside a `no-cache` directive as the time-limit for revalidation is zero seconds.
 
-* * * * *
-
-`must-revalidate`
------------------
+## `must-revalidate`
 
 Even more confusingly, while the above sounds like it should be called `must-revalidate`, it turns out `must-revalidate` is something different still (but still similar).
 
 ```
 Cache-Control: must-revalidate, max-age=600
-
 ```
 
 `must-revalidate` needs an associated `max-age` directive; above, we've set it to ten minutes.
@@ -109,10 +88,7 @@ A great candidate for `must-revalidate` is a blog like mine: static pages that
 
 In a similar vein to `s-maxage`, `proxy-revalidate` is the public-cache specific version of `must-revalidate`. It is simply ignored by private caches.
 
-* * * * *
-
-`immutable`
------------
+## `immutable`
 
 `immutable` is a pretty new and very neat directive that tells the browser a little more about the type of file we've sent it---is its content mutable or immutable? But, before we look at what `immutable` does, let's look at the problem it's solving:
 
@@ -138,17 +114,13 @@ This is exactly what the `immutable` directive does:
 
 ```
 Cache-Control: max-age=31536000, immutable
-
 ```
 
 In browsers that support `immutable`, a user refresh will never cause a revalidation within the 31,536,000-second freshness lifespan. This means no unnecessary roundtrips spent retrieving `304` responses, which potentially saves us a lot of latency on the critical path ([CSS blocks rendering](https://csswizardry.com/2018/11/css-and-network-performance/)). On high latency connections, this saving could be tangible.
 
 Beware: You should not apply `immutable` to any files that are not immutable. You should also have a very robust cache busting strategy in place so that you don't inadvertently aggressively cache a file to which `immutable` has been applied.
 
-* * * * *
-
-`stale-while-revalidate`
-------------------------
+## `stale-while-revalidate`
 
 I really, really wish there was better support for `stale-while-revalidate`.
 
@@ -158,31 +130,23 @@ What `stale-while-revalidate` provides is a grace period (defined by us) in wh
 
 ```
 Cache-Control: max-age=31536000, stale-while-revalidate=86400
-
 ```
 
 This is telling the browser, 'this file is good to use for a year, but after that year is up, you have one extra day in which you may continue to serve this stale resource while you revalidate it in the background'.
 
 `stale-while-revalidate` is a great directive for non-critical resources that, sure, we'd like the freshest version, but we know there'll be no damage caused if we use the stale response once more while we're checking for updates.
 
-* * * * *
-
-`stale-if-error`
-----------------
+## `stale-if-error`
 
 In a similar manner to `stale-while-revalidate`, `stale-if-error` allows the browser a grace period in which it can permissibly return a stale response if the revalidated resource returns a `5xx`-class error.
 
 ```
 Cache-Control: max-age=2419200, stale-if-error=86400
-
 ```
 
 Here, we instruct the cache that the file is fresh for 28 days (2,419,200 seconds), and that if we were to encounter an error after that time, we allow an additional day (86,400 seconds) during which we will allow a stale asset to be served.
 
-* * * * *
-
-`no-transform`
---------------
+## `no-transform`
 
 `no-transform` doesn't have anything do with storing, serving, or revalidating freshness, but it does instruct intermediaries that they cannot modify, or *transform*, any of the response.
 
@@ -194,7 +158,6 @@ Here, we want to instruct this middleware not to transform any of our content.
 
 ```
 Cache-Control: no-transform
-
 ```
 
 The `no-transform` header can sit alongside any other directives, and needs no other directives for it to function itself.
@@ -203,10 +166,7 @@ N.B. Some transformations are a good idea: CDNs choosing between Gzip or Brotli
 
 N.B. If you're running over HTTPS---which you should be---then intermediaries and proxies can't modify payloads anyway, so `no-transform` would be ineffective.
 
-* * * * *
-
-Cache Busting
--------------
+## Cache Busting
 
 It would be irresponsible to talk about caching without talking about cache busting. I would always recommend solving your cache busting strategy before even thinking about your caching strategy. To do it the other way round is the fast-path to headaches.
 
@@ -230,7 +190,6 @@ Fingerprinting is by far the preferred method for cache busting a file. By liter
 
 ```
 Cache-Control: max-age=31536000, immutable
-
 ```
 
 #### Implementation Detail
@@ -251,7 +210,6 @@ I don't want to go into too much detail in this post as `Clear-Site-Data` is n
 
 ```
 Clear-Site-Data: "cache"
-
 ```
 
 Applying this header to any one of your origin's assets will clear the cache for the entire origin, not just the file to which it is attached. That means that, if you needed to hard-purge your entire site from all visitors' caches, you could apply the above header to just your HTML payload.
@@ -260,10 +218,7 @@ Applying this header to any one of your origin's assets will clear the cache for
 
 Tip: There are a number of directives that `Clear-Site-Data` will accept:`"cookies"`, `"storage"`, `"executionContexts"`, and `"*"` (which, naturally, means 'all of the above').
 
-* * * * *
-
-Examples and Recipes
---------------------
+## Examples and Recipes
 
 Okay, let's take a look at some scenarios and what kinds of `Cache-Control` headers we might employ.
 
@@ -276,7 +231,6 @@ To this end, let's go with:
 ```
 Request URL: /account/
 Cache-Control: no-store
-
 ```
 
 As per the spec, this would be sufficient to prevent a browser persisting the response to disk at all, across private and shared caches:
@@ -288,7 +242,6 @@ But if you wanted to be very defensive, perhaps you might opt for:
 ```
 Request URL: /account/
 Cache-Control: private, no-cache, no-store
-
 ```
 
 This would explicitly instruct not to store anything in public caches (e.g. a CDN), to always serve the freshest possible copy, and not to persist anything to storage.
@@ -300,7 +253,6 @@ If we're building a page that displays near-realtime information, we want to gua
 ```
 Request URL: /live-updates/
 Cache-Control: no-cache
-
 ```
 
 This simple directive will mean that the browser won't show a response directly from cache without checking with the server that it is allowed to. This means that a user will never be shown out of date train information, but they could benefit from grabbing file from their cache if the server dictates that the cache mirrors the latest information.
@@ -314,7 +266,6 @@ A page like FAQs is likely to update very infrequently, and the content on it is
 ```
 Request URL: /faqs/
 Cache-Control: max-age=604800, must-revalidate
-
 ```
 
 This tells the browser to cache the HTML page for one week (604,800 seconds), and once that week is up, we need to check with the server for updates.
@@ -328,7 +279,6 @@ Let's say our `app.[fingerprint].js` updates pretty frequently---potentially w
 ```
 Request URL: /static/app.1be87a.js
 Cache-Control: max-age=31536000, immutable
-
 ```
 
 It doesn't matter that we update our JS quite frequently: because of our ability to reliably cache bust it, we can cache it for as long as we like. In this case, we've chosen to cache it for a year. I picked a year because firstly, a year is a long time, but secondly, it's pretty highly unlikely that a browser will actually hold onto a file for that long anyway (browsers have a finite amount of storage they can use for HTTP cache, so they periodically empty parts of it themselves; users may clear their own cache). Going anything beyond a year is likely to be no more effective.
@@ -344,15 +294,11 @@ Images are usually a heavy asset to download, so we want to cache it; it's not c
 ```
 Request URL: /content/masthead.jpg
 Cache-Control: max-age=2419200, must-revalidate, stale-while-revalidate=86400
-
 ```
 
 Here we're telling the browser to store the image for 28 days (2,419,200 seconds), that we want to check with the server for updates after that 28-day time limit, and if the image is less than one day (86,400 seconds) out of date, let's use that one while we fetch the latest version in the background.
 
-* * * * *
-
-Key Things to Remember
-----------------------
+## Key Things to Remember
 
 -   Cache busting is vitally important. Work out your cache busting strategy before you begin work on your caching strategy.
 -   Generally speaking, caching HTML---content---is a bad idea. HTML URLs can't be busted, and as your HTML page is generally the entry point into the rest of your page's subresources, you'll end up caching the references to your static assets, too. This is going to cause you (and your users) a world of frustration.
@@ -365,10 +311,7 @@ Avoiding the network wherever possible makes for much faster experiences for our
 
 Cache rules everything.
 
-* * * * *
-
-Resources and Related Reading
------------------------------
+## Resources and Related Reading
 
 -   [*Caching best practices & max-age gotchas*](https://jakearchibald.com/2016/caching-best-practices/) -- [Jake Archibald](https://twitter.com/jaffathecake), 2016
 -   [*Cache-Control: immutable*](http://bitsup.blogspot.com/2016/05/cache-control-immutable.html) -- [Patrick McManus](https://twitter.com/mcmanusducksong), 2016
