@@ -5,7 +5,7 @@
 > * 译者：[xionglong58](https://github.com/xionglong58)
 > * 校对者：
 
-# JavaScript Symbols: But Why?
+# JavaScript 为什么会有 Symbols 类型？
 
 ![](https://cdn-images-1.medium.com/max/3840/1*-6P9pSYh8qCbyzKu4AG88w.jpeg)
 
@@ -125,15 +125,15 @@ console.log(Object.keys(obj)); // ['bar']
 不幸的是，与该对象交互的代码仍然可以访问对象那些键为 symbols 的属性。甚至是在调用代码自己**无法**访问 symbol 的情况下也有可能发生。 例如，`Reflect.ownKeys()` 方法能够得到一个对象的**所有**键的列表，包括字符串和 symbols：
 
 ```js
-function tryToAddPrivate(o) {
-  o[Symbol('Pseudo Private')] = 42;
+function tryToAddPrivate(obj) {
+  obj[Symbol('Pseudo Private')] = 42;
 }
 
 const obj = { prop: 'hello' };
 tryToAddPrivate(obj);
 
 console.log(Reflect.ownKeys(obj));
-        // [ 'prop', Symbol(Pseudo Private) ]
+
 console.log(obj[Reflect.ownKeys(obj)[1]]); // 42
 ```
 
@@ -208,7 +208,7 @@ JSON.stringify(user);
 
 如果我们为对象的属性名使用了一个 symbol，那么 JSON 的输出将不包含 symbol 对应的值。为什么会这样？因为仅仅是 JavaScript 支持了symbols，并不意味着 JSON 规范也改变了！JSON 只允许字符串作为键，而 JavaScript 不会尝试在最终的 JSON 负载中呈现 symbol 属性。
 
-We can easily rectify the issue where our library object strings are polluting the JSON output by making use of `Object.defineProperty()`:
+我们可以通过使用 `object.defineproperty()`，轻松纠正库对象字符串污染 JSON 输出的问题：
 
 ```js
 const library2property = uuid(); // namespaced approach
@@ -232,7 +232,7 @@ console.log(JSON.stringify(user));
 console.log(user[library2property]); // 369
 ```
 
-通过将字符串键的 enumerable [描述符](https://medium.com/intrinsic/javascript-object-property-descriptors-proxies-and-preventing-extension-1e1907aa9d10)设置为 false 来“隐藏”的字符串键的行为非常类似于 symbol 键。它们通过 `Object.keys()` 遍历也看不到，但可以通过 `Reflect.ownKeys()`显示，如下所示:
+通过将字符串键的可枚举[描述符](https://medium.com/intrinsic/javascript-object-property-descriptors-proxies-and-preventing-extension-1e1907aa9d10)设置为 false 来“隐藏”的字符串键的行为非常类似于 symbol 键。它们通过 `Object.keys()` 遍历也看不到，但可以通过 `Reflect.ownKeys()`显示，如下所示:
 
 ```js
 const obj = {};
@@ -255,15 +255,54 @@ console.log(JSON.stringify(obj)); // {}
 
 ## 模拟私有属性
 
-Here’s an interesting approach that we can use to simulate private properties on an object. This approach will make use of another JavaScript feature available to us today: proxies. A proxy essentially wraps an object and allows us to interpose on various interactions with that object.
+这里有一个有趣的方法，我们可以使用它来模拟对象上的私有属性。这种方法将利用另一个 JavaScript 的特性：proxy。proxy 本质上是封装了一个对象，并允许我们与该对象进行不同的交互。
 
-A proxy offers many ways to intercept actions performed on an object. The one we’re interested in affects when an attempt at reading the keys of an object occurs. I’m not going to entirely explain how proxies work, so if you’d like to learn more, check out our other post: [JavaScript Object Property Descriptors, Proxies, and Preventing Extension](https://medium.com/intrinsic/javascript-object-property-descriptors-proxies-and-preventing-extension-1e1907aa9d10).
+proxy 提供了许多方法来拦截对对象执行的操作。我们所感兴趣的是在尝试读取对象的键时，proxy 会有哪些动作。我不会去详细解释 proxy 是如何工作的，因此如果你想了解更多信息，请查看我们的另一篇文章： [JavaScript Object Property Descriptors, Proxies, and Preventing Extension](https://medium.com/intrinsic/javascript-object-property-descriptors-proxies-and-preventing-extension-1e1907aa9d10).
 
-We can use a proxy to then lie about which properties are available on our object. In this case we’re going to craft a proxy which hides our two known hidden properties, one being the string `_favColor`, and the other being the symbol assigned to `favBook`:
+我们可以使用 proxy 来谎报对象上可用的属性。在本例中，我们将创建一个 proxy，它用于隐藏我们的两个已知隐藏属性，一个是字符串 `_favColor`，另一个是分配给 `favBook` 的 symbol：
+```js
+let proxy;
 
-It’s easy to come up with the `_favColor` string: just read the source code of the library. Additionally, dynamic keys (e.g., the `uuid` example from before) can be found via brute force. But without a direct reference to the symbol, no one can access the 'Metro 2033' value from the `proxy` object.
+{
+  const favBook = Symbol('fav book');
 
-**Node.js Caveat**: There is a feature in Node.js which breaks the privacy of proxies. This feature doesn’t exist in the JavaScript language itself and doesn’t apply in other situations, such as a web browser. It allows one to gain access to the underlying object when given a proxy. Here is an example of using this functionality to break the above private property example:
+  const obj = {
+    name: 'Thomas Hunter II',
+    age: 32,
+    _favColor: 'blue',
+    [favBook]: 'Metro 2033',
+    [Symbol('visible')]: 'foo'
+  };
+
+  const handler = {
+    ownKeys: (target) => {
+      const reportedKeys = [];
+      const actualKeys = Reflect.ownKeys(target);
+
+      for (const key of actualKeys) {
+        if (key === favBook || key === '_favColor') {
+          continue;
+        }
+        reportedKeys.push(key);
+      }
+
+      return reportedKeys;
+    }
+  };
+
+  proxy = new Proxy(obj, handler);
+}
+
+console.log(Object.keys(proxy)); // [ 'name', 'age' ]
+console.log(Reflect.ownKeys(proxy)); // [ 'name', 'age', Symbol(visible) ]
+console.log(Object.getOwnPropertyNames(proxy)); // [ 'name', 'age' ]
+console.log(Object.getOwnPropertySymbols(proxy)); // [Symbol(visible)]
+console.log(proxy._favColor); // 'blue'
+```
+
+使用 `_favColor` 字符串很简单：只需读取库的源代码即可。此外，动态键可以（例如之前讲的 `uuid` 示例）可以通过暴力找到。但是，如果不是直接引用 symbol，任何人都无法从 `proxy` 对象中访问到值 `metro 2033`。
+
+**Node.js 声明**: node.js 中的一个特性破坏了 proxy 的隐私性。此功能不存在于 JavaScript 语言本身，也不适用于其他情况，例如 web 浏览器。这一特性允许在给定 proxy 时获得对底层对象的访问权。以下是一个使用此功能破坏上述私有属性的示例：
 
 ```js
 const [originalObject] = process
@@ -274,13 +313,13 @@ const allKeys = Reflect.ownKeys(originalObject);
 console.log(allKeys[3]); // Symbol(fav book)
 ```
 
-We would now need to either modify the global `Reflect` object, or modify the `util` process binding, to prevent them from being used in a particular Node.js instance. But that's one heck of a rabbit hole. If you're interested in tumbling down such a rabbit hole, check out our other blog post: [Protecting your JavaScript APIs](https://medium.com/intrinsic/protecting-your-javascript-apis-9ce5b8a0e3b5).
+我们现在需要修改全局 `Reflect` 对象，或是修改 `util` 进程绑定，以防止在特定的 node.js 实例中使用它们。但那却是一个新世界的大门，如果你想了解其中的奥秘，看看我们的其他博客： [Protecting your JavaScript APIs](https://medium.com/intrinsic/protecting-your-javascript-apis-9ce5b8a0e3b5)。
 
-This article was written by me, Thomas Hunter II. I work at a company called [Intrinsic](https://intrinsic.com/) (btw, [we’re hiring](mailto:jobs@intrinsic.com)!) where we specialize in writing software for securing Node.js applications. We currently have a product which follows the Least Privilege model for securing applications. Our product proactively protects Node.js applications from attackers, and is surprisingly easy to implement. If you are looking for a way to secure your Node.js applications, give us a shout at [hello@intrinsic.com](mailto:hello@intrinsic.com).
+这篇文章是我和 Thomas Hunter II 一起写的。我在一家名为 [Intricsic](https://intrinsic.com/) 的公司工作（顺便说一下，我们正在[招聘！](mailto:jobs@intrinsic.com)），专门编写用于保护 node.js 应用程序的软件。我们目前有一个产品应用 Least Privilege 模型来保护应用程序。我们的产品主动保护 node.js 应用程序不受攻击者的攻击，而且非常容易实现。如果你正在寻找保护 node.js 应用程序的方法，请在 [hello@inherin.com](mailto:hello@inherin.com) 上联系我们。
 
 ---
 
-**Banner photo by [Chunlea Ju](https://unsplash.com/photos/8fs1X0JFgFE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)**
+**横幅照片的作者 [Chunlea Ju](https://unsplash.com/photos/8fs1X0JFgFE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
