@@ -11,19 +11,19 @@
 
 ## 介绍
 
-神经网络正在被使用去提高我们生活的方方面面。它们为我们提供购物建议，[创作一篇基于某作者风格的文档](http://www.cs.utoronto.ca/~ilya/pubs/2011/LANG-RNN.pdf)甚至可以被使用去[改变图片的艺术风格](https://arxiv.org/pdf/1508.06576.pdf)。近几年来，大量的教程集中于如何使用神经网络去创作文本但却鲜有教程告诉你如何创作音乐。在这篇文章中我们将介绍如何通过循环神经网络，使用 Python 和 Keras 库去创作音乐。
+神经网络正在被使用去提升我们生活的方方面面。它们为我们提供购物建议，[创作一篇基于某作者风格的文档](http://www.cs.utoronto.ca/~ilya/pubs/2011/LANG-RNN.pdf)甚至可以被使用去[改变图片的艺术风格](https://arxiv.org/pdf/1508.06576.pdf)。近几年来，大量的教程集中于如何使用神经网络去创作文本但却鲜有教程告诉你如何创作音乐。在这篇文章中我们将介绍如何通过循环神经网络，使用 Python 和 Keras 库去创作音乐。
 
 对于那些没耐心的人，文档的结尾为你们提供了本教程的 Github 仓库的链接。
 
 ## 背景
 
-在进入具体的实现之前必须先弄清一些专业术语
+在进入具体的实现之前必须先弄清一些专业术语。
 
 ### 循环神经网络（RNN）
 
-循环神经网络是一类让我们使用时序信息的人工神经网络。之所以称之为循环是因为他们对每一个单独的数据序列都执行相同的函数。每次的结果依赖于之前的运算。传统的神经网络则与之相反，输出不依赖于之前的计算。
+循环神经网络是一类让我们使用时序信息的人工神经网络。之所以称之为循环是因为他们对数据序列中的每一个元素都执行相同的函数。。每次的结果依赖于之前的运算。传统的神经网络则与之相反，输出不依赖于之前的计算。
 
-在这篇教程中，我们使用一个[**Long Short-Term Memory (LSTM)**](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)神经网络。这类循环神经网络可以通过梯度下降法高效的学习。使用闸门机制，LSTMs 可以识别和编码长期模式。LSTMs 对于解决那些长期记忆信息的案例如创作音乐和文本特别有用。
+在这篇教程中，我们使用一个[** 长短期记忆 (LSTM)**](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)神经网络。这类循环神经网络可以通过梯度下降法高效的学习。使用闸门机制，LSTMs 可以识别和编码长期模式。LSTMs 对于解决那些长期记忆信息的案例如创作音乐和文本特别有用。
 
 ### Music21
 
@@ -35,7 +35,7 @@
 
 [Keras](https://keras.io/) 是一个 high-level 神经网络接口，它简化了和[Tensorflow](https://www.tensorflow.org/)的交互。它的开发重点是实现快速实验。
 
-在本教程中我们将使用 Keras 库去创造和训练 LSTM 模型。一旦这个模型被训练出来，我们将使用它去给我们的音乐创作音符。
+在本教程中我们将使用 Keras 库去创建和训练 LSTM 模型。一旦这个模型被训练出来，我们将使用它去给我们的音乐创作音符。
 
 ## 训练
 
@@ -43,9 +43,9 @@
 
 ### 数据
 
-在[Github repository](https://github.com/Skuldur/Classical-Piano-Composer) 中，我们使用钢琴曲（展示），音乐主要由《最终幻想》中的音轨组成。选择《最终幻想》系列音乐，是因为它有很多部分，而且大部分的旋律都是清晰而优美的。而任何一组由单个乐器组成的 MIDI 文件都可以为我们的目的服务。
+在[Github 仓库](https://github.com/Skuldur/Classical-Piano-Composer) 中，我们使用钢琴曲（展示），音乐主要由《最终幻想》中的音轨组成。选择《最终幻想》系列音乐，是因为它有很多部分，而且大部分的旋律都是清晰而优美的。而任何一组由单个乐器组成的 MIDI 文件都可以为我们的目的服务。
 
-第一步是执行神经网络去检查我们将要使用到的数据。
+实现神经网络的第一步是检查我们要处理的数据。
 
 下面我们看到的是来自于一个被 Music21 读取后的 midi 文件的摘录：
 
@@ -77,7 +77,7 @@
 
 *  **[音阶](http://web.mst.edu/~kosbar/test/ff/fourier/notes_pitchnames.html)** 是指你将选择在钢琴上使用哪些音高。 
 
-*  **休止符** 是指音符在作品的哪里驻留。
+*  **偏移量** 是指音符在作品的哪里驻留。
 
 而和弦对象的本质是一个同时播放一组音符的容器。
 
@@ -85,7 +85,7 @@
 
 接下来我得考虑把这些音符放到哪里了。正如大部分人听音乐时注意到的，音符的间隔通常不同。你可以听到很多音符的快速演替，然后接下来又是一段空白，这时没有任何音符演奏。
 
-接下来我们从另外一个被 Music21 读取过的 midi 文件里找一个摘要，这次我们仅仅在它后面添加了休止符。这使我们可以看到每个音符与和弦之间的间隔。
+接下来我们从另外一个被 Music21 读取过的 midi 文件里找一个摘要，这次我们仅仅在它后面添加了偏移量。这使我们可以看到每个音符与和弦之间的间隔。
 
 ```
 ...
@@ -111,7 +111,7 @@
 ...
 ```
 
-如这段摘要里所示，midi 文件里大部分数据集的音符的间隔都是 0.5。因此，我们可以通过忽略不同输出的休止符来简化数据和模型。这不会太剧烈的影响神经网络创作的音乐旋律。因此我们将忽视教程中的休止符并且把我们的可能输出列表保持在 352。
+如这段摘录里所示，midi 文件里大部分数据集的音符的间隔都是 0.5。因此，我们可以通过忽略不同输出的休止符来简化数据和模型。这不会太剧烈的影响神经网络创作的音乐旋律。因此我们将忽视教程中的休止符并且把我们的可能输出列表保持在 352。
 
 ### 准备数据
 
@@ -150,25 +150,25 @@ for file in glob.glob("midi_songs/*.mid"):
 ![Figure 1: When converting from categorical to numerical data the data is converted to integer indexes representing where the category is positioned in the set of distinct values. E.g. apple is the first distinct value so it maps to 0, orange is the second so it maps to 1, pineapple is the third so it maps to 2, and so forth.](https://cdn-images-1.medium.com/max/2000/1*sM3FeKwC-SD66FCKzoExDQ.jpeg)
 
 
-图1： 当一个数据由分类数据转换成数值数据时，此数据被转换成了一个整数索引来表示某一类在一组不同值中的位置。例如，苹果是第一个明确的值，因此它被映射成 0。桔子在第二个因此被映射成 1，菠萝就是 3，然后是 4。
+图1： 当一个数据由分类数据转换成数值数据时，此数据被转换成了一个整数索引来表示某一类在一组不同值中的位置。例如，苹果是第一个明确的值，因此它被映射成 0。桔子在第二个因此被映射成 1，菠萝就是 3，等等。
 
 首先，我们将写一个映射函数去把字符型分类数据映射成整型数值数据。这么做是因为神经网络处理整型数值数据（的性能）远比处理字符型分类数据好的多。图 1 就是一个把分类转换成数值的例子。
 
-接下来，我们必须为网络写一个输出序列并让它们分别输出。每一个输入序列对应的输出序列将是第一个音符或者和弦，它在音符列表的输入序列中，位于音符列表之后。
+接下来，我们必须为网络及其输出分别创建输入序列。每一个输入序列对应的输出序列将是第一个音符或者和弦，它在音符列表的输入序列中，位于音符列表之后。
 
 ```
 sequence_length = 100
 
-# get all pitch names
+# 得到所有的音高名称
 pitchnames = sorted(set(item for item in notes))
 
-# create a dictionary to map pitches to integers
+# 创建一个音高到音符的映射字典
 note_to_int = dict((note, number) for number, note in enumerate(pitchnames))
 
 network_input = []
 network_output = []
 
-# create input sequences and the corresponding outputs
+# 创建输入序列和与之对应的输出
 for i in range(0, len(notes) - sequence_length, 1):
     sequence_in = notes[i:i + sequence_length]
     sequence_out = notes[i + sequence_length]
@@ -177,15 +177,15 @@ for i in range(0, len(notes) - sequence_length, 1):
 
 n_patterns = len(network_input)
 
-# reshape the input into a format compatible with LSTM layers
+# 整理输入格式使之与 LSTM 兼容
 network_input = numpy.reshape(network_input, (n_patterns, sequence_length, 1))
-# normalize input
+# 归一化输入
 network_input = network_input / float(n_vocab)
 
 network_output = np_utils.to_categorical(network_output)
 ```
 
-在这段示例代码汇总，我们把每一个序列的长度都置于100个音符或者和弦。这意味着要想去在序列中去预测下一个音符，网络已经帮助去预测100个音符了。我极其推荐使用不同长度的序列去训练网络然后观察这些不同长度的序列对由网络产生的音乐的影响。
+在这段示例代码汇总，我们把每一个序列的长度都设为 100 个音符或者和弦。这意味着要想去在序列中去预测下一个音符，网络已经有 100 个音符来帮助预测了。我极其推荐使用不同长度的序列去训练网络然后观察这些不同长度的序列对由网络产生的音乐的影响。
 
 为网络准备数据的最后一步是将输入归一化处理并且[one-hot 编码输出](https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/).
 
@@ -273,7 +273,7 @@ model.add(Dense(n_vocab))
 model.add(Activation('softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='rmsprop')
 
-# Load the weights to each node
+# 给每一个音符增加权重
 model.load_weights('weights.hdf5')
 ```
 
@@ -291,7 +291,7 @@ int_to_note = dict((number, note) for number, note in enumerate(pitchnames))
 pattern = network_input[start]
 prediction_output = []
 
-# generate 500 notes
+# 生成 500 个音符
 for note_index in range(500):
     prediction_input = numpy.reshape(pattern, (1, len(pattern), 1))
     prediction_input = prediction_input / float(n_vocab)
@@ -334,7 +334,7 @@ for note_index in range(500):
 offset = 0
 output_notes = []
 
-# create note and chord objects based on the values generated by the model
+# 基于模型生成的值来创建音符与和弦
 
 for pattern in prediction_output:
     # pattern is a chord
@@ -348,14 +348,14 @@ for pattern in prediction_output:
         new_chord = chord.Chord(notes)
         new_chord.offset = offset
         output_notes.append(new_chord)
-    # pattern is a note
+    # 这是音符模型
     else:
         new_note = note.Note(pattern)
         new_note.offset = offset
         new_note.storedInstrument = instrument.Piano()
         output_notes.append(new_note)
 
-    # increase offset each iteration so that notes do not stack
+    # 增加每次迭代的偏移量使音符不会堆叠
     offset += 0.5
 ```
 
