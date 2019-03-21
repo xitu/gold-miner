@@ -1,3 +1,10 @@
+> * 原文地址：[Open Source Doesn't Make Money Because It Isn't Designed To Make Money](https://www.ianbicking.org/blog/2019/03/open-source-doesnt-make-money-by-design.html)
+> * 原文作者：[Ian Bicking](https://www.ianbicking.org/)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/open-source-doesnt-make-money-by-design.md](https://github.com/xitu/gold-miner/blob/master/TODO1/open-source-doesnt-make-money-by-design.md)
+> * 译者：
+> * 校对者：
+
 # Open Source Doesn't Make Money Because It Isn't Designed To Make Money
 
 > Or: *The Best Way To Do Something Is To At Least Try*
@@ -39,3 +46,9 @@ But if you have a business concept, and you think it might work, what does open 
 Another lens might be: who are you selling to? Classical scratch-your-own-itch open source software is built by programmers *for* programmers. And it is wildly successful, but it's selling to people who aren't willing to pay. They want to take the software and turn it around into greater personal productivity (which turns out to be a smart move, given the rise in programmer wages). Can we sell open source to other people? Can anyone else *do* anything with source code?
 
 And so I remain pessimistic that open source can find commercial success. But also frustrated: so much software is open source *except* any commercial product. This is where the Free Software mission has faltered despite so many successes: software that people actually touch isn't free or open. That's a shame.
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
