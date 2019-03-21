@@ -15,7 +15,7 @@
 
 这是真的，让我们先看一张图：
 
-![The process of getting pixels to screen.](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.svg)](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.zip)
+[![The process of getting pixels to screen.](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.svg)](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.zip)
 
 将像素放到屏幕上的完整过程。
 
