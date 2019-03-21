@@ -227,7 +227,7 @@ const user = {
 lib2tag(user);
 
 // '{"name":"Thomas Hunter II",
-"age":32,"f468c902-26ed-4b2e-81d6-5775ae7eec5d":369}'
+"age":32,"f468c902-26ed-4b2e-81d6-5775ae7eec5d":369}
 console.log(JSON.stringify(user));
 console.log(user[library2property]); // 369
 ```
