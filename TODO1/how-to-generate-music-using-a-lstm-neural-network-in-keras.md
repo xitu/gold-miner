@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-generate-music-using-a-lstm-neural-network-in-keras.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-generate-music-using-a-lstm-neural-network-in-keras.md)
 > * 译者：[HearFishle](https://github.com/HearFishle)
-> * 校对者：[xionglong58](https://github.com/xionglong58)[JackEggie](https://github.com/JackEggie)
+> * 校对者：[xionglong58](https://github.com/xionglong58)，[JackEggie](https://github.com/JackEggie)
 
 # 如何在 Keras 中使用 LSTM 神经网络创作音乐
 
@@ -142,7 +142,7 @@ for file in glob.glob("midi_songs/*.mid"):
             notes.append('.'.join(str(n) for n in element.normalOrder))
 ```
 
-使用  _converter.parse(file)_ 函数，我们开始把每一个文件加载到一个 Music21 流对象中。使用这个流对象，我们在文件中得到一个包含所有的音符与和弦的列表。把字符串符号贴到到每个音符对象的音高上，因为使用字符串符号可以重新创造音符最重要的部分。这些代码使我们可以轻松的把由网络生成的输出解码为正确的音符与和弦。
+使用 _converter.parse(file)_ 函数，我们开始把每一个文件加载到一个 Music21 流对象中。使用这个流对象，我们在文件中得到一个包含所有的音符与和弦的列表。把字符串符号贴到到每个音符对象的音高上，因为使用字符串符号可以重新创造音符最重要的部分。这些代码使我们可以轻松的把由网络生成的输出解码为正确的音符与和弦。
 
 既然我们已经把所有的音符与和弦放入一个序列表中，我们就可以创造一个序列，作为网络的输入。
 
@@ -150,7 +150,7 @@ for file in glob.glob("midi_songs/*.mid"):
 ![Figure 1: When converting from categorical to numerical data the data is converted to integer indexes representing where the category is positioned in the set of distinct values. E.g. apple is the first distinct value so it maps to 0, orange is the second so it maps to 1, pineapple is the third so it maps to 2, and so forth.](https://cdn-images-1.medium.com/max/2000/1*sM3FeKwC-SD66FCKzoExDQ.jpeg)
 
 
-图1： 当一个数据由分类数据转换成数值数据时，此数据被转换成了一个整数索引来表示某一类在一组不同值中的位置。例如，苹果是第一个明确的值，因此它被映射成 0。桔子在第二个因此被映射成 1，菠萝就是 3，等等。
+图1：当一个数据由分类数据转换成数值数据时，此数据被转换成了一个整数索引来表示某一类在一组不同值中的位置。例如，苹果是第一个明确的值，因此它被映射成 0。桔子在第二个因此被映射成 1，菠萝就是 3，等等。
 
 首先，我们将写一个映射函数去把字符型分类数据映射成整型数值数据。这么做是因为神经网络处理整型数值数据（的性能）远比处理字符型分类数据好的多。图 1 就是一个把分类转换成数值的例子。
 
@@ -187,19 +187,19 @@ network_output = np_utils.to_categorical(network_output)
 
 在这段示例代码汇总，我们把每一个序列的长度都设为 100 个音符或者和弦。这意味着要想去在序列中去预测下一个音符，网络已经有 100 个音符来帮助预测了。我极其推荐使用不同长度的序列去训练网络然后观察这些不同长度的序列对由网络产生的音乐的影响。
 
-为网络准备数据的最后一步是将输入归一化处理并且[one-hot 编码输出](https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/).
+为网络准备数据的最后一步是将输入归一化处理并且 [one-hot 编码输出](https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/)。
 
 ### 模型
 
 最后我们来设计这个模型的机构。在模型汇总我们使用到了四种不同类型的层：
 
-** LSTM 层 ** 是一个循环的神经网络层，它把一个序列作为输入然后返回另一个序列（返回序列的值为真）或者一个矩阵。
+**LSTM 层** 是一个循环的神经网络层，它把一个序列作为输入然后返回另一个序列（返回序列的值为真）或者一个矩阵。
 
-** Dropout 层** 是一个技术规则，这其中包含了在训练期间每次更新时将输入单位的一小部分置于0，以防止过拟合。
+**Dropout 层** 是一个技术规则，这其中包含了在训练期间每次更新时将输入单位的一小部分置于0，以防止过拟合。
 
-** Dense 层** 或** fully connected 层 ** 是一个完全连接神经网络的层，这里的每一个输入节点都连接着输出节点。
+**Dense 层** 或 **fully connected 层** 是一个完全连接神经网络的层，这里的每一个输入节点都连接着输出节点。
 
-** The Activation 层 ** 决定使用神经网络中的哪个激活函数去计算输出节点。
+**The Activation 层** 决定使用神经网络中的哪个激活函数去计算输出节点。
 
 ```
 model = Sequential()
@@ -227,7 +227,7 @@ model = Sequential()
 
 最后一层应该始终包含和我们输出不同结果数量相同的节点。这确保网络的输出将直接映射到我们的类里。
 
-在这里我们将使用一个简单的，包含三个 LSTM 层，三个 Dropout 层，两个 Dense 层和一个 activation 层的网络。我推荐绕着网络的结构去“玩玩”，观察你是否可以提高预测的质量。
+在这里我们将使用一个简单的，包含三个 LSTM 层、三个 Dropout 层、两个 Dense 层和一个 activation 层的网络。我推荐绕着网络的结构去“玩玩”，观察你是否可以提高预测的质量。
 
 为了计算每次迭代的损失，我们将使用 [分类交叉熵](https://rdipietro.github.io/friendly-intro-to-cross-entropy-loss/)因为我们每次输出属于一个简单类并且我们有不止两个以上的类在为此工作。为了优化网络我们将使用 RMSprop 优化器。通常对于循环神经网络，使用它算是一个好的选择。
 
@@ -405,4 +405,3 @@ midi_stream.write('midi', fp='test_output.mid')
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-
