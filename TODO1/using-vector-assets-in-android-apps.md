@@ -57,34 +57,34 @@ android {
 
 > 这可以防止属性 ID 冲突 —— 在 `VectorDrawables` 中使用的属性（`android:pathData`，`android:fillColor` 等)都有一个整数 ID，这些 ID 是在 API 21 中添加的。在老版本的 Android 上，没有任何东西可以阻止 OEM 使用任何"无人认领”的 ID，因此在较老的平台上使用较新的属性是不安全的。
 
-这种版本控制将阻止在较老的平台上访问这些资源，使反编译成为不可能的事情 —— gradle 标志禁用了可绘制对象资源（ vector drawables ）的版本控制。这就是为什么你使用 `android:pathData` 引入你的向量而不是必须切换到 `app:pathData` 等其他后移功能。
+这种版本控制将阻止在较老的平台上访问这些资源，使反编译成为不可能的事情 —— gradle 标志禁用了可绘制对象资源（vector drawables）的版本控制。这就是为什么你使用 `android:pathData` 引入你的向量而不是必须切换到 `app:pathData` 等其他后移功能。
 
 ### 2. 使用 AndroidX 加载
 
-当加载 drawables 时，你需要使用 AndroidX 的方法，因为它已经提供了对矢量资源的支持。这个的切入点是始终利用 [`AppCompatResources.getDrawable`](https://developer.android.com/reference/androidx/appcompat/content/res/AppCompatResources.html#getDrawable(android.content.Context,%20int)) 加载 drawables。虽然有许多方法可以加载 drawables （因为某些原因），但是如果你想使用 compat 向量，就必须使用 AppCompatResources。如果你做不到这一点，那么你就不能连接到 AndroidX 代码路径，当你尝试使用任何你运行的平台不支持的功能时，你的应用程序可能会崩溃。
+当加载 drawables 时，你需要使用 AndroidX 的方法，因为它已经提供了对矢量资源的支持。这个的切入点是始终利用 [`AppCompatResources.getDrawable`](https://developer.android.com/reference/androidx/appcompat/content/res/AppCompatResources.html#getDrawable(android.content.Context,%20int)) 加载 drawables。虽然有许多方法可以加载 drawables（因为某些原因），但是如果你想使用 compat 向量，就必须使用 AppCompatResources。如果你做不到这一点，那么你就不能连接到 AndroidX 代码路径，当你尝试使用任何你运行的平台不支持的功能时，你的应用程序可能会崩溃。
 
 > `VectorDrawableCompat` 还提供了一个 `create` 方法。 我总是会建议使用 `AppCompatResources`，因为这会增加一层缓存。
 
-如果你想以声明的方式设置 drawables （即在你的布局中），`appcompat` 提供了一些 `Compat` 属性，你应该使用这些属性而不是标准的平台属性:
+如果你想以声明的方式设置 drawables（即在你的布局中），`appcompat` 提供了一些 `Compat` 属性，你应该使用这些属性而不是标准的平台属性：
 
-`ImageView`, `ImageButton`:
+`ImageView`，`ImageButton`：
 
-* 不要使用: `android:src`
-* 应该使用： `app:srcCompat`
+* 不要使用：`android:src`
+* 应该使用：`app:srcCompat`
 
-`CheckBox`, `RadioButton`:
+`CheckBox`，`RadioButton`：
 
-* 不要使用： `android:button`
-* 应该使用： `app:buttonCompat`
+* 不要使用：`android:button`
+* 应该使用：`app:buttonCompat`
 
-`TextView` ([as of `appcompat:1.1.0`](https://developer.android.com/jetpack/androidx/androidx-rn#2018-dec-03-appcompat)):
+`TextView`（[as of `appcompat:1.1.0`](https://developer.android.com/jetpack/androidx/androidx-rn#2018-dec-03-appcompat)）：
 
-* 不要使用： `android:drawableStart` `android:drawableTop` 等
-* 应该使用： `app:drawableStartCompat` `app:drawableTopCompat` 等
+* 不要使用：`android:drawableStart` 和 `android:drawableTop` 等
+* 应该使用：`app:drawableStartCompat` 和 `app:drawableTopCompat` 等
 
 由于这些属性是 `appcompat` 库的一部分，请确保使用 app: namespace。在内部，这些 `AppCompat` 视图使用 `AppCompatResources` 来支持加载矢量的加载。
 
-> 如果你想了解 `appcompat` 如何交换出 `TextView` ，或者声明了一个启用此功能的 `AppCompatTextView` 等，你可以查看这篇文章: [https://helw.net/2018/08/06/appcompat-view-inflation/](https://helw.net/2018/08/06/appcompat-view-inflation/)
+> 如果你想了解 `appcompat` 如何交换出 `TextView`，或者声明了一个启用此功能的 `AppCompatTextView` 等，你可以查看这篇文章：[https://helw.net/2018/08/06/appcompat-view-inflation/](https://helw.net/2018/08/06/appcompat-view-inflation/)
 
 ## 实战
 
@@ -92,7 +92,7 @@ android {
 
 ### 没有 compat 属性的视图
 
-不幸的是，有很多地方你可能想要在不提供 compat 属性的视图上指定 drawables（例如，对于 `progressbar` 来说没有 `indeterminateDrawableCompat` 属性)。你仍然可以使用 AndroidX vectors，但你需要对代码作如下更改:
+不幸的是，有很多地方你可能想要在不提供 compat 属性的视图上指定 drawables（例如，对于 `progressbar` 来说没有 `indeterminateDrawableCompat` 属性）。你仍然可以使用 AndroidX vectors，但你需要对代码作如下更改:
 
 ```
 /* Copyright 2018 Google LLC.
@@ -114,7 +114,7 @@ fun bindIndeterminateProgress(progressBar: ProgressBar, @DrawableRes id: Int) {
 }
 ```
 
-请注意，我们不希望数据绑定为我们加载 drawable（因为它*目前*不使用 `AppCompatResources` 来加载 drawables），所以不能像 `@ {@ drawable / foo}` 那样直接引用 drawable。相反，如果我们想将 drawable **id** 传递给绑定适配器，因此需要导入 `R` 来引用它：
+请注意，我们不希望数据绑定为我们加载 drawable（因为它**目前**不使用 `AppCompatResources` 来加载 drawables），所以不能像 `@ {@ drawable / foo}` 那样直接引用 drawable。相反，如果我们想将 drawable **id** 传递给绑定适配器，因此需要导入 `R` 来引用它：
 
 ```
 <!-- Copyright 2018 Google LLC.
@@ -133,11 +133,11 @@ fun bindIndeterminateProgress(progressBar: ProgressBar, @DrawableRes id: Int) {
 
 ### 嵌套的 drawables
 
-有些 `drawable` 是可嵌套的，例如 `StateListDrawables`，`InsetDrawables` 或 `LayerDrawables` 均包含其他子 drawable。 AndroidX 支持显式渲染  `<vector>` 元素(也包括动画向量（`animated-vector`）和动画选择器（`animated-selectors`，但我们今天主要讨论静态 vectors）。当你调用 `AppCompatResources.getDrawable`，它用给定的 `id` 查看资源，如果它是一个向量(即根元素是 `<vector>`)，它就会手动地为你加载它。否则，它就会把它交给系统加载——这样做的时候，AndroidX 就无法将自己重新插入到进程中。这意味着，如果你有一个包含向量的 `InsetDrawable`，并利用 `AppCompatResources` 加载它，它将根据 `<inset>` 标记，然后将它交给平台来加载。因此，它将没有机会加载嵌套的 `<vector>`，因此要么加载失败(在 API <21 上)，要么返回到平台支持。
+有些 `drawable` 是可嵌套的，例如 `StateListDrawables`，`InsetDrawables` 或 `LayerDrawables` 均包含其他子 drawable。AndroidX 支持显式渲染 `<vector>` 元素（也包括动画向量（`animated-vector`）和动画选择器（`animated-selectors`），但我们今天主要讨论静态 vectors）。当你调用 `AppCompatResources.getDrawable`，它用给定的 `id` 查看资源，如果它是一个向量（即根元素是 `<vector>`），它就会手动地为你加载它。否则，它就会把它交给系统加载——这样做的时候，AndroidX 就无法将自己重新插入到进程中。这意味着，如果你有一个包含向量的 `InsetDrawable`，并利用 `AppCompatResources` 加载它，它将根据 `<inset>` 标记，然后将它交给平台来加载。因此，它将没有机会加载嵌套的 `<vector>`，因此要么加载失败（在 API <21 上），要么返回到平台支持。
 
-要解决这个问题，可以在代码中创建 `drawables` ；也就是说，使用 `AppCompatResources` 加载矢量资源，然后手动创建 `InsetDrawable` 格式的 drawable。
+要解决这个问题，可以在代码中创建 `drawables`；也就是说，使用 `AppCompatResources` 加载矢量资源，然后手动创建 `InsetDrawable` 格式的 drawable。
 
-有一个例外是 AndroidX 最近添加了一个新功能（从 [`appcompat:1.0.0`](https://developer.android.com/jetpack/androidx/androidx-rn#1.0.0-new) 开始）——  [`AnimatedStateListDrawables`](https://developer.android.com/reference/androidx/appcompat/graphics/drawable/AnimatedStateListDrawableCompat) 向后移植（译者注：原文是 back-ported ，Wikipedia 上解释是`把新版本上的东西移植到老版本上去`，这里翻译成向后移植）。这是 `StateListDrawable` 的一个版本，具有状态之间的动画转换(以 `AnimatedVectorDrawables` 的形式)。你不需要申明一个过渡。因此，如果你只需要一个可以使用 AndroidX 来扩充子向量的 `StateListDrawable` ，那么你可以使用：
+有一个例外是 AndroidX 最近添加了一个新功能（从 [`appcompat:1.0.0`](https://developer.android.com/jetpack/androidx/androidx-rn#1.0.0-new) 开始）——  [`AnimatedStateListDrawables`](https://developer.android.com/reference/androidx/appcompat/graphics/drawable/AnimatedStateListDrawableCompat) 向后移植（译者注：原文是 back-ported ，Wikipedia 上解释是`把新版本上的东西移植到老版本上去`，这里翻译成向后移植）。这是 `StateListDrawable` 的一个版本，具有状态之间的动画转换(以 `AnimatedVectorDrawables` 的形式)。你不需要申明一个过渡。因此，如果你只需要一个可以使用 AndroidX 来扩充子向量的 `StateListDrawable`，那么你可以使用：
 
 ```
 <!-- Copyright 2018 Google LLC.
