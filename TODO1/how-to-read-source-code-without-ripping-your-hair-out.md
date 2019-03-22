@@ -5,7 +5,7 @@
 > * 译者：[Mcskiller](https://github.com/Mcskiller)
 > * 校对者：
 
-# 如何心平气和的阅读代码
+# 如何心平气和地阅读代码
 
 ![](https://cdn-images-1.medium.com/max/10944/1*Vv0HNvRhU0ihKVaBIpDUww.jpeg)
 
@@ -121,7 +121,7 @@ pry> method(:belongs_to).owner
 
 ![](https://cdn-images-1.medium.com/max/2000/1*VP1Zze3OGAZnalmuvzJhhQ.png)
 
-现在你已经有了想要跟踪的目标，剩下的就是跟踪它，直到找到你的答案。这似乎是一个简单的步骤，但这正是大多数初学者犯错的地方。
+现在你已经有了想要跟随的目标，剩下的就是跟随它，直到找到你的答案。这似乎是一个简单的步骤，但这正是大多数初学者犯错的地方。
 
 其中一个原因是，仓库是没有目录的。我们任由维护人员以可读的方式组织他们的文件。
 
