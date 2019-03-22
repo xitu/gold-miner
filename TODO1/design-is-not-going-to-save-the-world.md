@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/design-is-not-going-to-save-the-world.md](https://github.com/xitu/gold-miner/blob/master/TODO1/design-is-not-going-to-save-the-world.md)
 > * 译者：[QiaoN](https://github.com/QiaoN)
-> * 校对者：
+> * 校对者：[Moonliujk](https://github.com/Moonliujk), [Fengziyin1234](https://github.com/Fengziyin1234)
 
 # 设计不会拯救世界
 
@@ -57,7 +57,7 @@
 
 这些问题是多方面的。并没有什么万能方法来解决它们。能突然来帮助我们解决问题，让我们看到曙光的惊奇洞见并不存在。
 
-相反，解决这些系统问题就像试着控制野火一样。当你正努力和它一侧斗争时，另一侧又烧了 50平方英里。你不能希望只减少问题的一部分却忽略其它部分来取得进展。
+相反，解决这些系统问题就像试着控制野火一样。当你正努力和它一侧斗争时，另一侧又烧了 50 平方英里。你不能希望只减少问题的一部分却忽略其它部分来取得进展。
 
 最终，就像野火一样，你只能试着尽量减少伤害，直到天气转变暴雨来临提供了真正的系统解决方案，来解决了问题的方方面面。
 
@@ -65,7 +65,7 @@
 
 以人为本的设计是聚焦。它是观察全局，然后将一组可管理的洞见和变量归零，并解决它们。根据定义，这意味着该过程会促进设计师主动忽略问题的许多方面。当你试图解决一些系统性的问题时，这种短程聚焦不起作用。
 
-最近，一份针对一系列强调以用户为中心设计的共享出行程序的[研究](http://www.schallerconsult.com/rideservices/automobility.htm)表明，共享出行每减少 1英里的个人驾驶里程，总城市交通却**增加**了 2.6英里。共享出行程序实际上使城市交通变的**更糟**。
+最近，一份针对一系列强调以用户为中心设计的共享出行程序的[研究](http://www.schallerconsult.com/rideservices/automobility.htm)表明，共享出行每减少 1英里的个人驾驶里程，总城市交通却**增加**了 2.6 英里。共享出行程序实际上使城市交通变的**更糟**。
 
 共享出行公司如 Lyft 曾预想他们可以通过解决交通拥堵来缓解人们的交通问题，他们采用了以人为本的设计方法来实现这一想法。他们怎么会出错呢？
 
