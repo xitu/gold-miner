@@ -116,7 +116,6 @@ reader_thread.start()
 
 ## 来教线程们相处：并发控制
 
-Both data races and race conditions are real-world problems: some people even [died because of them](https://en.wikipedia.org/wiki/Therac-25). The art of accommodating two or more concurrent threads is called concurrency control: operating systems and programming languages offer several solutions to take care of it. The most important ones:
 数据竞争和竞争条件都是现实世界的问题：有些人甚至[因之而死](https://en.wikipedia.org/wiki/Therac-25)。调度多个并发线程的艺术叫做并发控制：为了处理这个问题，操作系统和编程语言提供了几个解决方案。其中最重要的是：
 
 - 同步——一种确保同一时间资源只会被一个线程使用的方式。同步就是把代码的特定部分标记为“受保护的”，这样多个并发线程就不会同时执行这段代码，避免它们把共享数据搞砸；
