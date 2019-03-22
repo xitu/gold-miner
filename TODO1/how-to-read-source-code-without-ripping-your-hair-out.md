@@ -137,7 +137,7 @@ pry> method(:belongs_to).owner
 
 为了得到最好的结果，你需要让你的搜索尽可能具体。这需要你对你想找的内容有一个概念。盲目的搜索 Github 是没有用的。
 
-回到步骤 2 中的示例，我试图在 `ActiveRecord::Associations` 中找到 `ClassMethods` 模块。用外行人的话来说，我正在寻找位于 `ActiveRecord` 模块内部的模块 `Associations` 中的 `ClassMethods` 模块。此外，我正在寻找 `belongs_to` 方法。
+回到步骤 2 中的示例，我试图在 `ActiveRecord::Associations` 中找到 `ClassMethods` 模块。用外行人的话来说，我正在寻找位于 `ActiveRecord` 模块内部的模块 `Associations` 中的 `ClassMethods` 模块。此外，我也在寻找 `belongs_to` 方法。
 
 ***
 
