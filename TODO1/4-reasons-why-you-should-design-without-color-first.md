@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/4-reasons-why-you-should-design-without-color-first.md](https://github.com/xitu/gold-miner/blob/master/TODO1/4-reasons-why-you-should-design-without-color-first.md)
 > * 译者：[xionglong58](https://github.com/xionglong58)
-> * 校对者：
+> * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234), [QiaoN](https://github.com/QiaoN)
 
 # 四个理由让你使用灰度色调进行设计
 
@@ -29,7 +29,7 @@
 
 ## 4. 创建一致性
 
-在你的设计中最好使用三种或三种以下的颜色。设计中有太多的颜色可能会弄晕用户或将用户的注意力引向不太重要区域。比如，当你要做的设计只有一种颜色，完全采用黑白色调，用户的目光会自然地落在这些“彩色”区域中。。
+在你的设计中最好使用三种或三种以下的颜色。设计中有太多的颜色可能会弄晕用户或将用户的注意力引向不太重要区域。比如，当你要做的设计只有一种颜色，完全采用黑白色调，用户的目光会自然地落在这些“彩色”区域中。
 
 ![UXPin Design Systems Tool](https://cdn-images-1.medium.com/max/2000/0*hxW3pxZK3PRE-XVE.jpg)
 
