@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# The Android Lifecycle cheat sheet — part IV : ViewModels, Translucent Activities and Launch Modes
+# The Android Lifecycle cheat sheet — part IV: ViewModels, Translucent Activities and Launch Modes
 
 In this series:
 
