@@ -21,17 +21,17 @@
 
 从 Lollipop 开始，你可以在任何需要使用其他可绘制类型的地方使用 `VectorDrawables`（使用标准的 `@drawable/foo` 语法引用它们），但是我建议**始终**使用 AndroidX 实现。
 
-这会显著增加其使用平台的范围，不仅如此，它还支持将特性和 bug 修复程序向后移植到旧平台。例如，使用 AndroidX 中的 `VectorDrawableCompat` 可以:
+这会显著增加其使用平台的范围，不仅如此，它还支持将特性和 bug 修复程序向后移植到旧平台。例如，使用 AndroidX 中的 `VectorDrawableCompat` 可以：
 
-*  `nonZero` 和 `evenOdd` 路径 `fillTypes` —— [定义形状“内部”](https://www.sitepoint.com/understanding-svg-fill-rule-property/)的两种常见方法，通常用于 SVGs （`evenOdd` 在 API 24 中得以实现）
-* 渐变（Gradient） & `ColorStateList` 填充 / 画笔 （在 API 24 中被添加实现）
+*  `nonZero` 和 `evenOdd` 路径 `fillTypes` —— [定义形状“内部”](https://www.sitepoint.com/understanding-svg-fill-rule-property/)的两种常见方法，通常用于 SVGs（`evenOdd` 在 API 24 中得以实现）
+* 渐变（Gradient）& `ColorStateList` 填充 / 画笔（在 API 24 中被添加实现）
 * Bug修复
 
-事实上， AndroidX 将使用 compat 实现，甚至在一些存在本地实现的平台上（[当前是 api 21-23](https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev/appcompat/src/main/java/androidx/appcompat/widget/AppCompatDrawableManager.java#100)）也可以实现上述优点。否则，它将委托给平台实现，因此仍然可以接收对新版本的任何改进（例如，为了提高性能， `VectorDrawable` 在 API 24 的 C 中重新实现)。
+事实上，AndroidX 将使用 compat 实现，甚至在一些存在本地实现的平台上（[当前是 api 21-23](https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev/appcompat/src/main/java/androidx/appcompat/widget/AppCompatDrawableManager.java#100)）也可以实现上述优点。否则，它将委托给平台实现，因此仍然可以接收对新版本的任何改进（例如，为了提高性能，`VectorDrawable` 在 API 24 的 C 中重新实现)。
 
-基于这些原因，你应该**始终**使用 AndroidX ，即使你很幸运地将你的 `minSdkVersion` 设置成 24。这没什么不好的，如果/当 `VectorDrawable` 在未来扩展了新的功能，并且它们也被添加到 AndroidX 中，那么它们就可以直接使用，而不需要重新检查代码。
+基于这些原因，你应该**始终**使用 AndroidX，即使你很幸运地将你的 `minSdkVersion` 设置成 24。这没什么不好的，如果/当 `VectorDrawable` 在未来扩展了新的功能，并且它们也被添加到 AndroidX 中，那么它们就可以直接使用，而不需要重新检查代码。
 
-[Alex Lockwood](undefined) *是这么说的*:
+[Alex Lockwood](undefined) **是这么说的**：
 
 ![](https://user-images.githubusercontent.com/26959437/53942808-b4be1780-40f6-11e9-8260-902527955400.png)
 
@@ -51,11 +51,11 @@ android {
 }
 ```
 
-如果 `minSdkVersion` < 21，这意味着 Android Gradle 插件无法[生成矢量资源的 PNG 版本](https://developer.android.com/studio/write/vector-asset-studio#apilevel)——如果我们使用 AndroidX 库的话就不用担心这个问题。
+如果 `minSdkVersion` < 21，这意味着 Android Gradle 插件无法[生成矢量资源的 PNG 版本](https://developer.android.com/studio/write/vector-asset-studio#apilevel) —— 如果我们使用 AndroidX 库的话就不用担心这个问题。
 
-通过默认的 [AAPT](https://developer.android.com/studio/command-line/aapt2)（ Android 资产包装工具）版本资源。它也被传递给构建工具链。这意味着，如果你在 `res/drawable/` 中声明一个 `VectorDrawable`，它会为你将其自动移动到 `res/drawable-v21/`，因为系统知道这就是 `VectorDrawable` 类被引入的时候。
+通过默认的 [AAPT](https://developer.android.com/studio/command-line/aapt2)（Android 资产包装工具）版本资源。它也被传递给构建工具链。这意味着，如果你在 `res/drawable/` 中声明一个 `VectorDrawable`，它会为你将其自动移动到 `res/drawable-v21/`，因为系统知道这就是 `VectorDrawable` 类被引入的时候。
 
-> 这可以防止属性 ID 冲突 —— 在 `VectorDrawables` 中使用的属性（ `android:pathData`，`android:fillColor` 等)都有一个整数 ID ，这些 ID 是在 API 21 中添加的。在老版本的 Android 上，没有任何东西可以阻止 OEM 使用任何"无人认领”的 ID ，因此在较老的平台上使用较新的属性是不安全的。
+> 这可以防止属性 ID 冲突 —— 在 `VectorDrawables` 中使用的属性（`android:pathData`，`android:fillColor` 等)都有一个整数 ID，这些 ID 是在 API 21 中添加的。在老版本的 Android 上，没有任何东西可以阻止 OEM 使用任何"无人认领”的 ID，因此在较老的平台上使用较新的属性是不安全的。
 
 这种版本控制将阻止在较老的平台上访问这些资源，使反编译成为不可能的事情 —— gradle 标志禁用了可绘制对象资源（ vector drawables ）的版本控制。这就是为什么你使用 `android:pathData` 引入你的向量而不是必须切换到 `app:pathData` 等其他后移功能。
 
