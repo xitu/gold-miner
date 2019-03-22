@@ -9,11 +9,11 @@
 
 ![](https://www.hackingwithswift.com/uploads/swift-evolution-5.jpg)
 
-[SE-0235](https://github.com/apple/swift-evolution/blob/master/proposals/0235-add-result.md) 在标准库中引入了一个  `Result` 类型，使我们能够更简单、更清晰地处理复杂代码中的错误，比如异步 API 。这是人们在 Swift 早期就开始要求的东西，所以很高兴看到它终于到来!
+[SE-0235](https://github.com/apple/swift-evolution/blob/master/proposals/0235-add-result.md) 在标准库中引入了一个 `Result` 类型，使我们能够更简单、更清晰地处理复杂代码中的错误，比如异步 API。这是人们在 Swift 早期就开始要求的东西，所以很高兴看到它终于到来!
 
-Swift 的  `Result ` 类型被实现为一个枚举，它有两种情况: `success` 和 `failure`。两者都是使用泛型实现的，因此它们可以有您选择的关联值，但 `failure` 必须符合 Swift 的 `Error` 类型。
+Swift 的  `Result` 类型被实现为一个枚举，它有两种情况：`success` 和 `failure`。两者都是使用泛型实现的，因此它们可以有您选择的关联值，但 `failure` 必须符合 Swift 的 `Error` 类型。
 
-为了演示  `Result`，我们可以编写一个网络请求函数来计算有多少未读消息在等待用户。在这个例子代码中，我们将只有一个可能的错误，那就是请求的 URL 字符串不是一个有效的 URL :
+为了演示 `Result`，我们可以编写一个网络请求函数来计算有多少未读消息在等待用户。在这个例子代码中，我们将只有一个可能的错误，那就是请求的 URL 字符串不是一个有效的 URL：
 
 ```swift
 enum NetworkError: Error {
@@ -21,7 +21,7 @@ enum NetworkError: Error {
 }
 ```
 
-这个函数将接受一个 URL 字符串作为它的第一个参数，并接受一个 completion 闭包作为它的第二个参数。该 completion 闭包本身接受一个  `Result`，其中 `success` 将存储一个整数，而 `failure` 案例将是某种  `NetworkError`。我们实际上并不打算在这里连接到服务器，但是使用一个 completion 闭包至少可以让我们模拟异步代码。
+这个函数将接受一个 URL 字符串作为它的第一个参数，并接受一个 completion 闭包作为它的第二个参数。该 completion 闭包本身接受一个 `Result`，其中 `success` 将存储一个整数，而 `failure` 案例将是某种 `NetworkError`。我们实际上并不打算在这里连接到服务器，但是使用一个 completion 闭包至少可以让我们模拟异步代码。
 
 代码如下：
 
@@ -38,7 +38,7 @@ func fetchUnreadCount1(from urlString: String, completionHandler: @escaping (Res
 }
 ```
 
-要使用该代码，我们需要检查我们的 `Result` 中的值，看看我们的调用成功还是失败，如下所示:
+要使用该代码，我们需要检查我们的 `Result` 中的值，看看我们的调用成功还是失败，如下所示：
 
 ```swift
 fetchUnreadCount1(from: "https://www.hackingwithswift.com") { result in
@@ -51,9 +51,9 @@ fetchUnreadCount1(from: "https://www.hackingwithswift.com") { result in
 }
 ```
 
-即使在这个简单的场景中， `Result` 也给了我们两个好处。首先，我们返回的错误现在是强类型的:它一定是某种 `NetworkError`。Swift 的常规抛出函数是不检查类型的，因此可以抛出任何类型的错误。因此，如果您添加了一个 `switch` 语句来查看他们的情况，您需要添加 `default` 情况，即使这种情况是不可能的。使用 `Result` 的强类型错误，我们可以通过列出错误枚举的所有情况来创建详尽的 `switch` 语句。
+即使在这个简单的场景中，`Result` 也给了我们两个好处。首先，我们返回的错误现在是强类型的：它一定是某种 `NetworkError`。Swift 的常规抛出函数是不检查类型的，因此可以抛出任何类型的错误。因此，如果您添加了一个 `switch` 语句来查看他们的情况，您需要添加 `default` 情况，即使这种情况是不可能的。使用 `Result` 的强类型错误，我们可以通过列出错误枚举的所有情况来创建详尽的 `switch` 语句。
 
-其次，现在很清楚，我们要么返回成功的数据要么返回一个错误，它们两个中有且只有一个一定会返回。如果我们使用传统的 Objective-C 方法重写 `fetchUnreadCount1()` 来完成 completion 闭包，你可以看到第二个好处的重要性:
+其次，现在很清楚，我们要么返回成功的数据要么返回一个错误，它们两个中有且只有一个一定会返回。如果我们使用传统的 Objective-C 方法重写 `fetchUnreadCount1()` 来完成 completion 闭包，你可以看到第二个好处的重要性：
 
 ```swift
 func fetchUnreadCount2(from urlString: String, completionHandler: @escaping (Int?, NetworkError?) -> Void) {
@@ -69,9 +69,9 @@ func fetchUnreadCount2(from urlString: String, completionHandler: @escaping (Int
 
 这里，completion 闭包将同时接收一个整数和一个错误，尽管它们中的任何一个都可能是 nil。Objective-C 之所以使用这种方法，是因为它没有能力用关联的值来表示枚举，所以别无选择，只能将两者都发送回去，让用户自己去弄清楚。
 
-然而，这种方法意味着我们已经从两种可能的状态变成了四种:一个没有错误的整数，一个没有整数的错误，一个错误和一个整数，没有整数和没有错误。最后两种状态应该是不可能的，但在 Swift 引入  `Result` 之前，没有简单的方法来表达这一点。
+然而，这种方法意味着我们已经从两种可能的状态变成了四种:一个没有错误的整数，一个没有整数的错误，一个错误和一个整数，没有整数和没有错误。最后两种状态应该是不可能的，但在 Swift 引入 `Result` 之前，没有简单的方法来表达这一点。
 
-这种情况经常发生。`URLSession` 中的 `dataTask()` 方法使用相同的解决方案，例如:它用 `(Data?, URLResponse?, Error?)`。这可能会给我们提供一些数据、一个响应和一个错误，或者三者的任何组合 — Swift Evolution 的提议称这种情况“尴尬不堪”。
+这种情况经常发生。`URLSession` 中的 `dataTask()` 方法使用相同的解决方案，例如：它用 `(Data?, URLResponse?, Error?)`。这可能会给我们提供一些数据、一个响应和一个错误，或者三者的任何组合 — Swift Evolution 的提议称这种情况“尴尬不堪”。
 
 可以将 `Result` 看作一个超级强大的 `Optional`，`Optional` 封装了一个成功的值，但也可以封装第二个表示没有值的情况。然而，对于 `Result`，第二种情况还可以传递了额外的数据，因为它告诉我们哪里出了问题，而不仅仅是 `nil`。
 
@@ -79,7 +79,7 @@ func fetchUnreadCount2(from urlString: String, completionHandler: @escaping (Int
 
 当你第一次看到 `Result` 时，你常常会想知道它为什么有用，尤其是自从 Swift 2.0 以来，它已经有了一个非常好的 `throws` 关键字来处理错误。
 
-你可以通过让 completion 闭包接受另一个函数来实现几乎相同的功能，该函数会抛出或返回有问题的数据，如下所示:
+你可以通过让 completion 闭包接受另一个函数来实现几乎相同的功能，该函数会抛出或返回有问题的数据，如下所示：
 
 ```swift
 func fetchUnreadCount3(from urlString: String, completionHandler: @escaping  (() throws -> Int) -> Void) {
@@ -93,7 +93,7 @@ func fetchUnreadCount3(from urlString: String, completionHandler: @escaping  (()
 }
 ```
 
-然后，您可以使用一个接受要运行的函数的 completion 闭包调用 `fetchUnreadCount3()`，如下所示:
+然后，您可以使用一个接受要运行的函数的 completion 闭包调用 `fetchUnreadCount3()`，如下所示：
 
 ```swift
 fetchUnreadCount3(from: "https://www.hackingwithswift.com") { resultFunction in
@@ -114,7 +114,7 @@ fetchUnreadCount3(from: "https://www.hackingwithswift.com") { resultFunction in
 
 我们已经了解了 `switch` 语句如何让我们以一种干净的方式评估 `Result` 的 `success` 和 `failure` 案例，但是在开始使用它之前，还有五件事您应该知道。
 
-首先，`Result` 有一个 `get()` 方法，如果存在则返回成功值，否则抛出错误。这允许您将 `Result` 转换为一个常规抛出调用，如下所示:
+首先，`Result` 有一个 `get()` 方法，如果存在则返回成功值，否则抛出错误。这允许您将 `Result` 转换为一个常规抛出调用，如下所示：
 
 ```swift
 fetchUnreadCount1(from: "https://www.hackingwithswift.com") { result in
@@ -125,7 +125,7 @@ fetchUnreadCount1(from: "https://www.hackingwithswift.com") { result in
 
 ```
 
-其次，如果您愿意，可以使用常规的 `if` 语句来读取枚举的情况，尽管有些人觉得语法有点奇怪。例如:
+其次，如果您愿意，可以使用常规的 `if` 语句来读取枚举的情况，尽管有些人觉得语法有点奇怪。例如：
 
 ```swift
 fetchUnreadCount1(from: "https://www.hackingwithswift.com") { result in
@@ -157,7 +157,7 @@ let result = Result { try String(contentsOfFile: someFile) }
 
 为了演示这一点，我们将编写一些代码，生成 0 到最大值之间的随机数，然后计算该数的因数。如果用户请求一个小于零的随机数，或者这个随机数恰好是素数，即它没有其他因数，除了它自己和 1，我们会认为这些都是失败情况。
 
-我们可以从编写代码开始，对两种可能的失败案例进行建模:用户试图生成一个小于 0 的随机数和生成的随机数是素数:
+我们可以从编写代码开始，对两种可能的失败案例进行建模:用户试图生成一个小于 0 的随机数和生成的随机数是素数：
 
 ```swift
 enum FactorError: Error {
@@ -180,7 +180,7 @@ func generateRandomNumber(maximum: Int) -> Result<Int, FactorError> {
     }
 ```
 
-当它被调用时，我们返回的 `Result` 要么是一个整数，要么是一个错误，所以我们可以使用 `map()` 来转换它:
+当它被调用时，我们返回的 `Result` 要么是一个整数，要么是一个错误，所以我们可以使用 `map()` 来转换它：
 
 ```swift
 let result1 = generateRandomNumber(maximum: 11)
@@ -208,7 +208,7 @@ func calculateFactors(for number: Int) -> Result<Int, FactorError> {
 
 ```
 
-如果我们想使用 `map()` 来转换 `generateRandomNumber()` 生成随机数后再 `calculateFactors()` 的输出，它应该是这样的:
+如果我们想使用 `map()` 来转换 `generateRandomNumber()` 生成随机数后再 `calculateFactors()` 的输出，它应该是这样的：
 
 ```swift
 let result2 = generateRandomNumber(maximum: 10)
@@ -218,7 +218,7 @@ let mapResult = result2.map { calculateFactors(for: $0) }
 
 然而，这使得 `mapResult` 成为一个相当难看的类型:`Result<Result<Int, FactorError>, FactorError>`。它是另一个 `Result` 内部的一个 `Result`。
 
-就像可选值一样，现在是 `flatMap()` 方法起作用的时候了。如果你的转换闭包返回一个 `Result`，`flatMap()` 将直接返回新的 `Result`，而不是包装在另一个 `Result` 内:
+就像可选值一样，现在是 `flatMap()` 方法起作用的时候了。如果你的转换闭包返回一个 `Result`，`flatMap()` 将直接返回新的 `Result`，而不是包装在另一个 `Result` 内：
 
 ```swift
 let flatMapResult = result2.flatMap { calculateFactors(for: $0) }
@@ -230,7 +230,7 @@ let flatMapResult = result2.flatMap { calculateFactors(for: $0) }
 
 ## 接下来？
 
-我写过一些关于 Swift 5 其他一些很棒的新功能的文章，你可能想看看:
+我写过一些关于 Swift 5 其他一些很棒的新功能的文章，你可能想看看：
 
 - [How to use custom string interpolation in Swift 5](/articles/163/how-to-use-custom-string-interpolation-in-swift)
 - [How to use @dynamicCallable in Swift](/articles/134/how-to-use-dynamiccallable-in-swift)
