@@ -1,4 +1,3 @@
-
 > * 原文地址：[The Android Lifecycle cheat sheet — part IV: ViewModels, Translucent Activities and Launch Modes](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iv-49946659b094)
 > * 原文作者：[Jose Alcérreca](https://medium.com/@JoseAlcerreca)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
@@ -8,7 +7,8 @@
 
 # The Android Lifecycle cheat sheet — part IV : ViewModels, Translucent Activities and Launch Modes
 
-In this series:  
+In this series:
+
 - [**Part I: Activities** — single activity lifecycle](https://github.com/xitu/gold-miner/blob/master/TODO/the-android-lifecycle-cheat-sheet-part-i-single-activities.md)  
 - [**Part II: Multiple activities** — navigation and back stack](https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-II-Multiple-activities.md)   
 -  [**Part III: Fragments** — activity and fragment lifecycle](https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-III-Fragments.md)  
