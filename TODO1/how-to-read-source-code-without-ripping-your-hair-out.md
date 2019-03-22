@@ -2,77 +2,77 @@
 > * 原文作者：[Sun-Li Beatteay](https://medium.com/@SunnyB)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-read-source-code-without-ripping-your-hair-out.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-read-source-code-without-ripping-your-hair-out.md)
-> * 译者：
+> * 译者：[Mcskiller](https://github.com/Mcskiller)
 > * 校对者：
 
-# How to read code without ripping your hair out
+# 如何心平气和的阅读代码
 
 ![](https://cdn-images-1.medium.com/max/10944/1*Vv0HNvRhU0ihKVaBIpDUww.jpeg)
 
-1. Write More Code
-2. Read More Code
-3. Repeat Daily
+1. 多写代码
+2. 多读代码
+3. 每天都完成以上内容
 
-That was the advice given to me when I made the career switch to programming almost two years ago. Fortunately, there are plenty of courses and tutorials online for writing code. Unfortunately, there are still little-to-no resources that teach reading it.
+这是我在两年前转向编程时给我自己的要求。幸运的是，现在有很多在线编写代码的课程和教程可以教你写代码，然而他们却基本上都没有去教你如何阅读代码。
 
-This is a huge disparity. There’s an [increasing influx](https://www.coursereport.com/reports/2016-coding-bootcamp-market-size-research) of bootcamp grads entering the tech field. It’s more crucial than ever to emphasize reading source code. As Brandon Bloom [wrote](https://news.ycombinator.com/item?id=3769446):
-> If it runs on [your] machine, it’s [your] software. [You’re] responsible for it. [You] must understand it.
+这是一个重要的区分点。随着进入科技领域的培训机构以及学生数量的 [飞速增长](https://www.coursereport.com/reports/2016-coding-bootcamp-market-size-research)。强调阅读源码变得更加重要。Brandon Bloom [写道](https://news.ycombinator.com/item?id=3769446)：
+> 如果它在 **你** 的机器上运行，它就是 **你** 的软件。**你** 应该对此负责，所以 **你** 必须对它了如指掌。
 
 ![Yes, you.](https://cdn-images-1.medium.com/max/2000/1*r_K_SnPFHV6BRZMcShNiPQ.gif)
 
-While every programmer should be reading code, [they aren’t](https://blog.codinghorror.com/learn-to-read-the-source-luke/). The reason many programmers choose to avoid it is because it’s hard, frustrating, and makes them feel stupid. I know because that’s how it made me feel.
+虽然每个程序员都应该阅读源码，但 [事实](https://blog.codinghorror.com/learn-to-read-the-source-luke/) 并非如此。许多程序员不愿意阅读源码是因为它阅读起来很难，容易打击信心，并且让他们感到自己很蠢。我知道，因为这就是我的感受。
 
-**It doesn’t have to be that way.**
+**其实只是方法不对**
 
-In my time of reading other peoples’ code, I’ve come up with a process that only involves three steps. Many of you may already be following these steps, but I can guarantee there are many who aren’t.
+在我阅读其他人的代码时，我想出了一个只需要三步的阅读方法。可能有些人已经在遵循这些步骤，但我相信大部分人是没有的。
 
-Here are my steps.
+我的步骤如下。
 
-## 1. Pick a specific point of interest
+## 1. 选一个你感兴趣的点
 
 ![Image Source: [https://thenextweb.com/wp-content/blogs.dir/1/files/2010/04/twitter-location-300x200.jpg](https://thenextweb.com/wp-content/blogs.dir/1/files/2010/04/twitter-location-300x200.jpg)](https://cdn-images-1.medium.com/max/2000/1*1jtCApS-67hwSYHOqwsDDw.png)
 
-The first time I tried to read code was a disaster.
+想我第一次阅读源码的时候，那简直是一场灾难。
 
-I was learning Sinatra at the time and wanted to better understand what was under the hood. Yet, I had no idea where to start. I found the repo on Github and picked a file at random. No joke.
+我当时正在学习 Sinatra，然后我想更好的了解底层运行机制。然而，我并不知道应该从哪里开始读，于是我找到了它在 Github 上的 repo 然后随便打开了一个文件。不开玩笑，我确实是这样做的。
 
-I figured I could spend the afternoon studying it and have a solid grasp on its capabilities by dinner. After all, reading my own code was easy enough, how could this be any different?
+我想我可以花一个下午来研究它，然后在吃晚饭的时候就可以完全掌握。毕竟，阅读我自己的代码很容易，阅读别人有什么不同？
 
-We all know where this is going. Suffice it to say, it felt like I was smacking my head against a wall of text.
+我们都知道接下来会发生什么。可以这么说，就像我一头撞在了一堵文字墙上一样。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*RSW1LI69w3Bgb1H7ynxDjw.gif)
 
-I had tried to learn too much at one time. ****It’s the same mistake many beginners commit when they try to read source code for the first time.
+我一次想学的东西太多了。许多初学者在第一次阅读源码的时候也会犯同样的错误。
 
-**Mental models are built piece by piece. Code should be read the same way.**
+**心智模型是一点一点建立起来的，阅读代码也应该如此。**
 
-Instead of trying to stomach 1000 lines of code in a herculean effort, focus on a single topic. If it can be parsed down to a single method, even better.
+不要去试图以坚持努力来消化 1000 行代码，专注于一个主题。如果能够细化到单个方法更好。
 
-Having a narrow focus will help you know what is relevant and what isn’t. No need to chase down red herrings.
+有一个细化的焦点能够让你分清什么是相关的，什么是不相关的。没有必要去理会那些不相关的东西。
 
-However, choosing a specific topic won’t solve all your problems. There’s still the dilemma of knowing where to look in the code base to find it.
+然而，选择一个特定的主题并不能解决你的所有问题。知道它在代码库中的位置仍然是个难题。
 
-That’s where step two comes in.
+这就是第二步的问题了。
 
-## 2. Find a loose thread
+## 2. 找到一个切入点
 
 ![Image Source: [https://glenelmadventblog.files.wordpress.com/2012/12/loose-thread.jpg](https://glenelmadventblog.files.wordpress.com/2012/12/loose-thread.jpg)](https://cdn-images-1.medium.com/max/2000/1*suh4cGspVlBGRqF1QAVK_Q.png)
 
-Now that you have a specific method you want to learn about, what do you do next?
+现在你有了一个想要学习的目标，接下来应该怎么做？
 
-Luckily for us all, programming languages come with investigative tools.
+幸运的是，编程语言附带了检查工具。
 
-Whether you want to know the class of an object, the ancestry of a class, the stack trace, or owner of a certain method, most languages offer these features. Once you begin to unravel the tapestry that is a code library, you will find plenty of loose ends to follow.
+对象的类，类的祖先，堆栈跟踪，还是某种方法的所有者，这是大多数语言都有的特性。无论你是想知道哪一个，一旦你开始分析代码库，你会遇到一系列问题。
 
-Instead of explaining this concept in words, I’d rather show it to you in code
+与其用文字来解释这个概念，不如用代码展示来得更快。
 
-### Investigate
+### 开始分析
 
-Say I want to learn more about ActiveRecord associations. I’ve narrowed my focus to the `belongs_to` method and want to understand how it affects my ActiveRecord models.
+假设我想学习更多 ActiveRecord 的相关知识。然后我已经把重点缩小到了 `belongs_to` 方法上，现在我想了解它如何影响 ActiveRecord 模型。
 
-ActiveRecord is a part of [Rails](https://github.com/rails/rails), which is built in Ruby. Ruby provides plenty of research tools.
+ActiveRecord 是 [Rails](https://github.com/rails/rails) 的一部分，它是用 Ruby 构建的。Ruby 提供了大量开发工具。
 
-My first approach would be to use a bugging tool, such as the `pry` gem, to dissect one of my ActiveRecord models. For context, this is the code for the model I chose to debug.
+我的第一种方法是使用调试工具，比如用 `pry` gem 来剖析我的 ActiveRecord 模型。对于之前的假设，这就是我选择调试的模型的代码。
 
 ```
 class Comment < ActiveRecord::Base
@@ -83,13 +83,13 @@ class Comment < ActiveRecord::Base
 end
 ```
 
-Pay attention to the `binding.pry` statement. When Rails comes across this line of code, `pry` will pause the app in mid-execution and open up a command line prompt.
+注意 `binding.pry` 语句。当 Rails 遇到这行代码时，`pry` 将会在执行中期暂停应用程序并打开命令行提示符。
 
-Below is a sample exchange I had in the pry console when I studied this `belongs_to` association.
+下面是我研究 `belongs_to` 关联的时候在控制台使用的示例交换。
 
-* All my inputs are on the lines that start with `pry >`.
+* 我的所有的输入内容都是在 `pry >` 之后。
 
-* `=>` shows the outputs by the console.
+* `=>` 显示控制台的输出。
 
 ```
 pry> class = belongs_to(:post).class
@@ -107,81 +107,81 @@ pry> method(:belongs_to).owner
 => ActiveRecord::Associations::ClassMethods
 ```
 
-In case you don’t understand Ruby and this exchange confuses you, let me give the SparkNotes.
+如果你不太能理解 Ruby，并且这个交换让你感到困惑，可以看看我的提示。
 
-* When `belongs_to :post` runs, it returns an instance of the `AssociationReflection` class.
+* 当 `belongs_to :post` 运行时，它返回一个 `AssociationReflection` 类的实例。
 
-* `MacroReflection` is the superclass of `AssociationReflection`.
+* `MacroReflection` 是 `AssociationReflection` 的父类。
 
-* `belongs_to` is a class method that is defined on the `ClassMethods` module that is inside of `ActiveRecord::Associations`.
+* `belongs_to` 是一个类方法，它是在 `ActiveRecord::Associations` 内部的 `ClassMethods` 模块上定义的。
 
-Now that I have some leads, which one should I follow? Since I’m more interested in the `belongs_to` method itself and not what it returns, I’ll begin my search in the `ClassMethods` module.
+现在我有了一些线索，但是我应该遵循哪一条呢？因为我对 `belongs_to` 方法本身更感兴趣，而不是它的返回值，所以我决定去查看 `ClassMethods` 模块。
 
-## 3. Follow the trail
+## 3. 跟随线索
 
 ![](https://cdn-images-1.medium.com/max/2000/1*VP1Zze3OGAZnalmuvzJhhQ.png)
 
-Now that you have the thread you want to follow, all that’s left is to trace it until you find your answer. This may seem like an obvious step, but this is where most beginners get tripped up.
+现在你已经有了想要跟踪的目标，剩下的就是跟踪它，直到找到你的答案。这似乎是一个简单的步骤，但这正是大多数初学者犯错的地方。
 
-One reason for this is that repositories don’t have a table of contents. We are at the mercy of the maintainers to organize their files in readable fashion.
+其中一个原因是，仓库是没有目录的。我们任由维护人员以可读的方式组织他们的文件。
 
-On bigger projects that have many maintainers, that’s usually not an issue.
+对于有很多维护者的大型项目，这通常不是问题。
 
-On smaller projects, you may find yourself wading through monolithic files, deciphering single name variables, and asking yourself “Where did this come from?” too often to count.
+但对于一个小项目，你可能会发现自己要费力地逐个处理文件，逐个破译名称变量，然后就会多次陷入“这是从哪里来的”的情况。
 
-### GitHub Search
+### GitHub 搜索
 
-One tool that can make this task easier is GitHub search (assuming the project you’re reading is on GitHub). GitHub search is handy because it shows you all the files that match your search query. It also shows where in the file your query matches.
+有一个工具可以帮助我们更容易完成这个任务，就是 GitHub 搜索（我们假设你正在阅读的项目是在 Github 上的）。Github 搜索非常方便，因为他能够显示所有匹配搜索查询的文件。它还能显示符合查询的内容在文件中的位置。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*bgk8AkVP2Uuk-Msj_LDrPg.png)
 
-To get the best results, you need to make your search query as specific as possible. This will require that you have an idea of what you’re looking for. Aimlessly searching GitHub with your fingers crossed is not a valid strategy.
+为了得到最好的结果，你需要让你的搜索尽可能具体。这需要你对你想找的内容有一个概念。盲目的搜索 Github 是没有用的。
 
-Going back to my example from Step 2, I’m trying to find the `ClassMethods` module inside `ActiveRecord::Associations`. In layman’s terms, I’m looking for the module `ClassMethods` located inside the module`Associations` nested inside of the `ActiveRecord` module. Furthermore, I’m searching for the method `belongs_to`.
+回到步骤 2 中的示例，我试图在 `ActiveRecord::Associations` 中找到 `ClassMethods` 模块。用外行人的话来说，我正在寻找位于 `ActiveRecord` 模块内部的模块 `Associations` 中的 `ClassMethods` 模块。此外，我正在寻找 `belongs_to` 方法。
 
 ***
 
-This was my search query.
+这是我的搜索查询。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*iUg2iDC5kaqC8mbw2RZEUw.png)
 
-The results showed me exactly what I was looking for.
+结果准确地显示了我正在寻找的东西。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*XWliUt7xdo2z2WUIwnBmYw.png)
 
 ![belongs_to method inside of ClassMethods](https://cdn-images-1.medium.com/max/2000/1*PDjJRgT-JEHgIEwJb5hWkw.png)
 
-### More research may be required
+### 可能需要更多研究
 
 ***
 
-GitHub search will significantly narrow the scope of your search. Because of this, you will find an easy entry point to dive into the code base.
+Github 搜索将会显著的缩小你的搜索范围。因此，你可以更容易的找到一个深入代码库的切入点。
 
-Unfortunately, finding the class or method itself is rarely the end of mystery. You may find yourself jumping from module to module until you understand the bigger picture.
+不幸的是，找到类或者方法不一定能给出问题的答案。你可能发现你从一个模块跳到另一个模块，直到你了解全局。
 
-In my case, the `belongs_to` class lead me to the `build` method inside the `BelongsTo` class. This took me to the `Association` super class.
+在我的例子中，`belongs_to` 类把我导向了 `BelongsTo` 中的 `build` 方法。这让我找到了 `Association` 的父类。
 
 ![build method in BelongsTo class](https://cdn-images-1.medium.com/max/2000/1*Mjx30BZtTxjPqMkdSINoqA.png)
 
 ![build method in Association class](https://cdn-images-1.medium.com/max/2000/1*WfqZWDnjg_rUiPZfdH1jGQ.png)
 
-In the end, I discovered that `belongs_to` causes Rails to add several instance methods to my model, including a getter and setter. It does this with an advanced programming technique known as meta-programming.
+最后，我发现 `belongs_to` 让 Rails 向我的模型添加了几个实例方法，包括 getter 和 setter。它使用一种叫做元编程的高级编程技术来实现这一点。
 
-Rails also creates an instance of the `Reflection` class which is used to store information about the association.
+Rails 还创建了一个 `Reflection` 类实例用于存储 association 中的信息。
 
-From the Rails API [docs](http://api.rubyonrails.org/classes/ActiveRecord/Reflection/ClassMethods.html):
-> Reflection enables the ability to examine the associations and aggregations of Active Record classes and objects. This information, for example, can be used in a form builder that takes an Active Record object and creates input fields for all of the attributes depending on their type and displays the associations to other objects.
+来自 Rails API [文档](http://api.rubyonrails.org/classes/ActiveRecord/Reflection/ClassMethods.html):
+> Reflection 启用了检查 ActiveRecord 类和对象的关系和聚合的功能。例如，这种功能可以在 form builder 中使用，该 builder 接受一个 Active Record 对象然后根据其类型为所有属性创建输入字段，并显示它与其他对象的关联。
 
-Pretty neat stuff.
+挺简洁的。
 
-## Wrapping Up
+## 总结
 
-While I can’t promise that interpreting someone else’s programming will be fun and enjoyable, it is worthwhile. It will add a crucial skill to your tool belt and grant an extra layer of freedom. You will no longer be dependent on thorough documentation or examples. While those are appreciated, they are not a cure-all. As Jeff Atwood wrote:
-> **No matter what the documentation says, the source code is the ultimate truth, the best and most definitive and up-to-date documentation you’re likely to find.**
+虽然我不能保证解析别人的代码会很有意思，但这是值得的。它会给你的技术栈添加一项关键的技能，让你更加自由。你将不会再依赖于完整的文档和示例，虽然文档很棒，但它并不是万能的。正如 Jeff Atwood 说的：
+> **你可能可以找到最好的，最权威和最新的文档，但是无论文档说什么，源代码才是最真实的。**
 
-So take a stab at it!
+所以快去练习这项技能吧！
 
-There must be something you’ve been itching to learn about for some time now. Don’t let the size of the code base intimidate you. Open up the repository to your favorite framework and start digging. If you follow the steps I’ve laid out in this post, you’ll be a source code guru in no time.
+我相信你现在肯定有一些你一直都想了解的东西。不要纠结于代码库的大小。打开你最喜欢的框架的仓库然后开始学习。如果你按照我在文章中的步骤来，你很快就能成为一名源码专家。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
