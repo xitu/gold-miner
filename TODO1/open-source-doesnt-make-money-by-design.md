@@ -5,47 +5,47 @@
 > * 译者：
 > * 校对者：
 
-# Open Source Doesn't Make Money Because It Isn't Designed To Make Money
+# 开源是无法赚钱的，因为开源本身就不是为了赚钱
 
-> Or: *The Best Way To Do Something Is To At Least Try*
+> 还是说：*做一件事最好的方式就是至少尝试一下*
 
-We all know the story: you can't make money on open source. Is it really true?
+我们都知道：在开源领域是没法赚钱的。确实如此吗？
 
-I'm thinking about this now because Mozilla would like to diversify its revenue in the next few years, and one constraint we have is that everything we do is open source.
+我之所以会提出这个想法，是因为 Mozilla 希望在接下来的几年里实现收入多样化。但是由于我们做的所有工作都是开源的，所以会受到一些约束。
 
-There are dozens (hundreds?) of successful open source projects that have tried to become even just modest commercial enterprises, some very seriously. Results aren't great.
+已经有几十个（几百个？）成功的开源项目组试图试图转型成小型的商业企业，其中有一些做得非常认真，但结果却不尽人意。
 
-I myself am trying to pitch a commercial endeavor in Mozilla right now (if writing up plans and sending them into the ether can qualify as "pitching"), and this question often comes up in feedback: can we sell something that is open source?
+我本人目前也在 Mozilla 进行商业化的尝试（如果制定计划计划但不实践可以称为“尝试”的话），在我得到的反馈中常有人提出这个问题：我们可以出售开源的东西吗？
 
-I have no evidence that we can (or can't), but I will make this assertion: it's hard to sell something that wasn't designed to be sold.
+没有任何证据表明我们可以（或者不行），但是我可以断言：我们很难出售一个本身不是为了赚钱的东西。
 
-We treat open source like it's a poison pill for a commercial product. And yes, with an open source license it's harder to force someone to pay for a product, though many successful businesses exist without *forcing* anyone.
+我们将开源视为商业产品的毒药。的确，由于开源许可证的存在，我们很难强制别人为这种产品付费，但有很多成功的商业案例并没有*强制*任何人。
 
-I see an implicit assumption that makes it harder to think about this: the idea that if something is useful, it should be profitable. It's an unspoken and morally-infused expectation, a kind of Just World hypothesis: if something has utility, if it helps people, if it's something the world needs, if it empowers other people, then there should be a revenue opportunity. It should be possible for the thing to be your day job, to make money, to see some remuneration for your successful effort in creating or doing this thing.
+我发现有一个隐含假设让这种想法更加困难：好用的东西肯定容易赚钱。这是一种不言而喻的道德期待，就像一种正义世界假说：实用的、能帮助人们、全世界都需要的、对他人有益的东西总能带来一些赚钱的机会。这种事应该有可能成为你的日常工作，让你赚钱，让你在这件事上付出的努力能够有所回报。
 
-That's what we think the world *should* be like, but we all know it isn't. You can't make a living making music. Or art. You can't even make a living taking care of children. I think this underlies many of this moment's critiques of capitalism: there's too many things that are important, even needed, or that fulfill us more than any profitable item, and yet are economically unsustainable.
+我们认为世界*应该*是这样的，但事实并不如此。你不可能靠从事音乐或者艺术谋生。你甚至都不能靠照顾孩子谋生。我觉得这是现在很多人批判资本主义的基础：有太多重要的、必需的东西，它们比任何可获利的东西都能充实我们，但在经济上却不可持续。
 
-I won't try to fix that in this blog post, only note: not all good things make money.
+在这篇文章中，我不会尝试改变这一点，但请记住：不是所有美好的东西都能赚钱。
 
-But we know there is money in software. Lots of money! Is the money in secrets? If OpenSSL was secret, could it make money? If it had a licensing paywall, could it make money? Seems unlikely. The license isn't holding it back. It's just not shaped like something that makes money. Solving important problems isn't enough.
+但我们知道软件中是有利可图的，而且有很多利！是靠保密赚钱吗？如果 OpenSSL 是保密的，它还能赚钱吗？如果它的许可收费，它还能赚钱吗？应该不能。许可证并无大碍，只是包装得不像赚钱的东西了。只解决重要的问题还不够。
 
-So what can you get paid to do?
+所以你能靠什么赚钱呢？
 
-1.  People will pay a little for apps; not a lot, but a bit. Scaling up requires marketing and capital, which open source projects almost never have (and I doubt many open source projects would know what to do with capital if they had it).
-2.  There's always money in ads. Sadly. This could potentially offend someone enough to actually repackage your open source software with ads removed. As a form of [price discrimination](https://en.wikipedia.org/wiki/Price_discrimination) (e.g., paid ad removal) I think you could avoid defection.
-3.  Fully-hosted services: [Automattic's](https://automattic.com/) wordpress.com is a good example here. Is [Ghost](https://ghost.org/) doing OK? These are complete solutions: you don't just get software, you get a website.
-4.  People will pay if you ensure they get a personalized solution. I.e., consulting. Applied to software you get [consultingware](https://www.joelonsoftware.com/2002/05/06/five-worlds/). While often maligned, many real businesses are built on this. I think Drupal is in this category.
-5.  People will pay you for your dedicated and ongoing attention. In other words: a day job as an employee. It feels unfair to put this option on the list, but it's such a natural progression from consultingware, and such a dominant pattern in open source that I think it deserves acknowledgement.
-6.  Anything paired with a physical device. People will judge the value based on the hardware and software experience together.
-7.  I'm not sure if Firefox makes money (indirectly) from ads, or as compensation for maintaining monopoly positions.
+1.  用户愿意为应用程序花点钱；但不多，只有一点点。发展需要市场和资本，这两点在开源项目中很难找到（我怀疑有些开源项目就算有了资本也不知道该怎么做）。
+2.  广告总是很好赚钱。不幸的是，这可能会冒犯到一些人，他们会删除你的开源软件中的广告，然后重新打包。作为[价格歧视](https://zh.wikipedia.org/wiki/%E4%BB%B7%E6%A0%BC%E6%AD%A7%E8%A7%86)（例如，移除付费广告）的一种形式，我认为你可以避免用户流失。
+3.  完全承载服务：[Automattic 的](https://automattic.com/) wordpress.com 是一个很好的例子。[Ghost](https://ghost.org/) 做得怎么样呢？这些都是完整的解决方案：你得到的不是一个软件，而是整个网站。
+4.  如果你能保证用户可以得到一个个性化的解决方案，他们会愿意付钱的。也就是咨询（consulting）。对于软件（software）来说就是 [consultingware](https://www.joelonsoftware.com/2002/05/06/five-worlds/)。尽管经常会受到诋毁，但实际上很多企业都建立在这一点之上，我认为 Drupal 就是其中之一。
+5.  人们会为你的专注和持续的付出买单。换句话说：一个雇员的日常工作。将这一点放在这个列表中是不公平的，但这对于 consultingware 来说顺理成章。况且作为开源的一种主导模式，我认为它是值得肯定的。
+6.  任何与物理设备配对的东西。人们会同时基于硬件和软件体验来评价一个东西的价值。
+7.  我不太确定 Firefox 是否（直接）通过广告赚钱，或者把这当作对他们维持垄断地位的补偿。
 
-I'm sure I'm missing some interesting ideas from that list.
+肯定还有一些有趣的想法不在这个列表中。
 
-But if you have a business concept, and you think it might work, what does open source even have to do with it? Don't we learn: focus on your business! On your customer! Software licensing seems like a distraction, even *software* is a questionable thing to focus on, separate from the business. Maybe this is why you can't make money with open source: it's a distraction. The question isn't open-source-vs-proprietary, but open-source-vs-business-focused.
+但是如果你有一个商业理念，觉得它可能有效，开源和它又有什么关系呢？我们难道不知道：关注你的业务！关注你的客户！软件许可证可能是一种干扰，即使*软件*是个值得关注的问题，但这与业务无关。也许这就是你不能通过开源赚钱的原因：这是条歪路。这个问题不是对比开源和专利，而是比较开源和以商业为中心。
 
-Another lens might be: who are you selling to? Classical scratch-your-own-itch open source software is built by programmers *for* programmers. And it is wildly successful, but it's selling to people who aren't willing to pay. They want to take the software and turn it around into greater personal productivity (which turns out to be a smart move, given the rise in programmer wages). Can we sell open source to other people? Can anyone else *do* anything with source code?
+从另一个角度看：你准备把产品卖给谁？传统的自挠其痒式的开源软件是程序员*为*程序员打造的，而且非常成功，但这是将产品卖给不愿付钱的用户。他们只想用这个软件来提高个人生产率（这种做法很明智，程序员们因此涨了工资）。我们能把开源软件卖给其他人群吗？其他人可以*利用*源码吗？
 
-And so I remain pessimistic that open source can find commercial success. But also frustrated: so much software is open source *except* any commercial product. This is where the Free Software mission has faltered despite so many successes: software that people actually touch isn't free or open. That's a shame.
+因此，我对开源能取得商业成功保持悲观，也有些心塞：除了商业产品，有很多软件都是开源的。尽管已经取得了巨大的成功，但自由软件的使命却止步不前：人们真正使用到的软件并不是自由开放的，这是一种遗憾。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
