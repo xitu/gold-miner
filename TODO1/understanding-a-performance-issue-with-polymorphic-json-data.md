@@ -172,7 +172,7 @@ $ jsc
 
 在 Chrome 中的 V8，在 Firefox 中的 SpiderMonkey，在 IE 和 Edge 中的 Chakra，在 Safari 中的 JavaScriptCore。
 
-并不能理想测量整个过程的执行时间，但我们可以通过用 [multitime](https://github.com/ltratt/multitime) 关注每个示例的 100 次运行的中位数来减少异常值（按随机顺序，在两次运行之间休息1秒）：
+并不能理想测量整个过程的执行时间，但我们可以通过用 [multitime](https://github.com/ltratt/multitime) 关注每个示例的 100 次运行的中位数来减少异常值（按随机顺序，在两次运行之间休息 1 秒）：
 
 ```bash
 $ multitime -n 100 -s 1 -b examples.bat
