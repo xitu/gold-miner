@@ -3,9 +3,9 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/iOS-Responder-Chain-UIResponder-UIEvent-UIControl-and-uses.md](https://github.com/xitu/gold-miner/blob/master/TODO1/iOS-Responder-Chain-UIResponder-UIEvent-UIControl-and-uses.md)
 > - 译者：[iWeslie](https://github.com/iWeslie)
-> - 校对者：
+> - 校对者：[swants](https://github.com/swants)
 
-# iOS 响应者链 UIResponder，UIEvent，UIControl 的使用
+# iOS 响应者链 UIResponder、UIEvent 和 UIControl 的使用
 
 **当我用使用 UITextField 究竟谁是第一响应者？**
 **为什么 UIView 像 UIResponder 一样进行子类化？**
@@ -15,9 +15,9 @@
 
 响应者链是你在 iOS 开发的世界中经常需要打交道的东西，并且尽管你很少需要在除了 `UITextField` 的键盘问题之外直接处理它。了解它的工作原理将让你解决事件相关的问题更加容易，或者说更加富有创造力，你甚至可以只依赖响应者链来进行架构。
 
-## UIResponder，UIEvent 和 UIControl
+## UIResponder、UIEvent 和 UIControl
 
-简而言之，UIResponder 实例对象可以对随机事件进行响应并处理。iOS 中的许多东西诸如 UIView，UIViewController，UIWindow，UIApplication 和 UIApplicationDelegate。
+简而言之，UIResponder 实例对象可以对随机事件进行响应并处理。iOS 中的许多东西诸如 UIView、UIViewController、UIWindow、UIApplication 和 UIApplicationDelegate。
 
 相反，`UIEvent` 代表一个单一并只含有一种类型和一个可选子类的 UIKit 事件，这个类型可以是触摸、动效、远程控制或者按压，对应的子类具体一点可能是设备的摇动。当检测到一个系统事件，例如屏幕上的点击，UIKit 内部创建一个 `UIEvent` 实例并且通过调用 `UIApplication.shared.sendEvent()` 把它派发到系统事件队列。当事件被从队列中取出时，UIKit 内部选出第一个可以处理事件的 `UIResponder` 并把它发送到对应的响应者。这个选择过程当事件类型不同的时候也会有所变化，其中触摸事件直接发送到被触摸的 View，其他种类的事件将会被派发给一个所谓的 **第一响应者**。
 
@@ -196,7 +196,7 @@ class CoordenableViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        //在viewDidAppear填写信息以确保UIKit
+        //在 viewDidAppear 填写信息以确保 UIKit
         //已配置此 view 的下一个响应者。
         super.viewDidAppear(animated)
         guard coordinator == nil else {
@@ -224,20 +224,20 @@ UIApplication.shared.push(vc: newVC)
 // MyView -> MyViewController -> **Coordinator** -> UIWindow -> UIApplication -> AppDelegate
 ```
 
-这允许 `Coordinator` 接收系统事件，并通过定义一个新的包含了有关新 view controller 信息的 `PushScreenEvent` ，我们可以调用由这些 `Coordinators` 处理的 `pushNewScreen` 事件来刷新屏幕。
+这允许 `Coordinator` 接收系统事件，并通过定义一个新的包含了有关新 view controller 信息的 `PushScreenEvent`，我们可以调用由这些 `Coordinators` 处理的 `pushNewScreen` 事件来刷新屏幕。
 
 有了这个结构，`UIApplication.shared.push(vc: newVC)` 可以在 app 中的 **任何地方** 调用，而不需要单个代理或单例，因为 UIKit 将确保只通知当前的 `Coordinator` 这个事件，这得多亏了响应者链。
 
 这里显示的例子非常理论化，但我希望这有助于你理解响应者链的目的和用途。
 
-你可以在 Twitter 上关注本文作者 - [@rockthebruno](https://twitter.com/rockthebruno)，有更多建议也可以分享。
+你可以在 Twitter 上关注本文作者 — [@rockthebruno](https://twitter.com/rockthebruno)，有更多建议也可以分享。
 
 ## 官方参考文档
 
-[使用响应者和响应者链来处理事件](https://developer.apple.com/documentation/uikit/touches_presses_and_gestures/using_responders_and_the_responder_chain_to_handle_events)
-[UIResponder](https://developer.apple.com/documentation/uikit/uiresponder)
-[UIEvent](https://developer.apple.com/documentation/uikit/uievent)
-[UIControl](https://developer.apple.com/documentation/uikit/uievent)
+ [使用响应者和响应者链来处理事件](https://developer.apple.com/documentation/uikit/touches_presses_and_gestures/using_responders_and_the_responder_chain_to_handle_events)
+- [UIResponder](https://developer.apple.com/documentation/uikit/uiresponder)
+- [UIEvent](https://developer.apple.com/documentation/uikit/uievent)
+- [UIControl](https://developer.apple.com/documentation/uikit/uievent)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
