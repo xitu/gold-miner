@@ -9,17 +9,17 @@
 
 ![](https://cdn-images-1.medium.com/max/3840/1*-6P9pSYh8qCbyzKu4AG88w.jpeg)
 
-作为最新的基本类型，Symbols 为 JavaScript 语言带来了很多好处，特别是当其用在对象属性上时。但是，相比较于 String 类型，Symbol 有哪些 String 没有的功能呢？ 
+作为最新的基本类型，Symbol 为 JavaScript 语言带来了很多好处，特别是当其用在对象属性上时。但是，相比较于 String 类型，Symbol 有哪些 String 没有的功能呢？ 
 
-在深入探讨 Symbols 之前，让我们先看看一些许多开发人员可能都不知道的 JavaScript 特性。
+在深入探讨 Symbol 之前，让我们先看看一些许多开发人员可能都不知道的 JavaScript 特性。
 
 ## 背景
 
-JavaScript 中有两种数据类型：基本数据类型和对象（对象也包括函数），基本数据类型包括简单数据类型，比如 number（从整数到浮点数，从无穷到 NaN 都属于 Number 类型）、boolean、string、`undefined`、`null`（注意尽管 `typeof null=='object'`，`null` 仍然是一个基本数据类型）。
+JavaScript 中有两种数据类型：基本数据类型和对象（对象也包括函数），基本数据类型包括简单数据类型，比如 number（从整数到浮点数，从 Infinity 到 NaN 都属于 Number 类型）、boolean、string、`undefined`、`null`（注意尽管 `typeof null === 'object'`，`null` 仍然是一个基本数据类型）。
 
-基本数据类型的值是不可以改变的，即不能更改变量的原始值。当然**可以**重新对变量进行赋值。例如，代码 `let x=1;x++`，虽然你通过重新赋值改变了变量 `x` 的值，但是变量的原始值 `1` 仍没有被改变。
+基本数据类型的值是不可以改变的，即不能更改变量的原始值。当然**可以**重新对变量进行赋值。例如，代码 `let x = 1; x++`，虽然你通过重新赋值改变了变量 `x` 的值，但是变量的原始值 `1` 仍没有被改变。
 
-一些语言，比如 C 语言，有引用传递和值传递的概念。JavaScript 也有类似的概念，它是根据传递的数据类型推断出来的。如果将值传递给函数，则重新分配该值不会修改调用位置中的值。但是，如果你**修改**的是基本数据的值，那么修改后的值**会**在调用它的地方被修改。
+一些语言，比如 C 语言，有按引用传递和按值传递的概念。JavaScript 也有类似的概念，它是根据传递数据的类型推断出来的。如果将值传入一个函数，则在函数中重新对它赋值不会修改它在调用位置的值。但是，如果你**修改**的是基本数据的值，那么修改后的值**会**在调用它的地方被修改。
 
 考虑下面的例子：
 
@@ -41,7 +41,7 @@ objectMutator(obj);
 console.log(obj.prop); // 2
 ```
 
-基本数据类型(`NaN` 除外)总是与另一个具有相同值的基本数据类型完全相等。如下:
+基本数据类型（`NaN` 除外）总是与另一个具有相同值的基本数据类型完全相等。如下:
 
 ```js
 const first = "abc" + "def";
@@ -58,11 +58,11 @@ const obj2 = { name: "Intrinsic" };
 
 console.log(obj1 === obj2); // false
 
-// 但是，当两者的.name 属性为基本数据类型时:
+// 但是，当两者的 .name 属性为基本数据类型时:
 console.log(obj1.name === obj2.name); // true
 ```
 
-对象在 JavaScript 中扮演着重要的角色，几乎**到处**可以见到它们的身影。集合通常是键/值对的集合，然而这种形式的最大限制是：对象的键只能是字符串，直到 symbol 出现这一限制才得到解决。如果我们使用非字符串的值作为对象的键，该值会被强制转换成字符串。在下面的程序中可以看到这种强制转换：
+对象在 JavaScript 中扮演着重要的角色，几乎**所有地方**可以见到它们的身影。对象通常是键/值对的集合，然而这种形式的最大限制是：对象的键只能是字符串，直到 Symbol 出现这一限制才得到解决。如果我们使用非字符串的值作为对象的键，该值会被强制转换成字符串。在下面的程序中可以看到这种强制转换：
 
 ```js
 const obj = {};
@@ -80,10 +80,10 @@ console.log(obj);
 
 ## Symbol 是什么？
 
-现在既然我们已经知道了基本数据类型是什么，也就终于可以定义 symbol。symbol 是不能被重新创建的基本数据类型。在这种情况下，symbol 类似于对象，因为对象创建多个实例也将导致不完全相等的值。但是，符号也是原始的，因为它不能被改变。下面是 symbol 用法的一个例子:
+现在既然我们已经知道了基本数据类型是什么，也就终于可以定义 Symbol。Symbol 是不能被重新创建的基本数据类型。在这种情况下，Symbol 类似于对象，因为对象创建多个实例也将导致不完全相等的值。但是，Symbol 也是原始的，因为它不能被改变。下面是 Symbol 用法的一个例子:
 
 ```js
-const s1 = Symbol();
+const s1 = Symbol();  
 const s2 = Symbol();
 
 console.log(s1 === s2); // false
@@ -101,7 +101,7 @@ console.log(s1 === s2); // false
 console.log(s1); // Symbol(debug)
 ```
 
-## Symbols 作为对象属性
+## Symbol 作为对象属性
 
 symbols 还有另一个重要的用法，它们可以当作对象中的键!下面是一个在对象中使用 symbol 作为键的例子:
 
@@ -141,7 +141,7 @@ console.log(obj[Reflect.ownKeys(obj)[1]]); // 42
 
 ## 防止属性名冲突
 
-symbols 可能不会直接有助于 JavaScript 中对象获得私有属性。它们之所以有用的另一个理由是，当不同的库希望向对象添加属性时 symbols 可以避免命名冲突的风险。
+symbols 可能不会对获取 JavaScript 中对象的私有属性直接有利。它们之所以有用的另一个理由是，当不同的库希望向对象添加属性时 symbols 可以避免命名冲突的风险。
 
 如果有两个不同的库希望将某种元数据附加到一个对象上，两者可能都想在对象上设置某种标识符。仅仅使用两个字符串 类型的 `id` 作为键来标识，就有很大的风险，就是多个库使用相同的键。
 
@@ -251,13 +251,13 @@ console.log(JSON.stringify(obj)); // {}
 
 但是，仍然有一个微小的差异。由于字符串是不可变的，符号始终保证是唯一的，因此仍有可能生成相同的字符串并产生冲突。 从数学角度来说，意味着 symbols 确实提供了我们无法从字符串中获得的好处。
 
-在 Node.js 中，检查对象时(例如使用 `console.log()`)，如果遇到对象上名为 `inspect` 的方法，则调用该函数，并将输出表示成对象的日志。可以想象，这种行为并不是每个人都期望的，通常命名为 `inspect` 的方法经常与用户创建的对象发生冲突。现在有 symbol 可用来实现这个功能，并且可以在 require('util').inspection.custom 中使用。`inspect` 方法在 Node.js v10 中被废弃，在 v11 中完全被忽略。现在没有人会因为偶然改变 inspect 的行为!
+在 Node.js 中，检查对象时(例如使用 `console.log()`)，如果遇到对象上名为 `inspect` 的方法，则调用该函数，并将输出表示成对象的日志。可以想象，这种行为并不是每个人都期望的，通常命名为 `inspect` 的方法经常与用户创建的对象发生冲突。现在有 symbol 可用来实现这个功能，并且可以在 require('util').inspection.custom 中使用。`inspect` 方法在 Node.js v10 中被废弃，在 v11 中完全被忽略。现在没有人会因为意外改变 inspect 的行为!
 
 ## 模拟私有属性
 
 这里有一个有趣的方法，我们可以使用它来模拟对象上的私有属性。这种方法将利用另一个 JavaScript 的特性：proxy。proxy 本质上是封装了一个对象，并允许我们与该对象进行不同的交互。
 
-proxy 提供了许多方法来拦截对对象执行的操作。我们所感兴趣的是在尝试读取对象的键时，proxy 会有哪些动作。我不会去详细解释 proxy 是如何工作的，因此如果你想了解更多信息，请查看我们的另一篇文章： [JavaScript Object Property Descriptors, Proxies, and Preventing Extension](https://medium.com/intrinsic/javascript-object-property-descriptors-proxies-and-preventing-extension-1e1907aa9d10).
+proxy 提供了许多方法来拦截对对象执行的操作。我们所感兴趣的是在尝试读取对象的键时，proxy 会有哪些动作。我不会去详细解释 proxy 是如何工作的，如果你想了解更多信息，请查看我们的另一篇文章： [JavaScript Object Property Descriptors, Proxies, and Preventing Extension](https://medium.com/intrinsic/javascript-object-property-descriptors-proxies-and-preventing-extension-1e1907aa9d10).
 
 我们可以使用 proxy 来谎报对象上可用的属性。在本例中，我们将创建一个 proxy，它用于隐藏我们的两个已知隐藏属性，一个是字符串 `_favColor`，另一个是分配给 `favBook` 的 symbol：
 ```js
@@ -302,7 +302,7 @@ console.log(proxy._favColor); // 'blue'
 
 使用 `_favColor` 字符串很简单：只需读取库的源代码即可。此外，动态键可以（例如之前讲的 `uuid` 示例）可以通过暴力找到。但是，如果不是直接引用 symbol，任何人都无法从 `proxy` 对象中访问到值 `metro 2033`。
 
-**Node.js 声明**: node.js 中的一个特性破坏了 proxy 的隐私性。此功能不存在于 JavaScript 语言本身，也不适用于其他情况，例如 web 浏览器。这一特性允许在给定 proxy 时获得对底层对象的访问权。以下是一个使用此功能破坏上述私有属性的示例：
+**Node.js 声明**: Node.js 中的一个特性破坏了 proxy 的隐私性。此功能不存在于 JavaScript 语言本身，也不适用于其他情况，例如 web 浏览器。这一特性允许在给定 proxy 时获得对底层对象的访问权。以下是一个使用此功能破坏上述私有属性的示例：
 
 ```js
 const [originalObject] = process
@@ -313,9 +313,9 @@ const allKeys = Reflect.ownKeys(originalObject);
 console.log(allKeys[3]); // Symbol(fav book)
 ```
 
-我们现在需要修改全局 `Reflect` 对象，或是修改 `util` 进程绑定，以防止在特定的 node.js 实例中使用它们。但那却是一个新世界的大门，如果你想了解其中的奥秘，看看我们的其他博客： [Protecting your JavaScript APIs](https://medium.com/intrinsic/protecting-your-javascript-apis-9ce5b8a0e3b5)。
+我们现在需要修改全局 `Reflect` 对象，或是修改 `util` 进程绑定，以防止它们在特定的 node.js 实例中被使用。但那却是一个新世界的大门，如果你想了解其中的奥秘，看看我们的其他博客： [Protecting your JavaScript APIs](https://medium.com/intrinsic/protecting-your-javascript-apis-9ce5b8a0e3b5)。
 
-这篇文章是我和 Thomas Hunter II 一起写的。我在一家名为 [Intricsic](https://intrinsic.com/) 的公司工作（顺便说一下，我们正在[招聘！](mailto:jobs@intrinsic.com)），专门编写用于保护 node.js 应用程序的软件。我们目前有一个产品应用 Least Privilege 模型来保护应用程序。我们的产品主动保护 node.js 应用程序不受攻击者的攻击，而且非常容易实现。如果你正在寻找保护 node.js 应用程序的方法，请在 [hello@inherin.com](mailto:hello@inherin.com) 上联系我们。
+这篇文章是我和 Thomas Hunter II 一起写的。我在一家名为 [Intricsic](https://intrinsic.com/) 的公司工作（顺便说一下，我们正在[招聘！](mailto:jobs@intrinsic.com)），专门编写用于保护 Node.js 应用程序的软件。我们目前有一个产品应用 Least Privilege 模型来保护应用程序。我们的产品主动保护 Node.js 应用程序不受攻击者的攻击，而且非常容易实现。如果你正在寻找保护 Node.js 应用程序的方法，请在 [hello@inherin.com](mailto:hello@inherin.com) 上联系我们。
 
 ---
 
