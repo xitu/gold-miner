@@ -13,7 +13,7 @@
 
 当我做一些 [低级性能优化](https://medium.com/wolfram-developers/performance-through-elegant-javascript-15b98f0904de) 以用于渲染 [Wolfram Cloud](https://www.wolframcloud.com/) notebook 时, 我注意到一个非常奇怪的问题，就是函数会因为处理浮点数进入较慢的执行路径，即使所有传入的数据都是整数的情况下也会是这样。具体来说，*单元格计数器*被 JavaScript 引擎视为浮点数，这大大减慢了大型　notebook 的渲染速度（至少在 Chrome 里面是这样）。
 
-我们将单元格计数器 (由 [CounterAssignments](https://reference.wolfram.com/language/ref/CounterAssignments.html) 和 [CounterIncrements](https://reference.wolfram.com/language/ref/CounterIncrements.html) 进行的定义) 表示为一个整数数组, 它具有从值到索引的一个独立的映射。这比每组计数器存储为一个字典形式更为高效。举例来说，不是这样的
+我们将单元格计数器 (由 [CounterAssignments](https://reference.wolfram.com/language/ref/CounterAssignments.html) 和 [CounterIncrements](https://reference.wolfram.com/language/ref/CounterIncrements.html) 进行的定义) 表示为一个整数数组, 它具有从值到索引的一个独立的映射。这比每组计数器存储为一个字典形式更为高效。举个例子，它并不是下面的这种格式
 
 ```js
 {Title: 1, Section: 3, Input: 7}
@@ -31,19 +31,19 @@
 {Title: 0, Section: 1, Input: 2}
 ```
 
-当我们渲染笔记本时，每个单元格都保留自己当前计数器值的副本，执行自己的赋值和增量（如果有的话），并将新数组传递给下一个单元格。
+当我们渲染 notebook 时，每个单元格都保留自己当前计数器值的副本，执行自己的赋值和增量（如果有的话），并将新数组传递给下一个单元格。
 
-我发现 — 至少在有些时候 — V8 (也就是 Chrome 和 Node.js 的 JS 引擎) 将数值数组视为包含浮点数。这会在很多操作上降低效率，因为浮点数的内存布局不如（小）整数有效。这很奇怪，因为数组里面除了 [*Smi*s](https://v8.dev/blog/elements-kinds) （在正负 31 位之间的整数，也就是从 -2³⁰ 到 2³⁰-1）不包含任何东西。
+我发现 — 至少在有些时候 — V8 (也就是 Chrome 和 Node.js 的 JS 引擎) 将数值数组视为它们包含的是浮点数。这会在很多操作上降低效率，因为浮点数的内存布局不如（小）整数有效。这很奇怪，因为数组里面除了 [*Smi*s](https://v8.dev/blog/elements-kinds) （在正负 31 位之间的整数，也就是从 -2³⁰ 到 2³⁰-1）不包含任何其他的东西。
 
-我找到一个解决办法，就是在从 JSON 对象读取数据之后到将他们放到计数数组之前，“强制”对所有的值按位运算值｜0 转变成整数（即使他们已经是 JSON 数据中的整数）。然而虽然我有了这个解决办法，但是我还是不能完全理解为什么它会起作用 — 直到最近...
+我找到一个解决办法，就是在从 JSON 对象读取数据之后到将他们放到计数数组之前，“强制” 对所有的值进行 “值 | 0” 的按位运算转变成整数（即使他们已经是 JSON 数据中的整数）。然而虽然我有了这个解决办法，但是我还是不能完全理解为什么它会起作用 — 直到最近...
 
 ## 说明
 
 由 [Mathias Bynens](https://twitter.com/mathias) 和 [Benedikt Meurer](https://twitter.com/bmeurer) 在 [AgentConf](https://www.agent.sh/) 的分享 [JavaScript 引擎基础：好的，坏的和丑陋的](https://slidr.io/bmeurer/javascript-engine-fundamentals-the-good-the-bad-and-the-ugly#1) 终于点醒了我：这都是关于 JS 引擎中对象的内部实现，以及每个对象如何链接到某个*结构*。
 
-JS 引擎会跟踪对象上定义的属性名称，然后每当添加或删除属性时，在背后会使用不同的结构。相同结构的对象会在内存的相同位置有相同属性（相当于对象地址而言），允许引擎明显加速属性访问并减少单个对象实例的内存样板（他们不必自己维护一本完整的属性字典）。
+JS 引擎会跟踪对象上定义的属性名称，然后每当添加或删除属性时，隐式使用不同的结构。相同结构的对象会在内存的相同位置有相同属性（相对于对象地址而言），允许引擎显著地加速属性的访问并减少单个对象实例的内存样板（他们不必自己维护一本完整的属性字典）。
 
-我之前不知道的是，结构也区分了不同的*种类*的属性值。特别是，具有小整数值的属性意味着与（部分时候）包含其他数值的属性不同的形状。比如在
+我之前不知道的是，结构也区分了不同*类型*的属性值。特别是，具有小整数值的属性意味着与（部分时候）包含其他数值的属性不同的结构。比如在
 
 ```js
 const b = {};
@@ -122,7 +122,7 @@ function main() {
 main();
 ```
 
-我们首先构造一个从对象 obj 中提取的 100 个整数的数组，然后我们调用 copyAndIncrement 一百万次，它会创建一个数组的副本，然后在副本中改变一个元素，然后返回新的数组。这基本上是在渲染（大）notebook 时处理单元格计数器时发生的情况。
+我们首先构造一个从对象 obj 中提取的 100 个整数的数组，然后我们调用 copyAndIncrement 一千万次，它会创建一个数组的副本，然后在副本中改变一个元素，然后返回新的数组。这就是在渲染（体积很大）的 notebook 时处理单个计数器时实质上发生的事。
 
 让我们稍微改变一下程序并在开头加入如下代码（counters-float.js）：
 
@@ -131,7 +131,7 @@ main();
     objThatSpoilsEverything.value = 1.5;
 ```
 
-仅仅这个对象的存在本身就将导致另一个对象改变其结构并减慢从其值构造的数组上的操作。
+仅仅这个对象的存在本身就将导致另一个对象改变其结构并减慢根据它的值构造的数组的操作。
 
 请注意，以后创建空对象并添加属性与解析JSON字符串具有相同的效果：
 
@@ -172,7 +172,7 @@ $ jsc
 
 在 Chrome 中的 V8，在 Firefox 中的 SpiderMonkey，在 IE 和 Edge 中的 Chakra，在 Safari 中的 JavaScriptCore。
 
-并不能理想测量整个过程的执行时间，但我们可以通过用 [multitime](https://github.com/ltratt/multitime) 关注每个示例的 100 次运行的中位数来减少异常值（按随机顺序，在两次运行之间休息 1 秒）：
+并不能理想测量整个过程的执行时间，但我们可以通过用 [多次执行](https://github.com/ltratt/multitime) 关注每个示例的 100 次运行的中位数来减少异常值（按随机顺序，在两次运行之间休息 1 秒）：
 
 ```bash
 $ multitime -n 100 -s 1 -b examples.bat
