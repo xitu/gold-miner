@@ -9,17 +9,17 @@
 
 可靠的键值存储为分布式系统提供了一致性配置和协调的公共基础。[etcd](https://github.com/coreos/etcd) 项目就是一个这样的系统，这是一个由 CoreOS 创建的开源键值存储系统。它是许多[生产级分布式系统](https://github.com/coreos/etcd/blob/master/documentation/producing-users.md)的核心组件和 [Kubernetes](https://kubernetes.io/) 等项目的数据存储中心。
 
-Java 已经通过包括在 Hadoop 生态系统、Cassandra 数据存储和云基础设施技术栈中的显著使用而证明了自己是一种流行的分布式系统语言。此外，它仍然是一种非常流行的语言。可以看看在[谷歌趋势](https://trends.google.com/trends/explore?cat=32&q=%2Fm%2F07sbkfb,%2Fm%2F09gbxjr,%2Fm%2F06ff5,%2Fm%2F0gdzk,%2Fm%2F02p97)的统计数据中，Java 仍然占据主导地位:
+Java 已经通过在包括 Hadoop 生态系统、Cassandra 数据存储和云基础设施技术栈中的使用而证明了自己是一种流行的分布式系统语言。此外，它同时还是一种非常流行的语言。可以看看在[谷歌趋势](https://trends.google.com/trends/explore?cat=32&q=%2Fm%2F07sbkfb,%2Fm%2F09gbxjr,%2Fm%2F06ff5,%2Fm%2F0gdzk,%2Fm%2F02p97)的统计数据中，Java 仍然占据主导地位:
 ![](https://coreos.com/sites/default/files/inline-images/google-trends-java.png)
 > 就谷歌搜索结果而言，Java 仍然比 Microsoft 的 .Net 甚至 JavaScript 语言更受欢迎
 
-面对着 Java 的流行及其在分布式系统中的普遍使用，我们认为对于 Java 开发来说，etcd 也应该作为后端基础被使用到。jetcd 项目的出现，这个新的 etcd 客户端将 etcd v3 API 带到了 Java 中。
+面对着 Java 的流行及其在分布式系统中的普遍使用，我们认为对于 Java 开发来说，etcd 也应该作为后端基础被使用到。jetcd 这个新的 etcd 客户端的出现，将 etcd v3 API 带到了 Java 中。
 
-通过使用 jetcd, Java 应用程序可以使用包装了 etcd 的原生 [gRPC](https://github.com/coreos/etcd/blob/master/Documentation/dev-guide/api_reference_v3.md) 协议的智能 API 来与 etcd 进行纯粹的交互。该 API 提供了仅在 etcd 上可用的表达性分布式特性。更重要的是，通过直接支持更多的语言，使用新的使用模式更容易为 etcd 编写新的应用程序，从而帮助 etcd 变得更加稳定和可靠。
+通过使用 jetcd， Java 应用程序可以使用包装了 etcd 的原生 [gRPC](https://github.com/coreos/etcd/blob/master/Documentation/dev-guide/api_reference_v3.md) 协议的智能 API 来与 etcd 进行纯粹的交互。该 API 提供了仅在 etcd 上可用的表达性分布式特性。更重要的是，通过直接支持更多的语言，使用新的使用模式更容易为 etcd 编写新的应用程序，从而帮助 etcd 变得更加稳定和可靠。
 
 ## 初级入门
 
-您可以通过构建并运行一个名为 “jetcdctl” 的[小程序](https://github.com/coreos/jetcd/tree/master/jetcd-examples/jetcd-simple-ctl)来试用 jetcd，该程序使用了 jetcd 去访问 etcd。对于更进一步的 jetcd 项目来说，jetcdctl 示例也是一个很好的起点。要继续学习，你还需要同时安装 Git 和 Java。
+你可以通过构建并运行一个名为 “jetcdctl” 的[小程序](https://github.com/coreos/jetcd/tree/master/jetcd-examples/jetcd-simple-ctl)来试用 jetcd，该程序使用了 jetcd 去访问 etcd。对于更进一步的 jetcd 项目来说，jetcdctl 示例也是一个很好的起点。要继续学习，你还需要同时安装 Git 和 Java。
 
 首先，克隆 jetcd 库来获取 jetcd 源码，然后使用 Maven 来构建 “jetcd-simple-ctl” 吧:
 
@@ -29,21 +29,21 @@ $ cd jetcd/jetcd-examples/jetcd-simple-ctl
 $ ./mvnw clean package
 ```
 
-构建并准备好运行 “jetcdctl” 之后，下载一个 [etcd 发行版](https://github.com/coreos/etcd/releases)并在本地启动一个 etcd 服务。若以下 “go get” 命令无法正常运行，可以参考[资料](https://github.com/etcd-io/etcd/blob/master/Documentation/dl_build.md)（译者注）:
+构建并准备好运行 “jetcdctl” 之后，下载一个 [etcd 发行版](https://github.com/coreos/etcd/releases)并在本地启动一个 etcd 服务。（译者注：若以下 “go get” 命令无法正常运行，可以参考[这里的资料](https://github.com/etcd-io/etcd/blob/master/Documentation/dl_build.md)）:
 
 ``` plain
 # build with “go get github.com/coreos/etcd/cmd/etcd”
 $ etcd &
 ```
 
-接下来，使用 “jetcdctl” 将 “123” 写入“abc”，与本地 etcd 服务器进行通信:
+接下来，使用 “jetcdctl” 将 “123” 写入 “abc”，与本地 etcd 服务器进行通信:
 
 ``` plain
 $ java -jar target/jetcdctl.jar put abc 123
 21:39:06.126|INFO |CommandPut - OK
 ```
 
-你可以通过读到 “abc” 来确认写入 etcd 的 put 命令的正确性:
+你可以通过读取 “abc” 来确认写入 etcd 的 put 命令的正确性:
 
 ``` plain
 $ java -jar target/jetcdctl.jar get abc 21:41:00.265|INFO |CommandGet - abc 21:41:00.267|INFO |CommandGet - 123
@@ -53,7 +53,7 @@ $ java -jar target/jetcdctl.jar get abc 21:41:00.265|INFO |CommandGet - abc 21:4
 
 ## 更好的 watches（观察） 特性
 
-Tjetcd API 可以方便地管理 etcd 的底层 [gRPC](https://github.com/coreos/etcd/blob/master/Documentation/dev-guide/api_reference_v3.md) 协议。一个例子是 streaming key 事件，其中客户端监视 key，etcd 服务端不断地往客户端发回更新信息。jetcd 客户端管理着一个低级别的 gRPC 流，用来优雅地处理断开连接，并向用户返回一个无缝的事件流。
+jetcd API 可以方便地管理 etcd 的底层 [gRPC](https://github.com/coreos/etcd/blob/master/Documentation/dev-guide/api_reference_v3.md) 协议。一个例子是 streaming key 事件，其中客户端观察 key，etcd 服务端不断地往客户端发回更新信息。jetcd 客户端管理着一个低级别的 gRPC 流，用来优雅地处理断开连接，并向用户返回一个无缝的事件流。
 
 如果 jetcd 应用程序希望接收到一个 key 的所有更新，它将使用 [watch](https://github.com/coreos/jetcd/blob/18b235a77aa680039cec170a394b8156fb01d7f0/jetcd-core/src/main/java/com/coreos/jetcd/Watch.java#L46) API 来创建一个 [Watcher](https://github.com/coreos/jetcd/blob/18b235a77aa680039cec170a394b8156fb01d7f0/jetcd-core/src/main/java/com/coreos/jetcd/Watch.java#L51) :
 
@@ -110,11 +110,11 @@ zk.exists(key, w);
 
 即使假设所有事件都已触发，代码仍然可能破坏事件流。没有 etcd 提供的[多版本并发控制](https://github.com/coreos/etcd/blob/master/Documentation/learning/data_model.md)，就无法访问历史 key。如果 key value 在接收事件和获取数据之间发生了变化，代码将打印出最新的值，而不是与 watch 事件关联的值。更糟的是，事件没有附带修订信息；无法确定 key 是来自事件还是来自 future 返回。
 
-## 版本以及未来计划
+## v0.0.1 版本以及未来计划
 
-从 v0.0.1 开始，jetcd 支持大多数应用程序需要的键值存储基元。这些原语可以作为复杂模式(如分布式队列、barriers 等)的构建块。在未来，jetcd 将能够使用 etcd 的本地锁和领导人选举 rpc 进行集群范围的标准化分布式协调。
+从 v0.0.1 开始，jetcd 支持大多数应用程序需要的键值存储。这些原语可以作为复杂模式(如分布式队列、barriers 等)的构建块。在未来，jetcd 将能够使用 etcd 的本地锁和领导人选举 rpc 进行集群范围的标准化分布式协调。
 
-jetcd 被设计成易于使用，同时利用 etcd 的先进功能。它是开源的，正在积极开发中，欢迎社区的贡献和反馈。可以在 GitHub 上找到它，网址是[https://github.com/coreos/jetcd](https://github.com/coreos/jetcd)。
+jetcd 设计目的是易于使用，同时还能够利用 etcd 的先进功能。它是开源的，并且正在活跃开发中，欢迎社区的贡献和反馈。我们可以在 GitHub 上找到它，地址是[https://github.com/coreos/jetcd](https://github.com/coreos/jetcd)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
