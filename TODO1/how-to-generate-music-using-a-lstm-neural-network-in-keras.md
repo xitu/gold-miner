@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-generate-music-using-a-lstm-neural-network-in-keras.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-generate-music-using-a-lstm-neural-network-in-keras.md)
 > * 译者：[HearFishle](https://github.com/HearFishle)
-> * 校对者：[xionglong58](https://github.com/xionglong58)，[JackEggie](https://github.com/JackEggie)
+> * 校对者：[xionglong58](https://github.com/xionglong58)、[JackEggie](https://github.com/JackEggie)
 
 # 如何在 Keras 中使用 LSTM 神经网络创作音乐
 
