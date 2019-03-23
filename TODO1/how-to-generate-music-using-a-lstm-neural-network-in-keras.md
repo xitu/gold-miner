@@ -13,7 +13,7 @@
 
 神经网络正在被使用去提升我们生活的方方面面。它们为我们提供购物建议，[创作一篇基于某作者风格的文档](http://www.cs.utoronto.ca/~ilya/pubs/2011/LANG-RNN.pdf)甚至可以被使用去[改变图片的艺术风格](https://arxiv.org/pdf/1508.06576.pdf)。近几年来，大量的教程集中于如何使用神经网络去创作文本但却鲜有教程告诉你如何创作音乐。在这篇文章中我们将介绍如何通过循环神经网络，使用 Python 和 Keras 库去创作音乐。
 
-对于那些没耐心的人，文档的结尾为你们提供了本教程的 Github 仓库的链接。
+对于那些没耐心的人，在结尾为你们提供了本教程的 Github 仓库的链接。
 
 ## 背景
 
@@ -21,9 +21,9 @@
 
 ### 循环神经网络（RNN）
 
-循环神经网络是一类让我们使用时序信息的人工神经网络。之所以称之为循环是因为他们对数据序列中的每一个元素都执行相同的函数。。每次的结果依赖于之前的运算。传统的神经网络则与之相反，输出不依赖于之前的计算。
+循环神经网络是一类让我们使用时序信息的人工神经网络。之所以称之为循环是因为他们对数据序列中的每一个元素都执行相同的函数。每次的结果依赖于之前的运算。传统的神经网络则与之相反，输出不依赖于之前的计算。
 
-在这篇教程中，我们使用一个[** 长短期记忆 (LSTM)**](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)神经网络。这类循环神经网络可以通过梯度下降法高效的学习。使用闸门机制，LSTMs 可以识别和编码长期模式。LSTMs 对于解决那些长期记忆信息的案例如创作音乐和文本特别有用。
+在这篇教程中，我们使用一个[**长短期记忆(LSTM)**](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)神经网络。这类循环神经网络可以通过梯度下降法高效的学习。使用闸门机制，LSTM 可以识别和编码长期模式。LSTM 对于解决那些长期记忆信息的案例如创作音乐和文本特别有用。
 
 ### Music21
 
@@ -43,7 +43,7 @@
 
 ### 数据
 
-在[Github 仓库](https://github.com/Skuldur/Classical-Piano-Composer) 中，我们使用钢琴曲（展示），音乐主要由《最终幻想》中的音轨组成。选择《最终幻想》系列音乐，是因为它有很多部分，而且大部分的旋律都是清晰而优美的。而任何一组由单个乐器组成的 MIDI 文件都可以为我们的目的服务。
+在[Github 仓库](https://github.com/Skuldur/Classical-Piano-Composer) 中，我们使用钢琴曲（展示），音乐主要由《最终幻想》中的音轨组成。选择《最终幻想》系列音乐，是因为它有很多部分，而且大部分的旋律都是清晰而优美的。而任何一组由单个乐器组成的 MIDI 文件都可以为我们服务。
 
 实现神经网络的第一步是检查我们要处理的数据。
 
@@ -71,7 +71,7 @@
 ...
 ```
 
-这个数据拆分成两种类型：[Note](http://web.mit.edu/music21/doc/moduleReference/moduleNote.html#note)s（译者注：音符集）和[Chord](http://web.mit.edu/music21/doc/moduleReference/moduleChord.html)s（译者注：和弦集）。音符对象包括 **音高** ， **音阶** 和音符的 **终止**
+这个数据被拆分成两种类型：[Note](http://web.mit.edu/music21/doc/moduleReference/moduleNote.html#note)（译者注：音符集）和[Chord](http://web.mit.edu/music21/doc/moduleReference/moduleChord.html)（译者注：和弦集）。音符对象包括**音高**，**音阶**和音符的**偏移量**
 
 *  **音高**是指声音的频率，或者用 [A, B, C, D, E, F, G] 来表示它是高还是低。其中 A 是最高，G 是最低。
 
@@ -81,7 +81,7 @@
 
 而和弦对象的本质是一个同时播放一组音符的容器。
 
-现在我们可以看到要想精确创作音乐，我们的神经网络将必须有能力去预测哪个音符或和弦将被使用。这意味着我们的预测集将必须包含每一个我们训练集中遇到的的音符和和弦对象。在 Github 页面的训练集上，不同的音符与和弦的数量总计达 352 个。这似乎交给了网络许多种可能的预测去输出，但是一个 LSTM 网络可以轻松处理它。
+现在我们可以看到要想精确创作音乐，我们的神经网络将必须有能力去预测哪个音符或和弦将被使用。这意味着我们的预测集将必须包含每一个我们训练集中遇到的的音符与和弦对象。在 Github 页面的训练集上，不同的音符与和弦的数量总计达 352 个。这似乎交给了网络许多种可能的预测去输出，但是一个 LSTM 网络可以轻松处理它。
 
 接下来我得考虑把这些音符放到哪里了。正如大部分人听音乐时注意到的，音符的间隔通常不同。你可以听到很多音符的快速演替，然后接下来又是一段空白，这时没有任何音符演奏。
 
@@ -111,7 +111,7 @@
 ...
 ```
 
-如这段摘录里所示，midi 文件里大部分数据集的音符的间隔都是 0.5。因此，我们可以通过忽略不同输出的偏移量来简化数据和模型。这不会太剧烈的影响神经网络创作的音乐旋律。因此我们将忽视教程中的休止符并且把我们的可能输出列表保持在 352。
+如这段摘录里所示，midi 文件里大部分数据集的音符的间隔都是 0.5。因此，我们可以通过忽略不同输出的偏移量来简化数据和模型。这不会太剧烈的影响神经网络创作的音乐旋律。因此我们将忽视教程中的偏移量并且把我们的可能输出列表保持在 352。
 
 ### 准备数据
 
@@ -130,9 +130,9 @@ for file in glob.glob("midi_songs/*.mid"):
 
     parts = instrument.partitionByInstrument(midi)
 
-    if parts: # file has instrument parts
+    if parts: # 文件包含乐器
         notes_to_parse = parts.parts[0].recurse()
-    else: # file has notes in a flat structure
+    else: # 文件有扁平结构的音符
         notes_to_parse = midi.flat.notes
 
     for element in notes_to_parse:
@@ -142,15 +142,15 @@ for file in glob.glob("midi_songs/*.mid"):
             notes.append('.'.join(str(n) for n in element.normalOrder))
 ```
 
-使用 _converter.parse(file)_ 函数，我们开始把每一个文件加载到一个 Music21 流对象中。使用这个流对象，我们在文件中得到一个包含所有的音符与和弦的列表。把字符串符号贴到到每个音符对象的音高上，因为使用字符串符号可以重新创造音符最重要的部分。这些代码使我们可以轻松的把由网络生成的输出解码为正确的音符与和弦。
+使用 _converter.parse(file)_ 函数，我们开始把每一个文件加载到一个 Music21 流对象中。使用这个流对象，我们在文件中得到一个包含所有的音符与和弦的列表。把字符串符号贴到到每个音符对象的音高上，因为使用字符串符号可以重新创造音符中最重要的部分。这些代码使我们可以轻松的把由网络生成的输出解码为正确的音符与和弦。
 
 既然我们已经把所有的音符与和弦放入一个序列表中，我们就可以创造一个序列，作为网络的输入。
 
 
-![Figure 1: When converting from categorical to numerical data the data is converted to integer indexes representing where the category is positioned in the set of distinct values. E.g. apple is the first distinct value so it maps to 0, orange is the second so it maps to 1, pineapple is the third so it maps to 2, and so forth.](https://cdn-images-1.medium.com/max/2000/1*sM3FeKwC-SD66FCKzoExDQ.jpeg)
+![图 1: 当一个数据由分类数据转换成数值数据时，此数据被转换成了一个整数索引来表示某一类在一组不同值中的位置。例如，苹果是第一个明确的值，因此它被映射成 0。桔子在第二个因此被映射成 1，菠萝就是 3，等等](https://cdn-images-1.medium.com/max/2000/1*sM3FeKwC-SD66FCKzoExDQ.jpeg)
 
 
-图1：当一个数据由分类数据转换成数值数据时，此数据被转换成了一个整数索引来表示某一类在一组不同值中的位置。例如，苹果是第一个明确的值，因此它被映射成 0。桔子在第二个因此被映射成 1，菠萝就是 3，等等。
+图 1：当一个数据由分类数据转换成数值数据时，此数据被转换成了一个整数索引来表示某一类在一组不同值中的位置。例如，苹果是第一个明确的值，因此它被映射成 0。桔子在第二个因此被映射成 1，菠萝就是 3，等等。
 
 首先，我们将写一个映射函数去把字符型分类数据映射成整型数值数据。这么做是因为神经网络处理整型数值数据（的性能）远比处理字符型分类数据好的多。图 1 就是一个把分类转换成数值的例子。
 
@@ -308,13 +308,13 @@ for note_index in range(500):
 
 我们选择使用网络去创作 500 个音符是因为两分钟的音乐是平滑的而且给了网络充足的空间去创造旋律。想要制作任何一个音符我们都必须给网络提交一个序列。我们提交的第一个序列是开始索引的音符序列。对于我们用作输入的每个后续序列，我们将删除序列的第一个音符，并在序列末尾插入上一个迭代的输出，如图 2 所示。
  
-![Figure 2: The first input sequence is ABCDE. The output we get from feeding that to the network is F. For the next iteration we remove A from the sequence and append F to it. Then we repeat the process.](https://cdn-images-1.medium.com/max/2000/1*lsMVJ484dEqIVMFyJ1gV2g.jpeg)
+![图 2: 第一个输入列是 ABCDE。我们依靠网络从流里得到的输出是 F。对于下一次的迭代，我们把A从列表里移除，并把 F 追加进去。然后重复这步骤。](https://cdn-images-1.medium.com/max/2000/1*lsMVJ484dEqIVMFyJ1gV2g.jpeg)
 
 图2：第一个输入列是 ABCDE。我们依靠网络从流里得到的输出是 F。对于下一次的迭代，我们把A从列表里移除，并把 F 追加进去。然后重复这步骤。
 
 为了从网络的输出中确定出最准确的预测，我们抽取了值最高的索引。在输出汇总索引为 *X* 的列可能对应于 下一个音符的 *X*。图三帮助解释这个。
 
-![Figure 3: Here we see the mapping between the an output prediction from the network and classes. As we can see the highest probability is that the next value should be D, so we choose D as the most probable class.](https://cdn-images-1.medium.com/max/2000/1*YpnnaPA1Sm8rzTR4N2knKQ.jpeg)
+![图 3: 我们看到在一个从网络到类的输出预测的映射。正如我们看到的，下一个值最可能是 D，因此我们选择 D 最为最可能的类。](https://cdn-images-1.medium.com/max/2000/1*YpnnaPA1Sm8rzTR4N2knKQ.jpeg)
 
 图三：我们看到在一个从网络到类的输出预测的映射。正如我们看到的，下一个值最可能是 D，因此我们选择 D 最为最可能的类。
 
@@ -373,8 +373,7 @@ midi_stream.write('midi', fp='test_output.mid')
 
 有音乐常识，能阅读乐谱的人呢可以看到在这一页里有一些奇怪的音符。这就是网络不能创作预测的旋律的结果。在我们目前的成果里将总会有一些错误的音符。如果想获得更好的结果我们得有更大的网络才行。
 
-![Figure 4: An example of sheet music generated by the LSTM network](https://cdn-images-1.medium.com/max/2836/1*tzfrAkHCbGjBXA5ZOthjrw.png)
-图四：通过 LSTM 网络创作一页音乐
+![图 4:通过 LSTM 网络创作一部音乐](https://cdn-images-1.medium.com/max/2836/1*tzfrAkHCbGjBXA5ZOthjrw.png)
 
 这个相对较浅的网络的结果仍然令人印象深刻，从示例音乐中可以听到。对于那些感兴趣的人来说，图4中的乐谱代表了 Neuralnet  音乐 5 的音乐符号。
 
@@ -384,7 +383,7 @@ midi_stream.write('midi', fp='test_output.mid')
 
 我们用一个简单的 LSTM 网络和 352 个类实现了这个非凡的成果。不过，有一些地方还有待提高。
 
-首先，目前实现的结果不支持音符的多种音长和音符间的休止。我们要为添加为不同音长服务的类和代表休止时间的类。
+首先，目前实现的结果不支持音符的多种音长和音符间的偏移。我们要为添加为不同音长服务的类和代表偏移时间的类。
 
 为了通过增加类来获得满意的结果我们也必须增加 LSTM 网络的深度，这需要性能更高的计算机去完成。我自用的笔记本电脑大约需要两个小时去训练网络。
 
@@ -398,7 +397,7 @@ midi_stream.write('midi', fp='test_output.mid')
 
 在本教程中我们演示了如何创建一个 LSTM 神经网络去创作音乐。也许这个结果不尽如人意，但它们还是让人印象深刻。而且它向我们展示了，神经网络可以创作音乐并且可以被用来帮助创作人们更复杂的音乐作品。
 
-[Check out the Github repository for the tutorial here](https://github.com/Skuldur/Classical-Piano-Composer)[在此查看 GitHub 仓库查看本教程](https://github.com/Skuldur/Classical-Piano-Composer)
+[在 GitHub 仓库查看本教程](https://github.com/Skuldur/Classical-Piano-Composer)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
