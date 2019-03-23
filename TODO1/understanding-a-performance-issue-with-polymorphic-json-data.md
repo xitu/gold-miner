@@ -11,9 +11,9 @@
 
 ![照片由 [Markus Spiske](https://unsplash.com/@markusspiske?utm_source=medium&utm_medium=referral) 摄于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11520/0*g6D9UP-cs6jMRzrx)
 
-当我做一些 [低级性能优化](https://medium.com/wolfram-developers/performance-through-elegant-javascript-15b98f0904de) 以用于渲染 [Wolfram Cloud](https://www.wolframcloud.com/) 笔记本时, 我注意到一个非常奇怪的问题，也就是函数会因为处理浮点数进入较慢的执行路径，即使所有传入的数据都是整数。具体来说，*单元格计数器*被 JavaScript 引擎视为浮点数，这大大减慢了大型笔记本的渲染速度（至少在 Chrome 里面是这样）。
+当我做一些 [低级性能优化](https://medium.com/wolfram-developers/performance-through-elegant-javascript-15b98f0904de) 以用于渲染 [Wolfram Cloud](https://www.wolframcloud.com/) notebook 时, 我注意到一个非常奇怪的问题，就是函数会因为处理浮点数进入较慢的执行路径，即使所有传入的数据都是整数的情况下也会是这样。具体来说，*单元格计数器*被 JavaScript 引擎视为浮点数，这大大减慢了大型　notebook 的渲染速度（至少在 Chrome 里面是这样）。
 
-我们将单元格计数器 (由 [CounterAssignments](https://reference.wolfram.com/language/ref/CounterAssignments.html) 和 [CounterIncrements](https://reference.wolfram.com/language/ref/CounterIncrements.html) 进行的定义) 表示为一个整数数组, 它具有从值到索引的一个独立的映射。这比每组计数器存储为一个字典形式更为举例来说，不是这样的
+我们将单元格计数器 (由 [CounterAssignments](https://reference.wolfram.com/language/ref/CounterAssignments.html) 和 [CounterIncrements](https://reference.wolfram.com/language/ref/CounterIncrements.html) 进行的定义) 表示为一个整数数组, 它具有从值到索引的一个独立的映射。这比每组计数器存储为一个字典形式更为高效。举例来说，不是这样的
 
 ```js
 {Title: 1, Section: 3, Input: 7}
@@ -31,7 +31,7 @@
 {Title: 0, Section: 1, Input: 2}
 ```
 
-from names to indices. 当我们渲染笔记本时，每个单元格都保留自己当前计数器值的副本，执行自己的赋值和增量（如果有的话），并将新数组传递给下一个单元格。
+当我们渲染笔记本时，每个单元格都保留自己当前计数器值的副本，执行自己的赋值和增量（如果有的话），并将新数组传递给下一个单元格。
 
 我发现 — 至少在有些时候 — V8 (也就是 Chrome 和 Node.js 的 JS 引擎) 将数值数组视为包含浮点数。这会在很多操作上降低效率，因为浮点数的内存布局不如（小）整数有效。这很奇怪，因为数组里面除了 [*Smi*s](https://v8.dev/blog/elements-kinds) （在正负 31 位之间的整数，也就是从 -2³⁰ 到 2³⁰-1）不包含任何东西。
 
@@ -39,7 +39,7 @@ from names to indices. 当我们渲染笔记本时，每个单元格都保留自
 
 ## 说明
 
-The talk [JavaScript engine fundamentals: the good, the bad, and the ugly](https://slidr.io/bmeurer/javascript-engine-fundamentals-the-good-the-bad-and-the-ugly#1) 由 [Mathias Bynens](https://twitter.com/mathias) 和 [Benedikt Meurer](https://twitter.com/bmeurer) 在 [AgentConf](https://www.agent.sh/) 的谈话 [JavaScript 引擎基础：好的，坏的和丑陋的](https://slidr.io/bmeurer/javascript-engine-fundamentals-the-good-the-bad-and-the-ugly#1) 终于点醒了我：这都是关于 JS 引擎中对象的内部实现，以及每个对象如何链接到某个*结构*。
+由 [Mathias Bynens](https://twitter.com/mathias) 和 [Benedikt Meurer](https://twitter.com/bmeurer) 在 [AgentConf](https://www.agent.sh/) 的谈话 [JavaScript 引擎基础：好的，坏的和丑陋的](https://slidr.io/bmeurer/javascript-engine-fundamentals-the-good-the-bad-and-the-ugly#1) 终于点醒了我：这都是关于 JS 引擎中对象的内部实现，以及每个对象如何链接到某个*结构*。
 
 JS 引擎跟踪对象上定义的属性名称，然后每当添加或删除属性时，在背后会使用不同的结构。相同结构的对象会在内存的相同位置有相同属性（相当于对象地址而言），允许引擎显着加速属性访问并减少单个对象实例的内存样板（他们不必自己维护一本完整的字典）。
 
@@ -149,7 +149,7 @@ $ time node counters-float.js
 node counters-float.js  1.22s user 0.13s system 103% cpu 1.309 total
 ```
 
-这是使用 Node v11.9.0 (running V8 version 7.0.276.38-node.16)。但让我们尝试一下所有的主流 JS 引擎：
+这是使用 Node v11.9.0 (运行 V8 版本 7.0.276.38-node.16)。但让我们尝试一下所有的主流 JS 引擎：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*DBcx2JPXO70Sw72-nPF60g.jpeg)
 
