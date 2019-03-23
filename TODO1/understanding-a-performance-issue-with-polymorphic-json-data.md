@@ -35,13 +35,13 @@
 
 我发现 — 至少在有些时候 — V8 (也就是 Chrome 和 Node.js 的 JS 引擎) 将数值数组视为包含浮点数。这会在很多操作上降低效率，因为浮点数的内存布局不如（小）整数有效。这很奇怪，因为数组里面除了 [*Smi*s](https://v8.dev/blog/elements-kinds) （在正负 31 位之间的整数，也就是从 -2³⁰ 到 2³⁰-1）不包含任何东西。
 
-我找到一个解决办法，就是在从 JSON 对象读取数据之后到将他们放到计数数组之前，“强制”对所有的值赋值为整数（即使他们已经是 JSON 数据中的整数）。然而虽然我有了这个解决办法，但是我还是不能完全理解为什么它会起作用 — 直到最近...
+我找到一个解决办法，就是在从 JSON 对象读取数据之后到将他们放到计数数组之前，“强制”对所有的值按位运算值｜0 转变成整数（即使他们已经是 JSON 数据中的整数）。然而虽然我有了这个解决办法，但是我还是不能完全理解为什么它会起作用 — 直到最近...
 
 ## 说明
 
-由 [Mathias Bynens](https://twitter.com/mathias) 和 [Benedikt Meurer](https://twitter.com/bmeurer) 在 [AgentConf](https://www.agent.sh/) 的谈话 [JavaScript 引擎基础：好的，坏的和丑陋的](https://slidr.io/bmeurer/javascript-engine-fundamentals-the-good-the-bad-and-the-ugly#1) 终于点醒了我：这都是关于 JS 引擎中对象的内部实现，以及每个对象如何链接到某个*结构*。
+由 [Mathias Bynens](https://twitter.com/mathias) 和 [Benedikt Meurer](https://twitter.com/bmeurer) 在 [AgentConf](https://www.agent.sh/) 的分享 [JavaScript 引擎基础：好的，坏的和丑陋的](https://slidr.io/bmeurer/javascript-engine-fundamentals-the-good-the-bad-and-the-ugly#1) 终于点醒了我：这都是关于 JS 引擎中对象的内部实现，以及每个对象如何链接到某个*结构*。
 
-JS 引擎跟踪对象上定义的属性名称，然后每当添加或删除属性时，在背后会使用不同的结构。相同结构的对象会在内存的相同位置有相同属性（相当于对象地址而言），允许引擎显着加速属性访问并减少单个对象实例的内存样板（他们不必自己维护一本完整的字典）。
+JS 引擎会跟踪对象上定义的属性名称，然后每当添加或删除属性时，在背后会使用不同的结构。相同结构的对象会在内存的相同位置有相同属性（相当于对象地址而言），允许引擎明显加速属性访问并减少单个对象实例的内存样板（他们不必自己维护一本完整的属性字典）。
 
 我之前不知道的是，结构也区分了不同的*种类*的属性值。特别是，具有小整数值的属性意味着与（部分时候）包含其他数值的属性不同的形状。比如在
 
@@ -65,11 +65,11 @@ b.x = 0.2;
 {"type": "MReal", "value": 0.2}
 ```
 
-在笔记本的其他部分。即使没有MReal对象用于计数器，这些对象的*存在本身*导致所有 MInteger 对象也会改变它们的结构。将它们的值复制到计数器数组中然后也会导致这些数组切换到性能较低的状态。
+在笔记本的其他部分。即使没有将 MReal 对象用于计数器，这些对象的*存在本身*导致所有 MInteger 对象也会改变它们的结构。将它们的值复制到计数器数组中然后也会导致这些数组切换到性能较低的状态。
 
 ## 检查 Node.js 中的内部类型
 
-我们可以使用 *natives syntax* 来检查 V8 内部的内容。这是通过命令行参数 --allow-natives-syntax 来启用的。特殊功能的完整列表还没有官方文档，但是已经有 [非官方列表](https://gist.github.com/totherik/3a4432f26eea1224ceeb). 二期还有一个 [v8-natives](https://github.com/NathanaelA/v8-Natives) 包可以更方便的访问。
+我们可以使用 *natives syntax* 来检查 V8 内部的内容。这是通过命令行参数 --allow-natives-syntax 来启用的。特殊功能的完整列表还没有官方文档，但是已经有 [非官方列表](https://gist.github.com/totherik/3a4432f26eea1224ceeb)。而且还有一个 [v8-natives](https://github.com/NathanaelA/v8-Natives) 包可以更方便的访问。
 
 在我们的例子中，我们可以使用 ％HasSmiElements 来确定指定的数组是否具有Smi元素：
 
@@ -98,7 +98,7 @@ arr2 has Smi elements: false
 
 ## 在独立示例上衡量其造成的影响
 
-为了说明对性能的影响，让我们使用以下JS程序（counters-smi.js）：
+为了说明对性能的影响，让我们使用以下 JS 程序（counters-smi.js）：
 
 ```js
 function copyAndIncrement(arr) {
@@ -122,7 +122,7 @@ function main() {
 main();
 ```
 
-我们首先构造一个从对象 obj 中提取的 100 个整数的数组，然后我们调用 copyAndIncrement 一百万次，它会创建一个数组的副本，然后在副本中该表一个元素，然后返回新的数组。这基本上是在渲染（大）笔记本时处理单元格计数器时发生的情况。
+我们首先构造一个从对象 obj 中提取的 100 个整数的数组，然后我们调用 copyAndIncrement 一百万次，它会创建一个数组的副本，然后在副本中改变一个元素，然后返回新的数组。这基本上是在渲染（大）notebook 时处理单元格计数器时发生的情况。
 
 让我们稍微改变一下程序并在开头加入如下代码（counters-float.js）：
 
@@ -172,7 +172,7 @@ $ jsc
 
 在 Chrome 中的 V8，在 Firefox 中的 SpiderMonkey，在 IE 和 Edge 中的 Chakra，在 Safari 中的 JavaScriptCore。
 
-测量整个过程的执行时间并不理想，但我们可以通过用 [multitime](https://github.com/ltratt/multitime) 关注每个示例的100次运行的中位数来减少异常值（按随机顺序，在两次运行之间休息1秒）：
+并不能理想测量整个过程的执行时间，但我们可以通过用 [multitime](https://github.com/ltratt/multitime) 关注每个示例的 100 次运行的中位数来减少异常值（按随机顺序，在两次运行之间休息1秒）：
 
 ```bash
 $ multitime -n 100 -s 1 -b examples.bat
@@ -228,20 +228,19 @@ sys         0.338       0.014       0.315       0.335       0.397
 
 这里有几点需要注意：
 
-* 仅在V8中，两种方法之间存在着显著差异（大约 0.08 秒或 10％）。
+* 仅在 V8 中，两种方法之间存在着显著差异（大约 0.08 秒或 10％）。
 
 * 在 Smi 和浮点数模式下，V8 都比其他所有的引擎更快。
 
-* 这里独立使用的 V8 比Node 11.9（它使用的老版本的 V8）要快得多。我猜想这主要是因为最近的 V8 版本的常规性能改进（）
-Standalone V8 as used here was significantly faster than Node 11.9 (which uses an older version of V8). I guess this is mostly due to general performance improvements in more recent V8 versions（注意 Smi 和浮点数之间的差异是如何从  0.35s 减少到 0.08s 的），但与V8相比，Node的其他一些开销可能也有影响。
+* 这里独立使用的 V8 比 Node 11.9（它使用的老版本的 V8）要快得多。我猜想这主要是因为最近的 V8 版本的常规性能改进（注意 Smi 和浮点数之间的差异是如何从 0.35s 减少到 0.08s 的），但与V8相比，Node的其他一些开销可能也有影响。
 
 你可以看一下 [完整的测试文件](https://gist.github.com/poeschko/7e94a825f5be4fb509ee54e27b4f18c0). 所有测试均在 2013 年末 15 英寸款 MacBook Pro上 运行，运行 macOS 10.14.3，配备2.6 GHz i7 CPU。
 
 ## 总结
 
-V8中的结构转换可能会产生一些令人惊讶的性能影响。但通常您不必在实践中担心这个问题（主要是因为 V8 即使在“慢速”路径上，也可能比其他所有引擎都更快）。但是在一个高性能的应用程序中，最好记住“全局”结构表的效果，其中应用程序的各个部分可以在远程相互影响。
+V8中的结构转换可能会产生一些令人惊讶的性能影响。但通常您不必在实践中担心这个问题（主要是因为 V8 即使在“慢速”路径上，也可能比其他所有引擎都表现得更快）。但是在一个高性能的应用程序中，最好记住“全局”结构表的效果，其中应用程序的各个部分可以在远程相互影响。
 
-如果您正在处理不受您控制的外部JSON数据，您可以使用按位 OR 将值“转换”为整数，如值| 0，这也将确保其内部表示是一个Smi。
+如果您正在处理不受您控制的外部 JSON 数据，您可以使用按位 OR 将值“转换”为整数，如值 | 0，这也将确保其内部表示是一个 Smi。
 
 如果您可以直接定义 JSON 数据，那么对于具有相同基础值类型的属性仅使用相同的属性名称没准是个好主意。例如。在我们的例子中这可能更好用
 
@@ -254,13 +253,13 @@ V8中的结构转换可能会产生一些令人惊讶的性能影响。但通常
 
 即使在实践中 V8 场景下对性能的影响可以忽略不计，但是更深入的了解幕后发生的事情总会很有趣。就我个人来说，当我发现我一年前做的优化*为什么*有效的时候我会感到特别开心。
 
-有关更详细的内容，这里还有各个讨论的链接：
+有关更详细的内容，这里还有各个资料的链接：
 
 * 幻灯片： [JavaScript engine fundamentals: the good, the bad, and the ugly](https://slidr.io/bmeurer/javascript-engine-fundamentals-the-good-the-bad-and-the-ugly#1)
 
 * 视频 & 素材: [Shapes and Inline Caches](https://benediktmeurer.de/2018/06/14/javascript-engine-fundamentals-shapes-and-inline-caches/), [Optimizing Prototypes](https://benediktmeurer.de/2018/08/16/javascript-engine-fundamentals-optimizing-prototypes/)
 
-* 讨论: [Element kinds in V8](https://v8.dev/blog/elements-kinds)
+* 分享: [Element kinds in V8](https://v8.dev/blog/elements-kinds)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
