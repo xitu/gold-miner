@@ -5,49 +5,49 @@
 > * 译者：
 > * 校对者：
 
-# Distributed transactions in Spring, with and without XA - Part II
+# Spring 的分布式事务实现-使用和不使用XA - 第二部分
 
-> * [Distributed transactions in Spring, with and without XA - Part I](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-1.md)
-> * [Distributed transactions in Spring, with and without XA - Part II](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-2.md)
-> * [Distributed transactions in Spring, with and without XA - Part III](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-3.md)
+> * [Spring 的分布式事务实现-使用和不使用XA - 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-1.md)
+> * [Spring 的分布式事务实现-使用和不使用XA - 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-2.md)
+> * [Spring 的分布式事务实现-使用和不使用XA - 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-3.md)
 
-A shared database resource can sometimes be synthesized from existing separate resources, especially if they are all in the same RDBMS platform. Enterprise-level database vendors all support the notion of synonyms (or the equivalent), where tables in one schema (to use the Oracle terminology) are declared as synonyms in another. In that way data that is partitioned physically in the platform can be addressed transactionally from the same `Connection` in a JDBC client. For example, the implementation of the shared-resource pattern with ActiveMQ in a real system (as opposed to the sample) would usually involve creating synonyms for the messaging and business data.
+一个共享的数据库资源有时可以从现有的单独资源中被合成，特别是如果它们都在相同的 RDBMS 平台上。企业级别的数据库供应商都支持同义词（或等价物）的概念，其中一个模式（Oracle 术语）中的表在另一个模式内被定义为同义词。这样的话，在平台中的物理数据可以被 JDBC 客户端中的相同的 `Connection` 进行事务处理。例如，在真实系统中（作为对照）在 ActiveMQ 中实现共享事务资源模式，将会经常为涉及消息传递和业务数据创建同义词。
 
-> #### Performance and the JDBCPersistenceAdapter
+> #### 性能和 JDBCPersistenceAdapter 
 >
-> Some people in the ActiveMQ community claim that the `JDBCPersistenceAdapter` creates performance problems. However, many projects and live systems use ActiveMQ with a relational database. In these cases the received wisdom is that a journaled version of the adapter should be used to improve performance. This is not amenable to the shared-resource pattern (because the journal itself is a new transactional resource). However, the jury may still be out on the `JDBCPersistenceAdapter.` And indeed there are reasons to think that the use of a shared resource might _improve_ performance over the journaled case. This is an area of active research among the Spring and ActiveMQ engineering teams.
+> 在 ActiveMQ 社区中的某些人声称 `JDBCPersistenceAdapter` 会造成性能问题。然而，许多项目和实时系统将 ActiveMQ 和关系型数据库一同使用。在这些情况下，收到的明智的建议是使用日志版本用于提高性能。这不适用于共享事务资源模式（因为日志本事是一个新的事务资源）。尽管如此，陪审团仍然在关注 `JDBCPersistenceAdapter`。并且事实上有理由认为共享事务资源可能会 _提高_
+性能在日志方面。这是 Spring 和 ActiveMQ 工程团队之间积极研究的领域。   
+非消息方案（多数据库）的另一种共享资源的技术是使用 Oracle 数据的链接功能在 RDBMS 平台将两个数据库模式链接在一起（请参阅资料）。这可能需要修改应用程序的代码，或者创建同义词，因为引用链接数据库的表名的别名包含了链接的名称。
 
-Another shared-resource technique in a nonmessaging scenario (multiple databases) is to use the Oracle database link feature to link two database schemas together at the level of the RDBMS platform (see Resources). This may require changes to application code, or the creation of synonyms, because the table name aliases that refer to a linked database include the name of the link.
+## 最大努力单阶段提交模式
 
-## Best Efforts 1PC pattern
+最大努力单阶段提交模式是相当普遍的，但在开发人员必须注意的某些情况下可能会失败。这是一种非 XA 模式，涉及了许多资源的同步单阶段提交。 因为没有使用二阶段提交，它绝不会像 XA 事务那样安全，但是如果参与者意识到妥协，通常就足够了。许多高容量，高吞吐量的事务处理系统通过设置这种方式以达到提高性能的目的。
 
-The Best Efforts 1PC pattern is fairly general but can fail in some circumstances that the developer must be aware of. This is a non-XA pattern that involves a synchronized single-phase commit of a number of resources. Because the 2PC is not used, it can never be as safe as an XA transaction, but is often good enough if the participants are aware of the compromises. Many high-volume, high-throughput transaction-processing systems are set up this way to improve performance.
+基本思想是在事务中尽可能晚地延迟所有资源的提交，以便唯一可能出错的是基础设施故障（而不是业务处理错误）。系统依赖于最大努力单阶段提交模式的原因是基础设施故障非常罕见，以至于他们能够承担风险以换取更高的吞吐量。如果业务处理服务也被设计成幂等，那么在实战中几乎不可能出现错误。
 
-The basic idea is to delay the commit of all resources as late as possible in a transaction so that the only thing that can go wrong is an infrastructure failure (not a business-processing error). Systems that rely on Best Efforts 1PC reason that infrastructure failures are rare enough that they can afford to take the risk in return for higher throughput. If business-processing services are also designed to be idempotent, then little can go wrong in practice.
+为了帮助你更好地理解模式并分析失败的后果，我将使用消息驱动的数据库更新作为示例。
 
-To help you understand the pattern better and analyze the consequences of failure, I'll use the message-driven database update as an example.
+此事务中的两个资源计入并计算在内。消息事务在数据库之前启动，并以相反的顺序结束（提交或回滚）。 因此，成功案例中的顺序可能与本文开头的顺序相同：
 
-The two resources in this transaction are counted in and counted out. The message transaction is started before the database one, and they end (either commit or rollback) in reverse order. So the sequence in the case of success might be the same as the one in at the beginning of this article:
+1.  开启消息事务
+2.  **接受消息**
+3.  开始数据库事务
+4.  **更新数据库**
+5.  提交数据库事务
+6.  提交消息事务
 
-1.  Start messaging transaction
-2.  **Receive message**
-3.  Start database transaction
-4.  **Update database**
-5.  Commit database transaction
-6.  Commit messaging transaction
+实际上，前四个步骤的顺序并不关键，除了必须在更新数据库之前接收消息，并且每个事务必须在使用其相应资源之前开始。所以这个序列同样有效：
 
-Actually, the order of the first four steps isn't crucial, except that the message must be received before the database is updated, and each transaction must start before its corresponding resource is used. So this sequence is just as valid:
+1.  开启消息事务
+2.  开始数据库事务
+3.  **接受消息**
+4.  **更新数据库**
+5.  提交数据库事务
+6.  提交消息事务
 
-1.  Start messaging transaction
-2.  Start database transaction
-3.  **Receive message**
-4.  **Update database**
-5.  Commit database transaction
-6.  Commit messaging transaction
+关键在于最后两个步骤很重要：它们必须按此顺序排在最后。顺序很重要的原因是因为技术性，但是业务需求也决定了顺序本事。这个顺序告诉你在这种情况下的事务资源是特殊的。它包含了关于如何去执行另一项工作的说明。这是一个业务排序：系统无法自动的判断如何排序（尽管如果消息和数据是两个资源，那么它通常按照如此顺序）。排序很重要的原因是因为它和失败情况相关。最常见的故障情况（到目前为止）是业务处理失败（错误数据，编程错误等）。在这种情况下，可以轻松地操纵这两个事务以响应异常和回滚。在这种情况下，业务数据的完整性得以保留，时间线类似于本文开头概述的理想故障情况。
 
-The point is just that the last two steps are important: they must come last, in this order. The reason why the ordering is important is technical, but the order itself is determined by business requirements. The order tells you that one of the transactional resources in this case is special; it contains instructions about how to carry out the work on the other. This is a business ordering: the system cannot tell automatically which way round it is (although if messaging and database are the two resources then it is often in this order). The reason the ordering is important has to do with the failure cases. The most common failure case (by far) is a failure of the business processing (bad data, programming error, and so on). In this case both transactions can easily be rigged to respond to an exception and rollback. In that case the integrity of the business data is preserved, with the timeline being similar to the ideal failure case outlined at the beginning of this article.
-
-The precise mechanism for triggering the rollback is unimportant; several are available. The important point is that the commit or rollback happens in the reverse order of the business ordering in the resources. In the sample application, the messaging transaction must commit last because the instructions for the business process are contained in that resource. This is important because of the (rare) failure case in which the first commit succeeds and the second one fails. Because by design all business processing has already completed at this point, the only cause for such a partial failure would be an infrastructural problem with the messaging middleware.
+触发回滚的确切机制并不重要，有几个可用。 重要的是，提交或回滚的发生方式与资源中业务排序的顺序相反。 在示例应用程序中，消息传递事务必须最后提交，因为业务流程的指令被包含在该资源中。这很重要，因为会发生第一次提交成功并且第二次提交失败的（罕见）故障情况。 因为通过设计，此时所有业务处理已经完成，所以这种部分故障的唯一原因将是消息传递中间件的基础设施问题。
 
 Note that if the commit of the database resource fails, then the net effect is still a rollback. So the only nonatomic failure mode is one where the first transaction commits and the second rolls back. More generally, if there are `n` resources in the transaction, there are `n-1` such failure modes leaving some of the resources in an inconsistent (committed) state after a rollback. In the message-database use case, the result of this failure mode is that the message is rolled back and comes back in another transaction, even though it was already successfully processed. So you can safely assume that the worse thing that can happen is that duplicate messages can be delivered. In the more general case, because the earlier resources in the transaction are considered to be potentially carrying information about how to carry out processing on the later resources, the net result of the failure mode can generically be referred to as _duplicate message_.
 
