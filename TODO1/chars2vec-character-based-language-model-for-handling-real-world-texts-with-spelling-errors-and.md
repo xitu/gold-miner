@@ -2,44 +2,44 @@
 > * 原文作者：[Intuition Engineering](https://medium.com/@intuition.engin)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/chars2vec-character-based-language-model-for-handling-real-world-texts-with-spelling-errors-and.md](https://github.com/xitu/gold-miner/blob/master/TODO1/chars2vec-character-based-language-model-for-handling-real-world-texts-with-spelling-errors-and.md)
-> * 译者：
-> * 校对者：
+> * 译者：[kasheemlew](https://github.com/kasheemlew)
+> * 校对者：[xionglong58](https://github.com/xionglong58), [lsvih](https://github.com/lsvih)
 
-# Chars2vec: character-based language model for handling real world texts with spelling errors and human slang
+# Chars2vec：基于字符实现的可用于处理现实世界中包含拼写错误和俚语的语言模型
 
 ![](https://cdn-images-1.medium.com/max/9094/1*kAvyOmNO4q1PAa-qEyrc5g.jpeg)
 
-This paper describes our open source character-based language model [**chars2vec**](https://github.com/IntuitionEngineeringTeam/chars2vec). This model was developed with Keras library (TensorFlow backend) and now is available for Python 2.7 and 3.0+.
+这篇论文介绍了我们开源的基于字符的语言模型 [**chars2vec**](https://github.com/IntuitionEngineeringTeam/chars2vec)。这个模型使用 Keras 库（TensorFlow 后端）开发，现在已经可以在 Python 2.7 和 3.0+ 中使用。
 
-## Introduction
+## 引言
 
-Creating and using word embeddings is the mainstream approach for handling most of the NLP tasks. Each word is matched with a numeric vector which is then used in some way if the word appears in text. Some **simple models use one-hot word embeddings or initialise words with random vectors or with integer numbers**. The drawback of such models is obvious – such word vectorisation methods do not represent any semantic connections between words.
+创建并使用词嵌入是完成大多数 NLP 任务的主流方法。每个词都对应着一个数值向量，当文本中出现这个词的时候就会用上它的数值向量。有些**简单的模型会使用 one-hot 词嵌入，也可能使用随机向量或整数来对词进行初始化**。这类模型的缺点很明显——这种将对词进行向量化的方式不能表示词之间任何的语义联系。
 
-There are **other language models, called semantic, collating words related by sense with the affine embedding vectors**. In fact these models represent contextual proximity of various words: such models are trained on a large corpora of existing texts such as encyclopedias, news texts or literature. The result is that the words appearing in similar contexts in these texts are represented by proximal vectors. The classic examples of semantic language models are [Word2Vec](https://www.tensorflow.org/tutorials/representation/word2vec) and [GloVe](https://nlp.stanford.edu/projects/glove/). Some of the more modern semantic language models ([ULMFiT](https://arxiv.org/abs/1801.06146), [ELMo](https://allennlp.org/elmo)) are based on the recurrent neural networks (RNNs) and on other neural network architectures.
+还有**另外一种称为语义化的语言模型，它们根据仿射嵌入向量对有词义关联的词进行排序**。事实上，这些模型表示了不同单词的上下文邻近性：这些模型使用诸如百科全书、新闻、文学作品之类的拥有大量文本的语料库进行训练。这样训练使得出现在相似上下文中的词都得以用临近的向量表示。经典的语义化语言模型包括 [Word2Vec](https://www.tensorflow.org/tutorials/representation/word2vec) 和 [GloVe](https://nlp.stanford.edu/projects/glove/)。更加前沿的语义化语言模型（[ULMFiT](https://arxiv.org/abs/1801.06146)，[ELMo](https://allennlp.org/elmo)）基于循环神经网络（RNNs）和其他神经网络体系结构。
 
-Semantic models contain some information about the sense of words extracted while training on large texts corpora but they operate with a fixed vocabulary (usually lacking some rarely used words). This is a significant drawback for solving some of NLP problems. **If a number of important words in a text does not belong to the vocabulary of a semantic language model then it is non-efficient in solving some kinds of NLP tasks — the model won’t be able to interpret these words**. Such a case could arise if we try to process texts written by humans (these could be replies, comments, applications, documents or posts in web). These texts could contain slang, some rare words from specific areas, or given names which are not presented in language vocabulary and, accordingly, in semantic models. Typos also produce “new” words without any collated embedding.
+语义化的模型包含从大量语料上学得的词义相关的信息，但是它们需要与固定的词汇搭配（通常会遗漏一些生僻词）。这对于 NLP 问题来说是个严重的缺陷。**如果语义化语言模型的词汇表里缺少一段文本中很多的单词，那么它在处理某些 NLP 任务时效率就不会高——这个模型将不能够解释那些缺少的单词**。这种情况可能出现在处理人类编写的文本（例如回复、评论、申请书、文档或者网上的帖子）的时候。这些文本可能包含一些俚语、特殊领域的生僻词或者是词汇表中没有的人名，所以语义化的模型中也不会出现这些词。排印错误也会创造出一些不存在于任何词嵌入中的“新”词。
 
-A good example is the task of processing user’s comments to movies while building a movie recommender system based on [MovieLens](https://grouplens.org/datasets/movielens/) dataset. Words “like Tarantino” could often be found among peoples comments; errors or typos in director’s surname “Tarantino” produce a number of “new” words like “Taratino”, “Torantino”, “Tarrantino”, “Torontino”, etc. The ability to extract this “Tarantino” feature from users comments would obviously improve movies relevance metric and recommendations quality as well as extraction of various other features represented by non-vocabulary words, either very specific like surnames, or produced by typos and erroneous spelling.
+比如使用 [MovieLens](https://grouplens.org/datasets/movielens/) 的数据搭建电影推荐系统时，在处理用户评论的过程中这个问题就很明显。用户的评论中经常会出现 “like Tarantino” 这个短语；他们有时会把导演的姓 “Tarantino” 弄错，从而创造出 “Taratino”、“Torantino”、“Tarrantino” 等“新”词。如果能从用户的评论中提取出 “Tarantino” 这个特征的话，就能够显著改善电影的相关性度量和推荐质量，提取出具体姓氏或者拼写错误等词汇表中没有的词所表示的特征也能达到同样的效果。
 
-> To solve the problem we have described it would be appropriate to use a language model that would create word embeddings based only on their spelling and would collate similar vectors to similarly spelled words.
+> 为了解决这个问题，前文提到过，我们需要使用一个能够创建出词嵌入的语言模型，创建过程完全根据拼写，并且将向量根据其表示的词之间的相似性排序。
 
-## About chars2vec model
+## 关于 chars2vec 模型
 
-We have developed the chars2vec language model based on symbolic embeddings of words. **The model represents each sequence of symbols of arbitrary length with a fixed length vector, the similarity in words spelling is represented by the distance metric between vectors.** This model is not dictionary based (it does not store a fixed dictionary of words with corresponding vector representations), that is why it’s initialisation and usage procedures do not require significant computational resources. Chars2vec library could be installed via pip:
+我们根据单词的符号嵌入开发了 chars2vec 这个语言模型。**这个模型将一段任意长度的符号序列用一个固定长度的向量表示出来，单词之间拼写的相似性则通过向量间的距离度量表示。**这个模型不基于某个词典（它没有储存单词与对应向量表示所组成的固定词典），因此它在创建和使用的过程中并不需要大量的计算资源。使用 pip 就可以安装 Chars2vec 库：
 
 ```
 >>> pip install chars2vec
 ```
 
-The following code snippet creates chars2vec embeddings (with dimension 50) and projects these embedding vectors on a plane with the help of PCA, outputting an image depicting the geometrical meaning of the described model:
+下面的代码创建了 chars2vec 词嵌入（50 维) 并使用 PCA 将这些词嵌入向量映射到了一个平面上，最后我们会得到一张可以描述这个模型的几何意义图片：
 
 ```python
 import chars2vec
 import sklearn.decomposition
 import matplotlib.pyplot as plt
 
-# Load Inutition Engineering pretrained model
-# Models names: 'eng_50', 'eng_100', 'eng_150' 'eng_200', 'eng_300'
+# 加载 Inutition Engineering 预训练的模型
+# 模型的名字：'eng_50', 'eng_100', 'eng_150' 'eng_200', 'eng_300'
 c2v_model = chars2vec.load_model('eng_50')
 
 words = ['Natural', 'Language', 'Understanding',
@@ -48,13 +48,13 @@ words = ['Natural', 'Language', 'Understanding',
          'Naturrow', 'Laguage', 'Unddertandink',
          'Nattural', 'Languagge', 'Umderstoneding']
 
-# Create word embeddings
+# 创建词嵌入
 word_embeddings = c2v_model.vectorize_words(words)
 
-# Project embeddings on plane using the PCA
+# 使用 PCA 将词嵌入映射到平面上
 projection_2d = sklearn.decomposition.PCA(n_components=2).fit_transform(word_embeddings)
 
-# Draw words on plane
+# 在平面上写字
 f = plt.figure(figsize=(8, 6))
 
 for j in range(len(projection_2d)):
@@ -67,23 +67,23 @@ for j in range(len(projection_2d)):
 plt.show()
 ```
 
-Execution of this code produces the following image:
+执行这段代码将会生成下面这张图片：
 
 ![](https://cdn-images-1.medium.com/max/3200/1*gjqy3VkVQK51BXsI7qOv4A.png)
 
-We can see that the similarly spelled words are represented by the neighbouring vectors. Yet the model is based on a recurrent neural network accepting a sequence of symbols of a word, not on analysis of the facts of letters or patterns presence in a word. The more changes such as additions, deletions or replacements we make in a word the further its embedding would stand from the original.
+我们可以看到，尽管这个模型基于一个接受单词的符号序列的循环神经网络，而不是去分析一个单词中某些字母或者某种模式的出现情况，拼写相似的词的表示向量仍是临近的。单词拼写中出现的增添、删减或者替换越多，它的词嵌入就会离原始词越远。
 
-## Application of character-based models
+## 基于字符模型的应用
 
-The idea of text analysis on character level is not new — there are models creating embeddings for each symbol and then creating symbolic word embedding with the help of an averaging procedure. The averaging procedure is the bottleneck — such models provide some sort of solutions of the problems stated above, unfortunately, not the optimal ones, because the search of the proper form of each word’s embedding creation from the symbols embedding vectors requires additional training if we want to encode some information about the symbols relative positioning and symbolic patterns besides the mere fact of symbols presence in a word.
+在字符层面上分析文本的想法并不新鲜——已经有一些模型对符号创建词嵌入，然后通过平均过程创建符号词嵌入。平均过程是这种方法的瓶颈——这种模型一定程度上解决了上面提到的问题，但不幸的是，它们还不够完美。如果想要编码一些除了事实之外的关于符号相对位置和符号模式的信息，我们还需要进行更多的训练，这样才能从符号嵌入向量中找出每个词嵌入的正确形式。
 
-One of the pioneering NLP models processing texts on the character level is [karpathy/char-rnn](https://github.com/karpathy/char-rnn). This model takes some text as an input and trains a recurrent neural network (RNN) to predict the next symbol of a given sequence of characters. There are other RNN based character-level language models such as [Character-Level Deep Learning in Sentiment Analysis](https://offbit.github.io/how-to-read/). In some cases the convolutional neural networks (CNNs) are used to process a sequence of characters, check out [Character-Aware Neural Language Models](https://arxiv.org/pdf/1508.06615v4.pdf), an example of CNNs usage for texts classification could be found in the paper [Character-level Convolutional Networks for Text Classification](https://arxiv.org/pdf/1509.01626.pdf).
+[karpathy/char-rnn](https://github.com/karpathy/char-rnn) 是最早在字符级处理文本的 NLP 模型之一。它通过输入文本训练了一个循环神经网络（RNN），给定一段字符序列就能够预测下一个符号。[Character-Level Deep Learning in Sentiment Analysis](https://offbit.github.io/how-to-read/) 也是基于 RNN 的字符级语言模型。有时，我们会用卷积神经网络（CNNs）处理字符序列，请查阅 [Character-Aware Neural Language Models](https://arxiv.org/pdf/1508.06615v4.pdf)；[Character-level Convolutional Networks for Text Classification](https://arxiv.org/pdf/1509.01626.pdf) 这篇论文也是一个使用 CNN 进行文本分类的例子。
 
-A prime example of a character-based language model is the model implemented in the [fastText](https://github.com/facebookresearch/fastText) library by Facebook. The fastText model creates symbolic word embeddings and solves texts classification problem based on their symbolic representation. This technology is based on the analysis of multiple n-grams forming words instead of RNNs which makes this model very sensitive to typos and spelling errors as far as they can significantly change the range of n-grams forming a word. Yet this model provides embeddings of words missing from the language vocabulary.
+Facebook 的 [fastText](https://github.com/facebookresearch/fastText) 库中实现的模型是基于字符的语言模型的典范。fastText 模型会创建符号词嵌入，然后基于符号表示来解决文本分类的问题。这种技术基于对多种 n 元语法生成词的分析，而不依赖于 RNN，避免了模型对于排印错误和拼写错误过于敏感的问题，也就不会对 n 元语法生成词的范围造成太大的影响。不过这个模型提供了语言词汇表中缺失的单词对应的的词嵌入。
 
-## Model architecture
+## 模型结构
 
-Each chars2vec model has a fixed list of characters used for words vectorisation: the characters from this list are represented by various one-hot vectors which are fed to the model when the character appears in the text; the characters absent in the list are ignored in the vectorisation procedure. We trained models designed to process English texts; these models use a list of the most popular of ASCII characters — all English letters, digits and the most popular punctuation:
+每个 chars2vec 模型都有一个固定的字符表，用于单词的向量化：每当列表中的一个字符出现在文本中的时候，表示这个字符的 one-hot 向量就会被反馈给模型；向量化的过程中会忽略掉列表中没有的字符。我们训练的模型主要用来处理英文文本；这些模型使用的列表包括了常用的 ASCII 字符——所有的英文字母、数字和常用的标点符号：
 
 ```python
 ['!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.',
@@ -93,29 +93,29 @@ Each chars2vec model has a fixed list of characters used for words vectorisation
  'x', 'y', 'z']
 ```
 
-The model is not case sensitive, it converts any symbol’s case to the lower one.
+该模型对大小写不敏感，所有的符号都统一转换成小写形式。
 
-Chars2vec is implemented with the help of Keras library based on TensorFlow. The neural network creating words embeddings has the following architecture:
+Chars2vec 通过基于 TensorFlow 的 Keras 库实现。创建词嵌入的神经网络结构如下：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*YpwI_8WVXJ329bUyqmC6eQ.jpeg)
 
-A sequence of one-hot vectors of an arbitrary length representing the sequence of characters in a word, passes through two LSTM layers, the output is the embedding vector of the word.
+一个任意长度的 one-hot 向量序列表示一个词中的字符序列，经过两个 LSTM 层处理之后，会输出这个词的嵌入向量。
 
-To train a model we have used an extended neural network including chars2vec model as a part. To be more specific, we are dealing with a neural network taking two sequences of one-hot vectors representing two different words as an input, creating their embeddings with one chars2vec model, calculating the norm of the difference between these embedding vectors and feeding it into the last layer of the network with the sigmoid activation function. The output of this neural network is a number ranging from 0 to 1.
+为了训练好模型，我们要使用一个包含 chars2vec 的扩展神经网络。更准确地说，我们的神经网络需要将两个 one-hot 向量序列作为输入，它们分别代表着不同的词，其次这个神经网络会使用一个 chars2vec 创建出它们所对应的词嵌入，然后计算出这些嵌入向量差值的范数，最后将这个结果反馈给网络最后一层的 sigmoid 激活函数。这个神经网络的输出范围是 0 到 1。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*0aX4CoKeFrOcVjlC88Tc3w.jpeg)
 
-The extended neural network is trained on pairs of words, in training data a pair of “similar” words is labeled with 0 value, and a pair of “not similar” with 1. In fact we define the “similarity” metric as a number of substitutions, additions and removals of characters that have to be performed to make one word from the other. This brings us to the way of obtaining such training data — it can be generated by taking a multitude of words and then performing various changes upon them to obtain a new set of words. A subset of new words produced by changes in one original word would naturally be similar to this original word and such pairs of words would have label 0. Words from different subsets would obviously have more differences and should be labeled with 1.
+这个扩展神经网络使用一对词进行训练，在训练样本中，一对“相似”的词被标记为 0 值，而“不相似”的值则被标记为 1。事实上，我们所定义的“相似性”这个标准是将一个词变形为另一个词所需要替换、增加、删减的字符的数量。这也造就了我们获取数据的方式——我们对大量的词进行多种修改，创建出一个新的词集。通过修改原词得到的词集的子集本质上和原词是相似的，这样的单词对会被标记为 0。从不同子集中选出的单词显然有更多不同点，所以会被标记为 1。
 
-The size of the initial words set, the number of words in each subset, the maximum number of changing operations upon a word within one subset define the result of model training and model’s vectorisation rigidity. The optimal values of these parameters should be chosen regarding the language specifics and the particular task. The other important point is keeping the whole training set balanced (none of the two classes should prevail).
+初始词集的大小、子集中词的数量、对词进行变形最大次数决定了模型的训练结果和模型向量化的稳定性。最优的参数应该根据给定的语言和任务进行选择。另一个重点是保持整个训练集的均衡（我们应该协调好这两个方面）。
 
-The second part of the extended neural network has only one edge which weight could be adjusted during training process; this part of the network applies monotonous function to the embedding vectors difference norm. The training dataset dictates that this second part should output 0 for “similar” word pairs and 1 for “not similar”, so while training the extended model the inner chars2vec model learns to form neighbouring embedding vectors for the “similar” word pairs and distant ones for the “not similar” pairs.
+扩展神经网络的第二个部分只有一条边，训练过程中可以调整它的权重；这部分网络将单调函数应用到对嵌入向量差范数。训练集限制了这第二个部分只能对“相似的”词对输出 0，对“不相似的”词对输出 1，所以在训练这个扩展模型的时候，内层的 chars2vec 模型将学会为“相似的”词对构建临近的嵌入向量，为“不相似的”词对构建远离的嵌入向量。
 
-We have trained chars2vec models for English language with embedding dimensions of 50, 100, 150, 200 and 300. The project source code is available in the [repo](https://github.com/IntuitionEngineeringTeam/chars2vec) along with the model training and usage examples (we’ve trained the model on our dataset for a new language).
+我们在词嵌入维度分别为 50、100、150、200 和 300 情况下的英语中训练了 chars2vec 模型。[仓库](https://github.com/IntuitionEngineeringTeam/chars2vec)中已经上传了项目源码以及训练和使用模型的例子（我们还在数据集上训练了一个适用于另一种语言的模型）。
 
-## Train your own chars2vec model
+## 训练你自己的 chars2vec 模型
 
-The following code snippet shows the way to train your own chars2vec model instance.
+下面的代码段展示了如何训练一个自己的 chars2vec 模型实例。
 
 ```python
 import chars2vec
@@ -124,12 +124,12 @@ dim = 50
 
 path_to_model = 'path/to/model/directory'
 
-X_train = [('mecbanizing', 'mechanizing'), # similar words, target is equal 0
-           ('dicovery', 'dis7overy'), # similar words, target is equal 0
-           ('prot$oplasmatic', 'prtoplasmatic'), # similar words, target is equal 0
-           ('copulateng', 'lzateful'), # not similar words, target is equal 1
-           ('estry', 'evadin6'), # not similar words, target is equal 1
-           ('cirrfosis', 'afear') # not similar words, target is equal 1
+X_train = [('mecbanizing', 'mechanizing'), # 相似词，目标为 0
+           ('dicovery', 'dis7overy'), # 相似词，目标为 0
+           ('prot$oplasmatic', 'prtoplasmatic'), # 相似词，目标为 0
+           ('copulateng', 'lzateful'), # 非相似词，目标为 1
+           ('estry', 'evadin6'), # 非相似词，目标为 1
+           ('cirrfosis', 'afear') # 非相似词，目标为 1
           ]
 
 y_train = [0, 0, 0, 1, 1, 1]
@@ -140,34 +140,34 @@ model_chars = ['!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', 
                'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
                'x', 'y', 'z']
 
-# Create and train chars2vec model using given training data
+# 创建 chars2vec 模型，并使用前面的训练数据进行训练
 my_c2v_model = chars2vec.train_model(dim, X_train, y_train, model_chars)
 
-# Save pretrained model
+# 保存预训练的模型
 chars2vec.save_model(my_c2v_model, path_to_model)
 
 words = ['list', 'of', 'words']
 
-# Load pretrained model, create word embeddings
+# 保存预训练的模型，创建词嵌入
 c2v_model = chars2vec.load_model(path_to_model)
 word_embeddings = c2v_model.vectorize_words(words)
 ```
 
-A list of characters `model_chars` that the model would use for words vectorisation should be defined as well as the model’s dimension `dim` and path to the model storage folder `path_to_model`. Training set (`X_train`, `y_train`) consists of pairs of “similar” and “not similar” words. `X_train` is a list of word pairs, and `y_train` is a list of their binary similarity metric scores (0 or 1).
+模型在单词向量化是要用到的字符列表 `model_chars`、模型的维度 `dim` 和用来存储模型的目录的路径 `path_to_model`。训练集 (`X_train`, `y_train`) 由“相似”词对和“非相似”词对组成。`X_train` 是一个词对列表，`y_train` 是它们相似度分数（0 或 1）的列表。
 
-It is important that all the characters from the `model_chars` list should be present in the set of words of the training dataset — if a character is absent or appears very seldom then unstable model behaviour could be observed once this character is met in the test dataset. The reason is that the corresponding one-hot vector has been rarely fed into the model’s input layer and some weights of the model’s first layer have always been multiplied by zero meaning their tuning has never been performed.
+有一点很重要，`model_chars` 列表中所有的字符都应该包含在训练数据集的词集中——如果某一个字符不在其中，或者出现的频率很低，那么每当测试数据集中出现这个字符都会引起不稳定的模型行为。由于这类字符相关的 one-hot 向量很少被传入模型的输入层，模型第一层的权重总是乘 0，也就是说这些权重参数一直都没有被调整到。
 
-Another advantage of chars2vec model is the ability to solve various NLP problems for an arbitrary language lacking open pertained language models. This model could provide better solutions of some texts classification or clustering problems than classic models if you are processing texts with specific vocabularies.
+chars2vec 模型的另一个优势是解决任意缺少预训练模型的语言相关的 NLP 难题的能力。相比于使用具体词汇处理文本的经典模型，这个模型为一些文本分类和聚类问题提供了更好的办法。
 
-## Benchmarks
+## 基准测试
 
-We have performed benchmarking on the IMDb dataset for the reviews classification task using various words embeddings. IMDb is an open dataset of movie reviews which could be positive or negative so it is a binary text classification task with 50k reviews as the training set and 50k set for tests.
+我们在 IMDb 数据集上对多种词嵌入进行了评论分类任务的基准测试。IMDb 是一个开放的影评数据集，一个评论可以是正面或负面的，所以这是文本二分类任务，我们使用了 5 万条评论作为训练集，另外 5 万条用于测试。
 
-Along with chars2vec embeddings we have tested several prominent embedding models like [GloVe](https://nlp.stanford.edu/projects/glove/), [word2vec](https://code.google.com/archive/p/word2vec/) by Google (“pre-trained vectors trained on part of Google News dataset (about 100 billion words). The model contains 300-dimensional vectors for 3 million words and phrases”), [fastText](https://fasttext.cc/docs/en/english-vectors.html) (wiki-news model with dimension 300, “1 million word vectors trained on Wikipedia 2017, UMBC webbase corpus and statmt.org news dataset (16B tokens)”).
+除了 chars2vec 词嵌入，我们还测试了一些有名的词嵌入模型，例如 [GloVe](https://nlp.stanford.edu/projects/glove/)、Google 的 [word2vec](https://code.google.com/archive/p/word2vec/)（“预训练向量使用一部分 Google 新闻数据集（大概 1 亿个词）进行训练。这个模型包含了 3 百万个词和短语所对应的 300 维向量”）、[fastText](https://fasttext.cc/docs/en/english-vectors.html) （维基新闻模型包含 300 个维度，“在维基百科 2017、UMBC webbase 语料库和 statmt.org 新闻数据集（160 亿个标识）上训练的 1 百万个词向量”）。
 
-The classifier model looks the following way: each review is vectorised by averaging the embedding vectors of all the words comprising it. If a word is out of the model dictionary, a zero vector is assigned to it. We have used a standart tokenisation procedure along with stop words by NLTK library. The classifier we chose was the linearSVM. The table below shows test accuracies for the most popular models we have benchmarked this way. We should point out that our chars2vec model is about 3 oders lighter than the semantic models relying on large vocabularies and still demonstrates quite reasonable results.
+分类模型工作步骤如下：计算每个每个评论包含的单词的嵌入向量的平均值，以此将其向量化。如果模型词典中没有某个词，就会使用零向量表示这个词。我们使用了 NLTK 库提供的一个包括停止词的标准标识化过程，使用 linearSVM 作为分类器。下面的表格展示了我们对大多数流行的模型进行这样的基准测试得到的正确率。需要指出的是，我们的 chars2vec 模型比依赖大规模词汇表简化了 300 倍，并且仍然能够得到相当不错的结果。
 
-|  Embeddings  | Accuracy | Size of model |
+|  词嵌入  | 正确率 | 模型大小 |
 |----------------- |----------------------- |-----------------------|
 | GLoVe 50 | 0.7536 | 171.5 MB | 
 | GLoVe 300 | 0.83336 | 1.04 GB | 
@@ -179,7 +179,7 @@ The classifier model looks the following way: each review is vectorised by avera
 | chars2vec 200 | 0.70188 | 2.1 MB | 
 | chars2vec 300 | 0.74012 | 4.6 MB | 
 
-We see some space for chars2vec model improvements needed to compete with the results of the semantic models.
+我们发现，与语义模型相比，chars2vec 模型还有一些进步空间。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
