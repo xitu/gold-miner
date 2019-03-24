@@ -375,6 +375,8 @@ midi_stream.write('midi', fp='test_output.mid')
 
 ![图 4:通过 LSTM 网络创作一部音乐](https://cdn-images-1.medium.com/max/2836/1*tzfrAkHCbGjBXA5ZOthjrw.png)
 
+图 4:通过 LSTM 网络创作一部音乐
+
 这个相对较浅的网络的结果仍然令人印象深刻，从示例音乐中可以听到。对于那些感兴趣的人来说，图4中的乐谱代表了 Neuralnet  音乐 5 的音乐符号。
 
 [https://w.soundcloud.com/player/?referrer=https%3A%2F%2Ftowardsdatascience.com%2Fmedia%2Fd721bab5c62c8061387ced1869dcdf5b%3FpostId%3D68786834d4c5&amp;show_artwork=true&amp;url=http%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2F362886486](https://w.soundcloud.com/player/?referrer=https%3A%2F%2Ftowardsdatascience.com%2Fmedia%2Fd721bab5c62c8061387ced1869dcdf5b%3FpostId%3D68786834d4c5&amp;show_artwork=true&amp;url=http%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2F362886486)
