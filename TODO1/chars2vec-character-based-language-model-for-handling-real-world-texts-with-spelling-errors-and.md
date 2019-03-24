@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/chars2vec-character-based-language-model-for-handling-real-world-texts-with-spelling-errors-and.md](https://github.com/xitu/gold-miner/blob/master/TODO1/chars2vec-character-based-language-model-for-handling-real-world-texts-with-spelling-errors-and.md)
 > * 译者：[kasheemlew](https://github.com/kasheemlew)
-> * 校对者：[xionglong58](https://github.com/xionglong58)
+> * 校对者：[xionglong58](https://github.com/xionglong58), [lsvih](https://github.com/lsvih)
 
 # Chars2vec：基于字符实现的可用于处理现实世界中包含拼写错误和俚语的语言模型
 
