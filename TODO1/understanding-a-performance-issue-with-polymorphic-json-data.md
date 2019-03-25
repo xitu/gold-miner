@@ -2,8 +2,8 @@
 > * 原文作者：[Jan Pöschko](https://medium.com/@poeschko)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-a-performance-issue-with-polymorphic-json-data.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-a-performance-issue-with-polymorphic-json-data.md)
-> * 译者：
-> * 校对者：
+> * 译者：[shixi-li](https://github.com/shixi-li)
+> * 校对者：[Reaper622](https://github.com/Reaper622)、[kasheemlew](https://github.com/kasheemlew)
 
 # 了解“多态”JSON 数据的性能问题
 
@@ -11,9 +11,9 @@
 
 ![照片由 [Markus Spiske](https://unsplash.com/@markusspiske?utm_source=medium&utm_medium=referral) 发布于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11520/0*g6D9UP-cs6jMRzrx)
 
-当我做一些 [底层性能优化](https://medium.com/wolfram-developers/performance-through-elegant-javascript-15b98f0904de) 以用于渲染 [Wolfram Cloud](https://www.wolframcloud.com/) notebook 时, 我注意到一个非常奇怪的问题，就是函数会因为处理浮点数进入较慢的执行路径，即使所有传入的数据都是整数的情况下也会是这样。具体来说，*单元格计数器*被 JavaScript 引擎视为浮点数，这大大减慢了大型 notebook 的渲染速度（至少在 Chrome 里面是这样）。
+当我做一些[底层性能优化](https://medium.com/wolfram-developers/performance-through-elegant-javascript-15b98f0904de)以用于渲染 [Wolfram Cloud](https://www.wolframcloud.com/) notebook 时，我注意到一个非常奇怪的问题，就是函数会因为处理浮点数进入较慢的执行路径，即使所有传入的数据都是整数的情况下也会是这样。具体来说，**单元格计数器**被 JavaScript 引擎视为浮点数，这大大减慢了大型 notebook 的渲染速度（至少在 Chrome 里面是这样）。
 
-我们将单元格计数器 (由 [CounterAssignments](https://reference.wolfram.com/language/ref/CounterAssignments.html) 和 [CounterIncrements](https://reference.wolfram.com/language/ref/CounterIncrements.html) 进行的定义) 表示为一个整数数组, 它具有从属性名到索引的一个独立的映射。这比每组计数器存储为一个字典形式更为高效。举个例子，它并不是下面的这种格式
+我们将单元格计数器 (由 [CounterAssignments](https://reference.wolfram.com/language/ref/CounterAssignments.html) 和 [CounterIncrements](https://reference.wolfram.com/language/ref/CounterIncrements.html) 进行的定义) 表示为一个整数数组，它具有从属性名到索引的一个独立的映射。这比每组计数器存储为一个字典形式更为高效。举个例子，它并不是下面的这种格式
 
 ```js
 {Title: 1, Section: 3, Input: 7}
@@ -33,17 +33,17 @@
 
 当我们渲染 notebook 时，每个单元格都保留自己当前计数器值的副本，执行自己的赋值和增量（如果有的话），并将新数组传递给下一个单元格。
 
-我发现 — 至少在有些时候 V8 (也就是 Chrome 和 Node.js 的 JS 引擎) 将数值数组视为它们包含的是浮点数。这会在很多操作上降低效率，因为浮点数的内存布局不如（小）整数高效。这很奇怪，因为数组里面除了 [*Smi*s](https://v8.dev/blog/elements-kinds) （在正负 31 位之间的整数，也就是从 -2³⁰ 到 2³⁰-1）不包含任何其他的东西。
+我发现—-至少在有些时候--V8（也就是 Chrome 和 Node.js 的 JS 引擎）将数值数组视为它们包含的是浮点数。这会在很多操作上降低效率，因为浮点数的内存布局不如（小）整数高效。这很奇怪，因为数组里面除了 [*Smi*](https://v8.dev/blog/elements-kinds) （在正负 31 位之间的整数，也就是从 -2³⁰ 到 2³⁰-1）不包含任何其他的东西。
 
-我找到一个解决办法，就是在从 JSON 对象读取数据之后到将他们放到计数数组之前，“强制” 对所有的值进行 “值 | 0” 的按位运算转变成整数（即使他们已经是 JSON 数据中的整数）。然而虽然我有了这个解决办法，但是我还是不能完全理解为什么它会起作用 — 直到最近...
+我找到一个解决办法，就是在从 JSON 对象读取数据之后到将他们放到计数数组之前，“强制”对所有的值进行“值 | 0”的按位运算转变成整数（即使他们已经是 JSON 数据中的整数）。然而虽然我有了这个解决办法，但是我还是不能完全理解为什么它会起作用--直到最近...
 
 ## 说明
 
-由 [Mathias Bynens](https://twitter.com/mathias) 和 [Benedikt Meurer](https://twitter.com/bmeurer) 在 [AgentConf](https://www.agent.sh/) 的分享 [JavaScript 引擎基础：好的，坏的和丑陋的](https://slidr.io/bmeurer/javascript-engine-fundamentals-the-good-the-bad-and-the-ugly#1) 终于点醒了我：这都是关于 JS 引擎中对象的内部实现，以及每个对象如何链接到某个*结构*。
+由 [Mathias Bynens](https://twitter.com/mathias) 和 [Benedikt Meurer](https://twitter.com/bmeurer) 在 [AgentConf](https://www.agent.sh/) 的分享 [JavaScript 引擎基础：好的，坏的和丑陋的](https://slidr.io/bmeurer/javascript-engine-fundamentals-the-good-the-bad-and-the-ugly#1)终于点醒了我：这都是关于 JS 引擎中对象的内部实现，以及每个对象如何链接到某个**结构**。
 
 JS 引擎会跟踪对象上定义的属性名称，然后每当添加或删除属性时，隐式使用不同的结构。相同结构的对象会在内存的相同位置有相同属性（相对于对象地址而言），允许引擎显著地加速属性的访问并减少单个对象实例的内存样板（他们不必自己维护一本完整的属性字典）。
 
-我之前不知道的是，结构也区分了不同*类型*的属性值。特别是，具有小整数值的属性意味着与（部分时候）包含其他数值的属性不同的结构。比如在
+我之前不知道的是，结构也区分了不同**类型**的属性值。特别是，具有小整数值的属性意味着与（部分时候）包含其他数值的属性不同的结构。比如在
 
 ```js
 const b = {};
@@ -51,7 +51,7 @@ b.x = 2;
 b.x = 0.2;
 ```
 
-结构转换发生在二次赋值时，从一个具有 *Smi* 值的属性 x 转变到一个可能是任意双精度值的属性 x。之前的结构随后被“弃用”，不再继续使用。就算其他对象没有使用非 smi 的值，但是只要它的属性 x 一旦被使用就会被切换到其他状态。[这个幻灯片](https://slidr.io/bmeurer/javascript-engine-fundamentals-the-good-the-bad-and-the-ugly#140) 对此总结的很好。
+结构转换发生在二次赋值时，从一个具有 *Smi* 值的属性 x 转变到一个可能是任意双精度值的属性 x。之前的结构随后被“弃用”，不再继续使用。就算其他对象没有使用非 smi 的值，但是只要它的属性 x 一旦被使用就会被切换到其他状态。[这个幻灯片](https://slidr.io/bmeurer/javascript-engine-fundamentals-the-good-the-bad-and-the-ugly#140)对此总结的很好。
 
 所以这正是我们使用计数器的情况：CounterAssignments 和 CounterIncrements 定义来自 JSON 值的数据就像这样
 
@@ -65,13 +65,13 @@ b.x = 0.2;
 {"type": "MReal", "value": 0.2}
 ```
 
-在笔记本的其他部分。即使没有将 MReal 对象用于计数器，这些对象的*存在本身*导致所有 MInteger 对象也会改变它们的结构。将它们的值复制到计数器数组中然后也会导致这些数组切换到性能较低的状态。
+在笔记本的其他部分。即使没有将 MReal 对象用于计数器，这些对象的**存在本身**导致所有 MInteger 对象也会改变它们的结构。将它们的值复制到计数器数组中然后也会导致这些数组切换到性能较低的状态。
 
 ## 检查 Node.js 中的内部类型
 
-我们可以使用 *natives syntax* 来检查 V8 内部的内容。这是通过命令行参数 --allow-natives-syntax 来启用的。特殊函数的完整列表还没有官方文档，但是已经有 [非官方列表](https://gist.github.com/totherik/3a4432f26eea1224ceeb)。而且还有一个 [v8-natives](https://github.com/NathanaelA/v8-Natives) 包可以更方便的访问。
+我们可以使用 *natives syntax* 来检查 V8 内部的内容。这是通过命令行参数 --allow-natives-syntax 来启用的。特殊函数的完整列表还没有官方文档，但是已经有[非官方列表](https://gist.github.com/totherik/3a4432f26eea1224ceeb)。而且还有一个 [v8-natives](https://github.com/NathanaelA/v8-Natives) 包可以更方便的访问。
 
-在我们的例子中，我们可以使用 ％HasSmiElements 来确定指定的数组是否具有Smi元素：
+在我们的例子中，我们可以使用 %HasSmiElements 来确定指定的数组是否具有 Smi 元素：
 
 ```js
 const obj = {};
@@ -133,7 +133,7 @@ main();
 
 仅仅这个对象的存在本身就将导致另一个对象改变其结构并减慢根据它的值构造的数组的操作。
 
-请注意，创建空对象后添加属性与解析JSON字符串具有相同的效果：
+请注意，创建空对象后添加属性与解析 JSON 字符串具有相同的效果：
 
 ```js
     const objThatSpoilsEverything = JSON.parse('{"value": 1.5}');
@@ -149,7 +149,7 @@ $ time node counters-float.js
 node counters-float.js  1.22s user 0.13s system 103% cpu 1.309 total
 ```
 
-这是使用 Node v11.9.0 (运行 V8 版本 7.0.276.38-node.16)。但让我们尝试一下所有的主流 JS 引擎：
+这是使用 Node v11.9.0（运行 V8 版本 7.0.276.38-node.16）。但让我们尝试一下所有的主流 JS 引擎：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*DBcx2JPXO70Sw72-nPF60g.jpeg)
 
@@ -228,13 +228,13 @@ sys         0.338       0.014       0.315       0.335       0.397
 
 这里有几点需要注意：
 
-* 仅在 V8 中，两种方法之间存在着显著差异（大约 0.08 秒或 10％）。
+* 仅在 V8 中，两种方法之间存在着显著差异（大约 0.08 秒或 10%）。
 
 * 在 Smi 和浮点数模式下，V8 都比其他所有的引擎更快。
 
-* 这里独立使用的 V8 比 Node 11.9（它使用的老版本的 V8）要快得多。我猜想这主要是因为最近的 V8 版本的常规性能改进（注意 Smi 和浮点数之间的差异是如何从 0.35s 减少到 0.08s 的），但与V8相比，Node的其他一些开销可能也有影响。
+* 这里独立使用的 V8 比 Node 11.9（它使用的老版本的 V8）要快得多。我猜想这主要是因为最近的 V8 版本的常规性能改进（注意 Smi 和浮点数之间的差异是如何从 0.35s 减少到 0.08s 的），但与 V8 相比，Node 的其他一些开销可能也有影响。
 
-你可以看一下 [完整的测试文件](https://gist.github.com/poeschko/7e94a825f5be4fb509ee54e27b4f18c0). 所有测试均在 2013 年末 15 英寸款 MacBook Pro 上运行，运行 macOS 10.14.3，配备 2.6 GHz i7 CPU。
+你可以看一下[完整的测试文件](https://gist.github.com/poeschko/7e94a825f5be4fb509ee54e27b4f18c0)。所有测试均在 2013 年末 15 英寸款 MacBook Pro 上运行，运行 macOS 10.14.3，配备 2.6 GHz i7 CPU。
 
 ## 总结
 
@@ -242,7 +242,7 @@ V8 中的结构转换可能会产生一些令人惊讶的性能影响。但通�
 
 如果您正在处理不受您控制的外部 JSON 数据，您可以使用按位 OR 将值“转换”为整数，如值 | 0，这也将确保其内部表示是一个 Smi。
 
-如果您可以直接定义 JSON 数据，那么对于具有相同底层值类型的属性仅使用相同的属性名称没准是个好主意。例如。在我们的例子中这可能更好用
+如果您可以直接定义 JSON 数据，那么对于具有相同底层值类型的属性仅使用相同的属性名称没准是个好主意。例如，在我们的例子中这可能更好用
 
 ```js
 {"type": "MInteger", "intValue": 2}
@@ -251,15 +251,15 @@ V8 中的结构转换可能会产生一些令人惊讶的性能影响。但通�
 
 而不是在不同值类型的情况下都使用同一个属性。换句话说：避免使用“多态”对象。
 
-即使在实践中 V8 场景下对性能的影响可以忽略不计，但是更深入的了解幕后发生的事情总会很有趣。就我个人来说，当我发现我一年前做的优化*为什么*有效的时候我会感到特别开心。
+即使在实践中 V8 场景下对性能的影响可以忽略不计，但是更深入的了解幕后发生的事情总会很有趣。就我个人来说，当我发现我一年前做的优化**为什么**有效的时候我会感到特别开心。
 
 有关更详细的内容，这里还有各个资料的链接：
 
-* 幻灯片： [JavaScript engine fundamentals: the good, the bad, and the ugly](https://slidr.io/bmeurer/javascript-engine-fundamentals-the-good-the-bad-and-the-ugly#1)
+* 幻灯片：[JavaScript engine fundamentals: the good, the bad, and the ugly](https://slidr.io/bmeurer/javascript-engine-fundamentals-the-good-the-bad-and-the-ugly#1)
 
-* 视频 & 素材: [Shapes and Inline Caches](https://benediktmeurer.de/2018/06/14/javascript-engine-fundamentals-shapes-and-inline-caches/), [Optimizing Prototypes](https://benediktmeurer.de/2018/08/16/javascript-engine-fundamentals-optimizing-prototypes/)
+* 视频 & 素材：[Shapes and Inline Caches](https://benediktmeurer.de/2018/06/14/javascript-engine-fundamentals-shapes-and-inline-caches/), [Optimizing Prototypes](https://benediktmeurer.de/2018/08/16/javascript-engine-fundamentals-optimizing-prototypes/)
 
-* 分享: [Element kinds in V8](https://v8.dev/blog/elements-kinds)
+* 分享：[Element kinds in V8](https://v8.dev/blog/elements-kinds)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
