@@ -29,7 +29,7 @@ React hook 系统的简单示意图
 
 Dispatcher 是一个包含了 hook 函数的共享对象。基于 ReactDOM 的渲染状态，它将会被动态的分配或者清理，并且它将会确保用户不能在 React 组件之外获取到 hook（详见[源码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberDispatcher.js#L24)）。
 
-在切换到正确的 Dispatcher 来呈现根组件之前，我们通过一个名为 `enableHooks` 的标志来启用/禁用 hook。；在技术上来说，这就意味着我们可以在运行时开启或关闭 hook。React 16.6.X 版本的实验性功能中也加入了它，但它默认处于禁用状态（详见[源码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberScheduler.js#L1211)）
+在切换到正确的 Dispatcher 来呈现根组件之前，我们通过一个名为 `enableHooks` 的标志来启用/禁用 hook；在技术上来说，这就意味着我们可以在运行时开启或关闭 hook。React 16.6.X 版本的实验性功能中也加入了它，但它默认处于禁用状态（详见[源码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberScheduler.js#L1211)）。
 
 当我们完成渲染工作后，我们会废弃 dispatcher 并禁止 hook，来防止在 ReactDOM 的渲染周期之外不小心使用了它。这个机制能够保证用户不会做傻事（详见[源码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberScheduler.js#L1376)）。
 
