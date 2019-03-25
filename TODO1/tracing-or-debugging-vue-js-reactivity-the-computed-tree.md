@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/8576/1*0Z1Zbhg127bJ2_wReyrq-A.jpeg)
 
-关于 Vue 的[下一个主版本 release](https://medium.com/the-vue-point/plans-for-the-next-iteration-of-vue-js-777ffea6fabf)，公布的很多新特性引起了大家的交头接耳，但其中有一个特性引起了我的注意：
+关于 Vue 的[下一个主版本](https://medium.com/the-vue-point/plans-for-the-next-iteration-of-vue-js-777ffea6fabf)，公布的很多新特性引发了激烈的讨论，但其中有一个特性引起了我的注意：
 
 > 更良好的可调试能力：我们可以精确地追踪到一个组件发生重渲染的触发时机和完成时机，及其原因
 
@@ -23,7 +23,7 @@
 
 你可能使用 Vuex 的 getter 来派生状态，事实上，你还会使用复合的派生数据，即一个 getter 会引用另一个 getter 派生的数据。
 
-在 Vue 组件中，你会使用各种分层的模式，包括 **slots**。在这样的组件树中，肯定会有计算属性（派生出来的数据）。
+在 Vue 组件中，你会使用各种分层的模式，当然也包括经常用的 **slots**。在这样的组件树中，肯定会有计算属性（派生出来的数据）。
 
 当这些发生的时候，从 store 中的状态到渲染的组件之间的响应式依赖关系将很难理清楚。
 
@@ -33,7 +33,7 @@
 
 我们将学习一些响应式机制的内部工作原理。如果你还没有（比较深地）理解 Dependency 类（`Dep`--为与源码一致，后文都采用 `Dep`，译者）与 Watcher 类之间的关系，可以考虑学习一下内容丰富、条例清晰的高级 Vue 课程：[建立一个响应式系统](https://www.vuemastery.com/courses/advanced-components/build-a-reactivity-system/)。
 
-## 在浏览器开发工具中见过 `__ob__` 么？
+## 在浏览器开发工具中调试过程中见过 `__ob__` 么？
 
 承认吧，当时是不是有点好奇，`__ob__` 看起来是不是像这样？
 
@@ -61,7 +61,7 @@
 
 通常，当从一个 Dep 类实例获取到更新的通知时，响应机制将会触发对应的 Watcher 函数。当我变更一个被组件渲染所依赖的响应式数据时，将触发重渲染。
 
-但我们看看派生的数据，它的情况有点复杂。首先，计算属性的值是被缓存起来的，以便在它算出来之后就一直返回原值，只有当它的缓存失效才会被重新计算，换句话说，只在其依赖的数据发生改变时它们才会重新求值。
+但我们看看派生的数据，它的情况有点复杂。首先，计算属性的值是被缓存起来的，以便在它计算出来之后就一直可用计算后的值，只有当它的缓存失效才会被重新计算，换句话说，只在其依赖的数据发生改变时它们才会重新求值。
 
 我们再来看看[之前的例子](https://jsfiddle.net/mikeapr4/eqLy1ac3/)。`currentUserId` 状态被 `currentUser` 这个 getter 引用了，然后在 `validCurrentUser` 计算属性引用了 `currentUser`，`validCurrentUser` 又是根组件 render 函数的 `v-if` 表达式的一部分。这条引用链看起来不错。
 
@@ -112,7 +112,7 @@ this.$store.state.users[2].__ob__.dep.subs[5]
 
 唯一能证明它是 Vuex 中的 getter 的线索是，它的函数体定义在 **vuex.min.js** 中（`[[FunctionLocation]]` 属性--译者）。
 
-所以我们应该这样获取 getter 的名称呢？在开发者工具中你通常可以访问 `[[Scopes]]`，你可以在 `[[Scopes]]` 中找到它的名称，然而这并不是通过编程的方式来获取的。
+所以我们应该怎样获取 getter 的名称呢？在开发者工具中你通常可以访问 `[[Scopes]]`，你可以在 `[[Scopes]]` 中找到它的名称，然而这并不是通过编程的方式来获取的。
 
 下面是我的一个解决方法，在创建 Vuex 的 store 之后运行：
 
@@ -131,7 +131,7 @@ Object.keys(watchers).forEach(key => {
 
 上面我提到调试响应式数据时你是看不到对象属性的 Dep 类实例。
 
-在[示例](https://jsfiddle.net/mikeapr4/eqLy1ac3/)中，每个 `user` 对象都有一个 `name` 属性，每个属性都包含各自的 Watcher，这些 Watcher 将会在属性发生变更时收到更新通知。, each `user` object has a `name` property, which will itself have Watchers which will be notified if it changes.
+在[示例](https://jsfiddle.net/mikeapr4/eqLy1ac3/)中，每个 `user` 对象都有一个 `name` 属性，每个属性都包含各自的 Watcher，这些 Watcher 将会在属性发生变更时收到更新通知。
 
 尽管 Dep 实例并不能直接访问到，但是可以被监听他们的 Watcher 访问到。Watcher 保留有一份它所依赖的所有依赖项的数组。
 > # 我的小技巧是给属性增加一个 Watcher，然后拿到这个 Watcher 的依赖项
