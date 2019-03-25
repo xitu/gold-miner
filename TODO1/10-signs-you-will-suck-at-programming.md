@@ -17,7 +17,7 @@ As an Educator that teaches Full-Stack Web Development, I have taught many “fi
 
 Over the past two years of teaching, I have witnessed various students struggle in the process, and some common themes that come up in their struggles. **If you look at this list and see them in yourself, rest assured, you will truly suck at programming** and should probably find something else to do with your time. But, if you are still committed to your goal of becoming a developer, you can easily face these issues and change.
 
-> # Programming is a basic human skill, just like reading, writing and arithmetic. Anyone can learn to program with time and effort.
+> Programming is a basic human skill, just like reading, writing and arithmetic. Anyone can learn to program with time and effort.
 
 The following list will help you know if you will suck at programming — and what you can do about it if you want to change.
 
@@ -25,7 +25,7 @@ The following list will help you know if you will suck at programming — and wh
 
 ## 1 | Lack of curiosity
 
-> # If you lack curiosity about computers and how technology works, you will never be successful as a programmer.
+> If you lack curiosity about computers and how technology works, you will never be successful as a programmer.
 
 A fundamental requirement for learning is an active interest in the thing you are learning. If you do not possess a mind that is curious about technology, you will not have the energy it takes to persist in learning the broad and deep knowledge required to be a successful programmer.
 
@@ -35,7 +35,7 @@ In contrast, the world of technology is like a huge ocean of interesting domains
 
 ## 2 | Lack of autonomy and resourcefulness
 
-> # If you don’t develop the ability to solve problems for yourself, you will never be successful as a programmer.
+> If you don’t develop the ability to solve problems for yourself, you will never be successful as a programmer.
 
 Without a doubt, to be a successful developer, you have to be confident in your OWN ability to learn. This is actually a fundamental life skill — if you are are over the age of 18, nobody is obligated to teach you anything. That’s reality. It’s up to you to find the information and help that you need to learn what is important to you.
 
@@ -47,7 +47,7 @@ In addition to being a good googler, all programming languages have documentatio
 
 ## 3 | Lack of persistence in the face of a problem
 
-> # If you give up easily in the face of problems, you will never be successful as a programmer.
+> If you give up easily in the face of problems, you will never be successful as a programmer.
 
 The essence of programming is solving problems. That’s the whole reason computers were invented! Whenever you begin working on a program you will encounter a whole “stack” of problems. And once you resolve a problem, there is almost always another problem right behind it. You **are** making progress, but there are always **new** problems to face.
 
@@ -59,7 +59,7 @@ From my in-class experience, there are usually one or two students per class who
 
 ## 4 | No feeling of success in overcoming a problem
 
-> # If you don’t feel a sense of excitement and accomplishment after solving a problem, you will never be successful as a programmer.
+> If you don’t feel a sense of excitement and accomplishment after solving a problem, you will never be successful as a programmer.
 
 Related to the previous issue of giving up too easily is a lack of “good feelings” once you have successfully resolved a problem. When fixing bugs and issues becomes a treadmill that never seems to end, you lose touch with the excitement that comes in overcoming a problem.
 
@@ -69,7 +69,7 @@ There is actually a dopamine hit that you need when you overcome a problem. This
 
 ## 5 | Impatient about learning and understanding
 
-> # If you are impatient about learning and expect to master everything quickly and effortlessly, you will never truly be successful at programming.
+> If you are impatient about learning and expect to master everything quickly and effortlessly, you will never truly be successful at programming.
 
 As humans we are limited creatures. Even though our world moves faster and faster, and computers are a big cause of that, we can only move as fast as we are able. Our brains work at a certain speed, and depending on our past, our beliefs, our emotional states, our health…we will all learn and integrate information at different speeds.
 
@@ -81,7 +81,7 @@ Instead, you need to enjoy the journey of learning for itself. Every little bit 
 
 ## 6 | Getting bored/tired from thinking
 
-> # If you are lazy in your thinking and see concentrated, focused thinking as a chore, you will never truly be successful at programming.
+> If you are lazy in your thinking and see concentrated, focused thinking as a chore, you will never truly be successful at programming.
 
 Programming is a thinking activity. As humans we are really good at thinking, but the reality is that even though we naturally spend all day doing it, we are lazy in our thinking. The ability to maintain concentrated, focused effort on a single problem over a period time is difficult if you aren’t used to it.
 
@@ -93,7 +93,7 @@ While programming, you will get tired and thinking literally burns physical ener
 
 ## 7 | Inability to think for yourself
 
-> # If you expect others to think for you, and are unwilling to look at the details of your own situation, you will never be a truly successful programmer.
+> If you expect others to think for you, and are unwilling to look at the details of your own situation, you will never be a truly successful programmer.
 
 When you are learning something new, it is easy to feel like you lack the knowledge and experience to have your own opinions. Taking initiative or doing/saying the wrong thing seems risky.
 
@@ -105,7 +105,7 @@ You need to develop you own opinions about what works and what doesn’t. You ne
 
 ## 8 | Rigid, narrow and/or disorganized thinking
 
-> # If you are rigid in your thinking, and you have difficulty keeping your code organized — and by extension your thoughts organized and focused, you will never be successful at programming.
+> If you are rigid in your thinking, and you have difficulty keeping your code organized — and by extension your thoughts organized and focused, you will never be successful at programming.
 
 There are two extremes that I sometimes see in students. The first is a rigid and narrow approach to thinking. This attitude refuses help, and despite feedback, doesn’t change. Things are seen from one perspective only, and suggestions are ignored.
 
@@ -119,7 +119,7 @@ Not being able to see other possibilities or receive feedback inhibits the abili
 
 ## 9 | Needing the “right” answer instead of recognizing a spectrum of “good” and “bad” answers
 
-> # If you see the end goal of programming as finding the right solution, rather than a spectrum of solutions, you will never truly be successful as a programmer.
+> If you see the end goal of programming as finding the right solution, rather than a spectrum of solutions, you will never truly be successful as a programmer.
 
 When starting to learn the skills or programming, students often want to know whether what they have done is “right”. The answer is always “it depends.”
 
@@ -131,7 +131,7 @@ The reality is that programming is more like writing poems or short stories (or 
 
 ## 10 | Not paying careful attention to details
 
-> # If you gloss over details, and overlook little things, you will never be a truly successful programmer.
+> If you gloss over details, and overlook little things, you will never be a truly successful programmer.
 
 Computers are precise machines. When it comes to programming a computer, you need to provide the necessary commands **precisely** in the way a computer expects. If you don’t, nothing will work. There isn’t a middle ground where things mostly work — it either does or it doesn’t.
 
