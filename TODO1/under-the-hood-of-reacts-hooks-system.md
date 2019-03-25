@@ -102,7 +102,7 @@ React 状态 —— 旧视角
 
 React 状态 —— 新的视角
 
-单个 hook 节点的结构可以在[源码中](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberHooks.js#L243)查看。你将会发现，hook 还有一些附加的属性，但是弄明白 hook 运行的关键代码在于 `memoizedState` 和 `next`。其他的属性会被 `useReducer()`  hook 使用，来缓存发送过的 action 以及基本的状态，这样在一些情况下，缩减（reduction）过程还可以作为后备被重复一次：
+单个 hook 节点的结构可以在[源码中](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberHooks.js#L243)查看。你将会发现，hook 还有一些附加的属性，但是弄明白 hook 运行的关键代码在于 `memoizedState` 和 `next`。其他的属性会被 `useReducer()` hook 使用，来缓存发送过的 action 以及基本的状态，这样在一些情况下，缩减（reduction）过程还可以作为后备被重复一次：
 
 *   `baseState` —— 传给 reducer 的状态对象。
 *   `baseUpdate` —— 最近一次创建 `baseState` 的已发送的 action。
@@ -240,7 +240,7 @@ Effect hook 和其他 hook 的行为有一些区别，并且它有一个附加�
 *   如果给出了销毁指令，它们将在下一次绘制前被销毁。
 *   它们会按照定义的顺序被运行。
 
-> **注意，我使用了“绘制”而不是“渲染”。它们是不同的事情，在最近的 [React 会议](https://conf.reactjs.org/)中，我看到很多发言者错误的使用了这两个词！甚至在官方 [ React 文档](https://reactjs.org/docs/hooks-reference.html#useeffect)中，也有写“在渲染生效于屏幕之后”，其实这个过程更像是“绘制”。渲染函数只是创建了组件节点，但是并没有绘制任何内容。**
+> **注意，我使用了“绘制”而不是“渲染”。它们是不同的事情，在最近的 [React 会议](https://conf.reactjs.org/)中，我看到很多发言者错误的使用了这两个词！甚至在官方 [React 文档](https://reactjs.org/docs/hooks-reference.html#useeffect)中，也有写“在渲染生效于屏幕之后”，其实这个过程更像是“绘制”。渲染函数只是创建了组件节点，但是并没有绘制任何内容。**
 
 因此，就应该有另一个队列，来保存这些 effect hook，并且在绘制后能够被定位到。通常来说，应该是组件保存包含了 effect 节点的队列。每个 effect 节点都是一个不同的类型，并能在适当的时候被定位到：
 
