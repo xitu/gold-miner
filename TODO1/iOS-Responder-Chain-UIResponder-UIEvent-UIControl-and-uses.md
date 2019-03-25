@@ -2,28 +2,28 @@
 > - 原文作者：[Bruno Rocha](bruno@swiftrocks.com)
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/iOS-Responder-Chain-UIResponder-UIEvent-UIControl-and-uses.md](https://github.com/xitu/gold-miner/blob/master/TODO1/iOS-Responder-Chain-UIResponder-UIEvent-UIControl-and-uses.md)
-> - 译者：
-> - 校对者：
+> - 译者：[iWeslie](https://github.com/iWeslie)
+> - 校对者：[swants](https://github.com/swants)
 
-# iOS Responder Chain: UIResponder, UIEvent, UIControl and uses
+# iOS 响应者链 UIResponder、UIEvent 和 UIControl 的使用
 
-*What on earth is this "first responder" thing when I'm dealing with UITextFields?*  
-*Why do UIViews subclass things like UIResponder?*  
-*What's the point of these?*
+**当我用使用 UITextField 究竟谁是第一响应者？**
+**为什么 UIView 像 UIResponder 一样进行子类化？**
+**这其中的关键又是什么？**
 
-In iOS, the **Responder Chain** is the name given to an UIKit-generated linked list of `UIResponder` objects, and is the foundation for everything regarding events (like touch and motion) in iOS.
+在 iOS 里，**响应者链** 是指 UIKit 生成的 UIResponder 对象组成的链表，它同时还是 iOS 里一切相关事件（例如触摸和动效）的基础。
 
-The Responder Chain is something that you constantly deal with in the world of iOS development, and although you rarely have to directly deal with it outside of `UITextField` keyboard shenanigans, knowledge of how it works allows you to solve event-related problems in very easy/creative ways - you can even build architectures that rely on Responder Chains.
+响应者链是你在 iOS 开发的世界中经常需要打交道的东西，并且尽管你很少需要在除了 `UITextField` 的键盘问题之外直接处理它。了解它的工作原理将让你解决事件相关的问题更加容易，或者说更加富有创造力，你甚至可以只依赖响应者链来进行架构。
 
-## UIResponder, UIEvent and UIControl
+## UIResponder、UIEvent 和 UIControl
 
-In short, `UIResponder` instances represents objects that can handle and respond to arbitrary events. Many things in iOS are `UIResponders`, including `UIView`, `UIViewController`, `UIWindow`, `UIApplication` and `UIApplicationDelegate`.
+简而言之，UIResponder 实例对象可以对随机事件进行响应并处理。iOS 中的许多东西诸如 UIView、UIViewController、UIWindow、UIApplication 和 UIApplicationDelegate。
 
-In turn, an `UIEvent` represents a single UIKit event that contains a type (touch, motion, remote-control and press) and an optional sub-type (like a specific device motion shake). When a system event like a screen touched is detected, UIKit internally creates `UIEvent` instances and dispatches it to the system event queue by calling `UIApplication.shared.sendEvent()`. When the event is retrieved from the queue, UIKit internally determines the first `UIResponder` capable of handling the event and sends it to the selected one. The selection process differs depending on the event type - while touch events go directly to the touched view itself, other event types will be dispatched to the so called **first responder**.
+相反，`UIEvent` 代表一个单一并只含有一种类型和一个可选子类的 UIKit 事件，这个类型可以是触摸、动效、远程控制或者按压，对应的子类具体一点可能是设备的摇动。当检测到一个系统事件，例如屏幕上的点击，UIKit 内部创建一个 `UIEvent` 实例并且通过调用 `UIApplication.shared.sendEvent()` 把它派发到系统事件队列。当事件被从队列中取出时，UIKit 内部选出第一个可以处理事件的 `UIResponder` 并把它发送到对应的响应者。这个选择过程当事件类型不同的时候也会有所变化，其中触摸事件直接发送到被触摸的 View，其他种类的事件将会被派发给一个所谓的 **第一响应者**。
 
-In order to handle system events, `UIResponder` subclasses can register themselves as capable of handling specific `UIEvent` types by overriding the methods specific to that type:
+为了处理系统事件，`UIResponder` 的子类可以通过重写一些对应的方法从而让它们可处理具体的 `UIEvent` 类型：
 
-```
+```swift
 open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
 open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
 open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
@@ -38,32 +38,32 @@ open func motionCancelled(_ motion: UIEvent.EventSubtype, with event: UIEvent?)
 open func remoteControlReceived(with event: UIEvent?)
 ```
 
-In a way, you can see `UIEvents` as notifications on steroids. But although `UIEvents` can be subclassed and `sendEvent` can be manually called, they aren't really meant to played with - at least not through normal means. Because you can't create custom types, dispatching custom events is problematic as it's likely that your event will be incorrectly "handled" by an unintended responder. Still, there are ways for you to play with them - besides system events, `UIResponders` can also respond to arbitrary "actions" in the form of `Selectors`.
+在某种程度上，你可以将 `UIEvents` 视为通知。虽然 `UIEvents` 可以被子类化并且 `sendEvent` 可以被手动调用，但它们并不真正意味着可以这么做，至少不是通过正常方式。由于你无法创建自定义类型，派发自定义事件会出现问题，因为非预期的响应者可能会错误地 “处理” 你的事件。尽管如此，你仍然可以使用它们，除了系统事件，`UIResponder` 还可以以 Selector 的形式响应任意 “事件”。
 
-The ability to do so was created to give macOS apps an easy way to respond to "menu" actions like select/copy/paste, as the existence of multiple windows in macOS makes simple delegation patterns are difficult to apply. In any case, they're also available for iOS and can be used for custom actions - which is exactly how `UIControls` like `UIButton` can dispatch actions after being touched. Consider the following button:
+这种方法的诞生给 macOS 应用程序提供了一种简单的方法来响应 “菜单” 的操作，例如选择、复制还有粘贴，因为 macOS 中存在多个窗口使得简单的代理难以实现。在任何情况下，它们也可用于 iOS 以及自定义操作，这正是类似 `UIButton` 之类的 `UIControl` 可以在触摸后派发事件。看一下如下的一个按钮：
 
-```
+```swift
 let button = UIButton(type: .system)
 button.addTarget(myView, action: #selector(myMethod), for: .touchUpInside)
 ```
 
-Although `UIResponders` can fully detect touch events, handling them isn't an easy task. How do you differ between different types of touches?
+虽然 `UIResponder` 可以完全检测触摸事件，但处理它们并非易事。 那你要如何区分不同类型的触摸事件呢？
 
-That's where `UIControl` excels - these subclasses of `UIView` abstract the process of handling touch events and expose the ability to assign actions to specific touch events.
+这就是 `UIControl` 擅长的地方，这些 `UIView` 的子类把处理触摸事件的过程进行抽象，并揭示了为特定的触摸分配事件的能力。
 
-Internally, touching this button results in the following:
+在内部，触摸此按钮会产生以下结果：
 
-```
-let event = UIEvent(...) //An UIKit-generated touch event containing the touch position and properties.
-//Dispatch a touch event.
-//Through `hitTest()`, determine which UIView was "selected".
-//Because an UIControl was selected, directly invoke its target:
+```swift
+let event = UIEvent(...) //包含触摸位置和属性的UIKit生成的触摸事件。
+//派发一个触摸事件。
+//通过 `hitTest()` 确定哪个 UIView 被 选中。
+//因为选择了 UIControl，所以直接调用：
 UIApplication.shared.sendAction(#selector(myMethod), to: myView, from: button, for: event)
 ```
 
-When a specific target is sent to `sendAction`, UIKit will directly attempt to call the desired selector at the desired target (crashing the app if it doesn't implement it) - but what if the target is `nil`?
+当一个特定的目标被发送到 `sendAction` 时，UIKit 将直接尝试在所需的目标上调用所需的 Selector，如果它没有实现直接就崩溃，但是如果目标为 `nil` 又怎么办呢？
 
-```
+```swift
 final class MyViewController: UIViewController {
     @objc func myCustomMethod() {
         print("SwiftRocks!")
@@ -75,37 +75,37 @@ final class MyViewController: UIViewController {
 }
 ```
 
-If you run this, you'll see that even though the action was sent from a plain `UIView` with no target, `MyViewController's` `myCustomMethod` will be triggered!
+如果你运行它，你会看到即使事件是从没有 target 的普通 `UIView` 发送的，`MyViewController` 的 `myCustomMethod` 也会被调用。
 
-When no target is specified, UIKit will search for an `UIResponder` capable of handling this action just like in the plain `UIEvent` example. In this case, being able to handle an action relates to the following `UIResponder` method:
+当你没有指定 target 时，UIKit 将搜索能够处理此操作的 `UIResponder`，就像之前在处理简单的 `UIEvent` 示例中一样。在这种情况下，能够处理动作与以下 `UIResponder` 方法有关：
 
-```
+```swift
 open func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool
 ```
 
-By default, this method simply checks if the responder implements the actual method. "Implementing" the method can be done in three ways, depending on how much info you want (this applies to any native action/target component in iOS!):
+默认情况下，此方法只检查响应者是否实现了实际的方法。 “实现” 方法可以通过三种方式完成，具体取决于你需要多少信息（这适用于 iOS 中的任何原生 target/action 的控件）：
 
-```
+```swift
 func myCustomMethod()
 func myCustomMethod(sender: Any?)
 func myCustomMethod(sender: Any?, event: UIEvent?)
 ```
 
-Now, what if the responder doesn't implement the method? In this case, UIKit uses the following `UIResponder` method to determine how to proceed:
+现在，如果响应者没有实现该方法怎么办？在这种情况下，UIKit 就会使用以下 `UIResponder` 方法来确定如何继续：
 
-```
+```swift
 open func target(forAction action: Selector, withSender sender: Any?) -> Any?
 ```
 
-By default, this will return **another** `UIResponder` that _may or may not_ be able to handle the desired action. This repeats until the action is handled or the app runs out of choices. But how does the responders know who to route actions to?
+默认情况下，这将返回 **另一个可能可以** 处理所需的操作的 `UIResponder`。此步骤将重复执行，直到处理完事件或没有其他选择为止。但是响应者如何知道把操作的路由导向谁呢？
 
-## The Responder Chain
+## 响应者链
 
-As mentioned in the beginning, UIKit handles this by dynamically managing a linked list of `UIResponders`. The so called **first responder** is simply the root element of the list, and if a responder can't handle a specific action/event, the action is recursively sent to the next responder of the list until someone can handle the action or the list ends.
+如开头所述，UIKit 通过动态管理 `UIResponder` 对象的链表来处理这个问题。所谓的 **第一响应者** 只是链表的头节点，如果响应者无法处理特定的事件，则事件被递归地发送给链表的下一个响应者，直到某个响应者可以处理该事件或者链表遍历结束。
 
-Although inspecting the actual first responder is protected by a private `firstResponder` property in `UIWindow`, you can check the Responder Chain for any given responder by checking the `next` property:
+虽然查看实际的第一响应者是受 `UIWindow` 中的私有 `firstResponder` 属性的保护，但你可以通过检查 `next` 属性是否有值来检查任何给定响应者的响应者链：
 
-```
+```swift
  extension UIResponder {
     func responderChain() -> String {
         guard let next = next else {
@@ -121,17 +121,17 @@ myViewController.view.responderChain()
 
 ![](https://i.imgur.com/922BVYT.png)
 
-In the previous example where the action was handled by the `UIViewController`, UIKit first sent the action to the `UIView` first responder - but since it doesn't implement `myCustomMethod` the view forwarded the action to the next responder - the `UIViewController` which happened to have that method in its implementation.
+在上一个 `UIViewController` 处理 action 的例子中，UIKit 首先将事件发送给 `UIView` 第一响应者，但由于它没有实现 `myCustomMethod`，view 将事件发给下一个响应者，正好下一个 `UIViewController` 实现了所需方法。
 
-While in most cases the Responder Chain is simply be the order of the subviews, you can customize it to change the general flow order. Besides being able to override the `next` property to return something else, you can force an `UIResponder` to become the first responder by calling `becomeFirstResponder()` and have it go back to its position by calling `resignFirstResponder()`. This is commonly used in conjunction with `UITextField` to display a keyboard - `UIResponders` can define an optional `inputView` property that only shows up when the responder is the first responder, which is the keyboard in this case.
+虽然在大多数情况下，响应者链符合子视图的结构顺序，但你可以对其进行自定义以更改常规流程顺序。除了能够重写 `next` 属性以返回其他内容之外，你还可以通过调用 `becomeFirstResponder()` 强制 `UIResponder` 成为第一响应者，并通过调用 `resignFirstResponder()` 来取消。这通常与 `UITextField` 结合使用以显示键盘，`UIResponders` 可以定义一个可选的 `inputView` 属性，使得键盘仅在它是第一响应者时显示。
 
-## Responder Chain Custom Uses
+## 响应者链自定义用途
 
-Although the Responder Chain is fully handled by UIKit, you can use it in your favor to solve communication/delegation issues.
+虽然响应者链完全由 UIKit 处理，但你可以使用它来帮助解决通信或代理中的问题。
 
-In a way, you can see `UIResponder` actions as single-use notifications. Consider an app where almost every view supports a "blink" action for the purpose of helping the user navigate in a tutorial. How would make sure that only the current "active" view blinks when this action is triggered? Possible solutions include making every single view inherit a delegate or use a plain notification that everyone needs to ignore except the `"currentActiveView"`, but responder actions allow you to cleanly achieve this with zero delegates and minimal coding:
+在某种程度上，您可以将 `UIResponder` 的操作视为一次性通知。想想任何一个应用程序，几乎每个 view 都可以添加闪烁效果。来导航用户在教程中如何操作。当触发此操作时，如何确保只有当前活动的视图闪烁呢？可能的解决方案如下之一是使每个 view 遵循一个协议，或者使用除了 `"currentActiveView"` 之外每个 view 都需要忽略的通知，但响应者操作允许你不通过代理并用最少的编码来实现这一点：
 
-```
+```swift
 final class BlinkableView: UIView {
     override var canBecomeFirstResponder: Bool {
         return true
@@ -142,19 +142,19 @@ final class BlinkableView: UIView {
     }
 
     @objc func performBlinkAction() {
-        //Blinking animation
+        //闪烁动画
     }
 }
 
 UIApplication.shared.sendAction(#selector(BlinkableView.performBlinkAction), to: nil, from: nil, for: nil)
-//Will precisely blink the last BlinkableView that had select() called.
+//将精确地让最后一个调用了 select() 的 BlinkableView 进行闪烁。
 ```
 
-This works pretty much like regular notifications, with the difference being that while notifications will trigger everyone that registers them, this efficiently iterates the Responder Chain and stops as soon as the first BlinkableView is found.
+这与常规通知非常相似，不同之处在于通知会触发注册它们的每个对象，而这个方法只会触发在响应链上最先被查找到的 BlinkableView 对象。
 
-As mentioned before, even architectures can be built out of this. Here's the skeleton of a Coordinator structure that defines a custom type of event and injects itself into the Responder Chain:
+如前所述，甚至可以用此方法进行架构。这是 Coordinator 结构的框架，它定义了一个自定义类型的事件并将自身注入到响应者链中：
 
-```
+```swift
 final class PushScreenEvent: UIEvent {
 
     let viewController: CoordenableViewController
@@ -196,8 +196,8 @@ class CoordenableViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        //Fill info at viewDidAppear to make sure UIKit
-        //has configured this view's next responder.
+        //在 viewDidAppear 填写信息以确保 UIKit
+        //已配置此 view 的下一个响应者。
         super.viewDidAppear(animated)
         guard coordinator == nil else {
             return
@@ -212,32 +212,32 @@ final class MyViewController: CoordenableViewController {
     //...
 }
 
-//From anywhere in the app:
+//在 app 的起其他任何位置：
 
 let newVC = NewViewController()
 UIApplication.shared.push(vc: newVC)
 ```
 
-The way this works is that each `CoordenableViewController` holds a reference to its original next responder (the window), but overrides `next` to point to the `Coordinator` instead, which in turn points the window at its next responder.
- 
-``` 
+这让 `CoordenableViewController` 都持有对其原始下一个响应者（window）的引用，但是它重写了 `next` 让它指向 `Coordinator`，而后者又将 window 指向下一个响应者。
+
+```swift
 // MyView -> MyViewController -> **Coordinator** -> UIWindow -> UIApplication -> AppDelegate
 ```
 
-This allows the `Coordinator` to receive system events, and by defining a new `PushScreenEvent` that contains info about a new view controller, we can dispatch a `pushNewScreen` action that is handled by these `Coordinators` to push new screens.
+这允许 `Coordinator` 接收系统事件，并通过定义一个新的包含了有关新 view controller 信息的 `PushScreenEvent`，我们可以调用由这些 `Coordinators` 处理的 `pushNewScreen` 事件来刷新屏幕。
 
-With this structure, `UIApplication.shared.push(vc: newVC)` can be called from **anywhere** in the app without needing a single delegate or singleton as UIKit will make sure that only the current `Coordinator` is notified of this action, thanks to the Responder Chain.
+有了这个结构，`UIApplication.shared.push(vc: newVC)` 可以在 app 中的 **任何地方** 调用，而不需要单个代理或单例，因为 UIKit 将确保只通知当前的 `Coordinator` 这个事件，这得多亏了响应者链。
 
-The examples shown here were highly theoretical, but I hope this helped you understand the purpose and uses of the Responder Chain.
+这里显示的例子非常理论化，但我希望这有助于你理解响应者链的目的和用途。
 
-Follow me on my Twitter - [@rockthebruno](https://twitter.com/rockthebruno), and let me know of any suggestions and corrections you want to share.
+你可以在 Twitter 上关注本文作者 — [@rockthebruno](https://twitter.com/rockthebruno)，有更多建议也可以分享。
 
-## References and Good reads
+## 官方参考文档
 
-[Using Responders and the Responder Chain to Handle Events](https://developer.apple.com/documentation/uikit/touches_presses_and_gestures/using_responders_and_the_responder_chain_to_handle_events)  
-[UIResponder](https://developer.apple.com/documentation/uikit/uiresponder)  
-[UIEvent](https://developer.apple.com/documentation/uikit/uievent)  
-[UIControl](https://developer.apple.com/documentation/uikit/uievent)
+ [使用响应者和响应者链来处理事件](https://developer.apple.com/documentation/uikit/touches_presses_and_gestures/using_responders_and_the_responder_chain_to_handle_events)
+- [UIResponder](https://developer.apple.com/documentation/uikit/uiresponder)
+- [UIEvent](https://developer.apple.com/documentation/uikit/uievent)
+- [UIControl](https://developer.apple.com/documentation/uikit/uievent)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
