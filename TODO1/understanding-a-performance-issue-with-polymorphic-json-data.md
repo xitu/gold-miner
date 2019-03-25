@@ -11,7 +11,7 @@
 
 ![照片由 [Markus Spiske](https://unsplash.com/@markusspiske?utm_source=medium&utm_medium=referral) 发布于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11520/0*g6D9UP-cs6jMRzrx)
 
-当我做一些 [底层性能优化](https://medium.com/wolfram-developers/performance-through-elegant-javascript-15b98f0904de) 以用于渲染 [Wolfram Cloud](https://www.wolframcloud.com/) notebook 时, 我注意到一个非常奇怪的问题，就是函数会因为处理浮点数进入较慢的执行路径，即使所有传入的数据都是整数的情况下也会是这样。具体来说，*单元格计数器*被 JavaScript 引擎视为浮点数，这大大减慢了大型　notebook 的渲染速度（至少在 Chrome 里面是这样）。
+当我做一些 [底层性能优化](https://medium.com/wolfram-developers/performance-through-elegant-javascript-15b98f0904de) 以用于渲染 [Wolfram Cloud](https://www.wolframcloud.com/) notebook 时, 我注意到一个非常奇怪的问题，就是函数会因为处理浮点数进入较慢的执行路径，即使所有传入的数据都是整数的情况下也会是这样。具体来说，*单元格计数器*被 JavaScript 引擎视为浮点数，这大大减慢了大型 notebook 的渲染速度（至少在 Chrome 里面是这样）。
 
 我们将单元格计数器 (由 [CounterAssignments](https://reference.wolfram.com/language/ref/CounterAssignments.html) 和 [CounterIncrements](https://reference.wolfram.com/language/ref/CounterIncrements.html) 进行的定义) 表示为一个整数数组, 它具有从属性名到索引的一个独立的映射。这比每组计数器存储为一个字典形式更为高效。举个例子，它并不是下面的这种格式
 
@@ -86,7 +86,7 @@ const arr2 = [obj.value, obj.value];
 console.log(`arr2 has Smi elements: ${%HasSmiElements(arr2)}`);
 ```
 
-运行此程序将提供以下输出：
+运行此程序会输出下面的内容：
 
 ```bash
 $ node --allow-natives-syntax inspect-types.js
@@ -122,7 +122,7 @@ function main() {
 main();
 ```
 
-我们首先构造一个从对象 obj 中提取的 100 个整数的数组，然后我们调用 copyAndIncrement 一千万次，它会创建一个数组的副本，然后在副本中改变一个元素，然后返回新的数组。这就是在渲染（体积很大）的 notebook 时处理单个计数器时实质上发生的事。
+我们首先构造一个从对象 obj 中提取的 100 个整数的数组，然后我们调用 copyAndIncrement 一千万次，它会创建一个数组的副本，然后在副本中改变一个元素，然后返回新的数组。这就是在渲染（体积很大的）notebook 时处理单个计数器时实质上发生的事。
 
 让我们稍微改变一下程序并在开头加入如下代码（counters-float.js）：
 
@@ -238,18 +238,18 @@ sys         0.338       0.014       0.315       0.335       0.397
 
 ## 总结
 
-V8 中的结构转换可能会产生一些令人惊讶的性能影响。但通常您不必在实践中担心这个问题（主要是因为 V8 即使在“慢速”路径上，也可能比其他所有引擎都表现得更快）。但是在一个高性能的应用程序中，最好记住“全局”结构表的效果，其中应用程序的各个部分可以在远程相互影响。
+V8 中的结构转换可能会产生一些令人惊讶的性能影响。但通常您不必在实践中担心这个问题（主要是因为 V8 即使在“慢速”路径上，也可能比其他所有引擎都表现得更快）。但是在一个高性能的应用程序中，最好记住“全局”结构表的效果，因为应用程序的各个相互独立的部分也可以相互影响。
 
 如果您正在处理不受您控制的外部 JSON 数据，您可以使用按位 OR 将值“转换”为整数，如值 | 0，这也将确保其内部表示是一个 Smi。
 
-如果您可以直接定义 JSON 数据，那么对于具有相同基础值类型的属性仅使用相同的属性名称没准是个好主意。例如。在我们的例子中这可能更好用
+如果您可以直接定义 JSON 数据，那么对于具有相同底层值类型的属性仅使用相同的属性名称没准是个好主意。例如。在我们的例子中这可能更好用
 
 ```js
 {"type": "MInteger", "intValue": 2}
 {"type": "MReal", "realValue": 2.5}
 ```
 
-而不是在两种情况下都调用属性值。换句话说：避免使用“多态”对象。
+而不是在不同值类型的情况下都使用同一个属性。换句话说：避免使用“多态”对象。
 
 即使在实践中 V8 场景下对性能的影响可以忽略不计，但是更深入的了解幕后发生的事情总会很有趣。就我个人来说，当我发现我一年前做的优化*为什么*有效的时候我会感到特别开心。
 
