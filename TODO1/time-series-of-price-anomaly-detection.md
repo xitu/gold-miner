@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/time-series-of-price-anomaly-detection.md](https://github.com/xitu/gold-miner/blob/master/TODO1/time-series-of-price-anomaly-detection.md)
 > * 译者：[kasheemlew](https://github.com/kasheemlew)
-> * 校对者：
+> * 校对者：[xionglong58](https://github.com/xionglong58)
 
 # 时间序列的价格异常检测
 
@@ -11,7 +11,7 @@
 
 > 异常检测是指检测数据集中不遵循其他数据的统计规律的数据点
 
-异常检测，也叫离群点检测，是数据挖掘中确定异常类型和异常出现的相关细节的过程。 如今，自动化异常检测至关重要，因为现在的数据量太庞大了，人工标记已经不可能实现了。自动异常检测有着广泛的应用，例如反欺诈、系统监控、错误检测、传感器网络中的事件检测等等。
+异常检测，也叫离群点检测，是数据挖掘中确定异常类型和异常出现的相关细节的过程。如今，自动化异常检测至关重要，因为现在的数据量太庞大了，人工标记已经不可能实现了。自动异常检测有着广泛的应用，例如反欺诈、系统监控、错误检测、传感器网络中的事件检测等等。
 
 但我将对酒店房费进行异常检测，原因说起来有点自私。
 
@@ -31,10 +31,10 @@
 
 我们将从 training.csv 中分割出一个子集：
 
-* 选择数据点最多的酒店 `property_id = 104517` .
+* 选择数据点最多的酒店 `property_id = 104517`。
 * 选择 visitor_location_country_id = 219（从另一段分析中可知国家号 219 代表美国）来统一 `price_usd` 列。 这样做是因为各个国家在显示税费和房费上有不同的习惯，这个房费可能是每晚的费用也可能是总计的费用，但我们知道美国的酒店显示的就是每晚不含税费的价格。
 * 选择 `search_room_count = 1`.
-* 选择我们需要的其他特征： `date_time`、`price_usd`、`srch_booking_window`、`srch_saturday_night_bool`。
+* 选择我们需要的其他特征：`date_time`、`price_usd`、`srch_booking_window` 和 `srch_saturday_night_bool`。
 
 ```python
 expedia = pd.read_csv('expedia_train.csv')
@@ -156,9 +156,9 @@ k-平均是一个应用广泛的聚类算法。它创建 ‘k’ 个相似数据
 根据这篇论文：[ Support Vector Method for Novelty Detection](http://users.cecs.anu.edu.au/~williams/papers/P126.pdf)。SVM 是基于间隔最大的方法，也就是不对一种可能的分布建模。基于 SVM 的异常检测的核心就是找到一个函数，这个函数对于点密度高的区域输出正值，对于点密度低的区域返回负值。
 
 * 在拟合 [OneClassSVM](https://scikit-learn.org/stable/modules/generated/sklearn.svm.OneClassSVM.html#sklearn.svm.OneClassSVM) 模型时，我们设置  `nu=outliers_fraction`，这时训练误差的上界和支持向量的下界，这个值必须在 0 到 1 之间。这基本上是我们期望中数据集上离群点的比例。
-* 指定算法中的核函数类型：`rbf`。 此时 SVM 使用非线性函数将超空间映射到更高维度中。
-* `gamma` 是 RBF 内核类型的一个参数，控制着单个训练样本的影响 —— 它影响着模型的"平滑度"。经过试验，我没发现什么重要的差别。
-* `predict(data)` 执行数据分类。因为我们的模型是一个单类模型，所以只会返回 +1 或者 -1，-1 代表异常， 1 代表正常。
+* 指定算法中的核函数类型：`rbf`。此时 SVM 使用非线性函数将超空间映射到更高维度中。
+* `gamma` 是 RBF 内核类型的一个参数，控制着单个训练样本的影响 — 它影响着模型的"平滑度"。经过试验，我没发现什么重要的差别。
+* `predict(data)` 执行数据分类。因为我们的模型是一个单类模型，所以只会返回 +1 或者 -1，-1 代表异常，1 代表正常。
 
 ![Figure 12](https://cdn-images-1.medium.com/max/2000/1*4CBpGg6xTabEf_K1yWbteQ.png)
 
@@ -171,8 +171,8 @@ Scikit-Learn 的 `[**covariance.EllipticEnvelope**](https://scikit-learn.org/sta
 * 根据之前定义的类别创建两个不同的数据集 —— search_Sat_night、Search_Non_Sat_night。
 * 对每个类别使用 `EllipticEnvelope`（高斯分布）。
 * 我们设置 `contamination` 参数，它是数据集中出现的离群点的比例。
-* 我们用 `decision_function` 来计算给定观测值的决策函数，它和平移马氏距离等价。 为了确保和其他离群点检测算法的兼容性，成为离群点的阈值被设置为 0。
-* `predict(X_train)` 使用拟合好的模型预测 X_train 的标签（1 表示正常， -1 表示异常）。
+* 我们用 `decision_function` 来计算给定观测值的决策函数，它和平移马氏距离等价。为了确保和其他离群点检测算法的兼容性，成为离群点的阈值被设置为 0。
+* `predict(X_train)` 使用拟合好的模型预测 X_train 的标签（1 表示正常，-1 表示异常）。
 
 ![Figure 13](https://cdn-images-1.medium.com/max/2000/1*YMF_eAI6ofVzwKc0Ncsz8g.png)
 
@@ -182,7 +182,8 @@ Scikit-Learn 的 `[**covariance.EllipticEnvelope**](https://scikit-learn.org/sta
 
 [Jupyter notebook](https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/Time%20Series%20of%20Price%20Anomaly%20Detection%20Expedia.ipynb) 已经上传至 [Github](https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/Time%20Series%20of%20Price%20Anomaly%20Detection%20Expedia.ipynb)。 好好享受这一周吧！
 
-参考文献:
+参考文献：
+
 * [**Introduction to Anomaly Detection**](https://www.datascience.com/blog/python-anomaly-detection)
 * [**sklearn.ensemble.IsolationForest - scikit-learn 0.20.2 documentation**](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html)
 * [**sklearn.svm.OneClassSVM - scikit-learn 0.20.2 documentation**](https://scikit-learn.org/stable/modules/generated/sklearn.svm.OneClassSVM.html)
