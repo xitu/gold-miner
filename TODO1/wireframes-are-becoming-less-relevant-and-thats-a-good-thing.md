@@ -2,62 +2,62 @@
 > * 原文作者：[Sean Dexter](https://medium.com/@seandexter1)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/wireframes-are-becoming-less-relevant-and-thats-a-good-thing.md](https://github.com/xitu/gold-miner/blob/master/TODO1/wireframes-are-becoming-less-relevant-and-thats-a-good-thing.md)
-> * 译者：
-> * 校对者：
+> * 译者：[hanxiansen](https://github.com/hanxiansen)
+> * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234), [xiantang](https://github.com/xiantang)
 
-# Wireframes are becoming less relevant — and that’s a good thing
+# 线框图变得不那么重要了 — 好事啊！
 
 ![](https://cdn-images-1.medium.com/max/3160/1*-uTCxjdcMtjgKnKfUJqixA.png)
 
-Over time I’ve found wireframes to be less and less useful, and I don’t think I’m alone. Because the term is somewhat loosely defined, it’s probably important to be specific. While there are many types of prototypes that examine levels of fidelity across various [dimensions](https://medium.com/in-the-hudl/prototype-fidelity-its-more-than-high-and-low-4dedb4cb1a0), I’d like to focus on the specific variant that most immediately comes to mind when hearing the word wireframe. It’s not a sketch or a fully realized mockup but rather the typical “middle” state —digital artifacts left intentionally unstyled and made to represent the “skeleton” of a full page in black and white. The prototypical wireframe attempts to be an accurate representation of layout and information architecture while **intentionally** undefinedavoiding high visual fidelity and sometimes high content fidelity as well.
+随着时间的推移，我发现线框图越来越没用，而且不止我一个人如此认为，因为关于该术语的定义太过松散，所以具体的定义可能很重要，虽然有许多原型可以检测不同[维度](https://medium.com/in-the-hudl/prototype-fidelity-its-more-than-high-and-low-4dedb4cb1a0)的逼真度，但我想重点介绍在听到“线框”一词时最能想到的特定变化，它不是一个草图或一个实成的原型，而是一个典型的中间状态（数字艺术设计中故意不加样式，并用黑白表示整个页面的“骨架”）。原型线框图试图准确的表示布局和信息框架，并**有意的**避免高逼真的视觉呈现，但有时候这也避免了内容的高保真度。
 
 ![Behold the drab, spindly splendor of a wireframe in it’s natural habitat](https://cdn-images-1.medium.com/max/3360/0*0FGSCBVTYpA2Dt4z.png)
 
-In discussions I’ve had and online I’ve been surprised to hear wireframes are still posited as an **essential** undefinedstep in the process of design. This attitude seems to be on the decline, but I’ve still heard everyone from early career designers to industry leading agencies insist on the necessity of a “wireframing phase”. The argument typically looks something like this:
+在我参与的线下或线上讨论中，我惊讶的发现线框图依然被定义为设计环节中的**基本**步骤，虽然这种态度似乎处于下降趋势，但我仍然能听到每个人 — 从早期的职业设计师到业界领先的机构，都在坚持“线框阶段”的必要性，这些争论通常有如下几点：
 
-> - Wireframes focus attention on usability instead of aesthetics. They prevent stakeholders derailing meetings over irrelevant details like button color, and they allow user testing to focus on interactions instead of visuals.
+> - 线框图关注于实用性而不是艺术性，它能阻止利益相关者在一些无关紧要的细节（如：按钮颜色）讨论上带偏会议，并允许使用者在测试时集中于交互而不是视觉呈现。
 >
-> - Wireframes are faster to create. They keep things conceptual and avoid the risk of getting too invested or attached to a particular direction.
+> - 线框图的创建更快，它能保持设计理念，并避免了过多的开销或过于依赖某一特定方向。
 >
-> - There’s also a somewhat separate argument (more enterprise-oriented) for wireframes as a tool for detailed documentation of interactions without the additional overhead of visual design.
+> - 线框图作为一种没有额外视觉设计开销的详细交互文档工具，也存在这一些分歧（更多面向企业）。
 
-That doesn’t mean that everyone actually makes wireframes, but when someone admits they don’t it’s often in a hushed tone and without a lot of eye contact. They would like to include them. It’s just that the constraints of their organization, stakeholders, or project prevent it from always being possible. But the mindset that they are essential, and many beliefs about their advantages may be misguided. While I won’t deny that wireframes are **ever** undefineduseful, nowadays they’re valuable only in limited circumstances that are narrowing by the day. There are a number of shifts in industry thinking and practices that are contributing to this change and are worth examining.
+实际上，并不是说每个人都在制作线框图，但当有人承认不做线框图时，他通常会躲闪你的目光，并保持沉默。虽然他们想让更多的人加入他们。过他们往往受限于他们所处的组织、利益相关者或项目本身。但他们的心态是必要的，关于它们优势的信念被误导了，虽然我不否认线框图的价值，但现在它只在有限情况下才有价值，行业思维和实践的大量变动正促成这种改变，这是值得深思的。
 
-## Shifting product development methodologies are changing how design gets done
+## 不断变换的产品开发方法正改变着设计的完成方式
 
-**Agile** undefinedproduct development encourages less linear process. Instead of starting with work on foundational elements across an entire product and then building layers on top of that foundation, the focus has shifted to smaller, more frequent delivery of fully realized “vertical” slices.
+**敏捷**产品的开发鼓励更少的线性过程。不是从整个产品的基础元素开始，然后在基础元素上构建层，而是将重点转移到更小，更频繁地交付完全实现的“垂直”切片。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ZP-WJyxl2cwFlE_SifUCkA.png)
 
-This also includes fully realized design, making it important to consider visuals, information architecture, and interactivity simultaneously. On an agile team, where your next iteration is coming in days or weeks rather than months or years, the extensive up front mapping phase that so often gives birth to wireframes is less likely to have a place.
+这也包括完全实现的设计，这使得同时考虑可视化、信息架构和交互性变得非常重要。在敏捷开发团队中，你的下一次迭代将在几天或几周内进行，而不是几月或几年，这对会产生广泛的前期绘图阶段的线框设计来说，很难有一席之位。
 
-[**Lean UX**](https://www.smashingmagazine.com/2011/03/lean-ux-getting-out-of-the-deliverables-business/) is an accompanying process shift that seems to be gaining traction as well. In Lean, heavy design artifacts are de-emphasized or omitted entirely in favor of directly collaborating on the product itself whenever possible. Lean also provides a rebuttal to the idea of wireframes as a documentation tool. It suggests that the layout of screens in an actual product can serve as their own documentation. Design artifacts you create can instead become more temporary items — to be put aside as soon as the information they contain exists in an accessible way within the actual product. Other relevant context might still be documented but only at or after the point of implementation.
+[**精益UX（Lean UX）**](https://www.smashingmagazine.com/2011/03/lean-ux-getting-out-of-the-deliverables-business/)是一种随之诞生的改进流程（似乎在不断被关注），在 Lean 设计中，繁重类的设计工作被忽略或完全省略，这有利于在产品本身上进行协作，Lean 设计还反驳了将线框图作为文档工具的想法，它建议实际产品的屏幕布局可以作为它们的文档，你自己创建的设计组件将成为临时项 —— 只要它们包含的信息在实际产品中以可访问的方式存在，就可以把他们放到一边去。其它相关情况仍可记录在案，但仅在设计时或之后。
 
-### Usability and information architecture don’t exist in a vacuum
+### 可用性和信息框架不应被漠视
 
-At the risk of stating the obvious, the visual presentation of elements in an interface affects how they’re perceived. A drop-down that resembles a form field may have it’s function misinterpreted. A menu header that doesn’t stand out from a menu item may be missed. Color and contrast play huge roles in directing visual attention. If you do usability testing on a wireframe the test is going to lose a lot of it’s value when you ultimately change how everything looks. You’re also probably going to have to make even more layout changes at that point to better accommodate your visuals. Users might get fixated on visual elements, but they’re not wrong to do so, and making everything grey-scale doesn’t necessarily reduce that risk. Issues with usability or information architecture are better exposed through comprehension questions and task completion tests than verbal comments anyways. Input on a concept can be achieved with any level of fidelity as long as you set expectations well and pay attention to how you solicit feedback.
+风险是显而易见的 —— 界面中元素的可视化表示会影响到它们的感知方式。类似于：表单元素的下拉菜单可能会让人误解其功能，与菜单条目不同的菜单标题可能会被忽视。颜色和对比度在引导视觉注意方面起着巨大的作用。如果你在一个线框上做可用性测试，当你最终改变所有的外观时，将会丢失很多内容。为了更好地适应视觉效果，您可能还必须在这一点上进行更多的布局更改。用户可能只会专注于视觉元素，他们这样做无可厚非，而且将所有内容设置为灰色并不一定会降低这种风险。关于可用性或信息框架的问题通过理解问题和测试任务的完成比口头评论更好地暴露出来。只要你能很好的设定预期并注意反馈的征求，就可以用任何保真度来实现概念的输入。
 
-### Wireframes are rarely effective for stakeholders
+### 线框图对利益相关者影响很少
 
-I get it. It can be incredibly frustrating to have a stakeholder get fixated on the color of a button or a piece of copy in a meeting. But by intentionally avoiding higher fidelity visuals and putting lorem ipsum everywhere are you really solving that problem? Or are you just deferring it? Do you like low fidelity because it makes things easier for people to understand and give input on? Or is the truth that it makes things **harder** for others to understand and that we **like** undefinedthat because it allows us to lord our expertise over others and avoid criticism? If a stakeholder isn’t interested in commenting on the IA and cares more about other things closer to their expertise, then why are you trying to fight that? You’re the expert on information architecture, not them, and any changes needed to layout should become clear through testing with users.
+我懂了，在会议中让利益相关者专注于按钮或副本的颜色可能会令人难以置信地沮丧。但是，通过有意避免更高逼真度的视觉效果，并把 lorem ipsum（译者注: 排版时的专用测试文字）随意放置，你真的能解决问题吗？还是你只是推迟了问题的解决？你喜欢低保真度是因为它让人们更容易理解和输入信息吗？或者事实是：它使别人**更难**理解，我们**喜欢**这样，因为它让我们能够将自己的专业知识凌驾于他人之上，免受批评？如果利益相关者不热衷于评价信息架构，而是更在意他们专业知识相关的其它事情，那你为何还要斗争呢？你才是信息架构方面的专家，而不是他们，任何需要对布局进行的更改都应通过对用户的测试而变得清晰。
 
-### It’s getting faster and easier to approximate high fidelity visuals
+### 它变得更快捷，也更容易接近高保真的视觉呈现
 
-Years ago photoshop was the UI design king and everyone was in an arms race to see who could add the most detailed, photo-realistic texture to a given page. Back then there was a valid argument for the time saving benefits of wireframes, but today our tools are purpose built for UI design (Think Sketch, Adobe XD, or Figma) and make it significantly quicker and easier to manage and update styles globally. Changing layout “after” the visual style is “set” shouldn’t be any harder than changing it early. And for those at design-mature organizations the combination of design systems and component libraries supporting those systems pretty much remove any excuse. Even if you aren’t at at a mature organization you probably still have access to UI kits that match the UI frameworks available to your developers. It also helps that even the most visually complex aesthetics today are still relatively simple. If your button is just going to be a blue rectangle with round corners, then how much time are you really saving by intentionally making it grey?
+几年前，Photoshop是 UI 设计之王，每个人都在争先恐后地看谁能在给定的页面上添加最详细、最逼真的纹理。当时有一个关于线框节省时间优势的论据，但今天，我们的设计工具专为 UI 设计（想想 Sketch，Adobe XD，或 Figma）而打造，它们在全局设计上更快，而且更容易的管理和更新样式。在设置好视觉风格后再改变布局不应该比以前改变它更难。对于那些成熟的设计组织来说，设计系统和支持这些系统的组件库的结合几乎消除了任何借口。即使还不是一个成熟的组织，你仍然可以访问与开发人员相匹配的 UI 框架的 UI 工具包。这也有助于：今天，即使是最复杂的视觉美学，仍然是相对简单的。如果你的按钮只是一个带有圆角的蓝色长方形，那么你通过故意把它变成灰色真的节省了多少时间？
 
-### Does wireframing ever make sense?
+### 线框图还有意义吗？
 
-It can—in the right situation. For example, you might create wireframes because:
+它在合适的情况下是有意义的，你可以在以下情况下创建线框图：
 
-- You really do have a product that will be visually complex (like a mobile game) and need to work out the interaction independent of an unavoidably long art process. Even if this is the case you can still do your best to approximate style.
+- 你确实拥有一个视觉上很复杂的产品（如移动游戏），并且需要独立的不可避免的漫长艺术创作来完成交互，即使如此，你仍然可以尽力实现风格的相似度。
 
-- You’re using them as an exercise to help someone learn about information architecture in isolation (hopefully a one-off rather than a recurring part of real product development).
+- 你将它们用作练习，以帮助人们独立的了解信息框架（希望是产品开发的一次性而非反复性的部分）。
 
-- You want to map out or test information architecture but have a dependency on someone else for visual design (not ideal!) or are limited in some way by the visual capabilities of the tools available to you, or by your own skill-set.
+- 你想绘制或测试信息框架，但又依赖于他人的视觉设计（这并不理想！），或者在某些方面受限于你可用工具的视觉功能抑或你个人的技能。
 
-- You’re in a dated waterfall or agency environment and don’t have yet have much autonomy over your process. This isn’t great, but may be outside of your control.
+- 你处于过时的瀑布流或代理环境中，并且你对流程没有太多的自主权，这不是很好，你没有办法。
 
-I’m sure there are plenty of other possible scenarios and exceptions, but I would argue that they are likely infrequent for most designers operating today. If you think of traditional wireframes as a tactic to be employed only when really suited for the problem, then you’ll probably find that they can often be avoided — and that’s OK.
+我确信还有很多其它的可能场景和例外情况，但我认为对于今天的大多数设计师来说可能并不常见，如果你认为传统的线框设计只是在真正适合问题的情况下才使用的方案，那么你会发现它们经常可以避免 — and that’s OK.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
