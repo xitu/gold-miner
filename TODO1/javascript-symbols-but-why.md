@@ -103,7 +103,7 @@ console.log(s1); // Symbol(debug)
 
 ## Symbol 作为对象属性
 
-symbols 还有另一个重要的用法，它们可以当作对象中的键!下面是一个在对象中使用 symbol 作为键的例子:
+symbols 还有另一个重要的用法，它们可以被当作对象中的键!下面是一个在对象中使用 symbol 作为键的例子:
 
 
 ```js
