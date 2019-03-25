@@ -86,7 +86,7 @@ Flutter 的 IDE 工具适用于 [Android Studio](https://developer.android.com/s
 
 [获取详细的 Flutter 安装信息](https://flutter.io/setup/)
 
-> **重要提示：** 如果连接到计算机的 Android 手机上出现“允许 USB 调试”对话框，请启用**始终允许从此计算机**选项，然后单击**确定**。
+> **重要提示**：如果连接到计算机的 Android 手机上出现“允许 USB 调试”对话框，请启用**始终允许从此计算机**选项，然后单击**确定**。
 
 在继续本教程之前，请确保你的 SDK 处于正确的状态。如果之前安装过 Flutter SDK，则使用 `flutter upgrade` 来确保 SDK 处于最新版本。
 
@@ -166,7 +166,7 @@ git checkout 104-starter\_and\_103-complete
 
 ![](https://lh5.googleusercontent.com/MVD7YGuMneCprDEam1Vy8NusO9BPmOZTyrH4jvO8RmsfTeu8q-t0AfHU3kzXk1F8EUgHaFbqeORdXc7iOcz5ZLM4qbXsv_tMiVnAi0i68p0t957RThrZ56Udf-F292JgRV3iKs7T)
 
-> **提示：** 确保你已安装 [Flutter 和 Dart 插件](https://flutter.io/get-started/editor/#androidstudio)。
+> **提示**：确保你已安装 [Flutter 和 Dart 插件](https://flutter.io/get-started/editor/#androidstudio)。
 
 ### 运行初始程序
 
@@ -205,7 +205,7 @@ HomePage 的小部件将成为前层的内容。现在它有一个应用栏。�
 
 在 `home.dart`中，修改 `build()` 方法使其仅返回一个 AsymmetricView：
 
-    // TODO: 返回一个 AsymmetricView（104）
+    // TODO：返回一个 AsymmetricView（104）
     return  AsymmetricView(products: ProductsRepository.loadProducts(Category.all));
 
 ### 添加背景小部件
@@ -222,7 +222,7 @@ HomePage 的小部件将成为前层的内容。现在它有一个应用栏。�
 
     import 'model/product.dart';
 
-    // TODO: 添加速度常量（104）
+    // TODO：添加速度常量（104）
 
     class Backdrop extends StatefulWidget {
       final Category currentCategory;
@@ -247,9 +247,9 @@ HomePage 的小部件将成为前层的内容。现在它有一个应用栏。�
       _BackdropState createState() => _BackdropState();
     }
 
-    // TODO: 添加 _FrontLayer 类（104）
-    // TODO: 添加 _BackdropTitle 类（104）
-    // TODO: 添加 _BackdropState 类（104）
+    // TODO：添加 _FrontLayer 类（104）
+    // TODO：添加 _BackdropTitle 类（104）
+    // TODO：添加 _BackdropState 类（104）
 ```
 
 导入 **meta** 包来添加 `@required` 标记。当构造函数中的属性没有默认值且不能为空的时候，用它来提醒你不能遗漏。注意，我们在构造方法后再一次声明了传入的值的确不是 `null`。
@@ -257,14 +257,14 @@ HomePage 的小部件将成为前层的内容。现在它有一个应用栏。�
 在 Backdrop 类定义下添加 `_BackdropState` 类：
 
 ```
-    // TODO: 添加 _BackdropState 类（104）
+    // TODO：添加 _BackdropState 类（104）
     class _BackdropState extends State<Backdrop>
         with SingleTickerProviderStateMixin {
       final GlobalKey _backdropKey = GlobalKey(debugLabel: 'Backdrop');
 
-      // TODO: 添加 AnimationController 部件（104）
+      // TODO：添加 AnimationController 部件（104）
 
-      // TODO: 为 _buildStack 添加 BuildContext 和 BoxConstraints 参数（104）
+      // TODO：为 _buildStack 添加 BuildContext 和 BoxConstraints 参数（104）
       Widget _buildStack() {
         return Stack(
         key: _backdropKey,
@@ -281,20 +281,20 @@ HomePage 的小部件将成为前层的内容。现在它有一个应用栏。�
           brightness: Brightness.light,
           elevation: 0.0,
           titleSpacing: 0.0,
-          // TODO: 用 IconButton 替换 leading 菜单图标（104）
-          // TODO: 移除 leading 属性（104）
-          // TODO: 使用 _BackdropTitle 参数创建标题（104）
+          // TODO：用 IconButton 替换 leading 菜单图标（104）
+          // TODO：移除 leading 属性（104）
+          // TODO：使用 _BackdropTitle 参数创建标题（104）
           leading: Icon(Icons.menu),
           title: Text('SHRINE'),
           actions: <Widget>[
-            // TODO: 添加从尾部图标到登陆页面的快捷方式（104）
+            // TODO：添加从尾部图标到登陆页面的快捷方式（104）
             IconButton(
               icon: Icon(
                 Icons.search,
                 semanticLabel: 'search',
               ),
               onPressed: () {
-              // TODO: 打开登录（104）
+              // TODO：打开登录（104）
               },
             ),
             IconButton(
@@ -303,14 +303,14 @@ HomePage 的小部件将成为前层的内容。现在它有一个应用栏。�
                 semanticLabel: 'filter',
               ),
               onPressed: () {
-              // TODO: 打开登录（104）
+              // TODO：打开登录（104）
               },
             ),
           ],
         );
         return Scaffold(
           appBar: appBar,
-          // TODO: 返回一个 LayoutBuilder 部件（104）
+          // TODO：返回一个 LayoutBuilder 部件（104）
           body: _buildStack(),
         );
       }
@@ -333,13 +333,13 @@ HomePage 的小部件将成为前层的内容。现在它有一个应用栏。�
 
 在 `app.dart` 中修改 ShrineApp 的 `build()` 方法。将 `home:` 改成以 HomePage 为 `frontLayer` 的 Backdrop。
 ```
-        // TODO: 将 home: 改为使用 HomePage frontLayer 的 Backdrop（104）
+        // TODO：将 home: 改为使用 HomePage frontLayer 的 Backdrop（104）
         home: Backdrop(
-          // TODO: 使 currentCategory 持有 _currentCategory （104）
+          // TODO：使 currentCategory 持有 _currentCategory （104）
           currentCategory: Category.all,
-          // TODO: 为 frontLayer 传递 _currentCategory（104）
+          // TODO：为 frontLayer 传递 _currentCategory（104）
           frontLayer: HomePage(),
-          // TODO: 将 backLayer 的值改为 CategoryMenuPage（104）
+          // TODO：将 backLayer 的值改为 CategoryMenuPage（104）
           backLayer: Container(color: kShrinePink100),
           frontTitle: Text('SHRINE'),
           backTitle: Text('MENU'),
@@ -371,9 +371,9 @@ Material Design 将此类定制称为形状。Material 表面可以具有任意�
 在 `backdrop.dart` 中，添加新的 `_FrontLayer` 类：
 
 ```
-    // TODO: 添加 _FrontLayer 类（104）
+    // TODO：添加 _FrontLayer 类（104）
     class _FrontLayer extends StatelessWidget {
-      // TODO: 添加 on-tap 回调（104）
+      // TODO：添加 on-tap 回调（104）
       const _FrontLayer({
         Key key,
         this.child,
@@ -391,7 +391,7 @@ Material Design 将此类定制称为形状。Material 表面可以具有任意�
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              // TODO: 添加 GestureDetector（104）
+              // TODO：添加 GestureDetector（104）
               Expanded(
                 child: child,
               ),
@@ -406,14 +406,14 @@ Material Design 将此类定制称为形状。Material 表面可以具有任意�
 
 ```
       Widget _buildStack() {
-        // TODO: 创建一个 RelativeRectTween 动画（104）
+        // TODO：创建一个 RelativeRectTween 动画（104）
 
         return Stack(
         key: _backdropKey,
           children: <Widget>[
             widget.backLayer,
-            // TODO: 添加 PositionedTransition（104）
-            // TODO: 在 _FrontLayer 中包裹 front layer（104）
+            // TODO：添加 PositionedTransition（104）
+            // TODO：在 _FrontLayer 中包裹 front layer（104）
               _FrontLayer(child: widget.frontLayer),
           ],
         );
@@ -434,14 +434,14 @@ Material Design 将此类定制称为形状。Material 表面可以具有任意�
 在 `backdrop.dart` 的顶部，其他类函数外，添加一个常量来表示我们需要的动画执行的速度：
 
 ```
-    // TODO: 添加速度常数（104）
+    // TODO：添加速度常数（104）
     const double _kFlingVelocity = 2.0;
 ```
 
-在 `_BackdropState` 中添加 `AnimationController` 部件, 在 `initState()` 函数中实例化它，并将其部署在 state 的 `dispose()` 函数中：
+在 `_BackdropState` 中添加 `AnimationController` 部件，在 `initState()` 函数中实例化它，并将其部署在 state 的 `dispose()` 函数中：
 
 ```
-      // TODO: 添加 AnimationController 部件（104）
+      // TODO：添加 AnimationController 部件（104）
       AnimationController _controller;
 
       @override
@@ -454,7 +454,7 @@ Material Design 将此类定制称为形状。Material 表面可以具有任意�
         );
       }
 
-      // TODO: 重写 didUpdateWidget（104）
+      // TODO：重写 didUpdateWidget（104）
 
       @override
       void dispose() {
@@ -462,18 +462,18 @@ Material Design 将此类定制称为形状。Material 表面可以具有任意�
         super.dispose();
       }
 
-      // TODO: 添加函数以确定并改变 front layer 可见性（104）
+      // TODO：添加函数以确定并改变 front layer 可见性（104）
 ```
 
 > **部件生命周期**
 >
 > 仅在部件成为其渲染树的一部分之前会调用一次 `initState()` 方法。只有在部件从树中移除时才会调用一次 `dispose()` 方法。
 
-AnimationController 用来配合 Animation ，并提供播放、反向和停止动画的 API。现在我们需要使用某个方法来移动它。
+AnimationController 用来配合 Animation，并提供播放、反向和停止动画的 API。现在我们需要使用某个方法来移动它。
 
 添加函数以确定并改变 front layer 的可见性：
 ```
-      // TODO: 添加函数以确定并改变 front layer 的可见性（104）
+      // TODO：添加函数以确定并改变 front layer 的可见性（104）
       bool get _frontLayerVisible {
         final AnimationStatus status = _controller.status;
         return status == AnimationStatus.completed ||
@@ -492,23 +492,23 @@ AnimationController 用来配合 Animation ，并提供播放、反向和停止�
         return Stack(
           key: _backdropKey,
           children: <Widget>[
-            // TODO: 将 backLayer 包裹在 ExcludeSemantics 部件中（104）
+            // TODO：将 backLayer 包裹在 ExcludeSemantics 部件中（104）
             ExcludeSemantics(
               child: widget.backLayer,
               excluding: _frontLayerVisible,
             ),
           ...
 ```
-修改 `_buildStack()` 方法使其持有一个 BuildContext 和 BoxConstraints。同时包含一个使用 RelativeRectTween 动画的 PositionedTransition ：
+修改 `_buildStack()` 方法使其持有一个 BuildContext 和 BoxConstraints。同时包含一个使用 RelativeRectTween 动画的 PositionedTransition：
 
 ```
-      // TODO: 为 _buildStack 添加 BuildContext 和 BoxConstraints 参数（104）
+      // TODO：为 _buildStack 添加 BuildContext 和 BoxConstraints 参数（104）
       Widget _buildStack(BuildContext context, BoxConstraints constraints) {
         const double layerTitleHeight = 48.0;
         final Size layerSize = constraints.biggest;
         final double layerTop = layerSize.height - layerTitleHeight;
 
-        // TODO: 创建一个 RelativeRectTween 动画（104）
+        // TODO：创建一个 RelativeRectTween 动画（104）
         Animation<RelativeRect> layerAnimation = RelativeRectTween(
           begin: RelativeRect.fromLTRB(
               0.0, layerTop, 0.0, layerTop - layerSize.height),
@@ -522,11 +522,11 @@ AnimationController 用来配合 Animation ，并提供播放、反向和停止�
               child: widget.backLayer,
               excluding: _frontLayerVisible,
             ),
-            // TODO: 添加一个 PositionedTransition（104）
+            // TODO：添加一个 PositionedTransition（104）
             PositionedTransition(
               rect: layerAnimation,
               child: _FrontLayer(
-                // TODO: 在 _BackdropState 上实现 onTap 属性（104）
+                // TODO：在 _BackdropState 上实现 onTap 属性（104）
                 child: widget.frontLayer,
               ),
             ),
@@ -540,12 +540,12 @@ AnimationController 用来配合 Animation ，并提供播放、反向和停止�
 ```
         return Scaffold(
           appBar: appBar,
-          // TODO: 返回一个 LayoutBuilder 部件（104）
+          // TODO：返回一个 LayoutBuilder 部件（104）
           body: LayoutBuilder(builder: _buildStack),
         );
 ```
 
-我们使用 LayoutBuilder 将 front/back 堆栈的构建延迟到布局阶段，以便我们可以合并背景的实际整体高度。 LayoutBuilder 是一个特殊的部件，其构建器回调提供了大小约束。
+我们使用 LayoutBuilder 将 front/back 堆栈的构建延迟到布局阶段，以便我们可以合并背景的实际整体高度。LayoutBuilder 是一个特殊的部件，其构建器回调提供了大小约束。
 
 > **LayoutBuilder**
 >
@@ -558,7 +558,7 @@ AnimationController 用来配合 Animation ，并提供播放、反向和停止�
 在 `build()` 方法中，将应用栏中的前导菜单图标转换为 IconButton，并在点击按钮时使用它来切换 front layer 的可见性。
 
 ```
-          // TODO: 用 IconButton 替换 leading 菜单图标（104）
+          // TODO：用 IconButton 替换 leading 菜单图标（104）
           leading: IconButton(
             icon: Icon(Icons.menu),
             onPressed: _toggleBackdropLayerVisibility,
@@ -583,7 +583,7 @@ front layer 在向下移动（滑动）。但如果向下看，则会出现红�
 
       @override
       Widget build(BuildContext context) {
-        // TODO: 用 ListView 替换 Column（104）
+        // TODO：用 ListView 替换 Column（104）
         return ListView(
           reverse: true,
           children: <Widget>[
@@ -610,13 +610,13 @@ OneProductCardColumn 上的灰色溢出警告消失了！现在让我们修复�
 在 `supplemental/product_columns.dart` 中修改 `imageAspectRatio` 的计算方式，并将 `TwoProductCardColumn` 中的 Column 替换成 ListView：
 
 ```
-          // TODO: 修改 imageAspectRatio 的计算方式（104）
+          // TODO：修改 imageAspectRatio 的计算方式（104）
           double imageAspectRatio =
               (heightOfImages >= 0.0 && constraints.biggest.width > heightOfImages)
                   ? constraints.biggest.width / heightOfImages
                   : 33 / 49;
 
-          // TODO: 用 ListView 替换 Column（104）
+          // TODO：用 ListView 替换 Column（104）
           return ListView(
             children: <Widget>[
               Padding(
@@ -743,7 +743,7 @@ OneProductCardColumn 上的灰色溢出警告消失了！现在让我们修复�
 在 `app.dart` 中，为选择的类别添加一个变量 `_ShrineAppState`，并在点击时添加一个回调：
 
 ```
-    // TODO: 将 ShrineApp 转换成 stateful 部件（104）
+    // TODO：将 ShrineApp 转换成 stateful 部件（104）
     class _ShrineAppState extends State<ShrineApp> {
       Category _currentCategory = Category.all;
 
@@ -772,11 +772,11 @@ OneProductCardColumn 上的灰色溢出警告消失了！现在让我们修复�
 
 ```
           home: Backdrop(
-            // TODO: 让 currentCategory 字段持有 _currentCategory（104）
+            // TODO：让 currentCategory 字段持有 _currentCategory（104）
             currentCategory: _currentCategory,
-            // TODO: 为 frontLayer 传递 _currentCategory（104）
+            // TODO：为 frontLayer 传递 _currentCategory（104）
             frontLayer: HomePage(),
-            // TODO: 将 backLayer 修改成 CategoryMenuPage（104）
+            // TODO：将 backLayer 修改成 CategoryMenuPage（104）
             backLayer: CategoryMenuPage(
               currentCategory: _currentCategory,
               onCategoryTap: _onCategoryTap,
@@ -802,14 +802,14 @@ OneProductCardColumn 上的灰色溢出警告消失了！现在让我们修复�
     import 'supplemental/asymmetric_view.dart';
 
     class HomePage extends StatelessWidget {
-      // TODO: 为 Category 添加一个变量（104）
+      // TODO：为 Category 添加一个变量（104）
       final Category category;
 
       const HomePage({this.category: Category.all});
 
       @override
       Widget build(BuildContext context) {
-        // TODO: 为 Category 添加一个变量并将其传递给 AsymmetricView（104）
+        // TODO：为 Category 添加一个变量并将其传递给 AsymmetricView（104）
         return AsymmetricView(products: ProductsRepository.loadProducts(category));
       }
     }
@@ -818,7 +818,7 @@ OneProductCardColumn 上的灰色溢出警告消失了！现在让我们修复�
 在 `app.dart` 中为 `frontLayer` 传递 `_currentCategory`：
 
 ```
-            // TODO: 为 frontLayer 传递 _currentCategory（104）
+            // TODO：为 frontLayer 传递 _currentCategory（104）
             frontLayer: HomePage(category: _currentCategory),
 ```
 
@@ -833,7 +833,7 @@ OneProductCardColumn 上的灰色溢出警告消失了！现在让我们修复�
 在 `backdrop.dart` 中，为 `BackdropState` 重写 `didUpdateWidget()` 方法：
 
 ```
-      // TODO: 为 didUpdateWidget() 添加重写方法（104）
+      // TODO：为 didUpdateWidget() 添加重写方法（104）
       @override
       void didUpdateWidget(Backdrop old) {
         super.didUpdateWidget(old);
@@ -854,7 +854,7 @@ OneProductCardColumn 上的灰色溢出警告消失了！现在让我们修复�
 
 ```
     class _FrontLayer extends StatelessWidget {
-      // TODO: 添加 on-tap 回调（104）
+      // TODO：添加 on-tap 回调（104）
       const _FrontLayer({
         Key key,
         this.onTap, // 新增代码
@@ -871,7 +871,7 @@ OneProductCardColumn 上的灰色溢出警告消失了！现在让我们修复�
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              // TODO: 添加一个 GestureDetector（104）
+              // TODO：添加一个 GestureDetector（104）
               GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: onTap,
@@ -893,7 +893,7 @@ OneProductCardColumn 上的灰色溢出警告消失了！现在让我们修复�
               PositionedTransition(
                 rect: layerAnimation,
                 child: _FrontLayer(
-                  // TODO: 在 _BackdropState 中实现 onTap 属性（104)
+                  // TODO：在 _BackdropState 中实现 onTap 属性（104)
                   onTap: _toggleBackdropLayerVisibility,
                   child: widget.frontLayer,
                 ),
@@ -913,7 +913,7 @@ OneProductCardColumn 上的灰色溢出警告消失了！现在让我们修复�
 在 `backdrop.dart` 中，新建 `_BackdropTitle` 类。
 
 ```
-    // TODO: 添加 _BackdropTitle 类（104）
+    // TODO：添加 _BackdropTitle 类（104）
     class _BackdropTitle extends AnimatedWidget {
       final Function onPress;
       final Widget frontTitle;
@@ -1008,7 +1008,7 @@ OneProductCardColumn 上的灰色溢出警告消失了！现在让我们修复�
 移除 `AppBar` builder 中的 `leading` 属性。这样才能在原始 `leading` 部件的位置显示自定义品牌图标。`listenable` 动画和品牌图标的 `onPress` 处理将传递给 `_BackdropTitle`。`frontTitle` 和 `backTitle` 也会被传递，以便将它们显示在背景标题中。`AppBar` 的 `title` 参数如下所示：
 
 ```
-    // TODO: 使用 _BackdropTitle 参数创建标题（104）
+    // TODO：使用 _BackdropTitle 参数创建标题（104）
     title: _BackdropTitle(
       listenable: _controller.view,
       onPress: _toggleBackdropLayerVisibility,
@@ -1026,14 +1026,14 @@ Flutter 的 "everything is a widget" 架构允许更改默认 `AppBar` 的布局
 在 `backdrop.dart` 中，从应用栏中的两个尾部图标向登录屏幕添加一个快捷方式：更改图标的 `semanticLabel` 以反映其新用途。
 
 ```
-            // TODO: 添加从尾部图标到登陆页面的快捷方式（104）
+            // TODO：添加从尾部图标到登陆页面的快捷方式（104）
             IconButton(
               icon: Icon(
                 Icons.search,
                 semanticLabel: 'login', // 新增代码
               ),
               onPressed: () {
-                // TODO: 打开登陆（104）
+                // TODO：打开登陆（104）
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
@@ -1046,7 +1046,7 @@ Flutter 的 "everything is a widget" 架构允许更改默认 `AppBar` 的布局
                 semanticLabel: 'login', // 新增代码
               ),
               onPressed: () {
-                // TODO: 打开登录（104）
+                // TODO：打开登录（104）
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
