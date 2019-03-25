@@ -356,7 +356,7 @@ for pattern in prediction_output:
     offset += 0.5
 ```
 
-在用网络创造音符与和弦的列表之后，我们可以使用这个列表创造一个 Music21 流对象作为一个参数。最后，为了创建包含网络生成的音乐的 MIDI 文件，我们使用 Music21 工具包中的 *write* 函数将流写入文件中。
+在用网络创造音符与和弦的列表之后，我们可以使用这个列表创造一个 Music21 流对象，它使用此列表作为一个参数。最后，为了创建包含网络生成的音乐的 MIDI 文件，我们使用 Music21 工具包中的 *write* 函数将流写入文件中。
 
 ```
 midi_stream = stream.Stream(output_notes)
