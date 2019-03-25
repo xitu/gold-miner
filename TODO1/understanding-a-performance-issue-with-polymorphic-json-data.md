@@ -234,7 +234,7 @@ sys         0.338       0.014       0.315       0.335       0.397
 
 * 这里独立使用的 V8 比 Node 11.9（它使用的老版本的 V8）要快得多。我猜想这主要是因为最近的 V8 版本的常规性能改进（注意 Smi 和浮点数之间的差异是如何从 0.35s 减少到 0.08s 的），但与V8相比，Node的其他一些开销可能也有影响。
 
-你可以看一下 [完整的测试文件](https://gist.github.com/poeschko/7e94a825f5be4fb509ee54e27b4f18c0). 所有测试均在 2013 年末 15 英寸款 MacBook Pro上 运行，运行 macOS 10.14.3，配备 2.6 GHz i7 CPU。
+你可以看一下 [完整的测试文件](https://gist.github.com/poeschko/7e94a825f5be4fb509ee54e27b4f18c0). 所有测试均在 2013 年末 15 英寸款 MacBook Pro 上运行，运行 macOS 10.14.3，配备 2.6 GHz i7 CPU。
 
 ## 总结
 
