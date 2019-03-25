@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-104-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mdc-104-flutter.md)
 > * 译者：[DevMcryYu](https://github.com/DevMcryYu)
-> * 校对者：
+> * 校对者：[iceytea](https://github.com/iceytea)
 
 # MDC-104 Flutter：Material 高级组件（Flutter）
 
@@ -11,13 +11,13 @@
 
 > Material 组件（MDC）帮助开发者实现 [Material Design](material.io/develop)。MDC 由谷歌团队的工程师和 UX 设计师创造，为 Android、iOS、Web 和 Flutter 提供很多美观实用的 UI 组件。
 
-在 MDC-103 教程中，自定义定制了Material 组件（MDC）的颜色、高度、排版和形状来给你的应用设置样式。
+在 MDC-103 教程中，自定义定制了 Material 组件（MDC）的颜色、高度、排版和形状来给你的应用设置样式。
 
 Material Design 系统中的组件执行一些预定义的工作并具有一定特征，例如一个 button。然而一个 button 不仅仅是用来给用户执行操作的，它可以用其形状、尺寸和颜色表达一种视觉体验，让用户知道它是可交互的，触摸或点击它时可能会有事情发生。
 
-Material Design 指南以设计师的角度来描述组件。他们描述了跨平台可用的基本功能以及构成每个组件的基本元素。例如，一个背景包含一个背层内容、前层内容及其本身的内容、运动规则和显示选项。根据每个应用的需求、用例和内容可以自定义每个组件，包括传统的视图、控件以及你所处平台 SDK 的功能。
+Material Design 指南以设计师的角度来描述组件。它们描述了跨平台可用的基本功能以及构成每个组件的基本元素。例如，一个背景包含一个背层内容、前层内容及其本身的内容、运动规则和显示选项。根据每个应用的需求、用例和内容可以自定义每个组件，包括传统的视图、控件以及你所处平台 SDK 的功能。
 
-Material Design 指南命名了很多组件，但不是所有的组件都可以很好的重用，因此无法在 MDC 中找到它们。你可以自己塑造这样的经历，实现使用传统代码自定义你的应用样式。
+Material Design 指南命名了很多组件，但不是所有的组件都可以很好的被重用，因此无法在 MDC 中找到它们。你可以自己塑造这样的经历，实现使用传统代码自定义你的应用样式。
 
 ### 你将构建一个
 
@@ -108,7 +108,7 @@ flutter doctor
 
 ### 从头开始？
 
-[下载初始程序](https://github.com/material-components/material-components-flutter-codelabs/archive/104-starter_and_103-complete.zip)
+[下载入门程序](https://github.com/material-components/material-components-flutter-codelabs/archive/104-starter_and_103-complete.zip)
 
 初始程序位于 `material-components-flutter-codelabs-104-starter_and_103-complete/mdc_100_series` 目录下。
 
@@ -158,11 +158,11 @@ git checkout 104-starter\_and\_103-complete
 
 ![](https://lh4.googleusercontent.com/eohV4ysnGI7n1WXZEpvDocqGoj2yBijhLPxkGovkL85mil0HSvbQxgJ4VlduNj1ypfOdVd1fyTxR5QnS31iu0HFaqjWcOY2GqWs2hHFNO4-zqQzj-S8rGGH0VqrOEtAFEbzUuCxB)
 
-4. 在左侧的项目面板中，如果看到含有测试文件 `../test/widget_test.dart`，删除它。
+4. 在左侧的项目面板中，如果看到测试文件 `../test/widget_test.dart`，删除它。
 
 ![](https://lh4.googleusercontent.com/tbOkXg3PBYapj_J0CpdwQTt-sqnf7s3bqi7E3Dd__z_aC5XANKphvuoMvmiOFfBR6oDeZixE0Ww2jTzskt1sDNgEXjAJjwHr7m242tkZ7VvXGaFMObmSIZ06oC7UQusGgCL7DpHr)
 
-5. 如果出现提示，安装所有平台和插件更新或 FlutterRunConfigurationType，然后重新启动 Android Studio。
+5. 如果出现上图提示，安装所有平台和插件更新或 FlutterRunConfigurationType，然后重新启动 Android Studio。
 
 ![](https://lh5.googleusercontent.com/MVD7YGuMneCprDEam1Vy8NusO9BPmOZTyrH4jvO8RmsfTeu8q-t0AfHU3kzXk1F8EUgHaFbqeORdXc7iOcz5ZLM4qbXsv_tMiVnAi0i68p0t957RThrZ56Udf-F292JgRV3iKs7T)
 
@@ -294,7 +294,7 @@ HomePage 的小部件将成为前层的内容。现在它有一个应用栏。�
                 semanticLabel: 'search',
               ),
               onPressed: () {
-              // TODO: 打开登陆（104）
+              // TODO: 打开登录（104）
               },
             ),
             IconButton(
@@ -303,7 +303,7 @@ HomePage 的小部件将成为前层的内容。现在它有一个应用栏。�
                 semanticLabel: 'filter',
               ),
               onPressed: () {
-              // TODO: 打开登陆（104）
+              // TODO: 打开登录（104）
               },
             ),
           ],
@@ -391,7 +391,7 @@ Material Design 将此类定制称为形状。Material 表面可以具有任意�
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              // TODO: 添加 GestureDetecto（104）
+              // TODO: 添加 GestureDetector（104）
               Expanded(
                 child: child,
               ),
@@ -545,7 +545,7 @@ AnimationController 用来配合 Animation ，并提供播放、反向和停止�
         );
 ```
 
-我们使用 LayoutBuilder 延迟了 front/back 堆栈的构建，直到布局的时候，以便我们可以合并背景的实际整体高度。 LayoutBuilder 是一个特殊的部件，其构建器回调提供了大小约束。
+我们使用 LayoutBuilder 将 front/back 堆栈的构建延迟到布局阶段，以便我们可以合并背景的实际整体高度。 LayoutBuilder 是一个特殊的部件，其构建器回调提供了大小约束。
 
 > **LayoutBuilder**
 >
@@ -605,7 +605,7 @@ Column 包含 `MainAxisAlignment.end`。要使得从底部开始布局，使用 
 
 ![](https://codelabs.developers.google.com/codelabs/mdc-104-flutter/img/96f7660473bb549b.png)
 
-OneProductCardColumn 上的灰色溢出警告消失了！现在让我们修复另一个。
+OneProductCardColumn 上的灰色溢出警告消失了！现在让我们修复另一个问题。
 
 在 `supplemental/product_columns.dart` 中修改 `imageAspectRatio` 的计算方式，并将 `TwoProductCardColumn` 中的 Column 替换成 ListView：
 
@@ -738,7 +738,7 @@ OneProductCardColumn 上的灰色溢出警告消失了！现在让我们修复�
 1.  高亮 `ShrineApp.`
 2.  按 alt（option）+ enter
 3.  选择 "Convert to StatefulWidget"。
-4.  将 ShrineAppState 类更改为 private（`_ShrineAppState`）。要从 IDE 主菜单执行此操作，请选择“重构” > “重命名”。或者在代码中，您可以高亮显示类名 ShrineAppState，然后右键单击并选择 Refactor > Rename。输入 `_ShrineAppState` 以使该类成为私有。
+4.  将 ShrineAppState 类更改为 private（`_ShrineAppState`）。要从 IDE 主菜单执行此操作，请选择 Refactor > Rename。或者在代码中，您可以高亮显示类名 ShrineAppState，然后右键单击并选择 Refactor > Rename。输入 `_ShrineAppState` 以使该类成为私有。
 
 在 `app.dart` 中，为选择的类别添加一个变量 `_ShrineAppState`，并在点击时添加一个回调：
 
@@ -818,7 +818,7 @@ OneProductCardColumn 上的灰色溢出警告消失了！现在让我们修复�
 在 `app.dart` 中为 `frontLayer` 传递 `_currentCategory`：
 
 ```
-            // TODO: 为 `frontLayer` 传递 `_currentCategory`（104）
+            // TODO: 为 frontLayer 传递 _currentCategory（104）
             frontLayer: HomePage(category: _currentCategory),
 ```
 
@@ -846,7 +846,7 @@ OneProductCardColumn 上的灰色溢出警告消失了！现在让我们修复�
       }
 ```
 
-热加载，然后点击菜单图标并选择一个类别。菜单应该自动关闭，然后你将看到所选择类别的物品。现在同样地将这个功能添加到 front layer 。
+热重载，然后点击菜单图标并选择一个类别。菜单应该自动关闭，然后你将看到所选择类别的物品。现在同样地将这个功能添加到 front layer 。
 
 ### 切换 front layer
 
@@ -865,7 +865,7 @@ OneProductCardColumn 上的灰色溢出警告消失了！现在让我们修复�
       final Widget child;
 ```
 
-然后将一个 GestureDetector 添加到 `_FrontLayer` 的孩子 Column 的子节点中：Then add a GestureDetector to the `_ FrontLayer`'s child: Column's children:.
+然后将一个 GestureDetector 添加到 `_FrontLayer` 的孩子 Column 的子节点中：
 
 ```
           child: Column(
@@ -1046,7 +1046,7 @@ Flutter 的 "everything is a widget" 架构允许更改默认 `AppBar` 的布局
                 semanticLabel: 'login', // 新增代码
               ),
               onPressed: () {
-                // TODO: 打开登陆（104）
+                // TODO: 打开登录（104）
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
@@ -1067,7 +1067,7 @@ Flutter 的 "everything is a widget" 架构允许更改默认 `AppBar` 的布局
 
 通过四篇教程，你已经了解了如何使用 Material 组件来构建表达品牌个性和风格的独特，优雅的用户体验。
 
-> 完成的 MDC-104 应用可在 `104-complete` 分支中找到。
+> 完整的 MDC-104 应用可在 `104-complete` 分支中找到。
 >
 > 您可以使用该分支中的版本测试你的应用。
 
@@ -1075,7 +1075,7 @@ Flutter 的 "everything is a widget" 架构允许更改默认 `AppBar` 的布局
 
 MDC-104 到此已经完成。你可以访问 [Flutter Widget 目录](https://flutter.io/widgets/)以在 MDC-Flutter 中探索更多组件。
 
-对于拉伸目标，尝试使用 [AnimatedIcon](https://docs.flutter.io/flutter/material/AnimatedIcon-class.html) 替换品牌图标。
+对于进阶的目标，尝试使用 [AnimatedIcon](https://docs.flutter.io/flutter/material/AnimatedIcon-class.html) 替换品牌图标。
 
 要了解如何将应用连接到 Firebase 以获得后端支持，请参阅 [Flutter 中的 Firebase](http://codelabs.developers.google.com/codelabs/flutter-firebase)。
 
