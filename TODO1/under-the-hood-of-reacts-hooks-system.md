@@ -27,13 +27,13 @@ React hook 系统的简单示意图
 
 ### Dispatcher
 
-dispatcher 是一个包含了 hook 函数的共享对象。基于 ReactDOM 的渲染状态，它将会被动态的分配或者清理，并且它将会确保用户不能在 React 组件之外获取到 hook（详见[源码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberDispatcher.js#L24)）。
+Dispatcher 是一个包含了 hook 函数的共享对象。基于 ReactDOM 的渲染状态，它将会被动态的分配或者清理，并且它将会确保用户不能在 React 组件之外获取到 hook（详见[源码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberDispatcher.js#L24)）。
 
 在切换到正确的 Dispatcher 来呈现根组件之前，我们通过一个名为 `enableHooks` 的标志来启用/禁用 hook。；在技术上来说，这就意味着我们可以在运行时开启或关闭 hook。React 16.6.X 版本的实验性功能中也加入了它，但它默认处于禁用状态（详见[源码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberScheduler.js#L1211)）
 
 当我们完成渲染工作后，我们会废弃 dispatcher 并禁止 hook，来防止在 ReactDOM 的渲染周期之外不小心使用了它。这个机制能够保证用户不会做傻事（详见[源码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberScheduler.js#L1376)）。
 
-dispatcher 在每次 hook 的调用中都会被函数 `resolveDispatcher()` 解析。正如我之前所说，在 React 的渲染周期之外，这就是无意义的了，React 将会打印出警告信息：**“Hooks 只能在函数组件内部调用”**（详见[源码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react/src/ReactHooks.js#L17)）。
+Dispatcher 在每次 hook 的调用中都会被函数 `resolveDispatcher()` 解析。正如我之前所说，在 React 的渲染周期之外，这就是无意义的了，React 将会打印出警告信息：**“Hooks 只能在函数组件内部调用”**（详见[源码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react/src/ReactHooks.js#L17)）。
 
 ```
 let currentDispatcher
@@ -57,13 +57,13 @@ function renderRoot() {
 }
 ```
 
-**dispatcher 的简单实现方式。**
+**Dispatcher 的简单实现方式。**
 
 * * *
 
 现在我们了解了简单的封装机制，我们继续学习本文的核心 —— hook。接下来，我想给你介绍一个新的概念：
 
-### hook 队列
+### Hook 队列
 
 在 React 后台，hook 会被表示为节点，并以调用顺序连接起来。这样表示的原因是 hook 并不是被简单的创建然后丢弃，它们有一套独有的机制。一个 hook 会有数个属性，我希望在继续学习之前，你能记住它们：
 
@@ -156,7 +156,7 @@ function updateFunctionComponent(recentFiber, workInProgressFiber, Component, pr
 }
 ```
 
-**hook 队列的简单实现。**
+**Hook 队列的简单实现。**
 
 一旦更新完成，一个名为 [`finishHooks()`](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/react-reconciler/src/ReactFiberHooks.js:148) 的函数将会被调用，在这个函数中，hook 队列的第一个节点的引用将会被保存在渲染了的结构的 `memoizedState` 属性中。这就意味着，hook 队列和它的状态可以在外部定位到。
 
@@ -204,7 +204,7 @@ function basicStateReducer(state, action) {
 }
 ```
 
-state hook 的 reducer，又名基础状态 reducer。
+State hook 的 reducer，又名基础状态 reducer。
 
 所以正如你期望的那样，我们可以直接将 action dispatcher 和新的状态传入；但是你看到了吗？！我们也可以传入带 **action 函数**的 dispatcher，**这个 action 函数可以接收旧的状态并返回新的**。（在本篇文章写就时，这种方法并没有记录在[ React 官方文档](https://reactjs.org/docs/hooks-reference.html#functional-updates)中，很遗憾的是，它其实非常有用！）这意味着，当你向组件树发送状态设置器的时候，你可以修改父级组件修改状态，同时不用将它作为另一个属性传入，例如：
 
@@ -232,9 +232,9 @@ const ChildComponent = (props) => {
 
 最后，effect hook —— 它对于组件的生命周期影响很大，以及它是如何工作的：
 
-### effect hook
+### Effect hook
 
-effect hook 和其他 hook 的行为有一些区别，并且它有一个附加的逻辑层，这点我在后文将会解释。在我分析源码之前，我要重申一次，提到 effect hook 的属性的内容可能并不完全正确，大家要抱着质疑的态度。
+Effect hook 和其他 hook 的行为有一些区别，并且它有一个附加的逻辑层，这点我在后文将会解释。在我分析源码之前，我要重申一次，提到 effect hook 的属性的内容可能并不完全正确，大家要抱着质疑的态度。
 
 *   它们在渲染时被创建，但是在浏览器绘制**后**运行。
 *   如果给出了销毁指令，它们将在下一次绘制前被销毁。
@@ -252,7 +252,7 @@ effect hook 和其他 hook 的行为有一些区别，并且它有一个附加�
 
 *   `useEffect()` hook 调度的 effect —— 也被称为“被动 effect”，它基于[这部分代码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberScheduler.js#L779)（也许我们要开始在 React 社区内使用这个术语了？！）。
 
-hook effect 将会被保存在组件一个称为 `updateQueue` 的属性上，每个 effect 节点都有如下的结构（详见[源码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberHooks.js#L477)）：
+Hook effect 将会被保存在组件一个称为 `updateQueue` 的属性上，每个 effect 节点都有如下的结构（详见[源码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberHooks.js#L477)）：
 
 *   `tag` —— 一个二进制数字，它控制了 effect 节点的行为（后文我将详细说明）。
 *   `create` —— 绘制**之后**运行的回调函数。
@@ -342,7 +342,7 @@ const ParentComponent = (
 
 * * *
 
-这就是 hooks 了！阅读本文你最大的收获是什么？你将如何把新学到的知识应用于 React 应用中？希望看到你留下有趣的评论！
+这就是 hook 了！阅读本文你最大的收获是什么？你将如何把新学到的知识应用于 React 应用中？希望看到你留下有趣的评论！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
