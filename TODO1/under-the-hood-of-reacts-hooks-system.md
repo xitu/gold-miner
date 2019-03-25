@@ -110,7 +110,7 @@ React 状态 —— 新的视角
 
 不幸的是，我还没有完全掌握 reducer 的 hook，因为我没办法复现它任何的边缘情况，所以讲述这部分就很困难。我就只简单的说一下，reducer 的实现显得很不一致，甚至它自己[源码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberHooks.js:381)中的评论都声明“不确定这些是否是所需要的语义”；所以我怎么可能确定呢？！
 
-所以我们还是回到对 hook 的讨论，在每个函数组件调用前，一个名为 `[prepareHooks()](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/react-reconciler/src/ReactFiberHooks.js:123)` 的函数将先被调用，在这个函数中，当前结构和 hook 队列中的第一个 hook 节点将被保存在全局变量中。这样，我们无论何时调用 hook 函数（`useXXX()`），它都能知道运行上下文。
+所以我们还是回到对 hook 的讨论，在每个函数组件调用前，一个名为 [prepareHooks()](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/react-reconciler/src/ReactFiberHooks.js:123) 的函数将先被调用，在这个函数中，当前结构和 hook 队列中的第一个 hook 节点将被保存在全局变量中。这样，我们无论何时调用 hook 函数（`useXXX()`），它都能知道运行上下文。
 
 ```
 let currentlyRenderingFiber
