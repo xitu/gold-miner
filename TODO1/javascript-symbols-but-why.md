@@ -2,26 +2,26 @@
 > * 原文作者：[Thomas Hunter II](https://medium.com/@tlhunter)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-symbols-but-why.md](https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-symbols-but-why.md)
-> * 译者：
-> * 校对者：
+> * 译者：[xionglong58](https://github.com/xionglong58)
+> * 校对者：[EdmondWang](https://github.com/EdmondWang)、[Xuyuey](https://github.com/Xuyuey)
 
-# JavaScript Symbols: But Why?
+# JavaScript 中为什么会有 Symbols 类型？
 
 ![](https://cdn-images-1.medium.com/max/3840/1*-6P9pSYh8qCbyzKu4AG88w.jpeg)
 
-Symbols, the newest JavaScript primitive, bring a few benefits to the language and are particularly useful when used as object properties. But, what can they do for us that strings cannot?
+作为最新的基本类型，Symbol 为 JavaScript 语言带来了很多好处，特别是当其用在对象属性上时。但是，相比较于 String 类型，Symbol 有哪些 String 没有的功能呢？ 
 
-Before we explore symbols too much let’s first look at some JavaScript features which many developers might not be aware of.
+在深入探讨 Symbol 之前，让我们先看看一些许多开发人员可能都不知道的 JavaScript 特性。
 
-## Background
+## 背景
 
-There are essentially two types of values in JavaScript. The first type is primitives, and the second type is objects (which also includes functions). Primitive values include simple value types such as numbers (which includes everything from integers to floats to `Infinity` to `NaN`), booleans, strings, `undefined`, and `null` (note: even though `typeof null === 'object'`, `null` is a still primitive value).
+JavaScript 中有两种数据类型：基本数据类型和对象（对象也包括函数），基本数据类型包括简单数据类型，比如 number（从整数到浮点数，从 Infinity 到 NaN 都属于 Number 类型）、boolean、string、`undefined`、`null`（注意尽管 `typeof null === 'object'`，`null` 仍然是一个基本数据类型）。
 
-Primitive values are also immutable. They can’t be changed. Of course, a variable with a primitive assigned **can** be reassigned. For example, when you write the code `let x = 1; x++;`, you've reassigned the variable `x`. But, you haven't mutated the primitive numeric value of `1`.
+基本数据类型的值是不可以改变的，即不能更改变量的原始值。当然**可以**重新对变量进行赋值。例如，代码 `let x = 1; x++`，虽然你通过重新赋值改变了变量 `x` 的值，但是变量的原始值 `1` 仍没有被改变。
 
-Some languages, such as C, have the concept of pass-by-reference and pass-by-value. JavaScript sort of has this concept too, though, it’s inferred based on the type of data being passed around. If you ever pass a value into a function, reassigning that value will not modify the value in the calling location. However, if you **modify** a non-primitive value, the modified value **will** also be modified where it has been called from.
+一些语言，比如 C 语言，有按引用传递和按值传递的概念。JavaScript 也有类似的概念，它是根据传递数据的类型推断出来的。如果将值传入一个函数，则在函数中重新对它赋值不会修改它在调用位置的值。但是，如果你**修改**的是基本数据的值，那么修改后的值**会**在调用它的地方被修改。
 
-Consider the following example:
+考虑下面的例子：
 
 ```js
 function primitiveMutator(val) {
@@ -41,7 +41,7 @@ objectMutator(obj);
 console.log(obj.prop); // 2
 ```
 
-Primitive values (except for the mystical `NaN` value) will always be exactly equal to another primitive with an equivalent value. Check it out here:
+基本数据类型（`NaN` 除外）总是与另一个具有相同值的基本数据类型完全相等。如下:
 
 ```js
 const first = "abc" + "def";
@@ -50,7 +50,7 @@ const second = "ab" + "cd" + "ef";
 console.log(first === second); // true
 ```
 
-However, constructing equivalent non-primitive values will **not** result in values which are exactly equal. We can see this happening here:
+然而，构造两个值相同的非基本数据类型则得到**不相等**的结果。我们可以看到发生了什么:
 
 ```js
 const obj1 = { name: "Intrinsic" };
@@ -58,11 +58,11 @@ const obj2 = { name: "Intrinsic" };
 
 console.log(obj1 === obj2); // false
 
-// Though, their .name properties ARE primitives:
+// 但是，当两者的 .name 属性为基本数据类型时:
 console.log(obj1.name === obj2.name); // true
 ```
 
-Objects play an elemental role in the JavaScript language. They’re used **everywhere**. They’re often used as collections of key/value pairs. However, this is a big limitation of using them in this manner: Until symbols existed, object keys could only be strings. If we ever attempt to use a non-string value as a key for an object, the value will be coerced to a string. We can see this feature here:
+对象在 JavaScript 中扮演着重要的角色，几乎**所有地方**可以见到它们的身影。对象通常是键/值对的集合，然而这种形式的最大限制是：对象的键只能是字符串，直到 Symbol 出现这一限制才得到解决。如果我们使用非字符串的值作为对象的键，该值会被强制转换成字符串。在下面的程序中可以看到这种强制转换：
 
 ```js
 const obj = {};
@@ -76,20 +76,20 @@ console.log(obj);
      '[object Object]': 'someobj' }
 ```
 
-**Note**: It’s slightly off topic, but the `Map` data structure was created in part to allow for key/value storage in situations where a key is not a string.
+**注意**：虽然有些离题，但是需要知道的是创建 `Map` 数据结构的部分原因是为了在键不是字符串的情况下允许键/值方式存储。
 
-## What is a Symbol?
+## Symbol 是什么？
 
-Now that we know what a primitive value is, we’re finally ready to define what a symbol is. A symbol is a primitive which cannot be recreated. In this case a symbols is similar to an object as creating multiple instances will result in values which are not exactly equal. But, a symbol is also a primitive in that it cannot be mutated. Here is an example of symbol usage:
+现在既然我们已经知道了基本数据类型是什么，也就终于可以定义 Symbol。Symbol 是不能被重新创建的基本数据类型。在这种情况下，Symbol 类似于对象，因为对象创建多个实例也将导致不完全相等的值。但是，Symbol 也是原始的，因为它不能被改变。下面是 Symbol 用法的一个例子:
 
 ```js
-const s1 = Symbol();
+const s1 = Symbol();  
 const s2 = Symbol();
 
 console.log(s1 === s2); // false
 ```
 
-When instantiating a symbol there is an optional first argument where you can choose to provide it with a string. This value is intended to be used for debugging code, it otherwise doesn’t really affect the symbol itself.
+当实例化一个 symbol 时，有一个可选的首选参数，你可以赋值一个字符串。此值用于调试代码，不会真正影响 symbol本身。
 
 ```js
 const s1 = Symbol('debug');
@@ -101,9 +101,10 @@ console.log(s1 === s2); // false
 console.log(s1); // Symbol(debug)
 ```
 
-## Symbols as Object Properties
+## Symbol 作为对象属性
 
-Symbols have another important use. They can be used as keys in objects! Here is an example of using a symbol as a key within an object:
+symbols 还有另一个重要的用法，它们可以被当作对象中的键！下面是一个在对象中使用 symbol 作为键的例子:
+
 
 ```js
 const obj = {};
@@ -117,32 +118,32 @@ console.log(obj[sym]); // foo
 console.log(Object.keys(obj)); // ['bar']
 ```
 
-Notice how they are not returned in the result of `Object.keys()`. This is, again, for the purpose of backwards compatibility. Old code isn't aware of symbols and so this result shouldn't be returned from the ancient `Object.keys()` method.
+注意，symbols 键不会被在 `Object.keys()` 返回。这也是为了满足向后兼容性。旧版本的 JavaScript 没有 symbol 数据类型，因此不应该从旧的 `Object.keys()` 方法中被返回。
 
-At first glance, this almost looks like symbols can be used to create private properties on an object! Many other programming languages have hidden properties in their classes and this omission has long been seen as a shortcoming of JavaScript.
+乍一看，这就像是可以用 symbols 在对象上创建私有属性！许多其他编程语言可以在其类中有私有属性，而 JavaScript 却遗漏了这种功能，长期以来被视为其语法的一种缺点。
 
-Unfortunately, it is still possible for code which interacts with this object to access properties whose keys are symbols. This is even possible in situations where the calling code does **not** already have access to the symbol itself. As an example, the `Reflect.ownKeys()` method is able to get a list of **all** keys on an object, both strings and symbols alike:
+不幸的是，与该对象交互的代码仍然可以访问对象那些键为 symbols 的属性。甚至是在调用代码自己**无法**访问 symbol 的情况下也有可能发生。 例如，`Reflect.ownKeys()` 方法能够得到一个对象的**所有**键的列表，包括字符串和 symbols：
 
 ```js
-function tryToAddPrivate(o) {
-  o[Symbol('Pseudo Private')] = 42;
+function tryToAddPrivate(obj) {
+  obj[Symbol('Pseudo Private')] = 42;
 }
 
 const obj = { prop: 'hello' };
 tryToAddPrivate(obj);
 
 console.log(Reflect.ownKeys(obj));
-        // [ 'prop', Symbol(Pseudo Private) ]
+
 console.log(obj[Reflect.ownKeys(obj)[1]]); // 42
 ```
 
-**Note**: There is currently work being done to tackle the issue of adding private properties to classes in JavaScript. The name of this feature is called [Private Fields](https://github.com/tc39/proposal-class-fields#private-fields), and although this won’t benefit **all** objects, it will benefit objects which are class instances. Private Fields are available as of Chrome 74.
+**注意**:目前有些工作旨在处理在 JavaScript 中向类添加私有属性的问题。这个特性就是 [Private Fields](https://github.com/tc39/proposal-class-fields#Private-Fields) 虽然这不会对**所有**对象都有好处，但会对类实例的对象有好处。Private Fields 在 Chrome 74 中开始可用。
 
-## Preventing Property Name Collisions
+## 防止属性名冲突
 
-Symbols may not directly benefit JavaScript for providing private properties to objects. However, they are beneficial for another reason. They are useful in situations where disparate libraries want to add properties to objects without the risk of having name collisions.
+symbols 可能不会对获取 JavaScript 中对象的私有属性直接有利。它们之所以有用的另一个理由是，当不同的库希望向对象添加属性时 symbols 可以避免命名冲突的风险。
 
-Consider the situation where two different libraries want to attach some sort of metadata to an object. Perhaps they both want to set some sort of identifier on the object. By simply using the two character string `id` as a key, there is a huge risk that multiple libraries will use the same key.
+如果有两个不同的库希望将某种元数据附加到一个对象上，两者可能都想在对象上设置某种标识符。仅仅使用两个字符串 类型的 `id` 作为键来标识，就有很大的风险，就是多个库使用相同的键。
 
 ```js
 function lib1tag(obj) {
@@ -154,7 +155,7 @@ function lib2tag(obj) {
 }
 ```
 
-By making use of symbols, each library can generate their required symbols upon instantiation. Then the symbols can be checked on objects, and set to objects, whenever an object is encountered.
+应用 symbols，每个库都可以通过实例化 Symbol 类生成所需的 symbols。然后不管什么时候，都可以在相应的对象上检查、赋值 symbols对应的键值。
 
 ```js
 const library1property = Symbol('lib1');
@@ -168,12 +169,12 @@ function lib2tag(obj) {
 }
 ```
 
-For this reason it would seem that symbols **do** benefit JavaScript.
+基于这个原因 symbols **确实**有益于 JavaScript。
 
-However, you may be wondering, why can’t each library simply generate a random string, or use a specially namespaced string, upon instantiation?
+然而，你可能会怀疑，为什么每个库不能在实例化时简单地生成一个随机字符串，或者使用一个特殊的命名空间？
 
 ```js
-const library1property = uuid(); // random approach
+const library1property = uuid(); // 随机方法
 function lib1tag(obj) {
   obj[library1property] = 42;
 }
@@ -184,9 +185,9 @@ function lib2tag(obj) {
 }
 ```
 
-Well, you’d be right. This approach is actually pretty similar to the approach with symbols. Unless two libraries would choose to use the same property name, then there wouldn’t be a risk of overlap.
+你有可能是正确的，上面的两种方法与使用 symbols 的方法很相似。除非两个库使用了相同的属性名，否则不会有冲突的风险。
 
-At this point the astute reader would point out that the two approaches haven’t been entirely equal. Our property names with unique names still have a shortcoming: their keys are very easy to find, especially when code runs to either iterate the keys or to otherwise serialize the objects. Consider the following example:
+在这一点上，机灵的读者会指出，这两种方法并不完全相同。具有唯一名称的属性名仍然有一个缺点：它们的键非常容易找到，特别是当运行代码来迭代键或以其他方式序列化对象时。请考虑以下示例：
 
 ```js
 const library2property = 'LIB2-NAMESPACE-id'; // namespaced
@@ -205,9 +206,9 @@ JSON.stringify(user);
 // '{"name":"Thomas Hunter II","age":32,"LIB2-NAMESPACE-id":369}'
 ```
 
-If we had used a symbol for a property name of the object then the JSON output would not contain its value. Why is that? Well, just because JavaScript gained support for symbols doesn’t mean that the JSON spec has changed! JSON only allows strings as keys and JavaScript won’t make any attempt to represent symbol properties in the final JSON payload.
+如果我们为对象的属性名使用了一个 symbol，那么 JSON 的输出将不包含 symbol 对应的值。为什么会这样？因为仅仅是 JavaScript 支持了symbols，并不意味着 JSON 规范也改变了！JSON 只允许字符串作为键，而 JavaScript 不会尝试在最终的 JSON 负载中呈现 symbol 属性。
 
-We can easily rectify the issue where our library object strings are polluting the JSON output by making use of `Object.defineProperty()`:
+我们可以通过使用 `object.defineproperty()`，轻松纠正库对象字符串污染 JSON 输出的问题：
 
 ```js
 const library2property = uuid(); // namespaced approach
@@ -226,12 +227,12 @@ const user = {
 lib2tag(user);
 
 // '{"name":"Thomas Hunter II",
-   "age":32,"f468c902-26ed-4b2e-81d6-5775ae7eec5d":369}'
+"age":32,"f468c902-26ed-4b2e-81d6-5775ae7eec5d":369}
 console.log(JSON.stringify(user));
 console.log(user[library2property]); // 369
 ```
 
-String keys which have been “hidden” by setting their `enumerable` [descriptor](https://medium.com/intrinsic/javascript-object-property-descriptors-proxies-and-preventing-extension-1e1907aa9d10) to false behave very similarly to symbol keys. Both are hidden by `Object.keys()`, and both are revealed with `Reflect.ownKeys()`, as seen in the following example:
+通过将字符串键的可枚举[描述符](https://medium.com/intrinsic/javascript-object-property-descriptors-proxies-and-preventing-extension-1e1907aa9d10)设置为 false 来“隐藏”的字符串键的行为非常类似于 symbol 键。它们通过 `Object.keys()` 遍历也看不到，但可以通过 `Reflect.ownKeys()`显示，如下所示:
 
 ```js
 const obj = {};
@@ -246,23 +247,62 @@ console.log(Reflect.ownKeys(obj)); // [ 'foo', Symbol() ]
 console.log(JSON.stringify(obj)); // {}
 ```
 
-At this point we’ve **nearly** recreated symbols. Both our hidden string properties and symbols are hidden from serializers. Both properties can be extracted using the `Reflect.ownKeys()` method and are therefor not actually private. Assuming we use some sort of namespace / random value for the string version of the property name then we've removed the risk of multiple libraries accidentally having a name collision.
+在这一点上，我们**几乎**重新创建了 symbols。 隐藏的字符串属性和 symbols 都对序列化程序隐身。这两种属性都可以使用 `Reflect.ownKeys()`方法提取，因此实际上并不是私有的。 假设我们对字符串属性使用某种命名空间/随机值，那么我们就消除了多个库意外发生命名冲突的风险。
 
-But, there’s still just one tiny difference. Since strings are immutable, and symbols are always guaranteed to be unique, there is still the potential for someone to generate every single possible string combination and come up with a collision. Mathematically this means symbols do provide a benefit that we just can’t get from strings.
+但是，仍然有一个微小的差异。由于字符串是不可变的，符号始终保证是唯一的，因此仍有可能生成相同的字符串并产生冲突。 从数学角度来说，意味着 symbols 确实提供了我们无法从字符串中获得的好处。
 
-In Node.js, when inspecting an object (such as using `console.log()`), if a method on the object named `inspect` is encountered, that function is invoked and the output is used as the logged representation of the object. As you can imagine, this behavior isn't expected by everyone and the generically-named `inspect` method often collides with objects created by users. There is now a symbol available for implementing this functionality and is available at require('util').inspect.custom. The `inspect` method is deprecated in Node.js v10 and entirely ignored in v11. Now no one will ever change the behavior of inspect by accident!
+在 Node.js 中，检查对象时(例如使用 `console.log()`)，如果遇到对象上名为 `inspect` 的方法，则调用该函数，并将输出表示成对象的日志。可以想象，这种行为并不是每个人都期望的，通常命名为 `inspect` 的方法经常与用户创建的对象发生冲突。现在有 symbol 可用来实现这个功能，并且可以在 require('util').inspection.custom 中使用。`inspect` 方法在 Node.js v10 中被废弃，在 v11 中完全被忽略。现在没有人会因为意外改变 inspect 的行为!
 
-## Simulating Private Properties
+## 模拟私有属性
 
-Here’s an interesting approach that we can use to simulate private properties on an object. This approach will make use of another JavaScript feature available to us today: proxies. A proxy essentially wraps an object and allows us to interpose on various interactions with that object.
+这里有一个有趣的方法，我们可以使用它来模拟对象上的私有属性。这种方法将利用另一个 JavaScript 的特性：proxy。proxy 本质上是封装了一个对象，并允许我们与该对象进行不同的交互。
 
-A proxy offers many ways to intercept actions performed on an object. The one we’re interested in affects when an attempt at reading the keys of an object occurs. I’m not going to entirely explain how proxies work, so if you’d like to learn more, check out our other post: [JavaScript Object Property Descriptors, Proxies, and Preventing Extension](https://medium.com/intrinsic/javascript-object-property-descriptors-proxies-and-preventing-extension-1e1907aa9d10).
+proxy 提供了许多方法来拦截对对象执行的操作。我们所感兴趣的是在尝试读取对象的键时，proxy 会有哪些动作。我不会去详细解释 proxy 是如何工作的，如果你想了解更多信息，请查看我们的另一篇文章： [JavaScript Object Property Descriptors, Proxies, and Preventing Extension](https://medium.com/intrinsic/javascript-object-property-descriptors-proxies-and-preventing-extension-1e1907aa9d10).
 
-We can use a proxy to then lie about which properties are available on our object. In this case we’re going to craft a proxy which hides our two known hidden properties, one being the string `_favColor`, and the other being the symbol assigned to `favBook`:
+我们可以使用 proxy 来谎报对象上可用的属性。在本例中，我们将创建一个 proxy，它用于隐藏我们的两个已知隐藏属性，一个是字符串 `_favColor`，另一个是分配给 `favBook` 的 symbol：
+```js
+let proxy;
 
-It’s easy to come up with the `_favColor` string: just read the source code of the library. Additionally, dynamic keys (e.g., the `uuid` example from before) can be found via brute force. But without a direct reference to the symbol, no one can access the 'Metro 2033' value from the `proxy` object.
+{
+  const favBook = Symbol('fav book');
 
-**Node.js Caveat**: There is a feature in Node.js which breaks the privacy of proxies. This feature doesn’t exist in the JavaScript language itself and doesn’t apply in other situations, such as a web browser. It allows one to gain access to the underlying object when given a proxy. Here is an example of using this functionality to break the above private property example:
+  const obj = {
+    name: 'Thomas Hunter II',
+    age: 32,
+    _favColor: 'blue',
+    [favBook]: 'Metro 2033',
+    [Symbol('visible')]: 'foo'
+  };
+
+  const handler = {
+    ownKeys: (target) => {
+      const reportedKeys = [];
+      const actualKeys = Reflect.ownKeys(target);
+
+      for (const key of actualKeys) {
+        if (key === favBook || key === '_favColor') {
+          continue;
+        }
+        reportedKeys.push(key);
+      }
+
+      return reportedKeys;
+    }
+  };
+
+  proxy = new Proxy(obj, handler);
+}
+
+console.log(Object.keys(proxy)); // [ 'name', 'age' ]
+console.log(Reflect.ownKeys(proxy)); // [ 'name', 'age', Symbol(visible) ]
+console.log(Object.getOwnPropertyNames(proxy)); // [ 'name', 'age' ]
+console.log(Object.getOwnPropertySymbols(proxy)); // [Symbol(visible)]
+console.log(proxy._favColor); // 'blue'
+```
+
+使用 `_favColor` 字符串很简单：只需读取库的源代码即可。此外，动态键可以（例如之前讲的 `uuid` 示例）可以通过暴力找到。但是，如果不是直接引用 symbol，任何人都无法从 `proxy` 对象中访问到值 `metro 2033`。
+
+**Node.js 声明**: Node.js 中的一个特性破坏了 proxy 的隐私性。此功能不存在于 JavaScript 语言本身，也不适用于其他情况，例如 web 浏览器。这一特性允许在给定 proxy 时获得对底层对象的访问权。以下是一个使用此功能破坏上述私有属性的示例：
 
 ```js
 const [originalObject] = process
@@ -273,13 +313,13 @@ const allKeys = Reflect.ownKeys(originalObject);
 console.log(allKeys[3]); // Symbol(fav book)
 ```
 
-We would now need to either modify the global `Reflect` object, or modify the `util` process binding, to prevent them from being used in a particular Node.js instance. But that's one heck of a rabbit hole. If you're interested in tumbling down such a rabbit hole, check out our other blog post: [Protecting your JavaScript APIs](https://medium.com/intrinsic/protecting-your-javascript-apis-9ce5b8a0e3b5).
+我们现在需要修改全局 `Reflect` 对象，或是修改 `util` 进程绑定，以防止它们在特定的 node.js 实例中被使用。但那却是一个新世界的大门，如果你想了解其中的奥秘，看看我们的其他博客： [Protecting your JavaScript APIs](https://medium.com/intrinsic/protecting-your-javascript-apis-9ce5b8a0e3b5)。
 
-This article was written by me, Thomas Hunter II. I work at a company called [Intrinsic](https://intrinsic.com/) (btw, [we’re hiring](mailto:jobs@intrinsic.com)!) where we specialize in writing software for securing Node.js applications. We currently have a product which follows the Least Privilege model for securing applications. Our product proactively protects Node.js applications from attackers, and is surprisingly easy to implement. If you are looking for a way to secure your Node.js applications, give us a shout at [hello@intrinsic.com](mailto:hello@intrinsic.com).
+这篇文章是我和 Thomas Hunter II 一起写的。我在一家名为 [Intricsic](https://intrinsic.com/) 的公司工作（顺便说一下，我们正在[招聘！](mailto:jobs@intrinsic.com)），专门编写用于保护 Node.js 应用程序的软件。我们目前有一个产品应用 Least Privilege 模型来保护应用程序。我们的产品主动保护 Node.js 应用程序不受攻击者的攻击，而且非常容易实现。如果你正在寻找保护 Node.js 应用程序的方法，请在 [hello@inherin.com](mailto:hello@inherin.com) 上联系我们。
 
 ---
 
-**Banner photo by [Chunlea Ju](https://unsplash.com/photos/8fs1X0JFgFE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)**
+**横幅照片的作者 [Chunlea Ju](https://unsplash.com/photos/8fs1X0JFgFE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
