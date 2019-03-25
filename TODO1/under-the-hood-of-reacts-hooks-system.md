@@ -242,7 +242,7 @@ effect hook 和其他 hook 的行为有一些区别，并且它有一个附加�
 
 > **注意，我使用了“绘制”而不是“渲染”。它们是不同的事情，在最近的 [React 会议](https://conf.reactjs.org/)中，我看到很多发言者错误的使用了这两个词！甚至在官方 [ React 文档](https://reactjs.org/docs/hooks-reference.html#useeffect)中，也有写“在渲染生效于屏幕之后”，其实这个过程更像是“绘制”。渲染函数只是创建了组件节点，但是并没有绘制任何内容。**
 
-因此，就应该有另一个队列，来保存这些 effect hook，并且在绘制后能够被定位到。通常来说，应该是组件保存包含了效应节点的队列。每个效应节点都是一个不同的类型，并能在适当的时候被定位到：
+因此，就应该有另一个队列，来保存这些 effect hook，并且在绘制后能够被定位到。通常来说，应该是组件保存包含了 effect 节点的队列。每个 effect 节点都是一个不同的类型，并能在适当的时候被定位到：
 
 *   在修改之前调用 `getSnapshotBeforeUpdate()` 实例（详见[源码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberScheduler.js#L646)）。
 
@@ -250,15 +250,15 @@ effect hook 和其他 hook 的行为有一些区别，并且它有一个附加�
 
 *   运行所有生命周期函数和 ref 回调函数。生命周期函数会在一个独立的通道中运行，所以整个组件树中所有的替换、更新、删除都会被调用。这个过程还会触发任何特定于渲染器的初始 effect hook（详见[源码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberScheduler.js#L732)）。
 
-*   `useEffect()` hook 调度的效应 —— 也被称为“被动效应”，它基于[这部分代码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberScheduler.js#L779)（也许我们要开始在 React 社区内使用这个术语了？！）。
+*   `useEffect()` hook 调度的 effect —— 也被称为“被动 effect”，它基于[这部分代码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberScheduler.js#L779)（也许我们要开始在 React 社区内使用这个术语了？！）。
 
-hook 的效应将会被保存在组件一个称为 `updateQueue` 的属性上，每个效应节点都有如下的结构（详见[源码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberHooks.js#L477)）：
+hook effect 将会被保存在组件一个称为 `updateQueue` 的属性上，每个 effect 节点都有如下的结构（详见[源码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberHooks.js#L477)）：
 
-*   `tag` —— 一个二进制数字，它控制了效应节点的行为（后文我将详细说明）。
+*   `tag` —— 一个二进制数字，它控制了 effect 节点的行为（后文我将详细说明）。
 *   `create` —— 绘制**之后**运行的回调函数。
 *   `destroy` —— 它是 `create()` 返回的回调函数，将会在初始渲染**前**运行。
-*   `inputs` —— 一个集合，该集合中的值将会决定一个效应节点是否应该被销毁或者重新创建。
-*   `next` —— 它指向下一个定义在函数组件中的效应节点。
+*   `inputs` —— 一个集合，该集合中的值将会决定一个 effect 节点是否应该被销毁或者重新创建。
+*   `next` —— 它指向下一个定义在函数组件中的 effect 节点。
 
 除了 `tag` 属性，其他的属性都很简明易懂。如果你对 hook 很了解，你应该知道，React 提供了一些特殊的 effect hook：比如 `useMutationEffect()` 和 `useLayoutEffect()`。这两个 effect hook 内部使用了 `useEffect()`，实际上这就意味着它们能创建 effect hook，但是却使用了不同的 tag 属性值。
 
@@ -275,7 +275,7 @@ const MountPassive = /*         */ 0b01000000;
 const UnmountPassive = /*       */ 0b10000000;
 ```
 
-React 支持的 hook 效应类型
+React 支持的 hook effect 类型
 
 这些二进制值中最常用的情景是使用管道符号（`|`）连接，将比特相加到单个某值上。然后我们就可以使用符号（`&`）检查某个 tag 属性是否能触发一个特定的动作。如果结果是非零的，就表示能触发。
 
@@ -287,7 +287,7 @@ assert(effectTag & MountPassive, 0b10000000)
 
 如何使用 React 的二进制设计模式的示例
 
-这里是 React 支持的 hook 效应，以及它们的 tag 属性（详见[源码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberHooks.js:520)）：
+这里是 React 支持的 hook effect，以及它们的 tag 属性（详见[源码](https://github.com/facebook/react/tree/5f06576f51ece88d846d01abd2ddd575827c6127/packages/react-reconciler/src/ReactFiberHooks.js:520)）：
 
 *   Default effect — `UnmountPassive | MountPassive`.
 *   Mutation effect — `UnmountSnapshot | MountMutation`.
@@ -306,7 +306,7 @@ if ((effect.tag & mountTag) !== NoHookEffect) {
 
 React 源码节选
 
-所以，基于我们刚才学习的关于 effect hook 的知识，我们可以实际操作，从外部向组件插入一些效应：
+所以，基于我们刚才学习的关于 effect hook 的知识，我们可以实际操作，从外部向组件插入一些 effect：
 
 ```
 function injectEffect(fiber) {
@@ -338,7 +338,7 @@ const ParentComponent = (
 )
 ```
 
-插入效应的示例
+插入 effect 的示例
 
 * * *
 
