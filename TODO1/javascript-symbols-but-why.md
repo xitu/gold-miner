@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-symbols-but-why.md](https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-symbols-but-why.md)
 > * 译者：[xionglong58](https://github.com/xionglong58)
-> * 校对者：
+> * 校对者：[EdmondWang](https://github.com/EdmondWang)、[Xuyuey](https://github.com/Xuyuey)
 
 # JavaScript 中为什么会有 Symbols 类型？
 
@@ -103,7 +103,7 @@ console.log(s1); // Symbol(debug)
 
 ## Symbol 作为对象属性
 
-symbols 还有另一个重要的用法，它们可以被当作对象中的键!下面是一个在对象中使用 symbol 作为键的例子:
+symbols 还有另一个重要的用法，它们可以被当作对象中的键！下面是一个在对象中使用 symbol 作为键的例子:
 
 
 ```js
