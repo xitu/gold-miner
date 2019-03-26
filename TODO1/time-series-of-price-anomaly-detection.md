@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/time-series-of-price-anomaly-detection.md](https://github.com/xitu/gold-miner/blob/master/TODO1/time-series-of-price-anomaly-detection.md)
 > * 译者：[kasheemlew](https://github.com/kasheemlew)
-> * 校对者：[xionglong58](https://github.com/xionglong58)
+> * 校对者：[xionglong58](https://github.com/xionglong58)，[portandbridge](https://github.com/portandbridge)
 
 # 时间序列的价格异常检测
 
