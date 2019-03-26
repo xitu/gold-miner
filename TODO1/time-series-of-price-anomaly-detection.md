@@ -60,7 +60,7 @@ df['price_usd'].describe()
 
 现在我们发现了一个严重的异常，price_usd 的最大值竟然是 5584。
 
-如果一个单独的数据项与其他数据相比有些反常的话，我们就称它为**点异常**（例如巨额交易）。我们可以检查日志，看看到底是怎么回事。经过一番调查，我觉得可能是数据错误，或者是某个用户无意间搜了一下总统套房，但是并没有预定或者浏览。为了发现更多比较轻微的异常，我决定删掉这条数据。
+如果一个单独的数据项与其他数据相比有些反常的话，我们就称它为**单点异常**（例如巨额交易）。我们可以检查日志，看看到底是怎么回事。经过一番调查，我觉得可能是数据错误，或者是某个用户无意间搜了一下总统套房，但是并没有预定或者浏览。为了发现更多比较轻微的异常，我决定删掉这条数据。
 
 ```python
 expedia.loc[(expedia['price_usd'] == 5584) & (expedia['visitor_location_country_id'] == 219)]
@@ -115,16 +115,16 @@ k-平均是一个应用广泛的聚类算法。它创建 ‘k’ 个相似数据
 
 ![Figure 7](https://cdn-images-1.medium.com/max/2000/1*HoU7DGQx8UgHBJSXLuq1bQ.png)
 
-现在我们得找出需要保留的成分（特征）的数量。
+现在我们得搞清楚要保留几个成分（特征）。
 
 ![Figure 8](https://cdn-images-1.medium.com/max/2000/1*_ncv1D_uD2wWmigdRvZbsA.png)
 
-我们可以看到，第一个成分解释了解释了几乎 50% 的方差，第二个成分解释了超过 30% 的方差。然而，我们注意到没有哪一个成分是可以忽略不计的。前两个成分包含了超过 80% 的信息，所以我们设置 `n_components=2`。
+我们可以看到，第一个成分解释了解释了几乎 50% 的方差，第二个成分解释了超过 30% 的方差。然而，我们应该注意，没有哪一个成分是可以忽略不计的。前两个成分包含了超过 80% 的信息，所以我们设置 `n_components=2`。
 
 基于聚类的异常检测中强调的假设是我们对数据聚类，正常的数据归属于簇，而异常不属于任何簇或者属于很小的簇。下面我们找出异常并进行可视化。
 
 * 计算每个点和离它最近的聚类中心的距离。最大的那些距离就是异常。
-* 我们用 `outliers_fraction` 给算法提供数据集中离群点比例的信息。不同的数据集情况可能不同，但是作为一个起点，我估计 `outliers_fraction=0.01`，因为在标准化正态分布中，观测值的百分比应该落在距离均值的 Z 分数绝对值为 3 之上的位置。
+* 我们用 `outliers_fraction` 给算法提供数据集中离群点比例的信息。不同的数据集情况可能不同，但是作为一个起点，我估计 `outliers_fraction=0.01`，这正是标准正态分布中，偏离均值的距离以 Z 分数的绝对值计超过 3 的观测值所占比例。
 * 使用 `outliers_fraction` 计算 `number_of_outliers` 。
 * 将 `threshold` 设置为离群点间的最短距离。
 * `anomaly1` 的异常结果包括上述方法的簇（0：正常，1：异常）。
@@ -139,7 +139,7 @@ k-平均是一个应用广泛的聚类算法。它创建 ‘k’ 个相似数据
 
 ## 使用**孤立森林**进行**异常检测**
 
-[孤立森林](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html)完全基于异常很少并且与众不同这一点来进行检测。异常隔离不用度量任何距离或者密度就可以实现。这与基于聚类或者基于距离的算法完全不同。
+[孤立森林](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html)纯粹基于异常值的数量少且取值有异这一情况来进行检测。异常隔离不用度量任何距离或者密度就可以实现。这与基于聚类或者基于距离的算法完全不同。
 
 * 我们使用一个[IsolationForest](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html)模型，设置 contamination = outliers_fraction，这意味着数据集中异常的比例是 0.01。
 * `fit` 和 `predict(data)` 在数据集上执行异常检测，对于正常值返回 1，对于异常值返回 -1。
@@ -147,15 +147,15 @@ k-平均是一个应用广泛的聚类算法。它创建 ‘k’ 个相似数据
 
 ![Figure 11](https://cdn-images-1.medium.com/max/2000/1*qddrIOLJSd2-iMpj7qbjiQ.png)
 
-## **基于支持向量机的异常检测**
+## **基于支持向量机的异常检测（SVM）**
 
 [SVM](https://en.wikipedia.org/wiki/Support-vector_machine) 和监督学习紧密相连，但是 [OneClassSVM](https://en.wikipedia.org/wiki/Support-vector_machine) 可以将异常检测当作一个无监督的问题，学得一个决策函数：将新数据归类为与训练数据集相似或者与训练数据集不同。
 
 ### OneClassSVM
 
-根据这篇论文：[ Support Vector Method for Novelty Detection](http://users.cecs.anu.edu.au/~williams/papers/P126.pdf)。SVM 是基于间隔最大的方法，也就是不对一种可能的分布建模。基于 SVM 的异常检测的核心就是找到一个函数，这个函数对于点密度高的区域输出正值，对于点密度低的区域返回负值。
+根据这篇论文：[ Support Vector Method for Novelty Detection](http://users.cecs.anu.edu.au/~williams/papers/P126.pdf)。SVM 是基于间隔最大的方法，也就是不对一种概率分布建模。基于 SVM 的异常检测的核心就是找到一个函数，这个函数对于点密度高的区域输出正值，对于点密度低的区域返回负值。
 
-* 在拟合 [OneClassSVM](https://scikit-learn.org/stable/modules/generated/sklearn.svm.OneClassSVM.html#sklearn.svm.OneClassSVM) 模型时，我们设置  `nu=outliers_fraction`，这时训练误差的上界和支持向量的下界，这个值必须在 0 到 1 之间。这基本上是我们期望中数据集上离群点的比例。
+* 在拟合 [OneClassSVM](https://scikit-learn.org/stable/modules/generated/sklearn.svm.OneClassSVM.html#sklearn.svm.OneClassSVM) 模型时，我们设置  `nu=outliers_fraction`，这是训练误差的上界和支持向量的下界，这个值必须在 0 到 1 之间。这基本上是我们预计数据里面的离群值占比多少。
 * 指定算法中的核函数类型：`rbf`。此时 SVM 使用非线性函数将超空间映射到更高维度中。
 * `gamma` 是 RBF 内核类型的一个参数，控制着单个训练样本的影响 — 它影响着模型的"平滑度"。经过试验，我没发现什么重要的差别。
 * `predict(data)` 执行数据分类。因为我们的模型是一个单类模型，所以只会返回 +1 或者 -1，-1 代表异常，1 代表正常。
@@ -166,7 +166,7 @@ k-平均是一个应用广泛的聚类算法。它创建 ‘k’ 个相似数据
 
 高斯分布又称为正态分布。我们将使用高斯分布开发一个异常检测算法，换言之，我们假设数据服从正态分布。这个假设并不适用于所有数据集，一旦成立，就能高效地确定离群点。
 
-Scikit-Learn 的 `[**covariance.EllipticEnvelope**](https://scikit-learn.org/stable/modules/generated/sklearn.covariance.EllipticEnvelope.html)` 函数假设我们的所有数据符合一个潜在的多元高斯分布表达式，以此尝试计算数据数据总体分布的关键参数。过程类似这样：
+Scikit-Learn 的 `[**covariance.EllipticEnvelope**](https://scikit-learn.org/stable/modules/generated/sklearn.covariance.EllipticEnvelope.html)` 函数假设我们的全体数据是一概率分布的外在表现形式，其背后服从一项多变量高斯分布，以此尝试计算数据数据总体分布的关键参数。过程类似这样：
 
 * 根据之前定义的类别创建两个不同的数据集 —— search_Sat_night、Search_Non_Sat_night。
 * 对每个类别使用 `EllipticEnvelope`（高斯分布）。
@@ -178,7 +178,7 @@ Scikit-Learn 的 `[**covariance.EllipticEnvelope**](https://scikit-learn.org/sta
 
 有趣的是，这种方式检测只检测到了异常高的价格，却没有检测到异常低的价格。
 
-目前为止，我们已经用四种方法完成了价格异常检测。因为我们是用无监督学习进行异常检测的，建好模型之后，我们不知道它的表现究竟如何，也没什么可以用来对比测试的。因此，在正式使用这些方法之前必须对它们的结果进行测试。
+目前为止，我们已经用四种方法完成了价格异常检测。因为我们是用无监督学习进行异常检测的，建好模型之后，我们没什么可以用来对比测试，也就无法知道它的表现究竟如何。因此，在用这些方法处理关键问题之前必须对它们的结果进行测试。
 
 [Jupyter notebook](https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/Time%20Series%20of%20Price%20Anomaly%20Detection%20Expedia.ipynb) 已经上传至 [Github](https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/Time%20Series%20of%20Price%20Anomaly%20Detection%20Expedia.ipynb)。 好好享受这一周吧！
 
