@@ -1,18 +1,18 @@
+# Your first CLI tool with Rust
+
 In the wonderful world of programming, you may have heard about this new shiny language called Rust. It is an open-source systems programming language that focuses on speed, memory safety, and parallelism. It allows you to do low-level programming à la C/C++.
 
 You might have heard about it in the context of [Web Assembly](https://webassembly.org/). Rust is capable to compile WASM applications, you can find a wide variety of use cases on the [Web Assembly FAQ](https://webassembly.org/docs/use-cases/). It is also known as the basis of [servo](https://servo.org/), a high-performance browser engine, implemented in Firefox.
 
 It's a bit intimidating, but that's not what we will talk about here. Instead, we will go through on how we can build command line tools with it, and maybe have fun along the way.
 
-Why Rust?
----------
+## Why Rust?
 
 Ok, let me set things straight. I could have done CLI tools with any other language or framework. I could have picked C, Go, Ruby, whatever. Hell, I could just have used good old bash.
 
 I wanted to learn something new in 2018, Rust picked my curiosity and I had a need for building simple small tools to automate some process at work and for personal projects.
 
-Installation
-------------
+## Installation
 
 You can set up your workstation by using [Rustup](https://rustup.rs/), it is the main program that installs and configures all the Rust toolchain on your machine.
 
@@ -20,15 +20,13 @@ If you are on Linux or macOS, there is a single command line that will do this f
 
 ```
 $ curl <https://sh.rustup.rs> -sSf | sh
-
 ```
 
 If you are on Windows, it is very similar, but you need to download an `exe` on the [Rustup Website](https://rustup.rs/) and execute it.
 
 My personal opinion here, if you are on Windows 10, I suggest you use [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) instead. That's it for the installation, we can go and create our first Rust application!
 
-Your first Rust app
--------------------
+## Your first Rust app
 
 What we will try to do here, is building a replica of the [cat](https://en.wikipedia.org/wiki/Cat_(Unix)) UNIX utility, or at least a very stripped down version of it, and we will call it `kt`. This application will accept a file path as input and display the content of the file in the terminal's standard output.
 
@@ -38,7 +36,6 @@ Open your terminal app, go to your favorite place to store source code, then typ
 
 ```
 $ cargo init kt
-
 ```
 
 This will create a directory called `kt` with the basis of the structure of our app.
@@ -55,18 +52,16 @@ $ cd kt/
   Cargo.toml
   |
   src/
-
 ```
 
 The `Cargo.toml` file is the package file containing the information of our app as well as the dependencies. Once again, think of it as the `package.json` or `Gemfile` of your application.
 
 The `src/` directory contains the source files of our application, we can see that there is a single `main.rs` file, and by inspecting it we see that it contains a single `main` function.
 
-```
+```rust
 fn main() {
     println!("Hello, world!");
 }
-
 ```
 
 Try to build this project, it should be fast as there are no external dependencies.
@@ -75,7 +70,6 @@ Try to build this project, it should be fast as there are no external dependenci
 $ cargo build
 Compiling kt v0.1.0 (/Users/jeremie/Development/kitty)
 Finished dev [unoptimized + debuginfo] target(s) in 2.82s
-
 ```
 
 In development mode, you can execute a binary by invoking `cargo run` (`cargo run --- my_arg` for passing command line arguments).
@@ -85,13 +79,11 @@ $ cargo run
 Finished dev [unoptimized + debuginfo] target(s) in 0.07s
 Running `target/debug/kt`
 Hello, world!
-
 ```
 
 Give yourself a pat in the back, you have just created and run your first Rust application! 🎉
 
-Parsing our first command line argument
----------------------------------------
+## Parsing our first command line argument
 
 Like I said earlier in the article, we are trying to build a stripped-down version of `cat`. We aim to mimic `cat` and display the content of a file in the terminal output, by launching `kt myfile.txt`.
 
@@ -106,7 +98,6 @@ You will see in this file that there is already some information filled up for u
 ```
 [dependencies]
 clap = "~2.32"
-
 ```
 
 After saving the file, we will need to build the project again in order to be able to use the library. Don't worry too much about `cargo` downloading much more than the `clap` crate, as it's caused by dependencies required by `clap`.
@@ -134,21 +125,18 @@ $ cargo build
    Compiling clap v2.32.0
    Compiling kt v0.1.0 (/home/jeremie/Development/kt)
     Finished dev [unoptimized + debuginfo] target(s) in 33.92s
-
 ```
 
 That's it for the configuration, we can get our hands dirty and finally do some code to read our first command line arguments.
 
 Open the `main.rs` file. We will have to explicitly say that we want to use the Clap library.
 
-```
-
+```rust
 extern crate clap;
 
 use clap::{Arg, App};
 
 fn main() {}
-
 ```
 
 The extern crate keyword is for importing the library, you have to add this in the main file only, to have it enabled for any source file of the application. The `use` part indicates which module of `clap` you are going to use in this file.
@@ -159,7 +147,7 @@ A quick note about Rust modules:
 
 Here we are saying that we want to use the `Arg` and the `App` module. We want to be able to have a `FILE` argument for our app, that will contain a file path. Clap can help up express that with a method chaining fashion that is very pleasant.
 
-```
+```rust
 fn main() {
     let matches = App::new("kt")
       .version("0.1.0")
@@ -171,7 +159,6 @@ fn main() {
         )
       .get_matches();
 }
-
 ```
 
 Compile and execute again, it should not give you much in the output, except a compilation warning on the variable `matches` (you can put a `_` in front of the variable, it will tell the compilator that this variable is optional (this will talk to Rubyists).
@@ -200,7 +187,6 @@ $ cargo run --- -V
 Finished dev [unoptimized + debuginfo] target(s) in 0.04s
 Running target/debug/kt -V
 kt 0.1.0
-
 ```
 
 We can also try to launch the program without any arguments and see what happens.
@@ -209,7 +195,6 @@ We can also try to launch the program without any arguments and see what happens
 $ cargo run --
 Finished dev [unoptimized + debuginfo] target(s) in 0.03s
   Running `target/debug/kt`
-
 ```
 
 Nothing. This is the default behavior that should occur every time you build a command line tool. I think that passing no arguments to the application should never trigger any action. There are times when this is not true, but for the vast majority, you should never execute an action that your user never intended to.
@@ -218,7 +203,7 @@ Now that we have our argument in place, we can dig into how to *catch* this co
 
 To implement this, we can use the `value_of` method of `clap`. Please refer to the [documentation](https://docs.rs/clap/2.32.0/clap/struct.ArgMatches.html#method.value_of) to know how this method behaves.
 
-```
+```rust
 fn main() {
     let matches = App::new("kt")
       .version("0.1.0")
@@ -234,7 +219,6 @@ fn main() {
         println!("Value for file argument: {}", file);
     }
 }
-
 ```
 
 At this point, you can run the application and pass in a random string as an argument, it should display that random string in your console.
@@ -244,7 +228,6 @@ $ cargo run -- test.txt
 Finished dev [unoptimized + debuginfo] target(s) in 0.02s
   Running `target/debug/kt test.txt`
 Value for file argument: test.txt
-
 ```
 
 Note that we actually make no verifications on the existence of that file for the moment. But what if we do?
@@ -253,7 +236,7 @@ There is a standard library that permits us to check if a file or directory exis
 
 Add the library with the `use` keyword as we've seen before, then drop in the code below. You see that we are using an `If-Else` condition to print some text in the output. The `println!` method is writing in the standard output `stdout`, whereas `eprintln!` in writing in the standard error output `stderr`.
 
-```
+```rust
 extern crate clap;
 
 use clap::{Arg, App};
@@ -282,14 +265,13 @@ use std::process;
         }
     }
 }
-
 ```
 
 We're almost there!! Now we need now to read the content of the file and display the result in `stdout`.
 
 Once again, we will use a standard library to read from files called `File`. We will read the content of the file using the `open` method, then write it into a String object, which will be displayed in `stdout`.
 
-```
+```rust
 extern crate clap;
 
 use clap::{Arg, App};
@@ -322,7 +304,6 @@ fn main() {
         }
     }
 }
-
 ```
 
 Build and run again this code. Congratulations! We now have a fully functioning tool! 🍾
@@ -368,17 +349,15 @@ use std::io::{Read};
         }
     }
 }
-
 ```
 
-Improving a little bit
-----------------------
+## Improving a little bit
 
 Ok, our application is taking a parameter and displaying the result in `stdout`.
 
 We can tweak a little bit the performance on the whole printing phase, by using `writeln!` instead of `println!`. This is well explained in the [Rust Output Tutorial](https://rust-lang-nursery.github.io/cli-wg/tutorial/output.html#a-note-on-printing-performance). While we are at it, we can clean a little bit code, remove unnecessary printing and fine-tune the possible error scenarios.
 
-```
+```rust
 extern crate clap;
 
 use clap::{Arg, App};
@@ -426,7 +405,6 @@ fn main() {
         }
     }
 }
-
 ```
 
 ```
@@ -480,13 +458,11 @@ use std::io::{Read, Write};
         }
     }
 }
-
 ```
 
 Here we are! Our basic `cat` copy-cat 🤡, is finished with 45 lines of code or so, and it performs really well!
 
-Building a standalone application
----------------------------------
+## Building a standalone application
 
 What about building this application and installing it in our filesystem? cargo to the rescue!
 
@@ -505,7 +481,6 @@ $ cargo build --release
    Compiling clap v2.32.0
    Compiling kt v0.1.0 (/home/jeremie/Development/kt)
     Finished release [optimized] target(s) in 28.17s
-
 ```
 
 The generated executable is located in a sub-directory: `./target/release/kt`.
@@ -517,7 +492,6 @@ $ cargo install --path .
   Installing kt v0.1.0 (/home/jeremie/Development/kt)
     Finished release [optimized] target(s) in 0.03s
   Installing /home/jeremie/.cargo/bin/kt
-
 ```
 
 Now we can invoke our application by calling it directly in the terminal with the command `kt`! \o/
@@ -525,11 +499,9 @@ Now we can invoke our application by calling it directly in the terminal with th
 ```
 $ kt -V
 kt 0.1.0
-
 ```
 
-Wrapping up
------------
+## Wrapping up
 
 We created a small command line tool with a few lines of Rust, which accepts a file path as an input, and displays the content of that file in `stdout`.
 
@@ -545,8 +517,7 @@ Don't hesitate to show me what you have built with it! 😎
 
 *Special thanks to Anaïs for reviewing this post* 👍
 
-Going further
--------------
+## Going further
 
 -   [cat](https://en.wikipedia.org/wiki/Cat_(Unix)): Wikipedia page of the cat utility.
 -   [kt-rs](https://github.com/jveillet/kt-rs)
