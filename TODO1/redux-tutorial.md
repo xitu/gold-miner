@@ -6,22 +6,30 @@
 > * 校对者：
 
 # A Complete React Redux Tutorial for 2019
+# 2019 React Redux 完全指南
 
 ![A Complete Redux Tutorial (2019): why use it? - store - reducers - actions - thunks - data fetching](https://daveceddia.com/images/complete-redux-tutorial-2019.png)
 
 Trying to understand Redux, it's really confusing how it all works. Especially as a beginner.
+想要理解 Redux 的完整工作机制真的让人头疼。特别是作为初学者。
 
 So much terminology! Actions, reducers, action creators, middleware, pure functions, immutability, thunks...
+术语太多了！Actions, reducers, action creators, middleware, pure functions, immutability, thunks...
 
 How does it all fit together with React to make a working app?
+怎么把所有这些都与 React 结合在一起构建一个可运行应用？
 
 You can spend hours reading blogs and trying to sift through complex "real world" apps trying to piece it together.
+你可以花数小时阅读博客以及尝试从复杂的“真实世界”应用中筛选以将它拼凑在一起。
 
-In this Redux tutorial I'm going to explain how to use Redux with React incrementally -- starting with plain React -- and a very simple React + Redux example. I'll explain *why* each feature is useful (and when you can skip some).
+In this Redux tutorial I'm going to explain how to use Redux with React incrementally -- starting with plain React -- and a very simple React + Redux example. I'll explain *why* each feature is useful (and when you can skip some).
+在本篇 Redux 教程中，我会渐进地解释如何将 Redux 与 React 搭配使用——从简单的 React 开始——以及一个非常简单的 React + Redux 案例。我会解释**为什么**每个功能都很有用（以及什么情况下做取舍）
 
-Then we'll look at the more advanced topics, one-by-one, until you understand *all of it*. Here we go :)
+Then we'll look at the more advanced topics, one-by-one, until you understand *all of it*. Here we go :)
+然后我们会看更加进阶的内容，手把手，直到你*全部*都理解。我们开始吧 :)
 
-Quick warning though: this tutorial is *compleeete*. And by that I mean *looong*. I turned this into a full-fledged free course, *and* I made a nice-looking PDF you can read on your iPad or [whatever Android device is cool these days]. Drop your email in the box to get both right now.
+Quick warning though: this tutorial is *compleeete*. And by that I mean *looong*. I turned this into a full-fledged free course, *and* I made a nice-looking PDF you can read on your iPad or [whatever Android device is cool these days]. Drop your email in the box to get both right now.
+请注意：本教程是*很齐齐齐全的*。也就意味篇幅着*特别长*。我把它变成了一个完整的免费课程，*并且*我制作了好看的 PDF 你可以在 iPad 或者[任何 Android 设备]上阅读。留下你的邮箱地址即可立即获取。
 
 ## Redux Essentials in One Video
 
