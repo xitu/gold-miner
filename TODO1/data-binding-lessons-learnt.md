@@ -19,17 +19,15 @@ I’ve been using data binding on Android for the past few years and this post d
 
 The worst culprits were a number of adapters which generated formatted strings and set them on `TextViews`. The adapters were usually referenced in just one layout:
 
-
 While this may look clever there are three big downsides:
 
- 1. **Organizing them is a pain**. Unless you’re exceptionally well organised, you’re likely to have one large file containing all of your adapter methods. The antithesis of cohesive and decoupled.
+1. **Organizing them is a pain**. Unless you’re exceptionally well organised, you’re likely to have one large file containing all of your adapter methods. The antithesis of cohesive and decoupled.
 
- 2. **You need to use instrumentation to test**. By definition, your binding adapters do not return a value, they take an input and then set properties on views. That means you have to use a instrumentation to test your custom logic, which makes testing slower and possibly harder to maintain.
+2. **You need to use instrumentation to test**. By definition, your binding adapters do not return a value, they take an input and then set properties on views. That means you have to use a instrumentation to test your custom logic, which makes testing slower and possibly harder to maintain.
 
- 3. **Custom binding adapter code is (usually) not optimal.** If you look at the built-in text binding [[here](https://android.googlesource.com/platform/frameworks/data-binding/+/master/extensions/baseAdapters/src/main/java/android/databinding/adapters/TextViewBindingAdapter.java#63)], you’ll see that it does a **lot** of checks to avoid calling `[TextView.setText()](https://developer.android.com/reference/android/widget/TextView.html#setText(java.lang.CharSequence))`, thus saving wasted layout passes. I fell into the trap of thinking that the DB Library would automagically optimise my view updates. And it does, **but only if** you use the built-in binding adapters which are carefully optimised.
+3. **Custom binding adapter code is (usually) not optimal.** If you look at the built-in text binding [[here](https://android.googlesource.com/platform/frameworks/data-binding/+/master/extensions/baseAdapters/src/main/java/android/databinding/adapters/TextViewBindingAdapter.java#63)], you’ll see that it does a **lot** of checks to avoid calling `[TextView.setText()](https://developer.android.com/reference/android/widget/TextView.html#setText(java.lang.CharSequence))`, thus saving wasted layout passes. I fell into the trap of thinking that the DB Library would automagically optimise my view updates. And it does, **but only if** you use the built-in binding adapters which are carefully optimised.
 
 Instead, abstract your methods logic into cohesive classes (I call these text creators), then pass them into the binding. From there you can call your text creator and use the built-in view bindings:
-
 
 This way, we get all of the efficiency from the built-in binding, and we can quite easily unit test the code which creates our formatted strings.
 
@@ -39,16 +37,13 @@ If you really need to use a custom adapter, because the functionality you want d
 
 This can be as simple as checking what the view is currently using vs. what you’re setting. Here’s a example where we re-implement the standard ImageView adapter for `android:drawable`:
 
-
 Unfortunately views are not always able to expose state for what we need to check. Here’s an example which sets a toggling max-lines on TextView. It works toggling by changing a TextView’s `maxLines` property, along with a [delayed layout transition](https://developer.android.com/reference/androidx/transition/TransitionManager.html#beginDelayedTransition(android.view.ViewGroup)).
 
 ![Just so you get an idea of what it does](https://cdn-images-1.medium.com/max/2000/1*1EFkuX5VCoVr3tZ7OhUdYg.gif)
 
 Previously the binding adapter was simple and always set the `maxLines` property, along with a click listener. TextView will always trigger a layout when `[setMaxLines()](https://developer.android.com/reference/android/widget/TextView.html#setMaxLines(int))` is called, which means that every time the binding adapter is run, a layout is triggered.
 
-
 So let’s fix it. Since this functionality is completely separate to TextView (we’re just calling `setMaxLines()` with different values when clicked) we need to store the reference the current state. Luckily, the ‘DB Library’ provides a handy way for us to receive this in the binding adapter. By providing the parameter twice, the first parameters receives the **current** value, and the second parameter receives the **new** value.
-
 
 So here we’re just comparing the **current** and **new**`collapsedMaxLines` values. If the value actually changes we call `setMaxLines()`, etc.
 
@@ -60,7 +55,6 @@ I’ve been slowly re-architecting [Tivi](https://tivi.app) using something whic
 
 Here’s an example state class from Tivi ([link](https://github.com/chrisbanes/tivi/blob/master/app/src/main/java/app/tivi/showdetails/details/ShowDetailsViewState.kt)):
 
-
 You can see that it’s just a simple data class which contains all of the things which the UI requires to show a details UI about a TV show.
 
 Sounds like a perfect candidate to pass to our data binding instance, and let our binding expressions update the UI, right? Well yes, that does indeed work nicely, but there are a few things to be aware of, and it’s due to how the ‘DB Library’ works.
@@ -68,7 +62,6 @@ Sounds like a perfect candidate to pass to our data binding instance, and let ou
 In data binding you declare inputs, via the `\<variable>` tag, and then write binding expressions referencing those variables on views (attributes). When any of the dependent variables change, the ‘DB Library’ will run your binding expressions (and thus updates views). This change-detection is a great optimization which you get for free.
 
 So back to my scenario. My layouts ended up looking like this:
-
 
 So I end up having a big global ViewState instance which contains the entire UI state, and as you can imagine these change quite **a lot**. Any small change in the UI state results in a brand new ViewState being generated and passed to our data binding instance.
 
@@ -79,7 +72,6 @@ So what’s the problem? Well since we only have one input variable, all of the 
 ### So what can you do instead?
 
 An alternative is to explicitly declare each variable from your ViewState in your layout, and then explicitly pass through the values from your combined state instance, like so:
-
 
 This is obviously lot more code for you as the developer to maintain and keep in sync, but it does mean that the ‘DB Library’ can optimise which expressions are run. I would use this pattern if your UI state does not change very often (maybe a few times when created) and the number of variables is low.
 
