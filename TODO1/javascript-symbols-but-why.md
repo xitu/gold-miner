@@ -5,7 +5,7 @@
 > * 译者：[xionglong58](https://github.com/xionglong58)
 > * 校对者：[EdmondWang](https://github.com/EdmondWang)、[Xuyuey](https://github.com/Xuyuey)
 
-# JavaScript 中为什么会有 Symbols 类型？
+# JavaScript 中为什么会有 Symbol 类型？
 
 ![](https://cdn-images-1.medium.com/max/3840/1*-6P9pSYh8qCbyzKu4AG88w.jpeg)
 
