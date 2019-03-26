@@ -5,7 +5,7 @@
 > * 译者：[Xuyuey](https://github.com/Xuyuey)
 > * 校对者：
 
-# 从没有人告诉过我的 CSS 小知识。
+# 从没有人告诉过我的 CSS 小知识
 
 ![由 [Jantine Doornbos](https://unsplash.com/photos/xt9tb6oa42o?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 发布于 [Unsplash](https://unsplash.com/search/photos/css?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/10396/1*fyXNSvbsWjSDxBxJp6sXIA.jpeg)
 
@@ -41,7 +41,7 @@
 
 **1. 布局**
 
-布局步骤负责计算元素在屏幕上占用的空间大小。修改 CSS 中的“布局”属性（例如：宽度、高度）意味着浏览器需要检查其他所有的元素并”重排”页面，也就是说重新绘制受影响的区域并将他们合并在一起。
+布局步骤负责计算元素在屏幕上占用的空间大小。修改 CSS 中的“布局”属性（例如：宽度、高度）意味着浏览器需要检查其他所有的元素并“重排”页面，也就是说重新绘制受影响的区域并将他们合并在一起。
 
 **2. 绘制**
 
@@ -65,7 +65,7 @@
 
 ### 后代选择器或许会非常耗能
 
-取决于程序的大小，仅仅使用没有什么特征性的后代选择器代价会非常昂贵。浏览器会检查每个后代元素是否匹配，因为后代这种关系不仅限于父子之间。
+取决于程序的大小，仅仅使用没有什么特殊性的后代选择器代价会非常昂贵。浏览器会检查每个后代元素是否匹配，因为后代这种关系不仅限于父子之间。
 
 例如：
 
