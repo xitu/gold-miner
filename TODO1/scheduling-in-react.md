@@ -171,7 +171,12 @@ function SearchBox(props) {
     const value = event.target.value;
 
     setInputValue(value);
-    unstable_next(function() {      props.onChange(value);      sendAnalyticsNotification(value);    });  }
+    unstable_next(function() {      
+      props.onChange(value);      
+      sendAnalyticsNotification(value);    
+    });  
+  }
+  
   return <input type="text" value={inputValue} onChange={handleChange} />;
 }
 ```
