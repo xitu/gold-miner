@@ -80,7 +80,7 @@ console.log(obj);
 
 ## Symbol 是什么？
 
-现在既然我们已经知道了基本数据类型是什么，也就终于可以定义 Symbol。Symbol 是不能被重新创建的基本数据类型。在这种情况下，Symbol 类似于对象，因为对象创建多个实例也将导致不完全相等的值。但是，Symbol 也是原始的，因为它不能被改变。下面是 Symbol 用法的一个例子:
+现在既然我们已经知道了基本数据类型是什么，也就终于可以定义 Symbol。Symbol 是不能被重新创建的基本数据类型。在这种情况下，Symbol 类似于对象，因为对象创建多个实例也将导致不完全相等的值。但是，Symbol 也是基本数据类型，因为它不能被改变。下面是 Symbol 用法的一个例子:
 
 ```js
 const s1 = Symbol();  
@@ -89,7 +89,7 @@ const s2 = Symbol();
 console.log(s1 === s2); // false
 ```
 
-当实例化一个 symbol 时，有一个可选的首选参数，你可以赋值一个字符串。此值用于调试代码，不会真正影响 symbol本身。
+当实例化一个 symbol 值时，有一个可选的首选参数，你可以赋值一个字符串。此值用于调试代码，不会真正影响 symbol本身。
 
 ```js
 const s1 = Symbol('debug');
@@ -137,13 +137,13 @@ console.log(Reflect.ownKeys(obj));
 console.log(obj[Reflect.ownKeys(obj)[1]]); // 42
 ```
 
-**注意**:目前有些工作旨在处理在 JavaScript 中向类添加私有属性的问题。这个特性就是 [Private Fields](https://github.com/tc39/proposal-class-fields#Private-Fields) 虽然这不会对**所有**对象都有好处，但会对类实例的对象有好处。Private Fields 在 Chrome 74 中开始可用。
+**注意**:目前有些工作旨在处理在 JavaScript 中向类添加私有属性的问题。这个特性就是 [Private Fields](https://github.com/tc39/proposal-class-fields#Private-Fields) 虽然这不会对**所有**对象都有好处，但会对类实例的对象有好处。Private Fields 从 Chrome 74 开始可用。
 
 ## 防止属性名冲突
 
 symbols 可能不会对获取 JavaScript 中对象的私有属性直接有利。它们之所以有用的另一个理由是，当不同的库希望向对象添加属性时 symbols 可以避免命名冲突的风险。
 
-如果有两个不同的库希望将某种元数据附加到一个对象上，两者可能都想在对象上设置某种标识符。仅仅使用两个字符串 类型的 `id` 作为键来标识，就有很大的风险，就是多个库使用相同的键。
+如果有两个不同的库希望将某种元数据附加到一个对象上，两者可能都想在对象上设置某种标识符。仅仅使用两个字符串类型的 `id` 作为键来标识，多个库使用相同键的风险就会很高。
 
 ```js
 function lib1tag(obj) {
@@ -249,7 +249,7 @@ console.log(JSON.stringify(obj)); // {}
 
 在这一点上，我们**几乎**重新创建了 symbols。 隐藏的字符串属性和 symbols 都对序列化程序隐身。这两种属性都可以使用 `Reflect.ownKeys()`方法提取，因此实际上并不是私有的。 假设我们对字符串属性使用某种命名空间/随机值，那么我们就消除了多个库意外发生命名冲突的风险。
 
-但是，仍然有一个微小的差异。由于字符串是不可变的，符号始终保证是唯一的，因此仍有可能生成相同的字符串并产生冲突。 从数学角度来说，意味着 symbols 确实提供了我们无法从字符串中获得的好处。
+但是，仍然有一个微小的差异。由于字符串是不可变的，Symbol 始终保证是唯一的，因此仍有可能生成相同的字符串并产生冲突。 从数学角度来说，意味着 symbols 确实提供了我们无法从字符串中获得的好处。
 
 在 Node.js 中，检查对象时(例如使用 `console.log()`)，如果遇到对象上名为 `inspect` 的方法，则调用该函数，并将输出表示成对象的日志。可以想象，这种行为并不是每个人都期望的，通常命名为 `inspect` 的方法经常与用户创建的对象发生冲突。现在有 symbol 可用来实现这个功能，并且可以在 require('util').inspection.custom 中使用。`inspect` 方法在 Node.js v10 中被废弃，在 v11 中完全被忽略。现在没有人会因为意外改变 inspect 的行为!
 
