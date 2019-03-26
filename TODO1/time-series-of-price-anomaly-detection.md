@@ -2,39 +2,39 @@
 > * 原文作者：[Susan Li](https://medium.com/@actsusanli)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/time-series-of-price-anomaly-detection.md](https://github.com/xitu/gold-miner/blob/master/TODO1/time-series-of-price-anomaly-detection.md)
-> * 译者：
-> * 校对者：
+> * 译者：[kasheemlew](https://github.com/kasheemlew)
+> * 校对者：[xionglong58](https://github.com/xionglong58)，[portandbridge](https://github.com/portandbridge)
 
-# Time Series of Price Anomaly Detection
+# 时间序列的价格异常检测
 
 ![Photo credit: Pixabay](https://cdn-images-1.medium.com/max/2560/1*T-SmdkxMgpAebevA2ElyGA.jpeg)
 
-> Anomaly detection detects data points in data that does not fit well with the rest of the data.
+> 异常检测是指检测数据集中不遵循其他数据的统计规律的数据点
 
-Also known as outlier detection, anomaly detection is a data mining process used to determine types of anomalies found in a data set and to determine details about their occurrences. Automatic anomaly detection is critical in today’s world where the sheer volume of data makes it impossible to tag outliers manually. Auto anomaly detection has a wide range of applications such as fraud detection, system health monitoring, fault detection, and event detection systems in sensor networks, and so on.
+异常检测，也叫离群点检测，是数据挖掘中确定异常类型和异常出现的相关细节的过程。如今，自动化异常检测至关重要，因为现在的数据量太庞大了，人工标记已经不可能实现了。自动异常检测有着广泛的应用，例如反欺诈、系统监控、错误检测、传感器网络中的事件检测等等。
 
-But I would like to apply anomaly detection to hotel room prices. The reason is somewhat selfish.
+但我将对酒店房费进行异常检测，原因说起来有点自私。
 
-Have you had experience that, lets say, you travel to a certain destination for business regularly and you always stay at the same hotel. While most of the time, the room rate is almost similar but occasionally for the same hotel, same room type, the rate is unacceptably high, and you’d have to change to another hotel because your travel allowance does not cover that rate. I had been through this several times and this makes me think, what if we could create a model to detect this kind of price anomaly automatically?
+不知道你是否有过这样的经历，比如，你定期到某地出差，每次下榻同一个酒店。通常情况下，房费的波动都不大。但是有些时候，即便还是同一个酒店的同一个房型都贵得吓人。由于出差补贴的限制，这时你就只能选择换一家酒店了。被坑了好几次之后，我开始考虑创建一个模型来自动检测这种价格异常。
 
-Of course there are circumstance that some anomaly happens only once a life time and we have known them in advance and probably it will not happen the same time in the future years, such as the ridiculous hotel prices in Atlanta on February 2 to February 4, 2019.
+当然，有些反常情况你一辈子只会遇到一次，我们可以提前知道，后面几年应该不会在同一时间再次碰上。比如 2019 年 2 月 2 日至 2 月 4 日亚特兰大惊人的房费。
 
 ![Figure 1](https://cdn-images-1.medium.com/max/2218/1*hGWm-K7FMcyXEA2j4i5weg.png)
 
-In this post, I will explore different anomaly detection techniques and our goal is to search for anomalies in the time series of hotel room prices with unsupervised learning. Let’s get started!
+在这篇文章中，我会尝试不同的异常检测技术，使用无监督学习对时间序列的酒店房费进行异常检测。下面我们开始吧！
 
-## The Data
+## 数据
 
-It is very hard to get the data, I was able to get some but the data is not perfect.
+获取数据的过程很艰难，我只拿到了一些不够完美的数据。
 
-The data we are going to use is a subset of[ Personalize Expedia Hotel Searches](https://www.kaggle.com/c/expedia-personalized-sort/data) data set that can be found [here](https://www.kaggle.com/c/expedia-personalized-sort/data).
+我们要使用的数据是 [Expedia 个性化酒店搜索](https://www.kaggle.com/c/expedia-personalized-sort/data)数据的子集，点[这里](https://www.kaggle.com/c/expedia-personalized-sort/data)获取数据集。
 
-We are going to slice a subset of the training.csv set like so:
+我们将从 training.csv 中分割出一个子集：
 
-* Select one single hotel which has the most data point `property_id = 104517` .
-* Select visitor_location_country_id = 219 , as we know from the another analysis that country id 219 is the Unites States. The reason we do that is to unify the `price_usd` column. Since different countries have different conventions regarding displaying taxes and fees and the value may be per night or for the whole stay. And we know that price displayed to US visitors is always per night and without taxes.
-* Select `search_room_count = 1`.
-* Select the features we need: `date_time`, `price_usd`, `srch_booking_window`, `srch_saturday_night_bool`.
+* 选择数据点最多的酒店 `property_id = 104517`。
+* 选择 visitor_location_country_id = 219（从另一段分析中可知国家号 219 代表美国）来统一 `price_usd` 列。 这样做是因为各个国家在显示税费和房费上有不同的习惯，这个房费可能是每晚的费用也可能是总计的费用，但我们知道美国的酒店显示的就是每晚不含税费的价格。
+* 选择 `search_room_count = 1`.
+* 选择我们需要的其他特征：`date_time`、`price_usd`、`srch_booking_window` 和 `srch_saturday_night_bool`。
 
 ```python
 expedia = pd.read_csv('expedia_train.csv')
@@ -44,7 +44,7 @@ df = df.loc[df['visitor_location_country_id'] == 219]
 df = df[['date_time', 'price_usd', 'srch_booking_window', 'srch_saturday_night_bool']]
 ```
 
-After slice and dice, this is the data we will be working with:
+完成分割之后就能得到我们要使用的数据了：
 
 ```python
 df.info()
@@ -58,9 +58,9 @@ df['price_usd'].describe()
 
 ![](https://cdn-images-1.medium.com/max/2000/1*WbcFNTxZ63e4vpF-52ZuUw.png)
 
-At this point, we have detected one extreme anomaly which was the Max price_usd at 5584.
+现在我们发现了一个严重的异常，price_usd 的最大值竟然是 5584。
 
-If an individual data instance can be considered as anomalous with respect to the rest of the data, we call it ****Point Anomalies**** (e.g. purchase with large transaction value). We could go back to check the log to see what was it about. After a little bit investigation, I guess it was either a mistake or user searched a presidential suite by accident and had no intention to book or view. In order to find more anomalies that are not extreme, I decided to remove this one.
+如果一个单独的数据项与其他数据相比有些反常的话，我们就称它为**单点异常**（例如巨额交易）。我们可以检查日志，看看到底是怎么回事。经过一番调查，我觉得可能是数据错误，或者是某个用户无意间搜了一下总统套房，但是并没有预定或者浏览。为了发现更多比较轻微的异常，我决定删掉这条数据。
 
 ```python
 expedia.loc[(expedia['price_usd'] == 5584) & (expedia['visitor_location_country_id'] == 219)]
@@ -72,9 +72,9 @@ expedia.loc[(expedia['price_usd'] == 5584) & (expedia['visitor_location_country_
 df = df.loc[df['price_usd'] < 5584]
 ```
 
-At this point, I am sure you have found that we are missing something, that is, we do not know what room type a user searched for, the price for a standard room could be very different with the price for a King bed room with Ocean View. Keep this in mind, for the demonstration purpose, we have to continue.
+看到这里，你一定已经发现我们漏掉了些条件，我们不知道用户搜索的房型，标准间的价格可是和海景大床房的价格大相径庭的。为了证明，请记住这一点。好了，该继续了。
 
-## Time Series Visualizations
+## 时间序列可视化
 
 ```python
 df.plot(x='date_time', y='price_usd', figsize=(12,6))
@@ -99,90 +99,91 @@ plt.show();
 
 ![Figure 5](https://cdn-images-1.medium.com/max/2000/1*kN38184_RxkgANP4uiov1w.png)
 
-In general, the price is more stable and lower when searching Non-Saturday night. And the price goes up when searching Saturday night. Seems this property gets popular during the weekend.
+总的来说，搜索非周六的晚上得到的价格更加稳定和低廉，搜索周六晚上得到的价格明显上升。看来这家酒店周末的时候比较受欢迎。
 
-## **Clustering-Based Anomaly Detection**
+## **基于聚类的异常检测**
 
-### **k-means algorithm**
+### **k-平均算法**
 
-k-means is a widely used clustering algorithm. It creates ‘k’ similar clusters of data points. Data instances that fall outside of these groups could potentially be marked as anomalies. Before we start k-means clustering, we use elbow method to determine the optimal number of clusters.
+k-平均是一个应用广泛的聚类算法。它创建 ‘k’ 个相似数据点簇。在这些聚类之外的数据项可能被标记为异常。在我们开始用 k-平均聚类之前，我们使用肘部法则来确定最优簇数。
 
 ![Figure 6](https://cdn-images-1.medium.com/max/2000/1*sbYunUvghD_r721IR5E2RA.png)
 
-From the above elbow curve, we see that the graph levels off after 10 clusters, implying that addition of more clusters do not explain much more of the variance in our relevant variable; in this case `price_usd`.
+从上图的肘部曲线来看，我们发现图像在 10 个簇之后逐渐水平，也就是说增加更多的簇并不能解释相关变量更多的方差；这个例子中的相关变量是 `price_usd`。
 
-we set `n_clusters=10`, and upon generating the k-means output use the data to plot the 3D clusters.
+我们设置 `n_clusters=10`，使用 k-平均输出的数据绘制 3D 的簇。
 
 ![Figure 7](https://cdn-images-1.medium.com/max/2000/1*HoU7DGQx8UgHBJSXLuq1bQ.png)
 
-Now we need to find out the number of components (features) to keep.
+现在我们得搞清楚要保留几个成分（特征）。
 
 ![Figure 8](https://cdn-images-1.medium.com/max/2000/1*_ncv1D_uD2wWmigdRvZbsA.png)
 
-We see that the first component explains almost 50% of the variance. The second component explains over 30%. However, we’ve got to notice that almost none of the components are really negligible. The first 2 components contain over 80% of the information. So, we will set `n_components=2`.
+我们可以看到，第一个成分解释了解释了几乎 50% 的方差，第二个成分解释了超过 30% 的方差。然而，我们应该注意，没有哪一个成分是可以忽略不计的。前两个成分包含了超过 80% 的信息，所以我们设置 `n_components=2`。
 
-The underline assumption in the clustering based anomaly detection is that if we cluster the data, normal data will belong to clusters while anomalies will not belong to any clusters or belong to small clusters. We use the following steps to find and visualize anomalies.
+基于聚类的异常检测中强调的假设是我们对数据聚类，正常的数据归属于簇，而异常不属于任何簇或者属于很小的簇。下面我们找出异常并进行可视化。
 
-* Calculate the distance between each point and its nearest centroid. The biggest distances are considered as anomaly.
-* We use `outliers_fraction` to provide information to the algorithm about the proportion of the outliers present in our data set. Situations may vary from data set to data set. However, as a starting figure, I estimate `outliers_fraction=0.01`, since it is the percentage of observations that should fall over the absolute value 3 in the Z score distance from the mean in a standardized normal distribution.
-* Calculate `number_of_outliers` using `outliers_fraction`.
-* Set `threshold` as the minimum distance of these outliers.
-* The anomaly result of `anomaly1` contains the above method Cluster (0:normal, 1:anomaly).
-* Visualize anomalies with cluster view.
-* Visualize anomalies with Time Series view.
+* 计算每个点和离它最近的聚类中心的距离。最大的那些距离就是异常。
+* 我们用 `outliers_fraction` 给算法提供数据集中离群点比例的信息。不同的数据集情况可能不同，但是作为一个起点，我估计 `outliers_fraction=0.01`，这正是标准正态分布中，偏离均值的距离以 Z 分数的绝对值计超过 3 的观测值所占比例。
+* 使用 `outliers_fraction` 计算 `number_of_outliers` 。
+* 将 `threshold` 设置为离群点间的最短距离。
+* `anomaly1` 的异常结果包括上述方法的簇（0：正常，1：异常）。
+* 使用集群视图可视化异常。
+* 使用时序视图可视化异常。
 
 ![Figure 9](https://cdn-images-1.medium.com/max/2000/1*JG_xuw8E14iEkxLBuBF4fg.png)
 
 ![Figure 10](https://cdn-images-1.medium.com/max/2000/1*B85xLfKeg4n4NqFx4H1Cow.png)
 
-It seems that the anomalies detected by k-means clustering were either some of very high rates or some of very low rates.
+结果表明，k-平均聚类检测到的异常房费要么非常高，要么非常低。
 
-## **Isolation Forests** For A**nomaly Detection**
+## 使用**孤立森林**进行**异常检测**
 
-[Isolation Forest](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html) detects anomalies purely based on the fact that anomalies are data points that are few and different. The anomalies isolation is implemented without employing any distance or density measure. This method is fundamentally different from clustering based or distance based algorithms.
+[孤立森林](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html)纯粹基于异常值的数量少且取值有异这一情况来进行检测。异常隔离不用度量任何距离或者密度就可以实现。这与基于聚类或者基于距离的算法完全不同。
 
-* When applying an[ IsolationForest](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html) model, we set contamination = outliers_fraction, that is telling the model that the proportion of outliers in the data set is 0.01.
-* `fit` and `predict(data)` performs outlier detection on data, and returns 1 for normal, -1 for anomaly.
-* Finally, we visualize anomalies with Time Series view.
+* 我们使用一个[IsolationForest](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html)模型，设置 contamination = outliers_fraction，这意味着数据集中异常的比例是 0.01。
+* `fit` 和 `predict(data)` 在数据集上执行异常检测，对于正常值返回 1，对于异常值返回 -1。
+* 最终，我们得到了异常的时序视图。
 
 ![Figure 11](https://cdn-images-1.medium.com/max/2000/1*qddrIOLJSd2-iMpj7qbjiQ.png)
 
-## **Support Vector Machine-Based Anomaly Detection**
+## **基于支持向量机的异常检测（SVM）**
 
-A[ SVM](https://en.wikipedia.org/wiki/Support-vector_machine) is typically associated with supervised learning, but [OneClassSVM](https://en.wikipedia.org/wiki/Support-vector_machine) can be used to identify anomalies as an unsupervised problems that learns a decision function for anomaly detection: classifying new data as similar or different to the training set.
+[SVM](https://en.wikipedia.org/wiki/Support-vector_machine) 和监督学习紧密相连，但是 [OneClassSVM](https://en.wikipedia.org/wiki/Support-vector_machine) 可以将异常检测当作一个无监督的问题，学得一个决策函数：将新数据归类为与训练数据集相似或者与训练数据集不同。
 
 ### OneClassSVM
 
-According to the paper:[ Support Vector Method for Novelty Detection](http://users.cecs.anu.edu.au/~williams/papers/P126.pdf). SVMs are max-margin methods, i.e. they do not model a probability distribution. The idea of SVM for anomaly detection is to find a function that is positive for regions with high density of points, and negative for small densities.
+根据这篇论文：[ Support Vector Method for Novelty Detection](http://users.cecs.anu.edu.au/~williams/papers/P126.pdf)。SVM 是基于间隔最大的方法，也就是不对一种概率分布建模。基于 SVM 的异常检测的核心就是找到一个函数，这个函数对于点密度高的区域输出正值，对于点密度低的区域返回负值。
 
-* When fitting[ OneClassSVM](https://scikit-learn.org/stable/modules/generated/sklearn.svm.OneClassSVM.html#sklearn.svm.OneClassSVM) model, we set `nu=outliers_fraction`, which is an upper bound on the fraction of training errors and a lower bound of the fraction of support vectors, and must be between 0 and 1. Basically this means the proportion of outliers we expect in our data.
-* Specifies the kernel type to be used in the algorithm: `rbf`. This will enable SVM to use a non-linear function to project the hyperspace to higher dimension.
-* `gamma` is a parameter of the RBF kernel type and controls the influence of individual training samples - this effects the "smoothness" of the model. Through experimentation, I did not find any significant difference.
-* `predict(data)` perform classification on data, and because our model is an one-class model, +1 or -1 is returned, and -1 is anomaly, 1 is normal.
+* 在拟合 [OneClassSVM](https://scikit-learn.org/stable/modules/generated/sklearn.svm.OneClassSVM.html#sklearn.svm.OneClassSVM) 模型时，我们设置  `nu=outliers_fraction`，这是训练误差的上界和支持向量的下界，这个值必须在 0 到 1 之间。这基本上是我们预计数据里面的离群值占比多少。
+* 指定算法中的核函数类型：`rbf`。此时 SVM 使用非线性函数将超空间映射到更高维度中。
+* `gamma` 是 RBF 内核类型的一个参数，控制着单个训练样本的影响 — 它影响着模型的"平滑度"。经过试验，我没发现什么重要的差别。
+* `predict(data)` 执行数据分类。因为我们的模型是一个单类模型，所以只会返回 +1 或者 -1，-1 代表异常，1 代表正常。
 
 ![Figure 12](https://cdn-images-1.medium.com/max/2000/1*4CBpGg6xTabEf_K1yWbteQ.png)
 
-## Anomaly Detection using Gaussian Distribution
+## 使用高斯分布进行异常检测
 
-Gaussian distribution is also called normal distribution. We will be using the Gaussian distribution to develop an anomaly detection algorithm, that is, we’ll assume that our data are normally distributed. This’s an assumption that cannot hold true for all data sets, yet when it does, it proves an effective method for spotting outliers.
+高斯分布又称为正态分布。我们将使用高斯分布开发一个异常检测算法，换言之，我们假设数据服从正态分布。这个假设并不适用于所有数据集，一旦成立，就能高效地确定离群点。
 
-Scikit-Learn’s `[**covariance.EllipticEnvelope**](https://scikit-learn.org/stable/modules/generated/sklearn.covariance.EllipticEnvelope.html)` is a function that tries to figure out the key parameters of our data’s general distribution by assuming that our entire data is an expression of an underlying multivariate Gaussian distribution. The process like so:
+Scikit-Learn 的 `[**covariance.EllipticEnvelope**](https://scikit-learn.org/stable/modules/generated/sklearn.covariance.EllipticEnvelope.html)` 函数假设我们的全体数据是一概率分布的外在表现形式，其背后服从一项多变量高斯分布，以此尝试计算数据数据总体分布的关键参数。过程类似这样：
 
-* Create two different data sets based on categories defined earlier, — search_Sat_night, Search_Non_Sat_night.
-* Apply `EllipticEnvelope`(gaussian distribution) at each categories.
-* We set `contamination` parameter which is the proportion of the outliers present in our data set.
-* We use `decision_function` to compute the decision function of the given observations. It is equal to the shifted Mahalanobis distances. The threshold for being an outlier is 0, which ensures a compatibility with other outlier detection algorithms.
-* The `predict(X_train)` predict the labels (1 normal, -1 anomaly) of X_train according to the fitted model.
+* 根据之前定义的类别创建两个不同的数据集 —— search_Sat_night、Search_Non_Sat_night。
+* 对每个类别使用 `EllipticEnvelope`（高斯分布）。
+* 我们设置 `contamination` 参数，它是数据集中出现的离群点的比例。
+* 我们用 `decision_function` 来计算给定观测值的决策函数，它和平移马氏距离等价。为了确保和其他离群点检测算法的兼容性，成为离群点的阈值被设置为 0。
+* `predict(X_train)` 使用拟合好的模型预测 X_train 的标签（1 表示正常，-1 表示异常）。
 
 ![Figure 13](https://cdn-images-1.medium.com/max/2000/1*YMF_eAI6ofVzwKc0Ncsz8g.png)
 
-It is interesting to see that anomalies detected in this way have only observed abnormal high prices but not abnormal low prices.
+有趣的是，这种方式检测只检测到了异常高的价格，却没有检测到异常低的价格。
 
-So far, we have done price anomaly detection with four different methods. Because our anomaly detection is unsupervised learning. After building the models, we have no idea how well it is doing as we have nothing to test it against. Hence, the results of those methods need to be tested in the field before placing them in the critical path.
+目前为止，我们已经用四种方法完成了价格异常检测。因为我们是用无监督学习进行异常检测的，建好模型之后，我们没什么可以用来对比测试，也就无法知道它的表现究竟如何。因此，在用这些方法处理关键问题之前必须对它们的结果进行测试。
 
-[Jupyter notebook](https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/Time%20Series%20of%20Price%20Anomaly%20Detection%20Expedia.ipynb) can be found on [Github](https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/Time%20Series%20of%20Price%20Anomaly%20Detection%20Expedia.ipynb). Enjoy the rest of the week!
+[Jupyter notebook](https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/Time%20Series%20of%20Price%20Anomaly%20Detection%20Expedia.ipynb) 已经上传至 [Github](https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/Time%20Series%20of%20Price%20Anomaly%20Detection%20Expedia.ipynb)。 好好享受这一周吧！
 
-References:
+参考文献：
+
 * [**Introduction to Anomaly Detection**](https://www.datascience.com/blog/python-anomaly-detection)
 * [**sklearn.ensemble.IsolationForest - scikit-learn 0.20.2 documentation**](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html)
 * [**sklearn.svm.OneClassSVM - scikit-learn 0.20.2 documentation**](https://scikit-learn.org/stable/modules/generated/sklearn.svm.OneClassSVM.html)

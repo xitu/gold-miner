@@ -2,110 +2,110 @@
 > * 原文作者：[Jesse Weaver](https://medium.com/@hairyelefante)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/design-is-not-going-to-save-the-world.md](https://github.com/xitu/gold-miner/blob/master/TODO1/design-is-not-going-to-save-the-world.md)
-> * 译者：
-> * 校对者：
+> * 译者：[QiaoN](https://github.com/QiaoN)
+> * 校对者：[Moonliujk](https://github.com/Moonliujk), [Fengziyin1234](https://github.com/Fengziyin1234)
 
-# Design Won't Save the World
+# 设计不会拯救世界
 
-> Human-centered design is great for mops and phones, but it won’t solve society’s biggest problems
+> 以人为本的设计非常适合拖把以及手机，但它不会解决社会最大的问题。
 
 ![](https://cdn-images-1.medium.com/max/10944/1*xxI7UYo5-Lyb7wCth0FyOQ.jpeg)
 
-Photo by [Hermes Rivera](https://unsplash.com/photos/R1_ibA4oXiI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/@hermez777?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+拍摄者 [Hermes Rivera](https://unsplash.com/photos/R1_ibA4oXiI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/@hermez777?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 
-“Design can change the world.”
+“设计能改变世界”
 
-When I was in design school, this statement filled me with incredible energy and pride. I felt it in my core. How could I not? Over the last few decades, design — and design thinking — has [ascended](https://hbr.org/2015/09/design-thinking-comes-of-age) to the point of being routinely viewed as one of **the** differentiators for companies and products.
+当我在设计学院时，这句话令我充满了无尽的能量和骄傲，它存在我的内心深处。怎么会不在呢？在过去几十年中，设计及设计思维，已经[逐渐](https://hbr.org/2015/09/design-thinking-comes-of-age)被视为公司和产品的一个**重要的**区分因素。
 
-Behind this ascension lies design’s anointed operating system: human-centered design.
+在这个提升的背后是设计加成的操作系统：以人为本的设计。
 
-The fundamental idea behind human-centered design is that, to find the best solution, designers need to develop an empathetic understanding of the people they are designing for.
+以人为本的设计背后的基本理念是，为了寻找最佳解决方案，设计师需要加深对使用他们设计的用户设身处地的理解。
 
-Designers do this through user interviews, contextual observations (watching users go about their business in their “normal” life), and a number of other tools that help designers put themselves in users’ shoes. Once you can paint an empathetic picture of a user’s needs, the next step in the process is to identify a few key insights and use those to create a solution.
+设计师通过用户访谈，上下文观察（观察用户在他们“正常”生活中的工作），以及其它一些帮助设计师设身处地理解用户的工具来实现这一目标。一旦你能够描绘出一幅用户切身需求的图景，下一步骤就是确定一些关键洞见并使用其创建一个解决方案。
 
-One famous example is the development of the [Swiffer](https://www.fastcompany.com/3006797/innovation-method-behind-swiffer-madness) mop. Designers, tasked with improving the process of housecleaning, observed customers cleaning their homes. A key insight was that time was critical. Cleaning often cut into time for other activities, and any time savings would be a boon. Mopping was identified as an especially time-consuming part of cleaning, with multiple steps and multiple pieces of equipment, not to mention waiting for the floor to dry. So designers created a “dry mop” (the Swiffer) that simplified the process and saved time. It was a huge commercial success.
+[Swiffer](https://www.fastcompany.com/3006797/innovation-method-behind-swiffer-madness) 拖把的开发是一个著名的例子。负责改进清扫房屋流程的设计师观察了客户打扫他们的房屋。一个关键洞见是时间的重要性。清扫通常会减少其它活动时间，所以任何对时间的节省都是喜闻乐见的。拖地被认为是清扫中一个非常耗时的环节，有多个步骤和繁复的工具，更别提还要等地板干透。所以设计师创造了一个“干拖把”（也就是 Swiffer），用来简化流程和节约时间。这是一个巨大的商业成功。
 
-Straightforward enough.
+非常直截了当。
 
-And the process works. Countless products and services that drive our daily lives were either born from this process or dramatically improved by it. Smartphones and many of their apps, social media services like Instagram and Twitter. The darlings of the sharing economy — Uber, Lyft, and Airbnb. Not to mention a litany of physical products.
+这个过程是有效的。推动我们日常生活的无数产品和服务要么从这个过程中产生，要么被大幅的改进。智能手机和很多其上的应用程序，Instagram 和 Twitter 等社交服务，共享经济的宠儿如 Uber、Lyft 和 Airbnb，更不用说一连串的实体产品了。
 
-The way the world works and the way we work in it are fundamentally different today than they were even a decade ago. In large part, this is due to the process of human-centered design.
+当今世界的运转方式及我们工作的方式与十年前的情况截然不同。很大程度上是因为以人为本的设计过程。
 
-So, we as designers puff out our chests and carry our heads high knowing that we have the power to change the world.
+因此，我们设计师可以挺胸抬头，认为我们有能力改变世界。
 
-But, if you step back for a moment, you start to see a problem: We’ve been designing the world, real hard, for decades now and we haven’t made a dent in a single real problem.
+但是，如果你退后思考一下，你会开始发现一个问题：我们几十年来一直在非常努力的设计这个世界，可我们并没有减少任何一个真正的问题。
 
-What do I mean by “real problem”?
+我说的“真正的问题”是什么意思呢？
 
-I mean **real** problems. The big ones. The kind that shake us to the core of our humanity and threaten our long-term viability.
+我指**真正**的问题。那些大问题，那类可以动摇人类的根本并威胁到我们长期生存能力的大问题。
 
-Hunger. Climate change. Poverty. Income inequality. Illiteracy. Bigotry. Discrimination. Environmental degradation. The list goes on.
+饥饿。气候变化。贫穷。收入差距。文盲。偏执。歧视。环境恶化。列表还在继续增加。
 
-Right now, there are people in the richest country on Earth who are starving. People who can’t access or afford health care. People who are homeless. That’s the **richest** country.
+现在，地球上最富裕的国家有正在挨饿的人，有无法获得或负担医疗保健的人，有无家可归的人。这是**最富裕**的国家。
 
-Right now, our oceans are choking to death from plastics. Our atmosphere is choking to death from CO2, and we have effectively lost 50 percent of the Earth’s biodiversity.
+现在，我们的海洋因为塑料在濒死。我们的大气层因为二氧化碳在濒死，我们也已经失去了一半的地球生物多样性。
 
-Guess what: Design hasn’t fixed any of it.
+猜猜如何：设计并没有解决其中任何一个问题。
 
-Not even the slightest bit.
+连一丁点也没有。
 
-And, unfortunately, design **won’t** fix any of it, because our operating system won’t allow it.
+而且，不幸的是，设计**并不会**修复其中的任何问题。因为我们的操作系统并不允许。
 
-## The Problem with Human-Centered Design
+## 以人为本的设计的问题
 
-Big problems, those that threaten our existence or the stability of our society, are systemic. They coarse through the veins of the entire system. Their causes are widespread and varied, and the people involved represent almost every segment of society.
+那些威胁到我们生存或社会稳定的大问题是系统性的。它们粗糙的贯穿整个系统。引起它们的原因是广泛而多样的，所涉及的人代表了几乎社会的每个部分。
 
-These kinds of problems are multifaceted. They do not have a silver bullet. There is no “ah-ha” insight hiding out there that will suddenly help us solve the problem and see the light.
+这些问题是多方面的。并没有什么万能方法来解决它们。能突然来帮助我们解决问题，让我们看到曙光的惊奇洞见并不存在。
 
-Instead, solving these kinds of systemic problems is like trying to contain a wildfire. While you’re working to fight one side of it, the other side has just burned another 50 square miles. You can’t hope to make progress by chipping away at one piece of the problem while ignoring the others.
+相反，解决这些系统问题就像试着控制野火一样。当你正努力和它一侧斗争时，另一侧又烧了 50 平方英里。你不能希望只减少问题的一部分却忽略其它部分来取得进展。
 
-Eventually, like a wildfire, you try to mitigate as much damage as possible until the weather shifts and a rainstorm comes along, providing a truly systemic solution. A solution that addresses the problem from all sides.
+最终，就像野火一样，你只能试着尽量减少伤害，直到天气转变暴雨来临提供了真正的系统解决方案，来解决了问题的方方面面。
 
-Human-centered design is not architected to solve systemic problems. In fact, human-centered design is architected to solve the exact opposite type of problem.
+以人为本的设计并不是为了解决系统性问题而缔造的。事实上，以人为本的设计是为了解决完全相反的问题而缔造的。
 
-Human-centered design is all about focus. It’s about observing the big picture and then zeroing in on a manageable set of insights and variables, and solving for those. By definition, this means the process pushes the designer to actively ignore many of a problem’s facets. And this kind of myopic focus doesn’t work when you’re trying to solve something systemic.
+以人为本的设计是聚焦。它是观察全局，然后将一组可管理的洞见和变量归零，并解决它们。根据定义，这意味着该过程会促进设计师主动忽略问题的许多方面。当你试图解决一些系统性的问题时，这种短程聚焦不起作用。
 
-[A recent study](http://www.schallerconsult.com/rideservices/automobility.htm) on ride-sharing apps, a category of companies heavy on user-centered design, found that ride sharing **adds** 2.6 vehicle miles to city traffic for every one mile of personal driving removed. Ride-sharing apps actually make traffic in cities **worse**.
+最近，一份针对一系列强调以用户为中心设计的共享出行程序的[研究](http://www.schallerconsult.com/rideservices/automobility.htm)表明，共享出行每减少 1英里的个人驾驶里程，总城市交通却**增加**了 2.6 英里。共享出行程序实际上使城市交通变的**更糟**。
 
-Ride-sharing companies, like Lyft, were predicated on the idea that they could put a dent in the problem of human transportation by solving for traffic congestion, and they used human-centered design approaches to do it. How could they have gone wrong?
+共享出行公司如 Lyft 曾预想他们可以通过解决交通拥堵来缓解人们的交通问题，他们采用了以人为本的设计方法来实现这一想法。他们怎么会出错呢？
 
-It’s obvious. Human transportation is not a focused problem, it is a significant systemic issue. Through a human-centered design process, ride-sharing apps landed on the insight that getting a cab, or finding a ride, was inefficient in many cities. They focused on this insight and then, as their process is designed to do, shut out the other facets of the problem.
+很明显，人们的交通并不是一个焦点问题，而是一个重要的系统问题。通过以人为本的设计过程，共享出行程序聚焦于：在很多城市，打到出租的效率并不高。因为他们过于关注这些，正如他们设计的过程那样，却排除了问题的其它方面。
 
-They concluded: “If we can make getting a ride more efficient, less people will drive their own cars, reducing traffic.”
+他们得出结论：“如果我们能让出行更有效率，那么会有更少的人开自己的车，从而减少交通流量。”
 
-This is the kind of simplified, guiding statement human-centered design produces.
+这是一种以人为本的设计产生的，简单的指导性的描述。
 
-And guess what? Uber and Lyft succeeded in making it easier to get a ride. Human-centered design works for a consumer-facing problem like that. In the process, however, they overlooked other aspects of the transportation ecosystem.
+猜猜如何？Uber 和 Lyft 成功的让搭便车变得更容易。以人为本的设计适用于此类面向消费者的问题上。然而，他们忽略了交通生态系统的其它方面。
 
-For example, as the study found, many people use non-automobile transportation, like bikes, buses, and trains, specifically because they don’t have a car (and getting a ride is a pain). Once ride-sharing apps made it easier to get a car, people who’d previously used public transportation began to opt for car-based travel. Human-centered design’s myopic focus kept this non-auto population obscured from view during the design process. This is an example of just **one** of the problem facets left out of the solution.
+例如，正如研究发现的那样，很多人使用非机动交通工具比如自行车，公共汽车或者火车，主要是因为他们并没有私家车（以及出行并不方便）。一旦使用共享出行程序能够很容易的获得一辆私家车，那些之前使用公共交通的人便开始选择基于私家车的旅行。以人为本的设计的短程聚焦方式无法在设计过程中包含这类非机动车使用人群。这只是解决方案遗漏**某一个**方面的一个例子，而解决方案还有其它无法涵盖的方面。
 
-A user-centered approach is great for figuring out how to [make the experience better for Airbnb customers](https://www.forbes.com/sites/emilyjoffrion/2018/07/09/the-designer-who-changed-airbnbs-entire-strategy/#7367d1c62c36), or how to change the way people mop. But it cannot contain a systemic problem like human transportation. When faced with a big, hairy, multifaceted problem, our focused, iterative operating system is abysmally inadequate. Human-centered design can barely handle damage control.
+以用户为中心的方法非常适合[为 Airbnb 客户提供更好的体验](https://www.forbes.com/sites/emilyjoffrion/2018/07/09/the-designer-who-changed-airbnbs-entire-strategy/#7367d1c62c36)，或者改进人们的拖把。但它并不能解决诸如人们交通等系统性问题。当面对一个庞大的，细节丰富的，多个方面的问题，我们这种聚焦迭代的操作系统就非常不合适了。以人为本的设计几乎无法处理损害控制。
 
-And so we inch our way forward. Chipping away at one side while the other burns out of control.
+因此我们按我们的路线向前迈了一步。只在一侧处理却使得另一侧失控。
 
-## What Do We Need Instead?
+## 我们需要什么来代替？
 
-I’m not saying we need to abolish human-centered design. It works for what it’s designed for. We have **way** better mops now (among many other things), and that’s wonderful. But, we need to understand the limits of our tools and begin to think about new ones. Tools that can help us grok the breadth and complexity of really big problems — and start to solve for them systemically.
+我没有说我们需要废除以人为本的设计。这种设计方式对适合它的问题很有用。我们现在有了**远**比之前好的拖把（除了其它因素），这很棒。但是，我们需要理解我们工具的局限性，并开始思考新的工具，那些可以帮我们了解真正重大的问题的广度和复杂度的工具，然后开始系统地解决这些大问题。
 
-Some in the design field are working on moving human-centered design forward. [IDEO](https://medium.com/@ideo), one of the progenitors of human-centered design, is pushing a new concept: [Circular Design](https://www.circulardesignguide.com/). The idea behind Circular Design is to start thinking about designed objects through the lens of a “circular economy.” No longer driven by a **create and dispose** mentality, but a **create and reuse** mentality. It’s a rebrand of the [cradle to cradle](https://www.amazon.com/Cradle-Remaking-Way-Make-Things/dp/0865475873) concept, focused on sustainability.
+设计领域的一些人正致力于推进以人为本的设计。[IDEO](https://medium.com/@ideo) 作为以人为本的设计的先驱之一，正在推行一个新概念：[循环设计](https://www.circulardesignguide.com/)。循环设计背后的理念是通过“循环经济”的视角来思考设计对象。不再是**创造和销毁**的心态，而是**创造和再使用**的心态。它是[摇篮到摇篮](https://www.amazon.com/Cradle-Remaking-Way-Make-Things/dp/0865475873)概念的再塑造，专注于可持续发展。
 
-While this is an important step forward, it falls short of the systemic design thinking we need. Like the myopic aspect of human-centered design, Circular Design still drives toward focused design insights from which to create solutions. The difference? It asks the designer to consider the full life cycle of a solution and its long-term impact. Again, this is an indisputably important shift in the culture of design, but will it truly **solve** undefinedbig problems?
+这是非常重要的一步发展，但还无法达到我们需要的系统设计思维。正如以人为本的设计的短视层面，循环设计也是用专注的设计洞见创造解决方案。区别只在于，循环设计要求设计师考虑解决方案的整个生命周期和长期影响。确实，这是设计文化中无可争议的一个重要转变，但它真的能**解决**不明确的重大问题么？
 
-If I design for the full life cycle of my reusable water bottle, I may have a more sustainable water bottle, but I have not created a systemic solution for our plastics problem. I have not changed the economic incentives driving plastic culture. I have not solved for the distribution and financial issues that make single-use bottled water more accessible. I have not solved for the public health issues that make single-use bottled water significantly safer in many areas. And I have not solved for all the other applications of single-use plastics.
+如果我为我的重复使用的水瓶设计整个生命周期，我可能会有一个更加可持续的水瓶，但我没有为塑料问题创造一个系统性的解决方案。我没有改变促使塑料文化的经济动机。我没有解决分配和价格问题，所以一次性瓶装水更普及。我没有解决公共健康问题，所以一次性瓶装水在很多地方非常安全。同样我也没有解决一次性塑料的所有其它应用。
 
-I’m back to damage control. And the fire keeps getting bigger.
+我又绕回了损害控制。而火势越来越大了。
 
-## How Can We Break the Mold?
+## 我们如何打破已有的模式？
 
-If we extend the wildfire analogy, perhaps we can create a design framework that allows us to more rapidly innovate in small ways across all facets of a problem, instead of trying to focus on a select few. Like a rainstorm, lots of tiny drops — delivered in a coordinated fashion — can extinguish a very large fire.
+如果类比于野火的扩张，也许我们可以创造一种设计框架，使我们能够在一个问题的各个方面以更小的方式进行更快的创新，而非只试着专注于选出的少数几个方面。如同暴风雨，许多密集的雨点 —— 以一种统一协调的方式落下 —— 可以浇灭一场巨大的火灾。
 
-Or maybe it’s about getting rid of our culture of competition and creating a new culture of collaboration. If we start ignoring the corporate and political silos separating us, we can collaboratively combine lots of focused solutions, allowing us to knit them together into a single tapestry that truly covers an entire problem. There are lots of solutions out there. We just don’t have a thread pulling them together.
+或许这也是为了摆脱现有的竞争文化并创造新的合作文化。如果开始忽略将我们隔离的企业或政治孤岛，我们可以相互协作地结合很多专注性解决方案，从而变成一个真正的涵盖整个问题的单一解决方案。现在已经存在很多解决方案，我们只是没有将它们聚在一起的行为。
 
-Or maybe it’s about upending the economic incentives that drive design. Human-centered design was created to serve our current economic system. There’s money in creating a better mop. There isn’t money in solving homelessness. In order to thrive economically we needed to consistently design better mops, so we built a framework to do it.
+或许这可能颠覆驱动设计的经济动机。创造以人为本的设计是为了服务现有的经济体系。创造一个更好的拖把是有利益的。但解决无家可归的问题并没有利益。为了经济繁荣我们需要一直设计更好的拖把，所以我们建立了一个框架来做这件事情。
 
-If we had the right incentives, how quickly could we develop a framework for systemic design thinking?
+如果我们有正确的激励措施，我们能多快为系统设计思维建立一个框架？
 
-Design **can** change the world. But the way we’re going about it right now isn’t cutting it. If we want to design our way out of the big issues, we need to take a critical look at our approach. We need to upgrade our innovation operating system.
+设计**可以**改变世界。但我们现在正使用的方式并不管用。如果我们要设计出一个解决重大问题的办法，就需要对我们的方法进行批判性的审视。我们要升级我们的创新操作系统。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
