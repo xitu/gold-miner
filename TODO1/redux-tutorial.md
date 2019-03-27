@@ -32,28 +32,40 @@ Quick warning though: this tutorial is *compleeete*. And by that I mean *looong*
 请注意：本教程是*很齐齐齐全的*。也就意味篇幅着*特别长*。我把它变成了一个完整的免费课程，*并且*我制作了好看的 PDF 你可以在 iPad 或者[任何 Android 设备]上阅读。留下你的邮箱地址即可立即获取。
 
 ## Redux Essentials in One Video
+## 视频概述 Redux 要点
 
 If you prefer watching to reading, this video covers how to add Redux to a React app step-by-step:
+如果比起阅读你更喜欢看视频，这个视频涵盖如何在 React 应用中添加 Redux 的每一步：
 
 [Watch this video](https://youtu.be/sX3KeP7v7Kg)
+[看这个视频](https://youtu.be/sX3KeP7v7Kg)
 
 This parallels the first part of this tutorial, where we'll take a plain React app and add Redux to it one piece at a time.
+这与本教程的第一部分相似，我们都会在一个简单 React 应用中逐步地添加 Redux。
 
 Or, keep reading! The tutorial below covers everything in the video and then some.
+或者，继续看下去！本教程不仅涵盖视频中的所有内容，还有其他干货。
 
 ## Should You Use Redux?
+## 你应该用 Redux 吗？
 
 It's especially valid, in 2019, to wonder... should you still use Redux? Is there something better out now, with Hooks or Context or some other library?
+都 9102 年了，弄清楚你是否还应该使用 Redux 特别有用。现在有更好的替代品出现吗，使用 Hooks 或者 Context 或者其他库？
 
-The short answer: Even with plenty of alternatives, [Redux is not dead yet](https://blog.isquaredsoftware.com/2018/03/redux-not-dead-yet/). But whether or not it makes sense for your app... well, it depends.
+The short answer: Even with plenty of alternatives, [Redux is not dead yet](https://blog.isquaredsoftware.com/2018/03/redux-not-dead-yet/). But whether or not it makes sense for your app... well, it depends.
+简而言之：即使有很多替代品，[Redux 仍旧不死](https://blog.isquaredsoftware.com/2018/03/redux-not-dead-yet/)。但是是否适用于你的应用，好吧，得视情况而定。
 
-Super simple? Only a few bits of state in one or two places? Local component state will probably be great. You can do that with classes, [Hooks](https://daveceddia.com/intro-to-hooks/), or both.
+Super simple? Only a few bits of state in one or two places? Local component state will probably be great. You can do that with classes, [Hooks](https://daveceddia.com/intro-to-hooks/), or both.
+超级简单？只有一两个地方需要用到几个 state？组件内部 state 就很好了。你可以通过 classes，[Hooks](https://daveceddia.com/intro-to-hooks/) 或者二者一起来实现。
 
-A bit more complex, with a few "global" things that need to be shared across the app? The [Context API](https://daveceddia.com/context-api-vs-redux/) might be perfect for you.
+A bit more complex, with a few "global" things that need to be shared across the app? The [Context API](https://daveceddia.com/context-api-vs-redux/) might be perfect for you.
+再复杂一点，有一些“全局”的东西需要在整个应用中共享？[Context API](https://daveceddia.com/context-api-vs-redux/) 可能完美适合你。
 
 Lots of global state, with interactions between disconnected parts of the app? Or a big app that will only get bigger over time? Give Redux a try.
+很多全局的 state，与应用中独立部分之间的交互？或者一个大型应用并且随着时间推移只会越来越大？试试 Redux 吧。
 
-You can always add Redux *later*, too. You don't have to decide on Day 1. Start simple and add complexity when and where you need it.
+You can always add Redux *later*, too. You don't have to decide on Day 1. Start simple and add complexity when and where you need it.
+你也可以*以后*再使用 Redux，不必在第一天就下决定。从简单开始，在你需要的时候随时随地增加复杂性。
 
 ### Do You Know React Yet?
 
