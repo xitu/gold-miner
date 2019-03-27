@@ -170,26 +170,32 @@ In a HHM supervised scenario this is done by applying the Maximum Likelihood Es
 This is achieved by counting how many times each event occurs in the corpus and normalizing the counts to form proper probability distributions. We need to count 4 quantities which represent the counts of each event in the corpus:
 
 Initial counts: $C _ { \mathrm { init } } \left( t _ { k } \right) = \sum _ { m = 1 } ^ { M } 1 \left( t _ { 1 } ^ { m } = t _ { k } \right)$
-(how often does state tktk is the initial state)
+(how often does state $t _ { k }$ is the initial state)
 
-Transition counts: Ctrans(tk,tl)=∑m=1M∑m=2N1(tmi=tk∧tmi-1=tl)Ctrans(tk,tl)=∑m=1M∑m=2N1(tim=tk∧ti-1m=tl)\
-(how often does state tktk transits to another state tltl)
+Transition counts: $C _ { \text { trans } } \left( t _ { k } , t _ { l } \right) = \sum _ { m = 1 } ^ { M } \sum _ { m = 2 } ^ { N } 1 \left( t _ { i } ^ { m } = t _ { k } \wedge t _ { i - 1 } ^ { m } = t _ { l } \right)$
+(how often does state $t _ { k }$ transits to another state tltl)
 
-Final Counts: Cfinal(tk)=∑m=1M1(tmN=tk)Cfinal(tk)=∑m=1M1(tNm=tk)\
-(how often does state tktk is the final state)
+Final Counts: $C _ { \text { final } } \left( t _ { k } \right) = \sum _ { m = 1 } ^ { M } 1 \left( t _ { N } ^ { m } = t _ { k } \right)$
+(how often does state $t _ { k }$ is the final state)
 
-Emissions counts: Cemiss(wj,tk)=∑m=1M∑i=1N1(xmi=wj∧tmi=tk)Cemiss(wj,tk)=∑m=1M∑i=1N1(xim=wj∧tim=tk)\
-(how often does state tktk is associated with the observation/word wjwj)
+Emissions counts: $C _ { \mathrm { emiss } } \left( w _ { j } , t _ { k } \right) = \sum _ { m = 1 } ^ { M } \sum _ { i = 1 } ^ { N } 1 \left( x _ { i } ^ { m } = w _ { j } \wedge t _ { i } ^ { m } = t _ { k } \right)$
+(how often does state $t _ { k }$ is associated with the observation/word wjwj)
 
 where, MM is the number of training examples and NN the length of the sequence, 1 is an indicator function that has the value 1 when the particular event happens, and 0 otherwise. The equations scan the training corpus and count how often each event occurs.
 
 All these 4 counts are then normalised in order to have proper probability distributions:
 
-Pinit(ct|start)=Cinit(tk)∑l=1KCinit(tl)Pinit(ct|start)=Cinit(tk)∑l=1KCinit(tl)
+$$
+P _ { \mathrm { init } \left( c _ { t } | \mathrm { start } \right) } = \frac { C _ { \mathrm { init } \left( t _ { k } \right) } } { \sum _ { l = 1 } ^ { K } C _ { \mathrm { init } \left( t _ { l } \right) } }
+$$
 
-Pfinal(stop|cl)=Cfinal(cl)∑k=1KCtrans(Ck,Cl)+Cfinal(Cl)Pfinal(stop|cl)=Cfinal(cl)∑k=1KCtrans(Ck,Cl)+Cfinal(Cl)
+$$
+P _ { \text { final}( \text{stop}| c_l )}  = \frac { C _ { \text { final } \left( c _ { l } \right) } } { \sum _ { k = 1 } ^ { K } C _ { \text { trans } \left( C _ { k } , C _ { l } \right) } + C _ { \text { final } ( C _ { l } ) } }
+$$
 
-Ptrans(ck|cl)=Ctrans(ck,cl)∑p=1KCtrans(Cp,Cl)+Cfinal(Cl)Ptrans(ck|cl)=Ctrans(ck,cl)∑p=1KCtrans(Cp,Cl)+Cfinal(Cl)
+$$
+P _ { \mathrm { trans } \left( c _ { k } | c _ { l } \right) } = \frac { C _ { \mathrm { trans } \left( c _ { k } , c _ { l } \right) } } { \sum _ { p = 1 } ^ { K } C _ { \mathrm { trans } \left( C _ { p } , C _ { l } \right) } + C _ { \mathrm { final } \left( C _ { l } \right) } }
+$$
 
 Pemiss(wj|ck)=Cemiss(wj,ck)∑q=1JCemiss(wq,Ck)Pemiss(wj|ck)=Cemiss(wj,ck)∑q=1JCemiss(wq,Ck)
 
