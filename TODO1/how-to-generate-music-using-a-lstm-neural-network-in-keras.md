@@ -119,7 +119,7 @@
 
 首先，我们把数据加载到一个数组中，就像下面的代码这样：
 
-```
+```python
 from music21 import converter, instrument, note, chord
 
 notes = []
@@ -142,7 +142,7 @@ for file in glob.glob("midi_songs/*.mid"):
             notes.append('.'.join(str(n) for n in element.normalOrder))
 ```
 
-使用 _converter.parse(file)_ 函数，我们开始把每一个文件加载到一个 Music21 流对象中。使用这个流对象，我们在文件中得到一个包含所有的音符与和弦的列表。把数组符号贴到到每个音符对象的音高上，因为使用数组符号可以重新创造音符中最重要的部分。将每个和弦的 ID 编码成一个单独的字符串，每个音符用一个点分隔。这些代码使我们可以轻松的把由网络生成的输出解码为正确的音符与和弦。
+使用 `converter.parse(file)` 函数，我们开始把每一个文件加载到一个 Music21 流对象中。使用这个流对象，我们在文件中得到一个包含所有的音符与和弦的列表。把数组符号贴到到每个音符对象的音高上，因为使用数组符号可以重新创造音符中最重要的部分。将每个和弦的 ID 编码成一个单独的字符串，每个音符用一个点分隔。这些代码使我们可以轻松的把由网络生成的输出解码为正确的音符与和弦。
 
 既然我们已经把所有的音符与和弦放入一个序列表中，我们就可以创造一个序列，作为网络的输入。
 
@@ -154,7 +154,7 @@ for file in glob.glob("midi_songs/*.mid"):
 
 接下来，我们必须为网络及其输出分别创建输入序列。每一个输入序列对应的输出序列将是第一个音符或者和弦，它在音符列表的输入序列中，位于音符列表之后。
 
-```
+```python
 sequence_length = 100
 
 # 得到所有的音高名称
@@ -199,7 +199,7 @@ network_output = np_utils.to_categorical(network_output)
 
 **The Activation 层**决定使用神经网络中的哪个激活函数去计算输出节点。
 
-```
+```python
 model = Sequential()
     model.add(LSTM(
         256,
@@ -229,7 +229,7 @@ model = Sequential()
 
 为了计算每次迭代的损失，我们将使用 [分类交叉熵]，(https://rdipietro.github.io/friendly-intro-to-cross-entropy-loss/)因为我们每次输出属于一个简单类并且我们有不止两个以上的类在为此工作。为了优化网络我们将使用 RMSprop 优化器。通常对于循环神经网络，使用它算是一个好的选择。
 
-```
+```python
 filepath = "weights-improvement-{epoch:02d}-{loss:.4f}-bigger.hdf5"    
 
 checkpoint = ModelCheckpoint(
@@ -243,7 +243,7 @@ callbacks_list = [checkpoint]
 model.fit(network_input, network_output, epochs=200, batch_size=64, callbacks=callbacks_list)
 ```
 
-一旦我们决定了网络的结构，就应该开始训练了。使用 Kearas 里的 *model.fit()* 函数来训练网络。第一个参数是我们早前准备的输入序列表，而第二个参数是它们各自输出的列表。在本教程中我们将训练网络进行 200 次迭代，每一个批次都是通过包含了 60 个分支的网络增殖的。
+一旦我们决定了网络的结构，就应该开始训练了。使用 Kearas 里的 `model.fit()` 函数来训练网络。第一个参数是我们早前准备的输入序列表，而第二个参数是它们各自输出的列表。在本教程中我们将训练网络进行 200 次迭代，每一个批次都是通过包含了 60 个分支的网络增殖的。
 
 为了确保我们可以在任何时间点停止训练而不会将之前的努力付之东流，我们将使用 model checkpionts（模型检查点）。它为我们提供了一种方法，把每次迭代之后的网络节点的权重保存到一个文件中。这使我们一旦对损失值满意了就可以停掉神经网络而不必担心失去权重值。否则我们必须一直等待直到网络完成所有的 200 次迭代次数才能把权重保存到文件中。
 
@@ -253,7 +253,7 @@ model.fit(network_input, network_output, epochs=200, batch_size=64, callbacks=ca
 
 为了能用神经网络去创作音乐，你得把它恢复到原来的状态。简言之我们将再次使用训练部分中的代码，用之前的方式去准备数据和建立网络模型。这并不是重新训练网络，而是把之前网络中的权重加载到模型中。
 
-```
+```python
 model = Sequential()
 model.add(LSTM(
     512,
@@ -280,7 +280,7 @@ model.load_weights('weights.hdf5')
 
 这里我也需要写一个映射函数去编码网络的输出。这个函数将数值数据映射成分类数据（把整数变成音符）。
 
-```
+```python
 start = numpy.random.randint(0, len(network_input)-1)
 
 int_to_note = dict((number, note) for number, note in enumerate(pitchnames))
@@ -327,7 +327,7 @@ for note_index in range(500):
 
 在每次迭代的结尾我们增加 0.5 的偏移时间并且把音符/和弦对象追加到一个列表中。
 
-```
+```python
 offset = 0
 output_notes = []
 
@@ -358,7 +358,7 @@ for pattern in prediction_output:
 
 在用网络创造音符与和弦的列表之后，我们可以使用这个列表创造一个 Music21 流对象，它使用此列表作为一个参数。最后，为了创建包含网络生成的音乐的 MIDI 文件，我们使用 Music21 工具包中的 *write* 函数将流写入文件中。
 
-```
+```python
 midi_stream = stream.Stream(output_notes)
 
 midi_stream.write('midi', fp='test_output.mid')
