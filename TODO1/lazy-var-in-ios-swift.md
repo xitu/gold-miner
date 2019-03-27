@@ -7,9 +7,9 @@
 
 # lazy var in ios swift
 
-### This article explains the working of lazy var in swift.You must have some knowledge in closures.
+> This article explains the working of lazy var in swift.You must have some knowledge in closures.
 
-****[Read this article for more info on closures](https://medium.com/@abhimuralidharan/functional-swift-all-about-closures-310bc8af31dd).****
+**[Read this article for more info on closures](https://medium.com/@abhimuralidharan/functional-swift-all-about-closures-310bc8af31dd).**
 
 While dealing with iOS app development we should be really very much conscious about the amount of memory used by the application. If the app is a complex one, then the memory issues are one of the major challenges for the developer. So, the developer should be really writing an optimised code which consider memory allocation at first place. The developer need to avoid doing expensive work unless it’s really needed. These complex allocations will take more time and it will seriously affect the performance of the application as well.
 
@@ -17,9 +17,10 @@ While dealing with iOS app development we should be really very much conscious a
 
 Swift has a mechanism built right into the language that enables just-in-time calculation of expensive work, and it is called a ****lazy variable****. These variables are created using a function you specify only when that variable is first requested. If it’s never requested, the function is never run, so it does help save processing time.
 
-**Apple’s official documentation says:**
+*Apple’s official documentation says:*
 
-****A lazy stored property is a property whose initial value is not calculated until the first time it is used. You indicate a lazy stored property by writing the `lazy` modifier before its declaration.****
+**A lazy stored property is a property whose initial value is not calculated until the first time it is used. You indicate a lazy stored property by writing the `lazy` modifier before its declaration.**
+
 > You must always declare a lazy property as a variable (with the `var` keyword), because its initial value might not be retrieved until after instance initialization completes. Constant properties must always have a value **before** initialization completes, and therefore cannot be declared as lazy.
 
 To explain this, I will use a basic example: Consider a struct called InterviewCandidate. It has an optional bool value to decide if the candidate is applying for ios or android. Resume description for iOS and android are declared as lazy variables. So , in the following code, the person is an iOS developer and the lazy variable **iOSResumeDescription** will be initialized when called for printing . **androidResumeDescription** undefinedwill be nil.
@@ -64,7 +65,7 @@ There are a few advantage of a lazy property over a stored property.
  3. **Important to note:** You can use `self` inside the closure of a lazy property. It will not cause any retain cycles. The reason is that the immediately applied closure `{}()` is considered `@noescape`. It does not retain the captured `self`.
 > But, if you need to use `self` inside the ****function****. In fact, if you're using a class rather than a structure, you should also declare `[unowned self]` inside your function so that you don't create a strong reference cycle(check the code below).
 
-```
+```swfit
 // playground code
 
 import UIKit
@@ -90,6 +91,7 @@ You can reference variables regardless of whether or not you use a closure.
 lazy var iOSResumeDescription = “I am an iOS developer”
 
 This is also a working syntax.
+
 > **Note: Remember, the point of lazy properties is that they are computed only when they are first needed, after which their value is saved. So, if you call the `iOSResumeDescription `for the second time, the previously saved value is returned.**
 
 ## Lazy rules:
