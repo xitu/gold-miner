@@ -2,53 +2,56 @@
 > * 原文作者：[Harry](https://csswizardry.com/about/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/cache-control-for-civilians.md](https://github.com/xitu/gold-miner/blob/master/TODO1/cache-control-for-civilians.md)
-> * 译者：
+> * 译者：[sunui](https://github.com/sunui)
 > * 校对者：
 
-# Cache-Control for Civilians
+# 写给大家看的 Cache-Control 指令配置
 
-The best request is the one that never happens: in the fight for fast websites, avoiding the network is far better than hitting the network at all. To this end, having a solid caching strategy can make all the difference for your visitors.
+最好的网络请求就是无须与服务器通信的请求：在为快而战的网站中，避免网络完胜于使用网络。
+为此，使用一个可靠的缓存策略会给你的访客带来完全不同的体验。
 
-That being said, more and more often in my work I see lots of opportunities being left on the table through unconsidered or even completely overlooked caching practices. Perhaps it's down to the heavy focus on first-time visits, or perhaps it's a simple lack of awareness and knowledge? Whatever it is, let's have a bit of a refresher.
+话虽如此，在工作中我越来越频繁地看到很多实践机会被无意识地错过，甚至完全忽视做缓存这件事。大概是因为过度聚焦于首次访问，也可能单纯是因为意识和知识的匮乏。不管是为什么，我们有必要做一点相关知识的复习。
 
 ## `Cache-Control`
 
-One of the most common and effective ways to manage the caching of your assets is via the `Cache-Control` HTTP header. This header applies to individual assets, meaning everything on our pages can have a very bespoke and granular cache policy. The amount of control we're granted makes for very intricate and powerful caching strategies.
+管理静态资源缓存最常见且有效的方式之一就是使用 `Cache-Control` HTTP 报头。这个报头独立应用于每一个资源，这意味着我们页面中的一切都可以拥有一个非常定制化、颗粒化的缓存政策。我们被授予的大量控制权使得缓存策略异常复杂而强大。
 
-A `Cache-Control` header might look something like this:
+一个 `Cache-Control` 报头可能是这样的：
 
 ```
 Cache-Control: public, max-age=31536000
 ```
 
-`Cache-Control` is the header, and each of `public` and `max-age=31536000` are*directives*. The `Cache-Control` header can accept one or more directives, and it is these directives, what they really mean, and their optimum use-cases that I want to cover in this post.
+`Cache-Control` 就是报头字段名，`public` 和 `max-age=31536000` 是**指令**。`Cache-Control` 报头可以接受一个或多个指令，我在本文中想要讲的正是这些指令的真正含义和他们的最佳使用场景。
 
-## `public` and `private`
+## `public` 和 `private`
 
-`public` means that any caches may store a copy of the response. This includes CDNs, proxy servers, and the like. The `public` directive is often redundant, as the presence of other directives (such as `max-age`) are implicit instructions that caches may store a copy.
+`public` 意味着任何缓存都可以存储响应的副本。包括 CDN、代理服务器之类的。`public` 指令经常是冗余的，因为其他指令的存在（例如 `max-age`）已经隐式表示响应是可以缓存的。
 
-`private`, on the other hand, is an explicit instruction that only the end recipient of the response (the *client*, or *the browser*) may store a copy of the file. While `private` isn't a security feature in and of itself, it is intended to prevent public caches (such as a CDN) storing a response that contains information unique to one user.
+相比之下，`private` 是一个显式指令，只有响应的最终收件人（客户端或浏览器）可以缓存文件。虽然 `private` 本身并不具备安全功能，但它可以有效防止公共缓存（如 cdn）存储包含用户私人信息的响应。
 
 ## `max-age`
 
-`max-age` defines a unit of time in seconds (relative to the time of the request) for which the response is deemed 'fresh'.
+`max-age` 定义了一个确保响应“刷新”的时间单位（相对于请求时间，以秒计）。
 
 ```
 Cache-Control: max-age=60
 ```
 
-This `Cache-Control` header tells the browser that it can use this file from the cache for the next 60 seconds without having to worry about revalidating it. Once the 60 seconds is up, the browser will head back to the server to revalidate the file.
+可在接下来的 60 秒缓存和重用响应。
 
-If the server has a new file for the browser to download, it will respond with a `200`response, download the new file, the old file will be ejected from the HTTP cache, the new file will replace it, and will honour its caching headers.
+这个 `Cache-Control` 报头告诉浏览器可以在接下来的 60 秒内从缓存中使用这个文件而不必担心是否需要重新验证。60 秒后，浏览器将回访服务器以重新验证该文件。
 
-If the server doesn't have a fresher copy that needs downloading, the server responds with a `304` response, doesn't need to download any new file, and will update the cached copy with the new headers. This means that, if the `Cache-Control: max-age=60` header is still present, the cached file's 60 seconds starts again. 120 seconds overall cache time for one file.
+如果有了一个新文件供浏览器下载，服务器会返回 `200`，浏览器下载新文件，旧文件也会从 HTTP 缓存中被剔除，新的文件会接替它，并采用新缓存报头。
 
-Beware: There is one pretty large caveat with `max-age` on its own... `max-age` tells the browser that the asset in question is stale, but it doesn't tell the browser that it absolutely cannot use the stale version. A browser may use its own heuristics to decide that it might release a stale copy of a file without revalidating it. This behaviour is somewhat non-deterministic, so it's quite hard to know exactly what a browser will actually do. To this end, we have a series of more explicit directives that we can augment our `max-age` with. Thanks to [Andy Davies](https://twitter.com/AndyDavies) for helping me clarify this one.
+如果并没有新的副本供下载，服务器会返回 `304`，不需要下载新文件，使用新的报头来更新缓存副本。也就是说如果 `Cache-Control: max-age=60` 报头依然存在，缓存文件的 60 秒会重新开始。这个文件的总缓存时间是 120 秒。
+
+**注意：**`max-age` 本身有一个巨坑，它告诉浏览器相关资源已经过期，但没有告诉这个过期版本已经不能使用。浏览器可能使用它自己的机制来决定是否在不经验证的情况下释放文件的过期副本。这种行为有些不确定性，想确切知道浏览器会怎么做有点困难。为此，我们有一系列更为明确的指令，用来增强 `max-age`，感谢 [Andy Davies](https://twitter.com/AndyDavies) 帮我澄清了这一点。
 
 ### `s-maxage`
 
-The `s-maxage` (note the absence of the `-` between `max` and `age`) will take precedence over the `max-age` directive but only in the context of shared caches. Using `max-age`and `s-maxage` in conjunction allows you to have different fresh durations for private and public caches (e.g. proxies, CDNs) respectively.
-
+`s-maxage`（注意 `max` 和 `age` 之间没有 `-`）会覆盖 `max-age` 指令，但只在 `public` 缓存中生效。
+`max-age` 和 `s-maxage` 结合使用可以让你在私有缓存和公共缓存（例如代理、CDN）分别设定不同的刷新时间。
 
 ## `no-store`
 
@@ -56,9 +59,9 @@ The `s-maxage` (note the absence of the `-` between `max` and `age`) will
 Cache-Control: no-store
 ```
 
-What if we don't want to cache a file? What if the file contains sensitive information? Perhaps it's an HTML page that contains your bank details? Or maybe the information is time-critical? Perhaps a page that contains realtime stock prices? We don't want to store or serve any responses like this from cache at all: we always want to discard sensitive information and fetch the freshest realtime information. Now we'd use `no-store`.
+如果我们不想缓存文件呢？如果文件包含敏感信息怎么办？比如一个包含你银行账户信息的 HTML 页面，或者是有时效性的信息？再或者是个包含实时股价的页面？我们根本不想从缓存中存储或释放响应：我们想要的是丢掉敏感信息，获取最新的实时信息。这时候我们需要使用 `no-store`。
 
-`no-store` is a very strong directive not to persist any information to any cache, private or otherwise. Any asset that carries the `no-store` directive will always hit the network, no matter what.
+`no-store` 是一个非常高优先级的指令，不会将任何信息持久化到任何缓存中，无论是私有与否。任何带有 `no-store` 指令的资源都将始终命中网络，没有例外。
 
 ## `no-cache`
 
@@ -66,269 +69,268 @@ What if we don't want to cache a file? What if the file contains sensitive infor
 Cache-Control: no-cache
 ```
 
-This is the one that trips most people up... `no-cache` doesn't mean 'no cache'. It means 'do `no`t serve a copy from `cache` until you've revalidated it with the server and the server said you can use the cached copy'. Right. Sounds like this should be called `must-revalidate`! Except that's not what it sounds like, either.
+这点多数人都会困惑...... `no-cache` 并不意味着 “no cache”。它意味着“在你和服务器验证过并且服务器告诉你可以使用缓存的副本之前，你`不`能使用`缓存`中的副本”。没错，听起来应该叫 `must-revalidate`！不过其实也没听起来这么简单。
 
-`no-cache` is actually a pretty smart way of always guaranteeing the freshest content, but also being able to use the much faster cached copy if possible. `no-cache` will always hit the network as it has to revalidate with the server before it can release the browser's cached copy (unless the server responds with a fresher response), but if the server responds favourably, the network transfer is only a file's headers: the body can be grabbed from cache rather than redownloaded.
+事实上 `no-cache` 一个可以保证最新内容的非常智能的方式，而且还可以尽可能使用更快的缓存副本。`no-cache` 总是会命中网络，因为在释放浏览器的缓存副本（除非服务器的响应的文件已更新）之前，它必须与服务器重新验证，不过如果响应顺利，网络只会传输文件报头：文件主体可以从缓存中获取，而不必重新下载。
 
-So, like I say, this is a smart way to combine freshness and the possibility of getting a file from cache, but it will hit the network for at least an HTTP header response.
+所以如我所言，这是一个兼顾文件新鲜度与从缓存中获取文件可能性的智能方式，缺点是它至少会为了一个 HTTP 报头响应而触发网络。
 
-A good use-case for `no-cache` would be almost any dynamic HTML page. Think of a news site's homepage: it's not realtime, nor does it contain any sensitive information, but ideally we'd like the page to always show the freshest content. We can use `cache-control: no-cache` to instruct the browser to check back with the server first, and if the server has nothing newer to offer (`304`), let's reuse the cached version. In the event that the server did have some fresher content, it would respond as such (`200`) and send the newer file.
+`no-cache` 一个很好的使用场景就是动态 HTML 页面获取。想想一个新闻网站的首页：既不是实时的，也不包含任何敏感信息，但理想情况下我们希望页面始终显示最新的内容。我们可以使用 `cache-control: no-cache` 来指导浏览器首先回访服务器检查，如果服务器没有更新鲜的内容提供（`304`），那我们就重用缓存的版本。如果服务器有更新鲜的内容，它会返回（`200`）并且发送最新的文件。
 
-Tip: There is no use sending a `max-age` directive alongside a `no-cache` directive as the time-limit for revalidation is zero seconds.
+提示：`max-age` 指令和 `no-cache` 指令一起发送是没用的，因为重新验证的时间限制是零秒。
 
 ## `must-revalidate`
 
-Even more confusingly, while the above sounds like it should be called `must-revalidate`, it turns out `must-revalidate` is something different still (but still similar).
+更令人困惑的是，虽然上一个指令说应该叫 `must-revalidate`，但事实上 `must-revalidate` 依然是不同的东西。（这次更类似一些）
 
 ```
 Cache-Control: must-revalidate, max-age=600
 ```
 
-`must-revalidate` needs an associated `max-age` directive; above, we've set it to ten minutes.
+`must-revalidate` 需要一个关联的 `max-age` 指令；上文我们把它设置为 10 分钟。
 
-Where `no-cache` will immediately revalidate with the server, and only use a cached copy if the server says it may, `must-revalidate` is like `no-cache` with a grace period. What happens here is that, for the first ten minutes, the browser will *not* (I know, I know...) revalidate with the server, but the moment that ten minutes passes, it's back to the server we go. If the server has nothing new for us, it responds with a `304`and the new `Cache-Control` headers are applied to the cached file---our ten minutes starts again. If, after ten minutes, there is a newer file on the server, we get a `200`response and its body, and the local cache gets updated.
+如果说 `no-cache` 会立即向服务器验证，经过允许后才能使用缓存的副本，那么 `must-revalidate` 更像是一个宽期限的 `no-cache`。情况是这样的，在最初的十分钟浏览器**不会**（我知道，我知道......）向服务器重新验证，但是就在十分钟过去的那一刻，它又到服务器去请求，如果服务器没什么新东西，它会返回 `304` 并且新的 `Cache-Control` 报头应用于缓存的文件 —— 我们的十分钟再次开始。如果十分钟后服务器上有了一个新的文件，我们会得到 `200` 的响应和它的报文，那么本地缓存就会被更新。
 
-A great candidate for `must-revalidate` is a blog like mine: static pages that seldom change. Sure, the latest content is desirable, but given how infrequently my site changes, we don't need anything as heavy handed as `no-cache`. Instead, let's assume everything is going to be good enough for ten minutes, then revalidate after that.
+`must-revalidate` 一个很棒的场景就是博客（比如我这个博客）：静态页面很少更改。当然，最新的内容是可以获取的，但考虑到我的网站很少更改，我们不需要 `no-cache` 这么笨手笨脚的东西。相反，我们会假设在十分钟内一切都好，之后再重新验证。
 
 ### `proxy-revalidate`
 
-In a similar vein to `s-maxage`, `proxy-revalidate` is the public-cache specific version of `must-revalidate`. It is simply ignored by private caches.
+和 `s-maxage` 一脉相承，`proxy-revalidate` 是公共缓存版的 `must-revalidate`。它被私有缓存简单地忽略掉了。
 
 ## `immutable`
 
-`immutable` is a pretty new and very neat directive that tells the browser a little more about the type of file we've sent it---is its content mutable or immutable? But, before we look at what `immutable` does, let's look at the problem it's solving:
+`immutable` 是一个非常新而且整洁的指令，它告诉浏览器关于我们将发送文件类型的更多信息 —— 文件内容是可变或者不可变吗？了解 `immutable` 是什么之前，我们先看看它要解决什么问题：
 
-A user refresh causes the browser to revalidate a file regardless of its freshness because a user refresh usually means one of two things:
+用户刷新会导致浏览器强制验证一个文件而不论文件新鲜与否，因为用户刷新往往意味着发生了这两件事之一：
 
-1.  The page looks broken, or;
-2.  content looks out of date...
+1. 页面崩溃之类的；
+2. 内容看起来已经过期了......
 
-...so let's check if there's anything more up to date on the server.
+......所以我们要检查一下服务器上是否有最新的内容。
 
-If there is a newer file available on the server, we definitely want to download it. As such, we'll get a `200` response, a fresh file, and---hopefully---the issue is fixed. If, however, there wasn't a new file on the server, we'll bring back a `304` header, no new file, but an entire roundtrip of latency. If we're revalidating many files that result in many `304`s, that can add up to hundreds of milliseconds of unnecessary overhead.
+如果服务器上有一个更新鲜的内容可用，我们当然想下载它。这样我们将得到一个 `200` 响应，一个新文件，并且 —— 希望是 —— 问题已经修复了。而如果服务器上没有新文件，我们将返回 `304` 报头，没有新文件，只有这一遭的延迟。如果我们重新验证了大量文件且都返回 `304`，这会增加数百毫秒的不必要开销。
 
-`immutable` is a way of telling the browser that a file will never change---it's *immutable*---and therefore never to bother revalidating it. We can completely cut out the overhead of a roundtrip of latency. What do we mean by a mutable or immutable file?
+`immutable` 就是一种告诉浏览器一个文件永远都不会改变的方式 —— 它是**不可变的** —— 因此不要再费心重新验证它。我们可以完全减去造成延迟的往返开销。那我们说的一个可变或不可变的文件是什么意思呢？
 
--   `style.css`: When we change the contents of this file, we don't change its name at all. The file always exists, and its content always changes. This file is mutable.
--   `style.ae3f66.css`: This file is unique---it is named with a fingerprint based on its content, so the moment that content changes, we get a whole new file. This file is immutable.
+- `style.css`：当我们更改文件内容时，我们不会更改其名称。这个文件始终存在，其内容始终可以更改。这个文件就是可变的。
+- `style.ae3f66.css`：这个文件就不一样了 —— 它的命名携带了基于文件内容的指纹，所以每当文件修改我们都会得到一个全新的文件。这个文件就是不可变的。
 
-We'll discuss this in more detail in the [Cache Busting](https://csswizardry.com/2019/03/cache-control-for-civilians/#cache-busting) section.
+我们会在 [Cache Busting](https://csswizardry.com/2019/03/cache-control-for-civilians/#cache-busting) 部分详细讨论这个问题。
 
-If we can somehow communicate to the browser that our file is immutable---that its content never changes---then we can also let the browser know that it needn't bother checking for a fresher version: there would never be a fresher version as the file simply ceases to exist the moment its content changes.
+如果我们能够以某种方式告诉浏览器我们的文件是不可变的 —— 文件内容永远不会改变 —— 那么我们也可以让浏览器知道它不必检查更新版本：永远不会有新的版本，因为一旦内容改变，它就不存在了。
 
-This is exactly what the `immutable` directive does:
+这正是 `immutable` 指令所做的事情：
 
 ```
 Cache-Control: max-age=31536000, immutable
 ```
 
-In browsers that support `immutable`, a user refresh will never cause a revalidation within the 31,536,000-second freshness lifespan. This means no unnecessary roundtrips spent retrieving `304` responses, which potentially saves us a lot of latency on the critical path ([CSS blocks rendering](https://csswizardry.com/2018/11/css-and-network-performance/)). On high latency connections, this saving could be tangible.
+在支持 `immutable` 的浏览器中，只要没超过 31,536,000 秒的新鲜寿命，用户刷新也不会造成重新验证。这意味着没有不必要的请求 `304` 响应这一周遭，这可能会节约我们在关键路径上（[CSS blocks rendering](https://csswizardry.com/2018/11/css-and-network-performance/)）的大量延迟。在高延迟的场景里，这种节约是可感知的。
 
-Beware: You should not apply `immutable` to any files that are not immutable. You should also have a very robust cache busting strategy in place so that you don't inadvertently aggressively cache a file to which `immutable` has been applied.
+注意：千万不要给任何非不可变文件应用 `immutable`。你还应该有一个非常健壮的缓存破坏策略，以防无意中将不可变文件强缓存。
 
 ## `stale-while-revalidate`
 
-I really, really wish there was better support for `stale-while-revalidate`.
+我真的真的希望 `stale-while-revalidate` 能获得更好地支持。
 
-We've talked a lot so far about revalidation: the process of the browser making the trip back to the server to check whether a fresher file might be available. On high latency connections, the duration of revalidation alone can be noticeable, and that time is simply dead time---until we've heard from the server, we can neither release a cached copy (`304`) or download the new file (`200`).
+关于重新验证我们已经讲了很多了：浏览器启程返回服务器以检查是否有新文件可用的过程。在高延迟的场景里，重新验证的过程是可以被感知的，并且在我们得到服务器消息告诉我们可以发布一个缓存的副本（`304`）或者下载一个新文件（`200`）之前，这段时间简直就是死时间。
 
-What `stale-while-revalidate` provides is a grace period (defined by us) in which the browser is permitted to use an out of date (stale) asset while we're checking for a newer version.
+`stale-while-revalidate` 提供的是一个宽限期（由我们设定），当我们检查新版本时，允许浏览器使用过期的（旧的）资源。
 
 ```
 Cache-Control: max-age=31536000, stale-while-revalidate=86400
 ```
 
-This is telling the browser, 'this file is good to use for a year, but after that year is up, you have one extra day in which you may continue to serve this stale resource while you revalidate it in the background'.
+这就告诉浏览器，“这个文件还可以用一年，但一年过后，额外给你一天你可以继续使用旧资源，直到你在后台重新验证了它”。
 
-`stale-while-revalidate` is a great directive for non-critical resources that, sure, we'd like the freshest version, but we know there'll be no damage caused if we use the stale response once more while we're checking for updates.
+对于非关键资源来说 `stale-while-revalidate` 是一个很棒的指令，我们当然想要更新鲜的版本，但我们知道在我们检查更新的时候，如果我们依然使用旧资源不会有任何问题。
 
 ## `stale-if-error`
 
-In a similar manner to `stale-while-revalidate`, `stale-if-error` allows the browser a grace period in which it can permissibly return a stale response if the revalidated resource returns a `5xx`-class error.
+和 `stale-while-revalidate` 类似的方式，如果重新验证资源时返回了 `5xx` 之类的错误，`stale-if-error` 会给浏览器一个使用旧的响应的宽限期。
 
 ```
 Cache-Control: max-age=2419200, stale-if-error=86400
 ```
 
-Here, we instruct the cache that the file is fresh for 28 days (2,419,200 seconds), and that if we were to encounter an error after that time, we allow an additional day (86,400 seconds) during which we will allow a stale asset to be served.
+这里我们让缓存保持 28 天（2,419,200 秒），过后如果我们遇到内部错误就额外提供一天（86,400 秒），此间允许访问旧版本资源。
 
 ## `no-transform`
 
-`no-transform` doesn't have anything do with storing, serving, or revalidating freshness, but it does instruct intermediaries that they cannot modify, or *transform*, any of the response.
+`no-transform` 和存储、服务、重新验证新鲜度之间没有任何关系，但它会告诉中间代理不得对该资源进行任何转变或**转换**。
 
-A common scenario in which an intermediary might modify a response is to make optimisations on behalf of developers *for* users: a telco provider might proxy image requests though their stack and make optimisations to them before passing them off to end users on mobile connections.
+中间代理更改响应的一个常见情况是电信提供商代表开发者**为**用户做优化：电信提供商可能会通过他们的堆栈代理图片请求，并且在他们移动网络传递给最终用户前做一些优化。
 
-The issue here is that developers begin to lose control of the presentation of their resources, and the image optimisations made by the telco might be deemed too aggressive and unacceptable, or we might have already optimised the images to the ideal degree ourselves and anything further is unnecessary.
+这里的问题是开发人员开始失去对资源展现的控制，而电信服务商所做的图像优化可能过于激进甚至不可接受，或者可能我们已经将图像优化到了理想程度，任何进一步的优化都没必要。
 
-Here, we want to instruct this middleware not to transform any of our content.
+这里，我们不想让中间商转换我们的内容。
 
 ```
 Cache-Control: no-transform
 ```
 
-The `no-transform` header can sit alongside any other directives, and needs no other directives for it to function itself.
+`no-transform` 可以与其他任何报头搭配使用，且不依赖其他指令独立运行。
 
-N.B. Some transformations are a good idea: CDNs choosing between Gzip or Brotli encoding for users that need the former or could use the latter; image transformation services automatically converting to WebP; etc.
+当心：有的转换是很好的主意：CDN 为用户选择 Gzip 或 Brotli 编码，看是需要前者还是可以使用后者；图片转换服务自动转成 WebP 等。
 
-N.B. If you're running over HTTPS---which you should be---then intermediaries and proxies can't modify payloads anyway, so `no-transform` would be ineffective.
+当心：如果你是通过 HTTPS 运行，中间件和代理无论如何都不能改变你的数据，因此 `no-transform` 也就没用了。
 
 ## Cache Busting
 
-It would be irresponsible to talk about caching without talking about cache busting. I would always recommend solving your cache busting strategy before even thinking about your caching strategy. To do it the other way round is the fast-path to headaches.
+讲缓存而不讲缓存破坏（Cache Busting）是不负责任的。我总是建议甚至在考虑缓存策略之前就先要解决缓存破坏策略。反过来做就是自找麻烦了。
 
-Cache busting solves the problem: I just told the browser to use this file for the next year, but I just changed it and I don't want users to wait a whole year before they get the fresh copy! How can I intervene?!
+缓存破坏解决这样的问题：“我只是告诉过浏览器在接下来的一年使用这个文件，但后来我改动了它，我不想让用户拿到新副本之前要等一整年！我该怎么做？！”
 
-### No Cache Busting -- `style.css`
+### 无缓存破坏 —— `style.css`
 
-This is is the least-preferred thing to do: absolutely no cache busting whatsoever. This is a mutable file that we'd really struggle to cache bust.
+这是最不建议做的事情：完全没有任何缓存破坏。这是一个可变的文件，我们真的很难破坏缓存。
 
-You should be very wary of caching any files like these, because we lose almost all control over them once they're on the user's device.
+缓存这样的文件你要非常谨慎，因为一旦在用户的设备上，我们就几乎失去了对他们的所有控制。
 
-Despite this example being a stylesheet, HTML pages fall squarely into this camp. We can't change the file name of a webpage---imagine the havoc that would cause!---which is exactly why we tend not to cache them at all.
+尽管这个例子是一个样式表，HTML 页面也纯属这个阵营。我们不能更改一个网页的文件名，想象一下这破坏力！—— 这正是我们倾向于从不缓存它们的原因。
 
-### Query String -- `style.css?v=1.2.14`
+### 查询字符串 —— `style.css?v=1.2.14`
 
-Here, we still have a mutable file, but we add a query string to its file path. While better than the nothing option, it's still not perfect. If anything were to strip that query string away, we fall back into the previous category of having no cache busting in place at all. A lot of proxy servers and CDNs will not cache anything with a query string either by configuration (e.g. from Cloudflare's own documentation: ...a request for "`style.css?something`" will be normalised to just "`style.css`" when serving from the cache.), or defensively (the query string might contain information specific to one particular response).
+这里依然是一个可变的文件，但是我们在文件路径后加了个查询字符串。聊胜于无，但不尽完美。如果有什么东西把查询字符串删掉了，我们就完全回到了之前讲的没有缓存破坏的样子。很多代理服务器和 CDN 都不会缓存查询字符串，无论是通过配置（例如 Cloudflare 官方文档写到：“......从缓存服务请求时，‘style.css?something’将会被标准化成‘style.css’”）还是防御性忽略（查询字符串可能包含请求特定响应的信息）。
 
-### Fingerprint -- `style.ae3f66.css`
+### 指纹 —— `style.ae3f66.css`
 
-Fingerprinting is by far the preferred method for cache busting a file. By literally changing the file each time its content changes, we don't technically cache bust anything: we end up with a whole new file! This is very robust, and permits the use of `immutable`. If you can implement this on your static assets, please do! Once you've managed to implement this very reliable cache busting strategy, you can use the most aggressive form of caching:
+添加指纹是目前破坏文件缓存的首选方法。每次内容变更，文件名都会随之修改，严格地讲我们什么都不缓存：我们拿到的是一个全新的文件！这很稳健，并且允许你使用 `immutable`。如果你能在你的静态资源上实现这个，那就去干！一旦你成功实现了这种非常可靠的缓存破坏策略，你就可以使用最极致的缓存形式：
 
 ```
 Cache-Control: max-age=31536000, immutable
 ```
 
-#### Implementation Detail
+#### 实施细节
 
-The key to this method is the changing of the filename, but it doesn't *have* to be a fingerprint. All of the following examples have the same effect:
+这种方法的要点就是更改文件名，但它不**非得**是指纹。下面的例子都有同样的效果：
 
-1.  `/assets/style.ae3f66.css`: busting with a hash of the file's contents.
-2.  `/assets/style.1.2.14.css`: busting with a release version.
-3.  `/assets/1.2.14/style.css`: busting by changing a directory in the URL.
+1. `/assets/style.ae3f66.css`：通过文件内容的 hash 破坏。
+2. `/assets/style.1.2.14.css`：通过发行版本号破坏。
+3. `/assets/1.2.14/style.css`：改变 URL 中的目录。
 
-However, the last example *implies* that we're versioning each release rather than each individual file. This in turn implies that if we only needed to cache bust our stylesheet, we'd also have to cache bust all of the static files for that release. This is potentially wasteful, so prefer options (1) or (2).
+然而，最后一个示例**意味着**我们要对每个版本进行版本控制，而不是独立文件。这反过来意味着如果我们只想对我们的样式表做缓存破坏，我们也不得不破坏了这个版本的所有静态文件。这可能有点浪费，所以推荐选项（1）或（2）。
 
 ### `Clear-Site-Data`
 
-Cache invalidation is hard---[famously so](https://martinfowler.com/bliki/TwoHardThings.html)---so there's [a spec currently underway](https://www.w3.org/TR/clear-site-data/) that helps developers quite definitively clear the entire cache for their site's origin in one fell swoop: `Clear-Site-Data`.
+缓存很难失效 —— [这是闻名于计算机科学界的难题](https://martinfowler.com/bliki/TwoHardThings.html) —— 于是有了[一个实现中的规范](https://www.w3.org/TR/clear-site-data/)，这可以帮助开发者明确地一次性清理网站域的全部缓存：`Clear-Site-Data`。
 
-I don't want to go into too much detail in this post as `Clear-Site-Data` is not a `Cache-Control` directive, but is in fact a whole new HTTP header.
+本文我不想深入探究 `Clear-Site-Data`，毕竟它不是一种 `Cache-Control` 指令，事实上它是一个全新的 HTTP 报头。
 
 ```
 Clear-Site-Data: "cache"
 ```
 
-Applying this header to any one of your origin's assets will clear the cache for the entire origin, not just the file to which it is attached. That means that, if you needed to hard-purge your entire site from all visitors' caches, you could apply the above header to just your HTML payload.
+给你的域下任何一个静态文件应用这个报头，就会清除整个域的缓存，而不仅是它附着的这个文件。也就是说，如果你需要给你整个网站的所有访客的缓存来个大扫除，你只需把上面这个报头加到你的 HTML 上即可。
 
-[Browser support](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Clear-Site-Data#Browser_compatibility), at the time of writing, is limited to Chrome, Android Webview, Firefox, and Opera.
+[浏览器支持方面](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Clear-Site-Data#Browser_compatibility)，截止到本文写作只支持 Chrome、Android Webview、Firefox 和 Opera。
 
-Tip: There are a number of directives that `Clear-Site-Data` will accept:`"cookies"`, `"storage"`, `"executionContexts"`, and `"*"` (which, naturally, means 'all of the above').
+提示：`Clear-Site-Data` 可以接收很多指令：`"cookies"`、`"storage"`、`"executionContexts"` 和 `"*"`（显然，意思是“上述全部”）。
 
-## Examples and Recipes
+## 栗子及其食用方法
 
-Okay, let's take a look at some scenarios and what kinds of `Cache-Control` headers we might employ.
+Okay，让我们看一些场景，以及我们可能使用的 `Cache-Control` 报头的类型。
 
-### Online Banking Page
+### 在线银行网页
 
-Something like an online banking app page that lists your recent transactions, your current balance, and perhaps sensitive bank account details needs to be up-to-date (imagine being served a page that listed your balance as it appeared a week ago!) and also kept very private (you don't want your bank details to be stored in a shared cache (or any cache, really)).
+在线银行之类的应用页面罗列着你最近交易清单、当前余额和一些敏感的银行账户信息，它们都要求实时更新（想象一下，当你看到页面里罗列的账户余额还是一周前的你啥感觉！）而且要求严格保密（你肯定不想把你的银行账户详情存在共享缓存里（啥缓存都不好吧））。
 
-To this end, let's go with:
+为此，我们这样做：
 
 ```
 Request URL: /account/
 Cache-Control: no-store
 ```
 
-As per the spec, this would be sufficient to prevent a browser persisting the response to disk at all, across private and shared caches:
+根据规范，这足以防止浏览器在所有私有缓存和共享缓存中把响应持久化到磁盘中：
 
-> The `no-store` response directive indicates that a cache MUST NOT store any part of either the immediate request or response. This directive applies to both private and shared caches. 'MUST NOT store' in this context means that the cache MUST NOT intentionally store the information in non-volatile storage, and MUST make a best-effort attempt to remove the information from volatile storage as promptly as possible after forwarding it.
+> `no-store` 响应指令要求缓存中**不得**存储任何关于客户端请求和服务端响应的内容。该指令适用于私有缓存和共享缓存。上文中“**不得**存储”的意思是缓存**不得**故意将信息存储到非易失性存储器中，并且在接转后**必须**尽最大努力尽快从易失性存储器中删除信息。
 
-But if you wanted to be very defensive, perhaps you might opt for:
+但如果你还不放心，也许你可以选择这样：
 
 ```
 Request URL: /account/
 Cache-Control: private, no-cache, no-store
 ```
 
-This would explicitly instruct not to store anything in public caches (e.g. a CDN), to always serve the freshest possible copy, and not to persist anything to storage.
+这将明确指示在公共缓存中不得存储任何信息（例如 CDN）、始终提供最新的副本并且不要持久化任何东西。
 
-### Live Train Timetable Page
+### 实时列车时刻表页面
 
-If we're building a page that displays near-realtime information, we want to guarantee that the user always sees the best, most up-to-date information we can give them, if that information exists. Let's use:
+如果我们打算做一个显示准实时信息的页面，我们要尽可能保证用户总是看到最准确的、最实时的信息，我们使用：
 
 ```
 Request URL: /live-updates/
 Cache-Control: no-cache
 ```
 
-This simple directive will mean that the browser won't show a response directly from cache without checking with the server that it is allowed to. This means that a user will never be shown out of date train information, but they could benefit from grabbing file from their cache if the server dictates that the cache mirrors the latest information.
+这个简单的指令会让浏览器不直接未经服务器验证通过就从缓存显示响应。这意味着用户将绝不会看到过期的信息，而如果服务器上有最新信息与缓存中的相同，他们也会享受从缓存中抓取文件的好处。
 
-This is usually a sensible default for almost all webpages: give us the latest possible content, but let us use the speed of the cache if possible.
+这几乎对所有网站来说都是一个明智的选择：尽可能给我们最新的内容，同时尽可能让我们享受缓存带来的访问速度。
 
-### FAQs Page
+### FAQ 页面
 
-A page like FAQs is likely to update very infrequently, and the content on it is unlikely to be time sensitive. It's certainly not as critical as realtime sport scores or flight statuses. We can probably cache an HTML page like this for a little while and force the browser to check for fresh content periodically instead of every visit. Let's go for this:
+像 FAQ 这样的页面可能很少更新，而且其内容不太可能对时间敏感。它当然没有实时运动成绩或航班状态那么重要。我们可以将这样的 HTML 页面缓存一段时间，并强制浏览器定期检查新内容，而不用每次访问都检查。我们这样设置：
 
 ```
 Request URL: /faqs/
 Cache-Control: max-age=604800, must-revalidate
 ```
 
-This tells the browser to cache the HTML page for one week (604,800 seconds), and once that week is up, we need to check with the server for updates.
+这会允许浏览器缓存 HTML 页面 一周时间（604,800 秒），一旦一周过去，我们需要向服务器检查更新。
 
-Beware: Having differing caching strategies for different pages within the same website could lead to a problem where your `no-cache` homepage requests the newest `style.f4fa2b.css` that it references, but your three-day cached FAQs page is still pointing at `style.ae3f66.css`. The effects of this may be slight, but it's a scenario you should be aware of.
+当心：给同一个网站的不同页面应用不同的缓存策略会造成一个问题，在你设置 `no-cache` 的首页会请求它引用的最新的 `style.f4fa2b.css`，而在你的加了三天缓存的 FAQ 页依然指向 `style.ae3f66.css`。这种情况可能影响不大，但不容忽视。
 
-### Static JS (or CSS) App Bundle
+### 静态 JS（或 CSS）App Bundle
 
-Let's say our `app.[fingerprint].js` updates pretty frequently---potentially with every release we do---but we've also put in the work to fingerprint the file every time it changes (good work!) then we can do something like this:
+来说说我们的 `app.[fingerprint].js`，更新非常频繁 —— 几乎每次发布版本都会更新 —— 而我们也投入了工作，在文件每次更改时对其添加指纹，然后这样使用：
 
 ```
 Request URL: /static/app.1be87a.js
 Cache-Control: max-age=31536000, immutable
 ```
+无所谓我们有多频繁的更新 JS：因为我们可以做到可靠的缓存破坏，我们想缓存多久就缓存多久。这个例子里我们设置成一年。之所以是一年第一因为这已经很久了，而第二浏览器无论如何也不可能把一个文件保存这么久（浏览器用于 HTTP 缓存的存储空间是限量的，他们会定期清空一部分；用户也可能自己清空缓存）。超过一年的配置大概率没什么用。
 
-It doesn't matter that we update our JS quite frequently: because of our ability to reliably cache bust it, we can cache it for as long as we like. In this case, we've chosen to cache it for a year. I picked a year because firstly, a year is a long time, but secondly, it's pretty highly unlikely that a browser will actually hold onto a file for that long anyway (browsers have a finite amount of storage they can use for HTTP cache, so they periodically empty parts of it themselves; users may clear their own cache). Going anything beyond a year is likely to be no more effective.
+进一步讲，因为这个文件内容永不改变，我们可以指示浏览器这个文件是不可变的。一整年内我们都无须重新验证它，这样就避免了重新验证造成的延迟弊端。
 
-Further, because this file's content never changes, we can signal to the browser that this file is immutable. We don't need to revalidate it for the whole year, even if a user refreshes the page. Not only do we get the speed benefits of using the cache, we avoid the latency penalty of revalidation.
+### 装饰性图片
 
-### Decorative Image
+想象一个伴随文章的纯装饰性照片。它不是信息图表，也不含影响页面其他部分阅读的关键内容。甚至如果它完全不见了用户都关注不到。
 
-Imagine a purely decorative photograph accompanying an article. It's not an infographic or a chart, it doesn't contain any content critical to understanding the rest of the page, and a user wouldn't even really notice if it was completely missing anyway.
-
-Images are usually a heavy asset to download, so we want to cache it; it's not critical to the page, so we don't need to fetch the latest version; and we could probably even get away with serving the image after it's gone a little out of date. Let's do this:
+图片往往是要下载的重量级资源，所以我们想要缓存它；因为它没有页面那么关键，所以我们不需要下载最新版本；我们甚至可以在这张照片过时一点后继续使用。看看怎么做：
 
 ```
 Request URL: /content/masthead.jpg
 Cache-Control: max-age=2419200, must-revalidate, stale-while-revalidate=86400
 ```
 
-Here we're telling the browser to store the image for 28 days (2,419,200 seconds), that we want to check with the server for updates after that 28-day time limit, and if the image is less than one day (86,400 seconds) out of date, let's use that one while we fetch the latest version in the background.
+这里我们告诉浏览器缓存 28 天（2,419,200 秒），28 天期限过后我们想向服务器检查更新，当我们在后台请求到最新版本后我们再替换它。
 
-## Key Things to Remember
+## 要牢记的要点
 
--   Cache busting is vitally important. Work out your cache busting strategy before you begin work on your caching strategy.
--   Generally speaking, caching HTML---content---is a bad idea. HTML URLs can't be busted, and as your HTML page is generally the entry point into the rest of your page's subresources, you'll end up caching the references to your static assets, too. This is going to cause you (and your users) a world of frustration.
--   If you are going to cache any HTML, having different cache policies on different types of HTML page on a site could lead to inconsistencies if one class of page is always fresh and others are sometimes fetched from cache.
--   If you can reliably cache-bust (with a fingerprint) your static assets, then you might as well go all-in and cache for years at a time with an `immutable`directive for good measure.
--   Non-critical content can be given a stale grace period with directives like`stale-while-revalidate`.
--   `immutable` and `stale-while-revalidate` not only give us the traditional benefits of a cache, but they also allow us to mitigate the cost of latency while revalidating.
+- 缓存破坏及其及其及其重要。开始做缓存策略之前，先解决好缓存破坏策略。
+- 一般来说，缓存 HTML 内容是个馊主意。HTML URL 不能被破坏，毕竟 HTML 页往往是访问页面其他子资源的入口点，你会把通往静态文件的引用声明也缓存下来。这会让你（和你的用户）......一言难尽。
+- 缓存 HTML 时，如果一类页面从不缓存而其他类页面有时要用缓存，这种同站不同类型的 HTML 页的不同缓存策略会导致不一致性。
+- 如果你能够给你的静态资源可靠地做缓存破坏（使用指纹），那你最好一次性把所有的东西都缓存好几年，以求最优。
+- 非关键内容可以用 `stale-while-revalidate` 之类的指令给一个不新鲜宽限期。
+- `immutable` 和 `stale-while-revalidate` 不仅能带来缓存的传统效益，还让我们在重新验证时降低延迟成本。
 
-Avoiding the network wherever possible makes for much faster experiences for our users (and much lower throughput for our infrastructure). By having a good view of our assets, and an overview of what's available to us, we can begin to design very granular, bespoke, and effective caching strategies specific to our own applications.
+尽可能避免使用网络会为用户提供更快的体验（也会给我们的基础设施更低的吞吐量，两开花）。通过对资源的详细了解和可用内容的总结，我们可以开始专门给我们的应用设计一个颗粒化、定制化且有效的缓存策略。
 
-Cache rules everything.
+缓存于手，一切可尽在掌控。
 
-## Resources and Related Reading
+## 参考文献和相关阅读
 
--   [*Caching best practices & max-age gotchas*](https://jakearchibald.com/2016/caching-best-practices/) -- [Jake Archibald](https://twitter.com/jaffathecake), 2016
--   [*Cache-Control: immutable*](http://bitsup.blogspot.com/2016/05/cache-control-immutable.html) -- [Patrick McManus](https://twitter.com/mcmanusducksong), 2016
--   [*Stale-While-Revalidate, Stale-If-Error Available Today*](https://www.fastly.com/blog/stale-while-revalidate-stale-if-error-available-today) -- [Steve Souders](https://twitter.com/Souders), 2014
--   [*A Tale of Four Caches*](https://calendar.perfplanet.com/2016/a-tale-of-four-caches/) -- [Yoav Weiss](https://twitter.com/yoavweiss), 2016
--   [Clear-Site-Data](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Clear-Site-Data) -- MDN
--   [RFC 7234 -- HTTP/1.1 Caching](https://tools.ietf.org/html/rfc7234) -- 2014
+- [*Caching best practices & max-age gotchas*](https://jakearchibald.com/2016/caching-best-practices/) —— [Jake Archibald](https://twitter.com/jaffathecake)， 2016
+- [*Cache-Control: immutable*](http://bitsup.blogspot.com/2016/05/cache-control-immutable.html) —— [Patrick McManus](https://twitter.com/mcmanusducksong)， 2016
+- [*Stale-While-Revalidate, Stale-If-Error Available Today*](https://www.fastly.com/blog/stale-while-revalidate-stale-if-error-available-today) —— [Steve Souders](https://twitter.com/Souders)， 2014
+- [*A Tale of Four Caches*](https://calendar.perfplanet.com/2016/a-tale-of-four-caches/) —— [Yoav Weiss](https://twitter.com/yoavweiss)， 2016
+- [Clear-Site-Data](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Clear-Site-Data) —— MDN
+- [RFC 7234 -- HTTP/1.1 Caching](https://tools.ietf.org/html/rfc7234) —— 2014
 
-### Do as I Say, Not as I Do
+### 依吾言而行事，勿观吾行而仿之
 
-Before someone on Hacker News hauls me over the coals for my hypocrisy, it's worth noting that my own caching strategy is so sub-par that I'm not even going to go into it.
+在某人因我的虚伪开喷之前，有必要一提的是我自己博客的缓存策略这么差强人意，以至于我自己都看不下去了。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
