@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/3840/1*-6P9pSYh8qCbyzKu4AG88w.jpeg)
 
-作为最新的基本类型，Symbol 为 JavaScript 语言带来了很多好处，特别是当其用在对象属性上时。但是，相比较于 String 类型，Symbol 有哪些 String 没有的功能呢？ 
+作为最新的基本类型，Symbol 为 JavaScript 语言带来了很多好处，特别是当其用在对象属性上时。但是，相比较于 String 类型，Symbol 有哪些 String 没有的功能呢？
 
 在深入探讨 Symbol 之前，让我们先看看一些许多开发人员可能都不知道的 JavaScript 特性。
 
@@ -41,7 +41,7 @@ objectMutator(obj);
 console.log(obj.prop); // 2
 ```
 
-基本数据类型（`NaN` 除外）总是与另一个具有相同值的基本数据类型完全相等。如下:
+基本数据类型（`NaN` 除外）总是与另一个具有相同值的基本数据类型完全相等。如下：
 
 ```js
 const first = "abc" + "def";
@@ -50,7 +50,7 @@ const second = "ab" + "cd" + "ef";
 console.log(first === second); // true
 ```
 
-然而，构造两个值相同的非基本数据类型则得到**不相等**的结果。我们可以看到发生了什么:
+然而，构造两个值相同的非基本数据类型则得到**不相等**的结果。我们可以看到发生了什么：
 
 ```js
 const obj1 = { name: "Intrinsic" };
@@ -80,16 +80,16 @@ console.log(obj);
 
 ## Symbol 是什么？
 
-现在既然我们已经知道了基本数据类型是什么，也就终于可以定义 Symbol。Symbol 是不能被重新创建的基本数据类型。在这种情况下，Symbol 类似于对象，因为对象创建多个实例也将导致不完全相等的值。但是，Symbol 也是基本数据类型，因为它不能被改变。下面是 Symbol 用法的一个例子:
+现在既然我们已经知道了基本数据类型是什么，也就终于可以定义 Symbol。Symbol 是不能被重新创建的基本数据类型。在这种情况下，Symbol 类似于对象，因为对象创建多个实例也将导致不完全相等的值。但是，Symbol 也是基本数据类型，因为它不能被改变。下面是 Symbol 用法的一个例子：
 
 ```js
-const s1 = Symbol();  
+const s1 = Symbol();
 const s2 = Symbol();
 
 console.log(s1 === s2); // false
 ```
 
-当实例化一个 symbol 值时，有一个可选的首选参数，你可以赋值一个字符串。此值用于调试代码，不会真正影响 symbol本身。
+当实例化一个 symbol 值时，有一个可选的首选参数，你可以赋值一个字符串。此值用于调试代码，不会真正影响 symbol 本身。
 
 ```js
 const s1 = Symbol('debug');
@@ -103,7 +103,7 @@ console.log(s1); // Symbol(debug)
 
 ## Symbol 作为对象属性
 
-symbols 还有另一个重要的用法，它们可以被当作对象中的键！下面是一个在对象中使用 symbol 作为键的例子:
+symbols 还有另一个重要的用法，它们可以被当作对象中的键！下面是一个在对象中使用 symbol 作为键的例子：
 
 ```js
 const obj = {};
@@ -136,7 +136,7 @@ console.log(Reflect.ownKeys(obj));
 console.log(obj[Reflect.ownKeys(obj)[1]]); // 42
 ```
 
-**注意**:目前有些工作旨在处理在 JavaScript 中向类添加私有属性的问题。这个特性就是 [Private Fields](https://github.com/tc39/proposal-class-fields#Private-Fields) 虽然这不会对**所有**对象都有好处，但会对类实例的对象有好处。Private Fields 从 Chrome 74 开始可用。
+**注意**：目前有些工作旨在处理在 JavaScript 中向类添加私有属性的问题。这个特性就是 [Private Fields](https://github.com/tc39/proposal-class-fields#Private-Fields) 虽然这不会对**所有**对象都有好处，但会对类实例的对象有好处。Private Fields 从 Chrome 74 开始可用。
 
 ## 防止属性名冲突
 
@@ -154,7 +154,7 @@ function lib2tag(obj) {
 }
 ```
 
-应用 symbols，每个库都可以通过实例化 Symbol 类生成所需的 symbols。然后不管什么时候，都可以在相应的对象上检查、赋值 symbols对应的键值。
+应用 symbols，每个库都可以通过实例化 Symbol 类生成所需的 symbols。然后不管什么时候，都可以在相应的对象上检查、赋值 symbols 对应的键值。
 
 ```js
 const library1property = Symbol('lib1');
@@ -205,7 +205,7 @@ JSON.stringify(user);
 // '{"name":"Thomas Hunter II","age":32,"LIB2-NAMESPACE-id":369}'
 ```
 
-如果我们为对象的属性名使用了一个 symbol，那么 JSON 的输出将不包含 symbol 对应的值。为什么会这样？因为仅仅是 JavaScript 支持了symbols，并不意味着 JSON 规范也改变了！JSON 只允许字符串作为键，而 JavaScript 不会尝试在最终的 JSON 负载中呈现 symbol 属性。
+如果我们为对象的属性名使用了一个 symbol，那么 JSON 的输出将不包含 symbol 对应的值。为什么会这样？因为仅仅是 JavaScript 支持了 symbols，并不意味着 JSON 规范也改变了！JSON 只允许字符串作为键，而 JavaScript 不会尝试在最终的 JSON 负载中呈现 symbol 属性。
 
 我们可以通过使用 `object.defineproperty()`，轻松纠正库对象字符串污染 JSON 输出的问题：
 
@@ -231,7 +231,7 @@ console.log(JSON.stringify(user));
 console.log(user[library2property]); // 369
 ```
 
-通过将字符串键的可枚举[描述符](https://medium.com/intrinsic/javascript-object-property-descriptors-proxies-and-preventing-extension-1e1907aa9d10)设置为 false 来“隐藏”的字符串键的行为非常类似于 symbol 键。它们通过 `Object.keys()` 遍历也看不到，但可以通过 `Reflect.ownKeys()`显示，如下所示:
+通过将字符串键的可枚举[描述符](https://medium.com/intrinsic/javascript-object-property-descriptors-proxies-and-preventing-extension-1e1907aa9d10)设置为 false 来“隐藏”的字符串键的行为非常类似于 symbol 键。它们通过 `Object.keys()` 遍历也看不到，但可以通过 `Reflect.ownKeys()`显示，如下所示：
 
 ```js
 const obj = {};
@@ -256,7 +256,7 @@ console.log(JSON.stringify(obj)); // {}
 
 这里有一个有趣的方法，我们可以使用它来模拟对象上的私有属性。这种方法将利用另一个 JavaScript 的特性：proxy。proxy 本质上是封装了一个对象，并允许我们与该对象进行不同的交互。
 
-proxy 提供了许多方法来拦截对对象执行的操作。我们所感兴趣的是在尝试读取对象的键时，proxy 会有哪些动作。我不会去详细解释 proxy 是如何工作的，如果你想了解更多信息，请查看我们的另一篇文章： [JavaScript Object Property Descriptors, Proxies, and Preventing Extension](https://medium.com/intrinsic/javascript-object-property-descriptors-proxies-and-preventing-extension-1e1907aa9d10).
+proxy 提供了许多方法来拦截对对象执行的操作。我们所感兴趣的是在尝试读取对象的键时，proxy 会有哪些动作。我不会去详细解释 proxy 是如何工作的，如果你想了解更多信息，请查看我们的另一篇文章：[JavaScript Object Property Descriptors, Proxies, and Preventing Extension](https://medium.com/intrinsic/javascript-object-property-descriptors-proxies-and-preventing-extension-1e1907aa9d10).
 
 我们可以使用 proxy 来谎报对象上可用的属性。在本例中，我们将创建一个 proxy，它用于隐藏我们的两个已知隐藏属性，一个是字符串 `_favColor`，另一个是分配给 `favBook` 的 symbol：
 
@@ -302,7 +302,7 @@ console.log(proxy._favColor); // 'blue'
 
 使用 `_favColor` 字符串很简单：只需读取库的源代码即可。此外，动态键可以（例如之前讲的 `uuid` 示例）可以通过暴力找到。但是，如果不是直接引用 symbol，任何人都无法从 `proxy` 对象中访问到值 `metro 2033`。
 
-**Node.js 声明**: Node.js 中的一个特性破坏了 proxy 的隐私性。此功能不存在于 JavaScript 语言本身，也不适用于其他情况，例如 web 浏览器。这一特性允许在给定 proxy 时获得对底层对象的访问权。以下是一个使用此功能破坏上述私有属性的示例：
+**Node.js 声明**：Node.js 中的一个特性破坏了 proxy 的隐私性。此功能不存在于 JavaScript 语言本身，也不适用于其他情况，例如 web 浏览器。这一特性允许在给定 proxy 时获得对底层对象的访问权。以下是一个使用此功能破坏上述私有属性的示例：
 
 ```js
 const [originalObject] = process
@@ -313,7 +313,7 @@ const allKeys = Reflect.ownKeys(originalObject);
 console.log(allKeys[3]); // Symbol(fav book)
 ```
 
-我们现在需要修改全局 `Reflect` 对象，或是修改 `util` 进程绑定，以防止它们在特定的 node.js 实例中被使用。但那却是一个新世界的大门，如果你想了解其中的奥秘，看看我们的其他博客： [Protecting your JavaScript APIs](https://medium.com/intrinsic/protecting-your-javascript-apis-9ce5b8a0e3b5)。
+我们现在需要修改全局 `Reflect` 对象，或是修改 `util` 进程绑定，以防止它们在特定的 node.js 实例中被使用。但那却是一个新世界的大门，如果你想了解其中的奥秘，看看我们的其他博客：[Protecting your JavaScript APIs](https://medium.com/intrinsic/protecting-your-javascript-apis-9ce5b8a0e3b5)。
 
 这篇文章是我和 Thomas Hunter II 一起写的。我在一家名为 [Intricsic](https://intrinsic.com/) 的公司工作（顺便说一下，我们正在[招聘！](mailto:jobs@intrinsic.com)），专门编写用于保护 Node.js 应用程序的软件。我们目前有一个产品应用 Least Privilege 模型来保护应用程序。我们的产品主动保护 Node.js 应用程序不受攻击者的攻击，而且非常容易实现。如果你正在寻找保护 Node.js 应用程序的方法，请在 [hello@inherin.com](mailto:hello@inherin.com) 上联系我们。
 
