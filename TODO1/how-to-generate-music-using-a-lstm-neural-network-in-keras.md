@@ -33,17 +33,17 @@
 
 ### Keras
 
-[Keras](https://keras.io/) 是一个 high-level 神经网络接口，它简化了和[Tensorflow](https://www.tensorflow.org/)的交互。它的开发重点是实现快速实验。
+[Keras](https://keras.io/) 是一个 high-level 神经网络接口，它简化了和 [Tensorflow](https://www.tensorflow.org/) 的交互。它的开发重点是实现快速实验。
 
 在本教程中我们将使用 Keras 库去创建和训练 LSTM 模型。一旦这个模型被训练出来，我们将使用它去给我们的音乐创作音符。
 
 ## 训练
 
-在本节中我们将讲解如何为我们的模型收集数据，如何整理数据使它能够在 LSTM  模型中被使用，以及我们模型的结构是什么。
+在本节中我们将讲解如何为我们的模型收集数据，如何整理数据使它能够在 LSTM 模型中被使用，以及我们模型的结构是什么。
 
 ### 数据
 
-在[Github 仓库](https://github.com/Skuldur/Classical-Piano-Composer) 中，我们使用钢琴曲（展示），音乐主要由《最终幻想》中的音轨组成。选择《最终幻想》系列音乐，是因为它有很多部分，而且大部分的旋律都是清晰而优美的。而任何一组由单个乐器组成的 MIDI 文件都可以为我们服务。
+在 [Github 仓库](https://github.com/Skuldur/Classical-Piano-Composer)中，我们使用钢琴曲（展示），音乐主要由《最终幻想》中的音轨组成。选择《最终幻想》系列音乐，是因为它有很多部分，而且大部分的旋律都是清晰而优美的。而任何一组由单个乐器组成的 MIDI 文件都可以为我们服务。
 
 实现神经网络的第一步是检查我们要处理的数据。
 
@@ -71,7 +71,7 @@
 ...
 ```
 
-这个数据被拆分成两种类型：[Note](http://web.mit.edu/music21/doc/moduleReference/moduleNote.html#note)（译者注：音符集）和[Chord](http://web.mit.edu/music21/doc/moduleReference/moduleChord.html)（译者注：和弦集）。音符对象包括**音高**，**音阶**和音符的**偏移量**
+这个数据被拆分成两种类型：[Note](http://web.mit.edu/music21/doc/moduleReference/moduleNote.html#note)（译者注：音符集）和 [Chord](http://web.mit.edu/music21/doc/moduleReference/moduleChord.html)（译者注：和弦集）。音符对象包括**音高**，**音阶**和音符的**偏移量**
 
 *  **音高**是指声音的频率，或者用 [A, B, C, D, E, F, G] 来表示它是高还是低。其中 A 是最高，G 是最低。
 
@@ -142,7 +142,7 @@ for file in glob.glob("midi_songs/*.mid"):
             notes.append('.'.join(str(n) for n in element.normalOrder))
 ```
 
-使用 _converter.parse(file)_ 函数，我们开始把每一个文件加载到一个 Music21 流对象中。使用这个流对象，我们在文件中得到一个包含所有的音符与和弦的列表。把数组符号贴到到每个音符对象的音高上，因为使用数组符号可以重新创造音符中最重要的部分。将每个和弦的ID编码成一个单独的字符串，每个音符用一个点分隔。这些代码使我们可以轻松的把由网络生成的输出解码为正确的音符与和弦。
+使用 _converter.parse(file)_ 函数，我们开始把每一个文件加载到一个 Music21 流对象中。使用这个流对象，我们在文件中得到一个包含所有的音符与和弦的列表。把数组符号贴到到每个音符对象的音高上，因为使用数组符号可以重新创造音符中最重要的部分。将每个和弦的 ID 编码成一个单独的字符串，每个音符用一个点分隔。这些代码使我们可以轻松的把由网络生成的输出解码为正确的音符与和弦。
 
 既然我们已经把所有的音符与和弦放入一个序列表中，我们就可以创造一个序列，作为网络的输入。
 
@@ -193,9 +193,9 @@ network_output = np_utils.to_categorical(network_output)
 
 **LSTM 层**是一个循环的神经网络层，它把一个序列作为输入然后返回另一个序列（返回序列的值为真）或者一个矩阵。
 
-**Dropout 层**是一个正则化规则，这其中包含了在训练期间每次更新时将输入单位的一小部分置于0，以防止过拟合。它由和层一起使用的参数决定。
+**Dropout 层**是一个正则化规则，这其中包含了在训练期间每次更新时将输入单位的一小部分置于 0，以防止过拟合。它由和层一起使用的参数决定。
 
-**Dense 层**或**fully connected 层**是一个完全连接神经网络的层，这里的每一个输入节点都连接着输出节点。
+**Dense 层**或 **fully connected 层**是一个完全连接神经网络的层，这里的每一个输入节点都连接着输出节点。
 
 **The Activation 层**决定使用神经网络中的哪个激活函数去计算输出节点。
 
