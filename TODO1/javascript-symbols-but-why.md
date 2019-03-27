@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-symbols-but-why.md](https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-symbols-but-why.md)
 > * 译者：[xionglong58](https://github.com/xionglong58)
-> * 校对者：[EdmondWang](https://github.com/EdmondWang)、[Xuyuey](https://github.com/Xuyuey)
+> * 校对者：[EdmondWang](https://github.com/EdmondWang), [Xuyuey](https://github.com/Xuyuey)
 
 # JavaScript 中为什么会有 Symbol 类型？
 
@@ -58,7 +58,7 @@ const obj2 = { name: "Intrinsic" };
 
 console.log(obj1 === obj2); // false
 
-// 但是，当两者的 .name 属性为基本数据类型时:
+// 但是，当两者的 .name 属性为基本数据类型时：
 console.log(obj1.name === obj2.name); // true
 ```
 
@@ -246,9 +246,9 @@ console.log(Reflect.ownKeys(obj)); // [ 'foo', Symbol() ]
 console.log(JSON.stringify(obj)); // {}
 ```
 
-在这一点上，我们**几乎**重新创建了 symbols。 隐藏的字符串属性和 symbols 都对序列化程序隐身。这两种属性都可以使用 `Reflect.ownKeys()`方法提取，因此实际上并不是私有的。 假设我们对字符串属性使用某种命名空间/随机值，那么我们就消除了多个库意外发生命名冲突的风险。
+在这一点上，我们**几乎**重新创建了 symbols。隐藏的字符串属性和 symbols 都对序列化程序隐身。这两种属性都可以使用 `Reflect.ownKeys()`方法提取，因此实际上并不是私有的。假设我们对字符串属性使用某种命名空间/随机值，那么我们就消除了多个库意外发生命名冲突的风险。
 
-但是，仍然有一个微小的差异。由于字符串是不可变的，Symbol 始终保证是唯一的，因此仍有可能生成相同的字符串并产生冲突。 从数学角度来说，意味着 symbols 确实提供了我们无法从字符串中获得的好处。
+但是，仍然有一个微小的差异。由于字符串是不可变的，Symbol 始终保证是唯一的，因此仍有可能生成相同的字符串并产生冲突。从数学角度来说，意味着 symbols 确实提供了我们无法从字符串中获得的好处。
 
 在 Node.js 中，检查对象时(例如使用 `console.log()`)，如果遇到对象上名为 `inspect` 的方法，则调用该函数，并将输出表示成对象的日志。可以想象，这种行为并不是每个人都期望的，通常命名为 `inspect` 的方法经常与用户创建的对象发生冲突。现在有 symbol 可用来实现这个功能，并且可以在 require('util').inspection.custom 中使用。`inspect` 方法在 Node.js v10 中被废弃，在 v11 中完全被忽略。现在没有人会因为意外改变 inspect 的行为!
 
