@@ -14,13 +14,13 @@ The classical problem in Machine Learning is to learn a classifier that can dist
 
 NLP typical examples are, for instance: classifying an email as spam or not spam, classifying a movie into genres, classifying a news article into topics, etc., however, there is another type of prediction problems which involve structure.
 
-A classical example in NLP is part-of-speech tagging, in this scenario, each xixi describes a word and each yiyi the associated part-of-speech of the word xixi (e.g.: *noun*, *verb*, *adjective*, etc.).
+A classical example in NLP is part-of-speech tagging, in this scenario, each xixi describes a word and each yiyi the associated part-of-speech of the word $x_i$ (e.g.: *noun*, *verb*, *adjective*, etc.).
 
 Another example, is named-entity recognition, in which, again, each xixi describes a word and yiyi is a semantic label associated to that word (e.g.: *person*, *location*, *organization*, *event*, etc.).
 
-In both examples the data consist of sequences of (x,y)(x,y) pairs, and we want to model our learning problem based on that sequence:
+In both examples the data consist of sequences of $(x,y)$ pairs, and we want to model our learning problem based on that sequence:
 
-p(y1,y2,...,ym∣x1,x2,...,xm)p(y1,y2,...,ym∣x1,x2,...,xm)
+$$ p \left( y _ { 1 } , y _ { 2 } , \ldots , y _ { m } | x _ { 1 } , x _ { 2 } , \ldots , x _ { m } \right) $$
 
 in most problems these sequences can have a sequential correlation. That is, nearby xx and yy values are likely to be related to each other. For instance, in English, it's common after the word *to* the have a word whose part-of-speech tag is a *verb*.
 
@@ -36,9 +36,9 @@ In contrast *discriminative models*, like logistic regression, tries to learn w
 
 The Naive Bayes classifier returns the class that as the maximum posterior probability given the features:
 
-ŷ =argmaxy p(y∣x⃗ )y^=arg⁡maxyp(y∣x→)
+$$ \hat { y } = \underset { y } { \arg \max } p ( y | \vec { x } ) $$
 
-where yy it's a class and x⃗ x→ is a feature vector associated to an observation.
+where $y$ it's a class and $\vec { x }$ is a feature vector associated to an observation.
 
 ![](http://www.davidsbatista.net/assets/images/2017-11-11-1024px-Bayes_Theorem_MMB_01.jpg)
 
@@ -47,15 +47,15 @@ Bayes theorem in blue neon.\
 
 The NB classifier is based on the Bayes' theorem. Applying the theorem to the equation above, we get:
 
-p(y∣x⃗ )=p(y)⋅p(x⃗ ∣y)p(x⃗ )p(y∣x→)=p(y)⋅p(x→∣y)p(x→)
+$$ p ( y | \vec { x } ) = \frac { p ( y ) \cdot p ( \vec { x } | y ) } { p ( \vec { x } ) } $$
 
 In training, when iterating over all classes, for a given observation, and calculating the probabilities above, the probability of the observation, i.e., the denominator, is always the same, it has no influence, so we can then simplify the formula:
 
-p(y∣x⃗ )=p(y)⋅p(x⃗ ∣y)p(y∣x→)=p(y)⋅p(x→∣y)
+$$ p ( y | \vec { x } ) = p ( y ) \cdot p ( \vec { x } | y ) $$
 
 which, if we decompose the vector of features, is the same as:
 
-p(y∣x⃗ )=p(y)⋅p(x1,x2,x3,...,x1∣y)p(y∣x→)=p(y)⋅p(x1,x2,x3,...,x1∣y)
+$$ p ( y | \vec { x } ) = p ( y ) \cdot p \left( x _ { 1 } , x _ { 2 } , x _ { 3 } , \ldots , x _ { 1 } | y \right) $$
 
 this is hard to compute, because it involves estimating every possible combination of features. We can relaxed this computation by applying the Naives Bayes assumption, which states that:
 
@@ -67,9 +67,9 @@ p(x1,x2,...,x1∣y)=p(x1∣y)⋅p(x2∣y),⋯,p(xm∣y)p(x1,x2,...,x1∣y)=p(x1�
 
 plugging this into our equation:
 
-p(y∣x⃗ )=p(y)∏i=1mp(xi∣y)p(y∣x→)=p(y)∏i=1mp(xi∣y)
+$$ p \left( x _ { 1 } , x _ { 2 } , \ldots , x _ { 1 } | y \right) = p \left( x _ { 1 } | y \right) \cdot p \left( x _ { 2 } | y \right) , \cdots , p \left( x _ { m } | y \right) $$
 
-we get the final Naive Bayes model, which as consequence of the assumption above, doesn't capture dependencies between each input variables in x⃗ x→.
+we get the final Naive Bayes model, which as consequence of the assumption above, doesn't capture dependencies between each input variables in $\vec { x }$.
 
 ### Trainning
 
@@ -77,11 +77,11 @@ Training in Naive Bayes is mainly done by counting features and classes. Note th
 
 To calculate the prior, we simple count how many samples in the training data fall into each class yiyi divided by the total number of samples:
 
-p(yi)=NyiNp(yi)=NyiN
+$$ p \left( y _ { i } \right) = \frac { N _ { y _ { i } } } { N } $$
 
 To calculate the likelihood estimate, we count the number of times feature wiwi appears among all features in all samples of class yiyi:
 
-p(xi∣yi)=count(xi,yi)∑xi∈Xcount(xi,yi)p(xi∣yi)=count(xi,yi)∑xi∈Xcount(xi,yi)
+$$ p \left( x _ { i } | y _ { i } \right) = \frac { \operatorname { count } \left( x _ { i } , y _ { i } \right) } { \sum _ { x _ { i } \in X } \operatorname { count } \left( x _ { i } , y _ { i } \right) } $$
 
 This will result in a big table of occurrences of features for all classes in the training data.
 
@@ -89,11 +89,11 @@ This will result in a big table of occurrences of features for all classes in th
 
 When given a new sample to classify, and assuming that it contains features x1,x3,x5x1,x3,x5, we need to compute, for each class yiyi:
 
-p(yi∣x1,x3,x5)p(yi∣x1,x3,x5)
+$$ p \left( y _ { i } | x _ { 1 } , x _ { 3 } , x _ { 5 } \right) $$
 
 This is decomposed into:
 
-p(yi∣x1,x3,x5)=p(yi)⋅p(yi∣x1)⋅p(yi∣x3)⋅p(yi∣x5)p(yi∣x1,x3,x5)=p(yi)⋅p(yi∣x1)⋅p(yi∣x3)⋅p(yi∣x5)
+$$ p \left( y _ { i } | x _ { 1 } , x _ { 3 } , x _ { 5 } \right) = p \left( y _ { i } \right) \cdot p \left( y _ { i } | x _ { 1 } \right) \cdot p \left( y _ { i } | x _ { 3 } \right) \cdot p \left( y _ { i } | x _ { 5 } \right) $$
 
 Again, this is calculated for each class yiyi, and we assign to the new observed sample the class that has the highest score.
 
@@ -103,7 +103,7 @@ Again, this is calculated for each class yiyi, and we assign to the new observe
 
 The model presented before predicts a class for a set of features associated to an observation. To predict a class sequence y=(y1,...,yn)y=(y1,...,yn) for sequence of observation x=(x1,...,yn)x=(x1,...,yn), a simple sequence model can be formulated as a product over single Naïve Bayes models:
 
-p(y⃗ ∣x⃗ )=∏i=1np(yi)⋅p(xi∣yi)p(y→∣x→)=∏i=1np(yi)⋅p(xi∣yi)
+$$ p ( \vec { y } | \vec { x } ) = \prod _ { i = 1 } ^ { n } p \left( y _ { i } \right) \cdot p \left( x _ { i } | y _ { i } \right) $$
 
 Two aspects about this model:
 
@@ -117,11 +117,11 @@ This is where the First-order Hidden Markov Model appears, introducing the Mark
 
 "the probability of a particular state is dependent only on the previous state"
 
-p(y⃗ ∣x⃗ )=∏i=1np(yi∣yi-1)⋅p(xi∣yi)p(y→∣x→)=∏i=1np(yi∣yi-1)⋅p(xi∣yi)
+$$ p ( \vec { y } | \vec { x } ) = \prod _ { i = 1 } ^ { n } p \left( y _ { i } | y _ { i - 1 } \right) \cdot p \left( x _ { i } | y _ { i } \right) $$
 
 which written in it's more general form:
 
-p(x⃗ )=∑y∈Y∏i=1np(yi∣yi-1)⋅p(xi∣yi)p(x→)=∑y∈Y∏i=1np(yi∣yi-1)⋅p(xi∣yi)
+$$ p ( \vec { x } ) = \sum _ { y \in Y } \prod _ { i = 1 } ^ { n } p \left( y _ { i } | y _ { i - 1 } \right) \cdot p \left( x _ { i } | y _ { i } \right) $$
 
 where Y represents the set of all possible label sequences y⃗ y→.
 
@@ -131,9 +131,9 @@ where Y represents the set of all possible label sequences y⃗ y→.
 
 A Hidden Markov Model (HMM) is a sequence classifier. As other machine learning algorithms it can be trained, i.e.: given labeled sequences of observations, and then using the learned parameters to assign a sequence of labels given a sequence of observations. Let's define an HMM framework containing the following components:
 
--   states (e.g., labels): T=t1,t2,...,tNT=t1,t2,...,tN
--   observations (e.g., words) : W=w1,w2,...,wNW=w1,w2,...,wN
--   two special states: tstarttstart and tendtend which are not associated with the observation
+-   states (e.g., labels): $ T = t _ { 1 } , t _ { 2 } , \ldots , t _ { N } $
+-   observations (e.g., words) : $ W = w _ { 1 } , w _ { 2 } , \ldots , w _ { N } $
+-   two special states: $t _ { \text {start} }$ and $t _ { \text {end} }$ which are not associated with the observation
 
 and probabilities relating states and observations:
 
@@ -144,9 +144,9 @@ and probabilities relating states and observations:
 
 A First-order Hidden Markov Model has the following assumptions:
 
--   Markov Assumption: the probability of a particular state is dependent only on the previous state. Formally: P(ti∣t1,...,ti-1)=P(ti∣ti-1)P(ti∣t1,...,ti-1)=P(ti∣ti-1)
+-   Markov Assumption: the probability of a particular state is dependent only on the previous state. Formally: $P \left( t _ { i } | t _ { 1 } , \ldots , t _ { i - 1 } \right) = P \left( t _ { i } | t _ { i - 1 } \right)$
 
--   Output Independence: the probability of an output observation wiwi depends only on the state that produced the observation titi and not on any other states or any other observations. Formally: P(wi∣t1...qi,...,qT,o1,...,oi,...,oT)=P(oi∣qi)P(wi∣t1...qi,...,qT,o1,...,oi,...,oT)=P(oi∣qi)
+-   Output Independence: the probability of an output observation wiwi depends only on the state that produced the observation titi and not on any other states or any other observations. Formally: $P \left( w _ { i } | t _ { 1 } \ldots q _ { i } , \ldots , q _ { T } , o _ { 1 } , \ldots , o _ { i } , \ldots , o _ { T } \right) = P \left( o _ { i } | q _ { i } \right)$
 
 Notice how the output assumption is closely related with the Naive Bayes classifier presented before. The figure below makes it easier to understand the dependencies and the relationship with the Naive Bayes classifier:
 
@@ -169,7 +169,7 @@ In a HHM supervised scenario this is done by applying the Maximum Likelihood Es
 
 This is achieved by counting how many times each event occurs in the corpus and normalizing the counts to form proper probability distributions. We need to count 4 quantities which represent the counts of each event in the corpus:
 
-Initial counts: Cinit(tk)=∑m=1M1(tm1=tk)Cinit(tk)=∑m=1M1(t1m=tk)\
+Initial counts: $C _ { \mathrm { init } } \left( t _ { k } \right) = \sum _ { m = 1 } ^ { M } 1 \left( t _ { 1 } ^ { m } = t _ { k } \right)$
 (how often does state tktk is the initial state)
 
 Transition counts: Ctrans(tk,tl)=∑m=1M∑m=2N1(tmi=tk∧tmi-1=tl)Ctrans(tk,tl)=∑m=1M∑m=2N1(tim=tk∧ti-1m=tl)\
