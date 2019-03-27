@@ -260,6 +260,46 @@ A proxy offers many ways to intercept actions performed on an object. The one we
 
 We can use a proxy to then lie about which properties are available on our object. In this case we’re going to craft a proxy which hides our two known hidden properties, one being the string `_favColor`, and the other being the symbol assigned to `favBook`:
 
+```js
+let proxy;
+
+{
+  const favBook = Symbol('fav book');
+
+  const obj = {
+    name: 'Thomas Hunter II',
+    age: 32,
+    _favColor: 'blue',
+    [favBook]: 'Metro 2033',
+    [Symbol('visible')]: 'foo'
+  };
+
+  const handler = {
+    ownKeys: (target) => {
+      const reportedKeys = [];
+      const actualKeys = Reflect.ownKeys(target);
+
+      for (const key of actualKeys) {
+        if (key === favBook || key === '_favColor') {
+          continue;
+        }
+        reportedKeys.push(key);
+      }
+
+      return reportedKeys;
+    }
+  };
+
+  proxy = new Proxy(obj, handler);
+}
+
+console.log(Object.keys(proxy)); // [ 'name', 'age' ]
+console.log(Reflect.ownKeys(proxy)); // [ 'name', 'age', Symbol(visible) ]
+console.log(Object.getOwnPropertyNames(proxy)); // [ 'name', 'age' ]
+console.log(Object.getOwnPropertySymbols(proxy)); // [Symbol(visible)]
+console.log(proxy._favColor); // 'blue'
+```
+
 It’s easy to come up with the `_favColor` string: just read the source code of the library. Additionally, dynamic keys (e.g., the `uuid` example from before) can be found via brute force. But without a direct reference to the symbol, no one can access the 'Metro 2033' value from the `proxy` object.
 
 **Node.js Caveat**: There is a feature in Node.js which breaks the privacy of proxies. This feature doesn’t exist in the JavaScript language itself and doesn’t apply in other situations, such as a web browser. It allows one to gain access to the underlying object when given a proxy. Here is an example of using this functionality to break the above private property example:
