@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-read-source-code-without-ripping-your-hair-out.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-read-source-code-without-ripping-your-hair-out.md)
 > * 译者：[Mcskiller](https://github.com/Mcskiller)
-> * 校对者：
+> * 校对者：[xionglong58](https://github.com/xionglong58), [Endone](https://github.com/Endone)
 
 # 如何心平气和地阅读代码
 
@@ -15,12 +15,12 @@
 
 这是我在两年前转向编程时给我自己的要求。幸运的是，现在有很多在线编写代码的课程和教程可以教你写代码，然而他们却基本上都没有去教你如何阅读代码。
 
-这是一个重要的区分点。随着进入科技领域的培训机构以及学生数量的 [飞速增长](https://www.coursereport.com/reports/2016-coding-bootcamp-market-size-research)。强调阅读源码变得更加重要。Brandon Bloom [写道](https://news.ycombinator.com/item?id=3769446)：
+这是一个重要的区分点。随着进入科技领域的编程训练营毕业生数量的 [飞速增长](https://www.coursereport.com/reports/2016-coding-bootcamp-market-size-research)。强调阅读源码变得更加重要。Brandon Bloom [写道](https://news.ycombinator.com/item?id=3769446)：
 > 如果它在 **你** 的机器上运行，它就是 **你** 的软件。**你** 应该对此负责，所以 **你** 必须对它了如指掌。
 
 ![Yes, you.](https://cdn-images-1.medium.com/max/2000/1*r_K_SnPFHV6BRZMcShNiPQ.gif)
 
-虽然每个程序员都应该阅读源码，但 [事实](https://blog.codinghorror.com/learn-to-read-the-source-luke/) 并非如此。许多程序员不愿意阅读源码是因为它阅读起来很难，容易打击信心，并且让他们感到自己很蠢。我知道，因为这就是我的感受。
+虽然每个程序员都应该阅读源码，但 [事实](https://blog.codinghorror.com/learn-to-read-the-source-luke/) 并非如此。许多程序员不愿意阅读源码是因为它阅读起来很难，容易打击他们的信心，并且让他们感到自己很蠢。我知道，因为这就是我的感受。
 
 **其实只是方法不对**
 
@@ -32,13 +32,13 @@
 
 ![Image Source: [https://thenextweb.com/wp-content/blogs.dir/1/files/2010/04/twitter-location-300x200.jpg](https://thenextweb.com/wp-content/blogs.dir/1/files/2010/04/twitter-location-300x200.jpg)](https://cdn-images-1.medium.com/max/2000/1*1jtCApS-67hwSYHOqwsDDw.png)
 
-想我第一次阅读源码的时候，那简直是一场灾难。
+回想我第一次阅读源码的时候，那简直是一场灾难。
 
 我当时正在学习 Sinatra，然后我想更好的了解底层运行机制。然而，我并不知道应该从哪里开始读，于是我找到了它在 Github 上的 repo 然后随便打开了一个文件。不开玩笑，我确实是这样做的。
 
 我想我可以花一个下午来研究它，然后在吃晚饭的时候就可以完全掌握。毕竟，阅读我自己的代码很容易，阅读别人有什么不同？
 
-我们都知道接下来会发生什么。可以这么说，就像我一头撞在了一堵文字墙上一样。
+我们都知道接下来会发生什么。可以这么说，我当时的感受像一头撞在了一堵文字墙上一样。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*RSW1LI69w3Bgb1H7ynxDjw.gif)
 
