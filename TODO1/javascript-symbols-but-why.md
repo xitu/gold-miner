@@ -105,7 +105,6 @@ console.log(s1); // Symbol(debug)
 
 symbols 还有另一个重要的用法，它们可以被当作对象中的键！下面是一个在对象中使用 symbol 作为键的例子:
 
-
 ```js
 const obj = {};
 const sym = Symbol();
@@ -260,6 +259,7 @@ console.log(JSON.stringify(obj)); // {}
 proxy 提供了许多方法来拦截对对象执行的操作。我们所感兴趣的是在尝试读取对象的键时，proxy 会有哪些动作。我不会去详细解释 proxy 是如何工作的，如果你想了解更多信息，请查看我们的另一篇文章： [JavaScript Object Property Descriptors, Proxies, and Preventing Extension](https://medium.com/intrinsic/javascript-object-property-descriptors-proxies-and-preventing-extension-1e1907aa9d10).
 
 我们可以使用 proxy 来谎报对象上可用的属性。在本例中，我们将创建一个 proxy，它用于隐藏我们的两个已知隐藏属性，一个是字符串 `_favColor`，另一个是分配给 `favBook` 的 symbol：
+
 ```js
 let proxy;
 
