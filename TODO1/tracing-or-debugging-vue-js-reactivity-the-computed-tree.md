@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/tracing-or-debugging-vue-js-reactivity-the-computed-tree.md](https://github.com/xitu/gold-miner/blob/master/TODO1/tracing-or-debugging-vue-js-reactivity-the-computed-tree.md)
 > * 译者：[SHERlocked93](https://github.com/SHERlocked93)
-> * 校对者：
+> * 校对者：[Reaper622](https://github.com/Reaper622)、[hanxiansen](https://github.com/hanxiansen)
 
 # 监测与调试 Vue.js 的响应式系统：计算属性树（Computed Tree）
 
@@ -110,7 +110,7 @@ this.$store.state.users[2].__ob__.dep.subs[5]
 
 ![](https://cdn-images-1.medium.com/max/3322/1*9CNU3NoJf7HCVrDynQteTA.png)
 
-唯一能证明它是 Vuex 中的 getter 的线索是，它的函数体定义在 **vuex.min.js** 中（`[[FunctionLocation]]` 属性--译者）。
+唯一能证明它是 Vuex 中的 getter 的线索是：它的函数体定义在 **vuex.min.js** 中（`[[FunctionLocation]]` 属性--译者）。
 
 所以我们应该怎样获取 getter 的名称呢？在开发者工具中你通常可以访问 `[[Scopes]]`，你可以在 `[[Scopes]]` 中找到它的名称，然而这并不是通过编程的方式来获取的。
 
@@ -191,7 +191,7 @@ tempWatch.deps.forEach(dep => dep.subs
 
 ## 最后一点...
 
-我需要着重强调的是，要谨慎使用任何以下划线的开头的属性，因为这不是公共API的一部分，它们可能会在没有任何警告的情况下被移除。上面介绍的这个功能，一开始就没打算使用于生产环境，也没打算使用在运行时环境，这只是一个方便调试的开发者工具。
+我需要着重强调的是，要谨慎使用任何以下划线作为开头的属性，因为这不是公共API的一部分，它们可能会在没有任何警告的情况下被移除。上面介绍的这个功能，一开始就没打算使用于生产环境，也没打算使用在运行时环境，这只是一个方便调试的开发者工具。
 
 最终随着 Vue3.0 的出现，这将会被更全面、更简单易用、更可靠的替代。
 
