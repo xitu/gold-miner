@@ -12,11 +12,8 @@
 Unit testing is a great discipline which can lead to [40%-80% reductions in production bug density](https://ieeexplore.ieee.org/document/4163024). Unit testing also has several other important benefits:
 
 * Improves your application architecture and maintainability.
-
 * Leads to better APIs and composability by focusing developers on the developer experience (API) before implementation details.
-
 * Provides quick feedback on file-save to tell you whether or not your changes worked. This can replace `console.log()`and clicking around in the UI to test changes. Newcomers to unit testing might spend an extra 15% - 30% on the TDD process as they figure out how to test various components, but experienced TDD practitioners may experience savings in implementation time using TDD.
-
 * Provides a great safety net which can enhance your confidence when its time to add features or refactor existing features.
 
 But some things are easier to unit test than others. Specifically, unit tests work great for [pure functions](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-pure-function-d1c076bec976): Functions which given the same input, always return the same output, and have no side-effects.
@@ -32,16 +29,14 @@ One recent innovation in my testing discipline is the development of the [RITEwa
 No matter what framework you use, the following tips will help you write better, more testable, more readable, more composable UI components:
 
 * **Favor pure components for UI code:** given same props, always render the same component. If you need state from the app, you can wrap those pure components with a container component which manages state and side-effects.
-
 * **Isolate application logic/business rules** in pure reducer functions.
-
 * **Isolate side effects** using container components.
 
 ## Favor Pure Components
 
 A pure component is a component which, given the same props, always renders the same UI, and has no side-effects. E.g.,
 
-```
+```js
 import React from 'react';
 
 const Hello = ({ userName }) => (
@@ -55,7 +50,7 @@ These kinds of components are generally very easy to test. You’ll need a way t
 
 To get started, install RITEway:
 
-```
+```bash
 npm install --save-dev riteway
 ```
 
@@ -63,7 +58,7 @@ Internally, RITEway uses `react-dom/server` `renderToStaticMarkup()` and wraps t
 
 Once you have a render function to produce a Cheerio object from your markup, you can write component tests like this:
 
-```
+```js
 import { describe } from 'riteway';
 import render from 'riteway/render-component';
 import React from 'react';
@@ -92,9 +87,7 @@ The answer: Isolate your state and side-effects from your presentation component
 But didn’t the hooks API make it so that we can have flat component hierarchies and forget about all that component nesting stuff? Well, not quite. It’s still a good idea to keep your code in three different buckets, and keep these buckets isolated from each other:
 
 * **Display/UI Components**
-
 * **Program logic/business rules** — the stuff that deals with the problem you’re solving for the user.
-
 * **Side effects** (I/O, network, disk, etc.)
 
 In my experience, if you keep the display/UI concerns separate from program logic and side-effects, it makes your life a lot easier. This rule of thumb has always held true for me, in every language and every framework I’ve ever used, including React with hooks.
@@ -109,7 +102,7 @@ In this case, we’ll create a component called `\<ClickCounter>`, and that comp
 
 Let’s look at a pair of unit tests that could ensure we’re pulling the click count from props. Let’s create a new file, click-counter/click-counter-component.test.js:
 
-```
+```js
 import { describe } from 'riteway';
 import render from 'riteway/render-component';
 import React from 'react';
@@ -149,7 +142,7 @@ describe('ClickCounter component', async assert => {
 
 I like to create little factory functions to make it easier to write tests. In this case, `createCounter` will take a number of clicks to inject, and return a rendered component using that number of clicks:
 
-```
+```js
 const createCounter = clickCount =>
   render(<ClickCounter clicks={ clickCount } />)
 ;
@@ -157,7 +150,7 @@ const createCounter = clickCount =>
 
 With the tests written, it’s time to create our `ClickCounter` display component. I've colocated mine in the same folder with my test file, with the name, `click-counter-component.js`. First, let's write a component fragment and watch our test fail:
 
-```
+```js
 import React, { Fragment } from 'react';
 
 export default () =>
@@ -168,7 +161,7 @@ export default () =>
 
 If we save and run our tests, we’ll get a `TypeError`, which currently triggers Node's UnhandledPromiseRejectionWarning — eventually, Node will stop with the irritating warnings with the extra paragraph of `DeprecationWarning` and just throw an UnhandledPromiseRejectionError, instead. We get the `TypeError` because our selection returns `null`, and we're trying to run `.trim()` on it. Let's fix that by rendering the expected selector:
 
-```
+```js
 import React, { Fragment } from 'react';
 
 export default () =>
@@ -194,7 +187,7 @@ not ok 3 Given a click count: should render the correct number of clicks.
 
 To fix it, take the count as a prop, and use the live prop value in the JSX:
 
-```
+```js
 import React, { Fragment } from 'react';
 
 export default ({ clicks }) =>
@@ -223,7 +216,7 @@ ok 3 Given a click count: should render the correct number of clicks.
 
 Time to test the button. First, add the test and watch it fail (TDD style):
 
-```
+```js
 {
   const $ = createCounter(0);
 
@@ -249,7 +242,7 @@ not ok 4 Given expected props: should render the click button
 
 Now we’ll implement the click button:
 
-```
+```js
 export default ({ clicks }) =>
   <Fragment>
     <span className="clicks-count">{ clicks }</span>
@@ -288,7 +281,7 @@ If you need to lift the state to be managed by a state manager like Redux, you�
 
 First, I’ll create a new test file for state reducers. I’ll colocate this in the same folder, but use a different file. I’m calling this one click-counter/click-counter-reducer.test.js:
 
-```
+```js
 import { describe } from 'riteway';
 
 import { reducer, click } from '../click-counter/click-counter-reducer';
@@ -307,7 +300,7 @@ I always start with an assertion to ensure that the reducer will produce a valid
 
 Of course, we’ll need to create a corresponding reducer file. I’m calling it click-counter/click-counter-reducer.js:
 
-```
+```js
 const click = () => {};
 
 const reducer = () => {};
@@ -330,13 +323,13 @@ not ok 5 Given no arguments: should return the valid initial state
 
 Now let’s make the test pass:
 
-```
+```js
 const reducer = () => 0;
 ```
 
 The initial value test will pass now, but it’s time to add more meaningful tests:
 
-```
+```js
   assert({
     given: 'initial state and a click action',
     should: 'add a click to the count',
@@ -358,7 +351,7 @@ Notice that I’m using the `click()` action creator as the reducer's public API
 
 I also don't write separate unit tests for action creators and selectors. I always test them in combination with the reducer. Testing the reducer is testing the action creators and selectors, and vice versa. If you follow this rule of thumb, you'll need fewer tests, but still achieve the same test and case coverage as you would if you tested them independently.
 
-```
+```js
 const click = () => ({
   type: 'click-counter/click',
 });
@@ -397,7 +390,7 @@ ok 7 Given a click count and a click action: should add a click to the count
 
 Just one more step: Connecting our behavior to our component. We can do that with a container component. I’ll just call that `index.js` and colocate it with the other files. It should look something like this:
 
-```
+```js
 import React, { useReducer } from 'react';
 
 import Counter from './click-counter-component';
@@ -416,7 +409,7 @@ That’s it. This component’s only job is to connect our state management and 
 
 Up until now we haven’t looked at the component in the browser or done any kind of styling. Just to clarify what we’re counting, I’ll add a label and some space to the `ClickCounter` component. I'll also hook up the `onClick` function. Now the code looks like this:
 
-```
+```js
 import React, { Fragment } from 'react';
 
 export default ({ clicks, onClick }) =>
