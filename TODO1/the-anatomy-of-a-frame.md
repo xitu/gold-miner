@@ -15,11 +15,11 @@
 
 这是真的，让我们先看一张图：
 
-[![The process of getting pixels to screen.](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.svg)](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.zip)
+[The process of getting pixels to screen.](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.svg)
 
 将像素放到屏幕上的完整过程。
 
-[下载本图](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.zip)
+[下载图片](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.zip)
 
 ## 进程
 
@@ -44,9 +44,9 @@
 
 ## 运作过程
 
-[![The main thread in all its glory.](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/main-thread.svg)](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.zip)
+[The main thread in all its glory.](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/main-thread.svg)]
 
-主线程风貌全览。
+主线程风貌全览。[下载图片](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.zip)
 
 让我们从垂直同步信号到像素，逐步分析这个过程，然后讨论一下在完全版本中事件是怎么工作的。记住这一点：浏览器**并不需要执行所有步骤**，具体情况取决于哪些步骤是必需的。例如，如果没有新的 HTML 要解析，那么解析 HTML 的步骤就不会触发。事实上，通常[提升性能的最佳方法](https://developers.google.com/web/fundamentals/performance/rendering/#the-pixel-pipeline)，只是简单地移除流程中部分步骤被触发的需要！
 
