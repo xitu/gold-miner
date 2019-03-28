@@ -15,7 +15,7 @@
 
 这是真的，让我们先看一张图：
 
-[The process of getting pixels to screen.](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.svg)
+![The process of getting pixels to screen.](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.svg)
 
 将像素放到屏幕上的完整过程。
 
@@ -44,7 +44,7 @@
 
 ## 运作过程
 
-[The main thread in all its glory.](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/main-thread.svg)]
+![The main thread in all its glory.](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/main-thread.svg)
 
 主线程风貌全览。[下载图片](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.zip)
 
