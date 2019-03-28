@@ -9,7 +9,7 @@
 
 本系列文章：  
 [**第一部分：Activities** — 单一 activity 的生命周期](https://github.com/xitu/gold-miner/blob/master/TODO/the-android-lifecycle-cheat-sheet-part-i-single-activities.md)  
-[**第二部分：多个 activities** — 跳转和返回栈（back stack)](https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-II-Multiple-activities.md)   
+[**第二部分：多个 activities** — 跳转和返回栈（back stack）](https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-II-Multiple-activities.md)   
 **第三部分： Fragments** — Activity 和 Fragment 的生命周期（即本文）
 [**第四部分：ViewModels、透明 Activities 及启动模式**](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iv-49946659b094)
 
@@ -23,7 +23,7 @@
 
 **场景 1：当带有 Fragment 的 Activity 启动和终止时**
 
-虽然 Activity 的 `onCreate` 方法保证在 Fragment 的 `onCreate` 方法之前被调用，但是其他像 `onStart` 和 `onResume` 这样的回调会被并行执行，因此它们会被以任意顺序调用。例如，系统可能先调用 Activity 的 `onStart` 方法再调用 Fragment 的 `onStart`，但在此之后却先调用 **Fragment** 的 `onResume` 方法再执行 Activity 的 `onResume`。
+虽然 Activity 的 `onCreate` 方法保证在 Fragment 的 `onCreate` 方法之前被调用，但是其它像 `onStart` 和 `onResume` 这样的回调会被并行执行，因此它们会被以任意顺序调用。例如，系统可能先调用 Activity 的 `onStart` 方法再调用 Fragment 的 `onStart`，但在此之后却先调用 **Fragment** 的 `onResume` 方法再执行 Activity 的 `onResume`。
 
 **小心管理它们执行的顺序和时间，以避免两者竞争带来的问题。**
 
