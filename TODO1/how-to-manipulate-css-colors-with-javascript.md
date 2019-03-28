@@ -306,16 +306,6 @@ const normalizeHue = normalizeAttribute('hue');
 
 Colors are an integral part of the web. Breaking down colors into their attributes allows for the smart manipulation of colors and opens the door to all sorts of possibilities.
 
-## Plug: LogRocket, a DVR for web apps
-
-![[https://logrocket.com/signup/](https://logrocket.com/signup/)](https://cdn-images-1.medium.com/max/7104/1*s_rMyo6NbrAsP-XtvBaXFg.png)
-
-[LogRocket](https://logrocket.com/signup/) is a frontend logging tool that lets you replay problems as if they happened in your own browser. Instead of guessing why errors happen, or asking users for screenshots and log dumps, LogRocket lets you replay the session to quickly understand what went wrong. It works perfectly with any app, regardless of framework, and has plugins to log additional context from Redux, Vuex, and @ngrx/store.
-
-In addition to logging Redux actions and state, LogRocket records console logs, JavaScript errors, stacktraces, network requests/responses with headers + bodies, browser metadata, and custom logs. It also instruments the DOM to record the HTML and CSS on the page, recreating pixel-perfect videos of even the most complex single-page apps.
-
-[Try it for free.](https://logrocket.com/signup/)
-
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
