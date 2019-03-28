@@ -1,3 +1,10 @@
+> * 原文地址：[All you need to know about hyphenation in CSS](https://clagnut.com/blog/2395)
+> * 原文作者：[Richard Rutter](https://clagnut.com/)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/hyphenation-in-css.md](https://github.com/xitu/gold-miner/blob/master/TODO1/hyphenation-in-css.md)
+> * 译者：
+> * 校对者：
+
 # All you need to know about hyphenation in CSS
 
 ![Part of a Gutenberg bible showing hyphenation on many lines](https://clagnut.com/images/1-handj-bible-hyphens.jpg)
@@ -65,7 +72,7 @@ hyphenate-limit-chars: 6 3 2;
 
 ![](https://clagnut.com/images/1-handj-hyphenate-limit-chars.png)
 
-hyphenate-limit-chars in action.
+> hyphenate-limit-chars in action.
 
 The default value for `hyphenate-limit-chars` is `auto` for all three settings. This means that the browser should pick the best settings based on the current language and layout. The CSS Text Module Level 4 suggests that browsers use `5 2 2` as their starting point (which I think results in too much hyphenation), but browsers are free to vary that as they see fit.
 
@@ -95,7 +102,7 @@ hyphenate-limit-lines: 2;
 
 ![](https://clagnut.com/images/1-handj-hyphenate-limit-lines.png)
 
-hyphenate-limit-lines applied to prevent a ladder.
+> hyphenate-limit-lines applied to prevent a ladder.
 
 You can remove the limit using a value of `no-limit`.
 
@@ -119,8 +126,8 @@ You can do this by specifying the maximum amount of whitespace allowed between t
 
 ![](https://clagnut.com/images/1-handj-hyphenation-zone.png)
 
-*Left*: Arrows indicate lines where hyphenation is allowed.\
-*Right*: Hyphenation with hyphenation zone set.
+> *Left*: Arrows indicate lines where hyphenation is allowed.\
+> *Right*: Hyphenation with hyphenation zone set.
 
 To do this you use the `hyphenation-limit-zone` property, which takes a length or a percentage value (in terms of the width of the text box). In the context of responsive design, it makes most sense to set your hyphenation zone as a percentage. Doing so means you would get a smaller hyphenation zone on smaller screens, leading to more hyphenation and less rag. Conversely on wider screens you would get a broader hyphenation zone, hence less hyphenation and more rag, which a wider measure would be better able to accommodate. Based on typical defaults in page layout software, 8% is a good start:
 
@@ -177,3 +184,9 @@ p {
 ```
 
 Hyphenation is a perfect example of progressive enhancement, so you can start applying the above now if you think your readers will benefit from it -- support among browsers will only increase. If you are designing for a website written in a language with long words, such as German, your readers will definitely thank you for it.
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
