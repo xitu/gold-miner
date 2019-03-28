@@ -33,8 +33,6 @@ Lightness, also represented by a percentage, refers to how bright a color is. â€
 
 I find HSL to be a more intuitive model. Relations between colors are more immediately evident, and manipulation of colors tends to be as simple as tweaking just one of the numbers.
 
-![](https://cdn-images-1.medium.com/max/4800/1*wV7zU6J05BL3bphzMlB2rA.png)
-
 ## Conversion between color models
 
 Both the RGB and HSL color models break down a color into various attributes. To convert between the syntaxes, we first need to calculate these attributes.
