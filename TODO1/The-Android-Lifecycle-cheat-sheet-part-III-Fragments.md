@@ -3,27 +3,27 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-III-Fragments.md](https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-III-Fragments.md)
 > * 译者：[Qiuk17](https://github.com/Qiuk17)
-> * 校对者：
+> * 校对者：[xiaxiayang](https://github.com/xiaxiayang)
 
 # Android 生命周期备忘录 — 第三部分：Fragments
 
-本系列文章：
+本系列文章：  
 [**第一部分：Activities** — 单一 activity 的生命周期](https://github.com/xitu/gold-miner/blob/master/TODO/the-android-lifecycle-cheat-sheet-part-i-single-activities.md)  
 [**第二部分：多个 activities** — 跳转和返回栈（back stack)](https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-II-Multiple-activities.md)   
 **第三部分： Fragments** — Activity 和 Fragment 的生命周期（即本文）
-[**第四部分：ViewModels、透明 Activities 及其启动模式**](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iv-49946659b094)
+[**第四部分：ViewModels、透明 Activities 及启动模式**](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iv-49946659b094)
 
 为了更方便地查询，你可以去查阅 [PDF 版本的图表备忘录](https://github.com/JoseAlcerreca/android-lifecycles)。
 
-本节中我们将介绍附加在 Activity 上的 Fragment 的行为。不过别把这种情况和加入到返回栈的 Fragment 搞混了（请参看 [Tasks and Back Stack](https://medium.com/google-developers/tasks-and-the-back-stack-dbb7c3b0f6d4) 这篇文章来学习有关 Fragment 事务和返回栈的知识）。
+本节中我们将介绍依附在 Activity 上的 Fragment 的行为。不过别把这种情况和加入到返回栈的 Fragment 搞混了（请参看 [Tasks and Back Stack](https://medium.com/google-developers/tasks-and-the-back-stack-dbb7c3b0f6d4) 这篇文章来学习有关 Fragment 事务和返回栈的知识）。
 
 ## 场景 1：当带有 Fragment 的 Activity 启动和终止时
 
 ![](https://cdn-images-1.medium.com/max/800/1*ALMDBkuAAZ28BJ2abmvniA.png)
 
-**场景 1：带有 Fragment 的 Activity 启动和终止时**
+**场景 1：当带有 Fragment 的 Activity 启动和终止时**
 
-虽然 Activity 的 `onCreate` 方法保证在 Fragment 的之前被调用，但是其他像 `onStart` 和 `onResume` 这样的回调会被并行执行，因此它们会被以任意顺序调用。例如，系统可能先调用 Activity 的 `onStart` 方法再调用 Fragment 的 `onStart`，但在此之后却先调用 **Fragment** 的 `onResume` 方法再执行 Activity 的 `onResume`。
+虽然 Activity 的 `onCreate` 方法保证在 Fragment 的 `onCreate` 方法之前被调用，但是其他像 `onStart` 和 `onResume` 这样的回调会被并行执行，因此它们会被以任意顺序调用。例如，系统可能先调用 Activity 的 `onStart` 方法再调用 Fragment 的 `onStart`，但在此之后却先调用 **Fragment** 的 `onResume` 方法再执行 Activity 的 `onResume`。
 
 **小心管理它们执行的顺序和时间，以避免两者竞争带来的问题。**
 
@@ -31,11 +31,11 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*ukapaC23cOJSPUeZ0bUdCA.png)
 
-**场景 2：带有 Fragment 的 Activity 被旋转时**
+**场景 2：当带有 Fragment 的 Activity 被旋转时**
 
 ### 状态管理
 
-Fragment 状态的保存和恢复与 Activity 状态非常相似，区别在于 Fragment 没有 `onRestoreInstanceState`，同时 Fragment 的 `onCreate`、`onCreateView` 和 `onActivityCreated` 中 Bundle 是可被获取的。
+Fragment 状态的保存和恢复与 Activity 状态非常相似，区别在于 Fragment 中没有 `onRestoreInstanceState` 方法，但是 Fragment 的 `onCreate`、`onCreateView` 和 `onActivityCreated` 方法中的 Bundle 对象是可被获取的。
 
 Fragment 是可以被保留的，这意味着当配置被改变时可以使用同一个 Fragment 实例。正如接下来的场景中所描述的，被复用的 Fragment 与普通 Fragment 有些许不同。
 
