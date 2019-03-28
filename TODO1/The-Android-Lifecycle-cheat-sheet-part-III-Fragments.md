@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-III-Fragments.md](https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-III-Fragments.md)
 > * 译者：[Qiuk17](https://github.com/Qiuk17)
-> * 校对者：[xiaxiayang](https://github.com/xiaxiayang)
+> * 校对者：[xiaxiayang](https://github.com/xiaxiayang), [DevMcryYu](https://github.com/DevMcryYu)
 
 # Android 生命周期备忘录 — 第三部分：Fragments
 
