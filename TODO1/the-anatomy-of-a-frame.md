@@ -2,111 +2,107 @@
 > * 原文作者：[Paul](https://twitter.com/aerotwist)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-anatomy-of-a-frame.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-anatomy-of-a-frame.md)
-> * 译者：
-> * 校对者：
+> * 译者：[WangLeto](https://github.com/WangLeto)
+> * 校对者：[Xuyuey](https://github.com/Xuyuey), [Fengziyin1234](https://github.com/Fengziyin1234), [L9m](https://github.com/L9m)
 
-# The Anatomy of a Frame
+# 浏览器帧原理剖析
 
-I'm often asked by other developers about parts of the pixel workflow, and what fires when and why, so I figured it might be worth putting up a little reference for what's involved in shipping pixels to screen.
+开发者常常问我关于像素工作流程的某些部分，什么时候、为什么、发生了什么。所以我感觉值得提供一些参考，有关于将像素显示在屏幕上的过程里发生了什么。
 
-Caveat: this is a Blink / Chrome view of the world. Most of the main thread tasks are “shared” in some form by all vendors, like layout or style calcs, but this overall architecture may not be.
+警告：文本是 Blink（译注：Chrome 使用的排版引擎，是 webkit 的分支）和 Chrome 的视角。主线程的大部分任务以某种方式被所有第三方（vendors）任务“共享”，比如布局和样式计算结果，但是总的架构可能不是这样。
 
-## A picture speaks a thousand words
+## 一图胜千言
 
-It really does, so let’s start with one of those:
+这是真的，让我们先看一张图：
 
 [![The process of getting pixels to screen.](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.svg)](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.zip)
 
-The full-fat process of getting pixels to screen.
+将像素放到屏幕上的完整过程。
 
-[Download the diagram]([https://aerotwist.com/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.zip](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.zip))
+[下载本图](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.zip)
 
-## Processes
+## 进程
 
-That’s a lot of content in a small space, so let’s define things a little more. It can be helpful to have the diagram above alongside these definitions, so maybe [fire that up image next to this post](/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.svg) or, for retro-old-skool points you could, you know, print it out. Sorry. Forget I mentioned it… Sorry.
+这张小图上放了太多内容，所以让我们详细看些定义。将上图与这些定义结合起来可能会有帮助。
 
-Let’s start with the processes:
+让我们从进程开始看：
 
-*  **Renderer Process**. The surrounding container for a tab. It contains multiple threads that, together, are responsible for various aspects of getting your page on screen. These threads are the _Compositor_, _Tile Worker_, and _Main_ threads.
-*  **GPU Process**. This is the single process that serves all tabs and the surrounding browser process. As frames are committed the GPU process will upload any tiles and other data (like quad vertices and matrices) to the GPU for actually pushing pixels to screen. The GPU Process contains a single thread, called the GPU Thread that actually does the work.
+*  **渲染进程**。包裹标签页的容器。包含了多个线程，这些线程一起负责了页面显示到屏幕上的各个方面。这些线程有**合成线程（Compositor）**，**图块栅格化线程（Tile Worker）**，和**主线程**。
+*  **GPU 进程**。这是一个单一的进程，为所有标签页和浏览器周边进程服务。当帧被提交时，GPU 进程会将分为图块的位图和其他数据（比如四边形顶点和矩阵）上传到 GPU 中，真正将像素显示到屏幕上。GPU 进程只有一个的线程，叫 GPU 线程，实际上是它做了这些工作。
 
-## Renderer Process Threads.
+## 渲染进程中的线程
 
-Now let’s look at the threads in the Renderer Process.
+现在看一下渲染进程中的线程。
 
-> In many ways you should consider the Compositor Thread as the “big boss”. While it doesn’t run the JavaScript, Layout, Paint or any of that, it’s the thread that is wholly responsible for initiating main thread work, and then shipping frames to screen.
+*  **合成线程（Compositor Thread）**。这是最先被告知垂直同步事件（vsync event，操作系统告知浏览器刷新一帧图像的信号）的线程。它接收所有的输入事件。如果可能，合成线程会避免进入主线程，自己尝试将输入的事件（比如滚动）转换为屏幕的移动。它会更新图层的位置，并经由 GPU 线程直接向 GPU 提交帧来完成这个操作。如果输入事件需要进行处理，或者有其他的显示工作，它将无法直接完成该过程，这就需要主线程了。
+*  **主线程**。在这里浏览器执行我们熟知和喜欢的那些任务：JavaScript，样式，布局和绘制。（这一点以后会变化，有了 [Houdini](https://surma.link/things/houdini-intro/)，我们可以在合成线程中运行一些代码）主线程荣获“最容易导致 jank 奖”，很大程度上是因为它要做的事情太多了这个事实。（译注：jank 指页面内容抖动卡顿，由于页面内容的更新频率跟不上屏幕刷新频率导致）
+*  **合成图块栅格化线程（Compositor Tile Worker）**。由合成线程派生的一个或多个线程，用于处理栅格化任务。我们稍后再讨论。
 
-*  **Compositor Thread**. This is the first thread to be informed about the vsync event (which is how the OS tells the browser to make a new frame). It will also receive any input events. The compositor thread will, if it can, avoid going to the main thread and will try and convert input (like – say – scroll flings) to movement on screen. It will do this by updating layer positions and committing frames via the GPU Thread to the GPU directly. If it can’t do that because of input event handlers, or other visual work, then the Main thread will be required.
-*  **Main Thread**. This is where the browser executes the tasks we all know and love: JavaScript, styles, layout and paint. (That will change in the future under [Houdini](https://surma.link/things/houdini-intro/), where we will be able to run some code in the Compositor Thread.) This thread wins the award for “most likely to cause jank”, largely because of the fact that so much runs here.
-*  **Compositor Tile Worker(s)**. One or more workers that are spawned by the Compositor Thread to handle the Rasterization tasks. We’ll talk about that a bit more in a moment.
+在许多方面，你都应该把合成线程看做“老大”。虽然这个线程不运行 JavaScript，不进行布局、绘制内容或者其他任务，但是它全权负责启动主线程工作，并将帧运送到屏幕上。如果合成线程不用等待输入事件的处理，就可以在等待主线程完成工作时把帧发送出去。
 
-In many ways you should consider the Compositor Thread as the “big boss”. While it doesn’t run the JavaScript, Layout, Paint or any of that, it’s the thread that is wholly responsible for initiating main thread work, and then shipping frames to screen. If it doesn’t have to wait on input event handlers, it can ship frames while waiting for the Main thread to complete its work.
+你也可以想象 **Service Worker** 和 **Web Worker** 存在于渲染进程中，虽然我把他们排除在外了，因为他们把事情弄得很复杂。
 
-You can also imagine **Service Workers** and **Web Workers** living in this process, though I’m leaving them out to because it makes things way more complicated.
-
-## The flow of things.
+## 运作过程
 
 [![The main thread in all its glory.](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/main-thread.svg)](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/anatomy-of-a-frame.zip)
 
-The main thread in all its glory.
+主线程风貌全览。
 
-Let’s step through the flow, from vsync to pixels, and talk about how things work out in the “full-fat” version of events. It’s worth remembering that a browser _need not execute all of these steps_, depending on what’s necessary. For example, if there’s no new HTML to parse, then Parse HTML won’t fire. In fact, oftentimes [the best way to improve performance](https://developers.google.com/web/fundamentals/performance/rendering/#the-pixel-pipeline) is simply to remove the need for parts of the flow to be fired!
+让我们从垂直同步信号到像素，逐步分析这个过程，然后讨论一下在完全版本中事件是怎么工作的。记住这一点：浏览器**并不需要执行所有步骤**，具体情况取决于哪些步骤是必需的。例如，如果没有新的 HTML 要解析，那么解析 HTML 的步骤就不会触发。事实上，通常[提升性能的最佳方法](https://developers.google.com/web/fundamentals/performance/rendering/#the-pixel-pipeline)，只是简单地移除流程中部分步骤被触发的需要！
 
-It’s also worth noting those red arrows just under styles and layout that seem to point towards `requestAnimationFrame`. It’s perfectly possible to trigger both by accident in your code. This is called Forced Synchronous Layout (or Styles, depending), and it’s often bad for performance.
+同样值得注意的是，上图中 RecalcStyles 和 Layout 下方指向 `requestAnimationFrame` 的红色箭头。在代码中恰好触发这两个情况是完全可能的。这种情况叫做强制同步布局（或强制同步样式，Forced Synchronous Layout 和 Forced Synchronous Styles），通常于性能不利。
 
-> oftentimes the best way to improve performance is simply to remove the need for parts of the flow to be fired!
+1.  **开始新的一帧**。垂直同步信号触发，开始渲染新的一帧图像。
 
-1.  **Frame Start**. Vsync is fired, a frame starts.
+2.  **输入事件的处理**。从合成线程将输入的数据，传递到主线程的事件处理函数。所有的事件处理函数（`touchmove`，`scroll`，`click`）都应该最先触发，每帧触发一次，但也不一定这样；调度程序会尽力尝试，但是是否真的每帧触发因操作系统而异。从用户交互事件，到事件被交付主线程，二者之间也存在延迟。
 
-2.  **Input event handlers**. Input data is passed from the compositor thread to any input event handlers on the main thread. All input event handlers (`touchmove`, `scroll`, `click`) should fire first, once per frame, but that’s not necessarily the case; a scheduler makes best-effort attempts, the success of which varies between Operating Systems. There’s also some latency between the user interaction and the event making its way to the main thread to be handled.
+3.  **`requestAnimationFrame`**。这是更新屏幕显示内容的理想位置，因为现在有全新的输入数据，又非常接近即将到来的垂直同步信号。其他的可视化任务，比如样式计算，因为是在本次任务**之后**，所以现在是变更元素的理想位置。如果你改变了 —— 比如说 100 个类的样式，这不会引起 100 次样式计算；它们会在稍后被批量处理。唯一需要注意的是，不要查询进行计算才能得到的样式或者布局属性（比如 `el.style.backgroundImage` 或 `el.style.offsetWidth`）。如果你**这样做了**，会导致重新计算样式，或者布局，或者二者都发生，进一步导致[强制同步布局，乃至布局颠簸](https://developers.google.com/web/fundamentals/performance/rendering/avoid-large-complex-layouts-and-layout-thrashing?hl=en#avoid-layout-thrashing)。
 
-3.  **`requestAnimationFrame`**. This is the ideal place to make visual updates to the screen, since you have fresh input data, and it’s as close to vsync as you’re going to get. Other visual tasks, like style calculations, are due to come _after_ this task, so it’s ideally placed to mutate elements. If you mutate – say – 100 classes, this won’t result in 100 style calculations; they will be batched up and handled later. The only caveat is that you don’t query any computed styles or layout properties (like `el.style.backgroundImage` or `el.style.offsetWidth`). If you _do_ you’ll bring recalc styles, layout, or both, forward, causing [forced synchronous layouts or, worse, layout thrashing](https://developers.google.com/web/fundamentals/performance/rendering/avoid-large-complex-layouts-and-layout-thrashing?hl=en#avoid-layout-thrashing).
+4.  **解析 HTML（Parse HTML）**。处理新添加的 HTML，创建 DOM 元素。在页面加载过程中，或者进行 `appendChild` 操作后，你可能看到更多的此过程发生。
 
-4.  **Parse HTML**. Any newly added HTML is processed, and DOM elements created. You’re likely to see a lot more of this during page load or after operations like `appendChild`.
+5.  **重新计算样式（Recalc Styles）**。为新添加或变更的内容计算样式。可能要计算整个 DOM 树，也可能缩小范围，取决于具体更改了什么。例如，更改 body 的类名影响可能很大，但是值得注意的是浏览器已经足够智能了，可以自动限制重新计算样式的范围。
 
-5.  **Recalc Styles**. Styles are computed for anything that’s newly added or mutated. This may be the whole tree, or it can be scoped down, depending on what changed. Changing classes on the body can be far-reaching, for example, but it’s worth noting that browsers are already very smart about automatically limiting the scope of style calculations.
+6.  **布局（Layout）**。计算每个可见元素的几何信息（每个元素的位置和大小）。一般作用于整个文档，计算成本通常和 DOM 元素的大小成比例。
 
-6.  **Layout**. The calculation of geometric information (where and what size each element has) for every visible element. It’s normally done for the entire document, often making the computational cost proportional to the DOM size.
+7.  **更新图层树（Update Layer Tree）**。这一步创建层叠上下文，为元素的深度进行排序。
 
-7.  **Update Layer Tree**. The process of creating the stacking contexts and depth sorting elements.
+8.  **Paint**。过程分为两步：第一步，对所有新加入的元素，或进行改变显示状态的元素，记录 draw 调用（这里填充矩形，那里写点字）；第二步是**栅格化**（Rasterization，见后文），在这一步实际执行了 draw 的调用，并进行纹理填充。Paint 过程记录 draw 调用，一般比栅格化要快，但是两部分通常被统称为“painting”。
 
-8.  **Paint**: This is the first of a two part process: painting is the recording of draw calls (fill a rectangle here, write text there) for any elements that are new or have changed visually. The second part is _Rasterization_ (see below), where the draw calls are executed, and textures get filled in. This part is the recording of draw calls, and is typically far faster than rasterization, but both parts are often collectively referred to as “painting”.
+9.  **合成（Composite）**：图层和图块信息计算完成后，被传回合成线程进行处理。这将包括 `will-change`、重叠元素和硬件加速的 canvas 等。
 
-9.  **Composite**: the layer and tile information is calculated and passed back to the compositor thread for it to deal with. This will account for, amongst other things, things like `will-change`, overlapping elements, and any hardware accelerated canvases.
+10.  **栅格化规划（Raster Scheduled）**和**栅格化（Rasterize）**：在 Paint 任务中记录的 draw 调用现在执行。过程是在**合成图块栅格化线程**（Compositor Tile Workers）中进行，线程的数量取决于平台和设备性能。例如，在 Android 设备上，通常有一个线程，而在桌面设备上有时有 4 个。栅格化根据图层来完成，每层都被分成块。
 
-10.  **Raster Scheduled** and **Rasterize**: The draw calls recorded in the Paint task are now executed. This is done in _Compositor Tile Workers_, the number of which depends on the platform and device capabilities. For example, on Android you typically find one worker, on desktop you can sometimes find four. The rasterization is done in terms of layers, each of which is made up of tiles.
+11.  **帧结束**：各个层的所有的块都被栅格化成位图后，新的块和输入数据（可能在事件处理程序中被更改过）被提交给 GPU 线程。
 
-11.  **Frame End**: With the tiles for the various layers all rasterized, any new tiles are committed, along with input data (which may have been changed in the event handlers), to the GPU Thread.
+12.  **发送帧**：最后，但同样很重要的是，图块被 GPU 线程上传到 GPU。GPU 使用四边形和矩阵（所有常用的 GL 数据类型）将图块 draw 在屏幕上。
 
-12.  **Frame Ships**: Last, but by no means least, the tiles are uploaded to the GPU by the GPU Thread. The GPU, using quads and matrices (all the usual GL goodness) will draw the tiles to the screen.
+### 福利时间
 
-### Bonus round
+*   **requestIdleCallback**：如果在帧结束时，主线程还有点时间，`requestIdleCallback` 可能会被触发。这是做些非必要工作的好机会，比如标记分析数据。如果你不熟悉 `requestIdleCallback`，[Google Developers 上的入门知识](https://developers.google.com/web/updates/2015/08/using-requestidlecallback?hl=en)能帮到你。
 
-*   **requestIdleCallback**: if there’s any time Main Thread left at the end of a frame then `requestIdleCallback` can fire. This is a great opportunity to do non-essential work, like beaconing analytics data. If you’re new to `requestIdleCallback` have [a primer for it on Google Developers](https://developers.google.com/web/updates/2015/08/using-requestidlecallback?hl=en) that gives a bit more of a breakdown.
+## 两种图层
 
-## Layers and layers
+在工作流程中深度的排序有两种版本。
 
-There are two versions of depth sorting that crop up in the workflow.
+首先是层叠上下文，比如有 2 个绝对定位的重叠的 div。**更新图层树（Update Layer Tree）** 是流程的一部分，保证 `z-index` 和类似的属性受到重视。
 
-Firstly, there’s the Stacking Contexts, like if you have two absolutely positioned divs that overlap. **Update Layer Tree** is the part of the process that ensures that `z-index` and the like is heeded.
+然后是合成图层，在上述流程较后的位置，多用于绘制元素。可以使用空 transform 技巧（译注：指使用 `translateZ(0,0)` 强制开启硬件加速），或者 `will-change: transform` 将一个元素提升为合成图层，这样就能轻松地使用 transform 动画（有利于动画效果！）。但是如果存在重叠元素，浏览器也可能需要创建额外的合成图层，来保持由 `z-index` 或者其他属性指定的深度顺序。有趣！
 
-Secondly, there’s the Compositor Layers, which is later in the process, and applies more to the idea of painted elements. An element can be promoted to a Compositor Layer with the null transform hack, or `will-change: transform`, which can then be transformed around the place cheaply (good for animation!). But the browser may also have to create additional Compositor Layers to preserve the depth order specified by z-index and the like if there are overlapping elements. Fun stuff!
+## 扩展阅读
 
-## Riffing on a theme
+实质上，上面概述的过程**都是在 CPU 中完成的**。只有最后一部分，图块被上传和移动的过程，是在 GPU 中完成的。
 
-Virtually all of the process outlined above _is done on the CPU_. Only the last part, where tiles are uploaded and moved, is done on the GPU.
+然而，在 Android 上，像素流在栅格化时有所不同：GPU 用得更多一些。在 GPU 着色器上用 GL 命令执行 draw 调用，而不是在合成图块栅格化线程中进行栅格化。
 
-On Android, however, the pixel flow is a little different when it comes to Rasterization: the GPU is used far more. Instead of Compositor Tile Workers doing the rasterization, the draw calls are executed as GL commands on the GPU in shaders.
-
-This is known as **GPU Rasterization**, and it’s one way to reduce the cost of paint. You can find out if your page is GPU rasterized by enabling the FPS Meter in Chrome DevTools:
+这就是所谓的 **GPU 栅格化**，是一种降低绘制（paint）成本的方法。在 Chrome DevTools 中启用 FPS Meter（FPS 计数），你可以查看页面是否使用了 GPU 栅格化。
 
 ![The FPS meter indicating GPU Rasterization is in use.](https://aerotwist.com/static/blog/the-anatomy-of-a-frame/fps-meter.jpg)
 
-The FPS meter indicating GPU Rasterization is in use.
+FPS 计数面板显示了正在使用 GPU 栅格化。
 
-## Other resources
+## 其他资源
 
-There’s a ton of other stuff that you might want to dive into, like how to avoid work on the Main Thread, or how this stuff works at a deeper level. Hopefully these will help you out:
+如果你希望深入研究，还有很多的资料，比如如何避免在主线程工作，或者浏览器渲染更深入的运作机理。希望这些资料能帮到你：
 
 *   **[Compositing in Blink & WebKit](https://www.youtube.com/watch?v=Lpk1dYdo62o)**. A little old now, but still worth a watch.
 *   **[Browser Rendering Performance](https://developers.google.com/web/fundamentals/performance/rendering/)** - Google Developers
