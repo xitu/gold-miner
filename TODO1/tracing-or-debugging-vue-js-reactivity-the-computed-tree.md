@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/tracing-or-debugging-vue-js-reactivity-the-computed-tree.md](https://github.com/xitu/gold-miner/blob/master/TODO1/tracing-or-debugging-vue-js-reactivity-the-computed-tree.md)
 > * 译者：[SHERlocked93](https://github.com/SHERlocked93)
-> * 校对者：[Reaper622](https://github.com/Reaper622)、[hanxiansen](https://github.com/hanxiansen)
+> * 校对者：[Reaper622](https://github.com/Reaper622), [hanxiansen](https://github.com/hanxiansen)
 
 # 监测与调试 Vue.js 的响应式系统：计算属性树（Computed Tree）
 
@@ -31,7 +31,7 @@
 
 ## 基础知识
 
-我们将学习一些响应式机制的内部工作原理。如果你还没有（比较深地）理解 Dependency 类（`Dep`--为与源码一致，后文都采用 `Dep`，译者）与 Watcher 类之间的关系，可以考虑学习一下内容丰富、条例清晰的高级 Vue 课程：[建立一个响应式系统](https://www.vuemastery.com/courses/advanced-components/build-a-reactivity-system/)。
+我们将学习一些响应式机制的内部工作原理。如果你还没有（比较深地）理解 Dependency 类（译者注：`Dep` — 为与源码一致，后文都采用 `Dep`）与 Watcher 类之间的关系，可以考虑学习一下内容丰富、条例清晰的高级 Vue 课程：[建立一个响应式系统](https://www.vuemastery.com/courses/advanced-components/build-a-reactivity-system/)。
 
 ## 在浏览器开发工具中调试过程中见过 `__ob__` 么？
 
@@ -45,7 +45,7 @@
 
 ## 举个例子
 
-我们用一些简单的代码说明一下： [JSFiddle](https://jsfiddle.net/mikeapr4/eqLy1ac3/)
+我们用一些简单的代码说明一下：[JSFiddle](https://jsfiddle.net/mikeapr4/eqLy1ac3/)
 
 这个例子的 store 中的状态有散列数组 `users` 和 `currentUserId` 两个属性。还有一个 getter 用来返回当前用户的信息。另外还有一个 getter 只返回状态为活跃的用户数组。
 
@@ -68,7 +68,8 @@
 实际上，响应数据的存储是通过一个 Watcher 的配置选项来处理的。当我们使用组件中的 Watcher 时，[API 文档](https://vuejs.org/v2/api/#vm-watch)中介绍了两个可选选项（`deep`，`immediate`），但其实还有一些没被文档记录的选项，我并不推介你使用这些没被记录的选项，但理解他们却很有益处。其中一个选项是 `lazy`，配置它之后 Watcher 将会维护一个 `dirty` 标志，如果依赖的响应数据已经更改但这个 Watcher 还未运行时它将为 true，也就是说，此时缓存已过时。
 
 在我们的例子中，如果 `currentUserId` 被改成 3。任何依赖于它且被设置了 `lazy` 的 Watcher 都会被标记为 dirty，但 Watcher 并没有运行。`currentUser` 和 `validCurrentUser` 都是这个状态的 lazy Watcher。根渲染函数同样会依赖于这个状态，渲染将在下一个 tick 时被触发。当渲染函数执行时，将会访问已经被标记为 dirty 的 `validCurrentUser`，它将重新运行它的 getter 函数，进而访问同样需要更新的 `currentUser`。至此，这个组件将会被正确重渲染，并且相关缓存将被更新。
-> # 等等，我似乎听见你在问，为什么所有 3 个 Watcher 都是依赖于这个状态的呢？
+
+> 等等，我似乎听见你在问，为什么所有 3 个 Watcher 都是依赖于这个状态的呢？
 
 难道他们不是相互依赖的么？计算属性 watcher 有一个特性就是不仅它自身的值是响应式的，而且当计算属性的 getter 被调用时，如果当前有 Wathcer 在读取这个计算属性的话（即 `Dep.target` 中有值--译者），所有这个计算属性的依赖也将会被这个 Wathcer 收集起来。这种依赖收集关系链的扁平化对性能表现更优，而且也是个比较简单的解决方案。
 
@@ -76,7 +77,7 @@
 
 其中一些逻辑可以阅读一下 [watcher 类](https://github.com/vuejs/vue/blob/4f111f9225f938f7a2456d341626dbdfd210ff0c/src/core/observer/watcher.js)源码的优雅实现，代码量 240 行左右。
 
-## 那么从 \_\_ob\_\_ 中我们可以得到哪些关于计算属性响应式机制的信息呢 
+## 那么从 `__ob__` 中我们可以得到哪些关于计算属性响应式机制的信息呢 
 
 我们可以看到有哪些 Watcher 订阅（`subs`）了响应式数据的更新。记住，响应式机制在下面这些情景下起作用：
 
@@ -84,7 +85,7 @@
 * 数组
 * 对象的属性
 
-最后一个情景很有可能被忽略，因为在开发者工具中是无法浏览它的 Dep 类实例（\_\_ob\_\_--译者）。因为 Dep 类是在最初响应式化的时候就被实例化的，但是并没有在这个对象中的什么地方把它记录下来。稍后我们将回头讨论这个问题，因为我将用一个小技巧来间接拿到它。
+最后一个情景很有可能被忽略，因为在开发者工具中是无法浏览它的 Dep 类实例（译者注：`__ob__`）。因为 Dep 类是在最初响应式化的时候就被实例化的，但是并没有在这个对象中的什么地方把它记录下来。稍后我们将回头讨论这个问题，因为我将用一个小技巧来间接拿到它。
 
 然而通过观察对象和数组的 Watcher 也可以让我们收获良多，下面是一个简单的 Watcher：
 
@@ -96,7 +97,7 @@
 this.$store.state.users[2].__ob__.dep.subs[5]
 ```
 
-这是一个组件的渲染 Watcher，也是一个对象引用。能看到 `dirty` 和 `lazy` 这两个我之前提到过的标志位。同时，我们还可以知道它不是一个用户创建的 Watcher（`user` 为 false--译者）。 
+这是一个组件的渲染 Watcher，也是一个对象引用。能看到 `dirty` 和 `lazy` 这两个我之前提到过的标志位。同时，我们还可以知道它不是一个用户创建的 Watcher（译者注：`user` 为 false）。 
 
 有时，试图找出这个 Watcher 是哪个组件的渲染 Watcher 是困难的，因为如果这个组件没有全局注册，或者这个组件没有设置 name 属性，那么基本可以说它是匿名的。然而如果你从另一个组件引用了这个匿名组件的时候，它的 `$vnode.tag` 属性通常包含它被引用时所用的名称。
 
@@ -110,7 +111,7 @@ this.$store.state.users[2].__ob__.dep.subs[5]
 
 ![](https://cdn-images-1.medium.com/max/3322/1*9CNU3NoJf7HCVrDynQteTA.png)
 
-唯一能证明它是 Vuex 中的 getter 的线索是：它的函数体定义在 **vuex.min.js** 中（`[[FunctionLocation]]` 属性--译者）。
+唯一能证明它是 Vuex 中的 getter 的线索是：它的函数体定义在 **vuex.min.js** 中（译者注：`[[FunctionLocation]]`）。
 
 所以我们应该怎样获取 getter 的名称呢？在开发者工具中你通常可以访问 `[[Scopes]]`，你可以在 `[[Scopes]]` 中找到它的名称，然而这并不是通过编程的方式来获取的。
 
@@ -191,7 +192,7 @@ tempWatch.deps.forEach(dep => dep.subs
 
 ## 最后一点...
 
-我需要着重强调的是，要谨慎使用任何以下划线作为开头的属性，因为这不是公共API的一部分，它们可能会在没有任何警告的情况下被移除。上面介绍的这个功能，一开始就没打算使用于生产环境，也没打算使用在运行时环境，这只是一个方便调试的开发者工具。
+我需要着重强调的是，要谨慎使用任何以下划线作为开头的属性，因为这不是公共 API 的一部分，它们可能会在没有任何警告的情况下被移除。上面介绍的这个功能，一开始就没打算使用于生产环境，也没打算使用在运行时环境，这只是一个方便调试的开发者工具。
 
 最终随着 Vue3.0 的出现，这将会被更全面、更简单易用、更可靠的替代。
 
