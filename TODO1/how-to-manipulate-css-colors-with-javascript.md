@@ -51,7 +51,7 @@ Lightness is the easiest of the three HSL values to calculate. Mathematically, t
 
 Here is the same formula as a JavaScript function:
 
-```
+```js
 const rgbToLightness = (r,g,b) => 
     1/2 * (Math.max(r,g,b) + Math.min(r,g,b));
 ```
@@ -64,7 +64,7 @@ Saturation is only slightly more complicated than lightness. If the lightness is
 
 As JavaScript:
 
-```
+```js
 const rgbToSaturation = (r,g,b) => {
   const L = rgbToLightness(r,g,b);
   const max = Math.max(r,g,b);
@@ -83,7 +83,7 @@ The formula for calculating the hue angle from RGB coordinates is a bit more com
 
 As JavaScript:
 
-```
+```js
 const rgbToHue = (r,g,b) => Math.round(
   Math.atan2(
     Math.sqrt(3) * (g - b),
@@ -98,7 +98,7 @@ The multiplication of `180 / Math.PI` at the end is to convert the result from r
 
 All of these functions can be wrapped into a single utility function:
 
-```
+```js
 const rgbToHsl = (r,g,b) => {
   const lightness = rgbToLightness(r,g,b);
   const saturation = rgbToSaturation(r,g,b);
@@ -137,7 +137,7 @@ Lastly, we need to map each value to adjust for lightness:
 
 Putting all of this together into a JavaScript function:
 
-```
+```js
 const hslToRgb = (h,s,l) => {
   const C = (1 - Math.abs(2 * l - 1)) * s;
   const hPrime = h / 60;
@@ -151,7 +151,6 @@ if (hPrime <= 1) { return withLight(C,X,0); } else
   if (hPrime <= 4) { return withLight(0,X,C); } else
   if (hPrime <= 5) { return withLight(X,0,C); } else
   if (hPrime <= 6) { return withLight(C,0,X); }
-
 }
 ```
 
@@ -159,7 +158,7 @@ if (hPrime <= 1) { return withLight(C,X,0); } else
 
 For ease of access when manipulating their attributes, we will be dealing with a JavaScript object. This can be created by wrapping the previously written functions:
 
-```
+```js
 const rgbToObject = (red,green,blue) => {
   const [hue, saturation, lightness] = rgbToHsl(red, green, blue);
   return {red, green, blue, hue, saturation, lightness};
@@ -183,7 +182,7 @@ Now that we have the ability to convert between color models, let’s look at ho
 
 Each of the color attributes we have covered can be manipulated individually, returning a new color object. For example, we can write a function that rotates the hue angle:
 
-```
+```js
 const rotateHue = rotation => ({hue, ...rest}) => {
   const modulo = (x, n) => (x % n + n) % n;
   const newHue = modulo(hue + rotation, 360);
@@ -194,7 +193,7 @@ return { ...rest, hue: newHue };
 
 The `rotateHue` function accepts a `rotation` parameter and returns a new function, which accepts and returns a color object. This allows for the easy creation of new “rotation” functions:
 
-```
+```js
 const rotate30 = rotateHue(30);
 const getComplementary = rotateHue(180);
 
@@ -207,7 +206,7 @@ const getTriadic = color => {
 
 Along the same lines, you can write functions to `saturate` or `lighten` a color — or, inversely, `desaturate` or `darken`.
 
-```
+```js
 const saturate = x => ({saturation, ...rest}) => ({
   ...rest,
   saturation: Math.min(1, saturation + x),
@@ -233,7 +232,7 @@ const darken = x => ({lightness, ...rest}) => ({
 
 In addition to color manipulation, you can write “predicates” — that is, functions that return a Boolean value.
 
-```
+```js
 const isGrayscale = ({saturation}) => saturation === 0;
 const isDark = ({lightness}) => lightness < .5;
 ```
@@ -244,7 +243,7 @@ const isDark = ({lightness}) => lightness < .5;
 
 The JavaScript `[].filter` method accepts a predicate and returns a new array with all the elements that “pass.” The predicates we wrote in the previous section can be used here:
 
-```
+```js
 const colors = [/* ... an array of color objects ... */];
 const isLight = ({lightness}) => lightness > .5;
 const lightColors = colors.filter(isLight);
@@ -256,19 +255,19 @@ To sort an array of colors, you first need to write a “comparator” function.
 
 For example, here is a function for comparing the lightness of two colors:
 
-```
+```js
 const compareLightness = (a,b) => a.lightness - b.lightness;
 ```
 
 Here is a function that compares saturation:
 
-```
+```js
 const compareSaturation = (a,b) => a.saturation - b.saturation;
 ```
 
 In an effort to prevent duplication in our code, we can write a higher-order function to return a comparison function to compare any attribute:
 
-```
+```js
 const compareAttribute = attribute =>
   (a,b) => a[attribute] - b[attribute];
 
@@ -281,7 +280,7 @@ const compareHue = compareAttribute('hue');
 
 You can average the specific attributes of an array of colors by composing various JavaScript array methods. First, you can calculate the average of an attribute by summing with reduce and dividing by the array length:
 
-```
+```js
 const colors = [/* ... an array of color objects ... */];
 const toSum = (a,b) => a + b;
 const toAttribute = attribute => element => element[attribute];
@@ -291,7 +290,7 @@ const averageOfAttribute = attribute => array =>
 
 You can use this to “normalize” an array of colors:
 
-```
+```js
 /* ... continuing */
 
 const normalizeAttribute = attribute => array => {
