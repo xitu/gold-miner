@@ -68,94 +68,133 @@ You can always add Redux *later*, too. You don't have to decide on Day 1. Start 
 你也可以*以后*再使用 Redux，不必在第一天就下决定。从简单开始，在你需要的时候随时随地增加复杂性。
 
 ### Do You Know React Yet?
+### 你知道 React 吗？
 
 React can be used on its own without Redux. Redux is an *add-on* to React.
+React 可以脱离 Redux 单独使用。Redux 是 React 的*附加项*。
 
 Even if you intend on using them both, I super strongly recommend learning pure React *without* Redux initially. Understand props, state, and one-way data flow, and learn to "think in React" before trying to learn Redux. Learning them both at the same time is a surefire recipe for confusion.
+即使你打算同时使用它们，我还是强烈建议先*脱离* Redux 学习纯粹的 React。理解 props，state 以及单向数据流，在学习 Redux 之前先学习“React 编程思想”。同时学习它们是搞晕自己的万全之策。
 
 If you want a primer on React, I put together a 5-day free course that teaches all the basics:
+如果你想要 React 的入门读物，我整理了一个为期 5 天的免费课程，教授所有基础知识：
 
 Learn React by building a few simple apps over the next 5 days.
+接下来的 5 天通过构建一些简单的应用来学习 React。
 
 Get Lesson 1
+第一课
 
 ## The Benefits of Redux
+## Redux 的好处
 
-If you've used React for more than a few minutes, you probably know about props and one-way data flow. Data is passed *down* the component tree via props. Given a component like this:
+If you've used React for more than a few minutes, you probably know about props and one-way data flow. Data is passed *down* the component tree via props. Given a component like this:
+如果你稍微使用过 React 一段时间，你可能就了解了 props 和单向数据流。数据通过 props 在组件树间向*下*传递。就像这个组件一样：
 
 ![Counter component](https://daveceddia.com/images/counter-component.png)
 
 The `count`, stored in `App`'s state, would be passed down as a prop:
+`count` 存在 `App` 的 state 里，会以 prop 的形式向下传递：
 
 ![Passing props down](https://daveceddia.com/images/passing-props-down.png)
 
-For data to come back *up* the tree, it needs to flow through a callback function, so that callback function must first be passed *down* to any components that want to call it to pass data up.
+For data to come back *up* the tree, it needs to flow through a callback function, so that callback function must first be passed *down* to any components that want to call it to pass data up.
+要想数据向*上*传递，需要通过回调函数实现，因此必须首先将回调函数向*下*传递到任何想通过调用它来传递数据的组件中。
+
 
 ![Passing callbacks down](https://daveceddia.com/images/passing-callbacks-down.png)
 
-You can think of the data like *electricity*, connected by colored wires to the components that care about it. Data flows down and up through these wires, but the wires can't be run through thin air -- they have to be chained from one component to the next.
+You can think of the data like *electricity*, connected by colored wires to the components that care about it. Data flows down and up through these wires, but the wires can't be run through thin air -- they have to be chained from one component to the next.
+你可以把数据想象成*电流*，通过彩色电线连接关心它的组件。数据通过线路上下流动，但是线路不能在空气中贯穿——它们必须从一个组件连接到另一个组件。
 
 ### Passing Data Multiple Levels is a Pain
+### 多级传递数据是一种痛苦
 
 Sooner or later you run into a situation where a top-level container has some data, and a child 4+ levels down needs that data. Here's an example from Twitter, with all the avatars highlighted:
+迟早你会陷入这类场景，顶级容器组件有一些数据，有一个 4 级以上的子组件需要这些数据。这有一个 Twitter 的例子，所有头像都圈出来了：
 
 ![Twitter user data](https://daveceddia.com/images/twitter-user-data.png)
 
-Let's pretend the top-level `App` component holds the `user` object in state. The `user` contains the current user's avatar, handle, and other profile info.
+Let's pretend the top-level `App` component holds the `user` object in state. The `user` contains the current user's avatar, handle, and other profile info.
+我们假设顶级 `App` 组件的 state 有 `user` 对象。该对象包含当前用户头像，昵称和其他资料信息。
 
-In order to deliver the `user` data to all 3 `Avatar` components, the `user` needs to be woven through a bunch of intermediate components that don't need the data.
+In order to deliver the `user` data to all 3 `Avatar` components, the `user` needs to be woven through a bunch of intermediate components that don't need the data.
+为了把 `user` 数据传递给全部 3 个 `Avatar` 组件，必须要经过一堆并不需要该数据的中间组件。
 
 ![Sending the user data down to the Avatar components](https://daveceddia.com/images/twitter-hierarchy.png)
 
 Getting the data down there is like threading a needle through a mining expedition. Wait that doesn't make any sense. Anyway, *it's a pain*. Also known as "prop-drilling".
+获取数据就像在采矿探险中穿针一样。等等，那根本没有意义。无论如何，*这很痛苦*。也被称为 “prop-drilling”。
 
 More importantly, it's not very good software design. Intermediate components are forced to accept and pass along props that they don't care about. This means refactoring and reusing those components will be harder than it needs to be.
+更重要的是，这不是好的软件设计。中间组件被迫接受和传递他们并不关心的 props。也就意味着重构和重用这些组件会变得比原本更难。
 
 Wouldn't it be nice if the components that didn't need the data didn't have to see it at all?
+如果不需要这些数据的组件根本不用看到它们难道不是很棒吗？
 
 Redux is one way to solve this problem.
+Redux 就是解决这个问题的一种方法。
 
 ### Passing Data Between Adjacent Components
+### 相邻组件间的数据传递
 
-If you have components that are siblings and need to share data, the way to do that in React is to pull that data *up* into a parent component and pass it down with props.
+If you have components that are siblings and need to share data, the way to do that in React is to pull that data *up* into a parent component and pass it down with props.
+如果你有些兄弟组件需要共享数据，用 React 的方式就是把数据向*上*传到父组件，然后再通过 props 向下传递。
 
 That can be cumbersome though. Redux can help by giving you one global "parent" where you can store the data, and then you can `connect` the sibling components to the data with React-Redux.
+但这可能很麻烦。Redux 会为你提供一个可以存储数据的全局 “parent”，然后你可以通过 React-Redux 把兄弟组件和数据 `connect` 起来。
 
 ### Use React-Redux to Connect Data to Any Component
+### 使用 React-Redux 将数据连接到任何组件
 
-Using the `connect` function that comes with `react-redux`, you can plug any component into Redux's store and pull out the data it needs.
+Using the `connect` function that comes with `react-redux`, you can plug any component into Redux's store and pull out the data it needs.
+使用 `react-redux` 的 `connect` 函数，你可以将任何组件插入 Redux 的 store 以及取出需要的数据。
 
 ![Connecting Redux to the Avatar components](https://daveceddia.com/images/redux-connected-twitter.png)
 
 Redux does some other cool stuff too, like make debugging easier (Redux DevTools let you inspect every single state change), time-travel debugging (you can *roll back* state changes and see how your app looked in the past), and it can make your code more maintainable in the long run. It'll teach you more about functional programming too.
+Redux 还做了一些很酷的事情，比如使调试更轻松（Redux DevTools 让你检查每一个 state 的变化），时间旅行调试（你可以*回滚* state 变化，看看你的应用以前的样子），从长远来看，它让代码变得更易于维护。它也会教你更多关于函数式编程的知识。
 
 ## Built-in Redux Alternatives
+## 内置 Redux 替代品
 
 If Redux seems like overkill for your situation, give these alternatives a look. They're built right in to React.
+如果 Redux 对你来说太过繁琐了，可以看看这些替代品。它们内置在 React 中。
 
 ### Redux Alternative: The React Context API
+### Redux 替代品: The React Context API
 
 Under the hood, React-Redux uses React's built-in Context API to pass data around. If you want to, you can cut out the middleman and use Context directly. You'll miss out on the nice features of Redux mentioned above, but if your app is simple and you want an easy way to pass data around, Context might be perfect.
+在底层，React-Redux 使用 React 内置的 Context API 来传递数据。如果你愿意，你可以砍掉“中间商”直接使用 Context。你会错过上面提到的 Redux 很棒的特性，但是如果你的应用很简单并且想用简单的方式传递数据，Context 就够了。
 
-Since you're here, I'm gonna assume you want to learn Redux, and I won't [compare Redux to the Context API](https://daveceddia.com/context-api-vs-redux/) or the [useContext](https://daveceddia.com/usecontext-hook/) and [useReducer](https://daveceddia.com/usereducer-hook-examples/) Hooks right here. You can learn more at those links.
+Since you're here, I'm gonna assume you want to learn Redux, and I won't [compare Redux to the Context API](https://daveceddia.com/context-api-vs-redux/) or the [useContext](https://daveceddia.com/usecontext-hook/) and [useReducer](https://daveceddia.com/usereducer-hook-examples/) Hooks right here. You can learn more at those links.
+既然你读到这里，我认为你想学习 Redux，我不会在这里[比较 Redux 和 Context API](https://daveceddia.com/context-api-vs-redux/) 或者[使用 Context](https://daveceddia.com/usecontext-hook/) 和[使用 Reducer](https://daveceddia.com/usereducer-hook-examples/) Hooks。你可以点击链接详细了解。
 
-If you want a deep dive on the Context API, watch my course [React Context for State Management](https://egghead.io/courses/react-context-for-state-management) at egghead.
+If you want a deep dive on the Context API, watch my course [React Context for State Management](https://egghead.io/courses/react-context-for-state-management) at egghead.
+如果你想深入研究 Context API，看我在 egghead 的课程 [React Context 状态管理](https://egghead.io/courses/react-context-for-state-management)
 
-### Another Alternative: Use the `children` Prop
+### Another Alternative: Use the `children` Prop
+### 其他替代品：使用 `children` Prop
 
 Depending on how you structure your app, you might be able to pass data to child components more directly using a combination of the `children` prop and other props as "slots". You can effectively skip a few levels in the hierarchy if you arrange it right.
+取决于你构建应用程序的方式，你可能会用更直接的方式把数据传递给子组件，那就是使用 `children` 和其他 props 结合的方式作为 "slots"。如果你组织的方式正确，就可以有效地跳过层次结构中的几个层级。
 
-I have an article about this ["slots" pattern and how to arrange your component tree](https://daveceddia.com/pluggable-slots-in-react-components/)to pass data more efficiently.
+I have an article about this ["slots" pattern and how to arrange your component tree](https://daveceddia.com/pluggable-slots-in-react-components/)to pass data more efficiently.
+我有一篇相关文章 [“slots” 模式以及如何组织组件树](https://daveceddia.com/pluggable-slots-in-react-components/) 来有效地传递数据。
 
 ## Learn Redux, Starting With Plain React
+## 学习 Redux，从简单 React 开始
 
 We're going to take an incremental approach, starting with a plain React app with component state, adding parts of Redux piece-by-piece, and dealing with the errors along the way. Let's call it "Error-Driven Development" :)
+我们将采用增量的方法，从带有组件 state 的简单 React 应用开始，一点点添加 Redux，以及解决过程中遇到的错误。我们称之为“错误驱动型开发” :)
 
 Here is a counter:
+这是一个计数器：
 
 ![Counter component](https://daveceddia.com/images/counter-plain.png)
 
 In this example, the Counter component holds the state, and the App surrounding it is a simple wrapper.
+这本例中，Counter 组件有 state，包裹着它的 App 是一个简单包装器。
 
 Counter.js
 
@@ -195,23 +234,35 @@ export default Counter;
 ```
 
 As a quick review, here's how this works:
+快速回顾一下，这是如何工作的：
 
 -   The `count` state is stored in the `Counter` component
 -   When the user clicks "+", the button's `onClick` handler is called, which calls the `increment` function.
 -   The `increment` function updates the state with the new count.
 -   Because state was changed, React re-renders the `Counter` component (and its children), and the new counter value is displayed.
 
-If you need more detail about how state changes work, go read [A Visual Guide to State in React](https://daveceddia.com/visual-guide-to-state-in-react/) and then come back here.
+- `count` state 存储在 `Counter` 组件
+- 当用户点击 “+” 时，会调用 button 的 `onClick` handler，也就是 `increment` 函数。
+- `increment` 函数会更新 state 的 count 值。
+- 因为 state 改变了，React 会重绘 `Counter` 组件（以及它的子元素），这样就会显示新计数值。
+
+If you need more detail about how state changes work, go read [A Visual Guide to State in React](https://daveceddia.com/visual-guide-to-state-in-react/) and then come back here.
+如果你需要了解 state 变化机制的更多细节，去看 [React 中的 state 可视指南](https://daveceddia.com/visual-guide-to-state-in-react/)然后再回到这里。
 
 But seriously: if the above was *not* review for you, you need to learn how React state works *before* you learn Redux, or it'll be mega-confusing. Take my [free 5-day React course](https://daveceddia.com/pure-react-email-course), gain confidence with plain React, then come back here.
+不过说实话：如果上面内容对你来讲*不是*回顾的话，你需要在学 Redux *之前*了解下 React 的 state 如何工作，否则你会巨困惑。参加我 [免费的 5 天 React 课程](https://daveceddia.com/pure-react-email-course)，用简单的 React 获得信息，然后再回到这里。
 
 ### Follow Along!
+### 接着！
 
 The best way to actually learn this stuff is to try it! So here's a CodeSandbox where you can follow along:
+最好的学习方式就是动手尝试！所以这有个 CodeSandbox 你可以跟着做：
 
 --> [Open this CodeSandbox in a separate tab](https://codesandbox.io/s/98153xy79w)
+--> [在新 tab 中打开 CodeSandbox](https://codesandbox.io/s/98153xy79w)
 
 I highly recommend you keep the CodeSandbox in sync with the tutorial and actually type out the examples as you go along.
+我强烈建议你将 CodeSandbox 与该教程保持同步并且随着你进行时实际动手敲出这些例子。
 
 ## Add Redux To The React App
 
