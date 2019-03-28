@@ -44,7 +44,7 @@ The simplest way to achieve simplicity is through thoughtful reduction. When in 
 
 ![](https://cdn-images-1.medium.com/max/8160/1*RhLi0SirFV906aqBOt7-Iw.jpeg)
 
-> ## “Simplicity is not the absence of clutter, that’s a consequence of simplicity. Simplicity is somehow essentially describing the purpose and place of an object and product. The absence of clutter is just a clutter-free product. That’s not simple.”-Jonathan Ive
+> “Simplicity is not the absence of clutter, that’s a consequence of simplicity. Simplicity is somehow essentially describing the purpose and place of an object and product. The absence of clutter is just a clutter-free product. That’s not simple.”-Jonathan Ive
 
 ### 3. Translate data into a meaningful format
 
