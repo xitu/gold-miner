@@ -265,42 +265,61 @@ I highly recommend you keep the CodeSandbox in sync with the tutorial and actual
 我强烈建议你将 CodeSandbox 与该教程保持同步并且随着你进行时实际动手敲出这些例子。
 
 ## Add Redux To The React App
+## 在 React 应用中添加 Redux
 
 In CodeSandbox, expand the Dependencies section in the left pane, and click Add Dependency.
+在 CodeSandbox 中，展开左侧的 Dependencies 选项，然后点击 Add Dependency。
 
-Search for `redux`, add it, then click Add Dependency again and search for `react-redux` and add it.
+
+Search for `redux`, add it, then click Add Dependency again and search for `react-redux` and add it.
+搜索 `redux` 添加依赖，然后再次点击 Add Dependency 搜索 `react-redux` 添加。
 
 ![](https://daveceddia.com/images/add-redux-in-codesandbox.gif)
 
-In a local project, you can install them with Yarn or NPM: `npm install --save redux react-redux`.
+In a local project, you can install them with Yarn or NPM: `npm install --save redux react-redux`.
+在本地项目，你可以通过 Yarn 或者 NPM 安装：`npm install --save redux react-redux`。
 
 ### redux vs react-redux
+### redux vs react-redux
 
-`redux` gives you a store, and lets you keep state in it, and get state out, and respond when the state changes. But that's all it does.
+`redux` gives you a store, and lets you keep state in it, and get state out, and respond when the state changes. But that's all it does.
+`redux` 给你一个 store，让你可以在里面保存 state，取出 state，以及当 state 发生改变时做出响应。但那就是它所有能做的事。
 
-It's actually `react-redux` that lets you connect pieces of the state to React components.
+It's actually `react-redux` that lets you connect pieces of the state to React components.
+实际上是 `react-redux` 把各个 state 和 React 组件连接起来。
 
-That's right: `redux` knows nothing about React *at all*.
+That's right: `redux` knows nothing about React *at all*.
+没错：`redux` 对 React *根本*不了解。
 
 These libraries are like two peas in a pod, though. 99.999% of the time, when anyone mentions "Redux" in the context of React, they are referring to both of these libraries in tandem. So keep that in mind when you see Redux mentioned on StackOverflow, or Reddit, or elsewhere.
+虽然，这两个库就像豆荚里的两个豌豆。99.999% 的情况下，当任何人在 React 的场景下提到 “Redux”，他们指的是这两个库。因此当你在 StackOverflow、Reddit 或者其他地方看到 Redux 时，记住这一点。
 
 The `redux` library can be used outside of a React app too. It'll work with Vue, Angular, and even backend Node/Express apps.
+`redux` 库可以脱离 React 应用使用。它可以和 Vue，Angular 甚至后端的 Node/Express 应用一起使用。
 
 ## Redux Has One Global Store
+## Redux 有一个全局 Store
 
-We're going to start by looking at just Redux by itself, and just one piece of it: the store.
+We're going to start by looking at just Redux by itself, and just one piece of it: the store.
+我们将首先看一下 Redux 本身，只看其中一部分：store。
 
-We've talked about how Redux keeps the state of your app in a single store. And how you can extract parts of that state and plug it into your components as props.
+We've talked about how Redux keeps the state of your app in a single store. And how you can extract parts of that state and plug it into your components as props.
+我们已经讨论过 Redux 怎样在一个独立 store 里保存你应用的 state。以及怎样提取 state 的一部分把它作为 props 嵌入你的组件。
 
 You'll often see the words "state" and "store" used interchangeably. Technically, the state is the data, and the store is where it's kept.
+你会经常看到 “state” 和 “store” 这两个词互换使用。技术上来讲，state 是数据，store 是保存数据的地方。
 
 So: as step 1 of our refactoring from plain React to Redux, we need to create a store to hold the state.
+因此：作为我们从简单的 React 到 Redux 重构的第一步，我们要创建一个 store 来保持 state。
 
 ## Create the Redux Store
+## 创建 Redux Store
 
 Redux comes with a handy function that creates stores, and it's called `createStore`. Logical enough, eh?
+Redux 有一个很方便的函数用来创建 stores，叫做 `createStore`。很合逻辑，嗯？
 
-In `index.js`, let's make a store. Import `createStore` and call it like so:
+In `index.js`, let's make a store. Import `createStore` and call it like so:
+我们在 `index.js` 中创建一个 store。引入 `createStore` 然后像这样调用：
 
 index.js
 
@@ -317,20 +336,27 @@ const App = () => (
 ```
 
 This should fail with the error "Expected the reducer to be a function."
+这样会遇到 "Expected the reducer to be a function." 错误。
 
 ![Error: Expected the reducer to be a function.](https://daveceddia.com/images/error-expected-reducer-to-be-a-function.png)
 
 ### The Store Needs a Reducer
+### Store 需要一个 Reducer
 
 So, here's the thing about Redux: it's not very smart.
+因此，有件关于 Redux 的事：它并不是非常智能。
 
 You might expect that by creating a store, it would give your state a nice default value. Maybe an empty object, perhaps?
+你可能期待通过创建一个 store，它会给你的 state 一个合适的默认值。可能是一个空对象，或许？
 
 But no. No convention-over-configuration here.
+但是并非如此。这里没有约定大于配置。
 
 Redux makes *zero* assumptions about the shape of your state. It could be an object, or a number, or a string, or whatever you need. It's up to you!
+Redux *不会*对你的 state 做任何假设。它可能是一个 object，一个 number，一个 string，或者任何你需要的。这取决于你。
 
-We have to provide a function that will return the state. That function is called a reducer (we'll see why in a minute). So let's make a really simple one, pass it into `createStore`, and see what happens:
+We have to provide a function that will return the state. That function is called a reducer (we'll see why in a minute). So let's make a really simple one, pass it into `createStore`, and see what happens:
+我们必须提供一个返回 state 的函数。这个函数被称为 reducer（我们马上就知道为什么了）。那么我们创建一个非常简单的 reducer，把它传给 `createStore`，然后看会发生什么：
 
 index.js
 
@@ -344,24 +370,33 @@ const store = createStore(reducer);
 ```
 
 After you make this change, open up the console (in CodeSandbox, click the Console button at the bottom).
+修改完后，打开控制台（在 CodeSandbox 里，点击底部的 Console 按钮）。
 
 You should see a message logged there, something like this:
+你应该可以看到类似这样的日志信息：
 
 ![reducer undefined Object { type: @@redux/INIT }](https://daveceddia.com/images/reducer-console-log.png)
 
 (the letters and numbers after INIT are randomized by Redux)
+（INIT 后面的字母和数字是 Redux 随机生成的）
 
-Notice how Redux called your reducer at the time you created the store. (To prove it: put a `console.log` immediately after the call to `createStore` and notice how it prints out after the reducer)
+Notice how Redux called your reducer at the time you created the store. (To prove it: put a `console.log` immediately after the call to `createStore` and notice how it prints out after the reducer)
+注意在你创建 store 的同时 Redux 如何调用你的 reducer。（为了证实这点：调用 `createStore` 之后立即输出 `console.log`，看看 reducer 后面会打印什么）
 
-Also notice how Redux passed a `state` of `undefined`, and the action was an object with a `type` property.
+Also notice how Redux passed a `state` of `undefined`, and the action was an object with a `type` property.
+同样注意 Redux 如何传递了一个 `undefined` 的 `state`，同时 action 是一个有 `type` 属性的对象。
 
-We'll talk more about actions in a minute. For now, let's go over the *reducer*.
+We'll talk more about actions in a minute. For now, let's go over the *reducer*.
+我们稍后会更多地讨论 actions。现在，我们先看看 *reducer*。
 
 ## What Is a Redux Reducer?
+## Redux Reducer 是什么？
 
 The term "reducer" might seem a bit scary and foreign, but after this section I think you'll come to agree that it is, as the saying goes, "just a function."
+"reducer" 术语看起来可能有点陌生和害怕，但是本节过后，我认为你会同意，正如俗话所说的那样，“只是一个函数”。
 
-Have you ever used the `reduce` function on an array?
+Have you ever used the `reduce` function on an array?
+你用过数组的 `reduce` 函数吗？
 
 Here's how it works: You pass it a function, and it calls your function once for each element of the array, similar to how `map` works -- you're probably familiar with `map` from rendering lists of things in React.
 
