@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-anatomy-of-a-frame.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-anatomy-of-a-frame.md)
 > * 译者：[WangLeto](https://github.com/WangLeto)
-> * 校对者：[Xuyuey](https://github.com/Xuyuey)，[Fengziyin1234](https://github.com/Fengziyin1234)，[L9m](https://github.com/L9m)
+> * 校对者：[Xuyuey](https://github.com/Xuyuey), [Fengziyin1234](https://github.com/Fengziyin1234), [L9m](https://github.com/L9m)
 
 # 浏览器帧原理剖析
 
@@ -35,7 +35,7 @@
 现在看一下渲染进程中的线程。
 
 *  **合成线程（Compositor Thread）**。这是最先被告知垂直同步事件（vsync event，操作系统告知浏览器刷新一帧图像的信号）的线程。它接收所有的输入事件。如果可能，合成线程会避免进入主线程，自己尝试将输入的事件（比如滚动）转换为屏幕的移动。它会更新图层的位置，并经由 GPU 线程直接向 GPU 提交帧来完成这个操作。如果输入事件需要进行处理，或者有其他的显示工作，它将无法直接完成该过程，这就需要主线程了。
-*  **主线程**。在这里浏览器执行我们熟知和喜欢的那些任务：JavaScript，样式，布局和绘制。（这一点以后会变化，有了  [Houdini](https://surma.link/things/houdini-intro/)，我们可以在合成线程中运行一些代码）主线程荣获“最容易导致 jank 奖”，很大程度上是因为它要做的事情太多了这个事实。（译注：jank 指页面内容抖动卡顿，由于页面内容的更新频率跟不上屏幕刷新频率导致）
+*  **主线程**。在这里浏览器执行我们熟知和喜欢的那些任务：JavaScript，样式，布局和绘制。（这一点以后会变化，有了 [Houdini](https://surma.link/things/houdini-intro/)，我们可以在合成线程中运行一些代码）主线程荣获“最容易导致 jank 奖”，很大程度上是因为它要做的事情太多了这个事实。（译注：jank 指页面内容抖动卡顿，由于页面内容的更新频率跟不上屏幕刷新频率导致）
 *  **合成图块栅格化线程（Compositor Tile Worker）**。由合成线程派生的一个或多个线程，用于处理栅格化任务。我们稍后再讨论。
 
 在许多方面，你都应该把合成线程看做“老大”。虽然这个线程不运行 JavaScript，不进行布局、绘制内容或者其他任务，但是它全权负责启动主线程工作，并将帧运送到屏幕上。如果合成线程不用等待输入事件的处理，就可以在等待主线程完成工作时把帧发送出去。
