@@ -2,31 +2,31 @@
 > * 原文作者：[Abhimuralidharan](https://medium.com/@abhimuralidharan)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lazy-var-in-ios-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lazy-var-in-ios-swift.md)
-> * 译者：
+> * 译者：kirinzer
 > * 校对者：
 
-# lazy var in ios swift
+# 懒加载变量在 iOS Swift
 
-> This article explains the working of lazy var in swift.You must have some knowledge in closures.
+> 这篇文章解释了在 Swift 中懒加载变量是如何工作的，你必须对闭包有一些了解。
 
-**[Read this article for more info on closures](https://medium.com/@abhimuralidharan/functional-swift-all-about-closures-310bc8af31dd).**
+**[阅读这篇文章获取更多关于闭包的信息](https://medium.com/@abhimuralidharan/functional-swift-all-about-closures-310bc8af31dd).**
 
-While dealing with iOS app development we should be really very much conscious about the amount of memory used by the application. If the app is a complex one, then the memory issues are one of the major challenges for the developer. So, the developer should be really writing an optimised code which consider memory allocation at first place. The developer need to avoid doing expensive work unless it’s really needed. These complex allocations will take more time and it will seriously affect the performance of the application as well.
+在处理 iOS 应用开发时，我们应该非常关注应用程序的内存占用情况。如果应用程序很复杂，那么内存问题就会是对于开发者的一个主要的挑战。所以，首先考虑到内存分配问题的开发者能够真正的写出优化的代码。开发者要避免做一些耗时的工作除非确实需要。那些复杂的分配内存操作会消耗更多的时间，并且对于程序的性能有严重的影响。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*HRKGc4RHwRXiyIHOzlpKbA.png)
 
-Swift has a mechanism built right into the language that enables just-in-time calculation of expensive work, and it is called a ****lazy variable****. These variables are created using a function you specify only when that variable is first requested. If it’s never requested, the function is never run, so it does help save processing time.
+Swift 有内置在语言中的机制，可以及时的计算那些耗时工作。它叫做**懒加载变量**。这种变量只有在你第一次需要它的时候才被指定的方法创建。如果从没有使用过该变量。那么方法就不会运行，所以它可以帮助减少一些处理时间。
 
-*Apple’s official documentation says:*
+*苹果的官方文档说：*
 
-**A lazy stored property is a property whose initial value is not calculated until the first time it is used. You indicate a lazy stored property by writing the `lazy` modifier before its declaration.**
+**一个懒加载储存属性是一个初始化值并不会被计算的属性，直到第一次使用它。你可以通过在声明前加 `lazy` 修饰符来标示一个懒加载存储属性。**
 
-> You must always declare a lazy property as a variable (with the `var` keyword), because its initial value might not be retrieved until after instance initialization completes. Constant properties must always have a value **before** initialization completes, and therefore cannot be declared as lazy.
+> 你必须将一个懒加载属性声明为一个变量(通过 `var` 关键字)，因为它的初始化值也许不能获得，直到实例的初始化完成。常量属性一定会有一个值在初始化完成**之前**，因此不能用懒加载声明。
 
-To explain this, I will use a basic example: Consider a struct called InterviewCandidate. It has an optional bool value to decide if the candidate is applying for ios or android. Resume description for iOS and android are declared as lazy variables. So , in the following code, the person is an iOS developer and the lazy variable **iOSResumeDescription** will be initialized when called for printing . **androidResumeDescription** undefinedwill be nil.
+为了解释这些，我会使用一个很基础的示例：假设有一个结构体叫做 InterviewCandidate。它有一个可选的布尔值，决定候选人正在申请 iOS 或者 Android。iOSResumeDescription 和 androidResumeDescription 被声明为懒加载属性。那么在下面的代码中，一个人是 iOS 开发者，懒加载变量 **iOSResumeDescription** 将会在调用打印方法的时候被初始化。没有被调用的 **androidResumeDescription** 就会是 nil。
 
 ```swift
-//: Playground - noun: a place where people can play
+//: Playground - noun: 人们用来玩耍的地方
 import UIKit
 
 
@@ -52,18 +52,18 @@ if person1.isiOS! {
 }
 ```
 
-This is a very basic level example. If we have a complex class or struct which contains computed variables which return the result from a recursive function and if we create a 1000 objects of this, then the performance and memory will be affected.
+这是一个非常基础的例子。 如果我们有一个复杂的类或结构，它包含从循环的函数返回结果的计算变量，并且如果我们创建1000个这样的对象，那么性能和内存将会受到影响。
 
-## Lazy Stored Property vs Stored Property
+## 懒加载存储属性 vs 存储属性
 
-There are a few advantage of a lazy property over a stored property.
+这有一些懒加载属性相对于存储属性的优点。
 
- 1. The closure associated to the lazy property is executed only if you read that property. So if for some reason that property is not used (maybe because of some decision of the user) you avoid unnecessary allocation and computation.
+ 1. 只有在读取该属性时才会执行与懒加载属性关联的闭包。 因此，如果由于某种原因该属性未被使用（可能是因为用户的某些决定），则可以避免不必要的分配和计算。
 
- 2. You can populate a lazy property with the value of a stored property.
+ 2. 你可以使用存储属性的值填充懒加载属性
 
- 3. **Important to note:** You can use `self` inside the closure of a lazy property. It will not cause any retain cycles. The reason is that the immediately applied closure `{}()` is considered `@noescape`. It does not retain the captured `self`.
-> But, if you need to use `self` inside the ****function****. In fact, if you're using a class rather than a structure, you should also declare `[unowned self]` inside your function so that you don't create a strong reference cycle(check the code below).
+ 3. **注意** 你能够在懒加载的属性闭包内部使用 `self`。这不会导致任何循环引用. 原因在于它立即使用的这个闭包 `{}()` 被认为是 `@noescape`. 它不会引用捕获的 `self`.
+> 但是，如果你在 **function** 中使用 `self`。事实上，如果你正在使用的是一个类而不是结构体，你也应该声明 `[unowned self]` 在你的方法内那样你才不会创建一个强引用（查看下面的代码）。
 
 ```swfit
 // playground code
@@ -74,7 +74,7 @@ import Foundation
 class InterviewTest {
 var name: String
 lazy var greeting : String = { return “Hello \(self.name)” }()
-// No retain cycles here ..
+// 这里没有循环引用 ..
 
 init(name: String) {
 self.name = name
@@ -86,25 +86,25 @@ let testObj = InterviewTest(name:”abhi”)
 testObj.greeting
 ```
 
-You can reference variables regardless of whether or not you use a closure.
+你能够引用这个变量，无论你是否使用了闭包。
 
 lazy var iOSResumeDescription = “I am an iOS developer”
 
-This is also a working syntax.
+这样的语法也可以运行。
 
-> **Note: Remember, the point of lazy properties is that they are computed only when they are first needed, after which their value is saved. So, if you call the `iOSResumeDescription `for the second time, the previously saved value is returned.**
+> **注意：记住一点懒加载属性是只有它们第一次被需要的时候才会被计算，在这之后它们的值就被存储下来了。所以，如果你第二次使用 `iOSResumeDescription `，预先存储的属性就会返回**。
 
-## Lazy rules:
+## 懒加载规则:
 
-* You can’t use `lazy` with `let` .
+* 你不能对 `let` 类型使用 `lazy` 。
 
-* You can’t use it with `computed properties` . Because, a computed property returns the value every time we try to access it after executing the code inside the computation block.
+* 你不能对于 `computed properties` 使用它。因为一个计算属性会在每次我们试图访问它的时候去执行在计算代码块中的代码并返回相应的值。
 
-* You can use `lazy` only with members of `struct` and `class` .
+* 你只能对 `struct` 和 `class`的成员使用 `lazy` 。
 
-* Lazy variables are not initialised atomically and so is not thread safe.
+* 懒加载变量不是原子初始化类型，所以它并不是线程安全的。
 
-**If you enjoyed reading this post, please share and recommend it so others can find it 💚💚💚💚💚💚 !!!!**
+**如果你喜欢阅读这篇文章，那么分享和推荐它以便其他人能够看到💚💚💚💚💚💚 !**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
