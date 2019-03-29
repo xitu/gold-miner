@@ -7,7 +7,7 @@
 
 # An Introduction to Speech Recognition using WFSTs
 
-**Until now, all of my blog posts have been about deep learning methods or their application to NLP. Since the last couple of weeks, however, I have started learning about Automatic Speech Recognition (ASR). Therefore, I will also include speech-related articles in this publication now.**
+> Until now, all of my blog posts have been about deep learning methods or their application to NLP. Since the last couple of weeks, however, I have started learning about Automatic Speech Recognition (ASR). Therefore, I will also include speech-related articles in this publication now.
 
 The ASR logic is very simple (it’s just Bayes rule, like most other things in machine learning). Essentially, given a speech waveform, the objective is to transcribe it, i.e., identify a text which aligns with the waveform. Suppose **Y** represents the feature vectors obtained from the waveform (Note: this “feature extraction” itself is an involved procedure, and I will describe it in detail in another post), and **w** undefineddenotes an arbitrary string of words. Then, we have the following.
 
@@ -18,8 +18,6 @@ The two likelihoods in the term are trained separately. The first component, kno
 Although the ASR training appears simple from this abstract level, the implementation is arguably more complex, and is usually done using Weighted Finite State Transducers (WFSTs). In this post, I’ll describe WFSTs, some of their basic algorithms, and give a brief introduction to how they are used for speech recognition.
 
 ### Weighted Finite State Transducers (WFSTs)
-
-***
 
 If you have taken any Theory of Computation course before, you’d probably already be aware what an **automata** undefinedis. Essentially, a finite automaton accepts a language (which is a set of strings). They are represented by directed graphs as shown below.
 
@@ -39,19 +37,15 @@ In principle, it is possible to implement speech recognition algorithms without 
 
 ## Some basic algorithms on WFSTs
 
-***
-
 ### Composition
 
 Composition, as the name suggests, refers to the process of combining 2 WFSTs to form a single WFST. If we have transducers for pronunciation and word-level grammar, such an algorithm would enable us to form a phone-to-word level system easily.
 
 Composition is done using 3 rules:
 
- 1. Initial state in the new WFST are formed by combining the initial states of the old WFSTs into pairs.
-
- 2. Similarly, final states are combined into pairs.
-
- 3. For every pair of edges such that the o-label of the first WFST is the i-label of the second, we add an edge from the source pair to the destination pair. The edge weight is summed using the sum rules.
+1. Initial state in the new WFST are formed by combining the initial states of the old WFSTs into pairs
+2. Similarly, final states are combined into pairs.
+3. For every pair of edges such that the o-label of the first WFST is the i-label of the second, we add an edge from the source pair to the destination pair. The edge weight is summed using the sum rules.
 
 An example of composition is shown below.
 
@@ -66,6 +60,7 @@ See [here](http://www.openfst.org/twiki/bin/view/FST/ComposeDoc) for OpenFST imp
 A deterministic automaton is one in which there is only one transition for each label in every state. By such a formulation, a deterministic WFST removes all redundancy and greatly reduces the complexity of the underlying grammar. But, are all WFSTs determinizable?
 
 **The Twins Property:** Let us consider an automaton A. Two states **p** and **q** in A are said to be siblings if both can be reached by string **x** and both have cycles with label **y**. Essentially, siblings are twins if the total weight for the paths until the states, as well as that including the cycle, are equal for both.
+
 > # A WFST is determinizable if all its siblings are twins.
 
 This is an example of what I said earlier regarding WFSTs being an efficient implementation of the algorithms used in ASR. There are several methods to determinize a WFST. One such algorithm is shown below.
@@ -84,7 +79,7 @@ Although minimization is not as essential as determinization, it is still a nice
 
 Minimization is carried out in 2 steps:
 
- 1. Weight pushing: All weights are pushed towards the start state. See the following example.
+1. Weight pushing: All weights are pushed towards the start state. See the following example.
 
 ![](https://cdn-images-1.medium.com/max/2000/1*0Hp5qXMWHsyvvFGfLz03vQ.png)
 
@@ -102,29 +97,20 @@ The following (taken from [3]) shows the complete pipeline for a WFST reduction.
 
 Several WFSTs are composed in sequence for use in speech recognition. These are:
 
- 1. Grammar (**G**): This is the language model trained on large text corpus.
-
- 2. Lexicon (**L**): This encodes information about the likelihood of phones without context.
-
- 3. Context-dependent phonetics (**C** ): This is similar to n-gram language modeling, except that it is for phones.
-
- 4. HMM structure (**H**): This is the model for the waveform.
+1. Grammar (**G**): This is the language model trained on large text corpus.
+2. Lexicon (**L**): This encodes information about the likelihood of phones without context.
+3. Context-dependent phonetics (**C** ): This is similar to n-gram language modeling, except that it is for phones.
+4. HMM structure (**H**): This is the model for the waveform.
 
 In general, the composed transducer **H** o **C** o **L** o **G** undefinedrepresents the entire pipeline of speech recognition. Each of the components can individually be improved, so that the entire ASR system gets improved.
 
 **This was just a brief introduction to WFSTs which are an important component in ASR systems. In further posts on speech, I hope to discuss things such as feature extraction, popular GMM-HMM models, and latest deep learning advances. I am also reading papers mentioned [here](http://jrmeyer.github.io/asr/2017/04/05/seminal-asr-papers.html) to get a good overview of how ASR has progressed over the years.**
 
-***
+## References
 
-****References:****
-
-***
-
-**[1] Gales, Mark, and Steve Young. “The application of hidden Markov models in speech recognition.” Foundations and Trends® in Signal Processing 1.3 (2008): 195–304.**
-
-**[2] Mohri, Mehryar, Fernando Pereira, and Michael Riley. “Weighted finite-state transducers in speech recognition.” Computer Speech & Language 16.1 (2002): 69–88.**
-
-**[3] [Lecture slides](https://wiki.eecs.yorku.ca/course_archive/2011-12/W/6328/_media/wfst-tutorial.pdf) from Prof. Hui Jiang (York University)**
+* [1] Gales, Mark, and Steve Young. “The application of hidden Markov models in speech recognition.” Foundations and Trends® in Signal Processing 1.3 (2008): 195–304.
+* [2] Mohri, Mehryar, Fernando Pereira, and Michael Riley. “Weighted finite-state transducers in speech recognition.” Computer Speech & Language 16.1 (2002): 69–88.
+* [3] [Lecture slides](https://wiki.eecs.yorku.ca/course_archive/2011-12/W/6328/_media/wfst-tutorial.pdf) from Prof. Hui Jiang (York University)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
