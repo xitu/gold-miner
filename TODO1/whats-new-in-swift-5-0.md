@@ -180,7 +180,7 @@ let user = User(name: "Guybrush Threepwood", age: 33)
 print("用户信息：\(user)")
 ```
 
-这将打印 **用户信息：我叫 Guybrush Threepwood，33岁**，而使用自定义字符串插值它将打印 **用户信息：User(name: "Guybrush Threepwood", age: 33)**。当然，该功能与仅实现` CustomStringConvertible` 协议没有什么不同，所以让我们继续使用更高级的用法。
+这将打印 **用户信息：我叫 Guybrush Threepwood，33 岁**，而使用自定义字符串插值它将打印 **用户信息：User(name: "Guybrush Threepwood", age: 33)**。当然，该功能与仅实现` CustomStringConvertible` 协议没有什么不同，所以让我们继续使用更高级的用法。
 
 你的自定义插值方法可以根据需要使用任意数量的参数，标记的和未标记的。例如，我们可以使用各种样式添加插值来打印数字，如下所示：
 
