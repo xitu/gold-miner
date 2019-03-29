@@ -398,11 +398,14 @@ The term "reducer" might seem a bit scary and foreign, but after this section I 
 Have you ever used the `reduce` function on an array?
 你用过数组的 `reduce` 函数吗？
 
-Here's how it works: You pass it a function, and it calls your function once for each element of the array, similar to how `map` works -- you're probably familiar with `map` from rendering lists of things in React.
+Here's how it works: You pass it a function, and it calls your function once for each element of the array, similar to how `map` works -- you're probably familiar with `map` from rendering lists of things in React.
+它是这样用的：你传入一个函数，遍历数组的每一个元素时都会调用你传入的函数，类似 `map` 的作用——你可能在 React 里面渲染列表而对 `map` 很熟悉。
 
 Your function gets called with 2 arguments: the last iteration's result, and the current array element. It combines the current item with the previous "total" result and returns the new total.
+你的函数调用时会接收两个参数：上一次迭代的结果，和当前数组元素。它结合当前元素和之前的 “total” 结果然后返回新的 total 值。
 
 This will make more sense with an example:
+结合下面例子看会更加清晰明了：
 
 ```js
 var letters = ['r', 'e', 'd', 'u', 'x'];
@@ -419,9 +422,11 @@ var word = letters.reduce(
 console.log(word) // => "redux"
 ```
 
-The function you pass in to `reduce` could rightfully be called a "reducer"... because it *reduces* a whole array of items down to a single result.
+The function you pass in to `reduce` could rightfully be called a "reducer"... because it *reduces* a whole array of items down to a single result.
+你给 `reduce` 传入的函数理所应当被叫做 “reducer”，因为它将整个数组的元素 *reduces* 到一个结果。
 
 Redux is *basically* a fancy version of Array's `reduce`. Earlier, you saw how Redux reducers have this signature:
+
 
 ```js
 (state, action) => newState
