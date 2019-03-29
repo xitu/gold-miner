@@ -45,7 +45,7 @@ Cache-Control: max-age=60
 
 如果并没有新的副本供下载，服务器会返回 `304`，不需要下载新文件，使用新的报头来更新缓存副本。也就是说如果 `Cache-Control: max-age=60` 报头依然存在，缓存文件的 60 秒会重新开始。这个文件的总缓存时间是 120 秒。
 
-**注意：**`max-age` 本身有一个巨坑，它告诉浏览器相关资源已经过期，但没有告诉这个过期版本绝对不能使用。浏览器可能使用它自己的机制来决定是否在不经验证的情况下释放文件的过期副本。这种行为有些不确定性，想确切知道浏览器会怎么做有点困难。为此，我们有一系列更为明确的指令，用来增强 `max-age`，感谢 [Andy Davies](https://twitter.com/AndyDavies) 帮我澄清了这一点。
+**注意**：`max-age` 本身有一个巨坑，它告诉浏览器相关资源已经过期，但没有告诉这个过期版本绝对不能使用。浏览器可能使用它自己的机制来决定是否在不经验证的情况下释放文件的过期副本。这种行为有些不确定性，想确切知道浏览器会怎么做有点困难。为此，我们有一系列更为明确的指令，用来增强 `max-age`，感谢 [Andy Davies](https://twitter.com/AndyDavies) 帮我澄清了这一点。
 
 ### `s-maxage`
 
@@ -67,7 +67,7 @@ Cache-Control: no-store
 Cache-Control: no-cache
 ```
 
-这点多数人都会困惑...... `no-cache` 并不意味着 “no cache”。它意味着“在你和服务器验证过并且服务器告诉你可以使用缓存的副本之前，你`不`能使用`缓存`中的副本”。没错，听起来应该叫 `must-revalidate`！不过其实也没听起来这么简单。
+这点多数人都会困惑... `no-cache` 并不意味着 “no cache”。它意味着“在你和服务器验证过并且服务器告诉你可以使用缓存的副本之前，你`不`能使用`缓存`中的副本”。没错，听起来应该叫 `must-revalidate`！不过其实也没听起来这么简单。
 
 事实上 `no-cache` 一个可以确保内容最新鲜的非常智能的方式，同时也可以尽可能使用更快的缓存副本。`no-cache` 总是会命中网络，因为在释放浏览器的缓存副本（除非服务器的响应的文件已更新）之前，它必须与服务器重新验证，不过如果服务器响应允许使用缓存副本，网络只会传输文件报头：文件主体可以从缓存中获取，而不必重新下载。
 
@@ -87,7 +87,7 @@ Cache-Control: must-revalidate, max-age=600
 
 `must-revalidate` 需要一个关联的 `max-age` 指令；上文我们把它设置为 10 分钟。
 
-如果说 `no-cache` 会立即向服务器验证，经过允许后才能使用缓存的副本，那么 `must-revalidate` 更像是一个具有宽期限的 `no-cache`。情况是这样的，在最初的十分钟浏览器**不会**（我知道，我知道......）向服务器重新验证，但是就在十分钟过去的那一刻，它又到服务器去请求，如果服务器没什么新东西，它会返回 `304` 并且新的 `Cache-Control` 报头应用于缓存的文件 —— 我们的十分钟再次开始。如果十分钟后服务器上有了一个新的文件，我们会得到 `200` 的响应和它的报文，那么本地缓存就会被更新。
+如果说 `no-cache` 会立即向服务器验证，经过允许后才能使用缓存的副本，那么 `must-revalidate` 更像是一个具有宽期限的 `no-cache`。情况是这样的，在最初的十分钟浏览器**不会**（我知道，我知道...）向服务器重新验证，但是就在十分钟过去的那一刻，它又到服务器去请求，如果服务器没什么新东西，它会返回 `304` 并且新的 `Cache-Control` 报头应用于缓存的文件 —— 我们的十分钟再次开始。如果十分钟后服务器上有了一个新的文件，我们会得到 `200` 的响应和它的报文，那么本地缓存就会被更新。
 
 `must-revalidate` 一个很适合的场景就是博客（比如我这个博客）：静态页面很少更改。当然，最新的内容是可以获取的，但考虑到我的网站很少更改，我们不需要 `no-cache` 这么下重手的东西。相反，我们会假设在十分钟内一切都好，之后再重新验证。
 
@@ -102,9 +102,9 @@ Cache-Control: must-revalidate, max-age=600
 用户刷新会导致浏览器强制验证一个文件而不论文件新鲜与否，因为用户刷新往往意味着发生了这两件事之一：
 
 1. 页面崩溃之类的；
-2. 内容看起来已经过期了......
+2. 内容看起来已经过期了...
 
-......所以我们要检查一下服务器上是否有更加新鲜的内容。
+...所以我们要检查一下服务器上是否有更加新鲜的内容。
 
 如果服务器上有一个更新鲜的内容可用，我们当然想下载它。这样我们将得到一个 `200` 响应，一个新文件，并且 —— 希望是 —— 问题已经修复了。而如果服务器上没有新文件，我们将返回 `304` 报头，没有新文件，只有整个往返请求的延迟。如果我们重新验证了大量文件且都返回 `304`，这会增加数百毫秒的不必要开销。
 
@@ -189,7 +189,7 @@ Cache-Control: no-transform
 
 ### 查询字符串 —— `style.css?v=1.2.14`
 
-这里依然是一个可变的文件，但是我们在文件路径后加了个查询字符串。聊胜于无，但不尽完美。如果有什么东西把查询字符串删掉了，我们就完全回到了之前讲的没有缓存破坏的样子。很多代理服务器和 CDN 都不会缓存查询字符串，无论是通过配置（例如 Cloudflare 官方文档写到：“......从缓存服务请求时，‘style.css?something’将会被标准化成‘style.css’”）还是防御性忽略（查询字符串可能包含请求特定响应的信息）。
+这里依然是一个可变的文件，但是我们在文件路径后加了个查询字符串。聊胜于无，但不尽完美。如果有什么东西把查询字符串删掉了，我们就完全回到了之前讲的没有缓存破坏的样子。很多代理服务器和 CDN 都不会缓存查询字符串，无论是通过配置（例如 Cloudflare 官方文档写到：“...从缓存服务请求时，‘style.css?something’将会被标准化成‘style.css’”）还是防御性忽略（查询字符串可能包含请求特定响应的信息）。
 
 ### 指纹 —— `style.ae3f66.css`
 
@@ -275,7 +275,7 @@ Request URL: /faqs/
 Cache-Control: max-age=604800, must-revalidate
 ```
 
-这会允许浏览器缓存 HTML 页面 一周时间（604,800 秒），一旦一周过去，我们需要向服务器检查更新。
+这会允许浏览器缓存 HTML 页面一周时间（604,800 秒），一旦一周过去，我们需要向服务器检查更新。
 
 当心：给同一个网站的不同页面应用不同的缓存策略会造成一个问题，在你设置 `no-cache` 的首页会请求它引用的最新的 `style.f4fa2b.css`，而在你的加了三天缓存的 FAQ 页依然指向 `style.ae3f66.css`。这种情况可能影响不大，但不容忽视。
 
@@ -307,7 +307,7 @@ Cache-Control: max-age=2419200, must-revalidate, stale-while-revalidate=86400
 ## 要牢记的要点
 
 - 缓存破坏极其极其极其重要。开始做缓存策略之前，先解决好缓存破坏策略。
-- 一般来说，缓存 HTML 内容是个馊主意。HTML URL 不能被破坏，毕竟 HTML 页往往是访问页面其他子资源的入口点，你会把通往静态文件的引用声明也缓存下来。这会让你（和你的用户）......一言难尽。
+- 一般来说，缓存 HTML 内容是个馊主意。HTML URL 不能被破坏，毕竟 HTML 页往往是访问页面其他子资源的入口点，你会把通往静态文件的引用声明也缓存下来。这会让你（和你的用户）...一言难尽。
 - 缓存 HTML 时，如果一类页面从不缓存而其他类页面有时要用缓存，这种同站不同类型的 HTML 页的不同缓存策略会导致不一致性。
 - 如果你能够给你的静态资源可靠地做缓存破坏（使用指纹），那你最好一次性把所有的东西都缓存好几年，以求最优。
 - 非关键内容可以用 `stale-while-revalidate` 之类的指令给一个不新鲜宽限期。
@@ -319,14 +319,14 @@ Cache-Control: max-age=2419200, must-revalidate, stale-while-revalidate=86400
 
 ## 参考文献和相关阅读
 
-- [*Caching best practices & max-age gotchas*](https://jakearchibald.com/2016/caching-best-practices/) —— [Jake Archibald](https://twitter.com/jaffathecake)， 2016
-- [*Cache-Control: immutable*](http://bitsup.blogspot.com/2016/05/cache-control-immutable.html) —— [Patrick McManus](https://twitter.com/mcmanusducksong)， 2016
-- [*Stale-While-Revalidate, Stale-If-Error Available Today*](https://www.fastly.com/blog/stale-while-revalidate-stale-if-error-available-today) —— [Steve Souders](https://twitter.com/Souders)， 2014
+- [*Caching best practices & max-age gotchas*](https://jakearchibald.com/2016/caching-best-practices/) —— [Jake Archibald](https://twitter.com/jaffathecake)，2016
+- [*Cache-Control: immutable*](http://bitsup.blogspot.com/2016/05/cache-control-immutable.html) —— [Patrick McManus](https://twitter.com/mcmanusducksong)，2016
+- [*Stale-While-Revalidate, Stale-If-Error Available Today*](https://www.fastly.com/blog/stale-while-revalidate-stale-if-error-available-today) —— [Steve Souders](https://twitter.com/Souders)，2014
 - [*A Tale of Four Caches*](https://calendar.perfplanet.com/2016/a-tale-of-four-caches/) —— [Yoav Weiss](https://twitter.com/yoavweiss)， 2016
 - [Clear-Site-Data](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Clear-Site-Data) —— MDN
 - [RFC 7234 -- HTTP/1.1 Caching](https://tools.ietf.org/html/rfc7234) —— 2014
 
-### 依吾言行事,勿观吾行仿之
+### 依吾言行事，勿观吾行仿之
 
 在某人因我的言行不类开喷之前，有必要一提的是我自己博客的缓存策略这么差强人意，以至于我自己都看不下去了。
 
