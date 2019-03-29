@@ -61,7 +61,7 @@ A deterministic automaton is one in which there is only one transition for each 
 
 **The Twins Property:** Let us consider an automaton A. Two states **p** and **q** in A are said to be siblings if both can be reached by string **x** and both have cycles with label **y**. Essentially, siblings are twins if the total weight for the paths until the states, as well as that including the cycle, are equal for both.
 
-> # A WFST is determinizable if all its siblings are twins.
+> A WFST is determinizable if all its siblings are twins.
 
 This is an example of what I said earlier regarding WFSTs being an efficient implementation of the algorithms used in ASR. There are several methods to determinize a WFST. One such algorithm is shown below.
 
