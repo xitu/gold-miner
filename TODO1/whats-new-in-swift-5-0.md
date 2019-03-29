@@ -89,7 +89,7 @@ let result = Result { try String(contentsOfFile: someFile) }
 
 *   [**YouTube 视频讲解**](https://www.youtube.com/watch?v=e6tuUzmxyOU)
 
-[SE-0200](https://github.com/apple/swift-evolution/blob/master/proposals/0200-raw-string-escaping.md) 添加了创建原始字符串（raw string）的功能，其中反斜杠和井号是被作为标点符号而不是转义字符或字符串终止符。这使得许多用法变得更容易，但特别是正则表达式。
+[SE-0200](https://github.com/apple/swift-evolution/blob/master/proposals/0200-raw-string-escaping.md) 添加了创建原始字符串（raw string）的功能，其中反斜杠和井号是被作为标点符号而不是转义字符或字符串终止符。这使得许多用法变得更容易，特别是正则表达式。
 
 要使用原始字符串，请在字符串前放置一个或多个 `#`，如下所示：
 
@@ -132,7 +132,7 @@ let multiline = #"""
 """#
 ```
 
-没有大量反斜杠就能证明在正则表达式中特别有用。例如编写一个简单的正则表达式来查询关键路径，例如 `\Person.name`，看起来像这样：
+能在正则表达式中不再大量使用反斜杠足以证明这很有用。例如编写一个简单的正则表达式来查询关键路径，例如 `\Person.name`，看起来像这样：
 
 ```swift
 let regex1 = "\\\\[A-Z]+[A-Za-z]+\\.[a-z]+"
@@ -163,7 +163,7 @@ struct User {
 
 如果我们想为它添加一个特殊的字符串插值，以便我们整齐地打印用户信息，我们将使用一个新的 `appendInterpolation()` 方法为 `String.StringInterpolation` 添加一个 extension。Swift 已经内置了几个，并且用户插值 **类型**，在这种情况下需要 `User` 来确定要调用哪个方法。
 
-In this case, we’re going to add an implementation that puts the user’s name and age into a single string, then calls one of the built-in `` methods to add that to our string, like this:在这种情况下，我们将添加一个实现，将用户的名称和年龄放入一个字符串中，然后调用其中一个内置的 `appendInterpolation()` 方法将其添加到我们的字符串中，如下所示：
+在这种情况下，我们将添加一个实现，将用户的名称和年龄放入一个字符串中，然后调用其中一个内置的 `appendInterpolation()` 方法将其添加到我们的字符串中，如下所示：
 
 ```swift
 extension String.StringInterpolation {
@@ -182,7 +182,7 @@ print("用户信息：\(user)")
 
 这将打印 **用户信息：我叫 Guybrush Threepwood，33岁**，而使用自定义字符串插值它将打印 **用户信息：User(name: "Guybrush Threepwood", age: 33)**。当然，该功能与仅实现` CustomStringConvertible` 协议没有什么不同，所以让我们继续使用更高级的用法。
 
-你的自定义插值方法可以根据需要使用任意数量的参数，被标记或未被标记。例如，我们可以使用各种样式添加插值来打印数字，如下所示：
+你的自定义插值方法可以根据需要使用任意数量的参数，标记的和未标记的。例如，我们可以使用各种样式添加插值来打印数字，如下所示：
 
 ```swift
 extension String.StringInterpolation {
@@ -243,7 +243,7 @@ print("学生姓名：\(names, empty: "空").")
 为了让它生效，我们需要满足一些特定的标准：
 
 * 我们创建的类型应该遵循 `ExpressibleByStringLiteral`，`ExpressibleByStringInterpolation` 和 `CustomStringConvertible`。只有在你想要自定义打印类型的方式时才需要遵循最后一个协议。
-* 在你的类型 **内部** 需要是一个名为 `StringInterpolation` 并遵循 `StringInterpolationProtocol` 的的嵌套结构体。
+* 在你的类型 **内部** 需要是一个名为 `StringInterpolation` 并遵循 `StringInterpolationProtocol` 的嵌套结构体。
 * 嵌套结构体需要有一个初始化器，它接受两个整数，告诉我们大概预期的数据量。
 * 它还需要实现一个 `appendLiteral()` 方法，以及一个或多个 `appendInterpolation()` 方法。
 * 你的主类型需要有两个初始化器，允许从字符串文字和字符串插值创建它。
@@ -304,11 +304,11 @@ let text: HTMLComponent = "你应该在 Twitter 上关注我 \(twitter: "twostra
 print(text)
 ```
 
-Thanks to the  calls that were scattered inside, you’ll see exactly how the string interpolation functionality works: you’ll see “Appending You should follow me on Twitter”, “Appending twostraws”, “Appending , or you can email me at “, “Appending paul@hackingwithswift.com”, and finally “Appending .” – each part triggers a method call, and is added to our string.多亏了分散在里面的 `print()`，你会看到字符串插值功能的准确作用：“追加 ‘你应该在 Twitter 上关注我’”，“追加 ’twostraws’”，“追加 ’，或者你可以发送电子邮件给我 ’“，”追加 ’paul@hackingwithswift.com’“，最后 “追加 ’。’”，每个部分触发一个方法调用，并添加到我们的字符串中。
+多亏了分散在里面的 `print()`，你会看到字符串插值功能的准确作用：“追加 ‘你应该在 Twitter 上关注我’”，“追加 ’twostraws’”，“追加 ’，或者你可以发送电子邮件给我 ’“，”追加 ’paul@hackingwithswift.com’“，最后 “追加 ’。’”，每个部分触发一个方法调用，并添加到我们的字符串中。
 
 ### 动态可调用（dynamicCallable）类型
 
-[SE-0216](https://github.com/apple/swift-evolution/blob/master/proposals/0216-dynamic-callable.md) adds a new `@dynamicCallable` attribute to Swift, which brings with it the ability to mark a type as being directly callable. It’s syntactic sugar rather than any sort of compiler magic, effectively transforming this code:为 Swift 添加了一个新的 `@dynamicCallable` 注解，它让一个类型能被直接调用。它是语法糖，而不是任何类型的编译器的魔法，它把以下这段代码：
+[SE-0216](https://github.com/apple/swift-evolution/blob/master/proposals/0216-dynamic-callable.md) 为 Swift 添加了一个新的 `@dynamicCallable` 注解，它让一个类型能被直接调用。它是语法糖，而不是任何类型的编译器的魔法，它把以下这段代码：
 
 ```swift
 let result = random(numberOfZeroes: 3)
@@ -587,7 +587,7 @@ Swift 5.0 是 Swift 的最新版本，但之前的版本也包含了很多功能
 *   [What's new in Swift 4.1?](https://www.hackingwithswift.com/articles/50/whats-new-in-swift-4-1)
 *   [What's new in Swift 4.0?](https://www.hackingwithswift.com/swift4)
 
-但还有更多，苹果已经在 Swift.org 上宣布了 [Swift 5.1发布流程](https://swift.org/blog/5-1-release-process/)，其中包括模块稳定性以及其他一些改进。在撰写本文时，5.1的附加条款很少，但看起来我们会看到它在WWDC附近发布。
+但还有更多，苹果已经在 Swift.org 上宣布了 [Swift 5.1发布流程](https://swift.org/blog/5-1-release-process/)，其中包括模块稳定性以及其他一些改进。在撰写本文时，5.1的附加条款很少，但看起来我们会看到它在 WWDC 附近发布。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
