@@ -423,34 +423,42 @@ console.log(word) // => "redux"
 ```
 
 The function you pass in to `reduce` could rightfully be called a "reducer"... because it *reduces* a whole array of items down to a single result.
-你给 `reduce` 传入的函数理所应当被叫做 “reducer”，因为它将整个数组的元素 *reduces* 到一个结果。
+你给 `reduce` 传入的函数理所应当被叫做 “reducer”，因为它将整个数组的元素 *reduces* 成一个结果。
 
 Redux is *basically* a fancy version of Array's `reduce`. Earlier, you saw how Redux reducers have this signature:
-
+Redux *基本上*是数组 `reduce` 的奇幻版本。之前，你看到 Redux reducers 怎样拥有这个显著特征：
 
 ```js
 (state, action) => newState
 ```
 
-Meaning: it takes the current `state`, and an `action`, and returns the `newState`. Looks a lot like the signature of an `Array.reduce` reducer!
+Meaning: it takes the current `state`, and an `action`, and returns the `newState`. Looks a lot like the signature of an `Array.reduce` reducer!
+含义：它接收当前 `state` 和一个 `action`，然后返回 `newState`。看起来很像 `Array.reduce` 里 reducer 的特点！
 
 ```js
 (accumulatedValue, nextItem) => nextAccumulatedValue
 ```
 
 Redux reducers work just like the function you pass to Array.reduce! :) The thing they reduce is actions. They reduce a set of actions (over time) into a single state. The difference is that with Array's reduce it happens all at once, and with Redux, it happens over the lifetime of your running app.
+Redux reducers 就像你传给 Array.reduce 的函数作用一样！:) 它们 reduce 的是 actions。它们把一组 actions（随着时间）reduce 成一个单独的 state。不同之处在于 Array 的 reduce 立即发生，而 Redux 则随着正运行应用的生命周期一直发生。
 
-If you're still super unsure, check out my guide to [how Redux reducers work](https://daveceddia.com/what-is-a-reducer/). Otherwise, let's forge ahead.
+If you're still super unsure, check out my guide to [how Redux reducers work](https://daveceddia.com/what-is-a-reducer/). Otherwise, let's forge ahead.
+如果你仍然非常不确定，检查下我的 [Redux reducers 工作机制]指南(https://daveceddia.com/what-is-a-reducer/)。不然，让我们继续向下看。
 
 ## Give the Reducer an Initial State
+## 给 Reducer 一个初始状态
 
-Remember that the reducer's job is to take the current `state` and an `action` and return the new state.
+Remember that the reducer's job is to take the current `state` and an `action` and return the new state.
+记住 reducer 的职责是接收当前 `state` 和一个 `action` 然后返回新的 state。
 
-It has another job, too: It should return the initial state the first time it's called. This is sort of like "bootstrapping" your app. It's gotta start somewhere, right?
+It has another job, too: It should return the initial state the first time it's called. This is sort of like "bootstrapping" your app. It's gotta start somewhere, right?
+它还有另一个职责：在首次调用的时候应该返回初始 state。它有点像应用的“引导页”。它必须从某处开始，对吧？
 
-The idiomatic way to do that is to define an `initialState` variable and use the ES6 default argument syntax to assign it to `state`.
+The idiomatic way to do that is to define an `initialState` variable and use the ES6 default argument syntax to assign it to `state`.
+惯用的方式是定义一个 `initialState` 变量然后使用 ES6 默认参数给 `state` 赋初始值。
 
-Since we're gonna be moving our `Counter` state into Redux, let's set up its initial state right now. Inside the `Counter` component our state is represented as an object with a `count`, so we'll mirror that same shape here.
+Since we're gonna be moving our `Counter` state into Redux, let's set up its initial state right now. Inside the `Counter` component our state is represented as an object with a `count`, so we'll mirror that same shape here.
+既然要把 `Counter` state 迁移到 Redux，让我们先立马创建它的初始 state。在 `Counter` 组件里，我们的 state 是一个有 `count` 属性的对象，所以我们在这创建一个一样的 initialState。
 
 index.js
 
@@ -465,21 +473,29 @@ function reducer(state = initialState, action) {
 }
 ```
 
-If you look at the console again, you'll see it printed `{count: 0}` as the value for `state`. That's what we want.
+If you look at the console again, you'll see it printed `{count: 0}` as the value for `state`. That's what we want.
+如果你再看下控制台，你会看到 `state` 打印的值为 `{count: 0}`。那就是我们想要的。
 
 So that brings us to an important rule about reducers.
+所以这告诉我们一条关于 reducers 的重要规则。
 
 Important Rule of Reducers #1: Never return undefined from a reducer.
+Reducers 重要规则一：reducer 绝不能返回 undefined。
 
-You always want your state to be defined. A defined state is a happy state. An *un*defined state is *un*happy (and will likely break your app).
+You always want your state to be defined. A defined state is a happy state. An *un*defined state is *un*happy (and will likely break your app).
+你总是想让 state 是已定义的。一个已定义的 state 是快乐的 state。一个*未*定义的 state 是*不*快乐的（并且会破坏你的应用）。
 
 ## Dispatch Actions to Change the State
+## Dispatch Actions 来改变 State
 
 Yep, two new terms at once: we're gonna "dispatch" some "actions."
+是的，一下来了两个名字：我们将 “dispatch” 一些 “actions”。
 
 ### What is a Redux Action?
+### 什么是 Redux Action？
 
 An action is Redux-speak for a plain object with a property called `type`. That's pretty much it. Following those 2 rules, this is an action:
+对于具有名为 `type` 的属性的普通对象，action 是 Redux-speak。这就是它。遵循这两个规则，那就是一个 action：
 
 ```js
 {
