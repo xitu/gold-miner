@@ -9,7 +9,7 @@
 
 ![](https://www.hackingwithswift.com/uploads/swift-evolution-5.jpg)
 
-Swift 5.0 是 Swift 的下一个主要发行版，随之而来的是 ABI 的稳定性，同时还实现了几个关键的新功能，包括 raw string，未来的枚举 case，`Result` 类型，检查整数倍数等等。
+Swift 5.0 是 Swift 的下一个主要的 release，随之而来的是 ABI 的稳定性，同时还实现了几个关键的新功能，包括 raw string，未来的枚举 case，`Result` 类型，检查整数倍数等等。
 
 *  **你可以亲自尝试一下：** 我创建了一个 [Xcode Playground](https://github.com/twostraws/whats-new-in-swift-5-0) 来展示 Swift 5.0 的新特性，里面有一些你可以参考的例子。
 
@@ -29,7 +29,7 @@ enum NetworkError: Error {
 }
 ```
 
-fetch 函数将接受 URL 字符串作为其第一个参数，并将 completion 闭包作为其第二个参数。该 completion 闭包本身将接受一个`Result`，其中 success 将存储一个整数，failure 将是某种  `NetworkError`。我们实际上并没有在这里连接到服务器，但使用 completion 闭包可以让我们模拟异步代码。
+fetch 函数将接受 URL 字符串作为其第一个参数，并将 completion 闭包作为其第二个参数。该 completion 闭包本身将接受一个 `Result`，其中 success 将存储一个整数，failure 将是某种 `NetworkError`。我们实际上并没有在这里连接到服务器，但使用 completion 闭包可以让我们模拟异步代码。
 
 代码如下：
 
@@ -94,7 +94,7 @@ let result = Result { try String(contentsOfFile: someFile) }
 要使用原始字符串，请在字符串前放置一个或多个 `#`，如下所示：
 
 ```swift
-let rain = #""西班牙"下的"雨"主要落在西班牙人的身上。"#
+let rain = #"西班牙"下的"雨"主要落在西班牙人的身上。"#
 ```
 
 字符串开头和结尾的 `#` 成为字符串分隔符的一部分，因此 Swift 明白 "雨" 和 "西班牙" 两边独立引号应该被视为标点符号而不是终止符。
@@ -109,7 +109,7 @@ let keypaths = #"诸如 \Person.name 之类的 Swift keyPath 包含对属性未�
 
 ```swift
 let answer = 42
-let dontpanic = #"生命、宇宙和一切的答案都是 \#(answer)."#
+let dontpanic = #"生命、宇宙及万事万物的终极答案都是 \#(answer)."#
 ```
 
 请注意我是如何使用 `\#(answer)` 来调用字符串插值的，一般 `\(answer)` 将被解释为 answer 字符串中的字符，所以当你想要在原始字符串中进行引用字符串插值时你必须添加额外的 `＃`。
@@ -117,7 +117,7 @@ let dontpanic = #"生命、宇宙和一切的答案都是 \#(answer)."#
 Swift 原始字符串的一个有趣特性是在开头和结尾使用井号，因为你一般不会一下使用多个井号。这里很难提供一个很好的例子，因为它真的应该非常罕见，但请考虑这个字符串：**我的狗叫了一下 "汪"#好狗狗**。因为在井号之前没有空格，Swift 看到 `"#` 会立即把它作为字符串终止符。在这种情况下，我们需要将分隔符从 `#"` 改为 `##"`，如下所示：
 
 ```swift
-let str = ##"我的狗叫了一下 "汪"#好狗狗"##
+let str = ##"我的狗叫了一下 "汪"#乖狗狗"##
 ```
 
 注意末尾的井号数必须与开头的一致。
@@ -322,7 +322,7 @@ let result = random.dynamicallyCall(withKeywordArguments: ["numberOfZeroes": 3])
 
 之前有一篇关于 [Swift 中的动态特性](https://juejin.im/post/5bfd087be51d457a013940e8) 的文章里有提到了动态查找成员（@dynamicMemberLookup）。`@ dynamicCallable` 是 `@dynamicMemberLookup` 的自然扩展，它能使 Swift 代码更容易与 Python 和 JavaScript 等动态语言一起工作。
 
-要将此功能添加到您自己的类型，您需要添加 `@dynamicCallable` 注解以及这些方法中的一个或两个：
+要将此功能添加到你自己的类型，你需要添加 `@dynamicCallable` 注解以及这些方法中的一个或两个：
 
 ```swift
 func dynamicallyCall(withArguments args: [Int]) -> Double
@@ -332,9 +332,9 @@ func dynamicallyCall(withKeywordArguments args: KeyValuePairs<String, Int>) -> D
 
 第一个用于调用不带参数标签的类型（例如 `a(b, c)`），第二个用于你 **提供标签** 时（例如 `a(b: cat, c: dog)`）。
 
-`@dynamicCallable` 对于其方法接受和返回的数据类型非常灵活，它使您可以从 Swift 的所有类型安全性中受益，同时具有一些高级用法。因此，对于第一种方法（无参数标签），您可以使用遵循了 `ExpressibleByArrayLiteral` 的任何东西，例如数组、数组切片和集合，对于第二种方法（使用参数标签），您可以使用遵循 `ExpressibleByDictionaryLiteral` 的任何东西。例如字典和键值对。
+`@dynamicCallable` 对于其方法接受和返回的数据类型非常灵活，它使你可以从 Swift 的所有类型安全性中受益，同时具有一些高级用法。因此，对于第一种方法（无参数标签），你可以使用遵循了 `ExpressibleByArrayLiteral` 的任何东西，例如数组、数组切片和集合，对于第二种方法（使用参数标签），你可以使用遵循 `ExpressibleByDictionaryLiteral` 的任何东西。例如字典和键值对。
 
-除了接受各种输入外，您还可以为各种输出提供多个重载，可能返回一个字符串、整数等等。只要 Swift 能推出使用哪一个，你就可以混合搭配你想要的一切。
+除了接受各种输入外，你还可以为各种输出提供多个重载，可能返回一个字符串、整数等等。只要 Swift 能推出使用哪一个，你就可以混合搭配你想要的一切。
 
 我们来看一个例子。首先，这是一个 `RandomNumberGenerator` 结构体，它根据传入的输入生成介于 0 和某个最大值之间的数字：
 
@@ -360,7 +360,7 @@ struct RandomNumberGenerator {
 }
 ```
 
-你可以传任意数量的参数甚至不传参数来调用该方法，因此我们仔细读取第一个值并使用 nil 合并以确保存在合理的默认值。
+你可以传任意数量的参数甚至不传参数来调用该方法，因此我们小心读取第一个值并结合是否为 nil 的判断来确保存在合理的默认值。
 
 我们现在可以创建一个 `RandomNumberGenerator` 实例并像函数一样调用它：
 
@@ -387,27 +387,27 @@ let result = random(0)
 
 使用 `@dynamicCallable` 时需要注意一些重要的规则：
 
-* 您可以将其应用于结构体、枚举、类和协议。
+* 你可以将其应用于结构体、枚举、类和协议。
 * 如果你实现了 `withKeywordArguments:` 并且没有实现 `withArguments:`，你的类型仍然可以在没有参数标签的情况下调用，你只需要为键获得空字符串。
 * 如果 `withKeywordArguments:` 或 `withArguments:` 的实现被标记为 throw，则调用该类型也将可抛出。
-* 您不能把 `@dynamicCallable` 添加到 extension 里，只可在类的主体里面添加。
-* 您仍然可以为您的类型添加其他方法和属性，并照常使用它们。
+* 你不能把 `@dynamicCallable` 添加到 extension 里，只可在类的主体里面添加。
+* 你仍然可以为你的类型添加其他方法和属性，并照常使用它们。
 
-也许更重要的是，不支持方法解析，这意味着我们必须直接调用类型（例如 `random(numberOfZeroes: 5)`）而不是调用类型上的特定方法（例如 `random.generate(numberOfZeroes: 5)`）。已经有一些关于使用方法签名添加后者的讨论，例如：
+也许更重要的是，不支持方法决议，这意味着我们必须直接调用类型（例如 `random(numberOfZeroes: 5)`）而不是调用类型上的特定方法（例如 `random.generate(numberOfZeroes: 5)`）。已经有一些关于使用方法签名添加后者的讨论，例如：
 
 ```swift
 func dynamicallyCallMethod(named: String, withKeywordArguments: KeyValuePairs<String, Int>)
 ```
 
-如果那在未来的 Swift 版本中可能实现，它可能会为测试模拟创造出一些非常有趣的可能性。
+如果那在未来的 Swift 版本中可能实现，它可能会为 test mock 创造出一些非常有趣的可能性。
 
 与此同时 `@dynamicCallable` 不太可能广受欢迎，但对于希望与 Python，JavaScript 和其他语言交互的少数人来说，它非常重要。
 
-### 处理未来的枚举 case
+### 面向未来的枚举 case
 
 [SE-0192](https://github.com/apple/swift-evolution/blob/master/proposals/0192-non-exhaustive-enums.md) 增加了在固定的枚举和可能将被改变的枚举间的区分度。
 
-Swift 的一个安全特性是它要求所有 switch 语句都是详尽的，它们必须覆盖所有情况。虽然这从安全角度来看效果很好，但是在将来添加新案例时会导致兼容性问题：系统框架可能会发送您未提供的不同内容，或者您​​依赖的代码可能会添加新案例并导致您的编译中断，因为您的 switch 不再详尽。
+Swift 的一个安全特性是它要求所有 switch 语句都是详尽的，它们必须覆盖所有情况。虽然这从安全角度来看效果很好，但是在将来添加新案例时会导致兼容性问题：系统框架可能会发送你未提供的不同内容，或者你​​依赖的代码可能会添加新案例并导致你的编译中断，因为你的 switch 不再详尽。
 
 使用 `@unknown` 注解，我们现在可以区分两个略有不同的场景：“这个默认情况应该针对所有其他情况运行，因为我不想单独处理它们” 和 “我想单独处理所有情况，但如果将来出现任何问题，请使用此而非报错。“
 
@@ -436,7 +436,7 @@ func showOld(error: PasswordError) {
 }
 ```
 
-对于短密码和明显密码，它使用两个 case，但将第三种情况将会到 default 中处理。
+对于短密码和弱强度密码，它使用两个 case，但将第三种情况将会到 default 中处理。
 
 现在如果将来我们在 enum 中添加了一个名为 `old` 的新 case，对于以前使用过的密码，我们的 `default` case 会被自动调用，即使它的消息没有意义。
 
@@ -487,13 +487,13 @@ let user = User(id: 1)
 let messages = try? user?.getMessages()
 ```
 
-`User` 结构体有一个可用的初始化器，因为我们想确保开发者创建具有有效ID的用户。`getMessages()` 方法理论上包含某种复杂的代码来获取用户的所有消息列表，因此它被标记为 `throws`，我已经让它返回一个固定的字符串，所以代码可编译通过。
+`User` 结构体有一个可用的初始化器，因为我们想确保开发者创建具有有效 ID 的用户。`getMessages()` 方法理论上包含某种复杂的代码来获取用户的所有消息列表，因此它被标记为 `throws`，我已经让它返回一个固定的字符串，所以代码可编译通过。
 
 关键在于最后一行：因为用户是可选的而使用可选链，因为 `getMessages()` 可以抛出错误，它使用 `try?` 将 throw 方法转换为可选的，所以我们最终得到一个嵌套的可选。在 Swift 4.2 和更早版本中，这将使 `messages` 成为 `String??`，一个可选的可选字符串，但是在 Swift 5.0 和更高版本中 `try?` 如果对于已经是可选的类型，它们不会将值包装成可选类型，所以 `messages` 将只是一个 `String?`。
 
 此新行为与可选链和条件类型转换（if let）的现有行为相匹配。也就是说，如果你需要的话，可以在一行代码中使用可选链十几次，但最终不会有那么多个嵌套的可选。类似地，如果你使用 `as?` 的可选链，你仍然只有一个级别的可选性，而这通常是你想要的。
 
-### 检查整数倍数
+### Integer 整倍数自省
 
 * [**YouTube 视频讲解**](https://www.youtube.com/watch?v=iCRwqxON8Os)
 
@@ -536,13 +536,13 @@ let times = [
 let finishers1 = times.compactMapValues { Int($0) }
 ```
 
-或者您可以直接将 `Int` 初始化器传递给 `compactMapValues()`，如下所示：
+或者你可以直接将 `Int` 初始化器传递给 `compactMapValues()`，如下所示：
 
 ```swift
 let finishers2 = times.compactMapValues(Int.init)
 ```
 
-您还可以使用 `compactMapValues()` 来展开选项并丢弃 nil 值而不执行任何类型转换，如下所示：
+你还可以使用 `compactMapValues()` 来展开选项并丢弃 nil 值而不执行任何类型转换，如下所示：
 
 ```swift
 let people = [
@@ -555,7 +555,7 @@ let people = [
 let knownAges = people.compactMapValues { $0 }
 ```
 
-### 被撤销的特性：计算序列中的匹配项
+### 被移除的特性：计算序列中的匹配项
 
 * [**YouTube 视频讲解**](https://www.youtube.com/watch?v=syPKtPb0y-Y)
 
@@ -577,11 +577,11 @@ let pythons = ["Eric Idle", "Graham Chapman", "John Cleese", "Michael Palin", "T
 let terryCount = pythons.count { $0.hasPrefix("Terry") }
 ```
 
-所有遵循 `Sequence` 的类型都可以使用此方法，因此您也可以在集合和字典上使用它。
+所有遵循 `Sequence` 的类型都可以使用此方法，因此你也可以在集合和字典上使用它。
 
 ### 接下来干嘛？
 
-Swift 5.0 是 Swift 的最新版本，但之前的版本也包含了很多功能。您可以阅读以下文章：
+Swift 5.0 是 Swift 的最新版本，但之前的版本也包含了很多功能。你可以阅读以下文章：
 
 *   [What's new in Swift 4.2?](https://www.hackingwithswift.com/articles/77/whats-new-in-swift-4-2)
 *   [What's new in Swift 4.1?](https://www.hackingwithswift.com/articles/50/whats-new-in-swift-4-1)
