@@ -5,7 +5,7 @@
 > * 译者：[xionglong58](https://github.com/xionglong58)
 > * 校对者：
 
-# 10个会让你在编程时受挫的迹象
+# 你不能成为成功程序员的10个迹象
 
 ![More Stickers Doesn’t Make You More Better. — **Photo by [Tim Gouw](https://unsplash.com/@punttim?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)**](https://cdn-images-1.medium.com/max/4096/0*cF-7zKh4jqldcDf2)
 
