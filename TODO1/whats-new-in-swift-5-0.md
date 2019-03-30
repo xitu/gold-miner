@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/whats-new-in-swift-5-0.md](https://github.com/xitu/gold-miner/blob/master/TODO1/whats-new-in-swift-5-0.md)
 > * 译者：[iWeslie](https://github.com/iWeslie)
-> * 校对者：
+> * 校对者：[DevMcryYu](https://github.com/DevMcryYu), [swants](https://github.com/swants)
 
 # Swift 5.0 新特性
 
@@ -11,7 +11,7 @@
 
 Swift 5.0 是 Swift 的下一个主要的 release，随之而来的是 ABI 的稳定性，同时还实现了几个关键的新功能，包括 raw string，未来的枚举 case，`Result` 类型，检查整数倍数等等。
 
-*  **你可以亲自尝试一下：** 我创建了一个 [Xcode Playground](https://github.com/twostraws/whats-new-in-swift-5-0) 来展示 Swift 5.0 的新特性，里面有一些你可以参考的例子。
+*  **你可以亲自尝试一下**：我创建了一个 [Xcode Playground](https://github.com/twostraws/whats-new-in-swift-5-0) 来展示 Swift 5.0 的新特性，里面有一些你可以参考的例子。
 
 ### 标准 `Result` 类型
 
@@ -81,9 +81,9 @@ fetchUnreadCount1(from: "https://www.hackingwithswift.com") { result in
 let result = Result { try String(contentsOfFile: someFile) }
 ```
 
-第三，你可以使用通用的 `Error` 协议而不是你创建的特定错误的枚举。实际上，Swift Evolution 提议说道 “预计 Result 的大部分用法都会使用 `Swift.Error` 作为 `Error` 类型参数。”
+第三，你可以使用通用的 `Error` 协议而不是你创建的特定错误的枚举。实际上，Swift Evolution 提议说道“预计 Result 的大部分用法都会使用 `Swift.Error` 作为 `Error` 类型参数。”
 
-因此你要用 `Result <Int，Error>` 而非 `Result <Int，NetworkError>`。这虽然意味着你失去了可抛出错误类型的安全性，但你可以抛出各种不同的错误枚举，其实这取决于你的代码风格。
+因此你要用 `Result <Int，Error>` 而非 `Result<Int, NetworkError>`。这虽然意味着你失去了可抛出错误类型的安全性，但你可以抛出各种不同的错误枚举，其实这取决于你的代码风格。
 
 ### Raw string
 
@@ -180,7 +180,7 @@ let user = User(name: "Guybrush Threepwood", age: 33)
 print("用户信息：\(user)")
 ```
 
-这将打印 **用户信息：我叫 Guybrush Threepwood，33 岁**，而使用自定义字符串插值它将打印 **用户信息：User(name: "Guybrush Threepwood", age: 33)**。当然，该功能与仅实现` CustomStringConvertible` 协议没有什么不同，所以让我们继续使用更高级的用法。
+这将打印 **用户信息：我叫 Guybrush Threepwood，33 岁**，而使用自定义字符串插值它将打印 **用户信息：User(name: "Guybrush Threepwood", age: 33)** 。当然，该功能与仅实现` CustomStringConvertible` 协议没有什么不同，所以让我们继续使用更高级的用法。
 
 你的自定义插值方法可以根据需要使用任意数量的参数，标记的和未标记的。例如，我们可以使用各种样式添加插值来打印数字，如下所示：
 
@@ -271,7 +271,7 @@ struct HTMLComponent: ExpressibleByStringLiteral, ExpressibleByStringInterpolati
 
         // Twitter 用户名，将其添加为链接
         mutating func appendInterpolation(twitter: String) {
-            print("追加 ’\(twitter)’")
+            print("追加 ‘\(twitter)’")
             output.append("<a href=\"https://twitter/\(twitter)\">@\(twitter)</a>")
         }
 
@@ -320,7 +320,7 @@ let result = random(numberOfZeroes: 3)
 let result = random.dynamicallyCall(withKeywordArguments: ["numberOfZeroes": 3])
 ```
 
-之前有一篇关于 [Swift 中的动态特性](https://juejin.im/post/5bfd087be51d457a013940e8) 的文章里有提到了动态查找成员（@dynamicMemberLookup）。`@ dynamicCallable` 是 `@dynamicMemberLookup` 的自然扩展，它能使 Swift 代码更容易与 Python 和 JavaScript 等动态语言一起工作。
+之前有一篇关于 [Swift 中的动态特性](https://juejin.im/post/5bfd087be51d457a013940e8) 的文章里有提到了动态查找成员（@dynamicMemberLookup）。`@dynamicCallable` 是 `@dynamicMemberLookup` 的自然扩展，它能使 Swift 代码更容易与 Python 和 JavaScript 等动态语言一起工作。
 
 要将此功能添加到你自己的类型，你需要添加 `@dynamicCallable` 注解以及这些方法中的一个或两个：
 
@@ -407,9 +407,9 @@ func dynamicallyCallMethod(named: String, withKeywordArguments: KeyValuePairs<St
 
 [SE-0192](https://github.com/apple/swift-evolution/blob/master/proposals/0192-non-exhaustive-enums.md) 增加了在固定的枚举和可能将被改变的枚举间的区分度。
 
-Swift 的一个安全特性是它要求所有 switch 语句都是详尽的，它们必须覆盖所有情况。虽然这从安全角度来看效果很好，但是在将来添加新案例时会导致兼容性问题：系统框架可能会发送你未提供的不同内容，或者你​​依赖的代码可能会添加新案例并导致你的编译中断，因为你的 switch 不再详尽。
+Swift 的一个安全特性是它要求所有 switch 语句都是详尽的，它们必须覆盖所有情况。虽然这从安全角度来看效果很好，但是在将来添加新案例时会导致兼容性问题：系统框架可能会发送你未提供的不同内容，或者你依赖的代码可能会添加新案例并导致你的编译中断，因为你的 switch 不再详尽。
 
-使用 `@unknown` 注解，我们现在可以区分两个略有不同的场景：“这个默认情况应该针对所有其他情况运行，因为我不想单独处理它们” 和 “我想单独处理所有情况，但如果将来出现任何问题，请使用此而非报错。“
+使用 `@unknown` 注解，我们现在可以区分两个略有不同的场景：“这个默认情况应该针对所有其他情况运行，因为我不想单独处理它们” 和 “我想单独处理所有情况，但如果将来出现任何问题，请使用此而非报错。”
 
 以下是一个枚举示例：
 
@@ -563,7 +563,7 @@ let knownAges = people.compactMapValues { $0 }
 
 [SE-0220](https://github.com/apple/swift-evolution/blob/master/proposals/0220-count-where.md) 引入了一个新的 `count(where:)` 方法，该方法执行 `filter()` 的等价方法并在一次传递中计数。这样可以节省立即丢弃的新阵列的创建，并为常见问题提供清晰简洁的解决方案。
 
-此示例创建一个测试结果数组，并计算大于或等于85的数的个数：
+此示例创建一个测试结果数组，并计算大于或等于 85 的数的个数：
 
 ```swift
 let scores = [100, 80, 85]
@@ -587,7 +587,7 @@ Swift 5.0 是 Swift 的最新版本，但之前的版本也包含了很多功能
 *   [What's new in Swift 4.1?](https://www.hackingwithswift.com/articles/50/whats-new-in-swift-4-1)
 *   [What's new in Swift 4.0?](https://www.hackingwithswift.com/swift4)
 
-但还有更多，苹果已经在 Swift.org 上宣布了 [Swift 5.1发布流程](https://swift.org/blog/5-1-release-process/)，其中包括模块稳定性以及其他一些改进。在撰写本文时，5.1的附加条款很少，但看起来我们会看到它在 WWDC 附近发布。
+但还有更多，苹果已经在 Swift.org 上宣布了 [Swift 5.1发布流程](https://swift.org/blog/5-1-release-process/)，其中包括模块稳定性以及其他一些改进。在撰写本文时，5.1 的附加条款很少，但看起来我们会看到它在 WWDC 附近发布。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
