@@ -521,20 +521,28 @@ Here's another one:
 ```
 
 Actions are very free-form things. As long as it's an object with a `type` it's fair game.
+Actions 的格式非常自由。只要它是个带有 `type` 属性的对象就可以了。
 
-In order to keep things sane and maintainable, we Redux users usually give our actions types that are plain strings, and often uppercased, to signify that they're meant to be constant values.
+In order to keep things sane and maintainable, we Redux users usually give our actions types that are plain strings, and often uppercased, to signify that they're meant to be constant values.
+为了保证事务的合理性和可维护性，我们 Redux 用户通常给 actions 的 type 属性赋简单字符串，并且通常是大写的，来表明它们是常量。
 
 An action object describes a change you want to make (like "please increment the counter") or an event that happenend (like "the request to the server failed with this error").
+Action 对象描述你想做出的改变（如“增加 counter”）或者将触发的事件（如“请求服务失败并显示错误信息”）。
 
 Actions, despite their active-sounding name, are boring, inert objects. They don't really *do* anything. Not on their own, anyway.
+尽管 Actions 名声响亮，但它是无趣的，呆板的对象。它们事实上不*做*任何事情。反正它们自己不做。
 
-In order to make an action DO something, you need to dispatch it.
+In order to make an action DO something, you need to dispatch it.
+为了让 action **做**点事情，你需要 dispatch。
 
 ## How Redux Dispatch Works
+## Redux Dispatch 工作机制
 
-The store we created earlier has a built-in function called `dispatch`. Call it with an action, and Redux will call your reducer with that action (and then replace the state with whatever your reducer returned).
+The store we created earlier has a built-in function called `dispatch`. Call it with an action, and Redux will call your reducer with that action (and then replace the state with whatever your reducer returned).
+我们刚才创建的 store 有一个内置函数 `dispatch`。调用的时候携带 action，Redux 调用 reducer 时就会携带 action（然后 reducer 的返回值会更新 state）。
 
 Let's try it out with our store.
+我们来试试 store。
 
 index.js
 
@@ -547,24 +555,34 @@ store.dispatch({ type: "RESET" });
 ```
 
 Add those dispatch calls to your CodeSandbox and check the console.
+在你的 CodeSandbox 中添加这些 dispatch 调用然后检查控制台
 
 ![reducer undefined Object { type: @@redux/INIT }](https://daveceddia.com/images/dispatching-redux-actions.png)
 
-Every call to `dispatch` results in a call to your reducer!
+Every call to `dispatch` results in a call to your reducer!
+每一次调用 `dispatch` 最终都会调用 reducer！
 
-Also notice how the state is the same every time? `{count: 0}` never changes.
+Also notice how the state is the same every time? `{count: 0}` never changes.
+同样注意到 state 每次都一样？`{count: 0}` 一直没变。
 
-That's because our reducer is not *acting on* those actions. That's an easy fix though. Let's do that now.
+
+That's because our reducer is not *acting on* those actions. That's an easy fix though. Let's do that now.
+这是因为我们的 reducer 没有*作用于*那些 actions。不过很容易解决。开始吧。
 
 ## Handle Actions in the Redux Reducer
+## 在 Redux Reducer 中处理 Actions
 
-To make actions actually do something, we need to write some code in the reducer that will inspect the `type` of each action and update the state accordingly.
+To make actions actually do something, we need to write some code in the reducer that will inspect the `type` of each action and update the state accordingly.
+为了让 actions 做点事情，我们需要在 reducer 里面写几行代码来根据每个 action 的 `type` 值来对应得更新 state。
 
 There are a few ways to do this.
+有几种方式实现。
 
 You could make a fancy object where you look up a handler function by the action's type...
+你可以创建一个对象来通过 action 的 type 来查找对应的处理函数。
 
 Or you could write a bunch of if/else statements...
+或者你可以写一大堆 if/else 语句
 
 ```js
 if(action.type === "INCREMENT") {
@@ -574,11 +592,14 @@ if(action.type === "INCREMENT") {
 }
 ```
 
-Or you could use a simple `switch` statement, which is what I'll show below because it's straightforward, and a very common way to do it.
+Or you could use a simple `switch` statement, which is what I'll show below because it's straightforward, and a very common way to do it.
+或者你可以用一个简单的 `switch` 语句，也是我下面采用的方式，因为它很直观，也是这种场景的常用方法。
 
-Some people hate the `switch` though. If that's you -- please feel free to write your reducers however you want :)
+Some people hate the `switch` though. If that's you -- please feel free to write your reducers however you want :)
+尽管有些人讨厌 `switch`，如果你也是——随意用你喜欢的方式写 reducers 就好 :)
 
 Here's how we'll handle the actions:
+下面是我们处理 actions 的逻辑：
 
 index.js
 
@@ -606,36 +627,51 @@ function reducer(state = initialState, action) {
 ```
 
 Try this out and take a look at the console.
+试一下然后在控制台看看会输出什么。
 
 ![reducer undefined Object { type: @@redux/INIT }](https://daveceddia.com/images/handling-redux-actions.png)
 
-Hey look at that! The `count` is changing!
+Hey look at that! The `count` is changing!
+快看！`count` 变了!
 
 We're about ready to hook this up to React, but let's talk about this reducer code for a second.
+我们准备好把它连接到 React 了，在此之前让我们先谈谈这段 reducer 代码。
 
 ## How to Keep Your Reducers Pure
+## 如何保持 Reducers 纯粹
 
-Another rule about reducers is that they must be pure functions. This means that they can't modify their arguments, and they can't have side effects.
+Another rule about reducers is that they must be pure functions. This means that they can't modify their arguments, and they can't have side effects.
+另一个关于 reducers 的规则是它们必须是纯函数。也就是说不能修改它们的参数，也不能有 side effects。
 
 Reducer Rule #2: Reducers must be pure functions.
+Reducer 规则二：Reducers 必须是纯函数。
 
-A "side effect" is any change to something outside the scope of the function. Don't change variables outside the scope of the function, don't call other functions that change things (like `fetch`, which affects the network and other systems), don't dispatch actions, and so on.
+A "side effect" is any change to something outside the scope of the function. Don't change variables outside the scope of the function, don't call other functions that change things (like `fetch`, which affects the network and other systems), don't dispatch actions, and so on.
+“side effect” 是指对函数作用域之外的任何更改。不要改变函数作用域以外的变量，不要调用其他会改变的函数（比如 `fetch`，跟网络和其他系统有关），也不要 dispatch actions 等。
 
-Technically `console.log` is a side effect, but we'll allow that one.
+Technically `console.log` is a side effect, but we'll allow that one.
+技术角度来看 `console.log` 是 side effect，但是我们放过它。
 
-The most important thing is this: don't modify the `state` argument.
+The most important thing is this: don't modify the `state` argument.
+最重要的事情是：不要修改 `state` 参数。
 
-This means you can't do `state.count = 0` or `state.items.push(newItem)` or `state.count++`, or any other kind of mutation -- not to `state` itself, and not to any of the sub-properties of `state`.
+This means you can't do `state.count = 0` or `state.items.push(newItem)` or `state.count++`, or any other kind of mutation -- not to `state` itself, and not to any of the sub-properties of `state`.
+这意味着你不能执行 `state.count = 0`， `state.items.push(newItem)`， `state.count++` 及其他类型的变动——不要对 `state` 本身，及其任何子属性。
 
-Think of it like a game where the only thing you can do is `return { ... }`. It's a fun game. Maddening at first. But you'll get better at it with practice.
+Think of it like a game where the only thing you can do is `return { ... }`. It's a fun game. Maddening at first. But you'll get better at it with practice.
+你可以把它想成一个游戏，你唯一能做的事就是 `return { ... }`。这是个有趣的游戏。开始会有点恼人。但是通过练习你会变得更好。
 
-I put together a full guide to [How to do Immutable Updates in Redux](https://daveceddia.com/react-redux-immutability-guide/), showing 7 common patterns for updating state within objects and arrays.
+I put together a full guide to [How to do Immutable Updates in Redux](https://daveceddia.com/react-redux-immutability-guide/), showing 7 common patterns for updating state within objects and arrays.
+我整理了一个[如何在 Redux 里做 Immutable 更新](https://daveceddia.com/react-redux-immutability-guide/)完全指南，包含更新 state 中对象和数组的七个通用模式。
 
-Another great option is to install the [Immer](https://github.com/mweststrate/immer) library and use it in your reducers. Immer lets you write regular mutable-looking code and produces immutable updates automagically. [Learn how to use Immer here](https://daveceddia.com/react-redux-immutability-guide/#easy-state-updates-with-immer).
+Another great option is to install the [Immer](https://github.com/mweststrate/immer) library and use it in your reducers. Immer lets you write regular mutable-looking code and produces immutable updates automagically. [Learn how to use Immer here](https://daveceddia.com/react-redux-immutability-guide/#easy-state-updates-with-immer).
+安装 [Immer](https://github.com/mweststrate/immer) 在 reducers 里面使用也是一种很好的方式。Immer 让你可以像写普通 mutable 代码一样，最终会自动生成 immutable 代码。[点击了解如何使用 Immer](https://daveceddia.com/react-redux-immutability-guide/#easy-state-updates-with-immer)。
 
 My advice: if you're starting a brand new app, use Immer from the beginning. It'll save you a lot of hassle. But I'm showing you the "hard" way because that's how a lot of code still does it, and you're bound to see reducers written without Immer.
+建议：如果你是开始一个全新的应用程序，一开始就使用 Immer。它会为你省去很多麻烦。但是我向你展示这种*困难*方式是因为很多代码仍然采用这种方式，你一定会看到没有用 Immer 写的 reducers
 
 ## All These Rules...
+## 全部规则
 
 Always return a state, never change state, don't connect every component, eat your broccoli, don't stay out past 11... it's exhausting. It's like a rules factory, and I don't even know what that is.
 
