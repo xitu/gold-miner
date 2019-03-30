@@ -2937,10 +2937,11 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：333.5 当前积分：267.5 二零一九：38.5
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：335.5 当前积分：269.5 二零一九：40.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Chars2vec: 基于字符实现的可用于处理现实世界中包含拼写错误和俚语的语言模型](https://juejin.im/post/5c96fd46e51d4513e072c3ae)|校对|2|
 |[提供隐私和过滤功能的 DNS 服务器](https://juejin.im/post/5c7365ca5188256282697eaa)|校对|2.5|
 |[如何用 Python 从零开始构建你自己的神经网络](https://juejin.im/post/5c7a478c518825787e6a0f67)|校对|1|
 |[5 个可以立刻在你的 Ionic App 中用上的动画包](https://juejin.im/post/5c517544f265da613b702848)|翻译|3|
@@ -5822,10 +5823,11 @@
 |[让 Apache Cassandra 尾部延迟减小 10 倍（已开源）](https://juejin.im/post/5ac31083f265da239a5fff0c)|翻译|4|
 |[让我们来简化 UserDefaults 的使用](https://juejin.im/post/5abde324f265da23826e1723)|校对|0.5|
 
-## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：114 当前积分：94 二零一九：32
+## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：124 当前积分：104 二零一九：42
 
 |文章|类型|积分|
 |------|-------|-------|
+|[基于 Python 的图理论和网络分析](https://juejin.im/post/5c9066b3f265da612e6d5770)|翻译|10|
 |[在 JSX 代码中可以加入 console.log 吗？](https://juejin.im/post/5c7b1a146fb9a049c8502caf)|翻译|2|
 |[JSX 的替代方案](https://juejin.im/post/5c807f73e51d453ba723d88d)|翻译|2|
 |[正在消失的小型网站](https://juejin.im/post/5c81de696fb9a049e702e6ac)|翻译|3|
@@ -6445,10 +6447,14 @@
 |[Kubernetes 分布式应用部署和人脸识别 app 实例](https://juejin.im/post/5b2db0576fb9a00e50313904)|校对|0.5|
 |[[字幕翻译] James Bennett — 理解 Python 字节码 — PyCon 2018](https://github.com/xitu/gold-miner/issues/3990)|校对|0.5|
 
-## 译者：[kasheemlew](https://github.com/kasheemlew) 历史贡献积分：41.5 当前积分：41.5 二零一九：27
+## 译者：[kasheemlew](https://github.com/kasheemlew) 历史贡献积分：60 当前积分：60 二零一九：45.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[时间顺序的价格异常检测](https://juejin.im/post/5c998f8ae51d454e523b6ed5)|翻译|5|
+|[基于 Python 的图理论和网络分析](https://juejin.im/post/5c9066b3f265da612e6d5770)|校对|3|
+|[Chars2vec: 基于字符实现的可用于处理现实世界中包含拼写错误和俚语的语言模型](https://juejin.im/post/5c96fd46e51d4513e072c3ae)|翻译|7.5|
+|[开源是无法赚钱的，因为开源本身就不是为了赚钱](https://juejin.im/post/5c998753e51d456ef105ac1e)|翻译|3|
 |[Node.js 基础知识: 没有依赖关系的 Web 服务器](https://juejin.im/post/5c88a6855188257b0b126564)|校对|2|
 |[教程 — 用 C 写一个 Shell](https://juejin.im/post/5c73dd7d6fb9a049aa6fb9aa)|校对|2|
 |[数据科学领域十大必知机器学习算法](https://juejin.im/post/5c73bbfff265da2da771d42a)|校对|1.5|
@@ -6599,10 +6605,12 @@
 |[苹果公司如何修复 3D Touch](https://juejin.im/post/5b35e5886fb9a00e3642724f)|校对|0.5|
 |[怎样使用简单的三角函数来创建更好的加载动画](https://juejin.im/post/5b33055f518825748871c590)|校对|1|
 
-## 译者：[JackEggie](https://github.com/JackEggie) 历史贡献积分：16.5 当前积分：16.5 二零一九：13.5
+## 译者：[JackEggie](https://github.com/JackEggie) 历史贡献积分：23 当前积分：23 二零一九：20
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何在 Keras 中使用 LSTM 神经网络创作音乐](https://juejin.im/post/5c9c19d7e51d453e7d28a173)|校对|5|
+|[开源是无法赚钱的，因为开源本身就不是为了赚钱](https://juejin.im/post/5c998753e51d456ef105ac1e)|校对|1.5|
 |[论数据流的扩展性](https://juejin.im/post/5c8329d25188257ea038a05e)|校对|3|
 |[教程 — 用 C 写一个 Shell](https://juejin.im/post/5c73dd7d6fb9a049aa6fb9aa)|校对|1.5|
 |[谷歌搜索操作符大全（包含 42 个高级操作符）](https://juejin.im/post/5c73744ef265da2dc675c029)|校对|3.5|
@@ -7395,10 +7403,11 @@
 |推荐优秀英文文章两篇|奖励|2|
 |[从现有的代码库创建 Swift 包管理器](https://juejin.im/post/5bec2b735188253b6e5c132a)|翻译|4|
 
-## 译者：[Mcskiller](https://github.com/Mcskiller) 历史贡献积分：30.5 当前积分：30.5 二零一九：15
+## 译者：[Mcskiller](https://github.com/Mcskiller) 历史贡献积分：35.5 当前积分：35.5 二零一九：20
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何心平气和的阅读代码](https://juejin.im/post/5c9c521b5188252d876e5dcb)|翻译|4+1|
 |[如何学习 CSS](https://juejin.im/post/5c74daaaf265da2d9d1cb774)|翻译|7|
 |[5 个可以立刻在你的 Ionic App 中用上的动画包](https://juejin.im/post/5c517544f265da613b702848)|校对|0.5|
 |[2019 CSS 新属性“连字符”初探](https://juejin.im/post/5c612cfee51d4501515c8edf)|校对|1|
@@ -7738,10 +7747,11 @@
 |------|-------|-------|
 |[审校文章 https://github.com/xitu/gold-miner/issues/5118](https://github.com/xitu/gold-miner/issues/5118)|奖励|1|
 
-## 译者：[Fengziyin1234](https://github.com/Fengziyin1234) 历史贡献积分：53 当前积分：53 二零一九：53
+## 译者：[Fengziyin1234](https://github.com/Fengziyin1234) 历史贡献积分：54.5 当前积分：54.5 二零一九：54.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[浏览器帧原理剖析](https://juejin.im/post/5c9c66075188251dab07413d)|校对|1.5|
 |推荐英文文章一篇|奖励|1|
 |[2019 跟上 AI 的脚步：AI 和 ML 接下来会发生什么重要的事？](https://juejin.im/post/5c83c8ba5188250aa57a0e2f)|校对|3|
 |[从著名数据数据可视化中我们可以学到什么](https://juejin.im/user/567e246a34f81a1d879e7a14)|校对|1.5|
@@ -7784,10 +7794,11 @@
 |[用这些 iOS 技巧让你的 APP 性能更佳](https://juejin.im/post/5c6a0b6ef265da2de660f83f)|校对|3|
 |推荐英文文章一篇|奖励|1|
 
-## 译者：[WangLeto](https://github.com/WangLeto) 历史贡献积分：16 当前积分：16 二零一九：16
+## 译者：[WangLeto](https://github.com/WangLeto) 历史贡献积分：21 当前积分：21 二零一九：21
 
 |文章|类型|积分|
 |------|-------|-------|
+|[浏览器帧原理剖析](https://juejin.im/post/5c9c66075188251dab07413d)|翻译|5|
 |[负载性能](https://juejin.im/post/5c7faa955188251bdd53ebd2)|翻译|4|
 |[Rust 语言案例研究：社区使得 Rust 成为 npm 的简单选择](https://juejin.im/post/5c88a12ae51d455cd96a14bb)|翻译|4|
 |[TSLint in 2019](https://juejin.im/post/5c7c0451e51d4569951518fe)|校对|1|
@@ -7889,10 +7900,12 @@
 |------|-------|-------|
 |[我作为软件工程师与一名数据科学家合作的经历](https://juejin.im/post/5c550038f265da2d8532b2f9)|翻译|4.5|
 
-## 译者：[HearFishle](https://github.com/HearFishle) 历史贡献积分：13 当前积分：13 二零一九：13
+## 译者：[HearFishle](https://github.com/HearFishle) 历史贡献积分：24.5 当前积分：24.5 二零一九：24.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何在 Keras 中使用 LSTM 神经网络创作音乐](https://juejin.im/post/5c9c19d7e51d453e7d28a173)|翻译|9|
+|[2019 版 web 浏览器现状](https://juejin.im/post/5c89e69a51882536fe67b5b4)|校对|2.5|
 |[Java Service 加载器 和 spring Factories 加载器的比较](https://juejin.im/post/5c7fbe52e51d4541e510d282)|翻译|2|
 |[Rust 语言案例研究：社区使得 Rust 成为 npm 的简单选择](https://juejin.im/post/5c88a12ae51d455cd96a14bb)|校对|1|
 |[理解数据库分片](https://juejin.im/entry/5c791672f265da2da67c46eb)|校对|2|
@@ -7981,10 +7994,17 @@
 |------|-------|-------|
 |[数据科学领域十大必知机器学习算法](https://juejin.im/post/5c73bbfff265da2da771d42a)|校对|2|
 
-## 译者：[xionglong58](https://github.com/xionglong58) 历史贡献积分：16 当前积分：16 二零一九：16
+## 译者：[xionglong58](https://github.com/xionglong58) 历史贡献积分：39.5 当前积分：39.5 二零一九：39.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[时间顺序的价格异常检测](https://juejin.im/post/5c998f8ae51d454e523b6ed5)|校对|2.5|
+|[基于 Python 的图理论和网络分析](https://juejin.im/post/5c9066b3f265da612e6d5770)|校对|3|
+|[Chars2vec: 基于字符实现的可用于处理现实世界中包含拼写错误和俚语的语言模型](https://juejin.im/post/5c96fd46e51d4513e072c3ae)|校对|2|
+|[如何在 Keras 中使用 LSTM 神经网络创作音乐](https://juejin.im/post/5c9c19d7e51d453e7d28a173)|校对|3|
+|[如何心平气和的阅读代码](https://juejin.im/post/5c9c521b5188252d876e5dcb)|校对|1|
+|[开源是无法赚钱的，因为开源本身就不是为了赚钱](https://juejin.im/post/5c998753e51d456ef105ac1e)|校对|1|
+|[2019 版 web 浏览器现状](https://juejin.im/post/5c89e69a51882536fe67b5b4)|翻译|11|
 |[2019 跟上 AI 的脚步：AI 和 ML 接下来会发生什么重要的事？](https://juejin.im/post/5c83c8ba5188250aa57a0e2f)|校对|3|
 |[用长短期记忆网络预测股票市场（使用 Tensorflow）](https://juejin.im/post/5c8114de51882540a830b910)|校对|2|
 |[数字产品为人们授权的时代已来](https://juejin.im/post/5c7e50236fb9a04a0e2deffa)|校对|2|
@@ -8068,10 +8088,11 @@
 |------|-------|-------|
 |[浏览器中 CSS 支持指南](https://juejin.im/post/5c87a9006fb9a049e4138c7e)|校对|2.5|
 
-## 译者：[Endone](https://github.com/Endone) 历史贡献积分：7.5 当前积分：7.5 二零一九：7.5
+## 译者：[Endone](https://github.com/Endone) 历史贡献积分：8.5 当前积分：8.5 二零一九：8.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何心平气和的阅读代码](https://juejin.im/post/5c9c521b5188252d876e5dcb)|校对|1|
 |推荐英文文章一篇|奖励|1|
 |[Android 生命周期备忘录 — 第二部分：多 Activity](https://juejin.im/post/5c8e018d51882545ca77d857)|校对|0.5|
 |[Java Service 加载器 和 spring Factories 加载器的比较](https://juejin.im/post/5c7fbe52e51d4541e510d282)|校对|2|
@@ -8095,3 +8116,21 @@
 |文章|类型|积分|
 |------|-------|-------|
 |推荐英文文章一篇|奖励|1|
+
+## 译者：[letica](https://github.com/letica) 历史贡献积分：3.5 当前积分：3.5 二零一九：3.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[2019 版 web 浏览器现状](https://juejin.im/post/5c89e69a51882536fe67b5b4)|校对|3.5|
+
+## 译者：[Xuyuey](https://github.com/Xuyuey) 历史贡献积分：1.5 当前积分：1.5 二零一九：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[浏览器帧原理剖析](https://juejin.im/post/5c9c66075188251dab07413d)|校对|1.5|
+
+## 译者：[portandbridge](https://github.com/portandbridge) 历史贡献积分：2 当前积分：2 二零一九：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[时间顺序的价格异常检测](https://juejin.im/post/5c998f8ae51d454e523b6ed5)|校对|2|
