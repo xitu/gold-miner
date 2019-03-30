@@ -3669,10 +3669,11 @@
 |------|-------|-------|
 |[是的，ES2017 （ES8）来了](https://juejin.im/post/596713b75188250da20604cb)|翻译|3|
 
-## 译者：[tobiaslee](https://github.com/tobiaslee) 历史贡献积分：81 当前积分：51
+## 译者：[tobiaslee](https://github.com/tobiaslee) 历史贡献积分：81 当前积分：16
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 3 月兑小米台灯 1 个|减去积分|35|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|9|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|10.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1|
@@ -4429,10 +4430,11 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|1|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
 
-## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：139 当前积分：44 二零一九：19.5
+## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：139 当前积分：9 二零一九：19.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 3 月兑小米台灯 1 个|减去积分|35|
 |推荐英文文章一篇|奖励|1|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|8|
 |[数据科学领域十大必知机器学习算法](https://juejin.im/post/5c73bbfff265da2da771d42a)|翻译|5.5|
@@ -4795,10 +4797,11 @@
 |------|-------|-------|
 |[从 Gzip 压缩 SVG 说起 — 论如何减小资源文件的大小](https://juejin.im/post/5a30a7fdf265da4309452517)|校对|1|
 
-## 译者：[noahziheng](https://github.com/noahziheng) 历史贡献积分：44 当前积分：29
+## 译者：[noahziheng](https://github.com/noahziheng) 历史贡献积分：44 当前积分：26
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 3 月兑小黄鸭 1 个|减去积分|3|
 |[在 JSX 代码中可以加入 console.log 吗？](https://juejin.im/post/5c7b1a146fb9a049c8502caf)|校对|1|
 |[如何学习 CSS](https://juejin.im/post/5c74daaaf265da2d9d1cb774)|校对|2|
 |[以太坊: 能帮我们把 Uber 换掉的非比特币加密货币](https://juejin.im/post/5bf3e32ee51d4532ff07a7de)|翻译|4|
@@ -5602,11 +5605,12 @@
 |[在 V8 引擎中设置原型（prototypes）](https://juejin.im/post/5a9921e76fb9a028bd4bc3c4)|校对|1|
 |[json — JavaScript 对象表示法](https://juejin.im/post/5a9432ae5188257a5c6092b0)|校对|1|
 
-## 译者：[rydensun](https://github.com/rydensun) 历史贡献积分：80 当前积分：57
+## 译者：[rydensun](https://github.com/rydensun) 历史贡献积分：80 当前积分：44
 
 |文章|类型|积分|
 |------|-------|-------|
-|2019 年 3 月兑掘金桌垫 1 个|减去积分|13|
+|2019 年 3 月兑掘金鼠标垫 1 个|减去积分|13|
+|2019 年 3 月兑掘金鼠标垫 1 个|减去积分|13|
 |[快速原型设计的新手指南](https://juejin.im/user/585b9407da2f6000657a5c0c)|翻译|6|
 |[我是如何在谷歌找到 UX 设计的工作的](https://juejin.im/post/5bea544ff265da6112048e3c)|翻译|4|
 |[作为自由开发者，7 个步骤让你获得更多的客户](https://juejin.im/post/5bd660c26fb9a05ce576e9b7)|翻译|5.5|
@@ -7374,10 +7378,11 @@
 |------|-------|-------|
 |[深入理解 React 高阶组件](https://juejin.im/entry/5bdd226cf265da616f6f6cce)|校对|4|
 
-## 译者：[iWeslie](https://github.com/iWeslie) 历史贡献积分：67 当前积分：67 二零一九：23
+## 译者：[iWeslie](https://github.com/iWeslie) 历史贡献积分：68 当前积分：68 二零一九：24
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐英文文章一篇|奖励|1|
 |[在 iOS 上使用 Carthage 建立依赖](https://juejin.im/post/5c4f04ef51882525eb3663be)|翻译|4|
 |[iOS 中赏心悦目的动画](https://juejin.im/post/5c4f05bce51d4552411b1e13)|翻译|3|
 |[iOS 设计模式进阶](https://juejin.im/post/5c51b959f265da6115112e3e)|翻译|12|
@@ -7414,10 +7419,11 @@
 |------|-------|-------|
 |修订文章 https://github.com/xitu/gold-miner/pull/4753|奖励|2|
 
-## 译者：[nanjingboy](https://github.com/nanjingboy) 历史贡献积分：67 当前积分：67 二零一九：22.5
+## 译者：[nanjingboy](https://github.com/nanjingboy) 历史贡献积分：67 当前积分：47 二零一九：22.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 2 月兑大 Enter 键 2 个|减去积分|20|
 |[Flutter 异步编程：Future、Isolate 和事件循环](https://juejin.im/post/5c898b4af265da2de25bcc2d)|翻译|5|
 |[Widget - State - Context - InheritedWidget](https://juejin.im/post/5c768ad2f265da2dce1f535c)|翻译|11|
 |[状态恢复入门教程](https://juejin.im/post/5c330d0ce51d45518e147fd2)|翻译|6.5|
@@ -7732,10 +7738,11 @@
 |------|-------|-------|
 |[审校文章 https://github.com/xitu/gold-miner/issues/5118](https://github.com/xitu/gold-miner/issues/5118)|奖励|1|
 
-## 译者：[Fengziyin1234](https://github.com/Fengziyin1234) 历史贡献积分：52 当前积分：52 二零一九：52
+## 译者：[Fengziyin1234](https://github.com/Fengziyin1234) 历史贡献积分：53 当前积分：53 二零一九：53
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐英文文章一篇|奖励|1|
 |[2019 跟上 AI 的脚步：AI 和 ML 接下来会发生什么重要的事？](https://juejin.im/post/5c83c8ba5188250aa57a0e2f)|校对|3|
 |[从著名数据数据可视化中我们可以学到什么](https://juejin.im/user/567e246a34f81a1d879e7a14)|校对|1.5|
 |[Java Service 加载器 和 spring Factories 加载器的比较](https://juejin.im/post/5c7fbe52e51d4541e510d282)|校对|2|
@@ -7949,10 +7956,11 @@
 |------|-------|-------|
 |[一文带你看完 2018 年浏览器之争的最新进展](https://juejin.im/post/5c45a392f265da61483be57c)|校对|3|
 
-## 译者：[Honwhy](https://github.com/Honwhy) 历史贡献积分：8 当前积分：8 二零一九：8
+## 译者：[Honwhy](https://github.com/Honwhy) 历史贡献积分：9 当前积分：9 二零一九：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐英文文章一篇|奖励|1|
 |推荐英文文章一篇|奖励|1|
 |推荐英文文章七篇|奖励|7|
 
@@ -8081,3 +8089,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[[审校] Swift 5 强制独占性原则](https://github.com/xitu/gold-miner/pull/5491)|奖励|2|
+
+## 译者：[TBLGSn](https://github.com/TBLGSn) 历史贡献积分：1 当前积分：1 二零一九：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|推荐英文文章一篇|奖励|1|
