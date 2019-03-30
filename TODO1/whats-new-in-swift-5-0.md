@@ -304,7 +304,7 @@ let text: HTMLComponent = "你应该在 Twitter 上关注我 \(twitter: "twostra
 print(text)
 ```
 
-多亏了分散在里面的 `print()`，你会看到字符串插值功能的准确作用：“追加 ‘你应该在 Twitter 上关注我’”，“追加 ’twostraws’”，“追加 ’，或者你可以发送电子邮件给我 ’“，”追加 ’paul@hackingwithswift.com’“，最后 “追加 ’。’”，每个部分触发一个方法调用，并添加到我们的字符串中。
+多亏了分散在里面的 `print()`，你会看到字符串插值功能的准确作用：“追加 ‘你应该在 Twitter 上关注我’”，“追加 ’twostraws’”，“追加 ’，或者你可以发送电子邮件给我 ’”，“追加 ’paul@hackingwithswift.com’”，最后 “追加 ’。’”，每个部分触发一个方法调用，并添加到我们的字符串中。
 
 ### 动态可调用（dynamicCallable）类型
 
