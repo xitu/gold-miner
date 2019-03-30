@@ -1,3 +1,7 @@
+* [如何在 Keras 中使用 LSTM 神经网络创作音乐](https://juejin.im/post/5c9c19d7e51d453e7d28a173) ([HearFishle](https://github.com/HearFishle) 翻译)
+* [Chars2vec: 基于字符实现的可用于处理现实世界中包含拼写错误和俚语的语言模型](https://juejin.im/post/5c96fd46e51d4513e072c3ae) ([kasheemlew](https://github.com/kasheemlew) 翻译)
+* [基于 Python 的图理论和网络分析](https://juejin.im/post/5c9066b3f265da612e6d5770) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
+* [时间顺序的价格异常检测](https://juejin.im/post/5c998f8ae51d454e523b6ed5) ([kasheemlew](https://github.com/kasheemlew) 翻译)
 * [用长短期记忆网络预测股票市场（使用 Tensorflow）](https://juejin.im/post/5c8114de51882540a830b910) ([Qiuk17](https://github.com/Qiuk17) 翻译)
 * [2019 跟上 AI 的脚步：AI 和 ML 接下来会发生什么重要的事？](https://juejin.im/post/5c83c8ba5188250aa57a0e2f) ([TUARAN](https://github.com/TUARAN) 翻译)
 * [数据科学领域十大必知机器学习算法](https://juejin.im/post/5c73bbfff265da2da771d42a) ([JohnJiangLA](https://github.com/JohnJiangLA) 翻译)
