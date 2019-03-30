@@ -136,7 +136,7 @@ Jo Franchetti 的博客[使用 CSS Grid 的常见响应式布局](https://medium
 可以参阅 Chris Nwamba ([@codebeast](https://codepen.io/codebeast)) 的这段代码： [Grid 相册](https://codepen.io/codebeast/pen/vbXWEM/)。
 在 [CodePen](https://codepen.io) 上。
 
-然而，以上的内容并不是我们想要的，因为……
+然而，以上的内容并不是我们想要的，因为...
 
 * 高端和低端设备的图像尺寸和大小相同，并且
 * 我们可能会希望对于图像的宽度更加严格，而不是将其设置为 250，并且让其不断增大。
@@ -218,14 +218,14 @@ Jo Franchetti 的博客[使用 CSS Grid 的常见响应式布局](https://medium
 
 对于宽视口中 1000 px x 1000 px 的正方形图像，我们可以让其在行和列上分别跨越两个网格单元。在更宽的视口上，更改为纵向（700 px x 1000 px）的图像，使其跨越两行。
 
-可以参阅 Chris Nwamba ([@codebeast](https://codepen.io/codebeast)) 的这段代码： [网格相册 [设计规范]](https://codepen.io/codebeast/pen/exdMjj/)。
+可以参阅 Chris Nwamba（[@codebeast](https://codepen.io/codebeast)）的这段代码：[网格相册 [设计规范]](https://codepen.io/codebeast/pen/exdMjj/)。
 在 [CodePen](https://codepen.io) 上。
 
 ### 渐进式优化
 
 盲目的优化与没有优化一样蹩脚。如果没有事先的衡量，请不要专注于优化。如果优化没有数据的支持，请不要进行优化。
 
-尽管如此，在上述的示例中，有足够的空间允许你去优化。我们从最低限度开始，向您展示了一些蛮酷的技巧，现在我们有了一个可以正常工作的响应式网格布局。接下来的问题是，“如果页面包含 20 - 100 个图像，那么用户体验会是什么样的呢？”
+尽管如此，在上述的示例中，有足够的空间允许你去优化。我们从最低限度开始，向您展示了一些蛮酷的技巧，现在我们有了一个可以正常工作的响应式网格布局。接下来的问题是，“如果页面包含 20-100 个图像，那么用户体验会是什么样的呢？”
 
 答案是这样的：我们必须要保证在进行大量图像渲染的时候，图像的大小适合于渲染它们的设备。为此，我们需要指定多个图像的 URL，而不是一个。浏览器将根据判断标准选择正确（最优）的一个。该技术在响应式图像中称为**分辨率切换**。我们可以关注下面的这个代码示例：
 
@@ -262,7 +262,7 @@ Harry Roberts 的推文直观地解释了会发生什么（译者注：考虑到
 
 上表中显示浏览器下载了具有不同磁盘大小（红色框）的相同图像（蓝色框）。
 
-可以参阅 Chris Nwamba ([@codebeast](https://codepen.io/codebeast)) 的这段代码： [网格相册 [优化]](https://codepen.io/codebeast/pen/wNodJR/)。
+可以参阅 Chris Nwamba（[@codebeast](https://codepen.io/codebeast)）的这段代码：[网格相册 [优化]](https://codepen.io/codebeast/pen/wNodJR/)。
 在 [CodePen](https://codepen.io) 上。
 
 Cloudinary 的开源、免费的[响应式图像断点生成器](https://www.responsivebreakpoints.com/)可以将网站的图像调整为多种屏幕尺寸。但是，在许多情况下，单独设置 `srcset` 和 `sizes` 就足够了。
