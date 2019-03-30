@@ -133,8 +133,7 @@ img {
 
 Jo Franchetti 的博客[使用 CSS Grid 的常见响应式布局](https://medium.com/samsung-internet-dev/common-responsive-layouts-with-css-grid-and-some-without-245a862f48df)中解释了 `grid-template-columns` 属性是如何使整个布局自适应（响应式）的。
 
-可以参阅 [CodePen](https://codepen.io) 上：
-Chris Nwamba ([@codebeast](https://codepen.io/codebeast)) 的这段代码：[Grid 相册](https://codepen.io/codebeast/pen/vbXWEM/)。
+可以参阅 [CodePen](https://codepen.io) 上，Chris Nwamba ([@codebeast](https://codepen.io/codebeast)) 的这段代码：[Grid 相册](https://codepen.io/codebeast/pen/vbXWEM/)。
 
 然而，以上的内容并不是我们想要的，因为……
 
@@ -218,8 +217,7 @@ Chris Nwamba ([@codebeast](https://codepen.io/codebeast)) 的这段代码：[Gri
 
 对于宽视口中 1000 px x 1000 px 的正方形图像，我们可以让其在行和列上分别跨越两个网格单元。在更宽的视口上，更改为纵向（700 px x 1000 px）的图像，使其跨越两行。
 
-可以参阅 [CodePen](https://codepen.io) 上：
-Chris Nwamba ([@codebeast](https://codepen.io/codebeast)) 的这段代码：[网格相册 [视觉适配]](https://codepen.io/codebeast/pen/exdMjj/)。
+可以参阅 [CodePen](https://codepen.io) 上，Chris Nwamba ([@codebeast](https://codepen.io/codebeast)) 的这段代码：[网格相册 [视觉适配]](https://codepen.io/codebeast/pen/exdMjj/)。
 
 ### 渐进式优化
 
@@ -262,8 +260,7 @@ Harry Roberts 的推文直观地解释了会发生什么（译者注：考虑到
 
 上表中显示浏览器下载了具有不同磁盘大小（红色框）的相同图像（蓝色框）。
 
-可以参阅 [CodePen](https://codepen.io) 上：
-Chris Nwamba ([@codebeast](https://codepen.io/codebeast)) 的这段代码：[网格相册 [优化]](https://codepen.io/codebeast/pen/wNodJR/)。
+可以参阅 [CodePen](https://codepen.io) 上，Chris Nwamba ([@codebeast](https://codepen.io/codebeast)) 的这段代码：[网格相册 [优化]](https://codepen.io/codebeast/pen/wNodJR/)。
 
 Cloudinary 的开源、免费的[响应式图像断点生成器](https://www.responsivebreakpoints.com/)可以将网站的图像调整为多种屏幕尺寸。但是，在许多情况下，单独设置 `srcset` 和 `sizes` 就足够了。
 
