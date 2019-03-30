@@ -1,3 +1,6 @@
+* [浏览器帧原理剖析](https://juejin.im/post/5c9c66075188251dab07413d) ([WangLeto](https://github.com/WangLeto) 翻译)
+* [开源是无法赚钱的，因为开源本身就不是为了赚钱](https://juejin.im/post/5c998753e51d456ef105ac1e) ([kasheemlew](https://github.com/kasheemlew) 翻译)
+* [如何心平气和的阅读代码](https://juejin.im/post/5c9c521b5188252d876e5dcb) ([Mcskiller](https://github.com/Mcskiller) 翻译)
 * [修改 Git 错误的高明方法](https://juejin.im/post/5c735a235188256262174e48) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
 * [如何写一篇软件工程必杀简历](https://juejin.im/post/5c6ca8b9f265da2dc13c7a10) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
 * [提高营销效率的工程（第一部分）](https://juejin.im/post/5c403b5ce51d452c8e6d3dc4) ([Starriers](https://github.com/Starriers) 翻译)
