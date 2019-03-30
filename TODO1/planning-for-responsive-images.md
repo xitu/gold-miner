@@ -133,10 +133,10 @@ img {
 
 Jo Franchetti 的博客[使用 CSS Grid 的常见响应式布局](https://medium.com/samsung-internet-dev/common-responsive-layouts-with-css-grid-and-some-without-245a862f48df)中解释了 `grid-template-columns` 属性是如何使整个布局自适应（响应式）的。
 
-可以参阅 Chris Nwamba ([@codebeast](https://codepen.io/codebeast)) 的这段代码： [Grid 相册](https://codepen.io/codebeast/pen/vbXWEM/)。
+可以参阅 Chris Nwamba ([@codebeast](https://codepen.io/codebeast)) 的这段代码：[Grid 相册](https://codepen.io/codebeast/pen/vbXWEM/)。
 在 [CodePen](https://codepen.io) 上。
 
-然而，以上的内容并不是我们想要的，因为...
+然而，以上的内容并不是我们想要的，因为……
 
 * 高端和低端设备的图像尺寸和大小相同，并且
 * 我们可能会希望对于图像的宽度更加严格，而不是将其设置为 250，并且让其不断增大。
@@ -149,11 +149,11 @@ Jo Franchetti 的博客[使用 CSS Grid 的常见响应式布局](https://medium
 
 我们应该智能地将所有图像裁剪成统一的尺寸吗？我们应该保留视口的宽高比，并且改变另外一个视口的比例吗？这应该由我们自己决定。
 
-在网格布局中的图像，比如上述示例中的具有不同宽高比的图像，我们可以应用设计方面的技术来渲染图像，设计规范可以帮助我们来实现这样的目标：
+在网格布局中的图像，比如上述示例中的具有不同宽高比的图像，我们可以视觉适配（[art direction](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images#Art_direction)）方面的技术来渲染图像，视觉适配可以帮助我们来实现这样的目标：
 
 ![](https://css-tricks.com/wp-content/uploads/2019/03/planning-rwd-images.gif)
 
-有关分辨率切换和响应式图像中的视觉效果，[请阅读 Jason Grigsby 的一系列文章](https://cloudfour.com/thinks/responsive-images-101-definitions/)。另外一个信息丰富的参考资料是 Eric Portis 的响应式图像指南，[第一部分](https://cloudinary.com/blog/responsive_images_guide_part_1_what_does_it_mean_for_an_image_to_be_responsive)，[第二部分](https://cloudinary.com/blog/responsive_images_guide_part_2_variable_image_resolution)，以及[第三部分](https://cloudinary.com/blog/responsive_images_guide_part_3_variable_image_encoding)。
+有关分辨率切换和响应式图像中的视觉适配，[请阅读 Jason Grigsby 的一系列文章](https://cloudfour.com/thinks/responsive-images-101-definitions/)。另外一个信息丰富的参考资料是 Eric Portis 的响应式图像指南，[第一部分](https://cloudinary.com/blog/responsive_images_guide_part_1_what_does_it_mean_for_an_image_to_be_responsive)，[第二部分](https://cloudinary.com/blog/responsive_images_guide_part_2_variable_image_resolution)，以及[第三部分](https://cloudinary.com/blog/responsive_images_guide_part_3_variable_image_encoding)。
 
 让我们看一下下面的代码示例。
 
@@ -181,7 +181,7 @@ Jo Franchetti 的博客[使用 CSS Grid 的常见响应式布局](https://medium
 * 相机镜头的图像会被渲染为 700 px 宽、1000 px 高的图像（700 px x 1000 px）。
 * PS4 Pro 的图像会被渲染为 1000 px x 1000 px。
 
-### 视觉规范
+### 视觉适配
 
 通过裁剪图像使其变成响应式，我们可能会在无意之中裁减掉图像中的重要内容，例如主体的面部。如前所述，AI 开源工具可以辅助智能裁剪，并且重新聚焦于图像中的主要对象。此外，[Nadav Soferman 关于智能裁剪的文章](https://cloudinary.com/blog/introducing_smart_cropping_intelligent_quality_selection_and_automated_responsive_images)是非常有用的入门指南。
 
@@ -218,14 +218,14 @@ Jo Franchetti 的博客[使用 CSS Grid 的常见响应式布局](https://medium
 
 对于宽视口中 1000 px x 1000 px 的正方形图像，我们可以让其在行和列上分别跨越两个网格单元。在更宽的视口上，更改为纵向（700 px x 1000 px）的图像，使其跨越两行。
 
-可以参阅 Chris Nwamba（[@codebeast](https://codepen.io/codebeast)）的这段代码：[网格相册 [设计规范]](https://codepen.io/codebeast/pen/exdMjj/)。
+可以参阅 Chris Nwamba ([@codebeast](https://codepen.io/codebeast)) 的这段代码：[网格相册 [视觉适配]](https://codepen.io/codebeast/pen/exdMjj/)。
 在 [CodePen](https://codepen.io) 上。
 
 ### 渐进式优化
 
 盲目的优化与没有优化一样蹩脚。如果没有事先的衡量，请不要专注于优化。如果优化没有数据的支持，请不要进行优化。
 
-尽管如此，在上述的示例中，有足够的空间允许你去优化。我们从最低限度开始，向您展示了一些蛮酷的技巧，现在我们有了一个可以正常工作的响应式网格布局。接下来的问题是，“如果页面包含 20-100 个图像，那么用户体验会是什么样的呢？”
+尽管如此，在上述的示例中，有足够的空间允许你去优化。我们从最低限度开始，向您展示了一些蛮酷的技巧，现在我们有了一个可以正常工作的响应式网格布局。接下来的问题是，“如果页面包含 20 - 100 个图像，那么用户体验会是什么样的呢？”
 
 答案是这样的：我们必须要保证在进行大量图像渲染的时候，图像的大小适合于渲染它们的设备。为此，我们需要指定多个图像的 URL，而不是一个。浏览器将根据判断标准选择正确（最优）的一个。该技术在响应式图像中称为**分辨率切换**。我们可以关注下面的这个代码示例：
 
@@ -262,14 +262,14 @@ Harry Roberts 的推文直观地解释了会发生什么（译者注：考虑到
 
 上表中显示浏览器下载了具有不同磁盘大小（红色框）的相同图像（蓝色框）。
 
-可以参阅 Chris Nwamba（[@codebeast](https://codepen.io/codebeast)）的这段代码：[网格相册 [优化]](https://codepen.io/codebeast/pen/wNodJR/)。
+可以参阅 Chris Nwamba ([@codebeast](https://codepen.io/codebeast)) 的这段代码：[网格相册 [优化]](https://codepen.io/codebeast/pen/wNodJR/)。
 在 [CodePen](https://codepen.io) 上。
 
 Cloudinary 的开源、免费的[响应式图像断点生成器](https://www.responsivebreakpoints.com/)可以将网站的图像调整为多种屏幕尺寸。但是，在许多情况下，单独设置 `srcset` 和 `sizes` 就足够了。
 
 ### 结论
 
-本文旨在提供一种简单并且有效的指导原则，以便从多种可用的选项设置中，找到可以进行响应式图像布局的属性。熟悉 CSS 网格，视觉效果调整和分辨率切换三种方法，你将在短暂的时间内，成为一名高手。请保持练习。
+本文旨在提供一种简单并且有效的指导原则，以便从多种可用的选项设置中，找到可以进行响应式图像布局的属性。熟悉 CSS 网格，视觉适配和分辨率切换三种方法，你将在短暂的时间内，成为一名高手。请保持练习。
 
 ### 附录
 
