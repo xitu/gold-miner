@@ -2,8 +2,8 @@
 > * 原文作者：[Chris Nwamba](https://css-tricks.com/author/chris92/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/planning-for-responsive-images.md](https://github.com/xitu/gold-miner/blob/master/TODO1/planning-for-responsive-images.md)
-> * 译者：
-> * 校对者：
+> * 译者：[LucaslEliane](https://github.com/LucaslEliane)
+> * 校对者：[portandbridge](https://github.com/portandbridge)，[ericjin](https://github.com/jxderic)
 
 # 使用网格布局实现响应式图片
 
