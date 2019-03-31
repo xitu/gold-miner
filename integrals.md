@@ -7713,10 +7713,11 @@
 |[提高营销效率的工程（第一部分）](https://juejin.im/post/5c403b5ce51d452c8e6d3dc4)|校对|1.5|
 |[提高营销效率的工程（二）— 广告制作和管理的规模化](https://juejin.im/post/5c441193518825258604ecd0)|校对|2|
 
-## 译者：[Jingyuan0000](https://github.com/Jingyuan0000) 历史贡献积分：4.5 当前积分：4.5 二零一九：4.5
+## 译者：[Jingyuan0000](https://github.com/Jingyuan0000) 历史贡献积分：6 当前积分：6 二零一九：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Javascript 中的最长关键字序列长什么样子？](https://juejin.im/post/5c8efaf951882545e85c20e2)|校对|1.5|
 |[2019 前端性能优化年度总结 — 第三部分](https://juejin.im/post/5c5ccbefe51d457f95354a46)|校对|2.5|
 |[提高营销效率的工程（二）— 广告制作和管理的规模化](https://juejin.im/post/5c441193518825258604ecd0)|校对|2|
 
@@ -8140,7 +8141,7 @@
 |[四个理由让你使用灰度色调进行设计](https://juejin.im/post/5c961b1fe51d456a6743109e)|校对|1.5|
 |[浏览器中 CSS 支持指南](https://juejin.im/post/5c87a9006fb9a049e4138c7e)|校对|2.5|
 
-## 译者：[Endone](https://github.com/Endone) 历史贡献积分：14 当前积分：14 二零一九：14
+## 译者：[Endone](https://github.com/Endone) 历史贡献积分：12.5 当前积分：12.5 二零一九：12.5
 
 |文章|类型|积分|
 |------|-------|-------|
