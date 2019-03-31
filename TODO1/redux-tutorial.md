@@ -674,32 +674,48 @@ My advice: if you're starting a brand new app, use Immer from the beginning. It'
 ## 全部规则
 
 Always return a state, never change state, don't connect every component, eat your broccoli, don't stay out past 11... it's exhausting. It's like a rules factory, and I don't even know what that is.
+必须返回一个 state，不要改变 state，不要 connect 每一个组件，要吃西兰花，11 点后不要外出···这太很累人。就像一个规则工厂，我甚至不知道那是什么。
 
 Yeah, Redux can be like an overbearing parent. But it comes from a place of love. Functional programming love.
+是的，Redux 就像一个霸道的父母。但它是出于爱。函数式编程的爱。
 
 Redux is built on the idea of immutability, because mutating global state is the road to ruin.
+Redux建立在不变性的基础上，因为变化的全局 state 是一条废墟之路。
 
 Have you ever tried keeping your state in a global object? It works great at first. Nice and easy. Everything can access the state because it's always available, and making changes is simple.
+你试过在全局对象里面保存你的 state 吗？起初它还很好。美妙并且简单。任何东西都能接触到 state 因为它一直是可用的并且很容易更改。
 
 And then the state starts changing in unpredictable ways and it becomes impossible to find the code that's changing it.
+然后 state 开始以不可预测的方式发生改变，想要找到改变它的代码变得几乎不可能。
 
 Redux avoids these problems with some simple rules.
+为了避免这些问题，Redux 提出了以下规则。
 
 -   State is read-only, and actions are the only way to modify it.
 -   Changes happen one way, and one way only: dispatch(action) -> reducer -> new state.
 -   The reducer function must be "pure" -- it cannot modify its arguments, and it can't have side effects.
 
-## How to Use Redux with React
+- State 是只读的，唯一修改它的方式是 actions。
+- 更新的唯一方式：dispatch(action) -> reducer -> new state。
+- Reducer 函数必须是“纯”的——不能修改它的参数，也不能有副作用。
 
-At this point we have a lovely little `store` with a `reducer` that knows how to update the `state` when it receives an `action`.
+## How to Use Redux with React
+## 如何在 React 中使用 Redux
+
+At this point we have a lovely little `store` with a `reducer` that knows how to update the `state` when it receives an `action`.
+此时我们有个很小的带有 `reducer` 的 `store`，当接收到 `action` 时它知道如何更新 `state`。
 
 Now it's time to hook up Redux to React.
+现在是时候将 Redux 连接到 React 了。
 
-To do that, the `react-redux` library comes with 2 things: a component called `Provider`, and a function called `connect`.
+To do that, the `react-redux` library comes with 2 things: a component called `Provider`, and a function called `connect`.
+要做到这一点，要用到 `react-redux` 库的两样东西：一个名为 `Provider` 的组件和一个 `connect` 函数。
 
-By wrapping the entire app with the `Provider` component, *every component* in the app tree will be able to access the Redux store if it wants to.
+By wrapping the entire app with the `Provider` component, *every component* in the app tree will be able to access the Redux store if it wants to.
+通过用 `Provider` 组件包装整个应用，如果它想的话，应用树里的*每一个组件*都可以访问 Redux store。
 
-In `index.js`, import the `Provider` and wrap the contents of `App` with it. Pass the `store` as a prop.
+In `index.js`, import the `Provider` and wrap the contents of `App` with it. Pass the `store` as a prop.
+在 `index.js` 里，引入 `Provider` 然后用它把 `App` 的内容包装起来。`store` 会以 prop 形式传递。
 
 index.js
 
@@ -715,23 +731,32 @@ const App = () => (
 );
 ```
 
-After this, `Counter`, and children of `Counter`, and children of their children, and so on -- all of them can now access the Redux store.
+After this, `Counter`, and children of `Counter`, and children of their children, and so on -- all of them can now access the Redux store.
+这样之后，`Counter`， `Counter` 的子元素，以及子元素的子元素等等——所有这些现在都可以访问 Redux stroe。
 
-But not automatically. We'll need to use the `connect` function on our components to access the store.
+But not automatically. We'll need to use the `connect` function on our components to access the store.
+但不是自动的。我们需要在我们的组件使用 `connect` 函数来访问 store。
 
 ### How the React-Redux Provider Works
+### React-Redux Provider 工作机制
 
 This `Provider` thing might seem like total magic. It is a little bit; it actually uses React's [Context feature](https://daveceddia.com/context-api-vs-redux/) under the hood.
+`Provider` 可能看起来像是魔法。有一点点；它在底层实际是用了 React 的 [Context 特性](https://daveceddia.com/context-api-vs-redux/)。
 
 Context is like a secret passageway connected to every component, and using `connect` opens the door to the passageway.
+Context 就像是连接每个组件的秘密通道，使用 `connect` 就可打开秘密通道的大门。
 
 Imagine pouring syrup on a pile of pancakes, and how it manages to make its way into ALL the pancakes even though you only poured it on the top one. `Provider`does that for Redux.
+想象一下，在一堆煎饼上浇糖浆以及它如何铺满**整个**煎饼的方式，即使你只在最上层倒了糖浆。`Provider` 对 Redux 做了同样的事情。
 
 ## Prepare the Counter Component for Redux
+## 为 Redux 准备 Counter 组件
 
-Right now the Counter has local state. We're going to rip that out, in preparation to get the `count` as a prop from Redux.
+Right now the Counter has local state. We're going to rip that out, in preparation to get the `count` as a prop from Redux.
+现在 Counter 有了内部 state。我们打算把它干掉，为从 Redux 以 prop 方式获取 `count` 做准备。
 
-Remove the state initialzation at the top and the `setState` calls inside `increment` and `decrement`. Then, replace `this.state.count` with `this.props.count`.
+Remove the state initialzation at the top and the `setState` calls inside `increment` and `decrement`. Then, replace `this.state.count` with `this.props.count`.
+移除顶部的 state 初始化，以及 `increment` 和 `decrement` 内部调用的 `setState`。然后，把 `this.state.count` 替换成 `this.props.count`。
 
 Counter.js
 
@@ -777,13 +802,17 @@ class Counter extends React.Component {
 }
 ```
 
-This will leave `increment` and `decrement` empty. We'll fill them in again soon.
+This will leave `increment` and `decrement` empty. We'll fill them in again soon.
+现在 `increment` 和 `decrement` 是空的。我们会很快再次填充它们。
 
-You'll also notice the count has disappeared -- which it should, because nothing is passing a `count` prop to `Counter` yet.
+You'll also notice the count has disappeared -- which it should, because nothing is passing a `count` prop to `Counter` yet.
+你会注意到 count 消失了——它确实应该这样，因为目前还没有给 `Counter` 传递 `count` prop。
 
 ## Connect the Component to Redux
+## 把组件和 Redux Connect 起来
 
-To get the `count` out of Redux, we first need to import the `connect` function at the top of Counter.js:
+To get the `count` out of Redux, we first need to import the `connect` function at the top of Counter.js:
+要从 Redux 获取 `count`，我们首先需要在 Counter.js 顶部引入 `connect` 函数。
 
 Counter.js
 
@@ -792,6 +821,7 @@ import { connect } from 'react-redux';
 ```
 
 Then we need to "connect" the Counter component to Redux at the bottom:
+然后我们需要在底部把 Counter 组件和 Redux “connect” 起来：
 
 Counter.js
 
@@ -810,47 +840,68 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(Counter);
 ```
 
-Previously we were exporting the component itself. Now we're wrapping it with this `connect` function call, so we're exporting the *connected* Counter. As far as the rest of your app is concerned, this looks like a regular component.
+Previously we were exporting the component itself. Now we're wrapping it with this `connect` function call, so we're exporting the *connected* Counter. As far as the rest of your app is concerned, this looks like a regular component.
+之前我们只导出了组件本身。现在我们用 `connect` 函数调用把它包装起来，这样我们就可以导出 *connected* Counter。至于你的应用程序的其余部分，看起来就像一个常规组件。
 
 And the count should reappear! Except it's frozen until we reimplement increment/decrement.
+然后 count 应该就重新出现了！直到我们重新实现 increment/decrement，它是不会变化的。
 
-## How to Use React Redux `connect`
+## How to Use React Redux `connect`
+## 如何使用 React Redux `connect`
 
-You might notice the call looks little... weird. Why `connect(mapStateToProps)(Counter)` and not `connect(mapStateToProps, Counter)` or `connect(Counter, mapStateToProps)`? What's that doing?
+You might notice the call looks little... weird. Why `connect(mapStateToProps)(Counter)` and not `connect(mapStateToProps, Counter)` or `connect(Counter, mapStateToProps)`? What's that doing?
+你可能注意到这个调用看起来有点···奇怪。为什么是 `connect(mapStateToProps)(Counter)` 而不是 `connect(mapStateToProps, Counter)` 或者 `connect(Counter, mapStateToProps)`？它做了什么？
 
-It's written this way because `connect` is a *higher-order function*, which is a fancy way of saying it returns a function when you call it. And then calling *that* function with a component returns a new (wrapped) component.
+It's written this way because `connect` is a *higher-order function*, which is a fancy way of saying it returns a function when you call it. And then calling *that* function with a component returns a new (wrapped) component.
+这样写是因为 `connect` 是一个*高阶函数*，它简单说就是当你调用它时会返回一个函数。然后调用*返回的*函数传入一个组件时，它会返回一个新（包装的）组件。
 
-Another name for this is a [*higher-order component*](https://daveceddia.com/extract-state-with-higher-order-components/) (aka "HOC"). HOCs have gotten some bad press in the past, but it's still quite a useful pattern, and `connect` is a good example of a useful one.
+Another name for this is a [*higher-order component*](https://daveceddia.com/extract-state-with-higher-order-components/) (aka "HOC"). HOCs have gotten some bad press in the past, but it's still quite a useful pattern, and `connect` is a good example of a useful one.
+它的另一个名称是 [*高阶组件*](https://daveceddia.com/extract-state-with-higher-order-components/) (简称 "HOC").HOCs 过去曾有过一些糟糕的新闻，但它仍然是一个相当有用的模式，`connect` 就是一个很好的例子。
 
 What `connect` does is hook into Redux, pull out the entire state, and pass it through the `mapStateToProps` function that you provide. This needs to be a custom function because only *you* know the "shape" of the state you've stored in Redux.
+`Connect` 做的是在 Redux 内部 hook，取出整个 state，然后把它传进你提供的 `mapStateToProps` 函数。它是个自定义函数，因为只有*你*知道你存在 Redux 里面的 state 的“结构”。
 
 ## How mapStateToProps Works
+## mapStateToProps 工作机制
 
 `connect` passes the entire state to your `mapStateToProps` function as if to say, "Hey, tell me what you need out of this jumbled mess."
+`connect` 把整个 state 传给了你的 `mapStateToProps` 函数，就好像在说，“嘿，告诉我你想从这堆东西里面要什么。”
 
 The object you return from `mapStateToProps` gets fed into your component as props. The example above will pass `state.count` as the value of the `count`prop: the keys in the object become prop names, and their corresponding values become the props' values. So you see, this function literally *defines a mapping from state into props*.
+`mapStateToProps` 返回的对象以 props 形式传给了你的组件。以上面为例就是把 `state.count` 的值用 `count` prop 传递：对象的属性变成了 prop 名称，它们对应的值会变成 props 的值。你看，这个函数就像字面含义一样*定义从 state 到 props 的映射*。
 
-By the way -- the name `mapStateToProps` is conventional, but it's not special in any way. You can shorten it to `mapState` or call it whatever you want. As long as it takes the `state` object and returns an object full of props, you're good.
+By the way -- the name `mapStateToProps` is conventional, but it's not special in any way. You can shorten it to `mapState` or call it whatever you want. As long as it takes the `state` object and returns an object full of props, you're good.
+顺便说说——`mapStateToProps` 的名称是使用惯例，但并不是特定的。你可以简写成 `mapState` 或者用任何你想的方式调用。只要你接收 `state` 对象然后返回全是 props 的对象，那就没问题。
 
 ### Why not pass the whole state?
+### 为什么不传整个 state？
 
-In the example above, our state is *already* in the right shape... and it seems like maybe `mapDispatchToProps` is unnecessary. If it essentially copies the argument (state) into an object that is identical to the state, what good is it?
+In the example above, our state is *already* in the right shape... and it seems like maybe `mapDispatchToProps` is unnecessary. If it essentially copies the argument (state) into an object that is identical to the state, what good is it?
+在上面的例子中，我们的 state 结构*已经*是对的了···看起来 `mapDispatchToProps` 可能是不必要的。如果你实质上复制参数（state）给一个跟 state 相同的对象，这有什么意义呢？
 
 In really small examples that might be all it does, but usually you'll be picking out pieces of data the component needs from a larger collection of state.
+在很小的例子中，可能会传全部 state，但通常你只会从更大的 state 集合中选择部分组件需要的数据。
 
-And also, without the `mapStateToProps` function, `connect` won't pass in any state data at all.
+And also, without the `mapStateToProps` function, `connect` won't pass in any state data at all.
+并且，没有 `mapStateToProps` 函数，`connect` 不会传递任何 state。
 
-You *could* pass in all of the state, and let the component sort it out. That's not a great habit to get into though, because the component will need to know the shape of the Redux state to pick out what it needs, and it'll be harder to change that shape later, if you need.
+You *could* pass in all of the state, and let the component sort it out. That's not a great habit to get into though, because the component will need to know the shape of the Redux state to pick out what it needs, and it'll be harder to change that shape later, if you need.
+你*可以*传整个 state，然后让组件梳理。但那不是一个很好的习惯，因为组件需要知道 Redux state 的结构然后从中挑选它需要的数据，后面如果你想更改结构会变得更难。
 
 ## Dispatch Redux Actions from a React Component
+## 从 React 组件 Dispatch Redux Actions
 
-Now that our Counter is `connect`ed, we've got the `count` value. Now how can we dispatch actions to change the count?
+Now that our Counter is `connect`ed, we've got the `count` value. Now how can we dispatch actions to change the count?
+现在我们的 Counter 已经被 `connect` 了，我们也获取到了 `count` 值。现在我们如何 dispatch actions 来改变 count？
 
-Well, `connect` has your back: in addition to passing in the (mapped) state, it *also* passes in the `dispatch` function from the store!
+Well, `connect` has your back: in addition to passing in the (mapped) state, it *also* passes in the `dispatch` function from the store!
+好吧，`connect` 为你提供支持：除了传递（mapped）state，它*还*从 store 传递了 `dispatch` 函数!
 
-To dispatch an action from inside the Counter, we can call `this.props.dispatch`with an action.
+To dispatch an action from inside the Counter, we can call `this.props.dispatch`with an action.
+要在 Counter 内部 dispatch action，我们可以调用 `this.props.dispatch` 携带一个 action。
 
-Our reducer is already set up to handle the `INCREMENT` and `DECREMENT` actions, so let's dispatch those from increment/decrement:
+Our reducer is already set up to handle the `INCREMENT` and `DECREMENT` actions, so let's dispatch those from increment/decrement:
+我们的 reducer 已经准备好处理 `INCREMENT` 和 `DECREMENT` actions 了，那么接下来从 increment/decrement 中 dispatch：
 
 Counter.js
 
@@ -865,22 +916,31 @@ decrement = () => {
 ```
 
 And now we're done. The buttons should work again.
+现在我们完成了.按钮应该又重新生效了。
 
 ### Try this! Add a Reset Button
+### 试试这个！加一个重置按钮
 
 Here's a little exercise to try: add a "Reset" button to the counter that dispatches the "RESET" action when clicked.
+这有个小练习：给 counter 添加”重置“按钮，点击时 dispatch “RESET” action。
 
 The reducer is already set up to handle this action, so you should only need to modify Counter.js.
+Reducer 已经写好处理这个 action，因此你只需要修改 Counter.js。
 
 ## Action Constants
+## Action 常量
 
-In most Redux apps, you'll see action constants used in place of plain strings. It's an extra level of abstraction that can save you some time in the long run.
+In most Redux apps, you'll see action constants used in place of plain strings. It's an extra level of abstraction that can save you some time in the long run.
+在大部分 Redux 应用中，你可以看到 action 常量都是一些简单字符串。这是一个额外的抽象级别，从长远来看可以为你节省不少时间。
 
 Action constants help avoid typos, and typos in action names can be a huge pain: no errors, no visible sign that anything is broken, and your actions don't appear to be doing anything? Could be a typo.
+Action 常量帮你避免错别字，action 命名的错别字会是一个巨大的痛苦：没有错误，没有哪里坏掉的明显标志，并且你的 action 没有做任何事情？可能是个错别字。
 
 Action constants are easy to write: store your action strings in variables.
+Action 常量很容易编写：用变量保存你的 action 字符串。
 
-A good place to put these is in an `actions.js` file (when your app is small, anyway).
+A good place to put these is in an `actions.js` file (when your app is small, anyway).
+把这些变量放在一个 `actions.js` 文件里是个好办法（当你的应用很小时）。
 
 actions.js
 
@@ -890,6 +950,7 @@ export const DECREMENT = "DECREMENT";
 ```
 
 Then you can import the action names, and use those instead of writing the strings:
+然后你就可以引入这些 action 名称，用它们来代替手写字符串：
 
 Counter.js
 
@@ -915,22 +976,31 @@ class Counter extends React.Component {
 ```
 
 ## What is a Redux Action Creator?
+## Redux Action 生成器是什么？
 
 Up til now we've been writing out action objects manually. Like heathens.
+现在我们已经手写 action 对象。像个异教徒。
 
-What if you had a *function* that would write them for you? No more mis-written actions!
+What if you had a *function* that would write them for you? No more mis-written actions!
+如果你有一个*函数*会为你编写它会怎么样？不要再误写 actinos 了！
 
 I can tell you think this is crazy. How hard is it to write `{ type: INCREMENT }`without messing up?
+我可以告诉你，这很疯狂。手写 `{ type: INCREMENT }` 并保证没有弄乱有多困难？
 
-As your app grows larger, and you have more than 2 actions, and those actions start to get more complex -- passing around more data than just a `type` -- action creators can be helpful to have.
+As your app grows larger, and you have more than 2 actions, and those actions start to get more complex -- passing around more data than just a `type` -- action creators can be helpful to have.
+当你的应用变得更大，不止有两个 actions，并且这些 actions 开始变得更负责——要传更多数据而不仅是一个 `type`——action 生成器会帮上大忙。
 
-Like action constants, they're not a *requirement* though. This is another layer of abstraction and if you don't want to bother with it in your app, that's fine.
+Like action constants, they're not a *requirement* though. This is another layer of abstraction and if you don't want to bother with it in your app, that's fine.
+就像 action 常量一样，但它们不是*必须品*。这是另一层的抽象，如果你不想在你的应用里面使用，那也没关系。
 
 I'll explain what they are anyway, though. You can decide if you want to use them sometimes/always/never.
+不过我还是会解释下它们是什么。然后你可以决定你是否有时/总是/绝不想使用它们。
 
 An action creator in Redux terms is a fancy term for function that returns an action object. That's all it is :)
+Actions 生成器在 Redex 术语中是一个简单的函数术语，它返回一个 action 对象。就这些 :)
 
 Here are two of them, returning familiar actions. These go nicely in `actions.js`alongside the action constants, by the way.
+这是其中两个，返回熟悉的 actions。顺便说一句，它们在 action 常量的 “actions.js” 中完美契合。
 
 actions.js
 
@@ -945,11 +1015,14 @@ export function increment() {
 export const decrement = () => ({ type: DECREMENT });
 ```
 
-I wrote them two different ways -- as a `function` and as an arrow -- to show that it doesn't matter how you write them. Pick your fave and go with it.
+I wrote them two different ways -- as a `function` and as an arrow -- to show that it doesn't matter how you write them. Pick your fave and go with it.
+我用了两种不同方式——一个 `function` 和一个箭头函数——来表明你用哪种方式写并不重要。挑选你喜欢的方式就好。
 
-You'll notice that the function names are camelCase (well, they would be ifTheyWereLonger) while the action constants are `UPPER_CASE_WITH_UNDERSCORES`. That, too, is just a convention. Helps you know if you're looking at an action creator function or an action constant. But feel free to name yours how you like. Redux doesn't care.
+You'll notice that the function names are camelCase (well, they would be ifTheyWereLonger) while the action constants are `UPPER_CASE_WITH_UNDERSCORES`. That, too, is just a convention. Helps you know if you're looking at an action creator function or an action constant. But feel free to name yours how you like. Redux doesn't care.
+你可能注意到函数命名是小写的（好吧，如果较长的话会是驼峰命名），而 action 常量会是 `UPPER_CASE_WITH_UNDERSCORES`。同样，这也只是惯例。这会让你一眼区分 action 生成器和 action 常量。但你也可以按你喜欢的方式命名。Redux 并不关心。
 
 Now... what do you do with an action creator? Import it and dispatch it, of course!
+现在，如何使用 action 生成器呢？引入然后 dispatch 就好了，当然！
 
 Counter.js
 
@@ -974,23 +1047,32 @@ class Counter extends React.Component {
 }
 ```
 
-The key thing is to remember to call the action creator()!
+The key thing is to remember to call the action creator()!
+关键是要记得调用 action creator()！
 
-Don't `dispatch(increment)` 🚫
+Don't `dispatch(increment)` 🚫
+不要 `dispatch(increment)` 🚫
 
-Do `dispatch(increment())` ✅
+Do `dispatch(increment())` ✅
+应该 `dispatch(increment())` ✅
 
-Remember that an action creator is a plain old function. Dispatch wants an action *object*, not a function.
+Remember that an action creator is a plain old function. Dispatch wants an action *object*, not a function.
+牢记 action 生成器是一个平凡无奇的函数。Dispatch 需要 action 是一个*对象*，而不是函数。
 
-Also: you will almost definitely mess this up and be very confused. At least once, probably many times. That's normal. I *still* forget sometimes.
+Also: you will almost definitely mess this up and be very confused. At least once, probably many times. That's normal. I *still* forget sometimes.
+而且：你几乎肯定会出错并且非常困惑。至少一次，或许很多次。那很正常。我有时也*仍然*会忘记。
 
 ## How to Use React Redux mapDispatchToProps
+## 如何使用 React Redux mapDispatchToProps
 
-Now that you know what an action creator is, we can talk about *one more* level of abstraction. (I know. I KNOW. It's optional though.)
+Now that you know what an action creator is, we can talk about *one more* level of abstraction. (I know. I KNOW. It's optional though.)
+现在你知道 action 生成器是什么，我们可以讨论*又一个*级别的抽象。（我知道，我**知道**。这是选读的。）
 
-You know how `connect` passes in a `dispatch` function? And you know how you get really tired of typing `this.props.dispatch` all the time and it bothers you how messy that looks? (go with me here)
+You know how `connect` passes in a `dispatch` function? And you know how you get really tired of typing `this.props.dispatch` all the time and it bothers you how messy that looks? (go with me here)
+你知道 `connect` 如何传递 `dispatch` 函数吗？你知道你是如何厌倦一直敲 `this.props.dispatch` 并且它看起来多么混乱？（跟我来）
 
-By writing a `mapDispatchToProps` object (or function! but usually object) and passing it to `connect` when you wrap your component, you'll receive those action creators as *callable props*. Here's what I mean:
+By writing a `mapDispatchToProps` object (or function! but usually object) and passing it to `connect` when you wrap your component, you'll receive those action creators as *callable props*. Here's what I mean:
+写一个 `mapDispatchToProps` 对象（或者函数！但通常是对象）然后传给你要包装组件的 `connect` 函数，你将收到这些 action 生成器作为*可调用 props*。看代码：
 
 Counter.js
 
@@ -1032,17 +1114,23 @@ const mapDispatchToProps = {
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 ```
 
-This is nice because it saves you from having to call `dispatch` manually.
+This is nice because it saves you from having to call `dispatch` manually.
+这很棒，因为它把你从手动调用 `dispatch` 中解放出来。
 
-You can also write `mapDispatch` as a function, but the object covers probably 95% of what you need. You can read more about the [functional mapDispatch form and why you probably don't need it](https://daveceddia.com/redux-mapdispatchtoprops-object-form/).
+You can also write `mapDispatch` as a function, but the object covers probably 95% of what you need. You can read more about the [functional mapDispatch form and why you probably don't need it](https://daveceddia.com/redux-mapdispatchtoprops-object-form/).
+你可以把 `mapDispatch` 写成一个函数，但是对象能满足 95% 你所需的场景。详细内容请看 [函数式 mapDispatch 以及为什么你可能并不需要它](https://daveceddia.com/redux-mapdispatchtoprops-object-form/)。
 
 ## How to Fetch Data with Redux Thunk
+## 如何使用 Redux Thunk 获取数据
 
 Since reducers are supposed to be "pure," we can't do any API calls or dispatch actions from inside a reducer.
+既然 reducers 应该是“纯” 的，我们不能做在 reducer 里面做任何 API 调用或者 dispatch actions。
 
 We also can't do that stuff inside a plain action creator!
+我们也不能在 action creatore 里面做这些事！
 
-But what if we could make an action creator *return* a function that could do our work? Something like this:
+But what if we could make an action creator *return* a function that could do our work? Something like this:
+但是如果我们把 action 生成器*返回*一个可以处理我们工作的函数会怎样呢？就像这样：
 
 ```js
 function getUser() {
@@ -1052,17 +1140,23 @@ function getUser() {
 }
 ```
 
-Out of the box, Redux doesn't support actions like this. Stock Redux only accepts *plain objects* as actions.
+Out of the box, Redux doesn't support actions like this. Stock Redux only accepts *plain objects* as actions.
+越界了，Redux 不支持这种 actions。固执的 Redux 只接受*简单对象*作为 actions。
 
-This is where redux-thunk comes in. It is a middleware, basically a plugin for Redux, that enables Redux to deal with actions like `getUser()`, above.
+This is where redux-thunk comes in. It is a middleware, basically a plugin for Redux, that enables Redux to deal with actions like `getUser()`, above.
+这时就需要 redux-thunk 了。它是个中间件，基本是 Redux 的一个插件，它可以使 Redux 处理像上面 `getUser()` 那样的 actions。
 
-You can dispatch these "thunk actions" like any other action creator: `dispatch(getUser())`.
+You can dispatch these "thunk actions" like any other action creator: `dispatch(getUser())`.
+你可以像其他 action 生成器一样 dispatch 这些 "thunk actions"：`dispatch(getUser())`。
 
 ### What's a "thunk"?
+### "thunk" 是什么？
 
-A "thunk" is a (uncommon) name for a *function* that's returned by another function.
+A "thunk" is a (uncommon) name for a *function* that's returned by another function.
+"thunk" 是（少见）指被其它函数作为返回值的*函数*。
 
 In Redux terms, it's an action creator that returns a function instead of a plain action object, like this:
+在 Redux 术语中，它是一个返回函数而非简单 action 对象的 action 生成器，就像这样：
 
 ```js
 function doStuff() {
@@ -1075,16 +1169,22 @@ function doStuff() {
 ```
 
 If you wanna get technical, the function being returned is the "thunk", and the one that returns it is the "action creator". Usually I call the whole bundle a "thunk action."
+从技术角度讲，被返回的函数就是 "thunk"，把它作为返回值的就是“action 生成器”。通常我把它们一起称为 "thunk action"。
 
 The function you return from your action creator will be passed 2 arguments: the `dispatch` function, and `getState`.
+Action 生成器返回的函数接收两个参数：`dispatch` 函数和 `getState`。
 
-Most of the time you'll only need `dispatch`, but sometimes you want to do something conditionally, based on some value in the Redux state. In that case, call `getState()` and you'll have the entire state to read as needed.
+Most of the time you'll only need `dispatch`, but sometimes you want to do something conditionally, based on some value in the Redux state. In that case, call `getState()` and you'll have the entire state to read as needed.
+大多数场景你只需要 `dispatch`，但有时你想根据 Redux state 里面的值额外做些事情。这种情况下，调用 `getState()` 你就会获得整个 state 的值然后按需所取。
 
 ## How to Setup Redux Thunk
+## 如何安装 Redux Thunk
 
-To install redux-thunk with NPM or Yarn, run `npm install --save redux-thunk`.
+To install redux-thunk with NPM or Yarn, run `npm install --save redux-thunk`.
+使用 NPM 或者 Yarn 安装 redux-thunk，运行 `npm install --save redux-thunk`。
 
-Then, in index.js (or wherever you create your store), import `redux-thunk` and apply it to the store with Redux's `applyMiddleware` function:
+Then, in index.js (or wherever you create your store), import `redux-thunk` and apply it to the store with Redux's `applyMiddleware` function:
+然后，在 index.js（或者其他你创建 store 的地方），引入 `redux-thunk` 然后通过 Redux 的 `applyMiddleware` 函数把它应用到 store 中。
 
 ```js
 import thunk from 'redux-thunk';
@@ -1100,11 +1200,14 @@ const store = createStore(
 );
 ```
 
-Just make sure to wrap `thunk` in the `applyMiddlware` call or it won't work. Don't pass `thunk` directly.
+Just make sure to wrap `thunk` in the `applyMiddlware` call or it won't work. Don't pass `thunk` directly.
+必须确保 `thunk` 包装在 `applyMiddleware` 调用里面，否则不会生效。不要直接传 `thunk`。
 
 ## An Example of Fetching Data with Redux
+## 结合 Redux 请求数据的例子
 
-Let's imagine you want to display a list of products. You've got a backend API that answers to `GET /products`, so you create this thunk action to do the fetching:
+Let's imagine you want to display a list of products. You've got a backend API that answers to `GET /products`, so you create this thunk action to do the fetching:
+设想一下你想展示一个产品列表。你已经获得了后端 API 可以响应 `GET /products`，所以你创建了一个 thunk action 来从后端请求数据：
 
 productActions.js
 
@@ -1124,36 +1227,52 @@ export function fetchProducts() {
 ```
 
 The `fetch("/products")` part is what's actually fetching the data. Then we have a few calls to `dispatch` before and after.
+`fetch("/products")` 是实际上请求数据的部分。然后我们在它前后分别做了一些 `dispatch` 调用。
 
 ## Dispatch the Action to Fetch the Data
+## Dispatch Action 来请求数据
 
-To kick off the call and actually fetch the data, we need to dispatch the `fetchProducts` action.
+To kick off the call and actually fetch the data, we need to dispatch the `fetchProducts` action.
+要启动调用并且实际获取数据，我们需要 dispatch `fetchProducts` action。
 
 Where should you do it?
+在哪里调用呢？
 
-If a particular component needs the data, the best place to kick off the fetch is usually right *after* that component mounts, in its `componentDidMount` lifecycle method.
+If a particular component needs the data, the best place to kick off the fetch is usually right *after* that component mounts, in its `componentDidMount` lifecycle method.
+如果某一特定的组件需要数据，最好的调用地方通常是在组件加载*之后*，也就是它的 `componentDidMount` 生命周期函数。
 
 Or, if you're using Hooks, inside the useEffect hook is a good spot.
+或者，如果你在使用 Hooks，useEffect hook 里面也是个好地方。
 
-Sometimes you're fetching truly *global* data that the whole app needs -- think "user profile" or "i18n translations". In those cases, dispatch the action right after you create the store, with `store.dispatch`, rather than waiting for a component to mount.
+Sometimes you're fetching truly *global* data that the whole app needs -- think "user profile" or "i18n translations". In those cases, dispatch the action right after you create the store, with `store.dispatch`, rather than waiting for a component to mount.
+有时你要获取整个应用都需要的真正的*全局*数据——如 "用户信息" 或者 "国际化"。这种场景，就在你创建 store 后使用 `store.dispatch` 来 dispatch action，而不是等待组件加载后。
 
 ### How to Name Your Redux Actions
+### 如何给 Redux Actions 命名
 
 Redux actions that fetch data usually come in triplets: BEGIN, SUCCESS, FAILURE. This isn't a requirement, it's only a convention.
+获取数据的 Redux actions 通常使用标准三连：BEGIN, SUCCESS, FAILURE。这不是硬性要求，只是惯例。
 
 This BEGIN/SUCCESS/FAILURE pattern is nice because it gives you hooks to keep track of what's happening -- say, by setting a "loading" flag `true` in response to the BEGIN action, and then `false` after SUCCESS or FAILURE.
+BEGIN/SUCCESS/FAILURE 模式很棒，因为它给你钩子来跟踪发生了什么——比如，设置 "loading" 标志为 "true" 以响应 BEGIN 操作，在 SUCCESS 或 FAILURE 之后设为 `false`。
 
 And, as with pretty much everything else in Redux... this, too, is a convention you can feel free to ignore if you don't you need it.
+而且，与 Redux 中的其他所有内容一样，这个也是一个惯例，如果你不需要的话可以忽略掉。
 
-*Before* you start the API call, you dispatch the BEGIN action.
+*Before* you start the API call, you dispatch the BEGIN action.
+在你调用 API *之前*，dispatch BEGIN action。
 
-Then *after* the call succeeds, you dispatch SUCCESS with the data. If it failed instead, you dispatch FAILURE with the error.
+Then *after* the call succeeds, you dispatch SUCCESS with the data. If it failed instead, you dispatch FAILURE with the error.
+调用成功*之后*，你可以 dispatch SUCCESS 数据。如果请求失败，你可以 dispatch 错误信息。
 
 Sometimes the last one is called ERROR instead. It doesn't really matter what you call it, as long as you're consistent about it.
+有时最后一个调用 ERROR。其实调用什么一点也不重要，只要你保持一致就好。
 
 Careful: Dispatching an ERROR action and handling a FAILURE will lead to no end of hair pulling as you trace through your code, realizing the action is dispatching correctly but the data is never updating. Learn from my mistakes :)
+注意：dispatch Error action 来处理 FAILURE 会导致你跟踪代码的时候毫无头绪，知道 action 正确 dispatch 但是数据却没更新。吸取我的教训 :)
 
 Here's what those actions look like, along with action creators for them:
+这是那几个 actions，以及它们的 action 生成器：
 
 productActions.js
 
@@ -1177,7 +1296,8 @@ export const fetchProductsFailure = error => ({
 });
 ```
 
-We'll write a reducer to save the products into the Redux store when it receives the `FETCH_PRODUCTS_SUCCESS` action. It'll also set a `loading` flag to true when the fetch begins, and false when it finishes or fails.
+We'll write a reducer to save the products into the Redux store when it receives the `FETCH_PRODUCTS_SUCCESS` action. It'll also set a `loading` flag to true when the fetch begins, and false when it finishes or fails.
+接收到 `FETCH_PRODUCTS_SUCCESS` action 返回的产品数据后，我们写一个 reducer 把它存进 Redux store 中。开始请求时把 `loading` 标志设为 true，失败或者完成时设为 false。
 
 productReducer.js
 
@@ -1236,7 +1356,8 @@ export default function productReducer(state = initialState, action) {
 }
 ```
 
-Finally, we need to pass the products into a `ProductList` component that will display them, and also be responsible for kicking off the data fetching.
+Finally, we need to pass the products into a `ProductList` component that will display them, and also be responsible for kicking off the data fetching.
+最后，我们需要把产品数据传进展示它们并且也负责开始数据请求的 `ProductList` 组件。
 
 ProductList.js
 
@@ -1280,7 +1401,8 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(ProductList);
 ```
 
-I'm referring to the data with `state.products.<whatever>` instead of just `state.<whatever>` because I'm making the assumption that you'll probably have more than one reducer, each handling its own slice of state. To make this work, we can write a `rootReducer.js` file that pulls them all together:
+I'm referring to the data with `state.products.<whatever>` instead of just `state.<whatever>` because I'm making the assumption that you'll probably have more than one reducer, each handling its own slice of state. To make this work, we can write a `rootReducer.js` file that pulls them all together:
+我指的是带有 `state.products.<whatever>` 的数据而不仅仅是 `state.<whatever>`，因为我假设你可能会有不止一个 reducer，每一个都处理各自的 state。为了确保这样，我们可以写一个 `rootReducer.js` 文件把它们维护在一起：
 
 rootReducer.js
 
@@ -1294,6 +1416,7 @@ export default combineReducers({
 ```
 
 Then, when we create our store, we can pass this "root" reducer:
+然后，当我们创建 store 我们可以传递这个"根" reducer：
 
 index.js
 
@@ -1306,37 +1429,58 @@ const store = createStore(rootReducer);
 ```
 
 ## Error Handling in Redux
+## Redux 中错误处理
 
 The error handling here is pretty light, but the basic structure will be the same for most actions that make API calls. The general idea is:
+这里的错误处理比较轻量，但是对大部分调用 API 的 actions 来说基本结构是一样的。基本观点是：
 
 1.  Dispatch a FAILURE action when the call fails
 2.  Handle that FAILURE action in the reducer by setting some kind of flag and/or saving the error message.
 3.  Pass the error flag and the message (if you have one) into components that need to handle errors, and conditionally render the error however you see fit.
 
+1. 当调用失败时，dispatch 一个 FAILURE action。
+2. 通过设置一些标志变量和/或保存错误信息来处理 reducer 中的 FAILURE action。
+3. 把错误标志和信息（如果有的话）传给需要处理错误的组件，然后根据任何你觉得合适的方式渲染错误。
+
 ### Can You Avoid the Double Render?
+### 如果避免二次渲染？
 
-This is a really common concern. And yes, it *will* render more than once.
+This is a really common concern. And yes, it *will* render more than once.
+这确实个常见问题。是的，它*会*不止一次触发渲染。
 
-It will render in an empty state, then re-render in a loading state, and then re-render *again* with products to show. The horror! 3 renders! (you could get it down to 2 if you skip straight to the "loading" state)
+It will render in an empty state, then re-render in a loading state, and then re-render *again* with products to show. The horror! 3 renders! (you could get it down to 2 if you skip straight to the "loading" state)
+它首先会渲染空 state，然后再渲染 loading state，接着会*再次*渲染展示产品。可怕！三次渲染！（如果你直接跳过 "loading" state 就可以把渲染次数将为两次）
 
 You may be worried about unnecessary renders because of performance, but don't be: single renders are very fast. If you're working on an app where they are slow enough to notice, do some profiling and figure out why that's the case.
+你可能会担心不必要的渲染影响性能，但是不会：单次渲染非常快。如果你在开发的应用肉眼可见的慢的话，分析一下找出慢的原因。
 
-Think of it this way: the app needs to show *something* when there are no products, or when they're loading, or when there's an error. You probably don't want to just show a blank screen until the data is ready. This gives you an opportunity to make that user experience shine.
+Think of it this way: the app needs to show *something* when there are no products, or when they're loading, or when there's an error. You probably don't want to just show a blank screen until the data is ready. This gives you an opportunity to make that user experience shine.
+这样想吧：当没有商品或者正在加载或者发生错误的时候应用需要展示*一些东西*。在数据准备好之前，你可能不想只展示一个空白屏幕。这给你了一个提供良好用户体验的机会。
 
 ## What Next?
+## 接下来呢？
 
 Hopefully this tutorial helped you make more sense of Redux!
+希望这篇教程能帮你更加理解 Redux！
 
-If you want a deep dive on the specifics, the [Redux docs](https://redux.js.org/) have a lot of good examples. Mark Erikson (one of the Redux maintainers) has a good [series on idiomatic Redux](https://blog.isquaredsoftware.com/series/idiomatic-redux/) at his blog, too.
+If you want a deep dive on the specifics, the [Redux docs](https://redux.js.org/) have a lot of good examples. Mark Erikson (one of the Redux maintainers) has a good [series on idiomatic Redux](https://blog.isquaredsoftware.com/series/idiomatic-redux/) at his blog, too.
+如果你想深入了解里面的细节，[Redux 文档](https://redux.js.org/)有很多很好的例子。Mark Erikson (Redux 维护者之一)的博客有一个不错的 [常用的 Redux 系列](https://blog.isquaredsoftware.com/series/idiomatic-redux/)。
 
-And next week, I am releasing a new course, [Pure Redux](https://daveceddia.com/pure-redux/), covering everything here, plus more detail on:
+And next week, I am releasing a new course, [Pure Redux](https://daveceddia.com/pure-redux/), covering everything here, plus more detail on:
+下周，我会发布一个新课程，[纯 Redux](https://daveceddia.com/pure-redux/)，涵盖这里的所有，加上更多细节：
 
 -   How to do immutable updates
 -   Using Immer for easy immutability
 -   Debugging apps with the Redux DevTools
 -   Writing tests for reducers, actions, and thunk actions
 
+- 如何做 immutable 更新
+- 使用 Immer 轻松实现不变性
+- 使用 Redux DevTools 调试应用
+- 为 reducers, actions, 和 thunk actions 编写单元测试
+
 And there's a whole module where we build a full app, beginning to end, covering things like:
+并且有一整个模块讲解我们创建创建一个完整的应用，从开始到结束，涵盖这些：
 
 -   Integrating CRUD operations with Redux -- creating, listing, editing, and deleting items
 -   Setting up an API server
@@ -1346,6 +1490,15 @@ And there's a whole module where we build a full app, beginning to end, covering
 -   How to use Selectors and `reselect` to improve performance & maintainability
 -   Authentication and session management
 -   Separate views for Admins and Users
+
+- 将 CRUD 操作与 Redux 集成——增删查改
+- 创建 API 服务
+- 可访问路由以及路由加载时请求数据
+- 处理模态对话框
+- 将多个 reducer 与 combineReducers 结合使用
+- 如何使用选择器以及 `reselect` 以提高性能和可维护性
+- 权限和 session 管理
+- 管理员和普通用户视图分离
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
