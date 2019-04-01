@@ -37,7 +37,6 @@
 
 都 9102 年了，弄清楚你是否还应该使用 Redux 特别有用。现在有更好的替代品出现吗，使用 Hooks，Context 还是其他库？
 
-
 简而言之：即使有很多替代品，[Redux 仍旧不死](https://blog.isquaredsoftware.com/2018/03/redux-not-dead-yet/)。但是是否适用于你的应用，好吧，得看具体场景。
 
 超级简单？只有一两个地方需要用到几个 state？组件内部 state 就很好了。你可以通过 classes，[Hooks](https://daveceddia.com/intro-to-hooks/) 或者二者一起来实现。
