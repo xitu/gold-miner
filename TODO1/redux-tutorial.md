@@ -2,8 +2,8 @@
 > * 原文作者：[Dave Ceddia](https://daveceddia.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/redux-tutorial.md](https://github.com/xitu/gold-miner/blob/master/TODO1/redux-tutorial.md)
-> * 译者：
-> * 校对者：
+> * 译者：[xilihuasi](https://github.com/xilihuasi)
+> * 校对者：[xionglong58](https://github.com/xionglong58)、[Fengziyin1234](https://github.com/Fengziyin1234)
 
 # 2019 React Redux 完全指南
 
@@ -11,23 +11,23 @@
 
 想要理解 Redux 完整的工作机制真的让人头疼。特别是作为初学者。
 
-术语太多了！Actions, reducers, action creators, middleware, pure functions, immutability, thunks 等等。
+术语太多了！Actions、reducers、action creators、middleware、pure functions、immutability、thunks 等等。
 
 怎么把这些全都与 React 结合起来构建一个可运行的应用？
 
-你可以花几个小时阅读博客以及尝试从复杂的“真实世界”应用中筛选以将它拼凑起来。
+你可以花几个小时阅读博客以及尝试从复杂的“真实世界”应用中研习以将它拼凑起来。
 
-在本篇 Redux 教程中，我会渐进地解释如何将 Redux 与 React 搭配使用 —— 从简单的 React 开始 —— 以及一个非常简单的 React + Redux 案例。我会解释*为什么*每个功能都很有用（以及什么情况下做取舍）。
+在本篇 Redux 教程中，我会渐进地解释如何将 Redux 与 React 搭配使用 —— 从简单的 React 开始 —— 以及一个非常简单的 React + Redux 案例。我会解释**为什么**每个功能都很有用（以及什么情况下做取舍）。
 
-接着我们会看到更加进阶的内容，手把手，直到你*全部*都理解为止。我们开始吧 :)
+接着我们会看到更加进阶的内容，手把手，直到你**全部**都理解为止。我们开始吧 :)
 
-请注意：本教程是*很齐齐齐全的*。也就意味篇幅着*特别长*。我把它变成了一个完整的免费课程，*并且*我制作了精美的 PDF 你可以在 iPad 或者[任何 Android 设备]上阅读。留下你的邮箱地址即可立即获取。
+请注意：本教程是**相当齐全**。也就意味篇幅着**比较长**。我把它变成了一个完整的免费课程，**并且**我制作了精美的 PDF 你可以在 iPad 或【任何 Android 设备】上阅读。留下你的邮箱地址即可立即获取。
 
 ## 视频概述 Redux 要点
 
-如果你更喜欢看视频而不是阅读，这个视频涵盖如何在 React 应用中添加 Redux 的每一步：
+如果你更喜欢看视频而不是阅读，这个视频涵盖了如何在 React 应用中一步步添加 Redux：
 
-[看这个视频](https://youtu.be/sX3KeP7v7Kg)
+[视频地址](https://youtu.be/sX3KeP7v7Kg)
 
 这与本教程的第一部分相似，我们都会在一个简单 React 应用中逐步地添加 Redux。
 
@@ -35,9 +35,9 @@
 
 ## 你应该用 Redux 吗？
 
-都 9102 年了，弄清楚你是否还应该使用 Redux 特别有用。现在有更好的替代品出现吗，使用 Hooks，Context 还是其他库？
+都 9102 年了，弄清楚你是否还应该使用 Redux 十分必要。现在有更好的替代品出现吗，使用 Hooks，Context 还是其他库？
 
-简而言之：即使有很多替代品，[Redux 仍旧不死](https://blog.isquaredsoftware.com/2018/03/redux-not-dead-yet/)。但是是否适用于你的应用，好吧，得看具体场景。
+简而言之：即使有很多替代品，[Redux 仍旧不死](https://blog.isquaredsoftware.com/2018/03/redux-not-dead-yet/)。但是是否适用于你的应用，还得看具体场景。
 
 超级简单？只有一两个地方需要用到几个 state？组件内部 state 就很好了。你可以通过 classes，[Hooks](https://daveceddia.com/intro-to-hooks/) 或者二者一起来实现。
 
@@ -45,15 +45,15 @@
 
 很多全局的 state，与应用的各独立部分都有交互？或者一个大型应用并且随着时间推移只会越来越大？试试 Redux 吧。
 
-你也可以*以后*再使用 Redux，不必在第一天就决定。从简单开始，在你需要的时候随时随地增加复杂性。
+你也可以**以后**再使用 Redux，不必在第一天就决定。从简单开始，在你需要的时候再增加复杂性。
 
 ### 你知道 React 吗？
 
-React 可以脱离 Redux 单独使用。Redux 是 React 的*附加项*。
+React 可以脱离 Redux 单独使用。Redux 是 React 的**附加项**。
 
-即使你打算同时使用它们，我还是强烈建议先*脱离* Redux 学习纯粹的 React。理解 props，state 以及单向数据流，在学习 Redux 之前先学习 “React 编程思想”。同时学习这两个是搞晕自己的万全之策。
+即使你打算同时使用它们，我还是强烈建议先**脱离** Redux 学习纯粹的 React。理解 props，state 以及单向数据流，在学习 Redux 之前先学习 “React 编程思想”。同时学习这两个肯定会把你搞晕。
 
-如果你想要 React 的入门读物，我整理了一个为期 5 天的免费课程，教授所有基础知识：
+如果你想要入门 React ，我整理了一个为期 5 天的免费课程，教授所有基础知识：
 
 接下来的 5 天通过构建一些简单的应用来学习 React。
 
@@ -61,7 +61,7 @@ React 可以脱离 Redux 单独使用。Redux 是 React 的*附加项*。
 
 ## Redux 的好处
 
-如果你稍微使用过一段时间的 React，你可能就了解了 props 和单向数据流。数据通过 props 在组件树间向*下*传递。就像这个组件一样：
+如果你稍微使用过一段时间的 React，你可能就了解了 props 和单向数据流。数据通过 props 在组件树间向**下**传递。就像这个组件一样：
 
 ![Counter component](https://daveceddia.com/images/counter-component.png)
 
@@ -69,11 +69,11 @@ React 可以脱离 Redux 单独使用。Redux 是 React 的*附加项*。
 
 ![Passing props down](https://daveceddia.com/images/passing-props-down.png)
 
-要想数据向*上*传递，需要通过回调函数实现，因此必须首先将回调函数向*下*传递到任何想通过调用它来传递数据的组件中。
+要想数据向**上**传递，需要通过回调函数实现，因此必须首先将回调函数向**下**传递到任何想通过调用它来传递数据的组件中。
 
 ![Passing callbacks down](https://daveceddia.com/images/passing-callbacks-down.png)
 
-你可以把数据想象成*电流*，通过彩色电线连接关心它的组件。数据通过线路上下流动，但是线路不能在空气中贯穿 —— 它们必须从一个组件连接到另一个组件。
+你可以把数据想象成**电流**，通过彩色电线连接需要它的组件。数据通过线路上下流动，但是线路不能在空气中贯穿 —— 它们必须从一个组件连接到另一个组件。
 
 ### 多级传递数据是一种痛苦
 
@@ -81,13 +81,13 @@ React 可以脱离 Redux 单独使用。Redux 是 React 的*附加项*。
 
 ![Twitter user data](https://daveceddia.com/images/twitter-user-data.png)
 
-我们假设顶级 `App` 组件的 state 有 `user` 对象。该对象包含当前用户头像，昵称和其他资料信息。
+我们假设根组件 `App` 的 state 有 `user` 对象。该对象包含当前用户头像、昵称和其他资料信息。
 
 为了把 `user` 数据传递给全部 3 个 `Avatar` 组件，必须要经过一堆并不需要该数据的中间组件。
 
 ![Sending the user data down to the Avatar components](https://daveceddia.com/images/twitter-hierarchy.png)
 
-获取数据就像在采矿探险中穿针一样。等等，那根本没有意义。无论如何，*这很痛苦*。也被称为 “prop-drilling”。
+获取数据就像用针在采矿探险一样。等等，那根本没有意义。无论如何，**这很痛苦**。也被称为 “prop-drilling”。
 
 更重要的是，这不是好的软件设计。中间组件被迫接受和传递他们并不关心的 props。也就意味着重构和重用这些组件会变得比原本更难。
 
@@ -97,7 +97,7 @@ Redux 就是解决这个问题的一种方法。
 
 ### 相邻组件间的数据传递
 
-如果你有些兄弟组件需要共享数据，用 React 的方式就是把数据向*上*传到父组件，然后再通过 props 向下传递。
+如果你有些兄弟组件需要共享数据，React 的方式是把数据向**上**传到父组件中，然后再通过 props 向下传递。
 
 但这可能很麻烦。Redux 会为你提供一个可以存储数据的全局 "parent"，然后你可以通过 React-Redux 把兄弟组件和数据 `connect` 起来。
 
@@ -107,7 +107,7 @@ Redux 就是解决这个问题的一种方法。
 
 ![Connecting Redux to the Avatar components](https://daveceddia.com/images/redux-connected-twitter.png)
 
-Redux 还做了一些很酷的事情，比如使调试更轻松（Redux DevTools 让你检查每一个 state 的变化），时间旅行调试（你可以*回滚* state 变化，看看你的应用以前的样子），从长远来看，它让代码变得更易于维护。它也会教你更多关于函数式编程的知识。
+Redux 还做了一些很酷的事情，比如使调试更轻松（Redux DevTools 让你检查每一个 state 的变化），time-travel debugging（你可以**回滚** state 变化，看看你的应用以前的样子），从长远来看，它让代码变得更易于维护。它也会教你更多关于函数式编程的知识。
 
 ## 内置 Redux 替代品
 
@@ -115,7 +115,7 @@ Redux 还做了一些很酷的事情，比如使调试更轻松（Redux DevTools
 
 ### Redux 替代品: The React Context API
 
-在底层，React-Redux 使用 React 内置的 Context API 来传递数据。如果你愿意，你可以砍掉“中间商”直接使用 Context。你会错过上面提到的 Redux 很棒的特性，但是如果你的应用很简单并且想用简单的方式传递数据，Context 就够了。
+在底层，React-Redux 使用 React 内置的 Context API 来传递数据。如果你愿意，你可以跳过 Redux 直接使用 Context。你会错过上面提到的 Redux 很棒的特性，但是如果你的应用很简单并且想用简单的方式传递数据，Context 就够了。
 
 既然你读到这里，我认为你真想学习 Redux，我不会在这里[比较 Redux 和 Context API](https://daveceddia.com/context-api-vs-redux/) 或者[使用 Context](https://daveceddia.com/usecontext-hook/) 和[使用 Reducer](https://daveceddia.com/usereducer-hook-examples/) Hooks。你可以点击链接详细了解。
 
@@ -183,7 +183,7 @@ export default Counter;
 
 如果你想要了解 state 变化机制的更多细节，去看 [React 中的 state 可视指南](https://daveceddia.com/visual-guide-to-state-in-react/)然后再回到这里。
 
-不过说实话：如果上面内容对你来讲*不是*复习的话，你需要在学 Redux *之前*了解下 React 的 state 如何工作，否则你会巨困惑。参加我 [免费的 5 天 React 课程](https://daveceddia.com/pure-react-email-course)，用简单的 React 获得信心，然后再回到这里。
+不过说实话：如果上面内容对你来讲**不是**复习的话，你需要在学 Redux **之前**了解下 React 的 state 如何工作，否则你会巨困惑。参加我 [免费的 5 天 React 课程](https://daveceddia.com/pure-react-email-course)，用简单的 React 获得信心，然后再回到这里。
 
 ### 接着！
 
@@ -209,7 +209,7 @@ export default Counter;
 
 实际上是 `react-redux` 把各个 state 和 React 组件连接起来。
 
-没错：`redux` 对 React *根本*不了解。
+没错：`redux` 对 React **根本**不了解。
 
 虽然，这两个库就像豆荚里的两个豌豆。99.999% 的情况下，当任何人在 React 的场景下提到 "Redux"，他们指的是这两个库。因此当你在 StackOverflow、Reddit 或者其他地方看到 Redux 时，记住这一点。
 
@@ -257,7 +257,7 @@ const App = () => (
 
 但是并非如此。这里没有约定大于配置。
 
-Redux *不会*对你的 state 做任何假设。它可能是一个 object，一个 number，一个 string，或者任何你需要的。这取决于你。
+Redux **不会**对你的 state 做任何假设。它可能是一个 object，一个 number，一个 string，或者任何你需要的。这取决于你。
 
 我们必须提供一个返回 state 的函数。这个函数被称为 reducer（我们马上就知道为什么了）。那么我们创建一个非常简单的 reducer，把它传给 `createStore`，然后看会发生什么：
 
@@ -285,7 +285,7 @@ const store = createStore(reducer);
 
 同样注意 Redux 如何传递了一个 `undefined` 的 `state`，同时 action 是一个有 `type` 属性的对象。
 
-我们稍后会更多地讨论 actions。现在，我们先看看 *reducer*。
+我们稍后会更多地讨论 actions。现在，我们先看看 **reducer**。
 
 ## Redux Reducer 是什么？
 
@@ -314,9 +314,9 @@ var word = letters.reduce(
 console.log(word) // => "redux"
 ```
 
-你给 `reduce` 传入的函数理所应当被叫做 "reducer"，因为它将整个数组的元素 *reduces* 成一个结果。
+你给 `reduce` 传入的函数理所应当被叫做 "reducer"，因为它将整个数组的元素 **reduces** 成一个结果。
 
-Redux *基本上*是数组 `reduce` 的奇幻版本。前面，你看到 Redux reducers 如何拥有这个显著特征：
+Redux **基本上**是数组 `reduce` 的奇幻版本。前面，你看到 Redux reducers 如何拥有这个显著特征：
 
 ```js
 (state, action) => newState
@@ -361,7 +361,7 @@ function reducer(state = initialState, action) {
 
 Reducers 重要规则一：reducer 绝不能返回 undefined。
 
-你总是想让 state 是已定义的。一个已定义的 state 是快乐的 state。一个*未*定义的 state 是*不*快乐的（并且会破坏你的应用）。
+你总是想让 state 是已定义的。一个已定义的 state 是快乐的 state。一个**未**定义的 state 是**不**快乐的（并且会破坏你的应用）。
 
 ## Dispatch Actions 来改变 State
 
@@ -400,7 +400,7 @@ Actions 的格式非常自由。只要它是个带有 `type` 属性的对象就�
 
 Action 对象描述你想做出的改变（如“增加 counter”）或者将触发的事件（如“请求服务失败并显示错误信息”）。
 
-尽管 Actions 名声响亮，但它是无趣的，呆板的对象。它们事实上不*做*任何事情。反正它们自己不做。
+尽管 Actions 名声响亮，但它是无趣的，呆板的对象。它们事实上不**做**任何事情。反正它们自己不做。
 
 为了让 action **做**点事情，你需要 dispatch。
 
@@ -429,7 +429,7 @@ store.dispatch({ type: "RESET" });
 同样注意到 state 每次都一样？`{count: 0}` 一直没变。
 
 
-这是因为我们的 reducer 没有*作用于*那些 actions。不过很容易解决。现在就开始吧。
+这是因为我们的 reducer 没有**作用于**那些 actions。不过很容易解决。现在就开始吧。
 
 ## 在 Redux Reducer 中处理 Actions
 
@@ -508,11 +508,11 @@ Reducer 规则二：Reducers 必须是纯函数。
 
 安装 [Immer](https://github.com/mweststrate/immer) 在 reducers 里面使用也是一种很好的方式。Immer 让你可以像写普通 mutable 代码一样，最终会自动生成 immutable 代码。[点击了解如何使用 Immer](https://daveceddia.com/react-redux-immutability-guide/#easy-state-updates-with-immer)。
 
-建议：如果你是开始一个全新的应用程序，一开始就使用 Immer。它会为你省去很多麻烦。但是我向你展示这种*困难*方式是因为很多代码仍然采用这种方式，你一定会看到没有用 Immer 写的 reducers
+建议：如果你是开始一个全新的应用程序，一开始就使用 Immer。它会为你省去很多麻烦。但是我向你展示这种**困难**方式是因为很多代码仍然采用这种方式，你一定会看到没有用 Immer 写的 reducers
 
 ## 全部规则
 
-必须返回一个 state，不要改变 state，不要 connect 每一个组件，要吃西兰花，11 点后不要外出···这太很累人。就像一个规则工厂，我甚至不知道那是什么。
+必须返回一个 state，不要改变 state，不要 connect 每一个组件，要吃西兰花，11 点后不要外出…这太累人了。就像一个规则工厂，我甚至不知道那是什么。
 
 是的，Redux 就像一个霸道的父母。但它是出于爱。函数式编程的爱。
 
@@ -536,7 +536,7 @@ Redux 建立在不变性的基础上，因为变化的全局 state 是一条废�
 
 要做到这一点，要用到 `react-redux` 库的两样东西：一个名为 `Provider` 的组件和一个 `connect` 函数。
 
-通过用 `Provider` 组件包装整个应用，如果它想的话，应用树里的*每一个组件*都可以访问 Redux store。
+通过用 `Provider` 组件包装整个应用，如果它想的话，应用树里的**每一个组件**都可以访问 Redux store。
 
 在 `index.js` 里，引入 `Provider` 然后用它把 `App` 的内容包装起来。`store` 会以 prop 形式传递。
 
@@ -649,7 +649,7 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(Counter);
 ```
 
-之前我们只导出了组件本身。现在我们用 `connect` 函数调用把它包装起来，这样我们就可以导出 *connected* Counter。至于应用的其余部分，看起来就像一个常规组件。
+之前我们只导出了组件本身。现在我们用 `connect` 函数调用把它包装起来，这样我们就可以导出 **connected** Counter。至于应用的其余部分，看起来就像一个常规组件。
 
 然后 count 应该就重新出现了！直到我们重新实现 increment/decrement，它是不会变化的。
 
@@ -657,35 +657,35 @@ export default connect(mapStateToProps)(Counter);
 
 你可能注意到这个调用看起来有点…奇怪。为什么是 `connect(mapStateToProps)(Counter)` 而不是 `connect(mapStateToProps, Counter)` 或者 `connect(Counter, mapStateToProps)`？它做了什么？
 
-这样写是因为 `connect` 是一个*高阶函数*，它简单说就是当你调用它时会返回一个函数。然后调用*返回的*函数传入一个组件时，它会返回一个新（包装的）组件。
+这样写是因为 `connect` 是一个**高阶函数**，它简单说就是当你调用它时会返回一个函数。然后调用**返回的**函数传入一个组件时，它会返回一个新（包装的）组件。
 
-它的另一个名称是 [*高阶组件*](https://daveceddia.com/extract-state-with-higher-order-components/) (简称 "HOC")。HOCs 过去曾有过一些糟糕的新闻，但它仍然是一个相当有用的模式，`connect` 就是一个很好的例子。
+它的另一个名称是 [**高阶组件**](https://daveceddia.com/extract-state-with-higher-order-components/) (简称 "HOC")。HOCs 过去曾有过一些糟糕的新闻，但它仍然是一个相当有用的模式，`connect` 就是一个很好的例子。
 
-`Connect` 做的是在 Redux 内部 hook，取出整个 state，然后把它传进你提供的 `mapStateToProps` 函数。它是个自定义函数，因为只有*你*知道你存在 Redux 里面的 state 的“结构”。
+`Connect` 做的是在 Redux 内部 hook，取出整个 state，然后把它传进你提供的 `mapStateToProps` 函数。它是个自定义函数，因为只有**你**知道你存在 Redux 里面的 state 的“结构”。
 
 ## mapStateToProps 工作机制
 
 `connect` 把整个 state 传给了你的 `mapStateToProps` 函数，就好像在说，“嘿，告诉我你想从这堆东西里面要什么。”
 
-`mapStateToProps` 返回的对象以 props 形式传给了你的组件。以上面为例就是把 `state.count` 的值用 `count` prop 传递：对象的属性变成了 prop 名称，它们对应的值会变成 props 的值。你看，这个函数就像字面含义一样*定义从 state 到 props 的映射*。
+`mapStateToProps` 返回的对象以 props 形式传给了你的组件。以上面为例就是把 `state.count` 的值用 `count` prop 传递：对象的属性变成了 prop 名称，它们对应的值会变成 props 的值。你看，这个函数就像字面含义一样**定义从 state 到 props 的映射**。
 
 顺便说说 —— `mapStateToProps` 的名称是使用惯例，但并不是特定的。你可以简写成 `mapState` 或者用任何你想的方式调用。只要你接收 `state` 对象然后返回全是 props 的对象，那就没问题。
 
 ### 为什么不传整个 state？
 
-在上面的例子中，我们的 state 结构*已经*是对的了，看起来 `mapDispatchToProps` 可能是不必要的。如果你实质上复制参数（state）给一个跟 state 相同的对象，这有什么意义呢？
+在上面的例子中，我们的 state 结构**已经**是对的了，看起来 `mapDispatchToProps` 可能是不必要的。如果你实质上复制参数（state）给一个跟 state 相同的对象，这有什么意义呢？
 
 在很小的例子中，可能会传全部 state，但通常你只会从更大的 state 集合中选择部分组件需要的数据。
 
 并且，没有 `mapStateToProps` 函数，`connect` 不会传递任何 state。
 
-你*可以*传整个 state，然后让组件梳理。但那不是一个很好的习惯，因为组件需要知道 Redux state 的结构然后从中挑选它需要的数据，后面如果你想更改结构会变得更难。
+你**可以**传整个 state，然后让组件梳理。但那不是一个很好的习惯，因为组件需要知道 Redux state 的结构然后从中挑选它需要的数据，后面如果你想更改结构会变得更难。
 
 ## 从 React 组件 Dispatch Redux Actions
 
 现在我们的 Counter 已经被 `connect` 了，我们也获取到了 `count` 值。现在我们如何 dispatch actions 来改变 count？
 
-好吧，`connect` 为你提供支持：除了传递（mapped）state，它*还*从 store 传递了 `dispatch` 函数!
+好吧，`connect` 为你提供支持：除了传递（mapped）state，它**还**从 store 传递了 `dispatch` 函数!
 
 要在 Counter 内部 dispatch action，我们可以调用 `this.props.dispatch` 携带一个 action。
 
@@ -757,13 +757,13 @@ class Counter extends React.Component {
 
 现在我们已经手写 action 对象。像个异教徒。
 
-如果你有一个*函数*会为你编写它会怎么样？不要再误写 actinos 了！
+如果你有一个**函数**会为你编写它会怎么样？不要再误写 actinos 了！
 
 我可以告诉你，这很疯狂。手写 `{ type: INCREMENT }` 并保证没有弄乱有多困难？
 
 当你的应用变得更大，不止有两个 actions，并且这些 actions 开始变得更复杂 —— 要传更多数据而不仅是一个 `type` —— action 生成器会帮上大忙。
 
-就像 action 常量一样，但它们不是*必须品*。这是另一层的抽象，如果你不想在你的应用里面使用，那也没关系。
+就像 action 常量一样，但它们不是**必须品**。这是另一层的抽象，如果你不想在你的应用里面使用，那也没关系。
 
 不过我还是会解释下它们是什么。然后你可以决定你是否有时/总是/绝不想使用它们。
 
@@ -786,7 +786,7 @@ export const decrement = () => ({ type: DECREMENT });
 
 我用了两种不同方式——一个 `function` 和一个箭头函数——来表明你用哪种方式写并不重要。挑选你喜欢的方式就好。
 
-你可能注意到函数命名是小写的（好吧，如果较长的话会是驼峰命名）【没有翻译出英文的精髓，看看有没有什么好建议】，而 action 常量会是 `UPPER_CASE_WITH_UNDERSCORES`。同样，这也只是惯例。这会让你一眼区分 action 生成器和 action 常量。但你也可以按你喜欢的方式命名。Redux 并不关心。
+你可能注意到函数命名是小写的（好吧，如果较长的话会是驼峰命名），而 action 常量会是 `UPPER_CASE_WITH_UNDERSCORES`。同样，这也只是惯例。这会让你一眼区分 action 生成器和 action 常量。但你也可以按你喜欢的方式命名。Redux 并不关心。
 
 现在，如何使用 action 生成器呢？引入然后 dispatch 就好了，当然！
 
@@ -819,17 +819,17 @@ class Counter extends React.Component {
 
 应该 `dispatch(increment())` ✅
 
-牢记 action 生成器是一个平凡无奇的函数。Dispatch 需要 action 是一个*对象*，而不是函数。
+牢记 action 生成器是一个平凡无奇的函数。Dispatch 需要 action 是一个**对象**，而不是函数。
 
-而且：你几乎肯定会出错并且非常困惑。至少一次，或许很多次。那很正常。我有时也*依旧*会忘记。
+而且：你几乎肯定会出错并且非常困惑。至少一次，或许很多次。那很正常。我有时也**依旧**会忘记。
 
 ## 如何使用 React Redux mapDispatchToProps
 
-现在你知道 action 生成器是什么，我们可以讨论*又一个*级别的抽象。（我知道，我**知道**。这是选读的。）
+现在你知道 action 生成器是什么，我们可以讨论**又一个**级别的抽象。（我知道，我**知道**。这是选读的。）
 
 你知道 `connect` 如何传递 `dispatch` 函数吗？你知道你是如何厌倦一直敲 `this.props.dispatch` 并且它看起来多么混乱？（跟我来）
 
-写一个 `mapDispatchToProps` 对象（或者函数！但通常是对象）然后传给你要包装组件的 `connect` 函数，你将收到这些 action 生成器作为*可调用 props*。看代码：
+写一个 `mapDispatchToProps` 对象（或者函数！但通常是对象）然后传给你要包装组件的 `connect` 函数，你将收到这些 action 生成器作为**可调用 props**。看代码：
 
 Counter.js
 
@@ -881,7 +881,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 
 我们也不能在 action 生成器里面做这些事！
 
-但是如果我们把 action 生成器*返回*一个可以处理我们工作的函数会怎样呢？就像这样：
+但是如果我们把 action 生成器**返回**一个可以处理我们工作的函数会怎样呢？就像这样：
 
 ```js
 function getUser() {
@@ -891,7 +891,7 @@ function getUser() {
 }
 ```
 
-越界了，Redux 不支持这种 actions。固执的 Redux 只接受*简单对象*作为 actions。
+越界了，Redux 不支持这种 actions。固执的 Redux 只接受**简单对象**作为 actions。
 
 这时就需要 redux-thunk 了。它是个中间件，基本是 Redux 的一个插件，它可以使 Redux 处理像上面 `getUser()` 那样的 actions。
 
@@ -899,7 +899,7 @@ function getUser() {
 
 ### "thunk" 是什么？
 
-"thunk" 是（少见）指被其它函数作为返回值的*函数*。
+"thunk" 是（少见）指被其它函数作为返回值的**函数**。
 
 在 Redux 术语中，它是一个返回值为函数而非简单 action 对象的 action 生成器，就像这样：
 
@@ -970,11 +970,11 @@ export function fetchProducts() {
 
 在哪里调用呢？
 
-如果某一特定的组件需要数据，最好的调用地方通常是在组件加载*之后*，也就是它的 `componentDidMount` 生命周期函数。
+如果某一特定的组件需要数据，最好的调用地方通常是在组件加载**之后**，也就是它的 `componentDidMount` 生命周期函数。
 
 或者，如果你在使用 Hooks，useEffect hook 里面也是个好地方。
 
-有时你要获取整个应用都需要的真正的*全局*数据 —— 如“用户信息”或者“国际化”。这种场景，就在你创建 store 后使用 `store.dispatch` 来 dispatch action，而不是等待组件加载后。
+有时你要获取整个应用都需要的真正的**全局**数据 —— 如“用户信息”或者“国际化”。这种场景，就在你创建 store 后使用 `store.dispatch` 来 dispatch action，而不是等待组件加载后。
 
 ### 如何给 Redux Actions 命名
 
@@ -984,9 +984,9 @@ BEGIN/SUCCESS/FAILURE 模式很棒，因为它给你提供钩子来跟踪发生�
 
 而且，与 Redux 中的其他所有内容一样，这个也是一个惯例，如果你不需要的话可以忽略掉。
 
-在你调用 API *之前*，dispatch BEGIN action。
+在你调用 API **之前**，dispatch BEGIN action。
 
-调用成功*之后*，你可以 dispatch SUCCESS 数据。如果请求失败，你可以 dispatch 错误信息。
+调用成功**之后**，你可以 dispatch SUCCESS 数据。如果请求失败，你可以 dispatch 错误信息。
 
 有时最后一个调用 ERROR。其实调用什么一点也不重要，只要你保持一致就好。
 
@@ -1154,19 +1154,19 @@ const store = createStore(rootReducer);
 
 ### 能避免重复渲染吗？
 
-这确实个常见问题。是的，它*会*不止一次触发渲染。
+这确实个常见问题。是的，它**会**不止一次触发渲染。
 
-它首先会渲染空 state，然后再渲染 loading state，接着会*再次*渲染展示产品。可怕！三次渲染！（如果你直接跳过 "loading" state 就可以把渲染次数将为两次）
+它首先会渲染空 state，然后再渲染 loading state，接着会**再次**渲染展示产品。可怕！三次渲染！（如果你直接跳过 "loading" state 就可以把渲染次数将为两次）
 
 你可能会担心不必要的渲染影响性能，但是不会：单次渲染非常快。如果你在开发的应用肉眼可见的慢的话，分析一下找出慢的原因。
 
-这样想吧：当没有商品或者正在加载或者发生错误的时候应用需要展示*一些东西*。在数据准备好之前，你可能不想只展示一个空白屏幕。这给你了一个提供良好用户体验的机会。
+这样想吧：当没有商品或者正在加载或者发生错误的时候应用需要展示**一些东西**。在数据准备好之前，你可能不想只展示一个空白屏幕。这给你了一个提供良好用户体验的机会。
 
 ## 接下来呢？
 
 希望这篇教程能帮你更加理解 Redux！
 
-如果你想深入了解里面的细节，[Redux 文档](https://redux.js.org/)有很多很好的例子。Mark Erikson (Redux 维护者之一)的博客有一个不错的 [常用的 Redux 系列](https://blog.isquaredsoftware.com/series/idiomatic-redux/)。
+如果你想深入了解里面的细节，[Redux 文档](https://redux.js.org/)有很多很好的例子。Mark Erikson (Redux 维护者之一)的博客有一个不错的[常用的 Redux 系列](https://blog.isquaredsoftware.com/series/idiomatic-redux/)。
 
 下周，我会发布一个新课程，[Pure Redux](https://daveceddia.com/pure-redux/)，涵盖这里的所有内容，丰富了更多细节：
 
