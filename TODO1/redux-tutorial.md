@@ -71,7 +71,6 @@ React 可以脱离 Redux 单独使用。Redux 是 React 的*附加项*。
 
 要想数据向*上*传递，需要通过回调函数实现，因此必须首先将回调函数向*下*传递到任何想通过调用它来传递数据的组件中。
 
-
 ![Passing callbacks down](https://daveceddia.com/images/passing-callbacks-down.png)
 
 你可以把数据想象成*电流*，通过彩色电线连接关心它的组件。数据通过线路上下流动，但是线路不能在空气中贯穿 —— 它们必须从一个组件连接到另一个组件。
