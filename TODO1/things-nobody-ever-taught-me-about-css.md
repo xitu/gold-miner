@@ -21,7 +21,7 @@
 
 为了解决这个问题，我决定对 CSS 做一些研究并整理出一部分概念，我认为这些概念对于更好地理解和编写 CSS 代码很有帮助。
 
-**这份清单肯定没有那么全面，它只包含了过去几天我学到的新知识，分享出来希望能够帮助到大家。**
+**这份清单肯定没有那么全面，它只包含了过去几天我学到的新知识，分享出来希望能够帮助到大家。**
 
 ## 术语
 
@@ -159,13 +159,13 @@
 
 在为这篇文章做研究时，我遇到了一些非常有意思的工具，如下所示：
 
-[CSS Triggers](https://csstriggers.com/) — 该网站列出了一些 CSS 属性，以及在应用程序中使用和修改这些属性对性能的影响。
+[CSS Triggers](https://csstriggers.com/) —— 该网站列出了一些 CSS 属性，以及在应用程序中使用和修改这些属性对性能的影响。
 
-[Uncss](https://github.com/uncss/uncss) — 一种可以从 CSS 文件中删除未使用的样式的工具。
+[Uncss](https://github.com/uncss/uncss) —— 一种可以从 CSS 文件中删除未使用的样式的工具。
 
-[Css-explain](https://github.com/josh/css-explain) — 一种可以解释 CSS 选择器的小工具。
+[Css-explain](https://github.com/josh/css-explain) —— 一种可以解释 CSS 选择器的小工具。
 
-[Fastdom](https://github.com/wilsonpage/fastdom) — 批量 DOM 读/写操作的工具，可以加快布局性能。
+[Fastdom](https://github.com/wilsonpage/fastdom) —— 批处理 DOM 读/写操作的工具，可以加快布局性能。
 
 差不多就是这样啦！希望它有意义！
 
