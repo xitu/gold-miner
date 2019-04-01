@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/10-signs-you-will-suck-at-programming.md](https://github.com/xitu/gold-miner/blob/master/TODO1/10-signs-you-will-suck-at-programming.md)
 > * 译者：[xionglong58](https://github.com/xionglong58)
-> * 校对者：
+> * 校对者：[renyuhuiharrison](https://github.com/renyuhuiharrison)、[yzw7489757](https://github.com/yzw7489757)
 
-# 你不能成为成功程序员的10个迹象
+# 你不能成为一个成功程序员的10个迹象
 
 ![More Stickers Doesn’t Make You More Better. — **Photo by [Tim Gouw](https://unsplash.com/@punttim?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)**](https://cdn-images-1.medium.com/max/4096/0*cF-7zKh4jqldcDf2)
 
@@ -166,11 +166,6 @@
 ![](https://cdn-images-1.medium.com/max/4000/1*f2IVAl0TbsfES9cFGYr40g.png)
 
 ***
-
-📝 Read this story later in [Journal](https://usejournal.com/?utm_source=medium.com&utm_medium=noteworthy_blog&utm_campaign=guest_post_read_later_text).
-
-🗞 Wake up every Sunday morning to the week’s most noteworthy Tech stories, opinions, and news waiting in your inbox: [Get the noteworthy newsletter >](https://usejournal.com/newsletter/?utm_source=medium.com&utm_medium=noteworthy_blog&utm_campaign=guest_post_text)
-
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
