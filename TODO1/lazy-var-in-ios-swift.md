@@ -3,21 +3,21 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lazy-var-in-ios-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lazy-var-in-ios-swift.md)
 > * 译者：kirinzer
-> * 校对者：portandbridge
+> * 校对者：portandbridge，iWeslie
 
-# 懒加载变量在 iOS Swift
+# 在 iOS Swift 中的懒加载变量
 
 > 这篇文章解释了在 Swift 中懒加载变量是如何工作的，你必须对闭包有一些了解。
 
 **[阅读这篇文章获取更多关于闭包的信息](https://medium.com/@abhimuralidharan/functional-swift-all-about-closures-310bc8af31dd).**
 
-在处理 iOS 应用开发时，我们应该非常关注应用程序的内存占用情况。如果应用程序很复杂，那么内存问题就会是对于开发者的一个主要的挑战。所以，首先考虑到内存分配问题的开发者能够真正的写出优化的代码。除非确实有必要，否则开发者要避免做一些耗时的工作。那些复杂的分配内存操作会消耗更多的时间，并且对于程序的性能有严重的影响。
+当我们进行 iOS 开发时，我们应该非常关注应用程序的内存占用情况。如果应用程序很复杂，那么内存问题就会是对于开发者的一个主要的挑战。所以，首先考虑到内存分配问题的开发者能够真正的写出优化的代码。除非确实有必要，否则开发者要避免做一些耗时的工作。那些复杂的分配内存操作会消耗更多的时间，并且对于程序的性能有严重的影响。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*HRKGc4RHwRXiyIHOzlpKbA.png)
 
 Swift 有内置在语言中的机制，可以即时的计算那些耗时工作。它叫做**懒加载变量**。这种变量只有在你第一次需要它的时候才被指定的方法创建。如果从没有使用过该变量。那么方法就不会运行，所以它可以帮助减少一些处理时间。
 
-*苹果的官方文档说：*
+*苹果的官方文档写道：*
 
 **一个懒加载储存属性是种只有在首次使用时，才计算其初始值的属性。你可以通过在声明前加 `lazy` 修饰符来标示一个懒加载存储属性。**
 
@@ -60,9 +60,9 @@ if person1.isiOS! {
 
  1. 只有在读取懒加载属性时，才会执行与该属性关联的闭包。 因此，如果由于某种原因该属性未被使用（可能是因为用户的某些决定），则可以避免不必要的分配和计算。
 
- 2. 你可以使用存储属性的值填充懒加载属性
+ 2. 你可以使用一个存储属性给懒加载属性赋值。
 
- 3. **注意** 你能够在懒加载的属性闭包内部使用 `self`。这不会导致任何循环引用. 原因在于它立即使用的这个闭包 `{}()` 被认为是 `@noescape`. 它不会引用捕获的 `self`.
+ 3. **注意** 你能够在懒加载的属性闭包内部使用 `self`。这不会导致任何循环引用。原因在于它立即使用的这个闭包 `{}()` 被认为是 `@noescape`。它不会引用捕获的 `self`。
 > 但是，如果你在 **方法** 中使用 `self`。事实上，如果你正在使用的是一个类而不是结构体，你也应该在你的方法内声明 `[unowned self]` 那样你才不会创建一个强引用（查看下面的代码）。
 
 ```swfit
@@ -72,13 +72,13 @@ import UIKit
 import Foundation
 
 class InterviewTest {
-var name: String
-lazy var greeting : String = { return “Hello \(self.name)” }()
-// 这里没有循环引用 ..
+	var name: String
+	lazy var greeting : String = { return “Hello \(self.name)” }()
+	// 这里没有循环引用 ..
 
-init(name: String) {
-self.name = name
- }
+	init(name: String) {
+		self.name = name
+	}
 }
 
 let testObj = InterviewTest(name:”abhi”)
@@ -98,7 +98,7 @@ lazy var iOSResumeDescription = “I am an iOS developer”
 
 * 你不能对 `let` 类型使用 `lazy` 。
 
-* 你不能对于 `computed properties` 使用它。因为一个计算属性会在每次我们试图访问它的时候去执行在计算代码块中的代码并返回相应的值。
+* 你不能对于 `计算属性` 使用它。因为一个计算属性会在每次我们试图访问它的时候去执行在计算代码块中的代码并返回相应的值。
 
 * 你只能对 `struct` 和 `class`的成员使用 `lazy` 。
 
