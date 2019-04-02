@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/scheduling-in-react.md](https://github.com/xitu/gold-miner/blob/master/TODO1/scheduling-in-react.md)
 > * 译者：[Xuyuey](https://github.com/Xuyuey)
-> * 校对者：
+> * 校对者：[portandbridge](https://github.com/portandbridge)、[Reaper622](https://github.com/Reaper622)
 
 # React 中的调度
 
