@@ -236,15 +236,15 @@ React 官方可能会在 [2019 第二季度](https://reactjs.org/blog/2018/11/27
 
 * * *
 
-<a id="fn-1">1.</a> MDN web docs 上有一篇关于这个问题很棒的[文章](https://developer.mozilla.org/en-US/docs/Tools/Performance/Scenarios/Intensive_JavaScript)。
+<a id="fn-1">1.</a> MDN web docs 上有一篇关于这个问题很棒的[文章](https://developer.mozilla.org/en-US/docs/Tools/Performance/Scenarios/Intensive_JavaScript)。[↩](#fnref-1)
 
-<a id="fn-2">2.</a> 这是一个超赞的词，可以返回一个支持暂停之后继续执行的方法。可以在 [generator functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield) 上查看相似的概念。
+<a id="fn-2">2.</a> 这是一个超赞的词，可以返回一个支持暂停之后继续执行的方法。可以在 [generator functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield) 上查看相似的概念。[↩](#fnref-2)
 
-<a id="fn-3">3.</a> 在[调度器的目前实现](https://github.com/facebook/react/blob/master/packages/scheduler/src/forks/SchedulerHostConfig.default.js)中，它通过在一个 [`requestAnimationFrame()`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) 回调函数中使用 [`postMessage()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) 实现。它会在帧渲染结束后立即被调用。
+<a id="fn-3">3.</a> 在[调度器的目前实现](https://github.com/facebook/react/blob/master/packages/scheduler/src/forks/SchedulerHostConfig.default.js)中，它通过在一个 [`requestAnimationFrame()`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) 回调函数中使用 [`postMessage()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) 实现。它会在帧渲染结束后立即被调用。[↩](#fnref-3)
 
-<a id="fn-4">4.</a> 这是另外一个可以实现并发模式的方法，使用新的 [`createRoot()`](https://github.com/facebook/react/blob/1d48b4a68485ce870711e6baa98e5c9f5f213fdf/packages/react-dom/src/client/ReactDOM.js#L833-L853) API。
+<a id="fn-4">4.</a> 这是另外一个可以实现并发模式的方法，使用新的 [`createRoot()`](https://github.com/facebook/react/blob/1d48b4a68485ce870711e6baa98e5c9f5f213fdf/packages/react-dom/src/client/ReactDOM.js#L833-L853) API。[↩](#fnref-4)
 
-<a id="fn-5">5.</a> 在处理第一次的 `keypress` 事件时，浏览器会在它的队列中查看待处理事件，然后决定在渲染帧之前运行哪个事件监听器。
+<a id="fn-5">5.</a> 在处理第一次的 `keypress` 事件时，浏览器会在它的队列中查看待处理事件，然后决定在渲染帧之前运行哪个事件监听器。[↩](#fnref-5)
 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
