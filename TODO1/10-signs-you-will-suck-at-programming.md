@@ -2,175 +2,170 @@
 > * 原文作者：[Jonathan Bluks](https://medium.com/@jonathanbluks)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/10-signs-you-will-suck-at-programming.md](https://github.com/xitu/gold-miner/blob/master/TODO1/10-signs-you-will-suck-at-programming.md)
-> * 译者：
-> * 校对者：
+> * 译者：[xionglong58](https://github.com/xionglong58)
+> * 校对者：[renyuhuiharrison](https://github.com/renyuhuiharrison), [yzw7489757](https://github.com/yzw7489757)
 
-# 10 Signs You Will Suck at Programming
+# 10 个迹象让你不能做一名成功的程序员
 
 ![More Stickers Doesn’t Make You More Better. — **Photo by [Tim Gouw](https://unsplash.com/@punttim?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)**](https://cdn-images-1.medium.com/max/4096/0*cF-7zKh4jqldcDf2)
 
-I often see questions on Reddit or Quora along the lines of “How do I know if I’ll succeed as a programmer?” **(In fact this post expands on an [answer I gave on Quora a while back](https://www.quora.com/What-are-the-signs-that-show-you-wont-succeed-as-a-programmer/answer/Jonathan-Bluks).)** When someone is considering a career change, or is interested in software development and curious about what it takes, inevitably the question of programming comes up.
+我经常在 Reddit、Quora 上遇到有人问，“怎样才能知道我将来会不会成为一名成功的程序员？”（事实上，这篇文章实际上是我在 [Quora 上给出的答案](https://www.quora.com/What-are-the-signs-that-show-you-wont-succeed-as-a-programmer/answer/Jonathan-Bluks)的一个扩展。）当人们考虑更换职业，或者是对软件开发感兴趣，并且对它需要些什么感到好奇时，不可避免地会出现编程问题。
 
-In fact, I think this is a major barrier to entry in people’s minds when they don’t have any formal training in computing. It’s natural to think that if you aren’t good at programming, then your desire is a non-starter. It’s kind of like if you want to be an actor and wonder if you’ll be good at acting.
+我认为对没有受过任何正规计算机培训的人来说，这是一个主要障碍。你会很自然地认为，如果你不擅长编程，那么你是不可能成功的。这有点像你想成为一名演员，并想知道你是否擅长表演。
 
-As an Educator that teaches Full-Stack Web Development, I have taught many “first time programmers”. And the good news is that I have rarely found a student that couldn’t learn to program. I see it as a basic human skill, just like reading, writing, and arithmetic. Anyone can do it, it is part of our human capacities, but does need to be learned.
+作为一名 Web 全栈开发讲师，我教过很多“初学程序员”。好消息是我很少发现有无法学习编程的学生。我认为它是人类的一种基本技能，就像阅读、写作和算术一样。任何人都可以做到，这是我们人类能力的一部分，但也确实需要学习。
 
-Over the past two years of teaching, I have witnessed various students struggle in the process, and some common themes that come up in their struggles. **If you look at this list and see them in yourself, rest assured, you will truly suck at programming** and should probably find something else to do with your time. But, if you are still committed to your goal of becoming a developer, you can easily face these issues and change.
+在过去两年的教学中，我看到有很多学生努力学习编程，同时，还发现在他们的学习过程中出现的一些共同问题。**如果你看一下下面的清单并联系自身情况，请放心，你会在编程的过程中受挫**并且应该在你受挫时做点什么。但是，如果你仍然致力于成为开发人员的目标，那么你可以轻松地面对这些问题并做出改变。
 
-> Programming is a basic human skill, just like reading, writing and arithmetic. Anyone can learn to program with time and effort.
+> 编程是人类的基本技能，就像阅读、写作和算术一样。任何人都可以通过时间和努力学习编程。
 
-The following list will help you know if you will suck at programming — and what you can do about it if you want to change.
+下面的清单将帮助你了解你是否会在编程方面受挫，以及如果你想改变它，你可以做些什么。
 
 ***
 
-## 1 | Lack of curiosity
+## 1 | 缺乏好奇心
 
-> If you lack curiosity about computers and how technology works, you will never be successful as a programmer.
+> 如果你对计算机和技术原理的缺乏好奇心，作为一个程序员，你将永远不会成功。
 
-A fundamental requirement for learning is an active interest in the thing you are learning. If you do not possess a mind that is curious about technology, you will not have the energy it takes to persist in learning the broad and deep knowledge required to be a successful programmer.
+学习的基本要求是对你正在学习的东西有积极兴趣。如果你没有对技术感到好奇的头脑，你就没有足够的干劲去坚持学习成功码农必备的更全面更深入的知识。
 
-In contrast, the world of technology is like a huge ocean of interesting domains, inter-connected ideas, and possibilities that can excite the imagination. It takes an inherent internal motivation to want to dive in and discover all that you can.
+相比之下，技术世界就像是一片汪洋大海，它充满了有趣的领域，互相关联的思想，以及激发人类想象力的各种可能性。
 
-> **Find Your Curiosity:** undefinedAsk yourself if programming truly interests you. If your honest answer is that it doesn’t, go find something that you are interested in. Save yourself the time and energy. But if your answer is “Yes”, then push yourself find something new that you haven’t noticed before, recognize the vast ocean and dive a little deeper.
+> **找到你的好奇心**：问问自己是否真的对编程感兴趣。如果你诚实的答案是没有，那么还是去寻找你感兴趣的东西吧，节省你自己的时间和精力。但是，如果你的回答是“是”，那么请你自己找一些你之前没有注意到的新东西，意识到这是一个浩瀚的海洋并深入其中。
 
-## 2 | Lack of autonomy and resourcefulness
+## 2 | 缺乏主动和灵活多变
 
-> If you don’t develop the ability to solve problems for yourself, you will never be successful as a programmer.
+> 如果你不培养独立解决问题的能力，你就永远不会成为一个成功的程序员。
 
-Without a doubt, to be a successful developer, you have to be confident in your OWN ability to learn. This is actually a fundamental life skill — if you are are over the age of 18, nobody is obligated to teach you anything. That’s reality. It’s up to you to find the information and help that you need to learn what is important to you.
+毫无疑问，要成为一个成功的开发人员，你必须对自己的学习能力充满信心。这实际上是一项基本的生活技能 —— 如果你已经过了18岁，没有人有义务教你任何东西。这就是现实。你得自行查找信息，并帮助你去了解对自己来说哪些是重要的信息。
 
-In the world of development, all the information you need is found in that magical place formerly known as the **Information Super Highway**. This massive library has one huge doorway: [Google](https://www.google.com). Learning that you can simply type whatever you want into Google and get to the information you need is the first hurdle to cross when you want to learn the skills needed to be in technology.
+在发展的世界里，你所需要的所有信息都可以在一个神奇的地方找到，这个地方以前被称为**信息高速公路**。这个庞大的图书馆有一个巨大的入口：[谷歌](https://www.google.com)。当你想获得技术中所需的技能时，首先要跨越的障碍是学会在谷歌中输入你想要的任何东西并获取你需要的信息。
 
-In addition to being a good googler, all programming languages have documentation and specifications that are **very** explicit about how the language works. It’s like using a dictionary — when you see a word you don’t recognize, you look it up. The quickest, most reliable way to build your skill as a programmer is to simply read the documentation. It’s literally all there.
+除了要做一个优秀的 googler，所有编程语言都有文档和规范，这些文档和规范**非常**明确地说明了该语言的工作方式。就像用字典一样 —— 当你看到一个你不认识的词时，你就会在字典中查出来。作为一名程序员，最快速、最可靠的方法就是直接阅读文档。就是这么简单。
 
-> **Use the Resources:** Recognize that all the answers you need really are out there. When you have a question, force yourself to google it before asking someone else for the answer and check the documentation. Save the time of others for when you have tried and truly failed to find the answer you need.
+> **利用资源**：要意识到所有你需要的答案都在那儿等着你。向别人寻求答案之前，一定得要求自己先使用谷歌，同时要翻阅文档。这样当你已经尝试过却没有找到你需要的答案时，也能够节省他人的时间。
 
-## 3 | Lack of persistence in the face of a problem
+## 3 | 面对问题时缺乏毅力
 
-> If you give up easily in the face of problems, you will never be successful as a programmer.
+> 如果你在面对问题时轻易放弃，那么作为一名程序员，你永远不会成功。
 
-The essence of programming is solving problems. That’s the whole reason computers were invented! Whenever you begin working on a program you will encounter a whole “stack” of problems. And once you resolve a problem, there is almost always another problem right behind it. You **are** making progress, but there are always **new** problems to face.
+编程的本质是解决问题。这也是发明计算机的全部原因！每当你开始编写程序时，你都会遇到一堆问题。一旦你解决了一个问题，它背后可能又会有另一个问题。你**正在**取得进步，但总会遇到**新**问题。
 
-Facing that stack of problems can be daunting and discouraging. If you feel like things should “just work”, then you won’t have the energy to persist as the problems continue and little by little knock down your emotional resolve. It’s literally your job to figure out why things aren’t working.
+面对一堆的问题可能会让人望而生畏、令人沮丧的。如果你觉得程序就应该是“正常工作”，那么当问题持续出现，一点一点地击溃你的信心时，你就没有精力再坚持下去。 确切地说你的工作就是找出程序为什么不能正常工作。
 
-From my in-class experience, there are usually one or two students per class who seem to have knack for encountering more problems than other students — often quite random and obscure problems. I remind the student that the more problems they face upfront, the possibility of learning more deeply and thoroughly increases. If they can gain understanding through these problems, they will quickly find that they are more confident because they have faced and resolved more problems than the average student.
+根据我在课堂上的经验，通常每个班都有一两个学生，他们似乎比其他学生更擅长发现那些不太常见、令人费解的问题。我提醒学生，他们面对的问题越多，学习越深入和透彻的可能性就越大。如果他们能通过这些问题获得理解，他们会很快发现他们更自信，因为他们面对和解决的问题比普通学生多。
 
-> **Patient Acceptance:** You need to recognize that problems come with the territory and are not problems, but in fact challenges. Every challenge you face and overcome gives you deeper understanding and a better ability to face new challenges, and quickly resolve old ones.
+> **耐心地接受**：你需要意识到问题是不可避免的，问题本身不是问题，其事实上对你的挑战。你面临和克服的每一个挑战都会让你更深入地了解并更好地应对新挑战，从而迅速解决旧的挑战。
 
-## 4 | No feeling of success in overcoming a problem
+## 4 | 克服问题时没有成就感
 
-> If you don’t feel a sense of excitement and accomplishment after solving a problem, you will never be successful as a programmer.
+> 如果你在解决问题后没有感到兴奋和成就感，那么作为一名程序员，你永远不会成功。
 
-Related to the previous issue of giving up too easily is a lack of “good feelings” once you have successfully resolved a problem. When fixing bugs and issues becomes a treadmill that never seems to end, you lose touch with the excitement that comes in overcoming a problem.
+与前一个问题相关的是，一旦你成功地解决了一个问题，就缺乏“良好的感觉”。当修复 bugs 和问题变成了一个永远不会停止的单调工作时，你就会失去与克服问题的兴奋感。
 
-There is actually a dopamine hit that you need when you overcome a problem. This is similar to the experience of completing a level in a video game, or solving a challenge like a crossword or sudoku. We all know that there is a good feeling that comes from persisting through a challenge and then finally winning at the end. But if you have lost the ability to feel those feelings, or never truly cared in the first place, you will not be able experience the joy that comes from programming. If you see programming as a grind where you just want to get a result as easily as you can, you will never truly be a successful programmer.
+当你克服一个问题时，你需要的是多巴胺的释放。这类似于在视频游戏中完成一个关卡，或者解决一个像纵横填字游戏或数独这样的挑战。我们都知道坚持通过一个挑战，然后最终赢得比赛会有一种很好的感觉。但是如果你失去了感受这些感觉的能力，或者一开始从来没有真正在意过这些感受，那么你将无法体验到编程带来的快乐。如果你把编程看作是一种痛苦，你只想尽可能容易地得到结果，那么你永远不会真正成为一个成功的程序员。
 
-> **Celebrate Your Wins:** Whenever you solve a problem that you struggled with, no matter how small, always take pride in your accomplishment, take a break and congratulate yourself for a job well done. Let the feeling of success sink in and energize you for the next problem you face.
+> **庆祝胜利**：每当你解决了一个你一直在努力解决的问题时，不管这个问题有多小，都要为你的成就感到自豪，休息一下，并祝贺你自己完成了一项出色的工作。让成功的感觉渗透进身体，让你在面临下一个问题充满活力。
 
-## 5 | Impatient about learning and understanding
+## 5 | 对于学习和理解没有耐心
 
-> If you are impatient about learning and expect to master everything quickly and effortlessly, you will never truly be successful at programming.
+> 如果你对学习不耐烦，并且期望能够快速而轻松地掌握所有东西，那么你将永远不会在编程上成功。
 
-As humans we are limited creatures. Even though our world moves faster and faster, and computers are a big cause of that, we can only move as fast as we are able. Our brains work at a certain speed, and depending on our past, our beliefs, our emotional states, our health…we will all learn and integrate information at different speeds.
+我们人类并不是完美的生物。即使世界的前进速度变得越来越快，计算机是其中的一个重要原因，我们也只能尽可能快地前进。我们的大脑以一定的速度工作，并且依赖我们的过去、我们的信念、我们的情绪状态、我们的健康...，我们将以不同的速度学习和整合信息。
 
-The world of technology is like a vast ocean. You will never get to the end of it, you will never get to a point where you are a master with nothing else to learn. If you let yourself get overwhelmed, you will always feel a pressure to “catch up” and feel that you never know enough. If you can’t accept what you know and then learn a little bit more, you will feel like you are getting nowhere, and give up.
+技术的世界就像一片广阔的海洋。 你永远不会走到尽头，你永远不会成为一个没有其他东西可以学习的高手。如果你让自己负担过重，你就会总有“追赶”的感觉，并总觉得自己知道的不够多。如果你不能接受你所知道的东西后再去学习一点，你就会迷失自我，然后放弃。
 
-Instead, you need to enjoy the journey of learning for itself. Every little bit of knowledge you gain, or new skill you gain needs to make you excited. Like solving problems, you need to let yourself feel the pride of recognizing that you have taken a step forward, even if it is a small one.
+相反，你应该享受学习之旅。你获得的每一点知识，或是新技能，都应该是让你感到兴奋。像解决问题一样，你需要让自己感到自豪，因为你认识到自己已经向前迈出了一步，即使这是一个很小的一步。
 
-> **Acknowledge Your Progress:** There is a lot to learn, and the journey of programming never ends. But the knowledge is cumulative, so take pride it what you do know, and trust that every effort you take in your learning will create a strong foundation of knowledge for wherever your career takes you.
+> **认可你的进步**：要学的东西有很多，编程的旅途永远不会结束。但是知识是需要累积的，所以要为你所知道的感到自豪，并且相信你在学习中所做的每一个努力都将为你的职业生涯打下一个坚实的知识基础。
 
-## 6 | Getting bored/tired from thinking
+## 6 | 对思考问题感到厌烦或疲惫
 
-> If you are lazy in your thinking and see concentrated, focused thinking as a chore, you will never truly be successful at programming.
+> 如果你懒于思考，把集中注意力的思考当成乏味无聊的任务，那么你将永远不会在编程上成功。
 
-Programming is a thinking activity. As humans we are really good at thinking, but the reality is that even though we naturally spend all day doing it, we are lazy in our thinking. The ability to maintain concentrated, focused effort on a single problem over a period time is difficult if you aren’t used to it.
+编程是一种思考活动。作为人类，我们确实擅长思考，但事实是，即使每天都在不自觉地思考，我们仍懒于去主动思考。如果你不养成思考问题的习惯，那么很难在一段时间内集中精力解决一个问题。
 
-Symptoms of this include staring blankly at the screen, feeling a cloud descend on your thoughts, procrastinating on a problem, flipping between browser tabs, and desperately scanning StackOverflow for “an answer”. These are signs that you have hit a mental limitation and need to find a way through.
+这种情况的症状包括：茫然地盯着屏幕、感觉一团云笼罩着你、拖延问题、在浏览器标签之间来回切换，拼命地浏览 StackOverflow 寻找“答案”。这些迹象表明，你的精神已经受限，需要找到一条出路。
 
-While programming, you will get tired and thinking literally burns physical energy just like exercising our bodies. When you aren’t used to exerting the mental energy needed to it can feel difficult to stay focused. But it is just like going to the gym, the more that you do it, the stronger you will get.
+在编程的时候，你会感到疲倦，并且思考就像锻炼身体一样消耗体力。当你不习惯运用你所需的精神力量时，你将很难集中注意力。但这就像去健身房一样，你实际操作的越多，你就会变得越强壮。
 
-> **Your Mind is a Muscle:** Trust that your brain is like a muscle — as you use it, it gets better and more efficient in it’s thinking. As you put pieces together and develop mental concepts, it becomes much easier to discover solutions.
+> **你的精神如同肌肉**：请相信，你的大脑就像一块肌肉 —— 当你不停使用它的时候，它在思考过程中才会变得更好和更有效率。当你把各个部件拼凑在一起并运用精神时，会发现解决方案变得容易了很多。
 
-## 7 | Inability to think for yourself
+## 7 | 无法独立思考
 
-> If you expect others to think for you, and are unwilling to look at the details of your own situation, you will never be a truly successful programmer.
+> 如果你期望着别人替你思考，并且不愿意认真审视自己的处境，你将永远不会成为一个真正成功的程序员。
 
-When you are learning something new, it is easy to feel like you lack the knowledge and experience to have your own opinions. Taking initiative or doing/saying the wrong thing seems risky.
+当你在学习新的东西时，很容易觉得你缺乏知识和经验来支撑自己的观点。采取主动或做错事/说错话似乎有风险。
 
-There is an inherent fear we all have in being wrong. When that fear of being wrong inhibits your exploration and curiosity, you stifle the ability to develop true knowledge, knowledge that is gained from experience and “failure”. When you need to rely on the “guru’s” opinion, a popular blogger, a best practice, or the “textbook” answer, then you have not truly integrated a working knowledge of programming.
+我们对犯错有一种固有的恐惧感。当对犯错的恐惧抑制了你的探索和好奇心时，就会扼杀你获取真正知识的能力，知识是从经验和“失败”中获得的。 当你需要依赖“大师”的观点、热门博主、最佳实践或“教科书”答案时，那么说明你还没有真正融合对编程的有用知识。
 
-You need to develop you own opinions about what works and what doesn’t. You need to understand why you think your solution works, and what the benefits are. You need to developed a nuanced perspective that goes beyond what is obvious. You need to be able to “argue” your side, and then if you change, you can own the new perspective you have gained.
+你需要对什么有用，什么没用形成自己的观点。需要明白为什么你觉得你的解决方案有用，以及它的好处是什么。需要建立一个微妙的视角，去超越那些显而易见的东西。你需要能够为你的观点“辩护”，然后在这个过程中，如果你发生了改变，你就可以拥有新的观点。
 
-> **Think for yourself:** Through your experience and critical thinking skills, develop your own perspectives. Make reasonable guesses, take a position, and be willing to change as new information comes to light.
+> **自己多想想**：通过你的经验和批判性思维技巧建立你自己的观点。做出合理的猜测，坚定立场，并愿意随着新信息的出现而做出改变。
 
-## 8 | Rigid, narrow and/or disorganized thinking
+## 8 | 僵化、狭隘、混乱的思维
 
-> If you are rigid in your thinking, and you have difficulty keeping your code organized — and by extension your thoughts organized and focused, you will never be successful at programming.
+>如果你的思维僵化，那么你将很难通过扩展思维的条理化和集中化保持代码的条理化，僵化的思维让你永远不会在编程上取得成功。
 
-There are two extremes that I sometimes see in students. The first is a rigid and narrow approach to thinking. This attitude refuses help, and despite feedback, doesn’t change. Things are seen from one perspective only, and suggestions are ignored.
+我有时在学生中会看到两个极端。第一种是僵化和狭隘的思维方式。这种态度拒绝帮助、不在乎反馈、不会做出改变，只从一个角度出发看事情，忽略他人的意见。
 
-A second extreme I see is disorganized thinking. Students seem to make things more complicated than necessary, their code is messy and hard to follow. They overthink problems and write 100 lines of code, when 10 would have been sufficient.
+我看到的第二种极端是思维混乱。学生们似乎使事情变得的复杂化，他们的代码杂乱无章，难以理解。他们过度思考问题，原本 10 行代码就足够解决问题，他们硬是写出 100 行的代码。
 
-When these two mindsets are combined the result is an uptight approach to programming, like a brute force approach that leads to layers and layers of fixes and “hacks”. What is required is the ability to go back over the solution, reevaluate it, give up on the initial approach, and reorganize.
+当这两种思维方式结合在一起时，结果就是一种极端保守的的编程方法，就像导致一层又一层的修复和“黑客攻击”的一种蛮力方法。我们需要的是重新审视解决方案、重新评估它、放弃最初的方法和重新组织的能力。
 
-Not being able to see other possibilities or receive feedback inhibits the ability to grow and improve. Being disorganized slows you down and prevents you from seeing patterns that would otherwise be obvious. And the overall quality of your work is diminished.
+无法看到其他可能性或接受反馈会抑制成长和提升的能力。杂乱无章会减慢你的速度，阻止你看到那些原本显而易见的方法，你的工作质量也会下降。
 
-> **Self Reflection:** You need to take a step back, and look at the bigger picture of how you are approaching things. How can you do this better? Is there anything you can do to make your life easier? What are you missing that could help you?
+> **自我反省**：你需要退后一步，以便总览全局。你怎么才能做得更好？你能做些什么让你的生活更轻松吗？你错过了哪些可以帮助到你的东西？
 
-## 9 | Needing the “right” answer instead of recognizing a spectrum of “good” and “bad” answers
+## 9 | 需要“正确”的答案，而不是鉴别出“好”和“坏”的答案
 
-> If you see the end goal of programming as finding the right solution, rather than a spectrum of solutions, you will never truly be successful as a programmer.
+> 如果你认为编程的最终目标是找到一个正确的解决方案，而不是一系列解决方案，那么作为一个程序员，你将永远不会真正成功。
 
-When starting to learn the skills or programming, students often want to know whether what they have done is “right”. The answer is always “it depends.”
+当学生开始学习技能或编程时，往往他们都想知道自己所做的是否是“正确的”，而答案总是“视情况而定”。
 
-Computer Science is a science of evaluating tradeoffs. Given different sets of circumstances, which would be the better path? It all depends on the circumstances and goals. When you see programming as a test with either a right answer or wrong answer, you are losing sight of the bigger picture, and giving up your creativity. Any answer can be “right” if you can justify it given the circumstances.
+计算机科学是一门评估权衡的科学。在不同的环境下，哪条路更好？这完全取决于具体的环境和目标。当你把编程看作是一个有正确答案或错误答案的测试时，你就失去了对全局的认识，也放弃了你的创造力。任何答案都可以是“正确的”，前提是你能根据具体情况证明这一点。
 
-The reality is that programming is more like writing poems or short stories (or potentially novels if the programs are large). There is an aesthetic and beauty that can be seen in your code, and sometimes it is only recognizable by you and other programmers. The reasons you decided on your solution, and the way you conceived of your answer is more important than the “right way” or the “wrong way”. Having the mind of an artist allows you to play with options and possibilities, rather than thinking there is only one way. That is the beauty of programming, there are many ways to solve a problem, and the consideration of different possibilities leads to a feeling about which way is best for the situation.
+现实情况是，编程更像是写诗或写短篇小说（如果程序很大，则可能是小说）。在你的代码中可以看到一种美学和美感，有时只有你和其他一些程序员能读懂。你的解决方案的理由，以及构思答案的思路，比“正确的方式”或“错误的方式”更重要。拥有一个艺术家的头脑可以让你玩转选项和可能性，而不是认为只有一种方式。这就是编程的美，有很多方法可以解决一个问题，对不同可能性的权衡会让人感觉哪种方法最适合眼下的情况。
 
-> **Get Creative:** Recognize that there are numerous ways to solve a problem, and through experience and exposure, you will develop a nuanced understanding overtime about which solutions feel better than others. Looking at the big picture, imagining different possibilities and trusting your gut will lead to better solutions that are more satisfying.
+> **来点创意:** 认识到解决问题的方法有很多种，通过经验和对问题的解析，随着时间的积累，你将懂得如何辨析最优方案，你就会产生细微的理解。纵观全局，去想象不同的可能性，相信你的直觉，你会得到更令人满意的更好的解决方案。
 
-## 10 | Not paying careful attention to details
+## 10 | 不注意细节
 
-> If you gloss over details, and overlook little things, you will never be a truly successful programmer.
+> 如果你掩盖细节，忽略一些小事情，你将永远不会成为一个真正成功的程序员。
 
-Computers are precise machines. When it comes to programming a computer, you need to provide the necessary commands **precisely** in the way a computer expects. If you don’t, nothing will work. There isn’t a middle ground where things mostly work — it either does or it doesn’t.
+计算机是精确的机器。当涉及到计算机编程时，你需要按照计算机期望的方式**明确地**提供必要的命令。如果你不这样做，什么都不会奏效。完全没有折中 —— 要么能，要么不能。
 
-That means that when you are programming you have to have an eye for details. Every space, bracket, or semi-colon counts. When out of place, nothing will work. When the computer spits back an error message, you have to be able to look at that message and understand exactly what it is telling you. And the reality is that if you miss details like that, you could spend hours tracking down a problem that was literally the result of a typo.
+这意味着当你在编程时，你必须注意细节。每个空格、括号或分号都要考虑。如果稍有不对，一切都是白谈。当计算机打印出一条错误信息时，你必须能够审查信息并准确理解它想要所告诉你的内容。事实是，如果你错过了一些细节，你可能要花几个小时来找 bug，但实际上只是一个输入错误导致的问题。
 
-As they say, the devil is in the details. And that is definitely true for programming.
+正如他们所说，魔鬼在细节中，这对于编程来说绝对是正确的。
 
-> **Pay Attention to the Details:** The details matter and you have to accept that. Once you do, you can begin to always be scanning your code for anything that is out of place. You can organize your code and use tools that help you identify issues quickly.
+> **注意细节**：细节很重要，你必须接受它。一旦你注重细节，你就可以开始通过浏览你的代码找出任何不合适的地方。你要能够有条不紊地组织好代码，并借助工具来更快地处理问题。
 
-## Bonus: Being Business-Minded
+## 额外补充: 商业化的思维
 
-This is a side observation that I have noticed — students who are particularly business-minded, are often focused on the outcome rather than process. They want to get a “working app” that will move them forward on their business idea, they want to “get to market first”, and they see the learning curve as a barrier to their goal of getting their business going.
+这是我注意到这样一个现象 —— 那些特别有商业头脑的学生，往往关注结果而不是过程。他们希望得到一个“可以使用的 app”，这将推动他们的商业理念向前发展，他们希望“先进入市场”，并且他们将经验积累视为他们实现商业目标的障碍。
 
-In reflecting on students that were difficult to truly help grow as programmers, I found an impatience with the process inhibiting the learning needed to truly understand technology. They tend to see technology as a means to an end, rather than a legitimate domain of knowledge to be explored and enjoyed.
+在回顾那些难以在帮助下成长为程序员的学生时，我发现对于学习过程的不耐烦，阻碍了真正地理解技术。这些学生倾向于将技术视为达到目的的手段，而不是真正地探索和享受的知识。
 
-As a natural extension of this, I have found certain students that were more business inclined, and struggled with their learning, often quickly had freelance clients signed up for work that they didn’t actually have the skills do themselves! They would scramble to find resources/templates to get a project working for a client, or, outsource the work to someone else. **They truly sucked at programming, but were amazing at getting people to pay them to program!**
+作为对此的一个自然延伸，我发现有些学生更倾向于经商，他们在学习上很吃力，但通常会很快让自由职业客户报名参加他们自己实际上都不会的工作。他们迅速地寻找资源/模板来让项目获得客户的满意，或者将工作外包给其他人。 **他们确实不擅长编程，但却很擅长让人们付钱给他们编程!**
 
-So what I would add, is that students who desire to start businesses, are excellent at sales, networking, and business development may struggle more than others to learn the skill of programming. Their natural desire to create financial opportunities and connect people to solutions makes them impatient with the tedious details involved in programming.
+所以我想补充的是，那些渴望创业的学生，他们在销售、人际关系和商业发展方面都很优秀，但比其他人更难以学习编程技能。他们天生渴望创造生财的门路，并将人们与解决方案联系起来，这让他们对编程中繁琐的细节失去了耐心。
 
-## Conclusion
+## 总结
 
 ***
 
-While programming can be a difficult skill to learn, it is certainly one that most people can learn. The above list contains attitudes and mindsets that get in the way, but most people can overcome them and develop a competency in the area of programming — if not mastery.
+虽然编程是一项很难学习的技能，但它肯定是大多数人都能学的。上面的清单包含了阻碍学习的一些态度和思维方式，但是大多数人可以克服它们，并在编程领域发展自己的能力 —— 如果不是精通的话。
 
-If you are interested in learning to program, I encourage you to begin the journey. Keep the above list in mind, and start exploring the many resources available online that can get you moving forward quickly. You won’t regret it.
+如果你对学习编程感兴趣，我鼓励你开始这个旅程。记住上面的清单，网上有很多可以让你快速前进的资源，快去探索吧，你不会后悔的。
 
-**Disclaimer: The opinions expressed here are strictly my own, based on my professional experience as an Educator and Web Developer. They do not represent the opinions or views of BrainStation.**
+**免责声明：根据我作为教育工作者和 Web 开发人员的专业经验，这里所表达的观点完全是我自己的，它们不代表BrainStation 的观点。**
 
 ***
 
 ![](https://cdn-images-1.medium.com/max/4000/1*f2IVAl0TbsfES9cFGYr40g.png)
 
 ***
-
-📝 Read this story later in [Journal](https://usejournal.com/?utm_source=medium.com&utm_medium=noteworthy_blog&utm_campaign=guest_post_read_later_text).
-
-🗞 Wake up every Sunday morning to the week’s most noteworthy Tech stories, opinions, and news waiting in your inbox: [Get the noteworthy newsletter >](https://usejournal.com/newsletter/?utm_source=medium.com&utm_medium=noteworthy_blog&utm_campaign=guest_post_text)
-
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
