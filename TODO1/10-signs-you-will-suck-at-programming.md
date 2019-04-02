@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/10-signs-you-will-suck-at-programming.md](https://github.com/xitu/gold-miner/blob/master/TODO1/10-signs-you-will-suck-at-programming.md)
 > * 译者：[xionglong58](https://github.com/xionglong58)
-> * 校对者：[renyuhuiharrison](https://github.com/renyuhuiharrison)、[yzw7489757](https://github.com/yzw7489757)
+> * 校对者：[renyuhuiharrison](https://github.com/renyuhuiharrison), [yzw7489757](https://github.com/yzw7489757)
 
 # 10 个迹象让你不能做一名成功的程序员
 
