@@ -7,7 +7,7 @@
 
 # 编写可以复用的 HTML 模板
 
-在我们的[最新文章中](https://juejin.im/post/5c9a3cce5188252d9b3771ad), 我们讨论了 web 组件规范（自定义元素、shadow DOM、HTML 模板）的高级特性。在本文以及接下来的三篇文章中，我们将这些技术应用到测试并在更具体的细节中验证它们，看下我们在如今的产品如何应用它们。为了做到这些，我们将会从零开始构建一个自定义模式的对话框，来查看这些不同的技术如何组装在一起。
+在我们的[最新文章中](https://juejin.im/post/5c9a3cce5188252d9b3771ad), 我们讨论了 web 组件规范（自定义元素、shadow DOM、HTML 模板）的高级特性。在本文以及接下来的三篇文章中，我们将这些技术应用到测试并在更具体的细节中验证它们，看下我们在如今的产品如何应用它们。为了做到这些，我们将会从零开始构建一个自定义模式的对话框，弄清楚如何将不同的技术组合在一起。
 
 #### 系列文章:
 
@@ -23,7 +23,7 @@
 
 [Web 组件规范](https://www.w3.org/standards/techs/components#w3c_all)中最后被认可但是最强大的功能之一是 `<模板>` 元素。在这个系列的[第一篇文章](https://css-tricks.com/an-introduction-to-web-components)中，我们定义了类似这种的模板元素『仅在调用时才渲染的用户自定义 HTML 模板』。换句话说，模板就是一种当浏览器被告知时才执行的 HTML 代码，其他情况下是被忽略的。
 
-这种模块可以许多有趣的方式被传递和应用。基于本文的目的，我们将看下如何为一种最终应用到自定义元素中的对话框创建模板。
+这种模块可以被许多有趣的方式传递和复用。基于本文的目的，我们将研究如何为一种最终应用到自定义元素中的对话框创建模板。
 
 ### 定义你的模板
 
@@ -35,7 +35,7 @@
 </template>
 ```
 
-在浏览器中运行这段代码会产生一个空屏幕的显示结果，因为浏览器并渲染模板元素内容。这样就会变得非常强大：它允许我们自定义内容（或内容结构）以及随后保存内容，来代替使用 JavaScript 来编写 HTML 代码的方式。
+在浏览器中运行这段代码会显示空白页面，因为浏览器并没有渲染模板元素内容。不同于使用 JavaScript 来编写 HTML 代码的方式，这种方式的强大之处在于它允许我们自定义内容（或内容结构）以及为了之后的应用保存内容。
 
 为了使用模板，我们 _将_ 需要用到 JavaScript。
 
@@ -45,9 +45,9 @@ const node = document.importNode(template.content, true);
 document.body.appendChild(node);
 ```
 
-真正神奇的地方在于 `document.importNode` 方法。这个函数将会为模板的 `内容` 创建一个拷贝，并且做好将拷贝插入其他文档（或文档碎片）的准备。函数的第一个参数获取到模板的内容，第二个参数告诉浏览器要对元素的 DOM 子树做一份深度拷贝（也就是说，它的所有子节点）。
+真正神奇的地方在于 `document.importNode` 方法。这个函数将会为模板的 `内容` 创建一份副本，并且做好将拷贝插入其他文档（或文档碎片）的准备。函数的第一个参数获取到模板的内容，第二个参数告诉浏览器要对元素的 DOM 子树做一份深度拷贝（也就是拷贝它的所有子节点）。
 
-我们可以直接使用 `template.content`，但是这样做的话，我们随后需要把内容从元素中移除并将它拼接到文档体。任何 DOM 节点仅可以被接入到一个位置，所以随后对模板内容的使用将会导致空文档片段（基本上是一个空值），因为之前已移动了内容对象。使用 `document.importNode` 允许我们在不同的位置来复用同一个模板内容的实例。
+我们可以直接使用 `template.content`，但是这样做的话，我们随后需要把内容从元素中移除并将它拼接到其他文档的 body部分。任何 DOM 节点仅可以被接入到一个位置，所以随后对模板内容的使用将会导致空文档片段（基本上是一个空值），因为之前已移动了内容对象。使用 `document.importNode` 允许我们在不同的位置来复用同一个模板内容的实例。
 
 That node is then appended into the `document.body` and rendered for the user. This ultimately allows us to do interesting things, like providing our users (or consumers of our programs) templates for creating content, similar to the following demo, which we covered in the [first article](https://css-tricks.com/an-introduction-to-web-components):以上代码执行后，节点内容会被拼接到 `document.body` 文档体对象，并被渲染给用户。这样最终是我们能够做许多有趣的事情，比如为我们的用户（或者我们程序的消费者）提供创建内容的模板，类似下面的demo，在[第一篇文章](https://css-tricks.com/an-introduction-to-web-components)我们讨论过：
 
