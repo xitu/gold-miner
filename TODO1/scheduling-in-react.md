@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/scheduling-in-react.md](https://github.com/xitu/gold-miner/blob/master/TODO1/scheduling-in-react.md)
 > * 译者：[Xuyuey](https://github.com/Xuyuey)
-> * 校对者：[portandbridge](https://github.com/portandbridge)、[Reaper622](https://github.com/Reaper622)
+> * 校对者：[portandbridge](https://github.com/portandbridge), [Reaper622](https://github.com/Reaper622)
 
 # React 中的调度
 
@@ -37,11 +37,11 @@
 
 JavaScript 代码在单线程中执行，意味着在任意给定的时间段内只有一行 JavaScript 代码可以运行。同时，这个线程也负责处理其他文档的生命周期，例如布局和绘制。<sup id="fnref-1">[1](#fn-1)</sup>意味着每当 JavaScript 代码运行时，浏览器会停止做任何其他的事情。
 
-为了保证用户界面的及时响应，在能够接收下一次输入之前，我们只有很短的一个时间段进行准备。在2018年的 Chrome Dev 峰会（Chrome Dev Summit 2018）上，Shubhie Panicker 和 Jason Miller 发表了以[保证响应性的追求（A Quest to Guarantee Responsiveness）](https://developer.chrome.com/devsummit/schedule/scheduling-on-off-main-thread)为主题的演讲。在演讲中，他们对浏览器事件循环进行了可视化描述，我们可以看到在绘制下一帧之前我们只有 16 ms（在典型的 60 Hz 屏幕上），紧接着浏览器就需要处理下一个事件：
+为了保证用户界面的及时响应，在能够接收下一次输入之前，我们只有很短的一个时间段进行准备。在 2018 年的 Chrome Dev 峰会（Chrome Dev Summit 2018）上，Shubhie Panicker 和 Jason Miller 发表了以[保证响应性的追求（A Quest to Guarantee Responsiveness）](https://developer.chrome.com/devsummit/schedule/scheduling-on-off-main-thread)为主题的演讲。在演讲中，他们对浏览器事件循环进行了可视化描述，我们可以看到在绘制下一帧之前我们只有 16ms（在典型的 60Hz 屏幕上），紧接着浏览器就需要处理下一个事件：
 
 [![](https://philippspiess.com/static/805b72e5fe22f38f3f794de9668a14cc/26338/event-loop-browser.png)](/static/805b72e5fe22f38f3f794de9668a14cc/5854f/event-loop-browser.png)
 
-大多数 JavaScript 框架（包括当前版本的 React）将同步进行更新。我们可以将此行为视为一个函数 `render（）`，而此函数只有在 DOM 更新后才会返回。在此期间，主线程被阻塞。
+大多数 JavaScript 框架（包括当前版本的 React）将同步进行更新。我们可以将此行为视为一个函数 `render()`，而此函数只有在 DOM 更新后才会返回。在此期间，主线程被阻塞。
 
 ## 当前解决方案存在的问题
 
@@ -224,7 +224,7 @@ function sendDeferredAnalyticsNotification(value) {
 1.  **资源抢夺。** 调度器尝试所有使用所有的可用资源。如果调度器的多个实例运行在同一个线程上并争夺资源，就会导致问题。我们需要确保应用程序的所有部分使用的是同一个调度器实例。
 2.  **通过浏览器工作平衡用户定义的任务。** 由于调度器在浏览器中运行，因此它只能访问浏览器公开的API。文档生命周期（如渲染或垃圾回收）可能会以无法控制的方式干扰工作。
 
-为了消除这些限制，Google Chrome 团队正在与 React，Polymer，Ember，Google Maps 和 Web Standards Community 合作，在浏览器中创建 [Scheduling API](https://github.com/spanicker/main-thread-scheduling)。是不是很让人兴奋！
+为了消除这些限制，Google Chrome 团队正在与 React、Polymer、Ember、Google Maps 和 Web Standards Community 合作，在浏览器中创建 [Scheduling API](https://github.com/spanicker/main-thread-scheduling)。是不是很让人兴奋！
 
 ## 总结
 
