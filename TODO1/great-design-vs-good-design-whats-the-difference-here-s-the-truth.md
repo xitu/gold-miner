@@ -101,16 +101,18 @@ Another fundamental you often see neglected these days is figure-ground contrast
 Focusing on the flashy parts of design while neglecting the fundamentals, is like focusing only on hitting home runs in baseball, or only doing slam dunks in basketball. It’s fun to look at, but a player who neglects the fundamentals of the game will fall apart when tested in a real-life competitive environment.
 > ### Great design never neglects the fundamentals on a quest to impress the world around them.
 
-On that note…..
+On that note….
 
 ## Good Design Tries To Impress, Great Design Gets Out Of The Way
+
 > “A good designer finds an elegant way to put everything you need on a page. A great designer convinces you half that shit is unnecessary.”
-— Thomas Hutchings (@Dear**Impossible) November 14, 2013**
+> — Thomas Hutchings (@Dear**Impossible) November 14, 2013**
 
 Good design aims to impress people with “delightful animations” and “beautiful user interfaces”. You can spot good design, break it down, and document both what you like and how it was done.
 
 Great design is invisible. It almost feels like it wasn’t designed at all. It’s things like your MacBook unlocking automatically when you have your Apple Watch on, or your Nest thermostat adjusting to your preferred temperature when you enter a room. But it can also be something as simple as the egg cartons at the supermarket (have you ever tried designing a better egg carton?).
-> ### Great design is invisible. It almost feels like it wasn’t designed at all. It is the outcome of painstaking thoughtfulness and a desire to help others.
+
+> Great design is invisible. It almost feels like it wasn’t designed at all. It is the outcome of painstaking thoughtfulness and a desire to help others.
 
 ***
 
@@ -119,11 +121,13 @@ Great design is invisible. It almost feels like it wasn’t designed at all. It�
 Right now there’s a trend in Silicon Valley of trying to turn Design into a process that can be duplicated and reproduced no matter who you slot into the position.
 
 Creating a clearly defined process is a great idea, especially for large companies. But when you’re working day to day in an organization at that level, it’s easy to get overly focused on optimizing the process and lose sight of what you’re building, and why. You end up iterating and optimizing on things that don’t matter. It happens to all of us sometimes.
-> ### A big part of doing great design work is creating a compelling vision of the future, and having the courage and discipline to stick to that vision in the face of adversity.
+
+> A big part of doing great design work is creating a compelling vision of the future, and having the courage and discipline to stick to that vision in the face of adversity.
 
 Just following a process step-by-step doesn’t lead to great products. You can get a design that’s “Good enough” with that approach. But the difference between good design and great design is the difference between good success and great success.
 
 Jared Spool’s recent post about [creating an experience vision](https://medium.com/@jmspool/the-experience-vision-a-self-fulfilling-ux-strategy-ce4cdb58227e) is, to me, the quintessence of what it takes to create great design:
+
 > The easiest way to create an effective experience vision story is to start with the current experience. What makes today’s experience with our product or service frustrating for our users?
 > We can ask, **“What’s the best experience we could imagine providing our users?”** undefinedWe look closely at the frustrations and imagine an experience where those frustrations don’t occur.
 > Next up is to determine the timeframe of the horizon. […]Most of our experience visions come closer to a five-year horizon. […]In 5 years (or whatever horizon we pick), what is the best experience we can imagine delivering? How will people’s lives be better because we’ve removed all the frustration?
@@ -141,7 +145,6 @@ But most of all, what else are you going to do with your life? What better thing
 ### Share Your Story
 
 What are some examples of great design? Share them with us in the comments.
-
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
