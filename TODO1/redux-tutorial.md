@@ -280,7 +280,6 @@ const store = createStore(reducer);
 
 （INIT 后面的字母和数字是 Redux 随机生成的）
 
-
 注意在你创建 store 的同时 Redux 如何调用你的 reducer。（为了证实这点：调用 `createStore` 之后立即输出 `console.log`，看看 reducer 后面会打印什么）
 
 同样注意 Redux 如何传递了一个 `undefined` 的 `state`，同时 action 是一个有 `type` 属性的对象。
