@@ -55,11 +55,11 @@ JavaScript 代码在单线程中执行，意味着在任意给定的时间段内
 
 **⚠️ 警告：下面的 API 尚不稳定并且会发生变化。我会尽可能地保持更新。**
 
-为了使用 React 实现一个正确的用户界面调度器，我们必须看看以下两个即将推出的 React 新功能：
+为了使用 React 实现调度得宜的用户界面，我们必须看看以下两个即将推出的 React 新功能：
 
 *   **并发（Concurrent）React，也称为时间分片（Time Slicing）。**在 React 16 改写的新 [Fiber 架构](https://www.youtube.com/watch?v=ZCuYPiUIONs)帮助下，React 现在可以允许渲染过程分段完成，中间可以返回<sup id="fnref-2">[2](#fn-2)</sup>至主线程执行其他任务。
 
-    我们将在之后听到更多有关并发 React 的消息。现在重要的是理解，当启用这个模式之后，React 会把同步渲染的 React 组件其分成小块，然后在多个帧上运行。
+    我们将在之后听到更多有关并发 React 的消息。现在重要的是理解，当启用这个模式之后，React 会把同步渲染的 React 组件切分成小块，然后在多个帧上运行。
 
     ➡️ 使用这个模式，在将来我们就可以将需要长时间渲染的任务分成小任务块。
 
@@ -238,7 +238,7 @@ React 官方可能会在 [2019 第二季度](https://reactjs.org/blog/2018/11/27
 
 <a id="fn-1">1.</a> MDN web docs 上有一篇关于这个问题很棒的[文章](https://developer.mozilla.org/en-US/docs/Tools/Performance/Scenarios/Intensive_JavaScript)。
 
-<a id="fn-2">2.</a> 这是一个超赞的词，可以返回一个支持重新开始的方法。可以在 [generator functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield) 上查看相似的概念。
+<a id="fn-2">2.</a> 这是一个超赞的词，可以返回一个支持暂停之后继续执行的方法。可以在 [generator functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield) 上查看相似的概念。
 
 <a id="fn-3">3.</a> 在[调度器的目前实现](https://github.com/facebook/react/blob/master/packages/scheduler/src/forks/SchedulerHostConfig.default.js)中，它通过在一个 [`requestAnimationFrame()`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) 回调函数中使用 [`postMessage()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) 实现。它会在帧渲染结束后立即被调用。
 
