@@ -15,7 +15,7 @@
 
 我们的用户期望及时反馈。无论是点击打开模态框的按钮还是在输入框中添加文字，他们都不想在看到某种确认状态之前进行等待。例如，点击按钮可以立即打开模态框，输入框可以立即显示刚刚输入的关键字。
 
-为了想象在并行操作下会发生什么，让我们来看看 Dan Abramov 在 JSConf Iceland 2018 的演讲中演示的应用程序，使用了 [React 16](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)。
+为了想象在并行操作下会发生什么，让我们来看看 Dan Abramov 在 JSConf Iceland 2018 上以[超越 React 16](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html) 为主题的演讲中演示的应用程序。
 
 这个应用程序的工作原理如下：你在输入框中的输入越多，下面的图表中的细节就会越多。由于两个更新（输入框和图表）同时进行，所以浏览器必须进行大量计算以至于会丢弃其中的一些帧。这会导致明显的延时以及糟糕的用户体验。
 
@@ -33,15 +33,15 @@
 
 ## 浏览器事件循环
 
-在我们学习如何正确地实现更新优先级之前，让我们深入挖掘并理解浏览器为何与用户交互存在问题。
+在我们学习如何正确地实现更新优先级之前，让我们深入挖掘并理解浏览器为何在处理用户交互时存在问题。
 
 JavaScript 代码在单线程中执行，意味着在任意给定的时间段内只有一行 JavaScript 代码可以运行。同时，这个线程也负责处理其他文档的生命周期，例如布局和绘制。<sup id="fnref-1">[1](#fn-1)</sup>意味着每当 JavaScript 代码运行时，浏览器会停止做任何其他的事情。
 
-为了保证用户界面的及时响应，在能够接收下一次输入之前，我们只有很短的一个时间段进行准备。在2018年的 Chrome Dev 峰会（Chrome Dev Summit 2018）上，Shubhie Panicker 和 Jason Miller 发表了[保证响应性的追求（A Quest to Guarantee Responsiveness）](https://developer.chrome.com/devsummit/schedule/scheduling-on-off-main-thread)的演讲。在演讲中，他们对浏览器事件循环进行了可视化描述，我们可以看到在绘制下一帧之前我们只有16ms（在典型的 60 Hz 屏幕上），紧接着浏览器就需要处理下一个事件：
+为了保证用户界面的及时响应，在能够接收下一次输入之前，我们只有很短的一个时间段进行准备。在2018年的 Chrome Dev 峰会（Chrome Dev Summit 2018）上，Shubhie Panicker 和 Jason Miller 发表了以[保证响应性的追求（A Quest to Guarantee Responsiveness）](https://developer.chrome.com/devsummit/schedule/scheduling-on-off-main-thread)为主题的演讲。在演讲中，他们对浏览器事件循环进行了可视化描述，我们可以看到在绘制下一帧之前我们只有 16 ms（在典型的 60 Hz 屏幕上），紧接着浏览器就需要处理下一个事件：
 
 [![](https://philippspiess.com/static/805b72e5fe22f38f3f794de9668a14cc/26338/event-loop-browser.png)](/static/805b72e5fe22f38f3f794de9668a14cc/5854f/event-loop-browser.png)
 
-大多数 JavaScript 框架（包括当前版本的 React）将同步进行更新。我们可以将此行为视为一个函数 `render（）`，并且只有在DOM更新后才会返回。在此期间，主线程被阻塞。
+大多数 JavaScript 框架（包括当前版本的 React）将同步进行更新。我们可以将此行为视为一个函数 `render（）`，而此函数只有在 DOM 更新后才会返回。在此期间，主线程被阻塞。
 
 ## 当前解决方案存在的问题
 
@@ -73,7 +73,7 @@ JavaScript 代码在单线程中执行，意味着在任意给定的时间段内
     *   `Low` 低优先级（10 s 后过期），可以推迟但最终仍然需要完成的任务（例如，分析通知）。
     *   `Idle` 空闲优先级（永不过期），不必运行的任务（例如，隐藏界面意外的内容）。
 
-    每个优先级对应的过期时间对于确保优先级较低的任务仍然可以被运行是必要的，特别是在我们的高优先级任务多到可以连续运行的情况下。在调度算法中，这个问题被称为[饥饿（starvation）](https://en.wikipedia.org/wiki/Starvation_(computer_science))。过期时间可以保证每一个调度任务最终都可以被执行。例如，即使我们的应用中有正在运行的动画，我们也不会错过任何一个分析通知。
+    每个优先级都有对应的过期时间，这些过期时间时必须的，这样才能确保即使在高优先级任务多得可以连续运行的情况下，优先级较低的任务仍能运行。在调度算法中，这个问题被称为[饥饿（starvation）](https://en.wikipedia.org/wiki/Starvation_(computer_science))。过期时间可以保证每一个调度任务最终都可以被执行。例如，即使我们的应用中有正在运行的动画，我们也不会错过任何一个分析通知。
 
     在引擎中，调度器将所有已经注册的回调函数按照过期时间（回调函数注册的时间加上该优先级的过期时间）排序然后存储在列表中。接着，调度器将自己注册在浏览器绘制下一帧之后的回调函数里。<sup id="fnref-3">[3](#fn-3)</sup>在这个回调函数中，浏览器将执行尽可能多的已注册回调函数，直到浏览开始绘制下一帧为止。
 
@@ -144,9 +144,9 @@ ReactDOM.render(<App />, container);
 
 我们可以看到有很多红色的三角形，这通常不是什么好信号。对于每一次键入，我们都会看到一个 `keypress` 事件被触发。所有的事件在一帧内被触发，<sup id="fnref-5">[5](#fn-5)</sup>导致帧的持续时间延长到 **733 ms**。这远高于我们 16 ms 的平均帧预算。
 
-在这个 `keypress` 事件中，会调用我们的 React 代码，更新 inputValue 以及 searchValue，然后发送分析通知。反过来，更新后的状态值会致使应用程序重新渲染每一个姓名项。任务相当繁重但是必须完成，通过原生的方法，它会阻塞主进程。
+在这个 `keypress` 事件中，会调用我们的 React 代码，更新 inputValue 以及 searchValue，然后发送分析通知。反过来，更新后的状态值会致使应用程序重新渲染每一个姓名项。任务相当繁重但是必须完成，如果使用原生的方法，它会阻塞主进程。
 
-改进现在这个状态的第一步是使用并不稳定的并发模式。可以通过使用 `<React.unstable_ConcurrentMode>` 组件包裹一部分我们的 React 树来实现，就像下面这样<sup id="fnref-4">[4](#fn-4)</sup>：
+改进现在这个状态的第一步是使用并不稳定的并发模式。实现方法是，使用 `<React.unstable_ConcurrentMode>` 组件把我们的 React 树的一部分包裹起来，就像下面这样<sup id="fnref-4">[4](#fn-4)</sup>：
 
 ```
 - ReactDOM.render(<App />, container);
@@ -217,7 +217,7 @@ function sendDeferredAnalyticsNotification(value) {
 
 ## 调度器的限制
 
-使用调度器，我们可以控制回调函数的执行顺序。它内置于最新的 React 实现中，具有开箱即用的并发模式。
+使用调度器，我们可以控制回调函数的执行顺序。它内置于最新的 React 实现中，无需另行设置就能够和并发模式协同使用。
 
 这就是说，调度器有两个限制：
 
@@ -230,7 +230,7 @@ function sendDeferredAnalyticsNotification(value) {
 
 并发的 React 和调度器允许我们在应用程序中实现任务调度，这将使得我们可以创建响应迅速的用户界面。
 
-React 官方可能会在 [2019 第二季度](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-q2-2019-the-one-with-concurrent-mode)发布这些功能。在此之前，大家可以使用这些功能，但要密切关注它的变化。
+React 官方可能会在 [2019 第二季度](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-q2-2019-the-one-with-concurrent-mode)发布这些功能。在此之前，大家可以使用这些不稳定的 API，但要密切关注它的变化。
 
 如果您想成为第一个知道这些 API 何时更改或者编写新功能文档的人，请订阅 [This Week in React ⚛️](https://this-week-in-react.org)。
 
