@@ -21,7 +21,7 @@
 
 ### HTML 模板
 
-[Web 组件规范](https://www.w3.org/standards/techs/components#w3c_all)中最后被认可但是最强大的功能之一是 `<模板>` 元素。在这个系列的[第一篇文章](https://css-tricks.com/an-introduction-to-web-components)中，我们定义了类似这种的模板元素『仅在调用时才渲染的用户自定义 HTML 模板』。换句话说，模板就是一种当浏览器被告知时才执行的 HTML 代码，其他情况下是被忽略的。
+[Web 组件规范](https://www.w3.org/standards/techs/components#w3c_all)中最不被认可但是最强大的功能之一是 `<模板>` 元素。在这个系列的[第一篇文章](https://css-tricks.com/an-introduction-to-web-components)中，我们将这种模板元素定义为『仅在调用时才渲染的用户自定义 HTML 模板』。换句话说，模板就是一种当浏览器被告知时才执行的 HTML 代码，其他情况下是被忽略的。
 
 这种模块可以被许多有趣的方式传递和复用。基于本文的目的，我们将研究如何为一种最终应用到自定义元素中的对话框创建模板。
 
@@ -49,11 +49,11 @@ document.body.appendChild(node);
 
 我们可以直接使用 `template.content`，但是这样做的话，我们随后需要把内容从元素中移除并将它拼接到其他文档的 body部分。任何 DOM 节点仅可以被接入到一个位置，所以随后对模板内容的使用将会导致空文档片段（基本上是一个空值），因为之前已移动了内容对象。使用 `document.importNode` 允许我们在不同的位置来复用同一个模板内容的实例。
 
-That node is then appended into the `document.body` and rendered for the user. This ultimately allows us to do interesting things, like providing our users (or consumers of our programs) templates for creating content, similar to the following demo, which we covered in the [first article](https://css-tricks.com/an-introduction-to-web-components):以上代码执行后，节点内容会被拼接到 `document.body` 文档体对象，并被渲染给用户。这样最终是我们能够做许多有趣的事情，比如为我们的用户（或者我们程序的消费者）提供创建内容的模板，类似下面的demo，在[第一篇文章](https://css-tricks.com/an-introduction-to-web-components)我们讨论过：
+以上代码执行后，节点内容会被拼接到 `document.body` 对象，并被渲染显示给用户。这样最终使我们能够做许多有趣的事情，比如为我们的用户（或者我们程序的消费者）提供创建内容的模板，类似下面的demo，在[第一篇文章](https://css-tricks.com/an-introduction-to-web-components)我们讨论过：
 
 请参阅笔记[模板样例](https://codepen.io/calebdwilliams/pen/LqQmXN/)，来自 [CodePen](https://codepen.io) 的 Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams))。
 
-这个例子中，我们提供了两个模板来渲染同样的内容--他们已经写的作者和书籍。当表格变化时，我们选择渲染与该变化值相关联的模板。使用相同的技术允许我们最终创建一个自定义元素，该元素将使用稍后定义的模板。
+这个例子中，我们提供了两个模板来渲染同样的内容--作者和他写的书。当表格变化时，我们选择渲染与该变化值相关联的模板。使用相同的技术允许我们最终创建一个自定义元素，该元素将使用稍后定义的模板。
 
 ### 模板的多功能性
 
@@ -199,6 +199,7 @@ button.addEventListener('click', event => alert(event));
 这段代码将成为我们对话框的基础部分。简单介绍一下，我们有一个全局的关闭按钮，一个标题和一些内容。我们也添加了一些行为来实现可视化触发对话框（尽管它还无法被访问）。不幸的是，样式和脚本内容并非仅限作用于我们的模板，而是应用于整个文件，当我们将多个模板实例添加到 DOM 时，并没有产生理想的中的效果。在下篇文章中，我们将应用自定义元素f生成方法并创建我们自己的元素，实时使用该模板并封装元素的行为。
 
 请查阅笔记[以脚本模板来编写对话框](https://codepen.io/calebdwilliams/pen/JzjLyQ/) ，来自 [CodePen](https://codepen.io) 的 Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams))。
+
 #### Article Series:
 
 1.  [Web Components 简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
