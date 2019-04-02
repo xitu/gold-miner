@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
 > * 译者：[Mirosalva](https://github.com/Mirosalva)
-> * 校对者：
+> * 校对者：[xionglong58](https://github.com/xionglong58)，[HearFishle](https://github.com/HearFishle)
 
 # 编写可以复用的 HTML 模板
 
