@@ -5,66 +5,66 @@
 > * 译者：
 > * 校对者：
 
-# The Android Lifecycle cheat sheet — part IV: ViewModels, Translucent Activities and Launch Modes
+# Android 生命周期备忘录 —— 第四部分：ViewModels、半透明 Activities 及启动模式
 
-In this series:
+本系列文章：
 
-- [**Part I: Activities** — single activity lifecycle](https://github.com/xitu/gold-miner/blob/master/TODO/the-android-lifecycle-cheat-sheet-part-i-single-activities.md)  
-- [**Part II: Multiple activities** — navigation and back stack](https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-II-Multiple-activities.md)   
--  [**Part III: Fragments** — activity and fragment lifecycle](https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-III-Fragments.md)  
--  **Part IV: ViewModels, Translucent Activities and Launch Modes** (this post)
+- [**第一部分：Activities** — 单一 activity 的生命周期](https://github.com/xitu/gold-miner/blob/master/TODO/the-android-lifecycle-cheat-sheet-part-i-single-activities.md)  
+- [**第二部分：多个 activities** — 跳转和返回栈（back stack）](https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-II-Multiple-activities.md)   
+-  [**第三部分： Fragments** — activity 和 fragment 的生命周期](https://github.com/xitu/gold-miner/blob/master/TODO1/The-Android-Lifecycle-cheat-sheet-part-III-Fragments.md)  
+-  **第四部分： ViewModels、半透明 Activities 及启动模式** (即本文)
 
-The diagrams are also [in PDF format](https://github.com/JoseAlcerreca/android-lifecycles) for quick reference.
+为了更方便地查询，你可以去查阅 [PDF 版本的图表备忘录](https://github.com/JoseAlcerreca/android-lifecycles)。
 
 ## ViewModels
 
-The lifecycle of `ViewModel`s is quite simple: they have only one callback: `onCleared`. However, there’s a difference between scoping to an activity or to a fragment:
+ `ViewModel` 的生命周期非常简单：它只有 `onCleared` 这一个回调。但是，这个函数的作用域在 activity 和 fragment 中是有区别的：
 
 ![](https://cdn-images-1.medium.com/max/800/1*InXHWv6E6bLpOAXbTRZ9Zg.png)
 
-**ViewModel scoping**
+**ViewModel 作用域**
 
-Note that the initialization happens whenever you obtain the `ViewModel`, which is normally done in `onCreate`.
+注意，初始化是在获取 `ViewModel` 时进行的，通常在 `onCreate` 方法中完成。
 
-[Download ViewModels diagram](https://github.com/JoseAlcerreca/android-lifecycles/blob/a5dfd030a70989ad2496965f182e5fa296e6221a/cheatsheetviewmodelsvg.pdf)
+[下载 ViewModels 图表](https://github.com/JoseAlcerreca/android-lifecycles/blob/a5dfd030a70989ad2496965f182e5fa296e6221a/cheatsheetviewmodelsvg.pdf)
 
-## Translucent Activities
+## 半透明 Activities
 
-Translucent activities have translucent (usually transparent) backgrounds so the user can still see what’s underneath.
+半透明的 activities 有半透明(通常是透明的)的背景，所以用户仍然可以看到该 activitys 下面是什么。
 
-When the property `android:windowIsTranslucent` is applied to an activity’s theme, the diagram changes slightly: the background activity is never stopped, only paused, so it can continue receiving UI updates:
+当一个 activity 的主题设置了 `android:windowIsTranslucent` 属性时，图表稍有变化：背景后面的 activity 不会被停止，只会被暂停，所以可以继续接收 UI 的更新：
 
 ![](https://cdn-images-1.medium.com/max/800/1*e53GrDAmNgD9WbiI8lgIFw.png)
 
-**Comparison between regular and translucent activities**
+**常规 activities 和半透明 activities 之间的比较**
 
-Also, when coming back to a task, both activities are restored and started, and only the translucent is resumed:
+此外，当返回到一个任务时，这两个 activity 都会被恢复和启动，但只有半透明的 activity 被恢复到可交互状态：
 
 ![](https://cdn-images-1.medium.com/max/800/1*zXVUFwBl5tfBlGxhaUfHQw.png)
 
-**Pressing home and coming back to an app with a translucent activity**
+**按下 home 键，回到带有半透明 activity 的应用程序**
 
-[Download Translucent activities diagram](https://github.com/JoseAlcerreca/android-lifecycles/blob/a5dfd030a70989ad2496965f182e5fa296e6221a/cheatsheettranslucent.pdf)
+[下载半透明 activities 图表](https://github.com/JoseAlcerreca/android-lifecycles/blob/a5dfd030a70989ad2496965f182e5fa296e6221a/cheatsheettranslucent.pdf)
 
-## Launch Modes
+## 启动模式
 
-The recommended way to deal with tasks and the back stack is, basically: **don’t** — you should adopt the default behavior. For more details, read Ian Lake’s post about this topic: [Tasks and Back Stack](https://medium.com/androiddevelopers/tasks-and-the-back-stack-dbb7c3b0f6d4).
+处理任务和回退栈的推荐方法主要是： **不要** — 你应该采用默认行为。要了解更多细节，请阅读 Ian Lake 的关于这个主题的文章: [任务和回退栈](https://medium.com/androiddevelopers/tasks-and-the-back-stack-dbb7c3b0f6d4)。
 
-If you **really need to use** `[SINGLE_TOP](https://developer.android.com/guide/topics/manifest/activity-element#lmode)`, here’s its diagram:
+如果你**真的需要使用** [`SINGLE_TOP`](https://developer.android.com/guide/topics/manifest/activity-element#lmode)， 这是关于它的图表：
 
 ![](https://cdn-images-1.medium.com/max/800/1*y4f7Txiv_bqjm5PfrGtSWg.png)
 
-**Single Top behavior**
+**Single Top 行为模式**
 
-For the sake of comparison, here’s what [`singleTask`](https://developer.android.com/guide/topics/manifest/activity-element#lmode) would look like (but you probably shouldn’t use it):
+方便比较, 下面是 [`singleTask`](https://developer.android.com/guide/topics/manifest/activity-element#lmode) 模式看起来的样子（但是你可能不应该用到它）：
 
 ![](https://cdn-images-1.medium.com/max/800/1*IOhNkOHU5SOglqpS-FEdEw.png)
 
 **Single Task**
 
-Note: If you use Jetpack’s [Navigation Architecture Component](https://developer.android.com/topic/libraries/architecture/navigation/) , you will benefit from Single Top support and automatic synthetic back stack.
+注意： 如果你用了 Jetpack 中 [导航架构组件 (Navigation Architecture Component)](https://developer.android.com/topic/libraries/architecture/navigation/)，你将得到它支持 Single Top 和自动合成回退栈的好处。
 
- [Download launch modes diagram](https://github.com/JoseAlcerreca/android-lifecycles/blob/a5dfd030a70989ad2496965f182e5fa296e6221a/cheatsheetmodes.pdf)
+ [下载启动模式图表](https://github.com/JoseAlcerreca/android-lifecycles/blob/a5dfd030a70989ad2496965f182e5fa296e6221a/cheatsheetmodes.pdf)
 
  > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
