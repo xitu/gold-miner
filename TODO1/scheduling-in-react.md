@@ -13,7 +13,7 @@
 
 ## 用户界面中的调度
 
-我们的用户期望及时反馈。无论是点击打开模态框的按钮还是在输入框中添加文字，他们都不想看到某种确认之前的等待状态。例如，点击按钮可以立即打开模态框，输入框可以立即显示刚刚输入的关键字。
+我们的用户期望及时反馈。无论是点击打开模态框的按钮还是在输入框中添加文字，他们都不想在看到某种确认状态之前进行等待。例如，点击按钮可以立即打开模态框，输入框可以立即显示刚刚输入的关键字。
 
 为了想象在并行操作下会发生什么，让我们来看看 Dan Abramov 在 JSConf Iceland 2018 的演讲中演示的应用程序，使用了 [React 16](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)。
 
@@ -29,7 +29,7 @@
 
 [视频地址](https://philippspiess.com/blog/scheduling-in-react/concurrent-mode.mp4)
 
-当前的用户界面体系架构使得实现这种优先级变得非常重要，解决此问题的一种方法是通过[防抖（debouncing）](https://davidwalsh.name/javascript-debounce-function)进行图表更新。这种方法的问题在于当防抖函数的回调函数执行时，图表依旧在同步地渲染，这会再次导致用户界面在一段时间内无响应。我们可以做的更好！
+不幸的是，当前的用户界面体系架构使得实现这种优先级变得非常重要，解决此问题的一种方法是通过[防抖（debouncing）](https://davidwalsh.name/javascript-debounce-function)进行图表更新。这种方法的问题在于当防抖函数的回调函数执行时，图表依旧在同步地渲染，这会再次导致用户界面在一段时间内无响应。我们可以做的更好！
 
 ## 浏览器事件循环
 
@@ -53,7 +53,7 @@ JavaScript 代码在单线程中执行，意味着在任意给定的时间段内
 
 ## 并发的 React 和调度器
 
-_⚠️ 警告：下面的 API 尚不稳定并且会发生变化。我会尽可能地保持更新。_
+**⚠️ 警告：下面的 API 尚不稳定并且会发生变化。我会尽可能地保持更新。**
 
 为了使用 React 实现一个正确的用户界面调度器，我们必须看看以下两个即将推出的 React 新功能：
 
@@ -63,7 +63,7 @@ _⚠️ 警告：下面的 API 尚不稳定并且会发生变化。我会尽可�
 
     ➡️ 使用这个模式，在将来我们就可以将需要长时间渲染的任务分成小任务块。
 
-*   **调度器。**通用协作主线程调度程序由 React Core 团队开发，可以在浏览器中注册具有不用优先级的回调函数。
+*   **调度器。**它是由 React Core 团队开发的通用协作主线程调度程序，可以在浏览器中注册具有不用优先级的回调函数。
 
     目前，优先级有这么几种：
 
@@ -130,7 +130,7 @@ function SearchBox(props) {
 ReactDOM.render(<App />, container);
 ```
 
-_ℹ️ 这个例子使用了 [React Hooks](https://reactjs.org/docs/hooks-intro.html)。如果你对这个新特性没有那么熟悉的话，可以看看  [CodeSandbox code](https://codesandbox.io/s/j3zrqpzkr5)。此外，你可能想知道为什么在这个示例中我们使用了两个不同的状态变量。接下来我们一起来找找看原因。
+**ℹ️ 这个例子使用了 [React Hooks](https://reactjs.org/docs/hooks-intro.html)。如果你对这个新特性没有那么熟悉的话，可以看看  [CodeSandbox code](https://codesandbox.io/s/j3zrqpzkr5)。此外，你可能想知道为什么在这个示例中我们使用了两个不同的状态变量。接下来我们一起来找找看原因。**
 
 试试看！在下面的搜索框中输入一个名字（例如，“Ada Stewart”），然后看看它是怎么工作的：
 
