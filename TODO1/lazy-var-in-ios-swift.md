@@ -2,8 +2,8 @@
 > * 原文作者：[Abhimuralidharan](https://medium.com/@abhimuralidharan)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lazy-var-in-ios-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lazy-var-in-ios-swift.md)
-> * 译者：kirinzer
-> * 校对者：portandbridge，iWeslie
+> * 译者：[kirinzer](https://github.com/kirinzer)
+> * 校对者：[portandbridge](https://github.com/portandbridge) [iWeslie](https://github.com/iWeslie)
 
 # 在 iOS Swift 中的懒加载变量
 
@@ -52,7 +52,7 @@ if person1.isiOS! {
 }
 ```
 
-这是一个非常基础的例子。 如果我们有一个复杂的类或结构，它包含从循环的函数返回结果的计算变量，并且如果我们创建1000个这样的对象，那么性能和内存将会受到影响。
+这是一个非常基础的例子。 如果我们有一个复杂的类或结构，它包含从循环的函数返回结果的计算变量，并且如果我们创建 1000 个这样的对象，那么性能和内存将会受到影响。
 
 ## 懒加载存储属性 vs 存储属性
 
@@ -96,11 +96,11 @@ lazy var iOSResumeDescription = “I am an iOS developer”
 
 ## 懒加载规则:
 
-* 你不能对 `let` 类型使用 `lazy` 。
+* 你不能对 `let` 类型使用 `lazy`。
 
 * 你不能对于 `计算属性` 使用它。因为一个计算属性会在每次我们试图访问它的时候去执行在计算代码块中的代码并返回相应的值。
 
-* 你只能对 `struct` 和 `class`的成员使用 `lazy` 。
+* 你只能对 `struct` 和 `class` 的成员使用 `lazy`。
 
 * 懒加载变量不是原子初始化类型，所以它并不是线程安全的。
 
