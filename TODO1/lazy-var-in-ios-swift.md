@@ -65,7 +65,7 @@ if person1.isiOS! {
  3. **注意** 你能够在懒加载的属性闭包内部使用 `self`。这不会导致任何循环引用。原因在于它立即使用的这个闭包 `{}()` 被认为是 `@noescape`。它不会引用捕获的 `self`。
 > 但是，如果你在 **方法** 中使用 `self`。事实上，如果你正在使用的是一个类而不是结构体，你也应该在你的方法内声明 `[unowned self]` 那样你才不会创建一个强引用（查看下面的代码）。
 
-```swfit
+```swift
 // playground code
 
 import UIKit
@@ -88,7 +88,9 @@ testObj.greeting
 
 你能够引用这个变量，无论你是否使用了闭包。
 
+```swift
 lazy var iOSResumeDescription = “I am an iOS developer”
+```
 
 这样的语法也可以运行。
 
