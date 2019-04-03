@@ -427,7 +427,6 @@ store.dispatch({ type: "RESET" });
 
 同样注意到 state 每次都一样？`{count: 0}` 一直没变。
 
-
 这是因为我们的 reducer 没有**作用于**那些 actions。不过很容易解决。现在就开始吧。
 
 ## 在 Redux Reducer 中处理 Actions
