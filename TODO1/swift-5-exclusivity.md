@@ -15,9 +15,9 @@ Swift 5 允许在 Release 构建过程中默认启用关于「独占访问内存
 
 为了实现 [内存安全](https://docs.swift.org/swift-book/LanguageGuide/MemorySafety.html)，Swift 需要对变量进行独占访问时才能修改该变量。本质上来说，当一个变量作为 `inout` 参数或者 `mutating` 方法中的 `self` 被修改时，不能通过不同的名称被访问的。
 
-在以下示例中，通过将 `count` 作为 `inout` 参数传递来对 `count` 变量进行修改。出现独占性违规情况是因为 `modifier` 闭包对捕获的 `count` 变量同时进行了读取操作，并且在同一变量修改的范围内进行了调用。在 `modifyTwice` 函数中，`count` 变量只能通过 `inout` 修饰的 `value` 参数来进行安全访问而在 `modified` 闭包内，它只能以 `$0` 来进行安全访问。
+在以下示例中，`modifyTwice` 函数通过将 `count` 作为 `inout` 参数传入来对它进行修改。出现独占性违规情况是因为，在 `count` 变量被修改的作用域内，`modifier` 闭包对 `count` 在变量进行读取操作的同时也被调用了。在 `modifyTwice` 函数中，`count` 变量只能通过 `inout` 修饰的 `value` 参数来进行安全访问，而在 `modifier` 闭包内，它只能以 `$0` 来进行安全访问。
 
-```
+```swift
 func modifyTwice(_ value: inout Int, by modifier: (inout Int) -> ()) {
   modifier(&value)
   modifier(&value)
@@ -68,14 +68,14 @@ Swift 5 中的强制独占性检查对现有项目可能会产生以下两种影
 
 通常可以通过添加 `let` 来简单地修复 `inout` 参数的违规情况：
 
-```
+```swift
 let incrementBy = count
 modifyTwice(&count) { $0 += incrementBy }
 ```
 
 下一个示例可能会在 `mutating` 方法中同时修改 `self`，从而产生异常。`append(removingFrom:)` 方法通过删除另一个数组中所有元素来增加数组元素：
 
-```
+```swift
 extension Array {
     mutating func append(removingFrom other: inout Array<Element>) {
         while !other.isEmpty {
@@ -91,7 +91,7 @@ extension Array {
 
 为了避免这些同时修改，可以将局部变量复制到另一个 `var` 中，然后作为 `inout` 参数传递给 mutating 方法：
 
-```
+```swift
 var toAppend = elements
 elements.append(removingFrom: &toAppend)
 ```
@@ -106,7 +106,7 @@ elements.append(removingFrom: &toAppend)
 
 如示例中所示，在许多情况下，冲突访问发生在不同的语句中。
 
-```
+```swift
 struct Point {
     var x: Int = 0
     var y: Int = 0
@@ -128,7 +128,7 @@ point.modifyX {
 
 运行时检测捕获了在开始调用 `modifyX` 时的访问信息，以及在 `getY` 闭包内发生冲突的访问信息，以及显示了导致冲突的堆栈信息：
 
-```
+```swift
 Simultaneous accesses to ..., but modification requires exclusive access.
 Previous access (a modification) started at Example`main + ....
 Current access (a read) started at:
@@ -149,7 +149,7 @@ Xcode 首先确定了内部访问冲突：
 
 通过复制闭包中所需要用的任何值，可以避免独占性违规：
 
-```
+```swift
 let y = point.y
 point.modifyX {
     $0 = y
@@ -158,7 +158,7 @@ point.modifyX {
 
 如果这是在没有 getter 和 setter 的情况下编写的：
 
-```
+```swift
 point.x = point.y
 ```
 
@@ -166,7 +166,7 @@ point.x = point.y
 
 在这一点上，读者可能想知道为什么在读写两个单独的属性时，原始示例被视为违反独占性规则；`point.x` 和 `point.y`。因为 `Point` 被声明为 `struct`，它被认为是一个值类型，这意味着它的所有属性都是整个值的一部分，访问任何一个属性都会访问整个值。当通过简单的静态分析可以证明安全性时，编译器会对此规则进行例外处理。 特别是，当同一语句发起对两个不相交存储的属性访问时，编译器会避免抛出违反独占性的报告。在下一个示例中，先调用 `modifyX` 的方法访问 `point`，以便立即将其属性 `x` 作为 `inout` 传递。然后用相同的语句再次访问 `point`，以便在闭包中捕获它。因为编译器可以立即看到捕获的值只用于访问属性 `y`，所以没有错误。
 
-```
+```swift
 func modifyX(x: inout Int, updater: (Int)->Int) {
   x = updater(x)
 }
@@ -191,7 +191,7 @@ func testDisjointStructProperties(point: inout Point) {
 
 只有对第一类属性（实例属性）的修改才会要求对聚合值的整体存储具有独占性访问，如上面的 `struct Point` 示例所示。另外两种类别可以作为独立存储分别执行。 如果这个例子被转换成一个类对象，那么将不会违反独占性原则：
 
-```
+```swift
 class SharedPoint {
     var x: Int = 0
     var y: Int = 0
@@ -219,7 +219,7 @@ point.modifyX {
 
     随着程序规模的不断扩大，越来越可能会以意想不到的方式进行交互。下面的例子在类似于上面的`Array.append(removedFrom:)` 例子，需要执行独占性检查来避免程序员将相同的变量同时作为源数据和目标数据进行传递。但请注意，一旦涉及到类对象，因为这两个变量引用了同一个对象，程序就会在无意中更容易在 `src` 和 `dest` 位置上传递同一个的 `Names` 实例。当然，这样就会导致死循环：
 
-```
+```swift
 func moveElements(from src: inout Set<String>, to dest: inout Set<String>) {
     while let e = src.popFirst() {
         dest.insert(e)
@@ -252,7 +252,7 @@ moveNames(from: oldNames, to: newNames)
 
 4. 执行独占性检查使性能优化更合法，同时保护内存安全。
 
-    对 `inout` 参数和 `mutating` 方法的独占性检查向编译器提供了重要信息，可用于优化内存访问和引用计数操作。如上面第2点所述，简单地声明一个未指定的行为规则对于编译器来说是不够，因为 Swift 是一种内存安全语言。完全强制执行独占性检查允许编译器基于内存独占性进行优化，而不会牺牲内存安全性。
+    对 `inout` 参数和 `mutating` 方法的独占性检查向编译器提供了重要信息，可用于优化内存访问和引用计数操作。鉴于 Swift 是一种内存安全语言，如上面第2点所述，简单地声明一个未指定的行为规则对于编译器来说是不够的。完全强制执行独占性检查允许编译器基于内存独占性进行优化，而不会牺牲内存安全性。
 
 5. 独占性规则为程序员提供所有权和仅移动类型的控制权。
 
