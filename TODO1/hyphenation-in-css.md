@@ -5,48 +5,48 @@
 > * 译者：
 > * 校对者：
 
-# All you need to know about hyphenation in CSS
+# 你需要知道的 CSS 中所有 hyphenation 的使用
 
-![Part of a Gutenberg bible showing hyphenation on many lines](https://clagnut.com/images/1-handj-bible-hyphens.jpg)
+![在古腾堡圣经的一些内容中，许多句子都使用了连字符。](https://clagnut.com/images/1-handj-bible-hyphens.jpg)
 
-Earlier this month I was invited to give an [evening lecture](http://typographischegesellschaft.at/k_vortrag_workshop/v_rutter.html) at the Typography Society of Austria ([tga](http://typographischegesellschaft.at/)) in Vienna. I was honoured to do so, as it meant following in the footsteps of such luminaries as Matthew Carter, Wim Crouwel, Margaret Calvert, Erik Spiekermann, and the late Freda Sack to name but a few.
+月初我应邀在维也纳的奥地利印刷学会（[tga](http://typographischegesellschaft.at/)）做了一场[晚间讲座](http://typographischegesellschaft.at/k_vortrag_workshop/v_rutter.html)。我很荣幸能够做这样一个演讲，因为这意味着我将追随马修·卡特(Matthew Carter)、维姆·克鲁维尔(Wim Crouwel)、玛格丽特·卡尔弗特(Margaret Calvert)、埃里克·斯皮克曼(Erik Spiekermann)和已故的弗雷达·萨克(Freda Sack)等名人的脚步。
 
-I presented some golden rules for typography on the web, and in the Q&A afterwards I was asked about the current state of automatic hyphenation on the web. This was an apt question considering that German is well known for its long words -- noun compounds feature commonly (for example Verbesserungsvorschlag meaning *suggestion for improvement*) -- so hyphenation is extensively used in most written media.
+我展示了一些 web 排版的黄金准则，在之后的问答环节中，我被问到关于 web 自动断字的现状。这是一个恰当的问题，因为德语以长单词而闻名——尤其在名词复合词中很常见（例如 Verbesserungsvorschlag 意为改进建议）——所以使用连字符断字在大多数书面媒体中被广泛使用。
 
-Automatic hyphenation on the web has been [possible since 2011](https://clagnut.com/blog/2394) and is now [broadly supported](https://caniuse.com/#feat=css-hyphens). Safari, Firefox and Internet Explorer 9 upwards support automatic hyphenation, as does Chrome on Android and MacOS (but [not yet on Windows or Linux](https://bugs.chromium.org/p/chromium/issues/detail?id=652964)).
+自 2011 年以来，web 上的自动断字已经成为[可能](https://clagnut.com/blog/2394)，现在得到了[广泛的支持](https://caniuse.com/#feat=css-hyphens)。Safari，Firefox 和 Internet Explorer 9 以上版本支持自动断字，Android 和 MacOS 上的 Chrome 也支持自动断字（但 [Windows 或 Linux](https://bugs.chromium.org/p/chromium/issues/detail?id=652964) 上还没有）。
 
-## How to turn on automatic hyphenation
+## 如何开启自动断字
 
-There are two steps required to turn on automatic hyphenation. The first is to set the language of the text. This will tell the browser which hyphenation dictionary to use -- correct automatic hyphenation requires a hyphenation dictionary appropriate to the language of the text. If the browser does not know the language of the text, the CSS guidelines say it is not required to hyphenate automatically, even if you turn on hyphenation in a style sheet.
+打开自动断字需要两个步骤。首先设置文本语言。这将告诉浏览器使用哪个断字字典——正确的自动断字需要一个适合文本语言的断字字典。CSS  指南说，如果浏览器不知道文本的语言，即使在样式表中打开连字符，也不会自动断字。
 
-Hyphenation is a complex subject. Hyphenation points are mainly based on syllables using a combination of etymology and phonology, but house styles also have differing rules on dividing words.
+断字是一门复杂的学科。断字主要以音节为基础，结合词源和音系，但 house styles 也有不同的分词规则。
 
-### 1\. Setting the language
+### 1\. 设置语言
 
-The language of a webpage should be set using the HTML `lang` attribute:
+网页语言应该使用 HTML 的 `lang` 属性设置。
 
 ```html
 <html lang="en">
 ```
 
-Setting the language in this way is best practice for all web pages regardless of whether you are hyphenating or not. Knowing the language of the text will help automatic translating tools, screen readers and other assistive software.
+以这种方式设置语言是所有 web 页面的最佳实践，无论是否使用断字。了解文本语言将有助于自动翻译工具、屏幕阅读器和其他辅助软件。
 
-The `lang="en"` attribute uses an [ISO language tag](https://www.w3.org/International/articles/language-tags/) to tell the browser that the text is in English. In this case the browser will choose its default English hyphenation dictionary, which will often mean hyphenating for American English. While there are important differences in spelling and pronunciation (and hence hyphenation) between American English and other countries, there can be even bigger differences in languages such as Portuguese. The solution is to add a 'region' to the language so that the browser knows which is the most appropriate hyphenation dictionary. For instance, to specify Brazilian Portuguese or British English:
+`lang="en"` 属性通过使用一个 [ISO 语言标签](https://www.w3.org/International/articles/language-tags/) 告诉浏览器文本使用的是英语。这个案例中，浏览器将会选择它默认的英语断字字典，这意味着使用美式英语的断字。虽然美式英语和其他国家在拼写和发音（因此断字）上有很大差异，但在葡萄牙语等语言上的差异可能更大。解决方案是在语言中添加一个”区域“，以便浏览器知道哪个是最合适的断字字典。例如，要指定巴西葡萄牙语或英式英语：
 
 ```html
 <html lang="pt-BR">
 <html lang="en-GB">
 ```
 
-### 2\. Turn on the hyphens
+### 2\. 打开断字
 
-Now you've set your language, you are ready to turn on automatic hyphenation in CSS. This couldn't be much easier:
+到目前为止，已经设置好了语言，可以在 CSS 中打开自动断字。这再简单不过了：
 
 ```css
 hyphens: auto;
 ```
 
-Currently Safari and IE/Edge both require prefixes, so this is what you'll need right now:
+目前 Safari 和 IE/Edge 都需要前缀，所以需要在属性前面加对应的前缀：
 
 ```css
 -ms-hyphens: auto;
@@ -54,17 +54,17 @@ Currently Safari and IE/Edge both require prefixes, so this is what you'll need
 hyphens: auto;
 ```
 
-## Hyphenation controls
+## 断字控制
 
-There is more to setting hyphenation than just turning on the hyphens. The [CSS Text Module Level 4](https://www.w3.org/TR/css-text-4/#hyphenation) has introduced the same kind of hyphenation controls provided in layout software (eg. InDesign) and some word processors (including Word). These controls provide different ways to define how much hyphenation occurs through your text.
+设置断字不仅仅是打开断字。CSS 文本模块第 4 级引入了布局软件（例如 InDesign ）和一些文字处理器（包括word）。这些控件提供了不同的方法来定义文本中出现了多少断字。
 
-### Limiting the word length and the number of characters before and after a hyphen
+### 限制断字前后的单词的长度和字符数
 
-If you hyphenate short words they can be harder to read. Likewise, you don't want too few characters left on a line before the hyphen, or pushed to the next line after the hyphen. A common rule of thumb is to only allow words at least six-letters long to be hyphenated, leaving at least three characters before the word break, and taking a minimum of two to the next line.
+如果你用连字符连接短单词，它们会更难读。同样，您也不希望在连字符之前的行上留下太少的字符，或者在连字符之后被推到下一行。一个常见的经验法则是，只允许至少有 6 个字母长的单词用连字符连接，在单词断开之前至少留下 3 个字符，并在下一行至少保留 2 个字符。
 
-The *Oxford Style Manual* recommends that three is the minimum number of letters after a hyphen at a line break, though exceptions can be made in very short measures.
+《牛津风格手册》（Oxford Style Manual）建议，换行符中连字符后的最小字母数是 3，不过也可以在很短的时间内出现例外。
 
-You can set these limits with the `hyphenate-limit-chars` property. It takes three space-separated values. The first is the minimum character limit for a word to be hyphenated; the second is the minimum number of characters before the hyphenation break; and the last is the minimum characters after the hyphenation break. To set the aforementioned rule of thumb, with a six-character word limit, three characters before the hyphenation break and two after, use:
+您可以使用断字 `hyphenate-limit-chars` 属性设置这些限制。它使用三个空格分隔值。第一个是连字符的最小字符限制；二是连字符前的最小字符数；最后是连字符后的最小字符。要设置前面提到的规则，限制 6 个字符的字数，在断字符前加 3 个字符，在断字符后加 2 个字符，请使用：
 
 ```css
 hyphenate-limit-chars: 6 3 2;
@@ -72,27 +72,27 @@ hyphenate-limit-chars: 6 3 2;
 
 ![](https://clagnut.com/images/1-handj-hyphenate-limit-chars.png)
 
-> hyphenate-limit-chars in action.
+> hyphenate-limit-chars 实现效果。
 
-The default value for `hyphenate-limit-chars` is `auto` for all three settings. This means that the browser should pick the best settings based on the current language and layout. The CSS Text Module Level 4 suggests that browsers use `5 2 2` as their starting point (which I think results in too much hyphenation), but browsers are free to vary that as they see fit.
+对于所有这三个设置，`hyphenate-limit-chars` 的默认值都是 `auto`。这意味着浏览器应该根据当前的语言和布局选择最佳设置。CSS 文本模块第 4 级建议浏览器使用 `5 2 2` 作为起始点(我认为这会导致有太多的连字符)，但是浏览器可以根据自己的需要随意更改。
 
-Currently only IE/Edge supports this property (with a prefix), however Safari does support hyphenation character limits using some legacy properties specified in an earlier draft of the CSS3 Text Module. This means you can get the same control in Edge and Safari (with some forward planning for Firefox) like this:
+目前，只有 IE/Edge 支持这个属性（带有前缀），但是 Safari 确实支持使用 CSS 3 文本模块早期草稿中指定的一些遗留属性限制连字符。这意味着你可以在 Edge 和 Safari 中获得相同的控件（对 Firefox进行一些提前规划），如下所示：
 
 ```css
-/* legacy properties */
+/* 遗留属性 */
 -webkit-hyphenate-limit-before: 3;
 -webkit-hyphenate-limit-after: 2;
 
-/* current proposal */
+/* 建议使用 */
 -moz-hyphenate-limit-chars: 6 3 2; /* not yet supported */
 -webkit-hyphenate-limit-chars: 6 3 2; /* not yet supported */
 -ms-hyphenate-limit-chars: 6 3 2;
 hyphenate-limit-chars: 6 3 2;
 ```
 
-### Limiting the number of consecutive hyphenated lines
+### 限制连续连字符行数
 
-For primarily aesthetic reasons, you can limit the number of lines in a row that are hyphenated. Consecutively hyphenated lines, particularly three or more, are pejoratively called a ladder. The general rule of thumb for English is that two consecutive lines is the ideal maximum (in contrast, readers of German may well be faced with many ladders). By default, CSS sets no limit to the number of consecutive hyphens, but you can use the `hyphenate-limit-lines` property to specify a maximum. Currently this is only supported by IE/Edge and Safari (with prefixes).
+出于美学的原因，可以限制行中连字符的行数。连续连字符的线，特别是三条或三条以上的线，这被轻蔑地称为梯子。英语的一般经验法则是，连续两行是理想的最大值（相比之下，德语读者可能要面对许多梯子）。默认情况下，CSS 不限制连续连字符的数量，但是可以使用 `hyphenate-limit-lines` 属性指定最大值。目前，这只被 IE/Edge 和 Safari （带有前缀）支持。
 
 ```css
 -ms-hyphenate-limit-lines: 2;
@@ -102,44 +102,44 @@ hyphenate-limit-lines: 2;
 
 ![](https://clagnut.com/images/1-handj-hyphenate-limit-lines.png)
 
-> hyphenate-limit-lines applied to prevent a ladder.
+> hyphenate-limit-lines 用来防止梯子。
 
-You can remove the limit using a value of `no-limit`.
+你可以使用 `no-limit` 删除限制。
 
-### Avoiding hyphenated words across the last line of a paragraph
+### 避免在段落的最后一行使用连字符
 
-Unless you tell it otherwise, a browser will happily hyphenate the very last word of a paragraph such that the end of the broken word sits alone on the final line, a lonely orphan of an orphan. It is often preferable to have a large gap at the end of the penultimate line than having half a word on the final line. You can achieve this by activating the `hyphenate-limit-last` property with a value of `always`.
+除非你告诉它，否则浏览器会很乐意用连字符连接一段的最后一个单词，这样断字的某位会单独出现在最后一行，就像孤儿一样孤独。通常，在倒数第二行末尾有一个大的空格比在最后一行有半个字要好。你可以通过激活值为 `always` 的 `hyphenate-limit-last` 属性来实现这一点。
 
 ```css
 hyphenate-limit-last: always;
 ```
 
-Currently this is only supported in IE/Edge (with a prefix).
+目前只支持 IE/Edge（带前缀）。
 
-### Reducing hyphenation by setting a hyphenation zone
+### 通过设置连字符区来减少连字符
 
-By default, hyphenation will occur as often as the browser can split a word across two lines, within any `hyphenate-limit-chars` and `hyphenate-limit-lines` values you set. Even when applying those properties to control when hyphenation occurs, you could still end up with heavily hyphenated paragraphs.
+默认情况下，只要浏览器可以在任意设置的 `hyphenate-limit-chars` 和 `hyphenate-limit-lines` 值内将一个单词分隔成两行，就会经常出现连字符。即使应用这些属性来控制什么时候发生断字，仍然可能出现大量的连字符段落。即使应用这些属性来控制什么时候发生断字，仍然可能出现大量的连字符段落。
 
-Consider a left-aligned paragraph. The right edge is ragged, which hyphenation can reduce. By default, all words which are allowed to be hyphenated will be. This will give you the maximum amount of hyphenation and thus the maximum reduction to the rag. If you are prepared to tolerate a little more unevenness to the edge of the paragraph, you can reduce the amount of hyphenation.
+考虑一个左对齐的段落。右边缘参差不齐，连字符可以减少。默认情况下，所有允许用连字符连接的单词。这将给你最大的断字量，从而最大限度地减少碎屑。如果你准备容忍段落边缘的不均匀，你可以减少连字符的数量。
 
-You can do this by specifying the maximum amount of whitespace allowed between the last word of the line and edge of the text box. If a new word begins within this whitespace it is not hyphenated. This whitespace is known as the hyphenation zone. The bigger the hyphenation zone, the greater the rag and the less the hyphenation. By adjusting the hyphenation zone you are balancing the ratio between better spacing and fewer hyphens.
+可以通过指定行最后一个单词和文本框边缘之间允许的最大空白量来实现这一点。如果一个新单词在这个空格中开始，它没有连字符。这个空格称为连字符区。连字符的部分越大，碎屑越大，断字越少。通过调整连字符区，你可以平衡更好的间距和更少的连字符之间的比例。
 
 ![](https://clagnut.com/images/1-handj-hyphenation-zone.png)
 
-> *Left*: Arrows indicate lines where hyphenation is allowed.\
-> *Right*: Hyphenation with hyphenation zone set.
-
-To do this you use the `hyphenation-limit-zone` property, which takes a length or a percentage value (in terms of the width of the text box). In the context of responsive design, it makes most sense to set your hyphenation zone as a percentage. Doing so means you would get a smaller hyphenation zone on smaller screens, leading to more hyphenation and less rag. Conversely on wider screens you would get a broader hyphenation zone, hence less hyphenation and more rag, which a wider measure would be better able to accommodate. Based on typical defaults in page layout software, 8% is a good start:
+> *左*: 箭头表示允许连字符的线。
+> *右*: 连字符与连字符区设置。
+>
+> 为此，你可以使用 `hyphenation-limit-zone` 属性，它接受一个长度或百分比值（根据文本框的宽度）。在响应式设计的上下文中，将连字符区设置为百分比是有意义的。这样做意味着在更小的屏幕会有更小的连字符区，从而导致更多的连字符和更少的碎屑。相反，在更宽的屏幕上，你会得到更宽的连字符区，因此更少的连字符和更多的碎屑，这是一个更宽的措施能更好的适应。基于页面布局软件的典型默认值，8% 是一个不错的开始：
 
 ```css
 hyphenate-limit-zone: 8%
 ```
 
-Currently this is only supported in IE/Edge (with a prefix).
+目前只支持 IE/Edge （带前缀）。
 
-### Putting it all together
+### 把它们放在一起
 
-To apply the same kinds of hyphenation controls as are available in conventional layout software (at least on a line-by-line basis) to paragraph using CSSText Module Level 4 properties:
+使用 CSS 文本模块第 4 级属性对段落应用与传统布局软件相同的连字符控件（至少逐行使用）：
 
 ```css
 p {
@@ -151,7 +151,7 @@ p {
 }
 ```
 
-And with the appropriate browser prefixes and fallbacks:
+以及适当的浏览器前缀和回退：
 
 ```css
 p {
@@ -183,7 +183,7 @@ p {
 }
 ```
 
-Hyphenation is a perfect example of progressive enhancement, so you can start applying the above now if you think your readers will benefit from it -- support among browsers will only increase. If you are designing for a website written in a language with long words, such as German, your readers will definitely thank you for it.
+连字符是渐进式增强的一个完美例子，因此，如果您认为您的读者将从中受益，那么现在就可以开始应用上面的方法——浏览器之间的支持只会增加。如果你在为一个用长单词写的网站设计，比如德语，你的读者一定会感谢你的。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
