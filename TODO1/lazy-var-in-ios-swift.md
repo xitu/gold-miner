@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lazy-var-in-ios-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lazy-var-in-ios-swift.md)
 > * 译者：[kirinzer](https://github.com/kirinzer)
-> * 校对者：[portandbridge](https://github.com/portandbridge) [iWeslie](https://github.com/iWeslie)
+> * 校对者：[portandbridge](https://github.com/portandbridge), [iWeslie](https://github.com/iWeslie)
 
 # 在 iOS Swift 中的懒加载变量
 
@@ -52,7 +52,7 @@ if person1.isiOS! {
 }
 ```
 
-这是一个非常基础的例子。 如果我们有一个复杂的类或结构，它包含从循环的函数返回结果的计算变量，并且如果我们创建 1000 个这样的对象，那么性能和内存将会受到影响。
+这是一个非常基础的例子。如果我们有一个复杂的类或结构，它包含从循环的函数返回结果的计算变量，并且如果我们创建 1000 个这样的对象，那么性能和内存将会受到影响。
 
 ## 懒加载存储属性 vs 存储属性
 
@@ -94,7 +94,7 @@ lazy var iOSResumeDescription = “I am an iOS developer”
 
 这样的语法也可以运行。
 
-> **注意：记住，懒加载属性的用途是只有它们第一次被需要的时候才会被计算，在这之后它们的值就被存储下来了。所以，如果你第二次使用 `iOSResumeDescription `，预先存储的属性就会返回**。
+> **注意：记住，懒加载属性的用途是只有它们第一次被需要的时候才会被计算，在这之后它们的值就被存储下来了。所以，如果你第二次使用 `iOSResumeDescription `，预先存储的属性就会返回。**
 
 ## 懒加载规则:
 
@@ -106,7 +106,7 @@ lazy var iOSResumeDescription = “I am an iOS developer”
 
 * 懒加载变量不是原子初始化类型，所以它并不是线程安全的。
 
-**如果你喜欢阅读这篇文章，那么分享和推荐它以便其他人能够看到💚💚💚💚💚💚 !**
+**如果你喜欢阅读这篇文章，那么分享和推荐它以便其他人能够看到💚💚💚💚💚💚！**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
