@@ -2,127 +2,127 @@
 > * 原文作者：[Matt Walton](https://www.mindtheproduct.com/profile/matt-walton)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/creating-good-roadmaps-6-practical-steps-product-leaders.md](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-good-roadmaps-6-practical-steps-product-leaders.md)
-> * 译者：
+> * 译者：[QiaoN](https://github.com/QiaoN)
 > * 校对者：
 
-# Creating Good Roadmaps: 6 Practical Steps for Product Leaders
+# 制定良好的路线图：产品负责人的六个实施步骤
 
-BY [Matt Walton](/profile/matt-walton) ON FEBRUARY 15, 2018
+作者 [Matt Walton](/profile/matt-walton)，2018年2月15日
 
-Much has been written about the process of creating product roadmaps, not least the [](https://medium.com/@FutureLearn?source=linkShare-919b188be89-1518549073) [six great articles](https://medium.com/@FutureLearn?source=linkShare-919b188be89-1518549073) written by my own team. But there has been surprisingly little written about a product leader’s role in the process.
+关于制定产品路线图的流程已经有很多文章，尤其是我自己团队撰写的[六篇优秀文章](https://medium.com/@FutureLearn?source=linkShare-919b188be89-1518549073)。但有关产品负责人在此中角色的文章却出乎意料得少。
 
-I believe the actions of a product leader all too often are the root cause of a “bad” roadmap. Without thoughtful leadership around them, it may not be in product manager’s gift to achieve a “good” roadmap. This is because product leadership is genuinely hard and quite distinct from the job of product manager – something that is often misunderstood.
+我认为产品负责人的行为通常是“糟糕”路线图的根本原因。没有他们周全的领导力，产品经理可能没法实现一个“良好”路线图作为回报。这是因为产品领导力确实很难，而且与产品经理的工作截然不同 —— 这点经常被误解。
 
-I would define a good roadmap as one that the team understands and feels ownership over. It includes the right problems that are driving the company strategy and is useful to those both in and outside of the team.
+我将良好的路线图定义为一个能被团队理解并感受到主导意识的路线图。它包括推动公司战略的正确问题，且对团队内外的人都有用处。
 
-This article captures my reflections on your role as product leader in ensuring that your team is empowered to create good roadmaps.
+本文介绍了我对你作为一个产品负责人角色的思索，以确保你的队伍能够制定良好的路线图。
 
-## 1. Ownership
+## 1. 主导意识
 
-Perhaps the biggest mistake you can make as a product leader is believing that you should ultimately own the roadmap(s). This can easily happen if your role is changing and you’re becoming less hands-on in a rapidly growing startup or simply if you’re new to a leadership role.
+也许作为一个产品负责人，你能犯的最大错误就是相信自己应该最终主导路线图。如果在一个快速发展的创业公司你的角色正在变化且上手实践的越来越少，或者你只是刚担任一个领导角色，那非常容易犯这个错误。
 
-And it’s not just a mistake made by those in product leadership roles, it can apply equally to founders, CEOs and other members of the leadership team. Their ideas about ownership can add complexity to how you perform your role: not only do you need to avoid falling into the trap yourself but you need to make sure others are not doing so or pushing you into acting in this way.
+这个错误不仅仅是那些产品领导角色会犯，创始人、CEO或者领导团队的其他成员也同样会犯。他们关于主导意识的想法会增加你开展工作的复杂度：你不仅需要避免自己掉进陷阱，还需要保证其他人不掉进去或者把你推进去。
 
-Here’s why you should avoid getting hands-on in the process of creating the roadmaps, beyond the important job of inspiring, coaching and challenging your team.
+这就是为什么你应该避免在制定路线图的流程中亲自动手，却远离了激励、指导和质疑你团队的重要工作。
 
-In order to deliver the right solutions to problems, your team needs to understand them and feel motivated to solve them.
+为了提供正确的解决方案，你的团队需要理解这些问题并有动力去解决它们。
 
-The [](https://medium.com/@FutureLearn/how-we-prioritise-at-futurelearn-making-decisions-through-collaboration-adaf7275313e) [collaborative process](https://medium.com/@FutureLearn/how-we-prioritise-at-futurelearn-making-decisions-through-collaboration-adaf7275313e) your product managers and their teams go through to [](https://medium.com/@FutureLearn/defining-the-problem-space-understanding-your-users-and-mapping-opportunities-fa643823ca2c) [define the problem space](https://medium.com/@FutureLearn/defining-the-problem-space-understanding-your-users-and-mapping-opportunities-fa643823ca2c) and [prioritise the opportunities](https://medium.com/@FutureLearn/how-we-prioritise-at-futurelearn-making-decisions-through-collaboration-adaf7275313e) is as valuable as the roadmap that emerges from the process.
+你的产品经理及其团队通过[协作流程](https://medium.com/@FutureLearn/how-we-prioritise-at-futurelearn-making-decisions-through-collaboration-adaf7275313e)[定义问题空间](https://medium.com/@FutureLearn/defining-the-problem-space-understanding-your-users-and-mapping-opportunities-fa643823ca2c)并[确定机会的优先级](https://medium.com/@FutureLearn/how-we-prioritise-at-futurelearn-making-decisions-through-collaboration-adaf7275313e)，这与流程中出现的路线图一样有价值。
 
-The team also has more time than you to understand the potential impact of different roadmap candidates. Typically they are closer to users and so can properly understand the nuances of potential problems and solutions.
+团队还比你有更多的时间去了解不同候选路线图的潜在影响。通常他们更接近用户，因此可以正确理解潜在问题和解决方案的细微差别。
 
-A roadmap that is either handed to them, or one where they only feel like a contributor and not the owner, will inevitably lead to poorer solutions. The team will have a more limited understanding of the problem and they might be less motivated because they’re not convinced they are spending their time on the right problems.
+一个路线图不管是直接交给他们还是让他们感觉自己只是贡献者而不是所有者，都将不可避免的导致更差的解决方案。团队会对问题理解的更局限，同时可能会缺乏动力，因为他们不信自己把时间花在正确的问题上。
 
-Staying hands-off is really hard, particularly where you see that the roadmaps created are very different from what you would do yourself or you are under pressure to ensure something specific is included. But direct intervention should be avoided wherever possible for the reasons above.
+保持不干涉是很困难的，尤其是当你看到他们制定的路线图和你自己做的非常不同，或者你面临着确保涵盖特定内容的压力。但是出于上述原因，你应该尽可能避免直接干预。
 
-So as a product leader, if you’re hands-off in the creation of a roadmap, how do you make sure that your teams are creating good ones? What is your role?
+因此，作为一个产品负责人，如果你不干涉路线图的制定，那该如何确保你的团队制定出良好的路线图？你的角色是什么？
 
 ![](https://3lsqjy1sj7i027fcn749gutj-wpengine.netdna-ssl.com/wp-content/uploads/2018/02/4d6cfeeb-fbeb-4fa2-9d12-a8f28ca2a2d3_amu0-ksuM121O_0bJ6L8CiCvZcy4veEAX_7_GcE-clGnnrtvExYXn3aai_0VgEV_37RsVZJA43SHa7VnBa9OYHwJbFUyG6brcBRdpFVISC7wxJl6CAYI4Q7EWJBa16oQpGsBMI4A.png)
 
-The “agile onion” and the layers that you as a product leader should be in
+敏捷洋葱图，和你作为产品负责人应该在的位置
 
-## 2. Purpose, Vision, Mission and Strategy
+## 2. 目标，愿景，使命和战略
 
-In order for your team to create effective roadmaps, they need to understand their context within the business. It’s your job as product leader to interpret the company’s strategy into something useful for product people and to make sure they understand it.
+为了让你的团队制定出有效的路线图，他们需要了解他们在业务中的情景。作为产品负责人，你需要将公司战略诠释为对产品部门的人有用的东西，并确保他们理解它。
 
-As a product leader, you may be involved in defining the purpose of your company, or be responsible for the vision for the product, or it may even be something that is already set. Regardless, it is your job is to make sure that some kind of “north star” exists, that it is supported by the rest of the leadership team, and that your team understands it. This is important to ensure that any plans they create ultimately drive towards the same shared goal. You need to keep telling the story of the product and showing that what people work on every day is driving towards this goal.
+作为产品负责人，你可能参与定义你们公司的目标，或者负责产品的愿景，或者是可能已被设定的一个东西。无论如何，你的工作是确保某种“北极星”一样的存在，被领导团队的其他成员所支持，也被你自己的团队所理解。这非常重要，可以确保他们最终制定的任何计划都朝着同一个共同目标前进。你需要不断的讲述产品的故事，并表明人们每天的工作正朝着这个目标前进。
 
-At FutureLearn we have a purpose (why we exist), a vision (what we’re aiming to create) and a mission (how we’re going to do it over the next few years).
+在 FutureLearn，我们有一个目标（我们为什么存在），一个愿景（我我们力求创造什么）和一个使命（我们在未来几年如何做到它）。
 
 ![](https://3lsqjy1sj7i027fcn749gutj-wpengine.netdna-ssl.com/wp-content/uploads/2018/02/ea563095-d70b-409d-83de-85e73b31526b_TVzdhRAKnkR7PSndihh8wk0UG_8EiY-9rTEKyIQWEs3Xiuh6LQZoJYhzQh77IDBjXj4vT02azaeJHmsWzhV35iDUkVxvEq2iduNXdjEAQANiz629r9gBqDC8VgUbGncXwmIiIqz_.jpg)![](https://3lsqjy1sj7i027fcn749gutj-wpengine.netdna-ssl.com/wp-content/uploads/2018/02/86c0d9af-d44d-4484-9cf2-b07e35679149_Wl1oaE_Dj7VUxQylr9mfCkUVjDeuvW2hfa_ZAfxitmF2Dn0k4o4bppe_WgoVmd6nBcKespLnutXyiDiw2YtcBl7BRK7MC-QTp9jwy5jpZlKILYS43Hs_KyY1pNyQpKAUkk1HK4Zf.jpg)
 
-Our company strategy sits under this mission, and typically we revisit it every 12 months. The strategy sets out what we need to do in the coming year to move us closer to achieving our mission. This year, we have six strategic objectives.
+我们公司的战略就基于这个使命，通常我们每十二个月重新审视一次。该战略陈述了在来年我们需要做什么能更接近使命的实现。今年，我们有六个战略目标。
 
-An example of one of our strategic objectives is to “Grow the number of Advancers (learners whose motivation is to advance their career) who will pay for an aspect of a course or qualification”.
+我们的战略目标之一就是“增长发展者（那些有动力发展自己事业的学习者）的数量，他们会为了课程或资格的某个方面付费”。
 
-You can take many approaches to vision and strategy, but the important thing is to make sure that they exist and are understood.
+你可以采用许多方法制定愿景和战略，但重要的是确保它们存在并且被理解。
 
-## 3. Team Organisation, Missions and Metrics
+## 3. 团队组织，任务和指标
 
-As product leader, the biggest impact you have on product roadmaps is how you organise your teams and define their missions.
+作为产品负责人，你对产品路线图最大的影响是如何组织团队并且定义他们的任务。
 
-From the early days at FutureLearn, we’ve organised our product teams around our strategic objectives. We have a cross-functional team working towards each objective, rather than on a specific set of features or part of the product. We have found this to be successful as it focuses the team on the impact that they create rather than the features they build and maintain.
+从 FutureLearn 早期开始，我们围绕战略目标组建了我们的产品团队。我们有一个跨职能团队致力于实现每个目标，而不是针对特定的一组功能或者部分产品。我们发现这是成功的，因为它使团队专注于他们产生的影响而非他们构建和维护的功能。
 
-Each team’s mission mirrors the strategic objective. In addition, each team has a metric that is their key measure of success. For the growth example above, we measure the number of course enrolments and drive towards a monthly target.
+每个团队的任务都反映了战略目标。此外，每个团队都有一个指标作为衡量成功的关键因素。对于上面的增长示例，我们衡量课程注册的数量并朝月度目标推进。
 
-For a product leader, the mission definition and agreement with the team about how you measure success is one of the biggest levers you have to guide what the team will work on. Getting this right is worth time and effort and makes things more straightforward later on if you want to challenge what the team decides to work on.
+对于产品负责人而言，任务的定义和与团队达成的如何衡量成功的协定是你指导团队工作的最大的手段之一。如果你要质疑团队决定的工作事务，那么正确实现这一点值得你花费时间和精力，并且能让之后的事情更明确。
 
-This approach has been successful enough for us to adopt it beyond the product function in our organisation. Now the majority of the company, including our marketing, business development and content disciplines, comes together in cross-functional teams alongside product managers, software engineers and designers to work on a shared strategic goal.
+在我们的组织中，除了产品功能外，这种方法也已足够成功的令我们采纳它。现在，公司的大部分人员，包括市场、商务拓展和内容科目，可以和产品经理、软件工程师及设计师一起组成跨职能团队，一起致力于共同的战略目标。
 
 ![](https://3lsqjy1sj7i027fcn749gutj-wpengine.netdna-ssl.com/wp-content/uploads/2018/02/8b0605fe-1e93-40bf-8831-d103fd39a504_8oNCOgbnmCdRbUyULBrLy7hypSsNhbUNSx6A3lhHkb7DnwLQd8jSbr0NzxLEJCvgtpXvcUU-pSodcDd88Gy1_cUfPB6HpFYX0WRvxxd6xaNlFS2IniTEUsgJfu-0JLyPpZui8OwI.png)
 
-A cross-functional team at FutureLearn
+FutureLearn 的跨职能团队
 
-This highly collaborative and matrix approach has its own challenges – as a product leader you need to work closely with others in the leadership team to arrive at ways of organising and defining missions that work not only for product people but the rest of the business too. This may require some compromises and certainly requires you to be empathetic, diplomatic and tenacious.
+这种高度协作和矩阵化的方法有其自身的挑战 —— 作为产品负责人，你需要和领导团队中的其他人密切合作，以达成组织和定义任务的方法，这些任务不仅适用于产品人员，也适应于其他业务人员。这可能需要一些妥协，当然你也要善解人意，灵活变通和顽强坚韧。
 
-## 4. Creating Alignment and Encouraging Communication
+## 4. 建立协调一致和鼓励沟通
 
-At FutureLearn, we organise to optimise for speed by giving cross-functional teams autonomy. Once the team has a mission and a metric, they are broadly free and empowered to achieve this in whatever way they see fit.
+在 FutureLearn，我们通过给予跨职能团队自主权来组织优化速度。一旦团队有任务和指标，他们就能获得宽泛的自由度，并有权以他们认为合适的方式来实现这些。
 
-This means that I play another key leadership role in ensuring alignment between teams: encouraging communication and looking out for the coherence of the overall product portfolio.
+这意味着我在确保团队间协调一致方面发挥了另一个关键的领导角色：鼓励沟通并寻求整体产品组合的一致性。
 
-When we first moved to ensure that product managers owned the roadmaps (rather than me), this autonomy extended to when the roadmaps were reviewed and how they were presented.
+当我们第一次改成确保产品经理主导路线图（而不是我），这种自主权展开为路线图的审核时间以及呈现方式。
 
-This led to a situation where the roadmaps were extremely useful to the teams themselves, but with every team taking a similar but different approach, it became quite confusing and less useful to others across the business. It was hard for others to plan and coordinate the impact of changes across teams. It meant that ultimately the roadmaps failed to achieve two of their key purposes: clear communication of what we’re working on and stakeholder buy-in.
+这使得路线图对团队本身非常有用，但对整个业务中的其他人来说，每个团队采取类似却不同的方法会变得相当混乱且不那么有用。其他人很难规划和整合各个团队变更带来的影响。这意味着最终的路线图无法实现其两个主要目标：清楚的沟通我们正进行的工作和利益相关者的支持。
 
-How did we fix this? We aligned the roadmap review process for all teams with our quarterly business planning process and enforced a standard approach to to what we meant by “now”, “next” and “later”. We also agreed on a consistent way to manage and present them.
+我们怎么解决这个问题的呢？我们将所有团队的路线图审核流程和整体的季度业务规划流程相对应，并规定了对“现在”、“下一步”和“之后”的标准含义。我们还同意以一致的方式管理和展示它们。
 
-This enables the product management team to share their developing plans with each other and allows me to provide some high-level direction as context for planning.
+这使得产品管理团队可以相互分享他们的开发计划，我也能为规划背景提供一些高层面指导。
 
-We achieve alignment by encouraging teams to attend each others’ Sprint reviews, and by running a fortnightly product management team meeting. We also make sure that key things are presented to the company at our monthly all-hands meeting.
+我们通过鼓励团队参与彼此的 Sprint 审查，以及每两周召开一次的产品管理组会来实现一致性。我们还确保每月的全员会议上将重要事务展现给全公司。
 
-## 5. Coaching Your Team
+## 5. 指导你的团队
 
-Another big impact you can make on roadmaps comes through how you coach your team. Wherever possible, it’s best to resist the urge to tell members of your team what should be on their roadmap. It’s unlikely to be productive for the reasons outlined above.
+你可以对路线图产生的另一个重大影响来自于你如何指导你的团队。在可能的情况下，最好不要告诉你的团队成员他们路线图应该是什么样子。由于上述原因，这可能不太有成效。
 
-However, it is your role to keep asking your team good questions. You should push them in the direction of key pieces of insight or research, highlight relevant things other teams are working on, and help them think about the bigger picture. Give them the benefit of your fresh pair of eyes and challenge any woolly thinking where their plans are unlikely to deliver on the agreed mission or are in conflict with the company purpose/vision.
+无论如何，你这个角色都应该继续向你的团队提出好问题。你应该将他们推向关键洞见或研究的方向，强调其他团队正在进行的相关事务，并帮助他们思考更大的图景。你的新鲜视角会给他们带来好处，并质疑任何让他们的计划无法完成约定任务或与公司的目标/愿景相冲突的愚蠢想法。
 
-There’s lots of ways to do this, through one-to-ones, sharing documents, encouraging them to connect with others and so on. And this should be a constant process – not just when they review their roadmap.
+有很多办法可以做到这一点。通过一对一、共享文档、鼓励他们与他人交流等等。这应该是一个持续的过程 —— 而不仅仅是在审查路线图的时候。
 
-## 6. Creating a Product-Friendly Culture
+## 6. 打造产品友好的文化
 
-Finally, the company needs a “product-friendly” culture to achieve much of the above. Your other key role should be to cultivate this. What you do here depends on the organisation, the people in senior positions, and how they are used to working.
+最后，公司需要一个“产品友好”的文化来实现上述的内容。你的另一个关键角色应该是培养这一点。你在这里做什么取决于组织架构，高级职位的人员，以及他们的工作习惯。
 
-Typically this involves establishing buy-in of the principles of a roadmap-driven approach, and encouraging everyone to focus on the results we want to see rather than the things we think should be built. It also means working with others in the leadership team to agree a clear set of strategic priorities and providing the teams with protection from left-field requests. You may need to get more involved in business development to do this.
+通常，这涉及到获得对路线图驱动方法原则的支持，并鼓励每个人关注我们想要看到的而不是我们认为应该建立的结果。这也意味着和领导团队中的其他人合作，议定一套明确的战略重点并保护团队免受不正常的要求。你可能需要更多地参与业务开发才能做到这些。
 
-Knowing what questions to ask in order to understand the thinking of your CEO and other key stakeholders is also a valuable set of skills you can focus on developing. In general, being honest with them that this is what you’re trying to do is probably the best approach, and this also gives them the opportunity to talk about their expectations.
+知道问什么问题能了解CEO和其他利益相关者的想法，这也是你可以专注发展的一组宝贵技能。总的来说，可能最好的办法就是诚实地告诉他们你正在努力做的事，这也能让他们有机会谈论他们的期望。
 
-Encouraging your team to relate their successes and achievements to what was planned on the roadmap will also help to establish, reinforce and maintain trust in the process. Essentially, the key is constant communication and celebration of success.
+鼓励你的团队将他们的成功和成果与路线图中计划的内容联系起来，这可以帮助他们在流程中建立、加强和保持信任。本质上，最关键的是不断的沟通和庆功。
 
-## A Product Leader’s Role in Roadmapping
+## 产品负责人在路线图中的角色
 
-In practice, every company is different and presents someone in a leadership role with a very different set of challenges on how to help their team develop roadmaps.
+在实践中，每个公司都是不同的，会有某个领导角色的人在帮助他们的团队制定路线图时遇到非常不同的一系列挑战。
 
-However, wherever you are, remember that your role in product roadmapping is to ensure that:
+然而，不管你身在何处，请记住你在产品路线图中的角色是确保：
 
-1. Your team owns their roadmaps
-2. There is a clear strategic context to inform their work and that the missions and success measures of the teams are clear
-3. The processes, frameworks and cadence for roadmapping are all consistent, understood by your team and bought into effect across the organisation
-4. There are processes in place to encourage communication and collaboration across teams
-5. Your team is inspired, supported and challenged appropriately
-6. You cultivate and maintain a “product-friendly” culture
+1. 你的团队主导他们的路线图
+2. 有明确的战略背景框架来指明他们的工作，并且团队的任务和评估成功的方法也是明确的
+3. 路线图中的流程、框架和节奏都保持一致，被你的团队所理解并且在整个组织中生效
+4. 在适当的地方有鼓励团队间沟通和协作的流程
+5. 你的团队被启发、支持和适当的质疑
+6. 你培养并保持“产品友好”的文化
 
-If you’re able to do all that, you should find that your teams naturally create good roadmaps and, equally as important, are passionate about delivering them. Ultimately, it’s what ends up in the hands of the end user that matters.
+如果你能够做到这一切，你会发现你的团队自然会制定出良好的路线图，同样重要的是他们也会热衷于实现这些路线图。最后，交到最终用户手上的东西才是最重要的。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
