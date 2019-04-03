@@ -104,7 +104,7 @@ let name = "Swift"
 let greeting = "Hello, \(name)!" // "Hello, Swift!"
 ```    
 
-This has been true from the first release of Swift. However, with the new [`ExpressibleByStringInterpolation`](/expressiblebystringinterpolation) protocol in Swift 5, this behavior can no longer be taken for granted.
+This has been true from the first release of Swift. However, with the new [`ExpressibleByStringInterpolation`](https://nshipster.com/expressiblebystringinterpolation) protocol in Swift 5, this behavior can no longer be taken for granted.
 
 Consider the following extension on the default interpolation type for `String`:
 
@@ -131,7 +131,6 @@ If the previous declaration is made accessible by any module in your app, it wou
 
 ```swift
 let greeting = "Hello, \(name)!" // "Hello, SWIFT!"
-    
 ```    
 
 > Admittedly, this last example’s a bit contrived; an implementor has to go out of their way to make the implementation not recursive. But consider this a stand-in for a less-obvious example that’s more likely to actually happen in real-life.
@@ -157,7 +156,7 @@ dump("🏭💨" as CustomStringConvertible) // "🏭💨"
 
 ### ~~Scoped Import Declarations~~
 
-> As discussed in [a previous article](/swift-import-declarations) you can use Swift import declarations to resolve naming collisions.
+> As discussed in [a previous article](https://nshipster.com/swift-import-declarations) you can use Swift import declarations to resolve naming collisions.
 
 > Unfortunately, scoping an import to certain APIs in a module doesn’t currently prevent extensions from applying to existing types. That is to say, you can’t import an `adding(_:)` method without also importing an overloaded `+` operator declared in that module.
 
@@ -167,7 +166,7 @@ If all else fails, you can always solve the problem by taking it into your own h
 
 If you don’t like something that a third-party dependency is doing, simply fork the source code, get rid of the stuff you don’t want, and use that instead. (You could even try to get them to upstream the change.)
 
-> Unfortunately, this strategy won’t work for closed-source modules, including the ones in Apple’s SDKs. _[“Radar or GTFO”](/bug-reporting/)_, I suppose.
+> Unfortunately, this strategy won’t work for closed-source modules, including the ones in Apple’s SDKs. _[“Radar or GTFO”](https://nshipster.com/bug-reporting/)_, I suppose.
 
 ## Strategies for API Provider
 
@@ -212,8 +211,7 @@ But in Swift, our decisions have impacts beyond what’s immediately understood 
 
 Questions? Corrections? [Issues](https://github.com/NSHipster/articles/issues) and [pull requests](https://github.com/NSHipster/articles/blob/master/2019-02-18-swift-api-pollution.md) are always welcome.
 
-_This article uses Swift version 5.0._ Find status information for all articles on the [status page](/status/).
-
+_This article uses Swift version 5.0._ Find status information for all articles on the [status page](https://nshipster.com/status/).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 ---
