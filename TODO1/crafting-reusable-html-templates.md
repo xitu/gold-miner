@@ -12,7 +12,7 @@
 #### 系列文章:
 
 1.  [Web 组件简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
-2.  [编写可以复用的 HTML 模板 (_本文_)](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
+2.  [编写可以复用的 HTML 模板（**本文**）](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
 3.  [从 0 开始创建自定义元素](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
 4.  [使用 Shadow DOM 封装样式和结构](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
 5.  [Web 组件的高阶工具](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
@@ -21,7 +21,7 @@
 
 ### HTML 模板
 
-[Web 组件规范](https://www.w3.org/standards/techs/components#w3c_all)中最不被认可但是最强大的功能之一是 `<模板>` 元素。在这个系列的[第一篇文章](https://css-tricks.com/an-introduction-to-web-components)中，我们将这种模板元素定义为『仅在调用时才渲染的用户自定义 HTML 模板』。换句话说，模板就是一种当浏览器被告知时才执行的 HTML 代码，其他情况下是被忽略的。
+[Web 组件规范](https://www.w3.org/standards/techs/components#w3c_all)中最不被认可但是最强大的功能之一是 `<template>` 元素。在这个系列的[第一篇文章](https://css-tricks.com/an-introduction-to-web-components)中，我们将这种模板元素定义为『仅在调用时才渲染的用户自定义 HTML 模板』。换句话说，模板就是一种当浏览器被告知时才执行的 HTML 代码，其他情况下是被忽略的。
 
 这种模块可以通过许多有趣的方式去传递和应用。基于本文的目的，我们将看下如何为一种最终应用到自定义元素中的对话框创建模板。
 
@@ -45,7 +45,7 @@ const node = document.importNode(template.content, true);
 document.body.appendChild(node);
 ```
 
-真正神奇的地方在于 `document.importNode` 方法。这个函数将会为模板的 `内容` 创建一份副本，并且做好将拷贝插入其他文档（或文档片段）的准备。函数的第一个参数获取到模板的内容，第二个参数告诉浏览器要对元素的 DOM 子树做一份深度拷贝（也就是拷贝它的所有子节点）。
+真正神奇的地方在于 `document.importNode` 方法。这个函数将会为模板的 `content` 创建一份副本，并且做好将拷贝插入其他文档（或文档片段）的准备。函数的第一个参数获取到模板的内容，第二个参数告诉浏览器要对元素的 DOM 子树做一份深度拷贝（也就是拷贝它的所有子节点）。
 
 我们可以直接使用 `template.content`，但是这样做的话，我们随后需要把内容从元素中移除并将它拼接到其他文档的 body 部分。任何 DOM 节点仅可以被接入到一个位置，所以随后对模板内容的使用将会导致空文档片段（基本上是一个空值），因为之前已移动了内容对象。使用 `document.importNode` 允许我们在不同的位置来复用同一个模板内容的实例。
 
@@ -85,7 +85,7 @@ const button = document.getElementById('click-me');
 button.addEventListener('click', event => alert(event));
 ```
 
-当然，我们可以直接使用 `<style>` 和 `</script>` 标签来将他们放在同一个文件中，而非放在分离的文件中：
+当然，我们可以直接使用 `<style>` 和 `<script>` 标签来将他们放在同一个文件中，而非放在分离的文件中：
 
 ```
 <template id="template">
@@ -198,12 +198,12 @@ button.addEventListener('click', event => alert(event));
 
 这段代码将成为我们对话框的基础部分。简单介绍一下，我们有一个全局的关闭按钮，一个标题和一些内容。我们也添加了一些行为来实现可视化触发对话框（尽管它还无法被访问）。不幸的是，样式和脚本内容并非仅限作用于我们的模板，而是应用于整个文件，当我们将多个模板实例添加到 DOM 时，并没有产生理想的中的效果。在下篇文章中，我们将应用自定义元素f生成方法并创建我们自己的元素，实时使用该模板并封装元素的行为。
 
-请查阅笔记[以脚本模板来编写对话框](https://codepen.io/calebdwilliams/pen/JzjLyQ/) ，来自 [CodePen](https://codepen.io) 的 Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams))。
+请查阅笔记[以脚本模板来编写对话框](https://codepen.io/calebdwilliams/pen/JzjLyQ/)，来自 [CodePen](https://codepen.io) 的 Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams))。
 
 #### Article Series:
 
 1.  [Web Components 简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
-2.  [编写可以复用的 HTML 模板 (_本文_)](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
+2.  [编写可以复用的 HTML 模板（**本文**）](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
 3.  [从 0 开始创建自定义元素](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
 4.  [使用 Shadow DOM 封装样式和结构](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
 5.  [Web 组件的高阶工具](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
