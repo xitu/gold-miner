@@ -2,32 +2,32 @@
 > * 原文作者：[Caleb Williams](https://css-tricks.com/author/calebdwilliams/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Mirosalva](https://github.com/Mirosalva)
+> * 校对者：[xionglong58](https://github.com/xionglong58)，[HearFishle](https://github.com/HearFishle)
 
-# Crafting Reusable HTML Templates
+# 编写可以复用的 HTML 模板
 
-In our [last article](https://juejin.im/post/5c9a3cce5188252d9b3771ad), we discussed the Web Components specifications (custom elements, shadow DOM, and HTML templates) at a high-level. In this article, and the three to follow, we will put these technologies to the test and examine them in greater detail and see how we can use them in production today. To do this, we will be building a custom modal dialog from the ground up to see how the various technologies fit together.
+在我们的[上一篇文章中](https://juejin.im/post/5c9a3cce5188252d9b3771ad), 我们讨论了 web 组件规范（自定义元素、shadow DOM 和 HTML 模板）的高级特性。在本文以及接下来的三篇文章中，我们将这些技术应用到测试并更详细地去验证它们，看下我们在如今的产品如何应用它们。为了做到这些，我们将会从零开始构建一个自定义模式的对话框，来查看这些不同的技术如何组装在一起。
 
-#### Article Series:
+#### 系列文章:
 
-1.  [Web Components 简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
-2.  [Crafting Reusable HTML Templates (_This post_)](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
-3.  [Creating a Custom Element from Scratch](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
-4.  [Encapsulating Style and Structure with Shadow DOM](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
-5.  [Advanced Tooling for Web Components](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
+1.  [Web 组件简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
+2.  [编写可以复用的 HTML 模板（**本文**）](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
+3.  [从 0 开始创建自定义元素](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
+4.  [使用 Shadow DOM 封装样式和结构](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
+5.  [Web 组件的高阶工具](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
 
 * * *
 
-### HTML templates
+### HTML 模板
 
-One of the least recognized, but most powerful features of the [Web Components specification](https://www.w3.org/standards/techs/components#w3c_all) is the `<template>` element. In the [first article](https://css-tricks.com/an-introduction-to-web-components) of this series, we defined the template element as, “user-defined templates in HTML that aren’t rendered until called upon.” In other words, a template is HTML that the browser ignores until told to do otherwise.
+[Web 组件规范](https://www.w3.org/standards/techs/components#w3c_all)中最不被认可但是最强大的功能之一是 `<template>` 元素。在这个系列的[第一篇文章](https://css-tricks.com/an-introduction-to-web-components)中，我们将这种模板元素定义为『仅在调用时才渲染的用户自定义 HTML 模板』。换句话说，模板就是一种当浏览器被告知时才执行的 HTML 代码，其他情况下是被忽略的。
 
-These templates then can be passed around and reused in a lot of interesting ways. For the purposes of this article, we will look at creating a template for a dialog that will eventually be used in a custom element.
+这种模块可以通过许多有趣的方式去传递和应用。基于本文的目的，我们将看下如何为一种最终应用到自定义元素中的对话框创建模板。
 
-### Defining our template
+### 定义你的模板
 
-As simple as it might sound, a `<template>` is an HTML element, so the most basic form of a template with content would be:
+就像它听起来这样简单，一个 `<template>` 是一种 HTML 元素，所以一个含内容的模板所具备的最基本形式如下：
 
 ```
 <template>
@@ -35,9 +35,9 @@ As simple as it might sound, a `<template>` is an HTML element, so the most basi
 </template>
 ```
 
-Running this in a browser would result in an empty screen as the browser doesn’t render the template element’s contents. This becomes incredibly powerful because it allows us to define content (or a content structure) and save it for later — instead of writing HTML in JavaScript.
+在浏览器中运行这段代码会显示空白页面，因为浏览器并没有渲染模板元素内容。这种方式的强大之处在于它允许我们保存自定义内容（或内容结构），以供后续使用，而不需要使用 JavaScript 来动态编写 HTML 代码。
 
-In order to use the template, we _will_ need JavaScript
+为了使用模板，我们 **将** 需要用到 JavaScript。
 
 ```
 const template = document.querySelector('template');
@@ -45,25 +45,25 @@ const node = document.importNode(template.content, true);
 document.body.appendChild(node);
 ```
 
-The real magic happens in the `document.importNode` method. This function will create a copy of the template’s `content` and prepare it to be inserted into another document (or document fragment). The first argument to the function grabs the template’s content and the second argument tells the browser to do a deep copy of the element’s DOM subtree (i.e. all of its children).
+真正神奇的地方在于 `document.importNode` 方法。这个函数将会为模板的 `content` 创建一份副本，并且做好将拷贝插入其他文档（或文档片段）的准备。函数的第一个参数获取到模板的内容，第二个参数告诉浏览器要对元素的 DOM 子树做一份深度拷贝（也就是拷贝它的所有子节点）。
 
-We could have used the `template.content` directly, but in so doing we would have removed the content from the element and appended to the document's body later. Any DOM node can only be connected in one location, so subsequent uses of the template's content would result in an empty document fragment (essentially a null value) because the content had previously been moved. Using `document.importNode` allows us to reuse instances of the same template content in multiple locations.
+我们可以直接使用 `template.content`，但是这样做的话，我们随后需要把内容从元素中移除并将它拼接到其他文档的 body 部分。任何 DOM 节点仅可以被接入到一个位置，所以随后对模板内容的使用将会导致空文档片段（基本上是一个空值），因为之前已移动了内容对象。使用 `document.importNode` 允许我们在不同的位置来复用同一个模板内容的实例。
 
-That node is then appended into the `document.body` and rendered for the user. This ultimately allows us to do interesting things, like providing our users (or consumers of our programs) templates for creating content, similar to the following demo, which we covered in the [first article](https://css-tricks.com/an-introduction-to-web-components):
+以上代码执行后，节点内容会被拼接到 `document.body` 对象，并被渲染显示给用户。这样最终使我们能够做许多有趣的事情，比如为我们的用户（或者我们程序的消费者）提供创建内容的模板，类似下面的 demo，在[第一篇文章](https://css-tricks.com/an-introduction-to-web-components)我们讨论过：
 
-See the Pen [Template example](https://codepen.io/calebdwilliams/pen/LqQmXN/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
+请参阅笔记[模板样例](https://codepen.io/calebdwilliams/pen/LqQmXN/)，来自 [CodePen](https://codepen.io) 的 Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams))。
 
-In this example, we have provided two templates to render the same content — authors and books they’ve written. As the form changes, we choose to render the template associated with that value. Using that same technique will allow us eventually create a custom element that will consume a template to be defined at a later time.
+这个例子中，我们提供了两个模板来渲染同样的内容 —— 作者和他写的书。当表格变化时，我们选择渲染与该变化值相关联的模板。使用相同的技术允许我们最终创建一个自定义元素，该元素将使用稍后定义的模板。
 
-### The versatility of template
+### 模板的多功能性
 
-One of the interesting things about templates is that they can contain _any_ HTML. That includes script and style elements. A very simple example would be a template that appends a button that alerts us when it is clicked.
+模板中一个有趣的点是我们可以包含 **任意** HTML，包括脚本和样式元素。一个非常简单的模板例子是添加一个可以提示被点击的按钮。
 
 ```
 <button id="click-me">Log click event</button>
 ```
 
-Let’s style it up:
+让我们加点样式：
 
 ```
 button {
@@ -78,14 +78,14 @@ button {
 }
 ```
 
-...and call it with a really simple script:
+...然后通过一个非常简单的脚本来调用按钮：
 
 ```
 const button = document.getElementById('click-me');
 button.addEventListener('click', event => alert(event));
 ```
 
-Of course, we can put all of this together using HTML’s `<style>` and `<script>` tags directly in the template rather than in separate files:
+当然，我们可以直接使用 `<style>` 和 `<script>` 标签来将他们放在同一个文件中，而非放在分离的文件中：
 
 ```
 <template id="template">
@@ -109,15 +109,15 @@ Of course, we can put all of this together using HTML’s `<style>` and `<script
 </template>
 ```
 
-Once this element is appended to the DOM, we will have a new button with ID `#click-me`, a global CSS selector targeted to the button’s ID, and a simple event listener that will alert the element’s click event.
+一旦这个元素被加入到 DOM 结构中，我们会看到一个 ID 为 `#click-me` 的新按钮，一个全局的 CSS selector 被绑定到这个按钮的 ID，一个简单的事件监听回调函数会提示元素的点击事件。
 
-For our script, we simply append the content using `document.importNode` and we have a mostly-contained template of HTML that can be moved around from page to page.
+至于我们的脚本，我们仅需使用 `document.importNode` 来拼接内容，并且我们有一个包含大致内容的 HTML 模板，在页与页之间可以复用。
 
-See the Pen [Template with script and styles demo](https://codepen.io/calebdwilliams/pen/modxXr/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
+请参阅笔记[包含脚本和样式的模板例子](https://codepen.io/calebdwilliams/pen/modxXr/)，来自 [CodePen](https://codepen.io) 的 Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams))。
 
-### Creating the template for our dialog
+### 为我们的对话框编写模板
 
-Getting back to our task of making a dialog element, we want to define our template’s content and styles.
+回到我们编写一个对话框元素这个任务，我们希望定义自己的模板内容和样式。
 
 ```
 <template id="one-dialog">
@@ -196,17 +196,17 @@ Getting back to our task of making a dialog element, we want to define our templ
 </template>
 ```
 
-This code will serve as the foundation for our dialog. Breaking it down briefly, we have a global close button, a heading and some content. We have also added in a bit of behavior to visually toggle our dialog (although it isn't yet accessible). Unfortunately the styles and script content aren't scoped to our template and are applied to the entire document, resulting in less-than-ideal behaviors when more than one instance of our template is added to the DOM. In our next article, we will put custom elements to use and create one of our own that consumes this template in real-time and encapsulates the element's behavior.
+这段代码将成为我们对话框的基础部分。简单介绍一下，我们有一个全局的关闭按钮，一个标题和一些内容。我们也添加了一些行为来实现可视化触发对话框（尽管它还无法被访问）。不幸的是，样式和脚本内容并非仅限作用于我们的模板，而是应用于整个文件，当我们将多个模板实例添加到 DOM 时，并没有产生理想的中的效果。在下篇文章中，我们将应用自定义元素f生成方法并创建我们自己的元素，实时使用该模板并封装元素的行为。
 
-See the Pen [Dialog with template with script](https://codepen.io/calebdwilliams/pen/JzjLyQ/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
+请查阅笔记[以脚本模板来编写对话框](https://codepen.io/calebdwilliams/pen/JzjLyQ/)，来自 [CodePen](https://codepen.io) 的 Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams))。
 
 #### Article Series:
 
 1.  [Web Components 简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
-2.  [Crafting Reusable HTML Templates (_This post_)](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
-3.  [Creating a Custom Element from Scratch](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
-4.  [Encapsulating Style and Structure with Shadow DOM](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
-5.  [Advanced Tooling for Web Components](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
+2.  [编写可以复用的 HTML 模板（**本文**）](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
+3.  [从 0 开始创建自定义元素](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
+4.  [使用 Shadow DOM 封装样式和结构](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
+5.  [Web 组件的高阶工具](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
