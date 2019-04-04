@@ -13,7 +13,7 @@
 
 1.  [Web 组件简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
 2.  [编写可以复用的 HTML 模板 (_本文_)](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
-3.  [由 Scratch 创建自定义元素](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
+3.  [从 0 开始创建自定义元素](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
 4.  [使用 Shadow DOM 封装样式和结构](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
 5.  [Web 组件的高阶工具](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
 
@@ -35,9 +35,9 @@
 </template>
 ```
 
-在浏览器中运行这段代码会显示空白页面，因为浏览器并没有渲染模板元素内容。不同于使用 JavaScript 来编写 HTML 代码的方式，这种方式的强大之处在于它允许我们自定义内容（或内容结构）以及为了之后的应用保存内容。
+在浏览器中运行这段代码会显示空白页面，因为浏览器并没有渲染模板元素内容。这种方式的强大之处在于它允许我们保存自定义内容（或内容结构），以供后续使用，而不需要使用 JavaScript 来动态编写 HTML 代码。
 
-为了使用模板，我们 **将 **需要用到 JavaScript。
+为了使用模板，我们 **将** 需要用到 JavaScript。
 
 ```
 const template = document.querySelector('template');
@@ -45,7 +45,7 @@ const node = document.importNode(template.content, true);
 document.body.appendChild(node);
 ```
 
-真正神奇的地方在于 `document.importNode` 方法。这个函数将会为模板的 `内容` 创建一份副本，并且做好将拷贝插入其他文档（或文档碎片）的准备。函数的第一个参数获取到模板的内容，第二个参数告诉浏览器要对元素的 DOM 子树做一份深度拷贝（也就是拷贝它的所有子节点）。
+真正神奇的地方在于 `document.importNode` 方法。这个函数将会为模板的 `内容` 创建一份副本，并且做好将拷贝插入其他文档（或文档片段）的准备。函数的第一个参数获取到模板的内容，第二个参数告诉浏览器要对元素的 DOM 子树做一份深度拷贝（也就是拷贝它的所有子节点）。
 
 我们可以直接使用 `template.content`，但是这样做的话，我们随后需要把内容从元素中移除并将它拼接到其他文档的 body 部分。任何 DOM 节点仅可以被接入到一个位置，所以随后对模板内容的使用将会导致空文档片段（基本上是一个空值），因为之前已移动了内容对象。使用 `document.importNode` 允许我们在不同的位置来复用同一个模板内容的实例。
 
@@ -57,13 +57,13 @@ document.body.appendChild(node);
 
 ### 模板的多功能性
 
-模板中一个有趣的点是我们可以包含**任意** HTML，包括脚本和样式元素。一个非常简单的模板例子是添加一个可以提示被点击的按钮。
+模板中一个有趣的点是我们可以包含 **任意** HTML，包括脚本和样式元素。一个非常简单的模板例子是添加一个可以提示被点击的按钮。
 
 ```
 <button id="click-me">Log click event</button>
 ```
 
-让我们来设计一下：
+让我们加点样式：
 
 ```
 button {
@@ -204,7 +204,7 @@ button.addEventListener('click', event => alert(event));
 
 1.  [Web Components 简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
 2.  [编写可以复用的 HTML 模板 (_本文_)](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
-3.  [由 Scratch 创建自定义元素](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
+3.  [从 0 开始创建自定义元素](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
 4.  [使用 Shadow DOM 封装样式和结构](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
 5.  [Web 组件的高阶工具](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
 
