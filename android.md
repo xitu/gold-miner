@@ -1,3 +1,5 @@
+* [在 Android 应用中使用矢量资源](https://juejin.im/post/5c943c97e51d45288201a30c) ([YueYongDev](https://github.com/YueYongDev) 翻译)
+* [MDC-104 Flutter：Material 高级组件（Flutter）](https://juejin.im/post/5c99bcd0f265da60d42900d6) ([DevMcryYu](https://github.com/DevMcryYu) 翻译)
 * [Android 生命周期备忘录 — 第二部分：多 Activity](https://juejin.im/post/5c8e018d51882545ca77d857) ([gs666](https://github.com/gs666) 翻译)
 * [Flutter 异步编程：Future、Isolate 和事件循环](https://juejin.im/post/5c898b4af265da2de25bcc2d) ([nanjingboy](https://github.com/nanjingboy) 翻译)
 * [转化通用安卓音乐播放器为 instant 应用](https://juejin.im/post/5c89d2e05188257e1f292958) ([Mirosalva](https://github.com/Mirosalva) 翻译)
