@@ -7,7 +7,7 @@
 
 # Millions of active WebSockets with Node.js
 
-### Serving a metric buttload of WebSockets using no more than a consumer grade laptop and a bit of Wifi
+> Serving a metric buttload of WebSockets using no more than a consumer grade laptop and a bit of Wifi
 
 With the newly released TypeScript web server project [uWebSockets.js](https://github.com/uNetworking/uWebSockets.js), we saw not only improved performance but improved memory usage as well. Especially so for Node.js users, and for the sake of demonstration I therefore wanted to set up a large scale test in a real world environment.
 
@@ -24,14 +24,14 @@ We first need to configure the Linux system a bit — mainly we need to raise th
 
 We then need to set some other variables (again, your mileage may vary):
 
-```
+```bash
 sudo sysctl net.ipv4.tcp_tw_reuse=1
 sudo sysctl fs.file-max=1024000
 ```
 
 You then need to set up about 50-or-so IP addresses in a range. For my Wifi adapter I ran this line:
 
-```
+```bash
 for i in {135..185}; do sudo ip addr add 192.168.0.$i/24 dev wlp3s0; done
 ```
 
@@ -76,8 +76,6 @@ We are not going to go in to low level embedded C development here and I think t
 If you’re interested in this software stack and have I/O scalability problems or want to avoid falling in the many common pitfalls, make sure to get in contact and we can talk about things, company to company.
 
 Thanks for reading!
-
-alexhultman@gmail.com
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
