@@ -57,7 +57,6 @@
 
 ## Spring 和消息驱动的 POJO
 
-
 在[示例代码](http://images.techhive.com/downloads/idge/imported/article/jvw/2009/01/springxa-src.zip)的 `best-jms-db project,` 参与者使用主流配置选项进行设置，以便遵循最大努力单阶段提交模式。这个想法是发送到队列的消息由异步监听器收集并用于将数据插入数据库的表中。
 
 这个 `TransactionAwareConnectionFactoryProxy` — Spring 中的一个组件，旨在用于这种模式 — 是关键因素。使用配置将 `ConnectionFactory` 包装在处理事务同步的装饰器中，而不是使用原始供应商提供的 `ConnectionFactory`。这发生在 `jms-context.xml，` 如示例6所示:
