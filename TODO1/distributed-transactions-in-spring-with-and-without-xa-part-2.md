@@ -5,17 +5,17 @@
 > * 译者：[xiantang](https://github.com/xiantang)
 > * 校对者：
 
-# Spring 的分布式事务实现-使用和不使用XA - 第二部分
+# Spring 的分布式事务实现 — 使用和不使用 XA — 第二部分
 
-> * [Spring 的分布式事务实现-使用和不使用XA - 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-1.md)
-> * [Spring 的分布式事务实现-使用和不使用XA - 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-2.md)
-> * [Spring 的分布式事务实现-使用和不使用XA - 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-3.md)
+> * [Spring 的分布式事务实现 — 使用和不使用 XA — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-1.md)
+> * [Spring 的分布式事务实现 — 使用和不使用 XA — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-2.md)
+> * [Spring 的分布式事务实现 — 使用和不使用 XA — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-3.md)
 
 一个共享的数据库资源有时可以从现有的单独资源中被合成，特别是如果它们都在相同的 RDBMS 平台上。企业级别的数据库供应商都支持同义词（或等价物）的概念，其中一个模式（Oracle 术语）中的表在另一个模式内被定义为同义词。这样的话，在平台中的物理数据可以被 JDBC 客户端中的相同的 `Connection` 进行事务处理。例如，在真实系统中（作为对照）在 ActiveMQ 中实现共享事务资源模式，将会经常为涉及消息传递和业务数据创建同义词。
 
 > #### 性能和 JDBCPersistenceAdapter 
 >
-> 在 ActiveMQ 社区中的某些人声称 `JDBCPersistenceAdapter` 会造成性能问题。然而，许多项目和实时系统将 ActiveMQ 和关系型数据库一同使用。在这些情况下，收到的明智的建议是使用日志版本用于提高性能。这不适用于共享事务资源模式（因为日志本事是一个新的事务资源）。尽管如此，陪审团仍然在关注 `JDBCPersistenceAdapter` 。并且事实上有理由认为共享事务资源可能会 _提高_
+> 在 ActiveMQ 社区中的某些人声称 `JDBCPersistenceAdapter` 会造成性能问题。然而，许多项目和实时系统将 ActiveMQ 和关系型数据库一同使用。在这些情况下，收到的明智的建议是使用日志版本用于提高性能。这不适用于共享事务资源模式（因为日志本事是一个新的事务资源）。尽管如此，陪审团仍然在关注 `JDBCPersistenceAdapter` 。并且事实上有理由认为共享事务资源可能会**提高**
 性能在日志方面。这是 Spring 和 ActiveMQ 工程团队之间积极研究的领域。 
 非消息方案（多数据库）的另一种共享资源的技术是使用 Oracle 数据的链接功能在 RDBMS 平台将两个数据库模式链接在一起（请参阅资料）。这可能需要修改应用程序的代码，或者创建同义词，因为引用链接数据库的表名的别名包含了链接的名称。
 
@@ -49,18 +49,18 @@
 
 触发回滚的确切机制并不重要，有几个可用。重要的是，提交或回滚的发生方式与资源中业务排序的顺序相反。在示例应用程序中，消息传递事务必须最后提交，因为业务流程的指令被包含在该资源中。这很重要，因为会发生第一次提交成功并且第二次提交失败的（罕见）故障情况。因为通过设计，此时所有业务处理已经完成，所以这种部分故障的唯一原因将是消息传递中间件的基础设施问题。
 
-请注意，如果数据库资源的提交失败，则净效果仍然是回滚。因此，唯一的非原子失败模式是第一个事务提交而第二个事务回滚。更普遍的情况下，如果事务中存在 `n` 个资源，存在 `n-1` 这样的失败模式，在回滚之后会使资源存在不一致(已提交)状态。在消息数据库的用例中，此失败模式的结果是消息被回滚并返回到另一个事务中，即使它已经成功处理。因此，您可以推测到可能发生的更糟糕的事情是可以传递重复的消息。在更普遍的情况下，因为事务中较早的资源被认为可能携带有关如何对后来的资源进行处理的信息，所以失败模式的最终结果通常可以称为 _消息重复_。
+请注意，如果数据库资源的提交失败，则净效果仍然是回滚。因此，唯一的非原子失败模式是第一个事务提交而第二个事务回滚。更普遍的情况下，如果事务中存在 `n` 个资源，存在 `n-1` 这样的失败模式，在回滚之后会使资源存在不一致(已提交)状态。在消息数据库的用例中，此失败模式的结果是消息被回滚并返回到另一个事务中，即使它已经成功处理。因此，您可以推测到可能发生的更糟糕的事情是可以传递重复的消息。在更普遍的情况下，因为事务中较早的资源被认为可能携带有关如何对后来的资源进行处理的信息，所以失败模式的最终结果通常可以称为**消息重复**。
 
-有些人承担了重复消息不经常发生的风险，以至于他们不会费心去预测它们。但是，为了对业务数据的正确性和一致性更有信心，您需要在业务逻辑中了解它们。如果你在业务处理中意识到重复的消息可能会发生，那么所有必须做的事情（通常需要一些额外的成本，但不如2PC那么多）是检查它是否已经处理过该数据，如果有，则不执行任何操作。此专业化有时称为幂等业务服务模式。
+有些人承担了重复消息不经常发生的风险，以至于他们不会费心去预测它们。但是，为了对业务数据的正确性和一致性更有信心，您需要在业务逻辑中了解它们。如果你在业务处理中意识到重复的消息可能会发生，那么所有必须做的事情（通常需要一些额外的成本，但不如 2PC 那么多）是检查它是否已经处理过该数据，如果有，则不执行任何操作。此专业化有时称为幂等业务服务模式。
 
 示例代码包括使用此模式同步事务资源的两个示例。我将依次讨论每一个，然后测试一些其他选项。
 
-## Spring和消息驱动的POJO
+## Spring 和消息驱动的 POJO
 
 
 在[示例代码](http://images.techhive.com/downloads/idge/imported/article/jvw/2009/01/springxa-src.zip)的 `best-jms-db project,` 参与者使用主流配置选项进行设置，以便遵循最大努力单阶段提交模式。这个想法是发送到队列的消息由异步监听器收集并用于将数据插入数据库的表中。
 
-这个 `TransactionAwareConnectionFactoryProxy` -- Spring 中的一个组件，旨在用于这种模式-- 是关键因素。使用配置将 `ConnectionFactory` 包装在处理事务同步的装饰器中，而不是使用原始供应商提供的 `ConnectionFactory` 。这发生在 `jms-context.xml，` 如示例6所示:
+这个 `TransactionAwareConnectionFactoryProxy` — Spring 中的一个组件，旨在用于这种模式 — 是关键因素。使用配置将 `ConnectionFactory` 包装在处理事务同步的装饰器中，而不是使用原始供应商提供的 `ConnectionFactory`。这发生在 `jms-context.xml，` 如示例6所示:
 
 #### 示例 6. 配置一个`TransactionAwareConnectionFactoryProxy` 来包装供应商提供的`ConnectionFactory`
 
@@ -76,7 +76,7 @@
 </bean>
 ```
 
- `ConnectionFactory` 不需要知道要与哪个事务管理器同步，因为在需要时只有一个事务处于活动状态，而 Spring 可以在内部处理它。 驱动事务由 `data-source-context.xml` 中配置的普通 `DataSourceTransactionManager` 处理。需要了解的是事务管理器的组件是将轮询和接收消息的JMS监听器容器：
+ `ConnectionFactory` 不需要知道要与哪个事务管理器同步，因为在需要时只有一个事务处于活动状态，而 Spring 可以在内部处理它。驱动事务由 `data-source-context.xml` 中配置的普通 `DataSourceTransactionManager` 处理。需要了解的是事务管理器的组件是将轮询和接收消息的JMS监听器容器：
 
 ```xml
 <jms:listener-container transaction-manager="transactionManager">
@@ -122,7 +122,7 @@ public void maybeFail(String msg) {
 
 ## 链接事务管理器
 
-在最大努力单阶段提交模式的另一个示例（ `best-db-db` 项目）中，事务管理器的粗略实现只是将其他事务管理器的列表链接在一起以实现事务同步。如果业务处理成功，他们都会提交，如果不是，他们都会回滚。
+在最大努力单阶段提交模式的另一个示例（`best-db-db` 项目）中，事务管理器的粗略实现只是将其他事务管理器的列表链接在一起以实现事务同步。如果业务处理成功，他们都会提交，如果不是，他们都会回滚。
 
 实现在 `ChainedTransactionManager` 中，它接受其他事务管理器的列表作为注入属性，如示例 8 所示：
 
