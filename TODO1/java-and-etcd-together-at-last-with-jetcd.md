@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/java-and-etcd-together-at-last-with-jetcd.md](https://github.com/xitu/gold-miner/blob/master/TODO1/java-and-etcd-together-at-last-with-jetcd.md)
 > * 译者：[mingxing](https://github.com/mingxing47)
-> * 校对者：
+> * 校对者：[xiantang](https://github.com/xiantang)
 
 # Java 和 etcd: 因为 jetcd 最终走到了一起
 
@@ -106,7 +106,7 @@ Watcher w = new Watcher() {
 zk.exists(key, w);
 ```
 
-与 jetcd 示例不同，ZooKeeper代码[不能保证它观察所有更改](https://zookeeper.apache.org/doc/trunk/zookeeperProgrammers.html#sc_WatchSemantics)，因为在监视程序接收事件和发送请求以获取新监视之间存在延迟。例如，在执行 “process” 和调用 “exists” 以注册新监视程序之间发生了一个事件。由于没有注册任何观察程序，因此该事件永远不会被触发，并且会丢失。
+与 jetcd 示例不同，ZooKeeper 代码[不能保证它观察所有更改](https://zookeeper.apache.org/doc/trunk/zookeeperProgrammers.html#sc_WatchSemantics)，因为在监视程序接收事件和发送请求以获取新监视之间存在延迟。例如，在执行 “process” 和调用 “exists” 以注册新监视程序之间发生了一个事件。由于没有注册任何观察程序，因此该事件永远不会被触发，并且会丢失。
 
 即使假设所有事件都已触发，代码仍然可能破坏事件流。没有 etcd 提供的[多版本并发控制](https://github.com/coreos/etcd/blob/master/Documentation/learning/data_model.md)，就无法访问历史 key。如果 key value 在接收事件和获取数据之间发生了变化，代码将打印出最新的值，而不是与 watch 事件关联的值。更糟的是，事件没有附带修订信息；无法确定 key 是来自事件还是来自 future 返回。
 
