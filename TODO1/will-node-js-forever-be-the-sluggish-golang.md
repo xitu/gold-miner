@@ -89,12 +89,6 @@ If you as a company think this project makes sense, and is of economic interest,
 
 Thanks!
 
-![](https://cdn-images-1.medium.com/max/2800/1*E6CoI_MRyZ1JInNPsBSHtA.png)
-
-***
-[**Learn Node.js - Best Node.js Tutorials (2019) | gitconnected**
-**The top 32 Node.js tutorials - learn Node.js for free. Courses are submitted and voted on by developers, enabling you…**gitconnected.com](https://gitconnected.com/learn/node-js)
-
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
