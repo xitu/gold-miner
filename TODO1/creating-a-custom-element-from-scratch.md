@@ -9,7 +9,7 @@
 
 在 [上一篇文章](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md), 我们通过创建文档中的HTML模板，但是我们想进行按需渲染，导致污染了Web组件。
 
-接下来,  我们将继续创建一个下面自定义元素版本的弹窗组件，目前仅使用`HTMLTemplateElement` ：
+接下来我们继续：下面有个目前仅使用 `HTMLTemplateElement` 的弹窗组件，我们会做一个自定义组件版本的
 
 See the Pen [Dialog with template with script](https://codepen.io/calebdwilliams/pen/JzjLyQ/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
 
@@ -17,19 +17,19 @@ See the Pen [Dialog with template with script](https://codepen.io/calebdwilliams
 
 #### 文章系列:
 
-1.  [Web 组件简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
-2.  [制作可复用的HTML模板](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
-3.  [从头开始创建自定义元素 (_本文_)](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
-4.  [使用 Shadow DOM 封装样式和结构](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
-5.  [Web 组件的高级工具](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
+1.  [**Web 组件简介** ](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
+2.  [**制作可复用的HTML模板**](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
+3.  [**从头开始创建自定义元素 (_本文_)**](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
+4.  [**使用 Shadow DOM 封装样式和结构**](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
+5.  [**Web 组件的高级工具**](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
 
 * * *
 
 ### 添加一个自定义元素
 
- bread 和 butter 都是 Web Components 的 **自定义元素**. 该`customElements` API 为我们提供了定义自定义HTML标签的路径，这些标签可以在包含定义类的任何文档中使用
+基础元素是 Web Components 的 **自定义元素**. 该`customElements` API 为我们提供了定义自定义HTML标签的路径，这些标签可以在包含定义类的任何文档中使用
 
-可以把它想象成React 或 Angular 组件 (例如 `<MyCard />`), 但没有React或Angular的依赖. 原生自定义组件是这样的: `<my-card></my-card>`. 更重要的是, 将它视为一个标准元素，可以在你的React，Angular，Vue, [insert-framework-you’re-interested-in-this-week] 应用中去使用，而不必大惊小怪。
+可以把它想象成React 或 Angular 组件 (例如 `<MyCard />`), 不依赖React或Angular. 原生自定义组件是这样的: `<my-card></my-card>`. 更重要的是, 将它视为一个标准元素，可以在你的React，Angular，Vue, [insert-framework-you’re-interested-in-this-week] 应用中去使用，而不必大惊小怪。
 
 从本质上讲, 一个自定义元素分为两个部分组成: 一个 **标签名称** 和一个 **Class** 类扩展内置  `HTMLElement` 类. 我们自定义元素的简易demo版本如下所示:
 
@@ -69,7 +69,7 @@ class OneDialog extends HTMLElement {
 
  `connectedCallback` 与元素的 `constructor` 是分开的.函数用于设置元素的基本骨架, 而 `connectedCallback` 通常用于向元素添加内容、设置事件监听器或以其他方式初始化组件。
 
-实际上, 构造函数不能用于设计或修改或操作元素的属性如果我们要使用创建对话框的新实例， `document.createElement`则会调用构造函数. 元素的使用者需要一个没有插入属性或内容的简单节点
+实际上, 构造函数不能用于设计或修改或操作元素的属性，如果我们要使用对话框创建新实例， `document.createElement`则会调用构造函数. 元素的使用者需要一个没有插入属性或内容的简单节点
 
 该 createElement 函数没有可以用于配置将返回的元素的选项. 这是符合情理的, 那么话说回来了, 既然这个函数没有选项可以配置会返回的元素，那我们唯一的选择就是 `connectedCallback` .
 
@@ -97,9 +97,9 @@ class OneDialog extends HTMLElement {
 }
 ```
 
-在上面的例子中，我们只关心属性是否设置,我们不关心值(这类似于 HTML5 input输入框上的 `required` 属性 ). 更新此属性时, 我们更新元素的 `open` 属性.属性存在于JavaScript对象上，而属性存在于HTMLElement上, 这个生命周期方法可以帮助我们保持两者同步.
+在上面的例子中，我们只关心属性是否设置,我们不关心值(这类似于 HTML5 input输入框上的 `required` 属性 ). 更新此属性时, 我们更新元素的 `open` 属性.属性（property）存在于JavaScript对象上，HTML Elements 也具有属性（attribute）；这个生命周期方法可以帮助我们让两种属性保持同步。
 
-我们将updater包含在 `attributeChangedCallback` 内部的条件检查中，以查看新值和旧值是否相等. 我们这样做是为了防止程序中出现无限循环，因为稍后我们将创建一个getter和setter属性，它将通过在元素的属性更新时设置元素的属性来保持属性和属性的同步。 `attributeChangedCallback` 反向执行: 当属性更改时更新属性.
+我们将updater包含在 `attributeChangedCallback` 内部的条件检查中，以查看新值和旧值是否相等. 我们这样做是为了防止程序中出现无限循环，因为稍后我们将创建一个getter和setter属性，它将通过在元素的属性（ property ）更新时设置元素的属性（attribute）来保持属性(attribute) 和属性 (property) 的同步。 `attributeChangedCallback` 反向执行: 当属性更改时更新属性.
 
 现在，作者可以使用我们的组件，并且利用`open`属性决定对话框是否默认打开。 为了使它更具动态性，我们可以在元素的`open`属性中添加自定义getter和setter：
 
@@ -133,7 +133,7 @@ class OneDialog extends HTMLElement {
 }
 ```
 
-getter和setter将保持`open`属性（在HTML元素上）和属性（在DOM对象上）的值同步。 添加`open`属性会将`element.open`设置为`true`并将`element.open`设置为`true`将添加`open`属性。 我们这样做是为了确保元素的状态由其属性反映出来。 这在技术上不是必需的，但被认为是创建自定义元素的最好办法。
+getter和setter将保持（在HTML元素上）的`open`属性（attribute）和属性（property）（在DOM对象上）的值同步。 添加`open`属性（attribute）会将`element.open`设置为`true`，同样将`element.open`设置为`true`将会添加`open`属性。 我们这样做是为了确保元素的状态由其属性反映出来。 这在技术上不是必需的，但被认为是创建自定义元素的最好办法。
 
 这会不可避免地导致一些样板，但是通过循环观察到的属性列表并使用 `Object.defineProperty` 创建一个保持这些属性同步的抽象类是一项相当简单的任务 .
 
@@ -167,7 +167,7 @@ class SomeElement extends AbstractClass { /** Omitted */ }
 customElements.define('some-element', SomeElement);
 ```
 
-上面的例子并不完美，它没有考虑像‘open’这样的属性的可能性，这些属性没有被分配给它们的值，而仅仅依赖于属性的存在。做一个完美的版本将超出本文的范围。
+上面的例子并不完美，它没有考虑实现像‘open’这样的属性的可能性，这些属性没有被分配给它们的值，而仅仅依赖于属性的存在。做一个完美的版本将超出本文的范围。
 
 现在我们已经知道我们的对话框是否打开了，让我们添加一些逻辑来实际地进行显示和隐藏：
 
@@ -222,7 +222,7 @@ class OneDialog extends HTMLElement {
 
 如果元素是关闭的 (即 `!open`),我们检查以确保 `this._wasFocused` 属性已定义并具有 `focus` 方法并调用该方法以将用户的焦点返回到常规DOM。然后我们删除我们的事件监听器以避免任何内存泄漏。
 
-说到清理自己，我们采用了另一种生命周期方法: `disconnectedCallback`. `disconnectedCallback` 与 `connectedCallback` 相反 ，因为一旦元素从DOM中删除，就调用该方法，并允许我们清理绑定到元素的任何事件监听器或`MutationObserver`。
+说到为自己的代码做好清理善后，就自然也要说下我们采用了另一种生命周期方法: `disconnectedCallback`. `disconnectedCallback` 与 `connectedCallback` 相反 ，因为一旦元素从DOM中删除，就调用该方法，并允许我们清理绑定到元素的任何事件监听器或`MutationObserver`。
 
 碰巧的是，我们还有几个事件侦听器要连接起来:
 
@@ -244,7 +244,7 @@ class OneDialog extends HTMLElement {
 
 现在我们有一个运行良好，大部分可访问的对话框元素。 我们可以做一些修饰，比如将焦点集中在元素上，但这超出了我们在这里学习的范围。
 
-还有一个生命周期方法不适用于我们的元素, the `adoptedCallback`,元素被采用（插入）到DOM的另一部分时触发。
+还有一个生命周期方法 `adoptedCallback`。它不适用于我们的元素，其作用是元素被采用（插入）到DOM的另一部分时触发。
 
 在下面的示例中，您将看到我们的模板元素正被一个标准`<one-dialog>`元素所使用
 
@@ -283,19 +283,19 @@ class DialogWorkflow extends HTMLElement {
 
 现在我们对自定义元素有了很好的理解，我们的对话框开始融合在一起。但它仍然存在一些问题。
 
-请注意，我们必须添加一些CSS来重新设置对话框按钮，因为元素的样式会干扰页面的其余部分。虽然我们可以利用命名策略（如BEM）来确保我们的样式不会与其他组件产生冲突，但是有一种更友好的方式来隔离样式。这是影子DOM，这就是本系列的下一部分关于Web组件的内容。
+请注意，我们必须添加一些CSS来重新设置对话框按钮，因为元素的样式会干扰页面的其余部分。虽然我们可以利用命名策略（如BEM）来确保我们的样式不会与其他组件产生冲突，但是有一种更友好的方式来隔离样式。那就是影子 DOM；本 Web Components 系列专题的下一篇文章就会谈到它。
 
 我们需要做的另一件事是为每个组件定义一个新模板，或者为我们的对话框找到一些切换模板的方法。就目前而言，每页只能有一个对话框类型，因为它使用的模板必须始终存在。因此，我们要么需要注入动态内容的方法，要么需要交换模板的方法。
 
-在下一篇文章中，我们将研究如何 `<one-dialog>`通过使用shadow DOM合并样式和内容封装来提高我们刚刚创建的元素的可用性。
+在下一篇文章中，我们将研究如何通过使用影子 DOM 合并样式和内容封装来提高我们刚刚创建的 `<one-dialog>`元素的可用性。
 
 #### 文章系列：
 
-1.  [Web 组件 简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
-2.  [制作可重复使用的HTML模板](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
-3.  [从头开始创建自定义元素（本文）](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
-4.  [使用Shadow DOM封装样式和结构](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
-5.  [Web组件的高级工具](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
+1.  [**Web 组件 简介**](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
+2.  [**制作可重复使用的HTML模板**](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
+3.  [**从头开始创建自定义元素（本文）**](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
+4.  [**使用Shadow DOM封装样式和结构**](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
+5.  [**Web组件的高级工具**](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
