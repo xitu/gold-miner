@@ -2,94 +2,93 @@
 > * 原文作者：[Mohammad Zakizadeh](https://medium.com/@mamalizaki74)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/practical-mvvm-rxswift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/practical-mvvm-rxswift.md)
-> * 译者：
+> * 译者：[iWeslie](https://github.com/iWeslie)
 > * 校对者：
 
-# Practical MVVM + RxSwift
+# 实用的 MVVM 和 RxSwift
 
 ![](https://cdn-images-1.medium.com/max/2560/1*bOnecl6tpYN6Ll3Z8L6ILQ.png)
 
-Today we will implement MVVM design pattern with RxSwift. For those of you who are new to RxSwift, I made an intro part [here](https://hackernoon.com/mvvm-rxswift-on-ios-part-1-69608b7ed5cd).
+今天我们将使用 RxSwift 实现 MVVM 设计模式。对于那些刚接触 RxSwift 的人，我 [在这里](https://hackernoon.com/mvvm-rxswift-on-ios-part-1-69608b7ed5cd) 专门做了一个部分来介绍。
 
-If you think RxSwift is hard or ambiguous, don’t worry. It may seem hard at first but with the examples and practice, it will become simple and understandable.👍
+
+如果您认为 RxSwift 很难或模棱两可，请不要担心。它一开始看上去似乎很难，但通过实例和实践，就会将变得简单易懂👍
 
 * * *
 
-While implementing the MVVM design pattern with RxSwift, we will use all the advantages of this approach in a real project. We will work on a simple app that shows a list of Linkin Park’s albums and songs in the UICollectionView and UITableView (R.I.P Chester🙏). Let’s begin!
+在使用 RxSwift 实现 MVVM 设计模式时，我们将在实际项目中检验此方法的所有优点。我们将开发一个简单的应用程序，在 UICollectionView 和 UITableView 中显示林肯公园（RIP Chester🙏）的专辑和歌曲列表。让我们开始吧！
 
 ![](https://cdn-images-1.medium.com/max/800/1*9n5BZ0fj4qPZy54zO11WgQ.png)
 
-App main view
+App 主页面
 
-### UI Setup
+### UI 设置
 
-#### Child View Controllers
+#### 子控制器
 
-I’d love to follow Reusability  Principle while building our app. So we will implement our albums CollectionView and songs TableView in a way that we can later reuse these views in other parts of our app. For example, imagine we want to show songs from each album or we have a part that shows similar albums. If we don’t want to implement these parts each time, it’s better to make them reusable.
+我希望在构建我们的 app 时遵循可重用性原则。因此，我们将会以稍后在 app 的其他部分中重用这些 view 的方式实现我们的专辑的 CollectionView 和歌曲的 TableView。例如，假设我们想要显示每张专辑中的歌曲，或者我们有一个部分用来显示相似的专辑。如果我们不希望每次都重写这些部分，那最好就是重用它们。
 
-So what can we do? Child viewControllers to the rescue.  
-For this we divide UIViewController with the use of ContainerView in 2 parts:
+所以我们能做什么呢？可以试试子控
+为此，我们使用 ContainerView 将 UIViewController 分为两部分：
 
-1. AlbumCollectionViewVC  
+1. AlbumCollectionViewVC
 2. TrackTableViewVC
 
-Now the parent viewController consists of two ChildViewControllers (to learn about childViewController you can read this [article](https://cocoacasts.com/managing-view-controllers-with-container-view-controllers/)).
+现在父控制器包含两个子控制器（要了解子控制器，你可以阅读[这篇文章](https://cocoacasts.com/managing-view-controllers-with-container-view-controllers/)）。
 
-So our main ViewController will become:
+现在我们的 main ViewController 就变成了：
 
 ![](https://cdn-images-1.medium.com/max/800/1*ENiIFLcQxvbZHuyJPywNCw.png)
 
-We use nib for our cells so we can reuse them easily:
+我们为 cell 使用 nib，这样很容易就可以重用它们。
 
 ![](https://cdn-images-1.medium.com/max/800/0*R8OnBBlFwgXB4i6_.png)
 
-For registering the cells of nib file, you should put this code in viewDidLoad method of AlbumCollectionViewVC class. So the UICollectionView understands what kind of cells it’s using:
+要注册 nib 的 cell，您应该将此代码放在 AlbumCollectionViewVC 类的 viewDidLoad 方法中。因此 UICollectionView 知道它正在使用的 cell 类型：
 
-```
-//register 'AlbumsCollectionViewCell' to UICollectionView
-
+```swift
+// 为 UICollectionView 注册 'AlbumsCollectionViewCell'
 albumsCollectionView.register(UINib(nibName: "AlbumsCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: String(describing: AlbumsCollectionViewCell.self))
-
 ```
 
-Consider that this code should be in AlbumCollectionViewVC class. This means that one of the child’s classes of parent class and the parent class has to do nothing with the objects of its child’s class for now.
+请看在 AlbumCollectionViewVC 中的这些代码。这意味着父类对象暂时不必处理其子类。
 
-For TrackTableViewVC we do the same process with the difference that it is just a table view. Now we’re going to parent class and we should setup our 2 child classes.
+对于 TrackTableViewVC，我们执行相同的操作，不同之处在于它只是一个 tableView。现在我们要去父类里设置我们的两个子类。
 
-As you saw in the storyboard picture, the place of child classes is two views in which our viewControllers are placed. These views are called ContainerView. For setting up these views we can use the following code:
+正如您在 storyboard 中看到的那样，子类所在的地方的是放置了两个 viewController 的 view。这些 view 称为 ContainerView。我们可以使用以下代码设置它们：
 
-```
+```swift
 @IBOutlet weak var albumsVCView: UIView!
-    
+
     private lazy var albumsViewController: AlbumsCollectionViewVC = {
-        // Load Storyboard
+        // 加载 Storyboard
         let storyboard = UIStoryboard(name: "Home", bundle: Bundle.main)
-        
-        // Instantiate View Controller
+
+        // 实例化 View Controller
         var viewController = storyboard.instantiateViewController(withIdentifier: "AlbumsCollectionViewVC") as! AlbumsCollectionViewVC
-        
-        // Add View Controller as Child View Controller
+
+        // 把 View Controller 作为子控添加
         self.add(asChildViewController: viewController, to: albumsVCView)
-        
+
         return viewController
     }()
 ```
 
-### View Model Setup
+### View Model 设置
 
-#### Basic View Model Architecture
+#### 基础 View Model 架构
 
-So our Views are ready now we get to ViewModel and RxSwift:
+现在我们的 view 已经准备好了，我们接下来需要 ViewModel 和 RxSwift：
 
 ![](https://cdn-images-1.medium.com/max/800/1*xHDv8WNJYCMHAAjKTF18Xw.gif)
 
-In the home ViewModel class, we should get data from our server and do the parsing in a way that the view exactly wants. Then viewModel gives it to the parent class and the parent class passes those data to the child view controllers. It means that the parent class requests data from its view model and the view model sends a request to the network layer. Then the view model parses the data and gives it to the parent class.
+在 HomeViewModel 类中，我们应该从服务器获取数据，并为 view 需要展示的东西进行解析。然后 ViewModel 将它提供给父类，父类将这些数据传递给子控。这意味着父类从其视 ViewModel 请求数据，并且 ViewModel 先发送网络请求，再解析数据并传给父类。
 
-Take a look at the following diagram for better understanding:
+下图可以让你更好地理解：
 
 ![](https://cdn-images-1.medium.com/max/800/0*_cCs2kvBNIQUwF2X.png)
 
-The completed project in [GitHub](https://github.com/mohammadZ74/MVVMRx_SampleProject) is implemented in RxSwift and without Rx. The implementation without Rx is in [MVVMWithoutRx](https://github.com/mohammadZ74/MVVMRx_SampleProject/tree/MVVMWithoutRx) branch. In this article, we get through the RxSwift way. Please check without Rx way too, which implemented with closures.
+[GitHub](https://github.com/mohammadZ74/MVVMRx_SampleProject) 中有个在 RxSwift 不包含 Rx 已完成的项目。在 [MVVMWithoutRx](https://github.com/mohammadZ74/MVVMRx_SampleProject/tree/MVVMWithoutRx) 分之上没有实现 Rx。在本文中，我们将介绍 RxSwift 的方案。请看不包含 Rx 的部分，那是通过闭包实现的。
 
 #### Adding RxSwift
 
@@ -131,7 +130,7 @@ Despite that RxCocoa contains lots of UIKit properties thanks to the Rx team, th
 
 ```
 extension Reactive where Base: UIViewController {
-    
+
     /// Bindable sink for `startAnimating()`, `stopAnimating()` methods.
     public var isAnimating: Binder<Bool> {
         return Binder(self.base, binding: { (vc, active) in
@@ -142,7 +141,7 @@ extension Reactive where Base: UIViewController {
             }
         })
     }
-    
+
 }
 ```
 
@@ -156,7 +155,7 @@ Now our loading is ready to receive data from ViewModel. So let’s get into the
 
 ```
 // observing errors to show
-        
+
         homeViewModel
             .error
             .observeOn(MainScheduler.instance)
@@ -205,7 +204,7 @@ Now let’s get back to our ViewModel and see what’s happening:
 
 ```
 public func requestData(){
-        
+
     self.loading.onNext(true)
     APIManager.requestData(url: requestUrl, method: .get, parameters: nil, completion: { (result) in
         self.loading.onNext(false)
@@ -226,7 +225,7 @@ public func requestData(){
             }
         }
     })
-    
+
 }
 ```
 
