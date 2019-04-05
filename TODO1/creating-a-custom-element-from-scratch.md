@@ -73,7 +73,7 @@ class OneDialog extends HTMLElement {
 
 该 `createElement` 函数没有配置将返回的元素的选项. 这是符合情理的, 那么话说回来了, 构造函数不应该有修改它创建的元素的能力.这使我们 `connectedCallback` 成为修改元素的地方.
 
-具有标准内置元素, 元素的状态通常通过元素上存在的属性和这些属性的值来反映。 对于我们的示例，我们将仅查看一个属性: `[open]`. 。为此，我们需要关注该属性的更改，我们需要`attributeChangedCallback` 要做到这一点. 只要其中一个元素构造函数调用第二个生命周期方法 `observedAttributes` 更新.
+在标准内置元素中, 元素的状态通常通过元素上存在的属性和这些属性的值来反映。 对于我们的示例，我们将仅查看一个属性: `[open]`. 。为此，我们需要关注该属性的更改，我们需要`attributeChangedCallback` 要做到这一点. 只要其中一个元素构造函数调用第二个生命周期方法 `observedAttributes` 更新.
 
 这可能听起来难以实现，但语法非常简单:··
 
