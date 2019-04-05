@@ -13,7 +13,7 @@
 
 See the Pen [Dialog with template with script](https://codepen.io/calebdwilliams/pen/JzjLyQ/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
 
-因此，我们继续创建一个自定义元素，该元素实时使用我们的`template#dialog-template`元素
+因此，我们下一步创建一个自定义元素，该元素实时使用我们的`template#dialog-template`元素
 
 #### 文章系列:
 
@@ -45,9 +45,9 @@ customElements.define('one-dialog', OneDialog);
 
 注意: 在整个自定义元素中, this值是对自身自定义元素实例的引用.
 
-在上面的示例中, 我们定义了一个符合标准的新HTML元素, `<one-dialog></one-dialog>`. 它没有做太多事情... 但是现在, 在任何 HTML文章中使用 `<one-dialog>` 标签将会创建一个 `<h1>` 标签显示“Hello, World!” 的新元素
+在上面的示例中, 我们定义了一个符合标准的新HTML元素, `<one-dialog></one-dialog>`. 它还做不了什么...暂时来说, 在任何 HTML文档中使用 `<one-dialog>` 标签将会创建一个带着 `<h1>` 标签显示“Hello, World!” 的新元素
 
-我们肯定想把它做的更NB, 很幸运. 在 [上一篇文章中](https://css-tricks.com/crafting-reusable-html-templates), 我们为弹出框创建模板， 并且有权访问该模板 ，让我们在自定义元素中使用它。 我们在该示例中添加了一个script标签来执行一些对话框魔术。 我们暂时删除它，因为我们将把逻辑从HTML模板移到自定义元素类中。
+我们肯定想把它做的更NB, 很幸运. 在 [上一篇文章中](https://css-tricks.com/crafting-reusable-html-templates), 我们为弹出框创建模板， 并且有权拿到模板 ，让我们在自定义元素中使用它。 我们在该示例中添加了一个script标签来执行一些对话框魔术。 我们暂时删除它，因为我们将把逻辑从HTML模板移到自定义元素类中。
 
 ```
 class OneDialog extends HTMLElement {
@@ -64,14 +64,14 @@ class OneDialog extends HTMLElement {
 下一步是将我们的逻辑转移到组件类中。
 
 ### 自定义元素生命周期方法
-
-与React或Angular一样，自定义元素具有 **生命周期方法**.  已经给你介绍过 `connectedCallback`, 当我们的元素被添加到DOM的时候调用它.
+ 
+与React或Angular一样，自定义元素具有 **生命周期方法**.  笔者已经向各位介绍过 `connectedCallback` , 当我们的元素被添加到DOM的时候调用它.
 
  `connectedCallback` 与元素的 `constructor` 是分开的.函数用于设置元素的基本骨架, 而 `connectedCallback` 通常用于向元素添加内容、设置事件监听器或以其他方式初始化组件。
 
 实际上, 构造函数不能用于设计或修改或操作元素的属性如果我们要使用创建对话框的新实例， `document.createElement`则会调用构造函数. 元素的使用者需要一个没有插入属性或内容的简单节点
 
-该 `createElement` 函数没有配置将返回的元素的选项. 这是符合情理的, 那么话说回来了, 构造函数不应该有修改它创建的元素的能力.这使我们 `connectedCallback` 成为修改元素的地方.
+该 createElement 函数没有可以用于配置将返回的元素的选项. 这是符合情理的, 那么话说回来了, 既然这个函数没有选项可以配置会返回的元素，那我们唯一的选择就是 `connectedCallback` .
 
 在标准内置元素中, 元素的状态通常通过元素上存在的属性和这些属性的值来反映。 对于我们的示例，我们将仅查看一个属性: `[open]`. 。为此，我们需要关注该属性的更改，我们需要`attributeChangedCallback` 要做到这一点. 只要其中一个元素构造函数调用第二个生命周期方法 `observedAttributes` 更新.
 
