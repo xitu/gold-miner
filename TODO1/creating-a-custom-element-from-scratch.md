@@ -27,7 +27,7 @@ See the Pen [Dialog with template with script](https://codepen.io/calebdwilliams
 
 ### 添加一个自定义元素
 
-基础元素是 Web Components 的 **自定义元素**. 该`customElements` API 为我们提供了定义自定义HTML标签的路径，这些标签可以在包含定义类的任何文档中使用
+Web 组件的基础元素是 **自定义元素**. 该`customElements` API 为我们提供了定义自定义HTML标签的路径，这些标签可以在包含定义类的任何文档中使用
 
 可以把它想象成React 或 Angular 组件 (例如 `<MyCard />`), 不依赖React或Angular. 原生自定义组件是这样的: `<my-card></my-card>`. 更重要的是, 将它视为一个标准元素，可以在你的React，Angular，Vue, [insert-framework-you’re-interested-in-this-week] 应用中去使用，而不必大惊小怪。
 
