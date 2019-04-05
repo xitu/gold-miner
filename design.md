@@ -1,3 +1,7 @@
+* [曝光！UX 行话大全](https://juejin.im/post/5c9f5c49e51d451b8a2af27b) ([Fengziyin1234](https://github.com/Fengziyin1234) 翻译)
+* [线框图变得不那么重要了 — 好事啊！](https://juejin.im/post/5c9269edf265da6116245ee9) ([hanxiansen](https://github.com/hanxiansen) 翻译)
+* [四个理由让你使用灰度色调进行设计](https://juejin.im/post/5c961b1fe51d456a6743109e) ([xionglong58](https://github.com/xionglong58) 翻译)
+* [设计不会拯救世界](https://juejin.im/post/5c966aed5188252d9b3768df) ([QiaoN](https://github.com/QiaoN) 翻译)
 * [数字产品为人们授权的时代已来](https://juejin.im/post/5c7e50236fb9a04a0e2deffa) ([Mirosalva](https://github.com/Mirosalva) 翻译)
 * [从著名数据数据可视化中我们可以学到什么](https://juejin.im/user/567e246a34f81a1d879e7a14) ([AceLeeWinnie](https://github.com/AceLeeWinnie) 翻译)
 * [为什么 UX 和 UI 仍需要分离开](https://juejin.im/post/5c769c44f265da2d8c7ddb71) ([Mirosalva](https://github.com/Mirosalva) 翻译)
