@@ -7,7 +7,7 @@
 
 # Will Node.js forever be the sluggish Golang?
 
-### Presenting new Node.js addons which drastically scramble the conditions
+> Presenting new Node.js addons which drastically scramble the conditions
 
 It seems you cannot go a week without hearing about the next, allegedly faster, so called “web framework” for Node.js. Yes we all know Express is slow, but can yet another “web framework” really **improve** I/O performance? Beyond evading the overhead of Express, no, it cannot. To reach further you need to dig deep and redesign, not just slap a new layer on top.
 
@@ -30,12 +30,13 @@ I’m releasing brand new code, µWebSockets.js, available on GitHub today:
 
 * Install for Node.js using NPM (although hosted on GitHub):
 npm install uNetworking/uWebSockets.js#v15.0.0 , see NPM install docs.
-
 * No compiler needed; Linux, macOS and Windows. We start at version 15.0.0 and increment according to SemVer.
 
 It’s an alternative web server for JavaScript backends, written in ~6 thousand lines of C and C++, surpassing in performance the best of Golang by a large margin. Bitfinex.com already ported both of their trading APIs (REST & WebSocket) and are currently gradually putting it in production.
+
 > Paolo Ardoino from Bitfinex wanted to interject that “it’s a damn pretty cool project”.
-> # This work is made possible solely thanks to sponsors; BitMEX, Bitfinex and Coinbase have made this work possible. Thanks to them, we now have a new release!
+
+> **This work is made possible solely thanks to sponsors; BitMEX, Bitfinex and Coinbase have made this work possible. Thanks to them, we now have a new release! **
 
 ### Please explain, what’s this all about?
 
@@ -79,9 +80,7 @@ Many companies, most of them, struggle with some kind of pub/sub problem when it
 Polishing, adding features and correcting mistakes. There’s going to be a period of introduction where things will maybe not fit in completely from the start. Keep in mind, it’s a large project consisting of many thousands of lines of C++ and C in three different repositories:
 
 * [https://github.com/uNetworking/uWebSockets.js](https://github.com/uNetworking/uWebSockets.js) (JavaScript wrapper)
-
 * [https://github.com/uNetworking/uWebSockets](https://github.com/uNetworking/uWebSockets) (C++ web server)
-
 * [https://github.com/uNetworking/uSockets](https://github.com/uNetworking/uSockets) (C foundation library)
 
 This project is used by companies with huge stress on I/O. Stability and security is (naturally & obviously) of **highest** undefinedpriority to the project. Make sure to report stability issues in early point-releases now that this code is a major and big release with tons of changes.
