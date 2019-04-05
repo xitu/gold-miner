@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-2.md)
 > * 译者：[xiantang](https://github.com/xiantang)
-> * 校对者：
+> * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234)
 
 # Spring 的分布式事务实现 — 使用和不使用 XA — 第二部分
 
@@ -13,7 +13,7 @@
 
 一个共享的数据库资源有时可以从现有的单独资源中被合成，特别是如果它们都在相同的 RDBMS 平台上。企业级别的数据库供应商都支持同义词（或等价物）的概念，其中一个模式（Oracle 术语）中的表在另一个模式内被定义为同义词。这样的话，在平台中的物理数据可以被 JDBC 客户端中的相同的 `Connection` 进行事务处理。例如，在真实系统中（作为对照）在 ActiveMQ 中实现共享事务资源模式，将会经常为涉及消息传递和业务数据创建同义词。
 
-> #### 性能和 JDBCPersistenceAdapter 
+> #### 性能和 JDBCPersistenceAdapter
 >
 > 在 ActiveMQ 社区中的某些人声称 `JDBCPersistenceAdapter` 会造成性能问题。然而，许多项目和实时系统将 ActiveMQ 和关系型数据库一同使用。在这些情况下，收到的明智的建议是使用日志版本用于提高性能。这不适用于共享事务资源模式（因为日志本事是一个新的事务资源）。尽管如此，陪审团仍然在关注 `JDBCPersistenceAdapter`。并且事实上有理由认为共享事务资源可能会**提高**。性能在日志方面。这是 Spring 和 ActiveMQ 工程团队之间积极研究的领域。 
 
@@ -59,9 +59,9 @@
 
 在[示例代码](http://images.techhive.com/downloads/idge/imported/article/jvw/2009/01/springxa-src.zip)的 `best-jms-db project,` 参与者使用主流配置选项进行设置，以便遵循最大努力单阶段提交模式。这个想法是发送到队列的消息由异步监听器收集并用于将数据插入数据库的表中。
 
-这个 `TransactionAwareConnectionFactoryProxy` — Spring 中的一个组件，旨在用于这种模式 — 是关键因素。使用配置将 `ConnectionFactory` 包装在处理事务同步的装饰器中，而不是使用原始供应商提供的 `ConnectionFactory`。这发生在 `jms-context.xml，` 如示例6所示:
+这个 `TransactionAwareConnectionFactoryProxy` — Spring 中的一个组件，旨在用于这种模式 — 是关键因素。使用配置将 `ConnectionFactory` 包装在处理事务同步的装饰器中，而不是使用原始供应商提供的 `ConnectionFactory`。这发生在 `jms-context.xml,` 如示例 6 所示:
 
-#### 示例 6. 配置一个`TransactionAwareConnectionFactoryProxy` 来包装供应商提供的`ConnectionFactory`
+#### 示例 6. 配置一个`TransactionAwareConnectionFactoryProxy` 来包装供应商提供的 `ConnectionFactory`
 
 ```xml
 <bean id="connectionFactory"
@@ -75,7 +75,7 @@
 </bean>
 ```
 
- `ConnectionFactory` 不需要知道要与哪个事务管理器同步，因为在需要时只有一个事务处于活动状态，而 Spring 可以在内部处理它。驱动事务由 `data-source-context.xml` 中配置的普通 `DataSourceTransactionManager` 处理。需要了解的是事务管理器的组件是将轮询和接收消息的JMS监听器容器：
+`ConnectionFactory` 不需要知道要与哪个事务管理器同步，因为在需要时只有一个事务处于活动状态，而 Spring 可以在内部处理它。驱动事务由 `data-source-context.xml` 中配置的普通 `DataSourceTransactionManager` 处理。需要了解的是事务管理器的组件是将轮询和接收消息的JMS监听器容器：
 
 ```xml
 <jms:listener-container transaction-manager="transactionManager">
@@ -111,9 +111,9 @@ public void maybeFail(String msg) {
 }
 ```
 
- `simulateBusinessProcessingFailure()` 方法只抛出一个 `DataAccessException` ，好像数据库访问失败一样。当触发此方法时，您期望完全回滚所有数据库和消息事务。此方案在示例项目的 `AsynchronousMessageTriggerAndRollbackTests` 单元测试中进行了测试。
+ `simulateBusinessProcessingFailure()` 方法只抛出一个 `DataAccessException`，好像数据库访问失败一样。当触发此方法时，您期望完全回滚所有数据库和消息事务。此方案在示例项目的 `AsynchronousMessageTriggerAndRollbackTests` 单元测试中进行了测试。
 
- `simulateMessageSystemFailure()` 方法通过削弱底层JMS `Session` 来模拟消息传递系统中的失败。这里的预期结果是部分提交：数据库工作保持提交但消息回滚。这是在 `AsynchronousMessageTriggerAndPartialRollbackTests` 单元测试中测试的。
+ `simulateMessageSystemFailure()` 方法通过削弱底层 JMS `Session` 来模拟消息传递系统中的失败。这里的预期结果是部分提交：数据库工作保持提交但消息回滚。这是在 `AsynchronousMessageTriggerAndPartialRollbackTests` 单元测试中测试的。
 
 示例包还包括在 `AsynchronousMessageTriggerSunnyDayTests` 类中成功提交所有事务工作的单元测试。
 
@@ -146,7 +146,7 @@ public void maybeFail(String msg) {
 
 对此配置最简单的测试就是在两个数据库中插入内容，回滚并检查两个操作是否都没有留下痕迹。这是作为 `MulipleDataSourceTests` 中的单元测试实现的，与 XA 示例的 `atomikos-db` 项目中的相同。如果回滚未同步但提交失败，则测试失败。
 
-请记住，资源的顺序很重要。它们是嵌套的，并且提交或回滚的顺序与它们被登记的顺序相反（这是配置中的顺序）。这使得其中一个资源变得特殊：如果出现问题，最外层资源总会回滚，即使唯一的问题是该资源的故障。此外，`testInsertWithCheckForDuplicates()` 测试方法显示了一个幂等的业务流程，可以保护系统免受部分故障的影响。它被实现为对内部资源（在这种情况下为 `otherDataSource` ）的业务操作的防御性检查：
+请记住，资源的顺序很重要。它们是嵌套的，并且提交或回滚的顺序与它们被登记的顺序相反（这是配置中的顺序）。这使得其中一个资源变得特殊：如果出现问题，最外层资源总会回滚，即使唯一的问题是该资源的故障。此外，`testInsertWithCheckForDuplicates()` 测试方法显示了一个幂等的业务流程，可以保护系统免受部分故障的影响。它被实现为对内部资源（在这种情况下为 `otherDataSource`）的业务操作的防御性检查：
 
 ```java
 int count = otherJdbcTemplate.update("UPDATE T_AUDITS ... WHERE id=, ...?");
