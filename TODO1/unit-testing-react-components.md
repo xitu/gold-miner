@@ -2,39 +2,38 @@
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/unit-testing-react-components.md](https://github.com/xitu/gold-miner/blob/master/TODO1/unit-testing-react-components.md)
-> * 译者：
+> * 译者：[xionglong58](https://github.com/xionglong58)
 > * 校对者：
 
 # Unit Testing React Components
 
 ![Photo of a first attempt to test a React component by clement127 (CC BY-NC-ND 2.0)](https://cdn-images-1.medium.com/max/4096/1*RzR_S8UJeDn0b_sEQa2V8Q.jpeg)
 
-Unit testing is a great discipline which can lead to [40%-80% reductions in production bug density](https://ieeexplore.ieee.org/document/4163024). Unit testing also has several other important benefits:
+Unit testing is a great discipline which can lead to [40%-80% reductions in production bug density](https://ieeexplore.ieee.org/document/4163024). 单元测试的主要好处有:
 
-* Improves your application architecture and maintainability.
+* 改善 apps 的结构和k额维护性。
 * Leads to better APIs and composability by focusing developers on the developer experience (API) before implementation details.
-* Provides quick feedback on file-save to tell you whether or not your changes worked. This can replace `console.log()`and clicking around in the UI to test changes. Newcomers to unit testing might spend an extra 15% - 30% on the TDD process as they figure out how to test various components, but experienced TDD practitioners may experience savings in implementation time using TDD.
-* Provides a great safety net which can enhance your confidence when its time to add features or refactor existing features.
+* 提供快速的文件保存反馈，告诉你更改是否有效。 这可以替代 console.log() 操作,仅在UI中单击就可以测试更改。单元测试的新手可能会在 TDD 过程上多花15% - 30%的时间，因为他们知道需要知道如何测试各种组件，但是有经验的 TDD 开发者会在因使用 TDD 而节省开发时间。
+* 提供了一个很好的 safety net，可以在添加功能或重构现有功能时增强你的信心。
 
-But some things are easier to unit test than others. Specifically, unit tests work great for [pure functions](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-pure-function-d1c076bec976): Functions which given the same input, always return the same output, and have no side-effects.
+但是有些东西比其他的更容易进行单元测试。 具体来说，单元测试对[纯函数](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-pure-function-d1c076bec976)非常有用 ：纯函数是一种给定相同输入，总是返回对应的相同值，并且没有副作用的函数.
 
-Often, UI components don’t fall into that category of things which are easy to unit test, which makes it harder to stick to the discipline of TDD: Writing tests first.
+通常，针对 UI 组件的单元测试不容易进行,首先编写测试的方法使得坚持使用 TDD 的原则变得更加困难。
 
-Writing tests first is necessary to achieve some of the benefits I listed: architecture improvements, better developer experience design, and quicker feedback as you’re developing your app. It takes discipline and practice to train yourself to use TDD. Many developers prefer to tinker before they write tests, but if you don’t write tests first, you rob yourself of a lot of the best features of unit tests.
+首先编写测试对于实现我列出的一些好处是必要的:架构改进、更好的开发人员体验设计、以及在开发应用程序时获得更快的反馈。训练自己使用 TDD 需要规则和实践。许多开发人员喜欢在编写测试之前进行粗劣的修补，但是如果不先编写测试，就会错过单元测试的许多好处。
 
-It’s worth the practice and discipline, though. TDD with unit tests can train you to write UI components which are far simpler, easier to maintain, and easier to compose and reuse with other components.
+不过，这是值得的实践和规则。使用单元测试的 TDD 可以训练你编写 UI 组件，使得 UI 组件更简洁、易于维护、并且更容易与其他组件组合和重用。
 
 One recent innovation in my testing discipline is the development of the [RITEway unit testing framework](https://medium.com/javascript-scene/rethinking-unit-test-assertions-55f59358253f), which is a tiny wrapper around [Tape](https://github.com/substack/tape) that helps you write simpler, more maintainable tests.
 
-No matter what framework you use, the following tips will help you write better, more testable, more readable, more composable UI components:
+无论你使用的是什么框架，下面的小窍门将帮助你编写更好、更可测试、更可读、更可组合的 UI 组件:
 
-* **Favor pure components for UI code:** given same props, always render the same component. If you need state from the app, you can wrap those pure components with a container component which manages state and side-effects.
-* **Isolate application logic/business rules** in pure reducer functions.
-* **Isolate side effects** using container components.
+* **使用纯组件编写 UI 代码：** 鉴于相同的 props 总是渲染同一个组件，如果你需要从应用中获取 state，你可以使用一个容器组件来包裹这些纯组件，并使用容器组件管理 state 和产生副作用。
+* 在 reducer 函数中**隔离应用程序逻辑/业务规则**。
+* 使用容器组件**隔离副作用**。
+## 使用纯组件
 
-## Favor Pure Components
-
-A pure component is a component which, given the same props, always renders the same UI, and has no side-effects. E.g.,
+纯组件是一种给定相同的 props，始终渲染出相同的 UI，并且没有任何副作用的组件。比如,
 
 ```js
 import React from 'react';
@@ -46,9 +45,9 @@ const Hello = ({ userName }) => (
 export default Hello;
 ```
 
-These kinds of components are generally very easy to test. You’ll need a way to select the component (in this case, we’re selecting by the `greeting` `className`), and you'll need to know the expected output. To write pure component tests, I use `render-component` from `RITEway`.
+这种组件一般来说很容易进行测试。你需要的是如何定位组件 (拿上面的例子来说，我们选择类名为 `greeting` 的组件)，还要知道输出的期望值。为了的到纯组件我将使用 `RITEway` 的 `render-component` 方法。
 
-To get started, install RITEway:
+首先安装 RITEway:
 
 ```bash
 npm install --save-dev riteway
