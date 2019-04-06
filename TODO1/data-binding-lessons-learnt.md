@@ -2,36 +2,36 @@
 > * 原文作者：[Chris Banes](https://medium.com/@chrisbanes)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/data-binding-lessons-learnt.md](https://github.com/xitu/gold-miner/blob/master/TODO1/data-binding-lessons-learnt.md)
-> * 译者：
+> * 译者：[Mirosalva](https://github.com/Mirosalva)
 > * 校对者：
 
-# Data Binding — Lessons Learnt
+# Data Binding 库使用的经验教训
 
-![Photo by [rawpixel](https://unsplash.com/photos/uQkwbaP0UrI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/13000/1*eAr7ibH_sGkMk51fm7dZIg.jpeg)
+![由 [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 平台的用户 [rawpixel](https://unsplash.com/photos/uQkwbaP0UrI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 拍摄](https://cdn-images-1.medium.com/max/13000/1*eAr7ibH_sGkMk51fm7dZIg.jpeg)
 
-The [Data Binding Library](https://developer.android.com/topic/libraries/data-binding/) (referred to as the ‘DB library’ for the rest of this post) offers a flexible and powerful way to bind data to your UIs, but to use an old cliché: ‘with great power comes great responsibility’. Just because you’re using data binding does not mean that you can avoid being a good UI citizen.
+[Data Binding 库](https://developer.android.com/topic/libraries/data-binding/) (下文中以『DB 库』词语来指代) 提供了一个灵活强大的方式来绑定数据到 UI 界面。但是要用一句陈词滥调：『能力越大，责任越大』，仅仅是使用数据绑定，并不意味着你可以避免成为一个优秀 UI 开发者。
 
-I’ve been using data binding on Android for the past few years and this post details some of the things which I’ve learnt along the way.
+过去的几年我一直在 Android 开发中使用 data binding 库，本文会写出我这一路上了解到的与它有关的一些内容细节。
 
-## Use the standard bindings when possible
+## 尽可能使用 bindings 
 
-[Custom binding adapters](https://developer.android.com/topic/libraries/data-binding/binding-adapters#custom-logic) are a great way to easily add custom functionality to Views. Like a lot of developers, I went a bit far with binding adapters and ended up with a class full of [15 adapters](https://github.com/chrisbanes/tivi/blob/5f785284b618002622781b44806fa469fc2b982e/app/src/main/java/app/tivi/ui/databinding/TiviBindingAdapters.kt) of varying quality.
+[自定义 binding adapter](https://developer.android.com/topic/libraries/data-binding/binding-adapters#custom-logic) 是一种给 View 控件轻松提供自定义功能的好方法。和许多开发者一样，我对 binding adapter 研究得稍微深入，最终总结出一套包含不同质量的[15 种适配器](https://github.com/chrisbanes/tivi/blob/5f785284b618002622781b44806fa469fc2b982e/app/src/main/java/app/tivi/ui/databinding/TiviBindingAdapters.kt)的类集。
 
-The worst culprits were a number of adapters which generated formatted strings and set them on `TextViews`. The adapters were usually referenced in just one layout:
+最糟糕的实践是这类适配器，它们生成格式化的字符串并设置到 `TextViews` 控件，这些适配器通常仅在同一个布局文件中使用：
 
-While this may look clever there are three big downsides:
+虽然这可能看起来很聪明，但是有三大缺点：
 
-1. **Organizing them is a pain**. Unless you’re exceptionally well organised, you’re likely to have one large file containing all of your adapter methods. The antithesis of cohesive and decoupled.
+1. **优化它们的过程太痛苦**。 Unless you’re exceptionally well organised, you’re likely to have one large file containing all of your adapter methods. The antithesis of cohesive and decoupled.
 
-2. **You need to use instrumentation to test**. By definition, your binding adapters do not return a value, they take an input and then set properties on views. That means you have to use a instrumentation to test your custom logic, which makes testing slower and possibly harder to maintain.
+2. **你需要使用 instrumentation 工具来做测试**。 By definition, your binding adapters do not return a value, they take an input and then set properties on views. That means you have to use a instrumentation to test your custom logic, which makes testing slower and possibly harder to maintain.
 
-3. **Custom binding adapter code is (usually) not optimal.** If you look at the built-in text binding [[here](https://android.googlesource.com/platform/frameworks/data-binding/+/master/extensions/baseAdapters/src/main/java/android/databinding/adapters/TextViewBindingAdapter.java#63)], you’ll see that it does a **lot** of checks to avoid calling [`TextView.setText()`](https://developer.android.com/reference/android/widget/TextView.html#setText(java.lang.CharSequence)), thus saving wasted layout passes. I fell into the trap of thinking that the DB Library would automagically optimise my view updates. And it does, **but only if** you use the built-in binding adapters which are carefully optimised.
+3. **自定义 binding adapter 代码（通常）不是最佳选项。** If you look at the built-in text binding [[here](https://android.googlesource.com/platform/frameworks/data-binding/+/master/extensions/baseAdapters/src/main/java/android/databinding/adapters/TextViewBindingAdapter.java#63)], you’ll see that it does a **lot** of checks to avoid calling [`TextView.setText()`](https://developer.android.com/reference/android/widget/TextView.html#setText(java.lang.CharSequence)), thus saving wasted layout passes. I fell into the trap of thinking that the DB Library would automagically optimise my view updates. And it does, **but only if** you use the built-in binding adapters which are carefully optimised.
 
 Instead, abstract your methods logic into cohesive classes (I call these text creators), then pass them into the binding. From there you can call your text creator and use the built-in view bindings:
 
 This way, we get all of the efficiency from the built-in binding, and we can quite easily unit test the code which creates our formatted strings.
 
-## Make your custom binding adapters efficient
+## 让你的自定义 binding 适配器变得高效
 
 If you really need to use a custom adapter, because the functionality you want does not exist, then try to make it as efficient as possible. By that I mean to use all of the standard Android UI optimizations: avoid triggering measure/layout when at all possible.
 
@@ -49,7 +49,7 @@ So here we’re just comparing the **current** and **new**`collapsedMaxLines` va
 
 **Edit: Thanks to [Alexandre Gianquinto](undefined) for mentioning about the ‘double parameters’ functionality in the comments.**
 
-## Be careful with what you’re providing as variables
+## 谨慎对待你提供的变量
 
 I’ve been slowly re-architecting [Tivi](https://tivi.app) using something which is MVI-like, using the excellent [MvRx library](https://github.com/airbnb/MvRx) to formalise it. What that means in practice is that my fragment/view subscribes to a [ViewModel](https://developer.android.com/reference/androidx/lifecycle/ViewModel), and receives ViewState instances. Those instances contain all of the state necessary to display the UI.
 
@@ -69,7 +69,7 @@ So what’s the problem? Well since we only have one input variable, all of the 
 
 **This problem isn’t related to MVI in particular, it’s just an artifact of combining state and using that with data binding.**
 
-### So what can you do instead?
+### 那么你能做什么的呢？
 
 An alternative is to explicitly declare each variable from your ViewState in your layout, and then explicitly pass through the values from your combined state instance, like so:
 
@@ -79,7 +79,7 @@ Personally I’ve kept using a single variable in my layouts, passing in my View
 
 **Another thing to note is that Tivi is a heavy user of [RecyclerView](https://developer.android.com/guide/topics/ui/layout/recyclerview), with [Epoxy](https://github.com/airbnb/epoxy) + [Data Binding](https://github.com/airbnb/epoxy/wiki/Data-Binding-Support), meaning that there is an additional level of change calculation happening in [DiffUtil](https://developer.android.com/reference/androidx/recyclerview/widget/DiffUtil). So if your UIs are largely made up of RecyclerViews too, you’re getting a similar optimization for free anyway.**
 
-## Small wins add up
+## 小步迭代
 
 Hopefully this post has highlighted some of the small things you can do to optimise your data binding implementations. Knowing a little of how the ‘DB Library’ works internally can go a long way in helping you make your data binding efficient, and increase the performance of your UIs.
 
