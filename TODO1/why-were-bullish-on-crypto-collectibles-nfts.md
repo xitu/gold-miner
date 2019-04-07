@@ -19,7 +19,7 @@
 
 像我们这样的人数以百万计，而我们这一群体对音乐的酷爱之情，也吸引着其他人购买音乐收藏品。投资者进行收藏，是因为他们知道，假以时日，这种驱动力有潜力带来呈指数式增长的丰厚回报。而像硬石餐厅（the Hard Rock Cafe）和摇滚音乐名人堂（the Rock and Roll Hall of Fame）那样的买者，其购买的动机是吸引那些希望感觉和偶像拉近距离的人们，所以，一方面它们通过向粉丝出售金额不高的门票赚取金钱，另一方面它们的收藏品也会升值。
 
-NFT 或许轻易就能发展成总值超越万亿美元的市场，而随着 NFT 进入主流应用，收藏品作为其中一个很有意思的部分，有可能取得显著增长。2018 年，音乐商品一手市场的市场总值[达到了 31 亿美元](https://www.billboard.com/articles/business/7801357/global-music-merch-biz-grew-to-31-billion-in-2016-study)，与 2017 年相比上涨 9.4%；而其中很大部分每年都会进入二手市场。平均而言，每件物品通常会由收藏者持有约 7-10 年，然后便进入二手市场。市场上，音乐相关物品的数量[在过去两年增加了两倍](https://www.rollingstone.com/music/music-features/inside-musics-merch-gold-rush-199554/)。随着更多乐队制作越来越多的收藏品，以及经典收藏品多次流入市场，以上的数字还会上升。
+NFT 或许轻易就能发展成总值超越万亿美元的市场，而随着 NFT 进入主流应用，收藏品作为其中一个很有意思的部分，有可能取得显著增长。2018 年，音乐商品一手市场的市场总值[达到了 31 亿美元](https://www.billboard.com/articles/business/7801357/global-music-merch-biz-grew-to-31-billion-in-2016-study)，与 2017 年相比上涨 9.4%；而其中很大部分每年都会进入二手市场。平均而言，每件物品通常会由收藏者持有约 7-10 年，然后便进入二手市场。市场上，音乐相关物品的数量[在过去两年增加了两倍](https://www.rollingstone.com/music/music-features/inside-musics-merch-gold-rush-199554/)。随着更多乐队制作越来越多的收藏品，以及经典收藏品重复流入市场，以上的数字还会上升。
 
 1984 年，一块披头士乐队鼓皮的拍卖价可达 6,550 美元。1994 年，披头士乐队在 Ed Sullivan Show 节目登场时出现过的鼓皮，在苏富比拍賣行以 44,000 美元售出。到了 2015 年 11 月，那块鼓皮在 Julien 拍卖行的成交价，达到了 205 万美元。（[数据来源](http://journalofantiques.com/features/state-rock-roll-memorabilia-market/)）
 
