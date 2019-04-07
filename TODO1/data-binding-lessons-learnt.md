@@ -29,33 +29,33 @@
 
 Instead, abstract your methods logic into cohesive classes (I call these text creators), then pass them into the binding. From there you can call your text creator and use the built-in view bindings:
 
-This way, we get all of the efficiency from the built-in binding, and we can quite easily unit test the code which creates our formatted strings.
+这样我们可以从内建的绑定操作过程中提高效率，并且我们可以非常轻松地对创建格式化字符串的代码进行单元测试。
 
 ## 让你的自定义 binding 适配器变得高效
 
-If you really need to use a custom adapter, because the functionality you want does not exist, then try to make it as efficient as possible. By that I mean to use all of the standard Android UI optimizations: avoid triggering measure/layout when at all possible.
+如果你确实需要使用自定义适配器，因为你所需的功能不存在，请尽量使其变得高效。我的意思是使用所有标准的 Android UI 优化：尽可能避免触发测量/布局操作。
 
-This can be as simple as checking what the view is currently using vs. what you’re setting. Here’s a example where we re-implement the standard ImageView adapter for `android:drawable`:
+这可以像检查当前使用的视图以及你设置的内容一样简单。这里有一个我们为 `android:drawable` 重新实现了标准 ImageView adapter 的样例：
 
-Unfortunately views are not always able to expose state for what we need to check. Here’s an example which sets a toggling max-lines on TextView. It works toggling by changing a TextView’s `maxLines` property, along with a [delayed layout transition](https://developer.android.com/reference/androidx/transition/TransitionManager.html#beginDelayedTransition(android.view.ViewGroup)).
+遗憾的是，视图并不总是能够显示我们需要检查的状态。这里有一个在 TextView 上设置切换最大行的示例。它通过改变 TextView 的 `maxLines` 属性以及一个[延时布局转换](https://developer.android.com/reference/androidx/transition/TransitionManager.html#beginDelayedTransition(android.view.ViewGroup)来实现切换。
 
-![Just so you get an idea of what it does](https://cdn-images-1.medium.com/max/2000/1*1EFkuX5VCoVr3tZ7OhUdYg.gif)
+![这样你就可以了解它的作用](https://cdn-images-1.medium.com/max/2000/1*1EFkuX5VCoVr3tZ7OhUdYg.gif)
 
-Previously the binding adapter was simple and always set the `maxLines` property, along with a click listener. TextView will always trigger a layout when `[setMaxLines()](https://developer.android.com/reference/android/widget/TextView.html#setMaxLines(int))` is called, which means that every time the binding adapter is run, a layout is triggered.
+之前 binding adapter 比较简单并且总是设置了 `maxLines` 属性和一个点击监听对象。TextView 在 `[setMaxLines()](https://developer.android.com/reference/android/widget/TextView.html#setMaxLines(int))` 被调用后总会触发一次布局，这就意味着每次 binding adapter 启动，一次布局就会被触发。
 
-So let’s fix it. Since this functionality is completely separate to TextView (we’re just calling `setMaxLines()` with different values when clicked) we need to store the reference the current state. Luckily, the ‘DB Library’ provides a handy way for us to receive this in the binding adapter. By providing the parameter twice, the first parameters receives the **current** value, and the second parameter receives the **new** value.
+让我们改变这个情况。由于此功能与TextView 是完全分开的（我们只是在单击时使用不同的值调用 `setMaxLines（）`），我们需要将引用存储为当前状态。幸运的是，『DB 库』为我们提供了一个手工方式去在 binding adapter 中接收状态。通过提供参数两次：第一个参数接收**当前**值，第二个参数接收**新**值。
 
-So here we’re just comparing the **current** and **new**`collapsedMaxLines` values. If the value actually changes we call `setMaxLines()`, etc.
+所以这里我们只需比较**当前的**和**新的** `collapsedMaxLines` 值。如果值实际发生了改变，我们才去调用 `setMaxLines()` 等方法。
 
-**Edit: Thanks to [Alexandre Gianquinto](undefined) for mentioning about the ‘double parameters’ functionality in the comments.**
+**编辑按: 感谢 [Alexandre Gianquinto](undefined) 在评论中提到『double parameters』功能。**
 
 ## 谨慎对待你提供的变量
 
-I’ve been slowly re-architecting [Tivi](https://tivi.app) using something which is MVI-like, using the excellent [MvRx library](https://github.com/airbnb/MvRx) to formalise it. What that means in practice is that my fragment/view subscribes to a [ViewModel](https://developer.android.com/reference/androidx/lifecycle/ViewModel), and receives ViewState instances. Those instances contain all of the state necessary to display the UI.
+我一直在慢慢的重新设计 [Tivi](https://tivi.app)，使用类似 MVI 的东西，使用优秀的 [MvRx 库](https://github.com/airbnb/MvRx)来使它变得规范化。这在实践中意味着我的 fragment/view 订阅到 [ViewModel](https://developer.android.com/reference/androidx/lifecycle/ViewModel)对象，并且接收 ViewStates 的实例。这些实例包含所有用于显示 UI 的必要状态。
 
-Here’s an example state class from Tivi ([link](https://github.com/chrisbanes/tivi/blob/master/app/src/main/java/app/tivi/showdetails/details/ShowDetailsViewState.kt)):
+这是一个展示 Tivi（[链接](https://github.com/chrisbanes/tivi/blob/master/app/src/main/java/app/tivi/showdetails/details/ShowDetailsViewState.kt)）中类的样例：
 
-You can see that it’s just a simple data class which contains all of the things which the UI requires to show a details UI about a TV show.
+你可以看到它仅仅是一个简单的数据类，包含了 UI 需要在一个 TV 秀界面上显示的所有细节 UI 元素。
 
 Sounds like a perfect candidate to pass to our data binding instance, and let our binding expressions update the UI, right? Well yes, that does indeed work nicely, but there are a few things to be aware of, and it’s due to how the ‘DB Library’ works.
 
@@ -81,7 +81,7 @@ Personally I’ve kept using a single variable in my layouts, passing in my View
 
 ## 小步迭代
 
-Hopefully this post has highlighted some of the small things you can do to optimise your data binding implementations. Knowing a little of how the ‘DB Library’ works internally can go a long way in helping you make your data binding efficient, and increase the performance of your UIs.
+希望这篇文章强调了一些可以优化数据绑定实现方案中的一些小事。 了解『DB 库』的内部机制可以帮助你提高数据绑定效率，并提高 你的 UI 性能。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
