@@ -21,7 +21,7 @@
 
 NFT 或许轻易就能发展成总值超越万亿美元的市场，而随着 NFT 进入主流应用，收藏品作为其中一个很有意思的部分，有可能取得显著增长。2018 年，音乐商品一手市场的市场总值[达到了 31 亿美元](https://www.billboard.com/articles/business/7801357/global-music-merch-biz-grew-to-31-billion-in-2016-study)，与 2017 年相比上涨 9.4%；而其中很大部分每年都会进入二手市场。平均而言，每件物品通常会由收藏者持有约 7-10 年，然后便进入二手市场。市场上，音乐相关物品的数量[在过去两年增加了两倍](https://www.rollingstone.com/music/music-features/inside-musics-merch-gold-rush-199554/)。随着更多乐队制作越来越多的收藏品，以及经典收藏品重复流入市场，以上的数字还会上升。
 
-1984 年，一块披头士乐队鼓皮的拍卖价可达 6,550 美元。1994 年，披头士乐队在 Ed Sullivan Show 节目登场时出现过的鼓皮，在苏富比拍賣行以 44,000 美元售出。到了 2015 年 11 月，那块鼓皮在 Julien 拍卖行的成交价，达到了 205 万美元。（[数据来源](http://journalofantiques.com/features/state-rock-roll-memorabilia-market/)）
+1984 年，一块披头士乐队鼓皮的拍卖价可达 6,550 美元。1994 年，披头士乐队在 Ed Sullivan Show 节目登场时出现过的鼓皮，在苏富比拍卖行以 44,000 美元售出。到了 2015 年 11 月，那块鼓皮在 Julien 拍卖行的成交价，达到了 205 万美元。（[数据来源](http://journalofantiques.com/features/state-rock-roll-memorabilia-market/)）
 
 ![Appreciation of The Beatles’ Ed Sullivan Drum Head](https://cdn-images-1.medium.com/max/2000/1*rQepEUQ6Cd7avspvlhOvqQ.png)
 
@@ -52,7 +52,7 @@ NFT 或许轻易就能发展成总值超越万亿美元的市场，而随着 NFT
 
 * [**“Blockchain Platforms and Tech to Watch in 2019”**](https://medium.com/the-challenge/blockchain-platforms-tech-to-watch-in-2019-f2bfefc5c23)
 
-**Eric Elliott** 是分布式系统的专家，著有[《Composing Software》](https://leanpub.com/composingsoftware)和[《Programming JavaScript Applications》](https://ericelliottjs.com/product/programming-javascript-applications-ebook/)。他是 [DevAnywhere.io](https://devanywhere.io/) 的联合创办人，向开发者讲授其在远程工作以及享受工作生活平衡方面所需的技能。他为加密币项目构建开发团队、也指导有关团队，而他曾在软件体验方面提供服务的对象多不胜数，在此仅作列举，包括 **Adobe Systems、Zumba Fitness、华尔街日报、ESPN、BBC** 等公司、团体，**Usher、Frank Ocean、Metallica** 等多位名列前茅的艺术家。
+**Eric Elliott** 是分布式系统的专家，著有[《Composing Software》](https://leanpub.com/composingsoftware)和[《Programming JavaScript Applications》](https://ericelliottjs.com/product/programming-javascript-applications-ebook/)。他是 [DevAnywhere.io](https://devanywhere.io/) 的联合创办人，向开发者讲授其在远程工作以及享受工作生活平衡方面所需的技能。他为加密币项目构建开发团队、也指导有关团队，而他曾在软件体验方面提供服务的对象多不胜数，在此仅作举例，包括 **Adobe Systems、Zumba Fitness、华尔街日报、ESPN、BBC** 等公司、团体，**Usher、Frank Ocean、Metallica** 等多位名列前茅的艺术家。
 
 ***
 
