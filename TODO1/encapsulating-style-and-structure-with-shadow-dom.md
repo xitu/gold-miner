@@ -2,38 +2,38 @@
 > * 原文作者：[Caleb Williams](https://css-tricks.com/author/calebdwilliams/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
-> * 译者：
+> * 译者：[Xuyuey](https://github.com/Xuyuey)
 > * 校对者：
 
-# Encapsulating Style and Structure with Shadow DOM
+# 使用 Shadow DOM 封装样式和结构
 
-This is part four of a five-part series discussing the Web Components specifications. In [part one](https://juejin.im/post/5c9a3cce5188252d9b3771ad), we took a 10,000-foot view of the specifications and what they do. In [part two](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md), we set out to build a custom modal dialog and created the HTML template for what would evolve into our very own custom HTML element in [part three](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md).
+这里有一个由五个部分组成的系列文章来讨论 Web Components 规范，这是其中的第四部分。在[第一部分](https://juejin.im/post/5c9a3cce5188252d9b3771ad)中，我们对于 Web Components 的规范和具体做的事情进行了全面的介绍。在[第二部分](https://juejin.im/post/5ca5b858e51d4524a918560f)中我们开始构建一个自定义的模态对话框，并且创建了 HTML 模版，这在[第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)中将演变为我们的自定义 HTML 元素。
 
-#### Article Series:
+#### 系列文章：
 
 1.  [Web Components 简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
-2.  [Crafting Reusable HTML Templates](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
-3.  [Creating a Custom Element from Scratch](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
-4.  [Encapsulating Style and Structure with Shadow DOM (_This post_)](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
+2.  [编写可以复用的 HTML 模板](https://juejin.im/post/5ca5b858e51d4524a918560f)
+3.  [从 0 开始创建自定义元素](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
+4.  [使用 Shadow DOM 封装样式和结构（**本文**）](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
 5.  [Advanced Tooling for Web Components](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
 
 * * *
 
-If you haven’t read those articles, you would be advised to do so now before proceeding in this article as this will continue to build upon the work we’ve done there.
+在开始阅读本文之前，我们建议您先阅读该系列中的前三篇文章，因为本文的工作是构建在它们的基础上的。
 
-When we last looked at our dialog component, it had a specific shape, structure and behaviors, however it relied heavily on the outside DOM and required that the consumers of our element would need to understand it’s general shape and structure, not to mention authoring all of their own styles (which would eventually modify the document’s global styles). And because our dialog relied on the contents of a template element with an id of "one-dialog", each document could only have one instance of our modal.
+当我们上次查看我们的对话框组件时，它具有特定的外形，结构和行为，但是它在很大程度上依赖于外部 DOM，并且要求使用者必须理解它的通用外形和结构，更不用说编写他们自己的样式（最终将修改文档的全局样式）。因为我们的对话框依赖于 id 为 “one-dialog” 的模板元素的内容，所以每个文档只能有一个模态框的实例。
 
-The current limitations of our dialog component aren’t necessarily bad. Consumers who have an intimate knowledge of the dialog’s inner workings can easily consume and use the dialog by creating their own `<template>` element and defining the content and styles they wish to use (even relying on global styles defined elsewhere). However, we might want to provide more specific design and structural constraints on our element to accommodate best practices, so in this article, we will be incorporating the shadow DOM to our element.
+目前对于我们的对话框组件的限制不一定是坏的。熟悉对话框内部工作原理的使用者可以通过创建自己的 `<template>` 元素，并定义他们希望使用的内容和样式（甚至依赖于其他地方定义的全局样式）来轻松地使用对话框。但是，我们希望在元素上提供更具体的设计和结构约束以适应最佳实践，因此在本文中，我们将在我们的元素中使用 shadow DOM。
 
-### What is the shadow DOM?
+### 什么是 shadow DOM ？
 
-In our [introduction article](https://juejin.im/post/5c9a3cce5188252d9b3771ad), we said that the shadow DOM was "capable of isolating CSS and JavaScript, almost like an `<iframe>`." Like an `<iframe>`, selectors and styles inside of a shadow DOM node don’t leak outside of the shadow root and styles from outside the shadow root don’t leak in. There are a few exceptions that inherit from the parent document, like font family and document font sizes (e.g. `rem`) that can be overridden internally.
+在我们的[介绍文章](https://juejin.im/post/5c9a3cce5188252d9b3771ad)中，我们说 shadow DOM ”能够隔离 CSS 和 JavaScript，和 `<iframe>` 非常相似“。类似于 `<iframe>`，在 shadow DOM 中选择器和样式不会泄漏到 shadow root 以外，shadow root 以外的样式也不会泄露进来。只有极个别的继承于父文件的样式（例如：`rem`）可以在内部重写覆盖。
 
-Unlike an `<iframe>`, however, all shadow roots still exist in the same document so that all code can be written inside a given context but not worry about conflicts with other styles or selectors.
+但是不同于 `<iframe>`，所有的 shadow root 仍然存在于同一份文件当中，因此所有的代码都可以在指定的上下文中编写，但不必担心和其他样式或者选择器冲突。
 
-### Adding the shadow DOM to our dialog
+### 在我们的对话框中添加 shadow DOM
 
-To add a shadow root (the base node/document fragment of the shadow tree), we need to call our element’s `attachShadow` method:
+为了添加一个 shadow root（shadow 树的基本节点/文档片段），我们需要调用元素的 `attachShadow` 方法：
 
 ```
 class OneDialog extends HTMLElement {
@@ -45,9 +45,9 @@ class OneDialog extends HTMLElement {
 }
 ```
 
-By calling `attachShadow` with `mode:` `'open'`, we are telling our element to save a reference to the shadow root on the `element.shadowRoot` property. `attachShadow` always returns a reference to the shadow root, but here we don’t need to do anything with that.
+通过调用 `attachShadow` 方法并设置参数 `mode:` `'open'`，我们告诉我们的元素在 `element.shadowRoot` 属性中保存一份对 shadow root 的引用。`attachShadow` 方法将 shadow root 的引用作为返回值返回，但是在这里我们不会用到它。
 
-If we had called the method with `mode: 'closed'`, no reference would have been stored on the element and we would have to create our own means of storage and retrieval using a `WeakMap` or `Object`, setting the node itself as the key and the shadow root as the value.
+如果我们调用 `attachShadow` 方法并设置参数 `mode: closed'`，元素上将不会存储任何引用，我们必须构建自己的方法进行存储，并且恢复使用 `WeakMap` 或者 `Object`，设置节点自身为键，shadow root 为值。
 
 ```
 const shadowRoots = new WeakMap();
@@ -66,17 +66,17 @@ class ClosedRoot extends HTMLElement {
 }
 ```
 
-We could also save a reference to the shadow root on our element itself, using a `Symbol` or other key to try to make the shadow root private.
+我们还可以在元素自身上保存对 shadow root 的引用，使用一个 `Symbol` 或者其他的键尝试设置 shadow root 为私有属性。
 
-In general, the closed mode for shadow roots exists for native elements that use the shadow DOM in their implementation (like `<audio>` or `<video>`). Further, for unit testing our elements, we might not have access to the `shadowRoots` object, making it unable for us to target changes inside our element depending on how our library is architected.
+通常，有一些原生元素（例如：`<audio>` 或者 `<video>`），它们会在自己的实现中使用 shadow DOM，shadow root 的关闭模式就是为了这些原生元素而存在。此外，在单元测试中，取决于库的架构方式，我们可能无法获取 `shadowRoots` 对象，导致我们无法定位到元素内部的更改。
 
-**There might be some legitimate use cases for user-land closed shadow roots, but they are few and far between**, so we’ll stick with the open shadow root for our dialog.
+**对于用户主动使用关闭模式下的 shadow root 可能存在一些合理的用例，但是它们很少**，所以我们将在我们的对话框中坚持使用 shadow root 的打开模式。
 
-After implementing the new open shadow root, you might notice now that our element is completely broken when we try to run it:
+在实现新的打开模式下的 shadow root 之后，你可能注意到现在当我们尝试运行时，我们的元素已经完全无法使用了：
 
-See the Pen [Dialog example using template with shadow root](https://codepen.io/calebdwilliams/pen/WPLwzv/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
+在 [CodePen](https://codepen.io) 中查看[对话框示例：使用模板 以及 shadow root](https://codepen.io/calebdwilliams/pen/WPLwzv/)。
 
-This is because all of the content we had before was added to and manipulated in the traditional DOM (what we’ll call the [light DOM](https://stackoverflow.com/questions/42093610/difference-between-light-dom-and-shadow-dom)). Now that our element has a shadow DOM attached, there is no outlet for the light DOM to render. Let’s start fixing these issues by moving our content to the shadow DOM:
+这是因为我们之前拥有的所有内容都被添加在传统 DOM（我们称之为[light DOM](https://stackoverflow.com/questions/42093610/difference-between-light-dom-and-shadow-dom)）中，并在其中被操作。既然现在我们的元素附属于一个 shadow DOM，那么就没有一个 light DOM 可以渲染的出口。让我们通过将内容移动到 shadow DOM 中来解决这个问题：
 
 ```
 class OneDialog extends HTMLElement {
@@ -133,17 +133,17 @@ class OneDialog extends HTMLElement {
 customElements.define('one-dialog', OneDialog);
 ```
 
-The major changes to our dialog so far are actually relatively minimal, but they carry a lot of impact. For starters, all our selectors (including our style definitions) are internally scoped. For example, our dialog template only has one button internally, so our CSS only targets `button { ... }`, and those styles don’t bleed out to the light DOM.
+到目前为止，我们对话框的主要变化实际上相对较小，但它们带来了很大的影响。首先，我们所有的选择器（包括我们的样式定义）都在内部作用域内。例如，我们的对话框模板内部只有一个按钮，因此我们的 CSS 只针对 `button {...}`，而且这些样式不会泄漏到 light DOM 中。
 
-We are, however, still reliant on the template that is external to our element. Let’s change that by removing the markup from our template and dropping it into our shadow root’s `innerHTML`.
+但是，我们仍然依赖于我们元素外部的模板。让我们通过从模板中删除这些标记并将它们放入我们的 shadow root 的 `innerHTML` 来改变它。
 
-See the Pen [Dialog example using only shadow root](https://codepen.io/calebdwilliams/pen/GzPqvo/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
+在 [CodePen](https://codepen.io) 中查看[对话框示例：仅使用 shadow root](https://codepen.io/calebdwilliams/pen/GzPqvo/)。
 
-### Including content from the light DOM
+### 包括来自 light DOM 的内容
 
-The [shadow DOM specification](https://www.w3.org/TR/shadow-dom/) includes a means for allowing content from outside the shadow root to be rendered inside of our custom element. For those of you who remember AngularJS, this is a similar concept to `ng-transclude` or using `props.children` in React. With Web Components, this is done using the `<slot>` element.
+[shadow DOM 规范](https://www.w3.org/TR/shadow-dom/)包括一种允许 shadow root 外部的内容在我们的自定义元素内呈现的方法。它和 AngularJS 中的 `ng-transclude` 概念以及在 React 中使用 `props.children` 都很相似。在 Web Components 中，我们可以通过使用 `<slot>` 元素实现。
 
-A simple example would look like this:
+一个简单的例子可能会像这样：
 
 ```
 <div>
@@ -154,19 +154,19 @@ A simple example would look like this:
 </div>
 ```
 
-A given shadow root can have any number of slot elements, which can be distinguished with a `name` attribute. The first slot inside of the shadow root without a name, will be the default slot and all content not otherwise assigned will flow inside that node. Our dialog really needs two slots: a heading and some content (which we’ll make default).
+一个给定的 shadow root 可以拥有任意数量的插槽元素，可以用 `name` 属性来区分。shadow root 中没有名称的第一个插槽将是默认插槽，未分配的所有内容将在该节点内按文档流（从左到右，从上到下）显示。我们的对话框确实需要两个插槽：标题和一些内容（我们将设置为默认插槽）。
 
-See the Pen [Dialog example using shadow root and slots](https://codepen.io/calebdwilliams/pen/dawXJb/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
+在 [CodePen](https://codepen.io) 中查看[对话框示例：使用 shadow root 以及插槽](https://codepen.io/calebdwilliams/pen/dawXJb/)。
 
-Go ahead and change the HTML portion of our dialog and see the result. Any content inside of the light DOM is inserted into the slot to which it is assigned. Slotted content remains inside the light DOM although it is rendered as if it were inside the shadow DOM. This means that these elements are still fully style-able by a consumer who might want to control the look and feel of their content.
+继续更改对话框的 HTML 部分并查看结果。Light DOM 内部的任何内容都被放入到分配给它的插槽中。被插入的内容依旧保留在 light DOM 中，尽管它被渲染的好像在 shadow DOM 中一样。这意味着这些元素的内容和样式都可以由使用者定义。
 
-A shadow root’s author _can_ style content inside the light DOM to a limited extent using the CSS `::slotted()` pseudo-selector; however, the DOM tree inside slotted is collapsed, so only simple selectors will work. In other words, we wouldn't be able to style a `<strong>` element inside a `<p>` element within the flattened DOM tree in our previous example.
+使用 CSS `::slotted()` 伪选择器，在有限的范围内，一个 shadow root 的使用者**可以**定义存在于 light DOM 中内容的样式；然而，插槽中的 DOM 树是折叠的，所以只有简单的选择器可以工作。换句话说，在前面示例的扁平的 DOM 树中，我们将无法设置在 `<p>` 元素内部的 `<strong>` 元素的样式。
 
-### The best of both worlds
+### 两全其美的方法
 
-Our dialog is in a good state now: it has encapsulated, semantic markup, styles and behavior; however, some consumers of our dialog might still want to define their own template. Fortunately, by combining two techniques we’ve already learned, we can allow authors to optionally define an external template.
+我们的对话框目前状态良好：它具有封装、语义标记、样式和行为；然而，一些使用者仍然想要定义他们自己的模板。幸运的是，通过结合两种我们所学的技术，我们可以允许使用者有选择地定义外部模板。
 
-To do this, we will allow each instance of our component to reference an optional template ID. To start, we need to define a getter and setter for our component’s `template`.
+为此，我们将允许组件的每个实例引用一个可选的模板 ID。首先，我们需要为组件的 `template` 定义一个 getter 和 setter。
 
 ```
 get template() {
@@ -183,7 +183,7 @@ set template(template) {
 }
 ```
 
-Here we’re doing much the same thing that we did with our `open` property by tying it directly to its corresponding attribute. But at the bottom, we’re introducing a new method to our component: `render`. We are going to use our render method to insert our shadow DOM’s content and remove that behavior from the `connectedCallback`; instead, we will call render when our element is connected:
+在这里，通过将它直接绑定到相应的属性上，我们完成了和使用 `open` 属性时非常类似的事情。但是在底部，我们为我们的组件引入了一个新的方法：`render`。现在我们可以使用 `render` 方法插入我们 shadow DOM 的内容，并从 `connectedCallback` 中移除行为；相反，我们将在连接元素时调用 `render` 方法：
 
 ```
 connectedCallback() {
@@ -206,7 +206,7 @@ render() {
 }
 ```
 
-Our dialog now has some really basic default stylings, but also gives consumers the ability to define a new template for each instance. If we wanted, we could even use `attributeChangedCallback` to make this component update based on the template it’s currently pointing to:
+现在我们的对话框不仅拥有了一些非常基本的样式，而且可以允许使用者为每个实例定义一个新模板。如果我们想要，我们甚至可以基于它当前指向的模板使用 `attributeChangedCallback` 更新此组件：
 
 ```
 static get observedAttributes() { return ['open', 'template']; }
@@ -227,35 +227,35 @@ attributeChangedCallback(attrName, oldValue, newValue) {
 }
 ```
 
-See the Pen [Dialog example using shadow root, slots and template](https://codepen.io/calebdwilliams/pen/rROadR/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
+在 [CodePen](https://codepen.io) 中查看[对话框示例：使用 shadow root、插槽以及模板](https://codepen.io/calebdwilliams/pen/rROadR/)。
 
-In the demo above, changing the template attribute on our `<one-dialog>` element will alter which design is being used when the element is rendered.
+在上面的示例中，改变 `<one-dialog>` 元素的 `template` 属性将改变元素渲染时使用的设计。
 
-### Strategies for styling the shadow DOM
+### 定义 shadow DOM 样式的策略
 
-Currently, the only reliable way to style a shadow DOM node is by adding a `<style>` element to the shadow root’s inner HTML. This works fine in almost every case as browsers will de-duplicate stylesheets across these components, where possible. This _does_ tend to add a bit of memory overhead, but generally not enough to notice.
+目前，定义一个 shadow DOM 节点样式的唯一方法就是在 shadow root 的内部 HTML 中添加一个 `<style>` 元素。这种方法几乎在所有情况下都能正常工作，因为浏览器会在可能的情况下对这些组件中的样式表进行重写。这个**确实**会增加一些内存开销，但通常不足以引起关注。
 
-Inside of these style tags, we can use [CSS custom properties](https://css-tricks.com/guides/css-custom-properties/) to provide an API for styling our components. Custom properties can pierce the shadow boundary and effect content inside a shadow node.
+在这些样式标签内部，我们可以使用 [CSS 自定义属性](https://css-tricks.com/guides/css-custom-properties/)为定义组件样式提供 API。自定义属性可以穿透 shadow 的边界并影响 shadow 节点内的内容。
 
-“Can we use a `<link>` element inside of a shadow root?” you might ask. And, in fact, we can. The trouble comes when trying to reuse this component across multiple applications as the CSS file might not be saved in a consistent location throughout all apps. However, if we are certain as to the element’s stylesheet location, then using `<link>` is an option. The same holds true for including an `@import` rule in a style tag.
+你可能会问：“我们可以在 shadow root 内部使用 `<link>` 元素吗”？事实上，我们确实可以。但是当尝试在多个应用之间重用这个组件时可能会出现问题，因为在所有应用中 CSS 文件可能无法保存在同一个位置。但是，如果我们确定了元素样式表的位置，那么我们就可以使用 `<link>` 元素。在样式标签中包含 `@ import` 规则也是如此。
 
-It is also worth mentioning that not all components need the kind of styling we're using here. Using the CSS `:host` and `:host-context` selectors, we can simply define more primitive components as block-level elements and allow consumers to provide classes to style things like background colors, font settings, and more.
+值得一提的是，不是所有的组件都需要我们在这里使用的那种定义样式的方法。使用 CSS 的 `:host` 和 `:host-context` 选择器，我们可以简单地定义更多初级的组件为块级元素，并且允许用户以提供类名的方式定义样式，如背景色，字体设置等。
 
-Our dialog, on the other hand, is fairly complex. Something like a listbox (comprised of a label and an checkbox input) is not and can be just merely as a surface for native element composition. That is equally as valid a styling strategy as is being more explicit about styles (say for design systems purposes where all checkboxes might look a certain way). It largely depends on your use case.
+另一方面，我们的对话框非常复杂。不像是列表框（由标签和复选框组成），它们可以仅作为一个原生元素的组合展示。这与样式策略一样有效，因为样式更明确（比如设计系统的目的，其中所有复选框可能看起来都是一样的）。这在很大程度上取决于你的用例。
 
-#### CSS custom properties
+#### CSS 自定义属性
 
-One of the benefits of using [CSS custom properties](https://css-tricks.com/tag/custom-properties/) — also called CSS variables — is that they bleed through the shadow DOM. This is by design, giving component authors a surface for allowing theming and styling of their components from the outside. It is important to note, however, that since CSS cascades, changes to custom properties made inside a shadow root do not bleed back up.
+使用 [CSS 自定义属性](https://css-tricks.com/guides/css-custom-properties/)（也被称为 CSS 变量）的一个好处是它们可以在 shadow DOM 中回流。在设计上，为组件使用者提供了一个接口，允许他们从外部定义组件的主题和样式。然而，值得注意的是，因为 CSS 级联的缘故，在 shadow root 内部对于自定义样式的更改不会回流。
 
-See the Pen [CSS custom properties and shadow DOM](https://codepen.io/calebdwilliams/pen/eXJZza/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
+在 [CodePen](https://codepen.io) 中查看[CSS 自定义样式以及 shadow DOM](https://codepen.io/calebdwilliams/pen/eXJZza/)。
 
-Go ahead and comment out or remove the variables set in the CSS panel of the demo above and see how this impacts the rendered content. Afterward, you can take a look at the styles in the shadow DOM’s `innerHTML`, you’ll see how the shadow DOM can define its own property that won’t affect the light DOM.
+继续注释或删除上面演示的 CSS 面板中设置的变量，看看它是如何影响渲染内容的。之后，你可以看一下 shadow DOM 的 `innerHTML` 中的样式，你会看到 shadow DOM 如何定义它自己的属性，不会影响到 light DOM。
 
-#### Constructible stylesheets
+#### 可构造的样式表
 
-At the time of this writing, there is a proposed web feature that will allow for more modular styling of shadow DOM and light DOM elements using [constructible stylesheets](https://github.com/WICG/construct-stylesheets/blob/gh-pages/explainer.md) that has already landed in Chrome 73 and received positive signaling from Mozilla.
+在撰写本文的时候，有一项提议的 web 功能，它允许使用[可构造的样式表](https://github.com/WICG/construct-stylesheets/blob/gh-pages/explainer.md)对 shadow DOM 和 light DOM 的样式进行更多地模块化定义。这个功能已经登陆 Chrome 73，并且从 Mozilla 得到了很多积极的消息。
 
-This feature would allow authors to define stylesheets in their JavaScript files similar to how they would write normal CSS and share those styles across multiple nodes. So, a single stylesheet could be appended to multiple shadow roots and potentially the document as well.
+此功能允许使用者在其 JavaScript 文件中定义样式表，类似于编写普通 CSS 并在多个节点之间共享这些样式的方式。因此，单个样式表可以添加到多个 shadow root 内，也可以添加到文档内。
 
 ```
 const everythingTomato = new CSSStyleSheet();
@@ -275,17 +275,17 @@ class SomeCompoent extends HTMLElement {
 }
 ```
 
-In the above example, the `everythingTomato` stylesheet would be simultaneously applied to the shadow root and to the document’s body. This feature would be very useful for teams creating design systems and components that are intended to be shared across multiple applications and frameworks.
+在上面的示例中，`everythingTomato` 样式表可以同时应用到 shadow root 以及文档的 body 内。对于那些想要创建可以被多个应用和框架共享的设计系统和组件的团队来说非常有用。
 
-In the next demo, we can see a really basic example of how this can be utilized and the power that constructble stylesheets offer.
+在下一个示例中，我们可以看到一个非常基础的例子，展示了可构造样式表的使用方法以及它提供的强大功能。
 
-See the Pen [Construct style sheets demo](https://codepen.io/calebdwilliams/pen/aPgbMb/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
+在 [CodePen](https://codepen.io) 中查看[可构造的样式表示例](https://codepen.io/calebdwilliams/pen/aPgbMb/)。
 
-In this demo, we construct two stylesheets and append them to the document and to the custom element. After three seconds, we remove one stylesheet from our shadow root. For those three seconds, however, the document and the shadow DOM share the same stylesheet. Using the polyfill included in that demo, there are actually two style elements present, but Chrome runs this natively.
+在这个示例中，我们构造了两个样式表，并将它们添加到文档和自定义元素上。三秒钟后，我们从 shadow root 中删除一个样式表。但是，对于这三秒钟，文档和 shadow DOM 共享相同的样式表。使用该示例中包含的 polyfill，实际上存在两个样式元素，但 Chrome 运行的很自然。
 
-That demo also includes a form for showing how a sheet’s rules can easily and effectively changed asynchronously as needed. This addition to the web platform can be a powerful ally for those creating design systems that span multiple frameworks or site authors who want to provide themes for their websites.
+该示例还包括一个表单，用于显示如何根据需要异步有效地更改工作表的规则。对于那些想要为他们的网站提供主题的使用者，或者那些想要创建跨越多个框架或网址的设计系统的使用者来说，Web 平台的这一新增功能可以成为一个强大的盟友。
 
-There is also a proposal for [CSS Modules](https://github.com/w3c/webcomponents/issues/759) that could eventually be used with the `adoptedStyleSheets` feature. If implemented in its current form, this proposal would allow importing CSS as a module much like ECMAScript modules:
+这里还有一个关于 [CSS 模块](https://github.com/w3c/webcomponents/issues/759)的提议，最终可以和 `adoptStyleSheets` 功能一起使用。如果以当前形式实现，该提议将允许把 CSS 作为模块导入，就像 ECMAScript 模块一样：
 
 ```
 import styles './styles.css';
@@ -298,9 +298,9 @@ class SomeCompoent extends HTMLElement {
 }
 ```
 
-#### Part and theme
+#### 部分和主题
 
-Another feature that is in the works for styling Web Components are the `::part()` and `::theme()` pseudo-selectors. The `::part()` specification will allow authors to define parts of their custom elements that have a surface for styling:
+用于样式化 Web 组件的另一个特性是 `::part()` 和 `::theme()` 伪选择器。`::part()` 规范允许使用者可以定义他们的部分自定义元素，提供了下面的样式定义接口：
 
 ```
 class SomeOtherComponent extends HTMLElement {
@@ -316,7 +316,7 @@ class SomeOtherComponent extends HTMLElement {
 customElements.define('other-component', SomeOtherComponent);
 ```
 
-In our global CSS, we could target any element that has a part called `description` by invoking the CSS `::part()` selector.
+在我们的全局 CSS 中，我们可以通过调用 CSS 的 `::part()` 选择器来定位任何 part 属性值为 `description` 的元素。
 
 ```
 other-component::part(description) {
@@ -324,9 +324,9 @@ other-component::part(description) {
 }
 ```
 
-In the above example, the primary message of the `<h1>` tag would be in a different color than the description part, giving custom element authors the ability to expose styling APIs for their components and maintain control over the pieces they want to maintain control over.
+在上面的示例中，`<h1>` 标签的主要消息与描述部分的颜色不同，对于那些自定义元素的使用者，让他们可以暴露自己组件的样式 API，并保持对他们想要保持控制的部分的控制。
 
-The difference between `::part()` and `::theme()` is that `::part()` must be specifically selected whereas `::theme()` can be nested at any level. The following would have the same effect as the above CSS, but would also work for any other element that included a `part="description"` in the entire document tree.
+`::part()` 和 `::theme()` 的区别在于 `::part()` 必须作用于特定的选择器上，`::theme()` 可以嵌套在任何层级上。下面的示例和上面 CSS 代码有着相同的效果，但也适用于在整个文档树中包含 `part="description"` 的任何其他元素。
 
 ```
 :root::theme(description) {
@@ -334,20 +334,20 @@ The difference between `::part()` and `::theme()` is that `::part()` must be spe
 }
 ```
 
-Like constructible stylesheets, `::part()` has landed in Chrome 73.
+和可构造的样式表一样，`::part()` 已经可以在 Chrome 73 中使用。
 
-### Wrapping up
+### 包裹
 
-Our dialog component is now complete, more-or-less. It includes its own markup, styles (without any outside dependencies) and behaviors. This component can now be included in projects that use any current or future frameworks because they are built against the browser specifications instead of third-party APIs.
+我们的对话框组件现在已经完成。它具有自己的标记，样式（没有任何外部依赖）和行为。此组件现在可以被包含在使用任何当前或未来框架的项目中，因为它们是根据浏览器规范而不是第三方 API 构建的。
 
-Some of the core controls are a _little_ verbose and do rely on at least a moderate knowledge of how the DOM works. In our final article, we will discuss higher-level tooling and how to incorporate with popular frameworks.
+一些核心控件**有点**冗长，并且至少依赖于对 DOM 工作原理的中等知识。在我们的最后一篇文章中，我们将讨论更高级别的工具以及如何与流行的框架结合使用。
 
-#### Article Series:
+#### 系列文章：
 
 1.  [Web Components 简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
-2.  [Crafting Reusable HTML Templates](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
-3.  [Creating a Custom Element from Scratch](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
-4.  [Encapsulating Style and Structure with Shadow DOM (_This post_)](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
+2.  [编写可以复用的 HTML 模板](https://juejin.im/post/5ca5b858e51d4524a918560f)
+3.  [从 0 开始创建自定义元素](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
+4.  [使用 Shadow DOM 封装样式和结构（**本文**）](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
 5.  [Advanced Tooling for Web Components](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
