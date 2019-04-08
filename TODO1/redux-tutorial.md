@@ -301,14 +301,14 @@ const store = createStore(reducer);
 ```js
 var letters = ['r', 'e', 'd', 'u', 'x'];
 
-// `reduce` takes 2 arguments:
-//   - a function to do the reducing (you might say, a "reducer")
-//   - an initial value for accumulatedResult
+// `reduce` 接收两个参数:
+//   - 一个用来 reduce 的函数 (也称为 "reducer")
+//   - 一个计算结果的初始值
 var word = letters.reduce(
   function(accumulatedResult, arrayItem) {
     return accumulatedResult + arrayItem;
   },
-''); // <-- notice this empty string argument: it's the initial value
+''); // <-- 注意这个空字符串：它是初始值
 
 console.log(word) // => "redux"
 ```
@@ -574,11 +574,11 @@ Counter.js
 
 ```js
 class Counter extends React.Component {
-  // state = { count: 0 }; // remove this
+  // state = { count: 0 }; // 删除
 
   increment = () => {
     /*
-    // Remove this
+    // 删除
     this.setState({
       count: this.state.count + 1
     });
@@ -587,7 +587,7 @@ class Counter extends React.Component {
 
   decrement = () => {
     /*
-    // Also remove this
+    // 同样删除
     this.setState({
       count: this.state.count - 1
     });
@@ -601,9 +601,9 @@ class Counter extends React.Component {
         <div>
           <button onClick={this.decrement}>-</button>
           <span className="count">{
-            // Replace state:
+            // 把 state:
             //// this.state.count
-            // With props:
+            // 替换成:
             this.props.count
           }</span>
           <button onClick={this.increment}>+</button>
@@ -633,17 +633,17 @@ import { connect } from 'react-redux';
 Counter.js
 
 ```js
-// Add this function:
+// 添加这个函数:
 function mapStateToProps(state) {
   return {
     count: state.count
   };
 }
 
-// Then replace this:
+// 然后把:
 // export default Counter;
 
-// With this:
+// 替换成:
 export default connect(mapStateToProps)(Counter);
 ```
 
@@ -798,7 +798,7 @@ class Counter extends React.Component {
   state = { count: 0 };
 
   increment = () => {
-    this.props.dispatch(increment()); // << use it here
+    this.props.dispatch(increment()); // << 在这使用
   };
 
   decrement = () => {
@@ -838,8 +838,8 @@ import { increment, decrement } from './actions';
 
 class Counter extends React.Component {
   increment = () => {
-    // We can call the `increment` prop,
-    // and it will dispatch the action:
+    // 我们可以调用 `increment` prop,
+    // 它会 dispatch action:
     this.props.increment();
   }
 
@@ -858,9 +858,9 @@ function mapStateToProps(state) {
   };
 }
 
-// in this object, keys become prop names,
-// and values should be action creator functions.
-// They get bound to `dispatch`.
+// 在这个对象中, 属性名会成为 prop 的 names,
+// 属性值应该是 action 生成器函数.
+// 它们跟 `dispatch` 绑定起来.
 const mapDispatchToProps = {
   increment,
   decrement
@@ -904,9 +904,9 @@ function getUser() {
 ```js
 function doStuff() {
   return function(dispatch, getState) {
-    // dispatch actions here
-    // or fetch data
-    // or whatever
+    // 在这里 dispatch actions
+    // 或者获取数据
+    // 或者该干啥干啥
   }
 }
 ```
@@ -1034,8 +1034,8 @@ const initialState = {
 export default function productReducer(state = initialState, action) {
   switch(action.type) {
     case FETCH_PRODUCTS_BEGIN:
-      // Mark the state as "loading" so we can show a spinner or something
-      // Also, reset any errors. We're starting fresh.
+      // 把 state 标记为 "loading" 这样我们就可以显示 spinner 或者其他内容
+      // 同样，重置所有错误信息。我们从新开始。
       return {
         ...state,
         loading: true,
@@ -1043,8 +1043,8 @@ export default function productReducer(state = initialState, action) {
       };
 
     case FETCH_PRODUCTS_SUCCESS:
-      // All done: set loading "false".
-      // Also, replace the items with the ones from the server
+      // 全部完成：设置 loading 为 "false"。
+      // 同样，把从服务端获取的数据赋给 items。
       return {
         ...state,
         loading: false,
@@ -1052,13 +1052,13 @@ export default function productReducer(state = initialState, action) {
       };
 
     case FETCH_PRODUCTS_FAILURE:
-      // The request failed. It's done. So set loading to "false".
-      // Save the error, so we can display it somewhere.
-      // Since it failed, we don't have items to display anymore, so set `items` empty.
+      // 请求失败，设置 loading 为 "false".
+      // 保存错误信息，这样我们就可以在其他地方展示。
+      // 既然失败了，我们没有产品可以展示，因此要把 `items` 清空。
       //
-      // This is all up to you and your app though:
-      // maybe you want to keep the items around!
-      // Do whatever seems right for your use case.
+      // 当然这取决于你和应用情况：
+      // 或许你想保留 items 数据！
+      // 无论如何适合你的场景就好。
       return {
         ...state,
         loading: false,
@@ -1067,7 +1067,7 @@ export default function productReducer(state = initialState, action) {
       };
 
     default:
-      // ALWAYS have a default case in a reducer
+      // reducer 需要有 default case。
       return state;
   }
 }
