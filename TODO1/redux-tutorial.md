@@ -21,7 +21,7 @@
 
 接着我们会看到更加进阶的内容，手把手，直到你**全部**都理解为止。我们开始吧 :)
 
-请注意：本教程是**相当齐全**。也就意味篇幅着**比较长**。我把它变成了一个完整的免费课程，**并且**我制作了精美的 PDF 你可以在 iPad 或【任何 Android 设备】上阅读。留下你的邮箱地址即可立即获取。
+请注意：本教程**相当齐全**。也就意味篇幅着**比较长**。我把它变成了一个完整的免费课程，**并且**我制作了精美的 PDF 你可以在 iPad 或【任何 Android 设备】上阅读。留下你的邮箱地址即可立即获取。
 
 ## 视频概述 Redux 要点
 
@@ -177,15 +177,15 @@ export default Counter;
 快速回顾一下，它是如何运行的：
 
 - `count` state 存储在 `Counter` 组件
-- 当用户点击 "+" 时，会调用按钮的 `onClick` 处理器，也就是 `increment` 函数。
+- 当用户点击 "+" 时，会调用按钮的 `onClick` 处理器执行 `increment` 函数。
 - `increment` 函数会更新 state 的 count 值。
-- 因为 state 改变了，React 会重绘 `Counter` 组件（以及它的子元素），这样就会显示新计数值。
+- 因为 state 改变了，React 会重新渲染 `Counter` 组件（以及它的子元素），这样就会显示新计数值。
 
 如果你想要了解 state 变化机制的更多细节，去看 [React 中的 state 可视指南](https://daveceddia.com/visual-guide-to-state-in-react/)然后再回到这里。
 
-不过说实话：如果上面内容对你来讲**不是**复习的话，你需要在学 Redux **之前**了解下 React 的 state 如何工作，否则你会巨困惑。参加我 [免费的 5 天 React 课程](https://daveceddia.com/pure-react-email-course)，用简单的 React 获得信心，然后再回到这里。
+不过说实话：如果上面内容对你来讲**不是**复习的话，你需要在学 Redux **之前**了解下 React 的 state 如何工作，否则你会巨困惑。参加我[免费的 5 天 React 课程](https://daveceddia.com/pure-react-email-course)，用简单的 React 获得信心，然后再回到这里。
 
-### 接着！
+### 跟上来！
 
 最好的学习方式就是动手尝试！所以这有个 CodeSandbox 你可以跟着做：
 
@@ -213,11 +213,11 @@ export default Counter;
 
 虽然，这两个库就像豆荚里的两个豌豆。99.999% 的情况下，当任何人在 React 的场景下提到 "Redux"，他们指的是这两个库。因此当你在 StackOverflow、Reddit 或者其他地方看到 Redux 时，记住这一点。
 
-`redux` 库可以脱离 React 应用使用。它可以和 Vue，Angular 甚至后端的 Node/Express 应用一起使用。
+`redux` 库可以脱离 React 应用使用。它可以和 Vue、Angular 甚至后端的 Node/Express 应用一起使用。
 
-## Redux 有一个全局 Store
+## Redux 有全局唯一 Store
 
-我们将首先看一下 Redux 本身，只看其中一部分：store。
+我们将首先从 Redux 中的一小部分入手：store。
 
 我们已经讨论过 Redux 怎样在一个独立 store 里保存你应用的 state。以及怎样提取 state 的一部分把它作为 props 嵌入你的组件。
 
@@ -253,11 +253,11 @@ const App = () => (
 
 因此，有件关于 Redux 的事：它并不是非常智能。
 
-你可能期待通过创建一个 store，它会给你的 state 一个合适的默认值。可能是一个空对象，或许？
+你可能期待通过创建一个 store，它会给你的 state 一个合适的默认值。或许是一个空对象？
 
-但是并非如此。这里没有约定大于配置。
+但是并非如此。这里没有约定优于配置。
 
-Redux **不会**对你的 state 做任何假设。它可能是一个 object，一个 number，一个 string，或者任何你需要的。这取决于你。
+Redux **不会**对你的 state 做任何假设。它可能是一个 object、number、string，或者任何你需要的。这取决于你。
 
 我们必须提供一个返回 state 的函数。这个函数被称为 reducer（我们马上就知道为什么了）。那么我们创建一个非常简单的 reducer，把它传给 `createStore`，然后看会发生什么：
 
@@ -315,7 +315,7 @@ console.log(word) // => "redux"
 
 你给 `reduce` 传入的函数理所应当被叫做 "reducer"，因为它将整个数组的元素 **reduces** 成一个结果。
 
-Redux **基本上**是数组 `reduce` 的奇幻版本。前面，你看到 Redux reducers 如何拥有这个显著特征：
+Redux **基本上**是数组 `reduce` 的豪华版。前面，你看到 Redux reducers 如何拥有这个显著特征：
 
 ```js
 (state, action) => newState
@@ -360,7 +360,7 @@ function reducer(state = initialState, action) {
 
 Reducers 重要规则一：reducer 绝不能返回 undefined。
 
-你总是想让 state 是已定义的。一个已定义的 state 是快乐的 state。一个**未**定义的 state 是**不**快乐的（并且会破坏你的应用）。
+通常 state 应该总是已定义的。已定义的 state 是良好的 state。而**未**定义的则**不**那么好（并且会破坏你的应用）。
 
 ## Dispatch Actions 来改变 State
 
@@ -368,7 +368,7 @@ Reducers 重要规则一：reducer 绝不能返回 undefined。
 
 ### 什么是 Redux Action？
 
-对于具有 `type` 属性的普通对象，action 是 Redux-speak。这就是它。遵循这两个规则，那就是一个 action：
+在 Redux 中，具有 `type` 属性的普通对象就被称为 action。就是这样，只要遵循这两个规则，它就是一个 action：
 
 ```js
 {
@@ -407,7 +407,7 @@ Action 对象描述你想做出的改变（如“增加 counter”）或者将�
 
 我们刚才创建的 store 有一个内置函数 `dispatch`。调用的时候携带 action，Redux 调用 reducer 时就会携带 action（然后 reducer 的返回值会更新 state）。
 
-我们来试试 store。
+我们在 store 上试试看。
 
 index.js
 
@@ -486,19 +486,19 @@ function reducer(state = initialState, action) {
 
 我们准备好把它连接到 React 了，在此之前让我们先谈谈这段 reducer 代码。
 
-## 如何保持 Reducers 纯粹
+## 如何保持纯 Reducers
 
-另一个关于 reducers 的规则是它们必须是纯函数。也就是说不能修改它们的参数，也不能有 side effects。
+另一个关于 reducers 的规则是它们必须是纯函数。也就是说不能修改它们的参数，也不能有副作用（side effect）。
 
 Reducer 规则二：Reducers 必须是纯函数。
 
-"side effect" 是指对函数作用域之外的任何更改。不要改变函数作用域以外的变量，不要调用其他会改变的函数（比如 `fetch`，跟网络和其他系统有关），也不要 dispatch actions 等。
+“副作用（side effect）”是指对函数作用域之外的任何更改。不要改变函数作用域以外的变量，不要调用其他会改变的函数（比如 `fetch`，跟网络和其他系统有关），也不要 dispatch actions 等。
 
-技术角度来看 `console.log` 是 side effect，但是我们放过它。
+技术角度来看 `console.log` 是副作用（side effect），但是我们忽略它。
 
 最重要的事情是：不要修改 `state` 参数。
 
-这意味着你不能执行 `state.count = 0`， `state.items.push(newItem)`， `state.count++` 及其他类型的变动 —— 不要改变 `state` 本身，及其任何子属性。
+这意味着你不能执行 `state.count = 0`、`state.items.push(newItem)`、`state.count++` 及其他类型的变动 —— 不要改变 `state` 本身，及其任何子属性。
 
 你可以把它想成一个游戏，你唯一能做的事就是 `return { ... }`。这是个有趣的游戏。开始会有点恼人。但是通过练习你会变得更好。
 
@@ -510,11 +510,11 @@ Reducer 规则二：Reducers 必须是纯函数。
 
 ## 全部规则
 
-必须返回一个 state，不要改变 state，不要 connect 每一个组件，要吃西兰花，11 点后不要外出…这太累人了。就像一个规则工厂，我甚至不知道那是什么。
+必须返回一个 state，不要改变 state，不要 connect 每一个组件，要吃西兰花，11 点后不要外出…这简直没完没了。就像一个规则工厂，我甚至不知道那是什么。
 
 是的，Redux 就像一个霸道的父母。但它是出于爱。函数式编程的爱。
 
-Redux 建立在不变性的基础上，因为变化的全局 state 是一条废墟之路。
+Redux 建立在不变性的基础上，因为变化的全局 state 是一条通往废墟之路。
 
 你试过在全局对象里面保存你的 state 吗？起初它还很好。美妙并且简单。任何东西都能接触到 state 因为它一直是可用的并且很容易更改。
 
@@ -524,7 +524,7 @@ Redux 建立在不变性的基础上，因为变化的全局 state 是一条废�
 
 - State 是只读的，唯一修改它的方式是 actions。
 - 更新的唯一方式：dispatch(action) -> reducer -> new state。
-- Reducer 函数必须是“纯”的——不能修改它的参数，也不能有 side effects。
+- Reducer 函数必须是“纯”的 —— 不能修改它的参数，也不能有副作用（side effect）。
 
 ## 如何在 React 中使用 Redux
 
@@ -562,7 +562,7 @@ const App = () => (
 
 Context 就像是连接每个组件的秘密通道，使用 `connect` 就可打开秘密通道的大门。
 
-想象一下，在一堆煎饼上浇糖浆以及它铺满**整个**煎饼的方式，即使你只在最上层倒了糖浆。`Provider` 对 Redux 做了同样的事情。
+想象一下，在一堆煎饼上浇糖浆以及它铺满**所有**煎饼的方式，即使你只在最上层倒了糖浆。`Provider` 对 Redux 做了同样的事情。
 
 ## 为 Redux 准备 Counter 组件
 
@@ -618,7 +618,7 @@ class Counter extends React.Component {
 
 你会注意到 count 消失了 —— 它确实应该这样，因为目前还没有给 `Counter` 传递 `count` prop。
 
-## 把组件和 Redux Connect 起来
+## 连接组件和 Redux
 
 要从 Redux 获取 `count`，我们首先需要在 Counter.js 顶部引入 `connect` 函数。
 
@@ -628,7 +628,7 @@ Counter.js
 import { connect } from 'react-redux';
 ```
 
-然后我们需要在底部把 Counter 组件和 Redux "connect" 起来：
+然后我们需要在底部把 Counter 组件和 Redux 连接起来：
 
 Counter.js
 
@@ -647,13 +647,13 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(Counter);
 ```
 
-之前我们只导出了组件本身。现在我们用 `connect` 函数调用把它包装起来，这样我们就可以导出 **connected** Counter。至于应用的其余部分，看起来就像一个常规组件。
+之前我们只导出了组件本身。现在我们用 `connect` 函数调用把它包装起来，这样我们就可以导出**已连接的** Counter。至于应用的其余部分，看起来就像一个常规组件。
 
 然后 count 应该就重新出现了！直到我们重新实现 increment/decrement，它是不会变化的。
 
 ## 如何使用 React Redux `connect`
 
-你可能注意到这个调用看起来有点…奇怪。为什么是 `connect(mapStateToProps)(Counter)` 而不是 `connect(mapStateToProps, Counter)` 或者 `connect(Counter, mapStateToProps)`？它做了什么？
+你可能注意到这个调用看起来有点……奇怪。为什么是 `connect(mapStateToProps)(Counter)` 而不是 `connect(mapStateToProps, Counter)` 或者 `connect(Counter, mapStateToProps)`？它做了什么？
 
 这样写是因为 `connect` 是一个**高阶函数**，它简单说就是当你调用它时会返回一个函数。然后调用**返回的**函数传入一个组件时，它会返回一个新（包装的）组件。
 
@@ -759,7 +759,7 @@ class Counter extends React.Component {
 
 我可以告诉你，这很疯狂。手写 `{ type: INCREMENT }` 并保证没有弄乱有多困难？
 
-当你的应用变得更大，不止有两个 actions，并且这些 actions 开始变得更复杂 —— 要传更多数据而不仅是一个 `type` —— action 生成器会帮上大忙。
+当你的应用变得越来越大，actions 越来越多，并且这些 actions 开始变得更复杂 —— 要传更多数据而不仅是一个 `type` —— action 生成器会帮上大忙。
 
 就像 action 常量一样，但它们不是**必须品**。这是另一层的抽象，如果你不想在你的应用里面使用，那也没关系。
 
@@ -819,11 +819,11 @@ class Counter extends React.Component {
 
 牢记 action 生成器是一个平凡无奇的函数。Dispatch 需要 action 是一个**对象**，而不是函数。
 
-而且：你几乎肯定会出错并且非常困惑。至少一次，或许很多次。那很正常。我有时也**依旧**会忘记。
+而且：你肯定会在这里出错并且非常困惑。至少一次，或许很多次。那很正常。我有时也**依旧**会忘记。
 
 ## 如何使用 React Redux mapDispatchToProps
 
-现在你知道 action 生成器是什么，我们可以讨论**又一个**级别的抽象。（我知道，我**知道**。这是选读的。）
+现在你知道 action 生成器是什么，我们可以讨论**又一个**级别的抽象。（我知道，我**知道**。这是可选的。）
 
 你知道 `connect` 如何传递 `dispatch` 函数吗？你知道你是如何厌倦一直敲 `this.props.dispatch` 并且它看起来多么混乱？（跟我来）
 
@@ -875,7 +875,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 
 ## 如何使用 Redux Thunk 获取数据
 
-既然 reducers 应该是“纯” 的，我们不能做在 reducer 里面做任何 API 调用或者 dispatch actions。
+既然 reducers 应该是“纯”的，我们不能做在 reducer 里面做任何 API 调用或者 dispatch actions。
 
 我们也不能在 action 生成器里面做这些事！
 
@@ -962,13 +962,13 @@ export function fetchProducts() {
 
 `fetch("/products")` 是实际上请求数据的部分。然后我们在它前后分别做了一些 `dispatch` 调用。
 
-## Dispatch Action 来请求数据
+## Dispatch Action 来获取数据
 
-要启动调用并且实际获取数据，我们需要 dispatch `fetchProducts` action。
+要开始调用并且实际获取数据，我们需要 dispatch `fetchProducts` action。
 
 在哪里调用呢？
 
-如果某一特定的组件需要数据，最好的调用地方通常是在组件加载**之后**，也就是它的 `componentDidMount` 生命周期函数。
+如果某一特定的组件需要数据，最好的调用地方通常是在组件刚刚加载**之后**，也就是它的 `componentDidMount` 生命周期函数。
 
 或者，如果你在使用 Hooks，useEffect hook 里面也是个好地方。
 
@@ -976,7 +976,7 @@ export function fetchProducts() {
 
 ### 如何给 Redux Actions 命名
 
-获取数据的 Redux actions 通常使用标准三连：BEGIN, SUCCESS, FAILURE。这不是硬性要求，只是惯例。
+获取数据的 Redux actions 通常使用标准三连：BEGIN、SUCCESS、FAILURE。这不是硬性要求，只是惯例。
 
 BEGIN/SUCCESS/FAILURE 模式很棒，因为它给你提供钩子来跟踪发生了什么 —— 比如，设置 "loading" 标志为 "true" 以响应 BEGIN 操作，在 SUCCESS 或 FAILURE 之后设为 `false`。
 
@@ -1117,7 +1117,7 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(ProductList);
 ```
 
-我指的是带有 `state.products.<whatever>` 的数据而不仅仅是 `state.<whatever>`，因为我假设你可能会有不止一个 reducer，每一个都处理各自的 state。为了确保这样，我们可以写一个 `rootReducer.js` 文件把它们维护在一起：
+我指的是带有 `state.products.<whatever>` 的数据而不仅仅是 `state.<whatever>`，因为我假设你可能会有不止一个 reducer，每一个都处理各自的 state。为了确保这样，我们可以写一个 `rootReducer.js` 文件把它们放在一起：
 
 rootReducer.js
 
@@ -1171,7 +1171,7 @@ const store = createStore(rootReducer);
 - 如何做 immutable 更新
 - 使用 Immer 轻松实现 immutable
 - 使用 Redux DevTools 调试应用
-- 为 reducers, actions, 和 thunk actions 编写单元测试
+- 为 reducers、actions 和 thunk actions 编写单元测试
 
 还有一整个模块讲解我们创建一个完整的应用，从开始到结束，包含这些：
 
