@@ -11,11 +11,12 @@
 在2018年的9月，我在一篇[文章](https://towardsdatascience.com/deep-learning-framework-power-scores-2018-23607ddf297a)中，从需求量，工程使用量以及流行程度等方面对比了所有的主流深度学习框架。TensorFlow处于绝对的王者地位，而Pytorch则是一位跃跃欲试的年轻挑战者。
 
 半年过去了，这种形式是否有所改变呢？
+
 ![](https://cdn-images-1.medium.com/max/2000/1*SVgj_p1tcangWfCm2n0txg.png)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*3JpBBGkLNgwRfkrDDFIQiQ.png)
 
-为了回答这个问题，我从在线招聘网站（如：[Indeed](http://indeed.com),[Monster](https://www.monster.com/),[LinkedIn](https://linkedin.com)和[SimplyHired](https://www.simplyhired.com/))的职位需求，[谷歌的搜索量](https://trends.google.com/trends/explore?cat=1299&q=tensorflow,pytorch,keras,fastai),[GitHub活跃度](https://github.com/), [媒体的文章](https://medium.com),[ArXiv的文章](https://arxiv.org/)以及[Quora的话题参与数](https://www.quora.com)等几个方面的变化数据去做评估。最终，以这些数据为依据，绘制了需求量，使用率和流行程度的增长图便于读者理解。
+为了回答这个问题，我从在线招聘网站（如：[Indeed](http://indeed.com),[Monster](https://www.monster.com/),[LinkedIn](https://linkedin.com)和[SimplyHired](https://www.simplyhired.com/))的职位需求，[谷歌的搜索量](https://trends.google.com/trends/explore?cat=1299&q=tensorflow,pytorch,keras,fastai),[GitHub活跃度](https://github.com/), [媒体的文章数](https://medium.com),[ArXiv的文章数](https://arxiv.org/)以及[Quora的粉丝数](https://www.quora.com)等几个方面的数据变化去做评估。最终，以这些数据为依据，绘制了需求量，使用率和流行程度的增长图便于读者理解。
 
 ## 集成和更新
 我们发现，TensorFlow和PyTorch都有一些重要的版本发布。
