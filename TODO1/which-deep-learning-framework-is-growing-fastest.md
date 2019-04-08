@@ -25,11 +25,13 @@ PyTorch 1.0版本在2018年10月预先发布，同一时间fastai 1.0版本也�
 
 ## 方法
 在本文中，由于Keras和fastai与TesnsorFlow和PyTorch的依存关系，它们也可以作为一个尺度来评估TensorFlow和PyTorch,所以我们将它们也囊括到了对比之中。
+
 ![](https://cdn-images-1.medium.com/max/2000/1*rRq_RWw3SLz64sMRXmtyaQ.png)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*UlKBqvcT5UNg3L5BM8ywqg.png)
+
 至于其他的深度学习框架，我将不予讨论。很多读者肯定会觉得像Caffe, Theano, MXNET, CNTK, DeepLearning4J和Chainer这些框架是很有价值的。然而它们虽然有诸多的优点，但确实无法与TensorFlow和Pytorch相提并论，同时又和这两个框架没有什么交集。
-我们的分析工作是在2019年3月的20号到21号间执行的，数据源在[谷歌的表格中](https://docs.google.com/spreadsheets/d/1Q9rQkfi8ubKM8aX33In0Ki6ldUCfJhGqiH9ir6boexw/edit?usp=sharing)。
+我们的分析工作是在2019年3月20号到21号间执行的，数据源在[谷歌的表格中](https://docs.google.com/spreadsheets/d/1Q9rQkfi8ubKM8aX33In0Ki6ldUCfJhGqiH9ir6boexw/edit?usp=sharing)。
 我使用[plotly](https://plot.ly/)作为可视化库，更多的细节可以参考我的[Kaggle Kernel](https://www.kaggle.com/discdiver/2019-deep-learning-framework-growth-scores)。
 好，现在我们就来看看各个分类的结果如何。
 
