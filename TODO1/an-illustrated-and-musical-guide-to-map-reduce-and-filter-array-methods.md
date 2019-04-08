@@ -16,7 +16,7 @@ map、reduce 和 filter 是三个非常实用的 JavaScript 数组方法，赋�
 
 `Array.map()` updates each individual value in a given array based on a provided transformation and returns a new array of the same size. It accepts a callback function as an argument, which it uses to apply the transform.
 
-`Array.map()` 根据传递的转换函数，更新给定数组中的每个值，并返回一个相同长度的新数组。它接受一个回调函数作为参数，用它执行转换过程。
+`Array.map()` 根据传递的转换函数，更新给定数组中的每个值，并返回一个相同长度的新数组。它接受一个回调函数作为参数，用以执行转换过程。
 
 ```js
 let newArray = oldArray.map((value, index, array) => {
@@ -30,7 +30,7 @@ let newArray = oldArray.map((value, index, array) => {
 
 Instead of a for-each loop to go through and apply this transformation to each value, you can use a map. This works when you want to preserve each value, but update it. We're not potentially eliminating any values (like we would with a filter), or calculating a new output (like we would use reduce for). A map lets you morph an array piece-by-piece. Let's take a look at an example:
 
-你可以使用 map 代替 for-each 循环，来遍历并对每个值应用转换函数。这个方法适用于当你想更新数组的同时保留原始值。我们不会隐式地删除任何值（filter 方法也是这样），计算出一个新的输出（就像 reduce 那样）。map 允许你逐个改变数组。一起来看一个例子：
+你可以使用 map 代替 for-each 循环，来遍历并对每个值应用转换函数。这个方法适用于当你想更新数组的同时保留原始值。它不会潜在地删除任何值（filter 方法会），也不会计算出一个新的输出（就像 reduce 那样）。map 允许你逐个改变数组。一起来看一个例子：
 
 ```js
 [1, 4, 6, 14, 32, 78].map(val => val * 10)
@@ -221,7 +221,7 @@ const wineReduction = ingredients.reduce((sauce, item, index, array) => {
 
 Now we can write this even more concisely (in a single line!) using ternary operators, string templates, and implicit returns:
 
-我们可以用三目操作符、模板字符串和隐式返回，写的更简洁（一行搞定！）：
+可以用三目操作符、模板字符串和隐式返回，写的更简洁（一行搞定！）：
 
 ```js
 const wineReduction = ingredients.reduce((sauce, item, index, array) => {
@@ -241,7 +241,7 @@ const wineReduction = ingredients.reduce((sauce, item, index, array) => {
 
 I wanted to end this blog post with a song, so I wrote a little ditty about array methods that might just help you to remember them:
 
-我想要用一首歌来结束这篇博文，所以我为数组方法写了一个小调，来帮助你们记忆：
+我想要用一首歌来结束这篇博文，给数组方法写了一个小调，来帮助你们记忆：
 
 [Video](https://youtu.be/-_YEbB_y3Mk)
 
