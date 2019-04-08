@@ -11,7 +11,7 @@
 
 月初我应邀在维也纳的奥地利印刷学会（[tga](http://typographischegesellschaft.at/)）做了一场[晚间讲座](http://typographischegesellschaft.at/k_vortrag_workshop/v_rutter.html)。我很荣幸能够做这样一个演讲，因为这意味着我将追随马修·卡特(Matthew Carter)、维姆·克鲁维尔(Wim Crouwel)、玛格丽特·卡尔弗特(Margaret Calvert)、埃里克·斯皮克曼(Erik Spiekermann)和已故的弗雷达·萨克(Freda Sack)等名人的脚步。
 
-我展示了一些 Web 排版的黄金准则，在之后的问答环节中，我被问到关于 Web 自动断字的现状。这是一个恰当的问题，因为德语以长单词而闻名——尤其在名词复合词中很常见（例如 Verbesserungsvorschlag 意为改进建议）——所以使用连字符断字在大多数书面媒体中被广泛使用。
+我展示了一些 Web 排版的黄金准则，在之后的问答环节中，我被问到关于 Web 自动断字的现状。这是一个恰当的问题，因为德语以长单词而闻名 —— 尤其在名词复合词中很常见（例如 Verbesserungsvorschlag 意为改进建议）—— 所以使用连字符断字在大多数书面媒体中被广泛使用。
 
 自 2011 年以来，Web 上的自动断字已经成为[可能](https://clagnut.com/blog/2394)，现在得到了[广泛的支持](https://caniuse.com/#feat=css-hyphens)。Safari，Firefox 和 Internet Explorer 9 以上版本支持自动断字，Android 和 MacOS 上的 Chrome 也支持自动断字（但 [Windows 或 Linux](https://bugs.chromium.org/p/chromium/issues/detail?id=652964) 上还没有）。
 
@@ -60,7 +60,7 @@ hyphens: auto;
 
 ### 限制断字前后的单词的长度和字符数
 
-如果你用连字符连接短单词，它们会更难读。同样，您也不希望在连字符之前的行上留下太少的字符，或者在连字符之后被推到下一行。一个常见的经验法则是，只允许至少有 6 个字母长的单词用连字符连接，在单词断开之前至少留下 3 个字符，并在下一行至少保留 2 个字符。
+如果你用连字符连接短单词，它们会更难读。同样，您也不希望在连字符之前的行上留下太少的字符，或者在连字符之后被移到下一行。一个常见的经验法则是，只允许至少有 6 个字母长的单词用连字符连接，在单词断开之前至少留下 3 个字符，并在下一行至少保留 2 个字符。
 
 《牛津风格手册》（Oxford Style Manual）建议，换行符中连字符后的最小字母数是 3，不过也可以在很短的时间内出现例外。
 
@@ -190,3 +190,4 @@ p {
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
