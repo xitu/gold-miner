@@ -35,24 +35,31 @@ PyTorch 1.0版本在2018年10月预先发布，同一时间fastai 1.0版本也�
 我使用[plotly](https://plot.ly/)作为可视化库，更多的细节可以参考我的[Kaggle Kernel](https://www.kaggle.com/discdiver/2019-deep-learning-framework-growth-scores)。
 好，现在我们就来看看各个分类的结果如何。
 
-## 在线工职位的变化
+## 在线职位需求的变化
 我通过搜索几个主要的在线招聘网站，如，Indeed, LinkedIn, Monster, 和SimplyHired的相关数据来判断哪一个框架是目前需求量最大的。
-我使用的搜索关键字是这样的，**machine learning,**星号表示对应的库名。举个例子，评估TensorFlow我们使用的关键字就是**machine learning TensorFlow.**由于历史的比较原因，使用了这种关键字进行搜索。如果不加**machine learning**结果也不会有明显的不同。我们的搜索范围设定的是美国。
+我使用的搜索关键字是这样的，**machine learning,** 后面跟随对应的库名。举个例子，评估TensorFlow我们使用的关键字就是**machine learning TensorFlow.** 由于历史的比较原因，使用了这种关键字进行搜索。如果不加**machine learning**结果也不会有明显的不同。我们的搜索范围设定的是美国。
 我用2019年3月的数据减去6个月之前的数据，有如下的发现：
+
 ![](https://cdn-images-1.medium.com/max/2000/1*-8jrJV4tnqGXWzwlCdlYvQ.png)
+
 在职位列表中，TensorFlow的增长略微高于TensorFlow。Keras也有增长，大致是TensorFlow的一半。Fastai仍然是没有什么需求量。
 值得注意的是除了LinkedIn以外，在其他的求职网站上PyTorch相较于TensorFlow都有明显的增长。但是在绝对的数量上，TensorFlow的职位数量接近PyTorch或者Keras的3倍。
 
 ## 谷歌平均搜索活跃度的变化
 在最大搜索引擎上的搜索次数可以作为衡量流行程度的一个指标。我在Google Trends上搜集了过去一年全世界范围内关于 **Machine Learning and Artificial Intelligence**分类的搜索。不幸的是谷歌不提供绝对的数值，只能获得一组相对值。
 我得到了过去6个月兴趣分数的均值并与半年以前的兴趣均值做比较。
+
 ![](https://cdn-images-1.medium.com/max/2000/1*-0xgPs1DzZKE3jWy9412Ew.png)
+
 在过去6个月中，TensorFlow的相关搜索量在下降，而PyTorch的相关搜索量在上升。下面的图标直观的反映了过去1年人们的兴趣趋势。
+
 ![TensorFlow in blue; Keras in yellow, PyTorch in red, fastai in green](https://cdn-images-1.medium.com/max/2000/1*FGdwNXVzEno6N3CYBW6OLA.png)
 
 ## 媒体新增文章
 新媒体是数据科学文章和教程的主要传播场所，我希望你会喜欢它。我利用Medium.com作为筛选项在谷歌上进行搜索，在过去的6个月中，TensorFlow和Keras的文章发表数基本相似，而PyTorch的要稍微少一些。
+
 ![](https://cdn-images-1.medium.com/max/2000/1*8cuSvK4Wc5jjJDH8sPCOPw.png)
+
 作为高级API的Keras和fastai在新框架的实践者中十分流行，有很多教程都是在向人们展示如何很好的使用这些新框架。
 
 ## arXiv新增文章
@@ -60,15 +67,19 @@ PyTorch 1.0版本在2018年10月预先发布，同一时间fastai 1.0版本也�
 ![](https://cdn-images-1.medium.com/max/2000/1*HTe-PCY7rvpSAKwsEzF3lg.png)
 
 
-##GitHub新增活跃度
+## GitHub新增活跃度
 Git的近期活跃度是框架流行度的另一个指标。下面的图表展示了点赞，克隆，粉丝以及贡献者的数量。
+
 ![](https://cdn-images-1.medium.com/max/2000/1*83KNb93eWuSEt5MxqDow6Q.png)
+
 TensorFlow在各个选项上都是领先的。尽管如此，PyTorch在关注者和贡献者方面已经十分接近TensorFlow了，同时Fastai也出现了很多新的贡献者。
 毫无疑问，一些Keras的贡献者还在努力的挖掘TensorFlow库。同时值得注意的是，这两个开源项目都是由谷歌的员工发起的。
 
 ## Quora的新增粉丝数
 我将之前遗漏的一个参考指标--Quora新话题的粉丝数量也加入进来。
+
 ![](https://cdn-images-1.medium.com/max/2000/1*TqZ_cZQkadyrPEhR3tI8qQ.png)
+
 过去6个月中，绝大多数新增话题的粉丝都是围绕着TensorFlow，而PyTorch和Keras则远远落后。
 一旦我有了所有的数据，我将把它们整理成一个新的指标。
 
@@ -81,6 +92,7 @@ TensorFlow在各个选项上都是领先的。尽管如此，PyTorch在关注者
  2. 汇总 **在线职位** 和 **GitHub活跃度** 等子类.
 
  3. 根据下面的百分比对各个分类加权。
+ 
 ![](https://cdn-images-1.medium.com/max/2000/1*T5qnFdpwsNsrDGhl_j7ujg.png)
 
  4. 为了方便理解，我们再将所有得分乘以100。
@@ -91,11 +103,17 @@ TensorFlow在各个选项上都是领先的。尽管如此，PyTorch在关注者
 ## 结果
 
 下面是表格的形式：
+
 ![Google Sheet [here](https://docs.google.com/spreadsheets/d/1Q9rQkfi8ubKM8aX33In0Ki6ldUCfJhGqiH9ir6boexw/edit?usp=sharing).](https://cdn-images-1.medium.com/max/2832/1*iiPAyzPl7f_xfh3SnJklKg.png)
+
 这里是各个分类的得分：
+
 ![](https://cdn-images-1.medium.com/max/3064/1*lXuEdokw-VuxZjxNKft5NA.png)
+
 这里是最终的得分：
+
 ![](https://cdn-images-1.medium.com/max/2000/1*c67KMUJj3waIlxnUJ1enTw.png)
+
 TensorFlow是目前需求量最大且增长速度最快的框架，短时间内，这个局面不会发生变化。PyTorch的增长也十分迅猛，大量的职位需求就是它需求量和使用量增长的最好证明。当然，Keras在过去的6个月也有长足的进步。最后，fastai的增长就不那么的理想了，但是需要说明的是，它是这几个框架中最年轻的一个。
 所以，TensorFlow和PyTorch都是十分值得学习的框架。
 
