@@ -2,117 +2,115 @@
 > * 原文作者：[Pietro Maggi](https://medium.com/@pmaggi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-workmanager.md](https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-workmanager.md)
-> * 译者：
+> * 译者：[Rickon](https://juejin.im/user/5bffbdaf6fb9a049d81b914c)
 > * 校对者：
 
-# Introducing WorkManager
+# WorkManager 简介
 
 ![](https://cdn-images-1.medium.com/max/800/1*-Feqy3ufsr7NRCFSDuQfWw.png)
 
-Illustration by [Virginia Poltrack](https://twitter.com/VPoltrack)
+插图来自 [Virginia Poltrack](https://twitter.com/VPoltrack)
 
-There are a lot of considerations and best practices for handling background work, outlined in [Google’s Power blog post series](https://android-developers.googleblog.com/search/label/Power%20series). One of the recurring call-outs is an [Android Jetpack](https://developer.android.com/jetpack/) library called [WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager/), which expands on the capabilities of the [JobScheduler](https://developer.android.com/reference/android/app/job/JobScheduler) framework API and supports Android 4.0+ (API 14+). [WorkManager beta](https://developer.android.com/jetpack/docs/release-notes#december_19_2018) was just released today!
+Android 系统处理后台工作有很多注意事项和最佳实践，详见 [Google’s Power blog post series](https://android-developers.googleblog.com/search/label/Power%20series)。其中一个反复出现的调用是一个名为 [WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager/) 的 [Android Jetpack](https://developer.android.com/jetpack/) 库，它扩展了 [JobScheduler](https://developer.android.com/reference/android/app/job/JobScheduler) 框架 API 的功能，并支持 Android 4.0+（API 14+）。[WorkManager 测试版](https://developer.android.com/jetpack/docs/release-notes#december_19_2018) 今天刚刚发布！
 
-This blog post is the first in a new series on WorkManager. We’ll explore the basics of WorkManager, how and when to use it, and what’s going on behind the scenes. Then we’ll dive into more complex use cases.
+这篇文章是 WorkManager 系列中的第一篇。 我们将探讨 WorkManager 的基础知识，如何以及何时使用它，以及幕后发生了什么。然后我们将深入研究更复杂的用例。
 
-### What is WorkManager?
+### WorkManager 是什么?
 
-WorkManager is one of the [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/) and part of Android Jetpack, a new and opinionated take on how to build modern Android applications.
+WorkManager 是 [Android 架构组件](https://developer.android.com/topic/libraries/architecture/)之一，也是 Android Jetpack 的一部分，是一个关于如何构建现代 Android 应用程序的新见解。
 
-> _WorkManager is an Android library that runs_ **_deferrable_** _background work when the work’s_ **_constraints_** _are satisfied._
+>  WorkManager 是一个 Android 库，在满足工作的**约束条件**时运行**可延迟**的后台工作。
 >
-> _WorkManager is intended for tasks that require a_ **_guarantee_** _that the system will run them even if the app exit_s.
+> WorkManager 适用于需要**保证**的任务，即使应用程序退出，系统也会运行它们。
 
-In other words, WorkManager provides a battery-friendly API that encapsulates years of evolution of Android’s background behavior restrictions. This is critical for Android applications that need to execute background tasks!
+换句话说，WorkManager 提供了一个电池友好的 API，它封装了 Android 后台行为限制多年来的演变。这对于需要执行后台任务的 Android 应用程序至关重要！
 
-### When to use WorkManager
+### 什么时候使用 WorkManager
 
-WorkManager handles background work that needs to run when various constraints are met, regardless of whether the application process is alive or not. Background work can be started when the app is in the background, when the app is in the foreground, or when the app starts in the foreground but goes to the background. Regardless of what the application is doing, background work should continue to execute, or be restarted if Android kills its process.
+无论应用程序进程是否存在，WorkManager 都会处理在满足各种约束条件时需要运行的后台工作。当应用程序在后台，或者在前台，或应用程序在前台启动但前往后台时，都可以启动后台工作。无论应用程序在做什么，后台工作都应该继续进行，或者在 Android 终止其进程时重启其后台工作。
 
-A common confusion about WorkManager is that it’s for tasks that needs to be run in a “background” thread but don’t need to survive process death. This is not the case. There are other solutions for this use case like Kotlin’s coroutines, ThreadPools, or libraries like RxJava. You can find more information about this use case in the [guide to background processing](https://developer.android.com/guide/background/).
+关于 WorkManager 的一个常见误解是它需要在“后台”线程中运行，但不需要在进程死亡时存活。事实并非如此。这种用例还有其他解决方案，如 Kotlin 的协同程序，ThreadPools 或 RxJava 等库。你可以在[后台处理指南](https://developer.android.com/guide/background/)中找到有关此用例的更多信息。
 
-There are many different situations in which you need to run background work, and therefore different solutions for running background work. This [blog post about background processing](https://android-developers.googleblog.com/2018/10/modern-background-execution-in-android.html) provides a lot of great information about when to use WorkManager. Take a look at this diagram from the blog:
+有许多不同的情况下，你需要运行后台工作，因此需要使用不同的解决方案来运行后台工作。这篇 [关于后台运行的博客文章](https://android-developers.googleblog.com/2018/10/modern-background-execution-in-android.html) 提供了很多关于何时使用 Workmanager 的有用信息。请看博客中的此图表：
 
 ![](https://cdn-images-1.medium.com/max/800/1*K-jWMXQbAK98EdkuuaZCFg.png)
 
-Diagram from [Modern background execution in Android](https://android-developers.googleblog.com/2018/10/modern-background-execution-in-android.html)
+图解来自 [Android 中的现代后台运行](https://android-developers.googleblog.com/2018/10/modern-background-execution-in-android.html)
 
-In the case of WorkManager, it’s best for background work that has to **finish** and is **deferrable**.
+对于 WorkManager，最适合处理的是必须**完成**并且可以**延迟**的后台工作。
 
-To start, ask yourself:
+首先，问问你自己：
 
-*   **Does this task _need_ to finish?**
-    If the application is closed by the user, is it still necessary to complete the task? An example is a note taking application with remote sync; once you finish writing a note, you expect that the app is going to synchronize your notes with a backend server. This happens even if you switch to another app and the OS needs to close the app to reclaim some memory. It also should happen even if you restart the device. WorkManager ensures tasks finish.
+*   **这个任务需要完成吗？** 如果应用程序被用户关闭了，是否仍需要完成任务？一个例子是带有远程同步的笔记应用程序;每次你写完一个笔记，你就会期望该应用程序将你的笔记与后端服务器同步。即使您切换到另一个应用程序并且操作系统需要关闭应用程序以回收一些内存。即使重新启动设备也会发生这种情况。WorkManager 能够确保任务完成。
 
-*   **Is this task deferrable?**
-    Can we run the task later, or is it only useful if run **right** now? If the task can be run later, then it’s deferrable. Going back to the previous example, it would be nice to have your notes uploaded immediately but, if this is not possible and the synchronization happens later, it’s not a big problem. WorkManager respects OS background restrictions and tries to run your work in a battery efficient way.
+*   **这个任务可以延迟吗？** 我们可以稍后运行任务，还是只在**现在**运行才可以用？如果任务可以稍后运行，那么它是可延迟的。回到前面的例子，将你的笔记立即上传会很好，但是，如果这不可能并且同步操作发生在之后，这并不是一个大问题。WorkManager 尊重操作系统后台限制，并尝试以电池高效的方式运行你的工作。
 
-So, as a guideline, WorkManager is intended for tasks that require a guarantee that the system will run them, even if the app exits. It is not intended for background work that requires immediate execution or requires execution at an exact time. If you need your work to execute at an exact time (such as an alarm clock, or event reminder), use [AlarmManager](https://developer.android.com/training/scheduling/alarms). For work that needs to be executed immediately but is long running, you’ll often need to make sure that work is executed when in the foreground; whether that’s by limiting execution to the foreground (in which case the work is not longer true background work) or using a [Foreground Service](https://android-developers.googleblog.com/2018/12/effective-foreground-services-on-android_11.html).
+因此，作为指导原则，WorkManager 适用于需要确保系统将运行它们的任务，即使应用程序退出也是如此。它不适用于需要立即执行或需要在确切时间执行的后台工作。如果你需要在准确的时间执行工作（例如闹钟或事件提醒），请使用 [AlarmManager](https://developer.android.com/training/scheduling/alarms)。 对于需要立即执行但长时间运行的工作，你通常需要确保在前台执行工作;是否通过限制执行到前台（在这种情况下工作不再是真正的后台工作）或使用 [前台服务](https://android-developers.googleblog.com/2018/12/effective-foreground-services-on-android_11.html)。
 
-WorkManager can and should be paired with other APIs when you need to trigger some background work in more complex scenarios:
+当你需要在更复杂的场景中触发一些后台工作时，WorkManager 可以并且应该与其他 API 配对使用：
 
-*   If your server triggers the work, WorkManager can be paired with Firebase Cloud Messaging.
-*   If you are listening for broadcasts using a broadcast receiver and then need to trigger long running work, you can use WorkManager. Note that WorkManager provides support for many common [Constraints](https://developer.android.com/reference/androidx/work/Constraints) that normally come through as broadcasts — in these cases, you don’t need to register your own broadcast receivers.
+*   如果你的服务器触发了工作，WorkManager 可以与 Firebase Cloud Messaging 配对使用。
+*   如果你正在使用广播接收器收听广播，然后需要触发长时间运行的工作，那么你可以使用 WorkManager。请注意，WorkManager 支持许多通常作为广播传播的常见 [Constraints](https://developer.android.com/reference/androidx/work/Constraints) - 在这些情况下，你不需要注册自己的广播接收器。
 
-### Why use WorkManager?
+### 为什么要用 WorkManager?
 
-WorkManager runs background work while taking care of compatibility issues and best practices for battery and system health for you.
+WorkManager 运行后台工作，同时能够为你处理电池和系统健康的兼容性问题和最佳实践。
 
-Furthermore, using WorkManager, you can schedule both periodic tasks and complex dependent chains of tasks: background work can be executed in parallel or sequentially, where you can specify an execution order. WorkManager seamlessly handles passing along input and output between tasks.
+此外，你可以使用 WorkManager 安排定时任务和复杂的从属任务链：后台工作可以并行或顺序执行，你可以在其中指定执行顺序。WorkManager 无缝地处理任务之间的输入和输出传递。
 
-You can also set criteria on when the background task should run. For example, there’s no reason to make an HTTP request to a remote server if the device doesn’t have a network connection. So you can set a Constraint that the task can only run when a network connection is present.
+你还可以设置后台任务运行时间的标准。例如，如果设备没有网络连接，则没有理由向远程服务器发出 HTTP 请求。因此，您可以设置约束条件，该任务只能在网络连接时运行。
 
-As part of guaranteed execution, WorkManager takes care of persisting your work across device or application restarts. You can also easily define retry strategies if your work is stopped and you want to retry it later.
+作为保证执行的一部分，WorkManager 负责在设备或应用程序重启时保持工作。你也可以轻松地定义重试策略如果你的工作已停止并且您想稍后重试。
 
-Finally, WorkManager lets you observe the state of the work request so that you can update your UI.
+最后，WorkManager 允许你观察工作请求的状态，以便你可以更新 UI。
 
-To summarize, WorkManager offers the following benefits:
+总而言之，WorkManager 提供了以下好处：
 
-*   Handles compatibility with different OS versions
-*   Follows system health best practices
-*   Supports asynchronous one-off and periodic tasks
-*   Supports chained tasks with input/output
-*   Lets you set constraints on when the task runs
-*   Guarantees task execution, even if the app or device restarts
+*   处理不同系统版本的兼容性
+*   遵循系统健康最佳实践
+*   支持异步一次性和周期性任务
+*   支持带输入/输出的链式任务
+*   允许你设置在任务运行时的约束
+*   即使应用程序或设备重启，也可以保证任务执行
 
-Let’s see a concrete example where we build a pipeline of concurrent tasks that applies filters to an image. The result is then sent to a compress task and then to an upload task.
+让我们看一个具体的例子，我们构建一个将过滤器应用于图像的并发任务管道。然后将结果发送到压缩任务，然后发送到上传任务。
 
-We can define a set of constraints for these tasks and specify when they can be executed:
+我们可以为这些任务定义一组约束，并指定何时可以执行它们：
 
 ![](https://cdn-images-1.medium.com/max/800/1*2arjXq_bwgaNwVBCiLgiOw.png)
 
-Sample chain of tasks with constraints
+带有约束的任务链示例
 
-All these workers define a precise sequence: e.g. we don’t know the order in which the images will be filtered, but we know that the Compress worker will start only after all the Filter workers have completed.
+所有这些 workers 都定义了一个精确的序列：我们不知道过滤图像的顺序，但我们知道只有在所有过滤器工作完成后，Compress 工作才会启动。
 
-### How the WorkManager scheduler works
+### WorkManager 调度程序的工作原理
 
-To ensure compatibility back to API level 14, WorkManager chooses an appropriate way to schedule a background task depending on the device API level. WorkManager might use JobScheduler or a combination of BroadcastReceiver and AlarmManager.
+为了确保兼容性达到 API 14 级别，WorkManager 根据设备 API 级别选择适当的方式来安排后台任务。WorkManager 可能使用 JobScheduler 或 BroadcastReceiver 和 AlarmManager 的组合。
 
 ![](https://cdn-images-1.medium.com/max/800/1*FxHlzZfv4Q0XBRBV2WmvPQ.png)
 
-How WorkManager determines which scheduler to use
+WorkManager 如何确定要使用的调度程序
 
-### Is WorkManager ready for production use?
+### WorkManager 准备好用于生产了吗？
 
-WorkManager is now in beta. This means that there will be no breaking API changes in this major revision.
+WorkManager 现在处于测试阶段。这意味着在此主要修订版中不会有重大的 API 变更。
 
-When WorkManager will be released as stable, it will be the preferred way to run background tasks. For this reason, this is a great moment to start using WorkManager and help [improve it](https://issuetracker.google.com/issues?q=componentid:409906)!
+当 WorkManager 稳定版本发布时，它将是运行后台任务的首选方式。 因此，这是开始使用 WorkManager 并帮助[改进它](https://issuetracker.google.com/issues?q=componentid:409906)的好时机！
 
-_Thanks to_ [_Lyla Fujiwara_](https://medium.com/@lylalyla)_._
+**感谢** [**Lyla Fujiwara**](https://medium.com/@lylalyla)。
 
-### WorkManager’s Resources
+### WorkManager 相关资源
 
-*   [Documentation](https://developer.android.com/topic/libraries/architecture/workmanager/)
+*   [官方文档](https://developer.android.com/topic/libraries/architecture/workmanager/)
 *   [Reference guide](https://developer.android.com/reference/androidx/work/package-summary)
 *   [WorkManager 1.0.0-beta01 Release notes](https://developer.android.com/jetpack/docs/release-notes#december_19_2018)
 *   [Codelab](https://codelabs.developers.google.com/codelabs/android-workmanager-kt/index.html)
-*   [Source Code (part of AOSP)](https://android.googlesource.com/platform/frameworks/support/+/master/work)
+*   [源代码 (part of AOSP)](https://android.googlesource.com/platform/frameworks/support/+/master/work)
 *   [IssueTracker](https://issuetracker.google.com/issues?q=componentid:409906)
-*   [WorkManager questions on StackOverflow](https://stackoverflow.com/questions/tagged/android-workmanager)
+*   [StackOverflow 网站上的 WorkManager 相关问题](https://stackoverflow.com/questions/tagged/android-workmanager)
 *   [Google’s Power blog post series](https://android-developers.googleblog.com/search/label/Power%20series)
 
-Thanks to [Florina Munt](https://medium.com/@florina.muntenescu?source=post_page), [Ben Weiss](https://medium.com/@keyboardsurfer?source=post_page), and [Lyla Fujiwara](https://medium.com/@lylalyla?source=post_page).
+感谢 [Florina Munt](https://medium.com/@florina.muntenescu?source=post_page)，[Ben Weiss](https://medium.com/@keyboardsurfer?source=post_page) 和 [Lyla Fujiwara](https://medium.com/@lylalyla?source=post_page).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
