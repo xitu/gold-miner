@@ -2,14 +2,14 @@
 > * 原文作者：[Richard Rutter](https://clagnut.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/hyphenation-in-css.md](https://github.com/xitu/gold-miner/blob/master/TODO1/hyphenation-in-css.md)
-> * 译者：
-> * 校对者：
+> * 译者： [马猴烧酒](https://github.com/Augustwuli)
+> * 校对者：[L9m](https://github.com/L9m)
 
 # 你需要知道的 CSS 中所有 hyphenation 的使用
 
 ![在古腾堡圣经的一些内容中，许多句子都使用了连字符。](https://clagnut.com/images/1-handj-bible-hyphens.jpg)
 
-月初我应邀在维也纳的奥地利印刷学会（[tga](http://typographischegesellschaft.at/)）做了一场[晚间讲座](http://typographischegesellschaft.at/k_vortrag_workshop/v_rutter.html)。我很荣幸能够做这样一个演讲，因为这意味着我将追随马修·卡特(Matthew Carter)、维姆·克鲁维尔(Wim Crouwel)、玛格丽特·卡尔弗特(Margaret Calvert)、埃里克·斯皮克曼(Erik Spiekermann)和已故的弗雷达·萨克(Freda Sack)等名人的脚步。
+月初我应邀在维也纳的奥地利印刷学会（[tga](http://typographischegesellschaft.at/)）做了一场[晚间讲座](http://typographischegesellschaft.at/k_vortrag_workshop/v_rutter.html)。我很荣幸能够做这样一个演讲，因为这意味着我将追随马修·卡特（Matthew Carter）、维姆·克鲁维尔（Wim Crouwel）、玛格丽特·卡尔弗特（Margaret Calvert）、埃里克·斯皮克曼（Erik Spiekermann）和已故的弗雷达·萨克（Freda Sack）等名人的脚步。
 
 我展示了一些 Web 排版的黄金准则，在之后的问答环节中，我被问到关于 Web 自动断字的现状。这是一个恰当的问题，因为德语以长单词而闻名 —— 尤其在名词复合词中很常见（例如 Verbesserungsvorschlag 意为改进建议）—— 所以使用连字符断字在大多数书面媒体中被广泛使用。
 
@@ -17,7 +17,7 @@
 
 ## 如何开启自动断字
 
-打开自动断字需要两个步骤。首先设置文本语言。这将告诉浏览器使用哪个断字字典——正确的自动断字需要一个适合文本语言的断字字典。CSS  指南说，如果浏览器不知道文本的语言，即使在样式表中打开连字符，也不会自动断字。
+打开自动断字需要两个步骤。首先设置文本语言。这将告诉浏览器使用哪个断字字典 —— 正确的自动断字需要一个适合文本语言的断字字典。CSS 指南说，如果浏览器不知道文本的语言，即使在样式表中打开连字符，也不会自动断字。
 
 断字是一门复杂的学科。断字点主要以词源和音系相结合的音节为基础，但特定机构也有不同的断字规则。
 
@@ -56,7 +56,7 @@ hyphens: auto;
 
 ## 断字控制
 
-设置断字不仅仅是打开断字。[CSS Text Module Level 4](https://www.w3.org/TR/css-text-4/#hyphenation) 引入了布局软件（例如 InDesign ）和一些文字处理器（包括Word）。这些控制提供了不同的方法来定义文本中出现了多少断字。
+设置断字不仅仅是打开断字。[CSS Text Module Level 4](https://www.w3.org/TR/css-text-4/#hyphenation) 引入了布局软件（例如 InDesign）和一些文字处理器（包括 Word）。这些控制提供了不同的方法来定义文本中出现了多少断字。
 
 ### 限制断字前后的单词的长度和字符数
 
@@ -74,7 +74,7 @@ hyphenate-limit-chars: 6 3 2;
 
 > hyphenate-limit-chars 实现效果。
 
-对于所有这三个设置，`hyphenate-limit-chars` 的默认值都是 `auto`。这意味着浏览器应该根据当前的语言和布局选择最佳设置。CSS Text Module Level 4 建议浏览器使用 `5 2 2` 作为起始点(我认为这会导致有太多的连字符)，但是浏览器可以根据自己的需要随意更改。
+对于所有这三个设置，`hyphenate-limit-chars` 的默认值都是 `auto`。这意味着浏览器应该根据当前的语言和布局选择最佳设置。CSS Text Module Level 4 建议浏览器使用 `5 2 2` 作为起始点（我认为这会导致有太多的连字符），但是浏览器可以根据自己的需要随意更改。
 
 目前，只有 IE/Edge 支持这个属性（带有前缀），但是 Safari 确实支持使用 CSS3 Text Module 早期草稿中指定的一些遗留属性限制连字符。这意味着你可以在 Edge 和 Safari 中获得相同的控制（对 Firefox 进行一些提前规划），如下所示：
 
@@ -126,8 +126,8 @@ hyphenate-limit-last: always;
 
 ![](https://clagnut.com/images/1-handj-hyphenation-zone.png)
 
-> *左*: 箭头表示允许连字符的线。
-> *右*: 连字符与连字符区设置。
+> **左**：箭头表示允许连字符的线。
+> **右**：连字符与连字符区设置。
 >
 > 为此，你可以使用 `hyphenation-limit-zone` 属性，它接受一个长度或百分比值（根据文本框的宽度）。在响应式设计的上下文中，将连字符区设置为百分比是有意义的。这样做意味着在更小的屏幕会有更小的连字符区，从而导致更多的连字符和更少的碎屑。相反，在更宽的屏幕上，你会得到更宽的连字符区，因此更少的连字符和更多的碎屑，这是一个更宽的措施能更好的适应。基于页面布局软件的典型默认值，8% 是一个不错的开始：
 
@@ -135,7 +135,7 @@ hyphenate-limit-last: always;
 hyphenate-limit-zone: 8%
 ```
 
-目前只支持 IE/Edge （带前缀）。
+目前只支持 IE/Edge（带前缀）。
 
 ### 把它们放在一起
 
