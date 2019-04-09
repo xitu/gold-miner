@@ -2,14 +2,14 @@
 > * 原文作者：[Caleb Williams](https://css-tricks.com/author/calebdwilliams/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
-> * 译者：ANFOUNNYSOUL
-> * 校对者：
+> * 译者：[ANFOUNNYSOUL](https://github.com/yzw7489757)
+> * 校对者：[portandbridge](https://github.com/portandbridge)
 
 # 从头创建自定义元素
 
-在[上一篇文章](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)，我们通过创建文档中的HTML模板，但是我们想进行按需渲染，于是做了Web组件。
+在[上一篇文章](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)，我们通过创建文档中的 HTML 模板，但是我们想进行按需渲染，于是做了 Web 组件。
 
-接下来我们继续：下面有个目前仅使用 `HTMLTemplateElement` 的弹窗组件，我们会做一个自定义组件版本的
+接下来我们继续：下面有个目前仅使用 `HTMLTemplateElement` 的对话框组件，我们会做一个自定义组件版本的。
 
 See the Pen [Dialog with template with script](https://codepen.io/calebdwilliams/pen/JzjLyQ/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
 
