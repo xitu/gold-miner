@@ -7,7 +7,7 @@
 
 # 从头创建自定义元素
 
-在 [上一篇文章](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md), 我们通过创建文档中的HTML模板，但是我们想进行按需渲染，于是做了Web组件。
+在[上一篇文章](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)，我们通过创建文档中的HTML模板，但是我们想进行按需渲染，于是做了Web组件。
 
 接下来我们继续：下面有个目前仅使用 `HTMLTemplateElement` 的弹窗组件，我们会做一个自定义组件版本的
 
@@ -17,21 +17,21 @@ See the Pen [Dialog with template with script](https://codepen.io/calebdwilliams
 
 #### 文章系列:
 
-1.  [**Web 组件简介** ](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
-2.  [**制作可复用的HTML模板**](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
-3.  [**从头开始创建自定义元素 (_本文_)**](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
-4.  [**使用 Shadow DOM 封装样式和结构**](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
-5.  [**Web 组件的高级工具**](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
+1.  [Web 组件简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
+2.  [制作可复用的 HTML 模板](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
+3.  [从头开始创建自定义元素 (**本文**)](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
+4.  [使用 Shadow DOM 封装样式和结构](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
+5.  [Web 组件的高级工具](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
 
 * * *
 
 ### 添加一个自定义元素
 
-Web 组件的基础元素是 **自定义元素**. 该`customElements` API 为我们提供了定义自定义HTML标签的路径，这些标签可以在包含定义类的任何文档中使用
+Web 组件的基础元素是**自定义元素**。 该`customElements` 的 API 为我们提供了定义自定义 HTML 标签的路径，这些标签可以在包含定义类的任何文档中使用。
 
-可以把它想象成React 或 Angular 组件 (例如 `<MyCard />`), 不依赖React或Angular. 原生自定义组件是这样的: `<my-card></my-card>`. 更重要的是, 将它视为一个标准元素，可以在你的React，Angular，Vue, [insert-framework-you’re-interested-in-this-week] 应用中去使用，而不必大惊小怪。
+可以把它想象成 React 或 Angular 组件（例如 `<MyCard />`），不依赖React或Angular。原生自定义组件是这样的：`<my-card></my-card>`。更重要的是，将它视为一个标准元素，可以在你的 React、Angular、Vue、[insert-framework-you’re-interested-in-this-week]应用中去使用，而不必大惊小怪。
 
-从本质上讲, 一个自定义元素分为两个部分组成: 一个 **标签名称** 和一个 **Class** 类扩展内置  `HTMLElement` 类. 我们自定义元素的简易demo版本如下所示:
+从本质上讲，一个自定义元素分为两个部分组成：一个**标签名称**和一个 **Class** 类扩展内置 `HTMLElement` 类。我们自定义元素的简易 demo 版本如下所示：
 
 ```
 class OneDialog extends HTMLElement {
@@ -43,11 +43,11 @@ class OneDialog extends HTMLElement {
 customElements.define('one-dialog', OneDialog);
 ```
 
-注意: 在整个自定义元素中, this值是对自身自定义元素实例的引用.
+注意：在整个自定义元素中，this 值是对自身自定义元素实例的引用。
 
-在上面的示例中, 我们定义了一个符合标准的新HTML元素, `<one-dialog></one-dialog>`. 它还做不了什么...暂时来说, 在任何 HTML文档中使用 `<one-dialog>` 标签将会创建一个带着 `<h1>` 标签显示“Hello, World!” 的新元素
+在上面的示例中，我们定义了一个符合标准的新HTML元素，`<one-dialog></one-dialog>`。它还做不了什么……暂时来说，在任何 HTML 文档中使用 `<one-dialog>` 标签将会创建一个带着 `<h1>` 标签显示 “Hello, World!” 的新元素。
 
-我们肯定想把它做的更NB, 很幸运. 在 [上一篇文章中](https://css-tricks.com/crafting-reusable-html-templates), 我们为弹出框创建模板， 并且有权拿到模板 ，让我们在自定义元素中使用它。 我们在该示例中添加了一个script标签来执行一些对话框魔术。 我们暂时删除它，因为我们将把逻辑从HTML模板移到自定义元素类中。
+我们肯定想把它做的更 NB, 很幸运。 在[上一篇文章中](https://css-tricks.com/crafting-reusable-html-templates)，我们为弹出框创建模板，并且有权拿到模板，让我们在自定义元素中使用它。我们在该示例中添加了一个 script 标签来执行一些对话框魔术。我们暂时删除它，因为我们将把逻辑从 HTML 模板移到自定义元素类中。
 
 ```
 class OneDialog extends HTMLElement {
@@ -59,23 +59,23 @@ class OneDialog extends HTMLElement {
 }
 ```
 
-现在，定义了自定义元素 (`<one-dialog>`) 并指示浏览器呈现包含在调用自定义元素的HTML模板中的内容。
+现在，定义了自定义元素 (`<one-dialog>`) 并指示浏览器呈现包含在调用自定义元素的 HTML 模板中的内容。
 
 下一步是将我们的逻辑转移到组件类中。
 
 ### 自定义元素生命周期方法
  
-与React或Angular一样，自定义元素具有 **生命周期方法**.  笔者已经向各位介绍过 `connectedCallback` , 当我们的元素被添加到DOM的时候调用它.
+与 React 或 Angular 一样，自定义元素具有**生命周期方法**。笔者已经向各位介绍过 `connectedCallback`，当我们的元素被添加到 DOM 的时候调用它。
 
- `connectedCallback` 与元素的 `constructor` 是分开的.函数用于设置元素的基本骨架, 而 `connectedCallback` 通常用于向元素添加内容、设置事件监听器或以其他方式初始化组件。
+ `connectedCallback` 与元素的 `constructor` 是分开的。函数用于设置元素的基本骨架，而 `connectedCallback` 通常用于向元素添加内容、设置事件监听器或以其他方式初始化组件。
 
-实际上, 构造函数不能用于设计或修改或操作元素的属性，如果我们要使用对话框创建新实例， `document.createElement`则会调用构造函数. 元素的使用者需要一个没有插入属性或内容的简单节点
+实际上，构造函数不能用于设计或修改或操作元素的属性，如果我们要使用对话框创建新实例，`document.createElement` 则会调用构造函数。元素的使用者需要一个没有插入属性或内容的简单节点。
 
-该 createElement 函数没有可以用于配置将返回的元素的选项. 这是符合情理的, 那么话说回来了, 既然这个函数没有选项可以配置会返回的元素，那我们唯一的选择就是 `connectedCallback` .
+该 createElement 函数没有可以用于配置将返回的元素的选项。这是符合情理的，那么话说回来了，既然这个函数没有选项可以配置会返回的元素，那我们唯一的选择就是 `connectedCallback`。
 
-在标准内置元素中, 元素的状态通常通过元素上存在的属性和这些属性的值来反映。 对于我们的示例，我们将仅查看一个属性: `[open]`. 。为此，我们需要关注该属性的更改，我们需要`attributeChangedCallback` 要做到这一点. 只要其中一个元素构造函数调用第二个生命周期方法 `observedAttributes` 更新.
+在标准内置元素中，元素的状态通常通过元素上存在的属性和这些属性的值来反映。对于我们的示例，我们将仅查看一个属性：`[open]`。为此，我们需要关注该属性的更改，我们需要 `attributeChangedCallback` 来做到这一点。只要其中一个元素构造函数调用第二个生命周期方法 `observedAttributes` 更新。
 
-这可能听起来难以实现，但语法非常简单:··
+这可能听起来难以实现，但语法非常简单：
 
 ```
 class OneDialog extends HTMLElement {
@@ -97,11 +97,11 @@ class OneDialog extends HTMLElement {
 }
 ```
 
-在上面的例子中，我们只关心属性是否设置,我们不关心值(这类似于 HTML5 input输入框上的 `required` 属性 ). 更新此属性时, 我们更新元素的 `open` 属性.属性（property）存在于JavaScript对象上，HTML Elements 也具有属性（attribute）；这个生命周期方法可以帮助我们让两种属性保持同步。
+在上面的例子中，我们只关心属性是否设置，我们不关心值（这类似于 HTML5 input 输入框上的 `required` 属性）。更新此属性时，我们更新元素的 `open` 属性。属性（property）存在于 JavaScript 对象上，HTML Elements 也具有属性（attribute）；这个生命周期方法可以帮助我们让两种属性保持同步。
 
-我们将updater包含在 `attributeChangedCallback` 内部的条件检查中，以查看新值和旧值是否相等. 我们这样做是为了防止程序中出现无限循环，因为稍后我们将创建一个getter和setter属性，它将通过在元素的属性（ property ）更新时设置元素的属性（attribute）来保持属性(attribute) 和属性 (property) 的同步。 `attributeChangedCallback` 反向执行: 当属性更改时更新属性.
+我们将 updater 包含在 `attributeChangedCallback` 内部的条件检查中，以查看新值和旧值是否相等。我们这样做是为了防止程序中出现无限循环，因为稍后我们将创建一个 getter 和 setter 属性，它将通过在元素的属性（property）更新时设置元素的属性（attribute）来保持属性（attribute）和属性 （property）的同步。`attributeChangedCallback` 反向执行：当属性更改时更新属性。
 
-现在，作者可以使用我们的组件，并且利用`open`属性决定对话框是否默认打开。 为了使它更具动态性，我们可以在元素的`open`属性中添加自定义getter和setter：
+现在，作者可以使用我们的组件，并且利用`open`属性决定对话框是否默认打开。为了使它更具动态性，我们可以在元素的 `open` 属性中添加自定义 getter 和 setter：
 
 ```
 class OneDialog extends HTMLElement {
@@ -133,9 +133,9 @@ class OneDialog extends HTMLElement {
 }
 ```
 
-getter和setter将保持（在HTML元素上）的`open`属性（attribute）和属性（property）（在DOM对象上）的值同步。 添加`open`属性（attribute）会将`element.open`设置为`true`，同样将`element.open`设置为`true`将会添加`open`属性。 我们这样做是为了确保元素的状态由其属性反映出来。 这在技术上不是必需的，但被认为是创建自定义元素的最好办法。
+getter 和 setter 将保证（HTML 元素节点上）的 `open` 特性和属性（在 DOM 对象上）的值同步。添加 `open` 特性会将 `element.open` 设置为 `true`，同样将 `element.open` 设置为 `true` 将会添加 `open` 属性。我们这样做是为了确保元素的状态由其属性反映出来。 这在技术上不是必需的，但被认为是创建自定义元素的最好办法。
 
-这会不可避免地导致一些样板，但是通过循环观察到的属性列表并使用 `Object.defineProperty` 创建一个保持这些属性同步的抽象类是一项相当简单的任务 .
+这会不可避免地导致一些样板，但是通过循环观察到的属性列表并使用 `Object.defineProperty` 创建一个保持这些属性同步的抽象类是一项相当简单的任务。
 
 ```
 class AbstractClass extends HTMLElement {
@@ -167,7 +167,7 @@ class SomeElement extends AbstractClass { /** Omitted */ }
 customElements.define('some-element', SomeElement);
 ```
 
-上面的例子并不完美，它没有考虑实现像‘open’这样的属性的可能性，这些属性没有被分配给它们的值，而仅仅依赖于属性的存在。做一个完美的版本将超出本文的范围。
+上面的例子并不完美，它没有考虑实现像 `open` 这样的属性的可能性，这些属性没有被分配给它们的值，而仅仅依赖于属性的存在。做一个完美的版本将超出本文的范围。
 
 现在我们已经知道我们的对话框是否打开了，让我们添加一些逻辑来实际地进行显示和隐藏：
 
@@ -212,19 +212,19 @@ class OneDialog extends HTMLElement {
 }
 ```
 
-这里有很多事情，但让我们来看看。我们要做的第一件事就是获取我们的容器，在`isOpen`的基础上切换`.open`类。为了使我们的元素可访问，我们还需要切换`aria-hidden`属性
+这里有很多事情，但让我们来看看。我们要做的第一件事就是获取我们的容器，在 `isOpen` 的基础上切换 `.open` 类。为了使我们的元素可访问，我们还需要切换 `aria-hidden` 属性
 
-如果对话框已经打开了，那么我们希望保存对先前聚焦元素的引用。这是为了考虑可访问性标准。 我们还将一个keydown监听器添加到名为`WatEscape`的文档中，该文档在构造函数中绑定元素的“this”，其模式类似于React处理类组件中的方法调用的方式。
+如果对话框已经打开了，那么我们希望保存对先前聚焦元素的引用。这是为了考虑可访问性标准。我们还将一个 keydown 监听器添加到名为 `WatEscape` 的文档中，该文档在构造函数中绑定元素的 `this`，其模式类似于 React 处理类组件中的方法调用的方式。
 
-我们这样做不仅是为了确保正确绑定 `this.close`，还因为 `Function.prototype.bind` 返回带绑定调用栈的函数的实例. 通过在构造函数中保存对新绑定方法的引用，我们可以在对话框断开时删除事件(稍后将详细介绍)。最后，我们将注意力集中在元素上，并将焦点设置在shadow root中的适当元素上
+我们这样做不仅是为了确保正确绑定 `this.close`，还因为 `Function.prototype.bind` 返回带绑定调用栈的函数的实例。通过在构造函数中保存对新绑定方法的引用，我们可以在对话框断开时删除事件（稍后将详细介绍）。最后，我们将注意力集中在元素上，并将焦点设置在 shadow root 中的适当元素上。
 
 我们还创建了一个很好的小实用工具方法来关闭我们的对话框，该对话框调度一个自定义事件，警告某些监听器已关闭对话框。
 
-如果元素是关闭的 (即 `!open`),我们检查以确保 `this._wasFocused` 属性已定义并具有 `focus` 方法并调用该方法以将用户的焦点返回到常规DOM。然后我们删除我们的事件监听器以避免任何内存泄漏。
+如果元素是关闭的（即 `!open`），我们检查以确保 `this._wasFocused` 属性已定义并具有 `focus` 方法并调用该方法以将用户的焦点返回到常规 DOM。然后我们删除我们的事件监听器以避免任何内存泄漏。
 
-说到为自己的代码做好清理善后，就自然也要说下我们采用了另一种生命周期方法: `disconnectedCallback`. `disconnectedCallback` 与 `connectedCallback` 相反 ，因为一旦元素从DOM中删除，就调用该方法，并允许我们清理绑定到元素的任何事件监听器或`MutationObserver`。
+说到为自己的代码做好清理善后，就自然也要说下我们采用了另一种生命周期方法：`disconnectedCallback`。`disconnectedCallback` 与 `connectedCallback` 相反，因为一旦元素从 DOM 中删除，就调用该方法，并允许我们清理绑定到元素的任何事件监听器或 `MutationObserver`。
 
-碰巧的是，我们还有几个事件侦听器要连接起来:
+碰巧的是，我们还有几个事件侦听器要连接起来：
 
 ```
 class OneDialog extends HTMLElement {
@@ -242,19 +242,19 @@ class OneDialog extends HTMLElement {
 }
 ```
 
-现在我们有一个运行良好，大部分可访问的对话框元素。 我们可以做一些修饰，比如将焦点集中在元素上，但这超出了我们在这里学习的范围。
+现在我们有一个运行良好，大部分可访问的对话框元素。我们可以做一些修饰，比如将焦点集中在元素上，但这超出了我们在这里学习的范围。
 
-还有一个生命周期方法 `adoptedCallback`。它不适用于我们的元素，其作用是元素被采用（插入）到DOM的另一部分时触发。
+还有一个生命周期方法 `adoptedCallback`。它不适用于我们的元素，其作用是元素被采用（插入）到 DOM 的另一部分时触发。
 
-在下面的示例中，您将看到我们的模板元素正被一个标准`<one-dialog>`元素所使用
+在下面的示例中，您将看到我们的模板元素正被一个标准 `<one-dialog>` 元素所使用
 
 See the Pen [Dialog example using template](https://codepen.io/calebdwilliams/pen/vbVXqv/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
 
 ### 另一件事：非演示组件
 
-到目前为止，我们创建的 `<one-template>` 是一个典型的自定义元素，它包含了当元素包含在文档中时被插入到文档中的标记和行为。然而，并不是所有的元素都需要直观地呈现。在React生态系统中，组件通常用于管理应用程序状态或其他一些主要功能, 像  [react-redux](https://redux.js.org/basics/usage-with-react) 里的 `<Provider />` .
+到目前为止，我们创建的 `<one-template>` 是一个典型的自定义元素，它包含了当元素包含在文档中时被插入到文档中的标记和行为。然而，并不是所有的元素都需要直观地呈现。在 React 生态系统中，组件通常用于管理应用程序状态或其他一些主要功能，像[react-redux](https://redux.js.org/basics/usage-with-react) 里的 `<Provider />`。
 
-让我们想象一下，我们的组件是工作流中一系列对话框的一部分。当一个对话框关闭时，下一个对话框应该打开。我们可以创建一个容器组件来监听我们的`dialog-closed`事件并在整个工作流程中进行
+让我们想象一下，我们的组件是工作流中一系列对话框的一部分。当一个对话框关闭时，下一个对话框应该打开。我们可以创建一个容器组件来监听我们的 `dialog-closed` 事件并在整个工作流程中进行：
 
 ```
 class DialogWorkflow extends HTMLElement {
@@ -277,13 +277,13 @@ class DialogWorkflow extends HTMLElement {
 }
 ```
 
-这个元素没有任何表示逻辑，但充当应用程序状态的控制器。只需稍加努力，我们就可以重新创建类似Redux的状态管理系统，只使用一个自定义元素，可以在React的Redux容器组件所在的同一个应用程序中管理整个应用程序的状态。
+这个元素没有任何表示逻辑，但充当应用程序状态的控制器。只需稍加努力，我们就可以重新创建类似 Redux 的状态管理系统，只使用一个自定义元素，可以在 React 的 Redux 容器组件所在的同一个应用程序中管理整个应用程序的状态。
 
 ### 这是对自定义元素的深入了解
 
 现在我们对自定义元素有了很好的理解，我们的对话框开始融合在一起。但它仍然存在一些问题。
 
-请注意，我们必须添加一些CSS来重新设置对话框按钮，因为元素的样式会干扰页面的其余部分。虽然我们可以利用命名策略（如BEM）来确保我们的样式不会与其他组件产生冲突，但是有一种更友好的方式来隔离样式。那就是影子 DOM；本 Web Components 系列专题的下一篇文章就会谈到它。
+请注意，我们必须添加一些 CSS 来重新设置对话框按钮，因为元素的样式会干扰页面的其余部分。虽然我们可以利用命名策略（如 BEM ）来确保我们的样式不会与其他组件产生冲突，但是有一种更友好的方式来隔离样式。那就是影子 DOM。本 Web Components 系列专题的下一篇文章就会谈到它。
 
 **我们需要做的另一件事是为每个组件定义一个新模板，或者为我们的对话框找到一些切换模板的方法。就目前而言，每页只能有一个对话框类型，因为它使用的模板必须始终存在。因此，我们要么需要注入动态内容的方法，要么需要交换模板的方法。**
 
@@ -291,11 +291,11 @@ class DialogWorkflow extends HTMLElement {
 
 #### 文章系列：
 
-1.  [**Web 组件 简介**](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
-2.  [**制作可重复使用的HTML模板**](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
-3.  [**从头开始创建自定义元素（本文）**](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
-4.  [**使用Shadow DOM封装样式和结构**](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
-5.  [**Web组件的高级工具**](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
+1.  [Web 组件简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
+2.  [制作可重复使用的 HTML 模板](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
+3.  [从头开始创建自定义元素（**本文**）](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
+4.  [使用 Shadow DOM 封装样式和结构](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
+5.  [Web 组件的高级工具](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
