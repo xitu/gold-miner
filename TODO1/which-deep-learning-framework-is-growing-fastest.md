@@ -54,6 +54,7 @@ PyTorch 1.0版本在2018年10月预先发布，同一时间fastai 1.0版本也�
 ![](https://cdn-images-1.medium.com/max/2000/1*-8jrJV4tnqGXWzwlCdlYvQ.png)
 
 在职位列表中，TensorFlow的增长略微高于TensorFlow。Keras也有增长，大致是TensorFlow的一半。Fastai仍然是没有什么需求量。
+
 值得注意的是除了LinkedIn以外，在其他的求职网站上PyTorch相较于TensorFlow都有明显的增长。但是在绝对的数量上，TensorFlow的职位数量接近PyTorch或者Keras的3倍。
 
 ## 谷歌平均搜索活跃度的变化
@@ -79,6 +80,7 @@ PyTorch 1.0版本在2018年10月预先发布，同一时间fastai 1.0版本也�
 ## arXiv新增文章
 
 [arXiv](https://arxiv.org/)是当前大多数深度学习学术论文选择发表的在线仓储。我使用谷歌搜索了过去6个月新发表的新论文中提到的框架，结果是TensorFlow遥遥领先。
+
 ![](https://cdn-images-1.medium.com/max/2000/1*HTe-PCY7rvpSAKwsEzF3lg.png)
 
 ## GitHub新增活跃度
@@ -88,6 +90,7 @@ Git的近期活跃度是框架流行度的另一个指标。下面的图表展�
 ![](https://cdn-images-1.medium.com/max/2000/1*83KNb93eWuSEt5MxqDow6Q.png)
 
 TensorFlow在各个选项上都是领先的。尽管如此，PyTorch在关注者和贡献者方面已经十分接近TensorFlow了，同时Fastai也出现了很多新的贡献者。
+
 毫无疑问，一些Keras的贡献者还在努力的挖掘TensorFlow库。同时值得注意的是，这两个开源项目都是由谷歌的员工发起的。
 
 ## Quora的新增粉丝数
@@ -97,6 +100,7 @@ TensorFlow在各个选项上都是领先的。尽管如此，PyTorch在关注者
 ![](https://cdn-images-1.medium.com/max/2000/1*TqZ_cZQkadyrPEhR3tI8qQ.png)
 
 过去6个月中，绝大多数新增话题的粉丝都是围绕着TensorFlow，而PyTorch和Keras则远远落后。
+
 一旦我有了所有的数据，我将把它们整理成一个新的指标。
 
 ## 增长分数的计算
@@ -114,6 +118,7 @@ TensorFlow在各个选项上都是领先的。尽管如此，PyTorch在关注者
  4. 为了方便理解，我们再将所有得分乘以100。
 
  5. 将每个框架的对应分类的得分进行累加，得到最后的增长分数。
+
 在线工作一项的权重占据了整体的三分之一，原因很简单，直接的经济利益才是最实际的。这种划分也是为了更好的平衡各个选项。区别于我的另一篇[2018 power score analysis](https://towardsdatascience.com/deep-learning-framework-power-scores-2018-23607ddf297a),我没有包含KDNuggets的使用情况调查（没有新的数据）和出版物（过去6个月没有太多的新书）。
 
 ## 结果
@@ -136,9 +141,10 @@ TensorFlow是目前需求量最大且增长速度最快的框架，短时间内�
 ## 学习建议
 
 如果你准备学习TensorFlow，那么我建议你可以先从Keras开始。Chollet的[**Deep Learning with Python**](https://www.amazon.com/Deep-Learning-Python-Francois-Chollet/dp/1617294438)和Dan Becker的[DataCamp course on Keras](https://www.datacamp.com/courses/deep-learning-in-python)是两本很好的入门教材。在TensorFlow 2.0中使用Keras作为高级API只需要通过tf.keras就可以调用。这里有一个Chollet写的TensorFlow 2.0快速入门[教程](https://threader.app/thread/1105139360226140160)。
-如果你准备学习PyTorch，我建议可以从fast.ai的MOOC文章[Practical Deep Learning for Coders, v3](https://course.fast.ai/)开始。你可以学习到深度学习的原理，和fastai、PyTorch的基础。
-那么，TensorFlow和PyTorch的未来是什么呢？
 
+如果你准备学习PyTorch，我建议可以从fast.ai的MOOC文章[Practical Deep Learning for Coders, v3](https://course.fast.ai/)开始。你可以学习到深度学习的原理，和fastai、PyTorch的基础。
+
+那么，TensorFlow和PyTorch的未来是什么呢？
 
 ## 未来的方向
 
