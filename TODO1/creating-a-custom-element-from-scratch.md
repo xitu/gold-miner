@@ -11,25 +11,25 @@
 
 接下来我们继续：下面有个目前仅使用 `HTMLTemplateElement` 的对话框组件，我们会做一个自定义组件版本的。
 
-See the Pen [Dialog with template with script](https://codepen.io/calebdwilliams/pen/JzjLyQ/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
+See the Pen [带有脚本的模板对话框](https://codepen.io/calebdwilliams/pen/JzjLyQ/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
 
-因此，我们下一步创建一个自定义元素，该元素实时使用我们的`template#dialog-template`元素
+因此，我们下一步创建一个自定义元素，该元素实时使用我们的 `template#dialog-template` 元素
 
 #### 文章系列:
 
-1.  [Web 组件简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
-2.  [制作可复用的 HTML 模板](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
-3.  [从头开始创建自定义元素 (**本文**)](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
+1.  [Web Components 简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
+2.  [编写可复用的 HTML 模板](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
+3.  [从 0 开始创建自定义元素 (**本文**)](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
 4.  [使用 Shadow DOM 封装样式和结构](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
-5.  [Web 组件的高级工具](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
+5.  [Web 组件的高阶工具](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
 
 * * *
 
 ### 添加一个自定义元素
 
-Web 组件的基础元素是**自定义元素**。 该`customElements` 的 API 为我们提供了定义自定义 HTML 标签的路径，这些标签可以在包含定义类的任何文档中使用。
+Web 组件的基础元素是**自定义元素**。该 `customElements` 的 API 为我们提供了定义自定义 HTML 标签的路径，这些标签可以在包含定义类的任何文档中使用。
 
-可以把它想象成 React 或 Angular 组件（例如 `<MyCard />`），不依赖React或Angular。原生自定义组件是这样的：`<my-card></my-card>`。更重要的是，将它视为一个标准元素，可以在你的 React、Angular、Vue、[insert-framework-you’re-interested-in-this-week]应用中去使用，而不必大惊小怪。
+可以把它想象成 React 或 Angular 组件（例如 `<MyCard />` ），不依赖React或Angular。原生自定义组件是这样的：`<my-card></my-card>`。更重要的是，将它视为一个标准元素，可以在你的 React、Angular、Vue、[insert-framework-you’re-interested-in-this-week]应用中去使用，而不必大惊小怪。
 
 从本质上讲，一个自定义元素分为两个部分组成：一个**标签名称**和一个 **Class** 类扩展内置 `HTMLElement` 类。我们自定义元素的简易 demo 版本如下所示：
 
@@ -45,7 +45,7 @@ customElements.define('one-dialog', OneDialog);
 
 注意：在整个自定义元素中，this 值是对自身自定义元素实例的引用。
 
-在上面的示例中，我们定义了一个符合标准的新HTML元素，`<one-dialog></one-dialog>`。它还做不了什么……暂时来说，在任何 HTML 文档中使用 `<one-dialog>` 标签将会创建一个带着 `<h1>` 标签显示 “Hello, World!” 的新元素。
+在上面的示例中，我们定义了一个符合标准的新HTML元素，`<one-dialog></one-dialog>` 。它还做不了什么……暂时来说，在任何 HTML 文档中使用 `<one-dialog>` 标签将会创建一个带着 `<h1>` 标签显示 “Hello, World!” 的新元素。
 
 我们肯定想把它做的更 NB, 很幸运。 在[上一篇文章中](https://css-tricks.com/crafting-reusable-html-templates)，我们为弹出框创建模板，并且有权拿到模板，让我们在自定义元素中使用它。我们在该示例中添加了一个 script 标签来执行一些对话框魔术。我们暂时删除它，因为我们将把逻辑从 HTML 模板移到自定义元素类中。
 
@@ -101,7 +101,7 @@ class OneDialog extends HTMLElement {
 
 我们将 updater 包含在 `attributeChangedCallback` 内部的条件检查中，以查看新值和旧值是否相等。我们这样做是为了防止程序中出现无限循环，因为稍后我们将创建一个 getter 和 setter 属性，它将通过在元素的属性（property）更新时设置元素的属性（attribute）来保持属性（attribute）和属性 （property）的同步。`attributeChangedCallback` 反向执行：当属性更改时更新属性。
 
-现在，作者可以使用我们的组件，并且利用`open`属性决定对话框是否默认打开。为了使它更具动态性，我们可以在元素的 `open` 属性中添加自定义 getter 和 setter：
+现在，作者可以使用我们的组件，并且利用 `open` 属性决定对话框是否默认打开。为了使它更具动态性，我们可以在元素的 `open` 属性中添加自定义 getter 和 setter：
 
 ```
 class OneDialog extends HTMLElement {
@@ -287,15 +287,15 @@ class DialogWorkflow extends HTMLElement {
 
 **我们需要做的另一件事是为每个组件定义一个新模板，或者为我们的对话框找到一些切换模板的方法。就目前而言，每页只能有一个对话框类型，因为它使用的模板必须始终存在。因此，我们要么需要注入动态内容的方法，要么需要交换模板的方法。**
 
-在下一篇文章中，我们将研究如何通过使用影子 DOM 合并样式和内容封装来提高我们刚刚创建的 `<one-dialog>`元素的可用性。
+在下一篇文章中，我们将研究如何通过使用影子 DOM 合并样式和内容封装来提高我们刚刚创建的 `<one-dialog>` 元素的可用性。
 
 #### 文章系列：
 
-1.  [Web 组件简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
-2.  [制作可重复使用的 HTML 模板](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
-3.  [从头开始创建自定义元素（**本文**）](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
+1.  [Web Components 简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
+2.  [编写可重复使用的 HTML 模板](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
+3.  [从 0 开始创建自定义元素（**本文**）](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
 4.  [使用 Shadow DOM 封装样式和结构](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
-5.  [Web 组件的高级工具](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
+5.  [Web 组件的高阶工具](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
