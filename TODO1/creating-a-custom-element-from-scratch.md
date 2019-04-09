@@ -289,7 +289,7 @@ class DialogWorkflow extends HTMLElement {
 
 在下一篇文章中，我们将研究如何通过使用影子 DOM 合并样式和内容封装来提高我们刚刚创建的 `<one-dialog>` 元素的可用性。
 
-#### 文章系列：
+#### 系列文章：
 
 1.  [Web Components 简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
 2.  [编写可重复使用的 HTML 模板](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
