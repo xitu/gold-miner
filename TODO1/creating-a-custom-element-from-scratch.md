@@ -5,7 +5,7 @@
 > * 译者：[ANFOUNNYSOUL](https://github.com/yzw7489757)
 > * 校对者：[portandbridge](https://github.com/portandbridge)
 
-# 从头创建自定义元素
+# 从 0 创建自定义元素
 
 在[上一篇文章](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)，我们通过创建文档中的 HTML 模板，但是我们想进行按需渲染，于是做了 Web 组件。
 
@@ -141,11 +141,11 @@ getter 和 setter 将保证（HTML 元素节点上）的 `open` 特性和属性�
 class AbstractClass extends HTMLElement {
   constructor() {
     super();
-    // Check to see if observedAttributes are defined and has length
+    // 检查观察到的属性是否已定义并具有长度
     if (this.constructor.observedAttributes && this.constructor.observedAttributes.length) {
-      // Loop through the observed attributes
+      // 通过观察到的属性进行循环
       this.constructor.observedAttributes.forEach(attribute => {
-        // Dynamically define the property getter/setter
+        // 动态定义 getter/setter 原型
         Object.defineProperty(this, attribute, {
           get() { return this.getAttribute(attribute); },
           set(attrValue) {
@@ -161,7 +161,7 @@ class AbstractClass extends HTMLElement {
   }
 }
 
-// Instead of extending HTMLElement directly, we can now extend our AbstractClass
+// 在我们可以扩展抽象类，而不是直接扩展 HTMLElement
 class SomeElement extends AbstractClass { /** Omitted */ }
 
 customElements.define('some-element', SomeElement);
