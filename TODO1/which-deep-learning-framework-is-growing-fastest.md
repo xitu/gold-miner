@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# 哪一个深度学习框架增长最迅猛？TensorFlow还是PyTorch？
+# 哪一个深度学习框架增长最迅猛？TensorFlow 还是 PyTorch？
 
 在 2018 年的 9 月，我在一篇 [文章](https://towardsdatascience.com/deep-learning-framework-power-scores-2018-23607ddf297a) 中，从需求量，工程使用量以及流行程度等方面对比了所有的主流深度学习框架。TensorFlow 处于绝对的王者地位，而 Pytorch 则是一位跃跃欲试的年轻挑战者。
 
@@ -15,7 +15,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*3JpBBGkLNgwRfkrDDFIQiQ.png)
 
-为了回答这个问题，我从在线招聘网站（如：[Indeed](http://indeed.com),[Monster](https://www.monster.com/),[LinkedIn](https://linkedin.com)和[SimplyHired](https://www.simplyhired.com/))的职位需求，[谷歌的搜索量](https://trends.google.com/trends/explore?cat=1299&q=tensorflow,pytorch,keras,fastai),[GitHub活跃度](https://github.com/), [媒体的文章数](https://medium.com),[ArXiv的文章数](https://arxiv.org/)以及[Quora的粉丝数](https://www.quora.com)等几个方面的数据变化去做评估。最终，以这些数据为依据，绘制了需求量，使用率和流行程度的增长图便于读者理解。
+为了回答这个问题，我从在线招聘网站（如：[Indeed](http://indeed.com), [Monster](https://www.monster.com/), [LinkedIn](https://linkedin.com) 和 [SimplyHired](https://www.simplyhired.com/)) 的职位需求，[谷歌的搜索量](https://trends.google.com/trends/explore?cat=1299&q=tensorflow,pytorch,keras,fastai)，[GitHub 活跃度](https://github.com/)，[媒体的文章数](https://medium.com)，[ArXiv 的文章数](https://arxiv.org/)以及[Quora 的粉丝数](https://www.quora.com)等几个方面的数据变化去做评估。最终，以这些数据为依据，绘制了需求量，使用率和流行程度的增长图便于读者理解。
 
 ## 集成和更新
 
@@ -27,7 +27,7 @@ PyTorch 1.0 版本在 2018 年 10 月预先发布，同一时间 fastai 1.0 版�
 
 ## 方法
 
-在本文中，由于 Keras 和 fastai 与 TesnsorFlow 和 PyTorch 的依存关系，它们也可以作为一个尺度来评估 TensorFlow 和 PyTorch,所以我们将它们也囊括到了对比之中。
+在本文中，由于 Keras 和 fastai 与 TesnsorFlow 和 PyTorch 的依存关系，它们也可以作为一个尺度来评估 TensorFlow 和 PyTorch，所以我们将它们也囊括到了对比之中。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*rRq_RWw3SLz64sMRXmtyaQ.png)
 
@@ -43,9 +43,9 @@ PyTorch 1.0 版本在 2018 年 10 月预先发布，同一时间 fastai 1.0 版�
 
 ## 在线职位需求的变化
 
-我通过搜索几个主要的在线招聘网站，如，Indeed, LinkedIn, Monster, 和 SimplyHired的相关数据来判断哪一个框架是目前需求量最大的。
+我通过搜索几个主要的在线招聘网站，如，Indeed, LinkedIn, Monster 和 SimplyHired 的相关数据来判断哪一个框架是目前需求量最大的。
 
-我使用的搜索关键字是这样的，**machine learning,** 后面跟随对应的库名。举个例子，评估 TensorFlow 我们使用的关键字就是 **machine learning TensorFlow.** 由于历史的比较原因，使用了这种关键字进行搜索。如果不加 **machine learning** 结果也不会有明显的不同。我们的搜索范围设定的是美国。
+我使用的搜索关键字是这样的，**machine learning** ，后面跟随对应的库名。举个例子，评估 TensorFlow 我们使用的关键字就是 **machine learning TensorFlow** 。由于历史的比较原因，使用了这种关键字进行搜索。如果不加 **machine learning** 结果也不会有明显的不同。我们的搜索范围设定的是美国。
 
 我用2019年3月的数据减去6个月之前的数据，有如下的发现：
 
@@ -95,7 +95,7 @@ TensorFlow 在各个选项上都是领先的。尽管如此，PyTorch 在关注�
 
 ## Quora的新增粉丝数
 
-我将之前遗漏的一个参考指标 -- Quora 新话题的粉丝数量也加入进来。
+我将之前遗漏的一个参考指标 —— Quora 新话题的粉丝数量也加入进来。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*TqZ_cZQkadyrPEhR3tI8qQ.png)
 
@@ -109,7 +109,7 @@ TensorFlow 在各个选项上都是领先的。尽管如此，PyTorch 在关注�
  
  1. 将所有指标的分数缩放到 0 和 1 之间。
 
- 2. 汇总 **在线职位** 和 **GitHub活跃度** 等子类.
+ 2. 汇总 **在线职位** 和 **GitHub 活跃度** 等子类。
 
  3. 根据下面的百分比对各个分类加权。
  
@@ -119,7 +119,7 @@ TensorFlow 在各个选项上都是领先的。尽管如此，PyTorch 在关注�
 
  5. 将每个框架的对应分类的得分进行累加，得到最后的增长分数。
 
-在线工作一项的权重占据了整体的三分之一，原因很简单，直接的经济利益才是最实际的。这种划分也是为了更好的平衡各个选项。区别于我的另一篇 [2018 power score analysis](https://towardsdatascience.com/deep-learning-framework-power-scores-2018-23607ddf297a) ,我没有包含 KDNuggets 的使用情况调查（没有新的数据）和出版物（过去 6 个月没有太多的新书）。
+在线工作一项的权重占据了整体的三分之一，原因很简单，直接的经济利益才是最实际的。这种划分也是为了更好的平衡各个选项。区别于我的另一篇 [2018 power score analysis](https://towardsdatascience.com/deep-learning-framework-power-scores-2018-23607ddf297a) ，我没有包含 KDNuggets 的使用情况调查（没有新的数据）和出版物（过去 6 个月没有太多的新书）。
 
 ## 结果
 
@@ -158,7 +158,7 @@ TensorFlow 是目前需求量最大且增长速度最快的框架，短时间内
 
 ## 结语
 
-你已经看到了 TensorFLow 和 PyTorch 的增长。它们都有很好的高级 API: tf.keras 和 fastai,它们可以降低初学者的学习门槛。你也已经看到了框架的新特性和未来方向。
+你已经看到了 TensorFLow 和 PyTorch 的增长。它们都有很好的高级 API: tf.keras 和 fastai，它们可以降低初学者的学习门槛。你也已经看到了框架的新特性和未来方向。
 
 如果需要使用文中的图表，可以到我的 [Kaggle Kernel](https://www.kaggle.com/discdiver/2019-deep-learning-framework-growth-scores) 中去获取相关内容。
 
