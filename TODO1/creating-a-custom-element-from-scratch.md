@@ -11,7 +11,7 @@
 
 接下来我们继续：下面有个目前仅使用 `HTMLTemplateElement` 的对话框组件，我们会做一个自定义组件版本的。
 
-See the Pen [带有脚本的模板对话框](https://codepen.io/calebdwilliams/pen/JzjLyQ/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
+请查阅笔记[带有脚本的模板对话框](https://codepen.io/calebdwilliams/pen/JzjLyQ/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
 
 因此，我们下一步创建一个自定义元素，该元素实时使用我们的 `template#dialog-template` 元素
 
@@ -248,7 +248,7 @@ class OneDialog extends HTMLElement {
 
 在下面的示例中，您将看到我们的模板元素正被一个标准 `<one-dialog>` 元素所使用
 
-See the Pen [Dialog example using template](https://codepen.io/calebdwilliams/pen/vbVXqv/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
+请查阅笔记[对话框组件使用模板](https://codepen.io/calebdwilliams/pen/vbVXqv/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
 
 ### 另一件事：非演示组件
 
