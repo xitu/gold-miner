@@ -15,7 +15,7 @@ See the Pen [带有脚本的模板对话框](https://codepen.io/calebdwilliams/p
 
 因此，我们下一步创建一个自定义元素，该元素实时使用我们的 `template#dialog-template` 元素
 
-#### 文章系列:
+#### 系列文章:
 
 1.  [Web Components 简介](https://juejin.im/post/5c9a3cce5188252d9b3771ad)
 2.  [编写可复用的 HTML 模板](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)
