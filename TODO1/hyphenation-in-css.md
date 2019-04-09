@@ -2,7 +2,7 @@
 > * 原文作者：[Richard Rutter](https://clagnut.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/hyphenation-in-css.md](https://github.com/xitu/gold-miner/blob/master/TODO1/hyphenation-in-css.md)
-> * 译者： [马猴烧酒](https://github.com/Augustwuli)
+> * 译者：[马猴烧酒](https://github.com/Augustwuli)
 > * 校对者：[L9m](https://github.com/L9m)
 
 # 你需要知道的 CSS 中所有 hyphenation 的使用
@@ -13,7 +13,7 @@
 
 我展示了一些 Web 排版的黄金准则，在之后的问答环节中，我被问到关于 Web 自动断字的现状。这是一个恰当的问题，因为德语以长单词而闻名 —— 尤其在名词复合词中很常见（例如 Verbesserungsvorschlag 意为改进建议）—— 所以使用连字符断字在大多数书面媒体中被广泛使用。
 
-自 2011 年以来，Web 上的自动断字已经成为[可能](https://clagnut.com/blog/2394)，现在得到了[广泛的支持](https://caniuse.com/#feat=css-hyphens)。Safari，Firefox 和 Internet Explorer 9 以上版本支持自动断字，Android 和 MacOS 上的 Chrome 也支持自动断字（但 [Windows 或 Linux](https://bugs.chromium.org/p/chromium/issues/detail?id=652964) 上还没有）。
+自 2011 年以来，Web 上的自动断字已经成为[可能](https://clagnut.com/blog/2394)，现在得到了[广泛的支持](https://caniuse.com/#feat=css-hyphens)。Safari、Firefox 和 Internet Explorer 9 以上版本支持自动断字，Android 和 MacOS 上的 Chrome 也支持自动断字（但 [Windows 或 Linux](https://bugs.chromium.org/p/chromium/issues/detail?id=652964) 上还没有）。
 
 ## 如何开启自动断字
 
@@ -21,7 +21,7 @@
 
 断字是一门复杂的学科。断字点主要以词源和音系相结合的音节为基础，但特定机构也有不同的断字规则。
 
-### 1\. 设置语言
+### 1. 设置语言
 
 网页语言应该使用 HTML 的 `lang` 属性设置。
 
@@ -38,7 +38,7 @@
 <html lang="en-GB">
 ```
 
-### 2\.启用断字
+### 2.启用断字
 
 到目前为止，已经设置好了语言，可以在 CSS 中打开自动断字。这再简单不过了：
 
@@ -190,4 +190,3 @@ p {
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-
