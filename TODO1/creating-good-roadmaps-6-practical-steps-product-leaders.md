@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/creating-good-roadmaps-6-practical-steps-product-leaders.md](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-good-roadmaps-6-practical-steps-product-leaders.md)
 > * 译者：[QiaoN](https://github.com/QiaoN)
-> * 校对者：
+> * 校对者：[renyuhuiharrison](https://github.com/renyuhuiharrison), [Fengziyin1234](https://github.com/Fengziyin1234)
 
 # 制定良好的路线图：产品负责人的六个实施步骤
 
-作者 [Matt Walton](/profile/matt-walton)，2018年2月15日
+作者 [Matt Walton](/profile/matt-walton)，2018 年 2 月 15 日
 
 关于制定产品路线图的流程已经有很多文章，尤其是我自己团队撰写的[六篇优秀文章](https://medium.com/@FutureLearn?source=linkShare-919b188be89-1518549073)。但有关产品负责人在此中角色的文章却出乎意料得少。
 
@@ -57,7 +57,7 @@
 
 你可以采用许多方法制定愿景和战略，但重要的是确保它们存在并且被理解。
 
-## 3. 团队组织，任务和指标
+## 3. 团队组织、任务和指标
 
 作为产品负责人，你对产品路线图最大的影响是如何组织团队并且制定他们的任务。
 
