@@ -7,6 +7,8 @@
 
 # 哪一个深度学习框架增长最迅猛？TensorFlow还是PyTorch？
 
+> TensorFlow vs. PyTorch
+
 在2018年的9月，我在一篇[文章](https://towardsdatascience.com/deep-learning-framework-power-scores-2018-23607ddf297a)中，从需求量，工程使用量以及流行程度等方面对比了所有的主流深度学习框架。TensorFlow处于绝对的王者地位，而Pytorch则是一位跃跃欲试的年轻挑战者。
 
 半年过去了，这种形式是否有所改变呢？
