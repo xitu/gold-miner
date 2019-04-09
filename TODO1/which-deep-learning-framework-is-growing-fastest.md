@@ -65,7 +65,9 @@ PyTorch 1.0版本在2018年10月预先发布，同一时间fastai 1.0版本也�
 
 ![](https://cdn-images-1.medium.com/max/2000/1*-0xgPs1DzZKE3jWy9412Ew.png)
 
-在过去6个月中，TensorFlow的相关搜索量在下降，而PyTorch的相关搜索量在上升。下面的图标直观的反映了过去1年人们的兴趣趋势。
+在过去6个月中，TensorFlow的相关搜索量在下降，而PyTorch的相关搜索量在上升。
+
+下面的图标直观的反映了过去1年人们的兴趣趋势。
 
 ![TensorFlow in blue; Keras in yellow, PyTorch in red, fastai in green](https://cdn-images-1.medium.com/max/2000/1*FGdwNXVzEno6N3CYBW6OLA.png)
 
