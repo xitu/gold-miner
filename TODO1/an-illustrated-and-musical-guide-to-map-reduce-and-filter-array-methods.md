@@ -56,7 +56,7 @@ let newArray = oldArray.map((value, index, array) => {
 
 但是 filter 方法，*只* 返回真值。因此如果所有值都执行指定的检查的话，结果的长度会小于等于原始数组。
 
-> 把 filter 想象成一个漏斗。部分混合物会从中穿过进入结果，而另一部分则会被留下和抛弃。
+> 把 filter 想象成一个漏斗。部分混合物会从中穿过进入结果，而另一部分则会被留下并抛弃。
 
 ![An illustration of a funnel with numbers going in the top and a few coming out of the bottom next to a handwritten version of the code covered in this section.](https://css-tricks.com/wp-content/uploads/2019/03/arrays-02.png)
 
@@ -104,7 +104,7 @@ passingDogs = [
 */
 ```
 
-你也看到了，Boops 和 Taco 是好狗狗（其实所有狗很不错），它们取得了通过课程的成就证书！利用箭头函数的隐式返回特性，一行代码就能实现。因为只有一个参数，删掉箭头函数的括号：
+你也看到了，Boops 和 Taco 是好狗狗（其实所有狗都很不错），它们取得了通过课程的成就证书！利用箭头函数的隐式返回特性，一行代码就能实现。因为只有一个参数，所以可以删掉箭头函数的括号：
 
 ```js
 const passingDogs = students.filter(student => student.finalGrade >= 70)
@@ -125,7 +125,7 @@ passingDogs = [
 
 ## Array.reduce()
 
-`reduce()` 方法接受一个数组的输入值并返回一个值。这点挺有趣的。reduce 接受一个回调函数，回调函数参数包括一个累计器（数组每一段的累加值，它会[像雪球一样增长](https://css-tricks.com/understanding-the-almighty-reducer/)），当前值，和索引。reduce 也接受一个初始值作为第二个参数：
+`reduce()` 方法接受一个数组作为输入值并返回一个值。这点挺有趣的。reduce 接受一个回调函数，回调函数参数包括一个累计器（数组每一段的累加值，它会[像雪球一样增长](https://css-tricks.com/understanding-the-almighty-reducer/)），当前值，和索引。reduce 也接受一个初始值作为第二个参数：
 
 ```js
 let finalVal = oldArray.reduce((accumulator, currentValue, currentIndex, array) => {
@@ -157,7 +157,7 @@ const wineReduction = ingredients.reduce((sauce, item) => {
 // wineReduction = "cooked wine, cooked tomato, cooked onion, cooked mushroom, "
 ```
 
-初始值（这个例子中的 `''`）很重要，它决定了第一个作料能够进行烹饪。这里输出的结果不太靠谱，自己炒菜时要当心。
+初始值（这个例子中的 `''`）很重要，它决定了第一个作料能够进行烹饪。这里输出的结果不太靠谱，自己炒菜时要当心。下面的例子就是我要说到的情况：
 
 ```js
 const wineReduction = ingredients.reduce((sauce, item) => {
