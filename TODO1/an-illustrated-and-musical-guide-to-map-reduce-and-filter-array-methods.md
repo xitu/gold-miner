@@ -7,7 +7,6 @@
 
 # 图解 Map、Reduce 和 Filter 数组方法
 
-
 map、reduce 和 filter 是三个非常实用的 JavaScript 数组方法，赋予了开发者四两拨千斤的能力。我们直接进入正题，看看如何使用（并记住）这些超级好用的方法！
 
 ## Array.map()
