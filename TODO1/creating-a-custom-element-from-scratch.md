@@ -7,9 +7,9 @@
 
 # 从 0 创建自定义元素
 
-在[上一篇文章](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)，我们通过创建文档中的 HTML 模板，但是我们想进行按需渲染，于是做了 Web 组件。
+在[上一篇文章](https://github.com/xitu/gold-miner/blob/master/TODO1/crafting-reusable-html-templates.md)，我们在文档中创建了 HTML 模板，希望它们在需要时才呈现，这让我们开始接触Web组件。
 
-接下来我们继续：下面有个目前仅使用 `HTMLTemplateElement` 的对话框组件，我们会做一个自定义组件版本的。
+接下来，我们将继续创建对话框组件的自定义元素版本，该自定义元素版本目前仅使用 `HTMLTemplateElement`。
 
 请查阅笔记[带有脚本的模板对话框](https://codepen.io/calebdwilliams/pen/JzjLyQ/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
 
