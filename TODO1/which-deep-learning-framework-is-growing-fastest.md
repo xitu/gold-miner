@@ -15,7 +15,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*3JpBBGkLNgwRfkrDDFIQiQ.png)
 
-为了回答这个问题，我从在线招聘网站（如：[Indeed](http://indeed.com), [Monster](https://www.monster.com/), [LinkedIn](https://linkedin.com) 和 [SimplyHired](https://www.simplyhired.com/)) 的职位需求，[谷歌的搜索量](https://trends.google.com/trends/explore?cat=1299&q=tensorflow,pytorch,keras,fastai)，[GitHub 活跃度](https://github.com/)，[媒体的文章数](https://medium.com)，[ArXiv 的文章数](https://arxiv.org/)以及[Quora 的粉丝数](https://www.quora.com)等几个方面的数据变化去做评估。最终，以这些数据为依据，绘制了需求量，使用率和流行程度的增长图便于读者理解。
+为了回答这个问题，我从在线招聘网站（如：[Indeed](http://indeed.com)、[Monster](https://www.monster.com/)、[LinkedIn](https://linkedin.com) 和 [SimplyHired](https://www.simplyhired.com/)) 的职位需求、[谷歌的搜索量](https://trends.google.com/trends/explore?cat=1299&q=tensorflow,pytorch,keras,fastai)、[GitHub 活跃度](https://github.com/)、[媒体的文章数](https://medium.com)、[ArXiv 的文章数](https://arxiv.org/)以及[Quora 的粉丝数](https://www.quora.com)等几个方面的数据变化去做评估。最终，以这些数据为依据，绘制了需求量，使用率和流行程度的增长图便于读者理解。
 
 ## 集成和更新
 
@@ -33,7 +33,7 @@ PyTorch 1.0 版本在 2018 年 10 月预先发布，同一时间 fastai 1.0 版�
 
 ![](https://cdn-images-1.medium.com/max/2000/1*UlKBqvcT5UNg3L5BM8ywqg.png)
 
-至于其他的深度学习框架，我将不予讨论。很多读者肯定会觉得像 Caffe, Theano, MXNET, CNTK, DeepLearning4J 和 Chainer 这些框架是很有价值的。然而它们虽然有诸多的优点，但确实无法与 TensorFlow 和 Pytorch 相提并论，同时又和这两个框架没有什么交集。
+至于其他的深度学习框架，我将不予讨论。很多读者肯定会觉得像 Caffe、Theano、MXNET、CNTK、DeepLearning4J 和 Chainer 这些框架是很有价值的。然而它们虽然有诸多的优点，但确实无法与 TensorFlow 和 Pytorch 相提并论，同时又和这两个框架没有什么交集。
 
 我们的分析工作是在 2019 年 3 月 20 号到 21 号间执行的，数据源在 [谷歌的表格中](https://docs.google.com/spreadsheets/d/1Q9rQkfi8ubKM8aX33In0Ki6ldUCfJhGqiH9ir6boexw/edit?usp=sharing)。
 
@@ -43,7 +43,7 @@ PyTorch 1.0 版本在 2018 年 10 月预先发布，同一时间 fastai 1.0 版�
 
 ## 在线职位需求的变化
 
-我通过搜索几个主要的在线招聘网站，如，Indeed, LinkedIn, Monster 和 SimplyHired 的相关数据来判断哪一个框架是目前需求量最大的。
+我通过搜索几个主要的在线招聘网站，如，Indeed、LinkedIn、Monster 和 SimplyHired 的相关数据来判断哪一个框架是目前需求量最大的。
 
 我使用的搜索关键字是这样的，**machine learning** ，后面跟随对应的库名。举个例子，评估 TensorFlow 我们使用的关键字就是 **machine learning TensorFlow** 。由于历史的比较原因，使用了这种关键字进行搜索。如果不加 **machine learning** 结果也不会有明显的不同。我们的搜索范围设定的是美国。
 
@@ -85,7 +85,7 @@ PyTorch 1.0 版本在 2018 年 10 月预先发布，同一时间 fastai 1.0 版�
 
 ## GitHub新增活跃度
 
-Git 的近期活跃度是框架流行度的另一个指标。下面的图表展示了点赞，克隆，粉丝以及贡献者的数量。
+Git 的近期活跃度是框架流行度的另一个指标。下面的图表展示了点赞、克隆、粉丝以及贡献者的数量。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*83KNb93eWuSEt5MxqDow6Q.png)
 
