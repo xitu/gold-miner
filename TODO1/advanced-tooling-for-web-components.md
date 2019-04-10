@@ -7,9 +7,9 @@
 
 # Web Components 的高级工具
 
-在这个由五部分组成的系列文章的前四篇文章中，我们对构成 Web Components 标准的技术进行了[全面的介绍](https://juejin.im/post/5c9a3cce5188252d9b3771ad)。首先，我们研究了[如何创建 HTML 模板](https://juejin.im/post/5ca5b858e51d4524a918560f)，为接下来的工作做了铺垫。其次，我们深入了解了[自定义元素的创建](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)。接着，[我们将元素的样式和选择器封装到 shadow DOM 中](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)，这样我们的元素就完全独立了。
+该系列由 5 篇文章构成，我们在前 4 篇文章中对构成 Web Components 标准的技术进行了[全面的介绍](https://juejin.im/post/5c9a3cce5188252d9b3771ad)。首先，我们研究了[如何创建 HTML 模板](https://juejin.im/post/5ca5b858e51d4524a918560f)，为接下来的工作做了铺垫。其次，我们深入了解了[自定义元素的创建](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)。接着，[我们将元素的样式和选择器封装到 shadow DOM 中](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)，这样我们的元素就完全独立了。
 
-我们通过创建自己的自定义模式对话框来探索这些工具的强大功能，该对话框可以在大多数现代应用程序上下文中使用，而忽略底层框架或库。在本文中，我们将介绍如何在各种框架中使用我们的元素，并介绍一些高级工具用来真正提高 Web Component 的技能。
+我们通过创建自己的自定义模态对话框来探索这些工具的强大功能，该对话框可以在大多数现代应用程序上下文中使用，而忽略底层框架或库。在本文中，我们将介绍如何在各种框架中使用我们的元素，并介绍一些高级工具用来真正提高 Web Component 的技能。
 
 #### 系列文章：
 
@@ -59,7 +59,7 @@ export class MyModuleAllowsCustomElements {}
 
 #### Vue
 
-Vue 与 Web Components 的兼容性甚至比 Angular 更好，因为它不需要任何特殊配置。注册元素后，它可以与 Vue 的默认模板语法一起使用：
+Vue 对 Web Components 的兼容性甚至比 Angular 更好，因为它不需要任何特殊配置。注册元素后，它可以与 Vue 的默认模板语法一起使用：
 
 ```
 <one-dialog v-bind:open="isDialogOpen" v-on:dialog-closed="dialogClosed">
@@ -121,7 +121,7 @@ export default class MyComponent extends Component {
 }
 ```
 
-或者，我们可以使用无状态功能组件和钩子：
+或者，我们可以使用无状态函数组件和钩子：
 
 ```
 import React, { useState, useEffect, useRef } from 'react';
@@ -197,7 +197,7 @@ OneDialog.propTypes = {
 };
 ```
 
-……或者，再次使用无状态功能组件和钩子：
+……或者，再次使用无状态函数组件和钩子：
 
 ```
 import React, { useRef, useEffect } from 'react';
