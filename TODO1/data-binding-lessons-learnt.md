@@ -73,7 +73,7 @@
 
 有种替代方法是在布局中显式声明 ViewState 中的每个变量，然后显式传递组合状态实例中的值，如下所示：
 
-This is obviously lot more code for you as the developer to maintain and keep in sync, but it does mean that the ‘DB Library’ can optimise which expressions are run. I would use this pattern if your UI state does not change very often (maybe a few times when created) and the number of variables is low.这显然会使开发人员维护和同步更多的代码，但它确实意味着『DB 库』可以优化去运行哪些表达式。如果你的 UI 状态不经常变化（可能在创建时有一些次）并且变量数量较少时，我会推荐使用此模式。
+这显然会使开发人员维护和同步更多的代码，但它确实意味着『DB 库』可以优化去运行哪些表达式。如果你的 UI 状态不经常变化（可能在创建时有一些次）并且变量数量较少时，我会推荐使用此模式。
 
 我个人一直在布局中使用单个变量，传入我的 ViewState 实例，并依赖于我们的视图绑定合理地运行。这就是为什么让视图绑定变得高效非常重要。
 
