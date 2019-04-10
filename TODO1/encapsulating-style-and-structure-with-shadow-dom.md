@@ -7,7 +7,7 @@
 
 # 使用 Shadow DOM 封装样式和结构
 
-这里有一个由五个部分组成的系列文章来讨论 Web Components 规范，这是其中的第四部分。在[第一部分](https://juejin.im/post/5c9a3cce5188252d9b3771ad)中，我们对于 Web Components 的规范和具体做的事情进行了全面的介绍。在[第二部分](https://juejin.im/post/5ca5b858e51d4524a918560f)中我们开始构建一个自定义的模态对话框，并且创建了 HTML 模版，这在[第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)中将演变为我们的自定义 HTML 元素。
+该系列由 5 篇文章构成，对 Web Components 规范进行了讨论，这是其中的第四部分。在[第一部分](https://juejin.im/post/5c9a3cce5188252d9b3771ad)中，我们对于 Web Components 的规范和具体做的事情进行了全面的介绍。在[第二部分](https://juejin.im/post/5ca5b858e51d4524a918560f)中我们开始构建一个自定义的模态框，并且创建了 HTML 模版，这在[第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)中将演变为我们的自定义 HTML 元素。
 
 #### 系列文章：
 
@@ -15,23 +15,23 @@
 2.  [编写可以复用的 HTML 模板](https://juejin.im/post/5ca5b858e51d4524a918560f)
 3.  [从 0 开始创建自定义元素](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
 4.  [使用 Shadow DOM 封装样式和结构（**本文**）](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
-5.  [Advanced Tooling for Web Components](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
+5.  [Web Components 的高级工具](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
 
 * * *
 
-在开始阅读本文之前，我们建议您先阅读该系列中的前三篇文章，因为本文的工作是构建在它们的基础上的。
+在开始阅读本文之前，我们建议你先阅读该系列文章中的前三篇，因为本文的工作是以它们为基础构建的。
 
-当我们上次查看我们的对话框组件时，它具有特定的外形，结构和行为，但是它在很大程度上依赖于外部 DOM，并且要求使用者必须理解它的通用外形和结构，更不用说编写他们自己的样式（最终将修改文档的全局样式）。因为我们的对话框依赖于 id 为 “one-dialog” 的模板元素的内容，所以每个文档只能有一个模态框的实例。
+我们在上文中实现的对话框组件具有特定的外形，结构和行为，但是它在很大程度上依赖于外层的 DOM，它要求使用者必须理解它的基本外形和结构，更不用说允许使用者编写他们自己的样式（最终将修改文档的全局样式）。因为我们的对话框依赖于 id 为 “one-dialog” 的模板元素的内容，所以每个文档只能有一个模态框的实例。
 
-目前对于我们的对话框组件的限制不一定是坏的。熟悉对话框内部工作原理的使用者可以通过创建自己的 `<template>` 元素，并定义他们希望使用的内容和样式（甚至依赖于其他地方定义的全局样式）来轻松地使用对话框。但是，我们希望在元素上提供更具体的设计和结构约束以适应最佳实践，因此在本文中，我们将在我们的元素中使用 shadow DOM。
+目前对于我们的对话框组件的限制不一定是坏的。熟悉对话框内部工作原理的使用者可以通过创建自己的 `<template>` 元素，并定义他们希望使用的内容和样式（甚至依赖于其他地方定义的全局样式）来轻松地使用对话框。但是，我们希望在元素上提供更具体的设计和结构约束以适应最佳实践，因此在本文中，我们将在元素中使用 shadow DOM。
 
 ### 什么是 shadow DOM ？
 
-在我们的[介绍文章](https://juejin.im/post/5c9a3cce5188252d9b3771ad)中，我们说 shadow DOM ”能够隔离 CSS 和 JavaScript，和 `<iframe>` 非常相似“。类似于 `<iframe>`，在 shadow DOM 中选择器和样式不会泄漏到 shadow root 以外，shadow root 以外的样式也不会泄露进来。只有极个别的继承于父文件的样式（例如：`rem`）可以在内部重写覆盖。
+在[介绍文章](https://juejin.im/post/5c9a3cce5188252d9b3771ad)中我们说到，shadow DOM ”能够隔离 CSS 和 JavaScript，和 `<iframe>` 非常相似“。在 shadow DOM 中选择器和样式不会作用于 shadow root 以外，shadow root 以外的样式也不会影响 shadow DOM。只有极个别的继承于父文件的样式（例如：`rem`）可以在内部重写覆盖。
 
-但是不同于 `<iframe>`，所有的 shadow root 仍然存在于同一份文件当中，因此所有的代码都可以在指定的上下文中编写，但不必担心和其他样式或者选择器冲突。
+但是不同于 `<iframe>`，所有的 shadow root 仍然存在于同一份文件当中，因此所有的代码都可以在指定的上下文中编写，而不必担心和其他样式或者选择器冲突。
 
-### 在我们的对话框中添加 shadow DOM
+### 在对话框中添加 shadow DOM
 
 为了添加一个 shadow root（shadow 树的基本节点/文档片段），我们需要调用元素的 `attachShadow` 方法：
 
@@ -45,9 +45,9 @@ class OneDialog extends HTMLElement {
 }
 ```
 
-通过调用 `attachShadow` 方法并设置参数 `mode:` `'open'`，我们告诉我们的元素在 `element.shadowRoot` 属性中保存一份对 shadow root 的引用。`attachShadow` 方法将 shadow root 的引用作为返回值返回，但是在这里我们不会用到它。
+通过调用 `attachShadow` 方法并设置参数 `mode:` `'open'`，我们在元素的 `element.shadowRoot` 属性中保存一份对 shadow root 的引用。`attachShadow` 方法将始终返回一个 shadow root 的引用，但是在这里我们不会用到它。
 
-如果我们调用 `attachShadow` 方法并设置参数 `mode: closed'`，元素上将不会存储任何引用，我们必须构建自己的方法进行存储，并且恢复使用 `WeakMap` 或者 `Object`，设置节点自身为键，shadow root 为值。
+如果我们调用 `attachShadow` 方法并设置参数 `mode: closed'`，元素上将不会存储任何引用，我们必须通过使用 `WeakMap` 或者 `Object` 来实现存储和检索，设置节点自身为键，shadow root 为值。
 
 ```
 const shadowRoots = new WeakMap();
@@ -66,7 +66,7 @@ class ClosedRoot extends HTMLElement {
 }
 ```
 
-我们还可以在元素自身上保存对 shadow root 的引用，使用一个 `Symbol` 或者其他的键尝试设置 shadow root 为私有属性。
+我们还可以在元素自身上保存对 shadow root 的引用，使用 `Symbol` 或者其他的键来设置 shadow root 为私有属性。
 
 通常，有一些原生元素（例如：`<audio>` 或者 `<video>`），它们会在自己的实现中使用 shadow DOM，shadow root 的关闭模式就是为了这些原生元素而存在。此外，在单元测试中，取决于库的架构方式，我们可能无法获取 `shadowRoots` 对象，导致我们无法定位到元素内部的更改。
 
@@ -348,7 +348,7 @@ other-component::part(description) {
 2.  [编写可以复用的 HTML 模板](https://juejin.im/post/5ca5b858e51d4524a918560f)
 3.  [从 0 开始创建自定义元素](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)
 4.  [使用 Shadow DOM 封装样式和结构（**本文**）](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
-5.  [Advanced Tooling for Web Components](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
+5.  [Web Components 的高级工具](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components/.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
