@@ -53,9 +53,9 @@ export default Hello;
 npm install --save-dev riteway
 ```
 
-Internally, RITEway uses `react-dom/server` `renderToStaticMarkup()` and wraps the output in a [Cheerio](https://github.com/cheeriojs/cheerio) object for easy selections. If you're not using RITEway, you can do all that manually to create your own function to render React components to static markup you can query with Cheerio.
+Internally, RITEway uses `react-dom/server` `renderToStaticMarkup()` and wraps the output in a [Cheerio](https://github.com/cheeriojs/cheerio) object for easy selections. 如果你不使用 RITEway，你可以手动执行所有操作以创建自己的函数，以将React组件渲染为可以使用 Cheerio 查询的静态标记。
 
-Once you have a render function to produce a Cheerio object from your markup, you can write component tests like this:
+一旦你有一个将标记渲染成 Cheerio 对象的渲染函数，你就可以编写如下的组件测试了：
 
 ```js
 import { describe } from 'riteway';
@@ -79,27 +79,27 @@ describe('Hello component', async assert => {
 });
 ```
 
-But that’s not very interesting. What if you need to test a stateful component, or a component with side-effects? That’s where TDD gets really interesting for React components, because the answer to that question is the same as the answer to another important question: “How can I make my React components more maintainable and easy to debug?”
+但是这样做没啥意思，如果你需要测试一个有状态的组件，或者一个会产生副作用的组件，该怎么办？该问题的答案与另一个重要问题的答案相同：“我如何使 React 组件更易于维护和调试？”，这也是 TDD 对 React 组件真正感兴趣的地方。
 
-The answer: Isolate your state and side-effects from your presentation components. You can do that by encapsulating your state and side-effect management in a container component, and then pass the state into a pure component through props.
+答案是：将组件的 state 和副作用从展示组件中隔离出去。为了实现这一目标，你可以将 state 和副作用封装在一个容器组件中，然后通过 props 将 state 传递到纯组件中。
 
-But didn’t the hooks API make it so that we can have flat component hierarchies and forget about all that component nesting stuff? Well, not quite. It’s still a good idea to keep your code in three different buckets, and keep these buckets isolated from each other:
+但是 hooks API不也是这样做的吗？使得我们拥有平铺的组件层次结构，并忽略所有的组件嵌套内容。呃...，两者不完全是一样的。将代码保存在三个不同的 bucket 中，并将这些 bucket 彼此隔离，这仍然还是一个好主意。
 
-* **Display/UI Components**
-* **Program logic/business rules** — the stuff that deals with the problem you’re solving for the user.
-* **Side effects** (I/O, network, disk, etc.)
+* **展示/UI 组件**
+* **程序逻辑/业务规则** — 这一部分处理用户需要解决的问题。
+* **副作用** (I/O、网络、磁盘等等。)
 
-In my experience, if you keep the display/UI concerns separate from program logic and side-effects, it makes your life a lot easier. This rule of thumb has always held true for me, in every language and every framework I’ve ever used, including React with hooks.
+根据我的经验，如果你将展示/UI 问题与程序逻辑和副作用分开，你会觉得更加轻松。对于我来说，这个经验法则始终适用于我曾经使用的每种语言和每个框架，包括React with hooks。
 
-Let’s demonstrate stateful components by building a click counter. First, we’ll build the UI component. It should display something like, “Clicks: 13” to tell you how many times a button has been clicked. The button will just say “Click”.
+让我们通过构建一个点击计数器来演示有状态的组件。首先，我们将构建 UI 组件。它应该显示类似 “Clicks：13” 的内容，告诉你单击按钮的次数。按钮只有点击功能。
 
-Unit tests for the display component are pretty easy. We really only need to test that the button gets rendered at all (we don’t care about what the label says — it may say different things in different languages, depending on user locale settings). We **do** undefinedwant to make sure that the correct number of clicks gets displayed. Let’s write two tests: One for the button display, and one for the number of clicks to be rendered correctly.
+显示组件的单元测试非常简单。我们只需要测试按钮是否被渲染（我们不关心 label 的内容 —— 它可能会用不同的语言表达不同的内容，具体取决于用户的区域设置）。 我们**设置** undefinedwant 以确保显示正确的点击次数。下面我们将编写两个测试：一个用于测试按钮显示，另一个用于测试点击次数的正确呈现。
 
-When using TDD, I frequently use two different assertions to ensure that I’ve written the component so that the proper value is pulled from props. It’s possible to write a test so that you could hard-code the value in the function. To guard against that, you can write two tests which each test a different value.
+当使用 TDD 时，我经常使用两个不同的断言来确保我已经编写了组件，以便从 props 中提取适当的。编写一个测试来硬编码函数中的值也是可能的。为了防范这种硬编码情况，你可以编写两个测试，每个测试测试不同的值。
 
-In this case, we’ll create a component called `\<ClickCounter>`, and that component will have a prop for the click count, called `clicks`. To use it, simply render the component and set the `clicks` prop to the number of clicks you want it to display.
+这个例子中，我们将创建一个名为`\<ClickCounter>`的组件，该组件将有一个 `clicks` prop 用于记录按钮单击次数。要使用它，只需渲染组件并将 `clicks` prop 值设置为要显示的单击次数即可。
 
-Let’s look at a pair of unit tests that could ensure we’re pulling the click count from props. Let’s create a new file, click-counter/click-counter-component.test.js:
+让我们来看下面两个单元测试，它们可以确保我们从 props 中提取点击计数。创建一个新文件，click-counter/click-counter-component.test.js:
 
 ```js
 import { describe } from 'riteway';
@@ -139,15 +139,14 @@ describe('ClickCounter component', async assert => {
 });
 ```
 
-I like to create little factory functions to make it easier to write tests. In this case, `createCounter` will take a number of clicks to inject, and return a rendered component using that number of clicks:
-
+我会新建一些工厂函数让编写测试变得更简单。在本例中，`createCounter` 将单击次数的数值进行注入, 并使用该次数返回渲染后的组件：
 ```js
 const createCounter = clickCount =>
   render(<ClickCounter clicks={ clickCount } />)
 ;
 ```
 
-With the tests written, it’s time to create our `ClickCounter` display component. I've colocated mine in the same folder with my test file, with the name, `click-counter-component.js`. First, let's write a component fragment and watch our test fail:
+编写测试后，就是创建 `ClickCounter` 显示组件的时候了。我已经将显示组件和 `click-counter-component.js` 测试文件放在同一个文件夹中。首先，让我们编写一个组件 fragment 来监视测试是否失败：
 
 ```js
 import React, { Fragment } from 'react';
