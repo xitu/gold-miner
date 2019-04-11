@@ -15,7 +15,7 @@
 
 ## 尽可能使用 bindings 
 
-[自定义 binding adapter](https://developer.android.com/topic/libraries/data-binding/binding-adapters#custom-logic) 是一种给 View 控件轻松提供自定义功能的好方法。和许多开发者一样，我对 binding adapter 研究得稍微深入，最终总结出一套包含不同质量的[15 种适配器](https://github.com/chrisbanes/tivi/blob/5f785284b618002622781b44806fa469fc2b982e/app/src/main/java/app/tivi/ui/databinding/TiviBindingAdapters.kt)的类集。
+[自定义 binding adapter](https://developer.android.com/topic/libraries/data-binding/binding-adapters#custom-logic) 是一种给 View 控件轻松提供自定义功能的好方法。和许多开发者一样，我对 binding adapter 研究得稍微深入，最终总结出一套包含[15 种不同用途的适配器](https://github.com/chrisbanes/tivi/blob/5f785284b618002622781b44806fa469fc2b982e/app/src/main/java/app/tivi/ui/databinding/TiviBindingAdapters.kt)的类集。
 
 最糟糕的实践是这类适配器，它们生成格式化的字符串并设置到 `TextViews` 控件，这些适配器通常仅在同一个布局文件中使用：
 
@@ -25,7 +25,7 @@
 
 2. **你需要使用 instrumentation 工具来做测试**。根据定义，你的 binding adapter 不会有返回值，它们接收一个输入参数后设置 view 的属性。这就意味着你必须使用 instrumentation 来测试你的自定义逻辑，这样会使得测试变得既缓慢又难以维护。
 
-3. **自定义 binding adapter 代码（通常）不是最佳选项**。如过你查看内建文本绑定[[参考这里](https://android.googlesource.com/platform/frameworks/data-binding/+/master/extensions/baseAdapters/src/main/java/android/databinding/adapters/TextViewBindingAdapter.java#63)], 你将会看到已经做了许多检查来避免调用 [`TextView.setText()`](https://developer.android.com/reference/android/widget/TextView.html#setText(java.lang.CharSequence)), 这样就节省了被浪费的布局检测。我觉得自己陷入了这样的思维困境：DB 库将会自动优化我的 view 更新。它确实可以做到，但**仅限于**你使用被谨慎优化的内建 binding adapter的情况。
+3. **自定义 binding adapter 代码（通常）不是最佳选项**。如果你查看内建文本绑定[[参考这里](https://android.googlesource.com/platform/frameworks/data-binding/+/master/extensions/baseAdapters/src/main/java/android/databinding/adapters/TextViewBindingAdapter.java#63)], 你将会看到已经做了许多检查来避免调用 [`TextView.setText()`](https://developer.android.com/reference/android/widget/TextView.html#setText(java.lang.CharSequence)), 这样就节省了被浪费的布局检测。我觉得自己陷入了这样的思维困境：DB 库将会自动优化我的 view 更新。它确实可以做到，但**仅限于**你使用被谨慎优化的内建 binding adapter的情况。
 
 相反的，把你的方法的逻辑抽象为内聚类（我称之为文本创建者类），然后将它们传递给 binding。这样你就可以调用你的文本创建者类并使用内建 view binding：
 
@@ -37,13 +37,13 @@
 
 这可以像检查当前使用的视图以及你设置的内容一样简单。这里有一个我们为 `android:drawable` 重新实现了标准 ImageView adapter 的样例：
 
-遗憾的是，视图并不总是能够显示我们需要检查的状态。这里有一个在 TextView 上设置切换最大行的示例。它通过改变 TextView 的 `maxLines` 属性以及一个[延时布局转换](https://developer.android.com/reference/androidx/transition/TransitionManager.html#beginDelayedTransition(android.view.ViewGroup)来实现切换。
+遗憾的是，视图并不总是能够显示我们需要检查的状态。这里有一个在 TextView 上设置切换最大行的示例。它通过改变 TextView 的 `maxLines` 属性以及一个[延时布局转换](https://developer.android.com/reference/androidx/transition/TransitionManager.html#beginDelayedTransition)(android.view.ViewGroup)来实现切换。
 
 ![这样你就可以了解它的作用](https://cdn-images-1.medium.com/max/2000/1*1EFkuX5VCoVr3tZ7OhUdYg.gif)
 
-之前 binding adapter 比较简单并且总是设置了 `maxLines` 属性和一个点击监听对象。TextView 在 `[setMaxLines()](https://developer.android.com/reference/android/widget/TextView.html#setMaxLines(int))` 被调用后总会触发一次布局，这就意味着每次 binding adapter 启动，一次布局就会被触发。
+之前 binding adapter 比较简单并且总是设置了 `maxLines` 属性和一个点击监听对象。TextView 在 [`setMaxLines()`](https://developer.android.com/reference/android/widget/TextView.html#setMaxLines(int)) 被调用后总会触发一次布局，这就意味着每次 binding adapter 启动，一次布局就会被触发。
 
-让我们改变这个情况。由于此功能与TextView 是完全分开的（我们只是在单击时使用不同的值调用 `setMaxLines（）`），我们需要将引用存储为当前状态。幸运的是，『DB 库』为我们提供了一个手工方式去在 binding adapter 中接收状态。通过提供参数两次：第一个参数接收**当前**值，第二个参数接收**新**值。
+让我们改变这个情况。由于此功能与 TextView 是完全分开的（我们只是在单击时使用不同的值调用 `setMaxLines()`），我们需要将引用存储为当前状态。幸运的是，『DB 库』为我们提供了一个手工方式去在 binding adapter 中接收状态。通过提供参数两次：第一个参数接收**当前**值，第二个参数接收**新**值。
 
 所以这里我们只需比较**当前的**和**新的** `collapsedMaxLines` 值。如果值实际发生了改变，我们才去调用 `setMaxLines()` 等方法。
 
