@@ -27,11 +27,11 @@
 
 ### 什么是 shadow DOM ？
 
-在[介绍文章](https://juejin.im/post/5c9a3cce5188252d9b3771ad)中我们说到，shadow DOM ”能够隔离 CSS 和 JavaScript，和 `<iframe>` 非常相似“。在 shadow DOM 中选择器和样式不会作用于 shadow root 以外，shadow root 以外的样式也不会影响 shadow DOM。只有极个别的继承于父文件的样式（例如：`rem`）可以在内部重写覆盖。
+在[介绍文章](https://juejin.im/post/5c9a3cce5188252d9b3771ad)中我们说到，shadow DOM ”能够隔离 CSS 和 JavaScript，和 `<iframe>` 非常相似“。在 shadow DOM 中选择器和样式不会作用于 shadow root 以外，shadow root 以外的样式也不会影响 shadow DOM 内部。不过有一些特例，像是 font family 或者 font sizes（例如：`rem`）可以在内部重写覆盖。
 
 但是不同于 `<iframe>`，所有的 shadow root 仍然存在于同一份文件当中，因此所有的代码都可以在指定的上下文中编写，而不必担心和其他样式或者选择器冲突。
 
-### 在对话框中添加 shadow DOM
+### 在我们的对话框中添加 shadow DOM
 
 为了添加一个 shadow root（shadow 树的基本节点/文档片段），我们需要调用元素的 `attachShadow` 方法：
 
@@ -45,9 +45,9 @@ class OneDialog extends HTMLElement {
 }
 ```
 
-通过调用 `attachShadow` 方法并设置参数 `mode:` `'open'`，我们在元素的 `element.shadowRoot` 属性中保存一份对 shadow root 的引用。`attachShadow` 方法将始终返回一个 shadow root 的引用，但是在这里我们不会用到它。
+通过调用 `attachShadow` 方法并设置参数 `mode: 'open'`，我们在元素的 `element.shadowRoot` 属性中保存一份对 shadow root 的引用。`attachShadow` 方法将始终返回一个 shadow root 的引用，但是在这里我们不会用到它。
 
-如果我们调用 `attachShadow` 方法并设置参数 `mode: closed'`，元素上将不会存储任何引用，我们必须通过使用 `WeakMap` 或者 `Object` 来实现存储和检索，设置节点自身为键，shadow root 为值。
+如果我们调用 `attachShadow` 方法并设置参数 `mode: 'closed'`，元素上将不会存储任何引用，我们必须通过使用 `WeakMap` 或者 `Object` 来实现存储和检索，将节点自身设置为键，shadow root 设置为值。
 
 ```
 const shadowRoots = new WeakMap();
@@ -66,17 +66,17 @@ class ClosedRoot extends HTMLElement {
 }
 ```
 
-我们还可以在元素自身上保存对 shadow root 的引用，使用 `Symbol` 或者其他的键来设置 shadow root 为私有属性。
+我们还可以在元素自身上保存对 shadow root 的引用，通过使用 `Symbol` 或者其他的键来设置 shadow root 为私有属性。
 
-通常，有一些原生元素（例如：`<audio>` 或者 `<video>`），它们会在自己的实现中使用 shadow DOM，shadow root 的关闭模式就是为了这些原生元素而存在。此外，在单元测试中，取决于库的架构方式，我们可能无法获取 `shadowRoots` 对象，导致我们无法定位到元素内部的更改。
+通常，有一些原生元素（例如：`<audio>` 或者 `<video>`），它们会在自身的实现中使用 shadow DOM，shadow root 的关闭模式就是为了这些元素而存在的。此外，基于库的架构方式，在元素的单元测试中，我们可能无法获取 `shadowRoots` 对象，导致我们无法定位到元素内部的更改。
 
-**对于用户主动使用关闭模式下的 shadow root 可能存在一些合理的用例，但是它们很少**，所以我们将在我们的对话框中坚持使用 shadow root 的打开模式。
+**对于用户主动使用关闭模式下的 shadow root 可能存在一些合理的用例，但是它们很少而且目的各不相同**，所以我们将在我们的对话框中坚持使用 shadow root 的打开模式。
 
 在实现新的打开模式下的 shadow root 之后，你可能注意到现在当我们尝试运行时，我们的元素已经完全无法使用了：
 
 在 [CodePen](https://codepen.io) 中查看[对话框示例：使用模板以及 shadow root](https://codepen.io/calebdwilliams/pen/WPLwzv/)。
 
-这是因为我们之前拥有的所有内容都被添加在传统 DOM（我们称之为[light DOM](https://stackoverflow.com/questions/42093610/difference-between-light-dom-and-shadow-dom)）中，并在其中被操作。既然现在我们的元素附属于一个 shadow DOM，那么就没有一个 light DOM 可以渲染的出口。让我们通过将内容放到 shadow DOM 中来解决这个问题：
+这是因为我们之前拥有的所有内容都被添加在传统 DOM（我们称之为[light DOM](https://stackoverflow.com/questions/42093610/difference-between-light-dom-and-shadow-dom)）中，并在其中被操作。既然现在我们的元素上绑定了一个 shadow DOM，那么就没有一个 light DOM 可以渲染的出口。我们可以通过将内容放到 shadow DOM 中来解决这个问题：
 
 ```
 class OneDialog extends HTMLElement {
@@ -141,7 +141,7 @@ customElements.define('one-dialog', OneDialog);
 
 ### 渲染来自 light DOM 的内容
 
-[shadow DOM 规范](https://www.w3.org/TR/shadow-dom/)包括一种允许 shadow root 外部的内容在我们的自定义元素内呈现的方法。它和 AngularJS 中的 `ng-transclude` 概念以及在 React 中使用 `props.children` 都很相似。在 Web Components 中，我们可以通过使用 `<slot>` 元素实现。
+[shadow DOM 规范](https://www.w3.org/TR/shadow-dom/)包括了一种允许在我们的自定义元素内，渲染 shadow root 外部的内容的方法。它和 AngularJS 中的 `ng-transclude` 概念以及在 React 中使用 `props.children` 都很相似。在 Web Components 中，我们可以通过使用 `<slot>` 元素实现。
 
 这里有一个简单的例子：
 
@@ -154,13 +154,13 @@ customElements.define('one-dialog', OneDialog);
 </div>
 ```
 
-一个给定的 shadow root 可以拥有任意数量的插槽元素，可以用 `name` 属性来区分。Shadow root 中没有名称的第一个插槽将是默认插槽，未分配的所有内容将在该节点内按文档流（从左到右，从上到下）显示。我们的对话框确实需要两个插槽：标题和一些内容（我们将设置为默认插槽）。
+一个给定的 shadow root 可以拥有任意数量的 slot 元素，可以用 `name` 属性来区分。Shadow root 中没有名称的第一个 slot 将是默认 slot，未分配的所有内容将在该节点内按文档流（从左到右，从上到下）显示。我们的对话框确实需要两个 slot：标题和一些内容（我们将设置为默认 slot）。
 
-在 [CodePen](https://codepen.io) 中查看[对话框示例：使用 shadow root 以及插槽](https://codepen.io/calebdwilliams/pen/dawXJb/)。
+在 [CodePen](https://codepen.io) 中查看[对话框示例：使用 shadow root 以及 slot](https://codepen.io/calebdwilliams/pen/dawXJb/)。
 
-继续更改对话框的 HTML 部分并查看结果。Light DOM 内部的任何内容都被放入到分配给它的插槽中。被插入的内容依旧保留在 light DOM 中，尽管它被渲染的好像在 shadow DOM 中一样。这意味着这些元素的内容和样式都可以由使用者定义。
+继续更改对话框的 HTML 部分并查看结果。Light DOM 内部的任何内容都被放入到分配给它的 slot 中。被插入的内容依旧保留在 light DOM 中，尽管它被渲染的好像在 shadow DOM 中一样。这意味着这些元素的内容和样式都可以由使用者定义。
 
-Shadow root 的使用者通过 CSS `::slotted()` 伪选择器，可以有限度地定义 light DOM 中内容的样式；然而，插槽中的 DOM 树是折叠的，所以只有简单的选择器可以工作。换句话说，在前面示例的扁平的 DOM 树中，我们无法设置在 `<p>` 元素内部的 `<strong>` 元素的样式。
+Shadow root 的使用者通过 CSS `::slotted()` 伪选择器，可以有限度地定义 light DOM 中内容的样式；然而，slot 中的 DOM 树是折叠的，所以只有简单的选择器可以工作。换句话说，在前面示例的扁平的 DOM 树中，我们无法设置在 `<p>` 元素内部的 `<strong>` 元素的样式。
 
 ### 两全其美的方法
 
@@ -245,7 +245,7 @@ attributeChangedCallback(attrName, oldValue, newValue) {
 
 #### CSS 自定义属性
 
-使用 [CSS 自定义属性](https://css-tricks.com/guides/css-custom-properties/)（也被称为 CSS 变量）的一个好处是它们可以在 shadow DOM 中回流。在设计上，为组件使用者提供了一个接口，允许他们从外部定义组件的主题和样式。然而，值得注意的是，因为 CSS 级联的缘故，在 shadow root 内部对于自定义样式的更改不会回流。
+使用 [CSS 自定义属性](https://css-tricks.com/guides/css-custom-properties/)（也被称为 CSS 变量）的一个好处是它们可以传入 shadow DOM 内。在设计上，为组件使用者提供了一个接口，允许他们从外部定义组件的主题和样式。然而，值得注意的是，因为 CSS 级联的缘故，在 shadow root 内部对于自定义样式的更改不会回流。
 
 在 [CodePen](https://codepen.io) 中查看[CSS 自定义样式以及 shadow DOM](https://codepen.io/calebdwilliams/pen/eXJZza/)。
 
