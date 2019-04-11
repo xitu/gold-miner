@@ -7,13 +7,13 @@
 
 # Normalization vs Standardization — Quantitative analysis
 
-### Stop using StandardScaler from Sklearn as a default feature scaling method can get you a boost of 7% in accuracy, even when you hyperparameters are tuned!
+Stop using StandardScaler from Sklearn as a default feature scaling method can get you a boost of 7% in accuracy, even when you hyperparameters are tuned!
 
 ![[https://365datascience.com/standardization/](https://365datascience.com/standardization/)](https://cdn-images-1.medium.com/max/2000/1*dZlwWGNhFco5bmpfwYyLCQ.png)
 
 Every ML practitioner knows that feature scaling is an important issue (read more [here](https://medium.com/greyatom/why-how-and-when-to-scale-your-features-4b30ab09db5e)).
 
-The two most discussed scaling methods are Normalization and Standardization. ****Normalization**** typically means rescales the values into a range of [0,1]. ****Standardization**** undefinedtypically means rescales data to have a mean of 0 and a standard deviation of 1 (unit variance).
+The two most discussed scaling methods are Normalization and Standardization. **Normalization** typically means rescales the values into a range of [0,1]. **Standardization** undefinedtypically means rescales data to have a mean of 0 and a standard deviation of 1 (unit variance).
 
 In this blog, I conducted a few experiments and hope to answer questions like:
 
@@ -30,37 +30,31 @@ I’ll analyze the empirical results of applying different scaling methods on fe
 ## Table of Contests
 
 * 0. Why are we here?
-
 * 1. Out-of-the-box classifiers
-
 * 2. Classifier + Scaling
-
 * 3. Classifier + Scaling + PCA
-
 * 4. Classifier + Scaling + PCA + Hyperparameter Tuning
-
 * 5. All again on more datasets:
-
 * — 5.1 Rain in Australia dataset
-
 * — 5.2 Bank Marketing dataset
-
 * — 5.3 Income classification dataset
-
 * — 5.4 Income classification dataset
-
 * Conclusions
 
 ## 0. Why are we here?
 
 First, I was trying to understand what is the difference between Normalization and Standardization.
+
 So, I encountered this excellent [blog](https://sebastianraschka.com/Articles/2014_about_feature_scaling.html) by Sebastian Raschka that supplies a mathematical background that satisfied my curiosity. **Please take 5 minutes to read this blog if you are not familiar with Normalization or Standardization concepts.**
+
 There is also a great explanation of the need for scaling features when dealing with classifiers that trained using gradient descendent methods( like neural networks) by famous Hinton [here](https://www.youtube.com/watch?v=Xjtu1L7RwVM&list=PLoRl3Ht4JOcdU872GhiYWf6jwrk_SNhz9&index=26).
 
-Ok, we grabbed some math, that’s it? Not quite. 
+Ok, we grabbed some math, that’s it? Not quite.
+
 When I checked the popular ML library Sklearn, I saw that there are lots of different scaling methods. There is a great visualization of [the effect of different scalers on data with outliers](https://scikit-learn.org/stable/auto_examples/preprocessing/plot_all_scaling.html#sphx-glr-auto-examples-preprocessing-plot-all-scaling-py). But they didn’t show how it affects classification tasks with different classifiers.
 
-I saw a lot of ML pipelines tutorials that use StandardScaler (usually called Z-score Standardization) or MinMaxScaler (usually called min-max Normalization) to scale features. Why does no one use other scaling techniques for classification? Is it possible that StandardScaler or MinMaxScaler are the best scaling methods? 
+I saw a lot of ML pipelines tutorials that use StandardScaler (usually called Z-score Standardization) or MinMaxScaler (usually called min-max Normalization) to scale features. Why does no one use other scaling techniques for classification? Is it possible that StandardScaler or MinMaxScaler are the best scaling methods?
+
 I didn’t see any explanation in the tutorials about why or when to use each one of them, so I thought I’d investigate the performance of these techniques by running some experiments. **This is what this notebook is all about**
 
 ## Project details
@@ -105,7 +99,7 @@ The scalers I used are denoted as:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*XU4abA9kv7Fohqk2WtQ2ag.png)
 
-*Do not confuse Normalizer, the last scaler in the list above with the min-max normalization technique I discussed before. The min-max normalization is the second in the list and named MinMaxScaler. The Normalizer class from Sklearn normalizes samples individually to unit norm. **It is not column based but a row based normalization technique.**
+* Do not confuse Normalizer, the last scaler in the list above with the min-max normalization technique I discussed before. The min-max normalization is the second in the list and named MinMaxScaler. The Normalizer class from Sklearn normalizes samples individually to unit norm. **It is not column based but a row based normalization technique.**
 
 ## Experiment details:
 
@@ -205,14 +199,14 @@ Best classifier from each model:
 
 ## Let’s analyze the results
 
- 1. **There is no single scaling method to rule them all.**
+1. **There is no single scaling method to rule them all.**
 
- 2. We can see that scaling improved the results. SVM, MLP, KNN, and NB got a significant boost from different scaling methods.
+2. We can see that scaling improved the results. SVM, MLP, KNN, and NB got a significant boost from different scaling methods.
 
- 3. Notice that NB, RF, LDA, CART are unaffected **by some** of the scaling methods. This is, of course, related to how each of the classifiers works. Trees are not affected by scaling because the splitting criterion first orders the values of each feature and then calculate the gini\entropy of the split. Some scaling methods keep this order, so no change to the accuracy score. 
+3. Notice that NB, RF, LDA, CART are unaffected **by some** of the scaling methods. This is, of course, related to how each of the classifiers works. Trees are not affected by scaling because the splitting criterion first orders the values of each feature and then calculate the gini\entropy of the split. Some scaling methods keep this order, so no change to the accuracy score. 
 NB is not affected because the model’s priors determined by the count in each class and not by the actual value. Linear Discriminant Analysis (LDA) finds it’s coefficients using the variation between the classes (check [this](https://www.youtube.com/watch?v=azXCzI57Yfc)), so the scaling doesn’t matter either.
 
- 4. Some of the scaling methods, like QuantileTransformer-Uniform, doesn’t preserve the exact order of the values in each feature, hence the change in score even in the above classifiers that were agnostic to other scaling methods.
+4. Some of the scaling methods, like QuantileTransformer-Uniform, doesn’t preserve the exact order of the values in each feature, hence the change in score even in the above classifiers that were agnostic to other scaling methods.
 
 ## 3. Classifier+Scaling+PCA
 
@@ -240,15 +234,15 @@ pivot_t_bold
 
 ## Let’s analyze the results
 
- 1. Most of the time scaling methods improve models with PCA, **but** undefinedno specific scaling method is in charge. 
+1. Most of the time scaling methods improve models with PCA, **but** undefinedno specific scaling method is in charge. 
 Let’s look at “QuantileTransformer-Uniform”, the method with most of the high scores. 
 In LDA-PCA it improved the results from 0.704 to 0.783 (8% jump in accuracy!), but in RF-PCA it makes things worse, from 0.711 to 0.668 (4.35% drop in accuracy!) 
 On the other hand, using RF-PCA with “QuantileTransformer-Normal”, improved the accuracy to 0.766 (5% jump in accuracy!)
 
- 2. We can see that PCA only improve LDA and RF, so PCA is not a magic solution.
+2. We can see that PCA only improve LDA and RF, so PCA is not a magic solution.
 It’s fine. We didn’t hypertune the n_components parameter, and even if we did, PCA doesn’t guarantee to improve predictions.
 
- 3. We can see that StandardScaler and MinMaxScaler achieve best scores only in 4 out of 16 cases. So we should think carefully what scaling method to choose, even as a default one.
+3. We can see that StandardScaler and MinMaxScaler achieve best scores only in 4 out of 16 cases. So we should think carefully what scaling method to choose, even as a default one.
 
 **We can conclude that even though PCA is a known component that benefits from scaling, no single scaling method always improved our results, and some of them even cause harm(RF-PCA with StandardScaler).**
 
@@ -393,7 +387,7 @@ Again, features in different scales.
 **Metric**: AUC **(imbalanced dataset)**
 **Dataset shape**: (32561, 7)
 **Counts for each class**:
- \<=50K 24720
+ <=50K 24720
  >50K 7841
 
 Here is a sample of 5 rows, we can’t show all the columns in one picture.
