@@ -9,7 +9,7 @@
 
 该系列由 5 篇文章构成，我们在前 4 篇文章中对构成 Web Components 标准的技术进行了[全面的介绍](https://juejin.im/post/5c9a3cce5188252d9b3771ad)。首先，我们研究了[如何创建 HTML 模板](https://juejin.im/post/5ca5b858e51d4524a918560f)，为接下来的工作做了铺垫。其次，我们深入了解了[自定义元素的创建](https://github.com/xitu/gold-miner/blob/master/TODO1/creating-a-custom-element-from-scratch.md)。接着，[我们将元素的样式和选择器封装到 shadow DOM 中](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)，这样我们的元素就完全独立了。
 
-我们通过创建自己的自定义模态对话框来探索这些工具的强大功能，该对话框可以在大多数现代应用程序上下文中使用，而忽略底层框架或库。在本文中，我们将介绍如何在各种框架中使用我们的元素，并介绍一些高级工具用来真正提高 Web Component 的技能。
+我们通过创建自己的自定义模态对话框来探索这些工具的强大功能，该对话框可以忽略底层框架或库，在大多数现代应用程序上下文中使用。在本文中，我们将介绍如何在各种框架中使用我们的元素，并介绍一些高级工具用来真正提高 Web Component 的技能。
 
 #### 系列文章：
 
@@ -25,7 +25,7 @@
 
 #### Angular
 
-首先，我们来看看 Angular 如何处理自定义元素。默认情况下，只要 Angular 遇到无法识别的元素（即默认浏览器元素或任何 Angular 定义的组件），它就会抛出模板错误。可以通过包含 `CUSTOM_ELEMENTS_SCHEMA` 来更改这个行为。
+首先，我们来看看 Angular 如何处理自定义元素。默认情况下，每当 Angular 遇到无法识别的元素（即默认浏览器元素或任何 Angular 定义的组件），它就会抛出模板错误。可以通过包含 `CUSTOM_ELEMENTS_SCHEMA` 来更改这个行为。
 
 > ……允许 NgModule 包含以下内容：
 > 
@@ -70,7 +70,7 @@ Vue 对 Web Components 的兼容性甚至比 Angular 更好，因为它不需要
 </one-dialog>
 ```
 
-然而，对 Angular 和 Vue 的一个警告是它们的默认表单控件。如果我们希望使用一个类似于可响应的表单或者 Angular 的 `[(ng-model)]` 或者 Vue 中的 `v-model` 的东西，我们需要设置管道，这个超出了本篇文章的讨论范围。
+然而，Angular 和 Vue 都需要注意的是它们的默认表单控件。如果我们希望使用一个类似于可响应的表单或者 Angular 的 `[(ng-model)]` 或者 Vue 中的 `v-model` 的东西，我们需要建立管道，这个超出了本篇文章的讨论范围。
 
 #### React
 
@@ -218,7 +218,7 @@ export default function OneDialog(props) {
 }
 ```
 
-现在我们可以在 React 中使用我们的对话框，但仍然可以在我们所有的应用程序中保持相同的 API（如果你喜欢的话，还可以不使用类）。
+现在我们可以在 React 中使用我们的对话框，而且可以在我们所有的应用程序中保持相同的 API（如果你喜欢的话，还可以不使用类）。
 
 ```
 import React, { useState } from 'react';
@@ -292,7 +292,7 @@ customElements.define('some-component', SomeComponent);
 
 在 [CodePen](https://codepen.io) 查看 [LitElement 示例](https://codepen.io/calebdwilliams/pen/omrXJx/)。
 
-你会注意到我们必须使用 `static properties` getter 定义我们想要 LitElement 监视的任何属性。使用该 API 会告诉基类每当对组件的属性进行更改时都要调用 `render` 函数。反过来，`render` 将仅更新需要更改的节点。
+你会注意到我们必须使用 `static properties` getter 定义任何我们想要 LitElement 监视的属性。使用该 API 会告诉基类每当对组件的属性进行更改时都要调用 `render` 函数。反过来，`render` 将仅更新需要更改的节点。
 
 因此，对于我们的对话框示例，它使用 LitElement 时看起来像这样：
 
