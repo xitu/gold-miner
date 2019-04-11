@@ -17,13 +17,13 @@ Plaid 是一款呈现 Material Design 风格和丰富交互界面的有趣应用
 
 * [**Restitching Plaid**: 把 Plaid 更新到最新应用标准](https://medium.com/@crafty/restitching-plaid-9ca5588d3b0a "https://medium.com/@crafty/restitching-plaid-9ca5588d3b0a")
 
-和大多数安卓应用一样，Plaid 依赖 Android Support Library，该库可以为新的安卓特性在运行着旧版操作系统的安卓机上提供向后兼容服务。在 2018 年的 9 月份，最新的 Support Library 版本（28.0.0）被发布，和 Support Library 一起发布的安卓库已经被迁移到 AndroidX（除了 Design 库被迁移到安卓的 Material Components），并且这些库的新增开发都是基于 AndroidX。因此，接收 bug 修复、新功能和其他库更新的唯一选择就需要将 Plaid 迁移到 AndroidX。
+和大多数安卓应用一样，Plaid 依赖 Android Support Library，该库可以为新安卓特性提供向后兼容性，以便可以运行在旧版操作系统的安卓机上。在 2018 年的 9 月份，最新的 Support Library 版本（28.0.0）被发布，和 Support Library 一起发布的安卓库已经被迁移到 AndroidX（除了 Design 库被迁移到 Android 的 Material Components），并且这些库的新增开发都是基于 AndroidX。因此，接收 bug 修复、新功能和其他库更新的唯一选择就需要将 Plaid 迁移到 AndroidX。
 
 ### 什么是 AndroidX?
 
-在 2018 Google I/O 大会上，安卓团队[发布了 AndroidX](https://android-developers.googleblog.com/2018/05/hello-world-androidx.html)。它是安卓团队用于开发、测试、打包、定版以及在 [Jetpack](https://developer.android.com/jetpack/) 中发布库时所用到的开源代码。和 Support Library 类似，每一个 [AndroidX](https://developer.android.com/jetpack/androidx/) 库都是独立于 Android OS 来发布，并且提供了跨安卓版本的向后兼容性。它是对 Support Library 的重大改进和大幅度的替代方案。
+在 2018 Google I/O 大会上，安卓团队[发布了 AndroidX](https://android-developers.googleblog.com/2018/05/hello-world-androidx.html)。它是安卓团队用于开发、测试、打包、定版以及在 [Jetpack](https://developer.android.com/jetpack/) 中发布库时所用到的[开源代码](https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev)。和 Support Library 类似，每一个 [AndroidX](https://developer.android.com/jetpack/androidx/) 库都是独立于 Android OS 来发布，并且提供了跨安卓版本的向后兼容性。它是对 Support Library 的重大改进和全面替代方案。
 
-继续阅读，来了解我们如何为迁移过程准备自己的代码，以及执行迁移过程。
+阅读下文来了解我们如何为迁移过程准备自己的代码，以及执行迁移过程。
 
 ### 迁移前准备
 
@@ -47,13 +47,13 @@ Plaid 是一款呈现 Material Design 风格和丰富交互界面的有趣应用
 
 ### 基于 Android Studio 的重构
 
-迁移过程中我们使用了 Android Studio 3.2.1 版本中内置的重构工具。 AndroidX 迁移工具位于菜单栏的 Refactor > Migrate to AndroidX 选项。这个选项将迁移包括所有模块整个项目。
+迁移过程中我们使用了 Android Studio 3.2.1 版本中内置的重构工具。 AndroidX 迁移工具位于菜单栏的 Refactor > Migrate to AndroidX 选项。这个选项将迁移整个项目的所有模块。
 
 ![](https://cdn-images-1.medium.com/max/800/1*lztKTBouffsQZyUbkNkYHA.png)
 
 运行 AndroidX 重构工具后的预览窗口
 
-如果你不使用 Android Studio 而更倾向于其他工具来做迁移，请参考 [Artifact](https://developer.android.com/jetpack/androidx/migrate#artifact_mappings) 和 [Class](https://developer.android.com/jetpack/androidx/migrate#class_mappings) 映射这些网页，这些材料也有提供 CSV 格式。
+如果你不使用 Android Studio 或者更倾向于其他工具来做迁移，请参考 [Artifact](https://developer.android.com/jetpack/androidx/migrate#artifact_mappings) 和 [Class](https://developer.android.com/jetpack/androidx/migrate#class_mappings) mappings 这些网页，这些材料也有提供 CSV 格式。
 
 Android Studio 中的 AndroidX 迁移工具是 AndroidX 迁移的一大来源。这个工具正在持续的优化中，所以如果你遇到问题或者希望查看某个功能，请在 Google 问题追踪页[提交一票](https://issuetracker.google.com/issues/new?component=460323)。
 
@@ -72,7 +72,7 @@ Execution failed for task ':app:transformDexArchiveWithExternalLibsDexMergerForD
 
 > com.android.builder.dexing.DexArchiveMergerException: Error while merging dex archives:
 
-Learn how to resolve the issue at https://developer.android.com/studio/build/dependencies#duplicate_classes.
+如何解决这个问题参考这里： https://developer.android.com/studio/build/dependencies#duplicate_classes.
 
 Program type already present: androidx.core.graphics.PathSegment
 ```
@@ -109,13 +109,13 @@ Alternatively, you can try to fix the problem by adding this snippet to /.../pla
 
 我们也借此机会更新了我们的 Gradle 插件版本、Gradle wrapper 版本、Kotlin 版本（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/b38f2cf74520693699fbcedcb0119778396ba0ec)）。Android Studio 推荐我们安装 28.0.3 版本的构建工具，我们也照做了。在使用 Gradle 3.3.0-alpha13 版本插件时我们遇到的问题，通过降级到 3.3.0-alpha8 版本的方式得到解决。
 
-迁移工具的一个缺点是：如果你在依赖版本项使用了变量，迁移工具把它们自动关联。我们从 build.gradle 文件中重新提取了这些版本（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/0c5a3d62a83ecf400de376f4b4e6e7c3a6bf3c2a)）。
+迁移工具的一个缺点是：如果你在依赖版本项使用了变量，迁移工具把它们自动内联。我们从 build.gradle 文件中重新提取了这些版本（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/0c5a3d62a83ecf400de376f4b4e6e7c3a6bf3c2a)）。
 
 上文中我们提到了运行 AndroidX 迁移工具后对 `plusAssign` 和 `Palette` 问题的临时解决方案。现在我们重新添加了 `plusAssign` 函数且关联了相关测试（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/0a5a5a3d50ece0f671201e1183b971fb4a3e158a)），通过使用之前的 AndroidX 版本来引用它，并且取消了上文对该函数的注释。同样的，我们把 `Palette` 参数更新到可以为空的这个版本（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/7aad3005ea8ab222443f1a2ea34252e25328d677)），这样就无需使用操作符 `!!`。
 
 同样的，自动转化可能使得某些类需要使用它们的完整类路径。做最少的手工修正是一个好的思路。作为清理工作的一部分，我们移除了完整类路径，并在必要时重新添加了相关引用。
 
-最后，一些少量测试相关的修改被加入工程，围绕着测试过程中的依赖冲突（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/9715e2f8fdabc21b6d73e2f11f31982e90292461)）和盒子测试（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/a997200ec98b8466c427d5ac16eae94bae816da9)）。这时我们的工程完成全部转化，并且我们的测试都已通过。
+最后，一些少量测试相关的修改被加入工程，围绕着测试过程中的依赖冲突（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/9715e2f8fdabc21b6d73e2f11f31982e90292461)）和 Room test（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/a997200ec98b8466c427d5ac16eae94bae816da9)）。这时我们的工程完成全部转化，并且我们的测试都已通过。
 
 ### 结束过程
 
