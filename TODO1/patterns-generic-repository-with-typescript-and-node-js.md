@@ -392,17 +392,16 @@ Don’t forget too, to click and claps on post.
 
 ### Links
 
-[https://github.com/ErickWendel/generic-repository-nodejs-typescript-article](https://github.com/ErickWendel/generic-repository-nodejs-typescript-article)
-[https://erickwendel.com.br](http://erickwendel.com.br/)
-[fb.com/page.erickwendel](https://www.facebook.com/page.erickwendel)
-
-[http://deviq.com/repository-pattern/](http://deviq.com/repository-pattern/)
-[http://hannesdorfmann.com/android/evolution-of-the-repository-pattern](http://hannesdorfmann.com/android/evolution-of-the-repository-pattern)
-[https://www.pluralsight.com/courses/domain-driven-design-fundamentals](https://www.pluralsight.com/courses/domain-driven-design-fundamentals)
-[https://en.wikipedia.org/wiki/Open/closed_principle](https://en.wikipedia.org/wiki/Open/closed_principle)
-[https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design))
-[https://medium.com/@cramirez92/s-o-l-i-d-the-first-5-priciples-of-object-oriented-design-with-javascript-790f6ac9b9fa](https://medium.com/@cramirez92/s-o-l-i-d-the-first-5-priciples-of-object-oriented-design-with-javascript-790f6ac9b9fa)
-[https://www.typescriptlang.org/docs/handbook/generics.html](https://www.typescriptlang.org/docs/handbook/generics.html)
+- [https://github.com/ErickWendel/generic-repository-nodejs-typescript-article](https://github.com/ErickWendel/generic-repository-nodejs-typescript-article)
+- [https://erickwendel.com.br](http://erickwendel.com.br/)
+- [fb.com/page.erickwendel](https://www.facebook.com/page.erickwendel)
+- [http://deviq.com/repository-pattern/](http://deviq.com/repository-pattern/)
+- [http://hannesdorfmann.com/android/evolution-of-the-repository-pattern](http://hannesdorfmann.com/android/evolution-of-the-repository-pattern)
+- [https://www.pluralsight.com/courses/domain-driven-design-fundamentals](https://www.pluralsight.com/courses/domain-driven-design-fundamentals)
+- [https://en.wikipedia.org/wiki/Open/closed_principle](https://en.wikipedia.org/wiki/Open/closed_principle)
+- [https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design))
+- [https://medium.com/@cramirez92/s-o-l-i-d-the-first-5-priciples-of-object-oriented-design-with-javascript-790f6ac9b9fa](https://medium.com/@cramirez92/s-o-l-i-d-the-first-5-priciples-of-object-oriented-design-with-javascript-790f6ac9b9fa)
+- [https://www.typescriptlang.org/docs/handbook/generics.html](https://www.typescriptlang.org/docs/handbook/generics.html)
 
 See ya 🤘
 
