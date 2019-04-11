@@ -5,89 +5,91 @@
 > * 译者：
 > * 校对者：
 
-# Will Node.js forever be the sluggish Golang?
+#Node.js 会永远只是慢的 Golang 吗？
 
-> Presenting new Node.js addons which drastically scramble the conditions
 
-It seems you cannot go a week without hearing about the next, allegedly faster, so called “web framework” for Node.js. Yes we all know Express is slow, but can yet another “web framework” really **improve** I/O performance? Beyond evading the overhead of Express, no, it cannot. To reach further you need to dig deep and redesign, not just slap a new layer on top.
+> 这篇文章展示的 Node.js 新扩展将极大地打乱这种情况
 
-Express is one of the oldest, so called “web framework” for Node.js. It builds on the out-of-box features Node.js provide, adding a nice App-centered programming interface to manage URL routes, parameters, methods and the like.
+似乎你总是不能避免听到下一个据称更快的所谓 Node.js “网络框架”。是的我们都知道 Express 很慢，但是存在另一个“网络框架”能真正**提升** I/O 性能吗？除了避免 Express 的运行开销之外，不，这些新框架并不能。想要走的更远，你需要对此深入挖掘并重新设计，而不仅仅是在 Node.js 顶上加新的一层。
 
-It is productive and elegant, sure, but lacks in performance. Emerging are projects like Fastify, and hundreds alike. They all aim to provide what Express does, at a lower performance penalty. But that’s exactly what they are; a **penalty**. Not an improvement. They’re still strictly limited to what Node.js can provide, and that’s not much as compared to the competition:
+Express 是 Node.js 生态中最古老的所谓“网络框架”之一。它构建在由 Node.js 所提供的开箱即用功能的基础之上，并添加了一个不错的编程接口，它以 App 为中心来管理 URL，路由，参数，方法等。
+
+当然，它既高效又优雅，但是在性能方面却不尽人意。最近还浮现出像 Fastify 以及其它数百个类似的网络框架。它们都旨在以较低的性能损失来提供 Express 中的功能。但事实就是如此；这是一种性能的**损失**而不是提升。它们仍然被严格限制在 Node.js 所能提供的范围内，这与其竞争对象相比还远远不够：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*1MrkEKoWL7MnDYuY3dk8aA.png)
 
-No so called “web framework” for Node.js, whether Fastify or not, can surpass the red line. This is a pretty low **upper limit** as compared to trending alternatives like Golang.
+对于 Node.js 来说并没有所谓的“网络框架”，无论是 Fastify 还是其它都不能越过 Node.js 中的红线。相对于像 Golang 这样热门的选择方案来说，这是一个相当低的**上限**。
 
-Luckily Node.js supports C++ addons, Google V8 bindings that link JavaScript to C++ and allows your JavaScript to invoke any behavior, even behavior that’s not provided by Node.js itself.
+幸运的是，Node.js 支持 C++ 扩展，Google 的 V8 绑定把 JavaScript 链接到 C++ 并且允许你的 JavaScript 代码调用其任何行为，甚至是 Node.js 本身并不提供的行为。
 
-This makes it possible to extend and redefine what’s possible to do with JavaScript. It opens up for JavaScript that performs to the full extent made possible by Google V8, not limited to what the Node.js “core programmers” have decided is good enough.
+这使得扩展和重新定义使用 JavaScript 的可能性成为可能。它为 JavaScript 打开了一片新天地，使之可以充分发挥 Google V8 的功能，而不用限制于 Node.js “核心开发者” 所认为的足够好的功能。
 
-### Releasing the new µWebSockets.js
 
-I’m releasing brand new code, µWebSockets.js, available on GitHub today:
-[https://github.com/uNetworking/uWebSockets.js](https://github.com/uNetworking/uWebSockets.js)
+### 发布新的 µWebSockets.js
 
-* Install for Node.js using NPM (although hosted on GitHub):
-npm install uNetworking/uWebSockets.js#v15.0.0 , see NPM install docs.
-* No compiler needed; Linux, macOS and Windows. We start at version 15.0.0 and increment according to SemVer.
+我将发布全新的代码 µWebSockets.js，今天就可以在 Github 上看到：
+[https://github.com/uNetworking/uWebSockets.js](https://github.com/uNetworking/uWebSockets.js)。
 
-It’s an alternative web server for JavaScript backends, written in ~6 thousand lines of C and C++, surpassing in performance the best of Golang by a large margin. Bitfinex.com already ported both of their trading APIs (REST & WebSocket) and are currently gradually putting it in production.
+* 使用 NPM 安装 Node.js（尽管托管在 GitHub 上）：
+npm install uNetworking/uWebSockets.js#v15.0.0，可以查看 NPM 安装文档。
+* 不需要编译器；Linux，macOS 和 Windows。我们从 15.0.0 版本开始并根据 SemVer 递增。
 
-> Paolo Ardoino from Bitfinex wanted to interject that “it’s a damn pretty cool project”.
+它是另一个用于 JavaScript 后端的 Web 服务，由大概 6 千行 C 和 C++ 代码编写，在性能方面极大的超过了 Golang。Bitfinex.com 已经把他们的交易接口（REST 和 WebSocket）迁移到了这个服务并且正在逐步将之投入生产。
 
-> **This work is made possible solely thanks to sponsors; BitMEX, Bitfinex and Coinbase have made this work possible. Thanks to them, we now have a new release! **
+> 来自 Bitfinex 的 Paolo Ardoino 想插一句话： “这是一个非常酷的项目”。
 
-### Please explain, what’s this all about?
+> **这项工作之所以成为可能，完全要感谢这些赞助者；BitMEX，Bitfinex 和 Coinbase 使这项工作成为可能。多亏了他们，我们现在有了一个新的版本！**
 
-This is a new project, new code licensed Apache 2.0, successor to what’s known as “uws”. It’s an entire stack, from OS kernel to Google V8, a complete bypass that brings stable, secure, standards-compliant, fast and lightweight I/O for Node.js:
+### 请解释下，这到底是怎么回事？
+
+这是在新的代码许可 Apache 2.0 协议下一个新的项目，是所谓 “uws” 的继任者。它是一个完整的栈，从系统内核到 Google V8 引擎，为 Node.js 带来稳定，安全，符合标准，快速且轻量级的 I/O：
 
 ![](https://cdn-images-1.medium.com/max/2462/1*s3YLN_-95DbHflLKOOahoQ.png)
 
-In this layered software design, where every layer depend only on the previous one, it becomes very easy to track and fix issues and/or extend with new support.
+在这个层级的软件设计中，其中的每一层都只依赖先前的层级，这使得无论是追踪和修复问题还是扩展新的支持将会变得很简单
 
-µSockets itself even has three sub layers, going from **eventing** to **networking** to **crypto**, each sub layer only aware of the previous one. This makes it possible to swap out parts, fix bugs, add alternative implementations all without changing any high level code.
+µSockets 其本身甚至还有 3 个子层级，从 **eventing** 到 **networking** 再到 **crypto**，每一个子层只知道前面的层级。这使得更换部件，修复问题和添加替代的实现都不需要更改任何高层的代码。
 
-Feeling tired of OpenSSL? Fine, swap it out by replacing ssl.c and its 600 lines of code. No other layer even knows what SSL is, so bugs are easy to locate.
+对 OpenSSL 感到疲倦了？那好，通过替换 ssl.c 和 它的 600 行代码来交换它。其它层甚至都不用知道 SSL 是什么，因此很容易定位错误。
 
 ![Internal sub layers of µSockets](https://cdn-images-1.medium.com/max/2000/0*KYceR1fpeHeUZE2E.png)
 
-This differs greatly from how Node.js is implemented, with its “all-and-everything-in-one” design. In one source file of Node.js you can find libuv calls, syscalls, OpenSSL calls, V8 calls. It’s all mixed up in a big mess with no sense of isolated purpose. This makes it hard to make any real change.
+这和 Node.js 的实现有很大的不同，其设计的实现为 “把一切都堆在一起”。在 Node.js 的一个源文件中，你可以找到 libuv 调用，系统调用，OpenSSL调用，V8 调用。这一切都混成一团而没有任何将其中模块独立的意愿。这使得它很难做出任何真正的改变。
 
-### Coding for µWebSockets.js, in a nutshell
+### 简而言之，为 µWebSockets.js 编码
 
-Following is an oversimplification, many concepts left out for brevity, but should give you an idea of what µWebSockets.js is all about:
+以下是一个 µWebSockets.js 的非常简化的实现，为了简洁起见遗漏了很多概念，但是应该能让你大概知道 µWebSockets.js 是什么：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*I6jsm23tYBFIJGxZKB07bg.png)
 
-It is possible to outperform, in some regards, Golang’s Gorilla WebSockets on an SSL vs. non-SSL basis. That is, your JS code on SSL can message faster than Golang can without SSL (in some regards). I think that’s pretty cool.
+在某些方面相比于 Golang 的 Gorilla Gorilla，在 SSL 和 非 SSL 基础上它可能表现的更好。也就是说，SSL 上的 JS 代码可以比没有在 SSL（在某些方面） 上的 Golang 更快的发送消息。我认为这真的很酷。
 
-### Fast pub/sub support
+### 快速的发布/订阅支持
 
-Socket.IO is in many ways the “real-time” equivalent of Express. Both are old, elegant and popular, but also **very** undefinedslow:
+Socket.IO 在很多方面就是 Express 的“实时”等价物。它们都同样的古老，优雅且受欢迎的，但是也**非常**不明确的慢：
 
 ![](https://cdn-images-1.medium.com/max/2098/1*dY6cHErkXrqFiyJS7IrR1g.png)
 
-Most of what Socket.IO helps you with boils down to pub/sub, the feature to emit messages to a room of multiple recipients, and to receive likewise.
-> Fallbacks are completely pointless today as every browser supports, and has supported for ages, WebSockets. SSL traffic cannot be interpreted by corporate proxies, and will pass through just like any Http traffic would, so WebSockets over SSL is definitely not going to be blocked. You can still have fallbacks, but they are pointless and incur unnecessary complexity.
+大部分 Socket.IO 所能帮助你的功能可以归纳为发布/订阅，即向包含多个接收者的房间发送信息的功能，以及与之对应接收消息的功能。
+>Fallbacks 在今天没有任何意义，因为每个浏览器都支持 WebSockets，而且这种情况已经持续很多年了。SSL 的流量不会被企业的代理劫持，并且将像任何 Http 流量一样通过，所以 SSL 上的 WebSockets 肯定不会被阻挡。你仍然可以有 fallbacks，但是它们毫无意义并且会产生不必要的复杂性。
 
-One goal with µWebSockets.js is to provide features similar to those found in Socket.IO to make it somewhat simple to swap away completely, without any wrapper on top. This while not enforcing any particular non-standard protocol.
+μWebSockets.js 的一个目标是提供类似于 Socket.IO 中的功能，使之有可能被完全替代，而不是在其顶部包装一层。这并不是强制执行任何特定的非标准协议。
 
-Many companies, most of them, struggle with some kind of pub/sub problem when it comes to WebSockets. Sadly, efficient pub/sub did not make the deadline for this release, but is coming shortly. Very high priority. It’s going to be really fast (benchmarks already put it faster than Redis). Keep an eye out!
+大多数公司当遇到 WebSockets 时都在和某些发布/订阅的问题作斗争。遗憾的是，高效的发布/订阅服务并没有在这次发布的最后期限提供，但是它马上就要来了。以非常高的优先级。它会非常快（基准测试中已经比 Redis 更快了）。注意！
 
-### What happens now?
+### 现在发生了什么？
 
-Polishing, adding features and correcting mistakes. There’s going to be a period of introduction where things will maybe not fit in completely from the start. Keep in mind, it’s a large project consisting of many thousands of lines of C++ and C in three different repositories:
+优化，添加特性和修正错误。开发在一开始并不是完全合适所以将会有一段时间的介绍期。请记住，它是一个由三个不同的仓库组成包含成千上万行代码的大型项目：
 
-* [https://github.com/uNetworking/uWebSockets.js](https://github.com/uNetworking/uWebSockets.js) (JavaScript wrapper)
-* [https://github.com/uNetworking/uWebSockets](https://github.com/uNetworking/uWebSockets) (C++ web server)
-* [https://github.com/uNetworking/uSockets](https://github.com/uNetworking/uSockets) (C foundation library)
+* [https://github.com/uNetworking/uWebSockets.js](https://github.com/uNetworking/uWebSockets.js) （JavaScript 包装层）
+* [https://github.com/uNetworking/uWebSockets](https://github.com/uNetworking/uWebSockets) （C++ 网络服务）
+* [https://github.com/uNetworking/uSockets](https://github.com/uNetworking/uSockets) （C 基础库）
 
-This project is used by companies with huge stress on I/O. Stability and security is (naturally & obviously) of **highest** undefinedpriority to the project. Make sure to report stability issues in early point-releases now that this code is a major and big release with tons of changes.
+一些在 I/O 上有巨大压力的公司在使用这个项目。稳定性和安全性（自然且明显的）是这个项目未定义的**最高**优先级。确保在早期的发布中报告稳定性问题，因为这份代码是一个包含大量更改的大版本。
 
-If you as a company think this project makes sense, and is of economic interest, make sure to get in contact. I do consulting and the like, in all kinds of ways. Contact: [https://github.com/alexhultman](https://github.com/alexhultman)
+如果你作为一家公司认为这个项目是有意义的，并且是有经济利益的，那么请确保和我们取得联系。我做各种各样的咨询工作。请联系：[https://github.com/alexhultman](https://github.com/alexhultman)
 
-Thanks!
+谢谢！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
