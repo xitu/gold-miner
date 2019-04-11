@@ -157,7 +157,7 @@ export default () =>
 ;
 ```
 
-If we save and run our tests, we’ll get a `TypeError`, which currently triggers Node's UnhandledPromiseRejectionWarning — eventually, Node will stop with the irritating warnings with the extra paragraph of `DeprecationWarning` and just throw an UnhandledPromiseRejectionError, instead. We get the `TypeError` because our selection returns `null`, and we're trying to run `.trim()` on it. Let's fix that by rendering the expected selector:
+如果保存并测试我们创建的测试，会得到一个 `TypeError` 错误, 该错误最终会触发 Node 的 `UnhandledPromiseRejectionWarning` 错误,Node 不会在额外的段落发出 `DeprecationWarning` 这种恼人的警告，而是抛出 `UnhandledPromiseRejectionError`。得到 `TypeError` 错误是由于我们的 selection 返回了我 `null`，并且我们尝试在它上面应用 `.trim()` 方法。让我们通过渲染期望的选择器来解决这个问题：
 
 ```js
 import React, { Fragment } from 'react';
@@ -169,7 +169,7 @@ export default () =>
 ;
 ```
 
-Great. Now we should have one passing test, and one failing test:
+很好，现在我们拥有了一个可以通过顺利通过的测试，和一个失败的测试：
 
 ```
 # ClickCounter component
@@ -183,7 +183,7 @@ not ok 3 Given a click count: should render the correct number of clicks.
 ...
 ```
 
-To fix it, take the count as a prop, and use the live prop value in the JSX:
+为了解决这一问题, 把 count 作为一个 prop， and use the live prop value in the JSX:
 
 ```js
 import React, { Fragment } from 'react';
@@ -195,7 +195,7 @@ export default ({ clicks }) =>
 ;
 ```
 
-Now our whole test suite is passing:
+现在，我们的这个测试套件都通过了测试：
 
 ```
 TAP version 13
@@ -212,7 +212,7 @@ ok 3 Given a click count: should render the correct number of clicks.
 # ok
 ```
 
-Time to test the button. First, add the test and watch it fail (TDD style):
+现在是时候测试 button 了。首先添加测试，并观察错误信息(TDD 惯用方式):
 
 ```js
 {
@@ -227,7 +227,7 @@ Time to test the button. First, add the test and watch it fail (TDD style):
 }
 ```
 
-This produces a failing test:
+上面的测试用例将产错误的测试：
 
 ```
 not ok 4 Given expected props: should render the click button
@@ -238,7 +238,7 @@ not ok 4 Given expected props: should render the click button
 ...
 ```
 
-Now we’ll implement the click button:
+现在，我们将应用 click button：
 
 ```js
 export default ({ clicks }) =>
@@ -249,7 +249,7 @@ export default ({ clicks }) =>
 ;
 ```
 
-And the test passes:
+接着测试通过：
 
 ```
 TAP version 13
@@ -267,17 +267,17 @@ ok 4 Given expected props: should render the click button.
 # ok
 ```
 
-Now we just need to implement the state logic and hook up the event handler.
+现在，我们仅需要应用 state 逻辑并将其与事件触发连接起来。
 
-## Unit Testing Stateful Components
+## 单元测试有状态的组件
 
-The approach I’m going to show you is probably overkill for a click counter, but most apps are far more complex than a click counter. State is often saved to database or shared between components. The popular refrain in the React community is to start with local component state and then lift it to a parent component or global app state on an as-needed basis.
+我下面向你展示的方法对于单击计数器来说可能有点大材小用，毕竟大多数应用程序都比单击计数器复杂得多。state 通常保存到数据库或在组件之间共享。React社区流行的做法是从本地组件 state 开始，然后根据需要将其提升到父组件或全局应用程序 state。
 
-It turns out that if you start your local component state management with pure functions, that process is easier to manage later. For this and other reasons (like React lifecycle confusion, state consistency, avoiding common bugs), I like to implement my state management using pure reducer functions. For local component state, you can then import them and apply the `useReducer` React hook.
+事实证明，如果使用纯函数启动本地组件 state 管理，那么该过程在以后更容易管理。鉴于此和其他原因（如 React 生命周期混乱、state 一致性、避免常见 bugs），我倾向于使用纯 reducer 函数来实现 state 管理。对于本地组件 state，可以导入它们并应用 `useReducer` React hook.。
 
-If you need to lift the state to be managed by a state manager like Redux, you’re already half way there before you even start: Unit tests and all.
+如果需要将 state 提升到由 Redux 这样的 state 管理器来管理，那么在开始单元测试之前就已经完成了一半。
 
-First, I’ll create a new test file for state reducers. I’ll colocate this in the same folder, but use a different file. I’m calling this one click-counter/click-counter-reducer.test.js:
+首先，我将为 state reducers 创建一个新的测试文件。我将把它放在同一个文件夹中，但使用不同的文件名。将这个测试文件命名为 click-counter/click-counter-reducer.test.js:
 
 ```js
 import { describe } from 'riteway';
@@ -294,9 +294,9 @@ describe('click counter reducer', async assert => {
 });
 ```
 
-I always start with an assertion to ensure that the reducer will produce a valid initial state. If you later decide to use Redux, it will call each reducer with no state in order to produce the initial state for the store. This also makes it really easy to create a valid initial state any time you need one for unit testing purposes, or to initialize your component state.
+我总是以一个断言开始，以确保 reducer 将产生一个有效的初始 state。如果你稍后决定使用 Redux，它将调用每个没有 state 的 reducer，以生成存储的初始 state。这也使得你在任何时候需要一个有效的初始 state 来进行单元测试或者初始化你的组件 state 变得非常容易。
 
-Of course, we’ll need to create a corresponding reducer file. I’m calling it click-counter/click-counter-reducer.js:
+当然，我们需要创建一个相应的 reducer 文件。 将其命名为click-counter/click-counter-reducer.js：
 
 ```js
 const click = () => {};
