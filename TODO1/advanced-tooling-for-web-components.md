@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components.md](https://github.com/xitu/gold-miner/blob/master/TODO1/advanced-tooling-for-web-components.md)
 > * 译者：[Xuyuey](https://github.com/Xuyuey)
-> * 校对者：[Long Xiong](https://github.com/xionglong58),[Ziyin Feng](https://github.com/Fengziyin1234)
+> * 校对者：[Long Xiong](https://github.com/xionglong58), [Ziyin Feng](https://github.com/Fengziyin1234)
 
 # Web Components 的高级工具
 
@@ -27,12 +27,12 @@
 
 首先，我们来看看 Angular 如何处理自定义元素。默认情况下，每当 Angular 遇到无法识别的元素（即默认浏览器元素或任何 Angular 定义的组件），它就会抛出模板错误。可以通过包含 `CUSTOM_ELEMENTS_SCHEMA` 来更改这个行为。
 
-> ……允许 NgModule 包含以下内容：
+> ...允许 NgModule 包含以下内容：
 > 
 > *   Non-Angular 元素用破折号（`-`）命名。
 > *   元素属性用破折号（`-`）命名。破折号是自定义元素的命名约定。
 > 
-> —— [Angular 文档](https://angular.io/api/core/CUSTOM_ELEMENTS_SCHEMA)
+> — [Angular 文档](https://angular.io/api/core/CUSTOM_ELEMENTS_SCHEMA)
 
 使用此架构就像在模块中添加它一样简单：
 
@@ -76,7 +76,7 @@ Vue 对 Web Components 的兼容性甚至比 Angular 更好，因为它不需要
 
 React 比 Angular 稍微复杂一点。[React 的虚拟 DOM](https://reactjs.org/docs/faq-internals.html) 有效地获取了一个 JSX 树并将其渲染为一个大对象。因此，React 不是像 Angular 或 Vue 一样，直接修改 HTML 元素上的属性，而是使用对象语法来跟踪需要对 DOM 进行的更改并批量更新它们。在大多数情况下这很好用。我们将对话框的 open 属性绑定到对象的属性上，在改变属性时响应非常好。
 
-当我们关闭对话框，开始调度 `CustomEvent` 时，会出现问题。 React 使用[合成事件系统](https://reactjs.org/docs/events.html)为我们实现了一系列原生事件监听器。不幸的是，这意味着像 `onDialogClosed` 这样的控制方法实际上不会将事件监听器附加到我们的组件上，因此我们必须找到其他方法。
+当我们关闭对话框，开始调度 `CustomEvent` 时，会出现问题。React 使用[合成事件系统](https://reactjs.org/docs/events.html)为我们实现了一系列原生事件监听器。不幸的是，这意味着像 `onDialogClosed` 这样的控制方法实际上不会将事件监听器附加到我们的组件上，因此我们必须找到其他方法。
 
 在 React 中添加自定义事件监听器的最著名的方法是使用 [DOM refs](https://reactjs.org/docs/refs-and-the-dom.html)。在这个模型中，我们可以直接引用我们的 HTML 节点。语法有点冗长，但效果很好：
 
@@ -197,7 +197,7 @@ OneDialog.propTypes = {
 };
 ```
 
-……或者，再次使用无状态函数组件和钩子：
+...或者，再次使用无状态函数组件和钩子：
 
 ```
 import React, { useRef, useEffect } from 'react';
@@ -300,7 +300,7 @@ customElements.define('some-component', SomeComponent);
 
 有几种可用的 lit-html 的变体，包括 [Haunted](https://github.com/matthewp/haunted)，一个用于 Web Components 的 React 钩子库，也可以使用 lit-html 作为基础来使用虚拟组件。
 
-目前，大多数现代 Web Components 工具都是 `LitElement` 的风格：一个从我们的组件中抽象出通用逻辑的基类。其他类型的有 [Stencil](https://stenciljs.com/)，[SkateJS](https://github.com/skatejs/skatejs)，[Angular Elements](https://angular.io/guide/elements) 和 [Polymer](https://www.polymer-project.org/)。
+目前，大多数现代 Web Components 工具都是 `LitElement` 的风格：一个从我们的组件中抽象出通用逻辑的基类。其他类型的有 [Stencil](https://stenciljs.com/)、[SkateJS](https://github.com/skatejs/skatejs)、[Angular Elements](https://angular.io/guide/elements) 和 [Polymer](https://www.polymer-project.org/)。
 
 ### 下一步
 
