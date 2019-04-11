@@ -7,7 +7,7 @@
 
 # 哪一个深度学习框架增长最迅猛？TensorFlow 还是 PyTorch？
 
-在 2018 年的 9 月，我在一篇 [文章](https://towardsdatascience.com/deep-learning-framework-power-scores-2018-23607ddf297a) 中，从需求量，工程使用量以及流行程度等方面对比了所有的主流深度学习框架。TensorFlow 处于绝对的王者地位，而 Pytorch 则是一位跃跃欲试的年轻挑战者。
+在 2018 年的 9 月，我在一篇[文章](https://towardsdatascience.com/deep-learning-framework-power-scores-2018-23607ddf297a)中，从需求量，工程使用量以及流行程度等方面对比了所有的主流深度学习框架。TensorFlow 处于绝对的王者地位，而 Pytorch 则是一位跃跃欲试的年轻挑战者。
 
 半年过去了，这种形势是否有所改变呢？
 
@@ -142,7 +142,7 @@ TensorFlow 是目前需求量最大且增长速度最快的框架，短时间内
 
 如果你准备学习 TensorFlow ，那么我建议你可以先从 Keras 开始。Chollet 的 [**Deep Learning with Python**](https://www.amazon.com/Deep-Learning-Python-Francois-Chollet/dp/1617294438) 和 Dan Becker 的 [DataCamp course on Keras](https://www.datacamp.com/courses/deep-learning-in-python) 是两本很好的入门教材。在 TensorFlow 2.0 中使用 Keras 作为高级 API 只需要通过 tf.keras 就可以调用。这里有一个 Chollet 写的 TensorFlow 2.0 快速入门 [教程](https://threader.app/thread/1105139360226140160)。
 
-如果你准备学习 PyTorch，我建议可以从 fast.ai 的 MOOC 文章 [Practical Deep Learning for Coders, v3](https://course.fast.ai/) 开始。你可以学习到深度学习的原理，和 fastai, PyTorch 的基础。
+如果你准备学习 PyTorch，我建议可以从 fast.ai 的 MOOC 文章 [Practical Deep Learning for Coders, v3](https://course.fast.ai/) 开始。你可以学习到深度学习的原理以及 fastai、PyTorch 的基础。
 
 那么，TensorFlow 和 PyTorch 的未来是什么呢？
 
@@ -154,11 +154,11 @@ TensorFlow 是目前需求量最大且增长速度最快的框架，短时间内
 
 此外，TensorFlow 最近公布了一项令人激动的计划：开发针对于 [Swift的TensorFlow版本](https://www.tensorflow.org/swift)。[Swift](https://swift.org/) 最初是由苹果公司构建的编程语言。相较于 Python，Swift 在执行和开发速度上有很多的优势。fast.ai 的联合创始人 Jeremy Howard 发布的 [消息](https://www.fast.ai/2019/03/06/fastai-swift/)，fast.ai 将在部分的进阶 MOOC 中使用 [TensorFLow的Swift版本](https://www.tensorflow.org/swift)。这个语言可能在最近的一两年不会完成，但是它一定会改进现存的深度学习框架。可以看到，语言和框架之间的合作和交叉学习正在进行着。
 
-[量子计算](https://en.wikipedia.org/wiki/Quantum_computing) 的进步也将影响深度学习框架。虽然可用的量子计算机还需要几年才能出现，但是 [Google](https://ai.google/research/teams/applied-science/quantum-ai/), [IBM](https://www.ibm.com/blogs/research/2019/03/machine-learning-quantum-advantage/), Microsoft和其他的公司已经在思考如何将量子计算和深度学习结合起来了。框架需要去慢慢适应这种新的技术。
+[量子计算](https://en.wikipedia.org/wiki/Quantum_computing) 的进步也将影响深度学习框架。虽然可用的量子计算机还需要几年才能出现，但是 [Google](https://ai.google/research/teams/applied-science/quantum-ai/)、[IBM](https://www.ibm.com/blogs/research/2019/03/machine-learning-quantum-advantage/)、Microsoft 和其他的公司已经在思考如何将量子计算和深度学习结合起来了。框架需要去慢慢适应这种新的技术。
 
 ## 结语
 
-你已经看到了 TensorFLow 和 PyTorch 的增长。它们都有很好的高级 API: tf.keras 和 fastai，它们可以降低初学者的学习门槛。你也已经看到了框架的新特性和未来方向。
+你已经看到了 TensorFLow 和 PyTorch 的增长。它们都有很好的高级 API：tf.keras 和 fastai，它们可以降低初学者的学习门槛。你也已经看到了框架的新特性和未来方向。
 
 如果需要使用文中的图表，可以到我的 [Kaggle Kernel](https://www.kaggle.com/discdiver/2019-deep-learning-framework-growth-scores) 中去获取相关内容。
 
