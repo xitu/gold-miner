@@ -30,7 +30,7 @@ let newArray = oldArray.map((value, index, array) => {
 
 上面的例子中，我们使用一个初始数组（`[1, 4, 6, 14, 32, 78]`），映射每个值到它自己的十倍（`val * 10`）。结果是一个新数组，初始数组的每个值被这个等式转换：`[10, 40, 60, 140, 320, 780]`。
 
-![An illustration of the code examples covered in this section.](https://css-tricks.com/wp-content/uploads/2019/03/arrays-01.png)
+![本节代码图解](https://css-tricks.com/wp-content/uploads/2019/03/arrays-01.png)
 
 
 ## Array.filter()
@@ -57,7 +57,7 @@ let newArray = oldArray.map((value, index, array) => {
 
 > 把 filter 想象成一个漏斗。部分混合物会从中穿过进入结果，而另一部分则会被留下并抛弃。
 
-![An illustration of a funnel with numbers going in the top and a few coming out of the bottom next to a handwritten version of the code covered in this section.](https://css-tricks.com/wp-content/uploads/2019/03/arrays-02.png)
+![本节代码图解，演示了数字从漏斗上面进去，其中小部分从下面出来，并附上手写的代码](https://css-tricks.com/wp-content/uploads/2019/03/arrays-02.png)
 
 假设宠物训练学校有一个四只狗的小班，学校里的所有狗都会经过各种挑战，然后参加一个分级期末考试。我们用一个对象数组来表示这些狗狗：
 
@@ -132,7 +132,7 @@ let finalVal = oldArray.reduce((accumulator, currentValue, currentIndex, array) 
 }), initalValue;
 ```
 
-![An illustration of a saucepan cooking ingredients next to handwritten code from the examples covered in this section.](https://css-tricks.com/wp-content/uploads/2019/03/arrays-03.png)
+![本节代码图解，演示了用炖锅调制调料，并附上手写的代码](https://css-tricks.com/wp-content/uploads/2019/03/arrays-03.png)
 
 来写一个炒菜函数和一个作料清单：
 
