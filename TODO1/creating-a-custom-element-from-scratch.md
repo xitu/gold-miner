@@ -133,9 +133,9 @@ class OneDialog extends HTMLElement {
 }
 ```
 
-getter 和 setter 将保证（HTML 元素节点上）的 `open` 特性和属性（在 DOM 对象上）的值同步。添加 `open` 特性会将 `element.open` 设置为 `true`，同样将 `element.open` 设置为 `true` 将会添加 `open` 属性。我们这样做是为了确保元素的状态由其属性反映出来。 这在技术上不是必需的，但被认为是创建自定义元素的最好办法。
+getter 和 setter 将保证（HTML 元素节点上）的 `open` 特性和属性（在 DOM 对象上）的值同步。添加 `open` 特性会将 `element.open` 设置为 `true`，同理，将 `element.open` 设置为 `true` 会添加 `open` 属性。我们这样做是为了确保元素的状态由其属性反映出来。虽然在技术层面上不一定需要，但被认为是创建自定义元素的最优办法。
 
-这会不可避免地导致一些样板，但是通过循环观察到的属性列表并使用 `Object.defineProperty` 创建一个保持这些属性同步的抽象类是一项相当简单的任务。
+虽然这会不可避免地导致一些样板，但是通过循环观察到的属性列表并使用 `Object.defineProperty` 创建一个保持这些属性同步的抽象类是一项相当简单的任务。
 
 ```
 class AbstractClass extends HTMLElement {
@@ -162,7 +162,7 @@ class AbstractClass extends HTMLElement {
 }
 
 // 在我们可以扩展抽象类，而不是直接扩展 HTMLElement
-class SomeElement extends AbstractClass { /** Omitted */ }
+class SomeElement extends AbstractClass { /** 省略 **/ }
 
 customElements.define('some-element', SomeElement);
 ```
@@ -173,7 +173,7 @@ customElements.define('some-element', SomeElement);
 
 ```
 class OneDialog extends HTMLElement {  
-  /** Omitted */
+  /** 省略 */
   constructor() {
     super();
     this.close = this.close.bind(this);
@@ -212,7 +212,7 @@ class OneDialog extends HTMLElement {
 }
 ```
 
-这里有很多事情，但让我们来看看。我们要做的第一件事就是获取我们的容器，在 `isOpen` 的基础上切换 `.open` 类。为了使我们的元素可访问，我们还需要切换 `aria-hidden` 属性
+这里有很多事情，但让我们来看看。我们要做的第一件事就是获取我们的容器，在 `isOpen` 的基础上切换 `.open` 类。为了使我们的元素可以访问，我们还需要切换 `aria-hidden` 属性
 
 如果对话框已经打开了，那么我们希望保存对先前聚焦元素的引用。这是为了考虑可访问性标准。我们还将一个 keydown 监听器添加到名为 `WatEscape` 的文档中，该文档在构造函数中绑定元素的 `this`，其模式类似于 React 处理类组件中的方法调用的方式。
 
@@ -242,11 +242,11 @@ class OneDialog extends HTMLElement {
 }
 ```
 
-现在我们有一个运行良好，大部分可访问的对话框元素。我们可以做一些修饰，比如将焦点集中在元素上，但这超出了我们在这里学习的范围。
+现在我们有一个运行良好，大部分可访问的对话框元素。我们可以做一些修饰，比如将焦点集中在元素上，但这超出了我们在本文学习的范围。
 
 还有一个生命周期方法 `adoptedCallback`。它不适用于我们的元素，其作用是元素被采用（插入）到 DOM 的另一部分时触发。
 
-在下面的示例中，您将看到我们的模板元素正被一个标准 `<one-dialog>` 元素所使用
+在下面的示例中，您将看到我们的模板元素正被一个标准元素 `<one-dialog>` 所使用
 
 请查阅笔记[对话框组件使用模板](https://codepen.io/calebdwilliams/pen/vbVXqv/) by Caleb Williams ([@calebdwilliams](https://codepen.io/calebdwilliams)) on [CodePen](https://codepen.io).
 
@@ -277,17 +277,17 @@ class DialogWorkflow extends HTMLElement {
 }
 ```
 
-这个元素没有任何表示逻辑，但充当应用程序状态的控制器。只需稍加努力，我们就可以重新创建类似 Redux 的状态管理系统，只使用一个自定义元素，可以在 React 的 Redux 容器组件所在的同一个应用程序中管理整个应用程序的状态。
+这个元素没有任何表示逻辑，但它充当了应用程序状态的控制器。只需稍加努力，我们就可以重新创建类似 Redux 的状态管理系统，只使用一个自定义元素，可以在 React 的 Redux 容器组件所在的同一个应用程序中管理整个应用程序的状态。
 
 ### 这是对自定义元素的深入了解
 
 现在我们对自定义元素有了很好的理解，我们的对话框开始融合在一起。但它仍然存在一些问题。
 
-请注意，我们必须添加一些 CSS 来重新设置对话框按钮，因为元素的样式会干扰页面的其余部分。虽然我们可以利用命名策略（如 BEM ）来确保我们的样式不会与其他组件产生冲突，但是有一种更友好的方式来隔离样式。那就是影子 DOM。本 Web Components 系列专题的下一篇文章就会谈到它。
+请注意，我们必须添加一些 CSS 来重新设置对话框按钮，因为元素的样式会干扰页面的其余部分。虽然我们可以利用命名策略（如 BEM ）来确保我们的样式不会与其他组件产生冲突，但是有一种更友好的方式来隔离样式。那就是 shadow DOM。本文系列 Web Components 专题的下一篇文章就会谈到它。
 
-**我们需要做的另一件事是为每个组件定义一个新模板，或者为我们的对话框找到一些切换模板的方法。就目前而言，每页只能有一个对话框类型，因为它使用的模板必须始终存在。因此，我们要么需要注入动态内容的方法，要么需要交换模板的方法。**
+**我们需要做的另一件事是为每个组件定义一个新模板，或者为我们的对话框找到一些切换模板的方法。就目前而言，每页只能有一个对话框类型，因为它使用的模板必须始终存在。因此，我们要么需要注入动态内容的方法，要么需要替换模板的方法。**
 
-在下一篇文章中，我们将研究如何通过使用影子 DOM 合并样式和内容封装来提高我们刚刚创建的 `<one-dialog>` 元素的可用性。
+在下一篇文章中，我们将研究如何通过使用 shadow DOM 合并样式和内容封装来提高我们刚刚创建的 `<one-dialog>` 元素的可用性。
 
 #### 系列文章：
 
