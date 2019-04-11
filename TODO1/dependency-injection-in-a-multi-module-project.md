@@ -17,8 +17,7 @@ Instead this post covers key takeaways of our efforts to modularize [Plaid](http
 ## Our setup
 
 In a previous post I wrote about the overall modularization story of Plaid.
-[**A patchwork Plaid — Monolith to modularized app**
-**How and why we modularized Plaid and what’s to come**medium.com](https://medium.com/androiddevelopers/a-patchwork-plaid-monolith-to-modularized-app-60235d9f212e)
+[**A patchwork Plaid — Monolith to modularized app: How and why we modularized Plaid and what’s to come**](https://medium.com/androiddevelopers/a-patchwork-plaid-monolith-to-modularized-app-60235d9f212e)
 
 Let me quickly recap what Plaid looks like from a bird’s eye view.
 
@@ -57,7 +56,8 @@ All the dependencies of the service can be passed into the provides function as 
 ## Our approach to introducing Dagger to Plaid
 
 At the time we decided to introduce Dagger into Plaid we had already learned a valuable lesson that is particularly true for modularization.
-> # Don’t try to cover too much ground at once.
+
+> Don’t try to cover too much ground at once.
 
 This means that it’s worthwhile to spend some time figuring out the smallest scope necessary to implement a new feature. This MVP we then discussed within the team to see whether we’re moving in the right direction. Adhering to this practice prevents us from running off with changes that are too large to efficiently work with. This also allows us to gradually roll out changes throughout our code base while everyone else continued working on their tasks.
 
