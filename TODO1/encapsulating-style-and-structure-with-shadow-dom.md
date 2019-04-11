@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
 > * 译者：[Xuyuey](https://github.com/Xuyuey)
-> * 校对者：
+> * 校对者：[邪无神](https://github.com/undead25), [Ziyin Feng](https://github.com/Fengziyin1234)
 
 # 使用 Shadow DOM 封装样式和结构
 
@@ -74,7 +74,7 @@ class ClosedRoot extends HTMLElement {
 
 在实现新的打开模式下的 shadow root 之后，你可能注意到现在当我们尝试运行时，我们的元素已经完全无法使用了：
 
-在 [CodePen](https://codepen.io) 中查看[对话框示例：使用模板 以及 shadow root](https://codepen.io/calebdwilliams/pen/WPLwzv/)。
+在 [CodePen](https://codepen.io) 中查看[对话框示例：使用模板以及 shadow root](https://codepen.io/calebdwilliams/pen/WPLwzv/)。
 
 这是因为我们之前拥有的所有内容都被添加在传统 DOM（我们称之为[light DOM](https://stackoverflow.com/questions/42093610/difference-between-light-dom-and-shadow-dom)）中，并在其中被操作。既然现在我们的元素附属于一个 shadow DOM，那么就没有一个 light DOM 可以渲染的出口。让我们通过将内容放到 shadow DOM 中来解决这个问题：
 
