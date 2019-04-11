@@ -76,7 +76,7 @@ class ClosedRoot extends HTMLElement {
 
 在 [CodePen](https://codepen.io) 中查看[对话框示例：使用模板 以及 shadow root](https://codepen.io/calebdwilliams/pen/WPLwzv/)。
 
-这是因为我们之前拥有的所有内容都被添加在传统 DOM（我们称之为[light DOM](https://stackoverflow.com/questions/42093610/difference-between-light-dom-and-shadow-dom)）中，并在其中被操作。既然现在我们的元素附属于一个 shadow DOM，那么就没有一个 light DOM 可以渲染的出口。让我们通过将内容移动到 shadow DOM 中来解决这个问题：
+这是因为我们之前拥有的所有内容都被添加在传统 DOM（我们称之为[light DOM](https://stackoverflow.com/questions/42093610/difference-between-light-dom-and-shadow-dom)）中，并在其中被操作。既然现在我们的元素附属于一个 shadow DOM，那么就没有一个 light DOM 可以渲染的出口。让我们通过将内容放到 shadow DOM 中来解决这个问题：
 
 ```
 class OneDialog extends HTMLElement {
@@ -133,17 +133,17 @@ class OneDialog extends HTMLElement {
 customElements.define('one-dialog', OneDialog);
 ```
 
-到目前为止，我们对话框的主要变化实际上相对较小，但它们带来了很大的影响。首先，我们所有的选择器（包括我们的样式定义）都在内部作用域内。例如，我们的对话框模板内部只有一个按钮，因此我们的 CSS 只针对 `button {...}`，而且这些样式不会泄漏到 light DOM 中。
+到目前为止，我们对话框的主要变化实际上相对较小，但它们带来了很大的影响。首先，我们所有的选择器（包括我们的样式定义）都在内部作用域内。例如，我们的对话框模板内部只有一个按钮，因此我们的 CSS 只针对 `button {...}`，而且这些样式不会影响到 light DOM。
 
-但是，我们仍然依赖于我们元素外部的模板。让我们通过从模板中删除这些标记并将它们放入我们的 shadow root 的 `innerHTML` 来改变它。
+但是，我们仍然依赖于元素外部的模板。让我们通过从模板中删除这些标记并将它们放入 shadow root 的 `innerHTML` 中来改变它。
 
 在 [CodePen](https://codepen.io) 中查看[对话框示例：仅使用 shadow root](https://codepen.io/calebdwilliams/pen/GzPqvo/)。
 
-### 包括来自 light DOM 的内容
+### 渲染来自 light DOM 的内容
 
 [shadow DOM 规范](https://www.w3.org/TR/shadow-dom/)包括一种允许 shadow root 外部的内容在我们的自定义元素内呈现的方法。它和 AngularJS 中的 `ng-transclude` 概念以及在 React 中使用 `props.children` 都很相似。在 Web Components 中，我们可以通过使用 `<slot>` 元素实现。
 
-一个简单的例子可能会像这样：
+这里有一个简单的例子：
 
 ```
 <div>
@@ -154,13 +154,13 @@ customElements.define('one-dialog', OneDialog);
 </div>
 ```
 
-一个给定的 shadow root 可以拥有任意数量的插槽元素，可以用 `name` 属性来区分。shadow root 中没有名称的第一个插槽将是默认插槽，未分配的所有内容将在该节点内按文档流（从左到右，从上到下）显示。我们的对话框确实需要两个插槽：标题和一些内容（我们将设置为默认插槽）。
+一个给定的 shadow root 可以拥有任意数量的插槽元素，可以用 `name` 属性来区分。Shadow root 中没有名称的第一个插槽将是默认插槽，未分配的所有内容将在该节点内按文档流（从左到右，从上到下）显示。我们的对话框确实需要两个插槽：标题和一些内容（我们将设置为默认插槽）。
 
 在 [CodePen](https://codepen.io) 中查看[对话框示例：使用 shadow root 以及插槽](https://codepen.io/calebdwilliams/pen/dawXJb/)。
 
 继续更改对话框的 HTML 部分并查看结果。Light DOM 内部的任何内容都被放入到分配给它的插槽中。被插入的内容依旧保留在 light DOM 中，尽管它被渲染的好像在 shadow DOM 中一样。这意味着这些元素的内容和样式都可以由使用者定义。
 
-使用 CSS `::slotted()` 伪选择器，在有限的范围内，一个 shadow root 的使用者**可以**定义存在于 light DOM 中内容的样式；然而，插槽中的 DOM 树是折叠的，所以只有简单的选择器可以工作。换句话说，在前面示例的扁平的 DOM 树中，我们将无法设置在 `<p>` 元素内部的 `<strong>` 元素的样式。
+Shadow root 的使用者通过 CSS `::slotted()` 伪选择器，可以有限度地定义 light DOM 中内容的样式；然而，插槽中的 DOM 树是折叠的，所以只有简单的选择器可以工作。换句话说，在前面示例的扁平的 DOM 树中，我们无法设置在 `<p>` 元素内部的 `<strong>` 元素的样式。
 
 ### 两全其美的方法
 
@@ -183,7 +183,7 @@ set template(template) {
 }
 ```
 
-在这里，通过将它直接绑定到相应的属性上，我们完成了和使用 `open` 属性时非常类似的事情。但是在底部，我们为我们的组件引入了一个新的方法：`render`。现在我们可以使用 `render` 方法插入我们 shadow DOM 的内容，并从 `connectedCallback` 中移除行为；相反，我们将在连接元素时调用 `render` 方法：
+在这里，通过将它直接绑定到相应的属性上，我们完成了和使用 `open` 属性时非常类似的事情。但是在底部，我们为我们的组件引入了一个新的方法：`render`。现在我们可以使用 `render` 方法插入 shadow DOM 的内容，并从 `connectedCallback` 中移除行为；相反，我们将在连接元素时调用 `render` 方法：
 
 ```
 connectedCallback() {
@@ -206,7 +206,7 @@ render() {
 }
 ```
 
-现在我们的对话框不仅拥有了一些非常基本的样式，而且可以允许使用者为每个实例定义一个新模板。如果我们想要，我们甚至可以基于它当前指向的模板使用 `attributeChangedCallback` 更新此组件：
+现在我们的对话框不仅拥有了一些非常基本的样式，而且可以允许使用者为每个实例定义一个新模板。我们甚至可以基于它当前指向的模板使用 `attributeChangedCallback` 更新此组件：
 
 ```
 static get observedAttributes() { return ['open', 'template']; }
@@ -231,7 +231,7 @@ attributeChangedCallback(attrName, oldValue, newValue) {
 
 在上面的示例中，改变 `<one-dialog>` 元素的 `template` 属性将改变元素渲染时使用的设计。
 
-### 定义 shadow DOM 样式的策略
+### Shadow DOM 样式策略
 
 目前，定义一个 shadow DOM 节点样式的唯一方法就是在 shadow root 的内部 HTML 中添加一个 `<style>` 元素。这种方法几乎在所有情况下都能正常工作，因为浏览器会在可能的情况下对这些组件中的样式表进行重写。这个**确实**会增加一些内存开销，但通常不足以引起关注。
 
@@ -239,9 +239,9 @@ attributeChangedCallback(attrName, oldValue, newValue) {
 
 你可能会问：“我们可以在 shadow root 内部使用 `<link>` 元素吗”？事实上，我们确实可以。但是当尝试在多个应用之间重用这个组件时可能会出现问题，因为在所有应用中 CSS 文件可能无法保存在同一个位置。但是，如果我们确定了元素样式表的位置，那么我们就可以使用 `<link>` 元素。在样式标签中包含 `@ import` 规则也是如此。
 
-值得一提的是，不是所有的组件都需要我们在这里使用的那种定义样式的方法。使用 CSS 的 `:host` 和 `:host-context` 选择器，我们可以简单地定义更多初级的组件为块级元素，并且允许用户以提供类名的方式定义样式，如背景色，字体设置等。
+值得一提的是，不是所有的组件都需要像这样定义样式。使用 CSS 的 `:host` 和 `:host-context` 选择器，我们可以简单地定义更多初级的组件为块级元素，并且允许用户以提供类名的方式定义样式，如背景色，字体设置等。
 
-另一方面，我们的对话框非常复杂。不像是列表框（由标签和复选框组成），它们可以仅作为一个原生元素的组合展示。这与样式策略一样有效，因为样式更明确（比如设计系统的目的，其中所有复选框可能看起来都是一样的）。这在很大程度上取决于你的用例。
+另一方面，我们的对话框非常复杂。不像列表框（由标签和复选框组成），可以只作为原生元素的组合来展示。这与样式策略一样有效，因为样式更明确（比如设计系统的目的，其中所有复选框可能看起来都是一样的）。这在很大程度上取决于你的使用场景。
 
 #### CSS 自定义属性
 
@@ -249,7 +249,7 @@ attributeChangedCallback(attrName, oldValue, newValue) {
 
 在 [CodePen](https://codepen.io) 中查看[CSS 自定义样式以及 shadow DOM](https://codepen.io/calebdwilliams/pen/eXJZza/)。
 
-继续注释或删除上面演示的 CSS 面板中设置的变量，看看它是如何影响渲染内容的。之后，你可以看一下 shadow DOM 的 `innerHTML` 中的样式，你会看到 shadow DOM 如何定义它自己的属性，不会影响到 light DOM。
+继续注释或删除上面示例中的 CSS 面板里设置的变量，看看它是如何影响渲染内容的。你可以看一下 shadow DOM 的 `innerHTML` 中的样式，不管 shadow DOM 如何定义它自己的属性，都不会影响到 light DOM。
 
 #### 可构造的样式表
 
