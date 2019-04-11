@@ -2,8 +2,8 @@
 > * 原文作者：[Jeff Hale](https://medium.com/@jeffhale)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/which-deep-learning-framework-is-growing-fastest.md](https://github.com/xitu/gold-miner/blob/master/TODO1/which-deep-learning-framework-is-growing-fastest.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ccJia](https://github.com/ccJia)
+> * 校对者：[luochen1992](https://github.com/luochen1992), [zhmhhu](https://github.com/zhmhhu)
 
 # 哪一个深度学习框架增长最迅猛？TensorFlow 还是 PyTorch？
 
