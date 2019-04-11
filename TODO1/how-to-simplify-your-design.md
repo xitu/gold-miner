@@ -5,188 +5,189 @@
 > * 译者：
 > * 校对者：
 
-# How to simplify your design
+# 怎么简化你的设计
 
-> 20+ easy to follow illustrated examples
+> 20+ 易于遵循的图示
 
 ![](https://cdn-images-1.medium.com/max/6642/1*vQ-7uBDYnOAR23XeamDffQ.jpeg)
 
-Companies are in constant pursuit of building simple and usable products. More features, new technologies, and advanced capabilities but still in a lightweight and simple to use format. More often than not, making it simple is the hardest thing there can be.
+各个公司都一直致力于打造简单实用的产品。并在轻量级并且简单的框架下，开发出更多的特性、新的技术和更高级的功能。通常来说，简单反而是最困难的事情。
 
-## What is “simplicity”?
+## 什么是 “简单”?
 
-We can define simple - as something that is easily understood or done; presenting no difficulty**.** undefinedSimplicity is a subjective, things that appear simple for one person will not be perceived identically by another. Generally, we form our personal opinion regarding any process being simple or complex, in three quick stages:
+让我们先给“简单”下一个定义 —  没有任何困难就可以理解和完成的事物。不被定义的“简单”是一个主观的概念， 一个人认为简单的事物对于另一个人来说可能并不简单。通常，我们会在三个阶段的过程中快速的形成我们对于简单和困难的个人观感：
 
 ![](https://cdn-images-1.medium.com/max/4080/1*LiHaOX6BjtCHutZclqWoeg.jpeg)
 
-**Removing difficulties on the way of users to their goals** — will help you move towards simplicity. In The Laws of Simplicity, John Maeda offers ten laws for balancing simplicity and complexity in business, technology, and design — guidelines for needing less and actually getting more.
+**让用户实现目标不再困难** — 将帮助你将产品变得简单。在简单法则中，John Maeda 定义了十条法则用于平衡业务，技术和设计的复杂程度，以引领通过简化而获得更多的设计方针。
 
-![The Laws of Simplicity, John Maeda: [http://lawsofsimplicity.com/](http://lawsofsimplicity.com/)](https://cdn-images-1.medium.com/max/4080/1*LDHS0cnrBa78ruUoUjcx5Q.jpeg)
+![简单法则, John Maeda: [http://lawsofsimplicity.com/](http://lawsofsimplicity.com/)](https://cdn-images-1.medium.com/max/4080/1*LDHS0cnrBa78ruUoUjcx5Q.jpeg)
 
-Maeda — a professor in MIT’s Media Lab and a world-renowned graphic designer — explores the question of how we can redefine the notion of “improved” so that it doesn’t always mean something more. And a book is a great read so I really recommend you to check it out.
+Maeda — 麻省理工学院媒体实验室的教授和世界知名的平面设计师 — 探讨了应该怎么来定义“提升”这个概念，让它不总只是意味着更多。这本书真的挺不错，我强烈推荐你看看。
 
-**What about complexity?**  
-Talking about simplicity we need to mention the opposite side of the spectrum. As simplicity sense of complexity is subjective. With appropriate training, even rocket science is not so hard. But there are several factors that tend to complicate even the simplest task. They should be avoided in product design as much as possible:
+**复杂又是什么样子？**  
+讨论简单的同时我们当然也应该讨论一下它的对立面。通常意义上的复杂是一个主观的感受。通过适当的学习，就算是火箭科学也不是那么的困难。但是有几个因素却会让最简单的事情也变得很复杂。它们应该在实际的产品设计中尽可能被避免：
 
 ![](https://cdn-images-1.medium.com/max/4080/1*RLs6G5NC4NYDIqDXs4Xgeg.jpeg)
 
-## So how can we apply it to product design?
+## 那么我们应该怎么将这些理念应用到产品设计？
 
-### 1. Build products with focused value
+### 1. 专注打造产品的核心价值
 
-There is so much software that tries to do so much for so many audiences, everyone tries to be a Swiss Army Knife of the industry. If you want your product to be simple you need to define a core value and identify who is this product really for. Not every product should have Facebook built-in.
+有太多的软件试图为受众做到太多的事情，它们都希望成为一个行业的瑞士军刀。但是如果你希望让你的产品变得简单，你需要为你的产品定义一个真正核心的价值。并不是每一个产品都需要内置一个 Facebook。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*rfjBL4vNYlUfXfjxEe_vng.jpeg)
 
-### 2. Remove everything unnecessary
+### 2. 移除不必要的东西
 
-The simplest way to achieve simplicity is through thoughtful reduction. When in doubt, just remove. Secondary information, not frequently used controls, and distracting styles. It’s as easy as that. Once you start to apply this principle you will immediately see the results. But be careful of what you remove.
+实现简单最容易的方式就是在深思熟虑后做减法。删除那些你觉得感到疑惑的东西。比如辅助信息，不常使用的控件和冗余的样式。只要轻松的删掉它们就可以了。一旦你使用这个原则，你将会马上看到效果。但是在做减法的时候一定得小心。
 
 ![](https://cdn-images-1.medium.com/max/8160/1*RhLi0SirFV906aqBOt7-Iw.jpeg)
 
-> “Simplicity is not the absence of clutter, that’s a consequence of simplicity. Simplicity is somehow essentially describing the purpose and place of an object and product. The absence of clutter is just a clutter-free product. That’s not simple.”-Jonathan Ive
+> “简单不是不杂乱，那只是简单的一个结果。简单是在某种程度上描述了事物和产品的位置和目的。不杂乱仅仅只能称作一个不杂乱的产品。但那并不是简单。”-Jonathan Ive
 
-### 3. Translate data into a meaningful format
+### 3. 将数据转化为有意义的格式
 
-Majority of products that we design daily are focused on a lot of data that the user needs to make sense of in order to efficiently carry on their daily task. When you know users interested in trends and changes, help them with visual representation rather than a bunch of numbers. You always can show additional information on demand. Try to extract the meaningful from the data you have and put it in front of the user.
+我们每天设计的产品都在关注用户需要使用的大量数据，以便有效的完成他们的日常工作。但是你的用户如果是对数据的趋势和变化更加感兴趣，请用可视化的展示呈现给他们而不仅仅是一堆数字。你可以按需展示所需要的额外数据。请尽量从你有的数据中提取出有意义的部分并将其展示在用户前面。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*Cu7y8fOmfomTWAEQs3mhFA.jpeg)
 
-### 4.Support quick decision making
+### 4.支持快速决策
 
-Users bombarded with choices have to take time to interpret and decide, giving them work they don’t want. This was famously explained by Hick’s Law. Hick’s Law predicts that the time and the effort it takes to make a decision increases with the number of options. So if you want your user experience to feel simple you need to support quick decision making as much as possible. Eliminate the need to choose when is not required, guide and handhold user.
+用户不得不花费时间去处理各种各样的决策，这是他们不喜欢干的事儿。这件事在著名的希克定律中得到解释。希克定律认为决策本身所需要耗费的时间和精力随着选择的增加而增加。所以如果你希望你的用户体验变得更加简单，那么你需要支持尽可能快的作出决策。去掉那些并不需要的决策、指引和用户操作。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*ocxCNCeaGxcjztbxa8fOTA.jpeg)
 
-### 5. Too many choices will scare off customers
+### 5. 太多的选择会吓跑客户
 
-Current psychological theory and research affirm the positive affective and motivational consequences of having personal choice. These findings have led to the popular notion that the more choice, the better — that the human ability to manage, and the human desire for, a choice is unlimited. But in reality, research proves the opposite.
+目前的心理学理论和研究认为通过个人选择会产生积极的情感和后果。这些发现导致了一个流行的观念，就是选择越多越好 — 人类的决策能力和对选择的渴望似乎是无穷无尽的。但是事实上研究证明了正好相反：
 
-The Jam Experiment is one of the most famous experiments in consumer psychology; offering consumers less choice can be good for sales. Critically, the study reveals when precisely offering less choice may enhance your sales.
+Jam 实验是消费心理学中最着名的实验之一，它表明提供较少的选择更加有助于销售。至关重要的是，它表明了精确提供较少的选择可能会更加有助于你的销售。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*UCydCFrlZPYxUqWhv4JygQ.jpeg)
 
-This experiment seemingly proves that customers presented with fewer choices are 10 times more likely to purchase compared with those who are shown many choices. It has been helping up as a crucial example of choice overload, the idea that presenting customers with too many choices actually inhibits customer purchases.
+这个实验表明，与那些有很多选择的客户相比，选择较少的客户购买的可能性似乎要高10倍。这一直是作为证明让选择不要过多的关键例子，因为为用户提供太多的选择实际上会抑制用户的购买欲望。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*cFVvbcfBmbf0JpaLgsfGtQ.jpeg)
 
-### 6. Provide recommendations where multiple choices are presented
+### 6. 提供多个选择的建议
 
-When choices cannot be avoided, try to limit them. Provide a recommendation yourself or share statistics of what is most preferred by other customers. Clearly communicate to the user what the key difference between proposed options. This approach is often used on pricing plans pages.
+如果无法避免选择，请尝试限制它们。可以提供一个你个人的建议或者分享其他消费者更喜欢的内容。清楚的向用户传达各个行啊 u 那些爱哪个之间关键的差别。这个方案通常应用于计算价格的页面。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*FSlZMbvX0fw6wVtz35gfuQ.jpeg)
 
-### 7. Draw users attention to the right areas
+### 7. 吸引用户的注意力到正确的方向
 
-When you understand the journey of your user to reach their goals, on every stage of that journey are things that are more relevant and will help you to progress to the final goal. Find those key areas and draw user attention to them.
+当你了解你的用户实现目标的过程后，那么在这个过程的每个阶段都有着与那个目标更加相关的事情。找到那些关键的领域并将用户的注意力转向它们。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*I0za3tgVOtgwRhhYJvpUNA.jpeg)
 
-### 8. Use color and typography to communicate a hierarchy of content
+### 8. 使用颜色和布局来表达内容的层次结构
 
-How many times you heard — “Users don’t read”. And it’s kind of true, we are really selective to what we actually remember or deep dive to. If you ever accepted Huge User Policies without reading a word then you know what I mean. There are so many characteristics that can influence what type communicates: typeface & font, size, kerning, leading, capitalization, and color. Use that to communicate the hierarchy of content. With right use color and typography, you will be able to reflect product branding and make it instantly recognizable, much more attractive and memorable.
+你听过多少次这句话 — “用户是不会浪费时间在阅读上Users don’t read”. 这并不是假话，我们只会阅读那些我们需要去记忆或者实际了解的东西。如果你没有读过一个单词就接受了大量的用户条约，那你就应该明白我说的什么意思。有很多特征可以用来对交流产生影响：字体样式，大小，字距，前导，大小写和颜色。可以用它们来传递内容的层次和结构。正确的使用颜色和排版可以让你的产品反映出易于识别的品牌形象，并且更加具有吸引力和让人难忘。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*FmTXPGd7AVMxyfirpCsxkg.jpeg)
 
-### 9. Organizations help the system of many look fewer and more manageable.
+### 9. 有条理的组织帮助系统看起来更简单并且更易于管理
 
-Let’s take a simple test. In the illustration below we have 2 images. Use a stopwatch to measure how much time(and effort) it will take for you to count the number of black dots in each square.
+让我们来做一个简单的测试吧。以下我们有两张图片。使用秒表来测量你计算这两张图片中的黑点所需的时间（和精力）。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*NRumh73N7gg7pk0givoXZQ.jpeg)
 
-Finished? As you will see for yourself counting the unorganized square of dots took considerably more time, and in addition to that put a much more cognitive load on you. Why we had this result if the squares have an identical number of dots?
+完成了吗？结果正如你自己所看到的那样，计算无组织的点阵会耗费更多的时间，并且还会给你带来更多认知上的负担。但如果方块的点数相同，为什么我们还会得到这个结果呢？
 
-Mapping dots on to a specific matrix, helped us scan them visually, and group when counting. While in the unorganized square we had to go dot by dot, counting them individually. In addition, many of you probably made a miscalculation or was forced to double check your result with left image.
+将点映射到特定矩阵会帮助我们直观地浏览它们并在计数时进行分组。在无组织的方块上我们不得不一个一个地数数。此外，大多数人可能都会错误的估计或者被迫用左图去检查你的答案。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*JZoY7mAf-3rcNywnq3XLBw.jpeg)
 
-Organization of elements not only improves recognition but also makes it easier to remember. When operating any machine, it’s very important to remember the position and function of all controls. Let’s do another small exercise. It’s only a minute ago you were counting the dots in 2 images, now please recall the position of every dot in 2 squares. For majority recalling the unorganized structure is close to impossible.
+元素的组织不仅提高了识别率，而且还使其更容易记忆。操作任何机器时，记住所有控件的位置和功能都非常重要。让我们来做另一个小练习。就在一分钟以前你刚才计算了两张图片里面的点数，现在请回想这两张图片里面所有黑点的位置。对于大多数人来说记住无组织的结构几乎都是不可能的。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*nVBG5GJnXDCWKz_F-K-u5w.jpeg)
 
-### 10. Group related content
+### 10. 对相关内容分组
 
-Often an easy way to simplify complex page is to start grouping components. At that point, users are dealing with few groups rather than with multitudes of unrelated components. Adding borders (creating common regions) around an element or group of elements is an easy way to create separation from surrounding elements. There are multiple principles of grouping in Gestalt psychology that help items feel related: Proximity, Similarity, Continuity, Closure, and Connectedness.
+通常简化复杂问题的一个有效方法就是分组。这样用户处理的就是少数几组而不是大量不相关的组件。在元素或者一组元素周围设置边框（创造共同区域）是将周围元素分离的一个简单方法。在格式塔心理学中有多种原则可以帮助元素构建相关性：接近性，相似性，连续性，闭合性和连通性。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*p1mdTyxWZLT3L7vELVSuGw.jpeg)
 
-### 11. Break up huge tasks in smaller steps, try one column layout
+### 11. 将大型任务拆解为小步骤，并且尝试单列布局Break up huge tasks in smaller steps, try one column layout
 
-Different kinds of forms are present almost in any product. It’s a way you capture user information. Sometimes even after removing everything unnecessary, those can get huge. Such forms can be very demotivation for the user to finish. So what we can do is break up that huge task into a series of smaller ones. All of a sudden it seems much easier to carry out this process to the end. Finishing small subtask gives the user a portion of endorphins and satisfaction to carry on.
+几乎在任何产品中都存在不同形式的表格。这是你获取用户信息的方式。甚至有的时候已经移除掉所有不必要的东西之后，但表格内容依然非常庞大。用户可能非常不想完成这些表格。所以我们能做的就是把这个巨大的任务分解成一系列较小的任务。这会让人突然觉得好像会轻松很多的去完成这个任务。完成小的子任务会为用户提供一些内啡肽和满足感来继续下去。
 
-When designing forms, use one column layout instead of multiple columns. One column layout is much easier to fill out. This way user doesn’t need to think what to fill out next, simply moving down the page in straight line.
+设计表单时，请使用一列布局而不是多列。单列布局更容易填写。这样，用户无需考虑接下来要填写的内容，只需径直向下移动页面即可。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*p_pu1I-ZpAn09sgtrqc8nA.jpeg)
 
-### 12. Be transparent in communicating the process and system status
+### 12. 对流程进展和系统状态保持透明
 
-Uncertainty makes us anxious, it should be avoided as much as possible. That’s why at any time unless it’s obvious, the user should be able to see where he is currently in the process, where he coming from and what’s coming next. Keeping a summary of the previously provided information is also a good idea, it lower loads on user memory and removes the need to go back to double check previous steps.
+不确定性会使我们感到焦虑，所以应当尽可能避免这种情况。这也就是为什么除非是显而易见的情况，在任何时候用户都应该能够了解到他目前在流程的什么位置，过去已经发生了什么以及他还需要去做什么。保存先前提供的信息摘要也是一个好办法，它让用户不用记忆太多东西并且也无需返回以仔细检查先前的步骤。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*6vVsEhwGQHIgarwU--CpNw.jpeg)
 
-### 13. Do the calculations for your user
+### 13. 帮助用户做算术
 
-Human brain bad at raw arithmetic involving numbers. Evolutionary pressures have favored brains optimized for object recognition compared to arithmetical operations. Try to leverage the system to do all calculations instead of the user.
+人类的大脑不擅长进行原始计算。与算术运算相比，进化的压力更有利于优化大脑识别物体的能力。所以应当尝试利用系统来代替用户进行所有计算。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*rfcPCcf1nDCWbmsTk04g_w.jpeg)
 
-### 14. Hide complexity with progressive disclosure
+### 14. 通过渐进式的披露来隐藏复杂
 
-Progressive disclosure is a design pattern used in UX design to make user interfaces easier for users to interpret. It involves sequencing information and actions across several screens so as not to overwhelm the user or hiding irrelevant information until it becomes relevant. Progressive disclosure follows the typical notion of moving from “abstract to specific,” including the sequencing of user behaviors or interactions. A good example of progressive disclosure is iOS nested doll navigation.
+渐进式的披露是用户体验设计中的一个设计模式，用来更好的将用户界面对用户进行解释。它通过跨多个屏幕对信息和操作进行排序以免使用户不知所措或在信息产生联系前先进行隐藏。渐进式披露遵循从“抽象到具体”的典型概念，包括用户行为或人机交互的顺序。渐进式披露的一个很好的例子是iOS嵌套导航。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*IzCm0KYUujM3M2JXrrA8Ng.jpeg)
 
-### 15. Rely on commonly accepted patterns and interactions
+### 15. 基于普遍接受的模式和互动方式
 
-Users spend most of their time on other products. This means that users prefer your site to work the same way as all the other sites they already know, and they come on with specific expectations to how your product should look and behave. This statement holds true for any digital or physical product from social network to your fridge and reflects consumer mindset. That’s doesn’t mean you should stop innovating, more to evaluate whether a depart from traditional ways presenting navigation or controls, justifies user to change their mental model.
+用户的大部分时间其实是花费在其他产品上。这就意味着用户更希望你的网站能够跟其他他们用过的网站差不多，所以这也就让他们对产品的外观和行为有着特定的期望。这种说法反应了消费者的心态，并且适用于从社交网络到冰箱的任何虚拟或现实产品。但这并不意味着你应该停止创新，但应该更谨慎的评估怎么去更改传统意义上的导航或者控制，向用户证明改变他们的心理模型是正确的。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*ZxMxsNcdwI3sAq5MAswpuw.jpeg)
 
-### 16. Design a streamlined first-time experience
+### 16. 让初次体验变得简单
 
-The primary goal of any design should be connecting users to the value product provides as soon as possible. Think about that for a second. So anything that stands between a user and him actually operating a system, is a barrier unless it serves a functional need. The first-time experience is very important for any process, we humans are very quick to form our opinion about the product and walk away immediately if we are not satisfied.
+任何设计的主要目标都应该是尽快将用户与提供的价值产品联系起来。好好考虑下这一点吧。因此，用户和操作系统之间存在的其他东西除非是功能需要，否则都是不必要的障碍。在任何过程的首次体验都是非常重要的，我们都会很快对产品形成看法，然后如果不满意就会很快离开。
 
-Even the simplest task is challenging if you try to do it the first time. Sometimes additional training is required before we can operate the product. In digital design I suggest to forget a manual approach, user expectation is the product should be simple enough to understand and they expect help on demand, or when something goes wrong. Provide contextual help instead of an upfront overwhelming user with learning material, design for empty states
+在你初次尝试的时候，即使是简单的任务也很具有挑战性。在我们操作产品之前，有时需要额外的培训。在数字产品的设计中我建议不要太关注连续的操作，用户期望产品应该是简单易懂的，并且只有在出现问题或者他们需要时才提供帮助。而且应该是基于上下文的情形提供帮助，而不是通过过多的学习资料给用户传授空洞的概念。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*zFovfmPuRSfy97sKEqFTzg.jpeg)
 
-### 17. Keep in mind ergonomics and circumstances under which product will be used
+### 17. 考虑人体工程学和使用产品的环境
 
-Simplicity as we already defined by how easily you can actually use the product, with its ergonomics. Ergonomics is the process of designing or arranging workplaces, products, and systems so that they fit the people who operate them. Most people think it is something to do with seating or with the design of car controls and instruments — and it is… but it is so much more. Ergonomics applies to the design of anything that involves people, including digital products. 
-In 1954, psychologist Paul Fitts, examining the human motor system, showed that the time required to move to a target depends on the distance to it and relates inversely to its size. So make sure commonly used elements large and position them close to users.
+我们已经的简单就是能够容易的使用产品，这也就是基于人体工程学。体工程学是设计或安排工作场所，产品和系统的过程，以便适合人们的操作。大多数人认为这与座椅或汽车控制装置和仪器的设计有关 — 但是不仅仅如此。人体工程学适用于涉及人的任何设计，包括数字产品。
+在1954年，心理学家保罗菲茨测试人体运动系统，表明移动到目标所需的时间取决于与目标的距离，并与其大小成反比。所以请保证较大的常用元素放在尽可能靠近用户的位置。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*54_6Zfey3wd3VKN1vIUawg.jpeg)
 
-### 18. Support inline edit and autosuggest values
+### 18. 支持行内编辑和自动提示
 
-Remove all unnecessary interactions, views, steps in every process. There is an optimal speed at which the user should operate the system, it called a “state of the flow”. Don’t break that flow with popups. For all actions/values that can be changed later, support inline edit as much as possible. Autosuggest values when a great number of values is available.
+移除每一个过程中不必要的交互、视图和步骤。应该尽可能快的提升用户操作这个系统的速度，这被称为“流畅”。不要用弹出窗口打破这种流程。对于以后所有支持更改的操作或值，请尽可能的支持行内编辑。当有大量可用的值时可以进行自动提示。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*k175kgaxJIPS9PzlbI5SKw.jpeg)
 
-### 19. Use Smart Defaults to Reduce Cognitive Load
+### 19. 通过智能设置默认值来减少认知上的负担
 
-Smart defaults are selections put in place that provide answers to questions for you. This supports users to complete forms faster. Filling in forms requires people them to parse it, formulate a response, and then input their answer into the affordance provided on the form. Defining relevant defaults, designers need to understand users and the context in which they will use a product. This is only possible with deep research and testing, to learn from their users and adjust defaults based on their users’ historical data and usage patterns. Always set the default to the choice the vast majority of users (say, 90–95 percent) would choose if explicit choices were required.
+智能设置就是将选项的答案默认进行选择。这能帮助用户尽快的完成表单。填写表单需要用户去解析表单，编辑答案，然后将他们的结果输入到表格提供的位置上。而定义相关默认值时，设计人员需要了解用户以及他们将使用产品的上下文。只有通过深入研究和测试，才能理解用户并根据用户的历史数据和使用模式调整默认值。当需要明确选择时，始终默认设置为绝大多数用户（例如，90-95％）的选择。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*dh-NbWdErhYIt4neyb1xWw.jpeg)
 
-### 20. Prevent errors
+### 20. 减少错误提示
 
-Error messages bring a lot of stress and bring the users a feeling that they messed up or not up to the task. Ensure automatic check for entered data and provide alerts or reminders for inappropriate data entries to reduce errors. Either eliminate error-prone conditions or check for them and present users with a confirmation option before they commit to the action. Destructive and irrecoverable actions should be guarded with a forcing function to ensure that users conscious of the impact their choice will have.
+错误信息会带来很多压力，并让用户觉得他搞砸了或者没有完成任务。所以请确保自动检查输入的数据，并为异常的输入提供警报或提醒以减少错误。要么消除容易出错的情况，要么检查它们并在用户提交操作之前向用户再次进行确认。并且应该通过强制功能来保护破坏性和不可恢复的行为，以确保用户意识到他们的选择将产生的影响。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*fgjZ21IDG2wp9Z_0cgUBHw.jpeg)
 
-### 21. Design for accessibility
+### 21. 可访问性设计
 
-As a designer, your goals are to champion accessibility, make sure your product is accessible by a broader audience without exclusions. There are over 1 billion people worldwide who have a disability. Don’t use color as the only visual means of conveying information. Ensure sufficient contrast between text and its background, support keyboard navigation etc. Accessibility is not confined to a group of users with some different abilities, when you design for accessibility you improve the experience for everyone using the product.
+作为设计师，您的目标是支持可访问性，确保您的产品可以被更广泛的受众访问而不会被排除在外。全世界有超过10亿人患有残疾。所以不要使用颜色作为传达信息的唯一视觉手段。还可以确保文本与其背景之间有足够的对比度，支持键盘导航等等。可访问性不仅仅针对于具有不同能力的一组用户，当你设计可访问性时，您应该改善使用该产品的每个人的体验。
 
 ![](https://cdn-images-1.medium.com/max/4080/1*P93k8CP68naqhhPB4SGzPQ.jpeg)
 
-### Conclusion
+### 总结
 
-Designing simple to use and understand products is not easy, but its a way to go, and there are quick ways to move towards simplicity.
+设计简单好用并且易于理解的产品并不容易，但这是我们需要做的事，并且有这些窍门能帮我们走向简单。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
