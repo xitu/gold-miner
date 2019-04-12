@@ -5,8 +5,7 @@
 > * 译者：
 > * 校对者：         
 
-How to Configure Image Data Augmentation When Training Deep Learning Neural Networks
-====================================================================================
+# How to Configure Image Data Augmentation When Training Deep Learning Neural Networks
 
 Image data augmentation is a technique that can be used to artificially expand the size of a training dataset by creating modified versions of images in the dataset.
 
@@ -24,8 +23,7 @@ After completing this tutorial, you will know:
 
 Let’s get started.
 
-Tutorial Overview
------------------
+## Tutorial Overview
 
 This tutorial is divided into eight parts; they are:
 
@@ -38,8 +36,7 @@ This tutorial is divided into eight parts; they are:
 7.  Random Brightness Augmentation
 8.  Random Zoom Augmentation
 
-Image Data Augmentation
------------------------
+## Image Data Augmentation
 
 The performance of deep learning neural networks often improves with the amount of data available.
 
@@ -65,8 +62,7 @@ Click to sign-up and also get a free PDF Ebook version of the course.
 
 [Download Your FREE Mini-Course](https://machinelearningmastery.lpages.co/leadbox/1458ca1e0972a2%3A164f8be4f346dc/4715926590455808/)
 
-Sample Image
-------------
+## Sample Image
 
 We need a sample image to demonstrate standard data augmentation techniques.
 
@@ -145,8 +141,7 @@ Now that we are familiar with how to use the _ImageDataGenerator_, let’s look 
 
 We will demonstrate each technique standalone by reviewing examples of images after they have been augmented. This is a good practice and is recommended when configuring your data augmentation. It is also common to use a range of augmentation techniques at the same time when training. We have isolated the techniques to one per section for demonstration purposes only.
 
-Horizontal and Vertical Shift Augmentation
-------------------------------------------
+## Horizontal and Vertical Shift Augmentation
 
 A shift to an image means moving all pixels of the image in one direction, such as horizontally or vertically, while keeping the image dimensions the same.
 
@@ -242,8 +237,7 @@ Note that other fill modes can be specified via “_fill_mode_” argument.
 
 Plot of Augmented Images With a Random Vertical Shift
 
-Horizontal and Vertical Flip Augmentation
------------------------------------------
+## Horizontal and Vertical Flip Augmentation
 
 An image flip means reversing the rows or columns of pixels in the case of a vertical or horizontal flip respectively.
 
@@ -292,8 +286,7 @@ We can see that the horizontal flip is applied randomly to some images and not o
 
 Plot of Augmented Images With a Random Horizontal Flip
 
-Random Rotation Augmentation
-----------------------------
+## Random Rotation Augmentation
 
 A rotation augmentation randomly rotates the image clockwise by a given number of degrees from 0 to 360.
 
@@ -338,8 +331,7 @@ Running the example generates examples of the rotated image, showing in some cas
 
 Plot of Images Generated With a Random Rotation Augmentation
 
-Random Brightness Augmentation
-------------------------------
+## Random Brightness Augmentation
 
 The brightness of the image can be augmented by either randomly darkening images, brightening images, or both.
 
@@ -388,8 +380,7 @@ Running the example shows the augmented images with varying amounts of darkening
 
 Plot of Images Generated With a Random Brightness Augmentation
 
-Random Zoom Augmentation
-------------------------
+## Random Zoom Augmentation
 
 A zoom augmentation randomly zooms the image in and either adds new pixel values around the image or interpolates pixel values respectively.
 
@@ -440,8 +431,7 @@ Running the example generates examples of the zoomed image, showing a random zoo
 
 Plot of Images Generated With a Random Zoom Augmentation
 
-Further Reading
----------------
+## Further Reading
 
 This section provides more resources on the topic if you are looking to go deeper.
 
@@ -459,8 +449,7 @@ This section provides more resources on the topic if you are looking to go deepe
 
 *   [Building powerful image classification models using very little data, Keras Blog](https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html).
 
-Summary
--------
+## Summary
 
 In this tutorial, you discovered how to use image data augmentation when training deep learning neural networks.
 
