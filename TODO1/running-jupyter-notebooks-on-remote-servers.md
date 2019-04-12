@@ -5,29 +5,29 @@
 > * 译者：
 > * 校对者：
 
-# Running Jupyter Notebooks on Remote Servers
+# 如何在远程服务器上运行Jupyter Notebooks
 
 ![](https://cdn-images-1.medium.com/max/3840/1*rhhk7heUKv1KA8p50I-ElA.jpeg)
 
-[Jupyter Notebook](https://jupyter.org/) is a staple tool in many data scientists’ toolkit. As a tool, Jupyter Notebook can enhance productivity by making it easier to perform data analysis, model prototyping, and experiments in an interactive way, thus shortening the feedback loop from coding and seeing results.
+[Jupyter Notebook](https://jupyter.org/)  是许多数据科学家工具库中的重要工具。Jupyter Notebook 作为一种工具，可以让人们在交互式中，更容易地进行数据分析，建立模型原型，进行试验等等，从而提高生产率，缩短编写代码查看结果循环反馈的时间。
 
-In many cases, running a Jupyter notebook on a laptop or work station is sufficient. However, if you’re working with large datasets, doing computationally expensive data processing, or learning complex models you probably need something more powerful than a laptop extra power. Maybe you’re running [graph convolutional networks](https://towardsdatascience.com/how-to-do-deep-learning-on-graphs-with-graph-convolutional-networks-7d2250723780) on large graphs or doing [machine translation with recurrent neural networks](https://medium.com/@umerfarooq_26378/neural-machine-translation-with-code-68c425044bbd) on large text corpora and need some more CPU cores, RAM, or a couple of GPUs. Luckily, you may be in the situation where you have these resources available on a remote server!
+很多情况下在笔记本或工作站上运行 Jupyter notebook 已经足够了。但如果是在对大型数据集操作，或处理数据要消耗大量运算力，或建立的学习模型相当复杂，就需要比笔记本电脑更强大的计算力。可能你在大图片上运行 [图片卷积网络](https://towardsdatascience.com/how-to-do-deep-learning-on-graphs-with-graph-convolutional-networks-7d2250723780) ，或在大量文本语料中运用带递归神经网络的机器翻译算法，就需要更多 CPU 内核，RAM，或多个 GPU 。幸运的是，你需要的这些资源，可能在远程服务器上都有！
 
-If your remote server has a Graphical User Interface (GUI), you are in luck. You can use [remote desktop software](https://en.wikipedia.org/wiki/Remote_desktop_software) to access the remote server and otherwise use Jupyter Notebook as your normally would on your laptop.
+要是远程服务器有图形用户界面（GUI），那么你很走运，因为可以使用 [远程桌面软件](https://en.wikipedia.org/wiki/Remote_desktop_software) 来访问远程服务器，就跟平时在笔记本上使用 Jupyter Notebook 一样。
 
-However, many servers do not have a GUI. If you are in this situation, you can set up your experiment by writing a Python script on your laptop, run it on a small subset of your data to verify that it can run, copy it to a remote server, and execute it from the command line. You could even set up the experiment in a notebook and export the notebook to a script using `jupyter nbconvert --to script your_notebook.ipynb`. Although this workflow certainly allows you to run your code on the remote server, you can no longer use Jupyter Notebook to, e.g., experiment with your models and visualize your results interactively. What a shame!
+然而很多服务器并没有 GUI。这样的话，可以先在你笔记本电脑上写好 Python 脚本，然后使用小部分的数据进行试验，证明脚本可以正确运行，最后再复制到远程服务器上用命令行运行。甚至可以先在 notebook 上试验，再使用 `jupyter nbconvert --to script your_notebook.ipynb`  这个命令，将 notebook 内容导出到脚本。这样虽然可以让代码在远程服务器上运行，但你再也不能使用 Jupyter Notebook 来交互式地进行诸如对模型进行试验或对结果可视化了。太可惜！
 
-In this post I will show you how to run a Jupyter notebook on a remote server and how to access it on your laptop. I will also show how to setup two `bash` commands to make the whole process easier.
+本文将向你展示，如何在远程服务器上运行 Jupyter notebook，如何笔记本电脑上访问，以及如何用两条 `bash` 命令，让整个过程更简单。
 
-## Starting the Remote Notebook Server
+## 启动远程 Notebook 服务器
 
-We will use the [Secure Shell Protocol](https://en.wikipedia.org/wiki/Secure_Shell) (SSH) to start the Jupyter Notebook server on the remote server. SSH allows us to send commands to the remote server. The basic syntax is as follows:
+使用 [Secure Shell Protocol](https://en.wikipedia.org/wiki/Secure_Shell)  （SSH）在远程服务器上启动 Jupyter Notebook 服务器。 SSH 可以给远程服务器发送命令，基本语法如下：
 
 ```
 ssh username:password@remote_server_ip command
 ```
 
-The exact command you should send depends a little on your context. In my case, I share a remote server with other people have therefore not installed Jupyter in the shared environment. The first step for me is therefore to go to my project folder, activate the virtual environment, and start the notebook server. In particular, I would like to execute the following three`bash` commands on the remote server:
+具体命令要根据你情况来定。就我而言，由于跟其他人共享同一个远程服务器，因此没有在共享环境中安装Jupyter。我第一步是进入到我自己的工程目录，启动虚拟环境，再启动notebook服务器。具体而言，就是在远程服务器上执行以下三个 `bash` 命令：
 
 ```
 cd project_folder
@@ -35,75 +35,75 @@ cd project_folder
 jupyter notebook --no-browser --port=8889
 ```
 
-I execute the `jupyter notebook` command with the `--no-browser` flag to start the Jupyter notebook with launching a browser since the remote server cannot display a browser if it doesn’t have a GUI. I also change the port from the default port 8888 to port 8889 using the `--port=8889` flag. This is a personal preference; having local and remote notebooks on different ports to make it easier to see where my code is running.
+我使用 `jupyter notebook` 命令来启动 Jupyter notebook，该命令带有 `--no-browser` 标识，因而没有启动浏览器，因为远程服务器如果没有GUI的话，并不能显示浏览器。我还使用 `--port=8889` 把默认端口 8888 改为8889，这是我个人的偏好，这样本地和远程的两个 notebook 用的就是不同的端口，就更容易查看代码究竟是在哪运行了。
 
-To execute commands on the remote server, we run the combined command
+要在远程服务器上运行命令，先运行以下组合代码。
 
 ```
 nohup ssh -f username:password@remote_server_ip "cd project_folder; . virtual_environment/bin/activate; jupyter notebook --no-browser --port=8889"
 ```
 
-Note that I have one-lined the three commands and separated them using `;` instead of line breaks. Executing this command will start the Jupyter Notebook server on port 8889 and let it run in the background. Finally, I have added the `-f` flag to the `ssh` command to push the process to the background and prepended the `nohup` command to silence all output from the process so you can continue using the terminal window. You can read more about the`nohup` command [here](https://www.computerhope.com/unix/unohup.htm).
+注意，我用  `;`  将一行代码的三个命令分开，而没有用行分隔符。执行这段代码后，Jupyter Notebook会在8889端口启动，并在后台运行。最后我加了给  `ssh` 命令加了 `-f`  把进程推进后台，还加了 `nohup` 命令，静默了进程的所有输出，这样就能继续使用终端窗口了。[这里](https://www.computerhope.com/unix/unohup.htm) 有更多关于 `nohup`  命令的信息。
 
-## Accessing Your Notebook
+## 访问你的Notebook
 
-You can now access the notebook typing in the url
+键入以下URL就能访问 notebook 了
 
 ```
 remote_server_ip:8889
 ```
 
-This command requires you to memorise the IP address or to bookmark the web page. However, we can make it just as easy to access the remote notebook as if it were a local notebook by using [port forwarding](https://en.wikipedia.org/wiki/Port_forwarding):
+需要你记住 IP 地址，或把网页加入书签也可。不过使用 [转发端口](https://en.wikipedia.org/wiki/Port_forwarding) 命令，就能跟在本地 notebook 一样简单地访问远程 notebook 了，命令如下：
 
 ```
 nohup ssh -N -f -L localhost:8889:localhost:8889 username:password@remote_server_ip
 ```
 
-The `-N` flag tells `ssh` that no remote commands will be executed. At this point we do not need to execute any remote commands. The `-f` flag pushes the `ssh` process to the background as mentioned previously. Finally, the `-L` flag specifies the port forwarding configuration using the syntax `local_server:local_port:remote_server:remote_port`. The configuration specifies that all requests sent to port `8889` on the local machine, e.g., your laptop, to port `8889` on the remote machine at `username:password@remote_server_ip`. As before, the `nohup` command has been prepended to silence the output.
+`-N`  是在告诉  `ssh` 没有远程命令要执行， 此刻不用执行任何远程命令。跟前面一样，`-f` 将 `ssh` 进行推入后台。最后的 `-L` 则明确了端口转发的配置，语法是 `local_server:local_port:remote_server:remote_port`。该配置使所有本地（比如你的笔记本电脑）给 `8889` 端口的请求，全都发给远程服务器的 `8889` 端口，远程服务器的地址是 `username:password@remote_server_ip`。跟上文一样，`nohup` 命令静默了输出。
 
-The effect the above command is that you can now access the remote Jupyter Notebook server in your browser at
+上面命令的主要作用就是，在你自己浏览器上也能访问远程 Jupyter Notebook 了，地址是
 
 ```
 localhost:8889
 ```
 
-as if you ran the notebook locally.
+这就仿佛在本地运行notebook一样。
 
-## Stopping the Remote Notebook Server
+## 终止远程Notebook服务器
 
-In principle, you can let the notebook server run indefinitely on the remote server (barring restarts or crashes), but you may need to stop the server, for instance to upgrade your version of `jupyter`. If you need to stop it there are two ways to do so: through the browser or through the command line.
+原则上可以让 notebook 服务在远程服务器上一直运行（除非重启或崩溃），但也可能要终止服务，比如要升级  `jupyter`。有两种方式终止：一是通过浏览器，二是通过命令行。
 
-### Through the Browser Window
+### 通过浏览器窗口
 
-In the recent versions of the Jupyter Notebook, you can find a Quit button at the top right of the browser window as indicated by the arrow in the image below. If you press it, you will have to relaunch the server again using the start-up command we saw previously.
+新版本的 Jupyter Notebook 中，能在浏览窗口右上方找到退出按钮，如下图所示。单击后，就得使用之前的启动命令重启服务器了。
 
 ![The Quit Button](https://cdn-images-1.medium.com/max/6208/1*-_e16uYLCzydswb1COVosA.png)
 
-### Through the Command Line
+### 通过命令行
 
-If you are unable to upgrade to a newer version of Jupyter that has the Quit button or simply prefer working through a terminal, you can also stop the server from the command line. Jupyter has a shell command to stop notebooks:
+你要是不能把 Jupyter 升级到有退出按钮的较新版本，或你更喜欢用终端，也可以通过命令行终止服务器：
 
 ```
 jupyter notebook stop 8889
 ```
 
-where `8889` is the port number. You can execute it on the remote server using the command
+其中 `8889` 是端口号。要在远程服务器执行这段代码，先使用以下命令：
 
 ```
 ssh username:password@remote_server_ip "`jupyter notebook stop 8889"`
 ```
 
-Unfortunately, [this command is currently bugged](https://github.com/jupyter/notebook/issues/2844#issuecomment-371220536), but I have included it here in the hopes that it will work in the future. However, as a work-around you can instead kill the `jupyter` process instead using the command:
+不幸的是，这个命令有 bug，但我依然将这个写在这，期待以后或许可行。不过还有变通做法，就是直接使用以下命令，将 `jupyter` 进程杀死。
 
 ```
 ssh username:password@remote_server_ip "pkill -u username jupyter`"`
 ```
 
-where the `-u username` indicates that only `jupyter` processes started by `username` should be killed. The drawback of doing this is that you will shutdown all of your notebook servers if you have more than one running at a time. Finally, you can of course manage the servers manually by logging on to the remote server, starting the notebook server, and keeping the terminal window open. This allows you to shutdown the notebook server using the usual `CTRL+C` keyboard command.
+其中 `-u username` 表示只杀死由 `username` 启动的 `jupyter`  进程。这样做的缺点是，所有你同时运行的 notebook 服务都会被杀死。当然也可以登陆远程服务器，启动 notebook 服务，把终端窗口开着，手动管理服务器。还能使用常用的 `CTRL+C` 键盘命令关闭 notebook  服务器。
 
-## Smoothening Your Workflow
+## 工作流程梳理
 
-Remembering all these commands can be quite cumbersome. Thankfully, we can make life easier by creating bash aliases for each of the commands. Add the following lines to your `~/.bashrc` file:
+记住所有命令很累赘。幸亏我们能给每个命令起别名，让生活更美好。将下列代码加入  `~/.bashrc` 文件： 
 
 ```
 alias port_forward='nohup ssh -N -f -L localhost:8889:localhost:8889 username:password@remote_server_ip'
@@ -111,19 +111,19 @@ alias remote_notebook_start='nohup ssh -f username:password@remote_server_ip "cd
 alias remote_notebook_stop='ssh username:password@remote_server_ip "pkill -u username jupyter"'
 ```
 
-Load the commands by typing `source .bashrc` in your terminal. You can now use the commands `remote_notebook_start` and `remote_notebook_stop` in your terminal to respectively start the remote notebook server (and setup port forwarding) and shut it down.
+在终端输入 `source .bashrc` 载入这些命令。这样就能在终端上用 `remote_notebook_start` 和`remote_notebook_stop` 命令，分别启动（同时设置端口转发）和关闭远程 notebook 服务器了。
 
-## Wrap-Up
+## 总结
 
-In this post I have shown you how to start, access, and stop Jupyter notebooks on remote servers using bash commands and shown how to create bash aliases to make it easy to do so.
+本文展示了如何使用 bash 命令来启动，访问和终止远程服务器上的  Jupyter notebook，还展示了如何创建 bash 别名使上述流程更容易。
 
-I hope that these commands can improve your data science productivity by nearly seamlessly allowing you to reap the benefits of both Jupyter notebook and any computing resources you have available on remote servers.
+希望这些命令可以无缝提高你数据科学的效率，让你从 Jupyter notebook 和远程可用计算资源中同时受益。
 
 * * *
 
-_Liked what you read? Consider following me on_ [_Twitter_](https://twitter.com/TobiasSJepsen) _where I share papers, videos, and articles related to the practice, theory, and ethics of data science and machine learning that I find interesting, in addition to my own posts._
+_喜欢你刚读的吗？ [*Twitter*](https://twitter.com/TobiasSJepsen) 上粉我了解一下，我在那儿分享论文，视频和文章，而且都是和实践，理论，数据科学伦理和我感兴趣的机器学习相关，上面还有我自己的帖子。_
 
-_For professional inquiries, please contact me on_ [_LinkedIn_](https://www.linkedin.com/in/tobias-skovgaard-jepsen/) _or by direct message on_ [_Twitter_](https://twitter.com/TobiasSJepsen)_._
+_有专业需求，在 [*LinkedIn*](https://www.linkedin.com/in/tobias-skovgaard-jepsen/)  上联系我，或直接在 [*Twitter*](https://twitter.com/TobiasSJepsen) 上发消息。_
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
