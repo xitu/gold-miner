@@ -9,7 +9,7 @@
 
 ![由 [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 平台的用户 [rawpixel](https://unsplash.com/photos/uQkwbaP0UrI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 拍摄](https://cdn-images-1.medium.com/max/13000/1*eAr7ibH_sGkMk51fm7dZIg.jpeg)
 
-[Data Binding 库](https://developer.android.com/topic/libraries/data-binding/) (下文中以『DB 库』词语来指代) 提供了一个灵活强大的方式来绑定数据到 UI 界面。但是要用一句陈词滥调：『能力越大，责任越大』，仅仅是使用数据绑定，并不意味着你可以避免成为一个优秀 UI 开发者。
+[Data Binding 库](https://developer.android.com/topic/libraries/data-binding/)（下文中以『DB 库』词语来指代）提供了一个灵活强大的方式来绑定数据到 UI 界面。但是要用一句陈词滥调：『能力越大，责任越大』，仅仅是使用数据绑定，并不意味着你可以避免成为一个优秀 UI 开发者。
 
 过去的几年我一直在 Android 开发中使用 data binding 库，本文会写出我这一路上了解到的与它有关的一些内容细节。
 
