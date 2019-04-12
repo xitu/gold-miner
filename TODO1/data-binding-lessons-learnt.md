@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/data-binding-lessons-learnt.md](https://github.com/xitu/gold-miner/blob/master/TODO1/data-binding-lessons-learnt.md)
 > * 译者：[Mirosalva](https://github.com/Mirosalva)
-> * 校对者：
+> * 校对者：[DevMcryYu](https://github.com/DevMcryYu)
 
 # Data Binding 库使用的经验教训
 
@@ -81,7 +81,7 @@
 
 ## 小步迭代
 
-希望这篇文章强调了一些可以优化数据绑定实现方案中的一些小事。 了解『DB 库』的内部机制可以帮助你提高数据绑定效率，并提高 你的 UI 性能。
+希望这篇文章强调了一些可以优化数据绑定实现方案中的一些小事。了解『DB 库』的内部机制可以帮助你提高数据绑定效率，并提高你的 UI 性能。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
