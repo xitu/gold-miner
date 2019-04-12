@@ -1,12 +1,11 @@
 > * 原文地址：[3 Levels of Deep Learning Competence](https://machinelearningmastery.com/deep-learning-competence/)
-> * 原文作者：[Jason Brownlee](https://machinelearningmastery.com/author/jasonb/ "Posts by Jason Brownlee") 
+> * 原文作者：[Jason Brownlee](https://machinelearningmastery.com/author/jasonb) 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/deep-learning-competence.md](https://github.com/xitu/gold-miner/blob/master/TODO1/deep-learning-competence.md)
 > * 译者：
 > * 校对者：         
 
-3 Levels of Deep Learning Competence
-====================================
+# 3 Levels of Deep Learning Competence
 
 [Deep learning](https://machinelearningmastery.com/what-is-deep-learning/) is not a magic bullet, but the techniques have shown to be highly effective in a large number of very challenging problem domains.
 
@@ -31,8 +30,7 @@ Let’s get started.
 The Three Levels of Deep Learning Competence  
 Photo by [Bernd Thaller](https://www.flickr.com/photos/bernd_thaller/45309108974/), some rights reserved.
 
-Overview
---------
+## Overview
 
 This post is divided into three parts; they are:
 
@@ -40,8 +38,7 @@ This post is divided into three parts; they are:
 2.  Develop a Deep Learning Portfolio
 3.  Levels of Deep Learning Competence
 
-The Problem of Assessing Competence
------------------------------------
+## The Problem of Assessing Competence
 
 How do you know if a practitioner is competent with deep learning?
 
@@ -64,8 +61,7 @@ Most developers and developer hiring managers know this already.
 
 Some don’t.
 
-Develop a Deep Learning Portfolio
----------------------------------
+## Develop a Deep Learning Portfolio
 
 The best way to answer the question of whether a practitioner is competent or not is to show, not tell.
 
@@ -86,8 +82,7 @@ An honest discussion of real projects will quickly shed light on whether the pra
 
 As a practitioner, the question becomes: what are the levels of competence and what are the expectations at each level?
 
-Levels of Deep Learning Competence
-----------------------------------
+## Levels of Deep Learning Competence
 
 Projects can be carefully chosen in order to both develop and, in turn, demonstrate specific skills.
 
@@ -114,8 +109,7 @@ If you have more ideas of levels of competence or projects, please let me know i
 
 Now, let’s take a closer look at each level in turn.
 
-Level 1: Modeling
------------------
+## Level 1: Modeling
 
 This level of competence with deep learning assumes that you are already a machine learning practitioner.
 
@@ -179,8 +173,7 @@ Varied target variables in order to demonstrate a suitable model configuration:
 *   Multiclass classification tasks.
 *   Regression tasks.
 
-Level 2: Tuning
----------------
+## Level 2: Tuning
 
 This level of competence assumes Level 1 competence and shows that you can use classical as well as modern techniques in order to get the most from deep learning neural network models.
 
@@ -263,8 +256,7 @@ Some datasets naturally introduce problems; for example, small training datasets
 
 Standard machine learning datasets could be used. Alternately, problems can be contrived to demonstrate the issue or dataset generators could be used.
 
-Level 3: Applications
----------------------
+## Level 3: Applications
 
 This level of competence assumes Level 1 and 2 competence and shows that you can use deep learning neural network techniques in specialized problem domains.
 
@@ -336,8 +328,7 @@ Again, it is possible to start at this level; it just triples the workload and m
 Did this competence framework resonate? Do you think there are any holes?  
 Let me know in the comments.
 
-Further Reading
----------------
+## Further Reading
 
 This section provides more resources on the topic if you are looking to go deeper.
 
@@ -355,8 +346,7 @@ This section provides more resources on the topic if you are looking to go deepe
 *   [Deep Learning Datasets](http://deeplearning.net/datasets/)
 *   [25 Open Datasets for Deep Learning Every Data Scientist Must Work With, Analytics Vidhya](https://www.analyticsvidhya.com/blog/2018/03/comprehensive-collection-deep-learning-datasets/).
 
-Summary
--------
+## Summary
 
 In this post, you discovered the three levels of deep learning competence and as a practitioner, what you must demonstrate at each level.
 
@@ -374,4 +364,3 @@ Ask your questions in the comments below and I will do my best to answer.
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。 
- 
