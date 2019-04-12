@@ -5,14 +5,14 @@
 > * 译者：[xionglong58](https://github.com/xionglong58)
 > * 校对者：
 
-# Unit Testing React Components
+# 对 React 组件进行单元测试
 
 ![Photo of a first attempt to test a React component by clement127 (CC BY-NC-ND 2.0)](https://cdn-images-1.medium.com/max/4096/1*RzR_S8UJeDn0b_sEQa2V8Q.jpeg)
 
-Unit testing is a great discipline which can lead to [40%-80% reductions in production bug density](https://ieeexplore.ieee.org/document/4163024). 单元测试的主要好处有:
+单元测试是一门伟大的学科，它可以[减少 40% - 80% 的 bug](https://ieeexplore.ieee.org/document/4163024).单元测试的主要好处有:
 
-* 改善 apps 的结构和k额维护性。
-* Leads to better APIs and composability by focusing developers on the developer experience (API) before implementation details.
+* 改善 apps 的结构和可维护性。
+* 通过在实现细节之前关注开发人员体验(API)，可以获得更好的 API 和可组合性。
 * 提供快速的文件保存反馈，告诉你更改是否有效。 这可以替代 console.log() 操作,仅在UI中单击就可以测试更改。单元测试的新手可能会在 TDD 过程上多花15% - 30%的时间，因为他们知道需要知道如何测试各种组件，但是有经验的 TDD 开发者会在因使用 TDD 而节省开发时间。
 * 提供了一个很好的 safety net，可以在添加功能或重构现有功能时增强你的信心。
 
@@ -24,7 +24,7 @@ Unit testing is a great discipline which can lead to [40%-80% reductions in prod
 
 不过，这是值得的实践和规则。使用单元测试的 TDD 可以训练你编写 UI 组件，使得 UI 组件更简洁、易于维护、并且更容易与其他组件组合和重用。
 
-One recent innovation in my testing discipline is the development of the [RITEway unit testing framework](https://medium.com/javascript-scene/rethinking-unit-test-assertions-55f59358253f), which is a tiny wrapper around [Tape](https://github.com/substack/tape) that helps you write simpler, more maintainable tests.
+我最近关注的一个有创新性的[单元测试框架 RITEway ](https://medium.com/javascript-scene/rethinking-unit-test-assertions-55f59358253f), 它是 [Tape](https://github.com/substack/tape) 的一个简单包装版，使得你能够编写更简洁、维护性更强的测试。
 
 无论你使用的是什么框架，下面的小窍门将帮助你编写更好、更可测试、更可读、更可组合的 UI 组件:
 
@@ -53,7 +53,7 @@ export default Hello;
 npm install --save-dev riteway
 ```
 
-Internally, RITEway uses `react-dom/server` `renderToStaticMarkup()` and wraps the output in a [Cheerio](https://github.com/cheeriojs/cheerio) object for easy selections. 如果你不使用 RITEway，你可以手动执行所有操作以创建自己的函数，以将React组件渲染为可以使用 Cheerio 查询的静态标记。
+在内部，RITEway 使用` react-dom/server` `renderToStaticMarkup()`，并将输出包装在 [Cheerio](https://github.com/cheeriojs/cheerio) 对象中，以便选择。如果你不使用 RITEway，你可以手动执行所有操作以创建自己的函数，以将 React 组件渲染为可以使用 Cheerio 查询的静态标记。
 
 一旦你有一个将标记渲染成 Cheerio 对象的渲染函数，你就可以编写如下的组件测试了：
 
@@ -79,7 +79,7 @@ describe('Hello component', async assert => {
 });
 ```
 
-但是这样做没啥意思，如果你需要测试一个有状态的组件，或者一个会产生副作用的组件，该怎么办？该问题的答案与另一个重要问题的答案相同：“我如何使 React 组件更易于维护和调试？”，这也是 TDD 对 React 组件真正感兴趣的地方。
+但是这样做没啥意思，如果你需要测试一个有 state 的组件，或者一个会产生副作用的组件，该怎么办？该问题的答案与另一个重要问题的答案相同：“我如何使 React 组件更易于维护和调试？”，这也是 TDD 对 React 组件真正感兴趣的地方。
 
 答案是：将组件的 state 和副作用从展示组件中隔离出去。为了实现这一目标，你可以将 state 和副作用封装在一个容器组件中，然后通过 props 将 state 传递到纯组件中。
 
@@ -91,7 +91,7 @@ describe('Hello component', async assert => {
 
 根据我的经验，如果你将展示/UI 问题与程序逻辑和副作用分开，你会觉得更加轻松。对于我来说，这个经验法则始终适用于我曾经使用的每种语言和每个框架，包括React with hooks。
 
-让我们通过构建一个点击计数器来演示有状态的组件。首先，我们将构建 UI 组件。它应该显示类似 “Clicks：13” 的内容，告诉你单击按钮的次数。按钮只有点击功能。
+让我们通过构建一个点击计数器来演示有 state 的组件。首先，我们将构建 UI 组件。它应该显示类似 “Clicks：13” 的内容，告诉你单击按钮的次数。按钮只有点击功能。
 
 显示组件的单元测试非常简单。我们只需要测试按钮是否被渲染（我们不关心 label 的内容 —— 它可能会用不同的语言表达不同的内容，具体取决于用户的区域设置）。 我们**设置** undefinedwant 以确保显示正确的点击次数。下面我们将编写两个测试：一个用于测试按钮显示，另一个用于测试点击次数的正确呈现。
 
@@ -183,7 +183,7 @@ not ok 3 Given a click count: should render the correct number of clicks.
 ...
 ```
 
-为了解决这一问题, 把 count 作为一个 prop， and use the live prop value in the JSX:
+为了解决这一问题, 把 count 作为一个 prop，并在 JSX 中使用 prop 的动态值：
 
 ```js
 import React, { Fragment } from 'react';
@@ -306,9 +306,9 @@ const reducer = () => {};
 export { reducer, click };
 ```
 
-I’m starting by simply exporting an empty reducer and action creator. To learn more about the important role of things like action creators and selectors, read [“10 Tips for Better Redux Architecture”](https://medium.com/javascript-scene/10-tips-for-better-redux-architecture-69250425af44). We’re not going to take the deep dive into React/Redux architecture patterns right now, but an understanding of the topic will go a long way towards understanding what we’re doing here, even if you are not going to use the Redux library.
+我将从生成简单的空 reducer 和 action 生成器开始。想要了解更多关于 action 生成器和选择器等的内容，请阅读文章[“10 Tips for Better Redux Architecture”](https://medium.com/javascript-scene/10-tips-for-better-redux-architecture-69250425af44)。我们现在不会深入研究 React/Redux 的架构模式，但是，即便你不打算使用 Redux 库，对其的了解将有助于我们正在进行的测试。
 
-First, we’ll watch the test fail:
+首先，观察下面用例无法通过测试的情况：
 
 ```
 # click counter reducer
@@ -319,13 +319,13 @@ not ok 5 Given no arguments: should return the valid initial state
     actual:   undefined
 ```
 
-Now let’s make the test pass:
+现在，我们将修改测试用例，使其通过测试：
 
 ```js
 const reducer = () => 0;
 ```
 
-The initial value test will pass now, but it’s time to add more meaningful tests:
+初始值测试会通过，但是时候添加些更有意义的测试了：
 
 ```js
   assert({
@@ -343,11 +343,11 @@ The initial value test will pass now, but it’s time to add more meaningful tes
   });
 ```
 
-Watch the tests fail (both return `0` when they should return `1` and `4`, respectively). Then implement the fix.
+观察用例无法通过测试的情况(当它们分别返回 `1` 和 `4` 时都返回了 `0`)。然后修改用例，使其通过测试。
 
-Notice that I’m using the `click()` action creator as the reducer's public API. In my opinion, you should think of the reducer as something that your application does not interact directly with. Instead, it uses action creators and selectors as the public API for the reducer.
+注意到我使用了 `click()` action 生成器作为 reducer 的公共 API。我认为你需要明白 reducer 并不会直接与你的应用进行交互。应用使用 action 生成器和选择器作为公共 API 暴露给 reducer。
 
-I also don't write separate unit tests for action creators and selectors. I always test them in combination with the reducer. Testing the reducer is testing the action creators and selectors, and vice versa. If you follow this rule of thumb, you'll need fewer tests, but still achieve the same test and case coverage as you would if you tested them independently.
+我也不会为 action 生成器和选择器分别编写测试用例。我总是将它们和 reducer 放在一起进行测试，测试 reducer 就是测试 action 生成器和选择器，反之亦然。 如果你也遵循这个经验法则，你就会少做很多测试。但是如果你分开测试它们，仍旧可以相同的测试和案例覆盖。
 
 ```js
 const click = () => ({
@@ -364,7 +364,7 @@ const reducer = (state = 0, { type } = {}) => {
 export { reducer, click };
 ```
 
-Now all the unit tests will pass:
+现在，所有的单元测试都能通过：
 
 ```
 TAP version 13
@@ -386,7 +386,7 @@ ok 7 Given a click count and a click action: should add a click to the count
 # ok
 ```
 
-Just one more step: Connecting our behavior to our component. We can do that with a container component. I’ll just call that `index.js` and colocate it with the other files. It should look something like this:
+在往前走一步：将我们的行为与组件联系起来，可以是使用容器组件实现这一点。`index.js` 文件会把其余的文件进行合并，该文件类似下面的样式：
 
 ```js
 import React, { useReducer } from 'react';
@@ -403,9 +403,9 @@ export default () => {
 };
 ```
 
-That’s it. This component’s only job is to connect our state management and pass the state in as props to our unit-tested pure component. To test it, load the app in your browser and click the click button.
+可以看到，这个组件的唯一作用就是把我们的 state 管理连接起来，并通过 prop 将 state 传递到 用作单元测试的纯组件中。要想测试它，只需要将其加载到浏览器并点击 click 按钮。
 
-Up until now we haven’t looked at the component in the browser or done any kind of styling. Just to clarify what we’re counting, I’ll add a label and some space to the `ClickCounter` component. I'll also hook up the `onClick` function. Now the code looks like this:
+截至目前，我们还没有在浏览器中查看任何组件，也没有设置任何样式。为了使我们的计数变得更加清晰，下面将添加一些标记和空间到 `ClickCounter` 组件中。 我还会绑定 `onClick` 函数。代码如下所示：
 
 ```js
 import React, { Fragment } from 'react';
@@ -418,19 +418,13 @@ export default ({ clicks, onClick }) =>
 ;
 ```
 
-And all the unit tests still pass.
+所有的测试均能通过。
 
-What about tests for the container component? I don’t unit test container components. Instead, I use functional tests, which run in-browser and simulate user interactions with the actual UI, running end-to-end. You need both kinds of tests (unit and functional) in your application, and unit testing your container components (which are mostly connective/wiring components like the one that wires up our reducer, above) would be too redundant with functional tests for my taste, and not particularly easy to unit test properly. Often, you’d have to mock various container component dependencies to get them to work.
+那关于容器组件的测试呢？我并没有对容器组件进行单元测试。取而代之的是, 我使用端到端的功能测试，它运行在浏览器中，模拟用户与实际 UI 的交互。在你的应用中你需要使用两种测试（单元测试和功能测试），并且我觉得将单元测试应用到容器组件（这些容器组件一般是起连接作用的组件，比如上面连接我们 reducer 的容器组件）与将功能测试应用到容器组件相比，前者不仅有些冗余，还不容易进行单元测试。通常，你必须模拟各种容器组件之间的依赖关系，以使它们正常工作。
 
-In the meantime, we’ve unit tested all the important units that don’t depend on side-effects: We’re testing that the correct data gets rendered and that the state is managed correctly. You should also load the component in the browser and see for yourself that the button works and the UI responds.
+同时，我们已经对所有不依赖副作用的重要单元进行了单元测试：测试了数据是否被正确的渲染以及 state 是否被正确管理。你还应该在浏览器中加载该组件，并亲自查看该按钮是否工作以及 UI 是否有改变。
 
-Implementing functional/e2e tests for React is the same as implementing them for any other framework. I won’t go into them here, but check out [TestCafe](https://devexpress.github.io/testcafe/), [TestCafe Studio](https://www.devexpress.com/products/testcafestudio/) and [Cypress.io](https://www.cypress.io/) for e2e testing without the Selenium dance.
-
-****Eric Elliott** is a distributed systems expert and author of the books, [“Composing Software”](https://leanpub.com/composingsoftware) and [“Programming JavaScript Applications”](http://pjabook.com). As co-founder of [DevAnywhere.io](https://devanywhere.io), he teaches developers the skills they need to work remotely and embrace work/life balance. He builds and advises development teams for crypto projects, and has contributed to software experiences for **Adobe Systems, Zumba Fitness,** **The Wall Street Journal,** **ESPN,** **BBC,** and top recording artists including **Usher, Frank Ocean, Metallica,** and many more.**
-
-***
-
-**He enjoys a remote lifestyle with the most beautiful woman in the world.**
+功能/端到端测试在 React 上的实现与其它框架上的实现相似。在此不做详细讨论，感兴趣的读者可以查看[TestCafe](https://devexpress.github.io/testcafe/)、[TestCafe Studio](https://www.devexpress.com/products/testcafestudio/) 和 [Cypress.io](https://www.cypress.io/) 在没有 Selenium dance 的情况下进行e2e测试。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
