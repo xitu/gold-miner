@@ -140,7 +140,6 @@ describe('ClickCounter component', async assert => {
 });
 ```
 
-
 我会新建一些工厂函数让编写测试变得更简单。在本例中，`createCounter` 将单击次数的数值进行注入, 并使用该次数返回渲染后的组件：
 ```js
 const createCounter = clickCount =>
