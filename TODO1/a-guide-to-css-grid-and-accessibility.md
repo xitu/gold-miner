@@ -18,22 +18,12 @@ If you have a simple document this usually isn't a problem, as the logical and v
 
 CSS Grid has a number of properties that change the visual order of a document:
 
--   `[order](https://developer.mozilla.org/en-US/docs/Web/CSS/order)` - works with both [flexbox](https://webdesign.tutsplus.com/tutorials/a-comprehensive-guide-to-flexbox-ordering-reordering--cms-31564) and CSS Grid. It changes the default order of items inside a flex or grid container.
--   grid placement properties - `[grid-row-start](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start)`, `[grid-row-end](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end)`, `[grid-column-start](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start)`, [`grid-column-end`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end).
--   shorthands for the aforementioned grid placement properties - `[grid-row](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row)`, `[grid-column](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column)`, and `[grid-area](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)` (shorthand for `grid-row` and `grid-column`).
--   `[grid-template-areas](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas)` - specifies the placement of named grid areas.
+-   [`order`](https://developer.mozilla.org/en-US/docs/Web/CSS/order) - works with both [flexbox](https://webdesign.tutsplus.com/tutorials/a-comprehensive-guide-to-flexbox-ordering-reordering--cms-31564) and CSS Grid. It changes the default order of items inside a flex or grid container.
+-   grid placement properties - [`grid-row-start`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start), [`grid-row-end`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end), [`grid-column-start`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start), [`grid-column-end`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end).
+-   shorthands for the aforementioned grid placement properties - [`grid-row`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row), [`grid-column`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column), and [`grid-area`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area) (shorthand for `grid-row` and `grid-column`).
+-   [`grid-template-areas`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas) - specifies the placement of named grid areas.
 
 If you want to read more about how to use grid placement properties, have a look at our previous article on [grid areas](https://webdesign.tutsplus.com/tutorials/css-grid-layout-using-grid-areas--cms-27264). Now, let's see how things can go wrong with visual reordering. 
-
--   [![](https://cms-assets.tutsplus.com/uploads/users/30/posts/27264/preview_image/grid-pre-3.png)
-
-    CSS GRID LAYOUT
-
-    CSS Grid Layout: Using Grid Areas
-
-    Ian Yates
-
-    ](https://webdesign.tutsplus.com/tutorials/css-grid-layout-using-grid-areas--cms-27264)
 
 ## Visual vs. Logical Reordering
 
