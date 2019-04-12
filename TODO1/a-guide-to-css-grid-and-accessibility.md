@@ -58,6 +58,8 @@ Below, you can see how it looks like with some additional styling for clarity. W
 
 It will also be difficult for keyboard users to tab through the page, as tabbing will also start with **Link 1**, at the bottom left corner of the page (try it yourself).
 
+![image](https://user-images.githubusercontent.com/5164225/56024520-c2446e00-5d42-11e9-93c5-5047bea7a6eb.png)
+
 ### The Solution
 
 The solution is simple and elegant. Instead of changing the visual order, you need to move Link 1 down in the HTML. This way, the logical and visual order of the document will be the same.
@@ -84,6 +86,8 @@ You won't need to add any Grid-related properties to `.item-1` in the CSS. As 
 ```
 
 Take a look. Although the demo below looks the same as before, it's now accessible. Both tabbing and screen reading will start with Link 2 and logically follow the source order.
+
+![image](https://user-images.githubusercontent.com/5164225/56024543-d0928a00-5d42-11e9-8805-dde165d25910.png)
 
 ## How to Make Layouts Accessible
 
@@ -123,6 +127,8 @@ footer {
 ```
 
 So, `grid-column` makes `<header>` and `<footer>` span across the whole screen (3 columns) and `grid-area` (shorthand for `grid-row` and `grid-column`) fixes the place of the left sidebar. Here's how it looks like with some extra styling:
+
+![image](https://user-images.githubusercontent.com/5164225/56024562-da1bf200-5d42-11e9-8680-e650a2a52351.png)
 
 Although the Holy Grail Layout is a fairly simple layout, you can use the same logic with more complicated layouts, too. Always think about which is the most important part of your page that screen reader users might want to access first, before the rest of your content.
 
@@ -178,6 +184,8 @@ footer {
 }
 ```
 
+![image](https://user-images.githubusercontent.com/5164225/56024575-e2742d00-5d42-11e9-883e-3f015c891cb2.png)
+
 Everything *looks* nice, however the document has lost its semantic meaning, so:
 
 -   screen reader users won't know that your items are related to each other and part of the same list (most screen readers notify users about the number of list items); 
@@ -207,6 +215,8 @@ ul {
 ```
 
 In the demo below, you can see how the nested grid relates to the parent grid. The items are laid out as expected, however, the document still retains its semantic meaning.
+
+![image](https://user-images.githubusercontent.com/5164225/56024590-ea33d180-5d42-11e9-9811-91c21aee312a.png)
 
 ## Conclusion
 
