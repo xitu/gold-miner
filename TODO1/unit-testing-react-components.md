@@ -9,7 +9,7 @@
 
 ![Photo of a first attempt to test a React component by clement127 (CC BY-NC-ND 2.0)](https://cdn-images-1.medium.com/max/4096/1*RzR_S8UJeDn0b_sEQa2V8Q.jpeg)
 
-单元测试是一门伟大的学科，它可以[减少 40% - 80% 的 bug](https://ieeexplore.ieee.org/document/4163024).单元测试的主要好处有:
+单元测试是一门伟大的学科，它可以[减少 40% - 80% 的 bug](https://ieeexplore.ieee.org/document/4163024)。单元测试的主要好处有:
 
 * 改善 apps 的结构和可维护性。
 * 通过在实现细节之前关注开发人员体验(API)，可以获得更好的 API 和可组合性。
