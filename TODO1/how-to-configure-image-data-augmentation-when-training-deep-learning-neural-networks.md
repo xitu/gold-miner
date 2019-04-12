@@ -77,8 +77,7 @@ Some rights reserved.
 
 *   [Download photograph (bird.jpg)](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/bird.jpg)
 
-Image Augmentation With ImageDataGenerator
-------------------------------------------
+## Image Augmentation With ImageDataGenerator
 
 The Keras deep learning library provides the ability to use data augmentation automatically when training a model.
 
@@ -88,7 +87,7 @@ First, the class may be instantiated and the configuration for the types of data
 
 A range of techniques are supported, as well as pixel scaling methods. We will focus on five main types of data augmentation techniques for image data; specifically:
 
-*   Image shifts via the _width\_shift\_range_ and _height\_shift\_range_ arguments.
+*   Image shifts via the _`width_shift_range`_ and _`height_shift_range`_ arguments.
 *   Image flips via the _horizontal_flip_ and _vertical_flip_ arguments.
 *   Image rotations via the _rotation_range_ argument
 *   Image brightness via the _brightness_range_ argument.
@@ -124,7 +123,7 @@ it = dataset.flow_from_directory(X, y, ...)
 
 Once the iterator is created, it can be used to train a neural network model by calling the _fit_generator()_ function.
 
-The _steps\_per\_epoch_ argument must specify the number of batches of samples comprising one epoch. For example, if your original dataset has 10,000 images and your batch size is 32, then a reasonable value for _steps\_per\_epoch_ when fitting a model on the augmented data might be _ceil(10,000/32)_, or 313 batches.
+The _`steps_per_epoch`_ argument must specify the number of batches of samples comprising one epoch. For example, if your original dataset has 10,000 images and your batch size is 32, then a reasonable value for _`steps_per_epoch`_ when fitting a model on the augmented data might be _ceil(10,000/32)_, or 313 batches.
 
 ```
 # define model
@@ -147,13 +146,13 @@ A shift to an image means moving all pixels of the image in one direction, such 
 
 This means that some of the pixels will be clipped off the image and there will be a region of the image where new pixel values will have to be specified.
 
-The _width\_shift\_range_ and _height\_shift\_range_ arguments to the _ImageDataGenerator_ constructor control the amount of horizontal and vertical shift respectively.
+The _`width_shift_range`_ and _`height_shift_range`_ arguments to the _ImageDataGenerator_ constructor control the amount of horizontal and vertical shift respectively.
 
 These arguments can specify a floating point value that indicates the percentage (between 0 and 1) of the width or height of the image to shift. Alternately, a number of pixels can be specified to shift the image.
 
-Specifically, a value in the range between no shift and the percentage or pixel value will be sampled for each image and the shift performed, e.g. \[0, value\]. Alternately, you can specify a tuple or array of the min and max range from which the shift will be sampled; for example: \[-100, 100\] or \[-0.5, 0.5\].
+Specifically, a value in the range between no shift and the percentage or pixel value will be sampled for each image and the shift performed, e.g. [0, value]. Alternately, you can specify a tuple or array of the min and max range from which the shift will be sampled; for example: [-100, 100] or [-0.5, 0.5].
 
-The example below demonstrates a horizontal shift with the _width\_shift\_range_ argument between \[-200,200\] pixels and generates a plot of generated images to demonstrate the effect.
+The example below demonstrates a horizontal shift with the _`width_shift_range`_ argument between [-200,200] pixels and generates a plot of generated images to demonstrate the effect.
 
 ```
 # example of horizontal shift image augmentation
@@ -194,7 +193,7 @@ We can see in the plot of the result that a range of different randomly selected
 
 Plot of Augmented Generated With a Random Horizontal Shift
 
-Below is the same example updated to perform vertical shifts of the image via the _height\_shift\_range_ argument, in this case specifying the percentage of the image to shift as 0.5 the height of the image.
+Below is the same example updated to perform vertical shifts of the image via the _`height_shift_range`_ argument, in this case specifying the percentage of the image to shift as 0.5 the height of the image.
 
 ```
 # example of vertical shift image augmentation
@@ -339,7 +338,7 @@ The intent is to allow a model to generalize across images trained on different 
 
 This can be achieved by specifying the _brightness_range_ argument to the _ImageDataGenerator()_ constructor that specifies min and max range as a float representing a percentage for selecting a brightening amount.
 
-Values less than 1.0 darken the image, e.g. \[0.5, 1.0\], whereas values larger than 1.0 brighten the image, e.g. \[1.0, 1.5\], where 1.0 has no effect on brightness.
+Values less than 1.0 darken the image, e.g. [0.5, 1.0], whereas values larger than 1.0 brighten the image, e.g. [1.0, 1.5], where 1.0 has no effect on brightness.
 
 The example below demonstrates a brightness image augmentation, allowing the generator to randomly darken the image between 1.0 (no change) and 0.2 or 20%.
 
@@ -386,11 +385,11 @@ A zoom augmentation randomly zooms the image in and either adds new pixel values
 
 Image zooming can be configured by the _zoom_range_ argument to the _ImageDataGenerator_ constructor. You can specify the percentage of the zoom as a single float or a range as an array or tuple.
 
-If a float is specified, then the range for the zoom will be \[1-value, 1+value\]. For example, if you specify 0.3, then the range will be \[0.7, 1.3\], or between 70% (zoom in) and 130% (zoom out).
+If a float is specified, then the range for the zoom will be [1-value, 1+value]. For example, if you specify 0.3, then the range will be [0.7, 1.3], or between 70% (zoom in) and 130% (zoom out).
 
 The zoom amount is uniformly randomly sampled from the zoom region for each dimension (width, height) separately.
 
-The zoom may not feel intuitive. Note that zoom values less than 1.0 will zoom the image in, e.g. \[0.5,0.5\] makes the object in the image 50% larger or closer, and values larger than 1.0 will zoom the image out by 50%, e.g. \[1.5, 1.5\] makes the object in the image smaller or further away. A zoom of \[1.0,1.0\] has no effect.
+The zoom may not feel intuitive. Note that zoom values less than 1.0 will zoom the image in, e.g. [0.5,0.5] makes the object in the image 50% larger or closer, and values larger than 1.0 will zoom the image out by 50%, e.g. [1.5, 1.5] makes the object in the image smaller or further away. A zoom of [1.0,1.0] has no effect.
 
 The example below demonstrates zooming the image in, e.g. making the object in the photograph larger.
 
