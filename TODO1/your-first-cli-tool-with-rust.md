@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/your-first-cli-tool-with-rust.md](https://github.com/xitu/gold-miner/blob/master/TODO1/your-first-cli-tool-with-rust.md)
 > * 译者：[JackEggie](https://github.com/JackEggie)
-> * 校对者：
+> * 校对者：[TloveYing](https://github.com/TloveYing)
 
 # 用 Rust 打造你的第一个命令行工具
 
@@ -168,7 +168,7 @@ fn main() {
 }
 ```
 
-再次编译并执行，除了变量 `matches` 上的编译警告(对于 Ruby 开发者来说，可以在变量前面加上 `_`，它会告诉编译器该变量是可选的)，它应该不会输出太多其他信息。
+再次编译并执行，除了变量 `matches` 上的编译警告（对于 Ruby 开发者来说，可以在变量前面加上 `_`，它会告诉编译器该变量是可选的），它应该不会输出太多其他信息。
 
 如果你向应用程序传递 `-h` 或者 `-V` 参数，程序会自动生成一个帮助信息和版本信息。我不知道你如何看待这个事情，但我觉得它 🔥🔥🔥。
 
