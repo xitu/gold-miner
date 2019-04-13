@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-workmanager.md](https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-workmanager.md)
 > * 译者：[Rickon](https://juejin.im/user/5bffbdaf6fb9a049d81b914c)
-> * 校对者：
+> * 校对者：[DevMcryYu](https://github.com/DevMcryYu)
 
 # WorkManager 简介
 
@@ -11,27 +11,27 @@
 
 插图来自 [Virginia Poltrack](https://twitter.com/VPoltrack)
 
-Android 系统处理后台工作有很多注意事项和最佳实践，详见 [Google’s Power blog post series](https://android-developers.googleblog.com/search/label/Power%20series)。其中一个反复出现的调用是一个名为 [WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager/) 的 [Android Jetpack](https://developer.android.com/jetpack/) 库，它扩展了 [JobScheduler](https://developer.android.com/reference/android/app/job/JobScheduler) 框架 API 的功能，并支持 Android 4.0+（API 14+）。[WorkManager 测试版](https://developer.android.com/jetpack/docs/release-notes#december_19_2018) 今天刚刚发布！
+Android 系统处理后台工作有很多注意事项和最佳实践，详见 [Google’s Power blog post series](https://android-developers.googleblog.com/search/label/Power%20series)。其中一个反复出现的调用是一个名为 [WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager/) 的 [Android Jetpack](https://developer.android.com/jetpack/) 库，它扩展了 [JobScheduler](https://developer.android.com/reference/android/app/job/JobScheduler) 框架 API 的功能，并支持 Android 4.0+（API 14+）。[WorkManager 测试版](https://developer.android.com/jetpack/docs/release-notes#december_19_2018)今天刚刚发布！
 
-这篇文章是 WorkManager 系列中的第一篇。 我们将探讨 WorkManager 的基础知识，如何以及何时使用它，以及幕后发生了什么。然后我们将深入研究更复杂的用例。
+这篇文章是 WorkManager 系列中的第一篇。我们将探讨 WorkManager 的基础知识，如何以及何时使用它，以及幕后发生了什么。然后我们将深入研究更复杂的用例。
 
 ### WorkManager 是什么?
 
 WorkManager 是 [Android 架构组件](https://developer.android.com/topic/libraries/architecture/)之一，也是 Android Jetpack 的一部分，是一个关于如何构建现代 Android 应用程序的新见解。
 
->  WorkManager 是一个 Android 库，在满足工作的**约束条件**时运行**可延迟**的后台工作。
+> WorkManager 是一个 Android 库，在满足工作的**约束条件**时运行**可延迟**的后台工作。
 >
-> WorkManager 适用于需要**保证**的任务，即使应用程序退出，系统也会运行它们。
+> WorkManager 适用于需要**保障**的任务，即使应用程序退出，系统也会运行它们。
 
 换句话说，WorkManager 提供了一个电池友好的 API，它封装了 Android 后台行为限制多年来的演变。这对于需要执行后台任务的 Android 应用程序至关重要！
 
 ### 什么时候使用 WorkManager
 
-无论应用程序进程是否存在，WorkManager 都会处理在满足各种约束条件时需要运行的后台工作。当应用程序在后台，或者在前台，或应用程序在前台启动但前往后台时，都可以启动后台工作。无论应用程序在做什么，后台工作都应该继续进行，或者在 Android 终止其进程时重启其后台工作。
+无论应用程序进程是否存在，WorkManager 都会处理在满足各种约束条件时需要运行的后台工作。后台工作可以在应用程序位于后台、前台或者应用在前台打开即将转到后台的时候启动。无论应用程序在做什么，后台工作都应该继续进行，或者在 Android 终止其进程时重启其后台工作。
 
-关于 WorkManager 的一个常见误解是它需要在“后台”线程中运行，但不需要在进程死亡时存活。事实并非如此。这种用例还有其他解决方案，如 Kotlin 的协同程序，ThreadPools 或 RxJava 等库。你可以在[后台处理指南](https://developer.android.com/guide/background/)中找到有关此用例的更多信息。
+关于 WorkManager 的一个常见误解是它需要在“后台”线程中运行，但不需要在进程死亡时存活。事实并非如此。这种用例还有其他解决方案，如 Kotlin 的协程，ThreadPools 或 RxJava 等库。你可以在[后台处理指南](https://developer.android.com/guide/background/)中找到有关此用例的更多信息。
 
-有许多不同的情况下，你需要运行后台工作，因此需要使用不同的解决方案来运行后台工作。这篇 [关于后台运行的博客文章](https://android-developers.googleblog.com/2018/10/modern-background-execution-in-android.html) 提供了很多关于何时使用 Workmanager 的有用信息。请看博客中的此图表：
+有许多不同的情况下，你需要运行后台工作，因此需要使用不同的解决方案来运行后台工作。这篇[关于后台运行的博客文章](https://android-developers.googleblog.com/2018/10/modern-background-execution-in-android.html)提供了很多关于何时使用 Workmanager 的有用信息。请看博客中的此图表：
 
 ![](https://cdn-images-1.medium.com/max/800/1*K-jWMXQbAK98EdkuuaZCFg.png)
 
@@ -43,14 +43,14 @@ WorkManager 是 [Android 架构组件](https://developer.android.com/topic/libra
 
 *   **这个任务需要完成吗？** 如果应用程序被用户关闭了，是否仍需要完成任务？一个例子是带有远程同步的笔记应用程序;每次你写完一个笔记，你就会期望该应用程序将你的笔记与后端服务器同步。即使您切换到另一个应用程序并且操作系统需要关闭应用程序以回收一些内存。即使重新启动设备也会发生这种情况。WorkManager 能够确保任务完成。
 
-*   **这个任务可以延迟吗？** 我们可以稍后运行任务，还是只在**现在**运行才可以用？如果任务可以稍后运行，那么它是可延迟的。回到前面的例子，将你的笔记立即上传会很好，但是，如果这不可能并且同步操作发生在之后，这并不是一个大问题。WorkManager 尊重操作系统后台限制，并尝试以电池高效的方式运行你的工作。
+*   **这个任务可以延迟吗？** 我们可以稍后运行任务，还是只在**现在**运行才可以用？如果任务可以稍后运行，那么它是可延迟的。回到前面的例子，立即同步你的笔记会很好，但是如果不能立即同步而是稍后进行的话也没什么大问题。WorkManager 尊重操作系统后台限制，并尝试以电池高效的方式运行你的工作。
 
-因此，作为指导原则，WorkManager 适用于需要确保系统将运行它们的任务，即使应用程序退出也是如此。它不适用于需要立即执行或需要在确切时间执行的后台工作。如果你需要在准确的时间执行工作（例如闹钟或事件提醒），请使用 [AlarmManager](https://developer.android.com/training/scheduling/alarms)。 对于需要立即执行但长时间运行的工作，你通常需要确保在前台执行工作;是否通过限制执行到前台（在这种情况下工作不再是真正的后台工作）或使用 [前台服务](https://android-developers.googleblog.com/2018/12/effective-foreground-services-on-android_11.html)。
+因此，作为指导原则，WorkManager 适用于需要确保系统将运行它们的任务，即使应用程序退出也是如此。它不适用于需要立即执行或需要在确切时间执行的后台工作。如果你需要在准确的时间执行工作（例如闹钟或事件提醒），请使用 [AlarmManager](https://developer.android.com/training/scheduling/alarms)。对于需要立即执行但长时间运行的工作，你通常需要确保在前台执行工作;是否通过限制执行到前台（在这种情况下工作不再是真正的后台工作）或使用[前台服务](https://android-developers.googleblog.com/2018/12/effective-foreground-services-on-android_11.html)。
 
 当你需要在更复杂的场景中触发一些后台工作时，WorkManager 可以并且应该与其他 API 配对使用：
 
 *   如果你的服务器触发了工作，WorkManager 可以与 Firebase Cloud Messaging 配对使用。
-*   如果你正在使用广播接收器收听广播，然后需要触发长时间运行的工作，那么你可以使用 WorkManager。请注意，WorkManager 支持许多通常作为广播传播的常见 [Constraints](https://developer.android.com/reference/androidx/work/Constraints) - 在这些情况下，你不需要注册自己的广播接收器。
+*   如果你正在使用广播接收器监听广播，然后需要触发长时间运行的工作，那么你可以使用 WorkManager。请注意，WorkManager 支持许多通常作为广播传播的常见 [Constraints](https://developer.android.com/reference/androidx/work/Constraints)————在这些情况下，你不需要注册自己的广播接收器。
 
 ### 为什么要用 WorkManager?
 
@@ -97,7 +97,7 @@ WorkManager 现在处于测试阶段。这意味着在此主要修订版中不�
 
 当 WorkManager 稳定版本发布时，它将是运行后台任务的首选方式。 因此，这是开始使用 WorkManager 并帮助[改进它](https://issuetracker.google.com/issues?q=componentid:409906)的好时机！
 
-**感谢** [**Lyla Fujiwara**](https://medium.com/@lylalyla)。
+**感谢 [Lyla Fujiwara](https://medium.com/@lylalyla)。**
 
 ### WorkManager 相关资源
 
