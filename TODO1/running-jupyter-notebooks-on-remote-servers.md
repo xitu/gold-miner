@@ -35,7 +35,7 @@ cd project_folder
 jupyter notebook --no-browser --port=8889
 ```
 
-我使用 `jupyter notebook` 命令来启动 Jupyter notebook，该命令带有 `--no-browser` 标识，因而没有启动浏览器，因为远程服务器如果没有 GUI 的话，并不能显示浏览器。我还使用 `--port=8889` 把默认端口 8888 改为 8889，这是我个人在偏好，这样本地和远程的两个 notebook 用的就是不同的端口，就更容易查看代码究竟是在哪运行了。
+我使用 `jupyter notebook` 命令来启动 Jupyter notebook，该命令带有 `--no-browser` 标识，因而没有启动浏览器，因为远程服务器如果没有 GUI 的话，并不能显示浏览器。我还使用 `--port=8889` 把默认端口 8888 改为 8889，这是我个人的偏好，这样本地和远程的两个 Notebook 用的就是不同的端口，就更容易查看代码究竟是在哪运行了。
 
 要在远程服务器上运行命令，先运行以下组合代码。
 
