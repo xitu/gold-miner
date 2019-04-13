@@ -9,15 +9,15 @@
 
 ![](https://cdn-images-1.medium.com/max/3840/1*rhhk7heUKv1KA8p50I-ElA.jpeg)
 
-[Jupyter Notebook](https://jupyter.org/)  是许多数据科学家工具库中的重要工具。Jupyter Notebook 作为一种工具，可以让人们在交互式中，更容易地进行数据分析，建立模型原型，进行试验等等，从而提高生产率，缩短编写代码查看结果循环反馈的时间。
+[Jupyter Notebook](https://jupyter.org/)  是许多数据科学家工具库中的主要工具。Jupyter Notebook 作为一种工具，可以让人们通过交互的方式，更容易地进行数据分析，建立模型原型，进行试验等等，从而提高生产率，缩短编写代码查看结果循环反馈的时间。
 
-很多情况下在笔记本或工作站上运行 Jupyter notebook 已经足够了。但如果是在对大型数据集操作，或处理数据要消耗大量运算力，或建立的学习模型相当复杂，就需要比笔记本电脑更强大的计算力。可能你在大图片上运行 [图片卷积网络](https://towardsdatascience.com/how-to-do-deep-learning-on-graphs-with-graph-convolutional-networks-7d2250723780) ，或在大量文本语料中运用带递归神经网络的机器翻译算法，就需要更多 CPU 内核，RAM，或多个 GPU 。幸运的是，你需要的这些资源，可能在远程服务器上都有！
+很多情况下在笔记本或工作站上运行 Jupyter Notebook 已经足够了。但如果是在对大型数据集操作，或处理数据要消耗大量运算力，或建立的学习模型相当复杂，就需要比笔记本电脑更强大的计算力。可能你在大图片上运行 [图片卷积网络](https://towardsdatascience.com/how-to-do-deep-learning-on-graphs-with-graph-convolutional-networks-7d2250723780) ，或在大量文本语料中运用带递归神经网络的机器翻译算法，就需要更多 CPU 内核，RAM，或多个 GPU 。幸运的是，你需要的这些资源，可能在远程服务器上都有！
 
 要是远程服务器有图形用户界面（GUI），那么你很走运，因为可以使用 [远程桌面软件](https://en.wikipedia.org/wiki/Remote_desktop_software) 来访问远程服务器，就跟平时在笔记本上使用 Jupyter Notebook 一样。
 
-然而很多服务器并没有 GUI。这样的话，可以先在你笔记本电脑上写好 Python 脚本，然后使用小部分的数据进行试验，证明脚本可以正确运行，最后再复制到远程服务器上用命令行运行。甚至可以先在 notebook 上试验，再使用 `jupyter nbconvert --to script your_notebook.ipynb`  这个命令，将 notebook 内容导出到脚本。这样虽然可以让代码在远程服务器上运行，但你再也不能使用 Jupyter Notebook 来交互式地进行诸如对模型进行试验或对结果可视化了。太可惜！
+然而很多服务器并没有 GUI。这样的话，可以先在你笔记本电脑上写好 Python 脚本，然后使用小部分的数据进行试验，证明脚本可以正确运行，最后再复制到远程服务器上用命令行运行。甚至可以先在 Notebook 上试验，再使用 `jupyter nbconvert --to script your_notebook.ipynb`  命令，将 Notebook 内容导出到脚本。这样虽然可以让代码在远程服务器上运行，但你再也不能使用 Jupyter Notebook 来交互式地进行诸如对模型进行试验或对结果可视化了。太可惜！
 
-本文将向你展示，如何在远程服务器上运行 Jupyter notebook，如何笔记本电脑上访问，以及如何用两条 `bash` 命令，让整个过程更简单。
+本文将向你展示，如何在远程服务器上运行 Jupyter Notebook，如何笔记本电脑上访问，以及如何用两条 `bash` 命令，让整个过程更简单。
 
 ## 启动远程 Notebook 服务器
 
@@ -27,7 +27,7 @@
 ssh username:password@remote_server_ip command
 ```
 
-具体命令要根据你情况来定。就我而言，由于跟其他人共享同一个远程服务器，因此没有在共享环境中安装Jupyter。我第一步是进入到我自己的工程目录，启动虚拟环境，再启动notebook服务器。具体而言，就是在远程服务器上执行以下三个 `bash` 命令：
+具体命令要根据你情况来定。就我而言，由于跟其他人共享同一个远程服务器，因此没有在共享环境中安装 Jupyter。我第一步是进入到我自己的工程目录，启动虚拟环境，再启动 Notebook 服务器。具体而言，就是在远程服务器上执行以下三个 `bash` 命令：
 
 ```
 cd project_folder
@@ -35,7 +35,7 @@ cd project_folder
 jupyter notebook --no-browser --port=8889
 ```
 
-我使用 `jupyter notebook` 命令来启动 Jupyter notebook，该命令带有 `--no-browser` 标识，因而没有启动浏览器，因为远程服务器如果没有GUI的话，并不能显示浏览器。我还使用 `--port=8889` 把默认端口 8888 改为8889，这是我个人的偏好，这样本地和远程的两个 notebook 用的就是不同的端口，就更容易查看代码究竟是在哪运行了。
+我使用 `jupyter notebook` 命令来启动 Jupyter notebook，该命令带有 `--no-browser` 标识，因而没有启动浏览器，因为远程服务器如果没有 GUI 的话，并不能显示浏览器。我还使用 `--port=8889` 把默认端口 8888 改为 8889，这是我个人在偏好，这样本地和远程的两个 notebook 用的就是不同的端口，就更容易查看代码究竟是在哪运行了。
 
 要在远程服务器上运行命令，先运行以下组合代码。
 
@@ -43,17 +43,17 @@ jupyter notebook --no-browser --port=8889
 nohup ssh -f username:password@remote_server_ip "cd project_folder; . virtual_environment/bin/activate; jupyter notebook --no-browser --port=8889"
 ```
 
-注意，我用  `;`  将一行代码的三个命令分开，而没有用行分隔符。执行这段代码后，Jupyter Notebook会在8889端口启动，并在后台运行。最后我加了给  `ssh` 命令加了 `-f`  把进程推进后台，还加了 `nohup` 命令，静默了进程的所有输出，这样就能继续使用终端窗口了。[这里](https://www.computerhope.com/unix/unohup.htm) 有更多关于 `nohup`  命令的信息。
+注意，我用  `;`  将一行代码的三个命令分开，而没有用行分隔符。执行这段代码后，Jupyter Notebook 会在 8889 端口启动，并在后台运行。最后我加了给  `ssh` 命令加了 `-f`  把进程推进后台，还加了 `nohup` 命令，静默了进程的所有输出，这样就能继续使用终端窗口了。[这里](https://www.computerhope.com/unix/unohup.htm) 有更多关于 `nohup`  命令的信息。
 
-## 访问你的Notebook
+## 访问你的 Notebook
 
-键入以下URL就能访问 notebook 了
+键入以下 URL 就能访问 Notebook 了
 
 ```
 remote_server_ip:8889
 ```
 
-需要你记住 IP 地址，或把网页加入书签也可。不过使用 [转发端口](https://en.wikipedia.org/wiki/Port_forwarding) 命令，就能跟在本地 notebook 一样简单地访问远程 notebook 了，命令如下：
+需要你记住 IP 地址，或把网页加入书签也可。不过使用 [转发端口](https://en.wikipedia.org/wiki/Port_forwarding) 命令，就能跟在本地 Notebook 一样简单地访问远程 Notebook 了，命令如下：
 
 ```
 nohup ssh -N -f -L localhost:8889:localhost:8889 username:password@remote_server_ip
@@ -67,11 +67,11 @@ nohup ssh -N -f -L localhost:8889:localhost:8889 username:password@remote_server
 localhost:8889
 ```
 
-这就仿佛在本地运行notebook一样。
+这就仿佛在本地运行 Notebook 一样。
 
-## 终止远程Notebook服务器
+## 终止远程 Notebook 服务器
 
-原则上可以让 notebook 服务在远程服务器上一直运行（除非重启或崩溃），但也可能要终止服务，比如要升级  `jupyter`。有两种方式终止：一是通过浏览器，二是通过命令行。
+原则上可以让 Notebook 服务在远程服务器上一直运行（除非重启或崩溃），但也可能要终止服务，比如要升级  `jupyter`。有两种方式终止：一是通过浏览器，二是通过命令行。
 
 ### 通过浏览器窗口
 
@@ -93,17 +93,17 @@ jupyter notebook stop 8889
 ssh username:password@remote_server_ip "`jupyter notebook stop 8889"`
 ```
 
-不幸的是，这个命令有 bug，但我依然将这个写在这，期待以后或许可行。不过还有变通做法，就是直接使用以下命令，将 `jupyter` 进程杀死。
+不幸的是，[这个命令有 bug](https://github.com/jupyter/notebook/issues/2844#issuecomment-371220536)，但我依然将这个写在这，期待以后或许可行。不过还有变通做法，就是直接使用以下命令，将 `jupyter` 进程杀死。
 
 ```
 ssh username:password@remote_server_ip "pkill -u username jupyter`"`
 ```
 
-其中 `-u username` 表示只杀死由 `username` 启动的 `jupyter`  进程。这样做的缺点是，所有你同时运行的 notebook 服务都会被杀死。当然也可以登陆远程服务器，启动 notebook 服务，把终端窗口开着，手动管理服务器。还能使用常用的 `CTRL+C` 键盘命令关闭 notebook  服务器。
+其中 `-u username` 表示只杀死由 `username` 启动的 `jupyter`  进程。这样做的缺点是，你正在运行的所有 Notebook 服务都将被杀死。当然也可以登陆远程服务器，启动 Notebook 服务，把终端窗口开着，手动管理服务器。还能使用常用的 `CTRL+C` 键盘命令关闭 Notebook  服务器。
 
 ## 工作流程梳理
 
-记住所有命令很累赘。幸亏我们能给每个命令起别名，让生活更美好。将下列代码加入  `~/.bashrc` 文件： 
+记住所有命令很累赘。幸亏我们能给每个命令起别名，以简化流程。将下列代码加入  `~/.bashrc` 文件： 
 
 ```
 alias port_forward='nohup ssh -N -f -L localhost:8889:localhost:8889 username:password@remote_server_ip'
@@ -111,13 +111,13 @@ alias remote_notebook_start='nohup ssh -f username:password@remote_server_ip "cd
 alias remote_notebook_stop='ssh username:password@remote_server_ip "pkill -u username jupyter"'
 ```
 
-在终端输入 `source .bashrc` 载入这些命令。这样就能在终端上用 `remote_notebook_start` 和`remote_notebook_stop` 命令，分别启动（同时设置端口转发）和关闭远程 notebook 服务器了。
+在终端输入 `source .bashrc` 载入这些命令。这样就能在终端上用 `remote_notebook_start` 和 `remote_notebook_stop` 命令，分别启动（同时设置端口转发）和关闭远程 Notebook 服务器了。
 
 ## 总结
 
-本文展示了如何使用 bash 命令来启动，访问和终止远程服务器上的  Jupyter notebook，还展示了如何创建 bash 别名使上述流程更容易。
+本文展示了如何使用 bash 命令来启动，访问和终止远程服务器上的  Jupyter Notebook，还展示了如何创建 bash 别名使上述流程更容易。
 
-希望这些命令可以无缝提高你数据科学的效率，让你从 Jupyter notebook 和远程可用计算资源中同时受益。
+希望这些命令可以无缝提高你数据科学的效率，让你从 Jupyter Notebook 和远程可用计算资源中同时受益。
 
 * * *
 
