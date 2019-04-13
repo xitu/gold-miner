@@ -1,5 +1,4 @@
-Building accessible websites and apps is a moral obligation
-===========================================================
+## Building accessible websites and apps is a moral obligation
 
 Yesterday, we recorded a [JS Jabber](https://devchat.tv/js-jabber/) episode (I'm a co-host on the show) with [Chris DeMars](http://chrisdemars.com/). (It comes out in a month or two.)
 
@@ -9,8 +8,7 @@ Chris has a strong focus on performance and web accessibility, and at one said s
 
 I expected everyone to nod in agreement, but to my surprise, a few of my co-hosts actually disagreed with this position. At least one of them even said they would *not*want this legally required the way handicapped access is in physical businesses.
 
-I'm sorry, what? [#](https://gomakethings.com/building-accessible-websites-and-apps-is-a-moral-obligation/#i-m-sorry-what)
---------------------------------------------------------------------------------------------------------------------------
+## I'm sorry, what?
 
 I don't think I've ever been quite so frustrated by a podcast episode before. Their positions (not mine!) were as follows:
 
@@ -22,8 +20,7 @@ My co-hosts were quick to point out that they think accessibility is a good thin
 
 Today, I want to write some extended thoughts now that I've had more time to think about the episode and some of the things we talked about.
 
-Morality is not always relative [#](https://gomakethings.com/building-accessible-websites-and-apps-is-a-moral-obligation/#morality-is-not-always-relative)
-----------------------------------------------------------------------------------------------------------------------------------------------------------
+## Morality is not always relative
 
 There's gray area, of course.
 
@@ -39,8 +36,7 @@ So, too, it goes with websites.
 
 You can quickly slap together a website or app in ways that make it unusable for people with physical and mental disabilities (an estimated 20% of the population), or you can take the time to build it right and make sure it works for everyone.
 
-You're a web *professional* [#](https://gomakethings.com/building-accessible-websites-and-apps-is-a-moral-obligation/#you-re-a-web-professional)
-------------------------------------------------------------------------------------------------------------------------------------------------
+## You're a web *professional*
 
 This is your fucking job.
 
@@ -50,8 +46,7 @@ You wouldn't tolerate a builder who didn't bother reading the building code or e
 
 So why is that OK for us a builders of web things?
 
-The web is accessible out-of-the-box. *We* break it. [#](https://gomakethings.com/building-accessible-websites-and-apps-is-a-moral-obligation/#the-web-is-accessible-out-of-the-box-we-break-it)
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## The web is accessible out-of-the-box. *We* break it.
 
 An HTML file with no CSS and no JavaScript is accessible by default.
 
@@ -61,8 +56,7 @@ But that complaint about "adding friction" and "slowing down the dev process"...
 
 If you want to build something quickly, keep it simple.
 
-It's not on people with disabilities to tell you how you screwed up [#](https://gomakethings.com/building-accessible-websites-and-apps-is-a-moral-obligation/#it-s-not-on-people-with-disabilities-to-tell-you-how-you-screwed-up)
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## It's not on people with disabilities to tell you how you screwed up
 
 One of my co-hosts argued that if a website is inaccessible, it's on the visitor with the disability to call customer service and let them know.
 
@@ -72,8 +66,7 @@ It's not *my* responsibility to tell a builder they violated the building code
 
 Again, you're a web *professional*.
 
-It *should* be easier [#](https://gomakethings.com/building-accessible-websites-and-apps-is-a-moral-obligation/#it-should-be-easier)
-------------------------------------------------------------------------------------------------------------------------------------
+## It *should* be easier
 
 One common theme was that accessibility should be easier. Here, I agree.
 
@@ -94,8 +87,7 @@ Even better, I'd love to see native components for this stuff.
 
 We've got [one for accordions and disclosures](https://gomakethings.com/javascript-free-accordions/) now, which is awesome. There's the `dialog` element for modals, but it has [lots of implementation and accessibility issues](https://www.scottohara.me/blog/2019/03/05/open-dialog.html). A native tab component would be awesome, too.
 
-This is our job [#](https://gomakethings.com/building-accessible-websites-and-apps-is-a-moral-obligation/#this-is-our-job)
---------------------------------------------------------------------------------------------------------------------------
+## This is our job
 
 Regardless of how easy or not it is, this is our job.
 
