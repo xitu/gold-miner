@@ -6,9 +6,9 @@ Chris has a strong focus on performance and web accessibility, and at one said s
 
 > Building websites that are accessible is your moral obligation as a web developer.
 
-I expected everyone to nod in agreement, but to my surprise, a few of my co-hosts actually disagreed with this position. At least one of them even said they would *not*want this legally required the way handicapped access is in physical businesses.
+I expected everyone to nod in agreement, but to my surprise, a few of my co-hosts actually disagreed with this position. At least one of them even said they would *not* want this legally required the way handicapped access is in physical businesses.
 
-## I'm sorry, what?
+## I\'m sorry, what?
 
 I don't think I've ever been quite so frustrated by a podcast episode before. Their positions (not mine!) were as follows:
 
