@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/3840/1*rhhk7heUKv1KA8p50I-ElA.jpeg)
 
-[Jupyter Notebook](https://jupyter.org/)  是许多数据科学家工具库中的主要工具。Jupyter Notebook 作为一种工具，可以让人们通过交互的方式，更容易地进行数据分析，建立模型原型，进行试验等等，从而提高生产率，缩短编写代码查看结果循环反馈的时间。
+[Jupyter Notebook](https://jupyter.org/)  是许多数据科学家工具库中的主要工具。Jupyter Notebook 作为一种工具，可以让人们通过交互的方式，更容易地进行数据分析，建立模型原型，进行试验等等，从而提高生产率，缩短「 写代码 —— 看结果 」这个循环反馈的时间。
 
 很多情况下在笔记本或工作站上运行 Jupyter Notebook 已经足够了。但如果是在对大型数据集操作，或处理数据要消耗大量运算力，或建立的学习模型相当复杂，就需要比笔记本电脑更强大的计算力。可能你在大图片上运行 [图片卷积网络](https://towardsdatascience.com/how-to-do-deep-learning-on-graphs-with-graph-convolutional-networks-7d2250723780) ，或在大量文本语料中运用带递归神经网络的机器翻译算法，就需要更多 CPU 内核，RAM，或多个 GPU 。幸运的是，你需要的这些资源，可能在远程服务器上都有！
 
