@@ -15,7 +15,7 @@ Android 系统处理后台工作有很多注意事项和最佳实践，详见 [G
 
 这篇文章是 WorkManager 系列中的第一篇。我们将探讨 WorkManager 的基础知识，如何以及何时使用它，以及幕后发生了什么。然后我们将深入研究更复杂的用例。
 
-### WorkManager 是什么?
+### WorkManager 是什么？
 
 WorkManager 是 [Android 架构组件](https://developer.android.com/topic/libraries/architecture/)之一，也是 Android Jetpack 的一部分，是一个关于如何构建现代 Android 应用程序的新见解。
 
@@ -50,9 +50,9 @@ WorkManager 是 [Android 架构组件](https://developer.android.com/topic/libra
 当你需要在更复杂的场景中触发一些后台工作时，WorkManager 可以并且应该与其他 API 配对使用：
 
 *   如果你的服务器触发了工作，WorkManager 可以与 Firebase Cloud Messaging 配对使用。
-*   如果你正在使用广播接收器监听广播，然后需要触发长时间运行的工作，那么你可以使用 WorkManager。请注意，WorkManager 支持许多通常作为广播传播的常见 [Constraints](https://developer.android.com/reference/androidx/work/Constraints)————在这些情况下，你不需要注册自己的广播接收器。
+*   如果你正在使用广播接收器监听广播，然后需要触发长时间运行的工作，那么你可以使用 WorkManager。请注意，WorkManager 支持许多通常作为广播传播的常见 [Constraints](https://developer.android.com/reference/androidx/work/Constraints) — 在这些情况下，你不需要注册自己的广播接收器。
 
-### 为什么要用 WorkManager?
+### 为什么要用 WorkManager？
 
 WorkManager 运行后台工作，同时能够为你处理电池和系统健康的兼容性问题和最佳实践。
 
@@ -110,7 +110,7 @@ WorkManager 现在处于测试阶段。这意味着在此主要修订版中不�
 *   [StackOverflow 网站上的 WorkManager 相关问题](https://stackoverflow.com/questions/tagged/android-workmanager)
 *   [Google’s Power blog post series](https://android-developers.googleblog.com/search/label/Power%20series)
 
-感谢 [Florina Munt](https://medium.com/@florina.muntenescu?source=post_page)，[Ben Weiss](https://medium.com/@keyboardsurfer?source=post_page) 和 [Lyla Fujiwara](https://medium.com/@lylalyla?source=post_page).
+感谢 [Florina Munt](https://medium.com/@florina.muntenescu?source=post_page)、[Ben Weiss](https://medium.com/@keyboardsurfer?source=post_page) 和 [Lyla Fujiwara](https://medium.com/@lylalyla?source=post_page).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
