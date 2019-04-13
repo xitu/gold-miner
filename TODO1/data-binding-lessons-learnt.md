@@ -15,7 +15,7 @@
 
 ## 尽可能使用 bindings 
 
-[自定义 binding adapter](https://developer.android.com/topic/libraries/data-binding/binding-adapters#custom-logic) 是一种给 View 控件轻松提供自定义功能的好方法。和许多开发者一样，我对 binding adapter 研究得稍微深入，最终总结出一套包含[15 种不同用途的适配器](https://github.com/chrisbanes/tivi/blob/5f785284b618002622781b44806fa469fc2b982e/app/src/main/java/app/tivi/ui/databinding/TiviBindingAdapters.kt)的类集。
+[自定义 binding adapter](https://developer.android.com/topic/libraries/data-binding/binding-adapters#custom-logic) 是一种给 View 控件轻松提供自定义功能的好方法。和许多开发者一样，我对 binding adapter 研究得稍微深入，最终总结出一套包含 [15 种不同用途的适配器](https://github.com/chrisbanes/tivi/blob/5f785284b618002622781b44806fa469fc2b982e/app/src/main/java/app/tivi/ui/databinding/TiviBindingAdapters.kt)的类集。
 
 最糟糕的实践是这类适配器，它们生成格式化的字符串并设置到 `TextViews` 控件，这些适配器通常仅在同一个布局文件中使用：
 
@@ -25,7 +25,7 @@
 
 2. **你需要使用 instrumentation 工具来做测试**。根据定义，你的 binding adapter 不会有返回值，它们接收一个输入参数后设置 view 的属性。这就意味着你必须使用 instrumentation 来测试你的自定义逻辑，这样会使得测试变得既缓慢又难以维护。
 
-3. **自定义 binding adapter 代码（通常）不是最佳选项**。如果你查看内建文本绑定[[参考这里](https://android.googlesource.com/platform/frameworks/data-binding/+/master/extensions/baseAdapters/src/main/java/android/databinding/adapters/TextViewBindingAdapter.java#63)], 你将会看到已经做了许多检查来避免调用 [`TextView.setText()`](https://developer.android.com/reference/android/widget/TextView.html#setText(java.lang.CharSequence)), 这样就节省了被浪费的布局检测。我觉得自己陷入了这样的思维困境：DB 库将会自动优化我的 view 更新。它确实可以做到，但**仅限于**你使用被谨慎优化的内建 binding adapter的情况。
+3. **自定义 binding adapter 代码（通常）不是最佳选项**。如果你查看内建文本绑定[[参考这里](https://android.googlesource.com/platform/frameworks/data-binding/+/master/extensions/baseAdapters/src/main/java/android/databinding/adapters/TextViewBindingAdapter.java#63)]，你将会看到已经做了许多检查来避免调用 [`TextView.setText()`](https://developer.android.com/reference/android/widget/TextView.html#setText(java.lang.CharSequence))，这样就节省了被浪费的布局检测。我觉得自己陷入了这样的思维困境：DB 库将会自动优化我的 view 更新。它确实可以做到，但**仅限于**你使用被谨慎优化的内建 binding adapter的情况。
 
 相反的，把你的方法的逻辑抽象为内聚类（我称之为文本创建者类），然后将它们传递给 binding。这样你就可以调用你的文本创建者类并使用内建 view binding：
 
@@ -47,7 +47,7 @@
 
 所以这里我们只需比较**当前的**和**新的** `collapsedMaxLines` 值。如果值实际发生了改变，我们才去调用 `setMaxLines()` 等方法。
 
-**编辑按: 感谢 [Alexandre Gianquinto](undefined) 在评论中提到『double parameters』功能。**
+**编辑按: 感谢 Alexandre Gianquinto 在评论中提到『double parameters』功能。**
 
 ## 谨慎对待你提供的变量
 
@@ -59,7 +59,7 @@
 
 听起来像是传递我们的 data binding 实例对象的完美选项，让我们的 binding 表达式来去更新 UI，对吧？好吧这确实有效，但是有一些需要注意的地方，这是由于『DB 库』的工作机制。
 
-在 data binding 中你通过 `\<variable>` 标签声明了输入，然后在书写 binding 表达式时在 view 属性处引用了这些输入变量。当任何被依赖的变量发生变化，『DB 库』都会运行你的 binding 表达式（接着会更新 view）。这个变化检测就是你可以免费获取的很棒的优化。
+在 data binding 中你通过 `<variable>` 标签声明了输入，然后在书写 binding 表达式时在 view 属性处引用了这些输入变量。当任何被依赖的变量发生变化，『DB 库』都会运行你的 binding 表达式（接着会更新 view）。这个变化检测就是你可以免费获取的很棒的优化。
 
 所以回到我的场景，我的布局最终看起来是这样的：
 
