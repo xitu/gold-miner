@@ -1,4 +1,4 @@
-## Building accessible websites and apps is a moral obligation
+# Building accessible websites and apps is a moral obligation
 
 Yesterday, we recorded a [JS Jabber](https://devchat.tv/js-jabber/) episode (I'm a co-host on the show) with [Chris DeMars](http://chrisdemars.com/). (It comes out in a month or two.)
 
