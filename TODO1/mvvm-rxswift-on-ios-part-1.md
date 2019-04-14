@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/3200/1*MBFqJmaLduJLbjYleVVOqQ.jpeg)
 
-In this article I’m going to introduce MVVM design pattern in iOS programming and of course with RxSwift.This article divides into two parts. In part 1 design pattern explained briefly and basics of RxSwift, and in part 2 , we have an example project of MVVM with RxSwift.
+In this article I’m going to introduce MVVM design pattern in iOS programming and of course with RxSwift.This article divides into two parts. In part 1 design pattern explained briefly and basics of RxSwift, and in [part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/practical-mvvm-rxswift.md) , we have an example project of MVVM with RxSwift.
 
 ## Design patterns:
 
@@ -19,7 +19,7 @@ At first ,It’s better to explain why we should use design patterns? In short: 
 
 ![Compare of design patterns ( from NSLondon )](https://cdn-images-1.medium.com/max/3664/1*wRnW_Qb2Q0rPTjbqQ96dhQ.png)
 
-All of these design patterns have its own advantages and disadvantages but in the end, each of them makes our code cleaner, simpler and easier to read.This article focuses on **MVVM,** which I hope you’d realize the reason at the end of part 2 .
+All of these design patterns have its own advantages and disadvantages but in the end, each of them makes our code cleaner, simpler and easier to read.This article focuses on **MVVM,** which I hope you’d realize the reason at the end of [part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/practical-mvvm-rxswift.md).
 
 So let's take a brief look at MVC and then we proceed to MVVM
 
@@ -41,13 +41,13 @@ Well **MVVM** stands for **Model**,**View**,**ViewModel** in which controllers, 
 import UIKit
 ```
 
-because ViewModel shouldn't know anything from view, In Part II we will examine this article with a precise example.
+because ViewModel shouldn't know anything from view, In [Part II](https://github.com/xitu/gold-miner/blob/master/TODO1/practical-mvvm-rxswift.md) we will examine this article with a precise example.
 
 ## RxSwift:
 
 ***
 
-One of the MVVM’s features is binding of data and view, which makes it pleasant with RxSwift.Of course you can do this with delegate,KVO or closures but one of the RxSwift’s feature is that if you learn it in one language you can reuse it on other languages too, because basic of Rx is same in languages that it is supported ( you can find list of languages [here](http://reactivex.io/languages.html) ). Now in this part we are going to explain the basics of RxSwift which are basics of Rx world as well. Then in part II we’ll have a project in MVVM with RxSwift.
+One of the MVVM’s features is binding of data and view, which makes it pleasant with RxSwift.Of course you can do this with delegate,KVO or closures but one of the RxSwift’s feature is that if you learn it in one language you can reuse it on other languages too, because basic of Rx is same in languages that it is supported ( you can find list of languages [here](http://reactivex.io/languages.html) ). Now in this part we are going to explain the basics of RxSwift which are basics of Rx world as well. Then in [part II](https://github.com/xitu/gold-miner/blob/master/TODO1/practical-mvvm-rxswift.md) we’ll have a project in MVVM with RxSwift.
 
 ### Reactive programming:
 
@@ -163,13 +163,13 @@ The DistinctUntilChanged function is sensitive to changes, meaning that if two s
 
 ***
 
-The Rx world is much bigger than what you can think of, and I just told a few basic concepts that I think would be needed in the next part of the article, which is a real project with RxSwift.
+The Rx world is much bigger than what you can think of, and I just told a few basic concepts that I think would be needed in [the next part of the article](https://github.com/xitu/gold-miner/blob/master/TODO1/practical-mvvm-rxswift.md), which is a real project with RxSwift.
 
 The RxSwift from [raywenderlich](https://store.raywenderlich.com/products/rxswift) describes very well RxSwift from 0 that I highly recommend reading.
 
 You might not notice much about RxSwift from just one article because it’s one of Swift’s advanced concepts, and you might have to read different articles every day to find out. In [this link](https://github.com/mohammadZ74/handsomeIOS) you can see several good articles from his RxSwift section.
 
-Hopefully, with the next part of the article that Rx introduces into the real project with MVVM, you will understand the concepts of RxSwift because it will be much easier to understand with real examples.
+Hopefully, with [the next part of the article](https://github.com/xitu/gold-miner/blob/master/TODO1/practical-mvvm-rxswift.md) that Rx introduces into the real project with MVVM, you will understand the concepts of RxSwift because it will be much easier to understand with real examples.
 
 My twitter id is [Mohammad_z74](https://twitter.com/Mohammad_z74), and my email mohammad_z74@icloud.com✌️
 
