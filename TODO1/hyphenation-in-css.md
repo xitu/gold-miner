@@ -1,13 +1,11 @@
-> * 原文地址：[All you need to know about hyphenation in CSS](https://clagnut.com/blog/2395)
+> * 原文地址：[All you need to know about hyphenation in CSS](https://clagnut.com/blog/2395)
 > * 原文作者：[Richard Rutter](https://clagnut.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/hyphenation-in-css.md](https://github.com/xitu/gold-miner/blob/master/TODO1/hyphenation-in-css.md)
 > * 译者：[马猴烧酒](https://github.com/Augustwuli)
 > * 校对者：[L9m](https://github.com/L9m)
 
-# 你需要知道的 CSS 中所有 hyphenation 的使用
-
-![在古腾堡圣经的一些内容中，许多句子都使用了连字符。](https://clagnut.com/images/1-handj-bible-hyphens.jpg)
+![在古腾堡圣经的一些内容中，许多句子都使用了连字符。](https://user-gold-cdn.xitu.io/2019/4/14/16a199cf29a9d077?w=1086&h=246&f=jpeg&s=115352)
 
 月初我应邀在维也纳的奥地利印刷学会（[tga](http://typographischegesellschaft.at/)）做了一场[晚间讲座](http://typographischegesellschaft.at/k_vortrag_workshop/v_rutter.html)。我很荣幸能够做这样一个演讲，因为这意味着我将追随马修·卡特（Matthew Carter）、维姆·克鲁维尔（Wim Crouwel）、玛格丽特·卡尔弗特（Margaret Calvert）、埃里克·斯皮克曼（Erik Spiekermann）和已故的弗雷达·萨克（Freda Sack）等名人的脚步。
 
@@ -64,13 +62,13 @@ hyphens: auto;
 
 《牛津风格手册》（Oxford Style Manual）建议，换行符中连字符后的最小字母数是 3，不过也可以在很短的时间内出现例外。
 
-您可以使用断字 `hyphenate-limit-chars` 属性设置这些限制。它使用三个空格分隔值。第一个是连字符的最小字符限制；二是连字符前的最小字符数；最后是连字符后的最小字符。要设置前面提到的规则，限制 6 个字符的字数，在断字符前加 3 个字符，在断字符后加 2 个字符，请使用：
+您可以使用断字 `hyphenate-limit-chars` 属性设置这些限制。它使用三个空格分隔值。第一个是连字符的最小字符限制；二是连字符前的最小字符数；最后是连字符后的最小字符。要设置前面提到的规则，限制 6 个字符的字数，在断字符前加 3 个字符，在断字符后加 2 个字符，请使用：
 
 ```css
 hyphenate-limit-chars: 6 3 2;
 ```
 
-![](https://clagnut.com/images/1-handj-hyphenate-limit-chars.png)
+![](https://user-gold-cdn.xitu.io/2019/4/14/16a199d2387ba79e?w=1074&h=186&f=png&s=33030)
 
 > hyphenate-limit-chars 实现效果。
 
@@ -100,11 +98,11 @@ hyphenate-limit-chars: 6 3 2;
 hyphenate-limit-lines: 2;
 ```
 
-![](https://clagnut.com/images/1-handj-hyphenate-limit-lines.png)
+![](https://user-gold-cdn.xitu.io/2019/4/14/16a199d39c2d9c8a?w=1089&h=372&f=png&s=95544)
 
 > hyphenate-limit-lines 用来防止梯子。
 
-你可以使用 `no-limit` 删除限制。
+你可以使用 `no-limit` 删除限制。
 
 ### 避免在段落的最后一行使用连字符
 
@@ -124,7 +122,7 @@ hyphenate-limit-last: always;
 
 可以通过指定行最后一个单词和文本框边缘之间允许的最大空白量来实现这一点。如果一个新单词在这个空格中开始，它没有连字符。这个空格称为连字符区。连字区越大，破碎处越多，断字越少。通过调整连字符区，你可以平衡更好的间距和更少的连字符之间的比例。
 
-![](https://clagnut.com/images/1-handj-hyphenation-zone.png)
+![](http://clagnut.com/images/1-handj-hyphenation-zone.png)
 
 > **左**：箭头表示允许连字符的线。
 > **右**：连字符与连字符区设置。
