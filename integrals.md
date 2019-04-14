@@ -2823,10 +2823,11 @@
 |[如何在 ChromeOS 下用 Go 搭建 Web 服务](https://juejin.im/post/58d9e1711b69e6006bc38b1a)|翻译|8|
 |[Pull request review 的十大错误](https://juejin.im/post/58ce3b3e61ff4b006c988f63)|校对|1|
 
-## 译者：[sunui](https://github.com/sunui) 历史贡献积分：119 当前积分：29 二零一九：10
+## 译者：[sunui](https://github.com/sunui) 历史贡献积分：119 当前积分：9 二零一九：10
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 4 月兑树莓派套装 1 个减 60-40=20 积分（管理员团队奖励）|减去积分|20|
 |[深入 React Hook 系统的原理](https://juejin.im/post/5c99a75af265da60ef635898)|校对|2|
 |[Flutter 异步编程：Future、Isolate 和事件循环](https://juejin.im/post/5c898b4af265da2de25bcc2d)|校对|2|
 |[负载性能](https://juejin.im/post/5c7faa955188251bdd53ebd2)|校对|1|
@@ -6456,10 +6457,11 @@
 |[Kubernetes 分布式应用部署和人脸识别 app 实例](https://juejin.im/post/5b2db0576fb9a00e50313904)|校对|0.5|
 |[[字幕翻译] James Bennett — 理解 Python 字节码 — PyCon 2018](https://github.com/xitu/gold-miner/issues/3990)|校对|0.5|
 
-## 译者：[kasheemlew](https://github.com/kasheemlew) 历史贡献积分：61.5 当前积分：61.5 二零一九：47
+## 译者：[kasheemlew](https://github.com/kasheemlew) 历史贡献积分：61.5 当前积分：1.5 二零一九：47
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 4 月兑树莓派套装 1 套|减去积分|60|
 |[了解“多态”JSON 数据的性能问题](https://juejin.im/post/5c9982d16fb9a071061f09ce)|校对|1.5|
 |[时间顺序的价格异常检测](https://juejin.im/post/5c998f8ae51d454e523b6ed5)|翻译|5|
 |[基于 Python 的图理论和网络分析](https://juejin.im/post/5c9066b3f265da612e6d5770)|校对|3|
@@ -7812,10 +7814,11 @@
 |[X 为啥不是 hook？](https://juejin.im/post/5c6ca856f265da2dce1f3af9)|翻译|3|
 |推荐英文文章一篇|奖励|1|
 
-## 译者：[EdmondWang](https://github.com/EdmondWang) 历史贡献积分：9.5 当前积分：9.5 二零一九：9.5
+## 译者：[EdmondWang](https://github.com/EdmondWang) 历史贡献积分：10.5 当前积分：10.5 二零一九：10.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐英文文章一篇|奖励|1|
 |[JavaScript 中为什么会有 Symbols 类型？](https://juejin.im/post/5c9b11e8518825529a0c78c9)|校对|1.5|
 |[TSLint in 2019](https://juejin.im/post/5c7c0451e51d4569951518fe)|校对|1|
 |[资助 ESLint 的未来](https://juejin.im/post/5c6cc48551882562654ac2c0)|翻译|3|
@@ -8209,3 +8212,21 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[Vue.js 逐渐集成 第三方 JavaScript](https://juejin.im/post/5c8e5a776fb9a070d013ef71)|校对|1|
+
+## 译者：[thaiwu0107](https://github.com/thaiwu0107) 历史贡献积分：2 当前积分：2 二零一九：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|推荐英文文章两篇|奖励|2|
+
+## 译者：[ish-kafel](https://github.com/ish-kafel) 历史贡献积分：3 当前积分：3 二零一九：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|翻译现代 JavaScript 教程|翻译|3|
+
+## 译者：[kaigregliu](https://github.com/kaigregliu) 历史贡献积分：1 当前积分：1 二零一九：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|校对现代 JavaScript 教程|校对|1|
