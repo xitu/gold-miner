@@ -1,8 +1,10 @@
+# Using closest() to return the correct DOM element
+
 I was recently working with a vertical navigation component and ran into a hiccup where the JavaScript code wouldn’t fire depending on where I clicked on the menu item link. I did some digging and thought I’d share a little about what I discovered and how I was able to resolve the problem.
 
-For context, all menu items have two child elements: an icon embedded within the link, as well as a <span> element for the label.
+For context, all menu items have two child elements: an icon embedded within the link, as well as a `<span>` element for the label.
 
-HTML
+```html
 <li>
   <a href="#example" class="toggle">
     <img src="/img/billing.svg" width="20" height="20" alt="">
@@ -15,9 +17,11 @@ HTML
     </ul>
   </div>
 </li>
-Here I also have a submenu in a <div> element and added a touch of JavaScript to give it an open/close toggle:
+```
 
-JavaScript
+Here I also have a submenu in a `<div>` element and added a touch of JavaScript to give it an open/close toggle:
+
+```js
 document.addEventListener('click', function (event) {
 
   // Make sure clicked element is our toggle
@@ -36,9 +40,11 @@ document.addEventListener('click', function (event) {
   toggle(content);
 
 }, false);
-The toggle() method executes a function to check if the submenu has the .is-visible CSS class. If the element has that class, the submenu will be hidden; otherwise, the submenu is displayed:
+```
 
-JavaScript
+The `toggle()` method executes a function to check if the submenu has the `.is-visible` CSS class. If the element has that class, the submenu will be hidden; otherwise, the submenu is displayed:
+
+```js
 var toggle = function (elem, timing) {
 
   // If the element is visible, hide it
@@ -50,24 +56,30 @@ var toggle = function (elem, timing) {
   // Otherwise, show it
   show(elem);
 };
+```
+
 I expected that clicking anywhere within the menu item would fire the JavaScript and perform the toggle. But if I clicked on either the icon or the label child elements, the JavaScript wouldn’t execute. The reason is that event.target returns the exact DOM element. Clicking on the icon or the label returned only the image or span elements.
 
-The closest() method
-This was something I had to look up. I needed the target and return the parent element, not the child elements. I found the solution using the closest() method. This method travels up the DOM tree from the current element and returns the closest ancestor that matches the given parameter:
+## The `closest()` method
 
-JavaScript
+This was something I had to look up. I needed the target and return the parent element, not the child elements. I found the solution using the `closest()` method. This method travels up the DOM tree from the current element and returns the closest ancestor that matches the given parameter:
+
+```js
 let closestElement = Element.closest(selector); 
-This was my “ah-ha!” moment. I could chain closest() to event.target to find and return the parent element (menu item link), regardless if I ended up clicking on the child elements (icon or label):
+```
 
-JavaScript
+This was my “ah-ha!” moment. I could chain `closest()` to `event.target` to find and return the parent element (menu item link), regardless if I ended up clicking on the child elements (icon or label):
+
+```js
 if (!event.target.closest('a').classList.contains('toggle')) {
   return;
 }
 
 var content = document.querySelector(event.target.closest('a').hash);
+```
+
 Now clicking anywhere in the menu item link fires the JavaScript to toggle the submenu.
 
-
-Hopefully this tip will help you if you need to target specific elements in the DOM. The closest() method is supported in most major browsers but requires a polyfill with IE11.
+Hopefully this tip will help you if you need to target specific elements in the DOM. The `closest()` method is supported in most major browsers but requires a polyfill with IE11.
 
 If you’re looking for more in-depth reading on this, I’d recommend Zell Liew’s post on traversing the DOM. He covers this method and a few other tricks that are worth checking out.
