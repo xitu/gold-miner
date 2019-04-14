@@ -11,8 +11,7 @@
 
 今天我们将使用 RxSwift 实现 MVVM 设计模式。对于那些刚接触 RxSwift 的人，我 [在这里](https://github.com/xitu/gold-miner/blob/master/TODO1/mvvm-rxswift-on-ios-part-1.md) 专门做了一个部分来介绍。
 
-
-如果你认为 RxSwift 很难或令人十分困惑，请不要担心。它一开始看上去似乎很难，但通过实例和实践，就会将变得简单易懂👍
+如果你认为 RxSwift 很难或令人十分困惑，请不要担心。它一开始看上去似乎很难，但通过实例和实践，就会将变得简单易懂👍。
 
 * * *
 
@@ -34,7 +33,7 @@ App 主页面
 1. AlbumCollectionViewVC
 2. TrackTableViewVC
 
-现在父控制器包含两个子控制器（要了解子控制器，你可以阅读[这篇文章](https://cocoacasts.com/managing-view-controllers-with-container-view-controllers/)）。
+现在父控制器包含两个子控制器（要了解子控制器，你可以阅读 [这篇文章](https://cocoacasts.com/managing-view-controllers-with-container-view-controllers/)）。
 
 现在我们的 main ViewController 就变成了：
 
@@ -313,7 +312,7 @@ tracksTableView.rx.willDisplayCell.subscribe(onNext: ({ (cell,indexPath) in
 
 最终完成的项目可以在 [GitHub 仓库](https://github.com/mohammadZ74/MVVMRx_SampleProject) 下找到。
 
-Don’t forget to 👏 if you liked the article & project. And you can catch me on [Twitter](https://twitter.com/Mohammad_z74) or via email (mohammad_Z74@icloud.com).如果你喜欢这篇文章和项目，请不要忘记，你可以通过 [Twitter](https://twitter.com/Mohammad_z74) 或通过电子邮件 mohammad_Z74@icloud.com 联系本文作者。
+如果你喜欢这篇文章和项目，请不要忘记，你可以通过 [Twitter](https://twitter.com/Mohammad_z74) 或通过电子邮件 mohammad_Z74@icloud.com 联系本文作者。
 
 感谢你的阅读！
 
