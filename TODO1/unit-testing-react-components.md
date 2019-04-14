@@ -12,21 +12,21 @@
 单元测试是一门伟大的学科，它可以[减少 40% - 80% 的 bug](https://ieeexplore.ieee.org/document/4163024)。单元测试的主要好处有:
 
 * 改善 apps 的结构和可维护性。
-* 通过在实现细节之前关注开发人员体验(API)，可以获得更好的 API 和可组合性。
-* 提供快速的文件保存反馈，告诉你更改是否有效。 这可以替代 console.log() 操作,仅在UI中单击就可以测试更改。单元测试的新手可能会在 TDD 过程上多花15% - 30%的时间，因为他们知道需要知道如何测试各种组件，但是有经验的 TDD 开发者会在因使用 TDD 而节省开发时间。
+* 通过在实现细节之前关注开发人员体验（API），可以获得更好的 API 和可组合性。
+* 提供快速的文件保存反馈，告诉你更改是否有效。 这可以替代 console.log() 操作，仅在UI中单击就可以测试更改。单元测试的新手可能会在 TDD 过程上多花 15% - 30% 的时间，因为他们知道需要知道如何测试各种组件，但是有经验的 TDD 开发者会在因使用 TDD 而节省开发时间。
 * 提供了一个很好的 safety net，可以在添加功能或重构现有功能时增强你的信心。
 
-但是有些东西比其他的更容易进行单元测试。 具体来说，单元测试对[纯函数](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-pure-function-d1c076bec976)非常有用 ：纯函数是一种给定相同输入，总是返回对应的相同值，并且没有副作用的函数.
+但是有些东西比其他的更容易进行单元测试。具体来说，单元测试对[纯函数](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-pure-function-d1c076bec976)非常有用：纯函数是一种给定相同输入，总是返回对应的相同值，并且没有副作用的函数。
 
-通常，针对 UI 组件的单元测试不容易进行,首先编写测试的方法使得坚持使用 TDD 的原则变得更加困难。
+通常，针对 UI 组件的单元测试不容易进行，首先编写测试的方法使得坚持使用 TDD 的原则变得更加困难。
 
-首先编写测试对于实现我列出的一些好处是必要的:架构改进、更好的开发人员体验设计、以及在开发应用程序时获得更快的反馈。训练自己使用 TDD 需要规则和实践。许多开发人员喜欢在编写测试之前进行粗劣的修补，但是如果不先编写测试，就会错过单元测试的许多好处。
+首先编写测试对于实现我列出的一些好处是必要的：架构改进、更好的开发人员体验设计、以及在开发应用程序时获得更快的反馈。训练自己使用 TDD 需要规则和实践。许多开发人员喜欢在编写测试之前进行粗劣的修补，但是如果不先编写测试，就会错过单元测试的许多好处。
 
 不过，这是值得的实践和规则。使用单元测试的 TDD 可以训练你编写 UI 组件，使得 UI 组件更简洁、易于维护、并且更容易与其他组件组合和重用。
 
-我最近关注的一个有创新性的[单元测试框架 RITEway ](https://medium.com/javascript-scene/rethinking-unit-test-assertions-55f59358253f), 它是 [Tape](https://github.com/substack/tape) 的一个简单包装版，使得你能够编写更简洁、维护性更强的测试。
+我最近关注的一个有创新性的[单元测试框架 RITEway](https://medium.com/javascript-scene/rethinking-unit-test-assertions-55f59358253f), 它是 [Tape](https://github.com/substack/tape) 的一个简单包装版，使得你能够编写更简洁、维护性更强的测试。
 
-无论你使用的是什么框架，下面的小窍门将帮助你编写更好、更可测试、更可读、更可组合的 UI 组件:
+无论你使用的是什么框架，下面的小窍门将帮助你编写更好、更可测试、更可读、更可组合的 UI 组件：
 
 * **使用纯组件编写 UI 代码：** 鉴于相同的 props 总是渲染同一个组件，如果你需要从应用中获取 state，你可以使用一个容器组件来包裹这些纯组件，并使用容器组件管理 state 和产生副作用。
 * 在 reducer 函数中**隔离应用程序逻辑/业务规则**。
@@ -34,7 +34,7 @@
 
 ## 使用纯组件
 
-纯组件是一种给定相同的 props，始终渲染出相同的 UI，并且没有任何副作用的组件。比如,
+纯组件是一种给定相同的 props，始终渲染出相同的 UI，并且没有任何副作用的组件。比如：
 
 ```js
 import React from 'react';
@@ -46,15 +46,15 @@ const Hello = ({ userName }) => (
 export default Hello;
 ```
 
-这种组件一般来说很容易进行测试。你需要的是如何定位组件 (拿上面的例子来说，我们选择类名为 `greeting` 的组件)，还要知道输出的期望值。为了的到纯组件我将使用 `RITEway` 的 `render-component` 方法。
+这种组件一般来说很容易进行测试。你需要的是如何定位组件（拿上面的例子来说，我们选择类名为 `greeting` 的组件），还要知道输出的期望值。为了的到纯组件我将使用 `RITEway` 的 `render-component` 方法。
 
-首先安装 RITEway:
+首先安装 RITEway：
 
 ```bash
 npm install --save-dev riteway
 ```
 
-在内部，RITEway 使用` react-dom/server` `renderToStaticMarkup()`，并将输出包装在 [Cheerio](https://github.com/cheeriojs/cheerio) 对象中，以便选择。如果你不使用 RITEway，你可以手动执行所有操作以创建自己的函数，以将 React 组件渲染为可以使用 Cheerio 查询的静态标记。
+在内部，RITEway 使用 `react-dom/server` `renderToStaticMarkup()`，并将输出包装在 [Cheerio](https://github.com/cheeriojs/cheerio) 对象中，以便选择。如果你不使用 RITEway，你可以手动执行所有操作以创建自己的函数，以将 React 组件渲染为可以使用 Cheerio 查询的静态标记。
 
 一旦你有一个将标记渲染成 Cheerio 对象的渲染函数，你就可以编写如下的组件测试了：
 
@@ -88,19 +88,19 @@ describe('Hello component', async assert => {
 
 * **展示/UI 组件**
 * **程序逻辑/业务规则** — 这一部分处理用户需要解决的问题。
-* **副作用** (I/O、网络、磁盘等等。)
+* **副作用**（I/O、网络、磁盘等等。）
 
 根据我的经验，如果你将展示/UI 问题与程序逻辑和副作用分开，你会觉得更加轻松。对于我来说，这个经验法则始终适用于我曾经使用的每种语言和每个框架，包括React with hooks。
 
 让我们通过构建一个点击计数器来演示有 state 的组件。首先，我们将构建 UI 组件。它应该显示类似 “Clicks：13” 的内容，告诉你单击按钮的次数。按钮只有点击功能。
 
-显示组件的单元测试非常简单。我们只需要测试按钮是否被渲染（我们不关心 label 的内容 —— 它可能会用不同的语言表达不同的内容，具体取决于用户的区域设置）。 我们**设置** undefinedwant 以确保显示正确的点击次数。下面我们将编写两个测试：一个用于测试按钮显示，另一个用于测试点击次数的正确呈现。
+显示组件的单元测试非常简单。我们只需要测试按钮是否被渲染（我们不关心 label 的内容 —— 它可能会用不同的语言表达不同的内容，具体取决于用户的区域设置）。我们**设置** undefinedwant 以确保显示正确的点击次数。下面我们将编写两个测试：一个用于测试按钮显示，另一个用于测试点击次数的正确呈现。
 
 当使用 TDD 时，我经常使用两个不同的断言来确保我已经编写了组件，以便从 props 中提取适当的。编写一个测试来硬编码函数中的值也是可能的。为了防范这种硬编码情况，你可以编写两个测试，每个测试测试不同的值。
 
 这个例子中，我们将创建一个名为`\<ClickCounter>`的组件，该组件将有一个 `clicks` prop 用于记录按钮单击次数。要使用它，只需渲染组件并将 `clicks` prop 值设置为要显示的单击次数即可。
 
-让我们来看下面两个单元测试，它们可以确保我们从 props 中提取点击计数。创建一个新文件，click-counter/click-counter-component.test.js:
+让我们来看下面两个单元测试，它们可以确保我们从 props 中提取点击计数。创建一个新文件，click-counter/click-counter-component.test.js：
 
 ```js
 import { describe } from 'riteway';
@@ -159,7 +159,7 @@ export default () =>
 ;
 ```
 
-如果保存并测试我们创建的测试，会得到一个 `TypeError` 错误, 该错误最终会触发 Node 的 `UnhandledPromiseRejectionWarning` 错误,Node 不会在额外的段落发出 `DeprecationWarning` 这种恼人的警告，而是抛出 `UnhandledPromiseRejectionError`。得到 `TypeError` 错误是由于我们的 selection 返回了我 `null`，并且我们尝试在它上面应用 `.trim()` 方法。让我们通过渲染期望的选择器来解决这个问题：
+如果保存并测试我们创建的测试，会得到一个 `TypeError` 错误，该错误最终会触发 Node 的 `UnhandledPromiseRejectionWarning` 错误，Node 不会在额外的段落发出 `DeprecationWarning` 这种恼人的警告，而是抛出 `UnhandledPromiseRejectionError`。得到 `TypeError` 错误是由于我们的 selection 返回了我 `null`，并且我们尝试在它上面应用 `.trim()` 方法。让我们通过渲染期望的选择器来解决这个问题：
 
 ```js
 import React, { Fragment } from 'react';
@@ -185,7 +185,7 @@ not ok 3 Given a click count: should render the correct number of clicks.
 ...
 ```
 
-为了解决这一问题, 把 count 作为一个 prop，并在 JSX 中使用 prop 的动态值：
+为了解决这一问题，把 count 作为一个 prop，并在 JSX 中使用 prop 的动态值：
 
 ```js
 import React, { Fragment } from 'react';
@@ -214,7 +214,7 @@ ok 3 Given a click count: should render the correct number of clicks.
 # ok
 ```
 
-现在是时候测试 button 了。首先添加测试，并观察错误信息(TDD 惯用方式):
+现在是时候测试 button 了。首先添加测试，并观察错误信息（TDD 惯用方式）：
 
 ```js
 {
@@ -275,11 +275,11 @@ ok 4 Given expected props: should render the click button.
 
 我下面向你展示的方法对于单击计数器来说可能有点大材小用，毕竟大多数应用程序都比单击计数器复杂得多。state 通常保存到数据库或在组件之间共享。React社区流行的做法是从本地组件 state 开始，然后根据需要将其提升到父组件或全局应用程序 state。
 
-事实证明，如果使用纯函数启动本地组件 state 管理，那么该过程在以后更容易管理。鉴于此和其他原因（如 React 生命周期混乱、state 一致性、避免常见 bugs），我倾向于使用纯 reducer 函数来实现 state 管理。对于本地组件 state，可以导入它们并应用 `useReducer` React hook.。
+事实证明，如果使用纯函数启动本地组件 state 管理，那么该过程在以后更容易管理。鉴于此和其他原因（如 React 生命周期混乱、state 一致性、避免常见 bugs），我倾向于使用纯 reducer 函数来实现 state 管理。对于本地组件 state，可以导入它们并应用 `useReducer` React hook。
 
 如果需要将 state 提升到由 Redux 这样的 state 管理器来管理，那么在开始单元测试之前就已经完成了一半。
 
-首先，我将为 state reducers 创建一个新的测试文件。我将把它放在同一个文件夹中，但使用不同的文件名。将这个测试文件命名为 click-counter/click-counter-reducer.test.js:
+首先，我将为 state reducers 创建一个新的测试文件。我将把它放在同一个文件夹中，但使用不同的文件名。将这个测试文件命名为 click-counter/click-counter-reducer.test.js：
 
 ```js
 import { describe } from 'riteway';
@@ -298,7 +298,7 @@ describe('click counter reducer', async assert => {
 
 我总是以一个断言开始，以确保 reducer 将产生一个有效的初始 state。如果你稍后决定使用 Redux，它将调用每个没有 state 的 reducer，以生成存储的初始 state。这也使得你在任何时候需要一个有效的初始 state 来进行单元测试或者初始化你的组件 state 变得非常容易。
 
-当然，我们需要创建一个相应的 reducer 文件。 将其命名为click-counter/click-counter-reducer.js：
+当然，我们需要创建一个相应的 reducer 文件。将其命名为click-counter/click-counter-reducer.js：
 
 ```js
 const click = () => {};
@@ -345,7 +345,7 @@ const reducer = () => 0;
   });
 ```
 
-观察用例无法通过测试的情况(当它们分别返回 `1` 和 `4` 时都返回了 `0`)。然后修改用例，使其通过测试。
+观察用例无法通过测试的情况（当它们分别返回 `1` 和 `4` 时都返回了 `0`）。然后修改用例，使其通过测试。
 
 注意到我使用了 `click()` action 生成器作为 reducer 的公共 API。我认为你需要明白 reducer 并不会直接与你的应用进行交互。应用使用 action 生成器和选择器作为公共 API 暴露给 reducer。
 
@@ -388,7 +388,7 @@ ok 7 Given a click count and a click action: should add a click to the count
 # ok
 ```
 
-在往前走一步：将我们的行为与组件联系起来，可以是使用容器组件实现这一点。`index.js` 文件会把其余的文件进行合并，该文件类似下面的样式：
+再往前走一步：将我们的行为与组件联系起来，可以是使用容器组件实现这一点。`index.js` 文件会把其余的文件进行合并，该文件类似下面的样式：
 
 ```js
 import React, { useReducer } from 'react';
@@ -426,7 +426,7 @@ export default ({ clicks, onClick }) =>
 
 同时，我们已经对所有不依赖副作用的重要单元进行了单元测试：测试了数据是否被正确的渲染以及 state 是否被正确管理。你还应该在浏览器中加载该组件，并亲自查看该按钮是否工作以及 UI 是否有改变。
 
-功能/端到端测试在 React 上的实现与其它框架上的实现相似。在此不做详细讨论，感兴趣的读者可以查看[TestCafe](https://devexpress.github.io/testcafe/)、[TestCafe Studio](https://www.devexpress.com/products/testcafestudio/) 和 [Cypress.io](https://www.cypress.io/) 在没有 Selenium dance 的情况下进行e2e测试。
+功能/端到端测试在 React 上的实现与其它框架上的实现相似，在此不做详细讨论，感兴趣的读者可以查看[TestCafe](https://devexpress.github.io/testcafe/)、[TestCafe Studio](https://www.devexpress.com/products/testcafestudio/) 和 [Cypress.io](https://www.cypress.io/) 在没有 Selenium dance 的情况下进行 e2e 测试。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
