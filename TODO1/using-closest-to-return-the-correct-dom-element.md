@@ -80,6 +80,8 @@ var content = document.querySelector(event.target.closest('a').hash);
 
 Now clicking anywhere in the menu item link fires the JavaScript to toggle the submenu.
 
+[Play with DEMO and get source code in CODEPEN](https://codepen.io/AllThingsSmitty/pen/WPMPaV)
+
 Hopefully this tip will help you if you need to target specific elements in the DOM. The `closest()` method is supported in most major browsers but requires a polyfill with IE11.
 
 If you’re looking for more in-depth reading on this, I’d recommend Zell Liew’s post on traversing the DOM. He covers this method and a few other tricks that are worth checking out.
