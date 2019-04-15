@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md](https://github.com/xitu/gold-miner/blob/master/TODO1/encapsulating-style-and-structure-with-shadow-dom.md)
 > * 译者：[Xuyuey](https://github.com/Xuyuey)
-> * 校对者：[邪无神](https://github.com/undead25), [Ziyin Feng](https://github.com/Fengziyin1234)
+> * 校对者：[邪无神](https://github.com/undead25)、[Ziyin Feng](https://github.com/Fengziyin1234)
 
 # 使用 Shadow DOM 封装样式和结构
 
