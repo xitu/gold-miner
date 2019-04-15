@@ -23,7 +23,7 @@ Ben Terrett, design director of the project, began with a set of user interface 
 
 Heuristic principles for usability evaluations help identify where a UI design is falling short of delivering a user-friendly experience.
 
-## #1 Transparency of System Structure
+## \#1 Transparency of System Structure
 
 **The act of making certain elements and structures visible so the user has a sufficient understanding of context.**
 
@@ -31,7 +31,7 @@ The UI should allow the user to believe they are in control. They should be able
 
 ![A navigation menu transforms into a hamburger menu, indicating where the information can be found later. (design by [Gal Shir](https://galshir.com/))](https://cdn-images-1.medium.com/max/3360/0*BAE8DM_ocDtJZg-c.gif)
 
-## #2 Immediacy of Action Feedback
+## \#2 Immediacy of Action Feedback
 
 **The response to a user’s action that confirms the system has received the request.**
 
@@ -39,7 +39,7 @@ Any user action should have an immediate interface reaction. Instant feedback re
 
 ![A simple animation confirms the pull-to-refresh action was received and the content below is up to date. (design by [jiangxiaobei](https://dribbble.com/jiangxiaobei))](https://cdn-images-1.medium.com/max/3360/0*9VP-bybmPpAQo8Ns.gif)
 
-## #3 Awareness of Errors
+## \#3 Awareness of Errors
 
 **A sufficient amount of information as well as options the user can take when they have gone down a path they’d rather not have taken.**
 
@@ -49,7 +49,7 @@ Assistance should always be easy to access; however, striking a balance is diffi
 
 ![The empty state in this mobile interface explains why the user is seeing the screen and provides two actions that will solve the error. (design by [Murat Mutlu](https://dribbble.com/shots/1738412-Project-empty-state))](https://cdn-images-1.medium.com/max/3360/0*uPupo3gf8fjFHJTD.jpg)
 
-## #4 Flexibility of Use
+## \#4 Flexibility of Use
 
 **An interface that can be intuitively and efficiently used by users with differing ranges of experience.**
 
@@ -61,7 +61,7 @@ A seasoned user should have access to shortcuts and deeper systemic understandin
 
 ![A new user should be introduced to tool functionality but a seasoned user would never see tooltips for actions she takes regularly. (design by [Lakshmi Karuppiah](https://dribbble.com/lakshmikaruppiah))](https://cdn-images-1.medium.com/max/3360/0*Hx11UX6AHVjOPMrT.jpg)
 
-## #5 Familiarity with Universal Experiences
+## \#5 Familiarity with Universal Experiences
 
 **Use of design elements that relate to common human experiences and expectations.**
 
@@ -71,7 +71,7 @@ Common user expectations have developed as we spend more time interacting with s
 
 ![These two icons are instantly recognizable and clearly indicate an action the majority of users can understand. (design by [Mohammad Amiri](https://dribbble.com/shots/4832226-Search-Icon-Interaction-Search-Close))](https://cdn-images-1.medium.com/max/3360/0*1StwrCYHxA3AV3xE.gif)
 
-## #6 Limitation of Information and Design Aesthetic
+## \#6 Limitation of Information and Design Aesthetic
 
 **The creation of a minimal design eliminating unnecessary elements that could interfere with a streamlined and purposeful experience.**
 
@@ -81,7 +81,7 @@ Ben Terrett often used the fourth of [GOV.UK’s](https://www.gov.uk/guidance/go
 
 ![The British Government Digital Services broke down information to determine what users need to know and created visual designs that eliminated anything unnecessary in order to support the clarity of information. (design by [Government Digital Services](https://designnotes.blog.gov.uk/2014/07/14/things-we-learnt-designing-register-to-vote/))](https://cdn-images-1.medium.com/max/3360/0*4XbF10wLsf_RzW9S.jpg)
 
-## #7 Prioritization of Function Over Form
+## \#7 Prioritization of Function Over Form
 
 **Design decisions are driven by what an element is meant to do rather than prioritizing its visual style.**
 
@@ -93,7 +93,7 @@ Visual cues can be used to direct a user in the app’s functionality. [Fritt’
 
 ![This digital boarding pass considers how a traveler will need the information and uses visual techniques to make the information functional. (design by [Marin Begovic](https://dribbble.com/marinb))](https://cdn-images-1.medium.com/max/3360/0*3bb_fgKD3wieHvVP.gif)
 
-## #8 Availability of Information
+## \#8 Availability of Information
 
 **The strategic placement of interface elements at users’ fingertips so they don’t have to rely on memory.**
 
@@ -105,7 +105,7 @@ Jill Gerhardt-Powal suggests “bringing together lower level data into a higher
 
 ![Uber’s app provides three levels of cab services and makes each option easily accessible by the user at the moment of need. (design by Uber)](https://cdn-images-1.medium.com/max/3360/0*x9HW0XVOKQKc_6tQ.gif)
 
-## #9 Reliability of Consistency
+## \#9 Reliability of Consistency
 
 **The use of consistent and standardized elements such as words, situations, and actions to create a cohesive experience.**
 
@@ -115,7 +115,7 @@ Humans are drawn to patterns — we use them to make sense of the world. Make pa
 
 ![Google’s heightened focus on design manifests itself in detailed guidelines for all its UI designs. (design by [Material](https://material.io/))](https://cdn-images-1.medium.com/max/3360/0*uBKIdRuzxPspM8e2.gif)
 
-## #10 Judicious Redundancy
+## \#10 Judicious Redundancy
 
 **The constant practice of reflection during the design process in order to ensure the user interface design principles and usability heuristics align with the product’s purpose and user needs.**
 
