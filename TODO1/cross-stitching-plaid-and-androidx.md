@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/cross-stitching-plaid-and-androidx.md](https://github.com/xitu/gold-miner/blob/master/TODO1/cross-stitching-plaid-and-androidx.md)
 > * 译者：[Mirosalva](https://github.com/Mirosalva)
-> * 校对者：
+> * 校对者：[PhxNirvana](https://github.com/phxnirvana)
 
-# 十字绣 Plaid 应用和 AndroidX
+# Plaid 应用迁移到 AndroidX 的实践经历
 
 一份 AndroidX 的迁移指南
 
 ![](https://cdn-images-1.medium.com/max/2560/1*XYbnKLfu7L533n8DASGvrQ.png)
 
-由 [Virginia Poltrack](https://twitter.com/vpoltrack) 介绍说明。
+由 [Virginia Poltrack](https://twitter.com/vpoltrack) 提供图片。
 
 Plaid 是一款呈现 Material Design 风格和丰富交互界面的有趣应用。最近这款应用通过现今的安卓应用开发技术实现了一番重构。获取更多应用信息和重新设计的视觉效果，可以查阅 [Restitching Plaid](https://medium.com/@crafty/restitching-plaid-9ca5588d3b0a)。
 
@@ -77,7 +77,7 @@ Execution failed for task ':app:transformDexArchiveWithExternalLibsDexMergerForD
 Program type already present: androidx.core.graphics.PathSegment
 ```
 
-这是一个由迁移工具生成错误依赖（`androidx.core:core-ktx:0.3`）导致的报错。我们手动更新（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/8e60a351625b934a650b571dd67f4d206f96ac91)）到正确的依赖版本（`androidx.core:core-ktx:1.0.0`）。这个[bug](https://issuetracker.google.com/issues/111260482) 已经在 Android Studio 3.3 Canary 9 及之后的版本被修复。我们指出这点是因为你们或许在迁移过程中会遇到类似的问题。
+这是一个由迁移工具生成错误依赖（`androidx.core:core-ktx:0.3`）导致的报错。我们手动更新（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/8e60a351625b934a650b571dd67f4d206f96ac91)）到正确的依赖版本（`androidx.core:core-ktx:1.0.0`）。这个[bug](https://issuetracker.google.com/issues/111260482) 已经在 Android Studio 3.3 Canary 9 及之后的版本被修复。我们指出这点是因为你或许在迁移过程中会遇到类似的问题。
 
 接下来，`Palette` API 在新版中变得可以为空，为了暂时避开（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/75b8ffd621693ac52a0ce243599cfcfd25242d5f)）这点，我们添加了`!!` （[非空断言操作符](https://kotlinlang.org/docs/reference/null-safety.html#the--operator)）。
 
