@@ -65,7 +65,7 @@ Android Studio 中的 AndroidX 迁移工具是 AndroidX 迁移的主要方式。
 
 这个方法有利于把流程拆解为可控的步骤。我们留下了一些任务，诸如修复导入顺序、提取依赖变量、减少完整 classpath 的使用，以便后续的清理工作。
 
-刚开始出现的报错之一是重复的类——像这种情况，`PathSegment`:
+刚开始出现的报错之一是重复的类 —— 像这种情况，`PathSegment`：
 
 ```
 Execution failed for task ':app:transformDexArchiveWithExternalLibsDexMergerForDebug'.
@@ -79,7 +79,7 @@ Program type already present: androidx.core.graphics.PathSegment
 
 这是一个由迁移工具生成错误依赖（`androidx.core:core-ktx:0.3`）导致的报错。我们手动更新（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/8e60a351625b934a650b571dd67f4d206f96ac91)）到正确的依赖版本（`androidx.core:core-ktx:1.0.0`）。这个[bug](https://issuetracker.google.com/issues/111260482) 已经在 Android Studio 3.3 Canary 9 及之后的版本被修复。我们指出这点是因为你或许在迁移过程中会遇到类似的问题。
 
-接下来，`Palette` API 在新版中变得可以为空，为了暂时避开（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/75b8ffd621693ac52a0ce243599cfcfd25242d5f)）这点，我们添加了`!!` （[非空断言操作符](https://kotlinlang.org/docs/reference/null-safety.html#the--operator)）。
+接下来，`Palette` API 在新版中变得可以为空，为了暂时避开（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/75b8ffd621693ac52a0ce243599cfcfd25242d5f)）这点，我们添加了`!!`（[非空断言操作符](https://kotlinlang.org/docs/reference/null-safety.html#the--operator)）。
 
 然后我们遇到了一个 `plusAssign` 缺失的报错。这个加载在 1.0.0 版本中被移除。`plusAssign` 的使用被临时注释掉了（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/d2cefa384448f4d3fb92dec0ade25d9bd87efb63)）。本文的后面我们会研究对 `Palette` 和 `plusAssign` 问题的可持续解决方案。
 
