@@ -2,54 +2,54 @@
 > * 原文作者：[Jérémie Veillet](https://www.demainilpleut.fr/authors/jveillet)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/your-first-cli-tool-with-rust.md](https://github.com/xitu/gold-miner/blob/master/TODO1/your-first-cli-tool-with-rust.md)
-> * 译者：
-> * 校对者：
+> * 译者：[JackEggie](https://github.com/JackEggie)
+> * 校对者：[TloveYing](https://github.com/TloveYing)
 
-# Your first CLI tool with Rust
+# 用 Rust 打造你的第一个命令行工具
 
-In the wonderful world of programming, you may have heard about this new shiny language called Rust. It is an open-source systems programming language that focuses on speed, memory safety, and parallelism. It allows you to do low-level programming à la C/C++.
+在精彩的编程世界里，你可能听说过这种名为 Rust 的新语言。它是一种开源的系统级编程语言。它专注于性能、内存安全和并行性。你可以像 C/C++ 那样用它编写底层应用程序。
 
-You might have heard about it in the context of [Web Assembly](https://webassembly.org/). Rust is capable to compile WASM applications, you can find a wide variety of use cases on the [Web Assembly FAQ](https://webassembly.org/docs/use-cases/). It is also known as the basis of [servo](https://servo.org/), a high-performance browser engine, implemented in Firefox.
+你可能已经在 [Web Assembly](https://webassembly.org/) 网站上见到过它了。Rust 能够编译 WASM 应用程序，你可以在 [Web Assembly FAQ](https://webassembly.org/docs/use-cases/) 上找到很多例子。它也被认为是 [servo](https://servo.org/) 的基石，servo 是一个在 Firefox 中实现的高性能浏览器引擎。
 
-It's a bit intimidating, but that's not what we will talk about here. Instead, we will go through on how we can build command line tools with it, and maybe have fun along the way.
+这可能会让你望而却步，但这不是我们要在这里讨论的内容。我们将介绍如何使用它构建命令行工具，而你可能会从中发现很多有意思的东西。
 
-## Why Rust?
+## 为什么是 Rust？
 
-Ok, let me set things straight. I could have done CLI tools with any other language or framework. I could have picked C, Go, Ruby, whatever. Hell, I could just have used good old bash.
+好吧，让我把事情说清楚。我本可以用任何其他语言或框架来完成命令行工具。我可以选 C、Go、Ruby 等等。甚至，我可以使用经典的 bash。
 
-I wanted to learn something new in 2018, Rust picked my curiosity and I had a need for building simple small tools to automate some process at work and for personal projects.
+在 2018 年中，我想学习一些新东西，Rust 激发了我的好奇心，同时我也需要构建一些简单的小工具来自动化工作和个人项目中的一些流程。
 
-## Installation
+## 安装
 
-You can set up your workstation by using [Rustup](https://rustup.rs/), it is the main program that installs and configures all the Rust toolchain on your machine.
+你可以使用 [Rustup](https://rustup.rs/) 来设置你的开发环境，它是安装和配置你机器上所有的 Rust 工具的主要入口。
 
-If you are on Linux or macOS, there is a single command line that will do this for you:
+如果你在 Linux 和 MacOS 上工作，使用如下命令即可完成安装：
 
-```
+```bash
 $ curl <https://sh.rustup.rs> -sSf | sh
 ```
 
-If you are on Windows, it is very similar, but you need to download an `exe` on the [Rustup Website](https://rustup.rs/) and execute it.
+如果你使用的是 Windows 系统，同样地，你需要在 [Rustup 网站](https://rustup.rs/)上下载一个 `exe` 并运行。
 
-My personal opinion here, if you are on Windows 10, I suggest you use [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) instead. That's it for the installation, we can go and create our first Rust application!
+如果你用的是 Windows 10，我建议你使用 [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) 来完成安装。以上就是安装所需的步骤，我们现在可以去创建我们的第一个 Rust 应用程序了！
 
-## Your first Rust app
+## 你的第一个 Rust 应用程序
 
-What we will try to do here, is building a replica of the [cat](https://en.wikipedia.org/wiki/Cat_(Unix)) UNIX utility, or at least a very stripped down version of it, and we will call it `kt`. This application will accept a file path as input and display the content of the file in the terminal's standard output.
+我们在这里要做的是，仿照 [cat](https://en.wikipedia.org/wiki/Cat_(Unix)) 来构建一个 UNIX 实用工具，或者至少是一个简化版本，我们称之为 `kt`。这个应用程序将接受一个文件路径作为输入，并在终端的标准输出中显示文件的内容。
 
-To create the basic skeleton of the application, we will use a tool called [Cargo](https://github.com/rust-lang/cargo/). It is the package manager of Rust, think of it as the NPM (for my Javascript friends) or the Bundler (for the Rubyists) of the Rust toolchain.
+要创建这个应用程序的基本框架，我们将使用一个名为 [Cargo](https://github.com/rust-lang/cargo/) 的工具。它是 Rust 的包管理器，可以将它看作是 Rust 工具的 NPM（对于 Javascript 开发者）或 Bundler（对于 Ruby 开发者）。
 
-Open your terminal app, go to your favorite place to store source code, then type in the code below.
+打开你的终端，进入你想要存储源代码的路径下，然后输入下面的代码。
 
-```
+```bash
 $ cargo init kt
 ```
 
-This will create a directory called `kt` with the basis of the structure of our app.
+这将会创建一个名为 `kt` 的目录，该目录下已经有我们应用程序的基本结构了。
 
-If we`cd` into that directory, we will see a architecture and, bonus point, that the project has git initialized by default. Neat!
+如果我们 `cd` 到该目录中，我们将看到这个目录结构。而且，方便的是，这个项目已经默认初始化了 git。真是太好了！
 
-```
+```bash
 $ cd kt/
   |
   .git/
@@ -61,9 +61,9 @@ $ cd kt/
   src/
 ```
 
-The `Cargo.toml` file is the package file containing the information of our app as well as the dependencies. Once again, think of it as the `package.json` or `Gemfile` of your application.
+`Cargo.toml` 文件包含了我们的应用程序的基本信息和依赖信息。同样地，可以把它看做应用程序的 `package.json` 或者 `Gemfile` 文件。
 
-The `src/` directory contains the source files of our application, we can see that there is a single `main.rs` file, and by inspecting it we see that it contains a single `main` function.
+`src/` 目录包含了应用程序的源文件，我们可以看到其中只有一个 `main.rs` 文件。检查文件的内容，我们可以看到其中只有一个 `main` 函数。
 
 ```rust
 fn main() {
@@ -71,45 +71,45 @@ fn main() {
 }
 ```
 
-Try to build this project, it should be fast as there are no external dependencies.
+试试构建这个项目。由于没有外部依赖，它应该会构建得非常快。
 
-```
+```bash
 $ cargo build
 Compiling kt v0.1.0 (/Users/jeremie/Development/kitty)
 Finished dev [unoptimized + debuginfo] target(s) in 2.82s
 ```
 
-In development mode, you can execute a binary by invoking `cargo run` (`cargo run --- my_arg` for passing command line arguments).
+在开发模式下，你可以通过调用 `cargo run` 来执行二进制文件（用 `cargo run --- my_arg` 来传递命令行参数）。
 
-```
+```bash
 $ cargo run
 Finished dev [unoptimized + debuginfo] target(s) in 0.07s
 Running `target/debug/kt`
 Hello, world!
 ```
 
-Give yourself a pat in the back, you have just created and run your first Rust application! 🎉
+恭喜你，你通过刚才的步骤已经创建并运行了你的第一个 Rust 应用程序了！🎉
 
-## Parsing our first command line argument
+## 解析第一个命令行参数
 
-Like I said earlier in the article, we are trying to build a stripped-down version of `cat`. We aim to mimic `cat` and display the content of a file in the terminal output, by launching `kt myfile.txt`.
+正如我之前在文章中所说的，我们正在尝试构建一个简化版的 `cat` 命令。我们的目标是模拟 `cat` 的行为，运行 `kt myfile.txt` 命令之后，在终端输出文件内容。
 
-We could handle the parsing of arguments by ourselves, but luckily there is a Rust Crate that can ease this process for us, and it is called [Clap](https://github.com/clap-rs/clap).
+我们本来可以自己处理参数的解析过程，但幸运的是，一个 Rust 工具可以帮我们简化这个过程，它就是 [Clap](https://github.com/clap-rs/clap)。
 
-This library is a fast command line argument parser, and it will allow us to manage them with little effort.
+这是一个高性能的命令行参数解析器，它让我们管理命令行参数变得很简单。
 
-The first step to use this crate is opening the `Cargo.toml` file and explicitly add the dependency in it. If you never encountered a `.toml` file before, it looks a lot like an `.INI` file in the fabulous Windows world. It's a file format rather popular in the Rust world.
+使用这个工具的第一步是打开 `Cargo.toml` 文件，并在其中添加指定的依赖项。如果你从未处理过 `.toml` 文件也没关系，它与 Windows 系统中的 `.INI` 文件极其相似。这种文件格式在 Rust 中是很常见的。
 
-You will see in this file that there is already some information filled up for us, like the author, the version and so on. We will need to add our dependency under the `[dependencies]` key.
+在这个文件中，你将看到有一些信息已经填充好了，比如作者、版本等等。我们只需要在 `[dependencies]` 下添加依赖项就行了。
 
-```
+```toml
 [dependencies]
 clap = "~2.32"
 ```
 
-After saving the file, we will need to build the project again in order to be able to use the library. Don't worry too much about `cargo` downloading much more than the `clap` crate, as it's caused by dependencies required by `clap`.
+保存文件后，我们需要重新构建项目，以便能够使用依赖库。即使 `cargo` 下载了除 `clap` 以外的文件也不用担心，这是由于 `clap` 也有其所需的依赖关系。
 
-```
+```bash
 $ cargo build
  Updating crates.io index
   Downloaded clap v2.32.0
@@ -134,9 +134,9 @@ $ cargo build
     Finished dev [unoptimized + debuginfo] target(s) in 33.92s
 ```
 
-That's it for the configuration, we can get our hands dirty and finally do some code to read our first command line arguments.
+以上就是需要配置的内容，接下来我们可以动手，写一些代码来读取我们的第一个命令行参数。
 
-Open the `main.rs` file. We will have to explicitly say that we want to use the Clap library.
+打开 `main.rs` 文件。我们必须显式地声明我们要使用 Clap 库。
 
 ```rust
 extern crate clap;
@@ -146,13 +146,13 @@ use clap::{Arg, App};
 fn main() {}
 ```
 
-The extern crate keyword is for importing the library, you have to add this in the main file only, to have it enabled for any source file of the application. The `use` part indicates which module of `clap` you are going to use in this file.
+`extern crate` 关键字用于导入依赖库，你只需将其添加到主文件中，应用程序的任何源文件就都可以引用它了。`use` 部分则是指你将在这个文件中使用 `clap` 的哪个模块。
 
-A quick note about Rust modules:
+Rust 模块（module）的简要说明：
 
-> Rust has a module system that enables the reuse of code in an organized fashion. A module is a namespace which contains definitions of functions or types, and you can choose whether those definitions are visible outside their module (public) or not (private). --- The Rust Documentation
+> Rust 有一个模块系统，能够以有组织的方式重用代码。模块是一个包含函数或类型定义的命名空间，你可以选择这些定义是否在其模块外部可见（public/private）。—— Rust 文档
 
-Here we are saying that we want to use the `Arg` and the `App` module. We want to be able to have a `FILE` argument for our app, that will contain a file path. Clap can help up express that with a method chaining fashion that is very pleasant.
+这里我们声明的是我们想要使用 `Arg` 和 `App` 模块。我们希望我们的应用程序有一个 `FILE` 参数，它将包含一个文件路径。Clap 可以帮助我们快速实现该功能。这里使用了一种链式调用方法的方式，这是一种令人非常愉悦的方式。
 
 ```rust
 fn main() {
@@ -168,11 +168,11 @@ fn main() {
 }
 ```
 
-Compile and execute again, it should not give you much in the output, except a compilation warning on the variable `matches` (you can put a `_` in front of the variable, it will tell the compilator that this variable is optional (this will talk to Rubyists).
+再次编译并执行，除了变量 `matches` 上的编译警告（对于 Ruby 开发者来说，可以在变量前面加上 `_`，它会告诉编译器该变量是可选的），它应该不会输出太多其他信息。
 
-The magic happens if you pass the `-h` or `-V` arguments to the application, an help and a version command are automatically generated for free. I don't know what you think, but I found that 🔥🔥🔥.
+如果你向应用程序传递 `-h` 或者 `-V` 参数，程序会自动生成一个帮助信息和版本信息。我不知道你如何看待这个事情，但我觉得它 🔥🔥🔥。
 
-```
+```bash
 $ cargo run -- -h
     Finished dev [unoptimized + debuginfo] target(s) in 0.03s
      Running `target/debug/kt -h`
@@ -196,19 +196,19 @@ Running target/debug/kt -V
 kt 0.1.0
 ```
 
-We can also try to launch the program without any arguments and see what happens.
+我们还可以尝试不带任何参数，启动程序，看看会发生什么。
 
-```
+```bash
 $ cargo run --
 Finished dev [unoptimized + debuginfo] target(s) in 0.03s
   Running `target/debug/kt`
 ```
 
-Nothing. This is the default behavior that should occur every time you build a command line tool. I think that passing no arguments to the application should never trigger any action. There are times when this is not true, but for the vast majority, you should never execute an action that your user never intended to.
+什么都没有发生。这是每次构建命令行工具时应该发生的默认行为。我认为不向应用程序传递任何参数就永远不应该触发任何操作。即使有时候这并不正确，但是在大多数情况下，永远不要执行用户从未打算执行的操作。
 
-Now that we have our argument in place, we can dig into how to *catch* this command line argument and display something in the standard output.
+现在我们已经有了参数，我们可以深入研究如何**捕获**这个命令行参数并在标准输出中显示一些内容。
 
-To implement this, we can use the `value_of` method of `clap`. Please refer to the [documentation](https://docs.rs/clap/2.32.0/clap/struct.ArgMatches.html#method.value_of) to know how this method behaves.
+要实现这一点，我们可以使用 `clap` 中的 `value_of` 方法。请参考[文档](https://docs.rs/clap/2.32.0/clap/struct.ArgMatches.html#method.value_of)来了解该方法是怎么运作的。
 
 ```rust
 fn main() {
@@ -228,20 +228,20 @@ fn main() {
 }
 ```
 
-At this point, you can run the application and pass in a random string as an argument, it should display that random string in your console.
+此时，你可以运行应用程序并传入一个随机字符串作为参数，在你的控制台中会回显该字符串。
 
-```
+```bash
 $ cargo run -- test.txt
 Finished dev [unoptimized + debuginfo] target(s) in 0.02s
   Running `target/debug/kt test.txt`
 Value for file argument: test.txt
 ```
 
-Note that we actually make no verifications on the existence of that file for the moment. But what if we do?
+请注意，目前我们实际上没有对该文件是否存在进行验证。那么我们应该怎么实现呢？
 
-There is a standard library that permits us to check if a file or directory exists, without the hassle. It's the `std::path` library. It has an `exists` method that can check the existence of the file for us.
+有一个标准库可以让我们检查一个文件或目录是否存在，使用方式非常简单。它就是 `std::path` 库。它有一个 `exists` 方法，可以帮我们检查文件是否存在。
 
-Add the library with the `use` keyword as we've seen before, then drop in the code below. You see that we are using an `If-Else` condition to print some text in the output. The `println!` method is writing in the standard output `stdout`, whereas `eprintln!` in writing in the standard error output `stderr`.
+如前所述，使用 `use` 关键字来添加依赖库，然后编写如下代码。你可以看到，我们使用 `If-Else` 条件控制在输出中打印一些文本。`println!` 方法会写入标准输出 `stdout`，而 `eprintln!` 会写入标准错误输出 `stderr`。
 
 ```rust
 extern crate clap;
@@ -268,15 +268,15 @@ use std::process;
         }
         else {
             eprintln!("[kt Error] No such file or directory.");
-            process::exit(1); // Standard exit code for programs terminating with an error
+            process::exit(1); // 程序错误终止时的标准退出码
         }
     }
 }
 ```
 
-We're almost there!! Now we need now to read the content of the file and display the result in `stdout`.
+我们快要完成了！现在我们需要读取文件的内容并将结果显示在 `stdout` 中。
 
-Once again, we will use a standard library to read from files called `File`. We will read the content of the file using the `open` method, then write it into a String object, which will be displayed in `stdout`.
+同样，我们将使用一个名为 `File` 的标准库来读取文件。我们将使用 `open` 方法读取文件的内容，然后将其写入一个字符串对象，该对象将在 `stdout` 中显示。
 
 ```rust
 extern crate clap;
@@ -313,9 +313,9 @@ fn main() {
 }
 ```
 
-Build and run again this code. Congratulations! We now have a fully functioning tool! 🍾
+再次构建并运行此代码。恭喜你！我们现在有一个功能完整的工具了！🍾
 
-```
+```bash
 $ cargo build
    Compiling kt v0.1.0 (/home/jeremie/Development/kt)
     Finished dev [unoptimized + debuginfo] target(s) in 0.70s
@@ -358,11 +358,11 @@ use std::io::{Read};
 }
 ```
 
-## Improving a little bit
+## 改进一点点
 
-Ok, our application is taking a parameter and displaying the result in `stdout`.
+我们的应用程序现可以接收一个参数并在 `stdout` 中显示结果。
 
-We can tweak a little bit the performance on the whole printing phase, by using `writeln!` instead of `println!`. This is well explained in the [Rust Output Tutorial](https://rust-lang-nursery.github.io/cli-wg/tutorial/output.html#a-note-on-printing-performance). While we are at it, we can clean a little bit code, remove unnecessary printing and fine-tune the possible error scenarios.
+我们可以稍微调整一下整个打印阶段的性能，方法是用 `writeln!` 来代替 `println!`。这在 [Rust 输出教程](https://rust-lang-nursery.github.io/cli-wg/tutorial/output.html#a-note-on-printing-performance)中有很好的解释。在此过程中，我们可以清理一些代码，删除不必要的打印，并对可能的错误场景进行微调。
 
 ```rust
 extern crate clap;
@@ -390,8 +390,8 @@ fn main() {
                 Ok(mut f) => {
                     let mut data = String::new();
                     f.read_to_string(&mut data).expect("[kt Error] Unable to read the  file.");
-                    let stdout = std::io::stdout(); // get the global stdout entity
-                    let mut handle = std::io::BufWriter::new(stdout); // optional: wrap that handle in a buffer
+                    let stdout = std::io::stdout(); // 获取全局 stdout 对象
+                    let mut handle = std::io::BufWriter::new(stdout); // 可选项：将 handle 包装在缓冲区中
                     match writeln!(handle, "{}", data) {
                         Ok(_res) => {},
                         Err(err) => {
@@ -414,7 +414,7 @@ fn main() {
 }
 ```
 
-```
+```bash
 $ cargo run -- ./src/main.rs
   Finished dev [unoptimized + debuginfo] target(s) in 0.02s
     Running `target/debug/kt ./src/main.rs`
@@ -443,8 +443,8 @@ use std::io::{Read, Write};
                 Ok(mut f) => {
                     let mut data = String::new();
                     f.read_to_string(&mut data).expect("[kt Error] Unable to read the  file.");
-                    let stdout = std::io::stdout(); // get the global stdout entity
-                    let mut handle = std::io::BufWriter::new(stdout); // optional: wrap that handle in a buffer
+                    let stdout = std::io::stdout(); // 获取全局 stdout 对象
+                    let mut handle = std::io::BufWriter::new(stdout); // 可选项：将 handle 包装在缓冲区中
                     match writeln!(handle, "{}", data) {
                         Ok(_res) => {},
                         Err(err) => {
@@ -467,15 +467,15 @@ use std::io::{Read, Write};
 }
 ```
 
-Here we are! Our basic `cat` copy-cat 🤡, is finished with 45 lines of code or so, and it performs really well!
+我们完成了！我们通过约 45 行代码就完成了我们的简化版 `cat` 命令 🤡，并且它表现得非常好！
 
-## Building a standalone application
+## 构建独立的应用程序
 
-What about building this application and installing it in our filesystem? cargo to the rescue!
+那么构建这个应用程序并将其安装到文件系统中要怎么做呢？向 cargo 寻求帮助吧！
 
-`cargo build` is accepting a `---release` flag so that we can specify that we want the final version of our executable.
+`cargo build` 接受一个 `---release` 标志位，以便我们可以指定我们想要的可执行文件的最终版本。
 
-```
+```bash
 $ cargo build --release
    Compiling libc v0.2.48
    Compiling unicode-width v0.1.5
@@ -490,49 +490,49 @@ $ cargo build --release
     Finished release [optimized] target(s) in 28.17s
 ```
 
-The generated executable is located in a sub-directory: `./target/release/kt`.
+生成的可执行文件位于该子目录中：`./target/release/kt`。
 
-Either you copy-paste this file somewhere in your `PATH`, or you use another cargo command to install it automatically. The application will be installed in the `~/.cargo/bin/` directory (make sure this directory is in your `PATH` in the `~/.bashrc` or `~/.zshrc`).
+你可以将这个文件复制到你的 `PATH` 环境变量中，或者使用一个 cargo 命令来自动安装。应用程序将安装在 `~/.cargo/bin/` 目录中（确保该目录在 `~/.bashrc` 或 `~/.zshrc` 的 `PATH` 环境变量中）。
 
-```
+```bash
 $ cargo install --path .
   Installing kt v0.1.0 (/home/jeremie/Development/kt)
     Finished release [optimized] target(s) in 0.03s
   Installing /home/jeremie/.cargo/bin/kt
 ```
 
-Now we can invoke our application by calling it directly in the terminal with the command `kt`! \o/
+现在我们可以直接在终端中使用 `kt` 命令调用我们的应用程序了！\o/
 
-```
+```bash
 $ kt -V
 kt 0.1.0
 ```
 
-## Wrapping up
+## 总结
 
-We created a small command line tool with a few lines of Rust, which accepts a file path as an input, and displays the content of that file in `stdout`.
+我们创建了一个仅有数行 Rust 代码的命令行小工具，它接受一个文件路径作为输入，并在 `stdout` 中显示该文件的内容。
 
-You can find all the sources for this article under the [GitHub repository](https://github.com/jveillet/kt-rs).
+你可以在这个 [GitHub 仓库](https://github.com/jveillet/kt-rs)中找到这篇文章中的所有源代码。
 
-Your turn to improve the tool!
+轮到你来改进这个工具了！
 
--   You can add a command line argument to add the line numbers in the output (`-n` option).
--   Display a chunk of a file, and then the rest after using the `ENTER` key on the keyboard.
--   Open multiple files at once with a syntax like `kt myfile.txt myfile2.txt myfile3.txt`.
+-   你可以添加一个命令行参数来控制是否在输出中添加行号（`-n` 选项）。
+-   只显示文件的一部分，然后通过按键盘上的 `ENTER` 键来显示其余部分。
+-   使用 `kt myfile.txt myfile2.txt myfile3.txt` 这样的语法一次性打开多个文件。
 
-Don't hesitate to show me what you have built with it! 😎
+不要犹豫，告诉我你用它做了什么！😎
 
-*Special thanks to Anaïs for reviewing this post* 👍
+**特别感谢帮助修订这篇文章的 Anaïs** 👍
 
-## Going further
+## 进一步探索
 
--   [cat](https://en.wikipedia.org/wiki/Cat_(Unix)): Wikipedia page of the cat utility.
+-   [cat](https://en.wikipedia.org/wiki/Cat_(Unix))：cat 实用程序的 Wikipedia 页面。
 -   [kt-rs](https://github.com/jveillet/kt-rs)
 -   [Rust Cookbook](https://rust-lang-nursery.github.io/rust-cookbook/)
--   [Clap](https://github.com/clap-rs/clap): A full featured, fast Command Line Argument Parser for Rust.
--   [Reqwest](https://github.com/seanmonstar/reqwest): An easy and powerful Rust HTTP Client.
--   [Serde](https://github.com/serde-rs/serde): Serialization framework for Rust.
--   [crates.io](https://crates.io/): The Rust community's crate registry.
+-   [Clap](https://github.com/clap-rs/clap)：一个功能齐全、高性能的 Rust 命令行参数解析器。
+-   [Reqwest](https://github.com/seanmonstar/reqwest)：一个简单而功能强大的 Rust HTTP 客户端。
+-   [Serde](https://github.com/serde-rs/serde)：一个 Rust 的序列化框架。
+-   [crates.io](https://crates.io/): Rust 社区的工具注册站点。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

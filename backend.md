@@ -1,3 +1,7 @@
+* [Spring 的分布式事务实现 — 使用和不使用XA — 第三部分](https://juejin.im/post/5caee1ee6fb9a068890f1eff) ([radialine](https://github.com/radialine) 翻译)
+* [Spring 的分布式事务实现 — 使用和不使用XA — 第二部分](https://juejin.im/post/5cae93ddf265da03a85aaac3) ([xiantang](https://github.com/xiantang) 翻译)
+* [Java 和 etcd：因为 jetcd 最终走到了一起](https://juejin.im/post/5cae92f8f265da0360239b89) ([mingxing47](https://github.com/mingxing47) 翻译)
+* [多线程简介](https://juejin.im/post/5ca351da6fb9a05e6a08745b) ([steinliber](https://github.com/steinliber) 翻译)
 * [用 Apache Shiro 来强化一个 Spring Boot 应用](https://juejin.im/post/5c9f60c7e51d451cf929305d) ([lihanxiang](https://github.com/lihanxiang) 翻译)
 * [数据流简介](https://juejin.im/entry/5c8f457cf265da60cf50e5b2) ([steinliber](https://github.com/steinliber) 翻译)
 * [连接数据流](https://juejin.im/post/5c8efcbee51d457cb772778f) ([whatbeg](https://github.com/whatbeg) 翻译)
