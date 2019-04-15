@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-were-bullish-on-crypto-collectibles-nfts.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-were-bullish-on-crypto-collectibles-nfts.md)
 > * 译者：[portandbridge](https://github.com/portandbridge)
-> * 校对者：
+> * 校对者：[StellaBauhinia](https://github.com/StellaBauhinia)、[ezioyuan](https://github.com/ezioyuan)
 
 # 我们为什么看好加密收藏品（NFT）的前景
 
