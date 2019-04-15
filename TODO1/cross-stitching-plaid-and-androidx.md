@@ -29,7 +29,7 @@ Plaid 是一款呈现 Material Design 风格和丰富交互界面的有趣应用
 
 我强烈建议在一个版本可控的分支做迁移工作。这样你可以逐步解决可能出现的任何迁移问题，同时分离出每个变更用于分析定位问题。你可以在这个 [Pull Request](https://github.com/nickbutcher/plaid/pull/524) 下查看我们的讨论过程，并且通过点击下面的提交链接来跟进最新信息。另外 Android Studio 提供了一个迁移前做工程备份的可选服务。
 
-和任何大规模代码的重构工作一样，最好在迁移到 AndroidX 期间，迁移分支与主要开发分支之间做到最少合并来避免合并冲突。虽然对其他应用来说不可行，但是我们团队能够临时暂停向主分支提交代码以帮助迁移。一次性迁移整个应用也非常重要，因为部分迁移——同时使用 AndroidX 和 Support 库将会导致迁移过程中的失败。
+和任何大规模代码的重构工作一样，最好在迁移到 AndroidX 期间，迁移分支与主要开发分支之间做到最少合并来避免合并冲突。虽然对其他应用来说不可行，但是我们团队能够临时暂停向主分支提交代码以帮助迁移。一次性迁移整个应用也非常必要，因为部分迁移——同时使用 AndroidX 和 Support 库将会导致迁移过程中的失败。
 
 最后，请阅读 [developer.android.com](https://developer.android.com/) 网站上[迁移至 AndroidX](https://developer.android.com/jetpack/androidx/migrate) 文中的提示。现在让我们开始吧！
 
@@ -55,7 +55,7 @@ Plaid 是一款呈现 Material Design 风格和丰富交互界面的有趣应用
 
 如果你不使用 Android Studio 或者更倾向于其他工具来做迁移，请参考 [Artifact](https://developer.android.com/jetpack/androidx/migrate#artifact_mappings) 和 [Class](https://developer.android.com/jetpack/androidx/migrate#class_mappings) mappings 这些网页，这些材料也有提供 CSV 格式。
 
-Android Studio 中的 AndroidX 迁移工具是 AndroidX 迁移的一大来源。这个工具正在持续的优化中，所以如果你遇到问题或者希望查看某个功能，请在 Google 问题追踪页[提交一票](https://issuetracker.google.com/issues/new?component=460323)。
+Android Studio 中的 AndroidX 迁移工具是 AndroidX 迁移的主要方式。这个工具正在持续的优化中，所以如果你遇到问题或者希望查看某个功能，请在 Google 问题追踪页[提交一票](https://issuetracker.google.com/issues/new?component=460323)。
 
 ### 迁移应用
 
@@ -111,7 +111,7 @@ Alternatively, you can try to fix the problem by adding this snippet to /.../pla
 
 迁移工具的一个缺点是：如果你在依赖版本项使用了变量，迁移工具把它们自动内联。我们从 build.gradle 文件中重新提取了这些版本（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/0c5a3d62a83ecf400de376f4b4e6e7c3a6bf3c2a)）。
 
-上文中我们提到了运行 AndroidX 迁移工具后对 `plusAssign` 和 `Palette` 问题的临时解决方案。现在我们重新添加了 `plusAssign` 函数且关联了相关测试（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/0a5a5a3d50ece0f671201e1183b971fb4a3e158a)），通过使用之前的 AndroidX 版本来引用它，并且取消了上文对该函数的注释。同样的，我们把 `Palette` 参数更新到可以为空的这个版本（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/7aad3005ea8ab222443f1a2ea34252e25328d677)），这样就无需使用操作符 `!!`。
+上文中我们提到了运行 AndroidX 迁移工具后对 `plusAssign` 和 `Palette` 问题的临时解决方案。现在我们重新添加了 `plusAssign` 函数且关联了相关测试（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/0a5a5a3d50ece0f671201e1183b971fb4a3e158a)），通过使用之前的 AndroidX 版本来引用它，并且取消了上文对该函数的注释。与此同时，我们把 `Palette` 参数更新到可以为空的这个版本（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/7aad3005ea8ab222443f1a2ea34252e25328d677)），这样就无需使用操作符 `!!`。
 
 同样的，自动转化可能使得某些类需要使用它们的完整类路径。做最少的手工修正是一个好的思路。作为清理工作的一部分，我们移除了完整类路径，并在必要时重新添加了相关引用。
 
