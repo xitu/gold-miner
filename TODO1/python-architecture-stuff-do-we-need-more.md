@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/python-architecture-stuff-do-we-need-more.md](https://github.com/xitu/gold-miner/blob/master/TODO1/python-architecture-stuff-do-we-need-more.md)
 > * 译者：[QiaoN](https://github.com/QiaoN)
-> * 校对者：
+> * 校对者：[Brayn](https://blog.brayn.top/)
 
 # Python架构相关：我们需要更多吗？
 
-最近，我一直在学习有关应用程序架构的很多新东西。亲爱的读者，我想知道你是否对这些想法感兴趣，以及我们是否应该尝试围绕它构建更多的资源（博客、会谈等）。
+最近，我一直在学习大量有关应用程序架构的新东西。亲爱的读者，我想知道你是否对这些想法感兴趣，以及我们是否应该尝试围绕它构建更多的资源（博客、会谈等）。
 
 ## 我们应该如何构建一个应用程序来充分利用测试？
 
-对我而言一切都始于这个问题。在[我的书尾](https://www.obeythetestinggoat.com/book/chapter_hot_lava.html) ，我用结束章节讨论了如何充分利用你的测试，在单元、集成和端到端的测试中做出权衡，并对我没有真正理解的一些主题做出些模糊浅显的指示：端口与适配器（ports and adapters），六角架构（hexagonal architecture），函数式内核/命令式外壳（functional core imperative shell），干净架构（the clean architecture），等等。
+对我而言一切都始于这个问题。在[我的书尾](https://www.obeythetestinggoat.com/book/chapter_hot_lava.html) ，我用结束章节讨论了如何充分利用你的测试，在单元、集成和端到端的测试中做出权衡，并对我没有真正理解的一些主题做出些模糊浅显的解释：端口与适配器（ports and adapters），六角架构（hexagonal architecture），函数式内核/命令式外壳（functional core imperative shell），干净架构（the clean architecture），等等。
 
 从那之后，我和一个正在用 Python 积极实现这些模式的[技术团队](https://io.made.com/)达成合作。其实，这些架构模式并不是什么新鲜事，人们多年来一直在用 Java 和 C# 进行探索。只是我对它们很陌生……从个人经验而言，我在这里可能会有些深入（我对你的反应很感兴趣），但它们对 Python 社区的大部分人可能也是个新鲜事？
 
@@ -21,7 +21,7 @@
 
 ## 关于该主题的经典书籍（均为 Java）
 
-[Evans 的领域驱动设计（DDD）](https://domainlanguage.com/ddd/) 和 [Fowler 的架构模式](https://www.martinfowler.com/books/eaa.html)都是很经典的书籍，任何对这些感兴趣的人都应该阅读。但如果你像我一样，费力阅读那些 public static void main AbstractFactoryManager之类的东西实在让人有点烦。也许一些更轻量级的、Python 化的介绍能让人感觉更加合理，少点云里雾里？
+[Evans 的领域驱动设计（DDD）](https://domainlanguage.com/ddd/) 和 [Fowler 的架构模式](https://www.martinfowler.com/books/eaa.html)都是很经典的书籍，任何对这些感兴趣的人都应该阅读。但如果你像我一样，那么通篇阅读 public static void main AbstractFactoryManager 之类的东西会有点吃力。也许一些更轻量级的、Python 化的介绍能让人感觉更加合理，少点云里雾里？
 
 ## Python 领域中的一些现有资源：
 
@@ -34,7 +34,7 @@ Made 的首席架构师，尊敬的 Bob 先生，就我们现在讨论的问题�
 
 在 io.made.com 上还有很多，但以上四篇为主要内容。我们希望得到一些关于它们的反馈，哪些被阐述到了，哪些需要进一步解释，等等。
 
-另：一个去年圣诞节及时发布的的书，Leonardo Giordani 的 [Python 干净架构（Clean Architectures in Python）](https://leanpub.com/clean-architectures-in-python)。这本书是两本书合二为一，第一部分是 TDD 的介绍，但第二部分有四章介绍了与我在这里讨论的类似的模式。
+另：去年圣诞节及时发布的一本新书，Leonardo Giordani 的 [Python 干净架构（Clean Architectures in Python）](https://leanpub.com/clean-architectures-in-python)。这本书是两本书合二为一，第一部分是 TDD 的介绍，但第二部分有四章介绍了与我在这里讨论的类似的模式。
 
 我也很喜欢一年前 David Seddon 的一个演讲 [岩石河：如何构建你的 Django 单体应用（monolith）](http://seddonym.me/talks/2017-12-12-rocky-river/)，显示出其他人开始思考我们如何超越基本的 Django 模型/视图/模板架构。
 
