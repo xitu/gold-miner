@@ -1,3 +1,7 @@
+* [在 swift 中使用 errors 作为控制流](https://juejin.im/post/5c90c0d9f265da612d6335cb) ([swants](https://github.com/swants) 翻译)
+* [iOS：如何构建具有多种 Cell 类型的表视图](https://juejin.im/post/5c89a917e51d457efe07f4f9) ([LoneyIsError](https://github.com/LoneyIsError) 翻译)
+* [如何在 Swift 5 中使用 Result](https://juejin.im/post/5c9586eee51d4536e85c3d60) ([Bruce-pac](https://github.com/Bruce-pac) 翻译)
+* [iOS 响应者链 UIResponder，UIEvent，UIControl 的使用](https://juejin.im/post/5c9f652ae51d4519eb1ff426) ([iWeslie](https://github.com/iWeslie) 翻译)
 * [Swift 5 强制独占性原则](https://juejin.im/post/5c778b5e6fb9a049c64487e0) ([LoneyIsError](https://github.com/LoneyIsError) 翻译)
 * [React Native 中那些令我收获颇丰的痛点](https://juejin.im/post/5c74d6a16fb9a049f06ae907) ([jerryOnlyZRJ](https://github.com/jerryOnlyZRJ) 翻译)
 * [React Native 与 iOS 和 Android 通信](https://juejin.im/post/5c6ca781f265da2da8356c81) ([MeandNi](https://github.com/MeandNi) 翻译)

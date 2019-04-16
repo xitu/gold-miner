@@ -2,38 +2,38 @@
 > * 原文作者：[Paul Hudson](https://www.hackingwithswift.com/about)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/whats-new-in-swift-5-0.md](https://github.com/xitu/gold-miner/blob/master/TODO1/whats-new-in-swift-5-0.md)
-> * 译者：
-> * 校对者：
+> * 译者：[iWeslie](https://github.com/iWeslie)
+> * 校对者：[DevMcryYu](https://github.com/DevMcryYu), [swants](https://github.com/swants)
 
-# What’s new in Swift 5.0
+# Swift 5.0 新特性
 
 ![](https://www.hackingwithswift.com/uploads/swift-evolution-5.jpg)
 
-Swift 5.0 is the next major release of Swift, and brings ABI stability at long last. That's not all, though: several key new features are already implemented, including raw strings, future enum cases, a `Result` type, checking for integer multiples and more.
+Swift 5.0 是 Swift 的下一个主要的 release，随之而来的是 ABI 的稳定性，同时还实现了几个关键的新功能，包括 raw string，未来的枚举 case，`Result` 类型，检查整数倍数等等。
 
-*   **Try it yourself:** I created an [Xcode Playground showing what's new in Swift 5.0 with examples you can edit](https://github.com/twostraws/whats-new-in-swift-5-0).
+*  **你可以亲自尝试一下**：我创建了一个 [Xcode Playground](https://github.com/twostraws/whats-new-in-swift-5-0) 来展示 Swift 5.0 的新特性，里面有一些你可以参考的例子。
 
-### A standard `Result` type
+### 标准 `Result` 类型
 
-*   [**Watch the video**](https://www.youtube.com/watch?v=RBZFCp3kSLM)
+*  [**YouTube 视频讲解**](https://www.youtube.com/watch?v=RBZFCp3kSLM)
 
-[SE-0235](https://github.com/apple/swift-evolution/blob/master/proposals/0235-add-result.md) introduces a `Result` type into the standard library, giving us a simpler, clearer way of handling errors in complex code such as asynchronous APIs.
+[SE-0235](https://github.com/apple/swift-evolution/blob/master/proposals/0235-add-result.md) 在标准库中引入了全新的 `Result` 类型，它让我们能够更加方便清晰地在复杂的代码中处理 error，例如异步 API。
 
-Swift’s `Result` type is implemented as an enum that has two cases: `success` and `failure`. Both are implemented using generics so they can have an associated value of your choosing, but `failure` must be something that conforms to Swift’s `Error` type.
+Swift 的 `Result` 类型是用枚举实现的，其中包含了 `success` 和 `failure`。它们两者都使用泛型，因此你可以为它们指定任意类型。但是 `failure` 必须遵循 Swift 的 `Error` 协议。
 
-To demonstrate `Result`, we could write a function that connects to a server to figure out how many unread messages are waiting for the user. In this example code we’re going to have just one possible error, which is that the requested URL string isn’t a valid URL:
+为了进一步演示 `Result`，我们可以写一个网络请求函数来计算用户有多少未读消息。在此示例代码中，我们将只有一个可能的错误，即请求的字符串不是有效的 URL：
 
-```
+```swift
 enum NetworkError: Error {
     case badURL
 }
 ```
 
-The fetching function will accept a URL string as its first parameter, and a completion handler as its second parameter. That completion handler will itself accept a `Result`, where the success case will store an integer, and the failure case will be some sort of `NetworkError`. We’re not actually going to connect to a server here, but using a completion handler at least lets us simulate asynchronous code.
+fetch 函数将接受 URL 字符串作为其第一个参数，并将 completion 闭包作为其第二个参数。该 completion 闭包本身将接受一个 `Result`，其中 success 将存储一个整数，failure 将是某种 `NetworkError`。我们实际上并没有在这里连接到服务器，但使用 completion 闭包可以让我们模拟异步代码。
 
-Here’s the code:
+代码如下：
 
-```
+```swift
 import Foundation
 
 func fetchUnreadCount1(from urlString: String, completionHandler: @escaping (Result<Int, NetworkError>) -> Void)  {
@@ -42,149 +42,149 @@ func fetchUnreadCount1(from urlString: String, completionHandler: @escaping (Res
         return
     }
 
-    // complicated networking code here
+    // 此处省略复杂的网络请求
     print("Fetching \(url.absoluteString)...")
     completionHandler(.success(5))
 }
 ```
 
-To use that code we need to check the value inside our `Result` to see whether our call succeeded or failed, like this:
+要调用此函数，我们需要检查 `Result` 中的值来看看我们的请求是成功还是失败，代码如下：
 
-```
+```swift
 fetchUnreadCount1(from: "https://www.hackingwithswift.com") { result in
     switch result {
     case .success(let count):
-        print("\(count) unread messages.")
+        print("\(count) 个未读信息。")
     case .failure(let error):
         print(error.localizedDescription)
     }
 }
 ```
 
-There are three more things you ought to know before you start using `Result` in your own code.
+在开始在自己的代码中使用 `Result` 之前，你还有三件事应该知道。
 
-First, `Result` has a `get()` method that either returns the successful value if it exists, or throws its error otherwise. This allows you to convert `Result` into a regular throwing call, like this:
+首先，`Result` 有一个 `get()` 方法，如果存在则返回成功值，否则抛出错误。这允许你将 `Result` 转换为常规会抛出错误的函数调用，如下所示：
 
-```
+```swift
 fetchUnreadCount1(from: "https://www.hackingwithswift.com") { result in
     if let count = try? result.get() {
-        print("\(count) unread messages.")
+        print("\(count) 个未读信息。")
     }
 }
 ```
 
-Second, `Result` has an initializer that accepts a throwing closure: if the closure returns a value successfully that gets used for the `success` case, otherwise the thrown error is placed into the `failure` case.
+其次，`Result` 还有一个接受抛出错误闭包的初始化器：如果闭包返回一个成功的值，用于 `success` 的情况，否则抛出的错误则被传入 `failure`。
 
-For example:
+举例：
 
-```
+```swift
 let result = Result { try String(contentsOfFile: someFile) }
 ```
 
-Third, rather than using a specific error enum that you’ve created, you can also use the general `Error` protocol. In fact, the Swift Evolution proposal says “it's expected that most uses of Result will use `Swift.Error` as the `Error` type argument.”
+第三，你可以使用通用的 `Error` 协议而不是你创建的特定错误的枚举。实际上，Swift Evolution 提议说道“预计 Result 的大部分用法都会使用 `Swift.Error` 作为 `Error` 类型参数。”
 
-So, rather than using `Result<Int, NetworkError>` you could use `Result<Int, Error>`. Although this means you lose the safety of typed throws, you gain the ability to throw a variety of different error enums – which you prefer really depends on your coding style.
+因此你要用 `Result <Int，Error>` 而非 `Result<Int, NetworkError>`。这虽然意味着你失去了可抛出错误类型的安全性，但你可以抛出各种不同的错误枚举，其实这取决于你的代码风格。
 
-### Raw strings
+### Raw string
 
-*   [**Watch the video**](https://www.youtube.com/watch?v=e6tuUzmxyOU)
+*   [**YouTube 视频讲解**](https://www.youtube.com/watch?v=e6tuUzmxyOU)
 
-[SE-0200](https://github.com/apple/swift-evolution/blob/master/proposals/0200-raw-string-escaping.md) added the ability to create raw strings, where backslashes and quote marks are interpreted as those literal symbols rather than escapes characters or string terminators. This makes a number of use cases more easy, but regular expressions in particular will benefit.
+[SE-0200](https://github.com/apple/swift-evolution/blob/master/proposals/0200-raw-string-escaping.md) 添加了创建原始字符串（raw string）的功能，其中反斜杠和井号是被作为标点符号而不是转义字符或字符串终止符。这使得许多用法变得更容易，特别是正则表达式。
 
-To use raw strings, place one or more `#` symbols before your strings, like this:
+要使用原始字符串，请在字符串前放置一个或多个 `#`，如下所示：
 
-```
-let rain = #"The "rain" in "Spain" falls mainly on the Spaniards."#
-```
-
-The `#` symbols at the start and end of the string become part of the string delimiter, so Swift understands that the standalone quote marks around “rain” and “Spain” should be treated as literal quote marks rather than ending the string.
-
-Raw strings allow you to use backslashes too:
-
-```
-let keypaths = #"Swift keypaths such as \Person.name hold uninvoked references to properties."#
+```swift
+let rain = #"西班牙"下的"雨"主要落在西班牙人的身上。"#
 ```
 
-That treats the backslash as being a literal character in the string, rather than an escape character. This in turn means that string interpolation works differently:
+字符串开头和结尾的 `#` 成为字符串分隔符的一部分，因此 Swift 明白 "雨" 和 "西班牙" 两边独立引号应该被视为标点符号而不是终止符。
 
+原始字符串也允许你使用反斜杠：
+
+```swift
+let keypaths = #"诸如 \Person.name 之类的 Swift keyPath 包含对属性未调用的引用。"#
 ```
+
+这将反斜杠视为字符串中的文字字符而不是转义字符。不然则意味着字符串插值的工作方式不同：
+
+```swift
 let answer = 42
-let dontpanic = #"The answer to life, the universe, and everything is \#(answer)."#
+let dontpanic = #"生命、宇宙及万事万物的终极答案都是 \#(answer)."#
 ```
 
-Notice how I’ve used `\#(answer)` to use string interpolation – a regular `\(answer)` will be interpreted as characters in the string, so when you want string interpolation to happen in a raw string you must add the extra `#`.
+请注意我是如何使用 `\#(answer)` 来调用字符串插值的，一般 `\(answer)` 将被解释为 answer 字符串中的字符，所以当你想要在原始字符串中进行引用字符串插值时你必须添加额外的 `＃`。
 
-One of the interesting features of Swift’s raw strings is the use of hash symbols at the start and end, because you can use more than one in the unlikely event you’ll need to. It’s hard to provide a good example here because it really ought to be extremely rare, but consider this string: **My dog said "woof"#gooddog**. Because there’s no space before the hash, Swift will see `"#` and immediately interpret it as the string terminator. In this situation we need to change our delimiter from `#"` to `##"`, like this:
+Swift 原始字符串的一个有趣特性是在开头和结尾使用井号，因为你一般不会一下使用多个井号。这里很难提供一个很好的例子，因为它真的应该非常罕见，但请考虑这个字符串：**我的狗叫了一下 "汪"#好狗狗**。因为在井号之前没有空格，Swift 看到 `"#` 会立即把它作为字符串终止符。在这种情况下，我们需要将分隔符从 `#"` 改为 `##"`，如下所示：
 
+```swift
+let str = ##"我的狗叫了一下 "汪"#乖狗狗"##
 ```
-let str = ##"My dog said "woof"#gooddog"##
-```
 
-Notice how the number of hashes at the end must match the number at the start.
+注意末尾的井号数必须与开头的一致。
 
-Raw strings are fully compatible with Swift’s multi-line string system – just use `#"""` to start, then `"""#` to end, like this:
+原始字符串与 Swift 的多行字符串系统完全兼容，只需使用 `#"""` 开始，然后以 `"""#` 结束，如下所示：
 
-```
+```swift
 let multiline = #"""
-The answer to life,
-the universe,
-and everything is \#(answer).
+生命、
+宇宙,
+以及众生的答案都是 \#(answer).
 """#
 ```
 
-Being able to do without lots of backslashes will prove particularly useful in regular expressions. For example, writing a simple regex to find keypaths such as `\Person.name` used to look like this:
+能在正则表达式中不再大量使用反斜杠足以证明这很有用。例如编写一个简单的正则表达式来查询关键路径，例如 `\Person.name`，看起来像这样：
 
-```
+```swift
 let regex1 = "\\\\[A-Z]+[A-Za-z]+\\.[a-z]+"
 ```
 
-Thanks to raw strings we can write the same thing with half the number of backslashes:
+多亏了原始字符串，我们可以只用原来一半的反斜杠就可以编写相同的内容：
 
-```
+```swift
 let regex2 = #"\\[A-Z]+[A-Za-z]+\.[a-z]+"#
 ```
 
-We still need _some_, because regular expressions use them too.
+我们仍然需要 **一些** 反斜杠，因为正则表达式也使用它们。
 
 ### Customizing string interpolation
 
-[SE-0228](https://github.com/apple/swift-evolution/blob/master/proposals/0228-fix-expressiblebystringinterpolation.md) dramatically revamped Swift’s string interpolation system so that it’s more efficient and more flexible, and it’s creating a whole new range of features that were previously impossible.
+[SE-0228](https://github.com/apple/swift-evolution/blob/master/proposals/0228-fix-expressiblebystringinterpolation.md) 大幅改进了 Swift 的字符串插值系统，使其更高效、灵活，并创造了以前不可能实现的全新功能。
 
-In its most basic form, the new string interpolation system lets us control how objects appear in strings. Swift has default behavior for structs that is helpful for debugging, because it prints the struct name followed by all its properties. But if you were working with classes (that don’t have this behavior), or wanted to format that output so it could be user-facing, then you could use the new string interpolation system.
+在最基本的形式中，新的字符串插值系统让我们可以控制对象在字符串中的显示方式。Swift 具有有助于调试的结构体的默认行为，它打印结构体名称后跟其所有属性。但是如果你使用类的话就没有这种行为，或者想要格式化该输出以使其面向用户，那么你可以使用新的字符串插值系统。
 
-For example, if we had a struct like this:
+例如，如果我们有这样的结构体：
 
-```
+```swift
 struct User {
     var name: String
     var age: Int
 }
 ```
 
-If we wanted to add a special string interpolation for that so that we printed users neatly, we would add an extension to `String.StringInterpolation` with a new `appendInterpolation()` method. Swift already has several of these built in, and users the interpolation _type_ – in this case `User` to figure out which method to call.
+如果我们想为它添加一个特殊的字符串插值，以便我们整齐地打印用户信息，我们将使用一个新的 `appendInterpolation()` 方法为 `String.StringInterpolation` 添加一个 extension。Swift 已经内置了几个，并且用户插值 **类型**，在这种情况下需要 `User` 来确定要调用哪个方法。
 
-In this case, we’re going to add an implementation that puts the user’s name and age into a single string, then calls one of the built-in `appendInterpolation()` methods to add that to our string, like this:
+在这种情况下，我们将添加一个实现，将用户的名称和年龄放入一个字符串中，然后调用其中一个内置的 `appendInterpolation()` 方法将其添加到我们的字符串中，如下所示：
 
-```
+```swift
 extension String.StringInterpolation {
     mutating func appendInterpolation(_ value: User) {
-        appendInterpolation("My name is \(value.name) and I'm \(value.age)")
+        appendInterpolation("我叫\(value.name)，\(value.age)岁")
     }
 }
 ```
 
-Now we can create a user and print out their data:
+现在我们可以创建一个用户并打印出他们的数据：
 
-```
+```swift
 let user = User(name: "Guybrush Threepwood", age: 33)
-print("User details: \(user)")
+print("用户信息：\(user)")
 ```
 
-That will print **User details: My name is Guybrush Threepwood and I'm 33**, whereas with the custom string interpolation it would have printed **User details: User(name: "Guybrush Threepwood", age: 33)**. Of course, that functionality is no different from just implementing the `CustomStringConvertible` protocol, so let’s move on to more advanced usages.
+这将打印 **用户信息：我叫 Guybrush Threepwood，33 岁**，而使用自定义字符串插值它将打印 **用户信息：User(name: "Guybrush Threepwood", age: 33)** 。当然，该功能与仅实现` CustomStringConvertible` 协议没有什么不同，所以让我们继续使用更高级的用法。
 
-Your custom interpolation method can take as many parameters as you need, labeled or unlabeled. For example, we could add an interpolation to print numbers using various styles, like this:
+你的自定义插值方法可以根据需要使用任意数量的参数，标记的和未标记的。例如，我们可以使用各种样式添加插值来打印数字，如下所示：
 
-```
+```swift
 extension String.StringInterpolation {
     mutating func appendInterpolation(_ number: Int, style: NumberFormatter.Style) {
         let formatter = NumberFormatter()
@@ -197,17 +197,17 @@ extension String.StringInterpolation {
 }
 ```
 
-The `NumberFormatter` class has a number of styles, including currency ($72.83), ordinal (1st, 12th), and spell out (five, forty-three). So, we could create a random number and have it spelled out into a string like this:
+`NumberFormatter` 类有许多样式，包括货币形式（489.00 元），序数形式（第一，第十二）和朗读形式（五, 四十三）。 因此，我们可以创建一个随机数，并将其拼写成如下字符串：
 
-```
+```swift
 let number = Int.random(in: 0...100)
-let lucky = "The lucky number this week is \(number, style: .spellOut)."
+let lucky = "这周的幸运数是 \(number, style: .spellOut)."
 print(lucky)
 ```
 
-You can call `appendLiteral()` as many times as you need, or even not at all if necessary. For example, we could add a string interpolation to repeat a string multiple times, like this:
+你可以根据需要多次调用 `appendLiteral()`，如果需要的话甚至可以不调用。例如我们可以添加一个字符串插值来多次重复一个字符串，如下所示：
 
-```
+```swift
 extension String.StringInterpolation {
     mutating func appendInterpolation(repeat str: String, _ count: Int) {
         for _ in 0 ..< count {
@@ -219,9 +219,9 @@ extension String.StringInterpolation {
 print("Baby shark \(repeat: "doo ", 6)")
 ```
 
-And, as these are just regular methods, you can use Swift’s full range of functionality. For example, we might add an interpolation that joins an array of strings together, but if that array is empty execute a closure that returns a string instead:
+由于这些只是常规方法，你可以使用 Swift 的全部功能。例如，我们可能会添加一个将字符串数组连接在一起的插值，但如果该数组为空，则执行一个返回字符串的闭包：
 
-```
+```swift
 extension String.StringInterpolation {
     mutating func appendInterpolation(_ values: [String], empty defaultValue: @autoclosure () -> String) {
         if values.count == 0 {
@@ -233,114 +233,112 @@ extension String.StringInterpolation {
 }
 
 let names = ["Harry", "Ron", "Hermione"]
-print("List of students: \(names, empty: "No one").")
+print("学生姓名：\(names, empty: "空").")
 ```
 
-Using `@autoclosure` means that we can use simple values or call complex functions for the default value, but none of that work will be done unless `values.count` is zero.
+使用 `@autoclosure` 意味着我们可以使用简单值或调用复杂函数作为默认值，但除非 `values.count` 为零，否则不会做任何事。
 
-With a combination of the `ExpressibleByStringLiteral` and `ExpressibleByStringInterpolation` protocols it’s now possible to create whole types using string interpolation, and if we add `CustomStringConvertible` we can even make those types print as strings however we want.
+通过结合使用 `ExpressibleByStringLiteral` 和 `ExpressibleByStringInterpolation` 协议，我们现在可以使用字符串插值创建整个类型，如果我们添加 `CustomStringConvertible`，只要我们想要的话，甚至可以将这些类型打印为字符串。
 
-To make this work, we need to fulfill some specific criteria:
+为了让它生效，我们需要满足一些特定的标准：
 
-*   Whatever type we create should conform to `ExpressibleByStringLiteral`, `ExpressibleByStringInterpolation`, and `CustomStringConvertible`. The latter is only needed if you want to customize the way the type is printed.
-*   _Inside_ your type needs to be a nested struct called `StringInterpolation` that conforms to `StringInterpolationProtocol`.
-*   The nested struct needs to have an initializer that accepts two integers telling us roughly how much data it can expect.
-*   It also needs to implement an `appendLiteral()` method, as well as one or more `appendInterpolation()` methods.
-*   Your main type needs to have two initializers that allow it to be created from string literals and string interpolations.
+* 我们创建的类型应该遵循 `ExpressibleByStringLiteral`，`ExpressibleByStringInterpolation` 和 `CustomStringConvertible`。只有在你想要自定义打印类型的方式时才需要遵循最后一个协议。
+* 在你的类型 **内部** 需要是一个名为 `StringInterpolation` 并遵循 `StringInterpolationProtocol` 的嵌套结构体。
+* 嵌套结构体需要有一个初始化器，它接受两个整数，告诉我们大概预期的数据量。
+* 它还需要实现一个 `appendLiteral()` 方法，以及一个或多个 `appendInterpolation()` 方法。
+* 你的主类型需要有两个初始化器，允许从字符串文字和字符串插值创建它。
 
-We can put all that together into an example type that can construct HTML from various common elements. The “scratchpad” inside the nested `StringInterpolation` struct will be a string: each time a new literal or interpolation is added, we’ll append it to the string. To help you see exactly what’s going on, I’ve added some `print()` calls inside the various append methods.
+我们可以将所有这些放在一个可以从各种常见元素构造 HTML 的示例类型中。嵌套 `StringInterpolation` 结构体中的 “暂存器” 将是一个字符串：每次添加新的文字或插值时，我们都会将其追加到字符串的末尾。为了让你确切了解其中发生了什么，我在各种追加方法中添加了一些 `print()` 来打印。
 
-Here’s the code.
+以下是代码：
 
-```
+```swift
 struct HTMLComponent: ExpressibleByStringLiteral, ExpressibleByStringInterpolation, CustomStringConvertible {
     struct StringInterpolation: StringInterpolationProtocol {
-        // start with an empty string
+        // 以空字符串开始
         var output = ""
 
-        // allocate enough space to hold twice the amount of literal text
+        // 分配足够的空间来容纳双倍文字的文本
         init(literalCapacity: Int, interpolationCount: Int) {
             output.reserveCapacity(literalCapacity * 2)
         }
 
-        // a hard-coded piece of text – just add it
+        // 一段硬编码的文本，只需添加它就可以
         mutating func appendLiteral(_ literal: String) {
-            print("Appending \(literal)")
+            print("追加 ‘\(literal)’")
             output.append(literal)
         }
 
-        // a Twitter username – add it as a link
+        // Twitter 用户名，将其添加为链接
         mutating func appendInterpolation(twitter: String) {
-            print("Appending \(twitter)")
+            print("追加 ‘\(twitter)’")
             output.append("<a href=\"https://twitter/\(twitter)\">@\(twitter)</a>")
         }
 
-        // an email address – add it using mailto
+        // 电子邮件地址，使用 mailto 添加
         mutating func appendInterpolation(email: String) {
-            print("Appending \(email)")
+            print("追加 ‘\(email)’")
             output.append("<a href=\"mailto:\(email)\">\(email)</a>")
         }
     }
 
-    // the finished text for this whole component
+    // 整个组件的完整文本
     let description: String
 
-    // create an instance from a literal string
+    // 从文字字符串创建实例
     init(stringLiteral value: String) {
         description = value
     }
 
-    // create an instance from an interpolated string
+    // 从插值字符串创建实例
     init(stringInterpolation: StringInterpolation) {
         description = stringInterpolation.output
     }
 }
 ```
 
-We can now create and use an instance of `HTMLComponent` using string interpolation like this:
+我们现在可以使用字符串插值创建和使用 `HTMLComponent` 的实例，如下所示：
 
-```
-let text: HTMLComponent = "You should follow me on Twitter \(twitter: "twostraws"), or you can email me at \(email: "paul@hackingwithswift.com")."
+```swift
+let text: HTMLComponent = "你应该在 Twitter 上关注我 \(twitter: "twostraws")，或者你可以发送电子邮件给我 \(email: "paul@hackingwithswift.com")。"
 print(text)
 ```
 
-Thanks to the `print()` calls that were scattered inside, you’ll see exactly how the string interpolation functionality works: you’ll see “Appending You should follow me on Twitter”, “Appending twostraws”, “Appending , or you can email me at “, “Appending paul@hackingwithswift.com”, and finally “Appending .” – each part triggers a method call, and is added to our string.
+多亏了分散在里面的 `print()`，你会看到字符串插值功能的准确作用：“追加 ‘你应该在 Twitter 上关注我’”，“追加 ’twostraws’”，“追加 ’，或者你可以发送电子邮件给我 ’”，“追加 ’paul@hackingwithswift.com’”，最后 “追加 ’。’”，每个部分触发一个方法调用，并添加到我们的字符串中。
 
-### Dynamically callable types
+### 动态可调用（dynamicCallable）类型
 
-[SE-0216](https://github.com/apple/swift-evolution/blob/master/proposals/0216-dynamic-callable.md) adds a new `@dynamicCallable` attribute to Swift, which brings with it the ability to mark a type as being directly callable. It’s syntactic sugar rather than any sort of compiler magic, effectively transforming this code:
+[SE-0216](https://github.com/apple/swift-evolution/blob/master/proposals/0216-dynamic-callable.md) 为 Swift 添加了一个新的 `@dynamicCallable` 注解，它让一个类型能被直接调用。它是语法糖，而不是任何类型的编译器的魔法，它把以下这段代码：
 
-```
+```swift
 let result = random(numberOfZeroes: 3)
 ```
 
-Into this:
+转换为：
 
-```
+```swift
 let result = random.dynamicallyCall(withKeywordArguments: ["numberOfZeroes": 3])
 ```
 
-Previously I wrote about a [feature in Swift 4.2 called @dynamicMemberLookup](/articles/55/how-to-use-dynamic-member-lookup-in-swift). `@dynamicCallable` is the natural extension of `@dynamicMemberLookup`, and serves the same purpose: to make it easier for Swift code to work alongside dynamic languages such as Python and JavaScript.
+之前有一篇关于 [Swift 中的动态特性](https://juejin.im/post/5bfd087be51d457a013940e8) 的文章里有提到了动态查找成员（@dynamicMemberLookup）。`@dynamicCallable` 是 `@dynamicMemberLookup` 的自然扩展，它能使 Swift 代码更容易与 Python 和 JavaScript 等动态语言一起工作。
 
-To add this functionality to your own types, you need to add the `@dynamicCallable` attribute plus one or both of these methods:
+要将此功能添加到你自己的类型，你需要添加 `@dynamicCallable` 注解以及这些方法中的一个或两个：
 
-```
+```swift
 func dynamicallyCall(withArguments args: [Int]) -> Double
 
 func dynamicallyCall(withKeywordArguments args: KeyValuePairs<String, Int>) -> Double
 ```
 
-The first of those is used when you call the type without parameter labels (e.g. `a(b, c)`), and the second is used when you _do_ provide labels (e.g. `a(b: cat, c: dog)`).
+第一个用于调用不带参数标签的类型（例如 `a(b, c)`），第二个用于你 **提供标签** 时（例如 `a(b: cat, c: dog)`）。
 
-`@dynamicCallable` is really flexible about which data types its methods accept and return, allowing you to benefit from all of Swift’s type safety while still having some wriggle room for advanced usage. So, for the first method (no parameter labels) you can use anything that conforms to `ExpressibleByArrayLiteral` such as arrays, array slices, and sets, and for the second method (with parameter labels) you can use anything that conforms to `ExpressibleByDictionaryLiteral` such as dictionaries and key value pairs.
+`@dynamicCallable` 对于其方法接受和返回的数据类型非常灵活，它使你可以从 Swift 的所有类型安全性中受益，同时具有一些高级用法。因此，对于第一种方法（无参数标签），你可以使用遵循了 `ExpressibleByArrayLiteral` 的任何东西，例如数组、数组切片和集合，对于第二种方法（使用参数标签），你可以使用遵循 `ExpressibleByDictionaryLiteral` 的任何东西。例如字典和键值对。
 
-*   **Note:** If you haven’t used `KeyValuePairs` before, now would be a good time to learn what they are because they are extremely useful with `@dynamicCallable`. Find out more here: [What are KeyValuePairs?](/example-code/language/what-are-keyvaluepairs)
+除了接受各种输入外，你还可以为各种输出提供多个重载，可能返回一个字符串、整数等等。只要 Swift 能推出使用哪一个，你就可以混合搭配你想要的一切。
 
-As well as accepting a variety of inputs, you can also provide multiple overloads for a variety of outputs – one might return a string, one an integer, and so on. As long as Swift is able to resolve which one is used, you can mix and match all you want.
+我们来看一个例子。首先，这是一个 `RandomNumberGenerator` 结构体，它根据传入的输入生成介于 0 和某个最大值之间的数字：
 
-Let’s look at an example. First, here’s a `RandomNumberGenerator` struct that generates numbers between 0 and a certain maximum, depending on what input was passed in:
-
-```
+```swift
 struct RandomNumberGenerator {
     func generate(numberOfZeroes: Int) -> Double {
         let maximum = pow(10, Double(numberOfZeroes))
@@ -349,9 +347,9 @@ struct RandomNumberGenerator {
 }
 ```
 
-To switch that over to `@dynamicCallable` we’d write something like this instead:
+要把它切换到 `@dynamicCallable`，我们会写这样的代码：
 
-```
+```swift
 @dynamicCallable
 struct RandomNumberGenerator {
     func dynamicallyCall(withKeywordArguments args: KeyValuePairs<String, Int>) -> Double {
@@ -362,18 +360,18 @@ struct RandomNumberGenerator {
 }
 ```
 
-That method can be called with any number of parameters, or perhaps zero, so we read the first value carefully and use nil coalescing to make sure there’s a sensible default.
+你可以传任意数量的参数甚至不传参数来调用该方法，因此我们小心读取第一个值并结合是否为 nil 的判断来确保存在合理的默认值。
 
-We can now create an instance of `RandomNumberGenerator` and call it like a function:
+我们现在可以创建一个 `RandomNumberGenerator` 实例并像函数一样调用它：
 
-```
+```swift
 let random = RandomNumberGenerator()
 let result = random(numberOfZeroes: 0)
 ```
 
-If you had used `dynamicallyCall(withArguments:)` instead – or at the same time, because you can have them both a single type – then you’d write this:
+如果你曾经使用过 `dynamicallyCall(withArguments:)`，或者同时使用，因为你可以让它们都是单一类型，就可以写以下代码：
 
-```
+```swift
 @dynamicCallable
 struct RandomNumberGenerator {
     func dynamicallyCall(withArguments args: [Int]) -> Double {
@@ -387,35 +385,35 @@ let random = RandomNumberGenerator()
 let result = random(0)
 ```
 
-There are some important rules to be aware of when using `@dynamicCallable`:
+使用 `@dynamicCallable` 时需要注意一些重要的规则：
 
-*   You can apply it to structs, enums, classes, and protocols.
-*   If you implement `withKeywordArguments:` and don’t implement `withArguments:`, your type can still be called without parameter labels – you’ll just get empty strings for the keys.
-*   If your implementations of `withKeywordArguments:` or `withArguments:` are marked as throwing, calling the type will also be throwing.
-*   You can’t add `@dynamicCallable` to an extension, only the primary definition of a type.
-*   You can still add other methods and properties to your type, and use them as normal.
+* 你可以将其应用于结构体、枚举、类和协议。
+* 如果你实现了 `withKeywordArguments:` 并且没有实现 `withArguments:`，你的类型仍然可以在没有参数标签的情况下调用，你只需要为键获得空字符串。
+* 如果 `withKeywordArguments:` 或 `withArguments:` 的实现被标记为 throw，则调用该类型也将可抛出。
+* 你不能把 `@dynamicCallable` 添加到 extension 里，只可在类的主体里面添加。
+* 你仍然可以为你的类型添加其他方法和属性，并照常使用它们。
 
-Perhaps more importantly, there is no support for method resolution, which means we must call the type directly (e.g. `random(numberOfZeroes: 5)`) rather than calling specific methods on the type (e.g. `random.generate(numberOfZeroes: 5)`). There is already some discussion on adding the latter using a method signature such as this:
+也许更重要的是，不支持方法决议，这意味着我们必须直接调用类型（例如 `random(numberOfZeroes: 5)`）而不是调用类型上的特定方法（例如 `random.generate(numberOfZeroes: 5)`）。已经有一些关于使用方法签名添加后者的讨论，例如：
 
-```
+```swift
 func dynamicallyCallMethod(named: String, withKeywordArguments: KeyValuePairs<String, Int>)
 ```
 
-If that became possible in future Swift versions it might open up some very interesting possibilities for test mocking.
+如果那在未来的 Swift 版本中可能实现，它可能会为 test mock 创造出一些非常有趣的可能性。
 
-In the meantime, `@dynamicCallable` is not likely to be widely popular, but it _is_ hugely important for a small number of people who want interactivity with Python, JavaScript, and other languages.
+与此同时 `@dynamicCallable` 不太可能广受欢迎，但对于希望与 Python，JavaScript 和其他语言交互的少数人来说，它非常重要。
 
-### Handling future enum cases
+### 面向未来的枚举 case
 
-[SE-0192](https://github.com/apple/swift-evolution/blob/master/proposals/0192-non-exhaustive-enums.md) adds the ability to distinguish between enums that are fixed and enums that might change in the future.
+[SE-0192](https://github.com/apple/swift-evolution/blob/master/proposals/0192-non-exhaustive-enums.md) 增加了在固定的枚举和可能将被改变的枚举间的区分度。
 
-One of Swift’s security features is that it requires all switch statements to be exhaustive – that they must cover all cases. While this works well from a safety perspective, it causes compatibility issues when new cases are added in the future: a system framework might send something different that you hadn’t catered for, or code you rely on might add a new case and cause your compile to break because your switch is no longer exhaustive.
+Swift 的一个安全特性是它要求所有 switch 语句都是详尽的，它们必须覆盖所有情况。虽然这从安全角度来看效果很好，但是在将来添加新案例时会导致兼容性问题：系统框架可能会发送你未提供的不同内容，或者你依赖的代码可能会添加新案例并导致你的编译中断，因为你的 switch 不再详尽。
 
-With the `@unknown` attribute we can now distinguish between two subtly different scenarios: “this default case should be run for all other cases because I don’t want to handle them individually,” and “I want to handle all cases individually, but if anything comes up in the future use this rather than causing an error.”
+使用 `@unknown` 注解，我们现在可以区分两个略有不同的场景：“这个默认情况应该针对所有其他情况运行，因为我不想单独处理它们” 和 “我想单独处理所有情况，但如果将来出现任何问题，请使用此而非报错。”
 
-Here’s an example enum:
+以下是一个枚举示例：
 
-```
+```swift
 enum PasswordError: Error {
     case short
     case obvious
@@ -423,9 +421,9 @@ enum PasswordError: Error {
 }
 ```
 
-We could write code to handle each of those cases using a `switch` block:
+我们可以使用 `switch` 编写代码来处理每个案例：
 
-```
+```swift
 func showOld(error: PasswordError) {
     switch error {
     case .short:
@@ -438,15 +436,15 @@ func showOld(error: PasswordError) {
 }
 ```
 
-That uses two explicit cases for short and obvious passwords, but bundles the third case into a default block.
+对于短密码和弱强度密码，它使用两个 case，但将第三种情况将会到 default 中处理。
 
-Now, if in the future we added a new case to the enum called `old`, for passwords that had been used previously, our `default` case would automatically be called even though its message doesn’t really make sense – the password might not be too simple.
+现在如果将来我们在 enum 中添加了一个名为 `old` 的新 case，对于以前使用过的密码，我们的 `default` case 会被自动调用，即使它的消息没有意义。
 
-Swift can’t warn us about this code because it’s technically correct (the best kind of correct), so this mistake would easily be missed. Fortunately, the new `@unknown` attribute fixes it perfectly – it can be used only on the `default` case, and is designed to be run when new cases come along in the future.
+Swift 无法向我们发出有关此代码的警告，因为它在语法上没有问题，因此很容易错过这个错误。幸运的是，新的 `@unknown` 注解完美地修复了它，它只能用于 `default` 情况，并且设计为在将来出现新案例时可以运行。
 
-For example:
+例如：
 
-```
+```swift
 func showNew(error: PasswordError) {
     switch error {
     case .short:
@@ -459,15 +457,15 @@ func showNew(error: PasswordError) {
 }
 ```
 
-That code will now issue warnings because the `switch` block is no longer exhaustive – Swift wants us to handle each case explicitly. Helpfully this is only a _warning_, which is what makes this attribute so useful: if a framework adds a new case in the future you’ll be warned about it, but it won’t break your source code.
+该代码现在将产生警告，因为 `switch` 块不再详尽，Swift 是希望我们明确处理每个 case 的。实际上这只是一个 **警告**，这使得这个属性很实用：如果一个框架在未来添加一个新 case，你将得到警告，但它不会让你的代码编译不通过。
 
-### Flattening nested optionals resulting from try?
+### try? 嵌套可选的展平
 
-[SE-0230](https://github.com/apple/swift-evolution/blob/master/proposals/0230-flatten-optional-try.md) modifies the way `try?` works so that nested optionals are flattened to become regular optionals. This makes it work the same way as optional chaining and conditional typecasts, both of which flatten optionals in earlier Swift versions.
+[SE-0230](https://github.com/apple/swift-evolution/blob/master/proposals/0230-flatten-optional-try.md) 修改 `try?` 的工作方式，以便嵌套的可选项被展平成为一个常规的选择。这使得它的工作方式与可选链和条件类型转换（if let）的工作方式相同，这两种方法都在早期的 Swift 版本中展平了可选项。
 
-Here’s a practical example that demonstrates the change:
+这是一个演示变化的示例：
 
-```
+```swift
 struct User {
     var id: Int
 
@@ -480,7 +478,7 @@ struct User {
     }
 
     func getMessages() throws -> String {
-        // complicated code here
+        // 复杂的一段代码
         return "No messages"
     }
 }
@@ -489,21 +487,21 @@ let user = User(id: 1)
 let messages = try? user?.getMessages()
 ```
 
-The `User` struct has a failable initializer, because we want to make sure folks create users with a valid ID. The `getMessages()` method would in theory contain some sort of complicated code to get a list of all the messages for the user, so it’s marked as `throws`; I’ve made it return a fixed string so the code compiles.
+`User` 结构体有一个可用的初始化器，因为我们想确保开发者创建具有有效 ID 的用户。`getMessages()` 方法理论上包含某种复杂的代码来获取用户的所有消息列表，因此它被标记为 `throws`，我已经让它返回一个固定的字符串，所以代码可编译通过。
 
-The key line is the last one: because the user is optional it uses optional chaining, and because `getMessages()` can throw it uses `try?` to convert the throwing method into an optional, so we end up with a nested optional. In Swift 4.2 and earlier this would make `messages` a `String??` – an optional optional string – but in Swift 5.0 and later `try?` won’t wrap values in an optional if they are already optional, so `messages` will just be a `String?`.
+关键在于最后一行：因为用户是可选的而使用可选链，因为 `getMessages()` 可以抛出错误，它使用 `try?` 将 throw 方法转换为可选的，所以我们最终得到一个嵌套的可选。在 Swift 4.2 和更早版本中，这将使 `messages` 成为 `String??`，一个可选的可选字符串，但是在 Swift 5.0 和更高版本中 `try?` 如果对于已经是可选的类型，它们不会将值包装成可选类型，所以 `messages` 将只是一个 `String?`。
 
-This new behavior matches the existing behavior of optional chaining and conditional typecasting. That is, you could use optional chaining a dozen times in a single line of code if you wanted, but you wouldn’t end up with 12 nested optionals. Similarly, if you used optional chaining with `as?`, you would still end up with only one level of optionality, because that’s usually what you want.
+此新行为与可选链和条件类型转换（if let）的现有行为相匹配。也就是说，如果你需要的话，可以在一行代码中使用可选链十几次，但最终不会有那么多个嵌套的可选。类似地，如果你使用 `as?` 的可选链，你仍然只有一个级别的可选性，而这通常是你想要的。
 
-### Checking for integer multiples
+### Integer 整倍数自省
 
-*   [**Watch the video**](https://www.youtube.com/watch?v=iCRwqxON8Os)
+* [**YouTube 视频讲解**](https://www.youtube.com/watch?v=iCRwqxON8Os)
 
-[SE-0225](https://github.com/apple/swift-evolution/blob/master/proposals/0225-binaryinteger-iseven-isodd-ismultiple.md) adds an `isMultiple(of:)` method to integers, allowing us to check whether one number is a multiple of another in a much clearer way than using the division remainder operation, `%`.
+[SE-0225](https://github.com/apple/swift-evolution/blob/master/proposals/0225-binaryinteger-iseven-isodd-ismultiple.md) 为整数添加 `isMultiple(of:)` 方法来允许我们以比使用取余数运算 `%` 更清晰的方式检查一个数是否是另一个数的倍数。
 
-For example:
+例如：
 
-```
+```swift
 let rowNumber = 4
 
 if rowNumber.isMultiple(of: 2) {
@@ -513,17 +511,17 @@ if rowNumber.isMultiple(of: 2) {
 }
 ```
 
-Yes, we could write the same check using `if rowNumber % 2 == 0` but you have to admit that’s less clear – having `isMultiple(of:)` as a method means it can be listed in code completion options in Xcode, which aids discoverability.
+没错，我们可以使用 `if rowNumber % 2 == 0` 实现相同的功能，但你不得不承认这样看起来不清晰，使用 `isMultiple(of:)` 意味着它可以在 Xcode 的代码自动补全中列出，这有助于你发现。
 
-### Transforming and unwrapping dictionary values with compactMapValues()
+### 使用 compactMapValues() 转换和解包字典值
 
-*   [**Watch the video**](https://www.youtube.com/watch?v=Le32Tbkv2v0)
+* [**YouTube 视频讲解**](https://www.youtube.com/watch?v=Le32Tbkv2v0)
 
-[SE-0218](https://github.com/apple/swift-evolution/blob/master/proposals/0218-introduce-compact-map-values.md) adds a new `compactMapValues()` method to dictionaries, bringing together the `compactMap()` functionality from arrays (“transform my values, unwrap the results, then discard anything that’s nil”) with the `mapValues()` method from dictionaries (“leave my keys intact but transform my values”).
+[SE-0218](https://github.com/apple/swift-evolution/blob/master/proposals/0218-introduce-compact-map-values.md) 为字典添加了一个新的 `compactMapValues()` 方法，它能够将数组中的 `compactMap()` 功能转换我需要的值，解包结果，然后丢弃任何 nil，与字典中的 `mapValues()` 方法一起使用能保持键的完整并只转换值。
 
-As an example, here’s a dictionary of people in a race, along with the times they took to finish in seconds. One person did not finish, marked as “DNF”:
+举个例子，这里是一个比赛数据的字典，以及他们完成的秒数。其中有一个人没有完成，标记为 “DNF”（未完成）：
 
-```
+```swift
 let times = [
     "Hudson": "38",
     "Clarke": "42",
@@ -532,21 +530,21 @@ let times = [
 ]
 ```
 
-We can use `compactMapValues()` to create a new dictionary with names and times as an integer, with the one DNF person removed:
+我们可以使用 `compactMapValues()` 创建一个名字和时间为整数的新字典，删除一个 DNF 的人：
 
-```
+```swift
 let finishers1 = times.compactMapValues { Int($0) }
 ```
 
-Alternatively, you could just pass the `Int` initializer directly to `compactMapValues()`, like this:
+或者你可以直接将 `Int` 初始化器传递给 `compactMapValues()`，如下所示：
 
-```
+```swift
 let finishers2 = times.compactMapValues(Int.init)
 ```
 
-You can also use `compactMapValues()` to unwrap optionals and discard nil values without performing any sort of transformation, like this:
+你还可以使用 `compactMapValues()` 来展开选项并丢弃 nil 值而不执行任何类型转换，如下所示：
 
-```
+```swift
 let people = [
     "Paul": 38,
     "Sophie": 8,
@@ -557,39 +555,39 @@ let people = [
 let knownAges = people.compactMapValues { $0 }
 ```
 
-### Withdrawn: Counting matching items in a sequence
+### 被移除的特性：计算序列中的匹配项
 
-*   [**Watch the video**](https://www.youtube.com/watch?v=syPKtPb0y-Y)
+* [**YouTube 视频讲解**](https://www.youtube.com/watch?v=syPKtPb0y-Y)
 
-**This Swift 5.0 feature was withdrawn in beta testing because it was causing performance issues for the type checker. Hopefully it will come back in time for Swift 5.1, perhaps with a new name to avoid problems.**
+**这个 Swift 5.0 功能在 beta 版中被撤销，因为它导致了类型检查器的性能问题。希望它能够在 Swift 5.1 回归，或者用一个新名称来避免问题。**
 
-[SE-0220](https://github.com/apple/swift-evolution/blob/master/proposals/0220-count-where.md) introduces a new `count(where:)` method that performs the equivalent of a `filter()` and count in a single pass. This saves the creation of a new array that gets immediately discarded, and provides a clear and concise solution to a common problem.
+[SE-0220](https://github.com/apple/swift-evolution/blob/master/proposals/0220-count-where.md) 引入了一个新的 `count(where:)` 方法，该方法执行 `filter()` 的等价方法并在一次传递中计数。这样可以节省立即丢弃的新阵列的创建，并为常见问题提供清晰简洁的解决方案。
 
-This example creates an array of test results, and counts how many are greater or equal to 85:
+此示例创建一个测试结果数组，并计算大于或等于 85 的数的个数：
 
-```
+```swift
 let scores = [100, 80, 85]
 let passCount = scores.count { $0 >= 85 }
 ```
 
-And this counts how many names in an array start with “Terry”:
+这计算了数组中有多少名称以 “Terry” 开头：
 
-```
+```swift
 let pythons = ["Eric Idle", "Graham Chapman", "John Cleese", "Michael Palin", "Terry Gilliam", "Terry Jones"]
 let terryCount = pythons.count { $0.hasPrefix("Terry") }
 ```
 
-This method is available to all types that conform to `Sequence`, so you can use it on sets and dictionaries too.
+所有遵循 `Sequence` 的类型都可以使用此方法，因此你也可以在集合和字典上使用它。
 
-### Where next?
+### 接下来干嘛？
 
-Swift 5.0 is the latest release of Swift, but previous releases have been packed with great features too. You can read my articles on those below:
+Swift 5.0 是 Swift 的最新版本，但之前的版本也包含了很多功能。你可以阅读以下文章：
 
-*   [What's new in Swift 4.2?](/articles/77/whats-new-in-swift-4-2)
-*   [What's new in Swift 4.1?](/articles/50/whats-new-in-swift-4-1)
-*   [What's new in Swift 4.0?](/swift4)
+*   [What's new in Swift 4.2?](https://www.hackingwithswift.com/articles/77/whats-new-in-swift-4-2)
+*   [What's new in Swift 4.1?](https://www.hackingwithswift.com/articles/50/whats-new-in-swift-4-1)
+*   [What's new in Swift 4.0?](https://www.hackingwithswift.com/swift4)
 
-But there's more to come – Apple already announced the [Swift 5.1 release process](https://swift.org/blog/5-1-release-process/) on Swift.org, which will include module stability alongside some other improvements. At the time of writing there are very few hard dates attached to 5.1, but it's looking like we'll see it ship in beta around WWDC.
+但还有更多，苹果已经在 Swift.org 上宣布了 [Swift 5.1发布流程](https://swift.org/blog/5-1-release-process/)，其中包括模块稳定性以及其他一些改进。在撰写本文时，5.1 的附加条款很少，但看起来我们会看到它在 WWDC 附近发布。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
