@@ -115,7 +115,7 @@ public let error : publishSubject<[homeError]> = publishSubject()
 
 正如我们之前在 [这篇文章](https://hackernoon.com/mvvm-rxswift-on-ios-part-1-69608b7ed5cd) 里提及的，有些变量是 Observer，有些变量是 Observable。还有一种变量既是 Observer 又是 Observable，这种变量被称为 **Subject**。
 
-**Subject** 本身分为4个部分（如果单独解释每个部分，那可能需要另一篇文章）。但我在这个项目中使用了 **PublishSubject**，这是最受欢迎的一个项目。如果你想了解更多关于 Subject 的信息，我建议你阅读 [这篇文章](https://medium.com/fantageek/rxswift-subjects-part1-publishsubjects-103ff6b06932)。
+**Subject** 本身分为 4 个部分（如果单独解释每个部分，那可能需要另一篇文章）。但我在这个项目中使用了 **PublishSubject**，这是最受欢迎的一个项目。如果你想了解更多关于 Subject 的信息，我建议你阅读 [这篇文章](https://medium.com/fantageek/rxswift-subjects-part1-publishsubjects-103ff6b06932)。
 
 使用 **PublishSubject** 的一个很好的理由是你可以在没有初始值的情况下进行初始化。
 
