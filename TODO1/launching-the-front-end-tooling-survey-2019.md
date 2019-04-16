@@ -2,82 +2,82 @@
 > * 原文作者：[Ashley Watson-Nolan](https://medium.com/@ashnolan_)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/launching-the-front-end-tooling-survey-2019.md](https://github.com/xitu/gold-miner/blob/master/TODO1/launching-the-front-end-tooling-survey-2019.md)
-> * 译者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
 > * 校对者：
 
-# Launching the Front-End Tooling Survey 2019
+# 2019 前端工具调研
 
-### How have our front-end tooling habits changed since last year’s results?
+### 自从去年结果公布，我们使用前端工具的习惯发生了什么变化？
 
 ![](https://cdn-images-1.medium.com/max/2200/1*9JIIVk5ErlXzjy1Qu1G0eQ.png)
 
-As with previous years, the goal of this year’s survey is simple. To discover current knowledge and usage levels of common front-end tools across our industry.
+正如以往年份，本年度调研的目标也很简单。是为了了解整个行业中，常见前端工具现有的知识和使用水平。
 
-So which tools will be top of the pile in 2019?
+所以在 2019 年，那些工具位居榜首呢？
 
-### ➡️ Take this year’s survey now
+### ➡️ 现在我们开始本年度调研
 
-I really appreciate you taking the time to take part. Every response helps to provide a more representative sample of the front-end community.
+我非常感谢你能抽出时间来参与。每一份回答都能为前端社区提供一份更有代表性的样本。
 
-## A recap of last year’s results
+## 去年调研结果概述
 
-Last year, 5,461 front-end developers took the time to answer 24 questions on a variety of front-end tools.
+去年，5,461 名前端研发花时间回答了 24 个关于不同前端工具的问题。
 
-So what were the main trends that could be seen in these responses?
+所以在这些回答中，可以发现什么主流工具呢？
 
-### React and Vue.js usage grew rapidly
+### React 和 Vue.js 的使用量激增
 
-Respondents were asked three questions concerning JavaScript libraries and frameworks. These related to their knowledge and usage of these tools as well as if they considered any of them essential when working on front-end projects.
+受访者回答了三个关于 JavaScript 库和框架的问题。这些问题都和他们对这些工具的见解和使用有关，并且还涉及他们是否认为这些库和框架是前端项目的必需品。
 
-React and Vue.js made large gains across all of these areas. In fact, in a change from the previous set of results, React was considered the most essential tool in this category for the first time — knocking jQuery off the top spot–with almost a third of respondents replying as such (28.47%).
+React 和 Vue.js 在前端领域获得了巨大进步。事实上，从与前一组结果的变化来看，React 第一次被认为是前端工具中最必要的 —— 它将 jQuery 从第一的位置踢走 —— 几乎三分之一的受访者是这样回复的（28.47%）。
 
-jQuery fell to third place in this category, behind those who said that they didn’t consider any library or framework as essential. Vue.js came fourth, jumping from 3.01% in the 2016 results to 10.21% in 2018.
+jQuery 在前端工具里跌落到了第三的位置，位于那些声明他们不认为任何库和工具是必需的的工具之后。Vue.js 是第四名，在 2016 到 2018 年间，它从 3.01% 增长到了 10.21%。
 
-![Results for Question 16 in the 2018 Front-End Tooling survey: “Which JavaScript library or framework would you regard as essential to you on the majority of your projects?”](https://cdn-images-1.medium.com/max/2400/1*0ITTXeaXH1eRwvDy0eHZpg.jpeg)
+![2018 前端工具调研第 16 问的结果：“你认为哪个 JavaScript 库或者框架是你大部分项目中不可缺少的”](https://cdn-images-1.medium.com/max/2400/1*0ITTXeaXH1eRwvDy0eHZpg.jpeg)
 
-In terms of knowledge levels across these tools, jQuery was still the tool that most respondents felt comfortable using (79.73%). However, this figure showed a percentage drop for the first time, falling almost 7% from the previous survey. In comparison, 40.43% of respondents said the same about React, which represented a rise of 12.30% in the same time.
+就这些工具的知识水平而言，jQuery 依旧是大多数受访者觉得使用起来很舒适的工具（79.73%）。但是，这个指标第一次出现了下跌，与上次调研相比，跌落几近 7%。对比而言，40.43% 的受访者也对 React 有相同看法，与上次调研相比，则增长了 12.30%。
 
-Usage figures showed a similar trend, with React and Vue.js growing to 47.39% and 22.94% respectively, when respondents were asked which frameworks they currently use most frequently on projects. This represented a gain of 10.48% and 13.59% from their usage figures in the 2016 survey. jQuery, in contrast, saw a fall in usage of 19.20%, although it did narrowly stay top in this category, with 51.05% saying they still frequently used it.
+使用特性也出现了类似的趋势，当受访者被问及他们在当前的项目中最常用的框架的时候，React 和 Vue.js 分别增长了 47.39% 和 22.94%。与 2016 年的调研相比，增长了 10.48% 和 13.59%。jQuery 则正好相反，使用比例跌落了 19.20%，尽管如此它依旧险局首位，51.05% 的受访者说他们依旧频繁的使用它。
 
-![Results for Question 15 in the 2018 Front-End Tooling survey: “Which JavaScript libraries and/or frameworks do you currently use most frequently on projects?”](https://cdn-images-1.medium.com/max/2400/1*AqnEnEJsUQvA2DDvqobFIg.jpeg)
+![2018 前端工具调研第 15 问的结果：“哪个 JavaScript 库或者框架是你当前项目中最常使用的”](https://cdn-images-1.medium.com/max/2400/1*AqnEnEJsUQvA2DDvqobFIg.jpeg)
 
-Overall, the trend across these questions clearly indicated that jQuery usage looked like it was waning slightly, with developers considering it a less important tool in their workflows. On the flip-side, React and Vue.js usage and knowledge levels grew rapidly in the same period.
+总的来说，这些问题的趋势清晰的反映出了 jQuery 的使用看起来是稍有衰减，开发者认为它是工作流中不那么重要的工具了。另一方面，在同一时期内，React 和 Vue.js 的使用和知识水平则飞速上升。
 
-### CSS-in-JS tools saw steady growth
+### CSS-in-JS 工具用量稳定增长
 
-The number of developers that said they felt comfortable using a CSS-in-JS solution almost doubled to 19.92% in last year’s results. Clearly, more developers have been looking at tools which can help them to encapsulate their styles when building components.
+觉得使用 CSS-in-JS 解决方案很舒适的开发人员的数量，是去年结果 19.92％ 的两倍。显然，更多的开发者在寻找能帮助他们在构建组件的时候封装样式的工具。
 
-Although this only represented a fifth of respondents, it shows an upward trend that will be worth keeping an eye on in this year’s results.
+尽管这个比例只占受访者的五分之一，但是它却有上升的趋势，今年的结果更值得关注。
 
-### CSS Grid adoption made good progress
+### CSS Grid 的采用取得了良好的进展
 
-CSS layout features have made giant leaps over the last couple of years. You’d need to have been living under a rock to miss the barrage of news and tutorials relating to flexbox and CSS Grid.
+CSS 的布局功能在过去的几年中取得了巨大的飞跃。如果你想要躲开 flexbox 和 CSS Grid 相关的新闻和教程，你只能到山洞里去生活了。
 
-Last year’s results showed that these features were showing good adoption among developers. A large majority (67.59%) said that they felt comfortable using flexbox. In comparison, 18.48% said the same with respect to CSS Grid, which is a respectable amount considering it’s been supported for far less time than flexbox. This percentage rose to 62.41% of respondents when including those that said they had at least a little bit of experience using CSS Grid.
+去年的结果显示，这些特性在开发者中被广泛的采用。一大部分开发者（67.59%）说，他们觉得使用 flexbox 非常顺手。对比而言，只有 18.48% 受访者同感于 CSS Grid，但是这个数字已经很高了，因为浏览器支持 CSS Grid 的时间远远比 flexbox 短。如果包含进那些表示至少有过一点点 CSS Grid 使用经验的受访者，这个比例将上升至 62.41%。
 
-### See the full results
+### 查看完整结果
 
-If you’re interested in going through all the data from last year’s survey, [check out the full 2018 results article](https://ashleynolan.co.uk/blog/frontend-tooling-survey-2018-results).
+如果你有兴趣知道去年调研的所有数据，[可以在这篇关于 2018 完整调研结果的文章中查看](https://ashleynolan.co.uk/blog/frontend-tooling-survey-2018-results)。
 
-It’ll be fascinating to see how all of the above trends and figures have progressed another 12 months on.
+看看上述这些趋势和特性在另一年中如何发展，真是件很有趣的事情呢。
 
-## What’s new for this year?
+## 本年度有什么新鲜事
 
-While trying to keep the survey succinct, we’ve added a couple of new questions after considering feedback from respondents last year.
+在尽力保持调研的简洁性的同时，考虑到去年受访者的反馈，我们又添加了几个新的问题。
 
-With the rise of CSS-in-JS tools — as shown in the 2018 results — this year’s survey now has a question specifically related to this category of tools.
+随着 CSS-in-JS 工具的增长 —— 正如在 2018 年结果中显示的那样 —— 本年度的调研专门提出了一个关于这类工具的问题。
 
-In addition, there are new questions aimed at discovering which performance and accessibility tools and features are currently being used by developers.
+另外，还有几个新的问题专门调研开发人员目前正在使用哪些有关性能和兼容性的工具以及功能。
 
-After a number of requests last year, I’ll also be releasing a collated (anonymised) dataset of the survey responses. This will include the response data from the previous three surveys as well.
+由于去年很多人提出了要求，所以我也将会发布一份整理好的调研反馈数据集（匿名）。它将也包括前三年的反馈数据。
 
-## Take part in this year’s survey
+## 参加本年度调研
 
-So that’s enough from me — [go ahead and take this year’s survey](https://ashn.uk/survey-2019)!
+这些已经足够了 —— [快来参加今年的调研吧](https://ashn.uk/survey-2019)！
 
-The survey will close at the end of April, with the results written up shortly after. If you’d like to know when this happens, [follow me on Twitter](https://twitter.com/AshNolan_) or leave your email at the end of the survey. You’ll then receive a link to the results articles once they are published.
+调研将在四月底关闭，结果将会很快公布。如果你想要知道具体时间，可以 [在 Twitter 上关注我](https://twitter.com/AshNolan_)或者在调研的最后留下你的邮箱地址。结果相关的文章公布后，你将第一时间收到链接。
 
-A summary article will also be published here on Medium.
+调研的总结文章也会在 Medium 这里发布。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
