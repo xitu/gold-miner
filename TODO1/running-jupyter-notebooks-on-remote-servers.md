@@ -2,8 +2,8 @@
 > * 原文作者：[Tobias Skovgaard Jepsen](https://medium.com/@tobiasskovgaardjepsen)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/running-jupyter-notebooks-on-remote-servers.md](https://github.com/xitu/gold-miner/blob/master/TODO1/running-jupyter-notebooks-on-remote-servers.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Daltan](https://github.com/Daltan)
+> * 校对者：[TloveYing](https://github.com/TloveYing)，[xionglong58](https://github.com/xionglong58)
 
 # 如何在远程服务器上运行 Jupyter Notebooks
 
