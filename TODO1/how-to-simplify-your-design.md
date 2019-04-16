@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-simplify-your-design.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-simplify-your-design.md)
 > * 译者：[shixi-li](https://github.com/shixi-li)
-> * 校对者：[ezioyuan](https://wushouyuan.com/),[renyuhuiharrison](https://github.com/renyuhuiharrison)
+> * 校对者：[ezioyuan](https://wushouyuan.com/), [renyuhuiharrison](https://github.com/renyuhuiharrison)
 
 # 如何简化你的设计
 
@@ -44,7 +44,7 @@ Maeda — 一名麻省理工学院媒体实验室的教授，也是世界知名�
 
 ![](https://cdn-images-1.medium.com/max/8160/1*RhLi0SirFV906aqBOt7-Iw.jpeg)
 
-> “简单不是没有杂乱，那只是简单的一个结果。简单是在某种程度上描述了事物和产品的位置和目的。没有杂乱只能称作一个没有杂乱的产品。但那并不是简单。”- Jonathan Ive
+> “简单不是没有杂乱，那只是简单的一个结果。简单是在某种程度上描述了事物和产品的位置和目的。没有杂乱只能称作一个没有杂乱的产品。但那并不是简单。” — Jonathan Ive
 
 ### 3. 将数据转化为有意义的格式
 
