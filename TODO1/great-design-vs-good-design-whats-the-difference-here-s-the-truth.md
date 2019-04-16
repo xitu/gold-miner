@@ -2,29 +2,29 @@
 > * 原文作者：[Jamal Nichols](https://medium.com/@jamalnichols)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/great-design-vs-good-design-whats-the-difference-here-s-the-truth.md](https://github.com/xitu/gold-miner/blob/master/TODO1/great-design-vs-good-design-whats-the-difference-here-s-the-truth.md)
-> * 译者：
+> * 译者：[Mirosalva](https://github.com/Mirosalva)
 > * 校对者：
 
-# Great Design Vs Good Design: What’s The Difference? Here’s The Truth
+# 伟大设计与好设计之间区别是什么？这里告诉你真相
 
 ![](https://cdn-images-1.medium.com/max/5120/1*oFxtwD8CyvpVvLRbhPxrzQ.jpeg)
 
-The lowest common denominator for interface design has risen over the last decade. You see a lot less of this now:
+The lowest common denominator for interface design has risen over the last decade. You see a lot less of this now:过去十年内界面设计的最低标准已经上升，你现在看到的情况要少得多：
 
 ![](https://cdn-images-1.medium.com/max/3312/1*ka6-MHyRe2UnlcCM9iYKZg.png)
 
-We’ve figured out how to make user interfaces look okay and function reasonably well. Industry standards have emerged, just as you have them in other mature industries: In a car, you wouldn’t switch the positions of the gas and brake pedal, or put the seats on the outside of the car. In a user interface, you wouldn’t add blinking text or music playing automatically, and you want things to be relatively uncluttered.
+我们已经搞清楚如何让用户的界面看起来不错并且运行相当好。正如你在其他成熟行业中所拥有的那样，行业标准已经出现：在汽车中，你不会切换加油和制动两种踏板的位置，也不会将座椅放在汽车外部。在用户界面，你不会添加闪烁中文字或者自动播放音乐，而且你希望界面上的东西相对整洁。
 
-This is great progress for the industry. But what do we do now? Is it enough to just no longer commit the most egregious errors? Or should we strive for more?
+对于工业来说这是一个大的进步，但是我们现在做什么呢？仅仅不再犯下最惊人的错误这样就足够了吗？或者我们应该争取更多？
 
-I think that the field of digital design is at a point where we need to strive for greatness, rather than just being content with being “good”.
+我觉得数字设计领域正处于極需我们力争伟大，而不仅是满足于好的状态。
 
-But what does great design look like? How does it differ from good design? Let’s walk through some principles.
+但是伟大设计长什么样呢？它跟好设计有什么区别？让我们来看看一些原则。
 
-## Good Design Gives People What They Say They Want, Great Design Solves People’s Problems In Unexpected Ways
+## 好设计提供人们想要的，伟大的设计解决人们尚未预期的问题
 
-About a year ago, Samsung announced that it was developing a foldable smartphone. This quote stood out to me:
-> “DJ Koh said that ‘it’s time to deliver’ on a foldable device after consumer surveys carried out by Samsung showed that there is a market for that kind of handset.”
+大约一年前，Samsung 宣布正在研发一款可折叠的智能手机。有一句话引起了我的注意：
+> DJ Koh 曾说过『是时候交付一款可折叠设备了』这样的话，就在三星做出这类设备存在市场的消费者调研之后。
 
 The fact that Samsung is almost proud to say that customer surveys are the reason the company is working on a foldable smartphone is scary.
 
@@ -38,7 +38,7 @@ Great design understands that the average layperson can’t always articulate so
 
 ***
 
-## Good Design Is Data-Driven, Great Design Is Data-Informed
+## 好设计是数据驱动的，伟大的设计是会产生广博数据的
 
 “Data-driven” is an interesting word combination. It literally means that the data is “driving” your decisionmaking. The data points are in the driver’s seat, not you.
 
@@ -66,7 +66,7 @@ Hotel Tonight understands that people are trying to find a nice room to stay in,
 
 ***
 
-## Good Design Tries To Please Everyone, Great Design Is Opinionated And Challenges Conventions
+## 好设计试图取悦每个用户，伟大的设计有自己的想法并会挑战共识
 
 Great design has a worldview and values, that it executes on consistently. It doesn’t try to please everyone.
 
@@ -86,7 +86,7 @@ In Apple’s view, the iPhone and iPad should be kept separate from Mac because 
 
 ***
 
-## Great Design Sweats The Details Without Losing Sight Of The Big Picture
+## 伟大的设计关注细节的同时也不会忽略整体情况
 
 You see a lot of companies right now talking about the importance of design. Salesforce released a comprehensive design system complete with a fancy name(“Lightning Design System”) and lots of illustrated mascots.
 
@@ -103,7 +103,7 @@ Focusing on the flashy parts of design while neglecting the fundamentals, is lik
 
 On that note….
 
-## Good Design Tries To Impress, Great Design Gets Out Of The Way
+## 好设计试图给人留下好印象，伟大的设计让人难以忘怀
 
 > “A good designer finds an elegant way to put everything you need on a page. A great designer convinces you half that shit is unnecessary.”
 > — Thomas Hutchings (@Dear**Impossible) November 14, 2013**
@@ -116,7 +116,7 @@ Great design is invisible. It almost feels like it wasn’t designed at all. It�
 
 ***
 
-## Great Design Takes Vision, Courage, And Discipline
+## 伟大的设计拥有愿景、勇气和自我约束
 
 Right now there’s a trend in Silicon Valley of trying to turn Design into a process that can be duplicated and reproduced no matter who you slot into the position.
 
@@ -136,15 +136,15 @@ A compelling vision is what orients the “process machine” of an organization
 
 Defining an experience vision in that fashion is relatively easy for a skilled designer. The sustained discipline it takes to follow through on that vision makes it damn near impossible to achieve. That’s why there are so many crappy products on the market, and why most apps and websites look the same. It’s much easier to just stick to making it “good enough”.
 
-## Choose Greatness
+## 拥抱伟大的设计
 
-There are many reasons to try and do great work rather than just “good enough” work: It sets you apart from the rest of the pack. It makes people around you happier. It makes **you** happier. It’s incredibly fun and satisfying.
+有许多原因让我们尝试去做伟大的工作而不仅仅是『足够好』的工作：它将你变得与众不同。它让你周围的人更加幸福，它让你更幸福，它是非常有趣并令人满意的。
 
-But most of all, what else are you going to do with your life? What better thing to do with your time on earth than trying your hardest to make the world around you better? Imagine the world we’d live in if everyone did this. It starts with you.
+但最重要的是，对你的生活你还有其他想做的事情吗？除了尽你最大的努力去让周围的世界变得更好，究竟还有什么更好的事情值得你花时间呢？如果每个人都这么做的话想想我们将会生活在什么的世界，这由你开始。
 
-### Share Your Story
+### 分享你的故事
 
-What are some examples of great design? Share them with us in the comments.
+能否举一些伟大设计的例子？发表评论与我们一起分享吧。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
