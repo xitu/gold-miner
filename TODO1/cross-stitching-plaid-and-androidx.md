@@ -13,15 +13,15 @@
 
 由 [Virginia Poltrack](https://twitter.com/vpoltrack) 提供图片。
 
-Plaid 是一款呈现 Material Design 风格和丰富交互界面的有趣应用。最近这款应用通过现今的安卓应用开发技术实现了一番重构。获取更多应用信息和重新设计的视觉效果，可以查阅 [Restitching Plaid](https://medium.com/@crafty/restitching-plaid-9ca5588d3b0a)。
+Plaid 是一款呈现 Material Design 风格和丰富交互界面的有趣应用。最近这款应用通过现今的 Android 应用开发技术实现了一番重构。获取更多应用信息和重新设计的视觉效果，可以查阅 [Restitching Plaid](https://medium.com/@crafty/restitching-plaid-9ca5588d3b0a)。
 
 * [**Restitching Plaid**: 把 Plaid 更新到最新应用标准](https://medium.com/@crafty/restitching-plaid-9ca5588d3b0a "https://medium.com/@crafty/restitching-plaid-9ca5588d3b0a")
 
-和大多数安卓应用一样，Plaid 依赖 Android Support Library，该库可以为新安卓特性提供向后兼容性，以便可以运行在旧版操作系统的安卓机上。在 2018 年的 9 月份，最新的 Support Library 版本（28.0.0）被发布，和 Support Library 一起发布的安卓库已经被迁移到 AndroidX（除了 Design 库被迁移到 Android 的 Material Components），并且这些库的新增开发都是基于 AndroidX。因此，接收 bug 修复、新功能和其他库更新的唯一选择就需要将 Plaid 迁移到 AndroidX。
+和大多数 Android 应用一样，Plaid 依赖 Android Support Library，该库可以为新 Android 特性提供向后兼容性，以便可以运行在旧版操作系统的 Android 机上。在 2018 年的 9 月份，最新的 Support Library 版本（28.0.0）被发布，和 Support Library 一起发布的 Android 库已经被迁移到 AndroidX（除了 Design 库被迁移到 Android 的 Material Components），并且这些库的新增开发都是基于 AndroidX。因此，接收 bug 修复、新功能和其他库更新的唯一选择就需要将 Plaid 迁移到 AndroidX。
 
 ### 什么是 AndroidX?
 
-在 2018 Google I/O 大会上，安卓团队[发布了 AndroidX](https://android-developers.googleblog.com/2018/05/hello-world-androidx.html)。它是安卓团队用于开发、测试、打包、定版以及在 [Jetpack](https://developer.android.com/jetpack/) 中发布库时所用到的[开源代码](https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev)。和 Support Library 类似，每一个 [AndroidX](https://developer.android.com/jetpack/androidx/) 库都是独立于 Android OS 来发布，并且提供了跨安卓版本的向后兼容性。它是对 Support Library 的重大改进和全面替代方案。
+在 2018 Google I/O 大会上，Android 团队[发布了 AndroidX](https://android-developers.googleblog.com/2018/05/hello-world-androidx.html)。它是 Android 团队用于开发、测试、打包、定版以及在 [Jetpack](https://developer.android.com/jetpack/) 中发布库时所用到的[开源代码](https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev)。和 Support Library 类似，每一个 [AndroidX](https://developer.android.com/jetpack/androidx/) 库都是独立于 Android OS 来发布，并且提供了跨 Android 版本的向后兼容性。它是对 Support Library 的重大改进和全面替代方案。
 
 阅读下文来了解我们如何为迁移过程准备自己的代码，以及执行迁移过程。
 
@@ -43,17 +43,17 @@ Plaid 是一款呈现 Material Design 风格和丰富交互界面的有趣应用
 
 对于 Plaid 应用，我们使用了一个与AndroidX 不兼容的图形加载库 [Glide](https://bumptech.github.io/glide/) 的旧版本（4.7.1）。这导致迁移后出现一个让应用无法构建的代码生成问题（这是一个记录在 Glide 工程下的类似[问题](https://github.com/bumptech/glide/issues/3126)），在开始迁移之前我们把 Glide 更新到版本 4.8.0（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/6b23efa838d4e9f60a3e78ae324c0c4a43ec8de0)），这个版本添加了对 AndroidX 注解的支持。
 
-关于这一点，请尽可能地更新到你的应用所依赖第三方库的最新版本。 这对 Support 库而言尤其是一个好主意，因为升级到28.0.0（截至撰写本文的最终版本）将使迁移更加顺畅。
+关于这一点，请尽可能地更新到你的应用所依赖第三方库的最新版本。这对 Support 库而言尤其是一个好主意，因为升级到 28.0.0（截至撰写本文的最终版本）将使迁移更加顺畅。
 
-### 基于 Android Studio 的重构
+### 使用 Android Studio 进行重构
 
 迁移过程中我们使用了 Android Studio 3.2.1 版本中内置的重构工具。 AndroidX 迁移工具位于菜单栏的 Refactor > Migrate to AndroidX 选项。这个选项将迁移整个项目的所有模块。
 
 ![](https://cdn-images-1.medium.com/max/800/1*lztKTBouffsQZyUbkNkYHA.png)
 
-运行 AndroidX 重构工具后的预览窗口
+运行 AndroidX 重构工具后的预览窗口。
 
-如果你不使用 Android Studio 或者更倾向于其他工具来做迁移，请参考 [Artifact](https://developer.android.com/jetpack/androidx/migrate#artifact_mappings) 和 [Class](https://developer.android.com/jetpack/androidx/migrate#class_mappings) mappings 这些网页，这些材料也有提供 CSV 格式。
+如果你不使用 Android Studio 或者更倾向于其他工具来做迁移，请参考 [Artifact](https://developer.android.com/jetpack/androidx/migrate#artifact_mappings) 和 [Class](https://developer.android.com/jetpack/androidx/migrate#class_mappings) 来对比新旧支持库间架构和类的改动，这些材料也有提供 CSV 格式。
 
 Android Studio 中的 AndroidX 迁移工具是 AndroidX 迁移的主要方式。这个工具正在持续的优化中，所以如果你遇到问题或者希望查看某个功能，请在 Google 问题追踪页[提交一票](https://issuetracker.google.com/issues/new?component=460323)。
 
@@ -61,7 +61,7 @@ Android Studio 中的 AndroidX 迁移工具是 AndroidX 迁移的主要方式。
 
 > **变更最少的代码以保证应用可以仍能正常运行。**
 
-在运行 AndroidX 迁移工具后，大量的代码被变更，然而功能却无法编译成功。基于这一点，我们仅仅[做了最少量的工作](https://github.com/nickbutcher/plaid/compare/dd2ebf7f2de74809981e7c904c9ee22d16db5262...d2cefa384448f4d3fb92dec0ade25d9bd87efb63)来使应用重新运行起来。
+在运行 AndroidX 迁移工具后，大量的代码被变更，然而项目却无法编译成功。此时，我们仅仅[做了最少量的工作](https://github.com/nickbutcher/plaid/compare/dd2ebf7f2de74809981e7c904c9ee22d16db5262...d2cefa384448f4d3fb92dec0ade25d9bd87efb63)来使应用重新运行起来。
 
 这个方法有利于把流程拆解为可控的步骤。我们留下了一些任务，诸如修复导入顺序、提取依赖变量、减少完整 classpath 的使用，以便后续的清理工作。
 
@@ -111,11 +111,11 @@ Alternatively, you can try to fix the problem by adding this snippet to /.../pla
 
 迁移工具的一个缺点是：如果你在依赖版本项使用了变量，迁移工具把它们自动内联。我们从 build.gradle 文件中重新提取了这些版本（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/0c5a3d62a83ecf400de376f4b4e6e7c3a6bf3c2a)）。
 
-上文中我们提到了运行 AndroidX 迁移工具后对 `plusAssign` 和 `Palette` 问题的临时解决方案。现在我们重新添加了 `plusAssign` 函数且关联了相关测试（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/0a5a5a3d50ece0f671201e1183b971fb4a3e158a)），通过使用之前的 AndroidX 版本来引用它，并且取消了上文对该函数的注释。与此同时，我们把 `Palette` 参数更新到可以为空的这个版本（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/7aad3005ea8ab222443f1a2ea34252e25328d677)），这样就无需使用操作符 `!!`。
+上文中我们提到了运行 AndroidX 迁移工具后对 `plusAssign` 和 `Palette` 问题的临时解决方案。我们通过将 AndroidX 版本降低来重新添加了 plusAssign 函数和相关测试（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/0a5a5a3d50ece0f671201e1183b971fb4a3e158a)），并且恢复了被注释了的代码。与此同时，我们把 `Palette` 参数更新到可以为空的这个版本（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/7aad3005ea8ab222443f1a2ea34252e25328d677)），这样就无需使用操作符 `!!`。
 
 同样的，自动转化可能使得某些类需要使用它们的完整类路径。做最少的手工修正是一个好的思路。作为清理工作的一部分，我们移除了完整类路径，并在必要时重新添加了相关引用。
 
-最后，一些少量测试相关的修改被加入工程，围绕着测试过程中的依赖冲突（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/9715e2f8fdabc21b6d73e2f11f31982e90292461)）和 Room test（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/a997200ec98b8466c427d5ac16eae94bae816da9)）。这时我们的工程完成全部转化，并且我们的测试都已通过。
+最后，一些少量测试相关的修改被加入工程，围绕着测试过程中的依赖冲突（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/9715e2f8fdabc21b6d73e2f11f31982e90292461)）和 Room 的测试用例（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/a997200ec98b8466c427d5ac16eae94bae816da9)）。这时我们的工程完成全部转化，并且我们的测试都已通过。
 
 ### 结束过程
 
