@@ -5,13 +5,13 @@
 > * 译者：
 > * 校对者：
 
-# 如何在远程服务器上运行Jupyter Notebooks
+# 如何在远程服务器上运行 Jupyter Notebooks
 
 ![](https://cdn-images-1.medium.com/max/3840/1*rhhk7heUKv1KA8p50I-ElA.jpeg)
 
-[Jupyter Notebook](https://jupyter.org/)  是许多数据科学家工具库中的主要工具。Jupyter Notebook 作为一种工具，可以让人们通过交互的方式，更容易地进行数据分析，建立模型原型，进行试验等等，从而提高生产率，缩短「 写代码 —— 看结果 」这个循环反馈的时间。
+[Jupyter Notebook](https://jupyter.org/)  是许多数据科学家工具库中的主要工具。Jupyter Notebook 作为一种工具，可以让人们通过交互的方式，更容易地进行数据分析、建立模型原型、进行试验等等，从而提高生产率，缩短「 写代码 —— 看结果 」这个循环反馈的时间。
 
-很多情况下在笔记本或工作站上运行 Jupyter Notebook 已经足够了。但如果是在对大型数据集操作，或处理数据要消耗大量运算力，或建立的学习模型相当复杂，就需要比笔记本电脑更强大的计算力。可能你在大图片上运行 [图片卷积网络](https://towardsdatascience.com/how-to-do-deep-learning-on-graphs-with-graph-convolutional-networks-7d2250723780) ，或在大量文本语料中运用带递归神经网络的机器翻译算法，就需要更多 CPU 内核，RAM，或多个 GPU 。幸运的是，你需要的这些资源，可能在远程服务器上都有！
+很多情况下在笔记本或工作站上运行 Jupyter Notebook 已经足够了。但如果是在对大型数据集操作，或处理数据要消耗大量运算力，或建立的学习模型相当复杂，就需要比笔记本电脑更强大的计算力。可能你在大图上运行 [图片卷积网络](https://towardsdatascience.com/how-to-do-deep-learning-on-graphs-with-graph-convolutional-networks-7d2250723780) ，或在大量文本语料中运用带递归神经网络的机器翻译算法，就需要更多 CPU 内核、RAM、或多个 GPU。幸运的是，你需要的这些资源，可能在远程服务器上都有！
 
 要是远程服务器有图形用户界面（GUI），那么你很走运，因为可以使用 [远程桌面软件](https://en.wikipedia.org/wiki/Remote_desktop_software) 来访问远程服务器，就跟平时在笔记本上使用 Jupyter Notebook 一样。
 
@@ -43,7 +43,7 @@ jupyter notebook --no-browser --port=8889
 nohup ssh -f username:password@remote_server_ip "cd project_folder; . virtual_environment/bin/activate; jupyter notebook --no-browser --port=8889"
 ```
 
-注意，我用  `;`  将一行代码的三个命令分开，而没有用行分隔符。执行这段代码后，Jupyter Notebook 会在 8889 端口启动，并在后台运行。最后我加了给  `ssh` 命令加了 `-f`  把进程推进后台，还加了 `nohup` 命令，静默了进程的所有输出，这样就能继续使用终端窗口了。[这里](https://www.computerhope.com/unix/unohup.htm) 有更多关于 `nohup`  命令的信息。
+注意，我用 `;` 将一行代码的三个命令分开，而没有用行分隔符。执行这段代码后，Jupyter Notebook 会在 8889 端口启动，并在后台运行。最后我加了给 `ssh` 命令加了 `-f` 把进程推进后台，还加了 `nohup` 命令，静默了进程的所有输出，这样就能继续使用终端窗口了。[这里](https://www.computerhope.com/unix/unohup.htm) 有更多关于 `nohup`  命令的信息。
 
 ## 访问你的 Notebook
 
@@ -59,7 +59,7 @@ remote_server_ip:8889
 nohup ssh -N -f -L localhost:8889:localhost:8889 username:password@remote_server_ip
 ```
 
-`-N`  是在告诉  `ssh` 没有远程命令要执行， 此刻不用执行任何远程命令。跟前面一样，`-f` 将 `ssh` 进行推入后台。最后的 `-L` 则明确了端口转发的配置，语法是 `local_server:local_port:remote_server:remote_port`。该配置使所有本地（比如你的笔记本电脑）给 `8889` 端口的请求，全都发给远程服务器的 `8889` 端口，远程服务器的地址是 `username:password@remote_server_ip`。跟上文一样，`nohup` 命令静默了输出。
+`-N` 是在告诉 `ssh` 没有远程命令要执行， 此刻不用执行任何远程命令。跟前面一样，`-f` 将 `ssh` 进行推入后台。最后的 `-L` 则明确了端口转发的配置，语法是 `local_server:local_port:remote_server:remote_port`。该配置使所有本地（比如你的笔记本电脑）给 `8889` 端口的请求，全都发给远程服务器的 `8889` 端口，远程服务器的地址是 `username:password@remote_server_ip`。跟上文一样，`nohup` 命令静默了输出。
 
 上面命令的主要作用就是，在你自己浏览器上也能访问远程 Jupyter Notebook 了，地址是
 
@@ -99,7 +99,7 @@ ssh username:password@remote_server_ip "`jupyter notebook stop 8889"`
 ssh username:password@remote_server_ip "pkill -u username jupyter`"`
 ```
 
-其中 `-u username` 表示只杀死由 `username` 启动的 `jupyter`  进程。这样做的缺点是，你正在运行的所有 Notebook 服务都将被杀死。当然也可以登陆远程服务器，启动 Notebook 服务，把终端窗口开着，手动管理服务器。还能使用常用的 `CTRL+C` 键盘命令关闭 Notebook  服务器。
+其中 `-u username` 表示只终止由 `username` 启动的 `jupyter`  进程。这样做的缺点是，你正在运行的所有 Notebook 服务都将被终止。当然也可以登陆远程服务器，启动 Notebook 服务，把终端窗口开着，手动管理服务器。还能使用常用的 `CTRL+C` 键盘命令关闭 Notebook  服务器。
 
 ## 工作流程梳理
 
@@ -117,11 +117,11 @@ alias remote_notebook_stop='ssh username:password@remote_server_ip "pkill -u use
 
 本文展示了如何使用 bash 命令来启动，访问和终止远程服务器上的  Jupyter Notebook，还展示了如何创建 bash 别名使上述流程更容易。
 
-希望这些命令可以无缝提高你数据科学的效率，让你从 Jupyter Notebook 和远程可用计算资源中同时受益。
+希望这些命令可以无缝提高你在数据科学上的工作效率，让你从 Jupyter Notebook 和远程可用计算资源中同时受益。
 
 * * *
 
-_喜欢你刚读的吗？ [*Twitter*](https://twitter.com/TobiasSJepsen) 上粉我了解一下，我在那儿分享论文，视频和文章，而且都是和实践，理论，数据科学伦理和我感兴趣的机器学习相关，上面还有我自己的帖子。_
+_喜欢你刚读的吗？ [*Twitter*](https://twitter.com/TobiasSJepsen) 上粉我了解一下，我在那儿分享论文、视频和文章，而且都是和实践、理论、数据科学伦理和我感兴趣的机器学习相关，上面还有我自己的帖子。_
 
 _有专业需求，在 [*LinkedIn*](https://www.linkedin.com/in/tobias-skovgaard-jepsen/)  上联系我，或直接在 [*Twitter*](https://twitter.com/TobiasSJepsen) 上发消息。_
 
