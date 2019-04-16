@@ -2,80 +2,80 @@
 > * 原文作者：[Alex Hultman](https://medium.com/@alexhultman)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/millions-of-active-websockets-with-node-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/millions-of-active-websockets-with-node-js.md)
-> * 译者：
+> * 译者：[Mirosalva](https://github.com/Mirosalva)
 > * 校对者：
 
-# Millions of active WebSockets with Node.js
+# Node.js 提供百万的活跃 WebSocket 连接
 
-> Serving a metric buttload of WebSockets using no more than a consumer grade laptop and a bit of Wifi
+> 仅使用消费级笔记本和一些 Wifi 资源便可提供大量的 WebSocket 服务
 
-With the newly released TypeScript web server project [uWebSockets.js](https://github.com/uNetworking/uWebSockets.js), we saw not only improved performance but improved memory usage as well. Especially so for Node.js users, and for the sake of demonstration I therefore wanted to set up a large scale test in a real world environment.
+通过最新发布的 TypeScript web 服务工程 [uWebSockets.js](https://github.com/uNetworking/uWebSockets.js)，我们不仅可以看到提升的性能，还有提高的存储使用率。对 Node.js 使用者尤其如此，所以为了演示我想在实际使用环境中开展大规模的测试。
 
-We are going to use my 6-year-old laptop which has a total of 8GB RAM and a “72Mbit” Wifi network adapter (that’s the link speed). It also has a 1Gbit Ethernet network adapter which we will play with later on. Everything is consumer grade, nothing has been upgraded since acquisition in 2013. This laptop will run Node.js with uWebSockets.js v15.1.0 installed.
+我们计划使用我那工作 6 年的笔记本电脑，它具有 8GB 运行内存和 72Mbit 配置的 Wifi 网络适配器（这是网络连接速度）的笔记本电脑。它还有一个 1Gbit 配置的 Ethernet 网络适配器，我们可以稍后使用。所有配置都是消费级的，在 2013 年购买后没有任何硬件升级。这个笔记本将在安装 uWebSockets.js 的 v15.1.0 版本环境下运行 Node.js。
 
-![The server hardware](https://cdn-images-1.medium.com/max/2000/1*rXwVs5rZXES07sHY29xrKw.jpeg)
+![服务器硬件](https://cdn-images-1.medium.com/max/2000/1*rXwVs5rZXES07sHY29xrKw.jpeg)
 
-We first need to configure the Linux system a bit — mainly we need to raise the allowed file limit by editing /etc/security/limits.conf (your system may vary, this is Ubuntu 18.04). Add the following lines:
+我们首先需要做一些 Linux 系统的配置工作——主要是需要通过修改文件 /etc/security/limits.conf（在你的系统上文件路径可能不同，我这里用的是 Ubuntu 18.04 版本）来放开文件权限。添加如下几行：
 
 ```
 * soft nofile 1024000
 * hard nofile 1024000
 ```
 
-We then need to set some other variables (again, your mileage may vary):
+然后我们需要设置一些其他变量（同样的，你的路径可能不同）：
 
 ```bash
 sudo sysctl net.ipv4.tcp_tw_reuse=1
 sudo sysctl fs.file-max=1024000
 ```
 
-You then need to set up about 50-or-so IP addresses in a range. For my Wifi adapter I ran this line:
+然后你需要在一个范围内设置大约 50 个左右的 IP 地址。对于我的 Wifi 适配器，我添加了这行配置：
 
 ```bash
 for i in {135..185}; do sudo ip addr add 192.168.0.$i/24 dev wlp3s0; done
 ```
 
-The theoretical limit is 65k connections per IP address but the actual limit is often more like 20k, so we use multiple addresses to connect 20k to each (50 * 20k = 1 mil).
+理论上，每个 IP 地址有 65k 个连接限制，但是实际上限值经常大约在 20k 左右，所以我们使用多个地址且使每个地址支撑 20k 个连接数（50 * 20千 = 1 百万）。
 
-I then run the web server as root by typing **sudo -i** followed by **ulimit -n 1024000** and then **node examples/WebSocket.js** (in the uWebSockets.js folder).
+然后我使用命令 **sudo -i** 将 web 服务以 root 身份运行，接着对 **node examples/WebSocket.js**（在 uWebSockets.js 文件夹中）也这么做。
 
-That’s about it, really. The client side has similar settings but does not need to set up multiple IP addresses, obviously. The client computer runs a single threaded C client written using [uSockets](https://github.com/uNetworking/uSockets). Source code for this test is all open source and the client is the “scale_test.c” located in uWebSockets/benchmarks folder. You may need to make some smaller edits for your run.
+真得就是这样的。客户端侧做了类似的配置，但是显然不需要设置多个 IP 地址。客户端电脑运行一个由 [uSockets](https://github.com/uNetworking/uSockets) 编写的单线程 C 客户端。这个测试的源代码都是开源的，同时客户端的代码是位于 uWebSockets/benchmarks 文件夹的『scale_test.c』。你可能需要为你自己的运行做一些小改动。
 
-Reaching 1 million WebSockets takes a few minutes, it could be improved if we wanted to, by having a bigger connect batch and by using multiple threads client side (and whatnot) but this is not relevant to the server side which is what we are interested in. The server side runs on one single thread and never sees any real CPU usage during the connection phase or afterwards:
+数量达到 100 万个 WebSocket 连接需要几分钟，如果我们想做的改进的话可以增加连接批次和使用多个线程的客户端（诸如此类），但是这与我们对服务端感兴趣的点无关。服务端运行在单个线程上并且在连接阶段或之后都接触不到真实的 CPU 使用情况。
 
 ![](https://cdn-images-1.medium.com/max/3840/1*-gdCkfDWjOxShtjPP8H8ng.png)
 
-First off, let’s talk about the 5k closed connections. uWebSockets.js has been configured to drop and kill every WebSocket that is idle for more than 60 seconds. The “idleTimeout” setting is used. This means we need to actively have one WebSocket message sent and received for every one million WebSockets each 60 seconds.
+首先，让我们讨论一下 5000 个关闭的连接。uWebSockets.js 被配置为每 60s 都会丢弃和杀死所有闲置的 WebSocket 连接。『idleTimeout』就被用到了，这意味着我们需要在每 60 秒就要与每 100 万个 WebSocket 连接主动发送和接收一条 WebSocket 消息。
 
-You can see the traffic spikes relating to ping messages in the above network graph. A minimum of 16.7k WebSocket messages need to reach the server every second — everything less and we start dropping connections.
+你可以在这上面这张网络图中看到与 ping 消息相关的流量峰值。每秒最少有 16.7k 条 WebSocket 消息需要到达服务器——都变少了之后我们开始关闭连接。
 
-Obviously we are not properly meeting this criteria over the Wifi network. We are dropping a few connections. Still — 995k alive WebSockets over a nothing-fancy Wifi network is kind of cool!
+显然我们通过 Wifi 网络没有合理地满足这个标准。我们是丢失了一些连接，但在一个没有花哨配置的 WiFi 网络环境下仍存活 995k 个 WebSocket 连接却是很酷的事情！
 
 ![](https://cdn-images-1.medium.com/max/3840/1*Os3oBCZSt_nHOLrORmHp9g.png)
 
-CPU usage of the server side is steadily at 0–2% and user space memory usage is about 500 MB while the overall system wide memory usage is about 4.7 GB. CPU usage or memory usage never spiked server side, it was completely stable throughout.
+服务端的 CPU 使用率保持在 0–2% 范围，用户控空间内存使用大约为 500MB 而整体系统范围的内存使用大约为 4.7GB。CPU 使用率或者内存使用一直都没有让服务端达到峰值，它始终处于完全稳定状态。
 
-Okay! So let’s bring out the big gun; Ethernet. We hook up server and client to a 1Gbit consumer grade router and re-run the test:
+好吧！那么让我们拿出大杀器吧——Ethernet。我们将服务器和客户端连接到 1Gbit 消费级路由器并重新运行测试：
 
 ![](https://cdn-images-1.medium.com/max/3840/1*1v2fewfRAR21nryDIj_I6w.png)
 
-Stable without any connection loss, the Wifi network was not enough but Ethernet is. To make sure that everything really was stable I let the client and server stand for an hour and there was no single connection loss afterwards, some 120 million WebSocket messages later (16.7k * 60 * 60 * 2):
+结果是稳定得没有任何连接损失，WiFi 网络稳定性不足但是 Ethernet 却表现很好。为了保证每项都是稳定的，我让客户端和服务器持续了一个小时，这样没有一个连接丢失，然后有约 1.2 亿条 WebSocket 消息（16.7k * 60 * 60 * 2）：
 
 ![](https://cdn-images-1.medium.com/max/3840/1*jp2Nm_t67771fNdo4eeRYQ.png)
 
-Everything stable and well. In fact, I’m writing this article on the server laptop while running and it’s still at zero closed sockets and the system is very responsive. I could probably fire up a simple game and continue.
+每项都是稳定良好运行。事实上，我在运行服务的笔记本上写着本文，并且它仍然保持着零关闭的 socket 连接，同时系统也是有响应的。甚至我开启一个简单的游戏的情况下服务还能让连接继续。
 
-So we have achieved a pretty cool proof-of-concept scenario here. This is partly due to the stable Ethernet connection but of course also depend a lot on the server software. This feat could not be achieved with any other Node.js software stack — none of them are lightweight and performant enough to fit and maintain this many WebSockets on a laptop like this. You’ll just end up swapping until the system gets unresponsive and stop getting pings like seen here:
+此时我们已经实现了一个非常酷的概念验证场景。有一部分归因于稳定的 Ethernet 连接，但当然很大程度上也依赖服务端软件。任何其他的 Node.js 软件栈都无法实现这一壮举——它们都不具备像这样足以在笔记本上维持这么多 WebSocket 连接的轻量级和高性能特点。你可以在系统变得无响应时停止信息交换，并且下面看到的这样来停止获取 ping 结果：
 
-![Not going very well if we use another server software stack, here “websockets/ws” crash and burn trying](https://cdn-images-1.medium.com/max/3840/1*wXez3KLeKPCEhodP5UvcGQ.png)
+![如果我们使用另一个服务软件栈可能运行不太好，这里『websockets/ws』 发生异常并触发了重试](https://cdn-images-1.medium.com/max/3840/1*wXez3KLeKPCEhodP5UvcGQ.png)
 
-With uWebSockets.js we could probably pull off a few hundreds of thousand more WebSockets on this laptop, but going beyond one million often times requires recompiling the Linux kernel with different limits, and that’s where we draw the line here.
+使用 uWebSockets.js，我们可以在这台笔记本上运行几十万个 WebSocket 连接，但是超过 100 万的常规连接则需要重新编译具备不同限制的 Linux 内核，这也是我们把它作为边界值的原因。
 
-We are not going to go in to low level embedded C development here and I think that’s a sane decision. Just start a new instance, a new laptop that is, and continue scaling your problem that way.
+这里我们不打算去研究低水平的嵌入式 C 开发，并且我认为这是明智的选择。只需启动一个新应用实例，一台新笔记本，通过这种方式继续扩展你的问题。
 
-If you’re interested in this software stack and have I/O scalability problems or want to avoid falling in the many common pitfalls, make sure to get in contact and we can talk about things, company to company.
+如果你对这个软件栈感兴趣，有 I/O 扩展性问题，或者想要避免陷入许多常见陷阱，一定要联系我们，我们可以通过公司对公司的形式来研讨问题。
 
-Thanks for reading!
+感谢你的阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
