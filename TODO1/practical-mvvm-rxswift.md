@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/practical-mvvm-rxswift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/practical-mvvm-rxswift.md)
 > * 译者：[iWeslie](https://github.com/iWeslie)
-> * 校对者：
+> * 校对者：[swants](https://github.com/swants)
 
 # 实用的 MVVM 和 RxSwift
 
@@ -249,7 +249,7 @@ self.albums.append(albums)
 self.tracks.append(tracks)
 ```
 
-Now that our data is ready and we passed to our childViewControllers, finally we should show the data in CollectionView and TableView:现在我们的数据准备好了，我们传递给子控，最后该在 CollectionView 和 TableView 中显示数据了：
+现在我们的数据准备好了，我们传递给子控，最后该在 CollectionView 和 TableView 中显示数据了：
 
 如果你还记得 HomeVC：
 
