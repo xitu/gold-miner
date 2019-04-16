@@ -1,15 +1,14 @@
-
 > * 原文地址：[The Caching Antipattern](https://www.hidefsoftware.co.uk/2016/12/25/the-caching-antipattern/)
-* 原文作者：[ROBERT STIFF](https://www.hidefsoftware.co.uk/about/)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[王子建](https://github.com/Romeo0906)
-* 校对者：[tanglie](https://github.com/tanglie1993)、[瞿祥轩](https://github.com/fghpdf)
+> * 原文作者：[ROBERT STIFF](https://www.hidefsoftware.co.uk/about/)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者：[王子建](https://github.com/Romeo0906)
+> * 校对者：[tanglie](https://github.com/tanglie1993)、[瞿祥轩](https://github.com/fghpdf)
 
 ## 为何我抵制使用缓存？ ##
 
 TL;DR - 错误地缓存数据其实是一件很糟糕的事情。尽你所能不要缓存数据，如果不得已而为之，一定要保证你正确地缓存数据。
 
----
+----
 
 > 计算机科学中有两件难事：缓存失效和命名。
 > 
@@ -24,8 +23,6 @@ TL;DR - 错误地缓存数据其实是一件很糟糕的事情。尽你所能不
 ## 常见错误 ##
 
 以下是一些常见错误，我们应该避之而行。
-
-### 启动时缓存 ###
 
 如果已经知晓你的依赖慢到不能正常使用，甚至你都不会尝试在运行中调用它，因此你在启动应用的时候就预先设置缓存来替代依赖服务查询。这恰恰证明了你选用了不合适的依赖服务，如果该依赖服务来自第三方，你可能只有干瞪眼却无可奈何。启动缓存的使用通常是为了避免依赖服务的改进工作。
 
@@ -94,3 +91,5 @@ TL;DR - 错误地缓存数据其实是一件很糟糕的事情。尽你所能不
 首先寻找其他解决方案，不到最后关头不要尝试使用缓存。先优化应用，再考虑使用迟钝的缓存工具。
 
 如果你也遇到了一些由缓存或错误做法引发的基本问题，请与我告知，我会将其添加到本文中。
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。

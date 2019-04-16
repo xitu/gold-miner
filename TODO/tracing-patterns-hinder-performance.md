@@ -3,66 +3,65 @@
 > * 原文作者：[Jakub Rożek](https://www.netguru.co/blog/tracing-patterns-hinder-performance)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/tracing-patterns-hinder-performance.md](https://github.com/xitu/gold-miner/blob/master/TODO/tracing-patterns-hinder-performance.md)
-> * 译者：
-> * 校对者：
+> * 译者：[薛定谔的猫](https://github.com/Aladdin-ADD/)
+> * 校对者：[AceLeeWinnie](https://github.com/AceLeeWinnie)、[HydeSong](https://github.com/HydeSong)
 
-# Tracing Patterns that Might Hinder Performance
+# 找出可能影响性能的代码（模式）
 
-There is a pretty good chance you will encounter at least one unresponsive app or a slowly loading web page today. It’s 2017 already, and we want to do everything more quickly, yet we still experience annoying delays. How is that possible? Doesn’t our Internet connection improve every year? Doesn’t our browser perform better day by day? In this article, we will cover the latter.
+现在你很可能会遇到不止一个响应迟钝的 app 或加载缓慢的页面。已经是 2017 年了，我们当然希望一切变的很快，但我们仍然会体验到恼人的延时。怎么会这样呢？难道我们的网络连接不是逐年变快的么？我们的浏览器性能不是也变的更好？我们将在下文中讨论这些。
 
+事实上，浏览器和引擎越来越快，新特性也在不停的增加，一些过时的特性也在被废弃。网站和 app 也是如此。同时，它们也更大、更重了，因此即使浏览器和硬件越来越好，我们也需要考虑性能 -- 至少在某种程度上。我们来看看如何找出常见的性能陷阱，来改善网站和 app 的性能，但在此之前，我们先来看一下概览。
 
-Indeed, browsers and their engines are getting faster, new features are added all the time, and some other legacy features are becoming obsolete. The same happens to websites and apps. They also become heavier and larger, therefore we must take into account that even though browsers and hardware are always improving, we still need to take care of the performance – at least to some extent. You will find out shortly how to avoid a few popular pitfalls and improve the overall performance of apps and websites, but before that, let’s have a bit of an overview.
+## 优化
 
-## Optimisation
+关于流水线（pipeline）我可以写一本书，但本文中我还是想关注有助于优化过程的关键点。我会阐述一些会极大影响性能的常见错误。为了简洁，我不会讨论 parsing、AST、机器码生成、GC（垃圾收集）、反馈收集、OSR(on-stack replacement) -- 别担心，我会在未来的文章中解释它们。
 
-I could probably write an entire book explaining the pipeline, but in this article, I want to focus on the key aspects that will help you optimise the process. I will describe the common mistakes that can substantially hurt performance. For the sake of brevity, I will not talk about parsing, AST, machine code generation, GC (Garbage Collector), feedback collection or OSR (on-stack replacement), but fear you not – we’ll give those issues more space in future articles.
+### 旧版本
 
-### The Old World
+旧版本使用的基准编译器（baseline compiler）和优化编译器 Crankshaft，已经在 Chrome M59 中被废弃。
 
-Let’s start with the old world (baseline compiler + Crankshaft), which became obsolete as of Chrome M59.
+基准编译器并不会进行任何优化，它仅仅是快速编译代码，然后使其被执行。需要注意的是，生成优化代码严重依赖于假设，它反过来又需要假设类型反馈，因此需要首先执行基准编译器。
 
-The baseline compiler doesn’t perform any magical optimisations. It just compiles the code quickly and lets it execute. You must be aware that the generating efficiently optimised code relies heavily on speculative optimisations, which in turn require type feedback to speculate on, so you need to run the baseline first.
+一旦某个函数被频繁执行（hot，通常引擎认为它值得优化），Crankshaft 就发挥（优化）作用了。它生成的代码性能非常好，接近于 Java。这种优化方式是业内第一，它带来了巨大的性能提升。因此 JS 才能有较好的性能，前端开发者也能够用它来创建复杂的 web 应用。
 
-In case your function becomes “hot” (it’s a common definition for function that the engine finds worth optimising), Crankshaft kicks in and does its magic. The performance of such code is very, very decent, comparable to Java. This approach was one of the first in the industry and it brought about a massive performance boost. As a result, JS could finally be executed smoothly and frontend developers were able to create complex web applications.
+### 新版本
 
-### The New World
+随着 web 的发展，新的框架诞生，规范也在更新升级，在 Crankshaft 基础上扩展变得非常困难。有的代码不会被 Crankshaft 优化，比如操作 arguments 对象的某些方法（安全的方式有 unmonkey-patched Function.prototype.apply、length属性、未越界的下标），try-catch 语句和[其它](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers)。幸运的是，新的架构 Ignition 和 TurboFan 可以解决其中一些性能瓶颈。现在，有一些模式可以得到更好的优化。如前文所述，优化也是有成本的，需要耗费一些资源（在低端的移动设备上资源可能很有限）。但在多数情况下，你还是希望你的函数能够得到优化。
 
-As the web evolved, new frameworks arrived, and specifications changed, extending Crankshaft capabilities became troublesome. Some patterns had never been given much love by Crankshaft, for instance certain accesses to arguments object (the safe uses were on unmonkey-patched Function.prototype.apply, length access and in-bound indices) or using a try catch statement. There were lots of [other patterns too](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers). Luckily, Ignition and TurboFan can solve a few of those performance bottlenecks. Now, some patterns can be optimised in a more sophisticated way. As stated earlier, optimisation is expensive, and it takes some resources (which might be little on mobile low-end devices). In most cases, however, you would still like your function to be optimised.
+引入 TurboFan 的[原因](https://docs.google.com/presentation/d/1H1lLsbclvzyOF3IUR05ZUaZcqDxo7_-8f4yJoxdMooU/edit#slide=id.g18ceb14721_0_39)有：
 
-When it comes to TurboFan, there were [a few reasons](https://docs.google.com/presentation/d/1H1lLsbclvzyOF3IUR05ZUaZcqDxo7_-8f4yJoxdMooU/edit#slide=id.g18ceb14721_0_39) it was introduced:
+- 提供统一的代码生成架构
+- 减少 V8 的移植/维护成本
+- 去除性能陷阱
+- 新特性实验更容易 (i.e. changes to load/store ICs, bootstrapping an interpreter)
 
-- Providing a uniform code generation architecture
-- Reducing porting / maintenance overhead of V8 (currently 10 ports!)
-- Removing performance cliffs due to slow builtins
-- Making experimenting with new features easier (i.e. changes to load/store ICs, bootstrapping an interpreter)
+当然，前提是不牺牲性能。生成字节码相对很快，但解释字节码可能比执行优化后的代码慢 100 倍。它显然取决于编译器的复杂度。基准编译器的目的从来就不是生成很快的代码，但将执行时间考虑在内的话，它仍然比 Ignition 快（不是快很多，在某些场景下快 3-4 倍）。TurboFan 的目的是取代上一代的优化编译器 -- Crankshaft。
 
-Of course, this had to be done without sacrificing the performance. Generating bytecode is relatively cheap, but interpreting bytecodes can be up to 100x slower than executing optimised code. Obviously, it depends on the complexity of compiler. The baseline compiler was never meant to produce very fast code, but it is still faster (not much though, but in some cases fullcodegen is faster 3x-4x) than Ignition – taking into account just executing the code. TurboFan was aimed to replace Crankshaft – the previous optimising compiler.
+## 我们需要优化吗?
 
-## Do We Need the Optimisations?
+不一定。
 
-Yes and no.
+如果一个函数只会执行一两次，并不值得优化。但如果可能执行多次，值类型和对象结构固定的话，你就很可能需要考虑优化你的代码了。我们可能不会意识到规范中的一些异常。而引擎需要处理（这些异常），通常很难理解。举例：读取属性时，引擎需要考虑到各种边界情况，通常在真实场景下不会发生。为什么会这样呢？有时是为了向后兼容，有时是其它原因 -- 每种情况都有不同。如果发现多余的操作，我们根本就不需要执行！优化引擎会发现这样的场景，尝试去除掉多余的操作。去除后的函数就称为 stub。
 
-If we run our function once or twice, optimisation may not be worth it. However, if it’s likely to be executed multiple times, and the types of the values and the shapes of the objects are stable, then you should probably consider optimising your code. We might not be aware of some quirks that are present in the specification. The steps needed to be taken by the engine are often difficult to understand. For instance, when accessing a property, the engine has to take care of edge cases that are very unlikely to happen in the real world. Why is that? Sometimes due to backwards compatibility, sometimes there is another reason – each case is different. However, if we find something redundant, we might not actually need to do it! The process of optimising spots such situations and tries to remove the redundant operations. A function with removed redundant operations is called a stub.
+由于 JS 是动态类型语言，我们需要做很多假设。所以最好让属性保持单态 -- 换句话说，应该只有一个路径。一旦假设不匹配，就会发生反优化（deopt），优化过的函数也就不再生效。这无疑是我们要避免的。每次优化都是或多或少需要耗费资源，再次优化时就需要考虑到之前的情况，以避免属性不是单态。只要不多于 4 条路径，它就会保持多态（polymorphic）。多于 4 条路径的话，称为 megamorphic。
 
-Since JS is a dynamically typed language, we always have to make plenty of assumptions. It is best to keep our property access site monomorphic or, in other words, it should have only one known path. If our assumptions mismatch, we encounter a deopt and our optimised function is no longer valid. We definitely want to avoid it whenever possible. Each process optimisation is more or less expensive. Once we optimise again, we need to take into account all previous circumstances to prevent further deopts, so our property access site will no longer be monomorphic. It’s polymorphic and will stay polymorphic as long as there are no more than four paths. If there are more than four paths, it’s megamorphic.
+## 开始之前
 
-## Before you start
+只有传递了参数 `--allow-natives-syntax`， 才可以使用 `%` 为前缀的函数。
 
-All functions with the percent sign as a prefix are available only if you pass --allow-natives-syntax.
+一般情况下，你**不应该**使用它们。在 V8 的源码（src/runtime）中可以找到它们的定义。所有会引起反优化的原因（bailout/deopt reasons）:https://cs.chromium.org/chromium/src/v8/src/bailout-reason.h)
 
-Normally, you **should not** access them. If you want to find their definition, go to src/runtime (V8 source code). All bailout (deopt) reasons are available here https://cs.chromium.org/chromium/src/v8/src/bailout-reason.h
+传递参数 `--trace-opt`，可以查看你的函数是否被优化；传递 `--trace-deopt`，查看已优化的函数出现反优化的情况。
 
-If you want to see whether your function is optimised or not, pass the --trace-opt flag. If you want to be notified once your optimised function gets deoptimised, pass the --trace-deopt flag.
+## 举例
 
-## Examples
+## 例子 1
 
-## Example 1
+先来看一个非常简单的例子。
 
-We will start with a very straightforward example.
+首先我们定义一个计算加法的函数 add，它接收 2 个加数，返回它们相加后的结果。很简单，对吧？继续看后面的代码：
 
-We will declare a very simple add function that takes two arguments and returns the sum of them. Quite simple, right? Let's see then.
-
-```
+```js
 function add(a, b) {
   return a + b;
 }
@@ -76,15 +75,15 @@ add(2, 88);
 add(2, 7); // now we call our optimized function, feedback has been collected, let's see whether we can retrieve some deopts reason.
 ```
 
-```
+```bash
 d8 --trace-deopt --print-opt-code --allow-natives-syntax --code-comments --turbo add.js
 ```
 
-If you run V8 older than 5.9, you must pass the --turbo flag explicitly to make sure your function goes through TurboFan.
+如果运行的 V8 版本低于 5.9，必须显式传递 `--turbo` 参数，以调用 TurboFan。
 
-If you run the above, you will get something like this:
+运行上面的命令，会得到以下类似输出：
 
-```
+```bash
 --- Raw source ---
 (a, b) {
   return a + b;
@@ -218,47 +217,45 @@ RelocInfo (size = 169)
 --- End code ---
 ```
 
-As you can see, there are at least three different situations in which our function may be eagerly deopted.
+如你所见，这里有至少 3 种不同情况，我们的函数（add）出现反优化（deopt）。
 
-If we took lazy deopts into account, we would find even more, but let’s focus on eager deopts.
+如果将 lazy deopt 考虑在内，会发现更多，但我们还是关注 eager deopt。
 
-By the way, at the moment here are three types of deopts: eager, lazy and soft.
+顺便讲一句，此时这里有三种类型的反优化：eager、lazy、soft。
 
-It may look a bit awkward and scary, but don't worry! You will get it soon.
+可能看起来有些难懂可怕，别担心，你很快就会明白的！
 
-Let's start with the first likely deopt.
+从第一个反优化开始：
 
 ```
 // ;; debug: deopt index 0
 ```
 
-A deopt reason 'not a Smi'. If you have already heard about Smi, you can skip the next paragraph sentences.
+原因是：“not a Smi”。如果已经听说过 Smi，你就可以直接跳过这一段了。
 
-Basically, a Smi is a shorthand for small integer. It varies quite a lot from other objects represented in V8.
+Smi 本质上就是小整数的缩写（small integer）。它与 V8 中其它对象有很多不同。在 V8 的源码中位于 objects.h: https://chromium.googlesource.com/v8/v8.git/+/master/src/objects.h
 
-If you dig into V8 source code, you will find a file objects.h there (https://chromium.googlesource.com/v8/v8.git/+/master/src/objects.h).
+你会发现，Smi不是堆对象。
 
-As you can see, a Smi is not a HeapObject.
+堆对象，指所有分配于堆上的变量的超类。我们（前端开发者）能够存取的变量本质上是 JSReceiver 的子类。
 
-A HeapObject is a "superclass for everything allocated in the heap". Basically, what we have access to (as frontend developers) is subclasses of JSReceiver.
+比如，我们经常用的数组（JSArray）和函数（JSFunction）就继承自这个类（JSReceiver）。
 
-For example, a plain array (JSArray) or function (JSFunction) inherits that class.
+查找 Javascript schemes 标签的相关信息，你会发现 Smi 不同于它们。
 
-So, as you can see, a Smi is something different. You can find some information about this if you look for Javascript tagging schemes.
+在 64 位机器上，Smi 是 32 位有符号整数；而在 32 位机器上，它是 31 位有符号整数。
 
-A Smi is a 32-bit signed int on 64-bit architectures and a 31-bit signed int on 32-bit architectures.
+如果传给它这个这个范围之外的值，这个函数就会发生反优化。
 
-If you pass anything else than such a number your function will be deopted.
-
-For example:
+比如：
 
 ```
 add(2 ** 31, 0)
 ```
 
-will be deopted because 2 ** 31 is higher than 2 ** 31 - 1.
+因为 2\*\*31 大于 2\*\*31 - 1，所以会发生反优化。
 
-Of course, if you don't pass a number but a string, array or anything else, you will get a deopt as well, for example:
+当然，如果传给它数字之外的值，比如字符串、数组或其它类型的值，也会发生反优化。例如：
 
 ```
 add([], 0);
@@ -266,19 +263,18 @@ add([], 0);
 add({ foo: 'bar' }, 2);
 ```
 
-Let's move to the second deopt index
+接下来看第二个反优化的情况。
 
 ```
 ;; debug: deopt index 1
 ```
 
-The same flow applies here. The only difference is that now it's a check for the second argument called ‘b’.
-
+与上面的情况类似，唯一的区别是它检查的是第二个参数 `b`。
 ```
 add(0, 2 ** 31) // would cause a deopt as well.
 ```
 
-Okay, let's move to the last deopt index.
+好，来看最后一个情况：
 
 ```
 ;; debug: deopt index 2
@@ -286,17 +282,17 @@ Okay, let's move to the last deopt index.
 
 'Overlow'
 
-Since you know what a Smi is, it's quite easy to understand what happens here.
+你已经明白 Smi 是什么了，这儿就很容易理解了。
 
-Basically, that reason will be triggered once the previous checks pass, but the function doesn't return a Smi. For instance,
+根本原因是，参数检查通过了，但函数的返回值却不是 Smi。例子：
 
 ```
 add(1, 2 ** 31 - 1); // returned value higher than 2 ** 31 - 1
 ```
 
-### Example 2
+### 例子2
 
-Let's move forward then and declare a function that looks identical.
+我们继续来声明一个看起来相同的函数。
 
 ```
 function concat(a, b) {
@@ -309,11 +305,11 @@ concat('p0lip loves ', 'v8');
 concat('optimized now! ', 'wooohooo');
 ```
 
-A similar function, but a result that’s way different. Why?! Don't the same checks apply to all identically looking functions?
+看起来一样的函数，结果却不相同。为什么呢？同样的函数检查却不相同？
 
-Nope! These checks are type-dependent, meaning that the engine doesn’t make assumptions in advance. It just adjusts its behavior and optimisations during runtime and once the function is executed. Therefore, even though the function looks the same, you have a different path.
+不！这些检查是类型相关的，也就是说 -- 引擎并不会提前做出假设，它仅在函数执行过程中做出调整和优化。因此，即使这两个函数看起来一样，但是路径（path）却不相同。
 
-In this case, our function is optimised by Crankshaft.
+这个例子中，我们的函数是由 Crankshaft 优化。
 
 ```
 --- Raw source ---
@@ -494,33 +490,29 @@ RelocInfo (size = 320)
 --- End code ---
 ```
 
-Okay, so let's discuss this case.
-
 ```
 ;; debug: deopt index 1
 ```
 
-A deopt occurs once you pass a HeapObject instead of a Smi. In fact it's the opposite of 'Not a smi', so I will skip explaining it. I can only add that this check applies to the first argument called ‘a’.
-
+一旦你不传给它 Smi，而是传递一个堆对象时，就会发生反优化。事实上，它与 “Not a Smi” 相反，所以我不会详细解释它。它仅仅检查了参数“a”？
 ```
 ;; debug: deopt index 2
 ```
 
-'wrong instance type' – this is more interesting. We haven't seen it yet!
+'wrong instance type' – 有趣！目前为止，我们还没见过它！
 
-Quite easy to guess. This check fails if you don't pass a string or when you pass nothing.
-
+很容易猜到，这次检查失败是因为你没有传递 string，或者没有传值。
 ```
 concat([], 'd');
 
 concat(new String('d'), 'xx');
 ```
 
-The last 2 reasons are exactly the same as above, but apply to the second argument ('b').
+最后 2 个原因和上面相同，但是检查第 2 个参数 “b”。
 
-### Example 3
+### 例子 3
 
-Okay, let’s move on and have a go at a slightly different example.
+我们来看一个稍微不同的例子。
 
 ```
 function elemAt(arr, index) {
@@ -757,11 +749,11 @@ RelocInfo (size = 329)
 --- End code ---
 ```
 
-Before we start explaining the new reasons, we have to make sure we know what a (hidden) map (aka a hidden class) is. As we have already mentioned, the engine must make assumptions in order to spend less time processing redundant operations. Still, we must know the elements well. Each element has a kind. V8 implements [TypeFeedbackVector](https://github.com/v8/v8/blob/master/src/feedback-vector.h). I encourage you to read [this](http://ripsawridge.github.io/articles/stack-changes/) article if you want to get some more information. [The known kinds are available here](https://chromium.googlesource.com/v8/v8.git/+/master/src/elements-kind.h).
+在解释这个之前，我们要先确保已经了解 hidden map（也称 hidden class）。如上文中提到的，引擎会做很多假设来减少一些无用操作花费的时间。然而，我们也要了解元素 -- 每个元素都有类型。V8 实现了 [TypeFeedbackVector](https://github.com/v8/v8/blob/master/src/feedback-vector.h)。推荐你阅读[这篇文章](http://ripsawridge.github.io/articles/stack-changes/)了解更多详情。已知类型见 https://chromium.googlesource.com/v8/v8.git/+/master/src/elements-kind.h
 
-We also do have a few native functions that help us check whether our element fits into a given type. Their definitions are located in the file above, but their [native names are available here](https://chromium.googlesource.com/v8/v8.git/+/master/src/runtime/runtime.h#590). 
+也有一些原生函数可以帮助我们检查元素是否匹配已有类型。它们的定义见上段链接，对应的原生名称见 https://chromium.googlesource.com/v8/v8.git/+/master/src/runtime/runtime.h#590 。
 
-So let’s get back to deopts.
+现在再来看反优化。
 
 ```
 ;; debug: deopt reason 'Smi' 
@@ -769,18 +761,18 @@ So let’s get back to deopts.
 ;; debug: deopt index 0
 ```
 
-Trivial. It happens when you pass a Smi as the function’s first argument called ‘arr’.
+显而易见。这是由于你给函数的第一个参数 “arr” 传递了 Smi。
 
 ```
 ;; debug: deopt reason 'wrong map'
 ;; debug: deopt index 1
 ```
 
-Unfortunately, this tends to happen very often.
+很不幸，这种情况经常发生。
 
-Our map is: `<Map(FAST_SMI_ELEMENTS)>`
+我们的 map（类型）是： `<Map(FAST_SMI_ELEMENTS)>`
 
-So any time our array ‘arr’ contains something different than a Smi element, the map will no longer match. Of course, this also happens when we don’t pass a plain array but something else, for instance:
+因此，一旦“arr”中的元素不同于 Smi 元素，map 就不再匹配。当我们向它传递的参数不是普通数组而是其它类型时，这种情况就会发生。比如：
 
 ```
 elemAt([‘netguru’], 0);
@@ -788,7 +780,7 @@ elemAt([‘netguru’], 0);
 elemAt({ 0: ‘netguru’ }, 0);
 ```
 
-If you want to check whether our array consists of Smi elements, you can run a native method I mentioned before.
+如果你想检查数组是否由 Smi 元素组成，可以使用上面提到的原生函数 `%HasFastSmiElements`。
 
 ```
 print(%HasFastSmiElements([2, 4, 5])); // prints true
@@ -800,18 +792,17 @@ print(%HasFastSmiElements([2.1])); // prints false
 print(%HasFastSmiElements({})); // prints false
 ```
 
-Okay, now we are performing checks on the second argument ('index'). As you will quickly notice, its deopt reasons rely on the first argument.
+好，我们现在来检查第二个参数 `index`，你很快就发现，它的反优化依赖于第二个参数。
 
 ```
 ;; debug: deopt reason 'out of bounds'
 ;; debug: deopt index 2
 ```
 
-'Out of bounds'. Literally, when your index is higher than the length of the array or lower than 0, this will cause a deopt.
+“Out of bounds“，从字面上看，当索引大于数组的长度，或者小于 0 时，就会导致反优化。
+也就是说，你在试图读取索引不属于数组的元素。
 
-In other words, you are trying to access the element whose index doesn't belong to the array.
-
-Examples:
+举例：
 
 ```
 elemAt([2,3,5], 4);
@@ -822,7 +813,7 @@ elemAt([2,3,5], 4);
 ;; debug: deopt index 4
 ```
 
-'not a heap number' – not a number (not to be confused with smi as it's doesn’t mean the same), examples:
+'not a heap number' – 不是数字（注意不要与 Smi 混淆），举例：
 
 ```
 elemAt([2,3,5], '2');
@@ -835,9 +826,8 @@ elemAt([2,3,5], new Number(5));
 ;; debug: deopt index 5
 ```
 
-If you encounter this check, it means you have passed a number, but... is it a valid number?
-
-Lost precision – not an int, for example 1.1
+如果你遇到这种检查，意味着你传递了一个数字，但不是正常值。
+丢失精度 -- 不是整数， 例子 1.1
 
 ```
 elemAt([0, 1], 1.1);
@@ -850,15 +840,15 @@ elemAt([0], NaN);
 ;; debug: deopt index 6
 ```
 
-Easy peasy.
+太容易了！
 
 ```
 add(0, -0); // weird, I know
 ```
 
-Easy task.
+也很容易理解！
 
-Yet another example – a combination of the previous ones. We won’t explain it in detail, and I’ve thought it as more of a task for you :)
+还有一个例子 -- 上面例子组合的情况。这儿就不详细解释了，还是留给你做练习吧 :)
 
 ```
 let secondIndex = 0;
@@ -875,7 +865,7 @@ secondIndex++;
 elemAtComplex(['wooo','dooo','dooboo'], 0);
 ```
 
-In case you don’t have d8:
+给出结果，以免你没有安装 d8 :)
 
 ```
 --- Raw source ---
@@ -1059,20 +1049,19 @@ RelocInfo (size = 142)
 --- End code ---
 ```
 
-That’s that.
+就到这儿，结束了！
 
-We went through two very simple examples, but hopefully you’ve got the general idea.
+我们看了 2 个非常简单的例子，希望你能明白总的思想。
 
-If you want to be notified once your function is deopted, just pass --trace-deopt.
+想看你的函数反优化的情况，只要传递 `--trace-opt`就好。
 
-To sum up – don’t over-optimize, because it may hurt the code readability in some cases (see our third example and the function elem-at). You can pass arrays of strings, etc. as well, there is really nothing wrong with it. However, don’t optimize if you don’t really need to. As far as the first example is concerned, in my opinion, even though the functions are pretty much the same, it’s better to have two separate functions with different namings, because when a different developer sees something like concat or sum, they can quickly find out what this function does.
+总的来说，不要过度优化，因为可能会伤害代码可读性（比如函数 ele-at 的第 3 个例子）。你也可以传递字符串数组或其它，这没问题。然而，如果真的不需要优化，就不要（优化）。就第 1 个例子而言，我认为即使 2 个函数看起来相同，最好还是能分成 2 个不同名称的函数，这样其他开发者看到 concat 或者 sum，马上就知道这个函数的作用。
 
-In the future, you can add a case in concat specific for strings, like for instance, (a + b).toUpperCase() etc. and you don’t have add any special cases to the ‘sum’ function.
+未来，你可以添加 string 特有的操作，比如 (a + b).toUpperCase()，而不需要对 sum 函数做任何特殊处理。
 
-Last but not least, you should always keep in mind that over-optimising might hurt readability and you may end up with unmaintainable code. Just try not to use any weird patterns you wouldn’t use in a compiled language.
+最后，你应该牢记过度优化可能会伤害可读性，最终导致不可维护的代码。尽量不要使用任何编译语言中不适用的奇怪模式。
 
-Finally, I would like to thank [Benedikt Meurer](https://twitter.com/bmeurer), a Software Engineer at Google and Tech Lead of the V8 team in Munich, who reviewed this article. Check out his [blog](http://benediktmeurer.de/) as well.
-
+最后的最后，我要感谢 Google 的软件工程师、V8 团队软件工程师兼技术领导 [Benedikt Meurer](https://twitter.com/bmeurer)，是他帮助校对了本文。这里是他的博客：http://benediktmeurer.de/
 
 ---
 

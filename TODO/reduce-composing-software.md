@@ -4,7 +4,7 @@
 > * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
 > * 校对者：[avocadowang](https://github.com/avocadowang) [Aladdin-ADD](https://github.com/Aladdin-ADD)
 
-# Reduce（软件编写）（第五部分） #
+# [第五篇] Reduce（软件编写）
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg">
 

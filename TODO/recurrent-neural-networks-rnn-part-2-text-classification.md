@@ -3,57 +3,57 @@
 > * 原文作者：[GokuMohandas](https://twitter.com/GokuMohandas)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-2-text-classification.md](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-2-text-classification.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Changkun Ou](https://github.com/changkun)
+> * 校对者：[yanqiangmiffy](https://github.com/yanqiangmiffy), [TobiasLee](https://github.com/TobiasLee)
 
 **本系列文章汇总**
 
-1. [RECURRENT NEURAL NETWORKS (RNN) – PART 1: BASIC RNN / CHAR-RNN](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-1-basic-rnn-char-rnn.md)
-2. [RECURRENT NEURAL NETWORKS (RNN) – PART 2: TEXT CLASSIFICATION](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-2-text-classification.md)
-3. [RECURRENT NEURAL NETWORKS (RNN) – PART 3: ENCODER-DECODER](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-3-encoder-decoder.md)
-4. [RECURRENT NEURAL NETWORKS (RNN) – PART 4: ATTENTIONAL INTERFACES](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-4-attentional-interfaces.md)
-5. [RECURRENT NEURAL NETWORKS (RNN) – PART 5: CUSTOM CELLS](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-5-custom-cells.md)
+1. [RNN 循环神经网络系列 1：基本 RNN 与 CHAR-RNN](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-1-basic-rnn-char-rnn.md)
+2. [RNN 循环神经网络系列 2：文本分类](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-2-text-classification.md)
+3. [RNN 循环神经网络系列 3：编码、解码器](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-3-encoder-decoder.md)
+4. [RNN 循环神经网络系列 4：注意力机制](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-4-attentional-interfaces.md)
+5. [RNN 循环神经网络系列 5：自定义单元](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-5-custom-cells.md)
 
-# RECURRENT NEURAL NETWORKS (RNN) – PART 2: TEXT CLASSIFICATION
+# RNN 循环神经网络系列 2：文本分类
 
-In **[Part 1](https://theneuralperspective.com/2016/10/04/05-recurrent-neural-networks-rnn-part-1-basic-rnn-char-rnn/)** we saw how to implement a simple RNN architecture with TensorFlow. Now, we will use those concepts and apply it to text classification. The main difference here is that our input will not be of fixed length as with the char-rnn model but instead have varying sequence lengths.
+在第一篇文章中，我们看到了如何使用 TensorFlow 实现一个简单的 RNN 架构。现在我们将使用这些组件并将其应用到文本分类中去。主要的区别在于，我们不会像 CHAR-RNN 模型那样输入固定长度的序列，而是使用长度不同的序列。
 
-## Text Classification:
+## 文本分类
 
-The dataset for this task is the **[sentence polarity dataset](http://www.cs.cornell.edu/people/pabo/movie-review-data/)** v1.0 from Cornell which has 5331 positive and negative sentiment sentences. This is a particularly small dataset but is enough to show how a recurrent network can be used for text classification.
+这个任务的数据集选用了来自 Cornell 大学的[语句情绪极性数据集 v1.0](http://www.cs.cornell.edu/people/pabo/movie-review-data/)，它包含了 5331 个正面和负面情绪的句子。这是一个非常小的数据集，但足够用来演示如何使用循环神经网络进行文本分类了。
 
-We will need to start by doing some preprocessing, which mainly includes tokenzing the input and appending additional tokens (padding, etc.). See the [full code](https://github.com/ajarai/the-neural-perspective/tree/master/recurrent-neural-networks/text_classification) for more info.
+我们需要进行一些预处理，主要包括标注输入、附加标记（填充等）。请参考[完整代码](https://github.com/ajarai/the-neural-perspective/tree/master/recurrent-neural-networks/text_classification)了解更多。
 
-## Preprocessing Steps:
+## 预处理步骤
 
-1. Clean sentences and separate into tokens.
-2. Convert sentences into numeric tokens.
-3. Store sequence lengths for each sentence
+1. 清洗句子并切分成一个个 token；
+2. 将句子转换为数值 token；
+3. 保存每个句子的序列长。
 
 ![Screen Shot 2016-10-05 at 7.32.36 PM.png](https://theneuralperspective.files.wordpress.com/2016/10/screen-shot-2016-10-05-at-7-32-36-pm.png?w=620)
 
-As you can see in the diagram above, we want to predict the sentiment of the sentence as soon as it is complete. Factoring in the additional paddings will introduce too much noise and your network will not perform well. **Note**: The only reason we pad our sequences is because we need to feed in fixed sized batches into the RNN. As you will see below, using a dynamic rnn will allow us to prevent unnecessary calculations once the sequence is complete.
+如上图所示，我们希望在计算完成时立即对句子的情绪做出预测。引入额外的填充符会带来过多噪声，这样的话你模型的性能就会不太好。**注意**：我们填充序列的唯一原因是因为需要以固定大小的批量输入进 RNN。下面你会看到，使用动态 RNN 还能避免在序列完成后的不必要计算。
 
-## Model:
+## 模型
 
-Code:
+代码：
 
-```
+```python
 class model(object):
 
     def __init__(self, FLAGS):
 
-        # Placeholders
+        # 占位符
         self.inputs_X = tf.placeholder(tf.int32,
             shape=[None, None], name='inputs_X')
         self.targets_y = tf.placeholder(tf.float32,
             shape=[None, None], name='targets_y')
         self.dropout = tf.placeholder(tf.float32)
 
-        # RNN cell
+        # RNN 单元
         stacked_cell = rnn_cell(FLAGS, self.dropout)
 
-        # Inputs to RNN
+        # RNN 输入
         with tf.variable_scope('rnn_inputs'):
             W_input = tf.get_variable("W_input",
                 [FLAGS.en_vocab_size, FLAGS.num_hidden_units])
@@ -61,16 +61,16 @@ class model(object):
         inputs = rnn_inputs(FLAGS, self.inputs_X)
         #initial_state = stacked_cell.zero_state(FLAGS.batch_size, tf.float32)
 
-        # Outputs from RNN
+        # RNN 输出
         seq_lens = length(self.inputs_X)
         all_outputs, state = tf.nn.dynamic_rnn(cell=stacked_cell, inputs=inputs,
             sequence_length=seq_lens, dtype=tf.float32)
 
-        # state has the last RELEVANT output automatically since we fed in seq_len
-        # [0] because state is a tuple with a tensor inside it
+        # 由于使用了 seq_len[0]，state 自动包含了上一次的对应输出
+        # 因为 state 是一个带有张量的元组
         outputs = state[0]
 
-        # Process RNN outputs
+        # 处理 RNN 输出
         with tf.variable_scope('rnn_softmax'):
             W_softmax = tf.get_variable("W_softmax",
                 [FLAGS.num_hidden_units, FLAGS.num_classes])
@@ -82,32 +82,32 @@ class model(object):
         self.accuracy = tf.equal(tf.argmax(
             self.targets_y,1), tf.argmax(logits,1))
 
-        # Loss
+        # 损失函数
         self.loss = tf.reduce_mean(
             tf.nn.sigmoid_cross_entropy_with_logits(logits, self.targets_y))
 
-        # Optimization
+        # 优化
         self.lr = tf.Variable(0.0, trainable=False)
         trainable_vars = tf.trainable_variables()
-        # clip the gradient to avoid vanishing or blowing up gradients
+        # 使用梯度截断来避免梯度消失和梯度爆炸
         grads, _ = tf.clip_by_global_norm(
             tf.gradients(self.loss, trainable_vars), FLAGS.max_gradient_norm)
         optimizer = tf.train.AdamOptimizer(self.lr)
         self.train_optimizer = optimizer.apply_gradients(
             zip(grads, trainable_vars))
 
-        # Below are values we will use for sampling (generating the sentiment
-        # after each word.)
+        # 下面是用于采样的值
+        # (在每个单词后生成情绪)
 
-        # this is taking all the ouputs for the first input sequence
-        # (only 1 input sequence since we are sampling)
+        # 取所有输出作为第一个输入序列
+        # (由于采样，只需一个输入序列)
         sampling_outputs = all_outputs[0]
 
         # Logits
         sampling_logits = rnn_softmax(FLAGS, sampling_outputs)
         self.sampling_probabilities = tf.nn.softmax(sampling_logits)
 
-        # Components for model saving
+        # 保存模型的组件
         self.global_step = tf.Variable(0, trainable=False)
         self.saver = tf.train.Saver(tf.all_variables())
 
@@ -126,7 +126,7 @@ class model(object):
                 input_feed = {self.inputs_X: batch_X,
                               self.dropout: dropout}
                 output_feed = [self.sampling_probabilities]
-        else: # training
+        else: # 训练
             output_feed = [self.train_optimizer,
                            self.loss,
                            self.accuracy]
@@ -138,15 +138,15 @@ class model(object):
                 return outputs[0], outputs[1]
             elif sampling:
                 return outputs[0]
-        else: # training
+        else: # 训练
             return outputs[0], outputs[1], outputs[2]
 ```
 
-The code above is the model that trains using the input text. **Note**: We decided to keep batch size in our input and target placeholders for clarity but we should make these independent of a particular batch size. If we do this, we will have to feed in initial_state since it depends on batch_size. We feed in the tokens from each input sequence by embedding them. A proven strategy for better performance is to pretrain these embedding weights with a skip-gram model on the input text.
+上面的代码就是我们的模型代码，它在训练的过程中使用了输入的文本。**注意**：为了清楚起见，我们决定将批量数据的大小保存在我们的输入和目标占位符中，但是我们应该让它们独立于一个特定的批量大小之外。由于这个特定的批量大小依赖于 `batch_size`，如果我们这么做，那么我们就还得输入一个 `initial_state`。我们通过嵌入他们来为每个数据序列来输入 token。实践策略表明，我们在输入文本上使用 skip-gram 模型预训练嵌入权重能够取得更好的性能。
 
-In this model, we use dynamic_rnn again but this time we feed in the value for sequence_length which is a list that has the length of each sequence. By doing this, we avoid doing unnecessary computation past the last word of the input sequence. The function **length** is what gives us this list and is shown below. We could’ve also just as easily calculated seq_len outside and then pass it in via a placeholder.
+在此模型中，我们再次使用 `dynamic_rnn`，但是这次我们提供了`sequence_length` 参数的值，它是一个包含每个序列长度的列表。这样，我们就可以避免在输入序列的最后一个词之后进行的不必要的计算。**`length`** 函数就用来获取这个列表的长度，如下所示。当然，我们也可以在外面计算`seq_len`，再通过占位符进行传递。
 
-```
+```python
 def length(data):
 	relevant = tf.sign(tf.abs(data))
 	length = tf.reduce_sum(relevant, reduction_indices=1)
@@ -154,54 +154,53 @@ def length(data):
 	return length
 ```
 
-Since our PAD token is a 0, we can use the sign property of each token to determine wether it is a padding token or not. tf.sign will give us a 1 if input > 0 and 0 if input==0\. By using this, we can find the number of tokens with the positive sign by reduce by the column index. We can now feed this length into dynamic_rnn.
+由于我们填充符 token 为 0，因此可以使用每个 token 的 sign 性质来确定它是否是一个填充符 token。如果输入大于 0，则 `tf.sign` 为 1；如果输入为 0，则为 `tf.sign` 为 0。这样，我们可以逐步通过列索引来获得 sign 值为正的 token 数量。至此，我们可以将这个长度提供给 `dynamic_rnn` 了。
 
-**Note:** We could have easily just calculated seq_lens outside and pass it in as a placeholder. This way we wouldn’t have to depend on PAD_ID=0.
+**注意**：我们可以很容易地在外部计算 `seq_lens`，并将其作为占位符进行传参。这样我们就不用依赖于 `PAD_ID = 0` 这个性质了。
 
-Once we receive all the outputs and the final state from our rnn, we want to isolate only the relevant output. For each input we will have a different last relevant output since each input length can vary. We can find the relevant output simply by looking at **state** because state is the last RELEVANT output since we fed in seq_len into dynamic_rnn. Note that we have to do state[0] because the returning state is a tuple of tensor(s).
+一旦我们从 RNN 拿到了所有的输出和最终状态，我们就会希望分离对应输出。对于每个输入来说，将具有不同的对应输出，因为每个输入长度不一定不相同。由于我们将 `seq_len` 传给了 `dynamic_rnn`，而 `state` 又是最后一个对应输出，我们可以通过查看 `state` 来找到对应输出。注意，我们必须取 `state[0]`，因为返回的 `state` 是一个张量的元组。
 
-Couple more things to note: I did not use **initial_state** instead I just passed in dtype into dynamic_rnn. Also, dropout is a parameter I pass in with **step()** depending on **forward_only()** or not.
+其他需要注意的事情：我并没有使用 **`initial_state`**，而是直接给 `dynamic_rnn` 设置 `dtype`。此外，`dropout` 将根据 `forward_only` 与否，作为参数传递给 **`step()`**。
 
-## Inference:
+## 推断
 
-I also wanted to generate predictions for some sample sentences but not just for each sentence as a whole. I instead wanted to see how the prediction score changes as each word is read by the rnn while keeping the previous words in memory. Here is one example of what this looks like (closer to 0 indicated negative sentiment):
+总的来说，除了单个句子的预测外，我还想为具有一堆样本句子整体情绪进行预测。我希望看到的是，每个单词都被 RNN 读取后，将之前的单词分值保存在内存中，从而查看预测分值是怎样变化的。举例如下（值越接近 0 表明越靠近负面情绪）：
 
 ![Screen Shot 2016-10-05 at 8.34.51 PM.png](https://theneuralperspective.files.wordpress.com/2016/10/screen-shot-2016-10-05-at-8-34-51-pm.png?w=620)
 
-**NOTE**: This is a very simple model with a very limited dataset. The main objective was just to show how it should be made and how it will run. For superior performance, try using a much larger and richer dataset and consider additional architectural implementations such as attention, concept aware word embeddings, and symbolization to name a few.
+**注意**：这是一个非常简单的模型，其数据集非常有限。主要目的只是为了阐明它是如何搭建以及如何运行的。为了获得更好的性能，请尝试使用数据量更大的数据集，并考虑具体的网络架构，比如 Attention 模型、Concept-Aware 词嵌入以及隐喻（symbolization to name）等等。
 
-## Extra: Loss Masking (not needed here)
+## 损失屏蔽（这里不需要）
 
-Finally, we compute the cost and you may notice we aren’t doing any “loss masking” here because we isolated our relevant output and used only that to compute the loss. However, for other tasks such as machine translation, we may have the outputs that come from the PAD tokens as well. We do not want to account for these outputs because the dynamic_rnn with seq_lens parameter fulfilled will return 0 for these outputs. Here is a simple example of what this implementation will look like; again, we use the fact that our PAD token is a 0.
+最后，我们来计算 cost。你可能会注意到我们没有做任何损失屏蔽（loss masking）处理，因为我们分离了对应输出，仅用于计算损失函数。然而，对于其他诸如机器翻译的任务来说，我们的输出很有可能还来自填充符 token。我们不想考虑这些输出，因为传递了 `seq_lens` 参数的 `dynamic_rnn` 将返回 0。下面这个例子比较简单，只用来说明这个实现大概是怎么回事；我们这里再一次使用了填充符 token 为 0 的性质：
 
-```
-# Flatten the logits and targets
-targets = tf.reshape(targets, [-1]) # flatten targets
+```python
+# 向量化 logits 和目标
+targets = tf.reshape(targets, [-1]) # 将张量 targets 转为向量
 losses = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, targets)
-mask = tf.sign.(tf.to_float(targets)) # 0 is targets == 0, -1 if < 0 and 1 > 0
-masked_losses = mask*losses # contributions from padding locations are zeroed out
+mask = tf.sign.(tf.to_float(targets)) # targets 为 0 则输出为 0, target < 0 则输出为 -1, 否则 为 1
+masked_losses = mask*losses # 填充符所在位置的贡献为 0
 ```
 
-The first step will be to flatten the logits and the targets. For flattening the logits, a good idea is to flatten the outputs from the dynamic_rnn into [-1, num_hidden_units] shape and then multiply by softmax weights [num_hidden_units, num_classes]. By masking the loss, we are canceling out the loss contributions from the padded locations.
+首先我们要将 logits 和 targets 向量化。为了使 logits 向量化，一个比较好的办法是将 `dynamic_rnn` 的输出向量化为 `[-1，num_hidden_units]` 的形状，然后乘以 softmax 权重 `[num_hidden_units，num_classes]`。通过损失屏蔽操作，就可以消除填充符所在位置贡献的损失。
 
-## All Code:
+## **代码**
 
-**[GitHub Repo](https://github.com/ajarai/the-neural-perspective/tree/master/recurrent-neural-networks/text_classification) (Updating all repos, will be back up soon!)**
+**[GitHub 仓库](https://github.com/GokuMohandas/the-neural-perspective/tree/master/recurrent-neural-networks) （正在更新，敬请期待！）**
 
-## Change of Shape Reference:
+## 张量形状变化的参考
 
-Raw unprocessed text X is **[N, ]** and y is **[N, C]** where C is the number of output classes. (These were made manually but we would use a one-hot function for a multi-class situation).
+原始未处理过的文本 `X` 形状为 `[N,]` 而 `y` 的形状为 `[N, C]`，其中 `C` 是输出类别的数量（这些是手动完成的，但我们需要使用独热编码来处理多类情况）。
 
-Then X is converted to tokens and padded and is now **[N, <max_len>]**. We also are feeding in seq_len which is of shape **[N, ]** and holds the lengths of each sentence.
+然后 `X` 被转化为 token 并进行填充，变成了 `[N, <max_len>]`。我们还需要传递形状为 `[N,]` 的 `seq_len` 参数，包含每个句子的长度。
 
-Now X, seq_lens and y go through the model and first is the embedding [NXD] where D is the embedding dimension. X now transforms from **[N, <max_len>]** to **[N, <max_len>, D]**. Recall that there is an intermediate representation where X is one-hot encoded [N, <max-len>, <num_words>] but we don’t actually have to make this because we just use the word’s index and take that row from embedding weights.
+现在 `X`、`seq_len` 和 `y` 通过这个模型首先嵌入为 `[NXD]`，其中 D 是嵌入维度。`X` 便从 `[N, <max_len>]` 转换为了 `[N, <max_len>, D]`。回想一下，X 在这里有一个中间表示，它被独热编码为了 `[N, <max_len>, <num_words>]`。但我们并不需要这么做，因为我们只需要使用对应词的索引，然后从词嵌入权重中取值就可以了。
 
-We need this embedded X into the dynamic_rnn which returns all_outputs (**[N, <max_len>, D]**) and state(**[1, N, D]**), for us it is the last relevant state since we fed in seq_lens. From the dimensions, you can see that all_outputs is all of the outputs from the RNN for each word in each sentence. Whereas state is only the last relevant output for each sentence.
+我们需要将这个嵌入后的 `X` 传递给 `dynamic_rnn` 并返回 `all_outputs` （`[N, <max_len>, D]`）以及 `state`（`[1, N, D]`）。由于我们输入了 `seq_lens`，对于我们而言它就是最后一个对应的状态。从维度的角度来说，你可以看到， `all_outputs` 就是来自 RNN 的对于每个句子中的每个词的全部输出结果。然而，`state` 仅仅只是每个句子的最后一个对应输出。
 
-Now we are going to feed into softmax weights but before that we convert state from **[1, N, D]** to **[N, D]** by just taking the first index (state[0]). We can now dot product with softmax weights **[D, C]** to get outputs of **[N, C]** which we do the exponential softmax operation and normalization to and compute the loss with the target_y **[N, C]**.
+现在我们要输入 softmax 权重，但在此之前，我们需要通过取第一个索引（`state[0]`）来把状态从 `[1,N,D]` 转换为`[N,D]`。如此便可以通过与 softmax 权重 `[D,C]` 的点积，来得到形状为 `[N,C]` 的输出。其中，我们做指数级 softmax 运算，然后进行正则化，最终结合形状为 `[N,C]` 的 `target_y` 来计算损失函数。
 
-**Note**: If you used an basic RNN or GRU, the shapes of the all_outputs and state returns from dynamic_rnn would be same. But if we used an LSTM the all_outputs still has shape **[N, <max_len>, D]** but state is of shape **[1, 2, N, D]**.
-
+**注意**：如果你使用了基本的 RNN 或者 GRU，从 `dynamic_rnn` 返回的 `all_outputs` 和 `state` 的形状是一样的。但是如果使用 LSTM 的话，`all_outputs` 的形状就是 `[N, <max_len>, D]` 而 `state` 的形状为 `[1, 2, N, D]`。
 
 ---
 
