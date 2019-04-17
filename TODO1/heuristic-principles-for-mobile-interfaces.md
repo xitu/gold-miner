@@ -77,7 +77,7 @@
 
 一般规律是，数字交互设计不要让用户产生困惑。为了减少决策时间和错误，Jill Gerhardt-Powal 向设计师提出了一个挑战，通过以一种清晰而明显的方式显示数据来减少不确定性。这可以通过去除不必要的内容以及使用颜色、布局和排版引导用户通过屏幕来实现。用户不应该分心，而应该提供足够的指导来轻松实现他们的目的。
 
-Ben Terrett 经常使用 [GOV.UK 's](https://www.gov.uk/guidance/government-design-principles) 的第四条设计原则:“努力让事情变得简单。”他认为，设计团队应该完全理解他们正在处理的问题，以及提供直观、信息丰富和成功用户体验的最佳解决方案的过程。在这个 [案例研究](https://gds.blog.gov.uk/2014/07/28/doing-the- the- work-to-make-things-simple/) 中，记录了他们的方法。
+Ben Terrett 经常使用 [GOV.UK 's](https://www.gov.uk/guidance/government-design-principles) 的第四条设计原则:“努力让事情变得简单。”他认为，设计团队应该完全理解他们正在处理的问题，以及提供直观、信息丰富和成功用户体验的最佳解决方案的过程。在这个 [案例研究](https://gds.blog.gov.uk/2014/07/28/doing-the-the-work-to-make-things-simple) 中，记录了他们的方法。
 
 ![英国政府数字服务部门(British Government Digital Services)对信息进行分解，以确定用户需要知道什么，并创建了视觉设计，消除了一切不必要的东西，以支持信息的清晰性。(由 [英国政府数字服务](https://designnotes.blog.gov.uk/2014/07/14/things-we-learnt-designing-register-to-vote/) 设计)](https://cdn-images-1.medium.com/max/3360/0*4XbF10wLsf_RzW9S.jpg)
 
