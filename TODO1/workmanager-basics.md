@@ -9,7 +9,7 @@
 
 ![Illustration by [Virginia Poltrack](https://twitter.com/VPoltrack)](https://cdn-images-1.medium.com/max/3200/0*_fXBLlwf_uEp7nDj)
 
-Welcome to the second post of our WorkManager series. [WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager/) is an [Android Jetpack ](https://developer.android.com/jetpack/)library that runs deferrable, guaranteed background work when the work’s constraints are satisfied. WorkManager is the current best practice for many types of background work. [In the first blog post](https://medium.com/androiddevelopers/introducing-workmanager-2083bcfc4712), we talked about what WorkManager is and when to use WorkManager.
+Welcome to the second post of our WorkManager series. [WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager/) is an [Android Jetpack ](https://developer.android.com/jetpack/)library that runs deferrable, guaranteed background work when the work’s constraints are satisfied. WorkManager is the current best practice for many types of background work. [In the first blog post](https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-workmanager.md), we talked about what WorkManager is and when to use WorkManager.
 
 In this blog post, I’ll cover:
 
@@ -65,7 +65,6 @@ Let’s focus on how you execute one piece of work, before we get to chaining mu
 * Always return a value representing success, failure, or retry.
 
 Here’s an example showing how to implement a `Worker` that uploads an image:
-
 
 Two things to note:
 
