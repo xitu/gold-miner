@@ -15,7 +15,7 @@
 
 ***
 
-首先，我们为什么要使用设计模式呢？简而言之，就是为了避免我们的代码乱成一团，当然这不是唯一的原因，其中有一个原因是可测试性。设计模式有很多，我们可以指出几个非常受欢迎的模式： **MVC**，**MVVM**，**MVP** 和 **VIPER**。下面的图片将这几个设计模式的Distribution，可测试性和易用性进行了比较。
+首先，我们为什么要使用设计模式呢？简而言之，就是为了避免我们的代码乱成一团，当然这不是唯一的原因，其中有一个原因是可测试性。设计模式有很多，我们可以指出几个非常受欢迎的模式： **MVC**，**MVVM**，**MVP** 和 **VIPER**。下面的图片将这几个设计模式的分布性，可测试性和易用性进行了比较。
 
 ![Compare of design patterns ( from NSLondon )](https://cdn-images-1.medium.com/max/3664/1*wRnW_Qb2Q0rPTjbqQ96dhQ.png)
 
@@ -54,7 +54,7 @@ MVVM 的一个特性是数据和 View 的绑定，而 RxSwift 就很完美地实
 
 既然 RxSwift 是基于响应式编程的，那这究竟是什么意思呢？
 
-> 在计算机中，响应式编程或反应式编程（英语：Reactive programming）是一种面向数据流和变化传播的编程范式。这意味着可以在编程语言中很方便地表达静态或动态的数据流，而相关的计算模型会自动将变化的值通过数据流进行传播。—— 维基百科
+> 在计算机中，响应式编程或反应式编程（Reactive programming）是一种面向数据流和变化传播的编程范式。这意味着可以在编程语言中很方便地表达静态或动态的数据流，而相关的计算模型会自动将变化的值通过数据流进行传播。—— 维基百科
 
 也许你在读完后对本段的任何内容还是不怎么了解，那下面我们就通过以下的例子来进一步理解它：
 
@@ -82,7 +82,7 @@ print("c=\(c)")
 
 在 RxSwift（当然还有其他 Rx）的世界中，一切事物都是事件流，其中包括 UI 事件和网络请求等等。请切记这一点，我将用现实生活中的例子来解释：
 
-你的手机是一个可观察对象（**Observable**），它会产生一些事件，例如铃声或者推送通知等，这会让你引起注意，事实上你订阅（**subscribe**）了你的手机，并决定如何处理这些事件，比如你有时候删除或者查看一些通知，事实上这些事件是一些信号（**signal**），而你是做出决定的观察者（**Observer**）。
+你的手机是一个 **可观察对象（Observable）**，它会产生一些事件，例如铃声或者推送通知等，这会让你引起注意，事实上你订阅（**subscribe**）了你的手机，并决定如何处理这些事件，比如你有时候删除或者查看一些通知，事实上这些事件是一些 **信号（signal）**，而你是做出决定的 **观察者（Observer）**。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*iq8fm2j0k2b5xlpQorNiuA.gif)
 
@@ -90,7 +90,7 @@ print("c=\(c)")
 
 ### Observable 和 Observer（订阅者）：
 
-在Rx世界中，一些变量是 **Observable**，而另一些是 **Observer** （或订阅者）。
+在 Rx 世界中，一些变量是 **Observable**，而另一些是 **Observer** （或订阅者）。
 
 因此 **Observable** 是通用的，如果它确遵循了 ObservableType 协议，你可以监听你想要的任何类型。
 
@@ -115,7 +115,7 @@ helloObservableString.subscribe({ event in
 // completed
 ```
 
-你可能在想输出为什么会出现 `next` 和 `completed`，为什么 “hello world” 就不能好好打印一个字符串，我得说这就是 Observable 最重要的特性：
+你可能在想输出为什么会出现 `next` 和 `completed`，为什么 ‘hello world’ 就不能好好打印一个字符串，我得说这就是 Observable 最重要的特性：
 
 实际上每个 Observable 都是一个 **序列**，与 Swift 里 [Sequence](https://developer.apple.com/documentation/swift/sequence) 的主要区别在于 Observable 的值可以是异步的。如果你不理解这点并不重要，但是希望你能理解下面的描述，我以图的方式呈现了这一特性：
 
@@ -141,7 +141,7 @@ helloObservableString.subscribe({ event in
 
 如果 Observable 完成，则调用 completed 事件（6 之后）。
 
-如果你想要取消订阅一个 Observable，我们可以调用 **dispose** 方法，或者如果你想在你的 View deinit 的时调用这个方法你应该使用 **DisposeBag** 在你的类反初始化时来进行你想要的操作。**在这里强调一点，如果你忘记使用 dispose 的话会导致内存泄漏☠️💀**。例如，你应该这样订阅 Observable：
+如果你想要取消订阅一个 Observable，我们可以调用 **dispose** 方法，或者如果你想在你的 View deinit 的时候调用这个方法你应该使用 **DisposeBag** 在你的类反初始化时来进行你想要的操作。**在这里强调一点，如果你忘记使用 dispose 的话会导致内存泄漏☠️💀**。例如，你应该这样订阅 Observable：
 
 ```swift
 let disposeBag = DisposeBag()
@@ -156,7 +156,7 @@ helloObservableString.subscribe({ event in
 
 ### Map:
 
-你可以使用 map 方法让信号在到达订阅者之前做出一些改变。例如，我们有 Observable 的Int，它发出了 2，3，4 三个数字，现在我们想要它们在传给订阅者之前都乘以 10，我们可以这么做：
+你可以使用 map 方法让信号在到达订阅者之前做出一些改变。例如，我们有 Observable 的 Int，它发出了 2，3，4 三个数字，现在我们想要它们在传给订阅者之前都乘以 10，我们可以这么做：
 
 ![map marble](https://cdn-images-1.medium.com/max/2000/1*fba7HHwf1BBKRiM8ka6WjQ.png)
 
