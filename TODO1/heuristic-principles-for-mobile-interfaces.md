@@ -2,128 +2,128 @@
 > * 原文作者：[Jordan DeVos](https://medium.com/@jordandevos)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/heuristic-principles-for-mobile-interfaces.md](https://github.com/xitu/gold-miner/blob/master/TODO1/heuristic-principles-for-mobile-interfaces.md)
-> * 译者：
+> * 译者：[Hyde Song](https://github.com/HydeSong)
 > * 校对者：
 
-# 10 heuristic principles for mobile interfaces
+# 移动界面设计的10项启发式原则
 
 ![](https://cdn-images-1.medium.com/max/3440/1*IRIxsMuVD4AUlChUyZzOAA.png)
 
-Jakob Nielsen was consulting and teaching usability engineering in human-computer interactions when he began to pick up on a lot of patterns. So in 1994, he collected and released a set of [evaluation principles](https://www.nngroup.com/articles/ten-usability-heuristics/) for usability heuristics that reflected what he had learned. Today, after nearly 25 years and the transformation of the computer into a smartphone, Nielsen’s principles still stand strong.
+当 Jakob Nielsen 开始研究设计模式时，正在从事人机交互方面的可用性工程的咨询和教学工作。所以在1994年，他收集并发布了一套可用性启发的 [评估原则](https://www.nngroup.com/articles/ten-usability-heuristics/) ，这些原则反映了他所研究的东西。如今，经过了近25年的时间，随着电脑向智能手机的转变，Nielsen 的原则依然站得住脚。
 
-Human-centered design amplified the importance of the user, and design processes have adapted accordingly; however, though Nielsen’s principles have remained universal across all screen types, with the continued rise in the use of mobile devices, the emphasis is on [mobile interfaces](https://www.toptal.com/designers/mobile/mobile-app-design-mistakes).
+用户中心设计强调了用户的重要性，设计过程也相应地进行了调整;然而，虽然 Nielsen 的原则在所有屏幕类型上仍然是通用的，但是随着移动设备使用的不断增加，设计的重心已然在 [移动界面](https://www.toptal.com/designers/mobile/mobile-app-design-mistakes) 上了。
 
-Search the web for heuristic principles and a long list of slightly varied sets will populate. Below is a curated collection of ten principles that are inspired by human-centered design and usability thought leaders.
+在网上搜索启发性原则，你会找到一长串略有不同的文集。以下十项原则的精选集，是由以人为中心的设计和可用性思想倡导者所启发的。
 
-## Usability Heuristics Begin with User Needs
+## 可用性启发从用户需求开始
 
-Before jumping into the set of principles, it must be recognized that the importance of the user continues to grow. The redesign of [GOV.UK](https://www.gov.uk/), despite being a government website, is a prime example of a user-led product that gained global recognition for its usability.
+在开始讨论这十项原则之前，必须认识到用户的重要性在不断增长。[GOV.UK](https://www.gov.uk/) 虽然是一个政府网站，但它的重新设计是用户主导的产品因其可用性获得全球认可的一个典型例子。
 
-Ben Terrett, design director of the project, began with a set of user interface [design principles](https://www.gov.uk/guidance/government-design-principles) that ranged from product strategy to visual design approaches. The very first principle was like a north star to the success of the product: “Always start with user needs. If you don’t know what the user needs are, you won’t build the right thing. Do the research, analyze data, talk to users. Don’t make assumptions. Have empathy for users, and remember that what they ask for isn’t always what they need.”
+项目设计总监 Ben Terrett 从一套用户界面 [设计原则](https://www.gov.uk/guidance/government-design-principles) 开始，范围从产品策略到视觉设计方法。正是第一项原则指引了产品的成功："永远从用户需求出发。如果不知道用户需要什么，就无法构建正确的东西。做调查，分析数据，和用户交流。不要假设。对用户要有同理心，记住他们要求的并不总是他们需要的。”
 
-Heuristic principles for usability evaluations help identify where a UI design is falling short of delivering a user-friendly experience.
+可用性评估的启发式原则有助于确定UI设计在哪些方面不能提供用户友好的体验。
 
-## \#1 Transparency of System Structure
+## 一、系统结构透明
 
-**The act of making certain elements and structures visible so the user has a sufficient understanding of context.**
+**让某些元素和结构可见，以便用户对上下文有足够的理解。**
 
-The UI should allow the user to believe they are in control. They should be able to easily answer these questions: “Where am I now?” and “Where can I go from here?” When a system is transparent, the user has the control to make decisions about what will happen next. They gain autonomy and subsequent confidence in using the interface.
+应该允许用户相信 UI 在控制之中。UI 应该能够轻松地回答这些问题："我现在在哪里?” 和 “从这里我能去哪里?” 当一个系统是透明的，用户可以决定接下来会发生什么。用户获得了使用界面的自主权和随后的信心。
 
-![A navigation menu transforms into a hamburger menu, indicating where the information can be found later. (design by [Gal Shir](https://galshir.com/))](https://cdn-images-1.medium.com/max/3360/0*BAE8DM_ocDtJZg-c.gif)
+![导航菜单变为汉堡包菜单，指示稍后可以在何处找到信息。(由 [Gal Shir](https://galshir.com/) 设计)](https://cdn-images-1.medium.com/max/3360/0*BAE8DM_ocDtJZg-c.gif)
 
-## \#2 Immediacy of Action Feedback
+## 二、操作反馈的即时性
 
-**The response to a user’s action that confirms the system has received the request.**
+**对用户操作响应确保系统已收到请求。**
 
-Any user action should have an immediate interface reaction. Instant feedback reassures the user that the system is doing what’s expected. [Nick Babich](https://www.smashingmagazine.com/2016/12/best-practices-for-animated-progress-indicators/), a UX specialist at Smashing Magazine, uses the progress indicator as a good example of a clearly communicated status of an action. He argues it visually informs the user that their action has been accepted and the system will reveal the next action shortly. Without an indicator, the user is left with uncertainty and frustration that can lead to an interrupted journey.
+任何用户操作都应该有一个即时的界面反馈。即时反馈让用户放心，系统正在做预期的事情。[Nick Babich](https://www.smashingmagazine.com/2016/12/best-practices-for-animated-progress-indicators/) 是 Smashing Magazine 的 UX 专家，他使用进度指示器作为一个很好的例子，来表示操作正在沟通状态。他认为，它可以直观地通知用户，他们的操作已经被接受，系统很快就会指示下一步操作。如果没有指示器，用户就会面临不确定性和挫折感，从而导致用户访问中断。
 
-![A simple animation confirms the pull-to-refresh action was received and the content below is up to date. (design by [jiangxiaobei](https://dribbble.com/jiangxiaobei))](https://cdn-images-1.medium.com/max/3360/0*9VP-bybmPpAQo8Ns.gif)
+![用一个简单的动画来确认收到了下拉刷新操作，下面的内容是最新的。(由 [jiangxiaobei](https://dribbble.com/jiangxiaobei) 设计)](https://cdn-images-1.medium.com/max/3360/0*9VP-bybmPpAQo8Ns.gif) 
 
-## \#3 Awareness of Errors
+## 三、给用户返回错误信息
 
-**A sufficient amount of information as well as options the user can take when they have gone down a path they’d rather not have taken.**
+**当用户访问了错误路径也可以看到清晰而明了的提示内容。**
 
-At some point, users invariably interact with a mobile interface in a way that wasn’t intended and find themselves in a frustrating and unproductive situation that doesn’t support their needs. Barriers and dead ends are common reasons a journey ends prematurely. The UI should provide enough indicators to help the user recognize, diagnose, and recover from the error.
+在某种程度上，用户总是以一种意想不到的方式与移动界面进行交互，在使用的时候感到沮丧和烦恼，无法满足自己的需求。用户不能流畅轻松地使用是用户提早离开的常见原因。UI 应该提供足够的提示信息来帮助用户识别、判断和从错误中恢复。
 
-Assistance should always be easy to access; however, striking a balance is difficult. Too many options can cause cognitive overload. The user should have a clear understanding of how to solve an error and understand how to prevent it in the future.
+提示信息应始终容易获得；然而，平衡点的把握是困难的。给用户太多的选择反而会让用户反感。应该让用户对如何解决错误有一个清晰的认识，并让用户了解以后如何防止错误的再次发生。
 
-![The empty state in this mobile interface explains why the user is seeing the screen and provides two actions that will solve the error. (design by [Murat Mutlu](https://dribbble.com/shots/1738412-Project-empty-state))](https://cdn-images-1.medium.com/max/3360/0*uPupo3gf8fjFHJTD.jpg)
+![移动界面的空状态解释了用户为什么会看到这个错误页面，并提供了两个操作来解决错误。(由 [Murat Mutlu](https://dribbble.com/shots/1738412-Project-empty-state) 设计)](https://cdn-images-1.medium.com/max/3360/0*uPupo3gf8fjFHJTD.jpg)
 
-## \#4 Flexibility of Use
+## 四、使用的灵活性
 
-**An interface that can be intuitively and efficiently used by users with differing ranges of experience.**
+**界面应该能让经验不同的用户都能直观有效地使用。**
 
-An interactive mobile experience must be independent of outside user guidance. Whether it’s the user’s first time with the mobile app or the hundredth, the interface should accommodate both scenarios.
+移动端的交互体验不需要用户操作指南。不管用户第一次使用移动 app 还是第一百次使用，界面都应该适应这两种场景。
 
-A seasoned user should have access to shortcuts and deeper systemic understanding, while a new user should never be abandoned in simple confusion. With flexibility in the UI, the user can choose and control a journey that best suits their capabilities and needs.
+老用户应该能够访问快捷方式、更深入地整体地理解应用，而新用户不应该因为简单的困惑而流失。有了 UI 的灵活性，用户就可以找到符合自身能力和满足自己需求的途径。
 
-[Jill Gerhardt-Powal’s](https://en.wikipedia.org/wiki/Heuristic_evaluation#Gerhardt-Powals.E2.80.99_cognitive_engineering_principles) cognitive engineering principles advise designers to “provide multiple coding of data when appropriate — the system should provide data in varying formats and/or levels of detail in order to promote cognitive flexibility and satisfy user preferences.” An interface that is either overwhelming or restrictive will ensure a frustrating experience.
+[Jill Gerhardt-Powal 的](https://en.wikipedia.org/wiki/Heuristic_evaluation#Gerhardt-Powals.E2.80.99_cognitive_engineering_principles) 认知工程学原则建议设计师“在适当的时候提供多种数据编码——系统应该提供不同格式和/或细节级别的数据，以提高认知灵活性和满足用户偏好。”无论是让用户感到压力的还是感到约束的界面都会让用户在使用的时候感到烦恼。
 
-![A new user should be introduced to tool functionality but a seasoned user would never see tooltips for actions she takes regularly. (design by [Lakshmi Karuppiah](https://dribbble.com/lakshmikaruppiah))](https://cdn-images-1.medium.com/max/3360/0*Hx11UX6AHVjOPMrT.jpg)
+![应该向新用户介绍工具的功能，但是老用户永远不会看到这些工具提示。 (由 [Lakshmi Karuppiah](https://dribbble.com/lakshmikaruppiah) 设计)](https://cdn-images-1.medium.com/max/3360/0*Hx11UX6AHVjOPMrT.jpg)
 
-## \#5 Familiarity with Universal Experiences
+## 五、贴合大众习惯的用户体验
 
-**Use of design elements that relate to common human experiences and expectations.**
+**使用符合人们常识的意料之内的设计元素。**
 
-The [history of GUI](https://www.wired.com/1997/12/web-101-a-history-of-the-gui/) began when Apple used real-world references in the first user-friendly computer interface design. “Lisa” was designed with elements like a folder icon to indicate file organization. These physical references were useful when digital interactions were unfamiliar to most people, but with digital literacy on the rise, universal references no longer need to be so literal.
+[图形界面的历史](https://www.wired.com/1997/12/web-101-a-history-of-the-gui/) 始于苹果计算机公司在第一个用户友好的计算机界面设计中对照了现实世界的物品。”Lisa“的图形界面中使用了比如用文件夹图标表示文件组织结构的类似的设计元素。当大多数人都不熟悉数字交互时，这些现实的对照是有用的，但是随着人们数字素养的提高，大多的对照就不再需要字面化了。
 
-Common user expectations have developed as we spend more time interacting with screens. We expect a “+” to expand into more information, and a navigation menu to stay at either the top or bottom of a mobile screen. By tapping into references that the majority of users will understand, an interface becomes intuitive.
+随着人们花更多的时间与屏幕交互，共同的用户预期已经形成。我们希望"+"可以展开更多信息，导航菜单放在移动屏幕的顶部或底部。利用大多数用户都能理解的对照，界面变得直观。
 
-![These two icons are instantly recognizable and clearly indicate an action the majority of users can understand. (design by [Mohammad Amiri](https://dribbble.com/shots/4832226-Search-Icon-Interaction-Search-Close))](https://cdn-images-1.medium.com/max/3360/0*1StwrCYHxA3AV3xE.gif)
+![这两个图标可以立即识别，并清楚地表示大多数用户都能理解的操作。(由 [Mohammad Amiri](https://dribbble.com/shots/4832226-Search-Icon-Interaction-Search-Close) 设计)](https://cdn-images-1.medium.com/max/3360/0*1StwrCYHxA3AV3xE.gif)
 
-## \#6 Limitation of Information and Design Aesthetic
+## 六、防止过多信息和过度设计
 
-**The creation of a minimal design eliminating unnecessary elements that could interfere with a streamlined and purposeful experience.**
+**创建最小的设计，排除可能影响流畅的且达成目标的用户体验的非必要元素。**
 
-A general rule of thumb for all digital interactions is to eliminate confusion. In order to reduce decision time and error, Jill Gerhardt-Powal challenges designers to reduce uncertainty by displaying data in a manner that is clear and obvious. This can be achieved by removing unnecessary content and by using color, layout, and typography to lead a user through a screen. Users shouldn’t be distracted but provided with enough guidance to easily achieve their purpose.
+一般规律是，数字交互设计不要让用户产生困惑。为了减少决策时间和错误，Jill Gerhardt-Powal 向设计师提出了一个挑战，通过以一种清晰而明显的方式显示数据来减少不确定性。这可以通过去除不必要的内容以及使用颜色、布局和排版引导用户通过屏幕来实现。用户不应该分心，而应该提供足够的指导来轻松实现他们的目的。
 
-Ben Terrett often used the fourth of [GOV.UK’s](https://www.gov.uk/guidance/government-design-principles) design principles: “Do the hard work to make it simple.” He believed it is up to the design team to fully understand the issues they are dealing with, as well as the process leading to the best solution for providing an intuitive, informative, and successful user experience. Some of their methods are described in this [case study](https://gds.blog.gov.uk/2014/07/28/doing-the-hard-work-to-make-things-simple/).
+Ben Terrett 经常使用 [GOV.UK 's](https://www.gov.uk/guidance/government-design-principles) 的第四条设计原则:“努力让事情变得简单。”他认为，设计团队应该完全理解他们正在处理的问题，以及提供直观、信息丰富和成功用户体验的最佳解决方案的过程。在这个 [案例研究](https://gds.blog.gov.uk/2014/07/28/doing-the- the- work-to-make-things-simple/) 中，记录了他们的方法。
 
-![The British Government Digital Services broke down information to determine what users need to know and created visual designs that eliminated anything unnecessary in order to support the clarity of information. (design by [Government Digital Services](https://designnotes.blog.gov.uk/2014/07/14/things-we-learnt-designing-register-to-vote/))](https://cdn-images-1.medium.com/max/3360/0*4XbF10wLsf_RzW9S.jpg)
+![英国政府数字服务部门(British Government Digital Services)对信息进行分解，以确定用户需要知道什么，并创建了视觉设计，消除了一切不必要的东西，以支持信息的清晰性。(由 [英国政府数字服务](https://designnotes.blog.gov.uk/2014/07/14/things-we-learnt-designing-register-to-vote/) 设计)](https://cdn-images-1.medium.com/max/3360/0*4XbF10wLsf_RzW9S.jpg)
 
-## \#7 Prioritization of Function Over Form
+## 七、功能优先于形式
 
-**Design decisions are driven by what an element is meant to do rather than prioritizing its visual style.**
+**设计决策是由元素要做什么来驱动的，而不是根据它的视觉风格来确定优先级。**
 
-**“If you think something is clever and sophisticated, beware — it is probably self-indulgence.” — Don Norman, prolific product designer and author of ‘The Design of Everyday Things’**
+**“如果你认为某件事很聪明、很复杂，要小心——这可能是自我放纵。——Don Norman，多产的产品设计师，《日常用品设计》的作者**
 
-The visual design of an interface should always begin with defined functions. When style and trends are prioritized, the outcome may look beautiful and draw a lot of attention, but can ultimately lead to a disjointed [user experience](https://www.toptal.com/designers/mobile-ux). A visual form cannot save a dysfunctional design.
+界面的视觉设计应该总是从定义的功能开始。当风格和趋势被优先考虑时，结果可能看起来很漂亮，吸引了很多关注，但最终可能导致脱节的 [用户体验](https://www.toptal.com/designers/mobile-ux)。视觉形式无法拯救功能失调的设计。
 
-Visual cues can be used to direct a user in the app’s functionality. [Fritt’s Law](https://www.interaction-design.org/literature/article/fitts-s-law-the-importance-of-size-and-distance-in-ui-design) states that shape, spacing, and size can lead a user to understand a situation and take the desired action. It’s here that form supports and amplifies function.
+视觉提示可以用来在应用程序的功能中指导用户。[Fritt 's Law](https://www.interaction-design.org/literature/article/fitts-s- Law of size-and-distance-in-ui-design) 指出，形状、间距和大小可以引导用户了解情况并采取所需的行动。正是在这里，形式支撑并放大了功能。
 
-![This digital boarding pass considers how a traveler will need the information and uses visual techniques to make the information functional. (design by [Marin Begovic](https://dribbble.com/marinb))](https://cdn-images-1.medium.com/max/3360/0*3bb_fgKD3wieHvVP.gif)
+![这种数字登机牌考虑了旅客对信息的需求，并使用视觉技术使信息具有功能性。(由 [Marin Begovic](https://dribbble.com/marinb) 设计)](https://cdn-images-1.medium.com/max/3360/0*3bb_fgKD3wieHvVP.gif)
 
-## \#8 Availability of Information
+## 八、信息要容易获得
 
-**The strategic placement of interface elements at users’ fingertips so they don’t have to rely on memory.**
+**把界面元素放在用户唾手可得的最佳位置，这样用户就不必凭记忆来操作。**
 
-It’s easier to recognize something than recall it from memory. If a mobile interface function relies on a piece of information or the understanding of a system that isn’t universally familiar, the information should be accessible so the user can reference it easily.
+认出某物比回忆某物要容易。如果移动界面的功能以少量信息或受众不太熟悉的系统为基础，那么就应该让信息容易获得，方便用户使用。
 
-One of [Nielsen’s](https://en.wikipedia.org/wiki/Heuristic_evaluation) heuristic principles suggests the designer should “minimize the user’s memory load by making objects, actions, and options visible. The user should not have to remember information from one part of the dialogue to another. Instructions for use of the system should be visible or easily retrievable whenever appropriate.”
+[Nielsen的](https://en.wikipedia.org/wiki/Heuristic_evaluation) 启发式原则之一建议，设计人员应该"通过使每个对象、动作和选项都是可见的来减少用户记忆的负担。用户不必记住会话的每个部分的信息。使用该系统的指示应是可见的，或在适当时容易检索。”
 
-Jill Gerhardt-Powal suggests “bringing together lower level data into a higher level summation to reduce cognitive load.” She also states that “display names and labels should be context-dependent, which will improve recall and recognition.” It’s important to be aware that a user seeing an interface for the first time will not have the knowledge and familiarity with the information that the designers do. Repetition of information may seem excessive to a seasoned team but can be essential for new users.
+Jill Gerhardt-Powal 建议"将较低层次的数据整合到较高层次的总和中，以减少认知负担。”她还表示，“显示名称和标签应该与上下文相关，这将提高回忆和识别能力。”重要的是要意识到，第一次看到界面的用户不会像设计师那样了解和熟悉信息。对于经验丰富的团队来说，重复信息似乎有些冗余，但对于新用户来说却是必不可少的。
 
-![Uber’s app provides three levels of cab services and makes each option easily accessible by the user at the moment of need. (design by Uber)](https://cdn-images-1.medium.com/max/3360/0*x9HW0XVOKQKc_6tQ.gif)
+![Uber 的 app 提供了三种级别的出租车服务，让用户在需要的时候很容易地访问每个选项。(由 Uber 设计)](https://cdn-images-1.medium.com/max/3360/0*x9HW0XVOKQKc_6tQ.gif)
 
-## \#9 Reliability of Consistency
+## 九、可靠的一致性
 
-**The use of consistent and standardized elements such as words, situations, and actions to create a cohesive experience.**
+**使用一致的和标准化的元素，如措辞、场景和操作来创建一个有凝聚力的体验。**
 
-Humans are drawn to patterns — we use them to make sense of the world. Make patterns within a mobile interface and it becomes a teaching tool for users to learn what to expect and how to interact with the [interface design](https://www.toptal.com/designers/ui/ui-styleguide-better-ux).
+人类被模式所吸引——我们用模式来理解世界。在移动界面中创建模式，它将成为一个训练工具，让用户了解应该期望什么以及如何与 [界面设计](https://www.toptal.com/designers/ui/ui- styleguide-betterux) 交互。
 
-“This isn’t a straitjacket or a rule book. Every circumstance is different.” GOV.UK’s Design Principles state that an interface should be consistent, but not uniform. As Jill Gerhardt-Powal echoes, “New information should be presented within familiar frameworks (e.g., schemas, metaphors, everyday terms) so that information is easier to absorb.”
+“这不应该成为束缚。每一种情况都是不同的。GOV.UK 的设计原则表明，界面风格应该是一致的，但不应该是千篇一律的。正如 Jill Gerhardt-Powal 所呼应的，“新信息应该在熟悉的框架内呈现(例如，模式、隐喻、日常用语)，这样信息更容易被人们接收。”
 
-![Google’s heightened focus on design manifests itself in detailed guidelines for all its UI designs. (design by [Material](https://material.io/))](https://cdn-images-1.medium.com/max/3360/0*uBKIdRuzxPspM8e2.gif)
+![google 对设计的高度关注体现在其所有 UI 设计的详细指南中。 (由 [Material](https://material.io/) 设计)](https://cdn-images-1.medium.com/max/3360/0*uBKIdRuzxPspM8e2.gif)
 
-## \#10 Judicious Redundancy
+## 十、明智的冗余
 
-**The constant practice of reflection during the design process in order to ensure the user interface design principles and usability heuristics align with the product’s purpose and user needs.**
+**在设计过程中不断进行反思，以确保用户界面设计原则和可用性启发与产品的目的和用户需求保持一致。**
 
-Jakob Nielsen was the first to admit that it is impossible to present universal specifics for [UI design](https://www.toptal.com/designers/ui). For instance, two of his heuristic principles could conceivably contradict each other — #6: provide all the information a user needs to make a decision and #8: eliminate anything unnecessary.
+Jakob Nielsen 是第一个承认不可能为 [UI 设计](https://www.toptal.com/designers/ui) 提供通用细节的人。例如，他的两条启发式原则可以相互矛盾——#6：提供用户做出决策所需的所有信息;#8：消除任何不必要的东西。
 
-It is up to the heuristic evaluator and the design team to determine the best decisions for their unique use cases. If the product is human-centered and built around user needs, the team will be supported by knowing this, and have a strong sense of purpose in making those decisions.
+这取决于启发式评估人员和设计团队为他们独特的用例确定最佳策略。如果产品是以用户为中心的并围绕用户需求构建的，团队了解这一点后在做决定时有明确的目标。
 
-## Further reading:
+## 扩展阅读：
 
 * [Heuristic Analysis for UX — How to Run a Usability Evaluation](https://www.toptal.com/designers/usability/usability-analysis-how-to-run-a-heuristic-evaluation)
 
