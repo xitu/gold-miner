@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mvvm-rxswift-on-ios-part-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mvvm-rxswift-on-ios-part-1.md)
 > * 译者：[iWeslie](https://github.com/iWeslie)
-> * 校对者：
+> * 校对者：[swants](https://github.com/swants)
 
 # iOS 里的 MVVM 和 RxSwift
 
@@ -15,7 +15,7 @@
 
 ***
 
-首先，我们为什么要使用设计模式呢？简而言之，就是为了避免我们的代码乱成一团，当然这不是唯一的原因，其中有一个原因是可测试性。设计模式有很多，我们可以指出几个非常受欢迎的模式： **MVC**，**MVVM**，**MVP** 和 **VIPER**。下面的图片将这几个设计模式的分布协作性，可测试性和易用性进行了比较。
+首先，我们为什么要使用设计模式呢？简而言之，就是为了避免我们的代码乱成一团，当然这不是唯一的原因，其中有一个原因是可测试性。设计模式有很多，我们可以指出几个非常受欢迎的模式：**MVC、MVVM、MVP** 和 **VIPER**。下面的图片将这几个设计模式的分布协作性，可测试性和易用性进行了比较。
 
 ![Compare of design patterns ( from NSLondon )](https://cdn-images-1.medium.com/max/3664/1*wRnW_Qb2Q0rPTjbqQ96dhQ.png)
 
@@ -27,7 +27,7 @@
 
 ### MVC：
 
-苹果官方建议使用 MVC 进行 iOS 编程，如果你有一定的 iOS 开发经验，你可能会熟悉 **MVC**。这个模式由 **Model**，**View** 和 **Controller** 组成，其中 Controller 负责将 Model 连接到 View。理论上看起来 View 和 Controller 是两个不同的东西，但在 iOS 的世界中，不幸的是，大多数情况下它们是一回事。当然，在小型项目中，一切似乎都符合规律，但是一旦你的项目变得庞大，Controller 因实现了大部分业务逻辑而变得臃肿，这会导致代码变得混乱，但是如果你能正确编写 MVC，并尽可能地把 Controller 里的东西解耦，大多数情况下这个问题将得到解决。
+苹果官方建议使用 MVC 进行 iOS 编程，如果你有一定的 iOS 开发经验，你可能会熟悉 **MVC**。这个模式由 **Model、View** 和 **Controller** 组成，其中 Controller 负责将 Model 连接到 View。理论上看起来 View 和 Controller 是两个不同的东西，但在 iOS 的世界中，不幸的是，大多数情况下它们是一回事。当然，在小型项目中，一切似乎都符合规律，但是一旦你的项目变得庞大，Controller 因实现了大部分业务逻辑而变得臃肿，这会导致代码变得混乱，但是如果你能正确编写 MVC，并尽可能地把 Controller 里的东西解耦，大多数情况下这个问题将得到解决。
 
 ![MVC from apple docs](https://cdn-images-1.medium.com/max/2608/1*la8KCs0AKSzVGShoLQo2oQ.png)
 官方文档中的 MVC
@@ -36,7 +36,7 @@
 
 ![picture from github](https://cdn-images-1.medium.com/max/2912/1*VoIppMaaG6ZwRuE6zpctlg.jpeg)
 
-**MVVM** 代表 **Model**，**View** 和 **ViewModel**，其中，**View** 和业务逻辑实现了 Controller，View 以及动画，**ViewModel** 里则是 api 的调用。实际上 ViewModel 这层是 Model 和 View 之间的接口并且它给 **View** 提供数据。有一点要注意的是，如果你在 ViewModel 的文件中看到以下代码，那你可能是在某处犯了一个错误：
+**MVVM** 代表 **Model、View** 和 **ViewModel**，其中，**View** 和业务逻辑实现了 Controller，View 以及动画，**ViewModel** 里则是 api 的调用。实际上 ViewModel 这层是 Model 和 View 之间的接口并且它给 **View** 提供数据。有一点要注意的是，如果你在 ViewModel 的文件中看到以下代码，那你可能是在某处犯了一个错误：
 
 ```swift
 import UIKit
@@ -90,7 +90,7 @@ print("c=\(c)")
 
 ### Observable 和 Observer（订阅者）：
 
-在 Rx 世界中，一些变量是 **Observable**，而另一些是 **Observer** （或订阅者）。
+在 Rx 世界中，一些变量是 **Observable**，而另一些是 **Observer**（或订阅者）。
 
 因此 **Observable** 是通用的，如果它确遵循了 ObservableType 协议，你可以监听你想要的任何类型。
 
@@ -123,7 +123,7 @@ helloObservableString.subscribe({ event in
 
 在上面的图中，我们有三个 Observable，第一行是 Int 类型，从 1 数到 6。在第二行是 String，从 ‘a’ 到 ‘f’，随即发生了一些错误。最后一行是 Observable 类型的手势，它还没有完成，还在继续。
 
-这些显示 Observable 变量事件的图像叫做大理石图。想要了解更多信息，您可以访问 [这个网站](http://rxmarbles.com/) 或从 App Store 下载 [这个 App](https://itunes.apple.com/us/app/rxmarbles/id1087272442?ls=1&mt=8)（它也是开源的👍😎，[这里](https://github.com/RxSwiftCommunity/RxMarbles) 有 App 的源代码）。
+这些显示 Observable 变量事件的图像叫做大理石图。想要了解更多信息，您可以访问 [这个网站](http://rxmarbles.com/) 或从 App Store 下载 [这个 App](https://itunes.apple.com/us/app/rxmarbles/id1087272442?ls=1&mt=8)（它也是开源的 👍😎，[这里](https://github.com/RxSwiftCommunity/RxMarbles) 有 App 的源代码）。
 
 在 Rx 世界中，对于每个 Observable，都是由 3 种可能的枚举值组成：
 
@@ -227,7 +227,7 @@ Rx 世界比你想象的要大得多，我在 [文章的第二部分](https://gi
 
 你可以通过 [文章的第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/practical-mvvm-rxswift.md) 将 Rx 引入到 MVVM 的实际项目中，因为通过实例你将更好、更容易地理解 RxSwift 的概念。
 
-你可以通过 [Twitter](https://twitter.com/Mohammad_z74) 或者发送 email 来联系到本文作者，邮箱是 mohammad_z74@icloud.com✌️
+你可以通过 [Twitter](https://twitter.com/Mohammad_z74) 或者发送 email 来联系到本文作者，邮箱是 mohammad_z74@icloud.com ✌️
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
