@@ -2,14 +2,14 @@
 > * 原文作者：[Matt Smith](https://allthingssmitty.com/) 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/using-closest-to-return-the-correct-dom-element.md](https://github.com/xitu/gold-miner/blob/master/TODO1/using-closest-to-return-the-correct-dom-element.md)
-> * 译者：
-> * 校对者
+> * 译者：[LucaslEliane](https://github.com/lucasleliane)
+> * 校对者：[ZYuMing](https://github.com/ZYuMing)，[Moonliujk](https://github.com/Moonliujk)
 
-# Using closest() to return the correct DOM element
+# 使用 closest() 函数获取正确的 DOM 元素
 
-I was recently working with a vertical navigation component and ran into a hiccup where the JavaScript code wouldn’t fire depending on where I clicked on the menu item link. I did some digging and thought I’d share a little about what I discovered and how I was able to resolve the problem.
+最近我在使用垂直导航组件的时候遇到了一个问题：点击菜单项的时候，对应的 JavaScript 代码并没有触发。我对这个问题进行了比较深入的了解之后，分享下解决这个问题的过程以及在这过程中发现的技巧。
 
-For context, all menu items have two child elements: an icon embedded within the link, as well as a `<span>` element for the label.
+这个问题的场景是这样的，所有的菜单项都有两个子元素：一个图标，以及一个作为标签的 `<span>` 元素，这两个元素均嵌入到了链接中。
 
 ```html
 <li>
@@ -26,56 +26,56 @@ For context, all menu items have two child elements: an icon embedded within the
 </li>
 ```
 
-Here I also have a submenu in a `<div>` element and added a touch of JavaScript to give it an open/close toggle:
+在 `<div>` 元素中还有二级菜单，我添加了一些 JavaScript 来控制二级菜单的开启/关闭状态。
 
 ```js
 document.addEventListener('click', function (event) {
 
-  // Make sure clicked element is our toggle
+  // 保证点击的元素是可以切换开关状态的
   if (!event.target.classList.contains('toggle')) {
     return;
   }
   event.preventDefault();
 
-  // Get the content
+  // 获取元素内容
   var content = document.querySelector(event.target.hash);
   if (!content) {
     return;
   }
 
-  // Toggle the content
+  // 切换内容的开启/关闭状态
   toggle(content);
 
 }, false);
 ```
 
-The `toggle()` method executes a function to check if the submenu has the `.is-visible` CSS class. If the element has that class, the submenu will be hidden; otherwise, the submenu is displayed:
+`toggle` 方法会触发一个函数，这个函数会检查二级菜单是否有 `.is-visible` CSS 类。如果元素具有这个类，那么二级菜单将会被隐藏，否则会显示二级菜单：
 
 ```js
 var toggle = function (elem, timing) {
 
-  // If the element is visible, hide it
+  // 如果二级菜单是可见的，那么就隐藏它
   if (elem.classList.contains('is-visible')) {
     hide(elem);
     return;
   }
 
-  // Otherwise, show it
+  // 否则，展示二级菜单
   show(elem);
 };
 ```
 
-I expected that clicking anywhere within the menu item would fire the JavaScript and perform the toggle. But if I clicked on either the icon or the label child elements, the JavaScript wouldn’t execute. The reason is that event.target returns the exact DOM element. Clicking on the icon or the label returned only the image or span elements.
+我希望点击菜单项中的任何位置，都会触发 JavaScript 并且执行切换操作。但是如果我点击图标或者标签子元素，JavaScript 就不会执行。原因是 event.target 返回到的是实际点击到的 DOM 元素。点击图标或者标签只会返回图标或者标签元素。
 
-## The `closest()` method
+## `closest()` 方法
 
-This was something I had to look up. I needed the target and return the parent element, not the child elements. I found the solution using the `closest()` method. This method travels up the DOM tree from the current element and returns the closest ancestor that matches the given parameter:
+我需要获取到触发了点击事件的目标，并且返回其父元素，而不是子元素。我采用了使用 `closest()` 方法的解决方案。这个方法会从当前元素开始，遍历 DOM 树，并且返回和给定参数匹配的最近的祖先：
 
 ```js
 let closestElement = Element.closest(selector); 
 ```
 
-This was my “ah-ha!” moment. I could chain `closest()` to `event.target` to find and return the parent element (menu item link), regardless if I ended up clicking on the child elements (icon or label):
+这段代码让我醍醐灌顶。我可以通过 `closest()` 和 `event.target` 来找到并且返回父元素（菜单项链接），无论我点击的是哪个子元素（图标或者标签）：
 
 ```js
 if (!event.target.closest('a').classList.contains('toggle')) {
@@ -85,13 +85,13 @@ if (!event.target.closest('a').classList.contains('toggle')) {
 var content = document.querySelector(event.target.closest('a').hash);
 ```
 
-Now clicking anywhere in the menu item link fires the JavaScript to toggle the submenu.
+现在，点击菜单项的任何地方都会触发 JavaScript 并且切换二级菜单了。
 
-[Play with DEMO and get source code in CODEPEN](https://codepen.io/AllThingsSmitty/pen/WPMPaV)
+[可以在 CODEPEN 上尝试一下，并且还有源码。](https://codepen.io/AllThingsSmitty/pen/WPMPaV)
 
-Hopefully this tip will help you if you need to target specific elements in the DOM. The `closest()` method is supported in most major browsers but requires a polyfill with IE11.
+希望这个小窍门可以帮助你定位特定的 DOM 元素。`closest()` 方法在大多数主流浏览器上都是支持的，但是在 IE11 上需要引入 polyfill。
 
-If you’re looking for more in-depth reading on this, I’d recommend Zell Liew’s post on traversing the DOM. He covers this method and a few other tricks that are worth checking out.
+如果你需要更加深入的了解本文相关的内容，我推荐 [Zell Liew 的关于遍历 DOM 元素的文章](https://zellwk.com/blog/dom-traversals/)。他介绍了本文使用的这种方法以及其他一些值得一试的技巧。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
