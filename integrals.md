@@ -1730,10 +1730,11 @@
 |[用 Swift 开发我的第一个 iOS 应用前，我想要知道这些内容](http://gold.xitu.io/entry/57c66667c4c9710061a57b3f/)|校对|2|
 |[你的设计应该「所见即所得」](http://gold.xitu.io/entry/57c5978f128fe1005fdf4858/)|校对|1|
 
-## 译者：[steinliber](https://github.com/steinliber) 历史贡献积分：120 当前积分：15 二零一九：4
+## 译者：[steinliber](https://github.com/steinliber) 历史贡献积分：128 当前积分：23 二零一九：12
 
 |文章|类型|积分|
 |------|-------|-------|
+|[多线程简介](https://juejin.im/post/5ca351da6fb9a05e6a08745b)|翻译|8|
 |[数据流简介](https://juejin.im/entry/5c8f457cf265da60cf50e5b2)|翻译|4|
 |[Golang 数据结构：树](https://juejin.im/post/5c8e023351882545eb718c9d)|翻译|7|
 |2018 年 11 月兑 Google DIY 纸板音响 1 个|减去积分|45|
@@ -6098,10 +6099,11 @@
 |[用 Java 代码实现区块链](https://juejin.im/post/5ae57d9e6fb9a07ab83dcc03)|校对|4|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
 
-## 译者：[mingxing47](https://github.com/mingxing47) 历史贡献积分：27.5 当前积分：27.5
+## 译者：[mingxing47](https://github.com/mingxing47) 历史贡献积分：30.5 当前积分：30.5 二零一九：3
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Java 和 etcd：因为 jetcd 最终走到了一起](https://juejin.im/post/5cae92f8f265da0360239b89)|翻译|3|
 |[如何像程序员般思考 —— 蕴含在问题解决中的经验](https://juejin.im/post/5b76839ae51d4566491c24bb)|翻译|5|
 |[我是如何使用 Python 在 Medium 上找到并关注有趣的人](https://juejin.im/post/5b72c61851882561311fccce)|校对|1.5|
 |[使用 Python 进行自动化特征工程](https://juejin.im/post/5b6ea0e4e51d4519044adff0)|翻译|7|
@@ -6112,10 +6114,11 @@
 |[利用 Keras 深度学习库进行词性标注教程](https://juejin.im/post/5ae4613a5188256727742d7d)|校对|1|
 |[GAN 的 Keras 实现：构建图像去模糊应用](https://juejin.im/post/5ad6e358f265da237b229bb2)|校对|1|
 
-## 译者：[radialine](https://github.com/radialine) 历史贡献积分：6 当前积分：6
+## 译者：[radialine](https://github.com/radialine) 历史贡献积分：12 当前积分：12 二零一九：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Spring 的分布式事务实现 — 使用和不使用XA — 第三部分](https://juejin.im/post/5caee1ee6fb9a068890f1eff)|翻译|6|
 |[用 Skater 解读预测模型：打开模型的黑箱](https://juejin.im/post/5ae1494bf265da0b7c06f835)|翻译|6|
 
 ## 译者：[ALVINYEH](https://github.com/ALVINYEH) 历史贡献积分：99 当前积分：99
@@ -6173,10 +6176,11 @@
 |[在 Google I/O 2018 观看 Flutter 的正确姿势](https://juejin.im/post/5aebd7166fb9a07ab4587b3f)|翻译|1.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|7|
 
-## 译者：[kezhenxu94](https://github.com/kezhenxu94) 历史贡献积分：49 当前积分：49 二零一九：4
+## 译者：[kezhenxu94](https://github.com/kezhenxu94) 历史贡献积分：50 当前积分：50 二零一九：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Spring 的分布式事务实现 — 使用和不使用XA — 第三部分](https://juejin.im/post/5caee1ee6fb9a068890f1eff)|校对|1|
 |[编写可以复用的 HTML 模板](https://juejin.im/post/5ca5b858e51d4524a918560f)|校对|1|
 |[Java Service 加载器 和 spring Factories 加载器的比较](https://juejin.im/post/5c7fbe52e51d4541e510d282)|校对|1|
 |[修改 Git 错误的高明方法](https://juejin.im/post/5c735a235188256262174e48)|校对|1|
@@ -7777,10 +7781,11 @@
 |------|-------|-------|
 |[审校文章 https://github.com/xitu/gold-miner/issues/5118](https://github.com/xitu/gold-miner/issues/5118)|奖励|1|
 
-## 译者：[Fengziyin1234](https://github.com/Fengziyin1234) 历史贡献积分：77.5 当前积分：77.5 二零一九：77.5
+## 译者：[Fengziyin1234](https://github.com/Fengziyin1234) 历史贡献积分：80 当前积分：80 二零一九：80
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Spring 的分布式事务实现 — 使用和不使用XA — 第二部分](https://juejin.im/post/5cae93ddf265da03a85aaac3)|校对|2.5|
 |[从 0 创建自定义元素](https://juejin.im/post/5cb2b5465188257abd66c354)|校对|2.5|
 |[2019 React Redux 完全指南](https://juejin.im/post/5cac8ccd6fb9a068530111c7)|校对|5|
 |[编写可以复用的 HTML 模板](https://juejin.im/post/5ca5b858e51d4524a918560f)|校对|1|
@@ -8165,10 +8170,11 @@
 |[四个理由让你使用灰度色调进行设计](https://juejin.im/post/5c961b1fe51d456a6743109e)|校对|1.5|
 |[浏览器中 CSS 支持指南](https://juejin.im/post/5c87a9006fb9a049e4138c7e)|校对|2.5|
 
-## 译者：[Endone](https://github.com/Endone) 历史贡献积分：13.5 当前积分：13.5 二零一九：13.5
+## 译者：[Endone](https://github.com/Endone) 历史贡献积分：15.5 当前积分：15.5 二零一九：15.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[多线程简介](https://juejin.im/post/5ca351da6fb9a05e6a08745b)|校对|2|
 |[图解 Map、Reduce 和 Filter 数组方法](https://juejin.im/post/5caf030d6fb9a068736d2d7c)|校对|1|
 |[Javascript 中的最长关键字序列长什么样子？](https://juejin.im/post/5c8efaf951882545e85c20e2)|校对|1.5|
 |[数据流简介](https://juejin.im/entry/5c8f457cf265da60cf50e5b2)|校对|1.5|
@@ -8224,10 +8230,12 @@
 |------|-------|-------|
 |[时间顺序的价格异常检测](https://juejin.im/post/5c998f8ae51d454e523b6ed5)|校对|2|
 
-## 译者：[xiantang](https://github.com/xiantang) 历史贡献积分：1 当前积分：1 二零一九：1
+## 译者：[xiantang](https://github.com/xiantang) 历史贡献积分：8 当前积分：8 二零一九：8
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Java 和 etcd：因为 jetcd 最终走到了一起](https://juejin.im/post/5cae92f8f265da0360239b89)|校对|1|
+|[Spring 的分布式事务实现 — 使用和不使用XA — 第二部分](https://juejin.im/post/5cae93ddf265da03a85aaac3)|翻译|6|
 |[线框图变得不那么重要了 — 好事啊！](https://juejin.im/post/5c9269edf265da6116245ee9)|校对|1|
 
 ## 译者：[BYChoo](https://github.com/BYChoo) 历史贡献积分：0.5 当前积分：0.5 二零一九：0.5
@@ -8272,3 +8280,9 @@
 |------|-------|-------|
 |[从 0 创建自定义元素](https://juejin.im/post/5cb2b5465188257abd66c354)|翻译|3|
 |[写给大家看的 Cache-Control 指令配置](https://juejin.im/post/5c9d92506fb9a070f5067b3d)|校对|2|
+
+## 译者：[Graywd](https://github.com/Graywd) 历史贡献积分：2.5 当前积分：2.5 二零一九：2.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[多线程简介](https://juejin.im/post/5ca351da6fb9a05e6a08745b)|校对|2.5|
