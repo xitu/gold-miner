@@ -46,7 +46,7 @@ const Hello = ({ userName }) => (
 export default Hello;
 ```
 
-这种组件一般来说很容易进行测试。你需要的是如何定位组件（拿上面的例子来说，我们选择类名为 `greeting` 的组件），还要知道输出的期望值。为了的到纯组件我将使用 `RITEway` 的 `render-component` 方法。
+这种组件一般来说很容易进行测试。你需要知道的是如何定位组件（拿上面的例子来说，我们选择类名为 `greeting` 的组件），还要知道输出的期望值。为了的到纯组件我将使用 `RITEway` 的 `render-component` 方法。
 
 首先安装 RITEway：
 
@@ -269,7 +269,7 @@ ok 4 Given expected props: should render the click button.
 # ok
 ```
 
-现在，我们仅需要应用 state 逻辑并将其与事件触发连接起来。
+现在，我们仅需要实现 state 逻辑并将其与事件触发连接起来。
 
 ## 单元测试有状态的组件
 
