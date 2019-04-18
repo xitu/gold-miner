@@ -36,7 +36,7 @@ Made 的首席架构师，尊敬的 Bob 先生，就我们现在讨论的问题�
 
 另：去年圣诞节及时发布的一本新书，Leonardo Giordani 的 [Python 干净架构（Clean Architectures in Python）](https://leanpub.com/clean-architectures-in-python)。这本书是两本书合二为一，第一部分是 TDD 的介绍，但第二部分有四章介绍了与我在这里讨论的类似的模式。
 
-我也很喜欢一年前 David Seddon 的一个演讲 [岩石河：如何构建你的 Django 单体应用（monolith）](http://seddonym.me/talks/2017-12-12-rocky-river/)，显示出其他人开始思考我们如何超越基本的 Django 模型/视图/模板架构。
+我也很喜欢一年前 David Seddon 的一个演讲 [岩石河：如何构建你的 Django 单体应用（The Rocky River, how to architect your Django monolith）](http://seddonym.me/talks/2017-12-12-rocky-river/)，显示出其他人开始思考我们如何超越基本的 Django 模型/视图/模板架构。
 
 在 Valentin Ignatev 的[ DDD 资源列表](https://github.com/valignatev/ddd-dynamic)还有更多的内容，这是我最近在推特上看到的。似乎很多人对此都有想法。
 
