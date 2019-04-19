@@ -23,19 +23,16 @@ Express 是 Node.js 生态中最古老的所谓“网络框架”之一。它构
 
 这使得扩展 JavaScript 成为可能。并提供了全新的视角去探索 JavaScript 的更多用途，使之可以充分发挥 Google V8 的功能，而不用限制于 Node.js “核心开发者” 所认为的足够好的功能。
 
-
 ### 发布新的 µWebSockets.js
 
-我将发布全新的代码 µWebSockets.js，今天就可以在 Github 上看到：
-[https://github.com/uNetworking/uWebSockets.js](https://github.com/uNetworking/uWebSockets.js)。
+我将发布全新的代码 µWebSockets.js，今天就可以在 Github 上看到：[https://github.com/uNetworking/uWebSockets.js](https://github.com/uNetworking/uWebSockets.js)。
 
-* 使用 NPM 安装 Node.js（尽管托管在 GitHub 上）：
-npm install uNetworking/uWebSockets.js#v15.0.0，可以查看 NPM 安装文档。
+* 使用 NPM 安装 Node.js（尽管托管在 GitHub 上）：npm install uNetworking/uWebSockets.js#v15.0.0，可以查看 NPM 安装文档。
 * 不需要编译器；适用于 Linux，macOS 和 Windows。我们从 15.0.0 版本开始并根据 SemVer 递增。
 
 它是另一个用于 JavaScript 后端的 Web 服务，由大概 6 千行 C 和 C++ 代码编写，在性能方面极大的超过了 Golang。Bitfinex.com 已经把他们的交易接口（REST 和 WebSocket）迁移到了这个服务并且正在逐步将之投入生产。
 
-> 来自 Bitfinex 的 Paolo Ardoino 特别提到： “这是一个非常酷的项目”。
+> 来自 Bitfinex 的 Paolo Ardoino 特别提到：“这是一个非常酷的项目”。
 
 > **这项工作得以完成，需要感谢这些赞助者；BitMEX、Bitfinex 和 Coinbase 使这项工作成为可能。多亏了他们，我们现在有了一个新的版本！**
 
@@ -53,7 +50,7 @@ npm install uNetworking/uWebSockets.js#v15.0.0，可以查看 NPM 安装文档�
 
 ![Internal sub layers of µSockets](https://cdn-images-1.medium.com/max/2000/0*KYceR1fpeHeUZE2E.png)
 
-这和 Node.js 的实现有很大的不同，其设计的实现为 “把一切都堆在一起”。在 Node.js 的一个源文件中，你可以找到 libuv 调用，系统调用，OpenSSL调用，V8 调用。这一切都混成一团而没有试图去接耦分离使模块独立。这使得它很难做出任何真正的改变。
+这和 Node.js 的实现有很大的不同，其设计的实现为“把一切都堆在一起”。在 Node.js 的一个源文件中，你可以找到 libuv 调用，系统调用，OpenSSL调用，V8 调用。这一切都混成一团而没有试图去接耦分离使模块独立。这使得它很难做出任何真正的改变。
 
 ### 简而言之，为 µWebSockets.js 编码
 
@@ -61,7 +58,7 @@ npm install uNetworking/uWebSockets.js#v15.0.0，可以查看 NPM 安装文档�
 
 ![](https://cdn-images-1.medium.com/max/2000/1*I6jsm23tYBFIJGxZKB07bg.png)
 
-在某些方面相比于 Golang 的 Gorilla Gorilla，在 SSL 和 非 SSL 基础上它可能表现的更好。也就是说，SSL 基础上的 JS 代码可以比非 SSL 基础上的 Golang （在某些方面）更快的发送消息。我认为这真的很酷。
+在某些方面相比于 Golang 的 Gorilla Gorilla，在 SSL 和 非 SSL 基础上它可能表现的更好。也就是说，SSL 基础上的 JS 代码可以比非 SSL 基础上的 Golang（在某些方面）更快的发送消息。我认为这真的很酷。
 
 ### 快速的发布/订阅支持
 
@@ -80,9 +77,9 @@ Socket.IO 在很多方面就是 Express 的“实时”等价物。它们都同�
 
 优化，添加特性和修正错误。刚开始开发，可能不能够完全适应，所以需要有一些相关的介绍。请记住，它是一个由三个不同的仓库组成包含成千上万行代码的大型项目：
 
-* [https://github.com/uNetworking/uWebSockets.js](https://github.com/uNetworking/uWebSockets.js) （JavaScript 包装层）
-* [https://github.com/uNetworking/uWebSockets](https://github.com/uNetworking/uWebSockets) （C++ 网络服务）
-* [https://github.com/uNetworking/uSockets](https://github.com/uNetworking/uSockets) （C 基础库）
+* [https://github.com/uNetworking/uWebSockets.js](https://github.com/uNetworking/uWebSockets.js)（JavaScript 包装层）
+* [https://github.com/uNetworking/uWebSockets](https://github.com/uNetworking/uWebSockets)（C++ 网络服务）
+* [https://github.com/uNetworking/uSockets](https://github.com/uNetworking/uSockets)（C 基础库）
 
 一些在 I/O 上有巨大压力的公司在使用这个项目。稳定性和安全性（自然且明显的）是这个项目的**最高**优先级。记住要在早期的发布版本中报告稳定性方面的问题，因为这个发布版本是包含大量更改的大版本。
 
