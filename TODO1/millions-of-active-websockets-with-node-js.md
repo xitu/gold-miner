@@ -5,7 +5,7 @@
 > * 译者：[Mirosalva](https://github.com/Mirosalva)
 > * 校对者：
 
-# Node.js 提供百万的活跃 WebSocket 连接
+# 使用Node.js 提供百万的活跃 WebSocket 连接
 
 > 仅使用消费级笔记本和一些 Wifi 资源便可提供大量的 WebSocket 服务
 
@@ -29,7 +29,7 @@ sudo sysctl net.ipv4.tcp_tw_reuse=1
 sudo sysctl fs.file-max=1024000
 ```
 
-然后你需要在一个范围内设置大约 50 个左右的 IP 地址。对于我的 Wifi 适配器，我添加了这行配置：
+然后你需要需要配置某一网段内的大约 50 个 IP 地址。对于我的 Wifi 适配器，我添加了这行配置：
 
 ```bash
 for i in {135..185}; do sudo ip addr add 192.168.0.$i/24 dev wlp3s0; done
@@ -49,7 +49,7 @@ WebSocket 连接数量需要花几分钟才能达到 100 万个，如果我们�
 
 你可以在这上面这张网络图中看到与 ping 消息相关的流量峰值。每秒最少有 16.7k 条 WebSocket 消息需要到达服务器——都变少了之后我们开始关闭连接。
 
-显然我们通过 Wifi 网络没有合理地满足这个标准。我们是丢失了一些连接，但在一个没有花哨配置的 WiFi 网络环境下仍存活 995k 个 WebSocket 连接却是很酷的事情！
+显然我们通过 Wifi 网络没有很好地满足这个标准。我们是丢失了一些连接，但在一个没有花哨配置的 WiFi 网络环境下仍存活 995k 个 WebSocket 连接却是很酷的事情！
 
 ![](https://cdn-images-1.medium.com/max/3840/1*Os3oBCZSt_nHOLrORmHp9g.png)
 
@@ -59,15 +59,15 @@ WebSocket 连接数量需要花几分钟才能达到 100 万个，如果我们�
 
 ![](https://cdn-images-1.medium.com/max/3840/1*1v2fewfRAR21nryDIj_I6w.png)
 
-结果是稳定得没有任何连接丢失，WiFi 网络稳定性不足但是 Ethernet 却表现很好。为了保证每项都是稳定的，我让客户端和服务器持续运行了一个小时，这样没有一个连接丢失，然后有约 1.2 亿条 WebSocket 消息（16.7k * 60 * 60 * 2）：
+结果是服务运行状况稳定，而且没有连接丢失，WiFi 网络稳定性不足但是 Ethernet 却表现很好。为了保证每项都是稳定的，我让客户端和服务器持续运行了一个小时，这样没有一个连接丢失，然后有约 1.2 亿条 WebSocket 消息（16.7k * 60 * 60 * 2）：
 
 ![](https://cdn-images-1.medium.com/max/3840/1*jp2Nm_t67771fNdo4eeRYQ.png)
 
-每项都是稳定良好运行。事实上，我在运行服务的笔记本上写着本文，并且它仍然保持着零关闭的 socket 连接，同时系统也是响应及时的。甚至我开启一个简单的游戏的情况下服务还能让连接继续。
+每项都是稳定良好运行。事实上，我在运行服务的笔记本上写着本文，并且被关闭的 socket 连接数量始终为 0，同时系统也是响应及时的。甚至我开启一个简单的游戏的情况下服务还能让连接继续。
 
-此时我们已经实现了一个非常酷的概念验证场景。有一部分归因于稳定的 Ethernet 连接，但当然很大程度上也依赖服务端软件。任何其他的 Node.js 软件栈都无法实现这一壮举——它们都不具备像这样足以在笔记本上维持这么多 WebSocket 连接的轻量级和高性能特点。你可以在系统变得无响应时停止信息交换，并且下面看到的这样来停止获取 ping 结果：
+此时我们已经实现了一个非常酷的概念验证场景。有一部分归因于稳定的 Ethernet 连接，但当然很大程度上也依赖服务端软件。任何其他的 Node.js 软件栈都无法实现这一壮举——它们都不具备像这样足以在笔记本上维持这么多 WebSocket 连接的轻量级和高性能特点。你可以在系统变得无响应时停止 swap 分区交换，并且下面看到的这样来停止获取 ping 结果：
 
-![如果我们使用另一个服务软件栈可能运行不太好，这里『websockets/ws』 发生异常并触发了重试](https://cdn-images-1.medium.com/max/3840/1*wXez3KLeKPCEhodP5UvcGQ.png)
+![如果我们使用另一个服务软件栈可能运行不太好，这里『websockets/ws』 发生彻底崩溃并触发了重试](https://cdn-images-1.medium.com/max/3840/1*wXez3KLeKPCEhodP5UvcGQ.png)
 
 使用 uWebSockets.js，我们可以在这台笔记本上运行几十万个 WebSocket 连接，但是超过 100 万的常规连接则需要重新编译具备不同限制的 Linux 内核，这也是我们把它作为边界值的原因。
 
