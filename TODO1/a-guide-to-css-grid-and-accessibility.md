@@ -2,39 +2,39 @@
 > * 原文作者：[Anna Monus](https://tutsplus.com/authors/anna-monus) 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-guide-to-css-grid-and-accessibility.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-guide-to-css-grid-and-accessibility.md)
-> * 译者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
 > * 校对者： 
 
-# How to Keep Your CSS Grid Layouts Accessible
+# 如何让你的 CSS Grid 布局有好的可读性
 
-CSS Grid makes it possible to create two-dimensional layouts by arranging elements into rows and columns. It allows you to define any aspect of your grid, from the width and height of grid tracks, to grid areas, to the size of gaps. However, CSS Grid can also lead to accessibility issues, mainly for screen reader and keyboard-only users. This guide will help you avoid those issues.
+CSS Grid 可以将元素放入有行和列的网格中，从而让创建二维布局成为可能。有了它，你可以自定义网格的任何属性，例如网格宽高，网格范围，或者网格之间的间隙。但是，CSS Grid 可能会有访问性不佳的问题，尤其是对于那些使用屏幕阅读器和仅使用键盘的用户。本篇教程将会帮助你避免此类问题。
 
-## Source Order Independence
+## 代码顺序独立
 
-"Source order independence" is one of the biggest advantages of CSS Grid. It means you don't have to define the layout structure in HTML anymore, which has always been the case with floats and table-based layouts. You can change the visual presentation of your HTML file using CSS Grid's ordering and grid placement properties. 
+“代码顺序独立”是 CSS Grid 强大优势之一。这意味着你不需要像使用 float 或者表格布局那样，在 HTML 中定义布局结构。你可以使用 CSS Grid 的排序和网格位置属性改变 HTML 呈现的视觉效果。
 
-The [Reordering and Accessibility](https://www.w3.org/TR/css-grid-1/#source-independence) section of W3C's CSS Grid docs defines source order independence as follows:
+W3C 的 CSS Grid 文档中的[重排序和可读性](https://www.w3.org/TR/css-grid-1/#source-independence)章节，将代码顺序独立定义为：
 
-> "By combining grid layout with media queries, the author is able to use the same semantic markup, but rearrange the layout of elements independent of their source order, to achieve the desired layout in both orientations."
+> “通过结合媒体查询和网格布局，开发者可以使用相同的语义标记，但是元素布局的重新排列和代码顺序是相互独立的，这样就可以同时在代码和渲染出的视觉效果两个方面实现需要的布局。”
 
-With CSS Grid, you can decouple logical and visual order. Source order independence can be quite useful in many cases, however it can also seriously damage accessibility. Screen reader and keyboard users only encounter the logical order of your HTML document and don't "see" the visual order you created with CSS Grid. 
+使用 CSS Grid，你可以将逻辑顺序和视觉顺序解耦。代码顺序独立在很多时候都非常有用，但是它也有可能会破坏代码的可读性。使用屏幕阅读器和键盘的用户都只能看到你 HTML 文件的代码逻辑顺序，但是无法知道通过 CSS Grid 创建出来的视觉顺序。
 
-If you have a simple document this usually isn't a problem, as the logical and visual order will most likely be the same. However, more complicated, asymmetrical, broken, or other creative layouts frequently cause problems for screen reader and keyboard-only users.
+如果你的文件很简单，这通常不是什么大问题，因为这时候代码逻辑顺序和视觉顺序基本是一致的。但是，比较复杂、不对称、零散，或者使用了其他创意布局的文件通常就会对使用屏幕阅读器或者键盘的用户造成困惑。
 
-### Properties That Change Visual Order
+### 能改变视觉顺序的属性
 
-CSS Grid has a number of properties that change the visual order of a document:
+CSS Grid 有很多可以改变文档视觉顺序的属性：
 
--   [`order`](https://developer.mozilla.org/en-US/docs/Web/CSS/order) - works with both [flexbox](https://webdesign.tutsplus.com/tutorials/a-comprehensive-guide-to-flexbox-ordering-reordering--cms-31564) and CSS Grid. It changes the default order of items inside a flex or grid container.
--   grid placement properties - [`grid-row-start`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start), [`grid-row-end`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end), [`grid-column-start`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start), [`grid-column-end`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end).
--   shorthands for the aforementioned grid placement properties - [`grid-row`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row), [`grid-column`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column), and [`grid-area`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area) (shorthand for `grid-row` and `grid-column`).
--   [`grid-template-areas`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas) - specifies the placement of named grid areas.
+-   [`order`](https://developer.mozilla.org/en-US/docs/Web/CSS/order) —— 在 [flexbox](https://webdesign.tutsplus.com/tutorials/a-comprehensive-guide-to-flexbox-ordering-reordering--cms-31564) 和 CSS Grid 规则中这个属性都可以生效。它可以改变 flex 或者 grid 容器中项目的默认排序。
+-   网格位置属性 —— [`grid-row-start`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start)，[`grid-row-end`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end)，[`grid-column-start`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start)，[`grid-column-end`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end)。
+-   上述网格位置属性的缩写 —— [`grid-row`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row)，[`grid-column`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column)，和 [`grid-area`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)（它是 `grid-row` 和 `grid-column` 的缩写）。
+-   [`grid-template-areas`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas) —— 指定已命名的网格区的位置。
 
-If you want to read more about how to use grid placement properties, have a look at our previous article on [grid areas](https://webdesign.tutsplus.com/tutorials/css-grid-layout-using-grid-areas--cms-27264). Now, let's see how things can go wrong with visual reordering. 
+如果你想知道更多关于网格位置属性的使用方法，可以看看我们之前关于[网格区域](https://webdesign.tutsplus.com/tutorials/css-grid-layout-using-grid-areas--cms-27264)的文章。现在，让我们看看视觉重排序是如何造成代码可读性的问题的。
 
-## Visual vs. Logical Reordering
+## 视觉效果与逻辑的重排序
 
-Here is a simple Grid with a couple of links so that you can test the code for keyboard accessibility:
+这是一个简单的网格布局，只有几个简单的链接，所以你可以使用键盘测试代码：
 
 ```html
 <div class="container">
@@ -47,7 +47,7 @@ Here is a simple Grid with a couple of links so that you can test the code for k
 </div>
 ```
 
-Now let's add some styles. The following CSS arranges grid items in three equal columns. Then the first item is moved to the beginning of the second row with the `grid-row` property:
+现在我们再加入一些样式。下面的 CSS 代码将网格元素放入了三个相等的列中。使用 `grid-row` 属性，第一个元素被移动到了第二行的开始。
 
 ```css
 .container {
@@ -61,15 +61,15 @@ Now let's add some styles. The following CSS arranges grid items in three equal 
 }
 ```
 
-Below, you can see how it looks like with some additional styling for clarity. While regular users will see **Link 2** first, screen readers will start with **Link 1**, as they follow the source order defined in the HTML code. 
+在下面这个图中，你可以看到最终的视觉效果，其中 Link 1 被加上了一些特殊样式以便突出说明。普通的用户将会首先看到 **Link 2**，但是使用屏幕阅读器的用户将会从 **Link 1** 开始，因为他们遵从的是 HTML 代码中定义的逻辑顺序。
 
-It will also be difficult for keyboard users to tab through the page, as tabbing will also start with **Link 1**, at the bottom left corner of the page (try it yourself).
+对于纯键盘使用者，使用 tab 键浏览页面也同样困难，因为这样依旧会从 **Link 1** 开始，也就是页面的左下角（你可以自己尝试一下）。
 
 ![image](https://user-images.githubusercontent.com/5164225/56024520-c2446e00-5d42-11e9-93c5-5047bea7a6eb.png)
 
-### The Solution
+### 解决方案
 
-The solution is simple and elegant. Instead of changing the visual order, you need to move Link 1 down in the HTML. This way, the logical and visual order of the document will be the same.
+解决方案非常简单优雅。不要改变视觉顺序，你只需要将 Link 1 移动到 HTML 文件的下面。这样，代码顺序和视觉顺序就一致了。
 
 ```html
 <div class="container">
@@ -82,7 +82,7 @@ The solution is simple and elegant. Instead of changing the visual order, you ne
 </div>
 ```
 
-You won't need to add any Grid-related properties to `.item-1` in the CSS. As you don't want to change the default source order, you only need to define the properties of the grid container.
+你不需要在 CSS 中为 `.item-1` 添加任何关于 Grid 的属性。因为你也不用改变默认的代码顺序了，那么你只需要为网格容器定义属性即可。
 
 ```css
 .container {
@@ -92,17 +92,17 @@ You won't need to add any Grid-related properties to `.item-1` in the CSS. As 
 }
 ```
 
-Take a look. Although the demo below looks the same as before, it's now accessible. Both tabbing and screen reading will start with Link 2 and logically follow the source order.
+看，尽管这个例子最终结果和以前一样，现在它的可读性更高了。使用 tab 或者屏幕阅读器都会从 Link 2 开始，逻辑上也遵循代码顺序。
 
 ![image](https://user-images.githubusercontent.com/5164225/56024543-d0928a00-5d42-11e9-8805-dde165d25910.png)
 
-## How to Make Layouts Accessible
+## 如何让布局简明易懂
 
-There are a couple of common layout patterns you can make more accessible using CSS Grid's reordering properties. For instance, the "Holy Grail Layout" is just such a pattern. It consists of a header, a main content area, a footer, and two fixed-width sidebars: one on the left and one on the right. 
+这里有几个通用的布局模版，你可以让使用 CSS Grid 重排序属性的代码可读性更高。例如，“圣杯布局”就是这样一种模式。它包括一个头部，一个主要内容区域，一个页脚，还有两个固定宽度的侧边栏，它们俩一个在左一个在右。
 
-Left-sidebar layouts might cause issues for screen reader users. As the left sidebar precedes the main content area in the source order, that's what screen readers read aloud first. However, in most cases, it would be better if screen reader users could start right with the main content. This is especially true if the left sidebar contains mainly ads, blogrolls, tag clouds, or other less relevant content.
+左边栏布局可能会为使用屏幕阅读器的用户造成困惑。因为左边栏在代码顺序要要比主要内容区域靠前，而它则是使用屏幕阅读器的用户最先看到的内容。但是，通常情况下，使用屏幕阅读器的用户开始阅读的位置最好是主要内容。特别是当左边栏主要包括的其实是广告，博客目录，标签云，或者其他一些不相关的内容。
 
-CSS Grid allows you to change the source order of your HTML document and place the main content area *before* the two sidebars:
+CSS Grid 允许你改变 HTML 文件的代码顺序，并将主要内容放在两个侧边栏**前面**：
 
 ```html
 <div class="container">
@@ -114,9 +114,9 @@ CSS Grid allows you to change the source order of your HTML document and place t
 </div>
 ```
 
-There are different solutions you can use to define the modified visual order with CSS Grid. Most tutorials make use of named grid areas and rearrange them with the `grid-template-areas` property.
+还有一些其他可用的解决方案，来使用 CSS Grid 定义视觉顺序的改变。大部分教程都会使用命名的网格区域，并使用 `grid-template-areas` 属性对它们进行重排列。
 
-The code below is the simplest solution, as it only adds extra rules to elements where the visual order is different from the source order. CSS Grid has an excellent auto-placement feature that takes care of the rest of grid items.
+下面的代码是最简单的解决方案，因为它只是为视觉顺序和代码顺序不同的元素添加了几个额外的规则。CSS Grid 有优秀的自动排列功能，能够把余下的网格元素搞定。
 
 ```css
 .container {
@@ -133,17 +133,17 @@ footer {
 }
 ```
 
-So, `grid-column` makes `<header>` and `<footer>` span across the whole screen (3 columns) and `grid-area` (shorthand for `grid-row` and `grid-column`) fixes the place of the left sidebar. Here's how it looks like with some extra styling:
+这样，`grid-column` 让 `<header>` 和 `<footer>` 区域横跨整个屏幕（三列），然后 `grid-area`（`grid-row` 和 `grid-column` 的简写）固定了左边栏的位置。如下就是使用这些样式后的样子：
 
 ![image](https://user-images.githubusercontent.com/5164225/56024562-da1bf200-5d42-11e9-8680-e650a2a52351.png)
 
-Although the Holy Grail Layout is a fairly simple layout, you can use the same logic with more complicated layouts, too. Always think about which is the most important part of your page that screen reader users might want to access first, before the rest of your content.
+尽管圣杯布局是一个相对简单的布局，你还可以使用相同的逻辑来完成一些更复杂的布局。要始终牢记页面的哪个部分是最重要的，哪部分是使用屏幕阅读器的用户在看到其他内容之前可能最想看的。
 
-## When Semantics is Lost
+## 语义丢失怎么办
 
-In some cases, CSS Grid can also harm semantics; another important aspect of accessibility. As the `display: grid;` layout is only inherited by the direct children of an element, children of grid items won't be part of the grid. To save work, developers might find it a good solution to flatten layouts so that every item they want to include in the grid layout will be a direct child of the grid container. However, when a layout is artificially flattened, the semantic meaning of the document is frequently lost.
+某些情况下，CSS Grid 也会对语义造成破坏；这也是影响可读性的一个方面。由于 `display: grid;` 布局只会元素的直接子元素继承，网格元素的子元素其实就不是网格布局的一部分了。为了节省工作量，开发者也许认为将布局扁平化是一个不错的解决方案，所以他们就将所有希望包括在网格布局内的元素都作为网格容器的直接子元素。但是，如果一个布局被认为的扁平化了，文件的语义通常也就丢失了。
 
-Say you want to create a gallery of items (e.g. images) in which the elements are displayed as a grid and encompassed by a header and a footer. Here's how the semantic markup would look:  
+加入你想要创建一个元素展览墙（比如图片墙），在这里，元素按照网格排列并被一个头部和一个页脚包围。如下是带语义的标签写法：
 
 ```html
 <section class="container">
@@ -160,9 +160,9 @@ Say you want to create a gallery of items (e.g. images) in which the elements ar
 </section>
 ```
 
-If you wanted to use CSS Grid, `<section>` would be the grid container and `<h1>`, `<h2>`, and `<ul>` would be the grid items. However, list items would be excluded from the grid, as they would be only the *grandchildren* of the grid container. 
+但是如果你想要使用 CSS Grid，`<section>` 应该作为网格容器，`<h1>`，`<h2>`，和 `<ul>` 是网格元素。但是，列表内的元素不被包括在网格内，因为他们是网格容器**子元素的子元素**。
 
-So, if you want to do the job quickly, it might seem a good idea to flatten the layout structure by making all items the direct children of the grid container:
+所以，如果你想要快速的完成工作，将布局结构扁平化也许是一个不错的主意，也就是让所有的元素都作为网格容器的子元素：
 
 ```html
 <section class="container">
@@ -177,7 +177,7 @@ So, if you want to do the job quickly, it might seem a good idea to flatten the 
 </section>
 ```
 
-Now, you can easily create the layout you want with CSS Grid:
+现在，你就可以使用 CSS Grid 很轻松的创建出想要的布局：
 
 ```css
 .container {
@@ -193,17 +193,17 @@ footer {
 
 ![image](https://user-images.githubusercontent.com/5164225/56024575-e2742d00-5d42-11e9-883e-3f015c891cb2.png)
 
-Everything *looks* nice, however the document has lost its semantic meaning, so:
+一切**看上去**都非常好，但是文档已经丢失了它最初的语义，所以：
 
--   screen reader users won't know that your items are related to each other and part of the same list (most screen readers notify users about the number of list items); 
--   broken semantics will make it harder for search engines to understand your content;
--   people accessing your content with disabled CSS (for instance, in low connectivity areas) might have issues with skimming through your page, as they'll see only unrelated divs.
+-   使用屏幕阅读器的用户无法知道元素之间的关系，也无法知道它们其实是列表的一部分（大部分的屏幕阅读器都会通知用户列表元素的数量）；
+-   被破坏的语义也会让搜索引擎很难明白你的内容；
+-   如果用户在禁用 CSS 的时候访问你的内容（例如，网速不佳的时候），在浏览页面时可能会很困惑，因为他们只看到一系列不相关的 div。
 
-As a rule of thumb, you should never compromise semantics for aesthetics. 
+最重要的规则是，你绝对不能为了看上去好看而放弃语义。
 
-### The Solution
+### 解决方案
 
-The current solution is to create a nested grid by adding the following CSS rules to the unordered list:
+目前的解决方案通过为未排序的列表添加了 CSS 规则，创建出了嵌套的网格。
 
 ```css
 .container {
@@ -221,13 +221,13 @@ ul {
 }
 ```
 
-In the demo below, you can see how the nested grid relates to the parent grid. The items are laid out as expected, however, the document still retains its semantic meaning.
+在这个例子中，你可以看到嵌套的网格和父级网格是如何关联的。元素按照期望的样子排列出来了，但是此时，文档始终保留着它的语义。
 
 ![image](https://user-images.githubusercontent.com/5164225/56024590-ea33d180-5d42-11e9-9811-91c21aee312a.png)
 
-## Conclusion
+## 总结
 
-Simple implementations of the CSS Grid layout aren't likely to lead to accessibility issues. Problems occur when you want to change the visual order or create multi-level grids. The solution usually doesn't take much work, so it's always worth fixing a11y issues as you can make it much easier for assistive technology users to properly access your content.
+简单的 CSS Grid 布局可能不会导致可读性的问题。但是当你想要改变视觉顺序或者创建多层网格的时候，问题就可能暴露出来。解决这些问题通常不会很麻烦，所以这样做来修复那些可读性问题是很值得的，因为这样你能够让那些使用辅助工具的用户更易读懂你的内容。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
