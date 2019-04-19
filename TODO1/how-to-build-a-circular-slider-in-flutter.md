@@ -2,45 +2,45 @@
 > * 原文作者：[David Anaya](https://medium.com/@danaya)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-circular-slider-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-circular-slider-in-flutter.md)
-> * 译者：
+> * 译者：[DevMcryYu](https://github.com/DevMcryYu)
 > * 校对者：
 
-# How to build a circular slider in Flutter
+# 用 Flutter 打造一个圆形滑块（Slider）
 
 ![](https://cdn-images-1.medium.com/max/800/1*XDX3K2X8DhDCSNvzmezl4A.png)
 
-Have you ever wanted to spice up the usual boring sliders by providing a double handler or playing around with the layout?
+你是否也曾想要通过为滑块添加双重滑块或修改其布局来让它看起来不那么无聊？
 
-In this article I’ll explain how to integrate the [GestureDetector](https://docs.flutter.io/flutter/widgets/GestureDetector-class.html) and the [Canvas](https://docs.flutter.io/flutter/dart-ui/Canvas-class.html) to build a circular slider in Flutter.
+在这篇文章中我会展示通过整合 [GestureDetector](https://docs.flutter.io/flutter/widgets/GestureDetector-class.html) 以及 [Canvas](https://docs.flutter.io/flutter/dart-ui/Canvas-class.html) 来在 Flutter 中构建一个圆形滑块。
 
-If you are not that interested in how to build it but just want to get the widget and use it, you can use the package I published in [https://pub.dartlang.org/packages/flutter\_circular\_slider](https://pub.dartlang.org/packages/flutter_circular_slider).
+如果你对构建它的过程不感兴趣，仅仅是为了获取此部件并使用它，那么你可以使用我在 [https://pub.dartlang.org/packages/flutter\_circular\_slider](https://pub.dartlang.org/packages/flutter_circular_slider) 发布的包。
 
-## Why do I need a circular slider?
+## 为什么要用圆形滑块？
 
-In most cases you don’t, but imagine you want the user to select a time interval, or you just want a regular slider but want something a bit more interesting than a straight line.
+大多数情况下你并不会需要它。但想象一下：如果你想要用户选定一个时间段，或者只是想要一个比直线形状更有趣一点的常规滑块的场景时，就可以使用圆形滑块。
 
-## What do we need in order to build it?
+## 用什么来构建它？
 
-The first thing we need to do is create the actual slider. For this, we will draw a complete circle as the base and, on top of that, another one which will be dynamic depending on the user interaction. In order to do this we will use a special widget called **CustomPaint**, which provides a canvas on which we can draw what we need.
+我们要准备的第一件事就是创建一个真正的滑块。为此，我们要用一个完美的圆形作为背景，在它的基础上再画一个根据用户交互可以动态显示的圆。为了实现我们的想法，我们将用到一个名为 **CustomPaint** 的特殊部件，它提供一个允许让我们自由创作的画布（Canvas）。
 
-Once the slider is rendered, we need the user to be able to interact with it, so we will wrap it with a **GestureDetector** to capture tap and drag events.
+当滑块渲染完成以后，我们希望用户能够和它进行交互。因此我们选择使用 **GestureDetector** 包裹它来捕获点击及拖动事件。
 
-The process will be:
+整个流程将会是：
 
-- Draw the slider
-- Recognize when the user interacts with the slider by tapping down on one of the handlers and dragging.
-- Pass the information attached to the event down to the canvas, where we will repaint the top circle.
-- Send the new values for the handlers all the way up so that the user can react to changes (i.e., updating the text in the center of the slider).
+- 绘制滑块
+- 当用户通过点击其中一个滑块并拖动它来与圆形滑块交互时识别此事件。
+- 将事件的附加信息向下传递给画布（Canvas），在这里我们将重新绘制顶部圆形。
+- 将新值一路向上传递给相应的 Handler，以便让用户观察到变化。（例如，更新滑块中心的文字显示）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*pYN7CYWPxJikCq6aZ12OwA.png)
 
-Only care about the yellow ones
+（只需关注上图黄色部分）
 
-## Let’s draw some circles
+## 来画几个圆吧
 
-First thing we need to do is draw both circles. As one of them is static (doesn’t change) and the other one dynamic (changes with user interaction), I separated them in two different painters.
+我们要做的第一件事就是画两个圆。一个静态样式（无需改变），另一个则是动态的样式（响应用户交互），我使用两个 Painter 来分别绘制它们。
 
-Both our painters need to extend **CustomPainter**, a class provided by **Flutter**, and implement two methods: `paint()` and `shouldRepaint()`, the first one being the one to actually draw what we want and the later a way to know if we need to repaint when there is a change. For the **BasePainter** we never need to repaint, so it will always be false. For **SliderPainter** it will always be true, because every change means that the user moved the slider and the selection has to be updated.
+两个 Painter 都继承自 **CustomPainter** —— 一个由 **Flutter** 提供并实现 `paint()` 及 `shouldRepaint()` 方法的类。第一个方法用来绘制我们想要绘制的形状，第二个方法在有变化时进行重新绘制的时候调用。对于 **BasePainter** 而言我们永远不会需要重绘，因此它的返回值总是 false。而对于 **SliderPainter** 来说它总是返回 true，因为每次更改都意味着用户移动了滑块，必须更新所选择的项。
 
 ```
 import 'package:flutter/material.dart';
@@ -74,9 +74,9 @@ class BasePainter extends CustomPainter {
 }
 ```
 
-As you see, `paint()` gets a **Canvas** and a **Size** parameters. **Canvas** provides a set of methods that we can use to draw anything: circles, lines, arcs, rectangles, etc. **Size** is, well, the size of the canvas, and will be determined by the size of the widget where the canvas fits. We also need a **Paint**, which allows us to specify the style, color and many other things.
+你可以看到，`paint()` 方法获得一个 **Canvas** 和一个 **Size** 参数。**Canvas** 提供一组方法可以让我们绘制任何形状：圆形、直线、圆弧、矩形等等。**Size** 参数即是画布的尺寸，由画布适配的部件尺寸决定。我们还需要一个 **Paint**，允许我们定制样式、颜色以及其他东西。
 
-Now, the **BasePainter** is pretty self-explanatory, but the **SliderPainter** is a bit more tricky. Now not only need to draw an arc instead of a circle, we also need to draw the handlers.
+现在 **BasePainter** 的功能用法已经不言自明，然而 **SliderPainter** 却有一点儿不寻常，现在我们要绘制一个圆弧而非圆，还需要绘制 Handler。
 
 ```
 import 'dart:math';
@@ -116,7 +116,7 @@ class SliderPainter extends CustomPainter {
     Paint handler = _getPaint(color: selectionColor, style: PaintingStyle.fill);
     Paint handlerOutter = _getPaint(color: selectionColor, width: 2.0);
 
-    // draw handlers
+    // 绘制 handler
     initHandler = radiansToCoordinates(center, -pi / 2 + startAngle, radius);
     canvas.drawCircle(initHandler, 8.0, handler);
     canvas.drawCircle(initHandler, 12.0, handlerOutter);
@@ -140,21 +140,21 @@ class SliderPainter extends CustomPainter {
 }
 ```
 
-Again, we get the center and radius, but now we draw an arc. Our **SliderPainter** will get as parameters the start, end and sweep angle to use based on the user interactions, so we can use those to draw the arc. The only thing worth mention here is that we need to subtract **-pi/2** radians from the initial angle because our slider origin is on the top of the circle and the `drawArc()` function uses the positive x axis instead.
+再一次地，我们获取了 center 和 radius 的值，但我们这次绘制的是圆弧。**SliderPainter** 将根据用户交互反馈的值作为 start、end 和 sweap 属性的值，以便于我们根据这些参数来绘制圆弧。值得一提的是我们需要从初始角度中减去 **pi/2**，因为我们的滑块的圆弧的起始位置是在圆形的正上方，而 `drawArc()` 方法使用 x 轴正轴作为起始位置。
 
-Once we have the arc we need to draw the handlers. For that we will draw two circles for each, an internal filled one and an external around it. I’m using some utility functions to translate from radians to coordinates in the circle. You can check [these functions in the repo in github](https://github.com/davidanaya/flutter-circular-slider/blob/master/lib/src/utils.dart).
+当我们绘制好圆弧以后我们就需要准备绘制 Handler 了。为此，我们将分别绘制两个圆，一个在内部填充，一个在外部包裹。我调用了一些工具集函数用来将弧度转换为圆的坐标。你可以在 [Github 仓库内查阅这些函数](https://github.com/davidanaya/flutter-circular-slider/blob/master/lib/src/utils.dart)。
 
-## How do we make it interactive?
+## 让滑块响应交互
 
-What we have right now would be enough to draw what we want, we just need to use **CustomPaint** and both our painters, but it’s still not interactive. We need to wrap it with a **GestureDetector**. That way we will be able to react to user events in the canvas.
+目前来看，仅仅使用 **CustomPaint** 以及两个 Painter 就已经足够绘制想要的东西了。然而它们还是不能够进行交互。因此就要使用 **GestureDetector** 来包裹它。这样一来我们就可以在画布上对用户事件做出相应处理。
 
-We will define initial values for our handlers and then, as we know the coordinates for those handlers, our strategy will be as follows:
+一开始我们将为 Handler 赋初值，当获取这些 Handler 的坐标后，我们将按照以下策略执行操作：
 
-- listen for a pan (tap) down on any of the handlers and update the status for that handler (**_xHandlerSelected = true**).
-- listen for a pan (drag) update event while any handler is selected, and then update the coordinates for that handler and pass them down to the **SliderPainter** and up in our callback method.
-- listen for a pan (tap) up event and reset the status of the handlers to not selected.
+- 监听 Handler 的点击（按下）事件并更新相应 Handler 的状态。（**_xHandlerSelected = true**）。
+- 监听选中 Handler 的拖动更新事件，更新其坐标，同时分别向下、向上传递给 **SliderPainter** 和我们的回调函数。
+- 监听 Handler 的点击（抬起）事件并重置未选中 Handler 的状态。
 
-As we need to calculate the coordinates for the handlers and the new angles to pass down to the painter, our **CircularSliderPaint** has to be a **StatefulWidget**.
+因为我们需要分别计算出坐标值、新的角度值再传递给 Handler 和 Painter，所以我们的 **CircularSliderPaint** 必须是一个 **StatefulWidget**。
 
 ```
 import 'package:flutter/material.dart';
@@ -190,13 +190,13 @@ class _CircularSliderState extends State<CircularSliderPaint> {
 
   SliderPainter _painter;
 
-  /// start angle in radians where we need to locate the init handler
+  ///  用弧度制表示的起始角度，用来确定 init Handler 的位置。
   double _startAngle;
 
-  /// end angle in radians where we need to locate the end handler
+  ///  用弧度制表示的结束角度，用来确定 end Handler 的位置。
   double _endAngle;
 
-  /// the absolute angle in radians representing the selection
+  ///  用弧度制表示的选择区间的绝对角度（夹角）
   double _sweepAngle;
 
   @override
@@ -205,8 +205,8 @@ class _CircularSliderState extends State<CircularSliderPaint> {
     _calculatePaintData();
   }
 
-  // we need to update this widget both with gesture detector but
-  // also when the parent widget rebuilds itself
+  // 我们需要使用 gesture detector 来更新此部件，
+  // 当父部件重建自己时也是如此。
   @override
   void didUpdateWidget(CircularSliderPaint oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -295,26 +295,26 @@ class _CircularSliderState extends State<CircularSliderPaint> {
 }
 ```
 
-A few things to notice here:
+这里有几点需要注意：
 
-- We want to notify the parent widget when the position of the handlers (and hence, the selection) is updated, that’s why the widget exposes a callback function `onSelectionChange()`.
-- The widget needs to be re-rendered when the user interacts with the slider, but also if the initial parameters change, that’s why we use `didUpdateWidget()`.
-- *CustomPaint* also allows a **child** parameter, so we can use that to render something inside our circle. We will just expose the same parameter in our final widget so that the user can pass whatever she wants.
-- We use intervals to set the number of possible values in the slider. With that we can conveniently express the selection as a percentage.
-- Again, I use different utility functions to translate between percentages, radians and coordinates. The coordinates system in a canvas is a bit different to a regular one, as it starts in the top left corner and so both x and y are always positive values. Also, radians start in the positive x axis and go clockwise (always positive) from **0** to **2*pi** radians.
-- Finally, the coordinates for our handlers are related to the canvas origin, but the coordinates in **GestureDetector** are global to the device, so we need to transform those using `RenderBox.globalToLocal()` which uses the context in a widget as a reference.
+- 我们想要在 Handler（以及选择区间）的位置更新时通知父部件，这也是该部件对外暴露了一个回调函数 `onSelectionChange()` 的原因。
+- 当用户与滑块进行交互时该部件需要被重新渲染，当起始位置的参数值改变时也需如此。这就是为什么我们有必要使用 `didUpdateWidget()` 方法。
+- *CustomPaint* 同样可以接收一个 **child** 参数，这样我们就可以使用它在圆的内部渲染生成一些其他东西。只需要在 final widget 里暴露相同的参数，使用者就可以向其中传入任何想要的值。
+- 我们使用一个间隔用以设置滑块的值。我们可以以此方便的将选择区间以百分比的形式表示。
+- 再一次申明，为了在百分比、弧度以及坐标之间转换我调用了不同的工具集函数。画布（Canvas）中的坐标系与一般坐标系有一些不同，比如说画布坐标系是以左上角作为坐标原点，这样一来 x、y 的值都将一直是一个正值。同样的，弧度制的表示是以 x 正坐标轴开始并以顺时针方向（总是正值）从 **0** 到 **2*pi** 计量。
+- 最后，Handler 的坐标计算以画布的原点为参考，而 **GestureDetector** 的坐标则是相对设备而言的，是全局的，因此我们需要用到 `RenderBox.globalToLocal()` 方法来对它们进行转换。该方法使用部件的 Context 作为参考。
 
-With this we have all we need for our circular slider.
+有了这些，我们也就拥有了打造圆形滑块的一切需要。
 
-## A few extra features
+## 额外的功能
 
-There’s quite a few ground to cover here so I didn’t go full into details, but you can check the repo for the project and I’ll be glad to answer any question in the comments.
+由于篇幅有限，在这里并没有展开讲解所有的细节。你可以查看本项目的仓库，我想我会很乐于回答评论中的任何问题。
 
-In the final version I added some extra features, like custom colors for the selection and the handlers or the option to draw primary and secondary selectors to get that great look for the watch (hours, minutes) if we need it. I also wrapped everything in a final widget for clarity.
+在最终的版本里我添加了一些额外的功能，比如自定义选择区间和 Handler 的颜色；如果你想实现类似时钟的样式（小时和分钟）你可以根据需求进行选择。为了方便各位使用我同样将所有内容打包放进了一个最终的部件内。
 
-Remember you can also use this widget if you want by importing the library from [https://pub.dartlang.org/packages/flutter\_circular\_slider](https://pub.dartlang.org/packages/flutter_circular_slider).
+请记住你也可以以从 [https://pub.dartlang.org/packages/flutter\_circular\_slider](https://pub.dartlang.org/packages/flutter_circular_slider) 导入本库的方式来使用这个部件。
 
-That’s all. Thanks for reading!
+文章至此告一段落，感谢各位的阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
