@@ -105,36 +105,36 @@ iPhone 和iPad 被设计成处理**某些**以前被分配给笔记本和台式�
 
 ## 好设计试图给人留下好印象，伟大的设计让人难以忘怀
 
-> “A good designer finds an elegant way to put everything you need on a page. A great designer convinces you half that shit is unnecessary.”
-> — Thomas Hutchings (@Dear**Impossible) November 14, 2013**
+> “一位优秀的设计师会找到一种优雅的方式将你需要的一切放在一个页面上。一个伟大的设计师会让你相信一半内容都是不必要的。”
+> — Thomas Hutchings (@Dear**Impossible) 2013年 11 月 14日**
 
-Good design aims to impress people with “delightful animations” and “beautiful user interfaces”. You can spot good design, break it down, and document both what you like and how it was done.
+好的设计旨在通过『令人愉快的动画』和『漂亮的用户界面』给人们留下深刻印象。你会发现好的设计，将其分解并记录下你喜欢的内容和操作方式。
 
-Great design is invisible. It almost feels like it wasn’t designed at all. It’s things like your MacBook unlocking automatically when you have your Apple Watch on, or your Nest thermostat adjusting to your preferred temperature when you enter a room. But it can also be something as simple as the egg cartons at the supermarket (have you ever tried designing a better egg carton?).
+伟大的设计是不可见的，几乎完全感觉不到它是设计过的。就像你的 MacBook 在你佩戴 Apple Watch 情况下会自动解锁，或者你的 Nest 恒温器在你进入一个房间时会自动调节到你选择的温度。但它也可以像超市里的鸡蛋盒一样简单（你有没有尝试设计一个更好的鸡蛋盒？）。
 
-> Great design is invisible. It almost feels like it wasn’t designed at all. It is the outcome of painstaking thoughtfulness and a desire to help others.
+> 伟大的设计是不可见的，几乎完全感觉不到它是设计过的。它是对贴近痛苦而思考所得结果，也是对帮助他人的渴望。
 
 ***
 
 ## 伟大的设计拥有愿景、勇气和自我约束
 
-Right now there’s a trend in Silicon Valley of trying to turn Design into a process that can be duplicated and reproduced no matter who you slot into the position.
+目前在硅谷中有一种趋势：尝试去将设计转化为可复制和再生产的流程，而不管你将谁放到这个位置。
 
-Creating a clearly defined process is a great idea, especially for large companies. But when you’re working day to day in an organization at that level, it’s easy to get overly focused on optimizing the process and lose sight of what you’re building, and why. You end up iterating and optimizing on things that don’t matter. It happens to all of us sometimes.
+创造一个清晰定义的流程是一个好想法，尤其对大公司来说。但是当你在一个组织中按照这个水平一天接一天的工作，很容易过度关注于优化流程并且失去了你正在构建何物的视角，以及它的原因。你最终会在不重要的事情上做迭代和优化。有时候这对我们所有人都可能发生。
 
-> A big part of doing great design work is creating a compelling vision of the future, and having the courage and discipline to stick to that vision in the face of adversity.
+> 做伟大设计的一部分工作是创造一个令人信服的未来愿景，并且在面对逆境时有勇气和自我约束里取坚持那个愿景。
 
-Just following a process step-by-step doesn’t lead to great products. You can get a design that’s “Good enough” with that approach. But the difference between good design and great design is the difference between good success and great success.
+仅仅跟随按部就班地跟随流程并不能产生伟大的设计品。通过那种方法你可以得到一个『足够好』的设计。但是好设计和伟大设计的区别就在于好的成功和伟大成功的区别。
 
-Jared Spool’s recent post about [creating an experience vision](https://medium.com/@jmspool/the-experience-vision-a-self-fulfilling-ux-strategy-ce4cdb58227e) is, to me, the quintessence of what it takes to create great design:
+Jared Spool 最近有关[创造一个体验愿景](https://medium.com/@jmspool/the-experience-vision-a-self-fulfilling-ux-strategy-ce4cdb58227e)的文章在我看来，创造伟大设计的精髓就是：
 
-> The easiest way to create an effective experience vision story is to start with the current experience. What makes today’s experience with our product or service frustrating for our users?
-> We can ask, **“What’s the best experience we could imagine providing our users?”** undefinedWe look closely at the frustrations and imagine an experience where those frustrations don’t occur.
-> Next up is to determine the timeframe of the horizon. […]Most of our experience visions come closer to a five-year horizon. […]In 5 years (or whatever horizon we pick), what is the best experience we can imagine delivering? How will people’s lives be better because we’ve removed all the frustration?
+> 创造有效的体验愿景故事的方法是由当前体验开始。是什么让今天的产品或服务体验使我们的用户感到沮丧？
+> 我们可以问：**什么是我们可以想象出来提供给用户的最好体验？** 我们紧密地跟踪着沮丧点并想象出这些沮丧点不会发生的体验场景。
+> 接下来是确定基线的时间范围。[…]我们的大部分愿景体验都距 5 年基线较近了。[…]在 5 年内（或者任何我们选择的基线），我们可以想象的最佳体验是什么？因由我们把所有的沮丧点解决后人们生活会有多大的改善？
 
-A compelling vision is what orients the “process machine” of an organization to create great products.
+一个令人信服的愿景是什么会使组织中的『流程机器』定位去创造伟大的产品。
 
-Defining an experience vision in that fashion is relatively easy for a skilled designer. The sustained discipline it takes to follow through on that vision makes it damn near impossible to achieve. That’s why there are so many crappy products on the market, and why most apps and websites look the same. It’s much easier to just stick to making it “good enough”.
+ 对于一个熟练的设计师来说，以那种方式来定义一个体验愿景是相当容易的。追寻这一愿景所需要的持续自我约束使其几乎无法实现。这就是为什么市场上有那么多奇怪的产品，以及为什么大多数应用和网站长得都一样。只是保持『足够好』更容易做到。
 
 ## 拥抱伟大的设计
 
