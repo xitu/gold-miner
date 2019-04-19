@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/python-architecture-stuff-do-we-need-more.md](https://github.com/xitu/gold-miner/blob/master/TODO1/python-architecture-stuff-do-we-need-more.md)
 > * 译者：[QiaoN](https://github.com/QiaoN)
-> * 校对者：[Brayn](https://blog.brayn.top/)
+> * 校对者：[Brayn](https://blog.brayn.top/)、[zhmhhu](https://github.com/zhmhhu)
 
 # Python架构相关：我们需要更多吗？
 
