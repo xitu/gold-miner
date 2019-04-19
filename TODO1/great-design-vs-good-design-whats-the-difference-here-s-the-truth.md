@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/5120/1*oFxtwD8CyvpVvLRbhPxrzQ.jpeg)
 
-The lowest common denominator for interface design has risen over the last decade. You see a lot less of this now:过去十年内界面设计的最低标准已经上升，你现在看到的情况要少得多：
+过去十年内界面设计的最低标准已经上升，你现在看到的情况要少得多：
 
 ![](https://cdn-images-1.medium.com/max/3312/1*ka6-MHyRe2UnlcCM9iYKZg.png)
 
@@ -26,82 +26,82 @@ The lowest common denominator for interface design has risen over the last decad
 大约一年前，Samsung 宣布正在研发一款可折叠的智能手机。有一句话引起了我的注意：
 > DJ Koh 曾说过『是时候交付一款可折叠设备了』这样的话，就在三星做出这类设备存在市场的消费者调研之后。
 
-The fact that Samsung is almost proud to say that customer surveys are the reason the company is working on a foldable smartphone is scary.
+三星几乎自豪地说客户调查是该公司研发可折叠智能手机的原因，这一事实令人感到恐慌。
 
-It’s one thing to send your customers a survey on how they enjoy using a product or how a recent product repair went. However, to base product development plans on customer surveys is highly questionable.
+向你的客户发送有关他们喜欢如何使用产品或者最近的产品维修进展如何是一回事。但是基于客户调研的产品研发却是令人非常质疑的。
 
-Customer surveys would not have led to products like iPhone, iPad, and Apple Watch.
+客户调研不会导向类似 iPhone、iPad 以及 Apple Watch 这种产品。
 
-This is a classic example of that overused Henry Ford quote that “If we had asked the people what they wanted, they would have said ‘faster horses’”.
+这是一个过度引用 Henry Ford 的经典例子：“如果我们问了别人他们想要什么，他们大概会说『更快的马』”。
 
-Great design understands that the average layperson can’t always articulate solutions — they only know they have a problem. It’s up to the designer, who lives at the intersection of technology and the creative arts, to come up with new ways of solving that problem. The designer can make unexpected connections between subjects and solve the problem in new ways.
+伟大的设计理解这件事：普通的外行人无法总能明确地说出解决方案，有时候他们只知道他们遇到了问题。提出解决这类问题的新方法这件事，却取决于生活在技术和创造性艺术交叉点的设计师，设计师可以在主题之间建立意想不到的联系，并使用新方法来解决问题。
 
 ***
 
 ## 好设计是数据驱动的，伟大的设计是会产生广博数据的
 
-“Data-driven” is an interesting word combination. It literally means that the data is “driving” your decisionmaking. The data points are in the driver’s seat, not you.
+『数据驱动』是一个有趣的词语组合。它字面上意思是数据**驱动**了你的决策。数据点在驾驶员的位置，而不是你。
 
-This is dangerous because not everything is an optimization problem that can be solved with data. Basing all of your decisionmaking on data points that you can measure right now can lead to you losing focus of important macro aspects of the problem you’re trying to solve.
+这种情况是有风险的，因为并非所有事情都是都可以通过数据来解决的优化问题。把你所有的决策都基于你可以正确测量的数据点，可能会导致你失去对你正在尝试解决的重要宏观层面问题的聚焦。
 
-Data is just one source of information on the way to solving a problem. Hence, being “data-informed” is the way to go if you want to produce great design.
+数据只是去解决问题的一种信息来源。因此，如果你想产出伟大设计，保持被『数据通知』可以是你需要走的路子。
 
-Booking.com is a great example of data-driven design. They do a lot of A/B testing to see how people best convert to booking flights and hotels on their platform.
+Booking.com 是数据驱动型设计的一个好例子。他们做了大量的 A/B 测试，来了解用户如何最好地转换到他们平台上来预定机票和酒店。
 
-Through their tests, they’ve discovered that adding “Urgency Messaging” drives people to book more. Urgency messaging is something like “Hey this hotel has just 4 rooms left, book soon”. That’s nice, however, over the years, booking.com has added one urgency message after another, to the point where now it looks more like a shady used car lot than like a serious place to book hotels.
+通过他们的测试，他们发现添加『告急消息』会促使用户预定量变多。告急消息就是类似于『嘿！这个酒店只剩 4 个房间了，快订吧』。这很好，但是这些年来，booking.com 已经添加了一个接一个的消息，这里现在就更像是一个摇摇欲坠过度使用的汽车，而不是一个可以预订酒店的正经地方。
 
-![Basically the same](https://cdn-images-1.medium.com/max/3840/1*3sxLm9wyllJHpOJ1DBZcQw.jpeg)
+![基本相同](https://cdn-images-1.medium.com/max/3840/1*3sxLm9wyllJHpOJ1DBZcQw.jpeg)
 
-Most recently, it has started showing you hotels you can’t even book, just to drive home that point that “people are booking hotels here at booking.com so you should too”:
+最近，它开始显示一些你甚至都不能订的酒店，就为了强调这个意思『大家都在这里 booking.com 订酒店，所以你也来吧』
 
-![You’ve got to be kidding me](https://cdn-images-1.medium.com/max/3840/1*AsIGA9pPt_FR_9B2uRJL8Q.jpeg)
+![你在开玩笑吧](https://cdn-images-1.medium.com/max/3840/1*AsIGA9pPt_FR_9B2uRJL8Q.jpeg)
 
-And I’m sure it works to improve conversions by 0.4%. But if you look at the whole experience, it’s really starting to degrade. That’s the type of result you get when you myopically optimize your product based on data points and single-digit improvements to conversion, without considering the overall experience.
+我相信它可以将转化率提高 0.4%。但是如果看下整体经验，它真的已经开始下降了。不考虑总体体验，这是你在数据点和转化率的个位数提升的基础上对产品做短期优化时得到的结果类型。
 
-Compare that with Hotel Tonight, one of the fastest growing hotel booking apps, recently acquired by airbnb for a few hundred million.
+这点对比 Hotel Tonight，它是一个快速增长的酒店预定应用，最近被 airbnb 以几百万美元收购。
 
 ![](https://cdn-images-1.medium.com/max/3840/1*zcBZpuGKBjxGN44_9MqrtA.jpeg)
 
-Hotel Tonight understands that people are trying to find a nice room to stay in, and optimizes for that. It shows larger preview images of the hotel rooms than booking.com does and has a hint of urgency messaging, but it doesn’t overpower the entire layout of the page. They are focusing on overall experience rather than just tiny conversion improvements driven by data.
+Hotel Tonight 明白人们想要寻找一间好屋子来入住，并且优化这一点。它显示的酒店房间预览图比 booking.com 显示的更大，并且有一点点告急消息，但是并没有占据一整片页面布局。他们专注于整体体验而非仅仅是由数据驱动产生小的转化率提升。
 
 ***
 
 ## 好设计试图取悦每个用户，伟大的设计有自己的想法并会挑战共识
 
-Great design has a worldview and values, that it executes on consistently. It doesn’t try to please everyone.
+伟大的设计有一个世界观以及价值观，它会持续地践行这些。它并不会试图取悦所有的人。
 
-Consider Apple’s MacBook and iPad vs Microsoft’s Surface. Microsoft takes the approach of “We don’t want to make a decision on what’s the best experience for consumers, so let’s give them everything and let them decide for themselves.” In a way, they are letting the consumers design their own experience, rather than designing an experience.
+思考一下 Apple 的 MacBook 和 iPad 对比 Microsoft 的 Surface。Microsoft 采取的方式是『我们不想决定什么是消费者的最佳体验』。在某种程度上，他们让消费者设计他们自己的体验，而非设计一种经验。
 
-What you get as a result of that is a laptop with a touchscreen and a stylus, that can also fold both ways, and you can also detach the screen. It looks nice, but what will you really use it for?
+你从那样做得到的结果就是一台包含触摸屏和手写笔的笔记本，它可以双向折叠，你也可以拆下屏幕。它开起来不错，但你用它真的做什么呢？
 
-![Uhhhhhhh……](https://cdn-images-1.medium.com/max/4800/1*CzRlfWcS9D-kBUZeCw9yVQ.png)
+![啊……](https://cdn-images-1.medium.com/max/4800/1*CzRlfWcS9D-kBUZeCw9yVQ.png)
 
-Meanwhile, Apple takes the approach of “Let’s make technology more personal, and create tools and form factors around specific usage scenarios”.
+同时，苹果采用的这种方式『让我们把技术变得更加个性化，并且围绕着特定使用场景去创造工具和外形』。
 
-The iPhone and iPad are designed to handle **some** tasks formerly given to laptops and desktops. In the process of creating this new form factor, the iPhone and iPad are able to handle entirely new tasks as well. A similar dynamic occurs with Apple Watch being able to handle tasks previously given to iPhone, while also handling new tasks.
+iPhone 和iPad 被设计成处理**某些**以前被分配给笔记本和台式机的任务。在创造这些新型外观的过程，iPhone 和 iPad 也可以处理整体新任务。类似的过程也发生在 Apple Watch 可以处理之前分配给 iPhone 的任务，同时还可以处理新任务。
 
-In Apple’s view, the iPhone and iPad should be kept separate from Mac because each category ends up being more powerful by being true to its form factor. The idea isn’t to have these products share the same user inputs so that people can do whatever is possible on a desktop and laptop on a tablet and smartphone. Instead, each has different capabilities based on the user input method and form factor.
+在 Apple 的视野，iPhone 和 iPad 需要与 Mac 分离开，因为每个类别都因其外形因素而最终变得更加强大。我们的想法并不是让这些产品共享相同的用户输入，去让用户可以在桌子上的台式机和笔记本上以及智能机上做任何可能的事情。相反的，每个产品都具有基于用户输入方法和外形因素的不同功能。
 
-**That** is an opinionated approach to designing devices. Not everyone agrees with Apple’s approach, but the results are clear: [Apple products](https://www.theverge.com/2016/2/1/10886720/apple-ipad-pro-outsold-microsoft-surface-sales) have been [outselling](https://www.inc.com/john-brandon/why-the-apple-ipad-pro-has-massively-outsold-the-microsoft-surface.html) Microsoft’s products by a factor of 30 to 1 for [the last 4 years](https://www.imore.com/apple-outselling-microsoft-powered-computers-it-may-not-be-fair-it-mobile-centric-future).
+**这**是设计设备的一种固执己见的方法。不是所有人都赞同 Apple 的方法，但是结果却很清楚：[苹果产品](https://www.theverge.com/2016/2/1/10886720/apple-ipad-pro-outsold-microsoft-surface-sales)已经比 Microsoft 的产品[卖得多](https://www.inc.com/john-brandon/why-the-apple-ipad-pro-has-massively-outsold-the-microsoft-surface.html) ，[过去 4 年](https://www.imore.com/apple-outselling-microsoft-powered-computers-it-may-not-be-fair-it-mobile-centric-future)有 30：1 的比例之多。
 
 ***
 
 ## 伟大的设计关注细节的同时也不会忽略整体情况
 
-You see a lot of companies right now talking about the importance of design. Salesforce released a comprehensive design system complete with a fancy name(“Lightning Design System”) and lots of illustrated mascots.
+现在你已见识了许多公司谈论设计的重要性。Salesforce 发布了一个全面的设计系统，其包含一个奇妙的名字（『Lightning 设计系统』）和许多插图吉祥物。
 
-However, they neglected to properly set the typography in their design system to optimize for readability on screens. They had such a grand vision that they lost sight of the fundamentals of design.
+然而，他们忽略了在他们的设计系统中正确地设置排版去优化屏幕的可读性。他们有如此宏伟的愿景，却忽视了设计的基本原理。
 
 ![Ironic](https://cdn-images-1.medium.com/max/4792/1*H9o8HSUg2wGO2aQy2hQnoA.png)
 
-Another fundamental you often see neglected these days is figure-ground contrast: Text on top of images that isn’t readable…all the while talking about how important “good design” is.
+另一个你经常看到被忽视的基础要素是图形对比：图像表层的文字不可读......尽管一直在讨论『好设计』的重要性。
 
-![Intercom [loves](https://www.intercom.com/blog/product-and-design/) talking about how good they are at design](https://cdn-images-1.medium.com/max/5012/1*5ic1paS7UtNIcY8C_2wxcA.png)
+![Intercom 的 [loves](https://www.intercom.com/blog/product-and-design/) 谈论了他们的设计如何好](https://cdn-images-1.medium.com/max/5012/1*5ic1paS7UtNIcY8C_2wxcA.png)
 
-Focusing on the flashy parts of design while neglecting the fundamentals, is like focusing only on hitting home runs in baseball, or only doing slam dunks in basketball. It’s fun to look at, but a player who neglects the fundamentals of the game will fall apart when tested in a real-life competitive environment.
-> ### Great design never neglects the fundamentals on a quest to impress the world around them.
+专注于设计的表面部分而忽视了基本要素，就像棒球比赛中专注于本垒打，或者篮球比赛中只做扣篮。看起来有趣，但是在现实的竞争环境中检验时，忽略游戏基本要素的玩家将会崩溃。
+> ### 伟大的设计永远不会忽视寻求给周围世界留下深刻印象的基本要素。
 
-On that note….
+在那个说明......
 
 ## 好设计试图给人留下好印象，伟大的设计让人难以忘怀
 
