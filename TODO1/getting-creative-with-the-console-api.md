@@ -5,31 +5,31 @@
 > * 译者：
 > * 校对者：
 
-# Getting creative with the Console API!
+# 创意运用 Console API ！
 
-**Debugging** in JavaScript has always been inseparably connected with the **[Console API](https://developer.mozilla.org/en-US/docs/Web/API/Console)**, which is most of the time used only through `console.log()`. But, did you know that it doesn't have to be this way? Hasn't `console.log()` already bored you with its **monolithic** output? Do you want to make your logs better, to make them **prettier**? 💅 If so, follow me, as we'll discover how colorful and playful Console API can really be!
+在 Javascript 中 **[Console API](https://developer.mozilla.org/en-US/docs/Web/API/Console)** 和 **Debugging** 总是密不可分的，其大多通过 `console.log()` 的方式使用。然而，你知道它不仅仅只有这种使用方法吗？你是否也已经对 `console.log()` 的**单一**输出方式感到厌倦了呢？你是否也想让你的 log 更出色更**优美**吗？ 💅 如果你的你的答案是肯定的话，跟随我，让我们一起发现 Console API 真正的多姿多彩和趣味性！
 
 ## [Console.log()](https://developer.mozilla.org/en-US/docs/Web/API/Console/log)
 
-Believe it or not, but `console.log()` itself has some additional functionalities you may not know about. Of course, its basic purpose - **logging** - remains untouched. The only thing we can do is to make it look prettier! Let's try that, shall we? 😁
+无论你是否相信，`console.log()` 本身还是有一些你可能不知道的额外功能。当然，她的基础目的 - **logging** - 是不变的。我们唯一能做的就是使它更加出色。让我们尝试一下怎么样？ 😁
 
 ### String subs
 
-The only thing tightly related to `console.log()` method is that you can use it with so-called **string substitution**. This basically provides you an option to use specific expressions in a string, that will later be replaced by provided arguments. It can look somewhat like this:
+与 `console.log()` 这一方法紧密相关的唯一事情是你可以将它与所谓的 **字符串替换** 一同使用。这基本上就是为你提供了使用字符串特定表达式的选项，然后将其替换为提供的参数。它看起来有点像这样：
 
 ```
 console.log("Object value: %o with string substitution",
     {string: "str", number: 10});
 ```
 
-Nice, huh? The catch is there are multiple variants of string substitution expression:
+是不是很棒呢？关键问题是字符串替换表达式有多种变化：
 
-*   **%o / %O** - for objects;
-*   **%d / %i** - for integers;
-*   **%s** - for strings;
-*   **%f** - for floating-point numbers;
+*   **%o / %O** - 用于对象;
+*   **%d / %i** - 用于整数;
+*   **%s** - 用于字符串;
+*   **%f** - 用于浮点数;
 
-But, with that said, you may wonder why to even use such a feature? Especially when you can easily pass multiple values to log, like this:
+但是，照这样说，你可能想知道为什么要使用这样一个特征？尤其是当你可以简单的传递多个值给 log 的时候，如下所示：
 
 ```
 console.log("Object value: ",
@@ -37,11 +37,11 @@ console.log("Object value: ",
     " with string substitution");
 ```
 
-Also, for strings and numbers, you can just use **string literals**! So, what's the deal? Well, first, I'd say that when doing some nice console logging, you just want some nice strings, and string subs allow you to do just that, with ease! As for the alternatives above - you must agree - you need to keep your eyes open for all those spaces. 🛸 With subs, it's just much more convenient. As for string literals tho, they haven't been around as long as these subs (surprise! 🤯) and... they don't provide the same, nice formatting for objects. But yeah, as long as you're working with numbers and strings only, you may prefer **a different approach**.
+此外，对于字符串和数字，你可以只使用 **字符串字面值**！那么，有什么问题呢？首先，我将讲一下问你做一些不错的 console log 时，你只需要一些不错的字符串，log subs 可以允许你轻松做到这一点。至于上文所讲的字符串替换 - 你必须认同的是 - 你需要睁大眼睛看看这些空间。 🛸 使用 subs，它更方便。至于字符串字面值，他们并没有像这些 subs 一样长（惊喜！ 🤯），并且他们不会为对象提供相同的，良好的格式。但是，只要你只使用数字和字符串，你可能更倾向于 **一个不同的方法**。
 
 ### CSS
 
-There's one more string-sub-like directive that we haven't learned before. It's **%c** and it allows you to apply **CSS styles** string to your logged messages! 😮 Let me show you how to use it!
+我们再学一种以往尚未学过的类子字符串编译指令，就是 **%c**，它允许你应用 **css 风格的** 字符串去记录信息！😮 让我来为你们展示下如何使用！
 
 ```
 console.log("Example %cCSS-styled%c %clog!",
@@ -49,15 +49,15 @@ console.log("Example %cCSS-styled%c %clog!",
     "", "color: green; font-size: large; font-weight: bold");
 ```
 
-The above example makes some extensive use of %c directive. As you can see, styles are applied to everything that **follows** the directive. The only way to escape is to use yet another directive. And that's exactly what we're doing here. If you want to use normal, unstyled log format, you'll need to pass an empty string. I think that it goes without saying, that values provided to the %c directive as well as other string subs needs to be submitted in the expected order, one by one as further arguments. 😉
+上面的例子是 ％c 指令的广泛应用。正如你所见到的那样，样式应用于 **遵循** 该编译指令的所有内容，除非你使用其他的编译指令，而这是我们正要做的。如果你使用普通的无样式的 log 格式，你将需要传递一个空字符串。不言而喻，这个提供给 ％c 编译指令和子字符串的值需要按照预期的顺序一个一个的提交给下一步的参数。 😉
 
 ## Grouping & tracing
 
-We're only getting started and we've already introduced CSS to our logs - wow! What other secrets does Console API have?
+我们已经在 log 中引入了 CSS，这仅仅只是一个开始，那么 Console API 还有哪些秘密呢？
 
 ### Grouping
 
-Doing too much of console logging is not really healthy - it can lead to worse readability and thus... meaningless logs. It's always good to have some **structure** in place. You can achieve exactly that with `[console.group()](https://developer.mozilla.org/en-US/docs/Web/API/Console/group)`. By using that method, you're able to create deep, collapsible structures in your console - **groups**! This not only allows you to hide but organize your logs as well. There's also a `[console.groupCollapsed()](https://developer.mozilla.org/en-US/docs/Web/API/Console/groupCollapsed)` method if you want for your group to be collapsed by default. Of course, groups can be **nested** as much as you'd like (with common sense). You can also make your group have what-seems-like header-log, by passing a list of arguments to it (just like with `console.log()`). Every console call done after invoking the group method, will find its place inside created group. To exit it, you have to use a special `[console.groupEnd()](https://developer.mozilla.org/en-US/docs/Web/API/Console/groupEnd)` method. Simple, right? 😁
+加入过多的 console log 并不是很健康，它可能导致更糟糕的可读性，从而出现无意义的 log 的情形。然而适当地建立一些 **框架** 总是好的。你可以通过使用 `[console.group()](https://developer.mozilla.org/en-US/docs/Web/API/Console/group)` 的方法精准的实现。通过使用该方法，你可以在 console group 中创建深层次的、可折叠的结构，这允许你隐藏并组织你的 log。如果你希望在默认情况下将 log group 折叠，还有一个方法是使用 `[console.groupCollapsed()](https://developer.mozilla.org/en-US/docs/Web/API/Console/groupCollapsed)`。当然，console group 可以根据你的需要进行嵌套（常识性的）。你还可以通过向其传递参数列表来使得你的 log group 具有类 header-log（就像使用 console.log() ）。在调用 log group 方法后完成，每个控制台调用都将在创建的组中找到它的位置。要退出的话，需要使用一个特殊的方法叫做 `[console.groupEnd()](https://developer.mozilla.org/en-US/docs/Web/API/Console/groupEnd)`。很简单，对吗？
 
 ```
 console.group();
@@ -69,11 +69,11 @@ console.groupEnd();
 console.log("Outer scope");
 ```
 
-I think you've already noticed that you can just _copy&paste_ the code inside all provided snippets to your console and play with them the way you want!
+我想你已经注意到，你可以将所有提供的代码段中的代码 _复制并粘贴_ 到你的控制台，并以你想要的方式使用它们！
 
 ### Tracing
 
-Another useful information you can get through the Console API is a path that leads to the current call (**execution path**/**stack trace**). You know, a list of in-code places links that were executed (e.g. functions chains) to get to the current `[console.trace()](https://developer.mozilla.org/en-US/docs/Web/API/Console/trace)` call, because that's the method we're talking about. This information is extremely useful whether it's for detecting **side-effect** or inspecting the flow of your code. Just drop the below fragment to your code to see what I'm talking about.
+另外一个关于 Console API 的有用的信息是获取当前调用的路径（**执行路径**/**堆栈跟踪**）。你知道吗，代码列表通过放置了被执行的链接（例如函数链接）去获取当前的调用 `[console.trace()](https://developer.mozilla.org/en-US/docs/Web/API/Console/trace)`，这也正式是我们所谈论的方法。无论是检测副作用还是检查代码流，这些信息都非常有用。只需将下面的代码放到你的代码中，你就明白我说的意思啦。
 
 ```
 console.trace("Logging the way down here!");
@@ -81,11 +81,11 @@ console.trace("Logging the way down here!");
 
 ## Console.XXX
 
-You probably already know some different methods of Console API. I'm talking about the ones that add some **additional information** to your logs. But, let's make a quick overview of them as well, shall we?
+你可能已经了解了一些关于 Console API 的不同方法。我将要讲的这些能够给你的 logs 增添一些 **额外的信息**。让我们快速的概括一下它们，好吗？
 
 ### Warning
 
-The `[console.warn()](https://developer.mozilla.org/en-US/docs/Web/API/Console/warn)` method behaves just like the console.log (like most of these logging methods do), but, in addition, it has it's own **warning-like style**. ⚠ In most browsers, it should be **yellow** and have a warning symbol somewhere (for natural reasons). Calls to this method also return the **trace by default**, so you can quickly find where the warning (and possible bug) comes from.
+`[console.warn()](https://developer.mozilla.org/en-US/docs/Web/API/Console/warn)` 这一方法操作起来就像 console.log（就像大多数这些 logging 方法一样）。但是，它还具有 **类似警告的样式**。⚠在大多数浏览器中，它应该是 **黄色** 的并且在有一个警告符号（出于自然因素）。默认情况下，对此方法的调用也会返回跟踪，因此你可以快速找到警告（以及可能的错误）的来源。
 
 ```
 console.warn("This is a warning!");
@@ -93,7 +93,7 @@ console.warn("This is a warning!");
 
 ### Error
 
-The `[console.error()](https://developer.mozilla.org/en-US/docs/Web/API/Console/error)` method, similarly to `console.warn()` outputs a message with stack traces, that's specially styled. It's usually **red** with the addition of an error icon. ❌ It clearly notifies the user that something is not right. Here an important thing is that this .error() method is **just a console message** without any additional options, like stopping code execution (to do this you need to throw an error). Just a simple note, as many newcomers can feel a bit unsure about this kind of behavior.
+`[console.error()](https://developer.mozilla.org/en-US/docs/Web/API/Console/error)`这一方法与 console.warn() 输出具有堆栈跟踪的消息类似，具有特殊的样式。它通常是 **红色** 的，添加了错误图标。❌它清楚地通知用户某些事情是不对的。一个重要的知识点是 .error（）这个方法输出的只是一个没有任何附加选项的控制台消息，类似于停止代码执行（为此你需要抛出一个错误）。它 **只是一个简单的说明**，因为许多新使用者可能会对这种操作感到有些不确定性。
 
 ```
 console.error("This is an error!");
@@ -101,7 +101,7 @@ console.error("This is an error!");
 
 ### Info & debug
 
-There are two more methods that can be used to add some order to your logs. We're talking about `[console.info()](https://developer.mozilla.org/en-US/docs/Web/API/Console/info)` and `[console.debug()](https://developer.mozilla.org/en-US/docs/Web/API/Console/debug)`. 🐞 Outputs of these don't always have a unique style - in some browsers it's just an **info icon**. Instead what these and also previous methods allow you to do is applying certain categories to your console messages. In different browsers (e.g. in my Chromium-based one) the dev-tools UI provides you an option to select a certain **category of logs** to display, e.g. errors, debugging messages or info. Just one more organizing feature!
+还有两种方法可用于向 logs 添加一些指令：`[console.info()](https://developer.mozilla.org/en-US/docs/Web/API/Console/info)` 和 `[console.debug()](https://developer.mozilla.org/en-US/docs/Web/API/Console/debug)`。 🐞 运用这两种方式输出的内容并不总是具有独特的风格，在某些浏览器中它只是一个信息图标。这些和上文提及的其他方法都允许你在你的控制台消息中应用某一特定的类别。在不同的浏览器中（例如基于Chromium的浏览器中），dev-tools UI 为你提供了选项，可以选择显示的特定类别的 log，例如错误，调试消息或信息。这只是一个组织功能！
 
 ```
 console.info("This is very informative!");
@@ -110,18 +110,18 @@ console.debug("Debugging a bug!");
 
 ### Assert
 
-There's even a specific Console API method that gives you a shortcut for any conditional logging (**assertions**). It's called `[console.assert()](https://developer.mozilla.org/en-US/docs/Web/API/Console/assert)`. Just like the standard `console.log()` method, it can take an infinite number of arguments, with the difference being that the first one needs to be a **boolean**. If it resolves to true, then the assertion is left quiet, otherwise, it **logs an error** (same as .error() method) to the console with all passed arguments.
+还有一个特别的 Console API 方法，它为你在任何条件下进行 log（**断言**）提供了捷径。它就是`[console.assert()](https://developer.mozilla.org/en-US/docs/Web/API/Console/assert)`。就像标准的 console.log() 方法一样，它可以采用无数个参数，不同的是它的第一个参数需要是布尔值。如果它解析为 true，则断言不会被 log，否则，它会将将错误和传入的参数在控制台中 log 出来（与 .error（）方法相同）。
 
 ```
 console.assert(true, "This won't be logged!");
 console.assert(false, "This will be logged!");
 ```
 
-And, after all that mess, you may want to make your console messages board look a bit cleaner. No problem! Just use the `[console.clear()](https://developer.mozilla.org/en-US/docs/Web/API/Console/clear)` method and see all your old logs go away! It's such a useful feature, that it even has **it's own button** (and shortcut) in console interfaces of most browsers! 👍
+而且，在使用大量的 log 方法之后，你可能希望让你的控制台消息板看起来更整洁一些。没问题！只需使用 `[console.clear()](https://developer.mozilla.org/en-US/docs/Web/API/Console/clear)` 这一方法，即可看到所有之前 log 的信息消失！这是一个非常有用的功能，它甚至在大多数浏览器的控制台界面中都有自己的按钮（和快捷方式）！
 
 ## Timing
 
-Console API even provides a small set of functions related to **timing**. ⌚ With their help, you can make a quick and dirty **performance tests** for parts of your code. As I said before, this API is simple. You start with `[console.time()](https://developer.mozilla.org/en-US/docs/Web/API/Console/time)` method that can take an optional argument as a **label** or identification for the given timer. The mentioned timer starts just at the moment of invoking this method. Then you can use `[console.timeLog()](https://developer.mozilla.org/en-US/docs/Web/API/Console/timeLog)` and `[console.timeEnd()](https://developer.mozilla.org/en-US/docs/Web/API/Console/timeEnd)` methods (with optional label argument) to log your time (in **milliseconds**) and end respected timer accordingly.
+Console API 甚至提供了一组与定时器相关的功能。⌚ 在他们的帮助下，你可以对部分代码快速地进行性能测试。正如我之前所说，这个 API 很简单。你可以使用这一方法 `[console.time()](https://developer.mozilla.org/en-US/docs/Web/API/Console/time)`，将可选参数作为标签或者 id 赋给定时器。当你进行调用的时候定时器便启动了。然后你可以使用 `[console.timeLog()](https://developer.mozilla.org/en-US/docs/Web/API/Console/timeLog)` 和 `[console.timeEnd()](https://developer.mozilla.org/en-US/docs/Web/API/Console/timeEnd)` 这两种方法（带有可选的标签参数）来 log 你的时间（以毫秒为单位）以及结束定时器。
 
 ```
 console.time();
@@ -131,11 +131,11 @@ console.timeLog(); // default: [time] ms
 console.timeEnd(); // default: [time] ms
 ```
 
-Of course, if you're doing some real benchmarking or performance tests, I'd recommend using the **[Performance API](https://developer.mozilla.org/en-US/docs/Web/API/Performance_API)**, that's specially designed for this purpose.
+当然，如果你正在进行一些真正的基准测试或性能测试，我建议使用专门为此目的而设计的 **[Performance API](https://developer.mozilla.org/en-US/docs/Web/API/Performance_API)**。
 
 ## Counting
 
-In case you have so many logs that you don't know how many times given parts of the code have been executed - you've guessed it! - there's an API for that! The `[console.count()](https://developer.mozilla.org/en-US/docs/Web/API/Console/count)` method does possibly the most basic thing it can - it counts **how many times it's been called**. 🧮 You can, naturally, pass an optional argument providing a label for a given counter (defaults to default). You can later reset chosen counter with `[console.countReset()](https://developer.mozilla.org/en-US/docs/Web/API/Console/countReset)` method.
+如果你有很多的 log，而你不知道这部分被执行的代码出现了多少次 log，你已经猜到了！接下来这个 API 可以解决这个问题！`[console.count()](https://developer.mozilla.org/en-US/docs/Web/API/Console/count)` 这一方法可能是最基础的东西，它可以计算被调用的次数。当然，你可以传递一个可选参数作为计数器的标签（设定默认值）。稍后，你可以使用 `[console.countReset()](https://developer.mozilla.org/en-US/docs/Web/API/Console/countReset)` 这一方法重置所选计数器。
 
 ```
 console.count(); // default: 1
@@ -145,11 +145,11 @@ console.countReset();
 console.count(); // default: 1
 ```
 
-Personally, I don't see many use-cases for this particular features, but it's good that something like that exist at all. Maybe it's just me...
+就个人而言，我没有看到很多对这个特殊功能的运用，但这样的方法存在总是好的。也许只是我······
 
 ## Tables
 
-I think this is one of the most underrated features of Console API (beyond the CSS styles mentioned previously). 👏 The ability to output real, **sortable tables** to your console can be extremely useful when debugging and inspecting **flat** or **two-dimensional** **objects** and **arrays**. Yeah, that's right - you can actually display a table in your console. All it takes is just a simple `[console.table()](https://developer.mozilla.org/en-US/docs/Web/API/Console/table)` call with one argument - most likely object or array (primitive values are just normally logged and more than 2-dimensional structures are truncated to smaller counterparts. Just try the snippet below to see what I mean!
+我认为这是 Console API 最被低估的功能之一（超过之前提到的 CSS 样式）。👏 当调试和检查平面或二维对象和数组时，向控制台输出真实的、可排序的表格这一能力是非常有用的。是的，你真的可以在控制台中显示一个表格。它只需使用带有一个参数的简单调用 `[console.table()](https://developer.mozilla.org/en-US/docs/Web/API/Console/table)`，该参数很可能是对象或数组（原始值通常只是正常的 log，超过2维结构将被截断为较小的对应物。只需试一下如下的代码来来看一下我想表达的意思！
 
 ```
 console.table([[0,1,2,3,4], [5,6,7,8,9]]);
@@ -157,7 +157,7 @@ console.table([[0,1,2,3,4], [5,6,7,8,9]]);
 
 ## Console ASCII art
 
-Console art wouldn't be the same without **ASCII art**! With the help of **[image-to-ascii](https://github.com/IonicaBizau/image-to-ascii)** module (can be found on **[NPM](https://www.npmjs.com/package/image-to-ascii)**) you can convert a normal image to its ASCII counterpart with ease! 🖼 In addition to that, this module provides many **customizable settings** and options to create the output you want. Here's a simple example of this library in use:
+如果没有 ASCII art，console art 就不一样了！借助 **[image-to-ascii](https://github.com/IonicaBizau/image-to-ascii)** 模块（可以在 **[NPM](https://www.npmjs.com/package/image-to-ascii)** 上找到），你可以轻松地将普通图像转换为 ASCII 对应模块！🖼 除此之外，该模块还提供了许多可自定义的设置和选项，用以创建你所需的输出。以下是使用该库的简单示例：
 
 ```
 import imageToAscii from "image-to-ascii";
@@ -171,15 +171,15 @@ imageToAscii(
 });
 ```
 
-With the code above, you can create **stunning JS logo**, just like the one in your console right now! 🤯
+使用上面的代码，你可以创建令人惊叹的 JS 徽标，就像你现在在控制台中创建的徽标一样！ 🤯
 
-With the help of CSS styles, some padding, and background properties, you can also output a **full-fledged image** to your console! For example, you can take a look at **[console.image](https://github.com/adriancooney/console.image)** module (available on **[NPM](https://www.npmjs.com/package/console.image)** too) to play with this feature as well. But still, I think ASCII is a bit more... **stylish**. 💅
+借助 CSS 样式，一些填充和背景属性，你也可以将完整的图像输出到控制台！例如，你可以查看 **[console.image](https://github.com/adriancooney/console.image)** 模块（也可以在 **[NPM](https://www.npmjs.com/package/console.image)** 上使用）来使用此功能。但是，我认为 ASCII 更加时尚。 💅
 
 ## Modern logs
 
-As you can see, your logs and debugging process as a whole doesn't have to be so monochrome! There's a lot more goodness out there than simple `console.log()`. With the knowledge from this article, the choice is now yours! You can stay with traditional `console.log()` and pretty fine formatting of different structures provided by your browser, or you can add some freshness to your console with the techniques described above. Anyway, just **keep having fun**... even if you're fighting with a really nasty bug! 🐞
+如你所见，你的 logs 和调试过程整体上不必如此单调！除了简单的 console.log() 之外，还有更多的好方法。有了这篇文章中的知识，选择现在就在你的手里！你可以使用传统的 console.log() 这一方法和你的浏览器提供的各种精美款样式的结构，或者你可以使用上文描述的技巧为你的控制台增添一些新意。浏览器提供的不同结构的传统和精美格式，或者你可以使用上述技术为控制台添加一些新鲜感。无论如何，即使你正在和讨厌的 bug 🐞 斗争，你也要找到其中的乐趣！
 
-I hoped you like the article and it allowed you to learn something new. As always, consider **sharing it** with others so anyone can have their consoles **full of colors** 🌈 and leave **your opinion** down below through **a reaction** or **a comment**! Also, **follow me** **[on Twitter](https://twitter.com/areknawo)**, **[on my Facebook page](https://www.facebook.com/areknawoblog)** and **sign up** for the (soon-to-be) **newsletter**! Again, thanks for reading and I'll see you in the next one! ✌
+我希望你喜欢这篇文章，它可以让你学到新东西。和往常一样，与他人分享，让每个人都可以让他们的控制台充满色彩 🌈 ，并通过反映或评论将你的意见留在下面！此外，请关注我的 **[Twitter](https://twitter.com/areknawo)** 和 **[Facebook](https://www.facebook.com/areknawoblog)** 上，并注册 newsletter（即将）！再次，感谢阅读，希望在下一篇文章中依旧看到你的身影！✌
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
