@@ -1,3 +1,6 @@
+* [2019 前端工具调研](https://juejin.im/post/5cb800fce51d456e4514f550) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
+* [对 React 组件进行单元测试](https://juejin.im/post/5cb9c62a6fb9a0688d2e4689) ([xionglong58](https://github.com/xionglong58) 翻译)
+* [使用 Shadow DOM 封装样式和结构](https://juejin.im/post/5cb3f5b95188251add7f11bc) ([Xuyuey](https://github.com/Xuyuey) 翻译)
 * [你需要知道的 CSS 中所有 hyphenation 的使用](https://juejin.im/post/5cb2968df265da039f0f02d2) ([Augustwuli](https://github.com/Augustwuli) 翻译)
 * [图解 Map、Reduce 和 Filter 数组方法](https://juejin.im/post/5caf030d6fb9a068736d2d7c) ([FrankXiong](https://github.com/FrankXiong) 翻译)
 * [Web Components 的高级工具](https://juejin.im/post/5caef9f25188251b2b20b20b) ([Xuyuey](https://github.com/Xuyuey) 翻译)
