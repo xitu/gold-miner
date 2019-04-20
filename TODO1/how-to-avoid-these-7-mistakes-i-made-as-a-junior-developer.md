@@ -69,7 +69,7 @@ Wrong.
 
 This is a major mistake I made and a mistake I see junior developers do too often. More often than not junior developers will try and reinvent the wheel, or use some complicated solution in a bid to try and impress.
 
-The best approach to writing code is the K.I.S.S principle (“****keep it simple****, ****stupid****”). By keeping things simple, you’ll reap the benefits of ****easy to read, maintainable code**** undefined(the next developer coming along after you will appreciate it!).
+The best approach to writing code is the K.I.S.S principle (“**keep it simple**, **stupid**”). By keeping things simple, you’ll reap the benefits of **easy to read, maintainable code** undefined(the next developer coming along after you will appreciate it!).
 
 ## There’s more to life than code and work
 
