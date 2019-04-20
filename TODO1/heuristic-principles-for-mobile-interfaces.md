@@ -59,7 +59,7 @@
 
 [Jill Gerhardt-Powal 的](https://en.wikipedia.org/wiki/Heuristic_evaluation#Gerhardt-Powals.E2.80.99_cognitive_engineering_principles) 认知工程学原则建议设计师"在适当的时候提供多种数据编码 ———— 系统应该提供不同格式和/或细节级别的数据，以提高认知灵活性和满足用户偏好。"无论是让用户感到压力的还是感到约束的界面必然会让用户在使用的时候感到烦恼。
 
-![应该向新用户介绍工具的功能，但是老用户永远不会看到这些工具提示。 (由 [Lakshmi Karuppiah](https://dribbble.com/lakshmikaruppiah) 设计)](https://cdn-images-1.medium.com/max/3360/0*Hx11UX6AHVjOPMrT.jpg)
+![应该向新用户介绍工具的功能，但是老用户永远不会看到这些常规的工具提示。 (由 [Lakshmi Karuppiah](https://dribbble.com/lakshmikaruppiah) 设计)](https://cdn-images-1.medium.com/max/3360/0*Hx11UX6AHVjOPMrT.jpg)
 
 ## 五、贴合大众习惯的用户体验
 
