@@ -5,7 +5,7 @@
 > * 译者：[Hyde Song](https://github.com/HydeSong)
 > * 校对者：
 
-# [译]移动界面设计的 10 项启发式原则
+# [译] 移动界面设计的 10 项启发式原则
 
 ![](https://cdn-images-1.medium.com/max/3440/1*IRIxsMuVD4AUlChUyZzOAA.png)
 
