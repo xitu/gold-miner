@@ -1,3 +1,4 @@
+* [用 Rust 打造你的第一个命令行工具](https://juejin.im/post/5cb33b94e51d456e63760453) ([JackEggie](https://github.com/JackEggie) 翻译)
 * [Spring 的分布式事务实现 — 使用和不使用XA — 第三部分](https://juejin.im/post/5caee1ee6fb9a068890f1eff) ([radialine](https://github.com/radialine) 翻译)
 * [Spring 的分布式事务实现 — 使用和不使用XA — 第二部分](https://juejin.im/post/5cae93ddf265da03a85aaac3) ([xiantang](https://github.com/xiantang) 翻译)
 * [Java 和 etcd：因为 jetcd 最终走到了一起](https://juejin.im/post/5cae92f8f265da0360239b89) ([mingxing47](https://github.com/mingxing47) 翻译)
