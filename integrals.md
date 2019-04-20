@@ -2155,10 +2155,12 @@
 |[成为一个编译器之「使用 JavaScript 来制作编译器」](http://gold.xitu.io/entry/582343555bbb500059056d4b/)|校对|1|
 |[给 iOS App 开发者的 39 个开源的 Swift UI 库](http://gold.xitu.io/entry/58209322570c350060b73588)|校对|1|
 
-## 译者：[phxnirvana](https://github.com/phxnirvana) 历史贡献积分：85 当前积分：50
+## 译者：[phxnirvana](https://github.com/phxnirvana) 历史贡献积分：88 当前积分：53 二零一九：3
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Android 生命周期备忘录 —— 第四部分：ViewModels、半透明 Activities 及启动模式](https://juejin.im/post/5caeccb2f265da037418674a)|校对|1|
+|[Plaid 应用迁移到 AndroidX 的实践经历](https://juejin.im/post/5cb567cc6fb9a068a17c9728)|校对|2|
 |[Flutter 异步编程：Future、Isolate 和事件循环](https://juejin.im/post/5c898b4af265da2de25bcc2d)|校对|2|
 |[使用 Kotlin 将你的 iOS 应用程序转换为 Android](https://juejin.im/post/5c03f64ce51d454af013d076)|校对|3|
 |[管中窥豹：RxJava 与 Kotlin 协程的对比](https://juejin.im/post/5a0ab91451882533d0229556)|翻译|3|
@@ -3592,10 +3594,13 @@
 |------|-------|-------|
 |[如何在无损的情况下让图片变的更小](https://juejin.im/post/5959fbe0f265da6c2518d740)|校对|2|
 
-## 译者：[swants](https://github.com/swants) 历史贡献积分：79.5 当前积分：14.5 二零一九：11
+## 译者：[swants](https://github.com/swants) 历史贡献积分：85.5 当前积分：20.5 二零一九：17
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Swift 5.0 新特性](https://juejin.im/post/5ca41d766fb9a05e6d61ad2b)|校对|2|
+|[实用的 MVVM 和 RxSwift](https://juejin.im/post/5cb80f9c6fb9a06876103744)|校对|2|
+|[iOS 里的 MVVM 和 RxSwift](https://juejin.im/post/5cb833abf265da03ac0d04d1)|校对|2|
 |[iOS 响应者链 UIResponder，UIEvent，UIControl 的使用](https://juejin.im/post/5c9f652ae51d4519eb1ff426)|校对|1.5|
 |[在 swift 中使用 errors 作为控制流](https://juejin.im/post/5c90c0d9f265da612d6335cb)|翻译|5.5|
 |[iOS 设计模式进阶](https://juejin.im/post/5c51b959f265da6115112e3e)|校对|4|
@@ -7411,10 +7416,15 @@
 |------|-------|-------|
 |[深入理解 React 高阶组件](https://juejin.im/entry/5bdd226cf265da616f6f6cce)|校对|4|
 
-## 译者：[iWeslie](https://github.com/iWeslie) 历史贡献积分：78 当前积分：78 二零一九：34
+## 译者：[iWeslie](https://github.com/iWeslie) 历史贡献积分：101 当前积分：101 二零一九：57
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Swift 5.0 新特性](https://juejin.im/post/5ca41d766fb9a05e6d61ad2b)|翻译|7|
+|[懒加载变量在 iOS Swift](https://juejin.im/post/5ca775b26fb9a05e3527db37)|校对|1|
+|[Swift 模块中的 API 污染](https://juejin.im/post/5cb80f1f6fb9a0686a224a18)|翻译|5|
+|[实用的 MVVM 和 RxSwift](https://juejin.im/post/5cb80f9c6fb9a06876103744)|翻译|4|
+|[iOS 里的 MVVM 和 RxSwift](https://juejin.im/post/5cb833abf265da03ac0d04d1)|翻译|6|
 |[iOS 响应者链 UIResponder，UIEvent，UIControl 的使用](https://juejin.im/post/5c9f652ae51d4519eb1ff426)|翻译|5|
 |[如何在 Swift 5 中使用 Result](https://juejin.im/post/5c9586eee51d4536e85c3d60)|校对|3|
 |[在 swift 中使用 errors 作为控制流](https://juejin.im/post/5c90c0d9f265da612d6335cb)|校对|2|
@@ -7532,10 +7542,13 @@
 |------|-------|-------|
 |[使用 Swift 的 iOS 设计模式（第一部分）](https://juejin.im/post/5c05d4ee5188250ab14e62d6)|校对|3.5|
 
-## 译者：[DevMcryYu](https://github.com/DevMcryYu) 历史贡献积分：45 当前积分：45 二零一九：25
+## 译者：[DevMcryYu](https://github.com/DevMcryYu) 历史贡献积分：49.5 当前积分：49.5 二零一九：29.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Swift 5.0 新特性](https://juejin.im/post/5ca41d766fb9a05e6d61ad2b)|校对|2|
+|[Data Binding 库使用的经验教训](https://juejin.im/post/5cb1a5dfe51d456e831f68eb)|校对|1.5|
+|[Workmanager 简介](https://juejin.im/post/5ca3463bf265da308939f9b1)|校对|1|
 |[MDC-104 Flutter：Material 高级组件（Flutter）](https://juejin.im/post/5c99bcd0f265da60d42900d6)|翻译|9|
 |[PWA 会取代原生移动应用吗？](https://juejin.im/post/5c627f76f265da2deb6a8828)|校对|5|
 |[MDC-103 Flutter: Material Theming 的颜色、形状、高度和类型（Flutter）](https://juejin.im/post/5c45bb026fb9a049e3086bbc)|翻译|8|
@@ -7626,10 +7639,11 @@
 |------|-------|-------|
 |[使用自定义文件模板加快你的应用开发速度](https://juejin.im/post/5c204bcdf265da611b585bcd)|校对|1.5|
 
-## 译者：[Qiuk17](https://github.com/Qiuk17) 历史贡献积分：24.5 当前积分：24.5 二零一九：17.5
+## 译者：[Qiuk17](https://github.com/Qiuk17) 历史贡献积分：27 当前积分：27 二零一九：20
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Android 生命周期备忘录 — 第三部分：Fragments](https://juejin.im/post/5ca3517a6fb9a05e462b967a)|翻译|2.5|
 |[用长短期记忆网络预测股票市场（使用 Tensorflow）](https://juejin.im/post/5c8114de51882540a830b910)|翻译|9|
 |[转化通用安卓音乐播放器为 instant 应用](https://juejin.im/post/5c89d2e05188257e1f292958)|校对|1|
 |[如何学习 CSS](https://juejin.im/post/5c74daaaf265da2d9d1cb774)|校对|2|
@@ -7641,10 +7655,11 @@
 |[了解 Android 的矢量图片格式：`VectorDrawable`](https://juejin.im/post/5c1a21ff5188252eb759600e)|校对|2.5|
 |[当 Kotlin 中的监听器包含多个方法时，如何让它 “巧夺天工”？](https://juejin.im/post/5c1e43646fb9a04a102f45ab)|校对|1.5|
 
-## 译者：[gs666](https://github.com/gs666) 历史贡献积分：28 当前积分：18 二零一九：15.5
+## 译者：[gs666](https://github.com/gs666) 历史贡献积分：31 当前积分：21 二零一九：16.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Workmanager 简介](https://juejin.im/post/5ca3463bf265da308939f9b1)|翻译|3|
 |[在 Android 应用中使用矢量资源](https://juejin.im/post/5c943c97e51d45288201a30c)|校对|1|
 |[曝光！UX 行话大全](https://juejin.im/post/5c9f5c49e51d451b8a2af27b)|校对|1|
 |推荐英文文章一篇|奖励|1|
@@ -7672,10 +7687,12 @@
 |------|-------|-------|
 |[以太坊入门指南](https://juejin.im/post/5c1080fbe51d452b307969a3)|校对|1.5|
 
-## 译者：[xiaxiayang](https://github.com/xiaxiayang) 历史贡献积分：15 当前积分：2 二零一九：14
+## 译者：[xiaxiayang](https://github.com/xiaxiayang) 历史贡献积分：18 当前积分：5 二零一九：17
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Android 生命周期备忘录 —— 第四部分：ViewModels、半透明 Activities 及启动模式](https://juejin.im/post/5caeccb2f265da037418674a)|翻译|2|
+|[Android 生命周期备忘录 — 第三部分：Fragments](https://juejin.im/post/5ca3517a6fb9a05e462b967a)|校对|1|
 |2019 年 3 月兑掘金桌垫 1 个|减去积分|13|
 |[绘制路径：Android 中矢量图渲染](https://juejin.im/post/5c75e73051882562ea724cd4)|翻译|4|
 ||[Android 上一次编写，到处测试](https://juejin.im/post/5c32cbc9f265da611d66d14e)|校对|1.5|
@@ -7896,10 +7913,12 @@
 |[为什么你的应用需要对各种尺寸屏幕做适配优化？](https://juejin.im/post/5c662023518825767633ab86)|校对|2.5|
 |[提取图像中的文字、人脸或者条形码 — 形状检测 API](https://juejin.im/post/5c64026fe51d457f963d249c)|翻译|4|
 
-## 译者：[Mirosalva](https://github.com/Mirosalva) 历史贡献积分：32.5 当前积分：32.5 二零一九：32.5
+## 译者：[Mirosalva](https://github.com/Mirosalva) 历史贡献积分：39.5 当前积分：39.5 二零一九：39.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Plaid 应用迁移到 AndroidX 的实践经历](https://juejin.im/post/5cb567cc6fb9a068a17c9728)|翻译|3|
+|[Data Binding 库使用的经验教训](https://juejin.im/post/5cb1a5dfe51d456e831f68eb)|翻译|4|
 |[编写可以复用的 HTML 模板](https://juejin.im/post/5ca5b858e51d4524a918560f)|翻译|2|
 |[用 Apache Shiro 来强化一个 Spring Boot 应用](https://juejin.im/post/5c9f60c7e51d451cf929305d)|校对|1.5|
 |[数字产品为人们授权的时代已来](https://juejin.im/post/5c7e50236fb9a04a0e2deffa)|翻译|5|
@@ -7968,10 +7987,11 @@
 |[Widget - State - Context - InheritedWidget](https://juejin.im/post/5c768ad2f265da2dce1f535c)|校对|3|
 |[Swift：通过示例避免内存泄漏](https://juejin.im/post/5c6a0abaf265da2dc675a9b2)|校对|1|
 
-## 译者：[kirinzer](https://github.com/kirinzer) 历史贡献积分：6.5 当前积分：6.5 二零一九：6.5
+## 译者：[kirinzer](https://github.com/kirinzer) 历史贡献积分：9 当前积分：9 二零一九：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|[懒加载变量在 iOS Swift](https://juejin.im/post/5ca775b26fb9a05e3527db37)|翻译|2.5|
 |[在 iOS 上使用 Carthage 建立依赖](https://juejin.im/post/5c4f04ef51882525eb3663be)|校对|1.5|
 |[iOS 设计模式进阶](https://juejin.im/post/5c51b959f265da6115112e3e)|校对|5|
 
@@ -8186,10 +8206,11 @@
 |[Node.js 基础知识: 没有依赖关系的 Web 服务器](https://juejin.im/post/5c88a6855188257b0b126564)|校对|1|
 |[Golang 数据结构：树](https://juejin.im/post/5c8e023351882545eb718c9d)|校对|3|
 
-## 译者：[portandbridge](https://github.com/portandbridge) 历史贡献积分：14 当前积分：14 二零一九：14
+## 译者：[portandbridge](https://github.com/portandbridge) 历史贡献积分：15 当前积分：15 二零一九：15
 
 |文章|类型|积分|
 |------|-------|-------|
+|[懒加载变量在 iOS Swift](https://juejin.im/post/5ca775b26fb9a05e3527db37)|校对|1|
 |[从 0 创建自定义元素](https://juejin.im/post/5cb2b5465188257abd66c354)|校对|3|
 |[React 中的调度](https://juejin.im/post/5ca347306fb9a05e4c0e69e5)|校对|2|
 |[写给大家看的 Cache-Control 指令配置](https://juejin.im/post/5c9d92506fb9a070f5067b3d)|校对|4|
