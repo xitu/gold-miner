@@ -87,7 +87,7 @@ Ben Terrett 经常使用 [GOV.UK](https://www.gov.uk/guidance/government-design-
 
 **"如果你认为某件事很聪明、很复杂，要小心——这可能是自我放纵。" ———— Don Norman，高产的产品设计师，《日常事物的设计》的作者**
 
-界面的视觉设计应该总是从定义的功能开始。当风格和趋势被优先考虑时，结果可能看起来很漂亮，吸引了很多关注，但最终可能导致脱节的 [用户体验](https://www.toptal.com/designers/mobile-ux)。视觉形式无法拯救功能失调的设计。
+界面的视觉设计应该总是从定义的功能开始。当风格和趋势被优先考虑时，结果可能看起来很漂亮，很引人注目，但最终可能导致脱节的 [用户体验](https://www.toptal.com/designers/mobile-ux)。视觉形式无法拯救功能失调的设计。
 
 视觉提示可以用来在应用程序的功能中引导用户。[Fritt 法则](https://www.interaction-design.org/literature/article/fitts-s- Law of size-and-distance-in-ui-design) 指出，形状、间距和大小可以引导用户了解情况并采取所需的行动。正是在这里，形式支撑并放大了功能。
 
