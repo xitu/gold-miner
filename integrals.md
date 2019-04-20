@@ -6638,10 +6638,11 @@
 |[苹果公司如何修复 3D Touch](https://juejin.im/post/5b35e5886fb9a00e3642724f)|校对|0.5|
 |[怎样使用简单的三角函数来创建更好的加载动画](https://juejin.im/post/5b33055f518825748871c590)|校对|1|
 
-## 译者：[JackEggie](https://github.com/JackEggie) 历史贡献积分：23 当前积分：23 二零一九：20
+## 译者：[JackEggie](https://github.com/JackEggie) 历史贡献积分：27 当前积分：27 二零一九：24
 
 |文章|类型|积分|
 |------|-------|-------|
+|[用 Rust 打造你的第一个命令行工具](https://juejin.im/post/5cb33b94e51d456e63760453)|翻译|4|
 |[如何在 Keras 中使用 LSTM 神经网络创作音乐](https://juejin.im/post/5c9c19d7e51d453e7d28a173)|校对|5|
 |[开源是无法赚钱的，因为开源本身就不是为了赚钱](https://juejin.im/post/5c998753e51d456ef105ac1e)|校对|1.5|
 |[论数据流的扩展性](https://juejin.im/post/5c8329d25188257ea038a05e)|校对|3|
@@ -6879,10 +6880,11 @@
 |[正则表达式要跑 5 天，所以我做了个工具将其缩短至 15 分钟。](https://juejin.im/post/5b6d426f6fb9a04fd1604341)|校对|0.5|
 |[Tab Bar 就是新的汉堡菜单](https://juejin.im/post/5b61684fe51d451986517e31)|校对|1.5|
 
-## 译者：[StellaBauhinia](https://github.com/StellaBauhinia) 历史贡献积分：15 当前积分：15
+## 译者：[StellaBauhinia](https://github.com/StellaBauhinia) 历史贡献积分：16 当前积分：16 二零一九：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|[我们为什么看好加密收藏品（NFT）的前景](https://juejin.im/post/5cb87819518825329e7ea61e)|校对|1|
 |[SmartyStreets 的 Go 测试探索之路](https://juejin.im/post/5ba83f2ff265da0a867c3818)|校对|2|
 |[2018 年度最佳数据库即服务解决方案](https://juejin.im/post/5ba784e3e51d450e9d64984d)|校对|2|
 |[构建未来的设计生态系统](https://juejin.im/post/5b992be8f265da0aa3591346)|校对|2|
@@ -7128,10 +7130,11 @@
 |------|-------|-------|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|5|
 
-## 译者：[CoderMing](https://github.com/CoderMing) 历史贡献积分：49 当前积分：49 二零一九：4
+## 译者：[CoderMing](https://github.com/CoderMing) 历史贡献积分：49 当前积分：14 二零一九：4
 
 |文章|类型|积分|
 |------|-------|-------|
+|2019 年 4 月兑小米台灯 1 个|减去积分|35|
 |[HTML 一直是我们编译的目标 — 我们可以解决好它吗？](https://juejin.im/post/5c6ec3fc6fb9a049b07df54c)|翻译|4|
 |[程序构建系列教程简介](https://juejin.im/post/5c0dd214518825444758453a)|校对|2|
 |[用 Shadow DOM v1 和 Custom Elements v1 实现一个原生 Web Component](https://juejin.im/post/5c1a401b6fb9a049c042fa07)|校对|2|
@@ -7662,10 +7665,11 @@
 |[了解 Android 的矢量图片格式：`VectorDrawable`](https://juejin.im/post/5c1a21ff5188252eb759600e)|校对|2.5|
 |[当 Kotlin 中的监听器包含多个方法时，如何让它 “巧夺天工”？](https://juejin.im/post/5c1e43646fb9a04a102f45ab)|校对|1.5|
 
-## 译者：[gs666](https://github.com/gs666) 历史贡献积分：31 当前积分：21 二零一九：18.5
+## 译者：[gs666](https://github.com/gs666) 历史贡献积分：32 当前积分：22 二零一九：19.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐英文文章一篇|奖励|1|
 |[Workmanager 简介](https://juejin.im/post/5ca3463bf265da308939f9b1)|翻译|3|
 |[在 Android 应用中使用矢量资源](https://juejin.im/post/5c943c97e51d45288201a30c)|校对|1|
 |[曝光！UX 行话大全](https://juejin.im/post/5c9f5c49e51d451b8a2af27b)|校对|1|
@@ -7805,10 +7809,11 @@
 |------|-------|-------|
 |[审校文章 https://github.com/xitu/gold-miner/issues/5118](https://github.com/xitu/gold-miner/issues/5118)|奖励|1|
 
-## 译者：[Fengziyin1234](https://github.com/Fengziyin1234) 历史贡献积分：87 当前积分：87 二零一九：87
+## 译者：[Fengziyin1234](https://github.com/Fengziyin1234) 历史贡献积分：89 当前积分：89 二零一九：89
 
 |文章|类型|积分|
 |------|-------|-------|
+|[制定良好的路线图：产品负责人的六个实施步骤](https://juejin.im/post/5cb299436fb9a068744e70a7)|校对|2|
 |[使用 Shadow DOM 封装样式和结构](https://juejin.im/post/5cb3f5b95188251add7f11bc)|校对|3|
 |[对 React 组件进行单元测试](https://juejin.im/post/5cb9c62a6fb9a0688d2e4689)|校对|4|
 |[Spring 的分布式事务实现 — 使用和不使用XA — 第二部分](https://juejin.im/post/5cae93ddf265da03a85aaac3)|校对|2.5|
@@ -8083,10 +8088,11 @@
 |[如何在远程服务器上运行 Jupyter Notebooks](https://juejin.im/post/5cb5e0a9f265da036c577f24)|翻译|4|
 |[数据科学领域十大必知机器学习算法](https://juejin.im/post/5c73bbfff265da2da771d42a)|校对|2|
 
-## 译者：[xionglong58](https://github.com/xionglong58) 历史贡献积分：70.5 当前积分：70.5 二零一九：70.5
+## 译者：[xionglong58](https://github.com/xionglong58) 历史贡献积分：80 当前积分：80 二零一九：80
 
 |文章|类型|积分|
 |------|-------|-------|
+|[你不能成为成功程序员的 10 个迹象](https://juejin.im/post/5ca2f5ce51882565cb5b962c)|翻译|9.5|
 |[如何在远程服务器上运行 Jupyter Notebooks](https://juejin.im/post/5cb5e0a9f265da036c577f24)|校对|1.5|
 |[对 React 组件进行单元测试](https://juejin.im/post/5cb9c62a6fb9a0688d2e4689)|翻译|7|
 |[2019 React Redux 完全指南](https://juejin.im/post/5cac8ccd6fb9a068530111c7)|校对|4|
@@ -8194,10 +8200,11 @@
 |[TypeScript 和 Babel：美丽的结合](https://juejin.im/post/5c8f4dcb5188252db02e404c)|翻译|4.5|
 |[Javascript - Generator-Yield/Next 和 Async-Await](https://juejin.im/post/5c7ca6d95188256ec63f289c)|校对|1|
 
-## 译者：[QiaoN](https://github.com/QiaoN) 历史贡献积分：10 当前积分：10 二零一九：10
+## 译者：[QiaoN](https://github.com/QiaoN) 历史贡献积分：15 当前积分：15 二零一九：15
 
 |文章|类型|积分|
 |------|-------|-------|
+|[制定良好的路线图：产品负责人的六个实施步骤](https://juejin.im/post/5cb299436fb9a068744e70a7)|翻译|5|
 |[设计不会拯救世界](https://juejin.im/post/5c966aed5188252d9b3768df)|翻译|6|
 |[四个理由让你使用灰度色调进行设计](https://juejin.im/post/5c961b1fe51d456a6743109e)|校对|1.5|
 |[浏览器中 CSS 支持指南](https://juejin.im/post/5c87a9006fb9a049e4138c7e)|校对|2.5|
@@ -8218,10 +8225,11 @@
 |[Node.js 基础知识: 没有依赖关系的 Web 服务器](https://juejin.im/post/5c88a6855188257b0b126564)|校对|1|
 |[Golang 数据结构：树](https://juejin.im/post/5c8e023351882545eb718c9d)|校对|3|
 
-## 译者：[portandbridge](https://github.com/portandbridge) 历史贡献积分：15 当前积分：15 二零一九：15
+## 译者：[portandbridge](https://github.com/portandbridge) 历史贡献积分：18 当前积分：18 二零一九：18
 
 |文章|类型|积分|
 |------|-------|-------|
+|[我们为什么看好加密收藏品（NFT）的前景](https://juejin.im/post/5cb87819518825329e7ea61e)|翻译|3|
 |[懒加载变量在 iOS Swift](https://juejin.im/post/5ca775b26fb9a05e3527db37)|校对|1|
 |[从 0 创建自定义元素](https://juejin.im/post/5cb2b5465188257abd66c354)|校对|3|
 |[React 中的调度](https://juejin.im/post/5ca347306fb9a05e4c0e69e5)|校对|2|
@@ -8308,10 +8316,11 @@
 |------|-------|-------|
 |[使用网格布局实现响应式图片](https://juejin.im/post/5ca0ad80f265da30920059ae)|校对|1|
 
-## 译者：[yzw7489757](https://github.com/yzw7489757) 历史贡献积分：5 当前积分：5 二零一九：5
+## 译者：[yzw7489757](https://github.com/yzw7489757) 历史贡献积分：8 当前积分：8 二零一九：8
 
 |文章|类型|积分|
 |------|-------|-------|
+|[你不能成为成功程序员的 10 个迹象](https://juejin.im/post/5ca2f5ce51882565cb5b962c)|校对|3|
 |[从 0 创建自定义元素](https://juejin.im/post/5cb2b5465188257abd66c354)|翻译|3|
 |[写给大家看的 Cache-Control 指令配置](https://juejin.im/post/5c9d92506fb9a070f5067b3d)|校对|2|
 
@@ -8321,10 +8330,11 @@
 |------|-------|-------|
 |[多线程简介](https://juejin.im/post/5ca351da6fb9a05e6a08745b)|校对|2.5|
 
-## 译者：[TloveYing](https://github.com/TloveYing) 历史贡献积分：1.5 当前积分：1.5 二零一九：1.5
+## 译者：[TloveYing](https://github.com/TloveYing) 历史贡献积分：3 当前积分：3 二零一九：3
 
 |文章|类型|积分|
 |------|-------|-------|
+|[用 Rust 打造你的第一个命令行工具](https://juejin.im/post/5cb33b94e51d456e63760453)|校对|1.5|
 |[如何在远程服务器上运行 Jupyter Notebooks](https://juejin.im/post/5cb5e0a9f265da036c577f24)|校对|1.5|
 
 ## 译者：[ccJia](https://github.com/ccJia) 历史贡献积分：5 当前积分：5 二零一九：5
@@ -8332,3 +8342,16 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[哪一个深度学习框架增长最迅猛？TensorFlow 还是 PyTorch？](https://juejin.im/post/5caefef45188251b070f7d70)|翻译|5|
+
+## 译者：[renyuhuiharrison](https://github.com/renyuhuiharrison) 历史贡献积分：7 当前积分：7 二零一九：7
+
+|文章|类型|积分|
+|------|-------|-------|
+|[制定良好的路线图：产品负责人的六个实施步骤](https://juejin.im/post/5cb299436fb9a068744e70a7)|校对|3|
+|[你不能成为成功程序员的 10 个迹象](https://juejin.im/post/5ca2f5ce51882565cb5b962c)|校对|4|
+
+## 译者：[ezioyuan](https://github.com/ezioyuan) 历史贡献积分：1 当前积分：1 二零一九：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[我们为什么看好加密收藏品（NFT）的前景](https://juejin.im/post/5cb87819518825329e7ea61e)|校对|1|
