@@ -7655,7 +7655,7 @@
 |[了解 Android 的矢量图片格式：`VectorDrawable`](https://juejin.im/post/5c1a21ff5188252eb759600e)|校对|2.5|
 |[当 Kotlin 中的监听器包含多个方法时，如何让它 “巧夺天工”？](https://juejin.im/post/5c1e43646fb9a04a102f45ab)|校对|1.5|
 
-## 译者：[gs666](https://github.com/gs666) 历史贡献积分：31 当前积分：21 二零一九：16.5
+## 译者：[gs666](https://github.com/gs666) 历史贡献积分：31 当前积分：21 二零一九：18.5
 
 |文章|类型|积分|
 |------|-------|-------|
