@@ -3832,10 +3832,11 @@
 |[REST API 已死，GraphQL 长存](https://juejin.im/post/5991667b518825485d28dfb1)|校对|2|
 |[机器之魂：聊天机器人是怎么工作的](https://juejin.im/post/599155d86fb9a03c467c151d)|校对|1|
 
-## 译者：[undead25](https://github.com/undead25) 历史贡献积分：44.5 当前积分：44.5
+## 译者：[undead25](https://github.com/undead25) 历史贡献积分：47.5 当前积分：47.5 二零一九：3
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Shadow DOM 封装样式和结构](https://juejin.im/post/5cb3f5b95188251add7f11bc)|校对|3|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|4|
 |[React 组件的 8 个关键决策](https://juejin.im/post/59f7e2c5f265da4318760a5f)|翻译|3.5|
 |[React 系列教程](#)|翻译|3|
@@ -5292,10 +5293,12 @@
 |[这些 CSS 命名规范将省下你大把调试时间](https://juejin.im/post/5a6c5881518825733201daf7)|校对|2|
 |[Facebook 开源了物体检测研究项目 Detectron](https://juejin.im/post/5a6c2ba56fb9a01cb64f0591)|校对|0.5|
 
-## 译者：[xingqiwu55555](https://github.com/xingqiwu55555) 历史贡献积分：5.5 当前积分：5.5 二零一九：5.5
+## 译者：[xingqiwu55555](https://github.com/xingqiwu55555) 历史贡献积分：10 当前积分：10 二零一九：10
 
 |文章|类型|积分|
 |------|-------|-------|
+|[对 React 组件进行单元测试](https://juejin.im/post/5cb9c62a6fb9a0688d2e4689)|校对|3|
+|[2019 前端工具调研](https://juejin.im/post/5cb800fce51d456e4514f550)|校对|1.5|
 |[Vue.js  —  注意事项和技巧](https://juejin.im/post/5c5c28cf518825627d37060a)|翻译|3.5|
 |[2018 前端性能优化清单 - 第 2 部分](https://juejin.im/post/5a654e686fb9a01cb42c7894)|校对|2|
 
@@ -5596,10 +5599,11 @@
 |[json — JavaScript 对象表示法](https://juejin.im/post/5a9432ae5188257a5c6092b0)|校对|1|
 |[嵌套三元表达式棒极了（软件编写）（第十四部分）](https://juejin.im/post/5a7d6769f265da4e7e10ad82)|校对|1|
 
-## 译者：[zhmhhu](https://github.com/zhmhhu) 历史贡献积分：111 当前积分：11 二零一九：5.5
+## 译者：[zhmhhu](https://github.com/zhmhhu) 历史贡献积分：112.5 当前积分：12.5 二零一九：7
 
 |文章|类型|积分|
 |------|-------|-------|
+|[哪一个深度学习框架增长最迅猛？TensorFlow 还是 PyTorch？](https://juejin.im/post/5caefef45188251b070f7d70)|校对|1.5|
 |[再看 Flask 视频流](https://juejin.im/post/5c33540451882524ed5b9154)|翻译|5.5|
 |[产品管理思维模式适合每一个人](https://juejin.im/post/5c2c266ae51d4511fb7db0c7)|校对|3.5|
 |[支持向量机（SVM） 教程](http://5a77c24cf265da4e747f92e8/)|翻译|11|
@@ -5840,10 +5844,11 @@
 |[让 Apache Cassandra 尾部延迟减小 10 倍（已开源）](https://juejin.im/post/5ac31083f265da239a5fff0c)|翻译|4|
 |[让我们来简化 UserDefaults 的使用](https://juejin.im/post/5abde324f265da23826e1723)|校对|0.5|
 
-## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：129 当前积分：109 二零一九：47
+## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：133 当前积分：113 二零一九：51
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2019 前端工具调研](https://juejin.im/post/5cb800fce51d456e4514f550)|翻译|4|
 |[深入 React Hook 系统的原理](https://juejin.im/post/5c99a75af265da60ef635898)|翻译|5|
 |[基于 Python 的图理论和网络分析](https://juejin.im/post/5c9066b3f265da612e6d5770)|翻译|10|
 |[在 JSX 代码中可以加入 console.log 吗？](https://juejin.im/post/5c7b1a146fb9a049c8502caf)|翻译|2|
@@ -5947,10 +5952,11 @@
 |[使用 Swift 实现原型动画](https://juejin.im/post/5ae28a9b6fb9a07aaa10fa1e)|校对|2|
 |[不使用 fastlane 实现持续交付的 5 种选项](https://juejin.im/post/5acf47cb6fb9a028c523944c)|翻译|5|
 
-## 译者：[luochen1992](https://github.com/luochen1992) 历史贡献积分：57 当前积分：12
+## 译者：[luochen1992](https://github.com/luochen1992) 历史贡献积分：58.5 当前积分：13.5 二零一九：1.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[哪一个深度学习框架增长最迅猛？TensorFlow 还是 PyTorch？](https://juejin.im/post/5caefef45188251b070f7d70)|校对|1.5|
 |[为什么我放弃了 React 而转向 Vue](https://juejin.im/post/5c2c27096fb9a049f66c3672)|校对|2|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1|
 |[如何通过树莓派的深度学习轻松检测对象](https://juejin.im/post/5b1ba938518825137661af46)|校对|2|
@@ -7441,10 +7447,11 @@
 |推荐优秀英文文章两篇|奖励|2|
 |[从现有的代码库创建 Swift 包管理器](https://juejin.im/post/5bec2b735188253b6e5c132a)|翻译|4|
 
-## 译者：[Mcskiller](https://github.com/Mcskiller) 历史贡献积分：38.5 当前积分：38.5 二零一九：23
+## 译者：[Mcskiller](https://github.com/Mcskiller) 历史贡献积分：39 当前积分：39 二零一九：23.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2019 前端工具调研](https://juejin.im/post/5cb800fce51d456e4514f550)|校对|0.5|
 |[Vue.js 逐渐集成 第三方 JavaScript](https://juejin.im/post/5c8e5a776fb9a070d013ef71)|校对|3|
 |[如何心平气和的阅读代码](https://juejin.im/post/5c9c521b5188252d876e5dcb)|翻译|4+1|
 |[如何学习 CSS](https://juejin.im/post/5c74daaaf265da2d9d1cb774)|翻译|7|
@@ -7798,10 +7805,12 @@
 |------|-------|-------|
 |[审校文章 https://github.com/xitu/gold-miner/issues/5118](https://github.com/xitu/gold-miner/issues/5118)|奖励|1|
 
-## 译者：[Fengziyin1234](https://github.com/Fengziyin1234) 历史贡献积分：80 当前积分：80 二零一九：80
+## 译者：[Fengziyin1234](https://github.com/Fengziyin1234) 历史贡献积分：87 当前积分：87 二零一九：87
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Shadow DOM 封装样式和结构](https://juejin.im/post/5cb3f5b95188251add7f11bc)|校对|3|
+|[对 React 组件进行单元测试](https://juejin.im/post/5cb9c62a6fb9a0688d2e4689)|校对|4|
 |[Spring 的分布式事务实现 — 使用和不使用XA — 第二部分](https://juejin.im/post/5cae93ddf265da03a85aaac3)|校对|2.5|
 |[从 0 创建自定义元素](https://juejin.im/post/5cb2b5465188257abd66c354)|校对|2.5|
 |[2019 React Redux 完全指南](https://juejin.im/post/5cac8ccd6fb9a068530111c7)|校对|5|
@@ -8067,16 +8076,19 @@
 |[在 swift 中使用 errors 作为控制流](https://juejin.im/post/5c90c0d9f265da612d6335cb)|校对|1.5|
 |[Swift 5 强制独占性原则](https://juejin.im/post/5c778b5e6fb9a049c64487e0)|校对|1.5|
 
-## 译者：[Daltan](https://github.com/Daltan) 历史贡献积分：2 当前积分：2 二零一九：2
+## 译者：[Daltan](https://github.com/Daltan) 历史贡献积分：6 当前积分：6 二零一九：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何在远程服务器上运行 Jupyter Notebooks](https://juejin.im/post/5cb5e0a9f265da036c577f24)|翻译|4|
 |[数据科学领域十大必知机器学习算法](https://juejin.im/post/5c73bbfff265da2da771d42a)|校对|2|
 
-## 译者：[xionglong58](https://github.com/xionglong58) 历史贡献积分：62 当前积分：62 二零一九：62
+## 译者：[xionglong58](https://github.com/xionglong58) 历史贡献积分：70.5 当前积分：70.5 二零一九：70.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何在远程服务器上运行 Jupyter Notebooks](https://juejin.im/post/5cb5e0a9f265da036c577f24)|校对|1.5|
+|[对 React 组件进行单元测试](https://juejin.im/post/5cb9c62a6fb9a0688d2e4689)|翻译|7|
 |[2019 React Redux 完全指南](https://juejin.im/post/5cac8ccd6fb9a068530111c7)|校对|4|
 |[编写可以复用的 HTML 模板](https://juejin.im/post/5ca5b858e51d4524a918560f)|校对|1.5|
 |[从没有人告诉过我的 CSS 小知识](https://juejin.im/post/5ca2fa5551882543db10d489)|校对|1.5|
@@ -8235,10 +8247,11 @@
 |------|-------|-------|
 |[2019 版 web 浏览器现状](https://juejin.im/post/5c89e69a51882536fe67b5b4)|校对|3.5|
 
-## 译者：[Xuyuey](https://github.com/Xuyuey) 历史贡献积分：19 当前积分：19 二零一九：19
+## 译者：[Xuyuey](https://github.com/Xuyuey) 历史贡献积分：24 当前积分：24 二零一九：24
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Shadow DOM 封装样式和结构](https://juejin.im/post/5cb3f5b95188251add7f11bc)|翻译|5|
 |[React 中的调度](https://juejin.im/post/5ca347306fb9a05e4c0e69e5)|翻译|7|
 |[从没有人告诉过我的 CSS 小知识](https://juejin.im/post/5ca2fa5551882543db10d489)|翻译|3+1|
 |[Web Components 的高级工具](https://juejin.im/post/5caef9f25188251b2b20b20b)|翻译|3+1|
@@ -8307,3 +8320,15 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[多线程简介](https://juejin.im/post/5ca351da6fb9a05e6a08745b)|校对|2.5|
+
+## 译者：[TloveYing](https://github.com/TloveYing) 历史贡献积分：1.5 当前积分：1.5 二零一九：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[如何在远程服务器上运行 Jupyter Notebooks](https://juejin.im/post/5cb5e0a9f265da036c577f24)|校对|1.5|
+
+## 译者：[ccJia](https://github.com/ccJia) 历史贡献积分：5 当前积分：5 二零一九：5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[哪一个深度学习框架增长最迅猛？TensorFlow 还是 PyTorch？](https://juejin.im/post/5caefef45188251b070f7d70)|翻译|5|
