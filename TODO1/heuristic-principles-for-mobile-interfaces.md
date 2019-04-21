@@ -79,7 +79,7 @@
 
 Ben Terrett 经常使用 [GOV.UK](https://www.gov.uk/guidance/government-design-principles) 的第四条设计原则:"努力让事情变得简单。"他认为，设计团队应该完全理解他们正在处理的问题，以及提供直观、信息丰富和成功用户体验的最佳解决方案的过程。在这个 [案例研究](https://gds.blog.gov.uk/2014/07/28/doing-the-the-work-to-make-things-simple/) 中，记录了他们的方法。
 
-![英国政府数字服务部门(British Government Digital Services)对信息进行分解，以确定用户需要知道什么，并创建了视觉设计，消除了一切不必要的东西，以支持信息的清晰性。(由 [英国政府数字服务](https://designnotes.blog.gov.uk/2014/07/14/things-we-learnt-designing-register-to-vote/) 设计)](https://cdn-images-1.medium.com/max/3360/0*4XbF10wLsf_RzW9S.jpg)
+![英国政府数字服务部门 (British Government Digital Services) 对信息进行分解，以确定用户需要知道什么，并创建了视觉设计，消除了一切不必要的东西，以支持信息的清晰性。(由 [英国政府数字服务](https://designnotes.blog.gov.uk/2014/07/14/things-we-learnt-designing-register-to-vote/) 设计)](https://cdn-images-1.medium.com/max/3360/0*4XbF10wLsf_RzW9S.jpg)
 
 ## 七、功能优先于形式
 
@@ -131,7 +131,7 @@ Jakob Nielsen 是第一个承认不可能为 [UI 设计](https://www.toptal.com/
 * [Creating a UI Style Guide for Better UX](https://www.toptal.com/designers/ui/ui-styleguide-better-ux)
 * [Mobile App Design Best Practices and Mistakes](https://www.toptal.com/designers/mobile/mobile-app-design-mistakes)
 
----
+***
 
 **本篇文章最初发表在 [www.toptal.com](https://www.toptal.com/designers/usability/mobile-heuristic-principles).**
 
