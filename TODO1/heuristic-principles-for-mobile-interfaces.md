@@ -57,7 +57,7 @@
 
 要让老用户快捷地访问、更深入地整体地理解应用，但也不要让新用户因简单的困惑陷入无助的境地。有了 UI 的灵活性，用户就可以找到符合自身能力和满足自己需求的途径。
 
-[Jill Gerhardt-Powal 的](https://en.wikipedia.org/wiki/Heuristic_evaluation#Gerhardt-Powals.E2.80.99_cognitive_engineering_principles) 认知工程学原则建议设计师"在适当的时候提供多种数据编码 ———— 系统应该提供不同格式和/或细节级别的数据，以提高认知灵活性和满足用户偏好。"无论是让用户感到压力的还是感到约束的界面必然会让用户在使用的时候感到烦恼。
+[Jill Gerhardt-Powal 的](https://en.wikipedia.org/wiki/Heuristic_evaluation#Gerhardt-Powals.E2.80.99_cognitive_engineering_principles) 认知工程学原则建议设计师"在适当的时候提供多种数据编码 —— 系统应该提供不同格式和/或细节级别的数据，以提高认知灵活性和满足用户偏好。"无论是让用户感到压力的还是感到约束的界面必然会让用户在使用的时候感到烦恼。
 
 ![应该向新用户介绍工具的功能，但是老用户永远不会看到这些常规的工具提示。 (由 [Lakshmi Karuppiah](https://dribbble.com/lakshmikaruppiah) 设计)](https://cdn-images-1.medium.com/max/3360/0*Hx11UX6AHVjOPMrT.jpg)
 
@@ -85,7 +85,7 @@ Ben Terrett 经常使用 [GOV.UK](https://www.gov.uk/guidance/government-design-
 
 **设计决策是由元素的作用来驱动的，而不是优先考虑它的视觉风格。**
 
-**"如果你认为某件事很聪明、很复杂，要小心——这可能是自我放纵。" ———— Don Norman，高产的产品设计师，《日常事物的设计》的作者**
+**"如果你认为某件事很聪明、很复杂，要小心 —— 这可能是自我放纵。" —— Don Norman，高产的产品设计师，《日常事物的设计》的作者**
 
 界面的视觉设计应该总是从定义的功能开始。当风格和趋势被优先考虑时，结果可能看起来很漂亮，很引人注目，但最终可能导致脱节的 [用户体验](https://www.toptal.com/designers/mobile-ux)。视觉形式无法拯救功能失调的设计。
 
@@ -109,7 +109,7 @@ Jill Gerhardt-Powal 建议"将较低层次的数据整合到较高层次的总�
 
 **使用一致的和标准化的元素，如措辞、场景和操作来创建一个有凝聚力的体验。**
 
-人类被模式所吸引 ———— 我们用模式来理解世界。在移动界面中创建模式，它将成为一个训练工具，让用户了解应该期望什么以及如何与 [界面设计](https://www.toptal.com/designers/ui/ui- styleguide-betterux) 交互。
+人类被模式所吸引 —— 我们用模式来理解世界。在移动界面中创建模式，它将成为一个训练工具，让用户了解应该期望什么以及如何与 [界面设计](https://www.toptal.com/designers/ui/ui- styleguide-betterux) 交互。
 
 "这不应该成为束缚。每一种情况都是不同的。GOV.UK 的设计原则表明，界面风格应该是一致的，但不应该是千篇一律的。正如 Jill Gerhardt-Powal 所呼应的，"新信息应该在熟悉的框架内呈现(例如，模式、隐喻、日常用语)，这样信息更容易被人们接收。"
 
@@ -119,7 +119,7 @@ Jill Gerhardt-Powal 建议"将较低层次的数据整合到较高层次的总�
 
 **在设计过程中不断进行反思，以确保用户界面设计原则和可用性启发与产品的目的和用户需求保持一致。**
 
-Jakob Nielsen 是第一个承认不可能为 [UI 设计](https://www.toptal.com/designers/ui) 提供通用细节的人。例如，他的两条启发式原则可以相互矛盾 ———— #6：提供用户做出决策所需的所有信息；#8：消除任何不必要的东西。
+Jakob Nielsen 是第一个承认不可能为 [UI 设计](https://www.toptal.com/designers/ui) 提供通用细节的人。例如，他的两条启发式原则可以相互矛盾 —— #6：提供用户做出决策所需的所有信息；#8：消除任何不必要的东西。
 
 为特殊用例确定最佳策略的责任就落在了启发式评估人员和设计团队肩上了。如果产品是以用户为中心的并围绕用户需求构建的，团队了解这一点后在做决定时有明确的目标。
 
