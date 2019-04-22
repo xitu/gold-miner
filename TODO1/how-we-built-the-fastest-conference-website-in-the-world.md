@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-we-built-the-fastest-conference-website-in-the-world.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-we-built-the-fastest-conference-website-in-the-world.md)
 > * 译者：[Xuyuey](https://github.com/Xuyuey)
-> * 校对者
+> * 校对者：[ezioyuan](https://github.com/ezioyuan)
 
 # 构建世界上最快的会议网站
 
@@ -17,7 +17,7 @@
 
 ### 内联
 
-OMG，我花了好多时间来优化字体性能。你知道怎么拥有比 JSConf 网站更快的字体性能吗？那就使用系统字体，但那样会有些无聊。我们使用了 Typekit 的字体，它的字体都很赞。Typekit 要求你加载一个 CSS 文件 或者 JS 文件，用来告诉网站字体文件在哪里。这对性能来说太可怕了：加载文件意味着等待网络，而网络速度很慢。由于 DNS 解析，TCP 和 TLS 连接等原因，添加一个指向第三方主机的 CSS 文件到页面可以轻易地影响[首屏渲染](https://developers.google.com/web/tools/lighthouse/audits/first-contentful-paint)时间，可能会有大概 600 ms。我们修复了这个问题，方法是在[构建过程中下载 CSS 文件](https://github.com/jsconf/festival-x.jsconf.eu/blob/master/scripts/generate-locals.js#L5)，然后在 CSS 中内联它们。问题解决了，我们赢得了 600 ms。
+OMG，我花了好多时间来优化字体性能。你知道怎么拥有比 JSConf 网站更快的字体性能吗？那就使用系统字体，但那样会有些无聊。我们使用了 Typekit 的字体，它的字体都很赞。Typekit 要求你加载一个 CSS 文件或者 JS 文件，用来告诉网站字体文件在哪里。这对性能来说太可怕了：加载文件意味着等待网络，而网络速度很慢。由于 DNS 解析，TCP 和 TLS 连接等原因，添加一个指向第三方主机的 CSS 文件到页面可以轻易地影响[首屏渲染](https://developers.google.com/web/tools/lighthouse/audits/first-contentful-paint)时间，可能会有大概 600 ms。我们修复了这个问题，方法是在[构建过程中下载 CSS 文件](https://github.com/jsconf/festival-x.jsconf.eu/blob/master/scripts/generate-locals.js#L5)，然后在 CSS 中内联它们。问题解决了，我们赢得了 600 ms。
 
 事实证明 Typekit CSS 文件实际上使用了 `@import` 来添加其他的 CSS 文件。我不确定这个会不会阻塞渲染，但这个肯定不好。原来该文件是空的，对它的请求仅仅用于统计信息的收集。为了避免这种情况，我在编写的脚本文件中移除了内联 CSS 中的 `@import`（[哈哈，正则](https://github.com/jsconf/festival-x.jsconf.eu/blob/master/scripts/generate-locals.js#L19)），然后在 JavaScript 中保存这个请求的链接，页面加载完毕（不会再影响首评渲染时间）之后，再去请求。
 
@@ -39,7 +39,7 @@ JSConf EU 网站使用 [Tachyons](https://tachyons.io/) 作为 CSS 框架。Tach
 
 ### 内联
 
-既然 CSS 的体积非常小，那么将它内联到每个页面中都是有意义的。你可能会想“但是缓存怎么办？”很好的问题，但是如果你想在这场关于最快网站的竞赛中获胜，你就无法负担得起冷缓存状态下额外的请求。所以我内联了 CSS，而且事实上我们可以在 CSS DCE 上做的更好。所以我再次在每个页面上运行它，对于每个页面又节省了额外的 15-25% 的 CSS 体积。
+既然 CSS 的体积非常小，那么将它内联到每个页面中就说的过去了。你可能会想“但是缓存怎么办？”很好的问题，但是如果你想在这场关于最快网站的竞赛中获胜，你就无法负担得起冷缓存状态下额外的请求。所以我内联了 CSS，而且事实上我们可以在 CSS DCE 上做的更好。所以我再次在每个页面上运行它，对于每个页面又节省了额外的 15-25% 的 CSS 体积。
 
 顺便说一句：先在整个网站运行一次 CSS DCE，然后再在每一页上进行一次该处理是非常有意义的。这是因为对于整个网站来说 DCE 处理的时间复杂度是 `O(所有 HTML 大小 + CSS 大小)` ，对于单个页面是 `O(页面数量 * (平均 HTML 大小 + CSS 大小)`。如果你首先在整个网站上运行优化，CSS 体积的减少可以让接下来对于单个页面的优化明显更快 —— 至少如果你可以在首次处理时减少 85% 的体积，就像我们的例子中实现的那样。
 
@@ -51,9 +51,9 @@ JSConf EU 网站使用 [Tachyons](https://tachyons.io/) 作为 CSS 框架。Tach
 
 ## ServiceWorker
 
-JSConf 网站有一个基于 [Workbox](https://developers.google.com/web/tools/workbox/) 的 ServiceWorker 。ServiceWorker 并不总有益于性能。它们必须安装注册，然后通常还得额外的配置 IndexedDB。这可能花费 100 毫秒。然而，对于会议网站而言，离线功能在性能问题上肯定会胜过糟糕的会议 Wi-Fi（我们的会议 Wi-Fi 通常很出色，但会议室有 1400 人，我们希望做好准备）。通过使用 [导航预加载](https://developers.google.com/web/updates/2017/02/navigation-preload)来进一步缓解这个问题，在大部分浏览器中导航预加载可以分摊文档网络请求的启动时间。
+JSConf 网站有一个基于 [Workbox](https://developers.google.com/web/tools/workbox/) 的 ServiceWorker。ServiceWorker 并不总有益于性能。它们必须安装注册，然后通常还得额外的配置 IndexedDB。这可能花费 100 毫秒。然而，对于会议网站而言，离线功能在性能问题上肯定会胜过糟糕的会议 Wi-Fi（我们的会议 Wi-Fi 通常很出色，但会议室有 1400 人，我们希望做好准备）。通过使用 [导航预加载](https://developers.google.com/web/updates/2017/02/navigation-preload)来进一步缓解这个问题，在大部分浏览器中导航预加载可以分摊文档网络请求的启动时间。
 
-为了权衡新鲜程度以及离线功能，该网站使用了“网络有限”策略，我们会首先尝试获取新的文档，如果在 2 秒之内没有响应，我们会回退到缓存。
+为了权衡新鲜程度以及离线功能，该网站使用了“网络优先”策略，我们会首先尝试获取新的文档，如果在 2 秒之内没有响应，我们会回退到缓存。
 
 因为网站的所有资源都使用了不可变的 URL，ServiceWorker 将永久缓存这些 URL 并始终从缓存（如果可用）提供服务。
 
@@ -85,7 +85,7 @@ OMG，我讨厌加载图像时没有预先知道它们的大小，并且当它�
 
 ## 总结
 
-就是这样啦。在 2019 年制作快速网站并不是一件很难的事情。你只需要这浏览器制造商打好关系，付他们钱就让网站速度更快，在 Twitter 逛以一整天你都可以获得关于性能的热门广告，或者你更愿意动手处理性能的小改动而不是看 Netflix。
+就是这样啦。在 2019 年制作快速网站并不是一件很难的事情。你只需要这浏览器制造商打好关系，付他们钱就让网站速度更快，在 Twitter 逛一整天你都可以获得关于性能的热门广告，或者你更愿意动手处理性能的小改动而不是看 Netflix。
 
 ## 致谢
 
