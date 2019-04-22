@@ -130,7 +130,7 @@ Running the `swiftformat` command on our example using the default set of rules 
     let applePark = ShippingAddress(recipient: "Apple, Inc.", streetAddress: "1 Apple Park Way", locality: "Cupertino", region: "CA", postalCode: "95014", country: "US")
 ```    
 
-As you can see, this is a clear improvement over the original. Each line is indented according to its scope, and each declaration has consistent spacing between punctuation. Both the semicolon in the property declarations and the newline in the initializer parameters are preserved; ~~however, the closing curly braces aren’t moved to separate lines as might be expected ~~ this is [fixed in 0.39.5](https://twitter.com/nicklockwood/status/1103595525792845825). Great work, [Nick](https://github.com/nicklockwood)!
+As you can see, this is a clear improvement over the original. Each line is indented according to its scope, and each declaration has consistent spacing between punctuation. Both the semicolon in the property declarations and the newline in the initializer parameters are preserved; ~~however, the closing curly braces aren’t moved to separate lines as might be expected~~ this is [fixed in 0.39.5](https://twitter.com/nicklockwood/status/1103595525792845825). Great work, [Nick](https://github.com/nicklockwood)!
 
 #### Performance
 
