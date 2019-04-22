@@ -11,9 +11,9 @@
 
 你是否也曾想要通过为滑块添加双重滑块或修改其布局来让它看起来不那么无聊？
 
-在这篇文章中我会展示通过整合 [GestureDetector](https://docs.flutter.io/flutter/widgets/GestureDetector-class.html) 以及 [Canvas](https://docs.flutter.io/flutter/dart-ui/Canvas-class.html) 来在 Flutter 中构建一个圆形滑块。
+在这篇文章中我会展示如何通过整合 [GestureDetector](https://docs.flutter.io/flutter/widgets/GestureDetector-class.html) 以及 [Canvas](https://docs.flutter.io/flutter/dart-ui/Canvas-class.html) 来在 Flutter 中构建一个圆形滑块。
 
-如果你对构建它的过程不感兴趣，仅仅是为了获取此部件并使用它，那么你可以使用我在 [https://pub.dartlang.org/packages/flutter\_circular\_slider](https://pub.dartlang.org/packages/flutter_circular_slider) 发布的包。
+如果你对构建它的过程不感兴趣，仅仅是为了获取此部件并使用它，那么你可以使用我在 [https://pub.dartlang.org/packages/flutter\_circular\_slider](https://pub.dartlang.org/packages/flutter_circular_slider) 发布的程序包。
 
 ## 为什么要用圆形滑块？
 
@@ -23,7 +23,7 @@
 
 我们要准备的第一件事就是创建一个真正的滑块。为此，我们要用一个完美的圆形作为背景，在它的基础上再画一个根据用户交互可以动态显示的圆。为了实现我们的想法，我们将用到一个名为 **CustomPaint** 的特殊部件，它提供一个允许让我们自由创作的画布（Canvas）。
 
-当滑块渲染完成以后，我们希望用户能够和它进行交互。因此我们选择使用 **GestureDetector** 包裹它来捕获点击及拖动事件。
+当滑块渲染完成以后，我们希望用户能够和它进行交互，因此我们选择使用 **GestureDetector** 包裹它来捕获点击及拖动事件。
 
 整个流程将会是：
 
@@ -76,7 +76,7 @@ class BasePainter extends CustomPainter {
 
 你可以看到，`paint()` 方法获得一个 **Canvas** 和一个 **Size** 参数。**Canvas** 提供一组方法可以让我们绘制任何形状：圆形、直线、圆弧、矩形等等。**Size** 参数即是画布的尺寸，由画布适配的部件尺寸决定。我们还需要一个 **Paint**，允许我们定制样式、颜色以及其他东西。
 
-现在 **BasePainter** 的功能用法已经不言自明，然而 **SliderPainter** 却有一点儿不寻常，现在我们要绘制一个圆弧而非圆，还需要绘制 Handler。
+现在 **BasePainter** 的功能用法已经不言自明，然而 **SliderPainter** 却有一点儿不寻常，现在我们不仅要绘制一个圆弧而非圆，还需要绘制 Handler。
 
 ```
 import 'dart:math';
@@ -150,8 +150,8 @@ class SliderPainter extends CustomPainter {
 
 一开始我们将为 Handler 赋初值，当获取这些 Handler 的坐标后，我们将按照以下策略执行操作：
 
-- 监听 Handler 的点击（按下）事件并更新相应 Handler 的状态。（**_xHandlerSelected = true**）。
-- 监听选中 Handler 的拖动更新事件，更新其坐标，同时分别向下、向上传递给 **SliderPainter** 和我们的回调函数。
+- 监听对于 Handler 的点击（按下）事件并更新相应 Handler 的状态。（**_xHandlerSelected = true**）。
+- 监听被选中 Handler 的拖动更新事件，更新其坐标，同时分别向下、向上传递给 **SliderPainter** 和我们的回调函数。
 - 监听 Handler 的点击（抬起）事件并重置未选中 Handler 的状态。
 
 因为我们需要分别计算出坐标值、新的角度值再传递给 Handler 和 Painter，所以我们的 **CircularSliderPaint** 必须是一个 **StatefulWidget**。
