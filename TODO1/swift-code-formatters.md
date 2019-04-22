@@ -31,7 +31,7 @@ When we use whitespace to make code more comprehensible without changing its beh
 
 Put enough semicolons in the right places, and you can write pretty much anything in a single line of code. But all things being equal, why not use horizontal and vertical whitespace to visually structure code in a way that’s easier for us to understand, right?
 
-Unfortunately, the ambiguity created by the compiler’s accepting nature of whitespace can often cause confusion and disagreement among programmers: _“Should I add a newline before a curly bracket? How do I break up statements that extend beyond the width of the editor?”_
+Unfortunately, the ambiguity created by the compiler’s accepting nature of whitespace can often cause confusion and disagreement among programmers: **“Should I add a newline before a curly bracket? How do I break up statements that extend beyond the width of the editor?”**
 
 Organizations often codify guidelines for how to deal with these issues, but they’re often under-specified, under-enforced, and out-of-date. The role of a code formatter is to automatically enforce a set of conventions so that programmers can set aside their differences and get to work solving actual problems.
 
@@ -190,7 +190,7 @@ Running the previous command on our example yields the following:
     let applePark = ShippingAddress(recipient: "Apple, Inc.", streetAddress: "1 Apple Park Way", locality: "Cupertino", region: "CA", postalCode: "95014", country: "US")
 ```
 
-SwiftLint cleans up the worst of the indentation and inter-spacing issues but leaves other, extraneous whitespace intact. Again, it’s worth noting that formatting isn’t SwiftLint’s primary calling; if anything, it’s merely incidental to providing actionable code diagnostics. And taken from the perspective of _“first, do no harm”_, it’s hard to complain about the results here.
+SwiftLint cleans up the worst of the indentation and inter-spacing issues but leaves other, extraneous whitespace intact. Again, it’s worth noting that formatting isn’t SwiftLint’s primary calling; if anything, it’s merely incidental to providing actionable code diagnostics. And taken from the perspective of **“first, do no harm”**, it’s hard to complain about the results here.
 
 #### Performance
 
@@ -213,7 +213,7 @@ Thanks to its (in-development) [plugin architecture](https://prettier.io/docs/en
 
 #### Installation
 
-To use Prettier and its plugin for Swift, you’ll have to wade into the murky waters of the Node packaging ecosystem. There are a few different approaches to get everything installed _(because of course there are)_, but [Yarn](https://yarnpkg.com/en/) is our favorite 😻.
+To use Prettier and its plugin for Swift, you’ll have to wade into the murky waters of the Node packaging ecosystem. There are a few different approaches to get everything installed **(because of course there are)**, but [Yarn](https://yarnpkg.com/en/) is our favorite 😻.
 
 ```brew
     $ brew install yarn
@@ -275,7 +275,7 @@ Here’s the result of running the latest build of the Swift plugin with Prettie
 
 Prettier describes itself to be “An opinionated code formatter”. In practice, this means that there isn’t much in the way of configuration; there are only two options: “regular code” and “prettier code”.
 
-Now, you may object to the increase in vertical whitespace, but you’d be lying if you said this code didn’t look _amazing_. The way that everything is evenly spaced… the way that long lines are wrapped and indented… it’s almost hard to believe that you achieve something like this automatically.
+Now, you may object to the increase in vertical whitespace, but you’d be lying if you said this code didn’t look **amazing**. The way that everything is evenly spaced… the way that long lines are wrapped and indented… it’s almost hard to believe that you achieve something like this automatically.
 
 Of course, our caveat from before still applies: This is still very much a work-in-progress and isn’t suitable for production use yet. Also, there’s the matter of performance…
 
@@ -346,7 +346,7 @@ Running the command above populates the specified file with the following JSON:
     
 ```
 
- After fiddling with the configuration — such as setting `lineLength` to the correct value of 80 _(don’t @ me)_ — you can apply it thusly:
+ After fiddling with the configuration — such as setting `lineLength` to the correct value of 80 **(don’t @ me)** — you can apply it thusly:
 
 ```swift
 $ swift-format Example.swift --configuration .swift-format.json 
@@ -409,7 +409,7 @@ NSMutableHipster
 
 Questions? Corrections? [Issues](https://github.com/NSHipster/articles/issues) and [pull requests](https://github.com/NSHipster/articles/blob/master/2019-03-04-swift-format.md) are always welcome.
 
-_This article uses Swift version 5.0._ Find status information for all articles on the [status page](/status/).
+**This article uses Swift version 5.0.** Find status information for all articles on the [status page](/status/).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
