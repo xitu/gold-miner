@@ -60,8 +60,8 @@ struct ShippingAddress : Codable  {
     var region   :String;var postalCode:String
     var country:String
     
-    init(     recipient: String,        streetAddress: String,
-         locality: String,region: String,postalCode: String,country:String               )
+    init(recipient: String,        streetAddress: String,
+         locality: String,region: String,postalCode: String,country:String)
     {
         self.recipient = recipient
         self.streetAddress = streetAddress
@@ -128,7 +128,7 @@ Running the `swiftformat` command on our example using the default set of rules 
     }
     
     let applePark = ShippingAddress(recipient: "Apple, Inc.", streetAddress: "1 Apple Park Way", locality: "Cupertino", region: "CA", postalCode: "95014", country: "US")
-```    
+```
 
 As you can see, this is a clear improvement over the original. Each line is indented according to its scope, and each declaration has consistent spacing between punctuation. Both the semicolon in the property declarations and the newline in the initializer parameters are preserved; ~~however, the closing curly braces aren’t moved to separate lines as might be expected~~ this is [fixed in 0.39.5](https://twitter.com/nicklockwood/status/1103595525792845825). Great work, [Nick](https://github.com/nicklockwood)!
 
@@ -153,7 +153,7 @@ You can install SwiftLint using Homebrew with the following command:
 
 ```swift
  $ brew install swiftlint
-```    
+```
 
 Alternatively, you can install SwiftLint with [CocoaPods](/CocoaPods/), [Mint](https://github.com/yonaskolb/Mint), or as a [standalone installer package (`.pkg`)](https://github.com/realm/SwiftLint/releases/tag/0.31.0).
 
@@ -163,7 +163,7 @@ To use SwiftLint as a code formatter, run the `autocorrect` subcommand passing t
 
 ```swift
  $ swiftlint autocorrect --format --path Example.swift
-```   
+```
 
 #### Example Output
 
@@ -178,8 +178,8 @@ Running the previous command on our example yields the following:
         var region: String;var postalCode: String
         var country: String
     
-        init(     recipient: String, streetAddress: String,
-                  locality: String, region: String, postalCode: String, country: String               ) {
+        init(recipient: String, streetAddress: String,
+             locality: String, region: String, postalCode: String, country: String) {
             self.recipient = recipient
             self.streetAddress = streetAddress
             self.locality  = locality
@@ -271,7 +271,7 @@ Here’s the result of running the latest build of the Swift plugin with Prettie
         postalCode: "95014",
         country: "US"
     )
-```    
+```
 
 Prettier describes itself to be “An opinionated code formatter”. In practice, this means that there isn’t much in the way of configuration; there are only two options: “regular code” and “prettier code”.
 
@@ -344,13 +344,13 @@ Running the command above populates the specified file with the following JSON:
       "version": 1
     }
     
-```    
+```
 
  After fiddling with the configuration — such as setting `lineLength` to the correct value of 80 _(don’t @ me)_ — you can apply it thusly:
 
 ```swift
 $ swift-format Example.swift --configuration .swift-format.json 
-```    
+```
 
 #### Example Output
 
@@ -386,8 +386,7 @@ Using its default configuration, here’s how `swift-format` formats our example
     let applePark = ShippingAddress(
       recipient: "Apple, Inc.", streetAddress: "1 Apple Park Way", locality: "Cupertino", region: "CA",
       postalCode: "95014", country: "US")
- 
-```    
+```
 
 For a version `0.0.1` release, this is promising! We could do without the original semicolon and don’t much care for the colon placement for the `region` property, either, but overall, this is pretty unobjectionable — which is exactly what you’d want from an official code style tool.
 
