@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/3440/1*IRIxsMuVD4AUlChUyZzOAA.png)
 
-当 Jakob Nielsen 开始研究设计模式时，他正在从事人机交互方面的可用性工程的咨询和教学工作。所以在 1994 年，他收集并发布了一套可用性启发式 [评估原则](https://www.nngroup.com/articles/ten-usability-heuristics/) ，这些原则反映了他所研究的东西。如今，经过了近 25 年的时间，随着电脑向智能手机的转变，Nielsen 的原则依然站得住脚。
+当 Jakob Nielsen 开始研究设计模式时，他正在从事人机交互方面的可用性工程的咨询和教学工作。所以在 1994 年，他收集并发布了一套可用性启发式 [评估原则](https://www.nngroup.com/articles/ten-usability-heuristics/) ，这些原则反映了他所研究的东西。如今，经过了近 25 年的时间，随着电脑向智能手机的转变，Nielsen 的原则依然站得住脚。 
 
 以人为本的设计强调了用户的重要性，设计过程也相应地进行了调整；然而，虽然 Nielsen 的原则在所有屏幕类型上仍然是通用的，但是随着移动设备使用量的不断增加，设计的重心已然在 [移动界面](https://www.toptal.com/designers/mobile/mobile-app-design-mistakes) 上了。
 
