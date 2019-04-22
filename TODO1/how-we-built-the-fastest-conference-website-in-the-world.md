@@ -9,7 +9,7 @@
 
 > 这是 JSConf EU 的组织者 [Malte Ubl](https://twitter.com/cramforce) 的客座文章。
 
-诱饵般的标题将你带来这里，但我们绝对不会让你白来一趟！我不确定这一定是世界上最快的会议网站，但我也不确定它不是；而且我花了一大笔多到不合理的时间试图让它成为世界上最快的会议网站。我也是网络组件库 [AMP](https://www.ampproject.org/) 的创建者，它可以用于搭建快速可靠的网站，同样，这些网站也是我尝试新技术进行优化的游乐场，然后我可以将它们应用到日常工作中。此外，快速网站有[更好的转换率](https://www.cloudflare.com/learning/performance/more/website-performance-conversion-rates/)，在我们的情况下这意味着：[卖出更多的门票](https://ti.to/jsconfeu/jsconf-eu-x-2019/)。
+是不是被标题诱惑来啦，但我们绝对不会让你白来一趟的！我不确定这一定是世界上最快的会议网站，但我也不确定它不是；而且我花了一大笔多到不合理的时间试图让它成为世界上最快的会议网站。我也是网络组件库 [AMP](https://www.ampproject.org/) 的创建者，它可以用于搭建快速可靠的网站，同样，这些网站也是我尝试新技术进行优化的游乐场，然后我可以将它们应用到日常工作中。此外，快速网站有[更好的转换率](https://www.cloudflare.com/learning/performance/more/website-performance-conversion-rates/)，在我们的情况下这意味着：[卖出更多的门票](https://ti.to/jsconfeu/jsconf-eu-x-2019/)。
 
 这个 [JSConf EU 网站](https://2019.jsconf.eu/)是搭建在静态网页生成器 [wintersmith](http://wintersmith.io/) 上的。如果你知道 [Jekyll](https://jekyllrb.com/) 是什么，那你一定也会知道什么是 wintersmith。基本上都差不多，它们都基于 Node.js。Wintersmith 还好，默认情况下它不会做什么可怕的事情，但是有一些我需要的东西必须自己构建。
 
@@ -17,7 +17,7 @@
 
 ### 内联
 
-OMG，我花了好多时间来优化字体性能。你知道怎么拥有比 JSConf 网站更快的字体性能吗？那就使用系统字体，但那样会有些无聊。我们使用了 Typekit 的字体，它的字体都很赞。Typekit 要求你加载一个 CSS 文件或者 JS 文件，用来告诉网站字体文件在哪里。这对性能来说太可怕了：加载文件意味着等待网络，而网络速度很慢。由于 DNS 解析，TCP 和 TLS 连接等原因，添加一个指向第三方主机的 CSS 文件到页面可以轻易地影响[首屏渲染](https://developers.google.com/web/tools/lighthouse/audits/first-contentful-paint)时间，可能会有大概 600 ms。我们修复了这个问题，方法是在[构建过程中下载 CSS 文件](https://github.com/jsconf/festival-x.jsconf.eu/blob/master/scripts/generate-locals.js#L5)，然后在 CSS 中内联它们。问题解决了，我们赢得了 600 ms。
+OMG，我花了好多时间来优化字体性能。你知道怎么拥有比 JSConf 网站更快的字体性能吗？那就去使用系统字体吧，但那样会有些无聊。我们使用了 Typekit 的字体，它的字体都很赞。Typekit 要求你加载一个 CSS 文件或者 JS 文件，用来告诉网站字体文件在哪里。这对性能来说太可怕了：加载文件意味着等待网络，而网络速度很慢。由于 DNS 解析，TCP 和 TLS 连接等原因，添加一个指向第三方主机的 CSS 文件到页面可以轻易地影响[首屏渲染](https://developers.google.com/web/tools/lighthouse/audits/first-contentful-paint)时间，可能会有大概 600 ms。我们修复了这个问题，方法是在[构建过程中下载 CSS 文件](https://github.com/jsconf/festival-x.jsconf.eu/blob/master/scripts/generate-locals.js#L5)，然后在 CSS 中内联它们。问题解决了，我们赢得了 600 ms。
 
 事实证明 Typekit CSS 文件实际上使用了 `@import` 来添加其他的 CSS 文件。我不确定这个会不会阻塞渲染，但这个肯定不好。原来该文件是空的，对它的请求仅仅用于统计信息的收集。为了避免这种情况，我在编写的脚本文件中移除了内联 CSS 中的 `@import`（[哈哈，正则](https://github.com/jsconf/festival-x.jsconf.eu/blob/master/scripts/generate-locals.js#L19)），然后在 JavaScript 中保存这个请求的链接，页面加载完毕（不会再影响首评渲染时间）之后，再去请求。
 
