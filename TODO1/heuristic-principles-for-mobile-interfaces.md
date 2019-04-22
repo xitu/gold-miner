@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/heuristic-principles-for-mobile-interfaces.md](https://github.com/xitu/gold-miner/blob/master/TODO1/heuristic-principles-for-mobile-interfaces.md)
 > * 译者：[Hyde Song](https://github.com/HydeSong)
-> * 校对者：[portandbridge](https://github.com/portandbridge)、[sunui](http://github.com/sunui)
+> * 校对者：[portandbridge](https://github.com/portandbridge)，[sunui](http://github.com/sunui)
 
 # [译] 移动界面设计的 10 项启发式原则
 
 ![](https://cdn-images-1.medium.com/max/3440/1*IRIxsMuVD4AUlChUyZzOAA.png)
 
-当 Jakob Nielsen 开始研究设计模式时，他正在从事人机交互方面的可用性工程的咨询和教学工作。所以在 1994 年，他收集并发布了一套可用性启发式 [评估原则](https://www.nngroup.com/articles/ten-usability-heuristics/) ，这些原则反映了他所研究的东西。如今，经过了近 25 年的时间，随着电脑向智能手机的转变，Nielsen 的原则依然站得住脚。 
+当 Jakob Nielsen 开始研究设计模式时，他正在从事人机交互方面的可用性工程的咨询和教学工作。所以在 1994 年，他收集并发布了一套可用性启发式 [评估原则](https://www.nngroup.com/articles/ten-usability-heuristics/)，这些原则反映了他所研究的东西。如今，经过了近 25 年的时间，随着电脑向智能手机的转变，Nielsen 的原则依然站得住脚。 
 
 以人为本的设计强调了用户的重要性，设计过程也相应地进行了调整；然而，虽然 Nielsen 的原则在所有屏幕类型上仍然是通用的，但是随着移动设备使用量的不断增加，设计的重心已然在 [移动界面](https://www.toptal.com/designers/mobile/mobile-app-design-mistakes) 上了。
 
@@ -29,7 +29,7 @@
 
  UI 应该允许用户相信一切在控制之中。用户应该能够轻松地回答这些问题：“我现在在哪里?” 和 “从这里我能去哪里?” 当一个系统是透明的，用户可以决定接下来会发生什么。用户获得了使用界面的自主权和随后的信心。
 
-![导航菜单变为汉堡包菜单，指示稍后可以在何处找到信息。(由 [Gal Shir](https://galshir.com/) 设计)](https://cdn-images-1.medium.com/max/3360/0*BAE8DM_ocDtJZg-c.gif)
+![导航菜单变为汉堡包菜单，指示稍后可以在何处找到信息。（由 [Gal Shir](https://galshir.com/) 设计）](https://cdn-images-1.medium.com/max/3360/0*BAE8DM_ocDtJZg-c.gif)
 
 ## 二、操作反馈的即时性
 
@@ -37,7 +37,7 @@
 
 任何用户操作都应该有一个即时的界面反馈。即时反馈让用户放心，系统正在做预期的事情。[Nick Babich](https://www.smashingmagazine.com/2016/12/best-practices-for-animated-progress-indicators/) 是 Smashing Magazine 的 UX 专家，他使用进度指示器作为一个很好的例子，来明确传达操作状态。他认为，它可以直观地通知用户，他们的操作已经被接受，系统很快就会指示下一步操作。如果没有指示器，用户就会面临不确定性和挫折感，从而导致用户访问中断。
 
-![用一个简单的动画来确认收到了下拉刷新操作，下面的内容是最新的。(由 [jiangxiaobei](https://dribbble.com/jiangxiaobei) 设计)](https://cdn-images-1.medium.com/max/3360/0*9VP-bybmPpAQo8Ns.gif) 
+![用一个简单的动画来确认收到了下拉刷新操作，下面的内容是最新的。（由 [jiangxiaobei](https://dribbble.com/jiangxiaobei) 设计）](https://cdn-images-1.medium.com/max/3360/0*9VP-bybmPpAQo8Ns.gif) 
 
 ## 三、让用户知悉错误信息
 
@@ -47,7 +47,7 @@
 
 用户应该总是容易获得帮助信息；然而，要取得平衡并不容易。给用户太多的选择反而会让用户应接不暇。应该让用户对如何解决错误有一个清晰的认识，并让用户了解以后如何防止错误的再次发生。
 
-![移动界面的空状态解释了用户为什么会看到这个错误页面，并提供了两个操作来解决错误。(由 [Murat Mutlu](https://dribbble.com/shots/1738412-Project-empty-state) 设计)](https://cdn-images-1.medium.com/max/3360/0*uPupo3gf8fjFHJTD.jpg)
+![移动界面的空状态解释了用户为什么会看到这个错误页面，并提供了两个操作来解决错误。（由 [Murat Mutlu](https://dribbble.com/shots/1738412-Project-empty-state) 设计）](https://cdn-images-1.medium.com/max/3360/0*uPupo3gf8fjFHJTD.jpg)
 
 ## 四、使用的灵活性
 
@@ -59,7 +59,7 @@
 
 [Jill Gerhardt-Powal 的](https://en.wikipedia.org/wiki/Heuristic_evaluation#Gerhardt-Powals.E2.80.99_cognitive_engineering_principles) 认知工程学原则建议设计师“在适当的时候提供多种数据编码 —— 系统应该提供不同格式和/或细节级别的数据，以提高认知灵活性和满足用户偏好。”无论是让用户感到压力的还是感到约束的界面必然会让用户在使用的时候感到烦恼。
 
-![应该向新用户介绍工具的功能，但是老用户永远不会看到这些常规的工具提示。 (由 [Lakshmi Karuppiah](https://dribbble.com/lakshmikaruppiah) 设计)](https://cdn-images-1.medium.com/max/3360/0*Hx11UX6AHVjOPMrT.jpg)
+![应该向新用户介绍工具的功能，但是老用户永远不会看到这些常规的工具提示。（由 [Lakshmi Karuppiah](https://dribbble.com/lakshmikaruppiah) 设计）](https://cdn-images-1.medium.com/max/3360/0*Hx11UX6AHVjOPMrT.jpg)
 
 ## 五、贴合大众习惯的用户体验
 
@@ -69,7 +69,7 @@
 
 随着人们花更多的时间与屏幕交互，共同的用户预期已经形成。我们希望“+”可以展开更多信息，导航菜单停留在移动屏幕的顶部或底部。利用大多数用户都能理解的对照，界面变得直观。
 
-![这两个图标可以立即识别，并清楚地表示大多数用户都能理解的操作。(由 [Mohammad Amiri](https://dribbble.com/shots/4832226-Search-Icon-Interaction-Search-Close) 设计)](https://cdn-images-1.medium.com/max/3360/0*1StwrCYHxA3AV3xE.gif)
+![这两个图标可以立即识别，并清楚地表示大多数用户都能理解的操作。（由 [Mohammad Amiri](https://dribbble.com/shots/4832226-Search-Icon-Interaction-Search-Close) 设计）](https://cdn-images-1.medium.com/max/3360/0*1StwrCYHxA3AV3xE.gif)
 
 ## 六、防止过多信息和过度设计
 
@@ -79,7 +79,7 @@
 
 Ben Terrett 经常使用 [GOV.UK](https://www.gov.uk/guidance/government-design-principles) 的第四条设计原则:“努力让事情变得简单。”他认为，设计团队应该完全理解他们正在处理的问题，以及提供直观、信息丰富和成功用户体验的最佳解决方案的过程。在这个 [案例研究](https://gds.blog.gov.uk/2014/07/28/doing-the-the-work-to-make-things-simple/) 中，记录了他们的方法。
 
-![英国政府数字服务部门 (British Government Digital Services) 对信息进行分解，以确定用户需要知道什么，并创建了视觉设计，消除了一切不必要的东西，以支持信息的清晰性。(由 [英国政府数字服务](https://designnotes.blog.gov.uk/2014/07/14/things-we-learnt-designing-register-to-vote/) 设计)](https://cdn-images-1.medium.com/max/3360/0*4XbF10wLsf_RzW9S.jpg)
+![英国政府数字服务部门 (British Government Digital Services) 对信息进行分解，以确定用户需要知道什么，并创建了视觉设计，消除了一切不必要的东西，以支持信息的清晰性。（由 [英国政府数字服务](https://designnotes.blog.gov.uk/2014/07/14/things-we-learnt-designing-register-to-vote/) 设计）](https://cdn-images-1.medium.com/max/3360/0*4XbF10wLsf_RzW9S.jpg)
 
 ## 七、功能优先于形式
 
@@ -91,7 +91,7 @@ Ben Terrett 经常使用 [GOV.UK](https://www.gov.uk/guidance/government-design-
 
 视觉提示可以用来在应用程序的功能中引导用户。[Fritt 法则](https://www.interaction-design.org/literature/article/fitts-s-law-the-importance-of-size-and-distance-in-ui-design) 指出，形状、间距和大小可以引导用户了解情况并采取所需的行动。正是在这里，形式支撑并放大了功能。
 
-![这种数字登机牌考虑了旅客对信息有怎样的需求，并使用视觉技术使信息具有功能性。(由 [Marin Begovic](https://dribbble.com/marinb) 设计)](https://cdn-images-1.medium.com/max/3360/0*3bb_fgKD3wieHvVP.gif)
+![这种数字登机牌考虑了旅客对信息有怎样的需求，并使用视觉技术使信息具有功能性。（由 [Marin Begovic](https://dribbble.com/marinb) 设计）](https://cdn-images-1.medium.com/max/3360/0*3bb_fgKD3wieHvVP.gif)
 
 ## 八、信息要容易获得
 
@@ -103,7 +103,7 @@ Ben Terrett 经常使用 [GOV.UK](https://www.gov.uk/guidance/government-design-
 
 Jill Gerhardt-Powal 建议“将较低层次的数据整合到较高层次的总和中，以减少认知负担。”她还表示，“显示名称和标签应该与上下文相关，这将提高回忆和识别能力。”重要的是要意识到，第一次看到界面的用户不会像设计师那样了解和熟悉信息。对于经验丰富的团队来说，重复信息似乎有些冗余，但对于新用户来说却是必不可少的。
 
-![Uber 的 app 提供了三种级别的出租车服务，让用户在需要的时候很容易地访问每个选项。(由 Uber 设计)](https://cdn-images-1.medium.com/max/3360/0*x9HW0XVOKQKc_6tQ.gif)
+![Uber 的 app 提供了三种级别的出租车服务，让用户在需要的时候很容易地访问每个选项。（由 Uber 设计）](https://cdn-images-1.medium.com/max/3360/0*x9HW0XVOKQKc_6tQ.gif)
 
 ## 九、可靠的一致性
 
@@ -113,7 +113,7 @@ Jill Gerhardt-Powal 建议“将较低层次的数据整合到较高层次的总
 
 “这不应该成为束缚。每一种情况都是不同的。” GOV.UK 的设计原则表明，界面风格应该是一致的，但不应该是千篇一律的。正如 Jill Gerhardt-Powal 所呼应的，“新信息应该在熟悉的框架内呈现(例如，模式、隐喻、日常用语)，这样信息更容易被人们接收。”
 
-![google 对设计的高度关注体现在其所有 UI 设计的详细指南中。 (由 [Material](https://material.io/) 设计)](https://cdn-images-1.medium.com/max/3360/0*uBKIdRuzxPspM8e2.gif)
+![google 对设计的高度关注体现在其所有 UI 设计的详细指南中。（由 [Material](https://material.io/) 设计）](https://cdn-images-1.medium.com/max/3360/0*uBKIdRuzxPspM8e2.gif)
 
 ## 十、明智的冗余
 
@@ -133,7 +133,7 @@ Jakob Nielsen 是第一个承认不可能为 [UI 设计](https://www.toptal.com/
 
 ***
 
-**本篇文章最初发表在 [www.toptal.com](https://www.toptal.com/designers/usability/mobile-heuristic-principles).**
+**本篇文章最初发表在 [www.toptal.com](https://www.toptal.com/designers/usability/mobile-heuristic-principles)。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
