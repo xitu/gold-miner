@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-we-built-the-fastest-conference-website-in-the-world.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-we-built-the-fastest-conference-website-in-the-world.md)
 > * 译者：[Xuyuey](https://github.com/Xuyuey)
-> * 校对者：[ezioyuan](https://github.com/ezioyuan)
+> * 校对者：[ezioyuan](https://github.com/ezioyuan), [Long Xiong](https://github.com/xionglong58)
 
 # 构建世界上最快的会议网站
 
