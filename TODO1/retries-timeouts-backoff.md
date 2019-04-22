@@ -1,5 +1,5 @@
 > * 原文地址：[Retries, Timeouts and Backoff](https://namc.in/2019-04-15-retries-timeouts-backoff)
-> * 原文作者：[__namc](http://namc.in/)
+> * 原文作者：[namc](http://namc.in/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/retries-timeouts-backoff.md](https://github.com/xitu/gold-miner/blob/master/TODO1/retries-timeouts-backoff.md)
 > * 译者：
@@ -194,7 +194,7 @@ We went through a bunch of ways you can build a more fault-tolerant system. Howe
 
 * * *
 
-Resources -
+Resources:
 
 * [Patterns for distributed systems](https://www.dre.vanderbilt.edu/~schmidt/patterns-ace.html)
 * [Retry Patterns - Microsoft](https://docs.microsoft.com/en-us/azure/architecture/patterns/retry)
