@@ -3,19 +3,19 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/millions-of-active-websockets-with-node-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/millions-of-active-websockets-with-node-js.md)
 > * 译者：[Mirosalva](https://github.com/Mirosalva)
-> * 校对者：
+> * 校对者：[portandbridge](https://github.com/portandbridge)，[sunui](https://github.com/sunui)
 
-# 使用Node.js 提供百万的活跃 WebSocket 连接
+# 使用 Node.js 提供百万的活跃 WebSocket 连接
 
 > 仅使用消费级笔记本和一些 Wifi 资源便可提供大量的 WebSocket 服务
 
 通过最新发布的 TypeScript web 服务工程 [uWebSockets.js](https://github.com/uNetworking/uWebSockets.js)，我们看到它带来的不仅有提升的性能，还有提升的内存利用率。。对 Node.js 使用者尤其如此，所以为了演示我想在实际使用环境中开展大规模的测试。
 
-我们计划使用我那购买了 6 年的笔记本电脑，它具有 8GB 运行内存和 72Mbit 速率的 Wifi 网络适配器（这是网络链接速度）的笔记本电脑。它还有一个 1Gbit 速率的以太网适配器，我们可以稍后使用。所有配置都是消费级的，在 2013 年购买后没有任何硬件升级。这个笔记本将在安装 uWebSockets.js 的 v15.1.0 环境下运行 Node.js。
+我们计划使用我那购买了 6 年的笔记本电脑，它具有 8GB 运行内存和 72Mbit 速率的 Wifi 网络适配器（这是网络链接速度）的笔记本电脑。它还有一个 1Gbit 速率的以太网适配器，我们可以稍后使用。所有配置都是消费级的，在 2013 年购买后没有任何硬件升级。这个笔记本将运行安装了 uWebSockets.js v15.1.0 的 Node.js。
 
 ![服务器硬件](https://cdn-images-1.medium.com/max/2000/1*rXwVs5rZXES07sHY29xrKw.jpeg)
 
-我们首先需要做一些 Linux 系统的配置工作——主要是需要通过修改文件 /etc/security/limits.conf（在你的系统上文件路径可能不同，我这里用的是 Ubuntu 18.04 版本）来提升最大打开文件数量的限制。添加如下几行：
+我们首先需要做一些 Linux 系统的配置工作 —— 主要是需要通过修改文件 /etc/security/limits.conf（在你的系统上文件路径可能不同，我这里用的是 Ubuntu 18.04 版本）来提升最大打开文件数量的限制。添加如下几行：
 
 ```
 * soft nofile 1024000
@@ -35,9 +35,9 @@ sudo sysctl fs.file-max=1024000
 for i in {135..185}; do sudo ip addr add 192.168.0.$i/24 dev wlp3s0; done
 ```
 
-理论上，每个 IP 地址有 65k 个连接限制，但是实际上限值经常大约在 20k 左右，所以我们使用多个地址且使每个地址支撑 20k 个连接数（50 * 20千 = 1 百万）。
+理论上，每个 IP 地址有 65k 个连接限制，但是实际上限值经常大约在 20k 左右，所以我们使用多个地址且使每个地址支撑 20k 个连接数（50 * 20 千 = 1 百万）。
 
-在 **ulimit -n 1024000** 命令之后我使用命令 **sudo -i** 将 web 服务以 root 身份运行，接着对 **node examples/WebSocket.js**（在 uWebSockets.js 文件夹中）也这么做。
+然后我使用命令 **sudo -i** 将 web 服务以 root 身份运行，这之后执行 **ulimit -n 1024000** 命令，接着对 **node examples/WebSocket.js**（在 uWebSockets.js 文件夹中）也这么做。
 
 真得就是这样的。客户端侧做了类似的配置，但是显然不需要设置多个 IP 地址。客户端电脑运行一个由 [uSockets](https://github.com/uNetworking/uSockets) 编写的单线程 C 客户端。这个测试的源代码都是开源的，同时客户端的代码是位于 uWebSockets/benchmarks 文件夹的『scale_test.c』。你可能需要为你自己的运行做一些小改动。
 
@@ -47,7 +47,7 @@ WebSocket 连接数量需要花几分钟才能达到 100 万个，如果我们�
 
 首先，让我们讨论一下 5k 个关闭的连接。uWebSockets.js 被配置为丢弃和杀死所有闲置已超过 60s 的 WebSocket 连接。『idleTimeout』就被用到了，这意味着我们需要在每 60s 就要与每 100 万个 WebSocket 连接主动发送和接收一条 WebSocket 消息。
 
-你可以在这上面这张网络图中看到与 ping 消息相关的流量峰值。每秒最少有 16.7k 条 WebSocket 消息需要到达服务器——都变少了之后我们开始关闭连接。
+你可以在这上面这张网络图中看到与 ping 消息相关的流量峰值。每秒最少有 16.7k 条 WebSocket 消息需要到达服务器 —— 都变少了之后我们开始关闭连接。
 
 显然我们通过 Wifi 网络没有很好地满足这个标准。我们是丢失了一些连接，但在一个没有花哨配置的 WiFi 网络环境下仍存活 995k 个 WebSocket 连接却是很酷的事情！
 
@@ -55,7 +55,7 @@ WebSocket 连接数量需要花几分钟才能达到 100 万个，如果我们�
 
 服务端的 CPU 使用率保持在 0–2% 范围，用户控空间内存使用大约为 500MB 而整体系统范围的内存使用大约为 4.7GB。CPU 使用率或者内存使用一直都没有出现服务端激增走势，它始终处于完全稳定状态。
 
-好吧！那么让我们拿出大杀器吧——Ethernet。我们将服务器和客户端连接到 1Gbit 消费级路由器并重新运行测试：
+好吧！那么让我们拿出大杀器吧 —— Ethernet。我们将服务器和客户端连接到 1Gbit 消费级路由器并重新运行测试：
 
 ![](https://cdn-images-1.medium.com/max/3840/1*1v2fewfRAR21nryDIj_I6w.png)
 
@@ -65,7 +65,7 @@ WebSocket 连接数量需要花几分钟才能达到 100 万个，如果我们�
 
 每项都是稳定良好运行。事实上，我在运行服务的笔记本上写着本文，并且被关闭的 socket 连接数量始终为 0，同时系统也是响应及时的。甚至我开启一个简单的游戏的情况下服务还能让连接继续。
 
-此时我们已经实现了一个非常酷的概念验证场景。有一部分归因于稳定的 Ethernet 连接，但当然很大程度上也依赖服务端软件。任何其他的 Node.js 软件栈都无法实现这一壮举——它们都不具备像这样足以在笔记本上维持这么多 WebSocket 连接的轻量级和高性能特点。你可以在系统变得无响应时停止 swap 分区交换，并且下面看到的这样来停止获取 ping 结果：
+此时我们已经实现了一个非常酷的概念验证场景。有一部分归因于稳定的 Ethernet 连接，但当然很大程度上也依赖服务端软件。任何其他的 Node.js 软件栈都无法实现这一壮举 —— 它们都不具备像这样足以在笔记本上维持这么多 WebSocket 连接的轻量级和高性能特点。你可以在系统变得无响应时停止 swap 分区交换，并且下面看到的这样来停止获取 ping 结果：
 
 ![如果我们使用另一个服务软件栈可能运行不太好，这里『websockets/ws』 发生彻底崩溃并触发了重试](https://cdn-images-1.medium.com/max/3840/1*wXez3KLeKPCEhodP5UvcGQ.png)
 
