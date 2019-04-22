@@ -19,10 +19,7 @@ This week on NSHipster, we’ll take a look at the current field of Swift format
 
 But first, let’s start with a question:
 
-
-
 ## What is Code Formatting?
-
 
 For our purposes, we’ll define code formatting as any change made to code that makes it easier to understand without changing its behavior. Although this definition extends to differences in equivalent forms, (e.g. `[Int]` vs. `Array<Int>`), we’ll limit our discussion here to whitespace and punctuation.
 
@@ -43,7 +40,6 @@ Organizations often codify guidelines for how to deal with these issues, but the
 The Swift community has considered questions of style from the very beginning. Style guides have existed from the very first days of Swift, as have various open source tools to automate the process of formatting code to match them.
 
 In order to get a sense of the current state of Swift code formatters, we’ll take a look at the following four tools:
-
 
 Project | Repository URL
 ------- | -------
@@ -404,7 +400,6 @@ $ time swift-format Example.swift
             0.51 real         0.20 user         0.27 sys
 ```  
 
-
 Based on our initial investigation (albeit limited), `swift-format` appears to offer a reasonable set of formatting conventions. Going forward, it will be helpful to create more motivated examples to help inform our collective beliefs about the contours of such a tool.
 
 No matter what, it’ll be interesting to see how the proposal changes and the discussion evolves around these issues.
@@ -417,12 +412,8 @@ Questions? Corrections? [Issues](https://github.com/NSHipster/articles/issues) a
 
 _This article uses Swift version 5.0._ Find status information for all articles on the [status page](/status/).
 
-
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-
-
