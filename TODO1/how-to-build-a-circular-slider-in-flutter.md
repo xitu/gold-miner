@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-circular-slider-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-circular-slider-in-flutter.md)
 > * 译者：[DevMcryYu](https://github.com/DevMcryYu)
-> * 校对者：
+> * 校对者：[MollyAredtana](https://github.com/MollyAredtana) [JasonLinkinBright](https://github.com/JasonLinkinBright)
 
 # 用 Flutter 打造一个圆形滑块（Slider）
 
@@ -23,9 +23,9 @@
 
 我们要准备的第一件事就是创建一个真正的滑块。为此，我们要用一个完美的圆形作为背景，在它的基础上再画一个根据用户交互可以动态显示的圆。为了实现我们的想法，我们将用到一个名为 **CustomPaint** 的特殊部件，它提供一个允许让我们自由创作的画布（Canvas）。
 
-当滑块渲染完成以后，我们希望用户能够和它进行交互，因此我们选择使用 **GestureDetector** 包裹它来捕获点击及拖动事件。
+当滑块渲染完成以后，我们希望用户能够和它进行交互，因此我们选择使用 **GestureDetector** 封装它来捕获点击及拖动事件。
 
-整个流程将会是：
+完整流程是：
 
 - 绘制滑块
 - 当用户通过点击其中一个滑块并拖动它来与圆形滑块交互时识别此事件。
@@ -74,7 +74,7 @@ class BasePainter extends CustomPainter {
 }
 ```
 
-你可以看到，`paint()` 方法获得一个 **Canvas** 和一个 **Size** 参数。**Canvas** 提供一组方法可以让我们绘制任何形状：圆形、直线、圆弧、矩形等等。**Size** 参数即是画布的尺寸，由画布适配的部件尺寸决定。我们还需要一个 **Paint**，允许我们定制样式、颜色以及其他东西。
+可以看到，`paint()` 方法获得一个 **Canvas** 和一个 **Size** 参数。**Canvas** 提供一组方法可以让我们绘制任何形状：圆形、直线、圆弧、矩形等等。**Size** 参数即是画布的尺寸，由画布适配的部件尺寸决定。我们还需要一个 **Paint**，允许我们定制样式、颜色以及其他东西。
 
 现在 **BasePainter** 的功能用法已经不言自明，然而 **SliderPainter** 却有一点儿不寻常，现在我们不仅要绘制一个圆弧而非圆，还需要绘制 Handler。
 
@@ -146,7 +146,7 @@ class SliderPainter extends CustomPainter {
 
 ## 让滑块响应交互
 
-目前来看，仅仅使用 **CustomPaint** 以及两个 Painter 就已经足够绘制想要的东西了。然而它们还是不能够进行交互。因此就要使用 **GestureDetector** 来包裹它。这样一来我们就可以在画布上对用户事件做出相应处理。
+目前来看，仅仅使用 **CustomPaint** 以及两个 Painter 就已经足够绘制想要的东西了。然而它们还是不能够进行交互。因此就要使用 **GestureDetector** 来对它进行封装。这样一来我们就可以在画布上对用户事件做出相应处理。
 
 一开始我们将为 Handler 赋初值，当获取这些 Handler 的坐标后，我们将按照以下策略执行操作：
 
@@ -298,7 +298,7 @@ class _CircularSliderState extends State<CircularSliderPaint> {
 这里有几点需要注意：
 
 - 我们想要在 Handler（以及选择区间）的位置更新时通知父部件，这也是该部件对外暴露了一个回调函数 `onSelectionChange()` 的原因。
-- 当用户与滑块进行交互时该部件需要被重新渲染，当起始位置的参数值改变时也需如此。这就是为什么我们有必要使用 `didUpdateWidget()` 方法。
+- 当用户与滑块进行交互时，该部件需要被重新渲染，当起始位置的参数值改变时也需如此。这就是为什么我们有必要使用 `didUpdateWidget()` 方法。
 - *CustomPaint* 同样可以接收一个 **child** 参数，这样我们就可以使用它在圆的内部渲染生成一些其他东西。只需要在 final widget 里暴露相同的参数，使用者就可以向其中传入任何想要的值。
 - 我们使用一个间隔用以设置滑块的值。我们可以以此方便的将选择区间以百分比的形式表示。
 - 再一次申明，为了在百分比、弧度以及坐标之间转换我调用了不同的工具集函数。画布（Canvas）中的坐标系与一般坐标系有一些不同，比如说画布坐标系是以左上角作为坐标原点，这样一来 x、y 的值都将一直是一个正值。同样的，弧度制的表示是以 x 正坐标轴开始并以顺时针方向（总是正值）从 **0** 到 **2*pi** 计量。
@@ -308,11 +308,11 @@ class _CircularSliderState extends State<CircularSliderPaint> {
 
 ## 额外的功能
 
-由于篇幅有限，在这里并没有展开讲解所有的细节。你可以查看本项目的仓库，我想我会很乐于回答评论中的任何问题。
+由于篇幅有限，在这里并没有展开讲解所有的细节。你可以查看本项目的仓库，我会乐于回答评论中的任何问题。
 
-在最终的版本里我添加了一些额外的功能，比如自定义选择区间和 Handler 的颜色；如果你想实现类似时钟的样式（小时和分钟）你可以根据需求进行选择。为了方便各位使用我同样将所有内容打包放进了一个最终的部件内。
+在最终的版本里我添加了一些额外的功能，比如自定义选择区间和 Handler 的颜色；如果你想实现类似时钟的样式（小时和分钟）你可以根据需求进行选择。为了方便各位使用，我同样将所有内容打包放进了一个最终的部件内。
 
-请记住你也可以以从 [https://pub.dartlang.org/packages/flutter\_circular\_slider](https://pub.dartlang.org/packages/flutter_circular_slider) 导入本库的方式来使用这个部件。
+你也可以通过从 [https://pub.dartlang.org/packages/flutter\_circular\_slider](https://pub.dartlang.org/packages/flutter_circular_slider) 导入本库的方式来使用这个部件。
 
 文章至此告一段落，感谢各位的阅读！
 
