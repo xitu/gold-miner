@@ -79,7 +79,7 @@
 
 *   [libevent](http://monkey.org/~provos/libevent) 是 Niels Provos 写的一个轻量级的 C I/O 框架。它支持 kqueue 和 select，即将支持 poll 和 epoll。我想它应该只采用了**水平触发**，这具有两面性。Niels 给了一个图来说明时间和连接数目在处理一个事件上的功能，图中可以看出 kqueue 和 sys_epoll 是明显的赢家。
 
-*   我自己在轻量级框架的尝试(可惜的是没有保持更新):
+*   我自己在轻量级框架的尝试（可惜的是没有保持更新）：
 
    *   [Poller](http://www.kegel.com/dkftpbench/Poller_bench.html) 是一个轻量级的 C++ I/O 框架，它能使用任何一种准备就绪API（poll，select，/dev/poll，kqueue，sigio）实现水平触发准备就绪 API。[以其他多种 API 为基础测试](http://www.kegel.com/dkftpbench/Poller_bench.html)，Poll 的性能好的多。文档链到下面的 Poller 子类，该链接文档的下面一部分说明了如何使用这些准备就绪 API。
    *   [rn](http://www.kegel.com/rn/) 是一个轻量级的 C I/O 框架，这是我在 Poller 之后的第二次尝试。他使用 lgpl（因此它更容易在商业应用程序中使用）和 C（因此更容易在非 C++ 的产品中使用）。如今它被应用在一些商业产品中。
@@ -93,22 +93,22 @@
 网络软件的设计者有多种选择，这有一些
 
 * 是否以及如何在单个线程发出多个 I/O 调用
-	 *    不处理；使用阻塞和同步调用，尽可能的使用多个线程和进程实现并发。
-	 *   使用非阻塞调用(如，在一个socket write()上设置 O_NONBLOCK) 去启动 I/O，就绪通知(如，poll() 或则 /dev/poll)知道什么时候通道是 OK 的然后开启下一个 I/O。通常这只能用于网络 I/O，而不能用于磁盘 I/O。
-    *   使用异步调用(如，aio_write())去启动 I/O，完成通知(如，信号或完成端口)去通知 I/O 完成。这同时适用于网络和磁盘 I/O。
+    *   不处理；使用阻塞和同步调用，尽可能的使用多个线程和进程实现并发。
+    *   使用非阻塞调用（如，在一个 socket write() 上设置 O_NONBLOCK）去启动 I/O，就绪通知（如，poll() 或则 /dev/poll）知道什么时候通道是 OK 的然后开启下一个 I/O。通常这只能用于网络 I/O，而不能用于磁盘 I/O。
+    *   使用异步调用（如，aio_write()）去启动 I/O，完成通知（如，信号或完成端口）去通知 I/O 完成。这同时适用于网络和磁盘 I/O。
 
 *   如何控制每个客户的服务
-	*   一个进程服务一个客户(经典的 Unix 方法，从1980年左右就开始使用)
-    *   一个系统级别线程服务多个客户;每个客户通过以下控制:
-        *   一个用户级别线程(如. GNU 状态线程，带绿色线程的经典 java)    
-        *   状态机(有点深奥，但在某些圈子里很受欢迎；我的最爱)
-        *   continuation (有点深奥，但在某些圈子里很受欢迎)
-    *   一个系统级线程服务单个客户(如，经典的带有原生线程的Java)
-    *   一个系统级线程服务每个活跃的客户(如. Tomcat与apache的前端；NT完成端口；线程池)
+	*   一个进程服务一个客户（经典的 Unix 方法，从 1980 年左右就开始使用）
+    *   一个系统级别线程服务多个客户；每个客户通过以下控制：
+        *   一个用户级别线程（如 GNU 状态线程，带绿色线程的经典 java）    
+        *   状态机（有点深奥，但在某些圈子里很受欢迎；我的最爱）
+        *   continuation（有点深奥，但在某些圈子里很受欢迎）
+    *   一个系统级线程服务单个客户（如，经典的带有原生线程的 Java）
+    *   一个系统级线程服务每个活跃的客户（如 Tomcat 与 apache 的前端；NT 完成端口；线程池）
 
-*  是否使用标准系统服务，或者构建服务到内核中(如，在一些自定义驱动，内核模块，或者 VxD)
+*  是否使用标准系统服务，或者构建服务到内核中（如，在一些自定义驱动，内核模块，或者 VxD）
 
-下边的5中组合似乎非常流行:
+下边的5中组合似乎非常流行：
 
 1.  一个线程服务多个客户端，使用非阻塞 I/O 和**水平触发**就绪通知
 2.  一个线程服务多个客户端，使用非阻塞 I/O 和就绪**更改**通知
@@ -118,26 +118,24 @@
 
 ### 1. 一个线程服务多个客户端，使用非阻塞 IO 和**水平触发**就绪通知
 
-... 在所有的网络句柄上都设置为非阻塞模式，使用 select() 或者 poll() 去告知哪个网络句柄处理有数据等待。此模型是最传统的，这种模式下，内核告诉你是否一个文件描述符就绪，自从上次内核告诉你它以来，你是否对该文件描述符做了任何事情。('水平触发'这个名词来自计算机硬件设计;它与['边缘触发'](#nb.edge)相反)。Jonathon Lemon在他的[关于BSDCON 2000 paper kqueue()的论文](http://people.freebsd.org/~jlemon/papers/kqueue.pdf)中介绍了这些术语。
+...在所有的网络句柄上都设置为非阻塞模式，使用 select() 或者 poll() 去告知哪个网络句柄处理有数据等待。此模型是最传统的，这种模式下，内核告诉你是否一个文件描述符就绪，自从上次内核告诉你它以来，你是否对该文件描述符做了任何事情。（'水平触发'这个名词来自计算机硬件设计；它与['边缘触发'](#边缘触发)相反）。Jonathon Lemon 在他的[关于BSDCON 2000 paper kqueue()的论文](http://people.freebsd.org/~jlemon/papers/kqueue.pdf)中介绍了这些术语。
 
 注意: 牢记来自内核的就绪通知只是一个提示，这一点尤为重要；当你尝试去读取文件描述符的时候，它可能没有就绪，这就是为什么需要在使用就绪通知时使用非阻塞模式的原因。
 
-一个重要的瓶颈是 read() 或 sendfile() 从磁盘块读取时，如果该页当前并不在内存中。在设置非阻塞模式的磁盘文件处理是没有影响的。内存映射磁盘文件也是如此，首先一个服务需要磁盘 I/O 时，他的处理块，所有客户端必须等待，因此原生非线程性能将会被浪费了。 
-这也就是异步 I/O 的目的，当然仅限于没有 AIO 的系统上，用多线程和多进程进行磁盘 I/O 也可能解决这个瓶颈。一种方法是使用内存映射文件，如果 mincore() 表示需要 I/O，让一个工作线程去进行 I/O 操作，并继续处理网络流量。Jef Poskanzer 提到 Pai， Druschel， and Zwaenepoel的 1999 [Flash](http://www.cs.rice.edu/~vivek/flash99/) web服务器使用这个技巧；他们在[Usenix '99](http://www.usenix.org/events/usenix99/technical.html)发表了关于它的演讲。看起来 mincore() 在 BSD-derived Unixes 上是可用的，如像[FreeBSD](http://www.freebsd.org/cgi/man.cgi?query=mincore)和Solaris，但它不是[单Unix规范](http://www.unix-systems.org/)的一部分。从kernel 2.3.51 开始，它也开始是 linux 的一部分，[感谢Chuck Lever](http://www.citi.umich.edu/projects/citi-netscape/status/mar-apr2000.html)。
+一个重要的瓶颈是 read() 或 sendfile() 从磁盘块读取时，如果该页当前并不在内存中。在设置非阻塞模式的磁盘文件处理是没有影响的。内存映射磁盘文件也是如此，首先一个服务需要磁盘 I/O 时，他的处理块，所有客户端必须等待，因此原生非线程性能将会被浪费了。
 
+这也就是异步 I/O 的目的，当然仅限于没有 AIO 的系统上，用多线程和多进程进行磁盘 I/O 也可能解决这个瓶颈。一种方法是使用内存映射文件，如果 mincore() 表示需要 I/O，让一个工作线程去进行 I/O 操作，并继续处理网络流量。Jef Poskanzer 提到 Pai、Druschel 和 Zwaenepoel 的 1999 [Flash](http://www.cs.rice.edu/~vivek/flash99/) web 服务器使用这个技巧；他们在 [Usenix '99](http://www.usenix.org/events/usenix99/technical.html) 发表了关于它的演讲。看起来 mincore() 在 BSD-derived Unixes 上是可用的，如像 [FreeBSD](http://www.freebsd.org/cgi/man.cgi?query=mincore) 和 Solaris，但它不是[单 Unix 规范](http://www.unix-systems.org/)的一部分。从 kernel 2.3.51 开始，它也开始是 linux 的一部分，[感谢 Chuck Lever](http://www.citi.umich.edu/projects/citi-netscape/status/mar-apr2000.html)。
 
-但是在2003年十一月的 freebsd-hackers list， Vivek Pei 等人报道了使用他们的 Flash web 服务器有一个很好的结果，然后在攻击其瓶颈，其中发现一个瓶颈是 mincore(猜测以后这不是一个好办法)，另外一个就是 sendfile 阻塞磁盘访问；他们一种修改的 sendfile()，当他的访问磁盘页尚未处于核心状态时返回类似 EWOULDBLOCK 的内容，提升了性能。(不知道怎么告诉用户页现在是常驻的...在我看来真正需要的是aio_sendfile())他们优化的最终结果是在 1GHZ/1GB 的FreeBSD盒子上 SpecWeb99 得分约为800，这比 spec.org 上的任何文件都要好。
+但是在 2003 年十一月的 freebsd-hackers list，Vivek Pei 等人报道了使用他们的 Flash web 服务器有一个很好的结果，然后在攻击其瓶颈，其中发现一个瓶颈是 mincore（猜测以后这不是一个好办法），另外一个就是 sendfile 阻塞磁盘访问；他们一种修改的 sendfile()，当他的访问磁盘页尚未处于核心状态时返回类似 EWOULDBLOCK 的内容，提升了性能。（不知道怎么告诉用户页现在是常驻的...在我看来真正需要的是aio_sendfile()）他们优化的最终结果是在 1GHZ/1GB 的 FreeBSD 盒子上 SpecWeb99 得分约为 800，这比 spec.org 上的任何文件都要好。
 
-
-在非阻塞套接字的集合中，关于单一线程如何告知哪个套接字是准备就绪的，列出了几种方法:
+在非阻塞套接字的集合中，关于单一线程如何告知哪个套接字是准备就绪的，列出了几种方法：
 
 *   **传统的 select()**
-	 不幸的，select() 限制了 FD_SETSIZE 的处理。这个限制被编译到标准库和用户程序中。(一些 C 库版本让你在编译应用程序的时候提示这个限制)
+	 不幸的，select() 限制了 FD_SETSIZE 的处理。这个限制被编译到标准库和用户程序中。（一些 C 库版本让你在编译应用程序的时候提示这个限制）
     
-    参阅[Poller_select](dkftpbench/doc/Poller_select.html) ([cc](dkftpbench/dkftpbench-0.44/Poller_select.cc)，[h](dkftpbench/dkftpbench-0.44/Poller_select.h))是一个如何使用 select() 与其他就绪通知模式交互的示例。
+    参阅 [Poller_select](dkftpbench/doc/Poller_select.html)（[cc](dkftpbench/dkftpbench-0.44/Poller_select.cc)，[h](dkftpbench/dkftpbench-0.44/Poller_select.h)）是一个如何使用 select() 与其他就绪通知模式交互的示例。
 
-    
-* 	 **传统的 poll()**
+*    **传统的 poll()**
      对于 poll() 能处理的文件描述符数量的没有硬编码限制，但是当有上千连接时会变得慢，因为大多数文件描述符在某个时刻都是是空闲的，完全扫描成千上万个文件描述符会花费时间。
     
     一些操作系统(像，Solaris 8)使用像 poll hinting 的技术加速了 poll() 等，Niels Provos 在 1999 年为 Linux [实现和并利用基准测试程序测试](http://www.humanfactor.com/cgi-bin/cgi-delegate/apache-ML/nh/1999/May/0415.html)。
