@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/dependency-injection-in-a-multi-module-project.md](https://github.com/xitu/gold-miner/blob/master/TODO1/dependency-injection-in-a-multi-module-project.md)
 > * 译者：[Mirosalva](https://github.com/Mirosalva)
-> * 校对者：
+> * 校对者：[JasonZ](https://github.com/JasonLinkinBright)
 
 # 依赖注入在多模块工程中的应用
 
@@ -11,23 +11,23 @@
 
 ![插图来自 [Virginia Poltrack](https://twitter.com/vpoltrack)](https://cdn-images-1.medium.com/max/3200/0*yWf1DFEnYBWNmAvT)
 
-这不是篇一般意义上依赖注入相关或者有关为什么我们选择库 X 而不是库 Y 的文章。
-本文反而是包含了我们在依赖注入方面努力对 [Plaid](https://github.com/nickbutcher/plaid) 做模块化的关键点。
+总的来说，这不是一篇关于依赖注入的文章，也不是关于我们为什么选择库 X 而不是库 Y 的文章。
+相反的，本文从依赖注入的角度介绍了我们对 [Plaid](https://github.com/nickbutcher/plaid) 进行模块化实践的主要成果。
 
 ## 我们的设置
 
-在前面某篇文章中，我写过 Plaid 应用模块化的整体过程。
-[**一款拼接应用 Plaid — 整体到模块化: 我们如何以及为什么模块化 Plaid 应用以及即将发生什么**](https://medium.com/androiddevelopers/a-patchwork-plaid-monolith-to-modularized-app-60235d9f212e)
+在前面的文章中，我写过 Plaid 应用模块化的整体过程。
+[**一款拼接应用 Plaid — 整体到模块化: 模块化 Plaid 应用的初衷、过程和结果**](https://medium.com/androiddevelopers/a-patchwork-plaid-monolith-to-modularized-app-60235d9f212e)
 
 让我以鸟瞰图的形式快速回顾一下 Plaid 的样子。
 
 我们有一个包含主启动 activity 的 `app` 模块，同时也有一些依赖 `app` 模块的动态功能模块（DFM）。每一个 DFM 都包含至少一个与所讨论功能相关的 activity、代码和资源。
 
-`app`模块依赖一个 包含了共享的代码和资源以及第三方库的 `core` 模块。
+`app` 模块依赖一个包含了共享的代码和资源以及第三方库的 `core` 模块。
 
 ![Plaid 的模块依赖图](https://cdn-images-1.medium.com/max/2000/0*VJS0y6-8fKBUHGhU)
 
-在我们开始模块化操作和介绍 Dagger 作为依赖注入主角之前，Plaid 的代码有一些类和函数如下：
+在我们开始模块化操作和以 Dagger 为主介绍依赖注入之前，先来熟悉下 Plaid 的相关类和函数：
 
 ```
 class DesignerNewsInjector {
@@ -39,21 +39,21 @@ class DesignerNewsInjector {
 
 虽然这是一个非常好的解决方案，但我们还是手工编写了大量的样板代码。
 
-任何需要注入器的地方，我们都需要在合适的位置调用底层函数，大多数情况下不是对象初始化时就是 `onCreate` 时。
+在任何需要注入的地方，我们都需要在合适的时机调用底层函数，大多数情况下不是对象初始化时就是 onCreate 时。
 
 ## 依赖注入的简要介绍
 
 依赖注入基本上意味着你不用在你需要的地方创建它们，而是在别的地方创建。然后这些对象的引用可以被传递到需要使用它们的类中。
 
-这点可以通过手工或者借助那众多库中某个库来实现，我们选择了 Dagger 2。多亏了 Dagger，为了获取一个可以使用的已初始化的 service，我们所有要做的就是如下内容：
+这点可以通过自己编写或者集成某个依赖注入库来实现，我们选择了集成 Dagger 2。多亏了 Dagger，为了获取一个可以使用的已初始化的 service，我们所有要做的就是如下内容：
 
 ```
 @Inject lateinit var service: DesignerNewsService
 ```
 
-所有对 service 的依赖可以变成 provide 函数的传参。我们为依赖注入需求选择了 Dagger 意味着我们的依赖图在编译阶段会被创建。下面的章节中要记住这一点。
+所有对 service 的依赖可以变成 provides 函数的传参。我们为依赖注入需求选择了 Dagger 意味着我们的依赖图在编译阶段会被创建。下面的章节中要记住这一点。
 
-## 我们在 Plaid 应用中引入 Dagger 的方法
+## 我们在 Plaid 应用中集成 Dagger 的方式
 
 当我们决定引入 Dagger 到 Plaid 应用时，我们已经学到了一个宝贵的教训，尤其是对模块化。
 
@@ -85,9 +85,9 @@ When introducing a dependency injection library to a monolithic application usua
 
 每个 DFM 都有它自己的组件，以组件所在的功能模块命名。`app` 模块中的 `HomeComponent` 组件就是如此。
 
-还有一个包含共享依赖项的组件，它位于 `core` 并被称作 `CoreComponent`。`CoreComponent` 背后的主要思想是提供可被整个应用使用的对象。它结合了一些 Dagger 模块，这些模块位于 `core` 库并可以在整个应用中复用。
+还有一个包含共享依赖项的组件，它位于 core 库中并被称作 `CoreComponent`。`CoreComponent` 背后的主要思想是提供可被整个应用使用的对象。它结合了一些 Dagger 模块，这些模块位于 `core` 库并可以在整个应用中复用。
 
-此外，由于依赖图具有方向性，因此只有一个方法可以共享 Dagger 组件：
+此外，由于依赖图具有方向性，因此只能通过以下方式共享 Dagger 组件：
 DFM 图可以从 application 模块来访问 Dagger 组件。application 模块可以从它依赖的库中访问组件，但方向反过来则不行。
 
 ## 跨模块边界共享组件
@@ -112,7 +112,7 @@ class PlaidApplication : Application() {
 }
 ```
 
-被实例化的 core 组件现在可以从应用中任何具有 context 的地方来访问，通过调用 PlaidApplication.coreComponent(context) 的方式。
+被实例化的 CoreComponent 组件现在可以从应用中任何具有 context 的地方来访问，通过调用 PlaidApplication.coreComponent(context) 的方式。
 
 使用一个扩展函数可以使 this 更好地访问：
 
@@ -161,7 +161,7 @@ interface SearchComponent : BaseActivityComponent<SearchActivity>
 
 ![组件依赖与它们各自为 SearchActivity 提供实现方法的模块（绿色）](https://cdn-images-1.medium.com/max/2000/1*EQ12g7x545uJfb6Y0KjjUw.png)
 
-这样做的的一个好处是 在功能图中无需重复 `@Modules` ，却可以通过 `CoreComponent` 或其他与之绑定的模块来透明地提供出去。
+这样做的的一个好处是：在功能图中无需重复 `@Modules` ，却可以通过 `CoreComponent` 或其他与之绑定的模块来透明地提供出去。
 
 例如，`CoreDataModule` 绑定在 `CoreComponent` 中，并提供 `Retrofit` 等。`Retrofit` 实例现在可以被任何与 `CoreComponent` 合并的组件访问到。
 
@@ -171,7 +171,7 @@ interface SearchComponent : BaseActivityComponent<SearchActivity>
 
 你可以深入到代码中来查看我们如何使用 Dagger 解决 Plaid 中的依赖注入问题。
 
-`[CoreComponent](https://github.com/nickbutcher/plaid/blob/master/core/src/main/java/io/plaidapp/core/dagger/CoreComponent.kt)` 是一个好的起始点，`[AboutComponent](https://github.com/nickbutcher/plaid/blob/master/about/src/main/java/io/plaidapp/about/dagger/AboutComponent.kt)` 也是，因为它没有太多的外部依赖。
+`[CoreComponent](https://github.com/nickbutcher/plaid/blob/master/core/src/main/java/io/plaidapp/core/dagger/CoreComponent.kt)` 是一个好的阅读开端，`[AboutComponent](https://github.com/nickbutcher/plaid/blob/master/about/src/main/java/io/plaidapp/about/dagger/AboutComponent.kt)` 也是，因为它没有太多的外部依赖。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
