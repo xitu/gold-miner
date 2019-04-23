@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-guide-to-css-grid-and-accessibility.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-guide-to-css-grid-and-accessibility.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者： [xionglong58](https://github.com/xionglong58)，[hanxiansen](https://github.com/hanxiansen)
+> * 校对者：[xionglong58](https://github.com/xionglong58)，[hanxiansen](https://github.com/hanxiansen)
 
 # 如何让你的 CSS Grid 布局有良好可读性
 
