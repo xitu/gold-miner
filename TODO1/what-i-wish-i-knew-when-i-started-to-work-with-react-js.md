@@ -2,20 +2,20 @@
 > * 原文作者：[David Yu](https://medium.com/@davidyu_44356)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-i-wish-i-knew-when-i-started-to-work-with-react-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-i-wish-i-knew-when-i-started-to-work-with-react-js.md)
-> * 译者：
+> * 译者：[xionglong58](thhps:github.com/xionglong58)
 > * 校对者：
 
-# What I wish I knew when I started to work with React.js
+# 我多希望在我学习 React.js 之前就已经知晓这些小窍门
 
 ![Photo by [Ben White](https://unsplash.com/@benwhitephotography?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10432/0*nrQ5vVSdulAG3LFO)
 
-After its initial release on May 29, 2013, React.js has taken over the internet. It’s not a secret that myself and many other developers owe their success to this amazing framework.
+自从 2013 年 5 月 29 日发布初始版本以来，React.js 迅速抢占互联网。很明显，包括我在内的很多开发者从这一神奇的架构中取得成效。
 
-With Medium so full of React.js tutorials, I wish one of them told me these tips when I started.
+在 Medium 中有很多关于 React.js 的教程，我真希望在我学习 React.js 的时候，其中能有一篇能告诉我下面所列的一些小窍门。
 
-## Don’t need .bind(this) when using arrow function
+## 使用 箭头函数的时候不需要 .bind(this) 操作
 
-Usually, you will have something like this when you have a controlled component:
+通常，当你有一个受控组件的时候，你的程序多少会包含下面的内容：
 
 ```
 class Foo extends React.Component{
@@ -39,9 +39,9 @@ class Foo extends React.Component{
 }
 ```
 
-You write `.bind(this)` to every method that exists, because most tutorials tell you to do so. If you have several controlled components, you will end up with a fat stack of codes in your `constructor(){}`.
+你之所以会针对每一个方法使用 `.bind(this)`，是因为大多数教程告诉你得那样做。当你有很多受控组件的时候，你的 `constructor(){}`将会显得特别臃肿。
 
-### Instead, you can:
+### 其实，你可以这样做:
 
 ```
 class Foo extends React.Component{
@@ -61,9 +61,9 @@ class Foo extends React.Component{
 }
 ```
 
-How?
+咋样?
 
-ES6’s arrow function uses [Lexical Scoping](https://whatis.techtarget.com/definition/lexical-scoping-static-scoping), which lets the method access the `this` of where it’s triggered.
+ES6 中的箭头函数使用[词法作用域](https://whatis.techtarget.com/definition/lexical-scoping-static-scoping)让方法能够访问其被定义位置的 `this`。
 
 ## When service workers work against you
 
