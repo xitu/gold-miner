@@ -2,8 +2,8 @@
 > * 原文作者：[Chris Blakely](https://medium.com/@chrisblakely01)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-avoid-these-7-mistakes-i-made-as-a-junior-developer.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-avoid-these-7-mistakes-i-made-as-a-junior-developer.md)
-> * 译者： [whatbeg](https://github.com/whatbeg)
-> * 校对者： [yinguangyao](https://github.com/yinguangyao), [renyuhuiharrison](https://github.com/renyuhuiharrison)
+> * 译者：[whatbeg](https://github.com/whatbeg)
+> * 校对者：[yinguangyao](https://github.com/yinguangyao), [renyuhuiharrison](https://github.com/renyuhuiharrison)
 
 # 如何避免我作为初级开发者时所犯下的 7 个错误
 
@@ -53,7 +53,7 @@
 
 毫无疑问，成为成熟开发者的道路充满困惑。有很多可用的语言、框架和工具。我最开始犯的一个错误是**什么都想学**。有趣的是，我最后什么都没学好。
 
-一会学 Java，一会学 JQuery，一会学 C#，一会学 C++ ......
+一会学 Java，一会学 JQuery，一会学 C#，一会学 C++ ...
 
 我没有专注于一种语言，而是根据那天的心情在不同语言间跳跃。相信我，这绝对是一种非常低效的学习方式。
 
