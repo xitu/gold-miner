@@ -19,27 +19,27 @@
 
 ## 内容
 
-- [C10K 问题](#the-c10k-problem)
-  - [内容](#contents)
-  - [相关网站](#related-sites)
-  - [预读书籍](#book-to-read-first)
-    - [I/O 框架](#io-frameworks)
-    - [I/O 策略](#io-strategies)
-    - [1. 一个线程服务多个客户端，使用非阻塞 IO 和**水平触发**的就绪通知](#1-serve-many-clients-with-each-thread-and-use-nonblocking-io-and-level-triggered-readiness-notification)
-    - [2. 一个线程服务多个客户端，使用非阻塞 IO 和就绪**改变**通知](#2-serve-many-clients-with-each-thread-and-use-nonblocking-io-and-readiness-change-notification)
-    - [3. 一个线程服务多个客户端，使用异步 I/O](#3-serve-many-clients-with-each-server-thread-and-use-asynchronous-io)
-    - [4. 一个线程服务一个客户端](#4-serve-one-client-with-each-server-thread)
-      - [Linux 线程](#linuxthreads)
-      - [NGPT: Linux 的下一代 Posix 线程](#ngpt-next-generation-posix-threads-for-linux)
-      - [NPTL: Linux 原生的 Posix 线程库](#nptl-native-posix-thread-library-for-linux)
+- [C10K 问题](#c10k-问题)
+  - [内容](#内容)
+  - [相关网站](#相关网站)
+  - [预读书籍](#预读书籍)
+    - [I/O 框架](#io-框架)
+    - [I/O 策略](#io-策略)
+    - [1. 一个线程服务多个客户端，使用非阻塞 IO 和**水平触发**的就绪通知](#1-一个线程服务多个客户端使用非阻塞-io-和水平触发就绪通知)
+    - [2. 一个线程服务多个客户端，使用非阻塞 IO 和就绪**改变**通知](#2-一个线程服务多个客户端使用非阻塞-io-和就绪改变通知)
+    - [3. 一个线程服务多个客户端，使用异步 I/O](#3--一个线程服务多个客户端使用异步-io)
+    - [4. 一个线程服务一个客户端](#4-一个线程服务多个客户端)
+      - [Linux 线程](#linux-线程)
+      - [NGPT：Linux 的下一代 Posix 线程](#ngpt-next-generation-posix-threads-for-linux)
+      - [NPTL：Linux 原生的 Posix 线程库](#nptl-native-posix-thread-library-for-linux)
       - [FreeBSD 线程支持](#freebsd-threading-support)
       - [NetBSD 线程支持](#netbsd-threading-support)
       - [Solaris 线程支持](#solaris-threading-support)
-      - [JDK 1.3.x 及更早版本中的Java线程支持](#java-threading-support-in-jdk-13x-and-earlier)
-      - [注意：1:1 线程与 M:N线程](#note-11-threading-vs-mn-threading)
+      - [JDK 1.3.x 及更早版本中的 Java 线程支持](#java-threading-support-in-jdk-13x-and-earlier)
+      - [注意：1:1 线程与 M:N 线程](#note-11-threading-vs-mn-threading)
     - [5. 将服务端代码构建到内核中](#5-build-the-server-code-into-the-kernel)
   - [将 TCP 协议栈带入用户空间](#bring-the-tcp-stack-into-userspace)
-  - [评论](#comments)
+  - [评论](#评论)
   - [打开文件句柄的限制](#limits-on-open-filehandles)
   - [线程限制](#limits-on-threads)
   - [Java 问题](#java-issues)
@@ -47,7 +47,7 @@
     - [其他限制](#other-limits)
     - [内核问题](#kernel-issues)
     - [测试服务性能](#measuring-server-performance)
-  - [例子](#examples)
+  - [例子](#例子)
     - [有趣的基于 select() 的服务器](#interesting-select-based-servers)
     - [有趣的基于 /dev/poll 的服务器](#interesting-devpoll-based-servers)
     - [有趣的基于 epoll 的服务器](#interesting-epoll-based-servers)
@@ -69,25 +69,24 @@
 
 （另外一本书[构建可扩展的网站](http://www.amazon.com/gp/product/0596102356)可能会对**使用**而不是**编写**一个web服务器的人会有帮助）
 
-
 ### I/O 框架
 
 以下提供了几个预打包的库，它们抽象了下面介绍的一些技术，使代码与操作系统隔离，并使其更具可移植性。
 
 *   [ACE](http://www.cs.wustl.edu/~schmidt/ACE.html)，一个重量级的 C++ I/O 框架，包含一些用面对对象的思想实现的 I/O 策略和许多其他有用的事情。特别的，他的 Reactor 以面对对象的方式执行非阻塞 I/O，Proactor 是一种面对对象处理异步 I/O 的的方式。
 
-*   [ASIO](http://asio.sf.net) 是一个 C++ I/O 框架，它正在成为Boost的一部分。这就像是为 STL 时代更新的ACE。
+*   [ASIO](http://asio.sf.net) 是一个 C++ I/O 框架，它正在成为 Boost 的一部分。这就像是为 STL 时代更新的 ACE。
 
-*   [libevent](http://monkey.org/~provos/libevent) 是 Niels Provos 写的一个轻量级的 C I/O 框架。它支持 kqueue 和 select，即将支持 poll 和 epoll。我想它应该只采用了**水平触发**，这具有两面性。Niels给了一个图来说明时间和连接数目在处理一个事件上的功能，图中可以看出kqueue 和 sys_epoll 是明显的赢家。
+*   [libevent](http://monkey.org/~provos/libevent) 是 Niels Provos 写的一个轻量级的 C I/O 框架。它支持 kqueue 和 select，即将支持 poll 和 epoll。我想它应该只采用了**水平触发**，这具有两面性。Niels 给了一个图来说明时间和连接数目在处理一个事件上的功能，图中可以看出 kqueue 和 sys_epoll 是明显的赢家。
 
 *   我自己在轻量级框架的尝试(可惜的是没有保持更新):
 
-   *   [Poller](http://www.kegel.com/dkftpbench/Poller_bench.html) 是一个轻量级的 C++ I/O 框架，它能使用任何一种准备就绪API(poll， select， /dev/poll， kqueue， sigio)实现水平触发准备就绪API。[以其他多种 API 为基础测试](http://www.kegel.com/dkftpbench/Poller_bench.html)，Poll的性能好的多.文档链到下面的Poller 子类，该链接文档的下面一部分说明了如何使用这些准备就绪API。
-   *   [rn](http://www.kegel.com/rn/) 是一个轻量级的C I/O 框架，这是我在Poller之后的第二次尝试。他使用lgpl(因此它更容易在商业应用程序中使用) 和 C(因此更容易在非 C++ 的产品中使用)。如今它被应用在一些商业产品中。
+   *   [Poller](http://www.kegel.com/dkftpbench/Poller_bench.html) 是一个轻量级的 C++ I/O 框架，它能使用任何一种准备就绪API（poll，select，/dev/poll，kqueue，sigio）实现水平触发准备就绪 API。[以其他多种 API 为基础测试](http://www.kegel.com/dkftpbench/Poller_bench.html)，Poll 的性能好的多。文档链到下面的 Poller 子类，该链接文档的下面一部分说明了如何使用这些准备就绪 API。
+   *   [rn](http://www.kegel.com/rn/) 是一个轻量级的 C I/O 框架，这是我在 Poller 之后的第二次尝试。他使用 lgpl（因此它更容易在商业应用程序中使用）和 C（因此更容易在非 C++ 的产品中使用）。如今它被应用在一些商业产品中。
 
-*   Matt Welsh 在2000年4月写了一篇关于如何在构建可扩展性服务时去平衡工作线程和事件驱动使用的[论文](http://www.cs.berkeley.edu/~mdw/papers/events.pdf)，该论文描述了他的 Sandstorm I/O 框架。
+*   Matt Welsh 在 2000 年 4 月写了一篇关于如何在构建可扩展性服务时去平衡工作线程和事件驱动使用的[论文](http://www.cs.berkeley.edu/~mdw/papers/events.pdf)，该论文描述了他的 Sandstorm I/O 框架。
 
-*   [Cory Nelson 的Scale!库](http://svn.sourceforge.net/viewcvs.cgi/*checkout*/int64/scale/readme.txt) - 一个Windows下的异步套接字，文件，和管道 I/O 库。
+*   [Cory Nelson 的 Scale！库](http://svn.sourceforge.net/viewcvs.cgi/*checkout*/int64/scale/readme.txt) — 一个 Windows 下的异步套接字，文件，和管道 I/O 库。
 
 ### I/O 策略
 
