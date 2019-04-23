@@ -9,7 +9,7 @@
 
 > 仅使用消费级笔记本和一些 Wifi 资源便可提供大量的 WebSocket 服务
 
-通过最新发布的 TypeScript web 服务工程 [uWebSockets.js](https://github.com/uNetworking/uWebSockets.js)，我们看到它带来的不仅有提升的性能，还有提升的内存利用率。。对 Node.js 使用者尤其如此，所以为了演示我想在实际使用环境中开展大规模的测试。
+通过最新发布的 TypeScript web 服务工程 [uWebSockets.js](https://github.com/uNetworking/uWebSockets.js)，我们看到它带来的不仅有提升的性能，还有提升的内存利用率。对 Node.js 使用者尤其如此，所以为了演示我想在实际使用环境中开展大规模的测试。
 
 我们计划使用我那购买了 6 年的笔记本电脑，它具有 8GB 运行内存和 72Mbit 速率的 Wifi 网络适配器（这是网络链接速度）的笔记本电脑。它还有一个 1Gbit 速率的以太网适配器，我们可以稍后使用。所有配置都是消费级的，在 2013 年购买后没有任何硬件升级。这个笔记本将运行安装了 uWebSockets.js v15.1.0 的 Node.js。
 
