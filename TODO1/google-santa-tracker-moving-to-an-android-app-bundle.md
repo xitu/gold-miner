@@ -24,18 +24,20 @@ So why is this important? Knowing what our primary feature was allowed us to thi
 We knew it was time for Santa Tracker to go on a diet, so we set a goal of shrinking our initial download size down to **just** 10MB 😥.
 
 Why that size you ask? Well it is shown to have a 30% higher conversion rate than a 100MB sized app. Santa Tracker is not an app where we track conversion rate but a lot of apps do. 10MB was also a very low goal to try and achieve, to see if it was even possible. For more info on the stats behind this, read this article from the [Google Play team](https://medium.com/googleplaydev):
-[**Shrinking APKs, growing installs**
-**How your app’s APK size impacts install conversion rates**medium.com](https://medium.com/googleplaydev/shrinking-apks-growing-installs-5d3fcba23ce2)
+
+- [**Shrinking APKs, growing installs**: How your app’s APK size impacts install conversion rates](https://medium.com/googleplaydev/shrinking-apks-growing-installs-5d3fcba23ce2)
 
 ## Dynamic Delivery
 
 You may have heard about the new [Android App Bundle](https://developer.android.com/platform/technology/app-bundle/) format, which allows the Google Play store to dynamically deliver a customized app with only the parts relevant to the device. This was an easy first step for us. By simply uploading an AAB (Android App Bundle) instead of an APK, we instantly managed to reduce the download size by nearly **20%** to **48.5MB** (from 60MB). That’s a **huge** saving for the **tiny** amount of work we had to do!
-> # If you only take away one thing from reading this post, make sure it is to try uploading an AAB instead of an APK for your app. The chances are high that this small change will save your users time and money.
+
+> If you only take away one thing from reading this post, make sure it is to try uploading an AAB instead of an APK for your app. The chances are high that this small change will save your users time and money.
 
 So how does Google Play achieve that saving? By being able to deliver something optimized for a single device, the infrastructure can remove all of the language resources, density resources, and native libraries which are not applicable for the device. Example, if your device set to `fr-FR`, has a `xxhdpi` display, with an `arm64-v8a` CPU, the APK delivered will only include the necessary resources, and not for example, any strings localized to Spanish. You’d be surprised at how much space things like localized strings can take up.
 
 Make sure to watch the ‘[Optimize Your App Size](https://www.youtube.com/watch?v=QdoEcfibG-s)’ talk from [Android Dev Summit ’18](https://developer.android.com/dev-summit/) for more info:
 
+- YouTube 视频链接：https://youtu.be/QdoEcfibG-s
 
 ## Feature modules
 
@@ -61,9 +63,63 @@ We found out early on in testing that you need to be careful about the condition
 
 The overall logic for this looks like this:
 
+```
+/* Copyright 2018 Google LLC.
+   SPDX-License-Identifier: Apache-2.0 */
+
+override fun onCreate(savedInstanceState: Bundle?) {
+    // ... setup
+
+    // Feature Module Id which contains the game
+    val featureModuleId = intent.getStringExtra(...)
+
+    if (featureModuleName in splitInstallManager.installedModules) {
+        // The feature module is already installed, so just launch the game
+        launchTargetActivity()
+    } else {
+        // The feature is not installed so we need to request an install
+        val mgr = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (mgr.activeNetworkInfo?.isConnected == true) {
+            // We have an active network...
+            if (mgr.isActiveNetworkMetered) {
+                // TODO ...but it is metered. Confirm with the user first
+                showMeteredNetworkConfirmDialog()
+            } else {
+                // ...otherwise, just download the module
+                startModuleInstall(featureModuleId)
+            }
+        } else {
+            // We have no network connection. Show a failure and finish
+            onFeatureModuleLaunchFailure()
+        }
+    }
+}
+```
 
 The `startModuleInstall()` method is a little more complex due to how the Play Core API works. You need to attach a listener which will be invoked during an install, and then request an install, like so:
 
+```
+/* Copyright 2018 Google LLC.
+   SPDX-License-Identifier: Apache-2.0 */
+
+private lateinit var splitInstallManager: SplitInstallManager
+private lateinit var installListener: SplitInstallStateUpdatedListener
+
+private fun startModuleInstall(featureModuleId: String) {
+    // Start showing progress bar now
+    progressbar.isVisible = true
+    progressbar.isIndeterminate = true
+
+    // First attach our listener
+    splitInstallManager.registerListener(installListener)
+    
+    // And finally create a request and start the install
+    val request = SplitInstallRequest.newBuilder()
+            .addModule(featureModuleId)
+            .build()
+    splitInstallManager.startInstall(request)
+}
+```
 
 The listener will later receive an install complete signal, and finally we launch the game. You can find the complete code [here](https://github.com/google/santa-tracker-android/tree/master/santa-tracker/src/main/java/com/google/android/apps/santatracker/games/SplashActivity.kt).
 
@@ -73,7 +129,7 @@ If you’ve got this far into the post you probably want to see how we did…
 
 Android Studio has a great way to analyze your App Bundles (and APKs), to drill down and see a download size value for each feature module. Using that we can see that our initial download size is 11.6MB (missing out on our 10MB goal), and our total download size is 25.5MB.
 
-![*** Download size calculated using Analyze Bundle feature in Android Studio**](https://cdn-images-1.medium.com/max/3652/1*z6BiUOLlfqpwx58ywfSsVw.png)
+![**Download size calculated using Analyze Bundle feature in Android Studio**](https://cdn-images-1.medium.com/max/3652/1*z6BiUOLlfqpwx58ywfSsVw.png)
 
 ![Chart showing how the module sizes compare](https://cdn-images-1.medium.com/max/3592/1*aamb-oJ9fhE-7VPpvHh-bA.png)
 
@@ -91,7 +147,7 @@ Hopefully this post has shown you that moving to App Bundles can have massive be
 
 One small caveat to the numbers above is that they also contain the results of the other size reduction techniques we used, including asset compression and moving to R8. We will discuss this more in the next blog post.
 
-***You might be wondering why 26 hours instead of 24? This is because the International date line [is not a straight line](https://en.wikipedia.org/wiki/International_Date_Line#/media/File:International_Date_Line.png). Kiribati has a timezone of [UTC+14](https://www.timeanddate.com/worldclock/difference.html?p1=274), which means a 26 hour time difference to Howland and Baker Islands, which use UTC-12.**
+* **You might be wondering why 26 hours instead of 24? This is because the International date line [is not a straight line](https://en.wikipedia.org/wiki/International_Date_Line#/media/File:International_Date_Line.png). Kiribati has a timezone of [UTC+14](https://www.timeanddate.com/worldclock/difference.html?p1=274), which means a 26 hour time difference to Howland and Baker Islands, which use UTC-12.**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
