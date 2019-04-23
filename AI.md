@@ -1,3 +1,5 @@
+* [如何在远程服务器上运行 Jupyter Notebooks](https://juejin.im/post/5cb5e0a9f265da036c577f24) ([Daltan](https://github.com/Daltan) 翻译)
+* [哪一个深度学习框架增长最迅猛？TensorFlow 还是 PyTorch？](https://juejin.im/post/5caefef45188251b070f7d70) ([ccJia](https://github.com/ccJia) 翻译)
 * [如何在 Keras 中使用 LSTM 神经网络创作音乐](https://juejin.im/post/5c9c19d7e51d453e7d28a173) ([HearFishle](https://github.com/HearFishle) 翻译)
 * [Chars2vec: 基于字符实现的可用于处理现实世界中包含拼写错误和俚语的语言模型](https://juejin.im/post/5c96fd46e51d4513e072c3ae) ([kasheemlew](https://github.com/kasheemlew) 翻译)
 * [基于 Python 的图理论和网络分析](https://juejin.im/post/5c9066b3f265da612e6d5770) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
