@@ -2,118 +2,118 @@
 > * 原文作者：[Chris Blakely](https://medium.com/@chrisblakely01)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-avoid-these-7-mistakes-i-made-as-a-junior-developer.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-avoid-these-7-mistakes-i-made-as-a-junior-developer.md)
-> * 译者：
-> * 校对者：
+> * 译者：[whatbeg](https://github.com/whatbeg)
+> * 校对者：[yinguangyao](https://github.com/yinguangyao), [renyuhuiharrison](https://github.com/renyuhuiharrison)
 
-# How to avoid these 7 mistakes I made as a Junior Developer
+# 如何避免我作为初级开发者时所犯下的 7 个错误
 
 ![](https://cdn-images-1.medium.com/max/4000/0*c7djDqc-mTOweLhT.jpg)
 
-Beginning your career as a junior developer can be scary. There will be many unknown challenges, things to learn, and difficult choices to make. And sometimes, we get these choices wrong. It’s only natural, and we shouldn’t beat ourselves up when it happens.
+开发者职业生涯伊始你可能会觉得有点害怕。你将面临许多未知的挑战、要学习很多东西，还要做出很多艰难的抉择。有时我们可能会选错。这是很正常的，当我们面对这种情况时不要自责。
 
-What we should do though, is learn from this. As a senior developer, I’ve made my fair share of mistakes. Here are the 7 big mistakes I made when I was starting out as a junior developer, and how to avoid them.
+我们应该从中吸取教训。在成为高级开发者的过程中，我犯过许多错误。本文讲述了当我还是初级开发者时犯过的 7 个严重错误，以及如何避免这些错误。
 
-## Taking the first job that comes along
+## 承担第一份工作
 
-If you’re teaching yourself to code, or coming to the end of your university degree, getting your first job will be one of your main goals. It’s the light at the end of a long tunnel.
+如果你一直在自学代码，或者即将结束学生生活，那么你的首要目标就是找到第一份工作。这是黑暗隧道尽头的一束光。
 
-And getting a job is not easy. There are more people than ever trying to get junior developer jobs. [You need to write a killer CV/Resume](https://www.chrisblakely.dev/how-to-write-an-awesome-junior-developer-resume-in-a-few-simple-steps/), make it through many rounds of interviews, and the process can take forever.
+但找工作并不容易。初级开发者越来越多。[你要写一份一击必中的简历](https://www.chrisblakely.dev/how-to-write-an-awesome-junior-developer-resume-in-a-few-simple-steps/)，并经过几轮面试，这个过程也可能会一直循环下去。
 
-Which is why it’s understandable how tempting it can be to jump on any job offer you get with both hands.
+抓住任何一个可以胜任的工作机会，对你来说很有吸引力。这点可以理解。
 
-Yet, this can be a bad move. My first job was far from ideal, from a learning and enjoyment perspective. The developers had a “meh, it’ll do attitude” and often did things half-heartedly. There was a culture of blame, and I was often required to cut corners to meet tight deadlines. Worst of all, I wasn’t learning anything.
+但这种行为可能并不明智。无论是从学习还是享受工作的角度而言，我的第一份工作都远远谈不上理想。开发者抱着「呃，有态度就行」的想法，对待工作并不认真。这样就会产生一种责备文化，我常常为了满足紧迫的截止期限而被要求缩减内容。最糟糕的是我没能从这份工作中学会任何东西。
 
-I ignored the warning signs in interviews because I was blindsided by the opportunity of getting a job. Any concerns I had were thrown out the window when I received the **offer with a** **nice salary** to boot.
+我在面试中忽略了这些警告信号，因为得到工作机会蒙蔽了我的双眼。当我收到**报酬还不错**的 **offer** 时，我将我所有的担忧都抛到了脑后。
 
-Big mistake.
+真是大错特错。
 
-Your first job is important. It gives you a taste of being a true developer, and the experience and mentorship you receive will set you up for the rest of your career. Which is why you should thoroughly do your research on the role and the company before accepting any job offer. The last thing you want is a bad experience or bad mentors!
+你的第一份工作非常重要。它让你体验到成为一名真正的开发者的感受，你从这份工作中获得的经验和指导也将为你之后的职业生涯奠定基础。这就是为什么在接受任何工作前，你都要对你的职位以及这家公司进行全面调查。你一定非常不想从中获得糟糕的经验或遇到糟糕的领导！
 
-So, before applying or accepting any job offer:
+所以，在申请或接受任何工作之前，你需要：
 
-### Research the company
+### 调研这家公司
 
-Search for the company on [Glassdoor](https://www.glassdoor.co.uk/), the internet, their website, and read the reviews. This will give you a good feel for if the company is suited to your goals and needs.
+在 [Glassdoor](https://www.glassdoor.co.uk/) 和互联网上搜索这家公司、登录他们的网站，找一些关于这家公司的评论。如果这家公司符合你的目标和需求，那将会给你吃一颗定心丸。
 
-### Ask people you know
+### 询问你认识的人
 
-If anyone in your network has worked there or knows anyone who works there, have a chat with them. Find out what they like, what they don’t like, and generally what their experience was.
+如果你的关系网中有人曾在这里工作，或者他认识这里的员工的话，你可以和他们聊聊。了解一下他们对这家公司的褒贬评价以及他们的经历。
 
-## Ask the right questions in the interview
+## 在面试中问恰当的问题
 
-The interview is the best chance you have to learn about the company, so make sure you come armed with a set of questions to ask the interviewer. A few things you can ask are:
+面试是你了解一家公司的绝佳机会，面试前要确保你已经准备好要提的问题了。你可以问的事情包括：
 
-* Ask about the development process (what methodologies do they follow? Do they do code reviews? branching strategies?)
+* 开发过程（他们用的是什么方法？他们有代码审核吗？他们的分支管理策略是什么样的？）
 
-* Ask about testing (what sort of testing do they follow? do they have dedicated test engineers?)
+* 测试相关的问题（他们用什么样的方法进行测试？他们有专门做测试的工程师吗？）
 
-* What is the culture like (is it a relaxed environment? what is the support like for junior developers?)
+* 公司文化（这家公司的氛围轻松吗？有什么针对初级开发者的支持吗？）。
 
-## Not choosing a path
+## 不选择一条路
 
-No doubt the path to becoming a fully fledged developer can be a confusing one. There are many languages, frameworks, and tools available. A mistake I made at the beginning was **trying to learn everything**. Funnily enough, I ended up not learning very much.
+毫无疑问，成为成熟开发者的道路充满困惑。有很多可用的语言、框架和工具。我最开始犯的一个错误是**什么都想学**。有趣的是，我最后什么都没学好。
 
-One minute I would try and learn Java, then JQuery, then C#, and then C++ …
+一会学 Java，一会学 JQuery，一会学 C#，一会学 C++ ...
 
-Instead of focusing solely on one language at a time, I was jumping between things depending on how I was feeling that day. And trust me, that is a very ineffective way to learn.
+我没有专注于一种语言，而是根据那天的心情在不同语言间跳跃。相信我，这绝对是一种非常低效的学习方式。
 
-I would have gotten much better results and climbed through the ranks faster if I had chosen a **path or set of technologies**, and stuck to learning them. For example, if you are an aspiring front-end developer, learn JavaScript, learn CSS/HTML, and pick a framework. If you’re focused on the backend side of things, again, pick one language and learn it well. You do not need to know Python, Java, and C#!
+如果我选择一条路或者一门技术，坚持下来，那我本能得到更好的结果，并晋升得更快。例如，如果你想在前端发展，那可以学习 JavaScript、CSS 和 HTML，还要选择一个框架。如果你想在后端发展，那就选一种语言并好好学。你不需要了解 Python、Java 和 C#！
 
-So narrow your focus, choose your path, and create a plan to become a pro in your chosen path ([here’s a roadmap ](https://www.chrisblakely.dev/the-10-minute-road-map-to-becoming-a-junior-full-stack-web-developer/)that will help you map out your path).
+集中注意力、选择自己要走的路、制定计划，并成为你选择的领域的专家（[这张图](https://www.chrisblakely.dev/the-10-minute-road-map-to-becoming-a-junior-full-stack-web-developer/)可以帮助你制定计划）。
 
-## Being too “fancy” when writing code
+## 写代码的时候太「花哨」
 
-So you’re preparing a project to show the interviewers, or landed your first job and working on your first task. You are trying your best to impress. What’s the best way to do that? Show off this super fancy coding technique you learned to complete the task, right?
+假设你在准备一个项目，这个项目可能是给面试官看的，也可能是你找到第一份工作后的第一个项目。你想给别人留下深刻的印象。最好的方法是做什么呢？用你学过的极其花哨的编码技术来完成项目，对吗？
 
-Wrong.
+错了。
 
-This is a major mistake I made and a mistake I see junior developers do too often. More often than not junior developers will try and reinvent the wheel, or use some complicated solution in a bid to try and impress.
+这是我犯过的一个重大错误，也是初级开发者常犯的错误。通常初级开发者会尝试重新造轮子，或者试图用一些复杂的解决方案来给人留下深刻印象。
 
-The best approach to writing code is the K.I.S.S principle (“**keep it simple**, **stupid**”). By keeping things simple, you’ll reap the benefits of **easy to read, maintainable code** undefined(the next developer coming along after you will appreciate it!).
+最好的方法是参照 K.I.S.S（“**越简单越好**”）原则写代码。让一切都尽可能简单，你就可以写出**可读性强、可维护性高的代码**，这会带来很多好处（在你之后继任的开发者会很欣赏这样的代码！）。
 
-## There’s more to life than code and work
+## 生活比代码和工作更重要
 
-An early bad habit I ran into was not learning to switch off. I would often bring my laptop home with me at the end of the day. I would sit for hours trying to complete a task or bug that could have **waited until the next day**. This unsurprisingly, left me feeling burnt out and stressed.
+我早期还有一个坏习惯：没有学会在生活和工作中切换。我会在一天工作结束后还把电脑带回家，端坐好几个小时来解决**可以留到第二天的任务或漏洞**。不出所料，这样的习惯让我精疲力尽。
 
-Part of the reason I did was this because I felt an urge to complete everything as soon as possible. Whereas, in reality, I should have realized that work is an ongoing process, and it can more often than not wait until the next working day. It’s important to switch off and remember the other things in life — friends, family, hobbies and having fun. Of course, if you like to stay up until the early hours writing code, by all means! But when it is not enjoyable, consider stopping and doing something else.
+我这样做的部分原因是我觉得要尽快完成所有的事情。但实际上，我本该意识到工作是一个持续的过程，它往往可以在下一个工作日再继续进行。重要的是要记得生命中还有别的需要关注的事情 —— 朋友、家庭以及兴趣爱好。当然，如果你想夜以继日地写代码，那当然可以！但如果不怎么享受这个过程，那你可以考虑停下来做一些其他事。
 
-There is always tomorrow!
+明日何其多！
 
-## Not saying “I don’t know” enough
+## 不敢说「我不知道」
 
-It’s easy to get stuck on a problem or task you are trying to complete, it happens all the time, even to the most senior developers. A mistake I made whenever I was a junior developer was not saying “I don’t know” enough. If management asked me a question I wasn’t sure about I would bluff an answer instead of saying **“I don’t know”.**
+在你要完成的问题或任务上遇到困难是很常见的，它会经常发生，即便你成为高级开发者也是如此。作初级开发者时我犯的错误是：我不愿意承认「我不知道」。如果管理者问了一个我不太清楚的问题，我会糊弄一个答案，而不是直接说**「我不知道」**。
 
-I felt if I said “I don’t know” people would think **I didn’t know what I was doing**. The reality is that this is not the case. Nobody knows everything. So if you’re asking a question and you don’t know the answer, say that. The benefits of this are:
+我觉得如果说「我不知道」，人们就会觉得**我不知道自己在做什么**。但事实并非如此。没有什么都知道的人。所以如果有人问了你不知道答案的问题，直说就好。这样做的好处是：
 
-* You’re being honest and not misleading the person who is asking the question
+* 你表现了你的坦诚，而且不会误导提问的人
 
-* You’ll learn something new when it’s explained to you
+* 如果有人向你解释的话，你也会学到新的东西
 
-* You’ll gain respect for saying you don’t know something. Not everyone is capable of admitting they don’t know something.
+* 你直说自己不懂这个问题的话，会得到别人的尊重。不是每个人都敢承认自己的无知。
 
-## Trying to progress too quickly
+## 试图进展太快
 
-I’m sure you’ve heard the saying, “you have to walk before you can run”. Never does this saying have more relevance than in the field of web development. When you start your first job as a junior developer, you’ll be eager to hit the ground running, and get your hands on nice big coding tasks. You’ll even be thinking of how to get a nice promotion to the next level!
+我相信你一定听过「在学会跑之前你要先学会走」。没有什么领域比 web 开发更贴合这句话了。当你以初级开发者的身份获得第一份工作时，你会急于产出，马上着手处理大型编码任务。你甚至想到了如何快速晋升到下一级。
 
-Whilst ambition is good, the reality is that these sort of things will not come straight away for a junior developer. At the start of your career, you will more than likely get the smaller, easier tasks and bugs to work on. These might not be the most exciting things in the world to work on, but it’s necessary. It allows you to put one foot into the codebase and get familiar with the process. Secondly, it allows your team and managers to gauge how you cope with working as part of the team, and where your skills lay.
+虽然有雄心壮志是很好的事，但现实是很多事情不会立即发生在初级开发者身上。当你刚开启自己的职业生涯时，你可能要处理相对更小、更简单的任务和错误。这可能不是什么令人兴奋的工作，但却是必须经历的过程。这可以让你快速上手并熟悉这个开发流程。其次，这个过程可以让你的团队和你的上级更好地评估你作为团队一员的工作范围，以及你的技能在团队中处于什么样的位置。
 
-I made the mistake of getting frustrated at these smaller tasks, and I let this frustration get in the way of my work. Have patience, perform every task you get to the best of your ability, and the more exciting work will come!
+我当时犯的错误是对处理小任务感到沮丧，而且这种沮丧的感觉影响了我的工作。耐心点，尽你所能完成你要处理的每一个任务，激动人心的工作随后就来！
 
-## Not getting involved in the community & building a network
+## 没有加入任何社区，也没有建立任何关系网络
 
-The development community is great. The community is always willing to help, provide feedback, and can even help with motivation. Being a developer is tough, and can sometimes take its toll. As a junior developer, the tough times would have been easier if I had got involved in the community earlier.
+开发社区很棒。社区中总有人愿意提供帮助、反馈，甚至是动力。成为开发者是很难的，有时候可能会付出一些代价。你加入社区越早，就越容易渡过初级开发者的艰难时期。
 
-Getting involved is also a great way to learn. You can contribute to open source projects, see how other’s write code, and see how developers collaborate on projects together. These are all skills you can bring to your day job and will make you a better developer in the long run.
+参与也是一种很好的学习方式。你可以为开源项目做出贡献，看别人是怎么写代码的，还可以看到开发者是如何协作完成一个项目的。这些技能你都可以应用在日常工作中，而且从长远角度看，这会让你成为更好的开发者。
 
-Find communities that interest you — freeCodeCamp, CodeNewbies, 100DaysOfCode are some good ones — and get involved! You can also get involved in local meetups in your home town or city. Check out meetup.com for this.
+找到并加入你感兴趣的社区 —— freeCodeCamp、CodeNewbies、100DaysOfCode 都不错！你还可以参加一些你所在城市的线下聚会。详情见 meetup.com。
 
-This also lets you **build a network.** undefinedA network is basically a bunch of people you know in your industry. Why is a network important? Let’s say you are looking to move into another job. By reaching out to your network, someone may be able to recommend a specific role, or even refer you to a company. This gives you a solid advantage going into the interview, as you’ll have someone to vouch for you, and will no longer be another “name in the pile of resumes”.
+这也可以让你**建立关系网**。这个网络基本是由你所在行业认识的一群人组成的。为什么关系网很重要？假设你想跳槽，通过网络，别人可能会推荐特定的职位给你，甚至可能向一些公司推荐你。这让你在面试中有了坚实的优势，因为有人为你担保，这样你就不再只是「一叠简历中的一个名字」
 
-Thanks for reading!
+感谢阅读！
 
 ***
 
-To get the latest guides and courses for junior developers straight to your inbox, make sure to join the mailing list at [www.chrisblakely.dev](https://www.chrisblakely.dev/#sign-up)!
+想获得初级开发者的最新指南和课程，可以加入 [www.chrisblakely.dev](https://www.chrisblakely.dev/#sign-up) 的邮件列表！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
