@@ -51,7 +51,7 @@ In this post I'll mainly be focusing on tools that are a part of the `go` comman
 
 To install these while using Go 1.12 you'll first need to make sure that you're **outside** of a module-enabled directory (I usually just change into `/tmp`). Then you can use the `GO111MODULE=on go get` command to install the tool. For example:
 
-```
+```shell
 $ cd /tmp
 $ GO111MODULE=on go get golang.org/x/tools/cmd/stress
 ```
@@ -64,7 +64,7 @@ Note: This process is a bit clunky and will hopefully improve in future versions
 
 You can use the `go env` tool to display information about your current Go operating environment. This can be particularly useful if you're working on an unfamiliar machine.
 
-```
+```shell
 $ go env
 GOARCH="amd64"
 GOBIN=""
@@ -96,7 +96,7 @@ GOGCCFLAGS="-fPIC -m64 -pthread -fmessage-length=0 -fdebug-prefix-map=/tmp/go-bu
 
 If there are specific values that you're interested in, you can pass them as arguments to `go env`. For example:
 
-```
+```shell
 $ go env GOPATH GOOS GOARCH
 /home/alex/go
 linux
@@ -105,7 +105,7 @@ amd64
 
 To show documentation for all `go env` variables and values you can run:
 
-```
+```shell
 $ go help environment
 ```
 
@@ -115,7 +115,7 @@ $ go help environment
 
 During development the `go run` tool is a convenient way to try out your code. It's essentially a shortcut that compiles your code, creates an executable binary in your `/tmp` directory, and then runs this binary in one step.
 
-```
+```shell
 $ go run .          # Run the package in the current directory
 $ go run ./cmd/foo  # Run the package in the ./cmd/foo directory
 ```
@@ -128,7 +128,7 @@ Assuming that you've got [modules enabled](https://github.com/golang/go/wiki/Mod
 
 If you know in advance that you need a specific version of a dependency (instead of the one that Go would fetch by default) you can use `go get` with the relevant version number or commit hash. For example:
 
-```
+```shell
 $ go get github.com/foo/bar@v1.2.3
 $ go get github.com/foo/bar@8e1b8d3
 ```
@@ -137,13 +137,13 @@ If the dependency being fetched has a `go.mod` file, then **its dependencies** w
 
 So that means your `go.mod` file doesn't necessarily show all the dependencies for your project in one place. Instead, you can view them all using the `go list` tool like so:
 
-```
+```shell
 $ go list -m all
 ```
 
 Sometimes you might wonder **why is that a dependency?** You can answer this with the `go mod why` command, which will show you the shortest path from a package in your main module to a given dependency. For example:
 
-```
+```shell
 $ go mod why -m golang.org/x/sys
 # golang.org/x/sys
 github.com/alexedwards/argon2id
@@ -157,7 +157,7 @@ If you're interested in analyzing or visualizing the dependencies for your appli
 
 Lastly, downloaded dependencies are stored in the **module cache** located at `GOPATH/pkg/mod`. If you ever need to clear the module cache you can use the `go clean` tool. But be aware: this will remove the downloaded dependencies for **all projects** on your machine.
 
-```
+```shell
 $ go clean -modcache
 ```
 
@@ -178,7 +178,7 @@ func bar() {
 
 To do this you can use `gofmt` with the `-r` flag to implement a rewrite rule, the `-d` flag to display a diff of the changes, and the `-w` flag to make the changes **in place**, like so:
 
-```
+```shell
 $ gofmt -d -w -r 'foo -> Foo' .
 -var foo int
 +var Foo int
@@ -196,7 +196,7 @@ If you want to use this functionality, I recommend running rewrite rules **witho
 
 Let's take a look at a slightly more complicated example. Say you want to update your code to use the new Go 1.12 [strings.ReplaceAll()](https://golang.org/pkg/strings/#ReplaceAll) function instead of [strings.Replace()](https://golang.org/pkg/strings/#Replace). To make this change you can run:
 
-```
+```shell
 $ gofmt -w -r 'strings.Replace(a, b, c, -1) -> strings.ReplaceAll(a, b, c)' .
 ```
 
@@ -206,7 +206,7 @@ In rewrite rules, single lowercase characters act as wildcards matching arbitrar
 
 You can view documentation for the standard library packages via your terminal using the `go doc` tool. I often use this during development to quickly check something — like the name or signature of a specific function. I find it faster than navigating the [web-based documentation](https://golang.org/pkg) and it's always available offline too.
 
-```
+```shell
 $ go doc strings            # View simplified documentation for the strings package
 $ go doc -all strings       # View full documentation for the strings package
 $ go doc strings.Replace    # View documentation for the strings.Replace function
@@ -216,7 +216,7 @@ $ go doc sql.DB.Query       # View documentation for the database/sql.DB.Query m
 
 You can also include the `-src` flag to display the relevant Go source code. For example:
 
-```
+```shell
 $ go doc -src strings.Replace   # View the source code for the strings.Replace function
 ```
 
@@ -226,7 +226,7 @@ $ go doc -src strings.Replace   # View the source code for the strings.Replace f
 
 You can use the `go test` tool to run tests in your project like so:
 
-```
+```shell
 $ go test .          # Run all tests in the current directory
 $ go test ./...      # Run all tests in the current directory and sub-directories
 $ go test ./foo/bar  # Run all tests in the ./foo/bar directory
@@ -234,7 +234,7 @@ $ go test ./foo/bar  # Run all tests in the ./foo/bar directory
 
 Typically I run my tests with Go's [race detector](https://golang.org/doc/articles/race_detector.html) enabled, which can help pick up **some** of the data races that might occur in real-life usage. Like so:
 
-```
+```shell
 $ go test -race ./...
 ```
 
@@ -242,7 +242,7 @@ It's important to note that enabling the race detector will increase the overall
 
 Since 1.10, Go [caches test results](https://golang.org/doc/go1.10#test) at the package-level. If a package hasn't changed between test runs — and you're using the same, cachable, flags for `go test` — then the cached test result will be displayed with a `"(cached)"` next to it. This is hugely helpful in speeding up the test runtime for large codebases. If you want force your tests to run in full (and avoid the cache) you can use the `-count=1` flag, or clear all cached test results by using the `go clean` tool.
 
-```
+```shell
 $ go test -count=1 ./...    # Bypass the test cache when running tests
 $ go clean -testcache       # Delete all cached test results
 ```
@@ -251,7 +251,7 @@ Note: Cached test results are stored alongside cached build results in your `GOC
 
 You can limit `go test` to running specific tests (and sub-tests) by using the `-run` flag. This accepts a regular expression, and only tests which have names that match the regular expression will be run. I like to combine this with the `-v` flag to enable verbose mode, so the names of running tests and sub-tests are displayed. It's a useful way to make sure that I haven't screwed up the regexp and that the tests I expect are actually being run!
 
-```
+```shell
 $ go test -v -run=^TestFooBar$ .          # Run the test with the exact name TestFooBar
 $ go test -v -run=^TestFoo .              # Run tests whose names start with TestFoo
 $ go test -v -run=^TestFooBar$/^Baz$ .    # Run the Baz subtest of the TestFooBar test only
@@ -259,7 +259,7 @@ $ go test -v -run=^TestFooBar$/^Baz$ .    # Run the Baz subtest of the TestFooBa
 
 A couple more flags that it's good to be aware of are `-short` (which you can use to [skip long-running tests](https://golang.org/pkg/testing/#hdr-Skipping)) and `-failfast` (which will stop running further tests after the first failure). Note that `-failfast` will prevent test results from being cached.
 
-```
+```shell
 $ go test -short ./...      # Skip long running tests
 $ go test -failfast ./...   # Don't run further tests after a failure.
 ```
@@ -268,14 +268,14 @@ $ go test -failfast ./...   # Don't run further tests after a failure.
 
 You can enable coverage analysis when running tests by using the `-cover` flag. This will display the percentage of code covered by the tests in the output for each package, similar to this:
 
-```
+```shell
 $ go test -cover ./...
 ok  	github.com/alexedwards/argon2id	0.467s	coverage: 78.6% of statements
 ```
 
 You can also generate a **coverage profile** using the `-coverprofile` flag and view it in your web browser by using the `go tool cover -html` command like so:
 
-```
+```shell
 $ go test -coverprofile=/tmp/profile.out ./...
 $ go tool cover -html=/tmp/profile.out
 ```
@@ -286,7 +286,7 @@ This will gives you a navigable listing of all the test files, with code covered
 
 If you want you can go a step further and set the `-covermode=count` flag to make the coverage profile record the exact **number of times** that each statement is executed during the tests.
 
-```
+```shell
 $ go test -covermode=count -coverprofile=/tmp/profile.out ./...
 $ go tool cover -html=/tmp/profile.out
 ```
@@ -299,7 +299,7 @@ Note: If you’re using the `t.Parallel()` command in any of your tests, then yo
 
 Lastly, if you don't have a web browser available to view a coverage profile, you can see a breakdown of test coverage by function/method in your terminal with the command:
 
-```
+```shell
 $ go tool cover -func=/tmp/profile.out
 github.com/alexedwards/argon2id/argon2id.go:77:		CreateHash		87.5%
 github.com/alexedwards/argon2id/argon2id.go:96:		ComparePasswordAndHash	85.7%
@@ -310,7 +310,7 @@ github.com/alexedwards/argon2id/argon2id.go:96:		ComparePasswordAndHash	85.7%
 
 You can use the `go test -count` command to run a test multiple times in succession, which can be useful if you want to check for sporadic or intermittent failures. For example:
 
-```
+```shell
 $ go test -run=^TestFooBar$ -count=500 .
 ```
 
@@ -318,20 +318,20 @@ In this example, the `TestFooBar` test will be repeated 500 times in a row. But 
 
 In that case you might want to use the [`stress`](golang.org/x/tools/cmd/stress) tool to repeat the same test multiple times **in parallel** instead. You can install it like so:
 
-```
+```shell
 $ cd /tmp
 $ GO111MODULE=on go get golang.org/x/tools/cmd/stress
 ```
 
 To use the `stress` tool, you'll first need to compile a **test binary** for the specific package you want to test. You can do using the `go test -c` command. For example, to create a test binary for the package in your current directory:
 
-```
+```shell
 $ go test -c -o=/tmp/foo.test .
 ```
 
 In this example, the test binary will be outputted to `/tmp/foo.test`. You can then use the `stress` tool to execute a specific test in the test binary like so:
 
-```
+```shell
 $ stress -p=4 /tmp/foo.test -test.run=^TestFooBar$
 60 runs so far, 0 failures
 120 runs so far, 0 failures
@@ -344,7 +344,7 @@ Note: In the example above I've used the `-p` flag to restrict the number of par
 
 Before you build an executable for release or deployment, or distribute your code publicly, you may want to run the `go test all` command:
 
-```
+```shell
 $ go test all
 ```
 
@@ -358,7 +358,7 @@ Go provides two tools to automatically format your code according to the Go conv
 
 I like to use the `gofmt` tool with the following flags:
 
-```
+```shell
 $ gofmt -w -s -d foo.go  # Format the foo.go file
 $ gofmt -w -s -d .       # Recursively format all files in the current directory and sub-directories
 ```
@@ -369,7 +369,7 @@ Note: The `gofmt` command works recursively. If you pass it a directory like `.`
 
 The other formatting tool — `go fmt` — tool is a wrapper which essentially calls `gofmt -l -w` on a specified file or directory. You can use it like this:
 
-```
+```shell
 $ go fmt ./...
 ```
 
@@ -377,7 +377,7 @@ $ go fmt ./...
 
 The `go vet` tool carries out static analysis of your code and warns you of things which **might** be wrong with your code but wouldn't be picked up by the compiler. Issues like unreachable code, unnecessary assignments and badly-formed build tags. You can use it like so:
 
-```
+```shell
 $ go vet foo.go     # Vet the foo.go file
 $ go vet .          # Vet all files in the current directory
 $ go vet ./...      # Vet all files in the current directory and sub-directories
@@ -386,20 +386,20 @@ $ go vet ./foo/bar  # Vet all files in the ./foo/bar directory
 
 Behind the scenes, `go vet` runs a bunch of different analyzers which are [listed here](https://golang.org/cmd/vet/) and you can disable specific ones on a case-by-case basis. For example to disable the `composite` analyzer you can use:
 
-```
+```shell
 $ go vet -composites=false ./...
 ```
 
 There are a couple of experimental analyzers in [golang.org/x/tools](https://godoc.org/golang.org/x/tools) which you might want to try: [nilness](https://godoc.org/golang.org/x/tools/go/analysis/passes/nilness/cmd/nilness) (which checks for redundant or impossible nil comparisons) and [shadow](https://godoc.org/golang.org/x/tools/go/analysis/passes/shadow/cmd/shadow) (which check for possible unintended shadowing of variables). If you want to use these, you'll need to install and run them separately. For example, to install `nilness` you would run:
 
-```
+```shell
 $ cd /tmp
 $ GO111MODULE=on go get golang.org/x/tools/go/analysis/passes/nilness/cmd/nilness
 ```
 
 And you can then use it like so:
 
-```
+```shell
 $ go vet -vettool=$(which nilness) ./...
 ```
 
@@ -407,7 +407,7 @@ Note: when the `-vettool` flag is used it will **only** run the specified analyz
 
 As a side note, since Go 1.10 the `go test` tool automatically executes a small, high-confidence, subset of the `go vet` checks before running any tests. You can turn this behavior off when running tests like so:
 
-```
+```shell
 $ go test -vet=off ./...
 ```
 
@@ -417,14 +417,14 @@ You can use the `golint` tool to identify **style mistakes** in your code. Unlik
 
 It's not part of the standard library, so you'll need to install it like so:
 
-```
+```shell
 $ cd /tmp
 $ GO111MODULE=on go get golang.org/x/lint/golint
 ```
 
 You can then run it as follows:
 
-```
+```shell
 $ golint foo.go     # Lint the foo.go file
 $ golint .          # Lint all files in the current directory
 $ golint ./...      # Lint all files in the current directory and sub-directories
@@ -435,7 +435,7 @@ $ golint ./foo/bar  # Lint all files in the ./foo/bar directory
 
 Before you commit any changes to your code I recommend running the following two commands to tidy and verify your dependencies:
 
-```
+```shell
 $ go mod tidy
 $ go mod verify
 ```
@@ -450,7 +450,7 @@ I also recommend using the `go mod verify` command to check that the dependencie
 
 To compile a `main` package and create an executable binary you can use the `go build` tool. Typically I use it in conjunction with the `-o` flag, which let's you explicitly set the output directory and name of the binary like so:
 
-```
+```shell
 $ go build -o=/tmp/foo .            # Compile the package in the current directory
 $ go build -o=/tmp/foo ./cmd/foo    # Compile the package in the ./cmd/foo directory
 ```
@@ -461,14 +461,14 @@ It's important to note that, as of Go 1.10, the `go build` tool caches build out
 
 If you're not sure where your build cache is, you can check by running the `go env GOCACHE` command:
 
-```
+```shell
 $ go env GOCACHE
 /home/alex/.cache/go-build
 ```
 
 Using the build cache comes with one [important caveat](https://golang.org/pkg/cmd/go/internal/help/) — it does not detect changes to C libraries imported with `cgo`. So if your code imports a C library via `cgo` and you've made changes to it since the last build, you'll need to use the `-a` flag which forces all packages to be rebuilt. Alternatively, you could use `go clean` to purge the cache:
 
-```
+```shell
 $ go build -a -o=/tmp/foo .     # Force all packages to be rebuilt
 $ go clean -cache               # Remove everything from the build cache
 ```
@@ -477,7 +477,7 @@ Note: Running `go clean -cache` will delete cached test results too.
 
 If you're interested in what `go build` is doing behind the scenes, you might like to use the following commands:
 
-```
+```shell
 $ go list -deps . | sort -u     # List all packages that are used to build the executable
 $ go build -a -x -o=/tmp/foo .  # Rebuild everything and show the commands that are run
 ```
@@ -492,14 +492,14 @@ By default `go build` will output a binary suitable for use on your current oper
 
 You can specify the operating system and architecture that you want to create the binary for by setting the `GOOS` and `GOARCH` environment variables respectively. For example:
 
-```
+```shell
 $ GOOS=linux GOARCH=amd64 go build -o=/tmp/linux_amd64/foo .
 $ GOOS=windows GOARCH=amd64 go build -o=/tmp/windows_amd64/foo.exe .
 ```
 
 To see a list of all supported OS/architecture combinations you can run `go tool dist list`:
 
-```
+```shell
 $ go tool dist list
 aix/ppc64
 android/386
@@ -519,13 +519,13 @@ For a bit more in-depth information about cross compilation I recommend reading 
 
 When building your executable you can use the `-gcflags` flag to change the behavior of the compiler and see more information about what it's doing. You can see a complete list of available compiler flags by running:
 
-```
+```shell
 $ go tool compile -help
 ```
 
 One flag that you might find interesting is `-m`, which triggers the printing of information about optimization decisions made during compilation. You can use it like this:
 
-```
+```shell
 $ go build -gcflags="-m -m" -o=/tmp/foo . # Print information about optimization decisions
 ```
 
@@ -533,25 +533,25 @@ In the above example I used the `-m` flag twice to indicate that I want to print
 
 Also, as of Go 1.10, compiler flags only apply to the specific packages passed to `go build` — which in the example above is the package in the current directory (represented by `.`). If you want to print optimization decisions for all packages including dependencies can use this command instead:
 
-```
+```shell
 $ go build -gcflags="all=-m" -o=/tmp/foo .
 ```
 
 As of Go 1.11, you should find it [easier to debug optimized binaries](https://golang.org/doc/go1.11#debugging) than before. However, you can still use the flags `-N` to disable optimizations and `-l` to disable inlining if you need to. For example:
 
-```
+```shell
 $ go build -gcflags="all=-N -l" -o=/tmp/foo .  # Disable optimizations and inlining
 ```
 
 You can see a list of available linker flags by running:
 
-```
+```shell
 $ go tool link -help
 ```
 
 Probably the most well-known of these is the `-X` flag, which allows you to "burn in" a (string) value to a specific variable in your application. This is commonly used to [add a version number or commit hash](https://blog.alexellis.io/inject-build-time-vars-golang/). For example:
 
-```
+```shell
 $ go build -ldflags="-X main.version=1.2.3" -o=/tmp/foo .
 ```
 
@@ -559,11 +559,9 @@ For more information about the `-X` flag and some sample code see [this StackOve
 
 You may also be interested in using the `-s` and `-w` flags to strip debugging information from the binary. This typically shaves about 25% off the final size. For example:
 
-```
+```shell
 $ go build -ldflags="-s -w" -o=/tmp/foo .  # Strip debug information from the binary
 ```
-
- 
 
 Note: If binary size is something that you need to optimize for you might want to use [upx](https://upx.github.io/) to compress it. See [this post](https://blog.filippo.io/shrink-your-go-binaries-with-this-one-weird-trick/) for more information.
 
@@ -575,50 +573,42 @@ A nice feature of Go is that it makes it easy to benchmark your code. If you're 
 
 To run benchmarks you'll need to use the `go test` tool, with the `-bench` flag set to a regular expression that matches the benchmarks you want to execute. For example:
 
-```
+```shell
 $ go test -bench=. ./...                        # Run all benchmarks and tests
 $ go test -run=^$ -bench=. ./...                # Run all benchmarks (and no tests)
 $ go test -run=^$ -bench=^BenchmarkFoo$ ./...   # Run only the BenchmarkFoo benchmark (and no tests)
 ```
 
- 
-
 I almost always run benchmarks using the `-benchmem` flag, which forces memory allocation statistics to be included in the output.
 
-```
+```shell
 $  go test -bench=. -benchmem ./...
 ```
 
- 
-
 By default, each benchmark test will be run for **a minimum** of 1 second, once only. You can change this with the `-benchtime` and `-count` flags:
 
-```
+```shell
 $ go test -bench=. -benchtime=5s ./...       # Run each benchmark test for at least 5 seconds
 $ go test -bench=. -benchtime=500x ./...     # Run each benchmark test for exactly 500 iterations
 $ go test -bench=. -count=3 ./...            # Repeat each benchmark test 3 times over
 ```
 
- 
-
 If the code that you're benchmarking uses concurrency, you can use the `-cpu` flag to see the performance impact of changing your `GOMAXPROCS` value (essentially, the number of OS threads that can execute your Go code simultaneously). For example, to run benchmarks with `GOMAXPROCS` set to 1, 4 and 8:
 
-```
+```shell
 $ go test -bench=. -cpu=1,4,8 ./...
 ```
 
- 
-
 To compare changes between benchmarks you might want to use the [benchcmp](https://godoc.org/golang.org/x/tools/cmd/benchcmp) tool. This isn't part of the standard `go` command, so you'll need to install it like so:
 
-```
+```shell
 $ cd /tmp
 $ GO111MODULE=on go get golang.org/x/tools/cmd/benchcmp
 ```
 
 You can then use it like this:
 
-```
+```shell
 $ go test -run=^$ -bench=. -benchmem ./... > /tmp/old.txt
 # make changes
 $ go test -run=^$ -bench=. -benchmem ./... > /tmp/new.txt
@@ -643,7 +633,7 @@ There are three ways to generate profiles:
 * For other types of applications, you can profile your running application using the `pprof.StartCPUProfile()` and `pprof.WriteHeapProfile()` functions. See the [`runtime/pprof`](https://golang.org/pkg/runtime/pprof/) documentation for sample code.
 * Or you can generate profiles while running benchmarks or tests by using the various `-***profile` flags like so:
 
-```
+```shell
 $ go test -run=^$ -bench=^BenchmarkFoo$ -cpuprofile=/tmp/cpuprofile.out .
 $ go test -run=^$ -bench=^BenchmarkFoo$ -memprofile=/tmp/memprofile.out .
 $ go test -run=^$ -bench=^BenchmarkFoo$ -blockprofile=/tmp/blockprofile.out .
@@ -652,7 +642,7 @@ $ go test -run=^$ -bench=^BenchmarkFoo$ -mutexprofile=/tmp/mutexprofile.out .
 
 Note: Using the `-***profile` flags when running benchmarks or tests will result in a test binary being outputted to your current directory. If you want to output this to an alternative location you should use the `-o` flag like so:
 
-```
+```shell
 $ go test -run=^$ -bench=^BenchmarkFoo$ -o=/tmp/foo.test -cpuprofile=/tmp/cpuprofile.out .
 ```
 
@@ -660,7 +650,7 @@ Whichever way you choose to create a profile, when profiling is enabled your Go 
 
 My favourite way to inspect a profile is to use the `go tool pprof -http` command to open it in a web browser. For example:
 
-```
+```shell
 $ go tool pprof -http=:5000 /tmp/cpuprofile.out
 ```
 
@@ -674,7 +664,7 @@ You can also navigate to other **views** of the profile including top usage by f
 
 If the amount of information is overwhelming, you might want to use the `--nodefraction` flag to ignore nodes that account for less than a certain percentage of samples. For example to ignore nodes that use appear in less than 10% of samples you can run `pprof` like so:
 
-```
+```shell
 $ go tool pprof --nodefraction=0.1 -http=:5000 /tmp/cpuprofile.out
 ```
 
@@ -693,7 +683,7 @@ Another tool that you can use to help diagnose issues is the **runtime execution
 
 Again, you can generate trace from your tests or benchmarks, or use `net/http/pprof` to create and download a trace for your web application. You can then use `go tool trace` to view the output in your web browser like so:
 
-```
+```shell
 $ go test -run=^$ -bench=^BenchmarkFoo$ -trace=/tmp/trace.out .
 $ go tool trace /tmp/trace.out
 ```
@@ -708,7 +698,7 @@ For more information about Go's execution tracer and how to interpret the output
 
 I talked earlier about enabling Go's race detector during tests by using `go test -race`. But you can also enable it for running programs when building a executable, like so:
 
-```
+```shell
 $ go build -race -o=/tmp/foo .
 ```
 
@@ -718,7 +708,7 @@ But you may want to deploy a race-detector-enabled binary on one server within a
 
 By default, if any races are detected while the binary is running a log will be written to `stderr`. You can change this by using the `GORACE` environment variable if necessary. For example, to run the binary located at `/tmp/foo` and output any race logs to `/tmp/race.<pid>` you can use:
 
-```
+```shell
 $ GORACE="log_path=/tmp/race" /tmp/foo
 ```
 
@@ -726,20 +716,20 @@ $ GORACE="log_path=/tmp/race" /tmp/foo
 
 You can use the `go list` tool to check whether a specific dependency has a newer version available like so:
 
-```
+```shell
 $ go list -m -u github.com/alecthomas/chroma
 github.com/alecthomas/chroma v0.6.2 [v0.6.3]
 ```
 
 This will output the dependency name and version that you're currently using, followed by the latest version in square brackets `[]`, if a newer one exists. You can also use `go list` to check for updates to all dependencies (and sub-dependencies) like so:
 
-```
+```shell
 $ go list -m -u all
 ```
 
 You can upgrade (or downgrade) a dependency to the latest version, specific tagged-release or commit hash with the `go get` command like so:
 
-```
+```shell
 $ go get github.com/foo/bar@latest
 $ go get github.com/foo/bar@v1.2.3
 $ go get github.com/foo/bar@7e0369f
@@ -749,14 +739,14 @@ If the dependency you're updating has a `go.mod` file, then based on the informa
 
 After upgrading or downgrading any dependencies it's a good idea to tidy your modfiles. And you might also want to run the tests for all packages to help check for incompatibilities. Like so:
 
-```
+```shell
 $ go mod tidy
 $ go test all
 ```
 
 Occasionally you might want to use a local version of a dependency (for example, you need to use a local fork until a patch is merged upstream). To do this, you can use the `go mod edit` command to replace a dependency in your `go.mod` file with a local version. For example:
 
-```
+```shell
 $ go mod edit -replace=github.com/alexedwards/argon2id=/home/alex/code/argon2id
 ```
 
@@ -776,7 +766,7 @@ replace github.com/alexedwards/argon2id => /home/alex/Projects/playground/argon2
 
 Once it's no longer necessary, you can remove the replace rule with the command:
 
-```
+```shell
 $ go mod edit -dropreplace=github.com/alexedwards/argon2id
 ```
 
@@ -790,7 +780,7 @@ The `go fix` tool was originally released back in 2011 (when regular changes wer
 
 However, there are a handful of very specific issues that it does deal with. You can see a summary of them by running `go tool fix -help`. If you decide that you want or need to run `go fix` after upgrading, you should you run the following command, then inspect a diff of the changes before you commit them.
 
-```
+```shell
 $ go fix ./...
 ```
 
@@ -798,7 +788,7 @@ $ go fix ./...
 
 If you're confident that you've found an unreported issue with Go's standard library, tooling or documentation, you can use the `go bug` command to create a new Github issue.
 
-```
+```shell
 $ go bug
 ```
 
