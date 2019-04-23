@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-circular-slider-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-circular-slider-in-flutter.md)
 > * 译者：[DevMcryYu](https://github.com/DevMcryYu)
-> * 校对者：[MollyAredtana](https://github.com/MollyAredtana) [JasonLinkinBright](https://github.com/JasonLinkinBright)
+> * 校对者：[MollyAredtana](https://github.com/MollyAredtana)，[JasonLinkinBright](https://github.com/JasonLinkinBright)
 
 # 用 Flutter 打造一个圆形滑块（Slider）
 
@@ -190,13 +190,13 @@ class _CircularSliderState extends State<CircularSliderPaint> {
 
   SliderPainter _painter;
 
-  ///  用弧度制表示的起始角度，用来确定 init Handler 的位置。
+  /// 用弧度制表示的起始角度，用来确定 init Handler 的位置。
   double _startAngle;
 
-  ///  用弧度制表示的结束角度，用来确定 end Handler 的位置。
+  /// 用弧度制表示的结束角度，用来确定 end Handler 的位置。
   double _endAngle;
 
-  ///  用弧度制表示的选择区间的绝对角度（夹角）
+  /// 用弧度制表示的选择区间的绝对角度（夹角）
   double _sweepAngle;
 
   @override
