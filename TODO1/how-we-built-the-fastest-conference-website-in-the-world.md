@@ -9,9 +9,9 @@
 
 > 这是 JSConf EU 的组织者 [Malte Ubl](https://twitter.com/cramforce) 的客座文章。
 
-是不是被标题诱惑来啦，但我们绝对不会让你白来一趟的！我不确定这一定是世界上最快的会议网站，但我也不确定它不是；而且我花了一大笔多到不合理的时间试图让它成为世界上最快的会议网站。我也是网络组件库 [AMP](https://www.ampproject.org/) 的创建者，它可以用于搭建快速可靠的网站，同样，这些网站也是我尝试新技术进行优化的游乐场，然后我可以将它们应用到日常工作中。此外，快速网站有[更好的转换率](https://www.cloudflare.com/learning/performance/more/website-performance-conversion-rates/)，在我们的情况下这意味着：[卖出更多的门票](https://ti.to/jsconfeu/jsconf-eu-x-2019/)。
+是不是被标题诱惑来啦，但我们绝对不会让你白来一趟的！我不确定这一定是世界上最快的会议网站，但我也不确定它不是；而且我花了一大笔多到不合理的时间试图让它成为世界上最快的会议网站。我也是网络组件库 [AMP](https://www.ampproject.org/) 的创建者，它可以用于搭建可靠的快速网站，同样，这些网站也是我尝试新技术进行优化的游乐场，然后我可以将它们应用到日常工作中。此外，快速网站有[更好的转换率](https://www.cloudflare.com/learning/performance/more/website-performance-conversion-rates/)，在我们的情况下这意味着：[卖出更多的门票](https://ti.to/jsconfeu/jsconf-eu-x-2019/)。
 
-这个 [JSConf EU 网站](https://2019.jsconf.eu/)是搭建在静态网页生成器 [wintersmith](http://wintersmith.io/) 上的。如果你知道 [Jekyll](https://jekyllrb.com/) 是什么，那你一定也会知道什么是 wintersmith。基本上都差不多，它们都基于 Node.js。Wintersmith 还好，默认情况下它不会做什么可怕的事情，但是有一些我需要的东西必须自己构建。
+[JSConf EU 网站](https://2019.jsconf.eu/)是搭建在静态网页生成器 [wintersmith](http://wintersmith.io/) 上的。如果你知道 [Jekyll](https://jekyllrb.com/) 是什么，那你一定也会知道什么是 wintersmith。基本上都差不多，它们都基于 Node.js。Wintersmith 还好，默认情况下它不会做什么可怕的事情，但是有一些我需要的东西必须自己构建。
 
 ## 字体
 
@@ -23,7 +23,7 @@ OMG，我花了好多时间来优化字体性能。你知道怎么拥有比 JSCo
 
 ### 字体显示
 
-好了，既然我们已经内联了 Typekit 的 CSS，我们也可以通过[更多的正则表达式](https://github.com/jsconf/festival-x.jsconf.eu/blob/master/scripts/generate-locals.js#L25)轻松地改变它。在 `@font-face` 规则中添加 [`font-display: fallback`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display)，可以阻止字体绘制时对下载的阻塞，基于上面的原因我们在脚本中添加了这样的代码。
+好了，既然我们已经内联了 Typekit 的 CSS，我们也可以通过[更多的正则表达式](https://github.com/jsconf/festival-x.jsconf.eu/blob/master/scripts/generate-locals.js#L25)轻松地改变它。在 `@font-face` 规则中添加 [`font-display: fallback`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display)，可以阻止字体绘制对下载的阻塞，基于上面的原因我们在脚本中添加了这样的代码。
 
 ## 不可变的 URL
 
@@ -39,7 +39,7 @@ JSConf EU 网站使用 [Tachyons](https://tachyons.io/) 作为 CSS 框架。Tach
 
 ### 内联
 
-既然 CSS 的体积非常小，那么将它内联到每个页面中就说的过去了。你可能会想“但是缓存怎么办？”很好的问题，但是如果你想在这场关于最快网站的竞赛中获胜，你就无法负担得起冷缓存状态下额外的请求。所以我内联了 CSS，而且事实上我们可以在 CSS DCE 上做的更好。所以我再次在每个页面上运行它，对于每个页面又节省了额外的 15-25% 的 CSS 体积。
+既然 CSS 的体积非常小，那么将它内联到每个页面中就说的过去了。你可能会想“但是缓存怎么办？”很好的问题，但是如果你想在这场关于最快网站的竞赛中获胜，你就无法负担得起冷缓存状态下额外的请求。所以我内联了 CSS，而且事实上我们可以在 CSS DCE 上做的更好。所以我再次在每个页面上运行它，对于每个页面又减少了额外的 15-25% 的 CSS 体积。
 
 顺便说一句：先在整个网站运行一次 CSS DCE，然后再在每一页上进行一次该处理是非常有意义的。这是因为对于整个网站来说 DCE 处理的时间复杂度是 `O（所有 HTML 大小 + CSS 大小）` ，对于单个页面是 `O（页面数量 *（平均 HTML 大小 + CSS 大小）`。如果你首先在整个网站上运行优化，CSS 体积的减少可以让接下来对于单个页面的优化明显更快 —— 至少如果你可以在首次处理时减少 85% 的体积，就像我们的例子中实现的那样。
 
