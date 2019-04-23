@@ -2,14 +2,14 @@
 > * 原文作者：[www.kegel.com](http://www.kegel.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-c10k-problem.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-c10k-problem.md)
-> * 译者：
+> * 译者：[kobehaha](https://github.com/kobehaha)
 > * 校对者：
 
 # C10K 问题
 
 现在 web 服务器能够同时处理上万请求，难道不是吗？毕竟如今的网络将会有很大的发展空间。
 
-计算机也同样强大，你可以花 $1200 买一台 1000MHz，2G 内存和1000Mbits/sec 的网卡的机器。让我们来看看-- 20000 客户端，每个客户端 50KHz，1000Kb 和每秒 50Kb，那没有什么比这每两万个客户端的每个每秒从磁盘中取出4千字节并将它们每秒发送到网络上去更消耗资源了。(顺便说一下，每个客户端 $0.0.8，一些操作系统收费的每个客户端 $100 的许可费看起来有点沉重)所以硬件不再是一种瓶颈。
+计算机也同样强大，你可以花 $1200 买一台 1000MHz，2G 内存和 1000Mbits/sec 的网卡的机器。让我们来看看 — 20000 客户端，每个客户端 50KHz，1000Kb 和每秒 50Kb，那没有什么比这每两万个客户端的每个每秒从磁盘中取出4千字节并将它们每秒发送到网络上去更消耗资源了。(顺便说一下，每个客户端 $0.0.8，一些操作系统收费的每个客户端 $100 的许可费看起来有点沉重)所以硬件不再是一种瓶颈。
 
 在1999年，最繁忙的 ftp 网站之一，cdrom.com，实际上通过一个千兆以太网网卡同时处理 10000个客户端。截至2001年，现在相同的速度也被[ISP 提供](http://www.senteco.com/telecom/ethernet.htm)，他们希望它变得越来越受大型企业客户的欢迎。
 
@@ -59,15 +59,15 @@
 
 ## 相关网站
 
-参阅下 Nick Black 的杰出的 [快速的Unix服务器](http://dank.qemfd.net/dankwiki/index.php/Network_servers)页面，了解大约2009的情况。
+参阅下 Nick Black 的杰出的 [快速的 Unix 服务器](http://dank.qemfd.net/dankwiki/index.php/Network_servers)页面，了解大约2009的情况。
 
-在2003年10月，Felix von Leitner 整理了一个优秀的关于网络可扩展性的[网站](http://bulk.fefe.de/scalability/)和[演示](http://bulk.fefe.de/scalable-networking.pdf)，完成了多种不同的网络系统调用和操作系统的性能比较。其中一个发现是 linux 2.6 内核击败了 2.4 内核，当然这里有很多很好的图片会给操作系统开发人员在平时提供点想法。(另见[Slashdot](http://developers.slashdot.org/developers/03/10/19/0130256.shtml?tid=106&tid=130&tid=185&tid=190)]的评论；看看是否有人对基于菲利克斯的基准进行改进将会很有趣结果)。
+在 2003 年 10 月，Felix von Leitner 整理了一个优秀的关于网络可扩展性的[网站](http://bulk.fefe.de/scalability/)和[演示](http://bulk.fefe.de/scalable-networking.pdf)，完成了多种不同的网络系统调用和操作系统的性能比较。其中一个发现是 linux 2.6 内核击败了 2.4 内核，当然这里有很多很好的图片会给操作系统开发人员在平时提供点想法。(另见 [Slashdot](http://developers.slashdot.org/developers/03/10/19/0130256.shtml?tid=106&tid=130&tid=185&tid=190) 的评论；看看是否有人对基于菲利克斯的基准进行改进将会很有趣结果)。
 
 ## 预读书籍
 
-如果你没有阅读过 the late W. Richard Stevens 的[Unix网络编程: 网络Apis:套接字和Xti（第1卷)](http://www.amazon.com/exec/obidos/ASIN/013490012X/)的拷贝，请尽快获取一份，它描述了很多的于 I/O 策略和编写高性能服务器的陷阱。它甚至谈到了 ['thundering herd'](http://www.citi.umich.edu/projects/linux-scalability/reports/accept.html)问题。当你在阅读它时，请阅读 [Jeff Darcy写的关于高性能服务器设计](http://pl.atyp.us/content/tech/servers.html)。
+如果你没有阅读过 the late W. Richard Stevens 的 [Unix 网络编程：网络 Apis：套接字和 Xti（第 1 卷)](http://www.amazon.com/exec/obidos/ASIN/013490012X/)的拷贝，请尽快获取一份，它描述了很多的于 I/O 策略和编写高性能服务器的陷阱。它甚至谈到了 ['thundering herd'](http://www.citi.umich.edu/projects/linux-scalability/reports/accept.html)问题。当你在阅读它时，请阅读 [Jeff Darcy 写的关于高性能服务器设计](http://pl.atyp.us/content/tech/servers.html)。
 
-(另外一本书[构建可扩展的网站](http://www.amazon.com/gp/product/0596102356)可能会对**使用**而不是**编写**一个web服务器的人会有帮助)
+（另外一本书[构建可扩展的网站](http://www.amazon.com/gp/product/0596102356)可能会对**使用**而不是**编写**一个web服务器的人会有帮助）
 
 
 ### I/O 框架
