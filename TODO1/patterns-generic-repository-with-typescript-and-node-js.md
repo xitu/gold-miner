@@ -109,7 +109,6 @@ npm --v && node --version
 
 一旦你已经完成，我们就可以继续前进 :D
 
-
 ***
 
 现在，我们需要创建一个文件夹并且初始化一个 **Node.js** 项目。
@@ -200,6 +199,7 @@ export abstract class BaseRepository<T> implements IWrite<T>, IRead<T> {
     }
 }
 ```
+
 我们现在应该为所有的方法创建实现。**BaseRepository** 类应该知道你可以访问的数据库和集合。此时，你需要安装 **Mongodb 驱动包**。所以需要返回到 terminal 中的项目文件夹，运行 `npm i -S mongodb @types/mongodb` 添加 **mongodb** 驱动和 typescript 的定义包。
 
 在 **constructor** 中，我们添加两个参数，**db** 和 **collectionName**。类的实现应该和下面的代码差不多
