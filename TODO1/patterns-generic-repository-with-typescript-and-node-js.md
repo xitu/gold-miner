@@ -263,6 +263,7 @@ export class SpartanRepository extends BaseRepository<Spartan>{
     }
 }
 ```
+
 现在，去测试仓储和所有的逻辑事件。我们需要在项目根路径下创建一个 `Index.ts` 文件，来调用所有的仓储。
 
 ```js
