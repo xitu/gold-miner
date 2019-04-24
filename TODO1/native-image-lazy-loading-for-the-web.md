@@ -5,9 +5,9 @@
 > * 译者：[nanjingboy](https://github.com/nanjingboy)
 > * 校对者：
 
-# Web 原生图片延迟加载
+# Web 图片原生延迟加载
 
-在本文中，我们将研究新的 [`loading`](https://github.com/scott-little/lazyload) 属性，它为 web 原生 `<img>` 及 `<iframe>` 带来了延迟加载的能力。如果你对此比较好奇，下面便是一个预览实例：
+在本文中，我们将研究新的 [`loading`](https://github.com/scott-little/lazyload) 属性，它为 web 的 `<img>` 及 `<iframe>` 带来了原生延迟加载的能力。如果你对此比较好奇，下面便是一个预览实例：
 
 ```html
 <img src="celebration.jpg" loading="lazy" alt="..." />
@@ -18,7 +18,7 @@
 
 ## 简介
 
-Web 页面通常包含大量的图片，这些图片将影响数据尺寸、[页面尺寸](https://httparchive.org/reports/state-of-images)及页面加载速度。这些图片中许多处于屏幕外，往往需要用户滚动页面才能看到。
+Web 页面通常包含大量的图片，这些图片将影响网络流量、[页面尺寸](https://httparchive.org/reports/state-of-images)及页面加载速度。这些图片中许多处于屏幕外，往往需要用户滚动页面才能看到。
 
 过去，为了降低屏幕外的图片对页面加载时间的影响，开发人员不得不使用 JavaScript 库（比如：[LazySizes](https://github.com/aFarkas/lazysizes)）来推迟这些图片的加载时机，直到用户将页面滚动到它们附近。
 
@@ -26,7 +26,7 @@ Web 页面通常包含大量的图片，这些图片将影响数据尺寸、[页
 
 页面加载 211 张图片。没有延迟加载的版本加载了 10 MB 数据。延迟加载版本（使用 LazySizes）仅预先加载了 250 KB 数据 - 其他图片将随着用户的滚动而加载。查看 [WPT](https://webpagetest.org/video/compare.php?tests=190406_2K_30b9b9cd6b48735a41bce2daee27b7f5,190406_6R_4ce0ac65b7e11d2e132e4ea8d887edd9)。
 
-如果浏览器可以避免为你加载这些屏幕外的图片又将如何呢？这将有助于加快视窗中内容的加载、减少整体网络数据量以及低端设备下内存使用量。因此，我很高兴地告诉大家，很快就可以使用 image 和 iframe 的新属性 `loading` 来实现了。
+如果浏览器就能帮你做到避免加载屏幕外的图片呢？这将有助于加快视窗中内容的加载、减少整体网络数据量以及低端设备下内存使用量。因此，我很高兴地告诉大家，很快就可以使用 image 和 iframe 的新属性 `loading` 来实现了。
 
 ## `loading` 属性
 
@@ -74,7 +74,7 @@ Web 页面通常包含大量的图片，这些图片将影响数据尺寸、[页
 <iframe src="video-player.html" loading="lazy"></iframe>
 ```
 
-由浏览器完成“当用户滚动到附近时”的确切检测。一般来说，我们希望浏览器在进入视窗口之前便开始提取延迟图片和 iframe 的内容。这将增加图片或 iframe 在用户滚动到它们时完成加载的更改。
+由浏览器完成“当用户滚动到附近时”的确切检测。一般来说，我们希望浏览器在快要进入视窗口之前便开始提取延迟图片和 iframe 的内容。这将增加图片或 iframe 在用户滚动到它们时完成加载的更改。
 
 注意：我曾[建议](https://github.com/whatwg/html/pull/3752#issuecomment-478200976)我们应将该 `loading` 属性作为属性名称，因为它的命名与 [`decoding`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding) 属性更为接近。在之前的提议中，类似 `lazyload` 这样的属性没有被接受，这是因为我们需要支持多个值（`lazy`、`eager` 及 `auto`）。
 
@@ -85,27 +85,27 @@ Web 页面通常包含大量的图片，这些图片将影响数据尺寸、[页
 ```html
 <script>
 if ('loading' in HTMLImageElement.prototype) {
-    // Browser supports `loading`..
+    // 浏览器支持 `loading`..
 } else {
-   // Fetch and apply a polyfill/JavaScript library
-   // for lazy-loading instead.
+   // 获取并应用 polyfill/JavaScript 类库
+   // 来替代 lazy-loading。
 }
 </script>
 ```
 
 注意：你还可以使用 `loading` 作为一种渐进的增强功能。支持该属性的浏览器可通过 `loading=lazy` 获得新的延迟加载能力，不支持该属性的浏览器仍然会加载图片。
 
-### 跨浏览器图片的延迟加载
+### 跨浏览器的图片延迟加载
 
-如果跨浏览器支持图片的延迟加载非常重要，那么仅仅在使用 `<img src=unicorn.jpg loading=lazy />` 的标签中进行特性检测、使用延迟加载库是不够的。
+如果跨浏览器支持图片的延迟加载非常重要，那么仅仅在使用 `<img src=unicorn.jpg loading=lazy />` 的标记中进行特性检测、使用延迟加载库是不够的。
 
-该标签需使用类似 `<img data-src=unicorn.jpg />`（而非 `src`、`srcset` 或 `<source>`）的属性以避免在不支持新属性的浏览器下触发立刻加载。如果浏览器支持 `loading`，可以使用 JavaScript 将这些属性更改为正确的属性，否则加载类库。
+该标记需使用类似 `<img data-src=unicorn.jpg />`（而非 `src`、`srcset` 或 `<source>`）的属性，以避免在不支持新属性的浏览器下触发立刻加载。如果浏览器支持 `loading`，可以使用 JavaScript 将这些属性更改为正确的属性，否则加载类库。
 
 下面是一个可以说明其可能是什么样子的例子。
 
 * 视窗 / 一屏展示图片是常规的 `<img>` 标签。`data-src` 会破坏预加载扫描程序，因此我们希望避免它出现在视窗中的所有内容中。
 * 我们在图片上使用 `data-src` 以避免在不支持的浏览器中触发立刻加载，如果浏览器支持 `loading`，我们将 `data-src` 替换为 `src`。
-* 如果 `loading` 不被支持，我们加载一个后备（LazySizes）脚本并启动它。在这里，我们使用 `class=lazyload` 来向 LazySizes 图片表明我们想要延迟加载。
+* 如果 `loading` 不被支持，我们加载一个后备（LazySizes）脚本并启动它。在这里，我们用 `class=lazyload` 向 LazySizes 指出，哪些图片要延迟加载。
 
 ```html
 <!-- 让我们在视窗内正常加载这个图片 -->
@@ -149,37 +149,37 @@ if ('loading' in HTMLImageElement.prototype) {
 
 ### 配置
 
-Chrome 延迟加载的实现不仅仅基于当前滚动位置的接近程度，还取决于网络连接速度。对于不用的网络连接速度，延迟加载 frame 和图片的视窗距离阙值是[硬编码](https://cs.chromium.org/chromium/src/third_party/blink/renderer/core/frame/settings.json5?l=937-1003&rcl=e8f3cf0bbe085fee0d1b468e84395aad3ebb2cad)的，可以通过命令行覆盖该值。以下是一个覆盖图片延迟加载设置的示例：
+Chrome 延迟加载的实现不仅仅基于当前滚动位置的接近程度，还取决于网络连接速度。对于不同的网络连接速度，延迟加载 frame 和图片的视窗距离阈值是[硬编码](https://cs.chromium.org/chromium/src/third_party/blink/renderer/core/frame/settings.json5?l=937-1003&rcl=e8f3cf0bbe085fee0d1b468e84395aad3ebb2cad)的，可以通过命令行覆盖该值。以下是一个覆盖图片延迟加载设置的示例：
 
 ```
 canary --user-data-dir="$(mktemp -d)" --enable-features=LazyImageLoading --blink-settings=lazyImageLoadingDistanceThresholdPxUnknown=5000,lazyImageLoadingDistanceThresholdPxOffline=8000,lazyImageLoadingDistanceThresholdPxSlow2G=8000,lazyImageLoadingDistanceThresholdPx2G=6000,lazyImageLoadingDistanceThresholdPx3G=4000,lazyImageLoadingDistanceThresholdPx4G=3000 'https://mathiasbynens.be/demo/img-loading-lazy'
 ```
 
-以上命令对应于（当前）默认配置。将所有值更改为 `400` 以仅在滚动位置在图片的 400 像素内开始延迟加载。下面我们还可以看到 1 像素的变化（在本文前面的视频中使用）：
+以上命令对应于（当前）默认配置。将所有值更改为 `400` 以便仅在滚动位置在距离图片的 400 像素以内开始延迟加载。下面我们还可以看到距离阈值设为 1 像素的另一个做法（在本文前面的视频中使用）：
 
 ```
 canary --user-data-dir="$(mktemp -d)" --enable-features=LazyImageLoading --blink-settings=lazyImageLoadingDistanceThresholdPxUnknown=1,lazyImageLoadingDistanceThresholdPxOffline=1,lazyImageLoadingDistanceThresholdPxSlow2G=1,lazyImageLoadingDistanceThresholdPx2G=1,lazyImageLoadingDistanceThresholdPx3G=1,lazyImageLoadingDistanceThresholdPx4G=1 'https://mathiasbynens.be/demo/img-loading-lazy'
 ```
 
-由于实现在未来几周内稳定，我们的默认配置很可能会发生变化。
+由于实现在未来几周内稳定下来，我们的默认配置很可能会发生变化。
 
 ### DevTools
 
-Chrome 中 `loading` 的一个实现细节是它会在页面加载时获取 2 KB 的图片数据。如果服务器支持范围请求，则前 2 KB 可能包含图片尺寸。这使得我们能够生成/显示具有相同尺寸的占位符。前 2 KB 也可能包含类似于图标的全部图片。
+Chrome 中 `loading` 的一个实现细节是它会在页面加载时获取前 2 KB 的图片数据。如果服务器支持范围请求，则前 2 KB 可能包含图片尺寸。这使得我们能够生成/显示具有相同尺寸的占位符。如果像是图标一类的资源的话，前 2 KB 也很有可能包含整幅图片了。
 
 ![](https://addyosmani.com/assets/images/lazy-load-devtools.png)
 
-当用户即将看到它时，Chrome 会抓取剩余的图片数据。Chrome DevTools 的一个警告是，这可能导致（1）在 DevTools 的网络面板中“出现” 两次获取和（2）为每个图片提供两个请求的资源定时。
+Chrome 会在用户即将看到图片时抓取其剩余数据。Chrome DevTools 中要注意的地方是，这可能导致（1）在 DevTools 的网络面板中“出现” 两次获取和（2）为每个图片提供两个请求的资源定时。
 
-## 通过服务端确定 `loading` 支持
+## 服务端确定 `loading` 支持
 
 在一个美好的世界中，你不需要依赖客户端上的 JavaScript 特性检测来决定是否需要加载兼容库 — 你需要在提供包含 JavaScript 延迟加载库的 HTML 之前处理此问题。客户端提示可以启用此类检查。
 
 传递 `loading` 参数的提示已经被[考虑](https://bugs.chromium.org/p/chromium/issues/detail?id=949365)，但目前正处于早期讨论阶段。
 
-## 包装
+## 总结
 
-给 `<img loading>` 一个包装并让我们知道你的想法。我对人们如何发现跨浏览器的经历以及是否有任何我们错过的边缘情况特别感兴趣。
+试试看 `<img loading>`，并让我们知道你的想法。我对大家如何探索跨浏览器的经验，及是否有任何我们错过的边缘情况特别感兴趣。
 
 ## 参考资料
 
