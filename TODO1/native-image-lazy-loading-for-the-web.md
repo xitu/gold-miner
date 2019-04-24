@@ -36,7 +36,7 @@ Web 页面通常包含大量的图片，这些图片将影响网络流量、[页
 *   **`eager`**：立即加载。
 *   **`auto`**：由浏览器来决定是否延迟加载。
 
-如果不指定该属性，将会产生与设置 `loading=auto` 相同的效果。
+如果不指定该属性，其默认值为 auto。
 
 ![](https://addyosmani.com/assets/images/loading-attribute@2x.png)
 
@@ -56,8 +56,8 @@ Web 页面通常包含大量的图片，这些图片将影响网络流量、[页
 <!-- 浏览器决定是否延迟加载图片 -->
 <img src="unicorn.jpg" loading="auto" alt=".."/>
 
-<!-- 延迟加载 <picture> 内的图片. <img> 驱动图片的加载，因此 <picture> 及 srcset
-将合适的图片挂载在其上 -->
+<!-- 延迟加载 <picture> 内的图片。<img> 用来驱动图片的加载，因此 <picture> 及 srcset
+会将合适的图片呈现在 <img> 上 -->
 <picture>
   <source media="(min-width: 40em)" srcset="big.jpg 1x, big-hd.jpg 2x">
   <source srcset="small.jpg 1x, small-hd.jpg 2x">
@@ -76,7 +76,7 @@ Web 页面通常包含大量的图片，这些图片将影响网络流量、[页
 
 由浏览器完成“当用户滚动到附近时”的确切检测。一般来说，我们希望浏览器在快要进入视窗口之前便开始提取延迟图片和 iframe 的内容。这将增加图片或 iframe 在用户滚动到它们时完成加载的更改。
 
-注意：我曾[建议](https://github.com/whatwg/html/pull/3752#issuecomment-478200976)我们应将该 `loading` 属性作为属性名称，因为它的命名与 [`decoding`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding) 属性更为接近。在之前的提议中，类似 `lazyload` 这样的属性没有被接受，这是因为我们需要支持多个值（`lazy`、`eager` 及 `auto`）。
+注意：我曾[建议](https://github.com/whatwg/html/pull/3752#issuecomment-478200976)应该将 `loading` 属性值作为属性名称，因为它的命名与 [`decoding`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding) 属性较为接近。在之前的提议中，类似 `lazyload` 这样的属性没有被接受，这是因为我们需要支持多个值（`lazy`、`eager` 及 `auto`）。
 
 ## 特性检测
 
@@ -103,7 +103,7 @@ if ('loading' in HTMLImageElement.prototype) {
 
 下面是一个可以说明其可能是什么样子的例子。
 
-* 视窗 / 一屏展示图片是常规的 `<img>` 标签。`data-src` 会破坏预加载扫描程序，因此我们希望避免它出现在视窗中的所有内容中。
+* 视窗/一屏展示图片是常规的 `<img>` 标签。`data-src` 会破坏预加载扫描程序，因此我们希望避免它出现在视窗中的所有内容中。
 * 我们在图片上使用 `data-src` 以避免在不支持的浏览器中触发立刻加载，如果浏览器支持 `loading`，我们将 `data-src` 替换为 `src`。
 * 如果 `loading` 不被支持，我们加载一个后备（LazySizes）脚本并启动它。在这里，我们用 `class=lazyload` 向 LazySizes 指出，哪些图片要延迟加载。
 
