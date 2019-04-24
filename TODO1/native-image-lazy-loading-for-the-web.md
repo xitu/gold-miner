@@ -5,9 +5,9 @@
 > * 译者：[nanjingboy](https://github.com/nanjingboy)
 > * 校对者：
 
-# Web 图片原生延迟加载
+# 图片懒加载
 
-在本文中，我们将研究新的 [`loading`](https://github.com/scott-little/lazyload) 属性，它为 web 的 `<img>` 及 `<iframe>` 带来了原生延迟加载的能力。如果你对此比较好奇，下面便是一个预览实例：
+在本文中，我们将研究新的 [`loading`](https://github.com/scott-little/lazyload) 属性，它为 `<img>` 及 `<iframe>` 带来了延迟加载的能力。如果你对此较为好奇，以下是一个简单的例子：
 
 ```html
 <img src="celebration.jpg" loading="lazy" alt="..." />
