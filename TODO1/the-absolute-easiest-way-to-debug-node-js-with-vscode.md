@@ -5,19 +5,19 @@
 > * 译者：
 > * 校对者：
 
-# The Absolute Easiest Way to Debug Node.js — with VSCode
+# 使用 VS Code 调试 Node.js 的超简单方法
 
-> Let’s face it…debugging Node.js is (and always has been) kind of a pain.
+> 让我们面对现实吧……调试 Node.js 一直是我们心中的痛。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*9bDq6pyYoXa39QxldAkf-g.jpeg)
 
-### Enter the Pain of Debugging in Node.js
+### 触达调试 Node.js 的痛点
 
-If you’ve ever had the pleasure of writing code for a Node.js project, you know what I’m talking about when I say debugging it to figure out what’s going wrong isn’t the easiest thing.
+如果你曾经有幸为 Node.js 项目编写代码，那么当我说调试它以找到出错的地方并不是最简单的事情时，你就知道我在谈论什么。
 
-Unlike JavaScript in the browser, or Java with a powerful IDE like IntelliJ, you can’t just set breakpoints everywhere, refresh the page or restart the compiler and slowly walk through the code examining objects, evaluating functions and finding the mutation or missing variable, etc. You just can’t, and it stinks.
+不像浏览器中的 JavaScript，也不像有类似 IntellJ 这样强大的 IDE 的 Java，你无法到处设置断点，刷新页面或者重启编译器，也无法慢慢审阅代码、检查对象、评估函数、查找变异或者遗漏的变量等。你无法那样去做，这真的很臭（译者注：这里实在无力翻译，自己领会吧😂）。
 
-But it is possible to debug, it just takes a little more elbow grease. Let’s go over the options and then I’ll show you the easiest way I’ve come across in my own development.
+但 Node.js 也是可以被调试的，只是需要多花费一些肘部的油脂（译者注：这里指会多费些体力）。让我们跳过这些可选项，我会展示给你在我开发经历中遇到的最简单调试方法。
 
 ### Options to Debug in Node.js
 
@@ -65,21 +65,21 @@ Once you hit `Enter`, your VS Code terminal should turn orange at the bottom to 
 
 ![The orange toolbar and `Debugger attached’ message will tell you VS Code is running correctly in debug mode.](https://cdn-images-1.medium.com/max/4944/1*aNFXCnEf2j5lCp5ZAPC8DQ.png)
 
-Once you see this happening, congrats, you’re running in debug mode in Node.js!
+当你看到这一幕发生时，恭喜你，你已经让 Node.js 运行在调试模式下啦！
 
+至此，你可以在屏幕的左下角看到你设置的断点（而且你可以通过复选框切换这些断点的启用状态），
 Now, you can see your breakpoints in the bottom left corner of the screen (and can toggle them on and off with the checkboxes), and you can step through the code just like you would in a browser with the little play, step over, step in, restart, etc. buttons at the top center of the IDE. VS Code even highlights the breakpoint and line you’ve stopped on with yellow, making it easier to follow along.
 
 ![Hit the play button at the top to step from one break point to the next one in your code.](https://cdn-images-1.medium.com/max/4976/1*_rTrxs5eBDQXy-ajquNVRQ.png)
 
 As you step from breakpoint to breakpoint, you can see the program printing out the `console.log`s in the debug console at the bottom of the VS Code IDE and the yellow highlighting will travel with you, as well.
-
-![As you can see, when we stop on breakpoints, we can see all the local scope info we could explore in the console in the upper left corner of VS Code.](https://cdn-images-1.medium.com/max/4580/1*JFrOtthKOstqNFgT75PaCw.png)
+![如你所见，当我们暂停在断点上时，我们可以在 VS Code 的左上角看到可以在控制台中探索到的所有局部作用域信息。](https://cdn-images-1.medium.com/max/4580/1*JFrOtthKOstqNFgT75PaCw.png)
 
 As you can see, as I progress through the program, more prints out to the debug console the further through the breakpoints I go, and along the way, I can explore the objects and functions in the local scope using the tools in the upper left hand corner of VS Code, just like I can explore scope and objects in the browser. Nice!
 
-That was pretty easy, huh?
+这很简单，对吧？
 
-### Conclusion
+### 总结
 
 Node.js debugging doesn’t have to be the headache it was in the past, and it doesn’t need to involve 500 `console.log()`s in the codebase to figure out where the bug is.
 
@@ -91,20 +91,20 @@ Thanks for reading, I hope this gives you an idea of how to more easily and effe
 
 **If you enjoyed reading this, you may also enjoy some of my other blogs:**
 
-* [Using Node.js to Read Really, Really Large Datasets & Files (Pt 1)](https://itnext.io/using-node-js-to-read-really-really-large-files-pt-1-d2057fe76b33)
+* [使用 Node.js 读取超大数据集和文件（第一部分）](https://itnext.io/using-node-js-to-read-really-really-large-files-pt-1-d2057fe76b33)
 * [Sequelize: The ORM for Sequel Databases with Node.js](https://medium.com/@paigen11/sequelize-the-orm-for-sql-databases-with-nodejs-daa7c6d5aca3)
 * [Streams For the Win: A Performance Comparison of Node.js Methods for Reading Large Datasets (Pt 2)](https://itnext.io/streams-for-the-win-a-performance-comparison-of-nodejs-methods-for-reading-large-datasets-pt-2-bcfa732fa40e)
 
 ***
 
-**References and Further Resources:**
+**参考资料和进阶资源：**
 
 * Github, Node Read File Repo: [https://github.com/paigen11/file-read-challenge](https://github.com/paigen11/file-read-challenge)
 * Node.js documentation — inspector: [https://nodejs.org/en/docs/guides/debugging-getting-started/](https://nodejs.org/en/docs/guides/debugging-getting-started/)
 * Paul Irish’s Blog on Using Chrome DevTools to Debug Node.js: [https://medium.com/@paul_irish/debugging-node-js-nightlies-with-chrome-devtools-7c4a1b95ae27](https://medium.com/@paul_irish/debugging-node-js-nightlies-with-chrome-devtools-7c4a1b95ae27)
-* JetBrains documentation, Running and Debugging Node.js — [https://www.jetbrains.com/help/webstorm/running-and-debugging-node-js.html](https://www.jetbrains.com/help/webstorm/running-and-debugging-node-js.html)
-* Visual Studio Code download: [https://code.visualstudio.com/download](https://code.visualstudio.com/download)
-* VS Code Debugging Node.js docs: [https://code.visualstudio.com/docs/nodejs/nodejs-debugging#_attaching-to-nodejs](https://code.visualstudio.com/docs/nodejs/nodejs-debugging#_attaching-to-nodejs)
+* JetBrains 提供的文档 — 《运行和调试 Node.js》 — [https://www.jetbrains.com/help/webstorm/running-and-debugging-node-js.html](https://www.jetbrains.com/help/webstorm/running-and-debugging-node-js.html)
+* Visual Studio Code 下载链接：[https://code.visualstudio.com/download](https://code.visualstudio.com/download)
+* VS Code 调试 Node.js 文档：[https://code.visualstudio.com/docs/nodejs/nodejs-debugging#_attaching-to-nodejs](https://code.visualstudio.com/docs/nodejs/nodejs-debugging#_attaching-to-nodejs)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
