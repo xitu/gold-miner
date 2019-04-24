@@ -67,26 +67,26 @@ ES6 中的箭头函数使用[词法作用域](https://whatis.techtarget.com/defi
 
 ## When service workers work against you
 
-Service workers are great for a [progressive web app](https://developers.google.com/web/progressive-web-apps/), which allows for offline access and optimizes for users with poor internet connections.
+Service worker 有利于[渐进式 web 应用](https://developers.google.com/web/progressive-web-apps/)，它使得网页能够离线访问，并在用户的网络链接状态差时进行优化。
 
-But when you’re not aware that the service worker is caching your static files, you deploy your hot-fixes repeatedly.
+但是，如果你没有意识到 service worker 在缓存你的静态文件，你会反复尝试进行热替换操作。
 
-Only to find your site is not updating. 😰
+却发现网站一直得不到更新。😰
 
-Don’t panic, make sure in your `src/index.js`:
+莫慌张, 确保你的 `src/index.js` 文件中有以下内容：
 
 ```
-// Make sure it's set to unregister
+// 确保 service worker 取消注册
 serviceWorker.unregister();
 ```
 
-As of version 16.8, this line should be `serverWorker.unregister()` by default.
+从 React.js 的 16.8 版开始，上面一行默认就是 `serverWorker.unregister()` 。
 
-But if they decide to change again, you’ll know where to look.
+但是，如果以后版本有变化，你得知道在哪儿进行修改。
 
-## 99% of the time you don’t need to eject
+## 99% 的情况下你不需要使用 eject
 
-[Create React App](https://github.com/facebook/create-react-app) offers an option to `yarn eject` your project to customize your build process.
+[Create React App](https://github.com/facebook/create-react-app) 提供一个命令 `yarn eject`，使得你能够个性化项目的构建过程。
 
 I remember trying to customize the build process to have SVG images automatically inlined in our code. I spent hours just trying to understand the build process. We end up having an import file that injects SVG tags, and we increased the site’s loading speed by 0.0001 milliseconds.
 
@@ -154,9 +154,9 @@ With [Context](https://reactjs.org/docs/context.html) and [Hooks](https://reactj
 
 I do highly recommend [Redux Offline](https://github.com/redux-offline/redux-offline) for when your users are in a poor internet connection environment.
 
-## Reuse event handler
+## 重用事件处理器
 
-If you don’t feel like typing the same thing over and over again, reusing an event handler could be an option:
+如果你不喜欢重复编写相同的程序，那重用事件处理器是一个不错的选择：
 
 ```
 class App extends Component {
@@ -193,7 +193,7 @@ class App extends Component {
 }
 ```
 
-## setState is asynchronous
+## setState 方法是异步的
 
 The naïve me would write something like:
 
@@ -256,11 +256,11 @@ filterData = () => {
 };
 ```
 
-## Conclusion
+## 总结
 
-These tips saved me a lot of time, and I am sure there are more. Please feel free to share them in the comments section.
+这些小窍门节省了我很多时间，我也相信还有很多关于 React.js 的小窍门。请在评论区自由评论、分享你所知道的小窍门。
 
-If you are looking to integrate your website with WeChat and reach 1+ billion users in China, sign up for a [free glossary for commonly used WeChat terms](https://pages.convertkit.com/b2469604dd/0c671fdd2d).
+（广告时间）如果你希望你的网站与微信平台进行结合，并获得 10 亿以上的用户，快注册获取[微信常用术语词汇表](https://pages.convertkit.com/b2469604dd/0c671fdd2d).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
