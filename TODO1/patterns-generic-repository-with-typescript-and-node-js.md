@@ -330,6 +330,7 @@ export class HeroRepository extends BaseRepository<Hero>{
 
 }
 ```
+
 现在，我们只需要在 **Index.ts** 中调用仓储，下面是完整代码。
 
 ```js
