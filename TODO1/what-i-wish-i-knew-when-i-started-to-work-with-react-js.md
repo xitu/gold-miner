@@ -65,9 +65,9 @@ class Foo extends React.Component{
 
 ES6 中的箭头函数使用[词法作用域](https://whatis.techtarget.com/definition/lexical-scoping-static-scoping)让方法能够访问其被定义位置的 `this`。
 
-## When service workers work against you
+## 当 service worker 阻碍你开发时
 
-Service worker 有利于[渐进式 web 应用](https://developers.google.com/web/progressive-web-apps/)，它使得网页能够离线访问，并在用户的网络链接状态差时进行优化。
+service worker 有利于[渐进式 web 应用](https://developers.google.com/web/progressive-web-apps/)，它使得网页能够离线访问，并在用户的网络链接状态差时进行优化。
 
 但是，如果你没有意识到 service worker 在缓存你的静态文件，你会反复尝试进行热替换操作。
 
@@ -96,19 +96,19 @@ Of course, if you’re already a Webpack master, it’s worthwhile to customize 
 
 When you’re trying to deliver on time, focus your effort on where it moves the needle forward.
 
-## ESlint Auto Fix On Save saves so much time
+## ESlint Auto Fix On Save 会节省很多时间
 
-You might have copied some code from somewhere that has out of whack formatting. Because you can’t stand how ugly it looks, you spend time manually adding spaces.
+你可能也曾从某些地方拷贝过格式混乱的代码。由于无法接受它“丑陋”的格式，你不得不花时间手动加一些空格啥的。
 
 ![](https://cdn-images-1.medium.com/max/3840/1*mJyoA_RfLTejXzz49Epgmg.gif)
 
-With ESLint and Visual Studio Code Plugin, it can fix it for you on save.
+有了 ESLint 和 Visual Studio Code 插件，代码格式在你保存文件时自动对齐。
 
 ![](https://cdn-images-1.medium.com/max/3840/1*OeKL1AqAkouPQ4I3NdKRbw.gif)
 
-### How?
+### 咋样？
 
- 1. In your `package.json`, add some dev dependencies and do `npm i` or `yarn`:
+ 1. 在你的 `package.json`文件中添加一些 dev dependencies 并执行命令 `npm i` 或 `yarn`：
 
 ```
 "devDependencies": {
@@ -128,31 +128,31 @@ With ESLint and Visual Studio Code Plugin, it can fix it for you on save.
 }
 ```
 
-2. Install ESLint extension
+2. 安装 ESLint 扩展
 
 ![](https://cdn-images-1.medium.com/max/2000/1*fS3jaNpWKkaoV8ZZWAgcVA.png)
 
-3. Enable Auto Fix On Save
+3. 勾选 Auto Fix On Save
 
 ![](https://cdn-images-1.medium.com/max/2000/1*FZLWmlqxE1leDVlaMrd_RA.png)
 
-## You don’t need Redux, styled-components, etc…
+## 你并不需要 Redux、styled-components 等库
 
-Every tool has its purpose. That being said, it’s good to know about the different tools.
+每种工具都有其用途，了解不同的工具确实是件好事。
 
-> If all you have is a hammer, everything looks like a nail — Abraham Maslow
+> 如果你手里有一把锤子，所有东西看上去都像钉子。—— 亚伯拉罕·马斯洛
 
-You need to think about the setup time for some of the libraries you use and compare it to:
+使用一些库时你需要考虑其设置(部署)时间，并考虑下面的几个问题：
 
-* What’s the problem that I am trying to solve?
+* 我将要去解决什么问题？
 
-* Will this project live long enough to benefit from this library?
+* 项目能否长久的受益于这个库吗？
 
-* Does React already offer something right out of the box?
+* React 本身是不是已经提供了现成的解决方法？
 
-With [Context](https://reactjs.org/docs/context.html) and [Hooks](https://reactjs.org/docs/hooks-intro.html) available for React now, do you still need Redux?
+当 React 有 [Context](https://reactjs.org/docs/context.html) 和 [Hooks](https://reactjs.org/docs/hooks-intro.html) 时, 你真的还需要 Redux 吗？
 
-I do highly recommend [Redux Offline](https://github.com/redux-offline/redux-offline) for when your users are in a poor internet connection environment.
+当你的用户处于糟糕的网络环境时，我特别推荐你使用 [Redux Offline](https://github.com/redux-offline/redux-offline)。
 
 ## 重用事件处理器
 
@@ -213,14 +213,14 @@ The naïve me would write something like:
  };
  
  filterData = () => {
-  // this.state.isFiltered should be true, but it's not
+  // this.state.isFiltered 值应该为 true，但事实上却为 false
   if (this.state.isFiltered) {
    // Do some filtering
   }
  };
 ```
 
-### Option 1: Passing the state down
+### 建议 1：向下传递 state
 
 ```
 toggleFilter = () => {
@@ -233,12 +233,12 @@ toggleFilter = () => {
 
 filterData = (currentFilterState) => {
  if (currentFilterState) {
-  // Do some filtering
+  // 做些过滤操作
  }
 };
 ```
 
-### Option 2: The secondary function to the callback of setState
+### 建议 2：使用 setState 的第二个回调函数中操作 state
 
 ```
 toggleFilter = () => {
@@ -251,7 +251,7 @@ toggleFilter = () => {
 
 filterData = () => {
   if (this.state.isFiltered) {
-   // Do some filtering
+   // 做些过滤操作
   }
 };
 ```
