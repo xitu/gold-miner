@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/great-design-vs-good-design-whats-the-difference-here-s-the-truth.md](https://github.com/xitu/gold-miner/blob/master/TODO1/great-design-vs-good-design-whats-the-difference-here-s-the-truth.md)
 > * 译者：[Mirosalva](https://github.com/Mirosalva)
-> * 校对者：[Qiu Hu](https://github.com/whatbeg)
+> * 校对者：[Qiu Hu](https://github.com/whatbeg), [Charlo-O](https://github.com/Charlo-O)
 
 # 伟大设计与好设计之间区别是什么？这里告诉你真相
 
@@ -24,6 +24,7 @@
 ## 好设计提供人们想要的，伟大的设计用意想不到的方式解决人们的问题
 
 大约一年前，Samsung 宣布正在研发一款可折叠的智能手机。有一句话引起了我的注意：
+
 > DJ Koh 曾说过『是时候交付一款可折叠设备了』这样的话，就在三星消费者调研表明这类设备存在市场之后。
 
 三星几乎自豪地说客户调查是该公司研发可折叠智能手机的原因，这一事实令人感到恐慌。
@@ -82,7 +83,7 @@ iPhone 和 iPad 被设计成处理**某些**以前被分配给笔记本和台式
 
 在 Apple 的视野，iPhone 和 iPad 需要与 Mac 分离开，因为每个类别都需要相较于忠实原有外形因素变得更强一些。我们的想法并不是让这些产品共享相同的用户输入，去让用户可以在桌子上的台式机和笔记本上以及智能机上做任何可能的事情。相反的，每个产品都具有基于用户输入方法和外形因素的不同功能。
 
-**这**是设计设备的一种固执己见的方法。不是所有人都赞同 Apple 的方法，但是结果却很清楚：[苹果产品](https://www.theverge.com/2016/2/1/10886720/apple-ipad-pro-outsold-microsoft-surface-sales)已经比 Microsoft 的产品[卖得多](https://www.inc.com/john-brandon/why-the-apple-ipad-pro-has-massively-outsold-the-microsoft-surface.html) ，[过去 4 年](https://www.imore.com/apple-outselling-microsoft-powered-computers-it-may-not-be-fair-it-mobile-centric-future)有 30：1 的比例之多。
+**这**是设计设备的一种固执己见的方法。不是所有人都赞同 Apple 的方法，但是结果却很清楚：[苹果产品](https://www.theverge.com/2016/2/1/10886720/apple-ipad-pro-outsold-microsoft-surface-sales)已经比 Microsoft 的产品[卖得多](https://www.inc.com/john-brandon/why-the-apple-ipad-pro-has-massively-outsold-the-microsoft-surface.html)，[过去 4 年](https://www.imore.com/apple-outselling-microsoft-powered-computers-it-may-not-be-fair-it-mobile-centric-future)有 30:1 的比例之多。
 
 ***
 
@@ -94,14 +95,15 @@ iPhone 和 iPad 被设计成处理**某些**以前被分配给笔记本和台式
 
 ![讽刺](https://cdn-images-1.medium.com/max/4792/1*H9o8HSUg2wGO2aQy2hQnoA.png)
 
-另一个你经常看到被忽视的基础要素是图形对比：图像表层的文字不可读......尽管一直在讨论『好设计』的重要性。
+另一个你经常看到被忽视的基础要素是图形对比：图像表层的文字不可读...尽管一直在讨论『好设计』的重要性。
 
 ![Intercom 的 [loves](https://www.intercom.com/blog/product-and-design/) 谈论了他们的设计如何好](https://cdn-images-1.medium.com/max/5012/1*5ic1paS7UtNIcY8C_2wxcA.png)
 
 专注于设计的表面部分而忽视了基本要素，就像棒球比赛中专注于本垒打，或者篮球比赛中只扣篮。看起来有趣，但是在现实的竞争环境中检验时，忽略游戏基本要素的玩家将会崩溃。
-> ### 伟大的设计永远不会忽视寻求给周围世界留下深刻印象的基本要素。
 
-就那个说明......
+> 伟大的设计永远不会忽视寻求给周围世界留下深刻印象的基本要素。
+
+就那个说明...
 
 ## 好设计试图给人留下好印象，伟大的设计让人难以忘怀
 
