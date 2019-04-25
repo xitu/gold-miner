@@ -2,7 +2,7 @@
 > * 原文作者：[David Yu](https://medium.com/@davidyu_44356)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-i-wish-i-knew-when-i-started-to-work-with-react-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-i-wish-i-knew-when-i-started-to-work-with-react-js.md)
-> * 译者：[xionglong58](thhps:github.com/xionglong58)
+> * 译者：[xionglong58](thhps://github.com/xionglong58)
 > * 校对者：
 
 # 我多希望在我学习 React.js 之前就已经知晓这些小窍门
@@ -88,13 +88,13 @@ serviceWorker.unregister();
 
 [Create React App](https://github.com/facebook/create-react-app) 提供一个命令 `yarn eject`，使得你能够个性化项目的构建过程。
 
-I remember trying to customize the build process to have SVG images automatically inlined in our code. I spent hours just trying to understand the build process. We end up having an import file that injects SVG tags, and we increased the site’s loading speed by 0.0001 milliseconds.
+还记得我曾为了在代码中自动内嵌 SVG 图片而尝试去自己配置构建过程。我花了大量的时间去了解整个构建过程。最终我们得到了一个导入文件，它注入了 SVG 标签，并将站点的加载速度提高了 0.0001 毫秒。
 
-Ejecting your React project is like popping the hood of your running car and changing the engine on the fly to run 1% faster.
+eject 你的 React 项目就像是打开运行中汽车的引擎盖，并在行驶中更换引擎一样。
 
-Of course, if you’re already a Webpack master, it’s worthwhile to customize the build process to tailor the project’s needs.
+当然了，如果你是一名 Webpack 大佬，那么为了满足项目的需求而去定制构建过程也是值得的。
 
-When you’re trying to deliver on time, focus your effort on where it moves the needle forward.
+如果你想按时完成任务，那就把精力全部集中在能够推动你前进的地方。
 
 ## ESlint Auto Fix On Save 会节省很多时间
 
@@ -102,13 +102,13 @@ When you’re trying to deliver on time, focus your effort on where it moves the
 
 ![](https://cdn-images-1.medium.com/max/3840/1*mJyoA_RfLTejXzz49Epgmg.gif)
 
-有了 ESLint 和 Visual Studio Code 插件，代码格式在你保存文件时自动对齐。
+有了 ESLint 和 Visual Studio Code 插件，代码会在你保存文件时自动对齐。
 
 ![](https://cdn-images-1.medium.com/max/3840/1*OeKL1AqAkouPQ4I3NdKRbw.gif)
 
 ### 咋样？
 
- 1. 在你的 `package.json`文件中添加一些 dev dependencies 并执行命令 `npm i` 或 `yarn`：
+ 1. 在你的 `package.json` 文件中添加一些 dev dependencies 并执行命令 `npm i` 或 `yarn`：
 
 ```
 "devDependencies": {
@@ -238,7 +238,7 @@ filterData = (currentFilterState) => {
 };
 ```
 
-### 建议 2：使用 setState 的第二个回调函数中操作 state
+### 建议 2：在 setState 的第二个回调函数中操作 state
 
 ```
 toggleFilter = () => {
