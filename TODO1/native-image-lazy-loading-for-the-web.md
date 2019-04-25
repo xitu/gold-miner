@@ -2,116 +2,116 @@
 > * 原文作者：[addyosmani](http://twitter.com/addyosmani)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/native-image-lazy-loading-for-the-web.md](https://github.com/xitu/gold-miner/blob/master/TODO1/native-image-lazy-loading-for-the-web.md)
-> * 译者：
-> * 校对者：
+> * 译者：[nanjingboy](https://github.com/nanjingboy)
+> * 校对者：[xionglong58](https://github.com/xionglong58), [portandbridge](https://github.com/portandbridge)
 
-# Native image lazy-loading for the web!
+# 图片懒加载
 
-In this post, we'll look at the new [`loading`](https://github.com/scott-little/lazyload) attribute which brings native `<img>` and `<iframe>` lazy-loading to the web!. For the curious, here's a sneak preview of it in action:
+在本文中，我们将研究新的 [`loading`](https://github.com/scott-little/lazyload) 属性，它为 `<img>` 及 `<iframe>` 带来了延迟加载的能力。如果你对此感兴趣，可查看以下示例：
 
-```
+```html
 <img src="celebration.jpg" loading="lazy" alt="..." />
 <iframe src="video-player.html" loading="lazy"></iframe>
 ```
 
-We are hoping to ship support for `loading` in ~[Chrome 75](https://chromestatus.com/feature/5645767347798016) and are working on a deep-dive of the feature we'll publish soon. Until then, let's dive into how `loading` works.
+我们希望在 ~[Chrome 75](https://chromestatus.com/feature/5645767347798016) 中为 `loading` 提供支持，并且我们正在深入研究即将发布的新特性。在此之前，让我们深入了解它的工作原理。
 
-## Introduction
+## 简介
 
-Web pages often contain a large number of images, which contribute to data-usage, [page-bloat](https://httparchive.org/reports/state-of-images) and how fast a page can load. Many of these images are offscreen, requiring a user to scroll in order to view them.
+Web 页面通常包含大量的图片，这些图片将影响网络流量、[页面尺寸](https://httparchive.org/reports/state-of-images)及页面加载速度。这些图片中许多处于屏幕外，往往需要用户滚动页面才能看到。
 
-Historically, to limit the impact offscreen images have on page load times, developers have needed to use a JavaScript library (like [LazySizes](https://github.com/aFarkas/lazysizes)) in order to defer fetching these images until a user scrolls near them.
+过去，为了降低屏幕外的图片对页面加载时间的影响，开发人员不得不使用 JavaScript 库（比如：[LazySizes](https://github.com/aFarkas/lazysizes)）来推迟这些图片的加载时机，直到用户将页面滚动到它们附近。
 
 ![](https://addyosmani.com/assets/images/without-lazyload@2x.png)
 
-A page loading 211 images. The version without lazy-loading fetches 10MB of image data. The lazy-loading version (using LazySizes) loads only 250KB upfront - other images are fetched as the user scrolls through the experience. See [WPT](https://webpagetest.org/video/compare.php?tests=190406_2K_30b9b9cd6b48735a41bce2daee27b7f5,190406_6R_4ce0ac65b7e11d2e132e4ea8d887edd9).
+页面加载 211 张图片。没有延迟加载的版本加载了 10 MB 数据。延迟加载版本（使用 LazySizes）仅预先加载了 250 KB 数据 - 其他图片将随着用户的滚动而加载。查看 [WPT](https://webpagetest.org/video/compare.php?tests=190406_2K_30b9b9cd6b48735a41bce2daee27b7f5,190406_6R_4ce0ac65b7e11d2e132e4ea8d887edd9)。
 
-What if the browser could avoid loading these offscreen images for you? This would help content in the view-port load quicker, reduce overall network data usage and on lower-end devices, reduce memory usage. Well, I'm happy to share that this will soon be possible with the new `loading` attribute for images and iframes.
+如果浏览器就能帮你做到避免加载屏幕外的图片呢？这将有助于加快视窗中内容的加载、减少整体网络数据量以及低端设备下内存使用量。因此，我很高兴地告诉大家，很快就可以使用 image 和 iframe 的新属性 `loading` 来实现了。
 
-## The `loading` attribute
+## `loading` 属性
 
-The `loading` attribute allows a browser to defer loading offscreen images and iframes until users scroll near them. `loading` supports three values:
+`loading` 属性允许浏览器推迟加载屏幕外的 image 和 iframe 直到用户将页面滚动到它们附近。`loading` 支持三个值：
 
-*   **`lazy`**: is a good candidate for lazy loading.
-*   **`eager`**: is not a good candidate for lazy loading. Load right away.
-*   **`auto`**: browser will determine whether or not to lazily load.
+*   **`lazy`**：延迟加载。
+*   **`eager`**：立即加载。
+*   **`auto`**：由浏览器来决定是否延迟加载。
 
-Not specifying the attribute at all will have the same impact as setting `loading=auto`.
+如果不指定该属性，其默认值为 auto。
 
 ![](https://addyosmani.com/assets/images/loading-attribute@2x.png)
 
-The `loading` attribute for `<img>` and `<iframe>` is being worked on as part of the [HTML standard](https://github.com/whatwg/html/pull/3752).
+[HTML 标准](https://github.com/whatwg/html/pull/3752) 正在研究将 `<img>` 和 `<iframe>` 的 `loading` 属性作为标准的一部分。
 
-### Examples
+### 例子
 
-The `loading` attribute works on `<img>` (including with `srcset` and inside `<picture>`) as well as on `<iframe>`:
+`loading` 属性适用于 `<img>`（包括包含 `srcset` 属性及位于 `<picture>` 内部）和 `<iframe>`：
 
-```
-<!-- Lazy-load an offscreen image when the user scrolls near it -->
+```html
+<!-- 延迟加载屏幕外的图片直到用户滚动到它附近 -->
 <img src="unicorn.jpg" loading="lazy" alt=".."/>
 
-<!-- Load an image right away instead of lazy-loading -->
+<!-- 立即加载（而非延迟加载）图片 -->
 <img src="unicorn.jpg" loading="eager" alt=".."/>
 
-<!-- Browser decides whether or not to lazy-load the image -->
+<!-- 浏览器决定是否延迟加载图片 -->
 <img src="unicorn.jpg" loading="auto" alt=".."/>
 
-<!-- Lazy-load images in <picture>. <img> is the one driving image 
-loading so <picture> and srcset fall off of that -->
+<!-- 延迟加载 <picture> 内的图片。<img> 用来驱动图片的加载，因此 <picture> 及 srcset
+会将合适的图片呈现在 <img> 上 -->
 <picture>
   <source media="(min-width: 40em)" srcset="big.jpg 1x, big-hd.jpg 2x">
   <source srcset="small.jpg 1x, small-hd.jpg 2x">
   <img src="fallback.jpg" loading="lazy">
 </picture>
 
-<!-- Lazy-load an image that has srcset specified -->
+<!-- 延迟加载设定 srcset 属性的图片-->
 <img src="small.jpg"
      srcset="large.jpg 1024w, medium.jpg 640w, small.jpg 320w"
      sizes="(min-width: 36em) 33.3vw, 100vw"
      alt="A rad wolf" loading="lazy">
 
-<!-- Lazy-load an offscreen iframe when the user scrolls near it -->
+<!-- 延迟加载屏幕外的 iframe 直到用户滚动到它附近 -->
 <iframe src="video-player.html" loading="lazy"></iframe>
 ```
 
-The exact heuristics for "when the user scrolls near" is left up to the browser. In general, our hope is that browsers will start fetching deferred images and iframe content a little before it comes into the viewport. This will increase the change the image or iframe is done loading by the time the user has scrolled to them.
+由浏览器完成“当用户滚动到附近时”的确切检测。一般来说，我们希望浏览器在快要进入视窗口之前便开始提取延迟图片和 iframe 的内容。这将增加图片或 iframe 在用户滚动到它们时完成加载的更改。
 
-Note: I [suggested](https://github.com/whatwg/html/pull/3752#issuecomment-478200976) we name this the `loading` attribute as its naming aligns closer with the [`decoding`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding) attribute. Previous proposals, such as the `lazyload` attribute didn't make it as we needed to support multiple values (`lazy`, `eager` and `auto`).
+注意：我曾[建议](https://github.com/whatwg/html/pull/3752#issuecomment-478200976)应该将 `loading` 属性值作为属性名称，因为它的命名与 [`decoding`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding) 属性较为接近。在之前的提议中，类似 `lazyload` 这样的属性没有被接受，这是因为我们需要支持多个值（`lazy`、`eager` 及 `auto`）。
 
-## Feature detection
+## 特性检测
 
-We've kept in mind the importance of being able to fetch and apply a JavaScript library for lazy-loading (for the cross-browser support). Support for `loading` can be feature-detected as follows:
+我们已知道为延迟加载（跨浏览器支持）获取及应用 JavaScript 库的重要性。`loading` 的支持情况可以通过以下方式进行检测：
 
-```
+```html
 <script>
-if ('loading' in HTMLImageElement.prototype) { 
-    // Browser supports `loading`..
+if ('loading' in HTMLImageElement.prototype) {
+    // 浏览器支持 `loading`..
 } else {
-   // Fetch and apply a polyfill/JavaScript library
-   // for lazy-loading instead.
+   // 获取并应用 polyfill/JavaScript 类库
+   // 来替代 lazy-loading。
 }
 </script>
 ```
 
-Note: You can also use `loading` as a progressive enhancement. Browsers that support the attribute can get the new lazy-loading behavior with `loading=lazy` and those that don't will still have images load.
+注意：你还可以使用 `loading` 作为一种渐进的增强功能。支持该属性的浏览器可通过 `loading=lazy` 获得新的延迟加载能力，不支持该属性的浏览器仍然会加载图片。
 
-### Cross-browser image lazy-loading
+### 跨浏览器的图片延迟加载
 
-If cross-browser support for lazy-loading images is important, it's not enough to just feature-detect and lazy-load a library if you're using `<img src=unicorn.jpg loading=lazy />` in the markup.
+如果跨浏览器支持图片的延迟加载非常重要，那么仅仅在使用 `<img src=unicorn.jpg loading=lazy />` 的标记中进行特性检测、使用延迟加载库是不够的。
 
-The markup needs to use something like `<img data-src=unicorn.jpg />` (rather than `src`, `srcset` or `<source>`) to avoid triggering an eager load in browsers that don't support the new attribute. JavaScript can be used to change those attributes to the proper ones if `loading` is supported and load a library if not.
+该标记需使用类似 `<img data-src=unicorn.jpg />`（而非 `src`、`srcset` 或 `<source>`）的属性，以避免在不支持新属性的浏览器下触发立刻加载。如果浏览器支持 `loading`，可以使用 JavaScript 将这些属性更改为正确的属性，否则加载类库。
 
-Below is an example of what this could look like.
+下面是一个可以说明其可能是什么样子的例子。
 
-*   In-viewport / above-the-fold images are regular `<img>` tags. A `data-src` would defeat the preload scanner so we want to avoid it for everything likely to be in the viewport.
-*   We use `data-src` on images to avoid an eager load in unsupported browsers. If `loading` is supported, we swap `data-src` for `src`.
-*   If `loading` is not supported, we load a fallback (LazySizes) and initiate it. Here, we use `class=lazyload` as a way to indicate to LazySizes images we want to be lazily-loaded.
+* 视窗/一屏展示图片是常规的 `<img>` 标签。`data-src` 会破坏预加载扫描程序，因此我们希望避免它出现在视窗中的所有内容中。
+* 我们在图片上使用 `data-src` 以避免在不支持的浏览器中触发立刻加载，如果浏览器支持 `loading`，我们将 `data-src` 替换为 `src`。
+* 如果 `loading` 不被支持，我们加载一个后备（LazySizes）脚本并启动它。在这里，我们用 `class=lazyload` 向 LazySizes 指出，哪些图片要延迟加载。
 
-```
-<!-- Let's load this in-viewport image normally -->
+```html
+<!-- 让我们在视窗内正常加载这个图片 -->
 <img src="hero.jpg" alt=".."/>
 
-<!-- Let's lazy-load the rest of these images -->
+<!-- 让我们以延迟加载的方式加载剩余图片 -->
 <img data-src="unicorn.jpg" loading="lazy" alt=".." class="lazyload"/>
 <img data-src="cats.jpg" loading="lazy" alt=".." class="lazyload"/>
 <img data-src="dogs.jpg" loading="lazy" alt=".." class="lazyload"/>
@@ -124,73 +124,71 @@ Below is an example of what this could look like.
             img.src = img.dataset.src;
         });
     } else {
-        // Dynamically import the LazySizes library
+        // 动态引入 LazySizes 库
         const lazySizesLib = await import('/lazysizes.min.js');
-        // Initiate LazySizes (reads data-src & class=lazyload)
-        lazySizes.init(); // lazySizes works off a global.
+        // 初始化 LazySizes（读取 data-src & class=lazyload）
+        lazySizes.init(); // lazySizes 在全局环境下工作。
     }
 })();
 </script>
 ```
 
-## Demo
+## 示例
 
-[A `loading=lazy` demo featuring exactly 100 kitten pics](https://mathiasbynens.be/demo/img-loading-lazy) is available. Check it out!
+看看这个！[一个 `loading=lazy` 示例，展示了整整 100 张小猫图片](https://mathiasbynens.be/demo/img-loading-lazy)。
 
 详见 YouTube 视频：https://youtu.be/bhnfL6ODM68
 
-I've also recorded a video of the feature in action you can check out above.
+## Chrome 实现细节
 
-## Chrome implementation details
+**我们强烈建议等到 `loading` 属性处于稳定版本后再在你的生产环境中使用它。早期测试人员可能会发现以下注解非常有用。**
 
-**We strongly recommend waiting until the `loading` attribute is in a stable release before using it in production. Early testers may find the below notes helpful.**
+### 立刻尝试
 
-### Try today
+转到 `chrome://flags` 并同时开启 "Enable lazy frame loading" 和 "Enable lazy image loading"，然后重新启动 Chrome。
 
-Go to `chrome://flags` and turn on both the "Enable lazy frame loading" and "Enable lazy image loading" flags, then restart Chrome.
+### 配置
 
-### Configuration
-
-Chrome’s lazy-loading implementation is based not just on how near the current scroll position is, but also the connection speed. The lazy frame and image loading distance-from-viewport thresholds for different connection speeds are [hardcoded](https://cs.chromium.org/chromium/src/third_party/blink/renderer/core/frame/settings.json5?l=937-1003&rcl=e8f3cf0bbe085fee0d1b468e84395aad3ebb2cad), but can be overriden from the command-line. Here’s an example that overrides the lazy-loading settings for images:
+Chrome 延迟加载的实现不仅仅基于当前滚动位置的接近程度，还取决于网络连接速度。对于不同的网络连接速度，延迟加载 frame 和图片的视窗距离阈值是[硬编码](https://cs.chromium.org/chromium/src/third_party/blink/renderer/core/frame/settings.json5?l=937-1003&rcl=e8f3cf0bbe085fee0d1b468e84395aad3ebb2cad)的，可以通过命令行覆盖该值。以下是一个覆盖图片延迟加载设置的示例：
 
 ```
 canary --user-data-dir="$(mktemp -d)" --enable-features=LazyImageLoading --blink-settings=lazyImageLoadingDistanceThresholdPxUnknown=5000,lazyImageLoadingDistanceThresholdPxOffline=8000,lazyImageLoadingDistanceThresholdPxSlow2G=8000,lazyImageLoadingDistanceThresholdPx2G=6000,lazyImageLoadingDistanceThresholdPx3G=4000,lazyImageLoadingDistanceThresholdPx4G=3000 'https://mathiasbynens.be/demo/img-loading-lazy'
 ```
 
-The above command corresponds to the (current) default configuration. Change all the values to `400` to start lazy-loading only when the scroll position is within 400 pixels of the image. Below we can also see a 1 pixel variation (which the video earlier in the article uses):
+以上命令对应于（当前）默认配置。将所有值更改为 `400` 以便仅在滚动位置在距离图片的 400 像素以内开始延迟加载。下面我们还可以看到距离阈值设为 1 像素的另一个做法（在本文前面的视频中使用）：
 
 ```
 canary --user-data-dir="$(mktemp -d)" --enable-features=LazyImageLoading --blink-settings=lazyImageLoadingDistanceThresholdPxUnknown=1,lazyImageLoadingDistanceThresholdPxOffline=1,lazyImageLoadingDistanceThresholdPxSlow2G=1,lazyImageLoadingDistanceThresholdPx2G=1,lazyImageLoadingDistanceThresholdPx3G=1,lazyImageLoadingDistanceThresholdPx4G=1 'https://mathiasbynens.be/demo/img-loading-lazy'
 ```
 
-It’s very likely our default configuration will change as the implementation stabilizes over the coming weeks.
+由于实现在未来几周内稳定下来，我们的默认配置很可能会发生变化。
 
 ### DevTools
 
-An implementation detail of `loading` in Chrome is that it fetches the first 2KB of images on page-load. If the server supports range requests, the first 2KB likely contains image dimensions. This enables us to generate/display a placeholder with the same dimensions. First 2KB also likely includes the whole image for assets like icons.
+Chrome 中 `loading` 的一个实现细节是它会在页面加载时获取前 2 KB 的图片数据。如果服务器支持范围请求，则前 2 KB 可能包含图片尺寸。这使得我们能够生成/显示具有相同尺寸的占位符。如果像是图标一类的资源的话，前 2 KB 也很有可能包含整幅图片了。
 
 ![](https://addyosmani.com/assets/images/lazy-load-devtools.png)
 
-Chrome fetches the rest of the image bytes when the user is about to see them. A caveat for Chrome DevTools is that this can result in (1) double fetches to 'appear' in the DevTools Network panel and (2) Resource Timing to have 2 requests for each image.
+Chrome 会在用户即将看到图片时抓取其剩余数据。Chrome DevTools 中要注意的地方是，这可能导致（1）在 DevTools 的网络面板中“出现” 两次获取和（2）为每个图片提供两个请求的资源定时。
 
-## Determine `loading` support on the server
+## 服务端确定 `loading` 支持
 
-In a perfect world, you wouldn't need to rely on JavaScript feature detection on the client to decide whether or not a fallback library needs to be loaded - you would handle this before serving HTML that includes a JavaScript lazy-loading library. A Client Hint could enable such a check.
+在一个美好的世界中，你不需要依赖客户端上的 JavaScript 特性检测来决定是否需要加载兼容库 — 你需要在提供包含 JavaScript 延迟加载库的 HTML 之前处理此问题。客户端提示可以启用此类检查。
 
-A hint for conveying `loading` preferences is being [considered](https://bugs.chromium.org/p/chromium/issues/detail?id=949365) but is currently in the early discussion phase.
+传递 `loading` 参数的提示已经被[考虑](https://bugs.chromium.org/p/chromium/issues/detail?id=949365)，但目前正处于早期讨论阶段。
 
-## Wrapping up
+## 总结
 
-Give `<img loading>` a spin and let us know what you think. I'm particularly interested in how folks find the cross-browser story and whether there are any edge-cases we've missed.
+试试看 `<img loading>`，并让我们知道你的想法。我对大家如何探索跨浏览器的经验，及是否有任何我们错过的边缘情况特别感兴趣。
 
-## References
+## 参考资料
 
 *   [Intent to ship this feature in Blink](https://groups.google.com/a/chromium.org/forum/#!msg/blink-dev/jxiJvQc-gVg/wurng4zZBQAJ)
 *   [Specification PR](https://github.com/whatwg/html/pull/3752)
 *   [Explainer](https://github.com/scott-little/lazyload)
 *   [Demo](https://mathiasbynens.be/demo/img-loading-lazy)
 
-_With thanks to Simon Pieters, Yoav Weiss and Mathias Bynens for their feedback. A large thanks to Ben Greenstein, Scott Little, Raj T and Houssein Djirdeh for their work on LazyLoad._
+**感谢 Simon Pieters、Yoav Weiss 和 Mathias Bynens 的反馈。非常感谢 Ben Greenstein、Scott Little、Raj T 和 Houssein Djirdeh 在 LazyLoad 上的工作。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
