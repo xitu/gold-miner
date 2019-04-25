@@ -22,14 +22,14 @@ console.log("Object value: %o with string substitution",
     {string: "str", number: 10});
 ```
 
-是不是很棒呢？关键问题是字符串替换表达式有多种变化：
+是不是很棒呢？关键是字符串替换表达式有多种变化：
 
 *   **%o / %O** - 用于对象;
 *   **%d / %i** - 用于整数;
 *   **%s** - 用于字符串;
 *   **%f** - 用于浮点数;
 
-但是，照这样说，你可能想知道为什么要使用这样一个特征？尤其是当你可以简单的传递多个值给 log 的时候，如下所示：
+但是，看了上面这些，你可能要问，为什么要使用这样一个特征？尤其是当你可以简单的传递多个值给 log 的时候，如下所示：
 
 ```
 console.log("Object value: ",
@@ -37,7 +37,7 @@ console.log("Object value: ",
     " with string substitution");
 ```
 
-此外，对于字符串和数字，你可以只使用 **字符串字面值**！那么，有什么问题呢？首先，我将讲一下问你做一些不错的 console log 时，你只需要一些不错的字符串，log subs 可以允许你轻松做到这一点。至于上文所讲的字符串替换 - 你必须认同的是 - 你需要睁大眼睛看看这些空间。 🛸 使用 subs，它更方便。至于字符串字面值，他们并没有像这些 subs 一样长（惊喜！ 🤯），并且他们不会为对象提供相同的，良好的格式。但是，只要你只使用数字和字符串，你可能更倾向于 **一个不同的方法**。
+此外，对于字符串和数字，你可以只使用 **字符串字面值**！那么，有什么问题呢？首先，我将讲一下当你做一些不错的 console log 时，你只需要一些不错的字符串，log subs 可以允许你轻松做到这一点。至于上文所讲的字符串替换 - 你必须认同的是 - 你需要睁大眼睛看看这些空间。 🛸 使用 subs，它更方便。至于字符串字面值，他们并没有像这些 subs 一样长（惊喜！ 🤯），并且他们不会为对象提供相同的，良好的格式。但是，只要你只使用数字和字符串，你可能更倾向于 **一个不同的方法**。
 
 ### CSS
 
@@ -49,7 +49,7 @@ console.log("Example %cCSS-styled%c %clog!",
     "", "color: green; font-size: large; font-weight: bold");
 ```
 
-上面的例子是 ％c 指令的广泛应用。正如你所见到的那样，样式应用于 **遵循** 该编译指令的所有内容，除非你使用其他的编译指令，而这是我们正要做的。如果你使用普通的无样式的 log 格式，你将需要传递一个空字符串。不言而喻，这个提供给 ％c 编译指令和子字符串的值需要按照预期的顺序一个一个的提交给下一步的参数。 😉
+上面的例子是 ％c 指令的广泛应用。正如你所见到的那样，样式应用于处在该编译指令 **后面** 的所有内容，除非你使用其他的编译指令，而这是我们正要做的。如果你使用普通的无样式的 log 格式，你将需要传递一个空字符串。不言而喻，这个提供给 ％c 编译指令和子字符串的值需要按照预期的顺序一个一个地提交给下一步的参数。 😉
 
 ## Grouping & tracing
 
@@ -57,7 +57,7 @@ console.log("Example %cCSS-styled%c %clog!",
 
 ### Grouping
 
-加入过多的 console log 并不是很健康，它可能导致更糟糕的可读性，从而出现无意义的 log 的情形。然而适当地建立一些 **框架** 总是好的。你可以通过使用 `[console.group()](https://developer.mozilla.org/en-US/docs/Web/API/Console/group)` 的方法精准的实现。通过使用该方法，你可以在 console group 中创建深层次的、可折叠的结构，这允许你隐藏并组织你的 log。如果你希望在默认情况下将 log group 折叠，还有一个方法是使用 `[console.groupCollapsed()](https://developer.mozilla.org/en-US/docs/Web/API/Console/groupCollapsed)`。当然，console group 可以根据你的需要进行嵌套（常识性的）。你还可以通过向其传递参数列表来使得你的 log group 具有类 header-log（就像使用 console.log() ）。在调用 log group 方法后完成，每个控制台调用都将在创建的组中找到它的位置。要退出的话，需要使用一个特殊的方法叫做 `[console.groupEnd()](https://developer.mozilla.org/en-US/docs/Web/API/Console/groupEnd)`。很简单，对吗？
+加入过多的 console log 并不是很健康，它可能导致更糟糕的可读性，从而出现无意义的 log 的情形。然而适当地建立一些 **结构** 总是好的。你可以通过使用 `[console.group()](https://developer.mozilla.org/en-US/docs/Web/API/Console/group)` 的方法精准地实现。通过使用该方法，你可以在 console group 中创建深层次的、可折叠的结构，这允许你隐藏并组织你的 log。如果你希望在默认情况下将 log group 折叠，还有一个方法是使用 `[console.groupCollapsed()](https://developer.mozilla.org/en-US/docs/Web/API/Console/groupCollapsed)`。当然，console group 可以根据你的需要进行嵌套（就像你想的那样）。你还可以通过向其传递参数列表来使得你的 log group 具有类 header-log（就像使用 console.log() ）。在调用 log group 方法后完成，每个控制台调用都将在创建的组中找到它的位置。要退出的话，需要使用一个特殊的方法叫做 `[console.groupEnd()](https://developer.mozilla.org/en-US/docs/Web/API/Console/groupEnd)`。很简单，对吗？😁
 
 ```
 console.group();
@@ -69,7 +69,7 @@ console.groupEnd();
 console.log("Outer scope");
 ```
 
-我想你已经注意到，你可以将所有提供的代码段中的代码 _复制并粘贴_ 到你的控制台，并以你想要的方式使用它们！
+我想你已经注意到，你只需将所有提供的代码段中的代码 复制并粘贴 到你的控制台，然后以你想要的方式使用它们！
 
 ### Tracing
 
@@ -101,7 +101,7 @@ console.error("This is an error!");
 
 ### Info & debug
 
-还有两种方法可用于向 logs 添加一些指令：`[console.info()](https://developer.mozilla.org/en-US/docs/Web/API/Console/info)` 和 `[console.debug()](https://developer.mozilla.org/en-US/docs/Web/API/Console/debug)`。 🐞 运用这两种方式输出的内容并不总是具有独特的风格，在某些浏览器中它只是一个信息图标。这些和上文提及的其他方法都允许你在你的控制台消息中应用某一特定的类别。在不同的浏览器中（例如基于Chromium的浏览器中），dev-tools UI 为你提供了选项，可以选择显示的特定类别的 log，例如错误，调试消息或信息。这只是一个组织功能！
+还有两种方法可用于向 logs 添加一些指令：`[console.info()](https://developer.mozilla.org/en-US/docs/Web/API/Console/info)` 和 `[console.debug()](https://developer.mozilla.org/en-US/docs/Web/API/Console/debug)`。 🐞 运用这两种方式输出的内容并不总是具有独特的风格，在某些浏览器中它只是一个信息图标。这些和上文提及的其他方法都允许你在你的控制台消息中应用某一特定的类别。在不同的浏览器中（例如基于 Chromium 的浏览器中），dev-tools UI 为你提供了选项，可以选择显示的特定类别的 log，例如错误，调试消息或信息。这只是一个组织功能！
 
 ```
 console.info("This is very informative!");
@@ -110,7 +110,7 @@ console.debug("Debugging a bug!");
 
 ### Assert
 
-还有一个特别的 Console API 方法，它为你在任何条件下进行 log（**断言**）提供了捷径。它就是`[console.assert()](https://developer.mozilla.org/en-US/docs/Web/API/Console/assert)`。就像标准的 console.log() 方法一样，它可以采用无数个参数，不同的是它的第一个参数需要是布尔值。如果它解析为 true，则断言不会被 log，否则，它会将将错误和传入的参数在控制台中 log 出来（与 .error（）方法相同）。
+还有一个特别的 Console API 方法，它为你在任何条件下进行 log（**断言**）提供了捷径。它就是`[console.assert()](https://developer.mozilla.org/en-US/docs/Web/API/Console/assert)`。就像标准的 console.log() 方法一样，它可以采用无数个参数，不同的是它的第一个参数需要是布尔值。如果它解析为 true，则断言不会被 log，否则，它会将错误和传入的参数在控制台中 log 出来（与 .error（）方法相同）。
 
 ```
 console.assert(true, "This won't be logged!");
@@ -145,11 +145,11 @@ console.countReset();
 console.count(); // default: 1
 ```
 
-就个人而言，我没有看到很多对这个特殊功能的运用，但这样的方法存在总是好的。也许只是我······
+就个人而言，我没有看到很多对这个特殊功能的运用，但这样的方法存在总是好的。也许只是我的一己之见······
 
 ## Tables
 
-我认为这是 Console API 最被低估的功能之一（超过之前提到的 CSS 样式）。👏 当调试和检查平面或二维对象和数组时，向控制台输出真实的、可排序的表格这一能力是非常有用的。是的，你真的可以在控制台中显示一个表格。它只需使用带有一个参数的简单调用 `[console.table()](https://developer.mozilla.org/en-US/docs/Web/API/Console/table)`，该参数很可能是对象或数组（原始值通常只是正常的 log，超过2维结构将被截断为较小的对应物。只需试一下如下的代码来来看一下我想表达的意思！
+我认为这是 Console API 最被低估的功能之一（超过之前提到的 CSS 样式）。👏 当调试和检查平面或二维对象和数组时，向控制台输出真实的、可排序的表格这一能力是非常有用的。是的，你真的可以在控制台中显示一个表格。它只需使用带有一个参数的简单调用 `[console.table()](https://developer.mozilla.org/en-US/docs/Web/API/Console/table)`，该参数很可能是对象或数组（原始值通常只是正常的 log，超过 2 维结构将被截断为较小的对应物。只需试一下如下的代码来来看一下我想表达的意思！
 
 ```
 console.table([[0,1,2,3,4], [5,6,7,8,9]]);
@@ -177,9 +177,9 @@ imageToAscii(
 
 ## Modern logs
 
-如你所见，你的 logs 和调试过程整体上不必如此单调！除了简单的 console.log() 之外，还有更多的好方法。有了这篇文章中的知识，选择现在就在你的手里！你可以使用传统的 console.log() 这一方法和你的浏览器提供的各种精美款样式的结构，或者你可以使用上文描述的技巧为你的控制台增添一些新意。浏览器提供的不同结构的传统和精美格式，或者你可以使用上述技术为控制台添加一些新鲜感。无论如何，即使你正在和讨厌的 bug 🐞 斗争，你也要找到其中的乐趣！
+如你所见，你的 logs 和调试过程整体上不必如此单调！除了简单的 console.log() 之外，还有更多的好方法。有了这篇文章中的知识，选择权现在就在你的手里！你可以使用传统的 console.log() 这一方法和你的浏览器提供的各种精美款样式的结构，或者你可以使用上文描述的技巧为你的控制台增添一些新意。浏览器提供的不同结构的传统和精美格式，或者你可以使用上述技术为控制台添加一些新鲜感。无论如何，即使你正在和讨厌的 bug 🐞 斗争，你也要找到其中的乐趣！
 
-我希望你喜欢这篇文章，它可以让你学到新东西。和往常一样，与他人分享，让每个人都可以让他们的控制台充满色彩 🌈 ，并通过反映或评论将你的意见留在下面！此外，请关注我的 **[Twitter](https://twitter.com/areknawo)** 和 **[Facebook](https://www.facebook.com/areknawoblog)** 上，并注册 newsletter（即将）！再次，感谢阅读，希望在下一篇文章中依旧看到你的身影！✌
+我希望你喜欢这篇文章，它可以让你学到新东西。和往常一样，可以考虑与他人分享，让每个人都可以让他们的控制台充满色彩 🌈 ，并通过反馈或评论将你的意见留在下面！此外，请关注我的 **[Twitter](https://twitter.com/areknawo)** 和 **[Facebook](https://www.facebook.com/areknawoblog)** 上，并注册 newsletter（即将登场）！再次，感谢阅读，希望在下一篇文章中依旧看到你的身影！✌
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
