@@ -17,11 +17,11 @@ In a way, it is pretty inclusive.
 
 One can come from any language and start writing Python.
 
-****However, learning to write a language and writing a language in an optimized way are two different things.****
+**However, learning to write a language and writing a language in an optimized way are two different things.**
 
 In this series of posts named [**Python Shorts**](https://bit.ly/2XshreA), I will explain some simple but very useful constructs provided by Python, some essential tips and some use cases I come up with regularly in my Data Science work.
 
-In this post, ****I am going to talk about `for` loops in Python and how you should avoid them whenever possible.****
+In this post, **I am going to talk about `for` loops in Python and how you should avoid them whenever possible.**
 
 ## 3 Ways of writing a for loop:
 
@@ -35,7 +35,7 @@ You can do this using loops easily.
 
 In fact, I will show you **three ways to do the same task which I have seen people use and let you choose for yourself which you find the best.**
 
-```
+```python
 x = [1,3,5,7,9]
 sum_squared = 0
 
@@ -47,7 +47,7 @@ Whenever I see the above code in a python codebase, I understand that the person
 
 A **slightly more pythonic way** undefinedof doing the same thing is:
 
-```
+```python
 x = [1,3,5,7,9]
 sum_squared = 0
 
@@ -61,18 +61,18 @@ I didn’t index the list. And my code is more readable.
 
 But still, the pythonic way to do it is in one line.
 
-```
+```python
 x = [1,3,5,7,9]
 sum_squared = sum([y**2 for y in x])
 ```
 
-****This approach is called List Comprehension, and this may very well be one of the reasons that I love Python.****
+**This approach is called List Comprehension, and this may very well be one of the reasons that I love Python.**
 
 You can also use `if` in a list comprehension.
 
 Let’s say we wanted a list of squared numbers for even numbers only.
 
-```
+```python
 x = [1,2,3,4,5,6,7,8,9]
 even_squared = [y**2 for y in x if y%2==0]
 --------------------------------------------
@@ -83,7 +83,7 @@ even_squared = [y**2 for y in x if y%2==0]
 
 What if we wanted to have the number squared for even and cubed for odd?
 
-```
+```python
 x = [1,2,3,4,5,6,7,8,9]
 squared_cubed = [y**2 if y%2==0 else y**3 for y in x]
 --------------------------------------------
@@ -97,9 +97,7 @@ Great!!!
 So basically follow specific **guidelines:** Whenever you feel like writing a `for` statement, you should ask yourself the following questions,
 
 * Can it be done without a `for` loop? Most Pythonic
-
 * Can it be done using **list comprehension**? If yes, use it.
-
 * Can I do it without indexing arrays? if not, think about using `enumerate`
 
 What is `enumerate?`
@@ -108,7 +106,7 @@ Sometimes we need both the index in an array as well as the value in an array.
 
 In such cases, I prefer to use **enumerate** rather than indexing the list.
 
-```
+```python
 L = ['blue', 'yellow', 'orange']
 for i, val in enumerate(L):
     print("index is %d and value is %s" % (i, val))
@@ -119,6 +117,7 @@ index is 2 and value is orange
 ```
 
 The rule is:
+
 > # Never index a list, if you can do without it.
 
 ## Try Using Dictionary Comprehension
@@ -127,7 +126,7 @@ Also try using **dictionary comprehension**, which is a relatively new addition 
 
 Let me explain using an example. I want to get a dictionary with (key: squared value) for every value in x.
 
-```
+```python
 x = [1,2,3,4,5,6,7,8,9]
 {k:k**2 for k in x}
 ---------------------------------------------------------
@@ -136,7 +135,7 @@ x = [1,2,3,4,5,6,7,8,9]
 
 What if I want a dict only for even values?
 
-```
+```python
 x = [1,2,3,4,5,6,7,8,9]
 {k:k**2 for k in x if x%2==0}
 ---------------------------------------------------------
@@ -145,7 +144,7 @@ x = [1,2,3,4,5,6,7,8,9]
 
 What if we want squared value for even key and cubed number for the odd key?
 
-```
+```python
 x = [1,2,3,4,5,6,7,8,9]
 {k:k**2 if k%2==0 else k**3 for k in x}
 ---------------------------------------------------------
@@ -154,10 +153,11 @@ x = [1,2,3,4,5,6,7,8,9]
 
 ## Conclusion
 
-To conclude, I will say that while it might seem easy to transfer the knowledge you acquired from other languages to Python, you won’t be able to appreciate the beauty of Python if you keep doing that. ****Python is much more powerful when we use its ways and decidedly much more fun.
+To conclude, I will say that while it might seem easy to transfer the knowledge you acquired from other languages to Python, you won’t be able to appreciate the beauty of Python if you keep doing that. Python is much more powerful when we use its ways and decidedly much more fun.
 
 **So, use List Comprehensions and Dict comprehensions when you need a`for` loop. Use `enumerate` if you need array index.**
-> # Avoid for loops like plague
+
+> Avoid for loops like plague
 
 Your code will be much more readable and maintainable in the long run.
 
