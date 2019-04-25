@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/dependency-injection-in-a-multi-module-project.md](https://github.com/xitu/gold-miner/blob/master/TODO1/dependency-injection-in-a-multi-module-project.md)
 > * 译者：[Mirosalva](https://github.com/Mirosalva)
-> * 校对者：[JasonZ](https://github.com/JasonLinkinBright)
+> * 校对者：[JasonZ](https://github.com/JasonLinkinBright)，[wenny](https://github.com/xiaxiayang)
 
 # 依赖注入在多模块工程中的应用
 
@@ -39,7 +39,7 @@ class DesignerNewsInjector {
 
 虽然这是一个非常好的解决方案，但我们还是手工编写了大量的样板代码。
 
-在任何需要注入的地方，我们都需要在合适的时机调用底层函数，大多数情况下不是对象初始化时就是 onCreate 时。
+在任何需要注入的地方，我们都需要在合适的时机调用底层函数，大多数情况下不是在对象初始化时就是在 onCreate 方法中。
 
 ## 依赖注入的简要介绍
 
@@ -55,7 +55,7 @@ class DesignerNewsInjector {
 
 ## 我们在 Plaid 应用中集成 Dagger 的方式
 
-当我们决定引入 Dagger 到 Plaid 应用时，我们已经学到了一个宝贵的教训，尤其是对模块化。
+当我们决定引入 Dagger 到 Plaid 应用时，我们已经学到了宝贵的一课，尤其是对模块化。
 
 > 不要试图一次就覆盖太多内容。
 
@@ -65,13 +65,13 @@ class DesignerNewsInjector {
 
 ## 依赖图解
 
-When introducing a dependency injection library to a monolithic application usually there’s one single dependency graph for the whole of the application.当为一个单块应用引入依赖注入库时，通常整个应用有个单一的依赖图。
+当为一个单块应用引入依赖注入库时，通常整个应用有个单一的依赖图。
 
 ![单块项目中的经典简化依赖图](https://cdn-images-1.medium.com/max/2000/1*wfFPurM3MIKdGjL66Ko7Yw.png)
 
 这可以使组件间共享依赖。在一些库中，依赖可以被设置作用域来避免冲突，或者为被注入对象提供一种特殊的实现。
 
-## 模块化的怪异
+## 模块化的怪异之处
 
 对一个模块化的应用，尤其是使用动态功能模块的应用这却不起作用。让我们仔细地研究下应用和动态功能模块如何彼此依赖。一个动态功能模块知道 application 模块的存在。application 模块大致知道动态功能模块的存在，但是不能直接执行该模块的代码。对于依赖注入，这意味着整体图必须被分解成片。
 
@@ -85,7 +85,7 @@ When introducing a dependency injection library to a monolithic application usua
 
 每个 DFM 都有它自己的组件，以组件所在的功能模块命名。`app` 模块中的 `HomeComponent` 组件就是如此。
 
-还有一个包含共享依赖项的组件，它位于 core 库中并被称作 `CoreComponent`。`CoreComponent` 背后的主要思想是提供可被整个应用使用的对象。它结合了一些 Dagger 模块，这些模块位于 `core` 库并可以在整个应用中复用。
+还有一个包含共享依赖项的组件，它位于 `core` 库中并被称作 `CoreComponent`。`CoreComponent` 背后的主要思想是提供可被整个应用使用的对象。它结合了一些 Dagger 模块，这些模块位于 `core` 库并可以在整个应用中复用。
 
 此外，由于依赖图具有方向性，因此只能通过以下方式共享 Dagger 组件：
 DFM 图可以从 application 模块来访问 Dagger 组件。application 模块可以从它依赖的库中访问组件，但方向反过来则不行。
