@@ -5,13 +5,13 @@
 > * 译者：[wznonstop](https://github.com/wznonstop)
 > * 校对者：[Tammy-Liu](https://github.com/Tammy-Liu), [ezioyuan](https://github.com/ezioyuan)
 
-# 创意运用 Console API ！
+# 创意运用 Console API！
 
 在 Javascript 中 **[Console API](https://developer.mozilla.org/en-US/docs/Web/API/Console)** 和 **Debugging** 总是密不可分的，其大多通过 `console.log()` 的方式使用。然而，你知道它不仅仅只有这种使用方法吗？你是否也已经对 `console.log()` 的**单一**输出方式感到厌倦了呢？你是否也想让你的 log 更出色更**优美**吗？ 💅 如果你的你的答案是肯定的话，跟随我，让我们一起发现 Console API 真正的多姿多彩和趣味性！
 
 ## [Console.log()](https://developer.mozilla.org/en-US/docs/Web/API/Console/log)
 
-无论你是否相信，`console.log()` 本身还是有一些你可能不知道的额外功能。当然，她的基础目的 - **logging** - 是不变的。我们唯一能做的就是使它更加出色。让我们尝试一下怎么样？ 😁
+无论你是否相信，`console.log()` 本身还是有一些你可能不知道的额外功能。当然，她的基础目的 — **logging** — 是不变的。我们唯一能做的就是使它更加出色。让我们尝试一下怎么样？ 😁
 
 ### String subs
 
@@ -24,10 +24,10 @@ console.log("Object value: %o with string substitution",
 
 是不是很棒呢？关键是字符串替换表达式有多种变化：
 
-*   **%o / %O** - 用于对象;
-*   **%d / %i** - 用于整数;
-*   **%s** - 用于字符串;
-*   **%f** - 用于浮点数;
+*   **%o / %O** — 用于对象;
+*   **%d / %i** — 用于整数;
+*   **%s** — 用于字符串;
+*   **%f** — 用于浮点数;
 
 但是，看了上面这些，你可能要问，为什么要使用这样一个特征？尤其是当你可以简单的传递多个值给 log 的时候，如下所示：
 
@@ -37,7 +37,7 @@ console.log("Object value: ",
     " with string substitution");
 ```
 
-此外，对于字符串和数字，你可以只使用 **字符串字面值**！那么，有什么问题呢？首先，我将讲一下当你做一些不错的 console log 时，你只需要一些不错的字符串，log subs 可以允许你轻松做到这一点。至于上文所讲的字符串替换 - 你必须认同的是 - 你需要睁大眼睛看看这些空间。 🛸 使用 subs，它更方便。至于字符串字面值，他们并没有像这些 subs 一样长（惊喜！ 🤯），并且他们不会为对象提供相同的，良好的格式。但是，只要你只使用数字和字符串，你可能更倾向于 **一个不同的方法**。
+此外，对于字符串和数字，你可以只使用 **字符串字面值**！那么，有什么问题呢？首先，我将讲一下当你做一些不错的 console log 时，你只需要一些不错的字符串，log subs 可以允许你轻松做到这一点。至于上文所讲的字符串替换 — 你必须认同的是 — 你需要睁大眼睛看看这些空间。🛸 使用 subs，它更方便。至于字符串字面值，他们并没有像这些 subs 一样长（惊喜！🤯），并且他们不会为对象提供相同的，良好的格式。但是，只要你只使用数字和字符串，你可能更倾向于 **一个不同的方法**。
 
 ### CSS
 
@@ -49,7 +49,7 @@ console.log("Example %cCSS-styled%c %clog!",
     "", "color: green; font-size: large; font-weight: bold");
 ```
 
-上面的例子是 ％c 指令的广泛应用。正如你所见到的那样，样式应用于处在该编译指令 **后面** 的所有内容，除非你使用其他的编译指令，而这是我们正要做的。如果你使用普通的无样式的 log 格式，你将需要传递一个空字符串。不言而喻，这个提供给 ％c 编译指令和子字符串的值需要按照预期的顺序一个一个地提交给下一步的参数。 😉
+上面的例子是 %c 指令的广泛应用。正如你所见到的那样，样式应用于处在该编译指令 **后面** 的所有内容，除非你使用其他的编译指令，而这是我们正要做的。如果你使用普通的无样式的 log 格式，你将需要传递一个空字符串。不言而喻，这个提供给 %c 编译指令和子字符串的值需要按照预期的顺序一个一个地提交给下一步的参数。 😉
 
 ## Grouping & tracing
 
@@ -57,7 +57,7 @@ console.log("Example %cCSS-styled%c %clog!",
 
 ### Grouping
 
-加入过多的 console log 并不是很健康，它可能导致更糟糕的可读性，从而出现无意义的 log 的情形。然而适当地建立一些 **结构** 总是好的。你可以通过使用 `[console.group()](https://developer.mozilla.org/en-US/docs/Web/API/Console/group)` 的方法精准地实现。通过使用该方法，你可以在 console group 中创建深层次的、可折叠的结构，这允许你隐藏并组织你的 log。如果你希望在默认情况下将 log group 折叠，还有一个方法是使用 `[console.groupCollapsed()](https://developer.mozilla.org/en-US/docs/Web/API/Console/groupCollapsed)`。当然，console group 可以根据你的需要进行嵌套（就像你想的那样）。你还可以通过向其传递参数列表来使得你的 log group 具有类 header-log（就像使用 console.log() ）。在调用 log group 方法后完成，每个控制台调用都将在创建的组中找到它的位置。要退出的话，需要使用一个特殊的方法叫做 `[console.groupEnd()](https://developer.mozilla.org/en-US/docs/Web/API/Console/groupEnd)`。很简单，对吗？😁
+加入过多的 console log 并不是很健康，它可能导致更糟糕的可读性，从而出现无意义的 log 的情形。然而适当地建立一些 **结构** 总是好的。你可以通过使用 `[console.group()](https://developer.mozilla.org/en-US/docs/Web/API/Console/group)` 的方法精准地实现。通过使用该方法，你可以在 console group 中创建深层次的、可折叠的结构，这允许你隐藏并组织你的 log。如果你希望在默认情况下将 log group 折叠，还有一个方法是使用 `[console.groupCollapsed()](https://developer.mozilla.org/en-US/docs/Web/API/Console/groupCollapsed)`。当然，console group 可以根据你的需要进行嵌套（就像你想的那样）。你还可以通过向其传递参数列表来使得你的 log group 具有类 header-log（就像使用 console.log()）。在调用 log group 方法后完成，每个控制台调用都将在创建的组中找到它的位置。要退出的话，需要使用一个特殊的方法叫做 `[console.groupEnd()](https://developer.mozilla.org/en-US/docs/Web/API/Console/groupEnd)`。很简单，对吗？😁
 
 ```
 console.group();
@@ -85,7 +85,7 @@ console.trace("Logging the way down here!");
 
 ### Warning
 
-`[console.warn()](https://developer.mozilla.org/en-US/docs/Web/API/Console/warn)` 这一方法操作起来就像 console.log（就像大多数这些 logging 方法一样）。但是，它还具有 **类似警告的样式**。⚠在大多数浏览器中，它应该是 **黄色** 的并且在有一个警告符号（出于自然因素）。默认情况下，对此方法的调用也会返回跟踪，因此你可以快速找到警告（以及可能的错误）的来源。
+`[console.warn()](https://developer.mozilla.org/en-US/docs/Web/API/Console/warn)` 这一方法操作起来就像 console.log（就像大多数这些 logging 方法一样）。但是，它还具有 **类似警告的样式**。⚠ 在大多数浏览器中，它应该是 **黄色** 的并且在有一个警告符号（出于自然因素）。默认情况下，对此方法的调用也会返回跟踪，因此你可以快速找到警告（以及可能的错误）的来源。
 
 ```
 console.warn("This is a warning!");
@@ -93,7 +93,7 @@ console.warn("This is a warning!");
 
 ### Error
 
-`[console.error()](https://developer.mozilla.org/en-US/docs/Web/API/Console/error)`这一方法与 console.warn() 输出具有堆栈跟踪的消息类似，具有特殊的样式。它通常是 **红色** 的，添加了错误图标。❌它清楚地通知用户某些事情是不对的。一个重要的知识点是 .error（）这个方法输出的只是一个没有任何附加选项的控制台消息，类似于停止代码执行（为此你需要抛出一个错误）。它 **只是一个简单的说明**，因为许多新使用者可能会对这种操作感到有些不确定性。
+`[console.error()](https://developer.mozilla.org/en-US/docs/Web/API/Console/error)`这一方法与 console.warn() 输出具有堆栈跟踪的消息类似，具有特殊的样式。它通常是 **红色** 的，添加了错误图标。❌ 它清楚地通知用户某些事情是不对的。一个重要的知识点是 .error（）这个方法输出的只是一个没有任何附加选项的控制台消息，类似于停止代码执行（为此你需要抛出一个错误）。它 **只是一个简单的说明**，因为许多新使用者可能会对这种操作感到有些不确定性。
 
 ```
 console.error("This is an error!");
@@ -110,7 +110,7 @@ console.debug("Debugging a bug!");
 
 ### Assert
 
-还有一个特别的 Console API 方法，它为你在任何条件下进行 log（**断言**）提供了捷径。它就是`[console.assert()](https://developer.mozilla.org/en-US/docs/Web/API/Console/assert)`。就像标准的 console.log() 方法一样，它可以采用无数个参数，不同的是它的第一个参数需要是布尔值。如果它解析为 true，则断言不会被 log，否则，它会将错误和传入的参数在控制台中 log 出来（与 .error（）方法相同）。
+还有一个特别的 Console API 方法，它为你在任何条件下进行 log（**断言**）提供了捷径。它就是 `[console.assert()](https://developer.mozilla.org/en-US/docs/Web/API/Console/assert)`。就像标准的 console.log() 方法一样，它可以采用无数个参数，不同的是它的第一个参数需要是布尔值。如果它解析为 true，则断言不会被 log，否则，它会将错误和传入的参数在控制台中 log 出来（与 .error（）方法相同）。
 
 ```
 console.assert(true, "This won't be logged!");
@@ -145,7 +145,7 @@ console.countReset();
 console.count(); // default: 1
 ```
 
-就个人而言，我没有看到很多对这个特殊功能的运用，但这样的方法存在总是好的。也许只是我的一己之见······
+就个人而言，我没有看到很多对这个特殊功能的运用，但这样的方法存在总是好的。也许只是我的一己之见...
 
 ## Tables
 
