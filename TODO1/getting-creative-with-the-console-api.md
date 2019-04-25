@@ -2,8 +2,8 @@
 > * 原文作者：[Areknawo](https://areknawo.com/author/areknawo/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/getting-creative-with-the-console-api.md](https://github.com/xitu/gold-miner/blob/master/TODO1/getting-creative-with-the-console-api.md)
-> * 译者：
-> * 校对者：
+> * 译者：[wznonstop](https://github.com/wznonstop)
+> * 校对者：[Tammy-Liu](https://github.com/Tammy-Liu), [ezioyuan](https://github.com/ezioyuan)
 
 # 创意运用 Console API ！
 
