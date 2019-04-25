@@ -16,21 +16,21 @@
 
 ## `figure`  元素
 
-通常  `figure`  元素被认为用来包裹图像或图表，它还可以承载文档主要内容中引用的但不是冗余信息的任何内容(代码片段、引用、音频、视频等)。 `figure`  能够从文档流中完全删除，而不会损害浏览器对主要内容的解析。
+通常  `figure`  元素被认为用来包裹图或图表，它还可以承载文档主要内容中引用的但不是冗余信息的任何内容(代码片段、引用、音频、视频等)。在文档流中可以把 `figure`  完全删除，而不会影响用户对主要内容的理解。
 
-例如，描述 unladen Swallow 空中飞行速度的文档可能有一节解释南非燕子和欧洲燕子之间的差异。伴随这些内容的可能是一个 `figure` 标签，并排展示了这两种鸟类的差异，以补充文件中描述的信息。
+例如，描述 unladen Swallow 空速的文档，可能有一节描述南非燕子和欧洲燕子之间的差异。伴随文本内容的可能是一个 `figure` 标签，并排展示了这两种鸟类的差异，以补充文档中描述的信息。
 
 ![一篇文章的截图，使用与主要内容错开的图像来表示南非燕子和欧洲燕子之间的视觉差异。图片的文字说明左边是南非燕子，右边是欧洲燕子。](https://scottohara.me/assets/img/articles/swallow-figure.jpg)
 
-在这个例子中，`figure` 和 `figcaption` 起到了引用前文的内容的作用。如果去掉它们，所有的文本信息仍然能起到 `figure` 的作用。
+在这个基本的例子中，`figure` 和 `figcaption` 起到了引用前文内容的作用。如果去掉它们，目前为止所有的文本信息依然起到了 `figure` 的作用。
 
-[图片资源(2003)](http://style.org/unladenswallow/)。
+[图片源(2003)](http://style.org/unladenswallow/)。
 
-在 `figure`  中可以使用或者不使用  `figcaption`。但是，不使用 `figcaption`，或者不提供其他语义化的属性（比如  `aria-label`），单独使用  `figure`  并不能准确表达其语义。在某些情况下，如果所给的属性无语义，则可能根本表达不出任何语义。
+使用 `figure`  时可以加上或不加  `figcaption` 属性。但是，不加 `figcaption` 属性，或者不提供其他可访问的属性（比如  `aria-label`），单独使用  `figure`  在表达其语义上价值不大。在某些情况下，如果没有给定可访问的属性，可能表达不出任何语义。
 
 ## `figcaption`  元素
 
- `figcaption` 为  `figure` 所包含的内容提供标题或摘要。如果在 `figure` 上不使用 `aria-label` 或 `aria-labelledby` 属性，`figcaption` 应该成为 `figure` 元素的语义化属性。
+`figcaption` 为  `figure` 所含的内容提供标题或摘要。如果在 `figure` 上不使用 `aria-label` 或 `aria-labelledby` 属性，`figcaption` 会成为 `figure` 元素的可访问属性。
 
  `figcaption` 可以放在 `figure` 的主要内容之前或之后，但是它必须是 `figure` 元素的直接子元素。
 
@@ -75,7 +75,7 @@
 </figure>
 ```
 
- `figcaption` 可能包含  [流式内容](https://html.spec.whatwg.org/multipage/dom.html#flow-content-2)，它将大多数允许作为  `body`  元素的子元素进行分类。但是，由于  `figcaption`  元素的作用是为 `figure` 的内容提供标题，所以通常更倾向于使用简洁的描述性文本。 `figcaption` 不应该重复 `figure` 的内容，或者主文档中的其他内容。
+ `figcaption` 可能包含 [流式内容](https://html.spec.whatwg.org/multipage/dom.html#flow-content-2)，它将大多数允许作为  `body`  元素的子元素进行分类。但是，由于  `figcaption`  元素的作用是为 `figure` 的内容提供标题，所以通常更倾向于使用简洁的描述性文本。 `figcaption` 不应该重复 `figure` 的内容，或者重复主文档中的其他内容。
 
 ### `figcaption` 不能代替 `alt`  文本
 
