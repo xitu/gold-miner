@@ -2,14 +2,14 @@
 > * 原文作者：[David Yu](https://medium.com/@davidyu_44356)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-i-wish-i-knew-when-i-started-to-work-with-react-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-i-wish-i-knew-when-i-started-to-work-with-react-js.md)
-> * 译者：[xionglong58](thhps://github.com/xionglong58)
+> * 译者：[xionglong58](https://github.com/xionglong58)
 > * 校对者：
 
 # 我多希望在我学习 React.js 之前就已经知晓这些小窍门
 
 ![Photo by [Ben White](https://unsplash.com/@benwhitephotography?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10432/0*nrQ5vVSdulAG3LFO)
 
-自从 2013 年 5 月 29 日发布初始版本以来，React.js 迅速抢占互联网。很明显，包括我在内的很多开发者从这一神奇的架构中取得成效。
+自从 2013 年 5 月 29 日发布初始版本以来，React.js 迅速抢占互联网。很明显，包括我在内的很多开发者都从这一神奇的架构中取得成效。
 
 在 Medium 中有很多关于 React.js 的教程，我真希望在我学习 React.js 的时候，其中能有一篇能告诉我下面所列的一些小窍门。
 
@@ -41,7 +41,7 @@ class Foo extends React.Component{
 
 你之所以会针对每一个方法使用 `.bind(this)`，是因为大多数教程告诉你得那样做。当你有很多受控组件的时候，你的 `constructor(){}`将会显得特别臃肿。
 
-### 其实，你可以这样做:
+### 其实，你可以这样做：
 
 ```
 class Foo extends React.Component{
@@ -80,7 +80,7 @@ service worker 有利于[渐进式 web 应用](https://developers.google.com/web
 serviceWorker.unregister();
 ```
 
-从 React.js 的 16.8 版开始，上面一行默认就是 `serverWorker.unregister()` 。
+从 React.js 的 16.8 版开始，上面一行默认就是 `serverWorker.unregister()`。
 
 但是，如果以后版本有变化，你得知道在哪儿进行修改。
 
@@ -88,7 +88,7 @@ serviceWorker.unregister();
 
 [Create React App](https://github.com/facebook/create-react-app) 提供一个命令 `yarn eject`，使得你能够个性化项目的构建过程。
 
-还记得我曾为了在代码中自动内嵌 SVG 图片而尝试去自己配置构建过程。我花了大量的时间去了解整个构建过程。最终我们得到了一个导入文件，它注入了 SVG 标签，并将站点的加载速度提高了 0.0001 毫秒。
+还记得我曾为了在代码中自动内嵌 SVG 图片而尝试去自己配置构建过程。我花了大量的时间去了解整个构建过程。最终我们得到了一个导入文件，它注入了 SVG 标签，并将站点的加载速度只提高了 0.0001 毫秒。
 
 eject 你的 React 项目就像是打开运行中汽车的引擎盖，并在行驶中更换引擎一样。
 
@@ -96,7 +96,7 @@ eject 你的 React 项目就像是打开运行中汽车的引擎盖，并在行�
 
 如果你想按时完成任务，那就把精力全部集中在能够推动你前进的地方。
 
-## ESlint Auto Fix On Save 会节省很多时间
+## ESlint 的 Auto Fix On Save 会让你节省很多时间
 
 你可能也曾从某些地方拷贝过格式混乱的代码。由于无法接受它“丑陋”的格式，你不得不花时间手动加一些空格啥的。
 
@@ -106,7 +106,7 @@ eject 你的 React 项目就像是打开运行中汽车的引擎盖，并在行�
 
 ![](https://cdn-images-1.medium.com/max/3840/1*OeKL1AqAkouPQ4I3NdKRbw.gif)
 
-### 咋样？
+### 如何进行设置呢？
 
  1. 在你的 `package.json` 文件中添加一些 dev dependencies 并执行命令 `npm i` 或 `yarn`：
 
@@ -152,7 +152,7 @@ eject 你的 React 项目就像是打开运行中汽车的引擎盖，并在行�
 
 当 React 有 [Context](https://reactjs.org/docs/context.html) 和 [Hooks](https://reactjs.org/docs/hooks-intro.html) 时, 你真的还需要 Redux 吗？
 
-当你的用户处于糟糕的网络环境时，我特别推荐你使用 [Redux Offline](https://github.com/redux-offline/redux-offline)。
+当你的用户处于糟糕的网络环境时，我尤其推荐你使用 [Redux Offline](https://github.com/redux-offline/redux-offline)。
 
 ## 重用事件处理器
 
@@ -195,7 +195,7 @@ class App extends Component {
 
 ## setState 方法是异步的
 
-The naïve me would write something like:
+小白时期的我可能会写下面的程序：
 
 ```
  constructor(props) {
