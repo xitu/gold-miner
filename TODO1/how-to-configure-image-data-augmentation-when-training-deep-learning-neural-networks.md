@@ -2,22 +2,22 @@
 > * 原文作者：[Jason Brownlee](https://machinelearningmastery.com/author/jasonb/ "Posts by Jason Brownlee") 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-configure-image-data-augmentation-when-training-deep-learning-neural-networks.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-configure-image-data-augmentation-when-training-deep-learning-neural-networks.md)
-> * 译者：
+> * 译者：ccJia
 > * 校对者：         
 
 # 在深度学习训练过程中如何设置数据增强？
 
-图像数据增强是人工增加训练样本集的一种方式，主要是通过修改图片达成。
+图像数据增强是人工增加训练集的一种方式，主要是通过修改图片达成。
 
-更多的训练数据带来的是更有效的深度学习模型，同时，数据增强技术会产生更多的图片变种，这些变种会提高模型对新图片的泛化能力。
+更多的训练数据带来的是更有效的深度学习模型，同时，数据增强技术会产生更多的图片变体，这些变种会提高模型对新图片的泛化能力。
 
-在Keras框架中，_ImageDataGenerator_ 类提供了数据增强的相关功能。
+在 Keras 框架中，_ImageDataGenerator_ 类提供了数据增强的相关功能。
 
 在本教程中，你将学会如何使用图像数据增强的技术去训练模型。
 
 在完成本教程后，你将明白下面几点：
 *    图像数据增强是为了扩展训练数据集从热提高模型的精度和泛化能力。
-*    在Keras框架中，你可以通过 _ImageDataGenerator_ 类使用图像数据增强方法。
+*    在 Keras 框架中，你可以通过 _ImageDataGenerator_ 类使用图像数据增强方法。
 *    如何使用平移、翻转、亮度以及缩放的数据增强方法。
 
 让我们开始吧。
@@ -293,7 +293,7 @@ pyplot.show()
 
 下面的例子通过控制 _rotation_range_ 参数在 0 到 90 度之间去旋转图片，来展示随机旋转增强的效果。
 
-```
+```python
 # 旋转增强示例
 from numpy import expand_dims
 from keras.preprocessing.image import load_img
@@ -342,7 +342,7 @@ pyplot.show()
 
 下面的例子展示了亮度在 0.2 到 1 之间变化的随机亮度增强的效果。
 
-```
+```python
 # 亮度增强示例
 from numpy import expand_dims
 from keras.preprocessing.image import load_img
@@ -393,7 +393,7 @@ pyplot.show()
 
 下面的例子展示了让图片中目标变大的例子。
 
-```
+```python
 # 尺度缩放增强示例
 from numpy import expand_dims
 from keras.preprocessing.image import load_img
@@ -458,7 +458,7 @@ pyplot.show()
 *    如何使用平移、翻转、亮度和缩放增强方法。
 
 还有别的问题？
-那你可以在下方留言，我会尽我所能回答你的问题。
+请在下方留言，我会尽我所能回答你的问题。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
