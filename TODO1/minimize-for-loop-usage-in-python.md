@@ -75,7 +75,7 @@ Let’s say we wanted a list of squared numbers for even numbers only.
 ```python
 x = [1,2,3,4,5,6,7,8,9]
 even_squared = [y**2 for y in x if y%2==0]
---------------------------------------------
+# output:
 [4,16,36,64]
 ```
 
@@ -86,7 +86,7 @@ What if we wanted to have the number squared for even and cubed for odd?
 ```python
 x = [1,2,3,4,5,6,7,8,9]
 squared_cubed = [y**2 if y%2==0 else y**3 for y in x]
---------------------------------------------
+# output:
 [1, 4, 27, 16, 125, 36, 343, 64, 729]
 ```
 
@@ -110,7 +110,7 @@ In such cases, I prefer to use **enumerate** rather than indexing the list.
 L = ['blue', 'yellow', 'orange']
 for i, val in enumerate(L):
     print("index is %d and value is %s" % (i, val))
----------------------------------------------------------------
+# output:
 index is 0 and value is blue
 index is 1 and value is yellow
 index is 2 and value is orange
@@ -129,7 +129,7 @@ Let me explain using an example. I want to get a dictionary with (key: squared v
 ```python
 x = [1,2,3,4,5,6,7,8,9]
 {k:k**2 for k in x}
----------------------------------------------------------
+# output:
 {1: 1, 2: 4, 3: 9, 4: 16, 5: 25, 6: 36, 7: 49, 8: 64, 9: 81}
 ```
 
@@ -138,7 +138,7 @@ What if I want a dict only for even values?
 ```python
 x = [1,2,3,4,5,6,7,8,9]
 {k:k**2 for k in x if x%2==0}
----------------------------------------------------------
+# output:
 {2: 4, 4: 16, 6: 36, 8: 64}
 ```
 
@@ -147,7 +147,7 @@ What if we want squared value for even key and cubed number for the odd key?
 ```python
 x = [1,2,3,4,5,6,7,8,9]
 {k:k**2 if k%2==0 else k**3 for k in x}
----------------------------------------------------------
+# output:
 {1: 1, 2: 4, 3: 27, 4: 16, 5: 125, 6: 36, 7: 343, 8: 64, 9: 729}
 ```
 
