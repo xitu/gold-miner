@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/improving-app-performance-with-art-optimizing-profiles-in-the-cloud.md](https://github.com/xitu/gold-miner/blob/master/TODO1/improving-app-performance-with-art-optimizing-profiles-in-the-cloud.md)
 > * 译者：[nanjingboy](https://github.com/nanjingboy)
-> * 校对者：
+> * 校对者：[phxnirvana](https://github.com/phxnirvana)、[qiuyuezhong](https://github.com/qiuyuezhong)
 
 # 通过 Play Cloud 的 ART 优化配置提升应用性能
 
