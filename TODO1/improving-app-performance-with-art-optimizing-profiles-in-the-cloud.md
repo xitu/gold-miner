@@ -7,13 +7,13 @@
 
 # 通过 Play Cloud 的 ART 优化配置提升应用性能
 
-在 Android Pie 中，我们在 **[Play Cloud 中推出了 ART 优化配置](https://youtu.be/Yi9-BqUxsno?list=PLWz5rJ2EKKc9Gq6FEnSXClhYkWAStbwlC&t=985)**，这是一项新的优化特性，它大大提高了新安装或更新应用后的启动时间。平均而言，在不同设备上，我们观测到应用启动时间减少了 15%（冷启动）。一些明星案例甚至减少了 30% 以上。这其中最重要的一点是用户可以免费使用该服务，而无需用户或开发者的任何额外操作！
+在 Android Pie 中，我们在 **[Play Cloud 中推出了 ART 优化配置](https://youtu.be/Yi9-BqUxsno?list=PLWz5rJ2EKKc9Gq6FEnSXClhYkWAStbwlC&t=985)**，这是一项新的优化特性，它大大提高了新安装或更新应用后的启动时间。平均而言，在不同设备上，我们观测到应用启动时间减少了 15%（冷启动）。一些明星案例甚至减少了 30% 以上。这其中最重要的一点是用户可以免费使用该特性，而无需用户或开发者的任何额外操作！
 
 ![来源：Google 内部数据](https://2.bp.blogspot.com/-J__2yBAq9SA/XJ6pHDtWtJI/AAAAAAAAHXw/xOQySRneEdQcfgIMXRsZVErzXN1y9yJgwCLcBGAs/s1600/image3.png)
 
 ## Play Cloud 的 ART 优化配置
 
-该特性建立在由 [Android 7.0 Nougat](https://www.youtube.com/watch?v=fwMM6g7wpQ8) 引入的 [Profile Guided Optimization](https://source.android.com/devices/tech/dalvik/jit-compiler)（PGO）基础之上。PGO 允许 Android 运行时通过构建应用中热门代码的配置，并集中优化配置来提升应用性能。这可以带来巨大的改进，同时减少完全编译的应用在传统内存及存储上的影响。然而，它依赖于设备在空闲维护模式下根据这些代码配置来优化应用，这意味着用户可能需要几天时间才能看到这些好处 — 这是我们旨在改进的。
+该特性建立在由 [Android 7.0 Nougat](https://www.youtube.com/watch?v=fwMM6g7wpQ8) 引入的 [Profile Guided Optimization](https://source.android.com/devices/tech/dalvik/jit-compiler)（PGO）基础之上。PGO 允许 Android Runtime 通过构建应用中热门代码的配置，并集中优化配置来提升应用性能。这可以带来巨大的改进，同时减少完全编译的应用在传统内存及存储上的影响。然而，它依赖于设备在空闲维护模式下根据这些代码配置来优化应用，这意味着用户可能需要几天时间才能看到这些好处 — 这是我们旨在改进的。
 
 ![来源：Google 内部数据](https://2.bp.blogspot.com/-6_ScCr79y7g/XJ6pSVfm7zI/AAAAAAAAHX0/PCTBWrbT4e87__cjtS07gE7eZetNvnQ-QCLcBGAs/s1600/image1.png)
 
@@ -21,18 +21,18 @@
 
 这个想法依赖于两个关键的观测结果：
 
-1. 应用通常在众多用户和设备之间具有许多常用的代码路径（热门代码），例如在启动或关键用户路径期间使用类。这通常可以通过聚合几百个数据点来发现。
+1. 应用通常在众多用户和设备之间具有许多常用的代码路径（热门代码），例如在启动或关键用户路径期间使用的类。这通常可以通过聚合几百个数据点来发现。
 2. 应用开发者通常会逐步推出他们的应用，从 [alpha/beta 渠道](https://support.google.com/googleplay/android-developer/answer/3131213?hl=en)开始，然后扩展到更广泛的受众。即使没有 alpha / beta 设置，用户通常也会将应用升级到新版本。
 
 这意味着我们可以使用应用的首次部署来引导其他用户的性能。ART 分析应用代码的哪些部分值得在初始设备上进行优化，然后将数据上传到 Play Cloud，后者将构建核心聚合代码配置文件（包含与所有设备相关的信息）。一旦有足够的信息，代码配置就会发布并与应用的 APK 一起安装。
 
-在设备上代码配置作为种子，在安装时实现有效的配置来引导优化。这些优化有助于改善[冷启动时间](https://developer.android.com/topic/performance/vitals/launch-time#cold)以及稳定性能状态，所有这些都无需 app 开发者编写代码。
+在设备上代码配置作为种子，在安装时实现有效的配置来引导优化。这些优化有助于改善[冷启动时间](https://developer.android.com/topic/performance/vitals/launch-time#cold)以及稳定性能状态，所有这些都无需 app 开发者编写任何代码。
 
 ![](https://4.bp.blogspot.com/-YZvK3UU7D20/XJ6pZ21iv4I/AAAAAAAAHX8/9dOUqVkAqAwpS7cLu4GBUxS1NbjhOQQ3gCLcBGAs/s1600/image4.png)
 
 ### 第一步：构建代码配置
 
-其中一个主要目标是尽可能快地从聚合及匿名数据中构建高质量、稳定的代码配置（以最大限度地增加可受益的用户数量），同时也需要确保我们有足够的数据来正确地优化应用的性能。过多的样本在安装时会占用更多带宽和时间。此外，我们构建代码配置的时间越长，获得好处的用户就越少。过少的样本，代码配置将没有足够的信息来确定适合优化的内容来产生影响。
+其中一个主要目标是尽可能快地从聚合及匿名数据中构建高质量、稳定的代码配置（以最大限度地增加可受益的用户数量），同时也需要确保我们有足够的数据来正确地优化应用的性能。采样过多的数据在安装时会占用更多带宽和时间。此外，我们构建代码配置的时间越长，获得好处的用户就越少。采样过少的数据，代码配置将没有足够的信息来确定适合优化的内容。
 
 聚合的结果是我们所说的核心代码配置，它只包含有关每个设备随机会话样本中经常出现的代码的匿名数据。我们移除异常值以确保我们专注于对大多数用户而言十分重要的代码。
 
@@ -42,9 +42,9 @@
 
 ### 第二步：安装代码配置
 
-在 Android 9.0 Pie 中，我们引入了一种新型安装工件：dex 元数据文件。类似于 APK，dex 元数据文件是常规的存档文件，它包含如何优化 APK 的数据 — 就像在 cloud 中构建的代码核心配置一样。它们之间一个关键的区别是 dex 元数据仅由平台和应用商店管理，并且对开发者来说是不可直接查看的。
+在 Android 9.0 Pie 中，我们引入了一种新型安装工件：dex 元数据文件。类似于 APK，dex 元数据文件是常规的存档文件，它包含如何优化 APK 的数据 — 就像在 cloud 中构建的代码核心配置一样。它们之间一个关键的区别是 dex 元数据仅由平台和应用商店管理，并且对开发者来说是不直接可见。
 
-还有对 [App Bundles / Google Play 动态分发](https://developer.android.com/platform/technology/app-bundle/)的内在支持：无需任何开发者干预，所有应用的功能拆分都经过优化。
+还有对 [App Bundles / Google Play 动态分发](https://developer.android.com/platform/technology/app-bundle/)的内建支持：无需任何开发者干预，所有应用的功能拆分都经过优化。
 
 ![](https://2.bp.blogspot.com/-mBErPA5xD0w/XJ6ppc6ye7I/AAAAAAAAHYE/kP_xVzVtdjY3Grrr7fHM3Oznde-s7a4jwCLcBGAs/s1600/image6.png)
 
@@ -68,7 +68,7 @@
 
 * **更高效的 dex 布局**：我们根据配置抛出的方法信息重新组织 dex 字节码。dex 字节码布局如下所示：\[启动代码、启动后的代码、其余非配置代码\]。
 
-  * 这样做的好处是可以更高效地将 dex 字节码加载到内存中：内存页具有更好的占用率，且由于所有内容都在一起，因此我们需要更少的负载，我们可以做更少的 I/O。
+  * 这样做的好处是可以更高效地将 dex 字节码加载到内存中：内存页具有更好的占用率，且由于所有内容都在一起，因此我们需要加载的更少，我们可以做更少的 I/O。
 
 ### 改进和统计
 
@@ -77,7 +77,7 @@
 * 已超过 30,000 个应用有所改进
 * 平均而言，冷启动在各种设备上的速度提高了 15%
 
-  * 许多顶级应用在所选设备上获得了 20%+（比如 Youtube）甚至 30%（比如 Google 搜索）的提升。
+  * 许多排名靠前的应用在所选设备上获得了 20%+（比如 Youtube）甚至 30%（比如 Google 搜索）的提升。
 
 * 在 Android Pie 上安装的应用中有 90% 以上获得了优化
 * 额外优化的安装时间几乎没有增加
@@ -87,7 +87,7 @@
 
 ![来源：Google 内部数据](https://1.bp.blogspot.com/-179Ds6kuco4/XJ6pxOk4_oI/AAAAAAAAHYQ/WdjbULWQ9ZkaPjzBQKlkawPNU_xLnF4fgCLcBGAs/s1600/image2.png)
 
-为什么这是一个十分重要的统计？这意味着运行时没有看到太多的应用代码，因此没有对代码进行优化。虽然有很多代码不会被执行的例子（比如错误处理或向后兼容性代码），但这也可能是由于未使用的功能或不必要的代码所造成的。倾斜分布是一个强烈的信号，它表明后者可以在进一步优化中发挥重要作用（比如通过删除不需要的 dex 字节码来减少 APK 大小）。
+为什么这是一个十分重要的统计？这意味着 Runtime 没有看到太多的应用代码，因此没有对代码进行优化。虽然有很多代码不会被执行的例子（比如错误处理或向后兼容性代码），但这也可能是由于未使用的功能或不必要的代码所造成的。倾斜分布是一个强烈的信号，它表明后者可以在进一步优化中发挥重要作用（比如通过删除不需要的 dex 字节码来减少 APK 大小）。
 
 ### 未来发展
 
