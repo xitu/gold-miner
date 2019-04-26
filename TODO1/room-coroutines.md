@@ -184,7 +184,7 @@ CoroutinesRoom.execute 实现
 
 现在就开始在你的 app 中使用 Room 和协程吧，保证数据库的操作在一个非 UI 分发器上执行。在 DAO 方法上添加 `suspend` 修饰符并在其他 supend 方法或者协程中调用。
 
-感谢 [Chris Banes](https://medium.com/@chrisbanes?source=post_page) 和 [Jose Alcérreca](https://medium.com/@JoseAlcerreca?source=post_page).
+感谢 [Chris Banes](https://medium.com/@chrisbanes?source=post_page) 和 [Jose Alcérreca](https://medium.com/@JoseAlcerreca?source=post_page)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
