@@ -5,7 +5,7 @@
 > * 译者：[Hyde Song](<https://github.com/HydeSong>)
 > * 校对者：
 
-# [译] 你认为”figure“怎么用？
+# [译] 你认为“figure”怎么用？
 
 作为 HTML5 新引入的元素，`figure` 和 `figtitle` 元素是为了创建有意义的标记结构:
 
@@ -79,7 +79,7 @@
 
 ### `figcaption` 不能代替 `alt` 文本
 
-对于 `figure` 中使用的图像，使用 `figcaption` 时最大的误解之一是它用于替代图像 `alt` 文本。[HTML 5.2](https://www.w3.org/TR/html52/semantics-embedded-content.html#when-a-text-alternative-is-not-available-at-the-time-of-publication) 中规定，这种做法是只有当作者没有为图片提供适当的 `alt` 文本时，力求传递有意义信息的最后的"杀手锏"。
+对于 `figure` 中使用的图像，使用 `figcaption` 时最大的误解之一是它用于替代图像 `alt` 文本。[HTML 5.2](https://www.w3.org/TR/html52/semantics-embedded-content.html#when-a-text-alternative-is-not-available-at-the-time-of-publication) 中规定，这种做法是只有当作者没有为图片提供适当的 `alt` 文本时，力求传递有意义信息的最后的“杀手锏”。
 
 一段来自 HTML 5.2 的说明：
 
@@ -144,8 +144,6 @@ Chrome 和 Firefox 提供了类似的支持，但是如果一个图片有一个�
 ### NVDA 屏幕阅读器
 
 在使用 IE11、Edge、Firefox 64.0.2 和 Chrome 71 测试 NVDA 2018.4.1 版本时，没有发现任何 figure。最接近的迹象是 NVDA + IE11 在声明图片或 `figcaption` 内容之前声明 “edit”（不过 “edit” 没有任何意义…...）。测试 `role="figure"` 模式并没有改变缺少声明的情况。figure 的内容仍然可以访问，但是不会表现内容和标题之间的关系。
-
-在使用 IE11、Edge、Firefox 64.0.2 和 Chrome 71 测试 NVDA 2018.4.1 版本时，没有发现任何 `figure` 的踪影。最接近的迹象是 NVDA + IE11 在发布图片或”figtitle“内容之前宣布“edit”(不过”edit“没有任何意义)。使用 `role="figure"` 测试模式并没有改变缺少公告的情况。`figure` 的内容仍然可以访问，但是不会表达内容和标题之间的关系。
 
 ### VoiceOver（macOS）
 
