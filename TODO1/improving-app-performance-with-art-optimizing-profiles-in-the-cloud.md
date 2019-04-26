@@ -2,91 +2,94 @@
 > * 原文作者：[Calin Juravle](https://android-developers.googleblog.com/2019/04/improving-app-performance-with-art.html)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/improving-app-performance-with-art-optimizing-profiles-in-the-cloud.md](https://github.com/xitu/gold-miner/blob/master/TODO1/improving-app-performance-with-art-optimizing-profiles-in-the-cloud.md)
-> * 译者：
-> * 校对者：
+> * 译者：[nanjingboy](https://github.com/nanjingboy)
+> * 校对者：[phxnirvana](https://github.com/phxnirvana), [qiuyuezhong](https://github.com/qiuyuezhong)
 
-# Improving app performance with ART optimizing profiles in the cloud
+# 通过 Play Cloud 的 ART 优化配置提升应用性能
 
-In Android Pie we launched _[ART optimizing profiles in Play Cloud](https://youtu.be/Yi9-BqUxsno?list=PLWz5rJ2EKKc9Gq6FEnSXClhYkWAStbwlC&t=985),_ a new optimization feature that greatly improves the application startup time after a new install or update. On average, we have observed that apps start 15% faster (cold startup) across a variety of devices. Some hero cases even show 30%+ faster startup times. One of the most important aspects is that users get this for free, without any effort from their side or from developers!
+在 Android Pie 中，我们在 **[Play Cloud 中推出了 ART 优化配置](https://youtu.be/Yi9-BqUxsno?list=PLWz5rJ2EKKc9Gq6FEnSXClhYkWAStbwlC&t=985)**，这是一项新的优化特性，它大大提高了新安装或更新应用后的启动时间。平均而言，在不同设备上，我们观测到应用启动时间减少了 15%（冷启动）。一些明星案例甚至减少了 30% 以上。这其中最重要的一点是用户可以免费使用该特性，而无需用户或开发者的任何额外操作！
 
-![Source: Google internal data](https://2.bp.blogspot.com/-J__2yBAq9SA/XJ6pHDtWtJI/AAAAAAAAHXw/xOQySRneEdQcfgIMXRsZVErzXN1y9yJgwCLcBGAs/s1600/image3.png)
+![来源：Google 内部数据](https://2.bp.blogspot.com/-J__2yBAq9SA/XJ6pHDtWtJI/AAAAAAAAHXw/xOQySRneEdQcfgIMXRsZVErzXN1y9yJgwCLcBGAs/s1600/image3.png)
 
-## ART optimizing profiles in Play Cloud
+## Play Cloud 的 ART 优化配置
 
-The feature builds on previous [Profile Guided Optimization](https://source.android.com/devices/tech/dalvik/jit-compiler) (PGO) work, which was introduced in [Android 7.0 Nougat](https://www.youtube.com/watch?v=fwMM6g7wpQ8). PGO allows the Android Runtime to help improve an app's performance by building a profile of the app's most important hot code and focusing its optimization effort on it. This leads to big improvements while reducing the traditional memory and storage impact of a fully compiled app. However, it relies on the device to optimize apps based on these code profiles in idle maintenance mode, which means it could be a few days before a user sees the benefits - something we aimed to improve.
+该特性建立在由 [Android 7.0 Nougat](https://www.youtube.com/watch?v=fwMM6g7wpQ8) 引入的 [Profile Guided Optimization](https://source.android.com/devices/tech/dalvik/jit-compiler)（PGO）基础之上。PGO 允许 Android Runtime 通过构建应用中热门代码的配置，并集中优化配置来提升应用性能。这可以带来巨大的改进，同时减少完全编译的应用在传统内存及存储上的影响。然而，它依赖于设备在空闲维护模式下根据这些代码配置来优化应用，这意味着用户可能需要几天时间才能看到这些好处 — 这是我们旨在改进的。
 
-![Source: Google internal data](https://2.bp.blogspot.com/-6_ScCr79y7g/XJ6pSVfm7zI/AAAAAAAAHX0/PCTBWrbT4e87__cjtS07gE7eZetNvnQ-QCLcBGAs/s1600/image1.png)
+![来源：Google 内部数据](https://2.bp.blogspot.com/-6_ScCr79y7g/XJ6pSVfm7zI/AAAAAAAAHX0/PCTBWrbT4e87__cjtS07gE7eZetNvnQ-QCLcBGAs/s1600/image1.png)
 
-_ART optimizing profiles in Play Cloud_ leverages the power of Android Play to bring all PGO benefits at install/update time: most users can get great performance without waiting!
+**Play Cloud 的 ART 优化配置**利用 Android Play 的强大功能，在安装/更新时带来所有的 PGO 好处：大多数用户无需等待即可获得出色的性能！
 
-The idea relies on two key observations:
+这个想法依赖于两个关键的观测结果：
 
-1.  Apps usually have many commonly used code paths (hot code) between a multitude of users and devices, e.g. classes used during startup or critical user paths. This can often be discovered by aggregating a few hundred data points.
-2.  App developers often roll-out their apps incrementally, starting with [alpha/beta channels]( https://support.google.com/googleplay/android-developer/answer/3131213?hl=en) before expanding to a wider audience. Even if there isn't an alpha/beta set, there is often a ramp-up of users to a new version of an app.
+1. 应用通常在众多用户和设备之间具有许多常用的代码路径（热门代码），例如在启动或关键用户路径期间使用的类。这通常可以通过聚合几百个数据点来发现。
+2. 应用开发者通常会逐步推出他们的应用，从 [alpha/beta 渠道](https://support.google.com/googleplay/android-developer/answer/3131213?hl=en)开始，然后扩展到更广泛的受众。即使没有 alpha/beta 设置，用户通常也会将应用升级到新版本。
 
-This means we can use the initial rollout of an app to bootstrap the performance for the rest of users. ART analyzes what part of the application code is worth optimizing on the initial devices, and then uploads the data to Play Cloud, which will build a core-aggregated code profile (containing information relevant to all devices). Once there is enough information, the code profile gets published and installed alongside the app's APKs.  
+这意味着我们可以使用应用的首次部署来引导其他用户的性能。ART 分析应用代码的哪些部分值得在初始设备上进行优化，然后将数据上传到 Play Cloud，后者将构建核心聚合代码配置文件（包含与所有设备相关的信息）。一旦有足够的信息，代码配置就会发布并与应用的 APK 一起安装。
 
-On a device, the code profile acts as a seed, enabling efficient profile-guided optimization at install time. These optimizations help improve [cold startup time](https://developer.android.com/topic/performance/vitals/launch-time#cold) and steady state performance, all without an app developer needing to write a single line of code.
+在设备上代码配置作为种子，在安装时实现有效的配置来引导优化。这些优化有助于改善[冷启动时间](https://developer.android.com/topic/performance/vitals/launch-time#cold)以及稳定性能状态，所有这些都无需 app 开发者编写任何代码。
 
 ![](https://4.bp.blogspot.com/-YZvK3UU7D20/XJ6pZ21iv4I/AAAAAAAAHX8/9dOUqVkAqAwpS7cLu4GBUxS1NbjhOQQ3gCLcBGAs/s1600/image4.png)
 
-### Step 1: Building the code profile
+### 第一步：构建代码配置
 
-One of the main goals is to build a quality, stable code profile out of aggregated & anonymized data as fast as possible (to maximize the number of users that can benefit), while also making sure we have enough data to accurately optimize an app's performance. Sampling too much data takes up more bandwidth and time at installation. In addition, the longer we take to build the code profile, the fewer users get the benefits. Sampling too little data, and the code profile won't have enough information on what to properly optimize in order to make a difference.
+其中一个主要目标是尽可能快地从聚合及匿名数据中构建高质量、稳定的代码配置（以最大限度地增加可受益的用户数量），同时也需要确保我们有足够的数据来正确地优化应用的性能。采样过多的数据在安装时会占用更多带宽和时间。此外，我们构建代码配置的时间越长，获得好处的用户就越少。采样过少的数据，代码配置将没有足够的信息来确定适合优化的内容。
 
-The outcome of the aggregation is what we call a core code profile, which only contains anonymous data about the code that is frequently seen across a random sample of sessions per device. We remove outliers to ensure we focus on the code that matters for most users.
+聚合的结果是我们所说的核心代码配置，它只包含有关每个设备随机会话样本中经常出现的代码的匿名数据。我们移除异常值以确保我们专注于对大多数用户而言十分重要的代码。
 
-Experiments show that the most commonly used code paths can be calculated very quickly, over a small amount of time. That means we are able to build a code profile fast enough that the majority of users will benefit from.
+实验表明，在很短的时间内，最常用的代码路径可以非常快地被计算出来。这意味着我们可以有足够快的速度构建代码配置，以使大多数用户受益。
 
-![*Data averaged from Google apps, Source: Google internal data](https://4.bp.blogspot.com/-ExYg7hPhU8E/XJ6pf1CSfRI/AAAAAAAAHYA/P-1tN7ehCoseEnK_lgHvfieX6bZmgh1XACLcBGAs/s1600/image5.png)
+![来自 Google 应用的平均数据，来源：Google 内部数据](https://4.bp.blogspot.com/-ExYg7hPhU8E/XJ6pf1CSfRI/AAAAAAAAHYA/P-1tN7ehCoseEnK_lgHvfieX6bZmgh1XACLcBGAs/s1600/image5.png)
 
-### Step 2: Installing the code profile
+### 第二步：安装代码配置
 
-In Android 9.0 Pie, we introduced a new type of installation artifact: dex metadata files. Similar to the APKs, the dex metadata files are regular archives that contain data about how the APK should be optimized - like the core code profiles that have been built in the cloud. A key difference is that the dex metadata are managed solely by the platform and the app stores, and are not directly visible to developers.
+在 Android 9.0 Pie 中，我们引入了一种新型安装工件：dex 元数据文件。类似于 APK，dex 元数据文件是常规的存档文件，它包含如何优化 APK 的数据 — 就像在 cloud 中构建的代码核心配置一样。它们之间一个关键的区别是 dex 元数据仅由平台和应用商店管理，并且对开发者来说是不直接可见。
 
-There is also built-in support for [App Bundles / Google Play Dynamic Delivery](https://developer.android.com/platform/technology/app-bundle/): without any developer intervention, all the app's feature splits are optimized.
+还有对 [App Bundles / Google Play 动态分发](https://developer.android.com/platform/technology/app-bundle/)的内建支持：无需任何开发者干预，所有应用的功能拆分都经过优化。
 
 ![](https://2.bp.blogspot.com/-mBErPA5xD0w/XJ6ppc6ye7I/AAAAAAAAHYE/kP_xVzVtdjY3Grrr7fHM3Oznde-s7a4jwCLcBGAs/s1600/image6.png)
 
-### Step 3: Using the code profiles to optimize performance
+### 第三步：使用代码配置来优化性能
 
-To understand how these code profiles achieve better performance, we need to look at their structure. Code profiles contain information about:
+要搞明白这些代码配置究竟如何实现更好的性能，我们需要查看它们的结构。代码配置包含以下信息：
 
-*   Classes loaded during startup
-*   Hot methods that the runtime deemed worthy of optimizations
-*   The layout of the code (e.g. code that executes during startup or post-startup)
+* 启动期间加载的类
+* 运行时被认为值得优化的热门方法
+* 代码的布局（比如，在启动或启动后执行的代码）
 
-Using this information, we use a variety of optimization techniques, out of which the following three provide most of the benefits:
+使用这些信息，我们使用了各种优化方法，其中以下三项提供了大部分优势：
 
-*   _[App Images](https://youtu.be/fwMM6g7wpQ8?t=2145):_ We use the start up classes to build a pre-populated heap where the classes are pre-initialized (called an app image). When the application starts, we map the image directly into memory so that all the startup classes are readily available.
-    *   The benefit here is that the app's execution saves cycles since it doesn't need to do the work again, leading to a faster startup time.
+* **[应用映像](https://youtu.be/fwMM6g7wpQ8?t=2145)**：我们使用启动类来创建需要预先填充的堆，其中类已预先初始化（称为应用映像）。当应用启动时，我们将映像直接映射到内存中，以便所有启动类都可以随时使用。
 
-*   _Code pre-compilation:_ We pre-compile all the hot code. When the apps execute, the most important parts of the code are already optimized and ready to be natively executed. The app no longer needs to wait for the JIT compiler to kick in.
-    *   The benefit is that the code is mapped as clean memory (compared to the JIT dirty memory) which improves the overall memory efficiency. The clean memory can be released by the kernel when under memory pressure while the dirty memory cannot, lessening the chances that the kernel will kill the app.
+  * 这样做的好处是应用的执行可以节省周期，因为它无需再次执行，从而可以缩短启动时间。
 
-*   _More efficient dex layout:_ We reorganize the dex bytecode based on method information the profile exposes. The dex bytecode layout will look like: \[startup code, post startup code, the rest of non profiled code\].
-    *   The benefit of doing this is a much higher efficiency of loading the dex byte code in memory: The memory pages have a better occupancy, and since everything is together, we need to load less and we can do less I/O.
+* **代码预编译**：我们预先编译所有热门代码。当应用执行时，代码中最重要的部分已经过优化，可在本地直接执行。应用无需再等待 JIT 编译器启动。
+  * 这样做的好处是代码被映射为干净的内存（与 JIT 的脏内存相比较），这提高了整体的内存的效率。内存压力下内核可以释放干净的内存，而脏内存则不能被释放，这减少了内核杀死应用的可能性。
 
-### Improvements & Observations
+* **更高效的 dex 布局**：我们根据配置抛出的方法信息重新组织 dex 字节码。dex 字节码布局如下所示：\[启动代码、启动后的代码、其余非配置代码\]。
+  * 这样做的好处是可以更高效地将 dex 字节码加载到内存中：内存页具有更好的占用率，且由于所有内容都在一起，因此我们需要加载的更少，我们可以做更少的 I/O。
 
-We rolled out profiles in the cloud to all apps on the playstore at the end of last year.
+### 改进和统计
 
-*   More than 30,000 apps have shown improvement
-*   On average the cold startup is 15% faster across a variety of devices
-    *   with many top apps getting 20%+ (e.g. Youtube) or even 30% (e.g. Google Search) on selected devices.
-*   90%+ of the app installs on Android Pie get profiles
-*   Little increase in install time for the extra optimization
-*   Available to all Pie devices.
+我们在去年年底向 Playstore 上的所有应用推出了 Play Cloud 的配置。
 
-A very interesting observation is that, on average, ART profiles about 20% of the application methods (even less if we count the actual size of the code). For some apps, the profile covers only 2% of the code while for some the number goes up to 60%.
+* 已超过 30,000 个应用有所改进
+* 平均而言，冷启动在各种设备上的速度提高了 15%
 
-![Source: Google internal data](https://1.bp.blogspot.com/-179Ds6kuco4/XJ6pxOk4_oI/AAAAAAAAHYQ/WdjbULWQ9ZkaPjzBQKlkawPNU_xLnF4fgCLcBGAs/s1600/image2.png)
+  * 许多排名靠前的应用在所选设备上获得了 20%+（比如 Youtube）甚至 30%（比如 Google 搜索）的提升。
 
-Why is this an important observation? It means that the runtime has not seen a lot of the application code, and is thus not investing in the code's optimization. While there are a lot of valid use-cases where the code will not be executed (e.g. error handling or backwards compatibility code), this may also be due to unused features or unnecessary code. The skew distribution is a strong signal that the latter could play an important role in further optimizations (e.g. lowering APK size by removing unneeded dex bytecode).
+* 在 Android Pie 上安装的应用中有 90% 以上获得了优化
+* 额外优化的安装时间几乎没有增加
+* 适用于所有 Pie 设备。
 
-### Future Development
+一个非常有趣的观测结果是，平均而言，ART 优化了大约 20% 的应用方法（如果我们计算代码的实际大小，则更少）。而对于另一些应用，配置仅占代码量的 2%，而对于某些应用，该数字则高达 60%。
 
-We're excited about the improvements that ART optimizing profiles has shown, and we'll be growing this concept more in the future. Building a profile of code per app opens opportunities for even more application improvements. Data can be used by developers to improve the app based on what's relevant and important for their end users. Using the information collected in Profiles, code can be re-organized or trimmed for better efficiency. Developers can potentially use App Bundles to split their features based on their use and avoid shipping unnecessary code to their users. We've already seen great improvements in app startup time, and hope to see additional benefits coming from profiles to make developer's lives easier while providing better experiences for our users.
+![来源：Google 内部数据](https://1.bp.blogspot.com/-179Ds6kuco4/XJ6pxOk4_oI/AAAAAAAAHYQ/WdjbULWQ9ZkaPjzBQKlkawPNU_xLnF4fgCLcBGAs/s1600/image2.png)
+
+为什么这是一个十分重要的统计？这意味着 Runtime 没有看到太多的应用代码，因此没有对代码进行优化。虽然有很多代码不会被执行的例子（比如错误处理或向后兼容性代码），但这也可能是由于未使用的功能或不必要的代码所造成的。倾斜分布是一个强烈的信号，它表明后者可以在进一步优化中发挥重要作用（比如通过删除不需要的 dex 字节码来减少 APK 大小）。
+
+### 未来发展
+
+我们为 ART 优化配置所带来的改进感到兴奋，我们将会在未来更多地发展这一概念。构建每个应用的代码配置为更多应用改进提供了机会。开发者可以使用数据，以根据（功能与）终端用户的相关性及重要性来改进应用。使用配置中收集到的信息，可以重新组织或修剪代码，以提高效率。开发者可以使用 App Bundle，根据其使用情况来拆分功能，并避免向用户发送不必要的代码。我们已经看到应用启动时间的巨大改进，并希望看到配置所带来的其他额外好处，使开发者的生活更加轻松，同时为我们的用户提供更好的体验。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
