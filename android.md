@@ -1,3 +1,8 @@
+* [Workmanager 简介](https://juejin.im/post/5ca3463bf265da308939f9b1) ([gs666](https://github.com/gs666) 翻译)
+* [Data Binding 库使用的经验教训](https://juejin.im/post/5cb1a5dfe51d456e831f68eb) ([Mirosalva](https://github.com/Mirosalva) 翻译)
+* [Plaid 应用迁移到 AndroidX 的实践经历](https://juejin.im/post/5cb567cc6fb9a068a17c9728) ([Mirosalva](https://github.com/Mirosalva) 翻译)
+* [Android 生命周期备忘录 — 第三部分：Fragments](https://juejin.im/post/5ca3517a6fb9a05e462b967a) ([Qiuk17](https://github.com/Qiuk17) 翻译)
+* [Android 生命周期备忘录 —— 第四部分：ViewModels、半透明 Activities 及启动模式](https://juejin.im/post/5caeccb2f265da037418674a) ([xiaxiayang](https://github.com/xiaxiayang) 翻译)
 * [在 Android 应用中使用矢量资源](https://juejin.im/post/5c943c97e51d45288201a30c) ([YueYongDev](https://github.com/YueYongDev) 翻译)
 * [MDC-104 Flutter：Material 高级组件（Flutter）](https://juejin.im/post/5c99bcd0f265da60d42900d6) ([DevMcryYu](https://github.com/DevMcryYu) 翻译)
 * [Android 生命周期备忘录 — 第二部分：多 Activity](https://juejin.im/post/5c8e018d51882545ca77d857) ([gs666](https://github.com/gs666) 翻译)

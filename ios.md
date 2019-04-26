@@ -1,3 +1,8 @@
+* [iOS 里的 MVVM 和 RxSwift](https://juejin.im/post/5cb833abf265da03ac0d04d1) ([iWeslie](https://github.com/iWeslie) 翻译)
+* [实用的 MVVM 和 RxSwift](https://juejin.im/post/5cb80f9c6fb9a06876103744) ([iWeslie](https://github.com/iWeslie) 翻译)
+* [Swift 模块中的 API 污染](https://juejin.im/post/5cb80f1f6fb9a0686a224a18) ([iWeslie](https://github.com/iWeslie) 翻译)
+* [懒加载变量在 iOS Swift](https://juejin.im/post/5ca775b26fb9a05e3527db37) ([kirinzer](https://github.com/kirinzer) 翻译)
+* [Swift 5.0 新特性](https://juejin.im/post/5ca41d766fb9a05e6d61ad2b) ([iWeslie](https://github.com/iWeslie) 翻译)
 * [在 swift 中使用 errors 作为控制流](https://juejin.im/post/5c90c0d9f265da612d6335cb) ([swants](https://github.com/swants) 翻译)
 * [iOS：如何构建具有多种 Cell 类型的表视图](https://juejin.im/post/5c89a917e51d457efe07f4f9) ([LoneyIsError](https://github.com/LoneyIsError) 翻译)
 * [如何在 Swift 5 中使用 Result](https://juejin.im/post/5c9586eee51d4536e85c3d60) ([Bruce-pac](https://github.com/Bruce-pac) 翻译)

@@ -27,7 +27,10 @@
 
 <a href="http://www.ituring.com.cn/" target="_blank"><img src="https://i.loli.net/2018/03/21/5ab1c8723d6de.jpg" width="130px;"/></a>
 <a href="https://www.zcfy.cc/" target="_blank"><img src="https://s4.ssl.qhres.com/static/4c3fe1d5645dd9e8.svg" width="240px;" target="_blank"/></a>
-<a href="https://e.coding.net/?utm_source=javascript-tutorial-zh&utm_medium=banner&utm_campaign=march2019" target="_blank"><img src="https://user-images.githubusercontent.com/26959437/55848373-3f26ea80-5b7f-11e9-858c-aed16ac7eb61.png" width="220px;" target="_blank"/></a>
+
+<!--
+<a href="https://coding.net/?utm_source=javascript-tutorial-zh&utm_medium=banner&utm_campaign=march2019" target="_blank"><img src="https://user-images.githubusercontent.com/26959437/56273145-c56aa000-612e-11e9-9137-a1388ef18cf2.png" width="220px;" target="_blank"/></a>
+-->
 
 > 合作事宜请扫描 [二维码](http://oiiyyn1t0.bkt.clouddn.com/wechat-517010193.jpg) 联系管理员
 
