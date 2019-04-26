@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-i-wish-i-knew-when-i-started-to-work-with-react-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-i-wish-i-knew-when-i-started-to-work-with-react-js.md)
 > * 译者：[xionglong58](https://github.com/xionglong58)
-> * 校对者：
+> * 校对者：[xujiujiu](https://github.com/xujiujiu)、[wznonstop](https://github.com/wznonstop)
 
 # 我多希望在我学习 React.js 之前就已经知晓这些小窍门
 
 ![Photo by [Ben White](https://unsplash.com/@benwhitephotography?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10432/0*nrQ5vVSdulAG3LFO)
 
-自从 2013 年 5 月 29 日发布初始版本以来，React.js 迅速抢占互联网。很明显，包括我在内的很多开发者都从这一神奇的架构中取得成效。
+自从 2013 年 5 月 29 日发布初始版本以来，React.js 迅速抢占互联网。很明显，包括我在内的很多开发者都从这一神奇的架构中获益。
 
-在 Medium 中有很多关于 React.js 的教程，我真希望在我学习 React.js 的时候，其中能有一篇能告诉我下面所列的一些小窍门。
+在 Medium 中有很多关于 React.js 的教程，我真希望在初学 React.js 的时候，其中能有一篇能告诉我下面所列的一些小窍门。
 
 ## 使用箭头函数的时候不需要 .bind(this) 操作
 
@@ -67,7 +67,7 @@ ES6 中的箭头函数使用[词法作用域](https://whatis.techtarget.com/defi
 
 ## 当 service worker 阻碍你开发时
 
-service worker 有利于[渐进式 web 应用](https://developers.google.com/web/progressive-web-apps/)，它使得网页能够离线访问，并在用户的网络链接状态差时进行优化。
+service worker 有利于[渐进式 web 应用](https://developers.google.com/web/progressive-web-apps/)，它使得网页能够离线访问，并在用户的网络连接状态差时进行优化。
 
 但是，如果你没有意识到 service worker 在缓存你的静态文件，你会反复尝试进行热替换操作。
 
@@ -76,25 +76,25 @@ service worker 有利于[渐进式 web 应用](https://developers.google.com/web
 莫慌张, 确保你的 `src/index.js` 文件中有以下内容：
 
 ```
-// 确保 service worker 取消注册
+// 确保注销 service worker
 serviceWorker.unregister();
 ```
 
 从 React.js 的 16.8 版开始，上面一行默认就是 `serverWorker.unregister()`。
 
-但是，如果以后版本有变化，你得知道在哪儿进行修改。
+但是，如果以后版本有变化，你也会知道在哪儿进行修改。
 
 ## 99% 的情况下你不需要使用 eject
 
-[Create React App](https://github.com/facebook/create-react-app) 提供一个命令 `yarn eject`，使得你能够个性化项目的构建过程。
+[Create React App](https://github.com/facebook/create-react-app) 提供一个命令 `yarn eject`，使得你能够定制项目的构建过程。
 
-还记得我曾为了在代码中自动内嵌 SVG 图片而尝试去自己配置构建过程。我花了大量的时间去了解整个构建过程。最终我们得到了一个导入文件，它注入了 SVG 标签，并将站点的加载速度只提高了 0.0001 毫秒。
+还记得我曾为了在代码中自动内嵌 SVG 图片而尝试去自己配置构建过程。我花了大量的时间去了解整个构建过程。最终我们得到了一个注入了 SVG 标签的导入文件，并将站点的加载速度只提高了 0.0001 毫秒。
 
 eject 你的 React 项目就像是打开运行中汽车的引擎盖，并在行驶中更换引擎一样。
 
 当然了，如果你是一名 Webpack 大佬，那么为了满足项目的需求而去定制构建过程也是值得的。
 
-如果你想按时完成任务，那就把精力全部集中在能够推动你前进的地方。
+如果你只是想按时完成任务，那就把精力全部集中在能够推动你前进的地方。
 
 ## ESlint 的 Auto Fix On Save 会让你节省很多时间
 
@@ -138,11 +138,11 @@ eject 你的 React 项目就像是打开运行中汽车的引擎盖，并在行�
 
 ## 你并不需要 Redux、styled-components 等库
 
-每种工具都有其用途，了解不同的工具确实是件好事。
+每种工具都有其用途，了解不同的工具也确实是件好事。
 
 > 如果你手里有一把锤子，所有东西看上去都像钉子。—— 亚伯拉罕·马斯洛
 
-使用一些库时你需要考虑其设置(部署)时间，并考虑下面的几个问题：
+使用一些库时你需要考虑引入它们的时间成本，还要考虑下面的几个问题：
 
 * 我将要去解决什么问题？
 
