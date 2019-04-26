@@ -8,6 +8,7 @@
 # Structuring Your iOS App for Split Testing
 
 ![](https://cdn-images-1.medium.com/max/3000/1*WZf4olsps6kCjyVj0PM7JA.jpeg)
+
 > Split testing is a method of determining which variation of an application performs better for a given goal.
 >
 > Multiple variants or behaviors of an application are distributed in a random manner. After statistics gathering and analysis, we determine which version performs better.
@@ -20,11 +21,11 @@ Practical tips and examples are provided in order for this article to stay as a 
 
 Using split testing (also known as an A/B testing), we have endless possibilities for what to test. But in general, we can group the changes needed regarding a split test in the following order:
 
- 1. **Content Changes:** Changing only specific parts in a given view or adding/removing specific content based on the given test.
+1. **Content Changes:** Changing only specific parts in a given view or adding/removing specific content based on the given test.
 
- 2. **Design Changes:** Testing how changes like colors, typography, or layout can affect our users’ behaviors.
+2. **Design Changes:** Testing how changes like colors, typography, or layout can affect our users’ behaviors.
 
- 3. **Behavioral Changes:** Changing the behavior of a button action or a screen presentation depending on the split group
+3. **Behavioral Changes:** Changing the behavior of a button action or a screen presentation depending on the split group
 
 The problem is that in all of these categories, huge code duplications can arise.
 
@@ -247,11 +248,11 @@ override func viewDidAppear(_ animated: Bool) {
 
 While doing split testing, it’s important to always be careful regarding the following points:
 
- 1. Always using **caching** for the test values in order for the app to stay consistent for the user.
+1. Always using **caching** for the test values in order for the app to stay consistent for the user.
 
- 2. **Clean up** the code after one specific test is finished. Remove views, fonts, images, and whatever resources you added in the project for the split test.
+2. **Clean up** the code after one specific test is finished. Remove views, fonts, images, and whatever resources you added in the project for the split test.
 
- 3. Make sure that if something goes wrong you have control over and can **disable** the A/B test.
+3. Make sure that if something goes wrong you have control over and can **disable** the A/B test.
 
 ## In Conclusion
 
