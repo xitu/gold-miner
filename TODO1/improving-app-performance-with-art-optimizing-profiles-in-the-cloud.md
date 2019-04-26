@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/improving-app-performance-with-art-optimizing-profiles-in-the-cloud.md](https://github.com/xitu/gold-miner/blob/master/TODO1/improving-app-performance-with-art-optimizing-profiles-in-the-cloud.md)
 > * 译者：[nanjingboy](https://github.com/nanjingboy)
-> * 校对者：[phxnirvana](https://github.com/phxnirvana)、[qiuyuezhong](https://github.com/qiuyuezhong)
+> * 校对者：[phxnirvana](https://github.com/phxnirvana), [qiuyuezhong](https://github.com/qiuyuezhong)
 
 # 通过 Play Cloud 的 ART 优化配置提升应用性能
 
@@ -22,7 +22,7 @@
 这个想法依赖于两个关键的观测结果：
 
 1. 应用通常在众多用户和设备之间具有许多常用的代码路径（热门代码），例如在启动或关键用户路径期间使用的类。这通常可以通过聚合几百个数据点来发现。
-2. 应用开发者通常会逐步推出他们的应用，从 [alpha/beta 渠道](https://support.google.com/googleplay/android-developer/answer/3131213?hl=en)开始，然后扩展到更广泛的受众。即使没有 alpha / beta 设置，用户通常也会将应用升级到新版本。
+2. 应用开发者通常会逐步推出他们的应用，从 [alpha/beta 渠道](https://support.google.com/googleplay/android-developer/answer/3131213?hl=en)开始，然后扩展到更广泛的受众。即使没有 alpha/beta 设置，用户通常也会将应用升级到新版本。
 
 这意味着我们可以使用应用的首次部署来引导其他用户的性能。ART 分析应用代码的哪些部分值得在初始设备上进行优化，然后将数据上传到 Play Cloud，后者将构建核心聚合代码配置文件（包含与所有设备相关的信息）。一旦有足够的信息，代码配置就会发布并与应用的 APK 一起安装。
 
@@ -38,7 +38,7 @@
 
 实验表明，在很短的时间内，最常用的代码路径可以非常快地被计算出来。这意味着我们可以有足够快的速度构建代码配置，以使大多数用户受益。
 
-![*来自 Google 应用的平均数据，来源: Google 内部数据](https://4.bp.blogspot.com/-ExYg7hPhU8E/XJ6pf1CSfRI/AAAAAAAAHYA/P-1tN7ehCoseEnK_lgHvfieX6bZmgh1XACLcBGAs/s1600/image5.png)
+![来自 Google 应用的平均数据，来源：Google 内部数据](https://4.bp.blogspot.com/-ExYg7hPhU8E/XJ6pf1CSfRI/AAAAAAAAHYA/P-1tN7ehCoseEnK_lgHvfieX6bZmgh1XACLcBGAs/s1600/image5.png)
 
 ### 第二步：安装代码配置
 
@@ -63,11 +63,9 @@
   * 这样做的好处是应用的执行可以节省周期，因为它无需再次执行，从而可以缩短启动时间。
 
 * **代码预编译**：我们预先编译所有热门代码。当应用执行时，代码中最重要的部分已经过优化，可在本地直接执行。应用无需再等待 JIT 编译器启动。
-
   * 这样做的好处是代码被映射为干净的内存（与 JIT 的脏内存相比较），这提高了整体的内存的效率。内存压力下内核可以释放干净的内存，而脏内存则不能被释放，这减少了内核杀死应用的可能性。
 
 * **更高效的 dex 布局**：我们根据配置抛出的方法信息重新组织 dex 字节码。dex 字节码布局如下所示：\[启动代码、启动后的代码、其余非配置代码\]。
-
   * 这样做的好处是可以更高效地将 dex 字节码加载到内存中：内存页具有更好的占用率，且由于所有内容都在一起，因此我们需要加载的更少，我们可以做更少的 I/O。
 
 ### 改进和统计
