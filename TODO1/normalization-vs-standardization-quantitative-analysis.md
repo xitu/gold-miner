@@ -13,7 +13,7 @@
 
 每一个 ML 的从业者都知道特征的压缩是一个重要的议题（[更多](https://medium.com/greyatom/why-how-and-when-to-scale-your-features-4b30ab09db5e)）
 
-两个最热议的方法就是归一化和标准化。 **归一化**通常来说是将数值压缩到 [0,1] 范围内。**标准化**指的是重新调整数据到均值为 0 标准差为 1 上。
+两个最热议的方法就是归一化和标准化。 **归一化**通常来说是将数值压缩到 [0,1] 范围内。**标准化**指的是重新调整数据，使数据到均值为 0，标准差为 1 。
 
 本篇博客希望通过一些实验回答以下的问题：
 
@@ -30,7 +30,7 @@
 ## 内容总览
 
 * 0. 为何而来？
-* 1. 容易上手的分类器
+* 1. 成熟的分类器
 * 2. 分类器 + 压缩
 * 3. 分类器 + 压缩 + PCA
 * 4. 分类器 + 压缩 + PCA + 超参调整
@@ -51,13 +51,13 @@
 
 好的，我们已经恶补了一波数学的知识，是吧？远远不够。
 
-我发现 Sklearn 提供了很多不同的压缩方法。可以通过 [the effect of different scalers on data with outliers](https://scikit-learn.org/stable/auto_examples/preprocessing/plot_all_scaling.html#sphx-glr-auto-examples-preprocessing-plot-all-scaling-py) 有一个直观的认识。但是他们没有讲清楚这些方法是如何影响不同分类器任务的。
+我发现 Sklearn 提供了很多不同的压缩方法。我们可以通过 [the effect of different scalers on data with outliers](https://scikit-learn.org/stable/auto_examples/preprocessing/plot_all_scaling.html#sphx-glr-auto-examples-preprocessing-plot-all-scaling-py) 有一个直观的认识。但是他们没有讲清楚这些方法是如何影响不同分类器任务的。
 
-我们阅读了很多 ML 的教程，一般都是使用 StandardScaler（通常叫做 零均值标准化 ）或者 MinMaxScaler（通常叫做极大极小归一化）来压缩特征。为什么没人用其他的压缩方法来优化分类器呢？难道 StandardScaler 和 MinMaxScaler 已经是最好的压缩方法了？
+我们阅读了很多 ML 的主线教程，一般都是使用 StandardScaler（通常叫做零均值标准化 ）或者 MinMaxScaler（通常叫做 Min-Max 归一化）来压缩特征。为什么没人用其他的压缩方法来分类呢？难道 StandardScaler 和 MinMaxScaler 已经是最好的压缩方法了？
 
 我在教程中没有发现关于为什么或者什么时候使用这些方法的解释。所以，我觉得应该通过实验来研究这些技术的性能。 **这就是这篇文章所要讲的全部东西。**
 
-## 工程细节
+## 项目细节
 
 和许多数据科学的工程一样，我们会读取一些数据，并使用一些成熟的分类器来做实验。
 
@@ -86,7 +86,7 @@ R     97
 
 在预处理环节，我已经计算了所有结果（这个花费了不少时间）。所以，我们只读取结果文件并在其上进行分析。
 
-你可以在我的 GithHub 上获取产生结果的代码：
+你可以在我的 GitHub 上获取产生结果的代码：
 [https://github.com/shaygeller/Normalization_vs_Standardization.git](https://github.com/shaygeller/Normalization_vs_Standardization.git)
 
 我从 Sklearn 中选取了一些最流行的分类器，如下：
@@ -99,7 +99,7 @@ R     97
 
 ![](https://cdn-images-1.medium.com/max/2000/1*XU4abA9kv7Fohqk2WtQ2ag.png)
 
-* 不要将上表的最后一个压缩方法 Normalizer 和我们之前提到的极大极小归一化混淆了。极大极小归一化对应的是第二行的 MinMaxScalar。Sklearn 中的 Normalizer 是将样本单独归一化为一个单位范数。**这是一个基于行的归一化方法。**
+* 不要将上表的最后一个压缩方法 Normalizer 和我们之前提到的极大极小归一化混淆了。极大极小归一化对应的是第二行的 MinMaxScalar。Sklearn 中的 Normalizer 是将样本单独归一化为一个单位范数。**这是一个基于行而非基于列的归一化方法。**
 
 ## 实验细节：
 
@@ -109,9 +109,9 @@ R     97
 
 * 所有的结果的准确率都是在 10 个取自**训练集**的随机交叉验证集上得到的。
 
-* 我们不讨论测试集上的结果。通常来讲，测试集都是不可见的，我们的结论都是从分类器在交叉验证集上的表现得到的。
+* 我们不讨论测试集上的结果。通常来讲，测试集都是不可见的，并且我们的结论都是只从分类器在交叉验证集上的得分得到的。
 
-* 在第四部分，我使用嵌套的交叉验证集。一个内部交叉验证集包含 5 个随机的分块，并由超参进行调整。外部是 10 个随机分割的交叉验证集并使用最好的模型参数获得对应得分。
+* 在第四部分，我使用嵌套的交叉验证集。一个内部交叉验证集包含 5 个随机的分块，并由超参进行调整。外部是 10 个随机分割的交叉验证集并使用最好的模型参数获得对应得分。这一部分的数据都是源自训练集。图片是最具有说服力的：
 
 ![[https://sebastianraschka.com/faq/docs/evaluate-a-model.html](https://sebastianraschka.com/faq/docs/evaluate-a-model.html)](https://cdn-images-1.medium.com/max/2000/1*7-Y--5i-Pc6VTL7EzY0lCA.png)
 
@@ -126,7 +126,7 @@ results_df = pd.read_csv(os.path.join("..","data","processed",results_file)).dro
 results_df
 ```
 
-## 1. 方便使用的分类器
+## 1. 成熟的分类器
 ```
 import operator
 
@@ -230,7 +230,7 @@ pivot_t_bold
 
 ## 结果分析
 
-1. 大多数的情况下，压缩都改进带有 PCA 的模型， **但是，** 我们来观察一下再大多数模型上都有较好效果的 “QuantileTransformer-Uniform”。它将 LDA-PCA 的准确率从 0.704 提升到了 0.783 提高了 8%！但是对于 RF-PCA 它却起到了负增益，模型的准确率从 0.711 降到了 0.668，下降了 4.35%。另一个方面，如果使用 “QuantileTransformer-Normal” ，RF-PCA 的准确率又可以提高到 0.766 有 5% 的提高。
+1. 大多数的情况下，压缩都改进带有 PCA 的模型， **但是，**没有指定特定的压缩方法。我们来观察一下再大多数模型上都有较好效果的 “QuantileTransformer-Uniform”。它将 LDA-PCA 的准确率从 0.704 提升到了 0.783 提高了 8%！但是对于 RF-PCA 它却起到了负增益，模型的准确率从 0.711 降到了 0.668，下降了 4.35%。另一个方面，如果使用 “QuantileTransformer-Normal” ，RF-PCA 的准确率又可以提高到 0.766 有 5% 的提高。
 
 2. 我们可以发现 PCA 只提高了 LDA 和 RF，所以 PCA 也并不是一个完美的解决方案。我们并没有去调整 n_components 这个超参，其实，就算我们调整了，也不会有保证一定可以有提升。
 
@@ -404,7 +404,7 @@ dataset.describe()
 
 * 虽然 StandardScaler 没有被高亮（我只标亮了每列得分最高的一项），但是在很多列它都很接近最好的结果，当然也不总是有这样的结论。在运行时（没有展示），StandardScaler 的速度比大多数的压缩方法都快。如果你比较关注速度，StandardScaler  是个很好的选择。但是如果你关注的是精度，那么你就需要试试其他压缩方法了。
 
-* 再次强调，依然没有一个压缩方法表现的非常优秀。
+* 再次强调，依然没有一个压缩方法在所有算法上都表现的非常优秀。
 
 * PCA 几乎总是可以从压缩上获得增益。
 
@@ -412,11 +412,11 @@ dataset.describe()
 
 * 实验表明即使在超参调整好的模型上，压缩也可以在结果上带来增益。**所以，压缩方法需要被当作一个重要的超参来考虑。**
 
-* 不同的压缩方法会对不同的m分类器产生影响。SVM、KNN 和 MLP（神经网络）等基于距离的分类器都会从压缩上获得较大的收益。但即使是树型（CART 和 RF）这种某些压缩技术不起作用的分类器，也可以从其它的压缩方法上获益。
+* 不同的压缩方法会对不同的分类器产生影响。SVM、KNN 和 MLP（神经网络）等基于距离的分类器都会从压缩上获得较大的收益。但即使是树型（CART 和 RF）这种某些压缩技术不起作用的分类器，也可以从其它的压缩方法上获益。
 
 * 明白模型和预处理方法背后的数学理论是理解这些结果的最好方法。（举个例子，树型分类器是怎么工作的？为什么一些压缩方法对它们无效？）。这会节约你很多的时间，如果你知道在使用随机森林时不能使用 StandardScaler。
 
-* 像 PCA 这样的预处理方法确实是会从压缩上获得增益。**如果没有效果，** 可能是因为 PCA 的 维度设置的不好，异常点较多或者错误的选择压缩方法时。
+* 像 PCA 这样的预处理方法确实是会从压缩上获得增益。**如果没有效果，** 可能是因为 PCA 的维度设置的不好，异常点较多或者错误的选择压缩方法。
 
 如果你发现任何的错误、实验覆盖率的改进方法或者改进意见都可以联系我。
 
