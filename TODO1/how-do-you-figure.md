@@ -9,8 +9,8 @@
 
 作为 HTML5 新引入的元素，`figure` 和 `figtitle` 元素是为了创建有意义的标记结构:
 
-*   为一段内容提供一个描述性标签，该标签……
-*   与当前文件相关，但用户对它的理解并不重要。
+* 为一段内容提供一个描述性标签，该标签……
+* 与当前文件相关，但用户对它的理解并不重要。
 
 为了得到更具体的信息，让我们分别来了解一下这些元素。
 
@@ -26,7 +26,7 @@
 
 [图片源(2003)](http://style.org/unladenswallow/)。
 
-使用 `figure` 时可以加上或不加 `figcaption` 标签。但是，不加 `figcaption` 标签，或者不提供其他可访问的属性（比如  `aria-label`），单独使用 `figure` 在表达其语义上价值不大。在某些情况下，如果没有给定可访问的属性，可能表达不出任何语义。
+使用 `figure` 时可以加上或不加 `figcaption` 标签。但是，不加 `figcaption` 标签，或者不提供其他可访问的属性（比如 `aria-label`），单独使用 `figure` 在表达其语义上价值不大。在某些情况下，如果没有给定可访问的属性，可能表达不出任何语义。
 
 ## `figcaption` 元素
 
@@ -129,7 +129,7 @@
 
 ### JAWS 18 的 2018 和 2019 版本
 
-JAWS 对原生 figure 和 标题有最好的支持，尽管根据浏览器和  JAWS 的详细设置，支持并不完美和一致。
+JAWS 对原生 figure 和 标题有最好的支持，尽管根据浏览器和 JAWS 的详细设置，支持并不完美和一致。
 
 IE11 需要使用 `role="figure"` 、`aria-label` 或 `aria-labelledby` 指向 `figcaption` 来模拟原生声明。IE11 不支持原生元素并不奇怪，因为 [HTML5 可访问性的 IE11 浏览器评级](https://www.html5accessibility.com/) 永远不会改进。但至少 ARIA 可以提供语义。
 
@@ -137,7 +137,7 @@ IE11 需要使用 `role="figure"` 、`aria-label` 或 `aria-labelledby` 指向 `
 
 Chrome 和 Firefox 提供了类似的支持，但是如果一个图片有一个空的 `alt` 或缺少 `alt` 属性， JAWS（默认的详细设置）Chrome 会**完全忽略** `figure`（包括它的 `figcaption` 的内容）。
 
-这意味着 [在各种 Medium 文章中](https://twitter.com/aardrian/status/923536098734891009) 那些伴随图片的标题，都被与 Chrome 配合使用的 JAWS 完全忽略了。如果  JAWS 的设置更新能声明所有图像（例如没有提供 `alt` 属性或值的图片），那么 JAWS 使用 Chrome 声明这些 figure 标题。
+这意味着 [在各种 Medium 文章中](https://twitter.com/aardrian/status/923536098734891009) 那些伴随图片的标题，都被与 Chrome 配合使用的 JAWS 完全忽略了。如果 JAWS 的设置更新能声明所有图像（例如没有提供 `alt` 属性或值的图片），那么 JAWS 使用 Chrome 声明这些 figure 标题。
 
 不像 Chrome，在 JAWS 上使用 Firefox，图片的 `alt` 为空或缺失，`figure` 和 `figcaption` **仍然会被识别**。但是由于图片将被完全忽略，使用屏幕阅读器的人不得不推断 figure 的主要内容是不是图片。
 
@@ -151,13 +151,13 @@ Chrome 和 Firefox 提供了类似的支持，但是如果一个图片有一个�
 
 #### Safari
 
-当使用 Safari 进行测试时，`figure` 将会显示出它的 role 属性。如果没有语义化的属性（例如没有 `figcaption`, `aria-label` 等），则不会显示出 `figure ` 的 role 属性。
+当使用 Safari 进行测试时，`figure` 将会显示出它的 role 属性。如果没有语义化的属性（例如没有 `figcaption`, `aria-label` 等），则不会显示出 `figure` 的 role 属性。
 
 VoiceOver 可以导航到 `figure` ，并单独与 `figure` 和 `figcaption` 的主要内容进行交互。
 
 #### Chrome
 
-尽管 Chrome 的可访问性检查器指出 `figure` 的语义正在被揭示，可访问属性由标题提供，但 VoiceOver 并不像 Safari 那样定位或声明 `figure`  的存在。除非 `figure` 特别有一个 `aria-label ` 属性。使用 `figure` 上的 `aria-labelledby` 或 `aria-labelledby` 指向 `figcaption` ， `figure` **不会**被 VoiceOver 识别 。 为了正确地向 VoiceOver 传达 figure，使用 Chrome 时需要以下标记：
+尽管 Chrome 的可访问性检查器指出 `figure` 的语义正在被揭示，可访问属性由标题提供，但 VoiceOver 并不像 Safari 那样定位或声明 `figure` 的存在。除非 `figure` 特别有一个 `aria-label ` 属性。使用 `figure` 上的 `aria-labelledby` 或 `aria-labelledby` 指向 `figcaption`，`figure` **不会**被 VoiceOver 识别 。为了正确地向 VoiceOver 传达 figure，使用 Chrome 时需要以下标记：
 
 ```
 <!-- 
@@ -171,15 +171,15 @@ VoiceOver 可以导航到 `figure` ，并单独与 `figure` 和 `figcaption` 的
 </figure>
 ```
 
-在 `figure` 元素上加一个 `role="figure"` 属性，或者用其他元素替代 `<figure>`，仍然需要添加 `aria-label` 来让 VoiceOver 使用  Chrome 时识别 role 属性。
+在 `figure` 元素上加一个 `role="figure"` 属性，或者用其他元素替代 `<figure>`，仍然需要添加 `aria-label` 来让 VoiceOver 使用 Chrome 时识别 role 属性。
 
 ### VoiceOver（iOS 12.1.2）
 
-在用 VoiceOver 测试 Safari 和 Chrome 时，没有显示出 `figure` ，也没有显示出 `figure` 的内容和标题之间的关系。`<figure>` 和 `role="figure"` 模式都产生了相同的结果。
+在用 VoiceOver 测试 Safari 和 Chrome 时，没有显示出 `figure`，也没有显示出 `figure` 的内容和标题之间的关系。`<figure>` 和 `role="figure"` 模式都产生了相同的结果。
 
 ### TalkBack（Android 8.1 上的 7.2 版）
 
-在测试 Chrome（70）和 Firefox（63.0.2）时，没有显示出任何 `figure`  ，也没有显示出 `figure` 内容与其标题之间的关系。`<figure>` 和 `role="figure"` 模式都产生了相同的结果。
+在测试 Chrome（70）和 Firefox（63.0.2）时，没有显示出任何 `figure`，也没有显示出 `figure` 内容与其标题之间的关系。`<figure>` 和 `role="figure"` 模式都产生了相同的结果。
 
 ### Narrator & Edge 42 / EdgeHTML 17
 
@@ -210,11 +210,11 @@ Narrator 根本没有显示出 `figure` 的 role。但是，原生元素和 `rol
 
 此模式将确保下面的搭配显示 `figure` 的 role 属性及其标题：
 
-*   JAWS 配备 Chrome、Firefox 和 IE11。
-*   macOS  VoiceOver 配备 Safari 和 Chrome。
-*   Edge 和 Narrator 将创建一个关系，但不会声明 `figure` 的 role 属性。
+* JAWS 配备 Chrome、Firefox 和 IE11。
+* macOS VoiceOver 配备 Safari 和 Chrome。
+* Edge 和 Narrator 将创建一个关系，但不会声明 `figure` 的 role 属性。
 
-目前，移动屏幕阅读器不会显示 `figure` ，Edge 浏览器也不会，除非与 Narrator（类似）配对使用，或任何浏览器与 NVDA 配对使用。但不要让这些差距阻碍你按照规范的预期使用元素。
+目前，移动屏幕阅读器不会显示 `figure`，Edge 浏览器也不会，除非与 Narrator（类似）配对使用，或任何浏览器与 NVDA 配对使用。但不要让这些差距阻碍你按照规范的预期使用元素。
 
 随着 Edge 转为 Chromium内核，更好的支持在不久的将来可能成为现实。虽然 NVDA 和移动屏幕阅读器没有声明语义，但内容仍然是可访问的。[把 bug 记录下来](https://github.com/nvaccess/nvda/issues/9177) 是我们目前能为这些漏洞带来改变做的最好的事情。
 
@@ -222,7 +222,7 @@ Narrator 根本没有显示出 `figure` 的 role。但是，原生元素和 `rol
 
 ### 拓展阅读
 
-下面是更多关于 `figure`  的和  `figcaption`  的资源和上文使用的测试页面/结果，以及 JAWS 和 NVDA 归档的 bug:
+下面是更多关于 `figure` 的和 `figcaption` 的资源和上文使用的测试页面/结果，以及 JAWS 和 NVDA 归档的 bug:
 
 *   [HTML Accessibility API Mappings 1.0: `figure` and `figcaption` elements](https://w3c.github.io/html-aam/#figure-and-figcaption-elements), W3C
 *   [HTML5 Accessibility](https://www.html5accessibility.com/)
