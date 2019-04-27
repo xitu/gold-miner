@@ -2,32 +2,32 @@
 > * 原文作者：[Ben Weiss](https://medium.com/@keyboardsurfer)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/dependency-injection-in-a-multi-module-project.md](https://github.com/xitu/gold-miner/blob/master/TODO1/dependency-injection-in-a-multi-module-project.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Mirosalva](https://github.com/Mirosalva)
+> * 校对者：[JasonZ](https://github.com/JasonLinkinBright)，[wenny](https://github.com/xiaxiayang)
 
-# Dependency injection in a multi module project
+# 依赖注入在多模块工程中的应用
 
-### What we learned from introducing a DI framework to Plaid
+### Plaid 应用中引入一个 DI 框架过程中我们学到的东西
 
-![Illustrated by [Virginia Poltrack](https://twitter.com/vpoltrack)](https://cdn-images-1.medium.com/max/3200/0*yWf1DFEnYBWNmAvT)
+![插图来自 [Virginia Poltrack](https://twitter.com/vpoltrack)](https://cdn-images-1.medium.com/max/3200/0*yWf1DFEnYBWNmAvT)
 
-This is not an article about dependency injection in general or about why we picked library X over Y.
-Instead this post covers key takeaways of our efforts to modularize [Plaid](https://github.com/nickbutcher/plaid) from a dependency injection perspective.
+总的来说，这不是一篇关于依赖注入的文章，也不是关于我们为什么选择库 X 而不是库 Y 的文章。
+相反的，本文从依赖注入的角度介绍了我们对 [Plaid](https://github.com/nickbutcher/plaid) 进行模块化实践的主要成果。
 
-## Our setup
+## 我们的设置
 
-In a previous post I wrote about the overall modularization story of Plaid.
-[**A patchwork Plaid — Monolith to modularized app: How and why we modularized Plaid and what’s to come**](https://medium.com/androiddevelopers/a-patchwork-plaid-monolith-to-modularized-app-60235d9f212e)
+在前面的文章中，我写过 Plaid 应用模块化的整体过程。
+[**一款拼接应用 Plaid — 整体到模块化: 模块化 Plaid 应用的初衷、过程和结果**](https://medium.com/androiddevelopers/a-patchwork-plaid-monolith-to-modularized-app-60235d9f212e)
 
-Let me quickly recap what Plaid looks like from a bird’s eye view.
+让我以鸟瞰图的形式快速回顾一下 Plaid 的样子。
 
-We have an `app` module, which contains the main launcher activity. Also there are several dynamic feature modules (DFM) which depend on the `app` module. Each DFM contains at least one activity, code and resources related to only the feature in question.
+我们有一个包含主启动 activity 的 `app` 模块，同时也有一些依赖 `app` 模块的动态功能模块（DFM）。每一个 DFM 都包含至少一个与所讨论功能相关的 activity、代码和资源。
 
-The `app` module depends on a `core` module which contains shared code and resources as well as third party libraries.
+`app` 模块依赖一个包含了共享的代码和资源以及第三方库的 `core` 模块。
 
-![Plaid’s module dependency graph](https://cdn-images-1.medium.com/max/2000/0*VJS0y6-8fKBUHGhU)
+![Plaid 的模块依赖图](https://cdn-images-1.medium.com/max/2000/0*VJS0y6-8fKBUHGhU)
 
-Before we started modularizing and introducing Dagger as main actor for dependency injection, Plaid’s code had a couple of classes and functions like this:
+在我们开始模块化操作和以 Dagger 为主介绍依赖注入之前，先来熟悉下 Plaid 的相关类和函数：
 
 ```
 class DesignerNewsInjector {
@@ -37,62 +37,62 @@ class DesignerNewsInjector {
 }
 ```
 
-While this is a perfectly fine solution, we were left with writing a lot of boilerplate and plumbing code by hand.
+虽然这是一个非常好的解决方案，但我们还是手工编写了大量的样板代码。
 
-Wherever anything was required from the injector, we had to call the underlying function at the right point, in many cases either object initialization or `onCreate`.
+在任何需要注入的地方，我们都需要在合适的时机调用底层函数，大多数情况下不是在对象初始化时就是在 onCreate 方法中。
 
-## A very brief intro to dependency injection
+## 依赖注入的简要介绍
 
-Dependency injection basically means that you don’t create objects in the place you need them but rather create them somewhere else. Then references to these objects can get passed into classes where they are required.
+依赖注入基本上意味着你不用在你需要的地方创建它们，而是在别的地方创建。然后这些对象的引用可以被传递到需要使用它们的类中。
 
-This can be done either manually or with one of the many libraries out there. We chose Dagger 2. Thanks to Dagger, all we have to do to get a hold of an initialized service that’s ready to use is this:
+这点可以通过自己编写或者集成某个依赖注入库来实现，我们选择了集成 Dagger 2。多亏了 Dagger，为了获取一个可以使用的已初始化的 service，我们所有要做的就是如下内容：
 
 ```
 @Inject lateinit var service: DesignerNewsService
 ```
 
-All the dependencies of the service can be passed into the provides function as parameters. Having chosen Dagger for our dependency injection needs means that our dependency graphs are created at compile time. Bear this in mind for the following sections.
+所有对 service 的依赖可以变成 provides 函数的传参。我们为依赖注入需求选择了 Dagger 意味着我们的依赖图在编译阶段会被创建。下面的章节中要记住这一点。
 
-## Our approach to introducing Dagger to Plaid
+## 我们在 Plaid 应用中集成 Dagger 的方式
 
-At the time we decided to introduce Dagger into Plaid we had already learned a valuable lesson that is particularly true for modularization.
+当我们决定引入 Dagger 到 Plaid 应用时，我们已经学到了宝贵的一课，尤其是对模块化。
 
-> Don’t try to cover too much ground at once.
+> 不要试图一次就覆盖太多内容。
 
-This means that it’s worthwhile to spend some time figuring out the smallest scope necessary to implement a new feature. This MVP we then discussed within the team to see whether we’re moving in the right direction. Adhering to this practice prevents us from running off with changes that are too large to efficiently work with. This also allows us to gradually roll out changes throughout our code base while everyone else continued working on their tasks.
+这意味着花一些时间研究清楚实现一个新功能的最小必要范围是有意义的。我们接下来要讨论的 MVP，即在团队内部审视我们是否在向着正确的方向前进。坚持这种做法可以防止我们进行太大而无法高效利用的变更。这也允许我们在整个代码库中逐步推出更改，与此同时每个人的任务也可持续进行。
 
-Within Plaid we used the already proven `about` feature module as playground for Dagger. Here we could add Dagger without interfering with other modules or workload. You can find the [initial commit](https://github.com/nickbutcher/plaid/commit/9310b6d4f100adff4e639456f58ac802b57d4b39) here.
+在 Plaid 应用内我们使用已验证后的 `about` 功能模块作为 Dagger 的练习模块。这里我们可以添加 Dagger 而不会干扰到其他模块或负载。你可以在这里查看[初始提交](https://github.com/nickbutcher/plaid/commit/9310b6d4f100adff4e639456f58ac802b57d4b39)。
 
-## Dependency graphs
+## 依赖图解
 
-When introducing a dependency injection library to a monolithic application usually there’s one single dependency graph for the whole of the application.
+当为一个单块应用引入依赖注入库时，通常整个应用有个单一的依赖图。
 
-![Classic simplified dependency graph in a monolithic project](https://cdn-images-1.medium.com/max/2000/1*wfFPurM3MIKdGjL66Ko7Yw.png)
+![单块项目中的经典简化依赖图](https://cdn-images-1.medium.com/max/2000/1*wfFPurM3MIKdGjL66Ko7Yw.png)
 
-This enables sharing dependencies between components. In some libraries dependencies can be scoped in order to avoid conflicts or provide a specific implementation to an injection target.
+这可以使组件间共享依赖。在一些库中，依赖可以被设置作用域来避免冲突，或者为被注入对象提供一种特殊的实现。
 
-## Modular oddities
+## 模块化的怪异之处
 
-For a modularized app, especially for one using dynamic feature modules this doesn’t work though. Let’s take a closer look at how application and dynamic feature modules’ depend on one another. A dynamic feature module knows that an application module exists. The application module kind of knows that the dynamic feature module exists, but can’t directly execute code from within that module. For dependency injection, this means that the graph has to be broken into pieces.
+对一个模块化的应用，尤其是使用动态功能模块的应用这却不起作用。让我们仔细地研究下应用和动态功能模块如何彼此依赖。一个动态功能模块知道 application 模块的存在。application 模块大致知道动态功能模块的存在，但是不能直接执行该模块的代码。对于依赖注入，这意味着整体图必须被分解成片。
 
-For a modularized app the simplified dependency graph usually looks kind of like this.
+对一个模块化应用，简单的依赖图通常大致长成下面这样。
 
-![Modules have clear boundaries and are encapsulated within a DFM’s dependency graph](https://cdn-images-1.medium.com/max/2000/1*VpO72oXxUIoraT_Abj_eoA.png)
+![模块具有清晰的边界并且被封装在一个 DFM 依赖图中](https://cdn-images-1.medium.com/max/2000/1*VpO72oXxUIoraT_Abj_eoA.png)
 
-More concrete, within Plaid the component landscape looks like this.
+更具体的是，Plaid 中组件规划图看起来像这样。
 
-![Plaid’s component landscape](https://cdn-images-1.medium.com/max/2000/1*Ol8Cff81iw5JmqXWWnQ35A.png)
+![Plaid 的组件规划图](https://cdn-images-1.medium.com/max/2000/1*Ol8Cff81iw5JmqXWWnQ35A.png)
 
-Each DFM has its own component named after the feature module it sits in. As does the `app` module through `HomeComponent`.
+每个 DFM 都有它自己的组件，以组件所在的功能模块命名。`app` 模块中的 `HomeComponent` 组件就是如此。
 
-There’s also a component containing shared dependencies. It sits within `core` and is called `CoreComponent`. The main idea behind `CoreComponent` is to provide objects that can be used throughout the app. It combines a couple of Dagger modules which sit within the `core` library and can be re-used throughout the app.
+还有一个包含共享依赖项的组件，它位于 `core` 库中并被称作 `CoreComponent`。`CoreComponent` 背后的主要思想是提供可被整个应用使用的对象。它结合了一些 Dagger 模块，这些模块位于 `core` 库并可以在整个应用中复用。
 
-Also, since the graphs are directed there’s only one way to share Dagger components:
-A DFM can access Dagger components from the application module. The application module can access components from libraries it depends on. But not the other way around.
+此外，由于依赖图具有方向性，因此只能通过以下方式共享 Dagger 组件：
+DFM 图可以从 application 模块来访问 Dagger 组件。application 模块可以从它依赖的库中访问组件，但方向反过来则不行。
 
-## Sharing components across module boundaries
+## 跨模块边界共享组件
 
-In order to share Dagger components, they need to be made accessible throughout the application. Within Plaid we decided to make our `CoreComponent` accessible via the Application class.
+为了共享 Dagger 组件，它们需要被整个应用访问到。在 Plaid 中我们决定使用 Application 类来让我们的 `CoreComponent` 变得可访问。
 
 ```
 class PlaidApplication : Application() {
@@ -112,17 +112,17 @@ class PlaidApplication : Application() {
 }
 ```
 
-The instantiated core component can now be accessed from anywhere within the app where there’s a context available by calling PlaidApplication.coreComponent(context).
+被实例化的 CoreComponent 组件现在可以从应用中任何具有 context 的地方来访问，通过调用 PlaidApplication.coreComponent(context) 的方式。
 
-Using an extension function makes access to this even sweeter:
+使用一个扩展函数可以使 this 更好地访问：
 
 ```
 fun Activity.coreComponent() = PlaidApplication.coreComponent(this)
 ```
 
-## Components in Components
+## 组件中的组件
 
-To incorporate `CoreComponent` in another component it is necessary to provide it during component creation. Let’s see how this works within `[SearchComponent](https://github.com/nickbutcher/plaid/blob/master/search/src/main/java/io/plaidapp/search/dagger/SearchComponent.kt)`:
+为了把 `CoreComponent` 包含到另一个组件中，有必要在组件创建时提供它。让我们看一下在 [SearchComponent](https://github.com/nickbutcher/plaid/blob/master/search/src/main/java/io/plaidapp/search/dagger/SearchComponent.kt)` 中是如何做到的：
 
 ```
 @Component(modules = [...], dependencies = [CoreComponent::class])
@@ -137,7 +137,7 @@ interface SearchComponent {
 }
 ```
 
-During initialization of the generated `DaggerSearchComponent` we set `CoreComponent` like this:
+在生成的 `DaggerSearchComponent` 做初始化时我们像这样设置了 `CoreComponent`：
 
 ```
 DaggerSearchComponent.builder()
@@ -147,7 +147,7 @@ DaggerSearchComponent.builder()
 .inject(activity)
 ```
 
-The trick here is to set `CoreComponent` as a dependency of `SearchComponent`.
+这里的技巧是把 `CoreComponent` 设置为 `SearchComponent` 的一个依赖：
 
 ```
 @Component(
@@ -157,21 +157,21 @@ The trick here is to set `CoreComponent` as a dependency of `SearchComponent`.
 interface SearchComponent : BaseActivityComponent<SearchActivity>
 ```
 
-`CoreComponent` is a dependency of `SearchComponent`. When `CoreComponent` is included as a component dependency of `SearchComponent` like above, all of `CoreComponent’s` methods can be used in `SearchComponent` or other Dagger components as if they were `@Provides` methods.
+`CoreComponent` 是 `SearchComponent` 的一个依赖。当 `CoreComponent` 像上面那样被引用为 `SearchComponent` 的一个组件依赖时，所有的 `CoreComponent` 方法可以在 `SearchComponent` 中使用，或者在其他 Dagger 组件中使用，就好像他们变成注解 `@Provides` 标记的方法。
 
-![Component dependencies with their respective modules (in green) providing implementations to SearchActivity](https://cdn-images-1.medium.com/max/2000/1*EQ12g7x545uJfb6Y0KjjUw.png)
+![组件依赖与它们各自为 SearchActivity 提供实现方法的模块（绿色）](https://cdn-images-1.medium.com/max/2000/1*EQ12g7x545uJfb6Y0KjjUw.png)
 
-A benefit of this approach is that `@Modules` don’t have to be repeated throughout the feature graphs but can be transparently provided through `CoreComponent` or modules bound by it.
+这样做的的一个好处是：在功能图中无需重复 `@Modules` ，却可以通过 `CoreComponent` 或其他与之绑定的模块来透明地提供出去。
 
-For example, `CoreDataModule` is bound in `CoreComponent` and provides `Retrofit` amongst others. That `Retrofit` instance can now be accessed in any component where`CoreComponent` is incorporated.
+例如，`CoreDataModule` 绑定在 `CoreComponent` 中，并提供 `Retrofit` 等。`Retrofit` 实例现在可以被任何与 `CoreComponent` 合并的组件访问到。
 
-## What’s next
+## 下一步要做什么
 
-After reading this article you have seen that modularizing your app also has to take dependency injection into account. The introduced feature module boundaries are reflected in DI through separated dependency graphs. Being aware of these restrictions enables finding the right place for shared components.
+读完这篇文章，你可以看到模块化你的应用需要把依赖注入考虑进去。引入的功能模块边界通过分离的依赖图反映在依赖注入中。意识到这个限制可有助于为共享组件找到合适的位置。
 
-You can dive into the code to see how we solved dependency injection using Dagger in Plaid.
+你可以深入到代码中来查看我们如何使用 Dagger 解决 Plaid 中的依赖注入问题。
 
-`[CoreComponent](https://github.com/nickbutcher/plaid/blob/master/core/src/main/java/io/plaidapp/core/dagger/CoreComponent.kt)` is a good starting point, as is `[AboutComponent](https://github.com/nickbutcher/plaid/blob/master/about/src/main/java/io/plaidapp/about/dagger/AboutComponent.kt)` since it doesn’t have many external dependencies.
+`[CoreComponent](https://github.com/nickbutcher/plaid/blob/master/core/src/main/java/io/plaidapp/core/dagger/CoreComponent.kt)` 是一个好的阅读开端，`[AboutComponent](https://github.com/nickbutcher/plaid/blob/master/about/src/main/java/io/plaidapp/about/dagger/AboutComponent.kt)` 也是，因为它没有太多的外部依赖。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

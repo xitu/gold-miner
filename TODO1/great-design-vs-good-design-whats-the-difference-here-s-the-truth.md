@@ -2,149 +2,151 @@
 > * 原文作者：[Jamal Nichols](https://medium.com/@jamalnichols)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/great-design-vs-good-design-whats-the-difference-here-s-the-truth.md](https://github.com/xitu/gold-miner/blob/master/TODO1/great-design-vs-good-design-whats-the-difference-here-s-the-truth.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Mirosalva](https://github.com/Mirosalva)
+> * 校对者：[Qiu Hu](https://github.com/whatbeg), [Charlo-O](https://github.com/Charlo-O)
 
-# Great Design Vs Good Design: What’s The Difference? Here’s The Truth
+# 伟大设计与好设计之间区别是什么？这里告诉你真相
 
 ![](https://cdn-images-1.medium.com/max/5120/1*oFxtwD8CyvpVvLRbhPxrzQ.jpeg)
 
-The lowest common denominator for interface design has risen over the last decade. You see a lot less of this now:
+过去十年内界面设计的最低标准已经上升，你现在看到这样的情况要少得多：
 
 ![](https://cdn-images-1.medium.com/max/3312/1*ka6-MHyRe2UnlcCM9iYKZg.png)
 
-We’ve figured out how to make user interfaces look okay and function reasonably well. Industry standards have emerged, just as you have them in other mature industries: In a car, you wouldn’t switch the positions of the gas and brake pedal, or put the seats on the outside of the car. In a user interface, you wouldn’t add blinking text or music playing automatically, and you want things to be relatively uncluttered.
+我们已经搞清楚如何让用户的界面看起来不错并且表现相当好。正如在其他成熟行业中一样，你能获得的行业标准已经出现：在汽车中，你不会切换加油和制动两种踏板的位置，也不会将座椅放在汽车外部。在用户界面，你不会添加闪烁文本或者自动播放音乐，而且你希望界面上的东西相对整洁。
 
-This is great progress for the industry. But what do we do now? Is it enough to just no longer commit the most egregious errors? Or should we strive for more?
+对于工业来说这是一个大的进步，但是我们现在做什么呢？仅仅不再犯下最惊人的错误就足够了吗？或者我们应该争取更多？
 
-I think that the field of digital design is at a point where we need to strive for greatness, rather than just being content with being “good”.
+我觉得数字设计领域正处于亟需我们力争伟大，而不仅是满足于好的状态。
 
-But what does great design look like? How does it differ from good design? Let’s walk through some principles.
+但是伟大设计长什么样呢？它跟好设计有什么区别？让我们来看看一些原则。
 
-## Good Design Gives People What They Say They Want, Great Design Solves People’s Problems In Unexpected Ways
+## 好设计提供人们想要的，伟大的设计用意想不到的方式解决人们的问题
 
-About a year ago, Samsung announced that it was developing a foldable smartphone. This quote stood out to me:
-> “DJ Koh said that ‘it’s time to deliver’ on a foldable device after consumer surveys carried out by Samsung showed that there is a market for that kind of handset.”
+大约一年前，Samsung 宣布正在研发一款可折叠的智能手机。有一句话引起了我的注意：
 
-The fact that Samsung is almost proud to say that customer surveys are the reason the company is working on a foldable smartphone is scary.
+> DJ Koh 曾说过『是时候交付一款可折叠设备了』这样的话，就在三星消费者调研表明这类设备存在市场之后。
 
-It’s one thing to send your customers a survey on how they enjoy using a product or how a recent product repair went. However, to base product development plans on customer surveys is highly questionable.
+三星几乎自豪地说客户调查是该公司研发可折叠智能手机的原因，这一事实令人感到恐慌。
 
-Customer surveys would not have led to products like iPhone, iPad, and Apple Watch.
+向你的客户发送有关他们使用产品的满意度或者最近的产品维修进展如何是一回事。但是基于客户调研的产品研发却是令人非常质疑的。
 
-This is a classic example of that overused Henry Ford quote that “If we had asked the people what they wanted, they would have said ‘faster horses’”.
+客户调研不会导向类似 iPhone、iPad 以及 Apple Watch 这类产品。
 
-Great design understands that the average layperson can’t always articulate solutions — they only know they have a problem. It’s up to the designer, who lives at the intersection of technology and the creative arts, to come up with new ways of solving that problem. The designer can make unexpected connections between subjects and solve the problem in new ways.
+这是一个过度引用 Henry Ford 的经典例子：“如果我们问了别人他们想要什么，他们大概会说『更快的马』”。
+
+伟大的设计源于对此事的理解：普通的外行人无法总能明确地说出解决方案，有时候他们只知道他们遇到了问题。提出解决这类问题的新方法这件事，却取决于生活在技术和创造性艺术交叉点的设计师，设计师可以在主题之间建立意想不到的联系，并使用新方法来解决问题。
 
 ***
 
-## Good Design Is Data-Driven, Great Design Is Data-Informed
+## 好设计是数据驱动的，伟大的设计是会产生广博数据的
 
-“Data-driven” is an interesting word combination. It literally means that the data is “driving” your decisionmaking. The data points are in the driver’s seat, not you.
+『数据驱动』是一个有趣的词组。它字面上意思是数据**驱动**了你的决策。数据点在驾驶员的位置，而不是你。
 
-This is dangerous because not everything is an optimization problem that can be solved with data. Basing all of your decisionmaking on data points that you can measure right now can lead to you losing focus of important macro aspects of the problem you’re trying to solve.
+这种情况是有风险的，因为并非所有事情都是可以通过数据来解决的优化问题。把你所有的决策都基于你可以正确测量的数据点，可能会导致你失去对你正在尝试解决的重要宏观层面问题的聚焦。
 
-Data is just one source of information on the way to solving a problem. Hence, being “data-informed” is the way to go if you want to produce great design.
+数据只是去解决问题的一种信息来源。因此，如果你想产出伟大设计，保持『数据知情』可以是你需要走的路子。
 
-Booking.com is a great example of data-driven design. They do a lot of A/B testing to see how people best convert to booking flights and hotels on their platform.
+Booking.com 是数据驱动型设计的一个好例子。他们做了大量的 A/B 测试，来了解用户如何最好地转换到他们平台上来预定机票和酒店。
 
-Through their tests, they’ve discovered that adding “Urgency Messaging” drives people to book more. Urgency messaging is something like “Hey this hotel has just 4 rooms left, book soon”. That’s nice, however, over the years, booking.com has added one urgency message after another, to the point where now it looks more like a shady used car lot than like a serious place to book hotels.
+通过测试，他们发现添加『告急消息』会促使用户预定量变多。告急消息就是类似于『嘿！这个酒店只剩 4 个房间了，快订吧』。这很好，但是这些年来，booking.com 已经添加了一个接一个的消息，这里现在就更像是一个摇摇欲坠过度使用的汽车，而不是一个可以预订酒店的正经地方。
 
-![Basically the same](https://cdn-images-1.medium.com/max/3840/1*3sxLm9wyllJHpOJ1DBZcQw.jpeg)
+![基本相同](https://cdn-images-1.medium.com/max/3840/1*3sxLm9wyllJHpOJ1DBZcQw.jpeg)
 
-Most recently, it has started showing you hotels you can’t even book, just to drive home that point that “people are booking hotels here at booking.com so you should too”:
+最近，它开始显示一些你甚至都不能订的酒店，就为了强调这个意思『大家都在这里 booking.com 订酒店，所以你也来吧』
 
-![You’ve got to be kidding me](https://cdn-images-1.medium.com/max/3840/1*AsIGA9pPt_FR_9B2uRJL8Q.jpeg)
+![你在开玩笑吧](https://cdn-images-1.medium.com/max/3840/1*AsIGA9pPt_FR_9B2uRJL8Q.jpeg)
 
-And I’m sure it works to improve conversions by 0.4%. But if you look at the whole experience, it’s really starting to degrade. That’s the type of result you get when you myopically optimize your product based on data points and single-digit improvements to conversion, without considering the overall experience.
+我相信它可以将转化率提高 0.4%。但是如果看下整体体验，它真的已经开始下降了。不考虑总体体验，这是你在数据点和转化率的个位数提升的基础上对产品做短期优化时得到的结果类型。
 
-Compare that with Hotel Tonight, one of the fastest growing hotel booking apps, recently acquired by airbnb for a few hundred million.
+跟 Hotel Tonight 比较一下，它是一个快速增长的酒店预定应用，最近被 airbnb 以几百万美元收购。
 
 ![](https://cdn-images-1.medium.com/max/3840/1*zcBZpuGKBjxGN44_9MqrtA.jpeg)
 
-Hotel Tonight understands that people are trying to find a nice room to stay in, and optimizes for that. It shows larger preview images of the hotel rooms than booking.com does and has a hint of urgency messaging, but it doesn’t overpower the entire layout of the page. They are focusing on overall experience rather than just tiny conversion improvements driven by data.
+Hotel Tonight 明白人们想要寻找一间好屋子来入住，并且优化这一点。它显示的酒店房间预览图比 booking.com 显示的更大，并且有一点点告急消息，但是并没有占据一整片页面布局。他们专注于整体体验而非仅仅是由数据驱动产生小的转化率提升。
 
 ***
 
-## Good Design Tries To Please Everyone, Great Design Is Opinionated And Challenges Conventions
+## 好设计试图取悦每个用户，伟大的设计有自己的想法并会挑战共识
 
-Great design has a worldview and values, that it executes on consistently. It doesn’t try to please everyone.
+伟大的设计有一个世界观以及价值观，它会持续地践行这些。它并不会试图取悦所有的人。
 
-Consider Apple’s MacBook and iPad vs Microsoft’s Surface. Microsoft takes the approach of “We don’t want to make a decision on what’s the best experience for consumers, so let’s give them everything and let them decide for themselves.” In a way, they are letting the consumers design their own experience, rather than designing an experience.
+思考一下 Apple 的 MacBook 和 iPad 对比 Microsoft 的 Surface。Microsoft 采取的方式是『我们不想决定什么是消费者的最佳体验』。在某种程度上，他们让消费者设计他们自己的体验，而非自己设计。
 
-What you get as a result of that is a laptop with a touchscreen and a stylus, that can also fold both ways, and you can also detach the screen. It looks nice, but what will you really use it for?
+你从那样做得到的结果就是一台包含触摸屏和手写笔的笔记本，它可以双向折叠，你也可以拆下屏幕。它看起来不错，但你用它真的做什么呢？
 
-![Uhhhhhhh……](https://cdn-images-1.medium.com/max/4800/1*CzRlfWcS9D-kBUZeCw9yVQ.png)
+![啊……](https://cdn-images-1.medium.com/max/4800/1*CzRlfWcS9D-kBUZeCw9yVQ.png)
 
-Meanwhile, Apple takes the approach of “Let’s make technology more personal, and create tools and form factors around specific usage scenarios”.
+同时，苹果采用的这种方式『让我们把技术变得更加个性化，并且围绕着特定使用场景去创造工具和外形』。
 
-The iPhone and iPad are designed to handle **some** tasks formerly given to laptops and desktops. In the process of creating this new form factor, the iPhone and iPad are able to handle entirely new tasks as well. A similar dynamic occurs with Apple Watch being able to handle tasks previously given to iPhone, while also handling new tasks.
+iPhone 和 iPad 被设计成处理**某些**以前被分配给笔记本和台式机的任务。在创造这些新型外观的过程，iPhone 和 iPad 也可以处理整体新任务。类似的过程也发生在 Apple Watch 上，它可以处理之前分配给 iPhone 的任务，同时还可以处理新任务。
 
-In Apple’s view, the iPhone and iPad should be kept separate from Mac because each category ends up being more powerful by being true to its form factor. The idea isn’t to have these products share the same user inputs so that people can do whatever is possible on a desktop and laptop on a tablet and smartphone. Instead, each has different capabilities based on the user input method and form factor.
+在 Apple 的视野，iPhone 和 iPad 需要与 Mac 分离开，因为每个类别都需要相较于忠实原有外形因素变得更强一些。我们的想法并不是让这些产品共享相同的用户输入，去让用户可以在桌子上的台式机和笔记本上以及智能机上做任何可能的事情。相反的，每个产品都具有基于用户输入方法和外形因素的不同功能。
 
-**That** is an opinionated approach to designing devices. Not everyone agrees with Apple’s approach, but the results are clear: [Apple products](https://www.theverge.com/2016/2/1/10886720/apple-ipad-pro-outsold-microsoft-surface-sales) have been [outselling](https://www.inc.com/john-brandon/why-the-apple-ipad-pro-has-massively-outsold-the-microsoft-surface.html) Microsoft’s products by a factor of 30 to 1 for [the last 4 years](https://www.imore.com/apple-outselling-microsoft-powered-computers-it-may-not-be-fair-it-mobile-centric-future).
-
-***
-
-## Great Design Sweats The Details Without Losing Sight Of The Big Picture
-
-You see a lot of companies right now talking about the importance of design. Salesforce released a comprehensive design system complete with a fancy name(“Lightning Design System”) and lots of illustrated mascots.
-
-However, they neglected to properly set the typography in their design system to optimize for readability on screens. They had such a grand vision that they lost sight of the fundamentals of design.
-
-![Ironic](https://cdn-images-1.medium.com/max/4792/1*H9o8HSUg2wGO2aQy2hQnoA.png)
-
-Another fundamental you often see neglected these days is figure-ground contrast: Text on top of images that isn’t readable…all the while talking about how important “good design” is.
-
-![Intercom [loves](https://www.intercom.com/blog/product-and-design/) talking about how good they are at design](https://cdn-images-1.medium.com/max/5012/1*5ic1paS7UtNIcY8C_2wxcA.png)
-
-Focusing on the flashy parts of design while neglecting the fundamentals, is like focusing only on hitting home runs in baseball, or only doing slam dunks in basketball. It’s fun to look at, but a player who neglects the fundamentals of the game will fall apart when tested in a real-life competitive environment.
-> ### Great design never neglects the fundamentals on a quest to impress the world around them.
-
-On that note….
-
-## Good Design Tries To Impress, Great Design Gets Out Of The Way
-
-> “A good designer finds an elegant way to put everything you need on a page. A great designer convinces you half that shit is unnecessary.”
-> — Thomas Hutchings (@Dear**Impossible) November 14, 2013**
-
-Good design aims to impress people with “delightful animations” and “beautiful user interfaces”. You can spot good design, break it down, and document both what you like and how it was done.
-
-Great design is invisible. It almost feels like it wasn’t designed at all. It’s things like your MacBook unlocking automatically when you have your Apple Watch on, or your Nest thermostat adjusting to your preferred temperature when you enter a room. But it can also be something as simple as the egg cartons at the supermarket (have you ever tried designing a better egg carton?).
-
-> Great design is invisible. It almost feels like it wasn’t designed at all. It is the outcome of painstaking thoughtfulness and a desire to help others.
+**这**是设计设备的一种固执己见的方法。不是所有人都赞同 Apple 的方法，但是结果却很清楚：[苹果产品](https://www.theverge.com/2016/2/1/10886720/apple-ipad-pro-outsold-microsoft-surface-sales)已经比 Microsoft 的产品[卖得多](https://www.inc.com/john-brandon/why-the-apple-ipad-pro-has-massively-outsold-the-microsoft-surface.html)，[过去 4 年](https://www.imore.com/apple-outselling-microsoft-powered-computers-it-may-not-be-fair-it-mobile-centric-future)有 30:1 的比例之多。
 
 ***
 
-## Great Design Takes Vision, Courage, And Discipline
+## 伟大的设计关注细节的同时也不会忽略整体情况
 
-Right now there’s a trend in Silicon Valley of trying to turn Design into a process that can be duplicated and reproduced no matter who you slot into the position.
+现在你已见识了许多公司谈论设计的重要性。Salesforce 发布了一个全面的设计系统，其包含一个奇妙的名字（『Lightning 设计系统』）和许多插图吉祥物。
 
-Creating a clearly defined process is a great idea, especially for large companies. But when you’re working day to day in an organization at that level, it’s easy to get overly focused on optimizing the process and lose sight of what you’re building, and why. You end up iterating and optimizing on things that don’t matter. It happens to all of us sometimes.
+然而，他们忽略了在该设计系统中正确地设置排版去优化屏幕的可读性。他们有如此宏伟的愿景，却忽视了设计的基本原理。
 
-> A big part of doing great design work is creating a compelling vision of the future, and having the courage and discipline to stick to that vision in the face of adversity.
+![讽刺](https://cdn-images-1.medium.com/max/4792/1*H9o8HSUg2wGO2aQy2hQnoA.png)
 
-Just following a process step-by-step doesn’t lead to great products. You can get a design that’s “Good enough” with that approach. But the difference between good design and great design is the difference between good success and great success.
+另一个你经常看到被忽视的基础要素是图形对比：图像表层的文字不可读...尽管一直在讨论『好设计』的重要性。
 
-Jared Spool’s recent post about [creating an experience vision](https://medium.com/@jmspool/the-experience-vision-a-self-fulfilling-ux-strategy-ce4cdb58227e) is, to me, the quintessence of what it takes to create great design:
+![Intercom 的 [loves](https://www.intercom.com/blog/product-and-design/) 谈论了他们的设计如何好](https://cdn-images-1.medium.com/max/5012/1*5ic1paS7UtNIcY8C_2wxcA.png)
 
-> The easiest way to create an effective experience vision story is to start with the current experience. What makes today’s experience with our product or service frustrating for our users?
-> We can ask, **“What’s the best experience we could imagine providing our users?”** undefinedWe look closely at the frustrations and imagine an experience where those frustrations don’t occur.
-> Next up is to determine the timeframe of the horizon. […]Most of our experience visions come closer to a five-year horizon. […]In 5 years (or whatever horizon we pick), what is the best experience we can imagine delivering? How will people’s lives be better because we’ve removed all the frustration?
+专注于设计的表面部分而忽视了基本要素，就像棒球比赛中专注于本垒打，或者篮球比赛中只扣篮。看起来有趣，但是在现实的竞争环境中检验时，忽略游戏基本要素的玩家将会崩溃。
 
-A compelling vision is what orients the “process machine” of an organization to create great products.
+> 伟大的设计永远不会忽视寻求给周围世界留下深刻印象的基本要素。
 
-Defining an experience vision in that fashion is relatively easy for a skilled designer. The sustained discipline it takes to follow through on that vision makes it damn near impossible to achieve. That’s why there are so many crappy products on the market, and why most apps and websites look the same. It’s much easier to just stick to making it “good enough”.
+就那个说明...
 
-## Choose Greatness
+## 好设计试图给人留下好印象，伟大的设计让人难以忘怀
 
-There are many reasons to try and do great work rather than just “good enough” work: It sets you apart from the rest of the pack. It makes people around you happier. It makes **you** happier. It’s incredibly fun and satisfying.
+> “一位优秀的设计师会找到一种优雅的方式将你需要的一切放在一个页面上。一个伟大的设计师会让你相信一半内容都是不必要的。”
+> — Thomas Hutchings (@Dear**Impossible) 2013年 11 月 14日**
 
-But most of all, what else are you going to do with your life? What better thing to do with your time on earth than trying your hardest to make the world around you better? Imagine the world we’d live in if everyone did this. It starts with you.
+好的设计旨在通过『令人愉快的动画』和『漂亮的用户界面』给人们留下深刻印象。你会发现好的设计，将其分解并记录下你喜欢的内容和操作方式。
 
-### Share Your Story
+伟大的设计是不可见的，几乎完全感觉不到它是设计过的。就像你的 MacBook 在你佩戴 Apple Watch 情况下会自动解锁，或者你的 Nest 恒温器在你进入一个房间时会自动调节到你选择的温度。但它也可以像超市里的鸡蛋盒一样简单（你有没有尝试设计一个更好的鸡蛋盒？）。
 
-What are some examples of great design? Share them with us in the comments.
+> 伟大的设计是不可见的，几乎完全感觉不到它是设计过的。它源于极致的关怀和助人的渴望。
+
+***
+
+## 伟大的设计拥有愿景、勇气和自我约束
+
+目前在硅谷中有一种趋势：尝试去将设计转化为可复制和再生产的流程，而不管你将谁放到这个位置。
+
+创造一个清晰定义的流程是一个好想法，尤其对大公司来说。但是当你在一个组织中按照这个水平一天接一天的工作，很容易过度关注于优化流程并且失去了你正在构建何物的视角，以及它的原因。你最终会在不重要的事情上做迭代和优化。有时候这在我们所有人的身上都有可能发生。
+
+> 做伟大设计的一部分工作是创造一个令人信服的未来愿景，并且在面对逆境时有勇气和自我约束里取坚持那个愿景。
+
+仅仅跟随按部就班地跟随流程并不能产生伟大的设计品。通过那种方法你可以得到一个『足够好』的设计。但是好设计和伟大设计的区别就在于好的成功和伟大成功的区别。
+
+Jared Spool 最近有关[创造一个体验愿景](https://medium.com/@jmspool/the-experience-vision-a-self-fulfilling-ux-strategy-ce4cdb58227e)的文章在我看来，创造伟大设计的精髓就是：
+
+> 创造有效的体验愿景故事的方法是由当前体验开始。是什么让今天的产品或服务体验使我们的用户感到沮丧？
+> 我们可以问：**什么是我们可以想象出来提供给用户的最好体验？** 我们紧密地跟踪着沮丧点并想象出这些沮丧点不会发生的体验场景。
+> 接下来是确定基线的时间范围。[…]我们的大部分愿景体验都距 5 年基线较近了。[…]在 5 年内（或者任何我们选择的基线），我们可以想象的最佳体验是什么？因由我们把所有的沮丧点解决后人们生活会有多大的改善？
+
+一个令人信服的愿景是什么会使组织中的『流程机器』定位去创造伟大的产品。
+
+ 对于一个资深的设计师来说，以那种方式来定义一个体验愿景是相当容易的。追寻这一愿景所需要的持续自我约束使其几乎无法实现。这就是为什么市场上有那么多奇怪的产品，以及为什么大多数应用和网站长得都一样。只是保持『足够好』更容易做到。
+
+## 拥抱伟大的设计
+
+有许多原因让我们尝试去做伟大的工作而不仅仅是『足够好』的工作：它将你变得与众不同。它让你周围的人更加幸福，它让你更幸福，它是非常有趣并令人满意的。
+
+但最重要的是，对你的生活你还有其他想做的事情吗？除了尽你最大的努力去让周围的世界变得更好，究竟还有什么更好的事情值得你花时间呢？如果每个人都这么做的话想想我们将会生活在什么的世界，这由你开始。
+
+### 分享你的故事
+
+能否举一些伟大设计的例子？发表评论与我们一起分享吧。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
