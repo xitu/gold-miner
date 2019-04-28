@@ -3,14 +3,14 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-do-you-figure.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-do-you-figure.md)
 > * 译者：[Hyde Song](<https://github.com/HydeSong>)
-> * 校对者：
+> * 校对者：[xionglong58](https://github.com/xionglong58)、[xujiujiu](https://github.com/xujiujiu)
 
 # [译] 你认为“figure”怎么用？
 
-作为 HTML5 新引入的元素，`figure` 和 `figtitle` 元素是为了创建有意义的标记结构:
+作为 HTML5 新引入的元素，`figure` 和 `figcaption` 元素是为了创建有意义的标记结构:
 
-* 为一段内容提供一个描述性标签，该标签……
-* 与当前文件相关，但用户对它的理解并不重要。
+* 为一段内容提供一个描述性标签,
+* 该标签与当前文件相关，但用户对它的理解并不重要。
 
 为了得到更具体的信息，让我们分别来了解一下这些元素。
 
@@ -113,7 +113,7 @@
 
 你可能会认为，“很明显，标题的作用应该跟图片的 `alt` 文本一样，不是吗?”。这个假设有两个问题：
 
-**首先**，什么是图片？当图片的 `alt` 为空时，屏幕阅读器不会显示出这张图片，也不会被发现。如果图片中没有 `alt` 键，_一些_屏幕阅读器会显示图像的文件名，但不是所有的屏幕阅读器会这样（比如 JAWS，都可以设置来调整这种行为。但默认忽略这些图像）。
+**首先**，什么是图片？当图片的 `alt` 为空时，屏幕阅读器不会显示出这张图片，也不会被发现。如果图片中没有 `alt` 键，_某些_屏幕阅读器会显示图像的文件名，但不是所有的屏幕阅读器都会这样（比如 JAWS，有调整这些行为的设置。但默认忽略这些图像）。
 
 **其次**，`alt` 属性传达图片呈现的重要信息。`figcaption` 应该提供上下文，以便将 `figure`（图片）与主文档关联起来，或者显示需要注意的特定信息。如果 `figcaption` 代替了 `alt`，那么这就为无视力障碍的用户创建了重复的信息。
 
@@ -123,7 +123,7 @@
 
 既然我们已经知道了应该如何使用 `figure` 及其标题，那么这些元素在屏幕阅读器上是如何表现的呢?
 
-理想情况下，`figure` 应该声明 role 属性，`figcaption` 的内容作为可访问属性。然后，用户应该能够导航到 `figure` ，并独立地与 `figure` 和 `figcaption` 的内容进行交互。对于不完全支持 `figure` 的浏览器，像 Internet Explorer 11, [ARIA 的 `role="figure"` 属性](https://www.w3.org/TR/wai-aria-1.1/#figure) 和 `aria-label` 属性可用于帮助提高某些屏幕阅读器识别标记的可能性。
+理想情况下，`figure` 应该声明 role 属性和 `figcaption` 的内容作为可访问属性。然后，用户应该能够找到 `figure` ，并独立地与 `figure` 和 `figcaption` 的内容进行交互。对于不完全支持 `figure` 的浏览器，像 Internet Explorer 11, [ARIA 的 `role="figure"` 属性](https://www.w3.org/TR/wai-aria-1.1/#figure) 和 `aria-label` 属性可用于帮助提高某些屏幕阅读器识别标签的可能性。
 
 以下是测试过的屏幕阅读器在默认设置下如何在不同的浏览器中显示(或不显示)这些信息的摘要：
 
@@ -131,11 +131,11 @@
 
 JAWS 对原生 figure 和 标题有最好的支持，尽管根据浏览器和 JAWS 的详细设置，支持并不完美和一致。
 
-IE11 需要使用 `role="figure"` 、`aria-label` 或 `aria-labelledby` 指向 `figcaption` 来模拟原生声明。IE11 不支持原生元素并不奇怪，因为 [HTML5 可访问性的 IE11 浏览器评级](https://www.html5accessibility.com/) 永远不会改进。但至少 ARIA 可以提供语义。
+IE11 需要使用 `role="figure"` 、`aria-label` 或 `aria-labelledby` 指向 `figcaption` 来模拟原生元素的属性。IE11 不支持原生元素并不奇怪，因为 [HTML5 可访问性的 IE11 浏览器评级](https://www.html5accessibility.com/) 永远不会改进。但至少 ARIA 可以提供语义。
 
 无论是否使用 ARIA，Edge 都不会声明 figure 的 role 属性。一旦 [Edge 浏览器切换到 Chromium 内核](https://www.windowscentral.com/faq-edge-chromium)，这种情况可能会改变。
 
-Chrome 和 Firefox 提供了类似的支持，但是如果一个图片有一个空的 `alt` 或缺少 `alt` 属性， JAWS（默认的详细设置）Chrome 会**完全忽略** `figure`（包括它的 `figcaption` 的内容）。
+Chrome 和 Firefox 提供了类似的支持，但是如果一个图片有一个空的 `alt` 或缺少 `alt`  属性，JAWS（默认的详细设置）Chrome 会**完全忽略** `figure`（包括它的 `figcaption` 的内容）。
 
 这意味着 [在各种 Medium 文章中](https://twitter.com/aardrian/status/923536098734891009) 那些伴随图片的标题，都被与 Chrome 配合使用的 JAWS 完全忽略了。如果 JAWS 的设置更新能声明所有图像（例如没有提供 `alt` 属性或值的图片），那么 JAWS 使用 Chrome 声明这些 figure 标题。
 
@@ -193,7 +193,7 @@ Narrator 根本没有显示出 `figure` 的 role。但是，原生元素和 `rol
 <figure role="figure" aria-label="repeat figcaption content here">
   <!-- figure content. if an image, provide alt text -->
   <figcaption>
-    figure 的 标题。
+    figure 的标题。
   </figcaption>
 </figure>
 
