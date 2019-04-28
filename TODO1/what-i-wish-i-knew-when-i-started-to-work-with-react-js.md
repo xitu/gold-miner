@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-i-wish-i-knew-when-i-started-to-work-with-react-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-i-wish-i-knew-when-i-started-to-work-with-react-js.md)
 > * 译者：[xionglong58](https://github.com/xionglong58)
-> * 校对者：[xujiujiu](https://github.com/xujiujiu)、[wznonstop](https://github.com/wznonstop)
+> * 校对者：[xujiujiu](https://github.com/xujiujiu)，[wznonstop](https://github.com/wznonstop)
 
 # 我多希望在我学习 React.js 之前就已经知晓这些小窍门
 
@@ -39,7 +39,7 @@ class Foo extends React.Component{
 }
 ```
 
-你之所以会针对每一个方法使用 `.bind(this)`，是因为大多数教程告诉你得那样做。当你有很多受控组件的时候，你的 `constructor(){}`将会显得特别臃肿。
+你之所以会针对每一个方法使用 `.bind(this)`，是因为大多数教程告诉你得那样做。当你有很多受控组件的时候，你的 `constructor(){}` 将会显得特别臃肿。
 
 ### 其实，你可以这样做：
 
@@ -61,7 +61,7 @@ class Foo extends React.Component{
 }
 ```
 
-咋样?
+咋样？
 
 ES6 中的箭头函数使用[词法作用域](https://whatis.techtarget.com/definition/lexical-scoping-static-scoping)让方法能够访问其被定义位置的 `this`。
 
