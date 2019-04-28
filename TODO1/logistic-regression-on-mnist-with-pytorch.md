@@ -15,7 +15,7 @@ In this post, I’ll show how to code a Logistic Regression Model in PyTorch.
 
 We’ll try and solve the classification problem of MNIST dataset. First, let’s import all the libraries we’ll need.
 
-```
+```python
 import torch
 from torch.autograd import Variable
 import torchvision.transforms as transforms
@@ -40,7 +40,7 @@ So let’s go through these steps one by one.
 
 To load the dataset, we make use of **torchvision.datasets,** a library which has almost all the popular datasets used in Machine Learning. You can check out the complete list of datasets at [3].
 
-```
+```python
 train_dataset = dsets.MNIST(root='./data', train=True, transform=transforms.ToTensor(), download=False)
 test_dataset = dsets.MNIST(root='./data', train=False, transform=transforms.ToTensor())
 ```
@@ -49,7 +49,7 @@ test_dataset = dsets.MNIST(root='./data', train=False, transform=transforms.ToTe
 
 We will use the DataLoader class to make our dataset iterable using the following lines of code.
 
-```
+```python
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True)
 test_loader = torch.utils.data.DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False)
 ```
@@ -58,7 +58,7 @@ test_loader = torch.utils.data.DataLoader(dataset=test_dataset, batch_size=batch
 
 Now, we will create a class that defines the architecture of Logistic Regression.
 
-```
+```python
 class LogisticRegression(torch.nn.Module):
     def __init__(self, input_dim, output_dim):
         super(LogisticRegression, self).__init__()
@@ -73,7 +73,7 @@ class LogisticRegression(torch.nn.Module):
 
 Before instantiation, we’ll initialize some parameters like following.
 
-```
+```python
 batch_size = 100
 n_iters = 3000
 epochs = n_iters / (len(train_dataset) / batch_size)
@@ -84,7 +84,7 @@ lr_rate = 0.001
 
 Now, we initialize our Logistic Regression Model.
 
-```
+```python
 model = LogisticRegression(input_dim, output_dim)
 ```
 
@@ -92,7 +92,7 @@ model = LogisticRegression(input_dim, output_dim)
 
 We use the cross-entropy to compute the loss.
 
-```
+```python
 criterion = torch.nn.CrossEntropyLoss() # computes softmax and then the cross entropy
 ```
 
@@ -100,7 +100,7 @@ criterion = torch.nn.CrossEntropyLoss() # computes softmax and then the cross en
 
 The optimizer will be the learning algorithm we use. In this case, we will use the Stochastic Gradient Descent.
 
-```
+```python
 optimizer = torch.optim.SGD(model.parameters(), lr=lr_rate)
 ```
 
@@ -108,7 +108,7 @@ optimizer = torch.optim.SGD(model.parameters(), lr=lr_rate)
 
 Now in the last step, we’ll train the model using the following code.
 
-```
+```python
 iter = 0
 for epoch in range(int(epochs)):
     for i, (images, labels) in enumerate(train_loader):
