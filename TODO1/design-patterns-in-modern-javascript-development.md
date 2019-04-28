@@ -18,6 +18,7 @@
 As is the case with object-oriented programming, we, the developers, are trying to model the world surrounding us. As such, it makes sense to also try and use the world surrounding us as a tool to describe our craft.
 
 In this case, we take a page from architecture (the one with buildings and bridges) and the seminal architecture book called **A Pattern Language: Towns, Buildings, Construction** ****by**** **Christopher Alexander, Sara Ishikawa, Murray Silverstein** where patterns are described as follows:
+
 > Each pattern describes a problem which occurs over and over again in our environment, and then describes the core of the solution to that problem, in such a way that you can use this solution a million times over, without ever doing it the same way twice.
 
 In software development, architecture is the process of constructing an application in a healthy, robust and maintainable way and patterns provide a way of giving names to solutions for common problems. These solutions can range from abstract/conceptual to very precise and technical and allow developers to effectively communicate with each other.
@@ -35,6 +36,7 @@ If two or more developers on a team are knowledgeable about patterns, talking ab
 The singleton pattern isn’t one of the most widely used ones, but we’re starting here because it’s relatively easy to grasp.
 
 The singleton pattern stems from the mathematical concept of a singleton which is:
+
 > In mathematics, a **singleton**, also known as a **unit set**, is a set with exactly one element. For example, the set {null} is a singleton.
 
 In software, it simply means that we limit the instantiation of a class to a single object. The first time an object of a class implementing the singleton pattern should be instantiated, it is actually going to get instantiated. Any subsequent try is just going to return that first instance.
@@ -60,7 +62,6 @@ As an example, let’s say that you have a trivial application which is used for
 You should keep track of the number of button presses in one object which provides:
 
 * the functionality of counting
-
 * and providing the current number of clicks.
 
 If that object wasn’t a singleton (and the buttons would each get their own instance) the click count wouldn’t be correct. Also, which of the counting instances would you provide to the component showing the current count?
@@ -70,6 +71,7 @@ If that object wasn’t a singleton (and the buttons would each get their own in
 ### The what
 
 The observer pattern is defined as follows:
+
 > The **observer pattern** is a software design pattern in which an object, called the **subject**, maintains a list of its dependents, called **observers**, and notifies them automatically of any state changes, usually by calling one of their methods.
 
 It’s really easy to understand the observer pattern if we try comparing it to an example in the real world — newspaper subscriptions.
@@ -94,9 +96,7 @@ The observer pattern has many use cases but generally, it should be used when yo
 JavaScript is a great place for the observable pattern because everything is event-driven and, rather than always asking if an event happened, you should let the event inform you (like the old adage **“Don’t call us we’ll call you”**). Chances are you already did something which looks like the observer pattern — `addEventListener`. Adding an event listener to an element has all the markings of the observer pattern:
 
 * you can subscribe to the object,
-
 * you can unsubscribe from the object,
-
 * and the object can broadcast an event to all its subscribers.
 
 The big payoff from learning about the observer pattern is that you can implement your own subject or grasp an already existing solution much faster.
@@ -114,6 +114,7 @@ Apart from the observer pattern, ReactiveX also prides itself with implementing 
 ### The what
 
 The facade pattern is a pattern which takes its name from architecture. In architecture:
+
 > A **facade** is generally one exterior side of a building, usually the front. It is a foreign loan word from the French **façade**, which means “frontage” or “face”.
 
 As the facade in architecture is an exterior of the building, hiding its inner workings, the facade pattern in software development tries to hide the underlying complexity behind a front, effectively allowing you to work with an API which is easier to grasp while providing the possibility to change the underlying code however you want.
@@ -139,7 +140,6 @@ What are the basic functionalities a state management library is going to provid
 Probably:
 
 * a way of letting the state management know that you want a state change
-
 * and a way of getting the current (slice of) state.
 
 That doesn’t sound too bad.
@@ -163,10 +163,6 @@ If you are looking for something that’s a bit easier to digest, there is [**He
 **Last but not least, nothing beats just Googling, reading and trying out different approaches. Even if you end up never using a pattern or technique, you’ll learn something and grow in ways you never expected.**
 
 **The speech bubbles used in the illustrations are created by [starline — www.freepik.com](https://www.freepik.com/free-photos-vectors/frame).**
-
-***
-[**Learn JavaScript - Best JavaScript Tutorials (2019) | gitconnected**
-**The top 50 JavaScript tutorials - learn JavaScript for free. Courses are submitted and voted on by developers, enabling…**gitconnected.com](https://gitconnected.com/learn/javascript)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
