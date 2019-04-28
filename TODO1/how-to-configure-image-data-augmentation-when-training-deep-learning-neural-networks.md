@@ -2,8 +2,8 @@
 > * 原文作者：[Jason Brownlee](https://machinelearningmastery.com/author/jasonb/ "Posts by Jason Brownlee") 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-configure-image-data-augmentation-when-training-deep-learning-neural-networks.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-configure-image-data-augmentation-when-training-deep-learning-neural-networks.md)
-> * 译者：ccJia
-> * 校对者：         
+> * 译者：[ccJia]https://github.com/ccJia
+> * 校对者：[lsvih]https://github.com/lsvih, [Minghao23]https://github.com/Minghao23 
 
 # 在深度学习训练过程中如何设置数据增强？
 
@@ -27,14 +27,14 @@
 
 本教程被分为以下八个部分，他们分别是：
 
-1.    图像数据增强
-2.    样本图片
-3.    使用 ImageDataGenerator 进行数据增强
-4.    水平和垂直方向的平移增强
-5.    水平和垂直方向的翻转增强
-6.    随机旋转增强
-7.    随机亮度增强
-8.    随机缩放增强
+1.   图像数据增强
+2.   样本图片
+3.   使用 ImageDataGenerator 进行数据增强
+4.   水平和垂直方向的平移增强
+5.   水平和垂直方向的翻转增强
+6.   随机旋转增强
+7.   随机亮度增强
+8.   随机缩放增强
 
 ## 数据增强
 
@@ -153,7 +153,7 @@ _`width_shift_range`_ 和 _`height_shift_range`_ 两个参数分别用来控制�
 
 下面展示的就是一个将平移参数 _`width_shift_range`_ 设置为 [-200, 200] 像素，并画出对应结果的代码。
 
-```
+```Python
 # 水平平移增强的例子
 from numpy import expand_dims
 from keras.preprocessing.image import load_img
@@ -194,7 +194,7 @@ pyplot.show()
 
 下面是类似的例子，通过调整 _`height_shift_range`_ 参数实现垂直平移，其中该参数被设置为 0.5。
 
-```
+```Python
 # 垂直平移增强的例子
 from numpy import expand_dims
 from keras.preprocessing.image import load_img
@@ -245,7 +245,7 @@ pyplot.show()
 
 下面的例子就是通过控制 _horizontal_flip_ 参数来实现图片翻转增强的例子。
 
-```
+```Python
 # 水平翻转示例
 from numpy import expand_dims
 from keras.preprocessing.image import load_img
@@ -293,7 +293,7 @@ pyplot.show()
 
 下面的例子通过控制 _rotation_range_ 参数在 0 到 90 度之间去旋转图片，来展示随机旋转增强的效果。
 
-```python
+```Python
 # 旋转增强示例
 from numpy import expand_dims
 from keras.preprocessing.image import load_img
