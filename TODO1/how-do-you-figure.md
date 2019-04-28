@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-do-you-figure.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-do-you-figure.md)
 > * 译者：[Hyde Song](https://github.com/HydeSong)
-> * 校对者：[xionglong58](https://github.com/xionglong58)、[xujiujiu](https://github.com/xujiujiu)
+> * 校对者：[xionglong58](https://github.com/xionglong58), [xujiujiu](https://github.com/xujiujiu)
 
 # [译] 你认为“figure”怎么用？
 
-作为 HTML5 新引入的元素，`figure` 和 `figcaption` 元素是为了创建有意义的标记结构:
+作为 HTML5 新引入的元素，`figure` 和 `figcaption` 元素是为了创建有意义的标记结构：
 
-* 为一段内容提供一个描述性标签,
+* 为一段内容提供一个描述性标签，
 * 该标签与当前文件相关，但用户对它的理解并不重要。
 
 为了得到更具体的信息，让我们分别来了解一下这些元素。
@@ -24,7 +24,7 @@
 
 在这个基本的例子中，`figure` 和 `figcaption` 起到了引用前文内容的作用。如果去掉它们，目前为止所有的文本信息依然起到了 `figure` 的作用。
 
-[图片源(2003)](http://style.org/unladenswallow/)。
+[图片源（2003）](http://style.org/unladenswallow/)。
 
 使用 `figure` 时可以加上或不加 `figcaption` 标签。但是，不加 `figcaption` 标签，或者不提供其他可访问的属性（比如 `aria-label`），单独使用 `figure` 在表达其语义上价值不大。在某些情况下，如果没有给定可访问的属性，可能表达不出任何语义。
 
@@ -87,9 +87,9 @@
 
 `figcaption` 是用来为 `figure` 提供标题和摘要的，将其与包含 `figure` 的文档关联起来，或者传递附加的信息，这些信息可能在查看 `figure` 本身时并不明显。
 
-如果给一张图片一个空的 `alt`，那么 `figcaption` 实际上什么也没有描述。这说不通，对吧?
+如果给一张图片一个空的 `alt`，那么 `figcaption` 实际上什么也没有描述。这说不通，对吧？
 
-换句话说，让我们看看一个包含 Sass 代码片段的 `figure` :
+换句话说，让我们看看一个包含 Sass 代码片段的 `figure`：
 
 ```
 <figure>
@@ -109,15 +109,15 @@
 </figure>
 ```
 
-与 `figure` 中 `alt` 为空的图像相比，这就像在代码段中放入 `aria-hidden="true"` 。这样做将使屏幕阅读器和其他辅助技术无法解析标题引用的内容。然而，不幸的是，这反映了 `figure` 中图片通常发生的情况。
+与 `figure` 中 `alt` 为空的图像相比，这就像在代码段中放入 `aria-hidden="true"`。这样做将使屏幕阅读器和其他辅助技术无法解析标题引用的内容。然而，不幸的是，这反映了 `figure` 中图片通常发生的情况。
 
-你可能会认为，“很明显，标题的作用应该跟图片的 `alt` 文本一样，不是吗?”。这个假设有两个问题：
+你可能会认为，“很明显，标题的作用应该跟图片的 `alt` 文本一样，不是吗？”。这个假设有两个问题：
 
-**首先**，什么是图片？当图片的 `alt` 为空时，屏幕阅读器不会显示出这张图片，也不会被发现。如果图片中没有 `alt` 键，_某些_屏幕阅读器会显示图像的文件名，但不是所有的屏幕阅读器都会这样（比如 JAWS，有调整这些行为的设置。但默认忽略这些图像）。
+**首先**，什么是图片？当图片的 `alt` 为空时，屏幕阅读器不会显示出这张图片，也不会被发现。如果图片中没有 `alt` 键，**某些**屏幕阅读器会显示图像的文件名，但不是所有的屏幕阅读器都会这样（比如 JAWS，有调整这些行为的设置。但默认忽略这些图像）。
 
 **其次**，`alt` 属性传达图片呈现的重要信息。`figcaption` 应该提供上下文，以便将 `figure`（图片）与主文档关联起来，或者显示需要注意的特定信息。如果 `figcaption` 代替了 `alt`，那么这就为无视力障碍的用户创建了重复的信息。
 
-误用 `figcaption` 代替图像 `alt` 还有其他问题。但要发现这些问题，我们需要了解屏幕阅读器如何解析 `figure` 。
+误用 `figcaption` 代替图像 `alt` 还有其他问题。但要发现这些问题，我们需要了解屏幕阅读器如何解析 `figure`。
 
 ## `figure` 元素和屏幕阅读器
 
@@ -125,17 +125,17 @@
 
 理想情况下，`figure` 应该声明 role 属性和 `figcaption` 的内容作为可访问属性。然后，用户应该能够找到 `figure` ，并独立地与 `figure` 和 `figcaption` 的内容进行交互。对于不完全支持 `figure` 的浏览器，像 Internet Explorer 11, [ARIA 的 `role="figure"` 属性](https://www.w3.org/TR/wai-aria-1.1/#figure) 和 `aria-label` 属性可用于帮助提高某些屏幕阅读器识别标签的可能性。
 
-以下是测试过的屏幕阅读器在默认设置下如何在不同的浏览器中显示(或不显示)这些信息的摘要：
+以下是测试过的屏幕阅读器在默认设置下如何在不同的浏览器中显示（或不显示）这些信息的摘要：
 
 ### JAWS 18 的 2018 和 2019 版本
 
 JAWS 对原生 figure 和 标题有最好的支持，尽管根据浏览器和 JAWS 的详细设置，支持并不完美和一致。
 
-IE11 需要使用 `role="figure"` 、`aria-label` 或 `aria-labelledby` 指向 `figcaption` 来模拟原生元素的属性。IE11 不支持原生元素并不奇怪，因为 [HTML5 可访问性的 IE11 浏览器评级](https://www.html5accessibility.com/) 永远不会改进。但至少 ARIA 可以提供语义。
+IE11 需要使用 `role="figure"`、`aria-label` 或 `aria-labelledby` 指向 `figcaption` 来模拟原生元素的属性。IE11 不支持原生元素并不奇怪，因为 [HTML5 可访问性的 IE11 浏览器评级](https://www.html5accessibility.com/)永远不会改进。但至少 ARIA 可以提供语义。
 
 无论是否使用 ARIA，Edge 都不会声明 figure 的 role 属性。一旦 [Edge 浏览器切换到 Chromium 内核](https://www.windowscentral.com/faq-edge-chromium)，这种情况可能会改变。
 
-Chrome 和 Firefox 提供了类似的支持，但是如果一个图片有一个空的 `alt` 或缺少 `alt`  属性，JAWS（默认的详细设置）Chrome 会**完全忽略** `figure`（包括它的 `figcaption` 的内容）。
+Chrome 和 Firefox 提供了类似的支持，但是如果一个图片有一个空的 `alt` 或缺少 `alt` 属性，JAWS（默认的详细设置）Chrome 会**完全忽略** `figure`（包括它的 `figcaption` 的内容）。
 
 这意味着 [在各种 Medium 文章中](https://twitter.com/aardrian/status/923536098734891009) 那些伴随图片的标题，都被与 Chrome 配合使用的 JAWS 完全忽略了。如果 JAWS 的设置更新能声明所有图像（例如没有提供 `alt` 属性或值的图片），那么 JAWS 使用 Chrome 声明这些 figure 标题。
 
@@ -143,17 +143,17 @@ Chrome 和 Firefox 提供了类似的支持，但是如果一个图片有一个�
 
 ### NVDA 屏幕阅读器
 
-在使用 IE11、Edge、Firefox 64.0.2 和 Chrome 71 测试 NVDA 2018.4.1 版本时，没有发现任何 figure。最接近的迹象是 NVDA + IE11 在声明图片或 `figcaption` 内容之前声明 “edit”（不过 “edit” 没有任何意义…...）。测试 `role="figure"` 模式并没有改变缺少声明的情况。figure 的内容仍然可以访问，但是不会表现内容和标题之间的关系。
+在使用 IE11、Edge、Firefox 64.0.2 和 Chrome 71 测试 NVDA 2018.4.1 版本时，没有发现任何 figure。最接近的迹象是 NVDA + IE11 在声明图片或 `figcaption` 内容之前声明 “edit”（不过 “edit” 没有任何意义...）。测试 `role="figure"` 模式并没有改变缺少声明的情况。figure 的内容仍然可以访问，但是不会表现内容和标题之间的关系。
 
 ### VoiceOver（macOS）
 
-测试在 macOS 10.14.2 上使用 Safari(12.0.2) 和 Chrome(71.0.3578.98) 进行，并使用了 VoiceOver 9。
+测试在 macOS 10.14.2 上使用 Safari（12.0.2）和 Chrome（71.0.3578.98）进行，并使用了 VoiceOver 9。
 
 #### Safari
 
 当使用 Safari 进行测试时，`figure` 将会显示出它的 role 属性。如果没有语义化的属性（例如没有 `figcaption`, `aria-label` 等），则不会显示出 `figure` 的 role 属性。
 
-VoiceOver 可以导航到 `figure` ，并单独与 `figure` 和 `figcaption` 的主要内容进行交互。
+VoiceOver 可以导航到 `figure`，并单独与 `figure` 和 `figcaption` 的主要内容进行交互。
 
 #### Chrome
 
@@ -222,7 +222,7 @@ Narrator 根本没有显示出 `figure` 的 role。但是，原生元素和 `rol
 
 ### 拓展阅读
 
-下面是更多关于 `figure` 的和 `figcaption` 的资源和上文使用的测试页面/结果，以及 JAWS 和 NVDA 归档的 bug:
+下面是更多关于 `figure` 的和 `figcaption` 的资源和上文使用的测试页面/结果，以及 JAWS 和 NVDA 归档的 bug：
 
 *   [HTML Accessibility API Mappings 1.0: `figure` and `figcaption` elements](https://w3c.github.io/html-aam/#figure-and-figcaption-elements), W3C
 *   [HTML5 Accessibility](https://www.html5accessibility.com/)
