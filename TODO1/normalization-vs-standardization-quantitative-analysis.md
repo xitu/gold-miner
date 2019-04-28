@@ -2,10 +2,10 @@
 > * 原文作者：[Shay Geller](https://medium.com/@shayzm1)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/normalization-vs-standardization-quantitative-analysis.md](https://github.com/xitu/gold-miner/blob/master/TODO1/normalization-vs-standardization-quantitative-analysis.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ccJia](https://github.com/ccJia)
+> * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234), [portandbridge](https://github.com/portandbridge)
 
-#对比归一化和标准化 —— 量化分析
+# 对比归一化和标准化 —— 量化分析
 
 停止使用 Sklearn 提供的 StandardScaler 作为你的特征压缩方法甚至可以让你训练好的模型有 7% 的准确率提升。
 
@@ -13,7 +13,7 @@
 
 每一个 ML 的从业者都知道特征的压缩是一个重要的议题（[更多](https://medium.com/greyatom/why-how-and-when-to-scale-your-features-4b30ab09db5e)）
 
-两个最热议的方法就是归一化和标准化。 **归一化**通常来说是将数值压缩到 [0,1] 范围内。**标准化**指的是重新调整数据，使数据到均值为 0，标准差为 1 。
+两个最热议的方法就是归一化和标准化。**归一化**通常来说是将数值压缩到 [0,1] 范围内。**标准化**指的是重新调整数据，使数据到均值为 0，标准差为 1。
 
 本篇博客希望通过一些实验回答以下的问题：
 
@@ -45,7 +45,7 @@
 
 首先，我尝试理解归一化与标准化之间的区别。
 
-然后，我发现了这篇由 Sebastian Raschka 写的很不错的 [博客](https://sebastianraschka.com/Articles/2014_about_feature_scaling.html)，这篇文章从数学的角度满足了我的好奇心。**如果你不熟悉归一化与标准化的概念，那么请一定花五分钟读一下这篇博客**
+然后，我发现了这篇由 Sebastian Raschka 写的很不错的 [博客](https://sebastianraschka.com/Articles/2014_about_feature_scaling.html)，这篇文章从数学的角度满足了我的好奇心。**如果你不熟悉归一化与标准化的概念，那么请一定花五分钟读一下这篇博客**。
 
 这里还有篇由 Hinton 大神写的[文章](https://www.youtube.com/watch?v=Xjtu1L7RwVM&list=PLoRl3Ht4JOcdU872GhiYWf6jwrk_SNhz9&index=26)解释了为什么使用梯度下降来训练的分类器（如神经网络）需要使用特征的压缩。
 
@@ -55,7 +55,7 @@
 
 我们阅读了很多 ML 的主线教程，一般都是使用 StandardScaler（通常叫做零均值标准化 ）或者 MinMaxScaler（通常叫做 Min-Max 归一化）来压缩特征。为什么没人用其他的压缩方法来分类呢？难道 StandardScaler 和 MinMaxScaler 已经是最好的压缩方法了？
 
-我在教程中没有发现关于为什么或者什么时候使用这些方法的解释。所以，我觉得应该通过实验来研究这些技术的性能。 **这就是这篇文章所要讲的全部东西。**
+我在教程中没有发现关于为什么或者什么时候使用这些方法的解释。所以，我觉得应该通过实验来研究这些技术的性能。**这就是这篇文章所要讲的全部东西。**
 
 ## 项目细节
 
@@ -70,13 +70,13 @@
 这是一个平衡的数据集：
 
 ```
-sonar[60].value_counts() # 60 是标签列的名字 
+sonar[60].value_counts() # 60 是标签列的名字
 
 M    111
 R     97
 ```
 
-数据集中所有特征都在 0 和 1 之间， **但是**并不是每一个特征都能保证 1 是最大值或者 0 是最小值。
+数据集中所有特征都在 0 和 1 之间，**但是**并不是每一个特征都能保证 1 是最大值或者 0 是最小值。
 
 我选择这个数据集有两个方面的考量，首先是这个数据集足够的小，我可以快速的完成实验。其次，这个问题比较复杂，没有一个分类器可以将准确率做到 100%，我获得的比对数据就更有意义。
 
@@ -105,7 +105,7 @@ R     97
 
 * 为了复现实验场景，我们使用相同的随机数种子。
 
-* 训练集和测试集的比例为 8 : 2，并且是随机划分。
+* 训练集和测试集的比例为 8:2，并且是随机划分。
 
 * 所有的结果的准确率都是在 10 个取自**训练集**的随机交叉验证集上得到的。
 
@@ -127,6 +127,7 @@ results_df
 ```
 
 ## 1. 成熟的分类器
+
 ```
 import operator
 
@@ -142,6 +143,7 @@ results_df.loc[operator.and_(results_df["Classifier_Name"].str.startswith("_"), 
 那么，让我们来看看不同压缩方法是怎么改变每个分类器得分的。
 
 ## 2. 分类器 + 压缩
+
 ```
 import operator
 temp = results_df.loc[~results_df["Classifier_Name"].str.endswith("PCA")].dropna()
@@ -149,14 +151,14 @@ temp["model"] = results_df["Classifier_Name"].apply(lambda sen: sen.split("_")[1
 temp["scaler"] = results_df["Classifier_Name"].apply(lambda sen: sen.split("_")[0])
 
 def df_style(val):
-return 'font-weight: 800'
+    return 'font-weight: 800'
 
 pivot_t = pd.pivot_table(temp, values='CV_mean', index=["scaler"], columns=['model'], aggfunc=np.sum)
 pivot_t_bold = pivot_t.style.applymap(df_style,
-subset=pd.IndexSlice[pivot_t["CART"].idxmax(),"CART"])
+                      subset=pd.IndexSlice[pivot_t["CART"].idxmax(),"CART"])
 for col in list(pivot_t):
-pivot_t_bold = pivot_t_bold.applymap(df_style,
-subset=pd.IndexSlice[pivot_t[col].idxmax(),col])
+    pivot_t_bold = pivot_t_bold.applymap(df_style,
+                      subset=pd.IndexSlice[pivot_t[col].idxmax(),col])
 pivot_t_bold
 ```
 
@@ -170,18 +172,18 @@ import operator
 cols_max_vals = {}
 cols_max_row_names = {}
 for col in list(pivot_t):
-row_name = pivot_t[col].idxmax()
-cell_val = pivot_t[col].max()
-cols_max_vals[col] = cell_val
-cols_max_row_names[col] = row_name
+    row_name = pivot_t[col].idxmax()
+    cell_val = pivot_t[col].max()
+    cols_max_vals[col] = cell_val
+    cols_max_row_names[col] = row_name
 
 sorted_cols_max_vals = sorted(cols_max_vals.items(), key=lambda kv: kv[1], reverse=True)
 
 print("Best classifiers sorted:\n")
 counter = 1
 for model, score in sorted_cols_max_vals:
-print(str(counter) + ". " + model + " + " +cols_max_row_names[model] + " : " +str(score))
-counter +=1
+    print(str(counter) + ". " + model + " + " +cols_max_row_names[model] + " : " +str(score))
+    counter +=1
 ```
 
 最好的组合如下：
@@ -206,6 +208,7 @@ counter +=1
 4. 一些压缩方法，如：QuantileTransformer-Uniform，并不会保存特征的实际顺序，因此它依然会改变上述的那些与其他压缩方法无关的分类器的得分。
 
 ## 3. 分类器 + 压缩 + PCA
+
 我们知道一些众所周知的 ML 方法，比如像 PCA 就可以从压缩中获益（[博客](https://sebastianraschka.com/Articles/2014_about_feature_scaling.html)）。我们试着加上一个 PCA（n_components=4）到实验中并分析结果。
 
 ```
@@ -215,14 +218,14 @@ temp["model"] = results_df["Classifier_Name"].apply(lambda sen: sen.split("_")[1
 temp["scaler"] = results_df["Classifier_Name"].apply(lambda sen: sen.split("_")[0])
 
 def df_style(val):
-return 'font-weight: 800'
+    return 'font-weight: 800'
 
 pivot_t = pd.pivot_table(temp, values='CV_mean', index=["scaler"], columns=['model'], aggfunc=np.sum)
 pivot_t_bold = pivot_t.style.applymap(df_style,
-subset=pd.IndexSlice[pivot_t["CART"].idxmax(),"CART"])
+                      subset=pd.IndexSlice[pivot_t["CART"].idxmax(),"CART"])
 for col in list(pivot_t):
-pivot_t_bold = pivot_t_bold.applymap(df_style,
-subset=pd.IndexSlice[pivot_t[col].idxmax(),col])
+    pivot_t_bold = pivot_t_bold.applymap(df_style,
+                      subset=pd.IndexSlice[pivot_t[col].idxmax(),col])
 pivot_t_bold
 ```
 
@@ -251,7 +254,7 @@ pivot_t_bold
 
 我们与较早阶段的结果做对比可以发现几乎所有的算法都会从超参调整中获益。一个有趣的例外是 MLP，它变得更糟糕了。这个很可能是神经网络会很容易在数据集上过拟合（尤其是当参数量远远大于训练样本），同时我们又没有用提前停止或者正则化的方式来避免过拟合。
 
-然而，即使我们有一组调整好的超参，运用不同的压缩方法所得的结果还是有很大区别的。当我们在其他方法进行实验时会发现，用这些方法和广泛使用的 StandardScaler 在 KNN 算法上做对比，**准确度居然可以获得7%的提升。**
+然而，即使我们有一组调整好的超参，运用不同的压缩方法所得的结果还是有很大区别的。当我们在其他方法进行实验时会发现，用这些方法和广泛使用的 StandardScaler 在 KNN 算法上做对比，**准确度居然可以获得 7% 的提升。**
 
 **这个章节的主要结论是，即使我们有一组调试好的超参，变换不同的压缩方法仍然会对模型结果有较大的影响。所以我们应该将模型使用的压缩方法也当作一个关键的超参。**
 
@@ -261,7 +264,7 @@ pivot_t_bold
 
 为了得到更好理解同时更为普适的结论，我们需要在更多的数据集上做更多的实验。
 
-我们会用到和第三节相似的 分类器+压缩+PCA 的形式在几个具有不同特征的数据集上进行实验，并在不同的小节中分析结果。所有的数据集都来自于 Kaggel。
+我们会用到和第三节相似的分类器+压缩+PCA 的形式在几个具有不同特征的数据集上进行实验，并在不同的小节中分析结果。所有的数据集都来自于 Kaggel。
 
 * 为了方便起见，我从各个数据集中选择了只有数值的列。多元化的数据集（数值和分类特征）在如何进行压缩上一直有争议。
 
@@ -273,7 +276,7 @@ pivot_t_bold
 **分类任务**：预测是否下雨?
 **度量方法**：精度
 **数据集大小**：(56420, 18)
-**各个类别的数量**:
+**各个类别的数量**：
 不下雨 43993
 下雨 12427
 
@@ -299,15 +302,15 @@ dataset.describe()
 
 * 我们可以发现在 CART-PCA 算法上 StandardScaler 和其他的方法甚至有 **20% 的区别**。
 
-* 我们也可以发现压缩通常是有效果的。在 SVM 上准确率甚至从**78% 涨到了 99%。**
+* 我们也可以发现压缩通常是有效果的。在 SVM 上准确率甚至从 **78% 涨到了 99%。**
 
 ## 5.2 Bank Marketing 数据集
 
 [链接](https://www.kaggle.com/henriqueyamahata/bank-marketing)
-**分类任务**: 预测客户是否已经订购了定期存款?
-**度量方法**: AUC **（数据集不平衡）**
-**数据集大小**: (41188, 11)
-**各类别数量**:
+**分类任务**：预测客户是否已经订购了定期存款?
+**度量方法**：AUC **（数据集不平衡）**
+**数据集大小**：(41188, 11)
+**各类别数量**：
 没订购 36548
 订购 4640
 
@@ -333,15 +336,15 @@ dataset.describe()
 
 * 再次强调，依然没有一个压缩方法表现的非常优秀。
 
-* 另一个有趣的结果，所有压缩方法在大多数的模型上都没有带来非常大的提升（基本都在 1% - 3%之间）。这是因为数据集本身是不平衡的，我们也没有调整参数。另一个原因是 AUC 的得分已经很高（在 90% 左右），这就很难再有大的提升了。
+* 另一个有趣的结果，所有压缩方法在大多数的模型上都没有带来非常大的提升（基本都在 1% - 3% 之间）。这是因为数据集本身是不平衡的，我们也没有调整参数。另一个原因是 AUC 的得分已经很高（在 90% 左右），这就很难再有大的提升了。
 
 ## 5.3 Sloan Digital Sky Survey DR14 数据集
 
 [链接](https://www.kaggle.com/lucidlenn/sloan-digital-sky-survey)
 **分类任务**：预测目标是星系、恒星还是类星体？
 **度量方式**：准确度 (多分类)
-**数据集大小**: (10000, 18)
-**各类别数量**:
+**数据集大小**：(10000, 18)
+**各类别数量**：
 星系 4998
 行星 4152
 类星体 850
@@ -375,10 +378,10 @@ dataset.describe()
 ## 5.4 Income classification 数据集
 
 [链接](https://www.kaggle.com/lodetomasi1995/income-classification)
-**分类任务**： 收入是 >50K 还是 <=50K ？
+**分类任务**：收入是 >50K 还是 <=50K？
 **度量**：AUC **（不平衡数据集）**
 **数据集大小**：(32561, 7)
-**各类别数量**:
+**各类别数量**：
 <=50K 24720
 >50K 7841
 
@@ -402,7 +405,7 @@ dataset.describe()
 
 * 再次说明，数据集是不平衡的，但是我们可以发现压缩是十分有效的可以使结果出现高达 20% 的提升。这个很可能是 AUC 的得分相较于 Bank Marketing 数据集而言比较低（80%），所以很容易获得较大的提高。
 
-* 虽然 StandardScaler 没有被高亮（我只标亮了每列得分最高的一项），但是在很多列它都很接近最好的结果，当然也不总是有这样的结论。在运行时（没有展示），StandardScaler 的速度比大多数的压缩方法都快。如果你比较关注速度，StandardScaler  是个很好的选择。但是如果你关注的是精度，那么你就需要试试其他压缩方法了。
+* 虽然 StandardScaler 没有被高亮（我只标亮了每列得分最高的一项），但是在很多列它都很接近最好的结果，当然也不总是有这样的结论。在运行时（没有展示），StandardScaler 的速度比大多数的压缩方法都快。如果你比较关注速度，StandardScaler 是个很好的选择。但是如果你关注的是精度，那么你就需要试试其他压缩方法了。
 
 * 再次强调，依然没有一个压缩方法在所有算法上都表现的非常优秀。
 
@@ -416,7 +419,7 @@ dataset.describe()
 
 * 明白模型和预处理方法背后的数学理论是理解这些结果的最好方法。（举个例子，树型分类器是怎么工作的？为什么一些压缩方法对它们无效？）。这会节约你很多的时间，如果你知道在使用随机森林时不能使用 StandardScaler。
 
-* 像 PCA 这样的预处理方法确实是会从压缩上获得增益。**如果没有效果，** 可能是因为 PCA 的维度设置的不好，异常点较多或者错误的选择压缩方法。
+* 像 PCA 这样的预处理方法确实是会从压缩上获得增益。**如果没有效果**，可能是因为 PCA 的维度设置的不好，异常点较多或者错误的选择压缩方法。
 
 如果你发现任何的错误、实验覆盖率的改进方法或者改进意见都可以联系我。
 
