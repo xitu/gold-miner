@@ -2,7 +2,7 @@
 > * 原文作者：[scottohara](https://www.scottohara.me)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-do-you-figure.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-do-you-figure.md)
-> * 译者：[Hyde Song](<https://github.com/HydeSong>)
+> * 译者：[Hyde Song](https://github.com/HydeSong)
 > * 校对者：[xionglong58](https://github.com/xionglong58)、[xujiujiu](https://github.com/xujiujiu)
 
 # [译] 你认为“figure”怎么用？
