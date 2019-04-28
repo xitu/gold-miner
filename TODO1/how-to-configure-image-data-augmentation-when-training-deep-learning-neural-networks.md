@@ -2,8 +2,8 @@
 > * 原文作者：[Jason Brownlee](https://machinelearningmastery.com/author/jasonb/ "Posts by Jason Brownlee") 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-configure-image-data-augmentation-when-training-deep-learning-neural-networks.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-configure-image-data-augmentation-when-training-deep-learning-neural-networks.md)
-> * 译者：[ccJia]https://github.com/ccJia
-> * 校对者：[lsvih]https://github.com/lsvih, [Minghao23]https://github.com/Minghao23 
+> * 译者：[ccJia](https://github.com/ccJia)
+> * 校对者：[lsvih](https://github.com/lsvih), [Minghao23](https://github.com/Minghao23)
 
 # 在深度学习训练过程中如何设置数据增强？
 
