@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/logistic-regression-on-mnist-with-pytorch.md](https://github.com/xitu/gold-miner/blob/master/TODO1/logistic-regression-on-mnist-with-pytorch.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[fireairforce](https://github.com/fireairforce)
 
 # 使用 PyTorch 在 MNIST 数据集上进行逻辑回归
 
@@ -13,7 +13,7 @@
 
 本文将展示如何使用 PyTorch 编写逻辑回归模型。
 
-我们将尝试在 MNIST 数据集上解决分类问题。首先，导入所有我们需要用到的库：
+我们将尝试在 MNIST 数据集上解决分类问题。首先，导入我们所需要的所有库：
 
 ```python
 import torch
@@ -22,11 +22,11 @@ import torchvision.transforms as transforms
 import torchvision.datasets as dsets
 ```
 
-我喜欢在创建模型前列这么一个步骤表。PyTorch 官网[2]上也有这个步骤列表：
+在创建模型前，我喜欢列一个如下的步骤表。PyTorch 官网[2]上也有这个步骤列表：
 
 ```python
 # 第一步：加载数据集
-# 第二部：使数据集可迭代
+# 第二步：使数据集可迭代
 # 第三步：创建模型类
 # 第四步：将模型类实例化
 # 第五步：实例化 Loss 类
@@ -38,7 +38,7 @@ import torchvision.datasets as dsets
 
 ### 加载数据集
 
-我们使用**torchvision.datasets**来加载数据集。这个库中包含了几乎全部的用于机器学习的流行数据集。在[3]中可以看到完整的数据集列表。
+我们使用 **torchvision.datasets** 来加载数据集。这个库中包含了几乎全部的用于机器学习的流行数据集。在[3]中可以看到完整的数据集列表。
 
 ```python
 train_dataset = dsets.MNIST(root='./data', train=True, transform=transforms.ToTensor(), download=False)
@@ -56,7 +56,7 @@ test_loader = torch.utils.data.DataLoader(dataset=test_dataset, batch_size=batch
 
 ### 创建模型类
 
-现在，我们将创建一个类，用来定义逻辑回归模型的结构：
+现在，我们将创建一个用来定义逻辑回归模型结构的类：
 
 ```python
 class LogisticRegression(torch.nn.Module):
@@ -90,7 +90,7 @@ model = LogisticRegression(input_dim, output_dim)
 
 ### 实例化 Loss 类
 
-我们将使用交叉熵损失来计算 loss：
+我们使用交叉熵损失来计算 loss：
 
 ```python
 criterion = torch.nn.CrossEntropyLoss() # 计算 softmax 分布之上的交叉熵损失
@@ -137,9 +137,9 @@ for epoch in range(int(epochs)):
             print("Iteration: {}. Loss: {}. Accuracy: {}.".format(iter, loss.item(), accuracy))
 ```
 
-在训练时，这个模型只需要进行 3000 次迭代就能达到 **82%** 的准确率。你可以试着再调整一下参数，看看还能不能把准确率再调高一点。
+在训练时，这个模型只需要进行 3000 次迭代就能达到 **82%** 的准确率。你可以试着继续调整一下参数，看看还能不能把准确率再调高一点。
 
-如果你想加深对在 PyTorch 中实现逻辑回归的理解，可以把上面的模型应用于任何分类问题。比如，你可以训练一个逻辑回归模型来对你最喜爱的**漫威英雄**的图像做个分类（有一半已经化灰了，所以做分类应该不是很难）~
+如果你想加深对在 PyTorch 中实现逻辑回归的理解，可以把上面的模型应用于任何分类问题。比如，你可以训练一个逻辑回归模型来对你最喜爱的**漫威英雄**的图像做个分类（有一半已经化灰了，所以做分类应该不是很难）:)
 
 ### 引用
 
