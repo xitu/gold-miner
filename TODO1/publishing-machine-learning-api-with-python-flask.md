@@ -7,7 +7,7 @@
 
 # Publishing Machine Learning API with Python Flask
 
-### A set of instructions describing how to expose Machine Learning model to the outside world through Python Flask REST API
+> A set of instructions describing how to expose Machine Learning model to the outside world through Python Flask REST API
 
 ![Source: Pixabay](https://cdn-images-1.medium.com/max/12000/1*kz-3jQbSoa0rPsjzHtQcLg.jpeg)
 
@@ -17,7 +17,7 @@ This example is based on XGBoost.
 
 For better code maintenance, I would recommend using a separate Jupyter notebook where ML model API will be published. Import Flask module along with Flask CORS:
 
-```
+```python
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 
@@ -27,14 +27,14 @@ import pandas as pd
 
 Model is trained on [Pima Indians Diabetes Database](https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.names). CSV data can be downloaded from [here](https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv). To construct Pandas data frame variable as input for model **predict** function, we need to define an array of dataset columns:
 
-```
+```python
 # Get headers for payload
 headers = ['times_pregnant', 'glucose', 'blood_pressure', 'skin_fold_thick', 'serum_insuling', 'mass_index', 'diabetes_pedigree', 'age']
 ```
 
 Previously trained and saved model is loaded using Pickle:
 
-```
+```python
 # Use pickle to load in the pre-trained model
 with open(f'diabetes-model.pkl', 'rb') as f:
     model = pickle.load(f)
@@ -42,7 +42,7 @@ with open(f'diabetes-model.pkl', 'rb') as f:
 
 It is always a good practice to do a test run and check if the model performs well. Construct data frame with an array of column names and an array of data (using new data, the one which is not present in train or test datasets). Calling two functions — **model.predict** and **model.predict_proba**. Often I prefer **model.predict_proba**, it returns probability which describes how likely will be 0/1, this helps to interpret the result based on a certain range (0.25 to 0.75 for example). Pandas data frame is constructed with sample payload and then the model prediction is executed:
 
-```
+```python
 # Test model with data frame
 input_variables = pd.DataFrame([[1, 106, 70, 28, 135, 34.2, 0.142, 22]],
                                 columns=headers, 
@@ -58,7 +58,7 @@ print("Probabilities: ", prediction_proba)
 
 Flask API. Make sure you enable CORS, otherwise API call will not work from another host. Write annotation before the function you want to expose through REST API. Provide an endpoint name and supported REST methods (POST in this example). Payload data is retrieved from the request, Pandas data frame is constructed and model **predict_proba** function is executed:
 
-```
+```python
 app = Flask(__name__)
 CORS(app)
 
