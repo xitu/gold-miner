@@ -70,9 +70,9 @@
 
 下载这张照片，并保存在你的工作目录命名为 ‘_bird.jpg_‘。
 
-![Feathered Friend, 作者 AndYaDontStop.](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/bird.jpg)
+![Feathered Friend，作者 AndYaDontStop。](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/bird.jpg)
 
-Feathered Friend, 作者 AndYaDontStop。  
+Feathered Friend，作者 AndYaDontStop。  
 保留部分权力.
 
 *   [图片下载链接 (bird.jpg)](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/bird.jpg)
@@ -87,10 +87,10 @@ Keras 框架可以在训练模型时，自动使用数据增强。
 
 该类支持一系列的增强方法，包括像素值的缩放，但是我们只关注以下五种主要的图像数据增强方法：
 
-*    通过 _`width_shift_range`_ 和 _`height_shift_range`_ 参数设置图像平移。
-*    通过 _rotation_range_ 参数设置图像翻转。
-*    通过 _brightness_range_ 参数设置图像亮度。
-*    通过 _zoom_range_ 参数设置图像缩放。
+*   通过 _`width_shift_range`_ 和 _`height_shift_range`_ 参数设置图像平移。
+*   通过 _rotation_range_ 参数设置图像翻转。
+*   通过 _brightness_range_ 参数设置图像亮度。
+*   通过 _zoom_range_ 参数设置图像缩放。
 
 一个通过构造函数实例化 ImageDataGenerator 的例子。
 
