@@ -5,16 +5,17 @@
 > * 译者：
 > * 校对者：
 
-# Elixir, Phoenix, Absinthe, GraphQL, React, and Apollo: an absurdly deep dive - Part -2
+# Elixir、Phoenix、Absinthe、GraphQL、React 和 Apollo：一次近乎疯狂的深度实践 —— 第二部分
 
 如果你没有看过本系列文章的第一部分，建议你先去看第一部分：
 
 - [Elixir, Phoenix, Absinthe, GraphQL, React, and Apollo: an absurdly deep dive - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO1/elixir-phoenix-absinthe-graphql-react-apollo-absurdly-deep-dive-1.md)
 - [Elixir, Phoenix, Absinthe, GraphQL, React, and Apollo: an absurdly deep dive - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO1/elixir-phoenix-absinthe-graphql-react-apollo-absurdly-deep-dive-2.md)
 
-### Testing — server side
+### 测试 —— 服务器端
 
 Now that we’ve gotten all that code written, how do we make sure it keeps working? There’s a few different layers to think about testing here. First, we should unit test the models — do they validate correctly and do their helper methods return what’s expected? Second, we should also unit test the resolvers — do they handle different cases (success and error) and return the correct data or apply the correct change? Third, we should write some complete integration tests, sending a query to the server and expecting the response to be correct. This helps us keep a handle on the big picture, and also ensures we cover cases like the authentication logic. Fourth, we will want tests on our subscriptions — do they correctly notify the socket when relevant changes are made?
+现在我们所有的代码都已经写好了，我们要如何确保它宗能正常工作呢？
 
 Elixir has a basic built-in testing library called ExUnit. It contains simple `assert`/`refute` helpers and handles running your tests. It’s also common in Phoenix to set up “case” support files; these are included in tests to run common setup tasks like connecting to the database. Beyond the defaults, there are two helper libraries that I found helpful in my tests — [ex_spec](https://hexdocs.pm/ex_spec/readme.html) and [ex_machina](https://hexdocs.pm/ex_machina/readme.html). ex_spec adds simple `describe` and `it` macros that make the testing syntax feel a little friendlier, at least from my ruby background. ex_machina provides factories which make it easy to dynamically insert test data.
 
@@ -883,6 +884,7 @@ Finally, the `useEffect` in our `StateProvider` is what invokes the `refreshSock
 And that’s pretty much all there is for the client. You can look through the rest of the [components](https://github.com/schneidmaster/socializer/tree/master/client/src) for more examples of queries, mutations, and subscriptions, but the patterns are largely the same as what we’ve walked through so far.
 
 ### Testing — client side
+### 测试 —— 客户端
 
 Let’s write some tests to cover our React code. Our app comes with [jest](https://jestjs.io) built in (create-react-app includes it by default); jest is a fairly simple and intuitive test runner for JavaScript. It also includes some advanced features like snapshot testing, which we’ll put to use in our first test.
 
