@@ -20,7 +20,6 @@ I want to create a drag and drop layout builder giving users the ability to buil
 ## What tools will we be using?
 
  1. **React**
-
  2. **ImmutableJS**
 
 Let’s take a moment to explain their roles in building this.
@@ -35,7 +34,7 @@ The role of the components will be to take the state from the parent component a
 
 Here’s a quick example of state with three link objects:
 
-```
+```js
 {
   links:  [{
     name: "Link 1",
@@ -55,7 +54,7 @@ Here’s a quick example of state with three link objects:
 
 In the above example, we could loop over the links array and create a stateless React component for each link:
 
-```
+```ts
 interface ILink {
   name: string;
   url: string;
@@ -68,7 +67,7 @@ const LinkComponent = ({ name, url, selected }: ILink) =>
 
 You can see how we are applying the css class “selected” to our link component based on the selected property held in state. This is what would be rendered to the browser:
 
-```
+```html
 <a href="http://link.two" class="selected">Link 2</a>
 ```
 
@@ -80,7 +79,7 @@ In simple terms this means once the data object is created, it **cannot** be cha
 
 Let me illustrate immutability with another quick example:
 
-```
+```ts
 interface ILink {
   name: string;
   url: string;
@@ -96,13 +95,13 @@ const link: ILink = {
 
 Traditionally in Javascript, you could have done something like below to update the link object:
 
-```
+```js
 link.name = 'New name';
 ```
 
 If our state is immutable this is not possible, instead we must create a new object with the name changed:
 
-```
+```js
 link = {...link, name: 'New name' };
 ```
 
@@ -132,7 +131,7 @@ Using the native HTML5 events namely `onDragStart`, `onDragOver`, and `onDragDro
 
 **Here’s an example of a draggable component:**
 
-```
+```ts
 export interface IDraggableComponent {
   name: string;
   type: string;
@@ -153,7 +152,7 @@ In the above snippet we are rendering a React component which uses the `onDragSt
 
 **Here’s an example of a droppable component:**
 
-```
+```ts
 export interface IDroppableComponent {
   name: string;
   onDragOver: (ev: React.DragEvent<HTMLDivElement>) => void;
@@ -185,9 +184,7 @@ In the above component we are listening on the `onDrop` event so we can update t
 Now we have a solid understanding of what we are trying to do and how we are going to approach it, let’s consider some of the most important pieces of this puzzle:
 
  1. The layout state
-
  2. The drag and drop builder component
-
  3. Rendering nested components inside a grid
 
 ## 1. The layout state
@@ -200,7 +197,7 @@ Our state needs to store lots of components, which could be represented by the f
 
 **If you’re not familiar with interfaces in JavaScript you should check out [TypeScript](https://www.typescriptlang.org/) — you can probably tell I’m a fan. It works nice with React too.**
 
-```
+```ts
 export interface IComponent {
   name: string;
   type: string;
@@ -217,7 +214,7 @@ At a higher level I would like to create an array of objects to hold the compone
 
 To illustrate this, let’s propose the following as a valid layout marked up in HTML:
 
-```
+```html
 <div class="content-panel-1">
   <div class="component">
     Component 1
@@ -235,7 +232,7 @@ To illustrate this, let’s propose the following as a valid layout marked up in
 
 To represent this in the state, we could define an interface like below for the content panels:
 
-```
+```ts
 export interface IContent {
   id: string;
   cssClass: string;
@@ -245,7 +242,7 @@ export interface IContent {
 
 Our state then becomes an array of `IContent` like so:
 
-```
+```ts
 const state: IContent[] = [
   {
     id: 'content-panel-1',
@@ -293,16 +290,13 @@ By pushing additional components inside the `children` array property, we can th
 The layout builder component will perform and range of functions, such as:
 
 * Hold and update the component state
-
 * Render the **draggables** and **droppables**
-
 * Render our nested layout structure
-
 * Triggering the DaD HTML5 events
 
 Let’s take a look at what it might look like:
 
-```
+```ts
 export class BuilderLayout extends React.Component {
 
   public state: IBuilderState = {
@@ -348,9 +342,7 @@ We have three events which we are going to bind to our draggables and droppables
 This leaves `onDragDrop()` which is where the magic happens in changing our immutable state object. In order to change the state we need several pieces of information:
 
 * Name of the component to be dropped — `name` set in the `event` object `onDragStart()`.
-
 * Type of the component to be dropped — `type` set in the `event` object `onDragStart()`.
-
 * Where it is being dropped into — `containerId` passed into this method from the droppable.
 
 The `containerId` must tell us where exactly in the state we must add our new component. There might be a cleaner way to do this but to describe this position I am going to use a list of indexes separated by an underscore.
@@ -374,7 +366,7 @@ The number of indexes here describe how many levels deep in the nested structure
 
 Now we need to call on the power of [**immutableJS**](https://github.com/immutable-js/immutable-js) to help us change the state of our application. We will do this in our `onDragDrop()` method, which might look like this:
 
-```
+```ts
 private onDragDrop(event: React.DragEvent <HTMLDivElement>, containerId: string) {
   const name = event.dataTransfer.getData('id');
   const type = event.dataTransfer.getData('type');
@@ -411,7 +403,7 @@ The `fromJS()` and `toJS()` methods are converted our JSON to a ImmutableJS obje
 
 Finally let’s take a quick look at the render method we mentioned earlier. I would like to support a CSS grid system such as [Material responsive grid](https://material.io/design/layout/responsive-layout-grid.html#breakpoints) to make our layouts flexible. It prescribes the HTML layout using a 12 column grid, something like below:
 
-```
+```html
 <div class="mdc-layout-grid">
   <div class="mdc-layout-grid__inner">
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
@@ -450,7 +442,7 @@ Now I’ve dropped another **Grid** inside the first column with a **Heading** i
 
  3. Render grid markup with X number of children and a ContentBuilderDraggableComponen and a `DroppableComponent` in each.
 
-```
+```ts
 class ContentBuilderComponent... {
   render() {
     return (
@@ -495,14 +487,13 @@ class ContentBuilderGridComponent... {
 We are done for this post, but I will expand upon this in the future. Here’s some ideas:
 
 * Configure render props for components
-
 * Make grid component configurable
-
 * Use server side rendering to generate HTML layout from saved state object
 
 **Hopefully you are able to follow along, but if not, here is a working example on my GitHub, enjoy!!**
 [**chriskitson/react-drag-drop-layout-builder**
 **Drag and drop (DnD) UI layout builder using React and ImmutableJS - chriskitson/react-drag-drop-layout-builder**github.com](https://github.com/chriskitson/react-drag-drop-layout-builder)
+
 > Thank you for taking the time to read my article.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
