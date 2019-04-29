@@ -29,7 +29,7 @@ Python 提供给我们多种编码方式。
 
 假设你想取得****一个列表中的平方和。****
 
-在机器学习中，当我们想计算 n 维情况下两点之前的距离时，我们都会面临这个问题。
+在机器学习中，当我们想计算 n 维情况下两点之间的距离时，我们都会面临这个问题。
 
 你可以使用循环很容易的做到这一点。
 
@@ -42,9 +42,9 @@ for i in range(len(x)):
     sum_squared+=x[i]**2
 ```
 
-当我在 Python 代码中看到以上代码的时候，我知道这个人是来自 C 或者 Java 背景的。
+当我在 Python 代码中看到以上代码的时候，我知道这个人是拥有 C 或者 Java 背景的。
 
-完成同样的事情，**更贴近 Python 风格的方式**是：
+完成同样的事情，**更 pythonic 的方式**是：
 
 ```python
 x = [1,3,5,7,9]
@@ -58,14 +58,14 @@ for y in x:
 
 我没有索引这个列表。并且我的代码更具有可读性。
 
-但是，用 Python 风格的方式来做，一行就可以完成。
+但是，更 pythonic 的方式一行就可以完成。
 
 ```python
 x = [1,3,5,7,9]
 sum_squared = sum([y**2 for y in x])
 ```
 
-**这种方法称为 List Comprehension，这很可能是我喜欢Python的原因之一。**
+**这种方法称为 List Comprehension，这很可能是我爱上 Python 的原因之一。**
 
 你也可以在 list comprehension 中使用 `if`。
 
@@ -80,7 +80,7 @@ even_squared = [y**2 for y in x if y%2==0]
 
 `****if-else?****`
 
-如果我们想要偶数的平方数，奇数的立方数呢？
+如果我们同时想要偶数的平方数和奇数的立方数呢？
 
 ```python
 x = [1,2,3,4,5,6,7,8,9]
@@ -95,7 +95,7 @@ squared_cubed = [y**2 if y%2==0 else y**3 for y in x]
 
 因此，大体上遵循这个具体的**准则：** 每当你想写一个 `for` 语句的时候，你应该问自己以下的问题，
 
-* 可以不用 `for` 做到吗？更具 Python 风格。
+* 可以不用 `for` 做到吗？更 Pythonic 的风格。
 * 可以用 **list comprehension** 做到吗？如果是，使用它。
 * 可以不索引数组吗？如果不是，考虑使用 `enumerate`。
 
@@ -120,9 +120,9 @@ index is 2 and value is orange
 
 ## 尝试使用 Dictionary Comprehension
 
-也可以尝试使用 **dictionary comprehension**，它是 Python 中比较新近的添加。它的语法和 List comprehension 很相似。
+也可以尝试使用 **dictionary comprehension**，它是 Python 中相对较新的补充，语法和 List comprehension 很相似。
 
-让我用一个例子来解释。我想为 x 中的每个值获取一个 dictionary，key 为平方值。
+让我用一个例子来解释。我想为 x 中的每个值获取一个 dictionary（key：平方值）。
 
 ```python
 x = [1,2,3,4,5,6,7,8,9]
@@ -140,7 +140,7 @@ x = [1,2,3,4,5,6,7,8,9]
 {2: 4, 4: 16, 6: 36, 8: 64}
 ```
 
-如果想得到偶数值的平方和奇数值的立方怎么办？
+如果想同时得到偶数值的平方和奇数值的立方怎么办？
 
 ```python
 x = [1,2,3,4,5,6,7,8,9]
@@ -151,7 +151,7 @@ x = [1,2,3,4,5,6,7,8,9]
 
 ## 结论
 
-最后，我要说的是，虽然看上去很容易将从其他语言获得的知识移到 Python 上，但如果继续这样做，你无法理解到 Python 的优美。当我们用 Python 的方式使用它，它的功能要强大得多，也要有趣得多。
+最后，我要说的是，虽然看上去很容易将从其他语言获得的知识移用到 Python 上，但如果继续这样做，你将无法理解到 Python 的优美。当我们用 Python 的方式使用它，它的功能要强大得多，也要有趣得多。
 
 **所以，当需要 `for` 循环的时候，使用 List Comprehensions 和 Dict comprehensions。当需要数组索引的时候，使用 `enumerate`。**
 
@@ -163,9 +163,9 @@ x = [1,2,3,4,5,6,7,8,9]
 
 将来我也会写更多适合初学者的文章。请让我知道你对这个系列的看法。请在 [**Medium**](https://medium.com/@rahul_agarwal) 或订阅我的[**博客**](https://mlwhiz.com/)了解相关信息。
 
-和往常一样，我欢迎反馈和建设性的评论，可以在twitter上联系到 [@mlwhiz](https://twitter.com/mlwhiz)。
+和往常一样，我欢迎反馈和建设性的评论，可以通过 twitter 联系 [@mlwhiz](https://twitter.com/mlwhiz)。
 
-**最初在2019年4月23号发布于 [https://mlwhiz.com](https://mlwhiz.com/blog/2019/04/22/python_forloops/)。**
+**最初在 2019 年 4 月 23 号发布于 [https://mlwhiz.com](https://mlwhiz.com/blog/2019/04/22/python_forloops/)。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
