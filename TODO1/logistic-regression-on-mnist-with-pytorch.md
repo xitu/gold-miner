@@ -2,18 +2,18 @@
 > * 原文作者：[Asad Mahmood](https://medium.com/@asad007mahmood)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/logistic-regression-on-mnist-with-pytorch.md](https://github.com/xitu/gold-miner/blob/master/TODO1/logistic-regression-on-mnist-with-pytorch.md)
-> * 译者：
-> * 校对者：
+> * 译者：[lsvih](https://github.com/lsvih)
+> * 校对者：[fireairforce](https://github.com/fireairforce)
 
-# Logistic Regression on MNIST with PyTorch
+# 使用 PyTorch 在 MNIST 数据集上进行逻辑回归
 
-**Logistic regression** is used to describe data and to explain the relationship between **one dependent binary variable** and one or more nominal, ordinal, interval or ratio-level independent variables[1]. The figure below shows the difference between **Logistic** and **Linear** regression.
+**逻辑回归（Logistic Regression）**既可以用来描述数据，也可以用来解释数据中各个二值变量、类别变量、顺序变量、距离变量、比率变量之间的关系[1]。下图展示了**逻辑回归**与**线性回归**的区别。
 
 ![Taken from [https://www.sciencedirect.com/topics/nursing-and-health-professions/logistic-regression-analysis](https://www.sciencedirect.com/topics/nursing-and-health-professions/logistic-regression-analysis)](https://cdn-images-1.medium.com/max/2000/1*xFhICZgdr2VEZQ-C4FLUEA.jpeg)
 
-In this post, I’ll show how to code a Logistic Regression Model in PyTorch.
+本文将展示如何使用 PyTorch 编写逻辑回归模型。
 
-We’ll try and solve the classification problem of MNIST dataset. First, let’s import all the libraries we’ll need.
+我们将尝试在 MNIST 数据集上解决分类问题。首先，导入我们所需要的所有库：
 
 ```python
 import torch
@@ -22,41 +22,41 @@ import torchvision.transforms as transforms
 import torchvision.datasets as dsets
 ```
 
-I prefer to keep the following list of steps in front of me when creating a model. This list is present on the PyTorch website [2].
+在创建模型前，我喜欢列一个如下的步骤表。PyTorch 官网[2]上也有这个步骤列表：
 
+```python
+# 第一步：加载数据集
+# 第二步：使数据集可迭代
+# 第三步：创建模型类
+# 第四步：将模型类实例化
+# 第五步：实例化 Loss 类
+# 第六步：实例化优化器类
+# 第七步：训练模型
 ```
-# Step 1. Load Dataset
-# Step 2. Make Dataset Iterable
-# Step 3. Create Model Class
-# Step 4. Instantiate Model Class
-# Step 5. Instantiate Loss Class
-# Step 6. Instantiate Optimizer Class
-# Step 7. Train Model
-```
 
-So let’s go through these steps one by one.
+下面我们将一步步完成上述的步骤。
 
-### Load Dataset
+### 加载数据集
 
-To load the dataset, we make use of **torchvision.datasets,** a library which has almost all the popular datasets used in Machine Learning. You can check out the complete list of datasets at [3].
+我们使用 **torchvision.datasets** 来加载数据集。这个库中包含了几乎全部的用于机器学习的流行数据集。在[3]中可以看到完整的数据集列表。
 
 ```python
 train_dataset = dsets.MNIST(root='./data', train=True, transform=transforms.ToTensor(), download=False)
 test_dataset = dsets.MNIST(root='./data', train=False, transform=transforms.ToTensor())
 ```
 
-### Make Dataset Iterable
+### 使数据集可迭代
 
-We will use the DataLoader class to make our dataset iterable using the following lines of code.
+我们利用 DataLoader 类，使用以下代码来让我们的数据集可被迭代：
 
 ```python
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True)
 test_loader = torch.utils.data.DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False)
 ```
 
-### Create the Model Class
+### 创建模型类
 
-Now, we will create a class that defines the architecture of Logistic Regression.
+现在，我们将创建一个用来定义逻辑回归模型结构的类：
 
 ```python
 class LogisticRegression(torch.nn.Module):
@@ -69,9 +69,9 @@ class LogisticRegression(torch.nn.Module):
         return outputs
 ```
 
-### Instantiate the Model Class
+### 将模型类实例化
 
-Before instantiation, we’ll initialize some parameters like following.
+在将模型类实例化之前，我们先初始化如下所示的参数：
 
 ```python
 batch_size = 100
@@ -82,31 +82,31 @@ output_dim = 10
 lr_rate = 0.001
 ```
 
-Now, we initialize our Logistic Regression Model.
+然后，就能初始化我们的逻辑回归模型了：
 
 ```python
 model = LogisticRegression(input_dim, output_dim)
 ```
 
-### Instantiate the Loss Class
+### 实例化 Loss 类
 
-We use the cross-entropy to compute the loss.
+我们使用交叉熵损失来计算 loss：
 
 ```python
-criterion = torch.nn.CrossEntropyLoss() # computes softmax and then the cross entropy
+criterion = torch.nn.CrossEntropyLoss() # 计算 softmax 分布之上的交叉熵损失
 ```
 
-### Instatnitate the Optimizer Class
+### 实例化优化器类
 
-The optimizer will be the learning algorithm we use. In this case, we will use the Stochastic Gradient Descent.
+优化器（optimizer）就是我们即将使用的学习算法。在本例中，我们将使用随机梯度下降（SGD）作为优化器：
 
 ```python
 optimizer = torch.optim.SGD(model.parameters(), lr=lr_rate)
 ```
 
-### Train the Model
+### 训练模型
 
-Now in the last step, we’ll train the model using the following code.
+这就是最后一步了。我们将用以下的代码来训练模型：
 
 ```python
 iter = 0
@@ -123,7 +123,7 @@ for epoch in range(int(epochs)):
 
         iter+=1
         if iter%500==0:
-            # calculate Accuracy
+            # 计算准确率
             correct = 0
             total = 0
             for images, labels in test_loader:
@@ -131,17 +131,17 @@ for epoch in range(int(epochs)):
                 outputs = model(images)
                 _, predicted = torch.max(outputs.data, 1)
                 total+= labels.size(0)
-                # for gpu, bring the predicted and labels back to cpu fro python operations to work
+                # 如果用的是 GPU，则要把预测值和标签都取回 CPU，才能用 Python 来计算
                 correct+= (predicted == labels).sum()
             accuracy = 100 * correct/total
             print("Iteration: {}. Loss: {}. Accuracy: {}.".format(iter, loss.item(), accuracy))
 ```
 
-Training, this model for just 3000 iterations gives an **accuracy of 82%**. You can go ahead and tweak the parameters a bit, to see if the accuracy increases or not.
+在训练时，这个模型只需要进行 3000 次迭代就能达到 **82%** 的准确率。你可以试着继续调整一下参数，看看还能不能把准确率再调高一点。
 
-A good exercise to get a more deep understanding of Logistic Regression models in PyTorch, would be to apply this to any classification problem you could think of. For Example, You could train a Logistic Regression Model to classify the images of your favorite **Marvel superheroes** (shouldn’t be very hard since half of them are gone :) ).
+如果你想加深对在 PyTorch 中实现逻辑回归的理解，可以把上面的模型应用于任何分类问题。比如，你可以训练一个逻辑回归模型来对你最喜爱的**漫威英雄**的图像做个分类（有一半已经化灰了，所以做分类应该不是很难）:)
 
-### References
+### 引用
 
 [1] [https://www.statisticssolutions.com/what-is-logistic-regression/](https://www.statisticssolutions.com/what-is-logistic-regression/)
 
