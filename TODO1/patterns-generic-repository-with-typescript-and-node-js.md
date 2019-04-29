@@ -3,31 +3,31 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/patterns-generic-repository-with-typescript-and-node-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/patterns-generic-repository-with-typescript-and-node-js.md)
 > * 译者：[Raoul1996](https://github.com/Raoul1996)
-> * 校对者：
+> * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234)
 
 # 模式 —— 使用 Typescript 和 Node.js 的通用仓储
-
 ![成为代码之王](https://cdn-images-1.medium.com/max/2000/1*dffdGxirQfDyHJjWM3p47Q.png)
 
-如果你使用 **Node.js/Javascript**，并且有很多重复代码去应付不同的数据模型或者不厌其烦地创建 **CRUD(Create, Read, Update and Delete)**，那么这篇文章适合你！
+如果你使用 **Node.js/Javascript**，并且有很多应付不同数据模型的重复代码或者不厌其烦地创建 **CRUD(Create, Read, Update and Delete)**，那么这篇文章适合你！
 
 ***
 
 ### 通用仓储模式
 
-在写 Javascript 应用的时候，我们存在在不同应用中共享代码的问题，并且有些时候，我们为不同的应用写相同的代码。当我们有一个（或更多）抽象类，并重用与数据模型解耦的实现时，这种模式赋予你编写数据抽象的能力，只需为某些类传入类型。
 
-谈到 **Repository 模式**，它指当你需要对数据库进行操作时，你可以在每个业务实体的一个本地中保存所有的操作（Create, Read, Update 和 Delete 操作），不要直接调用数据库驱动。如果你有多于一个数据库，或者一个事务的数据库不同，你的应用只调用 Repository 的方法，并且对调用方透明。
+在写 Javascript 应用的时候，我们存在在不同应用中共享相似代码的问题，并且有些时候，我们为不同的应用写相同的代码。当我们有一个（或更多）抽象类，并重用与数据模型解耦的实现时，这种模式赋予你编写数据抽象的能力，只需为某些类传入类型。
 
-因此，**通用仓储** 类似，但是现在你只有一个抽象，一个基类具有所有常见的操作。而你的 **实体 Repository** 仅拓展基类以及所有的数据库操作实现。遵循 **SOLID** 原则，当你的**基类**打开以进行拓展，该模式遵循 [**开放/封闭** **原则**](https://en.wikipedia.org/wiki/Open/closed_principle)，但是关闭以进行修改。
+谈到 **仓储模式**，它指当你需要对数据库进行操作时，你可以将所有的数据库操作（Create, Read, Update 和 Delete 操作）对保存在每个本地唯一的业务实体中，而不是直接调用数据库驱动。如果你有多于一个数据库，或者一个事务涉及到多个数据库，你的应用应当只调用仓储中的方法，那么谁调用了方法也显而易见。
+
+因此，**通用仓储** 与之类似，不同的是，现在你只有一个抽象，一个具有所有常见操作的基类。而你的 **实体仓储**仅拓展基类以及基类中所有的数据库操作实现。遵循 **SOLID** 原则，该模式遵循 [**开放/封闭** **原则**](https://en.wikipedia.org/wiki/Open/closed_principle)，你的**基类**对拓展开放，而对于修改是关闭的。
 
 ### 何时使用通用仓储？
 
-取决于你的业务类型和应用程序的关键级别。我认为这种模式的具有可拓展性。当你用用程序的所有**实体**都要有 **CURD** 或者类似操作的时候，它可以让你创建一个类来编写所有常见操作，诸如 **CURD**。
+取决于你的业务类型和应用程序的关键级别。我认为这种模式的具有可拓展性。当你用用程序的所有**实体**都要有 **CURD** 或者类似操作的时候，它可以让你只需要创建一个类来编写所有常见操作，诸如 **CURD**。
 
-### 什么时候不要使用通用仓储
+### 什么时候不要使用通用仓储？
 
-与拥有的能力相同，当你有危险的隐含代码（不要使用通用仓储），一个最小实现的例子就是：
+与拥有的能力相同，你也会有危险的隐含代码（不要使用通用仓储），一个简单的例子就是：
 
 * 你有两个实体类：**People** 和 **Account**。
 
@@ -35,13 +35,13 @@
 
 * 用户无法更新 **Account** 的相关信息（例如向账户增加更多的钱）
 
-* 如果两个类都拓展自**基类**，它具有 **update()** 和 **remove()** 方法，程序员应该记住此规则，不要把 **remove** 或者 **update** 方法暴露给服务，负责你的业务 case 将会是危险并错误的。
+* 如果两个类都拓展自具有 **update()** 和 **remove()** 方法的**基类**，那么程序员必须谨记那一点，并且不要把 **remove** 或者 **update** 方法暴露给服务，负责你的业务案例将会是危险并错误的。
 
 ### Typescript 的泛型
 
 > 能够处理当前乃至未来数据的组件将为你提供构建大型软件系统的最灵活的功能 —— [typescriptlang.org/docs/handbook/generics.html](https://www.typescriptlang.org/docs/handbook/generics.html)
 
-遵循 Typescript 的文档，泛型提供了构建灵活和通用组件（或类型）的能力，从他们的文档中，我们有一个更好的雷子来说明它如何工作：
+遵循 Typescript 的文档，泛型提供了构建灵活和通用组件（或类型）的能力，从他们的文档中，我们有一个更好的例子来说明它如何工作：
 
 ```js
 function identity(arg: number): number {
@@ -49,9 +49,9 @@ function identity(arg: number): number {
 }
 ```
 
-所以，我们有一个 **现成的方法**，他接收一个数字并返回相同类型。如果要将一个字符串传递给此方法，则需要使用相同的实现创建另一个方法并重复代码。
+所以，我们有一个**成熟的方法**，他接收一个数字并返回相同类型。如果要将一个字符串传递给此方法，则需要使用相同的实现创建另一个方法并重复代码。
 
-通过 **泛型** 实现，我们用一个明确的词来说明什么是泛型实现（约定，使用 **T** 来表示它是泛型类型）
+通过**泛型**实现，我们用一个明确的词来说明什么是泛型实现（约定，使用 **T** 来表示它是泛型类型）
 
 ```js
 function identity<T>(arg: T): T {
@@ -73,7 +73,7 @@ console.log('number is ', resultNumber);
 
 ### 使用通用仓储和 Node.js 来创建一个真实的项目
 
-Lets go! 如果你还没有理解（译者注：这里原本的词是 understated，应该是 understand？），下一节应该就会理解了。
+Lets go! 如果你还没有理解（译者注：这里原本的词是 understated，应该是 understand？），通过下一部分的学习你应该就会理解了。
 
 **要求:**
 
@@ -99,7 +99,7 @@ npm --v && node --version
 
 ![MongoDB Instance Starting](https://cdn-images-1.medium.com/max/2734/1*2VJwmyHZSC9bdCeL2paShA.png)
 
-然后，另一个 tab 上运行 `mongo` 以输入你的数据库。
+然后，另一个 tab 上运行 `mongo` 以进入你的数据库。
 
 ![Entering em MongoDB database](https://cdn-images-1.medium.com/max/2044/1*QmpUdPued8_J4B2rfSZH_Q.png)
 
@@ -108,6 +108,7 @@ npm --v && node --version
 ![Output of typescript globally package installed](https://cdn-images-1.medium.com/max/2676/1*9uiIrlCysRJdbm9Q58PKbg.png)
 
 一旦你已经完成，我们就可以继续前进 :D
+
 
 ***
 
@@ -120,7 +121,7 @@ npm init -y #to init nodejs app without wizard
 tsc --init  #to init config file to typescript
 ```
 
-之后，应该在 **vscode** 中打开你的项目文件夹。要创建我们的项目，你得创建一些文件夹以便更好地组织我们的应用程序。饿哦们将使用以下的文件夹结构：
+之后，应该在 **vscode** 中打开你的项目文件夹。要创建我们的项目，你得创建一些文件夹以便更好地构建我们的应用程序。我们将使用以下的文件夹结构：
 
 ```
 .
@@ -132,9 +133,9 @@ tsc --init  #to init config file to typescript
 └── tsconfig.json
 ```
 
-进入 `tsconfig.json` 文件，将属性 `"lib": []` 部分值修改为 `"lib": [` “es2015”`]`，我们改变 `json 文件`的属性，使用 **es2015** 模块，例如 Typescript（译者注：这里不应该是 Javascript 么） 中的 **Promises**。修改 `outDir`属性为 **“outDir”: “lib”** 以在其他文件夹中生成 **.js** 文件。
+进入 `tsconfig.json` 文件，将属性 `"lib": []` 部分值修改为 `"lib": [ "es2015"]`，我们改变 `json 文件`的属性，以使用 **es2015** 模块，例如 Typescript 中的 **Promises**。将 `outDir`属性修改为 `"outDir": "lib"` 以便在另一个文件夹中生成 **.js** 文件。
 
-关于我们的文件夹，`entities` 文件夹是存放你的数据模型，`repositories` 文件夹关于数据库操作， `interfaces` 是我们操作的合同（contracts）。现在，我们应该在 **entities** 文件夹中创建我们的实体，使用以下代码创建 `Spartan.ts` 文件
+关于我们的文件夹，`entities` 文件夹是存放你的数据模型，`repositories` 文件夹关于数据库操作，`interfaces` 是我们操作的合同（contracts）。现在，我们应该在 **entities** 文件夹中创建我们的实体，使用以下代码创建 `Spartan.ts` 文件
 
 ```js
 export class Spartan {
@@ -199,8 +200,7 @@ export abstract class BaseRepository<T> implements IWrite<T>, IRead<T> {
     }
 }
 ```
-
-我们现在应该为所有的方法创建实现。**BaseRepository** 类应该知道你可以访问的数据库和集合。此时，你需要安装 **Mongodb 驱动包**。所以需要返回到 terminal 中的项目文件夹，运行 `npm i -S mongodb @types/mongodb` 添加 **mongodb** 驱动和 typescript 的定义包。
+我们现在应该为所有的方法创建实现。**BaseRepository** 类应该知道如何访问你可使用的数据库和集合。此时，你需要安装 **Mongodb 驱动包**。所以你需要返回到 terminal 中的项目文件夹，运行 `npm i -S mongodb @types/mongodb` 添加 **mongodb** 驱动和 typescript 的定义包。
 
 在 **constructor** 中，我们添加两个参数，**db** 和 **collectionName**。类的实现应该和下面的代码差不多
 
@@ -263,7 +263,6 @@ export class SpartanRepository extends BaseRepository<Spartan>{
     }
 }
 ```
-
 现在，去测试仓储和所有的逻辑事件。我们需要在项目根路径下创建一个 `Index.ts` 文件，来调用所有的仓储。
 
 ```js
@@ -330,7 +329,6 @@ export class HeroRepository extends BaseRepository<Hero>{
 
 }
 ```
-
 现在，我们只需要在 **Index.ts** 中调用仓储，下面是完整代码。
 
 ```js
@@ -380,11 +378,11 @@ import { Hero } from './entities/Hero';
 
 ### 总结
 
-对于一个类，我们有很多实现可以采用并且让工作更容易。对于我来说，**TypeScript** 中的**泛型**功能是最强大的功能之一。你在此处看到的所有代码都可以在 GitHub 的 repo 中找到。你可以在下面的链接中找出它们，不要忘记检出 :D
+对于一个类，我们有很多实现可以采用并且让工作更容易。对于我来说，**TypeScript** 中的**泛型**功能是最强大的功能之一。你在此处看到的所有代码都可以在 GitHub 的 repo 中找到。你可以在下面的链接中找出它们，不要忘记查看 :D
 
 如果你到了这儿，不要吝啬你的评论，分享给你的朋友并留下反馈。当然这是我的第一篇英文帖子，如果你碰巧发现任何错误，请通过私信纠正我 :D
 
-不要忘了，点击下帖子上的 claps 哦！
+不要忘了点赞哦！
 
 ![](https://cdn-images-1.medium.com/max/4000/1*rzQNDQ7ixuA3qcyydCGs5g.png)
 
