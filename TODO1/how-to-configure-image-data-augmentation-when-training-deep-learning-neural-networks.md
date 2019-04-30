@@ -94,7 +94,7 @@ Keras 框架可以在训练模型时，自动使用数据增强。
 
 一个通过构造函数实例化 ImageDataGenerator 的例子。
 
-```
+```python
 # 创建数据生成器
 datagen = ImageDataGenerator()
 ```
@@ -105,7 +105,7 @@ datagen = ImageDataGenerator()
 
 利用 _flow()_ 函数可以将读入了内存的数据集创建为一个迭代器，示例代码如下：
 
-```
+```python
 # 读取图片数据集
 X, y = ...
 # 创建迭代器
@@ -114,7 +114,7 @@ it = dataset.flow(X, y)
 
 或者，可以对指定的文件路径的数据集创建一个迭代器，在这个文件夹中，不同子类的数据需要存放到不同的子文件夹中。
 
-```
+```python
 ...
 # 创建迭代器
 it = dataset.flow_from_directory(X, y, ...)
@@ -124,7 +124,7 @@ it = dataset.flow_from_directory(X, y, ...)
 
 _`steps_per_epoch`_ 参数需要设定为能包含整个数据集的批次数。举个例子，如果你的原始数据是 10000 张图片，同时你的 batch_size 设置为 32，那么当你训练一个基于增强数据的模型时，一个合理的 _`steps_per_epoch`_ 应该设置为 _ceil(10,000/32)_，或者说 313 个批次。
 
-```
+```python
 # 定义模型
 model = ...
 # 在增强数据集上拟合模型
@@ -316,7 +316,7 @@ for i in range(9):
 	pyplot.subplot(330 + 1 + i)
 	# 生成一个批次图片
 	batch = it.next()
-	# 转化为整形方便显示
+	# 转化为整型方便显示
 	image = batch[0].astype('uint32')
 	# 画图
 	pyplot.imshow(image)
@@ -453,9 +453,9 @@ pyplot.show()
 
 你应该有以下收获：
 
-*    图像数据增强是为了扩展训练数据集，从而提高模型的性能和泛化能力。
-*    通过使用 ImageDataGenerator 类，你可以在 Keras 上获得图像数据增强的支持。
-*    如何使用平移、翻转、亮度和缩放增强方法。
+*   图像数据增强是为了扩展训练数据集，从而提高模型的性能和泛化能力。
+*   通过使用 ImageDataGenerator 类，你可以在 Keras 上获得图像数据增强的支持。
+*   如何使用平移、翻转、亮度和缩放增强方法。
 
 还有别的问题？
 请在下方留言，我会尽我所能回答你的问题。
