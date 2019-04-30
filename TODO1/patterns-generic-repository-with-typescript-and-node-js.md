@@ -263,6 +263,7 @@ export class SpartanRepository extends BaseRepository<Spartan>{
     }
 }
 ```
+
 现在，去测试仓储和所有的逻辑事件。我们需要在项目根路径下创建一个 `Index.ts` 文件，来调用所有的仓储。
 
 ```js
@@ -329,6 +330,7 @@ export class HeroRepository extends BaseRepository<Hero>{
 
 }
 ```
+
 现在，我们只需要在 **Index.ts** 中调用仓储，下面是完整代码。
 
 ```js
