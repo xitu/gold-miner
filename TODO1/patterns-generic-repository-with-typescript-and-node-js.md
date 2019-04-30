@@ -18,7 +18,7 @@
 
 在写 Javascript 应用的时候，我们存在在不同应用中共享相似代码的问题，并且有些时候，我们为不同的应用写相同的代码。当我们有一个（或更多）抽象类，并重用与数据模型解耦的实现时，这种模式赋予你编写数据抽象的能力，只需为某些类传入类型。
 
-谈到 **仓储模式**，它指当你需要对数据库进行操作时，你可以将所有的数据库操作（Create, Read, Update 和 Delete 操作）对保存在每个本地唯一的业务实体中，而不是直接调用数据库驱动。如果你有多于一个数据库，或者一个事务涉及到多个数据库，你的应用应当只调用仓储中的方法，那么谁调用了方法也显而易见。
+谈到 **仓储模式**，它指当你需要对数据库进行操作时，你可以将所有的数据库操作（Create、Read、Update 和 Delete 操作）对保存在每个本地唯一的业务实体中，而不是直接调用数据库驱动。如果你有多于一个数据库，或者一个事务涉及到多个数据库，你的应用应当只调用仓储中的方法，那么谁调用了方法也显而易见。
 
 因此，**通用仓储** 与之类似，不同的是，现在你只有一个抽象，一个具有所有常见操作的基类。而你的 **实体仓储**仅拓展基类以及基类中所有的数据库操作实现。遵循 **SOLID** 原则，该模式遵循 [**开放/封闭** **原则**](https://en.wikipedia.org/wiki/Open/closed_principle)，你的**基类**对拓展开放，而对于修改是关闭的。
 
@@ -76,7 +76,7 @@ console.log('number is ', resultNumber);
 
 Lets go! 如果你还没有理解（译者注：这里原本的词是 understated，应该是 understand？），通过下一部分的学习你应该就会理解了。
 
-**要求:**
+**要求：**
 
 * [Node.js 8+](https://nodejs.org/en/)
 
@@ -110,7 +110,6 @@ npm --v && node --version
 
 一旦你已经完成，我们就可以继续前进 :D
 
-
 ***
 
 现在，我们需要创建一个文件夹并且初始化一个 **Node.js** 项目。
@@ -134,9 +133,9 @@ tsc --init  #to init config file to typescript
 └── tsconfig.json
 ```
 
-进入 `tsconfig.json` 文件，将属性 `"lib": []` 部分值修改为 `"lib": [ "es2015"]`，我们改变 `json 文件`的属性，以使用 **es2015** 模块，例如 Typescript 中的 **Promises**。将 `outDir`属性修改为 `"outDir": "lib"` 以便在另一个文件夹中生成 **.js** 文件。
+进入 `tsconfig.json` 文件，将属性 `"lib": []` 部分值修改为 `"lib": [ "es2015"]`，我们改变 `json 文件`的属性，以使用 **es2015** 模块，例如 Typescript 中的 **Promises**。将 `outDir` 属性修改为 `"outDir": "lib"` 以便在另一个文件夹中生成 **.js** 文件。
 
-关于我们的文件夹，`entities` 文件夹是存放你的数据模型，`repositories` 文件夹关于数据库操作，`interfaces` 是我们操作的合同（contracts）。现在，我们应该在 **entities** 文件夹中创建我们的实体，使用以下代码创建 `Spartan.ts` 文件
+关于我们的文件夹，`entities` 文件夹是存放你的数据模型，`repositories` 文件夹关于数据库操作，`interfaces` 是我们操作的合同（contracts）。现在，我们应该在 **entities** 文件夹中创建我们的实体，使用以下代码创建 `Spartan.ts` 文件：
 
 ```js
 export class Spartan {
@@ -171,7 +170,7 @@ export interface IRead<T> {
 
 ![Creating BaseRepository with Interfaces imported](https://cdn-images-1.medium.com/max/2098/1*J1IoDdwIQAVw9_kvkfdz2g.png)
 
-导入接口（interface）之后，需要实现接口的签名。为此可以按 `ctrl .` 显示 **vscode** 的选项来修复有问题的地方。然后单击 “**Implements Interface IWrite\<T> (Fix all in file)”** 来添加所有实现.
+导入接口（interface）之后，需要实现接口的签名。为此可以按 `ctrl .` 显示 **vscode** 的选项来修复有问题的地方。然后单击 “**Implements Interface IWrite<T> (Fix all in file)”** 来添加所有实现。
 
 ![After open options and select fix all in files](https://cdn-images-1.medium.com/max/2216/1*uIRLvbJEVIK9ZxPtMdUh3Q.png)
 
@@ -302,7 +301,7 @@ import { Spartan } from './entities/Spartan';
 })();
 ```
 
-你需要将你的 **Typescript** 转换成 **Javascript** 文件, 在 terminal 中运行 `tsc` 命令。现在 `lib` 文件夹中你拥有了全部的 `javascript 文件`，如此这般，你可以通过 `node lib/Index.js.` 运行你的程序。
+你需要将你的 **Typescript** 转换成 **Javascript** 文件，在 terminal 中运行 `tsc` 命令。现在 `lib` 文件夹中你拥有了全部的 `javascript 文件`，如此这般，你可以通过 `node lib/Index.js.` 运行你的程序。
 
 为了让你领略到**通用仓储**的强大之处，我们将为名为 `HeroesRepository.ts` 的 `Heroes`，以及一个**实体类**创建更多的仓储，这代表一位 **Hero**。
 
@@ -373,7 +372,7 @@ import { Hero } from './entities/Hero';
     const repositoryHero = new HeroRepository(db, 'heroes');
     const resultHero = await repositoryHero.create(hero);
     console.log(`hero inserted with ${result ? 'success' : 'fail'}`)
-    
+
 })();
 ```
 
