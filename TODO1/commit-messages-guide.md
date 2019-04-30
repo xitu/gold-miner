@@ -139,23 +139,23 @@ Cart 中对 credit 与 json 对象间做序列化和反序列化
 
 因两个主要原因将 Credit 实例转化成 dict：
 
-  - Pickle relies on file path for classes and we do not want to break up
-    everything if a refactor is needed
-  - Dict and built-in types are pickleable by default
+  - Pickle 依赖于类的文件路径
+  如果需要重构的话我们不想破坏任何东西
+  - Dict 和内建类型在默认情况下没有可比性
 ```
 
 ```
 # 好示例
 Add `use` method to Credit
 
-Change from namedtuple to class because we need to
-setup a new attribute (in_use_amount) with a new value
+从 namedtuple 变成 class
+是因为我们需要使用新的值来设置属性（in_use_amount）
 ```
 
-The subject and the body of the messages are separated by a blank line.
-Additional blank lines are considered as a part of the message body.
+提交信息的主题和正文被一个空白行分割
+附加的空白行被认为是提交信息正文的一部分。
 
-Characters like `-`, `*` and \` are elements that improve readability.
+类似 `-`, `*` 和 \` 的字符是用来提高可读性的元素。
 
 ### 避免通用消息或者没有任何上下文的消息
 
@@ -210,28 +210,28 @@ cdcdcd Agora vai
 ```
 简化变更内容到 50 字符左右或者更少
 
-More detailed explanatory text, if necessary. Wrap it to about 72
-characters or so. In some contexts, the first line is treated as the
-subject of the commit and the rest of the text as the body. The
-blank line separating the summary from the body is critical (unless
-you omit the body entirely); various tools like `log`, `shortlog`
-and `rebase` can get confused if you run the two together.
+如有必要，可提供更详细的说明文字。
+将它包装成大约 72 个字符左右。
+在某些情况下，第一行被视为 commit 的信息主题，余下文字被认为信息正文。
+将摘要和正文分离开的空白行很有必要（除非你忽略了整个正文）；
+不同的工具像『log』、『shortlog』、『rebase』，
+可能会变得混乱，如果你同时运行两个。
 
-Explain the problem that this commit is solving. Focus on why you
-are making this change as opposed to how (the code explains that).
-Are there side effects or other unintuitive consequences of this
-change? Here's the place to explain them.
+解释本次 commit 正在解决的问题。
+专注于此次变更的原因，而非如何变更（代码会解释这点）。
+此次变更是否有副作用或其他隐性后果？
+这里就是解释它们的地方。
 
-Further paragraphs come after blank lines.
+空白行之后有更进一步的段落。
 
- - Bullet points are okay, too
+ - 也可以用要点符号。
 
- - Typically a hyphen or asterisk is used for the bullet, preceded
-   by a single space, with blank lines in between, but conventions
-   vary here
+ - 通常使用连字符或者星号作为要点符号，
+ 前面有一个空格，中间有空白行，
+ 但是约定惯例各不相同。
 
-If you use an issue tracker, put references to them at the bottom,
-like this:
+如果你使用问题跟踪，在底部放置它们的引用，
+像下面这样：
 
 Resolves: #123
 See also: #456, #789
@@ -271,13 +271,13 @@ See also: #456, #789
 它在多种情况下都有用，例子：
 
 - 减少包含少量或者没有上下文的 commit（错误修正、格式化、遗忘的内容）
-- Joining separate changes that make more sense when applied together将某些合并应用时更合理的独立变更结合起来
+- 将某些合并应用时更合理的独立变更结合起来
 - 重写 _正在进行中_ 这类 commit
 
 ### 何时避免 merge 和 squash？
 
-Avoid rebase and squash in public commits or in shared branches where multiple people work on.
-Rebase and squash rewrite history and overwrite existing commits, doing it on commits that are on shared branches (i.e., commits pushed to a remote repository or that comes from others branches) can cause confusion and people may lose their changes (both locally and remotely) because of divergent trees and conflicts.
+避免在多人协作的公共 commit 或者共享分支中执行变基和压制。
+变基、压制重写历史记录、覆盖已有 commit，在共享分支的 commit 中执行以上操作（例子，推送的远程仓库的 commit 或者来自其他分支的 commit）可能造成混淆，并且由于分歧的树干和冲突大家可能会丢失他们的变更（本地和远程的）。
 
 ## 有用的 git 命令
 
@@ -324,14 +324,14 @@ pick 9b81c72 Add "Rebase vs Merge" section
 
 #### fixup
 
-Use it to clean up commits easily and without needing a more complex rebase.使用它
-[This article](http://fle.github.io/git-tip-keep-your-branch-clean-with-fixup-and-autosquash.html) has very good examples of how and when to do it.
+使用它轻松地清理 commit 并且无须一个更复杂的变基操作。
+[这篇文章](http://fle.github.io/git-tip-keep-your-branch-clean-with-fixup-and-autosquash.html)提供了如何以及何时这么做的很好的示例。
 
 ### cherry-pick
 
-It is very useful to apply that commit you made on the wrong branch, without the need to code it again.
+它非常适用于在发布到错误分支上的 commit，无须再次编码。
 
-Example:
+示例:
 
 ```
 $ git cherry-pick 790ab21
@@ -342,7 +342,7 @@ $ git cherry-pick 790ab21
 
 ### add/checkout/reset [--patch | -p]
 
-Let's say we have the following diff:
+假设我们有以下差异：
 
 ```diff
 diff --git a/README.md b/README.md
@@ -363,23 +363,23 @@ index 7b45277..6b1993c 100644
 +
  ## 贡献者
 
- Any kind of help would be appreciated. Example of topics that you can help me with:
-@@ -202,3 +205,4 @@ Any kind of help would be appreciated. Example of topics that you can help me wi
+ 感谢任何形式的帮助，可以帮到我的主题示例：
+@@ -202,3 +205,4 @@ 感谢任何形式的帮助，可以帮到我的主题示例：
 
- - [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)
- - [Pro Git Book - Commit guidelines](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project#_commit_guidelines)
+ - [如何书写 Git 的 Commit 信息](https://chris.beams.io/posts/git-commit/)
+ - [高级 Git 手册 —— Commit 指导](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project#_commit_guidelines)
 +- [A Note About Git Commit Messages](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
 ```
 
-We can use `git add -p` to add only the patches we want to, without the need to change the code that is already written.
-It's useful to split a big change into smaller commits or to reset/checkout specific changes.
+我们可以使用 `git add -p` 来只添加我们需要的补丁，无须修改已经编写的代码。
+将较大的变更拆分成小的 commit 或者重置/检出特殊的变更。
 
 ```
-Stage this hunk [y,n,q,a,d,/,j,J,g,s,e,?]? s
-Split into 2 hunks.
+暂存这个区块 [y,n,q,a,d,/,j,J,g,s,e,?]? s
+拆分成 2 个区块
 ```
 
-#### 代码块 1
+#### 区块 1
 
 ```diff
 @@ -186,7 +186,6 @@
@@ -390,10 +390,10 @@ Split into 2 hunks.
  cdcdcd Agora vai
  ``
 
-Stage this hunk [y,n,q,a,d,/,j,J,g,e,?]?
+暂存这个区块 [y,n,q,a,d,/,j,J,g,e,?]?
 ```
 
-#### 代码块 2
+#### 区块 2
 
 ```diff
 @@ -190,6 +189,10 @@
@@ -408,10 +408,10 @@ Stage this hunk [y,n,q,a,d,/,j,J,g,e,?]?
  ## 贡献
 
 感谢任何形式的帮助，可以帮到我的主题示例：
-Stage this hunk [y,n,q,a,d,/,K,j,J,g,e,?]?
+暂存这个区块 [y,n,q,a,d,/,K,j,J,g,e,?]?
 ```
 
-#### 代码块 3
+#### 区块 3
 
 ```diff
 @@ -202,3 +205,4 @@ 感谢任何形式的帮助，可以帮到我的主题示例：
@@ -427,7 +427,7 @@ https://whatthecommit.com/
 
 ## 喜欢吗？
 
-[Say thanks!](https://saythanks.io/to/RomuloOliveira)
+[谢谢!](https://saythanks.io/to/RomuloOliveira)
 
 ## 贡献
 
