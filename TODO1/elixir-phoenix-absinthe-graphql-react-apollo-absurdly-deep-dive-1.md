@@ -9,32 +9,32 @@
 
 不知道你是否和我一样，在本文的标题中，至少有 3 个或 4 个关键字属于“我一直想玩，但还从未接触过”的类型。React 是一个例外；在每天的工作中我都会用到它，对它已经非常熟悉了。在几年前的一个项目中我用到了 Elixir，但那已经是很早以前的事情了，而且我从未在 GraphQL 的环境中是使用过它。同样的，在另外一个项目中，我做了一小部分关于 GraphQL 的工作，该项目的后端使用的是 Node.js，前端使用的是 Relay，但我仅仅触及了 GraphQL 的皮毛，而且到目前为止我没有接触过 Apollo。我坚信学习技术的最好方法就是用它们来构建一些东西，所以我决定深入研究并构建一个包含所有这些技术的 Web 应用程序。如果你想跳到最后，代码是在 [GitHub](https://github.com/schneidmaster/socializer) 上，现场演示在[这里](https://socializer-demo.herokuapp.com)。(现场演示在免费的 Heroku dyno 上运行，所以当你访问它时可能需要 30 秒左右才能唤醒。)
 
-### 定义我们的术语
+## 定义我们的术语
 
 首先，让我们来看看我在上面提到的那些组件，以及它们如何组合在一起。
 
 * [Elixir](https://elixir-lang.org) 是一种服务端编程语言。
 * [Phoenix](https://phoenixframework.org) 是 Elixir 最受欢迎的 Web 服务端框架。Ruby : Rails :: Elixir : Phoenix。
-* [GraphQL](https://graphql.org) 是一种用在 API 中的查询语言。
+* [GraphQL](https://graphql.org) 是一种用于 API 的查询语言。
 * [Absinthe](https://hexdocs.pm/absinthe/overview.html) 是最流行的 Elixir 库，用于实现 GraphQL 服务器。
 * [Apollo](https://www.apollographql.com/docs/react) 是一个流行的 JavaScript 库，搭配 GraphQL API 使用。（Apollo 还有一个服务端软件包，用于在 Node.js 中实现 GraphQL 服务器，但我只使用了它的客户端配合我搭建的 Elixir GraphQL 服务端。）
 * [React](https://reactjs.org) 是一个流行的 JavaScript 框架，用于构建前端用户界面。（这个你可能已经知道了。）
 
-### 我在构建的是什么？
+## 我在构建的是什么？
 
-我决定构建一个迷你的社交网络。看起来好像很简单，应该可以在合理的时间内完成，但是它复杂到让我遇到了一切在真实场景下的应用程序中才会出现的挑战。我的社交网络被我创造性地称为 Socializer。用户可以在其他用户的帖子下面发帖和评论。Socializer 还有聊天功能; 用户可以与其他用户进行私人对话，每个对话可以有任意数量的用户（即群聊）。
+我决定构建一个迷你的社交网络。看起来好像很简单，可以在合理的时间内完成，但是它也足够复杂，可以让我遇到一切在真实场景下的应用程序中才会出现的挑战。我的社交网络被我创造性地称为 Socializer。用户可以在其他用户的帖子下面发帖和评论。Socializer 还有聊天功能; 用户可以与其他用户进行私人对话，每个对话可以有任意数量的用户（即群聊）。
 
-### 为什么选择 Elixir？
+## 为什么选择 Elixir？
 
 Elixir 在过去几年中越来越流行。它在 Erlang VM 上运行，你可以直接在 Elixir 文件中写 Erlang 语法，但它旨在为开发人员提供更友好的语法，同时保持 Erlang 的速度和容错能力。Elixir 是动态类型的，语法与ruby类似。但是它比 ruby 更具功能性，并且有很多不同的惯用语法和模式。
 
-至少对于我而言，Elixir 的主要吸引力在于 Erlang VM 的性能。坦白的说这看起来很荒谬。但 WhatsApp 的团队能够使用 Erlang 与[单个服务器建立 **200 万**个连接](https://blog.whatsapp.com/196/1-million-is-so-2011)。一个 Elixir/Phoenix 服务器通常可以在不到 1 毫秒的时间内提供简单的请求；看到终端日志中请求持续时间的 μ 符号真让人兴奋不已。
+至少对于我而言，Elixir 的主要吸引力在于 Erlang VM 的性能。坦白的说这看起来很荒谬。但使用 Erlang 使得 WhatsApp 的团队能够和[单个服务器建立 **200 万**个连接](https://blog.whatsapp.com/196/1-million-is-so-2011)。一个 Elixir/Phoenix 服务器通常可以在不到 1 毫秒的时间内提供简单的请求；看到终端日志中请求持续时间的 μ 符号真让人兴奋不已。
 
-Elixir 还有其他好处。它的设计是容错的；你可以将 Erlang VM 视为一个节点集群，任何一个节点都可以在不中断其他节点的情况下关闭。这也使“热代码交换”成为可能，部署新代码时无需停止和重启应用程序。我发现它的[模式匹配（pattern matching）](https://elixirschool.com/en/lessons/basics/pattern-matching)和[管道操作符（pipe operator）](https://elixirschool.com/en/lessons/basics/pipe-operator)也非常有意思。令人耳目一新的是，它在编写功能强大的代码时，近乎和 ruby 一样给力，而且我发现它可以驱使我更清楚地思考代码，写更少的 bug。
+Elixir 还有其他好处。它的设计是容错的；你可以将 Erlang VM 视为一个节点集群，任何一个节点的宕机都可以不影响其他节点。这也使“热代码交换”成为可能，部署新代码时无需停止和重启应用程序。我发现它的[模式匹配（pattern matching）](https://elixirschool.com/en/lessons/basics/pattern-matching)和[管道操作符（pipe operator）](https://elixirschool.com/en/lessons/basics/pipe-operator)也非常有意思。令人耳目一新的是，它在编写功能强大的代码时，近乎和 ruby 一样给力，而且我发现它可以驱使我更清楚地思考代码，写更少的 bug。
 
-### 为什么选择 GraphQL？
+## 为什么选择 GraphQL？
 
-使用传统的 RESTful API，服务器会事先定义好它可以提供的资源和路由（通过 API 文档，或者通过一些自动化生成 API 的工具，如 Swagger），使用者必须制定正确的调用顺序来获取他们想要的数据。如果服务端有一个帖子的 API 来获取博客的帖子，一个评论的 API 用于获取帖子的评论，一个用户信息的 API 获取用户的姓名和图片，使用者可能必须发送三个单独的请求，来获取渲染一个视图所必要的信息。（对于这样一个小案例，显然 API 可能允许你检索关联的记录数据，但它也说明了传统 RESTful API 的缺点 —— 请求结构由服务器任意定义，而不能匹配每个使用者和页面的动态需求）。GraphQL 反转了这个原则 —— 客户端先发送一个描述所需数据的查询文档（可能跨越表关系），然后服务器在这个请求中返回所有需要的数据。拿我们的博客举例来说，一个帖子的查询请求可能会是下面这样：
+使用传统的 RESTful API，服务器会事先定义好它可以提供的资源和路由（通过 API 文档，或者通过一些自动化生成 API 的工具，如 Swagger），使用者必须制定正确的调用顺序来获取他们想要的数据。如果服务端有一个帖子的 API 来获取博客的帖子，一个评论的 API 用于获取帖子的评论，一个用户信息的 API 获取用户的姓名和图片，使用者可能必须发送三个单独的请求，来获取渲染一个视图所必要的信息。（对于这样一个小案例，显然 API 可能允许你一次性得到所有相关数据，但它也说明了传统 RESTful API 的缺点 —— 请求结构由服务器任意定义，而不能匹配每个使用者和页面的动态需求）。GraphQL 反转了这个原则 —— 客户端先发送一个描述所需数据的查询文档（可能跨越表关系），然后服务器在这个请求中返回所有需要的数据。拿我们的博客举例来说，一个帖子的查询请求可能会是下面这样：
 
 ```graphql
 query {
@@ -63,7 +63,7 @@ query {
 
 这个请求描述了渲染一个博客帖子页面时，使用者可能会用到的所有信息：帖子的 ID、内容以及时间戳；发布帖子的用户的 ID、姓名和头像 URL；帖子评论的 ID、内容和时间戳；以及提交每条评论的用户的 ID，名称和头像 URL。结构非常直观灵活；它非常适合构建接口，因为你可以只描述所需的数据，而不是痛苦地适应 API 提供的结构。
 
-GraphQL 中还有两个关键概念：mutation（变动）和 subscription（订阅）。Mutation 是一种对服务器上的数据进行更改的查询; 它相当于 RESTful API 中的 POST/PATCH/PUT。语法与查询非常相似; 创建帖子的 mutation 可能是下面这样的：
+GraphQL 中还有两个关键概念：mutation（变更）和 subscription（订阅）。Mutation 是一种对服务器上的数据进行更改的查询; 它相当于 RESTful API 中的 POST/PATCH/PUT。语法与查询非常相似; 创建帖子的 mutation 可能是下面这样的：
 
 ```graphql
 mutation {
@@ -77,7 +77,7 @@ mutation {
 
 一条数据库记录的属性通过参数提供，{} 里的代码块描述了一旦 mutation 完成需要返回的数据（在我们的例子中是新帖子的 ID、内容以及时间戳）。
 
-一个 subscription 对于 GraphQL 是相当特别的；它不是一个真正的对 RESTful API 的模拟。它允许客户端在特定事件发生时从服务器接收实时更新。例如，如果我希望每次创建新帖子时都更新主页，我可能会写一个这样的帖子 subscription：
+一个 subscription 对于 GraphQL 是相当特别的；在 RESTful API 中并没有一个直接和它对应的东西。它允许客户端在特定事件发生时从服务器接收实时更新。例如，如果我希望每次创建新帖子时都实时更新主页，我可能会写一个这样的帖子 subscription：
 
 ```graphql
 subscription {
@@ -120,11 +120,11 @@ query {
 }
 ```
 
-### 为什么选择 Apollo？
+## 为什么选择 Apollo？
 
 Apollo 已经成为服务器和客户端上最受欢迎的 GraphQL 库之一。上次使用 GraphQL 还是 2016 年时和 [Relay](https://facebook.github.io/relay) 一起，Relay 是另外一个客户端的 JavaScript 库。实话说，我讨厌它。我被 GraphQL 简单易写的查询语句所吸引，相比较而言，Relay 让我感觉非常复杂而且难以理解；它的文档里有很多术语，我发现很难构建一个知识基础让我理解它。公平地说，那是 Relay 的 1.0 版本；他们已经做了很大的改动来简化库（他们称之为 Relay Modern），文档也比过去好了很多。但是我想尝试新的东西，Apollo 之所以这么受欢迎，部分原因是它为构建 GraphQL 客户端应用程序提供了相对简单的开发体验。
 
-### 服务端
+## 服务端
 
 我们先来构建应用程序的服务端；没有数据使用的话，客户端就没有那么有意思了。我也很好奇 GraphQL 如何能够实现在客户端编写查询语句，然后拿到所有我需要的数据。（在我实现客户端之后可能会需要回来对服务端做一些改动）。
 
@@ -268,7 +268,7 @@ Changeset 方法是 Ecto 提供的创建和更新记录的方法：首先是一�
 
 这是我们的第一个 model。你可以在[这里](https://github.com/schneidmaster/socializer/tree/master/lib/socializer)找到其它 model。
 
-### GraphQL schema
+## GraphQL schema
 
 接下来，我连接了服务器的 GraphQL 组件。这些组件通常可以分为两类：type（类型）和 resolver（解析器）。在 type 文件中，你使用类似 DSL 的语法来声明可以查询的对象、字段和关系。解析器用来告诉服务器如何响应任何给定查询。
 
@@ -421,7 +421,7 @@ defmodule SocializerWeb.Schema do
 end
 ```
 
-### 解析器（Resolver）
+## 解析器（Resolver）
 
 正如我上面提到的，解析器是 GraphQL 服务器的“粘合剂” —— 它们包含为查询提供数据或应用 mutation 的逻辑。让我们看一下 `post` 解析器：
 
@@ -496,7 +496,7 @@ end
 
 最后，如果 post 的属性无效（例如，内容为空），我们有一个简单的辅助方法来返回错误响应。Absinthe 希望错误消息是一个字符串，一个字符串数组，或一个带有 `field` 和 `message` 键的关键字列表数组 —— 在我们的例子中，我们将每个字段的 Ecto 验证错误信息提取到这样的关键字列表中。
 
-### 上下文/认证
+## 上下文/认证
 
 我们在最后一节中来谈谈查询认证的概念 —— 在我们的例子中，简单地在 `authorization` 请求头用一个 `Bearer: token` 做了标记。我们如何利用这个 token 获取解析器中 `current_user`  的上下文呢？可以使用自定义插件（plug）读取头部然后查找当前用户。在 Phoenix 中，一个插件是请求管道中的一部分 —— 你可能拥有解码 JSON 的插件，添加 CORS 头的插件，或者处理请求的任何其他可组合部分的插件。我们的插件如下所示：
 
