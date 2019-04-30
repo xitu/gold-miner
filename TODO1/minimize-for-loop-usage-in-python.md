@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/minimize-for-loop-usage-in-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/minimize-for-loop-usage-in-python.md)
 > * 译者：[qiuyuezhong](https://github.com/qiuyuezhong)
-> * 校对者：
+> * 校对者：[MollyAredtana](https://github.com/MollyAredtana)、[shixi-li](https://github.com/shixi-li)
 
 # 减少 Python 中循环的使用
 
@@ -27,7 +27,7 @@ Python 提供给我们多种编码方式。
 
 让我用一个简单的例子来解释下。
 
-假设你想取得****一个列表中的平方和。****
+假设你想取得**一个列表中的平方和。**
 
 在机器学习中，当我们想计算 n 维情况下两点之间的距离时，我们都会面临这个问题。
 
@@ -116,7 +116,7 @@ index is 2 and value is orange
 
 有个规则是：
 
-> # 绝不索引一个列表，如果你能不使用它。
+> 绝不索引一个列表，如果你能不使用它。
 
 ## 尝试使用 Dictionary Comprehension
 
