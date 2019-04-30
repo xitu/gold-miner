@@ -58,7 +58,7 @@
 
 现在就参加我的7天电子邮件速成课（包含示例代码）。
 
-点击注册还有可以获得课程的免费PDF版本。
+点击注册还有可以获得课程的免费 PDF 版本。
 
 [下载你的免费迷你课程](https://machinelearningmastery.lpages.co/leadbox/1458ca1e0972a2%3A164f8be4f346dc/4715926590455808/)
 
