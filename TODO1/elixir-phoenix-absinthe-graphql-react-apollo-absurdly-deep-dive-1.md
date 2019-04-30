@@ -26,7 +26,7 @@
 
 ## 为什么选择 Elixir？
 
-Elixir 在过去几年中越来越流行。它在 Erlang VM 上运行，你可以直接在 Elixir 文件中写 Erlang 语法，但它旨在为开发人员提供更友好的语法，同时保持 Erlang 的速度和容错能力。Elixir 是动态类型的，语法与ruby类似。但是它比 ruby 更具功能性，并且有很多不同的惯用语法和模式。
+Elixir 在过去几年中越来越流行。它在 Erlang VM 上运行，你可以直接在 Elixir 文件中写 Erlang 语法，但它旨在为开发人员提供更友好的语法，同时保持 Erlang 的速度和容错能力。Elixir 是动态类型的，语法与 ruby 类似。但是它比 ruby 更具功能性，并且有很多不同的惯用语法和模式。
 
 至少对于我而言，Elixir 的主要吸引力在于 Erlang VM 的性能。坦白的说这看起来很荒谬。但使用 Erlang 使得 WhatsApp 的团队能够和[单个服务器建立 **200 万**个连接](https://blog.whatsapp.com/196/1-million-is-so-2011)。一个 Elixir/Phoenix 服务器通常可以在不到 1 毫秒的时间内提供简单的请求；看到终端日志中请求持续时间的 μ 符号真让人兴奋不已。
 
