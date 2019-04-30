@@ -6,6 +6,7 @@
 > * 校对者：[Fengziyin1234](https://github.com/Fengziyin1234)
 
 # 模式 —— 使用 Typescript 和 Node.js 的通用仓储
+
 ![成为代码之王](https://cdn-images-1.medium.com/max/2000/1*dffdGxirQfDyHJjWM3p47Q.png)
 
 如果你使用 **Node.js/Javascript**，并且有很多应付不同数据模型的重复代码或者不厌其烦地创建 **CRUD(Create, Read, Update and Delete)**，那么这篇文章适合你！
