@@ -7,6 +7,8 @@
 
 # Swift 代码格式化
 
+> 我刚离开了一家时髦的咖啡馆。里面有很多 iOS 开发者，他们互相窃窃私语，讨论他们是多么得等不及苹果公司为 Swift 发布得官方风格指南和格式化程序。
+
 在过去的几天里，社区一直在讨论 [Tony Allevato](https://github.com/allevato) 和 [Dave Abrahams](https://github.com/dabrahams) 采用官方版的 Swift 格式化工具。
 
 数十名社区成员已经对 [提案草案](https://forums.swift.org/t/pitch-an-official-style-guide-and-formatter-for-swift/21025) 进行了权衡。与所有样式问题一样，每个人都有不同的意见。但幸运的是，来自社区的话语通常具有代表性和洞察力，其中清晰表达了各式各样的观点、用例以及关注点。
@@ -27,7 +29,7 @@
 
 > 另一种辅助表示法是语法高亮，这在我们以前的 [NSHipster文章](https://nshipster.com/swiftsyntax/) 中讨论过.
 
-虽然你可以通过分号在一行代码中写几乎任何东西，但是在其他条件相同的情况下，使用空格与换行来对其代码难道不是一种更易于理解并且直观的方式吗？
+虽然你可以通过分号在一行代码中写几乎任何东西，但是在其他条件相同的情况下，使用空格与换行来对齐代码难道不是一种更易于理解并且直观的方式吗？
 
 不幸的是，因编译器接受空格的性质而产生的歧义往往会引起程序员之间对代码的混淆和分歧：**“我到底应不应该在大括号之前添加换行符？如何分解超出编辑器宽度的语句？”**
 
@@ -73,7 +75,7 @@ let applePark = ShippingAddress(recipient:"Apple, Inc.", streetAddress:"1 Apple 
 
 尽管代码格式化包含各种可能的语法和语义转换，但我们将专注于换行和缩进的问题，我们认为这是任何代码格式化程序的基础要求。
 
-> 诚然，本文中的性能基准并不是非常严格。但是它们应该可以作为参考。我们把秒作为测量时间的单位，采用 2017 款 MacBook Pro，配备 2.9 GHz Intel Core i7 处理器和 16 GB 2133 MHz LPDDR3 内存。
+> 诚然，本文中的性能基准并不是非常严格。但是它们应该可以作为参考。我们把秒作为测量时间的单位，采用 2017 款配备 2.9 GHz Intel Core i7 处理器和 16 GB 2133 MHz LPDDR3 内存的 MacBook Pro。
 
 ### SwiftFormat
 
@@ -89,11 +91,11 @@ SwiftFormat 可以通过 [Homebrew](/homebrew/)，[Mint](https://github.com/yona
 $ brew install swiftformat
 ```
 
-此外，SwiftFormat 还提供了一个 [Xcode 拓展](https://github.com/nicklockwood/SwiftFormat/tree/master/EditorExtension)，你可以通过使用它在 Xcode 里进行格式化。或者如果你是 VSCode 用户，你可以使用 [此插件](https://marketplace.visualstudio.com/items?itemName=vknabel.vscode-swiftformat)。
+此外，SwiftFormat 还提供了一个 [Xcode 拓展](https://github.com/nicklockwood/SwiftFormat/tree/master/EditorExtension)，你可以通过在 Xcode 里使用它进行格式化。或者如果你是 VSCode 用户，你可以使用 [此插件](https://marketplace.visualstudio.com/items?itemName=vknabel.vscode-swiftformat)。
 
 #### 使用
 
-`swiftformat` 命令会把在指定文件和目录路径中找到的每所有 Swift 文件进行格式化。
+`swiftformat` 命令会把在指定文件和目录路径中找到的所有 Swift 文件进行格式化。
 
 ```bash
 $ swiftformat Example.swift
@@ -128,11 +130,11 @@ struct ShippingAddress: Codable {
 let applePark = ShippingAddress(recipient: "Apple, Inc.", streetAddress: "1 Apple Park Way", locality: "Cupertino", region: "CA", postalCode: "95014", country: "US")
 ```
 
-正如你所见，格式化明显改进了原始版本。每一行都根据其范围缩进，标点符号间的声明都有一致的间距。属性声明中的分号和初始化参数中的换行都被保留。但是，大括号没有像预期的那样被移动到单独一行，这在 [0.39.5](https://twitter.com/nicklockwood/status/1103595525792845825) 被修复了。干得漂亮，[Nick](https://github.com/nicklockwood)!
+正如你所见，格式化明显改进了原始版本。每一行都根据其范围缩进，标点符号间的声明都有一致的间距。属性声明中的分号和初始化参数中的换行都被保留。但是，大括号没有像预期的那样被移动到单独一行，[Nick](https://github.com/nicklockwood) 在 [0.39.5](https://twitter.com/nicklockwood/status/1103595525792845825) 修复了它。
 
 #### 性能
 
-SwiftFormat 在本文中测试工具中始终是最快的，它能在在几毫秒内完成处理。
+SwiftFormat 在本文中测试工具中始终是最快的，它能在几毫秒内完成处理。
 
 ```bash
 $ time swiftformat Example.swift
@@ -143,7 +145,7 @@ $ time swiftformat Example.swift
 
 接下来是 [SwiftLint](https://github.com/realm/SwiftLint)，它是 Swift 开源社区的支柱。其中包含了超过 100 个规则，SwiftLint 可以对你的代码执行各种各样的检查，从将 `AnyObject` 优于 `class`（仅用于类的协议）到所谓的“尤达条件式”，其中规定变量应放在比较运算符的左侧（即 `if n == 42` 而非 `if 42 == n`）。
 
-顾名思义，SwiftLint 主要不是代码格式化程序，它确实是一种识别滥用惯例和误用 API 的诊断工具。它的自动校正功能，它经常用于格式化代码。
+顾名思义，SwiftLint 主要不是代码格式化程序，它确实是一种识别滥用惯例和误用 API 的诊断工具。正是由于具备自动校正功能，它常常被用于格式化代码。
 
 #### 安装
 
@@ -188,7 +190,7 @@ struct ShippingAddress: Codable {
 let applePark = ShippingAddress(recipient: "Apple, Inc.", streetAddress: "1 Apple Park Way", locality: "Cupertino", region: "CA", postalCode: "95014", country: "US")
 ```
 
-SwiftLint 可以清除最糟糕的缩进和行内间距问题，同时保留其他无关的空格。值得注意的是，格式化不是 SwiftLint 的主要作用，如果有的话，它只是附带提供可操作的代码诊断。从 **“首先，不伤害”** 的角度来看，你不必在这里抱怨它处理的结果。
+SwiftLint 可以清除最糟糕的缩进和行内间距问题，同时保留其他无关的空格。值得注意的是，格式化不是 SwiftLint 的主要作用，如果有的话，它只是附带提供可操作的代码诊断。从 **“首先，没有任何副作用”** 的角度来看，你不必在这里抱怨它处理的结果。
 
 #### 性能
 
@@ -207,7 +209,7 @@ Prettier 在代码格式化程序中是独一无二的，因为它体现了代�
 
 多亏了一个在开发中的 [插件架构](https://prettier.io/docs/en/plugins.html)，你可以在其他语言上使用它，其中 [包括了 Swift](https://github.com/prettier/plugin-swift)。
 
-> Swift 的 Prettier 插件非常重要，但是当它遇到一个没有规则的语法标记时会崩溃（比如 `EnumDecl` 😩）。然而，正如你将在下面看到的那样，到目前为止它的功能还是很强大以至于我们不能忽视它，所以把它放在本回合中介绍是值得的。
+> Swift 的 Prettier 插件非常重要，但是当它遇到一个没有规则的语法标记时会崩溃（比如 `EnumDecl` 😩）。然而，正如你将在下面看到的那样，到目前为止它的功能还是很强大以至于我们不能忽视它，所以把它放在本文格式化工具 PK 中是值得的。
 
 #### 安装
 
@@ -273,7 +275,7 @@ let applePark = ShippingAddress(
 
 Prettier 将自己称为 “一个自以为是的代码格式化程序”。实际上，它的配置方式不多，只有两个选项：“常规代码” 或 “更漂亮的代码”。
 
-现在，你可能会反很多垂直的对齐，但如果你肯定还是会承认这段代码看起来确实很棒。所有的语句都有均匀间隔、缩进以及对齐，很难相信这是自动实现的。
+现在，你可能会面对很多垂直的对齐，但你不得不承认这段代码看起来确实很棒。所有的语句都有均匀间隔、缩进以及对齐，很难相信这是自动实现的。
 
 当然，我们之前的警告仍然适用：这仍然在开发中，并不适合生产环境使用，而且它还有一些性能问题。
 
@@ -286,7 +288,7 @@ $ time prettier Example.swift
     1.14 real         0.56 user         0.38 sys
 ```
 
-目前还不清楚这到底是语言障碍还是优化不良的结果，但是 Prettier 的缓慢导致了很大规模的问题。
+目前还不清楚这到底是语言障碍还是优化不良的结果，Prettier 慢得足以带来很大的问题。
 
 目前，我们建议仅将 Prettier 用于一次性格式化任务，例如编写文章和书籍的代码。
 
@@ -398,7 +400,7 @@ $ time swift-format Example.swift
 
 根据我们有限的初步调查，`swift-format` 似乎提供了一套合理的格式约定。希望未来它能创建出更加生动的例子来帮助我们理解其中的格式化规则。
 
-无论如何，看到提案如何变化以及围绕这些问题展开讨论都将是一件很有趣的事。
+无论如何，看到提案如何发展以及围绕这些问题展开讨论都将是一件很有趣的事。
 
 ---
 
