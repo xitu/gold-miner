@@ -9,9 +9,9 @@
 
 ![](https://cdn-images-1.medium.com/max/3000/1*WZf4olsps6kCjyVj0PM7JA.jpeg)
 
-> 分离测试是为 App 寻找一种在给定目标下能更优执行效率的方法。
+> 分离测试是为应用提供哪种方案对于给定目标表现更优决策的方法。
 >
-> 我们给 App 随机测试多种不同版本的方法，通过收据数据并统计分析，然后确定哪个版本的性能更好。
+> 我们为应用的用户以随机的方式分发变量或行为不同的方案，通过收集数据并统计分析，确定哪个方案表现的更好。
 
 本文旨在提供一种结构化组织构建 App 的简单方法，以便你可以在使用分离测试时能获得整洁而可扩展的代码。
 
@@ -140,7 +140,7 @@ func addContentView() {
 
 ![[https://dribbble.com/shots/5546168-Gate-B](https://dribbble.com/shots/5546168-Gate-B)](https://cdn-images-1.medium.com/max/3200/1*FHM9s3d34M386PQeH10DCg.png)
 
-我们总是可以使用我们需要的任何对象进行swift管理，在这种情况下，假设我们需要一个保存购买按钮颜色值的对象：
+我们总是可以使用我们需要的任何对象进行分离管理，在这种情况下，假设我们需要一个保存购买按钮颜色值的对象：
 
 ```swift
 class PurchaseButtonColorSplitTest: SplitTestProtocol {
@@ -245,7 +245,7 @@ override func viewDidAppear(_ animated: Bool) {
 
 ## 一般性提示
 
-当你在进行拆分离试时，请务必注意以下几点：
+当你在进行分离测试时，请务必注意以下几点：
 
 1. 始终使用 **缓存** 作为测试值，以使 App 在用户使用的时候保持一致。
 
@@ -255,13 +255,13 @@ override func viewDidAppear(_ animated: Bool) {
 
 ## 总结
 
-分离测试（也称为 A/B 测试）对于我们的 App 来说是一个强大而有效的工具，但如果我们的代码设计不严谨的话，它很容易是你的代码变得一团乱。
+分离测试（也称为 A/B 测试）对于我们的 App 来说是一个强大而有效的工具，但如果我们的代码设计不严谨的话，它很容易使你的代码变得一团糟。
 
 在本文中，我们创建了一个可以管理分离测试逻辑的通用解决方案。同时还提供了一些真实的 App 示例和实用技巧，以便你可以在给你的 iOS App 进行分离测试的时候参考。
 
 你可以在 **[medium](https://medium.com/@arlindaliu.dev)** 上关注我，我还写了很多篇 iOS 的高级技巧类文章。
 
-如果你有任何问题或者一件，请给我发送电子邮件 [arlindaliu.dev@gmail.com](http://arlindaliu.dev@gmail.com)。
+如果你有任何问题或者意见，请给我发送电子邮件 [arlindaliu.dev@gmail.com](http://arlindaliu.dev@gmail.com)。
 
 ***
 
