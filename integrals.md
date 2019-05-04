@@ -3446,7 +3446,7 @@
 |[消息同步 —— 在 Airbnb 我们是怎样扩展移动消息的](https://juejin.im/post/593a7647128fe1006acafaf9)|校对|1|
 |[对元素持有弱引用的 Swift 数组](https://juejin.im/post/5927a34c0ce46300575a81e1)|校对|1|
 
-## 译者：[feximin](https://github.com/Feximin) 历史贡献积分：32 当前积分：32
+## 译者：[feximin](https://github.com/Feximin) 历史贡献积分：33.5 当前积分：33.5 二零一九：1.5
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -8371,7 +8371,7 @@
 |------|-------|-------|
 |[哪一个深度学习框架增长最迅猛？TensorFlow 还是 PyTorch？](https://juejin.im/post/5caefef45188251b070f7d70)|翻译|5|
 
-## 译者：[renyuhuiharrison](https://github.com/renyuhuiharrison) 历史贡献积分：7 当前积分：7 二零一九：7
+## 译者：[renyuhuiharrison](https://github.com/renyuhuiharrison) 历史贡献积分：9.5 当前积分：9.5 二零一九：9.5
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -8379,7 +8379,7 @@
 |[制定良好的路线图：产品负责人的六个实施步骤](https://juejin.im/post/5cb299436fb9a068744e70a7)|校对|3|
 |[你不能成为成功程序员的 10 个迹象](https://juejin.im/post/5ca2f5ce51882565cb5b962c)|校对|4|
 
-## 译者：[ezioyuan](https://github.com/ezioyuan) 历史贡献积分：9 当前积分：9 二零一九：9
+## 译者：[ezioyuan](https://github.com/ezioyuan) 历史贡献积分：6.5 当前积分：6.5 二零一九：6.5
 
 |文章|类型|积分|
 |------|-------|-------|
