@@ -2,7 +2,7 @@
 > * 原文作者：[Paige Niedringhaus](https://medium.com/@paigen11)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-absolute-easiest-way-to-debug-node-js-with-vscode.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-absolute-easiest-way-to-debug-node-js-with-vscode.md)
-> * 译者：
+> * 译者：[iceytea](https://github.com/iceytea/)
 > * 校对者：
 
 # 使用 VS Code 调试 Node.js 的超简单方法
@@ -93,15 +93,15 @@ Visual Studio Code 的 `Debug > Node: Auto Attach` 设置使之成为过去，�
 
 * [使用 Node.js 读取超大数据集和文件（第一部分）](https://itnext.io/using-node-js-to-read-really-really-large-files-pt-1-d2057fe76b33)
 * [Sequelize: Node.js SQL ORM 框架](https://medium.com/@paigen11/sequelize-the-orm-for-sql-databases-with-nodejs-daa7c6d5aca3)
-* [Streams For the Win: A Performance Comparison of Node.js Methods for Reading Large Datasets (Pt 2)](https://itnext.io/streams-for-the-win-a-performance-comparison-of-nodejs-methods-for-reading-large-datasets-pt-2-bcfa732fa40e)
+* [流的胜利：用于读取大型数据集的 Node.js 方法的性能比较（第二部分）](https://itnext.io/streams-for-the-win-a-performance-comparison-of-nodejs-methods-for-reading-large-datasets-pt-2-bcfa732fa40e)
 
 ***
 
 **参考资料和进阶资源：**
 
-* Github, Node Read File Repo: [https://github.com/paigen11/file-read-challenge](https://github.com/paigen11/file-read-challenge)
-* Node.js documentation — inspector: [https://nodejs.org/en/docs/guides/debugging-getting-started/](https://nodejs.org/en/docs/guides/debugging-getting-started/)
-* Paul Irish’s Blog on Using Chrome DevTools to Debug Node.js: [https://medium.com/@paul_irish/debugging-node-js-nightlies-with-chrome-devtools-7c4a1b95ae27](https://medium.com/@paul_irish/debugging-node-js-nightlies-with-chrome-devtools-7c4a1b95ae27)
+* Github, Node 读取文件 Repo: [https://github.com/paigen11/file-read-challenge](https://github.com/paigen11/file-read-challenge)
+* Node.js 文档 — 调试部分: [https://nodejs.org/en/docs/guides/debugging-getting-started/](https://nodejs.org/en/docs/guides/debugging-getting-started/)
+* Paul Irish’s ：使用 Chrome DevTools 调试 Node.js ：[https://medium.com/@paul_irish/debugging-node-js-nightlies-with-chrome-devtools-7c4a1b95ae27](https://medium.com/@paul_irish/debugging-node-js-nightlies-with-chrome-devtools-7c4a1b95ae27)
 * JetBrains 提供的文档 — 《运行和调试 Node.js》 — [https://www.jetbrains.com/help/webstorm/running-and-debugging-node-js.html](https://www.jetbrains.com/help/webstorm/running-and-debugging-node-js.html)
 * Visual Studio Code 下载链接：[https://code.visualstudio.com/download](https://code.visualstudio.com/download)
 * VS Code 调试 Node.js 文档：[https://code.visualstudio.com/docs/nodejs/nodejs-debugging#_attaching-to-nodejs](https://code.visualstudio.com/docs/nodejs/nodejs-debugging#_attaching-to-nodejs)
