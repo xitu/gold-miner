@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-1.md)
 > * 译者：[JackEggie](https://github.com/JackEggie)
-> * 校对者：
+> * 校对者：[fireairforce](https://github.com/fireairforce)
 
 # Spring 的分布式事务实现 — 使用和不使用 XA — 第一部分
 
@@ -23,7 +23,7 @@ Spring 框架对 Java Transaction API (JTA) 的支持使应用程序能够[无�
 
 ## 分布式事务及其原子性
 
-一个**分布式事务**通常包含多个事务资源。事务资源是指关系型数据库和消息中间件的连接。一个典型的事务资源都会有像 `begin()`、`rollback()`、`commit()` 这样的 API。在 Java 中，一个事务资源通常表现为底层连接工厂提供的实例：对于数据库来说，就是 `Connection` 对象（由 `DataSource` 提供）或是 [Java Persistence API](http://www.javaworld.com/javaworld/jw-01-2008/jw-01-jpa1.html) (JPA) 的 `EntityManager` 对象；对于 [Java Message Service](http://www.javaworld.com/jw-01-1999/jw-01-jms.html) (JMS) 来说，则是 `Session` 对象。
+一个**分布式事务**通常包含多个事务资源。事务资源是指关系型数据库和消息中间件的连接。一个典型的事务资源都会有像 `begin()`、`rollback()`、`commit()` 这样的 API。在 Java 中，一个事务资源通常表现为底层连接工厂提供的实例：对于数据库来说，就是 `Connection` 对象（由 `DataSource` 提供）或是 [Java Persistence API](http://www.javaworld.com/javaworld/jw-01-2008/jw-01-jpa1.html)（JPA）的 `EntityManager` 对象；对于 [Java Message Service](http://www.javaworld.com/jw-01-1999/jw-01-jms.html)（JMS）来说，则是 `Session` 对象。
 
 在一个典型的例子中，一个 JMS 消息触发了数据库的更新。根据时间先后顺序，一次成功的交互过程如下：
 
@@ -117,7 +117,7 @@ XA 事务管理器的另一个特性是，当除某一个资源外的所有资�
 
 在某些系统中，为了降低复杂性和增加吞吐量，一种较好的模式是通过确保系统中的所有事务资源实际上都是同一个资源的不同形式，从而完全消除对 XA 的依赖。显然，这在所有的用例中都是不可能的，但这种模式与 XA 一样可靠，而且通常要快得多。这样的共享事务资源模式是足够可靠的，但只限于某些特定的平台和处理场景。
 
-有一个这种模式的简单例子对很多人来说都很熟悉，即在对象关系映射（ORM）组件和 [JDBC](http://www.javaworld.com/javaworld/jw-05-2006/jw-0501-jdbc.html) 组件之间共享数据库的 `Connection`。这就是你使用支持 ORM 工具的 Spring 事务管理器时所发生的事情，如 [Hibernate](http://www.javaworld.com/javaworld/jw-10-2004/jw-1018-hibernate.html)、[EclipseLink](http://www.eclipse.org/eclipselink/) 和 [Java Persistence API](http://www.javaworld.com/javaworld/jw-01-2008/jw-01-jpa1.html) (JPA)。同一个事务可以安全地跨 ORM 和 JDBC 组件使用，该执行过程通常由控制事务的服务级方法来实现。
+有一个这种模式的简单例子对很多人来说都很熟悉，即在对象关系映射（ORM）组件和 [JDBC](http://www.javaworld.com/javaworld/jw-05-2006/jw-0501-jdbc.html) 组件之间共享数据库的 `Connection`。这就是你使用支持 ORM 工具的 Spring 事务管理器时所发生的事情，如 [Hibernate](http://www.javaworld.com/javaworld/jw-10-2004/jw-1018-hibernate.html)、[EclipseLink](http://www.eclipse.org/eclipselink/) 和 [Java Persistence API](http://www.javaworld.com/javaworld/jw-01-2008/jw-01-jpa1.html)（JPA）。同一个事务可以安全地跨 ORM 和 JDBC 组件使用，该执行过程通常由控制事务的服务级方法来实现。
 
 该模式的另一个有效用法是单个数据库的消息驱动更新（如本文中介绍的简单例子所示）。消息中间件系统需要将数据存储在某个地方，通常是关系数据库中。要实现此模式，只需指定消息传递系统的目标数据库为同一个业务数据库即可。此模式需要消息中间件的供应商公开其存储策略的详细信息，以便可以将其配置指向相同的数据库并挂接到相同的事务中。
 
@@ -173,7 +173,7 @@ public void checkPostConditions() {
 ```xml
 <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
   ...
-  <!-- 这很重要…… -->
+  <!-- 这很重要... -->
   <property  />
 </bean>
 ```
