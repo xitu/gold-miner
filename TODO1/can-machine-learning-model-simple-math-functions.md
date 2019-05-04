@@ -2,59 +2,59 @@
 > * 原文作者：[Harsh Sahu](https://medium.com/@hsahu)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/can-machine-learning-model-simple-math-functions.md](https://github.com/xitu/gold-miner/blob/master/TODO1/can-machine-learning-model-simple-math-functions.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Minghao23](https://github.com/Minghao23)
+> * 校对者：[lsvih](https://github.com/lsvih)，[zoomdong](https://github.com/fireairforce)
 
-# Can Machine Learning model simple Math functions?
+# 机器学习可以建模简单的数学函数吗？
 
-> Modelling some fundamental mathematical functions using machine learning
+> 使用机器学习建模一些基础数学函数
 
 ![Photo Credits: [Unsplash](https://unsplash.com/)](https://cdn-images-1.medium.com/max/7276/1*lG0d-oazOpw92Z_GaSAzcw.jpeg)
 
-It has become a norm these days to apply machine learning on every kind of task. It is a symptom of the fact that Machine learning is seemingly a permanent fixture in [Gartner’s hype cycle](https://en.wikipedia.org/wiki/Hype_cycle) for emerging technologies. These algorithms are being treated like figure-out-it-yourself models: Breakdown data of any sort into a bunch of features, apply a number of black-box machine learning models, evaluate each and choose the one that works out best.
+近来，在各种任务上应用机器学习已经成为了一个惯例。似乎在每一个 [Gartner's 技术循环曲线](https://en.wikipedia.org/wiki/Hype_cycle) 上的新兴技术都对机器学习有所涉及，这是一种趋势。这些算法被当做 figure-out-it-yourself 的模型：将任何类型的数据都分解为一串特征，应用一些黑盒的机器学习模型，对每个模型求解并选择结果最好的那个。
 
-But can machine learning really solve all those problems or is it just good for a small handful of tasks. We tend to answer an even more fundamental question in this article, and that is, can ML even deduce mathematical relationships that very commonly occur in everyday life. Here, I will try to fit few basic functions using some popular machine learning techniques. Lets see if these algorithms can discern and model these fundamental mathematical relations.
+但是机器学习真的能解决所有的问题吗？还是它只适用于一小部分的任务？在这篇文章中，我们试图回答一个更基本的问题，即机器学习能否推导出那些在日常生活中经常出现的数学关系。在这里，我会尝试使用一些流行的机器学习技术来拟合几个基础的函数，并观察这些算法能否识别并建模这些基础的数学关系。
 
-Functions that we will try to fit:
+我们将要尝试的函数：
 
-* Linear
-* Exponential
-* Logarithm
-* Power
-* Modulus
-* Trigonometric
+* 线性函数
+* 指数函数
+* 对数函数
+* 幂函数
+* 模函数
+* 三角函数
 
-The Machine learning techniques that will be used:
+将会用到的机器学习算法：
 
 * XGBoost
-* Linear Regression
-* Support Vector Regression (SVR)
-* Decision Tree
-* Random Forest
-* Multi-layer perceptron (Feed-forward neural network)
+* 线性回归
+* 支持向量回归（SVR）
+* 决策树
+* 随机森林
+* 多层感知机（前馈神经网络）
 
 ![](https://cdn-images-1.medium.com/max/2642/1*_660b9dw5ItbLqQmFEND9w.png)
 
-### Preparing Data
+### 数据准备
 
-I am keeping dependent variables to be of size 4 (no reason for choosing this specific number). So, the relation between X (Independent variables) and Y(dependent variable) will be:
+我会保持因变量（译者注：原文错误，应该为自变量）的维度为 4（选择这个特殊的数字并没有什么原因）。所以，X（自变量）和 Y（因变量）的关系为：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*VrJYX9Y5cHPDPAOo_kC1-g.png)
 
-f :- function we are trying to fit
+f :- 我们将要拟合的函数
 
-Epsilon:- Random noise (To make our Y a bit more realistic because real-life data will always have some noise)
+Epsilon:- 随机噪声（使 Y 更加真实一点，因为现实生活中的数据中总是存在一些噪声）
 
-Each function type is using a set of parameters. These parameters are chosen via generating random numbers using below methods:
+每个函数类型都会用到一系列的参数。这些参数通过生成随机数得到，方法如下：
 
 ```python
 numpy.random.normal()
 numpy.random.randint()
 ```
 
-randint() is used for getting parameters of Power function so as to avoid Y values getting very small. normal() is used for all other cases.
+randint() 用于获取幂函数的参数，以免 Y 的值特别小。normal() 用于所有其他情况。
 
-Generate Independent variables (or X):
+生成自变量（即 X）：
 
 ```python
 function_type = 'Linear'
@@ -67,9 +67,9 @@ else:
     X_test = np.random.normal(size=(500, 4))
 ```
 
-For logarithmic, normal distribution with mean 5 (mean>>variance) is used to avoid getting any negative values.
+对于对数函数，使用均值为 5（均值远大于方差）的正态分布来避免得到负值。
 
-Get Dependent variable (or Y):
+获取因变量（即 Y）：
 
 ```python
 def get_Y(X, function_type, paras):
@@ -85,28 +85,28 @@ def get_Y(X, function_type, paras):
         [a0, a1, a2, a3, a4] = paras
         noise = np.random.normal(scale=(a1*np.exp(X1)).var(), size=X.shape[0])
         Y = a0+a1*np.exp(X1)+a2*np.exp(X2)+a3*np.exp(X3)+a4*np.exp(X4)+noise
-    elif function_type=='Logarithmic':     
+    elif function_type=='Logarithmic':
         [a0, a1, a2, a3, a4] = paras
-        noise = np.random.normal(scale=(a1*np.log(X1)).var(), size=X.shape[0])   
+        noise = np.random.normal(scale=(a1*np.log(X1)).var(), size=X.shape[0])
         Y = a0+a1*np.log(X1)+a2*np.log(X2)+a3*np.log(X3)+a4*np.log(X4)+noise
-    elif function_type=='Power':        
+    elif function_type=='Power':
         [a0, a1, a2, a3, a4] = paras
         noise = np.random.normal(scale=np.power(X1,a1).var(), size=X.shape[0])
         Y = a0+np.power(X1,a1)+np.power(X2,a2)+np.power(X2,a2)+np.power(X3,a3)+np.power(X4,a4)+noise
-    elif function_type=='Modulus':       
+    elif function_type=='Modulus':
         [a0, a1, a2, a3, a4] = paras
         noise = np.random.normal(scale=(a1*np.abs(X1)).var(), size=X.shape[0])
         Y = a0+a1*np.abs(X1)+a2*np.abs(X2)+a3*np.abs(X3)+a4*np.abs(X4)+noise
-    elif function_type=='Sine':        
+    elif function_type=='Sine':
         [a0, a1, b1, a2, b2, a3, b3, a4, b4] = paras
         noise = np.random.normal(scale=(a1*np.sin(X1)).var(), size=X.shape[0])
         Y = a0+a1*np.sin(X1)+b1*np.cos(X1)+a2*np.sin(X2)+b2*np.cos(X2)+a3*np.sin(X3)+b3*np.cos(X3)+a4*np.sin(X4)+b4*np.cos(X4)+noise
     else:
         print('Unknown function type')
-        
+
     return Y
-  
- 
+
+
 if function_type=='Linear':
     paras = [0.35526578, -0.85543226, -0.67566499, -1.97178384, -1.07461643]
     Y_train = get_Y(X_train, function_type, paras)
@@ -133,12 +133,12 @@ elif function_type=='Sine':
     Y_test = get_Y(X_test, function_type, paras)
 ```
 
-Noise is randomly sampled with 0 mean. I have kept variance of noise equal to variance of f(X) to make sure ‘signal and noise’, in our data, are comparable and one does not get lost in the other.
+噪声是在 0 均值的正态分布中随机抽样得到的。我设置了噪声的方差等于 f(X) 的方差，借此保证我们数据中的“信号和噪声”具有可比性，且噪声不会在信号中有损失，反之亦然。
 
-### Training
+### 训练
 
-Note: No hyperparamater tuning is done for any of the model.
-The Rationale is to get a rough estimation of performance of these models on mentioned functions and, therefore, not much has been done to optimize these models for each of these cases.
+注意：在任何模型中都没有做超参数的调参。
+我们的基本想法是只在这些模型对所提及的函数上的表现做一个粗略的估计，因此没有对这些模型做太多的优化。
 
 ```python
 model_type = 'MLP'
@@ -161,29 +161,29 @@ model.fit(X_train, Y_train)
 
 ![](https://cdn-images-1.medium.com/max/2642/1*_660b9dw5ItbLqQmFEND9w.png)
 
-### Results
+### 结果
 
 ![Results](https://cdn-images-1.medium.com/max/2000/1*4labvDJR1p8-yOsm8PeeNw.png)
 
-Most of the performance outcomes are much better than a mean baseline. With an average R-squared coming out to be **70.83%**, **we can say that machine learning techniques are indeed decent at modelling these simple mathematical functions**.
+大多数的表现结果比平均基线要好很多。计算出的平均R方是 **70.83%**，**我们可以说，机器学习技术对这些简单的数学函数确实可以有效地建模**。
 
-But by this experiment, we not only get to know if machine learning can model these functions, but also how different techniques perform on these varied underlying functions.
+但是通过这个实验，我们不仅知道了机器学习能否建模这些函数，同时也了解了不同的机器学习技术在各种基础函数上的表现是怎样的。
 
-Some results are surprising (at-least for me), while some are reassuring. Overall, these outcomes reinstates some of our prior beliefs and also make some new ones.
+有些结果是令人惊讶的（至少对我来说），有些则是合理的。总之，这些结果重新认定了我们的一些先前的想法，也给出了新的想法。
 
-In conclusion, we can say that:
+最后，我们可以得到下列结论：
 
-* Linear Regression although a simpler model outperforms everything else on linearly correlated data
-* In most of the cases, Decision Tree \< Random Forest \< XGBoost, according to performance (as is evident in 5 out of 6 cases above)
-* Unlike the trend these days in practice, XGBoost (turning out best in just 2 out of 6 cases) should not be a one-stop-shop for all kinds of tabular data, instead a fair comparison should be made
-* As opposed to what we might presume, Linear function may not necessarily be easiest to predict. We are getting best aggregate R-squared of 92.98% for Logarithmic function
-* Techniques are working (relatively) quite different on different underlying functions, therefore, technique for a task should be selected via thorough thought and experimentation
+* 尽管线性回归是一个简单的模型，但是在线性相关的数据上，它的表现是优于其他模型的
+* 大多数情况下，决策树 \< 随机森林 \< XGBoost，这是根据实验的表现得到的（在以上 6 个结果中有 5 个是显而易见的）
+* 不像最近实践中的流行趋势那样，XGBoost（6 个结果中只有 2 个表现最好）不应该成为所有类型的列表数据的一站式解决方案，我们仍然需要对每个模型进行公平地比较。
+* 和我们的猜测相反的是，线性函数不一定是最容易预测的函数。我们在对数函数上得到了最好的聚合R方结果，达到了 92.98%
+* 各种技术在不同的基础函数上的效果（相对地）差异十分大，因此，对一个任务选择何种技术必须经过完善的思考和实验
 
-Complete code can be found on my [github](https://github.com/SahuH/Model-math-functions-using-ML).
+完整代码见我的 [github](https://github.com/SahuH/Model-math-functions-using-ML)。
 
 ***
 
-Applaud, comment, share. Constructive criticism and feedback is always welcome!
+来点赞，评论和分享吧。建设性的批评和反馈总是受欢迎的！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
