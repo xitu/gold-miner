@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/structuring-your-ios-app-for-split-testing.md](https://github.com/xitu/gold-miner/blob/master/TODO1/structuring-your-ios-app-for-split-testing.md)
 > * 译者：[iWeslie](https://github.com/iWeslie)
-> * 校对者：
+> * 校对者：[swants](https://github.com/swants)
 
 # 为你的 iOS App 构建分离测试
 
@@ -267,7 +267,7 @@ override func viewDidAppear(_ animated: Bool) {
 
 **编者注：打算准备深入研究一些代码吗？你可以浏览 [Fritz](https://github.com/fritzlabs) 的 GitHub 主页。你将找到一些流行的对手机优化过的开源机器学习和深度学习的模型，你可以用它们来构建你自己的 ML 驱动的 iOS 和 Android App 的训练脚本，同时还有一些项目模板和工具。**
 
-**你可以在  [Slack](https://join.slack.com/t/heartbeat-by-fritz/shared_invite/enQtNTI4MDcxMzI1MzAwLWIyMjRmMGYxYjUwZmE3MzA0MWQ0NDk0YjA2NzE3M2FjM2Y5MjQxMWM2MmQ4ZTdjNjViYjM3NDE0OWQxOTBmZWI) 上加入我们以获得技术支持，你也可以跟我们分享你的工作，或者与我们探讨移动端开发与机器学习方面的问题。同时，你可以关注我们的 [Twitter](https://twitter.com/fritzlabs) 和 [LinkedIn](https://www.linkedin.com/company/fritz-labs-inc/) 来获取所有最新内容，更多来自移动机器学习世界的东西。**
+**你可以在 [Slack](https://join.slack.com/t/heartbeat-by-fritz/shared_invite/enQtNTI4MDcxMzI1MzAwLWIyMjRmMGYxYjUwZmE3MzA0MWQ0NDk0YjA2NzE3M2FjM2Y5MjQxMWM2MmQ4ZTdjNjViYjM3NDE0OWQxOTBmZWI) 上加入我们以获得技术支持，你也可以跟我们分享你的工作，或者与我们探讨移动端开发与机器学习方面的问题。同时，你可以关注我们的 [Twitter](https://twitter.com/fritzlabs) 和 [LinkedIn](https://www.linkedin.com/company/fritz-labs-inc/) 来获取所有最新内容，更多来自移动机器学习世界的东西。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
