@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/can-machine-learning-model-simple-math-functions.md](https://github.com/xitu/gold-miner/blob/master/TODO1/can-machine-learning-model-simple-math-functions.md)
 > * 译者：[Minghao23](https://github.com/Minghao23)
-> * 校对者：[lsvih](https://github.com/lsvih)
+> * 校对者：[lsvih](https://github.com/lsvih)，[zoomdong](https://github.com/fireairforce)
 
 # 机器学习可以建模简单的数学函数吗？
 
@@ -11,7 +11,7 @@
 
 ![Photo Credits: [Unsplash](https://unsplash.com/)](https://cdn-images-1.medium.com/max/7276/1*lG0d-oazOpw92Z_GaSAzcw.jpeg)
 
-近来，在各种任务上应用机器学习已经成为了一个惯例。似乎在每一个 [Gartner's 技术循环曲线](https://en.wikipedia.org/wiki/Hype_cycle)上的新兴技术都对机器学习有所涉及，这是一种趋势。这些算法被视为 figure-out-it-yourself 的模型：将任何类型的数据都分解为一串特征，应用一些黑盒的机器学习模型，对每个模型求解并选择结果最好的那个。
+近来，在各种任务上应用机器学习已经成为了一个惯例。似乎在每一个 [Gartner's 技术循环曲线](https://en.wikipedia.org/wiki/Hype_cycle) 上的新兴技术都对机器学习有所涉及，这是一种趋势。这些算法被当做 figure-out-it-yourself 的模型：将任何类型的数据都分解为一串特征，应用一些黑盒的机器学习模型，对每个模型求解并选择结果最好的那个。
 
 但是机器学习真的能解决所有的问题吗？还是它只适用于一小部分的任务？在这篇文章中，我们试图回答一个更基本的问题，即机器学习能否推导出那些在日常生活中经常出现的数学关系。在这里，我会尝试使用一些流行的机器学习技术来拟合几个基础的函数，并观察这些算法能否识别并建模这些基础的数学关系。
 
@@ -37,7 +37,7 @@
 
 ### 数据准备
 
-我会保持因变量的维度为 4（选择这个特殊的数字并没有什么原因）。所以，X（自变量）和 Y（因变量）的关系为：
+我会保持因变量（译者注：原文错误，应该为自变量）的维度为 4（选择这个特殊的数字并没有什么原因）。所以，X（自变量）和 Y（因变量）的关系为：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*VrJYX9Y5cHPDPAOo_kC1-g.png)
 
